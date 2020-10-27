@@ -31,7 +31,7 @@ jobs:
     - name: Convert From CRLF To LF
       run: |
         dos2unix code/__DEFINES/tgs.dm
-        find code/modules/tgs -type f -print0 | xargs -0 dos2unix --
+        find code/modules/tgs -type f -print0 | xargs -0 sudo dos2unix --
 
     - name: Commit and Push
       run: |
