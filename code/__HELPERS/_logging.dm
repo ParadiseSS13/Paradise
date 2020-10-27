@@ -125,10 +125,10 @@ GLOBAL_PROTECT(log_end)
 		rustg_log_write(GLOB.world_game_log, "WORLD: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_runtime_txt(text) // different from /tg/'s log_runtime because our error handler has a log_runtime proc already that does other stuff
-	rustg_log_write(GLOB.world_runtime_log, text)
+	rustg_log_write(GLOB.world_runtime_log, "[text][GLOB.log_end]")
 
 /proc/log_config(text)
-	rustg_log_write(GLOB.config_error_log, text)
+	rustg_log_write(GLOB.config_error_log, "[text][GLOB.log_end]")
 	SEND_TEXT(world.log, text)
 
 /proc/log_href(text)
@@ -159,7 +159,7 @@ GLOBAL_PROTECT(log_end)
 
 /* For logging round startup. */
 /proc/start_log(log)
-	rustg_log_write(log, "Starting up.\n-------------------------")
+	rustg_log_write(log, "Starting up.\n-------------------------[GLOB.log_end]")
 
 // Helper procs for building detailed log lines
 
