@@ -354,8 +354,6 @@
 			var/obj/item/I = new fish_item(get_turf(user))
 			if(fish_bag?.can_be_inserted(I))
 				fish_bag.handle_item_insertion(I)
-			else
-				fish_bag = null
 		user.visible_message("[user.name] scoops \a [fish_name] from [src].", "You scoop \a [fish_name] out of [src].")
 		kill_fish(fish_to_scoop)						//Kill the caught fish from the tank
 
