@@ -29,11 +29,6 @@ jobs:
         header-path: 'code/__DEFINES/tgs.dm'
         library-path: 'code/modules/tgs'
 
-    - name: Convert From CRLF To LF
-      run: |
-        dos2unix code/__DEFINES/tgs.dm
-        find code/modules/tgs -type f -print0 | sudo xargs -0 sudo dos2unix --
-
     - name: Commit and Push
       run: |
         git config --global core.autocrlf false
