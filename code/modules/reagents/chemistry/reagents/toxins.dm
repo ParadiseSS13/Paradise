@@ -63,8 +63,7 @@
 
 /datum/reagent/slimejelly/reaction_turf(turf/T, volume, color)
 	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/slime) in T)
-		new /obj/effect/decal/cleanable/blood/slime(T)
-		var/obj/effect/decal/cleanable/blood/slime/B = locate() in T
+		var/obj/effect/decal/cleanable/blood/slime/B = new(T)
 		B.basecolor = color
 		B.update_icon()
 
