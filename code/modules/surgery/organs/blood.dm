@@ -98,8 +98,10 @@
 			if(EXOTIC_COLOR in dna.species.species_traits)
 				if(istype(R) && isturf(loc))
 					R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER, dna.species.blood_color)
-				else
+			else
+				if(istype(R) && isturf(loc))
 					R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER)
+
 /mob/living/carbon/proc/bleed_internal(amt) // Return 1 if we've coughed blood up, 2 if we're vomited it.
 	if(blood_volume)
 		blood_volume = max(blood_volume - amt, 0)
@@ -120,8 +122,10 @@
 			if(EXOTIC_COLOR in dna.species.species_traits)
 				if(istype(R) && isturf(loc))
 					R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER, dna.species.blood_color)
-				else
+			else
+				if(istype(R) && isturf(loc))
 					R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER)
+
 /mob/living/proc/restore_blood()
 	blood_volume = initial(blood_volume)
 
