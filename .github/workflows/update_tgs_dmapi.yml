@@ -20,9 +20,6 @@ jobs:
         git checkout tgs-dmapi-update
         git reset --hard origin/master
 
-    - name: Install Deps
-      run: sudo apt install dos2unix
-
     - name: Apply DMAPI update
       uses: tgstation/tgs-dmapi-updater@v2
       with:
