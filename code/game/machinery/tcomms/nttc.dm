@@ -226,7 +226,7 @@
 /datum/nttc_configuration/proc/modify_message(datum/tcomms_message/tcm)
 	// Check if they should be blacklisted right off the bat. We can save CPU if the message wont even be processed
 	if(tcm.sender_name in filtering)
-		tcm.pass = FALSE	
+		tcm.pass = FALSE
 	// All job and coloring shit
 	if(toggle_job_color || toggle_name_color)
 		var/job = tcm.sender_job
