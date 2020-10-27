@@ -15,10 +15,10 @@ jobs:
 
     - name: Branch
       run: |
-        git fetch
+        git fetch origin
         git branch -f tgs-dmapi-update
         git checkout tgs-dmapi-update
-        git reset --hard master
+        git reset --hard origin/master
 
     - name: Install Deps
       run: sudo apt install dos2unix
