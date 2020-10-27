@@ -89,5 +89,13 @@
 	var/next_keysend_trip_reset = 0
 	var/keysend_tripped = FALSE
 
+	/// Messages currently seen by this client
+	var/list/seen_messages
+
 	// Last world.time that the player tried to request their resources.
 	var/last_ui_resource_send = 0
+
+	/// Date the client registered their BYOND account on
+	var/byondacc_date
+	/// Days since the client's BYOND account was created
+	var/byondacc_age = 0

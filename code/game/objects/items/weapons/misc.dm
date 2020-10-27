@@ -29,7 +29,7 @@
 	flags = CONDUCT
 	force = 5.0
 	throwforce = 7.0
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=50)
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed", "Vaudevilled")
 

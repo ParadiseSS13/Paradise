@@ -2,7 +2,7 @@
 	dir = SOUTH
 	initialize_directions = SOUTH
 	layer = TURF_LAYER+0.1
-
+	var/id_tag
 	var/datum/gas_mixture/air_contents
 
 	var/obj/machinery/atmospherics/node

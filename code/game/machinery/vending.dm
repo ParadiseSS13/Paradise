@@ -95,6 +95,11 @@
 	/// the actual item inserted
 	var/obj/item/inserted_item = null
 
+	/// blocks further flickering while true
+	var/flickering = FALSE
+	/// do I look unpowered, even when powered?
+	var/force_no_power_icon_state = FALSE
+
 /obj/machinery/vending/Initialize(mapload)
 	var/build_inv = FALSE
 	if(!refill_canister)
@@ -138,6 +143,49 @@
 	for(var/obj/item/vending_refill/VR in component_parts)
 		restock(VR)
 
+/obj/machinery/vending/update_icon()
+	cut_overlays()
+	if(panel_open)
+		add_overlay(image(icon, "[initial(icon_state)]-panel"))
+
+	if(stat & BROKEN)
+		icon_state = "[initial(icon_state)]-broken"
+	else if (stat & NOPOWER || force_no_power_icon_state)
+		icon_state = "[initial(icon_state)]-off"
+	else
+		icon_state = initial(icon_state)
+
+/*
+ * Reimp, flash the screen on and off repeatedly.
+ */
+/obj/machinery/vending/flicker()
+	if(flickering)
+		return FALSE
+
+	if(stat & (BROKEN|NOPOWER))
+		return FALSE
+
+	flickering = TRUE
+	INVOKE_ASYNC(src, /obj/machinery/vending/.proc/flicker_event)
+
+	return TRUE
+
+/*
+ * Proc to be called by invoke_async in the above flicker() proc.
+ */
+/obj/machinery/vending/proc/flicker_event()
+	var/amount = rand(5, 15)
+
+	for(var/i in 1 to amount)
+		force_no_power_icon_state = TRUE
+		update_icon()
+		sleep(rand(1, 3))
+
+		force_no_power_icon_state = FALSE
+		update_icon()
+		sleep(rand(1, 10))
+	update_icon()
+	flickering = FALSE
 
 /**
  *  Build src.produdct_records from the products lists
@@ -285,12 +333,8 @@
 		return
 	if(anchored)
 		panel_open = !panel_open
-		if(panel_open)
-			SCREWDRIVER_OPEN_PANEL_MESSAGE
-			overlays += image(icon, "[initial(icon_state)]-panel")
-		else
-			SCREWDRIVER_CLOSE_PANEL_MESSAGE
-			overlays.Cut()
+		panel_open ? SCREWDRIVER_OPEN_PANEL_MESSAGE : SCREWDRIVER_CLOSE_PANEL_MESSAGE
+		update_icon()
 		SStgui.update_uis(src)
 
 /obj/machinery/vending/wirecutter_act(mob/user, obj/item/I)
@@ -753,21 +797,18 @@
 	atom_say(message)
 
 /obj/machinery/vending/power_change()
-	if(stat & BROKEN)
-		icon_state = "[initial(icon_state)]-broken"
+	if(powered())
+		stat &= ~NOPOWER
+		update_icon()
 	else
-		if( powered() )
-			icon_state = initial(icon_state)
-			stat &= ~NOPOWER
-		else
-			spawn(rand(0, 15))
-				icon_state = "[initial(icon_state)]-off"
-				stat |= NOPOWER
+		spawn(rand(0, 15))
+			stat |= NOPOWER
+			update_icon()
 
 /obj/machinery/vending/obj_break(damage_flag)
 	if(!(stat & BROKEN))
 		stat |= BROKEN
-		icon_state = "[initial(icon_state)]-broken"
+		update_icon()
 
 		var/dump_amount = 0
 		var/found_anything = TRUE

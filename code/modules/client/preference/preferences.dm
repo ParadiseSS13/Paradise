@@ -593,14 +593,15 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	metadata["[tweak]"] = new_metadata
 
 
-/datum/preferences/proc/SetChoices(mob/user, limit = 13, list/splitJobs = list("Civilian","Research Director","AI","Bartender"), width = 760, height = 790)
+/datum/preferences/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list("Head of Security", "Bartender"), widthPerColumn = 400, height = 700)
 	if(!SSjobs)
 		return
 
-	//limit 	 - The amount of jobs allowed per column. Defaults to 17 to make it look nice.
+	//limit - The amount of jobs allowed per column. Defaults to 17 to make it look nice.
 	//splitJobs - Allows you split the table by job. You can make different tables for each department by including their heads. Defaults to CE to make it look nice.
-	//width	 - Screen' width. Defaults to 550 to make it look nice.
-	//height 	 - Screen's height. Defaults to 500 to make it look nice.
+	//widthPerColumn - Screen's width for every column.
+	//height - Screen's height.
+	var/width = widthPerColumn
 
 
 	var/HTML = "<body>"
@@ -701,60 +702,55 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			prefLowerLevel = 1
 
 
-		HTML += "<a class='white' href='?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[rank]' oncontextmenu='javascript:return setJobPrefRedirect([prefLowerLevel], \"[rank]\");'>"
+			html += "<a class='white' href='?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[job.title]' oncontextmenu='javascript:return setJobPrefRedirect([prefLowerLevel], \"[job.title]\");'>"
 
-//			HTML += "<a href='?_src_=prefs;preference=job;task=input;text=[rank]'>"
+	//			HTML += "<a href='?_src_=prefs;preference=job;task=input;text=[rank]'>"
 
-		if(rank == "Civilian")//Civilian is special
-			if(job_support_low & JOB_CIVILIAN)
-				HTML += " <font color=green>\[Yes]</font></a>"
+			if(job.title == "Civilian")//Civilian is special
+				if(job_support_low & JOB_CIVILIAN)
+					html += " <font color=green>Yes</font></a>"
+				else
+					html += " <font color=red>No</font></a>"
+				html += "</td></tr>"
+				continue
+	/*
+			if(GetJobDepartment(job, 1) & job.flag)
+				HTML += " <font color=blue>\[High]</font>"
+			else if(GetJobDepartment(job, 2) & job.flag)
+				HTML += " <font color=green>\[Medium]</font>"
+			else if(GetJobDepartment(job, 3) & job.flag)
+				HTML += " <font color=orange>\[Low]</font>"
 			else
-				HTML += " <font color=red>\[No]</font></a>"
-			if(job.alt_titles)
-				HTML += "<br><b><a class='white' href=\"byond://?_src_=prefs;preference=job;task=alt_title;job=\ref[job]\">\[[GetPlayerAltTitle(job)]\]</a></b></td></tr>"
-			HTML += "</td></tr>"
-			continue
-/*
-		if(GetJobDepartment(job, 1) & job.flag)
-			HTML += " <font color=blue>\[High]</font>"
-		else if(GetJobDepartment(job, 2) & job.flag)
-			HTML += " <font color=green>\[Medium]</font>"
-		else if(GetJobDepartment(job, 3) & job.flag)
-			HTML += " <font color=orange>\[Low]</font>"
-		else
-			HTML += " <font color=red>\[NEVER]</font>"
-			*/
-		HTML += "<font color=[prefLevelColor]>[prefLevelLabel]</font></a>"
+				HTML += " <font color=red>\[NEVER]</font>"
+				*/
+			html += "<font color=[prefLevelColor]>[prefLevelLabel]</font></a>"
 
-		if(job.alt_titles)
-			HTML += "<br><b><a class='white' href=\"?_src_=prefs;preference=job;task=alt_title;job=\ref[job]\">\[[GetPlayerAltTitle(job)]\]</a></b></td></tr>"
+			html += "</td></tr>"
 
+		for(var/i in 1 to limit - index) // Finish the column so it is even
+			html += "<tr bgcolor='[lastJob ? lastJob.selection_color : "#ffffff"]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
 
-		HTML += "</td></tr>"
+		html += "</td></tr></table>"
+		html += "</center></table>"
 
-	for(var/i = 1, i < (limit - index), i += 1) // Finish the column so it is even
-		HTML += "<tr bgcolor='[lastJob ? lastJob.selection_color : "#ffffff"]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
+		switch(alternate_option)
+			if(GET_RANDOM_JOB)
+				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Get random job if preferences unavailable</font></a></u></center><br>"
+			if(BE_ASSISTANT)
+				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Be a civilian if preferences unavailable</font></a></u></center><br>"
+			if(RETURN_TO_LOBBY)
+				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Return to lobby if preferences unavailable</font></a></u></center><br>"
 
-	HTML += "</td'></tr></table>"
-
-	HTML += "</center></table>"
-
-	switch(alternate_option)
-		if(GET_RANDOM_JOB)
-			HTML += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Get random job if preferences unavailable</font></a></u></center><br>"
-		if(BE_ASSISTANT)
-			HTML += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Be a civilian if preferences unavailable</font></a></u></center><br>"
-		if(RETURN_TO_LOBBY)
-			HTML += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Return to lobby if preferences unavailable</font></a></u></center><br>"
-
-	HTML += "<center><a href='?_src_=prefs;preference=job;task=reset'>\[Reset\]</a></center>"
-	HTML += "</tt>"
+		html += "<center><a href='?_src_=prefs;preference=job;task=reset'>Reset</a></center>"
+		html += "<center><br><a href='?_src_=prefs;preference=job;task=learnaboutselection'>Learn About Job Selection</a></center>"
+		html += "</tt>"
 
 	user << browse(null, "window=preferences")
 //		user << browse(HTML, "window=mob_occupation;size=[width]x[height]")
 	var/datum/browser/popup = new(user, "mob_occupation", "<div align='center'>Occupation Preferences</div>", width, height)
 	popup.set_window_options("can_close=0")
-	popup.set_content(HTML)
+	var/html_string = html.Join()
+	popup.set_content(html_string)
 	popup.open(0)
 	return
 
@@ -1091,6 +1087,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if("reset")
 				ResetJobs()
 				SetChoices(user)
+			if("learnaboutselection")
+				if(config.wikiurl)
+					if(alert("Would you like to open the Job selection info in your browser?", "Open Job Selection", "Yes", "No") == "Yes")
+						user << link("[config.wikiurl]/index.php/Job_Selection_and_Assignment")
+				else
+					to_chat(user, "<span class='danger'>The Wiki URL is not set in the server configuration.</span>")
 			if("random")
 				if(alternate_option == GET_RANDOM_JOB || alternate_option == BE_ASSISTANT)
 					alternate_option += 1
