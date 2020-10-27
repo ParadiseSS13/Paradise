@@ -3,6 +3,7 @@ name: Update TGS DMAPI
 on:
   schedule:
     - cron: "0 0 * * *"
+  workflow_dispatch:
 
 jobs:
   update-dmapi:
@@ -26,6 +27,7 @@ jobs:
 
     - name: Commit and Push
       run: |
+        git config --local core.eol lf
         git config --local user.email "action@github.com"
         git config --local user.name "DMAPI Update"
         git add .
