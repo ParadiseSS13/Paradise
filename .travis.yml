@@ -50,10 +50,10 @@ jobs:
           packages:
             - python3
             - libstdc++6:i386
-            - libssl-dev:i386
             - gcc-multilib
             - pkg-config:i386
             - zlib1g-dev:i386
+            - libssl1.1:i386
       cache:
         directories:
           - $HOME/.cargo
