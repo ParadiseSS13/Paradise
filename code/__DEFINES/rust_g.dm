@@ -12,7 +12,7 @@
 
 #define rustg_noise_get_at_coordinates(seed, x, y) call(RUST_G, "noise_get_at_coordinates")(seed, x, y)
 
-// Git related operations // - AA TODO
+// Git related operations // - AA TODO: Add in in-code revision parsing
 #define rustg_git_revparse(rev) call(RUST_G, "rg_git_revparse")(rev)
 #define rustg_git_commit_date(rev) call(RUST_G, "rg_git_commit_date")(rev)
 
@@ -20,7 +20,7 @@
 #define rustg_log_write(fname, text) call(RUST_G, "log_write")(fname, text)
 /proc/rustg_log_close_all() return call(RUST_G, "log_close_all")()
 
-// HTTP library stuff // - AA TODO
+// HTTP library stuff // - AA TODO: Add in SShttp
 #define RUSTG_HTTP_METHOD_GET "get"
 #define RUSTG_HTTP_METHOD_PUT "put"
 #define RUSTG_HTTP_METHOD_DELETE "delete"
@@ -31,7 +31,7 @@
 #define rustg_http_request_async(method, url, body, headers) call(RUST_G, "http_request_async")(method, url, body, headers)
 #define rustg_http_check_request(req_id) call(RUST_G, "http_check_request")(req_id)
 
-// SQL stuff // - AA TODO
+// SQL stuff // - AA TODO: Async SQL + SSdbcore
 #define rustg_sql_connect_pool(options) call(RUST_G, "sql_connect_pool")(options)
 #define rustg_sql_query_async(handle, query, params) call(RUST_G, "sql_query_async")(handle, query, params)
 #define rustg_sql_query_blocking(handle, query, params) call(RUST_G, "sql_query_blocking")(handle, query, params)
