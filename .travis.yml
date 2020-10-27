@@ -62,6 +62,7 @@ jobs:
       before_install:
         - 'sudo apt-get -qq update'
       install:
+        - tools/travis/install_rustg.sh
         - tools/travis/install_byond.sh
         - source $HOME/BYOND/byond/bin/byondsetup
         - python3 tools/travis/generate_sql_scripts.py
