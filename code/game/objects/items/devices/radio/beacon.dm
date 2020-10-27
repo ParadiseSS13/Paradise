@@ -81,7 +81,7 @@
 /obj/item/radio/beacon/syndicate/bomb/attack_self(mob/user)
 	if(user)
 		to_chat(user, "<span class='notice'>Locked In</span>")
-		new bomb( user.loc )
+		new bomb(user.loc)
 		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
 		user.drop_item()
 		qdel(src)
