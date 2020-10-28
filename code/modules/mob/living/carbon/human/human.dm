@@ -1962,6 +1962,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/get_spooked()
 	to_chat(src, "<span class='whisper'>[pick(GLOB.boo_phrases)]</span>")
+	return TRUE
 
 /mob/living/carbon/human/extinguish_light()
 	// Parent function handles stuff the human may be holding
@@ -1974,3 +1975,11 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/proc/get_perceived_trauma()
 	return min(health, maxHealth - getStaminaLoss())
+
+/**
+  * Helper to get the mobs runechat colour span
+  *
+  * Basically just a quick redirect to the DNA handler that gets the species-specific colour handler
+  */
+/mob/living/carbon/human/get_runechat_color()
+   return dna.species.get_species_runechat_color(src)

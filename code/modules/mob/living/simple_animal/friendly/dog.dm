@@ -420,13 +420,18 @@
 	unique_pet = TRUE
 	var/age = 0
 	var/record_age = 1
-	var/memory_saved = FALSE
 	var/saved_head //path
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/Initialize(mapload)
 	. = ..()
-	//parent call must happen first to ensure IAN
-	//is not in nullspace when child puppies spawn
+	SSpersistent_data.register(src)
+
+/mob/living/simple_animal/pet/dog/corgi/Ian/death()
+	Write_Memory(TRUE)
+	SSpersistent_data.registered_atoms -= src // We already wrote here, dont overwrite!
+	..()
+
+/mob/living/simple_animal/pet/dog/corgi/Ian/PersistentLoad()
 	Read_Memory()
 	if(age == 0)
 		var/turf/target = get_turf(loc)
@@ -437,6 +442,7 @@
 			P.gender = MALE
 			P.desc = "It's the HoP's beloved corgi puppy."
 			Write_Memory(FALSE)
+			SSpersistent_data.registered_atoms -= src // We already wrote here, dont overwrite!
 			qdel(src)
 			return
 	else if(age == record_age)
@@ -446,16 +452,8 @@
 		desc = "At a ripe old age of [record_age], Ian's not as spry as he used to be, but he'll always be the HoP's beloved corgi." //RIP
 		turns_per_move = 20
 
-/mob/living/simple_animal/pet/dog/corgi/Ian/Life()
-	if(!stat && SSticker.current_state == GAME_STATE_FINISHED && !memory_saved)
-		Write_Memory(FALSE)
-		memory_saved = TRUE
-	..()
-
-/mob/living/simple_animal/pet/dog/corgi/Ian/death()
-	if(!memory_saved)
-		Write_Memory(TRUE)
-	..()
+/mob/living/simple_animal/pet/dog/corgi/Ian/PersistentSave()
+	Write_Memory(FALSE)
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/proc/Read_Memory()
 	if(fexists("data/npc_saves/Ian.sav")) //legacy compatability to convert old format to new
@@ -478,6 +476,7 @@
 		record_age = 1
 	if(saved_head)
 		place_on_head(new saved_head)
+	log_debug("Persistent data for [src] loaded (age: [age] | record_age: [record_age] | saved_head: [saved_head])")
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/proc/Write_Memory(dead)
 	var/json_file = file("data/npc_saves/Ian.json")
@@ -498,6 +497,7 @@
 		file_data["saved_head"] = null
 	fdel(json_file)
 	WRITE_FILE(json_file, json_encode(file_data))
+	log_debug("Persistent data for [src] saved (age: [age] | record_age: [record_age] | saved_head: [saved_head])")
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/handle_automated_movement()
 	. = ..()

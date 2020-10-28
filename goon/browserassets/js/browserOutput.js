@@ -1080,7 +1080,7 @@ $(function() {
 		if ($('.popup .highlightTerm').is(':visible')) {return;}
 		var termInputs = '';
 		for (var i = 0; i < opts.highlightLimit; i++) {
-			termInputs += '<div><input type="text" name="highlightTermInput'+i+'" id="highlightTermInput'+i+'" class="highlightTermInput'+i+'" maxlength="255" value="'+(opts.highlightTerms[i] ? opts.highlightTerms[i] : '')+'" /></div>';
+			termInputs += '<div><input type="text" name="highlightTermInput'+i+'" id="highlightTermInput'+i+'" class="highlightTermInput'+i+'" maxlength="255" value="" /></div>';
 		}
 		var popupContent = '<div class="head">String Highlighting</div>' +
 			'<div class="highlightPopup" id="highlightPopup">' +
@@ -1095,6 +1095,9 @@ $(function() {
 				'</form>' +
 			'</div>';
 		createPopup(popupContent, 250);
+		for(var i = 0; i < opts.highlightLimit; i++){
+			document.querySelector(".highlightTermInput"+i).setAttribute("value",(opts.highlightTerms[i] ? opts.highlightTerms[i] : ''));
+		}
 		document.querySelector(".popup #highlightRegexEnable").checked = opts.highlightRegexEnable;
 	});
 	$('body').on('keyup', '#highlightColor', function() {

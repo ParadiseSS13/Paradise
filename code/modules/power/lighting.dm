@@ -289,9 +289,6 @@
 			on = FALSE
 	return
 
-/obj/machinery/light/get_spooked()
-	flicker()
-
 /**
   * Updates the light's properties
   *
@@ -519,31 +516,37 @@
 	var/area/A = get_area(src)
 	return A.lightswitch && A.power_light
 
-/obj/machinery/light/proc/flicker(amount = rand(10, 20))
+/obj/machinery/light/flicker(amount = rand(20, 30))
 	if(flickering)
-		return
+		return FALSE
 
-	if(!on)
-		return
+	if(!on || status != LIGHT_OK)
+		return FALSE
 
 	flickering = TRUE
 	INVOKE_ASYNC(src, /obj/machinery/light/.proc/flicker_event, amount)
+
+	return TRUE
 
 /**
   * Flicker routine for the light.
   * Called by invoke_async so the parent proc can return immediately.
   */
-/obj/machinery/light/proc/flicker_event(amount)
-	for(var/i in 1 to amount)
-		if(status != LIGHT_OK)
-			break
-		on = !on
-		update() // No param means that ghosts can burn out lights
-		sleep(rand(5, 15))
-	if(status == LIGHT_OK)
-		on = TRUE
+/obj/machinery/light/proc/flicker_event(var/amount)
+	if(on && status == LIGHT_OK)
+		for(var/i = 0; i < amount; i++)
+			if(status != LIGHT_OK)
+				break
+			on = FALSE
+			update(FALSE)
+			sleep(rand(1, 3))
+			on = (status == LIGHT_OK)
+			update(FALSE)
+			sleep(rand(1, 10))
+		on = (status == LIGHT_OK)
 		update(FALSE)
 	flickering = FALSE
+
 
 // ai attack - make lights flicker, because why not
 /obj/machinery/light/attack_ai(mob/user)
