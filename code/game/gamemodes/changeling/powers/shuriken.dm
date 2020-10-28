@@ -23,7 +23,7 @@
 	..()
 	if(isliving(hit_atom))
 		name = "dull bone shuriken"
-		desc = "A gross shard of bone and flesh, now much duller than it used to be"
+		desc = "A gross shard of bone and flesh, now much duller than it used to be."
 		throwforce = 7
 		embed_chance = FALSE //No using these over and over, for the crew, or the clings.
 	else
