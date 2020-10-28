@@ -402,7 +402,6 @@
 	item_state = "handheld_chem"
 	icon_state = "handheld_chem"
 	flags = NOBLUDGEON
-	var/ui_title = "Handheld Chem Dispenser"
 	var/obj/item/stock_parts/cell/high/cell = null
 	var/amount = 10
 	var/mode = "dispense"
@@ -462,7 +461,7 @@
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "HandheldChemDispenser", ui_title, 390, 500)
+		ui = new(user, src, ui_key, "HandheldChemDispenser", name, 390, 500)
 		ui.open()
 
 /obj/item/handheld_chem_dispenser/tgui_data(mob/user)
@@ -576,7 +575,6 @@
 	name = "handheld bar tap"
 	item_state = "handheld_booze"
 	icon_state = "handheld_booze"
-	ui_title = "Handheld Bar Tap"
 	is_drink = TRUE
 	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila",
 	 "vermouth", "cognac", "ale", "mead", "synthanol")
@@ -585,7 +583,6 @@
 	name = "handheld soda fountain"
 	item_state = "handheld_soda"
 	icon_state = "handheld_soda"
-	ui_title = "Handheld Soda Fountain"
 	is_drink = TRUE
 	dispensable_reagents = list("water", "ice", "milk", "soymilk", "coffee", "tea", "hot_coco", "cola", "spacemountainwind", "dr_gibb", "space_up",
 	"tonic", "sodawater", "lemon_lime", "grapejuice", "sugar", "orangejuice", "lemonjuice", "limejuice", "tomatojuice", "banana",
@@ -593,7 +590,6 @@
 
 /obj/item/handheld_chem_dispenser/botanical
 	name = "handheld botanical chemical dispenser"
-	ui_title = "Handheld Botanical Chemical Dispenser"
 	dispensable_reagents = list(
 		"mutagen",
 		"saltpetre",
