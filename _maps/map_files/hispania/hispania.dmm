@@ -24739,10 +24739,6 @@
 	dir = 2;
 	network = list("SS13")
 	},
-/obj/item/flashlight/lamp/green{
-	pixel_x = 1;
-	pixel_y = 5
-	},
 /turf/simulated/floor/wood,
 /area/library)
 "aUf" = (
@@ -27311,9 +27307,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/chair/office/dark{
-	dir = 4
-	},
 /turf/simulated/floor/wood,
 /area/library)
 "aYZ" = (
@@ -28928,12 +28921,28 @@
 	dir = 4;
 	icon_state = "pipe-c"
 	},
+/obj/structure/displaycase{
+	alert = 0;
+	desc = "A display case containing an expensive forgery, probably.";
+	name = "display case library";
+	pixel_y = -4;
+	req_access_txt = "37";
+	start_showpiece_type = /obj/item/fakeartefact
+	},
 /turf/simulated/floor/wood,
 /area/library)
 "bcj" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8;
 	icon_state = "pipe-c"
+	},
+/obj/structure/displaycase{
+	alert = 0;
+	desc = "A display case containing an expensive forgery, probably.";
+	name = "display case library";
+	pixel_y = -4;
+	req_access_txt = "37";
+	start_showpiece_type = /obj/item/fakeartefact
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -30132,17 +30141,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/library)
-"bep" = (
-/obj/structure/displaycase{
-	alert = 0;
-	desc = "A display case containing an expensive forgery, probably.";
-	name = "display case library";
-	pixel_y = -4;
-	req_access_txt = "37";
-	start_showpiece_type = /obj/item/fakeartefact
-	},
-/turf/simulated/floor/wood,
-/area/library)
 "beq" = (
 /obj/machinery/ai_status_display{
 	pixel_x = -32;
@@ -30996,6 +30994,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/table/wood,
 /obj/item/folder/yellow,
+/obj/item/storage/box/characters,
 /turf/simulated/floor/wood,
 /area/library)
 "bfL" = (
@@ -31820,20 +31819,8 @@
 /turf/simulated/floor/wood,
 /area/library)
 "bhx" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4;
-	initialize_directions = 11;
-	level = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/displaycase{
-	alert = 0;
-	desc = "A display case containing an expensive forgery, probably.";
-	name = "display case library";
-	pixel_y = -4;
-	req_access_txt = "37";
-	start_showpiece_type = /obj/item/fakeartefact
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/wood,
 /area/library)
 "bhy" = (
@@ -33345,15 +33332,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/port)
-"bkn" = (
-/obj/structure/chair/office/dark{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/wood,
-/area/library)
 "bko" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
@@ -36238,9 +36216,13 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bqj" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
+	initialize_directions = 11;
+	level = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4;
 	initialize_directions = 11;
 	level = 1
 	},
@@ -39833,6 +39815,7 @@
 "bxS" = (
 /obj/structure/table/wood,
 /obj/item/pen,
+/obj/item/book/manual/sop_general,
 /turf/simulated/floor/wood,
 /area/library)
 "bxT" = (
@@ -96210,6 +96193,11 @@
 	icon_state = "cmo"
 	},
 /area/shuttle/escape)
+"krz" = (
+/obj/structure/table/wood,
+/obj/item/book/manual/sop_service,
+/turf/simulated/floor/wood,
+/area/library)
 "ksO" = (
 /obj/effect/landmark/start{
 	name = "Civilian"
@@ -96447,6 +96435,12 @@
 	dir = 2
 	},
 /area/shuttle/escape)
+"lXA" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/library)
 "lZM" = (
 /obj/machinery/computer/station_alert,
 /obj/structure/sign/poster/official/nanotrasen_logo{
@@ -96891,11 +96885,6 @@
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
-"nLR" = (
-/obj/structure/table/wood,
-/obj/item/book/manual/sop_general,
-/turf/simulated/floor/wood,
-/area/library)
 "nMi" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
@@ -98533,6 +98522,11 @@
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
+"vyH" = (
+/obj/structure/table/wood,
+/obj/item/storage/bag/uno,
+/turf/simulated/floor/wood,
+/area/library)
 "vza" = (
 /obj/machinery/computer/account_database{
 	anchored = 1
@@ -98789,11 +98783,8 @@
 	},
 /area/shuttle/pod_3)
 "wKh" = (
-/obj/structure/table/wood,
-/obj/item/book/manual/sop_service,
-/obj/item/flashlight/lamp/green{
-	pixel_x = 1;
-	pixel_y = 5
+/obj/structure/chair/office/dark{
+	dir = 1
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -142475,9 +142466,9 @@ bcp
 bcp
 btZ
 aYW
-bcp
-bcp
 bhw
+bcp
+bcp
 bcp
 bcp
 bcp
@@ -142729,11 +142720,11 @@ aGY
 bau
 fur
 bcp
-bcp
+lXA
 aWA
 aYY
 bqj
-bfU
+bij
 bhx
 bij
 bfU
@@ -142985,11 +142976,11 @@ aQM
 aGY
 bau
 aUe
-bcp
 wdT
+krz
 aWy
 wKh
-bkn
+bkK
 bcp
 bcp
 bcp
@@ -143242,13 +143233,13 @@ wbx
 aGY
 bau
 sBr
-bcp
 wdT
+vyH
 pFG
-nLR
-bkn
+wKh
+bkK
 bci
-ben
+bjE
 ben
 bjE
 bjE
@@ -143500,9 +143491,9 @@ aMn
 bau
 ybB
 bcp
-bcp
-hLG
 beo
+hLG
+bcp
 bkQ
 bcs
 bcp
@@ -143762,7 +143753,7 @@ jel
 cSe
 tSU
 bcj
-bep
+bcp
 bfT
 bcp
 bjF
