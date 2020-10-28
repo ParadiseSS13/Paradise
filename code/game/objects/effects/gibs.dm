@@ -16,11 +16,11 @@
 	var/list/gibamounts = list()
 	var/list/gibdirections = list() //of lists
 
-/obj/effect/gibspawner/New(location, datum/dna/MobDNA)
-	..()
-
+/obj/effect/gibspawner/Initialize(mapload, datum/dna/MobDNA)
+	. = ..()
 	if(istype(loc,/turf)) //basically if a badmin spawns it
 		Gib(loc, MobDNA)
+		return INITIALIZE_HINT_QDEL
 
 /obj/effect/gibspawner/proc/Gib(atom/location, datum/dna/MobDNA = null)
 	if(gibtypes.len != gibamounts.len || gibamounts.len != gibdirections.len)
@@ -49,5 +49,3 @@
 				var/list/directions = gibdirections[i]
 				if(directions.len)
 					gib.streak(directions)
-
-	qdel(src)

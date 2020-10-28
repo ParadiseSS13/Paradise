@@ -8,11 +8,11 @@
 
 
 // creates a new object and deletes itself
-/obj/random/New()
+/obj/random/Initialize(mapload)
 	..()
 	if(!prob(spawn_nothing_percentage))
 		spawn_item()
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 
 // this function should return a specific item to spawn

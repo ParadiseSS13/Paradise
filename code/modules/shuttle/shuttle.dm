@@ -874,13 +874,15 @@
 	possible_destinations = null // Set at runtime
 
 /obj/machinery/computer/shuttle/white_ship/Initialize(mapload)
-	..()
-	return INITIALIZE_HINT_LATELOAD
+	initialized = TRUE // DO NOT EVER EVER EVER DO THIS ANYWHERE ELSE I SWEAR TO GOD
+
+	if(mapload)
+		return INITIALIZE_HINT_LATELOAD
+	else
+		. = ..()
 
 // Yes. This is disgusting, but the console needs to be loaded AFTER the docking ports load.
 /obj/machinery/computer/shuttle/white_ship/LateInitialize()
-	possible_destinations = null
-	shuttleId = null
 	connect()
 
 /obj/machinery/computer/shuttle/engineering

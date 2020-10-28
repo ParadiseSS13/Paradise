@@ -240,7 +240,7 @@
 
 /obj/item/flashlight/flare/glowstick/Initialize()
 	light_color = color
-	..()
+	. = ..()
 
 /obj/item/flashlight/flare/glowstick/update_icon()
 	item_state = "glowstick"

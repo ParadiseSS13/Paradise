@@ -23,7 +23,7 @@
 	levels += src
 
 /obj/effect/levelref/Initialize()
-	..()
+	. = ..()
 	for(var/obj/effect/levelref/O in levels)
 		if(id == O.id && O != src)
 			other = O
@@ -87,11 +87,11 @@
 	if(istype(T) && T.lighting_object && !T.lighting_object.needs_update)
 		var/atom/movable/lighting_object/O = T.lighting_object
 		var/hash = 0
-		
+
 		for(var/lighting_corner in O)
 			var/datum/lighting_corner/C = lighting_corner
 			hash = hash + C.lum_r + C.lum_g + C.lum_b
-			
+
 		if(hash != light_hash)
 			light_hash = hash
 			trigger()
@@ -167,7 +167,7 @@
 	GLOB.portals += src
 
 /obj/effect/view_portal/Initialize()
-	..()
+	. = ..()
 	if(id)
 		for(var/obj/effect/view_portal/O in GLOB.portals)
 			if(id == O.id && O != src && can_link(O))
