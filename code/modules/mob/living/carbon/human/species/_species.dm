@@ -181,11 +181,11 @@
 	if(special)
 		for(var/obj/item/organ/internal/I in H.internal_organs)
 			if(I.special)
-				if(I.status == ORGAN_DEAD|ORGAN_ROBOT) // cybernetic + broken
+				if((I.status & ORGAN_DEAD) && (I.status & ORGAN_ROBOT)) // cybernetic + broken
+					to_chat(H, "<span class='warning'>The [I] is broken, and no more use to us, and we destroy it!</span>")
+				else
 					special_sauce += I
 					I.remove(H, TRUE)
-				else
-					to_chat(H, "<span class='warning'>The [I] is broken, and no more use to us, and we destroy it!</span>")
 
 	QDEL_LIST(H.internal_organs)
 	QDEL_LIST(H.bodyparts)

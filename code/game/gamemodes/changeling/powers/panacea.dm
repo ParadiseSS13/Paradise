@@ -10,6 +10,15 @@
 //Heals the things that the other regenerative abilities don't.
 /datum/action/changeling/panacea/sting_action(var/mob/user)
 
+	var/list/bad_cling_implants = list(
+		/obj/item/implant/exile,
+		/obj/item/implant/tracking,
+		/obj/item/implant/chem,
+		/obj/item/implant/death_alarm,
+		/obj/item/implant/explosive,
+		/obj/item/implant/dust
+		)
+
 	to_chat(user, "<span class='notice'>We cleanse impurities from our form.</span>")
 
 	var/mob/living/simple_animal/borer/B = user.has_brain_worms()
@@ -41,7 +50,7 @@
 		D.cure()
 
 	for(var/obj/item/implant/L in user)
-		if(L && L.implanted && ((istype(L, /obj/item/implant/exile) || (istype(L, /obj/item/implant/tracking) || (istype(L, /obj/item/implant/chem) || (istype(L, /obj/item/implant/death_alarm) || (istype(L, /obj/item/implant/explosive) || (istype(L, /obj/item/implant/dust))))))))) //this line hurts. A lot.
+		if(L && L.implanted && is_type_in_list(L, bad_cling_implants))
 			to_chat(user, "<span class='notice'>We expel \a [L] from our form.</span>")
 			qdel(L)
 
