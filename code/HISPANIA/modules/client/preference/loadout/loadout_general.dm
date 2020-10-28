@@ -33,3 +33,23 @@
 /datum/gear/limited_sheet
 	display_name = "limited edition sheet"
 	path = /obj/item/bedsheet/fluff/hugosheet
+
+/datum/gear/flask_classic
+	display_name = "classic black flask"
+	path = /obj/item/reagent_containers/food/drinks/flask/barflask
+
+/datum/gear/flask_thermo
+	display_name = "classic thermo"
+	path = /obj/item/reagent_containers/food/drinks/flask/thermos
+
+/datum/gear/shiny_flask
+	display_name = "shiny flask"
+	path = /obj/item/reagent_containers/food/drinks/flask/shiny
+
+/datum/gear/lith_flask
+	display_name = "lithium flask"
+	path = /obj/item/reagent_containers/food/drinks/flask/lithium
+
+/datum/gear/flask_grey
+	display_name = "grey flask"
+	path = /obj/item/reagent_containers/food/drinks/flask
