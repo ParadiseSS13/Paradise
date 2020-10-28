@@ -17,6 +17,8 @@ GLOBAL_VAR(runtime_summary_log)
 GLOBAL_PROTECT(runtime_summary_log)
 GLOBAL_VAR(tgui_log)
 GLOBAL_PROTECT(tgui_log)
+GLOBAL_VAR(http_log)
+GLOBAL_PROTECT(http_log)
 
 GLOBAL_LIST_EMPTY(jobMax)
 GLOBAL_PROTECT(jobMax)

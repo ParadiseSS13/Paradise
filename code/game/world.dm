@@ -193,13 +193,12 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 		if(!C)
 			return "No client with that name on server"
 
-		var/message =	"<font color='red'>IRC-Admin PM from <b><a href='?irc_msg=1'>[C.holder ? "IRC-" + input["sender"] : "Administrator"]</a></b>: [input["msg"]]</font>"
-		var/amessage =  "<font color='blue'>IRC-Admin PM from <a href='?irc_msg=1'>IRC-[input["sender"]]</a> to <b>[key_name(C)]</b> : [input["msg"]]</font>"
+		var/message =	"<font color='red'>Discord PM from <b><a href='?discord_msg=1'>[input["sender"]]</a></b>: [input["msg"]]</font>"
+		var/amessage =  "<font color='blue'>Discord PM from <a href='?discord_msg=1'>[input["sender"]]</a> to <b>[key_name(C)]</b>: [input["msg"]]</font>"
 
-		C.received_irc_pm = world.time
-		C.irc_admin = input["sender"]
-
-		C << 'sound/effects/adminhelp.ogg'
+		C.received_discord_pm = world.time
+		C.discord_admin = input["sender"]
+		SEND_SOUND(C, 'sound/effects/adminhelp.ogg')
 		to_chat(C, message)
 
 		for(var/client/A in GLOB.admins)
@@ -448,11 +447,13 @@ GLOBAL_VAR_INIT(failed_old_db_connections, 0)
 	GLOB.world_qdel_log = "[GLOB.log_directory]/qdel.log"
 	GLOB.world_asset_log = "[GLOB.log_directory]/asset.log"
 	GLOB.tgui_log = "[GLOB.log_directory]/tgui.log"
+	GLOB.http_log = "[GLOB.log_directory]/http.log"
 	start_log(GLOB.world_game_log)
 	start_log(GLOB.world_href_log)
 	start_log(GLOB.world_runtime_log)
 	start_log(GLOB.world_qdel_log)
 	start_log(GLOB.tgui_log)
+	start_log(GLOB.http_log)
 
 	// This log follows a special format and this path should NOT be used for anything else
 	GLOB.runtime_summary_log = "data/logs/runtime_summary.log"
