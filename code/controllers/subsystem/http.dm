@@ -69,18 +69,6 @@ SUBSYSTEM_DEF(http)
 		// Write the log data
 		rustg_log_write(GLOB.http_log, log_data.Join("\n[GLOB.log_end]"))
 
-
-/client/verb/aatesting()
-	set name = "AA Testing"
-
-	var/datum/callback/cb = CALLBACK(src, /client/.proc/aa_response, usr)
-	SShttp.create_async_request(RUSTG_HTTP_METHOD_GET, "http://affectedarc07.co.uk/slow.php", proc_callback=cb)
-
-/client/proc/aa_response(mob/user, datum/http_response/response)
-	to_chat(user, "<span class='notice'>Code: [response.status_code] | Content: [response.body]")
-
-
-
 /**
   * Blocking request creator
   *
@@ -115,3 +103,17 @@ SUBSYSTEM_DEF(http)
 
 	return res
 	*/
+
+/*
+
+	Example of how to use callbacks properly
+
+/client/verb/testing()
+	set name = "Testing"
+
+	var/datum/callback/cb = CALLBACK(src, /client/.proc/response, usr)
+	SShttp.create_async_request(RUSTG_HTTP_METHOD_GET, "http://site.domain/page.html", proc_callback=cb)
+
+/client/proc/response(mob/user, datum/http_response/response)
+	to_chat(user, "<span class='notice'>Code: [response.status_code] | Content: [response.body]")
+*/
