@@ -24,7 +24,7 @@
 		set_frequency(frequency)
 
 /obj/item/assembly/signaler/Initialize()
-	..()
+	. = ..()
 	if(SSradio)
 		set_frequency(frequency)
 

@@ -255,7 +255,7 @@
 		var/area/cur_area = curT.loc
 		if(istype(cur_area, areaInstance))
 			shuttle_areas[cur_area] = TRUE
-	..()
+	. = ..()
 
 /obj/docking_port/mobile/register()
 	if(!SSshuttle)

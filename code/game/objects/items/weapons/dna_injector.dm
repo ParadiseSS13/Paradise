@@ -162,7 +162,7 @@
 
 /obj/item/dnainjector/hulkmut/Initialize()
 	block = GLOB.hulkblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/antihulk
 	name = "DNA-Injector (Anti-Hulk)"
@@ -173,7 +173,7 @@
 
 /obj/item/dnainjector/antihulk/Initialize()
 	block = GLOB.hulkblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/xraymut
 	name = "DNA-Injector (Xray)"
@@ -184,7 +184,7 @@
 
 /obj/item/dnainjector/xraymut/Initialize()
 	block = GLOB.xrayblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/antixray
 	name = "DNA-Injector (Anti-Xray)"
@@ -195,7 +195,7 @@
 
 /obj/item/dnainjector/antixray/Initialize()
 	block = GLOB.xrayblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/firemut
 	name = "DNA-Injector (Fire)"
@@ -206,7 +206,7 @@
 
 /obj/item/dnainjector/firemut/Initialize()
 	block = GLOB.fireblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/antifire
 	name = "DNA-Injector (Anti-Fire)"
@@ -217,7 +217,7 @@
 
 /obj/item/dnainjector/antifire/Initialize()
 	block = GLOB.fireblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/telemut
 	name = "DNA-Injector (Tele.)"
@@ -228,7 +228,7 @@
 
 /obj/item/dnainjector/telemut/Initialize()
 	block = GLOB.teleblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/telemut/darkbundle
 	name = "DNA injector"
@@ -244,7 +244,7 @@
 
 /obj/item/dnainjector/antitele/Initialize()
 	block = GLOB.teleblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/nobreath
 	name = "DNA-Injector (Breathless)"
@@ -255,7 +255,7 @@
 
 /obj/item/dnainjector/nobreath/Initialize()
 	block = GLOB.breathlessblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/antinobreath
 	name = "DNA-Injector (Anti-Breathless)"
@@ -266,7 +266,7 @@
 
 /obj/item/dnainjector/antinobreath/Initialize()
 	block = GLOB.breathlessblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/remoteview
 	name = "DNA-Injector (Remote View)"
@@ -277,7 +277,7 @@
 
 /obj/item/dnainjector/remoteview/Initialize()
 	block = GLOB.remoteviewblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/antiremoteview
 	name = "DNA-Injector (Anti-Remote View)"
@@ -288,7 +288,7 @@
 
 /obj/item/dnainjector/antiremoteview/Initialize()
 	block = GLOB.remoteviewblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/regenerate
 	name = "DNA-Injector (Regeneration)"
@@ -299,7 +299,7 @@
 
 /obj/item/dnainjector/regenerate/Initialize()
 	block = GLOB.regenerateblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/antiregenerate
 	name = "DNA-Injector (Anti-Regeneration)"
@@ -310,7 +310,7 @@
 
 /obj/item/dnainjector/antiregenerate/Initialize()
 	block = GLOB.regenerateblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/runfast
 	name = "DNA-Injector (Increase Run)"
@@ -321,7 +321,7 @@
 
 /obj/item/dnainjector/runfast/Initialize()
 	block = GLOB.increaserunblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/antirunfast
 	name = "DNA-Injector (Anti-Increase Run)"
@@ -332,7 +332,7 @@
 
 /obj/item/dnainjector/antirunfast/Initialize()
 	block = GLOB.increaserunblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/morph
 	name = "DNA-Injector (Morph)"
@@ -343,7 +343,7 @@
 
 /obj/item/dnainjector/morph/Initialize()
 	block = GLOB.morphblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/antimorph
 	name = "DNA-Injector (Anti-Morph)"
@@ -354,7 +354,7 @@
 
 /obj/item/dnainjector/antimorph/Initialize()
 	block = GLOB.morphblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/noprints
 	name = "DNA-Injector (No Prints)"
@@ -365,7 +365,7 @@
 
 /obj/item/dnainjector/noprints/Initialize()
 	block = GLOB.noprintsblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/antinoprints
 	name = "DNA-Injector (Anti-No Prints)"
@@ -376,7 +376,7 @@
 
 /obj/item/dnainjector/antinoprints/Initialize()
 	block = GLOB.noprintsblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/insulation
 	name = "DNA-Injector (Shock Immunity)"
@@ -387,7 +387,7 @@
 
 /obj/item/dnainjector/insulation/Initialize()
 	block = GLOB.shockimmunityblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/antiinsulation
 	name = "DNA-Injector (Anti-Shock Immunity)"
@@ -398,7 +398,7 @@
 
 /obj/item/dnainjector/antiinsulation/Initialize()
 	block = GLOB.shockimmunityblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/midgit
 	name = "DNA-Injector (Small Size)"
@@ -409,7 +409,7 @@
 
 /obj/item/dnainjector/midgit/Initialize()
 	block = GLOB.smallsizeblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/antimidgit
 	name = "DNA-Injector (Anti-Small Size)"
@@ -420,7 +420,7 @@
 
 /obj/item/dnainjector/antimidgit/Initialize()
 	block = GLOB.smallsizeblock
-	..()
+	. = ..()
 
 /////////////////////////////////////
 /obj/item/dnainjector/antiglasses
@@ -432,7 +432,7 @@
 
 /obj/item/dnainjector/antiglasses/Initialize()
 	block = GLOB.glassesblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/glassesmut
 	name = "DNA-Injector (Glasses)"
@@ -443,7 +443,7 @@
 
 /obj/item/dnainjector/glassesmut/Initialize()
 	block = GLOB.glassesblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/epimut
 	name = "DNA-Injector (Epi.)"
@@ -454,7 +454,7 @@
 
 /obj/item/dnainjector/epimut/Initialize()
 	block = GLOB.epilepsyblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/antiepi
 	name = "DNA-Injector (Anti-Epi.)"
@@ -465,7 +465,7 @@
 
 /obj/item/dnainjector/antiepi/Initialize()
 	block = GLOB.epilepsyblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/anticough
 	name = "DNA-Injector (Anti-Cough)"
@@ -476,7 +476,7 @@
 
 /obj/item/dnainjector/anticough/Initialize()
 	block = GLOB.coughblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/coughmut
 	name = "DNA-Injector (Cough)"
@@ -487,7 +487,7 @@
 
 /obj/item/dnainjector/coughmut/Initialize()
 	block = GLOB.coughblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/clumsymut
 	name = "DNA-Injector (Clumsy)"
@@ -498,7 +498,7 @@
 
 /obj/item/dnainjector/clumsymut/Initialize()
 	block = GLOB.clumsyblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/anticlumsy
 	name = "DNA-Injector (Anti-Clumy)"
@@ -509,7 +509,7 @@
 
 /obj/item/dnainjector/anticlumsy/Initialize()
 	block = GLOB.clumsyblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/antitour
 	name = "DNA-Injector (Anti-Tour.)"
@@ -520,7 +520,7 @@
 
 /obj/item/dnainjector/antitour/Initialize()
 	block = GLOB.twitchblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/tourmut
 	name = "DNA-Injector (Tour.)"
@@ -531,7 +531,7 @@
 
 /obj/item/dnainjector/tourmut/Initialize()
 	block = GLOB.twitchblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/stuttmut
 	name = "DNA-Injector (Stutt.)"
@@ -542,7 +542,7 @@
 
 /obj/item/dnainjector/stuttmut/Initialize()
 	block = GLOB.nervousblock
-	..()
+	. = ..()
 
 
 /obj/item/dnainjector/antistutt
@@ -554,7 +554,7 @@
 
 /obj/item/dnainjector/antistutt/Initialize()
 	block = GLOB.nervousblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/blindmut
 	name = "DNA-Injector (Blind)"
@@ -565,7 +565,7 @@
 
 /obj/item/dnainjector/blindmut/Initialize()
 	block = GLOB.blindblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/antiblind
 	name = "DNA-Injector (Anti-Blind)"
@@ -576,18 +576,7 @@
 
 /obj/item/dnainjector/antiblind/Initialize()
 	block = GLOB.blindblock
-	..()
-
-/obj/item/dnainjector/telemut
-	name = "DNA-Injector (Tele.)"
-	desc = "Super brain man!"
-	datatype = DNA2_BUF_SE
-	value = 0xFFF
-	forcedmutation = TRUE
-
-/obj/item/dnainjector/telemut/Initialize()
-	block = GLOB.teleblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/antitele
 	name = "DNA-Injector (Anti-Tele.)"
@@ -598,7 +587,7 @@
 
 /obj/item/dnainjector/antitele/Initialize()
 	block = GLOB.teleblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/deafmut
 	name = "DNA-Injector (Deaf)"
@@ -609,7 +598,7 @@
 
 /obj/item/dnainjector/deafmut/Initialize()
 	block = GLOB.deafblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/antideaf
 	name = "DNA-Injector (Anti-Deaf)"
@@ -620,7 +609,7 @@
 
 /obj/item/dnainjector/antideaf/Initialize()
 	block = GLOB.deafblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/hallucination
 	name = "DNA-Injector (Halluctination)"
@@ -631,7 +620,7 @@
 
 /obj/item/dnainjector/hallucination/Initialize()
 	block = GLOB.hallucinationblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/antihallucination
 	name = "DNA-Injector (Anti-Hallucination)"
@@ -642,7 +631,7 @@
 
 /obj/item/dnainjector/antihallucination/Initialize()
 	block = GLOB.hallucinationblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/h2m
 	name = "DNA-Injector (Human > Monkey)"
@@ -653,7 +642,7 @@
 
 /obj/item/dnainjector/h2m/Initialize()
 	block = GLOB.monkeyblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/m2h
 	name = "DNA-Injector (Monkey > Human)"
@@ -664,8 +653,7 @@
 
 /obj/item/dnainjector/m2h/Initialize()
 	block = GLOB.monkeyblock
-	..()
-
+	. = ..()
 
 /obj/item/dnainjector/comic
 	name = "DNA-Injector (Comic)"
@@ -676,7 +664,7 @@
 
 /obj/item/dnainjector/comic/Initialize()
 	block = GLOB.comicblock
-	..()
+	. = ..()
 
 /obj/item/dnainjector/anticomic
 	name = "DNA-Injector (Ant-Comic)"
@@ -687,4 +675,4 @@
 
 /obj/item/dnainjector/anticomic/Initialize()
 	block = GLOB.comicblock
-	..()
+	. = ..()

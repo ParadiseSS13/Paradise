@@ -146,6 +146,10 @@ About the new airlock wires panel:
 		max_integrity = normal_integrity
 	if(damage_deflection == AIRLOCK_DAMAGE_DEFLECTION_N && security_level > AIRLOCK_SECURITY_METAL)
 		damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
+
+	if(frequency)
+		set_frequency(frequency)
+
 	update_icon()
 
 /obj/machinery/door/airlock/proc/update_other_id()

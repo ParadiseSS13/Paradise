@@ -35,7 +35,7 @@
 	return ..()
 
 /obj/machinery/meter/Initialize()
-	..()
+	. = ..()
 	if(!target)
 		target = locate(/obj/machinery/atmospherics/pipe) in loc
 

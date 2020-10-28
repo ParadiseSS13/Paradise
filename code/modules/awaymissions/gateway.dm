@@ -10,7 +10,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	var/active = 0
 
 /obj/machinery/gateway/Initialize()
-	..()
+	. = ..()
 	update_icon()
 	update_density_from_dir()
 

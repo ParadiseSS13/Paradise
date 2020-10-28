@@ -26,7 +26,7 @@
 	light_color = LIGHT_COLOR_DARKBLUE
 
 /obj/machinery/computer/cloning/Initialize()
-	..()
+	. = ..()
 	pods = list()
 	records = list()
 	set_scan_temp("Scanner ready.", "good")

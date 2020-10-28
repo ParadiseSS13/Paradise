@@ -26,7 +26,7 @@
 	initial_state = icon_state
 
 /obj/structure/mineral_door/Initialize()
-	..()
+	. = ..()
 	air_update_turf(1)
 
 /obj/structure/mineral_door/Destroy()

@@ -70,7 +70,7 @@
 
 /obj/machinery/door/Initialize()
 	air_update_turf(1)
-	..()
+	. = ..()
 
 /obj/machinery/door/Destroy()
 	density = 0

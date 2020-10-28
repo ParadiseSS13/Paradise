@@ -8,7 +8,7 @@
 	var/id = 1.0
 
 /obj/structure/spacepoddoor/Initialize()
-	..()
+	. = ..()
 	air_update_turf(1)
 
 /obj/structure/spacepoddoor/CanAtmosPass(turf/T)

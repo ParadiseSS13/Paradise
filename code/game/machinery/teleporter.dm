@@ -22,14 +22,9 @@
 	var/area_bypass = FALSE
 	var/cc_beacon = FALSE
 
-/obj/machinery/computer/teleporter/New()
-	src.id = "[rand(1000, 9999)]"
-	link_power_station()
-	..()
-	return
-
 /obj/machinery/computer/teleporter/Initialize()
-	..()
+	. = ..()
+	id = "[rand(1000, 9999)]"
 	link_power_station()
 	update_icon()
 	target_list = targets_teleport()
@@ -341,7 +336,7 @@
 	RefreshParts()
 
 /obj/machinery/teleport/hub/Initialize()
-	..()
+	. = ..()
 	link_power_station()
 
 /obj/machinery/teleport/hub/Destroy()
@@ -524,7 +519,7 @@
 	link_console_and_hub()
 
 /obj/machinery/teleport/station/Initialize()
-	..()
+	. = ..()
 	link_console_and_hub()
 
 /obj/machinery/teleport/station/RefreshParts()

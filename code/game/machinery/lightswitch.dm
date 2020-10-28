@@ -43,7 +43,7 @@
 		updateicon()
 
 /obj/machinery/light_switch/Initialize()
-	..()
+	. = ..()
 	set_frequency(frequency)
 
 /obj/machinery/light_switch/set_frequency(new_frequency)

@@ -29,7 +29,7 @@
 	var/list/datum/icon_snapshot/disguises = list()
 
 /obj/machinery/abductor/console/Initialize()
-	..()
+	. = ..()
 	Link_Abduction_Equipment()
 
 /obj/machinery/abductor/console/attack_hand(mob/user)

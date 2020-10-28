@@ -25,11 +25,11 @@
 	team = "Blue"
 
 /obj/machinery/computer/mob_battle_terminal/red/Initialize()
-	..()
+	. = ..()
 	check_connection()
 
 /obj/machinery/computer/mob_battle_terminal/blue/Initialize()
-	..()
+	. = ..()
 	check_connection()
 
 /obj/machinery/computer/mob_battle_terminal/update_icon()

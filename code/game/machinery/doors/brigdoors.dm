@@ -41,14 +41,6 @@
 	var/prisoner_time
 	var/prisoner_hasrecord = FALSE
 
-/obj/machinery/door_timer/New()
- 	GLOB.celltimers_list += src
- 	return ..()
-
-/obj/machinery/door_timer/Destroy()
- 	GLOB.celltimers_list -= src
- 	return ..()
-
 /obj/machinery/door_timer/proc/print_report()
 	if(occupant == CELL_NONE || crimes == CELL_NONE)
 		return 0
@@ -118,8 +110,9 @@
 	atom_say("[src] beeps, \"[occupant]: [notifytext]\"")
 
 /obj/machinery/door_timer/Initialize()
-	..()
+	. = ..()
 
+	GLOB.celltimers_list += src
 	Radio = new /obj/item/radio(src)
 	Radio.listening = 0
 	Radio.config(list("Security" = 0))
@@ -152,6 +145,7 @@
 	QDEL_NULL(Radio)
 	targets.Cut()
 	prisoner = null
+	GLOB.celltimers_list -= src
 	return ..()
 
 //Main door timer loop, if it's timing and time is >0 reduce time by 1.

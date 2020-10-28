@@ -60,9 +60,9 @@
 	var/late = FALSE
 
 /obj/effect/mapping_helpers/Initialize(mapload)
-	..()
-	
-	return late ? INITIALIZE_HINT_LATELOAD : qdel(src) // INITIALIZE_HINT_QDEL <-- Doesn't work
+	. = ..()
+
+	return late ? INITIALIZE_HINT_LATELOAD : INITIALIZE_HINT_QDEL
 
 /obj/effect/mapping_helpers/no_lava
 	icon_state = "no_lava"
@@ -77,13 +77,14 @@
 /obj/effect/mapping_helpers/airlock/unres/Initialize(mapload)
 	if(!mapload)
 		log_world("### MAP WARNING, [src] spawned outside of mapload!")
-		return
+		return ..()
 	var/obj/machinery/door/airlock/airlock = locate(/obj/machinery/door/airlock) in src.loc
 	if(airlock)
 		airlock.unres_sides ^= dir
 	else
 		log_world("### MAP WARNING, [src] failed to find an airlock at [AREACOORD(src)]")
-	..()	
+	. = ..()
+
 /obj/effect/mapping_helpers/no_lava/New()
 	var/turf/T = get_turf(src)
 	T.flags |= NO_LAVA_GEN

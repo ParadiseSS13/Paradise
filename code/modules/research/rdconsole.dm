@@ -172,7 +172,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			break
 
 /obj/machinery/computer/rdconsole/Initialize()
-	..()
+	. = ..()
 	SyncRDevices()
 
 /obj/machinery/computer/rdconsole/Destroy()

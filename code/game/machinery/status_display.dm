@@ -56,7 +56,7 @@
 
 // register for radio system
 /obj/machinery/status_display/Initialize()
-	..()
+	. = ..()
 	if(SSradio)
 		SSradio.add_object(src, frequency)
 

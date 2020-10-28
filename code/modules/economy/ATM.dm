@@ -39,7 +39,7 @@ log transactions
 	machine_id = "[station_name()] RT #[GLOB.num_financial_terminals++]"
 
 /obj/machinery/atm/Initialize()
-	..()
+	. = ..()
 	reconnect_database()
 
 /obj/machinery/atm/process()

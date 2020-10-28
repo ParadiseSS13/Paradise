@@ -25,7 +25,7 @@
 	var/list/allowed_books = list(/obj/item/book, /obj/item/spellbook, /obj/item/storage/bible, /obj/item/tome) //Things allowed in the bookcase
 
 /obj/structure/bookcase/Initialize()
-	..()
+	. = ..()
 	for(var/obj/item/I in loc)
 		if(is_type_in_list(I, allowed_books))
 			I.forceMove(src)

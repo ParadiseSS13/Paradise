@@ -39,7 +39,7 @@
 		set_frequency(frequency)
 
 /obj/machinery/driver_button/Initialize()
-	..()
+	. = ..()
 	set_frequency(frequency)
 
 /obj/machinery/driver_button/set_frequency(new_frequency)
