@@ -30,7 +30,8 @@
 	var/emp_proof = FALSE //is the organ immune to EMPs?
 	var/hidden_pain = FALSE //will it skip pain messages?
 	var/requires_robotic_bodypart = FALSE
-	var/special = FALSE //Is this a special (or cybernetic) organ that clings will not want to lose?
+	/// Is this a special (or cybernetic) organ that clings will not want to lose?
+	var/special = FALSE
 
 /obj/item/organ/Destroy()
 	STOP_PROCESSING(SSobj, src)
