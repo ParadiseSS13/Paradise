@@ -214,6 +214,7 @@
 	var/emote
 
 /obj/effect/dummy/mecha_emote_step/New(e)
+	. = ..()
 	emote = e
 
 /obj/item/mecha_parts/chassis/reticence/hear_message(mob/living/M, msg)

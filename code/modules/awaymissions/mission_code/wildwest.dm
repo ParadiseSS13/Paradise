@@ -135,9 +135,6 @@
 	var/triggerproc = "triggerrad1" //name of the proc thats called when the mine is triggered
 	var/triggered = 0
 
-/obj/effect/meatgrinder/New()
-	icon_state = "blobpod"
-
 /obj/effect/meatgrinder/Crossed(AM as mob|obj, oldloc)
 	Bumped(AM)
 

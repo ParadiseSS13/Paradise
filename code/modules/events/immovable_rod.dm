@@ -33,6 +33,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	var/move_delay = 1
 
 /obj/effect/immovablerod/New(atom/start, atom/end, delay)
+	. = ..()
 	loc = start
 	z_original = z
 	destination = end
