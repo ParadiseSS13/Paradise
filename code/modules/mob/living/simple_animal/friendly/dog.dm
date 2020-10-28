@@ -427,12 +427,12 @@
 	SSpersistent_data.register(src)
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/death()
-	Write_Memory(TRUE)
+	write_memory(TRUE)
 	SSpersistent_data.registered_atoms -= src // We already wrote here, dont overwrite!
 	..()
 
-/mob/living/simple_animal/pet/dog/corgi/Ian/PersistentLoad()
-	Read_Memory()
+/mob/living/simple_animal/pet/dog/corgi/Ian/persistent_load()
+	read_memory()
 	if(age == 0)
 		var/turf/target = get_turf(loc)
 		if(target)
@@ -441,7 +441,7 @@
 			P.real_name = "Ian"
 			P.gender = MALE
 			P.desc = "It's the HoP's beloved corgi puppy."
-			Write_Memory(FALSE)
+			write_memory(FALSE)
 			SSpersistent_data.registered_atoms -= src // We already wrote here, dont overwrite!
 			qdel(src)
 			return
@@ -452,10 +452,10 @@
 		desc = "At a ripe old age of [record_age], Ian's not as spry as he used to be, but he'll always be the HoP's beloved corgi." //RIP
 		turns_per_move = 20
 
-/mob/living/simple_animal/pet/dog/corgi/Ian/PersistentSave()
-	Write_Memory(FALSE)
+/mob/living/simple_animal/pet/dog/corgi/Ian/persistent_save()
+	write_memory(FALSE)
 
-/mob/living/simple_animal/pet/dog/corgi/Ian/proc/Read_Memory()
+/mob/living/simple_animal/pet/dog/corgi/Ian/proc/read_memory()
 	if(fexists("data/npc_saves/Ian.sav")) //legacy compatability to convert old format to new
 		var/savefile/S = new /savefile("data/npc_saves/Ian.sav")
 		S["age"] 		>> age
@@ -478,7 +478,7 @@
 		place_on_head(new saved_head)
 	log_debug("Persistent data for [src] loaded (age: [age] | record_age: [record_age] | saved_head: [saved_head])")
 
-/mob/living/simple_animal/pet/dog/corgi/Ian/proc/Write_Memory(dead)
+/mob/living/simple_animal/pet/dog/corgi/Ian/proc/write_memory(dead)
 	var/json_file = file("data/npc_saves/Ian.json")
 	var/list/file_data = list()
 	if(!dead)
