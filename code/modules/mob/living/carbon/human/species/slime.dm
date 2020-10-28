@@ -76,7 +76,7 @@
 	ADD_TRAIT(H, TRAIT_WATERBREATH, "species")
 	RegisterSignal(H, COMSIG_HUMAN_UPDATE_DNA, /datum/species/slime/./proc/blend)
 	if(H.blood_color == null)
-		blend()
+		blend(H)
 
 
 /datum/species/slime/on_species_loss(mob/living/carbon/human/H)
@@ -109,7 +109,7 @@
 					E.sync_colour_to_human(H)
 			H.update_hair()
 			H.update_body()
-			blend()
+			blend(H)
 	..()
 
 
