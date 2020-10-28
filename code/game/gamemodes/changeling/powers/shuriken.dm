@@ -80,4 +80,4 @@
 		to_chat(user, "<span class='notice'>We are unable to make shuriken at this time.</span>")
 
 	feedback_add_details("changeling_powers","STAR")
-	return 1
+	return TRUE
