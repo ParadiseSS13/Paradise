@@ -414,7 +414,7 @@
 	var/efficiency = 0.2
 	var/recharge_rate = 1 // Keep this as an integer
 
-/obj/item/handheld_chem_dispenser/New()
+/obj/item/handheld_chem_dispenser/Initialize()
 	..()
 	cell = new(src)
 	dispensable_reagents = sortList(dispensable_reagents)
@@ -435,21 +435,21 @@
 
 	if(!check_allowed_items(target,target_self = TRUE) || !target.is_refillable())
 		return
-
-	if(mode == "dispense")
-		var/free = target.reagents.maximum_volume - target.reagents.total_volume
-		var/actual = min(amount, cell.charge / efficiency, free)
-		target.reagents.add_reagent(current_reagent, actual)
-		cell.charge -= actual / efficiency
-		if(actual)
-			to_chat(user, "<span class='notice'>You dispense [amount] units of [current_reagent] into the [target].</span>")
-		update_icon()
-	else if(mode == "remove")
-		if(target.reagents.remove_reagent(current_reagent, amount))
-			to_chat(user, "<span class='notice'>You remove [amount] units of [current_reagent] from the [target].</span>")
-	else if(mode == "isolate")
-		if(target.reagents.isolate_reagent(current_reagent))
-			to_chat(user, "<span class='notice'>You remove all but [current_reagent] from the [target].</span>")
+	switch(mode)
+		if("dispense")
+			var/free = target.reagents.maximum_volume - target.reagents.total_volume
+			var/actual = min(amount, cell.charge / efficiency, free)
+			target.reagents.add_reagent(current_reagent, actual)
+			cell.charge -= actual / efficiency
+			if(actual)
+				to_chat(user, "<span class='notice'>You dispense [amount] units of [current_reagent] into the [target].</span>")
+			update_icon()
+		if("remove")
+			if(!target.reagents.remove_reagent(current_reagent, amount))
+				to_chat(user, "<span class='notice'>You remove [amount] units of [current_reagent] from the [target].</span>")
+		if("isolate")
+			if(!target.reagents.isolate_reagent(current_reagent))
+				to_chat(user, "<span class='notice'>You remove all but the [current_reagent] from the [target].</span>")
 
 /obj/item/handheld_chem_dispenser/attack_self(mob/user)
 	if(cell)
