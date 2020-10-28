@@ -1,7 +1,7 @@
 /datum/action/changeling/shuriken
 	name = "Bone Shuriken"
-	desc = "We evolve the ability to break off shards of our bone, and shape them into 2 shuriken. Costs 15 chemicals per shuriken."
-	helptext = "This will damage our arms, and be noticable to nearbye people. Shuriken will be dulled after hitting someone. You will have to have 30 chemicals to use this ability, but only be charged 15 per shuriken you make, and refunded 15 for those you do not."
+	desc = "We evolve the ability to break off shards of our bone, and shape them into 2 shurikens. Costs 15 chemicals per shuriken."
+	helptext = "This will damage our arms, and be noticable to nearbye people. Shurikens will be dulled after hitting someone. 30 chemicals are required to use this ability, but you'll only be charged 15 per shuriken you make, and refunded 15 for those you do not."
 	button_icon_state = "shuriken"
 	chemical_cost = 30 // covered in making the stars
 	dna_cost = 2
