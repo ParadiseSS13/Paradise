@@ -874,13 +874,14 @@
 	possible_destinations = null // Set at runtime
 
 /obj/machinery/computer/shuttle/white_ship/Initialize(mapload)
-	if(mapload)
-		return INITIALIZE_HINT_LATELOAD
-	return ..()
+	..()
+	return INITIALIZE_HINT_LATELOAD
 
 // Yes. This is disgusting, but the console needs to be loaded AFTER the docking ports load.
 /obj/machinery/computer/shuttle/white_ship/LateInitialize()
-	Initialize()
+	possible_destinations = null
+	shuttleId = null
+	connect()
 
 /obj/machinery/computer/shuttle/engineering
 	name = "Engineering Shuttle Console"

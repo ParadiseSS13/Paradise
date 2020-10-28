@@ -87219,12 +87219,6 @@
 	},
 /turf/simulated/floor/engine/plasma,
 /area/atmos)
-"dbT" = (
-/obj/structure/lattice,
-/obj/structure/grille,
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "dbW" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -87253,14 +87247,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"dbZ" = (
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/simple/insulated{
-	dir = 4
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "dca" = (
 /obj/machinery/atmospherics/unary/passive_vent{
 	dir = 8
@@ -89506,11 +89492,6 @@
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/trade/sol)
-"dhc" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "dhe" = (
 /obj/machinery/computer/shuttle/trade/sol,
 /obj/machinery/door_control{
@@ -90908,12 +90889,6 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/atmos)
-"djT" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "djU" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
@@ -115388,7 +115363,7 @@ aaa
 aab
 alv
 alv
-dbT
+alv
 aaa
 aaa
 aaa
@@ -143163,7 +143138,7 @@ bGG
 bGH
 aab
 aab
-dhc
+aab
 aaa
 aaa
 aaa
@@ -146703,7 +146678,7 @@ cbb
 dbH
 aYS
 aaa
-dbZ
+dbX
 cgy
 cia
 cke
@@ -148298,12 +148273,12 @@ aab
 aab
 aaa
 aab
-dhc
 aab
 aab
 aab
 aab
-dhc
+aab
+aab
 aab
 doh
 ddU
@@ -149061,15 +149036,15 @@ aaa
 aaa
 aab
 aaa
-dhc
 aab
 aab
 aab
-djT
 aab
 aab
 aab
-djT
+aab
+aab
+aab
 aab
 aab
 aab
