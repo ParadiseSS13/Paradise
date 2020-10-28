@@ -72,7 +72,7 @@
 			to_chat(user, "<span class='warning'>Our right arm is too damaged to make our weapons.</span>")
 
 		if(made_stuff)
-			user.visible_message("<span class='warning'>Shards of bones grow from [user.name]\'s arms, pierce their skin, and fall into their hands!</span>", "<span class='warning'>We sharpen our new bone growths, and expell them from our body</span>", "<span class='hear'>You hear organic matter ripping and tearing!</span>")
+			user.visible_message("<span class='warning'>Shards of bones grow from [user.name]\'s arms, pierce their skin, and fall into their hands!</span>", "<span class='warning'>We sharpen our new bone growths, and expell them from our body.</span>", "<span class='hear'>You hear organic matter ripping and tearing!</span>")
 			made_stuff = FALSE
 		else
 			to_chat(user, "<span class='notice'>We are unable to make shuriken at this time.</span>")
