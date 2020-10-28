@@ -3,6 +3,7 @@
 
 #ifdef UNIT_TESTS
 #include "component_tests.dm"
+#include "initialize_sanity.dm"
 #include "map_templates.dm"
 #include "reagent_id_typos.dm"
 #include "spawn_humans.dm"
