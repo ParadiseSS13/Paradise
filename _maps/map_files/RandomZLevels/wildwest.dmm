@@ -806,11 +806,6 @@
 	dir = 5
 	},
 /area/awaymission/wwmines)
-"cr" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "cs" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/carpet,
@@ -6001,7 +5996,7 @@ bp
 bp
 bp
 bp
-cr
+bp
 bp
 aa
 aa
@@ -15264,7 +15259,7 @@ bp
 bp
 bp
 bp
-cr
+bp
 bp
 aa
 aa
@@ -15507,7 +15502,7 @@ aa
 aa
 aa
 bp
-cr
+bp
 bp
 bp
 bp
@@ -16550,7 +16545,7 @@ aG
 aG
 aG
 bp
-cr
+bp
 bp
 aa
 aa
@@ -17046,7 +17041,7 @@ aa
 aa
 aa
 aa
-cr
+bp
 bp
 aa
 aa
