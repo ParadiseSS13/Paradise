@@ -60,14 +60,3 @@ SUBSYSTEM_DEF(discord)
 	dwp.webhook_content = message
 
 	SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, config.discord_admin_webhook_url, dwp.serialize2json(), list("content-type" = "application/json"))
-
-/client/verb/webhook_test()
-	set name = "Webhook test"
-
-	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "Can I send webhooks from DM")
-
-
-/client/verb/webhook_test2()
-	set name = "No-admin test"
-
-	SSdiscord.send2discord_simple_noadmins("Help grief")

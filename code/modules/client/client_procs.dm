@@ -988,6 +988,7 @@
   * Returns the data in a parsed, associative list
   */
 /client/proc/retrieve_byondacc_data()
+	// Do not refactor this to use SShttp, because that requires the subsystem to be firing for requests to be made, and this will be triggered before the MC has finished loading
 	var/list/http[] = world.Export("http://www.byond.com/members/[ckey]?format=text")
 	if(http)
 		var/status = text2num(http["STATUS"])
