@@ -241,7 +241,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A doll created by Syndicate Witch Doctors. Ingredients: Something of the Thread, Something of the Head, Something of the Body, Something of the Dead, Secret Voodoo herbs, and Monosodium glutamate."
 	reference = "VD"
 	item = /obj/item/voodoo
-	cost = 13
+	cost = 4
 	job = list("Chaplain")
 
 /datum/uplink_item/jobspecific/missionary_kit

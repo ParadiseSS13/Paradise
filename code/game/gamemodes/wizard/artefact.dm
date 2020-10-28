@@ -778,7 +778,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	var/mob/living/carbon/human/target = null
 	var/list/mob/living/carbon/human/possible = list()
 	var/obj/item/link = null
-	var/cooldown_time = 30 //3s
+	var/cooldown_time = 70 //7s
 	var/cooldown = 0
 	max_integrity = 10
 	resistance_flags = FLAMMABLE
@@ -787,16 +787,16 @@ GLOBAL_LIST_EMPTY(multiverse)
 	if(target && cooldown < world.time)
 		if(is_hot(I))
 			to_chat(target, "<span class='userdanger'>You suddenly feel very hot</span>")
-			target.bodytemperature += 50
+			target.bodytemperature += 60
 			GiveHint(target)
 		else if(is_pointed(I))
 			to_chat(target, "<span class='userdanger'>You feel a stabbing pain in [parse_zone(user.zone_selected)]!</span>")
-			target.Weaken(2)
+			target.Weaken(4)
 			GiveHint(target)
 		else if(istype(I,/obj/item/bikehorn))
 			to_chat(target, "<span class='userdanger'>HONK</span>")
 			target << 'sound/items/airhorn.ogg'
-			target.MinimumDeafTicks(3)
+			target.MinimumDeafTicks(10)
 			GiveHint(target)
 		cooldown = world.time +cooldown_time
 		return
@@ -863,7 +863,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 					GiveHint(target)
 			if("head")
 				to_chat(user, "<span class='notice'>You smack the doll's head with your hand.</span>")
-				target.Dizzy(10)
+				target.Dizzy(20)
 				to_chat(target, "<span class='warning'>You suddenly feel as if your head was hit with a hammer!</span>")
 				GiveHint(target,user)
 		cooldown = world.time + cooldown_time
@@ -878,12 +878,9 @@ GLOBAL_LIST_EMPTY(multiverse)
 			possible |= H
 
 /obj/item/voodoo/proc/GiveHint(mob/victim,force=0)
-	if(prob(50) || force)
+	if(prob(20) || force)
 		var/way = dir2text(get_dir(victim,get_turf(src)))
 		to_chat(victim, "<span class='notice'>You feel a dark presence from [way]</span>")
-	if(prob(20) || force)
-		var/area/A = get_area(src)
-		to_chat(victim, "<span class='notice'>You feel a dark presence from [A.name]</span>")
 
 /obj/item/voodoo/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(target)
