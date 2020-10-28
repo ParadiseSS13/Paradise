@@ -1,12 +1,54 @@
-// AA Note
-// yes I know this file has procs in it, but TGS is very picky with how the fuck its files are laid out
-// dont @ me
-
 // tgstation-server DMAPI
 
-#define TGS_DMAPI_VERSION "5.2.5"
+#define TGS_DMAPI_VERSION "5.2.7"
 
 // All functions and datums outside this document are subject to change with any version and should not be relied on.
+
+// CONFIGURATION
+
+/// Create this define if you want to do TGS configuration outside of this file.
+#ifndef TGS_EXTERNAL_CONFIGURATION
+
+// Comment this out once you've filled in the below.
+#error TGS API unconfigured
+
+// Uncomment this if you wish to allow the game to interact with TGS 3.
+// This will raise the minimum required security level of your game to TGS_SECURITY_TRUSTED due to it utilizing call()()
+//#define TGS_V3_API
+
+// Required interfaces (fill in with your codebase equivalent):
+
+/// Create a global variable named `Name` and set it to `Value`.
+#define TGS_DEFINE_AND_SET_GLOBAL(Name, Value)
+
+/// Read the value in the global variable `Name`.
+#define TGS_READ_GLOBAL(Name)
+
+/// Set the value in the global variable `Name` to `Value`.
+#define TGS_WRITE_GLOBAL(Name, Value)
+
+/// Disallow ANYONE from reflecting a given `path`, security measure to prevent in-game use of DD -> TGS capabilities.
+#define TGS_PROTECT_DATUM(Path)
+
+/// Display an announcement `message` from the server to all players.
+#define TGS_WORLD_ANNOUNCE(message)
+
+/// Notify current in-game administrators of a string `event`.
+#define TGS_NOTIFY_ADMINS(event)
+
+/// Write an info `message` to a server log.
+#define TGS_INFO_LOG(message)
+
+/// Write an warning `message` to a server log.
+#define TGS_WARNING_LOG(message)
+
+/// Write an error `message` to a server log.
+#define TGS_ERROR_LOG(message)
+
+/// Get the number of connected /clients.
+#define TGS_CLIENT_COUNT
+
+#endif
 
 // EVENT CODES
 
@@ -53,6 +95,8 @@
 #define TGS_EVENT_WATCHDOG_SHUTDOWN 15
 /// Before the watchdog detaches for a TGS update/restart. No parameters.
 #define TGS_EVENT_WATCHDOG_DETACH 16
+// We don't actually implement this value as the DMAPI can never receive it
+// #define TGS_EVENT_WATCHDOG_LAUNCH 17
 
 // OTHER ENUMS
 
