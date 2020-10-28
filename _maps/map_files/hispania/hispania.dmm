@@ -23029,6 +23029,7 @@
 	icon_state = "2-4";
 	tag = ""
 	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "aQQ" = (
@@ -25094,10 +25095,6 @@
 /obj/structure/coatrack,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/dorms)
-"aUU" = (
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/wall,
-/area/library)
 "aUV" = (
 /obj/machinery/light{
 	icon_state = "tube1";
@@ -30122,8 +30119,9 @@
 /obj/structure/displaycase{
 	alert = 0;
 	desc = "A display case containing an expensive forgery, probably.";
+	name = "display case library";
 	pixel_y = -4;
-	req_access_txt = "12";
+	req_access_txt = "37";
 	start_showpiece_type = /obj/item/fakeartefact
 	},
 /turf/simulated/floor/wood,
@@ -30138,8 +30136,9 @@
 /obj/structure/displaycase{
 	alert = 0;
 	desc = "A display case containing an expensive forgery, probably.";
+	name = "display case library";
 	pixel_y = -4;
-	req_access_txt = "12";
+	req_access_txt = "37";
 	start_showpiece_type = /obj/item/fakeartefact
 	},
 /turf/simulated/floor/wood,
@@ -31104,8 +31103,9 @@
 /obj/structure/displaycase{
 	alert = 0;
 	desc = "A display case containing an expensive forgery, probably.";
+	name = "display case library";
 	pixel_y = -4;
-	req_access_txt = "12";
+	req_access_txt = "37";
 	start_showpiece_type = /obj/item/fakeartefact
 	},
 /turf/simulated/floor/wood,
@@ -31829,8 +31829,9 @@
 /obj/structure/displaycase{
 	alert = 0;
 	desc = "A display case containing an expensive forgery, probably.";
+	name = "display case library";
 	pixel_y = -4;
-	req_access_txt = "12";
+	req_access_txt = "37";
 	start_showpiece_type = /obj/item/fakeartefact
 	},
 /turf/simulated/floor/wood,
@@ -32256,8 +32257,9 @@
 /obj/structure/displaycase{
 	alert = 0;
 	desc = "A display case containing an expensive forgery, probably.";
+	name = "display case library";
 	pixel_y = -4;
-	req_access_txt = "12";
+	req_access_txt = "37";
 	start_showpiece_type = /obj/item/fakeartefact
 	},
 /turf/simulated/floor/wood,
@@ -94756,7 +94758,6 @@
 	},
 /area/shuttle/tsf)
 "dwr" = (
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/door/airlock/maintenance{
 	name = "Library Maintenance";
 	req_access_txt = "12"
@@ -142464,7 +142465,7 @@ aGY
 aGY
 aMn
 aGY
-aGY
+aQI
 aPK
 aGY
 aGY
@@ -144010,7 +144011,7 @@ aGY
 aMz
 aQN
 aGY
-aUU
+bau
 bau
 bau
 bau
