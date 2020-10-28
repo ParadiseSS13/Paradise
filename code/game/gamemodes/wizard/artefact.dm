@@ -778,7 +778,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	var/mob/living/carbon/human/target = null
 	var/list/mob/living/carbon/human/possible = list()
 	var/obj/item/link = null
-	var/cooldown_time = 70 //7s
+	var/cooldown_time = 7 SECONDS
 	var/cooldown = 0
 	max_integrity = 10
 	resistance_flags = FLAMMABLE
