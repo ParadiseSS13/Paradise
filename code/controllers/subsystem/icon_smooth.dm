@@ -2,7 +2,7 @@ SUBSYSTEM_DEF(icon_smooth)
 	name = "Icon Smoothing"
 	init_order = INIT_ORDER_ICON_SMOOTHING
 	wait = 1
-	priority = FIRE_PRIOTITY_SMOOTHING
+	priority = FIRE_PRIORITY_SMOOTHING
 	flags = SS_TICKER
 	offline_implications = "Objects will no longer smooth together properly. No immediate action is needed."
 
