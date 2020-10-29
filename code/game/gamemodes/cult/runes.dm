@@ -178,10 +178,23 @@ structure_check() searches for nearby cultist structures required for the invoca
 			to_chat(L, "<span class='cultitalic'>[src] saps your strength!</span>")
 	do_invoke_glow()
 
-
+/**
+  * Spawns the phase in/out effects for a cult teleport.
+  *
+  * Arguments:
+  * * user - Mob to teleport
+  * * location - Location to teleport from
+  * * target - Location to teleport to
+  */
 /obj/effect/rune/proc/teleport_effect(mob/living/user, turf/location, target)
 	new /obj/effect/temp_visual/dir_setting/cult/phase/out(location, user.dir)
 	new /obj/effect/temp_visual/dir_setting/cult/phase(target, user.dir)
+	// So that the mob only appears after the effect is finished
+	user.notransform = TRUE
+	user.invisibility = INVISIBILITY_MAXIMUM
+	sleep(12)
+	user.notransform = FALSE
+	user.invisibility = 0
 
 /obj/effect/rune/proc/do_invoke_glow()
 	var/oldtransform = transform
@@ -440,7 +453,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/moveuser = FALSE
 	for(var/atom/movable/A in T)
 		if(ishuman(A))
-			teleport_effect(user, T, target)
+			INVOKE_ASYNC(src, .proc/teleport_effect, user, T, target)
 		if(A.move_resist == INFINITY)
 			continue  //object cant move, shouldnt teleport
 		if(A == user)
@@ -640,7 +653,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 //Rite of Joined Souls: Summons a single cultist.
 /obj/effect/rune/summon
 	cultist_name = "Summon Cultist"
-	cultist_desc = "summons a single cultist to the rune. Requires 2 invokers."
+	cultist_desc = "summons a single cultist to the rune."
 	invocation = "N'ath reth sh'yro eth d'rekkathnor!"
 	req_cultists = 2
 	invoke_damage = 10
@@ -684,7 +697,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	cultist_to_summon.visible_message("<span class='warning'>[cultist_to_summon] suddenly disappears in a flash of red light!</span>", \
 									  "<span class='cultitalic'><b>Overwhelming vertigo consumes you as you are hurled through the air!</b></span>")
 	..()
-	teleport_effect(cultist_to_summon, get_turf(cultist_to_summon), src)
+	INVOKE_ASYNC(src, .proc/teleport_effect, cultist_to_summon, get_turf(cultist_to_summon), src)
 	visible_message("<span class='warning'>[src] begins to bubble and rises into the form of [cultist_to_summon]!</span>")
 	cultist_to_summon.forceMove(get_turf(src))
 	qdel(src)
@@ -850,6 +863,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/mob/dead/observer/ghost_to_spawn = pick(ghosts_on_rune)
 	var/mob/living/carbon/human/new_human = new(T)
 	new_human.real_name = ghost_to_spawn.real_name
+	new_human.key = ghost_to_spawn.key
 	new_human.alpha = 150 //Makes them translucent
 	new_human.equipOutfit(/datum/outfit/ghost_cultist) //give them armor
 	new_human.apply_status_effect(STATUS_EFFECT_SUMMONEDGHOST) //ghosts can't summon more ghosts, also lets you see actual ghosts
@@ -859,7 +873,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 						"<span class='cultitalic'>Your blood begins flowing into [src]. You must remain in place and conscious to maintain the forms of those summoned. This will hurt you slowly but surely...</span>")
 
 	var/obj/machinery/shield/cult/weak/shield = new(T)
-	new_human.key = ghost_to_spawn.key
 	SSticker.mode.add_cultist(new_human.mind, 0)
 	to_chat(new_human, "<span class='cultlarge'>You are a servant of the [SSticker.cultdat.entity_title3]. You have been made semi-corporeal by the cult of [SSticker.cultdat.entity_name], and you are to serve them at all costs.</span>")
 
@@ -885,6 +898,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 								  "<span class='cultlarge'>Your link to the world fades. Your form breaks apart.</span>")
 		for(var/obj/item/I in new_human.get_all_slots())
 			new_human.unEquip(I)
+		SSticker.mode.remove_cultist(new_human, FALSE)
 		new_human.dust()
 
 /obj/effect/rune/manifest/proc/ghostify(mob/living/user, turf/T)
@@ -926,7 +940,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 //Ritual of Dimensional Rending: Calls forth the avatar of Nar'Sie upon the station.
 /obj/effect/rune/narsie
 	cultist_name = "Tear Veil"
-	cultist_desc = "tears apart dimensional barriers, calling forth your god. Requires 9 invokers."
+	cultist_desc = "tears apart dimensional barriers, calling forth your god."
 	invocation = "TOK-LYR RQA-NAP G'OLT-ULOFT!!"
 	req_cultists = 9
 	icon = 'icons/effects/96x96.dmi'
@@ -941,7 +955,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/narsie/New()
 	..()
 	cultist_name = "Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "your god"]"
-	cultist_desc = "tears apart dimensional barriers, calling forth [SSticker.cultdat ? SSticker.cultdat.entity_title3 : "your god"]. Requires 9 invokers."
+	cultist_desc = "tears apart dimensional barriers, calling forth [SSticker.cultdat ? SSticker.cultdat.entity_title3 : "your god"]."
 
 /obj/effect/rune/narsie/check_icon()
 	return

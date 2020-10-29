@@ -182,7 +182,7 @@
 	empulse(owner, 2, 5, cause = "cult")
 	owner.whisper(invocation)
 	charges--
-	if(charges<=0)
+	if(charges <= 0)
 		qdel(src)
 
 /datum/action/innate/cult/blood_spell/shackles
@@ -440,7 +440,7 @@
 			S.emp_act(EMP_HEAVY)
 		else if(iscarbon(target))
 			var/mob/living/carbon/C = L
-			C.Silence(3)
+			C.Silence(4)
 			C.Stuttering(8)
 			C.CultSlur(10)
 			C.Jitter(8)
@@ -491,8 +491,7 @@
 
 	var/turf/origin = get_turf(user)
 	var/turf/destination = get_turf(actual_selected_rune)
-	new /obj/effect/temp_visual/dir_setting/cult/phase/out(origin)
-	new /obj/effect/temp_visual/dir_setting/cult/phase(destination)
+	INVOKE_ASYNC(actual_selected_rune, /obj/effect/rune/.proc/teleport_effect, user, origin, destination)
 
 	if(is_mining_level(user.z) && !is_mining_level(destination.z)) //No effect if you stay on lavaland
 		actual_selected_rune.handle_portal("lava")
@@ -632,15 +631,16 @@
 	if(iscarbon(target) && proximity)
 		uses--
 		var/mob/living/carbon/C = target
-		C.visible_message("<span class='warning'>Otherworldly armor suddenly appears on [C]!</span>")
+		var/armour = C.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), slot_wear_suit)
 		C.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(user), slot_w_uniform)
-		C.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), slot_wear_suit)
 		C.equip_to_slot_or_del(new /obj/item/storage/backpack/cultpack(user), slot_back)
 		C.equip_to_slot_or_del(new /obj/item/clothing/shoes/cult(user), slot_shoes)
+
 		if(C == user)
 			qdel(src) //Clears the hands
 		C.put_in_hands(new /obj/item/melee/cultblade(user))
 		C.put_in_hands(new /obj/item/restraints/legcuffs/bola/cult(user))
+		C.visible_message("<span class='warning'>Otherworldly [armour ? "armour" : "equipment"] suddenly appears on [C]!</span>")
 		..()
 
 //Blood Rite: Absorb blood to heal cult members or summon weapons
@@ -695,10 +695,10 @@
 					if(ratio > 1)
 						ratio = 1
 						uses -= round(overall_damage)
-						H.visible_message("<span class='warning'>[H] is fully healed by [H == user ? "[H.p_their()]":"[H]'s"] blood magic!</span>",
+						H.visible_message("<span class='warning'>[H] is fully healed by [H == user ? "[H.p_their()]" : "[H]'s"] blood magic!</span>",
 						"<span class='cultitalic'>You are fully healed by [H == user ? "your" : "[user]'s"] blood magic!</span>")
 					else
-						H.visible_message("<span class='warning'>[H] is partially healed by [H == user ? "[H.p_their()]":"[H]'s"] blood magic.</span>",
+						H.visible_message("<span class='warning'>[H] is partially healed by [H == user ? "[H.p_their()]" : "[H]'s"] blood magic.</span>",
 						"<span class='cultitalic'>You are partially healed by [H == user ? "your" : "[user]'s"] blood magic.</span>")
 						uses = 0
 					ratio *= -1

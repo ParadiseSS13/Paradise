@@ -12,6 +12,7 @@
 	a_intent = INTENT_HARM
 	stop_automated_movement = 1
 	status_flags = CANPUSH
+	see_in_dark = 8
 	attack_sound = 'sound/weapons/punch1.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -156,7 +157,6 @@
 	melee_damage_lower = 25
 	melee_damage_upper = 25
 	attacktext = "slashes"
-	see_in_dark = 8
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	const_type = "wraith"
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision, /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift)
@@ -297,7 +297,6 @@
 	melee_damage_upper = 5
 	attacktext = "prods"
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
-	see_in_dark = 8
 	attack_sound = 'sound/weapons/tap.ogg'
 	const_type = "harvester"
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision,

@@ -11,7 +11,7 @@
 
 /obj/effect/temp_visual/dir_setting/cult/phase
 	name = "phase glow"
-	duration = 7
+	duration = 12
 	icon = 'icons/effects/cult_effects.dmi'
 	icon_state = "cultin"
 

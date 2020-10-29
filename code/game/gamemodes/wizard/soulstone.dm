@@ -67,6 +67,9 @@
 
 //////////////////////////////Capturing////////////////////////////////////////////////////////
 /obj/item/soulstone/attack(mob/living/carbon/human/M, mob/user)
+	if(M == user)
+		return
+
 	if(!can_use(user))
 		user.Weaken(5)
 		user.emote("scream")
@@ -84,7 +87,7 @@
 		to_chat(user, "<span class='warning'>This being is corrupted by an alien intelligence and cannot be soul trapped.</span>")
 		return ..()
 
-	if(jobban_isbanned(M, "cultist"))
+	if(jobban_isbanned(M, ROLE_CULTIST) || jobban_isbanned(M, ROLE_SYNDICATE))
 		to_chat(user, "<span class='warning'>A mysterious force prevents you from trapping this being's soul.</span>")
 		return ..()
 
@@ -334,6 +337,7 @@
 		var/datum/action/innate/cult/check_progress/D = new
 		CC.Grant(src)
 		D.Grant(src)
+		SSticker.mode.cult_objs.study(src) // Display objectives again
 		to_chat(src, "<span class='userdanger'>You are still bound to serve the cult, follow their orders and help them complete their goals at all costs.</span>")
 	else
 		to_chat(src, "<span class='userdanger'>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</span>")

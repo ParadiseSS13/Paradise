@@ -112,7 +112,7 @@
 		invisibility = initial(invisibility)
 	else // Currently visible
 		density = FALSE // Turn invisible
-		invisibility = INVISIBILITY_OBSERVER
+		invisibility = INVISIBILITY_MAXIMUM
 	air_update_turf(1)
 
 /obj/machinery/shieldgen

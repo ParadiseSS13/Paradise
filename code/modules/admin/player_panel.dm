@@ -459,12 +459,14 @@
 			dat += "<br>Sacrifice objectives needed for summoning: [gamemode.cult_objs.sacrifices_required]"
 			dat += "<br>Summoning locations: [english_list(gamemode.cult_objs.obj_summon.summon_spots)]"
 			dat += "<br><a href='?src=[UID()];cult_mindspeak=[UID()]'>Cult Mindspeak</a>"
+
 			if(gamemode.cult_objs.cult_status == NARSIE_DEMANDS_SACRIFICE)
 				dat += "<br><a href='?src=[UID()];cult_adjustsacnumber=[UID()]'>Modify amount of sacrifices required</a>"
 				dat += "<br><a href='?src=[UID()];cult_newtarget=[UID()]'>Reroll sacrifice target</a>"
 			else
-				dat += "<br>Modify amount of sacrifices required</a>"
-				dat += "<br>Reroll sacrifice target</a>"
+				dat += "<br>Modify amount of sacrifices required (Summon available!)</a>"
+				dat += "<br>Reroll sacrifice target (Summon available!)</a>"
+
 			dat += "<br><a href='?src=[UID()];cult_newsummonlocations=[UID()]'>Reroll summoning locations</a>"
 			dat += "<br><a href='?src=[UID()];cult_unlocknarsie=[UID()]'>Unlock Nar'Sie summoning</a>"
 

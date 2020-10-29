@@ -72,6 +72,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 /datum/game_mode/cult/post_setup()
 	modePlayer += cult
+	cult_objs.setup()
 
 	for(var/datum/mind/cult_mind in cult)
 		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
@@ -87,7 +88,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 		add_cult_actions(cult_mind)
 		update_cult_icons_added(cult_mind)
-	cult_objs.setup()
+		cult_objs.study(cult_mind.current)
 	..()
 
 /datum/game_mode/proc/equip_cultist(mob/living/carbon/human/H, metal = TRUE)
@@ -135,7 +136,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		cult_mind.current.create_attack_log("<span class='danger'>Has been converted to the cult!</span>")
 		cult_mind.current.create_log(CONVERSION_LOG, "converted to the cult")
 
-		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST))
+		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST) || jobban_isbanned(cult_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(cult_mind.current, ROLE_CULTIST)
 		if(!cult_objs.cult_status && ishuman(cult_mind.current))
 			cult_objs.setup()
@@ -150,6 +151,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			if(cult_ascendant)
 				ascend(cult_mind.current)
 		check_cult_size()
+		cult_objs.study(cult_mind.current)
 		return TRUE
 
 
