@@ -190,6 +190,21 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 
 	..()
 
+/obj/machinery/dna_vault/update_icon()
+	..()
+	if(stat & NOPOWER)
+		icon_state = "vaultoff"
+		return
+	icon_state = "vault"
+
+/obj/machinery/dna_vault/power_change()
+	if(powered(power_channel))
+		stat &= ~NOPOWER
+	else
+		stat |= NOPOWER
+	update_icon()
+
+
 /obj/machinery/dna_vault/Destroy()
 	QDEL_LIST(fillers)
 	return ..()

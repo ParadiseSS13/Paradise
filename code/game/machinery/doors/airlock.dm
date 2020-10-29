@@ -123,6 +123,15 @@ About the new airlock wires panel:
 	..()
 	wires = new(src)
 
+/*
+ * reimp, imitate an access denied event.
+ */
+/obj/machinery/door/airlock/flicker()
+	if(arePowerSystemsOn())
+		do_animate("deny")
+		return TRUE
+	return FALSE
+
 /obj/machinery/door/airlock/Initialize()
 	. = ..()
 	if(closeOtherId != null)

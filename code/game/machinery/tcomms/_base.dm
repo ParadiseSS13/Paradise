@@ -474,6 +474,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   * Otherwise shit breaks BADLY
   */
 /obj/item/paper/tcommskey/Initialize(mapload)
+	..()
 	return INITIALIZE_HINT_LATELOAD
 
 /**

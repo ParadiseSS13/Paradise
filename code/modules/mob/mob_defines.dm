@@ -199,3 +199,5 @@
 
 	var/forced_look = null // This can either be a numerical direction or a soft object reference (UID). It makes the mob always face towards the selected thing.
 	var/registered_z
+
+	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override

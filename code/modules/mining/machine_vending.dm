@@ -299,6 +299,47 @@
 		EQUIPMENT("The Liberator's Legacy", 		/obj/item/storage/box/rndboards, 						2000),
 	)
 
+/**********************Mining Equiment Vendor (Gulag)**************************/
+
+/obj/machinery/mineral/equipment_vendor/labor
+	name = "labor camp equipment vendor"
+	desc = "An equipment vendor for scum, points collected at an ore redemption machine can be spent here."
+
+/obj/machinery/mineral/equipment_vendor/labor/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/mining_equipment_vendor/labor(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	RefreshParts()
+
+/obj/machinery/mineral/equipment_vendor/labor/Initialize()
+	. = ..()
+	prize_list = list()
+	prize_list["Scum"] += list(
+		EQUIPMENT("Trauma Kit", 					/obj/item/stack/medical/bruise_pack/advanced, 						150),
+		EQUIPMENT("Whisky", 						/obj/item/reagent_containers/food/drinks/bottle/whiskey, 			100),
+		EQUIPMENT("Beer", 							/obj/item/reagent_containers/food/drinks/cans/beer, 				50),
+		EQUIPMENT("Absinthe", 						/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium, 	250),
+		EQUIPMENT("Cigarettes", 					/obj/item/storage/fancy/cigarettes, 		 						100),
+		EQUIPMENT("Medical Marijuana", 				/obj/item/storage/fancy/cigarettes/cigpack_med,						250),
+		EQUIPMENT("Cigar", 							/obj/item/clothing/mask/cigarette/cigar/havana, 					150),
+		EQUIPMENT("Box of matches", 				/obj/item/storage/box/matches, 										50),
+		EQUIPMENT("Cheeseburger", 					/obj/item/reagent_containers/food/snacks/cheeseburger, 				150),
+		EQUIPMENT("Big Burger", 					/obj/item/reagent_containers/food/snacks/bigbiteburger, 			250),
+		EQUIPMENT("Recycled Prisoner",	 			/obj/item/reagent_containers/food/snacks/soylentgreen, 				500),
+		EQUIPMENT("Crayons", 						/obj/item/storage/fancy/crayons, 									350),
+		EQUIPMENT("Plushie", 						/obj/random/plushie, 												750),
+		EQUIPMENT("Dnd set", 						/obj/item/storage/box/characters, 									500),
+		EQUIPMENT("Dice set", 						/obj/item/storage/box/dice, 										250),
+		EQUIPMENT("Cards", 							/obj/item/toy/cards/deck, 											150),
+		EQUIPMENT("Guitar", 						/obj/item/instrument/guitar, 										750),
+		EQUIPMENT("Synthesizer", 					/obj/item/instrument/piano_synth, 									1500),
+		EQUIPMENT("Diamond Pickaxe", 				/obj/item/pickaxe/diamond, 											2000)
+	)
+
 /**********************Mining Equipment Datum**************************/
 
 /datum/data/mining_equipment
