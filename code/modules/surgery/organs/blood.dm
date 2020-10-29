@@ -119,11 +119,10 @@
 		.=..()
 		if(dna.species.exotic_blood && .) // Do we have exotic blood, and have we left any on the ground?
 			var/datum/reagent/R = GLOB.chemical_reagents_list[get_blood_id()]
-			if(EXOTIC_COLOR in dna.species.species_traits)
-				if(istype(R) && isturf(loc))
+			if(istype(R) && isturf(loc))
+				if(EXOTIC_COLOR in dna.species.species_traits)
 					R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER, dna.species.blood_color)
-			else
-				if(istype(R) && isturf(loc))
+				else
 					R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER)
 
 /mob/living/proc/restore_blood()
