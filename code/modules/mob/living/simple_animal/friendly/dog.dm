@@ -476,7 +476,7 @@
 		record_age = 1
 	if(saved_head)
 		place_on_head(new saved_head)
-	log_debug("Persistent data for [src] loaded (age: [age] | record_age: [record_age] | saved_head: [saved_head])")
+	log_debug("Persistent data for [src] loaded (age: [age] | record_age: [record_age] | saved_head: [saved_head ? saved_head : "None"])")
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/proc/write_memory(dead)
 	var/json_file = file("data/npc_saves/Ian.json")
@@ -497,7 +497,7 @@
 		file_data["saved_head"] = null
 	fdel(json_file)
 	WRITE_FILE(json_file, json_encode(file_data))
-	log_debug("Persistent data for [src] saved (age: [age] | record_age: [record_age] | saved_head: [saved_head])")
+	log_debug("Persistent data for [src] saved (age: [age] | record_age: [record_age] | saved_head: [saved_head ? saved_head : "None"])")
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/handle_automated_movement()
 	. = ..()
