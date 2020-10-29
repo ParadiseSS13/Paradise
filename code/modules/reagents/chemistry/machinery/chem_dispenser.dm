@@ -496,12 +496,13 @@
 				current_reagent = params["reagent"]
 				update_icon()
 		if("mode")
-			if(params["mode"] == "remove" && mode != "remove")
-				mode = "remove"
-			else if(params["mode"] == "dispense" && mode != "dispense")
-				mode = "dispense"
-			else if(params["mode"] == "isolate" && mode != "isolate")
-				mode = "isolate"
+			switch(params["mode"])
+				if("remove")
+					mode = "remove"
+				if("dispense")
+					mode = "dispense"
+				if("isolate")
+					mode = "isolate"
 			update_icon()
 		else
 			return FALSE
