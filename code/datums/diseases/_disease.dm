@@ -89,6 +89,8 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	if(disease_flags & CURABLE)
 		if(cure && prob(cure_chance))
 			cure()
+			return FALSE
+	return TRUE
 
 
 /datum/disease/proc/has_cure()
