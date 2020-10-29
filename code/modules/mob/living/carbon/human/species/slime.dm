@@ -95,7 +95,7 @@
 		H.dna.species.blood_color = H.blood_color
 
 /datum/species/slime/handle_life(mob/living/carbon/human/H)
-		// Slowly shifting to the color of the reagents
+	// Slowly shifting to the color of the reagents
 	if(reagent_skin_coloring && H.reagents.total_volume > SLIMEPERSON_COLOR_SHIFT_TRIGGER)
 		var/blood_amount = H.blood_volume
 		var/r_color = mix_color_from_reagents(H.reagents.reagent_list)
