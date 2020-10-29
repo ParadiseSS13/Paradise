@@ -473,6 +473,10 @@
 	data["current_reagent"] = current_reagent
 	data["mode"] = mode
 
+	return data
+
+/obj/item/handheld_chem_dispenser/tgui_static_data()
+	var/list/data = list()
 	var/list/chemicals = list()
 	for(var/re in dispensable_reagents)
 		var/datum/reagent/temp = GLOB.chemical_reagents_list[re]
