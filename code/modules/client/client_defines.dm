@@ -43,10 +43,6 @@
 	// comment out the line below when debugging locally to enable the options & messages menu
 	//control_freak = 1
 
-	var/received_discord_pm = -99999
-	/// Discord admin who spoke to this member last
-	var/discord_admin
-	var/mute_discord = 0
 	var/ssd_warning_acknowledged = FALSE
 
 		////////////////////////////////////
@@ -100,3 +96,11 @@
 	var/byondacc_date
 	/// Days since the client's BYOND account was created
 	var/byondacc_age = 0
+
+
+	// Do not attempt to merge these vars together. They are for different things
+	/// Last world.time that a PM was send to discord by a player
+	var/last_discord_pm_time = 0
+
+	/// Last world/time that a PM was sent to the player by an admin
+	var/received_discord_pm = -99999 // Yes this super low number is intentional

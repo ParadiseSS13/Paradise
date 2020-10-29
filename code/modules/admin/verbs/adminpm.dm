@@ -213,8 +213,15 @@
 
 /client/proc/cmd_admin_discord_pm()
 	if(prefs.muted & MUTE_ADMINHELP)
-		to_chat(src, "<span class='danger'>Error: Private-Message: You are unable to use PM-s (muted).</span>")
+		to_chat(src, "<span class='danger'>Error: Private-Message: You are unable to use PMs (muted).</span>")
 		return
+
+	if(last_discord_pm_time > world.time)
+		to_chat(usr, "<span class='warning'>Please wait [(last_discord_pm_time - world.time)/10] seconds, or for a reply, before sending another PM to Discord.</span>")
+		return
+
+	// We only allow PMs once every 10 seconds, othewrise the channel can get spammed very quickly
+	last_discord_pm_time = world.time + 10 SECONDS
 
 	var/msg = clean_input("Message:", "Private message to admins on Discord / 400 character limit", , src)
 
@@ -228,7 +235,7 @@
 		to_chat(src, "<span class='notice'>[msg]</span>")
 		return
 
-	SSdiscord.send2discord_simple_noadmins("PM from [key_name(src)]: [html_decode(msg)]")
+	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "PM from [key_name(src)]: [html_decode(msg)]")
 
 	to_chat(src, "<span class='pmsend'>PM to-<b>Discord Admins</b>: [msg]</span>")
 
@@ -237,7 +244,7 @@
 		if(X == src)
 			continue
 		if(check_rights(R_ADMIN, 0, X.mob))
-			to_chat(X, "<B><span class='pmsend'>PM: [key_name(src, TRUE, 0)]-&gt;Discord Admins:</B> <span class='notice'>[msg]</span></span>")
+			to_chat(X, "<span class='pmsend'><b>PM: [key_name_admin(src)]-&gt;Discord Admins:</b> <span class='notice'>[msg]</span></span>")
 
 /client/verb/open_pms_ui()
 	set name = "My PMs"

@@ -196,8 +196,10 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 		var/message =	"<font color='red'>Discord PM from <b><a href='?discord_msg=1'>[input["sender"]]</a></b>: [input["msg"]]</font>"
 		var/amessage =  "<font color='blue'>Discord PM from <a href='?discord_msg=1'>[input["sender"]]</a> to <b>[key_name(C)]</b>: [input["msg"]]</font>"
 
+		// THESE TWO VARS DO VERY DIFFERENT THINGS. DO NOT ATTEMPT TO COMBINE THEM
 		C.received_discord_pm = world.time
-		C.discord_admin = input["sender"]
+		C.last_discord_pm_time = 0
+
 		SEND_SOUND(C, 'sound/effects/adminhelp.ogg')
 		to_chat(C, message)
 
