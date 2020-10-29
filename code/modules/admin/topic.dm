@@ -1478,7 +1478,8 @@
 		message_admins("[key_name_admin(usr)] has sent [key_name_admin(M)] to the thunderdome. (Observer.)", 1)
 
 	else if(href_list["contractor_stop"])
-		if(!check_rights(R_DEBUG|R_ADMIN))	return
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
 
 		var/mob/M = locateUID(href_list["contractor_stop"])
 		if(!istype(M))
@@ -1489,7 +1490,7 @@
 		if(!contract)
 			to_chat(usr, "<span class='warning'>[M] is currently not imprisoned by the Syndicate.</span>")
 			return
-		else if(!contract.prisoner_timer_handle)
+		if(!contract.prisoner_timer_handle)
 			to_chat(usr, "<span class='warning'>[M] is already NOT scheduled to return from the Syndicate Jail.</span>")
 			return
 
@@ -1500,7 +1501,8 @@
 		log_admin("[key_name(usr)] has stopped the automatic return of [key_name(M)] from the Syndicate Jail")
 
 	else if(href_list["contractor_start"])
-		if(!check_rights(R_DEBUG|R_ADMIN))	return
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
 
 		var/mob/M = locateUID(href_list["contractor_start"])
 		if(!istype(M))
@@ -1511,7 +1513,7 @@
 		if(!contract)
 			to_chat(usr, "<span class='warning'>[M] is currently not imprisoned by the Syndicate.</span>")
 			return
-		else if(contract.prisoner_timer_handle)
+		if(contract.prisoner_timer_handle)
 			to_chat(usr, "<span class='warning'>[M] is already scheduled to return from the Syndicate Jail.</span>")
 			return
 
@@ -1526,7 +1528,8 @@
 		log_admin("[key_name(usr)] has started the automatic return of [key_name(M)] from the Syndicate Jail in [time_seconds] second\s")
 
 	else if(href_list["contractor_release"])
-		if(!check_rights(R_DEBUG|R_ADMIN))	return
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
 
 		var/mob/M = locateUID(href_list["contractor_release"])
 		if(!istype(M))

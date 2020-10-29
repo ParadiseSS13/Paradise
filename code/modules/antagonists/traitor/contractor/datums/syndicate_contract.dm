@@ -133,7 +133,7 @@
 
 	// Fill data
 	var/datum/data/record/R = find_record("name", T.name, GLOB.data_core.general)
-	target_name = "[R?.fields["name"] || T.name || DEFAULT_NAME], the [R?.fields["rank"] || T.assigned_role || DEFAULT_RANK]"
+	target_name = "[R?.fields["name"] || T.current?.real_name || DEFAULT_NAME], the [R?.fields["rank"] || T.assigned_role || DEFAULT_RANK]"
 	reward_credits = credits_base * rand(credits_lower_mult, credits_upper_mult)
 
 	// Fluff message
