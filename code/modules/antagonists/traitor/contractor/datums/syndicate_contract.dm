@@ -470,7 +470,6 @@
   *
   * Arguments:
   * * M - The target mob.
-  * * T - The turf the target was extracted from.
   */
 /datum/syndicate_contract/proc/handle_target_return(mob/living/M)
 	var/list/turf/possible_turfs = list()
