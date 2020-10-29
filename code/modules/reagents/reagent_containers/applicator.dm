@@ -46,15 +46,15 @@
 		filling.color = mix_color_from_reagents(reagents.reagent_list)
 		add_overlay(filling)
 	var/reag_pct = round((reagents.total_volume / volume) * 100)
-	var/image/light = image('icons/goonstation/objects/objects.dmi', "app_e")
+	var/mutable_appearance/applicator_bar = mutable_appearance('icons/goonstation/objects/objects.dmi', "app_e")
 	switch(reag_pct)
 		if(51 to 100)
-			light.icon_state = "app_hf"
+			applicator_bar.icon_state = "app_hf"
 		if(1 to 50)
-			light.icon_state = "app_he"
+			applicator_bar.icon_state = "app_he"
 		if(0)
-			light.icon_state = "app_e"
-	add_overlay(light)
+			applicator_bar.icon_state = "app_e"
+	add_overlay(applicator_bar)
 
 /obj/item/reagent_containers/applicator/attack(mob/living/M, mob/user)
 	if(!reagents.total_volume)
