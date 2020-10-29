@@ -11,6 +11,7 @@ SUBSYSTEM_DEF(http)
 	var/logging_enabled = FALSE
 
 /datum/controller/subsystem/http/Initialize(start_timeofday)
+	rustg_create_async_http_client() // Open the door
 	active_async_requests = list()
 	return ..()
 

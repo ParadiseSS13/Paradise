@@ -516,3 +516,8 @@ GLOBAL_VAR_INIT(failed_old_db_connections, 0)
     var/dll = world.GetConfig("env", "EXTOOLS_DLL")
     if (dll)
         call(dll, "debug_initialize")()
+
+
+/world/Del()
+	rustg_close_async_http_client() // Close the HTTP client. If you dont do this, youll get phantom threads which can crash DD from memory access violations
+	..()
