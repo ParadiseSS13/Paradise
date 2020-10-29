@@ -162,17 +162,17 @@
 		msg += "[p_they(TRUE)] [p_are()] wearing [bicon(wear_id)] \a [wear_id].\n"
 
 	//Stamp Marks
-	var/numberOfStampTypes = length(ink_marks)
+	var/numberOfStampTypes = length(stamp_marks_desc)
 	if(numberOfStampTypes)
 		msg += "[p_they(TRUE)] [p_have()] been stamped: "
 		var/stampTypeCounter = 0
 
-		for(var/image/I in ink_marks)
+		for(var/i in stamp_marks_desc)
 			stampTypeCounter++
 
 			if(stampTypeCounter == numberOfStampTypes && numberOfStampTypes > 1)
 				msg += "and "
-			msg += I.text
+			msg += i
 			if(stampTypeCounter == numberOfStampTypes)
 				msg += ".\n"
 			else

@@ -52,32 +52,14 @@
 	targetBaseIcon.overlays += H.overlays_standing[HAIR_LAYER]
 	targetBaseIcon.overlays += H.overlays_standing[UNIFORM_LAYER]
 
-	//This code is here and not in update_icons.dm because we need an icon to blend, but an image for examine.
-	//The only way I know of to turn an image into an icon destroys its directionality.
-	//So icon first, blend, then turn into image.
+	new_stamp_mark.Blend(getFlatIcon(targetBaseIcon), BLEND_MULTIPLY)		// cut out any parts of the new mark that arent on target sprite
+	var/image/new_stamp_mark_image = image(new_stamp_mark)
+	new_stamp_mark_image.color = stamp_color								// colorize the new mark
 
-	new_stamp_mark.Blend(getFlatIcon(targetBaseIcon), BLEND_MULTIPLY)
+	H.stamp_marks.overlays += new_stamp_mark_image							// add new mark to existing image of marks
 
-	var/image/stamp_image = image(new_stamp_mark)
-	stamp_image.text = stamp_description
-	stamp_image.color = stamp_color
-	var/stamp_reference = null
-
-	//This code insures that there is only one image for each stamp of a given type.
-	//Insuring only one desc in examine of the stamped human for each stamp type,
-	//as well as reducing image count.
-	if(!length(H.ink_marks))
-		H.ink_marks += stamp_image
-	else
-		var/ink_marks_imageCount = 0
-		for(var/image/I in H.ink_marks)
-			ink_marks_imageCount++
-			if(I.text == stamp_image.text)
-				I.overlays += stamp_image
-				ink_marks_imageCount = 0
-			else if(ink_marks_imageCount == length(H.ink_marks))
-				H.ink_marks += stamp_image
-				ink_marks_imageCount = 0
+	if(!(stamp_description in H.stamp_marks_desc))							// if its a new stamp type add its desc to list of descs
+		H.stamp_marks_desc += stamp_description
 
 	H.update_misc_effects()
 
