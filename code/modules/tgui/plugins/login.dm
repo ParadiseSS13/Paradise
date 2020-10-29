@@ -130,6 +130,9 @@ GLOBAL_LIST(tgui_logins)
 			state.name = state.id.registered_name
 			state.rank = state.id.assignment
 			state.access = state.id.access
+		else
+			to_chat(usr, "<span class='warning'>Access Denied</span>")
+			return
 	else if(login_type == LOGIN_TYPE_AI && isAI(usr))
 		state.name = usr.name
 		state.rank = "AI"

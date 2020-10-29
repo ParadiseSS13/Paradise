@@ -690,6 +690,9 @@ proc/dd_sortedObjectList(list/incoming)
 // Lazying Episode 3
 #define LAZYSET(L, K, V) LAZYINITLIST(L); L[K] = V;
 
+#define LAZYADDASSOC(L, K, V) if(!L) { L = list(); } L[K] += list(V);
+#define LAZYREMOVEASSOC(L, K, V) if(L) { if(L[K]) { L[K] -= V; if(!length(L[K])) L -= K; } if(!length(L)) L = null; }
+
 /// Returns whether a numerical index is within a given list's bounds. Faster than isnull(LAZYACCESS(L, I)).
 #define ISINDEXSAFE(L, I) (I >= 1 && I <= length(L))
 

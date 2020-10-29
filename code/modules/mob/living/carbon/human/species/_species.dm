@@ -860,3 +860,18 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
 	if(istype(ears) && !ears.deaf)
 		. = TRUE
+
+/**
+  * Species-specific runechat colour handler
+  *
+  * Checks the species datum flags and returns the appropriate colour
+  * Can be overridden on subtypes to short-circuit these checks (Example: Grey colour is eye colour)
+  * Arguments:
+  * * H - The human who this DNA belongs to
+  */
+/datum/species/proc/get_species_runechat_color(mob/living/carbon/human/H)
+	if(bodyflags & HAS_SKIN_COLOR)
+		return H.skin_colour
+	else
+		var/obj/item/organ/external/head/HD = H.get_organ("head")
+		return HD.hair_colour

@@ -1829,7 +1829,7 @@
 /area/security/permabrig)
 "adC" = (
 /obj/structure/table,
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_x = -3;
 	pixel_y = 6
 	},
@@ -7485,7 +7485,7 @@
 /area/security/main)
 "amU" = (
 /obj/structure/table,
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_x = -3;
 	pixel_y = 6
 	},
@@ -8750,7 +8750,7 @@
 /area/security/warden)
 "apq" = (
 /obj/structure/table,
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_x = -3;
 	pixel_y = 6
 	},
@@ -12230,7 +12230,7 @@
 /area/maintenance/starboard)
 "avz" = (
 /obj/structure/rack,
-/obj/effect/landmark/costume,
+/obj/effect/landmark/costume/random,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
@@ -16798,7 +16798,7 @@
 	})
 "aDz" = (
 /obj/structure/table,
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_x = -3;
 	pixel_y = 6
 	},
@@ -27346,8 +27346,8 @@
 /area/crew_quarters/locker)
 "aVX" = (
 /obj/structure/rack,
-/obj/effect/landmark/costume,
-/obj/effect/landmark/costume,
+/obj/effect/landmark/costume/random,
+/obj/effect/landmark/costume/random,
 /obj/item/clothing/mask/balaclava,
 /obj/machinery/alarm{
 	dir = 8;
@@ -45830,7 +45830,7 @@
 	},
 /area/engine/break_room)
 "bAs" = (
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_y = 4
 	},
 /obj/machinery/camera{
@@ -50995,7 +50995,7 @@
 	name = "\improper Command Hallway"
 	})
 "bJl" = (
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_y = 4
 	},
 /obj/structure/table/wood,
@@ -55965,8 +55965,8 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/effect/landmark/costume,
-/obj/effect/landmark/costume,
+/obj/effect/landmark/costume/random,
+/obj/effect/landmark/costume/random,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
@@ -55977,8 +55977,8 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/effect/landmark/costume,
-/obj/effect/landmark/costume,
+/obj/effect/landmark/costume/random,
+/obj/effect/landmark/costume/random,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
@@ -71117,7 +71117,7 @@
 	},
 /area/medical/reception)
 "crX" = (
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_x = -3;
 	pixel_y = 6
 	},
@@ -82047,7 +82047,7 @@
 	},
 /area/medical/medbreak)
 "cKk" = (
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_x = -3;
 	pixel_y = 6
 	},
@@ -85941,7 +85941,7 @@
 	pixel_x = 29
 	},
 /obj/structure/table/glass,
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_x = -3;
 	pixel_y = 6
 	},
@@ -86060,7 +86060,7 @@
 /area/medical/virology)
 "cQH" = (
 /obj/structure/rack,
-/obj/effect/landmark/costume,
+/obj/effect/landmark/costume/random,
 /obj/effect/spawner/lootdrop/maintenance{
 	lootcount = 2;
 	name = "2maintenance loot spawner"
