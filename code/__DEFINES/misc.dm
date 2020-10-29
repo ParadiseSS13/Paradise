@@ -327,6 +327,12 @@
 #define SHELTER_DEPLOY_BAD_AREA "bad area"
 #define SHELTER_DEPLOY_ANCHORED_OBJECTS "anchored objects"
 
+// transit_tube stuff
+#define TRANSIT_TUBE_OPENING 0
+#define TRANSIT_TUBE_OPEN 1
+#define TRANSIT_TUBE_CLOSING 2
+#define TRANSIT_TUBE_CLOSED 3
+
 // Maximum donation level
 #define DONATOR_LEVEL_MAX 4
 
