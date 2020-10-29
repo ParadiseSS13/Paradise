@@ -88,10 +88,9 @@
 	UnregisterSignal(H, COMSIG_HUMAN_UPDATE_DNA)
 
 /datum/species/slime/proc/blend(mob/living/carbon/human/H)
-	if(H.blood_color == null || H.blood_color != BlendRGB(H.skin_colour, "#acacac", 0.5)) // Put here, so if it's a roundstart, dyed, or CMA'd slime, their blood changes to match skin
-		if(H.blood_color == null)
-			H.blood_color = H.skin_colour //Just to get it not null so the math works
-		H.blood_color = BlendRGB(H.skin_colour, "#acacac", 0.5) // Blends this to make it work better
+	var/new_color = BlendRGB(H.skin_colour, "#acacac", 0.5) // Blends this to make it work better
+	if(H.blood_color != new_color) // Put here, so if it's a roundstart, dyed, or CMA'd slime, their blood changes to match skin
+		H.blood_color = new_color
 		H.dna.species.blood_color = H.blood_color
 
 /datum/species/slime/handle_life(mob/living/carbon/human/H)
