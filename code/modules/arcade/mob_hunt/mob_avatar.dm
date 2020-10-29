@@ -133,6 +133,7 @@
 	var/obj/machinery/computer/mob_battle_terminal/my_terminal
 
 /obj/effect/nanomob/battle/New(loc, datum/mob_hunt/new_info)
+	. = ..()
 	if(new_info)
 		mob_info = new_info
 		update_self()

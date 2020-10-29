@@ -312,4 +312,5 @@
 	set category = "Preferences"
 	set desc = "Toggle runechat messages"
 	prefs.toggles2 ^= PREFTOGGLE_2_RUNECHAT
+	prefs.save_preferences(src)
 	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) ? "now see" : "no longer see"] floating chat messages.")

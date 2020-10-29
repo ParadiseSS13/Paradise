@@ -77,7 +77,8 @@
 /obj/machinery/anomalous_crystal/ex_act()
 	ActivationReaction(null,"bomb")
 
-/obj/machinery/anomalous_crystal/random/New()//Just a random crysal spawner for loot
+/obj/machinery/anomalous_crystal/random/New() //Just a random crysal spawner for loot
+	. = ..()
 	var/random_crystal = pick(typesof(/obj/machinery/anomalous_crystal) - /obj/machinery/anomalous_crystal/random - /obj/machinery/anomalous_crystal)
 	new random_crystal(loc)
 	qdel(src)
