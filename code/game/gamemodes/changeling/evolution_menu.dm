@@ -31,7 +31,7 @@
 			"cost" = initial(C.dna_cost)
 		))
 
-/datum/action/changeling/evolution_menu/Trigger()
+/datum/action/changeling/evolution_menu/try_to_sting(mob/user, mob/target)
 	tgui_interact(owner)
 
 /datum/action/changeling/evolution_menu/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_always_state)
