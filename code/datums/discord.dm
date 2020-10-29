@@ -34,7 +34,10 @@
 	if(webhook_name)
 		json["username"] = webhook_name
 	if(webhook_content)
-		json["content"] = webhook_content
+		var/sanitized_content = webhook_content
+		sanitized_content = replacetext(sanitized_content, "@everyone", "(Attempted atEveryone)")
+		sanitized_content = replacetext(sanitized_content, "@here", "(Attempted atHere)")
+		json["content"] = sanitized_content
 
 	// Now serialize the embeds
 	if(length(embeds))
