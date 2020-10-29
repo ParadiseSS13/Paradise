@@ -6,7 +6,6 @@
 	var/can_shake = TRUE
 	var/can_burst = FALSE
 	var/burst_chance = 0
-	//var/shake_timer
 
 /obj/item/reagent_containers/food/drinks/cans/New()
 	..()
@@ -51,14 +50,14 @@
 		return ..()
 	H = user
 	if(canopened)
-		to_chat(H,"<span class='notice'>You can't shake up an already opened drink!")
+		to_chat(H, "<span class='warning'>You can't shake up an already opened drink!")
 		return ..()
 	if(src == H.l_hand || src == H.r_hand)
 		can_shake = FALSE
 		addtimer(CALLBACK(src, .proc/reset_shakable), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
-		to_chat(H, "<span class ='notice'>You start shaking up [src].</span>")
+		to_chat(H, "<span class='notice'>You start shaking up [src].</span>")
 		if(do_after(H, 1 SECONDS, target = H))
-			visible_message("<span class='warning'>[user.name] shakes up the [name]!</span>")
+			visible_message("<span class='warning'>[user] shakes up the [name]!</span>")
 			if(times_shaken == 0)
 				times_shaken++
 				addtimer(CALLBACK(src, .proc/reset_shaken), 1 MINUTES, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
@@ -69,8 +68,7 @@
 				addtimer(CALLBACK(src, .proc/reset_shaken), 20 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
 				handle_bursting(user)
 	else
-		to_chat(H, "<span class ='notice'>You need to hold [src] in order to shake it.</span>")
-		return ..()
+		to_chat(H, "<span class='warning'>You need to hold [src] in order to shake it.</span>")
 	return ..()
 
 /obj/item/reagent_containers/food/drinks/cans/attack(mob/M, mob/user, proximity)
