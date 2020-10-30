@@ -11652,7 +11652,7 @@
 	pixel_x = -26;
 	pixel_y = 3
 	},
-/obj/effect/landmark/costume,
+/obj/effect/landmark/costume/random,
 /obj/item/clothing/suit/suspenders,
 /turf/simulated/floor/plasteel{
 	icon_state = "redbluefull"
@@ -12852,7 +12852,7 @@
 "aBr" = (
 /obj/structure/table/wood,
 /obj/item/clothing/shoes/jackboots,
-/obj/effect/landmark/costume,
+/obj/effect/landmark/costume/random,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria";
@@ -34176,7 +34176,7 @@
 /area/security/main)
 "bmP" = (
 /obj/structure/rack,
-/obj/effect/landmark/costume,
+/obj/effect/landmark/costume/random,
 /obj/effect/spawner/lootdrop/maintenance{
 	lootcount = 2;
 	name = "2maintenance loot spawner"
@@ -100573,8 +100573,8 @@
 "dya" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/rack,
-/obj/effect/landmark/costume,
-/obj/effect/landmark/costume,
+/obj/effect/landmark/costume/random,
+/obj/effect/landmark/costume/random,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -101156,8 +101156,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/landmark/costume,
-/obj/effect/landmark/costume,
+/obj/effect/landmark/costume/random,
+/obj/effect/landmark/costume/random,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -101888,7 +101888,7 @@
 "dAu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/closet/crate,
-/obj/effect/landmark/costume,
+/obj/effect/landmark/costume/random,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)

@@ -95,6 +95,7 @@
 	var/suits = list("red", "green", "ntblue", "purple", "yellow", "ltblue")
 
 /obj/effect/nasavoidsuitspawner/New()
+	. = ..()
 	var/obj/item/clothing/head/helmet/space/nasavoid/H
 	var/obj/item/clothing/suit/space/nasavoid/S
 	switch(pick(suits))
