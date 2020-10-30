@@ -1790,7 +1790,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 10
 	special = TRUE
 	containername = "empty station goal crate"
-	containertype = /obj/structure/closet/crate/engineering
+	containertype = /obj/structure/closet/crate/secure/engineering
+	access = ACCESS_CONSTRUCTION
 
 /datum/supply_packs/misc/station_goal/bsa
 	name = "Bluespace Artillery Parts"
