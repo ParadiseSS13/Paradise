@@ -1,4 +1,3 @@
-//Noncult
 /obj/structure/cult
 	density = TRUE
 	anchored = TRUE
@@ -11,8 +10,6 @@
 	name = "Altar"
 	desc = "A bloodstained altar."
 	icon_state = "altar"
-
-/obj/structure/cult/altar/New()
 
 /obj/structure/cult/forge
 	name = "Daemon forge"

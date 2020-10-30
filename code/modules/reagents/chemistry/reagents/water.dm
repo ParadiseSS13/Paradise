@@ -264,6 +264,11 @@
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
+			if(ishuman(M)) // Unequip all cult clothing
+				var/mob/living/carbon/human/H = M
+				for(var/I in H.contents - (H.bodyparts | H.internal_organs)) // Satanic liver NYI
+					if(is_type_in_list(I, CULT_CLOTHING))
+						H.unEquip(I)
 			return
 	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full) && prob(80))
 		var/mob/living/carbon/V = M

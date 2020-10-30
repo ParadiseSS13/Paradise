@@ -653,7 +653,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 //Rite of Joined Souls: Summons a single cultist.
 /obj/effect/rune/summon
 	cultist_name = "Summon Cultist"
-	cultist_desc = "summons a single cultist to the rune."
+	cultist_desc = "summons a single cultist to the rune. <b><i>(Cannot summon restrained cultists!)</b></i>"
 	invocation = "N'ath reth sh'yro eth d'rekkathnor!"
 	req_cultists = 2
 	invoke_damage = 10

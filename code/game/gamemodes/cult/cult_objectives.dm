@@ -15,7 +15,7 @@
 	else
 		ready_to_summon()
 
-/datum/cult_objectives/proc/study(mob/living/M) //Called by cultists/cult constructs checking their objectives
+/datum/cult_objectives/proc/study(mob/living/M, display_members = FALSE) //Called by cultists/cult constructs checking their objectives
 	if(!M)
 		return FALSE
 
@@ -39,7 +39,16 @@
 			to_chat(M, "<span class='cultlarge'>[SSticker.cultdat ? SSticker.cultdat.entity_name : "The Dark One"] has been banished!</span>")
 			to_chat(M, "<span class='cult'>Current goal: Slaughter the unbelievers!</span>")
 		else
-			to_chat(M, "<span class='danger'>Error : Cult objective status currently unknown. Something went wrong. Oof.</span>")
+			to_chat(M, "<span class='danger'>Error: Cult objective status currently unknown. Something went wrong. Oof.</span>")
+
+	if(display_members)
+		var/list/cult = SSticker.mode.get_cultists()
+		var/cultists = cult[1]
+		var/constructs = cult[2]
+		to_chat(M, "<span class='cultitalic'><br><b><u>Current cult members</u>: [cultists + constructs]</b>")
+		to_chat(M, "<span class='cultitalic'><b>Cultists:</b> [cultists]")
+		if(constructs)
+			to_chat(M, "<span class='cultitalic'><b>Constructs:</b> [constructs]")
 
 /datum/cult_objectives/proc/current_sac_objective() //Return the current sacrifice objective datum, if any
 	if(cult_status == NARSIE_DEMANDS_SACRIFICE && length(presummon_objs))

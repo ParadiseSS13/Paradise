@@ -440,7 +440,7 @@
 			S.emp_act(EMP_HEAVY)
 		else if(iscarbon(target))
 			var/mob/living/carbon/C = L
-			C.Silence(4)
+			C.Silence(3)
 			C.Stuttering(8)
 			C.CultSlur(10)
 			C.Jitter(8)

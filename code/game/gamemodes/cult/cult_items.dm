@@ -30,7 +30,7 @@
 	if(!iscultist(user))
 		user.Weaken(5)
 		user.unEquip(src, 1)
-		user.visible_message("<span class='warning'>A powerful force shoves [user] away from [target]!</span>", \
+		user.visible_message("<span class='warning'>A powerful force shoves [user] away from [target]!</span>",
 							 "<span class='cultlarge'>\"You shouldn't play with sharp things. You'll poke someone's eye out.\"</span>")
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
@@ -246,7 +246,7 @@
 	prescription = TRUE
 	origin_tech = null
 
-/obj/item/clothing/glasses/night/cultblind/equipped(mob/user, slot)
+/obj/item/clothing/glasses/hud/health/night/cultblind/equipped(mob/user, slot)
 	..()
 	if(!iscultist(user))
 		to_chat(user, "<span class='cultlarge'>\"You want to be blind, do you?\"</span>")

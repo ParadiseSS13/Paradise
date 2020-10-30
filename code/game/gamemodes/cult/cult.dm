@@ -3,7 +3,9 @@ GLOBAL_LIST_EMPTY(all_cults)
 /datum/game_mode
 	var/list/datum/mind/cult = list()
 	var/datum/cult_objectives/cult_objs = new
+	/// Does the cult have glowing eyes
 	var/cult_risen = FALSE
+	/// Does the cult have halos
 	var/cult_ascendant = FALSE
 
 /proc/iscultist(mob/living/M)
@@ -91,6 +93,17 @@ GLOBAL_LIST_EMPTY(all_cults)
 		cult_objs.study(cult_mind.current)
 	..()
 
+/datum/game_mode/proc/get_cultists()
+	var/cultists = 0
+	var/constructs = 0
+	for(var/mob/living/M in GLOB.player_list)
+		if(iscultist(M) && !M.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
+			if(ishuman(M))
+				cultists++
+			else if(isconstruct(M))
+				constructs++
+	return list(cultists, constructs)
+
 /datum/game_mode/proc/equip_cultist(mob/living/carbon/human/H, metal = TRUE)
 	if(!istype(H))
 		return
@@ -168,6 +181,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 				alive++
 	if(!alive)
 		alive = 1
+	if(cultplayers <= 1) // Wizard cultists or admemes
+		return
 	var/ratio = cultplayers / alive
 	if(ratio > CULT_RISEN && !cult_risen)
 		cult_risen = TRUE

@@ -253,14 +253,14 @@
 /mob/living/simple_animal/hostile/construct/behemoth
 	name = "Behemoth"
 	real_name = "Behemoth"
-	desc = "The pinnacle of occult technology, Behemoths are the ultimate weapon in the Cult of Nar-Sie's arsenal."
+	desc = "The pinnacle of occult technology, Behemoths are the ultimate weapon in the Cult's arsenal."
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "behemoth"
 	icon_living = "behemoth"
 	maxHealth = 750
 	health = 750
 	speak_emote = list("rumbles")
-	response_harm   = "harmlessly punches"
+	response_harm = "harmlessly punches"
 	harm_intent_damage = 0
 	melee_damage_lower = 50
 	melee_damage_upper = 50

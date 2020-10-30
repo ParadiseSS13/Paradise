@@ -93,7 +93,7 @@
 	if(!IsAvailable())
 		return
 	if(SSticker && SSticker.mode)
-		SSticker.mode.cult_objs.study(usr)
+		SSticker.mode.cult_objs.study(usr, TRUE)
 	else
 		to_chat(usr, "<span class='cultitalic'>You fail to study the Veil. (This should never happen, adminhelp and/or yell at a coder)</span>")
 

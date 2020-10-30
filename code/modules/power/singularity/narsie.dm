@@ -12,6 +12,9 @@
 	consume_range = 6
 	gender = FEMALE
 
+/obj/singularity/narsie/admin_investigate_setup()
+	return
+
 /obj/singularity/narsie/large
 	name = "Nar'Sie"
 	icon = 'icons/obj/narsie.dmi'
