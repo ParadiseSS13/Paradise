@@ -963,15 +963,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 25
 	containername = "\improper \"Odysseus\" circuit crate"
 
-/datum/supply_packs/science/transfer_valves
-	name = "Tank Transfer Valves Crate"
-	contains = list(/obj/item/transfer_valve,
-					/obj/item/transfer_valve)
-	cost = 60
-	containertype = /obj/structure/closet/crate/secure/scisec
-	containername = "tank transfer valves crate"
-	access = ACCESS_RD
-
 /datum/supply_packs/science/gygax_armour
 	name = "Exosuit Armor (\"Gygax\")"
 	contains = list(/obj/item/mecha_parts/part/gygax_armour)
