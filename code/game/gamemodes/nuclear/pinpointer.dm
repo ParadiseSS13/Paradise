@@ -11,8 +11,12 @@
 	materials = list(MAT_METAL=500)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/obj/item/disk/nuclear/the_disk = null
-	var/active = 0
+	var/obj/machinery/nuclearbomb/the_bomb = null
+	var/obj/machinery/nuclearbomb/syndicate/the_s_bomb = null // used by syndicate pinpointers.
+	var/active = FALSE
+	var/mode = FALSE // Mode 0 locates disk, mode 1 does something else.
 	var/shows_nuke_timer = TRUE
+	var/syndicate = FALSE // Indicates pointer is syndicate, and points to the syndicate nuke.
 	var/icon_off = "pinoff"
 	var/icon_null = "pinonnull"
 	var/icon_direct = "pinondirect"
@@ -26,15 +30,21 @@
 
 /obj/item/pinpointer/Destroy()
 	GLOB.pinpointer_list -= src
-	active = 0
+	active = FALSE
 	the_disk = null
 	return ..()
 
 /obj/item/pinpointer/attack_self()
-	if(!active)
+	if(active == 0)
 		active = 1
+		mode = FALSE
 		workdisk()
-		to_chat(usr, "<span class='notice'>You activate the pinpointer.</span>")
+		to_chat(usr, "<span class='notice'>Authentication Disk Locator active.</span>")
+	else if(active == 1 && shows_nuke_timer)
+		active = 2
+		mode = TRUE
+		workbomb()
+		to_chat(usr, "<span class='notice'>Nuclear Device Locator active.</span>")
 	else
 		active = 0
 		icon_state = icon_off
@@ -43,6 +53,14 @@
 /obj/item/pinpointer/proc/scandisk()
 	if(!the_disk)
 		the_disk = locate()
+
+/obj/item/pinpointer/proc/scanbomb()
+	if(!syndicate)
+		if(!the_bomb)
+			the_bomb = locate()
+	else
+		if(!the_s_bomb)
+			the_s_bomb = locate()
 
 /obj/item/pinpointer/proc/point_at(atom/target, spawnself = 1)
 	if(!active)
@@ -72,10 +90,24 @@
 			.()
 
 /obj/item/pinpointer/proc/workdisk()
-	scandisk()
-	point_at(the_disk, 0)
-	spawn(5)
-		.()
+	if(!mode)
+		scandisk()
+		point_at(the_disk, FALSE)
+		spawn(5)
+			.()
+
+/obj/item/pinpointer/proc/workbomb()
+	if(mode)
+		if(!syndicate)
+			scanbomb()
+			point_at(the_bomb, FALSE)
+			spawn(5)
+				.()
+		else
+			scanbomb()
+			point_at(the_s_bomb, FALSE)
+			spawn(5)
+				.()
 
 /obj/item/pinpointer/examine(mob/user)
 	. = ..()
@@ -87,14 +119,13 @@
 /obj/item/pinpointer/advpinpointer
 	name = "advanced pinpointer"
 	desc = "A larger version of the normal pinpointer, this unit features a helpful quantum entanglement detection system to locate various objects that do not broadcast a locator signal."
-	var/mode = 0  // Mode 0 locates disk, mode 1 locates coordinates.
 	var/modelocked = FALSE // If true, user cannot change mode.
 	var/turf/location = null
 	var/obj/target = null
 
 /obj/item/pinpointer/advpinpointer/attack_self()
 	if(!active)
-		active = 1
+		active = TRUE
 		if(mode == 0)
 			workdisk()
 		if(mode == 1)
@@ -108,7 +139,7 @@
 		to_chat(usr, "<span class='notice'>You deactivate the pinpointer.</span>")
 
 /obj/item/pinpointer/advpinpointer/workdisk()
-	if(mode == 0)
+	if(mode == FALSE)
 		scandisk()
 		point_at(the_disk, 0)
 		spawn(5)
@@ -126,7 +157,7 @@
 		to_chat(usr, "<span class='warning'>[src] is locked. It can only track one specific target.</span>")
 		return
 
-	active = 0
+	active = FALSE
 	icon_state = icon_off
 	target = null
 	location = null
@@ -197,26 +228,31 @@
 //nuke op pinpointers//
 ///////////////////////
 /obj/item/pinpointer/nukeop
-	var/mode = 0	//Mode 0 locates disk, mode 1 locates the shuttle
 	var/obj/docking_port/mobile/home = null
 	slot_flags = SLOT_BELT | SLOT_PDA
+	syndicate = TRUE
 
 /obj/item/pinpointer/nukeop/attack_self(mob/user as mob)
-	if(!active)
+	if(active == FALSE && !mode)
 		active = 1
-		if(!mode)
-			workdisk()
-			to_chat(user, "<span class='notice'>Authentication Disk Locator active.</span>")
-		else
-			worklocation()
-			to_chat(user, "<span class='notice'>Shuttle Locator active.</span>")
+		workdisk()
+		to_chat(user, "<span class='notice'>Authentication Disk Locator active.</span>")
+	else if(active == 1 && !mode)
+		active = 2
+		workbomb()
+		to_chat(user, "<span class='notice'>Nuclear Device Locator active.</span>")
+	else if(mode && !active == 1)
+		active = 1
+		worklocation()
+		to_chat(user, "<span class='notice'>Shuttle Locator active.</span>")
 	else
-		active = 0
+		active = FALSE
 		icon_state = icon_off
 		to_chat(user, "<span class='notice'>You deactivate the pinpointer.</span>")
 
 /obj/item/pinpointer/nukeop/workdisk()
-	if(!active) return
+	if(active != 1)
+		return
 	if(mode)		//Check in case the mode changes while operating
 		worklocation()
 		return
@@ -225,28 +261,36 @@
 		worklocation()
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)	//Plays a beep
 		visible_message("Shuttle Locator mode actived.")			//Lets the mob holding it know that the mode has changed
+		active = 1
 		return		//Get outta here
 	scandisk()
-	if(!the_disk)
-		icon_state = icon_null
-		return
-	dir = get_dir(src, the_disk)
-	switch(get_dist(src, the_disk))
-		if(0)
-			icon_state = icon_direct
-		if(1 to 8)
-			icon_state = icon_close
-		if(9 to 16)
-			icon_state = icon_medium
-		if(16 to INFINITY)
-			icon_state = icon_far
+	point_at(the_disk, FALSE)
+	spawn(5)
+		.()
 
-	spawn(5) .()
+/obj/item/pinpointer/nukeop/workbomb()
+	if(active != 2)
+		return
+	if(mode)		//Check in case the mode changes while operating
+		worklocation()
+		return
+	if(GLOB.bomb_set)	//If the bomb is set, lead to the shuttle
+		mode = 1	//Ensures worklocation() continues to work
+		worklocation()
+		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)	//Plays a beep
+		visible_message("Shuttle Locator mode actived.")			//Lets the mob holding it know that the mode has changed
+		active = 1
+		return		//Get outta here
+	scanbomb()
+	point_at(the_s_bomb, FALSE)
+	spawn(5)
+		.()
 
 /obj/item/pinpointer/nukeop/proc/worklocation()
-	if(!active)
+	if(active == FALSE)
 		return
 	if(!mode)
+		active = 1
 		workdisk()
 		return
 	if(!GLOB.bomb_set)
@@ -254,6 +298,7 @@
 		workdisk()
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)
 		visible_message("<span class='notice'>Authentication Disk Locator mode actived.</span>")
+		active = 1
 		return
 	if(!home)
 		home = SSshuttle.getShuttle("syndicate")
@@ -263,19 +308,9 @@
 	if(loc.z != home.z)	//If you are on a different z-level from the shuttle
 		icon_state = icon_null
 	else
-		dir = get_dir(src, home)
-		switch(get_dist(src, home))
-			if(0)
-				icon_state = icon_direct
-			if(1 to 8)
-				icon_state = icon_close
-			if(9 to 16)
-				icon_state = icon_medium
-			if(16 to INFINITY)
-				icon_state = icon_far
-
-	spawn(5)
-		.()
+		point_at(home, FALSE)
+		spawn(5)
+			.()
 
 /obj/item/pinpointer/operative
 	name = "operative pinpointer"
@@ -285,13 +320,13 @@
 /obj/item/pinpointer/operative/attack_self()
 	if(!usr.mind || !(usr.mind in SSticker.mode.syndicates))
 		to_chat(usr, "<span class='danger'>AUTHENTICATION FAILURE. ACCESS DENIED.</span>")
-		return 0
+		return FALSE
 	if(!active)
-		active = 1
+		active = TRUE
 		workop()
 		to_chat(usr, "<span class='notice'>You activate the pinpointer.</span>")
 	else
-		active = 0
+		active = FALSE
 		icon_state = icon_off
 		to_chat(usr, "<span class='notice'>You deactivate the pinpointer.</span>")
 
@@ -307,7 +342,7 @@
 /obj/item/pinpointer/operative/proc/workop()
 	if(active)
 		scan_for_ops()
-		point_at(nearest_op, 0)
+		point_at(nearest_op, FALSE)
 		spawn(5)
 			.()
 	else
