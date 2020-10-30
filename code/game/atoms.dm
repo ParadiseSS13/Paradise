@@ -753,7 +753,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(belt)
 		if(belt.clean_blood())
 			update_inv_belt()
-	stamp_marks = mutable_appearance()	// clean stamp marks
+	stamp_marks.cut_overlays()
 	stamp_marks_desc = list()			// clean stamp mark desc
 	update_misc_effects()
 	..(clean_hands, clean_mask, clean_feet)

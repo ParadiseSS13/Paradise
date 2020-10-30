@@ -6,10 +6,10 @@
 	icon_state = "body_m_s"
 	deathgasp_on_death = TRUE
 	var/list/stamp_marks_desc = list()	// stores stamp desc
-	var/mutable_appearance/stamp_marks
+	var/image/stamp_marks				// stores image of stamp marks
 
 /mob/living/carbon/human/New(loc)
-	stamp_marks = mutable_appearance()
+	stamp_marks = image('icons/effects/stamp_marks.dmi')
 	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.
 	if(length(args) > 1)
 		log_runtime(EXCEPTION("human/New called with more than 1 argument (REPORT THIS ENTIRE RUNTIME TO A CODER)"))
