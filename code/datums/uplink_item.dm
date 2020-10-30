@@ -612,6 +612,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	refund_path = /obj/item/antag_spawner/nuke_ops/borg_tele/medical
 	cost = 35
 
+/datum/uplink_item/support/reinforcement/vtec
+	name = "Cyborg VTEC upgrade"
+	desc = "Used to kick in a robot's VTEC systems, increasing their speed"
+	reference = "CVU"
+	item = /obj/item/borg/upgrade/vtec
+	refund_path = /obj/item/borg/upgrade/vtec
+	cost = 6
+	refundable = TRUE
+
 /datum/uplink_item/support/reinforcement/saboteur_borg
 	name = "Syndicate Saboteur Cyborg"
 	desc = "A streamlined engineering cyborg, equipped with covert modules and engineering equipment. Also incapable of leaving the welder in the shuttle. \
