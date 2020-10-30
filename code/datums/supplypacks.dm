@@ -963,6 +963,39 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 25
 	containername = "\improper \"Odysseus\" circuit crate"
 
+/datum/supply_packs/science/transfer_valves
+	name = "Tank Transfer Valves Crate"
+	contains = list(/obj/item/transfer_valve,
+					/obj/item/transfer_valve)
+	cost = 60
+	containertype = /obj/structure/closet/crate/secure/scisec
+	containername = "tank transfer valves crate"
+	access = ACCESS_RD
+
+/datum/supply_packs/science/gygax_armour
+	name = "Exosuit Armor (\"Gygax\")"
+	contains = list(/obj/item/mecha_parts/part/gygax_armour)
+	cost = 100
+	containertype = /obj/structure/closet/crate/secure/scisec
+	containername = "exosuit armor gygax crate"
+	access = ACCESS_RD
+
+/datum/supply_packs/science/durand_armor
+	name = "Exosuit Armor (\"Durand\")"
+	contains = list(/obj/item/mecha_parts/part/durand_armor)
+	cost = 100
+	containertype = /obj/structure/closet/crate/secure/scisec
+	containername = "exosuit armor durand crate"
+	access = ACCESS_RD
+
+/datum/supply_packs/science/phazon_armor
+	name = "Exosuit Armor (\"Phazon\")"
+	contains = list(/obj/item/mecha_parts/part/phazon_armor)
+	cost = 100
+	containertype = /obj/structure/closet/crate/secure/scisec
+	containername = "exosuit armor phazon crate"
+	access = ACCESS_RD
+
 /datum/supply_packs/science/plasma
 	name = "Plasma Assembly Crate"
 	contains = list(/obj/item/tank/plasma,

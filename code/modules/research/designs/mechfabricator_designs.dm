@@ -313,15 +313,6 @@
 	construction_time = 200
 	category = list("Gygax")
 
-/datum/design/gygax_armor
-	name = "Exosuit Armor (\"Gygax\")"
-	id = "gygax_armor"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/part/gygax_armour
-	materials = list(MAT_METAL=15000,MAT_DIAMOND=10000,MAT_TITANIUM=10000)
-	construction_time = 600
-	category = list("Gygax")
-
 //Durand
 /datum/design/durand_chassis
 	name = "Exosuit Chassis (\"Durand\")"
@@ -384,15 +375,6 @@
 	build_path = /obj/item/mecha_parts/part/durand_right_leg
 	materials = list(MAT_METAL=15000,MAT_SILVER=4000)
 	construction_time = 200
-	category = list("Durand")
-
-/datum/design/durand_armor
-	name = "Exosuit Armor (\"Durand\")"
-	id = "durand_armor"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/part/durand_armor
-	materials = list(MAT_METAL=30000,MAT_URANIUM=25000,MAT_TITANIUM=20000)
-	construction_time = 600
 	category = list("Durand")
 
 //H.O.N.K
@@ -585,15 +567,6 @@
 	build_path = /obj/item/mecha_parts/part/phazon_right_leg
 	materials = list(MAT_METAL=20000,MAT_PLASMA=10000)
 	construction_time = 200
-	category = list("Phazon")
-
-/datum/design/phazon_armor
-	name = "Exosuit Armor (\"Phazon\")"
-	id = "phazon_armor"
-	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/part/phazon_armor
-	materials = list(MAT_METAL=25000,MAT_PLASMA=20000,MAT_TITANIUM=20000)
-	construction_time = 300
 	category = list("Phazon")
 
 //Exosuit Equipment
