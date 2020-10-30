@@ -13,7 +13,7 @@
 	var/obj/item/disk/nuclear/the_disk = null
 	var/obj/machinery/nuclearbomb/the_bomb = null
 	var/obj/machinery/nuclearbomb/syndicate/the_s_bomb = null // used by syndicate pinpointers.
-	var/active = FALSE
+	var/active = 0
 	var/mode = FALSE // Mode 0 locates disk, mode 1 does something else.
 	var/shows_nuke_timer = TRUE
 	var/syndicate = FALSE // Indicates pointer is syndicate, and points to the syndicate nuke.
@@ -30,7 +30,7 @@
 
 /obj/item/pinpointer/Destroy()
 	GLOB.pinpointer_list -= src
-	active = FALSE
+	active = 0
 	the_disk = null
 	return ..()
 
@@ -125,7 +125,7 @@
 
 /obj/item/pinpointer/advpinpointer/attack_self()
 	if(!active)
-		active = TRUE
+		active = 1
 		if(mode == 0)
 			workdisk()
 		if(mode == 1)
@@ -157,7 +157,7 @@
 		to_chat(usr, "<span class='warning'>[src] is locked. It can only track one specific target.</span>")
 		return
 
-	active = FALSE
+	active = 0
 	icon_state = icon_off
 	target = null
 	location = null
@@ -233,7 +233,7 @@
 	syndicate = TRUE
 
 /obj/item/pinpointer/nukeop/attack_self(mob/user as mob)
-	if(active == FALSE && !mode)
+	if(active == 0 && !mode)
 		active = 1
 		workdisk()
 		to_chat(user, "<span class='notice'>Authentication Disk Locator active.</span>")
@@ -241,12 +241,12 @@
 		active = 2
 		workbomb()
 		to_chat(user, "<span class='notice'>Nuclear Device Locator active.</span>")
-	else if(mode && !active == 1)
+	else if(mode && !active)
 		active = 1
 		worklocation()
 		to_chat(user, "<span class='notice'>Shuttle Locator active.</span>")
 	else
-		active = FALSE
+		active = 0
 		icon_state = icon_off
 		to_chat(user, "<span class='notice'>You deactivate the pinpointer.</span>")
 
@@ -287,7 +287,7 @@
 		.()
 
 /obj/item/pinpointer/nukeop/proc/worklocation()
-	if(active == FALSE)
+	if(active == 0)
 		return
 	if(!mode)
 		active = 1
@@ -322,11 +322,11 @@
 		to_chat(usr, "<span class='danger'>AUTHENTICATION FAILURE. ACCESS DENIED.</span>")
 		return FALSE
 	if(!active)
-		active = TRUE
+		active = 1
 		workop()
 		to_chat(usr, "<span class='notice'>You activate the pinpointer.</span>")
 	else
-		active = FALSE
+		active = 0
 		icon_state = icon_off
 		to_chat(usr, "<span class='notice'>You deactivate the pinpointer.</span>")
 
@@ -384,7 +384,7 @@
 
 /obj/item/pinpointer/crew/attack_self(mob/living/user)
 	if(active)
-		active = FALSE
+		active = 0
 		icon_state = icon_off
 		user.visible_message("<span class='notice'>[user] deactivates [user.p_their()] pinpointer.</span>", "<span class='notice'>You deactivate your pinpointer.</span>")
 		return
@@ -418,7 +418,7 @@
 		return
 
 	var/target = names[A]
-	active = TRUE
+	active = 1
 	user.visible_message("<span class='notice'>[user] activates [user.p_their()] pinpointer.</span>", "<span class='notice'>You activate your pinpointer.</span>")
 	point_at(target)
 
