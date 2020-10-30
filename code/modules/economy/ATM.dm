@@ -7,7 +7,7 @@ log transactions
 
 */
 
-#define NO_SCREEN 0
+#define DEFAULT_SCREEN 0
 #define CHANGE_SECURITY_LEVEL 1
 #define TRANSFER_FUNDS 2
 #define VIEW_TRANSACTION_LOGS 3
@@ -31,7 +31,7 @@ log transactions
 	var/machine_id = ""
 	var/obj/item/card/held_card
 	var/editing_security_level = 0
-	var/view_screen = NO_SCREEN
+	var/view_screen = DEFAULT_SCREEN
 	var/lastprint = 0 // Printer needs time to cooldown
 
 /obj/machinery/atm/New()
@@ -124,7 +124,7 @@ log transactions
 	user.set_machine(src)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if (!ui)
-		ui = new(user, src, ui_key, "atm.tmpl", name, 550, 650)
+		ui = new(user, src, ui_key, "ATM", name, 550, 650)
 		ui.open()
 
 /obj/machinery/atm/tgui_data(mob/user)
@@ -174,7 +174,7 @@ log transactions
 				to_chat(usr, "[bicon(src)]<span class='warning'>You don't have enough funds to do that!</span>")
 
 		if("view_screen")
-			view_screen = text2num(params("view_screen"))
+			view_screen = text2num(params["view_screen"])
 
 		if("change_security_level")
 			if(authenticated_account)
@@ -218,7 +218,7 @@ log transactions
 					else
 						playsound(src, 'sound/machines/twobeep.ogg', 50, 1)
 						ticks_left_timeout = 120
-						view_screen = NO_SCREEN
+						view_screen = DEFAULT_SCREEN
 
 						//create a transaction log entry
 						var/datum/transaction/T = new()
