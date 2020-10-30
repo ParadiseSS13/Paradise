@@ -57,6 +57,6 @@ GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown","the","a","an","of","mo
 
 	var/admin_number_present = adminholders.len - admin_number_afk
 	log_admin("[selected_type]: [key_name(src)]: [msg] - heard by [admin_number_present] non-AFK admins.")
-	SSdiscord.send2discord_simple_noadmins("[selected_type] from [key_name(src)]: [msg]")
+	SSdiscord.send2discord_simple_noadmins("[selected_type] from [key_name(src)]: [msg]", check_send_always = TRUE)
 	feedback_add_details("admin_verb","AH") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return

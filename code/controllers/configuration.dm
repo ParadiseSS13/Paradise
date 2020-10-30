@@ -250,13 +250,17 @@
 	var/discord_webhooks_enabled = FALSE
 
 	/// Role ID to be pinged for administrative events
-	var/discord_admin_role_id
+	var/discord_admin_role_id = null // Intentional null usage
 
 	/// Webhook URL for the main public webhook
 	var/discord_main_webhook_url
 
 	/// Webhook URL for the admin webhook
 	var/discord_admin_webhook_url
+
+	/// Do we want to forward all adminhelps to the discord or just ahelps when admins are offline.
+	/// (This does not mean all ahelps are pinged, only ahelps sent when staff are offline get the ping, regardless of this setting)
+	var/discord_forward_all_ahelps = FALSE
 
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
@@ -742,6 +746,8 @@
 					discord_main_webhook_url = value
 				if("discord_webhooks_admin_url")
 					discord_admin_webhook_url = value
+				if("discord_forward_all_ahelps")
+					discord_forward_all_ahelps = TRUE
 				// End discord stuff
 				else
 					log_config("Unknown setting in configuration: '[name]'")

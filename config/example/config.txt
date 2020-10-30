@@ -447,7 +447,8 @@ BYOND_ACCOUNT_AGE_THRESHOLD 7
 ## Uncomment the line below to enable Discord webhooks
 #ENABLE_DISCORD_WEBHOOKS
 
-## Role ID to be pinged with administrative events
+## Role ID to be pinged with administrative events. If unset, all pings to this role will be disabled
+## IF YOU ARE DISABLING THIS COMMENT IT OUT ENTIRELY, DONT LEAVE IT BLANK
 #DISCORD_WEBHOOKS_ADMIN_ROLE_ID
 
 ## Webhook URL for the main discord webhook
@@ -455,5 +456,9 @@ BYOND_ACCOUNT_AGE_THRESHOLD 7
 
 ## Webhook URL for the admin discord webhook
 #DISCORD_WEBHOOKS_ADMIN_URL
+
+## Uncomment to send all ahelps to discord. If the line is commented, only ahelps made when no admins are online will be forwarded
+## Ahelps forwarded when staff are online will never have the role ping, regardless of the setting above
+#DISCORD_FORWARD_ALL_AHELPS
 
 ##### END DISCORD STUFF #####
