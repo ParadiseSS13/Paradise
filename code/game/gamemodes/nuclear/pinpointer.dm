@@ -27,12 +27,22 @@
 /obj/item/pinpointer/New()
 	..()
 	GLOB.pinpointer_list += src
+	START_PROCESSING(SSfastprocess, src)
 
 /obj/item/pinpointer/Destroy()
+	STOP_PROCESSING(SSfastprocess, src)
 	GLOB.pinpointer_list -= src
 	active = 0
 	the_disk = null
 	return ..()
+
+/obj/item/pinpointer/process()
+	if(active == 1)
+		workdisk()
+	else if(active == 2 && shows_nuke_timer)
+		workbomb()
+	else
+		icon_state = icon_off
 
 /obj/item/pinpointer/attack_self()
 	if(active == 0)
@@ -62,7 +72,7 @@
 		if(!the_s_bomb)
 			the_s_bomb = locate()
 
-/obj/item/pinpointer/proc/point_at(atom/target, spawnself = 1)
+/obj/item/pinpointer/proc/point_at(atom/target)
 	if(!active)
 		return
 	if(!target)
@@ -85,29 +95,20 @@
 				icon_state = icon_medium
 			if(16 to INFINITY)
 				icon_state = icon_far
-	if(spawnself)
-		spawn(5)
-			.()
 
 /obj/item/pinpointer/proc/workdisk()
 	if(!mode)
 		scandisk()
-		point_at(the_disk, FALSE)
-		spawn(5)
-			.()
+		point_at(the_disk)
 
 /obj/item/pinpointer/proc/workbomb()
 	if(mode)
 		if(!syndicate)
 			scanbomb()
-			point_at(the_bomb, FALSE)
-			spawn(5)
-				.()
+			point_at(the_bomb)
 		else
 			scanbomb()
-			point_at(the_s_bomb, FALSE)
-			spawn(5)
-				.()
+			point_at(the_s_bomb)
 
 /obj/item/pinpointer/examine(mob/user)
 	. = ..()
@@ -138,12 +139,22 @@
 		icon_state = icon_off
 		to_chat(usr, "<span class='notice'>You deactivate the pinpointer.</span>")
 
+/obj/item/pinpointer/advpinpointer/process()
+	if(active == 1)
+		if(mode == 0)
+			workdisk()
+		if(mode == 1)
+			point_at(location)
+		if(mode == 2)
+			point_at(target)
+	else
+		icon_state = icon_off
+
+
 /obj/item/pinpointer/advpinpointer/workdisk()
 	if(mode == FALSE)
 		scandisk()
-		point_at(the_disk, FALSE)
-		spawn(5)
-			.()
+		point_at(the_disk)
 
 /obj/item/pinpointer/advpinpointer/verb/toggle_mode()
 	set category = "Object"
@@ -250,6 +261,17 @@
 		icon_state = icon_off
 		to_chat(user, "<span class='notice'>You deactivate the pinpointer.</span>")
 
+/obj/item/pinpointer/nukeop/process()
+	if(active)
+		if(active == 1 && !mode)
+			workdisk()
+		else if(active == 2 && !mode)
+			workbomb()
+		else if(mode && !active)
+			worklocation()
+	else
+		icon_state = icon_off
+
 /obj/item/pinpointer/nukeop/workdisk()
 	if(active != 1)
 		return
@@ -264,9 +286,7 @@
 		active = 1
 		return		//Get outta here
 	scandisk()
-	point_at(the_disk, FALSE)
-	spawn(5)
-		.()
+	point_at(the_disk)
 
 /obj/item/pinpointer/nukeop/workbomb()
 	if(active != 2)
@@ -282,9 +302,7 @@
 		active = 1
 		return		//Get outta here
 	scanbomb()
-	point_at(the_s_bomb, FALSE)
-	spawn(5)
-		.()
+	point_at(the_s_bomb)
 
 /obj/item/pinpointer/nukeop/proc/worklocation()
 	if(active == 0)
@@ -308,9 +326,7 @@
 	if(loc.z != home.z)	//If you are on a different z-level from the shuttle
 		icon_state = icon_null
 	else
-		point_at(home, FALSE)
-		spawn(5)
-			.()
+		point_at(home)
 
 /obj/item/pinpointer/operative
 	name = "operative pinpointer"
@@ -330,6 +346,12 @@
 		icon_state = icon_off
 		to_chat(usr, "<span class='notice'>You deactivate the pinpointer.</span>")
 
+/obj/item/pinpointer/operative/process()
+	if(active)
+		workop()
+	else
+		icon_state = icon_off
+
 /obj/item/pinpointer/operative/proc/scan_for_ops()
 	if(active)
 		nearest_op = null //Resets nearest_op every time it scans
@@ -343,8 +365,6 @@
 	if(active)
 		scan_for_ops()
 		point_at(nearest_op, FALSE)
-		spawn(5)
-			.()
 	else
 		return FALSE
 
@@ -360,6 +380,7 @@
 	name = "crew pinpointer"
 	desc = "A handheld tracking device that points to crew suit sensors."
 	shows_nuke_timer = FALSE
+	var/target = null //for targeting in processing
 	icon_state = "pinoff_crew"
 	icon_off = "pinoff_crew"
 	icon_null = "pinonnull_crew"
@@ -417,12 +438,18 @@
 	if(!src || !user || (user.get_active_hand() != src) || user.incapacitated() || !A)
 		return
 
-	var/target = names[A]
+	target = names[A]
 	active = 1
 	user.visible_message("<span class='notice'>[user] activates [user.p_their()] pinpointer.</span>", "<span class='notice'>You activate your pinpointer.</span>")
 	point_at(target)
 
-/obj/item/pinpointer/crew/point_at(atom/target, spawnself = TRUE)
+/obj/item/pinpointer/crew/process()
+	if(active)
+		point_at(target)
+	else
+		icon_state = icon_off
+
+/obj/item/pinpointer/crew/point_at(atom/target)
 	if(!active)
 		return
 
@@ -430,10 +457,7 @@
 		icon_state = icon_null
 		return
 
-	..(target, spawnself = FALSE)
-	if(spawnself)
-		spawn(5)
-			.()
+	..(target)
 
 /obj/item/pinpointer/crew/centcom
 	name = "centcom pinpointer"
