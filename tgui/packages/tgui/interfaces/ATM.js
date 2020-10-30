@@ -1,5 +1,7 @@
+import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import { Button, Flex, Icon, Input, Divider, Box, LabeledList, Section } from '../components';
+import { FlexItem } from '../components/Flex';
 import { Window } from '../layouts';
 
 /*
@@ -88,28 +90,76 @@ const IntroductionAndCard = (props, context) => {
 
 const DefaultScreen = (props, context) => {
   const {act, data } = useBackend(context);
+  const [fundsAmount, setFundsAmount] = useLocalState(context, "fundsAmount", 0)
   const {
     owner_name,
     money,
   } = data;
   return (
-    <Flex>
-      <Box>
-        Welcome, {owner_name}
-      </Box>
-      <Box>
-        Account balance: {money}
-      </Box>
-      <Divider />
-      <Box>
-      <Button
-            content="Logout"
-            icon='sign-out-alt'
-            onClick={
-              () => act('logout')}
-          />
-      </Box>
-    </Flex>
+    <Fragment>
+      <Section
+        title={"Welcome, " + owner_name}
+        buttons ={
+                    <Button
+                  content="Logout"
+                  icon='sign-out-alt'
+                  onClick={
+                    () => act('logout')}/>}>
+        <LabeledList>
+          <LabeledList.Item
+            label="Account Balance">
+            ${money}
+          </LabeledList.Item>
+          <LabeledList.Item
+            label="Withdrawal Amount">
+              <Input
+               onInput={(e, value) => setFundsAmount(value)}>
+              </Input>
+          </LabeledList.Item>
+          <LabeledList.Item>
+          <Button
+                  content="Withdraw Fund"
+                  icon='sign-out-alt'
+                  onClick={
+                    () => act('withdrawal', {funds_amount: fundsAmount})}/>
+          </LabeledList.Item>
+        </LabeledList>
+      </Section>
+    <Section title = "Menu">
+        <Box>
+          <Button
+                    content="Change account security level"
+                    icon='lock'
+                    onClick={
+                      () => act('view_screen', {view_screen: 1})}
+                  />
+        </Box>
+        <Box>
+          <Button
+                    content="Make transfer"
+                    icon='exchange-alt'
+                    onClick={
+                      () => act('view_screen', {view_screen: 2})}
+                  />
+        </Box>
+        <Box>
+          <Button
+                    content="View transaction log"
+                    icon='list'
+                    onClick={
+                      () => act('view_screen', {view_screen: 3})}
+                  />
+        </Box>
+        <Box>
+          <Button
+                    content="Print balance statement"
+                    icon='print'
+                    onClick={
+                      () => act('balance_statement')}
+                  />
+        </Box>
+      </Section>
+    </Fragment>
   );
 };
 

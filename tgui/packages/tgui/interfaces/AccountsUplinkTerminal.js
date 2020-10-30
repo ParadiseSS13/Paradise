@@ -193,7 +193,7 @@ const DetailedAccountInfo = (properties, context) => {
           <LabeledList.Item label="Account Holder">
             {owner_name}
           </LabeledList.Item>
-          <LabeledList.Item label="Account Balnce">
+          <LabeledList.Item label="Account Balance">
             {money}
           </LabeledList.Item>
           <LabeledList.Item label="Account Status" color={suspended ? "red" : "green"}>
