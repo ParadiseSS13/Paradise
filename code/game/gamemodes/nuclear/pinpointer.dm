@@ -141,7 +141,7 @@
 /obj/item/pinpointer/advpinpointer/workdisk()
 	if(mode == FALSE)
 		scandisk()
-		point_at(the_disk, 0)
+		point_at(the_disk, FALSE)
 		spawn(5)
 			.()
 
@@ -257,7 +257,7 @@
 		worklocation()
 		return
 	if(GLOB.bomb_set)	//If the bomb is set, lead to the shuttle
-		mode = 1	//Ensures worklocation() continues to work
+		mode = TRUE	//Ensures worklocation() continues to work
 		worklocation()
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)	//Plays a beep
 		visible_message("Shuttle Locator mode actived.")			//Lets the mob holding it know that the mode has changed
@@ -275,7 +275,7 @@
 		worklocation()
 		return
 	if(GLOB.bomb_set)	//If the bomb is set, lead to the shuttle
-		mode = 1	//Ensures worklocation() continues to work
+		mode = TRUE	//Ensures worklocation() continues to work
 		worklocation()
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)	//Plays a beep
 		visible_message("Shuttle Locator mode actived.")			//Lets the mob holding it know that the mode has changed
@@ -294,7 +294,7 @@
 		workdisk()
 		return
 	if(!GLOB.bomb_set)
-		mode = 0
+		mode = FALSE
 		workdisk()
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)
 		visible_message("<span class='notice'>Authentication Disk Locator mode actived.</span>")
@@ -346,7 +346,7 @@
 		spawn(5)
 			.()
 	else
-		return 0
+		return FALSE
 
 /obj/item/pinpointer/operative/examine(mob/user)
 	. = ..()
@@ -422,7 +422,7 @@
 	user.visible_message("<span class='notice'>[user] activates [user.p_their()] pinpointer.</span>", "<span class='notice'>You activate your pinpointer.</span>")
 	point_at(target)
 
-/obj/item/pinpointer/crew/point_at(atom/target, spawnself = 1)
+/obj/item/pinpointer/crew/point_at(atom/target, spawnself = TRUE)
 	if(!active)
 		return
 
@@ -430,7 +430,7 @@
 		icon_state = icon_null
 		return
 
-	..(target, spawnself = 0)
+	..(target, spawnself = FALSE)
 	if(spawnself)
 		spawn(5)
 			.()
