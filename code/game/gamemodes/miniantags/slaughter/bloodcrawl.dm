@@ -8,7 +8,7 @@
 		var/mob/living/carbon/C = src
 		if(C.l_hand || C.r_hand)
 			to_chat(C, "<span class='warning'>You may not hold items while blood crawling!</span>")
-			return 0
+			return FALSE
 		var/obj/item/bloodcrawl/B1 = new(C)
 		var/obj/item/bloodcrawl/B2 = new(C)
 		B1.icon_state = "bloodhand_left"
@@ -26,8 +26,8 @@
 		var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(mobloc)
 		var/atom/movable/overlay/animation = new /atom/movable/overlay(mobloc)
 		animation.name = "odd blood"
-		animation.density = 0
-		animation.anchored = 1
+		animation.density = FALSE
+		animation.anchored = TRUE
 		animation.icon = 'icons/mob/mob.dmi'
 		animation.icon_state = "jaunt"
 		animation.layer = 5
@@ -96,8 +96,8 @@
 			sleep(6)
 			if(animation)
 				qdel(animation)
-		notransform = 0
-	return 1
+		notransform = FALSE
+	return TRUE
 
 /obj/item/bloodcrawl
 	name = "blood crawl"
@@ -105,12 +105,18 @@
 	icon = 'icons/effects/blood.dmi'
 	flags = NODROP|ABSTRACT
 
+/obj/effect/temp_visual/bloodcrawl
+	icon_state = "bloodsparkles"
+	duration = 20
+
 /mob/living/proc/phasein(var/obj/effect/decal/cleanable/B)
 
 	if(notransform)
 		to_chat(src, "<span class='warning'>Finish eating first!</span>")
-		return 0
+		return FALSE
 	B.visible_message("<span class='warning'>[B] starts to bubble...</span>")
+	var/obj/effect/temp_visual/uniquebloodcrawl = new /obj/effect/temp_visual/bloodcrawl(B.loc)
+	uniquebloodcrawl.color = B.color
 	if(!do_after(src, 20, target = B))
 		return
 	if(!B)
@@ -120,8 +126,8 @@
 
 	var/atom/movable/overlay/animation = new /atom/movable/overlay( B.loc )
 	animation.name = "odd blood"
-	animation.density = 0
-	animation.anchored = 1
+	animation.density = FALSE
+	animation.anchored = TRUE
 	animation.icon = 'icons/mob/mob.dmi'
 	animation.icon_state = "jauntup" //Paradise Port:I reversed the jaunt animation so it looks like its rising up
 	animation.layer = 5
@@ -151,14 +157,14 @@
 		qdel(animation)
 	spawn(30)
 		color = oldcolor
-	return 1
+	return TRUE
 
 /obj/effect/dummy/slaughter //Can't use the wizard one, blocked by jaunt/slow
 	name = "odd blood"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
-	density = 0
-	anchored = 1
+	density = FALSE
+	anchored = TRUE
 	invisibility = 60
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
