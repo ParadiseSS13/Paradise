@@ -1,5 +1,7 @@
 //TODO: Convert this over for languages.
-/mob/living/carbon/brain/say(var/message, var/datum/language/speaking = null)
+/mob/living/carbon/brain/say(message, datum/language/speaking = null)
+	if(stat == DEAD)
+		return ..()
 	if(!can_speak(warning = TRUE))
 		return
 
