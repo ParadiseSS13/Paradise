@@ -161,7 +161,7 @@
 
 /obj/item/clothing/under/rank/blueshield
 	name = "blueshield's uniform"
-	desc = "A short-sleeved black uniform, paired with grey digital-camo cargo pants, all made out of a sturdy material. Standard issue to Blueshields."
+	desc = "A short-sleeved black uniform, paired with grey digital-camo cargo pants, all made out of a sturdy material. Blueshield standard issue."
 	icon_state = "ert_uniform"
 	item_state = "bl_suit"
 	item_color = "ert_uniform"
