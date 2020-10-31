@@ -115,9 +115,10 @@
 		to_chat(src, "<span class='warning'>Finish eating first!</span>")
 		return FALSE
 	B.visible_message("<span class='warning'>[B] starts to bubble...</span>")
-	var/obj/effect/temp_visual/uniquebloodcrawl = new /obj/effect/temp_visual/bloodcrawl(B.loc)
+	var/obj/effect/temp_visual/bloodcrawl/uniquebloodcrawl = new(B.loc)
 	uniquebloodcrawl.color = B.color
 	if(!do_after(src, 20, target = B))
+		qdel(uniquebloodcrawl)
 		return
 	if(!B)
 		return
