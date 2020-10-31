@@ -106,7 +106,8 @@
 	flags = NODROP|ABSTRACT
 
 /obj/effect/temp_visual/bloodcrawl
-	icon_state = "bloodsparkles"
+	icon_state = "bloodboilcrawl"
+	randomdir = TRUE
 	duration = 20
 
 /mob/living/proc/phasein(var/obj/effect/decal/cleanable/B)
@@ -117,7 +118,7 @@
 	B.visible_message("<span class='warning'>[B] starts to bubble...</span>")
 	var/obj/effect/temp_visual/bloodcrawl/uniquebloodcrawl = new(B.loc)
 	uniquebloodcrawl.color = B.color
-	if(!do_after(src, 20, target = B))
+	if(!do_after_once(src, 20, target = B))
 		qdel(uniquebloodcrawl)
 		return
 	if(!B)
