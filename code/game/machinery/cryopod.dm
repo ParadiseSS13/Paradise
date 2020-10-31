@@ -775,7 +775,7 @@
 		return 0
 	if(isobj(person_to_cryo.loc))
 		var/obj/O = person_to_cryo.loc
-		O.force_eject_occupant()
+		O.force_eject_occupant(person_to_cryo)
 	var/list/free_cryopods = list()
 	for(var/obj/machinery/cryopod/P in GLOB.machines)
 		if(!P.occupant && istype(get_area(P), /area/crew_quarters/sleep))

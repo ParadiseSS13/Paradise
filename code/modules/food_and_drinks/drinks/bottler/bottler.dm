@@ -23,6 +23,7 @@
 	var/bottling = 0
 
 /obj/machinery/bottler/New()
+	. = ..()
 	if(!available_recipes)
 		available_recipes = list()
 		acceptable_items = list()

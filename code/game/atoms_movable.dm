@@ -428,6 +428,7 @@
 	simulated = FALSE
 
 /atom/movable/overlay/New()
+	. = ..()
 	verbs.Cut()
 	return
 

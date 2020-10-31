@@ -223,6 +223,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/blackbox_recorder)
 
 	//Only one can exsist in the world!
 /obj/machinery/blackbox_recorder/New()
+	SHOULD_CALL_PARENT(FALSE) // TODO: I still need to shoot this
 	if(GLOB.blackbox)
 		if(istype(GLOB.blackbox,/obj/machinery/blackbox_recorder))
 			qdel(src)

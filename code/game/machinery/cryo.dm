@@ -424,7 +424,7 @@
 	for(var/atom/movable/A in contents - component_parts - list(beaker))
 		A.forceMove(get_step(loc, SOUTH))
 
-/obj/machinery/atmospherics/unary/cryo_cell/force_eject_occupant()
+/obj/machinery/atmospherics/unary/cryo_cell/force_eject_occupant(mob/target)
 	go_out()
 
 /// Called when either the occupant is dead and the AUTO_EJECT_DEAD flag is present, OR the occupant is alive, has no external damage, and the AUTO_EJECT_HEALTHY flag is present.

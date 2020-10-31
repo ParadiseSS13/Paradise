@@ -997,11 +997,21 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/explosives/syndicate_bomb
 	name = "Syndicate Bomb"
-	desc = "The Syndicate Bomb has an adjustable timer with a minimum setting of 60 seconds. Ordering the bomb sends you a small beacon, which will teleport the explosive to your location when you activate it. \
+	desc = "The Syndicate Bomb has an adjustable timer with a minimum setting of 90 seconds. Ordering the bomb sends you a small beacon, which will teleport the explosive to your location when you activate it. \
 	You can wrench the bomb down to prevent removal. The crew may attempt to defuse the bomb."
 	reference = "SB"
 	item = /obj/item/radio/beacon/syndicate/bomb
 	cost = 11
+	surplus = 0
+	cant_discount = TRUE
+
+/datum/uplink_item/explosives/emp_bomb
+	name = "EMP bomb"
+	desc = "The EMP has an adjustable timer with a minimum setting of 90 seconds. Ordering the bomb sends you a small beacon, which will teleport the explosive to your location when you activate it. \
+	You can wrench the bomb down to prevent removal. The crew may attempt to defuse the bomb."
+	reference = "SBEMP"
+	item = /obj/item/radio/beacon/syndicate/bomb/emp
+	cost = 10
 	surplus = 0
 	cant_discount = TRUE
 

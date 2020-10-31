@@ -136,7 +136,7 @@
 	user.name = newname
 	user.real_name = newname
 	desc = "Salt. From dead crew, presumably."
-	return TOXLOSS
+	return BRUTELOSS
 
 /obj/item/reagent_containers/food/condiment/peppermill
 	name = "pepper mill"
