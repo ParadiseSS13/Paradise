@@ -1,7 +1,7 @@
 import { createSearch, decodeHtmlEntities } from 'common/string';
 import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from "../backend";
-import { Box, Button, Flex, Icon, Input, LabeledList, NumberInput, Section, Table, Tabs } from '../components';
+import { Box, Divider, Button, Flex, Icon, Input, LabeledList, NumberInput, Section, Table, Tabs } from '../components';
 import { FlexItem } from '../components/Flex';
 import { Window } from "../layouts";
 import { ComplexModal, modalOpen } from './common/ComplexModal';
@@ -240,7 +240,7 @@ const DetailedAccountInfo = (properties, context) => {
                 {t.purpose}
               </Table.Cell>
               <Table.Cell>
-                {t.amount}
+                ${t.amount}
               </Table.Cell>
               <Table.Cell>
                 {t.source_terminal}
