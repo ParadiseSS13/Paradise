@@ -36121,6 +36121,7 @@
 	pixel_x = 0;
 	pixel_y = 32
 	},
+/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/wood,
 /area/library)
 "bpZ" = (
@@ -37526,6 +37527,7 @@
 /obj/item/camera_film,
 /obj/item/camera_film,
 /obj/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/wood,
 /area/library)
 "btk" = (
@@ -38023,7 +38025,6 @@
 	},
 /area/crew_quarters/kitchen)
 "buw" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -38034,6 +38035,10 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8;
+	initialize_directions = 11
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -94923,6 +94928,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/armoury)
+"err" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/wood,
+/area/library)
 "est" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -96340,6 +96349,16 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/tsf)
+"lwe" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 8;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/turf/simulated/floor/carpet,
+/area/library)
 "lxG" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/barricade/wooden,
@@ -96936,6 +96955,14 @@
 /obj/item/stack/packageWrap,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"olh" = (
+/obj/machinery/camera{
+	c_tag = "Library Middle";
+	dir = 8;
+	network = list("SS13")
+	},
+/turf/simulated/floor/wood,
+/area/library)
 "onR" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/table,
@@ -97242,6 +97269,12 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/tsf)
+"pVI" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/carpet,
+/area/library)
 "pZO" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
@@ -97436,6 +97469,17 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/tsf)
+"qPK" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0;
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/carpet,
+/area/library)
 "qQv" = (
 /obj/structure/closet/crate/engineering,
 /obj/item/storage/toolbox/electrical{
@@ -97892,6 +97936,12 @@
 	dir = 4
 	},
 /area/shuttle/escape)
+"sNA" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/carpet,
+/area/library)
 "sOD" = (
 /obj/structure/table/wood,
 /obj/item/book/codex_gigas,
@@ -98782,6 +98832,17 @@
 	dir = 2
 	},
 /area/shuttle/pod_3)
+"wHV" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1;
+	initialize_directions = 11;
+	level = 1
+	},
+/turf/simulated/floor/wood,
+/area/library)
 "wKh" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -142982,7 +143043,7 @@ aWy
 wKh
 bkK
 bcp
-bcp
+err
 bcp
 bcp
 bcp
@@ -143753,7 +143814,7 @@ jel
 cSe
 tSU
 bcj
-bcp
+olh
 bfT
 bcp
 bjF
@@ -144275,10 +144336,10 @@ lIB
 igh
 bau
 bpY
-bkK
+wHV
 btj
-buV
-blj
+qPK
+pVI
 bxV
 bau
 bFs
@@ -144535,7 +144596,7 @@ bqc
 bkQ
 btb
 buV
-blj
+sNA
 bxW
 bau
 bvh
@@ -144792,7 +144853,7 @@ bcp
 brA
 dDe
 buV
-blj
+lwe
 bCS
 bau
 bFv
