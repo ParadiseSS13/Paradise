@@ -46,13 +46,13 @@
 /obj/item/pinpointer/attack_self()
 	if(active == 0)
 		active = 1
-		mode = FALSE
+		mode = 0
 		workdisk()
 		to_chat(usr, "<span class='notice'>Authentication Disk Locator active.</span>")
 		START_PROCESSING(SSfastprocess, src)
 	else if(active == 1 && shows_nuke_timer)
 		active = 2
-		mode = TRUE
+		mode = 1
 		workbomb()
 		to_chat(usr, "<span class='notice'>Nuclear Device Locator active.</span>")
 	else
@@ -155,7 +155,7 @@
 
 
 /obj/item/pinpointer/advpinpointer/workdisk()
-	if(mode == FALSE)
+	if(mode == 0)
 		scandisk()
 		point_at(the_disk)
 
@@ -249,11 +249,12 @@
 /obj/item/pinpointer/nukeop/attack_self(mob/user as mob)
 	if(active == 0) // We want to SSfastprocess when the pinpointer goes on, BUT, we have 2 modes that can turn it on, thus the turn SSfastprocess must be put here.
 		START_PROCESSING(SSfastprocess, src)
-	if(active == 0 && !mode)
-		active = 1
-		workdisk()
-		to_chat(user, "<span class='notice'>Authentication Disk Locator active.</span>")
-	else if(active == 1 && !mode)
+		if(!mode)
+			active = 1
+			workdisk()
+			to_chat(user, "<span class='notice'>Authentication Disk Locator active.</span>")
+			return
+	if(active == 1 && !mode)
 		active = 2
 		workbomb()
 		to_chat(user, "<span class='notice'>Nuclear Device Locator active.</span>")
@@ -285,7 +286,7 @@
 		worklocation()
 		return
 	if(GLOB.bomb_set)	//If the bomb is set, lead to the shuttle
-		mode = TRUE	//Ensures worklocation() continues to work
+		mode = 1	//Ensures worklocation() continues to work
 		worklocation()
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)	//Plays a beep
 		visible_message("Shuttle Locator mode actived.")			//Lets the mob holding it know that the mode has changed
@@ -301,7 +302,7 @@
 		worklocation()
 		return
 	if(GLOB.bomb_set)	//If the bomb is set, lead to the shuttle
-		mode = TRUE	//Ensures worklocation() continues to work
+		mode = 1	//Ensures worklocation() continues to work
 		worklocation()
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)	//Plays a beep
 		visible_message("Shuttle Locator mode actived.")			//Lets the mob holding it know that the mode has changed
@@ -318,7 +319,7 @@
 		workdisk()
 		return
 	if(!GLOB.bomb_set)
-		mode = FALSE
+		mode = 0
 		workdisk()
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)
 		visible_message("<span class='notice'>Authentication Disk Locator mode actived.</span>")
