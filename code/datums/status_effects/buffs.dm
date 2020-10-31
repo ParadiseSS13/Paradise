@@ -174,30 +174,20 @@
 			itemUser.adjustFireLoss(-1.5)
 			itemUser.adjustToxLoss(-1.5)
 			itemUser.adjustOxyLoss(-1.5)
-			itemUser.adjustStaminaLoss(-1.5)
 			itemUser.adjustBrainLoss(-1.5)
-			itemUser.adjustCloneLoss(-0.5) //Becasue apparently clone damage is the bastion of all health
 		//Heal all those around you, unbiased
 		for(var/mob/living/L in view(7, owner))
 			if(L.health < L.maxHealth)
 				new /obj/effect/temp_visual/heal(get_turf(L), "#375637")
 			if(iscarbon(L))
-				L.adjustBruteLoss(-3.5)
-				L.adjustFireLoss(-3.5)
-				L.adjustToxLoss(-3.5)
-				L.adjustOxyLoss(-3.5)
-				L.adjustStaminaLoss(-3.5)
-				L.adjustBrainLoss(-3.5)
-				L.adjustCloneLoss(-1) //Becasue apparently clone damage is the bastion of all health
-				if(ishuman(L))
-					var/mob/living/carbon/human/H = L
-					for(var/obj/item/organ/external/E in H.bodyparts)
-						if(prob(10))
-							E.mend_fracture()
-							E.internal_bleeding = FALSE
+				L.adjustBruteLoss(-1.5)
+				L.adjustFireLoss(-1.5)
+				L.adjustToxLoss(-1.5)
+				L.adjustOxyLoss(-1.5)
+				L.adjustBrainLoss(-1.5)
 			else if(issilicon(L))
-				L.adjustBruteLoss(-3.5)
-				L.adjustFireLoss(-3.5)
+				L.adjustBruteLoss(-2)
+				L.adjustFireLoss(-2)
 			else if(isanimal(L))
 				var/mob/living/simple_animal/SM = L
 				SM.adjustHealth(-3.5)
