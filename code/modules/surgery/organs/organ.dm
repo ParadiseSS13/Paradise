@@ -19,6 +19,7 @@
 									  // links chemical IDs to number of ticks for which they'll stay in the blood
 	germ_level = 0
 	var/datum/dna/dna
+	var/species_type // Species datum typepath, assumed to be a /datum/species/human if null
 
 	// Stuff for tracking if this is on a tile with an open freezer or not
 	var/last_freezer_update_time = 0
@@ -50,6 +51,9 @@
 	if(istype(holder))
 		if(holder.dna)
 			dna = holder.dna.Clone()
+			if(species_type && species_type != holder.dna.species.type)
+				dna.species = new species_type
+				dna.UpdateSE()
 		else
 			log_runtime(EXCEPTION("[holder] spawned without a proper DNA."), holder)
 		var/mob/living/carbon/human/H = holder
@@ -59,9 +63,28 @@
 					blood_DNA = list()
 				blood_DNA[dna.unique_enzymes] = dna.blood_type
 	else
+		if(src in subtypesof(/obj/item/organ/internal/cyberimp))
+			return
 		dna = new /datum/dna(null)
-		if(species_override)
+		if(species_type)
+			dna.species = new species_type
+		else if(species_override)
 			dna.species = new species_override
+		if(dna.species.language)
+			var/datum/language/species_language = GLOB.all_languages[dna.species.language]
+			if(species_language)
+				dna.real_name = species_language.get_random_name(MALE)
+			else
+				dna.real_name = "Неизвестный-[rand(999)]"
+		else
+			dna.real_name = "Неизвестный-[rand(999)]"
+		dna.unique_enzymes = md5(dna.real_name)
+		dna.ResetSE()
+		dna.SE_original = dna.SE
+		dna.struc_enzymes_original = dna.struc_enzymes
+		dna.ResetUI()
+		blood_DNA = list()
+		blood_DNA[dna.unique_enzymes] = dna.blood_type
 
 /obj/item/organ/attackby(obj/item/I, mob/user, params)
 	if(is_robotic() && istype(I, /obj/item/stack/nanopaste))

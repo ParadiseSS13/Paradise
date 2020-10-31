@@ -1,5 +1,6 @@
 //WRYN ORGAN
 /obj/item/organ/internal/wryn/hivenode
+	species_type = /datum/species/wryn
 	name = "antennae"
 	organ_tag = "antennae"
 	icon = 'icons/mob/human_races/r_wryn.dmi'
@@ -8,4 +9,5 @@
 	slot = "hivenode"
 
 /obj/item/organ/internal/eyes/wryn
+	species_type = /datum/species/wryn
 	see_in_dark = 3

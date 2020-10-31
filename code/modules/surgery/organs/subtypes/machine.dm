@@ -1,5 +1,6 @@
 // IPC limbs.
 /obj/item/organ/external/head/ipc
+	species_type = /datum/species/machine
 	can_intake_reagents = 0
 	max_damage = 50 //made same as arm, since it is not vital
 	min_broken_damage = 30
@@ -12,6 +13,7 @@
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/chest/ipc
+	species_type = /datum/species/machine
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
@@ -21,6 +23,7 @@
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/groin/ipc
+	species_type = /datum/species/machine
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
@@ -30,6 +33,7 @@
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/arm/ipc
+	species_type = /datum/species/machine
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
@@ -39,6 +43,7 @@
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/arm/right/ipc
+	species_type = /datum/species/machine
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
@@ -48,6 +53,7 @@
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/leg/ipc
+	species_type = /datum/species/machine
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
@@ -57,6 +63,7 @@
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/leg/right/ipc
+	species_type = /datum/species/machine
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
@@ -66,6 +73,7 @@
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/foot/ipc
+	species_type = /datum/species/machine
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
@@ -75,6 +83,7 @@
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/foot/right/ipc
+	species_type = /datum/species/machine
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
@@ -84,6 +93,7 @@
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/hand/ipc
+	species_type = /datum/species/machine
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
@@ -93,6 +103,7 @@
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/hand/right/ipc
+	species_type = /datum/species/machine
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
@@ -102,6 +113,7 @@
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/internal/cell
+	species_type = /datum/species/machine
 	name = "microbattery"
 	desc = "A small, powerful cell for use in fully prosthetic bodies."
 	icon = 'icons/obj/power.dmi'
@@ -113,6 +125,7 @@
 	status = ORGAN_ROBOT
 
 /obj/item/organ/internal/eyes/optical_sensor
+	species_type = /datum/species/machine
 	name = "optical sensor"
 	icon = 'icons/obj/robot_component.dmi'
 	icon_state = "camera"
@@ -127,6 +140,7 @@
 	. = ..()
 
 /obj/item/organ/internal/brain/mmi_holder/posibrain
+	species_type = /datum/species/machine
 	name = "positronic brain"
 
 /obj/item/organ/internal/brain/mmi_holder/posibrain/New()
@@ -147,6 +161,7 @@
 	. = ..()
 
 /obj/item/organ/internal/ears/microphone
+	species_type = /datum/species/machine
 	name = "microphone"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "taperecorder_idle"

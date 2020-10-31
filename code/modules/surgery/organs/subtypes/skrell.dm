@@ -1,9 +1,11 @@
 /obj/item/organ/internal/liver/skrell
+	species_type = /datum/species/skrell
 	name = "skrell liver"
 	icon = 'icons/obj/species_organs/skrell.dmi'
 	alcohol_intensity = 4
 
 /obj/item/organ/internal/headpocket
+	species_type = /datum/species/skrell
 	name = "headpocket"
 	desc = "Allows Skrell to hide tiny objects within their head tentacles."
 	icon = 'icons/obj/species_organs/skrell.dmi'
@@ -65,11 +67,13 @@
 	..()
 
 /obj/item/organ/internal/heart/skrell
+	species_type = /datum/species/skrell
 	name = "skrell heart"
 	desc = "A stream lined heart"
 	icon = 'icons/obj/species_organs/skrell.dmi'
 
 /obj/item/organ/internal/brain/skrell
+	species_type = /datum/species/skrell
 	icon = 'icons/obj/species_organs/skrell.dmi'
 	desc = "A brain with a odd division in the middle."
 	icon_state = "brain2"
@@ -77,14 +81,17 @@
 	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/lungs/skrell
+	species_type = /datum/species/skrell
 	name = "skrell lungs"
 	icon = 'icons/obj/species_organs/skrell.dmi'
 
 /obj/item/organ/internal/kidneys/skrell
+	species_type = /datum/species/skrell
 	name = "skrell kidneys"
 	icon = 'icons/obj/species_organs/skrell.dmi'
 	desc = "The smallest kidneys you have ever seen, it probably doesn't even work."
 
 /obj/item/organ/internal/eyes/skrell
+	species_type = /datum/species/skrell
 	name = "skrell eyeballs"
 	icon = 'icons/obj/species_organs/skrell.dmi'

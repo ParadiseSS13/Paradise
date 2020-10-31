@@ -1,4 +1,5 @@
 /obj/item/organ/internal/heart/slime
+	species_type = /datum/species/slime
 	icon = 'icons/obj/species_organs/slime.dmi'
 	name = "slime heart"
 	icon_state = "heart"
@@ -9,7 +10,8 @@
 	return
 
 /obj/item/organ/internal/lungs/slime
-	icon = 'icons/obj/species_organs/slime.dmi'    
+	species_type = /datum/species/slime
+	icon = 'icons/obj/species_organs/slime.dmi'
 	name = "slime lungs"
 	icon_state = "lungs"
 	desc = "This is a slime's gas exchange membrane, this membrane used for oxygen intake and gas exchange. These seem to work similar to lungs."

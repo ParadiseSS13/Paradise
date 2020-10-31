@@ -1,4 +1,5 @@
 /obj/item/organ/internal/liver/kidan
+	species_type = /datum/species/kidan
 	name = "kidan liver"
 	icon = 'icons/obj/species_organs/kidan.dmi'
 	alcohol_intensity = 0.5
@@ -9,6 +10,7 @@
 #define KIDAN_LANTERN_LIGHT 5
 
 /obj/item/organ/internal/lantern
+	species_type = /datum/species/kidan
 	name = "Bioluminescent Lantern"
 	desc = "A specialized tissue that reacts with oxygen, nutriment and blood to produce light in Kidan."
 	icon = 'icons/obj/species_organs/kidan.dmi'
@@ -112,24 +114,29 @@
 	. = ..()
 
 /obj/item/organ/internal/eyes/kidan
+	species_type = /datum/species/kidan
 	name = "kidan eyeballs"
 	icon = 'icons/obj/species_organs/kidan.dmi'
 
 /obj/item/organ/internal/heart/kidan
+	species_type = /datum/species/kidan
 	name = "kidan heart"
 	icon = 'icons/obj/species_organs/kidan.dmi'
 
 /obj/item/organ/internal/brain/kidan
+	species_type = /datum/species/kidan
 	icon = 'icons/obj/species_organs/kidan.dmi'
 	icon_state = "brain2"
 	mmi_icon = 'icons/obj/species_organs/kidan.dmi'
 	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/lungs/kidan
+	species_type = /datum/species/kidan
 	name = "kidan lungs"
 	icon = 'icons/obj/species_organs/kidan.dmi'
 
 /obj/item/organ/internal/kidneys/kidan
+	species_type = /datum/species/kidan
 	name = "kidan kidneys"
 	icon = 'icons/obj/species_organs/kidan.dmi'
 
