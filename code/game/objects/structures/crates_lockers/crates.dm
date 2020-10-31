@@ -34,6 +34,17 @@
 	if(!src.can_open())
 		return FALSE
 
+	var/cc_packed = FALSE
+	for(var/obj/O in src)
+		if(O.density)
+			cc_packed = TRUE
+			break
+
+	if(cc_packed)
+		var/response = alert(usr, "This crate has been packed with bluespace compression, an item inside won't fit back inside. Are you sure you want to open it?","Bluespace Compression Warning", "No", "Yes")
+		if(response == "No")
+			return FALSE
+
 	if(rigged && locate(/obj/item/radio/electropack) in src)
 		if(isliving(usr))
 			var/mob/living/L = usr
