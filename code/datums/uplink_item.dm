@@ -1315,6 +1315,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 7
 	gamemodes = list(/datum/game_mode/nuclear)
 
+/datum/uplink_item/device_tools/vtec
+	name = "Syndicate Cyborg Upgrade Module (VTEC)"
+	desc = "Increases the movement speed of a Cyborg. Install into any Borg, Syndicate or subverted"
+	reference = "VTEC"
+	item = /obj/item/borg/upgrade/vtec
+	cost = 6
+	gamemodes = list(/datum/game_mode/nuclear)
+
 //Space Suits and Hardsuits
 /datum/uplink_item/suits
 	category = "Space Suits and Hardsuits"
