@@ -27,7 +27,6 @@
 /obj/item/pinpointer/New()
 	..()
 	GLOB.pinpointer_list += src
-	START_PROCESSING(SSfastprocess, src)
 
 /obj/item/pinpointer/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
@@ -50,6 +49,7 @@
 		mode = FALSE
 		workdisk()
 		to_chat(usr, "<span class='notice'>Authentication Disk Locator active.</span>")
+		START_PROCESSING(SSfastprocess, src)
 	else if(active == 1 && shows_nuke_timer)
 		active = 2
 		mode = TRUE
@@ -59,6 +59,7 @@
 		active = 0
 		icon_state = icon_off
 		to_chat(usr, "<span class='notice'>You deactivate the pinpointer.</span>")
+		STOP_PROCESSING(SSfastprocess, src)
 
 /obj/item/pinpointer/proc/scandisk()
 	if(!the_disk)
@@ -134,10 +135,12 @@
 		if(mode == 2)
 			point_at(target)
 		to_chat(usr, "<span class='notice'>You activate the pinpointer.</span>")
+		START_PROCESSING(SSfastprocess, src)
 	else
 		active = 0
 		icon_state = icon_off
 		to_chat(usr, "<span class='notice'>You deactivate the pinpointer.</span>")
+		STOP_PROCESSING(SSfastprocess, src)
 
 /obj/item/pinpointer/advpinpointer/process()
 	if(active == 1)
@@ -244,6 +247,8 @@
 	syndicate = TRUE
 
 /obj/item/pinpointer/nukeop/attack_self(mob/user as mob)
+	if(active == 0) // We want to SSfastprocess when the pinpointer goes on, BUT, we have 2 modes that can turn it on, thus the turn SSfastprocess must be put here.
+		START_PROCESSING(SSfastprocess, src)
 	if(active == 0 && !mode)
 		active = 1
 		workdisk()
@@ -260,6 +265,7 @@
 		active = 0
 		icon_state = icon_off
 		to_chat(user, "<span class='notice'>You deactivate the pinpointer.</span>")
+		STOP_PROCESSING(SSfastprocess, src)
 
 /obj/item/pinpointer/nukeop/process()
 	if(active)
@@ -341,10 +347,12 @@
 		active = 1
 		workop()
 		to_chat(usr, "<span class='notice'>You activate the pinpointer.</span>")
+		START_PROCESSING(SSfastprocess, src)
 	else
 		active = 0
 		icon_state = icon_off
 		to_chat(usr, "<span class='notice'>You deactivate the pinpointer.</span>")
+		STOP_PROCESSING(SSfastprocess, src)
 
 /obj/item/pinpointer/operative/process()
 	if(active)
@@ -380,7 +388,6 @@
 	name = "crew pinpointer"
 	desc = "A handheld tracking device that points to crew suit sensors."
 	shows_nuke_timer = FALSE
-	var/target = null //for targeting in processing
 	icon_state = "pinoff_crew"
 	icon_off = "pinoff_crew"
 	icon_null = "pinonnull_crew"
@@ -388,6 +395,7 @@
 	icon_close = "pinonclose_crew"
 	icon_medium = "pinonmedium_crew"
 	icon_far = "pinonfar_crew"
+	var/target = null //for targeting in processing
 
 /obj/item/pinpointer/crew/proc/trackable(mob/living/carbon/human/H)
 	var/turf/here = get_turf(src)
@@ -408,6 +416,7 @@
 		active = 0
 		icon_state = icon_off
 		user.visible_message("<span class='notice'>[user] deactivates [user.p_their()] pinpointer.</span>", "<span class='notice'>You deactivate your pinpointer.</span>")
+		STOP_PROCESSING(SSfastprocess, src)
 		return
 
 	var/list/name_counts = list()
@@ -442,6 +451,7 @@
 	active = 1
 	user.visible_message("<span class='notice'>[user] activates [user.p_their()] pinpointer.</span>", "<span class='notice'>You activate your pinpointer.</span>")
 	point_at(target)
+	START_PROCESSING(SSfastprocess, src)
 
 /obj/item/pinpointer/crew/process()
 	if(active)
