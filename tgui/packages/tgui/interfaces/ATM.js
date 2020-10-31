@@ -71,7 +71,8 @@ const IntroductionAndCard = (props, context) => {
   } = data;
   return (
     <Section title="Nanotrasen Automatic Teller Machine" >
-      <Box>For all your monetary need!
+      <Box>
+        For all your monetary need!
       </Box>
       <Divider />
       <Box>

@@ -121,7 +121,6 @@ log transactions
 	tgui_interact(user)
 
 /obj/machinery/atm/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
-	user.set_machine(src)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if (!ui)
 		ui = new(user, src, ui_key, "ATM", name, 550, 650)
@@ -129,7 +128,6 @@ log transactions
 
 /obj/machinery/atm/tgui_data(mob/user)
 	var/list/data = list()
-	data["src"] = UID()
 	data["view_screen"] = view_screen
 	data["machine_id"] = machine_id
 	data["held_card_name"] = held_card ? held_card.name : "------"
