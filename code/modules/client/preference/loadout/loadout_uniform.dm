@@ -320,3 +320,7 @@
 	display_name = "pants, camo"
 	path = /obj/item/clothing/under/pants/camo
 
+/datum/gear/uniform/suit/tacticool
+	display_name = "tacticool turtleneck"
+	description = "A sleek black turtleneck paired with some khakis (WARNING DOES NOT HAVE SUIT SENSORS)"
+	path = /obj/item/clothing/under/syndicate/tacticool

@@ -7,6 +7,7 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	// Setup all log paths and stamp them with startups
 	SetupLogs()
 	enable_debugger() // Enable the extools debugger
+	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED) // creates a new TGS object
 	log_world("World loaded at [time_stamp()]")
 	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
 	connectDB() // This NEEDS TO HAPPEN EARLY. I CANNOT STRESS THIS ENOUGH!!!!!!! -aa
@@ -34,7 +35,8 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
 	. = ..()
 
-	Master.Initialize(10, FALSE)
+	Master.Initialize(10, FALSE, TRUE)
+
 
 	#ifdef UNIT_TESTS
 	HandleTestRun()
@@ -67,6 +69,7 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_ip, "0.0.0.0")
 GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 
 /world/Topic(T, addr, master, key)
+	TGS_TOPIC
 	log_misc("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key]")
 
 	var/list/input = params2list(T)
@@ -288,6 +291,7 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 	return "Bad Key"
 
 /world/Reboot(var/reason, var/feedback_c, var/feedback_r, var/time)
+	TgsReboot()
 	if(reason == 1) //special reboot, do none of the normal stuff
 		if(usr)
 			if(!check_rights(R_SERVER))
@@ -298,7 +302,7 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 			log_admin("[key_name(usr)] has requested an immediate world restart via client side debugging tools")
 		spawn(0)
 			to_chat(world, "<span class='boldannounce'>Rebooting world immediately due to host request</span>")
-		shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
+		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 		if(config && config.shutdown_on_reboot)
 			sleep(0)
 			if(GLOB.shutdown_shell_command)
@@ -336,7 +340,7 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 
 	Master.Shutdown()	//run SS shutdowns
 	GLOB.dbcon.Disconnect() // DCs cleanly from the database
-	shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
+	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 
 	#ifdef UNIT_TESTS
 	FinishTestRun()

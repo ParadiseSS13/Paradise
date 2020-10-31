@@ -21,10 +21,6 @@
 	var/target_pressure = ONE_ATMOSPHERE
 	/// The type of gas we want to filter. Valid values that go here are from the `FILTER` defines at the top of the file.
 	var/filter_type = FILTER_TOXINS
-	/// The frequency of the filter. Used with `radio_connection`.
-	var/frequency = NONE
-	/// A reference to the filter's `datum/radio_frequency`.
-	var/datum/radio_frequency/radio_connection
 	/// A list of available filter options. Used with `tgui_data`.
 	var/list/filter_list = list(
 		"Nothing" = FILTER_NOTHING,
@@ -84,12 +80,6 @@
 /obj/machinery/atmospherics/trinary/filter/flipped
 	icon_state = "mmap"
 	flipped = 1
-
-/obj/machinery/atmospherics/trinary/filter/proc/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	if(frequency)
-		radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
 
 /obj/machinery/atmospherics/trinary/filter/update_icon()
 	..()

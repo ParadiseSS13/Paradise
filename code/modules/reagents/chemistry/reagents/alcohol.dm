@@ -179,7 +179,7 @@
 	description = "Anime's favorite drink."
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
-	drink_icon = "ginvodkaglass"
+	drink_icon = "sake"
 	drink_name = "Glass of Sake"
 	drink_desc = "A glass of Sake."
 	taste_description = "sake"
@@ -1387,7 +1387,7 @@
 	color = rgb(51, 19, 3) //Sickly brown
 	dizzy_adj = 21
 	alcohol_perc = 3 //I warned you
-	drink_icon = "glass_brown2"
+	drink_icon = "bacchusblessing"
 	drink_name = "Bacchus' Blessing"
 	drink_desc = "You didn't think it was possible for a liquid to be so utterly revolting. Are you sure about this...?"
 	taste_description = "a wall of bricks"

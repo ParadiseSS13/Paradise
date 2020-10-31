@@ -327,6 +327,12 @@
 #define SHELTER_DEPLOY_BAD_AREA "bad area"
 #define SHELTER_DEPLOY_ANCHORED_OBJECTS "anchored objects"
 
+// transit_tube stuff
+#define TRANSIT_TUBE_OPENING 0
+#define TRANSIT_TUBE_OPEN 1
+#define TRANSIT_TUBE_CLOSING 2
+#define TRANSIT_TUBE_CLOSED 3
+
 // Maximum donation level
 #define DONATOR_LEVEL_MAX 4
 
@@ -363,7 +369,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 13
+#define SQL_VERSION 14
 
 // Vending machine stuff
 #define CAT_NORMAL 1

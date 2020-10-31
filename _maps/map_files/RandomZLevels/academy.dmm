@@ -1850,7 +1850,7 @@
 /area/awaymission/academy/classrooms)
 "fl" = (
 /obj/structure/table,
-/obj/machinery/microwave,
+/obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "barber"
