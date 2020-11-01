@@ -444,32 +444,18 @@
 	name = "service robot module"
 	module_type = "Service"
 	basic_modules = list(
-		/obj/item/reagent_containers/food/drinks/cans/beer,
-		/obj/item/reagent_containers/food/drinks/cans/cola,
-		/obj/item/reagent_containers/food/drinks/cans/sodawater,
-		/obj/item/reagent_containers/food/condiment/enzyme,
-		/obj/item/reagent_containers/food/drinks/bottle/orangejuice, // -0.3 oxy/sec
-		/obj/item/reagent_containers/food/drinks/bottle/tomatojuice, // -0.2 fire/sec
-		/obj/item/reagent_containers/food/drinks/bottle/limejuice, // -0.2 tox/sec
-		/obj/item/reagent_containers/food/drinks/coffee, // -1 paralysis stunned & weakened/sec
-		/obj/item/reagent_containers/food/drinks/tea,
-		/obj/item/reagent_containers/food/drinks/bottle/milk, // -0.2 brute/sec
-		/obj/item/reagent_containers/food/condiment/sugar,
-		/obj/item/reagent_containers/food/drinks/ice,
-		/obj/item/reagent_containers/food/drinks/bottle/cream,
-		/obj/item/reagent_containers/food/drinks/bottle/tequila,
-		/obj/item/reagent_containers/food/drinks/bottle/vodka,
-		/obj/item/reagent_containers/food/drinks/bottle/whiskey,
+		/obj/item/handheld_chem_dispenser/booze,
+		/obj/item/handheld_chem_dispenser/soda,
 		/obj/item/pen,
 		/obj/item/razor,
 		/obj/item/instrument/piano_synth,
 		/obj/item/healthanalyzer/advanced,
 		/obj/item/reagent_scanner/adv,
+		/obj/item/rsf/cyborg,
 		/obj/item/reagent_containers/dropper/cyborg,
 		/obj/item/lighter/zippo,
 		/obj/item/storage/bag/tray/cyborg,
-		/obj/item/reagent_containers/food/drinks/shaker,
-		/obj/item/rsf/cyborg
+		/obj/item/reagent_containers/food/drinks/shaker
 	)
 	emag_modules = list(/obj/item/reagent_containers/food/drinks/cans/beer/sleepy_beer)
 	special_rechargables = list(

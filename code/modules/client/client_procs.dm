@@ -583,6 +583,8 @@
 			var/err = query_update.ErrorMsg()
 			log_game("SQL ERROR during log_client_to_db (update). Error : \[[err]\]\n")
 			message_admins("SQL ERROR during log_client_to_db (update). Error : \[[err]\]\n")
+		// After the regular update
+		INVOKE_ASYNC(src, /client/.proc/get_byond_account_date, FALSE) // Async to avoid other procs in the client chain being delayed by a web request
 	else
 		//New player!! Need to insert all the stuff
 
@@ -598,6 +600,9 @@
 			var/err = query_insert.ErrorMsg()
 			log_game("SQL ERROR during log_client_to_db (insert). Error : \[[err]\]\n")
 			message_admins("SQL ERROR during log_client_to_db (insert). Error : \[[err]\]\n")
+		// This is their first connection instance, so TRUE here to nofiy admins
+		// This needs to happen here to ensure they actually have a row to update
+		INVOKE_ASYNC(src, /client/.proc/get_byond_account_date, TRUE) // Async to avoid other procs in the client chain being delayed by a web request
 
 	// Log player connections to DB
 	var/DBQuery/query_accesslog = GLOB.dbcon.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`datetime`,`ckey`,`ip`,`computerid`) VALUES(Now(),'[ckey]','[sql_ip]','[sql_computerid]');")
@@ -974,6 +979,114 @@
 		cache = list()
 
 		to_chat(usr, "<span class='notice'>UI resource files resent successfully. If you are still having issues, please try manually clearing your BYOND cache. <b>This can be achieved by opening your BYOND launcher, pressing the cog in the top right, selecting preferences, going to the Games tab, and pressing 'Clear Cache'.</b></span>")
+
+
+/**
+  * Retrieves the BYOND accounts data from the BYOND servers
+  *
+  * Makes a web request to byond.com to retrieve the details for the BYOND account associated with the clients ckey.
+  * Returns the data in a parsed, associative list
+  */
+/client/proc/retrieve_byondacc_data()
+	var/list/http[] = world.Export("http://www.byond.com/members/[ckey]?format=text")
+	if(http)
+		var/status = text2num(http["STATUS"])
+
+		if(status == 200)
+			// This is wrapped in try/catch because lummox could change the format on any day without informing anyone
+			try
+				var/list/lines = splittext(file2text(http["CONTENT"]), "\n")
+				var/list/initial_data = list()
+				var/current_index = ""
+				for(var/L in lines)
+					if(L == "")
+						continue
+					if(!findtext(L, "\t"))
+						current_index = L
+						initial_data[current_index] = list()
+						continue
+					initial_data[current_index] += replacetext(replacetext(L, "\t", ""), "\"", "")
+
+				var/list/parsed_data = list()
+
+				for(var/key in initial_data)
+					var/inner_list = list()
+					for(var/entry in initial_data[key])
+						var/list/split = splittext(entry, " = ")
+						var/inner_key = split[1]
+						var/inner_value = split[2]
+						inner_list[inner_key] = inner_value
+
+					parsed_data[key] = inner_list
+
+				// Main return is here
+				return parsed_data
+			catch
+				message_admins("Error parsing byond.com data for [ckey]. Please inform maintainers.")
+				return null
+		else
+			message_admins("Error retrieving data from byond.com for [ckey]. Invalid status code (Expected: 200 | Got: [status]).")
+			return null
+	else
+		message_admins("Failed to retrieve data from byond.com for [ckey]. Connection failed.")
+		return null
+
+
+/**
+  * Sets the clients BYOND date up properly
+  *
+  * If the client does not have a saved BYOND account creation date, retrieve it from the website
+  * If they do have a saved date, use that from the DB, because this value will never change
+  * Arguments:
+  * * notify - Do we notify admins of this new accounts date
+  */
+
+/client/proc/get_byond_account_date(notify = FALSE)
+	// First we see if the client has a saved date in the DB
+	var/sql_ckey = sanitizeSQL(ckey)
+	var/DBQuery/query_date = GLOB.dbcon.NewQuery("SELECT byond_date, DATEDIFF(Now(), byond_date) FROM [format_table_name("player")] WHERE ckey = '[sql_ckey]'")
+	if(!query_date.Execute())
+		var/err = query_date.ErrorMsg()
+		log_game("SQL ERROR during get_byond_account_date (Line 1047). Error: \[[err]\]\n")
+		message_admins("SQL ERROR during get_byond_account_date (Line 1047). Error: \[[err]\]\n")
+
+	while(query_date.NextRow())
+		byondacc_date = query_date.item[1]
+		byondacc_age = max(text2num(query_date.item[2]), 0) // Ensure account isnt negative days old
+
+	// They have a date, lets bail
+	if(byondacc_date)
+		return
+
+	// They dont have a date, lets grab one
+	var/list/byond_data = retrieve_byondacc_data()
+	if(isnull(byond_data) || !(byond_data["general"]["joined"]))
+		message_admins("Failed to retrieve an account creation date for [ckey].")
+		return
+
+	byondacc_date = byond_data["general"]["joined"]
+
+	// Now save it
+	var/sql_date = sanitizeSQL(byondacc_date) // Yes, this is top level paranoia
+	var/DBQuery/query_update = GLOB.dbcon.NewQuery("UPDATE [format_table_name("player")] SET byond_date = '[sql_date]' WHERE ckey = '[sql_ckey]'")
+	if(!query_update.Execute())
+		var/err = query_update.ErrorMsg()
+		log_game("SQL ERROR during get_byond_account_date (Line 1071). Error: \[[err]\]\n")
+		message_admins("SQL ERROR during get_byond_account_date (Line 1071). Error: \[[err]\]\n")
+
+	// Now retrieve the age again because BYOND doesnt have native methods for this
+	var/DBQuery/query_age = GLOB.dbcon.NewQuery("SELECT DATEDIFF(Now(), byond_date) FROM [format_table_name("player")] WHERE ckey = '[sql_ckey]'")
+	if(!query_age.Execute())
+		var/err = query_age.ErrorMsg()
+		log_game("SQL ERROR during get_byond_account_date (Line 1078). Error: \[[err]\]\n")
+		message_admins("SQL ERROR during get_byond_account_date (Line 1078). Error: \[[err]\]\n")
+
+	while(query_age.NextRow())
+		byondacc_age = max(text2num(query_age.item[1]), 0) // Ensure account isnt negative days old
+
+	// Notify admins on new clients connecting, if the byond account age is less than a config value
+	if(notify && (byondacc_age < config.byond_account_age_threshold))
+		message_admins("[key] has just connected for the first time. BYOND account registered on [byondacc_date] ([byondacc_age] days old)")
 
 
 #undef LIMITER_SIZE

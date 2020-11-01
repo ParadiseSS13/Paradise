@@ -320,12 +320,12 @@
 				if(O.reagents)
 					O.reagents.del_reagent("nutriment")
 					O.reagents.update_total()
-					O.reagents.trans_to(temp_reagents, O.reagents.total_volume)
+					O.reagents.trans_to(temp_reagents, O.reagents.total_volume, no_react = TRUE) // Don't react with the abstract holder please
 				qdel(O)
 			source.reagents.clear_reagents()
 			for(var/e=1 to efficiency)		//upgraded machine? make additional servings and split the ingredient reagents among each serving equally.
 				var/obj/cooked = new recipe.result()
-				temp_reagents.trans_to(cooked, temp_reagents.total_volume/efficiency)
+				temp_reagents.trans_to(cooked, temp_reagents.total_volume/efficiency, no_react = TRUE) // Don't react with the abstract holder please
 				cooked.forceMove(loc)
 			temp_reagents.clear_reagents()
 			var/obj/byproduct = recipe.get_byproduct()	//if the recipe has a byproduct, handle returning that (such as re-usable candy moulds)

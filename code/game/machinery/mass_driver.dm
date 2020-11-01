@@ -37,7 +37,7 @@
 /obj/machinery/mass_driver/multitool_menu(var/mob/user, var/obj/item/multitool/P)
 	return {"
 	<ul>
-	<li>[format_tag("ID Tag","id_tag")]</li>
+	<li>[format_tag("ID Tag","id_tag","set_id")]</li>
 	</ul>"}
 
 /obj/machinery/mass_driver/proc/drive(amount)

@@ -40,6 +40,7 @@
 	var/shoe_walking_volume = 20
 
 /turf/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
 	if(initialized)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
@@ -329,10 +330,6 @@
 
 /turf/proc/Bless()
 	flags |= NOJAUNT
-
-/turf/get_spooked()
-	for(var/atom/movable/AM in contents)
-		AM.get_spooked()
 
 // Defined here to avoid runtimes
 /turf/proc/MakeDry(wet_setting = TURF_WET_WATER)
