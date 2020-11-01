@@ -55,7 +55,7 @@
 	var/datum/data/pda/app/mob_hunter_game/client = P.current_app
 	var/total_catch_mod = client.catch_mod + catch_mod		//negative values decrease the chance of the mob running, positive values makes it more likely to flee
 	if(!client.connected)	//must be connected to attempt captures
-		P.audible_message("[bicon(P)] No server connection. Capture aborted.", null, 4)
+		P.atom_say("No server connection. Capture aborted.")
 		return
 
 	if(mob_info.is_trap)		//traps work even if you ran into them before, which is why this is before the clients_encountered check
@@ -79,7 +79,7 @@
 		return
 	else	//deal with the new hunter by either running away or getting caught
 		clients_encountered += client
-		var/message = "[bicon(P)] "
+		var/message = null
 		var/effective_run_chance = mob_info.run_chance + total_catch_mod
 		if((effective_run_chance > 0) && prob(effective_run_chance))
 			message += "Capture failed! [name] escaped [P.owner ? "from [P.owner]" : "from this hunter"]!"
@@ -91,7 +91,7 @@
 			else
 				message += "Capture error! Try again."
 				clients_encountered -= client		//if the capture registration failed somehow, let them have another chance with this mob
-		P.audible_message(message, null, 4)
+		P.atom_say(message)
 
 /obj/effect/nanomob/proc/despawn()
 	if(SSmob_hunt)
@@ -133,6 +133,7 @@
 	var/obj/machinery/computer/mob_battle_terminal/my_terminal
 
 /obj/effect/nanomob/battle/New(loc, datum/mob_hunt/new_info)
+	. = ..()
 	if(new_info)
 		mob_info = new_info
 		update_self()

@@ -104,7 +104,7 @@
 
 /mob/living/carbon/human/get_leg_ignore()
 
-	if(flying == 1)
+	if(flying || floating)
 		return TRUE
 
 	var/obj/item/tank/jetpack/J

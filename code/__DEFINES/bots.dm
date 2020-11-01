@@ -37,8 +37,8 @@
 #define		NEW_BORG     1
 #define		NEW_MODULE   2
 #define		RENAME       3
-#define		AI_SHELL     4
-#define		DISCONNECT   5
+#define		AI_SHELL     4	//definicion hispana para las ia shell
+#define		DISCONNECT   5	//creo que de hispania para avisar que una shell se desconecto
 
 //Sentience types
 #define SENTIENCE_ORGANIC 1

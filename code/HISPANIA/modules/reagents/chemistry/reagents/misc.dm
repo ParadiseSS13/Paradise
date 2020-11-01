@@ -11,7 +11,6 @@
 	return ..()
 
 //Reagent for the drake steak//
-
 /datum/reagent/medicine/miracledrops
 	name = "miracle drops"
 	id = "miracledrops"
@@ -38,7 +37,6 @@
 	return STATUS_UPDATE_ALL
 
 //Misc
-
 /datum/reagent/consumable/drink/drakeblood
 	name = "Drake Blood"
 	id = "drakeblood"

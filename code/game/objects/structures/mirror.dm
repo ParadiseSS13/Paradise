@@ -28,13 +28,13 @@
 		return
 
 	if(ishuman(user))
-		var/datum/nano_module/appearance_changer/AC = ui_users[user]
+		var/datum/tgui_module/appearance_changer/AC = ui_users[user]
 		if(!AC)
 			AC = new(src, user)
-			AC.name = "SalonPro Nano-Mirror&trade;"
+			AC.name = "SalonPro Nano-Mirror"
 			AC.flags = APPEARANCE_ALL_BODY
 			ui_users[user] = AC
-		AC.ui_interact(user)
+		AC.tgui_interact(user)
 
 /obj/structure/mirror/obj_break(damage_flag, mapload)
 	if(!broken && !(flags & NODECONSTRUCT))
@@ -121,17 +121,17 @@
 			else
 				race_list += GLOB.whitelisted_species
 
-			var/datum/nano_module/appearance_changer/AC = ui_users[user]
+			var/datum/tgui_module/appearance_changer/AC = ui_users[user]
 			if(!AC)
 				AC = new(src, user)
 				AC.name = "Magic Mirror"
 				AC.flags = APPEARANCE_ALL
 				AC.whitelist = race_list
 				ui_users[user] = AC
-			AC.ui_interact(user)
+			AC.tgui_interact(user)
 
 		if("Voice")
-			var/voice_choice = input(user, "Perhaps...", "Voice effects") as null|anything in list("Comic Sans", "Wingdings", "Swedish", "Chav")
+			var/voice_choice = input(user, "Perhaps...", "Voice effects") as null|anything in list("Comic Sans", "Wingdings", "Swedish", "Chav", "Mute")
 			var/voice_mutation
 			switch(voice_choice)
 				if("Comic Sans")
@@ -142,6 +142,8 @@
 					voice_mutation = GLOB.swedeblock
 				if("Chav")
 					voice_mutation = GLOB.chavblock
+				if("Mute")
+					voice_mutation = GLOB.muteblock
 			if(voice_mutation)
 				if(H.dna.GetSEState(voice_mutation))
 					H.dna.SetSEState(voice_mutation, FALSE)

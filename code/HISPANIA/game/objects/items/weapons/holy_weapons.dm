@@ -25,4 +25,3 @@
 	hispania_icon = TRUE
 	force = 3
 	throwforce = 25
-

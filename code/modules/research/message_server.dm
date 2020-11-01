@@ -86,31 +86,32 @@ GLOBAL_LIST_EMPTY(message_servers)
 
 /obj/machinery/message_server/proc/send_rc_message(var/recipient = "",var/sender = "",var/message = "",var/stamp = "", var/id_auth = "", var/priority = 1)
 	rc_msgs += new/datum/data_rc_msg(recipient,sender,message,stamp,id_auth)
-	var/authmsg = "[message]<br>"
+	var/authmsg = "[message]"
 	if(id_auth)
-		authmsg += "[id_auth]<br>"
+		authmsg += " - [id_auth]"
 	if(stamp)
-		authmsg += "[stamp]<br>"
-	for(var/obj/machinery/requests_console/Console in GLOB.allRequestConsoles)
-		if(ckey(Console.department) == ckey(recipient))
-			if(Console.inoperable())
-				Console.message_log += "<B>Message lost due to console failure.</B><BR>Please contact [station_name()] system adminsitrator or AI for technical assistance.<BR>"
+		authmsg += " - [stamp]"
+	for(var/C in GLOB.allRequestConsoles)
+		var/obj/machinery/requests_console/RC = C
+		if(ckey(RC.department) == ckey(recipient))
+			if(RC.inoperable())
+				RC.message_log += "Message lost due to console failure. Please contact [station_name()]'s system administrator or AI for technical assistance."
 				continue
-			if(Console.newmessagepriority < priority)
-				Console.newmessagepriority = priority
-				Console.icon_state = "req_comp[priority]"
+			if(RC.newmessagepriority < priority)
+				RC.newmessagepriority = priority
+				RC.icon_state = "req_comp[priority]"
 			switch(priority)
 				if(2)
-					if(!Console.silent)
-						playsound(Console.loc, 'sound/machines/twobeep.ogg', 50, 1)
-						Console.audible_message(text("[bicon(Console)] *The Requests Console beeps: 'PRIORITY Alert in [sender]'"),,5)
-					Console.message_log += "<B><FONT color='red'>High Priority message from <A href='?src=[Console.UID()];write=[sender]'>[sender]</A></FONT></B><BR>[authmsg]"
+					if(!RC.silent)
+						playsound(RC.loc, 'sound/machines/twobeep.ogg', 50, 1)
+						RC.atom_say("PRIORITY Alert in [sender]")
+					RC.message_log += "High Priority message from [sender]: [authmsg]"
 				else
-					if(!Console.silent)
-						playsound(Console.loc, 'sound/machines/twobeep.ogg', 50, 1)
-						Console.audible_message(text("[bicon(Console)] *The Requests Console beeps: 'Message from [sender]'"),,4)
-					Console.message_log += "<B>Message from <A href='?src=[Console.UID()];write=[sender]'>[sender]</A></B><BR>[authmsg]"
-			Console.set_light(2)
+					if(!RC.silent)
+						playsound(RC.loc, 'sound/machines/twobeep.ogg', 50, 1)
+						RC.atom_say("Message from [sender]")
+					RC.message_log += "Message [sender]: [authmsg]"
+			RC.set_light(2)
 
 /obj/machinery/message_server/attack_hand(user as mob)
 //	to_chat(user, "<span class='notice'>There seem to be some parts missing from this server. They should arrive on the station in a few days, give or take a few CentComm delays.</span>")
@@ -222,13 +223,22 @@ GLOBAL_DATUM(blackbox, /obj/machinery/blackbox_recorder)
 
 	//Only one can exsist in the world!
 /obj/machinery/blackbox_recorder/New()
+	SHOULD_CALL_PARENT(FALSE) // TODO: I still need to shoot this
 	if(GLOB.blackbox)
 		if(istype(GLOB.blackbox,/obj/machinery/blackbox_recorder))
 			qdel(src)
 	GLOB.blackbox = src
 
 /obj/machinery/blackbox_recorder/Destroy()
-	var/turf/T = locate(1,1,2)
+	// If the blackbox on station is destroyed, it is moved to the admin level
+	// It is very clear that the person who made this doesnt know what a datum is
+	// and thinks that an object which is vital for backend logging of when rounds end and begin
+	// should not only be destroyable, but also an on-station. Whoever designed this needs to be educated
+	// Thank you for coming to my ted talk, -aa
+
+	// Hardcoded Zlevel numbers are bad, so we use the level name to grab the admin Z level
+	var/admin_zlevel = level_name_to_num(CENTCOMM)
+	var/turf/T = locate(1, 1, admin_zlevel)
 	if(T)
 		GLOB.blackbox = null
 		var/obj/machinery/blackbox_recorder/BR = new/obj/machinery/blackbox_recorder(T)
@@ -297,6 +307,11 @@ GLOBAL_DATUM(blackbox, /obj/machinery/blackbox_recorder)
 
 //This proc is only to be called at round end.
 /obj/machinery/blackbox_recorder/proc/save_all_data_to_sql()
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>Blackbox seal blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to seal the blackbox via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to seal the blackbox via advanced proc-call")
+		return
 	if(!feedback) return
 
 	round_end_data_gathering() //round_end time logging and some other data processing
@@ -322,7 +337,12 @@ GLOBAL_DATUM(blackbox, /obj/machinery/blackbox_recorder)
 	return FALSE // don't fuck with the stupid blackbox shit
 
 
-proc/feedback_set(var/variable,var/value)
+/proc/feedback_set(var/variable,var/value)
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>Feedback edit blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
+		return
 	if(!GLOB.blackbox) return
 
 	variable = sanitizeSQL(variable)
@@ -333,7 +353,12 @@ proc/feedback_set(var/variable,var/value)
 
 	FV.set_value(value)
 
-proc/feedback_inc(var/variable,var/value)
+/proc/feedback_inc(var/variable,var/value)
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>Feedback edit blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
+		return
 	if(!GLOB.blackbox) return
 
 	variable = sanitizeSQL(variable)
@@ -344,7 +369,12 @@ proc/feedback_inc(var/variable,var/value)
 
 	FV.inc(value)
 
-proc/feedback_dec(var/variable,var/value)
+/proc/feedback_dec(var/variable,var/value)
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>Feedback edit blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
+		return
 	if(!GLOB.blackbox) return
 
 	variable = sanitizeSQL(variable)
@@ -355,7 +385,12 @@ proc/feedback_dec(var/variable,var/value)
 
 	FV.dec(value)
 
-proc/feedback_set_details(var/variable,var/details)
+/proc/feedback_set_details(var/variable,var/details)
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>Feedback edit blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
+		return
 	if(!GLOB.blackbox) return
 
 	variable = sanitizeSQL(variable)
@@ -367,7 +402,12 @@ proc/feedback_set_details(var/variable,var/details)
 
 	FV.set_details(details)
 
-proc/feedback_add_details(var/variable,var/details)
+/proc/feedback_add_details(var/variable,var/details)
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>Feedback edit blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
+		return
 	if(!GLOB.blackbox) return
 
 	variable = sanitizeSQL(variable)

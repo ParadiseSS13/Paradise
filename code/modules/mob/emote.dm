@@ -72,7 +72,7 @@
 			if(findtext(message, " snores.")) //Because we have so many sleeping people.
 				break
 
-			if(isobserver(M) && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
+			if(isobserver(M) && M.get_preference(PREFTOGGLE_CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
 				M.show_message(message)
 
 		// Type 1 (Visual) emotes are sent to anyone in view of the item
@@ -111,7 +111,7 @@
 		to_chat(src, "<span class='warning'>You cannot send deadchat emotes (muted).</span>")
 		return
 
-	if(!(client.prefs.toggles & CHAT_DEAD))
+	if(!(client.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
 		to_chat(src, "<span class='warning'>You have deadchat muted.</span>")
 		return
 
@@ -135,11 +135,11 @@
 
 	if(message)
 		for(var/mob/M in GLOB.player_list)
-			if(istype(M, /mob/new_player))
+			if(isnewplayer(M))
 				continue
 
-			if(check_rights(R_ADMIN|R_MOD, 0, M) && M.get_preference(CHAT_DEAD)) // Show the emote to admins/mods
+			if(check_rights(R_ADMIN|R_MOD, 0, M) && M.get_preference(PREFTOGGLE_CHAT_DEAD)) // Show the emote to admins/mods
 				to_chat(M, message)
 
-			else if(M.stat == DEAD && M.get_preference(CHAT_DEAD)) // Show the emote to regular ghosts with deadchat toggled on
+			else if(M.stat == DEAD && M.get_preference(PREFTOGGLE_CHAT_DEAD)) // Show the emote to regular ghosts with deadchat toggled on
 				M.show_message(message, 2)

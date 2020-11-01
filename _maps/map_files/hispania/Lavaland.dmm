@@ -2423,10 +2423,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/maintenance)
 "fJ" = (
-/obj/machinery/telecomms/relay/preset/mining,
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/machinery/tcomms/relay/mining,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/maintenance)
 "fK" = (
@@ -2571,6 +2571,7 @@
 	dir = 6
 	},
 /obj/effect/baseturf_helper/lava_land/surface,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/maintenance)
 "gb" = (
@@ -3782,7 +3783,7 @@
 /area/mine/living_quarters)
 "iD" = (
 /obj/structure/table,
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_y = 6
 	},
 /obj/effect/turf_decal/tile/bar{
@@ -4678,7 +4679,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/structure/bookcase/random,
+/obj/machinery/washing_machine,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "NX" = (

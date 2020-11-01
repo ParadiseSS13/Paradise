@@ -65,6 +65,7 @@
 	name = "sweet & sour chicken balls"
 	desc = "Is this chicken cooked? The odds are better than wok paper scissors."
 	icon_state = "chickenball"
+	item_state = "chinese3"
 	junkiness = 25
 	list_reagents = list("nutriment" = 2, "msg" = 4, "sugar" = 2)
 	tastes = list("chicken" = 1, "sweetness" = 1)
@@ -89,6 +90,7 @@
 	name = "fried rice"
 	desc = "A timeless classic."
 	icon_state = "chinese4"
+	item_state = "chinese2"
 	junkiness = 20
 	list_reagents = list("nutriment" = 1, "rice" = 3, "msg" = 4, "sugar" = 2)
 	tastes = list("rice" = 1)

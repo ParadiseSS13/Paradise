@@ -293,7 +293,12 @@
 
 /obj/screen/zone_sel/update_icon(mob/user)
 	overlays.Cut()
-	overlays += image('icons/mob/zone_sel.dmi', "[selecting]")
+	var/image/human = image('icons/mob/zone_sel.dmi', "human")
+	human.appearance_flags = RESET_COLOR
+	overlays += human
+	var/image/sel = image('icons/mob/zone_sel.dmi', "[selecting]")
+	sel.appearance_flags = RESET_COLOR
+	overlays += sel
 	user.zone_selected = selecting
 
 /obj/screen/zone_sel/alien
@@ -371,15 +376,15 @@
 		return 1
 	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 		return 1
-	
+
 	if(hud?.mymob && slot_id)
 		var/obj/item/inv_item = hud.mymob.get_item_by_slot(slot_id)
 		if(inv_item)
 			return inv_item.Click(location, control, params)
 
 	if(usr.attack_ui(slot_id))
-		usr.update_inv_l_hand(0)
-		usr.update_inv_r_hand(0)
+		usr.update_inv_l_hand()
+		usr.update_inv_r_hand()
 	return 1
 
 /obj/screen/inventory/hand
@@ -483,7 +488,7 @@
 	var/list/cached_healthdoll_overlays = list() // List of icon states (strings) for overlays
 
 /obj/screen/healthdoll/Click()
-	if(ishuman(usr))
+	if(ishuman(usr) && !usr.is_dead())
 		var/mob/living/carbon/H = usr
 		H.check_self_for_injuries()
 

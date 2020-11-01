@@ -22,6 +22,7 @@
 #define AI_FREQ 1343
 #define ERT_FREQ 1345
 #define COMM_FREQ 1353 //Command
+#define PROC_FREQ 1339 //Procedure
 #define BOT_FREQ 1447 //mulebot, secbot, ed209
 
 
@@ -58,3 +59,10 @@
 #define RADIO_MEDBOT "12"
 #define RADIO_MAGNETS "radio_magnet"
 #define RADIO_LOGIC "radio_logic"
+
+// Signal types
+#define SIGNALTYPE_NORMAL 0
+#define SIGNALTYPE_INTERCOM 1 // Will only broadcast to intercoms
+#define SIGNALTYPE_INTERCOM_SBR 2 // Will only broadcast to intercoms and station-bounced radios
+#define SIGNALTYPE_AINOTRACK 4 // AI can't track down this person. Useful for imitation broadcasts where you can't find the actual mob
+

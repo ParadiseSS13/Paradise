@@ -140,7 +140,7 @@
 				R.heal_overall_damage(repairs, repairs)
 			if(R.cell)
 				var/transfered = R.cell.give(recharge_speed)
-				use_power(transfered * 12)
+				use_power(transfered * 1.6)
 		else if(ishuman(occupant))
 			var/mob/living/carbon/human/H = occupant
 			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
@@ -190,8 +190,8 @@
 							F.broken = 0
 							F.times_used = 0
 							F.icon_state = "flash"
-					if(istype(O,/obj/item/gun/energy/disabler/cyborg))
-						var/obj/item/gun/energy/disabler/cyborg/D = O
+					if(istype(O,/obj/item/gun/energy))
+						var/obj/item/gun/energy/D = O
 						if(D.cell.charge < D.cell.maxcharge)
 							var/obj/item/ammo_casing/energy/E = D.ammo_type[D.select]
 							var/transfered = D.cell.give(E.e_cost)
@@ -284,7 +284,7 @@
 		if(occupant)
 			to_chat(H, "<span class='warning'>The cell is already occupied!</span>")
 			return
-		if(ismachine(H))
+		if(isrobot(H))
 			can_accept_user = TRUE
 		else if(!H.get_int_organ(/obj/item/organ/internal/cell))
 			to_chat(user, "<span class='notice'>Only non-organics may enter the recharger!</span>")

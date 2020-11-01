@@ -1,6 +1,4 @@
 ///Hispania drinks
-
-
 /datum/reagent/consumable/drink/rainbowjuice
 	name = "Rainbow Juice"
 	id = "rainbowjuice"
@@ -36,7 +34,7 @@
 
 /datum/reagent/consumable/drink/anonna
 	name = "Anonna Juice"
-	id = "anonna"
+	id = "anonnajuice"
 	description = "Magic juice with lovely taste"
 	color = "#C1AA8D"
 	drink_icon = "anonna_juice"
@@ -47,7 +45,7 @@
 
 /datum/reagent/consumable/drink/kiwi
 	name = "Kiwi Juice"
-	id = "kiwi"
+	id = "kiwijuice"
 	description = "For some reasons kinda tastes like feathers"
 	color = "#C5CA4C"
 	drink_icon = "kiwi_juice"
@@ -58,7 +56,7 @@
 
 /datum/reagent/consumable/drink/mango
 	name = "Mango Juice"
-	id = "mango"
+	id = "mangojuice"
 	description = "Sweat and pulpy"
 	color = "#FF9903"
 	drink_icon = "mango_juice"
@@ -69,7 +67,7 @@
 
 /datum/reagent/consumable/drink/mate
 	name = "Mate"
-	id = "mate"
+	id = "matejuice"
 	description = "Hipster stuff"
 	color = "#948870"
 	drink_icon = "glass_mate"
@@ -80,7 +78,7 @@
 
 /datum/reagent/consumable/drink/nispero
 	name = "Nispero Juice"
-	id = "nispero"
+	id = "nisperojuice"
 	description = "Weird stuff no idea what is this"
 	color = "#9B723C"
 	drink_icon = "nispero_juice"
@@ -91,7 +89,7 @@
 
 /datum/reagent/consumable/drink/peach
 	name = "Peach Juice"
-	id = "peach"
+	id = "peachjuice"
 	description = "Coloured, juicy fruit"
 	color = "#FFB5B6"
 	drink_icon = "peach_juice"
@@ -119,11 +117,125 @@
 
 /datum/reagent/consumable/drink/strawberry
 	name = "Strawberry Juice"
-	id = "strawberry"
+	id = "strawberryjuice"
 	description = "Acidic and sweet"
 	color = "#FF292E"
 	drink_icon = "straw_juice"
 	drink_name = "Glass of Strawberry Juice"
 	drink_desc = "Acidic and sweet"
 	taste_description = "sweet citric"
+	metabolization_rate = 0.15 * REAGENTS_METABOLISM
+
+/datum/reagent/consumable/drink/coconutwater
+	name = "Coconut Water"
+	id = "coconutwater"
+	description = "Diaphanous water with coconut bits floating"
+	color = "#FF292E"
+	drink_icon = "coconut_water"
+	drink_name = "Glass of Coconut Water"
+	drink_desc = "Diaphanous water with coconut bits floating"
+	taste_description = "sweet"
+	metabolization_rate = 0.15 * REAGENTS_METABOLISM
+
+/datum/reagent/consumable/drink/peach_milshake
+	name = "Peach Milshake"
+	id = "peach_milshake"
+	description = "Pink and very light, essential on the first date"
+	color = "#FF7391"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	drink_icon = "peach_milshake"
+	drink_name = "Peach Milshake"
+	drink_desc = "Pink and very light, essential on the first date"
+	taste_description = "dainty"
+
+/datum/reagent/consumable/drink/mango_punch
+	name= "Mango Punch"
+	id = "mango_punch"
+	description = "Is it mango season yet?"
+	color = "#F2C341"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	drink_icon = "mango_punch"
+	drink_name = "Mango Punch"
+	drink_desc = "Is it mango season yet?"
+	taste_description = "delicious!"
+
+/datum/reagent/consumable/drink/green_juice
+	name= "Green Juice"
+	id = "green_juice"
+	description = "A drinkable salad?"
+	color = "#2D572C"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	drink_icon = "green_juice"
+	drink_name = "Glass of Green Juice"
+	drink_desc = "A drinkable salad?"
+	taste_description = "grassy"
+
+/datum/reagent/consumable/drink/mambo_smothie
+	name= "Mambo Smothie"
+	id = "mambo_smothie"
+	description = "Do you want to stay fit, mate?"
+	color = "#A4C639"
+	nutriment_factor = 4 * REAGENTS_METABOLISM
+	drink_icon = "mambo_smothie"
+	drink_name = "Mambo Smothie"
+	drink_desc = "Do you want to stay fit, mate?"
+	taste_description = "grass"
+
+/datum/reagent/consumable/drink/anonna_blueberries
+	name = "Anonna and Blueberries"
+	id = "anonna_blueberries"
+	description = "Sweeeeet"
+	color = "#CE3B00"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	drink_icon = "anonna_blueberries"
+	drink_name = "Cóctel of Anonna and Blueberries"
+	drink_desc = "Tropical cóctel."
+	taste_description = "sweet fruits"
+
+/datum/reagent/consumable/drink/anonna_cream
+	name = "Anonna Cream"
+	id = "anonna_cream"
+	description = "A tropical looking cream"
+	color = "#FFD484"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	drink_icon = "anonna_cream"
+	drink_name = "Glass of Anonna Cream"
+	drink_desc = "A really good tropical cream."
+	taste_description = "creamy edgy fruit"
+
+/datum/reagent/consumable/drink/cold/nisperorefinedjuice
+	name = "Refined Nispero Juice"
+	description = "A cold citric juice of Nispero."
+	id = "nisperorefinedjuice"
+	color = "#F09D16"
+	drink_icon = "nisperorefinedjuice"
+	drink_name = "Glass of Refined Nispero Juice"
+	drink_desc = "A really good tropical cream."
+	taste_description = "cold citric nispero"
+
+/datum/reagent/consumable/drink/cold/cactus_healtus
+	name = "Super-Healthy Prickly Pear Juice"
+	id = "cactus_healtus"
+	description = "A smoothie mixed with a little of sugar, lemon juice and a prickly pear."
+	color = "#87CA53"
+	drink_icon = "cactus_healtus"
+	drink_name = "Smoothie of Prickly Pear"
+	drink_desc = "A bright green cold smoothie. People say its good for the overweight."
+	taste_description = "fresh cold water with a little of citric"
+
+/datum/reagent/consumable/drink/cold/cactus_healtus/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	var/nutrition_value = -rand(3,4)
+	update_flags |= M.adjust_nutrition(nutrition_value)
+	return ..() | update_flags
+
+/datum/reagent/consumable/drink/cactusjuice
+	name = "Prickly Pear Cactus Juice"
+	id = "cactusjuice"
+	description = "The lower tier of the avocado."
+	color = "#5BB615"
+	drink_icon = "cactus_juice"
+	drink_name = "Glass of Prickly Pear Cactus Juice"
+	drink_desc = "Wait what, cactus?"
+	taste_description = "bland water"
 	metabolization_rate = 0.15 * REAGENTS_METABOLISM

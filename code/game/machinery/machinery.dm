@@ -93,6 +93,8 @@ Class Procs:
 	Compiled by Aygar
 */
 
+#define MACHINE_FLICKER_CHANCE 0.05 // roughly 1/2000 chance of a machine flickering on any given tick. That means in a two hour round each machine will flicker on average a little less than two times.
+
 /obj/machinery
 	name = "machinery"
 	icon = 'icons/obj/stationobjs.dmi'
@@ -116,10 +118,27 @@ Class Procs:
 	var/panel_open = 0
 	var/area/myArea
 	var/interact_offline = 0 // Can the machine be interacted with while de-powered.
-	var/use_log = list()
-	var/list/settagwhitelist = list()//WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
+	var/list/use_log // Init this list if you wish to add logging to your machine - currently only viewable in VV
+	var/list/settagwhitelist // (Init this list if needed) WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
 	atom_say_verb = "beeps"
 	var/siemens_strength = 0.7 // how badly will it shock you?
+	/// The frequency on which the machine can communicate. Used with `/datum/radio_frequency`.
+	var/frequency = NONE
+	/// A reference to a `datum/radio_frequency`. Gives the machine the ability to interact with things using radio signals.
+	var/datum/radio_frequency/radio_connection
+
+/*
+ * reimp, attempts to flicker this machinery if the behavior is supported.
+ */
+/obj/machinery/get_spooked()
+	return flicker()
+
+/*
+ * Base class, attempt to flicker. Returns TRUE if we complete our 'flicker
+ * behavior', false otherwise.
+ */
+/obj/machinery/proc/flicker()
+	return FALSE
 
 /obj/machinery/Initialize(mapload)
 	if(!armor)
@@ -165,6 +184,9 @@ Class Procs:
 /obj/machinery/proc/locate_machinery()
 	return
 
+/obj/machinery/proc/set_frequency()
+	return
+
 /obj/machinery/process() // If you dont use process or power why are you here
 	return PROCESS_KILL
 
@@ -192,9 +214,11 @@ Class Procs:
 		use_power(idle_power_usage,power_channel, 1)
 	else if(use_power >= ACTIVE_POWER_USE)
 		use_power(active_power_usage,power_channel, 1)
+	if(prob(MACHINE_FLICKER_CHANCE))
+		flicker()
 	return 1
 
-/obj/machinery/proc/multitool_topic(var/mob/user,var/list/href_list,var/obj/O)
+/obj/machinery/proc/multitool_topic(mob/user, list/href_list, obj/O)
 	if("set_id" in href_list)
 		if(!("id_tag" in vars))
 			warning("set_id: [type] has no id_tag var.")
@@ -214,7 +238,7 @@ Class Procs:
 		if(newfreq)
 			if(findtext(num2text(newfreq), "."))
 				newfreq *= 10 // shift the decimal one place
-			src:frequency = sanitize_frequency(newfreq, RADIO_LOW_FREQ, RADIO_HIGH_FREQ)
+			set_frequency(sanitize_frequency(newfreq, RADIO_LOW_FREQ, RADIO_HIGH_FREQ))
 			return TRUE
 	return FALSE
 
@@ -224,7 +248,7 @@ Class Procs:
 	var/obj/item/multitool/P = get_multitool(usr)
 	if(P && istype(P))
 		var/update_mt_menu = FALSE
-		if("set_tag" in href_list)
+		if("set_tag" in href_list && settagwhitelist)
 			if(!(href_list["set_tag"] in settagwhitelist))//I see you're trying Href exploits, I see you're failing, I SEE ADMIN WARNING. (seriously though, this is a powerfull HREF, I originally found this loophole, I'm not leaving it in on my PR)
 				message_admins("set_tag HREF (var attempted to edit: [href_list["set_tag"]]) exploit attempted by [key_name_admin(user)] on [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 				return FALSE
@@ -310,6 +334,12 @@ Class Procs:
 
 	return ..()
 
+/obj/machinery/tgui_status(mob/user, datum/tgui_state/state)
+	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
+		return STATUS_CLOSE
+
+	return ..()
+
 /obj/machinery/CouldUseTopic(var/mob/user)
 	..()
 	user.set_machine(src)
@@ -369,7 +399,6 @@ Class Procs:
 
 /obj/machinery/proc/RefreshParts() //Placeholder proc for machines that are built using frames.
 	return
-	return 0
 
 /obj/machinery/proc/assign_uid()
 	uid = gl_uid
@@ -561,14 +590,18 @@ Class Procs:
 		if(check_records && !R)
 			threatcount += 4
 
-		if(check_arrest && R && (R.fields["criminal"] == "*Arrest*"))
-			threatcount += 4
+		if(R && R.fields["criminal"])
+			switch(R.fields["criminal"])
+				if(SEC_RECORD_STATUS_EXECUTE)
+					threatcount += 7
+				if(SEC_RECORD_STATUS_ARREST)
+					threatcount += 5
 
 	return threatcount
 
 
-/obj/machinery/proc/shock(mob/user, prb)
-	if(inoperable())
+/obj/machinery/proc/shock(mob/living/user, prb)
+	if(!istype(user) || inoperable())
 		return FALSE
 	if(!prob(prb))
 		return FALSE

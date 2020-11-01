@@ -2,7 +2,7 @@
     name = "Zombie"
     desc = "A language annoying."
     ask_verb = "Cry"
-    exclaim_verb = "shouts"
+    exclaim_verbs = ("shouts")
     colour = "zombie"
     key = "zo"
     flags = RESTRICTED
@@ -13,7 +13,7 @@
 	desc = "The most widespread Murghal language, made up of screeches, tongue tickings and growls."
 	speech_verb = "ticks"
 	ask_verb = "ticks"
-	exclaim_verb = "screeches"
+	exclaim_verbs = ("screeches")
 	colour = "yakar"
 	key = "y"
 	flags = RESTRICTED

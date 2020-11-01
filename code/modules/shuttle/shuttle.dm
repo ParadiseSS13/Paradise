@@ -160,6 +160,12 @@
 
 	var/lock_shuttle_doors = 0
 
+// Preset for adding whiteship docks to ruins. Has widths preset which will auto-assign the shuttle
+/obj/docking_port/stationary/whiteship
+	dwidth = 10
+	height = 35
+	width = 21
+
 /obj/docking_port/stationary/register()
 	if(!SSshuttle)
 		throw EXCEPTION("docking port [src] could not initialize.")
@@ -463,7 +469,7 @@
 	var/rotation = dir2angle(S1.dir)-dir2angle(dir)
 	if((rotation % 90) != 0)
 		rotation += (rotation % 90) //diagonal rotations not allowed, round up
-	rotation = SimplifyDegrees(rotation)
+	rotation = SIMPLIFY_DEGREES(rotation)
 
 	//remove area surrounding docking port
 	if(areaInstance.contents.len)
@@ -721,13 +727,13 @@
 	name = "Shuttle Console"
 	icon_screen = "shuttle"
 	icon_keyboard = "tech_key"
-	req_access = list( )
+	req_access = list()
 	circuit = /obj/item/circuitboard/shuttle
 	var/shuttleId
 	var/possible_destinations = ""
 	var/admin_controlled
 	var/max_connect_range = 7
-	var/docking_request = 0
+	var/moved = FALSE	//workaround for nukie shuttle, hope I find a better way to do this...
 
 /obj/machinery/computer/shuttle/New(location, obj/item/circuitboard/shuttle/C)
 	..()
@@ -767,21 +773,20 @@
 		return
 	connect()
 	add_fingerprint(user)
-	ui_interact(user)
+	tgui_interact(user)
 
-/obj/machinery/computer/shuttle/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/shuttle/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "shuttle_console.tmpl", M ? M.name : "shuttle", 300, 200)
+		ui = new(user, src, ui_key, "ShuttleConsole", name, 350, 150, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/shuttle/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
+/obj/machinery/computer/shuttle/tgui_data(mob/user)
+	var/list/data = list()
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
 	data["status"] = M ? M.getStatusText() : null
 	if(M)
-		data["shuttle"] = 1
+		data["shuttle"] = TRUE	//this should just be boolean, right?
 		var/list/docking_ports = list()
 		data["docking_ports"] = docking_ports
 		var/list/options = params2list(possible_destinations)
@@ -793,39 +798,45 @@
 			docking_ports[++docking_ports.len] = list("name" = S.name, "id" = S.id)
 		data["docking_ports_len"] = docking_ports.len
 		data["admin_controlled"] = admin_controlled
-		data["docking_request"] = docking_request
-
 	return data
 
-/obj/machinery/computer/shuttle/Topic(href, href_list)
-	if(..())
-		return 1
-
+/obj/machinery/computer/shuttle/tgui_act(action, params)
+	if(..())	//we can't actually interact, so no action
+		return TRUE
 	if(!allowed(usr))
 		to_chat(usr, "<span class='danger'>Access denied.</span>")
-		return
-
+		return	TRUE
+	if(!can_call_shuttle(usr, action))
+		return TRUE
 	var/list/options = params2list(possible_destinations)
-	if(href_list["move"])
-		if(!options.Find(href_list["move"])) //I see you're trying Href exploits, I see you're failing, I SEE ADMIN WARNING.
-			// Seriously, though, NEVER trust a Topic with something like this. Ever.
-			message_admins("move HREF ([src] attempted to move to: [href_list["move"]]) exploit attempted by [key_name_admin(usr)] on [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+	if(action == "move")
+		var/destination = params["move"]
+		if(!options.Find(destination))//figure out if this translation works
+			message_admins("<span class='boldannounce'>EXPLOIT:</span> [ADMIN_LOOKUPFLW(usr)] attempted to move [src] to an invalid location! [ADMIN_COORDJMP(src)]")
 			return
-		switch(SSshuttle.moveShuttle(shuttleId, href_list["move"], 1, usr))
+		switch(SSshuttle.moveShuttle(shuttleId, destination, TRUE, usr))
 			if(0)
 				atom_say("Shuttle departing! Please stand away from the doors.")
 				usr.create_log(MISC_LOG, "used [src] to call the [shuttleId] shuttle")
+				if(!moved)
+					moved = TRUE
+				add_fingerprint(usr)
+				return TRUE
 			if(1)
 				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 			else
 				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
-		return 1
+
 
 /obj/machinery/computer/shuttle/emag_act(mob/user)
 	if(!emagged)
 		src.req_access = list()
 		emagged = 1
 		to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
+
+//for restricting when the computer can be used, needed for some console subtypes.
+/obj/machinery/computer/shuttle/proc/can_call_shuttle(mob/user, action)
+	return TRUE
 
 /obj/machinery/computer/shuttle/ferry
 	name = "transport ferry console"
@@ -837,32 +848,39 @@
 /obj/machinery/computer/shuttle/ferry/request
 	name = "ferry console"
 	circuit = /obj/item/circuitboard/ferry/request
-	var/cooldown //prevents spamming admins
+	var/next_request	//to prevent spamming admins
 	possible_destinations = "ferry_home"
-	admin_controlled = 1
+	admin_controlled = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
-/obj/machinery/computer/shuttle/ferry/request/Topic(href, href_list)
-	if(..())
-		return 1
-	if(href_list["request"])
-		if(cooldown)
+/obj/machinery/computer/shuttle/ferry/request/tgui_act(action, params)
+	if(..())	// Note that the parent handels normal shuttle movement on top of security checks
+		return
+	if(action == "request")
+		if(world.time < next_request)
 			return
-		cooldown = 1
+		next_request = world.time + 60 SECONDS	//1 minute cooldown
 		to_chat(usr, "<span class='notice'>Your request has been recieved by Centcom.</span>")
 		log_admin("[key_name(usr)] requested to move the transport ferry to Centcom.")
 		message_admins("<b>FERRY: <font color='blue'>[key_name_admin(usr)] (<A HREF='?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
-		. = 1
-		SSnanoui.update_uis(src)
-		spawn(600) //One minute cooldown
-			cooldown = 0
+		return TRUE
+
 
 /obj/machinery/computer/shuttle/white_ship
 	name = "White Ship Console"
 	desc = "Used to control the White Ship."
 	circuit = /obj/item/circuitboard/white_ship
 	shuttleId = "whiteship"
-	possible_destinations = "whiteship_away;whiteship_home;whiteship_z4"
+	possible_destinations = null // Set at runtime
+
+/obj/machinery/computer/shuttle/white_ship/Initialize(mapload)
+	if(mapload)
+		return INITIALIZE_HINT_LATELOAD
+	return ..()
+
+// Yes. This is disgusting, but the console needs to be loaded AFTER the docking ports load.
+/obj/machinery/computer/shuttle/white_ship/LateInitialize()
+	Initialize()
 
 /obj/machinery/computer/shuttle/engineering
 	name = "Engineering Shuttle Console"
@@ -912,7 +930,7 @@
 	desc = "Used to control the Golem Ship."
 	circuit = /obj/item/circuitboard/shuttle/golem_ship
 	shuttleId = "freegolem"
-	possible_destinations = "freegolem_lavaland;freegolem_z5;freegolem_z4;freegolem_z6"
+	possible_destinations = "freegolem_lavaland;freegolem_space;freegolem_ussp"
 
 /obj/machinery/computer/shuttle/golem_ship/attack_hand(mob/user)
 	if(!isgolem(user) && !isobserver(user))

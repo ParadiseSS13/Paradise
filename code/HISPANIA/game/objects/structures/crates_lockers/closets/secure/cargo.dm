@@ -5,4 +5,4 @@
 
 /obj/structure/closet/secure_closet/quartermaster/New()
 	..()
-	new /obj/item/storage/backpack/duffel/mining_conscript/full(src)
+	new /obj/item/storage/backpack/duffel/mining_conscript(src)

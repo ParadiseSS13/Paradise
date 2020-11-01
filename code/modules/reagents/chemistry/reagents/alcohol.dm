@@ -18,18 +18,18 @@
 /datum/reagent/consumable/ethanol/reaction_obj(obj/O, volume)
 	if(istype(O,/obj/item/paper))
 		if(istype(O,/obj/item/paper/contract/infernal))
-			to_chat(usr, "The solution ignites on contact with the [O].")
+			O.visible_message("<span class='warning'>The solution ignites on contact with [O].</span>")
 		else
 			var/obj/item/paper/paperaffected = O
 			paperaffected.clearpaper()
-			to_chat(usr, "The solution melts away the ink on the paper.")
+			paperaffected.visible_message("<span class='notice'>The solution melts away the ink on the paper.</span>")
 	if(istype(O,/obj/item/book))
 		if(volume >= 5)
 			var/obj/item/book/affectedbook = O
 			affectedbook.dat = null
-			to_chat(usr, "The solution melts away the ink on the book.")
+			affectedbook.visible_message("<span class='notice'>The solution melts away the ink on the book.</span>")
 		else
-			to_chat(usr, "It wasn't enough...")
+			O.visible_message("<span class='warning'>It wasn't enough...</span>")
 
 /datum/reagent/consumable/ethanol/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)//Splashing people with ethanol isn't quite as good as fuel.
 	if(method == REAGENT_TOUCH)
@@ -179,7 +179,7 @@
 	description = "Anime's favorite drink."
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
-	drink_icon = "ginvodkaglass"
+	drink_icon = "sake"
 	drink_name = "Glass of Sake"
 	drink_desc = "A glass of Sake."
 	taste_description = "sake"
@@ -1190,12 +1190,12 @@
 	taste_description = "motor oil"
 
 /datum/reagent/consumable/ethanol/synthanol/on_mob_life(mob/living/M)
+	metabolization_rate = REAGENTS_METABOLISM
 	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
-		holder.remove_reagent(id, 3.6) //gets removed from organics very fast
+		metabolization_rate += 3.6 //gets removed from organics very fast
 		if(prob(25))
-			holder.remove_reagent(id, 15)
+			metabolization_rate += 15
 			M.fakevomit()
-
 	return ..()
 
 /datum/reagent/consumable/ethanol/synthanol/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
@@ -1387,7 +1387,7 @@
 	color = rgb(51, 19, 3) //Sickly brown
 	dizzy_adj = 21
 	alcohol_perc = 3 //I warned you
-	drink_icon = "glass_brown2"
+	drink_icon = "bacchusblessing"
 	drink_name = "Bacchus' Blessing"
 	drink_desc = "You didn't think it was possible for a liquid to be so utterly revolting. Are you sure about this...?"
 	taste_description = "a wall of bricks"

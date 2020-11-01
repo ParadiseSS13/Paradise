@@ -39,6 +39,7 @@
 	if(alert("Do you want these characters automatically classified as antagonists?",,"Yes","No")=="Yes")
 		is_syndicate = 1
 
+	var/datum/outfit/O = outfit_list[dresscode]
 	var/list/players_to_spawn = list()
 	if(pick_manually)
 		var/list/possible_ghosts = list()
@@ -52,13 +53,11 @@
 			players_to_spawn += candidate
 	else
 		to_chat(src, "Polling candidates...")
-		players_to_spawn = pollCandidates("Do you want to play as an event character?")
+		players_to_spawn = SSghost_spawns.poll_candidates("Do you want to play as \a [initial(O.name)]?")
 
 	if(!players_to_spawn.len)
 		to_chat(src, "Nobody volunteered.")
 		return 0
-
-	var/datum/outfit/O = outfit_list[dresscode]
 
 	var/players_spawned = 0
 	for(var/mob/thisplayer in players_to_spawn)
@@ -94,4 +93,3 @@
 	feedback_add_details("admin_verb","SPAWNGIM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 // ---------------------------------------------------------------------------------------------------------
-

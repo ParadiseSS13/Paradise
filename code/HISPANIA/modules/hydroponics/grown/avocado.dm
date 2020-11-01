@@ -32,7 +32,7 @@
 	icon = 'icons/hispania/obj/hydroponics/harvest.dmi'
 	icon_state = "avocado_cut"
 
-/obj/item/reagent_containers/food/snacks/grown/avocado/attackby(obj/item/W as obj, mob/user, params)
+/obj/item/reagent_containers/food/snacks/grown/avocado/attackby(obj/item/W, mob/user, params)
 	if(is_sharp(W))
 		var/mob/living/carbon/human/H = user
 		if(prob(5))

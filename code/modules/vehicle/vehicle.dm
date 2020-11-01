@@ -33,6 +33,13 @@
 	QDEL_NULL(inserted_key)
 	return ..()
 
+// So that beepsky can't push the janicart
+/obj/vehicle/CanPass(atom/movable/mover, turf/target, height)
+	if(istype(mover) && mover.checkpass(PASSMOB))
+		return TRUE
+	else
+		return ..()
+
 /obj/vehicle/examine(mob/user)
 	. = ..()
 	if(key_type)
@@ -153,7 +160,8 @@
 		unbuckle_mob(user)
 		return
 
-	if(world.time < last_vehicle_move + ((last_move_diagonal? 2 : 1) * (vehicle_move_delay + config.human_delay)))
+	var/delay = (last_move_diagonal? 2 : 1) * (vehicle_move_delay + config.human_delay)
+	if(world.time < last_vehicle_move + delay)
 		return
 	last_vehicle_move = world.time
 
@@ -161,7 +169,7 @@
 		var/turf/next = get_step(src, direction)
 		if(!Process_Spacemove(direction) || !isturf(loc))
 			return
-		step(src, direction)
+		Move(get_step(src, direction), direction, delay)
 
 		if((direction & (direction - 1)) && (loc == next))		//moved diagonally
 			last_move_diagonal = TRUE
@@ -185,7 +193,7 @@
 		to_chat(user, "<span class='warning'>You'll need the keys in one of your hands to drive [src].</span>")
 
 
-/obj/vehicle/Move(NewLoc, Dir = 0, step_x = 0, step_y = 0)
+/obj/vehicle/Move(NewLoc, Dir = 0, movetime)
 	. = ..()
 	handle_vehicle_layer()
 	handle_vehicle_offsets()

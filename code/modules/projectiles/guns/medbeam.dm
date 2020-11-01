@@ -47,7 +47,7 @@
 
 	if(current_target)
 		LoseTarget()
-	if(!isliving(target) || ismachine(target) || isbot(target) || issilicon(target))
+	if(!isliving(target) || isrobot(target) || isbot(target) || issilicon(target))
 		return
 
 	current_target = target

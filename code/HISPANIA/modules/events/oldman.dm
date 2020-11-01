@@ -9,7 +9,7 @@
 
 /datum/event/spawn_oldman/proc/get_oldman(var/end_if_fail = 0)
 	spawn()
-		var/list/candidates = pollCandidates("Do you want to play as the old man?", ROLE_DEMON, 1)
+		var/list/candidates = pollCandidatesWithVeto("Do you want to play as the old man?", ROLE_DEMON, 1)
 		if(!candidates.len)
 			key_of_oldman = null
 			return kill()
@@ -18,7 +18,6 @@
 
 		if(!key_of_oldman)
 			return kill()
-
 		var/datum/mind/player_mind = new /datum/mind(key_of_oldman)
 		player_mind.active = 1
 		var/list/spawn_locs = list()

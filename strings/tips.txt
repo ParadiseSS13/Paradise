@@ -1,16 +1,16 @@
-Puedes atrapar objetos lanzados al alternar en tu modo de lanzamiento con una mano vacía activa. (Throw intent) 
+Puedes atrapar objetos lanzados al alternar en tu modo de lanzamiento con una mano vacía activa. (Throw intent)
 Para romper la caja fuerte en la bóveda, use un estetoscopio o un taladro térmico.
-Puedes subir a una mesa arrastrándote a una. Esto lleva algún tiempo. Hacer clic en una mesa a la que alguien más se está subiendo los derribará. 
+Puedes subir a una mesa arrastrándote a una. Esto lleva algún tiempo. Hacer clic en una mesa a la que alguien más se está subiendo los derribará.
 Puedes arrastrar a otros jugadores a ti mismo para abrir el menú de ropaje, lo que te permite eliminar su equipo o forzarlos a usar algo. Tenga en cuenta que los trajes especiales o los cascos bloquearán su acceso a la ropa debajo de ellos, y que ciertos artículos tardan más en desvestirse o ponerse que otros. Al hacer clic en una ventana deslizable en lugar de chocar con ella, se mantendrá abierto. Puedes volver a hacer clic para cerrarla.
 Al hacer clic en una windoor en lugar de chocar contra ella, la mantendrá abierta. Puede hacer clic de nuevo para cerrarla.
-Puedes rociar un extintor de incendios, lanzar objetos o disparar una pistola mientras estás flotando en el espacio para cambiar de dirección. Simplemente dispara en la dirección opuesta a donde quieres ir. 
+Puedes rociar un extintor de incendios, lanzar objetos o disparar una pistola mientras estás flotando en el espacio para cambiar de dirección. Simplemente dispara en la dirección opuesta a donde quieres ir.
 Puedes cambiar el esquema de control presionando tabulador. Uno usa WASD para el movimiento, mientras que el otro usa las teclas de flecha. Tenga en cuenta que las teclas de acceso rápido también se cambian con esto.
 Los trajes de bombero y los abrigos de invierno ofrecen una protección leve contra el frío, lo que le permite pasar más tiempo cerca de las brechas y el espacio que si no llevara nada en absoluto.
-Los fragmentos de vidrio se pueden soldar para hacer vidrio, y las barras de metal se pueden soldar para hacer metal. Los minerales también pueden soldarse, pero esto requiere una gran cantidad de combustible. 
+Los fragmentos de vidrio se pueden soldar para hacer vidrio, y las barras de metal se pueden soldar para hacer metal. Los minerales también pueden soldarse, pero esto requiere una gran cantidad de combustible.
 Si necesita arrastrar a varias personas a seguridad o al espacio, consigue un casillero y guárdalas antes de arrastrarlas.
 Puedes agarrar a alguien haciendo clic en ellos con la intención de agarrar, y luego mejorar el mismo haciendo clic en ellos una vez más. Un agarre agresivo aturdirá momentáneamente a alguien, le permitirá colocarlos en una mesa haciendo clic en ella, o lanzarlos al activar el lanzamiento.
-Manteniendo presionadas las teclas Alt y el botón izquierdo del ratón le permitirá ver su equipamiento en el panel superior derecho de la ventana, que es mucho más rápido que hacer clic derecho. 
-El botón de resistir te permitirá resistir las esposas, quedando abrochado a una silla o cama, fuera de los armarios cerrados y más. Cuando estés atrapado, ¡intenta resistirte! 
+Manteniendo presionadas las teclas Alt y el botón izquierdo del ratón le permitirá ver su equipamiento en el panel superior derecho de la ventana, que es mucho más rápido que hacer clic derecho.
+El botón de resistir te permitirá resistir las esposas, quedando abrochado a una silla o cama, fuera de los armarios cerrados y más. Cuando estés atrapado, ¡intenta resistirte!
 Puede mover un elemento del camino agarrándolo y luego haciéndole clic al suelo vacío con la mano vacía.
 Puedes volver a teñir ciertos artículos como trajes de baño y guantes en las lavadoras si también le echas un lápiz de color.
 Mantenimiento está lleno de equipo que se asigna al azar en cada ronda. Mira a tu alrededor y ve si vale la pena usar algo.
@@ -67,7 +67,7 @@ Como Cyborg Médico, usted puede realizar una cirugía completa e incluso ponerl
 Como conserje Cyborg, eres la perdición de todos los Slaughter Demons. Limpiar las manchas de sangre los dejara con menos libertad para andar por la estacion.
 Como CE, puede cambiar el nombre de las áreas o crear otras completamente nuevas utilizando los planos de su estación.
 Como CE, tu traje es significativamente mejor que el de los demás. Tiene las mejores características de los trajes de ingeniería y de los trajes atmosféricos, y se enorgullece de ser casi invulnerable a la radiación y a todas las condiciones atmosféricas.
-Como CE, la consola de control de flujo de energía de su oficina le mostrará información todos los APC y le permitirá controlarlos de forma remota. 
+Como CE, la consola de control de flujo de energía de su oficina le mostrará información todos los APC y le permitirá controlarlos de forma remota.
 Como ingeniero, usted puede electrificar las rejillas colocando "nodos" de alambre debajo de ellas: las grandes protuberancias aparentemente desconectadas de un trabajo de cableado medio terminado. El cable deberá estar conectado a una fuente de alimentación activa para que funcione.
 Como Ingeniero, regrese a Ingeniería de vez en cuando para revisar el motor y las celdas SMES. Siempre es una buena idea asegurarse de que la contención no se vea comprometida.
 Como ingeniero, usted puede alimentar la estación únicamente con los paneles solares si lo desea. Proporcionarán la electricidad suficiente para alimentar la central y esta sera mas segura. Sin embargo, su producción es mucho peor en comparación con el motor real.
@@ -85,7 +85,7 @@ Como Jefe de Seguridad, no dejes que el poder se te suba a la cabeza. Puede que 
 Como Warden, su deber es ser el guardián de brig y el encargado de los prisioneros. Ademas debes entregar equipo y armas a los oficiales de seguridad cuando se produce una crisis.
 Como Warden, vigile de cerca la armería en todo momento, ya que es el punto de ataque favorito de los operativos nucleares y de los traidores arrogantes.
 Como Warden, si los crímenes de un prisionero son lo suficientemente atroces, puedes ponerlos en permabrig o en el gulag. Asegúrese de revisarlas de vez en cuando!
-Como Warden, usted puede implantar a criminales que sospecha que podrían volver a delinquir con dispositivos que rastreen su ubicación y le permitan inyectarlos remotamente con productos químicos incapacitantes. 
+Como Warden, usted puede implantar a criminales que sospecha que podrían volver a delinquir con dispositivos que rastreen su ubicación y le permitan inyectarlos remotamente con productos químicos incapacitantes.
 Como oficial de seguridad, comuníquese y coordine con sus compañeros utilizando el canal de seguridad (:s) para evitar confusiones.
 Como oficial de seguridad, sus sechuds o gafas de sol HUD no sólo pueden ver las asignaciones de trabajo y el estatus criminal de sus compañeros de tripulación, sino también si tienen un mindshield. Se puede ver por el contorno azul parpadeante alrededor de su icono de trabajo.
 Como oficial de seguridad, los implantes de mindshield sólo pueden evitar que alguien sea conviertido en cultista. No dejaran de serlo si ya fueron convertidos previamente.
@@ -161,15 +161,15 @@ El Capellán puede bendecir cualquier recipiente con agua golpeándolo con su bi
 Como Mago, puedes convertir a la gente en piedra y luego animar la estatua resultante con un pentagrama de animación para crear un súbdito extremadamente poderoso, durante al menos 5 minutos.
 Como Mago, el hechizo de bola de fuego funciona muy mal a corta distancia, ya que puede golpearte fácilmente con la explosión resultante. Es mejor usarla como una forma de artillería en pasillos largos.
 Como Mago, la invocación de armas de fuego dará a todo el mundo, desde una flor hasta un rifle de pulso. Usalo bajo tu propio riesgo!
-Como Mago, el bastón del caos puede disparar cualquier tipo de rayos de las varitas mágicas. Esto puede ir desde rayos de muerte instantánea hasta curar o revivir a alguien. 
-Como Mago, la mayoría de los hechizos se vuelven inutilizables si no llevas puesta una túnica, gorro y sandalias. 
-Como Abductor, puede seleccionar dónde se enviarán a sus víctimas en la consola de control de la nave. 
-Como Abductor, el chaleco de modo de combate tiene una resistencia mucho mayor a todo tipo de armas, y tu casco evita que la IA te rastree. 
-Como Abductor, la batuta puede alternar entre cuatro modos: aturdimiento, reposo, tapabocas y sonda. 
+Como Mago, el bastón del caos puede disparar cualquier tipo de rayos de las varitas mágicas. Esto puede ir desde rayos de muerte instantánea hasta curar o revivir a alguien.
+Como Mago, la mayoría de los hechizos se vuelven inutilizables si no llevas puesta una túnica, gorro y sandalias.
+Como Abductor, puede seleccionar dónde se enviarán a sus víctimas en la consola de control de la nave.
+Como Abductor, el chaleco de modo de combate tiene una resistencia mucho mayor a todo tipo de armas, y tu casco evita que la IA te rastree.
+Como Abductor, la batuta puede alternar entre cuatro modos: aturdimiento, reposo, tapabocas y sonda.
 Como Revenant, el Capellán es tu peor enemigo, ya que pueden dañarte masivamente con la vara nula y cubrir gran parte de la estación con agua bendita lo que hace que sean intransitables.
-Como Revenant, tu esencia también es tu vida, por lo que revelarte frente a los humanos para cosechar la esencia de la vida es mucho más seguro si ya has succionado las esencias de cadáveres mal custodiados. 
-Como Revenant, tu habilidad de Defiler elimina el agua bendita de el suelo en un radio pequeño, junto con la sal, lo que te permite recuperar la estación del capellán si han estado cubriendo la estación con agua bendita. ¡También se puede utilizar para abrir bandejas de la morgue! 
-Como Revenant, tu habilidad de Sobrecarga de luces solo impactará a los humanos con luces cerca si las luces siguen encendidas después de un breve retraso. 
+Como Revenant, tu esencia también es tu vida, por lo que revelarte frente a los humanos para cosechar la esencia de la vida es mucho más seguro si ya has succionado las esencias de cadáveres mal custodiados.
+Como Revenant, tu habilidad de Defiler elimina el agua bendita de el suelo en un radio pequeño, junto con la sal, lo que te permite recuperar la estación del capellán si han estado cubriendo la estación con agua bendita. ¡También se puede utilizar para abrir bandejas de la morgue!
+Como Revenant, tu habilidad de Sobrecarga de luces solo impactará a los humanos con luces cerca si las luces siguen encendidas después de un breve retraso.
 Jugando como Revenant tu habilidad de malfuction daña equipamiento electronico y objetos mecanicos. Posiblemente emaggeando algunos objetos. Animate y experimenta!
 Como revenenant la enfermedad causada en humanos llamada "blight" puede ser facilmente curada tirandote al suelo o con holy water del chaplain. Este ultimo metodo es el mejor durante combates cuando no tienes tiempo de tirarte al suelo.
 Jugando como Revenant la fastmos es tu amiga. Romper vidrios para mandar a la gente al espacio puede causarle daños masivos.
@@ -201,3 +201,4 @@ El Blob tiene alta resistencia al daño bruto. Usa Laseres.
 Puedes esconder papeles en las ventilaciones. Pero debes usar un destornillador para abrirla primero.
 Si bien las reglas del SOP no son totalmente reglas estan alli por motivos profesionales y de seguridad para la estacion.
 Matar al Mago normalmente termina la ronda, a menos que sea un lich o que la Federación de Magos Espaciales esté MUY ENOJADA!
+Codea tu mierda.

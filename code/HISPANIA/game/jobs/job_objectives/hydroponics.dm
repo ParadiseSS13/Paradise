@@ -1,5 +1,4 @@
 // NEW PLATNS
-
 /datum/job_objective/further_plants
 	completion_payment = 250
 	per_unit = 1

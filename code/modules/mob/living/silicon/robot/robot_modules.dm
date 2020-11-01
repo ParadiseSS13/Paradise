@@ -74,7 +74,7 @@
 	var/list/temp_list = modules
 	modules = list()
 	for(var/obj/O in temp_list)
-		if(O)
+		if(!QDELETED(O)) //so items getting deleted don't stay in module list and haunt you
 			modules += O
 
 /obj/item/robot_module/proc/add_languages(mob/living/silicon/robot/R)
@@ -114,23 +114,51 @@
 /obj/item/robot_module/proc/handle_custom_removal(component_id, mob/living/user, obj/item/W)
 	return FALSE
 
-/obj/item/robot_module/proc/handle_death(gibbed)
+/obj/item/robot_module/proc/handle_death(mob/living/silicon/robot/R, gibbed)
 	return
 
 /obj/item/robot_module/standard
-	name = "standard robot module"
+	// if station is fine, assist with constructing station goal room, cleaning, and repairing cables chewed by rats
+	// if medical crisis, assist by providing basic healthcare, retrieving corpses, and monitoring crew lifesigns
+	// if eng crisis, assist by helping repair hull breaches
+	// if sec crisis, assist by opening doors for sec and providing backup zipties on patrols
+	name = "generalist robot module"
 	module_type = "Standard"
+	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor, /mob/living/silicon/proc/subsystem_crew_monitor)
+	stacktypes = list(
+		/obj/item/stack/sheet/metal/cyborg = 50,
+		/obj/item/stack/cable_coil/cyborg = 50,
+		/obj/item/stack/rods/cyborg = 60,
+		/obj/item/stack/tile/plasteel = 20
+		)
 
 /obj/item/robot_module/standard/New()
 	..()
-	modules += new /obj/item/melee/baton/loaded(src)
-	modules += new /obj/item/extinguisher(src)
-	modules += new /obj/item/wrench/cyborg(src)
+	// sec
+	modules += new /obj/item/restraints/handcuffs/cable/zipties/cyborg(src)
+	// janitorial
+	modules += new /obj/item/soap/nanotrasen(src)
+	modules += new /obj/item/lightreplacer/cyborg(src)
+	// eng
 	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/wrench/cyborg(src)
+	modules += new /obj/item/extinguisher(src) // for firefighting, and propulsion in space
+	modules += new /obj/item/weldingtool/largetank/cyborg(src)
+	// mining
+	modules += new /obj/item/pickaxe(src)
+	modules += new /obj/item/t_scanner/adv_mining_scanner(src)
+	modules += new /obj/item/storage/bag/ore/cyborg(src)
+	// med
 	modules += new /obj/item/healthanalyzer(src)
+	modules += new /obj/item/reagent_containers/borghypo/basic(src)
+	modules += new /obj/item/roller_holder(src) // for taking the injured to medbay without worsening their injuries or leaving a blood trail the whole way
 	emag = new /obj/item/melee/energy/sword/cyborg(src)
-
+	for(var/G in stacktypes)
+		var/obj/item/stack/sheet/M = new G(src)
+		M.amount = stacktypes[G]
+		modules += M
 	fix_modules()
+
 
 /obj/item/robot_module/medical
 	name = "medical robot module"
@@ -227,7 +255,7 @@
 
 	fix_modules()
 
-/obj/item/robot_module/engineering/handle_death()
+/obj/item/robot_module/engineering/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
 	if(G)
 		G.drop_gripped_item(silent = TRUE)
@@ -259,6 +287,7 @@
 	modules += new /obj/item/mop/advanced/cyborg(src)
 	modules += new /obj/item/lightreplacer/cyborg(src)
 	modules += new /obj/item/holosign_creator(src)
+	modules += new /obj/item/extinguisher/mini(src)
 	emag = new /obj/item/reagent_containers/spray(src)
 
 	emag.reagents.add_reagent("lube", 250)
@@ -272,28 +301,14 @@
 
 /obj/item/robot_module/butler/New()
 	..()
-	modules += new /obj/item/reagent_containers/food/drinks/cans/beer(src)
-	modules += new /obj/item/reagent_containers/food/drinks/cans/cola(src)
-	modules += new /obj/item/reagent_containers/food/drinks/cans/sodawater(src)
-	modules += new /obj/item/reagent_containers/food/condiment/enzyme(src)
-	modules += new /obj/item/reagent_containers/food/drinks/bottle/orangejuice(src) // -0.3 oxy/sec
-	modules += new /obj/item/reagent_containers/food/drinks/bottle/tomatojuice(src) // -0.2 fire/sec
-	modules += new /obj/item/reagent_containers/food/drinks/bottle/limejuice(src) // -0.2 tox/sec
-	modules += new /obj/item/reagent_containers/food/drinks/coffee(src) // -1 paralysis stunned & weakened/sec
-	modules += new /obj/item/reagent_containers/food/drinks/tea(src)
-	modules += new /obj/item/reagent_containers/food/drinks/bottle/milk(src) // -0.2 brute/sec
-	modules += new /obj/item/reagent_containers/food/condiment/sugar(src)
-	modules += new /obj/item/reagent_containers/food/drinks/ice(src)
-	modules += new /obj/item/reagent_containers/food/drinks/bottle/cream(src)
-
-	modules += new /obj/item/reagent_containers/food/drinks/bottle/tequila(src)
-	modules += new /obj/item/reagent_containers/food/drinks/bottle/vodka(src)
-	modules += new /obj/item/reagent_containers/food/drinks/bottle/whiskey(src)
+	modules += new /obj/item/handheld_chem_dispenser/booze(src)
+	modules += new /obj/item/handheld_chem_dispenser/soda(src)
 
 	modules += new /obj/item/pen(src)
 	modules += new /obj/item/razor(src)
 	modules += new /obj/item/instrument/piano_synth(src)
 	modules += new /obj/item/healthanalyzer/advanced(src)
+	modules += new /obj/item/reagent_scanner/adv(src)
 
 	var/obj/item/rsf/M = new /obj/item/rsf(src)
 	M.matter = 30
@@ -314,8 +329,6 @@
 	fix_modules()
 
 /obj/item/robot_module/butler/respawn_consumable(var/mob/living/silicon/robot/R)
-	var/obj/item/reagent_containers/food/condiment/enzyme/E = locate() in modules
-	E.reagents.add_reagent("enzyme", 2)
 	if(emag)
 		var/obj/item/reagent_containers/food/drinks/cans/beer/B = emag
 		B.reagents.add_reagent("beer2", 2)
@@ -338,6 +351,11 @@
 	R.add_language("Bubblish", 1)
 	R.add_language("Clownish",1)
 	R.add_language("Neo-Russkiya", 1)
+
+/obj/item/robot_module/butler/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/storage/bag/tray/cyborg/T = locate(/obj/item/storage/bag/tray/cyborg) in modules
+	if(istype(T))
+		T.drop_inventory(R)
 
 
 /obj/item/robot_module/miner
@@ -483,24 +501,43 @@
 
 	fix_modules()
 
-/obj/item/robot_module/combat
-	name = "combat robot module"
+/obj/item/robot_module/destroyer
+	name = "destroyer robot module"
 	module_type = "Malf"
 	module_actions = list(
 		/datum/action/innate/robot_sight/thermal,
 	)
 
+/obj/item/robot_module/destroyer/New()
+	..()
+
+	modules += new /obj/item/gun/energy/immolator/multi/cyborg(src) // See comments on /robot_module/combat below
+	modules += new /obj/item/melee/baton/loaded(src) // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
+	modules += new /obj/item/restraints/handcuffs/cable/zipties/cyborg(src)
+	modules += new /obj/item/pickaxe/drill/jackhammer(src) // for breaking walls to execute flanking moves
+	modules += new /obj/item/borg/destroyer/mobility(src)
+	emag = null
+	fix_modules()
+
+
+/obj/item/robot_module/combat
+	name = "combat robot module"
+	module_type = "Malf"
+	module_actions = list()
+
 /obj/item/robot_module/combat/New()
 	..()
+	modules += new /obj/item/gun/energy/immolator/multi/cyborg(src) // primary weapon, strong at close range (ie: against blob/terror/xeno), but consumes a lot of energy per shot.
+	// Borg gets 40 shots of this weapon. Gamma Sec ERT gets 10.
+	// So, borg has way more burst damage, but also takes way longer to recharge / get back in the fight once depleted. Has to find a borg recharger and sit in it for ages.
+	// Organic gamma sec ERT carries alternate weapons, including a box of flashbangs, and can load up on a huge number of guns from science. Borg cannot do either.
+	// Overall, gamma borg has higher skill floor but lower skill ceiling.
+	modules += new /obj/item/melee/baton/loaded(src) // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
 	modules += new /obj/item/restraints/handcuffs/cable/zipties/cyborg(src)
-	modules += new /obj/item/gun/energy/gun/cyborg(src)
-	modules += new /obj/item/pickaxe/drill/jackhammer(src)
-	modules += new /obj/item/borg/combat/shield(src)
-	modules += new /obj/item/borg/combat/mobility(src)
-	modules += new /obj/item/wrench/cyborg(src)
-	emag = new /obj/item/gun/energy/lasercannon/cyborg(src)
-
+	modules += new /obj/item/pickaxe/drill/jackhammer(src) // for breaking walls to execute flanking moves
+	emag = null
 	fix_modules()
+
 
 /obj/item/robot_module/alien/hunter
 	name = "alien hunter module"
@@ -575,7 +612,7 @@
 	..()
 
 
-/obj/item/robot_module/drone/handle_death()
+/obj/item/robot_module/drone/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
 	if(G)
 		G.drop_gripped_item(silent = TRUE)

@@ -20,7 +20,7 @@
 	var/locked = FALSE //whether the door is bolted or not.
 	var/glass = FALSE
 	var/welded = FALSE
-	var/normalspeed = 1
+	var/normalspeed = TRUE
 	var/auto_close_time = 150
 	var/auto_close_time_dangerous = 15
 	var/assemblytype //the type of door frame to drop during deconstruction
@@ -204,7 +204,7 @@
 	. = TRUE
 	if(operating)
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = 0))
 		return
 	try_to_crowbar(user, I)
 
@@ -233,12 +233,6 @@
 		open()
 		emagged = 1
 		return 1
-
-/obj/machinery/door/emp_act(severity)
-	if(prob(20/severity) && (istype(src,/obj/machinery/door/airlock) || istype(src,/obj/machinery/door/window)) )
-		spawn(0)
-			open()
-	..()
 
 /obj/machinery/door/update_icon()
 	if(density)

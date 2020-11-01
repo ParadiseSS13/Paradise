@@ -9,11 +9,10 @@
 	cooldown_min = 20
 	summon_amt = 1
 	action_icon_state = "time"
-
 	summon_type = list(/obj/effect/timestop/nto)
 
 /obj/effect/timestop/nto
-	anchored = 1
+	anchored = TRUE
 	name = "timebubble"
 	desc = "ZA WARUDO"
 	icon = 'icons/hispania/effects/chronoshield.dmi'
@@ -35,7 +34,6 @@
 	for(var/mob/living/M in GLOB.player_list)
 		for(var/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop/nto/T in M.mind.spell_list) //People who can stop time are immune to timestop
 			immune |= M
-
 
 /obj/effect/timestop/nto/New()
 	..()

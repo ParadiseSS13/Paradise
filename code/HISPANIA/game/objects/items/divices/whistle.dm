@@ -12,8 +12,7 @@
 	whistle_playsound(user)
 
 //Funcion de whistle
-
-/obj/item/whistle/proc/whistle_playsound(mob/user as mob)
+/obj/item/whistle/proc/whistle_playsound(mob/user)
 	if(spamcheck)
 		to_chat(user, "<span class='notice'>You are out of breath wait a moment.</span>")
 		return

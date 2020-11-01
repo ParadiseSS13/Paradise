@@ -1,11 +1,11 @@
-var/global/list/available_ai_shells = list()
+GLOBAL_LIST_INIT(available_ai_shells, list())
 
 /mob/living/silicon/robot/proc/make_shell(var/obj/item/borg/upgrade/ai/board)
 	shell = TRUE
 	braintype = "AI Shell"
 	name = "[designation] AI Shell [rand(100,999)]"
 	real_name = name
-	available_ai_shells |= src
+	GLOB.available_ai_shells |= src
 	if(camera)
 		camera.c_tag = real_name	//update the camera name too
 	diag_hud_set_aishell()
@@ -19,7 +19,7 @@ var/global/list/available_ai_shells = list()
 	//A player forced reset of a borg would drop the module before this is called, so this is for catching edge cases
 		qdel(boris)
 	shell = FALSE
-	available_ai_shells -= src
+	GLOB.available_ai_shells -= src
 	name = "Unformatted Cyborg [rand(100,999)]"
 	real_name = name
 	if(camera)
@@ -40,7 +40,6 @@ var/global/list/available_ai_shells = list()
 	if(radio && AI.aiRadio) //AI keeps all channels, including Syndie if it is a Traitor
 		if(AI.aiRadio.syndie)
 			radio.make_syndie()
-		radio.subspace_transmission = TRUE
 		radio.channels = AI.aiRadio.channels
 		for(var/chan in radio.channels)
 			radio.secure_radio_connections[chan] = SSradio.add_object(radio, SSradio.radiochannels[chan],  RADIO_CHAT)
@@ -61,7 +60,6 @@ var/global/list/available_ai_shells = list()
 
 	R.undeploy()
 	return TRUE
-
 
 /mob/living/silicon/robot/proc/undeploy()
 	if(!deployed || !mind || !mainframe)

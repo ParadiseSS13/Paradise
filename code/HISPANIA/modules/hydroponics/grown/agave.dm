@@ -13,7 +13,6 @@
 	potency = 30
 	maturation = 5
 	growing_icon = 'icons/hispania/obj/hydroponics/growing_fruits.dmi'
-	reagents_add = list("agave" = 0.04)
 
 //Fruta
 /obj/item/reagent_containers/food/snacks/grown/agave

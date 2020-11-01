@@ -30,12 +30,10 @@
 /obj/item/borg/upgrade/crewpinpointer/action(mob/living/silicon/robot/R)
 	if(..())
 		return
-
 	var/obj/item/pinpointer/crew/PP = locate() in R.module.modules
 	if(PP)
 		to_chat(usr, "<span class='warning'>This unit is already equipped with a crew pinpointer module.</span>")
 		return FALSE
-
 	R.module.modules += new /obj/item/pinpointer/crew(R.module)
 	R.module.rebuild()
 	return TRUE

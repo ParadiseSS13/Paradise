@@ -62,10 +62,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/static/current_ticklimit = TICK_LIMIT_RUNNING
 
 /datum/controller/master/New()
-	//temporary file used to record errors with loading config, moved to log directory once logging is set up
-	GLOB.config_error_log = GLOB.world_game_log = GLOB.world_runtime_log = "data/logs/config_error.log"
-	load_configuration()
-	// Highlander-style: there can only be one! Kill off the old and replace it with the new.
 
 	if(!random_seed)
 		random_seed = rand(1, 1e9)
@@ -73,6 +69,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 	var/list/_subsystems = list()
 	subsystems = _subsystems
+	// Highlander-style: there can only be one! Kill off the old and replace it with the new.
 	if(Master != src)
 		if(istype(Master))
 			Recover()
@@ -146,7 +143,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				msg = "The [BadBoy.name] subsystem was the last to fire for 2 controller restarts. It will be recovered now and disabled if it happens again."
 				FireHim = TRUE
 			if(3)
-				msg = "The [BadBoy.name] subsystem seems to be destabilizing the MC and will be offlined."
+				msg = "The [BadBoy.name] subsystem seems to be destabilizing the MC and will be offlined. <span class='info'>The following implications are now in effect: [BadBoy.offline_implications]</span>"
 				BadBoy.flags |= SS_NO_FIRE
 		if(msg)
 			to_chat(GLOB.admins, "<span class='boldannounce'>[msg]</span>")
@@ -165,11 +162,14 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 // Please don't stuff random bullshit here,
 // 	Make a subsystem, give it the SS_NO_FIRE flag, and do your work in it's Initialize()
-/datum/controller/master/Initialize(delay, init_sss)
+/datum/controller/master/Initialize(delay, init_sss, tgs_prime)
 	set waitfor = 0
 
 	if(delay)
 		sleep(delay)
+
+	if(tgs_prime)
+		world.TgsInitializationComplete()
 
 	if(init_sss)
 		init_subtypes(/datum/controller/subsystem, subsystems)
@@ -454,14 +454,15 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			//	in those cases, so we just let them run)
 			if(queue_node_flags & SS_NO_TICK_CHECK)
 				if(queue_node.tick_usage > TICK_LIMIT_RUNNING - TICK_USAGE && ran_non_ticker)
-					queue_node.queued_priority += queue_priority_count * 0.1
-					queue_priority_count -= queue_node_priority
-					queue_priority_count += queue_node.queued_priority
-					current_tick_budget -= queue_node_priority
-					queue_node = queue_node.queue_next
+					if(!(queue_node_flags & SS_BACKGROUND))
+						queue_node.queued_priority += queue_priority_count * 0.1
+						queue_priority_count -= queue_node_priority
+						queue_priority_count += queue_node.queued_priority
+						current_tick_budget -= queue_node_priority
+						queue_node = queue_node.queue_next
 					continue
 
-			if((queue_node_flags & SS_BACKGROUND) && !bg_calc)
+			if(!bg_calc && (queue_node_flags & SS_BACKGROUND))
 				current_tick_budget = queue_priority_count_bg
 				bg_calc = TRUE
 
@@ -514,7 +515,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			queue_node.paused_ticks = 0
 			queue_node.paused_tick_usage = 0
 
-			if(queue_node_flags & SS_BACKGROUND) //update our running total
+			if(bg_calc) //update our running total
 				queue_priority_count_bg -= queue_node_priority
 			else
 				queue_priority_count -= queue_node_priority
@@ -616,3 +617,14 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		processing = config.base_mc_tick_rate
 	else if(client_count > config.high_pop_mc_mode_amount)
 		processing = config.high_pop_mc_tick_rate
+
+/datum/controller/master/proc/formatcpu()
+	switch(world.cpu)
+		if(0 to 80) // 0-80 = green
+			. = "<font color='#32a852'>[world.cpu]</font>"
+		if(80 to 90) // 80-90 = orange
+			. = "<font color='#fcba03'>[world.cpu]</font>"
+		if(90 to 100) // 90-100 = red
+			. = "<font color='#eb4034'>[world.cpu]</font>"
+		if(100 to INFINITY) // >100 = bold red
+			. = "<font color='#eb4034'><b>[world.cpu]</b></font>"

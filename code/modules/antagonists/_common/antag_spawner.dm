@@ -46,7 +46,8 @@
 	checking = TRUE
 
 	to_chat(user, "<span class='notice'>You activate [src] and wait for confirmation.</span>")
-	var/list/nuke_candidates = pollCandidates("Do you want to play as a [rolename]?", ROLE_OPERATIVE, TRUE, 150)
+	var/image/I = new('icons/mob/simple_human.dmi', "syndicate_space_sword")
+	var/list/nuke_candidates = SSghost_spawns.poll_candidates("Do you want to play as a [rolename]?", ROLE_OPERATIVE, TRUE, 15 SECONDS, source = I)
 	if(LAZYLEN(nuke_candidates))
 		checking = FALSE
 		if(QDELETED(src) || !check_usability(user))
@@ -180,7 +181,7 @@
 	var/type = "slaughter"
 	if(demon_type == /mob/living/simple_animal/slaughter/laughter)
 		type = "laughter"
-	var/list/candidates = pollCandidates("Do you want to play as a [type] demon summoned by [user.real_name]?", ROLE_DEMON, 1, 100)
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [type] demon summoned by [user.real_name]?", ROLE_DEMON, TRUE, 10 SECONDS, source = demon_type)
 
 	if(candidates.len > 0)
 		var/mob/C = pick(candidates)
@@ -194,7 +195,7 @@
 		to_chat(user, "<span class='notice'>The demons do not respond to your summon. Perhaps you should try again later.</span>")
 
 /obj/item/antag_spawner/slaughter_demon/spawn_antag(client/C, turf/T, type = "", mob/user)
-	var /obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(T)
+	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(T)
 	var/mob/living/simple_animal/slaughter/S = new demon_type(holder)
 	S.vialspawned = TRUE
 	S.holder = holder
@@ -252,7 +253,7 @@
 	used = TRUE
 	to_chat(user, "<span class='notice'>You break the seal on the bottle, calling upon the dire sludge to awaken...</span>")
 
-	var/list/candidates = pollCandidates("Do you want to play as a magical morph awakened by [user.real_name]?", ROLE_MORPH, 1, 100)
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a magical morph awakened by [user.real_name]?", ROLE_MORPH, 1, 10 SECONDS, source = morph_type)
 
 	if(candidates.len > 0)
 		var/mob/C = pick(candidates)

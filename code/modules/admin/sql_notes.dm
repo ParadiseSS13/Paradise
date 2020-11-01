@@ -2,7 +2,8 @@
 	if(checkrights && !check_rights(R_ADMIN|R_MOD))
 		return
 	if(!GLOB.dbcon.IsConnected())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		if(usr)
+			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 
 	if(!target_ckey)
@@ -19,7 +20,8 @@
 		log_game("SQL ERROR obtaining ckey from player table. Error : \[[err]\]\n")
 		return
 	if(!query_find_ckey.NextRow())
-		to_chat(usr, "<span class='redtext'>[target_ckey] has not been seen before, you can only add notes to known players.</span>")
+		if(usr)
+			to_chat(usr, "<span class='redtext'>[target_ckey] has not been seen before, you can only add notes to known players.</span>")
 		return
 
 	var/exp_data = query_find_ckey.item[2]
@@ -64,7 +66,8 @@
 	var/notetext
 	var/adminckey
 	if(!GLOB.dbcon.IsConnected())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		if(usr)
+			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	if(!note_id)
 		return
@@ -92,7 +95,8 @@
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
 	if(!GLOB.dbcon.IsConnected())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		if(usr)
+			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	if(!note_id)
 		return
@@ -119,8 +123,8 @@
 			var/err = query_update_note.ErrorMsg()
 			log_game("SQL ERROR editing note. Error : \[[err]\]\n")
 			return
-		log_admin("[key_name(usr)] has edited [target_ckey]'s note made by [adminckey] from \"[old_note]\" to \"[new_note]\"")
-		message_admins("[key_name_admin(usr)] has edited [target_ckey]'s note made by [adminckey] from \"[old_note]\" to \"[new_note]\"")
+		log_admin("[usr ? key_name(usr) : "Bot"] has edited [target_ckey]'s note made by [adminckey] from \"[old_note]\" to \"[new_note]\"")
+		message_admins("[usr ? key_name_admin(usr) : "Bot"] has edited [target_ckey]'s note made by [adminckey] from \"[old_note]\" to \"[new_note]\"")
 		show_note(target_ckey)
 
 /proc/show_note(target_ckey, index, linkless = 0)
@@ -188,9 +192,13 @@
 			var/err = query_list_notes.ErrorMsg()
 			log_game("SQL ERROR obtaining ckey from notes table. Error : \[[err]\]\n")
 			return
+		to_chat(usr, "<span class='notice'>Started regex note search for [search]. Please wait for results...</span>")
+		message_admins("[usr.ckey] has started a note search with the following regex: [search] | CPU usage may be higher.")
 		while(query_list_notes.NextRow())
 			index_ckey = query_list_notes.item[1]
 			output += "<a href='?_src_=holder;shownoteckey=[index_ckey]'>[index_ckey]</a><br>"
+			CHECK_TICK
+		message_admins("The note search started by [usr.ckey] has complete. CPU should return to normal.")
 	else
 		output += "<center><a href='?_src_=holder;addnoteempty=1'>\[Add Note\]</a></center>"
 		output += ruler

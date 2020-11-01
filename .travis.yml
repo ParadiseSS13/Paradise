@@ -1,11 +1,11 @@
 language: generic
-dist: xenial
+dist: bionic
 os: linux
 
 git:
   depth: 1
 
-matrix:
+jobs:
   include:
     - name: "Run Linters"
       addons:
@@ -18,12 +18,11 @@ matrix:
         - tools/travis/install_build_deps.sh
         - tools/travis/install_dreamchecker.sh
       script:
-        - shopt -s globstar
         - find . -name "*.php" -print0 | xargs -0 -n1 php -l
-        - find . -name "*.json" -not -path "./nano/node_modules/*" -print0 | xargs -0 python3 ./tools/travis/json_verifier.py
+        - find . -name "*.json" -not -path "*/node_modules/*" -print0 | xargs -0 python3 ./tools/travis/json_verifier.py
         - tools/travis/build_nanoui.sh
+        - tools/travis/build_tgui.sh
         - tools/travis/check_grep.sh
-        - tools/travis/check_changelogs.sh
         - python3 tools/travis/check_line_endings.py
         - ~/dreamchecker
 
@@ -39,4 +38,5 @@ matrix:
         - tools/travis/install_byond.sh
         - source $HOME/BYOND/byond/bin/byondsetup
       script:
+        - tools/travis/generate_maplist.sh
         - tools/travis/dm.sh -Mtravis_map_testing paradise.dme

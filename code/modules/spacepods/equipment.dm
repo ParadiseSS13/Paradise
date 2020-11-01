@@ -93,7 +93,7 @@
 	desc = "A weak taser system for space pods, fires disabler beams."
 	icon_state = "weapon_taser"
 	projectile_type = /obj/item/projectile/beam/disabler
-	shot_cost = 400
+	shot_cost = 200
 	fire_sound = 'sound/weapons/taser.ogg'
 	harmful = FALSE
 
@@ -102,7 +102,7 @@
 	desc = "A weak taser system for space pods, this one fires 3 at a time."
 	icon_state = "weapon_burst_taser"
 	projectile_type = /obj/item/projectile/beam/disabler
-	shot_cost = 1200
+	shot_cost = 600
 	shots_per = 3
 	fire_sound = 'sound/weapons/taser.ogg'
 	fire_delay = 30
@@ -113,7 +113,7 @@
 	desc = "A weak laser system for space pods, fires concentrated bursts of energy."
 	icon_state = "weapon_laser"
 	projectile_type = /obj/item/projectile/beam
-	shot_cost = 600
+	shot_cost = 300
 	fire_sound = 'sound/weapons/laser.ogg'
 
 // MINING LASERS
@@ -123,7 +123,7 @@
 	icon = 'icons/goonstation/pods/ship.dmi'
 	icon_state = "pod_taser"
 	projectile_type = /obj/item/projectile/kinetic/pod
-	shot_cost = 300
+	shot_cost = 150
 	fire_delay = 14
 	fire_sound = 'sound/weapons/kenetic_accel.ogg'
 
@@ -133,7 +133,7 @@
 	icon = 'icons/goonstation/pods/ship.dmi'
 	icon_state = "pod_m_laser"
 	projectile_type = /obj/item/projectile/kinetic/pod/regular
-	shot_cost = 250
+	shot_cost = 125
 	fire_delay = 10
 	fire_sound = 'sound/weapons/kenetic_accel.ogg'
 
@@ -143,29 +143,26 @@
 ///////////////////////////////////////
 */
 
+GLOBAL_LIST_EMPTY(pod_trackers)
+
 /obj/item/spacepod_equipment/misc
 	name = "pod misc"
 	desc = "You shouldn't be seeing this"
 	icon = 'icons/goonstation/pods/ship.dmi'
 	icon_state = "blank"
-	var/enabled
 
 /obj/item/spacepod_equipment/misc/tracker
 	name = "\improper spacepod tracking system"
 	desc = "A tracking device for spacepods."
 	icon_state = "pod_locator"
-	enabled = 0
 
-/obj/item/spacepod_equipment/misc/tracker/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	if(enabled)
-		enabled = 0
-		user.show_message("<span class='notice'>You disable \the [src]'s power.")
-		return
-	enabled = 1
-	user.show_message("<span class='notice'>You enable \the [src]'s power.</span>")
+/obj/item/spacepod_equipment/misc/tracker/Initialize(mapload)
+	GLOB.pod_trackers |= src
+	return ..()
+
+/obj/item/spacepod_equipment/misc/tracker/Destroy()
+	GLOB.pod_trackers -= src
+	return ..()
 
 /*
 ///////////////////////////////////////

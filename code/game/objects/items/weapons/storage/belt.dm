@@ -135,8 +135,9 @@
 		/obj/item/rad_laser,
 		/obj/item/sensor_device,
 		/obj/item/wrench/medical,
+		/obj/item/handheld_defibrillator,
+		/obj/item/reagent_containers/applicator,
 		/obj/item/pinpointer/crew,
-		/obj/item/handheld_defibrillator
 	)
 
 /obj/item/storage/belt/medical/surgery
@@ -261,6 +262,14 @@
 	new /obj/item/grenade/flashbang(src)
 	update_icon()
 
+/obj/item/storage/belt/security/webbing
+	name = "security webbing"
+	desc = "Unique and versatile chest rig, can hold security gear."
+	icon_state = "securitywebbing"
+	item_state = "securitywebbing"
+	storage_slots = 6
+	use_item_overlays = FALSE
+
 /obj/item/storage/belt/soulstone
 	name = "soul stone belt"
 	desc = "Designed for ease of access to the shards during a fight, as to not let a single enemy spirit slip away"
@@ -312,6 +321,18 @@
 	icon_state = "utilitybelt"
 	item_state = "utility"
 	use_item_overlays = 1 // So it will still show tools in it in case sec get lazy and just glance at it.
+
+/obj/item/storage/belt/military/traitor/hacker
+
+/obj/item/storage/belt/military/traitor/hacker/New()
+	..()
+	new /obj/item/screwdriver(src, "red")
+	new /obj/item/wrench(src)
+	new /obj/item/weldingtool/largetank(src)
+	new /obj/item/crowbar/red(src)
+	new /obj/item/wirecutters(src, "red")
+	new /obj/item/stack/cable_coil(src, 30, COLOR_RED)
+	update_icon()
 
 /obj/item/storage/belt/grenade
 	name = "grenadier belt"
@@ -797,3 +818,29 @@
 	icon_state = "ebelt"
 	item_state = "ebelt"
 	storage_slots = 5
+
+/obj/item/storage/belt/chef
+	name = "culinary tool apron"
+	desc = "An apron with various pockets for holding all your cooking tools and equipment."
+	icon_state = "chefbelt"
+	item_state = "chefbelt"
+	storage_slots = 10
+	max_w_class = WEIGHT_CLASS_NORMAL
+	max_combined_w_class = 25
+	can_hold = list(
+		/obj/item/kitchen/utensil,
+		/obj/item/kitchen/knife,
+		/obj/item/kitchen/rollingpin,
+		/obj/item/kitchen/mould,
+		/obj/item/kitchen/sushimat,
+		/obj/item/kitchen/cutter,
+		/obj/item/assembly/mousetrap,
+		/obj/item/reagent_containers/spray/pestspray,
+		/obj/item/reagent_containers/food/drinks/flask,
+		/obj/item/reagent_containers/food/drinks/drinkingglass,
+		/obj/item/reagent_containers/food/drinks/bottle,
+		/obj/item/reagent_containers/food/drinks/cans,
+		/obj/item/reagent_containers/food/drinks/shaker,
+		/obj/item/reagent_containers/food/snacks,
+		/obj/item/reagent_containers/food/condiment,
+		/obj/item/reagent_containers/glass/beaker)

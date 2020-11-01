@@ -93,6 +93,18 @@ Charged extracts:
 	user.visible_message("<span class='notice'>[src] produces a large amount of plasma!</span>")
 	..()
 
+/obj/item/slimecross/charged/silver
+	colour = "silver"
+	effect_desc = "Creates a slime cake and some drinks."
+
+/obj/item/slimecross/charged/silver/do_effect(mob/user)
+	new /obj/item/reagent_containers/food/snacks/sliceable/cake/slimecake(get_turf(user))
+	for(var/i in 1 to 5)
+		var/drink_type = get_random_drink()
+		new drink_type(get_turf(user))
+	user.visible_message("<span class='notice'>[src] produces a party's worth of cake and drinks!</span>")
+	..()
+
 /obj/item/slimecross/charged/bluespace
 	colour = "bluespace"
 	effect_desc = "Makes a bluespace polycrystal."

@@ -1,4 +1,4 @@
-/obj/machinery/recharge_station/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
+/obj/machinery/recharge_station/MouseDrop_T(atom/movable/O as mob|obj, mob/user)
 	var/can_accept_user = FALSE
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
@@ -29,7 +29,7 @@
 			to_chat(user, "<span class='warning'>Without a power cell, [R] can't be recharged.</span>")
 		can_accept_user = TRUE
 	if(ishuman(L))
-		if(ismachine(L))
+		if(isrobot(L))
 			can_accept_user = TRUE
 		else if(!L.get_int_organ(/obj/item/organ/internal/cell))
 			to_chat(user, "<span class='notice'>Only non-organics may enter the recharger!</span>")

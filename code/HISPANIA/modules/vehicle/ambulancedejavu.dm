@@ -4,7 +4,6 @@
 	icon_state = "docwagon2"
 	key_type = /obj/item/key/ambulance/dejavu
 
-
 /datum/action/ambulancedejavu_alarm
 	name = "Toggle Sirens"
 	icon_icon = 'icons/obj/vehicles.dmi'
@@ -13,21 +12,15 @@
 	var/toggle_cooldown = 10
 	var/cooldown = 0
 
-
 /datum/action/ambulancedejavu_alarm/Trigger()
 	if(!..())
 		return FALSE
-
 	var/obj/vehicle/ambulance/A = target
-
 	if(!istype(A) || !A.soundloop)
 		return FALSE
-
 	if(world.time < cooldown + toggle_cooldown)
 		return FALSE
-
 	cooldown = world.time
-
 	if(A.soundloop.muted)
 		A.soundloop.start()
 		A.set_light(4,3,"#F70027")
@@ -35,19 +28,16 @@
 		A.soundloop.stop()
 		A.set_light(0)
 
-
 /datum/looping_sound/ambulancedejavu_alarm
     start_length = 0
     mid_sounds = list('sound/items/dejavu.ogg' = 1)
     mid_length = 14
     volume = 100
 
-
 /obj/item/key/ambulance/dejavu
 	name = "ambulance key"
 	desc = "A keyring with a small steel key, and tag with a red cross on it."
 	icon_state = "keydoc"
-
 
 /obj/vehicle/ambulance/handle_vehicle_offsets()
 	..()
@@ -67,4 +57,3 @@
 				if(EAST)
 					buckled_mob.pixel_x = -13
 					buckled_mob.pixel_y = 7
-

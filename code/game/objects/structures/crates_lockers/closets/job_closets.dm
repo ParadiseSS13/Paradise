@@ -115,6 +115,8 @@
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/glasses/sunglasses/big(src)
 	new /obj/item/clothing/glasses/sunglasses/big(src)
+	new /obj/item/clothing/accessory/lawyers_badge(src)
+	new /obj/item/clothing/accessory/lawyers_badge(src)
 
 //Paramedic
 
@@ -126,6 +128,7 @@
 
 
 /obj/structure/closet/paramedic/New()
+	. = ..()
 	new /obj/item/clothing/under/rank/medical/paramedic(src)
 	new /obj/item/clothing/under/rank/medical/paramedic(src)
 	new /obj/item/radio/headset/headset_med(src)

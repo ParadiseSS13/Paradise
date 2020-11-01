@@ -13,7 +13,7 @@
 #define DROPLIMB_BLUNT 1
 #define DROPLIMB_BURN 2
 
-#define AGE_MIN 18			//youngest a character can be
+#define AGE_MIN 15			//youngest a character can be
 #define AGE_MAX 85			//oldest a character can be
 
 
@@ -60,6 +60,9 @@
 // By defining the effect multiplier this way, it'll exactly adjust
 // all effects according to how they originally were with the 0.4 metabolism
 #define REAGENTS_EFFECT_MULTIPLIER REAGENTS_METABOLISM / 0.4
+
+// Roundstart trait system
+#define MAX_QUIRKS 6 //The maximum amount of quirks one character can have at roundstart
 
 // Factor of how fast mob nutrition decreases
 #define	HUNGER_FACTOR 0.1
@@ -196,9 +199,10 @@
 #define isslimeperson(A) (is_species(A, /datum/species/slime))
 #define isgrey(A) (is_species(A, /datum/species/grey))
 #define isdiona(A) (is_species(A, /datum/species/diona))
-#define ismachine(A) (is_species(A, /datum/species/machine))
+#define ismachineperson(A) (is_species(A, /datum/species/machine))
 #define isdrask(A) (is_species(A, /datum/species/drask))
 #define isashwalker(A) (is_species(A, /datum/species/unathi/ashwalker))
+#define iswryn(A) (is_species(A, /datum/species/wryn))
 
 #define isanimal(A)		(istype((A), /mob/living/simple_animal))
 #define isdog(A)		(istype((A), /mob/living/simple_animal/pet/dog))
@@ -209,6 +213,7 @@
 #define isguardian(A)	(istype((A), /mob/living/simple_animal/hostile/guardian))
 #define isnymph(A)      (istype((A), /mob/living/simple_animal/diona))
 #define ishostile(A) 	(istype(A, /mob/living/simple_animal/hostile))
+#define isterrorspider(A) (istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
 #define isAI(A)			(istype((A), /mob/living/silicon/ai))
@@ -241,3 +246,12 @@
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
 
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
+
+// Locations
+#define is_ventcrawling(A)  (istype(A.loc, /obj/machinery/atmospherics))
+
+// Hearing protection
+#define HEARING_PROTECTION_NONE	0
+#define HEARING_PROTECTION_MINOR	1
+#define HEARING_PROTECTION_MAJOR	2
+#define HEARING_PROTECTION_TOTAL	3

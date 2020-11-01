@@ -17,6 +17,7 @@
 	response_harm   = "stomps on"
 	emote_see = list("jiggles", "bounces in place")
 	speak_emote = list("blorbles")
+	bubble_icon = "slime"
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
@@ -156,7 +157,7 @@
 
 	. += config.slime_delay
 
-/mob/living/simple_animal/slime/handle_hud_icons_health()
+/mob/living/simple_animal/slime/update_health_hud()
 	if(hud_used)
 		if(!client)
 			return
@@ -264,7 +265,7 @@
 /mob/living/simple_animal/slime/unEquip(obj/item/I, force)
 	return
 
-/mob/living/simple_animal/slime/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
+/mob/living/simple_animal/slime/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	return
 
 /mob/living/simple_animal/slime/attack_ui(slot)

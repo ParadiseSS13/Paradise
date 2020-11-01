@@ -14,6 +14,7 @@ SUBSYSTEM_DEF(air)
 	wait = 5
 	flags = SS_BACKGROUND
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
+	offline_implications = "Turfs will no longer process atmos, and all atmospheric machines (including cryotubes) will no longer function. Shuttle call recommended."
 	var/cost_turfs = 0
 	var/cost_groups = 0
 	var/cost_highpressure = 0
@@ -37,6 +38,9 @@ SUBSYSTEM_DEF(air)
 	//Special functions lists
 	var/list/active_super_conductivity = list()
 	var/list/high_pressure_delta = list()
+
+	/// Pipe overlay/underlay icon manager
+	var/datum/pipe_icon_manager/icon_manager
 
 
 	var/list/currentrun = list()
@@ -65,6 +69,7 @@ SUBSYSTEM_DEF(air)
 
 /datum/controller/subsystem/air/Initialize(timeofday)
 	setup_overlays() // Assign icons and such for gas-turf-overlays
+	icon_manager = new() // Sets up icon manager for pipes
 	setup_allturfs()
 	setup_atmos_machinery(GLOB.machines)
 	setup_pipenets(GLOB.machines)

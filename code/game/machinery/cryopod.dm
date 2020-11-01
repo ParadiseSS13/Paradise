@@ -275,6 +275,12 @@
 
 	return control_computer != null
 
+// So the user can use movement keys to get out of the cryopod
+/obj/machinery/cryopod/relaymove(mob/user)
+	if(user.incapacitated())
+		return FALSE
+	go_out()
+
 /obj/machinery/cryopod/proc/check_occupant_allowed(mob/M)
 	var/correct_type = 0
 	for(var/type in allow_occupant_types)
@@ -296,6 +302,7 @@
 		// Eject dead people
 		if(occupant.stat == DEAD)
 			go_out()
+			return
 
 		// Allow a gap between entering the pod and actually despawning.
 		if(world.time - time_entered < time_till_despawn)
@@ -438,7 +445,7 @@
 	control_computer.frozen_crew += "[occupant.real_name]"
 
 	var/ailist[] = list()
-	for(var/mob/living/silicon/ai/A in GLOB.living_mob_list)
+	for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
 		ailist += A
 	if(ailist.len)
 		var/mob/living/silicon/ai/announcer = pick(ailist)
@@ -665,6 +672,9 @@
 		to_chat(usr, "<span class='warning'>[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
 		return
 
+	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
+		return
+
 	visible_message("[usr] starts climbing into [src].")
 
 	if(do_after(usr, 20, target = usr))
@@ -759,9 +769,13 @@
 
 	return ..()
 
+
 /proc/cryo_ssd(var/mob/living/carbon/person_to_cryo)
 	if(istype(person_to_cryo.loc, /obj/machinery/cryopod))
 		return 0
+	if(isobj(person_to_cryo.loc))
+		var/obj/O = person_to_cryo.loc
+		O.force_eject_occupant(person_to_cryo)
 	var/list/free_cryopods = list()
 	for(var/obj/machinery/cryopod/P in GLOB.machines)
 		if(!P.occupant && istype(get_area(P), /area/crew_quarters/sleep))
@@ -770,6 +784,9 @@
 	if(free_cryopods.len)
 		target_cryopod = safepick(free_cryopods)
 		if(target_cryopod.check_occupant_allowed(person_to_cryo))
+			var/turf/T = get_turf(person_to_cryo)
+			var/obj/effect/portal/SP = new /obj/effect/portal(T, null, null, 40)
+			SP.name = "NT SSD Teleportation Portal"
 			target_cryopod.take_occupant(person_to_cryo, 1)
 			return 1
 	return 0

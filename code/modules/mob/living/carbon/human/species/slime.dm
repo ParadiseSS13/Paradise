@@ -13,6 +13,7 @@
 	icobase = 'icons/mob/human_races/r_slime.dmi'
 	deform = 'icons/mob/human_races/r_slime.dmi'
 	remains_type = /obj/effect/decal/remains/slime
+	inherent_factions = list("slime")
 
 	// More sensitive to the cold
 	cold_level_1 = 280
@@ -25,7 +26,7 @@
 	male_cough_sounds = list('sound/effects/slime_squish.ogg')
 	female_cough_sounds = list('sound/effects/slime_squish.ogg')
 
-	species_traits = list(LIPS, IS_WHITELISTED, NO_SCAN)
+	species_traits = list(LIPS, IS_WHITELISTED, NO_SCAN, EXOTIC_COLOR)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
 	dietflags = DIET_CARN
@@ -33,7 +34,7 @@
 
 	flesh_color = "#5fe8b1"
 	blood_color = "#0064C8"
-	exotic_blood = "water"
+	exotic_blood = "slimejelly"
 
 	butt_sprite = "slime"
 	//Has default darksight of 2.
@@ -73,6 +74,9 @@
 	recolor = new()
 	recolor.Grant(H)
 	ADD_TRAIT(H, TRAIT_WATERBREATH, "species")
+	RegisterSignal(H, COMSIG_HUMAN_UPDATE_DNA, /datum/species/slime/./proc/blend)
+	blend(H)
+
 
 /datum/species/slime/on_species_loss(mob/living/carbon/human/H)
 	..()
@@ -81,6 +85,13 @@
 	if(recolor)
 		recolor.Remove(H)
 	REMOVE_TRAIT(H, TRAIT_WATERBREATH, "species")
+	UnregisterSignal(H, COMSIG_HUMAN_UPDATE_DNA)
+
+/datum/species/slime/proc/blend(mob/living/carbon/human/H)
+	var/new_color = BlendRGB(H.skin_colour, "#acacac", 0.5) // Blends this to make it work better
+	if(H.blood_color != new_color) // Put here, so if it's a roundstart, dyed, or CMA'd slime, their blood changes to match skin
+		H.blood_color = new_color
+		H.dna.species.blood_color = H.blood_color
 
 /datum/species/slime/handle_life(mob/living/carbon/human/H)
 	// Slowly shifting to the color of the reagents
@@ -94,9 +105,12 @@
 				var/obj/item/organ/external/E = H.bodyparts_by_name[organname]
 				if(istype(E) && E.dna && istype(E.dna.species, /datum/species/slime))
 					E.sync_colour_to_human(H)
-			H.update_hair(0)
+			H.update_hair()
 			H.update_body()
+			blend(H)
 	..()
+
+
 
 /datum/species/slime/can_hear() // fucking snowflakes
 	. = TRUE

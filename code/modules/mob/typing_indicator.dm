@@ -1,35 +1,36 @@
 #define TYPING_INDICATOR_LIFETIME 30 * 10	//grace period after which typing indicator disappears regardless of text in chatbar
 
-mob/var/hud_typing = 0 //set when typing in an input window instead of chatline
+mob/var/hud_typing //set when typing in an input window instead of chatline
 mob/var/typing
 mob/var/last_typed
 mob/var/last_typed_time
 
-GLOBAL_DATUM(typing_indicator, /image)
+GLOBAL_LIST_EMPTY(typing_indicator)
 
-/mob/proc/set_typing_indicator(var/state)
+/mob/proc/set_typing_indicator(state)
 
-	if(!GLOB.typing_indicator)
-		GLOB.typing_indicator = image('icons/mob/talk.dmi', null, "typing", MOB_LAYER + 1)
-		GLOB.typing_indicator.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+	if(!GLOB.typing_indicator[bubble_icon])
+		GLOB.typing_indicator[bubble_icon] = image('icons/mob/talk.dmi', null, "[bubble_icon]typing", FLY_LAYER)
+		var/image/I = GLOB.typing_indicator[bubble_icon]
+		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
-		if(H.disabilities & MUTE || H.silent)
-			overlays -= GLOB.typing_indicator
+		if((MUTE in H.mutations) || H.silent)
+			overlays -= GLOB.typing_indicator[bubble_icon]
 			return
 
 	if(client)
-		if((client.prefs.toggles & SHOW_TYPING) || stat != CONSCIOUS || is_muzzled())
-			overlays -= GLOB.typing_indicator
+		if((client.prefs.toggles & PREFTOGGLE_SHOW_TYPING) || stat != CONSCIOUS || is_muzzled())
+			overlays -= GLOB.typing_indicator[bubble_icon]
 		else
 			if(state)
 				if(!typing)
-					overlays += GLOB.typing_indicator
+					overlays += GLOB.typing_indicator[bubble_icon]
 					typing = 1
 			else
 				if(typing)
-					overlays -= GLOB.typing_indicator
+					overlays -= GLOB.typing_indicator[bubble_icon]
 					typing = 0
 			return state
 
@@ -60,7 +61,7 @@ GLOBAL_DATUM(typing_indicator, /image)
 
 /mob/proc/handle_typing_indicator()
 	if(client)
-		if(!(client.prefs.toggles & SHOW_TYPING) && !hud_typing)
+		if(!(client.prefs.toggles & PREFTOGGLE_SHOW_TYPING) && !hud_typing)
 			var/temp = winget(client, "input", "text")
 
 			if(temp != last_typed)
@@ -82,12 +83,12 @@ GLOBAL_DATUM(typing_indicator, /image)
 	set name = "Show/Hide Typing Indicator"
 	set category = "Preferences"
 	set desc = "Toggles showing an indicator when you are typing emote or say message."
-	prefs.toggles ^= SHOW_TYPING
+	prefs.toggles ^= PREFTOGGLE_SHOW_TYPING
 	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.toggles & SHOW_TYPING) ? "no longer" : "now"] display a typing indicator.")
+	to_chat(src, "You will [(prefs.toggles & PREFTOGGLE_SHOW_TYPING) ? "no longer" : "now"] display a typing indicator.")
 
 	// Clear out any existing typing indicator.
-	if(prefs.toggles & SHOW_TYPING)
+	if(prefs.toggles & PREFTOGGLE_SHOW_TYPING)
 		if(istype(mob)) mob.set_typing_indicator(0)
 
 	feedback_add_details("admin_verb","TID") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

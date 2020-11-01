@@ -64,6 +64,10 @@ DEFAULT_LAWS 1
 ## Randomize roundstart time (anywhere from 00:00 to 23:00 instead of always starting at 12:00)
 RANDOMIZE_SHIFT_TIME
 
+## Uncomment to allow roundstart quirk selection in the character setup menu.
+## This used to be named traits, hence the config name, but it handles quirks, not the other kind of trait!
+#ROUNDSTART_TRAITS
+
 ## Enable Nightshift - Causes the station to go into "night mode" from 19:30 to 07:30. Best used with RANDOMIZED_SHIFT_TIME.
 ENABLE_NIGHT_SHIFTS
 

@@ -15,7 +15,6 @@
 	weed_chance = 25
 	growing_icon = 'icons/hispania/obj/hydroponics/growing_fruits.dmi'
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	reagents_add = list("strawberry" = 1)
 
 /obj/item/reagent_containers/food/snacks/grown/strawberry
 	seed = /obj/item/seeds/strawberry

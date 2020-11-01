@@ -4,12 +4,10 @@
 	var/select = 1
 	can_tactical = TRUE
 	can_suppress = 1
+	can_holster = FALSE
 	burst_size = 3
 	fire_delay = 2
 	actions_types = list(/datum/action/item_action/toggle_firemode)
-
-/obj/item/gun/projectile/automatic/isHandgun()
-	return 0
 
 /obj/item/gun/projectile/automatic/update_icon()
 	..()
@@ -112,7 +110,7 @@
 
 /obj/item/gun/projectile/automatic/c20r/update_icon()
 	..()
-	icon_state = "c20r[magazine ? "-[Ceiling(get_ammo(0)/4)*4]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
+	icon_state = "c20r[magazine ? "-[CEILING(get_ammo(0)/4, 1)*4]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
 
 //WT550//
 /obj/item/gun/projectile/automatic/wt550
@@ -134,7 +132,7 @@
 
 /obj/item/gun/projectile/automatic/wt550/update_icon()
 	..()
-	icon_state = "wt550[magazine ? "-[Ceiling(get_ammo(0)/4)*4]" : ""]"
+	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(0)/4, 1)*4]" : ""]"
 
 //Type-U3 Uzi//
 /obj/item/gun/projectile/automatic/mini_uzi
@@ -194,8 +192,8 @@
 			overlays += "[initial(icon_state)]gren"
 	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
 	if(magazine)
-		overlays += image(icon = icon, icon_state = "m90-[Ceiling(get_ammo(0)/6)*6]")
-		item_state = "m90-[Ceiling(get_ammo(0)/7.5)]"
+		overlays += image(icon = icon, icon_state = "m90-[CEILING(get_ammo(0)/6, 1)*6]")
+		item_state = "m90-[CEILING(get_ammo(0)/7.5, 1)]"
 	else
 		item_state = "m90-0"
 	return
@@ -275,12 +273,26 @@
 	if(magazine)
 		overlays.Cut()
 		overlays += "[magazine.icon_state]"
-		return
+		if(istype(magazine, /obj/item/ammo_box/magazine/m12g/XtrLrg))
+			w_class = WEIGHT_CLASS_BULKY
+		else
+			w_class = WEIGHT_CLASS_NORMAL
+	else
+		w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/update_icon()
 	overlays.Cut()
 	update_magazine()
 	icon_state = "bulldog[chambered ? "" : "-e"]"
+
+/obj/item/gun/projectile/automatic/shotgun/bulldog/attackby(var/obj/item/A as obj, mob/user as mob, params)
+	if(istype(A, /obj/item/ammo_box/magazine/m12g/XtrLrg))
+		if(istype(loc, /obj/item/storage))	// To prevent inventory exploits
+			var/obj/item/storage/Strg = loc
+			if(Strg.max_w_class < WEIGHT_CLASS_BULKY)
+				to_chat(user, "<span class='warning'>You can't reload [src], with a XL mag, while it's in a normal bag.</span>")
+				return
+	return ..()
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
 	..()
@@ -303,4 +315,4 @@
 
 /obj/item/gun/projectile/automatic/lasercarbine/update_icon()
 	..()
-	icon_state = "lasercarbine[magazine ? "-[Ceiling(get_ammo(0)/5)*5]" : ""]"
+	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"

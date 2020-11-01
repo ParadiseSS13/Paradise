@@ -23,10 +23,8 @@
 	var/input_pressure_min = 0
 	var/output_pressure_max = 0
 
-	var/frequency = ATMOS_VENTSCRUB
+	frequency = ATMOS_VENTSCRUB
 	var/id_tag = null
-	var/datum/radio_frequency/radio_connection
-	var/advcontrol = 0//does this device listen to the AAC
 
 	settagwhitelist = list("id_tag")
 
@@ -75,7 +73,7 @@
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/update_icon(var/safety = 0)
 	..()
-	
+
 	if(!check_icon_cache())
 		return
 
@@ -95,7 +93,7 @@
 	else
 		vent_icon += "[on ? "[pump_direction ? "out" : "in"]" : "off"]"
 
-	overlays += GLOB.pipe_icon_manager.get_atmos_icon("device", , , vent_icon)
+	overlays += SSair.icon_manager.get_atmos_icon("device", , , vent_icon)
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/update_underlays()
 	if(..())
@@ -161,13 +159,6 @@
 				air_update_turf()
 	return 1
 
-//Radio remote control
-/obj/machinery/atmospherics/binary/dp_vent_pump/proc/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	if(frequency)
-		radio_connection = SSradio.add_object(src, frequency, filter = RADIO_ATMOSIA)
-
 /obj/machinery/atmospherics/binary/dp_vent_pump/proc/broadcast_status()
 	if(!radio_connection)
 		return 0
@@ -192,7 +183,7 @@
 	return 1
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/receive_signal(datum/signal/signal)
-	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command") || (signal.data["advcontrol"] && !advcontrol))
+	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))
 		return 0
 	if(signal.data["power"] != null)
 		on = text2num(signal.data["power"])
@@ -256,14 +247,5 @@
 	<ul>
 		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[ATMOS_VENTSCRUB]">Reset</a>)</li>
 		<li><b>ID Tag:</b> <a href="?src=[UID()];set_id=1">[id_tag]</a></li>
-		<li><b>AAC Acces:</b> <a href="?src=[UID()];toggleadvcontrol=1">[advcontrol ? "Allowed" : "Blocked"]</a></li>
 	</ul>
 	"}
-
-/obj/machinery/atmospherics/binary/dp_vent_pump/multitool_topic(var/mob/user, var/list/href_list, var/obj/O)
-	. = ..()
-	if(.)
-		return .
-	if("toggleadvcontrol" in href_list)
-		advcontrol = !advcontrol
-		return TRUE

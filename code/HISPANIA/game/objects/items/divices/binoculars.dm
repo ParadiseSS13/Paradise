@@ -39,7 +39,6 @@
 	origin_tech = "engineering=5;materials=6;bluespace=5"
 
 ///Funciones de Binoculares
-
 /obj/item/device/binoculars/attack_self(mob/user)
 	if(!zoomed)
 		zoom(user, TRUE)
@@ -59,7 +58,6 @@
 /obj/item/device/binoculars/proc/zoom(mob/living/user, forced_zoom)
 	if(!user || !user.client)
 		return
-
 	switch(forced_zoom)
 		if(FALSE)
 			zoomed = FALSE

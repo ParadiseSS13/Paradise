@@ -11,24 +11,57 @@ SUBSYSTEM_DEF(mapping)
 		createRandomZlevel()
 	// Seed space ruins
 	if(!config.disable_space_ruins)
-		var/timer = start_watch()
-		log_startup_progress("Creating random space levels...")
-		seedRuins(list(level_name_to_num(EMPTY_AREA)), rand(0, 3), /area/space, GLOB.space_ruins_templates)
-		log_startup_progress("Loaded random space levels in [stop_watch(timer)]s.")
-
 		// load in extra levels of space ruins
-
+		var/load_zlevels_timer = start_watch()
+		log_startup_progress("Creating random space levels...")
 		var/num_extra_space = rand(config.extra_space_ruin_levels_min, config.extra_space_ruin_levels_max)
 		for(var/i = 1, i <= num_extra_space, i++)
-			var/zlev = GLOB.space_manager.add_new_zlevel("[EMPTY_AREA] #[i]", linkage = CROSSLINKED, traits = list(REACHABLE))
-			seedRuins(list(zlev), rand(0, 3), /area/space, GLOB.space_ruins_templates)
+			GLOB.space_manager.add_new_zlevel("Ruin Area #[i]", linkage = CROSSLINKED, traits = list(REACHABLE, SPAWN_RUINS))
+		log_startup_progress("Loaded random space levels in [stop_watch(load_zlevels_timer)]s.")
+
+		// Now spawn ruins, random budget between 20 and 30 for all zlevels combined.
+		// While this may seem like a high number, the amount of ruin Z levels can be anywhere between 3 and 7.
+		// Note that this budget is not split evenly accross all zlevels
+		log_startup_progress("Seeding ruins...")
+		var/seed_ruins_timer = start_watch()
+		seedRuins(levels_by_trait(SPAWN_RUINS), rand(20, 30), /area/space, GLOB.space_ruins_templates)
+		log_startup_progress("Successfully seeded ruins in [stop_watch(seed_ruins_timer)]s.")
+
+	// Makes a blank space level for the sake of randomness
+	GLOB.space_manager.add_new_zlevel("Empty Area", linkage = CROSSLINKED, traits = list(REACHABLE))
+
 
 	// Setup the Z-level linkage
 	GLOB.space_manager.do_transition_setup()
 
 	// Spawn Lavaland ruins and rivers.
+	log_startup_progress("Populating lavaland...")
+	var/lavaland_setup_timer = start_watch()
 	seedRuins(list(level_name_to_num(MINING)), config.lavaland_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
 	spawn_rivers(list(level_name_to_num(MINING)))
+	log_startup_progress("Successfully populated lavaland in [stop_watch(lavaland_setup_timer)]s.")
+
+	// Now we make a list of areas for teleport locs
+	// TOOD: Make these locs into lists on the SS itself, not globs
+	for(var/area/AR in world)
+		if(AR.no_teleportlocs)
+			continue
+		if(GLOB.teleportlocs[AR.name])
+			continue
+		var/turf/picked = safepick(get_area_turfs(AR.type))
+		if(picked && is_station_level(picked.z))
+			GLOB.teleportlocs[AR.name] = AR
+
+	GLOB.teleportlocs = sortAssoc(GLOB.teleportlocs)
+
+	for(var/area/AR in world)
+		if(GLOB.ghostteleportlocs[AR.name])
+			continue
+		var/list/turfs = get_area_turfs(AR.type)
+		if(turfs.len)
+			GLOB.ghostteleportlocs[AR.name] = AR
+
+	GLOB.ghostteleportlocs = sortAssoc(GLOB.ghostteleportlocs)
 
 	return ..()
 

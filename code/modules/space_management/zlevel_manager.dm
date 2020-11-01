@@ -107,6 +107,7 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 // Increments the max z-level by one
 // For convenience's sake returns the z-level added
 /datum/zlev_manager/proc/add_new_zlevel(name, linkage = SELFLOOPING, traits = list(BLOCK_TELEPORT))
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NEW_Z, args)
 	if(name in levels_by_name)
 		throw EXCEPTION("Name already in use: [name]")
 	world.maxz++
@@ -169,3 +170,4 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 	if(!istype(heap))
 		throw EXCEPTION("Attempted to free chunk at invalid z-level ([C.x],[C.y],[C.zpos]) [C.width]x[C.height]")
 	heap.free(C)
+

@@ -5,11 +5,10 @@ respectivos sprites en las carpetas de iconos de hispania , es decir icons/hispa
 deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE"*/
 
 //code by Danaleja2005
-
 /obj/machinery/vending/walldrobe
 	name = "\improper WallDrobe"
 	desc = "Wall-mounted Clothes dispenser. Made by D&N Corp."
-	product_ads = "Dress up in fashion and wear our amazing uniforms, hats, suits made of the best material, only with us N&D Corp!."
+	ads_list =list("Dress up in fashion and wear our amazing uniforms, hats, suits made of the best material, only with us N&D Corp!.")
 	icon = 'icons/hispania/obj/vending.dmi'
 	icon_state = "walldrobe"
 	icon_deny = "walldrobe-deny"
@@ -63,8 +62,10 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 					/obj/item/clothing/under/rank/head_of_security/skirt = 1,
 					/obj/item/clothing/suit/armor/hos = 1,
 					/obj/item/clothing/suit/armor/hos/alt = 1,
+					/obj/item/clothing/suit/armor/hos/ranger = 1,
 					/obj/item/clothing/head/HoS = 1,
 					/obj/item/clothing/head/HoS/beret = 1,
+					/obj/item/clothing/head/helmet/riot/rangerh = 1,
 					/obj/item/clothing/suit/mantle/armor = 1,
 					/obj/item/clothing/gloves/color/black/hos = 1)
 
@@ -125,7 +126,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 /obj/machinery/vending/accesories
 	name = "\improper Xtra"
 	desc = "Accessories dispenser. Made by NT Corp."
-	product_ads = "Get fashion and useful, funny accessories for make your work better an happy, only with us NT Corp!, Remember Work is the most important."
+	ads_list = list("Get fashion and useful, funny accessories for make your work better an happy, only with us NT Corp!, Remember Work is the most important.")
 	icon = 'icons/hispania/obj/vending.dmi'
 	icon_state = "Xtra"
 	icon_vend = "Xtra-vend"
@@ -149,9 +150,15 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
    					/obj/item/lipstick/black = 5,
    					/obj/item/lipstick/white = 5,
     				/obj/item/lipstick/green = 5,
+    				/obj/item/clothing/head/collectable/petehat = 2,
+					/obj/item/clothing/head/collectable/xenom = 2,
+					/obj/item/clothing/head/collectable/paper = 2,
+					/obj/item/clothing/head/collectable/slime = 2,
+					/obj/item/clothing/head/collectable/pirate = 2,
+					/obj/item/clothing/head/collectable/thunderdome = 2,
    					/obj/item/clothing/head/kitty = 10,
    					/obj/item/clothing/head/kitty/mouse= 10,
-   					/obj/item/clothing/head/collectable/rabbitears = 10,
+   					/obj/item/clothing/head/collectable/rabbitears = 2,
 					/obj/item/clothing/head/hairflower = 5,
     				/obj/item/stack/sheet/animalhide/monkey = 5,
     				/obj/item/stack/sheet/animalhide/lizard = 5)
@@ -174,8 +181,14 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
     				/obj/item/lipstick/white = 200,
     				/obj/item/clothing/head/kitty = 350,
     				/obj/item/clothing/head/kitty/mouse = 350,
-   					/obj/item/clothing/head/collectable/rabbitears = 350,
+   					/obj/item/clothing/head/collectable/rabbitears = 2000,
     				/obj/item/clothing/head/hairflower = 200,
+    				/obj/item/clothing/head/collectable/petehat = 2000,
+					/obj/item/clothing/head/collectable/xenom = 2000,
+					/obj/item/clothing/head/collectable/paper = 2000,
+					/obj/item/clothing/head/collectable/slime = 2000,
+					/obj/item/clothing/head/collectable/pirate = 2000,
+					/obj/item/clothing/head/collectable/thunderdome = 2000,
     				/obj/item/stack/sheet/animalhide/monkey = 500,
     				/obj/item/kitchen/knife/folding/wood = 300,
     				/obj/item/kitchen/knife/folding/normal = 550,

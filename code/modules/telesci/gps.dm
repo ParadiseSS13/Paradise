@@ -1,6 +1,6 @@
 GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps
-	name = "global positioning system"
+	name = "default gps"
 	desc = "Helping lost spacemen find their way through the planets since 2016."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "gps-c"
@@ -16,11 +16,14 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/New()
 	..()
 	GLOB.GPS_list.Add(src)
-	name = "global positioning system ([gpstag])"
+	GLOB.poi_list.Add(src)
+	if(name == "default gps")	//use default naming scheme
+		name = "global positioning system ([gpstag])"
 	overlays += "working"
 
 /obj/item/gps/Destroy()
 	GLOB.GPS_list.Remove(src)
+	GLOB.poi_list.Remove(src)
 	return ..()
 
 /obj/item/gps/emp_act(severity)

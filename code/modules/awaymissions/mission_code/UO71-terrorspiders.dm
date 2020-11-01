@@ -90,6 +90,7 @@
 	This facility is sealed shut by order of Commander Marquez. Do not enter.<br>
 	Terror spiders live here. We believe they are a weapon developed by the syndicate.<br>
 	Any surviving personnel are to evacuate immediately via the gateway.<br>
+	Any arriving response team is advised to use the ID Upgrade Machine to obtain local access.<br>
 	"}
 
 /obj/item/paper/terrorspiders2
@@ -134,10 +135,10 @@
 	name = "paper - 'Prescription for Jones, David'"
 	info = {"PRESCRIPTION FOR: David Jones<br>
 	RANK: Miner<br>
-	FOR: Haloperidol<br>
-	REASON FOR TREATMENT: Hallucinations, Paranoia<br>
-	CAUSE: Hallucinations caused by encounter with toxic spit of spider in the caves. Paranoia caused by disappearing staff and suspicions of syndicate infiltration.<br>
-	TREATMENT PLAN: Take as needed. See Dr. Phloxi in one week if symptoms persist. <br>
+	FOR: Charcoal<br>
+	REASON FOR TREATMENT: Toxins in bloodstream<br>
+	CAUSE: Bitten by a black terror spider.<br>
+	TREATMENT PLAN: Take hourly. See Dr. Phloxi if symptoms persist more than three hours.<br>
 	"}
 
 /obj/item/paper/terrorspiders5
@@ -149,7 +150,7 @@
 	<p>Green<br>Will lay eggs on dead bodies, breeding more spiders.</p>
 	<p>Black<br>Even a single bite is enough to kill a humanoid, given time.</p>
 	<p>White<br>Injects a parasitic agent. Deemed to pose too great an infection risk to study.</p>
-	<p>Purple<br>Only seen guarding the nest of the Queen to the south. Appear to be territorial, and very dangerous.</p>
+	<p>Purple<br>Seen guarding key areas and important spiders. Appear to be territorial, and very dangerous.</p>
 	<p>Prince<br>Held in containment 2. Appears to be a sort of super-warrior. Fast, strong, and thickly armored.</p>
 	<p>Mother<br>Carries hordes of spiderlings on its back. Held in containment 1. </p>
 	<p>Queen<br>Unable to contain. Present south of Cargo before contact was lost. Presumed ruler of the local hive.</p>
@@ -191,25 +192,26 @@
 	origin_tech = null
 	selfcharge = 1
 	can_charge = 0
-	var/inawaymission = 1
+	// Selfcharge is enabled and disabled, and used as the away mission tracker
+	selfcharge = TRUE
 
-/obj/item/gun/energy/laser/awaymission_aeg/process()
-	var/turf/my_loc = get_turf(src)
-	if(is_away_level(my_loc.z))
-		if(inawaymission)
-			return ..()
+/obj/item/gun/energy/laser/awaymission_aeg/Initialize(mapload)
+	. = ..()
+	// Force update it incase it spawns outside an away mission and shouldnt be charged
+	onTransitZ(new_z = loc.z)
+
+/obj/item/gun/energy/laser/awaymission_aeg/onTransitZ(old_z, new_z)
+	if(is_away_level(new_z))
 		if(ismob(loc))
 			to_chat(loc, "<span class='notice'>Your [src] activates, starting to draw power from a nearby wireless power source.</span>")
-		inawaymission = 1
+		selfcharge = TRUE
 	else
-		if(inawaymission)
+		if(selfcharge)
 			if(ismob(loc))
 				to_chat(loc, "<span class='danger'>Your [src] deactivates, as it is out of range from its power source.</span>")
 			cell.charge = 0
-			inawaymission = 0
+			selfcharge = FALSE
 			update_icon()
-
-
 
 /obj/item/reagent_containers/glass/beaker/terror_black_toxin
 	name = "beaker 'Black Terror Venom'"

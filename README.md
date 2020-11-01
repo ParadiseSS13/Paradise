@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/ParadiseSS13/Paradise.svg?branch=master)](https://travis-ci.org/ParadiseSS13/Paradise)
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/paradisess13/paradise.svg)](http://isitmaintained.com/project/paradisess13/paradise "Average time to resolve an issue")
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/paradisess13/paradise.svg)](http://isitmaintained.com/project/paradisess13/paradise "Percentage of issues still open")
-[![Krihelimeter](http://www.krihelinator.xyz/badge/paradisess13/paradise)](http://www.krihelinator.xyz) 
+![Render Nanomaps](https://github.com/ParadiseSS13/Paradise/workflows/Render%20Nanomaps/badge.svg)
 
 [![forthebadge](http://forthebadge.com/images/badges/60-percent-of-the-time-works-every-time.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/contains-technical-debt.svg)](http://forthebadge.com)
@@ -69,6 +69,16 @@ run Dream Daemon and enter the path to your compiled paradise.dmb file.
 Make sure to set the port to the one you specified in the config.txt,
 and set the Security box to 'Trusted'.  
 Then press GO and the server should start up and be ready to join.
+
+### Installation (Linux)
+
+The code is able to run on Linux server side, however the libraries for MySQL and logging do require extra packages.
+
+For MySQL, run the following: `apt-get install libmysqlclient-dev:i386`
+
+For RustG, run the following: `apt-get install libssl-dev:i386 pkg-config:i386 zlib1g-dev:i386`
+
+After installing these packages, these libraries should function as intended.
 
 ---
 

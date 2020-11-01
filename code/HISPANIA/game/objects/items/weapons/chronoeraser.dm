@@ -58,8 +58,6 @@
 	actions_types = list(/datum/action/item_action/equip_unequip_TED_Gun)
 
 ////CHRONO GUNS BELOW ////
-
-
 /obj/item/gun/energy/chrono_gun/bow
 	name = "T.E.D. Projection Apparatus"
 	desc = "It's as if they never existed in the first place."
@@ -71,6 +69,3 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/chrono_beam)
 	can_charge = 0
 	fire_delay = 50
-	obj/item/chrono_eraser/TED = null
-	obj/effect/chrono_field/field = null
-	turf/startpos = null

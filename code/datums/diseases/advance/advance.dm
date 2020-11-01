@@ -69,7 +69,8 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 // Randomly pick a symptom to activate.
 /datum/disease/advance/stage_act()
-	..()
+	if(!..())
+		return FALSE
 	if(symptoms && symptoms.len)
 
 		if(!processing)
@@ -81,6 +82,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 			S.Activate(src)
 	else
 		CRASH("We do not have any symptoms during stage_act()!")
+	return TRUE
 
 // Compares type then ID.
 /datum/disease/advance/IsSame(datum/disease/advance/D)
@@ -171,7 +173,6 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 	if(!symptoms || !symptoms.len)
 		CRASH("We did not have any symptoms before generating properties.")
-		return
 
 	var/list/properties = list("resistance" = 1, "stealth" = 0, "stage_rate" = 1, "transmittable" = 1, "severity" = 0)
 
@@ -196,9 +197,9 @@ GLOBAL_LIST_INIT(advance_cures, list(
 				visibility_flags = HIDDEN_SCANNER|HIDDEN_PANDEMIC
 
 		// The more symptoms we have, the less transmittable it is but some symptoms can make up for it.
-		SetSpread(Clamp(2 ** (properties["transmittable"] - symptoms.len), BLOOD, AIRBORNE))
-		permeability_mod = max(Ceiling(0.4 * properties["transmittable"]), 1)
-		cure_chance = 15 - Clamp(properties["resistance"], -5, 5) // can be between 10 and 20
+		SetSpread(clamp(2 ** (properties["transmittable"] - symptoms.len), BLOOD, AIRBORNE))
+		permeability_mod = max(CEILING(0.4 * properties["transmittable"], 1), 1)
+		cure_chance = 15 - clamp(properties["resistance"], -5, 5) // can be between 10 and 20
 		stage_prob = max(properties["stage_rate"], 2)
 		SetSeverity(properties["severity"])
 		GenerateCure(properties)
@@ -245,7 +246,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 // Will generate a random cure, the less resistance the symptoms have, the harder the cure.
 /datum/disease/advance/proc/GenerateCure(list/properties = list())
 	if(properties && properties.len)
-		var/res = Clamp(properties["resistance"] - (symptoms.len / 2), 1, GLOB.advance_cures.len)
+		var/res = clamp(properties["resistance"] - (symptoms.len / 2), 1, GLOB.advance_cures.len)
 //		to_chat(world, "Res = [res]")
 		cures = list(GLOB.advance_cures[res])
 
@@ -396,8 +397,9 @@ GLOBAL_LIST_INIT(advance_cures, list(
 		for(var/datum/disease/advance/AD in GLOB.active_diseases)
 			AD.Refresh()
 
-		for(var/mob/living/carbon/human/H in shuffle(GLOB.living_mob_list))
-			if(!is_station_level(H.z))
+		for(var/thing in shuffle(GLOB.human_list))
+			var/mob/living/carbon/human/H = thing
+			if(H.stat == DEAD || !is_station_level(H.z))
 				continue
 			if(!H.HasDisease(D))
 				H.ForceContractDisease(D)

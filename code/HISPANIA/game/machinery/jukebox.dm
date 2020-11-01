@@ -25,7 +25,7 @@
 		new /datum/track("Pop-Rock",	"Space Oddity - David Bowie",					'sound/music/title4.ogg',					3300,	5),
 		new /datum/track("Pop",	    "Star Wars Cantina - Meco",				        'sound/hispania/hispaniabox/star_wars_cantina.ogg',		2532,	5),
 		new /datum/track("Pop",	        "Never Gonna Give You Up - Rick Astley",	    'sound/hispania/hispaniabox/Give_You_Up.ogg',		2120,	5),
-		new /datum/track("Electro",	    "Tripaloski",									'sound/hispania/hispaniabox/Tripaloski.ogg',		1040,	5),
+		new /datum/track("Pop",	    "David Bowie - Starman",									'sound/hispania/hispaniabox/starman.ogg',		2570,	5),
 		new /datum/track("Ambient",		"Space Ambient Song - Nanostrasen",			'sound/music/space.ogg',		2130,	5),
 		new /datum/track("Lo-Fi Chill",	"Interstellar Main Theme - Hans Zimmer",		'sound/music/title11.ogg',		2540,	5),
 		new /datum/track("Electro",		"Paradise Theme - Nanostrasen",        			'sound/music/title2.ogg',		2080,	5),
@@ -34,12 +34,12 @@
 		new /datum/track("Electro",		"Spoiler - DJ Hyper",        					'sound/music/title9.ogg',		3500,	5),
 		new /datum/track("Ambient",		"Tension Music - Nanostrasen",        			'sound/music/traitor.ogg',		3500,	5),
 		new /datum/track("Ambient",		"Thunderdome Song - Nanostrasen",        		'sound/music/thunderdome.ogg',	2020,	5),
-		new /datum/track("Spanish Rock",		"Lamento boliviano - Enanitos Verdes",        		'sound/hispania/hispaniabox/rock.ogg',	2220,	5),
-		new /datum/track("Salsa",		"Por que sera - Alvaro Ricardo",        		'sound/hispania/hispaniabox/salsa.ogg',	2560,	5),
+		new /datum/track("Spanish Rock",		"babi - NASA",        		'sound/hispania/hispaniabox/babi.ogg',	2190,	5),
+		new /datum/track("Salsa",		"Unaesta - La Vida Es Una Lenteja",        		'sound/hispania/hispaniabox/lenteja.ogg',	2650,	5),
 		new /datum/track("Cumbia",		"La Vida Es Un Carnaval - Celia Cruz",        		'sound/hispania/hispaniabox/cumbion.ogg',	2770,	5),
-		new /datum/track("Bachata",		"Propuesta Indecente - Romeo Santos",        		'sound/hispania/hispaniabox/bachata.ogg',	2320,	5),
+		new /datum/track("Cumbia",		"Antonio Rios - Nunca me Faltes",        		'sound/hispania/hispaniabox/marcianito.ogg',	2470,	5),
 		)
-	var/datum/track/selection = null
+	var/datum/track/selection
 	var/track = ""
 
 /datum/track
@@ -127,7 +127,7 @@
 
 	switch(href_list["action"])
 		if("on_click")
-			if(selection == null)
+			if(isnull(selection))
 				return TRUE
 			if(QDELETED(src))
 				return TRUE

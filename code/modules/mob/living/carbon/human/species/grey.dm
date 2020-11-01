@@ -21,7 +21,7 @@
 
 	default_genes = list(REMOTE_TALK)
 
-	species_traits = list(LIPS, IS_WHITELISTED, CAN_BE_FAT, CAN_WINGDINGS)
+	species_traits = list(LIPS, IS_WHITELISTED, CAN_WINGDINGS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags =  HAS_BODY_MARKINGS
 	dietflags = DIET_HERB
@@ -88,3 +88,7 @@
 		H.adjustFireLoss(1)
 		return TRUE
 	return ..()
+
+/datum/species/grey/get_species_runechat_color(mob/living/carbon/human/H)
+	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
+	return E.eye_colour

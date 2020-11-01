@@ -1,7 +1,8 @@
+//ENGI
 /datum/supply_packs/engineering/inducers
 	name = "Inducers Crate"
 	cost = 60
-	contains = list(/obj/item/inducerapc, /obj/item/inducerapc)
+	contains = list(/obj/item/inducer/apc, /obj/item/inducer/apc)
 	containername = "inducer crate"
 	containertype = /obj/structure/closet/crate/secure/engineering
 	access = ACCESS_ENGINE
@@ -9,8 +10,7 @@
 //Med//
 
 //Rolledbed//
-
-datum/supply_packs/medical/rolledbed
+/datum/supply_packs/medical/rolledbed
     name = "Rolled Bed Crate"
     contains = list(/obj/item/roller,
                     /obj/item/roller)
@@ -19,8 +19,7 @@ datum/supply_packs/medical/rolledbed
 
 
 //Sec///
-
-datum/supply_packs/security/spacesuit
+/datum/supply_packs/security/spacesuit
     name = "Security Space Suit Crate"
     contains = list(/obj/item/clothing/suit/space/hardsuit/security,
                     /obj/item/clothing/suit/space/hardsuit/security,
@@ -30,7 +29,6 @@ datum/supply_packs/security/spacesuit
     containername = "security space suit crate"
 
 //Emergency//
-
 /datum/supply_packs/engineering/energy_shi
 	name = "Emergency Shield Crate"
 	cost = 120

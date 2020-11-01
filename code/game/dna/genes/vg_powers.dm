@@ -4,10 +4,10 @@
 	name = "Morphism"
 	desc = "Enables the subject to reconfigure their appearance to that of any human."
 	spelltype =/obj/effect/proc_holder/spell/targeted/morph
-	activation_messages=list("Your body feels if can alter its appearance.")
+	activation_messages = list("Your body feels if can alter its appearance.")
 	deactivation_messages = list("Your body doesn't feel capable of altering its appearance.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation=MORPH
+	mutation = MORPH
 
 /datum/dna/gene/basic/grant_spell/morph/New()
 	..()
@@ -29,7 +29,8 @@
 	action_icon_state = "genetic_morph"
 
 /obj/effect/proc_holder/spell/targeted/morph/cast(list/targets, mob/user = usr)
-	if(!ishuman(user))	return
+	if(!ishuman(user))
+		return
 
 	if(istype(user.loc,/mob/))
 		to_chat(user, "<span class='warning'>You can't change your appearance right now!</span>")
@@ -173,24 +174,24 @@
 
 	M.update_dna()
 
-	M.visible_message("<span class='notice'>[src] morphs and changes [p_their()] appearance!</span>", "<span class='notice'>You change your appearance!</span>", "<span class='warning'>Oh, god!  What the hell was that?  It sounded like flesh getting squished and bone ground into a different shape!</span>")
+	M.visible_message("<span class='notice'>[M] morphs and changes [M.p_their()] appearance!</span>", "<span class='notice'>You change your appearance!</span>", "<span class='warning'>Oh, god!  What the hell was that?  It sounded like flesh getting squished and bone ground into a different shape!</span>")
 
 /datum/dna/gene/basic/grant_spell/remotetalk
-	name="Telepathy"
-	activation_messages=list("You feel you can project your thoughts.")
-	deactivation_messages=list("You no longer feel you can project your thoughts.")
+	name = "Telepathy"
+	activation_messages = list("You feel you can project your thoughts.")
+	deactivation_messages = list("You no longer feel you can project your thoughts.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation=REMOTE_TALK
+	mutation = REMOTE_TALK
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/remotetalk
 
 /datum/dna/gene/basic/grant_spell/remotetalk/New()
 	..()
-	block=GLOB.remotetalkblock
+	block = GLOB.remotetalkblock
 
-/datum/dna/gene/basic/grant_spell/remotetalk/activate(mob/user)
+/datum/dna/gene/basic/grant_spell/remotetalk/activate(mob/living/M, connected, flags)
 	..()
-	user.AddSpell(new /obj/effect/proc_holder/spell/targeted/mindscan(null))
+	M.AddSpell(new /obj/effect/proc_holder/spell/targeted/mindscan(null))
 
 /datum/dna/gene/basic/grant_spell/remotetalk/deactivate(mob/user)
 	..()
@@ -213,25 +214,21 @@
 
 /obj/effect/proc_holder/spell/targeted/remotetalk/choose_targets(mob/user = usr)
 	var/list/targets = new /list()
-	var/list/validtargets = new /list()
-	var/turf/T = get_turf(user)
-	for(var/mob/living/M in range(14, T))
-		if(M && M.mind)
-			if(M == user)
-				continue
-			validtargets += M
+	var/list/validtargets = user.get_telepathic_targets()
 
-	if(!validtargets.len)
+	if(!length(validtargets))
 		to_chat(user, "<span class='warning'>There are no valid targets!</span>")
 		start_recharge()
 		return
 
-	targets += input("Choose the target to talk to.", "Targeting") as null|mob in validtargets
+	var/target_name = input("Choose the target to talk to.", "Targeting") as null|anything in validtargets
 
-	if(!targets.len || !targets[1]) //doesn't waste the spell
+	var/mob/living/target
+	if(!target_name || !(target = validtargets[target_name]))
 		revert_cast(user)
 		return
 
+	targets += target
 	perform(targets, user = user)
 
 /obj/effect/proc_holder/spell/targeted/remotetalk/cast(list/targets, mob/user = usr)
@@ -244,11 +241,12 @@
 
 	for(var/mob/living/target in targets)
 		log_say("(TPATH to [key_name(target)]) [say]", user)
+		user.create_log(SAY_LOG, "Telepathically said '[say]' using [src]", target)
 		if(REMOTE_TALK in target.mutations)
 			target.show_message("<span class='abductor'>You hear [user.real_name]'s voice: [say]</span>")
 		else
 			target.show_message("<span class='abductor'>You hear a voice that seems to echo around the room: [say]</span>")
-		user.show_message("<span class='abductor'>You project your mind into [target.name]: [say]</span>")
+		user.show_message("<span class='abductor'>You project your mind into [(target in user.get_visible_mobs()) ? target.name : "the unknown entity"]: [say]</span>")
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			G.show_message("<i>Telepathic message from <b>[user]</b> ([ghost_follow_link(user, ghost=G)]) to <b>[target]</b> ([ghost_follow_link(target, ghost=G)]): [say]</i>")
 
@@ -265,26 +263,22 @@
 	var/list/available_targets = list()
 
 /obj/effect/proc_holder/spell/targeted/mindscan/choose_targets(mob/user = usr)
-	var/list/targets = new /list()
-	var/list/validtargets = new /list()
-	var/turf/T = get_turf(user)
-	for(var/mob/living/M in range(14, T))
-		if(M && M.mind)
-			if(M == user)
-				continue
-			validtargets += M
+	var/list/targets = list()
+	var/list/validtargets = user.get_telepathic_targets()
 
-	if(!validtargets.len)
+	if(!length(validtargets))
 		to_chat(user, "<span class='warning'>There are no valid targets!</span>")
 		start_recharge()
 		return
 
-	targets += input("Choose the target to listen to.", "Targeting") as null|mob in validtargets
+	var/target_name = input("Choose the target to listen to.", "Targeting") as null|anything in validtargets
 
-	if(!targets.len || !targets[1]) //doesn't waste the spell
+	var/mob/living/target
+	if(!target_name || !(target = validtargets[target_name]))
 		revert_cast(user)
 		return
 
+	targets += target
 	perform(targets, user = user)
 
 /obj/effect/proc_holder/spell/targeted/mindscan/cast(list/targets, mob/user = usr)
@@ -294,7 +288,7 @@
 		var/message = "You feel your mind expand briefly... (Click to send a message.)"
 		if(REMOTE_TALK in target.mutations)
 			message = "You feel [user.real_name] request a response from you... (Click here to project mind.)"
-		user.show_message("<span class='abductor'>You offer your mind to [target.name].</span>")
+		user.show_message("<span class='abductor'>You offer your mind to [(target in user.get_visible_mobs()) ? target.name : "the unknown entity"].</span>")
 		target.show_message("<span class='abductor'><A href='?src=[UID()];target=[target.UID()];user=[user.UID()]'>[message]</a></span>")
 		available_targets += target
 		addtimer(CALLBACK(src, .proc/removeAvailability, target), 100)
@@ -321,7 +315,7 @@
 			return
 		say = strip_html(say)
 		say = pencode_to_html(say, target, format = 0, fields = 0)
-
+		user.create_log(SAY_LOG, "Telepathically responded '[say]' using [src]", target)
 		log_say("(TPATH to [key_name(target)]) [say]", user)
 		if(REMOTE_TALK in target.mutations)
 			target.show_message("<span class='abductor'>You project your mind into [user.name]: [say]</span>")
@@ -336,22 +330,23 @@
 	return ..()
 
 /datum/dna/gene/basic/grant_spell/remoteview
-	name="Remote Viewing"
-	activation_messages=list("Your mind can see things from afar.")
-	deactivation_messages=list("Your mind can no longer can see things from afar.")
+	name = "Remote Viewing"
+	activation_messages = list("Your mind can see things from afar.")
+	deactivation_messages = list("Your mind can no longer can see things from afar.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation=REMOTE_VIEW
+	mutation = REMOTE_VIEW
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/remoteview
 
 /datum/dna/gene/basic/grant_spell/remoteview/New()
-	block=GLOB.remoteviewblock
+	..()
+	block = GLOB.remoteviewblock
 
 
 /obj/effect/proc_holder/spell/targeted/remoteview
 	name = "Remote View"
 	desc = "Spy on people from any range!"
-	charge_max = 600
+	charge_max = 100
 
 	clothes_req = 0
 	stat_allowed = 0
@@ -363,18 +358,23 @@
 
 /obj/effect/proc_holder/spell/targeted/remoteview/choose_targets(mob/user = usr)
 	var/list/targets = list()
-	var/list/remoteviewers = new /list()
-	for(var/mob/M in GLOB.living_mob_list)
+	var/list/remoteviewers = list()
+	for(var/mob/M in GLOB.alive_mob_list)
+		if(M == user)
+			continue
 		if(PSY_RESIST in M.mutations)
 			continue
 		if(REMOTE_VIEW in M.mutations)
 			remoteviewers += M
-	if(!remoteviewers.len || remoteviewers.len == 1)
+	if(!LAZYLEN(remoteviewers))
 		to_chat(user, "<span class='warning'>No valid targets with remote view were found!</span>")
 		start_recharge()
 		return
-	targets += input("Choose the target to spy on.", "Targeting") as mob in remoteviewers
-
+	targets += input("Choose the target to spy on.", "Targeting") as null|anything in remoteviewers
+	if(!targets)
+		to_chat(user, "<span class='warning'>You decide against remote viewing.</span>")
+		start_recharge()
+		return
 	perform(targets, user = user)
 
 /obj/effect/proc_holder/spell/targeted/remoteview/cast(list/targets, mob/user = usr)
@@ -386,15 +386,15 @@
 
 	var/mob/target
 
-	if(istype(H.l_hand, /obj/item/tk_grab) || istype(H.r_hand, /obj/item/tk_grab/))
+	if(istype(H.l_hand, /obj/item/tk_grab) || istype(H.r_hand, /obj/item/tk_grab))
 		to_chat(H, "<span class='warning'>Your mind is too busy with that telekinetic grab.</span>")
 		H.remoteview_target = null
-		H.reset_perspective(0)
+		H.reset_perspective()
 		return
 
 	if(H.client.eye != user.client.mob)
 		H.remoteview_target = null
-		H.reset_perspective(0)
+		H.reset_perspective()
 		return
 
 	for(var/mob/living/L in targets)
@@ -405,4 +405,4 @@
 		H.reset_perspective(target)
 	else
 		H.remoteview_target = null
-		H.reset_perspective(0)
+		H.reset_perspective()

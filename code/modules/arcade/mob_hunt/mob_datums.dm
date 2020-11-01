@@ -88,8 +88,9 @@
 		return 0
 	while(possible_areas.len)
 		//randomly select an area from our possible_areas list to try spawning in, then remove it from possible_areas so it won't get picked over and over forever.
-		var/area/spawn_area = locate(pickweight(possible_areas))
-		possible_areas -= spawn_area
+		var/spawn_area_path = pickweight(possible_areas)
+		var/area/spawn_area = locate(spawn_area_path)
+		possible_areas -= spawn_area_path
 		if(!spawn_area)
 			break
 		//clear and generate a fresh list of turfs in the selected area, weighted based on white/black lists
@@ -139,7 +140,7 @@
 		for(var/areapath in typesof(A))
 			possible_areas[areapath] -= 2
 	//removes "bad areas" which shouldn't be on-station but are subtypes of station areas. probably should the unused ones and consider repathing the rest
-	var/list/bad_areas = list(subtypesof(/area/construction), /area/solar/derelict_starboard, /area/solar/derelict_aft, /area/solar/constructionsite)
+	var/list/bad_areas = list(subtypesof(/area/construction), /area/solar/derelict_starboard, /area/solar/derelict_aft)
 	for(var/A in bad_areas)
 		possible_areas -= A
 	//weight check, remove negative or zero weight areas from the list, then return the list.

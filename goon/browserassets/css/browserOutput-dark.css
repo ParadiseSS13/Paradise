@@ -10,7 +10,7 @@ html, body {
 	color: #fff;
 }
 body {
-	background: #151515;
+	background: #36393F;
     font-family: Verdana, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 9pt;
     line-height: 1.2;
@@ -38,7 +38,7 @@ a.popt {text-decoration: none;}
 * CUSTOM FONTS
 *
 ******************************************/
-@font-face { font-family: PxPlus IBM MDA; src: url('PxPlus_IBM_MDA.ttf'); } 
+@font-face { font-family: PxPlus IBM MDA; src: url('PxPlus_IBM_MDA.ttf'); }
 
 /*****************************************
 *
@@ -245,11 +245,12 @@ a.popt {text-decoration: none;}
 .highlight {background: yellow;}
 h1, h2, h3, h4, h5, h6	{color: #06f;font-family: Georgia, Verdana, sans-serif;}
 em						{font-style: normal;	font-weight: bold;}
-.motd					{color: #638500;	font-family: Verdana, sans-serif;}
+.motd					{color: #63AA00;	font-family: Verdana, sans-serif;}
 .motd h1, .motd h2, .motd h3, .motd h4, .motd h5, .motd h6
-						{color: #638500;	text-decoration: underline;}
+						{color: #63AA00;	text-decoration: underline;}
 .motd a, .motd a:link, .motd a:visited, .motd a:active, .motd a:hover
-						{color: #638500;}
+						{color: #63AA00;}
+.darkmblue 				{color: #6685f5;}
 .prefix					{					font-weight: bold;}
 .ooc					{					font-weight: bold;}
 .looc					{color: #6699CC;}
@@ -261,57 +262,57 @@ em						{font-style: normal;	font-weight: bold;}
 .mentorhelp				{color: #0077bb;	font-weight: bold;}
 .adminhelp				{color: #aa0000;	font-weight: bold;}
 .playerreply			{color: #8800bb;	font-weight: bold;}
-.pmsend					{color: #0000ff;}
+.pmsend					{color: #6685f5;}
 .name					{					font-weight: bold;}
 .say					{}
 .yell					{					font-weight: bold;}
 .siliconsay				{font-family: 'Courier New', Courier, monospace;}
-.deadsay				{color: #cc00c6;}
-.radio					{color: #408010;}
+.deadsay				{color: #B800B1;}
+.radio					{color: #2EA51C;}
 .deptradio				{color: #993399;}
-.comradio				{color: #2040ff;}
+.comradio				{color: #526aff;}
 .syndradio				{color: #993F40;}
-.dsquadradio				{color: #998599;}
+.dsquadradio				{color: #C4AAC4;}
 .resteamradio				{color: #18BC46;}
-.airadio				{color: #FF00FF;}
-.centradio				{color: #5C5C7C;}
+.airadio				{color: #FF94FF;}
+.centradio				{color: #8A8ACC;}
 .secradio				{color: #CF0000;}
-.engradio				{color: #A66300;}
-.medradio				{color: #009190;}
-.sciradio				{color: #993399;}
-.supradio				{color: #9F8545;}
+.engradio				{color: #C17100;}
+.medradio				{color: #0091C6;}
+.sciradio				{color: #C442C4;}
+.supradio				{color: #CE9852;}
 .srvradio				{color: #80A000;}
-.admin_channel			{color: #9A04D1;	font-weight: bold;}
+.proradio				{color: #F70285;}
+.admin_channel			{color: #fcba03;	font-weight: bold;}
 .mentor_channel			{color: #775BFF;	font-weight: bold;}
 .mentor_channel_admin      {color: #A35CFF;	font-weight: bold;}
 .djradio				{color: #996600;}
 .binaryradio				{color: #1B00FB;	font-family: 'Courier New', Courier, monospace;}
-.mommiradio				{color: #1B00AB;}
-.alert					{color: #ff0000;}
+.mommiradio				{color: #6685f5;}
+.alert					{color: #F9414D;}
 h1.alert, h2.alert			{color: #FFF;}
 .ghostalert				{color: #cc00c6;	font-style: italic; font-weight: bold;}
 .emote					{					font-style: italic;}
 .selecteddna				{color: #FFFFFF; 	background-color: #001B1B}
 
-.attack					{color: #ff0000;}
+.attack					{color: #F9414D;}
 .moderate				{color: #CC0000;}
 .disarm					{color: #990000;}
 .passive				{color: #660000;}
 
-.warning				{color: #ff0000;	font-style: italic;}
-.boldwarning				{color: #ff0000;	font-style: italic;	font-weight: bold}
-.danger					{color: #ff0000;	font-weight: bold;}
-.userdanger				{color: #ff0000;	font-weight: bold;	font-size: 120%;}
-.biggerdanger				{color: #ff0000;	font-weight: bold; font-size: 150%;}
+.warning				{color: #F9414D;	font-style: italic;}
+.boldwarning				{color: #F9414D;	font-style: italic;	font-weight: bold}
+.danger					{color: #F9414D;	font-weight: bold;}
+.userdanger				{color: #F9414D;	font-weight: bold;	font-size: 120%;}
+.biggerdanger				{color: #F9414D;	font-weight: bold; font-size: 150%;}
 
-.info					{color: #0044DD;}
-.notice					{color: #0044DD;}
-.bnotice				{color: #0044DD; 	font-weight: bold;}
-.boldnotice				{color: #0044DD;	font-weight: bold;}
+.info					{color: #6685f5;}
+.notice					{color: #6685f5;}
+.boldnotice				{color: #6685f5;	font-weight: bold;}
 .suicide				{color: #ff5050;	font-style: italic;}
 .green					{color: #03bb39;}
 .announce 				{color: #228b22;	font-weight: bold;}
-.boldannounce				{color: #ff0000;	font-weight: bold;}
+.boldannounce				{color: #F9414D;	font-weight: bold;}
 .greenannounce				{color: #00ff00;	font-weight: bold;}
 
 .alien					{color: #C433C4;}
@@ -359,15 +360,15 @@ h1.alert, h2.alert			{color: #FFF;}
 .cultlarge				{color: #A60000; font-weight: bold; font-size: 120%;}
 .narsie					{color: #A60000; font-weight: bold; font-size: 300%;}
 .narsiesmall			{color: #A60000; font-weight: bold; font-size: 200%;}
-.interface				{color: #330033;}
+.interface				{color: #9031C4;}
 .big					{font-size: 150%;}
 .reallybig				{font-size: 175%;}
 .greentext				{color: #00FF00;	font-size: 150%;}
-.redtext				{color: #FF0000;	font-size: 150%;}
+.redtext				{color: #F9414D;	font-size: 150%;}
 .bold					{font-weight: bold;}
 .center					{text-align: center;}
-.red					{color: #FF0000;}
-.purple					{color: #5e2d79;}
+.red					{color: #F9414D;}
+.purple					{color: #9031C4;}
 .skeleton				{color: #C8C8C8; font-weight: bold; font-style: italic;}
 .gutter					{color: #7092BE; font-family: "Trebuchet MS", cursive, sans-serif;}
 .orange					{color: #ffa500;}
@@ -375,14 +376,14 @@ h1.alert, h2.alert			{color: #FFF;}
 .orangeb				{color: #ffa500; font-weight: bold;}
 .resonate				{color: #298F85;}
 
-.revennotice				{color: #1d29C3;}
-.revenboldnotice			{color: #1d29C3;	font-weight: bold;}
-.revenbignotice				{color: #1d29C3;	font-weight: bold; font-size: 120%;}
+.revennotice				{color: #6685F5;}
+.revenboldnotice			{color: #6685F5;	font-weight: bold;}
+.revenbignotice				{color: #6685F5;	font-weight: bold; font-size: 120%;}
 .revenminor				{color: #823abb}
 .revenwarning				{color: #760fbb;	font-style: italic;}
 .revendanger				{color: #760fbb;	font-weight: bold; font-size: 120%;}
 
-.specialnotice				{color: #36525e; 	font-weight: bold; font-size: 120%;}
+.specialnotice				{color: #4A6F82; 	font-weight: bold; font-size: 120%;}
 
 /* /vg/ */
 .good					{color: green;}
@@ -399,7 +400,11 @@ h1.alert, h2.alert			{color: #FFF;}
 
 .connectionClosed, .fatalError {background: red; color: white; padding: 5px;}
 .connectionClosed.restored {background: green;}
-.internal.boldnshit {color: blue; font-weight: bold;}
+.internal.boldnshit {color: #6685f5; font-weight: bold;}
+
+.rebooting {background: #2979AF; color: white; padding: 5px;}
+.rebooting a {color: white !important; text-decoration-color: white !important;}
+#reconnectTimer {font-weight: bold;}
 
 /* HELPER CLASSES */
 .text-normal {font-weight: normal; font-style: normal;}

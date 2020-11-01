@@ -8,4 +8,3 @@
 		reagents.add_reagent("tequila", amount)
 	qdel(G)
 	playsound(src, 'sound/effects/bubbles.ogg', 50, TRUE)
-

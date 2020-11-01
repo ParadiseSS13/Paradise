@@ -21,5 +21,4 @@
 		"eyes" =     /obj/item/organ/internal/eyes,
 		"gland" = /obj/item/organ/internal/adrenal/murghal
 	)
-
 	allowed_consumed_mobs = list(/mob/living/simple_animal/hostile/poison/terror_spider)

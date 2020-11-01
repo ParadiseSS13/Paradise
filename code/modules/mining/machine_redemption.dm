@@ -25,6 +25,7 @@
 	var/datum/research/files
 	var/obj/item/disk/design_disk/inserted_disk
 	var/list/supply_consoles = list("Science", "Robotics", "Research Director's Desk", "Mechanic", "Engineering" = list("metal", "glass", "plasma"), "Chief Engineer's Desk" = list("metal", "glass", "plasma"), "Atmospherics" = list("metal", "glass", "plasma"), "Bar" = list("uranium", "plasma"), "Virology" = list("plasma", "uranium", "gold"))
+	var/anyuse = FALSE
 
 /obj/machinery/mineral/ore_redemption/New()
 	..()
@@ -54,6 +55,11 @@
 	req_access = list(ACCESS_FREE_GOLEMS)
 	req_access_reclaim = ACCESS_FREE_GOLEMS
 
+/obj/machinery/mineral/ore_redemption/labor
+	name = "labor camp ore redemption machine"
+	req_access = list()
+	anyuse = TRUE
+
 /obj/machinery/mineral/ore_redemption/golem/New()
 	..()
 	component_parts = list()
@@ -65,9 +71,20 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
+/obj/machinery/mineral/ore_redemption/labor/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/ore_redemption/labor(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/assembly/igniter(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	RefreshParts()
+
 /obj/machinery/mineral/ore_redemption/Destroy()
 	QDEL_NULL(files)
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.retrieve_all()
 	return ..()
 
@@ -92,7 +109,7 @@
 	if(O && O.refined_type)
 		points += O.points * point_upgrade * O.amount
 
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/material_amount = materials.get_item_material_amount(O)
 
 	if(!material_amount)
@@ -111,7 +128,7 @@
 
 	var/build_amount = 0
 
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/mat_id in D.materials)
 		var/M = D.materials[mat_id]
 		var/datum/material/redemption_mat = materials.materials[mat_id]
@@ -147,7 +164,7 @@
 
 	var/has_minerals = FALSE
 	var/mineral_name = null
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/mat_id in materials.materials)
 		var/datum/material/M = materials.materials[mat_id]
 		var/mineral_amount = M.amount / MINERAL_MATERIAL_AMOUNT
@@ -221,7 +238,7 @@
 	. = TRUE
 	if(!powered())
 		return
-	if(!I.tool_start_check(user, 0))
+	if(!I.tool_start_check(src, user, 0))
 		return
 	input_dir = turn(input_dir, -90)
 	output_dir = turn(output_dir, -90)
@@ -251,7 +268,7 @@
 	else
 		dat += "No ID inserted.  <A href='?src=[UID()];insert_id=1'>Insert ID.</A><br><br>"
 
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/mat_id in materials.materials)
 		var/datum/material/M = materials.materials[mat_id]
 		if(M.amount)
@@ -302,13 +319,16 @@
 /obj/machinery/mineral/ore_redemption/Topic(href, href_list)
 	if(..())
 		return
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	if(href_list["eject_id"])
 		usr.put_in_hands(inserted_id)
 		inserted_id = null
 	if(href_list["claim"])
 		if(inserted_id)
 			if(req_access_reclaim in inserted_id.access)
+				inserted_id.mining_points += points
+				points = 0
+			if(anyuse)
 				inserted_id.mining_points += points
 				points = 0
 			else
