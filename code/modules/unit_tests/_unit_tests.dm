@@ -10,5 +10,4 @@
 #include "subsystem_init.dm"
 #include "timer_sanity.dm"
 #include "unit_test.dm"
-#include "github_pr/pr_14637.dm"
 #endif
