@@ -21,7 +21,7 @@
 	var/hardware_open = "basic_hardware"
 	var/handle_icon = "basic_handle"
 
-	var/unique_reskin = 1 //allows one-time reskinning
+	var/unique_reskin = TRUE //allows one-time reskinning
 	var/reskin_used = FALSE
 	var/list/options = list()
 

@@ -9,24 +9,24 @@
 	throw_range = 7
 	pressure_resistance = 8
 	var/emagged = 0
-	anchored = 1
+	anchored = TRUE
 
 /obj/item/bell/cargo
 	name = "Cargo Bell"
 
-/obj/item/bell/cargo/attack_hand(mob/user as mob)
+/obj/item/bell/cargo/attack_hand(mob/user)
 	..()
 
 /obj/item/bell/science
 	name = "Science Bell"
 
-/obj/item/bell/science/attack_hand(mob/user as mob)
+/obj/item/bell/science/attack_hand(mob/user)
 	..()
 
 /obj/item/bell/medbay
 	name = "Medbay Bell"
 
-/obj/item/bell/medbay/attack_hand(mob/user as mob)
+/obj/item/bell/medbay/attack_hand(mob/user)
 	..()
 
 /obj/item/bell/MouseDrop(atom/over_object)
@@ -54,7 +54,7 @@
 		return
 	add_fingerprint(M)
 
-/obj/item/bell/attack_hand(mob/user as mob)
+/obj/item/bell/attack_hand(mob/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/temp = H.bodyparts_by_name["r_hand"]

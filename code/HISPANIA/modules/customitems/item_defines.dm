@@ -19,7 +19,7 @@
 	item_state = "codex_arcanum"
 	var/cooldown = 0
 
-/obj/item/toy/codex_arcanum/attack_self(mob/user as mob)
+/obj/item/toy/codex_arcanum/attack_self(mob/user)
 	if(cooldown < world.time - 60)
 		to_chat(user, "<span class='notice'>You try to understand the knowledge from [src]</span>")
 		playsound(user, 'sound/hallucinations/behind_you1.ogg', 20, 1)

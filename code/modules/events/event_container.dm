@@ -93,19 +93,19 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	else
 		var/playercount_modifier = 1
 		switch(GLOB.player_list.len)
-			if(0 to 10)
+			if(0 to 5)
 				playercount_modifier = 1.2
-			if(11 to 15)
+			if(6 to 12)
 				playercount_modifier = 1.1
-			if(16 to 25)
+			if(13 to 16)
 				playercount_modifier = 1
-			if(26 to 35)
+			if(17 to 18)
 				playercount_modifier = 0.9
-			if(36 to 50)
+			if(19 to 25)
 				playercount_modifier = 0.8
-			if(50 to 80)
+			if(26 to 30)
 				playercount_modifier = 0.7
-			if(80 to 10000)
+			if(30 to 10000)
 				playercount_modifier = 0.6
 
 		playercount_modifier = playercount_modifier * delay_modifier

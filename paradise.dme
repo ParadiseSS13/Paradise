@@ -379,7 +379,6 @@
 #include "code\datums\elements\_element.dm"
 #include "code\datums\elements\waddling.dm"
 #include "code\datums\helper_datums\construction_datum.dm"
-#include "code\datums\helper_datums\events.dm"
 #include "code\datums\helper_datums\icon_snapshot.dm"
 #include "code\datums\helper_datums\input.dm"
 #include "code\datums\helper_datums\map_template.dm"

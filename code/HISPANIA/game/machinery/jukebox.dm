@@ -39,7 +39,7 @@
 		new /datum/track("Cumbia",		"La Vida Es Un Carnaval - Celia Cruz",        		'sound/hispania/hispaniabox/cumbion.ogg',	2770,	5),
 		new /datum/track("Cumbia",		"Antonio Rios - Nunca me Faltes",        		'sound/hispania/hispaniabox/marcianito.ogg',	2470,	5),
 		)
-	var/datum/track/selection = null
+	var/datum/track/selection
 	var/track = ""
 
 /datum/track
@@ -127,7 +127,7 @@
 
 	switch(href_list["action"])
 		if("on_click")
-			if(selection == null)
+			if(isnull(selection))
 				return TRUE
 			if(QDELETED(src))
 				return TRUE

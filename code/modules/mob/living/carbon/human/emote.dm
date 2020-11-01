@@ -935,16 +935,17 @@
 
 		//HISPANIA EMOTES START HERE
 		if("puke")
+			if(restrained())
+				return
 			if(isrobot(src))
 				return
 			if(handle_emote_CD(600))
 				to_chat(src, "<span class='warning'>You are still recovering forces.</span>")
 				return
-			else
-				to_chat(viewers(src), "<span class='warning'>[src] brings [p_their()] fingers to [p_their()] mouth and vomits on the floor!</span>")
-				src.vomit()
+			if(ismachineperson(src)) //los ipc no tienen boca
 				return
-
+			to_chat(viewers(src), "<span class='warning'>[src] brings [p_their()] fingers to [p_their()] mouth and vomits on the floor!</span>")
+			vomit()
 		//HISPANIA EMOTES END HERE
 
 		if("help")

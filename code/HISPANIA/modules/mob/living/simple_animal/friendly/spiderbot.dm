@@ -1,4 +1,4 @@
-/mob/living/simple_animal/spiderbot/death(var/gibbed = FALSE)
+/mob/living/simple_animal/spiderbot/death(gibbed = FALSE)
 	..(TRUE)
 	if(held_item && !isnull(held_item))
 		held_item.forceMove(src.loc)

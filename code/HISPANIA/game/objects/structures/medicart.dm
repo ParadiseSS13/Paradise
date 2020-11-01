@@ -10,17 +10,17 @@
 	max_integrity = 200
 	buckle_lying = 0
 	var/material_drop_type = /obj/item/stack/sheet/mineral/titanium
-	var/obj/item/reagent_containers/syringe/mysyringe = null
-	var/obj/item/stack/medical/bruise_pack/advanced/mymbruise = null
-	var/obj/item/surgicaldrill/mydrill = null
-	var/obj/item/circular_saw/mysaw = null
-	var/obj/item/bonesetter/mybones= null
-	var/obj/item/FixOVein/myvein = null
-	var/obj/item/bonegel/mygel = null
-	var/obj/item/hemostat/myhemo = null
-	var/obj/item/retractor/myretra = null
-	var/obj/item/scalpel/myscal = null
-	var/obj/item/cautery/mycaute = null
+	var/obj/item/reagent_containers/syringe/mysyringe
+	var/obj/item/stack/medical/bruise_pack/advanced/mymbruise
+	var/obj/item/surgicaldrill/mydrill
+	var/obj/item/circular_saw/mysaw
+	var/obj/item/bonesetter/mybones
+	var/obj/item/FixOVein/myvein
+	var/obj/item/bonegel/mygel
+	var/obj/item/hemostat/myhemo
+	var/obj/item/retractor/myretra
+	var/obj/item/scalpel/myscal
+	var/obj/item/cautery/mycaute
 
 /obj/structure/surgicalcart/Destroy()
 	QDEL_NULL(mysyringe)
@@ -267,6 +267,7 @@
 		overlays += "myscalpel"
 
 /obj/structure/surgicalcart/full/New()
+	.=..()
 	mysyringe = new /obj/item/reagent_containers/syringe/antiviral(src) ///Esto es spacellin, le juro no son nanomachines
 	mymbruise = new /obj/item/stack/medical/bruise_pack/advanced(src)
 	mydrill = new /obj/item/surgicaldrill(src)
