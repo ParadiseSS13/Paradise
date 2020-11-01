@@ -273,6 +273,12 @@
 	desc = "A salvaged syndicate device gutted of its explosives to be used as a training aid for aspiring bomb defusers."
 	payload = /obj/item/bombcore/training
 
+/obj/machinery/syndicatebomb/emp
+	name = "emp bomb"
+	icon_state = "emp-bomb"
+	desc = "A large bomb, seemingly made to make a large electromagnetic pulse."
+	payload = /obj/item/bombcore/emp
+
 /obj/machinery/syndicatebomb/badmin
 	name = "generic summoning badmin bomb"
 	desc = "Oh god what is in this thing?"
@@ -448,6 +454,35 @@
 	range_medium = 2
 	range_light = 4
 	range_flame = 2
+
+/obj/item/bombcore/emp
+	name = "EMP bomb core"
+	var/light_emp = 36
+	var/heavy_emp = 18
+	var/pulse_number = 1 //Since one EMP wont destroy anything other then consoles and IPCS, here is an option to have multiple pulses when dentonating. DO NOT USE THIS WITH REALLY LARGE AREAS
+	var/adminlogged = FALSE //If it exploded once, don't do it again.
+
+/obj/item/bombcore/emp/ex_act(severity) //It's an EMP bomb, not a chemical explosive
+	return
+
+/obj/item/bombcore/emp/burn()
+	return
+
+/obj/item/bombcore/emp/detonate()
+	if(adminlog && !adminlogged)
+		message_admins(adminlog)
+		log_game(adminlog)
+		adminlogged = TRUE
+	empulse(src, heavy_emp, light_emp, 1)
+	if(pulse_number <= 1)
+		src.visible_message("<span class='warning'>The bomb's core burns out, and the bomb disintegrates into ash.</span>")
+		new /obj/effect/decal/cleanable/ash(get_turf(src))
+		if(loc && istype(loc, /obj/machinery/syndicatebomb))
+			qdel(loc)
+		qdel(src)
+	else
+		pulse_number -= 1
+		addtimer(CALLBACK(src, .proc/detonate), 20) // every 2 seconds go off again till pulses run out
 
 /obj/item/bombcore/chemical
 	name = "chemical payload"

@@ -66,8 +66,7 @@
 		"left4zednutriment",
 		"robustharvestnutriment",
 		"water",
-		"plantbgone",
-		"weedkiller",
+		"atrazine",
 		"pestkiller",
 		"cryoxadone",
 		"ammonia",
@@ -395,3 +394,216 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new cell_type(null)
 	RefreshParts()
+
+// Handheld chem dispenser
+/obj/item/handheld_chem_dispenser
+	name = "handheld chem dispenser"
+	icon = 'icons/obj/chemical.dmi'
+	item_state = "handheld_chem"
+	icon_state = "handheld_chem"
+	flags = NOBLUDGEON
+	var/obj/item/stock_parts/cell/high/cell = null
+	var/amount = 10
+	var/mode = "dispense"
+	var/is_drink = FALSE
+	var/list/dispensable_reagents = list("hydrogen", "lithium", "carbon", "nitrogen", "oxygen", "fluorine",
+	"sodium", "aluminum", "silicon", "phosphorus", "sulfur", "chlorine", "potassium", "iron",
+	"copper", "mercury", "plasma", "radium", "water", "ethanol", "sugar", "iodine", "bromine", "silver", "chromium")
+	var/current_reagent = null
+	var/efficiency = 0.2
+	var/recharge_rate = 1 // Keep this as an integer
+
+/obj/item/handheld_chem_dispenser/Initialize()
+	..()
+	cell = new(src)
+	dispensable_reagents = sortList(dispensable_reagents)
+	current_reagent = pick(dispensable_reagents)
+	update_icon()
+	START_PROCESSING(SSobj, src)
+
+/obj/item/handheld_chem_dispenser/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/item/handheld_chem_dispenser/get_cell()
+	return cell
+
+/obj/item/handheld_chem_dispenser/afterattack(obj/target, mob/user, proximity)
+	if(!proximity || !current_reagent || !amount)
+		return
+
+	if(!check_allowed_items(target,target_self = TRUE) || !target.is_refillable())
+		return
+	switch(mode)
+		if("dispense")
+			var/free = target.reagents.maximum_volume - target.reagents.total_volume
+			var/actual = min(amount, cell.charge / efficiency, free)
+			target.reagents.add_reagent(current_reagent, actual)
+			cell.charge -= actual / efficiency
+			if(actual)
+				to_chat(user, "<span class='notice'>You dispense [amount] units of [current_reagent] into the [target].</span>")
+			update_icon()
+		if("remove")
+			if(!target.reagents.remove_reagent(current_reagent, amount))
+				to_chat(user, "<span class='notice'>You remove [amount] units of [current_reagent] from the [target].</span>")
+		if("isolate")
+			if(!target.reagents.isolate_reagent(current_reagent))
+				to_chat(user, "<span class='notice'>You remove all but the [current_reagent] from the [target].</span>")
+
+/obj/item/handheld_chem_dispenser/attack_self(mob/user)
+	if(cell)
+		tgui_interact(user)
+	else
+		to_chat(user, "<span class='warning'>The [src] lacks a power cell!</span>")
+
+
+/obj/item/handheld_chem_dispenser/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_inventory_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "HandheldChemDispenser", name, 390, 500)
+		ui.open()
+
+/obj/item/handheld_chem_dispenser/tgui_data(mob/user)
+	var/list/data = list()
+
+	data["glass"] = is_drink
+	data["amount"] = amount
+	data["energy"] = cell.charge ? cell.charge * efficiency : "0" //To prevent NaN in the UI.
+	data["maxEnergy"] = cell.maxcharge * efficiency
+	data["current_reagent"] = current_reagent
+	data["mode"] = mode
+
+	return data
+
+/obj/item/handheld_chem_dispenser/tgui_static_data()
+	var/list/data = list()
+	var/list/chemicals = list()
+	for(var/re in dispensable_reagents)
+		var/datum/reagent/temp = GLOB.chemical_reagents_list[re]
+		if(temp)
+			chemicals.Add(list(list("title" = temp.name, "id" = temp.id, "commands" = list("dispense" = temp.id)))) // list in a list because Byond merges the first list...
+	data["chemicals"] = chemicals
+
+
+	return data
+
+/obj/item/handheld_chem_dispenser/tgui_act(action, list/params)
+	if(..())
+		return
+
+	. = TRUE
+	switch(action)
+		if("amount")
+			amount = clamp(round(text2num(params["amount"])), 0, 50) // round to nearest 1 and clamp to 0 - 50
+		if("dispense")
+			if(params["reagent"] in dispensable_reagents)
+				current_reagent = params["reagent"]
+				update_icon()
+		if("mode")
+			switch(params["mode"])
+				if("remove")
+					mode = "remove"
+				if("dispense")
+					mode = "dispense"
+				if("isolate")
+					mode = "isolate"
+			update_icon()
+		else
+			return FALSE
+
+	add_fingerprint(usr)
+
+/obj/item/handheld_chem_dispenser/update_icon()
+	cut_overlays()
+
+	if(cell && cell.charge)
+		var/image/power_light = image('icons/obj/chemical.dmi', src, "light_low")
+		var/percent = round((cell.charge / cell.maxcharge) * 100)
+		switch(percent)
+			if(0 to 33)
+				power_light.icon_state = "light_low"
+			if(34 to 66)
+				power_light.icon_state = "light_mid"
+			if(67 to INFINITY)
+				power_light.icon_state = "light_full"
+		add_overlay(power_light)
+
+		var/image/mode_light = image('icons/obj/chemical.dmi', src, "light_remove")
+		mode_light.icon_state = "light_[mode]"
+		add_overlay(mode_light)
+
+		var/image/chamber_contents = image('icons/obj/chemical.dmi', src, "reagent_filling")
+		var/datum/reagent/R = GLOB.chemical_reagents_list[current_reagent]
+		chamber_contents.icon += R.color
+		add_overlay(chamber_contents)
+	..()
+
+/obj/item/handheld_chem_dispenser/process() //Every [recharge_time] seconds, recharge some reagents for the cyborg
+	if(isrobot(loc) && cell.charge < cell.maxcharge)
+		var/mob/living/silicon/robot/R = loc
+		if(R && R.cell && R.cell.charge > recharge_rate / efficiency)
+			var/actual = min(recharge_rate / efficiency, cell.maxcharge - cell.charge)
+			R.cell.charge -= actual
+			cell.charge += actual
+
+	update_icon()
+	return TRUE
+
+/obj/item/handheld_chem_dispenser/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/stock_parts/cell))
+		var/obj/item/stock_parts/cell/C = W
+		if(cell)
+			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
+		else
+			if(C.maxcharge < 100)
+				to_chat(user, "<span class='notice'>[src] requires a higher capacity cell.</span>")
+				return
+			if(!user.unEquip(W))
+				return
+			W.loc = src
+			cell = W
+			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
+			update_icon()
+
+/obj/item/handheld_chem_dispenser/screwdriver_act(mob/user, obj/item/I)
+	if(!isrobot(loc) && cell)
+		cell.update_icon()
+		cell.loc = get_turf(src)
+		cell = null
+		to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
+		update_icon()
+		return
+	..()
+
+/obj/item/handheld_chem_dispenser/booze
+	name = "handheld bar tap"
+	item_state = "handheld_booze"
+	icon_state = "handheld_booze"
+	is_drink = TRUE
+	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila",
+	 "vermouth", "cognac", "ale", "mead", "synthanol")
+
+/obj/item/handheld_chem_dispenser/soda
+	name = "handheld soda fountain"
+	item_state = "handheld_soda"
+	icon_state = "handheld_soda"
+	is_drink = TRUE
+	dispensable_reagents = list("water", "ice", "milk", "soymilk", "coffee", "tea", "hot_coco", "cola", "spacemountainwind", "dr_gibb", "space_up",
+	"tonic", "sodawater", "lemon_lime", "grapejuice", "sugar", "orangejuice", "lemonjuice", "limejuice", "tomatojuice", "banana",
+	"watermelonjuice", "carrotjuice", "potato", "berryjuice")
+
+/obj/item/handheld_chem_dispenser/botanical
+	name = "handheld botanical chemical dispenser"
+	dispensable_reagents = list(
+		"mutagen",
+		"saltpetre",
+		"eznutriment",
+		"left4zednutriment",
+		"robustharvestnutriment",
+		"water",
+		"atrazine",
+		"pestkiller",
+		"cryoxadone",
+		"ammonia",
+		"ash",
+		"diethylamine")

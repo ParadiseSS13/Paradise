@@ -41,11 +41,20 @@
 
 /obj/item/reagent_containers/applicator/update_icon()
 	cut_overlays()
-
 	if(reagents.total_volume)
 		var/mutable_appearance/filling = mutable_appearance('icons/goonstation/objects/objects.dmi', "mender-fluid")
 		filling.color = mix_color_from_reagents(reagents.reagent_list)
 		add_overlay(filling)
+	var/reag_pct = round((reagents.total_volume / volume) * 100)
+	var/mutable_appearance/applicator_bar = mutable_appearance('icons/goonstation/objects/objects.dmi', "app_e")
+	switch(reag_pct)
+		if(51 to 100)
+			applicator_bar.icon_state = "app_hf"
+		if(1 to 50)
+			applicator_bar.icon_state = "app_he"
+		if(0)
+			applicator_bar.icon_state = "app_e"
+	add_overlay(applicator_bar)
 
 /obj/item/reagent_containers/applicator/attack(mob/living/M, mob/user)
 	if(!reagents.total_volume)
@@ -69,8 +78,11 @@
 			while(do_after(user, 10, target = M))
 				measured_health = M.health
 				apply_to(M, user, 1, FALSE)
-				if((measured_health == M.health) || !reagents.total_volume)
+				if(measured_health == M.health)
 					to_chat(user, "<span class='notice'>[M] is finished healing and [src] powers down automatically.</span>")
+					break
+				if(!reagents.total_volume)
+					to_chat(user, "<span class='notice'>[src] is out of reagents and powers down automatically.</span>")
 					break
 		applying = FALSE
 		icon_state = "mender"

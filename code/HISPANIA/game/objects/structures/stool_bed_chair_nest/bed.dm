@@ -8,7 +8,7 @@
 		if(!ishuman(usr))
 			return
 		if(has_buckled_mobs())
-			return 0
+			return FALSE
 		usr.visible_message("<span class='notice'>[usr] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
 		new/obj/item/roller/bluespace(get_turf(src))
 		qdel(src)

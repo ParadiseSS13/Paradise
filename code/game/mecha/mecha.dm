@@ -63,7 +63,6 @@
 	var/list/equipment = new
 	var/obj/item/mecha_parts/mecha_equipment/selected
 	var/max_equip = 3
-	var/datum/events/events
 	var/turf/crashing = null
 	var/occupant_sight_flags = 0
 
@@ -102,7 +101,6 @@
 
 /obj/mecha/Initialize()
 	. = ..()
-	events = new
 	icon_state += "-open"
 	add_radio()
 	add_cabin()
@@ -245,12 +243,6 @@
 //////////////////////////////////
 ////////  Movement procs  ////////
 //////////////////////////////////
-
-/obj/mecha/Move(atom/newLoc, direct)
-	. = ..()
-	if(.)
-		events.fireEvent("onMove",get_turf(src))
-
 /obj/mecha/Process_Spacemove(var/movement_dir = 0)
 	. = ..()
 	if(.)
@@ -1276,7 +1268,7 @@
 		var/mob/living/carbon/human/H = L
 		H.regenerate_icons() // workaround for 14457
 
-/obj/mecha/force_eject_occupant()
+/obj/mecha/force_eject_occupant(mob/target)
 	go_out()
 
 /////////////////////////

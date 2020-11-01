@@ -36,39 +36,44 @@
 	can_hide = TRUE
 	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
+	var/icon_animado = FALSE
 
 /mob/living/simple_animal/kiwi/handle_automated_movement()
 	..()
-	if(!pulledby)
-		for(var/direction in shuffle(list(1,2,4,8,5,6,9,10)))
-			var/step = get_step(src, direction)
-			if(step)
-				if(locate(/obj/structure/spacevine) in step)
-					Move(step, get_dir(src, step))
-					sleep (10)
+	if(!pulledby && !stat)
+		var/direction = rand(1,10)
+		var/turf/step = get_step(src, direction)
+		if(step)
+			if(locate(/obj/structure/spacevine) in step)
+				Move(step, get_dir(src, step))
 
-/mob/living/simple_animal/kiwi/Life()
-	if(prob(10))
-		src.visible_message("<span class='notice'>[src] thinks about flying through the sky...</span>")
-		icon_state = "kiwi_fly"
-		sleep(6)
-		icon_state = "kiwi"
-	else
-		if(prob(35))
-			src.visible_message("<span class='notice'>[src] jumps!</span>")
-			icon_state = "kiwi_jump"
-			sleep(6)
-			icon_state = "kiwi"
-		else
-			if(prob(35))
-				src.visible_message("<span class='notice'>[src] dances.</span>")
+/mob/living/simple_animal/kiwi/Life(seconds, times_fired)
+	.=..()
+	if(. && !icon_animado)
+		var/new_animation = rand(1,100)
+		switch(new_animation)
+			if(1 to 10)
+				visible_message("<span class='notice'>[src] thinks about flying through the sky...</span>")
+				icon_state = "kiwi_fly"
+				icon_animado = TRUE
+				addtimer(CALLBACK(src, .proc/sprite_normal), 6)
+			if(10 to 45)
+				src.visible_message("<span class='notice'>[src] jumps!</span>")
+				icon_state = "kiwi_jump"
+				icon_animado = TRUE
+				addtimer(CALLBACK(src, .proc/sprite_normal), 6)
+				spawn(6)
+					sprite_normal()
+			if(45 to 80)
+				visible_message("<span class='notice'>[src] dances.</span>")
 				icon_state = "kiwi_dance"
-				sleep(12)
-				icon_state = "kiwi"
-			else
-				..()
-	sleep(150)
+				icon_animado = TRUE
+				addtimer(CALLBACK(src, .proc/sprite_normal), 12)
 
+
+/mob/living/simple_animal/kiwi/proc/sprite_normal()
+	icon_state = "kiwi"
+	icon_animado = FALSE
 
 /mob/living/simple_animal/kiwi/emote(act, m_type=1, message = null, force)
 	if(stat != CONSCIOUS)
@@ -90,27 +95,26 @@
 			message = "<B>\The [src]</B> dances!"
 			m_type = 2 //audible
 			icon_state = "kiwi_dance"
-			sleep(12)
-			icon_state = "kiwi"
+			spawn(12)
+				sprite_normal()
 		if("jump")
 			message = "<B>\The [src]</B> jumps!"
 			m_type = 2 //audible
 			icon_state = "kiwi_jump"
-			sleep(6)
-			icon_state = "kiwi"
+			spawn(6)
+				sprite_normal()
 		if("fly")
 			message = "<B>\The [src]</B> thinks about flying through the sky...!"
 			m_type = 2 //audible
 			icon_state = "kiwi_fly"
-			sleep(6)
-			icon_state = "kiwi"
+			spawn(6)
+				sprite_normal()
 		if("help")
 			var/emotelist = "Emotes: dance, jump, fly."
 			to_chat(src, emotelist)
 
 	..(act, m_type, message)
 
-
-
-/mob/living/simple_animal/kiwi/New()
-	name = "kiwi ([rand(100,999)])"
+/mob/living/simple_animal/kiwi/Initialize(mapload)
+	. = ..()
+	name = "kiwi ([rand(1,999)])"

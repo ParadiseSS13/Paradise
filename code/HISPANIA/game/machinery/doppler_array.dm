@@ -54,7 +54,7 @@
 	for(var/message in messages)
 		atom_say(message)
 
-/obj/machinery/doppler_array/range/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+/obj/machinery/doppler_array/range/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui, var/force_open = 1)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "doppler_array_longrange.tmpl", "Long range Tachyon-doppler array", 500, 650)

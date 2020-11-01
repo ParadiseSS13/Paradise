@@ -1,4 +1,4 @@
-/obj/machinery/mecha_part_fabricator/emag_act(user as mob)
+/obj/machinery/mecha_part_fabricator/emag_act(mob/user)
 	if(!emagged)
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		req_access = list()
