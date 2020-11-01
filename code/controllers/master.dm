@@ -617,3 +617,14 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		processing = config.base_mc_tick_rate
 	else if(client_count > config.high_pop_mc_mode_amount)
 		processing = config.high_pop_mc_tick_rate
+
+/datum/controller/master/proc/formatcpu()
+	switch(world.cpu)
+		if(0 to 80) // 0-80 = green
+			. = "<font color='#32a852'>[world.cpu]</font>"
+		if(80 to 90) // 80-90 = orange
+			. = "<font color='#fcba03'>[world.cpu]</font>"
+		if(90 to 100) // 90-100 = red
+			. = "<font color='#eb4034'>[world.cpu]</font>"
+		if(100 to INFINITY) // >100 = bold red
+			. = "<font color='#eb4034'><b>[world.cpu]</b></font>"

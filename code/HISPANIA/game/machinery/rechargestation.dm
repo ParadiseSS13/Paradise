@@ -1,4 +1,4 @@
-/obj/machinery/recharge_station/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
+/obj/machinery/recharge_station/MouseDrop_T(atom/movable/O as mob|obj, mob/user)
 	var/can_accept_user = FALSE
 	if(O.loc == user) //no you can't pull things out of your ass
 		return

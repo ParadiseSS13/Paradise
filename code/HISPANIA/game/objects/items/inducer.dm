@@ -10,7 +10,7 @@
 	force = 7
 	flags =  CONDUCT
 	var/obj/item/stock_parts/cell/cell
-	var/powertransfer = null
+	var/powertransfer
 	var/ratio = 0.15 //<15%> determina que porcentaje de la carga maxima promedio recargada (la mitad de la del objetivo entre la interna)
 	var/coefficient_base = 1.1 //determina que porcentje de energia, del a bateria interna, se pierde al inducir, 10%
 	var/mintransfer = 250 //determina el valor minimo de la energia inducida
@@ -244,9 +244,7 @@
 /obj/item/inducer/sci/examine(mob/living/M)
 	..()
 	if(on)
-		to_chat(M,"<span class='notice'>the self charge is on.</span>")
-	else
-		to_chat(M,"<span class='notice'>the self charge is off.</span>")
+		to_chat(M,"<span class='notice'>the self charge is [on ? "on" : "off"].</span>")
 	if(cell)
 		to_chat(M, "<span class='notice'>Its display shows: [DisplayPower(cell.charge)] ([round(cell.percent() )]%).</span>")
 	else
@@ -280,18 +278,17 @@
 	icon_state = "inducer-engi"
 	item_state = "inducer-engi"
 	origin_tech = "powerstorage=4;materials=3;engineering=3"
-	var/cell_type = /obj/item/stock_parts/cell
 	ratio = 0.15 //<30%> determina que porcentaje de la carga maxima promedio recargada (la mitad de la del objetivo entre la interna)
 	coefficient_base = 1.1 //determina que porcentje de energia, del a bateria interna, se pierde al inducir, 10%
 	mintransfer = 50 //determina el valor minimo de la energia inducida
 	on = TRUE
+	var/cell_type = /obj/item/stock_parts/cell
 
 /obj/item/inducer/apc/Initialize()
 	. = ..()
 	if(!cell && cell_type)
 		cell = new cell_type
 		cell.charge = 500
-	START_PROCESSING(SSobj, src)
 	cell.update_icon()
 	update_icon()
 
@@ -319,9 +316,7 @@
 /obj/item/inducer/apc/examine(mob/living/M)
 	..()
 	if(on)
-		to_chat(M,"<span class='notice'>Emission mode is activate.</span>")
-	else
-		to_chat(M,"<span class='notice'>Suction mode is activate.</span>")
+		to_chat(M,"<span class='notice'>[on ? "Emission" : "Suction"]Emission mode is activate.</span>")
 	if(cell)
 		to_chat(M, "<span class='notice'>Its display shows: [DisplayPower(cell.charge)] ([round(cell.percent() )]%).</span>")
 	else
@@ -332,7 +327,7 @@
 		return
 	return ..()
 
-/obj/item/inducer/apc/afterattack(obj/machinery/power/apc/A as obj, mob/user as mob, flag, params)
+/obj/item/inducer/apc/afterattack(obj/machinery/power/apc/A, mob/user, flag, params)
 	if(!flag)
 		return FALSE
 

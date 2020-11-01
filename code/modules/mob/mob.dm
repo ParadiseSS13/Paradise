@@ -976,7 +976,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		if(statpanel("MC")) //looking at that panel
 			var/turf/T = get_turf(client.eye)
 			stat("Location:", COORD(T))
-			stat("CPU:", "[world.cpu]")
+			stat("CPU:", "[Master.formatcpu()]")
 			stat("Instances:", "[num2text(world.contents.len, 10)]")
 			GLOB.stat_entry()
 			stat("Server Time:", time_stamp())

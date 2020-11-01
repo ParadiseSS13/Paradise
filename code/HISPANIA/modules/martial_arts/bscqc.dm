@@ -5,7 +5,7 @@
 	help_verb = /mob/living/carbon/human/proc/BSCQC_help
 	block_chance = 50
 	var/restraining = 0
-	var/current_target = null
+	var/current_target
 
 /datum/martial_art/bscqc/proc/add_to_streak(var/element,var/mob/living/carbon/human/D)
 	if(D != current_target)
@@ -77,7 +77,7 @@
 	if(!can_use(A))
 		return FALSE
 	add_to_streak("D", D)
-	var/obj/item/I = null
+	var/obj/item/I
 	if(check_streak(A, D))
 		return TRUE
 	if(prob(25))

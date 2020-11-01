@@ -105,8 +105,8 @@
 			M.forceMove(get_turf(src))
 			M.notransform = TRUE
 			to_chat(M, "<span class='danger'>You cannot resist your hunger and you go directly to them!</span>")
-			sleep(20)
-			M.notransform = FALSE
+			spawn(20)
+				M.notransform = FALSE
 
 /obj/structure/femur_breaker/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	if(!anchored)

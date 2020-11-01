@@ -12,7 +12,7 @@
 	summon_type = list(/obj/effect/timestop/nto)
 
 /obj/effect/timestop/nto
-	anchored = 1
+	anchored = TRUE
 	name = "timebubble"
 	desc = "ZA WARUDO"
 	icon = 'icons/hispania/effects/chronoshield.dmi'

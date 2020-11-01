@@ -162,7 +162,8 @@
 					socks,
 					body_accessory,
 					gear,
-					autohiss
+					autohiss,
+					all_quirks
 				 	FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' AND slot='[slot]'"})
 	if(!query.Execute())
 		var/err = query.ErrorMsg()
@@ -241,7 +242,7 @@
 		body_accessory = query.item[50]
 		loadout_gear = params2list(query.item[51])
 		autohiss_mode = text2num(query.item[52])
-
+		all_quirks = params2list(query.item[53])
 		saved = TRUE
 
 	//Sanitize
@@ -306,6 +307,7 @@
 	if(!GLOB.body_accessory_by_name[body_accessory])
 		body_accessory = null
 
+	all_quirks = SANITIZE_LIST(all_quirks)
 	return 1
 
 /datum/preferences/proc/save_character(client/C)
@@ -380,7 +382,8 @@
 												socks='[socks]',
 												body_accessory='[body_accessory]',
 												gear='[gearlist]',
-												autohiss='[autohiss_mode]'
+												autohiss='[autohiss_mode]',
+												all_quirks='[all_quirks]'
 												WHERE ckey='[C.ckey]'
 												AND slot='[default_slot]'"}
 												)
@@ -418,7 +421,7 @@
 											gen_record,
 											player_alt_titles,
 											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
-											socks, body_accessory, gear, autohiss)
+											socks, body_accessory, gear, autohiss, all_quirks)
 
 					VALUES
 											('[C.ckey]', '[default_slot]', '[sanitizeSQL(metadata)]', '[sanitizeSQL(real_name)]', '[be_random_name]','[gender]',
@@ -446,8 +449,7 @@
 											'[sanitizeSQL(gen_record)]',
 											'[playertitlelist]',
 											'[disabilities]', '[organlist]', '[rlimblist]', '[nanotrasen_relation]', '[speciesprefs]',
-											'[socks]', '[body_accessory]', '[gearlist]', '[autohiss_mode]')
-
+											'[socks]', '[body_accessory]', '[gearlist]', '[autohiss_mode]', '[all_quirks]')
 "}
 )
 

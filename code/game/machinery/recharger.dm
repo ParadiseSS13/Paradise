@@ -12,7 +12,7 @@
 	active_power_usage = 200
 	pass_flags = PASSTABLE
 
-	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/rcs, /obj/item/bodyanalyzer)
+	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/rcs, /obj/item/bodyanalyzer, /obj/item/handheld_chem_dispenser)
 	var/icon_state_off = "rechargeroff"
 	var/icon_state_charged = "recharger2"
 	var/icon_state_charging = "recharger1"
