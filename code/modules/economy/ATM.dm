@@ -12,6 +12,7 @@ log transactions
 #define TRANSFER_FUNDS 2
 #define VIEW_TRANSACTION_LOGS 3
 #define PRINT_DELAY 100
+#define LOCKOUT_TIME 120
 
 /obj/machinery/atm
 	name = "Nanotrasen automatic teller machine"
@@ -97,7 +98,7 @@ log transactions
 			if(!powered())
 				return
 			var/obj/item/stack/spacecash/C = I
-			playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, 1)
+			playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
 
 			authenticated_account.credit(C.amount, "Credit deposit", machine_id, authenticated_account.owner_name)
 
@@ -160,7 +161,7 @@ log transactions
 				return
 			var/transfer_amount = text2num(params["funds_amount"])
 			if(transfer_amount <= 0)
-				alert("That is not a valid amount.")
+				to_chat(usr, "[bicon(src)]<span class='warning'>That is not a valid amount.</span>")
 			else if(transfer_amount <= authenticated_account.money)
 				var/target_account_number = text2num(params["target_acc_number"])
 				var/transfer_purpose = params["purpose"]
@@ -172,7 +173,13 @@ log transactions
 				to_chat(usr, "[bicon(src)]<span class='warning'>You don't have enough funds to do that!</span>")
 
 		if("view_screen")
-			view_screen = text2num(params["view_screen"])
+			var/list/valid_screen = list(DEFAULT_SCREEN, CHANGE_SECURITY_LEVEL, TRANSFER_FUNDS, VIEW_TRANSACTION_LOGS)
+			var/screen_proper = text2num(params["view_screen"])
+			if(screen_proper in valid_screen)
+				view_screen = screen_proper
+			else
+				message_admins("Warning: possible href exploit by [key_name(usr)] - Invalid screen number passed into an ATM")
+				log_debug("Warning: possible href exploit by [key_name(usr)] - Invalid screen number passed into an ATM")
 
 		if("change_security_level")
 			if(authenticated_account)
@@ -194,7 +201,7 @@ log transactions
 							if(number_incorrect_tries > max_pin_attempts)
 								//lock down the atm
 								ticks_left_locked_down = 30
-								playsound(src, 'sound/machines/buzz-two.ogg', 50, 1)
+								playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
 
 								//create an entry in the account transaction log
 								var/datum/money_account/failed_account = linked_db.get_account(tried_account_num)
@@ -207,15 +214,15 @@ log transactions
 									T.time = station_time_timestamp()
 									failed_account.transaction_log.Add(T)
 							else
-								to_chat(usr, "[bicon(src)]<span class='warning'>Incorrect pin/account combination entered, [max_pin_attempts - number_incorrect_tries] attempts remaining.</span>")
+								to_chat(usr, "[bicon(src)]<span class='warning'>Incorrect pin/account combination entered, [max_pin_attempts - number_incorrect_tries] attempt\s remaining.</span>")
 								previous_account_number = tried_account_num
-								playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 1)
+								playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 						else
 							to_chat(usr, "[bicon(src)]<span class='warning'>Incorrect pin/account combination entered.</span>")
 							number_incorrect_tries = 0
 					else
-						playsound(src, 'sound/machines/twobeep.ogg', 50, 1)
-						ticks_left_timeout = 120
+						playsound(src, 'sound/machines/twobeep.ogg', 50, TRUE)
+						ticks_left_timeout = LOCKOUT_TIME
 						view_screen = DEFAULT_SCREEN
 
 						//create a transaction log entry
@@ -232,10 +239,10 @@ log transactions
 		if("withdrawal")
 			var/amount = max(text2num(params["funds_amount"]),0)
 			if(amount <= 0)
-				alert("That is not a valid amount.")
+				to_chat(usr, "[bicon(src)]<span class='warning'>That is not a valid amount.</span>")
 			else if(authenticated_account && amount > 0)
 				if(amount <= authenticated_account.money)
-					playsound(src, 'sound/machines/chime.ogg', 50, 1)
+					playsound(src, 'sound/machines/chime.ogg', 50, TRUE)
 
 					//remove the money
 					if(amount > 100000) // prevent crashes
@@ -252,7 +259,7 @@ log transactions
 					to_chat(usr, "<span class='notice'>The [name] flashes an error on its display.</span>")
 					return
 				lastprint = world.timeofday
-				playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+				playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 				var/obj/item/paper/R = new(loc)
 				R.name = "Account balance: [authenticated_account.owner_name]"
 				R.info = {"<b>NT Automated Teller Account Statement</b><br><br>
@@ -271,7 +278,7 @@ log transactions
 				R.overlays += stampoverlay
 				R.stamps += "<HR><i>This paper has been stamped by the Automatic Teller Machine.</i>"
 
-			playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, 1)
+			playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
 
 		if("insert_card")
 			if(held_card)
