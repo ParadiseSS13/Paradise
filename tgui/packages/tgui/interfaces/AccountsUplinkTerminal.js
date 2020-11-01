@@ -1,13 +1,11 @@
-import { createSearch, decodeHtmlEntities } from 'common/string';
+import { createSearch } from 'common/string';
 import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from "../backend";
-import { Box, Button, Flex, Icon, Input, LabeledList, NumberInput, Section, Table, Tabs } from '../components';
+import { Button, Flex, Icon, Input, LabeledList, Section, Table } from '../components';
 import { FlexItem } from '../components/Flex';
 import { Window } from "../layouts";
-import { ComplexModal, modalOpen } from './common/ComplexModal';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
-import { TemporaryNotice } from './common/TemporaryNotice';
 
 export const AccountsUplinkTerminal = (properties, context) => {
   const { act, data } = useBackend(context);
@@ -193,7 +191,7 @@ const DetailedAccountInfo = (properties, context) => {
           <LabeledList.Item label="Account Holder">
             {owner_name}
           </LabeledList.Item>
-          <LabeledList.Item label="Account Balnce">
+          <LabeledList.Item label="Account Balance">
             {money}
           </LabeledList.Item>
           <LabeledList.Item label="Account Status" color={suspended ? "red" : "green"}>
@@ -240,7 +238,7 @@ const DetailedAccountInfo = (properties, context) => {
                 {t.purpose}
               </Table.Cell>
               <Table.Cell>
-                {t.amount}
+                ${t.amount}
               </Table.Cell>
               <Table.Cell>
                 {t.source_terminal}
