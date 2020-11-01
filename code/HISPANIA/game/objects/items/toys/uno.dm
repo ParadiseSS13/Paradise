@@ -4,11 +4,11 @@
 	icon = 'icons/hispania/obj/uno.dmi'
 	icon_state = "uno"
 	resistance_flags = FLAMMABLE
-	var/flip_icon = null
-	var/flip_name = null
+	var/flip_icon
+	var/flip_name
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/toy/uno/attack_self(mob/user as mob)
+/obj/item/toy/uno/attack_self(mob/user)
 	if(icon_state == "uno")
 		icon_state = flip_icon
 		name = flip_name
@@ -106,7 +106,7 @@
 	else
 		return ..()
 
-/obj/item/cardholder/attack_hand(mob/user as mob)
+/obj/item/cardholder/attack_hand(mob/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/temp = H.bodyparts_by_name["r_hand"]

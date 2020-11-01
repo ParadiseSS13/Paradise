@@ -22,7 +22,7 @@
 	build_path = /obj/item/spacepod_equipment/weaponry/inmolationpod
 	category = list("Pod_Weaponry")
 	materials = list(MAT_METAL = 10000, MAT_SILVER = 8000, MAT_PLASMA = 8000)
-	locked = 1
+	locked = TRUE
 
 /datum/design/pod_ionsystempod
 	construction_time = 200
@@ -34,7 +34,7 @@
 	build_path = /obj/item/spacepod_equipment/weaponry/ionsystempod
 	category = list("Pod_Weaponry")
 	materials = list(MAT_METAL=20000,MAT_SILVER=6000,MAT_URANIUM=2000)
-	locked = 1
+	locked = TRUE
 
 /datum/design/lmgpod
 	construction_time = 200
@@ -46,7 +46,7 @@
 	build_path = /obj/item/spacepod_equipment/weaponry/lmgpod
 	category = list("Pod_Weaponry")
 	materials = list(MAT_METAL=10000)
-	locked = 1
+	locked = TRUE
 
 //////////////////////////////////////////
 //////SPACEPOD MISC. ITEMS////////////////

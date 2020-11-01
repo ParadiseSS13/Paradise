@@ -12,8 +12,8 @@
 	lefthand_file = 'icons/hispania/mob/inhands/balloons_lefthand.dmi'
 	righthand_file = 'icons/hispania/mob/inhands/balloons_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
-	var/lastused = null
 	resistance_flags = FLAMMABLE
+	var/lastused
 
 //Eleccion de globo
 /obj/item/toy/balloon_h/attackby(obj/item/toy/crayon/C)

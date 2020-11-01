@@ -24,7 +24,7 @@ Stabilized extracts:
 	return ..()
 
 /obj/item/slimecross/stabilized/process()
-	var/humanfound = null
+	var/humanfound
 	if(ishuman(loc))
 		humanfound = loc
 	if(ishuman(loc.loc)) //Check if in backpack.

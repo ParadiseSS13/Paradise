@@ -111,7 +111,7 @@ GLOBAL_LIST_INIT(tape_roll_applications, list())
 	desc = "A length of engineering tape. Better not cross it."
 	color = COLOR_ORANGE
 
-/obj/item/taperoll/attack_self(mob/user as mob)
+/obj/item/taperoll/attack_self(mob/user)
 	if(!start)
 		start = get_turf(src)
 		to_chat(usr, "<span class='notice'>You place the first end of \the [src].</span>")
@@ -174,8 +174,8 @@ GLOBAL_LIST_INIT(tape_roll_applications, list())
 			if(EAST,   WEST)	dir =  EAST|WEST	// East-West taping
 
 		var/can_place = 1
-		while (can_place)
-			if(cur.density == 1)
+		while(can_place)
+			if(cur.density)
 				can_place = 0
 			else if (istype(cur, /turf/space))
 				can_place = 0
@@ -233,7 +233,7 @@ GLOBAL_LIST_INIT(tape_roll_applications, list())
 		to_chat(usr, "<span class='notice'>You finish placing \the [src].</span>")
 		return
 
-/obj/item/taperoll/afterattack(var/atom/A, mob/user as mob, proximity)
+/obj/item/taperoll/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
 		return
 
@@ -268,15 +268,15 @@ GLOBAL_LIST_INIT(tape_roll_applications, list())
 		if (!allowed(M))	//only select few learn art of not crumpling the tape
 			to_chat(M, "<span class='warning'>You are not supposed to go past [src]...</span>")
 			if(M.a_intent == INTENT_HELP)
-				return 0
+				return FALSE
 	else
 		return ..(mover)
 
-/obj/item/taper/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/taper/attackby(obj/item/W, mob/user)
 	if(user.a_intent == INTENT_HARM)
 		breaktape(user)
 
-/obj/item/taper/attack_hand(mob/user as mob)
+/obj/item/taper/attack_hand(mob/user)
 	if(user.a_intent == INTENT_HELP)
 		user.visible_message("<span class='notice'>\The [user] lifts \the [src], allowing passage.</span>")
 		for(var/obj/item/taper/T in gettapeline())
