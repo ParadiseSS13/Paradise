@@ -9,7 +9,7 @@
 	var/image/stamp_marks				// combined image of all the stamp marks
 
 /mob/living/carbon/human/New(loc)
-	stamp_marks = image('icons/effects/stamp_marks.dmi')
+	stamp_marks = new /image()
 	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.
 	if(length(args) > 1)
 		log_runtime(EXCEPTION("human/New called with more than 1 argument (REPORT THIS ENTIRE RUNTIME TO A CODER)"))
