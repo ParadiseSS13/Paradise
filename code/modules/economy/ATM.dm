@@ -298,7 +298,6 @@ log transactions
 			authenticated_account = null
 
 	. = TRUE
-	return 1
 
 //create the most effective combination of notes to make up the requested amount
 /obj/machinery/atm/proc/withdraw_arbitrary_sum(arbitrary_sum)
