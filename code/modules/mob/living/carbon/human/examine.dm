@@ -167,12 +167,12 @@
 		msg += "[p_they(TRUE)] [p_have()] been stamped: "
 		var/stampTypeCounter = 0
 
-		for(var/i in stamp_marks_desc)
+		for(var/stampDescription in stamp_marks_desc)
 			stampTypeCounter++
 
 			if(stampTypeCounter == numberOfStampTypes && numberOfStampTypes > 1)
 				msg += "and "
-			msg += i
+			msg += stampDescription
 			if(stampTypeCounter == numberOfStampTypes)
 				msg += ".\n"
 			else

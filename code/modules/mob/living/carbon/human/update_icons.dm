@@ -1259,7 +1259,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/proc/update_misc_effects()
 	remove_overlay(MISC_LAYER)
 	var/mutable_appearance/standing = mutable_appearance(layer = -MISC_LAYER)
-	if(stamp_marks)
+	if(length(stamp_marks.overlays))
 		standing.overlays += stamp_marks
 	//Begin appending miscellaneous effects.
 	if(eyes_shine())
