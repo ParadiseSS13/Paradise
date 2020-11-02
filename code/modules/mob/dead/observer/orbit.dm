@@ -1,6 +1,5 @@
 /datum/orbit_menu
 	var/mob/dead/observer/owner
-	var/auto_observe = FALSE
 
 /datum/orbit_menu/New(mob/dead/observer/new_owner)
 	if(!istype(new_owner))
@@ -9,8 +8,8 @@
 
 /datum/orbit_menu/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_observer_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
-	if (!ui)
-		ui = new(user, src, ui_key, "Orbit", "title goes here", 800, 600, master_ui, state)
+	if(!ui)
+		ui = new(user, src, ui_key, "Orbit", "Orbit", 800, 600, master_ui, state)
 		ui.open()
 
 /datum/orbit_menu/tgui_act(action, list/params, datum/tgui/ui)
@@ -19,16 +18,16 @@
 		return
 
 	switch(action)
-		if ("orbit")
+		if("orbit")
 			var/ref = params["ref"]
 
 			var/atom/movable/poi = (locate(ref) in GLOB.mob_list) || (locate(ref) in GLOB.poi_list)
-			if (poi == null)
+			if(poi == null)
 				. = TRUE
 				return
 			owner.ManualFollow(poi)
 			. = TRUE
-		if ("refresh")
+		if("refresh")
 			update_tgui_static_data(owner, ui)
 			. = TRUE
 
@@ -47,7 +46,7 @@
 	var/list/npcs = list()
 
 	var/list/pois = getpois(mobs_only=TRUE)
-	for (var/name in pois)
+	for(var/name in pois)
 		var/list/serialized = list()
 		serialized["name"] = name
 
@@ -56,12 +55,12 @@
 		serialized["ref"] = "\ref[poi]"
 
 		var/mob/M = poi
-		if (istype(M))
+		if(istype(M))
 			if (isobserver(M))
 				ghosts += list(serialized)
-			else if (M.stat == DEAD)
+			else if(M.stat == DEAD)
 				dead += list(serialized)
-			else if (M.mind == null)
+			else if(M.mind == null)
 				npcs += list(serialized)
 			else
 				var/datum/mind/mind = M.mind
@@ -69,14 +68,14 @@
 
 				if(user.antagHUD)
 					// I'm lazy and only showing datumized antags (i.e. traitors).
-					for (var/_A in mind.antag_datums)
+					for(var/_A in mind.antag_datums)
 						var/datum/antagonist/A = _A
 						was_antagonist = TRUE
 						serialized["antag"] = A.name
 						antagonists += list(serialized)
 						break
 
-				if (!was_antagonist)
+				if(!was_antagonist)
 					alive += list(serialized)
 		else
 			misc += list(serialized)

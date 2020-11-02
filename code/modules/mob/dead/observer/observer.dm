@@ -94,6 +94,9 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		GLOB.ghost_images -= ghostimage
 		QDEL_NULL(ghostimage)
 		updateallghostimages()
+	if(orbit_menu)
+		SStgui.close_uis(orbit_menu)
+		QDEL_NULL(orbit_menu)
 	return ..()
 
 /mob/dead/observer/examine(mob/user)
@@ -415,11 +418,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "Ghost"
 	set name = "Orbit" // "Haunt"
 	set desc = "Follow and orbit a mob."
-
-	// var/list/mobs = getpois(FALSE, TRUE, TRUE, TRUE)
-	// var/datum/async_input/A = input_autocomplete_async(usr, "Please, select a mob: ", mobs)
-	// A.on_close(CALLBACK(src, .proc/ManualFollow))
-
 
 	if(!orbit_menu)
 		orbit_menu = new(src)
