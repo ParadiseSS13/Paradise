@@ -16,6 +16,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	canmove = FALSE
 	alpha = 127
 	move_resist = INFINITY	//  don't get pushed around
+	anchored = 1 // don't get moved by mass drivers
 	invisibility = INVISIBILITY_OBSERVER
 	var/can_reenter_corpse
 	var/bootime = FALSE
