@@ -61,6 +61,9 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
 	ME.attach(src)
 
+/obj/mecha/combat/gygax/ert/add_cell()
+	cell = new /obj/item/stock_parts/cell/bluespace(src)
+
 /obj/mecha/combat/gygax/dark
 	desc = "A lightweight exosuit, painted in a dark scheme. This model appears to have some modifications."
 	name = "Dark Gygax"
