@@ -63,20 +63,35 @@
 			else if(M.mind == null)
 				npcs += list(serialized)
 			else
-				var/datum/mind/mind = M.mind
-				var/was_antagonist = FALSE
+				alive += list(serialized)
 
+				var/datum/mind/mind = M.mind
 				if(user.antagHUD)
-					// I'm lazy and only showing datumized antags (i.e. traitors).
+					// If a mind is many antags at once, we'll display all of them, each
+					// under their own antag sub-section.
+					// This is arguably better, than picking one of the antag datums at random.
+
+					// Traitors - the only antags in `.antag_datums` at the time of writing.
 					for(var/_A in mind.antag_datums)
 						var/datum/antagonist/A = _A
-						was_antagonist = TRUE
-						serialized["antag"] = A.name
-						antagonists += list(serialized)
-						break
+						var/antag_serialized = serialized.Copy()
+						antag_serialized["antag"] = A.name
+						antagonists += list(antag_serialized)
 
-				if(!was_antagonist)
-					alive += list(serialized)
+					if(mind.changeling)
+						var/antag_serialized = serialized.Copy()
+						antag_serialized["antag"] = "Changeling"
+						antagonists += list(antag_serialized)
+
+					if(mind.vampire)
+						var/antag_serialized = serialized.Copy()
+						antag_serialized["antag"] = "Vampire"
+						antagonists += list(antag_serialized)
+
+					// Other antags are not in the list, mostly because I don't know their code well enough,
+					// and am not sure how to extract the "is this is an antag?" Info easily.
+					// If you are annoyed by this - datumize them and put under `.antag_datums`!
+
 		else
 			misc += list(serialized)
 
