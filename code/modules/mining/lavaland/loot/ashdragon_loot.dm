@@ -195,7 +195,7 @@
 
 
 		timer = world.time + create_delay + 1
-		user.visible_message("<span class='danger'>[user]'s lava staff malfunctions!</span>")
+		user.visible_message("<span class='danger'>[user]'s [src] malfunctions!</span>")
 		do_sparks(5, FALSE, user)
 		return
 
