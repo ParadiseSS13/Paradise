@@ -3141,6 +3141,9 @@
 				usr << browse(dat, "window=manifest;size=440x410")
 			if("check_antagonist")
 				check_antagonists()
+			if("view_codewords")
+				to_chat(usr, "<b>Code Phrases:</b> <span class='codephrases'>[GLOB.syndicate_code_phrase]</span>")
+				to_chat(usr, "<b>Code Responses:</b> <span class='coderesponses'>[GLOB.syndicate_code_response]</span>")
 			if("DNA")
 				var/dat = "<b>Showing DNA from blood.</b><hr>"
 				dat += "<table cellspacing=5><tr><th>Name</th><th>DNA</th><th>Blood Type</th></tr>"

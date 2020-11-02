@@ -198,6 +198,18 @@ var/list/chatResources = list(
 	error = "\[[time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")]\] Client : [owner.key ? owner.key : owner] triggered JS error: [error]"
 	chatDebug << error
 
+/**
+  * Sends the lists of code phrases and responses to Goonchat for clientside highlighting
+  *
+  * Arguments:
+  * * phrases - List of code phrases
+  * * responses - List of code responses
+  */
+/datum/chatOutput/proc/notify_syndicate_codes(phrases = GLOB.syndicate_code_phrase, responses = GLOB.syndicate_code_response)
+	var/urlphrases = url_encode(copytext(phrases, 1, length(phrases)))
+	var/urlresponses = url_encode(copytext(responses, 1, length(responses)))
+	owner << output("[urlphrases]&[urlresponses]", "browseroutput:codewords")
+
 /client/verb/debug_chat()
 	set hidden = 1
 	chatOutput.ehjax_send(data = list("firebug" = 1))
