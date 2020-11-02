@@ -47,7 +47,7 @@
 	var/O_limit = 0
 	var/atom/target = get_edge_target_turf(src, dir)
 	for(var/atom/movable/O in loc)
-		if(!O.anchored||istype(O, /obj/mecha))//Mechs need their launch platforms.
+		if((!O.anchored && O.move_resist != INFINITY) || istype(O, /obj/mecha)) //Mechs need their launch platforms. Also checks if something is anchored or has move resist INFINITY, which should stop ghost flinging.
 			O_limit++
 			if(O_limit >= 20)//so no more than 20 items are sent at a time, probably for counter-lag purposes
 				break
