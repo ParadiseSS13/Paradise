@@ -40,6 +40,8 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "rended")
 	var/summon_cooldown = 0
 	var/list/mob/dead/observer/spirits
+	var/globes_list = list()
+	var/spirit_count = 0
 
 /obj/item/melee/ghost_sword/New()
 	..()
@@ -73,17 +75,46 @@
 
 /obj/item/melee/ghost_sword/process()
 	ghost_check()
+	update_globes()
 
 /obj/item/melee/ghost_sword/proc/ghost_check()
 	var/ghost_counter = 0
 	var/turf/T = get_turf(src)
 	var/list/contents = T.GetAllContents()
+	var/mob/dead/observer/current_spirits = list()
+
 
 	for(var/mob/dead/observer/O in GLOB.player_list)
 		if((O.orbiting in contents))
 			ghost_counter++
+			current_spirits |= O
+
+	for(var/mob/dead/observer/G in spirits - current_spirits)
+
+	spirits = current_spirits
 
 	return ghost_counter
+
+/obj/item/melee/ghost_sword/proc/update_globes()
+	var/old_spirit_count = spirit_count
+	var/new_spirit_count = ghost_check()
+	var/cur_spirit_count = old_spirit_count
+	if(cur_spirit_count < new_spirit_count)
+		var/obj/effect/overlay/ghost_orbs/G = new(loc)
+		G.orbit(src, rand(15, 30), FALSE, rand(15,25)) //bit of randomness to the orbs
+		globes_list |= G
+		cur_spirit_count ++
+	message_admins("[old_spirit_count]")
+	message_admins("[new_spirit_count]")
+	message_admins("[cur_spirit_count]")
+	if(cur_spirit_count > new_spirit_count)
+		message_admins("a")
+		for(var/obj/effect/overlay/ghost_orbs/X in globes_list)
+			message_admins("B")
+			globes_list -= X
+			del(X)
+
+	spirit_count = new_spirit_count
 
 /obj/item/melee/ghost_sword/attack(mob/living/target, mob/living/carbon/human/user)
 	force = 0
@@ -98,6 +129,13 @@
 	final_block_chance += clamp((ghost_counter * 5), 0, 75)
 	owner.visible_message("<span class='danger'>[owner] is protected by a ring of [ghost_counter] ghosts!</span>")
 	return ..()
+
+/obj/effect/overlay/ghost_orbs
+	name = "Spectral orbs"
+	desc = "These strange orbs seem almost incoperal, and weak, but together they seem much stronger."
+	icon = 'icons/obj/projectiles.dmi'
+	icon_state = "magicm"
+	color = "#64bccc"
 
 // Blood
 
