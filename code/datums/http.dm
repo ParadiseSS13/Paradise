@@ -44,14 +44,13 @@ THE METHODS IN THIS FILE ARE TO BE USED BY THE SUBSYSTEM AS A MANGEMENT HUB
   */
 /datum/http_request/proc/prepare(_method, _url, _body = "", list/_headers)
 	if(!length(_headers))
-		_headers = ""
+		headers = ""
 	else
-		_headers = json_encode(_headers)
+		headers = json_encode(_headers)
 
 	method = _method
 	url = _url
 	body = _body
-	headers = _headers
 
 /**
   * Blocking executor
