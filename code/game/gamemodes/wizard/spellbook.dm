@@ -171,7 +171,6 @@
 	spell_type = /obj/effect/proc_holder/spell/targeted/infinite_guns
 	log_name = "IG"
 	category = "Offensive"
-	cost = 4
 
 //Defensive
 /datum/spellbook_entry/disabletech
