@@ -1,12 +1,19 @@
 GLOBAL_LIST_EMPTY(all_cults)
 
 /datum/game_mode
+	/// A list of all minds currently in the cult
 	var/list/datum/mind/cult = list()
 	var/datum/cult_objectives/cult_objs = new
 	/// Does the cult have glowing eyes
 	var/cult_risen = FALSE
 	/// Does the cult have halos
 	var/cult_ascendant = FALSE
+	/// How many crew need to be converted to rise
+	var/rise_number
+	/// How many crew need to be converted to ascend
+	var/ascend_number
+	/// Used for the CentComm announcement at ascension
+	var/ascend_percent
 
 /proc/iscultist(mob/living/M)
 	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.cult)
@@ -57,9 +64,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 /datum/game_mode/cult/pre_setup()
 	if(config.protect_roles_from_antagonist)
 		restricted_jobs += protected_jobs
-	..()
-	var/list/cultists_possible = get_players_for_role(ROLE_CULTIST)
 
+	var/list/cultists_possible = get_players_for_role(ROLE_CULTIST)
 	for(var/cultists_number = 1 to max_cultists_to_start)
 		if(!length(cultists_possible))
 			break
@@ -68,9 +74,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		cult += cultist
 		cultist.restricted_roles = restricted_jobs
 		cultist.special_role = SPECIAL_ROLE_CULTIST
-	..()
 	return (length(cult) > 0)
-
 
 /datum/game_mode/cult/post_setup()
 	modePlayer += cult
@@ -91,23 +95,57 @@ GLOBAL_LIST_EMPTY(all_cults)
 		add_cult_actions(cult_mind)
 		update_cult_icons_added(cult_mind)
 		cult_objs.study(cult_mind.current)
+	threshold_check()
+	addtimer(CALLBACK(src, .proc/threshold_check), 2 MINUTES) // Check again in 2 minutes for latejoiners
 	..()
 
-/datum/game_mode/proc/get_cultists()
+/**
+  * Decides at the start of the round how many conversions are needed to rise/ascend.
+  *
+  * The number is decided by (Percentage * (Players - Cultists)), so for example at 110 players it would be 11 conversions for rise. (0.1 * (110 - 4))
+  * These values change based on population because 20 cultists are MUCH more powerful if there's only 50 players, compared to 120.
+  *
+  * Below 100 players, [CULT_RISEN_LOW] and [CULT_ASCENDANT_LOW] are used.
+  * Above 100 players, [CULT_RISEN_HIGH] and [CULT_ASCENDANT_HIGH] are used.
+  */
+/datum/game_mode/cult/proc/threshold_check()
+	var/players = length(GLOB.player_list)
+	var/cultists = get_cultists() // Don't count the starting cultists towards the number of needed conversions
+	if(players >= CULT_POPULATION_THRESHOLD)
+		// Highpop
+		ascend_percent = CULT_ASCENDANT_HIGH
+		rise_number = round(CULT_RISEN_HIGH * (players - cultists))
+		ascend_number = round(CULT_ASCENDANT_HIGH * (players - cultists))
+	else
+		// Lowpop
+		ascend_percent = CULT_ASCENDANT_LOW
+		rise_number = round(CULT_RISEN_LOW * (players - cultists))
+		ascend_number = round(CULT_ASCENDANT_LOW * (players - cultists))
+
+/**
+  * Returns the current number of cultists and constructs.
+  *
+  * Returns the number of cultists and constructs in a list ([1] = Cultists, [2] = Constructs), or as one number.
+  *
+  * * separate - Should the number be returned in two separate values (Humans and Constructs) or as one?
+  */
+/datum/game_mode/proc/get_cultists(separate = FALSE)
 	var/cultists = 0
 	var/constructs = 0
-	for(var/mob/living/M in GLOB.player_list)
-		if(iscultist(M) && !M.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
-			if(ishuman(M))
-				cultists++
-			else if(isconstruct(M))
-				constructs++
-	return list(cultists, constructs)
+	for(var/I in cult)
+		var/datum/mind/M = I
+		if(ishuman(M.current) && !M.current.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
+			cultists++
+		else if(isconstruct(M.current))
+			constructs++
+	if(separate)
+		return list(cultists, constructs)
+	else
+		return cultists + constructs
 
 /datum/game_mode/proc/equip_cultist(mob/living/carbon/human/H, metal = TRUE)
 	if(!istype(H))
 		return
-
 	. += cult_give_item(/obj/item/melee/cultblade/dagger, H)
 	if(metal)
 		. += cult_give_item(/obj/item/stack/sheet/runed_metal/ten, H)
@@ -117,9 +155,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	var/list/slots = list(
 		"backpack" = slot_in_backpack,
 		"left pocket" = slot_l_store,
-		"right pocket" = slot_r_store,
-	)
-
+		"right pocket" = slot_r_store)
 	var/T = new item_path(H)
 	var/item_name = initial(item_path.name)
 	var/where = H.equip_in_one_of_slots(T, slots)
@@ -171,34 +207,23 @@ GLOBAL_LIST_EMPTY(all_cults)
 /datum/game_mode/proc/check_cult_size()
 	if(cult_ascendant)
 		return
-	var/alive = 0
-	var/cultplayers = 0
-	for(var/mob/living/M in GLOB.player_list)
-		if(M.stat != DEAD)
-			if(iscultist(M) && ishuman(M) && !M.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
-				cultplayers++
-			else if(ishuman(M) && !M.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
-				alive++
-	if(!alive)
-		alive = 1
-	if(cultplayers <= 1) // Wizard cultists or admemes
-		return
-	var/ratio = cultplayers / alive
-	if(ratio > CULT_RISEN && !cult_risen)
-		cult_risen = TRUE
-		for(var/datum/mind/B in cult)
-			SEND_SOUND(B.current, 'sound/hallucinations/i_see_you2.ogg')
-			to_chat(B.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...</span>")
-			addtimer(CALLBACK(src, .proc/rise, B.current), 20 SECONDS)
+	var/cult_players = get_cultists()
 
-	if(ratio > CULT_ASCENDANT && !cult_ascendant)
+	if((cult_players >= rise_number) && !cult_risen)
+		cult_risen = TRUE
+		for(var/datum/mind/M in cult)
+			SEND_SOUND(M.current, 'sound/hallucinations/i_see_you2.ogg')
+			to_chat(M.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...</span>")
+			addtimer(CALLBACK(src, .proc/rise, M.current), 20 SECONDS)
+
+	else if(cult_players >= ascend_number)
 		cult_ascendant = TRUE
-		for(var/datum/mind/B in cult)
-			if(B.current)
-				SEND_SOUND(B.current, 'sound/hallucinations/im_here1.ogg')
-				to_chat(B.current, "<span class='cultlarge'>Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!")
-				addtimer(CALLBACK(src, .proc/ascend, B.current), 20 SECONDS)
-		GLOB.command_announcement.Announce("Picking up extradimensional activity related to the Cult of [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"] from your station. Data suggests about half the station has been converted. Security staff is authorised lethal force on confirmed cultists to contain the threat. Ensure dead crewmembers are revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
+		for(var/datum/mind/M in cult)
+			if(M.current)
+				SEND_SOUND(M.current, 'sound/hallucinations/im_here1.ogg')
+				to_chat(M.current, "<span class='cultlarge'>Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!")
+				addtimer(CALLBACK(src, .proc/ascend, M.current), 20 SECONDS)
+		GLOB.command_announcement.Announce("Picking up extradimensional activity related to the Cult of [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"] from your station. Data suggests that about [ascend_percent * 100]% of the station has been converted. Security staff is authorised lethal force on confirmed cultists to contain the threat. Ensure dead crewmembers are revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
 
 
 /datum/game_mode/proc/rise(cultist)
@@ -208,7 +233,6 @@ GLOBAL_LIST_EMPTY(all_cults)
 		H.update_eyes()
 		ADD_TRAIT(H, CULT_EYES, CULT_TRAIT)
 		H.update_body()
-
 
 /datum/game_mode/proc/ascend(cultist)
 	if(ishuman(cultist) && iscultist(cultist))

@@ -10,21 +10,29 @@
 #define RUNE_COLOR_EMP "#4D94FF"
 #define RUNE_COLOR_SUMMON "#00FF00"
 
-#define is_sacrifice_target(A) SSticker.mode && SSticker.mode.cult_objs.is_sac_target(A)
+#define is_sacrifice_target(A) SSticker.mode?.cult_objs.is_sac_target(A)
 
 // Blood magic
+/// Maximum number of spells with an empowering rune
 #define MAX_BLOODCHARGE 4
+/// Maximum number of spells without an empowering rune
 #define RUNELESS_MAX_BLOODCHARGE 1
-
-/// Percent before rise
-#define CULT_RISEN 0.1
-/// Percent before ascend
-#define CULT_ASCENDANT 0.2
-
 #define BLOOD_SPEAR_COST 150
 #define BLOOD_BARRAGE_COST 300
 #define BLOOD_BEAM_COST 500
 #define METAL_TO_CONSTRUCT_SHELL_CONVERSION 50
+
+// Cult Status
+/// At what population does it switch to highpop values
+#define CULT_POPULATION_THRESHOLD 100
+/// Percent before rise (Lowpop)
+#define CULT_RISEN_LOW 0.2
+/// Percent before ascend (Lowpop)
+#define CULT_ASCENDANT_LOW 0.3
+/// Percent before rise (Highpop)
+#define CULT_RISEN_HIGH 0.1
+/// Percent before ascend (Highpop)
+#define CULT_ASCENDANT_HIGH 0.2
 
 // Screen locations
 #define DEFAULT_BLOODSPELLS "6:-29,4:-2"
@@ -32,7 +40,7 @@
 #define DEFAULT_TOOLTIP "6:-29,5:-2"
 
 // Text
-#define CULT_GREETING "<span class='cultlarge'>You catch a glimpse of the Realm of [SSticker.cultdat.entity_name], [SSticker.cultdat.entity_title3]. \
+#define CULT_GREETING "<span class='cultlarge'>You catch a glimpse of the Realm of [SSticker.cultdat.entity_name], [SSticker.cultdat.entity_title3].\
 						You now see how flimsy the world is, you see that it should be open to the knowledge of [SSticker.cultdat.entity_name].</span>"
 
 #define CULT_CURSES list("A fuel technician just slit his own throat and begged for death.",                                           \

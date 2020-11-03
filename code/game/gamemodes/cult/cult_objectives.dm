@@ -42,13 +42,23 @@
 			to_chat(M, "<span class='danger'>Error: Cult objective status currently unknown. Something went wrong. Oof.</span>")
 
 	if(display_members)
-		var/list/cult = SSticker.mode.get_cultists()
-		var/cultists = cult[1]
-		var/constructs = cult[2]
-		to_chat(M, "<span class='cultitalic'><br><b><u>Current cult members</u>: [cultists + constructs]</b>")
-		to_chat(M, "<span class='cultitalic'><b>Cultists:</b> [cultists]")
-		if(constructs)
-			to_chat(M, "<span class='cultitalic'><b>Constructs:</b> [constructs]")
+		var/list/cult = SSticker.mode.get_cultists(TRUE)
+		var/total_cult = cult[1] + cult[2]
+		var/rise = SSticker.mode.rise_number - total_cult
+		var/ascend = SSticker.mode.ascend_number - total_cult
+
+		var/overview = "<span class='cultitalic'><br><b>Current cult members: [total_cult]"
+		if(!SSticker.mode.cult_ascendant)
+			if(rise > 0)
+				overview += " | Conversions until Rise: [rise]"
+			else if(ascend > 0)
+				overview += " | Conversions until Ascension: [ascend]"
+		to_chat(M, "[overview]</b></span>")
+
+		if(cult[2]) // If there are any constructs, separate them out
+			to_chat(M, "<span class='cultitalic'><b>Cultists:</b> [cult[1]]")
+			to_chat(M, "<span class='cultitalic'><b>Constructs:</b> [cult[2]]")
+
 
 /datum/cult_objectives/proc/current_sac_objective() //Return the current sacrifice objective datum, if any
 	if(cult_status == NARSIE_DEMANDS_SACRIFICE && length(presummon_objs))
@@ -169,7 +179,8 @@
 		if(valid_spot)
 			summon_spots += summon
 		sanity++
-	explanation_text = "Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "your god"] by invoking the rune 'Tear Veil' with 9 cultists, constructs, or summoned ghosts on it. <b>The summoning can only be accomplished in [english_list(summon_spots)] - where the veil is weak enough for the ritual to begin.</b>"
+	explanation_text = "Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "your god"] by invoking the rune 'Tear Veil' with 9 cultists, constructs, or summoned ghosts on it.\
+	\nThe summoning can only be accomplished in [english_list(summon_spots)] - where the veil is weak enough for the ritual to begin."
 
 
 /datum/objective/eldergod/check_completion()
