@@ -107,9 +107,9 @@
 	if(status_flags & GODMODE)
 		return
 
-	if(damage_protection)
-		brute = clamp(brute - damage_protection, 0, brute)
-		burn = clamp(burn - damage_protection, 0, burn)
+	if(damage_protection || burn_mod != 1 || brute_mod != 1)
+		brute = clamp((brute - damage_protection)*brute_mod, 0, brute)
+		burn = clamp((burn - damage_protection)*burn_mod, 0, burn)
 
 	var/list/datum/robot_component/parts = get_damageable_components()
 
