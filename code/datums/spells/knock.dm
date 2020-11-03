@@ -28,7 +28,7 @@
 				if(istype(C, /obj/structure/closet/secure_closet))
 					var/obj/structure/closet/secure_closet/SC = C
 					SC.locked = 0
-				C.open()
+				C.open(TRUE)
 
 /obj/effect/proc_holder/spell/aoe_turf/knock/greater
 	name = "Greater Knock"

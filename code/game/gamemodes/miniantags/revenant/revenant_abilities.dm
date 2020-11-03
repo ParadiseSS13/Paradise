@@ -261,7 +261,7 @@
 					if(window && window.fulltile)
 						new/obj/effect/temp_visual/revenant/cracks(window.loc)
 				for(var/obj/structure/closet/closet in T.contents)
-					closet.open()
+					closet.open(TRUE)
 
 				if(!istype(T, /turf/simulated/floor/plating) && !istype(T, /turf/simulated/floor/engine/cult) && istype(T, /turf/simulated/floor) && prob(15))
 					var/turf/simulated/floor/floor = T

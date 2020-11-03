@@ -28,18 +28,19 @@
 /obj/structure/closet/crate/can_close()
 	return TRUE
 
-/obj/structure/closet/crate/open()
+/obj/structure/closet/crate/open(irregular_open = FALSE)
 	if(src.opened)
 		return FALSE
 	if(!src.can_open())
 		return FALSE
 
-	for(var/obj/O in src)
-		if(O.density)
-			var/response = alert(usr, "This crate has been packed with bluespace compression, an item inside won't fit back inside. Are you sure you want to open it?","Bluespace Compression Warning", "No", "Yes")
-			if(response == "No")
-				return FALSE
-			break
+	if(!irregular_open)
+		for(var/obj/O in src)
+			if(O.density)
+				var/response = alert(usr, "This crate has been packed with bluespace compression, an item inside won't fit back inside. Are you sure you want to open it?","Bluespace Compression Warning", "No", "Yes")
+				if(response == "No")
+					return FALSE
+				break
 
 	if(rigged && locate(/obj/item/radio/electropack) in src)
 		if(isliving(usr))
