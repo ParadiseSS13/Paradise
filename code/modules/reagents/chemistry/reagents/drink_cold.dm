@@ -74,6 +74,7 @@
 	M.AdjustDizzy(5)
 	M.SetDrowsy(0)
 	M.status_flags |= GOTTAGOFAST
+	M.apply_effect(2, IRRADIATE, negate_armor = 1)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/cold/nuka_cola/on_mob_delete(mob/living/M)
