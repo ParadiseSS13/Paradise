@@ -95,6 +95,7 @@ To draw a rune, use a ritual dagger.
 	return ..()
 
 /obj/effect/rune/attack_hand(mob/living/user)
+	user.Move_Pulled(src) // So that you can still drag things onto runes
 	if(!iscultist(user))
 		to_chat(user, "<span class='warning'>You aren't able to understand the words of [src].</span>")
 		return
@@ -103,7 +104,6 @@ To draw a rune, use a ritual dagger.
 		invoke(invokers)
 	else
 		fail_invoke()
-
 
 /obj/effect/rune/attack_animal(mob/living/simple_animal/M)
 	if(isshade(M) || isconstruct(M))
