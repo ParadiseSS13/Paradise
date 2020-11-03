@@ -12,7 +12,7 @@
 	req_access = list(ACCESS_SYNDICATE)
 	ionpulse = 1
 	damage_protection = 5
-	brute_mod = 0.7
+	brute_mod = 0.7 //30% less damage
 	burn_mod = 0.7
 	can_lock_cover = TRUE
 	lawchannel = "State"
@@ -44,7 +44,7 @@
 	icon_state = "syndi-medi"
 	modtype = "Syndicate Medical"
 	designation = "Syndicate Medical"
-	brute_mod = 0.8
+	brute_mod = 0.8 //20%
 	burn_mod = 0.8
 	playstyle_string = "<span class='userdanger'>You are a Syndicate medical cyborg!</span><br>\
 						<b>You are armed with powerful medical tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
