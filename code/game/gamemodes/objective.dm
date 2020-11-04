@@ -28,7 +28,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/proc/on_target_loss()
 	if(owner?.current)
 		to_chat(owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
-		SEND_SOUND(owner.current, 'sound/ambience/alarm4.ogg')
+		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/alarm4.ogg', 100, FALSE, pressure_affected = FALSE)
 	return find_target()
 
 /datum/objective/proc/check_completion()
@@ -44,7 +44,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(!possible_target.key)
 		return TARGET_INVALID_NOCKEY
 	if(possible_target.current)
-		if(!possible_target.current.stat == DEAD)
+		if(possible_target.current.stat == DEAD)
 			return TARGET_INVALID_DEAD
 		var/turf/current_location = get_turf(possible_target.current)
 		if(current_location && !is_level_reachable(current_location.z))
@@ -104,7 +104,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/assassinate/vip/Destroy()
 	SSticker.mode.protect_target_assassins -= owner
-	. = ..()
+	return ..()
 
 /datum/objective/assassinate/vip/set_target(new_target)
 	..()
@@ -585,7 +585,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		..()
 
 /datum/objective/destroy/find_target()
-	var/list/possible_targets = active_ais(1)
+	var/list/possible_targets = active_ais()
 	var/mob/living/silicon/ai/target_ai = pick(possible_targets)
 	set_target(target_ai.mind)
 	return target_ai.mind
