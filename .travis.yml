@@ -1,5 +1,5 @@
 language: generic
-dist: bionic
+dist: xenial
 os: linux
 
 git:
@@ -50,20 +50,19 @@ jobs:
           packages:
             - python3
             - libstdc++6:i386
+            - libssl-dev:i386
             - gcc-multilib
+            - g++-7
+            - g++-7-multilib
             - pkg-config:i386
             - zlib1g-dev:i386
-            - libssl1.1:i386
       cache:
         directories:
           - $HOME/.cargo
           - $HOME/.rustup
           - $HOME/BYOND
-      before_install:
-        - 'sudo apt-get -qq update'
       install:
         - tools/travis/install_byond.sh
-        - tools/travis/install_rustg.sh
         - source $HOME/BYOND/byond/bin/byondsetup
         - python3 tools/travis/generate_sql_scripts.py
       before_script:

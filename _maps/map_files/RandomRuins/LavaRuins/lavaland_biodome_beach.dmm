@@ -174,8 +174,6 @@
 /area/ruin/powered/beach)
 "aI" = (
 /obj/machinery/vending/dinnerware,
-/obj/structure/table,
-/obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "aJ" = (

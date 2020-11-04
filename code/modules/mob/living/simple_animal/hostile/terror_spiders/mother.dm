@@ -49,7 +49,7 @@
 				S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green)
 				S.amount_grown = 50 // double speed growth
 			visible_message("<span class='userdanger'>[src] breaks apart, the many spiders on its back scurrying everywhere!</span>")
-			degenerate = TRUE
+			degenerate = 1
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/Destroy()

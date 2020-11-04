@@ -57,36 +57,23 @@
 	if(..())
 		return 1
 	add_fingerprint(user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/structure/dispenser/attack_ghost(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/structure/dispenser/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/structure/dispenser/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, master_ui = null, datum/topic_state/state = GLOB.default_state)
+	user.set_machine(src)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "TankDispenser", name, 275, 100, master_ui, state)
+		ui = new(user, src, ui_key, "tank_dispenser.tmpl", name, 275, 100, state = state)
 		ui.open()
 
-/obj/structure/dispenser/tgui_data(user)
+/obj/structure/dispenser/ui_data(user)
 	var/list/data = list()
 	data["o_tanks"] = LAZYLEN(stored_oxygen_tanks)
 	data["p_tanks"] = LAZYLEN(stored_plasma_tanks)
 	return data
-
-/obj/structure/dispenser/tgui_act(action, list/params)
-	if(..())
-		return
-
-	switch(action)
-		if("oxygen")
-			try_remove_tank(usr, stored_oxygen_tanks)
-
-		if("plasma")
-			try_remove_tank(usr, stored_plasma_tanks)
-
-	add_fingerprint(usr)
-	return TRUE
 
 /obj/structure/dispenser/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/tank/oxygen) || istype(I, /obj/item/tank/air) || istype(I, /obj/item/tank/anesthetic))
@@ -106,6 +93,28 @@
 			anchored = 1
 		return
 	return ..()
+
+/obj/structure/dispenser/Topic(href, href_list)
+	if(..())
+		return TRUE
+
+	if(Adjacent(usr))
+		usr.set_machine(src)
+
+		// The oxygen tank button
+		if(href_list["oxygen"])
+			try_remove_tank(usr, stored_oxygen_tanks)
+
+		// The plasma tank button
+		if(href_list["plasma"])
+			try_remove_tank(usr, stored_plasma_tanks)
+
+		add_fingerprint(usr)
+		updateUsrDialog()
+		SSnanoui.try_update_ui(usr, src)
+	else
+		SSnanoui.close_user_uis(usr,src)
+	return TRUE
 
 /// Called when the user clicks on the oxygen or plasma tank UI buttons, and tries to withdraw a tank.
 /obj/structure/dispenser/proc/try_remove_tank(mob/living/user, list/tank_list)
@@ -135,7 +144,7 @@
 	tank_list.Add(T)
 	update_icon()
 	to_chat(user, "<span class='notice'>You put [T] in [src].</span>")
-	SStgui.update_uis(src)
+	SSnanoui.try_update_ui(user, src)
 
 /obj/structure/tank_dispenser/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))

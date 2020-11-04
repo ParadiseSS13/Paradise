@@ -181,7 +181,7 @@
 	anchored = 1.0
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 45
-	frequency = AIRLOCK_FREQ
+	var/frequency = AIRLOCK_FREQ
 	var/code = 0
 	var/list/magnets = list()
 	var/title = "Magnetic Control Console"
@@ -194,6 +194,8 @@
 
 	var/moving = 0 // 1 if scheduled to loop
 	var/looping = 0 // 1 if looping
+
+	var/datum/radio_frequency/radio_connection
 
 
 /obj/machinery/magnetic_controller/New()

@@ -301,13 +301,14 @@
 	else if(nutrition >= NUTRITION_LEVEL_FAT)
 		msg += "[p_they(TRUE)] [p_are()] quite chubby.\n"
 
-	if(blood_volume < BLOOD_VOLUME_SAFE)
+	if(!ismachineperson(src) && blood_volume < BLOOD_VOLUME_SAFE)
 		msg += "[p_they(TRUE)] [p_have()] pale skin.\n"
 
 	if(bleedsuppress)
 		msg += "[p_they(TRUE)] [p_are()] bandaged with something.\n"
 	else if(bleed_rate)
-		msg += "<B>[p_they(TRUE)] [p_are()] bleeding!</B>\n"
+		var/bleed_message = !ismachineperson(src) ? "bleeding" : "leaking"
+		msg += "<B>[p_they(TRUE)] [p_are()] [bleed_message]!</B>\n"
 
 	if(reagents.has_reagent("teslium"))
 		msg += "[p_they(TRUE)] [p_are()] emitting a gentle blue glow!\n"
@@ -364,17 +365,6 @@
 			msg += "<span class = 'deptradio'>Security records:</span> <a href='?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
 			msg += "<span class = 'deptradio'>Latest entry:</span> [commentLatest]\n"
 
-	if(hasHUD(user, "skills"))
-		var/perpname = get_visible_name(TRUE)
-		var/skills
-
-		if(perpname)
-			for(var/datum/data/record/E in GLOB.data_core.general)
-				if(E.fields["name"] == perpname)
-					skills = E.fields["notes"]
-			if(skills)
-				msg += "<span class='deptradio'>Employment records:</span> [skills]\n"
-
 	if(hasHUD(user,"medical"))
 		var/perpname = get_visible_name(TRUE)
 		var/medical = "None"
@@ -388,11 +378,9 @@
 		msg += "<span class = 'deptradio'>Physical status:</span> <a href='?src=[UID()];medical=1'>\[[medical]\]</a>\n"
 		msg += "<span class = 'deptradio'>Medical records:</span> <a href='?src=[UID()];medrecord=`'>\[View\]</a> <a href='?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
 
+
 	if(print_flavor_text() && !skipface)
-		if(get_organ("head"))
-			var/obj/item/organ/external/head/H = get_organ("head")
-			if(!H.disfigured)
-				msg += "[print_flavor_text()]\n"
+		msg += "[print_flavor_text()]\n"
 
 	msg += "*---------*</span>"
 	if(pose)
@@ -417,11 +405,8 @@
 				return !istype(CIH,/obj/item/organ/internal/cyberimp/eyes/hud/security) && S && S.read_only
 			if("medical")
 				return istype(H.glasses, /obj/item/clothing/glasses/hud/health) || istype(CIH,/obj/item/organ/internal/cyberimp/eyes/hud/medical)
-			if("skills")
-				return istype(H.glasses, /obj/item/clothing/glasses/hud/skills)
 			else
 				return FALSE
-
 	else if(isrobot(M) || isAI(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
 		switch(hudtype)
 			if("security")
@@ -435,8 +420,6 @@
 		if(O.data_hud_seen == DATA_HUD_SECURITY_ADVANCED || O.data_hud_seen == DATA_HUD_DIAGNOSTIC + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED)
 			switch(hudtype)
 				if("security")
-					return TRUE
-				if("skills")
 					return TRUE
 				else
 					return FALSE

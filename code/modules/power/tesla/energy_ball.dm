@@ -185,8 +185,7 @@
 										/obj/structure/sign,
 										/obj/machinery/gateway,
 										/obj/structure/grille,
-										/obj/machinery/the_singularitygen/tesla,
-										/mob/living/simple_animal/slime))
+										/obj/machinery/the_singularitygen/tesla))
 
 
 	for(var/A in typecache_filter_multi_list_exclusion(oview(source, zap_range+2), things_to_shock, blacklisted_tesla_types))

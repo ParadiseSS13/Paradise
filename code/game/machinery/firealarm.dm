@@ -25,11 +25,7 @@ FIRE ALARM
 	active_power_usage = 6
 	power_channel = ENVIRON
 	resistance_flags = FIRE_PROOF
-
-	light_power = 0
-	light_range = 7
-	light_color = "#ff3232"
-
+	var/last_process = 0
 	var/wiresexposed = 0
 	var/buildstage = 2 // 2 = complete, 1 = no wires,  0 = circuit gone
 
@@ -83,8 +79,7 @@ FIRE ALARM
 	return attack_hand(user)
 
 /obj/machinery/firealarm/attack_ghost(mob/user)
-	if(user.can_advanced_admin_interact())
-		toggle_alarm(user)
+	ui_interact(user)
 
 /obj/machinery/firealarm/emp_act(severity)
 	if(prob(50/severity))
@@ -196,7 +191,6 @@ FIRE ALARM
 /obj/machinery/firealarm/obj_break(damage_flag)
 	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT) && buildstage != 0) //can't break the electronics if there isn't any inside.
 		stat |= BROKEN
-		LAZYREMOVE(myArea.firealarms, src)
 		update_icon()
 
 /obj/machinery/firealarm/deconstruct(disassembled = TRUE)
@@ -209,13 +203,20 @@ FIRE ALARM
 		new /obj/item/stack/cable_coil(loc, 3)
 	qdel(src)
 
-/obj/machinery/firealarm/proc/update_fire_light(fire)
-	if(fire == !!light_power)
-		return  // do nothing if we're already active
-	if(fire)
-		set_light(l_power = 0.8)
-	else
-		set_light(l_power = 0)
+/obj/machinery/firealarm/process()//Note: this processing was mostly phased out due to other code, and only runs when needed
+	if(stat & (NOPOWER|BROKEN))
+		return
+
+	if(timing)
+		if(time > 0)
+			time = time - ((world.timeofday - last_process)/10)
+		else
+			alarm()
+			time = 0
+			timing = 0
+			STOP_PROCESSING(SSobj, src)
+		updateDialog()
+	last_process = world.timeofday
 
 /obj/machinery/firealarm/power_change()
 	if(powered(ENVIRON))
@@ -233,33 +234,78 @@ FIRE ALARM
 	if(user.incapacitated())
 		return 1
 
-	toggle_alarm(user)
+	ui_interact(user)
 
+/obj/machinery/firealarm/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = GLOB.default_state)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "firealarm.tmpl", name, 400, 400, state = state)
+		ui.open()
+		ui.set_auto_update(1)
 
-/obj/machinery/firealarm/proc/toggle_alarm(mob/user)
+/obj/machinery/firealarm/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+	var/data[0]
+
 	var/area/A = get_area(src)
-	if(istype(A))
-		add_fingerprint(user)
-		if(A.fire)
-			reset()
-		else
-			alarm()
+	data["fire"] = A.fire
+	data["timing"] = timing
 
-/obj/machinery/firealarm/examine(mob/user)
-	. = ..()
-	. += "It shows the alert level as: <B><U>[capitalize(get_security_level())]</U></B>."
+	data["sec_level"] = get_security_level()
+
+	var/second = round(time % 60)
+	var/minute = round(time / 60)
+
+	data["time_left"] = "[minute ? "[minute]:" : ""][add_zero(num2text(second), 2)]"
+	return data
+
+/obj/machinery/firealarm/Topic(href, href_list)
+	if(..())
+		return 1
+
+	if(buildstage != 2)
+		return 1
+
+	add_fingerprint(usr)
+
+	if(href_list["reset"])
+		reset()
+	else if(href_list["alarm"])
+		alarm()
+	else if(href_list["time"])
+		var/oldTiming = timing
+		timing = text2num(href_list["time"])
+		last_process = world.timeofday
+		if(oldTiming != timing)
+			if(timing)
+				START_PROCESSING(SSobj, src)
+			else
+				STOP_PROCESSING(SSobj, src)
+	else if(href_list["tp"])
+		var/tp = text2num(href_list["tp"])
+		time += tp
+		time = min(max(round(time), 0), 120)
 
 /obj/machinery/firealarm/proc/reset()
-	if(!working || !report_fire_alarms)
+	if(!working)
 		return
 	var/area/A = get_area(src)
-	A.firereset(src)
+	A.fire_reset()
 
-/obj/machinery/firealarm/proc/alarm()
-	if(!working || !report_fire_alarms)
+	for(var/obj/machinery/firealarm/FA in A)
+		if(is_station_contact(z) && FA.report_fire_alarms)
+			SSalarms.fire_alarm.clearAlarm(loc, FA)
+
+/obj/machinery/firealarm/proc/alarm(var/duration = 0)
+	if(!working)
 		return
+
 	var/area/A = get_area(src)
-	A.firealert(src) // Manually trigger alarms if the alarm isn't reported
+	for(var/obj/machinery/firealarm/FA in A)
+		if(is_station_contact(z) && FA.report_fire_alarms)
+			SSalarms.fire_alarm.triggerAlarm(loc, FA, duration)
+		else
+			A.fire_alert() // Manually trigger alarms if the alarm isn't reported
+
 	update_icon()
 
 /obj/machinery/firealarm/New(location, direction, building)
@@ -277,13 +323,7 @@ FIRE ALARM
 		else
 			overlays += image('icons/obj/monitors.dmi', "overlay_green")
 
-	myArea = get_area(src)
-	LAZYADD(myArea.firealarms, src)
 	update_icon()
-
-/obj/machinery/firealarm/Destroy()
-	LAZYREMOVE(myArea.firealarms, src)
-	return ..()
 
 /*
 FIRE ALARM CIRCUIT

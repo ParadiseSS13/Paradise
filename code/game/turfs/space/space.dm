@@ -19,7 +19,6 @@
 	plane = PLANE_SPACE
 
 /turf/space/Initialize(mapload)
-	SHOULD_CALL_PARENT(FALSE)
 	if(!istype(src, /turf/space/transit))
 		icon_state = SPACE_ICON_STATE
 	vis_contents.Cut() //removes inherited overlays

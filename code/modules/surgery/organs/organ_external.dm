@@ -41,9 +41,6 @@
 	var/list/obj/item/organ/external/children
 	var/list/convertable_children = list()
 
-	// Does the organ take reduce damage from EMPs? IPC limbs get this by default
-	var/emp_resistant = FALSE
-
 	// Internal organs of this body part
 	var/list/internal_organs = list()
 
@@ -258,34 +255,6 @@
 		owner.updatehealth("limb heal damage")
 
 	return update_icon()
-
-/obj/item/organ/external/emp_act(severity)
-	if(!is_robotic() || emp_proof)
-		return
-	if(tough) // Augmented limbs
-		switch(severity)
-			if(1)
-				receive_damage(0, 5.5)
-				if(owner)
-					owner.Stun(10)
-			if(2)
-				receive_damage(0, 2.8)
-				if(owner)
-					owner.Stun(5)
-	else if(emp_resistant) // IPC limbs
-		switch(severity)
-			if(1)
-				// 5.28 (9 * 0.66 burn_mod) burn damage, 65.34 damage with 11 limbs.
-				receive_damage(0, 9)
-			if(2)
-				// 3.63 (5 * 0.66 burn_mod) burn damage, 39.93 damage with 11 limbs.
-				receive_damage(0, 5.5)
-	else // Basic prosthetic limbs
-		switch(severity)
-			if(1)
-				receive_damage(0, 20)
-			if(2)
-				receive_damage(0, 7)
 
 /*
 This function completely restores a damaged organ to perfect condition.
@@ -808,23 +777,3 @@ Note that amputating the affected organ does in fact remove the infection from t
 		var/obj/item/organ/external/L = X
 		for(var/obj/item/I in L.embedded_objects)
 			return 1
-
-/obj/item/organ/external/emp_act(severity)
-	if(!is_robotic() || emp_proof)
-		return
-	if(tough)
-		switch(severity)
-			if(1)
-				receive_damage(0, 5.5)
-				if(owner)
-					owner.Stun(10)
-			if(2)
-				receive_damage(0, 2.8)
-				if(owner)
-					owner.Stun(5)
-	else
-		switch(severity)
-			if(1)
-				receive_damage(0, 20)
-			if(2)
-				receive_damage(0, 7)

@@ -204,11 +204,11 @@
 	var/obj/item/sample_object
 	var/number
 
-/datum/numbered_display/New(obj/item/sample as obj)
-	if(!istype(sample))
-		qdel(src)
-	sample_object = sample
-	number = 1
+	New(obj/item/sample as obj)
+		if(!istype(sample))
+			qdel(src)
+		sample_object = sample
+		number = 1
 
 //This proc determins the size of the inventory to be displayed. Please touch it only if you know what you're doing.
 /obj/item/storage/proc/orient2hud(mob/user as mob)
@@ -438,11 +438,8 @@
 	if((!ishuman(usr) && (src.loc != usr)) || usr.stat || usr.restrained())
 		return
 
-	drop_inventory(usr)
-
-/obj/item/storage/proc/drop_inventory(user)
 	var/turf/T = get_turf(src)
-	hide_from(user)
+	hide_from(usr)
 	for(var/obj/item/I in contents)
 		remove_from_storage(I, T)
 		CHECK_TICK
@@ -502,9 +499,10 @@
 
 /obj/item/storage/attack_self(mob/user)
 
-	//Clicking on itself will empty it, if allow_quick_empty is TRUE
-	if(allow_quick_empty && user.is_in_active_hand(src))
-		drop_inventory(user)
+	//Clicking on itself will empty it, if it has the verb to do that.
+	if(user.is_in_active_hand(src))
+		if(verbs.Find(/obj/item/storage/verb/quick_empty))
+			quick_empty()
 
 //Returns the storage depth of an atom. This is the number of storage items the atom is contained in before reaching toplevel (the area).
 //Returns -1 if the atom was not found on container.

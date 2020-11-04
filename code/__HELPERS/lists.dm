@@ -672,6 +672,9 @@ proc/dd_sortedObjectList(list/incoming)
 /obj/machinery/camera/dd_SortValue()
 	return "[c_tag]"
 
+/datum/alarm/dd_SortValue()
+	return "[sanitize(last_name)]"
+
 //Picks from the list, with some safeties, and returns the "default" arg if it fails
 #define DEFAULTPICK(L, default) ((istype(L, /list) && L:len) ? pick(L) : default)
 
@@ -689,12 +692,6 @@ proc/dd_sortedObjectList(list/incoming)
 
 // Lazying Episode 3
 #define LAZYSET(L, K, V) LAZYINITLIST(L); L[K] = V;
-
-#define LAZYADDASSOC(L, K, V) if(!L) { L = list(); } L[K] += list(V);
-#define LAZYREMOVEASSOC(L, K, V) if(L) { if(L[K]) { L[K] -= V; if(!length(L[K])) L -= K; } if(!length(L)) L = null; }
-
-/// Returns whether a numerical index is within a given list's bounds. Faster than isnull(LAZYACCESS(L, I)).
-#define ISINDEXSAFE(L, I) (I >= 1 && I <= length(L))
 
 //same, but returns nothing and acts on list in place
 /proc/shuffle_inplace(list/L)

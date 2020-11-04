@@ -234,7 +234,7 @@
 		return
 
 	if(UserOverride)
-		add_attack_logs(user, occupant, "gibbed by an autogibber ([src])")
+		msg_admin_attack("[key_name_admin(occupant)] was gibbed by an autogibber (\the [src]) [ADMIN_JMP(src)]")
 		log_game("[key_name(occupant)] was gibbed by an autogibber ([src]) (X:[x] Y:[y] Z:[z])")
 
 	if(operating)

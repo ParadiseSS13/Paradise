@@ -34,6 +34,4 @@ GLOBAL_PROTECT(IClog)
 GLOBAL_LIST_EMPTY(OOClog)
 GLOBAL_PROTECT(OOClog)
 
-GLOBAL_DATUM_INIT(logging, /datum/logging, new /datum/logging())
-
 GLOBAL_LIST_INIT(investigate_log_subjects, list("notes", "watchlist", "hrefs"))

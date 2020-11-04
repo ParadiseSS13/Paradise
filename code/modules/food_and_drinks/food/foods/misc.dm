@@ -64,7 +64,7 @@
 //////////////////////
 
 /obj/item/reagent_containers/food/snacks/aesirsalad
-	name = "aesir salad"
+	name = "Aesir salad"
 	desc = "Probably too incredible for mortal men to fully enjoy."
 	icon_state = "aesirsalad"
 	trash = /obj/item/trash/snack_bowl
@@ -154,7 +154,7 @@
 	tastes = list("jelly" = 3)
 
 /obj/item/reagent_containers/food/snacks/popcorn
-	name = "popcorn"
+	name = "Popcorn"
 	desc = "Now let's find some cinema."
 	icon_state = "popcorn"
 	trash = /obj/item/trash/popcorn

@@ -7,7 +7,6 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	// Setup all log paths and stamp them with startups
 	SetupLogs()
 	enable_debugger() // Enable the extools debugger
-	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED) // creates a new TGS object
 	log_world("World loaded at [time_stamp()]")
 	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
 	connectDB() // This NEEDS TO HAPPEN EARLY. I CANNOT STRESS THIS ENOUGH!!!!!!! -aa
@@ -35,8 +34,7 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
 	. = ..()
 
-	Master.Initialize(10, FALSE, TRUE)
-
+	Master.Initialize(10, FALSE)
 
 	#ifdef UNIT_TESTS
 	HandleTestRun()
@@ -69,7 +67,6 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_ip, "0.0.0.0")
 GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 
 /world/Topic(T, addr, master, key)
-	TGS_TOPIC
 	log_misc("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key]")
 
 	var/list/input = params2list(T)
@@ -225,12 +222,8 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 			if(input["key"] != config.comms_password)
 				return "Bad Key"
 			else
-				var/prtext = input["announce"]
-				var/pr_substring = copytext(prtext, 1, 23)
-				if(pr_substring == "Pull Request merged by")
-					GLOB.pending_server_update = TRUE
 				for(var/client/C in GLOB.clients)
-					to_chat(C, "<span class='announce'>PR: [prtext]</span>")
+					to_chat(C, "<span class='announce'>PR: [input["announce"]]</span>")
 
 	else if("kick" in input)
 		/*
@@ -273,13 +266,6 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 			update_status()
 			return "Set listed status to invisible."
 
-
-	else if("hostannounce" in input)
-		if(!key_valid)
-			return keySpamProtect(addr)
-		GLOB.pending_server_update = TRUE
-		to_chat(world, "<hr><span style='color: #12A5F4'><b>Server Announcement:</b> [input["message"]]</span><hr>")
-
 /proc/keySpamProtect(var/addr)
 	if(GLOB.world_topic_spam_protect_ip == addr && abs(GLOB.world_topic_spam_protect_time - world.time) < 50)
 		spawn(50)
@@ -291,7 +277,6 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 	return "Bad Key"
 
 /world/Reboot(var/reason, var/feedback_c, var/feedback_r, var/time)
-	TgsReboot()
 	if(reason == 1) //special reboot, do none of the normal stuff
 		if(usr)
 			if(!check_rights(R_SERVER))
@@ -302,7 +287,7 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 			log_admin("[key_name(usr)] has requested an immediate world restart via client side debugging tools")
 		spawn(0)
 			to_chat(world, "<span class='boldannounce'>Rebooting world immediately due to host request</span>")
-		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
+		shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
 		if(config && config.shutdown_on_reboot)
 			sleep(0)
 			if(GLOB.shutdown_shell_command)
@@ -340,20 +325,14 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 
 	Master.Shutdown()	//run SS shutdowns
 	GLOB.dbcon.Disconnect() // DCs cleanly from the database
-	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
+	shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
 
 	#ifdef UNIT_TESTS
 	FinishTestRun()
 	return
 	#endif
 
-	var/secs_before_auto_reconnect = 10
-	if(GLOB.pending_server_update)
-		secs_before_auto_reconnect = 60
-		to_chat(world, "<span class='boldannounce'>Reboot will take a little longer, due to pending updates.</span>")
 	for(var/client/C in GLOB.clients)
-
-		C << output(list2params(list(secs_before_auto_reconnect)), "browseroutput:reboot")
 		if(config.server)       //if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
 			C << link("byond://[config.server]")
 
@@ -498,7 +477,7 @@ GLOBAL_VAR_INIT(failed_old_db_connections, 0)
 	return .
 
 //This proc ensures that the connection to the feedback database (global variable dbcon) is established
-/proc/establish_db_connection()
+proc/establish_db_connection()
 	if(GLOB.failed_db_connections > FAILED_DB_CONNECTION_CUTOFF)
 		return 0
 

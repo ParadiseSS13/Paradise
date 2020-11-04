@@ -20,10 +20,10 @@
 
 /obj/effect/proc_holder/spell/targeted/magnet/Click()
 	if(!ready && start_time == 0)
-		if(cast_check(TRUE, FALSE, usr))
+		if(cast_check())
 			StartChargeup()
 	else
-		if(ready && cast_check(TRUE, TRUE, usr))
+		if(ready && cast_check(skipcharge=1))
 			choose_targets()
 	return 1
 
@@ -39,7 +39,7 @@
 		if(ready)
 			Discharge()
 
-/obj/effect/proc_holder/spell/targeted/magnet/proc/Reset(mob/user = usr)
+obj/effect/proc_holder/spell/targeted/magnet/proc/Reset(mob/user = usr)
 	ready = 0
 	energy = 0
 	start_time = 0

@@ -59,10 +59,6 @@
 		if(stat & (BROKEN|NOPOWER))
 			return
 
-		if(emag_cooldown > world.time)
-			to_chat(usr, "<span class='warning'>[src] is busy, try again in a few seconds.</span>")
-			return
-
 		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 		for(var/i = 0, i < copies, i++)
 			if(toner <= 0)
@@ -77,6 +73,9 @@
 					message_admins("Photocopier cap of [GLOB.copier_max_items] papers reached, all photocopiers are now disabled. This may be the cause of any lag.")
 					GLOB.copier_items_printed_logged = TRUE
 				break
+
+			if(emag_cooldown > world.time)
+				return
 
 			if(istype(copyitem, /obj/item/paper))
 				copy(copyitem)

@@ -69,8 +69,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 // Randomly pick a symptom to activate.
 /datum/disease/advance/stage_act()
-	if(!..())
-		return FALSE
+	..()
 	if(symptoms && symptoms.len)
 
 		if(!processing)
@@ -82,7 +81,6 @@ GLOBAL_LIST_INIT(advance_cures, list(
 			S.Activate(src)
 	else
 		CRASH("We do not have any symptoms during stage_act()!")
-	return TRUE
 
 // Compares type then ID.
 /datum/disease/advance/IsSame(datum/disease/advance/D)

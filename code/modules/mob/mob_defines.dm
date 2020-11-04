@@ -36,7 +36,7 @@
 	var/list/attack_log_old = list( )
 	var/list/debug_log = null
 
-	var/last_known_ckey = null	// Used in logging
+	var/list/logs = list() // Logs for each log type defined in __DEFINES/logs.dm
 
 	var/last_log = 0
 	var/obj/machinery/machine = null
@@ -199,5 +199,3 @@
 
 	var/forced_look = null // This can either be a numerical direction or a soft object reference (UID). It makes the mob always face towards the selected thing.
 	var/registered_z
-
-	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override

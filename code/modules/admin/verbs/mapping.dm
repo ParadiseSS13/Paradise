@@ -26,10 +26,9 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	icon = 'icons/480x480.dmi'
 	icon_state = "25percent"
 
-/obj/effect/debugging/camera_range/New()
-	. = ..()
-	src.pixel_x = -224
-	src.pixel_y = -224
+	New()
+		src.pixel_x = -224
+		src.pixel_y = -224
 
 /obj/effect/debugging/mapfix_marker
 	name = "map fix marker"

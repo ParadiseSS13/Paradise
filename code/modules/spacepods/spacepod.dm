@@ -136,10 +136,12 @@
 	QDEL_NULL(ion_trail)
 	occupant_sanity_check()
 	if(pilot)
-		eject_pilot()
+		pilot.forceMove(get_turf(src))
+		pilot = null
 	if(passengers)
 		for(var/mob/M in passengers)
-			eject_passenger(M)
+			M.forceMove(get_turf(src))
+			passengers -= M
 	GLOB.spacepods_list -= src
 	STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -201,22 +203,7 @@
 /obj/spacepod/blob_act(obj/structure/blob/B)
 	deal_damage(30)
 
-/obj/spacepod/force_eject_occupant(mob/target)
-	if(target == pilot)
-		eject_pilot()
-	else
-		eject_passenger(target)
-
-/obj/spacepod/proc/eject_pilot()
-	pilot.forceMove(get_turf(src))
-	pilot = null
-
-/obj/spacepod/proc/eject_passenger(mob/passenger)
-	passenger.forceMove(get_turf(src))
-	passengers -= passenger
-
 /obj/spacepod/attack_animal(mob/living/simple_animal/user)
-	user.changeNext_move(CLICK_CD_MELEE)
 	if((user.a_intent == INTENT_HELP && user.ckey) || user.melee_damage_upper == 0)
 		user.custom_emote(1, "[user.friendly] [src].")
 		return FALSE
@@ -309,7 +296,7 @@
 		return
 	var/sound/S = sound(mysound)
 	S.wait = 0 //No queue
-	S.channel = SSsounds.random_available_channel()
+	S.channel = open_sound_channel()
 	S.volume = 50
 	for(var/mob/M in passengers | pilot)
 		M << S
@@ -451,11 +438,12 @@
 			src.visible_message("<span class='warning'>[user] is trying to rip the door open and pull [target] out of the [src]!</span>",
 				"<span class='warning'>You see [user] outside the door trying to rip it open!</span>")
 			if(do_after(user, 50, target = src))
+				target.forceMove(get_turf(src))
 				target.Stun(1)
 				if(pilot)
-					eject_pilot()
+					pilot = null
 				else
-					eject_passenger(target)
+					passengers -= target
 				target.visible_message("<span class='warning'>[user] flings the door open and tears [target] out of the [src]</span>",
 					"<span class='warning'>The door flies open and you are thrown out of the [src] and to the ground!</span>")
 				return
@@ -598,6 +586,7 @@
 	L.loc = equipment_system
 	equipment_system.misc_system = L
 	equipment_system.misc_system.my_atom = src
+	equipment_system.misc_system.enabled = 1
 	equipment_system.installed_modules += L
 	var/obj/item/spacepod_equipment/sec_cargo/chair/C = new /obj/item/spacepod_equipment/sec_cargo/chair
 	C.loc = equipment_system

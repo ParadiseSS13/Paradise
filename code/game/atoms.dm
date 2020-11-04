@@ -48,13 +48,7 @@
 	var/list/atom_colours	 //used to store the different colors on an atom
 						//its inherent color, the colored paint applied on it, special color effect etc...
 
-	/// Last name used to calculate a color for the chatmessage overlays. Used for caching.
-	var/chat_color_name
-	/// Last color calculated for the the chatmessage overlays. Used for caching.
-	var/chat_color
-
 /atom/New(loc, ...)
-	SHOULD_CALL_PARENT(TRUE)
 	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
 		GLOB._preloader.load(src)
 	. = ..()
@@ -82,7 +76,6 @@
 // /turf/open/space/Initialize
 
 /atom/proc/Initialize(mapload, ...)
-	SHOULD_CALL_PARENT(TRUE)
 	if(initialized)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
@@ -238,7 +231,7 @@
 /atom/proc/on_reagent_change()
 	return
 
-/atom/proc/Bumped(atom/movable/AM)
+/atom/proc/Bumped(AM as mob|obj)
 	return
 
 /// Convenience proc to see if a container is open for chemistry handling
@@ -264,7 +257,7 @@
 /atom/proc/CheckExit()
 	return TRUE
 
-/atom/proc/HasProximity(atom/movable/AM)
+/atom/proc/HasProximity(atom/movable/AM as mob|obj)
 	return
 
 /atom/proc/emp_act(severity)
@@ -422,15 +415,8 @@
 	if(AM && isturf(AM.loc))
 		step(AM, turn(AM.dir, 180))
 
-/*
- * Base proc, terribly named but it's all over the code so who cares I guess right?
- *
- * Returns FALSE by default, if a child returns TRUE it is implied that the atom has in
- * some way done a spooky thing. Current usage is so that Boo knows if it needs to cool
- * down or not, but this could be expanded upon if you were a bad enough dude.
- */
 /atom/proc/get_spooked()
-	return FALSE
+	return
 
 /**
 	Base proc, intended to be overriden.
@@ -860,9 +846,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		M.show_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>", 2, null, 1)
 		if(M.client)
 			speech_bubble_hearers += M.client
-
-		if((M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && M.can_hear())
-			M.create_chat_message(src, message)
 
 	if(length(speech_bubble_hearers))
 		var/image/I = image('icons/mob/talk.dmi', src, "[bubble_icon][say_test(message)]", FLY_LAYER)

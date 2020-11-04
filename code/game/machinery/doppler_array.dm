@@ -37,6 +37,9 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	logged_explosions.Cut()
 	return ..()
 
+/obj/machinery/doppler_array/process()
+	return PROCESS_KILL
+
 /obj/machinery/doppler_array/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/disk/tech_disk))
 		var/obj/item/disk/tech_disk/disk = I
@@ -61,10 +64,10 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	if(..())
 		return
 	add_fingerprint(user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/doppler_array/attack_ghost(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/doppler_array/AltClick(mob/user)
 	rotate(user)
@@ -173,50 +176,47 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 			icon_state = "[initial(icon_state)]-off"
 			stat |= NOPOWER
 
-/obj/machinery/doppler_array/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/doppler_array/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "TachyonArray", name, 500, 600, master_ui, state)
+		ui = new(user, src, ui_key, "doppler_array.tmpl", "Tachyon-doppler array", 500, 650)
 		ui.open()
+		ui.set_auto_update(1)
 
-/obj/machinery/doppler_array/tgui_data(mob/user)
-	var/list/data = list()
-	var/list/records = list()
-	for(var/i in 1 to length(logged_explosions))
-		var/datum/explosion_log/E = logged_explosions[i]
-		records += list(list(
+/obj/machinery/doppler_array/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+	var/data[0]
+	var/list/explosion_data = list()
+	for(var/D in logged_explosions)
+		var/datum/explosion_log/E = D
+		explosion_data += list(list(
 			"logged_time" = E.logged_time,
 			"epicenter" = E.epicenter,
 			"actual_size_message" = E.actual_size_message,
 			"theoretical_size_message" = E.theoretical_size_message,
-			"index" = i))
+			"unique_datum_id" = E.UID()))
 	data["explosion_target"] = explosion_target
 	data["toxins_tech"] = toxins_tech.level
-	data["records"] = records
+	data["explosion_data"] = explosion_data
 	data["printing"] = active_timers
 	return data
 
-/obj/machinery/doppler_array/tgui_act(action, params)
+/obj/machinery/doppler_array/Topic(href, href_list)
 	if(..())
 		return
-	switch(action)
-		if("delete_logs")
-			QDEL_LIST(logged_explosions)
-			to_chat(usr, "<span class='notice'>All logs deleted successfully.</span>")
-		if("delete_record")
-			var/index = text2num(params["index"])
-			if(index < 0 || index > length(logged_explosions))
-				return
-
-			var/datum/explosion_log/E = logged_explosions[index]
-			logged_explosions -= E
-			qdel(E)
-			to_chat(usr, "<span class='notice'>Log deletion successful.</span>")
-		if("print_logs")
-			print_explosive_logs(usr)
-		else
-			return
-	return TRUE
+	if(href_list["log_to_delete"])
+		var/log_to_delete = sanitize(href_list["log_to_delete"])
+		for(var/D in logged_explosions)
+			var/datum/explosion_log/E = D
+			if(E.UID() == log_to_delete)
+				logged_explosions -= E
+				qdel(E)
+				to_chat(usr, "<span class='notice'>Log deletion successful.</span>")
+				break
+	else if(href_list["print_logs"])
+		print_explosive_logs(usr)
+	else
+		return
+	SSnanoui.update_uis(src)
 
 /obj/item/paper/explosive_log
 	name = "explosive log"

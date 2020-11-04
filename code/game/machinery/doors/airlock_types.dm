@@ -365,14 +365,14 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_vault
 	security_level = 6
 	hackProof = TRUE
-	aiControlDisabled = AICONTROLDISABLED_ON
+	aiControlDisabled = TRUE
 
 /obj/machinery/door/airlock/hatch/gamma
 	name = "gamma level hatch"
-	hackProof = TRUE
-	aiControlDisabled = AICONTROLDISABLED_ON
+	hackProof = 1
+	aiControlDisabled = 1
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	is_special = TRUE
+	is_special = 1
 
 /obj/machinery/door/airlock/hatch/gamma/attackby(obj/C, mob/user, params)
 	if(!issilicon(user))
@@ -432,8 +432,8 @@
 
 /obj/machinery/door/airlock/highsecurity/red
 	name = "secure armory airlock"
-	hackProof = TRUE
-	aiControlDisabled = AICONTROLDISABLED_ON
+	hackProof = 1
+	aiControlDisabled = 1
 
 /obj/machinery/door/airlock/highsecurity/red/attackby(obj/C, mob/user, params)
 	if(!issilicon(user))
@@ -487,7 +487,7 @@
 	damage_deflection = 30
 	explosion_block = 3
 	hackProof = TRUE
-	aiControlDisabled = AICONTROLDISABLED_ON
+	aiControlDisabled = 1
 	normal_integrity = 700
 	security_level = 1
 	paintable = FALSE
@@ -504,7 +504,7 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_cult
 	damage_deflection = 10
 	hackProof = TRUE
-	aiControlDisabled = AICONTROLDISABLED_ON
+	aiControlDisabled = TRUE
 	paintable = FALSE
 	var/openingoverlaytype = /obj/effect/temp_visual/cult/door
 	var/friendly = FALSE

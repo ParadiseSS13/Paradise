@@ -1,0 +1,89 @@
+<!--
+Title: Instrument UI
+Used In File(s): \code\game\objects\structures\musician.dm
+-->
+
+<div class="block">
+	<div class="item">
+		<div class="itemLabel"><b>Playback</b></div>
+		<div class="itemContent">
+			{{:helper.link('New', 'file', {'newsong': 1})}}
+			{{:helper.link('Import', 'folder-open', {'import': 1})}}
+			{{:helper.link('Play', 'play', {'play': 1}, data.lines.length > 0 ? (data.playing ? 'selected' : null) : 'disabled')}}
+			{{:helper.link('Stop', 'stop', {'stop': 1}, !data.playing ? 'selected' : null)}}
+		</div>
+	</div>
+	<div class="item">
+		<div class="itemLabel">Repeat Song:</div>		
+		{{:helper.link('-', null, {'repeat' : -10}, data.repeat > 0 && !data.playing ? null : 'disabled')}}
+		{{:helper.link('-', null, {'repeat' : -1}, data.repeat > 0 && !data.playing ? null : 'disabled')}}
+		<span style="float: left; width: 80px; text-align: center;">{{:data.repeat}}</span>
+		{{:helper.link('+', null, {'repeat' : 1}, data.repeat < data.maxRepeat && !data.playing ? null : 'disabled')}}
+		{{:helper.link('+', null, {'repeat' : 10}, data.repeat < data.maxRepeat && !data.playing ? null : 'disabled')}}
+	</div>
+	<div class="item">
+		<div class="itemLabel">Tempo:</div>		
+		{{:helper.link('-', null, {'tempo' : 10}, data.tempo < data.maxTempo ? null : 'disabled')}}
+		{{:helper.link('-', null, {'tempo' : 1}, data.tempo < data.maxTempo ? null : 'disabled')}}
+		<span style="float: left; width: 80px; text-align: center;">{{:helper.round(600 / data.tempo)}} BPM</span>
+		{{:helper.link('+', null, {'tempo' : -1}, data.tempo > data.minTempo ? null : 'disabled')}}
+		{{:helper.link('+', null, {'tempo' : -10}, data.tempo > data.minTempo ? null : 'disabled')}}
+	</div>
+</div>
+
+<h3>Editor</h3>
+<div class="striped">
+	{{for data.lines}}
+		<div class="line" style="padding:4px">
+			<div class="floatLeft highlight">{{:index + 1}}:&nbsp;</div>
+			<div class="floatRight">
+				{{:helper.link('Edit', 'pencil', {'modifyline': index+1}, data.playing ? 'disabled' : null)}}
+				{{:helper.link('Insert', 'arrow-up', {'insertline': index+1}, data.playing ? 'disabled' : null)}}
+				{{:helper.link('Delete', 'trash', {'deleteline': index+1}, data.playing ? 'disabled' : null)}}
+			</div>
+			<div>{{:value}}</div>
+		</div>
+	{{/for}}
+</div>
+<div class="floatRight">
+	{{:helper.link('Add Line', 'arrow-down', {'insertline': data.lines.length + 1}, data.playing ? 'disabled' : null)}}
+</div>
+<div class="clearBoth"></div>
+<hr>
+
+<div class="item">
+	<div class="itemLabelNarrow">
+		{{:helper.link('Help', data.help ? 'close' : 'question', {'help': 1})}}
+	</div>
+	<div class="itemContent">
+		{{if data.help}}
+			<p>
+				Lines are a series of chords, separated by commas <span class="highlight">(,)</span>, each with notes seperated by hyphens <span class="highlight">(-)</span>.
+				<br>
+				Every note in a chord will play together, with the chord timed by the <span class="highlight">tempo</span> as defined above.
+			</p>
+			<p>
+				Notes are played by the <span class="good">names of the note</span>, and optionally, the <span class="average">accidental</span>, and/or the <span class="bad">octave number</span>.
+				<br>
+				By default, every note is <span class="average">natural</span> and in <span class="bad">octave 3</span>. Defining a different state for either is remembered for each <span class="good">note</span>.
+				<ul>
+					<li><span class="highlight">Example:</span> <i>C,D,E,F,G,A,B</i> will play a <span class="good">C</span> <span class="average">major</span> scale.</li>
+					<li>After a note has an <span class="average">accidental</span> or <span class="bad">octave</span> placed, it will be remembered: <i>C,C4,C#,C3</i> is <i>C3,C4,C4#,C3#</i></li>
+				</ul>
+			</p>
+			<p>
+				<span class="highlight">Chords</span> can be played simply by seperating each note with a hyphon: <i>A-C#,Cn-E,E-G#,Gn-B</i>.<br>
+				A <span class="highlight">pause</span> may be denoted by an empty chord: <i>C,E,,C,G</i>.
+				<br>
+				To make a chord be a different time, end it with /x, where the chord length will be length defined by <span class="highlight">tempo / x</span>, <span class="highlight">eg:</span> <i>C,G/2,E/4</i>.
+			</p>
+			<p>
+				Combined, an example line is: <i>E-E4/4,F#/2,G#/8,B/8,E3-E4/4</i>.
+				<ul>
+				<li>Lines may be up to 50 characters.</li>
+				<li>A song may only contain up to 50 lines.</li>
+				</ul>
+			</p>
+		{{/if}}
+	</div>
+</div>

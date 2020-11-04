@@ -1,0 +1,347 @@
+{{if data.printing}}
+	<h5 class='average'>The computer is currently busy.</h5>
+	<div class='notice'>
+		<center><span class='bad'>Printing...</span></center>
+	</div>
+	<p>
+		Thank you for your patience!
+	</p>
+{{else}}
+	{{:helper.link('Access Modification', 'home', {'choice' : 'mode', 'mode_target' : 0}, !data.mode ? 'disabled' : null)}}
+	{{if !data.target_dept}}{{:helper.link('Job Management', 'gear', {'choice' : 'mode', 'mode_target' : 1}, data.mode == 1 ? 'disabled' : null)}}{{/if}}
+	{{:helper.link('Crew Manifest', 'folder-open', {'choice' : 'mode', 'mode_target' : 2}, data.mode == 2 ? 'disabled' : null)}}
+	{{if !data.target_dept}}{{:helper.link('Print', 'print', {'choice' : 'print'}, (data.mode == 2 || data.has_modify && !data.mode) ? null : 'disabled')}}{{/if}}
+	{{:helper.link('Records', 'file', {'choice' : 'mode', 'mode_target' : 3}, (data.mode == 3) ? 'disabled' : null)}}
+	
+	{{if data.mode == 1 && !data.target_dept}}
+	<div class='item'>
+		<h2>Job Management</h2>
+	</div>
+    <div class='item'>
+		<div class='itemLabel'>
+			Authorized Identity:
+		</div>
+		<div class='itemContent'>
+			{{:helper.link(data.scan_name, 'eject', {'choice' : 'scan'})}}
+		</div>
+		<div class='itemLabel'>
+			Cooldown:
+		</div>
+		<div class='itemContent'>
+			{{if data.cooldown_mins > 0 || data.cooldown_mins == 0 && data.cooldown_secs > 0}}
+				<span class='bad'>Next change in: {{:data.cooldown_mins}}:{{:data.cooldown_secs}}</span>
+			{{else}}
+				<span class='good'>Ready</span>
+			{{/if}}
+		</div>
+    </div>
+    <hr>
+	<div class='item'>
+		{{for data.job_slots}}
+			 <div class='item'>
+				<span class="average" style="font-weight: bold;">{{:value.title}}: {{:value.current_positions}}/{{:value.total_positions}}</span>
+				{{:helper.link('-', null, {'choice' : 'make_job_unavailable', 'job' : value.title}, value.can_close == 1 && data.authenticated ? null : 'disabled')}}
+				{{:helper.link('+', null, {'choice' : 'make_job_available', 'job' : value.title}, value.can_open == 1 && data.authenticated ? null : 'disabled')}}
+				{{:helper.link('Pri', null, {'choice' : 'prioritize_job', 'job' : value.title}, value.can_prioritize > 0 && data.authenticated ? null : 'disabled')}} {{if value.can_prioritize == 2}}<span class='warning'>Priority Job</span> {{/if}}
+			</div>
+		{{/for}}
+	</div>
+	{{else data.mode == 2}}
+		<div class='item'>
+			<h2>Crew Manifest</h2>
+		</div>
+		<div class='item'>
+			{{:data.manifest}}
+		</div>
+	{{else data.mode == 3}}
+		<div class='item'>
+		    <h2>Records</h2>
+        </div>
+        <div class='item'>
+		    <div class='itemLabel'>
+				Authorized Identity:
+		    </div>
+		    <div class='itemContent'>
+				{{:helper.link(data.scan_name, 'eject', {'choice' : 'scan'})}}
+		    </div>
+		</div>
+		<div class='item'>
+		    {{if data.authenticated}}
+				{{:data.id_change_html}}
+				{{if data.centcom_access}}
+					{{:helper.link('Delete Records By: ' + data.scan_owner, null, {'choice' : 'wipe_my_logs'}, null, 'linkDanger')}}
+				{{/if}}
+				{{if !data.target_dept}}
+					{{:helper.link('Delete ALL Records', null, {'choice' : 'wipe_all_logs'}, null, 'linkDanger')}}
+				{{/if}}
+		    {{else}}
+				<span class='exclamation-triangle'><i>Please insert an authorized ID into the terminal to proceed.</i></span><br>
+		    {{/if}}
+		</div>
+	{{else}}
+    <div class='item'>
+      <h2>Access Modification</h2>
+    </div>
+
+    {{if !data.authenticated}}
+      <span class='exclamation-triangle'><i>Please insert the IDs into the terminal to proceed.</i></span><br>
+    {{/if}}
+
+    <div class='item'>
+      <div class='itemLabel'>
+        Target Identity:
+      </div>
+      <div class='itemContent'>
+        {{:helper.link(data.target_name, 'eject', {'choice' : 'modify'})}}
+      </div>
+    </div>
+    <div class='item'>
+      <div class='itemLabel'>
+        Authorized Identity:
+      </div>
+      <div class='itemContent'>
+        {{:helper.link(data.scan_name, 'eject', {'choice' : 'scan'})}}
+      </div>
+    </div>
+    <hr>
+
+    {{if data.authenticated}}
+      <script type="text/javascript">
+        function markRed(){
+          var nameField = document.getElementById('namefield');
+          nameField.style.backgroundColor = "#FFDDDD";
+        }
+        function markGreen(){
+          var nameField = document.getElementById('namefield');
+          nameField.style.backgroundColor = "#DDFFDD";
+        }
+        function markAccountGreen(){
+          var nameField = document.getElementById('accountfield');
+          nameField.style.backgroundColor = "#DDFFDD";
+        }
+        function markAccountRed(){
+          var nameField = document.getElementById('accountfield');
+          nameField.style.backgroundColor = "#FFDDDD";
+        }
+        function showAll(){
+          var allJobsSlot = document.getElementById('allvalue.jobsslot');
+          allJobsSlot.innerHTML = "<a href='#' onclick='hideAll()'>Hide</a><br>";
+          var allJobs = document.getElementById('all-value.jobs');
+          allJobs.style.display = 'block';
+        }
+        function hideAll(){
+          var allJobsSlot = document.getElementById('allvalue.jobsslot');
+          allJobsSlot.innerHTML = "<a href='#' onclick='showAll()'>{{:data.target_rank}}</a>";
+          var allJobs = document.getElementById('all-value.jobs');
+          allJobs.style.display = 'none';
+        }
+      </script>
+
+      {{if data.has_modify}}
+      {{if !data.target_dept}}
+        <div class='item'>
+          <h2>Details</h2>
+        </div>
+
+        <form name='cardcomp' action='?src={{:data.src}}' method='get'>
+          <div class='item'>
+            <div class='itemLabel'>
+              <input type='hidden' name='src' value='{{:data.src}}'>
+              <input type='hidden' name='choice' value='reg'>
+              Registered Name:
+            </div>
+            <div class='itemContent'>
+              <input type='text' id='namefield' name='reg' value='{{:data.target_owner}}' onchange='markRed()'>
+              <input type='submit' value='Rename' onclick='markGreen()'>
+            </div>
+          </div>
+        </form>
+
+        <form name='accountnum' action='?src={{:data.src}}' method='get'>
+          <div class='item'>
+            <div class='itemLabel'>
+              <input type='hidden' name='src' value='{{:data.src}}'>
+              <input type='hidden' name='choice' value='account'>
+              Account Number:
+            </div>
+            <div class='itemContent'>
+              <input type='text' id='accountfield' name='account' value='{{:data.account_number}}' onchange='markAccountRed()'>
+              <input type='submit' value='Modify' onclick='markAccountGreen()'>
+            </div>
+          </div>
+        </form>
+      {{/if}}
+      {{if data.target_rank != "Terminated"}}
+	  <div class='item'>
+          <div class='itemLabel'>
+            Demotions:
+          </div>
+          <div class='itemContent'>
+			{{if data.target_rank == "Demoted"}}
+				<span class='bad'>{{:data.target_owner}} has already been demoted!</span>
+			{{else}}
+				{{:helper.link('Demote ' + data.target_owner, 'gear', {'choice' : 'demote'}, (data.target_rank == "Civilian" || data.target_rank == "Unassigned") ? 'disabled' : null, (data.target_rank == "Civilian" || data.target_rank == "Unassigned") ? 'disabled' : 'linkDanger')}}
+			{{/if}}
+          </div>
+        </div>
+	  {{/if}}
+      {{if !data.target_dept}}
+        <div class='item'>
+          <div class='itemLabel'>
+            Terminations:
+          </div>
+          <div class='itemContent'>
+			{{if data.target_rank == "Terminated"}}
+				<span class='bad'>{{:data.target_owner}} has already been terminated!</span>
+			{{else}}
+				{{:helper.link('Terminate ' + data.target_owner, 'gear', {'choice' : 'terminate'}, data.target_rank == "Terminated" ? 'disabled' : null, data.target_rank == "Terminated" ? 'disabled' : 'linkDanger')}}
+			{{/if}}
+          </div>
+        </div>
+
+        <div class='item'>
+          <h2>Assignment</h2>
+        </div>
+
+        {{else}}
+
+        <div class='item'>
+          <h2>Assignment for {{:data.target_owner}}</h2>
+        </div>
+
+        {{/if}}
+
+        <div class='item'>
+          <span id='allvalue.jobsslot'>
+            <a href='#' onclick='showAll()'>{{:data.target_rank}}</a>
+          </span>
+        </div>
+        <div class='item'>
+          <div id="all-value.jobs" style='display: none;'>
+            <table>
+              {{if !data.target_dept}}
+              <tr>
+                <th>Special</th>
+                <td>
+                  {{for data.top_jobs}}
+                    {{:helper.link(value.display_name, '', {'choice' : 'assign', 'assign_target' : value.job}, value.jlinkformat == 'disabled' ? 'disabled' : null, value.jlinkformat ? value.jlinkformat : null)}}
+                  {{/for}}
+                </td>
+              </tr>
+              {{/if}}
+              {{if !data.target_dept || data.target_dept == 5}}
+              <tr>
+                <th style="color: '#FFA500';">Engineering</th>
+                <td>
+                  {{for data.engineering_jobs}}
+                    {{:helper.link(value.display_name, '', {'choice' : 'assign', 'assign_target' : value.job}, value.jlinkformat == 'disabled' ? 'disabled' : null, value.jlinkformat ? value.jlinkformat : null)}}
+                  {{/for}}
+                </td>
+              </tr>
+              {{/if}}
+              {{if !data.target_dept || data.target_dept == 3}}
+              <tr>
+                <th style="color: '#008000';">Medical</th>
+                <td>
+                  {{for data.medical_jobs}}
+                    {{:helper.link(value.display_name, '', {'choice' : 'assign', 'assign_target' : value.job}, value.jlinkformat == 'disabled' ? 'disabled' : null, value.jlinkformat ? value.jlinkformat : null)}}
+                  {{/for}}
+                </td>
+              </tr>
+              {{/if}}
+              {{if !data.target_dept || data.target_dept == 2}}
+              <tr>
+                <th style="color: '#DD0000';">Security</th>
+                <td>
+                  {{for data.security_jobs}}
+                    {{:helper.link(value.display_name, '', {'choice' : 'assign', 'assign_target' : value.job}, value.jlinkformat == 'disabled' ? 'disabled' : null, value.jlinkformat ? value.jlinkformat : null)}}
+                  {{/for}}
+                </td>
+              </tr>
+              {{/if}}
+              {{if !data.target_dept || data.target_dept == 4}}
+              <tr>
+                <th style="color: '#C060C0';">Science</th>
+                <td>
+                  {{for data.science_jobs}}
+                    {{:helper.link(value.display_name, '', {'choice' : 'assign', 'assign_target' : value.job}, value.jlinkformat == 'disabled' ? 'disabled' : null, value.jlinkformat ? value.jlinkformat : null)}}
+                  {{/for}}
+                </td> 
+              </tr>
+              {{/if}}
+              {{if !data.target_dept}}
+              <tr>
+                <th style="color: '#A0A0A0';">Support</th>
+                <td>
+                  {{for data.support_jobs}}
+                    {{:helper.link(value.display_name, '', {'choice' : 'assign', 'assign_target' : value.job}, value.jlinkformat == 'disabled' ? 'disabled' : null, value.jlinkformat ? value.jlinkformat : null)}}
+                  {{/for}}
+                </td>
+              </tr>
+              {{/if}}
+              <tr>
+                <th style="color: '#808080';">Civilian</th>
+                <td>
+                  {{for data.civilian_jobs}}
+                    {{:helper.link(value.display_name, '', {'choice' : 'assign', 'assign_target' : value.job}, value.jlinkformat == 'disabled' ? 'disabled' : null, value.jlinkformat ? value.jlinkformat : null)}}
+                  {{/for}}
+                </td>
+              </tr>
+              {{if data.centcom_access}}
+                <tr>
+                  <th style="color: '#A52A2A';">CentComm</th>
+                  <td>
+                    {{for data.centcom_jobs}}
+                      {{:helper.link(value.display_name, '', {'choice' : 'assign', 'assign_target' : value.job}, value.jlinkformat == 'disabled' ? 'disabled' : null, value.jlinkformat ? value.jlinkformat : null)}}
+                    {{/for}}
+                  </td>
+                </tr>
+              {{/if}}
+            </table>
+          </div>
+        </div>
+
+        {{if data.centcom_access}}
+          <div class='item'>
+            <h2>Central Command</h2>
+          </div>
+          <div class='item'>
+            {{for data.all_centcom_access}}
+              {{:helper.link(value.desc, '', {'choice' : 'access', 'access_target' : value.ref, 'allowed' : value.allowed}, null, value.allowed ? 'selected' : null)}}
+            {{/for}}
+			<div class="item">
+			<div class='average'><b>Card Skin</b></div>
+			{{for data.all_centcom_skins}}
+				{{:helper.link(value.display_name, '', {'choice' : 'skin', 'skin_target' : value.skin}, null,(data.current_skin == value.skin) ? 'selected' : null )}}
+			{{/for}}	
+			</div>
+          </div>
+        {{else}}
+          {{if !data.target_dept}}
+            <div class='item'>
+              <h2>{{:data.station_name}}</h2>
+            </div>
+            <div class='item'>
+             {{for data.regions}}
+               <div style='float: left; width: 175px; min-height: 250px'>
+                 <div class='average'><b>{{:value.name}}</b></div>
+                 {{for value.accesses :accessValue:accessKey}}
+                   <div class='itemContentWide'>
+                     {{:helper.link(accessValue.desc, '', {'choice' : 'access', 'access_target' : accessValue.ref, 'allowed' : accessValue.allowed}, null, accessValue.allowed ? 'selected' : null)}}
+                   </div>
+                 {{/for}}
+               </div>
+             {{/for}}
+             <div style='float: left;'>
+			<div class='average'><b>Card Skin</b></div>
+		 	  {{for data.card_skins}}
+		 		{{:helper.link(value.display_name, '', {'choice' : 'skin', 'skin_target' : value.skin}, null,(data.current_skin == value.skin) ? 'selected' : null )}}
+		  	  {{/for}}
+		  	</div>
+            </div>
+          {{/if}}
+        {{/if}}
+      {{/if}}
+    {{/if}}
+  {{/if}}
+{{/if}}

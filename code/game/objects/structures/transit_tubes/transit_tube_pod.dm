@@ -2,10 +2,11 @@
 	icon = 'icons/obj/pipes/transit_tube_pod.dmi'
 	icon_state = "pod"
 	animate_movement = FORWARD_STEPS
-	anchored = TRUE
-	density = TRUE
-	var/moving = FALSE
+	anchored = 1.0
+	density = 1
+	var/moving = 0
 	var/datum/gas_mixture/air_contents = new()
+
 
 /obj/structure/transit_tube_pod/New(loc)
 	..(loc)
@@ -25,14 +26,14 @@
 
 /obj/structure/transit_tube_pod/Process_Spacemove()
 	if(moving) //No drifting while moving in the tubes
-		return TRUE
+		return 1
 	else return ..()
 
 /obj/structure/transit_tube_pod/proc/follow_tube(var/reverse_launch)
 	if(moving)
 		return
 
-	moving = TRUE
+	moving = 1
 
 	spawn()
 		var/obj/structure/transit_tube/current_tube = null
@@ -69,23 +70,23 @@
 					break
 
 			if(current_tube == null)
-				setDir(next_dir)
+				dir = next_dir
 				Move(get_step(loc, dir), dir) // Allow collisions when leaving the tubes.
 				break
 
 			last_delay = current_tube.enter_delay(src, next_dir)
 			sleep(last_delay)
-			setDir(next_dir)
-			forceMove(next_loc) // When moving from one tube to another, skip collision and such.
+			dir = next_dir
+			loc = next_loc // When moving from one tube to another, skip collision and such.
 			density = current_tube.density
 
 			if(current_tube && current_tube.should_stop_pod(src, next_dir))
 				current_tube.pod_stopped(src, dir)
 				break
 
-		density = TRUE
+		density = 1
 
-		moving = FALSE
+		moving = 0
 
 
 // Should I return a copy here? If the caller edits or qdel()s the returned
@@ -140,11 +141,10 @@
 //  the station, try to exit. If the direction matches one of the station's
 //  tube directions, launch the pod in that direction.
 /obj/structure/transit_tube_pod/relaymove(mob/mob, direction)
-	if(istype(mob) && mob.client)
+	if(istype(mob, /mob) && mob.client)
 		// If the pod is not in a tube at all, you can get out at any time.
 		if(!(locate(/obj/structure/transit_tube) in loc))
-			eject(mob, direction)
-			return
+			mob.forceMove(loc)
 
 			//if(moving && istype(loc, /turf/space))
 				// Todo: If you get out of a moving pod in space, you should move as well.
@@ -155,41 +155,19 @@
 				if(dir in station.directions())
 					if(!station.pod_moving)
 						if(direction == station.dir)
-							if(station.hatch_state == TRANSIT_TUBE_OPEN)
-								eject(mob, direction)
+							if(station.icon_state == "open")
+								mob.forceMove(loc)
 
 							else
-								station.open_hatch()
+								station.open_animation()
 
 						else if(direction in station.directions())
-							setDir(direction)
+							dir = direction
 							station.launch_pod()
 					return
 
 			for(var/obj/structure/transit_tube/tube in loc)
 				if(dir in tube.directions())
 					if(tube.has_exit(direction))
-						setDir(direction)
+						dir = direction
 						return
-
-/obj/structure/transit_tube_pod/proc/move_into(atom/movable/A)
-	icon_state = "pod_occupied"
-	A.forceMove(src)
-
-/obj/structure/transit_tube_pod/proc/eject_mindless(direction)
-	for(var/atom/movable/A in contents)
-		if(ismob(A))
-			var/mob/M = A
-			if(M.mind) // Only eject mindless mobs
-				continue
-		eject(A, direction)
-		A.Move(get_step(loc, direction), direction)
-
-
-/obj/structure/transit_tube_pod/proc/eject(atom/movable/A, direction)
-	icon_state = "pod"
-	A.forceMove(loc)
-	A.Move(get_step(loc, direction), direction)
-	if(ismob(A))
-		var/mob/M = A
-		M.reset_perspective(null)

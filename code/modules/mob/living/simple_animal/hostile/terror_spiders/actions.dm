@@ -42,6 +42,27 @@
 	var/mob/living/simple_animal/hostile/poison/terror_spider/user = owner
 	user.DoVentSmash()
 
+// ---------- PRINCESS ACTIONS
+
+/datum/action/innate/terrorspider/evolvequeen
+	name = "Evolve Queen"
+	icon_icon = 'icons/mob/terrorspider.dmi'
+	button_icon_state = "terror_queen"
+
+/datum/action/innate/terrorspider/evolvequeen/Activate()
+	var/mob/living/simple_animal/hostile/poison/terror_spider/princess/user = owner
+	if(!istype(user))
+		to_chat(user, "<span class='warning'>ERROR: attempt to use evolve queen ability on a non-princess</span>")
+		return
+	var/feedings_left = user.feedings_to_evolve - user.fed
+	if(feedings_left > 0)
+		to_chat(user, "<span class='warning'>You must wrap [feedings_left] more humanoid prey before you can do this!</span>")
+		return
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/queen/Q in GLOB.ts_spiderlist)
+		if(Q.spider_awaymission == user.spider_awaymission)
+			to_chat(user, "<span class='warning'>The presence of another Queen in the area is preventing you from maturing.")
+			return
+	user.evolve_to_queen()
 
 // ---------- QUEEN ACTIONS
 
@@ -72,27 +93,25 @@
 	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/user = owner
 	user.LayQueenEggs()
 
+/datum/action/innate/terrorspider/queen/queenfakelings
+	name = "Fake Spiderlings"
+	icon_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "spiderling"
+
+/datum/action/innate/terrorspider/queen/queenfakelings/Activate()
+	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/user = owner
+	user.QueenFakeLings()
 
 // ---------- EMPRESS
 
 /datum/action/innate/terrorspider/queen/empress/empresserase
-	name = "Empress Erase Brood"
+	name = "Erase Brood"
 	icon_icon = 'icons/effects/blood.dmi'
 	button_icon_state = "mgibbl1"
 
 /datum/action/innate/terrorspider/queen/empress/empresserase/Activate()
 	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/user = owner
 	user.EraseBrood()
-
-/datum/action/innate/terrorspider/queen/empress/empresslings
-	name = "Empresss Spiderlings"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "spiderling"
-
-/datum/action/innate/terrorspider/queen/empress/empresslings/Activate()
-	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/user = owner
-	user.EmpressLings()
-
 
 // ---------- WEB
 
@@ -167,26 +186,13 @@
 
 // ---------- WRAP
 
-/mob/living/simple_animal/hostile/poison/terror_spider/proc/mobIsWrappable(mob/living/M)
-	if(!istype(M))
-		return FALSE
-	if(M.stat != DEAD)
-		return FALSE
-	if(M.anchored)
-		return FALSE
-	if(!Adjacent(M))
-		return FALSE
-	if(isterrorspider(M))
-		return FALSE
-	return TRUE
-
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/FindWrapTarget()
 	if(!cocoon_target)
 		var/list/choices = list()
 		for(var/mob/living/L in oview(1,src))
-			if(!mobIsWrappable(L))
-				continue
-			choices += L
+			if(Adjacent(L) && !L.anchored)
+				if(L.stat == DEAD)
+					choices += L
 		for(var/obj/O in oview(1,src))
 			if(Adjacent(O) && !O.anchored)
 				if(!istype(O, /obj/structure/spider/terrorweb) && !istype(O, /obj/structure/spider/cocoon) && !istype(O, /obj/structure/spider/spiderling/terror_spiderling))
@@ -220,7 +226,9 @@
 								O.loc = C
 								large_cocoon = 1
 					for(var/mob/living/L in C.loc)
-						if(!mobIsWrappable(L))
+						if(istype(L, /mob/living/simple_animal/hostile/poison/terror_spider))
+							continue
+						if(L.stat != DEAD)
 							continue
 						if(iscarbon(L))
 							regen_points += regen_points_per_kill

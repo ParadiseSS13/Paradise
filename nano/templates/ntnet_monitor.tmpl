@@ -1,0 +1,102 @@
+<h1>WIRELESS CONNECTIVITY</h1>
+<div class="item">
+	<div class="itemLabelWide">
+		Active NTNet Relays:
+	</div>
+	<div class="itemContentNarrow">
+		<b>{{:data.ntnetrelays}}</b>
+	</div>
+	{{if data.ntnetrelays}}
+		<div class='item'>
+			<div class="itemLabelWide">
+				System status:
+			</div>
+			<div class="itemContentNarrow">
+				<b>{{:data.ntnetstatus ? "ENABLED" : "DISABLED"}}</b>
+			</div>
+		</div>
+		<div class='item'>
+			<div class="itemLabelWide">
+				Control:
+			</div>
+			<div class="itemContentNarrow">
+				{{:helper.link('TOGGLE', null, {'action' : 'toggleWireless'})}}
+			</div>
+		</div>
+		<i>Caution - Disabling wireless transmitters when using wireless device may prevent you from re-enabling them again!</i>
+	{{else}}
+		<br><p>Wireless coverage unavailable, no relays are connected.</p>
+	{{/if}}
+</div>	
+
+<h1>FIREWALL CONFIGURATION</h1>
+<div class="statusDisplay" style="overflow: auto;">
+	<table style='width: 100%;'>
+		<tr>
+			<th>PROTOCOL</th>
+			<th>STATUS</th>
+			<th>CONTROL</th>
+		</tr>
+		<tr>
+			<td>Software Downloads</td>
+			<td><center>{{:data.config_softwaredownload ? 'ENABLED' : 'DISABLED'}}</td>
+			<td><div style="text-align: center;"><div style="display: inline-block;">{{:helper.link('TOGGLE', null, {'action' : 'toggle_function', 'id' : 1})}}</div></div></td>
+		</tr>
+		<tr>
+			<td>Peer to Peer Traffic</td>
+			<td><center>{{:data.config_peertopeer ? 'ENABLED' : 'DISABLED'}}</td>
+			<td><div style="text-align: center;"><div style="display: inline-block;">{{:helper.link('TOGGLE', null, {'action' : 'toggle_function', 'id' : 2})}}</div></div></td>
+		</tr>
+		<tr>
+			<td>Communication Systems</td>
+			<td><center>{{:data.config_communication ? 'ENABLED' : 'DISABLED'}}</td>
+			<td><div style="text-align: center;"><div style="display: inline-block;">{{:helper.link('TOGGLE', null, {'action' : 'toggle_function', 'id' : 3})}}</div></div></td>
+		</tr>
+		<tr>
+			<td>Remote System Control</td>
+			<td><center>{{:data.config_systemcontrol ? 'ENABLED' : 'DISABLED'}}</td>
+			<td><div style="text-align: center;"><div style="display: inline-block;">{{:helper.link('TOGGLE', null, {'action' : 'toggle_function', 'id' : 4})}}</div></div></td>
+		</tr>
+	</table>
+</div>
+
+<h1>SECURITY SYSTEMS</h1>
+{{if data.idsalarm}}
+    <div class="statusDisplay" style="overflow: auto;">
+		<div class="item">
+			<div class="itemContent" style="width: 100%;">
+				<h1>NETWORK INCURSION DETECTED</h1>
+				<i>An abnormal activity has been detected in the network. Please verify system logs for more information</i>
+			</div>
+		</div>
+    </div>		
+{{/if}}
+<div class="item">
+	<div class="itemLabelWide">Intrusion Detection System:</div>
+	<div class="itemContentNarrow"><b>{{:data.idsstatus ? 'ENABLED' : 'DISABLED'}}</b></div>
+</div>
+<div class="item">
+	<div class="itemLabelWide">Maximal Log Count:</div>
+	<div class="itemContentNarrow"><b>{{:data.ntnetmaxlogs}}</b></div>
+</div>
+<div class="item">
+	<div class="itemLabelWide">Controls:</div>
+	<div class="itemContentNarrow">
+		<table>
+			<tr><td>{{:helper.link('RESET IDS', null, {'action' : 'resetIDS'})}}
+			<tr><td>{{:helper.link('TOGGLE IDS', null, {'action' : 'toggleIDS'})}}
+			<tr><td>{{:helper.link('SET LOG LIMIT', null, {'action' : 'updatemaxlogs'})}}
+			<tr><td>{{:helper.link('PURGE LOGS', null, {'action' : 'purgelogs'})}}
+		</table>
+	</div>
+</div>
+<b>System Logs</b>
+<div class="statusDisplay" style="overflow: auto;">
+	<div class="item">
+		<div class="itemContent" style="width: 100%;">
+			{{for data.ntnetlogs}}
+				{{:value.entry}}<br>
+			{{/for}}
+		</div>
+	</div>
+</div>

@@ -29,6 +29,8 @@
 
 	create_reagents(330)
 
+	martial_art = GLOB.default_martial_art
+
 	handcrafting = new()
 
 	// Set up DNA.
@@ -41,7 +43,7 @@
 	GLOB.human_list += src
 
 /mob/living/carbon/human/OpenCraftingMenu()
-	handcrafting.tgui_interact(src)
+	handcrafting.ui_interact(src)
 
 /mob/living/carbon/human/prepare_data_huds()
 	//Update med hud images...
@@ -254,7 +256,7 @@
 					limbs_affected -= 1
 				else valid_limbs -= processing_dismember
 
-			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
+			if(!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
 				AdjustEarDamage(30, 120)
 			if(prob(70) && !shielded)
 				Paralyse(10)
@@ -278,7 +280,7 @@
 						limbs_affected -= 1
 					else valid_limbs -= processing_dismember
 
-			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
+			if(!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
 				AdjustEarDamage(15, 60)
 			if(prob(50) && !shielded)
 				Paralyse(10)
@@ -296,8 +298,8 @@
 	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, "melee"))
 
 /mob/living/carbon/human/bullet_act()
-	if(mind && mind.martial_art && mind.martial_art.deflection_chance) //Some martial arts users can deflect projectiles!
-		if(!prob(mind.martial_art.deflection_chance))
+	if(martial_art && martial_art.deflection_chance) //Some martial arts users can deflect projectiles!
+		if(!prob(martial_art.deflection_chance))
 			return ..()
 		if(!src.lying && !(HULK in mutations)) //But only if they're not lying down, and hulks can't do it
 			visible_message("<span class='danger'>[src] deflects the projectile; [p_they()] can't be hit with ranged weapons!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
@@ -541,41 +543,6 @@
 
 	if(istype(id))
 		return id
-
-//Gets ID card object from hands only
-/mob/living/carbon/human/proc/get_id_from_hands()
-	var/obj/item/card/id/ID
-	var/obj/item/pda/PDA
-	var/obj/item/storage/wallet/W
-	var/active_hand = get_active_hand()
-	var/inactive_hand = get_inactive_hand()
-
-	//ID
-	if(istype(active_hand, /obj/item/card/id) || istype(inactive_hand, /obj/item/card/id))
-		if(istype(active_hand, ID))
-			ID = active_hand
-		else
-			ID = inactive_hand
-
-	//PDA
-	else if(istype(active_hand, /obj/item/pda) || istype(inactive_hand, /obj/item/pda))
-		if(istype(active_hand, PDA))
-			PDA = active_hand
-		else
-			PDA = inactive_hand
-		if(PDA.id)
-			ID = PDA.id
-
-	//Wallet
-	else if(istype(active_hand, /obj/item/storage/wallet) || istype(inactive_hand, /obj/item/storage/wallet))
-		if(istype(active_hand, W))
-			W = active_hand
-		else
-			W = inactive_hand
-		if(W.front_id)
-			ID = W.front_id
-
-	return ID
 
 /mob/living/carbon/human/update_sight()
 	if(!client)
@@ -966,18 +933,12 @@
 	return number
 
 /mob/living/carbon/human/check_ear_prot()
-	if(!can_hear())
-		return HEARING_PROTECTION_TOTAL
-	if(istype(l_ear, /obj/item/clothing/ears/earmuffs))
-		return HEARING_PROTECTION_TOTAL
-	if(istype(r_ear, /obj/item/clothing/ears/earmuffs))
-		return HEARING_PROTECTION_TOTAL
 	if(head && (head.flags & HEADBANGPROTECT))
-		return HEARING_PROTECTION_MINOR
+		return 1
 	if(l_ear && (l_ear.flags & EARBANGPROTECT))
-		return HEARING_PROTECTION_MINOR
+		return 1
 	if(r_ear && (r_ear.flags & EARBANGPROTECT))
-		return HEARING_PROTECTION_MINOR
+		return 1
 
 ///tintcheck()
 ///Checks eye covering items for visually impairing tinting, such as welding masks
@@ -1021,34 +982,34 @@
 	return
 
 /mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE)
-	. = TRUE
+	. = 1
 
 	if(!target_zone)
 		if(!user)
-			. = FALSE
-			CRASH("can_inject() called on a human mob with neither a user nor a targeting zone selected.")
+			target_zone = pick("chest","chest","chest","left leg","right leg","left arm", "right arm", "head")
 		else
 			target_zone = user.zone_selected
 
+
 	if(PIERCEIMMUNE in dna.species.species_traits)
-		. = FALSE
+		. = 0
 
 	var/obj/item/organ/external/affecting = get_organ(target_zone)
 	var/fail_msg
 	if(!affecting)
-		. = FALSE
+		. = 0
 		fail_msg = "[p_they(TRUE)] [p_are()] missing that limb."
 	else if(affecting.is_robotic())
-		. = FALSE
+		. = 0
 		fail_msg = "That limb is robotic."
 	else
 		switch(target_zone)
 			if("head")
 				if(head && head.flags & THICKMATERIAL && !penetrate_thick)
-					. = FALSE
+					. = 0
 			else
 				if(wear_suit && wear_suit.flags & THICKMATERIAL && !penetrate_thick)
-					. = FALSE
+					. = 0
 	if(!. && error_msg && user)
 		if(!fail_msg)
 			fail_msg = "There is no exposed flesh or thin material [target_zone == "head" ? "on [p_their()] head" : "on [p_their()] body"] to inject into."
@@ -1214,7 +1175,7 @@
 	set src in view(1)
 	var/self = 0
 
-	if(usr.stat == 1 || usr.restrained() || !isliving(usr) || usr.is_dead()) return
+	if(usr.stat == 1 || usr.restrained() || !isliving(usr)) return
 
 	if(usr == src)
 		self = 1
@@ -1486,13 +1447,12 @@
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
 	if(istype(dna.species) && dna.species.eyes)
-		var/icon/eyes_icon
+		var/icon/eyes_icon = new /icon('icons/mob/human_face.dmi', dna.species.eyes)
 		if(eye_implant) //Eye implants override native DNA eye colo(u)r
 			eyes_icon = eye_implant.generate_icon()
 		else if(eyes)
 			eyes_icon = eyes.generate_icon()
 		else //Error 404: Eyes not found!
-			eyes_icon = new('icons/mob/human_face.dmi', dna.species.eyes)
 			eyes_icon.Blend("#800000", ICON_ADD)
 
 		return eyes_icon
@@ -1510,13 +1470,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/eyes_shine()
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
+	if(!(istype(eyes) || istype(eye_implant)))
+		return FALSE
 	if(!get_location_accessible(src, "eyes"))
 		return FALSE
-	// Natural eyeshine, any implants, and XRAY - all give shiny appearance.
-	if((istype(eyes) && eyes.shine()) || istype(eye_implant) || (XRAY in mutations))
-		return TRUE
+	if(!(eyes.shine()) && !istype(eye_implant) && !(XRAY in mutations)) //If their eyes don't shine, they don't have other augs, nor do they have X-RAY vision
+		return FALSE
 
-	return FALSE
+	return TRUE
 
 /mob/living/carbon/human/assess_threat(var/mob/living/simple_animal/bot/secbot/judgebot, var/lasercolor)
 	if(judgebot.emagged == 2)
@@ -1769,14 +1730,16 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(G.trigger_guard == TRIGGER_GUARD_NORMAL)
 		if(HULK in mutations)
 			to_chat(src, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
-			return FALSE
+			return 0
 		if(NOGUNS in dna.species.species_traits)
 			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
-			return FALSE
+			return 0
 
-	if(mind && mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
-		to_chat(src, "<span class='warning'>[mind.martial_art.no_guns_message]</span>")
-		return FALSE
+	if(martial_art && martial_art.no_guns) //great dishonor to famiry
+		to_chat(src, "<span class='warning'>[martial_art.no_guns_message]</span>")
+		return 0
+
+	return .
 
 /mob/living/carbon/human/proc/change_icobase(var/new_icobase, var/new_deform, var/owner_sensitive)
 	for(var/obj/item/organ/external/O in bodyparts)
@@ -1962,7 +1925,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/get_spooked()
 	to_chat(src, "<span class='whisper'>[pick(GLOB.boo_phrases)]</span>")
-	return TRUE
 
 /mob/living/carbon/human/extinguish_light()
 	// Parent function handles stuff the human may be holding
@@ -1975,11 +1937,3 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/proc/get_perceived_trauma()
 	return min(health, maxHealth - getStaminaLoss())
-
-/**
-  * Helper to get the mobs runechat colour span
-  *
-  * Basically just a quick redirect to the DNA handler that gets the species-specific colour handler
-  */
-/mob/living/carbon/human/get_runechat_color()
-   return dna.species.get_species_runechat_color(src)

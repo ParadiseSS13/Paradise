@@ -90,14 +90,14 @@
 
 	var/list/tempL = L
 	var/attempt = null
-	var/success = FALSE
+	var/success = 0
 	while(tempL.len)
 		attempt = pick(tempL)
-		user.forceMove(attempt)
-		if(get_turf(user) == attempt)
-			success = TRUE
+		success = user.Move(attempt)
+		if(!success)
+			tempL.Remove(attempt)
+		else
 			break
-		tempL.Remove(attempt)
 
 	if(!success)
 		user.forceMove(pick(L))

@@ -306,7 +306,6 @@
 	var/stump = 0
 
 /obj/structure/bush/New()
-	. = ..()
 	if(prob(20))
 		opacity = 1
 

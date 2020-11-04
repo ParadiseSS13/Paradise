@@ -1,0 +1,76 @@
+<!-- pAI chatroom
+code/modules/mob/living/silicon/pai/software_modules.dm
+-->
+
+<div class="item">
+	<div class="itemLabel">
+		Receiver:
+	</div>
+	<div class="itemContent">
+		{{if data.receiver_off}}
+			{{:helper.link("On",  '', {"stopic":"chatroom", "toggler":1})}}
+			{{:helper.link("Off", '', {"stopic":"chatroom", "toggler":2}, 'selected')}}
+		{{else}}
+			{{:helper.link("On",  '', {"stopic":"chatroom", "toggler":1}, 'selected')}}
+			{{:helper.link("Off", '', {"stopic":"chatroom", "toggler":2})}}
+		{{/if}}
+	</div>
+</div>
+
+<div class="item">
+	<div class="itemLabel">
+		Ringer:
+	</div>
+	<div class="itemContent">
+		{{if data.ringer_off}}
+			{{:helper.link("On",  '', {"stopic":"chatroom", "ringer":1})}}
+			{{:helper.link("Off", '', {"stopic":"chatroom", "ringer":2}, 'selected')}}
+		{{else}}
+			{{:helper.link("On",  '', {"stopic":"chatroom", "ringer":1}, 'selected')}}
+			{{:helper.link("Off", '', {"stopic":"chatroom", "ringer":2})}}
+		{{/if}}
+	</div>
+</div>
+
+{{for data.rooms}}
+	<div class="item">
+		{{:helper.link(value.name, '', {"stopic":"chatroom", "select":value.ref})}}
+		{{:helper.link("Quick Message", '', {"stopic":"chatroom", "target":value.ref})}}
+	</div>
+{{/for}}
+<hr>
+{{if data.disconnected}}
+	<h3>Connection Lost</h3>
+	{{:helper.link("Reconnect", 'refresh', {"stopic":"chatroom", "reconnect":1})}}
+{{else data.current_room}}
+	<h3>#{{:data.current_room_name}}</h3>
+	<div class="item">
+		<dic class="itemLabel">Topic:</div>
+		<div class="itemContent">{{:helper.link(data.current_room_topic, '', {"stopic":"chatroom", "topic":1})}}</div>
+	</div>
+	<div class="item">
+		<div class="itemLabel">Users:</div>
+		<div class="itemContent">
+			{{var firstUser = true;}}
+			{{for data.users}}
+				{{:firstUser ? "" : ", "}}{{:value}}
+				{{firstUser = false;}}
+			{{/for}}
+		</div>
+	</div>
+	{{var prevName = "";}}
+	{{for data.messages}}
+		<div class="item">
+			<div class="itemLabelNarrow">{{:value.username!=prevName ? value.username : "&nbsp;"}}</div>
+			<div class="itemContent">
+					{{:value.message}}
+			</div>
+		</div>
+		{{prevName = value.username;}}
+	{{/for}}
+	{{:helper.link("Send Message", '', {"stopic":"chatroom", "target":data.current_room})}}
+{{/if}}
+
+{{if data.current_name}}
+	{{:helper.link("Clear Screen", '', {"stopic":"chatroom", "select":"*NONE*"})}}
+{{/if}}

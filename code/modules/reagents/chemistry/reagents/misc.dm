@@ -164,7 +164,7 @@
 /datum/reagent/iron/on_mob_life(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(!(NO_BLOOD in H.dna.species.species_traits))
+		if(!H.dna.species.exotic_blood && !(NO_BLOOD in H.dna.species.species_traits))
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 				H.blood_volume += 0.8
 	return ..()
@@ -603,7 +603,7 @@
 	name = "Left 4 Zed"
 	id = "left4zednutriment"
 	description = "Unstable nutriment that makes plants mutate more often than usual."
-	color = "#2A1680" // RBG: 42, 128, 22
+	color = "#1A1E4D" // RBG: 26, 30, 77
 	tox_prob = 25
 	taste_description = "evolution"
 

@@ -102,7 +102,6 @@
 	var/rank = null			//actual job
 	var/owner_uid
 	var/owner_ckey
-	var/lastlog
 	var/dorm = 0			// determines if this ID has claimed a dorm already
 
 	var/sex
@@ -212,11 +211,6 @@
 				owner_uid = M.UID()
 				return M
 		owner_ckey = null
-
-/obj/item/card/id/proc/getPlayerCkey()
-	var/mob/living/carbon/human/H = getPlayer()
-	if(istype(H))
-		return H.ckey
 
 /obj/item/card/id/proc/is_untrackable()
 	return untrackable

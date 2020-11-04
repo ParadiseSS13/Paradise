@@ -42,23 +42,26 @@
 
 	create_reagents(5)
 
-/obj/item/kitchen/utensil/attack(mob/living/carbon/C, mob/living/carbon/user)
-	if(!istype(C))
+/obj/item/kitchen/utensil/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+	if(!istype(M))
 		return ..()
 
 	if(user.a_intent != INTENT_HELP)
 		if(user.zone_selected == "head" || user.zone_selected == "eyes")
 			if((CLUMSY in user.mutations) && prob(50))
-				C = user
-			return eyestab(C, user)
+				M = user
+			return eyestab(M,user)
 		else
 			return ..()
 
-	if(length(contents))
+	if(contents.len)
 		var/obj/item/reagent_containers/food/snacks/toEat = contents[1]
 		if(istype(toEat))
-			if(C.eat(toEat, user))
-				toEat.On_Consume(C, user)
+			if(M.eat(toEat, user))
+				toEat.On_Consume(M, user)
+				spawn(0)
+					if(toEat)
+						qdel(toEat)
 				overlays.Cut()
 				return
 

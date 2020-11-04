@@ -1,26 +1,21 @@
-
-/// The maximum `target_pressure` you can set on the pump. Equates to about 1013.25 kPa.
-#define MAX_TARGET_PRESSURE 10 * ONE_ATMOSPHERE
-/// The pump will be siphoning gas.
-#define DIRECTION_IN 0
-/// The pump will be pumping gas out.
-#define DIRECTION_OUT 1
-
 /obj/machinery/portable_atmospherics/pump
 	name = "Portable Air Pump"
+
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "psiphon:0"
-	density = TRUE
+	density = 1
+
+	var/on = 0
+	var/direction_out = 0 //0 = siphoning, 1 = releasing
+	var/target_pressure = 100
+
+	var/pressuremin = 0
+	var/pressuremax = 10 * ONE_ATMOSPHERE
+
 	volume = 1000
-	/// If the pump is turned on or off.
-	var/on = FALSE
-	/// The direction the pump is operating in. This should be either `DIRECTION_IN` or `DIRECTION_OUT`.
-	var/direction = DIRECTION_IN
-	/// The desired pressure the pump should be outputting, either into the atmosphere, or into a holding tank.
-	var/target_pressure = 101.325
 
 /obj/machinery/portable_atmospherics/pump/update_icon()
-	overlays = 0
+	src.overlays = 0
 
 	if(on)
 		icon_state = "psiphon:1"
@@ -44,7 +39,7 @@
 		on = !on
 
 	if(prob(100/severity))
-		direction = !direction
+		direction_out = !direction_out
 
 	target_pressure = rand(0,1300)
 	update_icon()
@@ -59,7 +54,7 @@
 			environment = holding.air_contents
 		else
 			environment = loc.return_air()
-		if(direction == DIRECTION_OUT)
+		if(direction_out)
 			var/pressure_delta = target_pressure - environment.return_pressure()
 			//Can not have a pressure delta that would cause environment pressure > tank pressure
 
@@ -92,7 +87,9 @@
 					air_update_turf()
 
 				air_contents.merge(removed)
+		//src.update_icon()
 
+	src.updateDialog()
 	return
 
 /obj/machinery/portable_atmospherics/pump/return_air()
@@ -105,78 +102,72 @@
 			if(on)
 				on = FALSE
 				update_icon()
-		else if(on && holding && direction == DIRECTION_OUT)
+		else if(on && holding && direction_out)
 			investigate_log("[key_name(user)] started a transfer into [holding].<br>", "atmos")
 
-/obj/machinery/portable_atmospherics/pump/attack_ai(mob/user)
-	add_hiddenprint(user)
-	return attack_hand(user)
+/obj/machinery/portable_atmospherics/pump/attack_ai(var/mob/user as mob)
+	src.add_hiddenprint(user)
+	return src.attack_hand(user)
 
-/obj/machinery/portable_atmospherics/pump/attack_ghost(mob/user)
-	return attack_hand(user)
+/obj/machinery/portable_atmospherics/pump/attack_ghost(var/mob/user as mob)
+	return src.attack_hand(user)
 
-/obj/machinery/portable_atmospherics/pump/attack_hand(mob/user)
-	tgui_interact(user)
+/obj/machinery/portable_atmospherics/pump/attack_hand(var/mob/user as mob)
+	ui_interact(user)
 
-/obj/machinery/portable_atmospherics/pump/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/portable_atmospherics/pump/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = GLOB.physical_state)
+	// update the ui if it exists, returns null if no ui is passed/found
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "PortablePump", "Portable Pump", 434, 377, master_ui, state)
+		// the ui does not exist, so we'll create a new() one
+        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
+		ui = new(user, src, ui_key, "portpump.tmpl", "Portable Pump", 480, 400, state = state)
+		// open the new ui window
 		ui.open()
-		ui.set_autoupdate(TRUE)
+		// auto update every Master Controller tick
+		ui.set_auto_update(1)
 
-/obj/machinery/portable_atmospherics/pump/tgui_data(mob/user)
-	var/list/data = list(
-		"on" = on,
-		"direction" = direction,
-		"port_connected" = connected_port ? TRUE : FALSE,
-		"max_target_pressure" = MAX_TARGET_PRESSURE,
-		"target_pressure" = round(target_pressure, 0.001),
-		"tank_pressure" = air_contents.return_pressure() > 0 ? round(air_contents.return_pressure(), 0.001) : 0
-	)
+/obj/machinery/portable_atmospherics/pump/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.physical_state)
+	var/data[0]
+	data["portConnected"] = connected_port ? 1 : 0
+	data["tankPressure"] = round(air_contents.return_pressure() > 0 ? air_contents.return_pressure() : 0)
+	data["targetpressure"] = round(target_pressure)
+	data["pump_dir"] = direction_out
+	data["minpressure"] = round(pressuremin)
+	data["maxpressure"] = round(pressuremax)
+	data["on"] = on ? 1 : 0
+
+	data["hasHoldingTank"] = holding ? 1 : 0
 	if(holding)
-		data["has_holding_tank"] = TRUE
-		data["holding_tank"] = list("name" = holding.name, "tank_pressure" = holding.air_contents.return_pressure() > 0 ? round(holding.air_contents.return_pressure(), 0.001) : 0)
-	else
-		data["has_holding_tank"] = FALSE
+		data["holdingTank"] = list("name" = holding.name, "tankPressure" = round(holding.air_contents.return_pressure() > 0 ? holding.air_contents.return_pressure() : 0))
 
 	return data
 
-/obj/machinery/portable_atmospherics/pump/tgui_act(action, list/params)
+/obj/machinery/portable_atmospherics/pump/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 
-	switch(action)
-		if("power")
-			on = !on
-			if(on && direction == DIRECTION_OUT)
-				investigate_log("[key_name(usr)] started a transfer into [holding].<br>", "atmos")
-			update_icon()
-			return TRUE
+	if(href_list["power"])
+		on = !on
+		if(on && direction_out)
+			investigate_log("[key_name(usr)] started a transfer into [holding].<br>", "atmos")
+		update_icon()
 
-		if("set_direction")
-			if(text2num(params["direction"]) == DIRECTION_IN)
-				direction = DIRECTION_IN
-			else
-				direction = DIRECTION_OUT
-			if(on && holding)
-				investigate_log("[key_name(usr)] started a transfer into [holding].<br>", "atmos")
-			return TRUE
+	if(href_list["direction"])
+		direction_out = !direction_out
+		if(on && holding)
+			investigate_log("[key_name(usr)] started a transfer into [holding].<br>", "atmos")
 
-		if("remove_tank")
-			if(holding)
-				on = FALSE
-				holding.forceMove(get_turf(src))
-				holding = null
-			update_icon()
-			return TRUE
+	if(href_list["remove_tank"])
+		if(holding)
+			on = FALSE
+			holding.loc = loc
+			holding = null
+		update_icon()
 
-		if("set_pressure")
-			target_pressure = clamp(text2num(params["pressure"]), 0, MAX_TARGET_PRESSURE)
-			return TRUE
+	if(href_list["pressure_adj"])
+		var/diff = text2num(href_list["pressure_adj"])
+		target_pressure = clamp(target_pressure+diff, pressuremin, pressuremax)
+		update_icon()
 
-	add_fingerprint(usr)
-
-#undef MAX_TARGET_PRESSURE
-#undef DIRECTION_IN
-#undef DIRECTION_OUT
+	src.add_fingerprint(usr)

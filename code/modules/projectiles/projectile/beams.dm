@@ -11,7 +11,7 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	is_reflectable = TRUE
 	light_range = 2
-	light_color = LIGHT_COLOR_DARKRED
+	light_color = LIGHT_COLOR_RED
 	ricochets_max = 50	//Honk!
 	ricochet_chance = 80
 
@@ -85,7 +85,6 @@
 	icon_state = "omnilaser"
 	hitsound = 'sound/weapons/tap.ogg'
 	nodamage = 1
-	damage = 0
 	damage_type = STAMINA
 	flag = "laser"
 	var/suit_types = list(/obj/item/clothing/suit/redtag, /obj/item/clothing/suit/bluetag)
@@ -110,12 +109,11 @@
 	icon_state = "laser"
 	suit_types = list(/obj/item/clothing/suit/bluetag)
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
-	light_color = LIGHT_COLOR_DARKRED
+	light_color = LIGHT_COLOR_RED
 
 /obj/item/projectile/beam/lasertag/bluetag
 	icon_state = "bluelaser"
 	suit_types = list(/obj/item/clothing/suit/redtag)
-	light_color = LIGHT_COLOR_BLUE
 
 /obj/item/projectile/beam/sniper
 	name = "sniper beam"
@@ -163,7 +161,7 @@
 /obj/item/projectile/beam/instakill/red
 	icon_state = "red_laser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
-	light_color = LIGHT_COLOR_DARKRED
+	light_color = LIGHT_COLOR_RED
 
 /obj/item/projectile/beam/instakill/on_hit(atom/target)
 	. = ..()

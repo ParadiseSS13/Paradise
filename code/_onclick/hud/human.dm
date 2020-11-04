@@ -7,10 +7,10 @@
 
 /obj/screen/human/toggle/Click()
 	if(usr.hud_used.inventory_shown)
-		usr.hud_used.inventory_shown = FALSE
+		usr.hud_used.inventory_shown = 0
 		usr.client.screen -= usr.hud_used.toggleable_inventory
 	else
-		usr.hud_used.inventory_shown = TRUE
+		usr.hud_used.inventory_shown = 1
 		usr.client.screen += usr.hud_used.toggleable_inventory
 
 	usr.hud_used.hidden_inventory_update()
@@ -26,7 +26,7 @@
 	H.quick_equip()
 
 /obj/screen/ling
-	invisibility = INVISIBILITY_ABSTRACT
+	invisibility = 101
 
 /obj/screen/ling/sting
 	name = "current sting"
@@ -74,7 +74,6 @@
 /mob/living/carbon/human/proc/remake_hud() //used for preference changes mid-round; can't change hud icons without remaking the hud.
 	QDEL_NULL(hud_used)
 	create_mob_hud()
-	update_action_buttons_icon()
 	if(hud_used)
 		hud_used.show_hud(hud_used.hud_version)
 
@@ -82,17 +81,12 @@
 	if(client && !hud_used)
 		hud_used = new /datum/hud/human(src, ui_style2icon(client.prefs.UI_style), client.prefs.UI_style_color, client.prefs.UI_style_alpha)
 
-/datum/hud/human
-	var/hud_alpha = 255
-
 /datum/hud/human/New(mob/living/carbon/human/owner, var/ui_style = 'icons/mob/screen_white.dmi', var/ui_color = "#ffffff", var/ui_alpha = 255)
 	..()
 	owner.overlay_fullscreen("see_through_darkness", /obj/screen/fullscreen/see_through_darkness)
 
 	var/obj/screen/using
 	var/obj/screen/inventory/inv_box
-
-	hud_alpha = ui_alpha
 
 	using = new /obj/screen/craft
 	using.icon = ui_style
@@ -108,6 +102,7 @@
 
 	using = new /obj/screen/act_intent()
 	using.icon_state = mymob.a_intent
+	using.color = ui_color
 	using.alpha = ui_alpha
 	static_inventory += using
 	action_intent = using
@@ -376,13 +371,11 @@
 	infodisplay += devilsouldisplay
 
 	zone_select =  new /obj/screen/zone_sel()
-	zone_select.color = ui_color
 	zone_select.icon = ui_style
-	zone_select.alpha = ui_alpha
 	zone_select.update_icon(mymob)
 	static_inventory += zone_select
 
-	inventory_shown = FALSE
+	inventory_shown = 0
 
 	for(var/obj/screen/inventory/inv in (static_inventory + toggleable_inventory))
 		if(inv.slot_id)
@@ -402,9 +395,9 @@
 	for(var/obj/screen/inventory/inv in (static_inventory + toggleable_inventory))
 		if(inv.slot_id)
 			if(inv.slot_id in S.no_equip)
-				inv.alpha = hud_alpha / 2
+				inv.alpha = 128
 			else
-				inv.alpha = hud_alpha
+				inv.alpha = initial(inv.alpha)
 	for(var/obj/screen/craft/crafting in static_inventory)
 		if(!S.can_craft)
 			crafting.invisibility = INVISIBILITY_ABSTRACT
@@ -518,7 +511,7 @@
 
 	if(hud_used.hotkey_ui_hidden)
 		client.screen += hud_used.hotkeybuttons
-		hud_used.hotkey_ui_hidden = FALSE
+		hud_used.hotkey_ui_hidden = 0
 	else
 		client.screen -= hud_used.hotkeybuttons
-		hud_used.hotkey_ui_hidden = TRUE
+		hud_used.hotkey_ui_hidden = 1

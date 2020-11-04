@@ -33,8 +33,7 @@
 /client/proc/investigate_show( subject in GLOB.investigate_log_subjects )
 	set name = "Investigate"
 	set category = "Admin"
-	if(!check_rights(R_ADMIN))
-		return
+	if(!holder)	return
 	switch(subject)
 		if("notes")
 			show_note()

@@ -126,7 +126,6 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
 	var/obj/item/udder/udder = null
-	gender = FEMALE
 
 /mob/living/simple_animal/cow/Initialize()
 	udder = new()

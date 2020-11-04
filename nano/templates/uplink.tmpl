@@ -1,0 +1,101 @@
+
+<!--
+Title: Syndicate Uplink, uses some javascript to change nanoUI up a bit.
+Used In File(s): \code\game\objects\items\devices\uplinks.dm
+ -->
+{{:helper.syndicateMode()}}
+<script>
+	{{var tooltiptext = function(desc_text) { var text = ""; if(desc_text){text += desc_text + " ";}return text;};}}
+</script>
+<center><H1><span class="white">{{:data.welcome}}</span></H1></center>
+<H2><span class="itemLabel">Uplink Functions</span></H2>
+<br>
+<div class="item">
+		{{:helper.link('Purchase Gear', 'gear', {'menu' : 0, 'category' : null}, null, 'white')}}
+		{{:helper.link('Exploitable Information', 'gear', {'menu' : 1}, null, 'white')}}
+		{{:helper.link('Lock Uplink', 'power-off', {'lock' : "1"}, null, 'white')}}
+</div>
+<br>
+
+{{if data.menu == 0}}
+    <H2><span class="white">Purchase Gear</span></H2>
+    <span class="white"><i>Each item costs a number of tele-crystals as indicated by the number following their name.</i></span>
+	<div class="item">
+        <div class="itemLabel">
+            <b>Tele-Crystals</b>:
+        </div>
+        <div class="itemContent">
+            {{:data.crystals}}
+        </div>
+    </div>
+    <br>
+
+	{{for data.nano_items}}
+		{{if value.Category == data.category_choice}}
+		<div class="item">
+			{{:helper.link ( value.Category, 'arrow-circle-down', {'menu' : 0, 'category' : null}, null, 'white')}}
+		</div>
+		{{else}}
+		<div class="item">
+			{{:helper.link ( value.Category, 'arrow-circle-right', {'menu' : 0, 'category' : value.Category}, null, 'white')}}
+		</div>
+		{{/if}}
+		{{if value.Category == data.category_choice}}
+			<div class="block">
+				<table>
+					{{for value.items :itemValue:itemIndex}}
+						<tr>
+						<td><div class='floatLeft tooltipRight' data-tooltip='{{:tooltiptext(itemValue.Description)}}'>
+						{{:helper.link( itemValue.Name, 'gear', {'buy_item' : itemValue.obj_path, 'cost' : itemValue.Cost}, itemValue.Cost > data.crystals ? 'disabled' : null, null)}} - <span class="white">{{:itemValue.Cost}}</span> {{if itemValue.hijack_only}}(HIJACK AGENTS ONLY){{/if}}
+						</div></td>
+						</tr>
+					{{/for}}
+				</table>
+			</div>
+		{{/if}}
+	{{/for}}
+	<br>
+	<div class="item">
+		{{:helper.link('Buy Random Item' , 'gear', {'buy_item' : 'random'}, data.crystals <= 0 ? 'disabled' : null, 'white')}}
+	</div>
+	<div class="item">
+        {{:helper.link('Refund item in active hand' , 'gear', {refund : 1}, null, 'white')}}
+    </div>
+
+{{else data.menu == 1}}
+    <h2><span class="white">Information Record List:</span></h2>
+    <br>
+    <div class="item">
+        Select a Record
+    </div>
+    <br>
+    {{for data.exploit_records}}
+        <div class="item">
+             {{:helper.link(value.Name, 'gear', {'menu' : 11, 'id' : value.id}, null, null)}}
+        </div>
+    {{/for}}
+
+{{else data.menu == 11}}
+    <h2><span class="white">Information Record:</span></h2>
+    <br>
+    <div class="statusDisplayRecords">
+        <div class="item">
+            <div class="itemContent" style="width: 100%;">
+                {{if data.exploit_exists == 1}}
+                    <span class="good">Name:		</span> <span class="average">{{:data.exploit.name}}		</span><br>
+                    <span class="good">Sex:			</span> <span class="average">{{:data.exploit.sex}}			</span><br>
+                    <span class="good">Species:		</span> <span class="average">{{:data.exploit.species}}		</span><br>
+                    <span class="good">Age:			</span> <span class="average">{{:data.exploit.age}}			</span><br>
+                    <span class="good">Rank:		</span> <span class="average">{{:data.exploit.rank}}		</span><br>
+                    <span class="good">Fingerprint:	</span> <span class="average">{{:data.exploit.fingerprint}}	</span><br>
+                {{else}}
+                    <span class="bad">
+                        No exploitative information acquired!
+                        <br>
+                        <br>
+                    </span>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+{{/if}}

@@ -37,7 +37,7 @@ a.popt {text-decoration: none;}
 * CUSTOM FONTS
 *
 ******************************************/
-@font-face { font-family: PxPlus IBM MDA; src: url('PxPlus_IBM_MDA.ttf'); }
+@font-face { font-family: PxPlus IBM MDA; src: url('PxPlus_IBM_MDA.ttf'); } 
 
 /*****************************************
 *
@@ -247,7 +247,6 @@ em						{font-style: normal;	font-weight: bold;}
 						{color: #638500;	text-decoration: underline;}
 .motd a, .motd a:link, .motd a:visited, .motd a:active, .motd a:hover
 						{color: #638500;}
-.darkmblue 				{color: #0000ff;}
 .prefix					{					font-weight: bold;}
 .ooc					{					font-weight: bold;}
 .looc					{color: #6699CC;}
@@ -279,7 +278,6 @@ em						{font-style: normal;	font-weight: bold;}
 .sciradio				{color: #993399;}
 .supradio				{color: #7F6539;}
 .srvradio				{color: #80A000;}
-.proradio				{color: #E3027A;}
 .admin_channel			{color: #9A04D1;	font-weight: bold;}
 .mentor_channel			{color: #775BFF;	font-weight: bold;}
 .mentor_channel_admin      {color: #A35CFF;	font-weight: bold;}
@@ -305,6 +303,7 @@ h1.alert, h2.alert			{color: #000000;}
 
 .info					{color: #0000CC;}
 .notice					{color: #000099;}
+.bnotice				{color: #000099; 	font-weight: bold;}
 .boldnotice				{color: #000099;	font-weight: bold;}
 .suicide				{color: #ff5050;	font-style: italic;}
 .green					{color: #03bb39;}
@@ -325,7 +324,7 @@ h1.alert, h2.alert			{color: #000000;}
 .sans					{font-family: 'Comic Sans MS', cursive, sans-serif;}
 .wingdings				{font-family: Wingdings, Webdings;}
 .robot					{font-family: 'PxPlus IBM MDA'; font-size: 1.15em;}
-.ancient				{color: #008B8B;	font-style: italic;}
+.ancient				{color: #008B8B;	font-stye: italic;}
 .newscaster				{color: #800000;}
 .mod					{color: #735638;	font-weight: bold;}
 .modooc					{color: #184880;	font-weight: bold;}
@@ -399,10 +398,6 @@ h1.alert, h2.alert			{color: #000000;}
 .connectionClosed, .fatalError {background: red; color: white; padding: 5px;}
 .connectionClosed.restored {background: green;}
 .internal.boldnshit {color: blue; font-weight: bold;}
-
-.rebooting {background: #2979AF; color: white; padding: 5px;}
-.rebooting a {color: white !important; text-decoration-color: white !important;}
-#reconnectTimer {font-weight: bold;}
 
 /* HELPER CLASSES */
 .text-normal {font-weight: normal; font-style: normal;}

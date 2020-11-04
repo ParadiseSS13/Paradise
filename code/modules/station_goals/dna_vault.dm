@@ -7,7 +7,7 @@
 #define VAULT_NOBREATH "Lung Enhancement"
 #define VAULT_FIREPROOF "Thermal Regulation"
 #define VAULT_STUNTIME "Neural Repathing"
-#define VAULT_ARMOUR "Hardened Skin"
+#define VAULT_ARMOUR "Bone Reinforcement"
 #define VAULT_SPEED "Leg Muscle Stimulus"
 #define VAULT_QUICK "Arm Muscle Stimulus"
 
@@ -136,10 +136,6 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	invisibility = 101
 	var/obj/machinery/parent
 
-/obj/structure/filler/Destroy()
-	parent = null
-	return ..()
-
 /obj/structure/filler/ex_act()
 	return
 
@@ -190,40 +186,29 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 
 	..()
 
-/obj/machinery/dna_vault/update_icon()
-	..()
-	if(stat & NOPOWER)
-		icon_state = "vaultoff"
-		return
-	icon_state = "vault"
-
-/obj/machinery/dna_vault/power_change()
-	if(powered(power_channel))
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
-	update_icon()
-
-
 /obj/machinery/dna_vault/Destroy()
-	QDEL_LIST(fillers)
-	return ..()
+	for(var/V in fillers)
+		var/obj/structure/filler/filler = V
+		filler.parent = null
+		qdel(filler)
+	fillers.Cut()
+	. = ..()
 
 /obj/machinery/dna_vault/attack_ghost(mob/user)
 	if(stat & (BROKEN|MAINT))
 		return
-	return tgui_interact(user)
+	return ui_interact(user)
 
 /obj/machinery/dna_vault/attack_hand(mob/user)
 	if(..())
-		return TRUE
-	tgui_interact(user)
+		return 1
+	ui_interact(user)
 
-/obj/machinery/dna_vault/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/dna_vault/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		roll_powers(user)
-		ui = new(user, src, ui_key, "DnaVault", name, 350, 400, master_ui, state)
+		ui = new(user, src, ui_key, "dna_vault.tmpl", name, 550, 400)
 		ui.open()
 
 /obj/machinery/dna_vault/proc/roll_powers(mob/user)
@@ -235,35 +220,33 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	L += pick_n_take(possible_powers)
 	power_lottery[user] = L
 
-/obj/machinery/dna_vault/tgui_data(mob/user)
-	var/list/data = list(
-		"plants" = length(plants),
-		"plants_max" = plants_max,
-		"animals" = length(animals),
-		"animals_max" = animals_max,
-		"dna" = length(dna),
-		"dna_max" = dna_max,
-		"completed" = completed,
-		"used" = TRUE,
-		"choiceA" = "",
-		"choiceB" = ""
-	)
+/obj/machinery/dna_vault/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state) //TODO Make it % bars maybe
+	var/list/data = list()
+	data["plants"] = plants.len
+	data["plants_max"] = plants_max
+	data["animals"] = animals.len
+	data["animals_max"] = animals_max
+	data["dna"] = dna.len
+	data["dna_max"] = dna_max
+	data["completed"] = completed
+	data["used"] = TRUE
+	data["choiceA"] = ""
+	data["choiceB"] = ""
 	if(user && completed)
 		var/list/L = power_lottery[user]
-		if(length(L))
+		if(L && L.len)
 			data["used"] = FALSE
 			data["choiceA"] = L[1]
 			data["choiceB"] = L[2]
 	return data
 
-/obj/machinery/dna_vault/tgui_act(action, params)
+/obj/machinery/dna_vault/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 
-	switch(action)
-		if("gene")
-			upgrade(usr, params["choice"])
-			return TRUE
+	if(href_list["gene"])
+		upgrade(usr,href_list["choice"])
+		. = TRUE
 
 /obj/machinery/dna_vault/proc/check_goal()
 	if(plants.len >= plants_max && animals.len >= animals_max && dna.len >= dna_max)

@@ -203,7 +203,6 @@
 		log_debug("Multiple nodes left behind after SW grid qdel: [available_nodes.len]")
 		for(var/datum/point/P in available_nodes)
 			log_debug("([P.x],[P.y])")
-	return ..()
 
 /datum/spacewalk_grid/proc/add_available_node(datum/point/P)
 	var/hash = P.hash()

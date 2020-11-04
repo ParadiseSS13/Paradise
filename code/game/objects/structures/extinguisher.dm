@@ -40,7 +40,7 @@
 		return
 	if(!in_range(src, user))
 		return
-	if(!iscarbon(usr) && !isrobot(usr))
+	if(!iscarbon(usr))
 		return
 	playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 	opened = !opened

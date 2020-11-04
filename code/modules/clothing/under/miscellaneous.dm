@@ -88,10 +88,6 @@
 	item_state = "g_suit"
 	item_color = "officer"
 
-/obj/item/clothing/under/rank/centcom_officer/sensor
-	sensor_mode = SENSOR_COORDS
-	random_sensor = FALSE
-
 /obj/item/clothing/under/rank/centcom_commander
 	desc = "It's a jumpsuit worn by CentComm's highest-tier Commanders."
 	name = "\improper CentComm officer's jumpsuit"
@@ -842,10 +838,3 @@
 	icon_state = "cuban_suit"
 	item_state = "cuban_suit"
 	item_color = "cuban_suit"
-
-/obj/item/clothing/under/tourist_suit
-	name = "tourist outfit"
-	desc = "A light blue shirt with brown shorts. Feels oddly spooky."
-	icon_state = "tourist"
-	icon_state = "tourist"
-	item_color = "tourist"

@@ -2,7 +2,7 @@
 
 // EMP
 
-/obj/machinery/camera/emp_proof/Initialize(mapload)
+/obj/machinery/camera/emp_proof/Initialize()
 	. = ..()
 	upgradeEmpProof()
 
@@ -11,23 +11,19 @@
 /obj/machinery/camera/xray
 	icon_state = "xraycam" // Thanks to Krutchen for the icons.
 
-/obj/machinery/camera/xray/Initialize(mapload)
+/obj/machinery/camera/xray/Initialize()
 	. = ..()
 	upgradeXRay()
 
 // MOTION
-/obj/machinery/camera/motion
-	name = "motion-sensitive security camera"
 
-/obj/machinery/camera/motion/Initialize(mapload)
+/obj/machinery/camera/motion/Initialize()
 	. = ..()
 	upgradeMotion()
 
 // ALL UPGRADES
-/obj/machinery/camera/all
-	icon_state = "xraycamera" //mapping icon.
 
-/obj/machinery/camera/all/Initialize(mapload)
+/obj/machinery/camera/all/Initialize()
 	. = ..()
 	upgradeEmpProof()
 	upgradeXRay()
@@ -82,10 +78,6 @@
 
 // If you are upgrading Motion, and it isn't in the camera's New(), add it to the machines list.
 /obj/machinery/camera/proc/upgradeMotion()
-	if(isMotion())
-		return
-	if(name == initial(name))
-		name = "motion-sensitive security camera"
 	assembly.upgrades.Add(new /obj/item/assembly/prox_sensor(assembly))
 	setPowerUsage()
 	// Add it to machines that process

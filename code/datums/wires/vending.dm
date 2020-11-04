@@ -1,21 +1,35 @@
 /datum/wires/vending
 	holder_type = /obj/machinery/vending
 	wire_count = 4
-	window_y = 112
-	window_x = 350
-	proper_name = "Vending machine"
 
-/datum/wires/vending/New(atom/_holder)
-	wires = list(WIRE_THROW_ITEM, WIRE_IDSCAN, WIRE_ELECTRIFY, WIRE_CONTRABAND)
-	return ..()
+#define VENDING_WIRE_THROW 1
+#define VENDING_WIRE_CONTRABAND 2 
+#define VENDING_WIRE_ELECTRIFY 4
+#define VENDING_WIRE_IDSCAN 8
 
-/datum/wires/vending/interactable(mob/user)
+/datum/wires/vending/GetWireName(index)
+	switch(index)
+		if(VENDING_WIRE_THROW)
+			return "Item Throw"
+
+		if(VENDING_WIRE_CONTRABAND)
+			return "Contraband"
+
+		if(VENDING_WIRE_ELECTRIFY)
+			return "Electrification"
+
+		if(VENDING_WIRE_IDSCAN)
+			return "ID Scan"
+
+/datum/wires/vending/CanUse(mob/living/L)
 	var/obj/machinery/vending/V = holder
-	if(!istype(user, /mob/living/silicon) && V.seconds_electrified && V.shock(user, 100))
-		return FALSE
+	if(!istype(L, /mob/living/silicon))
+		if(V.seconds_electrified)
+			if(V.shock(L, 100))
+				return 0
 	if(V.panel_open)
-		return TRUE
-	return FALSE
+		return 1
+	return 0
 
 /datum/wires/vending/get_status()
 	. = ..()
@@ -25,31 +39,31 @@
 	. += "The green light is [V.extended_inventory ? "on" : "off"]."
 	. += "A [V.scan_id ? "purple" : "yellow"] light is on."
 
-/datum/wires/vending/on_pulse(wire)
+/datum/wires/vending/UpdatePulsed(index)
 	var/obj/machinery/vending/V = holder
-	switch(wire)
-		if(WIRE_THROW_ITEM)
+	switch(index)
+		if(VENDING_WIRE_THROW)
 			V.shoot_inventory = !V.shoot_inventory
-		if(WIRE_CONTRABAND)
+		if(VENDING_WIRE_CONTRABAND)
 			V.extended_inventory = !V.extended_inventory
-		if(WIRE_ELECTRIFY)
+		if(VENDING_WIRE_ELECTRIFY)
 			V.seconds_electrified = 30
-		if(WIRE_IDSCAN)
+		if(VENDING_WIRE_IDSCAN)
 			V.scan_id = !V.scan_id
 	..()
 
-/datum/wires/vending/on_cut(wire, mend)
+/datum/wires/vending/UpdateCut(index, mended)
 	var/obj/machinery/vending/V = holder
-	switch(wire)
-		if(WIRE_THROW_ITEM)
-			V.shoot_inventory = !mend
-		if(WIRE_CONTRABAND)
+	switch(index)
+		if(VENDING_WIRE_THROW)
+			V.shoot_inventory = !mended
+		if(VENDING_WIRE_CONTRABAND)
 			V.extended_inventory = FALSE
-		if(WIRE_ELECTRIFY)
-			if(mend)
+		if(VENDING_WIRE_ELECTRIFY)
+			if(mended)
 				V.seconds_electrified = 0
 			else
 				V.seconds_electrified = -1
-		if(WIRE_IDSCAN)
-			V.scan_id = TRUE
+		if(VENDING_WIRE_IDSCAN)
+			V.scan_id = 1
 	..()

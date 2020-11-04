@@ -220,7 +220,6 @@
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/minerals/New()
-	. = ..()
 	if(loot && loot.len)
 		for(var/i = lootcount, i > 0, i--)
 			if(!loot.len)
@@ -346,7 +345,6 @@
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/vehicle/New()
-	. = ..()
 	if(!loot.len)
 		return
 	var/lootspawn = pickweight(loot)

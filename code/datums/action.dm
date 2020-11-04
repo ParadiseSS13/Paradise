@@ -9,6 +9,7 @@
 	var/desc = null
 	var/obj/target = null
 	var/check_flags = 0
+	var/processing = 0
 	var/obj/screen/movable/action_button/button = null
 	var/button_icon = 'icons/mob/actions/actions.dmi'
 	var/background_icon_state = "bg_default"
@@ -58,65 +59,51 @@
 
 /datum/action/proc/Trigger()
 	if(!IsAvailable())
-		return FALSE
-	return TRUE
+		return 0
+	return 1
 
 /datum/action/proc/Process()
 	return
 
 /datum/action/proc/IsAvailable()// returns 1 if all checks pass
 	if(!owner)
-		return FALSE
+		return 0
 	if(check_flags & AB_CHECK_RESTRAINED)
 		if(owner.restrained())
-			return FALSE
+			return 0
 	if(check_flags & AB_CHECK_STUNNED)
 		if(owner.stunned || owner.IsWeakened())
-			return FALSE
+			return 0
 	if(check_flags & AB_CHECK_LYING)
 		if(owner.lying)
-			return FALSE
+			return 0
 	if(check_flags & AB_CHECK_CONSCIOUS)
 		if(owner.stat)
-			return FALSE
-	return TRUE
+			return 0
+	return 1
 
 /datum/action/proc/UpdateButtonIcon()
 	if(button)
-		if(owner && owner.client && background_icon_state == "bg_default") // If it's a default action background, apply the custom HUD style
-			button.alpha = owner.client.prefs.UI_style_alpha
-			button.color = owner.client.prefs.UI_style_color
-			button.icon = ui_style2icon(owner.client.prefs.UI_style)
-			button.icon_state = "template"
-		else
-			button.icon = button_icon
-			button.icon_state = background_icon_state
+		button.icon = button_icon
+		button.icon_state = background_icon_state
 		button.desc = desc
 
 		ApplyIcon(button)
 
-		// If the action isn't available, darken the button
 		if(!IsAvailable())
-			apply_unavailable_effect()
+			button.color = rgb(128,0,0,128)
 		else
-			return TRUE
-
-/datum/action/proc/apply_unavailable_effect()
-	var/image/img = image('icons/mob/screen_white.dmi', icon_state = "template")
-	img.alpha = 200
-	img.appearance_flags = RESET_COLOR | RESET_ALPHA
-	img.color = "#000000"
-	img.plane = FLOAT_PLANE + 1
-	button.add_overlay(img)
+			button.color = rgb(255,255,255,255)
+			return 1
 
 /datum/action/proc/ApplyIcon(obj/screen/movable/action_button/current_button)
-	current_button.cut_overlays()
+	current_button.overlays.Cut()
 	if(icon_icon && button_icon_state)
-		var/image/img = image(icon_icon, current_button, button_icon_state)
-		img.appearance_flags = RESET_COLOR | RESET_ALPHA
+		var/image/img
+		img = image(icon_icon, current_button, button_icon_state)
 		img.pixel_x = 0
 		img.pixel_y = 0
-		current_button.add_overlay(img)
+		current_button.overlays += img
 
 //Presets for item actions
 /datum/action/item_action
@@ -139,27 +126,25 @@
 
 /datum/action/item_action/Trigger(attack_self = TRUE) //Maybe we don't want to click the thing itself
 	if(!..())
-		return FALSE
+		return 0
 	if(target && attack_self)
 		var/obj/item/I = target
 		I.ui_action_click(owner, type)
-	return TRUE
+	return 1
 
 /datum/action/item_action/ApplyIcon(obj/screen/movable/action_button/current_button)
 	if(use_itemicon)
+		current_button.overlays.Cut()
 		if(target)
 			var/obj/item/I = target
 			var/old_layer = I.layer
 			var/old_plane = I.plane
-			var/old_appearance_flags = I.appearance_flags
 			I.layer = FLOAT_LAYER //AAAH
 			I.plane = FLOAT_PLANE //^ what that guy said
-			I.appearance_flags |= RESET_COLOR | RESET_ALPHA
 			current_button.cut_overlays()
 			current_button.add_overlay(I)
 			I.layer = old_layer
 			I.plane = old_plane
-			I.appearance_flags = old_appearance_flags
 	else
 		..()
 /datum/action/item_action/toggle_light
@@ -176,14 +161,6 @@
 
 /datum/action/item_action/print_report
 	name = "Print Report"
-
-/datum/action/item_action/print_forensic_report
-	name = "Print Report"
-	button_icon_state = "scanner_print"
-	use_itemicon = FALSE
-
-/datum/action/item_action/clear_records
-	name = "Clear Scanner Records"
 
 /datum/action/item_action/toggle_gunlight
 	name = "Toggle Gunlight"
@@ -208,11 +185,13 @@
 		if(iscarbon(owner))
 			var/mob/living/carbon/C = owner
 			if(target == C.internal)
-				button.icon = 'icons/mob/actions/actions.dmi'
 				button.icon_state = "bg_default_on"
 
 /datum/action/item_action/toggle_mister
 	name = "Toggle Mister"
+
+/datum/action/item_action/toggle_headphones
+	name = "Toggle Headphones"
 
 /datum/action/item_action/toggle_helmet_light
 	name = "Toggle Helmet Light"
@@ -253,6 +232,19 @@
 			button.name = name
 	..()
 
+/datum/action/item_action/synthswitch
+	name = "Change Synthesizer Instrument"
+	desc = "Change the type of instrument your synthesizer is playing as."
+
+/datum/action/item_action/synthswitch/Trigger()
+	if(istype(target, /obj/item/instrument/piano_synth))
+		var/obj/item/instrument/piano_synth/synth = target
+		var/chosen = input("Choose the type of instrument you want to use", "Instrument Selection", "piano") as null|anything in synth.insTypes
+		if(!synth.insTypes[chosen])
+			return
+		return synth.changeInstrument(chosen)
+	return ..()
+
 /datum/action/item_action/vortex_recall
 	name = "Vortex Recall"
 	desc = "Recall yourself, and anyone nearby, to an attuned hierophant beacon at any time.<br>If the beacon is still attached, will detach it."
@@ -262,11 +254,8 @@
 	if(istype(target, /obj/item/hierophant_club))
 		var/obj/item/hierophant_club/H = target
 		if(H.teleporting)
-			return FALSE
+			return 0
 	return ..()
-
-/datum/action/item_action/change_headphones_song
-	name = "Change Headphones Song"
 
 /datum/action/item_action/toggle
 
@@ -362,7 +351,7 @@
 /datum/action/item_action/jetpack_stabilization/IsAvailable()
 	var/obj/item/tank/jetpack/J = target
 	if(!istype(J) || !J.on)
-		return FALSE
+		return 0
 	return ..()
 
 /datum/action/item_action/hands_free
@@ -379,7 +368,7 @@
 	if(IsAvailable())
 		owner.research_scanner = !owner.research_scanner
 		to_chat(owner, "<span class='notice'>Research analyzer is now [owner.research_scanner ? "active" : "deactivated"].</span>")
-		return TRUE
+		return 1
 
 /datum/action/item_action/toggle_research_scanner/Remove(mob/living/L)
 	if(owner)
@@ -387,10 +376,9 @@
 	..()
 
 /datum/action/item_action/toggle_research_scanner/ApplyIcon(obj/screen/movable/action_button/current_button)
-	current_button.cut_overlays()
+	current_button.overlays.Cut()
 	if(button_icon && button_icon_state)
 		var/image/img = image(button_icon, current_button, "scan_mode")
-		img.appearance_flags = RESET_COLOR | RESET_ALPHA
 		current_button.overlays += img
 
 /datum/action/item_action/instrument
@@ -422,7 +410,7 @@
 /datum/action/item_action/organ_action/IsAvailable()
 	var/obj/item/organ/internal/I = target
 	if(!I.owner)
-		return FALSE
+		return 0
 	return ..()
 
 /datum/action/item_action/organ_action/toggle
@@ -457,12 +445,12 @@
 /datum/action/item_action/accessory/IsAvailable()
 	. = ..()
 	if(!.)
-		return FALSE
+		return 0
 	if(target.loc == owner)
-		return TRUE
+		return 1
 	if(istype(target.loc, /obj/item/clothing/under) && target.loc.loc == owner)
-		return TRUE
-	return FALSE
+		return 1
+	return 0
 
 /datum/action/item_action/accessory/holster
 	name = "Holster"
@@ -475,7 +463,6 @@
 /datum/action/spell_action
 	check_flags = 0
 	background_icon_state = "bg_spell"
-	var/recharge_text_color = "#FFFFFF"
 
 /datum/action/spell_action/New(Target)
 	..()
@@ -495,45 +482,23 @@
 
 /datum/action/spell_action/Trigger()
 	if(!..())
-		return FALSE
+		return 0
 	if(target)
 		var/obj/effect/proc_holder/spell = target
 		spell.Click()
-		return TRUE
+		return 1
 
 /datum/action/spell_action/IsAvailable()
 	if(!target)
-		return FALSE
+		return 0
 	var/obj/effect/proc_holder/spell/spell = target
 
 	if(spell.special_availability_check)
-		return TRUE
+		return 1
 
 	if(owner)
 		return spell.can_cast(owner)
-	return FALSE
-
-/datum/action/spell_action/apply_unavailable_effect()
-	var/obj/effect/proc_holder/spell/S = target
-	if(!istype(S))
-		return ..()
-	var/progress = S.get_availability_percentage()
-	if(progress == 1)
-		return ..() // This means that the spell is charged but unavailable due to something else
-
-	var/alpha = 220 - 140 * progress
-
-	var/image/img = image('icons/mob/screen_white.dmi', icon_state = "template")
-	img.alpha = alpha
-	img.appearance_flags = RESET_COLOR | RESET_ALPHA
-	img.color = "#000000"
-	img.plane = FLOAT_PLANE + 1
-	button.add_overlay(img)
-	// Make a holder for the charge text
-	var/image/count_down_holder = image('icons/effects/effects.dmi', icon_state = "nothing")
-	count_down_holder.plane = FLOAT_PLANE + 1.1
-	count_down_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[round_down(progress * 100)]%</div>"
-	button.add_overlay(count_down_holder)
+	return 0
 
 /*
 /datum/action/spell_action/alien
@@ -551,16 +516,16 @@
 //Preset for general and toggled actions
 /datum/action/innate
 	check_flags = 0
-	var/active = FALSE
+	var/active = 0
 
 /datum/action/innate/Trigger()
 	if(!..())
-		return FALSE
+		return 0
 	if(!active)
 		Activate()
 	else
 		Deactivate()
-	return TRUE
+	return 1
 
 /datum/action/innate/proc/Activate()
 	return
@@ -575,7 +540,7 @@
 
 /datum/action/generic/Trigger()
 	if(!..())
-		return FALSE
+		return 0
 	if(target && procname)
 		call(target,procname)(usr)
-	return TRUE
+	return 1

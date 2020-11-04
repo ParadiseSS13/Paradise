@@ -91,9 +91,11 @@
 	return	dat
 
 /mob/living/simple_animal/bot/honkbot/proc/retaliate(mob/living/carbon/human/H)
-	threatlevel = 6
-	target = H
-	mode = BOT_HUNT
+	threatlevel = H.assess_threat(src)
+	threatlevel += 6
+	if(threatlevel >= 4)
+		target = H
+		mode = BOT_HUNT
 
 /mob/living/simple_animal/bot/honkbot/attack_hand(mob/living/carbon/human/H)
 	if(H.a_intent == INTENT_HARM)

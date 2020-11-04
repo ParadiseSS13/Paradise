@@ -15,7 +15,7 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "filingcabinet"
 	density = 1
-	anchored = TRUE
+	anchored = 1
 
 
 /obj/structure/filingcabinet/chestdrawer
@@ -30,14 +30,14 @@
 	icon_state = "tallcabinet"
 
 
-/obj/structure/filingcabinet/Initialize(mapload)
+/obj/structure/filingcabinet/Initialize()
 	..()
 	for(var/obj/item/I in loc)
 		if(istype(I, /obj/item/paper) || istype(I, /obj/item/folder) || istype(I, /obj/item/photo))
 			I.loc = src
 
 
-/obj/structure/filingcabinet/attackby(obj/item/P, mob/user, params)
+/obj/structure/filingcabinet/attackby(obj/item/P as obj, mob/user as mob, params)
 	if(istype(P, /obj/item/paper) || istype(P, /obj/item/folder) || istype(P, /obj/item/photo) || istype(P, /obj/item/paper_bundle) || istype(P, /obj/item/documents))
 		to_chat(user, "<span class='notice'>You put [P] in [src].</span>")
 		user.drop_item()
@@ -46,14 +46,14 @@
 		sleep(5)
 		icon_state = initial(icon_state)
 		updateUsrDialog()
+	else if(istype(P, /obj/item/wrench))
+		playsound(loc, P.usesound, 50, 1)
+		anchored = !anchored
+		to_chat(user, "<span class='notice'>You [anchored ? "wrench" : "unwrench"] \the [src].</span>")
 	else if(user.a_intent != INTENT_HARM)
 		to_chat(user, "<span class='warning'>You can't put [P] in [src]!</span>")
 	else
 		return ..()
-
-/obj/structure/filingcabinet/wrench_act(mob/living/user, obj/item/I)
-	. = TRUE
-	default_unfasten_wrench(user, I)
 
 /obj/structure/filingcabinet/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -62,9 +62,9 @@
 			I.forceMove(loc)
 	qdel(src)
 
-/obj/structure/filingcabinet/attack_hand(mob/user)
-	if(!length(contents))
-		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+/obj/structure/filingcabinet/attack_hand(mob/user as mob)
+	if(contents.len <= 0)
+		to_chat(user, "<span class='notice'>\The [src] is empty.</span>")
 		return
 
 	user.set_machine(src)
@@ -74,7 +74,7 @@
 	dat += "</table></center>"
 	var/datum/browser/popup = new(user, "filingcabinet", name, 350, 300)
 	popup.set_content(dat)
-	popup.open(FALSE)
+	popup.open(0)
 
 	return
 
@@ -85,8 +85,8 @@
 		..()
 
 /obj/structure/filingcabinet/attack_self_tk(mob/user)
-	if(length(contents))
-		if(prob(40 + (length(contents) * 5)))
+	if(contents.len)
+		if(prob(40 + contents.len * 5))
 			var/obj/item/I = pick(contents)
 			I.loc = loc
 			if(prob(25))
@@ -105,19 +105,20 @@
 			usr.put_in_hands(P)
 			updateUsrDialog()
 			icon_state = "[initial(icon_state)]-open"
-			sleep(5)
-			icon_state = initial(icon_state)
+			spawn(0)
+				sleep(5)
+				icon_state = initial(icon_state)
 
 
 /*
  * Security Record Cabinets
  */
 /obj/structure/filingcabinet/security
-	var/populated = FALSE
+	var/virgin = 1
 
 
 /obj/structure/filingcabinet/security/proc/populate()
-	if(!populated)
+	if(virgin)
 		for(var/datum/data/record/G in GLOB.data_core.general)
 			var/datum/data/record/S
 			for(var/datum/data/record/R in GLOB.data_core.security)
@@ -132,7 +133,7 @@
 				P.info += "[c]<BR>"
 			P.info += "</TT>"
 			P.name = "paper - '[G.fields["name"]]'"
-			populated = TRUE	//tabbing here is correct- it's possible for people to try and use it
+			virgin = 0	//tabbing here is correct- it's possible for people to try and use it
 						//before the records have been generated, so we do this inside the loop.
 
 /obj/structure/filingcabinet/security/attack_hand()
@@ -147,10 +148,10 @@
  * Medical Record Cabinets
  */
 /obj/structure/filingcabinet/medical
-	var/populated = FALSE
+	var/virgin = 1
 
 /obj/structure/filingcabinet/medical/proc/populate()
-	if(!populated)
+	if(virgin)
 		for(var/datum/data/record/G in GLOB.data_core.general)
 			var/datum/data/record/M
 			for(var/datum/data/record/R in GLOB.data_core.medical)
@@ -165,7 +166,7 @@
 				P.info += "[c]<BR>"
 			P.info += "</TT>"
 			P.name = "paper - '[G.fields["name"]]'"
-			populated = TRUE	//tabbing here is correct- it's possible for people to try and use it
+			virgin = 0	//tabbing here is correct- it's possible for people to try and use it
 						//before the records have been generated, so we do this inside the loop.
 
 /obj/structure/filingcabinet/medical/attack_hand()
@@ -183,9 +184,9 @@
 GLOBAL_LIST_EMPTY(employmentCabinets)
 
 /obj/structure/filingcabinet/employment
-	var/cooldown = FALSE // Only used for devils
+	var/cooldown = 0
 	icon_state = "employmentcabinet"
-	var/populated = FALSE
+	var/virgin = 1
 
 /obj/structure/filingcabinet/employment/New()
 	GLOB.employmentCabinets += src
@@ -209,17 +210,23 @@ GLOBAL_LIST_EMPTY(employmentCabinets)
 	new /obj/item/paper/contract/employment(src, employee)
 
 /obj/structure/filingcabinet/employment/attack_hand(mob/user)
-	if(cooldown)
-		to_chat(user, "<span class='warning'>[src] is jammed, give it a few seconds.</span>")
-	else
-		if(!populated)
+	if(!cooldown)
+		if(virgin)
 			fillCurrent()
-			populated = TRUE
-		if(user.mind.special_role != "devil")
-			return ..()
+			virgin = 0
+		cooldown = 1
+		..()
+		sleep(100) // prevents the devil from just instantly emptying the cabinet, ensuring an easy win.
+		cooldown = 0
+	else
+		to_chat(user, "<span class='warning'>The [src] is jammed, give it a few seconds.</span>")
 
-		else
-			cooldown = TRUE
-			..()
-			sleep(10 SECONDS) // prevents the devil from just instantly emptying the cabinet, ensuring an easy win.
-			cooldown = FALSE
+/obj/structure/filingcabinet/employment/attackby(obj/item/P, mob/user, params)
+	if(istype(P, /obj/item/wrench))
+		to_chat(user, "<span class='notice'>You begin to [anchored ? "wrench" : "unwrench"] [src].</span>")
+		if (do_after(user,300,user))
+			playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
+			anchored = !anchored
+			to_chat(user, "<span class='notice'>You successfully [anchored ? "wrench" : "unwrench"] [src].</span>")
+	else
+		return ..()

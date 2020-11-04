@@ -80,7 +80,7 @@
 			user.mind.spell_list.Remove(aspell)
 			qdel(aspell)
 			if(S) //If we created a temporary spell above, delete it now.
-				QDEL_NULL(S)
+				qdel(S)
 			return cost * (spell_levels + 1)
 	return -1
 
@@ -132,7 +132,7 @@
 
 /datum/spellbook_entry/horseman
 	name = "Curse of the Horseman"
-	spell_type = /obj/effect/proc_holder/spell/targeted/click/horsemask
+	spell_type = /obj/effect/proc_holder/spell/targeted/horsemask
 	log_name = "HH"
 	category = "Offensive"
 
@@ -144,7 +144,7 @@
 
 /datum/spellbook_entry/fireball
 	name = "Fireball"
-	spell_type = /obj/effect/proc_holder/spell/targeted/click/fireball
+	spell_type = /obj/effect/proc_holder/spell/fireball
 	log_name = "FB"
 	category = "Offensive"
 
@@ -257,7 +257,7 @@
 
 /datum/spellbook_entry/mindswap
 	name = "Mindswap"
-	spell_type = /obj/effect/proc_holder/spell/targeted/click/mind_transfer
+	spell_type = /obj/effect/proc_holder/spell/targeted/mind_transfer
 	log_name = "MT"
 	category = "Mobility"
 
@@ -877,7 +877,7 @@
 	return
 
 /obj/item/spellbook/oneuse/fireball
-	spell = /obj/effect/proc_holder/spell/targeted/click/fireball
+	spell = /obj/effect/proc_holder/spell/fireball
 	spellname = "fireball"
 	icon_state = "bookfireball"
 	desc = "This book feels warm to the touch."
@@ -910,7 +910,7 @@
 	user.EyeBlind(10)
 
 /obj/item/spellbook/oneuse/mindswap
-	spell = /obj/effect/proc_holder/spell/targeted/click/mind_transfer
+	spell = /obj/effect/proc_holder/spell/targeted/mind_transfer
 	spellname = "mindswap"
 	icon_state = "bookmindswap"
 	desc = "This book's cover is pristine, though its pages look ragged and torn."
@@ -934,8 +934,8 @@
 		to_chat(user, "<span class='notice'>You stare at the book some more, but there doesn't seem to be anything else to learn...</span>")
 		return
 
-	var/obj/effect/proc_holder/spell/targeted/click/mind_transfer/swapper = new
-	swapper.cast(user, stored_swap)
+	var/obj/effect/proc_holder/spell/targeted/mind_transfer/swapper = new
+	swapper.cast(user, stored_swap, 1)
 
 	to_chat(stored_swap, "<span class='warning'>You're suddenly somewhere else... and someone else?!</span>")
 	to_chat(user, "<span class='warning'>Suddenly you're staring at [src] again... where are you, who are you?!</span>")
@@ -966,7 +966,7 @@
 	user.Weaken(20)
 
 /obj/item/spellbook/oneuse/horsemask
-	spell = /obj/effect/proc_holder/spell/targeted/click/horsemask
+	spell = /obj/effect/proc_holder/spell/targeted/horsemask
 	spellname = "horses"
 	icon_state = "bookhorses"
 	desc = "This book is more horse than your mind has room for."

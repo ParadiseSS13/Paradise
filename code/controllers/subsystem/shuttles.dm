@@ -14,9 +14,9 @@ SUBSYSTEM_DEF(shuttle)
 		//emergency shuttle stuff
 	var/obj/docking_port/mobile/emergency/emergency
 	var/obj/docking_port/mobile/emergency/backup/backup_shuttle
-	var/emergencyCallTime = SHUTTLE_CALLTIME	//time taken for emergency shuttle to reach the station when called (in deciseconds)
-	var/emergencyDockTime = SHUTTLE_DOCKTIME	//time taken for emergency shuttle to leave again once it has docked (in deciseconds)
-	var/emergencyEscapeTime = SHUTTLE_ESCAPETIME	//time taken for emergency shuttle to reach a safe distance after leaving station (in deciseconds)
+	var/emergencyCallTime = 6000	//time taken for emergency shuttle to reach the station when called (in deciseconds)
+	var/emergencyDockTime = 1800	//time taken for emergency shuttle to leave again once it has docked (in deciseconds)
+	var/emergencyEscapeTime = 1200	//time taken for emergency shuttle to reach a safe distance after leaving station (in deciseconds)
 	var/emergency_sec_level_time = 0 // time sec level was last raised to red or higher
 	var/area/emergencyLastCallLoc
 	var/emergencyNoEscape
@@ -31,7 +31,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/points_per_intel = 250			//points gained per intel returned
 	var/points_per_plasma = 5			//points gained per plasma returned
 	var/points_per_design = 25			//points gained per research design returned
-	var/centcom_message = null			//Remarks from Centcom on how well you checked the last order.
+	var/centcom_message = ""			//Remarks from Centcom on how well you checked the last order.
 	var/list/discoveredPlants = list()	//Typepaths for unusual plants we've already sent CentComm, associated with their potencies
 	var/list/techLevels = list()
 	var/list/researchDesigns = list()
@@ -60,8 +60,6 @@ SUBSYSTEM_DEF(shuttle)
 		if(P.name == "HEADER") continue		// To filter out group headers
 		supply_packs["[P.type]"] = P
 	initial_move()
-
-	centcom_message = "<center>---[station_time_timestamp()]---</center><br>Remember to stamp and send back the supply manifests.<hr>"
 
 	return ..()
 
@@ -95,11 +93,6 @@ SUBSYSTEM_DEF(shuttle)
 			return S
 	WARNING("couldn't find dock with id: [id]")
 
-/datum/controller/subsystem/shuttle/proc/secondsToRefuel()
-	var/elapsed = world.time - SSticker.round_start_time
-	var/remaining = round((config.shuttle_refuel_delay - elapsed) / 10)
-	return remaining > 0 ? remaining : 0
-
 /datum/controller/subsystem/shuttle/proc/requestEvac(mob/user, call_reason)
 	if(!emergency)
 		WARNING("requestEvac(): There is no emergency shuttle, but the shuttle was called. Using the backup shuttle instead.")
@@ -114,7 +107,7 @@ SUBSYSTEM_DEF(shuttle)
 			return
 		emergency = backup_shuttle
 
-	if(secondsToRefuel())
+	if(world.time - SSticker.round_start_time < config.shuttle_refuel_delay)
 		to_chat(user, "The emergency shuttle is refueling. Please wait another [abs(round(((world.time - SSticker.round_start_time) - config.shuttle_refuel_delay)/600))] minutes before trying again.")
 		return
 
@@ -138,7 +131,7 @@ SUBSYSTEM_DEF(shuttle)
 	call_reason = trim(html_encode(call_reason))
 
 	if(length(call_reason) < CALL_SHUTTLE_REASON_LENGTH)
-		to_chat(user, "Reason is too short. [CALL_SHUTTLE_REASON_LENGTH] character minimum.")
+		to_chat(user, "You must provide a reason.")
 		return
 
 	var/area/signal_origin = get_area(user)
@@ -199,7 +192,7 @@ SUBSYSTEM_DEF(shuttle)
 			var/obj/machinery/computer/communications/C = thing
 			if(C.stat & BROKEN)
 				continue
-		else if(istype(thing, /obj/item/circuitboard/communications))
+		else if(istype(thing, /datum/computer_file/program/comm) || istype(thing, /obj/item/circuitboard/communications))
 			continue
 
 		var/turf/T = get_turf(thing)
@@ -254,7 +247,7 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/proc/generateSupplyOrder(packId, _orderedby, _orderedbyRank, _comment, _crates)
 	if(!packId)
 		return
-	var/datum/supply_packs/P = locateUID(packId)
+	var/datum/supply_packs/P = supply_packs["[packId]"]
 	if(!P)
 		return
 

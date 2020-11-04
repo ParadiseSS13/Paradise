@@ -218,38 +218,37 @@
 ////////////////
 // MOVE SPEED //
 ////////////////
-#define ADD_SLOWDOWN(__value) if(!ignoreslow || __value < 0) . += __value
 
 /datum/species/proc/movement_delay(mob/living/carbon/human/H)
 	. = 0	//We start at 0.
-	if(H.status_flags & IGNORE_SPEED_CHANGES)
-		return .
+	var/flight = 0	//Check for flight and flying items
+	var/ignoreslow = 0
+	var/gravity = 0
+
+	if(H.flying)
+		flight = 1
+
+	if((H.status_flags & IGNORESLOWDOWN) || (RUN in H.mutations))
+		ignoreslow = 1
 
 	if(has_gravity(H))
-		if(H.status_flags & GOTTAGOFAST)
-			. -= 1
+		gravity = 1
 
-		var/ignoreslow = FALSE
-		if((H.status_flags & IGNORESLOWDOWN) || (RUN in H.mutations))
-			ignoreslow = TRUE
-
-		var/flight = H.flying	//Check for flight and flying items
-
-		ADD_SLOWDOWN(speed_mod)
+	if(!ignoreslow && gravity)
+		if(speed_mod)
+			. = speed_mod
 
 		if(H.wear_suit)
-			ADD_SLOWDOWN(H.wear_suit.slowdown)
-		if(!H.buckled && H.shoes)
-			ADD_SLOWDOWN(H.shoes.slowdown)
+			. += H.wear_suit.slowdown
+		if(!H.buckled)
+			if(H.shoes)
+				. += H.shoes.slowdown
 		if(H.back)
-			ADD_SLOWDOWN(H.back.slowdown)
+			. += H.back.slowdown
 		if(H.l_hand && (H.l_hand.flags & HANDSLOW))
-			ADD_SLOWDOWN(H.l_hand.slowdown)
+			. += H.l_hand.slowdown
 		if(H.r_hand && (H.r_hand.flags & HANDSLOW))
-			ADD_SLOWDOWN(H.r_hand.slowdown)
-
-		if(ignoreslow)
-			return . // Only malusses after here
+			. += H.r_hand.slowdown
 
 		var/health_deficiency = max(H.maxHealth - H.health, H.staminaloss)
 		var/hungry = (500 - H.nutrition)/5 // So overeat would be 100 and default level would be 80
@@ -271,9 +270,9 @@
 		if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
 			. += (BODYTEMP_COLD_DAMAGE_LIMIT - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
 
+		if(H.status_flags & GOTTAGOFAST)
+			. -= 1
 	return .
-
-#undef ADD_SLOWDOWN
 
 /datum/species/proc/on_species_gain(mob/living/carbon/human/H) //Handles anything not already covered by basic species assignment.
 	for(var/slot_id in no_equip)
@@ -372,7 +371,7 @@
 	return
 
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(attacker_style && attacker_style.help_act(user, target) == TRUE)//adminfu only...
+	if(attacker_style && attacker_style.help_act(user, target))//adminfu only...
 		return TRUE
 	if(target.health >= HEALTH_THRESHOLD_CRIT && !(target.status_flags & FAKEDEATH))
 		target.help_shake_act(user)
@@ -384,7 +383,7 @@
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>")
 		return FALSE
-	if(attacker_style && attacker_style.grab_act(user, target) == TRUE)
+	if(attacker_style && attacker_style.grab_act(user, target))
 		return TRUE
 	else
 		target.grabbedby(user)
@@ -413,7 +412,7 @@
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
 		return FALSE
-	if(attacker_style && attacker_style.harm_act(user, target) == TRUE)
+	if(attacker_style && attacker_style.harm_act(user, target))
 		return TRUE
 	else
 		var/datum/unarmed_attack/attack = user.dna.species.unarmed
@@ -461,7 +460,7 @@
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
 		return FALSE
-	if(attacker_style && attacker_style.disarm_act(user, target) == TRUE)
+	if(attacker_style && attacker_style.disarm_act(user, target))
 		return TRUE
 	else
 		add_attack_logs(user, target, "Disarmed", ATKLOG_ALL)
@@ -517,7 +516,7 @@
 	playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 	target.visible_message("<span class='danger'>[user] attempted to disarm [target]!</span>")
 
-/datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style) //Handles any species-specific attackhand events.
+/datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style = M.martial_art) //Handles any species-specific attackhand events.
 	if(!istype(M))
 		return
 
@@ -528,9 +527,6 @@
 		if(!temp || !temp.is_usable())
 			to_chat(M, "<span class='warning'>You can't use your hand.</span>")
 			return
-
-	if(M.mind)
-		attacker_style = M.mind.martial_art
 
 	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
 		add_attack_logs(M, H, "Melee attacked with fists (miss/block)")
@@ -860,18 +856,3 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
 	if(istype(ears) && !ears.deaf)
 		. = TRUE
-
-/**
-  * Species-specific runechat colour handler
-  *
-  * Checks the species datum flags and returns the appropriate colour
-  * Can be overridden on subtypes to short-circuit these checks (Example: Grey colour is eye colour)
-  * Arguments:
-  * * H - The human who this DNA belongs to
-  */
-/datum/species/proc/get_species_runechat_color(mob/living/carbon/human/H)
-	if(bodyflags & HAS_SKIN_COLOR)
-		return H.skin_colour
-	else
-		var/obj/item/organ/external/head/HD = H.get_organ("head")
-		return HD.hair_colour

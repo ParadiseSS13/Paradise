@@ -6,7 +6,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	flags = CONDUCT
-	can_holster = FALSE
 	slot_flags = SLOT_BACK
 	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot
@@ -70,6 +69,9 @@
 	. = ..()
 	if(chambered)
 		. += "A [chambered.BB ? "live" : "spent"] one is in the chamber."
+
+/obj/item/gun/projectile/shotgun/isHandgun() //You cannot, in fact, holster a shotgun.
+	return 0
 
 /obj/item/gun/projectile/shotgun/lethal
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/lethal
@@ -195,8 +197,6 @@
 	..()
 	post_sawoff()
 
-/obj/item/gun/projectile/shotgun/riot/buckshot	//comes pre-loaded with buckshot rather than rubber
-	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot/buckshot
 
 
 ///////////////////////
@@ -258,7 +258,7 @@
 	..()
 	guns_left = 0
 
-/obj/item/gun/projectile/shotgun/boltaction/enchanted/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/shoot_live_shot(mob/living/user as mob|obj, pointblank = 0, mob/pbtarget = null, message = 1)
 	..()
 	if(guns_left)
 		var/obj/item/gun/projectile/shotgun/boltaction/enchanted/GUN = new
@@ -276,7 +276,7 @@
 
 /obj/item/gun/projectile/shotgun/automatic
 
-/obj/item/gun/projectile/shotgun/automatic/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
+/obj/item/gun/projectile/shotgun/automatic/shoot_live_shot(mob/living/user as mob|obj)
 	..()
 	pump(user)
 

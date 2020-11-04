@@ -1,0 +1,34 @@
+<!--
+Title: Slot Machine UI
+Used In File(s): /code/game/machinery/slotmachine.dm
+-->
+{{if data.money != null}}
+	<div class="line">
+		{{:data.plays}} players have tried their luck today!
+	</div>
+	<div class="line">
+		<div class="statusLabel">Credits Remaining:</div>
+		{{:helper.string("<div class='statusValue {0}'>{1}</div>", data.money >= 10 ? "" : "bad", helper.smoothRound(data.money))}}
+	</div>
+	<div class="item">
+		<div class="statusLabel">
+			Ten credits to play!
+		</div>
+		<div class="statusValue">
+			{{:helper.link('SPIN!', 'refresh', {'ops' : 1}, data.money >= 10 && !data.working ? null : 'disabled')}}
+		</div>
+	</div>
+	{{if data.result}}
+		<div class="line {{:data.resultlvl}}">
+			{{:data.result}}
+		</div>
+	{{/if}}
+	{{if data.working}}
+		<div class="notice">Spinning!</div>
+	{{/if}}
+{{else}}
+	<div class="notice">
+		Could not scan your card or could not find account!<br>
+		Please wear or hold your ID and try again.	
+	</div>
+{{/if}}

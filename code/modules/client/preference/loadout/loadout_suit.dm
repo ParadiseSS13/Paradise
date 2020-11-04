@@ -208,11 +208,3 @@
 	display_name = "mantle, research director"
 	path = /obj/item/clothing/suit/mantle/labcoat
 	allowed_roles = list("Research Director")
-
-//Robes!
-
-/datum/gear/suit/witch
-	display_name = "witch robes"
-	path = /obj/item/clothing/suit/wizrobe/marisa/fake
-
-

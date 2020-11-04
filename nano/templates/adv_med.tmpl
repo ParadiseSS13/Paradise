@@ -1,0 +1,231 @@
+<!--
+Title: Body Scanner UI
+Used In File(s): \code\game\machinery\adv_med.dm
+ -->
+
+{{if !data.occupied}}
+	<h3>No occupant detected.</h3>
+{{else}}
+	<h4><b>Occupant Data:</b></h4>
+	<div class="item">
+		<div class="itemLabelNarrow">
+			Name:
+		</div>
+		<div class="itemContent">
+			{{:data.occupant.name}}
+		</div>
+	</div>
+	<div class="item">
+		<div class="itemLabelNarrow">
+			Health:
+		</div>
+		{{:helper.displayBar(data.occupant.health, -100, 100, (data.occupant.health >= 50) ? 'good' : (data.occupant.health >= 0) ? 'average' : 'bad')}}
+			<div class="itemContent" style="width: 60px">
+				{{:helper.smoothRound(data.occupant.health)}}%
+			</div>
+	</div>
+	<div class="item">
+		<div class="itemLabelNarrow">
+			Status:
+		</div>
+		<div class="itemContent">
+			{{if data.occupant.stat==0}}
+				<span class="good"> Alive </span>
+			{{else data.occupant.stat==1}}
+				<span class="average"> Critical </span>
+			{{else}}
+				<span class="bad"> Dead </span>
+			{{/if}}
+		</div>
+	</div>
+
+	<div class="item">
+		<div class="itemLabelNarrow">
+			Temperature:
+		</div>
+		<div class="itemContent">
+			{{:helper.smoothRound(data.occupant.bodyTempC)}}&deg;C, {{:helper.smoothRound(data.occupant.bodyTempF)}}&deg;F
+		</div>
+	</div>
+	{{if data.occupant.hasBorer}}
+		<span class="bad">
+			Large growth detected in frontal lobe, possibly cancerous. Surgical removal is recommended. </span> <br>
+	{{/if}}
+	{{if data.occupant.blind}}
+		<span class="average">Cataracts detected.</span><br>
+	{{/if}}
+	{{if data.occupant.colourblind}}
+		<span class="average">Photoreceptor abnormalities detected.</span><br>
+	{{/if}}
+	{{if data.occupant.nearsighted}}
+		<span class="average">Retinal misalignment detected.</span> <br>
+	{{/if}}
+
+	<br>
+	{{:helper.link('Print', 'print', {'print_p' : 1, 'name' : data.occupant.name})}}
+	{{:helper.link('Eject Occupant', 'arrow-circle-o-down', {'ejectify' : 1}, data.occupied ? null : 'disabled')}}
+	<br> <br>
+
+	<b>Damage: </b>
+	<table> <tbody>
+			<tr>
+				<td> Brute Damage: </td>
+				<td> Brain Damage: </td>
+			</tr>
+			<tr>
+				<td> {{:helper.displayBar(data.occupant.bruteLoss, 0, data.occupant.maxHealth+100, (data.occupant.bruteLoss < 15) ? 'notgood' : (data.occupant.bruteLoss < 40) ? 'average' : 'bad', data.occupant.bruteLoss) }} </td>
+				<td> {{:helper.displayBar(data.occupant.brainLoss, 0, data.occupant.maxHealth+100, (data.occupant.brainLoss < 15) ? 'notgood' : (data.occupant.brainLoss < 40) ? 'average' : 'bad', data.occupant.brainLoss)}}  </td>
+			</tr>
+			<tr>
+				<td> Resp. Damage: </td>
+				<td> Radiation Level: </td>
+			</tr>
+			<tr>
+				<td> {{:helper.displayBar(data.occupant.oxyLoss, 0, data.occupant.maxHealth+100, (data.occupant.oxyLoss < 15) ? 'notgood' : (data.occupant.oxyLoss < 40) ? 'average' : 'bad', data.occupant.oxyLoss)}} </td>
+				<td> {{:helper.displayBar(data.occupant.radLoss, 0, data.occupant.maxHealth+100, (data.occupant.radLoss < 15) ? 'notgood' : (data.occupant.radLoss < 40) ? 'average' : 'bad', data.occupant.radLoss)}}  </td>
+			</tr>
+			<tr>
+				<td> Toxin Damage: </td>
+				<td> Genetic Damage: </td>
+			</tr>
+			<tr>
+				<td> {{:helper.displayBar(data.occupant.toxLoss, 0, data.occupant.maxHealth+100, (data.occupant.toxLoss < 15) ? 'notgood' : (data.occupant.toxLoss < 40) ? 'average' : 'bad', data.occupant.toxLoss)}} </td>
+				<td> {{:helper.displayBar(data.occupant.cloneLoss, 0, data.occupant.maxHealth+100, (data.occupant.cloneLoss < 15) ? 'notgood' : (data.occupant.cloneLoss < 40) ? 'average' : 'bad', data.occupant.cloneLoss)}} </td>
+			</tr>
+			<tr>
+				<td> Burn Severity: </td>
+				<td> Paralysis %: ({{:helper.smoothRound(data.occupant.paralysisSeconds)}} seconds left) </td>
+			</tr>
+			<tr>
+				<td> {{:helper.displayBar(data.occupant.fireLoss, 0, data.occupant.maxHealth+100, (data.occupant.fireLoss < 15) ? 'notgood' : (data.occupant.fireLoss < 40) ? 'average' : 'bad', data.occupant.fireLoss)}} </td>
+				<td> {{:helper.displayBar(data.occupant.paralysis, 0, 100, (data.occupant.paralysis < 25) ? 'notgood' : (data.occupant.paralysis < 50) ? 'average' : 'bad', data.occupant.paralysis)}} </td>
+			</tr>
+		</tbody>
+	</table>
+	{{if data.occupant.blood.hasBlood}}
+		<br>
+		<b>Blood:</b>
+		<div class="line">
+			<div class="statusLabel">Pulse:</div> <div class="statusValue">{{:data.occupant.blood.pulse}} bpm</div>
+		</div>
+		<div class="line">
+			<div class="statusLabel">Blood Level:</div>
+			{{:helper.displayBar(data.occupant.blood.bloodLevel, 0, data.occupant.blood.bloodMax, (data.occupant.blood.percent <= 60) ? 'bad' : (data.occupant.blood.percent <= 90) ? 'average' : 'good' )}}
+			<div class="statusValue"> {{:helper.smoothRound(data.occupant.blood.percent)}}%, {{:helper.smoothRound(data.occupant.blood.bloodLevel)}}cl </div>
+		</div>
+	{{/if}}
+	<br>
+	{{if data.occupant.hasVirus}}
+		<span class="bad">
+			Viral pathogen detected in blood stream.
+		</span> <br>
+	{{/if}}
+	{{if data.occupant.implant_len}}
+		<br>
+		<b>Implants</b>
+		<table style="width: 30%">
+		<tbody class="striped">
+			{{for data.occupant.implant}}
+				<tr><td>{{:value.name}}</td></tr>
+			{{/for}}
+		</tbody>
+		</table>
+		<br>
+	{{/if}}
+	<b>External Organs</b>
+	<table> <thead>
+			<tr>
+				<th style="width: 25%"> Name </th>
+				<th style='width: 15%'> Total damage </th>
+				<th style="width: 15%"> Brute damage </th>
+				<th style="width: 15%"> Burn damage </th>
+				<th style="width: 30%"> Injuries </th>
+			</tr>
+		</thead>
+		<tbody class="striped">
+			{{for data.occupant.extOrgan}}
+				<tr>
+					<td> {{:value.name}} </td>
+					<td> {{:helper.displayBar(value.totalLoss, 0, value.maxHealth, (value.totalLoss < value.bruised) ? 'notgood' : (value.totalLoss < value.broken) ? 'average' : 'bad', value.totalLoss) }} </td>
+					<td> {{if value.bruteLoss> 0}} <span class='average'> {{else}} <span> {{/if}} {{:helper.smoothRound(value.bruteLoss)}} </span> </td>
+					<td> {{if value.fireLoss> 0}} <span class='average'> {{else}} <span> {{/if}} {{:helper.smoothRound(value.fireLoss)}} </span> 	</td>
+					<td>
+						<span class='average'>
+						{{if value.internalBleeding}} internal bleeding <br> {{/if}}
+						{{if value.lungRuptured}} lung ruptured <br> {{/if}}
+						{{if value.status.broken}} {{:value.status.broken}} <br> {{/if}}
+						{{if value.germ_level > 100}}
+							{{if value.germ_level < 300}}
+								mild infection <br>
+							{{else value.germ_level < 400}}
+								mild infection+ <br>
+							{{else value.germ_level < 500}}
+								mild infection++ <br>
+							{{else value.germ_level < 700}}
+								acute infection <br>
+							{{else value.germ_level < 800}}
+								acute infection+ <br>
+							{{else value.germ_level < 900}}
+								acute infection++ <br>
+							{{else value.germ_level >= 900}}
+								septic <br>
+							{{/if}}
+						{{/if}}
+						{{if value.open}}	open incision <br> {{/if}}
+						</span>
+						{{if value.status.splinted}} splinted <br> {{/if}}
+						{{if value.status.robotic}} robotic <br> {{/if}}
+						{{if value.status.dead}} <span class='bad'>DEAD</span> <br {{/if}}
+						{{if value.shrapnel_len}}
+							{{for value.shrapnel : shrapValue:shrapindex}}
+								{{:shrapValue.known ? shrapValue.name : "unknown object"}} <br>
+							{{/for}}
+						{{/if}}
+					</td>
+				</tr>
+			{{/for}}
+		</tbody>
+	</table>
+	<br>
+	<b>Internal Organs</b>
+	<table>	<thead>
+			<tr>
+				<th width=25%> Name </th>
+				<th width=35%> Brute damage </th>
+				<th widht=40%> Injuries </th>
+			</tr>
+		</thead>
+		<tbody class="striped">
+			{{for data.occupant.intOrgan}}
+				<tr>
+					<td> {{:value.name}} <br> </td>
+					<td> {{:helper.displayBar(value.damage, 0, value.maxHealth, (value.damage < value.bruised) ? 'notgood' : (value.damage < value.broken) ? 'average' : 'bad', value.damage) }} </td>
+					<td>
+						<span class="average">
+							{{if value.germ_level > 100}}
+								{{if value.germ_level < 300}}
+									mild infection <br>
+								{{else value.germ_level < 400}}
+									mild infection+ <br>
+								{{else value.germ_level < 500}}
+									mild infection++ <br>
+								{{else value.germ_level < 700}}
+									acute Infection <br>
+								{{else value.germ_level < 800}}
+									acute Infection+ <br>
+								{{else value.germ_level < 900}}
+									acute Infection++ <br>
+								{{else value.germ_level >= 900}}
+									septic <br>
+								{{/if}}
+							{{/if}}
+						</span>
+						{{if value.robotic == 1}} robotic <br> {{/if}}
+						{{if value.robotic == 2}} assisted <br> {{/if}}
+						{{if value.dead}} <span class='bad'>DEAD</span> <br> {{/if}}
+					</td>
+				</tr>
+			{{/for}}
+		</tbody>
+	</table>
+{{/if}}

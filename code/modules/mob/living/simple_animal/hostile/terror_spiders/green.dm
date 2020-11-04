@@ -39,10 +39,11 @@
 		to_chat(src, "<span class='warning'>You must wrap more humanoid prey before you can do this!</span>")
 		return
 	var/list/eggtypes = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN)
-	var/list/spider_array = CountSpidersDetailed(FALSE)
-	if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/brown] < 2)
+	var/num_brown = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/brown)
+	if(num_brown < 2)
 		eggtypes += TS_DESC_BROWN
-	if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/black] < 2)
+	var/num_black = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/black)
+	if(num_black < 2)
 		eggtypes += TS_DESC_BLACK
 	var/eggtype = pick(eggtypes)
 	if(client)
@@ -50,10 +51,6 @@
 		if(!(eggtype in eggtypes))
 			to_chat(src, "<span class='danger'>Unrecognized egg type.</span>")
 			return 0
-	if(fed < feedings_to_lay)
-		// We have to check this again after the popup, to account for people spam-clicking the button, then doing all the popups at once.
-		to_chat(src, "<span class='warning'>You must wrap more humanoid prey before you can do this!</span>")
-		return
 	visible_message("<span class='notice'>[src] lays a cluster of eggs.</span>")
 	if(eggtype == TS_DESC_RED)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red, 1)

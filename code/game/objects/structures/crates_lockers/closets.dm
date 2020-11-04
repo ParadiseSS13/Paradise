@@ -25,13 +25,9 @@
 	..()
 	spawn(1)
 		if(!opened)		// if closed, any item at the crate's loc is put in the contents
-			var/itemcount = 0
 			for(var/obj/item/I in loc)
 				if(I.density || I.anchored || I == src) continue
 				I.forceMove(src)
-				// Ensure the storage cap is respected
-				if(++itemcount >= storage_capacity)
-					break
 
 // Fix for #383 - C4 deleting fridges with corpses
 /obj/structure/closet/Destroy()
@@ -234,7 +230,7 @@
 	add_fingerprint(user)
 
 /obj/structure/closet/attack_ai(mob/user)
-	if(isrobot(user) && Adjacent(user)) //Robots can open/close it, but not the AI
+	if(isrobot(user) && Adjacent(user) && !istype(user.loc, /obj/machinery/atmospherics)) //Robots can open/close it, but not the AI
 		attack_hand(user)
 
 /obj/structure/closet/relaymove(mob/user)
@@ -358,7 +354,7 @@
 /obj/structure/closet/AllowDrop()
 	return TRUE
 
-/obj/structure/closet/force_eject_occupant(mob/target)
+/obj/structure/closet/force_eject_occupant()
 	// Its okay to silently teleport mobs out of lockers, since the only thing affected is their contents list.
 	return
 

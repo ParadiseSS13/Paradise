@@ -40,18 +40,20 @@
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 	var/list/family = list()
+	var/memory_saved = 0
 	var/list/children = list() //Actual mob instances of children
+	var/cats_deployed = 0
 
 /mob/living/simple_animal/pet/cat/Runtime/New()
-	SSpersistent_data.register(src)
+	Read_Memory()
 	..()
 
-/mob/living/simple_animal/pet/cat/Runtime/persistent_load()
-	read_memory()
-	deploy_the_cats()
-
-/mob/living/simple_animal/pet/cat/Runtime/persistent_save()
-	write_memory(FALSE)
+/mob/living/simple_animal/pet/cat/Runtime/Life(seconds, times_fired)
+	if(!cats_deployed && SSticker.current_state >= GAME_STATE_SETTING_UP)
+		Deploy_The_Cats()
+	if(!stat && SSticker.current_state == GAME_STATE_FINISHED && !memory_saved)
+		Write_Memory()
+	..()
 
 /mob/living/simple_animal/pet/cat/Runtime/make_babies()
 	var/mob/baby = ..()
@@ -60,20 +62,18 @@
 		return baby
 
 /mob/living/simple_animal/pet/cat/Runtime/death()
-	if(can_die())
-		write_memory(TRUE)
-		SSpersistent_data.registered_atoms -= src // We just saved. Dont save at round end
+	if(can_die() && !memory_saved)
+		Write_Memory(1)
 	return ..()
 
-/mob/living/simple_animal/pet/cat/Runtime/proc/read_memory()
+/mob/living/simple_animal/pet/cat/Runtime/proc/Read_Memory()
 	var/savefile/S = new /savefile("data/npc_saves/Runtime.sav")
 	S["family"] 			>> family
 
 	if(isnull(family))
 		family = list()
-	log_debug("Persistent data for [src] loaded (family: [family ? list2params(family) : "None"])")
 
-/mob/living/simple_animal/pet/cat/Runtime/proc/write_memory(dead)
+/mob/living/simple_animal/pet/cat/Runtime/proc/Write_Memory(dead)
 	var/savefile/S = new /savefile("data/npc_saves/Runtime.sav")
 	family = list()
 	if(!dead)
@@ -85,17 +85,20 @@
 			else
 				family[C.type] = 1
 	S["family"]				<< family
-	log_debug("Persistent data for [src] saved (family: [family ? list2params(family) : "None"])")
+	memory_saved = 1
 
-/mob/living/simple_animal/pet/cat/Runtime/proc/deploy_the_cats()
+/mob/living/simple_animal/pet/cat/Runtime/proc/Deploy_The_Cats()
+	cats_deployed = 1
 	for(var/cat_type in family)
 		if(family[cat_type] > 0)
 			for(var/i in 1 to min(family[cat_type],100)) //Limits to about 500 cats, you wouldn't think this would be needed (BUT IT IS)
 				new cat_type(loc)
 
+
 /mob/living/simple_animal/pet/cat/Life()
 	..()
 	make_babies()
+
 
 /mob/living/simple_animal/pet/cat/handle_automated_action()
 	if(!stat && !buckled)
@@ -120,7 +123,6 @@
 		for(var/mob/living/simple_animal/mouse/M in view(1, src))
 			if(!M.stat && Adjacent(M))
 				custom_emote(1, "splats \the [M]!")
-				M.death()
 				M.splat()
 				movement_target = null
 				stop_automated_movement = 0

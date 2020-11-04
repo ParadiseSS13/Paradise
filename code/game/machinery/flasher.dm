@@ -25,17 +25,20 @@
 	base_state = "pflash"
 	density = 1
 
-/obj/machinery/flasher/portable/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/proximity_monitor)
-
+/*
+/obj/machinery/flasher/New()
+	sleep(4)					//<--- What the fuck are you doing? D=
+	sd_set_light(2)
+*/
 /obj/machinery/flasher/power_change()
 	if( powered() )
 		stat &= ~NOPOWER
 		icon_state = "[base_state]1"
+//		sd_set_light(2)
 	else
 		stat |= ~NOPOWER
 		icon_state = "[base_state]1-p"
+//		sd_set_light(0)
 
 //Let the AI trigger them directly.
 /obj/machinery/flasher/attack_ai(mob/user)
@@ -78,7 +81,7 @@
 		flash()
 	..(severity)
 
-/obj/machinery/flasher/portable/HasProximity(atom/movable/AM)
+/obj/machinery/flasher/portable/HasProximity(atom/movable/AM as mob|obj)
 	if((disable) || (last_flash && world.time < last_flash + 150))
 		return
 
@@ -106,7 +109,7 @@
 	if(anchored)
 		WRENCH_ANCHOR_MESSAGE
 		overlays.Cut()
-	else
+	else if(anchored)
 		WRENCH_UNANCHOR_MESSAGE
 		overlays += "[base_state]-s"
 

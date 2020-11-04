@@ -273,6 +273,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		overlays_standing[UNDERWEAR_LAYER] = mutable_appearance(underwear_standing, layer = -UNDERWEAR_LAYER)
 	apply_overlay(UNDERWEAR_LAYER)
 
+	if(lip_style && (LIPS in dna.species.species_traits))
+		var/mutable_appearance/lips = mutable_appearance('icons/mob/human_face.dmi', "lips_[lip_style]_s")
+		lips.color = lip_color
+		standing += lips
+
 	overlays_standing[BODY_LAYER] = standing
 	apply_overlay(BODY_LAYER)
 	//tail
@@ -1289,20 +1294,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/husk = (HUSK in mutations)
 	var/hulk = (HULK in mutations)
 	var/skeleton = (SKELETON in mutations)
-	var/g = dna.GetUITriState(DNA_UI_GENDER)
-	if(g == DNA_GENDER_PLURAL)
-		g = DNA_GENDER_FEMALE
 
 	. = ""
 
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes)
 		. += "[eyes.eye_colour]"
-	else
-		. += "#000000"
-
-	if(lip_color && (LIPS in dna.species.species_traits))
-		. += "[lip_color]"
 	else
 		. += "#000000"
 
@@ -1320,8 +1317,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(part)
 			var/datum/species/S = GLOB.all_species[part.dna.species.name]
 			. += "[S.race_key]"
+			. += "[part.dna.GetUIState(DNA_UI_GENDER)]"
 			. += "[part.dna.GetUIValue(DNA_UI_SKIN_TONE)]"
-			. += "[g]"
 			if(part.s_col)
 				. += "[part.s_col]"
 			if(part.s_tone)

@@ -543,14 +543,6 @@
 	build_path = /obj/item/assembly/health
 	category = list("initial", "Medical")
 
-/datum/design/stethoscope
-	name = "Stethoscope"
-	id = "stethoscope"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 500)
-	build_path = /obj/item/clothing/accessory/stethoscope
-	category = list("initial", "Medical")
-
 /datum/design/timer
 	name = "Timer"
 	id = "timer"
@@ -871,6 +863,22 @@
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000) //This thing doesn't need to be very resource-intensive as the belts are already expensive
 	build_path = /obj/item/storage/conveyor
 	category = list("initial", "Construction")
+
+/datum/design/laptop
+	name = "Laptop Frame"
+	id = "laptop"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 1000)
+	build_path = /obj/item/modular_computer/laptop/buildable
+	category = list("initial", "Miscellaneous")
+
+/datum/design/tablet
+	name = "Tablet Frame"
+	id = "tablet"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
+	build_path = /obj/item/modular_computer/tablet
+	category = list("initial", "Miscellaneous")
 
 /datum/design/mousetrap
 	name = "Mousetrap"

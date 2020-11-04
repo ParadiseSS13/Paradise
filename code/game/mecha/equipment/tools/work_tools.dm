@@ -338,11 +338,15 @@
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/attach()
 	..()
-	RegisterSignal(chassis, COMSIG_MOVABLE_MOVED, .proc/layCable)
+	event = chassis.events.addEvent("onMove",src,"layCable")
 	return
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/detach()
-	UnregisterSignal(chassis, COMSIG_MOVABLE_MOVED)
+	chassis.events.clearEvent("onMove",event)
+	return ..()
+
+/obj/item/mecha_parts/mecha_equipment/cable_layer/Destroy()
+	chassis.events.clearEvent("onMove",event)
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/action(var/obj/item/stack/cable_coil/target)
@@ -416,11 +420,10 @@
 			T.make_plating()
 	return !new_turf.intact
 
-/obj/item/mecha_parts/mecha_equipment/cable_layer/proc/layCable(obj/mecha/M, atom/OldLoc, Dir, Forced = FALSE)
-	var/turf/new_turf = get_turf(M)
+/obj/item/mecha_parts/mecha_equipment/cable_layer/proc/layCable(var/turf/new_turf)
 	if(equip_ready || !istype(new_turf) || !dismantleFloor(new_turf))
 		return reset()
-	var/fdirn = turn(Dir, 180)
+	var/fdirn = turn(chassis.dir,180)
 	for(var/obj/structure/cable/LC in new_turf)		// check to make sure there's not a cable there already
 		if(LC.d1 == fdirn || LC.d2 == fdirn)
 			return reset()
@@ -433,9 +436,9 @@
 	NC.updateicon()
 
 	var/datum/powernet/PN
-	if(last_piece && last_piece.d2 != Dir)
-		last_piece.d1 = min(last_piece.d2, Dir)
-		last_piece.d2 = max(last_piece.d2, Dir)
+	if(last_piece && last_piece.d2 != chassis.dir)
+		last_piece.d1 = min(last_piece.d2, chassis.dir)
+		last_piece.d2 = max(last_piece.d2, chassis.dir)
 		last_piece.updateicon()
 		PN = last_piece.powernet
 
@@ -447,4 +450,4 @@
 
 	//NC.mergeConnectedNetworksOnTurf()
 	last_piece = NC
-	return TRUE
+	return 1

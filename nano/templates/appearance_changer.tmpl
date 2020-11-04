@@ -1,0 +1,174 @@
+{{if data.change_race}}
+    <div class="item">
+        <div class="itemLabelNarrow">
+            Species:
+        </div>
+        <div class="itemContentWide">
+            {{for data.species}}
+                {{:helper.link(value.specimen, null, { 'race' : value.specimen}, null, data.specimen == value.specimen ? 'selected' : null)}}
+            {{/for}}
+        </div>
+    </div>
+{{/if}}
+
+{{if data.change_gender}}
+    <div class="item">
+        <div class="itemLabelNarrow">
+            Gender:
+        </div>
+        <div class="itemContentWide">
+            {{:helper.link('Male', null, { 'gender' : 'male'}, null, data.gender == 'male' ? 'selected' : null)}}
+            {{:helper.link('Female', null, { 'gender' : 'female'}, null, data.gender == 'female' ? 'selected' : null)}}
+						{{if !data.has_gender}}
+							{{:helper.link('Genderless', null, { 'gender' : 'plural'}, null, data.gender == 'plural' ? 'selected' : null)}}
+						{{/if}}
+        </div>
+    </div>
+{{/if}}
+
+{{if data.change_eye_color || data.change_skin_tone || data.change_skin_color || data.change_head_accessory_color || data.change_hair_color || data.change_facial_hair_color || data.change_head_marking_color || data.change_body_marking_color || data.change_tail_marking_color}}
+    <div class="item">
+        <div class="itemLabelNarrow">
+            Colors:
+        </div>
+        <div class="itemContentWide">
+            {{if data.change_eye_color}}
+                {{:helper.link('Change eye color', null, { 'eye_color' : 1})}}
+            {{/if}}
+            {{if data.change_skin_tone}}
+                {{:helper.link('Change skin tone', null, { 'skin_tone' : 1})}}
+            {{/if}}
+            {{if data.change_skin_color}}
+                {{:helper.link('Change skin color', null, { 'skin_color' : 1})}}
+            {{/if}}
+            {{if data.change_head_accessory_color}}
+                {{:helper.link('Change head accessory color', null, { 'head_accessory_color' : 1})}}
+            {{/if}}
+            {{if data.change_hair_color}}
+                {{:helper.link('Change hair color', null, { 'hair_color' : 1})}}
+            {{/if}}
+            {{if data.change_secondary_hair_color}}
+                {{:helper.link('Change secondary hair color', null, { 'secondary_hair_color' : 1})}}
+            {{/if}}
+            {{if data.change_facial_hair_color}}
+                {{:helper.link('Change facial hair color', null, { 'facial_hair_color' : 1})}}
+            {{/if}}
+            {{if data.change_secondary_facial_hair_color}}
+                {{:helper.link('Change secondary facial hair color', null, { 'secondary_facial_hair_color' : 1})}}
+            {{/if}}
+            {{if data.change_head_marking_color}}
+                {{:helper.link('Change head marking color', null, { 'head_marking_color' : 1})}}
+            {{/if}}
+            {{if data.change_body_marking_color}}
+                {{:helper.link('Change body marking color', null, { 'body_marking_color' : 1})}}
+            {{/if}}
+            {{if data.change_tail_marking_color}}
+                {{:helper.link('Change tail marking color', null, { 'tail_marking_color' : 1})}}
+            {{/if}}
+        </div>
+    </div>
+{{/if}}
+
+{{if data.change_head_accessory}}
+    <div class="item">
+        <div class="itemLabelNarrow">
+            Head accessory styles:
+        </div>
+        <div class="itemContentWide">
+            {{for data.head_accessory_styles}}
+                {{:helper.link(value.headaccessorystyle, null, { 'head_accessory' : value.headaccessorystyle}, null, data.head_accessory_style == value.headaccessorystyle ? 'selected' : null)}}
+            {{/for}}
+        </div>
+    </div>
+{{/if}}
+
+{{if data.change_hair}}
+    <div class="item">
+        <div class="itemLabelNarrow">
+            Hair styles:
+        </div>
+        <div class="itemContentWide">
+            {{for data.hair_styles}}
+                {{:helper.link(value.hairstyle, null, { 'hair' : value.hairstyle}, null, data.hair_style == value.hairstyle ? 'selected' : null)}}
+            {{/for}}
+        </div>
+    </div>
+{{/if}}
+
+{{if data.change_facial_hair}}
+    <div class="item">
+        <div class="itemLabelNarrow">
+            Facial hair styles:
+        </div>
+        <div class="itemContentWide">
+            {{for data.facial_hair_styles}}
+                {{:helper.link(value.facialhairstyle, null, { 'facial_hair' : value.facialhairstyle}, null, data.facial_hair_style == value.facialhairstyle ? 'selected' : null)}}
+            {{/for}}
+        </div>
+    </div>
+{{/if}}
+
+{{if data.change_head_markings}}
+    <div class="item">
+        <div class="itemLabelNarrow">
+            Head Marking styles:
+        </div>
+        <div class="itemContentWide">
+            {{for data.head_marking_styles}}
+                {{:helper.link(value.headmarkingstyle, null, { 'head_marking' : value.headmarkingstyle}, null, data.head_marking_style == value.headmarkingstyle ? 'selected' : null)}}
+            {{/for}}
+        </div>
+    </div>
+{{/if}}
+
+{{if data.change_body_markings}}
+    <div class="item">
+        <div class="itemLabelNarrow">
+            Body Marking styles:
+        </div>
+        <div class="itemContentWide">
+            {{for data.body_marking_styles}}
+                {{:helper.link(value.bodymarkingstyle, null, { 'body_marking' : value.bodymarkingstyle}, null, data.body_marking_style == value.bodymarkingstyle ? 'selected' : null)}}
+            {{/for}}
+        </div>
+    </div>
+{{/if}}
+
+{{if data.change_tail_markings}}
+    <div class="item">
+        <div class="itemLabelNarrow">
+            Tail Marking styles:
+        </div>
+        <div class="itemContentWide">
+            {{for data.tail_marking_styles}}
+                {{:helper.link(value.tailmarkingstyle, null, { 'tail_marking' : value.tailmarkingstyle}, null, data.tail_marking_style == value.tailmarkingstyle ? 'selected' : null)}}
+            {{/for}}
+        </div>
+    </div>
+{{/if}}
+
+{{if data.change_body_accessory}}
+    <div class="item">
+        <div class="itemLabelNarrow">
+            Body accessory styles:
+        </div>
+        <div class="itemContentWide">
+            {{for data.body_accessory_styles}}
+                {{:helper.link(value.bodyaccessorystyle, null, { 'body_accessory' : value.bodyaccessorystyle}, null, data.body_accessory_style == value.bodyaccessorystyle ? 'selected' : null)}}
+            {{/for}}
+        </div>
+    </div>
+{{/if}}
+
+{{if data.change_alt_head}}
+    <div class="item">
+        <div class="itemLabelNarrow">
+            Alternate Heads:
+        </div>
+        <div class="itemContentWide">
+            {{for data.alt_head_styles}}
+                {{:helper.link(value.altheadstyle, null, { 'alt_head' : value.altheadstyle}, null, data.alt_head_style == value.altheadstyle ? 'selected' : null)}}
+            {{/for}}
+        </div>
+    </div>
+{{/if}}

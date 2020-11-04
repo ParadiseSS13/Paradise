@@ -1,0 +1,53 @@
+<!--
+Title: EFTPOS
+Used In File(s): /code/modules/economy/EFTPOS.dm
+-->
+
+<i>This terminal is</i> {{:data.machine_name}}. <i>Report this code when contacting Nanotrasen IT Support</i><br>
+{{if data.transaction_locked == 1}}
+	<div class="item">{{:helper.link(data.transaction_paid ? 'Reset' : 'Reset (authentication required)', 'unlock', {'choice' : 'toggle_lock'})}}</div>
+	<hr>
+	<div class='item'>
+		<div class='itemLabel'>Transaction purpose:</div>
+		<div class='itemContent'><icon class='fa fa-info'></icon>  {{:data.transaction_purpose}}</div>
+	</div>
+
+	<div class='item'>
+		<div class='itemLabel'>Value:</div>
+		<div class='itemContent'><icon class='fa fa-usd'></icon>  {{:data.transaction_amount}}</div>
+	</div>
+
+	<div class='item'>
+		<div class='itemLabel'>Linked account:</div>
+		<div class='itemContent'><icon class='fa fa-{{:data.linked_account ? "user" : "user-times"}}'></icon>  {{:data.linked_account ? data.linked_account : 'None'}}</div>
+	</div>
+	<hr>
+	{{if data.transaction_paid}}
+		<i>This transaction has been processed successfully.</i>
+	{{else}}
+		<i>Swipe your card below the line to finish this transaction.</i>
+		<div class="item">{{:helper.link('------', 'eject', {'choice' : 'scan_card'})}}</div>
+	{{/if}}
+{{else}}
+	<div class="item">{{:helper.link('Lock in new transaction', 'lock', {'choice' : 'toggle_lock'})}}</div>
+	<hr>
+	<div class='item'>
+		<div class='itemLabel'>Transaction purpose:</div>
+		<div class='itemContent'>{{:helper.link(data.transaction_purpose, 'info', {'choice' : 'trans_purpose'})}}<br></div>
+	</div>
+
+	<div class='item'>
+		<div class='itemLabel'>Value:</div>
+		<div class='itemContent'>{{:helper.link(data.transaction_amount, 'usd', {'choice' : 'trans_value'})}}<br></div>
+	</div>
+
+	<div class='item'>
+		<div class='itemLabel'>Linked account:</div>
+		<div class='itemContent'>{{:helper.link(data.linked_account ? data.linked_account : 'None', data.linked_account ? 'user' : 'user-times', {'choice' : 'link_account'})}}</div>
+	</div>
+	<hr>
+	<div class="item">
+		<div class="line">{{:helper.link('Change access code', 'key', {'choice' : 'change_code'})}}</div>
+		<div class="line">{{:helper.link('Scan card to reset acess code', 'refresh', {'choice' : 'reset'})}}</div>
+	</div>
+{{/if}}

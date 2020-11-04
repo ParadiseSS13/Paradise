@@ -3199,7 +3199,7 @@
 	},
 /area/awaymission/arrivalblock)
 "ie" = (
-/obj/machinery/kitchen_machine/microwave{
+/obj/machinery/microwave{
 	pixel_x = -2;
 	pixel_y = 7
 	},

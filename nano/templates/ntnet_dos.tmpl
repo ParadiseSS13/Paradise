@@ -1,0 +1,25 @@
+{{:helper.syndicateMode()}}
+{{if data.error}}
+	##SYSTEM ERROR: {{:data.error}}{{:helper.link('RESET', null, {'action' : 'PRG_reset'})}}
+{{else data.target}}
+	##DoS traffic generator active. Tx: {{:data.speed}}GQ/s<br>
+	{{for data.dos_strings}}
+		{{:value.nums}}<br>
+	{{/for}}
+	{{:helper.link('ABORT', 'ban', {'action' : 'PRG_reset'})}}
+{{else}}
+	##DoS traffic generator ready. Select target device.<br>
+	<div class='item'>
+		<div class="itemLabel">Targeted device ID:</div>
+		<div class="itemContent">{{if data.focus}}{{:data.focus}}{{else}}None{{/if}}</div>
+	</div>
+	<div class='item'>
+		{{:helper.link('EXECUTE', 'play', {'action' : 'PRG_execute'})}}<div style="clear:both"></div>
+	</div>
+	Detected devices on network:<br>
+	<table>
+		{{for data.relays}}
+			<tr><td>{{:helper.link(value.id, null, {'action' : 'PRG_target_relay', 'targid' : value.id})}}
+		{{/for}}
+	</table>
+{{/if}}

@@ -163,6 +163,3 @@
 		if(0 to 25)
 			if(!broken)
 				return  "<span class='warning'>It's falling apart!</span>"
-
-/obj/structure/proc/prevents_buckled_mobs_attacking()
-	return FALSE

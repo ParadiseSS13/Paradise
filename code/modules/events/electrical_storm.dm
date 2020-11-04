@@ -25,5 +25,5 @@
 	for(var/thing in epicentreList)
 		var/obj/effect/landmark/epicentre = thing
 		for(var/obj/machinery/power/apc/apc in range(epicentre, lightsoutRange))
-			INVOKE_ASYNC(apc, /obj/machinery/power/apc.proc/overload_lighting)
+			apc.overload_lighting()
 

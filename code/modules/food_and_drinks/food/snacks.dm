@@ -34,15 +34,16 @@
 /obj/item/reagent_containers/food/snacks/proc/On_Consume(mob/M, mob/user)
 	if(!user)
 		return
-	if(!reagents.total_volume)
-		if(M == user)
-			to_chat(user, "<span class='notice'>You finish eating \the [src].</span>")
-		user.visible_message("<span class='notice'>[M] finishes eating \the [src].</span>")
-		user.unEquip(src)	//so icons update :[
-		Post_Consume(M)
-		var/obj/item/trash_item = generate_trash(usr)
-		usr.put_in_hands(trash_item)
-		qdel(src)
+	spawn(0)
+		if(!reagents.total_volume)
+			if(M == user)
+				to_chat(user, "<span class='notice'>You finish eating \the [src].</span>")
+			user.visible_message("<span class='notice'>[M] finishes eating \the [src].</span>")
+			user.unEquip(src)	//so icons update :[
+			Post_Consume(M)
+			var/obj/item/trash_item = generate_trash(usr)
+			usr.put_in_hands(trash_item)
+			qdel(src)
 	return
 
 /obj/item/reagent_containers/food/snacks/proc/Post_Consume(mob/living/M)

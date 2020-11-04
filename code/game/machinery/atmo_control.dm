@@ -10,7 +10,7 @@
 	var/bolts = 1
 
 	var/id_tag
-	frequency = ATMOS_VENTSCRUB
+	var/frequency = ATMOS_VENTSCRUB
 	Mtoollink = 1
 	settagwhitelist = list("id_tag")
 
@@ -24,6 +24,8 @@
 	// 8 for toxins concentration
 	// 16 for nitrogen concentration
 	// 32 for carbon dioxide concentration
+
+	var/datum/radio_frequency/radio_connection
 
 /obj/machinery/air_sensor/update_icon()
 	icon_state = "gsensor[on]"
@@ -118,7 +120,8 @@
 		signal.data["sigtype"]="status"
 		radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
 
-/obj/machinery/air_sensor/set_frequency(new_frequency)
+
+/obj/machinery/air_sensor/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
@@ -145,12 +148,13 @@
 
 	name = "Computer"
 
-	frequency = ATMOS_VENTSCRUB
+	var/frequency = ATMOS_VENTSCRUB
 	var/show_sensors=1
 	var/list/sensors = list()
 	Mtoollink = 1
 
 	var/list/sensor_information = list()
+	var/datum/radio_frequency/radio_connection
 
 /obj/machinery/computer/general_air_control/Destroy()
 	if(SSradio)
@@ -264,10 +268,10 @@
 
 	return output
 
-/obj/machinery/computer/general_air_control/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
+/obj/machinery/computer/general_air_control/proc/set_frequency(new_frequency)
+		SSradio.remove_object(src, frequency)
+		frequency = new_frequency
+		radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
 
 /obj/machinery/computer/general_air_control/Initialize()
 	..()
@@ -401,29 +405,24 @@
 	return dat
 
 
-/obj/machinery/computer/general_air_control/large_tank_control/linkWith(mob/user, obj/machinery/atmospherics/unary/O, list/context)
-	if(!is_type_in_list(O, input_linkable))
-		return FALSE
-
-	if(context["slot"] == "input")
-		input_tag = O.id_tag
+/obj/machinery/computer/general_air_control/large_tank_control/linkWith(mob/user, obj/O, list/context)
+	if(context["slot"]=="input" && is_type_in_list(O,input_linkable))
 		input_info = null
-		if(istype(O, /obj/machinery/atmospherics/unary/vent_pump))
-			send_signal(list("tag" = input_tag,
-				"direction" = 1, // Release
-				"checks"    = 0  // No pressure checks.
+		if(istype(O,/obj/machinery/atmospherics/unary/vent_pump))
+			send_signal(list("tag"=input_tag,
+				"direction"=1, // Release
+				"checks"   =0  // No pressure checks.
 				))
-		return TRUE
-
-	if(context["slot"] == "output")
-		output_tag = O.id_tag
+		return 1
+	if(context["slot"]=="output" && is_type_in_list(O,output_linkable))
+		output_tag = O:id_tag
 		output_info = null
-		if(istype(O, /obj/machinery/atmospherics/unary/vent_pump))
-			send_signal(list("tag" = output_tag,
-				"direction" = 0, // Siphon
-				"checks"    = 2  // Internal pressure checks.
+		if(istype(O,/obj/machinery/atmospherics/unary/vent_pump))
+			send_signal(list("tag"=output_tag,
+				"direction"=0, // Siphon
+				"checks"   =2  // Internal pressure checks.
 				))
-		return TRUE
+		return 1
 
 /obj/machinery/computer/general_air_control/large_tank_control/unlinkFrom(mob/user, obj/O)
 	if("id_tag" in O.vars)

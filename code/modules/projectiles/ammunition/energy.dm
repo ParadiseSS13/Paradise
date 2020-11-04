@@ -6,11 +6,9 @@
 	var/e_cost = 100 //The amount of energy a cell needs to expend to create this shot.
 	var/select_name = "energy"
 	fire_sound = 'sound/weapons/laser.ogg'
-	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
 
 /obj/item/ammo_casing/energy/laser
 	projectile_type = /obj/item/projectile/beam/laser
-	muzzle_flash_color = LIGHT_COLOR_DARKRED
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/laser/cyborg //to balance cyborg energy cost seperately
@@ -18,7 +16,6 @@
 
 /obj/item/ammo_casing/energy/lasergun
 	projectile_type = /obj/item/projectile/beam/laser
-	muzzle_flash_color = LIGHT_COLOR_DARKRED
 	e_cost = 83
 	select_name = "kill"
 
@@ -43,7 +40,6 @@
 
 /obj/item/ammo_casing/energy/laser/pulse
 	projectile_type = /obj/item/projectile/beam/pulse
-	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
 	e_cost = 200
 	select_name = "DESTROY"
 	fire_sound = 'sound/weapons/pulse.ogg'
@@ -56,7 +52,6 @@
 
 /obj/item/ammo_casing/energy/laser/bluetag
 	projectile_type = /obj/item/projectile/beam/lasertag/bluetag
-	muzzle_flash_color = LIGHT_COLOR_BLUE
 	select_name = "bluetag"
 	harmful = FALSE
 
@@ -67,7 +62,6 @@
 
 /obj/item/ammo_casing/energy/xray
 	projectile_type = /obj/item/projectile/beam/xray
-	muzzle_flash_color = LIGHT_COLOR_GREEN
 	e_cost = 100
 	fire_sound = 'sound/weapons/laser3.ogg'
 
@@ -98,7 +92,6 @@
 
 /obj/item/ammo_casing/energy/electrode
 	projectile_type = /obj/item/projectile/energy/electrode
-	muzzle_flash_color = "#FFFF00"
 	select_name = "stun"
 	fire_sound = 'sound/weapons/taser.ogg'
 	e_cost = 200
@@ -114,13 +107,11 @@
 
 /obj/item/ammo_casing/energy/ion
 	projectile_type = /obj/item/projectile/ion
-	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
 	select_name = "ion"
 	fire_sound = 'sound/weapons/ionrifle.ogg'
 
 /obj/item/ammo_casing/energy/declone
 	projectile_type = /obj/item/projectile/energy/declone
-	muzzle_flash_color = LIGHT_COLOR_GREEN
 	select_name = "declone"
 	fire_sound = 'sound/weapons/pulse3.ogg'
 
@@ -131,7 +122,6 @@
 
 /obj/item/ammo_casing/energy/flora
 	fire_sound = 'sound/effects/stealthoff.ogg'
-	muzzle_flash_color = LIGHT_COLOR_GREEN
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/flora/yield
@@ -156,13 +146,10 @@
 
 /obj/item/ammo_casing/energy/meteor
 	projectile_type = /obj/item/projectile/meteor
-	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
-	muzzle_flash_color = null
 	select_name = "goddamn meteor"
 
 /obj/item/ammo_casing/energy/disabler
 	projectile_type = /obj/item/projectile/beam/disabler
-	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
 	select_name  = "disable"
 	e_cost = 50
 	fire_sound = 'sound/weapons/taser2.ogg'
@@ -173,7 +160,6 @@
 
 /obj/item/ammo_casing/energy/plasma
 	projectile_type = /obj/item/projectile/plasma
-	muzzle_flash_color = LIGHT_COLOR_PURPLE
 	select_name = "plasma burst"
 	fire_sound = 'sound/weapons/plasma_cutter.ogg'
 	delay = 15
@@ -186,27 +172,21 @@
 
 /obj/item/ammo_casing/energy/wormhole
 	projectile_type = /obj/item/projectile/beam/wormhole
-	muzzle_flash_color = "#33CCFF"
-	delay = 10
-	e_cost = 100
+	e_cost = 0
 	fire_sound = 'sound/weapons/pulse3.ogg'
 	var/obj/item/gun/energy/wormhole_projector/gun = null
 	select_name = "blue"
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/wormhole/New(var/obj/item/gun/energy/wormhole_projector/wh)
-	. = ..()
 	gun = wh
 
 /obj/item/ammo_casing/energy/wormhole/orange
 	projectile_type = /obj/item/projectile/beam/wormhole/orange
-	muzzle_flash_color = "#FF6600"
 	select_name = "orange"
 
 /obj/item/ammo_casing/energy/bolt
 	projectile_type = /obj/item/projectile/energy/bolt
-	muzzle_flash_color = null
-	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
 	select_name = "bolt"
 	e_cost = 500
 	fire_sound = 'sound/weapons/genhit.ogg'
@@ -223,21 +203,17 @@
 
 /obj/item/ammo_casing/energy/instakill
 	projectile_type = /obj/item/projectile/beam/instakill
-	muzzle_flash_color = LIGHT_COLOR_PURPLE
 	e_cost = 0
 	select_name = "DESTROY"
 
 /obj/item/ammo_casing/energy/instakill/blue
 	projectile_type = /obj/item/projectile/beam/instakill/blue
-	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
 
 /obj/item/ammo_casing/energy/instakill/red
 	projectile_type = /obj/item/projectile/beam/instakill/red
-	muzzle_flash_color = LIGHT_COLOR_DARKRED
 
 /obj/item/ammo_casing/energy/plasma
 	projectile_type = /obj/item/projectile/plasma
-	muzzle_flash_color = LIGHT_COLOR_PURPLE
 	select_name = "plasma burst"
 	fire_sound = 'sound/weapons/pulse.ogg'
 
@@ -248,31 +224,26 @@
 	fire_sound = 'sound/magic/lightningbolt.ogg'
 	e_cost = 200
 	select_name = "lightning beam"
-	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
 	projectile_type = /obj/item/projectile/energy/shock_revolver
 
 /obj/item/ammo_casing/energy/toxplasma
 	projectile_type = /obj/item/projectile/energy/toxplasma
-	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
 	fire_sound = 'sound/weapons/taser2.ogg'
 	select_name = "plasma dart"
 
 /obj/item/ammo_casing/energy/clown
 	projectile_type = /obj/item/projectile/clown
-	muzzle_flash_effect = null
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	select_name = "clown"
 
 /obj/item/ammo_casing/energy/sniper
 	projectile_type = /obj/item/projectile/beam/sniper
-	muzzle_flash_color = LIGHT_COLOR_PINK
 	fire_sound = 'sound/weapons/marauder.ogg'
 	delay = 50
 	select_name = "snipe"
 
 /obj/item/ammo_casing/energy/teleport
 	projectile_type = /obj/item/projectile/energy/teleport
-	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
 	fire_sound = 'sound/weapons/wave.ogg'
 	e_cost = 250
 	select_name = "teleport beam"
@@ -287,7 +258,6 @@
 
 /obj/item/ammo_casing/energy/mimic
 	projectile_type = /obj/item/projectile/mimic
-	muzzle_flash_effect = null
 	fire_sound = 'sound/weapons/bite.ogg'
 	select_name = "gun mimic"
 	var/mimic_type

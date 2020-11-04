@@ -186,8 +186,6 @@
 		return 1
 	if(fire_stacks > 0)
 		adjust_fire_stacks(-0.1) //the fire is slowly consumed
-		for(var/obj/item/clothing/C in contents)
-			C.catch_fire()
 	else
 		ExtinguishMob()
 		return
@@ -221,7 +219,7 @@
 		fire_stacks += L.fire_stacks
 		IgniteMob()
 
-/mob/living/can_be_pulled(user, grab_state, force, show_message = FALSE)
+/mob/living/can_be_pulled(user, grab_state, force)
 	return ..() && !(buckled && buckled.buckle_prevents_pull)
 
 /mob/living/water_act(volume, temperature, source, method = REAGENT_TOUCH)

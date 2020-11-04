@@ -22,7 +22,7 @@ export class Collapsible extends Component {
       ...rest
     } = props;
     return (
-      <div className="Collapsible">
+      <Box mb={1}>
         <div className="Table">
           <div className="Table__cell">
             <Button
@@ -45,7 +45,7 @@ export class Collapsible extends Component {
             {children}
           </Box>
         )}
-      </div>
+      </Box>
     );
   }
 }

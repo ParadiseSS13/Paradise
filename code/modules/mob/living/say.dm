@@ -7,7 +7,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":c" = "Command",		"#c" = "Command",		".c" = "Command",
 	  ":n" = "Science",		"#n" = "Science",		".n" = "Science",
 	  ":m" = "Medical",		"#m" = "Medical",		".m" = "Medical",
-	  ":x" = "Procedure",	"#x" = "Procedure",		".x" = "Procedure",
 	  ":e" = "Engineering", "#e" = "Engineering",	".e" = "Engineering",
 	  ":s" = "Security",	"#s" = "Security",		".s" = "Security",
 	  ":w" = "whisper",		"#w" = "whisper",		".w" = "whisper",
@@ -15,6 +14,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":u" = "Supply",		"#u" = "Supply",		".u" = "Supply",
 	  ":z" = "Service",		"#z" = "Service",		".z" = "Service",
 	  ":p" = "AI Private",	"#p" = "AI Private",	".p" = "AI Private",
+	  ":x" = "cords",		"#x" = "cords",			".x" = "cords",
 
 	  ":R" = "right ear",	"#R" = "right ear",		".R" = "right ear",
 	  ":L" = "left ear",	"#L" = "left ear",		".L" = "left ear",
@@ -23,7 +23,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":C" = "Command",		"#C" = "Command",		".C" = "Command",
 	  ":N" = "Science",		"#N" = "Science",		".N" = "Science",
 	  ":M" = "Medical",		"#M" = "Medical",		".M" = "Medical",
-	  ":X" = "Procedure",	"#X" = "Procedure",		".X" = "Procedure",
 	  ":E" = "Engineering",	"#E" = "Engineering",	".E" = "Engineering",
 	  ":S" = "Security",	"#S" = "Security",		".S" = "Security",
 	  ":W" = "whisper",		"#W" = "whisper",		".W" = "whisper",
@@ -34,12 +33,12 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":$" = "Response Team", "#$" = "Response Team", ".$" = "Response Team",
 	  ":-" = "Special Ops",	"#-" = "Special Ops",	".-" = "Special Ops",
 	  ":_" = "SyndTeam",	"#_" = "SyndTeam",		"._" = "SyndTeam",
-	  ":~" = "cords",		"#~" = "cords",			".~" = "cords"
+	  ":X" = "cords",		"#X" = "cords",			".X" = "cords"
 ))
 
 GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
-/proc/get_radio_key_from_channel(var/channel)
+proc/get_radio_key_from_channel(var/channel)
 	var/key = GLOB.channel_to_radio_key[channel]
 	if(!key)
 		for(var/radio_key in GLOB.department_radio_keys)
@@ -252,7 +251,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 				continue
 
 			if(isobserver(M))
-				if(M.get_preference(PREFTOGGLE_CHAT_GHOSTEARS) && client) // The client check is so that ghosts don't have to listen to mice.
+				if(M.get_preference(CHAT_GHOSTEARS) && client) // The client check is so that ghosts don't have to listen to mice.
 					listening |= M
 					continue
 
@@ -312,7 +311,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			if(isnewplayer(M))
 				continue
 
-			if(isobserver(M) && M.get_preference(PREFTOGGLE_CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
+			if(isobserver(M) && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
 				M.show_message(message)
 
 		switch(type)
@@ -352,6 +351,8 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			return
 
 	if(stat)
+		if(stat == DEAD)
+			return say_dead(message_pieces)
 		return
 
 	if(is_muzzled())
@@ -419,7 +420,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			continue
 
 		if(isobserver(M))
-			if(M.get_preference(PREFTOGGLE_CHAT_GHOSTEARS)) // The client check is so that ghosts don't have to listen to mice.
+			if(M.get_preference(CHAT_GHOSTEARS)) // The client check is so that ghosts don't have to listen to mice.
 				listening |= M
 				continue
 
@@ -450,14 +451,14 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	var/speech_bubble_test = say_test(message)
 
 	for(var/mob/M in listening)
-		M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE)
+		M.hear_say(message_pieces, verb, italics, src)
 		if(M.client)
 			speech_bubble_recipients.Add(M.client)
 
 	if(eavesdropping.len)
 		stars_all(message_pieces)	//hopefully passing the message twice through stars() won't hurt... I guess if you already don't understand the language, when they speak it too quietly to hear normally you would be able to catch even less.
 		for(var/mob/M in eavesdropping)
-			M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE)
+			M.hear_say(message_pieces, verb, italics, src)
 			if(M.client)
 				speech_bubble_recipients.Add(M.client)
 

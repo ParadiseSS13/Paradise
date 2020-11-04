@@ -51,7 +51,6 @@
 		// Whew! Good thing I'm indestructible! (or already dead)
 		return FALSE
 
-	..()
 	stat = DEAD
 	SetDizzy(0)
 	SetJitter(0)

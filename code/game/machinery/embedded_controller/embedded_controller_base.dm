@@ -27,15 +27,18 @@
 	src.updateDialog()
 
 /obj/machinery/embedded_controller/attack_ghost(mob/user as mob)
-	tgui_interact(user)
+	src.ui_interact(user)
 
 /obj/machinery/embedded_controller/attack_ai(mob/user as mob)
-	tgui_interact(user)
+	src.ui_interact(user)
 
 /obj/machinery/embedded_controller/attack_hand(mob/user as mob)
 	if(!user.IsAdvancedToolUser())
-		return FALSE
-	tgui_interact(user)
+		return 0
+	src.ui_interact(user)
+
+/obj/machinery/embedded_controller/ui_interact()
+	return
 
 /obj/machinery/embedded_controller/radio
 	icon = 'icons/obj/airlock_machines.dmi'
@@ -46,8 +49,9 @@
 	var/id_tag
 	//var/radio_power_use = 50 //power used to xmit signals
 
-	frequency = 1379
+	var/frequency = 1379
 	var/radio_filter = null
+	var/datum/radio_frequency/radio_connection
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/machinery/embedded_controller/radio/Initialize()
@@ -77,7 +81,7 @@
 	else
 		qdel(signal)
 
-/obj/machinery/embedded_controller/radio/set_frequency(new_frequency)
+/obj/machinery/embedded_controller/radio/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, radio_filter)

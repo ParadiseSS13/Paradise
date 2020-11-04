@@ -19,7 +19,6 @@
 	ventcrawler = 2
 	magpulse = 1
 	mob_size = MOB_SIZE_SMALL
-	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
 
 	modules_break = FALSE
 
@@ -31,22 +30,11 @@
 	var/obj/item/stack/sheet/plastic/stack_plastic = null
 	var/obj/item/matter_decompiler/decompiler = null
 
-	// What objects can drones bump into
-	var/static/list/allowed_bumpable_objects = list(/obj/machinery/door, /obj/machinery/recharge_station, /obj/machinery/disposal/deliveryChute,
-													/obj/machinery/teleport/hub, /obj/effect/portal, /obj/structure/transit_tube/station)
-
 	//Used for self-mailing.
 	var/mail_destination = 0
 	var/reboot_cooldown = 60 // one minute
 	var/last_reboot
-	var/list/pullable_drone_items = list(
-		/obj/item/pipe,
-		/obj/structure/disposalconstruct,
-		/obj/item/stack/cable_coil,
-		/obj/item/stack/rods,
-		/obj/item/stack/sheet,
-		/obj/item/stack/tile
-	)
+	var/emagged_time
 
 	holder_type = /obj/item/holder/drone
 //	var/sprite[0]
@@ -62,7 +50,7 @@
 
 	// Disable the microphone wire on Drones
 	if(radio)
-		radio.wires.cut(WIRE_RADIO_TRANSMIT)
+		radio.wires.CutWireIndex(RADIO_WIRE_TRANSMIT)
 
 	if(camera && ("Robots" in camera.network))
 		camera.network.Add("Engineering")
@@ -80,10 +68,6 @@
 
 	verbs -= /mob/living/silicon/robot/verb/Namepick
 	module = new /obj/item/robot_module/drone(src)
-
-	//Allows Drones to hear the Engineering channel.
-	module.channels = list("Engineering" = 1)
-	radio.recalculateChannels()
 
 	//Grab stacks.
 	stack_metal = locate(/obj/item/stack/sheet/metal/cyborg) in src.module
@@ -130,11 +114,6 @@
 /mob/living/silicon/robot/drone/pick_module()
 	return
 
-/mob/living/silicon/robot/drone/can_be_revived()
-	. = ..()
-	if(emagged)
-		return FALSE
-
 //Drones cannot be upgraded with borg modules so we need to catch some items before they get used in ..().
 /mob/living/silicon/robot/drone/attackby(obj/item/W as obj, mob/user as mob, params)
 
@@ -175,17 +154,15 @@
 			return
 
 		else
-			var/confirm = alert("Using your ID on a Maintenance Drone will shut it down, are you sure you want to do this?", "Disable Drone", "Yes", "No")
-			if(confirm == ("Yes") && (user in range(3, src)))
-				user.visible_message("<span class='warning'>\the [user] swipes [user.p_their()] ID card through [src], attempting to shut it down.</span>", "<span class='warning'>You swipe your ID card through \the [src], attempting to shut it down.</span>")
+			user.visible_message("<span class='warning'>\the [user] swipes [user.p_their()] ID card through [src], attempting to shut it down.</span>", "<span class='warning'>You swipe your ID card through \the [src], attempting to shut it down.</span>")
 
-				if(emagged)
-					return
+			if(emagged)
+				return
 
-				if(allowed(W))
-					shut_down()
-				else
-					to_chat(user, "<span class='warning'>Access denied.</span>")
+			if(allowed(W))
+				shut_down()
+			else
+				to_chat(user, "<span class='warning'>Access denied.</span>")
 
 		return
 
@@ -216,8 +193,8 @@
 	log_game("[key_name(user)] emagged drone [key_name(src)].  Laws overridden.")
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	GLOB.lawchanges.Add("[time] <B>:</B> [H.name]([H.key]) emagged [name]([key])")
-	addtimer(CALLBACK(src, .proc/shut_down, TRUE), EMAG_TIMER)
 
+	emagged_time = world.time
 	emagged = 1
 	density = 1
 	pass_flags = 0
@@ -334,28 +311,30 @@
 
 
 /mob/living/silicon/robot/drone/Bump(atom/movable/AM, yes)
-	if(is_type_in_list(AM, allowed_bumpable_objects))
+	if(istype(AM, /obj/machinery/door) \
+	|| istype(AM, /obj/machinery/recharge_station) \
+	|| istype(AM, /obj/machinery/disposal/deliveryChute) \
+	|| istype(AM, /obj/machinery/teleport/hub) \
+	|| istype(AM, /obj/effect/portal))
 		return ..()
 
 /mob/living/silicon/robot/drone/Bumped(atom/movable/AM)
 	return
 
-/mob/living/silicon/robot/drone/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
+/mob/living/silicon/robot/drone/start_pulling(var/atom/movable/AM)
 
-	if(is_type_in_list(AM, pullable_drone_items))
-		..(AM, force = INFINITY) // Drone power! Makes them able to drag pipes and such
-
+	if(istype(AM,/obj/item/pipe) || istype(AM,/obj/structure/disposalconstruct))
+		..()
 	else if(istype(AM,/obj/item))
 		var/obj/item/O = AM
 		if(O.w_class > WEIGHT_CLASS_SMALL)
-			if(show_message)
-				to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
+			to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
 			return
 		else
 			..()
 	else
-		if(show_message)
-			to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
+		to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
+		return
 
 /mob/living/silicon/robot/drone/add_robot_verbs()
 	src.verbs |= silicon_subsystems
@@ -365,7 +344,12 @@
 
 /mob/living/silicon/robot/drone/update_canmove(delay_action_updates = 0)
 	. = ..()
-	density = emagged //this is reset every canmove update otherwise
+	if(emagged)
+		density = 1
+		if(world.time - emagged_time > EMAG_TIMER)
+			shut_down(TRUE)
+		return
+	density = 0 //this is reset every canmove update otherwise
 
 /mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
 	if(affect_silicon)

@@ -15,8 +15,9 @@
 	can_unwrench = 1
 
 	var/area/initial_loc
-
-	frequency = ATMOS_VENTSCRUB
+	var/id_tag = null
+	var/frequency = ATMOS_VENTSCRUB
+	var/datum/radio_frequency/radio_connection
 
 	var/list/turf/simulated/adjacent_turfs = list()
 
@@ -117,7 +118,7 @@
 	if(welded)
 		scrubber_icon = "scrubberweld"
 
-	overlays += SSair.icon_manager.get_atmos_icon("device", , , scrubber_icon)
+	overlays += GLOB.pipe_icon_manager.get_atmos_icon("device", , , scrubber_icon)
 	update_pipe_image()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/update_underlays()
@@ -134,7 +135,7 @@
 			else
 				add_underlay(T,, dir)
 
-/obj/machinery/atmospherics/unary/vent_scrubber/set_frequency(new_frequency)
+/obj/machinery/atmospherics/unary/vent_scrubber/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, radio_filter_in)
@@ -403,10 +404,10 @@
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
 		if(!welded)
 			welded = TRUE
-			user.visible_message("<span class='notice'>[user] welds [src] shut!</span>",\
+			visible_message("<span class='notice'>[user] welds [src] shut!</span>",\
 				"<span class='notice'>You weld [src] shut!</span>")
 		else
 			welded = FALSE
-			user.visible_message("<span class='notice'>[user] unwelds [src]!</span>",\
+			visible_message("<span class='notice'>[user] unwelds [src]!</span>",\
 				"<span class='notice'>You unweld [src]!</span>")
 		update_icon()

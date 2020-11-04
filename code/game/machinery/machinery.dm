@@ -93,8 +93,6 @@ Class Procs:
 	Compiled by Aygar
 */
 
-#define MACHINE_FLICKER_CHANCE 0.05 // roughly 1/2000 chance of a machine flickering on any given tick. That means in a two hour round each machine will flicker on average a little less than two times.
-
 /obj/machinery
 	name = "machinery"
 	icon = 'icons/obj/stationobjs.dmi'
@@ -122,23 +120,6 @@ Class Procs:
 	var/list/settagwhitelist // (Init this list if needed) WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
 	atom_say_verb = "beeps"
 	var/siemens_strength = 0.7 // how badly will it shock you?
-	/// The frequency on which the machine can communicate. Used with `/datum/radio_frequency`.
-	var/frequency = NONE
-	/// A reference to a `datum/radio_frequency`. Gives the machine the ability to interact with things using radio signals.
-	var/datum/radio_frequency/radio_connection
-
-/*
- * reimp, attempts to flicker this machinery if the behavior is supported.
- */
-/obj/machinery/get_spooked()
-	return flicker()
-
-/*
- * Base class, attempt to flicker. Returns TRUE if we complete our 'flicker
- * behavior', false otherwise.
- */
-/obj/machinery/proc/flicker()
-	return FALSE
 
 /obj/machinery/Initialize(mapload)
 	if(!armor)
@@ -184,9 +165,6 @@ Class Procs:
 /obj/machinery/proc/locate_machinery()
 	return
 
-/obj/machinery/proc/set_frequency()
-	return
-
 /obj/machinery/process() // If you dont use process or power why are you here
 	return PROCESS_KILL
 
@@ -214,11 +192,9 @@ Class Procs:
 		use_power(idle_power_usage,power_channel, 1)
 	else if(use_power >= ACTIVE_POWER_USE)
 		use_power(active_power_usage,power_channel, 1)
-	if(prob(MACHINE_FLICKER_CHANCE))
-		flicker()
 	return 1
 
-/obj/machinery/proc/multitool_topic(mob/user, list/href_list, obj/O)
+/obj/machinery/proc/multitool_topic(var/mob/user,var/list/href_list,var/obj/O)
 	if("set_id" in href_list)
 		if(!("id_tag" in vars))
 			warning("set_id: [type] has no id_tag var.")
@@ -238,7 +214,7 @@ Class Procs:
 		if(newfreq)
 			if(findtext(num2text(newfreq), "."))
 				newfreq *= 10 // shift the decimal one place
-			set_frequency(sanitize_frequency(newfreq, RADIO_LOW_FREQ, RADIO_HIGH_FREQ))
+			src:frequency = sanitize_frequency(newfreq, RADIO_LOW_FREQ, RADIO_HIGH_FREQ)
 			return TRUE
 	return FALSE
 
@@ -329,12 +305,6 @@ Class Procs:
 	return (stat & (NOPOWER|BROKEN|additional_flags))
 
 /obj/machinery/CanUseTopic(var/mob/user)
-	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
-		return STATUS_CLOSE
-
-	return ..()
-
-/obj/machinery/tgui_status(mob/user, datum/tgui_state/state)
 	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
 		return STATUS_CLOSE
 

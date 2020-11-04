@@ -1,20 +1,42 @@
+/*
+CONTAINS:
+RCD // no fucking shit sherlock
+*/
+#define RCD_PAGE_MAIN 1
+#define RCD_PAGE_AIRLOCK 2
 
-#define MATTER_100 100
-#define MATTER_500 500
+#define RCD_MODE_TURF		"Turf"
+#define RCD_MODE_AIRLOCK	"Airlock"
+#define RCD_MODE_DECON		"Deconstruct"
+#define RCD_MODE_WINDOW		"Windows"
 
-#define TAB_AIRLOCK_TYPE	1
-#define TAB_AIRLOCK_ACCESS	2
-
-#define MODE_TURF		"Floors and Walls"
-#define MODE_AIRLOCK	"Airlocks"
-#define MODE_WINDOW		"Windows"
-#define MODE_DECON		"Deconstruction"
+GLOBAL_LIST_INIT(rcd_door_types, list(
+	/obj/machinery/door/airlock = "Standard",					/obj/machinery/door/airlock/glass = "Standard (Glass)",
+	/obj/machinery/door/airlock/command = "Command",			/obj/machinery/door/airlock/command/glass = "Command (Glass)",
+	/obj/machinery/door/airlock/security = "Security",			/obj/machinery/door/airlock/security/glass = "Security (Glass)",
+	/obj/machinery/door/airlock/engineering = "Engineering",	/obj/machinery/door/airlock/engineering/glass = "Engineering (Glass)",
+	/obj/machinery/door/airlock/medical = "Medical",			/obj/machinery/door/airlock/medical/glass = "Medical (Glass)",
+	/obj/machinery/door/airlock/maintenance = "Maintenance",	/obj/machinery/door/airlock/maintenance/glass = "Maintenance (Glass)",
+	/obj/machinery/door/airlock/external = "External",			/obj/machinery/door/airlock/external/glass = "External (Glass)",
+	/obj/machinery/door/airlock/maintenance/external = "External Maintenance",
+		/obj/machinery/door/airlock/maintenance/external/glass = "External Maintenance (Glass)",
+	/obj/machinery/door/airlock/freezer = "Freezer",
+	/obj/machinery/door/airlock/mining = "Mining",		/obj/machinery/door/airlock/mining/glass = "Mining (Glass)",
+	/obj/machinery/door/airlock/research = "Research",	/obj/machinery/door/airlock/research/glass = "Research (Glass)",
+	/obj/machinery/door/airlock/atmos = "Atmospherics",	/obj/machinery/door/airlock/atmos/glass = "Atmospherics (Glass)",
+	/obj/machinery/door/airlock/science = "Science",	/obj/machinery/door/airlock/science/glass = "Science (Glass)",
+	/obj/machinery/door/airlock/hatch = "Airtight Hatch",
+	/obj/machinery/door/airlock/maintenance_hatch = "Maintenance Hatch"
+))
 
 /obj/item/rcd
 	name = "rapid-construction-device (RCD)"
 	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcd"
+	opacity = 0
+	density = 0
+	anchored = 0
 	flags = CONDUCT | NOBLUDGEON
 	force = 0
 	throwforce = 10
@@ -29,36 +51,24 @@
 	req_access = list(ACCESS_ENGINE)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
 	resistance_flags = FIRE_PROOF
-	/// The spark system used to create sparks when the user interacts with the RCD.
+	// Important shit
 	var/datum/effect_system/spark_spread/spark_system
-	/// The current amount of matter stored.
-	var/matter = NONE
-	/// The max amount of matter that can be stored.
-	var/max_matter = MATTER_100
-	/// The RCD's current build mode.
-	var/mode = MODE_TURF
-	/// If the RCD can deconstruct reinforced walls.
-	var/canRwall = FALSE
-	/// Is the RCD's airlock access selection menu locked?
+	var/matter = 0
+	var/max_matter = 100
+	var/mode = RCD_MODE_TURF
+	var/canRwall = 0
+
+	// UI shit
+	var/menu = RCD_PAGE_MAIN
 	var/locked = TRUE
-	/// The current airlock type that will be build.
 	var/door_type = /obj/machinery/door/airlock
-	/// The name that newly build airlocks will receive.
 	var/door_name = "Airlock"
-	/// If this is TRUE, any airlocks that gets built will require only ONE of the checked accesses. If FALSE, it will require ALL of them.
-	var/one_access = TRUE
-	/// Which airlock tab the UI is currently set to display.
-	var/ui_tab = TAB_AIRLOCK_TYPE
-	/// A list of access numbers which have been checked off by the user in the UI.
-	var/list/selected_accesses = list()
-	/// A list of valid atoms that RCDs can target. Clicking on an atom with an RCD which is not in this list, will do nothing.
-	var/static/list/allowed_targets = list(/turf, /obj/structure/grille, /obj/structure/window, /obj/structure/lattice, /obj/machinery/door/airlock)
-	/// An associative list of airlock type paths as keys, and their names as values.
-	var/static/list/rcd_door_types = list()
-	/// An associative list containing an airlock's name, type path, and image. For use with the UI.
-	var/static/list/door_types_ui_list = list()
-	/// An associative list containing all station accesses. Includes their name and access number. For use with the UI.
-	var/static/list/door_accesses_list = list()
+	var/list/door_accesses = list()
+	var/list/door_accesses_list = list()
+	var/one_access
+
+	// Stupid shit
+	var/static/allowed_targets = list(/turf, /obj/structure/grille, /obj/structure/window, /obj/structure/lattice, /obj/machinery/door/airlock)
 
 /obj/item/rcd/Initialize()
 	. = ..()
@@ -67,49 +77,9 @@
 	spark_system.attach(src)
 	GLOB.rcd_list += src
 
-	if(!length(rcd_door_types))
-		rcd_door_types = list(
-			/obj/machinery/door/airlock = "Standard",
-			/obj/machinery/door/airlock/glass = "Standard (Glass)",
-			/obj/machinery/door/airlock/command = "Command",
-			/obj/machinery/door/airlock/command/glass = "Command (Glass)",
-			/obj/machinery/door/airlock/security = "Security",
-			/obj/machinery/door/airlock/security/glass = "Security (Glass)",
-			/obj/machinery/door/airlock/engineering = "Engineering",
-			/obj/machinery/door/airlock/engineering/glass = "Engineering (Glass)",
-			/obj/machinery/door/airlock/atmos = "Atmospherics",
-			/obj/machinery/door/airlock/atmos/glass = "Atmospherics (Glass)",
-			/obj/machinery/door/airlock/mining = "Mining",
-			/obj/machinery/door/airlock/mining/glass = "Mining (Glass)",
-			/obj/machinery/door/airlock/medical = "Medical",
-			/obj/machinery/door/airlock/medical/glass = "Medical (Glass)",
-			/obj/machinery/door/airlock/research = "Research",
-			/obj/machinery/door/airlock/research/glass = "Research (Glass)",
-			/obj/machinery/door/airlock/science = "Science",
-			/obj/machinery/door/airlock/science/glass = "Science (Glass)",
-			/obj/machinery/door/airlock/maintenance = "Maintenance",
-			/obj/machinery/door/airlock/maintenance/glass = "Maintenance (Glass)",
-			/obj/machinery/door/airlock/maintenance/external = "External Maintenance",
-			/obj/machinery/door/airlock/maintenance/external/glass = "External Maint. (Glass)",
-			/obj/machinery/door/airlock/external = "External",
-			/obj/machinery/door/airlock/external/glass = "External (Glass)",
-			/obj/machinery/door/airlock/hatch = "Airtight Hatch",
-			/obj/machinery/door/airlock/maintenance_hatch = "Maintenance Hatch",
-			/obj/machinery/door/airlock/freezer = "Freezer"
-		)
-	if(!length(door_types_ui_list))
-		for(var/type in rcd_door_types)
-			door_types_ui_list += list(list(
-				"name" = rcd_door_types[type],
-				"type" = type,
-				"image" = get_airlock_image(type)
-			))
-	if(!length(door_accesses_list))
-		for(var/access in get_all_accesses())
-			door_accesses_list += list(list(
-				"name" = get_access_desc(access),
-				"id" = access
-			))
+	door_accesses_list = list()
+	for(var/access in get_all_accesses())
+		door_accesses_list[++door_accesses_list.len] = list("name" = get_access_desc(access), "id" = access, "enabled" = (access in door_accesses))
 
 /obj/item/rcd/examine(mob/user)
 	. = ..()
@@ -121,29 +91,15 @@
 	GLOB.rcd_list -= src
 	return ..()
 
-/**
- * Creates and returns a base64 icon of the given `airlock_type`.
- *
- * This is used for airlock icon previews in the UI.
- *
- * Arugments:
- * * airlock_type - an airlock typepath.
- */
 /obj/item/rcd/proc/get_airlock_image(airlock_type)
-	var/obj/machinery/door/airlock/proto = new airlock_type(null)
-	proto.icon_state = "closed"
-	if(!proto.glass)
-		proto.add_overlay("fill_closed")
-	var/icon/I = getFlatIcon(proto)
-	qdel(proto)
-	return "[icon2base64(I)]"
+	var/obj/machinery/door/airlock/proto = airlock_type
+	var/ic = initial(proto.icon)
+	var/mutable_appearance/MA = mutable_appearance(ic, "closed")
+	if(!initial(proto.glass))
+		MA.overlays += "fill_closed"
+	// Not scaling these down to button size because they look horrible then, instead just bumping up radius.
+	return MA
 
-/**
- * Runs a series of pre-checks before opening the radial menu to the user.
- *
- * Arguments:
- * * user - the mob trying to open the radial menu.
- */
 /obj/item/rcd/proc/check_menu(mob/living/user)
 	if(!istype(user))
 		return FALSE
@@ -152,41 +108,33 @@
 	return TRUE
 
 /obj/item/rcd/attackby(obj/item/W, mob/user, params)
-	if(!istype(W, /obj/item/rcd_ammo))
-		return ..()
+	..()
 
-	var/obj/item/rcd_ammo/R = W
-	if((matter + R.ammoamt) > max_matter)
-		to_chat(user, "<span class='notice'>The RCD can't hold any more matter-units.</span>")
-		return
+	if(istype(W, /obj/item/rcd_ammo))
+		var/obj/item/rcd_ammo/R = W
+		if((matter + R.ammoamt) > max_matter)
+			to_chat(user, "<span class='notice'>The RCD can't hold any more matter-units.</span>")
+			return
+		matter += R.ammoamt
+		if(!user.unEquip(R))
+			to_chat(user, "<span class='warning'>[R] is stuck to your hand!</span>")
+			return
+		qdel(R)
+		playsound(loc, 'sound/machines/click.ogg', 50, 1)
+		to_chat(user, "<span class='notice'>The RCD now holds [matter]/[max_matter] matter-units.</span>")
+		SSnanoui.update_uis(src)
 
-	if(!user.unEquip(R))
-		to_chat(user, "<span class='warning'>[R] is stuck to your hand!</span>")
-		return
-
-	matter += R.ammoamt
-	qdel(R)
-	playsound(loc, 'sound/machines/click.ogg', 50, 1)
-	to_chat(user, "<span class='notice'>The RCD now holds [matter]/[max_matter] matter-units.</span>")
-	SStgui.update_uis(src)
-
-/**
- * Creates and displays a radial menu to a user when they trigger the `attack_self` of the RCD.
- *
- * Arguments:
- * * user - the mob trying to open the RCD radial.
- */
 /obj/item/rcd/proc/radial_menu(mob/user)
 	if(!check_menu(user))
 		return
 	var/list/choices = list(
-		MODE_AIRLOCK = image(icon = 'icons/obj/interface.dmi', icon_state = "airlock"),
-		MODE_DECON = image(icon = 'icons/obj/interface.dmi', icon_state = "delete"),
-		MODE_WINDOW = image(icon = 'icons/obj/interface.dmi', icon_state = "grillewindow"),
-		MODE_TURF = image(icon = 'icons/obj/interface.dmi', icon_state = "wallfloor"),
+		RCD_MODE_AIRLOCK = image(icon = 'icons/obj/interface.dmi', icon_state = "airlock"),
+		RCD_MODE_DECON = image(icon = 'icons/obj/interface.dmi', icon_state = "delete"),
+		RCD_MODE_WINDOW = image(icon = 'icons/obj/interface.dmi', icon_state = "grillewindow"),
+		RCD_MODE_TURF = image(icon = 'icons/obj/interface.dmi', icon_state = "wallfloor"),
 		"UI" = image(icon = 'icons/obj/interface.dmi', icon_state = "ui_interact")
 	)
-	if(mode == MODE_AIRLOCK)
+	if(mode == RCD_MODE_AIRLOCK)
 		choices += list(
 			"Change Access" = image(icon = 'icons/obj/interface.dmi', icon_state = "access"),
 			"Change Airlock Type" = image(icon = 'icons/obj/interface.dmi', icon_state = "airlocktype")
@@ -196,18 +144,15 @@
 	if(!check_menu(user))
 		return
 	switch(choice)
-		if(MODE_AIRLOCK, MODE_DECON, MODE_WINDOW, MODE_TURF)
+		if(RCD_MODE_AIRLOCK, RCD_MODE_DECON, RCD_MODE_WINDOW, RCD_MODE_TURF)
 			mode = choice
 		if("UI")
-			tgui_interact(user)
+			menu = RCD_PAGE_MAIN
+			ui_interact(user)
 			return
-		if("Change Access")
-			ui_tab = TAB_AIRLOCK_ACCESS
-			tgui_interact(user)
-			return
-		if("Change Airlock Type")
-			ui_tab = TAB_AIRLOCK_TYPE
-			tgui_interact(user)
+		if("Change Access", "Change Airlock Type")
+			menu = RCD_PAGE_AIRLOCK
+			ui_interact(user)
 			return
 		else
 			return
@@ -222,131 +167,87 @@
 /obj/item/rcd/attack_self_tk(mob/user)
 	radial_menu(user)
 
-/obj/item/rcd/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/rcd/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = GLOB.inventory_state)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "RCD", "Rapid Construction Device", 471, 673, master_ui, state)
+		ui = new(user, src, ui_key, "rcd.tmpl", "[name]", 450, 400, state = state)
 		ui.open()
+		ui.set_auto_update(1)
 
-/obj/item/rcd/tgui_data(mob/user)
-	var/list/data = list(
-		"tab" = ui_tab,
-		"mode" = mode,
-		"locked" = locked,
-		"matter" = matter,
-		"door_type" = door_type,
-		"door_name" = door_name,
-		"one_access" = one_access,
-		"selected_accesses" = selected_accesses,
-		"modal" = tgui_modal_data(src)
-	)
+/obj/item/rcd/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.inventory_state)
+	var/data[0]
+	data["mode"] = mode
+	data["door_type"] = door_type
+	data["door_name"] = door_name
+	data["menu"] = menu
+	data["matter"] = matter
+	data["max_matter"] = max_matter
+	data["one_access"] = one_access
+	data["locked"] = locked
+
+	if(menu == RCD_PAGE_AIRLOCK)
+		var/list/door_types_list = list()
+		for(var/type in GLOB.rcd_door_types)
+			door_types_list[++door_types_list.len] = list("name" = GLOB.rcd_door_types[type], "type" = type)
+		data["allowed_door_types"] = door_types_list
+
+		data["door_accesses"] = door_accesses_list
+
 	return data
 
-/obj/item/rcd/tgui_static_data(mob/user)
-	var/list/data = list(
-		"max_matter" = max_matter,
-		"regions" = get_accesslist_static_data(REGION_GENERAL, REGION_COMMAND),
-		"door_accesses_list" = door_accesses_list,
-		"door_types_ui_list" = door_types_ui_list
-	)
-	return data
-
-/obj/item/rcd/tgui_act(action, list/params)
+/obj/item/rcd/Topic(href, href_list, nowindow, state)
 	if(..())
-		return
+		return 1
 
 	if(prob(20))
 		spark_system.start()
 
-	if(tgui_act_modal(action, params))
-		return TRUE
+	if(href_list["mode"])
+		mode = href_list["mode"]
+		. = 1
 
-	. = TRUE
-	switch(action)
-		if("set_tab")
-			var/tab = text2num(params["tab"])
-			if(!(tab in list(TAB_AIRLOCK_TYPE, TAB_AIRLOCK_ACCESS)))
-				return FALSE
-			ui_tab = tab
+	if(href_list["door_type"])
+		var/new_door_type = text2path(href_list["door_type"])
+		if(!(new_door_type in GLOB.rcd_door_types))
+			message_admins("RCD Door HREF exploit attempted by [key_name(usr)]!")
+			return
+		door_type = new_door_type
+		. = 1
 
-		if("mode")
-			var/new_mode = params["mode"]
-			if(!(new_mode in list(MODE_TURF, MODE_AIRLOCK, MODE_DECON, MODE_WINDOW)))
-				return FALSE
-			mode = new_mode
+	if(href_list["menu"])
+		menu = text2num(href_list["menu"])
+		. = 1
 
-		if("door_type")
-			var/new_door_type = text2path(params["door_type"])
-			if(!(new_door_type in rcd_door_types))
-				message_admins("RCD Door HREF exploit attempted by [key_name(usr)]!")
-				return FALSE
-			door_type = new_door_type
+	if(href_list["login"])
+		if(allowed(usr))
+			locked = FALSE
+		. = 1
 
-		if("set_lock")
-			if(!allowed(usr))
-				to_chat(usr, "<span class='warning'>Access denied.</span>")
-				return FALSE
-			locked = params["new_lock"] == "lock" ? TRUE : FALSE
+	if(href_list["logout"])
+		locked = TRUE
+		. = 1
 
-		if("set_one_access")
-			one_access = params["access"] == "one" ? TRUE : FALSE
+	if(!locked)
+		if(href_list["toggle_one_access"])
+			one_access = !one_access
+			. = 1
 
-		if("set")
-			var/access = text2num(params["access"])
-			if(isnull(access))
-				return
-			if(access in selected_accesses)
-				selected_accesses -= access
+		if(href_list["toggle_access"])
+			var/href_access = text2num(href_list["toggle_access"])
+			if(href_access in door_accesses)
+				door_accesses -= href_access
 			else
-				selected_accesses |= access
+				door_accesses += href_access
+			door_accesses_list = list()
+			for(var/access in get_all_accesses())
+				door_accesses_list[++door_accesses_list.len] = list("name" = get_access_desc(access), "id" = access, "enabled" = (access in door_accesses))
+			. = 1
 
-		if("grant_region")
-			var/region = text2num(params["region"])
-			if(isnull(region) || region < REGION_GENERAL || region > REGION_COMMAND)
-				return
-			selected_accesses |= get_region_accesses(region)
+		if(href_list["choice"])
+			var/temp_t = sanitize(copytext(input("Enter a custom Airlock Name.", "Airlock Name"), 1, MAX_MESSAGE_LEN))
+			if(temp_t)
+				door_name = temp_t
 
-		if("deny_region")
-			var/region = text2num(params["region"])
-			if(isnull(region) || region < REGION_GENERAL || region > REGION_COMMAND)
-				return
-			selected_accesses -= get_region_accesses(region)
-
-		if("clear_all")
-			selected_accesses = list()
-
-		if("grant_all")
-			selected_accesses = get_all_accesses()
-
-/**
-  * Called in tgui_act() to process modal actions
-  *
-  * Arguments:
-  * * action - The action passed by tgui
-  * * params - The params passed by tgui
-  */
-/obj/item/rcd/proc/tgui_act_modal(action, list/params)
-	. = TRUE
-	switch(tgui_modal_act(src, action, params))
-		if(TGUI_MODAL_OPEN)
-			tgui_modal_input(src, "renameAirlock", "Enter a new name:", value = door_name, max_length = TGUI_MODAL_INPUT_MAX_LENGTH_NAME)
-		if(TGUI_MODAL_ANSWER)
-			var/answer = params["answer"]
-			if(!answer)
-				return
-			door_name = sanitize(copytext(answer, 1, TGUI_MODAL_INPUT_MAX_LENGTH_NAME))
-		else
-			return FALSE
-
-/**
- * Called in `afterattack()` if `mode` is set to `MODE_TURF`.
- *
- * Creates either a plating, or a wall, depending on the turf that already exists at the location.
- *
- * Arguments:
- * * A - the location we're trying to build at.
- * * user - the mob using the RCD.
- */
 /obj/item/rcd/proc/mode_turf(atom/A, mob/user)
 	if(isspaceturf(A) || istype(A, /obj/structure/lattice))
 		if(useResource(1, user))
@@ -378,15 +279,6 @@
 	playsound(loc, 'sound/machines/click.ogg', 50, 1)
 	return FALSE
 
-/**
- * Called in `afterattack()` if `mode` is set to `MODE_AIRLOCK`.
- *
- * Creates an `door_type` airlock at the given location `A`, and assigns it accesses from `selected_accesses`.
- *
- * Arguments:
- * * A - the location we're trying to build at.
- * * user - the mob using the RCD.
- */
 /obj/item/rcd/proc/mode_airlock(atom/A, mob/user)
 	if(isfloorturf(A))
 		if(checkResource(10, user))
@@ -402,9 +294,9 @@
 				T.name = door_name
 				T.autoclose = TRUE
 				if(one_access)
-					T.req_one_access = selected_accesses.Copy()
+					T.req_one_access = door_accesses.Copy()
 				else
-					T.req_access = selected_accesses.Copy()
+					T.req_access = door_accesses.Copy()
 				return FALSE
 			return FALSE
 		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to construct this airlock!</span>")
@@ -414,16 +306,6 @@
 	playsound(loc, 'sound/machines/click.ogg', 50, 1)
 	return FALSE
 
-/**
- * Called in `afterattack()` if `mode` is set to `MODE_DECON`.
- *
- * Deconstrcts the target atom `A`.
- * Valid atoms are: basic walls, reinforced walls (if `canRwall` is `TRUE`), airlocks, and windows.
- *
- * Arguments:
- * * A - the location we're trying to build at.
- * * user - the mob using the RCD.
- */
 /obj/item/rcd/proc/mode_decon(atom/A, mob/user)
 	if(iswallturf(A))
 		if(istype(A, /turf/simulated/wall/r_wall) && !canRwall)
@@ -480,13 +362,13 @@
 		if(!checkResource(2, user))
 			to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to deconstruct this window!</span>")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
-			return FALSE
+			return 0
 		to_chat(user, "Deconstructing window...")
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
 		if(!do_after(user, 20 * toolspeed, target = A))
-			return FALSE
+			return 0
 		if(!useResource(2, user))
-			return FALSE
+			return 0
 		playsound(loc, usesound, 50, 1)
 		var/turf/T1 = get_turf(A)
 		QDEL_NULL(A)
@@ -506,31 +388,22 @@
 		return TRUE
 	return FALSE
 
-/**
- * Called in `afterattack()` if `mode` is set to `MODE_WINDOW`.
- *
- * Constructs a grille and 4 reinforced window panes at the given location `A`.
- *
- * Arguments:
- * * A - the location we're trying to build at.
- * * user - the mob using the RCD.
- */
 /obj/item/rcd/proc/mode_window(atom/A, mob/user)
 	if(isfloorturf(A))
 		if(locate(/obj/structure/grille) in A)
-			return FALSE // We already have window
+			return 0 // We already have window
 		if(!checkResource(2, user))
 			to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to construct this window!</span>")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
-			return FALSE
+			return 0
 		to_chat(user, "Constructing window...")
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
 		if(!do_after(user, 20 * toolspeed, target = A))
-			return FALSE
+			return 0
 		if(locate(/obj/structure/grille) in A)
-			return FALSE // We already have window
+			return 0 // We already have window
 		if(!useResource(2, user))
-			return FALSE
+			return 0
 		playsound(loc, usesound, 50, 1)
 		new /obj/structure/grille(A)
 		for(var/obj/structure/window/W in A)
@@ -546,10 +419,10 @@
 				W.dir = cdir
 		var/turf/AT = A
 		AT.ChangeTurf(/turf/simulated/floor/plating) // Platings go under windows.
-		return TRUE
+		return 1
 	to_chat(user, "<span class='warning'>ERROR! Location unsuitable for window construction!</span>")
 	playsound(loc, 'sound/machines/click.ogg', 50, 1)
-	return FALSE
+	return 0
 
 /obj/item/rcd/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
@@ -560,77 +433,54 @@
 		return FALSE
 
 	switch(mode)
-		if(MODE_TURF)
+		if(RCD_MODE_TURF)
 			. = mode_turf(A, user)
-		if(MODE_AIRLOCK)
+		if(RCD_MODE_AIRLOCK)
 			. = mode_airlock(A, user)
-		if(MODE_DECON)
+		if(RCD_MODE_DECON)
 			. = mode_decon(A, user)
-		if(MODE_WINDOW)
+		if(RCD_MODE_WINDOW)
 			. = mode_window(A, user)
 		else
 			to_chat(user, "ERROR: RCD in MODE: [mode] attempted use by [user]. Send this text #coderbus or an admin.")
 			. = 0
 
-	SStgui.update_uis(src)
+	SSnanoui.update_uis(src)
 
-/**
- * Called in each of the four build modes after an object is successfully built.
- *
- * Subtracts the amount of matter used from `matter`.
- *
- * Arguments:
- * * amount - the amount of matter that was used.
- */
 /obj/item/rcd/proc/useResource(amount, mob/user)
 	if(matter < amount)
-		return FALSE
+		return 0
 	matter -= amount
-	SStgui.update_uis(src)
-	return TRUE
+	SSnanoui.update_uis(src)
+	return 1
 
-/**
- * Called in each of the four build modes before an object gets build. Makes sure there is enough matter to build the object.
- *
- * Arguments:
- * * amount - an amount of matter to check for
- */
 /obj/item/rcd/proc/checkResource(amount, mob/user)
 	return matter >= amount
 
 /obj/item/rcd/borg
-	canRwall = TRUE
-	/// A multipler which is applied to matter amount checks. A higher number means more power usage per RCD usage.
-	var/power_use_multiplier = 160
+	canRwall = 1
+	var/use_multiplier = 160
 
 /obj/item/rcd/borg/syndicate
-	power_use_multiplier = 80
+	use_multiplier = 80
 
 /obj/item/rcd/borg/useResource(amount, mob/user)
 	if(!isrobot(user))
-		return FALSE
+		return 0
 	var/mob/living/silicon/robot/R = user
-	return R.cell.use(amount * power_use_multiplier)
+	return R.cell.use(amount * use_multiplier)
 
 /obj/item/rcd/borg/checkResource(amount, mob/user)
 	if(!isrobot(user))
-		return FALSE
+		return 0
 	var/mob/living/silicon/robot/R = user
-	return R.cell.charge >= (amount * power_use_multiplier)
+	return R.cell.charge >= (amount * use_multiplier)
 
-/**
- * Called from malf AI's "detonate RCD" ability.
- *
- * Creates a delayed explosion centered around the RCD.
- */
 /obj/item/rcd/proc/detonate_pulse()
 	audible_message("<span class='danger'><b>[src] begins to vibrate and buzz loudly!</b></span>", "<span class='danger'><b>[src] begins vibrating violently!</b></span>")
 	// 5 seconds to get rid of it
 	addtimer(CALLBACK(src, .proc/detonate_pulse_explode), 50)
 
-/**
- * Called in `/obj/item/rcd/proc/detonate_pulse()` via callback.
- */
 /obj/item/rcd/proc/detonate_pulse_explode()
 	explosion(src, 0, 0, 3, 1, flame_range = 1)
 	qdel(src)
@@ -640,9 +490,9 @@
 
 /obj/item/rcd/combat
 	name = "combat RCD"
-	max_matter = MATTER_500
-	matter = MATTER_500
-	canRwall = TRUE
+	max_matter = 500
+	matter = 500
+	canRwall = 1
 
 /obj/item/rcd_ammo
 	name = "compressed matter cartridge"
@@ -650,15 +500,12 @@
 	icon = 'icons/obj/ammo.dmi'
 	icon_state = "rcd"
 	item_state = "rcdammo"
-	opacity = FALSE
-	density = FALSE
-	anchored = FALSE
+	opacity = 0
+	density = 0
+	anchored = 0.0
 	origin_tech = "materials=3"
 	materials = list(MAT_METAL=16000, MAT_GLASS=8000)
 	var/ammoamt = 20
 
 /obj/item/rcd_ammo/large
 	ammoamt = 100
-
-#undef MATTER_100
-#undef MATTER_500

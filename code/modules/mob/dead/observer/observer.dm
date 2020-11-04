@@ -41,7 +41,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		/mob/dead/observer/proc/open_spawners_menu)
 
 	// Our new boo spell.
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/click/boo(null))
+	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/boo(null))
 
 	can_reenter_corpse = flags & GHOST_CAN_REENTER
 	started_as_observer = flags & GHOST_IS_OBSERVER
@@ -53,6 +53,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(ismob(body))
 		T = get_turf(body)				//Where is the body located?
 		attack_log_old = body.attack_log_old	//preserve our attack logs by copying them to our ghost
+		logs = body.logs.Copy()
 
 		var/mutable_appearance/MA = copy_appearance(body)
 		if(body.mind && body.mind.name)
@@ -576,7 +577,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/dat
 	dat += "<h4>Crew Manifest</h4>"
-	dat += GLOB.data_core.get_manifest(OOC = TRUE)
+	dat += GLOB.data_core.get_manifest()
 
 	src << browse(dat, "window=manifest;size=370x420;can_close=1")
 
@@ -647,8 +648,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Toggle Anonymous Dead-chat"
 	set category = "Ghost"
 	set desc = "Toggles showing your key in dead chat."
-	client.prefs.toggles2 ^= PREFTOGGLE_2_ANONDCHAT
-	to_chat(src, "As a ghost, your key will [(client.prefs.toggles2 & PREFTOGGLE_2_ANONDCHAT) ? "no longer" : "now"] be shown when you speak in dead chat.</span>")
+	client.prefs.ghost_anonsay = !client.prefs.ghost_anonsay
+	to_chat(src, "As a ghost, your key will [(client.prefs.ghost_anonsay) ? "no longer" : "now"] be shown when you speak in dead chat.</span>")
 	client.prefs.save_preferences(src)
 
 /mob/dead/observer/verb/toggle_ghostsee()
@@ -780,4 +781,4 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "Ghost"
 
 	var/datum/spawners_menu/menu = new /datum/spawners_menu(src)
-	menu.tgui_interact(src)
+	menu.ui_interact(src)

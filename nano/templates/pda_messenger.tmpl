@@ -1,0 +1,90 @@
+<!--
+Title: PDA Messenger UI
+Used In File(s): \code\game\objects\items\devices\PDA\core_apps.dm
+ -->
+{{if data.active_conversation}}
+	<div class="item">
+		<div class="itemLabel">
+			<b>Messenger Functions</b>:
+		</div>
+		<div class ="itemContent">
+			{{:helper.link('Delete Conversation', 'trash', {'choice' : "Clear", 'option' : "Convo"}, null, 'pdalink fixedLeftWide')}}
+			{{:helper.link(data.auto_scroll ? 'Autoscroll: On' : 'Autoscroll: Off', 'level-down', {'choice' : "Autoscroll"}, null, 'pdalink fixedLeftWide')}}
+		</div>
+	</div>
+	<br>
+	<br>
+	<H3>Conversation with:&nbsp;<span class="average">{{:data.convo_name}}&nbsp;({{:data.convo_job}})</span></H3>
+	<div class="statusDisplay" style="overflow: auto;">
+		<div class="item">
+			<div class="itemContent" style="width: 100%;">
+				{{for data.messages}}
+					{{if data.active_conversation == value.target}}
+						{{if value.sent==0}}
+							<span class="average"><B>Them</B>: {{:value.message}}</span><br>
+						{{else}}
+							<span class="good"><B>You</B>: {{:value.message}}</span><br>
+						{{/if}}
+					{{/if}}
+				{{/for}}
+			</div>
+		</div>
+	</div>
+	{{:helper.link('Reply', 'comment', {'choice' : "Message", 'target': data.active_conversation}, null, 'pdalink fixedLeftWidest')}}
+	<script>
+		$(function() {
+			{{if data.auto_scroll && data.latest_post != data.messages.length}}
+				var body = document.body;
+				$('html,body').animate({scrollTop: body.scrollHeight}, "fast");
+			{{/if}}
+		});
+	</script>
+{{else}}
+	<div class="item">
+		<div class="itemLabelNarrow">
+			<b>Messenger Functions</b>:
+		</div>
+		<div class ="itemContent">
+			{{:helper.link(data.silent==1 ? 'Ringer: Off' : 'Ringer: On', data.silent==1 ? 'volume-off' : 'volume-up', {'choice' : "Toggle Ringer"}, null, 'pdalink fixedLeftWide')}}
+			{{:helper.link(data.toff==1 ? 'Messenger: Off' : 'Messenger: On',data.toff==1 ? 'close':'check', {'choice' : "Toggle Messenger"}, null, 'pdalink fixedLeftWide')}}
+			{{:helper.link('Set Ringtone', 'bell-o', {'choice' : "Ringtone"}, null, 'pdalink fixedLeftWide')}}
+			{{:helper.link('Delete all Conversations', 'trash', {'choice' : "Clear", 'option' : "All"}, null, 'pdalink fixedLeftWider')}}
+		</div>
+	</div>
+	{{if data.toff == 0}}
+		<br>
+		{{if data.charges}}
+			<div class="item">
+				<b>{{:data.charges}} charges left.</b>
+				<br><br>
+			</div>
+		{{/if}}
+
+		{{if !data.convopdas.length && !data.pdas.length}}
+			<b>No other PDAS located</b>
+		{{else}}
+			<H3>Current Conversations</H3>
+			{{for data.convopdas}}
+				<div class="item">
+					{{:helper.link(value.Name, 'arrow-circle-down', {'choice' : "Select Conversation", 'convo' : value.Reference } , null, 'pdalink')}}
+					{{if data.charges}}
+						{{for data.plugins : plugin : i}}
+							{{:helper.link(plugin.name, plugin.icon, {'choice' : "Messenger Plugin", 'plugin' : plugin.ref, 'target' : value.Reference}, null, 'pdalink fixedLeft')}}
+						{{/for}}
+					{{/if}}
+				</div>
+			{{/for}}
+			<H3>Other PDAs</H3>
+			{{for data.pdas}}
+				<div class="item">
+					{{:helper.link(value.Name, 'arrow-circle-down', {'choice' : "Message", 'target' : value.Reference}, null, 'pdalink')}}
+					{{if data.charges}}
+						{{for data.plugins : plugin : i}}
+							{{:helper.link(plugin.name, plugin.icon, {'choice' : "Messenger Plugin", 'plugin' : plugin.ref, 'target' : value.Reference}, null, 'pdalink fixedLeft')}}
+						{{/for}}
+					{{/if}}
+				</div>
+			{{/for}}
+		{{/if}}
+	{{/if}}
+{{/if}}

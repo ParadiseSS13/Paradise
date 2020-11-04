@@ -55,8 +55,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	var/list/announce_beacons = list() // Particular beacons that we'll notify the relevant department when we reach
 	var/special = FALSE //Event/Station Goals/Admin enabled packs
 	var/special_enabled = FALSE
-	/// List of names for being done in TGUI
-	var/list/tgui_manifest = list()
 
 
 /datum/supply_packs/New()
@@ -65,11 +63,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		if(!path)	continue
 		var/atom/movable/AM = path
 		manifest += "<li>[initial(AM.name)]</li>"
-		// Add the name to the UI manifest
-		tgui_manifest += "[initial(AM.name)]"
 	manifest += "</ul>"
-
-
 
 ////// Use the sections to keep things tidy please /Malkevin
 
@@ -349,14 +343,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/clothing/suit/armor/bulletproof)
 	cost = 15
 	containername = "tactical armor crate"
-
-/datum/supply_packs/security/armory/webbing
-	name = "Webbing Crate"
-	contains = list(/obj/item/storage/belt/security/webbing,
-					/obj/item/storage/belt/security/webbing,
-					/obj/item/storage/belt/security/webbing)
-	cost = 15
-	containername = "tactical webbing crate"
 
 /datum/supply_packs/security/armory/swat
 	name = "SWAT gear crate"
@@ -994,6 +980,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "shield generators crate"
 	access = ACCESS_TELEPORTER
 
+/datum/supply_packs/science/modularpc
+	name = "Deluxe Silicate Selections restocking unit"
+	cost = 15
+	contains = list(/obj/item/vending_refill/modularpc)
+	containername = "computer supply crate"
+
 /datum/supply_packs/science/transfer_valves
 	name = "Tank Transfer Valves Crate"
 	contains = list(/obj/item/transfer_valve,
@@ -1181,10 +1173,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "fox crate"
 
 /datum/supply_packs/organic/butterfly
-	name = "Butterfly Crate"
+	name = "Butterflies Crate"
 	cost = 50
 	containertype = /obj/structure/closet/critter/butterfly
-	containername = "butterfly crate"
+	containername = "butterflies crate"
+	contraband = 1
 
 /datum/supply_packs/organic/deer
 	name = "Deer Crate"
@@ -1801,16 +1794,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/circuitboard/computer/bsa_control
 					)
 	containername = "bluespace artillery parts crate"
-
-
-/datum/supply_packs/misc/station_goal/bluespace_tap
-	name = "Bluespace Harvester Parts"
-	cost = 150
-	contains = list(
-					/obj/item/circuitboard/machine/bluespace_tap,
-					/obj/item/paper/bluespace_tap
-					)
-	containername = "bluespace harvester parts crate"
 
 /datum/supply_packs/misc/station_goal/dna_vault
 	name = "DNA Vault Parts"

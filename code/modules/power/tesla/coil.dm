@@ -21,7 +21,6 @@
 	RefreshParts()
 
 /obj/machinery/power/tesla_coil/Destroy()
-	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	return ..()
 

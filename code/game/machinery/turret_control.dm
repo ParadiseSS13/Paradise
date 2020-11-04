@@ -11,56 +11,51 @@
 	desc = "Used to control a room's automated defenses."
 	icon = 'icons/obj/machines/turret_control.dmi'
 	icon_state = "control_standby"
-	anchored = TRUE
-	density = FALSE
+	anchored = 1
+	density = 0
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	var/enabled = FALSE
-	var/lethal = FALSE
-	var/lethal_is_configurable = TRUE
-	var/locked = TRUE
+	var/enabled = 0
+	var/lethal = 0
+	var/locked = 1
 	var/area/control_area //can be area name, path or nothing.
 
-	var/targetting_is_configurable = TRUE // if false, you cannot change who this turret attacks via its UI
-	var/check_arrest = TRUE	//checks if the perp is set to arrest
-	var/check_records = TRUE	//checks if a security record exists at all
-	var/check_weapons = FALSE	//checks if it can shoot people that have a weapon they aren't authorized to have
-	var/check_access = TRUE	//if this is active, the turret shoots everything that does not meet the access requirements
-	var/check_anomalies = TRUE	//checks if it can shoot at unidentified lifeforms (ie xenos)
-	var/check_synth = FALSE 	//if active, will shoot at anything not an AI or cyborg
-	var/check_borgs = FALSE //if TRUE, target all cyborgs.
-	var/ailock = FALSE 	//Silicons cannot use this
+	var/check_arrest = 1	//checks if the perp is set to arrest
+	var/check_records = 1	//checks if a security record exists at all
+	var/check_weapons = 0	//checks if it can shoot people that have a weapon they aren't authorized to have
+	var/check_access = 1	//if this is active, the turret shoots everything that does not meet the access requirements
+	var/check_anomalies = 1	//checks if it can shoot at unidentified lifeforms (ie xenos)
+	var/check_synth = 0 	//if active, will shoot at anything not an AI or cyborg
+	var/ailock = 0 	//Silicons cannot use this
 
-	var/syndicate = FALSE
+	var/syndicate = 0
 	var/faction = "" // Turret controls can only access turrets that are in the same faction
 
 	req_access = list(ACCESS_AI_UPLOAD)
 
 /obj/machinery/turretid/stun
-	enabled = TRUE
+	enabled = 1
 	icon_state = "control_stun"
 
 /obj/machinery/turretid/lethal
-	enabled = TRUE
-	lethal = TRUE
+	enabled = 1
+	lethal = 1
 	icon_state = "control_kill"
 
 /obj/machinery/turretid/syndicate
-	enabled = TRUE
-	lethal = TRUE
-	lethal_is_configurable = FALSE
-	targetting_is_configurable = FALSE
+	enabled = 1
+	lethal = 1
 	icon_state = "control_kill"
 
-	check_arrest = FALSE
-	check_records = FALSE
-	check_weapons = FALSE
-	check_access = FALSE
-	check_anomalies = TRUE
-	check_synth	= TRUE
-	check_borgs = FALSE
-	ailock = TRUE
+	lethal = 1
+	check_arrest = 0
+	check_records = 0
+	check_weapons = 0
+	check_access = 0
+	check_anomalies = 1
+	check_synth	= 1
+	ailock = 1
 
-	syndicate = TRUE
+	syndicate = 1
 	faction = "syndicate"
 	req_access = list(ACCESS_SYNDICATE_LEADER)
 
@@ -92,23 +87,21 @@
 	return
 
 /obj/machinery/turretid/proc/isLocked(mob/user)
-	if(isrobot(user) || isAI(user))
-		if(ailock)
-			to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
-			return TRUE
-		else
-			return FALSE
+	if(ailock && (isrobot(user) || isAI(user)))
+		to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
+		return 1
 
-	if(isobserver(user))
-		if(user.can_admin_interact())
-			return FALSE
-		else
-			return TRUE
+	if(locked && !(isrobot(user) || isAI(user) || isobserver(user)))
+		to_chat(user, "<span class='notice'>Access denied.</span>")
+		return 1
 
-	if(locked)
-		return TRUE
+	return 0
 
-	return FALSE
+/obj/machinery/turretid/CanUseTopic(mob/user)
+	if(isLocked(user))
+		return STATUS_CLOSE
+
+	return ..()
 
 /obj/machinery/turretid/attackby(obj/item/W, mob/user)
 	if(stat & BROKEN)
@@ -127,82 +120,89 @@
 /obj/machinery/turretid/emag_act(user as mob)
 	if(!emagged)
 		to_chat(user, "<span class='danger'>You short out the turret controls' access analysis module.</span>")
-		emagged = TRUE
-		locked = FALSE
-		ailock = FALSE
+		emagged = 1
+		locked = 0
+		ailock = 0
 		return
 
 /obj/machinery/turretid/attack_ai(mob/user as mob)
-	tgui_interact(user)
+	if(isLocked(user))
+		return
+
+	ui_interact(user)
 
 /obj/machinery/turretid/attack_ghost(mob/user as mob)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/turretid/attack_hand(mob/user as mob)
-	tgui_interact(user)
+	if(isLocked(user))
+		return
 
-/obj/machinery/turretid/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui_interact(user)
+
+/obj/machinery/turretid/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "PortableTurret", name, 500, 400)
+		ui = new(user, src, ui_key, "turret_control.tmpl", "Turret Controls", 500, 350)
 		ui.open()
+		ui.set_auto_update(1)
 
-/obj/machinery/turretid/tgui_data(mob/user)
-	var/list/data = list(
-		"locked" = isLocked(user), // does the current user have access?
-		"on" = enabled,
-		"targetting_is_configurable" = targetting_is_configurable, // If false, targetting settings don't show up
-		"lethal" = lethal,
-		"lethal_is_configurable" = lethal_is_configurable,
-		"check_weapons" = check_weapons,
-		"neutralize_noaccess" = check_access,
-		"one_access" = FALSE,
-		"selectedAccess" = list(),
-		"access_is_configurable" = FALSE,
-		"neutralize_norecord" = check_records,
-		"neutralize_criminals" = check_arrest,
-		"neutralize_all" = check_synth,
-		"neutralize_unidentified" = check_anomalies,
-		"neutralize_cyborgs" = check_borgs
-	)
+/obj/machinery/turretid/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+	var/data[0]
+	data["access"] = !isLocked(user)
+	data["locked"] = locked
+	data["enabled"] = enabled
+	data["lethal_control"] = !syndicate ? 1 : 0
+	data["lethal"] = lethal
+
+	if(data["access"] && !syndicate)
+		var/settings[0]
+		settings[++settings.len] = list("category" = "Neutralize All Non-Synthetics", "setting" = "check_synth", "value" = check_synth)
+		settings[++settings.len] = list("category" = "Check Weapon Authorization", "setting" = "check_weapons", "value" = check_weapons)
+		settings[++settings.len] = list("category" = "Check Security Records", "setting" = "check_records", "value" = check_records)
+		settings[++settings.len] = list("category" = "Check Arrest Status", "setting" = "check_arrest", "value" = check_arrest)
+		settings[++settings.len] = list("category" = "Check Access Authorization", "setting" = "check_access", "value" = check_access)
+		settings[++settings.len] = list("category" = "Check Misc. Lifeforms", "setting" = "check_anomalies", "value" = check_anomalies)
+		data["settings"] = settings
+
 	return data
 
-/obj/machinery/turretid/tgui_act(action, params)
-	if (..())
-		return
+/obj/machinery/turretid/Topic(href, href_list, var/nowindow = 0)
+	if(..())
+		return 1
+
 	if(isLocked(usr))
-		return
-	. = TRUE
-	switch(action)
-		if("power")
-			enabled = !enabled
-		if("lethal")
-			if(lethal_is_configurable)
-				lethal = !lethal
-	if(targetting_is_configurable)
-		switch(action)
-			if("authweapon")
-				check_weapons = !check_weapons
-			if("authaccess")
-				check_access = !check_access
-			if("authnorecord")
-				check_records = !check_records
-			if("autharrest")
-				check_arrest = !check_arrest
-			if("authxeno")
-				check_anomalies = !check_anomalies
-			if("authsynth")
-				check_synth = !check_synth
-			if("authborgs")
-				check_borgs = !check_borgs
-	updateTurrets()
+		return 1
+
+	if(href_list["command"] && href_list["value"])
+		var/value = text2num(href_list["value"])
+		if(href_list["command"] == "enable")
+			enabled = value
+		else if(syndicate)
+			return 1
+		else if(href_list["command"] == "lethal")
+			lethal = value
+		else if(href_list["command"] == "check_synth")
+			check_synth = value
+		else if(href_list["command"] == "check_weapons")
+			check_weapons = value
+		else if(href_list["command"] == "check_records")
+			check_records = value
+		else if(href_list["command"] == "check_arrest")
+			check_arrest = value
+		else if(href_list["command"] == "check_access")
+			check_access = value
+		else if(href_list["command"] == "check_anomalies")
+			check_anomalies = value
+
+		updateTurrets()
+		return 1
 
 /obj/machinery/turretid/proc/updateTurrets()
 	var/datum/turret_checks/TC = new
 	TC.enabled = enabled
 	TC.lethal = lethal
 	TC.check_synth = check_synth
-	TC.check_borgs = check_borgs
 	TC.check_access = check_access
 	TC.check_records = check_records
 	TC.check_arrest = check_arrest

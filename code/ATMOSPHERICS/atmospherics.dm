@@ -8,6 +8,7 @@ Pipelines and other atmospheric objects combine to form pipe_networks
 Pipes -> Pipelines
 Pipelines + Other Objects -> Pipe network
 */
+GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 /obj/machinery/atmospherics
 	anchored = 1
 	layer = GAS_PIPE_HIDDEN_LAYER  //under wires
@@ -50,8 +51,6 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/atmos_init()
 	if(can_unwrench)
 		stored = new(src, make_from = src)
-	// Updates all pipe overlays and underlays
-	update_underlays()
 
 /obj/machinery/atmospherics/Destroy()
 	QDEL_NULL(stored)
@@ -62,12 +61,6 @@ Pipelines + Other Objects -> Pipe network
 		L.forceMove(get_turf(src))
 	QDEL_NULL(pipe_image) //we have to qdel it, or it might keep a ref somewhere else
 	return ..()
-
-/obj/machinery/atmospherics/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	if(frequency)
-		radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
 
 // Icons/overlays/underlays
 /obj/machinery/atmospherics/update_icon()
@@ -81,11 +74,14 @@ Pipelines + Other Objects -> Pipe network
 	pipe_image = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir) //the 20 puts it above Byond's darkness (not its opacity view)
 	pipe_image.plane = HUD_PLANE
 
-/obj/machinery/atmospherics/proc/check_icon_cache()
-	if(!istype(SSair.icon_manager))
-		return FALSE
+/obj/machinery/atmospherics/proc/check_icon_cache(var/safety = 0)
+	if(!istype(GLOB.pipe_icon_manager))
+		if(!safety) //to prevent infinite loops
+			GLOB.pipe_icon_manager = new()
+			check_icon_cache(1)
+		return 0
 
-	return TRUE
+	return 1
 
 /obj/machinery/atmospherics/proc/color_cache_name(var/obj/machinery/atmospherics/node)
 	//Don't use this for standard pipes
@@ -97,14 +93,14 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/add_underlay(var/turf/T, var/obj/machinery/atmospherics/node, var/direction, var/icon_connect_type)
 	if(node)
 		if(T.intact && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe))
-			//underlays += SSair.icon_manager.get_atmos_icon("underlay_down", direction, color_cache_name(node))
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)
+			//underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay_down", direction, color_cache_name(node))
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)
 		else
-			//underlays += SSair.icon_manager.get_atmos_icon("underlay_intact", direction, color_cache_name(node))
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
+			//underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay_intact", direction, color_cache_name(node))
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
 	else
-		//underlays += SSair.icon_manager.get_atmos_icon("underlay_exposed", direction, pipe_color)
-		underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "exposed" + icon_connect_type)
+		//underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay_exposed", direction, pipe_color)
+		underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "exposed" + icon_connect_type)
 
 /obj/machinery/atmospherics/proc/update_underlays()
 	if(check_icon_cache())
@@ -177,7 +173,6 @@ Pipelines + Other Objects -> Pipe network
 		add_fingerprint(user)
 
 		var/unsafe_wrenching = FALSE
-		var/safefromgusts = FALSE
 		var/I = int_air ? int_air.return_pressure() : 0
 		var/E = env_air ? env_air.return_pressure() : 0
 		var/internal_pressure = I - E
@@ -195,16 +190,9 @@ Pipelines + Other Objects -> Pipe network
 				"<span class='italics'>You hear ratchet.</span>")
 			investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", "atmos")
 
-			for(var/obj/item/clothing/shoes/magboots/usermagboots in user.get_equipped_items())
-				if(usermagboots.gustprotection && usermagboots.magpulse)
-					safefromgusts = TRUE
-
 			//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
 			if(unsafe_wrenching)
-				if(safefromgusts)
-					to_chat(user, "<span class='italics'>Your magboots cling to the floor as a great burst of wind bellows against you.</span>")
-				else
-					unsafe_pressure_release(user,internal_pressure)
+				unsafe_pressure_release(user,internal_pressure)
 			deconstruct(TRUE)
 	else
 		return ..()
@@ -341,11 +329,11 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/add_underlay_adapter(var/turf/T, var/obj/machinery/atmospherics/node, var/direction, var/icon_connect_type) //modified from add_underlay, does not make exposed underlays
 	if(node)
 		if(T.intact && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe))
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)
 		else
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
 	else
-		underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "retracted" + icon_connect_type)
+		underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "retracted" + icon_connect_type)
 
 /obj/machinery/atmospherics/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FIVE)

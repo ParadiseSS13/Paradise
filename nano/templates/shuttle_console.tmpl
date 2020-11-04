@@ -1,0 +1,37 @@
+<!--
+Title: Shuttle Console
+Used In File(s): /code/modules/shuttle/shuttle.dm
+-->
+
+<div class='item'>
+	<div class='itemLabel'>Location:</div>
+	<div class='itemContent'>{{:data.status ? data.status : '<span class="bad">*Missing*</span>'}}</div>
+</div>
+{{if data.shuttle}}
+	{{if data.docking_ports_len}}
+		<hr>
+		<div class='item'>
+			{{for data.docking_ports}}
+				<div class='line'>{{:helper.link('Send to ' + value.name, 'sign-out', {'move' : value.id})}}</div>
+			{{/for}}
+		</div>
+	{{else}}
+		<div class='item'>
+			<div class='itemLabel'>Status:</div>
+			<div class='itemContent bad'>Shuttle locked
+		{{if data.admin_controlled}}
+				<span>, authorized personnel only</span>
+			</div></div>
+			<hr>
+			<div class='item'>{{:helper.link('Request authorization', 'share-square-o', {'request' : 1})}}</div>
+		{{else}}
+				</div>
+			</div>
+			<hr>
+		{{/if}}
+	{{/if}}
+
+	{{if data.docking_request}}
+		<div class='line'>{{:helper.link('Request docking at the station', 'share-square-o', {'request' : 1})}}</div>
+	{{/if}}
+{{/if}}

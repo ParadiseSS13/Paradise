@@ -276,8 +276,7 @@
 		var/job = tcm.sender_job
 		if((job in ert_jobs) || (job in heads))
 			for(var/datum/multilingual_say_piece/S in message_pieces)
-				if(S.message)
-					S.message = "<b>[capitalize(S.message)]</b>" // This only capitalizes the first word
+				S.message = "<b>[capitalize(S.message)]</b>" // This only capitalizes the first word
 
 	// Language Conversion
 	if(setting_language && valid_languages[setting_language])

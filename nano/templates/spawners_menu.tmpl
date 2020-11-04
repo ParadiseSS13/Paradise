@@ -1,0 +1,20 @@
+<div class='statusDisplay'>
+	<h1>Mob Spawners</h1>
+	<table style='width:100%;'>
+		{{for data.spawners}}
+			<div class='item'>
+				<div class='itemLabel'>
+					<h3>{{:value.name}}</h3>
+					<p>{{:value.amount_left}} spawners left.</p>
+				</div>
+				<div class='itemContent'>
+					{{:value.desc}}
+				</div>
+				<div class='floatRight'>
+					{{:helper.link('Jump', null, {'action': 'jump', 'uid': value.uids}, null)}}
+					{{:helper.link('Spawn', null, {'action': 'spawn', 'uid': value.uids},  value.amount_left > 0 ? null : 'disabled')}}
+				</div>
+			</div>
+		{{/for}}
+	</table>
+</div>

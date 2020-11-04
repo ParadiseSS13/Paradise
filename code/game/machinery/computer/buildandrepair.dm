@@ -159,12 +159,18 @@
 	name = "Circuit board (Security Records)"
 	build_path = /obj/machinery/computer/secure_data
 	origin_tech = "programming=2;combat=2"
+/obj/item/circuitboard/skills
+	name = "Circuit board (Employment Records)"
+	build_path = /obj/machinery/computer/skills
 /obj/item/circuitboard/stationalert_engineering
 	name = "Circuit Board (Station Alert Console (Engineering))"
 	build_path = /obj/machinery/computer/station_alert
-/obj/item/circuitboard/stationalert
-	name = "Circuit Board (Station Alert Console)"
+/obj/item/circuitboard/stationalert_security
+	name = "Circuit Board (Station Alert Console (Security))"
 	build_path = /obj/machinery/computer/station_alert
+/obj/item/circuitboard/stationalert_all
+	name = "Circuit Board (Station Alert Console (All))"
+	build_path = /obj/machinery/computer/station_alert/all
 /obj/item/circuitboard/atmos_alert
 	name = "Circuit Board (Atmospheric Alert Computer)"
 	build_path = /obj/machinery/computer/atmos_alert
@@ -230,10 +236,7 @@
 /obj/item/circuitboard/brigcells
 	name = "Circuit board (Brig Cell Control)"
 	build_path = /obj/machinery/computer/brigcells
-/obj/item/circuitboard/sm_monitor
-	name = "Circuit board (Supermatter Monitoring Console)"
-	build_path = /obj/machinery/computer/sm_monitor
-	origin_tech = "programming=2;powerstorage=2"
+
 
 // RD console circuits, so that {de,re}constructing one of the special consoles doesn't ruin everything forever
 /obj/item/circuitboard/rdconsole
@@ -280,7 +283,7 @@
 	origin_tech = "programming=3;powerstorage=3"
 /obj/item/circuitboard/ordercomp
 	name = "Circuit board (Supply Ordering Console)"
-	build_path = /obj/machinery/computer/supplycomp/public
+	build_path = /obj/machinery/computer/ordercomp
 	origin_tech = "programming=3"
 /obj/item/circuitboard/supplycomp
 	name = "Circuit board (Supply Shuttle Console)"

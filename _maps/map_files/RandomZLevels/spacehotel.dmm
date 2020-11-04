@@ -3298,7 +3298,7 @@
 /area/awaymission/spacehotel/kitchen)
 "hh" = (
 /obj/structure/table,
-/obj/machinery/kitchen_machine/microwave,
+/obj/machinery/microwave,
 /turf/unsimulated/floor{
 	icon_state = "cafeteria"
 	},

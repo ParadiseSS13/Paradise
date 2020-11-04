@@ -54,7 +54,7 @@
 			var/obj/item/organ/external/BP = X
 			var/brutedamage = BP.brute_dam
 
-			if(BP.is_robotic())
+			if(BP.is_robotic() && !ismachineperson(src))
 				continue
 
 			//We want an accurate reading of .len
@@ -96,10 +96,7 @@
 		if(dna.species.exotic_blood)
 			var/datum/reagent/R = GLOB.chemical_reagents_list[get_blood_id()]
 			if(istype(R) && isturf(loc))
-				if(EXOTIC_COLOR in dna.species.species_traits)
-					R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER, dna.species.blood_color)
-				else
-					R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER)
+				R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER)
 
 /mob/living/carbon/proc/bleed_internal(amt) // Return 1 if we've coughed blood up, 2 if we're vomited it.
 	if(blood_volume)
@@ -119,10 +116,7 @@
 		if(dna.species.exotic_blood && .) // Do we have exotic blood, and have we left any on the ground?
 			var/datum/reagent/R = GLOB.chemical_reagents_list[get_blood_id()]
 			if(istype(R) && isturf(loc))
-				if(EXOTIC_COLOR in dna.species.species_traits)
-					R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER, dna.species.blood_color)
-				else
-					R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER)
+				R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER)
 
 /mob/living/proc/restore_blood()
 	blood_volume = initial(blood_volume)
@@ -207,10 +201,6 @@
 		blood_data["blood_color"] = dna.species.blood_color
 		blood_data["factions"] = faction
 		blood_data["dna"] = dna.Clone()
-		return blood_data
-	if(blood_id == "slimejelly")
-		var/blood_data = list()
-		blood_data["colour"] = dna.species.blood_color
 		return blood_data
 
 //get the id of the substance this mob use as blood.

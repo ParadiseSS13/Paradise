@@ -128,7 +128,6 @@
 
 
 /obj/structure/closet/paramedic/New()
-	. = ..()
 	new /obj/item/clothing/under/rank/medical/paramedic(src)
 	new /obj/item/clothing/under/rank/medical/paramedic(src)
 	new /obj/item/radio/headset/headset_med(src)

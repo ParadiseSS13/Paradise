@@ -775,7 +775,7 @@
 		return 0
 	if(isobj(person_to_cryo.loc))
 		var/obj/O = person_to_cryo.loc
-		O.force_eject_occupant(person_to_cryo)
+		O.force_eject_occupant()
 	var/list/free_cryopods = list()
 	for(var/obj/machinery/cryopod/P in GLOB.machines)
 		if(!P.occupant && istype(get_area(P), /area/crew_quarters/sleep))
@@ -784,9 +784,6 @@
 	if(free_cryopods.len)
 		target_cryopod = safepick(free_cryopods)
 		if(target_cryopod.check_occupant_allowed(person_to_cryo))
-			var/turf/T = get_turf(person_to_cryo)
-			var/obj/effect/portal/SP = new /obj/effect/portal(T, null, null, 40)
-			SP.name = "NT SSD Teleportation Portal"
 			target_cryopod.take_occupant(person_to_cryo, 1)
 			return 1
 	return 0

@@ -31,7 +31,6 @@
 	)
 
 /obj/machinery/juicer/New()
-	. = ..()
 	beaker = new /obj/item/reagent_containers/glass/beaker/large(src)
 
 /obj/machinery/juicer/update_icon()

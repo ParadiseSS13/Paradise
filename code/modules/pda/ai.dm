@@ -97,8 +97,8 @@
 /obj/item/pda/silicon/pai/can_use()
 	var/mob/living/silicon/pai/pAI = usr
 	if(!istype(pAI))
-		return FALSE
-	if(!pAI.installed_software["messenger"])
+		return 0
+	if(!pAI.software["messenger"])
 		to_chat(usr, "<span class='warning'>You have not purchased the digital messenger!</span>")
-		return FALSE
+		return 0
 	return ..() && !pAI.silence_time

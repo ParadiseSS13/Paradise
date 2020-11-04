@@ -1,0 +1,27 @@
+<h2>Shift's target : {{:data.explosion_target}}</h2>
+<h2>Current Technology Level : {{:data.toxins_tech}}</h2>
+<h2>Logged explosions:</h2>
+{{if data.explosion_data == 0}}
+	<p>No explosions logged this shift.</p>
+{{else}}
+	<div>
+		<span style="display:inline-block;width:20%;">Time logged</span>
+		<span style="display:inline-block;width:20%;">Epicenter</span>
+		<span style="display:inline-block;width:20%;">Actual size</span>
+		<span style="display:inline-block;width:25%;">Theoretical size<span>
+	</div>
+	<hr/>
+	{{for data.explosion_data}}
+		<div style = "min-height:30px;">
+			<span>
+				<span style="display:inline-block;width:20%;">{{:value.logged_time}}</span>
+				<span style="display:inline-block;width:20%;">{{:value.epicenter}}</span>
+				<span style="display:inline-block;width:20%;">{{:value.actual_size_message}}</span>
+				<span style="display:inline-block;width:25%;">{{:value.theoretical_size_message}}</span>
+				<span style="display:inline-block;width:15%;vertical-align:middle;">{{:helper.link("Delete", "trash", {"log_to_delete": value.unique_datum_id})}}</span>
+			</span>
+		</div>
+	{{/for}}
+	<br/>
+	{{:helper.link("Print all logs", "print", {"print_logs": 'yes'}, data.printing ? 'disabled' : null)}}
+{{/if}}

@@ -262,6 +262,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/list/common_dirs = list(
 		"nano/assets/",
 		"nano/codemirror/",
+		"nano/images/",
 		"nano/layouts/"
 	)
 	var/list/uncommon_dirs = list(
@@ -308,20 +309,6 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/chem_master/send(client)
 	send_asset_list(client, assets, verify)
 
-//Cloning pod sprites for UIs
-/datum/asset/cloning
-	var/assets = list()
-	var/verify = FALSE
-
-/datum/asset/cloning/register()
-	assets["pod_idle.gif"] = icon('icons/obj/cloning.dmi', "pod_idle")
-	assets["pod_cloning.gif"] = icon('icons/obj/cloning.dmi', "pod_cloning")
-	assets["pod_mess.gif"] = icon('icons/obj/cloning.dmi', "pod_mess")
-	for(var/asset_name in assets)
-		register_asset(asset_name, assets[asset_name])
-
-/datum/asset/cloning/send(client)
-	send_asset_list(client, assets, verify)
 
 //Pipe sprites for UIs
 /datum/asset/rpd
@@ -374,15 +361,4 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"fa-solid-900.woff"   = 'html/font-awesome/webfonts/fa-solid-900.woff',
 		"font-awesome.css"    = 'html/font-awesome/css/all.min.css',
 		"v4shim.css"          = 'html/font-awesome/css/v4-shims.min.css'
-	)
-
-// Nanomaps
-/datum/asset/simple/nanomaps
-	// It REALLY doesnt matter too much if these arent up to date
-	// They are relatively big
-	verify = FALSE
-	assets = list(
-		"Cyberiad_nanomap_z1.png"		= 'icons/_nanomaps/Cyberiad_nanomap_z1.png',
-		"Delta_nanomap_z1.png"			= 'icons/_nanomaps/Delta_nanomap_z1.png',
-		"MetaStation_nanomap_z1.png"	= 'icons/_nanomaps/MetaStation_nanomap_z1.png',
 	)

@@ -33,6 +33,7 @@
 	//var/list/underlays_intact[]
 	//var/list/pipe_underlays_exposed[]
 	//var/list/pipe_underlays_intact[]
+	var/list/omni_icons[]
 
 /datum/pipe_icon_manager/New()
 	check_icons()
@@ -52,6 +53,8 @@
 			return manifold_icons[state + color]
 		if("device")
 			return device_icons[state]
+		if("omni")
+			return omni_icons[state]
 		if("underlay")
 			return underlays[state + dir + color]
 		//if("underlay_intact")
@@ -72,6 +75,8 @@
 		gen_manifold_icons()
 	if(!device_icons)
 		gen_device_icons()
+	if(!omni_icons)
+		gen_omni_icons()
 	//if(!underlays_intact || !underlays_down || !underlays_exposed || !pipe_underlays_exposed || !pipe_underlays_intact)
 	if(!underlays)
 		gen_underlay_icons()
@@ -144,6 +149,18 @@
 		if(!state || findtext(state, "map"))
 			continue
 		device_icons["scrubber" + state] = image('icons/atmos/vent_scrubber.dmi', icon_state = state)
+
+/datum/pipe_icon_manager/proc/gen_omni_icons()
+	if(!omni_icons)
+		omni_icons = new()
+
+	var/icon/omni = new('icons/atmos/omni_devices.dmi')
+
+	for(var/state in omni.IconStates())
+		if(!state || findtext(state, "map"))
+			continue
+		omni_icons[state] = image('icons/atmos/omni_devices.dmi', icon_state = state)
+
 
 /datum/pipe_icon_manager/proc/gen_underlay_icons()
 

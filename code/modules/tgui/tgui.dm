@@ -106,7 +106,7 @@
 		window_options += "size=[width]x[height];"
 
 	// Remove titlebar and resize handles for a fancy window
-	if(user.client.prefs.toggles2 & PREFTOGGLE_2_FANCYUI)
+	if(user.client.prefs.nanoui_fancy)
 		window_options += "titlebar=0;can_resize=0;"
 	else
 		window_options += "titlebar=1;can_resize=1;"
@@ -196,7 +196,7 @@
 		"title" = title,
 		"status" = status,
 		"interface" = interface,
-		"fancy" = user.client.prefs.toggles2 & PREFTOGGLE_2_FANCYUI,
+		"fancy" = user.client.prefs.nanoui_fancy,
 		"observer" = isobserver(user),
 		"window" = window_id,
 		"map" = (GLOB.using_map && GLOB.using_map.name) ? GLOB.using_map.name : "Unknown",
@@ -252,7 +252,8 @@
 			src_object.tgui_shared_states[key] = value
 			SStgui.update_uis(src_object)
 		if("tgui:setFancy")
-			user.client.prefs.toggles2 ^= PREFTOGGLE_2_FANCYUI
+			var/value = text2num(params["value"])
+			user.client.prefs.nanoui_fancy = value
 		if("tgui:log")
 			// Force window to show frills on fatal errors
 			if(params["fatal"])

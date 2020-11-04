@@ -71,7 +71,7 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "focus"
 	item_state = "focus"
-	ammo_type = /obj/item/ammo_casing/magic/forcebolt
+	ammo_type = list(/obj/item/ammo_casing/forcebolt)
 
 /obj/item/gun/magic/staff/spellblade
 	name = "spellblade"

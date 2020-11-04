@@ -8,10 +8,12 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 1
 	active_power_usage = 5
-	var/mob/living/carbon/human/patient
-	var/obj/machinery/computer/operating/computer
+	var/mob/living/carbon/human/victim = null
+	var/strapped = 0.0
+
+	var/obj/machinery/computer/operating/computer = null
 	buckle_lying = -1
-	var/no_icon_updates = FALSE //set this to TRUE if you don't want the icons ever changing
+	var/no_icon_updates = 0 //set this to 1 if you don't want the icons ever changing
 	var/list/injected_reagents = list()
 	var/reagent_target_amount = 1
 	var/inject_amount = 1
@@ -27,8 +29,10 @@
 /obj/machinery/optable/Destroy()
 	if(computer)
 		computer.table = null
+		computer.victim = null
 		computer = null
-	patient = null
+	if(victim)
+		victim = null
 	return ..()
 
 /obj/machinery/optable/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
@@ -39,37 +43,40 @@
 		return TRUE
 
 /obj/machinery/optable/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
-		return TRUE
+	if(height==0) return 1
+
 	if(istype(mover) && mover.checkpass(PASSTABLE))
-		return TRUE
+		return 1
 	else
-		return FALSE
+		return 0
 
-/obj/machinery/optable/MouseDrop_T(atom/movable/O, mob/user)
-	if(!ishuman(user) && !isrobot(user)) //Only Humanoids and Cyborgs can put things on this table
-		return
-	if(!check_table()) //If the Operating Table is occupied, you cannot put someone else on it
-		return
-	if(user.buckled || user.incapacitated()) //Is the person trying to use the table incapacitated or restrained?
-		return
-	if(!ismob(O) || !iscarbon(O)) //Only Mobs and Carbons can go on this table (no syptic patches please)
-		return
-	take_patient(O, user)
 
-/obj/machinery/optable/proc/check_patient()
-	var/mob/living/carbon/human/M = locate(/mob/living/carbon/human, loc)
-	if(!M)
-		return FALSE
-	if(M.lying)
-		patient = M
-		if(!no_icon_updates)
-			icon_state = M.pulse ? "table2-active" : "table2-idle"
-		return TRUE
-	patient = null
+/obj/machinery/optable/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
+	if(usr.stat || (!ishuman(user) && !isrobot(user)) || user.restrained() || !check_table(user) || user.IsWeakened() || user.stunned)
+		return
+
+	if(!ismob(O)) //humans only
+		return
+
+	if(istype(O, /mob/living/simple_animal) || istype(O, /mob/living/silicon)) //animals and robots dont fit
+		return
+
+	var/mob/living/L = O
+	take_victim(L,usr)
+	return
+
+/obj/machinery/optable/proc/check_victim()
+	if(locate(/mob/living/carbon/human, src.loc))
+		var/mob/living/carbon/human/M = locate(/mob/living/carbon/human, src.loc)
+		if(M.lying)
+			src.victim = M
+			if(!no_icon_updates)
+				icon_state = M.pulse ? "table2-active" : "table2-idle"
+			return 1
+	src.victim = null
 	if(!no_icon_updates)
 		icon_state = "table2-idle"
-	return FALSE
+	return 0
 
 /obj/machinery/optable/Crossed(atom/movable/AM, oldloc)
 	. = ..()
@@ -77,19 +84,19 @@
 		to_chat(AM, "<span class='danger'>You feel a series of tiny pricks!</span>")
 
 /obj/machinery/optable/process()
-	check_patient()
+	check_victim()
 	if(LAZYLEN(injected_reagents))
 		for(var/mob/living/carbon/C in get_turf(src))
 			var/datum/reagents/R = C.reagents
 			for(var/chemical in injected_reagents)
 				R.check_and_add(chemical,reagent_target_amount,inject_amount)
 
-/obj/machinery/optable/proc/take_patient(mob/living/carbon/C, mob/living/carbon/user)
+/obj/machinery/optable/proc/take_victim(mob/living/carbon/C, mob/living/carbon/user as mob)
 	if(C == user)
 		user.visible_message("[user] climbs on the operating table.","You climb on the operating table.")
 	else
 		visible_message("<span class='alert'>[C] has been laid on the operating table by [user].</span>")
-	C.resting = TRUE
+	C.resting = 1
 	C.update_canmove()
 	C.forceMove(loc)
 	if(user.pulling == C)
@@ -98,10 +105,10 @@
 		C.s_active.close(C)
 	for(var/obj/O in src)
 		O.loc = src.loc
-	add_fingerprint(user)
+	src.add_fingerprint(user)
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
-		patient = H
+		src.victim = H
 		if(!no_icon_updates)
 			icon_state = H.pulse ? "table2-active" : "table2-idle"
 	else
@@ -112,15 +119,17 @@
 	set name = "Climb On Table"
 	set category = "Object"
 	set src in oview(1)
-	if(usr.stat || !ishuman(usr) || usr.restrained() || !check_table())
+
+	if(usr.stat || !ishuman(usr) || usr.restrained() || !check_table(usr))
 		return
-	take_patient(usr, usr)
+
+	take_victim(usr,usr)
 
 /obj/machinery/optable/attackby(obj/item/I, mob/living/carbon/user, params)
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
 		if(iscarbon(G.affecting))
-			take_patient(G.affecting, user)
+			take_victim(G.affecting, user)
 			qdel(G)
 	else
 		return ..()
@@ -134,9 +143,13 @@
 		new /obj/item/stack/sheet/plasteel(loc, 5)
 		qdel(src)
 
-/obj/machinery/optable/proc/check_table()
-	if(check_patient() && patient.lying)
+/obj/machinery/optable/proc/check_table(mob/living/carbon/patient as mob)
+	if(src.victim && get_turf(victim) == get_turf(src) && victim.lying)
 		to_chat(usr, "<span class='notice'>The table is already occupied!</span>")
-		return FALSE
-	else
-		return TRUE
+		return 0
+
+	if(patient.buckled)
+		to_chat(usr, "<span class='notice'>Unbuckle first!</span>")
+		return 0
+
+	return 1

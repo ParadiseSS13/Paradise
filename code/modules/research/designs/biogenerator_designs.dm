@@ -88,7 +88,7 @@
 	id = "weed_killer"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 50)
-	build_path = /obj/item/reagent_containers/glass/bottle/nutrient/killer/weedkiller
+	build_path = /obj/item/reagent_containers/glass/bottle/killer/weedkiller
 	category = list("initial","Botany Chemicals")
 
 /datum/design/pest_spray
@@ -96,12 +96,12 @@
 	id = "pest_spray"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 50)
-	build_path = /obj/item/reagent_containers/glass/bottle/nutrient/killer/pestkiller
+	build_path = /obj/item/reagent_containers/glass/bottle/killer/pestkiller
 	category = list("initial","Botany Chemicals")
 
 /datum/design/botany_bottle
-	name = "Empty Jug"
-	id = "botany_jug"
+	name = "Empty Bottle"
+	id = "botany_bottle"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 5)
 	build_path = /obj/item/reagent_containers/glass/bottle/nutrient/empty

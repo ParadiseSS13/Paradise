@@ -1,0 +1,20 @@
+<!--
+Title: Security Camera Console (Map content)
+Used In File(s): \code\game\machinery\computer\camera.dm
+ -->
+{{for data.cameras}}
+	{{if value.z == 1}}
+		<div class="mapIcon mapIcon16" style="left: {{:(value.x)}}px; bottom: {{:(value.y - 1)}}px;">
+			{{if data.current && value.name == data.current.name}}
+				{{:helper.link("#", '', {'switchTo' : value.camera}, 'selected')}}
+			{{else value.deact}}
+				{{:helper.link('#', '', {}, 'inactive')}}
+			{{else}}
+				{{:helper.link("#", '', {'switchTo' : value.camera})}}
+			{{/if}}
+			<div class="tooltip hidden">
+				{{:value.name}}
+			</div>
+		</div>
+	{{/if}}
+{{/for}}

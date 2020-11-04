@@ -36,7 +36,7 @@
 
 /obj/item/reagent_containers/food/snacks/braincakeslice
 	name = "brain cake slice"
-	desc = "Lemme tell you something about brains. THEY'RE DELICIOUS."
+	desc = "Lemme tell you something about prions. THEY'RE DELICIOUS."
 	icon_state = "braincakeslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#E6AEDB"
@@ -310,7 +310,7 @@
 		reagents.add_reagent("omnizine", 5)
 
 /obj/item/reagent_containers/food/snacks/xemeatpie
-	name = "xeno-pie"
+	name = "Xeno-pie"
 	icon_state = "xenomeatpie"
 	desc = "A delicious meatpie. Probably heretical."
 	trash = /obj/item/trash/plate
@@ -370,7 +370,6 @@
 	var/extra_reagent = null
 	filling_color = "#D2691E"
 	var/randomized_sprinkles = 1
-	var/donut_sprite_type = "regular"
 	tastes = list("donut" = 1)
 
 /obj/item/reagent_containers/food/snacks/donut/New()
@@ -379,7 +378,6 @@
 		icon_state = "donut2"
 		name = "frosted donut"
 		reagents.add_reagent("sprinkles", 2)
-		donut_sprite_type = "frosted"
 		filling_color = "#FF69B4"
 
 /obj/item/reagent_containers/food/snacks/donut/sprinkles
@@ -387,7 +385,6 @@
 	icon_state = "donut2"
 	list_reagents = list("nutriment" = 3, "sugar" = 2, "sprinkles" = 2)
 	filling_color = "#FF69B4"
-	donut_sprite_type = "frosted"
 	randomized_sprinkles = 0
 
 /obj/item/reagent_containers/food/snacks/donut/chaos
@@ -411,7 +408,6 @@
 	desc = "You jelly?"
 	icon_state = "jdonut1"
 	extra_reagent = "berryjuice"
-	donut_sprite_type = "jelly"
 	tastes = list("jelly" = 1, "donut" = 3)
 
 /obj/item/reagent_containers/food/snacks/donut/jelly/New()
@@ -421,7 +417,6 @@
 	if(prob(30))
 		icon_state = "jdonut2"
 		name = "frosted jelly Donut"
-		donut_sprite_type = "frostedjelly"
 		reagents.add_reagent("sprinkles", 2)
 		filling_color = "#FF69B4"
 
@@ -437,29 +432,6 @@
 	icon_state = "jdonut1"
 	extra_reagent = "cherryjelly"
 
-//////////////////////
-//		Pancakes	//
-//////////////////////
-
-/obj/item/reagent_containers/food/snacks/pancake
-	name = "pancake"
-	desc = "A plain pancake."
-	icon_state = "pancake"
-	filling_color = "#E7D8AB"
-	bitesize = 2
-	list_reagents = list("nutriment" = 3, "sugar" = 3)
-
-/obj/item/reagent_containers/food/snacks/pancake/berry_pancake
-	name = "berry pancake"
-	desc = "A pancake loaded with berries."
-	icon_state = "berry_pancake"
-	list_reagents = list("nutriment" = 3, "sugar" = 3, "berryjuice" = 3)
-
-/obj/item/reagent_containers/food/snacks/pancake/choc_chip_pancake
-	name = "choc-chip pancake"
-	desc = "A pancake loaded with chocolate chips."
-	icon_state = "choc_chip_pancake"
-	list_reagents = list("nutriment" = 3, "sugar" = 3, "cocoa" = 3)
 
 //////////////////////
 //		Misc		//

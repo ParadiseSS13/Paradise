@@ -1,0 +1,129 @@
+{{if !data.authenticated}}
+	<div class="notice">Please swipe your ID card. {{:helper.link('Log In', 'unlock', {'PRG_login' : 1}, null, 'fixed')}}</div>
+{{else}}
+	{{if !data.is_ai}}
+	<div class="notice">Please remember to {{:helper.link('Log Out', 'lock', {'PRG_logout' : 1}, null, 'fixed')}}</div>
+	{{/if}}
+	{{if data.lastCallLoc}}
+	<div class="line">Most recent shuttle call/recall traced to: <b>{{:data.lastCallLoc}}</b></div>
+	{{else}}
+	<div class="line">Unable to trace most recent shuttle call/recall signal.</div>
+	{{/if}}
+	<div class="item">
+		<h3>Emergency Shuttle:</h3>
+		{{if data.shuttle.eta}}
+			<div class="itemLabel">ETA:</div>
+			<div class="itemContents">
+				{{>data.shuttle.eta}}
+			</div>
+		{{/if}}<!-- SHUTTLE ETA -->
+		<div class="itemLabel">Options:</div>
+		<div class="itemContents">
+			{{if data.shuttle.callStatus == 1 && !data.is_ai}}
+				{{:helper.link('Cancel Shuttle', 'arrow-left', {'PRG_operation' : 'cancelshuttle'})}}
+			{{else data.shuttle.callStatus == 2}}
+				{{:helper.link('Call Shuttle', 'arrow-circle-down', {'PRG_operation' : 'callshuttle'})}}
+			{{/if}}
+		</div>
+	</div>
+
+	{{if data.screen==1}}
+		<!-- MAIN SCREEN -->
+		<h3>Menu</h3>
+		<div class="item">
+			{{if data.authenticated==2}}
+				<div class="line">
+					{{:helper.link('Make an Announcement', 'info', {'PRG_operation' : 'announce'})}}
+				</div>
+				<div class="line">
+				{{if data.emagged}}
+					{{:helper.link('Message [UNKNOWN]', 'envelope', {'PRG_operation' : 'MessageSyndicate'})}}
+				{{else}}
+					{{:helper.link('Message CentComm', 'envelope', {'PRG_operation' : 'MessageCentcomm'})}}
+				{{/if}}
+				</div>
+				<div class="line">
+					{{:helper.link('Request Nuclear Authentication Codes', 'exclamation-triangle', {'PRG_operation' : 'nukerequest'})}}
+				</div>		
+			{{/if}}
+			<div class="line">
+				{{:helper.link('Change Alert Level', 'signal', {'PRG_operation' : 'changeseclevel'})}}
+			</div>
+			<div class="line">
+				{{:helper.link('Change Status Displays', 'info', {'PRG_operation' : 'status'})}}
+			</div>
+			<div class="line">
+				{{:helper.link('Message List', 'comment', {'PRG_operation' : 'messagelist'})}}
+			</div>
+			<div class="line">
+				{{:helper.link('Restart Nano-Mob Hunter GO! Server', 'power-off', {'PRG_operation' : 'RestartNanoMob'})}}
+			</div>
+		</div>
+	{{else data.screen==2}}
+		<!-- STATUS DISPLAYS -->
+		<h2>Status Displays</h2>
+		{{:helper.link('Back', 'home', {'PRG_operation' : 'main'})}}
+		<h3>Presets</h3>
+		{{for data.stat_display.presets}}
+			<div class="line">
+				<div class="statusLabel">{{:helper.link(value.label, 'info', {'PRG_operation' : 'setstat', 'statdisp' : value.name}, name == data.stat_display.type ? 'selected' : null)}}</div>
+			</div>
+		{{/for}}
+		<h3>Alerts</h3>
+		{{for data.stat_display.alerts}}
+			<div class="line">
+				<div class="statusLabel">{{:helper.link(value.label, 'exclamation-triangle', {'PRG_operation' : 'setstat', 'statdisp' : 'alert', 'alert' : value.alert}, value.alert == data.stat_display.type ? 'selected' : null)}}</div>
+			</div>
+		{{/for}}
+		<h3>Messages</h3>
+		<div class="item">
+			{{if data.stat_display.type}}
+			<div class="line">
+				<div class="statusLabel">{{:helper.link('Line 1:', 'gear', {'PRG_operation':'setmsg1'})}}</div>
+				<div class="statusValue">{{>data.stat_display.line_1}}</div>
+			</div>
+			<div class="line">
+				<div class="statusLabel">{{:helper.link('Line 2:', 'gear', {'PRG_operation':'setmsg2'})}}</div>
+				<div class="statusValue">{{>data.stat_display.line_2}}</div>
+			</div>
+			{{/if}}
+		</div>
+	{{else data.screen==3}}
+		<!-- MESSAGES -->
+		<h3>Messages</h3>
+		{{if data.current_message}}
+			{{:helper.link('Messages', 'home', {'PRG_operation' : 'messagelist'})}}
+			<h3>{{:data.current_message_title}}</h3>
+			<div class="item">
+				{{:data.current_message}}
+			</div>
+		{{else}}
+			{{:helper.link('Back', 'home', {'PRG_operation' : 'main'})}}
+			{{for data.messages}}
+				<div class="line">
+					<b>{{:value.title}}</b><br>
+					{{:helper.link('Open', 'envelope-o', {'PRG_operation' : 'messagelist', 'msgid' : value.id})}}
+					{{:helper.link('Delete', 'close', {'PRG_operation' : 'delmessage', 'msgid' : value.id})}}
+				</div>
+			{{/for}}
+		{{/if}}
+	{{else data.screen==4}}
+		<!-- ALERT LEVEL -->
+		<h3>Security Level</h3>
+		{{:helper.link('Back', 'home', {'PRG_operation' : 'main'})}}
+		<div class="item">
+			<div class="line">
+				<div class="itemLabel">Security Level:</div>
+				<div class="itemContents">{{>data.str_security_level}}</div>
+			</div>
+			<div class="line">
+				<div class="itemLabel">Presets:</div>
+				<div class="itemContents">
+					{{for data.levels}}
+						{{:helper.link(value.name, 'comment', {'PRG_operation' : 'newalertlevel', 'level' : value.id}, value.id == data.security_level ? 'selected' : null)}}
+					{{/for}}
+				</div>
+			</div>
+		</div>
+	{{/if}}<!-- SCREEN -->
+{{/if}}<!-- AUTHENTICATED -->

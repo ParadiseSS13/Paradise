@@ -1,0 +1,130 @@
+<!-- 
+Title: Supply Console UI 
+Used In File(s): \code\game\supplyshuttle.dm
+-->
+
+<style type='text/css'>
+	.category {
+		width: 150px;
+	}
+	
+	#misc {
+		float: left;
+		width: 350px;
+	}
+	
+	.supplycrate .link {
+		width: 220px;
+	}
+</style>
+<div class="item">
+	<div class="itemLabel">
+		Supply Points:
+	</div>
+	<div class="itemContent">
+		{{:data.points}}
+	</div>
+</div>
+<div class="item">
+	<div class="itemLabel">
+		Central Command messages:
+	</div>
+	<div class="itemContent">
+		{{:data.message}}
+	</div>
+</div>
+<div class="item">
+	<div class="itemLabel">
+		Shuttle Status:
+	</div>
+	<div class="itemContent">
+		{{if !data.moving && !data.at_station}}
+			Docked off-station. 
+		{{else !data.moving && data.at_station}}
+			Docked at the station. 
+		{{else data.moving}}
+			<div class="line">Shuttle is en route (ETA: {{:data.timeleft}} minute{{if data.timeleft != 1}}s{{/if}}).</div>
+		{{/if}}
+	</div>
+</div>
+<div class="item"  style="margin-bottom: 10px;">
+	<div class="itemLabel">
+		Shuttle Control:
+	</div>
+	<div class="itemContent">	
+		{{:helper.link('Call Shuttle', 'arrow-circle-down', data.send, data.moving || data.at_station || !data.can_launch ? 'disabled' : '')}}
+		{{:helper.link('Return Shuttle', 'arrow-circle-up', data.send, data.moving || !data.at_station || !data.can_launch ? 'disabled' : '')}}
+	</div>
+</div>
+<div style="float: right; width: 70%;">
+	<div class="itemLabel">
+		Supply Crates
+	</div>
+	<div class="itemContentWide" style="width: 100%;">
+		<div class="statusDisplay">
+			<div class="line" style="overflow-y: auto; overflow-x: hidden; scrollbar-base-color: #336699; scrollbar-arrow-color: #ffffff; height: 200px">
+				{{if !data.contents}}
+					{{for data.supply_packs}}
+						<div class="line">
+							<div class="statusValue">
+								<div class="supplycrate">{{:helper.link(value.name, null, value.command1)}}</div>
+								{{:helper.link('#', null, value.command2, null)}}
+								{{:helper.link('C', null, value.command3, null)}} <div style="float: right; margin-right: 20px;">{{:value.cost}} points</div>
+							</div>
+						</div>
+					{{/for}}
+				{{else}}
+					{{:helper.link('Return', 'arrow-left', {'contents' : 1})}}
+					<div class="item">
+						<b>Contents of {{:data.contents_name}}</b>
+					</div>
+					{{:data.contents}}
+				{{/if}}
+			</div>
+		</div>
+	</div>
+</div>
+<div style="float: left; width: 30%; margin-bottom: 10px;">
+	<div class="itemLabel">
+		Categories
+	</div>
+	{{for data.categories}}
+		<div class="line">
+			{{:helper.link(value.name, 'gear', {'last_viewed_group':value.category}, (data.last_viewed_group==value.category) ? 'linkOn' : '', 'category')}}	
+		</div>
+	{{/for}}
+</div>
+<div class="item">
+	<div class="itemLabel">
+		Supply Orders
+	</div>
+	<div class="itemContentWide">
+		<div class="statusDisplay">
+			<div class="line" style="overflow-y: auto; overflow-x: hidden; scrollbar-base-color: #336699; scrollbar-arrow-color: #ffffff; height: 140px;">
+				<u><b>Requests</b></u>
+				<br>
+				{{for data.requests}}
+					<div class="line">
+						#{{:value.ordernum}} - {{:value.supply_type}} for {{:value.orderedby}}
+							<div class="line" style="font-style: italic;">
+								{{:value.comment}}
+							</div>
+						{{:helper.link('APPROVE', null, value.command1, !data.canapprove ? 'disabled' : '')}} {{:helper.link('REJECT', null, value.command2, null)}}
+					</div>
+				{{empty}}
+					No active requests.
+				{{/for}}
+				<br clear="both">
+				<u><b>Orders</b></u>
+				<br>
+				{{for data.orders}}
+					<div class="line">
+						#{{:value.ordernum}} - {{:value.supply_type}} for {{:value.orderedby}}
+					</div>
+				{{empty}}
+					No confirmed orders.
+				{{/for}}
+			</div>
+		</div>
+	</div>
+</div>

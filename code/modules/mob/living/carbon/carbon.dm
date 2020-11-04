@@ -92,12 +92,10 @@
 
 
 /mob/living/carbon/proc/vomit(var/lost_nutrition = 10, var/blood = 0, var/stun = 1, var/distance = 0, var/message = 1)
-	if(ismachineperson(src)) //IPCs do not vomit particulates
-		return FALSE
-	if(is_muzzled())
+	if(src.is_muzzled())
 		if(message)
 			to_chat(src, "<span class='warning'>The muzzle prevents you from vomiting!</span>")
-		return FALSE
+		return 0
 	if(stun)
 		Stun(4)
 	if(nutrition < 100 && !blood)
@@ -127,7 +125,7 @@
 			T = get_step(T, dir)
 			if(is_blocked_turf(T))
 				break
-	return TRUE
+	return 1
 
 /mob/living/carbon/gib()
 	. = death(1)
@@ -516,10 +514,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/update_pipe_vision()
 	if(pipes_shown.len)
-		if(!is_ventcrawling(src))
+		if(!istype(loc, /obj/machinery/atmospherics))
 			remove_ventcrawl()
 	else
-		if(is_ventcrawling(src))
+		if(istype(loc, /obj/machinery/atmospherics))
 			add_ventcrawl(loc)
 
 
@@ -540,8 +538,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			take_organ_damage(10)
 	if(iscarbon(hit_atom) && hit_atom != src)
 		var/mob/living/carbon/victim = hit_atom
-		if(victim.flying)
-			return
 		if(hurt)
 			victim.take_organ_damage(10)
 			take_organ_damage(10)

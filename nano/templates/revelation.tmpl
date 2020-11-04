@@ -1,0 +1,23 @@
+{{:helper.syndicateMode()}}
+<div class='item'>
+	<div class='itemLabel'>
+		Payload status:
+	</div>
+	<div class='itemContent'>
+		{{if data.armed}}
+			ARMED
+		{{else}}
+			DISARMED
+		{{/if}}
+	</div>
+	<div class='itemLabel'>
+		Controls:
+	</div>
+	<div class='itemContent'>
+		<table>
+		<tr><td>{{:helper.link('OBFUSCATE PROGRAM NAME', 'eye-slash', {'action' : 'PRG_obfuscate'})}}
+		<tr><td>{{:helper.link(data.armed ? 'DISARM' : 'ARM', data.armed ? 'crosshairs' : 'info', {'action' : 'PRG_arm'})}}
+		{{:helper.link('ACTIVATE', 'exclamation-triangle', {'action' : 'PRG_activate'}, data.armed ? null : 'disabled', data.armed ? 'redButton' : null)}}
+		</table>
+	</div>
+</div>

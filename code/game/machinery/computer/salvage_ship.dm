@@ -13,8 +13,7 @@
 
 
 /obj/machinery/computer/salvage_ship/New()
-	. = ..()
-	curr_location = locate(/area/shuttle/salvage/start)
+	curr_location= locate(/area/shuttle/salvage/start)
 
 
 /obj/machinery/computer/salvage_ship/proc/salvage_move_to(area/destination as area)

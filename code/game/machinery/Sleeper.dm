@@ -125,7 +125,7 @@
 	return attack_hand(user)
 
 /obj/machinery/sleeper/attack_ghost(mob/user)
-	tgui_interact(user)
+	return attack_hand(user)
 
 /obj/machinery/sleeper/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN))
@@ -135,17 +135,17 @@
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
 
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/sleeper/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/sleeper/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "Sleeper", "Sleeper", 550, 775)
+		ui = new(user, src, ui_key, "sleeper.tmpl", "Sleeper", 550, 770)
 		ui.open()
+		ui.set_auto_update(1)
 
-/obj/machinery/sleeper/tgui_data(mob/user)
+/obj/machinery/sleeper/ui_data(mob/user, datum/topic_state/state)
 	var/data[0]
-	data["amounts"] = amounts
 	data["hasOccupant"] = occupant ? 1 : 0
 	var/occupantData[0]
 	var/crisis = 0
@@ -210,13 +210,9 @@
 	if(beaker)
 		data["isBeakerLoaded"] = 1
 		if(beaker.reagents)
-			data["beakerMaxSpace"] = beaker.reagents.maximum_volume
 			data["beakerFreeSpace"] = round(beaker.reagents.maximum_volume - beaker.reagents.total_volume)
 		else
-			data["beakerMaxSpace"] = 0
 			data["beakerFreeSpace"] = 0
-	else
-		data["isBeakerLoaded"] = FALSE
 
 	var/chemicals[0]
 	for(var/re in possible_chems)
@@ -238,52 +234,51 @@
 				if(temp.id in occupant.reagents.overdose_list())
 					overdosing = 1
 
+			// Because I don't know how to do this on the nano side
 			pretty_amount = round(reagent_amount, 0.05)
 
 			chemicals.Add(list(list("title" = temp.name, "id" = temp.id, "commands" = list("chemical" = temp.id), "occ_amount" = reagent_amount, "pretty_amount" = pretty_amount, "injectable" = injectable, "overdosing" = overdosing, "od_warning" = caution)))
 	data["chemicals"] = chemicals
 	return data
 
-/obj/machinery/sleeper/tgui_act(action, params)
-	if(..())
-		return
+/obj/machinery/sleeper/Topic(href, href_list)
 	if(!controls_inside && usr == occupant)
-		return
+		return 0
+
+	if(..())
+		return 1
+
 	if(panel_open)
 		to_chat(usr, "<span class='notice'>Close the maintenance panel first.</span>")
-		return
-	if(stat & (NOPOWER|BROKEN))
-		return
+		return 0
 
-	. = TRUE
-	switch(action)
-		if("chemical")
-			if(!occupant)
-				return
-			if(occupant.stat == DEAD)
-				to_chat(usr, "<span class='danger'>This person has no life to preserve anymore. Take [occupant.p_them()] to a department capable of reanimating them.</span>")
-				return
-			var/chemical = params["chemid"]
-			var/amount = text2num(params["amount"])
-			if(!length(chemical) || amount <= 0)
-				return
-			if(occupant.health > min_health || (chemical in emergency_chems))
-				inject_chemical(usr, chemical, amount)
-			else
-				to_chat(usr, "<span class='danger'>This person is not in good enough condition for sleepers to be effective! Use another means of treatment, such as cryogenics!</span>")
-		if("removebeaker")
+	if((usr.contents.Find(src) || ((get_dist(src, usr) <= 1) && istype(loc, /turf))) || (istype(usr, /mob/living/silicon/ai)))
+		if(href_list["chemical"])
+			if(occupant)
+				if(occupant.stat == DEAD)
+					to_chat(usr, "<span class='danger'>This person has no life for to preserve anymore. Take [occupant.p_them()] to a department capable of reanimating them.</span>")
+				else if(occupant.health > min_health || (href_list["chemical"] in emergency_chems))
+					inject_chemical(usr,href_list["chemical"],text2num(href_list["amount"]))
+				else
+					to_chat(usr, "<span class='danger'>This person is not in good enough condition for sleepers to be effective! Use another means of treatment, such as cryogenics!</span>")
+
+		if(href_list["removebeaker"])
 			remove_beaker()
-		if("togglefilter")
+
+		if(href_list["togglefilter"])
 			toggle_filter()
-		if("ejectify")
+
+		if(href_list["ejectify"])
 			eject()
-		if("auto_eject_dead_on")
+
+		if(href_list["auto_eject_dead_on"])
 			auto_eject_dead = TRUE
-		if("auto_eject_dead_off")
+
+		if(href_list["auto_eject_dead_off"])
 			auto_eject_dead = FALSE
-		else
-			return FALSE
-	add_fingerprint(usr)
+
+		add_fingerprint(usr)
+	return 1
 
 /obj/machinery/sleeper/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/glass))
@@ -295,7 +290,6 @@
 			beaker = I
 			I.forceMove(src)
 			user.visible_message("[user] adds \a [I] to [src]!", "You add \a [I] to [src]!")
-			SStgui.update_uis(src)
 			return
 
 		else
@@ -334,7 +328,6 @@
 			to_chat(M, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
 			add_fingerprint(user)
 			qdel(G)
-			SStgui.update_uis(src)
 			return
 
 	return ..()
@@ -381,11 +374,9 @@
 		occupant = null
 		updateUsrDialog()
 		update_icon()
-		SStgui.update_uis(src)
 	if(A == beaker)
 		beaker = null
 		updateUsrDialog()
-		SStgui.update_uis(src)
 
 /obj/machinery/sleeper/emp_act(severity)
 	if(filtering)
@@ -403,7 +394,7 @@
 	qdel(src)
 
 /obj/machinery/sleeper/proc/toggle_filter()
-	if(filtering || !beaker)
+	if(filtering)
 		filtering = 0
 	else
 		filtering = 1
@@ -419,28 +410,29 @@
 	// eject trash the occupant dropped
 	for(var/atom/movable/A in contents - component_parts - list(beaker))
 		A.forceMove(loc)
-	SStgui.update_uis(src)
 
-/obj/machinery/sleeper/force_eject_occupant(mob/target)
+/obj/machinery/sleeper/force_eject_occupant()
 	go_out()
 
-/obj/machinery/sleeper/proc/inject_chemical(mob/living/user, chemical, amount)
+/obj/machinery/sleeper/proc/inject_chemical(mob/living/user as mob, chemical, amount)
 	if(!(chemical in possible_chems))
 		to_chat(user, "<span class='notice'>The sleeper does not offer that chemical!</span>")
-		return
-	if(!(amount in amounts))
 		return
 
 	if(occupant)
 		if(occupant.reagents)
 			if(occupant.reagents.get_reagent_amount(chemical) + amount <= max_chem)
 				occupant.reagents.add_reagent(chemical, amount)
+				return
 			else
 				to_chat(user, "You can not inject any more of this chemical.")
+				return
 		else
 			to_chat(user, "The patient rejects the chemicals!")
+			return
 	else
 		to_chat(user, "There's no occupant in the sleeper!")
+		return
 
 /obj/machinery/sleeper/verb/eject()
 	set name = "Eject Sleeper"
@@ -467,7 +459,6 @@
 		filtering = 0
 		beaker.forceMove(usr.loc)
 		beaker = null
-		SStgui.update_uis(src)
 	add_fingerprint(usr)
 	return
 
@@ -520,7 +511,6 @@
 		add_fingerprint(user)
 		if(user.pulling == L)
 			user.stop_pulling()
-		SStgui.update_uis(src)
 		return
 	return
 
@@ -557,7 +547,6 @@
 		for(var/obj/O in src)
 			qdel(O)
 		add_fingerprint(usr)
-		SStgui.update_uis(src)
 		return
 	return
 
