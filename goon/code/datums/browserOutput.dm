@@ -112,6 +112,10 @@ var/list/chatResources = list(
 	owner << output(null, "browseroutput:rebootFinished")
 	if(owner.holder)
 		loadAdmin()
+	if(owner.mob?.mind?.has_antag_datum(/datum/antagonist/traitor))
+		notify_syndicate_codes() // Send them the current round's codewords
+	else
+		clear_syndicate_codes() // Flush any codewords they may have in chat
 	for(var/message in messageQueue)
 		to_chat(owner, message)
 
@@ -209,6 +213,12 @@ var/list/chatResources = list(
 	var/urlphrases = url_encode(copytext(phrases, 1, length(phrases)))
 	var/urlresponses = url_encode(copytext(responses, 1, length(responses)))
 	owner << output("[urlphrases]&[urlresponses]", "browseroutput:codewords")
+
+/**
+  * Clears any locally stored code phrases to highlight
+  */
+/datum/chatOutput/proc/clear_syndicate_codes()
+	notify_syndicate_codes("", "")
 
 /client/verb/debug_chat()
 	set hidden = 1
