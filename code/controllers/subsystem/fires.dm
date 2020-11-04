@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(fires)
 	name = "Fires"
-	priority = FIRE_PRIOTITY_BURNING
+	priority = FIRE_PRIORITY_BURNING
 	flags = SS_NO_INIT|SS_BACKGROUND
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	offline_implications = "Objects will no longer react to fires. No immediate action is needed."

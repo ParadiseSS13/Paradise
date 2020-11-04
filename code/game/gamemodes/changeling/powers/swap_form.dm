@@ -18,11 +18,14 @@
 	if((NOCLONE || SKELETON || HUSK) in target.mutations)
 		to_chat(user, "<span class='warning'>DNA of [target] is ruined beyond usability!</span>")
 		return
-	if(!istype(target) || issmall(target) || (NO_DNA in target.dna.species.species_traits))
+	if(!istype(target) || !target.mind || issmall(target) || (NO_DNA in target.dna.species.species_traits))
 		to_chat(user, "<span class='warning'>[target] is not compatible with this ability.</span>")
 		return
 	if(target.mind.changeling)
 		to_chat(user, "<span class='warning'>We are unable to swap forms with another changeling!</span>")
+		return
+	if(target.has_brain_worms() || user.has_brain_worms())
+		to_chat(user, "<span class='warning'>A foreign presence repels us from this body!</span>")
 		return
 	return 1
 
@@ -35,7 +38,7 @@
 	target.do_jitter_animation(500)
 	user.do_jitter_animation(500)
 
-	if(!do_mob(user,target,20))
+	if(!do_mob(user, target, 10 SECONDS))
 		to_chat(user, "<span class='warning'>The body swap has been interrupted!</span>")
 		return
 
@@ -63,6 +66,8 @@
 	target.add_language("Changeling")
 	user.remove_language("Changeling")
 	user.regenerate_icons()
+	if(target.stat == DEAD && target.suiciding)  //If Target committed suicide, unset flag for User
+		target.suiciding = 0
 
 	for(var/power in lingpowers)
 		var/datum/action/changeling/S = power

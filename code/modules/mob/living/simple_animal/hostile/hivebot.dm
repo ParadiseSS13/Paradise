@@ -71,9 +71,6 @@
 	var/spawn_delay = 600
 	var/turn_on = 0
 	var/auto_spawn = 1
-	proc
-		warpbots()
-
 
 /mob/living/simple_animal/hostile/hivebot/tele/New()
 	..()
@@ -83,7 +80,7 @@
 	visible_message("<span class='danger'>The [src] warps in!</span>")
 	playsound(src.loc, 'sound/effects/empulse.ogg', 25, 1)
 
-/mob/living/simple_animal/hostile/hivebot/tele/warpbots()
+/mob/living/simple_animal/hostile/hivebot/tele/proc/warpbots()
 	icon_state = "def_radar"
 	visible_message("<span class='warning'>The [src] turns on!</span>")
 	while(bot_amt > 0)

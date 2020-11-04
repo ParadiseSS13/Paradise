@@ -26,9 +26,21 @@
 	display_name = "flat cap"
 	path = /obj/item/clothing/head/flatcap
 
+/datum/gear/hat/witch
+	display_name = "witch hat"
+	path = /obj/item/clothing/head/wizard/marisa/fake
+
+/datum/gear/hat/piratecaphat
+	display_name = "pirate captian hat"
+	path = /obj/item/clothing/head/pirate
+
 /datum/gear/hat/fez
 	display_name = "fez"
 	path = /obj/item/clothing/head/fez
+
+/datum/gear/hat/rasta
+	display_name = "rasta hat"
+	path = /obj/item/clothing/head/beanie/rasta
 
 /datum/gear/hat/bfedora
 	display_name = "fedora, black"
@@ -167,6 +179,6 @@
 	display_name = "hair flower"
 	path = /obj/item/clothing/head/hairflower
 
-/datum/gear/hat/kitty
-	display_name = "kitty headband"
-	path = /obj/item/clothing/head/kitty
+/datum/gear/hat/capsolgov
+	display_name = "cap, Sol Gov"
+	path = /obj/item/clothing/head/soft/solgov

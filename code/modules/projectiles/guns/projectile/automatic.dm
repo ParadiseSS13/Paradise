@@ -4,12 +4,10 @@
 	var/select = 1
 	can_tactical = TRUE
 	can_suppress = 1
+	can_holster = FALSE
 	burst_size = 3
 	fire_delay = 2
 	actions_types = list(/datum/action/item_action/toggle_firemode)
-
-/obj/item/gun/projectile/automatic/isHandgun()
-	return 0
 
 /obj/item/gun/projectile/automatic/update_icon()
 	..()
@@ -275,12 +273,26 @@
 	if(magazine)
 		overlays.Cut()
 		overlays += "[magazine.icon_state]"
-		return
+		if(istype(magazine, /obj/item/ammo_box/magazine/m12g/XtrLrg))
+			w_class = WEIGHT_CLASS_BULKY
+		else
+			w_class = WEIGHT_CLASS_NORMAL
+	else
+		w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/update_icon()
 	overlays.Cut()
 	update_magazine()
 	icon_state = "bulldog[chambered ? "" : "-e"]"
+
+/obj/item/gun/projectile/automatic/shotgun/bulldog/attackby(var/obj/item/A as obj, mob/user as mob, params)
+	if(istype(A, /obj/item/ammo_box/magazine/m12g/XtrLrg))
+		if(istype(loc, /obj/item/storage))	// To prevent inventory exploits
+			var/obj/item/storage/Strg = loc
+			if(Strg.max_w_class < WEIGHT_CLASS_BULKY)
+				to_chat(user, "<span class='warning'>You can't reload [src], with a XL mag, while it's in a normal bag.</span>")
+				return
+	return ..()
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
 	..()

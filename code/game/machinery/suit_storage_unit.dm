@@ -96,7 +96,7 @@
 	name = "atmospherics suit storage unit"
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/engine/atmos
 	mask_type    = /obj/item/clothing/mask/gas
-	magboots_type = /obj/item/clothing/shoes/magboots
+	magboots_type = /obj/item/clothing/shoes/magboots/atmos
 	req_access = list(ACCESS_ATMOSPHERICS)
 
 /obj/machinery/suit_storage_unit/atmos/secure
@@ -255,6 +255,7 @@
 		occupant_typecache = typecacheof(occupant_typecache)
 
 /obj/machinery/suit_storage_unit/Destroy()
+	SStgui.close_uis(wires)
 	QDEL_NULL(suit)
 	QDEL_NULL(helmet)
 	QDEL_NULL(mask)
@@ -752,7 +753,7 @@
 	update_icon()
 	return
 
-/obj/machinery/suit_storage_unit/force_eject_occupant()
+/obj/machinery/suit_storage_unit/force_eject_occupant(mob/target)
 	eject_occupant()
 
 /obj/machinery/suit_storage_unit/verb/get_out()
@@ -802,3 +803,7 @@
 
 /obj/machinery/suit_storage_unit/attack_ai(mob/user as mob)
 	return attack_hand(user)
+
+/obj/machinery/suit_storage_unit/proc/check_electrified_callback()
+	if(!wires.is_cut(WIRE_ELECTRIFY))
+		shocked = FALSE

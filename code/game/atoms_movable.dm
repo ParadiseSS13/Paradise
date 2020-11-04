@@ -61,7 +61,7 @@
 /atom/movable/proc/get_cell()
 	return
 
-/atom/movable/proc/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
+/atom/movable/proc/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	if(QDELETED(AM))
 		return FALSE
 	if(!(AM.can_be_pulled(src, state, force)))
@@ -87,7 +87,7 @@
 	if(ismob(AM))
 		var/mob/M = AM
 		add_attack_logs(src, M, "passively grabbed", ATKLOG_ALMOSTALL)
-		if(!supress_message)
+		if(show_message)
 			visible_message("<span class='warning'>[src] has grabbed [M] passively!</span>")
 	return TRUE
 
@@ -120,12 +120,18 @@
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1)		//separated from our puller and not in the middle of a diagonal move.
 		pulledby.stop_pulling()
 
-/atom/movable/proc/can_be_pulled(user, grab_state, force)
+/atom/movable/proc/can_be_pulled(user, grab_state, force, show_message = FALSE)
 	if(src == user || !isturf(loc))
 		return FALSE
-	if(anchored || throwing)
+	if(anchored || move_resist == INFINITY)
+		if(show_message)
+			to_chat(user, "<span class='warning'>[src] appears to be anchored to the ground!</span>")
+		return FALSE
+	if(throwing)
 		return FALSE
 	if(force < (move_resist * MOVE_FORCE_PULL_RATIO))
+		if(show_message)
+			to_chat(user, "<span class='warning'>[src] is too heavy to pull!</span>")
 		return FALSE
 	return TRUE
 
@@ -218,6 +224,12 @@
 		newtonian_move(Dir)
 	if(length(client_mobs_in_contents))
 		update_parallax_contents()
+
+	var/datum/light_source/L
+	var/thing
+	for (thing in light_sources) // Cycle through the light sources on this atom and tell them to update.
+		L = thing
+		L.source_atom.update_light()
 	return TRUE
 
 // Change glide size for the duration of one movement
@@ -422,6 +434,7 @@
 	simulated = FALSE
 
 /atom/movable/overlay/New()
+	. = ..()
 	verbs.Cut()
 	return
 
@@ -506,6 +519,7 @@
 		return //don't do an animation if attacking self
 	var/pixel_x_diff = 0
 	var/pixel_y_diff = 0
+
 	var/direction = get_dir(src, A)
 	if(direction & NORTH)
 		pixel_y_diff = 8
@@ -525,7 +539,8 @@
 	if(visual_effect_icon)
 		I = image('icons/effects/effects.dmi', A, visual_effect_icon, A.layer + 0.1)
 	else if(used_item)
-		I = image(used_item.icon, A, used_item.icon_state, A.layer + 0.1)
+		I = image(icon = used_item, loc = A, layer = A.layer + 0.1)
+		I.plane = GAME_PLANE
 
 		// Scale the icon.
 		I.transform *= 0.75
@@ -553,7 +568,7 @@
 	// Who can see the attack?
 	var/list/viewing = list()
 	for(var/mob/M in viewers(A))
-		if(M.client && M.client.prefs.show_ghostitem_attack)
+		if(M.client && M.client.prefs.toggles2 & PREFTOGGLE_2_ITEMATTACK)
 			viewing |= M.client
 
 	flick_overlay(I, viewing, 5) // 5 ticks/half a second

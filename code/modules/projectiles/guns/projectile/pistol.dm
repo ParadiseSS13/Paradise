@@ -5,6 +5,7 @@
 	icon_state = "pistol"
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=3;materials=2;syndicate=4"
+	can_holster = TRUE
 	mag_type = /obj/item/ammo_box/magazine/m10mm
 	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/pistol_magin.ogg'
@@ -13,9 +14,6 @@
 	burst_size = 1
 	fire_delay = 0
 	actions_types = list()
-
-/obj/item/gun/projectile/automatic/pistol/isHandgun()
-	return 1
 
 /obj/item/gun/projectile/automatic/pistol/update_icon()
 	..()

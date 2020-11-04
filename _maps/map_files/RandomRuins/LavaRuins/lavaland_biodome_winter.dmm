@@ -167,7 +167,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "aL" = (
-/obj/structure/displaycase/captain,
+/obj/mecha/working/ripley/mining,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "aM" = (
@@ -337,7 +337,7 @@
 /area/ruin/powered/snow_biodome)
 "JZ" = (
 /obj/structure/table,
-/obj/machinery/microwave,
+/obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "KS" = (
@@ -390,12 +390,6 @@
 /area/ruin/powered/snow_biodome)
 "Ub" = (
 /obj/structure/filingcabinet,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/snow_biodome)
-"UM" = (
-/obj/machinery/computer/monitor/secret{
-	dir = 1
-	},
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "Wg" = (
@@ -484,7 +478,7 @@ HP
 tl
 PK
 gz
-UM
+HP
 Wg
 ak
 ak

@@ -11645,7 +11645,7 @@
 	pixel_x = -26;
 	pixel_y = 3
 	},
-/obj/effect/landmark/costume,
+/obj/effect/landmark/costume/random,
 /obj/item/clothing/suit/suspenders,
 /turf/simulated/floor/plasteel{
 	icon_state = "redbluefull"
@@ -12844,7 +12844,7 @@
 "aBr" = (
 /obj/structure/table/wood,
 /obj/item/clothing/shoes/jackboots,
-/obj/effect/landmark/costume,
+/obj/effect/landmark/costume/random,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria";
@@ -28449,7 +28449,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/computer/ordercomp,
+/obj/machinery/computer/supplycomp/public,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -29206,7 +29206,7 @@
 	},
 /area/hallway/primary/fore)
 "bed" = (
-/obj/machinery/computer/ordercomp,
+/obj/machinery/computer/supplycomp/public,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purple"
@@ -33813,7 +33813,7 @@
 /area/security/main)
 "bmP" = (
 /obj/structure/rack,
-/obj/effect/landmark/costume,
+/obj/effect/landmark/costume/random,
 /obj/effect/spawner/lootdrop/maintenance{
 	lootcount = 2;
 	name = "2maintenance loot spawner"
@@ -40663,40 +40663,16 @@
 /turf/simulated/wall/r_wall,
 /area/engine/break_room)
 "byz" = (
-/obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
-	},
-/obj/machinery/modular_computer/console/preset/engineering,
 /obj/machinery/status_display{
 	pixel_x = -32
 	},
+/obj/machinery/computer/security/engineering,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"
 	},
 /area/atmos)
-"byA" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/obj/structure/chair/office/dark{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/atmos)
 "byB" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -41937,12 +41913,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/machinery/modular_computer/console/preset/command,
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
-	},
+/obj/machinery/computer/shuttle/mining,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkpurple"
@@ -47144,7 +47115,7 @@
 	pixel_y = 3
 	},
 /obj/item/circuitboard/powermonitor,
-/obj/item/circuitboard/stationalert_all{
+/obj/item/circuitboard/stationalert{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -51367,18 +51338,6 @@
 	icon_state = "dark"
 	},
 /area/engine/break_room)
-"bQf" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral";
-	dir = 4
-	},
-/area/crew_quarters/chief)
 "bQg" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -51405,11 +51364,6 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
 /obj/item/toy/figure/ce,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -54089,12 +54043,6 @@
 /area/crew_quarters/chief)
 "bUq" = (
 /obj/machinery/hologram/holopad,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
-	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -55398,11 +55346,6 @@
 	},
 /area/crew_quarters/chief)
 "bWl" = (
-/obj/machinery/modular_computer/console/preset/engineering,
-/obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
-	},
 /obj/machinery/keycard_auth{
 	pixel_x = -24
 	},
@@ -55420,6 +55363,7 @@
 	pixel_y = -8;
 	req_access_txt = "11"
 	},
+/obj/machinery/computer/security/engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -58725,9 +58669,6 @@
 /area/blueshield)
 "cce" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/skills{
-	req_one_access = null
-	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "bcarpet05"
@@ -59666,9 +59607,6 @@
 /area/ntrep)
 "cdK" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/skills{
-	req_access_txt = "57"
-	},
 /turf/simulated/floor/carpet,
 /area/ntrep)
 "cdL" = (
@@ -60483,6 +60421,9 @@
 	icon_state = "4-8";
 	tag = ""
 	},
+/obj/machinery/computer/monitor{
+	name = "Grid Power Monitoring Computer"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark";
@@ -61207,10 +61148,6 @@
 /area/security/brig)
 "cgu" = (
 /obj/machinery/tcomms/core/station,
-/turf/simulated/floor/bluegrid,
-/area/tcommsat/chamber)
-"cgA" = (
-/obj/machinery/ntnet_relay,
 /turf/simulated/floor/bluegrid,
 /area/tcommsat/chamber)
 "cgB" = (
@@ -62517,7 +62454,6 @@
 	dir = 1;
 	network = list("Engineering","SS13")
 	},
-/obj/machinery/modular_computer/console/preset/engineering,
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = -26;
@@ -62526,6 +62462,9 @@
 /obj/structure/cable{
 	icon_state = "0-4";
 	d2 = 4
+	},
+/obj/machinery/computer/monitor{
+	name = "Grid Power Monitoring Computer"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -88635,7 +88574,7 @@
 /area/maintenance/starboard)
 "dey" = (
 /obj/structure/table/wood,
-/obj/item/modular_computer/tablet/preset/cheap,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
 	},
@@ -97243,7 +97182,6 @@
 	},
 /area/crew_quarters/hor)
 "dtZ" = (
-/obj/structure/cable,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -97253,7 +97191,6 @@
 	pixel_x = 0;
 	pixel_y = -30
 	},
-/obj/machinery/modular_computer/console/preset/research,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "whitepurplecorner"
@@ -99534,8 +99471,8 @@
 "dya" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/rack,
-/obj/effect/landmark/costume,
-/obj/effect/landmark/costume,
+/obj/effect/landmark/costume/random,
+/obj/effect/landmark/costume/random,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -100115,8 +100052,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/landmark/costume,
-/obj/effect/landmark/costume,
+/obj/effect/landmark/costume/random,
+/obj/effect/landmark/costume/random,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -100825,7 +100762,7 @@
 "dAu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/closet/crate,
-/obj/effect/landmark/costume,
+/obj/effect/landmark/costume/random,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
@@ -114782,6 +114719,9 @@
 "qrT" = (
 /turf/simulated/wall/r_wall,
 /area/tcommsat/chamber)
+"rSI" = (
+/turf/simulated/floor/bluegrid,
+/area/tcommsat/chamber)
 "udT" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -123168,9 +123108,9 @@ bVO
 bPI
 bNM
 qrT
-eaH
+rSI
 ceL
-cgu
+eaH
 qrT
 qrT
 bkt
@@ -123940,7 +123880,7 @@ bXJ
 bZh
 caX
 ccW
-ccW
+cgu
 ccW
 chW
 qrT
@@ -124710,9 +124650,9 @@ bVT
 bXL
 bNM
 qrT
-hng
+rSI
 vzz
-cgA
+hng
 qrT
 qrT
 bkt
@@ -138067,7 +138007,7 @@ bIr
 bKe
 bMh
 bOa
-bQf
+bOa
 bOa
 bUh
 bWk
@@ -142426,7 +142366,7 @@ btt
 buD
 bvO
 ban
-byA
+bzY
 bzY
 bBK
 aOg

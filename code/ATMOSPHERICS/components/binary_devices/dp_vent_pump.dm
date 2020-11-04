@@ -23,9 +23,8 @@
 	var/input_pressure_min = 0
 	var/output_pressure_max = 0
 
-	var/frequency = ATMOS_VENTSCRUB
+	frequency = ATMOS_VENTSCRUB
 	var/id_tag = null
-	var/datum/radio_frequency/radio_connection
 
 	settagwhitelist = list("id_tag")
 
@@ -94,7 +93,7 @@
 	else
 		vent_icon += "[on ? "[pump_direction ? "out" : "in"]" : "off"]"
 
-	overlays += GLOB.pipe_icon_manager.get_atmos_icon("device", , , vent_icon)
+	overlays += SSair.icon_manager.get_atmos_icon("device", , , vent_icon)
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/update_underlays()
 	if(..())
@@ -159,13 +158,6 @@
 				parent2.update = 1
 				air_update_turf()
 	return 1
-
-//Radio remote control
-/obj/machinery/atmospherics/binary/dp_vent_pump/proc/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	if(frequency)
-		radio_connection = SSradio.add_object(src, frequency, filter = RADIO_ATMOSIA)
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/proc/broadcast_status()
 	if(!radio_connection)

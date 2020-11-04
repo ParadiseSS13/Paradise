@@ -11,6 +11,7 @@
 	var/obj/item/assembly/signaler/anomaly/aSignal = null
 
 /obj/effect/anomaly/New()
+	. = ..()
 	set_light(initial(luminosity))
 	aSignal = new(src)
 	aSignal.code = rand(1,100)
@@ -26,7 +27,7 @@
 
 /obj/effect/anomaly/proc/anomalyEffect()
 	if(prob(50))
-		step(src,pick(GLOB.alldirs))
+		step(src, pick(GLOB.alldirs))
 
 
 /obj/effect/anomaly/proc/anomalyNeutralize()
@@ -183,3 +184,30 @@
 	if( T && istype(T,/turf/simulated) && prob(turf_removal_chance) )
 		T.ex_act(ex_act_force)
 	return
+
+/////////////////////
+
+/obj/effect/anomaly/atmos
+	name = "transformative gas anomaly"
+	icon_state = "electricity2"
+	var/gas_type
+
+/obj/effect/anomaly/atmos/New()
+	..()
+	gas_type = pick(GAS_N2O, GAS_CO2, GAS_N2)
+	aSignal.origin_tech = "materials=7"	//turning gas into another gas has some interesting implications for material science
+										//might also work as biotech maybe? Since there's no anomaly for that.
+
+/obj/effect/anomaly/atmos/anomalyEffect()
+	..()
+	var/turf/simulated/T = get_turf(src)
+	if(istype(T))
+		var/flag
+		switch(gas_type)
+			if(GAS_CO2)
+				flag = LINDA_SPAWN_CO2
+			if(GAS_N2O)
+				flag = LINDA_SPAWN_N2O
+			else
+				flag = LINDA_SPAWN_NITROGEN
+		T.atmos_spawn_air(LINDA_SPAWN_20C | flag, 10)

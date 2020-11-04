@@ -1,6 +1,7 @@
 /mob/living/simple_animal/hostile/guardian/healer
 	friendly = "heals"
 	speed = 0
+	damage_transfer = 0.7
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	playstyle_string = "As a <b>Support</b> type, you may toggle your basic attacks to a healing mode. In addition, Alt-Clicking on an adjacent mob will warp them to your bluespace beacon after a short delay."
@@ -26,7 +27,7 @@
 	melee_damage_lower = 0
 	melee_damage_upper = 0
 	melee_damage_type = STAMINA
-	adminseal = TRUE
+	admin_spawned = TRUE
 
 /mob/living/simple_animal/hostile/guardian/healer/New()
 	..()
@@ -67,9 +68,6 @@
 			a_intent = INTENT_HARM
 			hud_used.action_intent.icon_state = a_intent
 			speed = 0
-			damage_transfer = 0.7
-			if(adminseal)
-				damage_transfer = 0
 			melee_damage_lower = 15
 			melee_damage_upper = 15
 			to_chat(src, "<span class='danger'>You switch to combat mode.</span>")
@@ -78,9 +76,6 @@
 			a_intent = INTENT_HELP
 			hud_used.action_intent.icon_state = a_intent
 			speed = 1
-			damage_transfer = 1
-			if(adminseal)
-				damage_transfer = 0
 			melee_damage_lower = 0
 			melee_damage_upper = 0
 			to_chat(src, "<span class='danger'>You switch to healing mode.</span>")

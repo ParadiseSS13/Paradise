@@ -5,11 +5,11 @@
 	var/turf/T = get_turf(A)
 	return T ? T.loc : null
 
-/proc/get_area_name(N) //get area by its name
-	for(var/area/A in world)
-		if(A.name == N)
-			return A
-	return 0
+/proc/get_area_name(atom/X, format_text = FALSE)
+	var/area/A = isarea(X) ? X : get_area(X)
+	if(!A)
+		return null
+	return format_text ? format_text(A.name) : A.name
 
 /proc/get_location_name(atom/X, format_text = FALSE)
 	var/area/A = isarea(X) ? X : get_area(X)
@@ -30,6 +30,24 @@
 		var/turf/T = V
 		areas |= T.loc
 	return areas
+
+/proc/get_open_turf_in_dir(atom/center, dir)
+	var/turf/T = get_ranged_target_turf(center, dir, 1)
+	if(T && !T.density)
+		return T
+
+/proc/get_adjacent_open_turfs(atom/center)
+	. = list(get_open_turf_in_dir(center, NORTH),
+			get_open_turf_in_dir(center, SOUTH),
+			get_open_turf_in_dir(center, EAST),
+			get_open_turf_in_dir(center, WEST))
+	listclearnulls(.)
+
+/proc/get_adjacent_open_areas(atom/center)
+	. = list()
+	var/list/adjacent_turfs = get_adjacent_open_turfs(center)
+	for(var/I in adjacent_turfs)
+		. |= get_area(I)
 
 // Like view but bypasses luminosity check
 
@@ -211,7 +229,7 @@
 			var/turf/ear = get_turf(M)
 			if(ear)
 				// Ghostship is magic: Ghosts can hear radio chatter from anywhere
-				if(speaker_coverage[ear] || (istype(M, /mob/dead/observer) && M.get_preference(CHAT_GHOSTRADIO)))
+				if(speaker_coverage[ear] || (istype(M, /mob/dead/observer) && M.get_preference(PREFTOGGLE_CHAT_GHOSTRADIO)))
 					. |= M		// Since we're already looping through mobs, why bother using |= ? This only slows things down.
 	return .
 
@@ -425,66 +443,8 @@
 	if(pressure <= LAVALAND_EQUIPMENT_EFFECT_PRESSURE)
 		. = TRUE
 
-proc/pollCandidates(Question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = 0, flashwindow = TRUE, check_antaghud = TRUE)
-	var/roletext = be_special_type ? get_roletext(be_special_type) : null
-	var/list/mob/dead/observer/candidates = list()
-	var/time_passed = world.time
-	if(!Question)
-		Question = "Would you like to be a special role?"
-
-	for(var/mob/dead/observer/G in (ignore_respawnability ? GLOB.player_list : GLOB.respawnable_list))
-		if(!G.key || !G.client)
-			continue
-		if(be_special_type)
-			if(!(be_special_type in G.client.prefs.be_special))
-				continue
-			if(antag_age_check)
-				if(!player_old_enough_antag(G.client, be_special_type))
-					continue
-		if(roletext)
-			if(jobban_isbanned(G, roletext) || jobban_isbanned(G, "Syndicate"))
-				continue
-		if(config.use_exp_restrictions && min_hours)
-			if(G.client.get_exp_type_num(EXP_TYPE_LIVING) < min_hours * 60)
-				continue
-		if(check_antaghud && cannotPossess(G))
-			continue
-		spawn(0)
-			G << 'sound/misc/notice2.ogg'//Alerting them to their consideration
-			if(flashwindow)
-				window_flash(G.client)
-			var/ans = alert(G,Question,"Please answer in [poll_time/10] seconds!","No","Yes","Not This Round")
-			if(!G?.client)
-				return
-			switch(ans)
-				if("Yes")
-					to_chat(G, "<span class='notice'>Choice registered: Yes.</span>")
-					if((world.time-time_passed)>poll_time)//If more than 30 game seconds passed.
-						to_chat(G, "<span class='danger'>Sorry, you were too late for the consideration!</span>")
-						G << 'sound/machines/buzz-sigh.ogg'
-						return
-					candidates += G
-				if("No")
-					to_chat(G, "<span class='danger'>Choice registered: No.</span>")
-					return
-				if("Not This Round")
-					to_chat(G, "<span class='danger'>Choice registered: No.</span>")
-					to_chat(G, "<span class='notice'>You will no longer receive notifications for the role '[roletext]' for the rest of the round.</span>")
-					G.client.prefs.be_special -= be_special_type
-					return
-				else
-					return
-	sleep(poll_time)
-
-	//Check all our candidates, to make sure they didn't log off during the 30 second wait period.
-	for(var/mob/dead/observer/G in candidates)
-		if(!G.key || !G.client)
-			candidates.Remove(G)
-
-	return candidates
-
-/proc/pollCandidatesWithVeto(adminclient, adminusr, max_slots, Question, be_special_type, antag_age_check = 0, poll_time = 300, ignore_respawnability = 0, min_hours = 0, flashwindow = TRUE, check_antaghud = TRUE)
-	var/list/willing_ghosts = pollCandidates(Question, be_special_type, antag_age_check, poll_time, ignore_respawnability, min_hours, flashwindow, check_antaghud)
+/proc/pollCandidatesWithVeto(adminclient, adminusr, max_slots, Question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = FALSE, flashwindow = TRUE, check_antaghud = TRUE, source, role_cleanname)
+	var/list/willing_ghosts = SSghost_spawns.poll_candidates(Question, be_special_type, antag_age_check, poll_time, ignore_respawnability, min_hours, flashwindow, check_antaghud, source, role_cleanname)
 	var/list/selected_ghosts = list()
 	if(!willing_ghosts.len)
 		return selected_ghosts
@@ -509,6 +469,84 @@ proc/pollCandidates(Question, be_special_type, antag_age_check = FALSE, poll_tim
 		var/mob/M = C
 		if(M.client)
 			C = M.client
-	if(!C || !C.prefs.windowflashing)
+	if(!C || !(C.prefs.toggles2 & PREFTOGGLE_2_WINDOWFLASHING))
 		return
 	winset(C, "mainwindow", "flash=5")
+
+/**
+  * Returns a list of vents that can be used as a potential spawn if they meet the criteria set by the arguments
+  *
+  * Will not include parent-less vents to the returned list.
+  * Arguments:
+  * * unwelded_only - Whether the list should only include vents that are unwelded
+  * * exclude_mobs_nearby - Whether to exclude vents that are near living mobs regardless of visibility
+  * * nearby_mobs_range - The range at which to look for living mobs around the vent for the above argument
+  * * exclude_visible_by_mobs - Whether to exclude vents that are visible to any living mob
+  * * min_network_size - The minimum length (non-inclusive) of the vent's parent network. A smaller number means vents in small networks (Security, Virology) will appear in the list
+  * * station_levels_only - Whether to only consider vents that are in a Z-level with a STATION_LEVEL trait
+  * * z_level - The Z-level number to look for vents in. Defaults to all
+  */
+/proc/get_valid_vent_spawns(unwelded_only = TRUE, exclude_mobs_nearby = FALSE, nearby_mobs_range = world.view, exclude_visible_by_mobs = FALSE, min_network_size = 50, station_levels_only = TRUE, z_level = 0)
+	ASSERT(min_network_size >= 0)
+	ASSERT(z_level >= 0)
+
+	var/num_z_levels = length(GLOB.space_manager.z_list)
+	var/list/non_station_levels[num_z_levels] // Cache so we don't do is_station_level for every vent!
+
+	. = list()
+	for(var/object in GLOB.all_vent_pumps) // This only contains vent_pumps so don't bother with type checking
+		var/obj/machinery/atmospherics/unary/vent_pump/vent = object
+		var/vent_z = vent.z
+		if(z_level && vent_z != z_level)
+			continue
+		if(station_levels_only && (non_station_levels[vent_z] || !is_station_level(vent_z)))
+			non_station_levels[vent_z] = TRUE
+			continue
+		if(unwelded_only && vent.welded)
+			continue
+		if(exclude_mobs_nearby)
+			var/turf/T = get_turf(vent)
+			var/mobs_nearby = FALSE
+			for(var/mob/living/M in orange(nearby_mobs_range, T))
+				if(!M.is_dead())
+					mobs_nearby = TRUE
+					break
+			if(mobs_nearby)
+				continue
+		if(exclude_visible_by_mobs)
+			var/turf/T = get_turf(vent)
+			var/visible_by_mobs = FALSE
+			for(var/mob/living/M in viewers(world.view, T))
+				if(!M.is_dead())
+					visible_by_mobs = TRUE
+					break
+			if(visible_by_mobs)
+				continue
+		if(!vent.parent) // This seems to have been an issue in the past, so this is here until it's definitely fixed
+			// Can cause heavy message spam in some situations (e.g. pipenets breaking)
+			// log_debug("get_valid_vent_spawns(), vent has no parent: [vent], qdeled: [QDELETED(vent)], loc: [vent.loc]")
+			continue
+		if(length(vent.parent.other_atmosmch) <= min_network_size)
+			continue
+		. += vent
+
+/**
+ * Get a bounding box of a list of atoms.
+ *
+ * Arguments:
+ * - atoms - List of atoms. Can accept output of view() and range() procs.
+ *
+ * Returns: list(x1, y1, x2, y2)
+ */
+/proc/get_bbox_of_atoms(list/atoms)
+	var/list/list_x = list()
+	var/list/list_y = list()
+	for(var/_a in atoms)
+		var/atom/a = _a
+		list_x += a.x
+		list_y += a.y
+	return list(
+		min(list_x),
+		min(list_y),
+		max(list_x),
+		max(list_y))

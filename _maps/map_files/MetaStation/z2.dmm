@@ -83,7 +83,7 @@
 /turf/unsimulated/floor/snow,
 /area/syndicate_mothership)
 "an" = (
-/obj/effect/landmark/costume,
+/obj/effect/landmark/costume/random,
 /obj/structure/rack,
 /turf/simulated/floor/holofloor{
 	tag = "icon-cult";
@@ -1312,7 +1312,7 @@
 	},
 /area/vox_station)
 "dA" = (
-/obj/vox/win_button,
+/obj/machinery/vox_win_button,
 /turf/unsimulated/floor{
 	tag = "icon-light_on";
 	icon_state = "light_on"

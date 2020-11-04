@@ -32,9 +32,9 @@
 		var/turf/T = get_turf(src)	//otherwise it won't work in hand
 		T.visible_message("[bicon(src)] beeps, \"Activation message is [type ? "the sound when one [recorded]" : "'[recorded]'."]\"")
 	else if(findtext(msg, recorded) && type == recorded_type)
-		pulse(0)
 		var/turf/T = get_turf(src)  //otherwise it won't work in hand
 		T.visible_message("<span class='warning'>[bicon(src)] beeps!</span>")
+		pulse(0)
 
 /obj/item/assembly/voice/activate()
 	return // previously this toggled listning when not in a holder, that's a little silly.  It was only called in attack_self that way.

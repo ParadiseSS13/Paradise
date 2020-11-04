@@ -214,6 +214,7 @@
 	color = "#FF6600"
 
 /obj/item/projectile/beam/wormhole/New(var/obj/item/ammo_casing/energy/wormhole/casing)
+	. = ..()
 	if(casing)
 		gun = casing.gun
 

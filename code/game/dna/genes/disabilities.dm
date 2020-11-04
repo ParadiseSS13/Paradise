@@ -50,7 +50,7 @@
 
 /datum/dna/gene/disability/hallucinate/OnMobLife(mob/living/carbon/human/H)
 	if(prob(1))
-		H.Hallucinate(20)
+		H.AdjustHallucinate(45)
 
 /datum/dna/gene/disability/epilepsy
 	name = "Epilepsy"
@@ -249,14 +249,13 @@
 	block = GLOB.wingdingsblock
 
 /datum/dna/gene/disability/wingdings/OnSay(mob/M, message)
-	var/list/chars = string2charlist(message)
 	var/garbled_message = ""
-	for(var/C in chars)
-		if(C in GLOB.alphabet_uppercase)
+	for(var/i in 1 to length(message))
+		if(message[i] in GLOB.alphabet_uppercase)
 			garbled_message += pick(GLOB.alphabet_uppercase)
-		else if(C in GLOB.alphabet)
+		else if(message[i] in GLOB.alphabet)
 			garbled_message += pick(GLOB.alphabet)
 		else
-			garbled_message += C
+			garbled_message += message[i]
 	message = garbled_message
 	return message

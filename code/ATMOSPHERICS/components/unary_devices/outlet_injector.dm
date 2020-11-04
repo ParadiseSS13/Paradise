@@ -18,10 +18,7 @@
 
 	var/volume_rate = 50
 
-	var/frequency = 0
 	var/id
-	var/id_tag = null
-	var/datum/radio_frequency/radio_connection
 	Mtoollink = 1
 	settagwhitelist = list("id_tag")
 
@@ -98,12 +95,6 @@
 
 	flick("inject", src)
 
-/obj/machinery/atmospherics/unary/outlet_injector/proc/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	if(frequency)
-		radio_connection = SSradio.add_object(src, frequency)
-
 /obj/machinery/atmospherics/unary/outlet_injector/proc/broadcast_status()
 	if(!radio_connection)
 		return 0
@@ -120,7 +111,7 @@
 		"sigtype" = "status"
 	 )
 
-	radio_connection.post_signal(src, signal)
+	radio_connection.post_signal(src, signal, RADIO_ATMOSIA)
 
 	return 1
 

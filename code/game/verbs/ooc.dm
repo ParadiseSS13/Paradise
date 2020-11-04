@@ -1,12 +1,12 @@
-GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
+GLOBAL_VAR_INIT(normal_ooc_colour, "#275FC5")
 GLOBAL_VAR_INIT(member_ooc_colour, "#035417")
-GLOBAL_VAR_INIT(mentor_ooc_colour, "#0099cc")
+GLOBAL_VAR_INIT(mentor_ooc_colour, "#00B0EB")
 GLOBAL_VAR_INIT(moderator_ooc_colour, "#184880")
 GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 //Checks if the client already has a text input open
 /client/proc/checkTyping()
-	return (prefs.toggles & TYPING_ONCE && typing)
+	return (prefs.toggles & PREFTOGGLE_TYPING_ONCE && typing)
 
 /client/verb/ooc(msg = "" as text)
 	set name = "OOC"
@@ -36,7 +36,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(!msg)
 		return
 
-	if(!(prefs.toggles & CHAT_OOC))
+	if(!(prefs.toggles & PREFTOGGLE_CHAT_OOC))
 		to_chat(src, "<span class='danger'>You have OOC muted.</span>")
 		return
 
@@ -53,6 +53,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 			return
 
 	log_ooc(msg, src)
+	mob.create_log(OOC_LOG, msg)
 
 	var/display_colour = GLOB.normal_ooc_colour
 	if(holder && !holder.fakekey)
@@ -67,20 +68,20 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 	if(prefs.unlock_content)
 		if(display_colour == GLOB.normal_ooc_colour)
-			if((prefs.toggles & MEMBER_PUBLIC))
+			if((prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC))
 				display_colour = GLOB.member_ooc_colour
 
 	for(var/client/C in GLOB.clients)
-		if(C.prefs.toggles & CHAT_OOC)
+		if(C.prefs.toggles & PREFTOGGLE_CHAT_OOC)
 			var/display_name = key
 
 			if(prefs.unlock_content)
-				if(prefs.toggles & MEMBER_PUBLIC)
+				if(prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC)
 					var/icon/byond = icon('icons/member_content.dmi', "blag")
 					display_name = "[bicon(byond)][display_name]"
 
 			if(donator_level > 0)
-				if((prefs.toggles & DONATOR_PUBLIC))
+				if((prefs.toggles & PREFTOGGLE_DONATOR_PUBLIC))
 					var/icon/donator = icon('icons/ooc_tag_16x.dmi', "donator")
 					display_name = "[bicon(donator)][display_name]"
 
@@ -191,7 +192,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(!msg)
 		return
 
-	if(!(prefs.toggles & CHAT_LOOC))
+	if(!(prefs.toggles & PREFTOGGLE_CHAT_LOOC))
 		to_chat(src, "<span class='danger'>You have LOOC muted.</span>")
 		return
 
@@ -205,7 +206,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 			return
 
 	log_looc(msg, src)
-
+	mob.create_log(LOOC_LOG, msg)
 	var/mob/source = mob.get_looc_source()
 	var/list/heard = get_mobs_in_view(7, source)
 
@@ -216,7 +217,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		display_name = mob.name
 
 	for(var/client/target in GLOB.clients)
-		if(target.prefs.toggles & CHAT_LOOC)
+		if(target.prefs.toggles & PREFTOGGLE_CHAT_LOOC)
 			var/prefix = ""
 			var/admin_stuff = ""
 			var/send = 0

@@ -310,13 +310,25 @@
 	desc = "Someone wearing this definitely makes them cool"
 	icon_state = "fedora"
 
+	sprite_sheets = list(
+	"Vox" = 'icons/mob/species/vox/head.dmi'
+	)
+
 /obj/item/clothing/head/fedora/whitefedora
 	name = "white fedora"
 	icon_state = "wfedora"
 
+	sprite_sheets = list(
+	"Vox" = 'icons/mob/species/vox/head.dmi'
+	)
+
 /obj/item/clothing/head/fedora/brownfedora
 	name = "brown fedora"
 	icon_state = "bfedora"
+
+	sprite_sheets = list(
+	"Vox" = 'icons/mob/species/vox/head.dmi'
+	)
 
 /obj/item/clothing/head/stalhelm
 	name = "Clown Stalhelm"
@@ -401,6 +413,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("warned", "cautioned", "smashed")
 	resistance_flags = NONE
+	dog_fashion = /datum/dog_fashion/head/cone
 
 /obj/item/clothing/head/jester
 	name = "jester hat"

@@ -239,6 +239,7 @@ to destroy them and players will be able to make replacements.
 		/obj/machinery/vending/hatdispenser = "Hatlord 9000",
 		/obj/machinery/vending/suitdispenser = "Suitlord 9000",
 		/obj/machinery/vending/shoedispenser = "Shoelord 9000",
+		/obj/machinery/vending/autodrobe = "AutoDrobe",
 		/obj/machinery/vending/clothing = "ClothesMate",
 		/obj/machinery/vending/medical = "NanoMed Plus",
 		/obj/machinery/vending/wallmed = "NanoMed",
@@ -253,7 +254,6 @@ to destroy them and players will be able to make replacements.
 		/obj/machinery/vending/engineering = "Robco Tool Maker",
 		/obj/machinery/vending/sovietsoda = "BODA",
 		/obj/machinery/vending/security = "SecTech",
-		/obj/machinery/vending/modularpc = "Deluxe Silicate Selections",
 		/obj/machinery/vending/crittercare = "CritterCare")
 
 /obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/I)
@@ -892,6 +892,10 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Golem Ore Redemption)"
 	build_path = /obj/machinery/mineral/ore_redemption/golem
 
+/obj/item/circuitboard/ore_redemption/labor
+	name = "circuit board (Labor Ore Redemption)"
+	build_path = /obj/machinery/mineral/ore_redemption/labor
+
 /obj/item/circuitboard/mining_equipment_vendor
 	name = "circuit board (Mining Equipment Vendor)"
 	build_path = /obj/machinery/mineral/equipment_vendor
@@ -904,6 +908,10 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/mining_equipment_vendor/golem
 	name = "circuit board (Mining Equipment Vendor)"
 	build_path = /obj/machinery/mineral/equipment_vendor/golem
+
+/obj/item/circuitboard/mining_equipment_vendor/labor
+	name = "circuit board (Labor Equipment Vendor)"
+	build_path = /obj/machinery/mineral/equipment_vendor/labor
 
 /obj/item/circuitboard/clawgame
 	name = "circuit board (Claw Game)"
