@@ -215,6 +215,16 @@
 		var/turf/T = get_turf(holder.my_atom)
 		holder.my_atom.visible_message("<b>The oil burns!</b>")
 		fireflash(T, min(max(0, volume / 40), 8))
+		if(holder.my_atom)
+			if(holder.my_atom.fingerprintslast)
+				var/mob/M = get_mob_by_key(holder.my_atom.fingerprintslast)
+				var/more = ""
+				if(M)
+					more = " "
+				add_attack_logs(M, COORD(holder.my_atom.loc), "Caused a flashfire reaction of [id]. Last associated key is [holder.my_atom.fingerprintslast][more]", ATKLOG_FEW)
+			log_game("Flashfire reaction ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
+			holder.my_atom.investigate_log("A fuel explosion, last touched by [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(holder.my_atom.loc)].", INVESTIGATE_BOMB)
+
 		var/datum/effect_system/smoke_spread/bad/BS = new
 		BS.set_up(1, 0, T)
 		BS.start()
