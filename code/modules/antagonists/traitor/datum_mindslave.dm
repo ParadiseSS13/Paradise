@@ -37,12 +37,6 @@
 		if(slave_mob && istype(slave_mob))
 			slave_mob.mutations.Add(CLUMSY)
 
-/datum/antagonist/mindslave/proc/add_objective(datum/objective/O)
-	owner.objectives += O
-
-/datum/antagonist/mindslave/proc/remove_objective(datum/objective/O)
-	owner.objectives -= O
-
 /datum/antagonist/mindslave/proc/update_mindslave_icons_added()
 	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
 	traitorhud.join_hud(owner.current, null)

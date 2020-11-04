@@ -11,7 +11,6 @@
 	var/should_give_codewords = TRUE
 	var/should_equip = TRUE
 	var/traitor_kind = TRAITOR_HUMAN
-	var/list/assigned_targets = list() // This includes assassinate as well as steal objectives. prevents duplicate objectives
 
 
 /datum/antagonist/traitor/on_gain()
@@ -51,7 +50,6 @@
 		owner.som = null
 		slaved.leave_serv_hud(owner)
 
-	assigned_targets.Cut()
 	SSticker.mode.traitors -= owner
 	owner.special_role = null
 	remove_innate_effects()
@@ -84,15 +82,6 @@
 			for(var/datum/action/innate/A in traitor_mob.actions)
 				if(istype(A, /datum/action/innate/toggle_clumsy))
 					A.Remove(traitor_mob)
-
-// Adding/removing objectives in the owner's mind until we can datumize all antags. Then we can use the /datum/antagonist/objectives var to handle them
-// Change "owner.objectives" to "objectives" once objectives are handled in antag datums instead of the mind
-/datum/antagonist/traitor/proc/add_objective(datum/objective/O)
-	owner.objectives += O
-
-/datum/antagonist/traitor/proc/remove_objective(datum/objective/O)
-	owner.objectives -= O
-
 
 /datum/antagonist/traitor/proc/forge_traitor_objectives()
 	switch(traitor_kind)
@@ -215,27 +204,6 @@
 		objective_type = /datum/objective/steal
 
 	return create_objective(objective_type)
-
-/**
- * Tries to create a new objective
- * Will return the objective if it succeeds. Will return null if it fails
- * type - The objective type that will be made
- * target_override - Target that will be used by the objective. Default is null meaning it'll be decided by the objective.find_target
- */
-/datum/antagonist/traitor/proc/create_objective(type, target_override = null)
-	var/datum/objective/O = new type()
-
-	O.owner = owner
-	var/target = target_override || O.find_target()
-	if(target_override)
-		O.set_target(target_override)
-	if("[target]" in assigned_targets)		// Is this target already in their list of assigned targets? If so, don't add this objective and return
-		qdel(O)	// Actually delete the objective else stray references will remain
-		return null
-	else if(target)							// Is the target a real one and not null? If so, add it to our list of targets to avoid duplicate targets
-		assigned_targets.Add("[target]")	// This logic is applied to all traitor objectives including steal objectives
-	add_objective(O)
-	return O
 
 /datum/antagonist/traitor/proc/forge_single_AI_objective()
 	var/datum/objective/block/block_objective = new

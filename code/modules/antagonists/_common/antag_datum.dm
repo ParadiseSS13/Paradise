@@ -13,6 +13,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/replace_banned = TRUE //Should replace jobbaned player with ghosts if granted.
 	var/list/objectives = list()
 	var/antag_memory = ""//These will be removed with antag datum
+	var/list/assigned_targets = list() // This includes assassinate as well as steal objectives. prevents duplicate objectives
 
 /datum/antagonist/New()
 	GLOB.antagonists += src
@@ -56,6 +57,36 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/create_team(datum/team/team)
 	return
 
+/**
+ * Tries to create a new objective
+ * Will return the objective if it succeeds. Will return null if it fails
+ * type - The objective type that will be made
+ * target_override - Target that will be used by the objective. Default is null meaning it'll be decided by the objective.find_target
+ */
+/datum/antagonist/proc/create_objective(type, target_override = null)
+	var/datum/objective/O = new type()
+
+	O.owner = owner
+	var/target = target_override || O.find_target()
+	if(target_override)
+		O.set_target(target_override)
+	var/target_text = "[target]"
+	if(target_text in assigned_targets)		// Is this target already in their list of assigned targets? If so, don't add this objective and return
+		qdel(O)	// Actually delete the objective else stray references will remain
+		return null
+	else if(target)							// Is the target a real one and not null? If so, add it to our list of targets to avoid duplicate targets
+		assigned_targets.Add(target_text)	// This logic is applied to all traitor objectives including steal objectives
+	add_objective(O)
+	return O
+
+// Adding/removing objectives in the owner's mind until we can datumize all antags. Then we can use the /datum/antagonist/objectives var to handle them
+// Change "owner.objectives" to "objectives" once objectives are handled in antag datums instead of the mind
+/datum/antagonist/proc/add_objective(datum/objective/O)
+	owner.objectives += O
+
+/datum/antagonist/proc/remove_objective(datum/objective/O)
+	owner.objectives -= O
+
 //Proc called when the datum is given to a mind.
 /datum/antagonist/proc/on_gain()
 	if(owner && owner.current)
@@ -82,6 +113,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 		owner.current.key = C.key
 
 /datum/antagonist/proc/on_removal()
+	assigned_targets.Cut()
 	remove_innate_effects()
 	if(owner)
 		LAZYREMOVE(owner.antag_datums, src)
