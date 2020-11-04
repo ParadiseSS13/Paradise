@@ -15,6 +15,7 @@
 	var/buttontooltipstyle = ""
 	var/icon_icon = 'icons/mob/actions/actions.dmi'
 	var/button_icon_state = "default"
+	var/custom_location = FALSE
 	var/mob/owner
 
 /datum/action/New(var/Target)

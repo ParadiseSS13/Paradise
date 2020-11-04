@@ -3,19 +3,21 @@
 	background_icon_state = "bg_cult"
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_CONSCIOUS
 	buttontooltipstyle = "cult"
+	custom_location = TRUE
 
 /datum/action/innate/cult/IsAvailable()
 	if(!iscultist(owner))
 		return FALSE
 	return ..()
 
-//Comms
 
+//Comms
 /datum/action/innate/cult/comm
 	name = "Communion"
 	desc = "Whispered words that all cultists can hear.<br><b>Warning:</b>Nearby non-cultists can still hear you."
 	button_icon_state = "cult_comms"
 	check_flags = AB_CHECK_CONSCIOUS
+	custom_location = FALSE
 
 /datum/action/innate/cult/comm/Activate()
 	var/input = stripped_input(usr, "Please choose a message to tell to the other acolytes.", "Voice of Blood", "")
@@ -71,13 +73,14 @@
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
 			to_chat(M, "<span class='cultspeech'> <a href='?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] </span>")
 
-//Objectives
 
+//Objectives
 /datum/action/innate/cult/check_progress
 	name = "Study the Veil"
 	button_icon_state = "tome"
 	desc = "Check your cult's current progress and objective."
 	check_flags = AB_CHECK_CONSCIOUS
+	custom_location = FALSE
 
 /datum/action/innate/cult/check_progress/New()
 	if(SSticker.mode)
@@ -97,9 +100,8 @@
 	else
 		to_chat(usr, "<span class='cultitalic'>You fail to study the Veil. (This should never happen, adminhelp and/or yell at a coder)</span>")
 
+
 //Draw rune
-
-
 /datum/action/innate/cult/use_dagger
 	name = "Draw Blood Rune"
 	desc = "Use the ritual dagger to create a powerful blood rune"
