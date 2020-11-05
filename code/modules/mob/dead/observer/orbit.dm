@@ -48,7 +48,7 @@
 	var/list/pois = getpois(mobs_only=TRUE)
 	for(var/name in pois)
 		var/list/serialized = list()
-		serialized["name"] = name
+		serialized["name"] = "[name]" // stringify it; If it's null or something - we'd like to know it and fix getpois()
 
 		var/poi = pois[name]
 
