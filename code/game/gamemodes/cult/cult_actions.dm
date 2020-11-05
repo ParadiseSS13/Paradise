@@ -105,7 +105,7 @@
 /datum/action/innate/cult/use_dagger
 	name = "Draw Blood Rune"
 	desc = "Use the ritual dagger to create a powerful blood rune"
-	button_icon_state = "cult_dagger"
+	button_icon_state = "blood_dagger"
 
 /datum/action/innate/cult/use_dagger/Grant()
 	if(SSticker.mode)

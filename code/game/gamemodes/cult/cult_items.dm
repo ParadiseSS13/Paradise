@@ -7,9 +7,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/tome/New()
-	if(!SSticker.mode)
-		icon_state = "tome"
-	else
+	if(SSticker.mode)
 		icon_state = SSticker.cultdat.tome_icon
 	..()
 
@@ -17,14 +15,21 @@
 	name = "cult blade"
 	desc = "An arcane weapon wielded by the followers of a cult."
 	icon = 'icons/obj/cult.dmi'
-	icon_state = "cultblade"
-	item_state = "cultblade"
+	icon_state = "blood_blade"
+	item_state = "blood_blade"
 	w_class = WEIGHT_CLASS_BULKY
 	force = 30
 	throwforce = 10
 	sharp = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	sprite_sheets_inhand = list("Skrell" = 'icons/mob/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
+
+/obj/item/melee/cultblade/New()
+	if(SSticker.mode)
+		icon_state = SSticker.cultdat.sword_icon
+		item_state = SSticker.cultdat.sword_icon
+	..()
 
 /obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
 	if(!iscultist(user))

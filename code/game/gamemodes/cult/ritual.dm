@@ -4,8 +4,8 @@
 /obj/item/melee/cultblade/dagger
 	name = "ritual dagger"
 	desc = "A strange dagger said to be used by sinister groups for \"preparing\" a corpse before sacrificing it to their dark gods."
-	icon_state = "cult_dagger"
-	item_state = "cult_dagger"
+	icon_state = "blood_dagger"
+	item_state = "blood_dagger"
 	w_class = WEIGHT_CLASS_SMALL
 	force = 15
 	throwforce = 25
@@ -20,10 +20,10 @@
 	scribe_multiplier = 0.1
 
 /obj/item/melee/cultblade/dagger/New()
+	..()
 	if(SSticker.mode)
 		icon_state = SSticker.cultdat.dagger_icon
 		item_state = SSticker.cultdat.dagger_icon
-	..()
 
 /obj/item/melee/cultblade/dagger/examine(mob/user)
 	. = ..()

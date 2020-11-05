@@ -2,7 +2,8 @@
 	var/name = "Cult of Nar'Sie"
 	var/theme = "blood"
 	var/tome_icon = "tome"
-	var/dagger_icon = "cult_dagger"
+	var/dagger_icon = "blood_dagger"
+	var/sword_icon = "blood_blade"
 	var/construct_glow = LIGHT_COLOR_BLOOD_MAGIC
 
 	//God Entity
@@ -77,7 +78,8 @@
 	name = "Cult of Kha'Rin"
 	theme = "fire"
 	tome_icon = "helltome"
-	dagger_icon = "hellcult_dagger"
+	dagger_icon = "hell_dagger"
+	sword_icon = "hell_blade"
 	construct_glow = LIGHT_COLOR_FIRE
 
 	entity_name = "Kha'Rin"
@@ -135,7 +137,8 @@
 	name = "Cult of Mortality"
 	theme = "death"
 	tome_icon = "deathtome"
-	dagger_icon = "deathcult_dagger"
+	dagger_icon = "death_dagger"
+	sword_icon = "death_blade"
 	construct_glow = LIGHT_COLOR_DARKRED
 
 	entity_name = "The Reaper"
