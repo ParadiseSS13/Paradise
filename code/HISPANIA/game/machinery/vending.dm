@@ -195,3 +195,6 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
     				/obj/item/kitchen/knife/folding/butterfly = 550,
     				/obj/item/stack/sheet/animalhide/lizard = 500)
 	premium = list(/obj/item/kitchen/knife/folding/wood =5,/obj/item/kitchen/knife/folding/normal =5,/obj/item/kitchen/knife/folding/butterfly =5)
+
+/obj/machinery/vending/artvend/free
+	prices = list()
