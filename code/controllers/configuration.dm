@@ -241,6 +241,9 @@
 	//Start now warning
 	var/start_now_confirmation = 0
 
+	// Allow observers before initialization
+	var/observer_initialize = 0
+
 	// Lavaland
 	var/lavaland_budget = 60
 
@@ -727,6 +730,9 @@
 
 				if("start_now_confirmation")
 					config.start_now_confirmation = 1
+
+				if("observer_initialize")
+					config.observer_initialize = 1
 
 				if("tick_limit_mc_init")
 					config.tick_limit_mc_init = text2num(value)
