@@ -49,6 +49,8 @@
 	for(var/name in pois)
 		var/list/serialized = list()
 		serialized["name"] = "[name]" // stringify it; If it's null or something - we'd like to know it and fix getpois()
+		if(name == null || serialized["name"] != name)
+			stack_trace("getpois returned something under a non-string name [name] - [pois[name]]")
 
 		var/poi = pois[name]
 
