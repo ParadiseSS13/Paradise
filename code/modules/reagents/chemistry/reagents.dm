@@ -97,7 +97,7 @@
 /datum/reagent/proc/on_mob_death(mob/living/M)	//use this to have chems have a "death-triggered" effect
 	return
 
-/datum/reagent/proc/fire_flash_log(datum/reagents/holder) //Call this whenever a chemical makes a fire flash
+/datum/reagent/proc/fire_flash_log() //Call this whenever a chemical makes a fire flash
 	if(holder.my_atom)
 		if(holder.my_atom.fingerprintslast)
 			var/mob/M = get_mob_by_key(holder.my_atom.fingerprintslast)
