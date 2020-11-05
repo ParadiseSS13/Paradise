@@ -13,6 +13,10 @@ const compareNumberedText = (a, b) => {
   const aName = a.name;
   const bName = b.name;
 
+  if (!aName || !bName) {
+    return 0;
+  }
+
   // Check if aName and bName are the same except for a number at the end
   // e.g. Medibot (2) and Medibot (3)
   const aNumberMatch = aName.match(PATTERN_NUMBER);
