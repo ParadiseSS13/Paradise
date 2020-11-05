@@ -579,7 +579,7 @@
 					continue
 				R.reaction_mob(A, method, R.volume * volume_modifier, show_message)
 			if("TURF")
-				R.reaction_turf(A, R.volume * volume_modifier)
+				R.reaction_turf(A, R.volume * volume_modifier, R.color)
 			if("OBJ")
 				R.reaction_obj(A, R.volume * volume_modifier)
 

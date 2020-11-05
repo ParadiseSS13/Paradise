@@ -62,7 +62,7 @@
 /datum/reagent/proc/reaction_obj(obj/O, volume)
 	return
 
-/datum/reagent/proc/reaction_turf(turf/T, volume)
+/datum/reagent/proc/reaction_turf(turf/T, volume, color)
 	return
 
 /datum/reagent/proc/on_mob_life(mob/living/M)
