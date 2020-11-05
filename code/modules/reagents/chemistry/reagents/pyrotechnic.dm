@@ -16,15 +16,7 @@
 		return
 	var/radius = min(max(0, volume / size_divisor), 8)
 	fireflash_sm(T, radius, rand(temp_fire - temp_deviance, temp_fire + temp_deviance), 500)
-	if(holder.my_atom)
-		if(holder.my_atom.fingerprintslast)
-			var/mob/M = get_mob_by_key(holder.my_atom.fingerprintslast)
-			var/more = ""
-			if(M)
-				more = " "
-			add_attack_logs(M, COORD(holder.my_atom.loc), "Caused a flashfire reaction of [id]. Last associated key is [holder.my_atom.fingerprintslast][more]", ATKLOG_FEW)
-		log_game("Flashfire reaction ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
-		holder.my_atom.investigate_log("A fuel explosion, last touched by [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(holder.my_atom.loc)].", INVESTIGATE_BOMB)
+	fire_flash_log(holder)
 
 /datum/reagent/phlogiston/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(holder.chem_temp <= T0C - 50)
@@ -65,16 +57,7 @@
 	if(exposed_temperature > T0C + 100)
 		var/radius = min(max(0, volume * 0.15), 8)
 		fireflash_sm(get_turf(holder.my_atom), radius, rand(3000, 6000), 500)
-		if(holder.my_atom)
-			if(holder.my_atom.fingerprintslast)
-				var/mob/M = get_mob_by_key(holder.my_atom.fingerprintslast)
-				var/more = ""
-				if(M)
-					more = " "
-				add_attack_logs(M, COORD(holder.my_atom.loc), "Caused a flashfire reaction of [id]. Last associated key is [holder.my_atom.fingerprintslast][more]", ATKLOG_FEW)
-			log_game("Flashfire reaction ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
-			holder.my_atom.investigate_log("A fuel explosion, last touched by [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(holder.my_atom.loc)].", INVESTIGATE_BOMB)
-
+		fire_flash_log(holder)
 		if(holder)
 			holder.del_reagent(id)
 
@@ -167,16 +150,7 @@
 /datum/reagent/plasma/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature >= T0C + 100)
 		fireflash(get_turf(holder.my_atom), min(max(0, volume / 10), 8))
-		if(holder.my_atom)
-			if(holder.my_atom.fingerprintslast)
-				var/mob/M = get_mob_by_key(holder.my_atom.fingerprintslast)
-				var/more = ""
-				if(M)
-					more = " "
-				add_attack_logs(M, COORD(holder.my_atom.loc), "Caused a flashfire reaction of [id]. Last associated key is [holder.my_atom.fingerprintslast][more]", ATKLOG_FEW)
-			log_game("Flashfire reaction ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
-			holder.my_atom.investigate_log("A fuel explosion, last touched by [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(holder.my_atom.loc)].", INVESTIGATE_BOMB)
-
+		fire_flash_log(holder)
 		if(holder)
 			holder.del_reagent(id)
 
@@ -219,16 +193,7 @@
 		var/datum/reagents/Holder = holder
 		var/Id = id
 		var/Volume = volume
-		if(holder.my_atom)
-			if(holder.my_atom.fingerprintslast)
-				var/mob/M = get_mob_by_key(holder.my_atom.fingerprintslast)
-				var/more = ""
-				if(M)
-					more = " "
-				add_attack_logs(M, COORD(holder.my_atom.loc), "Caused a flashfire reaction of [id]. Last associated key is [holder.my_atom.fingerprintslast][more]", ATKLOG_FEW)
-			log_game("Flashfire reaction ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
-			holder.my_atom.investigate_log("A fuel explosion, last touched by [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(holder.my_atom.loc)].", INVESTIGATE_BOMB)
-
+		fire_flash_log(holder)
 		Holder.del_reagent(Id)
 		fireflash_sm(S, 0, rand(20000, 25000) + Volume * 2500, 0, 0, 1)
 
@@ -279,15 +244,7 @@
 		return
 	var/radius = min((volume - 3) * 0.15, 3)
 	fireflash_sm(T, radius, 4500 + volume * 500, 350)
-	if(holder.my_atom)
-		if(holder.my_atom.fingerprintslast)
-			var/mob/M = get_mob_by_key(holder.my_atom.fingerprintslast)
-			var/more = ""
-			if(M)
-				more = " "
-			add_attack_logs(M, COORD(holder.my_atom.loc), "Caused a flashfire reaction of [id]. Last associated key is [holder.my_atom.fingerprintslast][more]", ATKLOG_FEW)
-		log_game("Flashfire reaction ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
-		holder.my_atom.investigate_log("A fuel explosion, last touched by [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(holder.my_atom.loc)].", INVESTIGATE_BOMB)
+	fire_flash_log(holder)
 
 /datum/reagent/clf3/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH || method == REAGENT_INGEST)
@@ -485,16 +442,7 @@
 /datum/reagent/plasma_dust/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature >= T0C + 100)
 		fireflash(get_turf(holder.my_atom), min(max(0, volume / 10), 8))
-		if(holder.my_atom)
-			if(holder.my_atom.fingerprintslast)
-				var/mob/M = get_mob_by_key(holder.my_atom.fingerprintslast)
-				var/more = ""
-				if(M)
-					more = " "
-				add_attack_logs(M, COORD(holder.my_atom.loc), "Caused a flashfire reaction of [id]. Last associated key is [holder.my_atom.fingerprintslast][more]", ATKLOG_FEW)
-			log_game("Flashfire reaction ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
-			holder.my_atom.investigate_log("A fuel explosion, last touched by [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(holder.my_atom.loc)].", INVESTIGATE_BOMB)
-
+		fire_flash_log(holder)
 		if(holder)
 			holder.del_reagent(id)
 

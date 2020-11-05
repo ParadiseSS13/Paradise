@@ -82,16 +82,7 @@
 	min_temp = T0C + 150
 
 /datum/chemical_reaction/clf3/on_reaction(datum/reagents/holder, created_volume)
-	if(holder.my_atom)
-		if(holder.my_atom.fingerprintslast)
-			var/mob/M = get_mob_by_key(holder.my_atom.fingerprintslast)
-			var/more = ""
-			if(M)
-				more = " "
-			add_attack_logs(M, COORD(holder.my_atom.loc), "Caused a flashfire reaction of [id]. Last associated key is [holder.my_atom.fingerprintslast][more]", ATKLOG_FEW)
-		log_game("Flashfire reaction ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
-		holder.my_atom.investigate_log("A fuel explosion, last touched by [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(holder.my_atom.loc)].", INVESTIGATE_BOMB)
-
+	fire_flash_log(holder)
 	fireflash(holder.my_atom, 1, 7000)
 
 /datum/chemical_reaction/sorium
@@ -240,16 +231,7 @@
 	mix_message = "The substance erupts into wild flames."
 
 /datum/chemical_reaction/phlogiston_fire/on_reaction(datum/reagents/holder, created_volume)
-	if(holder.my_atom)
-		if(holder.my_atom.fingerprintslast)
-			var/mob/M = get_mob_by_key(holder.my_atom.fingerprintslast)
-			var/more = ""
-			if(M)
-				more = " "
-			add_attack_logs(M, COORD(holder.my_atom.loc), "Caused a flashfire reaction of [id]. Last associated key is [holder.my_atom.fingerprintslast][more]", ATKLOG_FEW)
-		log_game("Flashfire reaction ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
-		holder.my_atom.investigate_log("A fuel explosion, last touched by [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(holder.my_atom.loc)].", INVESTIGATE_BOMB)
-
+	fire_flash_log(holder)
 	fireflash(get_turf(holder.my_atom), min(max(2, round(created_volume / 10)), 8))
 
 /datum/chemical_reaction/napalm
