@@ -457,6 +457,9 @@ BYOND_ACCOUNT_AGE_THRESHOLD 7
 ## Webhook URL for the admin discord webhook
 #DISCORD_WEBHOOKS_ADMIN_URL
 
+## Webhook URL for the mentor discord webhook
+#DISCORD_WEBHOOKS_MENTOR_URL
+
 ## Uncomment to send all ahelps to discord. If the line is commented, only ahelps made when no admins are online will be forwarded
 ## Ahelps forwarded when staff are online will never have the role ping, regardless of the setting above
 #DISCORD_FORWARD_ALL_AHELPS
