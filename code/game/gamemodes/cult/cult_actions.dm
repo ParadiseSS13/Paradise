@@ -3,7 +3,6 @@
 	background_icon_state = "bg_cult"
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_CONSCIOUS
 	buttontooltipstyle = "cult"
-	custom_location = TRUE
 
 /datum/action/innate/cult/IsAvailable()
 	if(!iscultist(owner))
@@ -17,7 +16,6 @@
 	desc = "Whispered words that all cultists can hear.<br><b>Warning:</b>Nearby non-cultists can still hear you."
 	button_icon_state = "cult_comms"
 	check_flags = AB_CHECK_CONSCIOUS
-	custom_location = FALSE
 
 /datum/action/innate/cult/comm/Activate()
 	var/input = stripped_input(usr, "Please choose a message to tell to the other acolytes.", "Voice of Blood", "")
@@ -80,7 +78,6 @@
 	button_icon_state = "tome"
 	desc = "Check your cult's current progress and objective."
 	check_flags = AB_CHECK_CONSCIOUS
-	custom_location = FALSE
 
 /datum/action/innate/cult/check_progress/New()
 	if(SSticker.mode)
@@ -111,6 +108,8 @@
 	if(SSticker.mode)
 		button_icon_state = SSticker.cultdat.dagger_icon
 	..()
+
+/datum/action/innate/cult/use_dagger/override_location()
 	button.ordered = FALSE
 	button.screen_loc = "6:157,4:-2"
 	button.moved = "6:157,4:-2"

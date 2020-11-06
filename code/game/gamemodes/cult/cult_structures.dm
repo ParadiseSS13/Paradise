@@ -99,7 +99,7 @@
 		message = "[minutes] minute\s"
 		seconds = seconds - (60 * minutes)
 	if(seconds) // To avoid '2 minutes, 0 seconds.'
-		message += ", [seconds] second\s"
+		message += "[minutes ? ", " : ""][seconds] second\s"
 	return message
 
 /obj/structure/cult/functional/cult_conceal()

@@ -5,16 +5,15 @@
 	var/list/spells = list()
 	var/channeling = FALSE
 
-/datum/action/innate/cult/blood_magic/Grant()
-	..()
-	button.ordered = FALSE
-	button.screen_loc = DEFAULT_BLOODSPELLS
-	button.moved = DEFAULT_BLOODSPELLS
-
 /datum/action/innate/cult/blood_magic/Remove()
 	for(var/X in spells)
 		qdel(X)
 	..()
+
+/datum/action/innate/cult/blood_magic/override_location()
+	button.ordered = FALSE
+	button.screen_loc = DEFAULT_BLOODSPELLS
+	button.moved = DEFAULT_BLOODSPELLS
 
 /datum/action/innate/cult/blood_magic/proc/Positioning()
 	var/list/screen_loc_split = splittext(button.screen_loc, ",")
@@ -75,9 +74,8 @@
 			else
 				H.bleed(20 - rune * 12)
 		var/datum/action/innate/cult/blood_spell/new_spell = new BS(owner)
-		new_spell.Grant(owner, src)
 		spells += new_spell
-		Positioning()
+		new_spell.Grant(owner, src)
 		to_chat(owner, "<span class='cult'>Your wounds glow with power, you have prepared a [new_spell.name] invocation!</span>")
 	channeling = FALSE
 
@@ -106,6 +104,10 @@
 	all_magic = BM
 	button.ordered = FALSE
 	..()
+
+/datum/action/innate/cult/blood_spell/override_location()
+	button.locked = TRUE
+	all_magic.Positioning()
 
 /datum/action/innate/cult/blood_spell/Remove()
 	if(all_magic)
@@ -770,7 +772,7 @@
 	var/turf/T = get_turf(target)
 	if(T)
 		for(var/obj/effect/decal/cleanable/blood/B in view(T, 2))
-			if(B.blood_state == BLOOD_STATE_HUMAN && B.can_bloodcrawl_in())
+			if(B.blood_state == BLOOD_STATE_HUMAN && (B.can_bloodcrawl_in() || istype(B, /obj/effect/decal/cleanable/blood/slime)))
 				if(B.bloodiness == 100) //Bonus for "pristine" bloodpools, also to prevent cheese with footprint spam
 					temp += 30
 				else

@@ -125,7 +125,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 /**
   * Returns the current number of cultists and constructs.
   *
-  * Returns the number of cultists and constructs in a list ([1] = Cultists, [2] = Constructs), or as one number.
+  * Returns the number of cultists and constructs in a list ([1] = Cultists, [2] = Constructs), or as one combined number.
   *
   * * separate - Should the number be returned in two separate values (Humans and Constructs) or as one?
   */
@@ -212,6 +212,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 	if((cult_players >= rise_number) && !cult_risen)
 		cult_risen = TRUE
 		for(var/datum/mind/M in cult)
+			if(!M.current || !ishuman(M))
+				return
 			SEND_SOUND(M.current, 'sound/hallucinations/i_see_you2.ogg')
 			to_chat(M.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...</span>")
 			addtimer(CALLBACK(src, .proc/rise, M.current), 20 SECONDS)
@@ -219,10 +221,11 @@ GLOBAL_LIST_EMPTY(all_cults)
 	else if(cult_players >= ascend_number)
 		cult_ascendant = TRUE
 		for(var/datum/mind/M in cult)
-			if(M.current)
-				SEND_SOUND(M.current, 'sound/hallucinations/im_here1.ogg')
-				to_chat(M.current, "<span class='cultlarge'>Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!")
-				addtimer(CALLBACK(src, .proc/ascend, M.current), 20 SECONDS)
+			if(!M.current || !ishuman(M))
+				return
+			SEND_SOUND(M.current, 'sound/hallucinations/im_here1.ogg')
+			to_chat(M.current, "<span class='cultlarge'>Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!")
+			addtimer(CALLBACK(src, .proc/ascend, M.current), 20 SECONDS)
 		GLOB.command_announcement.Announce("Picking up extradimensional activity related to the Cult of [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"] from your station. Data suggests that about [ascend_percent * 100]% of the station has been converted. Security staff is authorised lethal force on confirmed cultists to contain the threat. Ensure dead crewmembers are revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
 
 
@@ -260,7 +263,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			H.update_body()
 		check_cult_size()
 		if(show_message)
-			cultist.visible_message("<font size=3>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</font>",
+			cultist.visible_message("<span class='cult'>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</span>",
 			"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] and the memories of your time as their servant with it.</span>")
 
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)

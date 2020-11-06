@@ -226,6 +226,8 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "construct-cult"
 	desc = "A wicked machine used by those skilled in magical arts. It is inactive"
+	/// Is someone currently placing a soulstone into the shell
+	var/active = FALSE
 
 /obj/structure/constructshell/examine(mob/user)
 	. = ..()
@@ -305,22 +307,25 @@
 			var/obj/structure/constructshell/shell = target
 			var/mob/living/simple_animal/shade/shade = locate() in src
 			if(shade)
-				var/construct_class = alert(user, "Please choose which type of construct you wish to create.", null,"Juggernaut", "Wraith", "Artificer")
+				var/construct_class = alert(user, "Please choose which type of construct you wish to create.", null, "Juggernaut", "Wraith", "Artificer")
+				if(shell.active)
+					return // Don't want two people doing it at once
+				shell.active = TRUE
 				switch(construct_class)
 					if("Juggernaut")
 						var/mob/living/simple_animal/hostile/construct/armoured/C = new(shell.loc)
-						to_chat(C, "<B>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, create shield walls and even deflect energy weapons, and rip apart enemies and walls alike.</B>")
 						C.init_construct(shade, src, shell)
+						to_chat(C, "<B>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, create shield walls and even deflect energy weapons, and rip apart enemies and walls alike.</B>")
 
 					if("Wraith")
 						var/mob/living/simple_animal/hostile/construct/wraith/C = new(shell.loc)
-						to_chat(C, "<B>You are a Wraith. Though relatively fragile, you are fast, deadly, and even able to phase through walls.</B>")
 						C.init_construct(shade, src, shell)
+						to_chat(C, "<B>You are a Wraith. Though relatively fragile, you are fast, deadly, and even able to phase through walls.</B>")
 
 					if("Artificer")
 						var/mob/living/simple_animal/hostile/construct/builder/C = new(shell.loc)
-						to_chat(C, "<B>You are an Artificer. You are incredibly weak and fragile, but you are able to construct fortifications, use magic missile, repair allied constructs (by clicking on them), </B><I>and most important of all create new constructs</I><B> (Use your Artificer spell to summon a new construct shell and Summon Soulstone to create a new soulstone).</B>")
 						C.init_construct(shade, src, shell)
+						to_chat(C, "<B>You are an Artificer. You are incredibly weak and fragile, but you are able to construct fortifications, use magic missile, repair allied constructs (by clicking on them), </B><I>and most important of all create new constructs</I><B> (Use your Artificer spell to summon a new construct shell and Summon Soulstone to create a new soulstone).</B>")
 			else
 				to_chat(user, "<span class='danger'>Creation failed!</span>: The soul stone is empty! Go kill someone!")
 	return

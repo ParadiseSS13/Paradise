@@ -15,7 +15,6 @@
 	var/buttontooltipstyle = ""
 	var/icon_icon = 'icons/mob/actions/actions.dmi'
 	var/button_icon_state = "default"
-	var/custom_location = FALSE
 	var/mob/owner
 
 /datum/action/New(var/Target)
@@ -64,6 +63,9 @@
 	return TRUE
 
 /datum/action/proc/Process()
+	return
+
+/datum/action/proc/override_location() // Override to set coordinates manually
 	return
 
 /datum/action/proc/IsAvailable()// returns 1 if all checks pass

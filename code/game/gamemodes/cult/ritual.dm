@@ -10,6 +10,7 @@
 	force = 15
 	throwforce = 25
 	armour_penetration = 35
+	sprite_sheets_inhand = null // Override parent
 	var/drawing_rune = FALSE
 	var/scribe_multiplier = 1 // Lower is faster
 
@@ -169,10 +170,6 @@
 	R.blood_DNA = list()
 	R.blood_DNA[H.dna.unique_enzymes] = H.dna.blood_type
 	R.add_hiddenprint(H)
-	if(isslimeperson(H)) //slime people get runes colored by their body, using their internal fluids as blood
-		R.color = H.skin_colour
-		R.rune_blood_color = H.skin_colour
-	else if(H.dna.species.blood_color) //other mobs with blood gets the rune colored by their blood, otherwise it stays red (OCCULT MAGIC)
-		R.color = H.dna.species.blood_color
-		R.rune_blood_color = H.dna.species.blood_color
+	R.color = H.dna.species.blood_color
+	R.rune_blood_color = H.dna.species.blood_color
 	to_chat(user, "<span class='cult'>The [lowertext(initial(rune.cultist_name))] rune [initial(rune.cultist_desc)]</span>")

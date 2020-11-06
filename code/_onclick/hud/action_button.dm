@@ -28,8 +28,6 @@
 /obj/screen/movable/action_button/Click(location,control,params)
 	var/list/modifiers = params2list(params)
 	if(modifiers["shift"])
-		if(linked_action.custom_location)
-			return FALSE
 		if(locked)
 			to_chat(usr, "<span class='warning'>Action button \"[name]\" is locked, unlock it first.</span>")
 			return TRUE
@@ -37,9 +35,6 @@
 		usr.update_action_buttons(TRUE) //redraw buttons that are no longer considered "moved"
 		return TRUE
 	if(modifiers["ctrl"])
-		if(linked_action.custom_location)
-			to_chat(usr, "<span class='warning'>This action button cannot be moved!</span>")
-			return FALSE
 		locked = !locked
 		to_chat(usr, "<span class='notice'>Action button \"[name]\" [locked ? "" : "un"]locked.</span>")
 		return TRUE
@@ -156,9 +151,9 @@
 				client.screen += A.button
 	else
 		for(var/datum/action/A in actions)
-			if(reload_screen && A.custom_location)
-				continue
+			A.override_location() // If the action has a location override, call it
 			A.UpdateButtonIcon()
+
 			var/obj/screen/movable/action_button/B = A.button
 			if(B.ordered)
 				button_number++

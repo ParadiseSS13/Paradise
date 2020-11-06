@@ -77,6 +77,14 @@ To draw a rune, use a ritual dagger.
 
 /obj/effect/rune/attackby(obj/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
+		// Telerunes with portals open
+		if(istype(src, /obj/effect/rune/teleport))
+			var/obj/effect/rune/teleport/T = src // Can't erase telerunes if they have a portal open
+			if(T.inner_portal || T.outer_portal)
+				to_chat(user, "<span class='warning'>The portal needs to close first!</span>")
+				return
+
+		// Everything else
 		var/obj/item/melee/cultblade/dagger/D = I
 		user.visible_message("<span class='warning'>[user] begins to erase [src] with [I].</span>")
 		if(do_after(user, initial(scribe_delay) * D.scribe_multiplier, target = src))
@@ -453,7 +461,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/moveuser = FALSE
 	for(var/atom/movable/A in T)
 		if(ishuman(A))
-			INVOKE_ASYNC(src, .proc/teleport_effect, user, T, target)
+			if(A != user) // Teleporting someone else
+				INVOKE_ASYNC(src, .proc/teleport_effect, A, T, target)
+			else // Teleporting yourself
+				INVOKE_ASYNC(src, .proc/teleport_effect, user, T, target)
 		if(A.move_resist == INFINITY)
 			continue  //object cant move, shouldnt teleport
 		if(A == user)
@@ -486,15 +497,15 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	if(portal_type == "space")
 		light_color = color
-		var/area/A = get_area(origin)
-		var/locname = initial(A.name)
 		desc += "<br><span class='boldwarning'>A tear in reality reveals a black void interspersed with dots of light... something recently teleported here from space.</span><br>"
+
+		// Space base near the station
 		if(is_station_level(origin.z))
 			desc += "<u><span class='warning'>The void feels like it's trying to pull you to the [dir2text(get_dir(T, origin))], near the station!</span></u>"
-		else if(locname == "Space")
-			desc += "<u><span class='warning'>The void feels like it's trying to pull you to the [dir2text(get_dir(T, origin))], in the direction of space sector [origin.z]!</span></u>"
+		// Space base on another Z-level
 		else
-			desc += "<u><span class='warning'>The void feels like it's trying to pull you to the [dir2text(get_dir(T, origin))], in the direction of [locname]!</span></u>"
+			desc += "<u><span class='warning'>The void feels like it's trying to pull you to the [dir2text(get_dir(T, origin))], in the direction of space sector [origin.z]!</span></u>"
+
 	else
 		inner_portal.icon_state = "lava"
 		light_color = LIGHT_COLOR_FIRE
@@ -680,6 +691,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return
 	if(cultist_to_summon.pulledby || cultist_to_summon.buckled)
 		to_chat(user, "<span class='cultitalic'>[cultist_to_summon] is being held in place!</span>")
+		to_chat(cultist_to_summon, "<span class='cult'>You feel a tugging sensation, but you are being held in place!")
 		fail_invoke()
 		log_game("Summon Cultist rune failed - target restrained")
 		return
