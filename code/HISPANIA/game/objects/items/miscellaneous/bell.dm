@@ -8,26 +8,18 @@
 	throw_speed = 3
 	throw_range = 7
 	pressure_resistance = 8
-	var/emagged = 0
 	anchored = TRUE
+	var/emagged = 0
 
 /obj/item/bell/cargo
 	name = "Cargo Bell"
 
-/obj/item/bell/cargo/attack_hand(mob/user)
-	..()
-
 /obj/item/bell/science
 	name = "Science Bell"
-
-/obj/item/bell/science/attack_hand(mob/user)
-	..()
 
 /obj/item/bell/medbay
 	name = "Medbay Bell"
 
-/obj/item/bell/medbay/attack_hand(mob/user)
-	..()
 
 /obj/item/bell/MouseDrop(atom/over_object)
 	var/mob/M = usr

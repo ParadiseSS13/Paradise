@@ -72,6 +72,8 @@ GLOBAL_LIST_EMPTY(GPS_list)
 		for(var/obj/item/gps/G in GLOB.GPS_list)
 			var/turf/pos = get_turf(G)
 			var/area/gps_area = get_area(G)
+			if(!gps_area)//por alguna razon el area no existe y causa un runtime
+				continue//los gps sin area no son incluidos, quizá este un gps creandose en nullspace
 			var/tracked_gpstag = G.gpstag
 			if(G.emped == 1)
 				t += "<BR>[tracked_gpstag]: ERROR"

@@ -1,3 +1,18 @@
+/obj/machinery/power/apc
+	var/newcell = FALSE  //esto es para cuando se le instala una bateria nueva al apc
+
+/obj/machinery/power/apc/proc/update_cell()
+	//hispania //EVAN, MUEVE ESTO A UN PROC en hispania
+	if(cell)	// esto es para que las baterias autorecargables no se recarguen tan rapido
+		if(cell.self_recharge)
+			if(!cell.minorrecharging)
+				cell.minorrecharging = TRUE
+				addtimer(CALLBACK(cell, /obj/item/stock_parts/cell/proc/minorrecharge), 20 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+		if(newcell) // esto es para descargar las baterias nuevas en el apc
+			cell.charge = cell.charge * GLOB.CELLRATE
+			newcell = FALSE
+			cell.update_icon() //fin hispania
+
 /obj/machinery/power/apc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	if(!istype(W))
 		return FALSE

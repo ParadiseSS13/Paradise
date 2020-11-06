@@ -13,7 +13,6 @@
 
 #define PERCENT(val) (round((val)*100, 0.1))
 #define CLAMP01(x) (clamp(x, 0, 1))
-#define Clamp(x, y, z)			 	((x) <= (y) ? (y) : ((x) >= (z) ? (z) : (x)))
 
 //time of day but automatically adjusts to the server going into the next day within the same round.
 //for when you need a reliable time number that doesn't depend on byond time.
