@@ -9,7 +9,7 @@
 /datum/orbit_menu/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_observer_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "Orbit", "Orbit", 800, 600, master_ui, state)
+		ui = new(user, src, ui_key, "Orbit", "Orbit", 700, 500, master_ui, state)
 		ui.open()
 
 /datum/orbit_menu/tgui_act(action, list/params, datum/tgui/ui)
@@ -45,7 +45,7 @@
 	var/list/misc = list()
 	var/list/npcs = list()
 
-	var/list/pois = getpois(mobs_only = TRUE)
+	var/list/pois = getpois(mobs_only = FALSE, skip_mindless = FALSE)
 	for(var/name in pois)
 		var/list/serialized = list()
 		serialized["name"] = "[name]" // stringify it; If it's null or something - we'd like to know it and fix getpois()
