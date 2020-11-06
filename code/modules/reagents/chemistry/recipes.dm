@@ -20,15 +20,6 @@
 /datum/chemical_reaction/proc/on_reaction(datum/reagents/holder, created_volume)
 	return
 
-/datum/chemical_reaction/proc/fire_flash_log(datum/reagents/holder) //Call this whenever a chemical makes a fire flash
-	if(holder.my_atom)
-		if(holder.my_atom.fingerprintslast)
-			var/mob/M = get_mob_by_key(holder.my_atom.fingerprintslast)
-			add_attack_logs(M, COORD(holder.my_atom.loc), "Caused a flashfire reaction of [id]. Last associated key is [holder.my_atom.fingerprintslast]", ATKLOG_FEW)
-		log_game("Flashfire reaction ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
-		holder.my_atom.investigate_log("A fuel explosion, last touched by [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(holder.my_atom.loc)].", INVESTIGATE_BOMB)
-
-
 
 /datum/chemical_reaction/proc/chemical_mob_spawn(datum/reagents/holder, amount_to_spawn, reaction_name, mob_class = HOSTILE_SPAWN, mob_faction = "chemicalsummon", random = TRUE)
 	if(holder && holder.my_atom)
