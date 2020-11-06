@@ -198,3 +198,32 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 
 /obj/machinery/vending/artvend/free
 	prices = list()
+
+/obj/machinery/vending/discdan
+	name = "\improper Discount Dan's"
+	desc = "A vending machine containing discount snacks. It is owned by the infamous 'Discount Dan' franchise."
+	ads_list = list("Discount Dan, he's the man!","There ain't nothing better in this world than a bite of mystery.","Don't listen to those other machines, buy my product!","Quantity over Quality!","Don't listen to those eggheads from MedBay, buy now!","Discount Dan's: We're good for you! Nope, couldn't say it with a straight face.","Discount Dan's: Only the best quality produ-*BZZT*")
+	icon = 'icons/hispania/obj/vending.dmi'
+	slogan_list = list("Discount Dan(tm) is not responsible for any damages caused by misuse of his product.")
+	vend_reply = "No refunds."
+	icon_state = "discount"
+	icon_vend = "discount-vend"
+	density = TRUE
+	vend_delay = 12
+	products = list(		/obj/item/reagent_containers/food/snacks/discountburger = 6,
+					/obj/item/reagent_containers/food/snacks/danitos = 6,
+					/obj/item/reagent_containers/food/snacks/discountburrito = 10,
+					/obj/item/reagent_containers/food/snacks/donitos = 3,
+					/obj/item/reagent_containers/food/snacks/discountbar = 10,
+					/obj/item/reagent_containers/food/snacks/discountpie = 8,
+					/obj/item/reagent_containers/food/condiment/pack/discount_sauce = 5
+					)
+	premium = list(		/obj/item/reagent_containers/food/snacks/discountpie/self_heating = 5)
+	prices = list(			/obj/item/reagent_containers/food/snacks/discountburger = 30,
+					/obj/item/reagent_containers/food/snacks/danitos = 25,
+					/obj/item/reagent_containers/food/snacks/discountburrito = 40,
+					/obj/item/reagent_containers/food/snacks/donitos = 60,
+					/obj/item/reagent_containers/food/snacks/discountbar = 15,
+					/obj/item/reagent_containers/food/snacks/discountpie = 50,
+					/obj/item/reagent_containers/food/condiment/pack/discount_sauce = 10
+					)

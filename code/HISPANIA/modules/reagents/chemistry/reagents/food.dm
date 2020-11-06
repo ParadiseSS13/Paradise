@@ -25,3 +25,21 @@
 	color = "#32CD32"
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	taste_description = "avocado"
+
+/datum/reagent/consumable/discount_sauce
+	name = "discount sauce"
+	id = "discount_sauce"
+	description = "Nice and tasty sauce mixed with multiple kinds of stuff!"
+	reagent_state = LIQUID
+	color = "#f4fffab3" // rgb: 255, 254, 244
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	taste_description = "sweet iron"
+
+/datum/reagent/consumable/discount_sauce/on_mob_life(mob/living/M)
+	if(prob(25))
+		M.reagents.add_reagent("cholesterol", rand(1,3))
+	if(prob(20))
+		M.reagents.add_reagent("porktonium", 5)
+	if(prob(30))
+		M.reagents.add_reagent("omnizine", 5)
+	return ..()

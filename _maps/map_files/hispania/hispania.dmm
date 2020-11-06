@@ -95557,6 +95557,10 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/tsf)
+"heF" = (
+/obj/machinery/vending/discdan,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "hmZ" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -95835,6 +95839,10 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
+"iAn" = (
+/obj/machinery/vending/discdan,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint2)
 "iAO" = (
 /turf/space,
 /turf/simulated/shuttle/wall{
@@ -96789,6 +96797,10 @@
 	dir = 2
 	},
 /area/crew_quarters/dorms)
+"nrb" = (
+/obj/machinery/vending/discdan,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "nrB" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/fans/tiny,
@@ -119129,7 +119141,7 @@ aab
 aMA
 aLB
 aMQ
-aPi
+heF
 aMA
 aaa
 aQg
@@ -144412,7 +144424,7 @@ bZZ
 aaa
 aaa
 bGH
-bGG
+nrb
 bGG
 dbg
 bGH
@@ -147907,7 +147919,7 @@ aCW
 aEc
 aAf
 aAf
-aGY
+iAn
 aLc
 aGX
 aab
