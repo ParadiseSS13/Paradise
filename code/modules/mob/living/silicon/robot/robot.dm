@@ -59,6 +59,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/ear_protection = 0
 	var/damage_protection = 0
 	var/emp_protection = FALSE
+ 	/// Value incoming brute damage to borgs is mutiplied by.
+	var/brute_mod = 1
+	/// Value incoming burn damage to borgs is multiplied by.
+	var/burn_mod = 1
 
 	var/list/force_modules = list()
 	var/allow_rename = TRUE
