@@ -82,6 +82,7 @@
 	min_temp = T0C + 150
 
 /datum/chemical_reaction/clf3/on_reaction(datum/reagents/holder, created_volume)
+	fire_flash_log(holder, name = "clf3")
 	fireflash(holder.my_atom, 1, 7000)
 
 /datum/chemical_reaction/sorium
@@ -230,6 +231,7 @@
 	mix_message = "The substance erupts into wild flames."
 
 /datum/chemical_reaction/phlogiston_fire/on_reaction(datum/reagents/holder, created_volume)
+	fire_flash_log(holder, name = "phlogiston fire")
 	fireflash(get_turf(holder.my_atom), min(max(2, round(created_volume / 10)), 8))
 
 /datum/chemical_reaction/napalm
