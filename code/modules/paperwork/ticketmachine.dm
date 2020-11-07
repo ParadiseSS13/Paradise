@@ -21,7 +21,8 @@
 	var/list/ticket_holders = list()
 	var/list/tickets = list()
 	var/id = 1
-	var/dispense_enabled = TRUE //used to ID card disable/enable ticket dispensing
+	/// If FALSE, the ticket machine will not dispense tickets. Toggled by swiping  aHoP ID
+	var/dispense_enabled = TRUE
 
 /obj/machinery/ticket_machine/Destroy()
 	for(var/obj/item/ticket_machine_ticket/ticket in tickets)
@@ -104,17 +105,17 @@
 
 /obj/machinery/ticket_machine/proc/handle_maptext()
 	if(!dispense_enabled)
-		maptext_x = 13
-		maptext = "<font face='Verdana'>X</font>"
-	else
-		switch(ticket_number) //This is here to handle maptext offsets so that the numbers align.
-			if(0 to 9)
-				maptext_x = 13
-			if(10 to 99)
-				maptext_x = 10
-			if(100)
-				maptext_x = 8
-		maptext = "<font face='Small Fonts'>[ticket_number]</font>"
+		maptext_x = 6
+		maptext = "<font face='Small Fonts' color='#0f0f0f'>OFF</font>"
+		return
+	switch(ticket_number) //This is here to handle maptext offsets so that the numbers align.
+		if(0 to 9)
+			maptext_x = 13
+		if(10 to 99)
+			maptext_x = 10
+		if(100)
+			maptext_x = 8
+	maptext = "<font face='Small Fonts'>[ticket_number]</font>"
 
 /obj/machinery/ticket_machine/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/hand_labeler_refill))
@@ -139,13 +140,12 @@
 		var/obj/item/card/id/heldID = I
 		if(ACCESS_HOP in heldID.access)
 			dispense_enabled = !dispense_enabled
-			to_chat(user, "<span class='notice'>You [dispense_enabled ? "enable" : "disable"] the ticket machine, it will [dispense_enabled ? "now" : "no longer"] dispense tickets!</span>")
+			to_chat(user, "<span class='notice'>You [dispense_enabled ? "enable" : "disable"] [src], it will [dispense_enabled ? "now" : "no longer"] dispense tickets!</span>")
 			handle_maptext()
 			return
-		else
-			to_chat(user, "<span class='warning'>You do not have the required access to [dispense_enabled ? "disable" : "enable"] the ticket machine.</span>")
-	else
-		return ..()
+		to_chat(user, "<span class='warning'>You do not have the required access to [dispense_enabled ? "disable" : "enable"] the ticket machine.</span>")
+		return
+	return ..()
 
 /obj/machinery/ticket_machine/proc/reset_cooldown()
 	ready = TRUE
@@ -156,7 +156,7 @@
 		to_chat(user,"<span class='warning'>You press the button, but nothing happens...</span>")
 		return
 	if(!dispense_enabled)
-		to_chat(user, "<span class='warning'>The ticket machine is disabled.</span>")
+		to_chat(user, "<span class='warning'>[src] is disabled.</span>")
 		return
 	if(ticket_number >= max_number)
 		to_chat(user,"<span class='warning'>Ticket supply depleted, please refill this unit with a hand labeller refill cartridge!</span>")
@@ -191,7 +191,7 @@
 
 /obj/machinery/ticket_machine/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>Use an ID card with HOP access on this machine to [dispense_enabled ? "disable" : "enable"] ticket dispensing.</span>"
+	. += "<span class='info'>Use an ID card with <b>Head of Personnel</b> access on this machine to [dispense_enabled ? "disable" : "enable"] ticket dispensing.</span>"
 
 /obj/item/ticket_machine_ticket
 	name = "Ticket"
