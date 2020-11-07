@@ -1,3 +1,11 @@
+#define MODE_OFF 0
+#define MODE_DISK 1
+#define MODE_NUKE 2
+#define MODE_ADV 3
+#define MODE_SHIP 4
+#define MODE_OPERATIVE 5
+#define MODE_CREW 6
+
 /obj/item/pinpointer
 	name = "pinpointer"
 	icon = 'icons/obj/device.dmi'
@@ -13,8 +21,9 @@
 	var/obj/item/disk/nuclear/the_disk = null
 	var/obj/machinery/nuclearbomb/the_bomb = null
 	var/obj/machinery/nuclearbomb/syndicate/the_s_bomb = null // used by syndicate pinpointers.
-	var/active = 0
-	var/mode = FALSE // Mode 0 locates disk, mode 1 does something else.
+	var/cur_index = 1 // Which index the current mode is
+	var/mode = MODE_OFF // On which mode the pointer is at
+	var/modes = list(MODE_DISK, MODE_NUKE) // Which modes are there
 	var/shows_nuke_timer = TRUE
 	var/syndicate = FALSE // Indicates pointer is syndicate, and points to the syndicate nuke.
 	var/icon_off = "pinoff"
@@ -31,35 +40,50 @@
 /obj/item/pinpointer/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
 	GLOB.pinpointer_list -= src
-	active = 0
+	mode = MODE_OFF
 	the_disk = null
 	return ..()
 
 /obj/item/pinpointer/process()
-	if(active == 1)
+	if(mode == MODE_DISK)
 		workdisk()
-	else if(active == 2 && shows_nuke_timer)
+	else if(mode == MODE_NUKE)
 		workbomb()
-	else
-		icon_state = icon_off
 
-/obj/item/pinpointer/attack_self()
-	if(active == 0)
-		active = 1
-		mode = 0
-		workdisk()
-		to_chat(usr, "<span class='notice'>Authentication Disk Locator active.</span>")
-		START_PROCESSING(SSfastprocess, src)
-	else if(active == 1 && shows_nuke_timer)
-		active = 2
-		mode = 1
-		workbomb()
-		to_chat(usr, "<span class='notice'>Nuclear Device Locator active.</span>")
-	else
-		active = 0
-		icon_state = icon_off
-		to_chat(usr, "<span class='notice'>You deactivate the pinpointer.</span>")
+/obj/item/pinpointer/attack_self(mob/user)
+	cycle(user)
+
+/obj/item/pinpointer/proc/cycle(mob/user)
+	if(cur_index > length(modes))
+		mode = MODE_OFF
+		to_chat(user, "<span class='notice'>You deactivate [src].</span>")
 		STOP_PROCESSING(SSfastprocess, src)
+		icon_state = icon_off
+		cur_index = 1
+		return
+	if(cur_index == 1)
+		START_PROCESSING(SSfastprocess, src)
+	mode = modes[cur_index++]
+	activate_mode(mode, user)
+	to_chat(user, "<span class='notice'>[get_mode_text(mode)]</span>")
+
+/obj/item/pinpointer/proc/get_mode_text(mode)
+	switch(mode)
+		if(MODE_DISK)
+			return "Authentication Disk Locator active."
+		if(MODE_NUKE)
+			return "Nuclear Device Locator active."
+		if(MODE_ADV)
+			return "Advanced Pinpointer Online."
+		if(MODE_SHIP)
+			return "Shuttle Locator active."
+		if(MODE_OPERATIVE)
+			return "You point the pinpointer to the nearest operative."
+		if(MODE_CREW)
+			return "You turn on the pinpointer."
+
+/obj/item/pinpointer/proc/activate_mode(mode, mob/user) //for crew pinpointer
+	return
 
 /obj/item/pinpointer/proc/scandisk()
 	if(!the_disk)
@@ -74,8 +98,6 @@
 			the_s_bomb = locate()
 
 /obj/item/pinpointer/proc/point_at(atom/target)
-	if(!active)
-		return
 	if(!target)
 		icon_state = icon_null
 		return
@@ -98,18 +120,16 @@
 				icon_state = icon_far
 
 /obj/item/pinpointer/proc/workdisk()
-	if(!mode)
-		scandisk()
-		point_at(the_disk)
+	scandisk()
+	point_at(the_disk)
 
 /obj/item/pinpointer/proc/workbomb()
-	if(mode)
-		if(!syndicate)
-			scanbomb()
-			point_at(the_bomb)
-		else
-			scanbomb()
-			point_at(the_s_bomb)
+	if(!syndicate)
+		scanbomb()
+		point_at(the_bomb)
+	else
+		scanbomb()
+		point_at(the_s_bomb)
 
 /obj/item/pinpointer/examine(mob/user)
 	. = ..()
@@ -121,43 +141,23 @@
 /obj/item/pinpointer/advpinpointer
 	name = "advanced pinpointer"
 	desc = "A larger version of the normal pinpointer, this unit features a helpful quantum entanglement detection system to locate various objects that do not broadcast a locator signal."
+	modes = list(MODE_ADV)
 	var/modelocked = FALSE // If true, user cannot change mode.
 	var/turf/location = null
 	var/obj/target = null
-
-/obj/item/pinpointer/advpinpointer/attack_self()
-	if(!active)
-		active = 1
-		if(mode == 0)
-			workdisk()
-		if(mode == 1)
-			point_at(location)
-		if(mode == 2)
-			point_at(target)
-		to_chat(usr, "<span class='notice'>You activate the pinpointer.</span>")
-		START_PROCESSING(SSfastprocess, src)
-	else
-		active = 0
-		icon_state = icon_off
-		to_chat(usr, "<span class='notice'>You deactivate the pinpointer.</span>")
-		STOP_PROCESSING(SSfastprocess, src)
+	var/setting = 0
 
 /obj/item/pinpointer/advpinpointer/process()
-	if(active == 1)
-		if(mode == 0)
-			workdisk()
-		if(mode == 1)
-			point_at(location)
-		if(mode == 2)
-			point_at(target)
-	else
-		icon_state = icon_off
+	if(setting == 0)
+		workdisk()
+	if(setting == 1)
+		point_at(location)
+	if(setting == 2)
+		point_at(target)
 
-
-/obj/item/pinpointer/advpinpointer/workdisk()
-	if(mode == 0)
-		scandisk()
-		point_at(the_disk)
+/obj/item/pinpointer/advpinpointer/workdisk() //since mode works diffrently for advpinpointer
+	scandisk()
+	point_at(the_disk)
 
 /obj/item/pinpointer/advpinpointer/verb/toggle_mode()
 	set category = "Object"
@@ -171,14 +171,14 @@
 		to_chat(usr, "<span class='warning'>[src] is locked. It can only track one specific target.</span>")
 		return
 
-	active = 0
+	mode = MODE_OFF
 	icon_state = icon_off
 	target = null
 	location = null
 
 	switch(alert("Please select the mode you want to put the pinpointer in.", "Pinpointer Mode Select", "Location", "Disk Recovery", "Other Signature"))
 		if("Location")
-			mode = 1
+			setting = 1
 
 			var/locationx = input(usr, "Please input the x coordinate to search for.", "Location?" , "") as num
 			if(!locationx || !(usr in view(1,src)))
@@ -197,11 +197,11 @@
 			return attack_self()
 
 		if("Disk Recovery")
-			mode = 0
+			setting = 0
 			return attack_self()
 
 		if("Other Signature")
-			mode = 2
+			setting = 2
 			switch(alert("Search for item signature or DNA fragment?" , "Signature Mode Select" , "Item" , "DNA"))
 				if("Item")
 					var/list/item_names[0]
@@ -245,85 +245,42 @@
 	var/obj/docking_port/mobile/home = null
 	slot_flags = SLOT_BELT | SLOT_PDA
 	syndicate = TRUE
-
-/obj/item/pinpointer/nukeop/attack_self(mob/user as mob)
-	if(active == 0) // We want to SSfastprocess when the pinpointer goes on, BUT, we have 2 modes that can turn it on, thus the turn SSfastprocess must be put here.
-		START_PROCESSING(SSfastprocess, src)
-		if(!mode)
-			active = 1
-			workdisk()
-			to_chat(user, "<span class='notice'>Authentication Disk Locator active.</span>")
-			return
-	if(active == 1 && !mode)
-		active = 2
-		workbomb()
-		to_chat(user, "<span class='notice'>Nuclear Device Locator active.</span>")
-	else if(mode && !active)
-		active = 1
-		worklocation()
-		to_chat(user, "<span class='notice'>Shuttle Locator active.</span>")
-	else
-		active = 0
-		icon_state = icon_off
-		to_chat(user, "<span class='notice'>You deactivate the pinpointer.</span>")
-		STOP_PROCESSING(SSfastprocess, src)
+	modes = list(MODE_NUKE, MODE_DISK)
 
 /obj/item/pinpointer/nukeop/process()
-	if(active)
-		if(active == 1 && !mode)
-			workdisk()
-		else if(active == 2 && !mode)
-			workbomb()
-		else if(mode && !active)
-			worklocation()
-	else
-		icon_state = icon_off
+	if(mode == MODE_DISK)
+		workdisk()
+	else if(mode == MODE_NUKE)
+		workbomb()
+	else if(mode == MODE_SHIP)
+		worklocation()
 
 /obj/item/pinpointer/nukeop/workdisk()
-	if(active != 1)
-		return
-	if(mode)		//Check in case the mode changes while operating
-		worklocation()
-		return
 	if(GLOB.bomb_set)	//If the bomb is set, lead to the shuttle
-		mode = 1	//Ensures worklocation() continues to work
+		mode = MODE_SHIP	//Ensures worklocation() continues to work
 		worklocation()
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)	//Plays a beep
 		visible_message("Shuttle Locator mode actived.")			//Lets the mob holding it know that the mode has changed
-		active = 1
 		return		//Get outta here
 	scandisk()
 	point_at(the_disk)
 
 /obj/item/pinpointer/nukeop/workbomb()
-	if(active != 2)
-		return
-	if(mode)		//Check in case the mode changes while operating
-		worklocation()
-		return
 	if(GLOB.bomb_set)	//If the bomb is set, lead to the shuttle
-		mode = 1	//Ensures worklocation() continues to work
+		mode = MODE_SHIP	//Ensures worklocation() continues to work
 		worklocation()
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)	//Plays a beep
 		visible_message("Shuttle Locator mode actived.")			//Lets the mob holding it know that the mode has changed
-		active = 1
 		return		//Get outta here
 	scanbomb()
 	point_at(the_s_bomb)
 
 /obj/item/pinpointer/nukeop/proc/worklocation()
-	if(active == 0)
-		return
-	if(!mode)
-		active = 1
-		workdisk()
-		return
 	if(!GLOB.bomb_set)
-		mode = 0
+		mode = MODE_DISK
 		workdisk()
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)
 		visible_message("<span class='notice'>Authentication Disk Locator mode actived.</span>")
-		active = 1
 		return
 	if(!home)
 		home = SSshuttle.getShuttle("syndicate")
@@ -339,30 +296,16 @@
 	name = "operative pinpointer"
 	desc = "A pinpointer that leads to the first Syndicate operative detected."
 	var/mob/living/carbon/nearest_op = null
-
-/obj/item/pinpointer/operative/attack_self()
-	if(!usr.mind || !(usr.mind in SSticker.mode.syndicates))
-		to_chat(usr, "<span class='danger'>AUTHENTICATION FAILURE. ACCESS DENIED.</span>")
-		return FALSE
-	if(!active)
-		active = 1
-		workop()
-		to_chat(usr, "<span class='notice'>You activate the pinpointer.</span>")
-		START_PROCESSING(SSfastprocess, src)
-	else
-		active = 0
-		icon_state = icon_off
-		to_chat(usr, "<span class='notice'>You deactivate the pinpointer.</span>")
-		STOP_PROCESSING(SSfastprocess, src)
+	modes = list(MODE_OPERATIVE)
 
 /obj/item/pinpointer/operative/process()
-	if(active)
+	if(MODE_OPERATIVE)
 		workop()
 	else
 		icon_state = icon_off
 
 /obj/item/pinpointer/operative/proc/scan_for_ops()
-	if(active)
+	if(MODE_OPERATIVE)
 		nearest_op = null //Resets nearest_op every time it scans
 		var/closest_distance = 1000
 		for(var/mob/living/carbon/M in GLOB.mob_list)
@@ -371,7 +314,7 @@
 					nearest_op = M
 
 /obj/item/pinpointer/operative/proc/workop()
-	if(active)
+	if(mode == MODE_OPERATIVE)
 		scan_for_ops()
 		point_at(nearest_op, FALSE)
 	else
@@ -379,7 +322,7 @@
 
 /obj/item/pinpointer/operative/examine(mob/user)
 	. = ..()
-	if(active)
+	if(mode == MODE_OPERATIVE)
 		if(nearest_op)
 			. += "Nearest operative detected is <i>[nearest_op.real_name].</i>"
 		else
@@ -396,6 +339,7 @@
 	icon_close = "pinonclose_crew"
 	icon_medium = "pinonmedium_crew"
 	icon_far = "pinonfar_crew"
+	modes = list(MODE_CREW)
 	var/target = null //for targeting in processing
 
 /obj/item/pinpointer/crew/proc/trackable(mob/living/carbon/human/H)
@@ -412,14 +356,21 @@
 
 	return FALSE
 
-/obj/item/pinpointer/crew/attack_self(mob/living/user)
-	if(active)
-		active = 0
-		icon_state = icon_off
-		user.visible_message("<span class='notice'>[user] deactivates [user.p_their()] pinpointer.</span>", "<span class='notice'>You deactivate your pinpointer.</span>")
-		STOP_PROCESSING(SSfastprocess, src)
+/obj/item/pinpointer/crew/process()
+	if(mode == MODE_CREW)
+		point_at(target)
+
+/obj/item/pinpointer/crew/point_at(atom/target)
+	if(mode == MODE_OFF)
 		return
 
+	if(!trackable(target) || !target)
+		icon_state = icon_null
+		return
+
+	..(target)
+
+/obj/item/pinpointer/crew/activate_mode(mode, mob/user)
 	var/list/name_counts = list()
 	var/list/names = list()
 
@@ -449,26 +400,9 @@
 		return
 
 	target = names[A]
-	active = 1
+	mode = MODE_CREW
 	user.visible_message("<span class='notice'>[user] activates [user.p_their()] pinpointer.</span>", "<span class='notice'>You activate your pinpointer.</span>")
 	point_at(target)
-	START_PROCESSING(SSfastprocess, src)
-
-/obj/item/pinpointer/crew/process()
-	if(active)
-		point_at(target)
-	else
-		icon_state = icon_off
-
-/obj/item/pinpointer/crew/point_at(atom/target)
-	if(!active)
-		return
-
-	if(!trackable(target) || !target)
-		icon_state = icon_null
-		return
-
-	..(target)
 
 /obj/item/pinpointer/crew/centcom
 	name = "centcom pinpointer"
@@ -478,3 +412,11 @@
 	var/turf/here = get_turf(src)
 	var/turf/there = get_turf(H)
 	return there && there.z == here.z
+
+#undef MODE_OFF
+#undef MODE_DISK
+#undef MODE_NUKE
+#undef MODE_ADV
+#undef MODE_SHIP
+#undef MODE_OPERATIVE
+#undef MODE_CREW
