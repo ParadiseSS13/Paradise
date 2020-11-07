@@ -21,7 +21,7 @@
 	var/list/ticket_holders = list()
 	var/list/tickets = list()
 	var/id = 1
-	var/isDisabled = FALSE //used to ID card disable/enable ticket dispensing
+	var/dispense_enabled = TRUE //used to ID card disable/enable ticket dispensing
 
 /obj/machinery/ticket_machine/Destroy()
 	for(var/obj/item/ticket_machine_ticket/ticket in tickets)
@@ -103,7 +103,7 @@
 	handle_maptext()
 
 /obj/machinery/ticket_machine/proc/handle_maptext()
-	if(isDisabled)
+	if(!dispense_enabled)
 		maptext_x = 13
 		maptext = "<font face='Verdana'>X</font>"
 	else
@@ -138,12 +138,12 @@
 	else if(istype(I, /obj/item/card/id))
 		var/obj/item/card/id/heldID = I
 		if(ACCESS_HOP in heldID.access)
-			isDisabled = !isDisabled
-			to_chat(user, "<span class='notice'>You [isDisabled ? "disable" : "enable"] the ticket machine, it will [isDisabled ? "no longer" : "now"] dispense tickets!</span>")
+			dispense_enabled = !dispense_enabled
+			to_chat(user, "<span class='notice'>You [dispense_enabled ? "enable" : "disable"] the ticket machine, it will [dispense_enabled ? "now" : "no longer"] dispense tickets!</span>")
 			handle_maptext()
 			return
 		else
-			to_chat(user, "<span class='warning'>You do not have the required access to disable the ticket machine.</span>")
+			to_chat(user, "<span class='warning'>You do not have the required access to [dispense_enabled ? "disable" : "enable"] the ticket machine.</span>")
 	else
 		return ..()
 
@@ -155,8 +155,8 @@
 	if(!ready)
 		to_chat(user,"<span class='warning'>You press the button, but nothing happens...</span>")
 		return
-	if(isDisabled)
-		to_chat(user, "<span class='warning'>The ticket machine is isDisabled.</span>")
+	if(!dispense_enabled)
+		to_chat(user, "<span class='warning'>The ticket machine is disabled.</span>")
 		return
 	if(ticket_number >= max_number)
 		to_chat(user,"<span class='warning'>Ticket supply depleted, please refill this unit with a hand labeller refill cartridge!</span>")
@@ -191,7 +191,7 @@
 
 /obj/machinery/ticket_machine/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>Use an ID card with HOP access on this machine to [isDisabled ? "enable":"disable"] ticket dispensing.</span>"
+	. += "<span class='info'>Use an ID card with HOP access on this machine to [dispense_enabled ? "disable" : "enable"] ticket dispensing.</span>"
 
 /obj/item/ticket_machine_ticket
 	name = "Ticket"
