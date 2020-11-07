@@ -26,7 +26,7 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 	// Put revision info in the world log
 	var/logmsg
 	if(commit_hash && commit_date)
-		logmsg = "Running ParaCode commit: [GLOB.revision_info.commit_hash] (Date: [GLOB.revision_info.commit_date])"
+		logmsg = "Running ParaCode commit: [commit_hash] (Date: [commit_date])"
 	else
 		logmsg = "Unable to determine revision info! Code may not be running in a git repository."
 
