@@ -236,31 +236,15 @@
 			var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
 			M.throw_at(throw_target, 5, 1)
 
-
-/obj/item/twohanded/boneaxe // Blatant imitation of the fireaxe, but made out of bone.
+/obj/item/twohanded/fireaxe/boneaxe  // Blatant imitation of the fireaxe, but made out of bone.
 	icon_state = "bone_axe0"
 	name = "bone axe"
 	desc = "A large, vicious axe crafted out of several sharpened bone plates and crudely tied together. Made of monsters, by killing monsters, for killing monsters."
-	force = 5
-	throwforce = 15
-	sharp = TRUE
-	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK
-	force_unwielded = 5
 	force_wielded = 23
-	toolspeed = 0.25
-	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
-	hitsound = 'sound/weapons/bladeslice.ogg'
-	usesound = 'sound/items/crowbar.ogg'
-	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
-	resistance_flags = FIRE_PROOF
 
-/obj/item/twohanded/boneaxe/update_icon()
-	if(wielded)
-		icon_state = "bone_axe1"
-	else
-		icon_state = "bone_axe0"
+/obj/item/twohanded/fireaxe/boneaxe/update_icon()
+	icon_state = "bone_axe[wielded]"
+
 /*
  * Double-Bladed Energy Swords - Cheridan
  */
