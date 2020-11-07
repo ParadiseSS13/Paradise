@@ -21,7 +21,7 @@
 	var/list/ticket_holders = list()
 	var/list/tickets = list()
 	var/id = 1
-	var/disabled = FALSE //used to ID card disable/enable ticket dispensing
+	var/isDisabled = FALSE //used to ID card disable/enable ticket dispensing
 
 /obj/machinery/ticket_machine/Destroy()
 	for(var/obj/item/ticket_machine_ticket/ticket in tickets)
@@ -103,9 +103,9 @@
 	handle_maptext()
 
 /obj/machinery/ticket_machine/proc/handle_maptext()
-	if(disabled)
+	if(isDisabled)
 		maptext_x = 13
-		maptext = "X"
+		maptext = "<font face='Verdana'>X</font>"
 	else
 		switch(ticket_number) //This is here to handle maptext offsets so that the numbers align.
 			if(0 to 9)
@@ -138,8 +138,8 @@
 	else if(istype(I, /obj/item/card/id))
 		var/obj/item/card/id/heldID = I
 		if(ACCESS_HOP in heldID.access)
-			disabled = !disabled
-			to_chat(user, "<span class='notice'>You [disabled ? "disable" : "enable"] the ticket machine, it will [disabled ? "no longer" : "now"] dispense tickets!</span>")
+			isDisabled = !isDisabled
+			to_chat(user, "<span class='notice'>You [isDisabled ? "disable" : "enable"] the ticket machine, it will [isDisabled ? "no longer" : "now"] dispense tickets!</span>")
 			handle_maptext()
 			return
 		else
@@ -155,8 +155,8 @@
 	if(!ready)
 		to_chat(user,"<span class='warning'>You press the button, but nothing happens...</span>")
 		return
-	if(disabled)
-		to_chat(user, "<span class='warning'>The ticket machine has been disabled.</span>")
+	if(isDisabled)
+		to_chat(user, "<span class='warning'>The ticket machine is isDisabled.</span>")
 		return
 	if(ticket_number >= max_number)
 		to_chat(user,"<span class='warning'>Ticket supply depleted, please refill this unit with a hand labeller refill cartridge!</span>")
@@ -191,7 +191,7 @@
 
 /obj/machinery/ticket_machine/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>Use an ID card with HOP access on this machine to [disabled ? "enable":"disable"] ticket dispensing.</span>"
+	. += "<span class='info'>Use an ID card with HOP access on this machine to [isDisabled ? "enable":"disable"] ticket dispensing.</span>"
 
 /obj/item/ticket_machine_ticket
 	name = "Ticket"
