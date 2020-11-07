@@ -1676,6 +1676,13 @@
 			return
 		SStickets.autoRespond(index)
 
+	if(href_list["convert_ticket"])
+		var/indexNum = text2num(href_list["convert_ticket"])
+		if(href_list["is_mhelp"])
+			SSmentor_tickets.convert_to_other_ticket(indexNum)
+		else
+			SStickets.convert_to_other_ticket(indexNum)
+
 	else if(href_list["cult_mindspeak"])
 		var/input = stripped_input(usr, "Communicate to all the cultists with the voice of [SSticker.cultdat.entity_name]", "Voice of [SSticker.cultdat.entity_name]")
 		if(!input)
