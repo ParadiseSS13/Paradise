@@ -104,7 +104,8 @@
 
 /obj/machinery/ticket_machine/proc/handle_maptext()
 	if(disabled)
-		maptext = ""
+		maptext_x = 13
+		maptext = "X"
 	else
 		switch(ticket_number) //This is here to handle maptext offsets so that the numbers align.
 			if(0 to 9)
