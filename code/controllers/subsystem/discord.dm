@@ -47,14 +47,13 @@ SUBSYSTEM_DEF(discord)
 	var/list/admincounter = staff_countup(R_BAN)
 	var/active_admins = admincounter[1]
 	var/inactive_admins = admincounter[3]
-	var/total_admins = active_admins + inactive_admins
 	var/add_ping = TRUE
 
 	if(active_admins <= 0)
 		if(inactive_admins > 0)
-			alerttext = "All admins AFK ([inactive_admins]/[total_admins])!"
+			alerttext = " | **ALL ADMINS AFK**"
 		else
-			alerttext = "No admins online!"
+			alerttext = " | **NO ADMINS ONLINE**"
 	else
 		if(check_send_always && config.discord_forward_all_ahelps)
 			// If we are here, there are admins online. We want to forward everything, but obviously dont want to add a ping, so we do this
@@ -63,7 +62,7 @@ SUBSYSTEM_DEF(discord)
 			// We have active admins, we dont care about the rest of this proc
 			return
 
-	var/message = "[content] | [alerttext] [add_ping ? handle_administrator_ping() : ""]"
+	var/message = "[content] [alerttext] [add_ping ? handle_administrator_ping() : ""]"
 
 	var/datum/discord_webhook_payload/dwp = new()
 	dwp.webhook_content = message

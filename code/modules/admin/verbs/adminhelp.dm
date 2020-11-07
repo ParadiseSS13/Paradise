@@ -34,45 +34,30 @@ GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown","the","a","an","of","mo
 	else
 		SStickets.newHelpRequest(src, msg)
 
+	//show it to the person adminhelping too
+	to_chat(src, "<span class='boldnotice'>[selected_type]</b>: [msg]</span>")
+	feedback_add_details("admin_verb","AH") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 	switch(selected_type)
 		if("Adminhelp")
 			//See how many staff are on
-			var/admin_number_afk = 0
-			var/list/mentorholders = list()
-			var/list/modholders = list()
-			var/list/adminholders = list()
-			for(var/client/X in GLOB.admins)
-				if(check_rights(R_ADMIN, 0, X.mob))
-					if(X.is_afk())
-						admin_number_afk++
-					adminholders += X
-					continue
-				if(check_rights(R_MOD, 0, X.mob))
-					modholders += X
-					continue
-				if(check_rights(R_MENTOR, 0, X.mob))
-					mentorholders += X
-					continue
+			var/list/admincount = staff_countup(R_BAN)
+			var/active_admins = admincount[1]
 
-			//show it to the person adminhelping too
-			to_chat(src, "<span class='boldnotice'>[selected_type]</b>: [msg]</span>")
-
-			var/admin_number_present = adminholders.len - admin_number_afk
-			log_admin("[selected_type]: [key_name(src)]: [msg] - heard by [admin_number_present] non-AFK admins.")
+			log_admin("[selected_type]: [key_name(src)]: [msg] - heard by [active_admins] non-AFK admins.")
 			SSdiscord.send2discord_simple_noadmins("[selected_type] from [key_name(src)]: [msg]", check_send_always = TRUE)
-			feedback_add_details("admin_verb","AH") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-			return
+
 		if("Mentorhelp")
 			var/alerttext
 			var/list/mentorcount = staff_countup(R_MENTOR)
 			var/active_mentors = mentorcount[1]
 			var/inactive_mentors = mentorcount[3]
-			var/total_mentors = active_mentors + inactive_mentors
 
 			if(active_mentors <= 0)
 				if(inactive_mentors > 0)
-					alerttext = " | **ALL MENTORS AFK** ([inactive_mentors]/[total_mentors])!"
+					alerttext = " | **ALL MENTORS AFK**"
 				else
 					alerttext = " | **NO MENTORS ONLINE**"
 
+			log_admin("[selected_type]: [key_name(src)]: [msg] - heard by [active_mentors] non-AFK mentors.")
 			SSdiscord.send2discord_simple(DISCORD_WEBHOOK_MENTOR, "[key_name(src)]: [msg][alerttext]")
