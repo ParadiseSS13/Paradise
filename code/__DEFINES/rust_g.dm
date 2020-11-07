@@ -20,16 +20,21 @@
 #define rustg_log_write(fname, text) call(RUST_G, "log_write")(fname, text)
 /proc/rustg_log_close_all() return call(RUST_G, "log_close_all")()
 
-// HTTP library stuff // - AA TODO: Add in SShttp
+// HTTP library stuff //
 #define RUSTG_HTTP_METHOD_GET "get"
 #define RUSTG_HTTP_METHOD_PUT "put"
 #define RUSTG_HTTP_METHOD_DELETE "delete"
 #define RUSTG_HTTP_METHOD_PATCH "patch"
 #define RUSTG_HTTP_METHOD_HEAD "head"
 #define RUSTG_HTTP_METHOD_POST "post"
-#define rustg_http_request_blocking(method, url, body, headers) call(RUST_G, "http_request_blocking")(method, url, body, headers)
+
+// Commented out because this thing locks up the entire DD process when you use it
+// DO NOT USE FOR THE LOVE OF GOD
+// #define rustg_http_request_blocking(method, url, body, headers) call(RUST_G, "http_request_blocking")(method, url, body, headers)
 #define rustg_http_request_async(method, url, body, headers) call(RUST_G, "http_request_async")(method, url, body, headers)
 #define rustg_http_check_request(req_id) call(RUST_G, "http_check_request")(req_id)
+/proc/rustg_create_async_http_client() return call(RUST_G, "start_http_client")()
+/proc/rustg_close_async_http_client() return call(RUST_G, "shutdown_http_client")()
 
 // SQL stuff // - AA TODO: Async SQL + SSdbcore
 #define rustg_sql_connect_pool(options) call(RUST_G, "sql_connect_pool")(options)

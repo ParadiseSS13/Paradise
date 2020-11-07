@@ -482,3 +482,12 @@
 #define LINDA_SPAWN_N2O 64
 #define LINDA_SPAWN_AGENT_B 128
 #define LINDA_SPAWN_AIR 256
+
+/// Send to the primary Discord webhook
+#define DISCORD_WEBHOOK_PRIMARY "PRIMARY"
+
+/// Send to the admin Discord webhook
+#define DISCORD_WEBHOOK_ADMIN "ADMIN"
+
+/// Send to the mentor Discord webhook
+#define DISCORD_WEBHOOK_MENTOR "MENTOR"
