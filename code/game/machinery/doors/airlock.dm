@@ -1112,7 +1112,7 @@ About the new airlock wires panel:
 			if(density)
 				playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
 				prying_so_hard = TRUE
-				if( do_after(user, time_to_open, target = src))
+				if(do_after(user, time_to_open, target = src))
 					var/time_to_open = 75
 					prying_so_hard = FALSE
 					if(density && !open(TRUE))
