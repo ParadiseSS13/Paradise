@@ -106,7 +106,7 @@
 /obj/machinery/ticket_machine/proc/handle_maptext()
 	if(!dispense_enabled)
 		maptext_x = 6
-		maptext = "<font face='Small Fonts' color='#0f0f0f'>OFF</font>"
+		maptext = "<font face='Small Fonts' color='#4D535E'>OFF</font>"
 		return
 	switch(ticket_number) //This is here to handle maptext offsets so that the numbers align.
 		if(0 to 9)
