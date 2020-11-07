@@ -93,7 +93,6 @@
 				M.Weaken(3) //quick weaken bypasses eye protection but has no eye flash
 			if(M.flash_eyes(1, 1))
 				M.AdjustConfused(power)
-				terrible_conversion_proc(M, user)
 				M.Stun(1)
 				visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
 				to_chat(user, "<span class='danger'>You blind [M] with the flash!</span>")
@@ -144,31 +143,6 @@
 		flash_carbon(M, null, 10, 0)
 	burn_out()
 	..()
-
-
-/obj/item/flash/proc/terrible_conversion_proc(mob/M, mob/user)
-	if(ishuman(M) && ishuman(user) && M.stat != DEAD)
-		if(user.mind && (user.mind in SSticker.mode.head_revolutionaries))
-			if(M.client)
-				if(M.stat == CONSCIOUS)
-					M.mind_initialize() //give them a mind datum if they don't have one.
-					var/resisted
-					if(!ismindshielded(M))
-						if(user.mind in SSticker.mode.head_revolutionaries)
-							if(SSticker.mode.add_revolutionary(M.mind))
-								times_used -- //Flashes less likely to burn out for headrevs when used for conversion
-							else
-								resisted = 1
-					else
-						resisted = 1
-
-					if(resisted)
-						to_chat(user, "<span class='warning'>This mind seems resistant to the [name]!</span>")
-				else
-					to_chat(user, "<span class='warning'>They must be conscious before you can convert [M.p_them()]!</span>")
-			else
-				to_chat(user, "<span class='warning'>This mind is so vacant that it is not susceptible to influence!</span>")
-
 
 /obj/item/flash/cyborg
 	origin_tech = null

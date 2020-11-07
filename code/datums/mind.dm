@@ -34,6 +34,8 @@
 	var/offstation_role = FALSE //set to true for ERT, deathsquad, abductors, etc, that can go from and to z2 at will and shouldn't be antag targets
 	var/list/restricted_roles = list()
 
+	var/rev_cooldown = 0
+
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
 	var/datum/martial_art/martial_art
 
@@ -204,17 +206,6 @@
 		. += "<b>NO</b>|headrev|rev"
 	else if(src in SSticker.mode.head_revolutionaries)
 		. += "<a href='?src=[UID()];revolution=clear'>no</a>|<b><font color='red'>HEADREV</font></b>|<a href='?src=[UID()];revolution=rev'>rev</a>"
-		. += "<br>Flash: <a href='?src=[UID()];revolution=flash'>give</a>"
-
-		var/list/L = current.get_contents()
-		var/obj/item/flash/flash = locate() in L
-		if(flash)
-			if(!flash.broken)
-				. += "|<a href='?src=[UID()];revolution=takeflash'>take</a>."
-			else
-				. += "|<a href='?src=[UID()];revolution=takeflash'>take</a>|<a href='?src=[UID()];revolution=repairflash'>repair</a>."
-		else
-			. += "."
 
 		. += " <a href='?src=[UID()];revolution=reequip'>Reequip</a> (gives traitor uplink)."
 		if(objectives.len==0)
@@ -817,6 +808,8 @@
 					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a head revolutionary!</B></FONT></span>")
 					SSticker.mode.update_rev_icons_removed(src)
 					special_role = null
+				for(var/datum/action/innate/revolution_recruitment/C in current.actions)
+					qdel(C)
 				log_admin("[key_name(usr)] has de-rev'd [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has de-rev'd [key_name_admin(current)]")
 
@@ -858,6 +851,8 @@
 				SSticker.mode.head_revolutionaries += src
 				SSticker.mode.update_rev_icons_added(src)
 				special_role = SPECIAL_ROLE_HEAD_REV
+				var/datum/action/innate/revolution_recruitment/C = new()
+				C.Grant(src.current)
 				log_admin("[key_name(usr)] has head-rev'd [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has head-rev'd [key_name_admin(current)]")
 
@@ -1805,6 +1800,8 @@
 	SSticker.mode.head_revolutionaries += src
 	SSticker.mode.update_rev_icons_added(src)
 	special_role = SPECIAL_ROLE_HEAD_REV
+	var/datum/action/innate/revolution_recruitment/C = new()
+	C.Grant(current)
 
 	SSticker.mode.forge_revolutionary_objectives(src)
 	SSticker.mode.greet_revolutionary(src,0)

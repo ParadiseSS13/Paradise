@@ -29,8 +29,60 @@
 ///////////////////////////
 /datum/game_mode/revolution/announce()
 	to_chat(world, "<B>The current game mode is - Revolution!</B>")
-	to_chat(world, "<B>Some crewmembers are attempting to start a revolution!<BR>\nRevolutionaries - Kill the Captain, HoP, HoS, CE, RD and CMO. Convert other crewmembers (excluding the heads of staff, and security officers) to your cause by flashing them. Protect your leaders.<BR>\nPersonnel - Protect the heads of staff. Kill the leaders of the revolution, and brainwash the other revolutionaries (by beating them in the head).</B>")
+	to_chat(world, "<B>Some crewmembers are attempting to start a revolution!<BR>\nRevolutionaries - Kill the Captain, HoP, HoS, CE, RD and CMO. Involve other employees (excluding the heads of staff, and security officers) in to the revolution.  Protect your leaders.<BR>\nPersonnel - Protect the heads of staff. Kill the leaders of the revolution, and brainwash the other revolutionaries (by implantiong them with mindshield implants).</B>")
 
+///////////////////////////////////////////
+//Магический спелл для приглашения в реву//
+///////////////////////////////////////////
+
+/datum/action/innate/revolution_recruitment
+	name = "Recruitment"
+	button_icon_state = "genetic_mindscan"
+	background_icon_state = "bg_vampire"
+
+/datum/action/innate/revolution_recruitment/IsAvailable()
+	return ..()
+
+/datum/action/innate/revolution_recruitment/proc/choose_targets(mob/user = usr)
+	var/list/validtargets = list()
+	for(var/mob/living/M in view(user.client.view, get_turf(user)))
+		if(M && M.mind && M.stat == CONSCIOUS)
+			if(M == user)
+				continue
+			if((M.mind.special_role == SPECIAL_ROLE_REV) || (M.mind.special_role == SPECIAL_ROLE_HEAD_REV))
+				continue
+			validtargets += M
+	if(!validtargets.len)
+		to_chat(usr, "<span class='warning'>There are no valid targets!</span>")
+	var/mob/living/target = input("Choose a target for recruitment.", "Targeting") as null|mob in validtargets
+	return target
+
+/datum/action/innate/revolution_recruitment/Activate()
+	if(!(usr && usr.mind && usr.stat == CONSCIOUS))
+		to_chat(usr, "<span class='danger'>You must be conscious.")
+		return
+	if(world.time < usr.mind.rev_cooldown)
+		to_chat(usr, "<span class='danger'>You must wait between attempts.")
+		return
+	usr.mind.rev_cooldown = world.time + 50
+	var/mob/living/recruit = choose_targets()
+	if(!recruit)
+		return
+	log_admin("[key_name(usr)] attempted recruitment [key_name(recruit)] into the revolution.", usr)
+	to_chat(usr, "<span class='info'><b>You are trying to recruit [recruit]: </b></span>")
+	if(ismindshielded(recruit))
+		to_chat(recruit, "<span class='danger'><FONT size = 4>You were asked to join the revolution, but for reasons you did not know, you refused.")
+		to_chat(usr, "<span class='danger'>\The [recruit] does not support the revolution!")
+		return
+	var/choice = alert(recruit, "Do you want to join the revolution?", "Join the revolution", "Yes", "No")
+	if(choice == "Yes")
+		if(!(recruit && recruit.mind && recruit.stat == CONSCIOUS))
+			return
+		if(usr.mind in SSticker.mode.head_revolutionaries)
+			SSticker.mode.add_revolutionary(recruit.mind)
+	if(choice == "No")
+		to_chat(recruit, "<span class='danger'>You reject this traitorous cause!")
+		to_chat(usr, "<span class='danger'>\The [recruit] does not support the revolution!")
 
 ///////////////////////////////////////////////////////////////////////////////
 //Gets the round setup, cancelling if there's not enough players at the start//
@@ -109,6 +161,8 @@
 	for(var/datum/objective/objective in rev_mind.objectives)
 		to_chat(rev_mind.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		rev_mind.special_role = SPECIAL_ROLE_HEAD_REV
+		var/datum/action/innate/revolution_recruitment/C = new()
+		C.Grant(rev_mind.current)
 		obj_count++
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -125,7 +179,6 @@
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(mob)
 
-	var/obj/item/flash/T = new(mob)
 	var/obj/item/toy/crayon/spraycan/R = new(mob)
 	var/obj/item/clothing/glasses/hud/security/chameleon/C = new(mob)
 
@@ -136,7 +189,6 @@
 		"left hand" = slot_l_hand,
 		"right hand" = slot_r_hand,
 	)
-	var/where = mob.equip_in_one_of_slots(T, slots)
 	var/where2 = mob.equip_in_one_of_slots(C, slots)
 	mob.equip_in_one_of_slots(R,slots)
 
@@ -146,11 +198,6 @@
 		to_chat(mob, "The Syndicate were unfortunately unable to get you a chameleon security HUD.")
 	else
 		to_chat(mob, "The chameleon security HUD in your [where2] will help you keep track of who is mindshield-implanted, and unable to be recruited.")
-
-	if(!where)
-		to_chat(mob, "The Syndicate were unfortunately unable to get you a flash.")
-	else
-		to_chat(mob, "The flash in your [where] will help you to persuade the crew to join your cause.")
 		return 1
 
 /////////////////////////////////
@@ -237,14 +284,9 @@
 	if((rev_mind in revolutionaries) || (rev_mind in head_revolutionaries))
 		return 0
 	revolutionaries += rev_mind
-	if(iscarbon(rev_mind.current))
-		var/mob/living/carbon/carbon_mob = rev_mind.current
-		carbon_mob.Silence(5)
-		carbon_mob.flash_eyes(1, 1)
-	rev_mind.current.Stun(5)
 	to_chat(rev_mind.current, "<span class='danger'><FONT size = 3> You are now a revolutionary! Help your cause. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons. Help them kill the heads to win the revolution!</FONT></span>")
-	rev_mind.current.create_attack_log("<font color='red'>Has been converted to the revolution!</font>")
-	rev_mind.current.create_log(CONVERSION_LOG, "converted to the revolution")
+	rev_mind.current.create_attack_log("<font color='red'>Has been recruited to the revolution!</font>")
+	rev_mind.current.create_log(CONVERSION_LOG, "recruited to the revolution")
 	rev_mind.special_role = SPECIAL_ROLE_REV
 	update_rev_icons_added(rev_mind)
 	if(jobban_isbanned(rev_mind.current, ROLE_REV) || jobban_isbanned(rev_mind.current, ROLE_SYNDICATE))
@@ -262,15 +304,17 @@
 	if((rev_mind in revolutionaries) || remove_head)
 		revolutionaries -= rev_mind
 		rev_mind.special_role = null
+		for(var/datum/action/innate/revolution_recruitment/C in rev_mind.current.actions)
+			qdel(C)
 		rev_mind.current.create_attack_log("<font color='red'>Has renounced the revolution!</font>")
 		rev_mind.current.create_log(CONVERSION_LOG, "renounced the revolution")
 		if(beingborged)
-			to_chat(rev_mind.current, "<span class='danger'><FONT size = 3>The frame's firmware detects and deletes your neural reprogramming! You remember nothing[remove_head ? "." : " but the name of the one who flashed you."]</FONT></span>")
+			to_chat(rev_mind.current, "<span class='danger'><FONT size = 3>The frame's firmware detects and deletes your neural reprogramming! You remember nothing[remove_head ? "." : " but the name of the one who recruited you."]</FONT></span>")
 			message_admins("[key_name_admin(rev_mind.current)] [ADMIN_QUE(rev_mind.current,"?")] ([ADMIN_FLW(rev_mind.current,"FLW")]) has been borged while being a [remove_head ? "leader" : " member"] of the revolution.")
 
 		else
 			rev_mind.current.Paralyse(5)
-			to_chat(rev_mind.current, "<span class='danger'><FONT size = 3>You have been brainwashed! You are no longer a revolutionary! Your memory is hazy from the time you were a rebel...the only thing you remember is the name of the one who brainwashed you...</FONT></span>")
+			to_chat(rev_mind.current, "<span class='danger'><FONT size = 3>You have been brainwashed! You are no longer a revolutionary! Your memory is hazy from the time you were a rebel...the only thing you remember is the name of the one who recruited you...</FONT></span>")
 
 		update_rev_icons_removed(rev_mind)
 		for(var/mob/living/M in view(rev_mind.current))
