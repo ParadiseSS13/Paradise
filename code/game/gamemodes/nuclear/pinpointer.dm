@@ -245,7 +245,7 @@
 	var/obj/docking_port/mobile/home = null
 	slot_flags = SLOT_BELT | SLOT_PDA
 	syndicate = TRUE
-	modes = list(MODE_NUKE, MODE_DISK)
+	modes = list(MODE_DISK, MODE_NUKE)
 
 /obj/item/pinpointer/nukeop/process()
 	if(mode == MODE_DISK)
@@ -299,13 +299,13 @@
 	modes = list(MODE_OPERATIVE)
 
 /obj/item/pinpointer/operative/process()
-	if(MODE_OPERATIVE)
+	if(mode == MODE_OPERATIVE)
 		workop()
 	else
 		icon_state = icon_off
 
 /obj/item/pinpointer/operative/proc/scan_for_ops()
-	if(MODE_OPERATIVE)
+	if(mode == MODE_OPERATIVE)
 		nearest_op = null //Resets nearest_op every time it scans
 		var/closest_distance = 1000
 		for(var/mob/living/carbon/M in GLOB.mob_list)
@@ -341,6 +341,7 @@
 	icon_far = "pinonfar_crew"
 	modes = list(MODE_CREW)
 	var/target = null //for targeting in processing
+	var/target_set = FALSE //have we set a target at any point?
 
 /obj/item/pinpointer/crew/proc/trackable(mob/living/carbon/human/H)
 	var/turf/here = get_turf(src)
@@ -357,7 +358,7 @@
 	return FALSE
 
 /obj/item/pinpointer/crew/process()
-	if(mode == MODE_CREW)
+	if(mode == MODE_CREW && target_set)
 		point_at(target)
 
 /obj/item/pinpointer/crew/point_at(atom/target)
@@ -401,6 +402,7 @@
 
 	target = names[A]
 	mode = MODE_CREW
+	target_set = TRUE
 	user.visible_message("<span class='notice'>[user] activates [user.p_their()] pinpointer.</span>", "<span class='notice'>You activate your pinpointer.</span>")
 	point_at(target)
 
