@@ -1,5 +1,11 @@
 ///Hispania alcohol
-/datum/reagent/consumable/ethanol/fernet /// By Soulster
+/datum/reagent
+	var/icon
+
+/datum/reagent/consumable/ethanol/hispania
+	icon = 'icons/hispania/obj/drinks.dmi'
+
+/datum/reagent/consumable/ethanol/hispania/fernet /// By Soulster
 	name = "Fernet"
 	id = "fernet"
 	description = "It's Fernet, a drink with a strong bitter taste."
@@ -11,7 +17,7 @@
 	drink_desc = "A crystal clear glass of Fernet Branca."
 	taste_description = "pure bitter oil"
 
-/datum/reagent/consumable/ethanol/mezcal /// By mazapan
+/datum/reagent/consumable/ethanol/hispania/mezcal /// By mazapan
 	name = "Mezcal"
 	id = "mezcal"
 	description = "It's mezcal, like tequila, but hipster."
@@ -23,7 +29,7 @@
 	drink_desc = "A crystal clear glass of 400 Conejos with a little worm inside."
 	taste_description = "tasty worm"
 
-/datum/reagent/consumable/ethanol/fernetcola
+/datum/reagent/consumable/ethanol/hispania/fernetcola
 	name= "Fernet with cola"
 	id = "fernetcola"
 	description = "A drinkable version of Fernet."
@@ -35,7 +41,7 @@
 	drink_desc = "It has a nice brown color and a good amount of fizzy foam."
 	taste_description = "sweet oil "
 
-/datum/reagent/consumable/ethanol/michelada
+/datum/reagent/consumable/ethanol/hispania/michelada
 	name= "Michelada"
 	id = "michelada"
 	description = "Beer with topings, nasty."
@@ -46,7 +52,7 @@
 	drink_desc = "looks spicy and salty, yummi."
 	taste_description ="spicy guilt"
 
-/datum/reagent/consumable/ethanol/vampire
+/datum/reagent/consumable/ethanol/hispania/vampire
 	name= "Vampire"
 	id = "vampire"
 	description = "You did not have vodka and now you have a piñata."
@@ -57,7 +63,7 @@
 	drink_desc = "Ayayay."
 	taste_description ="illegal immigration"
 
-/datum/reagent/consumable/ethanol/acapulco_de_noche
+/datum/reagent/consumable/ethanol/hispania/acapulco_de_noche
 	name= "Acapulco de noche"
 	id = "acapulco_de_noche"
 	description = "Gay cocktail with beach look."
@@ -68,7 +74,7 @@
 	drink_desc = "Ice cold and refreshing drink, smells like medicine.."
 	taste_description ="sweat of the 70s."
 
-/datum/reagent/consumable/ethanol/matadora_beer
+/datum/reagent/consumable/ethanol/hispania/matadora_beer
 	name= "Matadora beer"
 	id = "matadora_beer"
 	description = "Mix everything that was in the fridge."
@@ -80,7 +86,7 @@
 	drink_desc = "It smells strangely good despite its appearance taken out of the garbage."
 	taste_description ="lemonade with strawberry soda and medicinal alcohol."
 
-/datum/reagent/consumable/ethanol/hanky_panky
+/datum/reagent/consumable/ethanol/hispania/hanky_panky
 	name= "Hanky panky"
 	id = "hanky_panky"
 	description = "Ideal for afterwork."
@@ -91,7 +97,7 @@
 	drink_desc = "Bad enough to be served in a pretty glass."
 	taste_description ="strong and light at the same time."
 
-/datum/reagent/consumable/ethanol/hotline_bling
+/datum/reagent/consumable/ethanol/hispania/hotline_bling
 	name= "Hotline Bling"
 	id = "hotline_bling"
 	description = "You used to call me on my cell phone....."
@@ -102,7 +108,7 @@
 	drink_desc = "You see Drake dancing inside"
 	taste_description ="good days in california"
 
-/datum/reagent/consumable/ethanol/peach_bellini
+/datum/reagent/consumable/ethanol/hispania/peach_bellini
 	name= "Peach Bellini"
 	id = "peach_bellini"
 	description = "Oh la la fancy man."
@@ -113,7 +119,7 @@
 	drink_desc = "Oh la la fancy man."
 	taste_description ="fresh"
 
-/datum/reagent/consumable/ethanol/vampire_bf
+/datum/reagent/consumable/ethanol/hispania/vampire_bf
 	name= "Vampire Bestfriend"
 	id = "vampire_bf"
 	description = "Do you steal the chaplain flask, son?"

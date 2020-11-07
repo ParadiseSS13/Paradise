@@ -40,12 +40,15 @@
 	extinguish()
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/on_reagent_change()
+	icon = initial(icon)//regresa a la carpeta original
 	overlays.Cut()
 	if(reagents.reagent_list.len)
 		var/datum/reagent/R = reagents.get_master_reagent()
 		name = R.drink_name
 		desc = R.drink_desc
 		if(R.drink_icon)
+			if(R.icon)//si el reactivo tiene una carpeta de icono propia, para hispania solamente
+				icon = R.icon//entonces cambiamos la ruta del icon
 			icon_state = R.drink_icon
 		else
 			var/image/I = image(icon, "glassoverlay")

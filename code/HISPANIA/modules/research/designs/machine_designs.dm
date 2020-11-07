@@ -12,7 +12,7 @@
 	name = "Machine Board (Telepad Board)"
 	desc = "Allows for the construction of circuit boards used to build a Telepad."
 	id = "telepad"
-	req_tech = list("programming" = 6, "bluespace" = 7, "plasmatech" = 6, "engineering" = 6)
+	req_tech = list("programming" = 5, "bluespace" = 5, "plasmatech" = 5, "engineering" = 4)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/telesci_pad

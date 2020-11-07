@@ -87,9 +87,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	var/selected_category
 	var/list/datum/design/matching_designs = list() //for the search function
-	//hispania vars
-	var/secureprotocols = TRUE	//si esta activo las cajas con req acces salen boqueadas por defecto
-	//fin hispania
+
 /proc/CallTechName(ID) //A simple helper proc to find the name of a tech with a given ID.
 	for(var/T in subtypesof(/datum/tech))
 		var/datum/tech/tt = T
@@ -204,23 +202,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			return
 		D.loc = src
 		to_chat(user, "<span class='notice'>You add the disk to the machine!</span>")
-	else if(istype(D, /obj/item/card/id))
-		if(!emagged)	//hispania
-			var/obj/item/card/id/id = D
-			for(var/a in id.access)
-				if(a == ACCESS_HOS || a == ACCESS_CAPTAIN)
-					if(secureprotocols)	//si no esta emmag el hos o el cap pueden desactivar esto
-						secureprotocols = FALSE
-						to_chat(user, "<span class='notice'>You disable the security protocols</span>")
-						return
-					else
-						secureprotocols = TRUE
-						to_chat(user, "<span class='notice'>You enable the security protocols</span>")
-						return	//fin hispania
-			to_chat(user, "<span class='notice'>You don't have enough access to disable security protocols</span>")
-		else
+	else if(istype(D, /obj/item/card/id))	//hispania
+		if(emagged)
 			to_chat(user, "<span class='warning'>The machine don't respond!</span>")
 			return
+		var/obj/item/card/id/id = D
+		for(var/a in id.access)
+			if(a == ACCESS_HOS || a == ACCESS_CAPTAIN)
+				secureprotocols = !secureprotocols	//si no esta emmag el hos o el cap pueden desactivar esto
+				to_chat(user, "<span class='notice'>You [secureprotocols ? "disable" : "enable"] the security protocols</span>")
+				return
+		to_chat(user, "<span class='notice'>You don't have enough access to disable security protocols</span>")
+		return	//fin hispania
 	else if(!(linked_destroy && linked_destroy.busy) && !(linked_lathe && linked_lathe.busy) && !(linked_imprinter && linked_imprinter.busy))
 		..()
 	SStgui.update_uis(src)

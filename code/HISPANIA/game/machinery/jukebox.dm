@@ -57,8 +57,6 @@
 	song_length = length
 	song_beat = beat
 
-/obj/machinery/hispaniabox/New()
-	. = ..()
 
 /obj/machinery/hispaniabox/power_change()
 	..()

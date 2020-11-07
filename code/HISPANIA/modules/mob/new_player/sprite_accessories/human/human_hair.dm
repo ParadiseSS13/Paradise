@@ -78,5 +78,25 @@
 	name = "80's Low Ponytail"
 	icon_state = "hair_80_ponytail_alt"
 
+/datum/sprite_accessory/hair/hispania/himecut_alt
+	name = "Himecut Alt"
+	icon_state = "himecut_alt"
+
+/datum/sprite_accessory/hair/hispania/messy
+	name = "Messy"
+	icon_state = "messy"
+
+/datum/sprite_accessory/hair/hispania/ahoge
+	name = "Ahoge"
+	icon_state = "ahoge"
+
+/datum/sprite_accessory/hair/hispania/keanu
+	name = "Keanu"
+	icon_state = "keanu"
+
+/datum/sprite_accessory/hair/hispania/hime_updo
+	name = "Hime Updo"
+	icon_state = "hime_updo"
+
 ///Ume was here :P
 ///Ryzor was here

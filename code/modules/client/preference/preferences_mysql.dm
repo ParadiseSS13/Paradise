@@ -302,12 +302,11 @@
 	if(!organ_data) src.organ_data = list()
 	if(!rlimb_data) src.rlimb_data = list()
 	if(!loadout_gear) loadout_gear = list()
+	if(!all_quirks) all_quirks = list()
 
 	// Check if the current body accessory exists
 	if(!GLOB.body_accessory_by_name[body_accessory])
 		body_accessory = null
-
-	all_quirks = SANITIZE_LIST(all_quirks)
 	return 1
 
 /datum/preferences/proc/save_character(client/C)
@@ -315,6 +314,7 @@
 	var/rlimblist
 	var/playertitlelist
 	var/gearlist
+	var/quirklist
 
 	var/markingcolourslist = list2params(m_colours)
 	var/markingstyleslist = list2params(m_styles)
@@ -326,6 +326,8 @@
 		playertitlelist = list2params(player_alt_titles)
 	if(!isemptylist(loadout_gear))
 		gearlist = list2params(loadout_gear)
+	if(!isemptylist(all_quirks))
+		quirklist = list2params(all_quirks)
 
 	var/DBQuery/firstquery = GLOB.dbcon.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' ORDER BY slot")
 	firstquery.Execute()
@@ -383,7 +385,7 @@
 												body_accessory='[body_accessory]',
 												gear='[gearlist]',
 												autohiss='[autohiss_mode]',
-												all_quirks='[all_quirks]'
+												all_quirks='[quirklist]'
 												WHERE ckey='[C.ckey]'
 												AND slot='[default_slot]'"}
 												)
@@ -449,7 +451,7 @@
 											'[sanitizeSQL(gen_record)]',
 											'[playertitlelist]',
 											'[disabilities]', '[organlist]', '[rlimblist]', '[nanotrasen_relation]', '[speciesprefs]',
-											'[socks]', '[body_accessory]', '[gearlist]', '[autohiss_mode]', '[all_quirks]')
+											'[socks]', '[body_accessory]', '[gearlist]', '[autohiss_mode]', '[quirklist]')
 "}
 )
 
