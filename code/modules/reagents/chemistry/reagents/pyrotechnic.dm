@@ -16,7 +16,7 @@
 		return
 	var/radius = min(max(0, volume / size_divisor), 8)
 	fireflash_sm(T, radius, rand(temp_fire - temp_deviance, temp_fire + temp_deviance), 500)
-	fire_flash_log(holder, name = "phlogiston")
+	fire_flash_log(holder, id)
 
 /datum/reagent/phlogiston/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(holder.chem_temp <= T0C - 50)
@@ -57,7 +57,7 @@
 	if(exposed_temperature > T0C + 100)
 		var/radius = min(max(0, volume * 0.15), 8)
 		fireflash_sm(get_turf(holder.my_atom), radius, rand(3000, 6000), 500)
-		fire_flash_log(holder, name = "napalm")
+		fire_flash_log(holder, id)
 		if(holder)
 			holder.del_reagent(id)
 
@@ -150,7 +150,7 @@
 /datum/reagent/plasma/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature >= T0C + 100)
 		fireflash(get_turf(holder.my_atom), min(max(0, volume / 10), 8))
-		fire_flash_log(fire_flash_log(holder, name = "plasma"))
+		fire_flash_log(holder, id)
 		if(holder)
 			holder.del_reagent(id)
 
@@ -193,7 +193,7 @@
 		var/datum/reagents/Holder = holder
 		var/Id = id
 		var/Volume = volume
-		fire_flash_log(holder, name = "thermite")
+		fire_flash_log(holder, id)
 		Holder.del_reagent(Id)
 		fireflash_sm(S, 0, rand(20000, 25000) + Volume * 2500, 0, 0, 1)
 
@@ -244,7 +244,7 @@
 		return
 	var/radius = min((volume - 3) * 0.15, 3)
 	fireflash_sm(T, radius, 4500 + volume * 500, 350)
-	fire_flash_log(holder, name = "clf3")
+	fire_flash_log(holder, id)
 
 /datum/reagent/clf3/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH || method == REAGENT_INGEST)
@@ -442,7 +442,7 @@
 /datum/reagent/plasma_dust/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature >= T0C + 100)
 		fireflash(get_turf(holder.my_atom), min(max(0, volume / 10), 8))
-		fire_flash_log(holder, name = "plasma dust")
+		fire_flash_log(holder, id)
 		if(holder)
 			holder.del_reagent(id)
 
