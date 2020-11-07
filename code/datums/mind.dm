@@ -1145,6 +1145,7 @@
 				if(has_antag_datum(/datum/antagonist/traitor))
 					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a traitor!</B></FONT></span>")
 					remove_antag_datum(/datum/antagonist/traitor)
+					current.client.chatOutput?.clear_syndicate_codes()
 					log_admin("[key_name(usr)] has de-traitored [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-traitored [key_name_admin(current)]")
 

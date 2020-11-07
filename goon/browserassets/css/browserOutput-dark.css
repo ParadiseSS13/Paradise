@@ -422,3 +422,7 @@ h1.alert, h2.alert			{color: #FFF;}
 .adminticket {color: #3daf21; font-weight: bold}
 
 .adminticketalt {color: #ccb847; font-weight: bold}
+
+/* Syndicate codewords */
+span.body > .codephrases {color: #5555FF;}
+span.body > .coderesponses {color: #FF3333;}
