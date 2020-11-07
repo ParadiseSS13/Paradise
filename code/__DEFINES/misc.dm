@@ -167,45 +167,46 @@
 #define MFOAM_IRON 		2
 
 //Human Overlays Indexes/////////
-#define BODY_LAYER				38
-#define MUTANTRACE_LAYER		37
-#define TAIL_UNDERLIMBS_LAYER	36	//Tail split-rendering.
-#define LIMBS_LAYER				35
-#define INTORGAN_LAYER			34
-#define MARKINGS_LAYER			33
-#define UNDERWEAR_LAYER			32
-#define MUTATIONS_LAYER			31
-#define H_DAMAGE_LAYER			30
-#define UNIFORM_LAYER			29
-#define ID_LAYER				28
-#define SHOES_LAYER				27
-#define GLOVES_LAYER			26
-#define EARS_LAYER				25
-#define SUIT_LAYER				24
-#define BELT_LAYER				23	//Possible make this an overlay of somethign required to wear a belt?
-#define SUIT_STORE_LAYER		22
-#define BACK_LAYER				21
-#define HEAD_ACCESSORY_LAYER	20
-#define FHAIR_LAYER				19
-#define GLASSES_LAYER			18
-#define HAIR_LAYER				17	//TODO: make part of head layer?
-#define HEAD_ACC_OVER_LAYER		16	//Select-layer rendering.
-#define FHAIR_OVER_LAYER		15	//Select-layer rendering.
-#define GLASSES_OVER_LAYER		14	//Select-layer rendering.
-#define TAIL_LAYER				13	//bs12 specific. this hack is probably gonna come back to haunt me
-#define FACEMASK_LAYER			12
-#define OVER_MASK_LAYER			11	//Select-layer rendering.
-#define HEAD_LAYER				10
-#define COLLAR_LAYER			9
-#define HANDCUFF_LAYER			8
-#define LEGCUFF_LAYER			7
-#define L_HAND_LAYER			6
-#define R_HAND_LAYER			5
-#define TARGETED_LAYER			4	//BS12: Layer for the target overlay from weapon targeting system
+#define BODY_LAYER				39
+#define MUTANTRACE_LAYER		38
+#define TAIL_UNDERLIMBS_LAYER	37	//Tail split-rendering.
+#define LIMBS_LAYER				36
+#define INTORGAN_LAYER			35
+#define MARKINGS_LAYER			34
+#define UNDERWEAR_LAYER			33
+#define MUTATIONS_LAYER			32
+#define H_DAMAGE_LAYER			31
+#define UNIFORM_LAYER			30
+#define ID_LAYER				29
+#define SHOES_LAYER				28
+#define GLOVES_LAYER			27
+#define EARS_LAYER				26
+#define SUIT_LAYER				25
+#define BELT_LAYER				24	//Possible make this an overlay of somethign required to wear a belt?
+#define SUIT_STORE_LAYER		23
+#define BACK_LAYER				22
+#define HEAD_ACCESSORY_LAYER	21
+#define FHAIR_LAYER				20
+#define GLASSES_LAYER			19
+#define HAIR_LAYER				18	//TODO: make part of head layer?
+#define HEAD_ACC_OVER_LAYER		17	//Select-layer rendering.
+#define FHAIR_OVER_LAYER		16	//Select-layer rendering.
+#define GLASSES_OVER_LAYER		15	//Select-layer rendering.
+#define TAIL_LAYER				14	//bs12 specific. this hack is probably gonna come back to haunt me
+#define FACEMASK_LAYER			13
+#define OVER_MASK_LAYER			12	//Select-layer rendering.
+#define HEAD_LAYER				11
+#define COLLAR_LAYER			10
+#define HANDCUFF_LAYER			9
+#define LEGCUFF_LAYER			8
+#define L_HAND_LAYER			7
+#define R_HAND_LAYER			6
+#define TARGETED_LAYER			5	//BS12: Layer for the target overlay from weapon targeting system
+#define HALO_LAYER				4	//blood cult ascended halo, because there's currently no better solution for adding/removing
 #define FIRE_LAYER				3	//If you're on fire
 #define MISC_LAYER				2
 #define FROZEN_LAYER			1
-#define TOTAL_LAYERS			38
+#define TOTAL_LAYERS			39
 
 ///Access Region Codes///
 #define REGION_ALL			0
@@ -445,9 +446,6 @@
 #define SENSOR_LIVING 1
 #define SENSOR_VITALS 2
 #define SENSOR_COORDS 3
-
-// Cult summon possibilities
-#define SUMMON_POSSIBILITIES 3
 
 // Dice rigged options.
 #define DICE_NOT_RIGGED 1

@@ -939,7 +939,7 @@ About the new airlock wires panel:
 	else if(istype(C, /obj/item/pai_cable))	// -- TLE
 		var/obj/item/pai_cable/cable = C
 		cable.plugin(src, user)
-	else if((istype(C, /obj/item/paper) && !istype(C, /obj/item/paper/talisman)) || istype(C, /obj/item/photo))
+	else if(istype(C, /obj/item/paper) || istype(C, /obj/item/photo))
 		if(note)
 			to_chat(user, "<span class='warning'>There's already something pinned to this airlock! Use wirecutters or your hands to remove it.</span>")
 			return
@@ -1412,7 +1412,7 @@ About the new airlock wires panel:
 		return "photo"
 
 //Removes the current note on the door if any. Returns if a note is removed
-/obj/machinery/door/airlock/proc/remove_airlock_note(mob/user, wirecutters_used=TRUE)
+/obj/machinery/door/airlock/proc/remove_airlock_note(mob/user, wirecutters_used = TRUE)
 	if(note)
 		if(!wirecutters_used)
 			if (ishuman(user) && user.a_intent == INTENT_GRAB)//grab that note
@@ -1431,21 +1431,29 @@ About the new airlock wires panel:
 		return TRUE
 	return FALSE
 
-/obj/machinery/door/airlock/narsie_act()
+/obj/machinery/door/airlock/narsie_act(weak = FALSE)
 	var/turf/T = get_turf(src)
 	var/runed = prob(20)
 	var/obj/machinery/door/airlock/cult/A
-	if(glass)
-		if(runed)
-			A = new/obj/machinery/door/airlock/cult/glass(T)
-		else
-			A = new/obj/machinery/door/airlock/cult/unruned/glass(T)
+	if(weak)
+		A = new/obj/machinery/door/airlock/cult/weak(T)
 	else
-		if(runed)
-			A = new/obj/machinery/door/airlock/cult(T)
+		if(glass)
+			if(runed)
+				A = new/obj/machinery/door/airlock/cult/glass(T)
+			else
+				A = new/obj/machinery/door/airlock/cult/unruned/glass(T)
 		else
-			A = new/obj/machinery/door/airlock/cult/unruned(T)
+			if(runed)
+				A = new/obj/machinery/door/airlock/cult(T)
+			else
+				A = new/obj/machinery/door/airlock/cult/unruned(T)
 	A.name = name
+	A.stealth_icon = icon
+	A.stealth_overlays = overlays_file
+	A.stealth_opacity = opacity
+	A.stealth_glass = glass
+	A.stealth_airlock_material = airlock_material
 	qdel(src)
 
 /obj/machinery/door/airlock/proc/ai_control_callback()

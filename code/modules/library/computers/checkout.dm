@@ -47,8 +47,8 @@
 			dat += "</ol>"
 
 			if(src.arcanecheckout)
-				new /obj/item/tome(src.loc)
-				to_chat(user, "<span class='warning'>Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is a dusty old tome sitting on the desk. You don't really remember printing it.</span>")
+				new /obj/item/melee/cultblade/dagger(src.loc)
+				to_chat(user, "<span class='warning'>Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is a strange looking dagger sitting on the desk. You don't really remember where it came from.</span>")
 				user.visible_message("[user] stares at the blank screen for a few moments, [user.p_their()] expression frozen in fear. When [user.p_they()] finally awaken[user.p_s()] from it, [user.p_they()] look[user.p_s()] a lot older.", 2)
 				src.arcanecheckout = 0
 		if(1)
@@ -186,7 +186,7 @@
 		if(8)
 
 			dat += {"<h3>Accessing Forbidden Lore Vault v 1.3</h3>
-				Are you absolutely sure you want to proceed? EldritchTomes Inc. takes no responsibilities for loss of sanity resulting from this action.<p>
+				Are you absolutely sure you want to proceed? EldritchArtifacts Inc. takes no responsibilities for loss of sanity resulting from this action.<p>
 				<A href='?src=[UID()];arccheckout=1'>Yes.</A><BR>
 				<A href='?src=[UID()];switchscreen=0'>No.</A><BR>"}
 

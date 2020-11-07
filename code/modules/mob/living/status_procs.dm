@@ -371,10 +371,10 @@
 // CULTSLURRING
 
 /mob/living/CultSlur(amount)
-	SetSlur(max(slurring, amount))
+	SetCultSlur(max(cultslurring, amount))
 
 /mob/living/SetCultSlur(amount)
-	slurring = max(amount, 0)
+	cultslurring = max(amount, 0)
 
 /mob/living/AdjustCultSlur(amount, bound_lower = 0, bound_upper = INFINITY)
 	var/new_value = directional_bounded_sum(cultslurring, amount, bound_lower, bound_upper)

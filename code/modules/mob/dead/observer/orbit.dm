@@ -58,7 +58,7 @@
 
 		var/mob/M = poi
 		if(istype(M))
-			if (isobserver(M))
+			if(isobserver(M))
 				ghosts += list(serialized)
 			else if(M.stat == DEAD)
 				dead += list(serialized)
@@ -80,14 +80,22 @@
 						antag_serialized["antag"] = A.name
 						antagonists += list(antag_serialized)
 
+					// Changelings
 					if(mind.changeling)
 						var/antag_serialized = serialized.Copy()
 						antag_serialized["antag"] = "Changeling"
 						antagonists += list(antag_serialized)
 
+					// Vampires
 					if(mind.vampire)
 						var/antag_serialized = serialized.Copy()
 						antag_serialized["antag"] = "Vampire"
+						antagonists += list(antag_serialized)
+
+					// Cultists
+					if(SSticker.mode.cult && (mind in SSticker.mode.cult))
+						var/antag_serialized = serialized.Copy()
+						antag_serialized["antag"] = "Cultist"
 						antagonists += list(antag_serialized)
 
 					// Other antags are not in the list, mostly because I don't know their code well enough,
