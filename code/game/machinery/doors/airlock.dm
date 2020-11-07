@@ -1110,12 +1110,12 @@ About the new airlock wires panel:
 		var/obj/item/twohanded/fireaxe/F = I
 		if(F.wielded)
 			if(density)
-				var/time_to_open = 75
 				playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
 				prying_so_hard = TRUE
-				if( do_after(user, time_to_open, target = src) )
+				if( do_after(user, time_to_open, target = src))
+					var/time_to_open = 75
 					prying_so_hard = FALSE
-					if(density && !open(1))
+					if(density && !open(TRUE))
 						to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
 				else
 					to_chat(user, "<span class='warning'>You need to be wielding the fire axe to do that!</span>")
