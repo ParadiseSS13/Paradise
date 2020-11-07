@@ -213,7 +213,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		cult_risen = TRUE
 		for(var/datum/mind/M in cult)
 			if(!M.current || !ishuman(M))
-				return
+				continue
 			SEND_SOUND(M.current, 'sound/hallucinations/i_see_you2.ogg')
 			to_chat(M.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...</span>")
 			addtimer(CALLBACK(src, .proc/rise, M.current), 20 SECONDS)
@@ -222,7 +222,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		cult_ascendant = TRUE
 		for(var/datum/mind/M in cult)
 			if(!M.current || !ishuman(M))
-				return
+				continue
 			SEND_SOUND(M.current, 'sound/hallucinations/im_here1.ogg')
 			to_chat(M.current, "<span class='cultlarge'>Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!")
 			addtimer(CALLBACK(src, .proc/ascend, M.current), 20 SECONDS)
