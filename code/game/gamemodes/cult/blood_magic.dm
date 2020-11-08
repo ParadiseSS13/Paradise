@@ -649,7 +649,7 @@
 		..()
 //Used by blood rite, to recharge things like viel shifter or the cultest shielded robes
 /obj/item/melee/blood_magic/empower
-	name = "Bloody empowerment"
+	name = "Blood Recharge"
 	desc = "Can be used on some cult items, to restore them to their previous state."
 	invocation = "Ditans Gut'ura Inpulsa!"
 	color = "#9c0651"
@@ -843,7 +843,7 @@
 			uses += max(1, temp)
 
 /obj/item/melee/blood_magic/manipulator/attack_self(mob/living/user)
-	var/list/options = list("Blood Orb (50)", "Bloody Empowerment (75)", "Blood Spear (150)", "Blood Bolt Barrage (300)")
+	var/list/options = list("Blood Orb (50)", "Blood Recharge (75)", "Blood Spear (150)", "Blood Bolt Barrage (300)")
 	var/choice = input(user, "Choose a greater blood rite...", "Greater Blood Rites") as null|anything in options
 	switch(choice)
 		if("Blood Spear (150)")
@@ -884,7 +884,7 @@
 				to_chat(user, "<span class='warning'>You need [BLOOD_ORB_COST] charges to perform this rite.</span>")
 			else
 				var/ammount = input("How much blood would you like to transfer, you have [uses] blood.", "How much blood?", 50) as null|num
-				if(ammount <50) // No 1 blood orbs, 50 or more.
+				if(ammount < 50) // No 1 blood orbs, 50 or more.
 					to_chat(user, "<span class='warning'>You need to give up at least 50 blood.</span>")
 					return
 				if(ammount > uses) // No free blood either
@@ -893,7 +893,7 @@
 				uses -= ammount
 				var/turf/T = get_turf(user)
 				qdel(src)
-				var/obj/item/blood_orb/rite =new(T)
+				var/obj/item/blood_orb/rite = new(T)
 				rite.blood = ammount
 				if(user.put_in_hands(rite))
 					to_chat(user, "<span class='cult'>A [rite.name] appears in your hand!</span>")
@@ -901,7 +901,7 @@
 					user.visible_message("<span class='warning'>A [rite.name] appears at [user]'s feet!</span>", \
 					"<span class='cult'>A [rite.name] materializes at your feet.</span>")
 
-		if("Bloody Empowerment (75)")
+		if("Blood Recharge (75)")
 			if(uses < BLOOD_RECHARGE_COST)
 				to_chat(user, "<span class='cultitalic'>You need [BLOOD_RECHARGE_COST] charges to perform this rite.</span>")
 			else
