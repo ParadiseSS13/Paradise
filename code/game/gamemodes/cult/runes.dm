@@ -910,7 +910,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 								  "<span class='cultlarge'>Your link to the world fades. Your form breaks apart.</span>")
 		for(var/obj/item/I in new_human.get_all_slots())
 			new_human.unEquip(I)
-		SSticker.mode.remove_cultist(new_human, FALSE)
+		SSticker.mode.remove_cultist(new_human.mind, FALSE)
 		new_human.dust()
 
 /obj/effect/rune/manifest/proc/ghostify(mob/living/user, turf/T)
