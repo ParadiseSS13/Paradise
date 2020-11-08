@@ -337,7 +337,7 @@
 /datum/action/innate/cult/blood_spell/manipulation
 	name = "Blood Rites"
 	desc = "Empowers your hand to manipulate blood. Use on blood or a noncultist to absorb blood to be used later, use on yourself or another cultist to heal them using absorbed blood. \
-		\nUse the spell in-hand to cast advanced rites, such as summoning a magical blood spear or firing blood projectiles out of your hands, or more!."
+		\nUse the spell in-hand to cast advanced rites, such as summoning a magical blood spear, firing blood projectiles out of your hands, and more!."
 	invocation = "Fel'th Dol Ab'orod!"
 	button_icon_state = "manip"
 	charges = 5
@@ -358,7 +358,8 @@
 	throwforce = 0
 	throw_range = 0
 	throw_speed = 0
-	var/has_source = TRUE //Does it have a source, AKA bloody empowerment.
+	/// Does it have a source, AKA bloody empowerment.
+	var/has_source = TRUE
 	var/invocation
 	var/uses = 1
 	var/health_cost = 0 //The amount of health taken from the user when invoking the spell
@@ -372,8 +373,7 @@
 	..()
 
 /obj/item/melee/blood_magic/Destroy()
-	if(has_source)
-		if(!QDELETED(source))
+	if(has_source && !QDELETED(source))
 			if(uses <= 0)
 				source.hand_magic = null
 				qdel(source)
@@ -663,13 +663,13 @@
 			var/obj/item/clothing/suit/hooded/cultrobes/cult_shield/C = target
 			if(C.current_charges < 3)
 				uses--
-				to_chat(user, "<span class='warning'>You empower the [target.name] with blood, recharging its shields!</span>")
+				to_chat(user, "<span class='warning'>You empower [target] with blood, recharging its shields!</span>")
 				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 				C.current_charges = 3
 				C.shield_state = "shield-cult"
 				user.update_inv_wear_suit() // The only way a suit can be clicked on is if its on the floor, in the users bag, or on the user, so we will play it safe if it is on the user.
 			else
-				to_chat(user, "<span class='warning'>The [target.name] is fully charged!!</span>")
+				to_chat(user, "<span class='warning'>[target] is already at full charge!</span>")
 				return
 
 		//Plasteel to runed metal
@@ -677,12 +677,12 @@
 			var/obj/item/cult_shift/S = target
 			if(S.uses < 4)
 				uses--
-				to_chat(user, "<span class='warning'>You empower the [target.name] with blood, recharging its ability to shift!</span>")
+				to_chat(user, "<span class='warning'>You empower [target] with blood, recharging its ability to shift!</span>")
 				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 				S.uses = 4
 				S.icon_state = "shifter"
 			else
-				to_chat(user, "<span class='warning'>The [target.name] is fully charged!!</span>")
+				to_chat(user, "<span class='warning'>[target] is already at full charge!</span>")
 				return
 		else
 			to_chat(user, "<span class='warning'>The spell will not work on [target]!</span>")
@@ -814,7 +814,7 @@
 			var/obj/item/blood_orb/candidate = target
 			if(candidate.blood)
 				uses += candidate.blood
-				to_chat(user, "<span class='warning'>You obtain [candidate.blood] from the orb of blood!</span>")
+				to_chat(user, "<span class='warning'>You obtain [candidate.blood] blood from the orb of blood!</span>")
 				playsound(user, 'sound/misc/enter_blood.ogg', 50)
 				qdel(candidate)
 
@@ -883,7 +883,7 @@
 			if(uses < BLOOD_ORB_COST)
 				to_chat(user, "<span class='warning'>You need [BLOOD_ORB_COST] charges to perform this rite.</span>")
 			else
-				var/ammount = input("How much blood would you like to transfer, you have [uses] blood.", "How much blood?", 50) as null|num
+				var/ammount = input("How much blood would you like to transfer? You have [uses] blood.", "How much blood?", 50) as null|num
 				if(ammount < 50) // No 1 blood orbs, 50 or more.
 					to_chat(user, "<span class='warning'>You need to give up at least 50 blood.</span>")
 					return
