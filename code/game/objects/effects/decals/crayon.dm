@@ -9,7 +9,7 @@
 	mergeable_decal = FALSE // Allows crayon drawings to overlap one another.
 
 
-/obj/effect/decal/cleanable/crayon/Initialize(mapload, main = "#FFFFFF", var/type = "rune1", var/e_name = "rune")
+/obj/effect/decal/cleanable/crayon/Initialize(mapload, main = "#FFFFFF", type = "rune1", e_name = "rune")
 	. = ..()
 
 	name = e_name

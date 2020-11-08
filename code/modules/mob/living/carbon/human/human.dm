@@ -41,7 +41,7 @@
 	GLOB.human_list += src
 
 /mob/living/carbon/human/OpenCraftingMenu()
-	handcrafting.ui_interact(src)
+	handcrafting.tgui_interact(src)
 
 /mob/living/carbon/human/prepare_data_huds()
 	//Update med hud images...
@@ -549,14 +549,14 @@
 	var/obj/item/storage/wallet/W
 	var/active_hand = get_active_hand()
 	var/inactive_hand = get_inactive_hand()
-	
+
 	//ID
 	if(istype(active_hand, /obj/item/card/id) || istype(inactive_hand, /obj/item/card/id))
 		if(istype(active_hand, ID))
 			ID = active_hand
 		else
 			ID = inactive_hand
-	
+
 	//PDA
 	else if(istype(active_hand, /obj/item/pda) || istype(inactive_hand, /obj/item/pda))
 		if(istype(active_hand, PDA))
@@ -1021,34 +1021,34 @@
 	return
 
 /mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE)
-	. = 1
+	. = TRUE
 
 	if(!target_zone)
 		if(!user)
-			target_zone = pick("chest","chest","chest","left leg","right leg","left arm", "right arm", "head")
+			. = FALSE
+			CRASH("can_inject() called on a human mob with neither a user nor a targeting zone selected.")
 		else
 			target_zone = user.zone_selected
 
-
 	if(PIERCEIMMUNE in dna.species.species_traits)
-		. = 0
+		. = FALSE
 
 	var/obj/item/organ/external/affecting = get_organ(target_zone)
 	var/fail_msg
 	if(!affecting)
-		. = 0
+		. = FALSE
 		fail_msg = "[p_they(TRUE)] [p_are()] missing that limb."
 	else if(affecting.is_robotic())
-		. = 0
+		. = FALSE
 		fail_msg = "That limb is robotic."
 	else
 		switch(target_zone)
 			if("head")
 				if(head && head.flags & THICKMATERIAL && !penetrate_thick)
-					. = 0
+					. = FALSE
 			else
 				if(wear_suit && wear_suit.flags & THICKMATERIAL && !penetrate_thick)
-					. = 0
+					. = FALSE
 	if(!. && error_msg && user)
 		if(!fail_msg)
 			fail_msg = "There is no exposed flesh or thin material [target_zone == "head" ? "on [p_their()] head" : "on [p_their()] body"] to inject into."
@@ -1510,14 +1510,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/eyes_shine()
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
-	if(!(istype(eyes) || istype(eye_implant)))
-		return FALSE
 	if(!get_location_accessible(src, "eyes"))
 		return FALSE
-	if(!(eyes.shine()) && !istype(eye_implant) && !(XRAY in mutations)) //If their eyes don't shine, they don't have other augs, nor do they have X-RAY vision
-		return FALSE
+	// Natural eyeshine, any implants, and XRAY - all give shiny appearance.
+	if((istype(eyes) && eyes.shine()) || istype(eye_implant) || (XRAY in mutations))
+		return TRUE
 
-	return TRUE
+	return FALSE
 
 /mob/living/carbon/human/assess_threat(var/mob/living/simple_animal/bot/secbot/judgebot, var/lasercolor)
 	if(judgebot.emagged == 2)
@@ -1608,6 +1607,11 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 				step_towards(hand, src)
 				to_chat(src, "<span class='warning'>\The [S] pulls \the [hand] from your grip!</span>")
 	apply_effect(current_size * 3, IRRADIATE)
+
+/mob/living/carbon/human/narsie_act()
+	if(iswizard(src) && iscultist(src)) //Wizard cultists are immune to narsie because it would prematurely end the wiz round that's about to end by the automated shuttle call anyway
+		return
+	..()
 
 /mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
 	if(H == src)
@@ -1963,6 +1967,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/get_spooked()
 	to_chat(src, "<span class='whisper'>[pick(GLOB.boo_phrases)]</span>")
+	return TRUE
 
 /mob/living/carbon/human/extinguish_light()
 	// Parent function handles stuff the human may be holding
@@ -1975,3 +1980,11 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/proc/get_perceived_trauma()
 	return min(health, maxHealth - getStaminaLoss())
+
+/**
+  * Helper to get the mobs runechat colour span
+  *
+  * Basically just a quick redirect to the DNA handler that gets the species-specific colour handler
+  */
+/mob/living/carbon/human/get_runechat_color()
+   return dna.species.get_species_runechat_color(src)

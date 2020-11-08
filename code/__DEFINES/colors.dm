@@ -100,6 +100,11 @@
 #define COLOR_ASSEMBLY_BLUE    "#38559E"
 #define COLOR_ASSEMBLY_PURPLE  "#6F6192"
 
+//blood colors
+
+#define COLOR_BLOOD_BASE "#A10808"
+#define COLOR_BLOOD_MACHINE "#1F181F"
+
 // Pipe colours
 #define	PIPE_COLOR_GREY		"#ffffff"	//yes white is grey
 #define	PIPE_COLOR_RED		"#ff0000"

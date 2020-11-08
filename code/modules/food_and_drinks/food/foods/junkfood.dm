@@ -48,6 +48,7 @@
 	name = "Space Twinkie"
 	icon_state = "space_twinkie"
 	desc = "Guaranteed to survive longer then you will."
+	trash = /obj/item/trash/spacetwinkie
 	filling_color = "#FFE591"
 	junkiness = 25
 	list_reagents = list("sugar" = 4)

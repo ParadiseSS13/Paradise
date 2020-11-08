@@ -121,13 +121,12 @@
 	aw_emerg = status_adminwarn_check(SUPERMATTER_EMERGENCY, aw_emerg, "CRIT: Supermatter integrity is below 50%!<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.", FALSE)
 	aw_delam = status_adminwarn_check(SUPERMATTER_DELAMINATING, aw_delam, "CRIT: Supermatter is delaminating!<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.", TRUE)
 
-/obj/machinery/power/supermatter_shard/proc/status_adminwarn_check(var/min_status, var/current_state, var/message, var/send_to_irc = FALSE)
+/obj/machinery/power/supermatter_shard/proc/status_adminwarn_check(min_status, current_state, message)
 	var/status = get_status()
 	if(status >= min_status)
 		if(!current_state)
 			log_and_message_admins(message)
-			if(send_to_irc)
-				send2adminirc(message)
+			SSdiscord.send2discord_simple_noadmins(message)
 		return TRUE
 	else
 		return FALSE

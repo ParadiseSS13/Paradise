@@ -63,7 +63,6 @@
 	var/list/equipment = new
 	var/obj/item/mecha_parts/mecha_equipment/selected
 	var/max_equip = 3
-	var/datum/events/events
 	var/turf/crashing = null
 	var/occupant_sight_flags = 0
 
@@ -102,7 +101,6 @@
 
 /obj/mecha/Initialize()
 	. = ..()
-	events = new
 	icon_state += "-open"
 	add_radio()
 	add_cabin()
@@ -245,12 +243,6 @@
 //////////////////////////////////
 ////////  Movement procs  ////////
 //////////////////////////////////
-
-/obj/mecha/Move(atom/newLoc, direct)
-	. = ..()
-	if(.)
-		events.fireEvent("onMove",get_turf(src))
-
 /obj/mecha/Process_Spacemove(var/movement_dir = 0)
 	. = ..()
 	if(.)
@@ -1130,23 +1122,26 @@
 			occupant << sound(nominalsound, volume = 50)
 		if(state)
 			H.throw_alert("locked", /obj/screen/alert/mech_maintenance)
-		return 1
+		return TRUE
 	else
-		return 0
+		return FALSE
 
 /obj/mecha/proc/mmi_move_inside(var/obj/item/mmi/mmi_as_oc as obj,mob/user as mob)
 	if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
 		to_chat(user, "<span class='warning'>Consciousness matrix not detected!</span>")
-		return 0
+		return FALSE
 	else if(mmi_as_oc.brainmob.stat)
 		to_chat(user, "<span class='warning'>Beta-rhythm below acceptable level!</span>")
-		return 0
+		return FALSE
 	else if(occupant)
 		to_chat(user, "<span class='warning'>Occupant detected!</span>")
-		return 0
+		return FALSE
 	else if(dna && dna != mmi_as_oc.brainmob.dna.unique_enzymes)
 		to_chat(user, "<span class='warning'>Access denied. [name] is secured with a DNA lock.</span>")
-		return 0
+		return FALSE
+	else if(!operation_allowed(user))
+		to_chat(user, "<span class='warning'>Access denied. [name] is secured with an ID lock.</span>")
+		return FALSE
 
 	if(do_after(user, 40, target = src))
 		if(!occupant)
@@ -1155,24 +1150,24 @@
 			to_chat(user, "<span class='warning'>Occupant detected!</span>")
 	else
 		to_chat(user, "<span class='notice'>You stop inserting the MMI.</span>")
-	return 0
+	return FALSE
 
 /obj/mecha/proc/mmi_moved_inside(obj/item/mmi/mmi_as_oc,mob/user)
 	if(mmi_as_oc && (user in range(1)))
 		if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
 			to_chat(user, "Consciousness matrix not detected.")
-			return 0
+			return FALSE
 		else if(mmi_as_oc.brainmob.stat)
 			to_chat(user, "Beta-rhythm below acceptable level.")
-			return 0
+			return FALSE
 		if(!user.unEquip(mmi_as_oc))
 			to_chat(user, "<span class='notice'>\the [mmi_as_oc] is stuck to your hand, you cannot put it in \the [src]</span>")
-			return 0
+			return FALSE
 		var/mob/brainmob = mmi_as_oc.brainmob
 		brainmob.reset_perspective(src)
 		occupant = brainmob
 		brainmob.forceMove(src) //should allow relaymove
-		brainmob.canmove = 1
+		brainmob.canmove = TRUE
 		if(istype(mmi_as_oc, /obj/item/mmi/robotic_brain))
 			var/obj/item/mmi/robotic_brain/R = mmi_as_oc
 			if(R.imprinted_master)
@@ -1187,9 +1182,9 @@
 		if(!hasInternalDamage())
 			to_chat(occupant, sound(nominalsound, volume=50))
 		GrantActions(brainmob)
-		return 1
+		return TRUE
 	else
-		return 0
+		return FALSE
 
 /obj/mecha/proc/pilot_is_mmi()
 	var/atom/movable/mob_container
@@ -1273,7 +1268,7 @@
 		var/mob/living/carbon/human/H = L
 		H.regenerate_icons() // workaround for 14457
 
-/obj/mecha/force_eject_occupant()
+/obj/mecha/force_eject_occupant(mob/target)
 	go_out()
 
 /////////////////////////

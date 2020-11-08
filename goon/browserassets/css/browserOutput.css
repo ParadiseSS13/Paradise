@@ -279,6 +279,7 @@ em						{font-style: normal;	font-weight: bold;}
 .sciradio				{color: #993399;}
 .supradio				{color: #7F6539;}
 .srvradio				{color: #80A000;}
+.proradio				{color: #E3027A;}
 .admin_channel			{color: #9A04D1;	font-weight: bold;}
 .mentor_channel			{color: #775BFF;	font-weight: bold;}
 .mentor_channel_admin      {color: #A35CFF;	font-weight: bold;}
@@ -420,3 +421,7 @@ h1.alert, h2.alert			{color: #000000;}
 .adminticket {color: #3e7336; font-weight: bold}
 
 .adminticketalt {color: #014c8a; font-weight: bold}
+
+/* Syndicate codewords */
+span.body > .codephrases {color: #0000FF;}
+span.body > .coderesponses {color: #FF0000;}

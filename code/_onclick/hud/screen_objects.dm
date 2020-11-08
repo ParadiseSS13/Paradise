@@ -110,24 +110,7 @@
 	screen_loc = ui_acti
 
 /obj/screen/mov_intent/Click()
-	if(iscarbon(usr))
-		var/mob/living/carbon/C = usr
-		if(C.legcuffed)
-			to_chat(C, "<span class='notice'>You are legcuffed! You cannot run until you get [C.legcuffed] removed!</span>")
-			C.m_intent = MOVE_INTENT_WALK	//Just incase
-			C.hud_used.move_intent.icon_state = "walking"
-			return 1
-		switch(usr.m_intent)
-			if(MOVE_INTENT_RUN)
-				usr.m_intent = MOVE_INTENT_WALK
-				usr.hud_used.move_intent.icon_state = "walking"
-			if(MOVE_INTENT_WALK)
-				usr.m_intent = MOVE_INTENT_RUN
-				usr.hud_used.move_intent.icon_state = "running"
-		if(istype(usr,/mob/living/carbon/alien/humanoid))
-			usr.update_icons()
-
-
+	usr.toggle_move_intent()
 
 /obj/screen/pull
 	name = "stop pulling"

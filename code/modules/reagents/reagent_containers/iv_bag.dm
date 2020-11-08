@@ -200,3 +200,7 @@
 
 /obj/item/reagent_containers/iv_bag/blood/OMinus
 	blood_type = "O-"
+
+/obj/item/reagent_containers/iv_bag/slime
+	name = "\improper IV Bag (Slime Jelly)"
+	list_reagents = list("slimejelly" = 200)

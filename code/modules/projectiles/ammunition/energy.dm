@@ -195,6 +195,7 @@
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/wormhole/New(var/obj/item/gun/energy/wormhole_projector/wh)
+	. = ..()
 	gun = wh
 
 /obj/item/ammo_casing/energy/wormhole/orange

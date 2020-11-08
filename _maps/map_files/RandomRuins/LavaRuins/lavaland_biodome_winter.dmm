@@ -337,7 +337,7 @@
 /area/ruin/powered/snow_biodome)
 "JZ" = (
 /obj/structure/table,
-/obj/machinery/microwave,
+/obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "KS" = (

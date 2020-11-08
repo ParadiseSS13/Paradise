@@ -82,6 +82,7 @@
 	if(!SSipintel.enabled)
 		return
 
+	// Do not refactor this to use SShttp, because that requires the subsystem to be firing for requests to be made, and this will be triggered before the MC has finished loading
 	var/list/http[] = world.Export("http://[config.ipintel_domain]/check.php?ip=[ip]&contact=[config.ipintel_email]&format=json&flags=b")
 
 	if(http)
