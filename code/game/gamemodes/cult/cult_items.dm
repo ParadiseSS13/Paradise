@@ -655,6 +655,6 @@
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "summoning_orb"
 	item_state = "summoning_orb"
-	desc = "It's an orb of crystalized blood. Can be used to transfer blood between cultests."
+	desc = "It's an orb of crystalized blood. Can be used to transfer blood between cultists."
 	var/blood = 50
 

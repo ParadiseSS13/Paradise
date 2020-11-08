@@ -337,7 +337,7 @@
 /datum/action/innate/cult/blood_spell/manipulation
 	name = "Blood Rites"
 	desc = "Empowers your hand to manipulate blood. Use on blood or a noncultist to absorb blood to be used later, use on yourself or another cultist to heal them using absorbed blood. \
-		\nUse the spell in-hand to cast advanced rites, such as summoning a magical blood spear or firing blood projectiles out of your hands."
+		\nUse the spell in-hand to cast advanced rites, such as summoning a magical blood spear or firing blood projectiles out of your hands, or more!."
 	invocation = "Fel'th Dol Ab'orod!"
 	button_icon_state = "manip"
 	charges = 5
