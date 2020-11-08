@@ -1,7 +1,7 @@
 /datum/action/changeling/fleshmend
 	name = "Fleshmend"
 	desc = "Our flesh rapidly regenerates, healing our burns, bruises, and shortness of breath. Costs 20 chemicals."
-	helptext = "Does not regrow limbs. Functions while unconscious."
+	helptext = "Does not regrow limbs. Partially recovers our blood. Functions while unconscious."
 	button_icon_state = "fleshmend"
 	chemical_cost = 20
 	dna_cost = 2
