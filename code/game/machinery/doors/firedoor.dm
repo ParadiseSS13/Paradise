@@ -22,8 +22,10 @@
 	auto_close_time = 50
 	assemblytype = /obj/structure/firelock_frame
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 95, "acid" = 70)
+	/// Whether can be opened by hand, when on non-help intent
 	var/can_force = TRUE
-	var/force_open_time = 300
+	/// How long does opening by hand take, in deciseconds.
+	var/force_open_time = 50
 	var/can_crush = TRUE
 	var/nextstate = null
 	var/boltslocked = TRUE
