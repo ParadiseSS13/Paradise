@@ -337,7 +337,7 @@
 /datum/action/innate/cult/blood_spell/manipulation
 	name = "Blood Rites"
 	desc = "Empowers your hand to manipulate blood. Use on blood or a noncultist to absorb blood to be used later, use on yourself or another cultist to heal them using absorbed blood. \
-		\nUse the spell in-hand to cast advanced rites, such as summoning a magical blood spear, firing blood projectiles out of your hands, and more!."
+		\nUse the spell in-hand to cast advanced rites, such as summoning a magical blood spear, firing blood projectiles out of your hands, and more!"
 	invocation = "Fel'th Dol Ab'orod!"
 	button_icon_state = "manip"
 	charges = 5
@@ -374,16 +374,16 @@
 
 /obj/item/melee/blood_magic/Destroy()
 	if(has_source && !QDELETED(source))
-			if(uses <= 0)
-				source.hand_magic = null
-				qdel(source)
-				source = null
-			else
-				source.hand_magic = null
-				source.charges = uses
-				source.desc = source.base_desc
-				source.desc += "<br><b><u>Has [uses] use\s remaining</u></b>."
-				source.UpdateButtonIcon()
+		if(uses <= 0)
+			source.hand_magic = null
+			qdel(source)
+			source = null
+		else
+			source.hand_magic = null
+			source.charges = uses
+			source.desc = source.base_desc
+			source.desc += "<br><b><u>Has [uses] use\s remaining</u></b>."
+			source.UpdateButtonIcon()
 	..()
 
 /obj/item/melee/blood_magic/attack_self(mob/living/user)
