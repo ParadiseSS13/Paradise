@@ -54,20 +54,6 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	investigate_reset() // This is part of the admin investigate system. PLEASE DONT SS THIS EITHER
 	makeDatumRefLists() // Setups up lists of datums and their subtypes
 
-//world/Topic(href, href_list[])
-//		to_chat(world, "Received a Topic() call!")
-//		to_chat(world, "[href]")
-//		for(var/a in href_list)
-//			to_chat(world, "[a]")
-//		if(href_list["hello"])
-//			to_chat(world, "Hello world!")
-//			return "Hello world!"
-//		to_chat(world, "End of Topic() call.")
-//		..()
-
-GLOBAL_VAR_INIT(world_topic_spam_protect_ip, "0.0.0.0")
-GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
-
 /// List of all world topic spam prevention handlers. See code/modules/world_topic/_spam_prevention_handler.dm
 GLOBAL_LIST_EMPTY(world_topic_spam_prevention_handlers)
 /// List of all world topic handler datums. Populated inside makeDatumRefLists()
