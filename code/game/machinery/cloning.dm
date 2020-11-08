@@ -451,9 +451,12 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(H.mind in SSticker.mode.syndicates)
 		SSticker.mode.update_synd_icons_added()
 	if(H.mind in SSticker.mode.cult)
-		SSticker.mode.add_cultist(occupant.mind)
-		SSticker.mode.update_cult_icons_added() //So the icon actually appears
-		SSticker.mode.update_cult_comms_added(H.mind) //So the comms actually appears
+		SSticker.mode.update_cult_icons_added(H.mind) // Adds the cult antag hud
+		SSticker.mode.add_cult_actions(H.mind) // And all the actions
+		if(SSticker.mode.cult_risen)
+			SSticker.mode.rise(H)
+		if(SSticker.mode.cult_ascendant)
+			SSticker.mode.ascend(H)
 	if(H.mind.vampire)
 		H.mind.vampire.update_owner(H)
 	if((H.mind in SSticker.mode.vampire_thralls) || (H.mind in SSticker.mode.vampire_enthralled))

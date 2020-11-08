@@ -422,6 +422,11 @@
 			C.reagents.clear_reagents()
 			QDEL_LIST(C.reagents.addiction_list)
 			C.reagents.addiction_threshold_accumulated.Cut()
+		if(iscultist(src))
+			if(SSticker.mode.cult_risen)
+				SSticker.mode.rise(src)
+			if(SSticker.mode.cult_ascendant)
+				SSticker.mode.ascend(src)
 
 		QDEL_LIST(C.processing_patches)
 
@@ -835,7 +840,7 @@
 
 /mob/living/narsie_act()
 	if(client)
-		makeNewConstruct(/mob/living/simple_animal/hostile/construct/harvester, src, null, 1)
+		make_new_construct(/mob/living/simple_animal/hostile/construct/harvester, src, cult_override = TRUE)
 	spawn_dust()
 	gib()
 

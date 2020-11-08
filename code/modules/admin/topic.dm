@@ -1689,33 +1689,65 @@
 			SSmentor_tickets.convert_to_other_ticket(indexNum)
 		else
 			SStickets.convert_to_other_ticket(indexNum)
-	else if(href_list["cult_nextobj"])
-		if(alert(usr, "Validate the current Cult objective and unlock the next one?", "Cult Cheat Code", "Yes", "No") != "Yes")
-			return
-
-		if(!GAMEMODE_IS_CULT)
-			alert("Couldn't locate cult mode datum! This shouldn't ever happen, tell a coder!")
-			return
-
-		var/datum/game_mode/cult/cult_round = SSticker.mode
-		cult_round.bypass_phase()
-		message_admins("Admin [key_name_admin(usr)] has unlocked the Cult's next objective.")
-		log_admin("Admin [key_name_admin(usr)] has unlocked the Cult's next objective.")
 
 	else if(href_list["cult_mindspeak"])
-		var/input = stripped_input(usr, "Communicate to all the cultists with the voice of [SSticker.cultdat.entity_name]", "Voice of [SSticker.cultdat.entity_name]", "")
+		var/input = stripped_input(usr, "Communicate to all the cultists with the voice of [SSticker.cultdat.entity_name]", "Voice of [SSticker.cultdat.entity_name]")
 		if(!input)
 			return
 
 		for(var/datum/mind/H in SSticker.mode.cult)
-			if (H.current)
-				to_chat(H.current, "<span class='danger'>[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span>")
+			if(H.current)
+				to_chat(H.current, "<span class='cult'>[SSticker.cultdat.entity_name] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
 
 		for(var/mob/dead/observer/O in GLOB.player_list)
-			to_chat(O, "<span class='danger'>[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span>")
+			to_chat(O, "<span class='cult'>[SSticker.cultdat.entity_name] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
 
 		message_admins("Admin [key_name_admin(usr)] has talked with the Voice of [SSticker.cultdat.entity_name].")
 		log_admin("[key_name(usr)] Voice of [SSticker.cultdat.entity_name]: [input]")
+
+	else if(href_list["cult_adjustsacnumber"])
+		var/amount = input("Adjust the amount of sacrifices required before summoning Nar'Sie", "Sacrifice Adjustment", 2) as null | num
+		if(amount > 0)
+			var/datum/game_mode/gamemode = SSticker.mode
+			var/old = gamemode.cult_objs.sacrifices_required
+			gamemode.cult_objs.sacrifices_required = amount
+			message_admins("Admin [key_name_admin(usr)] has modified the amount of cult sacrifices required before summoning from [old] to [amount]")
+			log_admin("Admin [key_name_admin(usr)] has modified the amount of cult sacrifices required before summoning from [old] to [amount]")
+
+	else if(href_list["cult_newtarget"])
+		if(alert(usr, "Reroll the cult's sacrifice target?", "Cult Debug", "Yes", "No") != "Yes")
+			return
+
+		var/datum/game_mode/gamemode = SSticker.mode
+		if(!gamemode.cult_objs.find_new_sacrifice_target())
+			gamemode.cult_objs.ready_to_summon()
+
+		message_admins("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
+		log_admin("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
+
+	else if(href_list["cult_newsummonlocations"])
+		if(alert(usr, "Reroll the cult's summoning locations?", "Cult Debug", "Yes", "No") != "Yes")
+			return
+
+		var/datum/game_mode/gamemode = SSticker.mode
+		gamemode.cult_objs.obj_summon.find_summon_locations(TRUE)
+		if(gamemode.cult_objs.cult_status == NARSIE_NEEDS_SUMMONING) //Only update cultists if they are already have the summon goal since they arent aware of summon spots till then
+			for(var/datum/mind/cult_mind in gamemode.cult)
+				if(cult_mind && cult_mind.current)
+					to_chat(cult_mind.current, "<span class='cult'>The veil has shifted! Our summoning will need to take place elsewhere.</span>")
+					to_chat(cult_mind.current, "<span class='cult'>Current goal : [gamemode.cult_objs.obj_summon.explanation_text]</span>")
+
+		message_admins("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
+		log_admin("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
+
+	else if(href_list["cult_unlocknarsie"])
+		if(alert(usr, "Unlock the ability to summon Nar'Sie?", "Cult Debug", "Yes", "No") != "Yes")
+			return
+
+		var/datum/game_mode/gamemode = SSticker.mode
+		gamemode.cult_objs.ready_to_summon()
+		message_admins("Admin [key_name_admin(usr)] has unlocked the Cult's ability to summon Nar'Sie.")
+		log_admin("Admin [key_name_admin(usr)] has unlocked the Cult's ability to summon Nar'Sie.")
 
 	else if(href_list["adminplayerobservecoodjump"])
 		if(!check_rights(R_ADMIN))	return
@@ -3148,6 +3180,9 @@
 				usr << browse(dat, "window=manifest;size=440x410")
 			if("check_antagonist")
 				check_antagonists()
+			if("view_codewords")
+				to_chat(usr, "<b>Code Phrases:</b> <span class='codephrases'>[GLOB.syndicate_code_phrase]</span>")
+				to_chat(usr, "<b>Code Responses:</b> <span class='coderesponses'>[GLOB.syndicate_code_response]</span>")
 			if("DNA")
 				var/dat = "<b>Showing DNA from blood.</b><hr>"
 				dat += "<table cellspacing=5><tr><th>Name</th><th>DNA</th><th>Blood Type</th></tr>"

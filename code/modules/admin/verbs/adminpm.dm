@@ -211,34 +211,40 @@
 			i.addResponse(src, msg)
 		return
 
-
-/client/proc/cmd_admin_irc_pm()
+/client/proc/cmd_admin_discord_pm()
 	if(prefs.muted & MUTE_ADMINHELP)
-		to_chat(src, "<span class='danger'>Error: Private-Message: You are unable to use PM-s (muted).</span>")
+		to_chat(src, "<span class='danger'>Error: Private-Message: You are unable to use PMs (muted).</span>")
 		return
 
-	var/msg = clean_input("Message:", "Private message to admins on IRC / 400 character limit", , src)
+	if(last_discord_pm_time > world.time)
+		to_chat(usr, "<span class='warning'>Please wait [(last_discord_pm_time - world.time)/10] seconds, or for a reply, before sending another PM to Discord.</span>")
+		return
+
+	// We only allow PMs once every 10 seconds, othewrise the channel can get spammed very quickly
+	last_discord_pm_time = world.time + 10 SECONDS
+
+	var/msg = clean_input("Message:", "Private message to admins on Discord / 400 character limit", , src)
 
 	if(!msg)
 		return
 
 	sanitize(msg)
 
-	if(length(msg) > 400) // TODO: if message length is over 400, divide it up into seperate messages, the message length restriction is based on IRC limitations.  Probably easier to do this on the bots ends.
+	if(length(msg) > 400) // Dont want them super spamming
 		to_chat(src, "<span class='warning'>Your message was not sent because it was more then 400 characters find your message below for ease of copy/pasting</span>")
 		to_chat(src, "<span class='notice'>[msg]</span>")
 		return
 
-	send2adminirc("PlayerPM from [key_name(src)]: [html_decode(msg)]")
+	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "PM from [key_name(src)]: [html_decode(msg)]")
 
-	to_chat(src, "<span class='pmsend'>IRC PM to-<b>IRC-Admins</b>: [msg]</span>")
+	to_chat(src, "<span class='pmsend'>PM to-<b>Discord Admins</b>: [msg]</span>")
 
-	log_admin("PM: [key_name(src)]->IRC: [msg]")
+	log_admin("PM: [key_name(src)]->Discord: [msg]")
 	for(var/client/X in GLOB.admins)
 		if(X == src)
 			continue
-		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
-			to_chat(X, "<B><span class='pmsend'>PM: [key_name(src, TRUE, 0)]-&gt;IRC-Admins:</B> <span class='notice'>[msg]</span></span>")
+		if(check_rights(R_ADMIN, 0, X.mob))
+			to_chat(X, "<span class='pmsend'><b>PM: [key_name_admin(src)]-&gt;Discord Admins:</b> <span class='notice'>[msg]</span></span>")
 
 /client/verb/open_pms_ui()
 	set name = "My PMs"

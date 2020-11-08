@@ -12,7 +12,7 @@
 	var/obj/screen/movable/action_button/button = null
 	var/button_icon = 'icons/mob/actions/actions.dmi'
 	var/background_icon_state = "bg_default"
-
+	var/buttontooltipstyle = ""
 	var/icon_icon = 'icons/mob/actions/actions.dmi'
 	var/button_icon_state = "default"
 	var/mob/owner
@@ -22,6 +22,7 @@
 	button = new
 	button.linked_action = src
 	button.name = name
+	button.actiontooltipstyle = buttontooltipstyle
 	if(desc)
 		button.desc = desc
 
@@ -62,6 +63,9 @@
 	return TRUE
 
 /datum/action/proc/Process()
+	return
+
+/datum/action/proc/override_location() // Override to set coordinates manually
 	return
 
 /datum/action/proc/IsAvailable()// returns 1 if all checks pass

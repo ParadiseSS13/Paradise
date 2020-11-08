@@ -72,7 +72,11 @@ var opts = {
 	'enableEmoji': true,
 
 	// Reboot message stuff
-	'rebootIntervalHandler': null
+	'rebootIntervalHandler': null,
+
+	// Syndicate codewords
+	'codePhrases': [],
+	'codeResponses': []
 };
 
 var regexHasError = false; //variable to check if regex has excepted
@@ -186,11 +190,18 @@ function highlightTerms(el) {
 
 	if (regexHasError) return; //just stop right there ig the regex is gonna except
 
-	function highlightRecursor(element, term){ //recursor function to do the highlighting proper
+	function highlightRecursor(element, term, className){ //recursor function to do the highlighting proper
 		var regex = new RegExp(term, "gi");
 
-		function replace(str) {
-			return str.replace(regex, '<span class="highlight" style="background-color:'+opts.highlightColor+'">$&</span>');
+		var replace;
+		if (className) {
+			replace = function(str) {
+				return str.replace(regex, '<span class="' + className + '">$&</span>');
+			};
+		} else {
+			replace = function(str) {
+				return str.replace(regex, '<span class="highlight" style="background-color:'+opts.highlightColor+'">$&</span>');
+			};
 		}
 
 		var s = '';
@@ -243,6 +254,14 @@ function highlightTerms(el) {
 				highlightRecursor(el, opts.highlightTerms[i]);
 			}
 		}
+	}
+
+	// Code phrases
+	for (var i = 0; i < opts.codePhrases.length; i++) {
+		highlightRecursor(el, escapeRegexCharacters(opts.codePhrases[i]), "codephrases");
+	}
+	for (var i = 0; i < opts.codeResponses.length; i++) {
+		highlightRecursor(el, escapeRegexCharacters(opts.codeResponses[i]), "coderesponses");
 	}
 }
 
@@ -602,6 +621,22 @@ function rebootFinished() {
 	}
 	$("<span> Reconnected automatically!</span>").insertBefore("#reconnectTimer");
 	$("#reconnectTimer").remove();
+}
+
+function codewords(phrases, responses) {
+	function cleanCodewords(words) {
+		var arr = [];
+		for (var i in words) {
+			var trimmed = words[i].trim();
+			if (trimmed.length > 0) {
+				arr.push(trimmed);
+			}
+		}
+		return arr;
+	}
+
+	opts.codePhrases = cleanCodewords(phrases.split(","));
+	opts.codeResponses = cleanCodewords(responses.split(","));
 }
 
 /*****************************************

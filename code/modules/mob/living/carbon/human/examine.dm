@@ -23,6 +23,8 @@
 
 	if(wear_mask)
 		skipface |= wear_mask.flags_inv & HIDEFACE
+		skipeyes |= wear_mask.flags_inv & HIDEEYES
+
 	var/msg = "<span class='info'>*---------*\nThis is "
 
 	if(!(skipjumpsuit && skipface) && icon) //big suits/masks/helmets make it hard to tell their gender
@@ -143,11 +145,14 @@
 			msg += "[p_they(TRUE)] [p_have()] [bicon(wear_mask)] \a [wear_mask] on [p_their()] face.\n"
 
 	//eyes
-	if(glasses && !skipeyes && !(glasses.flags & ABSTRACT))
-		if(glasses.blood_DNA)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [bicon(glasses)] [glasses.gender==PLURAL?"some":"a"] [glasses.blood_color != "#030303" ? "blood-stained":"oil-stained"] [glasses] covering [p_their()] eyes!</span>\n"
-		else
-			msg += "[p_they(TRUE)] [p_have()] [bicon(glasses)] \a [glasses] covering [p_their()] eyes.\n"
+	if(!skipeyes)
+		if(glasses && !(glasses.flags & ABSTRACT))
+			if(glasses.blood_DNA)
+				msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [bicon(glasses)] [glasses.gender==PLURAL?"some":"a"] [glasses.blood_color != "#030303" ? "blood-stained":"oil-stained"] [glasses] covering [p_their()] eyes!</span>\n"
+			else
+				msg += "[p_they(TRUE)] [p_have()] [bicon(glasses)] \a [glasses] covering [p_their()] eyes.\n"
+		else if(iscultist(src) && HAS_TRAIT(src, CULT_EYES))
+			msg += "<span class='boldwarning'>[p_their(TRUE)] eyes are glowing an unnatural red!</span>\n"
 
 	//left ear
 	if(l_ear && !skipears)

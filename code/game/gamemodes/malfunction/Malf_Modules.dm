@@ -677,7 +677,7 @@
 
 /datum/action/innate/ai/blackout/Activate()
 	for(var/thing in GLOB.apcs)
-		var/obj/machinery/power/apc/apc
+		var/obj/machinery/power/apc/apc = thing
 		if(prob(30 * apc.overload))
 			INVOKE_ASYNC(apc, /obj/machinery/power/apc.proc/overload_lighting)
 		else

@@ -29,6 +29,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/data_hud_seen = FALSE //this should one of the defines in __DEFINES/hud.dm
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 	var/health_scan = FALSE //does the ghost have health scanner mode on? by default it should be off
+	var/datum/orbit_menu/orbit_menu
 
 /mob/dead/observer/New(mob/body=null, flags=1)
 	set_invisibility(GLOB.observer_default_invisibility)
@@ -93,6 +94,9 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		GLOB.ghost_images -= ghostimage
 		QDEL_NULL(ghostimage)
 		updateallghostimages()
+	if(orbit_menu)
+		SStgui.close_uis(orbit_menu)
+		QDEL_NULL(orbit_menu)
 	return ..()
 
 /mob/dead/observer/examine(mob/user)
@@ -378,10 +382,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			H.remove_hud_from(usr)
 	if(!M.antagHUD)
 		to_chat(usr, "AntagHud Toggled ON")
-		M.antagHUD = 1
+		M.antagHUD = TRUE
 	else
 		to_chat(usr, "AntagHud Toggled OFF")
-		M.antagHUD = 0
+		M.antagHUD = FALSE
 
 /mob/dead/observer/proc/dead_tele()
 	set category = "Ghost"
@@ -415,9 +419,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Orbit" // "Haunt"
 	set desc = "Follow and orbit a mob."
 
-	var/list/mobs = getpois(FALSE, TRUE, TRUE, TRUE)
-	var/datum/async_input/A = input_autocomplete_async(usr, "Please, select a mob: ", mobs)
-	A.on_close(CALLBACK(src, .proc/ManualFollow))
+	if(!orbit_menu)
+		orbit_menu = new(src)
+
+	orbit_menu.tgui_interact(src)
 
 // This is the ghost's follow verb with an argument
 /mob/dead/observer/proc/ManualFollow(atom/movable/target)
