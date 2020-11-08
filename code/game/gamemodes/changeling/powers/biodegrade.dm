@@ -9,7 +9,7 @@
 
 /datum/action/changeling/biodegrade/sting_action(mob/living/carbon/human/user)
 	var/used = FALSE // only one form of shackles removed per use
-	if(!user.restrained() && !istype(user.loc, /obj/structure/closet) && !istype(user.loc, /obj/structure/spider/cocoon))
+	if(!user.restrained() && !user.legcuffed && !istype(user.loc, /obj/structure/closet) && !istype(user.loc, /obj/structure/spider/cocoon))
 		to_chat(user, "<span class='warning'>We are already free!</span>")
 		return FALSE
 
@@ -20,6 +20,15 @@
 		user.visible_message("<span class='warning'>[user] vomits a glob of acid on [user.p_their()] [O.name]!</span>", \
 			"<span class='warning'>We vomit acidic ooze onto our restraints!</span>")
 		addtimer(CALLBACK(src, .proc/dissolve_handcuffs, user, O), 30)
+		used = TRUE
+
+	if(user.legcuffed)
+		var/obj/O = user.get_item_by_slot(slot_legcuffed)
+		if(!istype(O))
+			return FALSE
+		user.visible_message("<span class='warning'>[user] vomits a glob of acid on [user.p_their()] [O.name]!</span>", \
+			"<span class='warning'>We vomit acidic ooze onto our leg restraints!</span>")
+		addtimer(CALLBACK(src, .proc/dissolve_legcuffs, user, O), 30)
 		used = TRUE
 
 	if(user.wear_suit && user.wear_suit.breakouttime && !used)
@@ -55,6 +64,13 @@
 
 /datum/action/changeling/biodegrade/proc/dissolve_handcuffs(mob/living/carbon/human/user, obj/O)
 	if(O && user.handcuffed == O)
+		user.unEquip(O)
+		O.visible_message("<span class='warning'>[O] dissolves into a puddle of sizzling goop.</span>")
+		O.forceMove(get_turf(user))
+		qdel(O)
+
+/datum/action/changeling/biodegrade/proc/dissolve_legcuffs(mob/living/carbon/human/user, obj/O)
+	if(O && user.legcuffed == O)
 		user.unEquip(O)
 		O.visible_message("<span class='warning'>[O] dissolves into a puddle of sizzling goop.</span>")
 		O.forceMove(get_turf(user))
