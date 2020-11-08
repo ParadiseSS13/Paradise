@@ -465,7 +465,7 @@
 					return
 
 				if(target.mind.vampire && !target.mind.vampire.get_ability(/datum/vampire_passive/full)) // Getting a full prayer off on a vampire will interrupt their powers for a large duration.
-					target.mind.vampire.nullified = max(120, target.mind.vampire.nullified + 120)
+					target.mind.vampire.nullified = max(120, target.mind.vampire.nullified)
 					to_chat(target, "<span class='userdanger'>[user]'s prayer to [SSticker.Bible_deity_name] has interfered with your power!</span>")
 					praying = 0
 					return
