@@ -465,7 +465,7 @@
 	if(!R)
 		return
 
-	var/commenter_display = "Somebody(???)"
+	var/commenter_display = "Something(???)"
 	if(ishuman(commenter))
 		var/mob/living/carbon/human/U = commenter
 		commenter_display = "[U.get_authentification_name()] ([U.get_assignment()])"
