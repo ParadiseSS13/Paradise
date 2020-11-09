@@ -63,6 +63,17 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 /world/Topic(T, addr, master, key)
 	TGS_TOPIC
 	log_misc("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key]")
+
+	// Handle spam prevention
+	if(!GLOB.world_topic_spam_prevention_handlers[address])
+		GLOB.world_topic_spam_prevention_handlers[address] = new /datum/world_topic_spam_prevention_handler
+
+	var/datum/world_topic_spam_prevention_handler/sph = GLOB.world_topic_spam_prevention_handlers[address]
+
+	// Lock the user out and cancel their topic if needed
+	if(sph.check_lockout())
+		return
+
 	var/list/input = params2list(T)
 
 	var/datum/world_topic_handler/wth
