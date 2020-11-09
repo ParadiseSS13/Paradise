@@ -7,8 +7,8 @@
 	icon_keyboard = "med_key"
 	icon_screen = "crew"
 	circuit = /obj/item/circuitboard/operating
-	var/obj/machinery/optable/table
 	light_color = LIGHT_COLOR_PURE_BLUE
+	var/obj/machinery/optable/table
 	var/verbose = TRUE //general speaker toggle
 	var/oxyAlarm = 30 //oxy damage at which the computer will beep
 	var/choice = FALSE //just for going into and out of the options menu
@@ -17,7 +17,10 @@
 	var/nextTick = OP_COMPUTER_COOLDOWN
 	var/healthAlarm = 50
 	var/oxy = TRUE //oxygen beeping toggle
-	var/mob/living/carbon/currentPatient //Who is on the Operating Table connected to the respective Operating Computer?
+	/// Who is on the Operating Table connected to the respective Operating Computer?
+	/// Only used to see if it changed from the previous occupant. If you want any actual information
+	/// about the mob - use `table.patient` instead.
+	var/mob/living/carbon/currentPatient
 	var/patientStatusHolder //Hold the last instance of table.patient.status. When table.patient.status no longer matches this variable, the computer should tell the doctor
 
 /obj/machinery/computer/operating/New()
@@ -176,7 +179,7 @@
 		return
 	if(!verbose) //Are the speakers on?
 		return
-	if(!table.check_patient()) //Is there a patient on the table?
+	if(!table.patient) //Is there a patient on the table?
 		currentPatient = null
 		return
 	var/patientStatus // Tell the computer what to say based on the status of the patient on the table.
