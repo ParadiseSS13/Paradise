@@ -388,31 +388,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 		stone.transfer_soul("FORCE", offering, user) // If it cannot be added
 		stone.invisibility = 0
 	else
-		offering.dust()
-
-//Ritual of Dimensional Rending: Calls forth the avatar of Nar-Sie upon the station.
-/obj/effect/rune/narsie
-	cultist_name = "Tear Reality (God)"
-	cultist_desc = "tears apart dimensional barriers, calling forth your god. Requires 7 invokers."
-	invocation = "TOK-LYR RQA-NAP G'OLT-ULOFT!!"
-	req_cultists = 7
-	icon = 'icons/effects/96x96.dmi'
-	color = rgb(125,23,23)
-	icon_state = "rune_large"
-	pixel_x = -32 //So the big ol' 96x96 sprite shows up right
-	pixel_y = -32
-	mouse_opacity = MOUSE_OPACITY_ICON //we're huge and easy to click
-	scribe_delay = 450 //how long the rune takes to create
-	scribe_damage = 40.1 //how much damage you take doing it
-	var/used
-
-/obj/effect/rune/narsie/New()
-	..()
-	cultist_name = "Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "your god"]"
-	cultist_desc = "tears apart dimensional barriers, calling forth [SSticker.cultdat ? SSticker.cultdat.entity_title3 : "your god"]. Requires 7 invokers."
-
-/obj/effect/rune/narsie/check_icon()
-	return
 		if(isrobot(offering))
 			offering.dust() //To prevent the MMI from remaining
 		else
