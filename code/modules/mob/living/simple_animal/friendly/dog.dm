@@ -9,9 +9,9 @@
 	response_disarm = "bops"
 	response_harm   = "kicks"
 	speak = list("YAP", "Woof!", "Bark!", "AUUUUUU")
-	speak_emote = list("barks.", "woofs.")
-	emote_hear = list("barks!", "woofs!", "yaps.","pants.")
-	emote_see = list("shakes its head.", "chases its tail.","shivers.")
+	speak_emote = list("barks", "woofs")
+	emote_hear = list("barks!", "woofs!", "yaps.", "pants.")
+	emote_see = list("shakes its head.", "chases its tail.", "shivers.")
 	faction = list("neutral")
 	see_in_dark = 5
 	speak_chance = 1
