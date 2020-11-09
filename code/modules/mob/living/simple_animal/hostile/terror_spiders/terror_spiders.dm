@@ -223,7 +223,13 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	L.attack_animal(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/consume_jelly(obj/structure/spider/royaljelly/J)
-		to_chat(src, "<span class='notice'>You consume the royal jelly! Regeneration greatly increased!</span>")
+		if(regen_points_per_tick >= regen_points_per_hp)
+			to_chat(src, "<span class='warning'>Your spider type would not get any benefit from consuming royal jelly.</span>")
+			return
+		if(regen_points > 200)
+			to_chat(src, "<span class='warning'>You aren't hungry for jelly right now.</span>")
+			return
+		to_chat(src, "<span class='notice'>You consume the royal jelly! Regeneration speed increased!</span>")
 		regen_points += regen_points_per_jelly
 		fed++
 		qdel(J)
@@ -448,9 +454,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 			continue
 		if(T.spider_awaymission != spider_awaymission)
 			continue
-		if(T == src)
-			continue
-		targets += T
+		targets |= T // we use |= instead of += to avoid adding src to the list twice
 	var/mob/living/L = input("Choose a terror to watch.", "Selection") in targets
 	if(istype(L))
 		reset_perspective(L)

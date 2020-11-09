@@ -63,7 +63,23 @@
 	var/mob/living/simple_animal/hostile/poison/terror_spider/mother/user = owner
 	user.DoCreateJelly()
 
+/datum/action/innate/terrorspider/mother/gatherspiderlings
+	name = "Gather Spiderlings"
+	icon_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "spiderling"
 
+/datum/action/innate/terrorspider/mother/gatherspiderlings/Activate()
+	var/mob/living/simple_animal/hostile/poison/terror_spider/mother/user = owner
+	user.PickupSpiderlings()
+
+/datum/action/innate/terrorspider/mother/incubateeggs
+	name = "Incubate Eggs"
+	icon_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "eggs"
+
+/datum/action/innate/terrorspider/mother/incubateeggs/Activate()
+	var/mob/living/simple_animal/hostile/poison/terror_spider/mother/user = owner
+	user.IncubateEggs()
 
 // ---------- QUEEN ACTIONS
 
