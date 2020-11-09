@@ -86,6 +86,10 @@
 /mob/living/simple_animal/revenant/narsie_act()
 	return //most humans will now be either bones or harvesters, but we're still un-alive.
 
+
+/mob/living/simple_animal/revenant/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+	return FALSE //You are a ghost, atmos and grill makes sparks, and you make your own shocks with lights.
+
 /mob/living/simple_animal/revenant/adjustHealth(amount, updating_health = TRUE)
 	if(!revealed)
 		return
