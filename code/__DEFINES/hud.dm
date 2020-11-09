@@ -61,3 +61,11 @@
 #define NOTIFY_JUMP "jump"
 #define NOTIFY_ATTACK "attack"
 #define NOTIFY_FOLLOW "orbit"
+
+
+// The kind of things granted by HUD items in game, that do not manifest as
+// on-screen icons, but rather go to examine text.
+#define EXAMINE_HUD_SECURITY_READ "security_read"
+#define EXAMINE_HUD_SECURITY_WRITE "security_write"
+#define EXAMINE_HUD_MEDICAL "medical"
+#define EXAMINE_HUD_SKILLS "skills"
