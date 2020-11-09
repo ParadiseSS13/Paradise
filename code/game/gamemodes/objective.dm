@@ -29,7 +29,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TARGET_INVALID_IS_TARGET
 	if(!ishuman(possible_target.current))
 		return TARGET_INVALID_NOT_HUMAN
-	if(!possible_target.current.stat == DEAD)
+	if(possible_target.current.stat == DEAD)
 		return TARGET_INVALID_DEAD
 	if(!possible_target.key)
 		return TARGET_INVALID_NOCKEY
