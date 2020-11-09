@@ -223,16 +223,16 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	L.attack_animal(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/consume_jelly(obj/structure/spider/royaljelly/J)
-		if(regen_points_per_tick >= regen_points_per_hp)
-			to_chat(src, "<span class='warning'>Your spider type would not get any benefit from consuming royal jelly.</span>")
-			return
-		if(regen_points > 200)
-			to_chat(src, "<span class='warning'>You aren't hungry for jelly right now.</span>")
-			return
-		to_chat(src, "<span class='notice'>You consume the royal jelly! Regeneration speed increased!</span>")
-		regen_points += regen_points_per_jelly
-		fed++
-		qdel(J)
+	if(regen_points_per_tick >= regen_points_per_hp)
+		to_chat(src, "<span class='warning'>Your spider type would not get any benefit from consuming royal jelly.</span>")
+		return
+	if(regen_points > 200)
+		to_chat(src, "<span class='warning'>You aren't hungry for jelly right now.</span>")
+		return
+	to_chat(src, "<span class='notice'>You consume the royal jelly! Regeneration speed increased!</span>")
+	regen_points += regen_points_per_jelly
+	fed++
+	qdel(J)
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: PROC OVERRIDES ---------------------------
