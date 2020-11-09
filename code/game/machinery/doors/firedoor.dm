@@ -19,11 +19,11 @@
 	safe = FALSE
 	layer = BELOW_OPEN_DOOR_LAYER
 	closingLayer = CLOSED_FIREDOOR_LAYER
-	auto_close_time = 50
+	auto_close_time = 5 SECONDS
 	assemblytype = /obj/structure/firelock_frame
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 95, "acid" = 70)
 	/// How long does opening by hand take, in deciseconds.
-	var/manual_open_time = 50
+	var/manual_open_time = 5 SECONDS
 	var/can_crush = TRUE
 	var/nextstate = null
 	/// Whether the "bolts" are "screwed". Used for deconstruction sequence. Has nothing to do with airlock bolting.
@@ -98,13 +98,13 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 
 	user.visible_message(
-		"<span class='notice'>[user] tries to open \the [src] manually.</span>",
-		"<span class='notice'>You operate the manual lever on \the [src].</span>")
+		"<span class='notice'>[user] tries to open [src] manually.</span>",
+		"<span class='notice'>You operate the manual lever on [src].</span>")
 
 	if(do_after(user, manual_open_time, target = src))
 		user.visible_message(
-			"<span class='notice'>[user] opens \the [src].</span>",
-			"<span class='notice'>You open \the [src].</span>")
+			"<span class='notice'>[user] opens [src].</span>",
+			"<span class='notice'>You open [src].</span>")
 		open(auto_close = FALSE)
 
 /obj/machinery/door/firedoor/attackby(obj/item/C, mob/user, params)
