@@ -15,9 +15,9 @@
 #define TS_DESC_BLACK "Black - Poison"
 #define TS_DESC_PURPLE "Purple - Guard"
 #define TS_DESC_BROWN "Brown - Breacher"
-#define TS_DESC_PRINCE "Prince - WAR"
+#define TS_DESC_PRINCE "Prince - HERO"
 #define TS_DESC_PRINCESS "Princess - HORDE"
-#define TS_DESC_MOTHER "Mother - HORROR"
+#define TS_DESC_MOTHER "Mother - SUPPORT"
 #define TS_DESC_QUEEN "Queen - LEADER"
 
 #define TS_TIER_1 1

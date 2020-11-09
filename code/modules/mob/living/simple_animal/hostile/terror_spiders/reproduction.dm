@@ -90,6 +90,8 @@
 			frustration = 0
 			var/list/vents = list()
 			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in entry_vent.parent.other_atmosmch)
+				if(temp_vent.welded) // no point considering a vent we can't even use
+					continue
 				vents.Add(temp_vent)
 			if(!vents.len)
 				entry_vent = null
@@ -244,3 +246,8 @@
 			if(spider_growinstantly)
 				S.amount_grown = 250
 		qdel(src)
+
+/obj/structure/spider/royaljelly
+	name = "royal jelly"
+	desc = "A pulsating mass of slime, jelly, blood, and or liquified human organs considered delicious and highly nutritious by terror spiders."
+	icon_state = "spiderjelly"

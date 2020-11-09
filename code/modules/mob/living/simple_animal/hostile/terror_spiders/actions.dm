@@ -42,6 +42,28 @@
 	var/mob/living/simple_animal/hostile/poison/terror_spider/user = owner
 	user.DoVentSmash()
 
+/datum/action/innate/terrorspider/remoteview
+	name = "Remote View"
+	icon_icon = 'icons/obj/eyes.dmi'
+	button_icon_state = "heye"
+
+/datum/action/innate/terrorspider/remoteview/Activate()
+	var/mob/living/simple_animal/hostile/poison/terror_spider/user = owner
+	user.DoRemoteView()
+
+
+// ---------- MOTHER ACTIONS
+
+/datum/action/innate/terrorspider/mother/royaljelly
+	name = "Lay Royal Jelly"
+	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "spiderjelly"
+
+/datum/action/innate/terrorspider/mother/royaljelly/Activate()
+	var/mob/living/simple_animal/hostile/poison/terror_spider/mother/user = owner
+	user.DoCreateJelly()
+
+
 
 // ---------- QUEEN ACTIONS
 
@@ -271,3 +293,4 @@
 				C.visible_message("<span class='danger'>[src] smashes the welded cover off [C]!</span>")
 				return
 		to_chat(src, "<span class='danger'>There is no welded vent or scrubber close enough to do this.</span>")
+
