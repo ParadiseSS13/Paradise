@@ -199,6 +199,14 @@
 			var/obj/structure/W = A
 			W.obj_destruction("fireaxe")
 
+/obj/item/twohanded/fireaxe/boneaxe  // Blatant imitation of the fireaxe, but made out of bone.
+	icon_state = "bone_axe0"
+	name = "bone axe"
+	desc = "A large, vicious axe crafted out of several sharpened bone plates and crudely tied together. Made of monsters, by killing monsters, for killing monsters."
+	force_wielded = 23
+
+/obj/item/twohanded/fireaxe/boneaxe/update_icon()
+	icon_state = "bone_axe[wielded]"
 
 /obj/item/twohanded/fireaxe/energized
 	desc = "Someone with a love for fire axes decided to turn this one into a high-powered energy weapon. Seems excessive."
@@ -235,15 +243,6 @@
 			M.Weaken(4)
 			var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
 			M.throw_at(throw_target, 5, 1)
-
-/obj/item/twohanded/fireaxe/boneaxe  // Blatant imitation of the fireaxe, but made out of bone.
-	icon_state = "bone_axe0"
-	name = "bone axe"
-	desc = "A large, vicious axe crafted out of several sharpened bone plates and crudely tied together. Made of monsters, by killing monsters, for killing monsters."
-	force_wielded = 23
-
-/obj/item/twohanded/fireaxe/boneaxe/update_icon()
-	icon_state = "bone_axe[wielded]"
 
 /*
  * Double-Bladed Energy Swords - Cheridan
