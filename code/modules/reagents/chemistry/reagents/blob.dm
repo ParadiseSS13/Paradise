@@ -166,7 +166,7 @@
 		M.apply_damage(0.4*volume, TOX)
 		M.apply_damage(0.2*volume, BRUTE) // lets not have IPC / plasmaman only take 7.5 damage from this
 		if(M.reagents)
-			M.reagents.add_reagent("radium", 0.25*volume)
+			M.reagents.add_reagent("radium", 0.3*volume)
 
 /datum/reagent/blob/teslium_paste
 	name = "Teslium paste"
