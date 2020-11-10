@@ -173,7 +173,7 @@
 	description = "Deals medium burn damage, and shocks those struck over time"
 	id = "teslium_paste"
 	color = "#20324D"
-	complementary_color = "#20324D"
+	complementary_color = "#412968"
 	message_living = ", and you feel a static shock"
 
 /datum/reagent/blob/teslium_paste/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
@@ -181,8 +181,8 @@
 		volume = ..()
 		M.apply_damage(0.4*volume, BURN)
 		if(M.reagents)
-			if(M.reagents.has_reagent("teslium") && prob(0.4 * volume))
-				M.electrocute_act((0.75 * volume), "Blob overcharge", 1, TRUE)
+			if(M.reagents.has_reagent("teslium") && prob(0.6 * volume))
+				M.electrocute_act((0.75 * volume), "the blob's electrical discharge", 1, TRUE)
 				M.reagents.del_reagent("teslium")
 				return //don't add more teslium after you shock it out of someone.
 			M.reagents.add_reagent("teslium", 0.15*volume)  // a little goes a long way
