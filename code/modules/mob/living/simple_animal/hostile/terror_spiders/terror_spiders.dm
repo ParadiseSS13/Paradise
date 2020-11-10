@@ -440,6 +440,10 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 				stat(null, "Regeneration: [ltext]: <font color='[lcolor]'>[num2text(pc_of_max_per_second)]% of health per second</font>")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoRemoteView()
+	if(!isturf(loc))
+		// This check prevents spiders using this ability while inside an atmos pipe, which will mess up their vision
+		to_chat(src, "<span class='warning'>You must be standing on a floor to do this.</span>")
+		return
 	if(client && (client.eye != client.mob))
 		reset_perspective()
 		return
@@ -460,7 +464,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		reset_perspective(L)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/adjustHealth(amount, updating_health = TRUE)
-	if(client && (client.eye != client.mob))
+	if(client && (client.eye != client.mob) && ismob(client.eye)) // the ismob check is required because client.eye can = atmos machines if a spider is in the vent
 		to_chat(src, "<span class='warning'>Cancelled remote view due to being under attack!</span>")
 		reset_perspective()
 	. = ..()

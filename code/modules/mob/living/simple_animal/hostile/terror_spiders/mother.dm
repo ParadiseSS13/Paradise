@@ -115,9 +115,9 @@
 	// Mothers can spend regen points to make existing eggs mature faster.
 	// This lets mothers save the spiderlings from eggs that would otherwise be lost when a nest is about to get wiped out.
 	if(regen_points < 50)
-		to_chat(src, "<span class='danger'>You need at least 50 regeneration points to do this.</span>")
+		to_chat(src, "<span class='danger'>You only have [regen_points] of the 50 regeneration points required to do this.</span>")
 		return
-	for(var/obj/structure/spider/eggcluster/terror_eggcluster/C in orange(1, src))
+	for(var/obj/structure/spider/eggcluster/terror_eggcluster/C in orange(0, src))
 		var/turf/T = get_turf(C)
 		new /obj/effect/temp_visual/heal(T)
 		C.amount_grown += 25
