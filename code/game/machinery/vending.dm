@@ -1862,6 +1862,7 @@
 					/obj/item/clothing/under/redeveninggown = 1,
 					/obj/item/clothing/under/blacktango = 1,
 					/obj/item/clothing/suit/jacket = 3,
+					/obj/item/clothing/suit/jacket/motojacket = 3,
 					/obj/item/clothing/glasses/regular = 2,
 					/obj/item/clothing/glasses/sunglasses_fake = 2,
 					/obj/item/clothing/head/sombrero = 1,
