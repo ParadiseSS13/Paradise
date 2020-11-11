@@ -531,6 +531,7 @@
 	sharp = TRUE
 	no_spin_thrown = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	needs_permit = TRUE
 	var/datum/action/innate/cult/spear/spear_act
 
 /obj/item/twohanded/cult_spear/Destroy()
