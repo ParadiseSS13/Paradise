@@ -40,6 +40,7 @@
 	var/shoe_walking_volume = 20
 
 /turf/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
 	if(initialized)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
@@ -165,13 +166,6 @@
 		var/mob/O = M
 		if(!O.lastarea)
 			O.lastarea = get_area(O.loc)
-
-	var/loopsanity = 100
-	for(var/atom/A in range(1))
-		if(loopsanity == 0)
-			break
-		loopsanity--
-		A.HasProximity(M)
 
 	// If an opaque movable atom moves around we need to potentially update visibility.
 	if(M.opacity)
@@ -336,10 +330,6 @@
 
 /turf/proc/Bless()
 	flags |= NOJAUNT
-
-/turf/get_spooked()
-	for(var/atom/movable/AM in contents)
-		AM.get_spooked()
 
 // Defined here to avoid runtimes
 /turf/proc/MakeDry(wet_setting = TURF_WET_WATER)

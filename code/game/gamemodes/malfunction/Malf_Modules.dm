@@ -677,9 +677,9 @@
 
 /datum/action/innate/ai/blackout/Activate()
 	for(var/thing in GLOB.apcs)
-		var/obj/machinery/power/apc/apc
+		var/obj/machinery/power/apc/apc = thing
 		if(prob(30 * apc.overload))
-			apc.overload_lighting()
+			INVOKE_ASYNC(apc, /obj/machinery/power/apc.proc/overload_lighting)
 		else
 			apc.overload++
 	to_chat(owner, "<span class='notice'>Overcurrent applied to the powernet.</span>")

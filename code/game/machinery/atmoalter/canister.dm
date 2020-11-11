@@ -367,10 +367,8 @@ update_flag
 		if("eject")
 			if(holding)
 				if(valve_open)
-					if(air_contents && (air_contents.toxins > 0 || air_contents.sleeping_agent > 0))
-						message_admins("[ADMIN_LOOKUPFLW(usr)] removed [holding] from [src] with valve still open at [ADMIN_VERBOSEJMP(src)] releasing contents into the <span class='boldannounce'>air</span>.")
-					release_log += "[key_name(usr)] removed the [holding], leaving the valve open and transferring into the air<br>"
-					investigate_log("[key_name(usr)] removed the [holding], leaving the valve open and transferring into the <span class='boldannounce'>air</span>.", "atmos")
+					valve_open = FALSE
+					release_log += "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the [holding]<br>"
 				replace_tank(usr, FALSE)
 		if("recolor")
 			if(can_label)

@@ -23,6 +23,8 @@
 
 	if(wear_mask)
 		skipface |= wear_mask.flags_inv & HIDEFACE
+		skipeyes |= wear_mask.flags_inv & HIDEEYES
+
 	var/msg = "<span class='info'>*---------*\nThis is "
 
 	if(!(skipjumpsuit && skipface) && icon) //big suits/masks/helmets make it hard to tell their gender
@@ -143,11 +145,14 @@
 			msg += "[p_they(TRUE)] [p_have()] [bicon(wear_mask)] \a [wear_mask] on [p_their()] face.\n"
 
 	//eyes
-	if(glasses && !skipeyes && !(glasses.flags & ABSTRACT))
-		if(glasses.blood_DNA)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [bicon(glasses)] [glasses.gender==PLURAL?"some":"a"] [glasses.blood_color != "#030303" ? "blood-stained":"oil-stained"] [glasses] covering [p_their()] eyes!</span>\n"
-		else
-			msg += "[p_they(TRUE)] [p_have()] [bicon(glasses)] \a [glasses] covering [p_their()] eyes.\n"
+	if(!skipeyes)
+		if(glasses && !(glasses.flags & ABSTRACT))
+			if(glasses.blood_DNA)
+				msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [bicon(glasses)] [glasses.gender==PLURAL?"some":"a"] [glasses.blood_color != "#030303" ? "blood-stained":"oil-stained"] [glasses] covering [p_their()] eyes!</span>\n"
+			else
+				msg += "[p_they(TRUE)] [p_have()] [bicon(glasses)] \a [glasses] covering [p_their()] eyes.\n"
+		else if(iscultist(src) && HAS_TRAIT(src, CULT_EYES))
+			msg += "<span class='boldwarning'>[p_their(TRUE)] eyes are glowing an unnatural red!</span>\n"
 
 	//left ear
 	if(l_ear && !skipears)
@@ -364,6 +369,17 @@
 			msg += "<span class = 'deptradio'>Security records:</span> <a href='?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
 			msg += "<span class = 'deptradio'>Latest entry:</span> [commentLatest]\n"
 
+	if(hasHUD(user, "skills"))
+		var/perpname = get_visible_name(TRUE)
+		var/skills
+
+		if(perpname)
+			for(var/datum/data/record/E in GLOB.data_core.general)
+				if(E.fields["name"] == perpname)
+					skills = E.fields["notes"]
+			if(skills)
+				msg += "<span class='deptradio'>Employment records:</span> [skills]\n"
+
 	if(hasHUD(user,"medical"))
 		var/perpname = get_visible_name(TRUE)
 		var/medical = "None"
@@ -377,9 +393,11 @@
 		msg += "<span class = 'deptradio'>Physical status:</span> <a href='?src=[UID()];medical=1'>\[[medical]\]</a>\n"
 		msg += "<span class = 'deptradio'>Medical records:</span> <a href='?src=[UID()];medrecord=`'>\[View\]</a> <a href='?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
 
-
 	if(print_flavor_text() && !skipface)
-		msg += "[print_flavor_text()]\n"
+		if(get_organ("head"))
+			var/obj/item/organ/external/head/H = get_organ("head")
+			if(!H.disfigured)
+				msg += "[print_flavor_text()]\n"
 
 	msg += "*---------*</span>"
 	if(pose)
@@ -404,8 +422,11 @@
 				return !istype(CIH,/obj/item/organ/internal/cyberimp/eyes/hud/security) && S && S.read_only
 			if("medical")
 				return istype(H.glasses, /obj/item/clothing/glasses/hud/health) || istype(CIH,/obj/item/organ/internal/cyberimp/eyes/hud/medical)
+			if("skills")
+				return istype(H.glasses, /obj/item/clothing/glasses/hud/skills)
 			else
 				return FALSE
+
 	else if(isrobot(M) || isAI(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
 		switch(hudtype)
 			if("security")
@@ -419,6 +440,8 @@
 		if(O.data_hud_seen == DATA_HUD_SECURITY_ADVANCED || O.data_hud_seen == DATA_HUD_DIAGNOSTIC + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED)
 			switch(hudtype)
 				if("security")
+					return TRUE
+				if("skills")
 					return TRUE
 				else
 					return FALSE

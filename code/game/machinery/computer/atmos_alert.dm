@@ -10,7 +10,6 @@
 	var/list/priority_alarms = list()
 	var/list/minor_alarms = list()
 	var/receive_frequency = ATMOS_FIRE_FREQ
-	var/datum/radio_frequency/radio_connection
 
 /obj/machinery/computer/atmos_alert/Initialize(mapload)
 	. = ..()
@@ -57,7 +56,7 @@
 				. = TRUE
 	update_icon()
 
-/obj/machinery/computer/atmos_alert/proc/set_frequency(new_frequency)
+/obj/machinery/computer/atmos_alert/set_frequency(new_frequency)
 	SSradio.remove_object(src, receive_frequency)
 	receive_frequency = new_frequency
 	radio_connection = SSradio.add_object(src, receive_frequency, RADIO_ATMOSIA)

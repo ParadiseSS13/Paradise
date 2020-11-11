@@ -126,6 +126,7 @@
 			usr.visible_message("<span class='notice'>[usr] detaches [rig] from [src].</span>", "<span class='notice'>You detach [rig] from [src].</span>")
 			rig.forceMove(get_turf(usr))
 			rig = null
+			qdel(GetComponent(/datum/component/proximity_monitor))
 			lastrigger = null
 			overlays.Cut()
 
@@ -148,7 +149,8 @@
 				rig = H
 				user.drop_item()
 				H.forceMove(src)
-
+				if(rig.has_prox_sensors())
+					AddComponent(/datum/component/proximity_monitor)
 				var/icon/test = getFlatIcon(H)
 				test.Shift(NORTH, 1)
 				test.Shift(EAST, 6)
@@ -156,7 +158,7 @@
 	else
 		return ..()
 
-obj/structure/reagent_dispensers/fueltank/welder_act(mob/user, obj/item/I)
+/obj/structure/reagent_dispensers/fueltank/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!reagents.has_reagent("fuel"))
 		to_chat(user, "<span class='warning'>[src] is out of fuel!</span>")

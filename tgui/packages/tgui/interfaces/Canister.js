@@ -221,7 +221,6 @@ export const Canister = (props, context) => {
           buttons={!!hasHoldingTank && (
             <Button
               icon="eject"
-              color={valveOpen && 'danger'}
               content="Eject"
               onClick={() => act('eject')} />
           )}>

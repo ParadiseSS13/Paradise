@@ -53,7 +53,7 @@
 			players_to_spawn += candidate
 	else
 		to_chat(src, "Polling candidates...")
-		players_to_spawn = SSghost_spawns.poll_candidates("Do you want to play as \a [O.name]?")
+		players_to_spawn = SSghost_spawns.poll_candidates("Do you want to play as \a [initial(O.name)]?")
 
 	if(!players_to_spawn.len)
 		to_chat(src, "Nobody volunteered.")
@@ -93,4 +93,3 @@
 	feedback_add_details("admin_verb","SPAWNGIM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 // ---------------------------------------------------------------------------------------------------------
-

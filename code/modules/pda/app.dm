@@ -69,7 +69,8 @@
 	pda.current_app = src
 	return 1
 
-/datum/data/pda/app/proc/update_ui(mob/user as mob, list/data)
+/datum/data/pda/app/proc/update_ui(mob/user, list/data)
+	return
 
 
 // Utilities just have a button on the home screen, but custom code when clicked
@@ -99,8 +100,10 @@
 		name = "Disable [base_name]"
 
 	pda.update_shortcuts()
-	return 1
+	return TRUE
 
-/datum/data/pda/utility/scanmode/proc/scan_mob(mob/living/C as mob, mob/living/user as mob)
+/datum/data/pda/utility/scanmode/proc/scan_mob(mob/living/C, mob/living/user)
+	return
 
-/datum/data/pda/utility/scanmode/proc/scan_atom(atom/A as mob|obj|turf|area, mob/user as mob)
+/datum/data/pda/utility/scanmode/proc/scan_atom(atom/A, mob/user)
+	return

@@ -99,14 +99,14 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				to_chat(H, "<span class='shadowling'><b><i>Your powers are awoken. You may now live to your fullest extent. Remember your goal. Cooperate with your thralls and allies.</b></i></span>")
 				H.ExtinguishMob()
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_vision(null))
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/enthrall(null))
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/glare(null))
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/enthrall(null))
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/glare(null))
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/veil(null))
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_walk(null))
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/flashfreeze(null))
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/collective_mind(null))
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_regenarmor(null))
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_extend_shuttle(null))
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/shadowling_extend_shuttle(null))
 
 				QDEL_NULL(H.hud_used)
 				H.hud_used = new /datum/hud/human(H, ui_style2icon(H.client.prefs.UI_style), H.client.prefs.UI_style_color, H.client.prefs.UI_style_alpha)
@@ -163,7 +163,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 					to_chat(M, "<span class='userdanger'>An immense pressure slams you onto the ground!</span>")
 				for(var/thing in GLOB.apcs)
 					var/obj/machinery/power/apc/A = thing
-					A.overload_lighting()
+					INVOKE_ASYNC(A, /obj/machinery/power/apc.proc/overload_lighting)
 				var/mob/living/simple_animal/ascendant_shadowling/A = new /mob/living/simple_animal/ascendant_shadowling(H.loc)
 				A.announce("VYSHA NERADA YEKHEZET U'RUU!!", 5, 'sound/hallucinations/veryfar_noise.ogg')
 				for(var/obj/effect/proc_holder/spell/S in H.mind.spell_list)
@@ -172,8 +172,8 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				H.mind.transfer_to(A)
 				A.name = H.real_name
 				A.languages = H.languages
-				A.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/annihilate(null))
-				A.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/hypnosis(null))
+				A.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/annihilate(null))
+				A.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/hypnosis(null))
 				A.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_phase_shift(null))
 				A.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/ascendant_storm(null))
 				A.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowlingAscendantTransmit(null))

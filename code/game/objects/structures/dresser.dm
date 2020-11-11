@@ -67,7 +67,7 @@
 	. = TRUE
 	default_unfasten_wrench(user, I, time = 20)
 
-obj/structure/dresser/deconstruct(disassembled = FALSE)
+/obj/structure/dresser/deconstruct(disassembled = FALSE)
 	var/mat_drop = 15
 	if(disassembled)
 		mat_drop = 30

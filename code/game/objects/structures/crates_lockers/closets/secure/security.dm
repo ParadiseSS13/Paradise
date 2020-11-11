@@ -48,7 +48,7 @@
 
 /obj/structure/closet/secure_closet/hop/New()
 	..()
-	new /obj/item/clothing/glasses/sunglasses(src)
+	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
 	new /obj/item/clothing/head/hopcap(src)
 	new /obj/item/cartridge/hop(src)
 	new /obj/item/radio/headset/heads/hop(src)
@@ -251,7 +251,8 @@
 	new /obj/item/melee/baton/loaded(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses/read_only(src)
-	new /obj/item/clothing/glasses/hud/health/sunglasses
+	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
+	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
 	new /obj/item/clothing/head/beret/centcom/officer(src)
 	new /obj/item/clothing/head/beret/centcom/officer/navy(src)
 	new /obj/item/clothing/suit/armor/vest/blueshield(src)
@@ -279,7 +280,7 @@
 	new /obj/item/storage/briefcase(src)
 	new /obj/item/paicard(src)
 	new /obj/item/flash(src)
-	new /obj/item/clothing/glasses/sunglasses(src)
+	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
 	new /obj/item/clothing/gloves/color/white(src)
 	new /obj/item/clothing/shoes/centcom(src)
 	new /obj/item/clothing/under/lawyer/oldman(src)

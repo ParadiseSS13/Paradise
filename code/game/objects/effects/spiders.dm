@@ -42,7 +42,7 @@
 /obj/structure/spider/stickyweb/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height == 0)
 		return TRUE
-	if(istype(mover, /mob/living/simple_animal/hostile/poison/giant_spider))
+	if(istype(mover, /mob/living/simple_animal/hostile/poison/giant_spider) || isterrorspider(mover))
 		return TRUE
 	else if(istype(mover, /mob/living))
 		if(prob(50))

@@ -1268,6 +1268,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/name_used = M.GetVoice()
 	//This communication is imperfect because the holopad "filters" voices and is only designed to connect to the master only.
 	var/rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [message]</span></i>"
+	if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+		var/message_clean = combine_message(message_pieces, null, M)
+		create_chat_message(M, message_clean)
 	show_message(rendered, 2)
 
 /mob/living/silicon/ai/proc/malfhacked(obj/machinery/power/apc/apc)
@@ -1332,8 +1335,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(istype(A))
 			switch(alert(src, "Do you want to open \the [A] for [target]?", "Doorknob_v2a.exe", "Yes", "No"))
 				if("Yes")
-					A.AIShiftClick()
-					to_chat(src, "<span class='notice'>You open \the [A] for [target].</span>")
+					if(!A.density)
+						to_chat(src, "<span class='notice'>[A] was already opened.</span>")
+					else if(A.open_close(src))
+						to_chat(src, "<span class='notice'>You open \the [A] for [target].</span>")
 				else
 					to_chat(src, "<span class='warning'>You deny the request.</span>")
 		else

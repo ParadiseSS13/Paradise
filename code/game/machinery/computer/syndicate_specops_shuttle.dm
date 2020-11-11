@@ -17,6 +17,7 @@ GLOBAL_VAR_INIT(syndicate_elite_shuttle_timeleft, 0)
 	icon_screen = "syndishuttle"
 	light_color = LIGHT_COLOR_PURE_CYAN
 	req_access = list(ACCESS_SYNDICATE)
+	bubble_icon = "syndibot"
 	var/temp = null
 	var/hacked = 0
 	var/allowedtocall = 0

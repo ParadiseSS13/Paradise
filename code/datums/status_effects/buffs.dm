@@ -215,18 +215,20 @@
 	alert_type = /obj/screen/alert/status_effect/regenerative_core
 
 /datum/status_effect/regenerative_core/on_apply()
-	owner.status_flags |= IGNORESLOWDOWN
+	owner.status_flags |= IGNORE_SPEED_CHANGES
 	owner.adjustBruteLoss(-25)
 	owner.adjustFireLoss(-25)
 	owner.remove_CC()
-	owner.bodytemperature = BODYTEMP_NORMAL
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
+		H.bodytemperature = H.dna.species.body_temperature
 		for(var/thing in H.bodyparts)
 			var/obj/item/organ/external/E = thing
 			E.internal_bleeding = FALSE
 			E.mend_fracture()
+	else
+		owner.bodytemperature = BODYTEMP_NORMAL
 	return TRUE
 
 /datum/status_effect/regenerative_core/on_remove()
-	owner.status_flags &= ~IGNORESLOWDOWN
+	owner.status_flags &= ~IGNORE_SPEED_CHANGES

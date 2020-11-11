@@ -44,4 +44,4 @@
 		return TRUE
 	if(!user)
 		return FALSE
-	return !CanUseTopic(user, GLOB.physical_state)
+	return !tgui_status(user, GLOB.tgui_physical_state)

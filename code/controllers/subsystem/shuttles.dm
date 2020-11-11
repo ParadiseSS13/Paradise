@@ -31,7 +31,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/points_per_intel = 250			//points gained per intel returned
 	var/points_per_plasma = 5			//points gained per plasma returned
 	var/points_per_design = 25			//points gained per research design returned
-	var/centcom_message = ""			//Remarks from Centcom on how well you checked the last order.
+	var/centcom_message = null			//Remarks from Centcom on how well you checked the last order.
 	var/list/discoveredPlants = list()	//Typepaths for unusual plants we've already sent CentComm, associated with their potencies
 	var/list/techLevels = list()
 	var/list/researchDesigns = list()
@@ -60,6 +60,8 @@ SUBSYSTEM_DEF(shuttle)
 		if(P.name == "HEADER") continue		// To filter out group headers
 		supply_packs["[P.type]"] = P
 	initial_move()
+
+	centcom_message = "<center>---[station_time_timestamp()]---</center><br>Remember to stamp and send back the supply manifests.<hr>"
 
 	return ..()
 
@@ -252,7 +254,7 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/proc/generateSupplyOrder(packId, _orderedby, _orderedbyRank, _comment, _crates)
 	if(!packId)
 		return
-	var/datum/supply_packs/P = supply_packs["[packId]"]
+	var/datum/supply_packs/P = locateUID(packId)
 	if(!P)
 		return
 

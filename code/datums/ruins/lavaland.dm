@@ -42,7 +42,7 @@
 	cost = 10
 	allow_duplicates = FALSE
 
-datum/map_template/ruin/lavaland/ash_walker
+/datum/map_template/ruin/lavaland/ash_walker
 	name = "Ash Walker Nest"
 	id = "ash-walker"
 	description = "A race of unbreathing lizards live here, that run faster than a human can, worship a broken dead city, and are capable of reproducing by something involving tentacles? \

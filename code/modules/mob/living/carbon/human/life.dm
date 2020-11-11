@@ -696,13 +696,14 @@
 
 	if(alcohol_strength >= slur_start) //slurring
 		Slur(drunk)
-	if(alcohol_strength >= brawl_start) //the drunken martial art
-		if(!istype(martial_art, /datum/martial_art/drunk_brawling))
-			var/datum/martial_art/drunk_brawling/F = new
-			F.teach(src, 1)
-	if(alcohol_strength < brawl_start) //removing the art
-		if(istype(martial_art, /datum/martial_art/drunk_brawling))
-			martial_art.remove(src)
+	if(mind)
+		if(alcohol_strength >= brawl_start) //the drunken martial art
+			if(!istype(mind.martial_art, /datum/martial_art/drunk_brawling))
+				var/datum/martial_art/drunk_brawling/F = new
+				F.teach(src, TRUE)
+		else if(alcohol_strength < brawl_start) //removing the art
+			if(istype(mind.martial_art, /datum/martial_art/drunk_brawling))
+				mind.martial_art.remove(src)
 	if(alcohol_strength >= confused_start && prob(33)) //confused walking
 		if(!confused)
 			Confused(1)

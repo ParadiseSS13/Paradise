@@ -102,6 +102,7 @@
 	var/rank = null			//actual job
 	var/owner_uid
 	var/owner_ckey
+	var/lastlog
 	var/dorm = 0			// determines if this ID has claimed a dorm already
 
 	var/sex

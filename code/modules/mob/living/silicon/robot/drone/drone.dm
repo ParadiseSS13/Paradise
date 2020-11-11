@@ -31,6 +31,10 @@
 	var/obj/item/stack/sheet/plastic/stack_plastic = null
 	var/obj/item/matter_decompiler/decompiler = null
 
+	// What objects can drones bump into
+	var/static/list/allowed_bumpable_objects = list(/obj/machinery/door, /obj/machinery/recharge_station, /obj/machinery/disposal/deliveryChute,
+													/obj/machinery/teleport/hub, /obj/effect/portal, /obj/structure/transit_tube/station)
+
 	//Used for self-mailing.
 	var/mail_destination = 0
 	var/reboot_cooldown = 60 // one minute
@@ -125,6 +129,11 @@
 
 /mob/living/silicon/robot/drone/pick_module()
 	return
+
+/mob/living/silicon/robot/drone/can_be_revived()
+	. = ..()
+	if(emagged)
+		return FALSE
 
 //Drones cannot be upgraded with borg modules so we need to catch some items before they get used in ..().
 /mob/living/silicon/robot/drone/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -325,11 +334,7 @@
 
 
 /mob/living/silicon/robot/drone/Bump(atom/movable/AM, yes)
-	if(istype(AM, /obj/machinery/door) \
-	|| istype(AM, /obj/machinery/recharge_station) \
-	|| istype(AM, /obj/machinery/disposal/deliveryChute) \
-	|| istype(AM, /obj/machinery/teleport/hub) \
-	|| istype(AM, /obj/effect/portal))
+	if(is_type_in_list(AM, allowed_bumpable_objects))
 		return ..()
 
 /mob/living/silicon/robot/drone/Bumped(atom/movable/AM)

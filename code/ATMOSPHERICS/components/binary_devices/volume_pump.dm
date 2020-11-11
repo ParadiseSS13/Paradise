@@ -24,9 +24,7 @@ Thus, the two variables affect pump operation are set in New():
 	var/on = 0
 	var/transfer_rate = 200
 
-	var/frequency = 0
 	var/id = null
-	var/datum/radio_frequency/radio_connection
 
 /obj/machinery/atmospherics/binary/volume_pump/CtrlClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
@@ -122,12 +120,6 @@ Thus, the two variables affect pump operation are set in New():
 	parent2.update = 1
 
 	return 1
-
-/obj/machinery/atmospherics/binary/volume_pump/proc/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	if(frequency)
-		radio_connection = SSradio.add_object(src, frequency)
 
 /obj/machinery/atmospherics/binary/volume_pump/proc/broadcast_status()
 	if(!radio_connection)

@@ -12,6 +12,10 @@
 	var/obj/item/tank/bombtank = null //the second part of the bomb is a plasma tank
 	origin_tech = "materials=1;engineering=1"
 
+/obj/item/onetankbomb/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/proximity_monitor)
+
 /obj/item/onetankbomb/examine(mob/user)
 	. = ..()
 	. += bombtank.examine(user)

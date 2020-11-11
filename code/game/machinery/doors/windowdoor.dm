@@ -57,6 +57,11 @@
 	if(emagged)
 		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
 
+/obj/machinery/door/window/emp_act(severity)
+	. = ..()
+	if(prob(20 / severity))
+		open()
+
 /obj/machinery/door/window/proc/open_and_close()
 	open()
 	if(check_access(null))

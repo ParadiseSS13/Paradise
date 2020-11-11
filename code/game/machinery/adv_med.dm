@@ -175,7 +175,7 @@
 		A.forceMove(loc)
 	SStgui.update_uis(src)
 
-/obj/machinery/bodyscanner/force_eject_occupant()
+/obj/machinery/bodyscanner/force_eject_occupant(mob/target)
 	go_out()
 
 /obj/machinery/bodyscanner/ex_act(severity)

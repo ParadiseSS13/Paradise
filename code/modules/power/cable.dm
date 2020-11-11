@@ -229,7 +229,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(current_size >= STAGE_FIVE)
 		deconstruct()
 
-obj/structure/cable/proc/cable_color(colorC)
+/obj/structure/cable/proc/cable_color(colorC)
 	if(!colorC)
 		color = COLOR_RED
 	else if(colorC == "rainbow")

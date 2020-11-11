@@ -95,6 +95,11 @@
 	/// the actual item inserted
 	var/obj/item/inserted_item = null
 
+	/// blocks further flickering while true
+	var/flickering = FALSE
+	/// do I look unpowered, even when powered?
+	var/force_no_power_icon_state = FALSE
+
 /obj/machinery/vending/Initialize(mapload)
 	var/build_inv = FALSE
 	if(!refill_canister)
@@ -138,6 +143,49 @@
 	for(var/obj/item/vending_refill/VR in component_parts)
 		restock(VR)
 
+/obj/machinery/vending/update_icon()
+	cut_overlays()
+	if(panel_open)
+		add_overlay(image(icon, "[initial(icon_state)]-panel"))
+
+	if(stat & BROKEN)
+		icon_state = "[initial(icon_state)]-broken"
+	else if (stat & NOPOWER || force_no_power_icon_state)
+		icon_state = "[initial(icon_state)]-off"
+	else
+		icon_state = initial(icon_state)
+
+/*
+ * Reimp, flash the screen on and off repeatedly.
+ */
+/obj/machinery/vending/flicker()
+	if(flickering)
+		return FALSE
+
+	if(stat & (BROKEN|NOPOWER))
+		return FALSE
+
+	flickering = TRUE
+	INVOKE_ASYNC(src, /obj/machinery/vending/.proc/flicker_event)
+
+	return TRUE
+
+/*
+ * Proc to be called by invoke_async in the above flicker() proc.
+ */
+/obj/machinery/vending/proc/flicker_event()
+	var/amount = rand(5, 15)
+
+	for(var/i in 1 to amount)
+		force_no_power_icon_state = TRUE
+		update_icon()
+		sleep(rand(1, 3))
+
+		force_no_power_icon_state = FALSE
+		update_icon()
+		sleep(rand(1, 10))
+	update_icon()
+	flickering = FALSE
 
 /**
  *  Build src.produdct_records from the products lists
@@ -285,12 +333,8 @@
 		return
 	if(anchored)
 		panel_open = !panel_open
-		if(panel_open)
-			SCREWDRIVER_OPEN_PANEL_MESSAGE
-			overlays += image(icon, "[initial(icon_state)]-panel")
-		else
-			SCREWDRIVER_CLOSE_PANEL_MESSAGE
-			overlays.Cut()
+		panel_open ? SCREWDRIVER_OPEN_PANEL_MESSAGE : SCREWDRIVER_CLOSE_PANEL_MESSAGE
+		update_icon()
 		SStgui.update_uis(src)
 
 /obj/machinery/vending/wirecutter_act(mob/user, obj/item/I)
@@ -447,7 +491,7 @@
 /obj/machinery/vending/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		var/estimated_height = 100 + (length(product_records) * 34)
+		var/estimated_height = 100 + min(length(product_records) * 34, 500)
 		if(length(prices) > 0)
 			estimated_height += 100 // to account for the "current user" interface
 		ui = new(user, src, ui_key, "Vending",  name, 470, estimated_height, master_ui, state)
@@ -753,21 +797,18 @@
 	atom_say(message)
 
 /obj/machinery/vending/power_change()
-	if(stat & BROKEN)
-		icon_state = "[initial(icon_state)]-broken"
+	if(powered())
+		stat &= ~NOPOWER
+		update_icon()
 	else
-		if( powered() )
-			icon_state = initial(icon_state)
-			stat &= ~NOPOWER
-		else
-			spawn(rand(0, 15))
-				icon_state = "[initial(icon_state)]-off"
-				stat |= NOPOWER
+		spawn(rand(0, 15))
+			stat |= NOPOWER
+			update_icon()
 
 /obj/machinery/vending/obj_break(damage_flag)
 	if(!(stat & BROKEN))
 		stat |= BROKEN
-		icon_state = "[initial(icon_state)]-broken"
+		update_icon()
 
 		var/dump_amount = 0
 		var/found_anything = TRUE
@@ -997,9 +1038,9 @@
 	slogan_list = list("Taste 5000 years of culture!","Mr. Chang, approved for safe consumption in over 10 sectors!","Chinese food is great for a date night, or a lonely night!","You can't go wrong with Mr. Chang's authentic Chinese food!")
 	icon_state = "chang"
 	products = list(/obj/item/reagent_containers/food/snacks/chinese/chowmein = 6, /obj/item/reagent_containers/food/snacks/chinese/tao = 6, /obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball = 6, /obj/item/reagent_containers/food/snacks/chinese/newdles = 6,
-					/obj/item/reagent_containers/food/snacks/chinese/rice = 6)
+					/obj/item/reagent_containers/food/snacks/chinese/rice = 6, /obj/item/reagent_containers/food/snacks/fortunecookie = 6)
 	prices = list(/obj/item/reagent_containers/food/snacks/chinese/chowmein = 50, /obj/item/reagent_containers/food/snacks/chinese/tao = 50, /obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball = 50, /obj/item/reagent_containers/food/snacks/chinese/newdles = 50,
-					/obj/item/reagent_containers/food/snacks/chinese/rice = 50)
+					/obj/item/reagent_containers/food/snacks/chinese/rice = 50, /obj/item/reagent_containers/food/snacks/fortunecookie = 50)
 	refill_canister = /obj/item/vending_refill/chinese
 
 /obj/machinery/vending/chinese/free
@@ -1185,7 +1226,7 @@
 					/obj/item/reagent_containers/syringe/insulin = 6, /obj/item/reagent_containers/syringe/calomel = 10, /obj/item/reagent_containers/syringe/heparin = 4, /obj/item/reagent_containers/hypospray/autoinjector = 5, /obj/item/reagent_containers/food/pill/salbutamol = 10,
 					/obj/item/reagent_containers/food/pill/mannitol = 10, /obj/item/reagent_containers/food/pill/mutadone = 5, /obj/item/stack/medical/bruise_pack/advanced = 4, /obj/item/stack/medical/ointment/advanced = 4, /obj/item/stack/medical/bruise_pack = 4,
 					/obj/item/stack/medical/splint = 4, /obj/item/reagent_containers/glass/beaker = 4, /obj/item/reagent_containers/dropper = 4, /obj/item/healthanalyzer = 4,
-					/obj/item/healthupgrade = 4, /obj/item/reagent_containers/hypospray/safety = 2, /obj/item/sensor_device = 2, /obj/item/pinpointer/crew = 2)
+					/obj/item/healthupgrade = 4, /obj/item/reagent_containers/hypospray/safety = 2, /obj/item/sensor_device = 2, /obj/item/pinpointer/crew = 2, /obj/item/reagent_containers/iv_bag/slime = 1)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/sulfonal = 1, /obj/item/reagent_containers/glass/bottle/pancuronium = 1)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
@@ -1272,7 +1313,7 @@
 	ads_list = list("We like plants!","Don't you want some?","The greenest thumbs ever.","We like big plants.","Soft soil...")
 	icon_state = "nutri"
 	icon_deny = "nutri-deny"
-	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez = 30,/obj/item/reagent_containers/glass/bottle/nutrient/l4z = 20,/obj/item/reagent_containers/glass/bottle/nutrient/rh = 10,/obj/item/reagent_containers/spray/pestspray = 20,
+	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez = 20,/obj/item/reagent_containers/glass/bottle/nutrient/l4z = 13,/obj/item/reagent_containers/glass/bottle/nutrient/rh = 6,/obj/item/reagent_containers/spray/pestspray = 20,
 					/obj/item/reagent_containers/syringe = 5,/obj/item/storage/bag/plants = 5,/obj/item/cultivator = 3,/obj/item/shovel/spade = 3,/obj/item/plant_analyzer = 4)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/ammonia = 10,/obj/item/reagent_containers/glass/bottle/diethylamine = 5)
 	refill_canister = /obj/item/vending_refill/hydronutrients
@@ -1533,7 +1574,7 @@
 	products = list(/obj/item/storage/bag/tray = 8,/obj/item/kitchen/utensil/fork = 6,
 					/obj/item/kitchen/knife = 3,/obj/item/kitchen/rollingpin = 2,
 					/obj/item/kitchen/sushimat = 3,
-					/obj/item/reagent_containers/food/drinks/drinkingglass = 8, /obj/item/clothing/suit/chef/classic = 2,
+					/obj/item/reagent_containers/food/drinks/drinkingglass = 8, /obj/item/clothing/suit/chef/classic = 2, /obj/item/storage/belt/chef = 2,
 					/obj/item/reagent_containers/food/condiment/pack/ketchup = 5,
 					/obj/item/reagent_containers/food/condiment/pack/hotsauce = 5,
 					/obj/item/reagent_containers/food/condiment/saltshaker =5,
@@ -1905,48 +1946,5 @@
 	V.set_type(type)
 	component_parts += V
 	component_parts += new /obj/item/vending_refill/crittercare(null)
-	RefreshParts()
-	return ..()
-
-/obj/machinery/vending/modularpc
-	name = "\improper Deluxe Silicate Selections"
-	desc = "All the parts you need to build your own custom pc."
-	icon_state = "modularpc"
-	icon_deny = "modularpc-deny"
-	ads_list = list("Get your gamer gear!","The best GPUs for all of your space-crypto needs!","The most robust cooling!","The finest RGB in space!")
-	vend_reply = "Game on!"
-	products = list(/obj/item/modular_computer/laptop = 4,
-					/obj/item/modular_computer/tablet = 4,
-					/obj/item/computer_hardware/hard_drive = 4,
-					/obj/item/computer_hardware/hard_drive/small = 4,
-					/obj/item/computer_hardware/network_card = 8,
-					/obj/item/computer_hardware/hard_drive/portable = 8,
-					/obj/item/computer_hardware/battery = 8,
-					/obj/item/stock_parts/cell/computer = 8,
-					/obj/item/computer_hardware/processor_unit = 4,
-					/obj/item/computer_hardware/processor_unit/small = 4)
-	premium = list(/obj/item/computer_hardware/card_slot = 2,
-		           /obj/item/computer_hardware/ai_slot = 2,
-		           /obj/item/computer_hardware/printer/mini = 2,
-		           /obj/item/computer_hardware/recharger/APC = 2,
-		           /obj/item/paicard = 2)
-	prices = list(/obj/item/modular_computer/laptop = 300,
-					/obj/item/modular_computer/tablet = 300,
-					/obj/item/computer_hardware/hard_drive = 100,
-					/obj/item/computer_hardware/hard_drive/small = 50,
-					/obj/item/computer_hardware/network_card = 100,
-					/obj/item/computer_hardware/hard_drive/portable = 100,
-					/obj/item/computer_hardware/battery = 100,
-					/obj/item/stock_parts/cell/computer = 100,
-					/obj/item/computer_hardware/processor_unit = 100,
-					/obj/item/computer_hardware/processor_unit/small = 100)
-	refill_canister = /obj/item/vending_refill/modularpc
-
-/obj/machinery/vending/modularpc/Initialize(mapload)
-	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new(null)
-	V.set_type(type)
-	component_parts += V
-	component_parts += new /obj/item/vending_refill/modularpc(null)
 	RefreshParts()
 	return ..()

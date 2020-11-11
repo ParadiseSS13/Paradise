@@ -2,7 +2,7 @@
 	Everything karma related is here.
 	Part of karma purchase is handled in client_procs.dm	*/
 
-proc/sql_report_karma(var/mob/spender, var/mob/receiver)
+/proc/sql_report_karma(var/mob/spender, var/mob/receiver)
 	var/sqlspendername = sanitizeSQL(spender.name)
 	var/sqlspenderkey = sanitizeSQL(spender.ckey)
 	var/sqlreceivername = sanitizeSQL(receiver.name)
@@ -85,7 +85,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 		log_game("Illegal karma spending attempt detected from [key] to [M.key]. Using the same IP!")
 		to_chat(src, "<span class='warning'>You can't spend karma on someone connected from the same IP.</span>")
 		return FALSE
-	if(M.get_preference(DISABLE_KARMA))
+	if(M.get_preference(PREFTOGGLE_DISABLE_KARMA))
 		to_chat(src, "<span class='warning'>That player has turned off incoming karma.")
 		return FALSE
 	return TRUE

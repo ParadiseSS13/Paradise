@@ -82,22 +82,10 @@
 
 /datum/game_mode/proc/auto_declare_completion_traitor()
 	if(traitors.len)
-		var/text = "<FONT size = 2><B>The traitors were:</B></FONT>"
+		var/text = "<FONT size = 2><B>The traitors were:</B></FONT><br>"
 		for(var/datum/mind/traitor in traitors)
 			var/traitorwin = 1
-
-			text += "<br>[traitor.key] was [traitor.name] ("
-			if(traitor.current)
-				if(traitor.current.stat == DEAD)
-					text += "died"
-				else
-					text += "survived"
-				if(traitor.current.real_name != traitor.name)
-					text += " as [traitor.current.real_name]"
-			else
-				text += "body destroyed"
-			text += ")"
-
+			text += printplayer(traitor)
 
 			var/TC_uses = 0
 			var/uplink_true = 0
@@ -131,11 +119,19 @@
 
 
 			if(traitorwin)
-				text += "<br><font color='green'><B>The [special_role_text] was successful!</B></font>"
+				text += "<br><font color='green'><B>The [special_role_text] was successful!</B></font><br>"
 				feedback_add_details("traitor_success","SUCCESS")
 			else
-				text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font>"
+				text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font><br>"
 				feedback_add_details("traitor_success","FAIL")
+
+		if(length(SSticker.mode.implanted))
+			text += "<br><br><FONT size = 2><B>The mindslaves were:</B></FONT><br>"
+			for(var/datum/mind/mindslave in SSticker.mode.implanted)
+				text += printplayer(mindslave)
+				var/datum/mind/master_mind = SSticker.mode.implanted[mindslave]
+				var/mob/living/carbon/human/master = master_mind.current
+				text += " (slaved by: <b>[master]</b>)<br>"
 
 		var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 		var/responses = jointext(GLOB.syndicate_code_response, ", ")

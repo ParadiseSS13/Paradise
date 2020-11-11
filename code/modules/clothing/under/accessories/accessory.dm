@@ -507,7 +507,7 @@
 		to_chat(user, "You have to open it first.")
 		return
 
-	if(istype(O,/obj/item/paper) || istype(O, /obj/item/photo) && !(istype(O, /obj/item/paper/talisman)))
+	if(istype(O,/obj/item/paper) || istype(O, /obj/item/photo))
 		if(held)
 			to_chat(usr, "[src] already has something inside it.")
 		else

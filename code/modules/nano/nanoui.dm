@@ -186,7 +186,7 @@ nanoui is used to open and update nano browser uis
 			"mapZLevel" = map_z_level,
 			"user" = list(
 				"name" = user.name,
-				"fancy" = user.client.prefs.nanoui_fancy
+				"fancy" = user.client.prefs.toggles2 & PREFTOGGLE_2_FANCYUI
 			),
 			"window" = list(
 				"width" = width,
@@ -418,7 +418,7 @@ nanoui is used to open and update nano browser uis
 
 	// Preset the can_rezie and titlebar values on uis if the user has fancy uis set
 	// Prevents the ui from flickering when opened
-	if(user.client.prefs.nanoui_fancy)
+	if(user.client.prefs.toggles2 & PREFTOGGLE_2_FANCYUI)
 		set_window_options("focus=0;can_close=1;can_minimize=1;can_maximize=0;can_resize=0;titlebar=0;")
 
 	user << browse(get_html(), "window=[window_id];[window_size][window_options]")

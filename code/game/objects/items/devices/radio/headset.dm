@@ -45,9 +45,6 @@
 	QDEL_NULL(keyslot2)
 	return ..()
 
-/obj/item/radio/headset/list_channels(var/mob/user)
-	return list_secure_channels()
-
 /obj/item/radio/headset/examine(mob/user)
 	. = ..()
 	if(in_range(src, user) && radio_desc)
@@ -130,6 +127,14 @@
 	flags = EARBANGPROTECT
 	icon_state = "sec_headset_alt"
 	item_state = "sec_headset_alt"
+
+/obj/item/radio/headset/headset_iaa
+	name = "internal affairs bowman headset"
+	desc = "This is used by your elite legal team. Protects ears from flashbangs."
+	flags = EARBANGPROTECT
+	icon_state = "sec_headset_alt"
+	item_state = "sec_headset_alt"
+	ks2type = /obj/item/encryptionkey/headset_iaa
 
 /obj/item/radio/headset/headset_eng
 	name = "engineering radio headset"
@@ -292,19 +297,27 @@
 	freqlock = TRUE
 
 /obj/item/radio/headset/ert/alt
-	name = "\proper emergency response team's bowman headset"
+	name = "emergency response team's bowman headset"
 	desc = "The headset of the boss. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 
+/obj/item/radio/headset/ert/alt/commander
+	name = "ERT commander's bowman headset"
+	desc = "The headset of the boss. Protects ears from flashbangs. Can transmit even if telecomms are down."
+	requires_tcomms = FALSE
+	instant = TRUE
+
 /obj/item/radio/headset/centcom
 	name = "\proper centcom officer's bowman headset"
-	desc = "The headset of final authority. Protects ears from flashbangs."
+	desc = "The headset of final authority. Protects ears from flashbangs. Can transmit even if telecomms are down."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 	ks2type = /obj/item/encryptionkey/centcom
+	requires_tcomms = FALSE
+	instant = TRUE
 
 /obj/item/radio/headset/heads/ai_integrated //No need to care about icons, it should be hidden inside the AI anyway.
 	name = "\improper AI subspace transceiver"

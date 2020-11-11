@@ -193,7 +193,7 @@
 	toggle_sound = 'sound/items/zippoclose.ogg'
 	dog_fashion = null
 
-obj/item/clothing/head/helmet/redtaghelm
+/obj/item/clothing/head/helmet/redtaghelm
 	name = "red laser tag helmet"
 	desc = "They have chosen their own end."
 	icon_state = "redtaghelm"
@@ -204,7 +204,7 @@ obj/item/clothing/head/helmet/redtaghelm
 	flags_inv = HIDEEARS|HIDEEYES
 	dog_fashion = null
 
-obj/item/clothing/head/helmet/bluetaghelm
+/obj/item/clothing/head/helmet/bluetaghelm
 	name = "blue laser tag helmet"
 	desc = "They'll need more men."
 	icon_state = "bluetaghelm"
@@ -215,7 +215,7 @@ obj/item/clothing/head/helmet/bluetaghelm
 	flags_inv = HIDEEARS|HIDEEYES
 	dog_fashion = null
 
-obj/item/clothing/head/blob
+/obj/item/clothing/head/blob
 	name = "blob hat"
 	desc = "A collectible hat handed out at the latest Blob Family Reunion."
 	icon_state = "blobhat"

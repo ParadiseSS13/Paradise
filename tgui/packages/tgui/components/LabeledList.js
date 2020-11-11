@@ -24,7 +24,9 @@ export const LabeledListItem = props => {
     buttons,
     content,
     children,
+    noColon = false,
   } = props;
+  const colon = noColon ? '' : ':';
   return (
     <tr
       className={classes([
@@ -39,7 +41,7 @@ export const LabeledListItem = props => {
           'LabeledList__cell',
           'LabeledList__label',
         ])}>
-        {label ? label + ':' : null}
+        {label ? label + colon : null}
       </Box>
       <Box
         as="td"

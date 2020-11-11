@@ -23,6 +23,7 @@ export const Button = props => {
     ellipsis,
     content,
     iconRotation,
+    iconColor,
     iconSpin,
     children,
     onclick,
@@ -81,7 +82,10 @@ export const Button = props => {
       }}
       {...rest}>
       {icon && (
-        <Icon name={icon} rotation={iconRotation} spin={iconSpin} />
+        <Icon name={icon}
+          color={iconColor}
+          rotation={iconRotation}
+          spin={iconSpin} />
       )}
       {content}
       {children}

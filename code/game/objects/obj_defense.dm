@@ -51,6 +51,8 @@
 	take_damage(AM.throwforce, BRUTE, "melee", 1, get_dir(src, AM))
 
 /obj/ex_act(severity)
+	if(QDELETED(src))
+		return
 	if(resistance_flags & INDESTRUCTIBLE)
 		return
 	switch(severity)

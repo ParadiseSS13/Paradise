@@ -17,7 +17,7 @@
 	. += "The green light is [A.shocked ? "on" : "off"]."
 	. += "The UV display shows [A.uv_super ? "15 nm" : "185 nm"]."
 
-datum/wires/suitstorage/interactable(mob/user)
+/datum/wires/suitstorage/interactable(mob/user)
 	var/obj/machinery/suit_storage_unit/A = holder
 	if(iscarbon(user) && A.Adjacent(user) && A.shocked)
 		return A.shock(user, 100)
@@ -42,7 +42,7 @@ datum/wires/suitstorage/interactable(mob/user)
 			A.uv_super = !mend
 	..()
 
-datum/wires/suitstorage/on_pulse(wire)
+/datum/wires/suitstorage/on_pulse(wire)
 	var/obj/machinery/suit_storage_unit/A = holder
 	if(is_cut(wire))
 		return

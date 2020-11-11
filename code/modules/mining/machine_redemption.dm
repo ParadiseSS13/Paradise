@@ -25,6 +25,7 @@
 	var/datum/research/files
 	var/obj/item/disk/design_disk/inserted_disk
 	var/list/supply_consoles = list("Science", "Robotics", "Research Director's Desk", "Mechanic", "Engineering" = list("metal", "glass", "plasma"), "Chief Engineer's Desk" = list("metal", "glass", "plasma"), "Atmospherics" = list("metal", "glass", "plasma"), "Bar" = list("uranium", "plasma"), "Virology" = list("plasma", "uranium", "gold"))
+	var/anyuse = FALSE
 
 /obj/machinery/mineral/ore_redemption/New()
 	..()
@@ -54,10 +55,26 @@
 	req_access = list(ACCESS_FREE_GOLEMS)
 	req_access_reclaim = ACCESS_FREE_GOLEMS
 
+/obj/machinery/mineral/ore_redemption/labor
+	name = "labor camp ore redemption machine"
+	req_access = list()
+	anyuse = TRUE
+
 /obj/machinery/mineral/ore_redemption/golem/New()
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/ore_redemption/golem(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/assembly/igniter(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	RefreshParts()
+
+/obj/machinery/mineral/ore_redemption/labor/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/ore_redemption/labor(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
@@ -309,6 +326,9 @@
 	if(href_list["claim"])
 		if(inserted_id)
 			if(req_access_reclaim in inserted_id.access)
+				inserted_id.mining_points += points
+				points = 0
+			if(anyuse)
 				inserted_id.mining_points += points
 				points = 0
 			else

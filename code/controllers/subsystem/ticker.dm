@@ -65,6 +65,8 @@ SUBSYSTEM_DEF(ticker)
 			to_chat(world, "Please, setup your character and select ready. Game will start in [config.pregame_timestart] seconds")
 			current_state = GAME_STATE_PREGAME
 			fire() // TG says this is a good idea
+			for(var/mob/new_player/N in GLOB.player_list)
+				N.new_player_panel_proc() // to enable the observe option
 		if(GAME_STATE_PREGAME)
 			if(!SSticker.ticker_going) // This has to be referenced like this, and I dont know why. If you dont put SSticker. it will break
 				return
@@ -274,9 +276,7 @@ SUBSYSTEM_DEF(ticker)
 	//start_events() //handles random events and space dust.
 	//new random event system is handled from the MC.
 
-	var/list/admins_number = staff_countup(R_BAN)
-	if(admins_number[1] == 0 && admins_number[3] == 0)
-		send2irc(config.admin_notify_irc, "Round has started with no admins online.")
+	SSdiscord.send2discord_simple_noadmins("Round has started")
 	auto_toggle_ooc(0) // Turn it off
 	round_start_time = world.time
 

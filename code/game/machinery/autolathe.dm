@@ -30,6 +30,7 @@
 
 	var/list/being_built = list()
 	var/datum/research/files
+	var/list/imported = list() // /datum/design.id -> boolean
 	var/list/datum/design/matching_designs
 	var/temp_search
 	var/selected_category
@@ -108,12 +109,19 @@
 			var/maxmult = 1
 			if(ispath(D.build_path, /obj/item/stack))
 				maxmult = D.maxstack
+
+			var/list/default_categories = D.category
+			var/list/categories = istype(default_categories) ? default_categories.Copy() : list()
+
+			if(imported[D.id])
+				categories |= "Imported"
+
 			recipes.Add(list(list(
 				"name" = D.name,
-				"category" = D.category,
+				"category" = categories,
 				"uid" = D.UID(),
 				"requirements" =  matreq,
-				"hacked" = ("hacked" in D.category) ? TRUE : FALSE,
+				"hacked" = ("hacked" in categories) ? TRUE : FALSE,
 				"max_multiplier" = maxmult,
 				"image" = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1))]"
 			)))
@@ -162,8 +170,8 @@
 			if(!istype(design_last_ordered))
 				to_chat(usr, "<span class='warning'>Invalid design</span>")
 				return
-			if(!(design_last_ordered.build_type & AUTOLATHE))
-				to_chat(usr, "<span class='warning'>Invalid design (not buildable in autolathe, report this error.)</span>")
+			if(!(design_last_ordered.id in files.known_designs))
+				to_chat(usr, "<span class='warning'>Invalid design (not in autolathe's known designs, report this error.)</span>")
 				return
 			var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 			if(design_last_ordered.materials["$metal"] > materials.amount(MAT_METAL))
@@ -243,7 +251,13 @@
 		if(istype(O, /obj/item/disk/design_disk))
 			var/obj/item/disk/design_disk/D = O
 			if(D.blueprint)
-				if(!(D.blueprint.build_type & AUTOLATHE)) // otherwise, would silently fail in AddDesign2Known
+				var/datum/design/design = D.blueprint // READ ONLY!!
+
+				if(design.id in files.known_designs)
+					to_chat(user, "<span class='warning'>This design has already been loaded into the autolathe.</span>")
+					return 1
+
+				if(!files.CanAddDesign2Known(design))
 					to_chat(user, "<span class='warning'>This design is not compatible with the autolathe.</span>")
 					return 1
 				user.visible_message("[user] begins to load \the [O] in \the [src]...",
@@ -252,9 +266,8 @@
 				playsound(get_turf(src), 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 				busy = TRUE
 				if(do_after(user, 14.4, target = src))
-					if(!("Imported" in D.blueprint.category)) // R&D should always ensure this is set on design disks, but it doesn't.
-						D.blueprint.category += "Imported" // now it will actually show up in the list.
-					files.AddDesign2Known(D.blueprint)
+					imported[design.id] = TRUE
+					files.AddDesign2Known(design)
 					recipiecache = list()
 					SStgui.close_uis(src) // forces all connected users to re-open the TGUI. Imported entries won't show otherwise due to static_data
 				busy = FALSE

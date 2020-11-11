@@ -144,7 +144,7 @@
 		to_chat(user,  "<span class='notice'>You [open ? "close":"open"] [src].</span>")
 		toggle_lock(user)
 
-obj/structure/displaycase/welder_act(mob/user, obj/item/I)
+/obj/structure/displaycase/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(default_welder_repair(user, I))
 		broken = FALSE

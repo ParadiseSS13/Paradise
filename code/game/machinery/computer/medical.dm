@@ -14,9 +14,6 @@
 	icon_screen = "medcomp"
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_FORENSICS_LOCKERS)
 	circuit = /obj/item/circuitboard/med_data
-	var/obj/item/card/id/scan = null
-	var/authenticated = null
-	var/rank = null
 	var/screen = null
 	var/datum/data/record/active1 = null
 	var/datum/data/record/active2 = null
@@ -65,11 +62,7 @@
 	return ..()
 
 /obj/machinery/computer/med_data/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/card/id) && !scan)
-		usr.drop_item()
-		O.forceMove(src)
-		scan = O
-		tgui_interact(user)
+	if(tgui_login_attackby(O, user))
 		return
 	return ..()
 
@@ -92,14 +85,11 @@
 /obj/machinery/computer/med_data/tgui_data(mob/user)
 	var/data[0]
 	data["temp"] = temp
-	data["scan"] = scan ? scan.name : null
-	data["authenticated"] = authenticated
-	data["rank"] = rank
 	data["screen"] = screen
 	data["printing"] = printing
-	data["isAI"] = isAI(user)
-	data["isRobot"] = isrobot(user)
-	if(authenticated)
+	// This proc appends login state to data.
+	tgui_login_data(data, user)
+	if(data["loginState"]["logged_in"])
 		switch(screen)
 			if(MED_DATA_R_LIST)
 				if(!isnull(GLOB.data_core.general))
@@ -199,58 +189,21 @@
 	. = TRUE
 	if(tgui_act_modal(action, params))
 		return
+	if(tgui_login_act(action, params))
+		return
 
 	switch(action)
 		if("cleartemp")
 			temp = null
-		if("scan")
-			if(scan)
-				scan.forceMove(loc)
-				if(ishuman(usr) && !usr.get_active_hand())
-					usr.put_in_hands(scan)
-				scan = null
-			else
-				var/obj/item/I = usr.get_active_hand()
-				if(istype(I, /obj/item/card/id))
-					usr.drop_item()
-					I.forceMove(src)
-					scan = I
-		if("login")
-			var/login_type = text2num(params["login_type"])
-			if(login_type == LOGIN_TYPE_NORMAL && istype(scan))
-				if(check_access(scan))
-					authenticated = scan.registered_name
-					rank = scan.assignment
-			else if(login_type == LOGIN_TYPE_AI && isAI(usr))
-				authenticated = usr.name
-				rank = "AI"
-			else if(login_type == LOGIN_TYPE_ROBOT && isrobot(usr))
-				authenticated = usr.name
-				var/mob/living/silicon/robot/R = usr
-				rank = "[R.modtype] [R.braintype]"
-			if(authenticated)
-				active1 = null
-				active2 = null
-				screen = MED_DATA_R_LIST
 		else
 			. = FALSE
 
 	if(.)
 		return
 
-	if(authenticated)
+	if(tgui_login_get().logged_in)
 		. = TRUE
 		switch(action)
-			if("logout")
-				if(scan)
-					scan.forceMove(loc)
-					if(ishuman(usr) && !usr.get_active_hand())
-						usr.put_in_hands(scan)
-					scan = null
-				authenticated = null
-				screen = null
-				active1 = null
-				active2 = null
 			if("screen")
 				screen = clamp(text2num(params["screen"]) || 0, MED_DATA_R_LIST, MED_DATA_MEDBOT)
 				active1 = null
@@ -403,10 +356,11 @@
 					else if(istype(active1) && (field in active1.fields))
 						active1.fields[field] = answer
 				if("add_c")
-					if(!length(answer) || !istype(active2) || !length(authenticated))
+					var/datum/tgui_login/state = tgui_login_get()
+					if(!length(answer) || !istype(active2) || !length(state.name))
 						return
 					active2.fields["comments"] += list(list(
-						header = "Made by [authenticated] ([rank]) on [GLOB.current_date_string] [station_time_timestamp()]",
+						header = "Made by [state.name] ([state.name]) on [GLOB.current_date_string] [station_time_timestamp()]",
 						text = answer
 					))
 				else
@@ -493,6 +447,10 @@
 
 	..(severity)
 
+/obj/machinery/computer/med_data/tgui_login_on_login(datum/tgui_login/state)
+	active1 = null
+	active2 = null
+	screen = MED_DATA_R_LIST
 
 /obj/machinery/computer/med_data/laptop
 	name = "medical laptop"

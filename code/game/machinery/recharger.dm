@@ -12,7 +12,7 @@
 	active_power_usage = 200
 	pass_flags = PASSTABLE
 
-	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/modular_computer, /obj/item/rcs, /obj/item/bodyanalyzer)
+	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/rcs, /obj/item/bodyanalyzer, /obj/item/handheld_chem_dispenser)
 	var/icon_state_off = "rechargeroff"
 	var/icon_state_charged = "recharger2"
 	var/icon_state_charging = "recharger1"
@@ -154,12 +154,6 @@
 	if(istype(I, /obj/item/melee/baton))
 		var/obj/item/melee/baton/B = I
 		return B.cell
-
-	if(istype(I, /obj/item/modular_computer))
-		var/obj/item/modular_computer/C = I
-		var/obj/item/computer_hardware/battery/B = C.all_components[MC_CELL]
-		if(B)
-			return B.battery
 
 	if(istype(I, /obj/item/rcs))
 		var/obj/item/rcs/R = I

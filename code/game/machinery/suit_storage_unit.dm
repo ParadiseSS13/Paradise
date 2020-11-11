@@ -96,7 +96,7 @@
 	name = "atmospherics suit storage unit"
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/engine/atmos
 	mask_type    = /obj/item/clothing/mask/gas
-	magboots_type = /obj/item/clothing/shoes/magboots
+	magboots_type = /obj/item/clothing/shoes/magboots/atmos
 	req_access = list(ACCESS_ATMOSPHERICS)
 
 /obj/machinery/suit_storage_unit/atmos/secure
@@ -753,7 +753,7 @@
 	update_icon()
 	return
 
-/obj/machinery/suit_storage_unit/force_eject_occupant()
+/obj/machinery/suit_storage_unit/force_eject_occupant(mob/target)
 	eject_occupant()
 
 /obj/machinery/suit_storage_unit/verb/get_out()
