@@ -26,7 +26,7 @@
 	idle_ventcrawl_chance = 5
 	spider_tier = TS_TIER_3
 	spider_opens_doors = 2
-	web_type = null // ideally they'd have a super useful web, for more diverse stuff to do, but that's for a future update
+	web_type = /obj/structure/spider/terrorweb/mother
 	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
 	var/datum/action/innate/terrorspider/remoteview/remoteview_action
 	var/datum/action/innate/terrorspider/mother/royaljelly/royaljelly_action
@@ -125,3 +125,12 @@
 		to_chat(src, "<span class='notice'>You warm [C], encouraging faster growth.")
 		return
 	to_chat(src, "<span class='warning'>The 'incubate eggs' ability can only be used on top of existing eggs.")
+
+/obj/structure/spider/terrorweb/mother
+	name = "mother web"
+	desc = "This web is coated in pheromones which prevent spiderlings from passing it."
+
+/obj/structure/spider/terrorweb/mother/CanPass(atom/movable/mover, turf/target)
+	if(istype(mover, /obj/structure/spider/spiderling/terror_spiderling))
+		return FALSE
+	return ..()
