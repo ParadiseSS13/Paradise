@@ -127,7 +127,7 @@ About the new airlock wires panel:
  * reimp, imitate an access denied event.
  */
 /obj/machinery/door/airlock/flicker()
-	if(arePowerSystemsOn())
+	if(density && !operating && arePowerSystemsOn())
 		do_animate("deny")
 		return TRUE
 	return FALSE
