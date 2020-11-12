@@ -227,7 +227,7 @@
 			choices += L
 		for(var/obj/O in oview(1,src))
 			if(Adjacent(O) && !O.anchored)
-				if(!istype(O, /obj/structure/spider/terrorweb) && !istype(O, /obj/structure/spider/cocoon) && !istype(O, /obj/structure/spider/spiderling/terror_spiderling))
+				if(!istype(O, /obj/structure/spider))
 					choices += O
 		if(choices.len)
 			cocoon_target = input(src,"What do you wish to cocoon?") in null|choices
@@ -254,7 +254,10 @@
 						if(!O.anchored)
 							if(istype(O, /obj/item))
 								O.loc = C
-							else if(istype(O, /obj/machinery) || istype(O, /obj/structure))
+							else if(istype(O, /obj/machinery))
+								O.loc = C
+								large_cocoon = 1
+							else if(istype(O, /obj/structure) && !istype(O, /obj/structure/spider)) // can't wrap spiderlings/etc
 								O.loc = C
 								large_cocoon = 1
 					for(var/mob/living/L in C.loc)
