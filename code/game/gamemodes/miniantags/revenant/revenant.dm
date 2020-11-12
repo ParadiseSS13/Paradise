@@ -212,6 +212,7 @@
 	var/reforming_essence = essence_regen_cap //retain the gained essence capacity
 	R.essence = max(reforming_essence - 15 * perfectsouls, 75) //minus any perfect souls
 	R.client_to_revive = src.client //If the essence reforms, the old revenant is put back in the body
+	R.reforming = TRUE
 	ghostize()
 	qdel(src)
 
@@ -344,20 +345,21 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "revenantEctoplasm"
 	w_class = WEIGHT_CLASS_SMALL
-	var/reforming = 1
+	var/reforming = FALSE // so spawning this doesnt instantly make a rev out of nowhere.
 	var/essence = 75 //the maximum essence of the reforming revenant
-	var/inert = 0
+	var/inert = FALSE
 	var/client/client_to_revive
 
 /obj/item/ectoplasm/revenant/New()
 	..()
-	reforming = 0
-	spawn(600) //1 minutes
-		if(src && reforming)
-			reform()
-		else
-			inert = 1
-			visible_message("<span class='warning'>[src] settles down and seems lifeless.</span>")
+	addtimer(CALLBACK(src, .proc/attempt_revive), 1 MINUTES)
+
+/obj/item/ectoplasm/revenant/proc/attempt_revive()
+	if(src && reforming)
+		reform()
+	else
+		inert = TRUE
+		visible_message("<span class='warning'>[src] settles down and seems lifeless.</span>")
 
 /obj/item/ectoplasm/revenant/attack_self(mob/user)
 	if(!reforming || inert)
