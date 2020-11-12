@@ -610,11 +610,19 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return 0
 
 	changeNext_move(CLICK_CD_POINT)
-	var/obj/P = new /obj/effect/temp_visual/point(tile)
-	P.invisibility = invisibility
-	P.pixel_x = A.pixel_x
-	P.pixel_y = A.pixel_y
-	return 1
+
+	var/image/I = image('icons/mob/screen_gen.dmi', tile, "arrow", POINT_LAYER)
+	I.pixel_x = A.pixel_x
+	I.pixel_y = A.pixel_y
+	I.invisibility = invisibility
+	I.plane = GAME_PLANE
+
+	var/list/viewers = list()
+	for(var/mob/M in range(src))
+		if(M.client && (src in view(M)))
+			viewers += M.client
+	flick_overlay(I, viewers, 2 SECONDS)
+	return TRUE
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
 	if((!( istype(l_hand, /obj/item/grab) ) && !( istype(r_hand, /obj/item/grab) )))
