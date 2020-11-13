@@ -355,7 +355,7 @@
 	addtimer(CALLBACK(src, .proc/attempt_revive), 1 MINUTES)
 
 /obj/item/ectoplasm/revenant/proc/attempt_revive()
-	if(src && reforming)
+	if(reforming)
 		reform()
 	else
 		inert = TRUE
