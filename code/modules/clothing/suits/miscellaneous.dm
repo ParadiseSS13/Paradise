@@ -820,8 +820,8 @@
 	desc = "A vintage classic, loved by rockers, rebels, and punks alike."
 	icon_state = "motojacket_open"
 	item_state = "motojacket_open"
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
 	actions_types = list(/datum/action/item_action/zipper)
 	adjust_flavour = "unzip"
 
