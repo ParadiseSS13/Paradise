@@ -7,7 +7,7 @@
 		return
 	var/obj/structure/window/W = A
 
-	if(W.color == "GLOB.pipe_colors[mode]")
+	if(W.color == GLOB.pipe_colors[mode])
 		to_chat(user, "<span class='notice'>This window is aready painted [mode]!</span>")
 		return
 
