@@ -226,7 +226,7 @@ Difficulty: Medium
 		for(var/t in accessable_turfs)
 			if(accessable_turfs[t] != closest_dist)
 				accessable_turfs -= t
-	if(!LAZYLEN(accessable_turfs))
+	if(!length(accessable_turfs))
 		return
 	dash_cooldown = world.time + initial(dash_cooldown)
 	target_turf = pick(accessable_turfs)

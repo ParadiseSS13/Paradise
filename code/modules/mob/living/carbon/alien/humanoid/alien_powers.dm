@@ -136,7 +136,7 @@ Doesn't work on other aliens/AI.*/
 	set category = "Alien"
 
 	if(powerc())
-		if(LAZYLEN(stomach_contents))
+		if(length(stomach_contents))
 			for(var/mob/M in src)
 				LAZYREMOVE(stomach_contents, M)
 				M.forceMove(drop_location())

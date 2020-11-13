@@ -51,7 +51,7 @@
 /mob/living/carbon/var/last_stomach_attack //defining this here because no one would look in carbon_defines for it
 
 /mob/living/carbon/relaymove(mob/user, direction)
-	if(LAZYLEN(stomach_contents))
+	if(length(stomach_contents))
 		if(user in stomach_contents)
 			if(last_stomach_attack + STOMACH_ATTACK_DELAY > world.time)
 				return

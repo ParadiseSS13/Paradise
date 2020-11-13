@@ -74,7 +74,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	set waitfor = FALSE
 
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [name]?", job_rank, TRUE, 5 SECONDS)
-	if(LAZYLEN(candidates))
+	if(length(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		to_chat(owner, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
 		message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(owner.current)]) to replace a jobbaned player.")

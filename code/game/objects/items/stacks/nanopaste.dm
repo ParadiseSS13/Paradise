@@ -41,7 +41,7 @@
 					var/obj/item/organ/external/E
 					if(S.get_damage())
 						E = S
-					else if(LAZYLEN(childlist))
+					else if(length(childlist))
 						E = pick_n_take(childlist)
 						if(!E.get_damage() || !E.is_robotic())
 							continue

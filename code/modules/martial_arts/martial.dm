@@ -1,4 +1,4 @@
-#define HAS_COMBOS LAZYLEN(combos)
+#define HAS_COMBOS length(combos)
 #define COMBO_ALIVE_TIME 5 SECONDS // How long the combo stays alive when no new attack is done
 
 /datum/martial_art
@@ -78,7 +78,7 @@
 					combos.Cut()
 					reset_combos()
 					return TRUE
-	if(!LAZYLEN(current_combos))
+	if(!length(current_combos))
 		reset_combos()
 
 /datum/martial_art/proc/basic_hit(mob/living/carbon/human/A, mob/living/carbon/human/D)

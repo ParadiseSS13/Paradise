@@ -806,7 +806,7 @@
 						if(R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"security"))
 								read = 1
-								if(LAZYLEN(R.fields["comments"]))
+								if(length(R.fields["comments"]))
 									for(var/c in R.fields["comments"])
 										to_chat(usr, c)
 								else
@@ -904,7 +904,7 @@
 						if(R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"medical"))
 								read = 1
-								if(LAZYLEN(R.fields["comments"]))
+								if(length(R.fields["comments"]))
 									for(var/c in R.fields["comments"])
 										to_chat(usr, c)
 								else

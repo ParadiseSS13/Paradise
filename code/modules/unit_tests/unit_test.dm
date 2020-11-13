@@ -64,7 +64,7 @@ GLOBAL_VAR(test_log)
 
 		qdel(test)
 
-		for(var/J in 1 to LAZYLEN(fail_reasons))
+		for(var/J in 1 to length(fail_reasons))
 			log_entry += "\tREASON #[J]: [fail_reasons[J]]"
 		log_world(log_entry.Join("\n"))
 

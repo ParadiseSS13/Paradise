@@ -89,7 +89,7 @@
 /datum/action/item_action/chameleon/change/Remove(mob/M)
 	if(M && (M == owner))
 		LAZYREMOVE(M.chameleon_item_actions, src)
-		if(!LAZYLEN(M.chameleon_item_actions))
+		if(!length(M.chameleon_item_actions))
 			var/datum/action/chameleon_outfit/O = locate(/datum/action/chameleon_outfit) in M.actions
 			qdel(O)
 	..()

@@ -37,7 +37,7 @@
 		R.damage_multiplier = quick_burst_mod
 		R.burst()
 		return
-	if(LAZYLEN(fields) < fieldlimit)
+	if(length(fields) < fieldlimit)
 		new /obj/effect/temp_visual/resonance(T, user, src, burst_time)
 		user.changeNext_move(CLICK_CD_MELEE)
 

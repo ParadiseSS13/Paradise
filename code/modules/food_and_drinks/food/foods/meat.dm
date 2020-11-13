@@ -293,7 +293,7 @@
 	return 1
 
 /obj/item/reagent_containers/food/snacks/monkeycube/proc/Expand()
-	if(LAZYLEN(SSmobs.cubemonkeys) >= config.cubemonkeycap)
+	if(length(SSmobs.cubemonkeys) >= config.cubemonkeycap)
 		if(fingerprintslast)
 			to_chat(get_mob_by_ckey(fingerprintslast), "<span class='warning'>Bluespace harmonics prevent the spawning of more than [config.cubemonkeycap] monkeys on the station at one time!</span>")
 		else
@@ -308,7 +308,7 @@
 		var/mob/living/carbon/human/creature = new /mob/living/carbon/human(get_turf(src))
 		if(faction)
 			creature.faction = faction
-		if(LAZYLEN(fingerprintshidden))
+		if(length(fingerprintshidden))
 			creature.fingerprintshidden = fingerprintshidden
 		creature.set_species(monkey_type)
 		SSmobs.cubemonkeys += creature

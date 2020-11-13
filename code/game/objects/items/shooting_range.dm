@@ -87,7 +87,7 @@
 		decaltype = DECALTYPE_BULLET
 
 	var/icon/C = icon(icon, icon_state)
-	if(LAZYLEN(overlays) <= 35 && C.GetPixel(p_x, p_y)) // if the located pixel isn't blank (null)
+	if(length(overlays) <= 35 && C.GetPixel(p_x, p_y)) // if the located pixel isn't blank (null)
 		hp -= P.damage
 		if(hp <= 0)
 			visible_message("<span class='danger'>[src] breaks into tiny pieces and collapses!</span>")
