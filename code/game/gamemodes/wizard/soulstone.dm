@@ -161,7 +161,9 @@
 					icon_state = "purified_soulstone2"
 					if(iscultist(M))
 						SSticker.mode.remove_cultist(M.mind, FALSE)
-						to_chat(M, "<span class='danger'>You feel the cult's influence vanish. Assist [user], your saviour, and get vengeance on those who enslaved you!</span>")
+						to_chat(M, "<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] \
+									and the memories of your time as their servant with it.</span>")
+						to_chat(M, "<span class='danger'>Assist [user], your saviour, and get vengeance on those who enslaved you!</span>")
 					else
 						to_chat(M, "<span class='danger'>Your soulstone has been exorcised, and you are now bound to obey [user]. </span>")
 

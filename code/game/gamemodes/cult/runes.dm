@@ -43,7 +43,7 @@ To draw a rune, use a ritual dagger.
 	var/scribe_damage = 1
 
 	/// If nearby cultists will also chant when invoked
-	var/allow_excess_invokers = 0
+	var/allow_excess_invokers = FALSE
 	/// If constructs can invoke it
 	var/construct_invoke = TRUE
 
