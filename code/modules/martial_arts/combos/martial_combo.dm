@@ -22,7 +22,7 @@
 
 /datum/martial_combo/proc/progress_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	current_combo_target = target
-	if(current_step_index++ >= length(steps))
+	if(current_step_index++ >= LAZYLEN(steps))
 		return perform_combo(user, target, MA)
 	return MARTIAL_COMBO_CONTINUE
 

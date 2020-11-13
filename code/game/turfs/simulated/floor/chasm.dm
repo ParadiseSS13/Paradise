@@ -74,7 +74,7 @@
 	for(var/obj/structure/stone_tile/S in found_safeties)
 		if(S.fallen)
 			LAZYREMOVE(found_safeties, S)
-	return length(found_safeties)
+	return LAZYLEN(found_safeties)
 
 /turf/simulated/floor/chasm/proc/drop_stuff(AM)
 	. = 0

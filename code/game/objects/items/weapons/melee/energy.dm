@@ -20,7 +20,7 @@
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/carbon/human/user)
 	var/nemesis_faction = FALSE
-	if(length(nemesis_factions))
+	if(LAZYLEN(nemesis_factions))
 		for(var/F in target.faction)
 			if(F in nemesis_factions)
 				nemesis_faction = TRUE

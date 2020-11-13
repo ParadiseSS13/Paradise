@@ -50,14 +50,14 @@ SUBSYSTEM_DEF(tickets)
 
 /datum/controller/subsystem/tickets/fire()
 	var/stales = checkStaleness()
-	if(length(stales))
+	if(LAZYLEN(stales))
 		var/report
 		for(var/num in stales)
 			report += "[num], "
 		message_staff("<span class='[span_class]'>Tickets [report] have been open for over [TICKET_TIMEOUT / 600] minutes. Changing status to stale.</span>")
 
 /datum/controller/subsystem/tickets/stat_entry()
-	..("Tickets: [length(allTickets)]")
+	..("Tickets: [LAZYLEN(allTickets)]")
 
 /datum/controller/subsystem/tickets/proc/checkStaleness()
 	var/stales = list()

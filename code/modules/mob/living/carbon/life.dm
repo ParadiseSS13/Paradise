@@ -12,7 +12,7 @@
 		handle_organs()
 
 	//stuff in the stomach
-	if(length(stomach_contents))
+	if(LAZYLEN(stomach_contents))
 		handle_stomach(times_fired)
 
 	. = ..()
@@ -23,7 +23,7 @@
 	if(.) //not dead
 		handle_blood()
 
-	if(length(processing_patches))
+	if(LAZYLEN(processing_patches))
 		handle_patches()
 	if(mind)
 		handle_changeling()

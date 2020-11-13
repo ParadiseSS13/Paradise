@@ -73,7 +73,7 @@
 	GLOB.poi_list -= src
 	var/list/spawners = GLOB.mob_spawners[name]
 	LAZYREMOVE(spawners, src)
-	if(!length(spawners))
+	if(!LAZYLEN(spawners))
 		GLOB.mob_spawners -= name
 	return ..()
 

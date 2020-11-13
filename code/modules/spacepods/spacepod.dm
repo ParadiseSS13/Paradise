@@ -252,7 +252,7 @@
 				message_to_riders("<span class='warning'>[count]</span>")
 				count--
 				sleep(10)
-			if(length(pilot) || length(passengers))
+			if(LAZYLEN(pilot) || LAZYLEN(passengers))
 				for(var/M in passengers + pilot)
 					var/mob/living/L = M
 					L.adjustBruteLoss(300)

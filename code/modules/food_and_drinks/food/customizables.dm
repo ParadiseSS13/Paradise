@@ -388,7 +388,7 @@
 
 /obj/item/reagent_containers/food/snacks/customizable/examine(mob/user)
 	. = ..()
-	if(length(ingredients))
+	if(LAZYLEN(ingredients))
 		var/whatsinside = pick(ingredients)
 		. += "<span class='notice'> You think you can see [whatsinside] in there.</span>"
 

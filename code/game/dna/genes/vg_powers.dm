@@ -366,7 +366,7 @@
 			continue
 		if(REMOTE_VIEW in M.mutations)
 			remoteviewers += M
-	if(!length(remoteviewers))
+	if(!LAZYLEN(remoteviewers))
 		to_chat(user, "<span class='warning'>No valid targets with remote view were found!</span>")
 		start_recharge()
 		return

@@ -57,7 +57,7 @@
 	return rval
 
 /mob/living/silicon/robot/proc/get_armour()
-	if(!length(components))
+	if(!LAZYLEN(components))
 		return 0
 	var/datum/robot_component/C = components["armour"]
 	if(C && C.installed == 1)
@@ -66,14 +66,14 @@
 
 /mob/living/silicon/robot/heal_organ_damage(brute, burn, updating_health = TRUE)
 	var/list/datum/robot_component/parts = get_damaged_components(brute, burn)
-	if(!length(parts))
+	if(!LAZYLEN(parts))
 		return
 	var/datum/robot_component/picked = pick(parts)
 	picked.heal_damage(brute, burn, updating_health)
 
 /mob/living/silicon/robot/take_organ_damage(brute = 0, burn = 0, updating_health = TRUE, sharp = 0, edge = 0)
 	var/list/components = get_damageable_components()
-	if(!length(components))
+	if(!LAZYLEN(components))
 		return
 
 	var/datum/robot_component/armour/A = get_armour()
@@ -87,7 +87,7 @@
 /mob/living/silicon/robot/heal_overall_damage(var/brute, var/burn, updating_health = TRUE)
 	var/list/datum/robot_component/parts = get_damaged_components(brute, burn)
 
-	while(length(parts) && (brute > 0 || burn > 0) )
+	while(LAZYLEN(parts) && (brute > 0 || burn > 0) )
 		var/datum/robot_component/picked = pick(parts)
 
 		var/brute_was = picked.brute_damage
@@ -117,7 +117,7 @@
 		A.take_damage(brute, burn, sharp)
 		return
 
-	while(length(parts) && (brute > 0 || burn > 0) )
+	while(LAZYLEN(parts) && (brute > 0 || burn > 0) )
 		var/datum/robot_component/picked = pick(parts)
 
 		var/brute_was = picked.brute_damage

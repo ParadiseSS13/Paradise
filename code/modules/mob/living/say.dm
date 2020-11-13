@@ -144,7 +144,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		return 1
 
 
-	if(!length(message_pieces))
+	if(!LAZYLEN(message_pieces))
 		log_runtime(EXCEPTION("Message failed to generate pieces. [message] - [json_encode(message_pieces)]"))
 		return 0
 

@@ -83,7 +83,7 @@
 	var/list/soulsharers
 
 /datum/soullink/multisharer/parseArgs(mob/living/owner, list/sharers)
-	if(!owner || !length(sharers))
+	if(!owner || !LAZYLEN(sharers))
 		return FALSE
 	soulowner = owner
 	soulsharers = sharers
@@ -151,7 +151,7 @@
 //Gibbing ends it immediately
 
 /datum/soullink/multisharer/replacementpool/ownerDies(gibbed, mob/living/owner)
-	if(length(soulsharers) && !gibbed) //let's not put them in some gibs
+	if(LAZYLEN(soulsharers) && !gibbed) //let's not put them in some gibs
 		var/list/souls = shuffle(soulsharers.Copy())
 		for(var/l in souls)
 			var/mob/living/L = l

@@ -134,15 +134,15 @@
 		var/list/ad = A.add_overlays;\
 		var/list/rm = A.remove_overlays;\
 		var/list/po = A.priority_overlays;\
-		if(length(rm)){\
+		if(LAZYLEN(rm)){\
 			A.overlays -= rm;\
 			rm.Cut();\
 		}\
-		if(length(ad)){\
+		if(LAZYLEN(ad)){\
 			A.overlays |= ad;\
 			ad.Cut();\
 		}\
-		if(length(po)){\
+		if(LAZYLEN(po)){\
 			A.overlays |= po;\
 		}\
 		A.flags_2 &= ~OVERLAY_QUEUED_2;\

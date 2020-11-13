@@ -27,7 +27,7 @@
 	var/static/list/fakename_list
 
 /obj/item/encryptionkey/syndicate/Initialize()
-	if(!length(fakename_list))
+	if(!LAZYLEN(fakename_list))
 		fakename_list = GLOB.html_colors.Copy()
 	. = ..()
 	if(change_voice)

@@ -35,7 +35,7 @@
 	if(possible_syndicates.len < 1)
 		return 0
 
-	if(length(possible_syndicates) > agents_possible)
+	if(LAZYLEN(possible_syndicates) > agents_possible)
 		agent_number = agents_possible
 	else
 		agent_number = possible_syndicates.len
@@ -222,7 +222,7 @@
 /datum/game_mode/proc/update_syndicate_id(var/datum/mind/synd_mind, is_leader = FALSE)
 	var/list/found_ids = synd_mind.current.search_contents_for(/obj/item/card/id)
 
-	if(length(found_ids))
+	if(LAZYLEN(found_ids))
 		for(var/obj/item/card/id/ID in found_ids)
 			ID.name = "[synd_mind.current.real_name] ID card"
 			ID.registered_name = synd_mind.current.real_name

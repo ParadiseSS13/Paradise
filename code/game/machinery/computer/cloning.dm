@@ -43,7 +43,7 @@
 	if(scanner.occupant && can_autoprocess())
 		scan_mob(scanner.occupant)
 
-	if(!length(records))
+	if(!LAZYLEN(records))
 		return
 
 	for(var/obj/machinery/clonepod/pod in pods)

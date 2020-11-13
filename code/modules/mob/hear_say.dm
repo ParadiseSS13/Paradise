@@ -19,7 +19,7 @@
 			if(!say_understands(speaker, SP.speaking))
 				if(isanimal(speaker))
 					var/mob/living/simple_animal/S = speaker
-					if(length(S.speak))
+					if(LAZYLEN(S.speak))
 						piece = pick(S.speak)
 					else
 						piece = stars(piece)
@@ -33,7 +33,7 @@
 				piece = stars(piece)
 				if(isanimal(speaker))
 					var/mob/living/simple_animal/S = speaker
-					if(length(S.speak))
+					if(LAZYLEN(S.speak))
 						piece = pick(S.speak)
 				if(always_stars)
 					piece = stars(piece)
