@@ -22,19 +22,19 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 #define BRAIN_INITIAL_DAMAGE 90 // our minds are too feeble for 190
 
 /obj/machinery/clonepod
-	anchored = 1
+	anchored = TRUE
 	name = "cloning pod"
 	desc = "An electronically-lockable pod for growing organic tissue."
-	density = 1
+	density = TRUE
 	icon = 'icons/obj/cloning.dmi'
 	icon_state = "pod_idle"
-	req_access = list(ACCESS_GENETICS) //For premature unlocking.
+	req_access = list(ACCESS_MEDICAL) //For premature unlocking.
 
 	var/mob/living/carbon/human/occupant
 	var/heal_level //The clone is released once its health reaches this level.
 	var/obj/machinery/computer/cloning/connected = null //So we remember the connected clone machine.
-	var/mess = 0 //Need to clean out it if it's full of exploded clone.
-	var/attempting = 0 //One clone attempt at a time thanks
+	var/mess = FALSE //Need to clean out it if it's full of exploded clone.
+	var/attempting = FALSE //One clone attempt at a time thanks
 	var/biomass = 0
 	var/speed_coeff
 	var/efficiency
@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	var/grab_ghost_when = CLONER_MATURE_CLONE
 
 	var/obj/item/radio/Radio
-	var/radio_announce = 0
+	var/radio_announce = TRUE
 
 	var/obj/effect/countdown/clonepod/countdown
 
@@ -124,7 +124,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	name = "Cloning Data Disk"
 	icon_state = "datadisk0" //Gosh I hope syndies don't mistake them for the nuke disk.
 	var/datum/dna2/record/buf = null
-	var/read_only = 0 //Well,it's still a floppy disk
+	var/read_only = FALSE //Well,it's still a floppy disk
 
 /obj/item/disk/data/proc/initialize()
 	buf = new
@@ -136,7 +136,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 /obj/item/disk/data/demo
 	name = "data disk - 'God Emperor of Mankind'"
-	read_only = 1
+	read_only = TRUE
 
 /obj/item/disk/data/demo/New()
 	..()
@@ -213,35 +213,35 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 /obj/machinery/clonepod/proc/spooky_devil_flavor()
 	playsound(loc, pick('sound/goonstation/voice/male_scream.ogg', 'sound/goonstation/voice/female_scream.ogg'), 100, 1)
-	mess = 1
+	mess = TRUE
 	update_icon()
 	connected_message("<font face=\"REBUFFED\" color=#600A0A>If you keep trying to steal from me, you'll end up with me.</font>")
 
 //Start growing a human clone in the pod!
 /obj/machinery/clonepod/proc/growclone(datum/dna2/record/R)
 	if(mess || attempting || panel_open || stat & (NOPOWER|BROKEN))
-		return 0
+		return FALSE
 	clonemind = locate(R.mind)
 	if(!istype(clonemind))	//not a mind
-		return 0
+		return FALSE
 	if(clonemind.current && clonemind.current.stat != DEAD)	//mind is associated with a non-dead body
-		return 0
+		return FALSE
 	if(clonemind.damnation_type)
 		spooky_devil_flavor()
-		return 0
+		return FALSE
 	if(!clonemind.is_revivable()) //Other reasons for being unrevivable
-		return 0
+		return FALSE
 	if(clonemind.active)	//somebody is using that mind
 		if(ckey(clonemind.key) != R.ckey )
-			return 0
+			return FALSE
 		if(clonemind.suicided) // and stay out!
 			malfunction(go_easy = 0)
-			return -1 // Flush the record
+			return FALSE// Flush the record
 	else
 		// get_ghost() will fail if they're unable to reenter their body
 		var/mob/dead/observer/G = clonemind.get_ghost()
 		if(!G)
-			return 0
+			return FALSE
 
 /*
 	if(clonemind.damnation_type) //Can't clone the damned.
@@ -253,9 +253,9 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(biomass >= CLONE_BIOMASS)
 		biomass -= CLONE_BIOMASS
 	else
-		return 0
+		return FALSE
 
-	attempting = 1 //One at a time!!
+	attempting = TRUE //One at a time!!
 	countdown.start()
 
 	if(!R.dna)
@@ -311,9 +311,9 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 	update_icon()
 
-	H.suiciding = 0
-	attempting = 0
-	return 1
+	H.suiciding = FALSE
+	attempting = FALSE
+	return TRUE
 
 //Grow clones to maturity then kick them out. FREELOADERS
 /obj/machinery/clonepod/process()
@@ -469,13 +469,13 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 //Put messages in the connected computer's temp var for display.
 /obj/machinery/clonepod/proc/connected_message(message)
 	if((isnull(connected)) || (!istype(connected, /obj/machinery/computer/cloning)))
-		return 0
+		return FALSE
 	if(!message)
-		return 0
+		return FALSE
 
 	connected.temp = "[name] : [message]"
 	connected.updateUsrDialog()
-	return 1
+	return TRUE
 
 /obj/machinery/clonepod/proc/go_out()
 	countdown.stop()
