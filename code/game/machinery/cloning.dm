@@ -220,28 +220,28 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 //Start growing a human clone in the pod!
 /obj/machinery/clonepod/proc/growclone(datum/dna2/record/R)
 	if(mess || attempting || panel_open || stat & (NOPOWER|BROKEN))
-		return FALSE
+		return 0
 	clonemind = locate(R.mind)
 	if(!istype(clonemind))	//not a mind
-		return FALSE
+		return 0
 	if(clonemind.current && clonemind.current.stat != DEAD)	//mind is associated with a non-dead body
-		return FALSE
+		return 0
 	if(clonemind.damnation_type)
 		spooky_devil_flavor()
-		return FALSE
+		return 0
 	if(!clonemind.is_revivable()) //Other reasons for being unrevivable
-		return FALSE
+		return 0
 	if(clonemind.active)	//somebody is using that mind
 		if(ckey(clonemind.key) != R.ckey )
-			return FALSE
+			return 0
 		if(clonemind.suicided) // and stay out!
 			malfunction(go_easy = 0)
-			return FALSE// Flush the record
+			return -1 // Flush the record
 	else
 		// get_ghost() will fail if they're unable to reenter their body
 		var/mob/dead/observer/G = clonemind.get_ghost()
 		if(!G)
-			return FALSE
+			return 0
 
 /*
 	if(clonemind.damnation_type) //Can't clone the damned.
@@ -253,7 +253,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(biomass >= CLONE_BIOMASS)
 		biomass -= CLONE_BIOMASS
 	else
-		return FALSE
+		return 0
 
 	attempting = TRUE //One at a time!!
 	countdown.start()
@@ -313,7 +313,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 	H.suiciding = FALSE
 	attempting = FALSE
-	return TRUE
+	return 1
 
 //Grow clones to maturity then kick them out. FREELOADERS
 /obj/machinery/clonepod/process()
