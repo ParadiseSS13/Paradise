@@ -306,17 +306,17 @@
 		return
 	..()
 
-/obj/item/clothing/accessory/holobadge/emag_act(user)
+/obj/item/clothing/accessory/holobadge/emag_act(mob/user)
 	if(emagged)
 		to_chat(user, "<span class='warning'>[src] is already cracked.</span>")
 	else
 		emagged = TRUE
 		to_chat(user, "<span class='warning'>You swipe the card and crack the holobadge security checks.</span>")
 
-/obj/item/clothing/accessory/holobadge/attack(mob/living/carbon/human/M, mob/living/user)
+/obj/item/clothing/accessory/holobadge/attack(mob/living/carbon/human/H, mob/living/user)
 	if(isliving(user))
-		user.visible_message("<span class='warning'>[user] invades [M]'s personal space, thrusting [src] into [M.p_their()] face insistently.</span>",
-		"<span class='warning'>You invade [M]'s personal space, thrusting [src] into [M.p_their()] face insistently. You are the law.</span>")
+		user.visible_message("<span class='warning'>[user] invades [H]'s personal space, thrusting [src] into [H.p_their()] face insistently.</span>",
+		"<span class='warning'>You invade [H]'s personal space, thrusting [src] into [H.p_their()] face insistently. You are the law.</span>")
 
 //////////////
 //OBJECTION!//
