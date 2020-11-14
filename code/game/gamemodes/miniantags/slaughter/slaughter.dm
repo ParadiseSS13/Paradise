@@ -70,7 +70,7 @@
 
 /mob/living/simple_animal/slaughter/Life(seconds, times_fired)
 	..()
-	if(boost<world.time)
+	if(boost < world.time)
 		speed = 1
 	else
 		speed = 0
