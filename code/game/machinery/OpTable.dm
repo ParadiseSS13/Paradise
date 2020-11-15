@@ -57,8 +57,9 @@
 		return
 	take_patient(O, user)
 
-/// Updates the `patient` var to be the mob occupying the table
-/// Returns whether the patient is present at all.
+/**
+  * Updates the `patient` var to be the mob occupying the table
+  */
 /obj/machinery/optable/proc/update_patient()
 	var/mob/living/carbon/human/M = locate(/mob/living/carbon/human, loc)
 	if(M && M.lying)
@@ -70,7 +71,6 @@
 			icon_state = "table2-active"
 		else
 			icon_state = "table2-idle"
-	return patient != null
 
 /obj/machinery/optable/Crossed(atom/movable/AM, oldloc)
 	. = ..()
@@ -127,7 +127,8 @@
 		qdel(src)
 
 /obj/machinery/optable/proc/check_table()
-	if(update_patient())
+	update_patient()
+	if(patient != null)
 		to_chat(usr, "<span class='notice'>The table is already occupied!</span>")
 		return FALSE
 	else
