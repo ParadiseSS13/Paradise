@@ -41,7 +41,8 @@
 	desc = "A grasping tool used to give medication, assist with surgery, and help patients up once surgery is complete."
 	can_hold = list(/obj/item/implant,
 				/obj/item/organ,
-				/obj/item/reagent_containers/food/pill/
+				/obj/item/reagent_containers/food/pill/,
+				/obj/item/reagent_containers/applicator
 	)
 
 /obj/item/gripper/medical/afterattack(atom/target, mob/living/user, proximity, params)
