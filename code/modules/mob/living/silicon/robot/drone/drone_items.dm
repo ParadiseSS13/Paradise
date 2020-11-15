@@ -39,8 +39,7 @@
 /obj/item/gripper/medical
 	name = "medical gripper"
 	desc = "A grasping tool used to give medication, assist with surgery, and help patients up once surgery is complete."
-	can_hold = list(/obj/item/implant,
-				/obj/item/organ,
+	can_hold = list(/obj/item/organ,
 				/obj/item/reagent_containers/food/pill/,
 				/obj/item/reagent_containers/applicator
 	)
