@@ -128,7 +128,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				if(limited_stock > 0)
 					log_game("[key_name(user)] purchased [name]. [name] was discounted to [cost].")
 					if(!user.mind.special_role)
-						message_admins("[key_name_admin(user)] purchased [name]. [name] was discounted to [cost], as a non antagonist.")
+						message_admins("[key_name_admin(user)] purchased [name] (discounted to [cost]), as a non antagonist.")
 				else
 					log_game("[key_name(user)] purchased [name].")
 					if(!user.mind.special_role)
