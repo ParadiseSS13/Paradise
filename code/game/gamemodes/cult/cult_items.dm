@@ -649,3 +649,12 @@
 				M.adjustHealth(-5)
 		new /obj/effect/temp_visual/cult/sparks(target)
 	..()
+
+/obj/item/blood_orb
+	name = "orb of blood"
+	icon = 'icons/obj/cult.dmi'
+	icon_state = "summoning_orb"
+	item_state = "summoning_orb"
+	desc = "It's an orb of crystalized blood. Can be used to transfer blood between cultists."
+	var/blood = 50
+
