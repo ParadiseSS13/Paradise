@@ -24,7 +24,7 @@
 		) //For Armalis anything but this and the nitrogen tank will use the default backpack icon.
 
 /obj/item/storage/backpack/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(!in_range(user, src))
+	if(in_range(user, src))
 		playsound(src.loc, "rustle", 50, 1, -5)
 		return ..()
 
