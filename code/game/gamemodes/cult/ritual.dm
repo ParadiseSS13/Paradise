@@ -36,11 +36,15 @@
 /obj/item/melee/cultblade/dagger/attack(mob/living/M, mob/living/user)
 	if(iscultist(M))
 		if(M.reagents && M.reagents.has_reagent("holywater")) //allows cultists to be rescued from the clutches of ordained religion
-			to_chat(user, "<span class='cult'>You remove the taint from [M].</span>")
-			var/amount = M.reagents.get_reagent_amount("holywater")
-			M.reagents.del_reagent("holywater")
-			M.reagents.add_reagent("unholywater", amount)
-			add_attack_logs(user, M, "Hit with [src], removing the holy water from them")
+			if(M == user) // Targeting yourself
+				to_chat(user, "<span class='warning'>You can't remove holy water from yourself!</span>")
+			else // Targeting someone else
+				to_chat(user, "<span class='cult'>You remove the taint from [M].</span>")
+				to_chat(M, "<span class='cult'>[user] removes the taint from your body.</span>")
+				var/amount = M.reagents.get_reagent_amount("holywater")
+				M.reagents.del_reagent("holywater")
+				M.reagents.add_reagent("unholywater", amount)
+				add_attack_logs(user, M, "Hit with [src], removing the holy water from them")
 		return FALSE
 	. = ..()
 

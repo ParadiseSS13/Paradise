@@ -841,6 +841,9 @@
 					message_admins("[key_name_admin(usr)] has de-culted [key_name_admin(current)]")
 			if("cultist")
 				if(!(src in SSticker.mode.cult))
+					if(!SSticker.mode.ascend_percent) // If the rise/ascend thresholds haven't been set (non-cult rounds)
+						SSticker.mode.cult_objs.setup()
+						SSticker.mode.cult_threshold_check()
 					SSticker.mode.add_cultist(src)
 					special_role = SPECIAL_ROLE_CULTIST
 					to_chat(current, CULT_GREETING)
