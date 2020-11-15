@@ -730,7 +730,7 @@
 						update_inv_w_uniform()
 
 	if(href_list["criminal"])
-		if(hasHUD(usr,"security"))
+		if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
 			if(usr.incapacitated())
 				return
 			var/found_record = 0
@@ -747,7 +747,7 @@
 								if(!t1)
 									t1 = "(none)"
 
-								if(hasHUD(usr, "security") && setcriminal != "Cancel")
+								if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE) && setcriminal != "Cancel")
 									found_record = 1
 									if(R.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE)
 										to_chat(usr, "<span class='warning'>Unable to modify the sec status of a person with an active Execution order. Use a security computer instead.</span>")
@@ -770,7 +770,7 @@
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["secrecord"])
-		if(hasHUD(usr,"security"))
+		if(hasHUD(usr, EXAMINE_HUD_SECURITY_READ))
 			if(usr.incapacitated())
 				return
 			var/perpname = get_visible_name(TRUE)
@@ -780,7 +780,7 @@
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in GLOB.data_core.security)
 						if(R.fields["id"] == E.fields["id"])
-							if(hasHUD(usr,"security"))
+							if(hasHUD(usr, EXAMINE_HUD_SECURITY_READ))
 								to_chat(usr, "<b>Name:</b> [R.fields["name"]]	<b>Criminal Status:</b> [R.fields["criminal"]]")
 								to_chat(usr, "<b>Minor Crimes:</b> [R.fields["mi_crim"]]")
 								to_chat(usr, "<b>Details:</b> [R.fields["mi_crim_d"]]")
@@ -794,7 +794,7 @@
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["secrecordComment"])
-		if(hasHUD(usr,"security"))
+		if(hasHUD(usr, EXAMINE_HUD_SECURITY_READ))
 			if(usr.incapacitated() && !isobserver(usr)) //give the ghosts access to "View Comment Log" while they can't manipulate it
 				return
 			var/perpname = get_visible_name(TRUE)
@@ -804,44 +804,30 @@
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in GLOB.data_core.security)
 						if(R.fields["id"] == E.fields["id"])
-							if(hasHUD(usr,"security"))
+							if(hasHUD(usr, EXAMINE_HUD_SECURITY_READ))
 								read = 1
 								if(LAZYLEN(R.fields["comments"]))
 									for(var/c in R.fields["comments"])
 										to_chat(usr, c)
 								else
 									to_chat(usr, "<span class='warning'>No comments found</span>")
-								to_chat(usr, "<a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>")
+								if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
+									to_chat(usr, "<a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>")
 
 			if(!read)
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["secrecordadd"])
-		if(hasHUD(usr,"security"))
-			if(usr.incapacitated())
-				return
-			var/perpname = get_visible_name(TRUE)
-
-			for(var/datum/data/record/E in GLOB.data_core.general)
-				if(E.fields["name"] == perpname)
-					for(var/datum/data/record/R in GLOB.data_core.security)
-						if(R.fields["id"] == E.fields["id"])
-							if(hasHUD(usr,"security"))
-								var/t1 = copytext(trim(sanitize(input("Add Comment:", "Sec. records", null, null) as message)), 1, MAX_MESSAGE_LEN)
-								if(!t1 || usr.stat || usr.restrained() || !hasHUD(usr, "security"))
-									return
-								if(ishuman(usr))
-									var/mob/living/carbon/human/U = usr
-									R.fields["comments"] += "Made by [U.get_authentification_name()] ([U.get_assignment()]) on [GLOB.current_date_string] [station_time_timestamp()]<BR>[t1]"
-								if(isrobot(usr))
-									var/mob/living/silicon/robot/U = usr
-									R.fields["comments"] += "Made by [U.name] ([U.modtype] [U.braintype]) on [GLOB.current_date_string] [station_time_timestamp()]<BR>[t1]"
-								if(isAI(usr))
-									var/mob/living/silicon/ai/U = usr
-									R.fields["comments"] += "Made by [U.name] (artificial intelligence) on [GLOB.current_date_string] [station_time_timestamp()]<BR>[t1]"
+		if(usr.incapacitated() || !hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
+			return
+		var/raw_input = input("Add Comment:", "Security records", null, null) as message
+		var/sanitized = copytext(trim(sanitize(raw_input)), 1, MAX_MESSAGE_LEN)
+		if(!sanitized || usr.stat || usr.restrained() || !hasHUD(usr,  EXAMINE_HUD_SECURITY_WRITE))
+			return
+		add_comment(usr, "security", sanitized)
 
 	if(href_list["medical"])
-		if(hasHUD(usr,"medical"))
+		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
 			if(usr.incapacitated())
 				return
 			var/modified = 0
@@ -853,7 +839,7 @@
 						if(R.fields["id"] == E.fields["id"])
 							var/setmedical = input(usr, "Specify a new medical status for this person.", "Medical HUD", R.fields["p_stat"]) in list("*SSD*", "*Deceased*", "Physically Unfit", "Active", "Disabled", "Cancel")
 
-							if(hasHUD(usr,"medical"))
+							if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
 								if(setmedical != "Cancel")
 									R.fields["p_stat"] = setmedical
 									modified = 1
@@ -867,7 +853,7 @@
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["medrecord"])
-		if(hasHUD(usr,"medical"))
+		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
 			if(usr.incapacitated())
 				return
 			var/read = 0
@@ -877,7 +863,7 @@
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in GLOB.data_core.medical)
 						if(R.fields["id"] == E.fields["id"])
-							if(hasHUD(usr,"medical"))
+							if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
 								to_chat(usr, "<b>Name:</b> [R.fields["name"]]	<b>Blood Type:</b> [R.fields["b_type"]]")
 								to_chat(usr, "<b>DNA:</b> [R.fields["b_dna"]]")
 								to_chat(usr, "<b>Minor Disabilities:</b> [R.fields["mi_dis"]]")
@@ -892,18 +878,18 @@
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["medrecordComment"])
-		if(hasHUD(usr,"medical"))
+		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
 			if(usr.incapacitated())
 				return
 			var/perpname = get_visible_name(TRUE)
-			var/read = 0
+			var/read = FALSE
 
 			for(var/datum/data/record/E in GLOB.data_core.general)
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in GLOB.data_core.medical)
 						if(R.fields["id"] == E.fields["id"])
-							if(hasHUD(usr,"medical"))
-								read = 1
+							if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
+								read = TRUE
 								if(LAZYLEN(R.fields["comments"]))
 									for(var/c in R.fields["comments"])
 										to_chat(usr, c)
@@ -915,27 +901,28 @@
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["medrecordadd"])
-		if(hasHUD(usr,"medical"))
+		if(usr.incapacitated() || !hasHUD(usr, EXAMINE_HUD_MEDICAL))
+			return
+		var/raw_input = input("Add Comment:", "Medical records", null, null) as message
+		var/sanitized = copytext(trim(sanitize(raw_input)), 1, MAX_MESSAGE_LEN)
+		if(!sanitized || usr.stat || usr.restrained() || !hasHUD(usr,  EXAMINE_HUD_MEDICAL))
+			return
+		add_comment(usr, "medical", sanitized)
+
+	if(href_list["employment_more"])
+		if(hasHUD(usr, EXAMINE_HUD_SKILLS))
 			if(usr.incapacitated())
 				return
+
+			var/skills
 			var/perpname = get_visible_name(TRUE)
-			for(var/datum/data/record/E in GLOB.data_core.general)
-				if(E.fields["name"] == perpname)
-					for(var/datum/data/record/R in GLOB.data_core.medical)
-						if(R.fields["id"] == E.fields["id"])
-							if(hasHUD(usr,"medical"))
-								var/t1 = copytext(trim(sanitize(input("Add Comment:", "Med. records", null, null) as message)), 1, MAX_MESSAGE_LEN)
-								if(!t1 || usr.stat || usr.restrained() || !hasHUD(usr, "medical"))
-									return
-								if(ishuman(usr))
-									var/mob/living/carbon/human/U = usr
-									R.fields["comments"] += "Made by [U.get_authentification_name()] ([U.get_assignment()]) on [GLOB.current_date_string] [station_time_timestamp()]<BR>[t1]"
-								if(isrobot(usr))
-									var/mob/living/silicon/robot/U = usr
-									R.fields["comments"] += "Made by [U.name] ([U.modtype] [U.braintype]) on [GLOB.current_date_string] [station_time_timestamp()]<BR>[t1]"
-								if(isAI(usr))
-									var/mob/living/silicon/ai/U = usr
-									R.fields["comments"] += "Made by [U.name] (artificial intelligence) on [GLOB.current_date_string] [station_time_timestamp()]<BR>[t1]"
+			if(perpname)
+				for(var/datum/data/record/E in GLOB.data_core.general)
+					if(E.fields["name"] == perpname)
+						skills = E.fields["notes"]
+						break
+				if(skills)
+					to_chat(usr, "<span class='deptradio'>Employment records: [skills]</span>\n")
 
 	if(href_list["lookitem"])
 		var/obj/item/I = locate(href_list["lookitem"])
