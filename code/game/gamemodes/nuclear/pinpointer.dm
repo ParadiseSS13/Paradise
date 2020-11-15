@@ -248,12 +248,13 @@
 	modes = list(MODE_DISK, MODE_NUKE)
 
 /obj/item/pinpointer/nukeop/process()
-	if(mode == MODE_DISK)
-		workdisk()
-	else if(mode == MODE_NUKE)
-		workbomb()
-	else if(mode == MODE_SHIP)
-		worklocation()
+	switch(mode)
+		if(MODE_DISK)
+			workdisk()
+		if(MODE_NUKE)
+			workbomb()
+		if(MODE_SHIP)
+			worklocation()
 
 /obj/item/pinpointer/nukeop/workdisk()
 	if(GLOB.bomb_set)	//If the bomb is set, lead to the shuttle
