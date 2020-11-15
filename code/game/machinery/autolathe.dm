@@ -79,7 +79,8 @@
 
 	if(panel_open)
 		wires.Interact(user)
-	else
+
+	else if(!disabled)
 		tgui_interact(user)
 
 /obj/machinery/autolathe/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
@@ -201,6 +202,11 @@
 				busy = TRUE
 				process_queue()
 				busy = FALSE
+
+/obj/machinery/autolathe/tgui_status(mob/user, datum/tgui_state/state)
+	. = disabled ? STATUS_CLOSE : STATUS_INTERACTIVE
+
+	return min(..(), .)
 
 /obj/machinery/autolathe/proc/design_cost_data(datum/design/D)
 	var/list/data = list()
