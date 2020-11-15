@@ -451,7 +451,7 @@
 		else
 			return
 	while(D)
-		if(stat & (NOPOWER|BROKEN))
+		if(stat & (NOPOWER|BROKEN|disabled))
 			being_built = new /list()
 			return 0
 		if(!can_build(D, multiplier))
