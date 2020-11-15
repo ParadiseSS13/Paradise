@@ -27,12 +27,12 @@
 	return 1
 
 
-/datum/surgery/proc/next_step(mob/user, mob/living/carbon/target)
+/datum/surgery/proc/next_step(mob/user, mob/living/carbon/target, obj/item/tool)
 	if(step_in_progress)	return
 
 	var/datum/surgery_step/S = get_surgery_step()
 	if(S)
-		if(S.try_op(user, target, user.zone_selected, user.get_active_hand(), src))
+		if(S.try_op(user, target, user.zone_selected, tool, src))
 			return 1
 	return 0
 

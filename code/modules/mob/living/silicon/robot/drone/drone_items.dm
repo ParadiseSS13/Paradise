@@ -38,11 +38,10 @@
 
 /obj/item/gripper/medical
 	name = "medical gripper"
-	desc = "A grasping tool used to help patients up once surgery is complete."
-	can_hold = list()
-
-/obj/item/gripper/medical/attack_self(mob/user)
-	return
+	desc = "A grasping tool used to assist with surgery and help patients up once surgery is complete."
+	can_hold = list(/obj/item/implant,
+				/obj/item/organ
+	)
 
 /obj/item/gripper/medical/afterattack(atom/target, mob/living/user, proximity, params)
 	var/mob/living/carbon/human/H
@@ -60,6 +59,9 @@
 				"<span class='notice'>[user] shakes [H] trying to wake [H.p_them()] up!</span>",\
 				"<span class='notice'>You shake [H] trying to wake [H.p_them()] up!</span>",\
 				)
+			return
+	..()
+
 
 /obj/item/gripper/New()
 	..()
@@ -125,7 +127,7 @@
 	else if(istype(target,/obj/machinery/power/apc))
 		var/obj/machinery/power/apc/A = target
 		if(A.opened)
-			if(A.cell)
+			if(A.cell && is_type_in_typecache(A.cell, can_hold))
 
 				gripped_item = A.cell
 

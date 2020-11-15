@@ -54,7 +54,7 @@
 							procedure.location = selected_zone
 							M.surgeries += procedure
 							procedure.organ_ref = affecting
-							procedure.next_step(user, M)
+							procedure.next_step(user, M, user.get_active_hand())
 
 				else
 					var/P = input("Begin which procedure?", "Surgery", null, null) as null|anything in available_surgeries

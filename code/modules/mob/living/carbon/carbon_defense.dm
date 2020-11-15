@@ -23,7 +23,7 @@
 	if(lying && surgeries.len)
 		if(user != src && user.a_intent == INTENT_HELP)
 			for(var/datum/surgery/S in surgeries)
-				if(S.next_step(user, src))
+				if(S.next_step(user, src, I))
 					return 1
 	return ..()
 
@@ -44,7 +44,7 @@
 	if(lying && surgeries.len)
 		if(user.a_intent == INTENT_HELP)
 			for(var/datum/surgery/S in surgeries)
-				if(S.next_step(user, src))
+				if(S.next_step(user, src, user.get_active_hand()))
 					return 1
 	return 0
 

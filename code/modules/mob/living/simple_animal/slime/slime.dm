@@ -337,7 +337,7 @@
 		if(stat == DEAD && surgeries.len)
 			if(M.a_intent == INTENT_HELP || M.a_intent == INTENT_DISARM)
 				for(var/datum/surgery/S in surgeries)
-					if(S.next_step(M, src))
+					if(S.next_step(M, src, M.get_active_hand()))
 						return 1
 		if(..()) //successful attack
 			attacked += 10
@@ -352,7 +352,7 @@
 	if(stat == DEAD && surgeries.len)
 		if(user.a_intent == INTENT_HELP || user.a_intent == INTENT_DISARM)
 			for(var/datum/surgery/S in surgeries)
-				if(S.next_step(user, src))
+				if(S.next_step(user, src, user.get_active_hand()))
 					return 1
 	if(istype(I, /obj/item/stack/sheet/mineral/plasma) && !stat) //Let's you feed slimes plasma.
 		if(user in Friends)
