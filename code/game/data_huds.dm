@@ -175,7 +175,7 @@
 	if(dead)
 		var/revivable = timeofdeath && (round(world.time - timeofdeath) < DEFIB_TIME_LIMIT)
 		if(revivable)
-			holder.icon_state = "huddefib2"
+			holder.icon_state = "hudflatline"
 		else
 			holder.icon_state = "huddead"
 	else if(status_flags & XENO_HOST)
