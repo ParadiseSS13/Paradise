@@ -37,8 +37,8 @@
 
 //Nanotrasen Representative
 /obj/item/clothing/head/ntrep
-	name = "Nanotrasen Representative hat"
-	desc = "A cap issued to the Nanotrasen Representative"
+	name = "Nanotrasen Representative's hat"
+	desc = "A cap issued to Nanotrasen Representatives."
 	icon_state = "ntrep"
 
 

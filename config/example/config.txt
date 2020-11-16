@@ -311,30 +311,8 @@ ALIEN_PLAYER_RATIO 0.2
 ##Remove the # to let ghosts spin chairs
 GHOST_INTERACTION
 
-## Password used for authorizing ircbot and other external tools.
+## Password used for authorizing external tools via world/Topic.
 #COMMS_PASSWORD
-
-## Uncomment to enable sending data to the IRC bot.
-#USE_IRC_BOT
-
-## Host(s) where the IRC bot is hosted.  Seperate IP's by ;.  Port 45678 needs to be open.
-#IRC_BOT_HOST 127.0.0.1;localhost
-
-## IRC channel to send information to.  Leave blank to disable.
-#MAIN_IRC #main
-
-## IRC channel to send adminhelps to.  Leave blank to disable adminhelps-to-irc.
-#ADMIN_IRC #admin
-
-## IRC channel to send direct messages to admins to. Leave blank to disable.
-#ADMIN_NOTIFY_IRC #paradiseStaff
-
-## IRC channel to log CID randomizer blocker hits to. Leave blank to silence
-#CIDRANDOMIZER_IRC #cidrandomizer
-
-## Path to the python2 executable on the system.  Leave blank for default.
-## Default is "python" on Windows, "/usr/bin/env python2" on UNIX.
-#PYTHON_PATH pythonw
 
 ## Expected round length in minutes
 EXPECTED_ROUND_LENGTH 120
@@ -461,3 +439,29 @@ DISABLE_HIGH_POP_MC_MODE_AMOUNT 60
 ## BYOND accounts younger than the value below will alert admins when they connect for the first time,
 ## as well as making the BYOND account age in player panel bold
 BYOND_ACCOUNT_AGE_THRESHOLD 7
+
+##### DISCORD STUFF #####
+
+## If you are going to enable discord webhooks, fill out EVERYTHING in this section
+
+## Uncomment the line below to enable Discord webhooks
+#ENABLE_DISCORD_WEBHOOKS
+
+## Role ID to be pinged with administrative events. If unset, all pings to this role will be disabled
+## IF YOU ARE DISABLING THIS COMMENT IT OUT ENTIRELY, DONT LEAVE IT BLANK
+#DISCORD_WEBHOOKS_ADMIN_ROLE_ID
+
+## Webhook URL for the main discord webhook
+#DISCORD_WEBHOOKS_MAIN_URL
+
+## Webhook URL for the admin discord webhook
+#DISCORD_WEBHOOKS_ADMIN_URL
+
+## Webhook URL for the mentor discord webhook
+#DISCORD_WEBHOOKS_MENTOR_URL
+
+## Uncomment to send all ahelps to discord. If the line is commented, only ahelps made when no admins are online will be forwarded
+## Ahelps forwarded when staff are online will never have the role ping, regardless of the setting above
+#DISCORD_FORWARD_ALL_AHELPS
+
+##### END DISCORD STUFF #####

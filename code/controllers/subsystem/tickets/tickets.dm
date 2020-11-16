@@ -119,8 +119,8 @@ SUBSYSTEM_DEF(tickets)
 	L += "([ADMIN_QUE(C.mob,"?")]) ([ADMIN_PP(C.mob,"PP")]) ([ADMIN_VV(C.mob,"VV")]) ([ADMIN_TP(C.mob,"TP")]) ([ADMIN_SM(C.mob,"SM")]) "
 	L += "([admin_jump_link(C.mob)]) (<a href='?_src_=holder;openticket=[ticketNum][anchor_link_extra]'>TICKET</a>) "
 	L += "[isAI(C.mob) ? "(<a href='?_src_=holder;adminchecklaws=[C.mob.UID()]'>CL</a>)" : ""] (<a href='?_src_=holder;take_question=[ticketNum][anchor_link_extra]'>TAKE</a>) "
-	L += "(<a href='?_src_=holder;resolve=[ticketNum][anchor_link_extra]'>RESOLVE</a>) <a href='?_src_=holder;autorespond=[ticketNum][anchor_link_extra]'>(AUTO)</a> "
-	L += "<a href='?_src_=holder;convert_ticket=[ticketNum][anchor_link_extra]'>(CONVERT)</a> :</span> <span class='[ticket_help_span]'>[msg]</span>"
+	L += "(<a href='?_src_=holder;resolve=[ticketNum][anchor_link_extra]'>RESOLVE</a>) (<a href='?_src_=holder;autorespond=[ticketNum][anchor_link_extra]'>AUTO</a>) "
+	L += "(<a href='?_src_=holder;convert_ticket=[ticketNum][anchor_link_extra]'>CONVERT</a>) :</span> <span class='[ticket_help_span]'>[msg]</span>"
 	return L.Join()
 
 //Open a new ticket and populate details then add to the list of open tickets

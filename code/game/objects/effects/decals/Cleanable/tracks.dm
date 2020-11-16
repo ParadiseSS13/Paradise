@@ -136,3 +136,8 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 	if(blood_state != C.blood_state) //We only replace footprints of the same type as us
 		return
 	..()
+
+/obj/effect/decal/cleanable/blood/footprints/can_bloodcrawl_in()
+	if(basecolor == COLOR_BLOOD_MACHINE)
+		return FALSE
+	return TRUE

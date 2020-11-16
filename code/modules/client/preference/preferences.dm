@@ -2237,6 +2237,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			character.change_gender(MALE)
 
 	character.change_eye_color(e_colour)
+	character.original_eye_color = e_colour
 
 	if(disabilities & DISABILITY_FLAG_FAT)
 		character.dna.SetSEState(GLOB.fatblock, TRUE, TRUE)
