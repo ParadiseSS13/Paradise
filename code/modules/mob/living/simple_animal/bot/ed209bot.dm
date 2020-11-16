@@ -118,6 +118,7 @@
 		"maintpanel" = open,
 		"on" = on,
 		"autopatrol" = auto_patrol,
+		"painame" = paicard ? paicard.pai.name : null,
 
 		"canhack" = canhack(user),
 		"emagged" = emagged, // this is an int, NOT a boolean
