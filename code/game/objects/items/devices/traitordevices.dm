@@ -168,3 +168,24 @@ effective or pretty fucking useless.
 		GLOB.active_jammers |= src
 	else
 		GLOB.active_jammers -= src
+
+/obj/item/teleporter
+	name = "Syndicate teleporter"
+	desc = "A strange syndicate version of a cult veil shifter. /n A warning label says, This teleporter will teleport the user 4-8 tiles in the direction they are facing. /n Warning: Teleporting into walls will activate a failsafe teleport sideways up to 3 tiles, but will gib the user if it fails. Warrenty voided if exposed to EMP."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "batterer"
+	throwforce = 5
+	w_class = WEIGHT_CLASS_TINY
+	throw_speed = 4
+	throw_range = 10
+	flags = CONDUCT
+	item_state = "electronic"
+	origin_tech = "magnets=3;combat=3;syndicate=3"
+	var/charges = 4
+	var/max_charges = 4
+	var/flawless = FALSE
+
+/obj/item/teleporter/examine(mob/user)
+	. = ..()
+		. += "<span class='notice'>[src] has [charges] out of [max_charges] charges left.</span>"
+
