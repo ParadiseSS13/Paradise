@@ -288,7 +288,7 @@
 	else if(occupant)
 		add_overlay("human")
 
-/obj/machinery/suit_storage_unit/attackby(obj/item/I as obj, mob/user, params)
+/obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
 	if(shocked)
 		if(shock(user, 100))
 			return
@@ -302,6 +302,7 @@
 
 	if(panel_open)
 		wires.Interact(user)
+		return
 
 	if(state_open)
 		if(store_item(I, user))
@@ -529,7 +530,10 @@
 	if(shocked && !(stat & NOPOWER))
 		if(shock(user, 100))
 			return
-	
+	if(stat & NOPOWER)
+		return
+	if(..())
+		return
 	if(panel_open) //The maintenance panel is open. Time for some shady stuff
 		wires.Interact(user)
 
@@ -644,8 +648,7 @@
 	return
 
 
-/obj/machinery/suit_storage_unit/proc/toggleUV(mob/user as mob)
-
+/obj/machinery/suit_storage_unit/proc/toggleUV(mob/user)
 	if(!panel_open)
 		return
 	else
@@ -656,7 +659,7 @@
 			to_chat(user, "<span class='notice'>You crank the dial all the way up to \"15nm\".</span>")
 			uv_super = TRUE
 
-/obj/machinery/suit_storage_unit/proc/togglesafeties(mob/user as mob)
+/obj/machinery/suit_storage_unit/proc/togglesafeties(mob/user)
 	if(!panel_open)
 		return
 	else
