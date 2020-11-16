@@ -5,6 +5,9 @@
 #define MODE_SHIP 4
 #define MODE_OPERATIVE 5
 #define MODE_CREW 6
+#define SETTING_DISK 0
+#define SETTING_LOCATION 1
+#define SETTING_OBJECT 2
 
 /obj/item/pinpointer
 	name = "pinpointer"
@@ -148,11 +151,11 @@
 	var/setting = 0
 
 /obj/item/pinpointer/advpinpointer/process()
-	if(setting == 0)
+	if(setting == SETTING_DISK)
 		workdisk()
-	if(setting == 1)
+	if(setting == SETTING_LOCATION)
 		point_at(location)
-	if(setting == 2)
+	if(setting == SETTING_OBJECT)
 		point_at(target)
 
 /obj/item/pinpointer/advpinpointer/workdisk() //since mode works diffrently for advpinpointer
@@ -178,7 +181,7 @@
 
 	switch(alert("Please select the mode you want to put the pinpointer in.", "Pinpointer Mode Select", "Location", "Disk Recovery", "Other Signature"))
 		if("Location")
-			setting = 1
+			setting = SETTING_LOCATION
 
 			var/locationx = input(usr, "Please input the x coordinate to search for.", "Location?" , "") as num
 			if(!locationx || !(usr in view(1,src)))
@@ -197,11 +200,11 @@
 			return attack_self()
 
 		if("Disk Recovery")
-			setting = 0
+			setting = SETTING_DISK
 			return attack_self()
 
 		if("Other Signature")
-			setting = 2
+			setting = SETTING_OBJECT
 			switch(alert("Search for item signature or DNA fragment?" , "Signature Mode Select" , "Item" , "DNA"))
 				if("Item")
 					var/list/item_names[0]
@@ -259,7 +262,7 @@
 /obj/item/pinpointer/nukeop/workdisk()
 	if(GLOB.bomb_set)	//If the bomb is set, lead to the shuttle
 		mode = MODE_SHIP	//Ensures worklocation() continues to work
-		worklocation()
+		modes = list(MODE_SHIP)
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)	//Plays a beep
 		visible_message("Shuttle Locator mode actived.")			//Lets the mob holding it know that the mode has changed
 		return		//Get outta here
@@ -269,7 +272,7 @@
 /obj/item/pinpointer/nukeop/workbomb()
 	if(GLOB.bomb_set)	//If the bomb is set, lead to the shuttle
 		mode = MODE_SHIP	//Ensures worklocation() continues to work
-		worklocation()
+		modes = list(MODE_SHIP)
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)	//Plays a beep
 		visible_message("Shuttle Locator mode actived.")			//Lets the mob holding it know that the mode has changed
 		return		//Get outta here
@@ -279,7 +282,7 @@
 /obj/item/pinpointer/nukeop/proc/worklocation()
 	if(!GLOB.bomb_set)
 		mode = MODE_DISK
-		workdisk()
+		modes = list(MODE_DISK, MODE_NUKE)
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)
 		visible_message("<span class='notice'>Authentication Disk Locator mode actived.</span>")
 		return
@@ -363,9 +366,6 @@
 		point_at(target)
 
 /obj/item/pinpointer/crew/point_at(atom/target)
-	if(mode == MODE_OFF)
-		return
-
 	if(!trackable(target) || !target)
 		icon_state = icon_null
 		return
@@ -402,10 +402,8 @@
 		return
 
 	target = names[A]
-	mode = MODE_CREW
 	target_set = TRUE
 	user.visible_message("<span class='notice'>[user] activates [user.p_their()] pinpointer.</span>", "<span class='notice'>You activate your pinpointer.</span>")
-	point_at(target)
 
 /obj/item/pinpointer/crew/centcom
 	name = "centcom pinpointer"
@@ -423,3 +421,6 @@
 #undef MODE_SHIP
 #undef MODE_OPERATIVE
 #undef MODE_CREW
+#undef SETTING_DISK
+#undef SETTING_LOCATION
+#undef SETTING_OBJECT
