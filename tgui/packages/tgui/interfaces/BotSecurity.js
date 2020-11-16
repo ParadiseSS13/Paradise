@@ -61,7 +61,7 @@ export const BotSecurity = (props, context) => {
               <LabeledList.Item label="Hacking">
                 <Button
                   icon="terminal"
-                  content={emagged ? "UnHack" : "Hack"}
+                  content={emagged ? "Restore Safties" : "Hack"}
                   disabled={noaccess}
                   color="bad"
                   onClick={() => act('hack')} />
@@ -114,6 +114,7 @@ export const BotSecurity = (props, context) => {
         {painame && (
           <Section title="pAI">
             <Button
+              fluid
               icon="eject"
               content={painame}
               disabled={noaccess}
