@@ -151,12 +151,13 @@
 	var/setting = 0
 
 /obj/item/pinpointer/advpinpointer/process()
-	if(setting == SETTING_DISK)
-		workdisk()
-	if(setting == SETTING_LOCATION)
-		point_at(location)
-	if(setting == SETTING_OBJECT)
-		point_at(target)
+	switch(setting)
+		if(SETTING_DISK)
+			workdisk()
+		if(SETTING_LOCATION)
+			point_at(location)
+		if(SETTING_OBJECT)
+			point_at(target)
 
 /obj/item/pinpointer/advpinpointer/workdisk() //since mode works diffrently for advpinpointer
 	scandisk()
