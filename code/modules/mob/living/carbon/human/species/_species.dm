@@ -78,7 +78,7 @@
 	var/bodyflags = 0
 	var/dietflags  = 0	// Make sure you set this, otherwise it won't be able to digest a lot of foods
 
-	var/blood_color = "#A10808" //Red.
+	var/blood_color = COLOR_BLOOD_BASE //Red.
 	var/flesh_color = "#d1aa2e" //Gold.
 	var/single_gib_type = /obj/effect/decal/cleanable/blood/gibs
 	var/remains_type = /obj/effect/decal/remains/human //What sort of remains is left behind when the species dusts
@@ -830,6 +830,9 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	if(XRAY in H.mutations)
 		H.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
+
+	if(H.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
+		H.see_invisible = SEE_INVISIBLE_OBSERVER
 
 	H.sync_lighting_plane_alpha()
 

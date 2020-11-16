@@ -169,7 +169,16 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 /////////////////////////////////////////////////////////////////////////
 
-/proc/getline(atom/M,atom/N)//Ultra-Fast Bresenham Line-Drawing Algorithm
+/**
+ * Gets the turfs which are between the two given atoms. Including their positions
+ * Only works for atoms on the same Z level which is not 0. So an atom located in a non turf won't work
+ * Arguments:
+ * * M - The source atom
+ * * N - The target atom
+ */
+/proc/getline(atom/M, atom/N)//Ultra-Fast Bresenham Line-Drawing Algorithm
+	if(!M.z || M.z != N.z)	// Same Z level and not 0. Else all below breaks
+		return list()
 	var/px=M.x		//starting x
 	var/py=M.y
 	var/line[] = list(locate(px,py,M.z))

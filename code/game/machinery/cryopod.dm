@@ -372,19 +372,10 @@
 		else
 			I.forceMove(loc)
 
-	// Skip past any cult sacrifice objective using this person
-	if(GAMEMODE_IS_CULT && is_sacrifice_target(occupant.mind))
-		var/datum/game_mode/cult/cult_mode = SSticker.mode
-		var/list/p_s_t = cult_mode.get_possible_sac_targets()
-		if(p_s_t.len)
-			cult_mode.sacrifice_target = pick(p_s_t)
-			for(var/datum/mind/H in SSticker.mode.cult)
-				if(H.current)
-					to_chat(H.current, "<span class='danger'>[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[occupant] is beyond your reach. Sacrifice [cult_mode.sacrifice_target.current] instead...</span></span>")
-					H.current << 'sound/ambience/alarm4.ogg'
-			cult_mode.update_sac_objective(occupant.mind, occupant.mind.assigned_role)
-		else
-			cult_mode.bypass_phase()
+	// Find a new sacrifice target if needed, if unable allow summoning
+	if(is_sacrifice_target(occupant.mind))
+		if(!SSticker.mode.cult_objs.find_new_sacrifice_target())
+			SSticker.mode.cult_objs.ready_to_summon()
 
 	//Update any existing objectives involving this mob.
 	for(var/datum/objective/O in GLOB.all_objectives)

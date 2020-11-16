@@ -10,4 +10,4 @@ export BYOND_MAJOR=513
 # Byond Minor
 export BYOND_MINOR=1526
 # For the RUSTG library
-export RUSTG_VERSION=2.0
+export RUSTG_VERSION=2.1-P

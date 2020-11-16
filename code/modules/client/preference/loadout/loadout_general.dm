@@ -34,7 +34,7 @@
 /datum/gear/candlebox
 	display_name = "a box candles"
 	description = "For setting the mood or for occult rituals."
-	path = /obj/item/storage/fancy/candle_box
+	path = /obj/item/storage/fancy/candle_box/full
 
 /datum/gear/rock
 	display_name = "a pet rock"
