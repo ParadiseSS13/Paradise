@@ -149,7 +149,7 @@
 	if(!can_use(user, target, target_zone, tool, surgery))
 		return SURGERY_FAILED
 
-	if(!tool.tool_enabled)
+	if(tool && !tool.tool_enabled)
 		to_chat(user, "<span class='warning'>[tool] is not turned on. Turn it on first</span>")
 		return SURGERY_FAILED
 
