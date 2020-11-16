@@ -291,7 +291,8 @@
 
 /mob/living/proc/surgery_act(mob/living/user, obj/item/I, datum/surgery/S)
 	if(S.step_in_progress)
-		return FALSE
+		to_chat(user, "<span class='warning'>This body part is already under surgery!</span>")
+		return TRUE
 	var/obj/item/organ/external/E = get_organ(S.location)
 	. = S.next_step(user, src, I)
 	if(!QDELETED(S) && S.current_stage == SURGERY_STAGE_START) // Remove surgeries that haven't started yet. Amputate will qdel the surgery itself

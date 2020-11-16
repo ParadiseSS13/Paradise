@@ -2,7 +2,8 @@
 /datum/surgery
 	var/current_stage = SURGERY_STAGE_START
 	var/step_in_progress = FALSE
-	var/location = "chest"						//Surgery location
+	/// Location where the surgery is located at. Uses the data from mob.zone_selected
+	var/location = "chest"
 	var/list/surgery_steps_history = list()		// For debugging and maybe later expansions that require previous surgeries
 
 /datum/surgery/Destroy(force, ...)
@@ -10,10 +11,12 @@
 	surgery_steps_history = null
 	return ..()
 
+/**
+  * Perform the next step of this surgery.
+  *
+  * Returns TRUE if any meaningful surgery action was attempted.
+  **/
 /datum/surgery/proc/next_step(mob/living/user, mob/living/carbon/target, obj/item/tool)
-	if(step_in_progress)
-		return FALSE
-	. = TRUE // Person
 	var/list/steps = get_surgery_steps(user, target, tool)
 	var/datum/surgery_step/S
 	var/steps_len = length(steps)
@@ -22,22 +25,24 @@
 	if(steps_len == 1)
 		S = steps[steps[1]]
 	else
-		var/P = input("Begin which procedure?", "Surgery", null, null) as null|anything in steps
+		var/P = input(user, "Begin which procedure?", "Surgery", null) as null|anything in steps
 		if(P && user && user.Adjacent(target) && tool == user.get_active_hand() && can_operate(target))
 			S = steps[P]
-	if(S)
-		var/result
-		. = TRUE
-		do
-			S = new S.type() // Make a new step. Don't fuck this one up
-			step_in_progress = TRUE
-			result = S.try_op(user, target, location, tool, src)
-			if(result == SURGERY_SUCCESS)
-				if(S.next_surgery_stage != SURGERY_STAGE_SAME)
-					current_stage = S.next_surgery_stage
-				surgery_steps_history += S // Add it to the history
-			step_in_progress = FALSE
-		while(result == SURGERY_CONTINUE)
+	if(!S)
+		return TRUE
+	var/result
+	do
+		S = new S.type() // Make a new step. Don't fuck this one up
+		step_in_progress = TRUE
+		result = S.try_op(user, target, location, tool, src)
+		step_in_progress = FALSE
+		if(result == SURGERY_SUCCESS)
+			if(S.next_surgery_stage != SURGERY_STAGE_SAME)
+				current_stage = S.next_surgery_stage
+			surgery_steps_history += S // Add it to the history
+	while(result == SURGERY_CONTINUE)
+
+	return TRUE
 
 /datum/surgery/proc/get_surgery_steps(mob/user, mob/living/carbon/target, obj/item/tool)
 	var/list/possible_steps = list()
@@ -118,8 +123,16 @@
 /datum/surgery_step/proc/try_op(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/success = FALSE
 
-	if(target_zone != surgery.location || (!(SURGERY_STAGE_ALWAYS in surgery_start_stage) && !(surgery.current_stage in surgery_start_stage)) || !can_operate(target)) // No distance check. Not needed
+	if(target_zone != surgery.location)
 		return SURGERY_FAILED
+
+	// Check if the stage is correct
+	if(!(SURGERY_STAGE_ALWAYS in surgery_start_stage) && !(surgery.current_stage in surgery_start_stage))
+		return SURGERY_FAILED
+
+	if(!can_operate(target)) // No distance check. Not needed
+		return SURGERY_FAILED
+
 	var/tool_path_key = null
 	if(tool)
 		tool_path_key = get_path_key_from_tool(tool)
@@ -147,27 +160,30 @@
 
 	if(tool)
 		speed_mod = tool.toolspeed
-	. = SURGERY_FAILED
-	if(do_after(user, time * speed_mod, target = target))
-		var/prob_chance = 100
-		if(tool && allowed_surgery_tools)
-			if(!tool_path_key) // tools path ain't in the allowed tools.
-				if(!accept_any_item)
-					prob_chance = 0 // No chance of success... how did we even get here?!
-			else
-				prob_chance = allowed_surgery_tools[tool_path_key]
-		prob_chance *= get_location_modifier(target)
 
+	if(!do_after(user, time * speed_mod, target = target))
+		return SURGERY_FAILED
 
-		if(pain)
-			if(ishuman(target))
-				var/mob/living/carbon/human/H = target //typecast to human
-				prob_chance *= get_pain_modifier(H)//operating on conscious people is hard.
-
-		if(prob(prob_chance) || isrobot(user))
-			. = end_step(user, target, target_zone, tool, surgery)
+	var/prob_chance = 100
+	if(tool && allowed_surgery_tools)
+		if(!tool_path_key) // tools path ain't in the allowed tools.
+			if(!accept_any_item)
+				prob_chance = 0 // No chance of success... how did we even get here?!
+				stack_trace("Surgery step '[type]' got into a weird state, when passed tool '[tool]'")
 		else
-			. = fail_step(user, target, target_zone, tool, surgery)
+			prob_chance = allowed_surgery_tools[tool_path_key]
+	prob_chance *= get_location_modifier(target)
+
+
+	if(pain)
+		if(ishuman(target))
+			var/mob/living/carbon/human/H = target //typecast to human
+			prob_chance *= get_pain_modifier(H)//operating on conscious people is hard.
+
+	if(prob(prob_chance) || isrobot(user))
+		return end_step(user, target, target_zone, tool, surgery)
+	else
+		return fail_step(user, target, target_zone, tool, surgery)
 
 /datum/surgery_step/proc/get_path_key_from_tool(obj/item/tool)
 	for(var/path in allowed_surgery_tools)
