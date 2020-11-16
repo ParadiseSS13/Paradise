@@ -292,18 +292,15 @@
 	if(shocked)
 		if(shock(user, 100))
 			return
-
 	if(!is_operational())
 		if(panel_open)
 			to_chat(usr, "<span class='warning'>Close the maintenance panel first.</span>")
 		else
 			to_chat(usr, "<span class='warning'>The unit is not operational.</span>")
 		return
-
 	if(panel_open)
 		wires.Interact(user)
 		return
-
 	if(state_open)
 		if(store_item(I, user))
 			update_icon()
@@ -536,11 +533,9 @@
 		return
 	if(panel_open) //The maintenance panel is open. Time for some shady stuff
 		wires.Interact(user)
-
 	if(uv) //The thing is running its cauterisation cycle. You have to wait.
 		dat += "<HEAD><TITLE>Suit storage unit</TITLE></HEAD>"
 		dat+= "<font color ='red'><B>Unit is cauterising contents with selected UV ray intensity. Please wait.</font></B><BR>"
-
 	else
 		if(!broken)
 			dat+= "<B>Welcome to the Unit control panel.</B><HR>"
