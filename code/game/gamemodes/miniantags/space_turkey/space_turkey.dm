@@ -79,6 +79,9 @@
 	var/be_turkey = alert("Become a space turkey? (Warning, You can no longer be cloned!)",,"Yes","No")
 	if(be_turkey == "No" || !src || QDELETED(src))
 		return
+	if(cannotPossess(user))
+		to_chat(user, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+		return
 	visible_message("[src] hatches with a quiet cracking sound.")
 	var/mob/living/simple_animal/hostile/space_turkey/T = new(get_turf(src))
 	T.transfer_personality(user.client)
@@ -95,6 +98,9 @@
 		return
 	var/be_turkey = alert("Become a space turkey? (Warning, You can no longer be cloned!)",,"Yes","No")
 	if(be_turkey == "No" || !src || QDELETED(src))
+		return
+	if(cannotPossess(user))
+		to_chat(user, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 		return
 	transfer_personality(user.client)
 
