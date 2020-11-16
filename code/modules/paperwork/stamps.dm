@@ -36,6 +36,9 @@
 		if(WEST)
 			attackedSide = WEST
 
+	//Here the base stamp sprite is loaded, in the dmi there are 3 different types of possible marks
+	//and for each type there is one state for each direction, although bizzare it going to have to be this way
+
 	var/icon/new_stamp_mark = icon('icons/effects/stamp_marks.dmi', "stamp[rand(1,3)]_[attackedSide]")
 	new_stamp_mark.Shift(EAST, xOffset)
 	new_stamp_mark.Shift(NORTH, yOffset)
@@ -54,7 +57,7 @@
 
 	new_stamp_mark.Blend(getFlatIcon(targetBaseIcon), BLEND_MULTIPLY)		// cut out any parts of the new mark that arent on target sprite
 	var/image/new_stamp_mark_image = image(new_stamp_mark)
-	new_stamp_mark_image.color = stamp_color								// colorize the new mark
+	new_stamp_mark_image.color = stamp_color								// it needs to be an image because it's easiest way to color sprites
 
 	H.stamp_marks.overlays += new_stamp_mark_image							// add new mark to existing image of marks
 
