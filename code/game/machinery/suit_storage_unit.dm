@@ -753,7 +753,7 @@
 	update_icon()
 	return
 
-/obj/machinery/suit_storage_unit/force_eject_occupant()
+/obj/machinery/suit_storage_unit/force_eject_occupant(mob/target)
 	eject_occupant()
 
 /obj/machinery/suit_storage_unit/verb/get_out()

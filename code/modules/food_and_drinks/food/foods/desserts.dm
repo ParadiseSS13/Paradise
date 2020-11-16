@@ -50,13 +50,13 @@
 //////////////////////
 
 /obj/item/reagent_containers/food/snacks/friedbanana
-	name = "Fried Banana"
+	name = "fried banana"
 	desc = "Goreng Pisang, also known as fried bananas."
 	icon_state = "friedbanana"
 	list_reagents = list("sugar" = 5, "nutriment" = 8, "cornoil" = 4)
 
 /obj/item/reagent_containers/food/snacks/ricepudding
-	name = "Rice Pudding"
+	name = "rice pudding"
 	desc = "Where's the Jam!"
 	icon_state = "rpudding"
 	trash = /obj/item/trash/snack_bowl
@@ -65,7 +65,7 @@
 	tastes = list("rice" = 1, "sweetness" = 1)
 
 /obj/item/reagent_containers/food/snacks/spacylibertyduff
-	name = "Spacy Liberty Duff"
+	name = "spacy liberty duff"
 	desc = "Jello gelatin, from Alfred Hubbard's cookbook."
 	icon_state = "spacylibertyduff"
 	trash = /obj/item/trash/snack_bowl
@@ -75,7 +75,7 @@
 	tastes = list("jelly" = 1, "mushroom" = 1)
 
 /obj/item/reagent_containers/food/snacks/amanitajelly
-	name = "Amanita Jelly"
+	name = "amanita jelly"
 	desc = "Looks curiously toxic."
 	icon_state = "amanitajelly"
 	trash = /obj/item/trash/snack_bowl
@@ -85,7 +85,7 @@
 	tastes = list("jelly" = 1, "mushroom" = 1)
 
 /obj/item/reagent_containers/food/snacks/candiedapple
-	name = "Candied Apple"
+	name = "candied apple"
 	desc = "An apple coated in sugary sweetness."
 	icon_state = "candiedapple"
 	filling_color = "#F21873"

@@ -38,6 +38,7 @@
 
 	uniform = /obj/item/clothing/under/rank/centcom_officer/sensor
 	back = /obj/item/storage/backpack/ert/commander
+	l_ear = /obj/item/radio/headset/ert/alt/commander
 
 	id = /obj/item/card/id/ert/commander
 
@@ -81,7 +82,8 @@
 	belt = /obj/item/gun/energy/gun/blueshield/pdw9
 
 	backpack_contents = list(
-		/obj/item/gun/energy/ionrifle/carbine = 1,
+		/obj/item/camera_bug/ert = 1,
+		/obj/item/door_remote/omni = 1,
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/storage/lockbox/mindshield = 1
@@ -100,7 +102,8 @@
 	backpack_contents = list(
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/storage/lockbox/mindshield = 1,
-		/obj/item/gun/energy/ionrifle/carbine = 1,
+		/obj/item/camera_bug/ert = 1,
+		/obj/item/door_remote/omni = 1,
 		/obj/item/ammo_box/magazine/enforcer/lethal = 2
 		)
 

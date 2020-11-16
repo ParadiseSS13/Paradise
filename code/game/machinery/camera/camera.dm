@@ -128,18 +128,7 @@
 	var/msg = "<span class='notice'>You attach [I] into the assembly inner circuits.</span>"
 	var/msg2 = "<span class='notice'>The camera already has that upgrade!</span>"
 
-	if(istype(I, /obj/item/analyzer) && panel_open) //XRay
-		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
-			return
-		if(!isXRay())
-			upgradeXRay()
-			qdel(I)
-			to_chat(user, "[msg]")
-		else
-			to_chat(user, "[msg2]")
-
-	else if(istype(I, /obj/item/stack/sheet/mineral/plasma) && panel_open)
+	if(istype(I, /obj/item/stack/sheet/mineral/plasma) && panel_open)
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 			return

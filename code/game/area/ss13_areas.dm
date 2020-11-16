@@ -697,6 +697,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 //Hallway
 
+/area/hallway
+	valid_territory = FALSE //too many areas with similar/same names, also not very interesting summon spots
+
 /area/hallway/primary/fore
 	name = "\improper Fore Primary Hallway"
 	icon_state = "hallF"
@@ -929,6 +932,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/chapel
 	icon_state = "chapel"
 	ambientsounds = HOLY_SOUNDS
+	is_haunted = TRUE
 
 /area/chapel/main
 	name = "\improper Chapel"
@@ -1299,6 +1303,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Morgue"
 	icon_state = "morgue"
 	ambientsounds = SPOOKY_SOUNDS
+	is_haunted = TRUE
 
 /area/medical/chemistry
 	name = "\improper Chemistry"
@@ -1777,10 +1782,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/derelict/medical/morgue
 	name = "\improper Derelict Morgue"
 	icon_state = "morgue"
+	is_haunted = TRUE
 
 /area/derelict/medical/chapel
 	name = "\improper Derelict Chapel"
 	icon_state = "chapel"
+	is_haunted = TRUE
 
 /area/derelict/teleporter
 	name = "\improper Derelict Teleporter"

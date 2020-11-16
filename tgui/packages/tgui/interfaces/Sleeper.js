@@ -152,7 +152,7 @@ const SleeperDamage = (props, context) => {
   } = data;
   return (
     <Section
-      title="Damage">
+      title="Occupant Damage">
       <LabeledList>
         {damages.map((d, i) => (
           <LabeledList.Item key={i} label={d[0]}>
@@ -234,7 +234,7 @@ const SleeperChemicals = (props, context) => {
     amounts,
   } = data;
   return (
-    <Section title="Chemicals" flexGrow="1">
+    <Section title="Occupant Chemicals" flexGrow="1">
       {chemicals.map((chem, i) => {
         let barColor = '';
         let odWarning;
@@ -269,6 +269,7 @@ const SleeperChemicals = (props, context) => {
                   max={maxchem}
                   value={chem.occ_amount / maxchem}
                   color={barColor}
+                  title="Amount of chemicals currently inside the occupant / Total amount injectable by this machine"
                   mr="0.5rem">
                   {chem.pretty_amount}/{maxchem}u
                 </ProgressBar>
@@ -279,7 +280,8 @@ const SleeperChemicals = (props, context) => {
                       || ((chem.occ_amount + a) > maxchem)
                       || occupant.stat === 2}
                     icon="syringe"
-                    content={a}
+                    content={"Inject "+a+"u"}
+                    title={"Inject "+a+"u of "+chem.title + " into the occupant"}
                     mb="0"
                     height="19px"
                     onClick={() => act('chemical', {

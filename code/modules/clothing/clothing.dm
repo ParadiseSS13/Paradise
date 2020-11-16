@@ -182,6 +182,7 @@
 	slot_flags = SLOT_EARS | SLOT_TWOEARS
 
 /obj/item/clothing/ears/offear/New(var/obj/O)
+	. = ..()
 	name = O.name
 	desc = O.desc
 	icon = O.icon

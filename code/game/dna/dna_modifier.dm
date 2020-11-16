@@ -291,7 +291,7 @@
 	icon_state = "scanner_open"
 	SStgui.update_uis(src)
 
-/obj/machinery/dna_scannernew/force_eject_occupant()
+/obj/machinery/dna_scannernew/force_eject_occupant(mob/target)
 	go_out(null, TRUE)
 
 /obj/machinery/dna_scannernew/ex_act(severity)

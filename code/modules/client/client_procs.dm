@@ -113,14 +113,14 @@
 		cmd_admin_pm(ckey_txt, null, href_list["type"])
 		return
 
-	if(href_list["irc_msg"])
-		if(!holder && received_irc_pm < world.time - 6000) //Worse they can do is spam IRC for 10 minutes
-			to_chat(usr, "<span class='warning'>You are no longer able to use this, it's been more then 10 minutes since an admin on IRC has responded to you</span>")
+	if(href_list["discord_msg"])
+		if(!holder && received_discord_pm < world.time - 6000) // Worse they can do is spam discord for 10 minutes
+			to_chat(usr, "<span class='warning'>You are no longer able to use this, it's been more then 10 minutes since an admin on Discord has responded to you</span>")
 			return
-		if(mute_irc)
-			to_chat(usr, "<span class='warning'You cannot use this as your client has been muted from sending messages to the admins on IRC</span>")
+		if(prefs.muted & MUTE_ADMINHELP)
+			to_chat(usr, "<span class='warning'>You cannot use this as your client has been muted from sending messages to the admins on Discord</span>")
 			return
-		cmd_admin_irc_pm()
+		cmd_admin_discord_pm()
 		return
 
 
@@ -264,6 +264,7 @@
 		to_chat(src, "<span class='notice'>SSD warning acknowledged.</span>")
 	if(href_list["link_forum_account"])
 		link_forum_account()
+		return // prevents a recursive loop where the ..() 5 lines after this makes the proc endlessly re-call itself
 	switch(href_list["action"])
 		if("openLink")
 			src << link(href_list["link"])
@@ -560,7 +561,7 @@
 	var/watchreason = check_watchlist(ckey)
 	if(watchreason)
 		message_admins("<font color='red'><B>Notice: </B></font><font color='blue'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
-		send2irc(config.admin_notify_irc, "Watchlist - [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
+		SSdiscord.send2discord_simple_noadmins("**\[Watchlist]** [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
 
 
 	//Just the standard check to see if it's actually a number
@@ -582,6 +583,8 @@
 			var/err = query_update.ErrorMsg()
 			log_game("SQL ERROR during log_client_to_db (update). Error : \[[err]\]\n")
 			message_admins("SQL ERROR during log_client_to_db (update). Error : \[[err]\]\n")
+		// After the regular update
+		INVOKE_ASYNC(src, /client/.proc/get_byond_account_date, FALSE) // Async to avoid other procs in the client chain being delayed by a web request
 	else
 		//New player!! Need to insert all the stuff
 
@@ -597,6 +600,9 @@
 			var/err = query_insert.ErrorMsg()
 			log_game("SQL ERROR during log_client_to_db (insert). Error : \[[err]\]\n")
 			message_admins("SQL ERROR during log_client_to_db (insert). Error : \[[err]\]\n")
+		// This is their first connection instance, so TRUE here to nofiy admins
+		// This needs to happen here to ensure they actually have a row to update
+		INVOKE_ASYNC(src, /client/.proc/get_byond_account_date, TRUE) // Async to avoid other procs in the client chain being delayed by a web request
 
 	// Log player connections to DB
 	var/DBQuery/query_accesslog = GLOB.dbcon.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`datetime`,`ckey`,`ip`,`computerid`) VALUES(Now(),'[ckey]','[sql_ip]','[sql_computerid]');")
@@ -754,7 +760,7 @@
 
 			if(!cidcheck_failedckeys[ckey])
 				message_admins("<span class='adminnotice'>[key_name(src)] has been detected as using a CID randomizer. Connection rejected.</span>")
-				send2irc(config.cidrandomizer_irc, "[key_name(src)] has been detected as using a CID randomizer. Connection rejected.")
+				SSdiscord.send2discord_simple_noadmins("[key_name(src)] has been detected as using a CID randomizer. Connection rejected.")
 				cidcheck_failedckeys[ckey] = TRUE
 				note_randomizer_user()
 
@@ -767,7 +773,7 @@
 			if(cidcheck_failedckeys[ckey])
 				// Atonement
 				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after showing they removed their cid randomizer</span>")
-				send2irc(config.cidrandomizer_irc, "[key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
+				SSdiscord.send2discord_simple_noadmins("[key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
 				cidcheck_failedckeys -= ckey
 			if (cidcheck_spoofckeys[ckey])
 				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after appearing to have attempted to spoof a cid randomizer check because it <i>appears</i> they aren't spoofing one this time</span>")
@@ -973,6 +979,115 @@
 		cache = list()
 
 		to_chat(usr, "<span class='notice'>UI resource files resent successfully. If you are still having issues, please try manually clearing your BYOND cache. <b>This can be achieved by opening your BYOND launcher, pressing the cog in the top right, selecting preferences, going to the Games tab, and pressing 'Clear Cache'.</b></span>")
+
+
+/**
+  * Retrieves the BYOND accounts data from the BYOND servers
+  *
+  * Makes a web request to byond.com to retrieve the details for the BYOND account associated with the clients ckey.
+  * Returns the data in a parsed, associative list
+  */
+/client/proc/retrieve_byondacc_data()
+	// Do not refactor this to use SShttp, because that requires the subsystem to be firing for requests to be made, and this will be triggered before the MC has finished loading
+	var/list/http[] = world.Export("http://www.byond.com/members/[ckey]?format=text")
+	if(http)
+		var/status = text2num(http["STATUS"])
+
+		if(status == 200)
+			// This is wrapped in try/catch because lummox could change the format on any day without informing anyone
+			try
+				var/list/lines = splittext(file2text(http["CONTENT"]), "\n")
+				var/list/initial_data = list()
+				var/current_index = ""
+				for(var/L in lines)
+					if(L == "")
+						continue
+					if(!findtext(L, "\t"))
+						current_index = L
+						initial_data[current_index] = list()
+						continue
+					initial_data[current_index] += replacetext(replacetext(L, "\t", ""), "\"", "")
+
+				var/list/parsed_data = list()
+
+				for(var/key in initial_data)
+					var/inner_list = list()
+					for(var/entry in initial_data[key])
+						var/list/split = splittext(entry, " = ")
+						var/inner_key = split[1]
+						var/inner_value = split[2]
+						inner_list[inner_key] = inner_value
+
+					parsed_data[key] = inner_list
+
+				// Main return is here
+				return parsed_data
+			catch
+				message_admins("Error parsing byond.com data for [ckey]. Please inform maintainers.")
+				return null
+		else
+			message_admins("Error retrieving data from byond.com for [ckey]. Invalid status code (Expected: 200 | Got: [status]).")
+			return null
+	else
+		message_admins("Failed to retrieve data from byond.com for [ckey]. Connection failed.")
+		return null
+
+
+/**
+  * Sets the clients BYOND date up properly
+  *
+  * If the client does not have a saved BYOND account creation date, retrieve it from the website
+  * If they do have a saved date, use that from the DB, because this value will never change
+  * Arguments:
+  * * notify - Do we notify admins of this new accounts date
+  */
+
+/client/proc/get_byond_account_date(notify = FALSE)
+	// First we see if the client has a saved date in the DB
+	var/sql_ckey = sanitizeSQL(ckey)
+	var/DBQuery/query_date = GLOB.dbcon.NewQuery("SELECT byond_date, DATEDIFF(Now(), byond_date) FROM [format_table_name("player")] WHERE ckey = '[sql_ckey]'")
+	if(!query_date.Execute())
+		var/err = query_date.ErrorMsg()
+		log_game("SQL ERROR during get_byond_account_date (Line 1047). Error: \[[err]\]\n")
+		message_admins("SQL ERROR during get_byond_account_date (Line 1047). Error: \[[err]\]\n")
+
+	while(query_date.NextRow())
+		byondacc_date = query_date.item[1]
+		byondacc_age = max(text2num(query_date.item[2]), 0) // Ensure account isnt negative days old
+
+	// They have a date, lets bail
+	if(byondacc_date)
+		return
+
+	// They dont have a date, lets grab one
+	var/list/byond_data = retrieve_byondacc_data()
+	if(isnull(byond_data) || !(byond_data["general"]["joined"]))
+		message_admins("Failed to retrieve an account creation date for [ckey].")
+		return
+
+	byondacc_date = byond_data["general"]["joined"]
+
+	// Now save it
+	var/sql_date = sanitizeSQL(byondacc_date) // Yes, this is top level paranoia
+	var/DBQuery/query_update = GLOB.dbcon.NewQuery("UPDATE [format_table_name("player")] SET byond_date = '[sql_date]' WHERE ckey = '[sql_ckey]'")
+	if(!query_update.Execute())
+		var/err = query_update.ErrorMsg()
+		log_game("SQL ERROR during get_byond_account_date (Line 1071). Error: \[[err]\]\n")
+		message_admins("SQL ERROR during get_byond_account_date (Line 1071). Error: \[[err]\]\n")
+
+	// Now retrieve the age again because BYOND doesnt have native methods for this
+	var/DBQuery/query_age = GLOB.dbcon.NewQuery("SELECT DATEDIFF(Now(), byond_date) FROM [format_table_name("player")] WHERE ckey = '[sql_ckey]'")
+	if(!query_age.Execute())
+		var/err = query_age.ErrorMsg()
+		log_game("SQL ERROR during get_byond_account_date (Line 1078). Error: \[[err]\]\n")
+		message_admins("SQL ERROR during get_byond_account_date (Line 1078). Error: \[[err]\]\n")
+
+	while(query_age.NextRow())
+		byondacc_age = max(text2num(query_age.item[1]), 0) // Ensure account isnt negative days old
+
+	// Notify admins on new clients connecting, if the byond account age is less than a config value
+	if(notify && (byondacc_age < config.byond_account_age_threshold))
+		message_admins("[key] has just connected for the first time. BYOND account registered on [byondacc_date] ([byondacc_age] days old)")
 
 
 #undef LIMITER_SIZE

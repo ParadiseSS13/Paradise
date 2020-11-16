@@ -88,7 +88,6 @@
 					volume='[volume]',
 					lastchangelog='[lastchangelog]',
 					clientfps='[clientfps]',
-					atklog='[atklog]',
 					parallax='[parallax]'
 					WHERE ckey='[C.ckey]'"}
 					)

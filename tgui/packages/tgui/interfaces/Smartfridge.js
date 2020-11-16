@@ -56,7 +56,7 @@ export const Smartfridge = (props, context) => {
                     maxValue={item.quantity}
                     step={1}
                     stepPixelSize={3}
-                    onDrag={(e, value) => act('vend',
+                    onChange={(e, value) => act('vend',
                       { index: item.vend, amount: value })} />
                   <Button
                     icon="arrow-down"

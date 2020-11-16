@@ -51,7 +51,6 @@
 	var/datum/changeling/changeling		//changeling holder
 	var/linglink
 	var/datum/vampire/vampire			//vampire holder
-	var/datum/abductor/abductor			//abductor holder
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
@@ -229,7 +228,7 @@
 	. = _memory_edit_header("cult")
 	if(src in SSticker.mode.cult)
 		. += "<a href='?src=[UID()];cult=clear'>no</a>|<b><font color='red'>CULTIST</font></b>"
-		. += "<br>Give <a href='?src=[UID()];cult=tome'>tome</a>|<a href='?src=[UID()];cult=equip'>equip</a>."
+		. += "<br>Give <a href='?src=[UID()];cult=dagger'>dagger</a>|<a href='?src=[UID()];cult=runedmetal'>runedmetal</a>."
 	else
 		. += "<b>NO</b>|<a href='?src=[UID()];cult=cultist'>cultist</a>"
 
@@ -413,8 +412,6 @@
 		sections["implant"] = memory_edit_implant(H)
 		/** REVOLUTION ***/
 		sections["revolution"] = memory_edit_revolution(H)
-		/** CULT ***/
-		sections["cult"] = memory_edit_cult(H)
 		/** WIZARD ***/
 		sections["wizard"] = memory_edit_wizard(H)
 		/** CHANGELING ***/
@@ -434,6 +431,9 @@
 	sections["eventmisc"] = memory_edit_eventmisc(H)
 	/** TRAITOR ***/
 	sections["traitor"] = memory_edit_traitor()
+	if(!issilicon(current))
+		/** CULT ***/
+		sections["cult"] = memory_edit_cult(H)
 	/** SILICON ***/
 	if(issilicon(current))
 		sections["silicon"] = memory_edit_silicon()
@@ -726,15 +726,6 @@
 					special_role = null
 					SSticker.mode.head_revolutionaries -=src
 					to_chat(src, "<span class='warning'><Font size = 3><B>The nanobots in the mindshield implant remove all thoughts about being a revolutionary.  Get back to work!</B></Font></span>")
-				if(src in SSticker.mode.cult)
-					SSticker.mode.cult -= src
-					SSticker.mode.update_cult_icons_removed(src)
-					special_role = null
-					var/datum/game_mode/cult/cult = SSticker.mode
-					if(istype(cult))
-						cult.memorize_cult_objectives(src)
-					to_chat(current, "<span class='warning'><FONT size = 3><B>The nanobots in the mindshield implant remove all thoughts about being in a cult.  Have a productive day!</B></FONT></span>")
-					memory = ""
 
 	else if(href_list["revolution"])
 
@@ -852,41 +843,19 @@
 				if(!(src in SSticker.mode.cult))
 					SSticker.mode.add_cultist(src)
 					special_role = SPECIAL_ROLE_CULTIST
-					to_chat(current, "<span class='cultitalic'>You catch a glimpse of the Realm of [SSticker.cultdat.entity_name], [SSticker.cultdat.entity_title3]. You now see how flimsy the world is, you see that it should be open to the knowledge of [SSticker.cultdat.entity_name].</span>")
+					to_chat(current, CULT_GREETING)
 					to_chat(current, "<span class='cultitalic'>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve [SSticker.cultdat.entity_title2] above all else. Bring It back.</span>")
-					log_admin("[key_name(usr)] has culted [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has culted [key_name_admin(current)]")
-					if(!GLOB.summon_spots.len)
-						while(GLOB.summon_spots.len < SUMMON_POSSIBILITIES)
-							var/area/summon = pick(return_sorted_areas() - GLOB.summon_spots)
-							if(summon && is_station_level(summon.z) && summon.valid_territory)
-								GLOB.summon_spots += summon
-			if("tome")
+					log_and_message_admins("[key_name(usr)] has culted [key_name(current)]")
+			if("dagger")
 				var/mob/living/carbon/human/H = current
-				if(istype(H))
-					var/obj/item/tome/T = new(H)
-
-					var/list/slots = list (
-						"backpack" = slot_in_backpack,
-						"left pocket" = slot_l_store,
-						"right pocket" = slot_r_store,
-						"left hand" = slot_l_hand,
-						"right hand" = slot_r_hand,
-					)
-					var/where = H.equip_in_one_of_slots(T, slots)
-					if(!where)
-						to_chat(usr, "<span class='warning'>Spawning tome failed!</span>")
-						qdel(T)
-					else
-						to_chat(H, "A tome, a message from your new master, appears in your [where].")
-						log_admin("[key_name(usr)] has spawned a tome for [key_name(current)]")
-						message_admins("[key_name_admin(usr)] has spawned a tome for [key_name_admin(current)]")
-
-			if("equip")
-				if(!SSticker.mode.equip_cultist(current))
-					to_chat(usr, "<span class='warning'>Spawning equipment failed!</span>")
-				log_admin("[key_name(usr)] has equipped [key_name(current)] as a cultist")
-				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a cultist")
+				if(!SSticker.mode.cult_give_item(/obj/item/melee/cultblade/dagger, H))
+					to_chat(usr, "<span class='warning'>Spawning dagger failed!</span>")
+				log_and_message_admins("[key_name(usr)] has equipped [key_name(current)] with a cult dagger")
+			if("runedmetal")
+				var/mob/living/carbon/human/H = current
+				if(!SSticker.mode.cult_give_item(/obj/item/stack/sheet/runed_metal/ten, H))
+					to_chat(usr, "<span class='warning'>Spawning runed metal failed!</span>")
+				log_and_message_admins("[key_name(usr)] has equipped [key_name(current)] with 10 runed metal sheets")
 
 	else if(href_list["wizard"])
 
@@ -1176,6 +1145,7 @@
 				if(has_antag_datum(/datum/antagonist/traitor))
 					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a traitor!</B></FONT></span>")
 					remove_antag_datum(/datum/antagonist/traitor)
+					current.client.chatOutput?.clear_syndicate_codes()
 					log_admin("[key_name(usr)] has de-traitored [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-traitored [key_name_admin(current)]")
 

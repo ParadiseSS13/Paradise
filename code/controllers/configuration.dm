@@ -159,17 +159,10 @@
 	var/simultaneous_pm_warning_timeout = 100
 
 	var/assistant_maint = 0 //Do assistants get maint access?
-	var/gateway_delay = 6000 //How long the gateway takes before it activates. Default is half an hour.
+	var/gateway_delay = 6000
 	var/ghost_interaction = 0
 
 	var/comms_password = ""
-
-	var/use_irc_bot = 0
-	var/list/irc_bot_host = list()
-	var/main_irc = ""
-	var/admin_irc = ""
-	var/admin_notify_irc = ""
-	var/cidrandomizer_irc = ""
 
 	var/default_laws = 0 //Controls what laws the AI spawns with.
 
@@ -249,6 +242,28 @@
 
 	// Makes gamemodes respect player limits
 	var/enable_gamemode_player_limit = 0
+
+	/// BYOND account age limit for notifcations of new accounts (Any accounts older than this value will not send notifications on first join)
+	var/byond_account_age_threshold = 7
+
+	/// Are discord webhooks enabled?
+	var/discord_webhooks_enabled = FALSE
+
+	/// Role ID to be pinged for administrative events
+	var/discord_admin_role_id = null // Intentional null usage
+
+	/// Webhook URL for the main public webhook
+	var/discord_main_webhook_url
+
+	/// Webhook URL for the admin webhook
+	var/discord_admin_webhook_url
+
+	/// Webhook URL for the mentor webhook
+	var/discord_mentor_webhook_url
+
+	/// Do we want to forward all adminhelps to the discord or just ahelps when admins are offline.
+	/// (This does not mean all ahelps are pinged, only ahelps sent when staff are offline get the ping, regardless of this setting)
+	var/discord_forward_all_ahelps = FALSE
 
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
@@ -559,9 +574,6 @@
 				if("allow_holidays")
 					config.allow_holidays = 1
 
-				if("use_irc_bot")
-					use_irc_bot = 1
-
 				if("ticklag")
 					Ticklag = text2num(value)
 
@@ -601,21 +613,6 @@
 
 				if("comms_password")
 					config.comms_password = value
-
-				if("irc_bot_host")
-					config.irc_bot_host = splittext(value, ";")
-
-				if("main_irc")
-					config.main_irc = value
-
-				if("admin_irc")
-					config.admin_irc = value
-
-				if("admin_notify_irc")
-					config.admin_notify_irc = value
-
-				if("cidrandomizer_irc")
-					config.cidrandomizer_irc = value
 
 				if("python_path")
 					if(value)
@@ -741,6 +738,22 @@
 					config.disable_localhost_admin = 1
 				if("enable_gamemode_player_limit")
 					config.enable_gamemode_player_limit = 1
+				if("byond_account_age_threshold")
+					config.byond_account_age_threshold = text2num(value)
+				// Discord stuff
+				if("enable_discord_webhooks")
+					discord_webhooks_enabled = TRUE
+				if("discord_webhooks_admin_role_id")
+					discord_admin_role_id = "[value]" // This MUST be a string because BYOND doesnt like massive integers
+				if("discord_webhooks_main_url")
+					discord_main_webhook_url = value
+				if("discord_webhooks_admin_url")
+					discord_admin_webhook_url = value
+				if("discord_webhooks_mentor_url")
+					discord_mentor_webhook_url = value
+				if("discord_forward_all_ahelps")
+					discord_forward_all_ahelps = TRUE
+				// End discord stuff
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 

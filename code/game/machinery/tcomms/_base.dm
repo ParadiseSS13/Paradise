@@ -105,6 +105,10 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	tgui_interact(user)
 
 
+// If we do not override the default process(), the machine defaults to not processing, meaning it uses no power.
+/obj/machinery/tcomms/process()
+	return
+
 /**
   * Start of Ion Anomaly Event
   *
@@ -474,6 +478,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   * Otherwise shit breaks BADLY
   */
 /obj/item/paper/tcommskey/Initialize(mapload)
+	..()
 	return INITIALIZE_HINT_LATELOAD
 
 /**

@@ -95,6 +95,11 @@
 	/// the actual item inserted
 	var/obj/item/inserted_item = null
 
+	/// blocks further flickering while true
+	var/flickering = FALSE
+	/// do I look unpowered, even when powered?
+	var/force_no_power_icon_state = FALSE
+
 /obj/machinery/vending/Initialize(mapload)
 	var/build_inv = FALSE
 	if(!refill_canister)
@@ -138,6 +143,49 @@
 	for(var/obj/item/vending_refill/VR in component_parts)
 		restock(VR)
 
+/obj/machinery/vending/update_icon()
+	cut_overlays()
+	if(panel_open)
+		add_overlay(image(icon, "[initial(icon_state)]-panel"))
+
+	if(stat & BROKEN)
+		icon_state = "[initial(icon_state)]-broken"
+	else if (stat & NOPOWER || force_no_power_icon_state)
+		icon_state = "[initial(icon_state)]-off"
+	else
+		icon_state = initial(icon_state)
+
+/*
+ * Reimp, flash the screen on and off repeatedly.
+ */
+/obj/machinery/vending/flicker()
+	if(flickering)
+		return FALSE
+
+	if(stat & (BROKEN|NOPOWER))
+		return FALSE
+
+	flickering = TRUE
+	INVOKE_ASYNC(src, /obj/machinery/vending/.proc/flicker_event)
+
+	return TRUE
+
+/*
+ * Proc to be called by invoke_async in the above flicker() proc.
+ */
+/obj/machinery/vending/proc/flicker_event()
+	var/amount = rand(5, 15)
+
+	for(var/i in 1 to amount)
+		force_no_power_icon_state = TRUE
+		update_icon()
+		sleep(rand(1, 3))
+
+		force_no_power_icon_state = FALSE
+		update_icon()
+		sleep(rand(1, 10))
+	update_icon()
+	flickering = FALSE
 
 /**
  *  Build src.produdct_records from the products lists
@@ -285,12 +333,8 @@
 		return
 	if(anchored)
 		panel_open = !panel_open
-		if(panel_open)
-			SCREWDRIVER_OPEN_PANEL_MESSAGE
-			overlays += image(icon, "[initial(icon_state)]-panel")
-		else
-			SCREWDRIVER_CLOSE_PANEL_MESSAGE
-			overlays.Cut()
+		panel_open ? SCREWDRIVER_OPEN_PANEL_MESSAGE : SCREWDRIVER_CLOSE_PANEL_MESSAGE
+		update_icon()
 		SStgui.update_uis(src)
 
 /obj/machinery/vending/wirecutter_act(mob/user, obj/item/I)
@@ -753,21 +797,18 @@
 	atom_say(message)
 
 /obj/machinery/vending/power_change()
-	if(stat & BROKEN)
-		icon_state = "[initial(icon_state)]-broken"
+	if(powered())
+		stat &= ~NOPOWER
+		update_icon()
 	else
-		if( powered() )
-			icon_state = initial(icon_state)
-			stat &= ~NOPOWER
-		else
-			spawn(rand(0, 15))
-				icon_state = "[initial(icon_state)]-off"
-				stat |= NOPOWER
+		spawn(rand(0, 15))
+			stat |= NOPOWER
+			update_icon()
 
 /obj/machinery/vending/obj_break(damage_flag)
 	if(!(stat & BROKEN))
 		stat |= BROKEN
-		icon_state = "[initial(icon_state)]-broken"
+		update_icon()
 
 		var/dump_amount = 0
 		var/found_anything = TRUE
@@ -997,9 +1038,9 @@
 	slogan_list = list("Taste 5000 years of culture!","Mr. Chang, approved for safe consumption in over 10 sectors!","Chinese food is great for a date night, or a lonely night!","You can't go wrong with Mr. Chang's authentic Chinese food!")
 	icon_state = "chang"
 	products = list(/obj/item/reagent_containers/food/snacks/chinese/chowmein = 6, /obj/item/reagent_containers/food/snacks/chinese/tao = 6, /obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball = 6, /obj/item/reagent_containers/food/snacks/chinese/newdles = 6,
-					/obj/item/reagent_containers/food/snacks/chinese/rice = 6)
+					/obj/item/reagent_containers/food/snacks/chinese/rice = 6, /obj/item/reagent_containers/food/snacks/fortunecookie = 6)
 	prices = list(/obj/item/reagent_containers/food/snacks/chinese/chowmein = 50, /obj/item/reagent_containers/food/snacks/chinese/tao = 50, /obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball = 50, /obj/item/reagent_containers/food/snacks/chinese/newdles = 50,
-					/obj/item/reagent_containers/food/snacks/chinese/rice = 50)
+					/obj/item/reagent_containers/food/snacks/chinese/rice = 50, /obj/item/reagent_containers/food/snacks/fortunecookie = 50)
 	refill_canister = /obj/item/vending_refill/chinese
 
 /obj/machinery/vending/chinese/free
@@ -1185,7 +1226,7 @@
 					/obj/item/reagent_containers/syringe/insulin = 6, /obj/item/reagent_containers/syringe/calomel = 10, /obj/item/reagent_containers/syringe/heparin = 4, /obj/item/reagent_containers/hypospray/autoinjector = 5, /obj/item/reagent_containers/food/pill/salbutamol = 10,
 					/obj/item/reagent_containers/food/pill/mannitol = 10, /obj/item/reagent_containers/food/pill/mutadone = 5, /obj/item/stack/medical/bruise_pack/advanced = 4, /obj/item/stack/medical/ointment/advanced = 4, /obj/item/stack/medical/bruise_pack = 4,
 					/obj/item/stack/medical/splint = 4, /obj/item/reagent_containers/glass/beaker = 4, /obj/item/reagent_containers/dropper = 4, /obj/item/healthanalyzer = 4,
-					/obj/item/healthupgrade = 4, /obj/item/reagent_containers/hypospray/safety = 2, /obj/item/sensor_device = 2, /obj/item/pinpointer/crew = 2)
+					/obj/item/healthupgrade = 4, /obj/item/reagent_containers/hypospray/safety = 2, /obj/item/sensor_device = 2, /obj/item/pinpointer/crew = 2, /obj/item/reagent_containers/iv_bag/slime = 1)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/sulfonal = 1, /obj/item/reagent_containers/glass/bottle/pancuronium = 1)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF

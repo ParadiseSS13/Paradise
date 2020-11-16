@@ -47,6 +47,7 @@
 	name = "Safecode hint spawner"
 
 /obj/effect/landmark/sc_bible_spawner/New()
+	. = ..()
 	var/obj/item/storage/bible/B = new /obj/item/storage/bible/booze(src.loc)
 	B.name = "The Holy book of the Geometer"
 	B.deity_name = "Narsie"

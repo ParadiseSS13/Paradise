@@ -64,7 +64,7 @@
 	// If there was no ui to update, there's no static data to update either.
 	if(!ui)
 		return
-	ui.push_data(null, tgui_static_data(), TRUE)
+	ui.push_data(null, tgui_static_data(user), TRUE)
 
 /**
  * public

@@ -123,7 +123,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	var/command = input(owner, "Speak with the Voice of God", "Command")
 	if(!command)
 		return
-	owner.say(".x[command]")
+	owner.say(".~[command]")
 
 /obj/item/organ/internal/vocal_cords/colossus/prepare_eat()
 	return

@@ -88,7 +88,11 @@
 			continue
 		// If another relay is active, return FALSE
 		if(R.active)
-			return FALSE
+			if(R.stat & NOPOWER)	// If another relay has no power but is supposed to be on, we shut it down so we can continue.
+				R.active = FALSE	// Since only one active relay is allowed per z level, give priority to the one that's actually working.
+				R.update_icon()
+			else
+				return FALSE
 	// If we got here there isnt an active relay on this Z-level. So return TRUE
 	return TRUE
 

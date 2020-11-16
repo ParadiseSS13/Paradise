@@ -344,12 +344,12 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
  */
 
 GLOBAL_LIST_INIT(cult_recipes, list ( \
-	new/datum/stack_recipe/cult("runed door", /obj/machinery/door/airlock/cult, 1, time = 50, one_per_turf = 1, on_floor = 1),
-	new/datum/stack_recipe/cult("runed girder", /obj/structure/girder/cult, 1, time = 50, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe/cult("pylon", /obj/structure/cult/functional/pylon, 3, time = 40, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe/cult("forge", /obj/structure/cult/functional/forge, 5, time = 40, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe/cult("archives", /obj/structure/cult/functional/archives, 2, time = 40, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe/cult("altar", /obj/structure/cult/functional/altar, 5, time = 40, one_per_turf = 1, on_floor = 1), \
+	new /datum/stack_recipe/cult("runed door (stuns non-cultists)", /obj/machinery/door/airlock/cult, 1, time = 50, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE),
+	new /datum/stack_recipe/cult("runed girder (used to make cult walls)", /obj/structure/girder/cult, 1, time = 10, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE), \
+	new /datum/stack_recipe/cult("pylon (heals nearby cultists)", /obj/structure/cult/functional/pylon, 4, time = 40, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE), \
+	new /datum/stack_recipe/cult("forge (crafts shielded robes, flagellant's robes, and mirror shields)", /obj/structure/cult/functional/forge, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE), \
+	new /datum/stack_recipe/cult("archives (crafts zealot's blindfolds, shuttle curse orbs, and veil shifters)", /obj/structure/cult/functional/archives, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE), \
+	new /datum/stack_recipe/cult("altar (crafts eldritch whetstones, construct shells, and flasks of unholy water)", /obj/structure/cult/functional/altar, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE),
 	))
 
 /obj/item/stack/sheet/runed_metal
@@ -360,6 +360,7 @@ GLOBAL_LIST_INIT(cult_recipes, list ( \
 	item_state = "sheet-metal"
 	sheettype = "runed"
 	merge_type = /obj/item/stack/sheet/runed_metal
+	recipe_width = 700
 
 /obj/item/stack/sheet/runed_metal/New()
 	. = ..()
@@ -380,14 +381,17 @@ GLOBAL_LIST_INIT(cult_recipes, list ( \
 	return ..()
 
 /datum/stack_recipe/cult
-   one_per_turf = 1
-   on_floor = 1
+   one_per_turf = TRUE
+   on_floor = TRUE
 
 /datum/stack_recipe/cult/post_build(obj/item/stack/S, obj/result)
    if(ishuman(S.loc))
       var/mob/living/carbon/human/H = S.loc
       H.bleed(5)
    ..()
+
+/obj/item/stack/sheet/runed_metal/ten
+	amount = 10
 
 /obj/item/stack/sheet/runed_metal/fifty
 	amount = 50

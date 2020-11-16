@@ -24,6 +24,6 @@
 
 /datum/tgui_module/atmos_control/tgui_data(mob/user)
 	var/list/data = list()
-	data["alarms"] = GLOB.air_alarm_repository.air_alarm_data(GLOB.air_alarms)
+	data["alarms"] = GLOB.air_alarm_repository.air_alarm_data(GLOB.air_alarms, target_z=level_name_to_num(MAIN_STATION))
 
 	return data
