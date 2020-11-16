@@ -79,7 +79,6 @@
 
 	if(panel_open)
 		wires.Interact(user)
-
 	else if(!disabled)
 		tgui_interact(user)
 
