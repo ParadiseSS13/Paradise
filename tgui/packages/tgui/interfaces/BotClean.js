@@ -15,7 +15,6 @@ export const BotClean = (props, context) => {
     emagged,
     remote_disabled,
     painame,
-
     cleanblood,
   } = data;
   return (

@@ -15,11 +15,9 @@ export const BotSecurity = (props, context) => {
     emagged,
     remote_disabled,
     painame,
-
     check_id,
     check_weapons,
     check_warrant,
-
     arrest_mode,
     arrest_declare,
   } = data;

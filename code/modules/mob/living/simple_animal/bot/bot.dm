@@ -886,8 +886,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 		return
 	if(emagged != 2)
 		emagged = 2
-		hacked = 1
-		locked = 1
+		hacked = TRUE
+		locked = TRUE
 		to_chat(M, "<span class='warning'>[text_hack]</span>")
 		show_laws()
 		bot_reset()
@@ -895,8 +895,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 	else if(!hacked)
 		to_chat(M, "<span class='userdanger'>[text_dehack_fail]</span>")
 	else
-		emagged = 0
-		hacked = 0
+		emagged = FALSE
+		hacked = FALSE
 		to_chat(M, "<span class='notice'>[text_dehack]</span>")
 		show_laws()
 		bot_reset()
