@@ -49,10 +49,10 @@
 			if(M)
 				var/mob/dead/observer/G = M.get_ghost()
 
-				if(M.client && M.mind && M.mind.is_revivable() && !M.mind.suicided && M.mind.current.stat != DEAD)
+				if(M.client && M.mind && M.mind.is_revivable() && !M.mind.suicided)
 					icon_state = "morgue3"
 					desc = initial(desc) + "\n[status_descriptors[4]]"
-				else if(G && G.client && M.mind && M.mind.is_revivable() && !M.mind.suicided && M.mind.current.stat != DEAD) //There is a ghost and it is connected to the server
+				else if(G && G.client && M.mind && M.mind.is_revivable() && !M.mind.suicided) //There is a ghost and it is connected to the server
 					icon_state = "morgue5"
 					desc = initial(desc) + "\n[status_descriptors[6]]"
 				else
