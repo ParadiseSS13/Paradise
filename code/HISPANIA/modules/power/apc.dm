@@ -27,17 +27,16 @@
 			if(istype(C, /obj/item/stock_parts/cell))
 				if(cell)
 					if(C.get_part_rating() > cell.get_part_rating())
-						if(C.charge > cell.charge)
-							var/tempcharge = cell.charge
-							cell.charge = C.charge
-							C.charge = tempcharge
-						cell.update_icon()
+						var/tempcharge = cell.charge
+						cell.charge = 0
+						cell.give(C.charge)
+						C.charge = 0
+						C.give(tempcharge)
 						W.handle_item_insertion(cell, 1)
 						W.remove_from_storage(C, src)
 						to_chat(user, "<span class='notice'>[cell.name] replaced with [C.name].</span>")
 						C.forceMove(src)
 						cell = C
-						C.update_icon()
 						charging = 0
 						chargecount = 0
 						shouldplaysound = TRUE
