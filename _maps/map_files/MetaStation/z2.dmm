@@ -3282,6 +3282,7 @@
 	},
 /area/centcom/ferry)
 "jc" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/unsimulated/floor{
 	tag = "icon-darkred (EAST)";
 	icon_state = "darkred";
@@ -3533,6 +3534,7 @@
 	},
 /area/centcom/ferry)
 "jM" = (
+/obj/machinery/vending/artvend/free,
 /turf/unsimulated/floor{
 	tag = "icon-darkred";
 	icon_state = "darkred";
@@ -4279,7 +4281,7 @@
 	},
 /area/syndicate_mothership)
 "lS" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/vending/cola/free,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -4474,7 +4476,7 @@
 /turf/unsimulated/floor/abductor,
 /area/abductor_ship)
 "mu" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/vending/coffee/free,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -5276,9 +5278,6 @@
 	},
 /turf/unsimulated/floor,
 /area/syndicate_mothership)
-"oh" = (
-/turf/unsimulated/wall/fakedoor,
-/area/centcom/ferry)
 "oi" = (
 /obj/machinery/vending/tool,
 /turf/unsimulated/floor{
@@ -6190,6 +6189,12 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/gamma/space)
+"vr" = (
+/obj/machinery/vending/dinnerware,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/centcom/ferry)
 "vS" = (
 /obj/structure/sign/securearea{
 	pixel_x = -32;
@@ -6419,6 +6424,12 @@
 	dir = 1
 	},
 /area/trader_station/sol)
+"Ap" = (
+/obj/machinery/vending/snack/free,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/centcom/ferry)
 "Aw" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "trade_sol_base";
@@ -6437,6 +6448,12 @@
 	},
 /turf/space,
 /area/space)
+"Bu" = (
+/obj/machinery/vending/engivend,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/centcom/ferry)
 "Ca" = (
 /obj/structure/table/reinforced,
 /obj/item/grenade/clusterbuster,
@@ -6545,6 +6562,12 @@
 	icon_state = "browncorner"
 	},
 /area/trader_station/sol)
+"FK" = (
+/obj/machinery/vending/medical,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/centcom/ferry)
 "FV" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -6642,6 +6665,12 @@
 /obj/structure/bed/abductor,
 /turf/unsimulated/floor/abductor,
 /area/abductor_ship)
+"IV" = (
+/obj/machinery/vending/chinese/free,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/centcom/ferry)
 "Jw" = (
 /obj/structure/closet/secure_closet/guncabinet,
 /obj/item/gun/energy/gun/nuclear,
@@ -35286,7 +35315,7 @@ ab
 ab
 ii
 gV
-il
+FK
 il
 il
 yR
@@ -35807,7 +35836,7 @@ iZ
 iJ
 il
 il
-oh
+gV
 ab
 ab
 ab
@@ -36057,7 +36086,7 @@ ab
 ab
 ii
 io
-il
+Ap
 il
 iJ
 jb
@@ -36314,7 +36343,7 @@ ab
 ab
 ii
 is
-il
+IV
 yL
 iJ
 iJ
@@ -36571,7 +36600,7 @@ ab
 ab
 ii
 gV
-il
+vr
 il
 yU
 il
@@ -36828,7 +36857,7 @@ ab
 iD
 ii
 gV
-il
+Bu
 il
 il
 il
