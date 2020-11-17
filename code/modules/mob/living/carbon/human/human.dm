@@ -5,8 +5,10 @@
 	icon = 'icons/mob/human.dmi'
 	icon_state = "body_m_s"
 	deathgasp_on_death = TRUE
-	var/list/stamp_marks_desc = list()	// descriptions of stamps applied to this human that will be visible on examine
-	var/image/stamp_marks				// combined image of all the stamp marks
+	/// descriptions of stamps applied to this human that will be visible on examine
+	var/list/stamp_marks_desc = list()
+	/// combined image of all the stamp marks
+	var/image/stamp_marks
 
 /mob/living/carbon/human/New(loc)
 	stamp_marks = new /image()

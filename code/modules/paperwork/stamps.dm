@@ -12,7 +12,9 @@
 	item_color = "cargo"
 	pressure_resistance = 2
 	attack_verb = list("stamped")
-	var/stamp_color = "#264715"		//used for stamp marks, based on the item sprites.. not the on paper images(those are very bland)
+	/// used for on human stamp marks, each mark will be colored this before adding to image in human stamp_marks
+	var/stamp_color = "#6ca151"
+	/// this is defined uniquely for each subtype, used in examine.dm for when humans are stamped.
 	var/stamp_description = "..."
 
 /obj/item/stamp/afterattack(atom/target, mob/user, proximity, params)
