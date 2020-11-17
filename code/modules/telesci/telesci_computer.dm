@@ -359,7 +359,6 @@
 		if(index != null && power_options[index])
 			if(crystals + telepad.efficiency >= index)
 				power = power_options[index]
-				power_off_factor = power_off_factor_list[index]
 	if(href_list["setz"])
 		var/new_z = input("Please input desired sector.", name, z_co) as num
 		if(..())
@@ -402,7 +401,4 @@
 	//angle_off = rand(-25, 25)
 	power_off = rand(-4, 0)
 	rotation_off = rand(-10, 10)
-	power_off_factor_list = list()///HIPANIA
-	for(var/i in power_options)
-		var/off = rand(-20,20)/100//maximo de 20% de descalaibrado
-		LAZYADD(power_off_factor_list, off)///FIN HISPANIA
+	power_off_factor = rand(-20, 20)

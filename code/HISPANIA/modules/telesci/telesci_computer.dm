@@ -9,7 +9,6 @@
 /obj/machinery/computer/telescience
 	var/datum/tech/bluespace/bluespace_tech
 	var/max_bluespace_tech = 7
-	var/list/power_off_factor_list = list()//Modulo de resistencia a la teleportación
 	var/power_off_factor = 0
 
 /obj/machinery/computer/telescience/proto
