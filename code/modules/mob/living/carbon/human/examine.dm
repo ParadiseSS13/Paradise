@@ -258,28 +258,22 @@
 
 	if(damage)
 		var/brute_message = !ismachineperson(src) ? "bruising" : "denting"
-		if(damage < 30)
-			msg += "[p_they(TRUE)] [p_have()] minor [brute_message].\n"
-		else if(damage < 60)
-			msg += "[p_they(TRUE)] [p_have()] moderate [brute_message].\n"
+		if(damage < 60)
+			msg += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] [brute_message].\n"
 		else
 			msg += "<B>[p_they(TRUE)] [p_have()] severe [brute_message]!</B>\n"
 
 	damage = getFireLoss()
 	if(damage)
-		if(damage < 30)
-			msg += "[p_they(TRUE)] [p_have()] minor burns.\n"
-		else if(damage < 60)
-			msg += "[p_they(TRUE)] [p_have()] moderate burns.\n"
+		if(damage < 60)
+			msg += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] burns.\n"
 		else
 			msg += "<B>[p_they(TRUE)] [p_have()] severe burns!</B>\n"
 
 	damage = getCloneLoss()
 	if(damage)
-		if(damage < 30)
-			msg += "[p_they(TRUE)] [p_have()] minor cellular damage.\n"
-		else if(damage < 60)
-			msg += "[p_they(TRUE)] [p_have()] moderate cellular damage.\n"
+		if(damage < 60)
+			msg += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] cellular damage.\n"
 		else
 			msg += "<B>[p_they(TRUE)] [p_have()] severe cellular damage.</B>\n"
 
