@@ -24076,7 +24076,7 @@
 	tag = "icon-whitebluefull";
 	icon_state = "whitebluefull"
 	},
-/area/space)
+/area/medical/reception)
 "aRA" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -80672,6 +80672,7 @@
 /obj/machinery/light_switch{
 	pixel_x = 27
 	},
+/obj/structure/engineeringcart,
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "cPr" = (
@@ -81440,6 +81441,12 @@
 /obj/item/stack/sheet/glass{
 	amount = 50
 	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "cQP" = (
@@ -82140,6 +82147,15 @@
 	pixel_x = 24
 	},
 /obj/item/stack/rods{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
 	amount = 50
 	},
 /turf/simulated/floor/plasteel,
@@ -84577,6 +84593,7 @@
 /area/storage/secure)
 "cWa" = (
 /obj/effect/decal/warning_stripes/west,
+/obj/machinery/vending/engivend,
 /turf/simulated/floor/plating,
 /area/storage/secure)
 "cWb" = (
@@ -84945,6 +84962,7 @@
 	icon_state = "2-8";
 	tag = ""
 	},
+/obj/item/storage/fancy/flare_box/full,
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "cWM" = (
@@ -96083,6 +96101,11 @@
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
+"hrk" = (
+/obj/effect/decal/warning_stripes/west,
+/obj/machinery/vending/tool,
+/turf/simulated/floor/plating,
+/area/storage/secure)
 "hsy" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 4
@@ -96992,6 +97015,11 @@
 	icon_state = "darkyellow"
 	},
 /area/shuttle/escape)
+"mcS" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/floodlight,
+/turf/simulated/floor/plating,
+/area/storage/secure)
 "mek" = (
 /obj/machinery/floodlight,
 /turf/simulated/shuttle/floor{
@@ -124628,7 +124656,7 @@ dcN
 ddG
 des
 dfe
-dfV
+dbl
 dgz
 dhf
 dfV
@@ -124885,7 +124913,7 @@ cQj
 cQJ
 cQJ
 cVz
-cQj
+mcS
 cVW
 cVY
 cQj
@@ -125662,7 +125690,7 @@ cVZ
 cWa
 cWc
 cWd
-cWa
+hrk
 dar
 alw
 alw
