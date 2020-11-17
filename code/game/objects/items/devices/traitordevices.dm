@@ -171,7 +171,7 @@ effective or pretty fucking useless.
 
 /obj/item/teleporter
 	name = "Syndicate teleporter"
-	desc = "A strange syndicate version of a cult veil shifter. /n A warning label says, This teleporter will teleport the user 4-8 tiles in the direction they are facing. /n Warning: Teleporting into walls will activate a failsafe teleport sideways up to 3 tiles, but will gib the user if it fails. Warrenty voided if exposed to EMP."
+	desc = "A strange syndicate version of a cult veil shifter.\n\ A warning label says, This teleporter will teleport the user 4-8 tiles in the direction they are facing.\n\ Warning: Teleporting into walls will activate a failsafe teleport sideways up to 3 tiles, but will gib the user if it fails.\n\ Warrenty voided if exposed to EMP."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "batterer"
 	throwforce = 5
@@ -181,11 +181,143 @@ effective or pretty fucking useless.
 	flags = CONDUCT
 	item_state = "electronic"
 	origin_tech = "magnets=3;combat=3;syndicate=3"
+	var/tp_range = 8
+	var/inner_tp_range = 3
 	var/charges = 4
 	var/max_charges = 4
+	var/saving_throw_distance = 3
 	var/flawless = FALSE
+
+/obj/item/teleporter/Initialize(mapload, ...)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+/obj/item/teleporter/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
 
 /obj/item/teleporter/examine(mob/user)
 	. = ..()
-		. += "<span class='notice'>[src] has [charges] out of [max_charges] charges left.</span>"
+	. += "<span class='notice'>[src] has [charges] out of [max_charges] charges left.</span>"
 
+/obj/item/teleporter/attack_self(mob/user)
+	attempt_teleport(user, FALSE, tp_range)
+
+/obj/item/teleporter/process()
+	if(prob(10))
+		charges += 1
+		if(charges >= max_charges)
+			charges = max_charges
+
+/obj/item/teleporter/proc/attempt_teleport(mob/user, EMP_D = FALSE)
+	if(!charges)
+		to_chat(user, "<span class='warning'>[src] is recharging still.</span>")
+		return
+
+	var/mob/living/carbon/C = user
+	var/turf/mobloc = get_turf(C)
+	var/list/turfs = new/list()
+	var/found_turf = FALSE
+	for(var/turf/T in range(user, tp_range))
+		if(!is_teleport_allowed(T.z))
+			break
+		if(get_dir(C, T) != C.dir)
+			continue
+		if(T in range(user, inner_tp_range))
+			continue
+		if(T.x > world.maxx-tp_range || T.x < tp_range)
+			continue	//putting them at the edge is dumb
+		if(T.y > world.maxy-tp_range || T.y < tp_range)
+			continue
+
+		turfs += T
+		found_turf = TRUE
+
+	if(found_turf)
+		charges--
+		var/turf/destination = pick(turfs)
+		if(istype(destination, /turf/simulated/floor || /turf/space)|| flawless)
+			var/turf/fragging_location = destination
+			telefrag(fragging_location, user)
+			C.forceMove(destination)
+			playsound(mobloc, "sparks", 50, TRUE)
+			do_sparks(2, 1, mobloc)
+			playsound(destination, "sparks", 50, TRUE)
+			do_sparks(2, 1, destination)
+		else if (EMP_D == FALSE) // This is where the fun begins
+			var/direction = get_dir(user, destination)
+			panic_teleport(user, destination, direction)
+		else // Emp activated? No saving throw for you
+			get_fragged(user, destination)
+	else
+		to_chat(C, "<span class='danger'>The [src] will not work here!</span>")
+
+/obj/item/teleporter/proc/panic_teleport(mob/user, turf/destination, direction = NORTH)
+	var/saving_throw = 0
+	switch(direction)
+		if(NORTH || SOUTH)
+			if(prob(50))
+				saving_throw = EAST
+			else
+				saving_throw = WEST
+		if(EAST || WEST)
+			if(prob(50))
+				saving_throw = NORTH
+			else
+				saving_throw = SOUTH
+		else
+			get_fragged(user, destination) //sanity
+			return
+
+	var/mob/living/carbon/C = user
+	var/turf/mobloc = get_turf(C)
+	var/list/turfs = new/list()
+	var/found_turf = FALSE
+	for(var/turf/T in range(destination, saving_throw_distance))
+		if(get_dir(destination, T) != saving_throw)
+			continue
+		if(T.x > world.maxx-saving_throw_distance || T.x < saving_throw_distance)
+			continue	//putting them at the edge is dumb
+		if(T.y > world.maxy-saving_throw_distance || T.y < saving_throw_distance)
+			continue
+		if(!istype(T, /turf/simulated/floor || /turf/space))
+			continue // We are only looking for save tiles on the saving throw, since we are nice
+		turfs += T
+		found_turf = TRUE
+
+	if(found_turf)
+		var/turf/new_destination = pick(turfs)
+		var/turf/fragging_location = new_destination
+		telefrag(fragging_location, user)
+		C.forceMove(new_destination)
+		playsound(mobloc, "sparks", 50, TRUE)
+		do_sparks(2, 1, mobloc)
+		do_sparks(2, 1, new_destination)
+		playsound(new_destination, "sparks", 50, TRUE)
+	else //We tried to save. We failed. Death time.
+		get_fragged(user, destination)
+
+
+/obj/item/teleporter/proc/get_fragged(mob/user, turf/destination)
+	var/turf/mobloc = get_turf(user)
+	user.forceMove(destination)
+	playsound(mobloc, "sparks", 50, TRUE)
+	do_sparks(2, 1, mobloc)
+	do_sparks(2, 1, destination)
+	playsound(destination, "sparks", 50, TRUE)
+	playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
+	destination.ex_act(rand(1,2))
+	for(var/obj/item/W in user)
+		if(istype(W, /obj/item/organ))
+			continue
+		if(!user.unEquip(W))
+			qdel(W)
+	to_chat(user, "<span class='userdanger'><font size=3>You teleport into the wall, the teleporter tries to save you, but--</font></span>")
+	user.gib()
+
+/obj/item/teleporter/proc/telefrag(turf/fragging_location, mob/user)
+	for(var/mob/living/M in fragging_location)//Hit everything in the turf
+		M.apply_damage(20, BRUTE)
+		M.Stun(3)
+		M.Weaken(3)
+		to_chat(M, "<span_class='warning'> [user] teleports into you, knocking you to the floor with the bluespace wave!</span>")
