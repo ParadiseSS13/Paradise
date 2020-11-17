@@ -19,7 +19,7 @@
 			return FALSE
 		user.visible_message("<span class='warning'>[user] vomits a glob of acid on [user.p_their()] [O.name]!</span>", \
 			"<span class='warning'>We vomit acidic ooze onto our restraints!</span>")
-		addtimer(CALLBACK(src, .proc/dissolve_handcuffs, user, O), 3 SECONDS)
+		addtimer(CALLBACK(src, .proc/dissolve_restraint, user, O), 3 SECONDS)
 		used = TRUE
 
 	if(user.legcuffed)
@@ -28,7 +28,7 @@
 			return FALSE
 		user.visible_message("<span class='warning'>[user] vomits a glob of acid on [user.p_their()] [O.name]!</span>", \
 			"<span class='warning'>We vomit acidic ooze onto our leg restraints!</span>")
-		addtimer(CALLBACK(src, .proc/dissolve_legcuffs, user, O), 3 SECONDS)
+		addtimer(CALLBACK(src, .proc/dissolve_restraint, user, O), 3 SECONDS)
 		used = TRUE
 
 	if(user.wear_suit && user.wear_suit.breakouttime && !used)
@@ -37,7 +37,7 @@
 			return FALSE
 		user.visible_message("<span class='warning'>[user] vomits a glob of acid across the front of [user.p_their()] [S.name]!</span>", \
 			"<span class='warning'>We vomit acidic ooze onto our straight jacket!</span>")
-		addtimer(CALLBACK(src, .proc/dissolve_straightjacket, user, S), 3 SECONDS)
+		addtimer(CALLBACK(src, .proc/dissolve_restraint, user, S), 3 SECONDS)
 		used = TRUE
 
 	if(istype(user.loc, /obj/structure/closet) && !used)
@@ -62,26 +62,12 @@
 		feedback_add_details("changeling_powers","BD")
 	return TRUE
 
-/datum/action/changeling/biodegrade/proc/dissolve_handcuffs(mob/living/carbon/human/user, obj/O)
-	if(O && user.handcuffed == O)
+/datum/action/changeling/biodegrade/proc/dissolve_restraint(mob/living/carbon/human/user, obj/O)
+	if(O && (user.handcuffed == O || user.legcuffed == O || user.wear_suit == O))
 		user.unEquip(O)
 		O.visible_message("<span class='warning'>[O] dissolves into a puddle of sizzling goop.</span>")
 		O.forceMove(get_turf(user))
 		qdel(O)
-
-/datum/action/changeling/biodegrade/proc/dissolve_legcuffs(mob/living/carbon/human/user, obj/O)
-	if(O && user.legcuffed == O)
-		user.unEquip(O)
-		O.visible_message("<span class='warning'>[O] dissolves into a puddle of sizzling goop.</span>")
-		O.forceMove(get_turf(user))
-		qdel(O)
-
-/datum/action/changeling/biodegrade/proc/dissolve_straightjacket(mob/living/carbon/human/user, obj/S)
-	if(S && user.wear_suit == S)
-		user.unEquip(S)
-		S.visible_message("<span class='warning'>[S] dissolves into a puddle of sizzling goop.</span>")
-		S.forceMove(get_turf(user))
-		qdel(S)
 
 /datum/action/changeling/biodegrade/proc/open_closet(mob/living/carbon/human/user, obj/structure/closet/C)
 	if(C && user.loc == C)
