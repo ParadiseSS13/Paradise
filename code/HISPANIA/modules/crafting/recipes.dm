@@ -85,3 +85,15 @@
 				/obj/item/stack/sheet/mineral/gold = 6)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	category = CAT_MISC
+
+///Advanced Roller Bed///
+/datum/crafting_recipe/adv_roller_bed
+	name = "Advanced Roller Bed"
+	result = /obj/item/roller/advanced
+	time = 40
+	reqs = list(/obj/item/stack/cable_coil = 5,
+		        /obj/item/roller = 1,
+		        /obj/item/stack/rods = 10,
+				/obj/item/healthanalyzer = 1)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
+	category = CAT_MISC

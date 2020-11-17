@@ -342,7 +342,7 @@
 		/obj/item/storage/firstaid/brute = 1,
 		/obj/item/storage/firstaid/fire = 1,
 		/obj/item/storage/box/autoinjectors = 1,
-		/obj/item/roller = 1,
+		/obj/item/roller/advanced = 1, //Hispania Roller Bed Red ERT
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/bodyanalyzer = 1,
 		/obj/item/healthupgrade = 1,
@@ -366,7 +366,7 @@
 	backpack_contents = list(
 		/obj/item/bodyanalyzer/advanced = 1,
 		/obj/item/extinguisher/mini = 1,
-		/obj/item/roller = 1,
+		/obj/item/roller/bluespace = 1,  //Hispania Roller Bed Gamma ERT
 		/obj/item/healthanalyzer/advanced = 1,
 		/obj/item/handheld_defibrillator = 1
 		)
