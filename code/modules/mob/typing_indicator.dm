@@ -12,10 +12,9 @@ GLOBAL_LIST_EMPTY(typing_indicator)
   *
   * Arguments:
   * * state - On or Off
-  * * say - Is the bubble being caused by the 'say' command
-  * * me - Is the bubble being caused by the 'me' command
+  * * me - Is the bubble being caused by the 'me' emote command
   */
-/mob/proc/set_typing_indicator(state, say, me)
+/mob/proc/set_typing_indicator(state, me)
 
 	if(!GLOB.typing_indicator[bubble_icon])
 		GLOB.typing_indicator[bubble_icon] = image('icons/mob/talk.dmi', null, "[bubble_icon]typing", FLY_LAYER)
@@ -46,7 +45,7 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 	set name = ".Say"
 	set hidden = 1
 
-	set_typing_indicator(1, TRUE)
+	set_typing_indicator(1)
 	hud_typing = 1
 	var/message = typing_input(src, "", "say (text)")
 	hud_typing = 0
@@ -59,7 +58,7 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 	set hidden = 1
 
 
-	set_typing_indicator(1, FALSE, TRUE)
+	set_typing_indicator(1, TRUE)
 	hud_typing = 1
 	var/message = typing_input(src, "", "me (text)")
 	hud_typing = 0
@@ -80,9 +79,9 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 				set_typing_indicator(0)
 				return
 			if(length(temp) > 5 && findtext(temp, "Say \"", 1, 7))
-				set_typing_indicator(1, TRUE)
+				set_typing_indicator(1)
 			else if(length(temp) > 3 && findtext(temp, "Me ", 1, 5))
-				set_typing_indicator(1, FALSE, TRUE)
+				set_typing_indicator(1, TRUE)
 
 			else
 				set_typing_indicator(0)
