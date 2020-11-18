@@ -63,6 +63,12 @@ Pipelines + Other Objects -> Pipe network
 	QDEL_NULL(pipe_image) //we have to qdel it, or it might keep a ref somewhere else
 	return ..()
 
+/obj/machinery/atmospherics/set_frequency(new_frequency)
+	SSradio.remove_object(src, frequency)
+	frequency = new_frequency
+	if(frequency)
+		radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
+
 // Icons/overlays/underlays
 /obj/machinery/atmospherics/update_icon()
 	var/turf/T = get_turf(loc)

@@ -7,6 +7,7 @@
 	fire_sound = 'sound/weapons/ionrifle.ogg'
 	origin_tech = "combat=4;magnets=4"
 	w_class = WEIGHT_CLASS_HUGE
+	can_holster = FALSE
 	flags =  CONDUCT
 	slot_flags = SLOT_BACK
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
@@ -16,9 +17,6 @@
 
 /obj/item/gun/energy/ionrifle/emp_act(severity)
 	return
-
-/obj/item/gun/energy/ionrifle/isHandgun()
-	return 0
 
 /obj/item/gun/energy/ionrifle/carbine
 	name = "ion carbine"
@@ -314,12 +312,10 @@
 	weapon_weight = WEAPON_HEAVY
 	slot_flags = SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
+	can_holster = FALSE
 	zoomable = TRUE
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	shaded_charge = 1
-
-/obj/item/gun/energy/sniperrifle/isHandgun()
-	return FALSE // Makes it so no, you cant fit a massive, bulky, sniper under your arm
 
 // Temperature Gun //
 /obj/item/gun/energy/temperature

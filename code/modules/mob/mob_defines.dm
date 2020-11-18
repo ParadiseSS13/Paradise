@@ -114,8 +114,9 @@
 
 	var/move_on_shuttle = 1 // Can move on the shuttle.
 
-	var/has_enabled_antagHUD = 0
-	var/antagHUD = 0
+
+	var/has_enabled_antagHUD = 0  // Whether antagHUD was ever enabled. Not a true boolean - sometimes it is set to 2, because reasons.
+	var/antagHUD = FALSE  // Whether AntagHUD is active right now
 	var/can_change_intents = 1 //all mobs can change intents by default.
 
 //Generic list for proc holders. Only way I can see to enable certain verbs/procs. Should be modified if needed.
@@ -199,3 +200,5 @@
 
 	var/forced_look = null // This can either be a numerical direction or a soft object reference (UID). It makes the mob always face towards the selected thing.
 	var/registered_z
+
+	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override

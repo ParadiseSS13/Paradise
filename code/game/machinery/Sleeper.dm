@@ -421,7 +421,7 @@
 		A.forceMove(loc)
 	SStgui.update_uis(src)
 
-/obj/machinery/sleeper/force_eject_occupant()
+/obj/machinery/sleeper/force_eject_occupant(mob/target)
 	go_out()
 
 /obj/machinery/sleeper/proc/inject_chemical(mob/living/user, chemical, amount)

@@ -71,6 +71,10 @@
 	display_name = "leather jacket"
 	path = /obj/item/clothing/suit/jacket/leather
 
+/datum/gear/suit/motojacket
+	display_name = "leather motorcycle jacket"
+	path = /obj/item/clothing/suit/jacket/motojacket
+
 /datum/gear/suit/br_tcoat
 	display_name = "trenchcoat, brown"
 	path = /obj/item/clothing/suit/browntrenchcoat

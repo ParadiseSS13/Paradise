@@ -56,6 +56,8 @@
 	var/knife_x_offset = 0
 	var/knife_y_offset = 0
 
+	var/can_holster = TRUE
+
 	var/list/upgrades = list()
 
 	var/ammo_x_offset = 0 //used for positioning ammo count overlay on sprite
@@ -465,9 +467,6 @@
 		chambered.BB.damage *= 5
 
 	process_fire(target, user, 1, params)
-
-/obj/item/gun/proc/isHandgun()
-	return 1
 
 /////////////
 // ZOOMING //

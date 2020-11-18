@@ -50,7 +50,7 @@
 
 /datum/dna/gene/disability/hallucinate/OnMobLife(mob/living/carbon/human/H)
 	if(prob(1))
-		H.Hallucinate(20)
+		H.AdjustHallucinate(45)
 
 /datum/dna/gene/disability/epilepsy
 	name = "Epilepsy"

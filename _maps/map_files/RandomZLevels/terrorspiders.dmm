@@ -2556,7 +2556,7 @@
 /area/awaymission/UO71/centralhall)
 "gl" = (
 /obj/structure/table,
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_x = -3;
 	pixel_y = 6
 	},
@@ -2829,7 +2829,7 @@
 	network = list("UO71")
 	},
 /obj/structure/table,
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_x = -3;
 	pixel_y = 6
 	},

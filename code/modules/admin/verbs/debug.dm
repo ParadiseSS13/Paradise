@@ -904,7 +904,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		var/datum/map_template/ruin/template = landmark.ruin_template
 		if(isobj(usr.loc))
 			var/obj/O = usr.loc
-			O.force_eject_occupant()
+			O.force_eject_occupant(usr)
 		admin_forcemove(usr, get_turf(landmark))
 
 		to_chat(usr, "<span class='name'>[template.name]</span>")

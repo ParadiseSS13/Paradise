@@ -178,12 +178,6 @@
 			H = pick(candidates)
 			SSticker.mode.add_cultist(H.mind)
 			candidates.Remove(H)
-			if(!GLOB.summon_spots.len)
-				while(GLOB.summon_spots.len < SUMMON_POSSIBILITIES)
-					var/area/summon = pick(return_sorted_areas() - GLOB.summon_spots)
-					if(summon && is_station_level(summon.z) && summon.valid_territory)
-						GLOB.summon_spots += summon
-
 		return 1
 	return 0
 

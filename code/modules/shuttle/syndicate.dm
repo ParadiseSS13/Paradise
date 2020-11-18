@@ -39,7 +39,7 @@
 		if(z != level_name_to_num(CENTCOMM))
 			to_chat(user, "<span class='warning'>Pods are one way!</span>")
 			return FALSE
-	..()
+	return ..()
 
 /obj/machinery/computer/shuttle/sst
 	name = "Syndicate Strike Team Shuttle Console"

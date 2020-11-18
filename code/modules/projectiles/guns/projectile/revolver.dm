@@ -336,6 +336,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/dual
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	sawn_desc = "Omar's coming!"
+	can_holster = FALSE
 	unique_rename = 1
 	unique_reskin = 1
 
@@ -376,9 +377,6 @@
 		to_chat(user, "<span class = 'notice'>You break open \the [src] and unload [num_unloaded] shell\s.</span>")
 	else
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
-
-/obj/item/gun/projectile/revolver/doublebarrel/isHandgun() //contrary to popular opinion, double barrels are not, shockingly, handguns
-	return 0
 
 // IMPROVISED SHOTGUN //
 

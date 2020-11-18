@@ -677,12 +677,17 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		//load text from file
 		var/list/Lines = file2list("config/admins.txt")
 		for(var/line in Lines)
+			if(findtext(line, "#")) // Skip comments
+				continue
+
 			var/list/splitline = splittext(line, " - ")
+			if(length(splitline) != 2) // Always 'ckey - rank'
+				continue
 			if(lowertext(splitline[1]) == ckey)
-				if(splitline.len >= 2)
-					rank = ckeyEx(splitline[2])
+				rank = ckeyEx(splitline[2])
 				break
 			continue
+
 	else
 		if(!GLOB.dbcon.IsConnected())
 			message_admins("Warning, MySQL database is not connected.")

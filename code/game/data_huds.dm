@@ -446,3 +446,37 @@
 		holder.icon_state = ""
 		return
 	holder.icon_state = "hudweed[RoundPlantBar(weedlevel/10)]"
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	I'll just put this somewhere near the end...
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/// Helper function to add a "comment" to a data record. Used for medical or security records.
+/mob/living/carbon/human/proc/add_comment(mob/commenter, comment_kind, comment_text)
+	var/perpname = get_visible_name(TRUE) //gets the name of the perp, works if they have an id or if their face is uncovered
+	if(!perpname)
+		return
+	var/datum/data/record/R
+	switch(comment_kind)
+		if("security")
+			R = find_record("name", perpname, GLOB.data_core.security)
+		if("medical")
+			R = find_record("name", perpname, GLOB.data_core.medical)
+	if(!R)
+		return
+
+	var/commenter_display = "Something(???)"
+	if(ishuman(commenter))
+		var/mob/living/carbon/human/U = commenter
+		commenter_display = "[U.get_authentification_name()] ([U.get_assignment()])"
+	else if(isrobot(commenter))
+		var/mob/living/silicon/robot/U = commenter
+		commenter_display = "[U.name] ([U.modtype] [U.braintype])"
+	else if(isAI(commenter))
+		var/mob/living/silicon/ai/U = commenter
+		commenter_display = "[U.name] (artificial intelligence)"
+	comment_text = "Made by [commenter_display] on [GLOB.current_date_string] [station_time_timestamp()]:<br>[comment_text]"
+
+	if(!R.fields["comments"])
+		R.fields["comments"] = list()
+	R.fields["comments"] += list(comment_text)

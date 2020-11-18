@@ -24,7 +24,7 @@
 
 	if(isobj(usr.loc))
 		var/obj/O = usr.loc
-		O.force_eject_occupant()
+		O.force_eject_occupant(usr)
 
 	admin_forcemove(usr, T)
 	log_admin("[key_name(usr)] jumped to [A]")
@@ -41,7 +41,7 @@
 
 	if(isobj(usr.loc))
 		var/obj/O = usr.loc
-		O.force_eject_occupant()
+		O.force_eject_occupant(usr)
 	log_admin("[key_name(usr)] jumped to [T.x], [T.y], [T.z] in [T.loc]")
 	if(!isobserver(usr))
 		message_admins("[key_name_admin(usr)] jumped to [T.x], [T.y], [T.z] in [T.loc]", 1)
@@ -61,7 +61,7 @@
 		message_admins("[key_name_admin(usr)] jumped to [key_name_admin(M)]", 1)
 	if(isobj(usr.loc))
 		var/obj/O = usr.loc
-		O.force_eject_occupant()
+		O.force_eject_occupant(usr)
 	if(src.mob)
 		var/mob/A = src.mob
 		var/turf/T = get_turf(M)
@@ -82,7 +82,7 @@
 	if(T)
 		if(isobj(usr.loc))
 			var/obj/O = usr.loc
-			O.force_eject_occupant()
+			O.force_eject_occupant(usr)
 		admin_forcemove(usr, T)
 		if(isobserver(usr))
 			var/mob/dead/observer/O = usr
@@ -111,7 +111,7 @@
 		message_admins("[key_name_admin(usr)] jumped to [key_name_admin(M)]", 1)
 	if(isobj(usr.loc))
 		var/obj/O = usr.loc
-		O.force_eject_occupant()
+		O.force_eject_occupant(usr)
 	admin_forcemove(usr, M.loc)
 
 	feedback_add_details("admin_verb","JK") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -129,7 +129,7 @@
 
 	if(isobj(M.loc))
 		var/obj/O = M.loc
-		O.force_eject_occupant()
+		O.force_eject_occupant(M)
 	admin_forcemove(M, get_turf(usr))
 	feedback_add_details("admin_verb","GM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -156,7 +156,7 @@
 	if(M)
 		if(isobj(M.loc))
 			var/obj/O = M.loc
-			O.force_eject_occupant()
+			O.force_eject_occupant(M)
 		admin_forcemove(M, get_turf(usr))
 		admin_forcemove(usr, M.loc)
 		feedback_add_details("admin_verb","GK") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -172,7 +172,7 @@
 	if(A)
 		if(isobj(M.loc))
 			var/obj/O = M.loc
-			O.force_eject_occupant()
+			O.force_eject_occupant(M)
 		admin_forcemove(M, pick(get_area_turfs(A)))
 		feedback_add_details("admin_verb","SMOB") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		log_admin("[key_name(usr)] teleported [key_name(M)] to [A]")

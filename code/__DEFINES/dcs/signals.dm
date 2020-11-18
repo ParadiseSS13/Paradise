@@ -574,6 +574,8 @@
 #define COMSIG_HUMAN_DISARM_HIT	"human_disarm_hit"
 ///Whenever EquipRanked is called, called after job is set
 #define COMSIG_JOB_RECEIVED "job_received"
+// called after DNA is updated
+#define COMSIG_HUMAN_UPDATE_DNA "human_update_dna"
 
 // /datum/species signals
 

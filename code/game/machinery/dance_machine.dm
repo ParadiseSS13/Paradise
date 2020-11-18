@@ -484,10 +484,12 @@
 		icon_state = "disco0"
 		stop = world.time + 100
 
+
+
 /obj/machinery/disco/immobile
 	name = "radiant dance machine mark V"
-	desc = "After repeated theft incidents with previous models, the MKV is rendered completely immovable, its stand made from plastitanium and connected to a large concrete foundation underground."
+	desc = "The mark V is nigh-immovable, thanks to its bluespace-plastitanium anchor. The technology required to stop visitors from stealing this thing is astounding."
 	anchored = TRUE
 
 /obj/machinery/disco/immobile/wrench_act()
-	return
+	return FALSE

@@ -11,8 +11,8 @@
 	layer = 2.75
 	max_integrity = 3
 	var/stillborn = FALSE
-	var/spider_myqueen = null
-	var/spider_mymother = null
+	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/spider_myqueen = null
+	var/mob/living/simple_animal/hostile/poison/terror_spider/spider_mymother = null
 	var/goto_mother = FALSE
 	var/ventcrawl_chance = 30 // 30% every process(), assuming 33% wander does not trigger
 	var/immediate_ventcrawl = TRUE
@@ -197,8 +197,8 @@
 	desc = "A cluster of tiny spider eggs. They pulse with a strong inner life, and appear to have sharp thorns on the sides."
 	icon_state = "eggs"
 	var/spider_growinstantly = FALSE
-	var/spider_myqueen = null
-	var/spider_mymother = null
+	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/spider_myqueen = null
+	var/mob/living/simple_animal/hostile/poison/terror_spider/spider_mymother = null
 	var/spiderling_type = null
 	var/spiderling_number = 1
 	var/list/enemies = list()

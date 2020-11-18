@@ -70,7 +70,7 @@
 	},
 /area/space)
 "al" = (
-/obj/effect/landmark/costume,
+/obj/effect/landmark/costume/random,
 /obj/structure/rack/holorack,
 /turf/simulated/floor/holofloor{
 	tag = "icon-cult";
