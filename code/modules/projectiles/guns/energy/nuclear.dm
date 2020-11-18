@@ -54,11 +54,11 @@
 
 /obj/item/gun/energy/gun/blueshield
 	name = "advanced stun revolver"
-	desc = "An advanced stun revolver with the capacity to shoot both electrodes and lasers."
+	desc = "An advanced stun revolver with the capacity to shoot both disablers and lasers."
 	icon_state = "bsgun"
 	item_state = "gun"
 	force = 7
-	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos)
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser/hos)
 	ammo_x_offset = 1
 	shaded_charge = 1
 
@@ -66,7 +66,7 @@
 	name = "PDW-9 taser pistol"
 	desc = "A military grade sidearm, used by many militia forces throughout the local sector."
 	icon_state = "pdw9pistol"
-
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/electrode/hos)
 /obj/item/gun/energy/gun/turret
 	name = "hybrid turret gun"
 	desc = "A heavy hybrid energy cannon with two settings: Stun and kill."
@@ -90,5 +90,5 @@
 	charge_delay = 5
 	can_charge = 0
 	ammo_x_offset = 1
-	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser, /obj/item/ammo_casing/energy/disabler)
+	ammo_type = list(/obj/item/ammo_casing/energy/laser, /obj/item/ammo_casing/energy/disabler)
 	selfcharge = 1

@@ -273,14 +273,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 15
 	containername = "laser crate"
 
-/datum/supply_packs/security/taser
-	name = "Stun Guns Crate"
-	contains = list(/obj/item/gun/energy/gun/advtaser,
-					/obj/item/gun/energy/gun/advtaser,
-					/obj/item/gun/energy/gun/advtaser)
-	cost = 15
-	containername = "stun gun crate"
-
 /datum/supply_packs/security/disabler
 	name = "Disabler Crate"
 	contains = list(/obj/item/gun/energy/disabler,
