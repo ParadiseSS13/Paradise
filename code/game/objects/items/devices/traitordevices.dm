@@ -201,17 +201,26 @@ effective or pretty fucking useless.
 	. += "<span class='notice'>[src] has [charges] out of [max_charges] charges left.</span>"
 
 /obj/item/teleporter/attack_self(mob/user)
-	attempt_teleport(user, FALSE, tp_range)
+	attempt_teleport(user, FALSE)
 
 /obj/item/teleporter/process()
-	if(prob(10))
+	if(prob(10) && charges != max_charges)
 		charges += 1
-		if(charges >= max_charges)
-			charges = max_charges
+
+/obj/item/teleporter/emp_act(severity)
+	if(prob(50 / severity))
+		var/mob/living/carbon/human/user = src.loc
+		if((user && ishuman(user)))
+			to_chat(user, "<span class='danger'>The [src] buzzes and activates!</span>")
+			attempt_teleport(user, TRUE)
+		else
+			src.visible_message("<span class='warning'> The [src] activates and blinks out of existance!</span>")
+			do_sparks(2, 1, src)
+			qdel(src)
 
 /obj/item/teleporter/proc/attempt_teleport(mob/user, EMP_D = FALSE)
 	if(!charges)
-		to_chat(user, "<span class='warning'>[src] is recharging still.</span>")
+		to_chat(user, "<span class='warning'>The [src] is recharging still.</span>")
 		return
 
 	var/mob/living/carbon/C = user
@@ -236,14 +245,14 @@ effective or pretty fucking useless.
 	if(found_turf)
 		charges--
 		var/turf/destination = pick(turfs)
-		if(istype(destination, /turf/simulated/floor || /turf/space)|| flawless)
+		if(istype(destination, /turf/simulated/floor) || istype(destination, /turf/space) || istype(destination, /turf/simulated/shuttle/floor) || istype(destination, /turf/simulated/shuttle/floor4) || istype(destination, /turf/simulated/shuttle/plating) || flawless) // Why is there so many bloody floor types
 			var/turf/fragging_location = destination
 			telefrag(fragging_location, user)
 			C.forceMove(destination)
 			playsound(mobloc, "sparks", 50, TRUE)
-			do_sparks(2, 1, mobloc)
+			new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
 			playsound(destination, "sparks", 50, TRUE)
-			do_sparks(2, 1, destination)
+			new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
 		else if (EMP_D == FALSE) // This is where the fun begins
 			var/direction = get_dir(user, destination)
 			panic_teleport(user, destination, direction)
@@ -280,7 +289,7 @@ effective or pretty fucking useless.
 			continue	//putting them at the edge is dumb
 		if(T.y > world.maxy-saving_throw_distance || T.y < saving_throw_distance)
 			continue
-		if(!istype(T, /turf/simulated/floor || /turf/space))
+		if(!(istype(T, /turf/simulated/floor) || istype(T, /turf/space) || istype(destination, /turf/simulated/shuttle/floor) || istype(destination, /turf/simulated/shuttle/floor4) || istype(destination, /turf/simulated/shuttle/plating)))
 			continue // We are only looking for save tiles on the saving throw, since we are nice
 		turfs += T
 		found_turf = TRUE
@@ -291,8 +300,8 @@ effective or pretty fucking useless.
 		telefrag(fragging_location, user)
 		C.forceMove(new_destination)
 		playsound(mobloc, "sparks", 50, TRUE)
-		do_sparks(2, 1, mobloc)
-		do_sparks(2, 1, new_destination)
+		new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
+		new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(new_destination)
 		playsound(new_destination, "sparks", 50, TRUE)
 	else //We tried to save. We failed. Death time.
 		get_fragged(user, destination)
@@ -302,13 +311,13 @@ effective or pretty fucking useless.
 	var/turf/mobloc = get_turf(user)
 	user.forceMove(destination)
 	playsound(mobloc, "sparks", 50, TRUE)
-	do_sparks(2, 1, mobloc)
-	do_sparks(2, 1, destination)
+	new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
+	new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
 	playsound(destination, "sparks", 50, TRUE)
 	playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
 	destination.ex_act(rand(1,2))
 	for(var/obj/item/W in user)
-		if(istype(W, /obj/item/organ))
+		if(istype(W, /obj/item/organ)|| istype(W, /obj/item/implant))
 			continue
 		if(!user.unEquip(W))
 			qdel(W)
@@ -321,3 +330,6 @@ effective or pretty fucking useless.
 		M.Stun(3)
 		M.Weaken(3)
 		to_chat(M, "<span_class='warning'> [user] teleports into you, knocking you to the floor with the bluespace wave!</span>")
+
+/obj/effect/temp_visual/teleport_abductor/syndi_teleporter
+	duration = 5
