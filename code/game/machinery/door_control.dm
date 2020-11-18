@@ -140,28 +140,12 @@
 	switch(temple_traps)
 		if(1 to 5)//You're safe, this time.
 			return
-		if(6,7)
+		if(6 to 8)
 			new /mob/living/simple_animal/hostile/poison/giant_spider(get_turf(src))
 			visible_message("<span class='boldannounce'>A hatch opens above you and a giant spider falls down on your head!</span>")
 			playsound(get_turf(src), 'sound/effects/bin_close.ogg', 200, TRUE)
-		if(8,9)
-			addtimer(CALLBACK(GLOBAL_PROC, .proc/explosion, user.loc, -1, rand(1,5), rand(1,5), rand(1,5), rand(1,5), 1, 0, 2), 50)
+		if(9,10)
+			addtimer(CALLBACK(GLOBAL_PROC, .proc/explosion, user.loc, -1, rand(1,5), rand(1,5), rand(1,5), rand(1,5), 1, 0, 2), 60)
 			playsound(get_turf(src), 'sound/mecha/powerup.ogg', 200, TRUE)
 			visible_message("<span class='boldannounce'>A high pitched whine can be heard and the walls looks to be heating up!</span>")
-		if(10)
-			for(var/mob/M in range(5, src))
-				shake_camera(M, 15, 1)
-			visible_message("<span class='boldannounce'>The ground begins to shake and roaring machinery can be heard! RUN!</span>")
-			addtimer(CALLBACK(src, .proc/temple_collapse), 5 SECONDS)
-
-/obj/machinery/door_control/brass/beach_brass_temple_switch/proc/temple_collapse()
-	for(var/mob/M in range(20, src))
-		shake_camera(M, 15, 1)
-	playsound(get_turf(src),'sound/effects/explosionfar.ogg', 200, TRUE)
-	visible_message("<span class='boldannounce'>The brass floor collapses and forms a massive pit!</span>")
-	for(var/turf/T in range(4,src))
-		if(!T.density)
-			T.TerraformTurf(/turf/simulated/floor/chasm/straight_down/lava_land_surface)
-	qdel(src)
-
 

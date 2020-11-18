@@ -68,13 +68,7 @@
 /turf/unsimulated/beach/water/deep/sand_floor,
 /area/awaymission/undersea)
 "ar" = (
-/mob/living/simple_animal/crab{
-	desc = "A hard-shelled crustacean. There's a mad look in its eyes.";
-	faction = list("nether");
-	melee_damage_lower = 3;
-	melee_damage_upper = 3;
-	name = "strange crab"
-	},
+/mob/living/simple_animal/crab/strange,
 /turf/unsimulated/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "as" = (
@@ -287,7 +281,7 @@
 	},
 /area/awaymission/beach/offshore)
 "by" = (
-/obj/machinery/cooker/foodgrill,
+/obj/machinery/kitchen_machine/grill,
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "bz" = (
@@ -366,10 +360,10 @@
 /turf/simulated/floor/beach/roughsand,
 /area/awaymission/beach)
 "bX" = (
-/obj/machinery/cooking/oven,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/kitchen_machine/oven,
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "cc" = (
@@ -562,7 +556,9 @@
 "fc" = (
 /obj/machinery/biogenerator,
 /obj/item/reagent_containers/glass/bucket,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "bot"
+	},
 /area/awaymission/beach)
 "fd" = (
 /obj/structure/clockwork/decorative/relay,
@@ -632,6 +628,12 @@
 /obj/structure/flora/ausbushes/palebush,
 /turf/simulated/floor/beach/roughsand,
 /area/awaymission/beach/boundary)
+"ga" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/light/colour_cycle/dancefloor_a,
+/area/awaymission/beach)
 "gn" = (
 /obj/item/clockwork/component/geis_capacitor/fallen_armor,
 /turf/unsimulated/floor/grass,
@@ -687,6 +689,16 @@
 /obj/effect/overlay/coconut,
 /turf/simulated/floor/beach/roughsand,
 /area/awaymission/beach/boundary)
+"gY" = (
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/awaymission/beach)
 "hm" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/plasteel{
@@ -781,10 +793,7 @@
 /obj/machinery/vending/hydroseeds{
 	extended_inventory = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "caution";
-	dir = 4
-	},
+/turf/simulated/floor/plasteel,
 /area/awaymission/beach)
 "if" = (
 /obj/effect/overlay/palmtree_r,
@@ -843,15 +852,11 @@
 	},
 /turf/simulated/floor/beach/roughsand,
 /area/awaymission/beach)
-"iL" = (
-/obj/effect/decal/snow/sand/edge{
-	name = "rough sand"
+"iO" = (
+/obj/structure/chair/sofa/corner{
+	dir = 8
 	},
-/turf/simulated/wall/mineral/sandstone,
-/area/awaymission/beach)
-"iT" = (
-/obj/machinery/photocopier,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/wood,
 /area/awaymission/beach)
 "iU" = (
 /obj/effect/overlay/palmtree_l,
@@ -897,6 +902,12 @@
 /obj/item/reagent_containers/food/snacks/pie,
 /turf/unsimulated/beach/sand,
 /area/awaymission/beach/offshore)
+"jJ" = (
+/obj/structure/chair/sofa{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/beach)
 "jL" = (
 /turf/unsimulated/floor/lava,
 /area/awaymission/beach/offshore)
@@ -983,6 +994,15 @@
 /obj/structure/flora/rock,
 /turf/unsimulated/beach/sand,
 /area/awaymission/beach/offshore)
+"kK" = (
+/obj/effect/decal/snow/sand/edge{
+	name = "rough sand"
+	},
+/turf/unsimulated/wall{
+	icon_state = "rock";
+	name = "rock"
+	},
+/area/space)
 "kO" = (
 /obj/effect/overlay/palmtree_l,
 /obj/effect/overlay/coconut,
@@ -1201,16 +1221,15 @@
 /area/awaymission/beach/boundary)
 "na" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
-/obj/structure/disposalpipe/junction{
-	dir = 1;
-	icon_state = "pipe-j2";
-	tag = "icon-pipe-j2"
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "nb" = (
 /obj/structure/table/reinforced,
-/obj/machinery/microwave,
+/obj/machinery/kitchen_machine/microwave,
 /turf/unsimulated/floor{
 	tag = "icon-dark";
 	icon_state = "dark"
@@ -1252,11 +1271,7 @@
 /turf/unsimulated/floor/grass,
 /area/awaymission/beach/offshore)
 "nF" = (
-/mob/living/simple_animal/hostile/skeleton{
-	harm_intent_damage = 10;
-	health = 100;
-	name = "The Captain"
-	},
+/mob/living/simple_animal/hostile/skeleton/pirate_captain,
 /turf/unsimulated/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "nJ" = (
@@ -1293,7 +1308,7 @@
 /area/awaymission/undersea)
 "oe" = (
 /obj/structure/table/wood,
-/obj/machinery/microwave,
+/obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "og" = (
@@ -1331,13 +1346,6 @@
 /obj/structure/flora/ausbushes/genericbush,
 /turf/unsimulated/floor/grass,
 /area/awaymission/beach/offshore)
-"oB" = (
-/obj/structure/sink{
-	pixel_y = 24
-	},
-/obj/item/reagent_containers/glass/bucket,
-/turf/simulated/floor/plasteel,
-/area/awaymission/beach)
 "oC" = (
 /obj/structure/flora/ausbushes/reedbush,
 /obj/effect/decal/snow/sand/edge{
@@ -1439,18 +1447,13 @@
 /obj/machinery/door/unpowered/shuttle,
 /turf/simulated/shuttle/floor,
 /area/awaymission/beach/offshore)
-"pL" = (
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "caution"
-	},
-/area/awaymission/beach)
 "pO" = (
 /obj/effect/mob_spawn/human/resort_host{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "bot"
+	},
 /area/awaymission/beach/entrance)
 "qb" = (
 /obj/effect/decal/snow/sand/edge{
@@ -1526,7 +1529,7 @@
 /area/awaymission/beach/offshore)
 "qX" = (
 /obj/structure/spawner/nether{
-	max_mobs = 3;
+	max_mobs = 2;
 	name = "weak netherworld link"
 	},
 /obj/effect/rune,
@@ -1546,13 +1549,7 @@
 /obj/structure/closet/cabinet,
 /obj/item/clothing/shoes/black,
 /obj/item/clothing/under/color/lightgreen,
-/mob/living/simple_animal/crab{
-	desc = "A hard-shelled crustacean. There's a mad look in its eyes.";
-	faction = list("nether");
-	melee_damage_lower = 3;
-	melee_damage_upper = 3;
-	name = "strange crab"
-	},
+/mob/living/simple_animal/crab/strange,
 /turf/unsimulated/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "rt" = (
@@ -1596,10 +1593,6 @@
 /mob/living/simple_animal/butterfly,
 /turf/simulated/floor/beach/roughsand,
 /area/awaymission/beach/boundary)
-"rF" = (
-/mob/living/simple_animal/crab,
-/turf/unsimulated/beach/water/deep/sand_floor,
-/area/awaymission/undersea)
 "rG" = (
 /obj/structure/sign/electricshock{
 	pixel_y = 32
@@ -1619,7 +1612,6 @@
 /obj/structure/table/wood,
 /obj/item/hatchet,
 /obj/item/cultivator,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/awaymission/beach)
 "rV" = (
@@ -1714,6 +1706,18 @@
 	icon_state = "floor3"
 	},
 /area/awaymission/undersea)
+"sV" = (
+/obj/effect/decal/snow/sand/edge{
+	tag = "icon-gravsnow_corner (WEST)";
+	name = "rough sand";
+	icon_state = "gravsnow_corner";
+	dir = 8
+	},
+/turf/unsimulated/wall{
+	icon_state = "rock";
+	name = "rock"
+	},
+/area/space)
 "sW" = (
 /obj/structure/table/wood,
 /obj/effect/decal/snow/sand/edge{
@@ -1770,10 +1774,24 @@
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
+"tH" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "caution"
+	},
+/area/awaymission/beach)
 "tJ" = (
 /obj/structure/stone_tile/surrounding_tile,
 /turf/unsimulated/floor/grass,
 /area/awaymission/beach/offshore)
+"tK" = (
+/obj/structure/chair/sofa/right,
+/turf/simulated/floor/wood,
+/area/awaymission/beach)
 "tM" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/flora/ausbushes/sunnybush,
@@ -1998,6 +2016,14 @@
 /obj/item/bedsheet/black,
 /turf/unsimulated/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
+"wA" = (
+/obj/structure/mineral_door/wood{
+	icon_state = "wood";
+	name = "Disposal room";
+	tag = "icon-wood"
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/beach)
 "wJ" = (
 /obj/effect/overlay/palmtree_l,
 /turf/unsimulated/beach/sand/dense,
@@ -2115,6 +2141,12 @@
 /obj/structure/flora/ausbushes/genericbush,
 /turf/unsimulated/floor/grass,
 /area/awaymission/beach/offshore)
+"yo" = (
+/obj/machinery/tcomms/relay/beachresort,
+/turf/simulated/floor/plasteel{
+	icon_state = "bot"
+	},
+/area/awaymission/beach)
 "yq" = (
 /obj/structure/flora/bush,
 /turf/unsimulated/beach/sand/dense,
@@ -2241,14 +2273,14 @@
 /turf/unsimulated/beach/sand/dense,
 /area/awaymission/beach/offshore)
 "zx" = (
-/obj/machinery/conveyor_switch/oneway{
-	id = "beach disposal"
+/obj/structure/sink{
+	dir = 4;
+	icon_state = "sink";
+	pixel_x = 11;
+	pixel_y = 0
 	},
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "caution"
-	},
+/obj/item/reagent_containers/glass/bucket,
+/turf/simulated/floor/plasteel,
 /area/awaymission/beach)
 "zB" = (
 /obj/item/clothing/under/rank/nursesuit,
@@ -2396,6 +2428,15 @@
 /obj/structure/curtain/open,
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
+"Bb" = (
+/obj/effect/decal/snow/sand/edge{
+	tag = "icon-gravsnow_corner (NORTHEAST)";
+	name = "rough sand";
+	icon_state = "gravsnow_corner";
+	dir = 5
+	},
+/turf/simulated/floor/beach/roughsand,
+/area/awaymission/beach)
 "Bc" = (
 /obj/structure/bed/wooden_lounge_chair,
 /turf/simulated/floor/beach/roughsand,
@@ -2470,14 +2511,6 @@
 /obj/item/clothing/mask/breath,
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
-"BG" = (
-/obj/structure/disposalpipe/segment,
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "caution"
-	},
-/area/awaymission/beach)
 "BH" = (
 /obj/item/clothing/under/color/grey,
 /turf/unsimulated/beach/water/deep/wood_floor,
@@ -2548,13 +2581,7 @@
 /obj/item/bedsheet/medical,
 /obj/item/clothing/under/color/purple,
 /obj/item/clothing/shoes/black,
-/mob/living/simple_animal/crab{
-	desc = "A hard-shelled crustacean. There's a mad look in its eyes.";
-	faction = list("nether");
-	melee_damage_lower = 3;
-	melee_damage_upper = 3;
-	name = "strange crab"
-	},
+/mob/living/simple_animal/crab/strange,
 /turf/unsimulated/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "Cj" = (
@@ -2598,7 +2625,7 @@
 	},
 /area/awaymission/beach/offshore)
 "Cz" = (
-/mob/living/simple_animal/hostile/skeleton,
+/mob/living/simple_animal/hostile/skeleton/pirate,
 /turf/unsimulated/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "CA" = (
@@ -2649,6 +2676,12 @@
 "CJ" = (
 /obj/item/beach_ball,
 /turf/simulated/floor/beach/roughsand,
+/area/awaymission/beach)
+"CL" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/awaymission/beach)
 "CM" = (
 /turf/unsimulated/beach/water,
@@ -2712,10 +2745,6 @@
 	dir = 0;
 	icon_state = "green"
 	},
-/area/awaymission/beach)
-"DP" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel,
 /area/awaymission/beach)
 "DR" = (
 /turf/simulated/wall/mineral/sandstone,
@@ -2812,6 +2841,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
+"EW" = (
+/obj/structure/chair/comfy/black,
+/turf/simulated/floor/wood,
+/area/awaymission/beach)
 "EX" = (
 /obj/machinery/light{
 	icon_state = "tube1";
@@ -2839,7 +2872,7 @@
 /turf/unsimulated/beach/water/deep/dense,
 /area/awaymission/beach/entrance)
 "Fd" = (
-/obj/machinery/door/poddoor/brass{
+/obj/machinery/door/poddoor/impassable/brass{
 	id_tag = "brass temple"
 	},
 /turf/unsimulated/floor{
@@ -3043,6 +3076,11 @@
 	icon_state = "sandstone10"
 	},
 /area/awaymission/beach/offshore)
+"HO" = (
+/obj/structure/table/wood,
+/obj/item/ashtray/plastic,
+/turf/simulated/floor/wood,
+/area/awaymission/beach)
 "HQ" = (
 /obj/machinery/gateway{
 	dir = 8
@@ -3066,6 +3104,12 @@
 /obj/effect/overlay/palmtree_l,
 /turf/simulated/floor/beach/roughsand,
 /area/awaymission/beach/boundary)
+"If" = (
+/obj/structure/chair/sofa/right{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/beach)
 "Ih" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -3159,6 +3203,15 @@
 	dir = 8
 	},
 /area/awaymission/beach/offshore)
+"IH" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/awaymission/beach)
 "II" = (
 /obj/structure/safe,
 /obj/item/documents/syndicate/yellow,
@@ -3293,6 +3346,9 @@
 "JH" = (
 /obj/structure/table/wood,
 /obj/item/clothing/head/beret,
+/obj/structure/sign/poster/official/the_owl{
+	pixel_x = -32
+	},
 /turf/unsimulated/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "JJ" = (
@@ -3335,7 +3391,7 @@
 /turf/simulated/floor/beach/roughsand,
 /area/awaymission/beach/boundary)
 "Kb" = (
-/obj/machinery/door/poddoor/brass/beach_brass_temple,
+/obj/machinery/door/poddoor/impassable/brass/beach_brass_temple,
 /turf/unsimulated/floor{
 	desc = "Ancient brass flooring. The sounds of machinery can be heard beneath though.";
 	icon = 'icons/obj/clockwork_objects.dmi';
@@ -3367,11 +3423,6 @@
 	icon_state = "floor3"
 	},
 /area/awaymission/undersea)
-"Ks" = (
-/obj/structure/table/wood,
-/obj/item/gun/energy/gun/mini,
-/turf/unsimulated/beach/water/deep/wood_floor,
-/area/awaymission/undersea)
 "Kt" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/effect/decal/snow/sand/edge{
@@ -3385,6 +3436,9 @@
 "KB" = (
 /obj/structure/sign/poster/official/nanomichi_ad{
 	pixel_y = 32
+	},
+/obj/structure/window/reinforced{
+	dir = 8
 	},
 /turf/simulated/floor/light/colour_cycle/dancefloor_b,
 /area/awaymission/beach)
@@ -3438,6 +3492,9 @@
 /obj/machinery/newscaster{
 	pixel_y = -32
 	},
+/obj/structure/chair/comfy/black{
+	dir = 1
+	},
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "Lu" = (
@@ -3466,8 +3523,10 @@
 /turf/unsimulated/beach/water/deep/sand_floor,
 /area/awaymission/undersea)
 "LE" = (
-/obj/structure/rack,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/obj/structure/flora/rock/pile,
+/turf/unsimulated/beach/water/deep/wood_floor{
+	icon_state = "wood-broken"
+	},
 /area/awaymission/undersea)
 "LJ" = (
 /turf/simulated/floor/beach/roughcoastline,
@@ -3534,6 +3593,9 @@
 /obj/structure/flora/ausbushes/leafybush,
 /turf/simulated/floor/beach/roughsand/dense,
 /area/awaymission/beach/boundary)
+"ME" = (
+/turf/simulated/floor/beach/roughsand,
+/area/awaymission/beach/entrance)
 "MG" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -3562,10 +3624,9 @@
 /obj/structure/table/wood,
 /obj/item/clothing/accessory/armband,
 /obj/item/clothing/accessory/red,
-/obj/structure/sign/poster/official/the_owl{
-	pixel_x = -32
+/turf/unsimulated/beach/water/deep/wood_floor{
+	icon_state = "wood-broken"
 	},
-/turf/unsimulated/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "Nb" = (
 /obj/effect/overlay/palmtree_l,
@@ -3600,6 +3661,13 @@
 	},
 /turf/simulated/shuttle/floor,
 /area/awaymission/beach/offshore)
+"Nt" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/awaymission/beach)
 "NE" = (
 /obj/structure/table/wood,
 /obj/item/clothing/head/helmet/justice,
@@ -3773,6 +3841,15 @@
 /obj/structure/chair/stool,
 /turf/unsimulated/beach/sand,
 /area/awaymission/beach/offshore)
+"Pk" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/seed_extractor,
+/turf/simulated/floor/plasteel{
+	icon_state = "bot"
+	},
+/area/awaymission/beach)
 "Pm" = (
 /obj/structure/chair/office/light,
 /turf/unsimulated/beach/sand,
@@ -3909,8 +3986,23 @@
 "QZ" = (
 /obj/structure/rack,
 /obj/item/restraints/handcuffs/cable/zipties,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/unsimulated/beach/water/deep/wood_floor{
+	icon_state = "wood-broken"
+	},
 /area/awaymission/undersea)
+"Rb" = (
+/obj/machinery/conveyor_switch/oneway{
+	id = "beach disposal"
+	},
+/obj/effect/decal/warning_stripes/north,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "caution"
+	},
+/area/awaymission/beach)
 "Rj" = (
 /obj/structure/table/wood,
 /obj/item/storage/bag/plants,
@@ -3964,6 +4056,17 @@
 /obj/effect/overlay/coconut,
 /turf/simulated/floor/beach/roughsand/dense,
 /area/awaymission/beach/boundary)
+"RX" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "caution"
+	},
+/area/awaymission/beach)
 "RY" = (
 /obj/structure/sign/poster/contraband/syndicate_recruitment{
 	pixel_x = 0;
@@ -4057,7 +4160,8 @@
 	pixel_x = 32;
 	pixel_y = 0
 	},
-/turf/simulated/floor/light/colour_cycle/dancefloor_a,
+/obj/structure/chair/sofa/corner,
+/turf/simulated/floor/wood,
 /area/awaymission/beach)
 "SO" = (
 /obj/effect/overlay/palmtree_r,
@@ -4095,6 +4199,13 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass,
 /turf/unsimulated/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
+"To" = (
+/obj/structure/disposalpipe/junction{
+	dir = 1;
+	icon_state = "pipe-y"
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/beach)
 "TF" = (
 /obj/structure/mirror{
 	pixel_y = 32
@@ -4113,6 +4224,12 @@
 /obj/structure/closet/crate/secure/loot,
 /turf/unsimulated/beach/water/deep/sand_floor,
 /area/awaymission/undersea)
+"TJ" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/light/colour_cycle/dancefloor_b,
+/area/awaymission/beach)
 "TL" = (
 /obj/structure/falsewall/brass,
 /turf/unsimulated/beach/water/deep/sand_floor,
@@ -4125,6 +4242,10 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood,
+/area/awaymission/beach)
+"TZ" = (
+/obj/structure/window/reinforced,
+/turf/simulated/floor/light/colour_cycle/dancefloor_a,
 /area/awaymission/beach)
 "Ul" = (
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -4218,13 +4339,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/beach/offshore)
 "Vh" = (
-/mob/living/simple_animal/crab{
-	desc = "A hard-shelled crustacean. There's a mad look in its eyes.";
-	faction = list("nether");
-	melee_damage_lower = 3;
-	melee_damage_upper = 3;
-	name = "strange crab"
-	},
+/mob/living/simple_animal/crab/strange,
 /turf/unsimulated/beach/water/deep/sand_floor,
 /area/awaymission/undersea)
 "Vp" = (
@@ -4244,6 +4359,12 @@
 /obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
+"VB" = (
+/turf/unsimulated/wall{
+	icon_state = "rock";
+	name = "rock"
+	},
+/area/awaymission/beach/boundary)
 "VE" = (
 /obj/effect/overlay/palmtree_r,
 /obj/effect/decal/snow/sand/edge{
@@ -4321,10 +4442,6 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/unsimulated/beach/sand/dense,
 /area/awaymission/beach/offshore)
-"WV" = (
-/obj/machinery/seed_extractor,
-/turf/simulated/floor/plasteel,
-/area/awaymission/beach)
 "Xa" = (
 /obj/effect/decal/remains/human{
 	plane = -1
@@ -4374,6 +4491,10 @@
 /obj/item/clothing/under/color/lightred,
 /turf/unsimulated/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
+"XD" = (
+/obj/structure/window/reinforced,
+/turf/simulated/floor/light/colour_cycle/dancefloor_b,
+/area/awaymission/beach)
 "XF" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
@@ -4407,6 +4528,14 @@
 /obj/effect/overlay/palmtree_r,
 /turf/unsimulated/beach/sand,
 /area/awaymission/beach/offshore)
+"XV" = (
+/obj/effect/mob_spawn/human/resort_host{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bot"
+	},
+/area/awaymission/beach)
 "XZ" = (
 /obj/structure/chair/stool,
 /obj/structure/mirror{
@@ -4484,10 +4613,6 @@
 	},
 /turf/simulated/floor/beach/roughsand,
 /area/awaymission/beach/boundary)
-"YM" = (
-/obj/machinery/tcomms/relay/beachresort,
-/turf/simulated/floor/plasteel,
-/area/awaymission/beach)
 "YO" = (
 /turf/unsimulated/wall/fakeglass{
 	icon_state = "fakewindows2";
@@ -4610,6 +4735,7 @@
 	name = "Resort Backroom";
 	req_access_txt = "25"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "ZU" = (
@@ -5122,12 +5248,12 @@ dr
 dr
 dr
 dr
+ZW
 dr
 dr
 dr
 dr
-dr
-dr
+ZW
 dr
 dr
 dr
@@ -5370,11 +5496,11 @@ zZ
 fR
 dj
 dr
+ZW
 dr
 dr
-ID
 dr
-dr
+vS
 dr
 dr
 dr
@@ -5633,17 +5759,17 @@ dr
 dr
 dr
 dr
-dr
+ZW
 dr
 ka
 dr
 dr
 dr
+ZW
 dr
 dr
 dr
-dr
-dr
+vS
 dr
 ds
 dt
@@ -6400,15 +6526,15 @@ dk
 yU
 yU
 yU
+ds
 yU
 yU
 yU
 yU
 yU
+dr
 yU
-yU
-yU
-yU
+dr
 yU
 yU
 yU
@@ -6657,15 +6783,15 @@ LJ
 dr
 dr
 dr
+yU
 dr
 dr
 dr
 dr
 dr
+yU
 dr
-dr
-dr
-dr
+yU
 dr
 dr
 dr
@@ -8429,7 +8555,7 @@ hI
 Qf
 hI
 hI
-xG
+hI
 hI
 hI
 hI
@@ -8684,9 +8810,9 @@ fN
 rg
 hI
 hI
-jN
-HQ
-BJ
+hI
+hI
+hI
 hI
 hI
 bB
@@ -8939,15 +9065,15 @@ iI
 iI
 iI
 NP
+gJ
+gJ
+gJ
+gJ
 hI
 hI
-CC
-kU
-oL
 hI
 hI
-hI
-hI
+xG
 hI
 hI
 hI
@@ -9196,16 +9322,16 @@ fR
 fR
 pu
 yG
+DR
+DR
+DR
+DR
+UR
 hI
-hI
-Gu
-Wy
-sa
-hI
-hI
-hI
-hI
-hI
+jN
+HQ
+BJ
+ME
 hI
 hI
 hI
@@ -9453,16 +9579,16 @@ fR
 Mx
 fR
 Fs
+DR
+Jb
+RX
+DR
+UR
 hI
-hI
-hI
-hI
-xG
-hI
-hI
-hI
-hI
-hI
+CC
+kU
+oL
+ME
 hI
 hI
 hI
@@ -9710,16 +9836,16 @@ Ia
 fR
 lJ
 MB
-hI
-Qf
-xv
-hI
-hI
-hI
+DR
+Kk
+tH
+wA
 hI
 hI
-hI
-hI
+Gu
+Wy
+sa
+ME
 hI
 hI
 hI
@@ -9968,14 +10094,14 @@ uR
 fR
 gT
 DR
+Eq
+tH
 DR
-iL
-DR
-DR
-DR
-UR
+bj
 hI
 hI
+hI
+xG
 hI
 hI
 hI
@@ -9998,7 +10124,7 @@ LJ
 dr
 dr
 dr
-dr
+vS
 dr
 dr
 dr
@@ -10225,12 +10351,12 @@ uR
 fR
 Fs
 DR
-YM
-oN
-oN
-jA
+Kk
+Rb
 DR
-bi
+Bb
+gJ
+hI
 hI
 hI
 hI
@@ -10482,12 +10608,12 @@ gW
 zZ
 NP
 DR
-oB
-UN
-UN
-UN
 DR
-bj
+bd
+DR
+DR
+DR
+bi
 hI
 hI
 hI
@@ -10726,7 +10852,7 @@ aa
 PR
 PR
 PR
-PR
+kK
 PR
 PR
 PR
@@ -10740,8 +10866,8 @@ fR
 MB
 Kj
 fc
-tW
-tW
+Pk
+UN
 pO
 DR
 AD
@@ -10996,9 +11122,9 @@ fR
 hn
 Fs
 Kj
-WV
-tW
-tW
+UN
+CL
+UN
 pO
 DR
 bd
@@ -11037,7 +11163,7 @@ dr
 dr
 dr
 dr
-dr
+vS
 dr
 dr
 dr
@@ -11254,9 +11380,9 @@ Id
 NP
 Kj
 IA
+IH
 tW
-tW
-GK
+XV
 DR
 DD
 lo
@@ -11511,9 +11637,9 @@ fR
 gT
 Kj
 DL
+IH
 tW
-tW
-iT
+GK
 DR
 Jl
 lo
@@ -11768,7 +11894,7 @@ zZ
 wQ
 Kj
 DL
-tW
+IH
 tW
 tW
 kf
@@ -12025,11 +12151,11 @@ fR
 Zb
 Kj
 MK
-tW
-tW
-tW
+gY
+Nt
+Nt
 ZN
-Bq
+To
 lo
 lo
 mo
@@ -12795,11 +12921,11 @@ Ia
 fR
 zi
 DR
-Jb
-BG
-DP
+jA
+tW
+tW
 rT
-Zu
+DR
 na
 vZ
 bJ
@@ -13052,8 +13178,8 @@ uR
 fN
 Fs
 DR
-Kk
-pL
+oN
+UN
 UN
 HC
 Mq
@@ -13309,8 +13435,8 @@ zZ
 fR
 Db
 DR
-Eq
-pL
+oN
+UN
 kd
 Rj
 DR
@@ -13566,7 +13692,7 @@ fR
 lJ
 NP
 DR
-Kk
+yo
 zx
 EE
 zQ
@@ -14579,7 +14705,7 @@ aa
 aa
 aa
 PR
-PR
+sV
 PR
 PR
 PR
@@ -14851,13 +14977,13 @@ fR
 fR
 gT
 DR
-sk
-Gm
-sk
-Gm
-sk
-Gm
-sk
+EW
+XF
+WL
+lo
+lo
+lo
+lo
 lo
 lo
 CF
@@ -15109,12 +15235,12 @@ lJ
 Fs
 DR
 KB
-sk
-Gm
-sk
-Gm
-sk
-Gm
+ga
+TJ
+ga
+lo
+lo
+lo
 lo
 lo
 lo
@@ -15370,8 +15496,8 @@ Gm
 sk
 Gm
 sk
-Gm
-sk
+lo
+lo
 lo
 vm
 DR
@@ -15625,10 +15751,10 @@ DR
 Gm
 sk
 Gm
-gw
-Gm
 sk
 Gm
+TZ
+lo
 lo
 Ls
 DR
@@ -15884,10 +16010,10 @@ Gm
 sk
 Gm
 sk
-Gm
-sk
+XD
 lo
-WL
+lo
+lo
 DR
 UR
 xv
@@ -16137,14 +16263,14 @@ wR
 zi
 DR
 Gm
-sk
+gw
 Gm
 sk
 Gm
-sk
-Gm
-lo
-XF
+TZ
+tK
+HO
+If
 DR
 UR
 Qf
@@ -16398,10 +16524,10 @@ Gm
 sk
 Gm
 sk
-Gm
+XD
 SL
-lo
-WL
+jJ
+iO
 DR
 UR
 hI
@@ -16679,20 +16805,20 @@ hI
 LJ
 dr
 dr
+yU
+dr
+dr
+dr
+dr
+yU
+dr
+yU
 dr
 dr
 dr
 dr
 dr
-dr
-dr
-dr
-dr
-dr
-dr
-dr
-dr
-dr
+yU
 dr
 dr
 dr
@@ -16936,20 +17062,20 @@ cc
 dk
 yU
 yU
+dr
+yU
+yU
+yU
+yU
+dr
+yU
+dr
 yU
 yU
 yU
 yU
 yU
-yU
-yU
-yU
-yU
-yU
-yU
-yU
-yU
-yU
+dr
 yU
 yU
 yU
@@ -17451,7 +17577,6 @@ dj
 dr
 dr
 dr
-ID
 dr
 dr
 dr
@@ -17461,6 +17586,7 @@ dr
 dr
 dr
 dr
+vS
 dr
 dr
 dr
@@ -17706,12 +17832,12 @@ fR
 fR
 dj
 dr
+ZW
 dr
 dr
 dr
 dr
-dr
-dr
+ZW
 dr
 dr
 ka
@@ -17722,7 +17848,7 @@ dr
 dr
 dr
 dr
-dr
+vS
 dr
 ds
 dt
@@ -17927,7 +18053,7 @@ PR
 PR
 PR
 PR
-zn
+VB
 iI
 oC
 fR
@@ -17965,7 +18091,7 @@ dj
 dr
 dr
 dr
-dr
+vS
 dr
 dr
 dr
@@ -18075,7 +18201,7 @@ av
 av
 RU
 BT
-Ks
+aE
 aE
 aE
 Td
@@ -18184,8 +18310,8 @@ PR
 PR
 PR
 PR
-JZ
-fR
+VB
+VB
 fR
 VE
 Lq
@@ -18232,7 +18358,7 @@ dr
 dr
 ka
 dr
-dr
+ZW
 dr
 dr
 dr
@@ -18441,9 +18567,9 @@ PR
 PR
 PR
 PR
-JZ
-JZ
-JZ
+VB
+VB
+VB
 Su
 JZ
 if
@@ -18636,7 +18762,7 @@ av
 av
 av
 av
-av
+uz
 av
 ad
 ad
@@ -18697,10 +18823,10 @@ zk
 Qu
 vr
 ji
-ji
-XL
-vr
-ji
+km
+km
+km
+km
 km
 km
 km
@@ -18956,8 +19082,8 @@ vr
 ji
 vr
 vr
-ji
-ji
+km
+km
 km
 km
 km
@@ -19214,7 +19340,7 @@ qx
 vr
 sZ
 vr
-qx
+km
 km
 km
 km
@@ -19666,7 +19792,7 @@ av
 av
 av
 av
-av
+uz
 ad
 av
 av
@@ -20437,7 +20563,7 @@ uz
 av
 av
 av
-av
+uz
 ad
 ad
 av
@@ -20694,7 +20820,7 @@ uz
 av
 an
 av
-av
+uz
 HJ
 ad
 xQ
@@ -20951,8 +21077,8 @@ av
 av
 av
 av
-uz
 av
+uz
 xQ
 xQ
 xQ
@@ -21471,7 +21597,7 @@ uz
 av
 uz
 av
-av
+uz
 ao
 ad
 ad
@@ -21730,7 +21856,7 @@ av
 av
 av
 av
-av
+uz
 HJ
 ad
 ad
@@ -21988,7 +22114,7 @@ uz
 av
 uz
 av
-av
+uz
 av
 av
 HJ
@@ -23013,7 +23139,7 @@ uz
 av
 av
 uz
-av
+uz
 av
 uz
 av
@@ -23267,12 +23393,12 @@ av
 av
 av
 ao
-av
+uz
 av
 av
 av
 HJ
-av
+uz
 av
 ao
 av
@@ -23523,9 +23649,9 @@ uz
 av
 av
 av
-av
-av
-av
+uz
+HJ
+uz
 av
 uz
 av
@@ -23781,8 +23907,8 @@ uz
 av
 av
 av
-av
-av
+uz
+uz
 av
 av
 av
@@ -27582,7 +27708,7 @@ av
 av
 av
 av
-rF
+rX
 av
 av
 av
@@ -28106,7 +28232,7 @@ av
 av
 av
 av
-rF
+rX
 av
 ad
 av
@@ -29437,7 +29563,7 @@ av
 av
 av
 av
-rF
+rX
 av
 av
 av
@@ -30218,7 +30344,7 @@ av
 av
 av
 av
-rF
+rX
 av
 av
 av
@@ -30923,7 +31049,7 @@ av
 av
 av
 av
-rF
+rX
 av
 av
 av
@@ -35060,7 +35186,7 @@ av
 av
 av
 av
-rF
+rX
 av
 av
 av
@@ -35090,7 +35216,7 @@ av
 av
 av
 av
-rF
+rX
 av
 av
 av
@@ -36323,7 +36449,7 @@ av
 ao
 av
 av
-rF
+rX
 av
 av
 av
@@ -36593,7 +36719,7 @@ av
 av
 av
 av
-rF
+rX
 av
 av
 av
@@ -43741,8 +43867,8 @@ Sw
 Sw
 Sw
 Sw
-av
-av
+as
+ad
 ad
 ad
 ad
@@ -45335,7 +45461,7 @@ av
 av
 av
 av
-rF
+rX
 av
 av
 av
@@ -47349,9 +47475,9 @@ av
 av
 ad
 ad
-ad
-ad
-ad
+as
+av
+as
 ad
 av
 av
@@ -47684,7 +47810,7 @@ av
 av
 av
 av
-rF
+rX
 av
 av
 av
@@ -47864,7 +47990,7 @@ av
 ad
 ah
 ah
-ah
+Uv
 ah
 ad
 Ep
@@ -49206,7 +49332,7 @@ av
 av
 av
 av
-rF
+rX
 av
 av
 av
@@ -51027,7 +51153,7 @@ av
 av
 av
 av
-rF
+rX
 av
 av
 av
@@ -52481,8 +52607,8 @@ ad
 ad
 ad
 ad
-ad
 as
+av
 av
 as
 as
@@ -54342,7 +54468,7 @@ av
 av
 av
 av
-rF
+rX
 av
 av
 av

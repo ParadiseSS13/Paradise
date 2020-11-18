@@ -2,10 +2,10 @@
 	name = "death squid"
 	desc = "A large, floating eldritch horror. Its body glows with an evil red light, and its tentacles look to have been dipped in alien blood."
 
-	speed = 1
+	speed = 1.1
 	speak_emote = list("telepathically thunders", "telepathically booms")
-	maxHealth = 2500 // same as megafauna
-	health = 2500
+	maxHealth = 1000 // same as megafauna
+	health = 1000
 
 	icon = 'icons/mob/deathsquid_large.dmi' // Credit: FullofSkittles
 	icon_state = "deathsquid"
@@ -18,7 +18,7 @@
 	attack_sound = 'sound/weapons/whip.ogg'
 	armour_penetration = 25
 	melee_damage_lower = 10
-	melee_damage_upper = 100
+	melee_damage_upper = 50
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 
 	force_threshold = 15

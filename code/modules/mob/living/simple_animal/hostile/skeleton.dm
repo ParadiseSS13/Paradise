@@ -47,3 +47,34 @@
 				/obj/item/twohanded/spear,
 				/obj/item/clothing/shoes/winterboots,
 				/obj/item/clothing/suit/hooded/wintercoat)
+
+/mob/living/simple_animal/hostile/skeleton/pirate
+	name = "undead pirate"
+	desc = "The reanimated remains of a pirate. He still defends his ship, even in undeath."
+	icon_state = "skeleton_pirate"
+	icon_living = "skeleton_pirate"
+	maxHealth = 55
+	health = 55
+	gold_core_spawnable = NO_SPAWN
+	melee_damage_lower = 17
+	melee_damage_upper = 20
+
+/mob/living/simple_animal/hostile/skeleton/pirate_captain
+	name = "undead pirate captain"
+	desc = "The reanimated remains of a pirate captain. Not even death will stop him from leading his crew."
+	icon_state = "skeleton_captain"
+	icon_living = "skeleton_captain"
+	maxHealth = 80
+	health = 80
+	gold_core_spawnable = NO_SPAWN
+	projectilesound = 'sound/weapons/laser.ogg'
+	ranged = 1
+	rapid = 2
+	retreat_distance = 5
+	minimum_distance = 5
+	projectiletype = /obj/item/projectile/beam
+	deathmessage = "collapses into a pile of bones, its gear falling to the floor! You feel a strange gratitude wash over you."
+	loot = list(/obj/effect/decal/remains/human,
+				/obj/item/clothing/head/pirate,
+				/obj/item/clothing/suit/pirate_brown,
+				/obj/item/gun/energy/laser)

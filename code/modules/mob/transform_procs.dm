@@ -269,6 +269,10 @@
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/pet/dog/corgi))
 		return 1
+	if(ispath(MP, /mob/living/simple_animal/crab/strange))
+		return 0
+	if(ispath(MP, /mob/living/simple_animal/crab/evil))
+		return 0
 	if(ispath(MP, /mob/living/simple_animal/crab))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/chicken))

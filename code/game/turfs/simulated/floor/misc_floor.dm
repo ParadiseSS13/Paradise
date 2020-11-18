@@ -58,11 +58,11 @@
 /turf/simulated/floor/beach/roughsand/dense //made simulated versions to fix lighting issues
 	density = TRUE
 
-/turf/simulated/floor/beach/roughsand/New() //a simulated version of the unsimulated beach sand
+/turf/simulated/floor/beach/roughsand/Initialize() //a simulated version of the unsimulated beach sand
 	icon_state = "rough_sand[rand(1, 6)]"
 	..()
 
-/turf/simulated/floor/beach/roughcoastline/New()
+/turf/simulated/floor/beach/roughcoastline/Initialize()
 	..()
 	if(water_overlay_image)
 		var/image/overlay_image = image('icons/misc/beach.dmi', icon_state = water_overlay_image, layer = ABOVE_MOB_LAYER)
