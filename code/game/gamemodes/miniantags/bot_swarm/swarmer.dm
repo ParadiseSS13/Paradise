@@ -194,7 +194,7 @@
 
 /obj/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	if(resistance_flags & INDESTRUCTIBLE)
-		to_chat(S, "<span class='warning'>A hidden hostile subroutine prevents you from consuming [src]. Aborting.</span>")
+		to_chat(S, "<span class='warning'>High value materials detected, consuming [src] would waste them. Aborting.</span>")
 		return FALSE
 	for(var/mob/living/L in contents)
 		if(!issilicon(L) && !isbrain(L))
