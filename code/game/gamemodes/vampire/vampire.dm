@@ -439,6 +439,14 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		check_sun()
 	if(istype(owner.loc.loc, /area/chapel) && !get_ability(/datum/vampire_passive/full))
 		vamp_burn(7)
+	if(istype(owner.loc.loc, /area/lavaland) && !get_ability(/datum/vampire_passive/full)) 
+		if(bloodtotal >= 160) //bloodtotal 160 allows for Cloak but NOT Rejuv+, which means you can get your stealth without getting antistun for the station prowling
+			to_chat(owner, "<span class='warning'>You feel your skin burning! You can feel the the presence of the Legion bearing down on you!</span>")
+			vamp_burn(7)
+		if(bloodtotal >= 100) //warning and hint that you shouldnt be out in lavaland hunting miners
+			to_chat(owner, "<span class='warning'>You feel your skin starting to grow warmer! Perhaps it is best that you take your hunting elsewhere...</span>")
+		else
+			to_chat(owner, "<span class='warning'>You feel a vibration on your skin, the gods of this place do no appreciate competitors...</span>")
 	nullified = max(0, nullified - 1)
 
 /datum/vampire/proc/handle_vampire_cloak()
