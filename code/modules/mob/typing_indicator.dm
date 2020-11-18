@@ -1,4 +1,4 @@
-#define CHAT_BUBBLE_LIFETIME 3 SECONDS	//grace period after which typing indicator disappears regardless of text in chatbar
+#define TYPING_INDICATOR_LIFETIME 30 * 10	//grace period after which typing indicator disappears regardless of text in chatbar
 
 /mob/var/hud_typing = 0 //set when typing in an input window instead of chatline
 /mob/var/typing
@@ -29,17 +29,17 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 			return
 
 	if(client)
-		if((!client.prefs.typing_indicator || stat != CONSCIOUS || is_muzzled()) || (me && (client.prefs.typing_indicator != TYPING_INDICATOR_ALL)))
+		if(stat != CONSCIOUS || is_muzzled() || (client.prefs.toggles & PREFTOGGLE_SHOW_TYPING) || (me && (client.prefs.toggles2 & PREFTOGGLE_2_EMOTE_BUBBLE)))
 			overlays -= GLOB.typing_indicator[bubble_icon]
 		else
 			if(state)
 				if(!typing)
 					overlays += GLOB.typing_indicator[bubble_icon]
-					typing = 1
+					typing = TRUE
 			else
 				if(typing)
 					overlays -= GLOB.typing_indicator[bubble_icon]
-					typing = 0
+					typing = FALSE
 			return state
 
 /mob/verb/say_wrapper()
@@ -69,14 +69,14 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 
 /mob/proc/handle_typing_indicator()
 	if(client)
-		if(!client.prefs.typing_indicator && !hud_typing)
+		if(!(client.prefs.toggles & PREFTOGGLE_SHOW_TYPING) && !hud_typing)
 			var/temp = winget(client, "input", "text")
 
 			if(temp != last_typed)
 				last_typed = temp
 				last_typed_time = world.time
 
-			if(world.time > last_typed_time + CHAT_BUBBLE_LIFETIME)
+			if(world.time > last_typed_time + TYPING_INDICATOR_LIFETIME)
 				set_typing_indicator(0)
 				return
 			if(length(temp) > 5 && findtext(temp, "Say \"", 1, 7))
@@ -90,26 +90,27 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 /client/verb/typing_indicator()
 	set name = "Show/Hide Typing Indicator"
 	set category = "Preferences"
-	set desc = "Toggles showing an indicator when you are typing an emote or say message."
-
-	if(prefs.typing_indicator == TYPING_INDICATOR_ALL)
-		prefs.typing_indicator = TYPING_INDICATOR_SAY
-		to_chat(src, "You will no longer display a typing indicator for emotes.")
-	
-	else if(prefs.typing_indicator == TYPING_INDICATOR_SAY)
-		prefs.typing_indicator = TYPING_INDICATOR_NONE
-		to_chat(src, "You will no longer display a typing indicator.")
-
-	else
-		prefs.typing_indicator = TYPING_INDICATOR_ALL
-		to_chat(src, "You will now display a typing indicator.")
-
+	set desc = "Toggles showing an indicator when you are typing a message."
+	prefs.toggles ^= PREFTOGGLE_SHOW_TYPING
 	prefs.save_preferences(src)
+	to_chat(src, "You will [(prefs.toggles & PREFTOGGLE_SHOW_TYPING) ? "no longer" : "now"] display a typing indicator.")
 
 	// Clear out any existing typing indicator.
-	if(istype(mob))
-		mob.set_typing_indicator(0)
+	if(prefs.toggles & PREFTOGGLE_SHOW_TYPING)
+		if(istype(mob))
+			mob.set_typing_indicator(0)
 
-	feedback_add_details("admin_verb","TID") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	feedback_add_details("admin_verb", "TID") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-#undef CHAT_BUBBLE_LIFETIME
+
+/client/verb/emote_indicator()
+	set name = "Show/Hide Emote Typing Indicator"
+	set category = "Preferences"
+	set desc = "Toggles showing an indicator when you are typing an emote."
+	prefs.toggles2 ^= PREFTOGGLE_2_EMOTE_BUBBLE
+	prefs.save_preferences(src)
+	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_EMOTE_BUBBLE) ? "no longer" : "now"] display a typing indicator for emotes.")
+
+	feedback_add_details("admin_verb", "EID")
+
+#undef TYPING_INDICATOR_LIFETIME
