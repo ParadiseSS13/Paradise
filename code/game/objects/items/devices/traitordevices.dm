@@ -227,11 +227,13 @@ effective or pretty fucking useless.
 	var/turf/mobloc = get_turf(C)
 	var/list/turfs = new/list()
 	var/found_turf = FALSE
+	var/list/bagholding = user.search_contents_for(/obj/item/storage/backpack/holding)
 	for(var/turf/T in range(user, tp_range))
 		if(!is_teleport_allowed(T.z))
 			break
-		if(get_dir(C, T) != C.dir)
-			continue
+		if(!(bagholding.len && !flawless)) //Chaos if you have a bag of holding
+			if(get_dir(C, T) != C.dir)
+				continue
 		if(T in range(user, inner_tp_range))
 			continue
 		if(T.x > world.maxx-tp_range || T.x < tp_range)
@@ -253,10 +255,10 @@ effective or pretty fucking useless.
 			new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
 			playsound(destination, "sparks", 50, TRUE)
 			new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
-		else if (EMP_D == FALSE) // This is where the fun begins
+		else if (EMP_D == FALSE && !(bagholding.len && !flawless)) // This is where the fun begins
 			var/direction = get_dir(user, destination)
 			panic_teleport(user, destination, direction)
-		else // Emp activated? No saving throw for you
+		else // Emp activated? Bag of holding? No saving throw for you
 			get_fragged(user, destination)
 	else
 		to_chat(C, "<span class='danger'>The [src] will not work here!</span>")
@@ -290,7 +292,7 @@ effective or pretty fucking useless.
 		if(T.y > world.maxy-saving_throw_distance || T.y < saving_throw_distance)
 			continue
 		if(!(istype(T, /turf/simulated/floor) || istype(T, /turf/space) || istype(destination, /turf/simulated/shuttle/floor) || istype(destination, /turf/simulated/shuttle/floor4) || istype(destination, /turf/simulated/shuttle/plating)))
-			continue // We are only looking for save tiles on the saving throw, since we are nice
+			continue // We are only looking for safe tiles on the saving throw, since we are nice
 		turfs += T
 		found_turf = TRUE
 
