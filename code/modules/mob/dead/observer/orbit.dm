@@ -80,27 +80,31 @@
 						antag_serialized["antag"] = A.name
 						antagonists += list(antag_serialized)
 
-					// Changelings
-					if(mind.changeling)
-						var/antag_serialized = serialized.Copy()
-						antag_serialized["antag"] = "Changeling"
-						antagonists += list(antag_serialized)
+					// Not-very-datumized antags follow
+					// Associative list of antag name => whether this mind is this antag
+					var/other_antags = list(
+						"Changeling" = (mind.changeling != null),
+						"Vampire" = (mind.vampire != null),
+					)
+					if(SSticker && SSticker.mode)
+						other_antags += list(
+							"Cultist" = (mind in SSticker.mode.cult),
+							"Wizard" = (mind in SSticker.mode.wizards),
+							"Wizard's Apprentice" = (mind in SSticker.mode.apprentices),
+							"Nuclear Operative" = (mind in SSticker.mode.syndicates),
+							"Shadowling" = (mind in SSticker.mode.shadows),
+							"Shadowling Thrall" = (mind in SSticker.mode.shadowling_thralls),
+							"Abductor" = (mind in SSticker.mode.abductors),
+							"Revolutionary" = (mind in SSticker.mode.revolutionaries),
+						)
 
-					// Vampires
-					if(mind.vampire)
+					for(var/antag_name in other_antags)
+						var/is_antag = other_antags[antag_name]
+						if(!is_antag)
+							continue
 						var/antag_serialized = serialized.Copy()
-						antag_serialized["antag"] = "Vampire"
+						antag_serialized["antag"] = antag_name
 						antagonists += list(antag_serialized)
-
-					// Cultists
-					if(SSticker.mode.cult && (mind in SSticker.mode.cult))
-						var/antag_serialized = serialized.Copy()
-						antag_serialized["antag"] = "Cultist"
-						antagonists += list(antag_serialized)
-
-					// Other antags are not in the list, mostly because I don't know their code well enough,
-					// and am not sure how to extract the "is this is an antag?" Info easily.
-					// If you are annoyed by this - datumize them and put under `.antag_datums`!
 
 		else
 			misc += list(serialized)

@@ -815,6 +815,22 @@
 	adjust_flavour = null
 	resistance_flags = NONE
 
+/obj/item/clothing/suit/jacket/motojacket
+	name = "leather motorcycle jacket"
+	desc = "A vintage classic, loved by rockers, rebels, and punks alike."
+	icon_state = "motojacket_open"
+	item_state = "motojacket_open"
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
+	actions_types = list(/datum/action/item_action/zipper)
+	adjust_flavour = "unzip"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/species/grey/suit.dmi'
+		)
+
 /obj/item/clothing/suit/jacket/leather/overcoat
 	name = "leather overcoat"
 	desc = "That's a damn fine coat."

@@ -43,7 +43,7 @@
 	cold_level_3 = -1 //Default 120
 	coldmod = -1
 
-	heat_level_1 = 300 //Default 360 - Higher is better
+	heat_level_1 = 310 //Default 370 - Higher is better
 	heat_level_2 = 340 //Default 400
 	heat_level_3 = 400 //Default 460
 	heatmod = 2
