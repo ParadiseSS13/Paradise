@@ -50,7 +50,14 @@
 /obj/effect/particle_effect/ion_trails
 	name = "ion trails"
 	icon_state = "ion_trails"
-	anchored = 1
+	anchored = TRUE
+
+/obj/effect/particle_effect/ion_trails/Initialize(mapload, targetdir)
+	. = ..()
+	dir = targetdir
+	flick("ion_fade", src)
+	icon_state = null
+	QDEL_IN(src, 20)
 
 /datum/effect_system/trail_follow/ion
 	effect_type = /obj/effect/particle_effect/ion_trails
