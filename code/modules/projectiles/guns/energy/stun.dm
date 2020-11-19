@@ -14,8 +14,8 @@
 	item_state = "gun"
 	origin_tech = "combat=4;materials=4;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/shock_revolver)
-	can_flashlight = 0
-	shaded_charge = 1
+	can_flashlight = FALSE
+	shaded_charge = TRUE
 
 /obj/item/gun/energy/gun/advtaser
 	name = "hybrid taser"
@@ -28,8 +28,8 @@
 /obj/item/gun/energy/gun/advtaser/cyborg
 	name = "cyborg taser"
 	desc = "An integrated hybrid taser that draws directly from a cyborg's power cell. The weapon contains a limiter to prevent the cyborg's power cell from overheating."
-	can_flashlight = 0
-	can_charge = 0
+	can_flashlight = FALSE
+	can_charge = FALSE
 
 /obj/item/gun/energy/gun/advtaser/cyborg/newshot()
 	..()
@@ -40,6 +40,7 @@
 	desc = "A self-defense weapon that exhausts organic targets, weakening them until they collapse."
 	icon_state = "disabler"
 	item_state = null
+	can_flashlight = TRUE
 	origin_tech = "combat=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler)
 	ammo_x_offset = 3
@@ -48,7 +49,7 @@
 	name = "cyborg disabler"
 	desc = "An integrated disabler that draws from a cyborg's power cell. This weapon contains a limiter to prevent the cyborg's power cell from overheating."
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/cyborg)
-	can_charge = 0
+	can_charge = FALSE
 
 /obj/item/gun/energy/disabler/cyborg/newshot()
 	..()

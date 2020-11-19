@@ -55,7 +55,7 @@
 	origin_tech = "materials=2;biotech=4"
 	modifystate = 1
 	ammo_x_offset = 1
-	selfcharge = 1
+	selfcharge = TRUE
 
 // Meteor Gun //
 /obj/item/gun/energy/meteorgun
@@ -69,7 +69,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/meteor)
 	cell_type = /obj/item/stock_parts/cell/potato
 	clumsy_check = 0 //Admin spawn only, might as well let clowns use it.
-	selfcharge = 1
+	selfcharge = TRUE
 
 /obj/item/gun/energy/meteorgun/pen
 	name = "meteor pen"
@@ -150,7 +150,7 @@
 	attack_verb = list("attacked", "slashed", "cut", "sliced")
 	force = 12
 	sharp = 1
-	can_charge = 0
+	can_charge = FALSE
 
 /obj/item/gun/energy/plasmacutter/examine(mob/user)
 	. = ..()
@@ -247,7 +247,7 @@
 	icon = 'icons/obj/guns/projectile.dmi'
 	cell_type = /obj/item/stock_parts/cell/secborg
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
-	can_charge = 0
+	can_charge = FALSE
 
 /obj/item/gun/energy/printer/update_icon()
 	return
@@ -287,7 +287,7 @@
 	icon_state = "disabler"
 	ammo_type = list(/obj/item/ammo_casing/energy/clown)
 	clumsy_check = 0
-	selfcharge = 1
+	selfcharge = TRUE
 	ammo_x_offset = 3
 
 /obj/item/gun/energy/toxgun
@@ -299,7 +299,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/toxplasma)
-	shaded_charge = 1
+	shaded_charge = TRUE
 
 // Energy Sniper //
 /obj/item/gun/energy/sniperrifle
@@ -315,7 +315,7 @@
 	can_holster = FALSE
 	zoomable = TRUE
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
-	shaded_charge = 1
+	shaded_charge = TRUE
 
 // Temperature Gun //
 /obj/item/gun/energy/temperature
@@ -332,7 +332,7 @@
 	origin_tech = "combat=4;materials=4;powerstorage=3;magnets=2"
 
 	ammo_type = list(/obj/item/ammo_casing/energy/temp)
-	selfcharge = 1
+	selfcharge = TRUE
 
 	var/powercost = ""
 	var/powercostcolor = ""
@@ -508,7 +508,7 @@
 	icon_state = "disabler"
 	ammo_type = list(/obj/item/ammo_casing/energy/mimic)
 	clumsy_check = 0 //Admin spawn only, might as well let clowns use it.
-	selfcharge = 1
+	selfcharge = TRUE
 	ammo_x_offset = 3
 	var/mimic_type = /obj/item/gun/projectile/automatic/pistol //Setting this to the mimicgun type does exactly what you think it will.
 

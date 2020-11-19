@@ -1,7 +1,7 @@
 /obj/item/gun/projectile/automatic
 	w_class = WEIGHT_CLASS_NORMAL
 	var/alarmed = 0
-	var/select = 1
+	var/select = TRUE
 	can_tactical = TRUE
 	can_suppress = 1
 	can_holster = FALSE

@@ -8,7 +8,7 @@
 	origin_tech = "combat=4;magnets=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
 	ammo_x_offset = 1
-	shaded_charge = 1
+	shaded_charge = TRUE
 
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
@@ -32,7 +32,7 @@
 	force = 10
 	origin_tech = null
 	ammo_x_offset = 3
-	selfcharge = 1
+	selfcharge = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/gun/energy/laser/captain/scattershot
@@ -42,10 +42,10 @@
 	desc = "An industrial-grade heavy-duty laser rifle with a modified laser lense to scatter its shot into multiple smaller lasers. The inner-core can self-charge for theorically infinite use."
 	origin_tech = "combat=5;materials=4;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter, /obj/item/ammo_casing/energy/laser)
-	shaded_charge = 0
+	shaded_charge = FALSE
 
 /obj/item/gun/energy/laser/cyborg
-	can_charge = 0
+	can_charge = FALSE
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/cyborg)
 	origin_tech = null
@@ -116,7 +116,7 @@
 	item_state = "laser"
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator)
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
-	shaded_charge = 1
+	shaded_charge = TRUE
 
 /obj/item/gun/energy/immolator/multi
 	name = "multi lens immolator cannon"
@@ -146,7 +146,7 @@
 	clumsy_check = 0
 	needs_permit = 0
 	ammo_x_offset = 2
-	selfcharge = 1
+	selfcharge = TRUE
 
 /obj/item/gun/energy/laser/tag/blue
 	icon_state = "bluetag"

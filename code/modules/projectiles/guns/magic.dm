@@ -12,7 +12,7 @@
 	var/charges = 0
 	var/recharge_rate = 4
 	var/charge_tick = 0
-	var/can_charge = 1
+	var/can_charge = TRUE
 	var/ammo_type
 	var/no_den_usage
 	origin_tech = null
