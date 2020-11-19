@@ -173,7 +173,7 @@ effective or pretty fucking useless.
 	name = "Syndicate teleporter"
 	desc = "A strange syndicate version of a cult veil shifter.\n\ A warning label says, This teleporter will teleport the user 4-8 tiles in the direction they are facing.\n\ Warning: Teleporting into walls will activate a failsafe teleport sideways up to 3 tiles, but will gib the user if it fails.\n\ Warrenty voided if exposed to EMP."
 	icon = 'icons/obj/device.dmi'
-	icon_state = "batterer"
+	icon_state = "syndi-tele"
 	throwforce = 5
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 4
@@ -335,3 +335,9 @@ effective or pretty fucking useless.
 
 /obj/effect/temp_visual/teleport_abductor/syndi_teleporter
 	duration = 5
+
+/obj/item/teleporter/admin
+	desc = "A strange syndicate version of a cult veil shifter. \n\ This one seems EMP proof, and with much better saftey protocols."
+	charges = 8
+	max_charges = 8
+	flawless = TRUE
