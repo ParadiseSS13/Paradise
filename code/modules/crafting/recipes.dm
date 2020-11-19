@@ -151,17 +151,6 @@
 	subcategory = CAT_WEAPON
 	alert_admins_on_craft = TRUE
 
-/datum/crafting_recipe/meteorshot
-	name = "Meteorshot Shell"
-	result = /obj/item/ammo_casing/shotgun/meteorshot
-	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
-				/obj/item/rcd_ammo = 1,
-				/obj/item/stock_parts/manipulator = 2)
-	tools = list(TOOL_SCREWDRIVER)
-	time = 5
-	category = CAT_WEAPONRY
-	subcategory = CAT_AMMO
-
 /datum/crafting_recipe/pulseslug
 	name = "Pulse Slug Shell"
 	result = /obj/item/ammo_casing/shotgun/pulseslug
