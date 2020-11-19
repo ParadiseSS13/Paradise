@@ -442,10 +442,10 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	if(istype(get_area(owner), /area/lavaland)) 
 		if(bloodtotal >= 160) //bloodtotal 160 allows for Cloak but NOT Rejuv+, which means you can get your stealth without getting antistun for the station prowling
 			to_chat(owner, "<span class='warning'>You feel your skin burning! You can feel the the presence of the Necropolis bearing down on you!</span>")
-			vamp_burn(9)
+			vamp_lavaland(50)
 		else if(bloodtotal >= 100) //warning and hint that you shouldnt be out in lavaland hunting miners
 			to_chat(owner, "<span class='warning'>You feel your skin starting to grow warmer! Perhaps it is best that you take your hunting elsewhere...</span>")
-			vamp_burn(3)
+			vamp_lavaland(10)
 		else
 			to_chat(owner, "<span class='warning'>You feel a vibration on your skin, the gods of this place do no appreciate competitors...</span>")
 	nullified = max(0, nullified - 1)
@@ -469,6 +469,25 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		return 1
 	else
 		owner.alpha = round((255 * 0.80))
+
+/datum/vampire/proc/vamp_lavaland(burn_chance)
+	if(prob(burn_chance) && owner.health >= 50)
+		switch(owner.health)
+			if(75 to 100)
+				to_chat(owner, "<span class='warning'>Your skin flakes away...</span>")
+			if(50 to 75)
+				to_chat(owner, "<span class='warning'>Your skin sizzles!</span>")
+		owner.adjustFireLoss(3)
+	else if(owner.health < 50)
+		if(!owner.on_fire)
+			to_chat(owner, "<span class='danger'>Your skin catches fire!</span>")
+			owner.emote("scream")
+		else
+			to_chat(owner, "<span class='danger'>You continue to burn!</span>")
+		owner.adjustFireLoss(5)
+		owner.adjust_fire_stacks(5)
+		owner.IgniteMob()
+	return
 
 /datum/vampire/proc/vamp_burn(burn_chance)
 	if(prob(burn_chance) && owner.health >= 50)
