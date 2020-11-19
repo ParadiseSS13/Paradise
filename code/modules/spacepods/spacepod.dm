@@ -127,20 +127,16 @@
 	var/atom/oldloc
 	switch(dir)
 		if(NORTH)
-			oldposition = T
-			oldposition = get_step(oldposition, SOUTH)
+			oldposition = get_step(T, SOUTH)
 			oldloc = get_step(oldposition, EAST)
 		if(SOUTH) // More difficult, offset to the north!
-			oldposition = get_step(src, NORTH)
-			oldposition = get_step(oldposition, NORTH)
+			oldposition = get_step(get_step(src, NORTH), NORTH)
 			oldloc = get_step(oldposition, EAST)
 		if(EAST) // Just one to the north should suffice
-			oldposition = T
-			oldposition = get_step(oldposition, WEST)
+			oldposition = get_step(T, WEST)
 			oldloc = get_step(oldposition, NORTH)
 		if(WEST) // One to the east and north from there
-			oldposition = get_step(src, EAST)
-			oldposition = get_step(oldposition, EAST)
+			oldposition = get_step(get_step(src, EAST), EAST)
 			oldloc = get_step(oldposition, NORTH)
 
 	if(!has_gravity(T))

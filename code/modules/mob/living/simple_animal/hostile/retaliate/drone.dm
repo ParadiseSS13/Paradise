@@ -29,15 +29,17 @@
 	faction = list("malf_drone")
 	deathmessage = "suddenly breaks apart."
 	del_on_death = 1
-	var/datum/effect_system/trail_follow/ion/ion_trail
 	var/passive_mode = TRUE // if true, don't target anything.
 
 /mob/living/simple_animal/hostile/malf_drone/Initialize(mapload)
 	. = ..()
-	ion_trail = new
-	ion_trail.set_up(src)
-	ion_trail.start()
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, /mob/living/simple_animal/hostile/malf_drone/.proc/create_trail)
 	update_icons()
+
+/mob/living/simple_animal/hostile/malf_drone/proc/create_trail(datum/source, atom/OldLoc, Dir, forced)
+	var/turf/T = get_turf(OldLoc)
+	if(!has_gravity(T))
+		new /obj/effect/particle_effect/ion_trails(T, Dir)
 
 /mob/living/simple_animal/hostile/malf_drone/Process_Spacemove(check_drift = 0)
 	return 1
