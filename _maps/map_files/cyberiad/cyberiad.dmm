@@ -58142,6 +58142,10 @@
 	dir = 8;
 	on = 1
 	},
+/obj/item/radio/intercom{
+	name = "station intercom (General)";
+	pixel_y = 25
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/toxins/server)
 "cdc" = (
@@ -59025,6 +59029,7 @@
 "ceL" = (
 /obj/machinery/computer/area_atmos,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/toxins/storage)
 "ceM" = (
