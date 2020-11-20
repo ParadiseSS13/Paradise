@@ -1323,6 +1323,7 @@
 #include "code\HISPANIA\modules\hydroponics\grown\ricinus.dm"
 #include "code\HISPANIA\modules\hydroponics\grown\strawberry.dm"
 #include "code\HISPANIA\modules\martial_arts\bscqc.dm"
+#include "code\HISPANIA\modules\mining\equipment\kinetic_crusher.dm"
 #include "code\HISPANIA\modules\mob\language.dm"
 #include "code\HISPANIA\modules\mob\living\status_procs.dm"
 #include "code\HISPANIA\modules\mob\living\carbon\human\human.dm"
