@@ -53,7 +53,7 @@
 	to_chat(owner, "<span class='userdanger'>You suddenly feel an irresistible compulsion to follow an order...</span>")
 	to_chat(owner, "<span class='mind_control'>[command]</span>")
 	active_mind_control = TRUE
-	log_admin("[key_name(user)] sent an abductor mind control message to [key_name(owner)]: [command]")
+	message_admins("[key_name_admin(user)] sent an abductor mind control message to [key_name_admin(owner)]: [command]")
 	update_gland_hud()
 
 	addtimer(CALLBACK(src, .proc/clear_mind_control), mind_control_duration)
