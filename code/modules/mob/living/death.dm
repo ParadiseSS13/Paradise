@@ -93,10 +93,11 @@
 	if(mind)
 		if(mind.name && !isbrain(src)) // !isbrain() is to stop it from being called twice
 			var/turf/T = get_turf(src)
+			var/area_name = get_area_name(T)
 			for(var/P in GLOB.player_list)
 				var/mob/M = P
 				if((isobserver(M) || M.stat == DEAD) && (M.client.prefs.toggles2 & PREFTOGGLE_2_DEATHMESSAGE))
-					to_chat(M, "<span class='deadsay'><b>[mind.name]</b> has died at <b>[get_area_name(T)]</b>. (<a href='?src=[M.UID()];jump=\ref[src]'>JMP</a>)</span>")
+					to_chat(M, "<span class='deadsay'><b>[mind.name]</b> has died at <b>[area_name]</b>. (<a href='?src=[M.UID()];jump=\ref[src]'>JMP</a>)</span>")
 
 		mind.store_memory("Time of death: [station_time_timestamp("hh:mm:ss", timeofdeath)]", 0)
 		GLOB.respawnable_list += src
