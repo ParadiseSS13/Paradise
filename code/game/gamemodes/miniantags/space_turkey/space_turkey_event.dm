@@ -8,9 +8,9 @@
 
 /datum/event/turkey_infestation/setup()
 	announceWhen = rand(announceWhen, announceWhen + 30)
-	var/players_per_turkey = 40
+	var/players_per_turkey = 30
 	var/minimumTurkeys = round(num_players()/players_per_turkey, 1)+1
-	spawncount = rand(minimumTurkeys, max(minimumTurkeys+1,3))
+	spawncount = rand(minimumTurkeys, minimumTurkeys+2)
 
 /datum/event/turkey_infestation/announce()
 	if(successSpawn)
@@ -22,7 +22,6 @@
 	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
 	while(spawncount && length(vents))
 		var/obj/vent = pick_n_take(vents)
-		var/mob/living/simple_animal/hostile/space_turkey/T = new(vent.loc)
-		T.ghost_call()
+		new /mob/living/simple_animal/turkey/space_turkey(vent.loc)
 		successSpawn = TRUE
 		spawncount--

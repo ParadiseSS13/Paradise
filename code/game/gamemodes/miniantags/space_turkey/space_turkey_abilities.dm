@@ -23,12 +23,14 @@
 		charge_counter = charge_max
 		return FALSE
 
+	user.notransform = 1
 	var/prevLayer = user.layer
 	var/prevFlying = user.flying
 	user.layer = 9
 
 	user.flying = TRUE
 	user.pass_flags |= PASSMOB
+
 
 	var/collided = FALSE
 	var/pixel_elevation = 0
@@ -58,6 +60,7 @@
 	user.pass_flags &= ~PASSMOB
 	user.flying = prevFlying
 	user.layer = prevLayer
+	user.notransform = 0
 
 /obj/effect/proc_holder/spell/targeted/lay_turkey_egg
 
@@ -65,7 +68,9 @@
 	desc = "Lay an egg that should eventually hatch into another space turkey."
 	panel = "Turkey"
 
-	charge_max = 600*9
+	charge_max = 600*5
+	starts_charged = FALSE
+	charge_counter = 600*2
 	clothes_req = 0
 	range = -1
 	include_user = 1
@@ -82,7 +87,6 @@
 	var/obj/item/E = new egg_type(get_turf(user))
 	E.pixel_x = rand(-6,6)
 	E.pixel_y = rand(-6,6)
-	START_PROCESSING(SSobj, E)
 	user.visible_message("<span class ='warning'>[user] lays an egg.</span>", "<span class='warning'>You lay a turkey egg.</span>")
 
 /obj/effect/proc_holder/spell/targeted/gobble
@@ -94,7 +98,7 @@
 	clothes_req = 0
 	range = -1
 	include_user = 1
-	action_icon_state = "turkey"
+	action_icon_state = "dissonant_shriek"
 
 /obj/effect/proc_holder/spell/targeted/gobble/perform(list/targets, recharge = 1, mob/user = usr, make_attack_logs = FALSE)
 	return ..()
