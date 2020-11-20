@@ -358,5 +358,5 @@
 			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 			return TRUE
 
-/mob/living/proc/cult_self_harm(damage, rune_message = FALSE)
+/mob/living/proc/cult_self_harm(damage)
 	return FALSE
