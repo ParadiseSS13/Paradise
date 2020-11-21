@@ -46,7 +46,7 @@
 	if(!message)
 		input = sanitize(copytext(input(src,"Choose an emote to display.") as text|null,1,MAX_MESSAGE_LEN))
 	else
-		input = message
+		input = say_emphasis(message)
 	if(input)
 		message = "<B>[src]</B> [input]"
 	else

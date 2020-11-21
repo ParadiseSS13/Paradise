@@ -145,6 +145,18 @@
 
 	return null
 
+#define ENCODE_HTML_EMPHASIS(input, char, html, varname) \
+	var/static/regex/##varname = regex("[char]{2}(.+?)[char]{2}", "g");\
+	input = varname.Replace(input, "<[html]>$1</[html]>")
+
+/mob/proc/say_emphasis(input)
+	ENCODE_HTML_EMPHASIS(input, "\\/", "i", italics)
+	//ENCODE_HTML_EMPHASIS(input, "\\+", "b", bold)
+	//ENCODE_HTML_EMPHASIS(input, "_", "u", underline)
+	return input
+
+#undef ENCODE_HTML_EMPHASIS
+
 /datum/multilingual_say_piece
 	var/datum/language/speaking = null
 	var/message = ""
