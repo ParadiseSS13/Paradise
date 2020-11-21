@@ -155,7 +155,7 @@
 			if(voice_choice)
 				curse(user)
 
-/obj/structure/mirror/magic/on_ui_close(mob/user)
+/obj/structure/mirror/magic/tgui_close(mob/user)
 	curse(user)
 
 /obj/structure/mirror/magic/attackby(obj/item/I, mob/living/user, params)

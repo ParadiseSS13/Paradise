@@ -9,7 +9,7 @@ SUBSYSTEM_DEF(tgui)
 	name = "TGUI"
 	wait = 9
 	flags = SS_NO_INIT
-	priority = FIRE_PRIORITY_NANOUI // Yes I am aware that this is TGUI and I used the nanoUI fire priority. Dont @ me.
+	priority = FIRE_PRIORITY_TGUI
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 	offline_implications = "All TGUIs will no longer process. Shuttle call recommended."
 

@@ -79,7 +79,7 @@
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
-/obj/machinery/computer/secure_data/tgui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+/obj/machinery/computer/secure_data/tgui_data(mob/user)
 	var/list/data = list()
 	data["currentPage"] = current_page
 	data["isPrinting"] = is_printing

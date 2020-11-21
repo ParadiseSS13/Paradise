@@ -51,7 +51,7 @@ log transactions
 		linked_db = null
 		authenticated_account = null
 		visible_message("[bicon(src)]<span class='warning'>[src] buzzes rudely, \"Connection to remote database lost.\"</span>")
-		SSnanoui.update_uis(src)
+		SStgui.update_uis(src)
 
 	if(ticks_left_timeout > 0)
 		ticks_left_timeout--
@@ -91,7 +91,7 @@ log transactions
 			held_card = I
 			if(authenticated_account && held_card.associated_account_number != authenticated_account.account_number)
 				authenticated_account = null
-			SSnanoui.update_uis(src)
+			SStgui.update_uis(src)
 	else if(authenticated_account)
 		if(istype(I, /obj/item/stack/spacecash))
 			//consume the money
@@ -103,7 +103,7 @@ log transactions
 			authenticated_account.credit(C.amount, "Credit deposit", machine_id, authenticated_account.owner_name)
 
 			to_chat(user, "<span class='info'>You insert [C] into [src].</span>")
-			SSnanoui.update_uis(src)
+			SStgui.update_uis(src)
 			C.use(C.amount)
 	else
 		return ..()

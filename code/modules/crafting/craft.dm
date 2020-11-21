@@ -304,7 +304,7 @@
 		ui.open()
 
 /datum/personal_crafting/proc/close(mob/user)
-	var/datum/nanoui/ui = SStgui.get_open_ui(user, src, "main")
+	var/datum/tgui/ui = SStgui.get_open_ui(user, src, "main")
 	if(ui)
 		ui.close()
 

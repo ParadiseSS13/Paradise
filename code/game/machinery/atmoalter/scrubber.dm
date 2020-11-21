@@ -117,7 +117,7 @@
 		ui.open()
 		ui.set_autoupdate(TRUE)
 
-/obj/machinery/portable_atmospherics/scrubber/tgui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.physical_state)
+/obj/machinery/portable_atmospherics/scrubber/tgui_data(mob/user)
 	var/list/data = list(
 		"on" = on,
 		"port_connected" = connected_port ? TRUE : FALSE,

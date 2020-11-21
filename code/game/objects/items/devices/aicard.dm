@@ -47,7 +47,7 @@
 		ui.open()
 
 
-/obj/item/aicard/tgui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.inventory_state)
+/obj/item/aicard/tgui_data(mob/user)
 	var/data[0]
 
 	var/mob/living/silicon/ai/AI = locate() in src

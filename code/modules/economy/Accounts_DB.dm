@@ -64,7 +64,7 @@ GLOBAL_VAR(current_date_string)
 		ui = new(user, src, ui_key, "AccountsUplinkTerminal", name, 800, 600, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/account_database/tgui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+/obj/machinery/computer/account_database/tgui_data(mob/user)
 	var/list/data = list()
 	data["currentPage"] = current_page
 	data["is_printing"] = (next_print > world.time)
