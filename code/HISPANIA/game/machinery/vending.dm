@@ -246,7 +246,7 @@
 
 //este vending es gratis en paradise
 /obj/machinery/vending/hatdispenser
-	products = list(/obj/item/clothing/head/collectable/petehat = 2,
+	hispa_products = list(/obj/item/clothing/head/collectable/petehat = 2,
 					/obj/item/clothing/head/collectable/xenom = 2,
 					/obj/item/clothing/head/collectable/paper = 2,
 					/obj/item/clothing/head/collectable/slime = 2,

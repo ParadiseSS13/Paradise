@@ -52019,9 +52019,6 @@
 	},
 /area/assembly/robotics)
 "bSZ" = (
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -57589,9 +57586,10 @@
 	},
 /area/shuttle/supply)
 "cbE" = (
-/turf/simulated/shuttle/wall/interior{
-	tag = "icon-swall_f6";
-	icon_state = "swall_f6"
+/turf/simulated/shuttle/floor,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f6";
+	dir = 2
 	},
 /area/shuttle/supply)
 "cbF" = (
@@ -67103,6 +67101,9 @@
 	pixel_x = 0;
 	pixel_y = 32
 	},
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -68022,9 +68023,6 @@
 /obj/structure/table/glass,
 /obj/item/storage/box/monkeycubes/wolpincubes,
 /obj/item/storage/box/monkeycubes/farwacubes,
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/machinery/alarm{
 	dir = 4;
 	icon_state = "alarm0";
@@ -72057,9 +72055,6 @@
 "czI" = (
 /obj/structure/sink{
 	pixel_y = 32
-	},
-/obj/machinery/light{
-	dir = 1
 	},
 /obj/machinery/camera{
 	c_tag = "Virology Module North";
@@ -95405,7 +95400,7 @@
 	name = "Library Maintenance";
 	req_access_txt = "12"
 	},
-/turf/simulated/wall,
+/turf/simulated/floor/plating,
 /area/library)
 "efP" = (
 /obj/structure/lattice,
@@ -99353,6 +99348,17 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/tsf)
+"wrC" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whitehall"
+	},
+/area/medical/research{
+	name = "Research Division"
+	})
 "wrF" = (
 /obj/effect/decal/cleanable/blood,
 /obj/machinery/mech_bay_recharge_port,
@@ -145680,7 +145686,7 @@ bRP
 bPt
 bOv
 bSZ
-bUK
+wrC
 bUK
 bUK
 ccj
