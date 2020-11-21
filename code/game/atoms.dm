@@ -958,3 +958,56 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		else if(C)
 			color = C
 			return
+
+
+/** Call this when you want to present a renaming prompt to the user.
+
+    It's a simple proc, but handles annoying edge cases such as forgetting to add a "cancel" button,
+	or being able to rename stuff remotely.
+
+	Arguments:
+	* user - the renamer.
+	* implement - the tool doing the renaming (usually, a pen).
+	* freeform - whether we allow to change the name arbitrarily, or if it should go "thing - user-given label".
+	* actually_rename - whether we want to really change the `src.name`, or if we want to do everything *except* that.
+	* prompt - a custom "what do you want rename this thing to be?" prompt shown in the inpit box.
+
+	Returns: Either null if the renaming was aborted, or the user-provided sanitized string.
+ **/
+/atom/proc/rename_interactive(mob/user, obj/implement = null, freeform = FALSE,
+		actually_rename = TRUE, prompt = null)
+	// Sanity check that the user can, indeed, rename the thing.
+	if((implement && implement.loc != user) || !in_range(src, user))
+		stack_trace("Somebody called rename_interactive, but the user cannot rename this.")
+		return null
+
+	var/prefix = ""
+	if(!freeform)
+		prefix = "[initial(name)] - "
+
+	var/default_value
+	if(freeform)
+		default_value = name
+	else if(findtext(name, prefix) != 0)
+		default_value = copytext(name, length(prefix)+1)
+	else
+		// Either the thing has a non-conforming name due to being set in the map
+		// OR (much more likely) the thing is unlabeled yet.
+		default_value = ""
+	if(!prompt)
+		prompt = "What would you like the label on the [name] to be?"
+	var/t = input(user, prompt, "Renaming [name]", default_value)  as text | null
+	if(user)
+		// users could have moved, or lost the pen between input is called and now
+		if((implement && implement.loc != user) || !in_range(src, user))
+			return null
+	if(isnull(t))
+		// user pressed Cancel
+		return null
+	t = sanitize(copytext(t, 1, MAX_NAME_LEN))
+	if(actually_rename)
+		if(t == "")
+			name = "[initial(name)]"
+		else
+			name = "[prefix][t]"
+	return t

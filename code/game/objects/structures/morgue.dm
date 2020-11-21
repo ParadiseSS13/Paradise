@@ -125,17 +125,10 @@
 
 /obj/structure/morgue/attackby(P as obj, mob/user as mob, params)
 	if(istype(P, /obj/item/pen))
-		var/t = input(user, "What would you like the label to be?", text("[]", name), null)  as text
-		if(user.get_active_hand() != P)
-			return
-		if((!in_range(src, usr) && loc != user))
-			return
-		t = sanitize(copytext(t,1,MAX_MESSAGE_LEN))
-		if(t)
-			name = text("Morgue- '[]'", t)
+		rename_interactive(user, P)
+		if(name != initial(name))
 			overlays += image(icon, "morgue_label")
 		else
-			name = "Morgue"
 			overlays.Cut()
 		add_fingerprint(user)
 		return
@@ -325,16 +318,7 @@
 
 /obj/structure/crematorium/attackby(P as obj, mob/user as mob, params)
 	if(istype(P, /obj/item/pen))
-		var/t = input(user, "What would you like the label to be?", text("[]", name), null)  as text
-		if(user.get_active_hand() != P)
-			return
-		if((!in_range(src, usr) > 1 && loc != user))
-			return
-		t = sanitize(copytext(t,1,MAX_MESSAGE_LEN))
-		if(t)
-			name = text("Crematorium- '[]'", t)
-		else
-			name = "Crematorium"
+		rename_interactive(user, P)
 		add_fingerprint(user)
 		return
 	return ..()
