@@ -233,9 +233,9 @@ SUBSYSTEM_DEF(tgui)
 /datum/controller/subsystem/tgui/proc/on_close(datum/tgui/ui)
 	var/src_object_key = "[ui.src_object.UID()]"
 	if(isnull(open_uis[src_object_key]) || !istype(open_uis[src_object_key], /list))
-		return 0 // It wasn't open.
+		return FALSE // It wasn't open.
 	else if(isnull(open_uis[src_object_key][ui.ui_key]) || !istype(open_uis[src_object_key][ui.ui_key], /list))
-		return 0 // It wasn't open.
+		return FALSE // It wasn't open.
 
 	processing_uis.Remove(ui) // Remove it from the list of processing UIs.
 	if(ui.user)	// If the user exists, remove it from them too.
@@ -249,7 +249,7 @@ SUBSYSTEM_DEF(tgui)
 		if(!uiobj.len)
 			open_uis.Remove(src_object_key)
 
-	return 1 // Let the caller know we did it.
+	return TRUE // Let the caller know we did it.
 
 /**
  * private
@@ -275,7 +275,7 @@ SUBSYSTEM_DEF(tgui)
  */
 /datum/controller/subsystem/tgui/proc/on_transfer(mob/source, mob/target)
 	if(!source || isnull(source.open_uis) || !istype(source.open_uis, /list) || open_uis.len == 0)
-		return 0 // The old mob had no open UIs.
+		return FALSE // The old mob had no open UIs.
 
 	if(isnull(target.open_uis) || !istype(target.open_uis, /list))
 		target.open_uis = list() // Create a list for the new mob if needed.
@@ -285,4 +285,4 @@ SUBSYSTEM_DEF(tgui)
 		target.open_uis.Add(ui) // Transfer all the UIs.
 
 	source.open_uis.Cut() // Clear the old list.
-	return 1 // Let the caller know we did it.
+	return TRUE // Let the caller know we did it.

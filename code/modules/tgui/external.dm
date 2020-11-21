@@ -79,7 +79,7 @@
 /datum/proc/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	// If UI is not interactive or usr calling Topic is not the UI user, bail.
 	if(!ui || ui.status != STATUS_INTERACTIVE)
-		return 1
+		return TRUE
 
 /**
  * public
@@ -135,15 +135,15 @@
  * Called by UIs when they are closed.
  * Must be a verb so winset() can call it.
  *
- * required uiref ref The UI that was closed.
+ * required uiref uid The UI that was closed.
  */
-/client/verb/uiclose(ref as text)
+/client/verb/uiclose(uid as text)
 	// Name the verb, and hide it from the user panel.
 	set name = "uiclose"
-	set hidden = 1
+	set hidden = TRUE
 
-	// Get the UI based on the ref.
-	var/datum/tgui/ui = locateUID(ref)
+	// Get the UI based on the UID.
+	var/datum/tgui/ui = locateUID(uid)
 
 	// If we found the UI, close it.
 	if(istype(ui))

@@ -45,6 +45,9 @@ GLOBAL_DATUM_INIT(default_state, /datum/ui_state/default, new)
 		return STATUS_INTERACTIVE
 	return STATUS_CLOSE
 
+/mob/living/simple_animal/revenant/default_can_use_topic(src_object)
+	return STATUS_UPDATE
+
 /mob/living/simple_animal/default_can_use_topic(src_object)
 	. = shared_ui_interaction(src_object)
 	if(. > STATUS_CLOSE)
@@ -56,3 +59,8 @@ GLOBAL_DATUM_INIT(default_state, /datum/ui_state/default, new)
 		return STATUS_INTERACTIVE
 	else
 		return ..()
+
+/mob/dead/observer/default_can_use_topic()
+	if(can_admin_interact())
+		return STATUS_INTERACTIVE				// Admins are more equal
+	return STATUS_UPDATE						// Ghosts can view updates

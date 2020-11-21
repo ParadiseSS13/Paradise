@@ -10,11 +10,3 @@ GLOBAL_DATUM_INIT(contained_state, /datum/ui_state/contained_state, new)
 	if(!src_object.contains(user))
 		return STATUS_CLOSE
 	return user.shared_ui_interaction(src_object)
-
-/atom/proc/contains(atom/location)
-	if(!location)
-		return FALSE
-	if(location == src)
-		return TRUE
-
-	return contains(location.loc)

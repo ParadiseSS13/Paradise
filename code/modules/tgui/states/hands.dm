@@ -19,6 +19,9 @@ GLOBAL_DATUM_INIT(hands_state, /datum/ui_state/hands_state, new)
 		return STATUS_INTERACTIVE
 	return STATUS_CLOSE
 
+/mob/living/simple_animal/revenant/hands_can_use_topic(src_object)
+	return STATUS_UPDATE
+
 /mob/living/silicon/robot/hands_can_use_topic(src_object)
 	if(activated(src_object))
 		return STATUS_INTERACTIVE

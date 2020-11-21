@@ -14,6 +14,9 @@ GLOBAL_DATUM_INIT(physical_state, /datum/ui_state/physical, new)
 /mob/proc/physical_can_use_topic(src_object)
 	return STATUS_CLOSE
 
+/mob/living/simple_animal/revenant/physical_can_use_topic(src_object)
+	return STATUS_UPDATE
+
 /mob/living/physical_can_use_topic(src_object)
 	return shared_living_ui_distance(src_object)
 
