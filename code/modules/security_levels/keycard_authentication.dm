@@ -62,21 +62,21 @@
 		stat |= NOPOWER
 
 /obj/machinery/keycard_auth/attack_ghost(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/keycard_auth/attack_hand(mob/user)
 	if(..())
 		return TRUE
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/keycard_auth/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/keycard_auth/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "KeycardAuth", name, 540, 300, master_ui, state)
 		ui.open()
 
 
-/obj/machinery/keycard_auth/tgui_data()
+/obj/machinery/keycard_auth/ui_data()
 	var/list/data = list()
 	data["redAvailable"] = GLOB.security_level == SEC_LEVEL_RED ? FALSE : TRUE
 	data["swiping"] = swiping
@@ -88,7 +88,7 @@
 	data["hasConfirm"] = event_confirmed_by || (active && event_source && event_source.event_confirmed_by) ? TRUE : FALSE
 	return data
 
-/obj/machinery/keycard_auth/tgui_act(action, params)
+/obj/machinery/keycard_auth/ui_act(action, params)
 	if(..())
 		return
 	if(busy)

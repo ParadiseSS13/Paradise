@@ -16,18 +16,18 @@
 
 /obj/structure/musician/attack_hand(mob/user)
 	add_fingerprint(user)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/structure/musician/tgui_data(mob/user)
-	return song.tgui_data(user)
+/obj/structure/musician/ui_data(mob/user)
+	return song.ui_data(user)
 
-/obj/structure/musician/tgui_interact(mob/user)
-	song.tgui_interact(user)
+/obj/structure/musician/ui_interact(mob/user)
+	song.ui_interact(user)
 
-/obj/structure/musician/tgui_act(action, params)
+/obj/structure/musician/ui_act(action, params)
 	if(..())
 		return
-	return song.tgui_act(action, params)
+	return song.ui_act(action, params)
 
 /obj/structure/musician/wrench_act(mob/living/user, obj/item/I)
 	default_unfasten_wrench(user, I, 40)
@@ -44,4 +44,4 @@
 		return TRUE
 	if(!user)
 		return FALSE
-	return !tgui_status(user, GLOB.tgui_physical_state)
+	return !ui_status(user, GLOB.physical_state)

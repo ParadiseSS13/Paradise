@@ -1,11 +1,11 @@
-/datum/tgui_module/crew_monitor
+/datum/ui_module/crew_monitor
 	name = "Crew monitor"
 
-/datum/tgui_module/crew_monitor/tgui_act(action, params)
+/datum/ui_module/crew_monitor/ui_act(action, params)
 	if(..())
 		return TRUE
 
-	var/turf/T = get_turf(tgui_host())
+	var/turf/T = get_turf(ui_host())
 	if(!T || !is_level_reachable(T.z))
 		to_chat(usr, "<span class='warning'><b>Unable to establish a connection</b>: You're too far away from the station!</span>")
 		return FALSE
@@ -20,7 +20,7 @@
 			return TRUE
 
 
-/datum/tgui_module/crew_monitor/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/datum/ui_module/crew_monitor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "CrewMonitor", name, 800, 600, master_ui, state)
@@ -32,9 +32,9 @@
 		ui.open()
 
 
-/datum/tgui_module/crew_monitor/tgui_data(mob/user)
-	var/data[0]
-	var/turf/T = get_turf(tgui_host())
+/datum/ui_module/crew_monitor/ui_data(mob/user)
+	var/list/data = list()
+	var/turf/T = get_turf(ui_host())
 
 	data["isAI"] = isAI(user)
 	data["crewmembers"] = GLOB.crew_repository.health_data(T)
