@@ -92,7 +92,7 @@ const Contents = (properties, context) => {
     contents,
   } = data;
   return (
-    <Box className="Safe--contents">
+    <Box className="Safe--contents" overflow="auto">
       {contents.map((item, index) => (
         <Fragment key={item}>
           <Button
@@ -105,6 +105,7 @@ const Contents = (properties, context) => {
               src={item.sprite + ".png"}
               verticalAlign="middle"
               ml="-6px"
+              mr="0.5rem"
             />
             {item.name}
           </Button>

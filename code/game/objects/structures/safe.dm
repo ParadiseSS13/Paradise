@@ -187,6 +187,7 @@ GLOBAL_LIST_EMPTY(safes)
 			space += I.w_class
 			I.forceMove(src)
 			to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
+			SStgui.update_uis(src)
 		else
 			to_chat(user, "<span class='warning'>[I] won't fit in [src].</span>")
 	else
@@ -209,8 +210,8 @@ GLOBAL_LIST_EMPTY(safes)
 			return
 
 /obj/structure/safe/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_physical_state)
-	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/safe)
-	assets.send(user)
+	var/datum/asset/safe_assets = get_asset_datum(/datum/asset/simple/safe)
+	safe_assets.send(user)
 
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
@@ -219,7 +220,7 @@ GLOBAL_LIST_EMPTY(safes)
 		ui.set_autoupdate(FALSE)
 
 /obj/structure/safe/tgui_data(mob/user)
-	var/data[0]
+	var/list/data = list()
 	data["dial"] = dial
 	data["open"] = open
 	data["locked"] = locked
@@ -237,14 +238,13 @@ GLOBAL_LIST_EMPTY(safes)
 	if(..())
 		return
 
-	var/mob/user = usr
-	if(!user.IsAdvancedToolUser() && !isobserver(user))
-		to_chat(user, "<span class='warning'>You are not able to operate the safe.</span>")
+	if(!usr.IsAdvancedToolUser() && !isobserver(usr))
+		to_chat(usr, "<span class='warning'>You are not able to operate the safe.</span>")
 		return
 
 	var/canhear = FALSE
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
+	if(ishuman(usr))
+		var/mob/living/carbon/human/H = usr
 		if(H.can_hear() && H.is_in_hands(/obj/item/clothing/accessory/stethoscope))
 			canhear = TRUE
 
@@ -252,16 +252,16 @@ GLOBAL_LIST_EMPTY(safes)
 	switch(action)
 		if("open")
 			if(check_unlocked() || open || broken)
-				to_chat(user, "<span class='notice'>You [open ? "close" : "open"] [src].</span>")
+				to_chat(usr, "<span class='notice'>You [open ? "close" : "open"] [src].</span>")
 				open = !open
 				update_icon()
 			else
-				to_chat(user, "<span class='warning'>You cannot open [src], as its lock is engaged!</span>")
+				to_chat(usr, "<span class='warning'>You cannot open [src], as its lock is engaged!</span>")
 		if("turnright")
 			if(open)
 				return
 			if(broken)
-				to_chat(user, "<span class='warning'>The dial will not turn, as the mechanism is destroyed.</span>")
+				to_chat(usr, "<span class='warning'>The dial will not turn, as the mechanism is destroyed!</span>")
 				return
 			var/ticks = text2num(params["num"])
 			for(var/i = 1 to ticks)
@@ -272,16 +272,16 @@ GLOBAL_LIST_EMPTY(safes)
 					current_tumbler_index = 1
 
 				if(!invalid_turn && dial == tumblers[current_tumbler_index])
-					notify_user(user, canhear, list("tink", "krink", "plink"), ticks, i)
+					notify_user(usr, canhear, list("tink", "krink", "plink"), ticks, i)
 					current_tumbler_index++
 				else
-					notify_user(user, canhear, list("clack", "scrape", "clank"), ticks, i)
+					notify_user(usr, canhear, list("clack", "scrape", "clank"), ticks, i)
 			check_unlocked()
 		if("turnleft")
 			if(open)
 				return
 			if(broken)
-				to_chat(user, "<span class='warning'>The dial will not turn, as the mechanism is destroyed.</span>")
+				to_chat(usr, "<span class='warning'>The dial will not turn, as the mechanism is destroyed!</span>")
 				return
 			var/ticks = text2num(params["num"])
 			for(var/i = 1 to ticks)
@@ -292,10 +292,10 @@ GLOBAL_LIST_EMPTY(safes)
 					current_tumbler_index = 1
 
 				if(!invalid_turn && dial == tumblers[current_tumbler_index])
-					notify_user(user, canhear, list("tonk", "krunk", "plunk"), ticks, i)
+					notify_user(usr, canhear, list("tonk", "krunk", "plunk"), ticks, i)
 					current_tumbler_index++
 				else
-					notify_user(user, canhear, list("click", "chink", "clink"), ticks, i)
+					notify_user(usr, canhear, list("click", "chink", "clink"), ticks, i)
 			check_unlocked()
 		if("retrieve")
 			if(!open)
@@ -304,8 +304,8 @@ GLOBAL_LIST_EMPTY(safes)
 			if(!ISINDEXSAFE(contents, index))
 				return
 			var/obj/item/I = contents[index]
-			if(I && in_range(src, user))
-				user.put_in_hands(I)
+			if(I && in_range(src, usr))
+				usr.put_in_hands(I)
 				space -= I.w_class
 		else
 			return FALSE
