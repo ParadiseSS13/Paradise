@@ -127,9 +127,10 @@ SUBSYSTEM_DEF(ticker)
 	if((GLOB.master_mode=="random") || (GLOB.master_mode=="secret"))
 		runnable_modes = config.get_runnable_modes()
 		if(runnable_modes.len==0)
+			to_chat(world, "<B>Unable to choose playable game mode.</B> Reverting to pre-game lobby.")
+			force_start = FALSE
 			current_state = GAME_STATE_PREGAME
 			Master.SetRunLevel(RUNLEVEL_LOBBY)
-			to_chat(world, "<B>Unable to choose playable game mode.</B> Reverting to pre-game lobby.")
 			return 0
 		if(GLOB.secret_force_mode != "secret")
 			var/datum/game_mode/M = config.pick_mode(GLOB.secret_force_mode)
@@ -147,6 +148,7 @@ SUBSYSTEM_DEF(ticker)
 		to_chat(world, "<B>Unable to start [mode.name].</B> Not enough players, [mode.required_players] players needed. Reverting to pre-game lobby.")
 		mode = null
 		current_state = GAME_STATE_PREGAME
+		force_start = FALSE
 		SSjobs.ResetOccupations()
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
 		return 0
@@ -158,8 +160,9 @@ SUBSYSTEM_DEF(ticker)
 	SSjobs.DivideOccupations() //Distribute jobs
 	if(!can_continue)
 		qdel(mode)
-		current_state = GAME_STATE_PREGAME
 		to_chat(world, "<B>Error setting up [GLOB.master_mode].</B> Reverting to pre-game lobby.")
+		current_state = GAME_STATE_PREGAME
+		force_start = FALSE
 		SSjobs.ResetOccupations()
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
 		return 0
