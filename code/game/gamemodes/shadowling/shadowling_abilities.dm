@@ -312,7 +312,7 @@
 	include_user = 1
 	var/blind_smoke_acquired
 	var/screech_acquired
-	var/mindshield_melt
+	var/mindshield_melt_acquired
 	var/nullChargeAcquired
 	var/reviveThrallAcquired
 	action_icon_state = "collective_mind"
@@ -342,25 +342,25 @@
 			to_chat(target, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Sonic Screech</b> ability. This ability will shatter nearby windows and deafen enemies, plus stunning silicon lifeforms.</span>")
 			target.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/unearthly_screech(null))
 
+		if(thralls >= CEILING(3 * SSticker.mode.thrall_ratio, 1) && !mindshield_melt_acquired)
+			mindshield_melt_acquired = 1
+			to_chat(target, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Mindshield Melt</b> ability. \
+			It will destroy the mindshield of a mindshielded person.</i></span>")
+			target.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/mindshield_melt(null))
+
 		if(thralls >= CEILING(5 * SSticker.mode.thrall_ratio, 1) && !blind_smoke_acquired)
 			blind_smoke_acquired = 1
 			to_chat(target, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Blinding Smoke</b> ability. \
 			It will create a choking cloud that will blind any non-thralls who enter.</i></span>")
 			target.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/blindness_smoke(null))
 
-		if(thralls >= CEILING(7 * SSticker.mode.thrall_ratio, 1) && !mindshield_melt_acquired)
-			blind_smoke_acquired = 1
-			to_chat(target, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Mindshield Melt</b> ability. \
-			It will destroy the mindshield of a mindshielded person.</i></span>")
-			target.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/mindshield_melt(null))
-
-		if(thralls >= CEILING(9 * SSticker.mode.thrall_ratio, 1) && !nullChargeAcquired)
+		if(thralls >= CEILING(7 * SSticker.mode.thrall_ratio, 1) && !nullChargeAcquired)
 			nullChargeAcquired = 1
 			to_chat(user, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Null Charge</b> ability. This ability will drain an APC's contents to the void, preventing it from recharging \
 			or sending power until repaired.</i></span>")
 			target.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/null_charge(null))
 
-		if(thralls >= CEILING(11 * SSticker.mode.thrall_ratio, 1) && !reviveThrallAcquired)
+		if(thralls >= CEILING(9 * SSticker.mode.thrall_ratio, 1) && !reviveThrallAcquired)
 			reviveThrallAcquired = 1
 			to_chat(target, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Black Recuperation</b> ability. \
 			This will, after a short time, bring a dead thrall completely back to life with no bodily defects.</i></span>")
@@ -496,10 +496,10 @@
 		return FALSE
 	return ..()
 
-/obj/effect/proc_holder/spell/targeted/click/mindshield_melt/valid_target(mob/living/carbon/human/target, user)
+/*/obj/effect/proc_holder/spell/targeted/click/mindshield_melt/valid_target(mob/living/carbon/human/target, user)
 	if(!..())
 		return FALSE
-	return target.key && target.mind && !target.stat && !is_shadow_or_thrall(target) && target.client
+	return target.key && target.mind && !target.stat && !is_shadow_or_thrall(target) && target.client*/
 
 /obj/effect/proc_holder/spell/targeted/click/mindshield_melt/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/ling = user
@@ -528,7 +528,7 @@
 						if(L && L.implanted)
 							qdel(L)
 					to_chat(target, "<span class='boldannounce'>Your mental protection implant unexpectedly falters, dims, dies.</span>")
-			if(!do_mob(user, target, 30))
+			if(!do_mob(user, target, 10 SECONDS))
 				to_chat(user, "<span class='warning'>The mindshield removal has been interrupted - the nanobots of your target's mindshields returns to its previous state.</span>")
 				to_chat(target, "<span class='userdanger'>You wrest yourself away from [user]'s hands and compose yourself</span>")
 				enthralling = FALSE
