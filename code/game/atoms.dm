@@ -1000,6 +1000,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		prompt = "What would you like the label on [src] to be?"
 
 	var/t = input(user, prompt, "Renaming [src]", default_value)  as text | null
+	if(isnull(t))
+		// user pressed Cancel
+		return null
 
 	// Things could have changed between when `input` is called and when it returns.
 	if(!user)
@@ -1014,9 +1017,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		to_chat(user, "<span class='warning'>You cannot rename [src] in your current state.</span>")
 		return null
 
-	if(isnull(t))
-		// user pressed Cancel
-		return null
+
 	t = sanitize(copytext(t, 1, MAX_NAME_LEN))
 	if(actually_rename)
 		if(t == "")

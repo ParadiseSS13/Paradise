@@ -199,6 +199,6 @@
 /obj/item/reagent_containers/iv_bag/slime
 	list_reagents = list("slimejelly" = 200)
 
-/obj/item/reagent_containers/iv_bag/salglu/Initialize(mapload)
+/obj/item/reagent_containers/iv_bag/slime/Initialize(mapload)
 	. = ..()
 	name = "[initial(name)] - Slime Jelly"
