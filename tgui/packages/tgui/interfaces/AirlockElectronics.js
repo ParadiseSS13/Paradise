@@ -24,39 +24,39 @@ const UnrestrictedAccess = (props, context) => {
     <Section title="Access Control">
       <Flex direction="column">
         <Flex.Item bold mb={1}>
-          Unrestricted Access Settings
+          Unrestricted Access From:
         </Flex.Item>
         <Flex.Item>
           <Button width={5.7}
-            icon="arrow-up"
-            content="North"
-            selected={unrestricted_dir === 1 ? "selected" : null}
-            onClick={() => act('unrestricted_access', {
-              unres_dir: 1,
-            })}
-          />
-          <Button width={5.7}
             icon="arrow-down"
-            content="South"
-            selected={unrestricted_dir === 2 ? "selected" : null}
+            content="North"
+            selected={unrestricted_dir === "north" ? "selected" : null}
             onClick={() => act('unrestricted_access', {
-              unres_dir: 2,
+              unres_dir: "North",
             })}
           />
           <Button width={5.7}
-            icon="arrow-right"
-            content="East"
-            selected={unrestricted_dir === 3 ? "selected" : null}
+            icon="arrow-up"
+            content="South"
+            selected={unrestricted_dir === "south" ? "selected" : null}
             onClick={() => act('unrestricted_access', {
-              unres_dir: 3,
+              unres_dir: "South",
             })}
           />
           <Button width={5.7}
             icon="arrow-left"
-            content="West"
-            selected={unrestricted_dir === 4 ? "selected" : null}
+            content="East"
+            selected={unrestricted_dir === "east" ? "selected" : null}
             onClick={() => act('unrestricted_access', {
-              unres_dir: 4,
+              unres_dir: "East",
+            })}
+          />
+          <Button width={5.7}
+            icon="arrow-right"
+            content="West"
+            selected={unrestricted_dir === "west" ? "selected" : null}
+            onClick={() => act('unrestricted_access', {
+              unres_dir: "West",
             })}
           />
         </Flex.Item>
