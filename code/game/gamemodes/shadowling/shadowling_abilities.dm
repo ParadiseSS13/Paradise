@@ -312,6 +312,7 @@
 	include_user = 1
 	var/blind_smoke_acquired
 	var/screech_acquired
+	var/mindshield_melt
 	var/nullChargeAcquired
 	var/reviveThrallAcquired
 	action_icon_state = "collective_mind"
@@ -347,13 +348,19 @@
 			It will create a choking cloud that will blind any non-thralls who enter.</i></span>")
 			target.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/blindness_smoke(null))
 
-		if(thralls >= CEILING(7 * SSticker.mode.thrall_ratio, 1) && !nullChargeAcquired)
+		if(thralls >= CEILING(7 * SSticker.mode.thrall_ratio, 1) && !mindshield_melt_acquired)
+			blind_smoke_acquired = 1
+			to_chat(target, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Mindshield Melt</b> ability. \
+			It will destroy the mindshield of a mindshielded person.</i></span>")
+			target.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/mindshield_melt(null))
+
+		if(thralls >= CEILING(9 * SSticker.mode.thrall_ratio, 1) && !nullChargeAcquired)
 			nullChargeAcquired = 1
 			to_chat(user, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Null Charge</b> ability. This ability will drain an APC's contents to the void, preventing it from recharging \
 			or sending power until repaired.</i></span>")
 			target.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/null_charge(null))
 
-		if(thralls >= CEILING(9 * SSticker.mode.thrall_ratio, 1) && !reviveThrallAcquired)
+		if(thralls >= CEILING(11 * SSticker.mode.thrall_ratio, 1) && !reviveThrallAcquired)
 			reviveThrallAcquired = 1
 			to_chat(target, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Black Recuperation</b> ability. \
 			This will, after a short time, bring a dead thrall completely back to life with no bodily defects.</i></span>")
@@ -468,6 +475,69 @@
 				S.Weaken(6)
 		for(var/obj/structure/window/W in T.contents)
 			W.take_damage(rand(80, 100))
+
+/obj/effect/proc_holder/spell/targeted/click/mindshield_melt //melts mindshields
+	name = "Melt Mindshield"
+	desc = "Allows you to destroy a mindshield."
+	panel = "Shadowling Abilities"
+	charge_max = 600
+	clothes_req = FALSE
+	range = 1 //Adjacent to user
+	var/enthralling = FALSE
+	action_icon_state = "mindshield_melt"
+
+	click_radius = -1 // Precision baby
+	selection_activated_message		= "<span class='notice'>Your collect your mind to destroy a mindshield. <B>Left-click to cast at a target!</B></span>"
+	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
+	allowed_type = /mob/living/carbon/human
+
+/obj/effect/proc_holder/spell/targeted/click/mindshield_melt/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
+	if(enthralling || !shadowling_check(user))
+		return FALSE
+	return ..()
+
+/obj/effect/proc_holder/spell/targeted/click/mindshield_melt/valid_target(mob/living/carbon/human/target, user)
+	if(!..())
+		return FALSE
+	return target.key && target.mind && !target.stat && !is_shadow_or_thrall(target) && target.client
+
+/obj/effect/proc_holder/spell/targeted/click/mindshield_melt/cast(list/targets, mob/user = usr)
+	var/mob/living/carbon/human/ling = user
+	if(!(ling.mind in SSticker.mode.shadows))
+		return
+	var/mob/living/carbon/human/target = targets[1]
+	if(ismindshielded(target))
+		enthralling = TRUE
+		to_chat(user, "<span class='danger'>This target is mindshielded. You begin the destroying the implant.</span>")
+		to_chat(target, "<span class='userdanger'>[user] stares at you. You feel your head begin to pulse.</span>")
+
+		for(var/progress = 0, progress <= 3, progress++)
+			switch(progress)
+				if(1)
+					to_chat(user, "<span class='notice'>You place your hands to [target]'s head...</span>")
+					user.visible_message("<span class='warning'>[user] places [user.p_their()] hands onto the sides of [target]'s head!</span>")
+				if(2)
+					to_chat(user, "<span class='notice'>You are preparing to destroy [target]'s mindshield.</span>")
+					user.visible_message("<span class='warning'>[user]'s palms flare a bright red against [target]'s temples!</span>")
+					to_chat(target, "<span class='danger'>A terrible red light floods your mind. Your mindshield implant becomes hot as it comes under attack!.</span>")
+					target.Weaken(12)
+				if(3)
+					to_chat(user, "<span class='notice'>The nanobots composing the mindshield implant have been rendered inert. Now to continue.</span>")
+					user.visible_message("<span class='warning'>[user] relaxes again.</span>")
+					for(var/obj/item/implant/mindshield/L in target)
+						if(L && L.implanted)
+							qdel(L)
+					to_chat(target, "<span class='boldannounce'>Your mental protection implant unexpectedly falters, dims, dies.</span>")
+			if(!do_mob(user, target, 30))
+				to_chat(user, "<span class='warning'>The mindshield removal has been interrupted - the nanobots of your target's mindshields returns to its previous state.</span>")
+				to_chat(target, "<span class='userdanger'>You wrest yourself away from [user]'s hands and compose yourself</span>")
+				enthralling = FALSE
+				return
+
+		enthralling = FALSE
+		to_chat(user, "<span class='shadowling'>You have destroyed the mindshield <b>[target]</b>!</span>")
+		target.visible_message("<span class='big'>[target] looks to have experienced a sense of liberation!</span>")
+		target.setOxyLoss(0) //In case the shadowling was choking them out
 
 /obj/effect/proc_holder/spell/aoe_turf/null_charge
 	name = "Null Charge"
