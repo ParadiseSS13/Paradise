@@ -30,7 +30,7 @@ const UnrestrictedAccess = (props, context) => {
           <Button width={5.7}
             icon="arrow-up"
             content="North"
-            selected={data.unrestricted_dir === 1 ? "selected" : null}
+            selected={unrestricted_dir === 1 ? "selected" : null}
             onClick={() => act('unrestricted_access', {
               unres_dir: 1,
             })}
@@ -38,7 +38,7 @@ const UnrestrictedAccess = (props, context) => {
           <Button width={5.7}
             icon="arrow-down"
             content="South"
-            selected={data.unrestricted_dir === 2 ? "selected" : null}
+            selected={unrestricted_dir === 2 ? "selected" : null}
             onClick={() => act('unrestricted_access', {
               unres_dir: 2,
             })}
@@ -46,7 +46,7 @@ const UnrestrictedAccess = (props, context) => {
           <Button width={5.7}
             icon="arrow-right"
             content="East"
-            selected={data.unrestricted_dir === 3 ? "selected" : null}
+            selected={unrestricted_dir === 3 ? "selected" : null}
             onClick={() => act('unrestricted_access', {
               unres_dir: 3,
             })}
@@ -54,7 +54,7 @@ const UnrestrictedAccess = (props, context) => {
           <Button width={5.7}
             icon="arrow-left"
             content="West"
-            selected={data.unrestricted_dir === 4 ? "selected" : null}
+            selected={unrestricted_dir === 4 ? "selected" : null}
             onClick={() => act('unrestricted_access', {
               unres_dir: 4,
             })}
@@ -78,14 +78,14 @@ const ChooseAccess = (props, context) => {
       rcdButtons={
         <Fragment>
           <Button.Checkbox
-            checked={data.one_access}
+            checked={one_access}
             content="One"
             onClick={() => act('set_one_access', {
               access: 'one',
             })}
           />
           <Button.Checkbox
-            checked={!data.one_access}
+            checked={!one_access}
             content="All"
             onClick={() => act('set_one_access', {
               access: 'all',
@@ -93,8 +93,8 @@ const ChooseAccess = (props, context) => {
           />
         </Fragment>
       }
-      accesses={data.regions}
-      selectedList={data.selected_accesses}
+      accesses={regions}
+      selectedList={selected_accesses}
       accessMod={ref => act('set', {
         access: ref,
       })}
