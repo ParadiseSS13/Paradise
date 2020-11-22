@@ -496,10 +496,10 @@
 		return FALSE
 	return ..()
 
-/*/obj/effect/proc_holder/spell/targeted/click/mindshield_melt/valid_target(mob/living/carbon/human/target, user)
+/obj/effect/proc_holder/spell/targeted/click/mindshield_melt/valid_target(mob/living/carbon/human/target, user)
 	if(!..())
 		return FALSE
-	return target.key && target.mind && !target.stat && !is_shadow_or_thrall(target) && target.client*/
+	return target.key && target.mind && !target.stat && !is_shadow_or_thrall(target) && target.client
 
 /obj/effect/proc_holder/spell/targeted/click/mindshield_melt/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/ling = user
