@@ -301,4 +301,6 @@ log transactions
 
 //create the most effective combination of notes to make up the requested amount
 /obj/machinery/atm/proc/withdraw_arbitrary_sum(arbitrary_sum)
-	new /obj/item/stack/spacecash(get_step(get_turf(src), turn(dir, 180)), arbitrary_sum)
+	var/obj/item/stack/spacecash/C = new(amt = arbitrary_sum)
+	if(!usr?.put_in_hands(C))
+		C.forceMove(get_step(get_turf(src), turn(dir, 180)))
