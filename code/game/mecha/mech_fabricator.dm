@@ -23,6 +23,8 @@
 	var/allowed_design_types = MECHFAB
 	/// List of categories to display in the UI. Designs intended for each respective category need to have the name in [/datum/design/category]. Defined in [Initialize()][/atom/proc/Initialize].
 	var/list/categories = null
+	/// Unused. Ensures backwards compatibility with some maps.
+	var/id = null
 	// Variables
 	/// Production time multiplier. A lower value means faster production. Updated by [CheckParts()][/atom/proc/CheckParts].
 	var/time_coeff = 1
