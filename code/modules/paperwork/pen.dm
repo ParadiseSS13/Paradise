@@ -129,11 +129,10 @@
 	return TRUE
 
 
-
 /obj/item/pen/sleepy/Initialize(mapload)
+	return ..()
 	create_reagents(100)
 	reagents.add_reagent("ketamine", 100)
-	..()
 
 
 /*

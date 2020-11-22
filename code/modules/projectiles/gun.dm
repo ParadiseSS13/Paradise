@@ -318,9 +318,9 @@
 
 	if(unique_rename)
 		if(istype(I, /obj/item/pen))
-			var/t = rename_interactive(user, I, freeform = TRUE)
+			var/t = rename_interactive(user, I, use_prefix = FALSE)
 			if(!isnull(t))
-				to_chat(user, "You name the gun [name]. Say hello to your new friend.")
+				to_chat(user, "<span class='notice'>You name the gun [name]. Say hello to your new friend.</span>")
 	if(istype(I, /obj/item/kitchen/knife))
 		var/obj/item/kitchen/knife/K = I
 		if(!can_bayonet || !K.bayonet || bayonet) //ensure the gun has an attachment point available, and that the knife is compatible with it.

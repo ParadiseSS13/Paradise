@@ -57,7 +57,7 @@
 	if(istype(W, /obj/item/pen))
 		// The door assembly gets renamed to "Assembly - Foobar",
 		// but the `t` returned from the proc is just "Foobar" without the prefix.
-		var/t = rename_interactive(user, W, freeform = FALSE)
+		var/t = rename_interactive(user, W)
 		if(!isnull(t))
 			created_name = t
 		return

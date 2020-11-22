@@ -27,16 +27,17 @@
 
 /obj/structure/closet/body_bag/attackby(W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/pen))
-		rename_interactive(user, W)
-		if(name == initial(name))
-			src.overlays.Cut()
-		else
-			src.overlays += image(src.icon, "bodybag_label")
+		var/t = rename_interactive(user, W)
+		if(isnull(t))
+			return
+		cut_overlays()
+		if(t)
+			add_overlay(image(icon, "bodybag_label"))
 		return
 	if(istype(W, /obj/item/wirecutters))
 		to_chat(user, "You cut the tag off the bodybag")
-		src.name = "body bag"
-		src.overlays.Cut()
+		name = "body bag"
+		cut_overlays()
 		return
 	return ..()
 

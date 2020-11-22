@@ -125,11 +125,12 @@
 
 /obj/structure/morgue/attackby(P as obj, mob/user as mob, params)
 	if(istype(P, /obj/item/pen))
-		rename_interactive(user, P)
-		if(name != initial(name))
-			overlays += image(icon, "morgue_label")
-		else
-			overlays.Cut()
+		var/t = rename_interactive(user, P)
+		if(isnull(t))
+			return
+		cut_overlays()
+		if(t)
+			add_overlay(image(icon, "morgue_label"))
 		add_fingerprint(user)
 		return
 	return ..()

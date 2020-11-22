@@ -159,7 +159,7 @@
 	list_reagents = list("salglu_solution" = 200)
 
 /obj/item/reagent_containers/iv_bag/salglu/Initialize(mapload)
-	..()
+	. = ..()
 	name = "[initial(name)] - Saline Glucose"
 
 /obj/item/reagent_containers/iv_bag/blood // Don't use this - just an abstract type to allow blood bags to have a common blood_type var for ease of creation.
@@ -167,7 +167,7 @@
 	amount_per_transfer_from_this = 5 // Bloodbags are set to transfer 5 units by default.
 
 /obj/item/reagent_containers/iv_bag/blood/Initialize(mapload)
-	..()
+	. = ..()
 	if(blood_type != null)
 		name = "[initial(name)] - [blood_type]"
 		reagents.add_reagent("blood", 200, list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=blood_type,"resistances"=null,"trace_chem"=null))
@@ -176,7 +176,7 @@
 
 /obj/item/reagent_containers/iv_bag/blood/random/Initialize()
 	blood_type = pick("A+", "A-", "B+", "B-", "O+", "O-")
-	..()
+	return ..()
 
 /obj/item/reagent_containers/iv_bag/blood/APlus
 	blood_type = "A+"
@@ -200,5 +200,5 @@
 	list_reagents = list("slimejelly" = 200)
 
 /obj/item/reagent_containers/iv_bag/salglu/Initialize(mapload)
-	..()
+	. = ..()
 	name = "[initial(name)] - Slime Jelly"
