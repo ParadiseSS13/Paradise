@@ -31,9 +31,9 @@
 	minimum_distance = 1
 
 /mob/living/simple_animal/hostile/asteroid/miner/death(gibbed)
-	. = ..()
 	if(prob(15))
 		new /obj/item/twohanded/kinetic_crusher(src.loc)
+	. = ..()
 
 /mob/living/simple_animal/hostile/asteroid/miner/tendril
 	fromtendril = TRUE
@@ -69,4 +69,3 @@
 /obj/item/crusher_trophy/blaster_tubes/mask/remove_from(obj/item/twohanded/kinetic_crusher/H, mob/living/user)
 	. = ..()
 	H.force -= bonus_value
-
