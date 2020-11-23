@@ -175,13 +175,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	diag_hud_set_borgcell()
 	scanner = new(src)
 	scanner.Grant(src)
-	RegisterSignal(src, COMSIG_MOVABLE_MOVED, /mob/living/silicon/robot/.proc/create_trail)
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/create_trail)
 
-/mob/living/silicon/robot/proc/create_trail(datum/source, atom/OldLoc, Dir, forced)
+/mob/living/silicon/robot/proc/create_trail(datum/source, atom/oldloc, _dir, forced)
 	if(ionpulse_on)
-		var/turf/T = get_turf(OldLoc)
+		var/turf/T = get_turf(oldloc)
 		if(!has_gravity(T))
-			new /obj/effect/particle_effect/ion_trails(T, Dir)
+			new /obj/effect/particle_effect/ion_trails(T, _dir)
 
 /mob/living/silicon/robot/proc/init(alien, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)

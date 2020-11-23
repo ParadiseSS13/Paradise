@@ -9,7 +9,7 @@
 	dir = targetdir
 	flick("ion_fade", src)
 	icon_state = null
-	QDEL_IN(src, 20)
+	QDEL_IN(src, 2 SECONDS)
 
 //Reagent-based explosion effect
 /datum/effect_system/reagents_explosion

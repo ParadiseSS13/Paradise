@@ -33,13 +33,13 @@
 
 /mob/living/simple_animal/hostile/malf_drone/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_MOVABLE_MOVED, /mob/living/simple_animal/hostile/malf_drone/.proc/create_trail)
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/create_trail)
 	update_icons()
 
-/mob/living/simple_animal/hostile/malf_drone/proc/create_trail(datum/source, atom/OldLoc, Dir, forced)
-	var/turf/T = get_turf(OldLoc)
+/mob/living/simple_animal/hostile/malf_drone/proc/create_trail(datum/source, atom/oldloc, _dir, forced)
+	var/turf/T = get_turf(oldloc)
 	if(!has_gravity(T))
-		new /obj/effect/particle_effect/ion_trails(T, Dir)
+		new /obj/effect/particle_effect/ion_trails(T, _dir)
 
 /mob/living/simple_animal/hostile/malf_drone/Process_Spacemove(check_drift = 0)
 	return 1
