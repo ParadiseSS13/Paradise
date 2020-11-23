@@ -107,15 +107,18 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	. = ..()
 	if(.)
 		return
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
 	to_chat(user, "<span class='notice'>You start picking [src] up...</span>")
 	if(do_after(user, remove_speed, target = src))
 		var/obj/item/stack/marker_beacon/M = new(loc)
 		M.picked_color = picked_color
 		M.update_icon()
 		transfer_fingerprints_to(M)
-		if(user.put_in_hands(M, TRUE)) //delete the beacon if it fails
-			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
-			qdel(src) //otherwise delete us
+		user.put_in_hands(M)
+		playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
+		qdel(src)
 
 /obj/structure/marker_beacon/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/marker_beacon))
