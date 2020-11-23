@@ -94889,6 +94889,12 @@
 	icon_state = "neutral"
 	},
 /area/shuttle/escape)
+"fso" = (
+/obj/item/radio/intercom/department/security{
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "fyM" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/latex/nitrile,
@@ -94933,12 +94939,6 @@
 	dir = 1
 	},
 /area/shuttle/escape)
-"fNC" = (
-/obj/machinery/light_switch{
-	pixel_y = 25
-	},
-/turf/simulated/floor/plasteel,
-/area/security/main)
 "fRL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/item/radio/intercom{
@@ -94975,12 +94975,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
-"giW" = (
-/obj/item/radio/intercom/department/security{
-	pixel_y = 28
-	},
-/turf/simulated/floor/plasteel,
-/area/security/main)
 "gmY" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/plasteel{
@@ -95637,10 +95631,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/shuttle/escape)
-"nWw" = (
-/obj/machinery/vending/cigarette,
-/turf/simulated/floor/plasteel,
-/area/security/main)
 "nXr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/status_display{
@@ -95665,21 +95655,6 @@
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
-"owY" = (
-/obj/effect/landmark/start{
-	name = "Detective"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
-	},
-/turf/simulated/floor/plasteel,
-/area/security/main)
 "oyv" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -95997,6 +95972,21 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/tcommsat/chamber)
+"rUr" = (
+/obj/effect/landmark/start{
+	name = "Detective"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0
+	},
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "rWq" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -96272,6 +96262,12 @@
 	icon_state = "neutralfull"
 	},
 /area/shuttle/escape)
+"wwG" = (
+/obj/machinery/light_switch{
+	pixel_y = 25
+	},
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "wxQ" = (
 /obj/machinery/light,
 /obj/structure/chair/comfy/shuttle{
@@ -96281,6 +96277,10 @@
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
+"wyD" = (
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "wHx" = (
 /obj/machinery/door/airlock/shuttle/glass{
 	name = "Shuttle Cargo Hatch"
@@ -96417,6 +96417,12 @@
 	dir = 1
 	},
 /area/shuttle/escape)
+"xQz" = (
+/obj/effect/landmark/start{
+	name = "Constable"
+	},
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "xTB" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -96439,12 +96445,6 @@
 	},
 /turf/space,
 /area/space/nearstation)
-"xWN" = (
-/obj/effect/landmark/start{
-	name = "Constable"
-	},
-/turf/simulated/floor/plasteel,
-/area/security/main)
 "yeP" = (
 /obj/machinery/door_control{
 	id = "adminshuttleblast";
@@ -129439,7 +129439,7 @@ anA
 akv
 alp
 alG
-nWw
+wyD
 anQ
 aoI
 aoR
@@ -129698,7 +129698,7 @@ adX
 aoJ
 amM
 anQ
-owY
+rUr
 apM
 apR
 ahC
@@ -129950,7 +129950,7 @@ acx
 acE
 acE
 anA
-giW
+fso
 alq
 afK
 amr
@@ -130207,7 +130207,7 @@ acB
 acB
 acw
 adp
-xWN
+xQz
 alu
 amn
 amO
@@ -130464,7 +130464,7 @@ anA
 anA
 anA
 anA
-fNC
+wwG
 adY
 amm
 amN
