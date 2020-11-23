@@ -169,7 +169,16 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 /////////////////////////////////////////////////////////////////////////
 
-/proc/getline(atom/M,atom/N)//Ultra-Fast Bresenham Line-Drawing Algorithm
+/**
+ * Gets the turfs which are between the two given atoms. Including their positions
+ * Only works for atoms on the same Z level which is not 0. So an atom located in a non turf won't work
+ * Arguments:
+ * * M - The source atom
+ * * N - The target atom
+ */
+/proc/getline(atom/M, atom/N)//Ultra-Fast Bresenham Line-Drawing Algorithm
+	if(!M.z || M.z != N.z)	// Same Z level and not 0. Else all below breaks
+		return list()
 	var/px=M.x		//starting x
 	var/py=M.y
 	var/line[] = list(locate(px,py,M.z))
@@ -1400,8 +1409,10 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	see_in_dark = 1e6
 
 /mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox
+	SHOULD_CALL_PARENT(FALSE)
 
 /mob/dview/Destroy()
+	SHOULD_CALL_PARENT(FALSE)
 	// should never be deleted
 	return QDEL_HINT_LETMELIVE
 

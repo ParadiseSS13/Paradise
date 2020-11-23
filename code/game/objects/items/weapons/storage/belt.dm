@@ -814,3 +814,29 @@
 	icon_state = "ebelt"
 	item_state = "ebelt"
 	storage_slots = 5
+
+/obj/item/storage/belt/chef
+	name = "culinary tool apron"
+	desc = "An apron with various pockets for holding all your cooking tools and equipment."
+	icon_state = "chefbelt"
+	item_state = "chefbelt"
+	storage_slots = 10
+	max_w_class = WEIGHT_CLASS_NORMAL
+	max_combined_w_class = 25
+	can_hold = list(
+		/obj/item/kitchen/utensil,
+		/obj/item/kitchen/knife,
+		/obj/item/kitchen/rollingpin,
+		/obj/item/kitchen/mould,
+		/obj/item/kitchen/sushimat,
+		/obj/item/kitchen/cutter,
+		/obj/item/assembly/mousetrap,
+		/obj/item/reagent_containers/spray/pestspray,
+		/obj/item/reagent_containers/food/drinks/flask,
+		/obj/item/reagent_containers/food/drinks/drinkingglass,
+		/obj/item/reagent_containers/food/drinks/bottle,
+		/obj/item/reagent_containers/food/drinks/cans,
+		/obj/item/reagent_containers/food/drinks/shaker,
+		/obj/item/reagent_containers/food/snacks,
+		/obj/item/reagent_containers/food/condiment,
+		/obj/item/reagent_containers/glass/beaker)

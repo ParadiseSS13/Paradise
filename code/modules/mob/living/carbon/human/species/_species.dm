@@ -78,7 +78,7 @@
 	var/bodyflags = 0
 	var/dietflags  = 0	// Make sure you set this, otherwise it won't be able to digest a lot of foods
 
-	var/blood_color = "#A10808" //Red.
+	var/blood_color = COLOR_BLOOD_BASE //Red.
 	var/flesh_color = "#d1aa2e" //Gold.
 	var/single_gib_type = /obj/effect/decal/cleanable/blood/gibs
 	var/remains_type = /obj/effect/decal/remains/human //What sort of remains is left behind when the species dusts
@@ -218,37 +218,38 @@
 ////////////////
 // MOVE SPEED //
 ////////////////
+#define ADD_SLOWDOWN(__value) if(!ignoreslow || __value < 0) . += __value
 
 /datum/species/proc/movement_delay(mob/living/carbon/human/H)
 	. = 0	//We start at 0.
-	var/flight = 0	//Check for flight and flying items
-	var/ignoreslow = 0
-	var/gravity = 0
-
-	if(H.flying)
-		flight = 1
-
-	if((H.status_flags & IGNORESLOWDOWN) || (RUN in H.mutations))
-		ignoreslow = 1
+	if(H.status_flags & IGNORE_SPEED_CHANGES)
+		return .
 
 	if(has_gravity(H))
-		gravity = 1
+		if(H.status_flags & GOTTAGOFAST)
+			. -= 1
 
-	if(!ignoreslow && gravity)
-		if(speed_mod)
-			. = speed_mod
+		var/ignoreslow = FALSE
+		if((H.status_flags & IGNORESLOWDOWN) || (RUN in H.mutations))
+			ignoreslow = TRUE
+
+		var/flight = H.flying	//Check for flight and flying items
+
+		ADD_SLOWDOWN(speed_mod)
 
 		if(H.wear_suit)
-			. += H.wear_suit.slowdown
-		if(!H.buckled)
-			if(H.shoes)
-				. += H.shoes.slowdown
+			ADD_SLOWDOWN(H.wear_suit.slowdown)
+		if(!H.buckled && H.shoes)
+			ADD_SLOWDOWN(H.shoes.slowdown)
 		if(H.back)
-			. += H.back.slowdown
+			ADD_SLOWDOWN(H.back.slowdown)
 		if(H.l_hand && (H.l_hand.flags & HANDSLOW))
-			. += H.l_hand.slowdown
+			ADD_SLOWDOWN(H.l_hand.slowdown)
 		if(H.r_hand && (H.r_hand.flags & HANDSLOW))
-			. += H.r_hand.slowdown
+			ADD_SLOWDOWN(H.r_hand.slowdown)
+
+		if(ignoreslow)
+			return . // Only malusses after here
 
 		var/health_deficiency = max(H.maxHealth - H.health, H.staminaloss)
 		var/hungry = (500 - H.nutrition)/5 // So overeat would be 100 and default level would be 80
@@ -270,9 +271,9 @@
 		if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
 			. += (BODYTEMP_COLD_DAMAGE_LIMIT - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
 
-		if(H.status_flags & GOTTAGOFAST)
-			. -= 1
 	return .
+
+#undef ADD_SLOWDOWN
 
 /datum/species/proc/on_species_gain(mob/living/carbon/human/H) //Handles anything not already covered by basic species assignment.
 	for(var/slot_id in no_equip)
@@ -830,6 +831,9 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	if(XRAY in H.mutations)
 		H.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 
+	if(H.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
+		H.see_invisible = SEE_INVISIBLE_OBSERVER
+
 	H.sync_lighting_plane_alpha()
 
 /datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source, method = REAGENT_TOUCH)
@@ -859,3 +863,18 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
 	if(istype(ears) && !ears.deaf)
 		. = TRUE
+
+/**
+  * Species-specific runechat colour handler
+  *
+  * Checks the species datum flags and returns the appropriate colour
+  * Can be overridden on subtypes to short-circuit these checks (Example: Grey colour is eye colour)
+  * Arguments:
+  * * H - The human who this DNA belongs to
+  */
+/datum/species/proc/get_species_runechat_color(mob/living/carbon/human/H)
+	if(bodyflags & HAS_SKIN_COLOR)
+		return H.skin_colour
+	else
+		var/obj/item/organ/external/head/HD = H.get_organ("head")
+		return HD.hair_colour

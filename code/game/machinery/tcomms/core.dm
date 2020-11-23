@@ -156,7 +156,11 @@
 			continue
 		// If another core is active, return FALSE
 		if(C.active)
-			return FALSE
+			if(C.stat & NOPOWER)	// If another core has no power but is supposed to be on, we shut it down so we can continue.
+				C.active = FALSE	// Since only one active core is allowed per z level, give priority to the one actually working.
+				C.update_icon()
+			else
+				return FALSE
 	// If we got here there isnt an active core on this Z-level. So return true
 	return TRUE
 

@@ -19,6 +19,9 @@ GLOBAL_DATUM_INIT(tgui_hands_state, /datum/tgui_state/hands_state, new)
 		return STATUS_INTERACTIVE
 	return STATUS_CLOSE
 
+/mob/living/simple_animal/revenant/hands_can_use_tgui_topic(src_object)
+	return STATUS_UPDATE
+
 /mob/living/silicon/robot/hands_can_use_tgui_topic(src_object)
 	if(activated(src_object))
 		return STATUS_INTERACTIVE

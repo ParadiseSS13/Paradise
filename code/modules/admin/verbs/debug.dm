@@ -145,7 +145,11 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		GLOB.LastAdminCalledTargetUID = target.UID()
 	GLOB.AdminProcCaller = ckey	//if this runtimes, too bad for you
 	++GLOB.AdminProcCallCount
-	. = world.WrapAdminProcCall(target, procname, arguments)
+	try
+		. = world.WrapAdminProcCall(target, procname, arguments)
+	catch
+		to_chat(usr, "<span class='adminnotice'>Your proc call failed to execute, likely from runtimes. You <i>should</i> be out of safety mode. If not, god help you.</span>")
+
 	if(--GLOB.AdminProcCallCount == 0)
 		GLOB.AdminProcCaller = null
 
@@ -900,7 +904,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		var/datum/map_template/ruin/template = landmark.ruin_template
 		if(isobj(usr.loc))
 			var/obj/O = usr.loc
-			O.force_eject_occupant()
+			O.force_eject_occupant(usr)
 		admin_forcemove(usr, get_turf(landmark))
 
 		to_chat(usr, "<span class='name'>[template.name]</span>")

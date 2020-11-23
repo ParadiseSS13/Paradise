@@ -175,7 +175,7 @@
 		A.forceMove(loc)
 	SStgui.update_uis(src)
 
-/obj/machinery/bodyscanner/force_eject_occupant()
+/obj/machinery/bodyscanner/force_eject_occupant(mob/target)
 	go_out()
 
 /obj/machinery/bodyscanner/ex_act(severity)
@@ -217,6 +217,8 @@
 		for(var/thing in occupant.viruses)
 			var/datum/disease/D = thing
 			if(D.visibility_flags & HIDDEN_SCANNER || D.visibility_flags & HIDDEN_PANDEMIC)
+				continue
+			if(istype(D, /datum/disease/critical))
 				continue
 			found_disease = TRUE
 			break

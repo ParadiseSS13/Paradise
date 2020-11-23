@@ -53,6 +53,10 @@
 
 	..()
 	stat = DEAD
+
+	timeofdeath = world.time
+	create_log(ATTACK_LOG, "died[gibbed ? " (Gibbed)": ""]")
+
 	SetDizzy(0)
 	SetJitter(0)
 	SetLoseBreath(0)
@@ -72,7 +76,7 @@
 	med_hud_set_health()
 	med_hud_set_status()
 	if(!gibbed && !QDELETED(src))
-		addtimer(CALLBACK(src, .proc/med_hud_set_status), (DEFIB_TIME_LIMIT * 10) + 1)
+		addtimer(CALLBACK(src, .proc/med_hud_set_status), DEFIB_TIME_LIMIT + 1)
 
 	for(var/s in ownedSoullinks)
 		var/datum/soullink/S = s
@@ -83,9 +87,6 @@
 
 	if(!gibbed)
 		update_canmove()
-
-	timeofdeath = world.time
-	create_log(ATTACK_LOG, "died[gibbed ? " (Gibbed)": ""]")
 
 	GLOB.alive_mob_list -= src
 	GLOB.dead_mob_list += src

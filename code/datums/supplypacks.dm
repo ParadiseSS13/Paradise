@@ -1802,6 +1802,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					)
 	containername = "bluespace artillery parts crate"
 
+
+/datum/supply_packs/misc/station_goal/bluespace_tap
+	name = "Bluespace Harvester Parts"
+	cost = 150
+	contains = list(
+					/obj/item/circuitboard/machine/bluespace_tap,
+					/obj/item/paper/bluespace_tap
+					)
+	containername = "bluespace harvester parts crate"
+
 /datum/supply_packs/misc/station_goal/dna_vault
 	name = "DNA Vault Parts"
 	cost = 120

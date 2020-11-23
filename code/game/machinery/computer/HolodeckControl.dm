@@ -373,6 +373,10 @@
 	icon_state = "wood_table"
 	canSmoothWith = list(/obj/structure/table/holotable/wood)
 
+/obj/structure/chair/stool/holostool
+	flags = NODECONSTRUCT
+	item_chair = null
+
 /obj/item/clothing/gloves/boxing/hologlove
 	name = "boxing gloves"
 	desc = "Because you really needed another excuse to punch your crewmates."

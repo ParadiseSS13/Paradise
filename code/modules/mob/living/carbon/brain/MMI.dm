@@ -23,6 +23,9 @@
 	// Needed to fix a rather insane bug when a posibrain/robotic brain commits suicide
 	var/dead_icon = "mmi_dead"
 
+	/// Time at which the ghost belonging to the mind in the mmi can be pinged again to be borged
+	var/next_possible_ghost_ping
+
 /obj/item/mmi/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/organ/internal/brain/crystal))
 		to_chat(user, "<span class='warning'> This brain is too malformed to be able to use with the [src].</span>")

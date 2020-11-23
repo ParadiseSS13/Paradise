@@ -120,9 +120,7 @@
 			return TRUE
 
 		var/list/visible_turfs = list()
-		for(var/turf/T in (C.isXRay() \
-				? range(C.view_range, C) \
-				: view(C.view_range, C)))
+		for(var/turf/T in view(C.view_range, get_turf(C)))
 			visible_turfs += T
 
 		var/list/bbox = get_bbox_of_atoms(visible_turfs)
@@ -163,8 +161,11 @@
 	tgui_interact(user)
 
 /obj/machinery/computer/security/attack_ai(mob/user)
-	to_chat(user, "<span class='notice'>You realise its kind of stupid to access a camera console when you have the entire camera network at your metaphorical fingertips</span>")
-	return
+	if(isAI(user))
+		to_chat(user, "<span class='notice'>You realise its kind of stupid to access a camera console when you have the entire camera network at your metaphorical fingertips</span>")
+		return
+
+	tgui_interact(user)
 
 
 /obj/machinery/computer/security/proc/show_camera_static()

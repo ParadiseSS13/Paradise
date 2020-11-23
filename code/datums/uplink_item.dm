@@ -127,8 +127,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				var/mob/living/carbon/human/A = user
 				if(limited_stock > 0)
 					log_game("[key_name(user)] purchased [name]. [name] was discounted to [cost].")
+					if(!user.mind.special_role)
+						message_admins("[key_name_admin(user)] purchased [name] (discounted to [cost]), as a non antagonist.")
 				else
 					log_game("[key_name(user)] purchased [name].")
+					if(!user.mind.special_role)
+						message_admins("[key_name_admin(user)] purchased [name], as a non antagonist.")
 				A.put_in_any_hand_if_possible(I)
 
 				if(istype(I,/obj/item/storage/box/) && I.contents.len>0)
@@ -232,14 +236,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SDP"
 	item = /obj/item/storage/box/syndidonkpockets
 	cost = 2
-	job = list("Chef")
-
-/datum/uplink_item/jobspecific/Chef_CQC
-	name = " A chefs manual to CQC"
-	desc = "An old manual teaching you how to bring your home advantage outside the kitchen."
-	reference = "CCQC"
-	item = /obj/item/CQC_manual/chef
-	cost = 12
 	job = list("Chef")
 
 //Chaplain
@@ -867,9 +863,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A manual that teaches a single user tactical Close-Quarters Combat before self-destructing. Does not restrict weapon usage, but cannot be used alongside Gloves of the North Star."
 	reference = "CQC"
 	item = /obj/item/CQC_manual
-	gamemodes = list(/datum/game_mode/nuclear)
 	cost = 13
-	surplus = 0
 
 /datum/uplink_item/stealthy_weapons/cameraflash
 	name = "Camera Flash"
@@ -1007,11 +1001,21 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/explosives/syndicate_bomb
 	name = "Syndicate Bomb"
-	desc = "The Syndicate Bomb has an adjustable timer with a minimum setting of 60 seconds. Ordering the bomb sends you a small beacon, which will teleport the explosive to your location when you activate it. \
+	desc = "The Syndicate Bomb has an adjustable timer with a minimum setting of 90 seconds. Ordering the bomb sends you a small beacon, which will teleport the explosive to your location when you activate it. \
 	You can wrench the bomb down to prevent removal. The crew may attempt to defuse the bomb."
 	reference = "SB"
 	item = /obj/item/radio/beacon/syndicate/bomb
 	cost = 11
+	surplus = 0
+	cant_discount = TRUE
+
+/datum/uplink_item/explosives/emp_bomb
+	name = "EMP bomb"
+	desc = "The EMP has an adjustable timer with a minimum setting of 90 seconds. Ordering the bomb sends you a small beacon, which will teleport the explosive to your location when you activate it. \
+	You can wrench the bomb down to prevent removal. The crew may attempt to defuse the bomb."
+	reference = "SBEMP"
+	item = /obj/item/radio/beacon/syndicate/bomb/emp
+	cost = 10
 	surplus = 0
 	cant_discount = TRUE
 
@@ -1315,6 +1319,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 7
 	gamemodes = list(/datum/game_mode/nuclear)
 
+/datum/uplink_item/device_tools/vtec
+	name = "Syndicate Cyborg Upgrade Module (VTEC)"
+	desc = "Increases the movement speed of a Cyborg. Install into any Borg, Syndicate or subverted"
+	reference = "VTEC"
+	item = /obj/item/borg/upgrade/vtec
+	cost = 6
+	gamemodes = list(/datum/game_mode/nuclear)
+
 //Space Suits and Hardsuits
 /datum/uplink_item/suits
 	category = "Space Suits and Hardsuits"
@@ -1338,7 +1350,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Nanotrasen crew who spot these suits are known to panic."
 	reference = "BRHS"
 	item = /obj/item/storage/box/syndie_kit/hardsuit
-	cost = 8
+	cost = 6
 	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/suits/hardsuit/elite

@@ -69,6 +69,8 @@
 			base = "wood"
 		if(istype(src, /obj/structure/table/reinforced))
 			base = "rtable"
+		if(istype(src, /obj/structure/table/wood/poker))
+			base = "poker"	
 
 		icon_state = "[base]flip[type][type == 1 ? subtype : ""]"
 

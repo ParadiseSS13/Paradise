@@ -102,6 +102,8 @@
 			var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
 			if(!T.spider_myqueen)
 				continue
+			if(T == src)
+				continue
 			if(T.spider_myqueen != src)
 				continue
 			if(prob(50) || T.spider_tier >= spider_tier)

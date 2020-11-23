@@ -92,10 +92,12 @@
 
 
 /mob/living/carbon/proc/vomit(var/lost_nutrition = 10, var/blood = 0, var/stun = 1, var/distance = 0, var/message = 1)
-	if(src.is_muzzled())
+	if(ismachineperson(src)) //IPCs do not vomit particulates
+		return FALSE
+	if(is_muzzled())
 		if(message)
 			to_chat(src, "<span class='warning'>The muzzle prevents you from vomiting!</span>")
-		return 0
+		return FALSE
 	if(stun)
 		Stun(4)
 	if(nutrition < 100 && !blood)
@@ -125,7 +127,7 @@
 			T = get_step(T, dir)
 			if(is_blocked_turf(T))
 				break
-	return 1
+	return TRUE
 
 /mob/living/carbon/gib()
 	. = death(1)
@@ -647,6 +649,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		update_handcuffed()
 	else if(I == legcuffed)
 		legcuffed = null
+		toggle_move_intent()
 		update_inv_legcuffed()
 
 /mob/living/carbon/show_inv(mob/user)
@@ -868,6 +871,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				legcuffed.forceMove(drop_location())
 				legcuffed.dropped()
 				legcuffed = null
+				toggle_move_intent()
 				update_inv_legcuffed()
 				return
 			else
@@ -894,6 +898,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				return
 			else if(I == legcuffed)
 				legcuffed = null
+				toggle_move_intent()
 				update_inv_legcuffed()
 				return
 			return 1
@@ -967,6 +972,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(legcuffed)
 		var/obj/item/W = legcuffed
 		legcuffed = null
+		toggle_move_intent()
 		update_inv_legcuffed()
 		if(client)
 			client.screen -= W

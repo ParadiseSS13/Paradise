@@ -41,7 +41,7 @@
 	GLOB.human_list += src
 
 /mob/living/carbon/human/OpenCraftingMenu()
-	handcrafting.ui_interact(src)
+	handcrafting.tgui_interact(src)
 
 /mob/living/carbon/human/prepare_data_huds()
 	//Update med hud images...
@@ -542,6 +542,41 @@
 	if(istype(id))
 		return id
 
+//Gets ID card object from hands only
+/mob/living/carbon/human/proc/get_id_from_hands()
+	var/obj/item/card/id/ID
+	var/obj/item/pda/PDA
+	var/obj/item/storage/wallet/W
+	var/active_hand = get_active_hand()
+	var/inactive_hand = get_inactive_hand()
+
+	//ID
+	if(istype(active_hand, /obj/item/card/id) || istype(inactive_hand, /obj/item/card/id))
+		if(istype(active_hand, ID))
+			ID = active_hand
+		else
+			ID = inactive_hand
+
+	//PDA
+	else if(istype(active_hand, /obj/item/pda) || istype(inactive_hand, /obj/item/pda))
+		if(istype(active_hand, PDA))
+			PDA = active_hand
+		else
+			PDA = inactive_hand
+		if(PDA.id)
+			ID = PDA.id
+
+	//Wallet
+	else if(istype(active_hand, /obj/item/storage/wallet) || istype(inactive_hand, /obj/item/storage/wallet))
+		if(istype(active_hand, W))
+			W = active_hand
+		else
+			W = inactive_hand
+		if(W.front_id)
+			ID = W.front_id
+
+	return ID
+
 /mob/living/carbon/human/update_sight()
 	if(!client)
 		return
@@ -695,7 +730,7 @@
 						update_inv_w_uniform()
 
 	if(href_list["criminal"])
-		if(hasHUD(usr,"security"))
+		if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
 			if(usr.incapacitated())
 				return
 			var/found_record = 0
@@ -712,7 +747,7 @@
 								if(!t1)
 									t1 = "(none)"
 
-								if(hasHUD(usr, "security") && setcriminal != "Cancel")
+								if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE) && setcriminal != "Cancel")
 									found_record = 1
 									if(R.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE)
 										to_chat(usr, "<span class='warning'>Unable to modify the sec status of a person with an active Execution order. Use a security computer instead.</span>")
@@ -735,7 +770,7 @@
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["secrecord"])
-		if(hasHUD(usr,"security"))
+		if(hasHUD(usr, EXAMINE_HUD_SECURITY_READ))
 			if(usr.incapacitated())
 				return
 			var/perpname = get_visible_name(TRUE)
@@ -745,7 +780,7 @@
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in GLOB.data_core.security)
 						if(R.fields["id"] == E.fields["id"])
-							if(hasHUD(usr,"security"))
+							if(hasHUD(usr, EXAMINE_HUD_SECURITY_READ))
 								to_chat(usr, "<b>Name:</b> [R.fields["name"]]	<b>Criminal Status:</b> [R.fields["criminal"]]")
 								to_chat(usr, "<b>Minor Crimes:</b> [R.fields["mi_crim"]]")
 								to_chat(usr, "<b>Details:</b> [R.fields["mi_crim_d"]]")
@@ -759,7 +794,7 @@
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["secrecordComment"])
-		if(hasHUD(usr,"security"))
+		if(hasHUD(usr, EXAMINE_HUD_SECURITY_READ))
 			if(usr.incapacitated() && !isobserver(usr)) //give the ghosts access to "View Comment Log" while they can't manipulate it
 				return
 			var/perpname = get_visible_name(TRUE)
@@ -769,44 +804,30 @@
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in GLOB.data_core.security)
 						if(R.fields["id"] == E.fields["id"])
-							if(hasHUD(usr,"security"))
+							if(hasHUD(usr, EXAMINE_HUD_SECURITY_READ))
 								read = 1
 								if(LAZYLEN(R.fields["comments"]))
 									for(var/c in R.fields["comments"])
 										to_chat(usr, c)
 								else
 									to_chat(usr, "<span class='warning'>No comments found</span>")
-								to_chat(usr, "<a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>")
+								if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
+									to_chat(usr, "<a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>")
 
 			if(!read)
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["secrecordadd"])
-		if(hasHUD(usr,"security"))
-			if(usr.incapacitated())
-				return
-			var/perpname = get_visible_name(TRUE)
-
-			for(var/datum/data/record/E in GLOB.data_core.general)
-				if(E.fields["name"] == perpname)
-					for(var/datum/data/record/R in GLOB.data_core.security)
-						if(R.fields["id"] == E.fields["id"])
-							if(hasHUD(usr,"security"))
-								var/t1 = copytext(trim(sanitize(input("Add Comment:", "Sec. records", null, null) as message)), 1, MAX_MESSAGE_LEN)
-								if(!t1 || usr.stat || usr.restrained() || !hasHUD(usr, "security"))
-									return
-								if(ishuman(usr))
-									var/mob/living/carbon/human/U = usr
-									R.fields["comments"] += "Made by [U.get_authentification_name()] ([U.get_assignment()]) on [GLOB.current_date_string] [station_time_timestamp()]<BR>[t1]"
-								if(isrobot(usr))
-									var/mob/living/silicon/robot/U = usr
-									R.fields["comments"] += "Made by [U.name] ([U.modtype] [U.braintype]) on [GLOB.current_date_string] [station_time_timestamp()]<BR>[t1]"
-								if(isAI(usr))
-									var/mob/living/silicon/ai/U = usr
-									R.fields["comments"] += "Made by [U.name] (artificial intelligence) on [GLOB.current_date_string] [station_time_timestamp()]<BR>[t1]"
+		if(usr.incapacitated() || !hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
+			return
+		var/raw_input = input("Add Comment:", "Security records", null, null) as message
+		var/sanitized = copytext(trim(sanitize(raw_input)), 1, MAX_MESSAGE_LEN)
+		if(!sanitized || usr.stat || usr.restrained() || !hasHUD(usr,  EXAMINE_HUD_SECURITY_WRITE))
+			return
+		add_comment(usr, "security", sanitized)
 
 	if(href_list["medical"])
-		if(hasHUD(usr,"medical"))
+		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
 			if(usr.incapacitated())
 				return
 			var/modified = 0
@@ -818,7 +839,7 @@
 						if(R.fields["id"] == E.fields["id"])
 							var/setmedical = input(usr, "Specify a new medical status for this person.", "Medical HUD", R.fields["p_stat"]) in list("*SSD*", "*Deceased*", "Physically Unfit", "Active", "Disabled", "Cancel")
 
-							if(hasHUD(usr,"medical"))
+							if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
 								if(setmedical != "Cancel")
 									R.fields["p_stat"] = setmedical
 									modified = 1
@@ -832,7 +853,7 @@
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["medrecord"])
-		if(hasHUD(usr,"medical"))
+		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
 			if(usr.incapacitated())
 				return
 			var/read = 0
@@ -842,7 +863,7 @@
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in GLOB.data_core.medical)
 						if(R.fields["id"] == E.fields["id"])
-							if(hasHUD(usr,"medical"))
+							if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
 								to_chat(usr, "<b>Name:</b> [R.fields["name"]]	<b>Blood Type:</b> [R.fields["b_type"]]")
 								to_chat(usr, "<b>DNA:</b> [R.fields["b_dna"]]")
 								to_chat(usr, "<b>Minor Disabilities:</b> [R.fields["mi_dis"]]")
@@ -857,18 +878,18 @@
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["medrecordComment"])
-		if(hasHUD(usr,"medical"))
+		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
 			if(usr.incapacitated())
 				return
 			var/perpname = get_visible_name(TRUE)
-			var/read = 0
+			var/read = FALSE
 
 			for(var/datum/data/record/E in GLOB.data_core.general)
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in GLOB.data_core.medical)
 						if(R.fields["id"] == E.fields["id"])
-							if(hasHUD(usr,"medical"))
-								read = 1
+							if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
+								read = TRUE
 								if(LAZYLEN(R.fields["comments"]))
 									for(var/c in R.fields["comments"])
 										to_chat(usr, c)
@@ -880,27 +901,28 @@
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["medrecordadd"])
-		if(hasHUD(usr,"medical"))
+		if(usr.incapacitated() || !hasHUD(usr, EXAMINE_HUD_MEDICAL))
+			return
+		var/raw_input = input("Add Comment:", "Medical records", null, null) as message
+		var/sanitized = copytext(trim(sanitize(raw_input)), 1, MAX_MESSAGE_LEN)
+		if(!sanitized || usr.stat || usr.restrained() || !hasHUD(usr,  EXAMINE_HUD_MEDICAL))
+			return
+		add_comment(usr, "medical", sanitized)
+
+	if(href_list["employment_more"])
+		if(hasHUD(usr, EXAMINE_HUD_SKILLS))
 			if(usr.incapacitated())
 				return
+
+			var/skills
 			var/perpname = get_visible_name(TRUE)
-			for(var/datum/data/record/E in GLOB.data_core.general)
-				if(E.fields["name"] == perpname)
-					for(var/datum/data/record/R in GLOB.data_core.medical)
-						if(R.fields["id"] == E.fields["id"])
-							if(hasHUD(usr,"medical"))
-								var/t1 = copytext(trim(sanitize(input("Add Comment:", "Med. records", null, null) as message)), 1, MAX_MESSAGE_LEN)
-								if(!t1 || usr.stat || usr.restrained() || !hasHUD(usr, "medical"))
-									return
-								if(ishuman(usr))
-									var/mob/living/carbon/human/U = usr
-									R.fields["comments"] += "Made by [U.get_authentification_name()] ([U.get_assignment()]) on [GLOB.current_date_string] [station_time_timestamp()]<BR>[t1]"
-								if(isrobot(usr))
-									var/mob/living/silicon/robot/U = usr
-									R.fields["comments"] += "Made by [U.name] ([U.modtype] [U.braintype]) on [GLOB.current_date_string] [station_time_timestamp()]<BR>[t1]"
-								if(isAI(usr))
-									var/mob/living/silicon/ai/U = usr
-									R.fields["comments"] += "Made by [U.name] (artificial intelligence) on [GLOB.current_date_string] [station_time_timestamp()]<BR>[t1]"
+			if(perpname)
+				for(var/datum/data/record/E in GLOB.data_core.general)
+					if(E.fields["name"] == perpname)
+						skills = E.fields["notes"]
+						break
+				if(skills)
+					to_chat(usr, "<span class='deptradio'>Employment records: [skills]</span>\n")
 
 	if(href_list["lookitem"])
 		var/obj/item/I = locate(href_list["lookitem"])
@@ -986,34 +1008,34 @@
 	return
 
 /mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE)
-	. = 1
+	. = TRUE
 
 	if(!target_zone)
 		if(!user)
-			target_zone = pick("chest","chest","chest","left leg","right leg","left arm", "right arm", "head")
+			. = FALSE
+			CRASH("can_inject() called on a human mob with neither a user nor a targeting zone selected.")
 		else
 			target_zone = user.zone_selected
 
-
 	if(PIERCEIMMUNE in dna.species.species_traits)
-		. = 0
+		. = FALSE
 
 	var/obj/item/organ/external/affecting = get_organ(target_zone)
 	var/fail_msg
 	if(!affecting)
-		. = 0
+		. = FALSE
 		fail_msg = "[p_they(TRUE)] [p_are()] missing that limb."
 	else if(affecting.is_robotic())
-		. = 0
+		. = FALSE
 		fail_msg = "That limb is robotic."
 	else
 		switch(target_zone)
 			if("head")
 				if(head && head.flags & THICKMATERIAL && !penetrate_thick)
-					. = 0
+					. = FALSE
 			else
 				if(wear_suit && wear_suit.flags & THICKMATERIAL && !penetrate_thick)
-					. = 0
+					. = FALSE
 	if(!. && error_msg && user)
 		if(!fail_msg)
 			fail_msg = "There is no exposed flesh or thin material [target_zone == "head" ? "on [p_their()] head" : "on [p_their()] body"] to inject into."
@@ -1475,14 +1497,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/eyes_shine()
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
-	if(!(istype(eyes) || istype(eye_implant)))
-		return FALSE
 	if(!get_location_accessible(src, "eyes"))
 		return FALSE
-	if(!(eyes.shine()) && !istype(eye_implant) && !(XRAY in mutations)) //If their eyes don't shine, they don't have other augs, nor do they have X-RAY vision
-		return FALSE
+	// Natural eyeshine, any implants, and XRAY - all give shiny appearance.
+	if((istype(eyes) && eyes.shine()) || istype(eye_implant) || (XRAY in mutations))
+		return TRUE
 
-	return TRUE
+	return FALSE
 
 /mob/living/carbon/human/assess_threat(var/mob/living/simple_animal/bot/secbot/judgebot, var/lasercolor)
 	if(judgebot.emagged == 2)
@@ -1573,6 +1594,11 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 				step_towards(hand, src)
 				to_chat(src, "<span class='warning'>\The [S] pulls \the [hand] from your grip!</span>")
 	apply_effect(current_size * 3, IRRADIATE)
+
+/mob/living/carbon/human/narsie_act()
+	if(iswizard(src) && iscultist(src)) //Wizard cultists are immune to narsie because it would prematurely end the wiz round that's about to end by the automated shuttle call anyway
+		return
+	..()
 
 /mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
 	if(H == src)
@@ -1928,6 +1954,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/get_spooked()
 	to_chat(src, "<span class='whisper'>[pick(GLOB.boo_phrases)]</span>")
+	return TRUE
 
 /mob/living/carbon/human/extinguish_light()
 	// Parent function handles stuff the human may be holding
@@ -1940,3 +1967,11 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/proc/get_perceived_trauma()
 	return min(health, maxHealth - getStaminaLoss())
+
+/**
+  * Helper to get the mobs runechat colour span
+  *
+  * Basically just a quick redirect to the DNA handler that gets the species-specific colour handler
+  */
+/mob/living/carbon/human/get_runechat_color()
+   return dna.species.get_species_runechat_color(src)

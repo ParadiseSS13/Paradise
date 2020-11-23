@@ -502,6 +502,9 @@
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
 		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 2)
 
+/obj/machinery/disposal/force_eject_occupant(mob/target)
+	target.forceMove(get_turf(src))
+
 // virtual disposal object
 // travels through pipes in lieu of actual items
 // contents will be items flushed by the disposal

@@ -1,3 +1,5 @@
+#define WATER_STUN_TIME 2 //Stun time for water, to edit/find easier
+#define WATER_WEAKEN_TIME 1 //Weaken time for water, to edit/find easier
 /turf/simulated
 	name = "station"
 	var/wet = 0
@@ -81,7 +83,7 @@
 
 			switch(src.wet)
 				if(TURF_WET_WATER)
-					if(!(M.slip("the wet floor", 4, 2, tilesSlipped = 0, walkSafely = 1)))
+					if(!(M.slip("the wet floor", WATER_STUN_TIME, WATER_WEAKEN_TIME, tilesSlipped = 0, walkSafely = 1)))
 						M.inertia_dir = 0
 						return
 
@@ -107,3 +109,6 @@
 	queue_smooth_neighbors(src)
 
 /turf/simulated/proc/is_shielded()
+
+#undef WATER_STUN_TIME
+#undef WATER_WEAKEN_TIME

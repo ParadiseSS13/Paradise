@@ -127,9 +127,10 @@ SUBSYSTEM_DEF(ticker)
 	if((GLOB.master_mode=="random") || (GLOB.master_mode=="secret"))
 		runnable_modes = config.get_runnable_modes()
 		if(runnable_modes.len==0)
+			to_chat(world, "<B>Unable to choose playable game mode.</B> Reverting to pre-game lobby.")
+			force_start = FALSE
 			current_state = GAME_STATE_PREGAME
 			Master.SetRunLevel(RUNLEVEL_LOBBY)
-			to_chat(world, "<B>Unable to choose playable game mode.</B> Reverting to pre-game lobby.")
 			return 0
 		if(GLOB.secret_force_mode != "secret")
 			var/datum/game_mode/M = config.pick_mode(GLOB.secret_force_mode)
@@ -147,6 +148,7 @@ SUBSYSTEM_DEF(ticker)
 		to_chat(world, "<B>Unable to start [mode.name].</B> Not enough players, [mode.required_players] players needed. Reverting to pre-game lobby.")
 		mode = null
 		current_state = GAME_STATE_PREGAME
+		force_start = FALSE
 		SSjobs.ResetOccupations()
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
 		return 0
@@ -158,8 +160,9 @@ SUBSYSTEM_DEF(ticker)
 	SSjobs.DivideOccupations() //Distribute jobs
 	if(!can_continue)
 		qdel(mode)
-		current_state = GAME_STATE_PREGAME
 		to_chat(world, "<B>Error setting up [GLOB.master_mode].</B> Reverting to pre-game lobby.")
+		current_state = GAME_STATE_PREGAME
+		force_start = FALSE
 		SSjobs.ResetOccupations()
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
 		return 0
@@ -276,9 +279,7 @@ SUBSYSTEM_DEF(ticker)
 	//start_events() //handles random events and space dust.
 	//new random event system is handled from the MC.
 
-	var/list/admins_number = staff_countup(R_BAN)
-	if(admins_number[1] == 0 && admins_number[3] == 0)
-		send2irc(config.admin_notify_irc, "Round has started with no admins online.")
+	SSdiscord.send2discord_simple_noadmins("Round has started")
 	auto_toggle_ooc(0) // Turn it off
 	round_start_time = world.time
 

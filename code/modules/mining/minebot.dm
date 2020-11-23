@@ -336,6 +336,8 @@
 		M.move_to_delay = initial(M.move_to_delay) + base_speed_add
 		if(M.stored_gun)
 			M.stored_gun.overheat_time += base_cooldown_add
+		if(M.mind)
+			M.mind.offstation_role = TRUE
 
 /**********************Mining drone cube**********************/
 

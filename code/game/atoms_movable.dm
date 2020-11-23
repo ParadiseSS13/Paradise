@@ -224,6 +224,12 @@
 		newtonian_move(Dir)
 	if(length(client_mobs_in_contents))
 		update_parallax_contents()
+
+	var/datum/light_source/L
+	var/thing
+	for (thing in light_sources) // Cycle through the light sources on this atom and tell them to update.
+		L = thing
+		L.source_atom.update_light()
 	return TRUE
 
 // Change glide size for the duration of one movement
@@ -428,6 +434,7 @@
 	simulated = FALSE
 
 /atom/movable/overlay/New()
+	. = ..()
 	verbs.Cut()
 	return
 
@@ -561,7 +568,7 @@
 	// Who can see the attack?
 	var/list/viewing = list()
 	for(var/mob/M in viewers(A))
-		if(M.client && M.client.prefs.show_ghostitem_attack)
+		if(M.client && M.client.prefs.toggles2 & PREFTOGGLE_2_ITEMATTACK)
 			viewing |= M.client
 
 	flick_overlay(I, viewing, 5) // 5 ticks/half a second
