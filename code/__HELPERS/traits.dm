@@ -70,5 +70,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_AGEUSIA			"ageusia"
 //finhispatraits
 
+//
 // common trait sources
 #define ROUNDSTART_TRAIT "roundstart" //cannot be removed without admin intervention
+#define CULT_TRAIT "cult"
+
+// unique trait sources
+#define CULT_EYES "cult_eyes"

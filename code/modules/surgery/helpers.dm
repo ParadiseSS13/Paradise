@@ -133,7 +133,9 @@
 	var/turf/T = get_turf(M)
 	if(locate(/obj/machinery/optable, T))
 		return 1
-	else if(locate(/obj/structure/table, T))
+	else if(locate(/obj/structure/bed/roller/advanced, T)) //Modificador para roller beds advanced
+		return 0.9
+	else if(locate(/obj/structure/table, T) || locate(/obj/structure/bed/roller/bluespace, T)) //Modificador para roller beds bluespace
 		return 0.8
 	else if(locate(/obj/structure/bed, T))
 		return 0.7
