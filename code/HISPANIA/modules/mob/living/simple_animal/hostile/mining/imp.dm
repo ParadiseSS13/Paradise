@@ -11,7 +11,7 @@
 	move_to_delay = 20
 	projectiletype = /obj/item/projectile/magic/fireball/infernal
 	projectilesound = 'sound/hispania/misc/impranged.wav'
-	ranged = 1
+	ranged = TRUE
 	ranged_message = "shoots a fireball"
 	ranged_cooldown_time = 70
 	throw_message = "does nothing against the hardened skin of"
@@ -35,7 +35,7 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 2, /obj/item/stack/sheet/bone = 3, /obj/item/stack/sheet/sinew = 2)
 	death_sound = 'sound/hispania/misc/impdies.wav'
 
-mob/living/simple_animal/hostile/asteroid/imp/attacked_by(obj/item/I, mob/living/user)
+/mob/living/simple_animal/hostile/asteroid/imp/attacked_by(obj/item/I, mob/living/user)
 	. = ..()
 	playsound(src, 'sound/hispania/misc/impinjured.wav', rand(25,100), -1)
 

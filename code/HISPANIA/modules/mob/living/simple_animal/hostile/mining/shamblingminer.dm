@@ -8,7 +8,7 @@
 	icon_aggro = "miner"
 	icon_dead = "miner_dead"
 	icon_gib = "syndicate_gib"
-	ranged = 0
+	ranged = FALSE
 	speak_emote = list("moans")
 	speed = 1
 	move_to_delay = 3
