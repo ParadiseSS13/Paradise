@@ -126,6 +126,8 @@ Class Procs:
 	var/frequency = NONE
 	/// A reference to a `datum/radio_frequency`. Gives the machine the ability to interact with things using radio signals.
 	var/datum/radio_frequency/radio_connection
+	/// This is if the machinery is being repaired
+	var/being_repaired = FALSE
 
 /*
  * reimp, attempts to flicker this machinery if the behavior is supported.
@@ -475,6 +477,26 @@ Class Procs:
 	. = ..()
 	if(.)
 		power_change()
+
+/obj/machinery/attackby(obj/item/O, mob/user, params)
+	if(istype(O, /obj/item/stack/nanopaste))
+		if(stat && BROKEN)
+			to_chat(user, "<span class='notice'>\The [src] is too damaged to be fixed with nanopaste!</span>")
+			return
+		if(obj_integrity == max_integrity)
+			to_chat(user, "<span class='notice'>\The [src] is fully intact.</span>")
+			return
+		if(!being_repaired)
+			to_chat(user, "<span class='notice'>You start applying the [O] to the [src].</span>")
+			being_repaired = TRUE
+			var/result = do_after(user, 3 SECONDS, target = src)
+			being_repaired = FALSE
+			if(result)
+				var/obj/item/stack/nanopaste/N = O
+				obj_integrity = clamp((obj_integrity + 50), obj_integrity, max_integrity)
+				N.use(1)
+				user.visible_message("<span class='notice'>[user.name] applied some [O] at [src]'s damaged areas.</span>",\
+					"<span class='notice'>You apply some [O] at [name]'s damaged areas.</span>")
 
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	var/shouldplaysound = 0
