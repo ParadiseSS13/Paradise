@@ -739,9 +739,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 //overriden here and in /mob/living for different point span classes and sanity checks
 /mob/dead/observer/pointed(atom/A as mob|obj|turf in view())
 	if(!..())
-		return 0
-	usr.visible_message("<span class='deadsay'><b>[src]</b> points to [A].</span>")
-	return 1
+		return FALSE
+	usr.visible_message("<span class='deadsay'><b>[src]</b> points to [A] ([ghost_follow_link(A, src)]).</span>")
+	return TRUE
 
 /mob/dead/observer/proc/incarnate_ghost()
 	if(!client)
