@@ -841,7 +841,7 @@
 		to_chat(user, "<span class='notice'>[src] is currently being repaired!</span>")
 		return
 	if(state == 0)
-		to_chat(user, "<span class='notice'>[src] can not be repaired without maintenance protocols active!</span>")
+		to_chat(user, "<span class='warning'>[src] can not be repaired without maintenance protocols active!</span>")
 		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
 	repairing = TRUE
