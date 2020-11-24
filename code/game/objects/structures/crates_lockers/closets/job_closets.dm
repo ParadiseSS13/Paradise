@@ -72,12 +72,6 @@
 
 /obj/structure/closet/jcloset/New()
 	..()
-	new /obj/item/clothing/under/rank/janitor(src)
-	new /obj/item/clothing/under/rank/janitor(src)
-	new /obj/item/radio/headset/headset_service(src)
-	new /obj/item/radio/headset/headset_service(src)
-	new /obj/item/cartridge/janitor(src)
-	new /obj/item/cartridge/janitor(src)
 	new /obj/item/flashlight(src)
 	new /obj/item/flashlight(src)
 	new /obj/item/melee/flyswatter(src)
@@ -97,14 +91,16 @@
 	new /obj/item/lightreplacer(src)
 	new /obj/item/holosign_creator(src)
 	new /obj/item/holosign_creator(src)
-	new /obj/item/clothing/gloves/color/black(src)
-	new /obj/item/clothing/gloves/color/black(src)
-	new /obj/item/clothing/head/soft/purple(src)
-	new /obj/item/clothing/head/soft/purple(src)
 	new /obj/item/watertank/janitor(src)
 	new /obj/item/watertank/janitor(src)
 	new /obj/item/storage/belt/janitor(src)
 	new /obj/item/storage/belt/janitor(src)
+	new /obj/item/clothing/gloves/color/black(src)
+	new /obj/item/clothing/head/soft/purple(src)
+	new /obj/item/radio/headset/headset_service(src)
+	new /obj/item/radio/headset/headset_service(src)
+	new /obj/item/clothing/under/rank/janitor(src)
+	new /obj/item/cartridge/janitor(src)
 
 /*
  * Lawyer
