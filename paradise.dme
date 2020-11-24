@@ -914,6 +914,7 @@
 #include "code\game\objects\items\devices\uplinks.dm"
 #include "code\game\objects\items\devices\voice.dm"
 #include "code\game\objects\items\devices\whistle.dm"
+#include "code\game\objects\items\devices\window_painter.dm"
 #include "code\game\objects\items\devices\radio\beacon.dm"
 #include "code\game\objects\items\devices\radio\electropack.dm"
 #include "code\game\objects\items\devices\radio\encryptionkey.dm"
