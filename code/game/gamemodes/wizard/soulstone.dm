@@ -335,7 +335,6 @@
 		shade.mind.transfer_to(src)
 	if(SS.purified)
 		set_light(3, 5, LIGHT_COLOR_DARK_BLUE)
-		color = LIGHT_COLOR_DARK_BLUE // Make them blue tinted
 		name = "Holy [name]"
 		real_name = "Holy [real_name]"
 
