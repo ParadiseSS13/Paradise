@@ -208,6 +208,7 @@
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/constable
+	hidden_from_job_prefs = TRUE
 
 /datum/outfit/job/constable
 	name = "Constable"
