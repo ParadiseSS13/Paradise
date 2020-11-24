@@ -265,6 +265,9 @@
 	/// (This does not mean all ahelps are pinged, only ahelps sent when staff are offline get the ping, regardless of this setting)
 	var/discord_forward_all_ahelps = FALSE
 
+	/// URL for the CentCom Ban DB API
+	var/centcom_ban_db_url = null
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -754,6 +757,8 @@
 				if("discord_forward_all_ahelps")
 					discord_forward_all_ahelps = TRUE
 				// End discord stuff
+				if("centcom_ban_db_url")
+					centcom_ban_db_url = value
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
