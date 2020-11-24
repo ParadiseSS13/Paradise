@@ -495,11 +495,11 @@ Class Procs:
 		if(!result)
 			return
 		var/obj/item/stack/nanopaste/N = O
-		obj_integrity = clamp((obj_integrity + 50), obj_integrity, max_integrity)
+		obj_integrity = min(obj_integrity + 50, max_integrity)
 		if(!N.use(1))
 			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>")
 			return
-		user.visible_message("<span class='notice'>[user.name] applied some [O] at [src]'s damaged areas.</span>",\
+		user.visible_message("<span class='notice'>[user] applied some [O] at [src]'s damaged areas.</span>",\
 			"<span class='notice'>You apply some [O] at [src]'s damaged areas.</span>")
 	else
 		return ..()
