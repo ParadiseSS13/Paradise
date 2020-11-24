@@ -3375,6 +3375,19 @@
 		if(!check_rights(R_ADMIN))
 			return
 		create_ccbdb_lookup(href_list["open_ccbdb"])
+	else if(href_list["slowquery"])
+		if(!check_rights(R_ADMIN))
+			return
+		message_admins("[key_name_admin(usr)] started responding to a query hang report") // So multiple admins dont try file the same report
+		var/answer = href_list["slowquery"]
+		if(answer == "yes")
+			log_sql("[usr.key] | Reported a server hang")
+			if(alert(usr, "Had you just pressed any admin buttons which could lag the server?", "Query server hang report", "Yes", "No") == "Yes")
+				var/response = input(usr,"What were you just doing?","Query server hang report") as null|text
+				if(response)
+					log_sql("[usr.key] | [response]")
+		else if(answer == "no")
+			log_sql("[usr.key] | Reported no server hang. Please investigate")
 
 
 /client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)
