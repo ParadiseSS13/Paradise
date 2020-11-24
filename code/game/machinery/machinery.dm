@@ -486,19 +486,21 @@ Class Procs:
 		if(obj_integrity == max_integrity)
 			to_chat(user, "<span class='notice'>[src] is fully intact.</span>")
 			return
-		if(!being_repaired)
-			to_chat(user, "<span class='notice'>You start applying [O] to [src].</span>")
-			being_repaired = TRUE
-			var/result = do_after(user, 3 SECONDS, target = src)
-			being_repaired = FALSE
-			if(result)
-				var/obj/item/stack/nanopaste/N = O
-				obj_integrity = clamp((obj_integrity + 50), obj_integrity, max_integrity)
-				if(!N.use(1))
-					to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>")
-					return
-				user.visible_message("<span class='notice'>[user.name] applied some [O] at [src]'s damaged areas.</span>",\
-					"<span class='notice'>You apply some [O] at [name]'s damaged areas.</span>")
+		if(being_repaired)
+			return
+		to_chat(user, "<span class='notice'>You start applying [O] to [src].</span>")
+		being_repaired = TRUE
+		var/result = do_after(user, 3 SECONDS, target = src)
+		being_repaired = FALSE
+		if(!result)
+			return
+		var/obj/item/stack/nanopaste/N = O
+		obj_integrity = clamp((obj_integrity + 50), obj_integrity, max_integrity)
+		if(!N.use(1))
+			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>")
+			return
+		user.visible_message("<span class='notice'>[user.name] applied some [O] at [src]'s damaged areas.</span>",\
+			"<span class='notice'>You apply some [O] at [src]'s damaged areas.</span>")
 	else
 		return ..()
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
