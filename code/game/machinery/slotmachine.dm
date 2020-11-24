@@ -69,7 +69,7 @@
 			atom_say("Big Winner! [userName] has won a thousand credits!")
 			result = "You win a thousand credits!"
 			resultlvl = "green"
-			win_money(500, 'sound/goonstation/misc/klaxon.ogg')
+			win_money(1000, 'sound/goonstation/misc/klaxon.ogg')
 		if(21 to 100)
 			atom_say("Winner! [userName] has won five hundred credits!")
 			result = "You win five hundred credits!"
@@ -79,6 +79,7 @@
 			atom_say("Winner! [userName] has won two hundred credits!")
 			result = "You win two hundred credits!"
 			resultlvl = "green"
+			win_money(200)
 		if(501 to 1000)
 			atom_say("Winner! [userName] has won fifty credits!")
 			result = "You win fifty credits!"
