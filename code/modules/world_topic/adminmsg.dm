@@ -6,7 +6,7 @@
 	/*
 	We got an adminmsg from the Discord bot, so lets split the input then validate the input. Expected output:
 		1. adminmsg = ckey of person the message is to
-		2. msg = contents of message, parems2list requires
+		2. msg = contents of message, params2list requires
 		3. sender = the discord name that send the message.
 	*/
 
