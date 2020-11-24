@@ -373,7 +373,7 @@
 	if(holder)
 		on_holder_add()
 		add_admin_verbs()
-		admin_memo_output("Show", 0, 1)
+		INVOKE_ASYNC(src, .proc/admin_memo_output, "Show", FALSE, TRUE)
 
 	// Forcibly enable hardware-accelerated graphics, as we need them for the lighting overlays.
 	// (but turn them off first, since sometimes BYOND doesn't turn them on properly otherwise)

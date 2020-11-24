@@ -272,7 +272,8 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 /datum/db_query/proc/warn_execute(async = TRUE)
 	. = Execute(async)
 	if(!.)
-		to_chat(usr, "<span class='danger'>A SQL error occurred during this operation, check the server logs.</span>")
+		to_chat(usr, "<span class='danger'>A SQL error occurred during this operation, please inform an admin or a coder.</span>")
+		message_admins("An SQL error has occured. Please check the server logs, with the following timestamp ID: \[[time_stamp()]]")
 
 /datum/db_query/proc/Execute(async = TRUE, log_error = TRUE)
 	Activity("Execute")
