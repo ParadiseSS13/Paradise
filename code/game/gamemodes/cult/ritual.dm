@@ -122,6 +122,10 @@
 		if(!keyword)
 			return
 
+	// Check everything again, in case they moved
+	if(!can_scribe(user))
+		return
+
 	// Check if the rune is allowed
 	var/area/A = get_area(src)
 	var/turf/runeturf = get_turf(user)
@@ -131,40 +135,43 @@
 			to_chat(user, "<span class='cultitalic'>The veil is not weak enough here to summon a cultist, you must be on station!</span>")
 			return
 
+	var/old_color = user.color  // we'll temporarily redden the user for better feedback to fellow cultists. Store this to revert them back.
 	if(narsie_rune)
 		if(!narsie_rune_check(user, A))
 			return // don't do shit
-		else
-			var/list/summon_areas = gamemode.cult_objs.obj_summon.summon_spots
-			if(!(A in summon_areas))  // Check again to make sure they didn't move
-				to_chat(user, "<span class='cultlarge'>The ritual can only begin where the veil is weak - in [english_list(summon_areas)]!</span>")
-				return
-			GLOB.command_announcement.Announce("Figments from an eldritch god are being summoned into the [A.map_name] from an unknown dimension. Disrupt the ritual at all costs, before the station is destroyed! Space law and SOP are suspended. The entire crew must kill cultists on sight.", "Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
-			for(var/I in spiral_range_turfs(1, user, 1))
-				var/turf/T = I
-				var/obj/machinery/shield/cult/narsie/N = new(T)
-				shields |= N
-
-	// Check everything again, in case they moved
-	if(!can_scribe(user))
-		return
+		var/list/summon_areas = gamemode.cult_objs.obj_summon.summon_spots
+		if(!(A in summon_areas))  // Check again to make sure they didn't move
+			to_chat(user, "<span class='cultlarge'>The ritual can only begin where the veil is weak - in [english_list(summon_areas)]!</span>")
+			return
+		GLOB.command_announcement.Announce("Figments from an eldritch god are being summoned into the [A.map_name] from an unknown dimension. Disrupt the ritual at all costs, before the station is destroyed! Space law and SOP are suspended. The entire crew must kill cultists on sight.", "Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
+		for(var/I in spiral_range_turfs(1, user, 1))
+			var/turf/T = I
+			var/obj/machinery/shield/cult/narsie/N = new(T)
+			shields |= N
+		user.color = "red"
 
 	// Draw the rune
 	var/mob/living/carbon/human/H = user
-	H.cult_self_harm(initial(rune.scribe_damage), TRUE)
-	if(!do_after(user, initial(rune.scribe_delay) * scribe_multiplier, target = runeturf))
-		for(var/V in shields) // Only used for the 'Tear Veil' rune
-			var/obj/machinery/shield/S = V
-			if(S && !QDELETED(S))
-				qdel(S)
+	H.cult_self_harm(initial(rune.scribe_damage))
+	var/others_message
+	if(!narsie_rune)
+		others_message = "<span class='warning'>[user] cuts [user.p_their()] body and begins writing in [user.p_their()] own blood!</span>"
+	else
+		others_message = "<span class='biggerdanger'>[user] cuts [user.p_their()] body and begins writing something particularly ominous in [user.p_their()] own blood!</span>"
+	user.visible_message(others_message,
+		"<span class='cultitalic'>You slice open your body and begin drawing a sigil of [SSticker.cultdat.entity_title3].</span>")
+
+	var/scribe_successful = do_after(user, initial(rune.scribe_delay) * scribe_multiplier, target = runeturf)
+	for(var/V in shields) // Only used for the 'Tear Veil' rune
+		var/obj/machinery/shield/S = V
+		if(S && !QDELETED(S))
+			qdel(S)
+	user.color = old_color
+	if(!scribe_successful)
 		return
 
 	user.visible_message("<span class='warning'>[user] creates a strange circle in [user.p_their()] own blood.</span>",
 						 "<span class='cultitalic'>You finish drawing the arcane markings of [SSticker.cultdat.entity_title3].</span>")
-	for(var/V in shields) // Only for the 'Tear Veil' rune
-		var/obj/machinery/shield/S = V
-		if(S && !QDELETED(S))
-			qdel(S)
 
 	var/obj/effect/rune/R = new rune(runeturf, keyword)
 	if(narsie_rune)
