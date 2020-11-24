@@ -465,3 +465,9 @@ BYOND_ACCOUNT_AGE_THRESHOLD 7
 #DISCORD_FORWARD_ALL_AHELPS
 
 ##### END DISCORD STUFF #####
+
+## URL For CentCom global ban DB
+## This is a config option should you want to disable this system, or if the primary URL changes
+## THE TRAILING SLASH ON THE END IS IMPORTANT SINCE IT JUST APPENDS THE CKEY TO THE END IN RAW
+## Add a hash before the line below to disable the system
+CENTCOM_BAN_DB_URL https://centcom.melonmesa.com/ban/search/
