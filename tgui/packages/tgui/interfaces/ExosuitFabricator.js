@@ -17,10 +17,6 @@ const iconNameOverrides = {
 export const ExosuitFabricator = (properties, context) => {
   const { act, data } = useBackend(context);
   const {
-    categories,
-    curCategory,
-    designs,
-    syncing,
     building,
   } = data;
   return (
