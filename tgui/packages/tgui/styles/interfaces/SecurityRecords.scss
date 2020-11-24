@@ -20,15 +20,19 @@
 }
 
 .SecurityRecords__listRow--arrest {
-  background-color: colors.bg(#890E26);
+  background-color: colors.bg(#890e26);
 }
 
 .SecurityRecords__listRow--execute {
   background-color: colors.bg(#7a49a5);
 }
 
-.SecurityRecords__listRow--incarcerated, .SecurityRecords__listRow--parolled {
-  background-color: colors.bg(#743B03);
+.SecurityRecords__listRow--incarcerated {
+  background-color: colors.bg(#743b03);
+}
+
+.SecurityRecords__listRow--parolled {
+  background-color: colors.bg(#008091);
 }
 
 .SecurityRecords__listRow--released {
