@@ -254,26 +254,26 @@
 	if(wound_flavor_text["r_foot"]&& (is_destroyed["right foot"] || (!shoes  && !skipshoes)))
 		msg += wound_flavor_text["r_foot"]
 
-	var/temp = getBruteLoss() //no need to calculate each of these twice
+	var/damage = getBruteLoss() //no need to calculate each of these twice
 
-	if(temp)
+	if(damage)
 		var/brute_message = !ismachineperson(src) ? "bruising" : "denting"
-		if(temp < 30)
-			msg += "[p_they(TRUE)] [p_have()] minor [brute_message ].\n"
+		if(damage < 60)
+			msg += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] [brute_message].\n"
 		else
-			msg += "<B>[p_they(TRUE)] [p_have()] severe [brute_message ]!</B>\n"
+			msg += "<B>[p_they(TRUE)] [p_have()] severe [brute_message]!</B>\n"
 
-	temp = getFireLoss()
-	if(temp)
-		if(temp < 30)
-			msg += "[p_they(TRUE)] [p_have()] minor burns.\n"
+	damage = getFireLoss()
+	if(damage)
+		if(damage < 60)
+			msg += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] burns.\n"
 		else
 			msg += "<B>[p_they(TRUE)] [p_have()] severe burns!</B>\n"
 
-	temp = getCloneLoss()
-	if(temp)
-		if(temp < 30)
-			msg += "[p_they(TRUE)] [p_have()] minor cellular damage.\n"
+	damage = getCloneLoss()
+	if(damage)
+		if(damage < 60)
+			msg += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] cellular damage.\n"
 		else
 			msg += "<B>[p_they(TRUE)] [p_have()] severe cellular damage.</B>\n"
 

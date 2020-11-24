@@ -127,8 +127,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				var/mob/living/carbon/human/A = user
 				if(limited_stock > 0)
 					log_game("[key_name(user)] purchased [name]. [name] was discounted to [cost].")
+					if(!user.mind.special_role)
+						message_admins("[key_name_admin(user)] purchased [name] (discounted to [cost]), as a non antagonist.")
 				else
 					log_game("[key_name(user)] purchased [name].")
+					if(!user.mind.special_role)
+						message_admins("[key_name_admin(user)] purchased [name], as a non antagonist.")
 				A.put_in_any_hand_if_possible(I)
 
 				if(istype(I,/obj/item/storage/box/) && I.contents.len>0)

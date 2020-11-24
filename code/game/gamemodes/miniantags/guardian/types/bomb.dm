@@ -49,6 +49,7 @@
 	density = A.density
 	appearance = A.appearance
 	dir = A.dir
+	move_resist = A.move_resist
 	addtimer(CALLBACK(src, .proc/disable), 600)
 
 /obj/item/guardian_bomb/proc/disable()

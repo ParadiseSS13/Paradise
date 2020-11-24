@@ -70,13 +70,29 @@
 
 //HELPERS
 
-//called when a carbon changes virus
-/mob/living/carbon/proc/check_virus()
+/// Whether the carbon mob is currently in crit.
+// Even though "crit" does not realistically happen for non-humans..
+/mob/living/carbon/proc/is_in_crit()
+	for(var/thing in viruses)
+		var/datum/disease/D = thing
+		if(istype(D, /datum/disease/critical))
+			return TRUE
+	return FALSE
+
+/mob/living/carbon/human/is_in_crit()
+	if(..())
+		return TRUE
+	if(undergoing_cardiac_arrest())
+		return TRUE
+	return FALSE
+
+/// Whether a virus worthy displaying on the HUD is present.
+/mob/living/carbon/proc/has_virus()
 	for(var/thing in viruses)
 		var/datum/disease/D = thing
 		if((!(D.visibility_flags & HIDDEN_SCANNER)) && (D.severity != NONTHREAT))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 //helper for getting the appropriate health status
 /proc/RoundHealth(mob/living/M)
@@ -162,19 +178,22 @@
 /mob/living/carbon/med_hud_set_status()
 	var/image/holder = hud_list[STATUS_HUD]
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
-	if(stat == DEAD || (status_flags & FAKEDEATH))
-		if(timeofdeath)
-			var/tdelta = round(world.time - timeofdeath)
-			if(tdelta < (DEFIB_TIME_LIMIT * 10))
-				holder.icon_state = "huddefib"
-				return
-		holder.icon_state = "huddead"
+	var/dead = stat == DEAD || (status_flags & FAKEDEATH)
+	// To the right of health bar
+	if(dead)
+		var/revivable = timeofdeath && (round(world.time - timeofdeath) < DEFIB_TIME_LIMIT)
+		if(revivable)
+			holder.icon_state = "hudflatline"
+		else
+			holder.icon_state = "huddead"
 	else if(status_flags & XENO_HOST)
 		holder.icon_state = "hudxeno"
-	else if(check_virus())
-		holder.icon_state = "hudill"
 	else if(B && B.controlling)
 		holder.icon_state = "hudbrainworm"
+	else if(is_in_crit())
+		holder.icon_state = "huddefib"
+	else if(has_virus())
+		holder.icon_state = "hudill"
 	else
 		holder.icon_state = "hudhealthy"
 
