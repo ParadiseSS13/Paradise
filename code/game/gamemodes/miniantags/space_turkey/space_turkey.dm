@@ -18,7 +18,7 @@
 	obj_damage = 0
 	melee_damage_lower = 4
 	melee_damage_upper = 7
-	see_in_dark = 6
+	see_in_dark = 8
 	attacktext = "pecks"
 	attack_sound = 'sound/weapons/rapierhit.ogg'
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 6)
@@ -32,6 +32,10 @@
 							<b>Objective #3:</b> Don't harm anyone unless you're cornered. <i>(Hint: The Flying Tackle doesn't hurt people.)</i>"
 
 	var/egg_type = /obj/item/reagent_containers/food/snacks/egg/turkey
+
+/mob/living/simple_animal/turkey/space_turkey/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+		..(shock_damage, source, siemens_coeff*0.4, safety, override, tesla_shock, illusion, stun)
+		//Reduces damage turkeys take from shocks. Put in so shocked doors won't kill them in a second.
 
 /mob/living/simple_animal/turkey/space_turkey/proc/ghost_call()
 	notify_ghosts("A space turkey has been created at [get_area(src)]!", enter_link = "<a href=?src=[UID()];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK)
@@ -64,12 +68,9 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/item/reagent_containers/food/snacks/egg/turkey/process()
-	if(isturf(loc)) //Currently quits growing if picked up; hope to fix later.
-		amount_grown += 1
-		if(amount_grown >= TURKEY_HATCH_SPEED)
-			notify_ghosts("A space turkey is ready to hatch in [get_area(src)]!", enter_link = "<a href=?src=[UID()];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK)
-			STOP_PROCESSING(SSobj, src)
-	else
+	amount_grown += 1
+	if(amount_grown >= TURKEY_HATCH_SPEED)
+		notify_ghosts("A space turkey is ready to hatch in [get_area(src)]!", enter_link = "<a href=?src=[UID()];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK)
 		STOP_PROCESSING(SSobj, src)
 
 /obj/item/reagent_containers/food/snacks/egg/turkey/Topic(href, href_list, hsrc)

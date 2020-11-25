@@ -70,7 +70,6 @@
 
 	charge_max = 600*5
 	starts_charged = FALSE
-	charge_counter = 600*2
 	clothes_req = 0
 	range = -1
 	include_user = 1
