@@ -496,6 +496,9 @@ Class Procs:
 			return
 		var/obj/item/stack/nanopaste/N = O
 		obj_integrity = min(obj_integrity + 50, max_integrity)
+		if(N.get_amount() < 1)
+			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>")
+			return
 		if(!N.use(1))
 			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>")
 			return
