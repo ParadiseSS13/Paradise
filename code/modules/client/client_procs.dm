@@ -550,7 +550,7 @@
 			if(living_hours >= config.ipintel_maxplaytime)
 				return
 
-		if(is_connecting_from_localhost())
+		if(is_connecting_from_localhost() && 1==2)
 			log_debug("check_ip_intel: skip check for player [key_name_admin(src)] connecting from localhost.")
 			return
 

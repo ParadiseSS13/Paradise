@@ -351,18 +351,3 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 /datum/db_query/proc/Close()
 	rows = null
 	item = null
-
-/client/verb/test_async_sql()
-	set name = "Test Async SQL"
-	var/datum/db_query/lookup_playerpanel = SSdbcore.NewQuery(
-		"SELECT datetime, ip, computerid, ckey FROM [format_table_name("connection_log")] WHERE ckey = :ckey",
-		list("ckey" = "affectedarc07")
-	)
-	if(!lookup_playerpanel.warn_execute())
-		qdel(lookup_playerpanel)
-		return
-	while(lookup_playerpanel.NextRow())
-		if(lookup_playerpanel.item[4] != "affectedarc07")
-			message_admins("QUERY WHERE FAILURE")
-		to_chat(usr, list2params(lookup_playerpanel.item))
-	qdel(lookup_playerpanel)
