@@ -136,6 +136,9 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 
 			//find the client for a ckey if they are connected and associate them with the new admin datum
 			D.associate(GLOB.directory[ckey])
+
+		qdel(query)
+
 		if(!GLOB.admin_datums)
 			log_world("The database query in load_admins() resulted in no admins being added to the list. Reverting to legacy system.")
 			config.admin_legacy_system = 1

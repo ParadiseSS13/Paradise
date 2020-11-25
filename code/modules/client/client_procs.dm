@@ -373,6 +373,7 @@
 	if(holder)
 		on_holder_add()
 		add_admin_verbs()
+		// Must be async because any sleeps (happen in sql queries) will break connectings clients
 		INVOKE_ASYNC(src, .proc/admin_memo_output, "Show", FALSE, TRUE)
 
 	// Forcibly enable hardware-accelerated graphics, as we need them for the lighting overlays.
