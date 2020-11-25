@@ -175,7 +175,6 @@ GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	))
 GLOBAL_LIST_INIT(admin_verbs_permissions, list(
 	/client/proc/edit_admin_permissions,
-	/client/proc/create_poll,
 	/client/proc/big_brother
 	))
 GLOBAL_LIST_INIT(admin_verbs_rejuv, list(

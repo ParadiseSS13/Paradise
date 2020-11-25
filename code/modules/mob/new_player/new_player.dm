@@ -85,25 +85,6 @@
 	if(GLOB.join_tos)
 		output += "<p><a href='byond://?src=[UID()];tos=1'>Terms of Service</A></p>"
 
-	if(!IsGuestKey(src.key))
-		establish_db_connection()
-
-		if(GLOB.dbcon.IsConnected() && client.can_vote())
-			var/isadmin = 0
-			if(src.client && src.client.holder)
-				isadmin = 1
-			var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT id FROM [format_table_name("poll_question")] WHERE [(isadmin ? "" : "adminonly = false AND")] Now() BETWEEN starttime AND endtime AND id NOT IN (SELECT pollid FROM [format_table_name("poll_vote")] WHERE ckey = \"[ckey]\") AND id NOT IN (SELECT pollid FROM [format_table_name("poll_textreply")] WHERE ckey = \"[ckey]\")")
-			query.Execute()
-			var/newpoll = 0
-			while(query.NextRow())
-				newpoll = 1
-				break
-
-			if(newpoll)
-				output += "<p><b><a href='byond://?showpoll=1'>Show Player Polls</A> (NEW!)</b></p>"
-			else
-				output += "<p><a href='byond://?showpoll=1'>Show Player Polls</A></p>"
-
 	output += "</center>"
 
 	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 240, 330)

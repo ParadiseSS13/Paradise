@@ -90,15 +90,17 @@ SUBSYSTEM_DEF(dbcore)
 
 /datum/controller/subsystem/dbcore/proc/CheckSchemaVersion()
 	if(config.sql_enabled)
+		// The unit tests have their own version of this check, which wont hold the server up infinitely, so this is disabled if we are running unit tests
+		#ifndef UNIT_TESTS
+		if(config.sql_enabled && sql_version != SQL_VERSION)
+			config.sql_enabled = FALSE
+			schema_valid = FALSE
+			SSticker.ticker_going = FALSE
+			log_world("Database connection failed: Invalid SQL Versions")
+			return FALSE
+		#endif
 		if(Connect())
 			log_world("Database connection established")
-			// The unit tests have their own version of this check, which wont hold the server up infinitely, so this is disabled if we are running unit tests
-			#ifndef UNIT_TESTS
-			if(config.sql_enabled && sql_version != SQL_VERSION)
-				config.sql_enabled = FALSE
-				schema_valid = FALSE
-				SSticker.ticker_going = FALSE
-			#endif
 		else
 			// log_sql() because then an error will be logged in the same place
 			log_sql("Your server failed to establish a connection with the database")
@@ -113,6 +115,8 @@ SUBSYSTEM_DEF(dbcore)
 
 /datum/controller/subsystem/dbcore/proc/IsConnected()
 	if (!config.sql_enabled)
+		return FALSE
+	if (!schema_valid)
 		return FALSE
 	if (!connection)
 		return FALSE
