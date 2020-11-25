@@ -1,4 +1,5 @@
-/proc/add_note(target_ckey, notetext, timestamp, adminckey, logged = 1, server, checkrights = 1)
+// Do not attemtp to remove the blank string from the server arg. It will break DB saving.
+/proc/add_note(target_ckey, notetext, timestamp, adminckey, logged = 1, server = "", checkrights = 1)
 	if(checkrights && !check_rights(R_ADMIN|R_MOD))
 		return
 	if(!SSdbcore.IsConnected())
@@ -115,7 +116,7 @@
 /proc/edit_note(note_id)
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
-	if(!GLOB.dbcon.IsConnected())
+	if(!SSdbcore.IsConnected())
 		if(usr)
 			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
@@ -138,18 +139,18 @@
 			return
 		var/edit_text = "Edited by [usr.ckey] on [SQLtime()] from \"[old_note]\" to \"[new_note]\"<hr>"
 		var/datum/db_query/query_update_note = SSdbcore.NewQuery("UPDATE [format_table_name("notes")] SET notetext=:new_note, last_editor=:akey, edits = CONCAT(IFNULL(edits,''),:edit_text) WHERE id=:note_id", list(
-			"notetext" = new_note,
+			"new_note" = new_note,
 			"akey" = usr.ckey,
 			"edit_text" = edit_text,
 			"note_id" = note_id
 		))
-		if(!query_update_note.Execute())
-			var/err = query_update_note.ErrorMsg()
-			log_game("SQL ERROR editing note. Error : \[[err]\]\n")
+		if(!query_update_note.warn_execute())
+			qdel(query_update_note)
 			return
 		log_admin("[usr ? key_name(usr) : "Bot"] has edited [target_ckey]'s note made by [adminckey] from \"[old_note]\" to \"[new_note]\"")
 		message_admins("[usr ? key_name_admin(usr) : "Bot"] has edited [target_ckey]'s note made by [adminckey] from \"[old_note]\" to \"[new_note]\"")
 		show_note(target_ckey)
+		qdel(query_update_note)
 
 /proc/show_note(target_ckey, index, linkless = 0)
 	if(!check_rights(R_ADMIN|R_MOD))
@@ -205,8 +206,6 @@
 		var/search
 		output += "<center><a href='?_src_=holder;addnoteempty=1'>\[Add Note\]</a></center>"
 		output += ruler
-		if(!isnum(index))
-			index = sanitizeSQL(index)
 		switch(index)
 			if(1)
 				search = "^."
@@ -235,10 +234,11 @@
 
 /proc/show_player_info_irc(var/key as text)
 	var/target_sql_ckey = ckey(key)
-	var/DBQuery/query_get_notes = GLOB.dbcon.NewQuery("SELECT timestamp, notetext, adminckey, server, crew_playtime FROM [format_table_name("notes")] WHERE ckey = '[target_sql_ckey]' ORDER BY timestamp")
-	if(!query_get_notes.Execute())
-		var/err = query_get_notes.ErrorMsg()
-		log_game("SQL ERROR obtaining timestamp, notetext, adminckey, server, crew_playtime from notes table. Error : \[[err]\]\n")
+	var/datum/db_query/query_get_notes = SSdbcore.NewQuery("SELECT timestamp, notetext, adminckey, server, crew_playtime FROM [format_table_name("notes")] WHERE ckey=:targetkey ORDER BY timestamp", list(
+		"targetkey" = target_sql_ckey
+	))
+	if(!query_get_notes.warn_execute())
+		qdel(query_get_notes)
 		return
 	var/output = " Info on [key]%0D%0A"
 	while(query_get_notes.NextRow())
@@ -247,4 +247,5 @@
 		var/adminckey = query_get_notes.item[3]
 		var/server = query_get_notes.item[4]
 		output += "[notetext]%0D%0Aby [adminckey] on [timestamp] (Server: [server])%0D%0A%0D%0A"
+	qdel(query_get_notes)
 	return output
