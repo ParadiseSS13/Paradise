@@ -6,7 +6,7 @@
 	fire_sound_text = "laser blast"
 
 	var/obj/item/stock_parts/cell/cell //What type of power cell this uses
-	var/cell_type = /obj/item/stock_parts/cell
+	var/cell_type = /obj/item/stock_parts/cell/laser
 	var/modifystate = 0
 	var/list/ammo_type = list(/obj/item/ammo_casing/energy)
 	var/select = 1 //The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.

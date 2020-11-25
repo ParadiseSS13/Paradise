@@ -19,6 +19,9 @@
 	var/ratingdesc = TRUE
 	var/grown_battery = FALSE // If it's a grown that acts as a battery, add a wire overlay to it.
 
+/obj/item/stock_parts/cell/laser
+	maxcharge = 1500
+
 /obj/item/stock_parts/cell/get_cell()
 	return src
 
@@ -206,23 +209,23 @@
 	charge = 0
 	update_icon()
 
-/obj/item/stock_parts/cell/pulse //200 pulse shots
+/obj/item/stock_parts/cell/pulse //265 pulse shots
 	name = "pulse rifle power cell"
-	maxcharge = 40000
+	maxcharge = 53000
 	rating = 3
 	chargerate = 1500
 
-/obj/item/stock_parts/cell/pulse/carbine //25 pulse shots
+/obj/item/stock_parts/cell/pulse/carbine //33 pulse shots
 	name = "pulse carbine power cell"
-	maxcharge = 5000
+	maxcharge = 6600
 
-/obj/item/stock_parts/cell/pulse/pistol //10 pulse shots
+/obj/item/stock_parts/cell/pulse/pistol //13 pulse shots
 	name = "pulse pistol power cell"
-	maxcharge = 2000
+	maxcharge = 2600
 
 /obj/item/stock_parts/cell/dominator
 	name = "Dominator pistol power cell"
-	maxcharge = 2000
+	maxcharge = 3000
 	chargerate = 200
 	rating = 2
 
