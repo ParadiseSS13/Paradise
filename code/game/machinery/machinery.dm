@@ -480,6 +480,7 @@ Class Procs:
 
 /obj/machinery/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/stack/nanopaste))
+		var/obj/item/stack/nanopaste/N = O
 		if(stat & BROKEN)
 			to_chat(user, "<span class='notice'>[src] is too damaged to be fixed with nanopaste!</span>")
 			return
@@ -488,20 +489,19 @@ Class Procs:
 			return
 		if(being_repaired)
 			return
+		if(N.get_amount() < 1)
+			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>")
+			return
 		to_chat(user, "<span class='notice'>You start applying [O] to [src].</span>")
 		being_repaired = TRUE
 		var/result = do_after(user, 3 SECONDS, target = src)
 		being_repaired = FALSE
 		if(!result)
 			return
-		var/obj/item/stack/nanopaste/N = O
-		obj_integrity = min(obj_integrity + 50, max_integrity)
-		if(N.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>")
-			return
 		if(!N.use(1))
-			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>")
+			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>") // this is here, as we don't want to use nanopaste until you finish applying
 			return
+		obj_integrity = min(obj_integrity + 50, max_integrity)
 		user.visible_message("<span class='notice'>[user] applied some [O] at [src]'s damaged areas.</span>",\
 			"<span class='notice'>You apply some [O] at [src]'s damaged areas.</span>")
 	else
