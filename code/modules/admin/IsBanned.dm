@@ -119,7 +119,9 @@
 			. = list("reason"="[bantype]", "desc"="[desc]")
 
 			log_adminwarn("Failed Login: [key] [computer_id] [address] - Banned [.["reason"]]")
+			qdel(query)
 			return .
+		qdel(query)
 
 	. = ..()	//default pager ban stuff
 	if(.)
