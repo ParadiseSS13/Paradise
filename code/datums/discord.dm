@@ -1,7 +1,7 @@
-/********************************************************************************************************
-*  DO NOT EDIT ANYTHING IN HERE WITHOUT CHECKING THE DISCORD API SPEC AND TESTING THE JSON POST FORMAT  *
-*  OTHERWISE, YOU **WILL** BREAK STUFF -aa  *************************************************************
-********************************************/
+/*
+	DO NOT EDIT ANYTHING IN HERE WITHOUT CHECKING THE DISCORD API SPEC AND TESTING THE JSON POST FORMAT
+	OTHERWISE, YOU **WILL** BREAK STUFF -aa
+*/
 
 /**
   * # Discord Webhook Payload
@@ -37,6 +37,9 @@
 		var/sanitized_content = webhook_content
 		sanitized_content = replacetext(sanitized_content, "@everyone", "(Attempted atEveryone)")
 		sanitized_content = replacetext(sanitized_content, "@here", "(Attempted atHere)")
+		// Fixes speech marks being replaced by invalid chars
+		// Note that we dont have to care about having to sanitize <> out, because discord handles that
+		sanitized_content = html_decode(sanitized_content)
 		json["content"] = sanitized_content
 
 	// Now serialize the embeds
