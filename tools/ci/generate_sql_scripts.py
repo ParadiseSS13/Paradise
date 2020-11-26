@@ -26,11 +26,11 @@ os.chdir("../../")
 
 # Delete the testing directory IF it exists.
 # This is what I mean by python being picky
-if os.path.exists("tools/travis/sql_tmp") and os.path.isdir("tools/travis/sql_tmp"):
-    shutil.rmtree("tools/travis/sql_tmp")
+if os.path.exists("tools/ci/sql_tmp") and os.path.isdir("tools/ci/sql_tmp"):
+    shutil.rmtree("tools/ci/sql_tmp")
 
 # Now make the dir
-os.mkdir("tools/travis/sql_tmp")
+os.mkdir("tools/ci/sql_tmp")
 
 # These lines will be used to generate a file which runs all the SQL scripts
 # First we test from schema 0 all the way up to latest
@@ -39,7 +39,7 @@ os.mkdir("tools/travis/sql_tmp")
 scriptLines = [
     "#!/bin/bash\n",
     "set -euo pipefail\n"
-    "mysql -u root < tools/travis/sql_v0.sql\n"
+    "mysql -u root -proot < tools/ci/sql_v0.sql\n"
 ]
 
 # And write the files and tell them to be used
@@ -51,23 +51,23 @@ for file in orderedSqlFiles:
     fileLines.insert(0, "USE `feedback`;\n")
 
     # Write new files to be used by the testing script
-    outFile = open("tools/travis/sql_tmp/" + file, "w+")
+    outFile = open("tools/ci/sql_tmp/" + file, "w+")
     outFile.writelines(fileLines)
     outFile.close()
 
     # Add a line to the script being made that tells it to use this SQL file
-    scriptLines.append("mysql -u root < tools/travis/sql_tmp/" + str(file) + "\n")
+    scriptLines.append("mysql -u root -proot < tools/ci/sql_tmp/" + str(file) + "\n")
 
-scriptLines.append("mysql -u root -e 'DROP DATABASE feedback;'\n")
-scriptLines.append("mysql -u root < SQL/paradise_schema_prefixed.sql\n")
-scriptLines.append("mysql -u root -e 'DROP DATABASE feedback;'\n")
-scriptLines.append("mysql -u root < SQL/paradise_schema.sql\n")
-scriptLines.append("mysql -u root -e 'GRANT ALL on feedback.* TO `travis_sql`@`127.0.0.1` IDENTIFIED BY \"not_a_strong_password\";'\n")
+scriptLines.append("mysql -u root -proot -e 'DROP DATABASE feedback;'\n")
+scriptLines.append("mysql -u root -proot < SQL/paradise_schema_prefixed.sql\n")
+scriptLines.append("mysql -u root -proot -e 'DROP DATABASE feedback;'\n")
+scriptLines.append("mysql -u root -proot < SQL/paradise_schema.sql\n")
+scriptLines.append("mysql -u root -proot -e 'GRANT ALL on feedback.* TO `ci_sql`@`127.0.0.1` IDENTIFIED BY \"not_a_strong_password\";'\n")
 
-outputScript = open("tools/travis/validate_sql.sh", "w+")
+outputScript = open("tools/ci/validate_sql.sh", "w+")
 outputScript.writelines(scriptLines)
 outputScript.close()
 
-st = os.stat('tools/travis/validate_sql.sh')
-os.chmod('tools/travis/validate_sql.sh', st.st_mode | stat.S_IEXEC)
+st = os.stat('tools/ci/validate_sql.sh')
+os.chmod('tools/ci/validate_sql.sh', st.st_mode | stat.S_IEXEC)
 print("SQL validation script written successfully")

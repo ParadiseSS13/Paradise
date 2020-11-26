@@ -239,9 +239,6 @@ GLOBAL_VAR_INIT(syndicate_elite_shuttle_timeleft, 0)
 		temp  = "Shuttle departing.<BR><BR><A href='?src=[UID()];mainmenu=1'>OK</A>"
 		updateUsrDialog()
 
-		var/area/syndicate_mothership/elite_squad/elite_squad = locate()
-		if(elite_squad)
-			elite_squad.readyalert()//Trigger alarm for the spec ops area.
 		GLOB.syndicate_elite_shuttle_moving_to_station = 1
 
 		GLOB.syndicate_elite_shuttle_time = world.timeofday + SYNDICATE_ELITE_MOVETIME

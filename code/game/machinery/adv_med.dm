@@ -218,6 +218,8 @@
 			var/datum/disease/D = thing
 			if(D.visibility_flags & HIDDEN_SCANNER || D.visibility_flags & HIDDEN_PANDEMIC)
 				continue
+			if(istype(D, /datum/disease/critical))
+				continue
 			found_disease = TRUE
 			break
 		occupantData["hasVirus"] = found_disease

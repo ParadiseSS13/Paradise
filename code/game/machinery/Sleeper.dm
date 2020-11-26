@@ -17,8 +17,10 @@
 	var/possible_chems = list("ephedrine", "salglu_solution", "salbutamol", "charcoal")
 	var/emergency_chems = list("ephedrine") // Desnowflaking
 	var/amounts = list(5, 10)
+	/// Beaker loaded into the sleeper. Used for dialysis.
 	var/obj/item/reagent_containers/glass/beaker = null
-	var/filtering = 0
+	/// Whether the machine is currently performing dialysis.
+	var/filtering = FALSE
 	var/max_chem
 	var/initial_bin_rating = 1
 	var/min_health = -25
@@ -404,9 +406,9 @@
 
 /obj/machinery/sleeper/proc/toggle_filter()
 	if(filtering || !beaker)
-		filtering = 0
+		filtering = FALSE
 	else
-		filtering = 1
+		filtering = TRUE
 
 /obj/machinery/sleeper/proc/go_out()
 	if(filtering)
@@ -464,8 +466,8 @@
 		return
 
 	if(beaker)
-		filtering = 0
-		beaker.forceMove(usr.loc)
+		filtering = FALSE
+		usr.put_in_hands(beaker)
 		beaker = null
 		SStgui.update_uis(src)
 	add_fingerprint(usr)

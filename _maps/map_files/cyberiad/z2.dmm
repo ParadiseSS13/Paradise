@@ -12341,7 +12341,7 @@
 /area/holodeck/source_picnicarea)
 "QV" = (
 /obj/item/clothing/under/rainbow,
-/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/glasses/sunglasses_fake,
 /turf/simulated/floor/beach/sand,
 /area/holodeck/source_beach)
 "Rf" = (

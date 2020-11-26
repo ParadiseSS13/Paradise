@@ -1,5 +1,5 @@
 # This file is revision 0 of the server SQL schema
-# It is intended ONLY for travis testing, and thus has data thrown in to test all update files with
+# It is intended ONLY for CI testing, and thus has data thrown in to test all update files with
 # DO NOT SET THIS AS THE GAMES PROPER SCHEMA OR A LOT OF STUFF WILL BREAK
 
 -- --------------------------------------------------------
@@ -459,7 +459,7 @@ CREATE TABLE IF NOT EXISTS `poll_textreply` (
 -- Dumping data for table feedback.poll_textreply: ~0 rows (approximately)
 /*!40000 ALTER TABLE `poll_textreply` DISABLE KEYS */;
 INSERT INTO `poll_textreply` (`id`, `datetime`, `pollid`, `ckey`, `ip`, `replytext`, `adminrank`) VALUES
-	(1, '2020-04-24 18:05:42', 1, 'AffectedArc07', '127.0.0.1', 'This is far too much work for a travis rework', 'Player');
+	(1, '2020-04-24 18:05:42', 1, 'AffectedArc07', '127.0.0.1', 'This is far too much work for a CI rework', 'Player');
 /*!40000 ALTER TABLE `poll_textreply` ENABLE KEYS */;
 
 -- Dumping structure for table feedback.poll_vote

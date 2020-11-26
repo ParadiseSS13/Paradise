@@ -732,7 +732,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 		flavor_text = msg
 
-/mob/proc/print_flavor_text(var/shrink = 1)
+/mob/proc/print_flavor_text(var/shrink = TRUE)
 	if(flavor_text && flavor_text != "")
 		var/msg = replacetext(flavor_text, "\n", " ")
 		if(length(msg) <= 40 || !shrink)
