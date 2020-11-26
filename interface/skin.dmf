@@ -342,6 +342,18 @@ window "rpane"
 		saved-params = "is-checked"
 		text = "Changelog"
 		command = "Changelog"
+	elem "discordb"
+		type = BUTTON
+		pos = 487,7
+		size = 60x16
+		anchor1 = none
+		anchor2 = none
+		font-style = "bold"
+		text-color = #ffffff
+		background-color = #7289da
+		saved-params = "is-checked"
+		text = "Discord"
+		command = "discord"
 	elem "rulesb"
 		type = BUTTON
 		pos = 357,7

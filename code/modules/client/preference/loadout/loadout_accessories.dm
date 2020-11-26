@@ -66,12 +66,12 @@
 /datum/gear/accessory/holobadge
 	display_name = "holobadge, pin"
 	path = /obj/item/clothing/accessory/holobadge
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
 
 /datum/gear/accessory/holobadge_n
 	display_name = "holobadge, cord"
 	path = /obj/item/clothing/accessory/holobadge/cord
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
 
 /datum/gear/accessory/tieblue
 	display_name = "tie, blue"

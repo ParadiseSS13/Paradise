@@ -127,7 +127,7 @@ About the new airlock wires panel:
  * reimp, imitate an access denied event.
  */
 /obj/machinery/door/airlock/flicker()
-	if(arePowerSystemsOn())
+	if(density && !operating && arePowerSystemsOn())
 		do_animate("deny")
 		return TRUE
 	return FALSE
@@ -719,7 +719,7 @@ About the new airlock wires panel:
 		return
 
 	if(headbutt_airlock(user))
-		return//Smack that head against that airlock
+		return // Smack that head against that airlock
 	if(remove_airlock_note(user, FALSE))
 		return
 
@@ -938,7 +938,7 @@ About the new airlock wires panel:
 	else if(istype(C, /obj/item/pai_cable))	// -- TLE
 		var/obj/item/pai_cable/cable = C
 		cable.plugin(src, user)
-	else if((istype(C, /obj/item/paper) && !istype(C, /obj/item/paper/talisman)) || istype(C, /obj/item/photo))
+	else if(istype(C, /obj/item/paper) || istype(C, /obj/item/photo))
 		if(note)
 			to_chat(user, "<span class='warning'>There's already something pinned to this airlock! Use wirecutters or your hands to remove it.</span>")
 			return
@@ -1003,8 +1003,13 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/wirecutter_act(mob/user, obj/item/I)
 	if(!headbutt_shock_check(user))
 		return
-	if(!panel_open || user.a_intent == INTENT_HARM)
-		return
+
+	if(!panel_open)
+		if(note)
+			return remove_airlock_note(user, TRUE)
+		// Can't do much else with the panel closed.
+		return FALSE
+
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
 		return
@@ -1019,10 +1024,7 @@ About the new airlock wires panel:
 								"<span class='notice'>You cut through \the [src]'s outer grille.</span>")
 			security_level = AIRLOCK_SECURITY_PLASTEEL_O
 		return
-	if(note)
-		remove_airlock_note(user, TRUE)
-	else
-		interact_with_panel(user)
+	interact_with_panel(user)
 
 /obj/machinery/door/airlock/multitool_act(mob/user, obj/item/I)
 	if(!headbutt_shock_check(user))
@@ -1411,40 +1413,49 @@ About the new airlock wires panel:
 		return "photo"
 
 //Removes the current note on the door if any. Returns if a note is removed
-/obj/machinery/door/airlock/proc/remove_airlock_note(mob/user, wirecutters_used=TRUE)
-	if(note)
-		if(!wirecutters_used)
-			if (ishuman(user) && user.a_intent == INTENT_GRAB)//grab that note
-				user.visible_message("<span class='notice'>[user] removes [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
-				playsound(src, 'sound/items/poster_ripped.ogg', 50, 1)
-			else
-				return FALSE
-		else
-			user.visible_message("<span class='notice'>[user] cuts down [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
-			playsound(src, 'sound/items/wirecutter.ogg', 50, 1)
-		note.add_fingerprint(user)
-		user.create_log(MISC_LOG, "removed [note] from", src)
-		user.put_in_hands(note)
-		note = null
-		update_icon()
-		return TRUE
-	return FALSE
+/obj/machinery/door/airlock/proc/remove_airlock_note(mob/user, wirecutters_used = TRUE)
+	if(!note)
+		return FALSE
 
-/obj/machinery/door/airlock/narsie_act()
+	if(!wirecutters_used)
+		if (ishuman(user) && (user.a_intent == INTENT_GRAB)) //grab that note
+			user.visible_message("<span class='notice'>[user] removes [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
+			playsound(src, 'sound/items/poster_ripped.ogg', 50, 1)
+		else
+			return FALSE
+	else
+		user.visible_message("<span class='notice'>[user] cuts down [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
+		playsound(src, 'sound/items/wirecutter.ogg', 50, 1)
+	note.add_fingerprint(user)
+	user.create_log(MISC_LOG, "removed [note] from", src)
+	user.put_in_hands(note)
+	note = null
+	update_icon()
+	return TRUE
+
+/obj/machinery/door/airlock/narsie_act(weak = FALSE)
 	var/turf/T = get_turf(src)
 	var/runed = prob(20)
 	var/obj/machinery/door/airlock/cult/A
-	if(glass)
-		if(runed)
-			A = new/obj/machinery/door/airlock/cult/glass(T)
-		else
-			A = new/obj/machinery/door/airlock/cult/unruned/glass(T)
+	if(weak)
+		A = new/obj/machinery/door/airlock/cult/weak(T)
 	else
-		if(runed)
-			A = new/obj/machinery/door/airlock/cult(T)
+		if(glass)
+			if(runed)
+				A = new/obj/machinery/door/airlock/cult/glass(T)
+			else
+				A = new/obj/machinery/door/airlock/cult/unruned/glass(T)
 		else
-			A = new/obj/machinery/door/airlock/cult/unruned(T)
+			if(runed)
+				A = new/obj/machinery/door/airlock/cult(T)
+			else
+				A = new/obj/machinery/door/airlock/cult/unruned(T)
 	A.name = name
+	A.stealth_icon = icon
+	A.stealth_overlays = overlays_file
+	A.stealth_opacity = opacity
+	A.stealth_glass = glass
+	A.stealth_airlock_material = airlock_material
 	qdel(src)
 
 /obj/machinery/door/airlock/proc/ai_control_callback()

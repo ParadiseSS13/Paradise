@@ -267,7 +267,7 @@
 		overlays += "myscalpel"
 
 /obj/structure/surgicalcart/full/New()
-	.=..()
+	. = ..()
 	mysyringe = new /obj/item/reagent_containers/syringe/antiviral(src) ///Esto es spacellin, le juro no son nanomachines
 	mymbruise = new /obj/item/stack/medical/bruise_pack/advanced(src)
 	mydrill = new /obj/item/surgicaldrill(src)

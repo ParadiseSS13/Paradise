@@ -395,7 +395,7 @@
 	med_bot_skin = "fish"
 
 /obj/item/storage/firstaid/aquatic_kit/full
-	desc = "It's a starter kit for an acquarium; includes 1 tank brush, 1 egg scoop, 1 fish net, and 1 container of fish food."
+	desc = "It's a starter kit for an aquarium; includes 1 tank brush, 1 egg scoop, 1 fish net, 1 container of fish food and 1 fish bag."
 
 /obj/item/storage/firstaid/aquatic_kit/full/New()
 	..()
@@ -403,3 +403,4 @@
 	new /obj/item/fish_net(src)
 	new /obj/item/tank_brush(src)
 	new /obj/item/fishfood(src)
+	new /obj/item/storage/bag/fish(src)

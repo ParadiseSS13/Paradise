@@ -57,13 +57,13 @@ GLOBAL_LIST_INIT(tape_roll_applications, list())
 	max_integrity = 10
 	layer = ABOVE_DOOR_LAYER
 	anchored = TRUE
+	color = COLOR_YELLOW
 	var/lifted = 0
 	var/crumpled = 0
 	var/tape_dir = 0
 	var/icon_base = "stripetape"
 	var/detail_overlay
 	var/detail_color
-	color = COLOR_YELLOW
 
 /obj/item/taper/update_icon()
 	//Possible directional bitflags: 0 (AIRLOCK), 1 (NORTH), 2 (SOUTH), 4 (EAST), 8 (WEST), 3 (VERTICAL), 12 (HORIZONTAL)

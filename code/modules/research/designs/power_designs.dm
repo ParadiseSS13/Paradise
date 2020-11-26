@@ -53,7 +53,7 @@
 	req_tech = list("powerstorage" = 6, "materials" = 5, "engineering" = 5, "bluespace" = 5)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 800, MAT_GOLD = 120, MAT_GLASS = 160, MAT_DIAMOND = 160, MAT_TITANIUM = 300, MAT_BLUESPACE = 100)
-	build_path = /obj/item/stock_parts/cell/bluespace/empty
+	build_path = /obj/item/stock_parts/cell/bluespace/empty //EVAN RECUERDA QUITAR EL EMPTY Y PONER UN PROC QUE DEJA LA CELL SIN ENERGIA
 	category = list("Misc","Power")
 	lathe_time_factor = 0.5
 

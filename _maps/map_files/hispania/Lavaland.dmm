@@ -4549,16 +4549,16 @@
 /area/mine/production)
 "mu" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/machinery/camera{
-	c_tag = "Bridge Conference Room";
-	dir = 2;
-	network = list("SS13")
-	},
 /obj/item/radio/intercom{
 	dir = 8;
 	name = "Station Intercom (General)";
 	pixel_x = 0;
 	pixel_y = 29
+	},
+/obj/machinery/camera{
+	c_tag = "Mining Rest Room";
+	dir = 2;
+	network = list("SS13")
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)

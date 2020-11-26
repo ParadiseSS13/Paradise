@@ -237,13 +237,13 @@ const AirAlarmVentsView = (props, context) => {
           </LabeledList.Item>
           <LabeledList.Item label="Pressure Checks">
             <Button
-              content="Internal"
+              content="External"
               selected={v.checks === 1}
               onClick={
                 () => act('command', { cmd: 'checks', val: 1, id_tag: v.id_tag })
               } />
             <Button
-              content="External"
+              content="Internal"
               selected={v.checks === 2}
               onClick={
                 () => act('command', { cmd: 'checks', val: 2, id_tag: v.id_tag })

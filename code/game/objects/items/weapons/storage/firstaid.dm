@@ -226,7 +226,7 @@
 
 /obj/item/storage/firstaid/surgery/New()
 	..()
-	new /obj/item/roller(src)
+	new /obj/item/roller/advanced(src) //Hispania Roller Bed
 	new /obj/item/bonesetter(src)
 	new /obj/item/bonegel(src)
 	new /obj/item/scalpel(src)

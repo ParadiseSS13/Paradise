@@ -61,12 +61,12 @@
 	var/obj/item/clothing/accessory/holobadge/attached_badge
 	hispania_icon = TRUE
 
-/obj/item/clothing/suit/armor/vest/security/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/clothing/accessory/holobadge))
-		if(user.unEquip(W))
+/obj/item/clothing/suit/armor/vest/security/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/clothing/accessory/holobadge))
+		if(user.unEquip(I))
 			add_fingerprint(user)
-			W.forceMove(src)
-			attached_badge = W
+			I.forceMove(src)
+			attached_badge = I
 			var/datum/action/A = new /datum/action/item_action/remove_badge(src)
 			A.Grant(user)
 			icon_state = "armorsec"
@@ -76,7 +76,7 @@
 		return
 	..()
 
-/obj/item/clothing/suit/armor/vest/security/attack_self(mob/user as mob)
+/obj/item/clothing/suit/armor/vest/security/attack_self(mob/user)
 	if(attached_badge)
 		add_fingerprint(user)
 		user.put_in_hands(attached_badge)
@@ -89,11 +89,9 @@
 		user.update_inv_wear_suit()
 		desc = "An armored vest that protects against some damage. This one has a clip for a holobadge."
 		to_chat(user, "<span class='notice'>You remove [attached_badge] from [src].</span>")
-
 		attached_badge = null
 
 		return
-
 	..()
 
 /obj/item/clothing/suit/armor/vest/blueshield

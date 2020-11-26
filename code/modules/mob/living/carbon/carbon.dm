@@ -665,6 +665,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		update_handcuffed()
 	else if(I == legcuffed)
 		legcuffed = null
+		toggle_move_intent()
 		update_inv_legcuffed()
 
 /mob/living/carbon/show_inv(mob/user)
@@ -891,6 +892,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				legcuffed.forceMove(drop_location())
 				legcuffed.dropped()
 				legcuffed = null
+				toggle_move_intent()
 				update_inv_legcuffed()
 				return
 			else
@@ -917,6 +919,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				return
 			else if(I == legcuffed)
 				legcuffed = null
+				toggle_move_intent()
 				update_inv_legcuffed()
 				return
 			return 1
@@ -990,6 +993,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(legcuffed)
 		var/obj/item/W = legcuffed
 		legcuffed = null
+		toggle_move_intent()
 		update_inv_legcuffed()
 		if(client)
 			client.screen -= W

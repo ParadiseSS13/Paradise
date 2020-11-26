@@ -400,9 +400,9 @@
 
 	var/power_x = power * cos(angle)
 	var/power_y = power * sin(angle)
-	var/time = 2* power_y / 10 //10 = g
+	var/time = power_y / (2*9.81) //9.81 = g//de 10 a 9.81 porque somos mayorcitos
 
-	var/distance = time * power_x
+	var/distance = time * power_x - (time*time*0.1)/2//distancia en X ahora tambien es un MURU
 
 	var/dest_x = src_x + distance*sin(rotation);
 	var/dest_y = src_y + distance*cos(rotation);

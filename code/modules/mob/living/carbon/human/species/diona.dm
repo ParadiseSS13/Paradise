@@ -123,7 +123,9 @@
 
 	inherent_factions = list("plants", "vines")
 
-/datum/species/diona/apply_damage(obj/item/W)
-	if(is_sharp(W))
-		brute_mod = W.force / 2
- ..()
+/datum/species/diona/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, mob/living/carbon/human/H, sharp = 0, obj/used_weapon = null)
+	var/old_brute_mob = brute_mod
+	if(sharp)
+		brute_mod = 1
+	..()
+	brain_mod += old_brute_mob - 1

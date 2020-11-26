@@ -19,7 +19,7 @@ GLOBAL_LIST_EMPTY(all_money_accounts)
 		GLOB.station_account = new()
 		GLOB.station_account.owner_name = "[station_name()] Station Account"
 		GLOB.station_account.account_number = rand(111111, 999999)
-		GLOB.station_account.remote_access_pin = rand(1111, 111111)
+		GLOB.station_account.remote_access_pin = rand(111111, 999999)
 		GLOB.station_account.money = STATION_START_CASH
 
 		//create an entry in the account transaction log for when it was created
@@ -35,7 +35,7 @@ GLOBAL_LIST_EMPTY(all_money_accounts)
 	var/datum/money_account/department_account = new()
 	department_account.owner_name = "[department] Account"
 	department_account.account_number = rand(111111, 999999)
-	department_account.remote_access_pin = rand(1111, 111111)
+	department_account.remote_access_pin = rand(111111, 999999)
 	department_account.money = DEPARTMENT_START_CASH
 
 	//create an entry in the account transaction log for when it was created
@@ -55,7 +55,7 @@ GLOBAL_LIST_EMPTY(all_money_accounts)
 	//create a new account
 	var/datum/money_account/M = new()
 	M.owner_name = new_owner_name
-	M.remote_access_pin = rand(1111, 111111)
+	M.remote_access_pin = rand(111111, 999999)
 	M.money = starting_funds
 
 	//create an entry in the account transaction log for when it was created

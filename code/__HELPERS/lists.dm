@@ -676,12 +676,11 @@ proc/dd_sortedObjectList(list/incoming)
 #define DEFAULTPICK(L, default) ((istype(L, /list) && L:len) ? pick(L) : default)
 
 #define LAZYINITLIST(L) if (!L) L = list()
-#define SANITIZE_LIST(L) (islist(L) ? L : list()) //HISPANIA
 #define UNSETEMPTY(L) if (L && !L.len) L = null
 #define LAZYREMOVE(L, I) if(L) { L -= I; if(!L.len) { L = null; } }
 #define LAZYADD(L, I) if(!L) { L = list(); } L += I;
 #define LAZYACCESS(L, I) (L ? (isnum(I) ? (I > 0 && I <= L.len ? L[I] : null) : L[I]) : null)
-#define LAZYLEN(L) length(L)
+#define LAZYLEN(L) length(L) // Despite how pointless this looks, it's still needed in order to convey that the list is specificially a 'Lazy' list.
 #define LAZYCLEARLIST(L) if(L) L.Cut()
 
 // LAZYING PT 2: THE LAZENING

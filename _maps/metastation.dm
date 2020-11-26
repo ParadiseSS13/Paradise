@@ -16,7 +16,7 @@ z7 = empty space
 #if !defined(USING_MAP_DATUM)
 	#include "map_files\MetaStation\MetaStation.v41A.II.dmm"
 	#include "map_files\MetaStation\z2.dmm"
-	#include "map_files\generic\Lavaland.dmm"
+	#include "map_files\hispania\Lavaland.dmm"
 
 	#define MAP_FILE "MetaStation.v41A.II.dmm"
 	#define MAP_NAME "MetaStation"

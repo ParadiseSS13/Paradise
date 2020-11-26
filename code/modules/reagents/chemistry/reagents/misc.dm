@@ -214,8 +214,8 @@
 	if(exposed_temperature > T0C + 600)
 		var/turf/T = get_turf(holder.my_atom)
 		holder.my_atom.visible_message("<b>The oil burns!</b>")
-		if(volume > (holder.maximum_volume / 2))
-			fireflash(T, min(max(0, volume / 40), 8))
+		fireflash(T, min(max(0, volume / 40), 8))
+		fire_flash_log(holder, id)
 		var/datum/effect_system/smoke_spread/bad/BS = new
 		BS.set_up(1, 0, T)
 		BS.start()
