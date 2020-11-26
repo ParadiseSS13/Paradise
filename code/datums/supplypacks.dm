@@ -1106,7 +1106,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/reagent_containers/food/drinks/cans/beer,
 					/obj/item/reagent_containers/food/drinks/cans/beer,
 					/obj/item/grenade/confetti,
-					/obj/item/grenade/confetti)
+					/obj/item/grenade/confetti,
+					/obj/random/balloon,
+					/obj/random/balloon,
+					/obj/random/balloon,
+					/obj/random/balloon)
 	cost = 20
 	containername = "party equipment"
 	announce_beacons = list("Bar" = list("Bar"))

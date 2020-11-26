@@ -77,6 +77,7 @@
 		/obj/item/gun/projectile/revolver/capgun,
 		/obj/item/toy/katana,
 		/obj/random/mech,
+		/obj/random/balloon,
 		/obj/item/toy/spinningtoy,
 		/obj/item/toy/sword,
 		/obj/item/reagent_containers/food/snacks/grown/ambrosia/deus,

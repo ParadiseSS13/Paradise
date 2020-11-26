@@ -179,6 +179,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/toy/prizeball/figure
 	cost = 75
 
+/datum/prize_item/colorballoon
+	name = "Random Colorful Balloon"
+	desc = "A colourful helium balloon that is almost impossible to pop."
+	typepath = /obj/item/toy/prizeball/balloon
+	cost = 75
+
 /datum/prize_item/AI
 	name = "Toy AI Unit"
 	desc = "Law 1: Maximize fun for crew."

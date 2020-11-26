@@ -56,6 +56,11 @@
 	desc = "Contains one squishy therapy doll."
 	possible_contents = list(/obj/random/therapy)
 
+/obj/item/toy/prizeball/balloon
+	name = "balloon capsule"
+	desc = "Contains one already inflated balloon!...somehow!"
+	possible_contents = list(/obj/random/balloon)
+
 /obj/item/stack/tickets
 	name = "prize ticket"
 	desc = "Prize tickets from the arcade. Exchange them for fabulous prizes!"

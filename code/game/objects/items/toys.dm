@@ -107,10 +107,6 @@
 /obj/item/toy/syndicateballoon
 	name = "syndicate balloon"
 	desc = "There is a tag on the back that reads \"FUK NT!11!\"."
-	throwforce = 0
-	throw_speed = 4
-	throw_range = 20
-	force = 0
 	icon_state = "syndballoon"
 	item_state = "syndballoon"
 	w_class = WEIGHT_CLASS_BULKY
@@ -122,6 +118,52 @@
 	var/playverb = pick("bat [src]", "tug on [src]'s string", "play with [src]")
 	user.visible_message("<span class='notice'>[user] plays with [src].</span>", "<span class='notice'>You [playverb].</span>")
 	lastused = world.time
+
+/*	Coloured balloons, sprite taken from Polaris Station */
+
+/obj/item/toy/colorballoon
+	name = "balloon"
+	desc = "Colourful fun for all ages! Alien plastic alloys have made it exceptionally hard to pop!"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "colorballoon" /* generic version of this balloon. you can edit its color var to a hex code including # to give it colour, but i wasn't able to get the in hand version to work with changing color vars for some reason */
+	item_state = "colorballoon"
+	w_class = WEIGHT_CLASS_NORMAL
+	var/lastused = null
+
+/obj/item/toy/colorballoon/attack_self(mob/user)
+	if(world.time - lastused < CLICK_CD_MELEE)
+		return
+	var/playverb = pick("bat [src]", "tug on [src]'s string", "play with [src]")
+	user.visible_message("<span class='notice'>[user] plays with [src].</span>", "<span class='notice'>You [playverb].</span>")
+	lastused = world.time
+
+/obj/random/balloon
+	name = "random balloon"
+	desc = "A randomly coloured balloon"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "colorballoonblue"
+
+/obj/random/balloon/item_to_spawn()
+	return pick(subtypesof(/obj/item/toy/colorballoon))
+
+/obj/item/toy/colorballoon/colorballoonred
+	icon_state = "colorballoonred"
+	item_state = "colorballoonred"
+/obj/item/toy/colorballoon/colorballoonpurple
+	icon_state = "colorballoonpurple"
+	item_state = "colorballoonpurple"
+/obj/item/toy/colorballoon/colorballoonorange
+	icon_state = "colorballoonorange"
+	item_state = "colorballoonorange"
+/obj/item/toy/colorballoon/colorballoongreen
+	icon_state = "colorballoongreen"
+	item_state = "colorballoongreen"
+/obj/item/toy/colorballoon/colorballoonblue
+	icon_state = "colorballoonblue"
+	item_state = "colorballoonblue"
+/obj/item/toy/colorballoon/colorballoonyellow
+	icon_state = "colorballoonyellow"
+	item_state = "colorballoonyellow"
 
 /*
  * Fake telebeacon
