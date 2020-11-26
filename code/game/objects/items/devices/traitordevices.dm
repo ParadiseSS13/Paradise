@@ -171,7 +171,7 @@ effective or pretty fucking useless.
 
 /obj/item/teleporter
 	name = "Syndicate teleporter"
-	desc = "A strange syndicate version of a cult veil shifter.\n\ A warning label says, This teleporter will teleport the user 4-8 tiles in the direction they are facing.\n\ Warning: Teleporting into walls will activate a failsafe teleport sideways up to 3 tiles, but will gib the user if it fails.\n\ Warrenty voided if exposed to EMP."
+	desc = "A strange syndicate version of a cult veil shifter. Warrenty voided if exposed to EMP."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndi-tele"
 	throwforce = 5
@@ -340,6 +340,27 @@ effective or pretty fucking useless.
 		M.Weaken(3)
 		to_chat(M, "<span_class='warning'> [user] teleports into you, knocking you to the floor with the bluespace wave!</span>")
 
+/obj/item/paper/teleporter
+	name = "Teleporter Guide"
+	icon_state = "paper"
+	info = {"<b>Instructions on your new prototype syndicate teleporter</b><br>
+	<br>
+	This teleporter will teleport the user 4-8 meters in the direction they are facing. Unlike the cult veil shifter, you can not drag people with you.<br>
+	<br>
+	It has 4 charges, and will recharge uses over time. No, sticking the teleporter into the tesla, an APC, a microwave, or an electrified door, will not make it charge faster.<br>
+	<br>
+	<b>Warning:</b> Teleporting into walls will activate a failsafe teleport parallel up to 3 meters, but the user will be ripped apart and gibbed in a wall if it fails.<br>
+	<br>
+	Do not expose the teleporter to electromagnetic pulses or attempt to use with a bag of holding, unwanted malfunctions may occur.
+"}
+/obj/item/storage/box/syndie_kit/teleporter
+	name = "syndicate teleporter kit"
+
+/obj/item/storage/box/syndie_kit/teleporter/New()
+	..()
+	new /obj/item/teleporter(src)
+	new /obj/item/paper/teleporter(src)
+	return
 /obj/effect/temp_visual/teleport_abductor/syndi_teleporter
 	duration = 5
 
