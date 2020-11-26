@@ -401,4 +401,4 @@
 	//angle_off = rand(-25, 25)
 	power_off = rand(-4, 0)
 	rotation_off = rand(-10, 10)
-	power_off_factor = rand(-20, 20)
+	power_off_factor = rand(-20, 20)/10
