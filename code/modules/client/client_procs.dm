@@ -316,7 +316,9 @@
 			winset(src, null, "command=\".configure graphics-hwmode off\"")
 			winset(src, null, "command=\".configure graphics-hwmode on\"")
 
-	log_client_to_db(tdata)
+	// This needs to be async because DB queries will cause sleeps since they are async (Better than locking the DD process each query)
+	// If you have a sleep inside client/New(), stuff breaks VERY badly
+	INVOKE_ASYNC(src, .proc/log_client_to_db, tdata)
 
 	. = ..()	//calls mob.Login()
 
