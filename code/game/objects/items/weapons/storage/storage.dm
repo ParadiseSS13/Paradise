@@ -414,6 +414,12 @@
 	src.add_fingerprint(user)
 	return
 
+/obj/item/storage/attack_ghost(mob/user)
+	if(isobserver(user))
+		// Revenants don't get to play with the toys.
+		show_to(user)
+	return ..()
+
 /obj/item/storage/verb/toggle_gathering_mode()
 	set name = "Switch Gathering Method"
 	set category = "Object"
