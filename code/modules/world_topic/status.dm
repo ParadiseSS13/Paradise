@@ -4,7 +4,7 @@
 /datum/world_topic_handler/status/execute(list/input, key_valid)
 	var/list/status_info = list()
 	var/list/admins = list()
-	status_info["version"] = GLOB.game_version
+	status_info["version"] = GLOB.revision_info.commit_hash
 	status_info["mode"] = GLOB.master_mode
 	status_info["respawn"] = GLOB.abandon_allowed
 	status_info["enter"] = GLOB.enter_allowed

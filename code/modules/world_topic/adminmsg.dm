@@ -20,7 +20,7 @@
 		return json_encode(list("error" = "No client with that name on server"))
 
 	var/message =	"<font color='red'>Discord PM from <b><a href='?discord_msg=1'>[input["sender"]]</a></b>: [input["msg"]]</font>"
-	var/amessage =  "<font color='blue'>Discord PM from <a href='?discord_msg=1'>[input["sender"]]</a> to <b>[key_name(C)]</b>: [input["msg"]]</font>"
+	var/amessage =  "<font color='blue'>Discord PM from <a href='?discord_msg=1'>[input["sender"]]</a> to <b>[key_name_admin(C)]</b>: [input["msg"]]</font>"
 
 	// THESE TWO VARS DO VERY DIFFERENT THINGS. DO NOT ATTEMPT TO COMBINE THEM
 	C.received_discord_pm = world.time
@@ -30,7 +30,9 @@
 	to_chat(C, message)
 
 	for(var/client/A in GLOB.admins)
-		if(A != C)
-			to_chat(A, amessage)
+		// GLOB.admins includes anyone with a holder datum (mentors too). This makes sure only admins see ahelps
+		if(check_rights(R_ADMIN, FALSE, A.mob))
+			if(A != C)
+				to_chat(A, amessage)
 
 	return json_encode(list("success" = "Message Successful"))
