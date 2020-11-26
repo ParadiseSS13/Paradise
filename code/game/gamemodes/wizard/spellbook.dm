@@ -171,7 +171,6 @@
 	spell_type = /obj/effect/proc_holder/spell/targeted/infinite_guns
 	log_name = "IG"
 	category = "Offensive"
-	cost = 4
 
 //Defensive
 /datum/spellbook_entry/disabletech
@@ -486,6 +485,7 @@
 	item_path = /obj/item/gun/magic/staff/change
 	log_name = "ST"
 	category = "Staves"
+	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/item/staffchaos
 	name = "Staff of Chaos"

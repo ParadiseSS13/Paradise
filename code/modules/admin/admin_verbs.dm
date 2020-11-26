@@ -69,7 +69,8 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
 	/client/proc/toggle_mentor_chat,
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
-	/client/proc/list_ssds_afks
+	/client/proc/list_ssds_afks,
+	/client/proc/ccbdb_lookup_ckey
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
@@ -677,12 +678,17 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		//load text from file
 		var/list/Lines = file2list("config/admins.txt")
 		for(var/line in Lines)
+			if(findtext(line, "#")) // Skip comments
+				continue
+
 			var/list/splitline = splittext(line, " - ")
+			if(length(splitline) != 2) // Always 'ckey - rank'
+				continue
 			if(lowertext(splitline[1]) == ckey)
-				if(splitline.len >= 2)
-					rank = ckeyEx(splitline[2])
+				rank = ckeyEx(splitline[2])
 				break
 			continue
+
 	else
 		if(!GLOB.dbcon.IsConnected())
 			message_admins("Warning, MySQL database is not connected.")
