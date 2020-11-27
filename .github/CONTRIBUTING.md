@@ -466,6 +466,10 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
 
 * Use parameters for queries (Mentioned above in) [###Develop Secure Code](###Develop Secure Code)
 
+* Always check your queries for successful with if(!query.warn_execute()). By using this standard format, you can ensure the correct log messages are used
+
+* Always qdel() your queries after you are done with them, this cleans up the results and helps things run smoother
+
 * All changes to the database's layout(schema) must be specified in the database changelog in SQL, as well as reflected in the schema files
 
 * Any time the schema is changed the `SQL_VERSION` defines must be incremented, as well as the example config, with an appropriate conversion kit placed
