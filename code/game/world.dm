@@ -343,6 +343,7 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 
 	Master.Shutdown()	//run SS shutdowns
 	GLOB.dbcon.Disconnect() // DCs cleanly from the database
+	SSdbcore.Disconnect() // DCs cleanly from the database
 	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 
 	#ifdef UNIT_TESTS
@@ -506,6 +507,7 @@ GLOBAL_VAR_INIT(failed_old_db_connections, 0)
 
 //This proc ensures that the connection to the feedback database (global variable dbcon) is established
 /proc/establish_db_connection()
+	#warn purge this too
 	if(GLOB.failed_db_connections > FAILED_DB_CONNECTION_CUTOFF)
 		return 0
 
