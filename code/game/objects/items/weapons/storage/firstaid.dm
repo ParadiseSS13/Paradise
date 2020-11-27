@@ -181,6 +181,7 @@
 	new /obj/item/stack/cable_coil(src)
 	new /obj/item/stack/cable_coil(src)
 	new /obj/item/robotanalyzer(src)
+	new /obj/item/stack/nanopaste(src)
 
 /obj/item/storage/firstaid/machine/empty
 	empty = TRUE
