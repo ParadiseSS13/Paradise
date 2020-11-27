@@ -1,5 +1,5 @@
 /obj/item/twohanded/kinetic_crusher
-	var/proyectile_type = /obj/item/projectile/destabilizer/cursed
+	var/proyectile_type = /obj/item/projectile/destabilizer
 
 /obj/item/twohanded/kinetic_crusher/cursed
 	name = "cursed-kinetic crusher"
@@ -14,6 +14,7 @@
 	detonation_damage = 90
 	backstab_bonus = 80
 	flags = NODROP
+	proyectile_type = /obj/item/projectile/destabilizer/cursed
 
 /obj/item/projectile/destabilizer/cursed
 	name = "cursed force"
