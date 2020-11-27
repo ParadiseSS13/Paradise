@@ -592,18 +592,13 @@ Class Procs:
 	if(check_access && !allowed(perp))
 		threatcount += 4
 
-	if(auth_weapons && !allowed(perp))
-		if(istype(perp.l_hand, /obj/item/gun) || istype(perp.l_hand, /obj/item/melee))
+	if(auth_weapons && (!id || !(ACCESS_WEAPONS in id.access)))
+		if(isitem(perp.l_hand) && perp.l_hand.needs_permit)
 			threatcount += 4
-
-		if(istype(perp.r_hand, /obj/item/gun) || istype(perp.r_hand, /obj/item/melee))
+		if(isitem(perp.r_hand) && perp.r_hand.needs_permit)
 			threatcount += 4
-
-		if(istype(perp.belt, /obj/item/gun) || istype(perp.belt, /obj/item/melee))
-			threatcount += 2
-
-		if(!ishumanbasic(perp)) //beepsky so racist.
-			threatcount += 2
+		if(isitem(perp.belt) && perp.belt.needs_permit)
+			threatcount += 4
 
 	if(check_records || check_arrest)
 		var/perpname = perp.get_visible_name(TRUE)
