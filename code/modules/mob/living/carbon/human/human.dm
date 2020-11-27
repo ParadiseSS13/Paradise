@@ -1545,6 +1545,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 				threatcount += 4
 			if(judgebot.check_for_weapons(belt))
 				threatcount += 4
+			if(judgebot.check_for_weapons(s_store))
+				threatcount += 4
+
 
 	//Check for arrest warrant
 	if(judgebot.check_records)
