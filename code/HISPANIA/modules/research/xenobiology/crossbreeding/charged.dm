@@ -123,6 +123,15 @@ Charged extracts:
 	user.visible_message("<span class='notice'>[src] flickers in a strange, ethereal manner, and produces a camera!</span>")
 	..()
 
+/obj/item/slimecross/charged/cerulean
+	colour = "cerulean"
+	effect_desc = "Creates an extract enhancer, giving whatever it's used on five more uses."
+
+/obj/item/slimecross/charged/cerulean/do_effect(mob/user)
+	new /obj/item/slimepotion/enhancer/max(get_turf(user))
+	user.visible_message("<span class='notice'>[src] distills into a potion!</span>")
+	..()
+
 /obj/item/slimecross/charged/pyrite
 	colour = "pyrite"
 	effect_desc = "Creates bananium. Oh no."
@@ -131,10 +140,6 @@ Charged extracts:
 	new /obj/item/stack/sheet/mineral/bananium(get_turf(user), 10)
 	user.visible_message("<span class='warning'>[src] solidifies with a horrifying banana stench!</span>")
 	..()
-
-/obj/item/slimecross/charged/gold/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
 
 /obj/item/slimecross/charged/oil
 	colour = "oil"

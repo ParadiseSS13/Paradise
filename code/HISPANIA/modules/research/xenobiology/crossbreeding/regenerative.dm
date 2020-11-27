@@ -54,6 +54,16 @@ Regenerative extracts:
 /obj/item/slimecross/regenerative/purple/core_effect(mob/living/target, mob/user)
 	target.reagents.add_reagent("regen_jelly",10)
 
+/obj/item/slimecross/regenerative/blue
+	colour = "blue"
+	effect_desc = "Fully heals the target and makes the floor wet."
+
+/obj/item/slimecross/regenerative/blue/core_effect(mob/living/target, mob/user)
+	if(isturf(target.loc))
+		var/turf/simulated/T = get_turf(target)
+		T.MakeSlippery(TURF_WET_WATER, 10 SECONDS)
+		target.visible_message("<span class='warning'>The milky goo in the extract gets all over the floor!</span>")
+
 /obj/item/slimecross/regenerative/metal
 	colour = "metal"
 	effect_desc = "Fully heals the target and encases the target in a locker."
@@ -161,9 +171,33 @@ Regenerative extracts:
 
 /obj/item/slimecross/regenerative/darkpurple/core_effect(mob/living/target, mob/user)
 	var/equipped = 0
-	equipped += target.equip_to_slot_or_del(new /obj/item/clothing/shoes/purple(null), SLOT_FEET)
-	equipped += target.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(null), SLOT_ICLOTHING)
-	equipped += target.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/purple(null), SLOT_GLOVES)
-	equipped += target.equip_to_slot_or_del(new /obj/item/clothing/head/soft/purple(null), SLOT_HEAD)
+	equipped += target.equip_to_slot_or_del(new /obj/item/clothing/shoes/purple(null), slot_shoes)
+	equipped += target.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(null), slot_w_uniform)
+	equipped += target.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/purple(null), slot_gloves)
+	equipped += target.equip_to_slot_or_del(new /obj/item/clothing/head/soft/purple(null), slot_head)
 	if(equipped > 0)
 		target.visible_message("<span class='notice'>The milky goo congeals into clothing!</span>")
+
+/obj/item/slimecross/regenerative/bluespace
+	colour = "bluespace"
+	effect_desc = "Fully heals the target and teleports them to where this core was created."
+	var/turf/simulated/T
+
+/obj/item/slimecross/regenerative/bluespace/core_effect(mob/living/target, mob/user)
+	var/turf/old_location = get_turf(target)
+	if(do_teleport(target, T))
+		old_location.visible_message("<span class='warning'>[target] disappears in a shower of sparks!</span>")
+		to_chat(target, "<span class='danger'>The milky goo teleports you somewhere it remembers!</span>")
+
+/obj/item/slimecross/regenerative/bluespace/Initialize()
+	. = ..()
+	T = get_turf(src)
+
+/obj/item/slimecross/regenerative/oil
+	colour = "oil"
+	effect_desc = "Fully heals the target and flashes everyone in sight."
+
+/obj/item/slimecross/regenerative/oil/core_effect(mob/living/target, mob/user)
+	playsound(src, 'sound/weapons/flash.ogg', 100, TRUE)
+	for(var/mob/living/L in view(user,7))
+		L.flash_eyes()

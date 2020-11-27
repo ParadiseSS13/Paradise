@@ -15,14 +15,14 @@ Burning extracts:
 	create_reagents(10, INJECTABLE | DRAWABLE)
 
 /obj/item/slimecross/burning/attack_self(mob/user)
-    if(!reagents.has_reagent("plasma_dust",  10))
-        to_chat(user, "<span class='warning'>This extract needs to be full of plasma to activate!</span>")
-        return
-    reagents.remove_reagent("plasma_dust",  10)
-    to_chat(user, "<span class='notice'>You squeeze the extract, and it absorbs the plasma!</span>")
-    playsound(src, 'sound/effects/bubbles.ogg', 50, TRUE)
-    playsound(src, 'sound/magic/fireball.ogg', 50, TRUE)
-    do_effect(user)
+	if(!reagents.has_reagent("plasma_dust", 10))
+		to_chat(user, "<span class='warning'>This extract needs to be full of plasma to activate!</span>")
+		return
+	reagents.remove_reagent("plasma_dust", 10)
+	to_chat(user, "<span class='notice'>You squeeze the extract, and it absorbs the plasma!</span>")
+	playsound(src, 'sound/effects/bubbles.ogg', 50, TRUE)
+	playsound(src, 'sound/magic/fireball.ogg', 50, TRUE)
+	do_effect(user)
 
 /obj/item/slimecross/burning/proc/do_effect(mob/user) //If, for whatever reason, you don't want to delete the extract, don't do ..()
 	qdel(src)
@@ -189,4 +189,56 @@ Burning extracts:
 /obj/item/slimecross/burning/rainbow/do_effect(mob/user)
 	user.visible_message("<span class='notice'>[src] flattens into a glowing rainbow blade.</span>")
 	new /obj/item/kitchen/knife/rainbowknife(get_turf(user))
+	..()
+
+/obj/item/slimecross/burning/bluespace
+	colour = "bluespace"
+	effect_desc = "Teleports anyone directly next to you."
+
+/obj/item/slimecross/burning/bluespace/do_effect(mob/user)
+	user.visible_message("<span class='danger'>[src] sparks, and lets off a shockwave of bluespace energy!</span>")
+	for(var/mob/living/L in range(1, get_turf(user)))
+		if(L != user)
+			do_teleport(L, get_turf(L), 6, asoundin = 'sound/effects/phasein.ogg') //Somewhere between the effectiveness of fake and real BS crystal
+			new /obj/effect/particle_effect/sparks(get_turf(L))
+			playsound(get_turf(L), "sparks", 50)
+	..()
+
+/obj/item/slimecross/burning/pyrite
+	colour = "pyrite"
+	effect_desc = "Shatters all lights in the current room."
+
+/obj/item/slimecross/burning/pyrite/do_effect(mob/user)
+	user.visible_message("<span class='danger'>[src] releases a colorful wave of energy, which shatters the lights!</span>")
+	var/area/A = get_area(user.loc)
+	for(var/obj/machinery/light/L in A) //Shamelessly copied from the APC effect.
+		L.on = TRUE
+		L.break_light_tube()
+		L.on = FALSE
+		stoplag()
+	..()
+
+/obj/item/slimecross/burning/blue
+	colour = "blue"
+	effect_desc = "Freezes the floor around you and chills nearby people."
+
+/obj/item/slimecross/burning/blue/do_effect(mob/user)
+	user.visible_message("<span class='danger'>[src] flash-freezes the area!</span>")
+	for(var/turf/simulated/T in range(3, get_turf(user)))
+		T.MakeSlippery(TURF_WET_PERMAFROST, 10 SECONDS)
+	for(var/mob/living/carbon/M in range(5, get_turf(user)))
+		if(M != user)
+			M.bodytemperature = BODYTEMP_COLD_DAMAGE_LIMIT + 10 //Not quite cold enough to hurt.
+			to_chat(M, "<span class='danger'>You feel a chill run down your spine, and the floor feels a bit slippery with frost...</span>")
+	..()
+
+/obj/item/slimecross/burning/metal
+	colour = "metal"
+	effect_desc = "Instantly destroys walls around you."
+
+/obj/item/slimecross/burning/metal/do_effect(mob/user)
+	for(var/turf/simulated/wall/W in range(1,get_turf(user)))
+		W.dismantle_wall(1)
+		playsound(W, 'sound/effects/break_stone.ogg', 50, TRUE)
+	user.visible_message("<span class='danger'>[src] pulses violently, and shatters the walls around it!</span>")
 	..()

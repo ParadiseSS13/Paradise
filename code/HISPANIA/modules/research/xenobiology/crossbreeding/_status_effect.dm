@@ -198,3 +198,38 @@
 				qdel(src)
 				qdel(linked_extract)
 	return ..()
+
+///////////////////////////////////////////////////////
+////////////////////// CHILLING////////////////////////
+///////////////////////////////////////////////////////
+
+/datum/status_effect/slimerecall
+	id = "slime_recall"
+	duration = -1 //Will be removed by the extract.
+	tick_interval = -1
+	alert_type = null
+	var/interrupted = FALSE
+	var/mob/target
+	var/icon/bluespace
+
+/datum/status_effect/slimerecall/on_apply()
+	RegisterSignal(owner, COMSIG_LIVING_RESIST, .proc/resistField)
+	to_chat(owner, "<span class='danger'>You feel a sudden tug from an unknown force, and feel a pull to bluespace!</span>")
+	to_chat(owner, "<span class='notice'>Resist if you wish avoid the force!</span>")
+	bluespace = icon('icons/effects/effects.dmi',"chronofield")
+	owner.add_overlay(bluespace)
+	return ..()
+
+/datum/status_effect/slimerecall/proc/resistField()
+	interrupted = TRUE
+	owner.remove_status_effect(src)
+/datum/status_effect/slimerecall/on_remove()
+	UnregisterSignal(owner, COMSIG_LIVING_RESIST)
+	owner.cut_overlay(bluespace)
+	if(interrupted || !ismob(target))
+		to_chat(owner, "<span class='warning'>The bluespace tug fades away, and you feel that the force has passed you by.</span>")
+		return
+	var/turf/old_location = get_turf(owner)
+	if(do_teleport(owner, target.loc)) //despite being named a bluespace teleportation method the quantum channel is used to preserve precision teleporting with a bag of holding
+		old_location.visible_message("<span class='warning'>[owner] disappears in a flurry of sparks!</span>")
+		to_chat(owner, "<span class='warning'>The unknown force snatches briefly you from reality, and deposits you next to [target]!</span>")

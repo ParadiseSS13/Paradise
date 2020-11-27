@@ -159,3 +159,43 @@ Chilling extracts:
 		if(get_dist(get_turf(user), T) > 0)
 			new /obj/effect/forcefield/slimewall(T)
 	..()
+
+/obj/item/slimecross/chilling/bluespace
+	colour = "bluespace"
+	effect_desc = "Touching people with this extract adds them to a list, when it is activated it teleports everyone on that list to the user."
+	var/list/allies = list()
+	var/active = FALSE
+
+/obj/item/slimecross/chilling/bluespace/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || !isliving(target) || active)
+		return
+	if(target in allies)
+		allies -= target
+		to_chat(user, "<span class='notice'>You unlink [src] with [target].</span>")
+	else
+		allies |= target
+		to_chat(user, "<span class='notice'>You link [src] with [target].</span>")
+	return
+
+/obj/item/slimecross/chilling/bluespace/do_effect(mob/user)
+	if(allies.len <= 0)
+		to_chat(user, "<span class='warning'>[src] is not linked to anyone!</span>")
+		return
+	to_chat(user, "<span class='notice'>You feel [src] pulse as it begins charging bluespace energies...</span>")
+	active = TRUE
+	for(var/mob/living/M in allies)
+		var/datum/status_effect/slimerecall/S = M.apply_status_effect(/datum/status_effect/slimerecall)
+		S.target = user
+	if(do_after(user, 100, target=src))
+		to_chat(user, "<span class='notice'>[src] shatters as it tears a hole in reality, snatching the linked individuals from the void!</span>")
+		for(var/mob/living/M in allies)
+			var/datum/status_effect/slimerecall/S = M.has_status_effect(/datum/status_effect/slimerecall)
+			M.remove_status_effect(S)
+	else
+		to_chat(user, "<span class='warning'>[src] falls dark, dissolving into nothing as the energies fade away.</span>")
+		for(var/mob/living/M in allies)
+			var/datum/status_effect/slimerecall/S = M.has_status_effect(/datum/status_effect/slimerecall)
+			if(istype(S))
+				S.interrupted = TRUE
+				M.remove_status_effect(S)
+	..()

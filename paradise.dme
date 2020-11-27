@@ -1393,6 +1393,7 @@
 #include "code\HISPANIA\modules\research\xenobiology\crossbreeding\reproductive.dm"
 #include "code\HISPANIA\modules\research\xenobiology\crossbreeding\selfsustaining.dm"
 #include "code\HISPANIA\modules\research\xenobiology\crossbreeding\stabilized.dm"
+#include "code\HISPANIA\modules\research\xenobiology\crossbreeding\warping.dm"
 #include "code\HISPANIA\modules\shuttle\shuttle.dm"
 #include "code\HISPANIA\modules\spacepods\equipment.dm"
 #include "code\HISPANIA\modules\surgery\tools.dm"

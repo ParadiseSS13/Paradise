@@ -219,3 +219,36 @@ Consuming extracts:
 
 /obj/item/slime_cookie/lightpink/do_effect(mob/living/M, mob/user)
 	M.apply_status_effect(/datum/status_effect/peacecookie)
+
+/obj/item/slimecross/consuming/bluespace
+	colour = "bluespace"
+	effect_desc = "Creates a slime cookie that teleports the target to a random place in the area."
+	cookietype = /obj/item/slime_cookie/bluespace
+
+/obj/item/slime_cookie/bluespace
+	name = "space cookie"
+	desc = "A white cookie with green icing. Surprisingly hard to hold."
+	icon_state = "bluespace"
+	taste = "sugar and starlight"
+
+/obj/item/slime_cookie/bluespace/do_effect(mob/living/M, mob/user)
+	var/list/L = get_area_turfs(get_area(get_turf(M)))
+	var/turf/target
+	while (L.len && !target)
+		var/I = rand(1, L.len)
+		var/turf/T = L[I]
+		if(!T.density)
+			var/clear = TRUE
+			for(var/obj/O in T)
+				if(O.density)
+					clear = FALSE
+					break
+			if(clear)
+				target = T
+		if (!target)
+			L.Cut(I,I+1)
+
+	if(target)
+		do_teleport(M, target, 0, asoundin = 'sound/effects/phasein.ogg')
+		new /obj/effect/particle_effect/sparks(get_turf(M))
+		playsound(get_turf(M), "sparks", 50, TRUE)

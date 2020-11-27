@@ -112,3 +112,10 @@ Slimecrossing Potions
 	to_chat(user, "<span class='notice'>You feed the slime the omnistabilizer. It will not mutate this cycle!</span>")
 	M.mutation_chance = 0
 	qdel(src)
+
+//Enhancer potion - Charged Cerulean
+/obj/item/slimepotion/enhancer/max
+	name = "extract maximizer"
+	desc = "An extremely potent chemical mix that will maximize a slime extract's uses."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "potpurple"
