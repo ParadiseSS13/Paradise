@@ -119,15 +119,12 @@
 		"on" = on,
 		"autopatrol" = auto_patrol,
 		"painame" = paicard ? paicard.pai.name : null,
-
 		"canhack" = canhack(user),
 		"emagged" = emagged, // this is an int, NOT a boolean
-		"remote_disabled" = remote_disabled,
-
+		"remote_disabled" = remote_disabled, // -- STUFF BELOW HERE IS SPECIFIC TO THIS BOT
 		"check_id" = idcheck,
 		"check_weapons" = weaponscheck,
 		"check_warrant" = check_records,
-
 		"arrest_mode" = arrest_type, // detain or arrest
 		"arrest_declare" = declare_arrests // announce arrests on radio
 	)
