@@ -271,8 +271,6 @@
 
 	to_chat(src, "<span class='warning'>If the title screen is black, resources are still downloading. Please be patient until the title screen appears.</span>")
 
-
-	GLOB.clients += src
 	GLOB.directory[ckey] = src
 	//Admin Authorisation
 	// Automatically makes localhost connection an admin
@@ -296,6 +294,12 @@
 	if(world.byond_version >= 511 && byond_version >= 511 && prefs.clientfps)
 		fps = prefs.clientfps
 
+	// This has to go here to avoid issues
+	// If you sleep past this point, you will get SSinput errors as well as goonchat errors
+	// DO NOT STUFF RANDOM SQL QUERIES BELOW THIS POINT WITHOUT USING `INVOKE_ASYNC()` OR SIMILAR
+	// YOU WILL BREAK STUFF. SERIOUSLY. -aa07
+	GLOB.clients += src
+
 	spawn() // Goonchat does some non-instant checks in start()
 		chatOutput.start()
 
@@ -317,7 +321,6 @@
 			winset(src, null, "command=\".configure graphics-hwmode on\"")
 
 	log_client_to_db(tdata)
-
 	. = ..()	//calls mob.Login()
 
 
