@@ -316,11 +316,11 @@
 					to_chat(usr, "Cancelled")
 					return
 
-			var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE [format_table_name("ban")] SET reason=:value, edits = CONCAT(edits,'- :eckey changed ban reason from <cite><b>\\\":reason\\\"</b></cite> to <cite><b>\\\":value\\\"</b></cite><BR>') WHERE id=:banid", list(
-				"value" = value,
-				"eckey" = eckey,
-				"reason" = reason,
-				"banid" = banid
+			var/edit_reason = "- [eckey] changed ban reason from <cite><b>\\\"[reason]\\\"</b></cite> to <cite><b>\\\"[value]\\\"</b></cite><BR>"
+			var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE [format_table_name("ban")] SET reason=:value, edits = CONCAT(IFNULL(edits,''), :edittext) WHERE id=:banid", list(
+				"edittext" = edit_reason,
+				"banid" = banid,
+				"value" = value
 			))
 
 			if(!update_query.warn_execute())
@@ -335,11 +335,11 @@
 					to_chat(usr, "Cancelled")
 					return
 
-			var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE [format_table_name("ban")] SET duration=:value, edits = CONCAT(edits,'- :eckey changed ban duration from :duration to :value<br>'), expiration_time = DATE_ADD(bantime, INTERVAL :value MINUTE) WHERE id=:banid", list(
-				"value" = value,
-				"eckey" = eckey,
-				"duration" = duration,
-				"banid" = banid
+			var/edittext = "- [eckey] changed ban duration from [duration] to [value]<br>"
+			var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE [format_table_name("ban")] SET duration=:value, edits = CONCAT(IFNULL(edits, ''), :edittext), expiration_time = DATE_ADD(bantime, INTERVAL :value MINUTE) WHERE id=:banid", list(
+				"edittext" = edittext,
+				"banid" = banid,
+				"value" = value
 			))
 			if(!update_query.warn_execute())
 				qdel(update_query)
