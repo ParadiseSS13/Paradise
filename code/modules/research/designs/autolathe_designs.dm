@@ -187,6 +187,14 @@
 	build_path = /obj/item/pipe_painter
 	category = list("initial", "Miscellaneous")
 
+/datum/design/window_painter
+	name = "Window Painter"
+	id = "window_painter"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 2000)
+	build_path = /obj/item/pipe_painter/window_painter
+	category = list("initial", "Miscellaneous")
+
 /datum/design/floorpainter
 	name = "Floor painter"
 	id = "floor_painter"

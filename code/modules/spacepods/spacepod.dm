@@ -38,8 +38,6 @@
 	var/obj/machinery/portable_atmospherics/canister/internal_tank
 	var/use_internal_tank = 0
 
-	var/datum/effect_system/trail_follow/ion/space_trail/ion_trail
-
 	var/hatch_open = 0
 
 	var/next_firetime = 0
@@ -111,9 +109,6 @@
 	battery = new battery_type(src)
 	add_cabin()
 	add_airtank()
-	src.ion_trail = new /datum/effect_system/trail_follow/ion/space_trail()
-	src.ion_trail.set_up(src)
-	src.ion_trail.start()
 	src.use_internal_tank = 1
 	equipment_system = new(src)
 	equipment_system.installed_modules += battery
@@ -124,6 +119,29 @@
 	cargo_hold.max_w_class = 5		//fit almost anything
 	cargo_hold.max_combined_w_class = 0 //you can optimize your stash with larger items
 	START_PROCESSING(SSobj, src)
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/create_trail)
+
+/obj/spacepod/proc/create_trail()
+	var/turf/T = get_turf(src)
+	var/atom/oldposition
+	var/atom/oldloc
+	switch(dir)
+		if(NORTH)
+			oldposition = get_step(T, SOUTH)
+			oldloc = get_step(oldposition, EAST)
+		if(SOUTH) // More difficult, offset to the north!
+			oldposition = get_step(get_step(src, NORTH), NORTH)
+			oldloc = get_step(oldposition, EAST)
+		if(EAST) // Just one to the north should suffice
+			oldposition = get_step(T, WEST)
+			oldloc = get_step(oldposition, NORTH)
+		if(WEST) // One to the east and north from there
+			oldposition = get_step(get_step(src, EAST), EAST)
+			oldloc = get_step(oldposition, NORTH)
+
+	if(!has_gravity(T))
+		new /obj/effect/particle_effect/ion_trails(oldposition, dir)
+		new /obj/effect/particle_effect/ion_trails(oldloc, dir)
 
 /obj/spacepod/Destroy()
 	if(equipment_system.cargo_system)
@@ -133,7 +151,6 @@
 	QDEL_NULL(battery)
 	QDEL_NULL(cabin_air)
 	QDEL_NULL(internal_tank)
-	QDEL_NULL(ion_trail)
 	occupant_sanity_check()
 	if(pilot)
 		eject_pilot()
@@ -280,7 +297,6 @@
 						H.forceMove(get_turf(src))
 						H.ex_act(severity + 1)
 						to_chat(H, "<span class='warning'>You are forcefully thrown from [src]!</span>")
-			qdel(ion_trail)
 			qdel(src)
 		if(2)
 			deal_damage(100)

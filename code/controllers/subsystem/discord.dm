@@ -15,30 +15,32 @@ SUBSYSTEM_DEF(discord)
 /datum/controller/subsystem/discord/proc/send2discord_simple(destination, content)
 	if(!enabled)
 		return
-	var/webhook_url
+	var/list/webhook_urls
 	switch(destination)
 		if(DISCORD_WEBHOOK_ADMIN)
-			webhook_url = config.discord_admin_webhook_url
+			webhook_urls = config.discord_admin_webhook_urls
 		if(DISCORD_WEBHOOK_PRIMARY)
-			webhook_url = config.discord_main_webhook_url
+			webhook_urls = config.discord_main_webhook_urls
 		if(DISCORD_WEBHOOK_MENTOR)
-			webhook_url = config.discord_mentor_webhook_url
+			webhook_urls = config.discord_mentor_webhook_urls
 
 	var/datum/discord_webhook_payload/dwp = new()
 	dwp.webhook_content = content
-	SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, webhook_url, dwp.serialize2json(), list("content-type" = "application/json"))
+	for(var/url in webhook_urls)
+		SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, url, dwp.serialize2json(), list("content-type" = "application/json"))
 
 // This one is designed to take in a [/datum/discord_webhook_payload] which was prepared beforehand
 /datum/controller/subsystem/discord/proc/send2discord_complex(destination, datum/discord_webhook_payload/dwp)
 	if(!enabled)
 		return
-	var/webhook_url
+	var/list/webhook_urls
 	switch(destination)
 		if(DISCORD_WEBHOOK_ADMIN)
-			webhook_url = config.discord_admin_webhook_url
+			webhook_urls = config.discord_admin_webhook_urls
 		if(DISCORD_WEBHOOK_PRIMARY)
-			webhook_url = config.discord_main_webhook_url
-	SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, webhook_url, dwp.serialize2json(), list("content-type" = "application/json"))
+			webhook_urls = config.discord_main_webhook_urls
+	for(var/url in webhook_urls)
+		SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, url, dwp.serialize2json(), list("content-type" = "application/json"))
 
 // This one is for sending messages to the admin channel if no admins are active, complete with a ping to the game admins role
 /datum/controller/subsystem/discord/proc/send2discord_simple_noadmins(content, check_send_always = FALSE)
@@ -66,8 +68,8 @@ SUBSYSTEM_DEF(discord)
 
 	var/datum/discord_webhook_payload/dwp = new()
 	dwp.webhook_content = message
-
-	SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, config.discord_admin_webhook_url, dwp.serialize2json(), list("content-type" = "application/json"))
+	for(var/url in config.discord_admin_webhook_urls)
+		SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, url, dwp.serialize2json(), list("content-type" = "application/json"))
 
 // Helper to make administrator ping easier
 /datum/controller/subsystem/discord/proc/handle_administrator_ping()
@@ -79,4 +81,4 @@ SUBSYSTEM_DEF(discord)
 		last_administration_ping = world.time + 60 SECONDS
 		return "<@&[config.discord_admin_role_id]>"
 
-	return "*(Role not configured)*"
+	return ""

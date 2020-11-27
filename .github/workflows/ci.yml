@@ -1,5 +1,8 @@
 name: CI
 on:
+  push:
+    branches:
+    - master
   pull_request:
     branches:
     - Lambda
@@ -48,6 +51,7 @@ jobs:
           source $HOME/BYOND/byond/bin/byondsetup
           tools/ci/generate_maplist.sh
           tools/ci/dm.sh -Mci_map_testing paradise.dme
+
   unit_tests_and_sql:
     name: Unit Tests + SQL Validation
     runs-on: ubuntu-18.04
@@ -80,7 +84,6 @@ jobs:
       - name: Compile & Run Unit Tests
         run: |
           tools/ci/install_byond.sh
-          tools/ci/install_rustg.sh
           source $HOME/BYOND/byond/bin/byondsetup
           tools/ci/dm.sh -DCIBUILDING paradise.dme
           tools/ci/run_server.sh

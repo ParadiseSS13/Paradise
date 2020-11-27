@@ -16,10 +16,10 @@ log transactions
 
 /obj/machinery/atm
 	name = "Nanotrasen automatic teller machine"
-	desc = "For all your monetary needs!"
+	desc = "For all your monetary needs! Just insert your ID card to make a withdrawal or deposit!"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "atm"
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	var/obj/machinery/computer/account_database/linked_db
@@ -69,7 +69,7 @@ log transactions
 			for(var/obj/item/stack/spacecash/S in T)
 				cash_amount += S.amount
 			if(cash_amount)
-				playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, 1)
+				playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
 				for(var/obj/item/stack/spacecash/S in T)
 					S.use(S.amount)
 				authenticated_account.charge(-cash_amount, null, "Credit deposit", machine_id, "Terminal")
@@ -110,7 +110,7 @@ log transactions
 
 /obj/machinery/atm/attack_hand(mob/user)
 	if(..())
-		return 1
+		return TRUE
 	if(issilicon(user))
 		to_chat(user, "<span class='warning'>Artificial unit recognized. Artificial units do not currently receive monetary compensation, as per Nanotrasen regulation #1005.</span>")
 		return
@@ -155,6 +155,9 @@ log transactions
 	return data
 
 /obj/machinery/atm/tgui_act(action, params)
+	if(..())
+		return
+
 	switch(action)
 		if("transfer")
 			if(!authenticated_account || !linked_db)
@@ -237,7 +240,7 @@ log transactions
 					previous_account_number = tried_account_num
 
 		if("withdrawal")
-			var/amount = max(text2num(params["funds_amount"]),0)
+			var/amount = max(text2num(params["funds_amount"]), 0)
 			if(amount <= 0)
 				to_chat(usr, "[bicon(src)]<span class='warning'>That is not a valid amount.</span>")
 			else if(authenticated_account && amount > 0)
@@ -301,4 +304,6 @@ log transactions
 
 //create the most effective combination of notes to make up the requested amount
 /obj/machinery/atm/proc/withdraw_arbitrary_sum(arbitrary_sum)
-	new /obj/item/stack/spacecash(get_step(get_turf(src), turn(dir, 180)), arbitrary_sum)
+	var/obj/item/stack/spacecash/C = new(amt = arbitrary_sum)
+	if(!usr?.put_in_hands(C))
+		C.forceMove(get_step(get_turf(src), turn(dir, 180)))
