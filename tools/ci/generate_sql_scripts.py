@@ -39,7 +39,6 @@ os.mkdir("tools/ci/sql_tmp")
 scriptLines = [
     "#!/bin/bash\n",
     "set -euo pipefail\n"
-    "mysql -u root -proot -e \"SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));\""
     "mysql -u root -proot < tools/ci/sql_v0.sql\n"
 ]
 
