@@ -283,11 +283,14 @@
 		if(!premium.len)
 			to_chat(user, "<span class='warning'>[src] does not accept coins.</span>")
 			return
+		if(coin)
+			to_chat(user, "<span class='warning'>There is already a coin in this machine!</span>")
+			return
 		if(!user.drop_item())
 			return
 		I.forceMove(src)
 		coin = I
-		to_chat(user, "<span class='notice'>You insert the [I] into the [src]</span>")
+		to_chat(user, "<span class='notice'>You insert [I] into the [src]</span>")
 		SStgui.update_uis(src)
 		return
 	if(refill_canister && istype(I, refill_canister))
