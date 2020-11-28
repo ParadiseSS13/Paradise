@@ -66,7 +66,7 @@ SUBSYSTEM_DEF(dbcore)
 	var/db = sqlfdbkdb
 	var/address = sqladdress
 	var/port = text2num(sqlport)
-	var/timeout = max(config.async_sql_query_timeout, config.blocking_sql_query_timeout)
+	var/timeout = config.async_sql_query_timeout
 	var/thread_limit = config.rust_sql_thread_limit
 
 	var/result = json_decode(rustg_sql_connect_pool(json_encode(list(

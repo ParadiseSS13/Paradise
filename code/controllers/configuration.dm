@@ -271,9 +271,6 @@
 	/// Timeout (seconds) for async SQL queries
 	var/async_sql_query_timeout = 10 SECONDS
 
-	/// Timeout (seconds) for blocking SQL queries
-	var/blocking_sql_query_timeout = 5 SECONDS
-
 	/// Limit of how many SQL threads can run at once
 	var/rust_sql_thread_limit = 50
 
@@ -883,8 +880,6 @@
 				sql_version = text2num(value)
 			if("async_query_timeout")
 				async_sql_query_timeout = text2num(value)
-			if("blocking_query_timeout")
-				config.blocking_sql_query_timeout = text2num(value)
 			if("rust_sql_thread_limit")
 				config.rust_sql_thread_limit = text2num(value)
 			else
