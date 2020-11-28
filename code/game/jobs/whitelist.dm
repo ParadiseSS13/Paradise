@@ -46,8 +46,10 @@ GLOBAL_LIST_EMPTY(whitelist)
 					var/allowed_jobs = splittext(joblist, ",")
 					if(rank in allowed_jobs)
 						. = TRUE
+						break
 				else
 					. = TRUE
+					break
 
 			qdel(job_read)
 	else
@@ -96,8 +98,10 @@ GLOBAL_LIST_EMPTY(alien_whitelist)
 				var/allowed_species = splittext(specieslist, ",")
 				if(species in allowed_species)
 					. = TRUE
+					break
 			else
 				. = TRUE
+				break
 
 		qdel(species_read)
 /*

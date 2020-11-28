@@ -86,6 +86,7 @@
 			qdel(query_watchupdate)
 			qdel(query_watchreason)
 			return
+		qdel(query_watchupdate)
 		log_admin("[key_name(usr)] has edited [target_ckey]'s watchlist reason from \"[watch_reason]\" to \"[new_reason]\"")
 		message_admins("[key_name_admin(usr)] has edited [target_ckey]'s watchlist reason from \"[watch_reason]\" to \"[new_reason]\"")
 		if(browse)

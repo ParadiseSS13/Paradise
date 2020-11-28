@@ -118,16 +118,16 @@ SUBSYSTEM_DEF(dbcore)
 
 /datum/controller/subsystem/dbcore/proc/Disconnect()
 	failed_connections = 0
-	if (connection)
+	if(connection)
 		rustg_sql_disconnect_pool(connection)
 	connection = null
 
 /datum/controller/subsystem/dbcore/proc/IsConnected()
-	if (!config.sql_enabled)
+	if(!config.sql_enabled)
 		return FALSE
-	if (!schema_valid)
+	if(!schema_valid)
 		return FALSE
-	if (!connection)
+	if(!connection)
 		return FALSE
 	return json_decode(rustg_sql_connected(connection))["status"] == "online"
 
@@ -148,22 +148,22 @@ SUBSYSTEM_DEF(dbcore)
 	return new /datum/db_query(connection, sql_query, arguments)
 
 /datum/controller/subsystem/dbcore/proc/QuerySelect(list/querys, warn = FALSE, qdel = FALSE)
-	if (!islist(querys))
-		if (!istype(querys, /datum/db_query))
+	if(!islist(querys))
+		if(!istype(querys, /datum/db_query))
 			CRASH("Invalid query passed to QuerySelect: [querys]")
 		querys = list(querys)
 
-	for (var/thing in querys)
+	for(var/thing in querys)
 		var/datum/db_query/query = thing
-		if (warn)
+		if(warn)
 			INVOKE_ASYNC(query, /datum/db_query.proc/warn_execute)
 		else
 			INVOKE_ASYNC(query, /datum/db_query.proc/Execute)
 
-	for (var/thing in querys)
+	for(var/thing in querys)
 		var/datum/db_query/query = thing
 		UNTIL(!query.in_progress)
-		if (qdel)
+		if(qdel)
 			qdel(query)
 
 
@@ -181,25 +181,25 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 	It does not work with duplicate_key and the mysql server ignores it in those cases
 */
 /datum/controller/subsystem/dbcore/proc/MassInsert(table, list/rows, duplicate_key = FALSE, ignore_errors = FALSE, delayed = FALSE, warn = FALSE, async = TRUE, special_columns = null)
-	if (!table || !rows || !istype(rows))
+	if(!table || !rows || !istype(rows))
 		return
 
 	// Prepare column list
 	var/list/columns = list()
 	var/list/has_question_mark = list()
-	for (var/list/row in rows)
-		for (var/column in row)
+	for(var/list/row in rows)
+		for(var/column in row)
 			columns[column] = "?"
 			has_question_mark[column] = TRUE
-	for (var/column in special_columns)
+	for(var/column in special_columns)
 		columns[column] = special_columns[column]
 		has_question_mark[column] = findtext(special_columns[column], "?")
 
 	// Prepare SQL query full of placeholders
 	var/list/query_parts = list("INSERT")
-	if (delayed)
+	if(delayed)
 		query_parts += " DELAYED"
-	if (ignore_errors)
+	if(ignore_errors)
 		query_parts += " IGNORE"
 	query_parts += " INTO "
 	query_parts += table
@@ -207,15 +207,15 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 
 	var/list/arguments = list()
 	var/has_row = FALSE
-	for (var/list/row in rows)
-		if (has_row)
+	for(var/list/row in rows)
+		if(has_row)
 			query_parts += ","
 		query_parts += "\n  ("
 		var/has_col = FALSE
-		for (var/column in columns)
-			if (has_col)
+		for(var/column in columns)
+			if(has_col)
 				query_parts += ", "
-			if (has_question_mark[column])
+			if(has_question_mark[column])
 				var/name = "p[arguments.len]"
 				query_parts += replacetext(columns[column], "?", ":[name]")
 				arguments[name] = row[column]
@@ -225,16 +225,16 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 		query_parts += ")"
 		has_row = TRUE
 
-	if (duplicate_key == TRUE)
+	if(duplicate_key == TRUE)
 		var/list/column_list = list()
-		for (var/column in columns)
+		for(var/column in columns)
 			column_list += "[column] = VALUES([column])"
 		query_parts += "\nON DUPLICATE KEY UPDATE [column_list.Join(", ")]"
-	else if (duplicate_key != FALSE)
+	else if(duplicate_key != FALSE)
 		query_parts += duplicate_key
 
 	var/datum/db_query/Query = NewQuery(query_parts.Join(), arguments)
-	if (warn)
+	if(warn)
 		. = Query.warn_execute(async)
 	else
 		. = Query.Execute(async)
@@ -330,16 +330,16 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 		job_result_str = rustg_sql_query_blocking(connection, sql, json_encode(arguments))
 
 	var/result = json_decode(job_result_str)
-	switch (result["status"])
-		if ("ok")
+	switch(result["status"])
+		if("ok")
 			rows = result["rows"]
 			affected = result["affected"]
 			last_insert_id = result["last_insert_id"]
 			return TRUE
-		if ("err")
+		if("err")
 			last_error = result["data"]
 			return FALSE
-		if ("offline")
+		if("offline")
 			last_error = "offline"
 			return FALSE
 
@@ -349,7 +349,7 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 /datum/db_query/proc/NextRow(async = TRUE)
 	Activity("NextRow")
 
-	if (rows && next_row_to_take <= rows.len)
+	if(rows && next_row_to_take <= rows.len)
 		item = rows[next_row_to_take]
 		next_row_to_take++
 		return !!item
