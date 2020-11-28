@@ -349,7 +349,7 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 /datum/db_query/proc/NextRow(async = TRUE)
 	Activity("NextRow")
 
-	if(rows && next_row_to_take <= rows.len)
+	if(rows && next_row_to_take <= length(rows))
 		item = rows[next_row_to_take]
 		next_row_to_take++
 		return !!item
