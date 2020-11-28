@@ -31,17 +31,25 @@
 		tos_consent = TRUE
 		return TRUE
 
-	establish_db_connection()
-	if(!GLOB.dbcon.IsConnected())
+	if(!SSdbcore.IsConnected())
 		tos_consent = TRUE
 		return TRUE
 
-	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT * FROM [format_table_name("privacy")] WHERE ckey='[src.ckey]' AND consent=1")
-	query.Execute()
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("privacy")] WHERE ckey=:ckey AND consent=1", list(
+		"ckey" = ckey
+	))
+	if(!query.warn_execute())
+		qdel(query)
+		// If our query failed, just assume yes
+		tos_consent = TRUE
+		return TRUE 
+
 	while(query.NextRow())
+		qdel(query)
 		tos_consent = TRUE
 		return TRUE
 
+	qdel(query)
 	privacy_consent()
 	return FALSE
 
@@ -132,18 +140,24 @@
 		return FALSE
 
 	if(href_list["consent_signed"])
-		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
-		var/DBQuery/query = GLOB.dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 1)")
-		query.Execute()
+		var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES (:ckey, Now(), 1)", list(
+			"ckey" = ckey
+		))
+		// If the query fails we dont want them permenantly stuck on being unable to accept TOS
+		query.warn_execute()
+		qdel(query)
 		src << browse(null, "window=privacy_consent")
 		tos_consent = 1
 		new_player_panel_proc()
 	if(href_list["consent_rejected"])
 		tos_consent = 0
 		to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
-		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
-		var/DBQuery/query = GLOB.dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 0)")
-		query.Execute()
+		var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES (:ckey, Now(), 0)", list(
+			"ckey" = ckey
+		))
+		// If the query fails we dont want them permenantly stuck on being unable to accept TOS
+		query.warn_execute()
+		qdel(query)
 
 	if(href_list["show_preferences"])
 		client.prefs.ShowChoices(src)
