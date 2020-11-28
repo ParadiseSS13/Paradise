@@ -3,15 +3,24 @@ SUBSYSTEM_DEF(dbcore)
 	flags = SS_BACKGROUND
 	wait = 1 MINUTES
 	init_order = INIT_ORDER_DBCORE
-	var/failed_connection_timeout = 0
 
+	/// Is the DB schema valid
 	var/schema_valid = TRUE
+	/// Timeout of failed connections
+	var/failed_connection_timeout = 0
+	/// Amount of failed connections
 	var/failed_connections = 0
 
+	/// Last error to occur
 	var/last_error
+	/// List of currenty processing queries
 	var/list/active_queries = list()
 
-	var/connection  // Arbitrary handle returned from rust_g.
+	/// SQL errors that have occured mid round
+	var/total_errors = 0
+
+	/// Connection handle. This is an arbitrary handle returned from rust_g.
+	var/connection  
 
 	offline_implications = "The server will no longer check for undeleted SQL Queries. No immediate action is needed."
 
@@ -276,7 +285,9 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 /datum/db_query/proc/warn_execute(async = TRUE)
 	. = Execute(async)
 	if(!.)
-		to_chat(usr, "<span class='danger'>A SQL error occurred during this operation, please inform an admin or a coder.</span>")
+		SSdbcore.total_errors++
+		if(usr)
+			to_chat(usr, "<span class='danger'>A SQL error occurred during this operation, please inform an admin or a coder.</span>")
 		message_admins("An SQL error has occured. Please check the server logs, with the following timestamp ID: \[[time_stamp()]]")
 
 /datum/db_query/proc/Execute(async = TRUE, log_error = TRUE)
