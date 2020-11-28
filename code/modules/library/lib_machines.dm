@@ -90,11 +90,13 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	books_flagged_this_round["[id]"] = 1
 	message_admins("[key_name_admin(user)] has flagged book #[id] as inappropriate.")
 
-	var/sqlid = text2num(id)
-	if(!sqlid)
+	var/datum/db_query/query = SSdbcore.NewQuery("UPDATE [format_table_name("library")] SET flagged = flagged + 1 WHERE id=:id", list(
+		"id" = text2num(id)
+	))
+	if(!query.warn_execute())
+		qdel(query)
 		return
-	var/DBQuery/query = GLOB.dbcon.NewQuery("UPDATE [format_table_name("library")] SET flagged = flagged + 1 WHERE id=[sqlid]")
-	query.Execute()
+	qdel(query)
 
 /datum/library_catalog/proc/rmBookByID(mob/user, id)
 	if("[id]" in cached_books)
@@ -103,21 +105,24 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 			to_chat(user, "<span class='danger'>That book cannot be removed from the system, as it does not actually exist in the database.</span>")
 			return
 
-	var/sqlid = text2num(id)
-	if(!sqlid)
+	var/datum/db_query/query = SSdbcore.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=:id", list(
+		"id" = text2num(id)
+	))
+	if(!query.warn_execute())
+		qdel(query)
 		return
-	var/DBQuery/query = GLOB.dbcon.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=[sqlid]")
-	query.Execute()
+	qdel(query)
 
 /datum/library_catalog/proc/getBookByID(id)
 	if("[id]" in cached_books)
 		return cached_books["[id]"]
 
-	var/sqlid = text2num(id)
-	if(!sqlid)
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id, author, title, category, content, ckey, flagged FROM [format_table_name("library")] WHERE id=:id", list(
+		"id" = text2num(id)
+	))
+	if(!query.warn_execute())
+		qdel(query)
 		return
-	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT id, author, title, category, content, ckey, flagged FROM [format_table_name("library")] WHERE id=[sqlid]")
-	query.Execute()
 
 	var/list/results=list()
 	while(query.NextRow())
@@ -133,7 +138,9 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 		))
 		results += CB
 		cached_books["[id]"]=CB
+		qdel(query)
 		return CB
+	qdel(query)
 	return results
 
 /** Scanner **/

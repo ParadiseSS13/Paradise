@@ -16,7 +16,7 @@ SUBSYSTEM_DEF(dbcore)
 	offline_implications = "The server will no longer check for undeleted SQL Queries. No immediate action is needed."
 
 /datum/controller/subsystem/dbcore/stat_entry()
-	..("P: [length(active_queries)]")
+	..("A: [length(active_queries)]")
 
 // This is in Initialize() so that its actually seen in chat
 /datum/controller/subsystem/dbcore/Initialize()
