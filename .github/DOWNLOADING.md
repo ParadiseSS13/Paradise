@@ -63,7 +63,7 @@ Then press GO and the server should start up and be ready to join.
 
 ### Installation (Linux)
 
-The code is fully complaint to run on linux, however windows is the recommended platform. The code requires 2 libraries, with dependencies below
+The code is fully able to run on linux, however windows is the recommended platform. The code requires 2 libraries, with dependencies below
 
 For MySQL, run the following: `apt-get install libmysqlclient-dev:i386`
 
