@@ -1,6 +1,6 @@
 // code\game\machinery\doors\airlock_electronics.dm
 import { useBackend } from '../backend';
-import { Button, Divider, Flex, Section } from '../components';
+import { Button, Divider, Flex, Grid, Section } from '../components';
 import { Window } from '../layouts';
 import { AccessList } from './common/AccessList';
 import { Fragment } from 'inferno';
@@ -26,40 +26,56 @@ const UnrestrictedAccess = (props, context) => {
         <Flex.Item bold mb={1}>
           Unrestricted Access From:
         </Flex.Item>
-        <Flex.Item>
-          <Button width={5.7}
-            icon="arrow-down"
-            content="North"
-            selected={unrestricted_dir === "north" ? "selected" : null}
-            onClick={() => act('unrestricted_access', {
-              unres_dir: "North",
-            })}
-          />
-          <Button width={5.7}
-            icon="arrow-up"
-            content="South"
-            selected={unrestricted_dir === "south" ? "selected" : null}
-            onClick={() => act('unrestricted_access', {
-              unres_dir: "South",
-            })}
-          />
-          <Button width={5.7}
-            icon="arrow-left"
-            content="East"
-            selected={unrestricted_dir === "east" ? "selected" : null}
-            onClick={() => act('unrestricted_access', {
-              unres_dir: "East",
-            })}
-          />
-          <Button width={5.7}
-            icon="arrow-right"
-            content="West"
-            selected={unrestricted_dir === "west" ? "selected" : null}
-            onClick={() => act('unrestricted_access', {
-              unres_dir: "West",
-            })}
-          />
-        </Flex.Item>
+        <Grid>
+          <Grid.Column>
+            <Button
+              fluid
+              textAlign="center"
+              icon="arrow-down"
+              content="North"
+              selected={unrestricted_dir === "north" ? "selected" : null}
+              onClick={() => act('unrestricted_access', {
+                unres_dir: "North",
+              })}
+            />
+          </Grid.Column>
+          <Grid.Column>
+            <Button
+              fluid
+              textAlign="center"
+              icon="arrow-up"
+              content="South"
+              selected={unrestricted_dir === "south" ? "selected" : null}
+              onClick={() => act('unrestricted_access', {
+                unres_dir: "South",
+              })}
+            />
+          </Grid.Column>
+          <Grid.Column>
+            <Button
+              fluid
+              textAlign="center"
+              icon="arrow-left"
+              content="East"
+              selected={unrestricted_dir === "east" ? "selected" : null}
+              onClick={() => act('unrestricted_access', {
+                unres_dir: "East",
+              })}
+            />
+          </Grid.Column>
+          <Grid.Column>
+            <Button
+              fluid
+              textAlign="center"
+              icon="arrow-right"
+              content="West"
+              selected={unrestricted_dir === "west" ? "selected" : null}
+              onClick={() => act('unrestricted_access', {
+                unres_dir: "West",
+              })}
+            />
+          </Grid.Column>
+        </Grid>
       </Flex>
     </Section>
   );
