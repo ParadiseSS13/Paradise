@@ -44,18 +44,6 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	var/category
 	var/title
 
-/datum/library_query/proc/toSQL()
-	var/list/where = list()
-	if(author || title || category)
-		if(author)
-			where.Add("author LIKE '%[sanitizeSQL(author)]%'")
-		if(category)
-			where.Add("category = '[sanitizeSQL(category)]'")
-		if(title)
-			where.Add("title LIKE '%[sanitizeSQL(title)]%'")
-		return " WHERE " + jointext(where, " AND ")
-	return ""
-
 // So we can have catalogs of books that are programmatic, and ones that aren't.
 /datum/library_catalog
 	var/list/cached_books = list()

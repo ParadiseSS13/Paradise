@@ -59,7 +59,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 			else
 				log_runtime(EXCEPTION("Skipping malformed job ban: [s]"))
 	else
-		if(!establish_db_connection())
+		if(!SSdbcore.IsConnected())
 			log_world("Database connection failed. Reverting to the legacy ban system.")
 			config.ban_legacy_system = 1
 			jobban_loadbanfile()

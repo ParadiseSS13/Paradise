@@ -106,7 +106,7 @@
 		search = "^[search]"
 	else
 		search = "^."
-	search = sanitizeSQL(search)
+
 	var/datum/db_query/query_watchlist = SSdbcore.NewQuery("SELECT ckey, reason, adminckey, timestamp, last_editor FROM [format_table_name("watch")] WHERE ckey REGEXP :search ORDER BY ckey", list(
 		"search" = search
 	))
