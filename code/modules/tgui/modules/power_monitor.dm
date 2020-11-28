@@ -29,14 +29,18 @@
 		data["select_monitor"] = TRUE
 		data["powermonitors"] = GLOB.powermonitor_repository.powermonitor_data()
 
-	if(powermonitor && !isnull(powermonitor.powernet))
+	if(powermonitor)
 		if(select_monitor && (powermonitor.stat & (NOPOWER|BROKEN)))
 			powermonitor = null
 			return
-		data["poweravail"] = DisplayPower(powermonitor.powernet.viewavail)
-		data["powerdemand"] = DisplayPower(powermonitor.powernet.viewload)
-		data["history"] = powermonitor.history
-		data["apcs"] = GLOB.apc_repository.apc_data(powermonitor.powernet)
+		if(powermonitor.powernet)
+			data["poweravail"] = DisplayPower(powermonitor.powernet.viewavail)
+			data["powerdemand"] = DisplayPower(powermonitor.powernet.viewload)
+			data["history"] = powermonitor.history
+			data["apcs"] = GLOB.apc_repository.apc_data(powermonitor.powernet)
+			data["no_powernet"] = FALSE
+		else
+			data["no_powernet"] = TRUE
 
 	return data
 
