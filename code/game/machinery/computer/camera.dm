@@ -24,7 +24,7 @@
 	// Parent object this camera is assigned to. Used for camera bugs
 	var/atom/movable/parent
 
-/obj/machinery/computer/security/tgui_host()
+/obj/machinery/computer/security/ui_host()
 	return parent ? parent : src
 
 /obj/machinery/computer/security/Initialize()
@@ -53,7 +53,7 @@
 	qdel(cam_background)
 	return ..()
 
-/obj/machinery/computer/security/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/computer/security/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	// Update UI
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	// Show static if can't use the camera
@@ -79,7 +79,7 @@
 		ui = new(user, src, ui_key, "CameraConsole", name, 870, 708, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/security/tgui_data()
+/obj/machinery/computer/security/ui_data()
 	var/list/data = list()
 	data["network"] = network
 	data["activeCamera"] = null
@@ -90,7 +90,7 @@
 		)
 	return data
 
-/obj/machinery/computer/security/tgui_static_data()
+/obj/machinery/computer/security/ui_static_data()
 	var/list/data = list()
 	data["mapRef"] = map_name
 	var/list/cameras = get_available_cameras()
@@ -103,7 +103,7 @@
 	return data
 
 
-/obj/machinery/computer/security/tgui_act(action, params)
+/obj/machinery/computer/security/ui_act(action, params)
 	if(..())
 		return
 
@@ -158,14 +158,14 @@
 		user.unset_machine()
 		return
 
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/computer/security/attack_ai(mob/user)
 	if(isAI(user))
 		to_chat(user, "<span class='notice'>You realise its kind of stupid to access a camera console when you have the entire camera network at your metaphorical fingertips</span>")
 		return
 
-	tgui_interact(user)
+	ui_interact(user)
 
 
 /obj/machinery/computer/security/proc/show_camera_static()

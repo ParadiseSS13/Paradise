@@ -143,15 +143,15 @@
 		beaker = null
 		overlays.Cut()
 
-/obj/machinery/chem_dispenser/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/chem_dispenser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "ChemDispenser", ui_title, 390, 655)
 		ui.open()
 
-/obj/machinery/chem_dispenser/tgui_data(mob/user)
-	var/data[0]
+/obj/machinery/chem_dispenser/ui_data(mob/user)
+	var/list/data = list()
 
 	data["glass"] = is_drink
 	data["amount"] = amount
@@ -183,7 +183,7 @@
 
 	return data
 
-/obj/machinery/chem_dispenser/tgui_act(actions, params)
+/obj/machinery/chem_dispenser/ui_act(actions, params)
 	if(..())
 		return
 	if(stat & (NOPOWER|BROKEN))
@@ -314,12 +314,12 @@
 /obj/machinery/chem_dispenser/attack_ghost(mob/user)
 	if(stat & BROKEN)
 		return
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/chem_dispenser/attack_hand(mob/user)
 	if(stat & BROKEN)
 		return
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/chem_dispenser/soda
 	icon_state = "soda_dispenser"
@@ -452,18 +452,18 @@
 
 /obj/item/handheld_chem_dispenser/attack_self(mob/user)
 	if(cell)
-		tgui_interact(user)
+		ui_interact(user)
 	else
 		to_chat(user, "<span class='warning'>The [src] lacks a power cell!</span>")
 
 
-/obj/item/handheld_chem_dispenser/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_inventory_state)
+/obj/item/handheld_chem_dispenser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "HandheldChemDispenser", name, 390, 500)
 		ui.open()
 
-/obj/item/handheld_chem_dispenser/tgui_data(mob/user)
+/obj/item/handheld_chem_dispenser/ui_data(mob/user)
 	var/list/data = list()
 
 	data["glass"] = is_drink
@@ -475,7 +475,7 @@
 
 	return data
 
-/obj/item/handheld_chem_dispenser/tgui_static_data()
+/obj/item/handheld_chem_dispenser/ui_static_data()
 	var/list/data = list()
 	var/list/chemicals = list()
 	for(var/re in dispensable_reagents)
@@ -487,7 +487,7 @@
 
 	return data
 
-/obj/item/handheld_chem_dispenser/tgui_act(action, list/params)
+/obj/item/handheld_chem_dispenser/ui_act(action, list/params)
 	if(..())
 		return
 

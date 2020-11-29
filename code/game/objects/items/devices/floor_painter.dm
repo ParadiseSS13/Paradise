@@ -50,11 +50,10 @@
 	if(!user)
 		return 0
 	user.set_machine(src)
-	tgui_interact(user)
+	ui_interact(user)
 	return 1
 
-/obj/item/floor_painter/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null,
-		datum/tgui_state/state = GLOB.tgui_inventory_state)
+/obj/item/floor_painter/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "FloorPainter", name, 405, 470, master_ui, state)
@@ -64,7 +63,7 @@
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
-/obj/item/floor_painter/tgui_data(mob/user)
+/obj/item/floor_painter/ui_data(mob/user)
 	var/list/data = list()
 	data["availableStyles"] = allowed_states
 	data["selectedStyle"] = floor_state
@@ -78,7 +77,7 @@
 	return data
 
 
-/obj/item/floor_painter/tgui_static_data(mob/user)
+/obj/item/floor_painter/ui_static_data(mob/user)
 	var/list/data = list()
 
 	data["allStylesPreview"] = list()
@@ -88,7 +87,7 @@
 
 	return data
 
-/obj/item/floor_painter/tgui_act(action, params)
+/obj/item/floor_painter/ui_act(action, params)
 	if(..())
 		return
 

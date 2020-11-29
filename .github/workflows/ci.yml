@@ -25,7 +25,6 @@ jobs:
       - name: Run Linters
         run: |
           find . -name "*.json" -not -path "*/node_modules/*" -print0 | xargs -0 python3 ./tools/ci/json_verifier.py
-          tools/ci/build_nanoui.sh
           tools/ci/build_tgui.sh
           tools/ci/check_grep.sh
           python3 tools/ci/check_line_endings.py

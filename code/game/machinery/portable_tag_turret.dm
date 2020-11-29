@@ -28,7 +28,7 @@
 /obj/machinery/porta_turret/tag/weapon_setup(var/obj/item/gun/energy/E)
 	return
 
-/obj/machinery/porta_turret/tag/tgui_data(mob/user)
+/obj/machinery/porta_turret/tag/ui_data(mob/user)
 	var/list/data = list(
 		"locked" = isLocked(user), // does the current user have access?
 		"on" = enabled, // is turret turned on?

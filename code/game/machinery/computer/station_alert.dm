@@ -24,21 +24,21 @@
 	add_fingerprint(user)
 	if(stat & (BROKEN|NOPOWER))
 		return
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/computer/station_alert/attack_hand(mob/user)
 	add_fingerprint(user)
 	if(stat & (BROKEN|NOPOWER))
 		return
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/computer/station_alert/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/computer/station_alert/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "StationAlertConsole", name, ui_x, ui_y, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/station_alert/tgui_data(mob/user)
+/obj/machinery/computer/station_alert/ui_data(mob/user)
 	var/list/data = list()
 
 	data["alarms"] = list()

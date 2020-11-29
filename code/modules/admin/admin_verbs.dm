@@ -773,8 +773,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	var/mob/living/silicon/S = input("Select silicon.", "Manage Silicon Laws") as null|anything in GLOB.silicon_mob_list
 	if(!S) return
 
-	var/datum/tgui_module/law_manager/L = new(S)
-	L.tgui_interact(usr, state = GLOB.tgui_admin_state)
+	var/datum/ui_module/law_manager/L = new(S)
+	L.ui_interact(usr, state = GLOB.admin_state)
 	log_and_message_admins("has opened [S]'s law manager.")
 	feedback_add_details("admin_verb","MSL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
