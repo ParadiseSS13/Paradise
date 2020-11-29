@@ -56,6 +56,12 @@ SUBSYSTEM_DEF(dbcore)
 		return FALSE
 	return ..()
 
+/**
+  * Connection Creator
+  *
+  * This proc basically does a few sanity checks before connecting, then attempts to make a connection
+  * When connecting, RUST_G will initialize a thread pool for queries to use to run asynchronously
+  */
 /datum/controller/subsystem/dbcore/proc/Connect()
 	if(IsConnected())
 		return TRUE
@@ -97,6 +103,12 @@ SUBSYSTEM_DEF(dbcore)
 		log_sql("Connect() failed | [last_error]")
 		++failed_connections
 
+/**
+  * Schema Version Checker
+  *
+  * Basically verifies that the DB schema in the config is the same as the version the game is expecting.
+  * If it is a valid version, the DB will then connect.
+  */
 /datum/controller/subsystem/dbcore/proc/CheckSchemaVersion()
 	if(config.sql_enabled)
 		// The unit tests have their own version of this check, which wont hold the server up infinitely, so this is disabled if we are running unit tests
@@ -116,12 +128,24 @@ SUBSYSTEM_DEF(dbcore)
 	else
 		log_sql("Database is not enabled in configuration")
 
+/**
+  * Disconnection Handler
+  *
+  * Tells the DLL to clean up any open connections.
+  * This will also reset the failed connection counter
+  */
 /datum/controller/subsystem/dbcore/proc/Disconnect()
 	failed_connections = 0
 	if(connection)
 		rustg_sql_disconnect_pool(connection)
 	connection = null
 
+/**
+  * IsConnected Helper
+  *
+  * Short helper to check if the DB is connected or not.
+  * Does a few sanity checks, then asks the DLL if we are properly connected
+  */
 /datum/controller/subsystem/dbcore/proc/IsConnected()
 	if(!config.sql_enabled)
 		return FALSE
@@ -131,14 +155,39 @@ SUBSYSTEM_DEF(dbcore)
 		return FALSE
 	return json_decode(rustg_sql_connected(connection))["status"] == "online"
 
+
+/**
+  * Error Message Helper
+  *
+  * Returns the last error that the subsystem encountered.
+  * Will always report "Database disabled by configuration" if the DB is disabled.
+  */
 /datum/controller/subsystem/dbcore/proc/ErrorMsg()
 	if(!config.sql_enabled)
 		return "Database disabled by configuration"
 	return last_error
 
+/**
+  * Error Reporting Helper
+  *
+  * Pretty much just sets `last_error` to the error argument
+  *
+  * Arguments:
+  * * error - Error text to set `last_error` to
+  */
 /datum/controller/subsystem/dbcore/proc/ReportError(error)
 	last_error = error
 
+
+/**
+  * New Query Invoker
+  *
+  * Checks to make sure this query isnt being invoked by admin fuckery, then returns a new [/datum/db_query]
+  *
+  * Arguments:
+  * * sql_query - SQL query to be ran, with :parameter placeholders
+  * * arguments - Associative list of parameters to be inserted into the query
+  */
 /datum/controller/subsystem/dbcore/proc/NewQuery(sql_query, arguments)
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='boldannounce'>DB query blocked: Advanced ProcCall detected.</span>")
@@ -147,10 +196,20 @@ SUBSYSTEM_DEF(dbcore)
 		return FALSE
 	return new /datum/db_query(connection, sql_query, arguments)
 
-/datum/controller/subsystem/dbcore/proc/QuerySelect(list/querys, warn = FALSE, qdel = FALSE)
+/**
+  * Handler to allow many queries to be executed en masse
+  *
+  * Feed this proc a list of queries and it will execute them all at once, by the power of async magic!
+  *
+  * Arguments:
+  * * querys - List of queries to execute
+  * * warn - Boolean to warn on query failure
+  * * qdel - Boolean to enable auto qdel of queries
+  */
+/datum/controller/subsystem/dbcore/proc/MassExecute(list/querys, warn = FALSE, qdel = FALSE)
 	if(!islist(querys))
 		if(!istype(querys, /datum/db_query))
-			CRASH("Invalid query passed to QuerySelect: [querys]")
+			CRASH("Invalid query passed to MassExecute: [querys]")
 		querys = list(querys)
 
 	for(var/thing in querys)
@@ -167,99 +226,45 @@ SUBSYSTEM_DEF(dbcore)
 			qdel(query)
 
 
-
-/*
-Takes a list of rows (each row being an associated list of column => value) and inserts them via a single mass query.
-Rows missing columns present in other rows will resolve to SQL NULL
-You are expected to do your own escaping of the data, and expected to provide your own quotes for strings.
-The duplicate_key arg can be true to automatically generate this part of the query
-	or set to a string that is appended to the end of the query
-Ignore_errors instructes mysql to continue inserting rows if some of them have errors.
-	 the erroneous row(s) aren't inserted and there isn't really any way to know why or why errored
-Delayed insert mode was removed in mysql 7 and only works with MyISAM type tables,
-	It was included because it is still supported in mariadb.
-	It does not work with duplicate_key and the mysql server ignores it in those cases
-*/
-/datum/controller/subsystem/dbcore/proc/MassInsert(table, list/rows, duplicate_key = FALSE, ignore_errors = FALSE, delayed = FALSE, warn = FALSE, async = TRUE, special_columns = null)
-	if(!table || !rows || !istype(rows))
-		return
-
-	// Prepare column list
-	var/list/columns = list()
-	var/list/has_question_mark = list()
-	for(var/list/row in rows)
-		for(var/column in row)
-			columns[column] = "?"
-			has_question_mark[column] = TRUE
-	for(var/column in special_columns)
-		columns[column] = special_columns[column]
-		has_question_mark[column] = findtext(special_columns[column], "?")
-
-	// Prepare SQL query full of placeholders
-	var/list/query_parts = list("INSERT")
-	if(delayed)
-		query_parts += " DELAYED"
-	if(ignore_errors)
-		query_parts += " IGNORE"
-	query_parts += " INTO "
-	query_parts += table
-	query_parts += "\n([columns.Join(", ")])\nVALUES"
-
-	var/list/arguments = list()
-	var/has_row = FALSE
-	for(var/list/row in rows)
-		if(has_row)
-			query_parts += ","
-		query_parts += "\n  ("
-		var/has_col = FALSE
-		for(var/column in columns)
-			if(has_col)
-				query_parts += ", "
-			if(has_question_mark[column])
-				var/name = "p[arguments.len]"
-				query_parts += replacetext(columns[column], "?", ":[name]")
-				arguments[name] = row[column]
-			else
-				query_parts += columns[column]
-			has_col = TRUE
-		query_parts += ")"
-		has_row = TRUE
-
-	if(duplicate_key == TRUE)
-		var/list/column_list = list()
-		for(var/column in columns)
-			column_list += "[column] = VALUES([column])"
-		query_parts += "\nON DUPLICATE KEY UPDATE [column_list.Join(", ")]"
-	else if(duplicate_key != FALSE)
-		query_parts += duplicate_key
-
-	var/datum/db_query/Query = NewQuery(query_parts.Join(), arguments)
-	if(warn)
-		. = Query.warn_execute(async)
-	else
-		. = Query.Execute(async)
-	qdel(Query)
-
+/**
+  * # db_query
+  *
+  * Datum based handler for all database queries
+  *
+  * Holds information regarding inputs, status, and outputs
+  */
 /datum/db_query
 	// Inputs
+	/// The connection being used with this query
 	var/connection
+	/// The SQL statement being executed with :parameter placeholders
 	var/sql
+	/// An associative list of parameters to be substituted into the statement
 	var/arguments
 
 	// Status information
+	/// Is the query currently in progress
 	var/in_progress
+	/// What was our last error, if any
 	var/last_error
+	/// What was our last activity
 	var/last_activity
+	/// When was our last activity
 	var/last_activity_time
 
 	// Output
+	/// List of all rows returned
 	var/list/list/rows
+	/// Counter of the next row to take
 	var/next_row_to_take = 1
+	/// How many rows were affected by the query
 	var/affected
+	/// ID of the last inserted row
 	var/last_insert_id
+	/// List of data values populated by NextRow()
+	var/list/item
 
-	var/list/item  //list of data values populated by NextRow()
-
+// Sets up some vars and throws it into the SS active query list
 /datum/db_query/New(connection, sql, arguments)
 	SSdbcore.active_queries[src] = TRUE
 	Activity("Created")
@@ -269,6 +274,7 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 	src.sql = sql
 	src.arguments = arguments
 
+// Takes it out of the active query list, as well as closing it up
 /datum/db_query/Destroy()
 	Close()
 	SSdbcore.active_queries -= src
@@ -278,10 +284,28 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 	// go away
 	return FALSE
 
+
+/**
+  * Activity Update Handler
+  *
+  * Sets the last activity text to the argument input, as well as updating the activity time
+  *
+  * Arguments:
+  * * activity - Last activity text
+  */
 /datum/db_query/proc/Activity(activity)
 	last_activity = activity
 	last_activity_time = world.time
 
+/**
+  * Wrapped for warning on execution
+  *
+  * You should use this proc when running the SQL statement. It will auto inform the user and the online admins if a query fails
+  *
+  * Arguments:
+  * * async - Are we running this query asynchronously
+  * * log_error - Do we want to log errors this creates? Disable this if you are running sensitive queries where you dont want errors logged in plain text (EG: Auth token stuff)
+  */
 /datum/db_query/proc/warn_execute(async = TRUE, log_error = TRUE)
 	. = Execute(async, log_error)
 	if(!.)
@@ -290,6 +314,15 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 			to_chat(usr, "<span class='danger'>A SQL error occurred during this operation, please inform an admin or a coder.</span>")
 		message_admins("An SQL error has occured. Please check the server logs, with the following timestamp ID: \[[time_stamp()]]")
 
+/**
+  * Main Execution Handler
+  *
+  * Invoked by [warn_execute()]
+  * This handles query error logging, as well as invoking the actual runner
+  * Arguments:
+  * * async - Are we running this query asynchronously
+  * * log_error - Do we want to log errors this creates? Disable this if you are running sensitive queries where you dont want errors logged in plain text (EG: Auth token stuff)
+  */
 /datum/db_query/proc/Execute(async = TRUE, log_error = TRUE)
 	Activity("Execute")
 	if(in_progress)
@@ -314,6 +347,14 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 		log_sql("Query used: [sql]")
 		slow_query_check()
 
+/**
+  * Actual Query Runner
+  *
+  * This does the main query with the database and the rust calls themselves
+  *
+  * Arguments:
+  * * async - Are we running this query asynchronously
+  */
 /datum/db_query/proc/run_query(async)
 	var/job_result_str
 
@@ -343,10 +384,17 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 			last_error = "offline"
 			return FALSE
 
+// Just tells the admins if a query timed out, and asks if the server hung to help error reporting
 /datum/db_query/proc/slow_query_check()
 	message_admins("HEY! A database query timed out. Did the server just hang? <a href='?_src_=holder;slowquery=yes'>\[YES\]</a>|<a href='?_src_=holder;slowquery=no'>\[NO\]</a>")
 
-/datum/db_query/proc/NextRow(async = TRUE)
+
+/**
+  * Proc to get the next row in a DB query
+  *
+  * Cycles `item` to the next row in the DB query, if multiple were fetched
+  */
+/datum/db_query/proc/NextRow()
 	Activity("NextRow")
 
 	if(rows && next_row_to_take <= length(rows))
@@ -356,9 +404,11 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 	else
 		return FALSE
 
+// Simple helper to get the last error a query had
 /datum/db_query/proc/ErrorMsg()
 	return last_error
 
+// Simple proc to null out data to aid GC
 /datum/db_query/proc/Close()
 	rows = null
 	item = null
