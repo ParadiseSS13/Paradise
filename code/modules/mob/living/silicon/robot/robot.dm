@@ -230,6 +230,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				if(Entry[2] == ckey)	//They're in the list? Custom sprite time, var and icon change required
 					custom_sprite = 1
 
+	if(mmi && mmi.brainmob)
+		mmi.brainmob.name = newname
+
 	return 1
 
 

@@ -261,14 +261,6 @@
 	if(++elapsed_delay >= delay_by)
 		// We were sustaining the final note but not anymore
 		if(current_chord > length(compiled_chords))
-			stop_playing()
-			return
-		var/list/chord = compiled_chords[current_chord]
-		play_chord(chord)
-		elapsed_delay = 0
-		delay_by = tempodiv_to_delay(chord[length(chord)])
-		current_chord++
-		if(current_chord > length(compiled_chords) + 1)
 			if(repeat)
 				repeat--
 				current_chord = 1
@@ -277,6 +269,11 @@
 			else
 				stop_playing()
 				return
+		var/list/chord = compiled_chords[current_chord]
+		play_chord(chord)
+		elapsed_delay = 0
+		delay_by = tempodiv_to_delay(chord[length(chord)])
+		current_chord++
 
 /**
   * Converts a tempodiv to ticks to elapse before playing the next chord, taking into account our tempo.
