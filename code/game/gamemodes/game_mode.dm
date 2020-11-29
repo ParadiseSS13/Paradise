@@ -209,7 +209,7 @@
 	if(escaped_on_pod_5 > 0)
 		feedback_set("escaped_on_pod_5",escaped_on_pod_5)
 
-	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [name] has ended - [surviving_total] survivors, [ghosts] ghosts.")
+	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "Una ronda en modo [name] acaba de terminar - [surviving_total] supervivientes, [ghosts] muertos. <@&[config.discord_newround_role_id]> ")
 	return 0
 
 

@@ -456,6 +456,10 @@ BYOND_ACCOUNT_AGE_THRESHOLD 7
 ## IF YOU ARE DISABLING THIS COMMENT IT OUT ENTIRELY, DONT LEAVE IT BLANK
 #DISCORD_WEBHOOKS_ADMIN_ROLE_ID
 
+## ID del rol que el webhook menciona cuando termina , si no se modifica, la mencion estara desactivada, esta es una variable de hispania
+## IF YOU ARE DISABLING THIS COMMENT IT OUT ENTIRELY, DONT LEAVE IT BLANK
+#DISCORD_WEBHOOKS_NEWROUND_ROLE_ID
+
 ## Webhook URLs for the main discord webhook. Separate multiple URLs with a | (EG: https://url1|https://url2)
 #DISCORD_WEBHOOKS_MAIN_URL
 
