@@ -59,7 +59,7 @@
 	data["door_access_list"] = door_accesses_list
 	return data
 
-/obj/item/airlock_electronics/ui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+/obj/item/airlock_electronics/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
