@@ -325,3 +325,13 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	assets = list(
 		"safe_dial.png" = 'icons/safe_dial.png'
 	)
+
+// Materials (metal, glass...)
+/datum/asset/simple/materials
+	verify = FALSE
+
+/datum/asset/simple/materials/register()
+	for(var/n in list("metal", "glass", "silver", "gold", "diamond", "uranium", "plasma", "clown", "mime", "titanium", "plastic"))
+		assets["sheet-[n].png"] = icon('icons/obj/items.dmi', "sheet-[n]")
+	assets["sheet-bluespace.png"] = icon('icons/obj/telescience.dmi', "polycrystal")
+	..()
