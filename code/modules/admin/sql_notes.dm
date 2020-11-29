@@ -201,6 +201,7 @@
 				if(last_editor)
 					output += " <font size='2'>Last edit by [last_editor] <a href='?_src_=holder;noteedits=[id]'>(Click here to see edit log)</a></font>"
 			output += "<br>[notetext]<hr style='background:#000000; border:0; height:1px'>"
+		qdel(query_get_notes)
 	else if(index)
 		var/index_ckey
 		var/search

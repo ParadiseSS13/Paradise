@@ -481,6 +481,8 @@
 			qdel(firstquery)
 			qdel(query)
 			return 1
+	
+	qdel(firstquery)
 
 	var/datum/db_query/query = SSdbcore.NewQuery({"
 					INSERT INTO [format_table_name("characters")] (ckey, slot, OOC_Notes, real_name, name_is_always_random, gender,
