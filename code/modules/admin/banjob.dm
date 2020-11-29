@@ -72,7 +72,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 			qdel(permabans)
 			return FALSE
 
-		if(permabans.NextRow())
+		while(permabans.NextRow())
 			var/ckey = permabans.item[1]
 			var/job = permabans.item[2]
 			GLOB.jobban_keylist.Add("[ckey] - [job]")
@@ -87,7 +87,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 			qdel(tempbans)
 			return FALSE
 
-		if(tempbans.NextRow())
+		while(tempbans.NextRow())
 			var/ckey = tempbans.item[1]
 			var/job = tempbans.item[2]
 			GLOB.jobban_keylist.Add("[ckey] - [job]")
