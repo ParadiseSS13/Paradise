@@ -47,11 +47,17 @@
 
 	var/list/pois = getpois(mobs_only = FALSE, skip_mindless = FALSE)
 	for(var/name in pois)
+		if(name == null)
+			if(pois[name] && pois[name].type)
+				stack_trace("getpois returned something under a null name. Type: [pois[name].type]")
+			else
+				stack_trace("getpois returned a null value")
+			continue
 		var/list/serialized = list()
 		serialized["name"] = "[name]" // stringify it; If it's null or something - we'd like to know it and fix getpois()
-		if(name == null || serialized["name"] != name)
-			stack_trace("getpois returned something under a non-string name [name] - [pois[name]]")
-
+		if(serialized["name"] != name)
+			stack_trace("getpois returned something under a non-string name [name] - [pois[name]] - [pois[name].type]")
+			continue
 		var/poi = pois[name]
 
 		serialized["ref"] = "\ref[poi]"
