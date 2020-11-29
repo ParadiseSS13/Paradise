@@ -620,7 +620,8 @@
 	var/datum/db_query/query_find_token = SSdbcore.NewQuery("SELECT token FROM [format_table_name("oauth_tokens")] WHERE ckey=:ckey limit 1", list(
 		"ckey" = ckey
 	))
-	if(!query_find_token.warn_execute())
+	// These queries have log_error=FALSE to avoid auth tokens being in plaintext logs
+	if(!query_find_token.warn_execute(log_error=FALSE))
 		qdel(query_find_token)
 		return
 	if(query_find_token.NextRow())
@@ -634,7 +635,8 @@
 		"ckey" = ckey,
 		"tokenstr" = tokenstr,
 	))
-	if(!query_insert_token.warn_execute())
+	// These queries have log_error=FALSE to avoid auth tokens being in plaintext logs
+	if(!query_insert_token.warn_execute(log_error=FALSE))
 		qdel(query_insert_token)
 		return
 	qdel(query_insert_token)

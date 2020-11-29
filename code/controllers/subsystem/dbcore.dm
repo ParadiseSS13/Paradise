@@ -20,7 +20,7 @@ SUBSYSTEM_DEF(dbcore)
 	var/total_errors = 0
 
 	/// Connection handle. This is an arbitrary handle returned from rust_g.
-	var/connection  
+	var/connection
 
 	offline_implications = "The server will no longer check for undeleted SQL Queries. No immediate action is needed."
 
@@ -282,8 +282,8 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 	last_activity = activity
 	last_activity_time = world.time
 
-/datum/db_query/proc/warn_execute(async = TRUE)
-	. = Execute(async)
+/datum/db_query/proc/warn_execute(async = TRUE, log_error = TRUE)
+	. = Execute(async, log_error)
 	if(!.)
 		SSdbcore.total_errors++
 		if(usr)
