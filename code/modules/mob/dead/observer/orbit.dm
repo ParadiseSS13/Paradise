@@ -6,13 +6,13 @@
 		qdel(src)
 	owner = new_owner
 
-/datum/orbit_menu/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_observer_state)
+/datum/orbit_menu/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.observer_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "Orbit", "Orbit", 700, 500, master_ui, state)
 		ui.open()
 
-/datum/orbit_menu/tgui_act(action, list/params, datum/tgui/ui)
+/datum/orbit_menu/ui_act(action, list/params, datum/tgui/ui)
 	. = ..()
 	if(.)
 		return
@@ -28,14 +28,14 @@
 			owner.ManualFollow(poi)
 			. = TRUE
 		if("refresh")
-			update_tgui_static_data(owner, ui)
+			update_static_data(owner, ui)
 			. = TRUE
 
-/datum/orbit_menu/tgui_data(mob/user)
+/datum/orbit_menu/ui_data(mob/user)
 	var/list/data = list()
 	return data
 
-/datum/orbit_menu/tgui_static_data(mob/user)
+/datum/orbit_menu/ui_static_data(mob/user)
 	var/list/data = list()
 
 	var/list/alive = list()
@@ -47,16 +47,22 @@
 
 	var/list/pois = getpois(mobs_only = FALSE, skip_mindless = FALSE)
 	for(var/name in pois)
+		var/mob/M = pois[name]
+		if(name == null)
+			if(pois[name] && M.type)
+				stack_trace("getpois returned something under a null name. Type: [M.type]")
+			else
+				stack_trace("getpois returned a null value")
+			continue
+
 		var/list/serialized = list()
 		serialized["name"] = "[name]" // stringify it; If it's null or something - we'd like to know it and fix getpois()
-		if(name == null || serialized["name"] != name)
-			stack_trace("getpois returned something under a non-string name [name] - [pois[name]]")
+		if(serialized["name"] != name)
+			stack_trace("getpois returned something under a non-string name [name] - [pois[name]] - [M.type]")
+			continue
 
-		var/poi = pois[name]
+		serialized["ref"] = "\ref[M]"
 
-		serialized["ref"] = "\ref[poi]"
-
-		var/mob/M = poi
 		if(istype(M))
 			if(isnewplayer(M))  // People in the lobby screen; only have their ckey as a name.
 				continue

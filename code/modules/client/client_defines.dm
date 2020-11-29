@@ -60,8 +60,6 @@
 	var/karma_spent = 0
 	var/karma_tab = 0
 
-	var/topic_debugging = 0 //if set to true, allows client to see nanoUI errors -- yes i realize this is messy but it'll make live testing infinitely easier
-
 	control_freak = CONTROL_FREAK_ALL | CONTROL_FREAK_SKIN | CONTROL_FREAK_MACROS
 
 	var/ip_intel = "Disabled"

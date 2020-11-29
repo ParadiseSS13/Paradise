@@ -58,10 +58,10 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 		transfer_fingerprints_to(M)
 
 /obj/item/stack/marker_beacon/AltClick(mob/living/user)
-	if(!istype(user) || CanUseTopic(user, GLOB.physical_state) != STATUS_INTERACTIVE)
+	if(!istype(user) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
 		return
 	var/input_color = input(user, "Choose a color.", "Beacon Color") as null|anything in GLOB.marker_beacon_colors
-	if(!istype(user) || CanUseTopic(user, GLOB.physical_state) != STATUS_INTERACTIVE)
+	if(!istype(user) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
 		return
 	if(input_color)
 		picked_color = input_color
@@ -133,10 +133,10 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 
 /obj/structure/marker_beacon/AltClick(mob/living/user)
 	..()
-	if(!istype(user) || CanUseTopic(user, GLOB.physical_state) != STATUS_INTERACTIVE)
+	if(!istype(user) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
 		return
 	var/input_color = input(user, "Choose a color.", "Beacon Color") as null|anything in GLOB.marker_beacon_colors
-	if(!istype(user) || CanUseTopic(user, GLOB.physical_state) != STATUS_INTERACTIVE)
+	if(!istype(user) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
 		return
 	if(input_color)
 		picked_color = input_color

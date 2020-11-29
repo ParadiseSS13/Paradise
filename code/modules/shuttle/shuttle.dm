@@ -773,15 +773,15 @@
 		return
 	connect()
 	add_fingerprint(user)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/computer/shuttle/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/computer/shuttle/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "ShuttleConsole", name, 350, 150, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/shuttle/tgui_data(mob/user)
+/obj/machinery/computer/shuttle/ui_data(mob/user)
 	var/list/data = list()
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
 	data["status"] = M ? M.getStatusText() : null
@@ -800,7 +800,7 @@
 		data["admin_controlled"] = admin_controlled
 	return data
 
-/obj/machinery/computer/shuttle/tgui_act(action, params)
+/obj/machinery/computer/shuttle/ui_act(action, params)
 	if(..())	//we can't actually interact, so no action
 		return TRUE
 	if(!allowed(usr))
@@ -853,7 +853,7 @@
 	admin_controlled = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
-/obj/machinery/computer/shuttle/ferry/request/tgui_act(action, params)
+/obj/machinery/computer/shuttle/ferry/request/ui_act(action, params)
 	if(..())	// Note that the parent handels normal shuttle movement on top of security checks
 		return
 	if(action == "request")

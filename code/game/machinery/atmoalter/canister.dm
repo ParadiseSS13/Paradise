@@ -283,18 +283,18 @@ update_flag
 	return attack_hand(user)
 
 /obj/machinery/portable_atmospherics/canister/attack_ghost(var/mob/user)
-	return tgui_interact(user)
+	return ui_interact(user)
 
 /obj/machinery/portable_atmospherics/canister/attack_hand(var/mob/user)
-	return tgui_interact(user)
+	return ui_interact(user)
 
-/obj/machinery/portable_atmospherics/canister/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_physical_state)
+/obj/machinery/portable_atmospherics/canister/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "Canister", name, 600, 350, master_ui, state)
 		ui.open()
 
-/obj/machinery/portable_atmospherics/canister/tgui_data()
+/obj/machinery/portable_atmospherics/canister/ui_data()
 	var/data = list()
 	data["portConnected"] = connected_port ? 1 : 0
 	data["tankPressure"] = round(air_contents.return_pressure() ? air_contents.return_pressure() : 0)
@@ -312,7 +312,7 @@ update_flag
 		data["holdingTank"] = list("name" = holding.name, "tankPressure" = round(holding.air_contents.return_pressure()))
 	return data
 
-/obj/machinery/portable_atmospherics/canister/tgui_act(action, params)
+/obj/machinery/portable_atmospherics/canister/ui_act(action, params)
 	if(..())
 		return
 	var/can_min_release_pressure = round(ONE_ATMOSPHERE / 10)

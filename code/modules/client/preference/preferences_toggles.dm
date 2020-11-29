@@ -293,7 +293,7 @@
 /client/verb/toggle_ghost_pda()
 	set name = "Show/Hide GhostPDA"
 	set category = "Preferences"
-	set desc = ".Toggle seeing PDA messages as an observer."
+	set desc = "Toggle seeing PDA messages as an observer."
 	prefs.toggles ^= PREFTOGGLE_CHAT_GHOSTPDA
 	to_chat(src, "As a ghost, you will now [(prefs.toggles & PREFTOGGLE_CHAT_GHOSTPDA) ? "see all PDA messages" : "no longer see PDA messages"].")
 	prefs.save_preferences(src)
@@ -314,3 +314,11 @@
 	prefs.toggles2 ^= PREFTOGGLE_2_RUNECHAT
 	prefs.save_preferences(src)
 	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) ? "now see" : "no longer see"] floating chat messages.")
+
+/client/verb/toggle_death_messages()
+	set name = "Show/Hide Death Notifications"
+	set category = "Preferences"
+	set desc = "Toggle player death notifications"
+	prefs.toggles2 ^= PREFTOGGLE_2_DEATHMESSAGE
+	prefs.save_preferences(src)
+	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_DEATHMESSAGE) ? "now" : "no longer"] see a notification in deadchat when a player dies.")
