@@ -47,10 +47,10 @@
 
 	var/list/pois = getpois(mobs_only = FALSE, skip_mindless = FALSE)
 	for(var/name in pois)
-		var/poi = pois[name]
+		var/mob/M = pois[name]
 		if(name == null)
-			if(pois[name] && pois[name].type)
-				stack_trace("getpois returned something under a null name. Type: [poi.type]")
+			if(pois[name] && M.type)
+				stack_trace("getpois returned something under a null name. Type: [M.type]")
 			else
 				stack_trace("getpois returned a null value")
 			continue
@@ -58,12 +58,11 @@
 		var/list/serialized = list()
 		serialized["name"] = "[name]" // stringify it; If it's null or something - we'd like to know it and fix getpois()
 		if(serialized["name"] != name)
-			stack_trace("getpois returned something under a non-string name [name] - [pois[name]] - [poi.type]")
+			stack_trace("getpois returned something under a non-string name [name] - [pois[name]] - [M.type]")
 			continue
 
-		serialized["ref"] = "\ref[poi]"
+		serialized["ref"] = "\ref[M]"
 
-		var/mob/M = poi
 		if(istype(M))
 			if(isnewplayer(M))  // People in the lobby screen; only have their ckey as a name.
 				continue
