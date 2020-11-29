@@ -174,7 +174,10 @@
 		if("logoff")
 			if(!inserted_id)
 				return
-			usr.put_in_hands(inserted_id)
+			if(ishuman(usr))
+				usr.put_in_hands(inserted_id)
+			else
+				inserted_id.forceMove(get_turf(src))
 			inserted_id = null
 		if("purchase")
 			if(!inserted_id)
