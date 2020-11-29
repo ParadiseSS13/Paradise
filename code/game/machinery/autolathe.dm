@@ -387,6 +387,7 @@
 			S.amount = multiplier
 		else
 			var/obj/item/new_item = new D.build_path(BuildTurf)
+			new_item.fabricated()
 			new_item.materials[MAT_METAL] /= coeff
 			new_item.materials[MAT_GLASS] /= coeff
 	SStgui.update_uis(src)

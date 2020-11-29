@@ -158,6 +158,7 @@
 	desc = initial(desc)
 
 	var/obj/item/I = new D.build_path(loc)
+	I.fabricated()
 	if(D.locked)
 		var/obj/item/storage/lockbox/research/large/L = new /obj/item/storage/lockbox/research/large(get_step(src, SOUTH))
 		I.forceMove(L)

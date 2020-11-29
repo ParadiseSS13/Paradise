@@ -4,6 +4,19 @@
 /obj/item/stock_parts/cell/proc/minorrecharge()
 	minorrecharging = FALSE
 
+//refactor de baterias creadas en los autolathes/protolathes/mechfab por danaleja2005
+
+/obj/item/stock_parts/cell/proc/discharge() 
+	use(charge)
+
+/atom/movable/proc/fabricated() 
+	return FALSE
+
+/obj/item/stock_parts/cell/fabricated()
+	discharge()
+
+// Refactor que me mando a hacer Evan, POR DANALEJA2005 //	
+
 /obj/item/stock_parts/cell/xenoblue
 	icon = 'icons/hispania/obj/power.dmi'
 	icon_state = "xenobluecell"
