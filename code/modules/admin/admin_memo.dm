@@ -88,9 +88,9 @@
 
 			if(query_memofind.NextRow())
 				var/old_memo = query_memofind.item[1]
-				qdel(query_memofind)
 				var/new_memo = input("Input new memo", "New Memo", "[old_memo]", null) as message
 				if(!new_memo)
+					qdel(query_memofind)
 					return
 
 				var/edit_text = "Edited by [target_ckey] on [SQLtime()] from<br>[old_memo]<br>to<br>[new_memo]<hr>"
@@ -107,6 +107,7 @@
 
 				if(!update_query.warn_execute())
 					qdel(update_query)
+					qdel(query_memofind)
 					return
 
 				if(target_ckey == ckey)
@@ -116,6 +117,7 @@
 					log_admin("[key_name(src)] has edited [target_ckey]'s memo from \"[old_memo]\" to \"[new_memo]\"")
 					message_admins("[key_name_admin(src)] has edited [target_ckey]'s memo from \"[old_memo]\" to \"[new_memo]\"")
 				qdel(update_query)
+			qdel(query_memofind)
 
 		if("Show")
 			var/datum/db_query/query_memoshow = SSdbcore.NewQuery("SELECT ckey, memotext, timestamp, last_editor FROM [format_table_name("memo")]")

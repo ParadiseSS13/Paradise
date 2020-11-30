@@ -37,7 +37,7 @@ SUBSYSTEM_DEF(dbcore)
 /datum/controller/subsystem/dbcore/fire()
 	for(var/I in active_queries)
 		var/datum/db_query/Q = I
-		if(world.time - Q.last_activity_time > (5 MINUTES))
+		if(world.time - Q.last_activity_time > 5 MINUTES)
 			message_admins("Found undeleted query, please check the server logs and notify coders.")
 			log_sql("Undeleted query: \"[Q.sql]\" LA: [Q.last_activity] LAT: [Q.last_activity_time]")
 			qdel(Q)
@@ -66,14 +66,14 @@ SUBSYSTEM_DEF(dbcore)
 	if(IsConnected())
 		return TRUE
 
+	if(!config.sql_enabled)
+		return FALSE
+
 	if(failed_connection_timeout <= world.time) //it's been more than 5 seconds since we failed to connect, reset the counter
 		failed_connections = 0
 
 	if(failed_connections > 5)	//If it failed to establish a connection more than 5 times in a row, don't bother attempting to connect for 5 seconds.
 		failed_connection_timeout = world.time + 50
-		return FALSE
-
-	if(!config.sql_enabled)
 		return FALSE
 
 	var/result = json_decode(rustg_sql_connect_pool(json_encode(list(

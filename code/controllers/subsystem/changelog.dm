@@ -69,11 +69,9 @@ SUBSYSTEM_DEF(changelog)
 			"ckey" = C.ckey
 		)
 	)
-	if(!updatePlayerCLTime.warn_execute())
-		qdel(updatePlayerCLTime)
-		return FALSE
+	// We dont do anything with this query so we dont care about errors too much
+	updatePlayerCLTime.warn_execute()
 	qdel(updatePlayerCLTime)
-	return TRUE
 
 
 /datum/controller/subsystem/changelog/proc/UpdatePlayerChangelogButton(client/C)

@@ -189,6 +189,10 @@
 
 	if(!check_rights(R_BAN))	return
 
+	if(!SSdbcore.IsConnected())
+		to_chat(usr, "<span class='boldannounce'>Database connection failure when attempting to remove DB ban. Please remember to unban them at a later date!.</span>")
+		return
+
 	var/bantype_str
 	var/isjobban // For job bans, which need to be removed from the job ban lists
 	if(bantype)
@@ -235,10 +239,6 @@
 	if(job)
 		sql += " AND job=:job"
 		sql_params["job"] = job
-
-	if(!SSdbcore.IsConnected())
-		to_chat(usr, "<span class='boldannounce'>Database connection failure when attempting to remove DB ban. Please remember to unban them at a later date!.</span>")
-		return
 
 	var/ban_id
 	var/ban_number = 0 //failsafe
@@ -411,7 +411,7 @@
 
 	qdel(query_update)
 
-	message_admins("[key_name_admin(usr)] has lifted [pckey]'s ban.",1)
+	message_admins("[key_name_admin(usr)] has lifted [pckey]'s ban.")
 	flag_account_for_forum_sync(pckey)
 
 
