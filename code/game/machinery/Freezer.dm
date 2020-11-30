@@ -179,9 +179,10 @@
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/New()
 	..()
 	initialize_directions = dir
-	var/obj/item/circuitboard/thermomachine/H = new /obj/item/circuitboard/thermomachine(null)
+	var/obj/item/circuitboard/thermomachine/H = new
 	H.build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
-	H.name = "circuit board (Heater)"
+	H.board_name = "Heater"
+	H.format_board_name()
 	component_parts = list()
 	component_parts += H
 	component_parts += new /obj/item/stock_parts/matter_bin(src)
@@ -194,9 +195,10 @@
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/upgraded/New()
 	..()
-	var/obj/item/circuitboard/thermomachine/H = new /obj/item/circuitboard/thermomachine(null)
+	var/obj/item/circuitboard/thermomachine/H = new
 	H.build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
-	H.name = "circuit board (Heater)"
+	H.board_name = "Heater"
+	H.format_board_name()
 	component_parts = list()
 	component_parts += H
 	component_parts += new /obj/item/stock_parts/matter_bin/super(src)

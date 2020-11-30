@@ -130,6 +130,7 @@
 		if(circuit) //no circuit, no computer frame
 			var/obj/structure/computerframe/A = new /obj/structure/computerframe(loc)
 			var/obj/item/circuitboard/M = new circuit(A)
+			A.name += " ([M.board_name])"
 			A.setDir(dir)
 			A.circuit = M
 			A.anchored = TRUE
