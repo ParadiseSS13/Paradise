@@ -2,14 +2,14 @@
 #define PAGE_CONTRACTS 1
 #define PAGE_HUB 2
 
-/datum/tgui_module/contractor_uplink
+/datum/ui_module/contractor_uplink
 	name = "Syndicate Contractor Uplink"
 	/// The Contractor Hub associated to this UI.
 	var/datum/contractor_hub/hub = null
 	/// Current page index.
 	var/page = PAGE_CONTRACTS
 
-/datum/tgui_module/contractor_uplink/tgui_act(action, list/params)
+/datum/ui_module/contractor_uplink/ui_act(action, list/params)
 	if(..())
 		return
 
@@ -25,7 +25,7 @@
 					return
 				page = newpage
 			if("extract")
-				var/error_message = hub.current_contract?.start_extraction_process(tgui_host(), usr)
+				var/error_message = hub.current_contract?.start_extraction_process(ui_host(), usr)
 				if(length(error_message))
 					to_chat(usr, "<span class='warning'>[error_message]</span>")
 			if("claim")
@@ -46,17 +46,17 @@
 			else
 				return FALSE
 
-	var/obj/item/U = tgui_host()
+	var/obj/item/U = ui_host()
 	U?.add_fingerprint(usr)
 
-/datum/tgui_module/contractor_uplink/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/datum/ui_module/contractor_uplink/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "Contractor", name, 500, 600, master_ui, state)
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
-/datum/tgui_module/contractor_uplink/tgui_data(mob/user)
+/datum/ui_module/contractor_uplink/ui_data(mob/user)
 	var/list/data = list()
 
 	if(!hub.contracts)
@@ -117,7 +117,7 @@
 					)
 				contracts += list(contract_data)
 
-			data["can_extract"] = hub.current_contract?.contract.can_start_extraction_process(tgui_host(), usr) || FALSE
+			data["can_extract"] = hub.current_contract?.contract.can_start_extraction_process(ui_host(), usr) || FALSE
 		if(PAGE_HUB)
 			var/list/buyables = list()
 			for(var/p in hub.purchases)

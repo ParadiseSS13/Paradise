@@ -52,7 +52,7 @@
 	/// Amount of Contractor Rep available for spending.
 	var/rep = 0
 	/// The TGUI module associated with this hub.
-	var/datum/tgui_module/contractor_uplink/tgui = null
+	var/datum/ui_module/contractor_uplink/tgui = null
 
 /datum/contractor_hub/New(datum/mind/O, obj/item/contractor_uplink/U)
 	owner = O
@@ -67,8 +67,8 @@
 		else
 			log_runtime(EXCEPTION("Expected Hub purchase [purchases[i]] to be a type but it wasn't!"), src)
 
-/datum/contractor_hub/tgui_interact(mob/user)
-	return tgui.tgui_interact(user)
+/datum/contractor_hub/ui_interact(mob/user)
+	return tgui.ui_interact(user)
 
 /**
   * Called when the loading animation completes for the first time.

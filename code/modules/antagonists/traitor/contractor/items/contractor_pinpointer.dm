@@ -13,9 +13,7 @@
 	/// The first person to have used the item. If this is set already, no one else can use it.
 	var/mob/owner = null
 
-/obj/item/pinpointer/crew/contractor/point_at(atom/target, spawnself = TRUE)
-	if(!active)
-		return
+/obj/item/pinpointer/crew/contractor/point_at(atom/target)
 	if(target && trackable(target))
 		// Calc dir
 		var/turf/T = get_turf(target)
@@ -33,7 +31,6 @@
 			icon_state = icon_far
 	else
 		icon_state = icon_null
-	return ..()
 
 /obj/item/pinpointer/crew/contractor/trackable(mob/living/carbon/human/H)
 	var/turf/here = get_turf(src)

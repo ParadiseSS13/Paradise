@@ -170,7 +170,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/list/data = list()
 
 	data["crystals"] = uses
-	data["modal"] = tgui_modal_data(src)
+	data["modal"] = ui_modal_data(src)
 
 	if(contractor)
 		var/list/contractor_data = list(
@@ -249,12 +249,12 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/uplink/hidden/proc/tgui_act_modal(action, list/params)
 	. = TRUE
 	var/id = params["id"]
-	switch(tgui_modal_act(src, action, params))
-		if(TGUI_MODAL_OPEN)
+	switch(ui_modal_act(src, action, params))
+		if(UI_MODAL_OPEN)
 			if(id == "become_contractor")
-				tgui_modal_boolean(src, id, "")
+				ui_modal_boolean(src, id, "")
 				return
-		if(TGUI_MODAL_ANSWER)
+		if(UI_MODAL_ANSWER)
 			if(id == "become_contractor")
 				if(text2num(params["answer"]))
 					var/datum/antagonist/traitor/contractor/C = usr.mind.has_antag_datum(/datum/antagonist/traitor/contractor)

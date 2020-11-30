@@ -20,7 +20,7 @@
 	return ..()
 
 /obj/item/contractor_uplink/attack_self(mob/user)
-	hub.tgui_interact(user)
+	hub.ui_interact(user)
 
 /**
   * Sends a message to the mob holding this item.
