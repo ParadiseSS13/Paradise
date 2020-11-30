@@ -67,16 +67,16 @@
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>The teleporter can now lock on to Syndicate beacons!</span>")
 	else
-		tgui_interact(user)
+		ui_interact(user)
 
 /obj/machinery/computer/teleporter/attack_ai(mob/user)
 	attack_hand(user)
 
 /obj/machinery/computer/teleporter/attack_hand(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 
-/obj/machinery/computer/teleporter/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/computer/teleporter/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	if(stat & (NOPOWER|BROKEN))
 		return
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -84,7 +84,7 @@
 		ui = new(user, src, ui_key, "Teleporter", "Teleporter Console", 380, 260)
 		ui.open()
 
-/obj/machinery/computer/teleporter/tgui_data(mob/user)
+/obj/machinery/computer/teleporter/ui_data(mob/user)
 	var/list/data = list()
 	data["powerstation"] = power_station
 	if(power_station?.teleporter_hub)
@@ -101,7 +101,7 @@
 	data["targetsTeleport"] = target_list
 	return data
 
-/obj/machinery/computer/teleporter/tgui_act(action, params)
+/obj/machinery/computer/teleporter/ui_act(action, params)
 	if(..())
 		return
 
@@ -153,7 +153,7 @@
 			addtimer(CALLBACK(src, .proc/calibrateCallback), 50 * (3 - power_station.teleporter_hub.accurate)) //Better parts mean faster calibration
 
 /**
-*	Resets the connected powerstation to initial values. Helper function of tgui_act
+*	Resets the connected powerstation to initial values. Helper function of ui_act
 */
 /obj/machinery/computer/teleporter/proc/resetPowerstation()
 	power_station.engaged = FALSE
@@ -161,7 +161,7 @@
 	power_station.teleporter_hub.update_icon()
 
 /**
-*	Calibrates the hub. Helper function of tgui_act
+*	Calibrates the hub. Helper function of ui_act
 */
 /obj/machinery/computer/teleporter/proc/calibrateCallback()
 	calibrating = FALSE
@@ -179,7 +179,7 @@
 	return TRUE
 
 /**
-*	Helper function of tgui_act
+*	Helper function of ui_act
 *
 *	Triggered when ejecting a gps device. Sets the gps to the ground and resets the console
 */
@@ -191,7 +191,7 @@
 	target_list = targets_teleport()
 
 /**
-*	Creates a list of viable targets for the teleport. Helper function of tgui_data
+*	Creates a list of viable targets for the teleport. Helper function of ui_data
 */
 /obj/machinery/computer/teleporter/proc/targets_teleport()
 	var/list/L = list()
@@ -240,7 +240,7 @@
 	return L
 
 /**
-*	Creates a list of viable targets for the gate. Helper function of tgui_data
+*	Creates a list of viable targets for the gate. Helper function of ui_data
 */
 /obj/machinery/computer/teleporter/proc/targets_gate(mob/users)
 	var/list/L = list()
@@ -267,7 +267,7 @@
 	return L
 
 /**
-*	Helper function of tgui_act.
+*	Helper function of ui_act.
 *
 *	Called after selecting a target for the gate in the UI. Sets area_bypass and cc_beacon.
 */
@@ -281,7 +281,7 @@
 			cc_beacon = B.cc_beacon
 
 /**
-*	Helper function of tgui_act.
+*	Helper function of ui_act.
 *
 *	Called after selecting a target for the teleporter in the UI.
 */

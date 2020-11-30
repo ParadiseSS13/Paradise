@@ -118,16 +118,16 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	return interact(user)
 
 /obj/item/radio/attack_self(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/item/radio/interact(mob/user)
 	if(!user)
 		return 0
 	if(b_stat)
 		wires.Interact(user)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/item/radio/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/item/radio/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		var/list/schannels = list_secure_channels(user)
@@ -136,7 +136,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		ui = new(user, src, ui_key, "Radio", name, 400, calc_height, master_ui, state)
 		ui.open()
 
-/obj/item/radio/tgui_data(mob/user)
+/obj/item/radio/ui_data(mob/user)
 	var/list/data = list()
 
 	data["broadcasting"] = broadcasting
@@ -153,7 +153,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	data["loudspeaker"] = loudspeaker
 	return data
 
-/obj/item/radio/tgui_act(action, params, datum/tgui/ui)
+/obj/item/radio/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
 	. = TRUE
@@ -293,7 +293,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(loc && loc.z)
 		tcm.source_level = loc.z // For anyone that reads this: This used to pull from a LIST from the CONFIG DATUM. WHYYYYYYYYY!!!!!!!! -aa
 	else
-		tcm.source_level = 1 // Assume Z1 if we dont have an actual Z level available to us.
+		tcm.source_level = level_name_to_num(MAIN_STATION) // Assume station level if we dont have an actual Z level available to us.
 	tcm.freq = connection.frequency
 	tcm.follow_target = follow_target
 
@@ -622,7 +622,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/borg/syndicate
 	keyslot = new /obj/item/encryptionkey/syndicate/nukeops
 
-/obj/item/radio/borg/syndicate/tgui_status(mob/user, datum/tgui_state/state)
+/obj/item/radio/borg/syndicate/ui_status(mob/user, datum/ui_state/state)
 	. = ..()
 	if(. == STATUS_UPDATE && istype(user, /mob/living/silicon/robot/syndicate))
 		. = STATUS_INTERACTIVE

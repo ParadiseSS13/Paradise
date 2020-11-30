@@ -649,6 +649,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		update_handcuffed()
 	else if(I == legcuffed)
 		legcuffed = null
+		toggle_move_intent()
 		update_inv_legcuffed()
 
 /mob/living/carbon/show_inv(mob/user)
@@ -786,8 +787,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if((I = get_restraining_item())) // If there is nothing to restrain him then he is not restrained
 		var/breakouttime = I.breakouttime
 		var/displaytime = breakouttime / 10
-		changeNext_move(CLICK_CD_BREAKOUT)
-		last_special = world.time + CLICK_CD_BREAKOUT
 		visible_message("<span class='warning'>[src] attempts to unbuckle [p_them()]self!</span>", \
 					"<span class='notice'>You attempt to unbuckle yourself... (This will take around [displaytime] seconds and you need to stay still.)</span>")
 		if(do_after(src, breakouttime, 0, target = src))
@@ -823,8 +822,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	else if(legcuffed)
 		I = legcuffed
 	if(I)
-		changeNext_move(CLICK_CD_BREAKOUT)
-		last_special = world.time + CLICK_CD_BREAKOUT
 		cuff_resist(I)
 
 /mob/living/carbon/resist_muzzle()
@@ -870,6 +867,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				legcuffed.forceMove(drop_location())
 				legcuffed.dropped()
 				legcuffed = null
+				toggle_move_intent()
 				update_inv_legcuffed()
 				return
 			else
@@ -896,6 +894,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				return
 			else if(I == legcuffed)
 				legcuffed = null
+				toggle_move_intent()
 				update_inv_legcuffed()
 				return
 			return 1
@@ -969,6 +968,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(legcuffed)
 		var/obj/item/W = legcuffed
 		legcuffed = null
+		toggle_move_intent()
 		update_inv_legcuffed()
 		if(client)
 			client.screen -= W

@@ -12,7 +12,7 @@
 	var/bantype_pass = 0
 	var/bantype_str
 	var/maxadminbancheck	//Used to limit the number of active bans of a certein type that each admin can give. Used to protect against abuse or mutiny.
-	var/announceinirc		//When set, it announces the ban in irc. Intended to be a way to raise an alarm, so to speak.
+	var/announce_in_discord = FALSE		//When set, it announces the ban in irc. Intended to be a way to raise an alarm, so to speak.
 	var/blockselfban		//Used to prevent the banning of yourself.
 	var/kickbannedckey		//Defines whether this proc should kick the banned person, if they are connected (if banned_mob is defined).
 							//some ban types kick players after this proc passes (tempban, permaban), but some are specific to db_ban, so
@@ -46,14 +46,14 @@
 			duration = -1
 			bantype_pass = 1
 			maxadminbancheck = 1
-			announceinirc = 1
+			announce_in_discord = TRUE
 			blockselfban = 1
 			kickbannedckey = 1
 		if(BANTYPE_ADMIN_TEMP)
 			bantype_str = "ADMIN_TEMPBAN"
 			bantype_pass = 1
 			maxadminbancheck = 1
-			announceinirc = 1
+			announce_in_discord = TRUE
 			blockselfban = 1
 			kickbannedckey = 1
 
@@ -141,8 +141,8 @@
 	to_chat(usr, "<span class='notice'>Ban saved to database.</span>")
 	message_admins("[key_name_admin(usr)] has added a [bantype_str] for [ckey] [(job)?"([job])":""] [(duration > 0)?"([duration] minutes)":""] with the reason: \"[reason]\" to the ban database.",1)
 
-	if(announceinirc)
-		send2irc("BAN ALERT","[a_ckey] applied a [bantype_str] on [ckey]")
+	if(announce_in_discord)
+		SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**BAN ALERT** [a_ckey] applied a [bantype_str] on [ckey]")
 
 	if(kickbannedckey)
 		if(banned_mob && banned_mob.client && banned_mob.client.ckey == banckey)

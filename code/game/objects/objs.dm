@@ -50,14 +50,14 @@
 	else if(!istype(armor, /datum/armor))
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
 
-/obj/Topic(href, href_list, nowindow = FALSE, datum/topic_state/state = GLOB.default_state)
+/obj/Topic(href, href_list, nowindow = FALSE, datum/ui_state/state = GLOB.default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
 	if(!nowindow && ..())
 		return TRUE
 
 	// In the far future no checks are made in an overriding Topic() beyond if(..()) return
 	// Instead any such checks are made in CanUseTopic()
-	if(CanUseTopic(usr, state, href_list) == STATUS_INTERACTIVE)
+	if(ui_status(usr, state, href_list) == STATUS_INTERACTIVE)
 		CouldUseTopic(usr)
 		return FALSE
 
@@ -65,7 +65,7 @@
 	return TRUE
 
 /obj/proc/CouldUseTopic(mob/user)
-	var/atom/host = nano_host()
+	var/atom/host = ui_host()
 	host.add_fingerprint(user)
 
 /obj/proc/CouldNotUseTopic(mob/user)
@@ -77,7 +77,6 @@
 			STOP_PROCESSING(SSobj, src) // TODO: Have a processing bitflag to reduce on unnecessary loops through the processing lists
 		else
 			STOP_PROCESSING(SSfastprocess, src)
-	SSnanoui.close_uis(src)
 	SStgui.close_uis(src)
 	return ..()
 
@@ -352,6 +351,12 @@ a {
 
 /obj/proc/check_uplink_validity()
 	return TRUE
+
+/obj/proc/cult_conceal() //Called by cult conceal spell
+	return
+
+/obj/proc/cult_reveal() //Called by cult reveal spell and chaplain's bible
+	return
 
 /obj/proc/force_eject_occupant(mob/target)
 	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.

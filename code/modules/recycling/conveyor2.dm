@@ -357,16 +357,16 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/conveyor_switch/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/conveyor_switch/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	user.set_machine(src)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "ConveyorSwitch", name, 350, 150, master_ui, state)
 		ui.open()
 
-/obj/machinery/conveyor_switch/tgui_data(mob/user)
+/obj/machinery/conveyor_switch/ui_data(mob/user)
 	var/list/data = list(
 		"slowFactor" = slow_factor,
 		"oneWay" = one_way,
@@ -374,7 +374,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	)
 	return data
 
-/obj/machinery/conveyor_switch/tgui_act(action, list/params)
+/obj/machinery/conveyor_switch/ui_act(action, list/params)
 	if(..())
 		return
 

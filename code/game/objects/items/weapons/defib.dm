@@ -370,8 +370,8 @@
 
 				QDEL_NULL(ghost)
 			var/tplus = world.time - H.timeofdeath
-			var/tlimit = DEFIB_TIME_LIMIT * 10 //past this much time the patient is unrecoverable (in deciseconds)
-			var/tloss = DEFIB_TIME_LOSS * 10 //brain damage starts setting in on the patient after some time left rotting
+			var/tlimit = DEFIB_TIME_LIMIT
+			var/tloss = DEFIB_TIME_LOSS
 			var/total_burn	= 0
 			var/total_brute	= 0
 			if(do_after(user, 20 * toolspeed, target = M)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total

@@ -56,12 +56,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/space/firereset(obj/source)
 	return
 
-/area/space/readyalert()
-	return
-
-/area/space/partyalert()
-	return
-
 //These are shuttle areas, they must contain two areas in a subgroup if you want to move a shuttle from one
 //place to another. Look at escape shuttle for example.
 //All shuttles show now be under shuttle since we have smooth-wall code.
@@ -699,6 +693,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 
 //Hallway
+
+/area/hallway
+	valid_territory = FALSE //too many areas with similar/same names, also not very interesting summon spots
 
 /area/hallway/primary/fore
 	name = "\improper Fore Primary Hallway"

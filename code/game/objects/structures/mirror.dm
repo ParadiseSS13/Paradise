@@ -28,13 +28,13 @@
 		return
 
 	if(ishuman(user))
-		var/datum/tgui_module/appearance_changer/AC = ui_users[user]
+		var/datum/ui_module/appearance_changer/AC = ui_users[user]
 		if(!AC)
 			AC = new(src, user)
 			AC.name = "SalonPro Nano-Mirror"
 			AC.flags = APPEARANCE_ALL_BODY
 			ui_users[user] = AC
-		AC.tgui_interact(user)
+		AC.ui_interact(user)
 
 /obj/structure/mirror/obj_break(damage_flag, mapload)
 	if(!broken && !(flags & NODECONSTRUCT))
@@ -121,14 +121,14 @@
 			else
 				race_list += GLOB.whitelisted_species
 
-			var/datum/tgui_module/appearance_changer/AC = ui_users[user]
+			var/datum/ui_module/appearance_changer/AC = ui_users[user]
 			if(!AC)
 				AC = new(src, user)
 				AC.name = "Magic Mirror"
 				AC.flags = APPEARANCE_ALL
 				AC.whitelist = race_list
 				ui_users[user] = AC
-			AC.tgui_interact(user)
+			AC.ui_interact(user)
 
 		if("Voice")
 			var/voice_choice = input(user, "Perhaps...", "Voice effects") as null|anything in list("Comic Sans", "Wingdings", "Swedish", "Chav", "Mute")
@@ -155,7 +155,7 @@
 			if(voice_choice)
 				curse(user)
 
-/obj/structure/mirror/magic/on_ui_close(mob/user)
+/obj/structure/mirror/magic/ui_close(mob/user)
 	curse(user)
 
 /obj/structure/mirror/magic/attackby(obj/item/I, mob/living/user, params)

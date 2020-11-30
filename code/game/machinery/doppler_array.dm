@@ -61,10 +61,10 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	if(..())
 		return
 	add_fingerprint(user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/doppler_array/attack_ghost(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/doppler_array/AltClick(mob/user)
 	rotate(user)
@@ -173,13 +173,13 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 			icon_state = "[initial(icon_state)]-off"
 			stat |= NOPOWER
 
-/obj/machinery/doppler_array/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/doppler_array/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "TachyonArray", name, 500, 600, master_ui, state)
 		ui.open()
 
-/obj/machinery/doppler_array/tgui_data(mob/user)
+/obj/machinery/doppler_array/ui_data(mob/user)
 	var/list/data = list()
 	var/list/records = list()
 	for(var/i in 1 to length(logged_explosions))
@@ -196,7 +196,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	data["printing"] = active_timers
 	return data
 
-/obj/machinery/doppler_array/tgui_act(action, params)
+/obj/machinery/doppler_array/ui_act(action, params)
 	if(..())
 		return
 	switch(action)

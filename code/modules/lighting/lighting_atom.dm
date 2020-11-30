@@ -81,15 +81,6 @@
 		if(old_has_opaque_atom != T.has_opaque_atom)
 			T.reconsider_lights()
 
-
-/atom/movable/Moved(atom/OldLoc, Dir)
-	. = ..()
-	var/datum/light_source/L
-	var/thing
-	for (thing in light_sources) // Cycle through the light sources on this atom and tell them to update.
-		L = thing
-		L.source_atom.update_light()
-
 /atom/vv_edit_var(var_name, var_value)
 	switch (var_name)
 		if("light_range")

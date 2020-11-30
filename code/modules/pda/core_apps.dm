@@ -17,7 +17,7 @@
 		notifying["[P.UID()]"] = TRUE
 	data["notifying"] = notifying
 
-/datum/data/pda/app/main_menu/tgui_act(action, list/params)
+/datum/data/pda/app/main_menu/ui_act(action, list/params)
 	if(..())
 		return
 
@@ -57,7 +57,7 @@
 /datum/data/pda/app/notekeeper/update_ui(mob/user as mob, list/data)
 	data["note"] = note	// current pda notes
 
-/datum/data/pda/app/notekeeper/tgui_act(action, params)
+/datum/data/pda/app/notekeeper/ui_act(action, params)
 	if(..())
 		return
 
