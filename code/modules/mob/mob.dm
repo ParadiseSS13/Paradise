@@ -610,10 +610,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	changeNext_move(CLICK_CD_POINT)
 	var/obj/P = new /obj/effect/temp_visual/point(tile)
 	P.invisibility = invisibility
-	// Start off from the pointer and make it slide to the pointee
-	P.pixel_x = (x - A.x) * 32
-	P.pixel_y = (y - A.y) * 32
-	animate(P, 0.5 SECONDS, pixel_x = A.pixel_x, pixel_y = A.pixel_y)
+	if(get_turf(src) != tile)
+		// Start off from the pointer and make it slide to the pointee
+		P.pixel_x = (x - A.x) * 32
+		P.pixel_y = (y - A.y) * 32
+		animate(P, 0.5 SECONDS, pixel_x = A.pixel_x, pixel_y = A.pixel_y, easing = QUAD_EASING)
 	return TRUE
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
