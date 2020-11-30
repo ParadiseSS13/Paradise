@@ -3,7 +3,7 @@
 
 /obj/item/twohanded/kinetic_crusher/cursed
 	name = "cursed-kinetic crusher"
-	desc = "This kinetic crusher... it's alive?"
+	desc = "A red-bloodish kinetic crusher that appears to be alive."
 	icon = 'icons/hispania/obj/kinetic_crusherc.dmi'
 	icon_state = "cursed_crasher"
 	item_state = "crusher0"
@@ -11,8 +11,8 @@
 	righthand_file = 'icons/hispania/mob/inhands/items_righthand.dmi'
 	charge_time = 5
 	force_wielded = 30
-	detonation_damage = 90
-	backstab_bonus = 80
+	detonation_damage = 65
+	backstab_bonus = 40
 	flags = NODROP
 	proyectile_type = /obj/item/projectile/destabilizer/cursed
 
