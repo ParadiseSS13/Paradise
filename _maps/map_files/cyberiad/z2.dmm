@@ -1926,7 +1926,7 @@
 /turf/unsimulated/beach/sand,
 /area/ninja/holding)
 "fJ" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/purp,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "wood"
@@ -1985,7 +1985,7 @@
 	},
 /area/wizard_station)
 "fR" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/purp{
 	dir = 4
 	},
 /turf/unsimulated/floor{
@@ -2223,13 +2223,6 @@
 	dir = 4
 	},
 /area/space)
-"gu" = (
-/turf/unsimulated/wall/fakeglass{
-	dir = 8;
-	icon_state = "fakewindows3";
-	tag = "icon-fakewindows (WEST)"
-	},
-/area/wizard_station)
 "gv" = (
 /obj/structure/table/reinforced,
 /obj/structure/kitchenspike,
@@ -2240,6 +2233,9 @@
 /area/wizard_station)
 "gw" = (
 /obj/structure/showcase,
+/obj/structure/window/reinforced/clockwork{
+	dir = 8
+	},
 /turf/unsimulated/floor{
 	dir = 1;
 	icon_state = "chapel"
@@ -2435,6 +2431,9 @@
 "gW" = (
 /obj/structure/rack,
 /obj/item/kitchen/knife/ritual,
+/obj/structure/window/reinforced/clockwork{
+	dir = 8
+	},
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "chapel"
@@ -12568,6 +12567,15 @@
 	icon_state = "floor"
 	},
 /area/centcom/evac)
+"VO" = (
+/obj/structure/chair/comfy/purp{
+	dir = 1
+	},
+/turf/unsimulated/floor{
+	dir = 8;
+	icon_state = "wood"
+	},
+/area/wizard_station)
 "VZ" = (
 /turf/simulated/floor/holofloor{
 	tag = "icon-asteroid7";
@@ -50519,7 +50527,7 @@ fo
 fJ
 fU
 fY
-fo
+VO
 fo
 fo
 fo
@@ -50776,11 +50784,11 @@ fB
 fJ
 fS
 fX
-ih
-gu
+VO
 fo
 fo
-gu
+fo
+fo
 ih
 aN
 nj
