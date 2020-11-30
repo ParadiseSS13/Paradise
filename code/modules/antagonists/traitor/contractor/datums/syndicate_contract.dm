@@ -229,7 +229,7 @@
 
 	if(owning_hub.contractor_uplink)
 		owning_hub.contractor_uplink.message_holder("[pre_text] [outcome_text]", 'sound/machines/terminal_prompt_deny.ogg')
-		SStgui.update_uis(owning_hub.tgui)
+		SStgui.update_uis(owning_hub)
 
 /**
   * Marks the contract as failed and stops it.
@@ -553,7 +553,7 @@
 /datum/syndicate_contract/proc/deadline_reached()
 	clean_up()
 	owning_hub.contractor_uplink?.message_holder("The window for extraction has closed and so did the portal, agent. You will need to call for another extraction so we can open a new portal.")
-	SStgui.update_uis(owning_hub.tgui)
+	SStgui.update_uis(owning_hub)
 
 /**
   * Cleans up the contract.

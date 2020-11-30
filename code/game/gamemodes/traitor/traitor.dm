@@ -141,14 +141,14 @@
 					for(var/a in C.contract.candidate_zones)
 						var/area/A = a
 						locations += (A == C.contract.extraction_zone ? "<b><u>[A.map_name]</u></b>" : A.map_name)
-					locations = jointext(locations, ", ")
+					var/display_locations = english_list(locations, and_text = " or ")
 					// Result
 					var/result = ""
 					if(C.status == CONTRACT_STATUS_COMPLETED)
 						result = "<font color='green'><B>Success!</B></font>"
 					else if(C.status != CONTRACT_STATUS_INACTIVE)
 						result = "<font color='red'>Fail.</font>"
-					text += "<br><font color='orange'><B>Contract #[count]</B></font>: Kidnap and extract [C.target_name] at [locations]. [result]"
+					text += "<br><font color='orange'><B>Contract #[count]</B></font>: Kidnap and extract [C.target_name] at [display_locations]. [result]"
 					count++
 				text += "<br><font color='orange'><B>[earned_tc] TC were earned from the contracts.</B></font>"
 

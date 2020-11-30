@@ -19,6 +19,10 @@
 #define EXTRACTION_DIFFICULTY_HARD 3
 
 /// The name of the strings file containing data to use for contract fluff texts.
-#define CONTRACT_STRINGS_WANTED "wanted_message.json"
+#define CONTRACT_STRINGS_WANTED "syndicate_wanted_messages.json"
+
+// UI page numbers.
+#define HUB_PAGE_CONTRACTS 1
+#define HUB_PAGE_SHOP 2
 
 GLOBAL_DATUM(prisoner_belongings, /obj/structure/closet/secure_closet/contractor)

@@ -1278,7 +1278,7 @@
 				var/datum/syndicate_contract/new_contract = new(H, src, list(), target)
 				new_contract.reward_tc = list(0, 0, 0)
 				H.contracts += new_contract
-				SStgui.update_uis(C.contractor_uplink.hub.tgui)
+				SStgui.update_uis(C.contractor_uplink.hub)
 				log_admin("[key_name(usr)] has given a new contract to [key_name(current)] with [target.current] as the target")
 				message_admins("[key_name_admin(usr)] has given a new contract to [key_name_admin(current)] with [target.current] as the target")
 
@@ -1290,7 +1290,7 @@
 				if(isnull(new_tc) || new_tc < 0)
 					return
 				H.reward_tc_available = new_tc
-				SStgui.update_uis(C.contractor_uplink.hub.tgui)
+				SStgui.update_uis(C.contractor_uplink.hub)
 				log_admin("[key_name(usr)] has set [key_name(current)]'s claimable TC to [new_tc]")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s claimable TC to [new_tc]")
 
@@ -1302,7 +1302,7 @@
 				if(isnull(new_rep) || new_rep < 0)
 					return
 				H.rep = new_rep
-				SStgui.update_uis(C.contractor_uplink.hub.tgui)
+				SStgui.update_uis(C.contractor_uplink.hub)
 				log_admin("[key_name(usr)] has set [key_name(current)]'s contractor Rep to [new_rep]")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s contractor Rep to [new_rep]")
 
@@ -1336,7 +1336,7 @@
 					temp.Blend(R.fields["photo"], ICON_OVERLAY)
 					CO.target_photo = temp
 				// Notify
-				SStgui.update_uis(C.contractor_uplink.hub.tgui)
+				SStgui.update_uis(C.contractor_uplink.hub)
 				log_admin("[key_name(usr)] has set [key_name(current)]'s contract target to [target.current]")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s contract target to [target.current]")
 
@@ -1374,7 +1374,7 @@
 					return
 				CO.contract.candidate_zones[difficulty] = new_area
 				CO.reward_tc[difficulty] = new_reward
-				SStgui.update_uis(C.contractor_uplink.hub.tgui)
+				SStgui.update_uis(C.contractor_uplink.hub)
 				log_admin("[key_name(usr)] has set [key_name(current)]'s contract location to [new_area] with [new_reward] TC as reward")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s contract location to [new_area] with [new_reward] TC as reward")
 
@@ -1419,7 +1419,7 @@
 						message_admins("[key_name_admin(usr)] has deleted [key_name_admin(current)]'s contract")
 					else
 						return
-				SStgui.update_uis(C.contractor_uplink.hub.tgui)
+				SStgui.update_uis(C.contractor_uplink.hub)
 
 			if("interrupt")
 				if(!C)
@@ -1444,7 +1444,7 @@
 				if(!fail_reason || CO.status != CONTRACT_STATUS_ACTIVE)
 					return
 				CO.fail(fail_reason)
-				SStgui.update_uis(C.contractor_uplink.hub.tgui)
+				SStgui.update_uis(C.contractor_uplink.hub)
 				log_admin("[key_name(usr)] has failed [key_name(current)]'s contract with reason: [fail_reason]")
 				message_admins("[key_name_admin(usr)] has failed [key_name_admin(current)]'s contract with reason: [fail_reason]")
 

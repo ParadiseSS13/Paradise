@@ -51,24 +51,22 @@
 	var/completed_contracts = 0
 	/// Amount of Contractor Rep available for spending.
 	var/rep = 0
-	/// The TGUI module associated with this hub.
-	var/datum/ui_module/contractor_uplink/tgui = null
+	/// Current UI page index.
+	var/page = HUB_PAGE_CONTRACTS
 
 /datum/contractor_hub/New(datum/mind/O, obj/item/contractor_uplink/U)
 	owner = O
 	contractor_uplink = U
-	tgui = new(U)
-	tgui.hub = src
 	// Instantiate purchases
 	for(var/i in 1 to length(purchases))
 		if(ispath(purchases[i]))
 			var/datum/rep_purchase/P = purchases[i]
 			purchases[i] = new P
 		else
-			log_runtime(EXCEPTION("Expected Hub purchase [purchases[i]] to be a type but it wasn't!"), src)
+			stack_trace("Expected Hub purchase [purchases[i]] to be a type but it wasn't!")
 
-/datum/contractor_hub/ui_interact(mob/user)
-	return tgui.ui_interact(user)
+/datum/contractor_hub/ui_host(mob/user)
+	return contractor_uplink
 
 /**
   * Called when the loading animation completes for the first time.
@@ -78,7 +76,7 @@
 		return
 	user.playsound_local(user, 'sound/effects/contractstartup.ogg', 30, FALSE)
 	generate_contracts()
-	SStgui.update_uis(tgui)
+	SStgui.update_uis(src)
 
 /**
   * Regenerates a list of contracts for the contractor to take up.

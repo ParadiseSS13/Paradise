@@ -27,7 +27,7 @@
 	// Setup the vars and contractor stuff in the uplink
 	var/obj/item/uplink/hidden/U = owner.find_syndicate_uplink()
 	if(!U)
-		log_runtime(EXCEPTION("Potential contractor [owner] spawned without a hidden uplink!"), src)
+		stack_trace("Potential contractor [owner] spawned without a hidden uplink!")
 		return
 	U.contractor = src
 	offer_deadline = world.time + offer_duration
