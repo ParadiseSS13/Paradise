@@ -143,7 +143,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/chasecycles = 0
 	var/web_infects = 0
 	var/spider_creation_time = 0
-	var/spider_choose_player_randomly = FALSE
 
 	var/datum/action/innate/terrorspider/web/web_action
 	var/web_type = /obj/structure/spider/terrorweb
@@ -284,8 +283,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/announcetoghosts()
 	if(spider_awaymission)
-		return
-	if(spider_choose_player_randomly)
 		return
 	if(stat == DEAD)
 		return

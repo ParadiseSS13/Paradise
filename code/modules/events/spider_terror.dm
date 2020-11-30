@@ -53,7 +53,6 @@
 			var/mob/living/simple_animal/hostile/poison/terror_spider/S = new spider_type(vent.loc)
 			var/mob/M = pick_n_take(candidates)
 			S.key = M.key
-			S.spider_choose_player_randomly = TRUE
 			spawncount--
 			successSpawn = TRUE
 
