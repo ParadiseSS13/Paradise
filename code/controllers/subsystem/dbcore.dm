@@ -76,26 +76,18 @@ SUBSYSTEM_DEF(dbcore)
 	if(!config.sql_enabled)
 		return FALSE
 
-	var/user = sqlfdbklogin
-	var/pass = sqlfdbkpass
-	var/db = sqlfdbkdb
-	var/address = sqladdress
-	var/port = text2num(sqlport)
-	var/timeout = config.async_sql_query_timeout
-	var/thread_limit = config.rust_sql_thread_limit
-
 	var/result = json_decode(rustg_sql_connect_pool(json_encode(list(
-		"host" = address,
-		"port" = port,
-		"user" = user,
-		"pass" = pass,
-		"db_name" = db,
-		"read_timeout" = timeout,
-		"write_timeout" = timeout,
-		"max_threads" = thread_limit,
+		"host" = sqladdress,
+		"port" = text2num(sqlport),
+		"user" = sqlfdbklogin,
+		"pass" = sqlfdbkpass,
+		"db_name" = sqlfdbkdb,
+		"read_timeout" = config.async_sql_query_timeout,
+		"write_timeout" = config.async_sql_query_timeout,
+		"max_threads" = config.rust_sql_thread_limit,
 	))))
 	. = (result["status"] == "ok")
-	if (.)
+	if(.)
 		connection = result["handle"]
 	else
 		connection = null
@@ -358,13 +350,13 @@ SUBSYSTEM_DEF(dbcore)
 /datum/db_query/proc/run_query(async)
 	var/job_result_str
 
-	if (async)
+	if(async)
 		var/job_id = rustg_sql_query_async(connection, sql, json_encode(arguments))
 		in_progress = TRUE
 		UNTIL((job_result_str = rustg_sql_check_query(job_id)) != RUSTG_JOB_NO_RESULTS_YET)
 		in_progress = FALSE
 
-		if (job_result_str == RUSTG_JOB_ERROR)
+		if(job_result_str == RUSTG_JOB_ERROR)
 			last_error = job_result_str
 			return FALSE
 	else

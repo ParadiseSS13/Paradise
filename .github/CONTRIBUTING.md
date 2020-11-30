@@ -435,7 +435,7 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
 
 * Player input must always be escaped safely, we recommend you use stripped_input in all cases where you would use input. Essentially, just always treat input from players as inherently malicious and design with that use case in mind
 
-* Calls to the database must be escaped properly - use proper parameters!!!
+* Calls to the database must be escaped properly - use proper parameters (values starting with a :). You can then replace these with a list of parameters, and these will be properly escaped during the query, and prevent any SQL injection.
 	* Good:
 	```dm
 		var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey=:target_ckey", list(
@@ -466,7 +466,7 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
 
 * Use parameters for queries (Mentioned above in) [###Develop Secure Code](###Develop Secure Code)
 
-* Always check your queries for successful with if(!query.warn_execute()). By using this standard format, you can ensure the correct log messages are used
+* Always check your queries for success with if(!query.warn_execute()). By using this standard format, you can ensure the correct log messages are used
 
 * Always qdel() your queries after you are done with them, this cleans up the results and helps things run smoother
 
