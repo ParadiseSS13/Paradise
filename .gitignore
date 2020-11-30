@@ -39,3 +39,4 @@ stddef.dm
 
 # ignore RUSTG linux binary, since linux dependencies vary with pretty much every single install
 librust_g.so
+data/mode.txt

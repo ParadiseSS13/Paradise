@@ -102,9 +102,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/obj/machinery/camera/portable/builtInCamera
 
 	var/obj/structure/AIcore/deactivated/linked_core //For exosuit control
-	var/mob/living/silicon/robot/deployed_shell = null //For shell control
-	var/datum/action/innate/deploy_shell/deploy_action = new
-	var/datum/action/innate/deploy_last_shell/redeploy_action = new
 
 	var/arrivalmsg = "$name, $rank, has arrived on the station."
 

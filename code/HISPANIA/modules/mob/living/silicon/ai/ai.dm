@@ -1,3 +1,8 @@
+/mob/living/silicon/ai
+	var/mob/living/silicon/robot/deployed_shell //For shell control
+	var/datum/action/innate/deploy_shell/deploy_action = new
+	var/datum/action/innate/deploy_last_shell/redeploy_action = new
+
 /mob/living/silicon/ai/verb/deploy_to_shell(var/mob/living/silicon/robot/target)
 	set category = "AI Commands"
 	set name = "Deploy to Shell"
