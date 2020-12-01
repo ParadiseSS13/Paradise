@@ -67,3 +67,15 @@
 	cooldown_min = 200 //100 deciseconds reduction per rank
 
 	action_icon_state = "statue"
+
+/obj/effect/proc_holder/spell/targeted/touch/heart_curse
+	name = "Cursed heart curse"
+	desc = "This spell charges your hand with vile energy that can be used to curse peoples hearts to have to be pumped manualy."
+	hand_path = /obj/item/melee/touch_attack/heart_curse
+
+	school = "evocation"
+	charge_max = 600
+	clothes_req = 1
+	cooldown_min = 200 //100 deciseconds reduction per rank
+
+	action_icon_state = "gib"

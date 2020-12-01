@@ -113,3 +113,20 @@
 		else
 			H.makeAntiCluwne()
 	..()
+
+/obj/item/melee/touch_attack/heart_curse
+	name = "Curse of the heart"
+	desc = "Heart attack-ack-ack-ack-ack-ack-ack!"
+	catchphrase = "EI NATH!!"
+	on_use_sound = 'sound/magic/disintegrate.ogg'
+	icon_state = "disintegrate"
+	item_state = "disintegrate"
+
+/obj/item/melee/touch_attack/heart_curse/afterattack(atom/target, mob/living/carbon/user, proximity)
+	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.lying || user.handcuffed) //exploding after touching yourself would be bad
+		return
+	var/mob/M = target
+	var/mob/living/carbon/human/H = M
+	var/obj/item/organ/internal/organ = new /obj/item/organ/internal/heart/cursed
+	organ.insert(H)
+	..()
