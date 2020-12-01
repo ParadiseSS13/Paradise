@@ -125,7 +125,7 @@
 	// Instruct the client to signal UI when the window is closed.
 	// NOTE: Intentional \ref usage; tgui datums can't/shouldn't
 	// be tagged, so this is an effective unwrap
-	winset(user, window_id, "on-close=\"uiclose \ref[src]\"")
+	winset(user, window_id, "on-close=\"uiclose [src.UID()]\"")
 
 	// Pre-fetch initial state while browser is still loading in
 	// another thread
