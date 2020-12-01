@@ -66,7 +66,7 @@
 			holder.icon_state = "hudhealthy"
 
 /mob/living/simple_animal/hostile/guardian/Life(seconds, times_fired)
-	..()
+	. = ..()
 	if(summoner)
 		if(summoner.stat == DEAD || (!summoner.check_death_method() && summoner.health <= HEALTH_THRESHOLD_DEAD))
 			summoner.remove_guardian_actions()

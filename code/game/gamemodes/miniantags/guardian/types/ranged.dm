@@ -1,15 +1,18 @@
+#define BAR_COLOR_NORMAL "#AA5500"
+#define BAR_COLOR_OVERHEATED "#AA0000"
+
 /obj/item/projectile/guardian
 	name = "crystal spray"
 	icon_state = "guardian"
 	damage = 25
 	damage_type = BRUTE
-	armour_penetration = 100
+	armour_penetration = 50
 
 /mob/living/simple_animal/hostile/guardian/ranged
 	friendly = "quietly assesses"
 	melee_damage_lower = 10
 	melee_damage_upper = 10
-	damage_transfer = 0.9
+	damage_transfer = 1.2
 	projectiletype = /obj/item/projectile/guardian
 	ranged_cooldown_time = 5 //fast!
 	projectilesound = 'sound/effects/hit_on_shattered_glass.ogg'
@@ -23,6 +26,87 @@
 	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, capable of spraying shards of crystal."
 	var/list/snares = list()
 	var/toggle = FALSE
+	// Overheating
+	/// The threshold at which too many subsequent attacks will provide overheat, preventing ranged attacks for a while.
+	var/overheat_threshold = 10
+	/// The rate at which overheat value increases per attack.
+	var/overheat_per_attack = 1.25
+	/// The rate at which overheat value decreases per cycle.
+	var/overheat_decay = 1.5
+	/// The rate at which overheat value decreases per cycle when overheated.
+	var/overheat_decay_overheated = 1
+	/// The current overheat value.
+	var/cur_overheat = 0
+	/// Whether we overheated and can no longer fire until back to 0.
+	var/overheated = FALSE
+	/// The overheat UI bar.
+	var/image/overheat_bar = null
+
+/mob/living/simple_animal/hostile/guardian/ranged/Login()
+	. = ..()
+	QDEL_NULL(overheat_bar)
+
+/mob/living/simple_animal/hostile/guardian/ranged/Life(seconds, times_fired)
+	. = ..()
+	// Cool off
+	if(cur_overheat > 0)
+		cur_overheat = max(cur_overheat - (overheated ? overheat_decay_overheated : overheat_decay), 0)
+		if(cur_overheat == 0)
+			overheated = FALSE
+			to_chat(src, "<span class='notice'>You can fire again.</span>")
+			SEND_SOUND(src, 'sound/magic/charge.ogg')
+		update_overheat_bar()
+
+/mob/living/simple_animal/hostile/guardian/ranged/OpenFire(atom/A)
+	if(overheated)
+		to_chat(src, "<span class='danger'>You must regenerate wait and energy before firing again.</span>")
+		return
+	return ..()
+
+/mob/living/simple_animal/hostile/guardian/ranged/Shoot(atom/targeted_atom)
+	. = ..()
+	if(.)
+		cur_overheat += overheat_per_attack
+		if(cur_overheat >= overheat_threshold)
+			overheated = TRUE
+			playsound(loc, 'sound/magic/teleport_app.ogg', 50, TRUE)
+			to_chat(src, "<span class='userdanger'>Your energy has been depleted from too many successive attacks!</span>")
+		update_overheat_bar()
+
+/**
+  * Updates (or deletes) the overheat bar based on the current overheat value.
+  */
+/mob/living/simple_animal/hostile/guardian/ranged/proc/update_overheat_bar()
+	if(cur_overheat == 0)
+		if(overheat_bar)
+			animate(overheat_bar, time = 0.5 SECONDS, alpha = 0, easing = SINE_EASING)
+			addtimer(CALLBACK(src, .proc/destroy_overheat_bar, overheat_bar), 0.5 SECONDS)
+			overheat_bar = null
+		return
+	if(!overheat_bar)
+		overheat_bar = image('icons/effects/progessbar.dmi', src, "prog_bar_0", HUD_LAYER)
+		overheat_bar.plane = HUD_PLANE
+		overheat_bar.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+		overheat_bar.filters = filter(type = "color", color = list(COLOR_WHITE, COLOR_WHITE, COLOR_WHITE))
+		overheat_bar.alpha = 0
+		animate(overheat_bar, time = 0.5 SECONDS, alpha = 255, easing = SINE_EASING)
+		client?.images += overheat_bar
+	overheat_bar.icon_state = "prog_bar_[round(((cur_overheat / overheat_threshold) * 100), 5)]"
+	overheat_bar.color = overheated ? BAR_COLOR_OVERHEATED : BAR_COLOR_NORMAL
+
+/**
+  * Destroy the overheat bar.
+  *
+  * Longer detailed paragraph about the proc
+  * including any relevant detail
+  * Arguments:
+  * * bar - The overheat bar image to delete.
+  */
+/mob/living/simple_animal/hostile/guardian/ranged/proc/destroy_overheat_bar(image/bar)
+	if(!bar)
+		return
+	client?.images -= bar
+	qdel(bar)
 
 /mob/living/simple_animal/hostile/guardian/ranged/ToggleMode()
 	if(loc == summoner)
@@ -116,3 +200,6 @@
 				var/mob/living/simple_animal/hostile/guardian/G = spawner
 				if(G.summoner)
 					to_chat(G.summoner, "<span class='danger'>[AM] has crossed your surveillance trap at [get_area(snare_loc)].</span>")
+
+#undef BAR_COLOR_NORMAL
+#undef BAR_COLOR_OVERHEATED
