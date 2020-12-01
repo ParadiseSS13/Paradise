@@ -1628,7 +1628,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "For showing that you are The Boss"
 	desc = "A useless red balloon with the syndicate logo on it, which can blow the deepest of covers."
 	reference = "BABA"
-	item = /obj/item/toy/syndicateballoon
+	item = /obj/item/toy/balloon/syndicateballoon
 	cost = 20
 	cant_discount = TRUE
 

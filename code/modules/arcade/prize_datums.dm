@@ -42,7 +42,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 /datum/prize_item/balloon
 	name = "Water Balloon"
 	desc = "A thin balloon for throwing liquid at people."
-	typepath = /obj/item/toy/balloon
+	typepath = /obj/item/toy/waterballoon
 	cost = 10
 
 /datum/prize_item/spinningtoy

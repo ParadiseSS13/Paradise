@@ -192,7 +192,7 @@
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
 		/obj/item/toy/cards/deck/syndicate = 1,
 		/obj/item/storage/secure/briefcase/syndie = 1,
-		/obj/item/toy/syndicateballoon = 1,
+		/obj/item/toy/balloon/syndicateballoon = 1,
 		/obj/item/soap/syndie = 1,
 		/obj/item/clothing/under/syndicate = 1,
 		/obj/item/clothing/under/syndicate/tacticool = 1,

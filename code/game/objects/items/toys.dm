@@ -30,21 +30,80 @@
 /*
  * Balloons
  */
-/obj/item/toy/balloon
+
+/obj/item/toy/balloon/
+	var/lastused = null
+
+/obj/item/toy/balloon/attack_self(mob/user)
+	if(world.time - lastused < CLICK_CD_MELEE)
+		return
+	var/playverb = pick("bat [src]", "tug on [src]'s string", "play with [src]")
+	user.visible_message("<span class='notice'>[user] plays with [src].</span>", "<span class='notice'>You [playverb].</span>")
+	lastused = world.time
+
+/obj/item/toy/balloon/syndicateballoon
+	name = "syndicate balloon"
+	desc = "There is a tag on the back that reads \"FUK NT!11!\"."
+	icon_state = "syndballoon"
+	item_state = "syndballoon"
+	w_class = WEIGHT_CLASS_BULKY
+
+
+/*	Coloured balloons, sprite taken from Polaris Station */
+
+/obj/item/toy/balloon/colorballoon
+	name = "balloon"
+	desc = "Colourful fun for all ages! Alien plastic alloys have made it exceptionally hard to pop!"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "colorballoon" /* generic version of this balloon. you can edit its color var to a hex code including # to give it colour, but i wasn't able to get the in hand version to work with changing color vars for some reason */
+	item_state = "colorballoon"
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/random/balloon/colorballoon
+	name = "random balloon"
+	desc = "A randomly coloured balloon"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "colorballoonblue"
+
+/obj/random/balloon/colorballoon/item_to_spawn()
+	return pick(subtypesof(/obj/item/toy/balloon/colorballoon))
+
+/obj/item/toy/balloon/colorballoon/colorballoonred
+	icon_state = "colorballoonred"
+	item_state = "colorballoonred"
+/obj/item/toy/balloon/colorballoon/colorballoonpurple
+	icon_state = "colorballoonpurple"
+	item_state = "colorballoonpurple"
+/obj/item/toy/balloon/colorballoon/colorballoonorange
+	icon_state = "colorballoonorange"
+	item_state = "colorballoonorange"
+/obj/item/toy/balloon/colorballoon/colorballoongreen
+	icon_state = "colorballoongreen"
+	item_state = "colorballoongreen"
+/obj/item/toy/balloon/colorballoon/colorballoonblue
+	icon_state = "colorballoonblue"
+	item_state = "colorballoonblue"
+/obj/item/toy/balloon/colorballoon/colorballoonyellow
+	icon_state = "colorballoonyellow"
+	item_state = "colorballoonyellow"
+
+/* Waterballoons - separate item so they don't inherit the tugging/playing with interaction */
+
+/obj/item/toy/waterballoon
 	name = "water balloon"
 	desc = "A translucent balloon. There's nothing in it."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "waterballoon-e"
 	item_state = "waterballoon-e"
 
-/obj/item/toy/balloon/New()
+/obj/item/toy/waterballoon/New()
 	..()
 	create_reagents(10)
 
-/obj/item/toy/balloon/attack(mob/living/carbon/human/M as mob, mob/user as mob)
+/obj/item/toy/waterballoon/attack(mob/living/carbon/human/M as mob, mob/user as mob)
 	return
 
-/obj/item/toy/balloon/afterattack(atom/A, mob/user, proximity)
+/obj/item/toy/waterballoon/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
 		return
 	if(istype(A, /obj/structure/reagent_dispensers))
@@ -59,7 +118,7 @@
 			desc = "A translucent balloon with some form of liquid sloshing around in it."
 			update_icon()
 
-/obj/item/toy/balloon/wash(mob/user, atom/source)
+/obj/item/toy/waterballoon/wash(mob/user, atom/source)
 	if(reagents.total_volume < 10)
 		reagents.add_reagent("water", min(10-reagents.total_volume, 10))
 		to_chat(user, "<span class='notice'>You fill the balloon from the [source].</span>")
@@ -67,7 +126,7 @@
 		update_icon()
 	return
 
-/obj/item/toy/balloon/attackby(obj/O as obj, mob/user as mob, params)
+/obj/item/toy/waterballoon/attackby(obj/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/reagent_containers/glass) || istype(O, /obj/item/reagent_containers/food/drinks/drinkingglass))
 		if(O.reagents)
 			if(O.reagents.total_volume < 1)
@@ -84,7 +143,7 @@
 	update_icon()
 	return
 
-/obj/item/toy/balloon/throw_impact(atom/hit_atom)
+/obj/item/toy/waterballoon/throw_impact(atom/hit_atom)
 	if(reagents.total_volume >= 1)
 		visible_message("<span class='warning'>The [src] bursts!</span>","You hear a pop and a splash.")
 		reagents.reaction(get_turf(hit_atom))
@@ -96,74 +155,13 @@
 				qdel(src)
 	return
 
-/obj/item/toy/balloon/update_icon()
+/obj/item/toy/waterballoon/update_icon()
 	if(src.reagents.total_volume >= 1)
 		icon_state = "waterballoon"
 		item_state = "waterballoon"
 	else
 		icon_state = "waterballoon-e"
 		item_state = "waterballoon-e"
-
-/obj/item/toy/syndicateballoon
-	name = "syndicate balloon"
-	desc = "There is a tag on the back that reads \"FUK NT!11!\"."
-	icon_state = "syndballoon"
-	item_state = "syndballoon"
-	w_class = WEIGHT_CLASS_BULKY
-	var/lastused = null
-
-/obj/item/toy/syndicateballoon/attack_self(mob/user)
-	if(world.time - lastused < CLICK_CD_MELEE)
-		return
-	var/playverb = pick("bat [src]", "tug on [src]'s string", "play with [src]")
-	user.visible_message("<span class='notice'>[user] plays with [src].</span>", "<span class='notice'>You [playverb].</span>")
-	lastused = world.time
-
-/*	Coloured balloons, sprite taken from Polaris Station */
-
-/obj/item/toy/colorballoon
-	name = "balloon"
-	desc = "Colourful fun for all ages! Alien plastic alloys have made it exceptionally hard to pop!"
-	icon = 'icons/obj/toy.dmi'
-	icon_state = "colorballoon" /* generic version of this balloon. you can edit its color var to a hex code including # to give it colour, but i wasn't able to get the in hand version to work with changing color vars for some reason */
-	item_state = "colorballoon"
-	w_class = WEIGHT_CLASS_NORMAL
-	var/lastused = null
-
-/obj/item/toy/colorballoon/attack_self(mob/user)
-	if(world.time - lastused < CLICK_CD_MELEE)
-		return
-	var/playverb = pick("bat [src]", "tug on [src]'s string", "play with [src]")
-	user.visible_message("<span class='notice'>[user] plays with [src].</span>", "<span class='notice'>You [playverb].</span>")
-	lastused = world.time
-
-/obj/random/balloon
-	name = "random balloon"
-	desc = "A randomly coloured balloon"
-	icon = 'icons/obj/toy.dmi'
-	icon_state = "colorballoonblue"
-
-/obj/random/balloon/item_to_spawn()
-	return pick(subtypesof(/obj/item/toy/colorballoon))
-
-/obj/item/toy/colorballoon/colorballoonred
-	icon_state = "colorballoonred"
-	item_state = "colorballoonred"
-/obj/item/toy/colorballoon/colorballoonpurple
-	icon_state = "colorballoonpurple"
-	item_state = "colorballoonpurple"
-/obj/item/toy/colorballoon/colorballoonorange
-	icon_state = "colorballoonorange"
-	item_state = "colorballoonorange"
-/obj/item/toy/colorballoon/colorballoongreen
-	icon_state = "colorballoongreen"
-	item_state = "colorballoongreen"
-/obj/item/toy/colorballoon/colorballoonblue
-	icon_state = "colorballoonblue"
-	item_state = "colorballoonblue"
-/obj/item/toy/colorballoon/colorballoonyellow
-	icon_state = "colorballoonyellow"
-	item_state = "colorballoonyellow"
 
 /*
  * Fake telebeacon
