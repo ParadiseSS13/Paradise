@@ -54,7 +54,6 @@
 /mob/living/simple_animal/hostile/asteroid/imp/tendril
 	fromtendril = TRUE
 
-
 //lava imp crusher trophy
 /obj/item/crusher_trophy/blaster_tubes/impskull
 	name = "imp skull"

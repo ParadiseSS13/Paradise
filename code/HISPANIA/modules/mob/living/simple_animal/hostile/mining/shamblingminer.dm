@@ -1,4 +1,4 @@
-//A slow, melee, crazy miner.
+//A FAST, melee, crazy miner.
 /mob/living/simple_animal/hostile/asteroid/miner
 	name = "shambling miner"
 	desc = "Consumed by the ash storm, this shell of a human being only seeks to harm those he once called coworkers."
