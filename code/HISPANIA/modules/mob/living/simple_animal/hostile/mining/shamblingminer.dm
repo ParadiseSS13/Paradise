@@ -22,8 +22,6 @@
 	throw_message = "barely affects the"
 	vision_range = 3
 	aggro_vision_range = 7
-	move_force = MOVE_FORCE_VERY_STRONG
-	move_resist = MOVE_FORCE_VERY_STRONG
 	loot = list()
 	crusher_loot = /obj/item/crusher_trophy/blaster_tubes/mask
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/human = 2, /obj/item/stack/sheet/animalhide/human = 1, /obj/item/stack/sheet/bone = 1)
