@@ -9,7 +9,7 @@
 	icon_dead = "imp_dead"
 	icon_gib = "syndicate_gib"
 	move_to_delay = 20
-	projectiletype = /obj/item/projectile/magic/fireball/infernal
+	projectiletype = /obj/item/projectile/magic/fireball/infernal/impfire
 	projectilesound = 'sound/hispania/misc/impranged.wav'
 	ranged = TRUE
 	ranged_message = "shoots a fireball"
@@ -34,6 +34,9 @@
 	loot = list()
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 2, /obj/item/stack/sheet/bone = 3, /obj/item/stack/sheet/sinew = 2)
 	death_sound = 'sound/hispania/misc/impdies.wav'
+
+/obj/item/projectile/magic/fireball/infernal/impfire
+	exp_fire= 2
 
 /mob/living/simple_animal/hostile/asteroid/imp/attacked_by(obj/item/I, mob/living/user)
 	. = ..()

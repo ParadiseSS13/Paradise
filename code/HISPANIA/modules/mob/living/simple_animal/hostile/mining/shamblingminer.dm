@@ -44,7 +44,7 @@
 	desc = "It really doesn't seem like it could be worn. Suitable as a crusher trophy."
 	icon = 'icons/hispania/obj/lavaland/artefacts.dmi'
 	icon_state = "miner_mask"
-	bonus_value = 30
+	bonus_value = 5
 	denied_type = /obj/item/crusher_trophy/blaster_tubes/mask
 
 /obj/item/crusher_trophy/blaster_tubes/mask/effect_desc()
