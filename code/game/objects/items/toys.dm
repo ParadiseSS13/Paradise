@@ -51,39 +51,38 @@
 
 /*	Coloured balloons, sprite taken from Polaris Station */
 
-/obj/item/toy/balloon/colorballoon
+/obj/item/toy/balloon/color
 	name = "balloon"
 	desc = "Colourful fun for all ages! Alien plastic alloys have made it exceptionally hard to pop!"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "colorballoon" /* generic version of this balloon. you can edit its color var to a hex code including # to give it colour, but i wasn't able to get the in hand version to work with changing color vars for some reason */
 	item_state = "colorballoon"
-	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/random/balloon/colorballoon
-	name = "random balloon"
-	desc = "A randomly coloured balloon"
+/obj/random/balloon/color
+	name = "balloon"
+	desc = "Colourful fun for all ages! Alien plastic alloys have made it exceptionally hard to pop!"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "colorballoonblue"
 
-/obj/random/balloon/colorballoon/item_to_spawn()
-	return pick(subtypesof(/obj/item/toy/balloon/colorballoon))
+/obj/random/balloon/color/item_to_spawn()
+	return pick(subtypesof(/obj/item/toy/balloon/color))
 
-/obj/item/toy/balloon/colorballoon/colorballoonred
+/obj/item/toy/balloon/color/red
 	icon_state = "colorballoonred"
 	item_state = "colorballoonred"
-/obj/item/toy/balloon/colorballoon/colorballoonpurple
+/obj/item/toy/balloon/color/purple
 	icon_state = "colorballoonpurple"
 	item_state = "colorballoonpurple"
-/obj/item/toy/balloon/colorballoon/colorballoonorange
+/obj/item/toy/balloon/color/orange
 	icon_state = "colorballoonorange"
 	item_state = "colorballoonorange"
-/obj/item/toy/balloon/colorballoon/colorballoongreen
+/obj/item/toy/balloon/color/green
 	icon_state = "colorballoongreen"
 	item_state = "colorballoongreen"
-/obj/item/toy/balloon/colorballoon/colorballoonblue
+/obj/item/toy/balloon/color/blue
 	icon_state = "colorballoonblue"
 	item_state = "colorballoonblue"
-/obj/item/toy/balloon/colorballoon/colorballoonyellow
+/obj/item/toy/balloon/color/yellow
 	icon_state = "colorballoonyellow"
 	item_state = "colorballoonyellow"
 

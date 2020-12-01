@@ -59,7 +59,7 @@
 /obj/item/toy/prizeball/balloon
 	name = "balloon capsule"
 	desc = "Contains one already inflated balloon!...somehow!"
-	possible_contents = list(/obj/random/balloon/colorballoon)
+	possible_contents = list(/obj/random/balloon/color)
 
 /obj/item/stack/tickets
 	name = "prize ticket"
