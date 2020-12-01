@@ -104,6 +104,9 @@
 		if("hiss", "hisses")
 			if(isunathi(src)) //Only Unathi can hiss.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+			else if(istajaran(src)) // And Tajaran too.
+				on_CD = handle_emote_CD()
+				act = "taj_hiss"
 			else								//Everyone else fails, skip the emote attempt
 				return
 
@@ -228,12 +231,15 @@
 			playsound(loc, 'sound/voice/dionatalk1.ogg', 50, 1, frequency = get_age_pitch()) //Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
 			m_type = 2
 
-		if("hiss", "hisses")
+		if("hiss", "hisses", "taj_hiss")
 			var/M = handle_emote_param(param)
+			var/sound_file = 'sound/effects/unathihiss.ogg' //Credit to Jamius (freesound.org) for the sound.
+			if(act == "taj_hiss")
+				sound_file = 'sound/effects/kittyhiss.ogg' // Copyright CC BY 3.0 secondbody (freesound.org) for the sound. (Trimmed to hiss)
 
 			if(!muzzled)
 				message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
-				playsound(loc, 'sound/effects/unathihiss.ogg', 50, 1, frequency = get_age_pitch()) //Credit to Jamius (freesound.org) for the sound.
+				playsound(loc, sound_file, 50, 1, frequency = get_age_pitch())
 				m_type = 2
 			else
 				message = "<B>[src]</B> makes a weak hissing noise."
@@ -953,6 +959,8 @@
 					emotelist += "\nDiona specific emotes :- creak(s)"
 				if("Skrell")
 					emotelist += "\nSkrell specific emotes :- warble(s)"
+				if("Tajaran")
+					emotelist += "\nTajaran specific emotes :- hiss(es)"
 
 			if(ismachineperson(src))
 				emotelist += "\nMachine specific emotes :- beep(s)-(none)/mob, buzz(es)-none/mob, no-(none)/mob, ping(s)-(none)/mob, yes-(none)/mob, buzz2-(none)/mob"
