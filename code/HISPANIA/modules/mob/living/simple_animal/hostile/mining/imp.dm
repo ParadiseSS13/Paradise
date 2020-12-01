@@ -36,7 +36,7 @@
 	death_sound = 'sound/hispania/misc/impdies.wav'
 
 /obj/item/projectile/magic/fireball/infernal/impfire
-	exp_fire= 2
+	exp_fire = 2
 
 /mob/living/simple_animal/hostile/asteroid/imp/attacked_by(obj/item/I, mob/living/user)
 	. = ..()
@@ -75,4 +75,3 @@
 	marker.damage = bonus_value
 	marker.nodamage = FALSE
 	playsound(user.loc, 'sound/hispania/misc/impranged.wav', 50, 0)
-
