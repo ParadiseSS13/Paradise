@@ -31,7 +31,7 @@
  * Balloons
  */
 
-/obj/item/toy/balloon/
+/obj/item/toy/balloon
 	var/lastused = null
 
 /obj/item/toy/balloon/attack_self(mob/user)
