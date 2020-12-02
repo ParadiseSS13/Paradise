@@ -1089,7 +1089,7 @@
 		message_admins("[key] has just connected for the first time. BYOND account registered on [byondacc_date] ([byondacc_age] days old)")
 
 /client/proc/show_update_notice()
-	to_chat(src, "<span class='userdanger'>Your BYOND client (v: [byond_version].[byond_build]) is out of date. This can cause glitches. We highly suggest you download the latest client from <a href='https://www.byond.com/download/'>Byond.com</a> before playing.</span>")
+	to_chat(src, "<span class='userdanger'>Your BYOND client (v: [byond_version].[byond_build]) is out of date. This can cause glitches. We highly suggest you download the latest client from <a href='https://www.byond.com/download/'>byond.com</a> before playing. You can also update via the BYOND launcher application.</span>")
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND
