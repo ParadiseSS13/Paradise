@@ -322,11 +322,11 @@
 	if(connection != "seeker")					//Invalid connection type.
 		return null
 	if(byond_version < MIN_CLIENT_VERSION) // Too out of date to play at all. Unfortunately, we can't send them a message here.
-		return null
+		version_blocked = TRUE
 	if(byond_build < config.minimum_client_build)
-		alert(src, "You are using a byond build which is not supported by this server. Please use a build version of atleast [config.minimum_client_build].", "Incorrect build", "OK")
-		qdel(src)
-		return
+		version_blocked = TRUE
+
+	var/show_update_prompt = FALSE
 	if(byond_version < SUGGESTED_CLIENT_VERSION) // Update is suggested, but not required.
 		to_chat(src,"<span class='userdanger'>Your BYOND client (v: [byond_version]) is out of date. This can cause glitches. We highly suggest you download the latest client from http://www.byond.com/ before playing. </span>")
 
@@ -409,6 +409,9 @@
 
 	generate_clickcatcher()
 	apply_clickcatcher()
+
+	if(show_update_prompt)
+		show_update_notice()
 
 	check_forum_link()
 
@@ -1080,6 +1083,8 @@
 	if(notify && (byondacc_age < config.byond_account_age_threshold))
 		message_admins("[key] has just connected for the first time. BYOND account registered on [byondacc_date] ([byondacc_age] days old)")
 
+/client/proc/show_update_notice()
+	to_chat(src, "<span class='userdanger'>Your BYOND client (v: [byond_version].[byond_build]) is out of date. This can cause glitches. We highly suggest you download the latest client from <a href='https://www.byond.com/download/'>Byond.com</a> before playing.</span>")
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND
