@@ -1,0 +1,248 @@
+"aa" = (/turf/template_noop,/area/template_noop)
+"ab" = (/turf/simulated/wall/mineral/plastitanium/nodiagonal,/area/ruin/powered)
+"ac" = (/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"ad" = (/obj/machinery/light{dir = 1; on = 1},/turf/simulated/floor/plating,/area/ruin/powered)
+"ae" = (/obj/item/clothing/gloves/color/yellow,/turf/simulated/floor/plating,/area/ruin/powered)
+"af" = (/turf/simulated/floor/plating,/area/ruin/powered)
+"ag" = (/obj/structure/cable{icon_state = "0-2"; pixel_y = 1; d2 = 2},/obj/machinery/computer/monitor{name = "Output Grid Power Monitoring Computer"},/turf/simulated/floor/plating,/area/ruin/powered)
+"ah" = (/obj/structure/cable/yellow{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor/plating,/area/ruin/powered)
+"ai" = (/obj/machinery/light/small{dir = 1},/obj/machinery/conveyor/east{id = "syndiegarbage"},/turf/simulated/floor/plating,/area/ruin/powered)
+"aj" = (/obj/effect/turf_decal/stripes/line{dir = 8},/obj/machinery/power/smes/engineering,/obj/structure/cable/yellow,/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating,/area/ruin/powered)
+"ak" = (/obj/effect/turf_decal/stripes/line{dir = 4},/obj/machinery/power/smes/engineering,/obj/structure/cable/yellow,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating,/area/ruin/powered)
+"al" = (/obj/structure/cable/yellow{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor/plating,/area/ruin/powered)
+"am" = (/obj/structure/cable/yellow{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating,/area/ruin/powered)
+"an" = (/obj/machinery/light{dir = 4},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"ao" = (/obj/machinery/light{dir = 8},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"ap" = (/obj/effect/turf_decal/stripes/line{dir = 10},/obj/machinery/power/terminal{dir = 1},/obj/effect/decal/cleanable/dirt,/obj/structure/cable/yellow{d1 = 0; d2 = 2; icon_state = "0-2"},/turf/simulated/floor/plating,/area/ruin/powered)
+"aq" = (/obj/structure/cable/yellow{d1 = 1; d2 = 4; icon_state = "1-4"},/obj/structure/cable/yellow{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/structure/cable/yellow{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/floor/plating,/area/ruin/powered)
+"ar" = (/obj/structure/cable/yellow{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/structure/cable/yellow{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating,/area/ruin/powered)
+"as" = (/obj/machinery/light{dir = 8},/turf/simulated/floor/plating,/area/ruin/powered)
+"at" = (/obj/machinery/light,/turf/simulated/floor/plating,/area/ruin/powered)
+"aw" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/turf/simulated/floor/plating,/area/ruin/powered)
+"ay" = (/obj/machinery/cryopod/right,/turf/unsimulated/floor{icon_state = "dark"},/area/ruin/powered)
+"az" = (/obj/machinery/computer/arcade/battle,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"aA" = (/obj/item/twohanded/required/kirbyplants{icon_state = "plant-22"},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"aB" = (/obj/machinery/vending/cigarette/syndicate/free,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"aC" = (/obj/machinery/vending/coffee/free,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"aD" = (/obj/structure/closet/crate/secure/gear{req_access_txt = "150"},/obj/item/clothing/gloves/combat,/obj/item/clothing/gloves/combat,/obj/item/clothing/under/syndicate/combat,/obj/item/clothing/under/syndicate/combat,/obj/item/storage/belt/military,/obj/item/storage/belt/military,/obj/item/clothing/shoes/combat,/obj/item/clothing/shoes/combat,/obj/item/clothing/mask/gas/syndicate,/obj/item/clothing/mask/gas/syndicate,/obj/item/clothing/glasses/night,/obj/item/clothing/glasses/night,/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"aE" = (/obj/structure/closet/crate,/obj/item/storage/box/donkpockets{pixel_x = -2; pixel_y = 6},/obj/item/storage/box/donkpockets{pixel_y = 3},/obj/item/storage/box/donkpockets{pixel_x = 2},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"aF" = (/obj/effect/mob_spawn/human/lavaland_syndicate{dir = 8; icon_state = "sleeper_s"},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"aG" = (/obj/structure/closet/crate,/obj/item/extinguisher{pixel_x = -5; pixel_y = 5},/obj/item/extinguisher{pixel_x = -2; pixel_y = 2},/obj/item/extinguisher{pixel_x = 1; pixel_y = -1},/obj/item/flashlight{pixel_x = -5; pixel_y = 5},/obj/item/flashlight{pixel_x = -2; pixel_y = 2},/obj/item/flashlight{pixel_x = 1; pixel_y = -1},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"aH" = (/obj/structure/bookcase/random,/obj/machinery/light{dir = 8},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"aI" = (/obj/structure/chair/stool/bar,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"aJ" = (/obj/structure/table/wood,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"aK" = (/obj/structure/table/wood,/obj/machinery/chem_dispenser/beer/upgraded{dir = 1},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"aL" = (/obj/structure/closet/crate/secure/weapon{req_access_txt = "150"},/obj/item/ammo_box/c10mm{pixel_y = 6},/obj/item/ammo_box/c10mm,/obj/item/ammo_box/magazine/m10mm{pixel_x = -5; pixel_y = 5},/obj/item/ammo_box/magazine/m10mm{pixel_x = -2; pixel_y = 2},/obj/item/ammo_box/magazine/m10mm{pixel_x = 1; pixel_y = -1},/obj/item/ammo_box/magazine/m10mm{pixel_x = 4; pixel_y = -4},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"aM" = (/obj/machinery/door/airlock/hatch/syndicate,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"aN" = (/obj/structure/bookcase/random,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"aO" = (/obj/structure/table/wood,/obj/item/book/manual/chef_recipes{pixel_x = 2; pixel_y = 6},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"aP" = (/obj/structure/closet/crate,/obj/item/storage/toolbox/electrical{pixel_y = 4},/obj/item/storage/toolbox/mechanical,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"aQ" = (/obj/structure/closet/crate/medical,/obj/item/storage/firstaid/fire{pixel_x = 3; pixel_y = 3},/obj/item/storage/firstaid/brute,/obj/item/storage/firstaid/regular{pixel_x = -3; pixel_y = -3},/obj/machinery/light{dir = 4},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"aR" = (/obj/structure/table/wood,/obj/item/reagent_containers/food/drinks/shaker,/obj/item/reagent_containers/food/condiment/enzyme{layer = 5},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"aS" = (/obj/structure/closet/crate/internals,/obj/item/tank/oxygen/yellow,/obj/item/tank/oxygen/yellow,/obj/item/tank/oxygen/yellow,/obj/item/tank/emergency_oxygen/double,/obj/item/tank/emergency_oxygen/double,/obj/item/tank/emergency_oxygen/double,/obj/item/clothing/mask/gas,/obj/item/clothing/mask/gas,/obj/item/clothing/mask/gas,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"aT" = (/obj/structure/rack{dir = 8},/obj/item/stack/sheet/cardboard{amount = 3},/obj/item/stack/rods/twentyfive,/obj/item/stock_parts/cell/high/plus,/obj/effect/decal/cleanable/dirt,/obj/item/storage/box/stockparts/deluxe,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"aU" = (/obj/structure/table/wood,/obj/item/storage/box/donkpockets{pixel_x = 3; pixel_y = 3},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"aV" = (/obj/structure/closet/crate,/obj/item/storage/box/donkpockets{pixel_x = -2; pixel_y = 6},/obj/item/storage/box/donkpockets{pixel_y = 3},/obj/item/storage/box/donkpockets{pixel_x = 2},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"aW" = (/obj/structure/closet/crate,/obj/item/reagent_containers/glass/beaker/waterbottle/large{pixel_x = -3; pixel_y = 3},/obj/item/reagent_containers/glass/beaker/waterbottle/large{pixel_x = -3; pixel_y = 3},/obj/item/reagent_containers/glass/beaker/waterbottle/large,/obj/item/reagent_containers/glass/beaker/waterbottle/large,/obj/item/reagent_containers/glass/beaker/waterbottle/large{pixel_x = 3; pixel_y = -3},/obj/item/reagent_containers/glass/beaker/waterbottle/large{pixel_x = 3; pixel_y = -3},/obj/effect/decal/cleanable/dirt,/obj/item/stack/sheet/mineral/plastitanium{amount = 30},/obj/item/stack/sheet/mineral/plastitanium{amount = 30},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"aX" = (/obj/structure/table/wood,/obj/item/reagent_containers/food/condiment/saltshaker{pixel_x = -3; pixel_y = 0},/obj/item/reagent_containers/food/condiment/peppermill{pixel_x = 3},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"aY" = (/obj/structure/closet/crate,/obj/item/storage/box/stockparts/deluxe,/obj/item/storage/box/stockparts/deluxe,/obj/item/stack/sheet/metal/fifty,/obj/item/stack/sheet/glass/fifty,/obj/item/circuitboard/processor,/obj/item/circuitboard/gibber,/obj/item/circuitboard/deepfryer,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"aZ" = (/obj/structure/reagent_dispensers/beerkeg,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"ba" = (/obj/structure/table/wood,/obj/machinery/processor,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bb" = (/obj/structure/closet/secure_closet/freezer/fridge/open,/obj/item/reagent_containers/food/condiment/enzyme,/obj/item/reagent_containers/food/snacks/chocolatebar,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bc" = (/obj/item/storage/box/donkpockets{pixel_x = -2; pixel_y = 6},/obj/item/storage/box/donkpockets{pixel_y = 3},/obj/item/storage/box/donkpockets{pixel_x = 2},/obj/effect/decal/cleanable/dirt,/obj/structure/closet/secure_closet/freezer/kitchen/maintenance{req_access = null},/obj/machinery/light{dir = 4},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bd" = (/obj/machinery/light{dir = 8},/mob/living/simple_animal/chicken{name = "Commander Clucky"},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"be" = (/obj/structure/table/wood,/obj/machinery/kitchen_machine/microwave,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bf" = (/obj/structure/table/wood,/obj/machinery/kitchen_machine/oven,/obj/machinery/light{dir = 4},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bg" = (/obj/structure/closet/crate,/obj/item/vending_refill/snack{pixel_x = -3; pixel_y = 3},/obj/item/vending_refill/snack{pixel_x = -3; pixel_y = 3},/obj/item/vending_refill/coffee,/obj/item/vending_refill/cola,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bh" = (/mob/living/simple_animal/cow{name = "Betsy"},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bi" = (/obj/machinery/cooker/deepfryer,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bj" = (/obj/machinery/atmospherics/unary/portables_connector{dir = 8},/obj/machinery/portable_atmospherics/canister/oxygen,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bk" = (/mob/living/simple_animal/pig,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bl" = (/obj/machinery/kitchen_machine/candy_maker,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bm" = (/obj/machinery/kitchen_machine/grill,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bn" = (/obj/machinery/autolathe,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bo" = (/obj/machinery/vending/toyliberationstation{req_access_txt = "150"},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bp" = (/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/obj/machinery/vending/medical/syndicate_access,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bq" = (/obj/machinery/light/small{dir = 1},/obj/structure/table,/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/obj/item/storage/box/masks{pixel_x = -2; pixel_y = -2},/obj/item/storage/box/gloves{pixel_x = 5; pixel_y = 5},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"br" = (/obj/machinery/computer/pandemic,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bs" = (/obj/machinery/smartfridge/secure/chemistry/virology/preloaded/syndicate,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bt" = (/obj/structure/table/glass,/obj/structure/reagent_dispensers/virusfood{pixel_y = 28},/obj/item/clothing/gloves/color/latex,/obj/item/healthanalyzer,/obj/item/clothing/glasses/hud/health,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bu" = (/obj/machinery/vending/syndichem,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bv" = (/obj/structure/table,/obj/item/pen,/obj/item/paper_bin,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bw" = (/obj/structure/table/glass,/obj/machinery/reagentgrinder{pixel_y = 5},/obj/item/reagent_containers/glass/beaker/large,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bx" = (/obj/structure/rack{dir = 8},/obj/item/storage/belt/medical,/obj/effect/decal/cleanable/dirt,/obj/item/crowbar,/obj/item/clothing/glasses/hud/health,/obj/item/clothing/accessory/stethoscope,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"by" = (/obj/structure/table,/obj/item/storage/firstaid/regular{pixel_x = -4; pixel_y = -4},/obj/effect/decal/cleanable/dirt,/obj/item/storage/firstaid/fire{pixel_x = 4; pixel_y = 4},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bz" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4; level = 1},/obj/machinery/door/airlock/hatch/syndicate,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bA" = (/obj/structure/chair{dir = 4},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bD" = (/obj/effect/turf_decal/stripes/line{dir = 8},/obj/structure/fans/tiny,/obj/effect/turf_decal/stripes/line{dir = 4},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bE" = (/obj/machinery/sleeper/syndie{dir = 4},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bF" = (/obj/structure/table/glass,/obj/item/storage/box/beakers{pixel_x = 2; pixel_y = 2},/obj/item/storage/box/syringes,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bG" = (/obj/effect/turf_decal/stripes/line{dir = 9},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bH" = (/obj/effect/turf_decal/stripes/line{dir = 1},/obj/effect/turf_decal/bot,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bI" = (/obj/effect/turf_decal/stripes/line{dir = 5},/obj/machinery/chem_heater,/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/obj/machinery/light{dir = 4},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bJ" = (/obj/structure/closet/secure_closet/medical1{req_access = null; req_access_txt = "150"},/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/obj/item/defibrillator,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bK" = (/obj/structure/table,/obj/item/paper_bin,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bL" = (/obj/effect/turf_decal/stripes/line{dir = 8},/obj/machinery/chem_master,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bM" = (/obj/effect/decal/cleanable/dirt,/obj/structure/table/reinforced,/obj/item/clothing/glasses/science,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bN" = (/obj/effect/turf_decal/stripes/line{dir = 4},/obj/effect/decal/cleanable/dirt,/obj/machinery/chem_dispenser/upgraded,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bO" = (/obj/structure/table/glass,/obj/item/stack/sheet/mineral/plasma{amount = 5; pixel_x = -2; pixel_y = 6},/obj/item/stack/sheet/mineral/plasma{amount = 5; pixel_y = 2},/obj/item/stack/sheet/mineral/plasma{amount = 5; pixel_x = 2; pixel_y = -2},/obj/effect/decal/cleanable/dirt,/obj/item/reagent_containers/glass/bottle/charcoal{pixel_x = 6},/obj/item/reagent_containers/glass/bottle/epinephrine,/obj/item/storage/box/beakers/bluespace,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bP" = (/obj/structure/grille,/obj/structure/window/plastitanium,/turf/simulated/floor/plating,/area/ruin/powered)
+"bQ" = (/obj/machinery/light/small{dir = 8},/obj/structure/bed/roller,/obj/machinery/iv_drip,/obj/item/reagent_containers/iv_bag/blood/OMinus,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bR" = (/obj/machinery/light,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bS" = (/obj/structure/table/glass,/obj/item/folder/white,/obj/item/reagent_containers/glass/beaker/large{pixel_x = -3},/obj/item/reagent_containers/glass/beaker/large{pixel_x = -3},/obj/item/reagent_containers/dropper,/obj/effect/decal/cleanable/dirt,/obj/item/screwdriver/nuke{pixel_y = 18},/obj/item/reagent_containers/spray/cleaner,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bT" = (/obj/structure/table/reinforced,/obj/item/retractor,/obj/item/hemostat,/obj/effect/decal/cleanable/dirt,/obj/item/cautery,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bU" = (/obj/structure/table/reinforced,/obj/item/scalpel,/obj/item/circular_saw{pixel_y = 9},/obj/machinery/light/small{dir = 1},/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bV" = (/obj/effect/turf_decal/stripes/line{dir = 5},/obj/machinery/chem_heater,/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bW" = (/obj/structure/table/reinforced,/obj/item/surgicaldrill,/obj/effect/decal/cleanable/dirt,/obj/item/bonegel,/obj/item/bonesetter,/obj/item/FixOVein,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bX" = (/obj/machinery/optable,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"bY" = (/obj/effect/turf_decal/stripes/line{dir = 6},/obj/machinery/power/terminal{dir = 1},/obj/structure/cable/yellow{d1 = 0; d2 = 2; icon_state = "0-2"},/turf/simulated/floor/plating,/area/ruin/powered)
+"cc" = (/obj/structure/cable/yellow{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/simulated/floor/plating,/area/ruin/powered)
+"cd" = (/turf/simulated/mineral,/area/template_noop)
+"ce" = (/obj/structure/closet/l3closet,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"cf" = (/obj/structure/sink{dir = 4; pixel_x = 12},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"cg" = (/obj/item/storage/belt/utility/full/multitool,/obj/structure/table,/obj/item/clothing/glasses/welding,/turf/simulated/floor/plating,/area/ruin/powered)
+"ch" = (/obj/structure/table/wood,/obj/item/reagent_containers/food/drinks/cans/beer,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"ci" = (/obj/machinery/portable_atmospherics/canister/oxygen,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"cj" = (/obj/structure/table/reinforced,/obj/item/suppressor,/obj/item/storage/box/monkeycubes/syndicate,/obj/item/storage/box/monkeycubes/syndicate,/obj/item/storage/box/monkeycubes/syndicate,/obj/item/storage/box/monkeycubes/syndicate,/obj/item/storage/box/monkeycubes/syndicate,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"ck" = (/obj/machinery/atmospherics/unary/vent_pump/on,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"cl" = (/obj/structure/cable/yellow{d1 = 2; d2 = 4; icon_state = "2-4"},/obj/effect/decal/cleanable/dirt,/obj/item/clothing/gloves/color/yellow,/turf/simulated/floor/plating,/area/ruin/powered)
+"cm" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4; level = 1},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"cn" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 4; initialize_directions = 11; level = 1},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"co" = (/obj/structure/toilet{dir = 8},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"cp" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"cq" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 8},/obj/machinery/light{dir = 8},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"cr" = (/obj/structure/sign/explosives/alt,/turf/simulated/wall/mineral/plastitanium/nodiagonal,/area/ruin/powered)
+"cs" = (/obj/structure/table/glass,/obj/item/reagent_containers/syringe/antiviral,/obj/item/reagent_containers/dropper,/obj/item/reagent_containers/spray/cleaner,/obj/machinery/light{dir = 4},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"ct" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 5; level = 1},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"cu" = (/obj/machinery/atmospherics/binary/volume_pump/on{dir = 8; name = "Air To Distro"},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"cv" = (/obj/structure/sink{pixel_y = 32},/obj/item/storage/box/monkeycubes/syndicate,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"cw" = (/obj/item/storage/box/monkeycubes/syndicate,/obj/structure/sink{dir = 4; icon_state = "sink"; pixel_x = 10; pixel_y = 0},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"cx" = (/obj/machinery/monkey_recycler,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"cz" = (/obj/machinery/computer/monitor{name = "Engine Grid Power Monitoring Computer"},/obj/structure/cable/yellow,/turf/simulated/floor/plating,/area/ruin/powered)
+"cB" = (/obj/structure/table,/obj/item/storage/box/syringes,/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/dirt,/obj/item/gun/syringe/syndicate,/obj/machinery/defibrillator_mount/loaded{pixel_x = -30},/obj/item/stock_parts/cell/high/plus,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"cE" = (/obj/structure/rack,/obj/item/flashlight{pixel_x = -3; pixel_y = 3},/obj/item/flashlight{pixel_x = -3; pixel_y = 3},/obj/item/flashlight{pixel_x = -3; pixel_y = 3},/turf/simulated/floor/plating,/area/ruin/powered)
+"cF" = (/obj/structure/reagent_dispensers/fueltank,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"cG" = (/obj/effect/turf_decal/stripes/line{dir = 9},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"cH" = (/obj/structure/table/wood,/obj/machinery/light{dir = 4},/obj/machinery/chem_dispenser/soda/upgraded{dir = 1},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"cI" = (/obj/structure/rack{dir = 8},/obj/item/clothing/suit/space/syndicate,/obj/item/clothing/mask/gas/syndicate,/obj/item/clothing/head/helmet/space/syndicate,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"cJ" = (/obj/machinery/atmospherics/unary/vent_pump/on{dir = 1},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"cK" = (/obj/structure/table/wood,/obj/item/kitchen/knife{pixel_x = 6},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"cL" = (/obj/structure/table/wood,/obj/item/kitchen/rollingpin,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"cM" = (/obj/structure/mirror,/turf/simulated/wall/mineral/plastitanium/nodiagonal,/area/ruin/powered)
+"cN" = (/obj/structure/table,/obj/machinery/cell_charger,/obj/item/stock_parts/cell/high/plus,/obj/item/rpd{pixel_y = 3},/turf/simulated/floor/plating,/area/ruin/powered)
+"cR" = (/obj/item/stack/sheet/glass/fifty,/obj/item/stack/sheet/metal/fifty,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"cU" = (/obj/machinery/light{dir = 1; on = 1},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"cV" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/door/airlock/hatch/syndicate,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"cW" = (/obj/item/storage/belt/utility/full/multitool,/obj/item/storage/belt/utility/full/multitool,/obj/structure/rack,/obj/item/clothing/glasses/welding,/obj/item/clothing/glasses/welding,/turf/simulated/floor/plating,/area/ruin/powered)
+"cX" = (/obj/machinery/atmospherics/unary/heat_reservoir/heater,/turf/simulated/floor/plating,/area/ruin/powered)
+"cY" = (/obj/machinery/atmospherics/unary/cold_sink/freezer{current_temperature = 80; dir = 2; on = 1},/turf/simulated/floor/plating,/area/ruin/powered)
+"cZ" = (/obj/machinery/atmospherics/pipe/simple/visible{dir = 6; level = 1},/turf/simulated/floor/plating,/area/ruin/powered)
+"da" = (/obj/machinery/atmospherics/pipe/manifold/visible{dir = 4; initialize_directions = 11; level = 2},/turf/simulated/floor/plating,/area/ruin/powered)
+"db" = (/obj/machinery/atmospherics/pipe/manifold/visible{dir = 8},/turf/simulated/floor/plating,/area/ruin/powered)
+"dc" = (/obj/machinery/atmospherics/pipe/simple/visible{dir = 10},/turf/simulated/floor/plating,/area/ruin/powered)
+"dd" = (/obj/machinery/atmospherics/binary/volume_pump{dir = 1},/turf/simulated/floor/plating,/area/ruin/powered)
+"de" = (/obj/machinery/atmospherics/binary/circulator,/turf/simulated/floor/plating,/area/ruin/powered)
+"df" = (/obj/machinery/power/generator,/obj/structure/cable/yellow,/turf/simulated/floor/plating,/area/ruin/powered)
+"dg" = (/obj/machinery/atmospherics/pipe/simple/visible{dir = 5},/turf/simulated/floor/plating,/area/ruin/powered)
+"dh" = (/obj/machinery/atmospherics/pipe/simple/visible{dir = 9},/turf/simulated/floor/plating,/area/ruin/powered)
+"dj" = (/obj/machinery/vending/medical/syndicate_access,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dk" = (/obj/machinery/light{dir = 4},/obj/machinery/bodyscanner,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dl" = (/obj/machinery/computer/operating,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dm" = (/obj/structure/closet/bombcloset,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dn" = (/obj/item/rpd,/turf/simulated/floor/plating,/area/ruin/powered)
+"do" = (/obj/structure/reagent_dispensers/watertank,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dp" = (/obj/structure/closet/firecloset/full,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dq" = (/obj/machinery/tcomms/relay/ruskie{network_id = "SYNDIE-RELAY"},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dr" = (/obj/item/stack/sheet/metal/fifty,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"ds" = (/obj/machinery/light{dir = 4},/obj/item/stack/sheet/glass/fifty,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dt" = (/obj/item/stack/sheet/glass/fifty,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"du" = (/obj/structure/table,/obj/machinery/photocopier/faxmachine/longrange/syndie{department = "Syndicate Bioweapon Research Outpost"},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dv" = (/obj/machinery/computer/camera_advanced,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dw" = (/obj/structure/sign/securearea{name = "\improper STAY CLEAR HEAVY MACHINERY"; pixel_y = 32},/obj/machinery/recycler,/obj/machinery/conveyor/east{id = "syndiegarbage"},/turf/simulated/floor/plating,/area/ruin/powered)
+"dx" = (/obj/machinery/conveyor/southeast{id = "syndiegarbage"},/turf/simulated/floor/plating,/area/ruin/powered)
+"dy" = (/obj/machinery/conveyor_switch/oneway{id = "syndiegarbage"; name = "disposal coveyor"},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dz" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/obj/effect/turf_decal/stripes/line{dir = 9},/turf/simulated/floor/plating,/area/ruin/powered)
+"dA" = (/obj/structure/cable/yellow{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/effect/turf_decal/stripes/line{dir = 5},/turf/simulated/floor/plating,/area/ruin/powered)
+"dC" = (/obj/structure/rack{dir = 8},/obj/item/soap/syndie,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dD" = (/obj/structure/curtain/open/shower,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dE" = (/obj/item/flag/syndi,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dF" = (/turf/simulated/mineral,/area/ruin/powered)
+"dG" = (/obj/effect/turf_decal/stripes/line{dir = 1},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dH" = (/obj/effect/turf_decal/stripes/line{dir = 5},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dI" = (/obj/effect/turf_decal/stripes/line{dir = 8},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dJ" = (/obj/effect/turf_decal/stripes/line{dir = 4},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dK" = (/obj/effect/turf_decal/stripes/line{dir = 10},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dL" = (/obj/effect/turf_decal/stripes/line,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dM" = (/obj/effect/turf_decal/stripes/line{dir = 6},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dN" = (/obj/structure/table,/obj/item/pen,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dO" = (/obj/structure/chair{dir = 1},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dP" = (/obj/item/paper_bin{pixel_x = -2; pixel_y = 5},/obj/item/hand_labeler,/obj/item/pen/red,/obj/item/restraints/handcuffs,/obj/effect/decal/cleanable/dirt,/obj/item/clothing/glasses/science,/obj/structure/table/glass,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dQ" = (/obj/machinery/reagentgrinder,/obj/item/stack/sheet/mineral/plasma{amount = 5},/obj/item/stack/sheet/mineral/uranium{amount = 10},/obj/item/stack/sheet/mineral/gold{amount = 10},/obj/structure/table/glass,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dR" = (/obj/machinery/vending/boozeomat,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dS" = (/obj/item/storage/part_replacer,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dT" = (/obj/machinery/computer/cryopod{pixel_y = 32},/turf/unsimulated/floor{icon_state = "dark"},/area/ruin/powered)
+"dU" = (/obj/machinery/cryopod/right,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dV" = (/obj/machinery/cryopod,/turf/unsimulated/floor{icon_state = "dark"},/area/ruin/powered)
+"dW" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 6},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dX" = (/obj/structure/extinguisher_cabinet{pixel_x = -5; pixel_y = 30},/turf/simulated/floor/plating,/area/ruin/powered)
+"dY" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/portable_atmospherics/scrubber,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"dZ" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4; level = 1},/obj/structure/extinguisher_cabinet{pixel_x = -5; pixel_y = 30},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"ea" = (/obj/machinery/atmospherics/unary/portables_connector{dir = 1},/obj/machinery/portable_atmospherics/canister/carbon_dioxide,/turf/simulated/floor/plating,/area/ruin/powered)
+"eb" = (/obj/structure/extinguisher_cabinet{pixel_x = -5; pixel_y = 30},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"ec" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 8},/obj/item/holosign_creator/atmos,/obj/structure/table,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"ed" = (/obj/machinery/shower{tag = "icon-shower (EAST)"; icon_state = "shower"; dir = 4},/obj/item/soap/syndie,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"eh" = (/obj/structure/table/glass,/obj/item/folder/white,/obj/item/reagent_containers/glass/beaker/large{pixel_x = -3},/obj/item/reagent_containers/glass/beaker/large{pixel_x = -3},/obj/item/reagent_containers/dropper,/obj/effect/decal/cleanable/dirt,/obj/item/screwdriver/nuke{pixel_y = 18},/obj/machinery/light{dir = 4},/obj/item/reagent_containers/spray/cleaner,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+"ek" = (/obj/item/reagent_containers/spray/cleaner,/obj/item/reagent_containers/spray/cleaner,/obj/structure/rack{dir = 8},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/powered)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacdcdcdcdaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaacdaaaaaaaaaaaaaaaaaaaaaaaacdcdaaaacdaaaaaaaaaaaaaaaaaacdcdcdaacdaaaaaaaaaacdaaaaaaaaaaaa
+aaaaaaaacdaacdaaaaaacdaaaaaaaaaaaacdcdcdaacdcdcdcdaaaaaaaacdaacdcdcdcdaaaaaaaaaacdcdcdcdcdcdaaaaaaaa
+aaaaaaaacdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdaaaaaaaaaa
+aaaaaacdcdcddFdFdFdFdFdFdFabababababdFdFdFdFdFdFababababababababababababababdFdFdFdFdFcdcdaaaaaaaaaa
+aaaaaacdcdcddFdFdFdFdFdFdFabbvduacabababababdFdFabcgagcgabafafafafafadafafabdFdFdFdFdFcdcdcdaaaaaaaa
+aaaaaacdcdcdababababababababacacacabcFdoacababababaeawclahahahalafafafafafabdFdFdFdFdFcdcdcdcdcdaaaa
+aaaaaaaacdcdabaydTacaMacacaMacacdqabacacacaMacacaMafawamafafafamafafafafafabdFdFdFdFdFcdcdcdaaaaaaaa
+aaaaaaaaaacdabdUacanabacacabaoacdvabcidrdsabacacabasdzdAabasafamafafafafafabdFdFdFdFdFcdcdcdaaaaaaaa
+aaaaaaaaaacdabdUacdVabacacabacacacabcidrdtabacacabafajakabafafamafafafafafabdFdFdFdFdFcdcdaaaaaaaaaa
+aaaaaaaaaacdabababababaoacabababababababababaoacabafapbYdXafafamafafafafafabdFdFdFdFdFcdaaaaaaaaaaaa
+aaaaaaaaaacdabbdacacabacacabaidwdxabdWcubjabacacabafamamafafafamafafafafafabdFdFdFdFdFcdcdcdaaaaaaaa
+aaaaaaaacdcdabbhacanabacacabaoacacabdYacanabckacabasccaqahahaharafafafafafabdFdFdFdFdFcdcdcdcdaaaaaa
+aaaaaaaacdcdabbkacacaMacacaMacdyacabeccmcmbzcnacaMafafczabascXamcYafafafafabdFdFdFdFdFcdaacdcdcdaaaa
+aaaaaacdcdcdabacacacabacacabacacacabdYacacabcpacabcEcWcNabcZdaamdbdcafafafabdFdFdFdFdFcdaacdcdcdaaaa
+aaaaaacdcdcdabababababacacabekdCcIabctcubjabcpacabababababdddedfdeddafafafabdFdFdFdFdFcdaacdcdaaaaaa
+aaaaaacdcdcddFdFdFdFabckacabababababababababcpacabedcUcfabdgdaafdbdhafafafabdFdFdFdFdFcdaaaaaaaaaaaa
+aaaaaaaacdcddFdFdFdFabcqcmcmcmcmcmcmcmcmdZcmcnanabdDaccMabasdddnddafafafafabdFdFdFdFdFcdcdcdcdcdaaaa
+aaaaaaaacdcddFdFdFdFabcpacacacacacbRacacacaccpacaMacaccoabafeaafeaafatafafabdFdFdFdFdFcdcdcdcdcdaaaa
+aaaaaacdcdcdabababababcpacabababababababababcpacababababababababababababababdFdFdFdFdFcdcdcdcdaaaaaa
+aaaacdcdcdcdabazazazaAcpacaAdRaBaCabaDacaEabcpacabdEacaFabcUacacacacaccUabdFdFdFdFdFdFcdcdcdcdaaaaaa
+aaaacdcdcdcdabacacacaccpacacacacacabaGacdSabcpacabacacaFabaccGdGdGdGdHacabdFdFdFdFdFdFcdcdcdcdaaaaaa
+aaaacdcdcdcdabaHacacaccpaIaJaKaccHabaLacacaMcpacaMacacacabacdIacacacdJacabdFdFdFdFdFdFcdcdcdcdaaaaaa
+aaaacdcdcdcdabaNacacaccpaIchacacaOabaPacaQabcpacabaoacaFabacdIacacacdJacabdFdFdFdFdFdFcdcdcdcdaaaaaa
+aaaacdcdaacdabaNacacaccpaIcKacacaRabaSacaTabcpacabdEacaFabacdIacacacdJacabdFdFdFdFdFdFcdcdcdcdaaaaaa
+aaaaaacdaacdabaNacacaccpaIcLacacaUabaVacaWabcpanabababababacdIacacacdJacabdFdFdFdFdFdFcdcdcdcdaaaaaa
+aaaaaaaaaacdabacacacaccpaIaXacacbaabaYacaZabcpacabacacacabacdIacacacdJacabdFdFdFdFdFdFcdcdcdcdaaaaaa
+aaaaaaaaaacdabacacacaccpaIchacacbmabbbacbcabcpacabaoacacabacdIacacacdJacabdFdFdFdFdFdFcdcdcdcdaaaaaa
+aaaaaaaacdcdabaoacacaccpaIaJbeacbfabbgacacaMcpacaMacacacaMacdIacacacdJacabdFdFdFdFdFdFcdcdcdaaaaaaaa
+aaaaaacdcdcdabacacacaccpacacacacbiabceaccjabcpacabacbKdNabacdKdLdLdLdMacabdFdFdFdFdFdFcdcdcdaaaaaaaa
+aaaaaacdcdcdabacacacaAcpacaAacacblabbncRboabcpacabacacdOabbRacacacacacbRabdFdFdFdFdFdFcdcdcdaaaaaaaa
+aaaaaacdcdcdabababababcpacabababababababababcpacababababababababababababababababababdFcdcdcdaaaaaaaa
+aaaaaacdcdcddFabaoacaccJacacacacacacacacebaccpanabacacacacacaccUacacacacaccUacacacabdFcdcdcdaaaaaaaa
+aaaacdcdcdcddFabacacacacacacacacacbRacacacaccpacabaoacacacacacacacacacacacacacacanabdFcdcdcdaaaaaaaa
+aaaacdcdcdcdababaMababababaMababababababababcVaMabacacacacacacacacacacacacacacacacabdFcdcdcdaaaaaaaa
+aaaacdcdcdcdabbpacbqabcvebacacacbtabbubObwabcpacabacacacacacacacacacacacacacacacacabdFcdcdcdaaaaaaaa
+aaaaaacdcdcdabbxacbyabcxacacacacdPabacbAbSabcJacabacacacacacacacacacacacacacacacacabdFcdcdcdaaaaaaaa
+aaaaaacdcdcdabacacacabaoacacacaccsabaoacacacacacbDacacacacacacacacacacacacacacacacabdFcdcdaaaaaaaaaa
+aaaaaaaacdcdabbEacanabbsacacacacbFabbGbHbIabacancraoacacacacacacacacacacacacacacacabdFcdcdaaaaaaaaaa
+aaaaaaaaaacdabbJacacabbracacacacdQabbLbMbNabacacabacacacacacacacacacacacacacacacacabdFcdcdaaaaaaaaaa
+aaaaaaaaaacdabcBacacabdjacacacacacabababababaccwabacacacacacacacacacacacacacacacacabdFcdcdaaaaaaaaaa
+aaaaaaaaaacdabbQacacabacacacacacacabbubObwabaccxabacacacacacacacacacacacacacacacacabdFcdaaaaaaaaaaaa
+aaaaaaaacdcdabbEacdkabbPaMbPaMbPbPabacbAehabacancracacacacacacacacacacacacacacacacabdFcdaaaaaaaaaaaa
+aaaaaaaacdcdabbTacacabaoacbPacacanabaoacacacacacbDacacacacacacacacacacacacacacacacabdFcdaaaaaaaaaaaa
+aaaaaacdcdcdabbUacacabacacbPacacacabbGbHbVabdmdpabaoacacacacacacacacacacacacacacanabdFcdaaaaaaaaaaaa
+aaaaaacdcdcdabbWbXdlabacacbPacacacabbLbMbNababababacacacacacacbRacacacacacbRacacacabdFcdcdaaaaaaaaaa
+aaaacdcdcdcdababababababababababababababababdFdFababababababababababababababababababdFcdcdcdaaaaaaaa
+aaaacdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdaaaaaaaa
+aaaaaacdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdaaaaaacdcdcdcdcdcdcdcdaaaaaacdcdcdcdcdcdcdcdcdcdcdcdcdaaaaaa
+aaaaaaaacdcdcdcdcdaaaaaaaacdcdcdcdcdaaaaaaaaaaaacdcdcdcdcdaaaaaaaaaaaaaaaaaaaaaaaaaacdcdcdcdaaaaaaaa
+"}
