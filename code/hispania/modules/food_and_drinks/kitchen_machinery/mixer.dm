@@ -1,7 +1,7 @@
 /obj/machinery/kitchen_machine/mixer
 	name = "mixer"
 	desc = "A high-speed mixer."
-	icon = 'icons/HISPANIA/obj/cooking_machines.dmi'
+	icon = 'icons/hispania/obj/cooking_machines.dmi'
 	icon_state = "mixer_off"
 	cook_verbs = list("Wonderizing", "Scrumpdiddlyumptiousification", "Miracle-coating", "Flavorifaction")
 	recipe_type = RECIPE_MIXER
