@@ -335,14 +335,13 @@
 		alert(src, "You are using a byond build which is not supported by this server. Please use a build version of atleast [config.minimum_client_build].", "Incorrect build", "OK")
 		qdel(src)
 		return
+
 	var/show_update_prompt = FALSE
 	if(byond_version < SUGGESTED_CLIENT_VERSION) // Update is suggested, but not required.
 		show_update_prompt = TRUE
 	else if(byond_version == SUGGESTED_CLIENT_VERSION && byond_build < SUGGESTED_CLIENT_BUILD)
 		show_update_prompt = TRUE
-	if(show_update_prompt)
-		to_chat(src,"<span class='userdanger'>Your BYOND client (v: [byond_version].[byond_build]) is out of date. This can cause glitches. We highly suggest you download the latest client from http://www.byond.com/ before playing. </span>")
-
+	// Actually sent to client much later, so it appears after MOTD.
 
 	to_chat(src, "<span class='warning'>If the title screen is black, resources are still downloading. Please be patient until the title screen appears.</span>")
 
@@ -423,6 +422,9 @@
 
 	generate_clickcatcher()
 	apply_clickcatcher()
+
+	if(show_update_prompt)
+		to_chat(src,"<span class='userdanger'>Your BYOND client (v: [byond_version].[byond_build]) is out of date. This can cause glitches. We highly suggest you download the latest client from <a href='https://www.byond.com/download/'>Byond.com</a> before playing.</span>")
 
 	check_forum_link()
 
