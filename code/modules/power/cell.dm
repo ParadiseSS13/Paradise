@@ -18,10 +18,6 @@
 	var/self_recharge = 0 //does it self recharge, over time, or not?
 	var/ratingdesc = TRUE
 	var/grown_battery = FALSE // If it's a grown that acts as a battery, add a wire overlay to it.
-	//hispania vars //MOVER ESTO A HISPANIA, COÑO
-	var/minorrecharging  = FALSE //controla la autorecarga cuando esta en un apc
-	var/overaynull = FALSE	//hispania, haceq que una bateria no tenga overays
-	//fin hispania vars
 
 /obj/item/stock_parts/cell/get_cell()
 	return src

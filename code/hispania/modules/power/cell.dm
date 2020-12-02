@@ -1,3 +1,7 @@
+/obj/item/stock_parts/cell
+	var/minorrecharging = FALSE //controla la autorecarga cuando esta en un apc
+	var/overaynull = FALSE	//hace que una bateria no tenga overays
+
 /obj/item/stock_parts/cell/get_part_rating()
 	return rating * maxcharge
 
@@ -5,17 +9,15 @@
 	minorrecharging = FALSE
 
 //refactor de baterias creadas en los autolathes/protolathes/mechfab por danaleja2005
-
-/obj/item/stock_parts/cell/proc/discharge() 
+/obj/item/stock_parts/cell/proc/discharge()
 	use(charge)
 
-/atom/movable/proc/fabricated() 
+/atom/movable/proc/fabricated()
 	return FALSE
 
 /obj/item/stock_parts/cell/fabricated()
 	discharge()
-
-// Refactor que me mando a hacer Evan, POR DANALEJA2005 //	
+// Refactor que me mando a hacer Evan, POR DANALEJA2005 //
 
 /obj/item/stock_parts/cell/xenoblue
 	icon = 'icons/hispania/obj/power.dmi'
