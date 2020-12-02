@@ -639,6 +639,11 @@ function codewords(phrases, responses) {
 	opts.codeResponses = cleanCodewords(responses.split(","));
 }
 
+function codewordsClear() {
+	opts.codePhrases = [];
+	opts.codeResponses = [];
+}
+
 /*****************************************
 *
 * MAKE MACRO DICTIONARY

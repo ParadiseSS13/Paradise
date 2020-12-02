@@ -270,53 +270,53 @@
 	item_color = "holobadge"
 	slot_flags = SLOT_BELT | SLOT_TIE
 
-	var/emagged = 0 //Emagging removes Sec check.
+	var/emagged = FALSE //Emagging removes Sec check.
 	var/stored_name = null
 
 /obj/item/clothing/accessory/holobadge/cord
 	icon_state = "holobadge-cord"
 	item_color = "holobadge-cord"
 
-/obj/item/clothing/accessory/holobadge/attack_self(mob/user as mob)
+/obj/item/clothing/accessory/holobadge/attack_self(mob/user)
 	if(!stored_name)
 		to_chat(user, "Waving around a badge before swiping an ID would be pretty pointless.")
 		return
 	if(isliving(user))
-		user.visible_message("<span class='warning'>[user] displays [user.p_their()] Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>","<span class='warning'>You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>")
+		user.visible_message("<span class='warning'>[user] displays [user.p_their()] Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>",
+		"<span class='warning'>You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>")
 
-/obj/item/clothing/accessory/holobadge/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(istype(O, /obj/item/card/id) || istype(O, /obj/item/pda))
+/obj/item/clothing/accessory/holobadge/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 
 		var/obj/item/card/id/id_card = null
 
-		if(istype(O, /obj/item/card/id))
-			id_card = O
+		if(istype(I, /obj/item/card/id))
+			id_card = I
 		else
-			var/obj/item/pda/pda = O
+			var/obj/item/pda/pda = I
 			id_card = pda.id
 
-		if(ACCESS_SECURITY in id_card.access || emagged)
-			to_chat(user, "You imprint your ID details onto the badge.")
+		if(ACCESS_SEC_DOORS in id_card.access || emagged)
+			to_chat(user, "<span class='notice'>You imprint your ID details onto the badge.</span>")
 			stored_name = id_card.registered_name
 			name = "holobadge ([stored_name])"
 			desc = "This glowing blue badge marks [stored_name] as THE LAW."
 		else
-			to_chat(user, "[src] rejects your insufficient access rights.")
+			to_chat(user, "<span class='warning'>[src] rejects your insufficient access rights.</span>")
 		return
 	..()
 
-/obj/item/clothing/accessory/holobadge/emag_act(user as mob)
+/obj/item/clothing/accessory/holobadge/emag_act(mob/user)
 	if(emagged)
 		to_chat(user, "<span class='warning'>[src] is already cracked.</span>")
-		return
 	else
-		emagged = 1
+		emagged = TRUE
 		to_chat(user, "<span class='warning'>You swipe the card and crack the holobadge security checks.</span>")
-		return
 
-/obj/item/clothing/accessory/holobadge/attack(mob/living/carbon/human/M, mob/living/user)
+/obj/item/clothing/accessory/holobadge/attack(mob/living/carbon/human/H, mob/living/user)
 	if(isliving(user))
-		user.visible_message("<span class='warning'>[user] invades [M]'s personal space, thrusting [src] into [M.p_their()] face insistently.</span>","<span class='warning'>You invade [M]'s personal space, thrusting [src] into [M.p_their()] face insistently. You are the law.</span>")
+		user.visible_message("<span class='warning'>[user] invades [H]'s personal space, thrusting [src] into [H.p_their()] face insistently.</span>",
+		"<span class='warning'>You invade [H]'s personal space, thrusting [src] into [H.p_their()] face insistently. You are the law.</span>")
 
 //////////////
 //OBJECTION!//

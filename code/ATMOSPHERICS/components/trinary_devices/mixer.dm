@@ -152,7 +152,7 @@
 	return 1
 
 /obj/machinery/atmospherics/trinary/mixer/attack_ghost(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/atmospherics/trinary/mixer/attack_hand(mob/user)
 	if(..())
@@ -163,16 +163,15 @@
 		return
 
 	add_fingerprint(user)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/atmospherics/trinary/mixer/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
-	user.set_machine(src)
+/obj/machinery/atmospherics/trinary/mixer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "AtmosMixer", name, 330, 165, master_ui, state)
 		ui.open()
 
-/obj/machinery/atmospherics/trinary/mixer/tgui_data(mob/user)
+/obj/machinery/atmospherics/trinary/mixer/ui_data(mob/user)
 	var/list/data = list(
 		"on" = on,
 		"pressure" = round(target_pressure, 0.01),
@@ -184,7 +183,7 @@
 
 
 
-/obj/machinery/atmospherics/trinary/mixer/tgui_act(action, list/params)
+/obj/machinery/atmospherics/trinary/mixer/ui_act(action, list/params)
 	if(..())
 		return
 

@@ -51,12 +51,6 @@
 	to_chat(world, "[src]'s Topic: [href] destined for [hsrc].")
 	#endif
 
-	if(href_list["nano_err"]) //nano throwing errors
-		if(topic_debugging)
-			to_chat(src, "## NanoUI: " + html_decode(href_list["nano_err"]))//NANO DEBUG HOOK
-
-
-
 	if(href_list["asset_cache_confirm_arrival"])
 //		to_chat(src, "ASSET JOB [href_list["asset_cache_confirm_arrival"]] ARRIVED.")
 		var/job = text2num(href_list["asset_cache_confirm_arrival"])
@@ -760,7 +754,7 @@
 
 			if(!cidcheck_failedckeys[ckey])
 				message_admins("<span class='adminnotice'>[key_name(src)] has been detected as using a CID randomizer. Connection rejected.</span>")
-				SSdiscord.send2discord_simple_noadmins("[key_name(src)] has been detected as using a CID randomizer. Connection rejected.")
+				SSdiscord.send2discord_simple_noadmins("**\[Warning]** [key_name(src)] has been detected as using a CID randomizer. Connection rejected.")
 				cidcheck_failedckeys[ckey] = TRUE
 				note_randomizer_user()
 
@@ -773,7 +767,7 @@
 			if(cidcheck_failedckeys[ckey])
 				// Atonement
 				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after showing they removed their cid randomizer</span>")
-				SSdiscord.send2discord_simple_noadmins("[key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
+				SSdiscord.send2discord_simple_noadmins("**\[Info]** [key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
 				cidcheck_failedckeys -= ckey
 			if (cidcheck_spoofckeys[ckey])
 				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after appearing to have attempted to spoof a cid randomizer check because it <i>appears</i> they aren't spoofing one this time</span>")
@@ -834,7 +828,7 @@
 		preload_rsc = 1 // If config.resource_urls is not set, preload like normal.
 	// Most assets are now handled through global_cache.dm
 	getFiles(
-		'html/search.js', // Used in various non-NanoUI HTML windows for search functionality
+		'html/search.js', // Used in various non-TGUI HTML windows for search functionality
 		'html/panels.css' // Used for styling certain panels, such as in the new player panel
 	)
 	spawn (10) //removing this spawn causes all clients to not get verbs.
@@ -955,18 +949,15 @@
 		to_chat(usr, "<span class='warning'>You requested your UI resource files too quickly. Please try again in [(last_ui_resource_send - world.time)/10] seconds.</span>")
 		return
 
-	var/choice = alert(usr, "This will reload your NanoUI and TGUI resources. If you have any open UIs this may break them. Are you sure?", "Resource Reloading", "Yes", "No")
+	var/choice = alert(usr, "This will reload your TGUI resources. If you have any open UIs this may break them. Are you sure?", "Resource Reloading", "Yes", "No")
 	if(choice == "Yes")
 		// 600 deciseconds = 1 minute
 		last_ui_resource_send = world.time + 60 SECONDS
 
 		// Close their open UIs
-		SSnanoui.close_user_uis(usr)
 		SStgui.close_user_uis(usr)
 
 		// Resend the resources
-		var/datum/asset/nano_assets = get_asset_datum(/datum/asset/nanoui)
-		nano_assets.register()
 
 		var/datum/asset/tgui_assets = get_asset_datum(/datum/asset/simple/tgui)
 		tgui_assets.register()

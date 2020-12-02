@@ -19,8 +19,6 @@
 
 /datum/wires/suitstorage/interactable(mob/user)
 	var/obj/machinery/suit_storage_unit/A = holder
-	if(iscarbon(user) && A.Adjacent(user) && A.shocked)
-		return A.shock(user, 100)
 	if(A.panel_open)
 		return TRUE
 	return FALSE

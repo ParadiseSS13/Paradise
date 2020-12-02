@@ -168,9 +168,9 @@
 // TGUI stuff
 
 /obj/item/rpd/attack_self(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/item/rpd/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_inventory_state)
+/obj/item/rpd/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
 	user.set_machine(src)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
@@ -181,7 +181,7 @@
 /obj/item/rpd/AltClick(mob/user)
 	radial_menu(user)
 
-/obj/item/rpd/tgui_data(mob/user)
+/obj/item/rpd/ui_data(mob/user)
 	var/list/data = list()
 	data["iconrotation"] = iconrotation
 	data["mainmenu"] = mainmenu
@@ -193,7 +193,7 @@
 	data["whatpipe"] = whatpipe
 	return data
 
-/obj/item/rpd/tgui_act(action, list/params)
+/obj/item/rpd/ui_act(action, list/params)
 	if(..())
 		return
 
@@ -235,7 +235,7 @@
 	if(!check_menu(user))
 		return
 	if(selected_mode == "UI")
-		tgui_interact(user)
+		ui_interact(user)
 	else
 		switch(selected_mode)
 			if(RPD_MENU_ROTATE)

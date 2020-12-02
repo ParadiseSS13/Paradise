@@ -1,5 +1,4 @@
 /mob/Logout()
-	SSnanoui.user_logout(src) // this is used to clean up (remove) this user's Nano UIs
 	SStgui.on_logout(src) // Cleanup any TGUIs the user has open
 	unset_machine()
 	GLOB.player_list -= src

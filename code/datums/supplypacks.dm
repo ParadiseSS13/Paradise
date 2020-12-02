@@ -56,7 +56,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	var/special = FALSE //Event/Station Goals/Admin enabled packs
 	var/special_enabled = FALSE
 	/// List of names for being done in TGUI
-	var/list/tgui_manifest = list()
+	var/list/ui_manifest = list()
 
 
 /datum/supply_packs/New()
@@ -66,7 +66,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		var/atom/movable/AM = path
 		manifest += "<li>[initial(AM.name)]</li>"
 		// Add the name to the UI manifest
-		tgui_manifest += "[initial(AM.name)]"
+		ui_manifest += "[initial(AM.name)]"
 	manifest += "</ul>"
 
 
@@ -1625,6 +1625,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 15
 	containername = "mafia supply crate"
 
+/datum/supply_packs/misc/sunglasses
+	name = "Sunglasses Crate"
+	contains = list(/obj/item/clothing/glasses/sunglasses,
+					/obj/item/clothing/glasses/sunglasses,
+					/obj/item/clothing/glasses/sunglasses)
+	cost = 30
+	containername = "sunglasses crate"
 /datum/supply_packs/misc/randomised
 	var/num_contained = 3 //number of items picked to be contained in a randomised crate
 	contains = list(/obj/item/clothing/head/collectable/chef,

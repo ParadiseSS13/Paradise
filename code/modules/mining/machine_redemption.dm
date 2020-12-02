@@ -160,7 +160,7 @@
 		return
 	message_sent = TRUE
 	var/area/A = get_area(src)
-	var/msg = "Now available in [A]:<br>"
+	var/msg = "Now available in [A]:"
 
 	var/has_minerals = FALSE
 	var/mineral_name = null
@@ -171,7 +171,7 @@
 		mineral_name = capitalize(M.name)
 		if(mineral_amount)
 			has_minerals = TRUE
-		msg += "[mineral_name]: [mineral_amount] sheets<br>"
+		msg += "[mineral_name]: [mineral_amount] sheets"
 
 	if(!has_minerals)
 		return

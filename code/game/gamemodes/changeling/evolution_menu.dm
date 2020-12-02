@@ -32,16 +32,16 @@
 		))
 
 /datum/action/changeling/evolution_menu/try_to_sting(mob/user, mob/target)
-	tgui_interact(user)
+	ui_interact(user)
 
-/datum/action/changeling/evolution_menu/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_always_state)
+/datum/action/changeling/evolution_menu/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "EvolutionMenu", "Evolution Menu", 480, 574, master_ui, state)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
-/datum/action/changeling/evolution_menu/tgui_data(mob/user)
+/datum/action/changeling/evolution_menu/ui_data(mob/user)
 	var/datum/changeling/cling = owner.mind.changeling
 	var/list/data = list(
 		"can_respec" = cling.canrespec,
@@ -51,13 +51,13 @@
 	)
 	return data
 
-/datum/action/changeling/evolution_menu/tgui_static_data(mob/user)
+/datum/action/changeling/evolution_menu/ui_static_data(mob/user)
 	var/list/data = list(
 		"ability_list" = ability_list
 	)
 	return data
 
-/datum/action/changeling/evolution_menu/tgui_act(action, list/params)
+/datum/action/changeling/evolution_menu/ui_act(action, list/params)
 	if(..())
 		return
 
