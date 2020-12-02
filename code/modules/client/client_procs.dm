@@ -424,7 +424,7 @@
 	apply_clickcatcher()
 
 	if(show_update_prompt)
-		to_chat(src,"<span class='userdanger'>Your BYOND client (v: [byond_version].[byond_build]) is out of date. This can cause glitches. We highly suggest you download the latest client from <a href='https://www.byond.com/download/'>Byond.com</a> before playing.</span>")
+		to_chat(src, "<span class='userdanger'>Your BYOND client (v: [byond_version].[byond_build]) is out of date. This can cause glitches. We highly suggest you download the latest client from <a href='https://www.byond.com/download/'>Byond.com</a> before playing.</span>")
 
 	check_forum_link()
 
