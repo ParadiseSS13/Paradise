@@ -129,7 +129,7 @@
 
 
 /*
-We can't just insert in HTML into the nanoUI so we need the raw data to play with.
+We can't just insert in HTML into the TGUI so we need the raw data to play with.
 Instead of creating this list over and over when someone leaves their PDA open to the page
 we'll only update it when it changes.  The PDA_Manifest global list is zeroed out upon any change
 using /datum/datacore/proc/manifest_inject(), or manifest_insert()

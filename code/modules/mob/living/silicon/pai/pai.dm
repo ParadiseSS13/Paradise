@@ -211,7 +211,7 @@
 	return
 
 
-// See software.dm for tgui_act()
+// See software.dm for ui_act()
 
 /mob/living/silicon/pai/attack_animal(mob/living/simple_animal/M)
 	. = ..()

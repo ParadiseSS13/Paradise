@@ -59,7 +59,7 @@
 	return ..()
 
 /obj/machinery/computer/secure_data/attackby(obj/item/O, mob/user, params)
-	if(tgui_login_attackby(O, user))
+	if(ui_login_attackby(O, user))
 		return
 	return ..()
 
@@ -70,21 +70,21 @@
 		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 		return
 	add_fingerprint(user)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/computer/secure_data/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/computer/secure_data/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "SecurityRecords", name, 800, 800)
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
-/obj/machinery/computer/secure_data/tgui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+/obj/machinery/computer/secure_data/ui_data(mob/user)
 	var/list/data = list()
 	data["currentPage"] = current_page
 	data["isPrinting"] = is_printing
-	tgui_login_data(data, user)
-	data["modal"] = tgui_modal_data()
+	ui_login_data(data, user)
+	data["modal"] = ui_modal_data()
 	data["temp"] = temp_notice
 	if(data["loginState"]["logged_in"])
 		switch(current_page)
@@ -149,17 +149,17 @@
 
 	return data
 
-/obj/machinery/computer/secure_data/tgui_act(action, list/params)
+/obj/machinery/computer/secure_data/ui_act(action, list/params)
 	if(..())
 		return
 
 	. = TRUE
-	if(tgui_act_modal(action, params))
+	if(ui_act_modal(action, params))
 		return
-	if(tgui_login_act(action, params))
+	if(ui_login_act(action, params))
 		return
 
-	var/logged_in = tgui_login_get().logged_in
+	var/logged_in = ui_login_get().logged_in
 	switch(action)
 		if("cleartemp")
 			temp_notice = null
@@ -292,20 +292,20 @@
 	add_fingerprint(usr)
 
 /**
-  * Called in tgui_act() to process modal actions
+  * Called in ui_act() to process modal actions
   *
   * Arguments:
   * * action - The action passed by tgui
   * * params - The params passed by tgui
   */
-/obj/machinery/computer/secure_data/proc/tgui_act_modal(action, list/params)
-	if(!tgui_login_get().logged_in)
+/obj/machinery/computer/secure_data/proc/ui_act_modal(action, list/params)
+	if(!ui_login_get().logged_in)
 		return
 	. = TRUE
 	var/id = params["id"]
 	var/list/arguments = istext(params["arguments"]) ? json_decode(params["arguments"]) : params["arguments"]
-	switch(tgui_modal_act(src, action, params))
-		if(TGUI_MODAL_OPEN)
+	switch(ui_modal_act(src, action, params))
+		if(UI_MODAL_OPEN)
 			switch(id)
 				if("edit")
 					var/field = arguments["field"]
@@ -314,11 +314,11 @@
 					var/question = field_edit_questions[field]
 					var/choices = field_edit_choices[field]
 					if(length(choices))
-						tgui_modal_choice(src, id, question, arguments = arguments, value = arguments["value"], choices = choices)
+						ui_modal_choice(src, id, question, arguments = arguments, value = arguments["value"], choices = choices)
 					else
-						tgui_modal_input(src, id, question, arguments = arguments, value = arguments["value"])
+						ui_modal_input(src, id, question, arguments = arguments, value = arguments["value"])
 				if("comment_add")
-					tgui_modal_input(src, id, "Please enter your message:")
+					ui_modal_input(src, id, "Please enter your message:")
 				if("print_cell_log")
 					if(is_printing)
 						return
@@ -333,10 +333,10 @@
 							continue
 						choices += P.name
 						already_in[P.name] = TRUE
-					tgui_modal_choice(src, id, "Please select the cell log you would like printed:", choices = choices)
+					ui_modal_choice(src, id, "Please select the cell log you would like printed:", choices = choices)
 				else
 					return FALSE
-		if(TGUI_MODAL_ANSWER)
+		if(UI_MODAL_ANSWER)
 			var/answer = params["answer"]
 			switch(id)
 				if("edit")
@@ -359,7 +359,7 @@
 							text = "Please explain why they are being executed. Include a list of their crimes, and victims."
 						else if(answer == SEC_RECORD_STATUS_DEMOTE)
 							text = "Please explain why they are being demoted. Include a list of their offenses."
-						tgui_modal_input(src, "criminal_reason", text, arguments = list("status" = answer))
+						ui_modal_input(src, "criminal_reason", text, arguments = list("status" = answer))
 						return
 
 					if(record_security && (field in record_security.fields))
@@ -373,11 +373,11 @@
 					if((status in list(SEC_RECORD_STATUS_EXECUTE, SEC_RECORD_STATUS_DEMOTE)) && !length(answer))
 						set_temp("A valid reason must be provided for this status.", "danger")
 						return
-					var/datum/tgui_login/state = tgui_login_get()
+					var/datum/ui_login/state = ui_login_get()
 					if(!set_criminal_status(usr, record_security, status, answer, state.rank, state.access, state.name))
 						set_temp("Required permissions to set this criminal status not found!", "danger")
 				if("comment_add")
-					var/datum/tgui_login/state = tgui_login_get()
+					var/datum/ui_login/state = ui_login_get()
 					if(!length(answer) || !record_security || !length(state.name))
 						return
 					record_security.fields["comments"] += list(list(

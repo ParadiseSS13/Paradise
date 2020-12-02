@@ -139,7 +139,7 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/structure/safe/attack_ghost(mob/user)
 	if(..() || drill)
 		return TRUE
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/structure/safe/attack_hand(mob/user)
 	if(..())
@@ -171,7 +171,7 @@ GLOBAL_LIST_EMPTY(safes)
 			if("Cancel")
 				return
 	else
-		tgui_interact(user)
+		ui_interact(user)
 
 /obj/structure/safe/attackby(obj/item/I, mob/user, params)
 	if(open)
@@ -209,7 +209,7 @@ GLOBAL_LIST_EMPTY(safes)
 			to_chat(user, "<span class='warning'>You can't put [I] into the safe while it is closed!</span>")
 			return
 
-/obj/structure/safe/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_physical_state)
+/obj/structure/safe/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
 	var/datum/asset/safe_assets = get_asset_datum(/datum/asset/simple/safe)
 	safe_assets.send(user)
 
@@ -219,11 +219,11 @@ GLOBAL_LIST_EMPTY(safes)
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
-/obj/structure/safe/tgui_data(mob/user)
+/obj/structure/safe/ui_data(mob/user)
 	var/list/data = list()
 	data["dial"] = dial
 	data["open"] = open
-	data["locked"] = locked
+	data["locked"] = locked && !broken
 
 	if(open)
 		var/list/contents_names = list()
@@ -234,7 +234,7 @@ GLOBAL_LIST_EMPTY(safes)
 
 	return data
 
-/obj/structure/safe/tgui_act(action, params)
+/obj/structure/safe/ui_act(action, params)
 	if(..())
 		return
 

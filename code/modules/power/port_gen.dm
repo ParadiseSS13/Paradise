@@ -314,7 +314,7 @@
 
 /obj/machinery/power/port_gen/pacman/attack_hand(mob/user as mob)
 	..()
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/power/port_gen/pacman/attack_ai(var/mob/user as mob)
 	add_hiddenprint(user)
@@ -323,13 +323,13 @@
 /obj/machinery/power/port_gen/pacman/attack_ghost(var/mob/user)
 	return attack_hand(user)
 
-/obj/machinery/power/port_gen/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/power/port_gen/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "Pacman", name, 500, 260)
 		ui.open()
 
-/obj/machinery/power/port_gen/pacman/tgui_data(mob/user)
+/obj/machinery/power/port_gen/pacman/ui_data(mob/user)
 	var/list/data = list()
 
 	data["active"] = active
@@ -357,7 +357,7 @@
 
 	return data
 
-/obj/machinery/power/port_gen/pacman/tgui_act(action, params)
+/obj/machinery/power/port_gen/pacman/ui_act(action, params)
 	if(..())
 		return
 

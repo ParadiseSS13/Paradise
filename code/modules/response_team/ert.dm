@@ -33,8 +33,8 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		to_chat(usr, "<span class='warning'>Central Command has already dispatched an emergency response team!</span>")
 		return
 
-	var/datum/tgui_module/ert_manager/E = new()
-	E.tgui_interact(usr)
+	var/datum/ui_module/ert_manager/E = new()
+	E.ui_interact(usr)
 
 
 /mob/dead/observer/proc/JoinResponseTeam()

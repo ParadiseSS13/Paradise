@@ -110,15 +110,15 @@
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
 
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/atmospherics/unary/cold_sink/freezer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "GasFreezer", "Gas Cooling System", 540, 200)
 		ui.open()
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/tgui_data(mob/user)
+/obj/machinery/atmospherics/unary/cold_sink/freezer/ui_data(mob/user)
 	var/list/data = list()
 	data["on"] = on
 	data["pressure"] = round(air_contents.return_pressure())
@@ -132,7 +132,7 @@
 	data["targetCelsius"] = round(current_temperature - T0C, 1)
 	return data
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/tgui_act(action, params)
+/obj/machinery/atmospherics/unary/cold_sink/freezer/ui_act(action, params)
 	if(..())
 		return
 	add_fingerprint(usr)
@@ -277,15 +277,15 @@
 	if(panel_open)
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "GasFreezer", "Gas Heating System", 540, 200)
 		ui.open()
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/tgui_data(mob/user)
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/ui_data(mob/user)
 	var/list/data = list()
 	data["on"] = on
 	data["pressure"] = round(air_contents.return_pressure())
@@ -299,7 +299,7 @@
 	data["targetCelsius"] = round(current_temperature - T0C, 1)
 	return data
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/tgui_act(action, params)
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/ui_act(action, params)
 	if(..())
 		return
 	add_fingerprint(usr)
