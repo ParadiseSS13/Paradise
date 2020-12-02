@@ -64,7 +64,7 @@
 		return
 	if(!isobserver(user) && !isterrorspider(user))
 		return
-	. += "<span class='notice'>[p_they(TRUE)] is carrying [contents.len] spiderlings.</span>"
+	. += "<span class='notice'>[p_they(TRUE)] is carrying [length(contents)] spiderlings.</span>"
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/proc/DoCreateJelly()
 	// Mothers create jellies, which other terrors eat to get regeneration points, just like they get from wrapping corpses.
