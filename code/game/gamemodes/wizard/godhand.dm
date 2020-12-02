@@ -128,7 +128,7 @@
 	var/mob/M = target
 	var/mob/living/carbon/human/H = M
 	if(NO_BLOOD in H.dna.species.species_traits)
-		to_chat(usser, "<span class='userdanger'>[H]'s heart can not be cursed!</span>")
+		to_chat(user, "<span class='userdanger'>[H]'s heart can not be cursed!</span>")
 		return
 	var/obj/item/organ/internal/organ = new /obj/item/organ/internal/heart/cursed
 	organ.insert(H)
