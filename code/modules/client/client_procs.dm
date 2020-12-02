@@ -8,7 +8,9 @@
 #define UPLOAD_LIMIT		10485760	//Restricts client uploads to the server to 10MB //Boosted this thing. What's the worst that can happen?
 #define MIN_CLIENT_VERSION	0		//Just an ambiguously low version for now, I don't want to suddenly stop people playing.
 									//I would just like the code ready should it ever need to be used.
-#define SUGGESTED_CLIENT_VERSION	511		// only integers (e.g: 510, 511) useful here. Does not properly handle minor versions (e.g: 510.58, 511.848)
+#define SUGGESTED_CLIENT_VERSION	513		// only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
+#define SUGGESTED_CLIENT_BUILD	1536		// only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
+
 #define SSD_WARNING_TIMER 30 // cycles, not seconds, so 30=60s
 
 #define LIMITER_SIZE	5
@@ -328,7 +330,10 @@
 
 	var/show_update_prompt = FALSE
 	if(byond_version < SUGGESTED_CLIENT_VERSION) // Update is suggested, but not required.
-		to_chat(src,"<span class='userdanger'>Your BYOND client (v: [byond_version]) is out of date. This can cause glitches. We highly suggest you download the latest client from http://www.byond.com/ before playing. </span>")
+		show_update_prompt = TRUE
+	else if(byond_version == SUGGESTED_CLIENT_VERSION && byond_build < SUGGESTED_CLIENT_BUILD)
+		show_update_prompt = TRUE
+	// Actually sent to client much later, so it appears after MOTD.
 
 	to_chat(src, "<span class='warning'>If the title screen is black, resources are still downloading. Please be patient until the title screen appears.</span>")
 
