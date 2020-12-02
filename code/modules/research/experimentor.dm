@@ -666,9 +666,11 @@
 	warn_admins(user, "Smoke", 0)
 
 /obj/item/relic/proc/flash(mob/user)
+	to_chat(user, "<span class='danger'>[src] begins to shake!</span>")
 	playsound(src.loc, "sparks", rand(25,50), 1)
-	var/obj/item/grenade/flashbang/CB = new/obj/item/grenade/flashbang(get_turf(user))
-	CB.prime()
+	spawn(rand(35,100))
+		var/obj/item/grenade/flashbang/CB = new/obj/item/grenade/flashbang(get_turf(user))
+		CB.prime()
 	warn_admins(user, "Flash")
 
 /obj/item/relic/proc/petSpray(mob/user)
