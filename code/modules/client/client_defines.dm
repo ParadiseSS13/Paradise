@@ -90,7 +90,7 @@
 	// Last world.time that the player tried to request their resources.
 	var/last_ui_resource_send = 0
 
-	// If true, client cannot ready up, late join, or observe. Used for players with EXTREMELY old byond versions.
+	/// If true, client cannot ready up, late join, or observe. Used for players with EXTREMELY old byond versions.
 	var/version_blocked = FALSE
 
 	/// Date the client registered their BYOND account on
