@@ -172,13 +172,6 @@
 	log_name = "IG"
 	category = "Offensive"
 
-/datum/spellbook_entry/drake_form
-	name = "Dragon Form"
-	spell_type = /obj/effect/proc_holder/spell/targeted/shapeshift/dragon
-	cost = 3
-	limit = 1
-	log_name = "DF"
-
 /datum/spellbook_entry/heart_curse
 	name = "Heart Curse"
 	spell_type = /obj/effect/proc_holder/spell/targeted/touch/heart_curse
