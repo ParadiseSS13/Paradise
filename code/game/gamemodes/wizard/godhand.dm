@@ -115,10 +115,10 @@
 	..()
 
 /obj/item/melee/touch_attack/heart_curse
-	name = "Curse of the heart"
+	name = "Heart Curse"
 	desc = "Heart attack-ack-ack-ack-ack-ack-ack!"
-	catchphrase = "EI NATH!!"
-	on_use_sound = 'sound/magic/disintegrate.ogg'
+	catchphrase = "COR COR IMP TUM!!"
+	on_use_sound = 'sound/machines/defib_zap.ogg'
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
 
@@ -127,6 +127,9 @@
 		return
 	var/mob/M = target
 	var/mob/living/carbon/human/H = M
+	if(NO_BLOOD in H.dna.species.species_traits)
+		to_chat(usser, "<span class='userdanger'>[H]'s heart can not be cursed!</span>")
+		return
 	var/obj/item/organ/internal/organ = new /obj/item/organ/internal/heart/cursed
 	organ.insert(H)
 	..()

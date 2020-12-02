@@ -184,6 +184,7 @@
 	spell_type = /obj/effect/proc_holder/spell/targeted/touch/heart_curse
 	cost = 1
 	log_name = "HC"
+
 /datum/spellbook_entry/sacred_flame
 	name = "Sacred Flame"
 	spell_type = /obj/effect/proc_holder/spell/targeted/sacred_flame
