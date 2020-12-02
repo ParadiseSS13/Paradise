@@ -83,6 +83,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/regen_points_per_tick = 1 // gain one regen point per tick
 	var/regen_points_per_kill = 90 // gain extra regen points if you kill something
 	var/regen_points_per_hp = 3 // every X regen points = 1 health point you can regen
+	var/regen_points_per_jelly = 120 // gain a ton of regen points if you eat a jelly
 	// desired: 20hp/minute unmolested, 40hp/min on food boost, assuming one tick every 2 seconds
 	//          90/kill means bonus 30hp/kill regenerated over the next 1-2 minutes
 
@@ -184,6 +185,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 			visible_message("<span class='notice'>[src] harmlessly nuzzles [target].</span>")
 		T.CheckFaction()
 		CheckFaction()
+	else if(istype(target, /obj/structure/spider/royaljelly))
+		consume_jelly(target)
 	else if(istype(target, /obj/structure/spider)) // Prevents destroying coccoons (exploit), eggs (horrible misclick), etc
 		to_chat(src, "Destroying things created by fellow spiders would not help us.")
 	else if(istype(target, /obj/machinery/door/firedoor))
@@ -218,6 +221,18 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/spider_specialattack(mob/living/carbon/human/L, poisonable)
 	L.attack_animal(src)
+
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/consume_jelly(obj/structure/spider/royaljelly/J)
+	if(regen_points_per_tick >= regen_points_per_hp)
+		to_chat(src, "<span class='warning'>Your spider type would not get any benefit from consuming royal jelly.</span>")
+		return
+	if(regen_points > 200)
+		to_chat(src, "<span class='warning'>You aren't hungry for jelly right now.</span>")
+		return
+	to_chat(src, "<span class='notice'>You consume the royal jelly! Regeneration speed increased!</span>")
+	regen_points += regen_points_per_jelly
+	fed++
+	qdel(J)
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: PROC OVERRIDES ---------------------------
@@ -424,4 +439,32 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 				var/pc_of_max_per_second = round(((hp_points_per_second / maxHealth) * 100), 0.1)
 				stat(null, "Regeneration: [ltext]: <font color='[lcolor]'>[num2text(pc_of_max_per_second)]% of health per second</font>")
 
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/DoRemoteView()
+	if(!isturf(loc))
+		// This check prevents spiders using this ability while inside an atmos pipe, which will mess up their vision
+		to_chat(src, "<span class='warning'>You must be standing on a floor to do this.</span>")
+		return
+	if(client && (client.eye != client.mob))
+		reset_perspective()
+		return
+	if(health != maxHealth)
+		to_chat(src, "<span class='warning'>You must be at full health to do this!</span>")
+		return
+	var/list/targets = list()
+	targets += src // ensures that self is always at top of the list
+	for(var/thing in GLOB.ts_spiderlist)
+		var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
+		if(T.stat == DEAD)
+			continue
+		if(T.spider_awaymission != spider_awaymission)
+			continue
+		targets |= T // we use |= instead of += to avoid adding src to the list twice
+	var/mob/living/L = input("Choose a terror to watch.", "Selection") in targets
+	if(istype(L))
+		reset_perspective(L)
 
+/mob/living/simple_animal/hostile/poison/terror_spider/adjustHealth(amount, updating_health = TRUE)
+	if(client && (client.eye != client.mob) && ismob(client.eye)) // the ismob check is required because client.eye can = atmos machines if a spider is in the vent
+		to_chat(src, "<span class='warning'>Cancelled remote view due to being under attack!</span>")
+		reset_perspective()
+	. = ..()
