@@ -135,8 +135,9 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			message = copytext(message, 3)
 
 	message = say_emphasis(message) // Italics
-
-	message = trim_left(message)
+	message = trim(message)
+	if(!message)
+		return
 
 	//parse the language code and consume it
 	var/list/message_pieces = parse_languages(message)

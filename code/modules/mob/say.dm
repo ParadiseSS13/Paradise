@@ -148,20 +148,26 @@
 /**
   * Replaces all brackets from the input with italics
   *
-  * Requires an equal number of opening and closing brackets, to avoid overflow.
+  * Formats `The (quick) brown fox (jumps over) the lazy dog()` to `The <i>quick</i> brown fox <i>jumps over</i> the lazy dog<i></i>`
+  *
+  * If there is an uneven number of brackets, none of them will be changed in order to avoid overflow.
   */
 /mob/proc/say_emphasis(input)
-	/// Number of opening brackets in the input
-	var/opening = 0
-	/// Number of closing brackets in the input
-	var/closing = 0
+	var/opening = 0 // Number of opening brackets in the input
+	var/closing = 0 // Number of closing brackets in the input
 
 	for(var/I in 1 to length(input))
 		var/char = input[I]
 		if(char == "(")
 			opening++
 		else if(char == ")")
+			if(opening != (closing + 1)) // More of one than the other
+				return input
 			closing++
+
+	var/temp = replacetext(input, " ", "") // Remove all whitespaces
+	if(length(temp) == (opening + closing)) // If the message is only brackets
+		return
 
 	if(opening <= closing) // Opening number isn't higher
 		input = replacetext(input, "(", "<i>")
