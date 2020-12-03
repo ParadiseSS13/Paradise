@@ -145,17 +145,28 @@
 
 	return null
 
-#define ENCODE_HTML_EMPHASIS(input, char, html, varname) \
-	var/static/regex/##varname = regex("[char]{2}(.+?)[char]{2}", "g");\
-	input = varname.Replace(input, "<[html]>$1</[html]>")
-
+/**
+  * Replaces all brackets from the input with italics
+  *
+  * Requires an equal number of opening and closing brackets, to avoid overflow.
+  */
 /mob/proc/say_emphasis(input)
-	ENCODE_HTML_EMPHASIS(input, "\\/", "i", italics)
-	//ENCODE_HTML_EMPHASIS(input, "\\+", "b", bold)
-	//ENCODE_HTML_EMPHASIS(input, "_", "u", underline)
-	return input
+	/// Number of opening brackets in the input
+	var/opening = 0
+	/// Number of closing brackets in the input
+	var/closing = 0
 
-#undef ENCODE_HTML_EMPHASIS
+	for(var/I in 1 to length(input))
+		var/char = input[I]
+		if(char == "(")
+			opening++
+		else if(char == ")")
+			closing++
+
+	if(opening <= closing) // Opening number isn't higher
+		input = replacetext(input, "(", "<i>")
+		input = replacetext(input, ")", "</i>")
+	return input
 
 /datum/multilingual_say_piece
 	var/datum/language/speaking = null
