@@ -235,7 +235,7 @@
 			var/M = handle_emote_param(param)
 			var/sound_file = 'sound/effects/unathihiss.ogg' //Credit to Jamius (freesound.org) for the sound.
 			if(act == "taj_hiss")
-				sound_file = 'sound/effects/kittyhiss.ogg' // Copyright CC BY 3.0 secondbody (freesound.org) for the sound. (Trimmed to hiss)
+				sound_file = 'sound/effects/kittyhiss.ogg' // Copyright CC BY 3.0 Garuda1982 (freesound.org) for the sound.
 
 			if(!muzzled)
 				message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
