@@ -50,14 +50,13 @@
 	for(var/message in messages)
 		atom_say(message)
 
-/obj/machinery/doppler_array/range/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/doppler_array/range/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "doppler_array_longrange.tmpl", "Long range Tachyon-doppler array", 500, 650)
 		ui.open()
-		ui.set_auto_update(1)
 
-/obj/machinery/doppler_array/range/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+/obj/machinery/doppler_array/range/ui_data(mob/user, ui_key = "main",  datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	var/data[0]
 	var/list/explosion_data = list()
 	for(var/D in logged_explosions)

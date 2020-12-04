@@ -101,13 +101,13 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/hispaniabox/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(usr, src, ui_key, ui, force_open)
+/obj/machinery/hispaniabox/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "hispaniabox.tmpl", name,  640, 350)
 		ui.open()
 
-/obj/machinery/hispaniabox/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+/obj/machinery/hispaniabox/ui_data(mob/user, ui_key = "main",  datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	var/data[0]
 	var/index = 0
 	data["song_name"] = ((track == "") ? "" : songs[track]["song_name"])
