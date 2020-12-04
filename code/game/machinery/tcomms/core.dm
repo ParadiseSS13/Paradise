@@ -168,7 +168,7 @@
 // UI STUFF //
 //////////////
 
-/obj/machinery/tcomms/core/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/tcomms/core/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	// This needs to happen here because of how late the language datum initializes. I dont like it
 	if(length(nttc.valid_languages) == 1)
 		nttc.update_languages()
@@ -178,7 +178,7 @@
 		ui = new(user, src, ui_key, "TcommsCore", name, 900, 600, master_ui, state)
 		ui.open()
 
-/obj/machinery/tcomms/core/tgui_data(mob/user)
+/obj/machinery/tcomms/core/ui_data(mob/user)
 	var/list/data = list()
 	data["ion"] = ion
 
@@ -219,7 +219,7 @@
 
 	return data
 
-/obj/machinery/tcomms/core/tgui_act(action, list/params)
+/obj/machinery/tcomms/core/ui_act(action, list/params)
 	// Check against href exploits
 	if(..())
 		return

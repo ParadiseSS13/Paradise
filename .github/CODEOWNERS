@@ -11,8 +11,7 @@
 # CI + Tooling
 /.github/workflows/ @AffectedArc07
 /code/modules/unit_tests/ @AffectedArc07
-/tools/travis/ @AffectedArc07
-.travis.yml @AffectedArc07
+/tools/ci/ @AffectedArc07
 
 # Executables that need to be security-cleared
 dreamchecker.exe @AffectedArc07

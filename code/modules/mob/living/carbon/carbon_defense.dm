@@ -74,7 +74,7 @@
 		return TRUE
 
 //Called when drawing cult runes/using cult spells. Deal damage to a random arm/hand, or chest if not there.
-/mob/living/carbon/cult_self_harm(damage, rune_message = FALSE)
+/mob/living/carbon/cult_self_harm(damage)
 	var/dam_zone = pick("l_arm", "l_hand", "r_arm", "r_hand")
 	var/obj/item/organ/external/affecting = get_organ(dam_zone)
 	if(!affecting)
@@ -82,6 +82,3 @@
 	if(!affecting) //bruh where's your chest
 		return FALSE
 	apply_damage(damage, BRUTE, affecting)
-	if(rune_message)
-		visible_message("<span class='warning'>[src] cuts open [src.p_their()] [affecting.name] and begins writing in [src.p_their()] own blood!</span>",
-		"<span class='cultitalic'>You slice open your [affecting.name] and begin drawing a sigil of [SSticker.cultdat.entity_title3].</span>")

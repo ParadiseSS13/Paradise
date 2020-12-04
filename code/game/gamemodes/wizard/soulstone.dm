@@ -161,7 +161,9 @@
 					icon_state = "purified_soulstone2"
 					if(iscultist(M))
 						SSticker.mode.remove_cultist(M.mind, FALSE)
-						to_chat(M, "<span class='danger'>You feel the cult's influence vanish. Assist [user], your saviour, and get vengeance on those who enslaved you!</span>")
+						to_chat(M, "<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] \
+									and the memories of your time as their servant with it.</span>")
+						to_chat(M, "<span class='danger'>Assist [user], your saviour, and get vengeance on those who enslaved you!</span>")
 					else
 						to_chat(M, "<span class='danger'>Your soulstone has been exorcised, and you are now bound to obey [user]. </span>")
 
@@ -306,29 +308,32 @@
 		if("CONSTRUCT")
 			var/obj/structure/constructshell/shell = target
 			var/mob/living/simple_animal/shade/shade = locate() in src
+			var/list/construct_types = list("Juggernaut" = /mob/living/simple_animal/hostile/construct/armoured,
+											"Wraith" = /mob/living/simple_animal/hostile/construct/wraith,
+											"Artificer" = /mob/living/simple_animal/hostile/construct/builder)
+			/// Custom construct icons for different cults
+			var/list/construct_icons = list("Juggernaut" = image(icon = 'icons/mob/mob.dmi', icon_state = SSticker.cultdat.get_icon("juggernaut")),
+											"Wraith" = image(icon = 'icons/mob/mob.dmi', icon_state = SSticker.cultdat.get_icon("wraith")),
+											"Artificer" = image(icon = 'icons/mob/mob.dmi', icon_state = SSticker.cultdat.get_icon("builder")))
+
 			if(shade)
-				var/construct_class = alert(user, "Please choose which type of construct you wish to create.", null, "Juggernaut", "Wraith", "Artificer")
-				if(shell.active)
-					return // Don't want two people doing it at once
-				shell.active = TRUE
-				switch(construct_class)
-					if("Juggernaut")
-						var/mob/living/simple_animal/hostile/construct/armoured/C = new(shell.loc)
-						C.init_construct(shade, src, shell)
-						to_chat(C, "<B>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, create shield walls and even deflect energy weapons, and rip apart enemies and walls alike.</B>")
-
-					if("Wraith")
-						var/mob/living/simple_animal/hostile/construct/wraith/C = new(shell.loc)
-						C.init_construct(shade, src, shell)
-						to_chat(C, "<B>You are a Wraith. Though relatively fragile, you are fast, deadly, and even able to phase through walls.</B>")
-
-					if("Artificer")
-						var/mob/living/simple_animal/hostile/construct/builder/C = new(shell.loc)
-						C.init_construct(shade, src, shell)
-						to_chat(C, "<B>You are an Artificer. You are incredibly weak and fragile, but you are able to construct fortifications, use magic missile, repair allied constructs (by clicking on them), </B><I>and most important of all create new constructs</I><B> (Use your Artificer spell to summon a new construct shell and Summon Soulstone to create a new soulstone).</B>")
+				var/construct_choice = show_radial_menu(user, shell, construct_icons, custom_check = CALLBACK(src, .proc/radial_check, user), require_near = TRUE)
+				var/picked_class = construct_types[construct_choice]
+				if((picked_class && !QDELETED(shell) && !QDELETED(src)) && user.Adjacent(shell) && !user.incapacitated() && radial_check(user))
+					var/mob/living/simple_animal/hostile/construct/C = new picked_class(shell.loc)
+					C.init_construct(shade, src, shell)
+					to_chat(C, C.playstyle_string)
 			else
 				to_chat(user, "<span class='danger'>Creation failed!</span>: The soul stone is empty! Go kill someone!")
-	return
+
+/obj/item/soulstone/proc/radial_check(mob/user)
+	if(!ishuman(user)) // Should never happen, but just in case
+		return FALSE
+
+	var/mob/living/carbon/human/H = user
+	if(!H.is_in_hands(src)) // Not holding the soulstone
+		return FALSE
+	return TRUE
 
 /mob/living/simple_animal/hostile/construct/proc/init_construct(mob/living/simple_animal/shade/shade, obj/item/soulstone/SS, obj/structure/constructshell/shell)
 	if(shade.mind)

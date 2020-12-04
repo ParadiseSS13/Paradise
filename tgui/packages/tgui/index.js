@@ -20,11 +20,12 @@ import { createStore, StoreProvider } from './store';
 // Themes
 import './styles/main.scss';
 import './styles/themes/cardtable.scss';
-import './styles/themes/hackerman.scss';
 import './styles/themes/changeling.scss';
+import './styles/themes/hackerman.scss';
 import './styles/themes/malfunction.scss';
 import './styles/themes/ntos.scss';
 import './styles/themes/retro.scss';
+import './styles/themes/safe.scss';
 import './styles/themes/security.scss';
 import './styles/themes/syndicate.scss';
 
