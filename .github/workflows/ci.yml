@@ -1,8 +1,12 @@
 name: CI
 on:
+  push:
+    branches:
+    - master
   pull_request:
     branches:
     - master
+
 jobs:
   run_linters:
     name: Run Linters
@@ -21,7 +25,6 @@ jobs:
       - name: Run Linters
         run: |
           find . -name "*.json" -not -path "*/node_modules/*" -print0 | xargs -0 python3 ./tools/ci/json_verifier.py
-          tools/ci/build_nanoui.sh
           tools/ci/build_tgui.sh
           tools/ci/check_grep.sh
           python3 tools/ci/check_line_endings.py
@@ -48,6 +51,7 @@ jobs:
           source $HOME/BYOND/byond/bin/byondsetup
           tools/ci/generate_maplist.sh
           tools/ci/dm.sh -Mci_map_testing paradise.dme
+
   unit_tests_and_sql:
     name: Unit Tests + SQL Validation
     runs-on: ubuntu-18.04
@@ -80,7 +84,6 @@ jobs:
       - name: Compile & Run Unit Tests
         run: |
           tools/ci/install_byond.sh
-          tools/ci/install_rustg.sh
           source $HOME/BYOND/byond/bin/byondsetup
           tools/ci/dm.sh -DCIBUILDING paradise.dme
           tools/ci/run_server.sh

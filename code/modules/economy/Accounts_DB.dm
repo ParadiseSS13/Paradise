@@ -42,7 +42,7 @@ GLOBAL_VAR(current_date_string)
 	..()
 
 /obj/machinery/computer/account_database/proc/accounting_letterhead(report_name)
-	var/datum/tgui_login/L = tgui_login_get()
+	var/datum/ui_login/L = ui_login_get()
 	return {"
 		<center><h1><b>[report_name]</b></h1></center>
 		<center><small><i>[station_name()] Accounting Report</i></small></center>
@@ -51,24 +51,24 @@ GLOBAL_VAR(current_date_string)
 	"}
 
 /obj/machinery/computer/account_database/attackby(obj/O, mob/user, params)
-	if(tgui_login_attackby(O, user))
+	if(ui_login_attackby(O, user))
 		return
 	return ..()
 
 /obj/machinery/computer/account_database/attack_hand(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/computer/account_database/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/computer/account_database/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "AccountsUplinkTerminal", name, 800, 600, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/account_database/tgui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+/obj/machinery/computer/account_database/ui_data(mob/user)
 	var/list/data = list()
 	data["currentPage"] = current_page
 	data["is_printing"] = (next_print > world.time)
-	tgui_login_data(data, user)
+	ui_login_data(data, user)
 	if(data["loginState"]["logged_in"])
 		switch(current_page)
 			if(AUT_ACCLST)
@@ -103,16 +103,16 @@ GLOBAL_VAR(current_date_string)
 	return data
 
 
-/obj/machinery/computer/account_database/tgui_act(action, list/params)
+/obj/machinery/computer/account_database/ui_act(action, list/params)
 	if(..())
 		return
 
 	. = TRUE
 
-	if(tgui_login_act(action, params))
+	if(ui_login_act(action, params))
 		return
 
-	if(!tgui_login_get().logged_in)
+	if(!ui_login_get().logged_in)
 		return
 
 	switch(action)

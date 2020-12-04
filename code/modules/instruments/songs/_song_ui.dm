@@ -1,5 +1,5 @@
-/datum/song/tgui_data(mob/user)
-	var/data[0]
+/datum/song/ui_data(mob/user)
+	var/list/data = list()
 
 	// General
 	data["playing"] = playing
@@ -44,14 +44,14 @@
 
 	return data
 
-/datum/song/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/datum/song/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, parent, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, parent, ui_key, "Instrument", parent?.name || "Instrument", 700, 500)
 		ui.open()
 		ui.set_autoupdate(FALSE) // NO!!! Don't auto-update this!!
 
-/datum/song/tgui_act(action, params)
+/datum/song/ui_act(action, params)
 	. = TRUE
 	switch(action)
 		if("newsong")

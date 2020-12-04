@@ -50,12 +50,15 @@
 	var/datum/action/innate/terrorspider/queen/queensense/queensense_action
 	var/datum/action/innate/terrorspider/queen/queeneggs/queeneggs_action
 	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
+	var/datum/action/innate/terrorspider/remoteview/remoteview_action
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/New()
 	..()
 	ventsmash_action = new()
 	ventsmash_action.Grant(src)
+	remoteview_action = new()
+	remoteview_action.Grant(src)
 	grant_queen_subtype_abilities()
 	spider_myqueen = src
 	if(spider_awaymission)
@@ -316,7 +319,7 @@
 	if(MinutesAlive() >= 20)
 		var/list/spider_array = CountSpidersDetailed(TRUE, list(/mob/living/simple_animal/hostile/poison/terror_spider/mother, /mob/living/simple_animal/hostile/poison/terror_spider/prince, /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess))
 		if(spider_array["all"] == 0)
-			return list(TS_DESC_PRINCE, TS_DESC_PRINCESS) // Mother will be added to this list.... AFTER mothers are reworked.
+			return list(TS_DESC_PRINCE, TS_DESC_PRINCESS, TS_DESC_MOTHER)
 
 	var/list/valid_types = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN)
 	var/list/spider_array = CountSpidersDetailed(FALSE, list(/mob/living/simple_animal/hostile/poison/terror_spider/brown, /mob/living/simple_animal/hostile/poison/terror_spider/purple, /mob/living/simple_animal/hostile/poison/terror_spider/black))

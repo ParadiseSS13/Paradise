@@ -186,7 +186,7 @@
 	return
 
 /obj/machinery/atmospherics/unary/cryo_cell/attack_ghost(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/atmospherics/unary/cryo_cell/attack_hand(mob/user)
 	if(user == occupant)
@@ -196,16 +196,16 @@
 		to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
 		return
 
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/atmospherics/unary/cryo_cell/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/atmospherics/unary/cryo_cell/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "Cryo", "Cryo Cell", 520, 490)
 		ui.open()
 
-/obj/machinery/atmospherics/unary/cryo_cell/tgui_data(mob/user)
-	var/data[0]
+/obj/machinery/atmospherics/unary/cryo_cell/ui_data(mob/user)
+	var/list/data = list()
 	data["isOperating"] = on
 	data["hasOccupant"] = occupant ? TRUE : FALSE
 
@@ -243,7 +243,7 @@
 	data["auto_eject_dead"] = (auto_eject_prefs & AUTO_EJECT_DEAD) ? TRUE : FALSE
 	return data
 
-/obj/machinery/atmospherics/unary/cryo_cell/tgui_act(action, params)
+/obj/machinery/atmospherics/unary/cryo_cell/ui_act(action, params)
 	if(..() || usr == occupant)
 		return
 	if(stat & (NOPOWER|BROKEN))

@@ -12,15 +12,15 @@
 	var/resultlvl = null
 
 /obj/machinery/slot_machine/attack_hand(mob/user as mob)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/slot_machine/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/slot_machine/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "SlotMachine", name, 350, 200, master_ui, state)
 		ui.open()
 
-/obj/machinery/slot_machine/tgui_data(mob/user)
+/obj/machinery/slot_machine/ui_data(mob/user)
 	var/list/data = list()
 	// Get account
 	account = user.get_worn_id_account()
@@ -39,7 +39,7 @@
 	data["resultlvl"] = resultlvl
 	return data
 
-/obj/machinery/slot_machine/tgui_act(action, params)
+/obj/machinery/slot_machine/ui_act(action, params)
 	if(..())
 		return
 	add_fingerprint(usr)

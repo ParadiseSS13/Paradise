@@ -279,7 +279,7 @@ SUBSYSTEM_DEF(ticker)
 	//start_events() //handles random events and space dust.
 	//new random event system is handled from the MC.
 
-	SSdiscord.send2discord_simple_noadmins("Round has started")
+	SSdiscord.send2discord_simple_noadmins("**\[Info]** Round has started")
 	auto_toggle_ooc(0) // Turn it off
 	round_start_time = world.time
 

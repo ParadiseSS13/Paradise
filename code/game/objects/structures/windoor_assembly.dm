@@ -203,9 +203,9 @@
 		windoor.density = FALSE
 
 		if(electronics.one_access)
-			windoor.req_one_access = electronics.conf_access
+			windoor.req_one_access = electronics.selected_accesses
 		else
-			windoor.req_access = electronics.conf_access
+			windoor.req_access = electronics.selected_accesses
 		windoor.electronics = src.electronics
 		electronics.forceMove(windoor)
 		electronics = null

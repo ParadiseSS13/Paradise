@@ -17,8 +17,7 @@
  * optional master_ui datum/tgui The parent UI.
  * optional state datum/ui_state The state used to determine status.
  */
-
-/datum/proc/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/datum/proc/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	return FALSE // Not implemented.
 
 /**
@@ -31,7 +30,7 @@
  *
  * return list Data to be sent to the UI.
  */
-/datum/proc/tgui_data(mob/user)
+/datum/proc/ui_data(mob/user)
 	return list() // Not implemented.
 
 /**
@@ -47,7 +46,7 @@
  *
  * return list Statuic Data to be sent to the UI.
  */
-/datum/proc/tgui_static_data(mob/user)
+/datum/proc/ui_static_data(mob/user)
 	return list()
 
 /**
@@ -59,12 +58,12 @@
  * optional ui ui to be updated
  * optional ui_key ui key of ui to be updated
  */
-/datum/proc/update_tgui_static_data(mob/user, datum/tgui/ui, ui_key = "main")
+/datum/proc/update_static_data(mob/user, datum/tgui/ui, ui_key = "main")
 	ui = SStgui.try_update_ui(user, src, ui_key, ui)
 	// If there was no ui to update, there's no static data to update either.
 	if(!ui)
 		return
-	ui.push_data(null, tgui_static_data(user), TRUE)
+	ui.push_data(null, ui_static_data(user), TRUE)
 
 /**
  * public
@@ -77,7 +76,7 @@
  *
  * return bool If the UI should be updated or not.
  */
-/datum/proc/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+/datum/proc/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	// If UI is not interactive or usr calling Topic is not the UI user, bail.
 	if(!ui || ui.status != STATUS_INTERACTIVE)
 		return TRUE
@@ -95,7 +94,7 @@
  *
  * required html the html base text
  */
-/datum/proc/tgui_base_html(html)
+/datum/proc/ui_base_html(html)
 	return html
 
 /**
@@ -105,7 +104,7 @@
  * This allows modules/datums to have the UI attached to them,
  * and be a part of another object.
  */
-/datum/proc/tgui_host(mob/user)
+/datum/proc/ui_host(mob/user)
 	return src // Default src.
 
 /**
@@ -114,7 +113,6 @@
  * Associative list of JSON-encoded shared states that were set by
  * tgui clients.
  */
-
 /datum/var/list/tgui_shared_states
 
 /**
@@ -122,14 +120,14 @@
  *
  * Used to track UIs for a mob.
  */
-/mob/var/list/open_tguis = list()
+/mob/var/list/open_uis = list()
 /**
  * public
  *
  * Called on a UI's object when the UI is closed, not to be confused with
  * client/verb/uiclose(), which closes the ui window
  */
-/datum/proc/tgui_close(mob/user)
+/datum/proc/ui_close(mob/user)
 
 /**
  * verb
@@ -137,14 +135,14 @@
  * Called by UIs when they are closed.
  * Must be a verb so winset() can call it.
  *
- * required uiref ref The UI that was closed.
+ * required uiref uid The UI that was closed.
  */
-/client/verb/tguiclose(uid as text)
+/client/verb/uiclose(uid as text)
 	// Name the verb, and hide it from the user panel.
 	set name = "uiclose"
 	set hidden = TRUE
 
-	// Get the UI based on the ref.
+	// Get the UI based on the UID.
 	var/datum/tgui/ui = locateUID(uid)
 
 	// If we found the UI, close it.
