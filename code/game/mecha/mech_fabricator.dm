@@ -285,7 +285,7 @@
 	return ..()
 
 /obj/machinery/mecha_part_fabricator/attack_ghost(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/mecha_part_fabricator/attack_hand(mob/user)
 	if(..())
@@ -293,9 +293,9 @@
 	if(!allowed(user) && !isobserver(user))
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/mecha_part_fabricator/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/mecha_part_fabricator/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	if(!selected_category)
 		selected_category = categories[1]
 
@@ -308,7 +308,7 @@
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
-/obj/machinery/mecha_part_fabricator/tgui_data(mob/user)
+/obj/machinery/mecha_part_fabricator/ui_data(mob/user)
 	var/list/data = list()
 	data["syncing"] = syncing
 	data["processingQueue"] = processing_queue
@@ -368,7 +368,7 @@
 
 	return data
 
-/obj/machinery/mecha_part_fabricator/tgui_act(action, params)
+/obj/machinery/mecha_part_fabricator/ui_act(action, params)
 	if(..())
 		return
 
