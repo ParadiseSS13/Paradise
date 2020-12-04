@@ -88,7 +88,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		shards++
 		setDir()
 
-	if((decon_speed == null) && fulltile)
+	if(decon_speed == null && fulltile)
 		decon_speed = 2 SECONDS
 
 	var/rods = 0
