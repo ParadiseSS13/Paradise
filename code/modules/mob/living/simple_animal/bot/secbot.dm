@@ -116,15 +116,15 @@
 	text_dehack_fail = "[name] refuses to accept your authority!"
 
 /mob/living/simple_animal/bot/secbot/show_controls(mob/M)
-	tgui_interact(M)
+	ui_interact(M)
 
-/mob/living/simple_animal/bot/secbot/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/mob/living/simple_animal/bot/secbot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "BotSecurity", name, 500, 500)
 		ui.open()
 
-/mob/living/simple_animal/bot/secbot/tgui_data(mob/user)
+/mob/living/simple_animal/bot/secbot/ui_data(mob/user)
 	var/list/data = list(
 		"locked" = locked, // controls, locked or not
 		"noaccess" = topic_denied(user), // does the current user have access? admins, silicons etc can still access bots with locked controls
@@ -143,7 +143,7 @@
 	)
 	return data
 
-/mob/living/simple_animal/bot/secbot/tgui_act(action, params)
+/mob/living/simple_animal/bot/secbot/ui_act(action, params)
 	if (..())
 		return
 	if(topic_denied(usr))

@@ -19,7 +19,6 @@ data/
 /_maps/map_files/**/backup/*
 *.dmm.backup
 /_maps/quicksave/*
-/nano/debug.html
 **/__pycache__/*
 *.db
 stddef.dm

@@ -302,15 +302,15 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/computer/card/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/computer/card/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "CardComputer",  name, 800, 800, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/card/tgui_data(mob/user)
+/obj/machinery/computer/card/ui_data(mob/user)
 	var/list/data = list()
 	data["mode"] = mode
 	data["modify_name"] = modify ? modify.name : FALSE
@@ -379,7 +379,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	if(modify)
 		modify.name = text("[modify.registered_name]'s ID Card ([modify.assignment])")
 
-/obj/machinery/computer/card/tgui_act(action, params)
+/obj/machinery/computer/card/ui_act(action, params)
 	if(..())
 		return
 	. = TRUE

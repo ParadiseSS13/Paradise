@@ -486,7 +486,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	clear_wait_message()
 	SStgui.update_uis(src)
 
-/obj/machinery/computer/rdconsole/tgui_act(action, list/params)
+/obj/machinery/computer/rdconsole/ui_act(action, list/params)
 	if(..())
 		return
 
@@ -706,15 +706,15 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(!allowed(user) && !isobserver(user))
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return TRUE
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/computer/rdconsole/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/computer/rdconsole/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "RndConsole", name, 800, 550, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/rdconsole/proc/tgui_machine_data(obj/machinery/r_n_d/machine, list/data)
+/obj/machinery/computer/rdconsole/proc/ui_machine_data(obj/machinery/r_n_d/machine, list/data)
 	if(!machine)
 		return
 
@@ -793,10 +793,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/proc/can_copy_design(datum/design/D)
 	if(D)
-		if(D.build_type & AUTOLATHE)
+		if(D.build_type & PROTOLATHE)
 			return TRUE
 
-		if(D.build_type & PROTOLATHE)
+		if(D.build_type & AUTOLATHE)
 			for(var/M in D.materials)
 				if(M != MAT_METAL && M != MAT_GLASS)
 					return FALSE
@@ -804,7 +804,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	return FALSE
 
-/obj/machinery/computer/rdconsole/tgui_data(mob/user)
+/obj/machinery/computer/rdconsole/ui_data(mob/user)
 	var/list/data = list()
 
 	files.RefreshResearch()
@@ -912,9 +912,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					break
 
 	else if(menu == MENU_LATHE && linked_lathe)
-		tgui_machine_data(linked_lathe, data)
+		ui_machine_data(linked_lathe, data)
 	else if(menu == MENU_IMPRINTER && linked_imprinter)
-		tgui_machine_data(linked_imprinter, data)
+		ui_machine_data(linked_imprinter, data)
 
 	return data
 

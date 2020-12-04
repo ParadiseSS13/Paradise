@@ -693,7 +693,6 @@
 				bolacount++
 		cooldown = world.time
 		update_icon()
-		orient2hud()
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
 			if(H.belt && H.belt == src)

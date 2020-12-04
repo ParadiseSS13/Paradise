@@ -289,11 +289,14 @@
 		if(!premium.len)
 			to_chat(user, "<span class='warning'>[src] does not accept coins.</span>")
 			return
+		if(coin)
+			to_chat(user, "<span class='warning'>There is already a coin in this machine!</span>")
+			return
 		if(!user.drop_item())
 			return
 		I.forceMove(src)
 		coin = I
-		to_chat(user, "<span class='notice'>You insert the [I] into the [src]</span>")
+		to_chat(user, "<span class='notice'>You insert [I] into the [src]</span>")
 		SStgui.update_uis(src)
 		return
 	if(refill_canister && istype(I, refill_canister))
@@ -491,10 +494,10 @@
 		if(src.shock(user, 100))
 			return
 
-	tgui_interact(user)
+	ui_interact(user)
 	wires.Interact(user)
 
-/obj/machinery/vending/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/vending/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		var/estimated_height = 100 + min(length(product_records) * 34, 500)
@@ -503,7 +506,7 @@
 		ui = new(user, src, ui_key, "Vending",  name, 470, estimated_height, master_ui, state)
 		ui.open()
 
-/obj/machinery/vending/tgui_data(mob/user)
+/obj/machinery/vending/ui_data(mob/user)
 	var/list/data = list()
 	var/mob/living/carbon/human/H
 	var/obj/item/card/id/C
@@ -539,7 +542,7 @@
 	return data
 
 
-/obj/machinery/vending/tgui_static_data(mob/user)
+/obj/machinery/vending/ui_static_data(mob/user)
 	var/list/data = list()
 	data["chargesMoney"] = length(prices) > 0 ? TRUE : FALSE
 	data["product_records"] = list()
@@ -587,7 +590,7 @@
 	data["imagelist"] = imagelist
 	return data
 
-/obj/machinery/vending/tgui_act(action, params)
+/obj/machinery/vending/ui_act(action, params)
 	. = ..()
 	if(.)
 		return

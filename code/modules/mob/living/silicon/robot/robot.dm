@@ -239,6 +239,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				if(Entry[2] == ckey)	//They're in the list? Custom sprite time, var and icon change required
 					custom_sprite = 1
 
+	if(mmi && mmi.brainmob)
+		mmi.brainmob.name = newname
+
 	return 1
 
 
@@ -521,7 +524,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	notify_ai(NEW_MODULE)
 
 	uneq_all()
-	SSnanoui.close_user_uis(src)
 	SStgui.close_user_uis(src)
 	sight_mode = null
 	update_sight()

@@ -6,13 +6,13 @@
 		qdel(src)
 	owner = new_owner
 
-/datum/spawners_menu/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui_state/state = GLOB.tgui_observer_state, datum/tgui/master_ui = null)
+/datum/spawners_menu/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/ui_state/state = GLOB.observer_state, datum/tgui/master_ui = null)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "SpawnersMenu", "Spawners Menu", 700, 600, master_ui, state = state)
 		ui.open()
 
-/datum/spawners_menu/tgui_data(mob/user)
+/datum/spawners_menu/ui_data(mob/user)
 	var/list/data = list()
 	data["spawners"] = list()
 	for(var/spawner in GLOB.mob_spawners)
@@ -37,7 +37,7 @@
 		data["spawners"] += list(this)
 	return data
 
-/datum/spawners_menu/tgui_act(action, params)
+/datum/spawners_menu/ui_act(action, params)
 	if(..())
 		return
 	var/spawners = replacetext(params["ID"], ",", ";")

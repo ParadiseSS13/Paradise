@@ -750,7 +750,7 @@
 /obj/machinery/power/apc/attack_ghost(mob/user)
 	if(panel_open)
 		wires.Interact(user)
-	return tgui_interact(user)
+	return ui_interact(user)
 
 /obj/machinery/power/apc/interact(mob/user)
 	if(!user)
@@ -759,7 +759,7 @@
 	if(panel_open)
 		wires.Interact(user)
 
-	return tgui_interact(user)
+	return ui_interact(user)
 
 
 /obj/machinery/power/apc/proc/get_malf_status(mob/living/silicon/ai/malf)
@@ -780,13 +780,13 @@
 	else
 		return APC_MALF_NOT_HACKED
 
-/obj/machinery/power/apc/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/power/apc/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "APC", name, 510, 460, master_ui, state)
 		ui.open()
 
-/obj/machinery/power/apc/tgui_data(mob/user)
+/obj/machinery/power/apc/ui_data(mob/user)
 	var/list/data = list()
 	data["locked"] = is_locked(user)
 	data["normallyLocked"] = locked
@@ -909,7 +909,7 @@
 	else
 		return locked
 
-/obj/machinery/power/apc/tgui_act(action, params)
+/obj/machinery/power/apc/ui_act(action, params)
 	if(..() || !can_use(usr, TRUE) || (locked && !usr.has_unlimited_silicon_privilege && (action != "toggle_nightshift") && !usr.can_admin_interact()))
 		return
 	. = TRUE

@@ -52,14 +52,14 @@
 	else if(!istype(armor, /datum/armor))
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
 
-/obj/Topic(href, href_list, nowindow = FALSE, datum/topic_state/state = GLOB.default_state)
+/obj/Topic(href, href_list, nowindow = FALSE, datum/ui_state/state = GLOB.default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
 	if(!nowindow && ..())
 		return TRUE
 
 	// In the far future no checks are made in an overriding Topic() beyond if(..()) return
 	// Instead any such checks are made in CanUseTopic()
-	if(CanUseTopic(usr, state, href_list) == STATUS_INTERACTIVE)
+	if(ui_status(usr, state, href_list) == STATUS_INTERACTIVE)
 		CouldUseTopic(usr)
 		return FALSE
 
@@ -67,7 +67,7 @@
 	return TRUE
 
 /obj/proc/CouldUseTopic(mob/user)
-	var/atom/host = nano_host()
+	var/atom/host = ui_host()
 	host.add_fingerprint(user)
 
 /obj/proc/CouldNotUseTopic(mob/user)
@@ -79,7 +79,6 @@
 			STOP_PROCESSING(SSobj, src) // TODO: Have a processing bitflag to reduce on unnecessary loops through the processing lists
 		else
 			STOP_PROCESSING(SSfastprocess, src)
-	SSnanoui.close_uis(src)
 	SStgui.close_uis(src)
 	return ..()
 

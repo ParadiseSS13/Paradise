@@ -422,7 +422,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!orbit_menu)
 		orbit_menu = new(src)
 
-	orbit_menu.tgui_interact(src)
+	orbit_menu.ui_interact(src)
 
 // This is the ghost's follow verb with an argument
 /mob/dead/observer/proc/ManualFollow(atom/movable/target)
@@ -788,4 +788,4 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "Ghost"
 
 	var/datum/spawners_menu/menu = new /datum/spawners_menu(src)
-	menu.tgui_interact(src)
+	menu.ui_interact(src)

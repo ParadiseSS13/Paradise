@@ -6,9 +6,11 @@
 
 #define TOPIC_SPAM_DELAY	2		//2 ticks is about 2/10ths of a second; it was 4 ticks, but that caused too many clicks to be lost due to lag
 #define UPLOAD_LIMIT		10485760	//Restricts client uploads to the server to 10MB //Boosted this thing. What's the worst that can happen?
-#define MIN_CLIENT_VERSION	0		//Just an ambiguously low version for now, I don't want to suddenly stop people playing.
+#define MIN_CLIENT_VERSION	513		// Minimum byond major version required to play.
 									//I would just like the code ready should it ever need to be used.
-#define SUGGESTED_CLIENT_VERSION	511		// only integers (e.g: 510, 511) useful here. Does not properly handle minor versions (e.g: 510.58, 511.848)
+#define SUGGESTED_CLIENT_VERSION	513		// only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
+#define SUGGESTED_CLIENT_BUILD	1536		// only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
+
 #define SSD_WARNING_TIMER 30 // cycles, not seconds, so 30=60s
 
 #define LIMITER_SIZE	5
@@ -50,12 +52,6 @@
 	#if defined(TOPIC_DEBUGGING)
 	to_chat(world, "[src]'s Topic: [href] destined for [hsrc].")
 	#endif
-
-	if(href_list["nano_err"]) //nano throwing errors
-		if(topic_debugging)
-			to_chat(src, "## NanoUI: " + html_decode(href_list["nano_err"]))//NANO DEBUG HOOK
-
-
 
 	if(href_list["asset_cache_confirm_arrival"])
 //		to_chat(src, "ASSET JOB [href_list["asset_cache_confirm_arrival"]] ARRIVED.")
@@ -328,13 +324,16 @@
 	if(connection != "seeker")					//Invalid connection type.
 		return null
 	if(byond_version < MIN_CLIENT_VERSION) // Too out of date to play at all. Unfortunately, we can't send them a message here.
-		return null
+		version_blocked = TRUE
 	if(byond_build < config.minimum_client_build)
-		alert(src, "You are using a byond build which is not supported by this server. Please use a build version of atleast [config.minimum_client_build].", "Incorrect build", "OK")
-		qdel(src)
-		return
+		version_blocked = TRUE
+
+	var/show_update_prompt = FALSE
 	if(byond_version < SUGGESTED_CLIENT_VERSION) // Update is suggested, but not required.
-		to_chat(src,"<span class='userdanger'>Your BYOND client (v: [byond_version]) is out of date. This can cause glitches. We highly suggest you download the latest client from http://www.byond.com/ before playing. </span>")
+		show_update_prompt = TRUE
+	else if(byond_version == SUGGESTED_CLIENT_VERSION && byond_build < SUGGESTED_CLIENT_BUILD)
+		show_update_prompt = TRUE
+	// Actually sent to client much later, so it appears after MOTD.
 
 	to_chat(src, "<span class='warning'>If the title screen is black, resources are still downloading. Please be patient until the title screen appears.</span>")
 
@@ -415,6 +414,9 @@
 
 	generate_clickcatcher()
 	apply_clickcatcher()
+
+	if(show_update_prompt)
+		show_update_notice()
 
 	check_forum_link()
 
@@ -833,7 +835,7 @@
 		preload_rsc = 1 // If config.resource_urls is not set, preload like normal.
 	// Most assets are now handled through global_cache.dm
 	getFiles(
-		'html/search.js', // Used in various non-NanoUI HTML windows for search functionality
+		'html/search.js', // Used in various non-TGUI HTML windows for search functionality
 		'html/panels.css' // Used for styling certain panels, such as in the new player panel
 	)
 	spawn (10) //removing this spawn causes all clients to not get verbs.
@@ -954,18 +956,15 @@
 		to_chat(usr, "<span class='warning'>You requested your UI resource files too quickly. Please try again in [(last_ui_resource_send - world.time)/10] seconds.</span>")
 		return
 
-	var/choice = alert(usr, "This will reload your NanoUI and TGUI resources. If you have any open UIs this may break them. Are you sure?", "Resource Reloading", "Yes", "No")
+	var/choice = alert(usr, "This will reload your TGUI resources. If you have any open UIs this may break them. Are you sure?", "Resource Reloading", "Yes", "No")
 	if(choice == "Yes")
 		// 600 deciseconds = 1 minute
 		last_ui_resource_send = world.time + 60 SECONDS
 
 		// Close their open UIs
-		SSnanoui.close_user_uis(usr)
 		SStgui.close_user_uis(usr)
 
 		// Resend the resources
-		var/datum/asset/nano_assets = get_asset_datum(/datum/asset/nanoui)
-		nano_assets.register()
 
 		var/datum/asset/tgui_assets = get_asset_datum(/datum/asset/simple/tgui)
 		tgui_assets.register()
@@ -1088,6 +1087,8 @@
 	if(notify && (byondacc_age < config.byond_account_age_threshold))
 		message_admins("[key] has just connected for the first time. BYOND account registered on [byondacc_date] ([byondacc_age] days old)")
 
+/client/proc/show_update_notice()
+	to_chat(src, "<span class='userdanger'>Your BYOND client (v: [byond_version].[byond_build]) is out of date. This can cause glitches. We highly suggest you download the latest client from <a href='https://www.byond.com/download/'>byond.com</a> before playing. You can also update via the BYOND launcher application.</span>")
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

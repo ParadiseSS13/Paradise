@@ -240,10 +240,10 @@
 // ai as human but can't flush
 /obj/machinery/disposal/attack_ai(mob/user as mob)
 	src.add_hiddenprint(user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/disposal/attack_ghost(mob/user as mob)
-	tgui_interact(user)
+	ui_interact(user)
 
 // human interact with machine
 /obj/machinery/disposal/attack_hand(mob/user as mob)
@@ -259,20 +259,20 @@
 
 	// Clumsy folks can only flush it.
 	if(user.IsAdvancedToolUser())
-		tgui_interact(user)
+		ui_interact(user)
 	else
 		flush = !flush
 		update()
 	return
 
-/obj/machinery/disposal/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/disposal/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "DisposalBin", name, 300, 250, master_ui, state)
 		ui.open()
 
 
-/obj/machinery/disposal/tgui_data(mob/user)
+/obj/machinery/disposal/ui_data(mob/user)
 	var/list/data = list()
 
 	data["isAI"] = isAI(user)
@@ -282,7 +282,7 @@
 
 	return data
 
-/obj/machinery/disposal/tgui_act(action, params)
+/obj/machinery/disposal/ui_act(action, params)
 	if(..())
 		return
 	if(usr.loc == src)

@@ -58,7 +58,7 @@
 		if(pda.cartridge)
 			data["charges"] = pda.cartridge.charges ? pda.cartridge.charges : 0
 
-/datum/data/pda/app/messenger/tgui_act(action, list/params)
+/datum/data/pda/app/messenger/ui_act(action, list/params)
 	if(..())
 		return
 

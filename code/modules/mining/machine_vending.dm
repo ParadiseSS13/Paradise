@@ -110,13 +110,13 @@
 /obj/machinery/mineral/equipment_vendor/attack_hand(mob/user)
 	if(..())
 		return
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/mineral/equipment_vendor/attack_ghost(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/mineral/equipment_vendor/tgui_data(mob/user)
-	var/list/data[0]
+/obj/machinery/mineral/equipment_vendor/ui_data(mob/user)
+	var/list/data = list()
 
 	// ID
 	if(inserted_id)
@@ -130,8 +130,8 @@
 
 	return data
 
-/obj/machinery/mineral/equipment_vendor/tgui_static_data(mob/user)
-	var/list/static_data[0]
+/obj/machinery/mineral/equipment_vendor/ui_static_data(mob/user)
+	var/list/static_data = list()
 
 	// Available items - in static data because we don't wanna compute this list every time! It hardly changes.
 	static_data["items"] = list()
@@ -150,13 +150,13 @@
 		dirty_items = TRUE
 	return ..()
 
-/obj/machinery/mineral/equipment_vendor/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/mineral/equipment_vendor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	// Update static data if need be
 	if(dirty_items)
 		if(!ui)
 			ui = SStgui.get_open_ui(user, src, ui_key)
 		if(ui) // OK so ui?. somehow breaks the implied src so this is needed
-			ui.initial_static_data = tgui_static_data(user)
+			ui.initial_static_data = ui_static_data(user)
 		dirty_items = FALSE
 
 	// Open the window
@@ -166,7 +166,7 @@
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
-/obj/machinery/mineral/equipment_vendor/tgui_act(action, params)
+/obj/machinery/mineral/equipment_vendor/ui_act(action, params)
 	if(..())
 		return
 
@@ -175,7 +175,10 @@
 		if("logoff")
 			if(!inserted_id)
 				return
-			usr.put_in_hands(inserted_id)
+			if(ishuman(usr))
+				usr.put_in_hands(inserted_id)
+			else
+				inserted_id.forceMove(get_turf(src))
 			inserted_id = null
 		if("purchase")
 			if(!inserted_id)
@@ -218,7 +221,7 @@
 				return
 			C.forceMove(src)
 			inserted_id = C
-			tgui_interact(user)
+			ui_interact(user)
 		return
 	return ..()
 

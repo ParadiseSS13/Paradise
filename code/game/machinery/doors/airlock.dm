@@ -38,9 +38,9 @@
 #define AIRLOCK_DAMAGE_DEFLECTION_N  21  // Normal airlock damage deflection
 #define AIRLOCK_DAMAGE_DEFLECTION_R  30  // Reinforced airlock damage deflection
 
-#define TGUI_GREEN 2
-#define TGUI_ORANGE 1
-#define TGUI_RED 0
+#define UI_GREEN 2
+#define UI_ORANGE 1
+#define UI_RED 0
 
 
 GLOBAL_LIST_EMPTY(airlock_overlays)
@@ -578,33 +578,33 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/attack_ghost(mob/user)
 	if(panel_open)
 		wires.Interact(user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/door/airlock/attack_ai(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/door/airlock/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/door/airlock/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "AiAirlock", name, 600, 400, master_ui, state)
 		ui.open()
 
 
-/obj/machinery/door/airlock/tgui_data(mob/user)
+/obj/machinery/door/airlock/ui_data(mob/user)
 	var/list/data = list()
 
 	var/list/power = list()
-	power["main"] = main_power_lost_until ? TGUI_RED : TGUI_GREEN
+	power["main"] = main_power_lost_until ? UI_RED : UI_GREEN
 	power["main_timeleft"] = max(main_power_lost_until - world.time, 0) / 10
-	power["backup"] = backup_power_lost_until ? TGUI_RED : TGUI_GREEN
+	power["backup"] = backup_power_lost_until ? UI_RED : UI_GREEN
 	power["backup_timeleft"] = max(backup_power_lost_until - world.time, 0) / 10
 	data["power"] = power
 	if(electrified_until == -1)
-		data["shock"] = TGUI_RED
+		data["shock"] = UI_RED
 	else if(electrified_until > 0)
-		data["shock"] = TGUI_ORANGE
+		data["shock"] = UI_ORANGE
 	else
-		data["shock"] = TGUI_GREEN
+		data["shock"] = UI_GREEN
 
 	data["shock_timeleft"] = max(electrified_until - world.time, 0) / 10
 	data["id_scanner"] = !aiDisabledIdScanner
@@ -781,7 +781,7 @@ About the new airlock wires panel:
 		return FALSE
 	return TRUE
 
-/obj/machinery/door/airlock/tgui_act(action, params)
+/obj/machinery/door/airlock/ui_act(action, params)
 	if(..())
 		return
 	if(!issilicon(usr) && !usr.can_admin_interact())
@@ -1391,9 +1391,9 @@ About the new airlock wires panel:
 			ae = new/obj/item/airlock_electronics(loc)
 			check_access()
 			if(req_access.len)
-				ae.conf_access = req_access
+				ae.selected_accesses = req_access
 			else if(req_one_access.len)
-				ae.conf_access = req_one_access
+				ae.selected_accesses = req_one_access
 				ae.one_access = 1
 		else
 			ae = electronics
@@ -1484,6 +1484,6 @@ About the new airlock wires panel:
 #undef AIRLOCK_DAMAGE_DEFLECTION_N
 #undef AIRLOCK_DAMAGE_DEFLECTION_R
 
-#undef TGUI_GREEN
-#undef TGUI_ORANGE
-#undef TGUI_RED
+#undef UI_GREEN
+#undef UI_ORANGE
+#undef UI_RED

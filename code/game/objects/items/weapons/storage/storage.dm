@@ -32,7 +32,6 @@
 			return
 
 		if(over_object == M && Adjacent(M)) // this must come before the screen objects only block
-			orient2hud(M)          // dunno why it wasn't before
 			if(M.s_active)
 				M.s_active.close(M)
 			show_to(M)
@@ -84,12 +83,11 @@
 
 /obj/item/storage/AltClick(mob/user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
-		orient2hud(user)
-		if(user.s_active)
-			user.s_active.close(user)
 		show_to(user)
 		playsound(loc, "rustle", 50, 1, -5)
 		add_fingerprint(user)
+	else if(isobserver(user))
+		show_to(user)
 	return ..()
 
 /obj/item/storage/proc/return_inv()
@@ -115,14 +113,15 @@
 		for(var/obj/item/I in src)
 			if(I.on_found(user))
 				return
+	orient2hud(user)  // this only needs to happen to make .contents show properly as screen objects.
 	if(user.s_active)
 		user.s_active.hide_from(user)
-	user.client.screen -= src.boxes
-	user.client.screen -= src.closer
-	user.client.screen -= src.contents
-	user.client.screen += src.boxes
-	user.client.screen += src.closer
-	user.client.screen += src.contents
+	user.client.screen -= boxes
+	user.client.screen -= closer
+	user.client.screen -= contents
+	user.client.screen += boxes
+	user.client.screen += closer
+	user.client.screen += contents
 	user.s_active = src
 	return
 
@@ -141,7 +140,6 @@
 	if(src.use_sound)
 		playsound(src.loc, src.use_sound, 50, 1, -5)
 
-	orient2hud(user)
 	if(user.s_active)
 		user.s_active.close(user)
 	show_to(user)
@@ -317,7 +315,6 @@
 				else if(W && W.w_class >= WEIGHT_CLASS_NORMAL) //Otherwise they can only see large or normal items from a distance...
 					M.show_message("<span class='notice'>[usr] puts [W] into [src].</span>")
 
-		src.orient2hud(usr)
 		if(usr.s_active)
 			usr.s_active.show_to(usr)
 	W.mouse_opacity = MOUSE_OPACITY_OPAQUE //So you can click on the area around the item to equip it, instead of having to pixel hunt
@@ -352,7 +349,6 @@
 		W.forceMove(get_turf(src))
 
 	if(usr)
-		src.orient2hud(usr)
 		if(usr.s_active)
 			usr.s_active.show_to(usr)
 	if(W.maptext)
@@ -406,7 +402,6 @@
 			H.r_store = null
 			return
 
-	src.orient2hud(user)
 	if(src.loc == user)
 		if(user.s_active)
 			user.s_active.close(user)
@@ -418,6 +413,12 @@
 				src.close(M)
 	src.add_fingerprint(user)
 	return
+
+/obj/item/storage/attack_ghost(mob/user)
+	if(isobserver(user))
+		// Revenants don't get to play with the toys.
+		show_to(user)
+	return ..()
 
 /obj/item/storage/verb/toggle_gathering_mode()
 	set name = "Switch Gathering Method"

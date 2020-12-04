@@ -879,7 +879,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	update_controls()
 
 /mob/living/simple_animal/bot/proc/canhack(mob/M)
-	return ((issilicon(M) && !emagged) || M.can_admin_interact())
+	return ((issilicon(M) && (!emagged || hacked)) || M.can_admin_interact())
 
 /mob/living/simple_animal/bot/proc/handle_hacking(mob/M) // refactored out of Topic/ to allow re-use by TGUIs
 	if(!canhack(M))

@@ -56,7 +56,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	var/special = FALSE //Event/Station Goals/Admin enabled packs
 	var/special_enabled = FALSE
 	/// List of names for being done in TGUI
-	var/list/tgui_manifest = list()
+	var/list/ui_manifest = list()
 
 
 /datum/supply_packs/New()
@@ -66,7 +66,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		var/atom/movable/AM = path
 		manifest += "<li>[initial(AM.name)]</li>"
 		// Add the name to the UI manifest
-		tgui_manifest += "[initial(AM.name)]"
+		ui_manifest += "[initial(AM.name)]"
 	manifest += "</ul>"
 
 

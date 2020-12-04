@@ -317,7 +317,7 @@ Class Procs:
 			update_multitool_menu(usr)
 			return TRUE
 
-/obj/machinery/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state = GLOB.default_state)
+/obj/machinery/Topic(href, href_list, var/nowindow = 0, var/datum/ui_state/state = GLOB.default_state)
 	if(..(href, href_list, nowindow, state))
 		return 1
 
@@ -331,13 +331,13 @@ Class Procs:
 /obj/machinery/proc/inoperable(var/additional_flags = 0)
 	return (stat & (NOPOWER|BROKEN|additional_flags))
 
-/obj/machinery/CanUseTopic(var/mob/user)
+/obj/machinery/ui_status(mob/user, datum/ui_state/state)
 	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
 		return STATUS_CLOSE
 
 	return ..()
 
-/obj/machinery/tgui_status(mob/user, datum/tgui_state/state)
+/obj/machinery/ui_status(mob/user, datum/ui_state/state)
 	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
 		return STATUS_CLOSE
 

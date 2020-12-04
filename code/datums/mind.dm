@@ -100,7 +100,6 @@
 		current.mind = null
 		leave_all_huds() //leave all the huds in the old body, so it won't get huds if somebody else enters it
 
-		SSnanoui.user_transferred(current, new_character)
 		SStgui.on_transfer(current, new_character)
 
 	if(new_character.mind)		//remove any mind currently in our new body's mind variable

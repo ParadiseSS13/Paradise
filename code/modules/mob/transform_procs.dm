@@ -94,6 +94,8 @@
 	if(O.mind && O.mind.assigned_role == "Cyborg")
 		if(O.mind.role_alt_title == "Robot")
 			O.mmi = new /obj/item/mmi/robotic_brain(O)
+			if(O.mmi.brainmob)
+				O.mmi.brainmob.name = O.name
 		else
 			O.mmi = new /obj/item/mmi(O)
 		O.mmi.transfer_identity(src) //Does not transfer key/client.

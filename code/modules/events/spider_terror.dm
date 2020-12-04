@@ -16,7 +16,10 @@
 		log_and_message_admins("Warning: Could not spawn any mobs for event Terror Spiders")
 
 /datum/event/spider_terror/start()
-	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
+	// It is necessary to wrap this to avoid the event triggering repeatedly.
+	INVOKE_ASYNC(src, .proc/wrappedstart)
+
+/datum/event/spider_terror/proc/wrappedstart()
 	var/spider_type
 	var/infestation_type
 	if((length(GLOB.clients)) < TS_HIGHPOP_TRIGGER)
@@ -44,9 +47,15 @@
 			// Strongest, only used during highpop.
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen
 			spawncount = 1
-	while(spawncount && length(vents))
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a terror spider?", null, TRUE, source = spider_type)
+	if(length(candidates) < spawncount)
+		message_admins("Warning: not enough players volunteered to be terrors. Could only spawn [length(candidates)] out of [spawncount]!")
+	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
+	while(spawncount && length(vents) && length(candidates))
 		var/obj/vent = pick_n_take(vents)
-		new spider_type(vent.loc)
+		var/mob/living/simple_animal/hostile/poison/terror_spider/S = new spider_type(vent.loc)
+		var/mob/M = pick_n_take(candidates)
+		S.key = M.key
 		spawncount--
 		successSpawn = TRUE
 
