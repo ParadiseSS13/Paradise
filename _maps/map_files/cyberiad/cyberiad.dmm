@@ -96976,11 +96976,13 @@
 	icon_state = "cmo"
 	},
 /area/shuttle/escape)
-"dyh" = (
-/obj/effect/decal/snow/clean,
-/obj/structure/table/wood,
-/turf/simulated/floor/wood,
-/area/crew_quarters/bar)
+"dzR" = (
+/obj/structure/closet/secure_closet/engineering_personal,
+/obj/effect/decal/snow/clean/edge{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/engine/equipmentstorage)
 "dAt" = (
 /obj/effect/decal/snow/clean/edge,
 /turf/simulated/floor/plasteel{
@@ -97045,13 +97047,6 @@
 	icon_state = "swall3"
 	},
 /area/shuttle/escape)
-"dVj" = (
-/obj/effect/decal/snow/clean/edge,
-/obj/machinery/alarm{
-	pixel_y = 22
-	},
-/turf/simulated/floor/plasteel,
-/area/security/main)
 "dVs" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -97069,12 +97064,6 @@
 	icon_state = "whitecorner"
 	},
 /area/hallway/primary/starboard/west)
-"efJ" = (
-/obj/effect/decal/snow/clean/edge{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel,
-/area/quartermaster/storage)
 "ehF" = (
 /obj/structure/chair{
 	dir = 1
@@ -97145,6 +97134,19 @@
 	icon_state = "redcorner"
 	},
 /area/shuttle/escape)
+"esS" = (
+/obj/structure/table/reinforced,
+/obj/item/phone{
+	attack_verb = list("bounced a check off","checked-out","tipped");
+	desc = "Also known as a cash register, or, more commonly, \"robbery magnet\". It's old and rusty, clearly non-functional and decorative only.";
+	icon = 'icons/obj/machines/pos.dmi';
+	icon_state = "pos";
+	name = "point of sale"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/crew_quarters/bar)
 "evY" = (
 /obj/effect/decal/snow/clean,
 /obj/item/decorations/sticky_decorations/flammable/snowman,
@@ -97162,18 +97164,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/bar)
-"ezA" = (
-/obj/item/decorations/sticky_decorations/flammable/tinsel/blue{
-	pixel_y = 19
-	},
-/obj/effect/decal/snow/clean/edge{
-	dir = 9
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "white"
-	},
-/area/medical/reception)
 "eAp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/snow/clean/edge{
@@ -97235,16 +97225,6 @@
 	icon_state = "grimy"
 	},
 /area/security/detectives_office)
-"eMX" = (
-/obj/item/radio/intercom/department/security{
-	pixel_y = 33
-	},
-/obj/machinery/light_switch{
-	pixel_y = 27
-	},
-/obj/effect/decal/snow/clean,
-/turf/simulated/floor/plasteel,
-/area/security/main)
 "eTg" = (
 /obj/effect/decal/snow/clean,
 /turf/simulated/floor/plasteel,
@@ -97261,6 +97241,15 @@
 	},
 /turf/simulated/wall,
 /area/crew_quarters/dorms)
+"eWe" = (
+/obj/effect/decal/snow/clean,
+/obj/structure/chair/wood/wings{
+	dir = 4;
+	icon_state = "wooden_chair_wings";
+	tag = "icon-wooden_chair_wings (EAST)"
+	},
+/turf/simulated/floor/wood,
+/area/crew_quarters/bar)
 "eYG" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -97277,6 +97266,13 @@
 /obj/effect/decal/snow/clean/surround,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"fgD" = (
+/obj/effect/decal/snow/clean/edge,
+/obj/machinery/alarm{
+	pixel_y = 22
+	},
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "fho" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -97407,19 +97403,6 @@
 	icon_state = "floorgrime"
 	},
 /area/security/permabrig)
-"fOO" = (
-/obj/effect/decal/snow/clean,
-/obj/structure/table/wood,
-/obj/item/radio/intercom/command,
-/turf/simulated/floor/carpet,
-/area/bridge/meeting_room)
-"fPb" = (
-/obj/structure/disposalpipe/segment,
-/obj/effect/decal/snow/clean/edge{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/engine/equipmentstorage)
 "fQu" = (
 /obj/effect/decal/snow/clean/edge{
 	dir = 4
@@ -97496,17 +97479,6 @@
 /obj/structure/table/reinforced,
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
-"gbV" = (
-/obj/effect/decal/snow/clean,
-/obj/structure/table/wood,
-/obj/item/deck/cards,
-/obj/item/dice/d20,
-/obj/item/dice,
-/obj/item/taperecorder{
-	pixel_y = 0
-	},
-/turf/simulated/floor/wood,
-/area/crew_quarters/bar)
 "gdQ" = (
 /obj/effect/decal/snow/clean,
 /obj/item/gift,
@@ -97674,11 +97646,6 @@
 /obj/effect/decal/snow/clean,
 /turf/simulated/floor/wood,
 /area/hallway/secondary/exit)
-"gJt" = (
-/obj/item/gift,
-/obj/effect/decal/snow/clean,
-/turf/simulated/floor/plasteel,
-/area/quartermaster/storage)
 "gLx" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -97714,12 +97681,10 @@
 /area/shuttle/administration)
 "gSs" = (
 /obj/effect/decal/snow/clean,
-/obj/structure/bonfire{
-	burning = 1
-	},
 /obj/item/decorations/sticky_decorations/flammable/tinsel/green{
 	pixel_y = 19
 	},
+/obj/structure/bonfire/dense,
 /turf/simulated/floor/wood,
 /area/hallway/secondary/exit)
 "gUP" = (
@@ -97749,6 +97714,17 @@
 	tag = "icon-vault (NORTHEAST)"
 	},
 /area/turret_protected/ai)
+"haB" = (
+/obj/item/decorations/sticky_decorations/flammable/tinsel/blue{
+	pixel_y = 19
+	},
+/obj/item/decorations/sticky_decorations/flammable/snowman,
+/obj/effect/decal/snow/clean,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "white"
+	},
+/area/medical/reception)
 "hcT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/wood,
@@ -97768,15 +97744,6 @@
 /obj/item/pen,
 /turf/simulated/floor/carpet,
 /area/bridge/meeting_room)
-"hll" = (
-/obj/effect/decal/snow/clean,
-/obj/structure/chair/wood/wings{
-	dir = 4;
-	icon_state = "wooden_chair_wings";
-	tag = "icon-wooden_chair_wings (EAST)"
-	},
-/turf/simulated/floor/wood,
-/area/crew_quarters/bar)
 "hnS" = (
 /obj/effect/decal/snow/clean,
 /obj/structure/chair/sofa,
@@ -97952,6 +97919,14 @@
 /obj/structure/chair/sofa/corner,
 /turf/simulated/floor/wood,
 /area/hallway/secondary/exit)
+"iyH" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/snow/clean,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "white"
+	},
+/area/medical/reception)
 "izn" = (
 /obj/machinery/atmospherics/unary/passive_vent{
 	dir = 1
@@ -98194,14 +98169,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
-"jXE" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/decal/snow/clean,
-/turf/simulated/floor/plasteel,
-/area/engine/equipmentstorage)
 "kaG" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/iv_bag/blood/random,
@@ -98404,21 +98371,23 @@
 	icon_state = "redcorner"
 	},
 /area/shuttle/escape)
+"laU" = (
+/obj/effect/decal/snow/clean,
+/obj/structure/table/wood,
+/obj/item/deck/cards,
+/obj/item/dice/d20,
+/obj/item/dice,
+/obj/item/taperecorder{
+	pixel_y = 0
+	},
+/turf/simulated/floor/wood,
+/area/crew_quarters/bar)
 "ldp" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
-"leh" = (
-/obj/effect/decal/snow/clean/surround{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "white"
-	},
-/area/medical/reception)
 "leU" = (
 /turf/space,
 /turf/simulated/shuttle/wall{
@@ -98466,6 +98435,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
+"lqp" = (
+/obj/structure/chair/wood/wings,
+/turf/simulated/floor/wood,
+/area/crew_quarters/bar)
 "ltW" = (
 /obj/item/decorations/sticky_decorations/flammable/tinsel/purple{
 	pixel_y = 19
@@ -98537,6 +98510,24 @@
 /area/medical/research{
 	name = "Research Division"
 	})
+"lBV" = (
+/obj/effect/decal/snow/clean/edge{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/quartermaster/storage)
+"lJC" = (
+/obj/item/decorations/sticky_decorations/flammable/tinsel/blue{
+	pixel_y = 19
+	},
+/obj/effect/decal/snow/clean/edge{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "white"
+	},
+/area/medical/reception)
 "lJY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/snow/clean,
@@ -98620,6 +98611,13 @@
 	icon_state = "white"
 	},
 /area/medical/reception)
+"mcQ" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/decal/snow/clean/edge{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/quartermaster/storage)
 "mhd" = (
 /obj/effect/decal/snow/clean,
 /turf/simulated/floor/bluegrid,
@@ -98707,20 +98705,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
-"mBh" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/effect/decal/snow/clean/edge{
-	dir = 5
-	},
-/turf/simulated/floor/plasteel,
-/area/quartermaster/storage)
-"mDT" = (
-/obj/structure/closet/secure_closet/engineering_personal,
-/obj/effect/decal/snow/clean/edge{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/engine/equipmentstorage)
 "mEK" = (
 /obj/effect/decal/snow/clean/edge{
 	dir = 4
@@ -98769,18 +98753,6 @@
 	icon_state = "white"
 	},
 /area/shuttle/escape)
-"mRM" = (
-/obj/effect/decal/warning_stripes/blue/partial{
-	dir = 1
-	},
-/obj/effect/decal/snow/clean/edge{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "white"
-	},
-/area/medical/reception)
 "mSl" = (
 /obj/structure/chair/wood/wings{
 	dir = 4;
@@ -98802,6 +98774,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
+"ndS" = (
+/obj/effect/decal/snow/clean,
+/obj/structure/chair/wood/wings{
+	dir = 8;
+	icon_state = "wooden_chair_wings";
+	tag = "icon-wooden_chair_wings (WEST)"
+	},
+/turf/simulated/floor/wood,
+/area/crew_quarters/bar)
 "nhb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -99017,11 +98998,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
-"oxB" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/effect/decal/snow/clean,
-/turf/simulated/floor/plasteel,
-/area/quartermaster/storage)
 "oyv" = (
 /obj/machinery/hologram/holopad,
 /obj/item/decorations/sticky_decorations/flammable/tinsel/red{
@@ -99041,16 +99017,13 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
-"oKs" = (
-/obj/item/decorations/sticky_decorations/flammable/tinsel/blue{
-	pixel_y = 19
+"oKO" = (
+/obj/effect/decal/snow/clean/edge,
+/obj/effect/decal/snow/clean/edge{
+	dir = 1
 	},
-/obj/effect/decal/snow/clean,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "white"
-	},
-/area/medical/reception)
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "oNH" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -99128,6 +99101,13 @@
 	icon_state = "cmo"
 	},
 /area/shuttle/escape)
+"oUJ" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/snow/clean/edge{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/engine/equipmentstorage)
 "oVA" = (
 /obj/effect/decal/snow/clean/edge{
 	dir = 8
@@ -99420,19 +99400,6 @@
 	tag = "icon-whiteblue (NORTHEAST)"
 	},
 /area/shuttle/escape)
-"qxS" = (
-/obj/structure/table/reinforced,
-/obj/item/phone{
-	attack_verb = list("bounced a check off","checked-out","tipped");
-	desc = "Also known as a cash register, or, more commonly, \"robbery magnet\". It's old and rusty, clearly non-functional and decorative only.";
-	icon = 'icons/obj/machines/pos.dmi';
-	icon_state = "pos";
-	name = "point of sale"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/crew_quarters/bar)
 "qFa" = (
 /obj/item/decorations/sticky_decorations/flammable/tinsel/green{
 	pixel_y = 19
@@ -99527,6 +99494,12 @@
 /obj/effect/decal/snow/clean,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"rbV" = (
+/obj/effect/decal/snow/clean,
+/obj/structure/table/wood,
+/obj/item/radio/intercom/command,
+/turf/simulated/floor/carpet,
+/area/bridge/meeting_room)
 "rdi" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -99551,10 +99524,6 @@
 	},
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
-"rgH" = (
-/obj/structure/chair/wood/wings,
-/turf/simulated/floor/wood,
-/area/crew_quarters/bar)
 "rlX" = (
 /obj/item/stack/sheet/metal{
 	amount = 50
@@ -99657,15 +99626,6 @@
 	icon_state = "swall3"
 	},
 /area/shuttle/escape)
-"rCU" = (
-/obj/effect/decal/snow/clean,
-/obj/structure/chair/wood/wings{
-	dir = 8;
-	icon_state = "wooden_chair_wings";
-	tag = "icon-wooden_chair_wings (WEST)"
-	},
-/turf/simulated/floor/wood,
-/area/crew_quarters/bar)
 "rCZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -99831,6 +99791,20 @@
 	tag = "icon-whitebluefull"
 	},
 /area/medical/biostorage)
+"sCf" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/decal/snow/clean,
+/obj/item/decorations/sticky_decorations/flammable/snowman,
+/turf/simulated/floor/wood,
+/area/bridge/meeting_room)
 "sDw" = (
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -99842,6 +99816,13 @@
 "sHt" = (
 /turf/simulated/floor/engine,
 /area/holodeck/alphadeck)
+"sIw" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/decal/snow/clean/edge{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/quartermaster/storage)
 "sIH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -99887,6 +99868,15 @@
 	tag = "icon-browncorner (EAST)"
 	},
 /area/shuttle/escape)
+"sQR" = (
+/obj/effect/decal/snow/clean/surround{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "white"
+	},
+/area/medical/reception)
 "sTZ" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -99945,14 +99935,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
-"sYL" = (
-/obj/structure/disposalpipe/segment,
-/obj/effect/decal/snow/clean,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "white"
-	},
-/area/medical/reception)
 "tbC" = (
 /obj/structure/chair{
 	dir = 4
@@ -100003,20 +99985,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/hallway/secondary/exit)
-"tlD" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/decal/snow/clean,
-/obj/item/decorations/sticky_decorations/flammable/snowman,
-/turf/simulated/floor/wood,
-/area/bridge/meeting_room)
 "tmo" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -100068,6 +100036,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
+"twd" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/snow/clean,
+/turf/simulated/floor/plasteel,
+/area/engine/equipmentstorage)
 "txC" = (
 /obj/structure/chair/wood/wings{
 	dir = 1;
@@ -100116,17 +100092,18 @@
 	tag = "icon-vault (NORTHEAST)"
 	},
 /area/turret_protected/ai)
+"tGI" = (
+/obj/effect/decal/snow/clean,
+/obj/structure/table/wood,
+/turf/simulated/floor/wood,
+/area/crew_quarters/bar)
 "tIz" = (
 /obj/machinery/computer/mech_bay_power_console,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
-"tPJ" = (
-/obj/machinery/conveyor/east{
-	id = "QMLoad2"
-	},
-/obj/effect/decal/snow/clean/edge{
-	dir = 1
-	},
+"tKz" = (
+/obj/item/gift,
+/obj/effect/decal/snow/clean,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "tSs" = (
@@ -100169,6 +100146,16 @@
 /obj/effect/decal/snow/clean/surround,
 /turf/simulated/floor/carpet,
 /area/lawoffice)
+"ufT" = (
+/obj/item/radio/intercom/department/security{
+	pixel_y = 33
+	},
+/obj/machinery/light_switch{
+	pixel_y = 27
+	},
+/obj/effect/decal/snow/clean,
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "uiW" = (
 /obj/structure/chair/wood/wings{
 	dir = 8;
@@ -100304,14 +100291,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/hallway/secondary/exit)
-"uQx" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/quartermaster/storage)
 "uXX" = (
 /obj/machinery/light{
 	dir = 8;
@@ -100319,6 +100298,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
+"uYV" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/quartermaster/storage)
 "uZi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -100371,6 +100358,11 @@
 /obj/item/decorations/sticky_decorations/flammable/snowman,
 /turf/simulated/floor/wood,
 /area/crew_quarters/courtroom)
+"vqn" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/decal/snow/clean,
+/turf/simulated/floor/plasteel,
+/area/quartermaster/storage)
 "vup" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 10
@@ -100651,17 +100643,6 @@
 	icon_state = "white"
 	},
 /area/assembly/robotics)
-"wMb" = (
-/obj/item/decorations/sticky_decorations/flammable/tinsel/blue{
-	pixel_y = 19
-	},
-/obj/item/decorations/sticky_decorations/flammable/snowman,
-/obj/effect/decal/snow/clean,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "white"
-	},
-/area/medical/reception)
 "wOS" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/black,
@@ -100787,6 +100768,16 @@
 /obj/effect/decal/snow/clean,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"xpD" = (
+/obj/item/decorations/sticky_decorations/flammable/tinsel/blue{
+	pixel_y = 19
+	},
+/obj/effect/decal/snow/clean,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "white"
+	},
+/area/medical/reception)
 "xpY" = (
 /obj/effect/decal/snow/clean,
 /obj/structure/chair/sofa/corner{
@@ -100794,13 +100785,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/hallway/secondary/exit)
-"xpZ" = (
-/obj/effect/decal/snow/clean/edge,
-/obj/effect/decal/snow/clean/edge{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/security/main)
 "xtk" = (
 /obj/structure/bed/roller,
 /turf/simulated/floor/plasteel{
@@ -100831,13 +100815,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/hallway/secondary/exit)
-"xzs" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/effect/decal/snow/clean/edge{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/quartermaster/storage)
 "xAw" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
@@ -100867,6 +100844,18 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"xDO" = (
+/obj/effect/decal/warning_stripes/blue/partial{
+	dir = 1
+	},
+/obj/effect/decal/snow/clean/edge{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "white"
+	},
+/area/medical/reception)
 "xKX" = (
 /obj/structure/closet/crate,
 /obj/effect/decal/cleanable/dirt,
@@ -100894,6 +100883,15 @@
 	icon_state = "dark"
 	},
 /area/chapel/main)
+"xVc" = (
+/obj/machinery/conveyor/east{
+	id = "QMLoad2"
+	},
+/obj/effect/decal/snow/clean/edge{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/quartermaster/storage)
 "xVt" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -120137,7 +120135,7 @@ bxb
 bxb
 bMq
 npO
-xzs
+mcQ
 bRR
 bHh
 bXd
@@ -120392,9 +120390,9 @@ bKy
 bxb
 bIV
 oRw
-gJt
+tKz
 npO
-mBh
+sIw
 bRR
 bHh
 bXd
@@ -120649,10 +120647,10 @@ bKG
 bxb
 bIU
 qZX
-gJt
+tKz
 bSj
-oxB
-tPJ
+vqn
+xVc
 bHh
 bXe
 bKz
@@ -121424,9 +121422,9 @@ pjK
 bOk
 ceE
 oux
-uQx
+uYV
 bXg
-uQx
+uYV
 bYE
 bxb
 aab
@@ -122190,7 +122188,7 @@ wkJ
 bFp
 bFm
 bMi
-efJ
+lBV
 bQg
 npO
 pjK
@@ -127067,7 +127065,7 @@ bwg
 bxl
 byI
 bEZ
-fOO
+rbV
 heR
 bJH
 bJa
@@ -128095,7 +128093,7 @@ bAC
 bCw
 bDS
 bFa
-tlD
+sCf
 bHj
 bJI
 bKK
@@ -130713,7 +130711,7 @@ cOf
 cOy
 cPo
 nkG
-mDT
+dzR
 cUt
 cWB
 cXL
@@ -131226,8 +131224,8 @@ ket
 cHT
 bHY
 cTe
-jXE
-fPb
+twd
+oUJ
 cRQ
 cWJ
 cPO
@@ -133950,7 +133948,7 @@ anA
 akv
 alp
 alG
-xpZ
+oKO
 anQ
 aoI
 aoR
@@ -134461,7 +134459,7 @@ acx
 acE
 acE
 anA
-eMX
+ufT
 alq
 afK
 amr
@@ -134769,11 +134767,11 @@ bja
 bkM
 bcU
 bok
-rgH
+lqp
 brf
 txC
 brg
-dyh
+tGI
 bxx
 aUS
 bAh
@@ -134975,7 +134973,7 @@ anA
 anA
 anA
 anA
-dVj
+fgD
 adY
 amm
 amN
@@ -135039,7 +135037,7 @@ bAi
 bEp
 aTS
 bBM
-sYL
+iyH
 bGg
 bJC
 bLw
@@ -135284,8 +135282,8 @@ bkP
 bmr
 brV
 brg
-hll
-hll
+eWe
+eWe
 brg
 brg
 aVG
@@ -135295,7 +135293,7 @@ bHy
 bAk
 bEp
 aTV
-wMb
+haB
 bGd
 bGi
 bJJ
@@ -135541,8 +135539,8 @@ bkO
 glo
 bmM
 brg
-gbV
-dyh
+laU
+tGI
 brg
 brg
 bJQ
@@ -135798,8 +135796,8 @@ bkO
 bmr
 wco
 brg
-rCU
-rCU
+ndS
+ndS
 brg
 brg
 brg
@@ -135809,7 +135807,7 @@ pdH
 bAk
 bEp
 aTY
-leh
+sQR
 bGf
 bIh
 bJL
@@ -136051,7 +136049,7 @@ aUS
 dji
 biS
 bom
-qxS
+esS
 bmr
 pjQ
 btm
@@ -136066,8 +136064,8 @@ rCZ
 bDA
 bEq
 aTW
-oKs
-mRM
+xpD
+xDO
 bGq
 bDe
 bLx
@@ -136323,7 +136321,7 @@ lYf
 bDb
 bEy
 aUP
-ezA
+lJC
 bGe
 bJA
 bLv
