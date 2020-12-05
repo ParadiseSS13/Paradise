@@ -24,6 +24,11 @@
 	var/collection_mode = 1;  //0 = pick one at a time, 1 = pick all on tile
 	var/use_sound = "rustle"	//sound played when used. null for no sound.
 
+	/// What kind of [/obj/item/stack] can this be folded into. (e.g. Boxes and cardboard)
+	var/foldable = null
+	/// How much of the stack item do you get.
+	var/foldable_amt = 0
+
 /obj/item/storage/MouseDrop(obj/over_object as obj)
 	if(ishuman(usr)) //so monkeys can take off their backpacks -- Urist
 		var/mob/M = usr
@@ -502,10 +507,33 @@
 		O.hear_message(M, msg)
 
 /obj/item/storage/attack_self(mob/user)
-
 	//Clicking on itself will empty it, if allow_quick_empty is TRUE
 	if(allow_quick_empty && user.is_in_active_hand(src))
 		drop_inventory(user)
+
+	else if(foldable)
+		fold(user)
+
+/obj/item/storage/proc/fold(mob/user)
+	if(length(contents))
+		to_chat(user, "<span class='warning'>You can't fold this [name] with items still inside!</span>")
+		return
+	if(!ispath(foldable))
+		return
+
+	var/found = FALSE
+	for(var/mob/M in range(1))
+		if(M.s_active == src) // Close any open UI windows first
+			close(M)
+		if(M == user)
+			found = TRUE
+	if(!found)	// User is too far away
+		return
+
+	to_chat(user, "<span class='notice'>You fold [src] flat.</span>")
+	var/obj/item/stack/I = new foldable(get_turf(src), foldable_amt)
+	user.put_in_hands(I)
+	qdel(src)
 
 //Returns the storage depth of an atom. This is the number of storage items the atom is contained in before reaching toplevel (the area).
 //Returns -1 if the atom was not found on container.

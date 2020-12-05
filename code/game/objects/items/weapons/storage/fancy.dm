@@ -46,6 +46,8 @@
 	storage_slots = 6
 	can_hold = list(/obj/item/reagent_containers/food/snacks/donut)
 	icon_type = "donut"
+	foldable = /obj/item/stack/sheet/cardboard
+	foldable_amt = 1
 
 /obj/item/storage/fancy/donut_box/update_icon()
 	overlays.Cut()
