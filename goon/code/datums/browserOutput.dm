@@ -218,7 +218,7 @@ var/list/chatResources = list(
   * Clears any locally stored code phrases to highlight
   */
 /datum/chatOutput/proc/clear_syndicate_codes()
-	notify_syndicate_codes("", "")
+	owner << output(null, "browseroutput:codewordsClear")
 
 /client/verb/debug_chat()
 	set hidden = 1
