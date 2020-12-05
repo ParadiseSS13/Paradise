@@ -39,10 +39,9 @@
  */
 
 /obj/item/storage/fancy/donut_box
+	name = "donut box"
 	icon_type = "donut"
 	icon_state = "donutbox_back"
-	name = "donut box"
-	name = "donut box"
 	storage_slots = 6
 	can_hold = list(/obj/item/reagent_containers/food/snacks/donut)
 	icon_type = "donut"
