@@ -204,7 +204,8 @@
 		L.origin_tech = I.origin_tech
 	else
 		I.forceMove(get_step(src, SOUTH))
-	I.materials = final_cost
+	if(istype(I))
+		I.materials = final_cost
 
 	// Clean up
 	being_built = null
