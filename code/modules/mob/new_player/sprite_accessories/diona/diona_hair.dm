@@ -71,12 +71,12 @@
 /datum/sprite_accessory/hair/diona/diona_lily
 	name = "Lilies"
 	icon_state = "lily"
-	glasses_over = 0
+	glasses_over = FALSE
 
 /datum/sprite_accessory/hair/diona/diona_sunflower
 	name = "Sunflower"
 	icon_state = "sunflower"
-	glasses_over = 0
+	glasses_over = FALSE
 
 /datum/sprite_accessory/hair/diona/diona_mushrooms
 	name = "Field Mushrooms"
@@ -101,4 +101,4 @@
 /datum/sprite_accessory/hair/diona/diona_bigleaf
 	name = "Big Leaf"
 	icon_state = "bigleaf"
-	glasses_over = 0
+	glasses_over = FALSE
