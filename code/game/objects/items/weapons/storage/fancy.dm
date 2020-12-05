@@ -62,9 +62,13 @@
 
 /obj/item/storage/fancy/donut_box/New()
 	..()
-	for(var/i = 1 to storage_slots)
-		new /obj/item/reagent_containers/food/snacks/donut(src)
+	if(!empty)
+		for(var/i = 1 to storage_slots)
+			new /obj/item/reagent_containers/food/snacks/donut(src)
 	update_icon()
+
+/obj/item/storage/fancy/donut_box/empty
+	empty = TRUE
 
 /*
  * Egg Box
