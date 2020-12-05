@@ -40,7 +40,7 @@ const IdDisk = (properties, context) => {
     ...rest
   } = properties;
   return (
-    <Section {...properties.rest}>
+    <Section {...rest}>
       <Box color="average" textAlign="center">
         <Icon name="exclamation-triangle" mr="0.5rem" />
         This machine only accepts ore. Gibtonite is not accepted.
