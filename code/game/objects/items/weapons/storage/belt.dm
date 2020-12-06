@@ -71,6 +71,7 @@
 	update_icon()
 
 /obj/item/storage/belt/utility/full/multitool/populate_contents()
+	..()
 	new /obj/item/multitool(src)
 	update_icon()
 
@@ -443,9 +444,7 @@
 	icon_state = "bandolier"
 	item_state = "bandolier"
 	storage_slots = 8
-	can_hold = list(
-		/obj/item/ammo_casing/shotgun
-		)
+	can_hold = list(/obj/item/ammo_casing/shotgun)
 
 /obj/item/storage/belt/bandolier/Initialize(mapload)
 	..()
@@ -460,21 +459,16 @@
 	new /obj/item/ammo_casing/shotgun/beanbag(src)
 	new /obj/item/ammo_casing/shotgun/beanbag(src)
 	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	update_icon()
 
 /obj/item/storage/belt/bandolier/update_icon()
 	..()
-	icon_state = "[initial(icon_state)]_[contents.len]"
+	icon_state = "[initial(icon_state)]_[length(contents)]"
 
-/obj/item/storage/belt/bandolier/attackby(obj/item/W, mob/user)
-	var/amount = contents.len
-	. = ..()
-	if(amount != contents.len)
-		update_icon()
-
-/obj/item/storage/belt/bandolier/remove_from_storage(obj/item/W as obj, atom/new_location)
+/obj/item/storage/belt/bandolier/attackby(obj/item/I, mob/user)
+	var/amount = length(contents)
 	..()
-	update_icon()
+	if(amount != length(contents))
+		update_icon()
 
 /obj/item/storage/belt/holster
 	name = "shoulder holster"

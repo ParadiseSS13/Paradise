@@ -1,6 +1,6 @@
 /obj/item/storage/box/syndicate // Traitor bundles
 
-	var/list/spy = list( // 37TC + one 0TC
+	var/static/list/spy = list( // 37TC + one 0TC
 		/obj/item/clothing/under/chameleon, // 2TC
 		/obj/item/clothing/mask/chameleon, // 0TC
 		/obj/item/card/id/syndicate, // 2TC
@@ -15,7 +15,7 @@
 		/obj/item/clothing/glasses/hud/security/chameleon, // 2TC
 		/obj/item/chameleon) // 7TC
 
-	var/list/thief = list( // 39TC
+	var/static/list/thief = list( // 39TC
 		/obj/item/gun/energy/kinetic_accelerator/crossbow, // 12TC
 		/obj/item/chameleon, // 7TC
 		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
@@ -25,7 +25,7 @@
 		/obj/item/storage/backpack/satchel_flat, // 2TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
-	var/list/bond = list( // 33TC + three 0TC
+	var/static/list/bond = list( // 33TC + three 0TC
 		/obj/item/gun/projectile/automatic/pistol, // 4TC
 		/obj/item/suppressor, // 1TC
 		/obj/item/ammo_box/magazine/m10mm/hp,  // 3TC
@@ -39,7 +39,7 @@
 		/obj/item/storage/box/syndie_kit/emp, // 2TC
 		/obj/item/CQC_manual) // 13TC
 
-	var/list/sabotage = list( // 41TC + two 0TC
+	var/static/list/sabotage = list( // 41TC + two 0TC
 		/obj/item/grenade/plastic/c4, // 1TC
 		/obj/item/grenade/plastic/c4, // 1TC
 		/obj/item/camera_bug, // 1TC
@@ -53,7 +53,7 @@
 		/obj/item/storage/box/syndie_kit/space, // 4TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
-	var/list/payday = list( // 35TC + four 0TC
+	var/static/list/payday = list( // 35TC + four 0TC
 		/obj/item/gun/projectile/revolver, // 13TC
 		/obj/item/ammo_box/a357, // 3TC
 		/obj/item/ammo_box/a357, // 3TC
@@ -67,7 +67,7 @@
 		/obj/item/thermal_drill/diamond_drill, // 1TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
-	var/list/implant = list( // 39TC + ten free TC
+	var/static/list/implant = list( // 39TC + ten free TC
 		/obj/item/implanter/freedom, // 5TC
 		/obj/item/implanter/uplink, // 14TC (ten free TC)
 		/obj/item/implanter/emp, // 0TC
@@ -76,7 +76,7 @@
 		/obj/item/implanter/storage, // 8TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
-	var/list/hacker = list( // 37TC + two 0TC
+	var/static/list/hacker = list( // 37TC + two 0TC
 		/obj/item/aiModule/syndicate, // 12TC
 		/obj/item/card/emag, // 6TC
 		/obj/item/encryptionkey/syndicate, // 2TC
@@ -88,7 +88,7 @@
 		/obj/item/multitool/ai_detect, // 1TC
 		/obj/item/flashlight/emp) // 2TC
 
-	var/list/darklord = list( // 24TC + two 0TC
+	var/static/list/darklord = list( // 24TC + two 0TC
 		/obj/item/melee/energy/sword/saber/red, // 8TC
 		/obj/item/melee/energy/sword/saber/red, // 8TC
 		/obj/item/dnainjector/telemut/darkbundle, // 0TC
@@ -98,7 +98,7 @@
 		/obj/item/clothing/mask/chameleon, // 2TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
-	var/list/professional = list( // 34TC + two 0TC
+	var/static/list/professional = list( // 34TC + two 0TC
 		/obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator, // 16TC
 		/obj/item/ammo_box/magazine/sniper_rounds/penetrator, // 5TC
 		/obj/item/ammo_box/magazine/sniper_rounds/soporific, // 3TC

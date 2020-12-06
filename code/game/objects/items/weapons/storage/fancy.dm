@@ -359,19 +359,17 @@
 	..()
 	update_icon()
 
-/obj/item/storage/lockbox/vials/update_icon(itemremoved = 0)
-	var/total_contents = length(contents) - itemremoved
-	icon_state = "vialbox[total_contents]"
-	overlays.Cut()
+/obj/item/storage/lockbox/vials/update_icon()
+	icon_state = "vialbox[length(contents)]"
+	cut_overlays()
 	if(!broken)
 		overlays += image(icon, src, "led[locked]")
 		if(locked)
 			overlays += image(icon, src, "cover")
 	else
 		overlays += image(icon, src, "ledb")
-	return
 
-/obj/item/storage/lockbox/vials/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/storage/lockbox/vials/attackby(obj/item/I, mob/user, params)
 	..()
 	update_icon()
 

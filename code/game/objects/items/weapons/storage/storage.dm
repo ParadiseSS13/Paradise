@@ -467,7 +467,7 @@
 		CHECK_TICK
 
 /obj/item/storage/Initialize(mapload)
-	..()
+	. = ..()
 	can_hold = typecacheof(can_hold)
 	cant_hold = typecacheof(cant_hold)
 
