@@ -84,7 +84,7 @@
 	activation_message = "Ye feel like a rite prat like, innit?"
 	deactivation_message = "You no longer feel like being rude and sassy."
 	mutation = CHAV
-	/var/static/list/chavlinks = list(
+	var/static/list/chavlinks = list(
 	"arrest" = "nick",
 	"arrested" = "nicked",
 	"ass" = "arse",
@@ -155,9 +155,9 @@
 
 /datum/dna/gene/disability/speech/chav/OnSay(mob/M, message)
 	var/static/regex/R = regex("\\b([chavlinks.Join("|")])\\b", "g")
-	message = R.Replace(message, /proc/rep_test)
+	message = R.Replace(message, /datum/dna/gene/disability/speech/chav/proc/rep_test)
 	return message
-/proc/rep_test(matched)
+/datum/dna/gene/disability/speech/chav/proc/rep_test(matched)
 	return chavlinks[matched]
 	
 // WAS: /datum/bioEffect/swedish
