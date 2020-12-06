@@ -84,13 +84,7 @@
 	activation_message = "Ye feel like a rite prat like, innit?"
 	deactivation_message = "You no longer feel like being rude and sassy."
 	mutation = CHAV
-
-/datum/dna/gene/disability/speech/chav/New()
-	..()
-	block = GLOB.chavblock
-	
-//Normal word first, chav word second
-/var/static/list/chavlinks = list(
+	/var/static/list/chavlinks = list(
 	"arrest" = "nick",
 	"arrested" = "nicked",
 	"ass" = "arse",
@@ -151,7 +145,14 @@
 	"yikes" = "blimey",
 	"you" = "u",
 	"your" = "ur"
-)
+	)
+
+/datum/dna/gene/disability/speech/chav/New()
+	..()
+	block = GLOB.chavblock
+	
+//Normal word first, chav word second
+
 /datum/dna/gene/disability/speech/chav/OnSay(mob/M, message)
 	var/static/regex/R = regex("\\b([chavlinks.Join("|")])\\b", "g")
 	message = R.Replace(message, /proc/rep_test)
