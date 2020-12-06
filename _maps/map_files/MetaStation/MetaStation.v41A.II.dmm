@@ -66117,7 +66117,6 @@
 "cjr" = (
 /obj/machinery/mecha_part_fabricator{
 	dir = 1;
-	id = "0";
 	name = "counterfeit fabricator";
 	req_access = "0"
 	},
