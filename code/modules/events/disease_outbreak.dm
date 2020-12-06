@@ -23,8 +23,7 @@
 	GLOB.event_announcement.Announce("Confirmed outbreak of level 7 major viral biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", new_sound = 'sound/AI/outbreak7.ogg')
 	for(var/p in GLOB.dead_mob_list)
 		var/mob/M = p
-		if(isobserver(M) || M.stat == DEAD)
-			to_chat(M, "<span class='deadsay'><b>[patient_zero]</b> has been infected with <b>[D.name]</b> ([ghost_follow_link(patient_zero, M)])</span>")
+		to_chat(M, "<span class='deadsay'><b>[patient_zero]</b> has been infected with <b>[D.name]</b> ([ghost_follow_link(patient_zero, M)])</span>")
 
 /datum/event/disease_outbreak/start()
 	for(var/mob/living/carbon/human/H in shuffle(GLOB.alive_mob_list))
