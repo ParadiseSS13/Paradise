@@ -18,9 +18,9 @@
 	resistance_flags = FLAMMABLE
 	var/icon_type
 
-/obj/item/storage/fancy/update_icon(var/itemremoved = 0)
-	var/total_contents = src.contents.len - itemremoved
-	src.icon_state = "[src.icon_type]box[total_contents]"
+/obj/item/storage/fancy/update_icon(itemremoved = 0)
+	var/total_contents = length(contents) - itemremoved
+	icon_state = "[icon_type]box[total_contents]"
 	return
 
 /obj/item/storage/fancy/examine(mob/user)
@@ -28,11 +28,11 @@
 	if(in_range(user, src))
 		var/len = LAZYLEN(contents)
 		if(len <= 0)
-			. += "There are no [src.icon_type]s left in the box."
+			. += "There are no [icon_type]s left in the box."
 		else if(len == 1)
-			. += "There is one [src.icon_type] left in the box."
+			. += "There is one [icon_type] left in the box."
 		else
-			. += "There are [src.contents.len] [src.icon_type]s in the box."
+			. += "There are [length(contents)] [icon_type]s in the box."
 
 /*
  * Donut Box
@@ -60,9 +60,8 @@
 
 	overlays += icon('icons/obj/food/containers.dmi', "donutbox_front")
 
-/obj/item/storage/fancy/donut_box/New()
-	..()
-	for(var/i = 1 to storage_slots)
+/obj/item/storage/fancy/donut_box/populate_contents()
+	for(var/i in 1 to storage_slots)
 		new /obj/item/reagent_containers/food/snacks/donut(src)
 	update_icon()
 
@@ -78,11 +77,9 @@
 	storage_slots = 12
 	can_hold = list(/obj/item/reagent_containers/food/snacks/egg)
 
-/obj/item/storage/fancy/egg_box/New()
-	..()
-	for(var/i=1; i <= storage_slots; i++)
+/obj/item/storage/fancy/egg_box/populate_contents()
+	for(var/I in 1 to storage_slots)
 		new /obj/item/reagent_containers/food/snacks/egg(src)
-	return
 
 /*
  * Candle Box
@@ -100,21 +97,17 @@
 	slot_flags = SLOT_BELT
 
 
-/obj/item/storage/fancy/candle_box/full/New()
-	..()
-	for(var/i=1; i <= storage_slots; i++)
+/obj/item/storage/fancy/candle_box/full/populate_contents()
+	for(var/I in 1 to storage_slots)
 		new /obj/item/candle(src)
-	return
 
 /obj/item/storage/fancy/candle_box/eternal
 	name = "Eternal Candle pack"
 	desc = "A pack of red candles made with a special wax."
 
-/obj/item/storage/fancy/candle_box/eternal/New()
-	..()
-	for(var/i=1; i <= storage_slots; i++)
+/obj/item/storage/fancy/candle_box/eternal/populate_contents()
+	for(var/I in 1 to storage_slots)
 		new /obj/item/candle/eternal(src)
-	return
 
 /*
  * Crayon Box
@@ -132,8 +125,7 @@
 		/obj/item/toy/crayon
 	)
 
-/obj/item/storage/fancy/crayons/New()
-	..()
+/obj/item/storage/fancy/crayons/populate_contents()
 	new /obj/item/toy/crayon/red(src)
 	new /obj/item/toy/crayon/orange(src)
 	new /obj/item/toy/crayon/yellow(src)
@@ -182,9 +174,8 @@
 	icon_type = "cigarette"
 	var/cigarette_type = /obj/item/clothing/mask/cigarette
 
-/obj/item/storage/fancy/cigarettes/New()
-	..()
-	for(var/i = 1 to storage_slots)
+/obj/item/storage/fancy/cigarettes/populate_contents()
+	for(var/I in 1 to storage_slots)
 		new cigarette_type(src)
 
 /obj/item/storage/fancy/cigarettes/update_icon()
@@ -246,7 +237,7 @@
 	icon_state = "robustpacket"
 	item_state = "robustpacket"
 
-/obj/item/storage/fancy/cigarettes/syndicate/New()
+/obj/item/storage/fancy/cigarettes/syndicate/Initialize(mapload)
 	..()
 	var/new_name = pick("evil", "suspicious", "ominous", "donk-flavored", "robust", "sneaky")
 	name = "[new_name] cigarette packet"
@@ -259,7 +250,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/syndicate
 
 /obj/item/storage/fancy/cigarettes/cigpack_med
-	name = "Medical Marijuana Packet"
+	name = "\improper Medical Marijuana Packet"
 	desc = "A prescription packet containing six marijuana cigarettes."
 	icon_state = "medpacket"
 	item_state = "medpacket"
@@ -323,9 +314,8 @@
 	icon_type = "rolling paper"
 	can_hold = list(/obj/item/rollingpaper)
 
-/obj/item/storage/fancy/rollingpapers/New()
-	..()
-	for(var/i in 1 to storage_slots)
+/obj/item/storage/fancy/rollingpapers/populate_contents()
+	for(var/I in 1 to storage_slots)
 		new /obj/item/rollingpaper(src)
 
 /obj/item/storage/fancy/rollingpapers/update_icon()
@@ -346,9 +336,8 @@
 	can_hold = list(/obj/item/reagent_containers/glass/beaker/vial)
 
 
-/obj/item/storage/fancy/vials/New()
-	..()
-	for(var/i=1; i <= storage_slots; i++)
+/obj/item/storage/fancy/vials/populate_contents()
+	for(var/I in 1 to storage_slots)
 		new /obj/item/reagent_containers/glass/beaker/vial(src)
 	return
 
@@ -364,14 +353,14 @@
 	storage_slots = 6
 	req_access = list(ACCESS_VIROLOGY)
 
-/obj/item/storage/lockbox/vials/New()
+/obj/item/storage/lockbox/vials/Initialize(mapload)
 	..()
 	update_icon()
 
-/obj/item/storage/lockbox/vials/update_icon(var/itemremoved = 0)
-	var/total_contents = src.contents.len - itemremoved
-	src.icon_state = "vialbox[total_contents]"
-	src.overlays.Cut()
+/obj/item/storage/lockbox/vials/update_icon(itemremoved = 0)
+	var/total_contents = length(contents) - itemremoved
+	icon_state = "vialbox[total_contents]"
+	overlays.Cut()
 	if(!broken)
 		overlays += image(icon, src, "led[locked]")
 		if(locked)
@@ -399,8 +388,7 @@
 /obj/item/storage/firstaid/aquatic_kit/full
 	desc = "It's a starter kit for an aquarium; includes 1 tank brush, 1 egg scoop, 1 fish net, 1 container of fish food and 1 fish bag."
 
-/obj/item/storage/firstaid/aquatic_kit/full/New()
-	..()
+/obj/item/storage/firstaid/aquatic_kit/full/populate_contents()
 	new /obj/item/egg_scoop(src)
 	new /obj/item/fish_net(src)
 	new /obj/item/tank_brush(src)

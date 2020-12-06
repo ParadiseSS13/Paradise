@@ -5,8 +5,8 @@
 	icon_state = "red"
 	item_state = "toolbox_red"
 	flags = CONDUCT
-	force = 10.0
-	throwforce = 10.0
+	force = 10
+	throwforce = 10
 	throw_speed = 2
 	throw_range = 7
 	w_class = WEIGHT_CLASS_BULKY
@@ -20,8 +20,7 @@
 	icon_state = "red"
 	item_state = "toolbox_red"
 
-/obj/item/storage/toolbox/emergency/New()
-	..()
+/obj/item/storage/toolbox/emergency/populate_contents()
 	new /obj/item/crowbar/red(src)
 	new /obj/item/weldingtool/mini(src)
 	new /obj/item/extinguisher/mini(src)
@@ -40,8 +39,7 @@
 	icon_state = "blue"
 	item_state = "toolbox_blue"
 
-/obj/item/storage/toolbox/mechanical/New()
-	..()
+/obj/item/storage/toolbox/mechanical/populate_contents()
 	new /obj/item/screwdriver(src)
 	new /obj/item/wrench(src)
 	new /obj/item/weldingtool(src)
@@ -61,8 +59,7 @@
 	icon_state = "yellow"
 	item_state = "toolbox_yellow"
 
-/obj/item/storage/toolbox/electrical/New()
-	..()
+/obj/item/storage/toolbox/electrical/populate_contents()
 	var/pickedcolor = pick(COLOR_RED, COLOR_YELLOW, COLOR_GREEN, COLOR_BLUE, COLOR_PINK, COLOR_ORANGE, COLOR_CYAN, COLOR_WHITE)
 	new /obj/item/screwdriver(src)
 	new /obj/item/wirecutters(src)
@@ -80,12 +77,11 @@
 	icon_state = "syndicate"
 	item_state = "toolbox_syndi"
 	origin_tech = "combat=2;syndicate=1;engineering=2"
-	silent = 1
-	force = 15.0
-	throwforce = 18.0
+	silent = TRUE
+	force = 15
+	throwforce = 18
 
-/obj/item/storage/toolbox/syndicate/New()
-	..()
+/obj/item/storage/toolbox/syndicate/populate_contents()
 	new /obj/item/screwdriver(src, "red")
 	new /obj/item/wrench(src)
 	new /obj/item/weldingtool/largetank(src)
@@ -105,8 +101,7 @@
 	icon_state = "blue"
 	item_state = "toolbox_blue"
 
-/obj/item/storage/toolbox/drone/New()
-	..()
+/obj/item/storage/toolbox/drone/populate_contents()
 	var/pickedcolor = pick(pick(COLOR_RED, COLOR_YELLOW, COLOR_GREEN, COLOR_BLUE, COLOR_PINK, COLOR_ORANGE, COLOR_CYAN, COLOR_WHITE))
 	new /obj/item/screwdriver(src)
 	new /obj/item/wrench(src)
@@ -128,8 +123,7 @@
 	storage_slots = 28
 	attack_verb = list("robusted", "crushed", "smashed")
 
-/obj/item/storage/toolbox/brass/prefilled/New()
-	..()
+/obj/item/storage/toolbox/brass/prefilled/populate_contents()
 	new /obj/item/screwdriver/brass(src)
 	new /obj/item/wirecutters/brass(src)
 	new /obj/item/wrench/brass(src)

@@ -10,7 +10,7 @@
 	var/deity_name = "Christ"
 
 /obj/item/storage/bible/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='warning'><b>[user] stares into [src.name] and attempts to transcend understanding of the universe!</b></span>")
+	to_chat(viewers(user), "<span class='warning'><b>[user] stares into [name] and attempts to transcend understanding of the universe!</b></span>")
 	user.dust()
 	return OBLITERATION
 
@@ -29,8 +29,7 @@
 	desc = "To be applied to the head repeatedly."
 	icon_state ="bible"
 
-/obj/item/storage/bible/booze/New()
-	..()
+/obj/item/storage/bible/booze/populate_contents()
 	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
 	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
 	new /obj/item/stack/spacecash(src)
@@ -72,20 +71,20 @@
 		if((istype(M, /mob/living/carbon/human) && prob(60)))
 			bless(M)
 			for(var/mob/O in viewers(M, null))
-				O.show_message(text("<span class='danger'>[] heals [] with the power of [src.deity_name]!</span>", user, M), 1)
-			to_chat(M, "<span class='warning'>May the power of [src.deity_name] compel you to be healed!</span>")
-			playsound(src.loc, "punch", 25, 1, -1)
+				O.show_message(text("<span class='danger'>[] heals [] with the power of [deity_name]!</span>", user, M), 1)
+			to_chat(M, "<span class='warning'>May the power of [deity_name] compel you to be healed!</span>")
+			playsound(loc, "punch", 25, 1, -1)
 		else
 			if(ishuman(M) && !istype(M:head, /obj/item/clothing/head/helmet))
 				M.adjustBrainLoss(10)
 				to_chat(M, "<span class='warning'>You feel dumber.</span>")
 			for(var/mob/O in viewers(M, null))
 				O.show_message(text("<span class='danger'>[] beats [] over the head with []!</span>", user, M, src), 1)
-			playsound(src.loc, "punch", 25, 1, -1)
+			playsound(loc, "punch", 25, 1, -1)
 	else if(M.stat == 2)
 		for(var/mob/O in viewers(M, null))
 			O.show_message(text("<span class='danger'>[] smacks []'s lifeless corpse with [].</span>", user, M, src), 1)
-		playsound(src.loc, "punch", 25, 1, -1)
+		playsound(loc, "punch", 25, 1, -1)
 	return
 
 /obj/item/storage/bible/afterattack(atom/A, mob/user as mob, proximity)
@@ -114,5 +113,5 @@
 			A.reagents.add_reagent("holywater",unholy2clean)
 
 /obj/item/storage/bible/attackby(obj/item/W as obj, mob/user as mob, params)
-	playsound(src.loc, "rustle", 50, 1, -5)
+	playsound(loc, "rustle", 50, 1, -5)
 	..()

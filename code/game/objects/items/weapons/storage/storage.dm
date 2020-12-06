@@ -9,20 +9,33 @@
 	name = "storage"
 	icon = 'icons/obj/storage.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
-	var/silent = 0 // No message on putting items in
-	var/list/can_hold = new/list() //List of objects which this item can store (if set, it can't store anything else)
-	var/list/cant_hold = new/list() //List of objects which this item can't store (in effect only if can_hold isn't set)
-	var/max_w_class = WEIGHT_CLASS_SMALL //Max size of objects that this object can store (in effect only if can_hold isn't set)
-	var/max_combined_w_class = 14 //The sum of the w_classes of all the items in this storage item.
-	var/storage_slots = 7 //The number of storage slots in this container.
+	/// No message on putting items in.
+	var/silent = FALSE
+	/// List of objects which this item can store (if set, it can't store anything else)
+	var/list/can_hold = new/list()
+	/// List of objects which this item can't store (in effect only if can_hold isn't set)
+	var/list/cant_hold = new/list()
+	/// Max size of objects that this object can store (in effect only if can_hold isn't set)
+	var/max_w_class = WEIGHT_CLASS_SMALL
+	/// The sum of the w_classes of all the items in this storage item.
+	var/max_combined_w_class = 14
+	/// The number of storage slots in this container.
+	var/storage_slots = 7
 	var/obj/screen/storage/boxes = null
 	var/obj/screen/close/closer = null
-	var/use_to_pickup	//Set this to make it possible to use this item in an inverse way, so you can have the item in your hand and click items on the floor to pick them up.
-	var/display_contents_with_number	//Set this to make the storage item group contents of the same type and display them as a number.
-	var/allow_quick_empty	//Set this variable to allow the object to have the 'empty' verb, which dumps all the contents on the floor.
-	var/allow_quick_gather	//Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.
-	var/collection_mode = 1;  //0 = pick one at a time, 1 = pick all on tile
-	var/use_sound = "rustle"	//sound played when used. null for no sound.
+
+	/// Set this to make it possible to use this item in an inverse way, so you can have the item in your hand and click items on the floor to pick them up.
+	var/use_to_pickup = FALSE
+	/// Set this to make the storage item group contents of the same type and display them as a number.
+	var/display_contents_with_number
+	/// Set this variable to allow the object to have the 'empty' verb, which dumps all the contents on the floor.
+	var/allow_quick_empty
+	/// Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.
+	var/allow_quick_gather
+	/// Pick up one item at a time or everything on the tile
+	var/collect_all = TRUE
+	/// Sound played when used. `null` for no sound.
+	var/use_sound = "rustle"
 
 	/// What kind of [/obj/item/stack] can this be folded into. (e.g. Boxes and cardboard)
 	var/foldable = null
@@ -429,8 +442,8 @@
 	set name = "Switch Gathering Method"
 	set category = "Object"
 
-	collection_mode = !collection_mode
-	switch(collection_mode)
+	collect_all = !collect_all
+	switch(collect_all)
 		if(1)
 			to_chat(usr, "[src] now picks up all items in a tile at once.")
 		if(0)
@@ -453,7 +466,7 @@
 		remove_from_storage(I, T)
 		CHECK_TICK
 
-/obj/item/storage/New()
+/obj/item/storage/Initialize(mapload)
 	..()
 	can_hold = typecacheof(can_hold)
 	cant_hold = typecacheof(cant_hold)
@@ -468,19 +481,27 @@
 	else
 		verbs -= /obj/item/storage/verb/toggle_gathering_mode
 
-	boxes = new /obj/screen/storage(  )
+	populate_contents()
+
+	boxes = new /obj/screen/storage()
 	boxes.name = "storage"
 	boxes.master = src
 	boxes.icon_state = "block"
 	boxes.screen_loc = "7,7 to 10,8"
 	boxes.layer = HUD_LAYER
 	boxes.plane = HUD_PLANE
-	closer = new /obj/screen/close(  )
+	closer = new /obj/screen/close()
 	closer.master = src
 	closer.icon_state = "backpack_close"
 	closer.layer = ABOVE_HUD_LAYER
 	closer.plane = ABOVE_HUD_PLANE
 	orient2hud()
+
+/**
+  * Override with whatever you want to put in the container
+  */
+/obj/item/storage/proc/populate_contents()
+	return // Override
 
 /obj/item/storage/Destroy()
 	for(var/obj/O in contents)
