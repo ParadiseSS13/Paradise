@@ -57,10 +57,14 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	layer = BELOW_MOB_LAYER
 	AIStatus = AI_OFF
 	del_on_death = TRUE
+	/// Current spawn cooldown remaining
 	var/swarmer_spawn_cooldown = 0
-	var/swarmer_spawn_cooldown_amt = 15 SECONDS //Seconds between the swarmers we spawn
+	/// Current help cooldown remaining
 	var/call_help_cooldown = 0
-	var/call_help_cooldown_amt = 15 SECONDS //Seconds between calling swarmers to help us when attacked
+	/// Time between the swarmers we spawn
+	var/swarmer_spawn_cooldown_amt = 15 SECONDS
+	/// Time between calling swarmers to help us when attacked
+	var/call_help_cooldown_amt = 15 SECONDS
 	var/static/list/swarmer_caps
 
 
