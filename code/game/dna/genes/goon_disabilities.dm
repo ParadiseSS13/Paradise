@@ -90,7 +90,7 @@
 	block = GLOB.chavblock
 	
 //Normal word first, chav word second
-var/global/chavlinks = list(
+/var/static/list/chavlinks = list(
 	"arrest" = "nick",
 	"arrested" = "nicked",
 	"ass" = "arse",
@@ -153,8 +153,7 @@ var/global/chavlinks = list(
 	"your" = "ur"
 )
 /datum/dna/gene/disability/speech/chav/OnSay(mob/M, message)
-	var/static/chavjoined = jointext(chavlinks, "|")
-	var/static/regex/R = regex("\\b[chavjoined]\\b", "g")
+	var/static/regex/R = regex("\\b([chavlinks.Join("|")])\\b", "g")
 	message = R.Replace(message, /proc/rep_test)
 	return message
 /proc/rep_test(matched)
