@@ -154,9 +154,9 @@
 	
 /datum/dna/gene/disability/speech/chav/OnSay(mob/M, message)
 	var/static/regex/R = regex("\\b([chavlinks.Join("|")])\\b", "g")
-	message = R.Replace(message, /datum/dna/gene/disability/speech/chav/proc/rep_test)
+	message = R.Replace(message, /datum/dna/gene/disability/speech/chav/proc/replace_speech)
 	return message
-/datum/dna/gene/disability/speech/chav/proc/rep_test(matched)
+/datum/dna/gene/disability/speech/chav/proc/replace_speech(matched)
 	return chavlinks[matched]
 	
 // WAS: /datum/bioEffect/swedish
