@@ -1216,6 +1216,11 @@
 /obj/item/gift,
 /obj/item/clothing/head/cowboyhat/black,
 /obj/structure/snow,
+/obj/item/toy/figure/secofficer,
+/obj/item/gun/projectile/automatic/toy/pistol,
+/obj/item/ammo_box/magazine/toy/pistol/riot,
+/obj/item/clothing/head/helmet/justice,
+/obj/item/nanomob_card,
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "adY" = (
@@ -5408,6 +5413,11 @@
 /obj/item/gift,
 /obj/item/clothing/head/cowboyhat/pink,
 /obj/structure/snow,
+/obj/item/toy/figure/hos,
+/obj/item/gun/projectile/automatic/sniper_rifle/toy,
+/obj/item/ammo_box/magazine/toy/sniper_rounds,
+/obj/item/toy/prize/gygax,
+/obj/item/nanomob_card,
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "akG" = (
@@ -19957,6 +19967,10 @@
 	pixel_y = -22
 	},
 /obj/structure/snow,
+/obj/item/gift,
+/obj/item/toy/figure/detective,
+/obj/item/gun/projectile/revolver/capgun,
+/obj/item/lighter/zippo/engraved,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -25517,6 +25531,10 @@
 	},
 /obj/item/gift,
 /obj/structure/snow,
+/obj/item/toy/figure/assistant,
+/obj/item/toy/syndicateballoon,
+/obj/item/toy/sword,
+/obj/item/nanomob_card,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -37147,8 +37165,8 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "bqw" = (
-/obj/item/gift,
 /obj/structure/snow,
+/obj/item/a_gift,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "bqy" = (
@@ -38859,8 +38877,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/item/gift,
 /obj/structure/snow,
+/obj/item/a_gift,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "buh" = (
@@ -39798,8 +39816,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/item/gift,
 /obj/structure/snow,
+/obj/item/a_gift,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "bvX" = (
@@ -39833,6 +39851,7 @@
 	dir = 4
 	},
 /obj/structure/snow,
+/obj/item/a_gift,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "bwa" = (
@@ -39872,6 +39891,7 @@
 	dir = 4
 	},
 /obj/structure/snow,
+/obj/item/a_gift,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "bwc" = (
@@ -40576,7 +40596,6 @@
 /area/bridge)
 "bxx" = (
 /obj/structure/flora/tree/pine/xmas,
-/obj/item/gift,
 /obj/structure/snow,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
@@ -41305,8 +41324,10 @@
 	pixel_x = 0;
 	pixel_y = 24
 	},
-/obj/item/gift,
 /obj/structure/snow,
+/obj/item/nanomob_card,
+/obj/item/a_gift,
+/obj/item/twohanded/dualsaber/toy,
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
 "byI" = (
@@ -42817,6 +42838,10 @@
 /obj/structure/disposalpipe/segment,
 /obj/item/gift,
 /obj/structure/snow,
+/obj/item/toy/figure/md,
+/obj/item/toy/therapy,
+/obj/item/toy/foamblade,
+/obj/item/nanomob_card,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "white"
@@ -43374,7 +43399,6 @@
 /obj/item/decorations/sticky_decorations/flammable/tinsel/blue{
 	pixel_y = 19
 	},
-/obj/item/gift,
 /obj/structure/snow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -43425,6 +43449,10 @@
 	},
 /obj/item/gift,
 /obj/structure/snow,
+/obj/item/toy/figure/virologist,
+/obj/item/toy/therapy,
+/obj/item/toy/plushie/deer,
+/obj/item/nanomob_card,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue";
@@ -43543,6 +43571,11 @@
 "bDo" = (
 /obj/item/gift,
 /obj/structure/snow,
+/obj/item/nanomob_card,
+/obj/item/toy/figure/hop,
+/obj/item/toy/figure/ian,
+/obj/item/toy/plushie/corgi,
+/obj/item/toy/plushie/girly_corgi,
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
 "bDp" = (
@@ -44170,6 +44203,10 @@
 	},
 /obj/item/gift,
 /obj/structure/snow,
+/obj/item/nanomob_card,
+/obj/item/toy/figure/captain,
+/obj/item/toy/nuke,
+/obj/item/toy/plushie/orange_fox,
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
 "bER" = (
@@ -60971,6 +61008,7 @@
 	icon_state = "2-8";
 	tag = ""
 	},
+/obj/item/toy/cattoy,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkbluecorners"
@@ -62850,6 +62888,10 @@
 "cjf" = (
 /obj/structure/table/wood,
 /obj/structure/snow,
+/obj/item/a_gift,
+/obj/item/id_decal/centcom,
+/obj/item/gun/projectile/shotgun/toy/tommygun,
+/obj/item/ammo_box/magazine/internal/shot/toy/tommygun,
 /turf/simulated/floor/carpet,
 /area/ntrep)
 "cjg" = (
@@ -67644,6 +67686,10 @@
 "cqJ" = (
 /obj/structure/table/wood,
 /obj/structure/snow,
+/obj/item/a_gift,
+/obj/item/id_decal/centcom,
+/obj/item/gun/projectile/automatic/l6_saw/toy/riot,
+/obj/item/ammo_box/magazine/toy/m762/riot,
 /turf/simulated/floor/plasteel{
 	icon_state = "bcarpet05"
 	},
@@ -68316,8 +68362,11 @@
 /area/toxins/mixing)
 "crO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/item/gift,
 /obj/structure/snow,
+/obj/item/toy/figure/chemist,
+/obj/item/a_gift,
+/obj/item/nanomob_card,
+/obj/item/toy/figure/syndie,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -70290,8 +70339,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/item/gift,
 /obj/structure/snow,
+/obj/item/toy/figure/geneticist,
+/obj/item/a_gift,
+/obj/item/nanomob_card,
+/obj/item/toy/plushie/nukeplushie,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -81901,9 +81953,6 @@
 	pixel_x = 27
 	},
 /obj/structure/flora/tree/pine/xmas,
-/obj/item/gift,
-/obj/item/gift,
-/obj/item/gift,
 /obj/structure/snow,
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
@@ -97144,6 +97193,9 @@
 "gdQ" = (
 /obj/item/gift,
 /obj/structure/snow,
+/obj/item/toy/figure/scientist,
+/obj/item/nanomob_card,
+/obj/item/toy/plushie/slimeplushie,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -97356,6 +97408,15 @@
 	},
 /turf/simulated/floor/carpet,
 /area/bridge/meeting_room)
+"hfg" = (
+/obj/structure/snow,
+/obj/item/a_gift,
+/obj/item/toy/figure/engineer,
+/obj/item/toy/spinningtoy,
+/obj/item/toy/carpplushie/dragon,
+/obj/item/nanomob_card,
+/turf/simulated/floor/plasteel,
+/area/engine/equipmentstorage)
 "hnS" = (
 /obj/structure/chair/sofa,
 /obj/structure/snow,
@@ -97462,6 +97523,20 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
+"hON" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/item/gift,
+/obj/structure/snow,
+/obj/item/toy/figure/mime,
+/obj/item/toy/prize/seraph,
+/obj/item/toy/crayon/rainbow,
+/obj/item/nanomob_card,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/crew_quarters/dorms)
 "hSg" = (
 /obj/effect/landmark/start{
 	name = "Station Engineer"
@@ -97555,6 +97630,11 @@
 "iyH" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/snow,
+/obj/item/gift,
+/obj/item/toy/figure/cmo,
+/obj/item/toy/prize/odysseus,
+/obj/item/toy/plushie/tuxedo_cat,
+/obj/item/nanomob_card,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "white"
@@ -97813,6 +97893,11 @@
 /obj/item/gift,
 /obj/item/clothing/head/cowboyhat/white,
 /obj/structure/snow,
+/obj/item/toy/figure/warden,
+/obj/item/gun/projectile/automatic/toy/pistol/enforcer,
+/obj/item/ammo_box/magazine/toy/enforcer,
+/obj/item/toy/prize/durand,
+/obj/item/nanomob_card,
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "jwX" = (
@@ -98551,6 +98636,9 @@
 /area/crew_quarters/dorms)
 "mAv" = (
 /obj/structure/snow,
+/obj/item/a_gift,
+/obj/item/a_gift,
+/obj/item/nanomob_card,
 /turf/simulated/floor/carpet/black,
 /area/chapel/office)
 "mGt" = (
@@ -99128,6 +99216,15 @@
 	tag = "icon-vault (NORTHEAST)"
 	},
 /area/turret_protected/ai)
+"pYr" = (
+/obj/structure/snow,
+/obj/item/a_gift,
+/obj/item/toy/figure/atmos,
+/obj/item/toy/minimeteor,
+/obj/item/toy/carpplushie/electric,
+/obj/item/nanomob_card,
+/turf/simulated/floor/plasteel,
+/area/engine/equipmentstorage)
 "pZO" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
@@ -99193,6 +99290,10 @@
 "qol" = (
 /obj/item/gift,
 /obj/structure/snow,
+/obj/item/toy/figure/clown,
+/obj/item/toy/prize/honk,
+/obj/item/toy/crayon/mime,
+/obj/item/nanomob_card,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	tag = "icon-vault"
@@ -99348,6 +99449,9 @@
 	},
 /obj/item/gift,
 /obj/structure/snow,
+/obj/item/toy/figure/cargotech,
+/obj/item/toy/prize/deathripley,
+/obj/item/nanomob_card,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "rbV" = (
@@ -99658,6 +99762,15 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/dorms)
+"sxv" = (
+/obj/structure/snow,
+/obj/item/a_gift,
+/obj/item/toy/figure/ce,
+/obj/item/toy/carpplushie/gold,
+/obj/item/toy/blink,
+/obj/item/nanomob_card,
+/turf/simulated/floor/plasteel,
+/area/engine/equipmentstorage)
 "sBH" = (
 /obj/structure/closet/secure_closet/medical3,
 /turf/simulated/floor/plasteel{
@@ -99873,6 +99986,10 @@
 "tBt" = (
 /obj/item/gift,
 /obj/structure/snow,
+/obj/item/toy/figure/bartender,
+/obj/item/toy/katana,
+/obj/item/id_decal/silver,
+/obj/item/nanomob_card,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "tBT" = (
@@ -99911,6 +100028,9 @@
 "tKz" = (
 /obj/item/gift,
 /obj/structure/snow,
+/obj/item/toy/figure/miner,
+/obj/item/toy/prize/ripley,
+/obj/item/nanomob_card,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "tSs" = (
@@ -100012,6 +100132,10 @@
 	},
 /obj/item/gift,
 /obj/structure/snow,
+/obj/item/toy/figure/rd,
+/obj/item/toy/plushie/face_hugger,
+/obj/item/toy/prize/phazon,
+/obj/item/nanomob_card,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -100085,6 +100209,10 @@
 	},
 /obj/item/gift,
 /obj/structure/snow,
+/obj/item/toy/figure/roboticist,
+/obj/item/toy/plushie/ipcplushie,
+/obj/item/nanomob_card,
+/obj/item/toy/plushie/robo_corgi,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -100134,6 +100262,14 @@
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/crew_quarters/kitchen)
+"vEo" = (
+/obj/item/gift,
+/obj/structure/snow,
+/obj/item/toy/figure/qm,
+/obj/item/toy/prize/fireripley,
+/obj/item/nanomob_card,
+/turf/simulated/floor/plasteel,
+/area/quartermaster/storage)
 "vFE" = (
 /obj/structure/snow{
 	icon_state = "snow_corner"
@@ -100356,6 +100492,12 @@
 /obj/structure/snow,
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
+"wzH" = (
+/obj/structure/snow,
+/obj/item/a_gift,
+/obj/item/nanomob_card,
+/turf/simulated/floor/wood,
+/area/crew_quarters/bar)
 "wGT" = (
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
@@ -100411,7 +100553,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/port)
 "xan" = (
-/obj/item/gift,
 /obj/structure/snow{
 	dir = 8;
 	icon_state = "snow_corner"
@@ -100420,6 +100561,8 @@
 	dir = 1;
 	icon_state = "snow_corner"
 	},
+/obj/item/a_gift,
+/obj/item/nanomob_card,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	tag = "icon-vault"
@@ -100713,6 +100856,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
+"ykk" = (
+/obj/item/gift,
+/obj/structure/snow,
+/obj/item/toy/figure/chef,
+/obj/item/toy/minigibber,
+/obj/item/id_decal/emag,
+/obj/item/nanomob_card,
+/turf/simulated/floor/wood,
+/area/crew_quarters/bar)
 "ylx" = (
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
@@ -120413,7 +120565,7 @@ bKG
 bxb
 bIU
 qZX
-tKz
+vEo
 bSj
 rAw
 bRR
@@ -131760,7 +131912,7 @@ cNQ
 cON
 opx
 cQN
-nkG
+sxv
 cRX
 nkG
 cRS
@@ -132017,8 +132169,8 @@ eWZ
 hED
 eWZ
 cyh
-nkG
-nkG
+hfg
+pYr
 cQP
 cRV
 cSY
@@ -134793,9 +134945,9 @@ brT
 bmq
 brg
 vNE
-vNE
+wzH
 tBt
-tBt
+ykk
 aUS
 bAi
 bHt
@@ -135050,7 +135202,7 @@ brV
 bmq
 pDb
 drO
-vNE
+wzH
 ksK
 aVG
 aUS
@@ -137343,7 +137495,7 @@ aFI
 aFI
 aQE
 aSM
-aUT
+hON
 qol
 rnn
 bbu
