@@ -71,7 +71,6 @@
 	update_icon()
 
 /obj/item/storage/belt/utility/full/multitool/populate_contents()
-	..()
 	new /obj/item/multitool(src)
 	update_icon()
 
