@@ -80,9 +80,9 @@
 		/obj/item/stack/spacecash/c100,
 		/obj/item/stack/spacecash/c500,
 		/obj/item/stack/spacecash/c1000)
-	var/coin = pickweight(/obj/item/coin/iron = 3,
-						  /obj/item/coin/silver = 2,
-						  /obj/item/coin/gold = 1)
+	var/coin = pickweight(list(/obj/item/coin/iron = 3,
+							   /obj/item/coin/silver = 2,
+							   /obj/item/coin/gold = 1))
 
 	new cash(src)
 	if(prob(50)) // 50% chance of a second
