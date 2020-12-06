@@ -195,16 +195,16 @@
   * * final_cost - The materials consumed during the build.
   */
 /obj/machinery/mecha_part_fabricator/proc/build_design_timer_finish(datum/design/D, list/final_cost)
-	// Spawn the item (in a lockbox if restricted)
-	var/obj/item/I = new D.build_path(loc)
-	if(D.locked)
-		var/obj/item/storage/lockbox/research/large/L = new(get_step(src, SOUTH))
-		I.forceMove(L)
-		L.name += " ([I.name])"
-		L.origin_tech = I.origin_tech
-	else
-		I.forceMove(get_step(src, SOUTH))
-	I.materials = final_cost
+	// Spawn the item (in a lockbox if restricted) OR mob (e.g. IRC body)
+	var/atom/A = new D.build_path(get_step(src, SOUTH))
+	if(istype(A, /obj/item))
+		var/obj/item/I = A
+		I.materials = final_cost
+		if(D.locked)
+			var/obj/item/storage/lockbox/research/large/L = new(get_step(src, SOUTH))
+			I.forceMove(L)
+			L.name += " ([I.name])"
+			L.origin_tech = I.origin_tech
 
 	// Clean up
 	being_built = null
@@ -213,7 +213,7 @@
 	desc = initial(desc)
 	use_power = IDLE_POWER_USE
 	cut_overlays()
-	atom_say("[I] is complete.")
+	atom_say("[A] is complete.")
 
 	// Keep the queue processing going if it's on
 	process_queue()

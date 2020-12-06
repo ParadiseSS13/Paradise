@@ -39,10 +39,9 @@
  */
 
 /obj/item/storage/fancy/donut_box
+	name = "donut box"
 	icon_type = "donut"
 	icon_state = "donutbox_back"
-	name = "donut box"
-	name = "donut box"
 	storage_slots = 6
 	can_hold = list(/obj/item/reagent_containers/food/snacks/donut)
 	icon_type = "donut"
@@ -52,18 +51,21 @@
 /obj/item/storage/fancy/donut_box/update_icon()
 	overlays.Cut()
 
-	for(var/i = 1 to length(contents))
-		var/obj/item/reagent_containers/food/snacks/donut/donut = contents[i]
+	for(var/I = 1 to length(contents))
+		var/obj/item/reagent_containers/food/snacks/donut/donut = contents[I]
 		var/icon/new_donut_icon = icon('icons/obj/food/containers.dmi', "donut_[donut.donut_sprite_type]")
-		new_donut_icon.Shift(EAST, 3 * (i-1))
+		new_donut_icon.Shift(EAST, 3 * (I-1))
 		overlays += new_donut_icon
 
 	overlays += icon('icons/obj/food/containers.dmi', "donutbox_front")
 
 /obj/item/storage/fancy/donut_box/populate_contents()
-	for(var/i in 1 to storage_slots)
+	for(var/I in 1 to storage_slots)
 		new /obj/item/reagent_containers/food/snacks/donut(src)
 	update_icon()
+
+/obj/item/storage/fancy/donut_box/empty/populate_contents()
+	return
 
 /*
  * Egg Box
