@@ -24,7 +24,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/temp_category
 	var/uplink_type = "traitor"
 
-/obj/item/uplink/tgui_host()
+/obj/item/uplink/ui_host()
 	return loc
 
 /obj/item/uplink/New()
@@ -150,20 +150,20 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		return TRUE
 	return FALSE
 
-/obj/item/uplink/hidden/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_inventory_state)
+/obj/item/uplink/hidden/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "Uplink", name, 900, 600, master_ui, state)
 		ui.open()
 
-/obj/item/uplink/hidden/tgui_data(mob/user)
+/obj/item/uplink/hidden/ui_data(mob/user)
 	var/list/data = list()
 
 	data["crystals"] = uses
 
 	return data
 
-/obj/item/uplink/hidden/tgui_static_data(mob/user)
+/obj/item/uplink/hidden/ui_static_data(mob/user)
 	var/list/data = list()
 
 	// Actual items
@@ -190,10 +190,10 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 // Interaction code. Gathers a list of items purchasable from the paren't uplink and displays it. It also adds a lock button.
 /obj/item/uplink/hidden/interact(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 // The purchasing code.
-/obj/item/uplink/hidden/tgui_act(action, list/params)
+/obj/item/uplink/hidden/ui_act(action, list/params)
 	if(..())
 		return
 

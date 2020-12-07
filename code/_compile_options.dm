@@ -5,7 +5,7 @@
 // #define UNIT_TESTS
 
 
-#ifdef TRAVISBUILDING
+#ifdef CIBUILDING
 #define UNIT_TESTS
 #endif
 

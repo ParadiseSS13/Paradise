@@ -180,19 +180,18 @@ Thus, the two variables affect pump operation are set in New():
 		return
 
 	add_fingerprint(user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/atmospherics/binary/volume_pump/attack_ghost(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/atmospherics/binary/volume_pump/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
-	user.set_machine(src)
+/obj/machinery/atmospherics/binary/volume_pump/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "AtmosPump", name, 310, 110, master_ui, state)
 		ui.open()
 
-/obj/machinery/atmospherics/binary/volume_pump/tgui_data(mob/user)
+/obj/machinery/atmospherics/binary/volume_pump/ui_data(mob/user)
 	var/list/data = list(
 		"on" = on,
 		"rate" = round(transfer_rate),
@@ -202,7 +201,7 @@ Thus, the two variables affect pump operation are set in New():
 	)
 	return data
 
-/obj/machinery/atmospherics/binary/volume_pump/tgui_act(action, list/params)
+/obj/machinery/atmospherics/binary/volume_pump/ui_act(action, list/params)
 	if(..())
 		return
 

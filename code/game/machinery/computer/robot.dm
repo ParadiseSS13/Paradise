@@ -20,7 +20,7 @@
 		return
 	if(stat & (NOPOWER|BROKEN))
 		return
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/computer/robotics/proc/is_authenticated(mob/user)
 	if(!istype(user))
@@ -114,13 +114,13 @@
 		return FALSE
 	return TRUE
 
-/obj/machinery/computer/robotics/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/computer/robotics/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "RoboticsControlConsole",  name, 500, 460, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/robotics/tgui_data(mob/user)
+/obj/machinery/computer/robotics/ui_data(mob/user)
 	var/list/data = list()
 	data["auth"] = is_authenticated(user)
 	data["can_hack"] = can_hack_any(user)
@@ -149,7 +149,7 @@
 	data["show_detonate_all"] = (data["auth"] && length(data["cyborgs"]) > 0 && ishuman(user))
 	return data
 
-/obj/machinery/computer/robotics/tgui_act(action, params)
+/obj/machinery/computer/robotics/ui_act(action, params)
 	if(..())
 		return
 	. = FALSE

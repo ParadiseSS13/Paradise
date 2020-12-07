@@ -16,10 +16,10 @@ log transactions
 
 /obj/machinery/atm
 	name = "Nanotrasen automatic teller machine"
-	desc = "For all your monetary needs!"
+	desc = "For all your monetary needs! Just insert your ID card to make a withdrawal or deposit!"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "atm"
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	var/obj/machinery/computer/account_database/linked_db
@@ -51,7 +51,7 @@ log transactions
 		linked_db = null
 		authenticated_account = null
 		visible_message("[bicon(src)]<span class='warning'>[src] buzzes rudely, \"Connection to remote database lost.\"</span>")
-		SSnanoui.update_uis(src)
+		SStgui.update_uis(src)
 
 	if(ticks_left_timeout > 0)
 		ticks_left_timeout--
@@ -69,7 +69,7 @@ log transactions
 			for(var/obj/item/stack/spacecash/S in T)
 				cash_amount += S.amount
 			if(cash_amount)
-				playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, 1)
+				playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
 				for(var/obj/item/stack/spacecash/S in T)
 					S.use(S.amount)
 				authenticated_account.charge(-cash_amount, null, "Credit deposit", machine_id, "Terminal")
@@ -91,7 +91,7 @@ log transactions
 			held_card = I
 			if(authenticated_account && held_card.associated_account_number != authenticated_account.account_number)
 				authenticated_account = null
-			SSnanoui.update_uis(src)
+			SStgui.update_uis(src)
 	else if(authenticated_account)
 		if(istype(I, /obj/item/stack/spacecash))
 			//consume the money
@@ -103,31 +103,31 @@ log transactions
 			authenticated_account.credit(C.amount, "Credit deposit", machine_id, authenticated_account.owner_name)
 
 			to_chat(user, "<span class='info'>You insert [C] into [src].</span>")
-			SSnanoui.update_uis(src)
+			SStgui.update_uis(src)
 			C.use(C.amount)
 	else
 		return ..()
 
 /obj/machinery/atm/attack_hand(mob/user)
 	if(..())
-		return 1
+		return TRUE
 	if(issilicon(user))
 		to_chat(user, "<span class='warning'>Artificial unit recognized. Artificial units do not currently receive monetary compensation, as per Nanotrasen regulation #1005.</span>")
 		return
 	if(!linked_db)
 		reconnect_database()
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/atm/attack_ghost(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/atm/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/atm/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if (!ui)
 		ui = new(user, src, ui_key, "ATM", name, 550, 650)
 		ui.open()
 
-/obj/machinery/atm/tgui_data(mob/user)
+/obj/machinery/atm/ui_data(mob/user)
 	var/list/data = list()
 	data["view_screen"] = view_screen
 	data["machine_id"] = machine_id
@@ -154,7 +154,10 @@ log transactions
 
 	return data
 
-/obj/machinery/atm/tgui_act(action, params)
+/obj/machinery/atm/ui_act(action, params)
+	if(..())
+		return
+
 	switch(action)
 		if("transfer")
 			if(!authenticated_account || !linked_db)
@@ -237,7 +240,7 @@ log transactions
 					previous_account_number = tried_account_num
 
 		if("withdrawal")
-			var/amount = max(text2num(params["funds_amount"]),0)
+			var/amount = max(text2num(params["funds_amount"]), 0)
 			if(amount <= 0)
 				to_chat(usr, "[bicon(src)]<span class='warning'>That is not a valid amount.</span>")
 			else if(authenticated_account && amount > 0)
@@ -301,4 +304,6 @@ log transactions
 
 //create the most effective combination of notes to make up the requested amount
 /obj/machinery/atm/proc/withdraw_arbitrary_sum(arbitrary_sum)
-	new /obj/item/stack/spacecash(get_step(get_turf(src), turn(dir, 180)), arbitrary_sum)
+	var/obj/item/stack/spacecash/C = new(amt = arbitrary_sum)
+	if(!usr?.put_in_hands(C))
+		C.forceMove(get_step(get_turf(src), turn(dir, 180)))

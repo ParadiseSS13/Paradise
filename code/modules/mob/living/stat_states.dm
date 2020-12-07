@@ -14,6 +14,7 @@
 		update_sight()
 		update_blind_effects()
 		update_canmove()
+		set_typing_indicator(FALSE)
 	return 1
 
 /mob/living/proc/WakeUp(updating = 1)

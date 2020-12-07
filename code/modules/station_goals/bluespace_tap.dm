@@ -336,8 +336,8 @@
 
 
 
-/obj/machinery/power/bluespace_tap/tgui_data(mob/user)
-	var/data[0]
+/obj/machinery/power/bluespace_tap/ui_data(mob/user)
+	var/list/data = list()
 
 	data["desiredLevel"] = desired_level
 	data["inputLevel"] = input_level
@@ -364,13 +364,13 @@
 
 /obj/machinery/power/bluespace_tap/attack_hand(mob/user)
 	add_fingerprint(user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/power/bluespace_tap/attack_ghost(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/power/bluespace_tap/attack_ai(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /**
   * Produces the product with the desired key and increases product cost accordingly
@@ -393,7 +393,7 @@
 
 //UI stuff below
 
-/obj/machinery/power/bluespace_tap/tgui_act(action, params)
+/obj/machinery/power/bluespace_tap/ui_act(action, params)
 	if(..())
 		return
 	. = TRUE	// we want to refresh in all the cases below
@@ -408,7 +408,7 @@
 			var/key = text2num(params["target"])
 			produce(key)
 
-/obj/machinery/power/bluespace_tap/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/power/bluespace_tap/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "BluespaceTap", name, 650, 400, master_ui, state)

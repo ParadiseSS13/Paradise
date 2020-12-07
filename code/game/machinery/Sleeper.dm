@@ -17,8 +17,10 @@
 	var/possible_chems = list("ephedrine", "salglu_solution", "salbutamol", "charcoal")
 	var/emergency_chems = list("ephedrine") // Desnowflaking
 	var/amounts = list(5, 10)
+	/// Beaker loaded into the sleeper. Used for dialysis.
 	var/obj/item/reagent_containers/glass/beaker = null
-	var/filtering = 0
+	/// Whether the machine is currently performing dialysis.
+	var/filtering = FALSE
 	var/max_chem
 	var/initial_bin_rating = 1
 	var/min_health = -25
@@ -125,7 +127,7 @@
 	return attack_hand(user)
 
 /obj/machinery/sleeper/attack_ghost(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/sleeper/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN))
@@ -135,16 +137,16 @@
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
 
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/sleeper/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/sleeper/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "Sleeper", "Sleeper", 550, 775)
 		ui.open()
 
-/obj/machinery/sleeper/tgui_data(mob/user)
-	var/data[0]
+/obj/machinery/sleeper/ui_data(mob/user)
+	var/list/data = list()
 	data["amounts"] = amounts
 	data["hasOccupant"] = occupant ? 1 : 0
 	var/occupantData[0]
@@ -244,7 +246,7 @@
 	data["chemicals"] = chemicals
 	return data
 
-/obj/machinery/sleeper/tgui_act(action, params)
+/obj/machinery/sleeper/ui_act(action, params)
 	if(..())
 		return
 	if(!controls_inside && usr == occupant)
@@ -404,9 +406,9 @@
 
 /obj/machinery/sleeper/proc/toggle_filter()
 	if(filtering || !beaker)
-		filtering = 0
+		filtering = FALSE
 	else
-		filtering = 1
+		filtering = TRUE
 
 /obj/machinery/sleeper/proc/go_out()
 	if(filtering)
@@ -464,8 +466,8 @@
 		return
 
 	if(beaker)
-		filtering = 0
-		beaker.forceMove(usr.loc)
+		filtering = FALSE
+		usr.put_in_hands(beaker)
 		beaker = null
 		SStgui.update_uis(src)
 	add_fingerprint(usr)
