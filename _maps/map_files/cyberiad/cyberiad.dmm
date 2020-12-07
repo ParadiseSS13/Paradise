@@ -79690,6 +79690,9 @@
 	dir = 4;
 	level = 2
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "fYQ" = (
@@ -81056,6 +81059,14 @@
 	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1;
+	initialize_directions = 11;
+	level = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
@@ -85022,6 +85033,9 @@
 	dir = 9;
 	level = 2
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "kSw" = (
@@ -86248,6 +86262,22 @@
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/medical/reception)
+"lPO" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4";
+	tag = "90Curve"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5;
+	level = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "lPQ" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -86773,6 +86803,16 @@
 /obj/machinery/light,
 /turf/simulated/floor/bluegrid,
 /area/tcommsat/chamber)
+"mkI" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 4;
+	level = 2
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/asmaint)
 "mkS" = (
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -89361,7 +89401,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 1;
@@ -91131,6 +91173,12 @@
 	pixel_y = 0;
 	tag = ""
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "pUr" = (
@@ -91320,6 +91368,29 @@
 	icon_state = "white"
 	},
 /area/toxins/hallway)
+"qfM" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 4;
+	level = 2
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
+"qgf" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 4;
+	level = 2
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "qgG" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
@@ -98138,8 +98209,6 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -98371,6 +98440,12 @@
 	pixel_y = 0;
 	tag = ""
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "vWs" = (
@@ -98420,6 +98495,9 @@
 	dir = 6;
 	initialize_directions = 6;
 	level = 2
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
@@ -99511,6 +99589,11 @@
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedrobotics)
+"xdU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/maintenance/asmaint)
 "xec" = (
 /obj/structure/rack{
 	dir = 8;
@@ -99687,6 +99770,11 @@
 /area/maintenance/genetics)
 "xjX" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10;
+	initialize_directions = 10;
+	level = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "xkt" = (
@@ -139102,9 +139190,9 @@ cNb
 cNb
 cNb
 cNb
-xwL
-xwL
-wqj
+cPd
+cPd
+lPO
 cTB
 dgT
 cTV
@@ -140132,7 +140220,7 @@ czi
 cZA
 rfW
 drU
-ckS
+qgf
 dgm
 dgT
 cVH
@@ -140902,7 +140990,7 @@ chf
 chf
 ljx
 uwA
-ckS
+qgf
 csL
 chf
 dhk
@@ -141159,7 +141247,7 @@ csL
 pak
 ljx
 cBN
-ckS
+qgf
 rFa
 dgn
 dgX
@@ -141416,7 +141504,7 @@ oWI
 gwO
 chf
 chf
-uEl
+qfM
 chf
 chf
 dgY
@@ -141673,7 +141761,7 @@ chf
 uEl
 chf
 csL
-uSw
+mkI
 csL
 dgo
 dgo
@@ -141931,7 +142019,7 @@ bMX
 oWI
 oWI
 xjX
-dgv
+xdU
 cps
 dgZ
 cps
