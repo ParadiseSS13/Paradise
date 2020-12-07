@@ -56,7 +56,7 @@
 	return src.attack_hand(user)
 
 // Added to prevent people from unscrewing the barsign, making go invisible in the process
-obj/structure/sign/barsign/screwdriver_act()
+/obj/structure/sign/barsign/screwdriver_act()
     return
 
 
