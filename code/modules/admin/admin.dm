@@ -114,6 +114,11 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	body += "[admin_jump_link(M)]\] </b><br>"
 	body += "<b>Mob type:</b> [M.type]<br>"
 	if(M.client)
+		if(M.client.prefs.discord_id)
+			if(length(M.client.prefs.discord_id) < 32)
+				body += "<b>Discord:</b>  <@[M.client.prefs.discord_id]>  <b>[M.client.prefs.discord_name]</b><br>"
+			else
+				body += "<b>Discord: Привязка не завершена!</b><br>"
 		if(M.client.related_accounts_cid.len)
 			body += "<b>Related accounts by CID:</b> [jointext(M.client.related_accounts_cid, " - ")]<br>"
 		if(M.client.related_accounts_ip.len)

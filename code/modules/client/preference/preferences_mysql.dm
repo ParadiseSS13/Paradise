@@ -16,7 +16,9 @@
 					clientfps,
 					atklog,
 					fuid,
-					parallax
+					parallax,
+					discord_id,
+					discord_name
 					FROM [format_table_name("player")]
 					WHERE ckey=:ckey"}, list(
 						"ckey" = C.ckey
@@ -45,6 +47,8 @@
 		atklog = text2num(query.item[14])
 		fuid = text2num(query.item[15])
 		parallax = text2num(query.item[16])
+		discord_id = query.item[17]
+		discord_name = query.item[18]
 
 	qdel(query)
 
@@ -64,6 +68,8 @@
 	atklog = sanitize_integer(atklog, 0, 100, initial(atklog))
 	fuid = sanitize_integer(fuid, 0, 10000000, initial(fuid))
 	parallax = sanitize_integer(parallax, 0, 16, initial(parallax))
+	discord_id			= sanitize_text(discord_id, initial(discord_id))
+	discord_name		= sanitize_text(discord_name, initial(discord_name))
 	return 1
 
 /datum/preferences/proc/save_preferences(client/C)

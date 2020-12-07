@@ -275,6 +275,8 @@ CREATE TABLE `player` (
   `fupdate` smallint(4) DEFAULT '0',
   `parallax` tinyint(1) DEFAULT '8',
   `byond_date` DATE DEFAULT NULL,
+  `discord_id` varchar(32) NULL DEFAULT NULL,
+  `discord_name` varchar(32) NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`),
   KEY `lastseen` (`lastseen`),
