@@ -51762,6 +51762,10 @@
 /obj/machinery/atm{
 	pixel_y = 32
 	},
+/obj/machinery/light{
+	dir = 1;
+	in_use = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "cco" = (
@@ -60134,7 +60138,7 @@
 "cEG" = (
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "cEI" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 2;
@@ -77695,6 +77699,10 @@
 	icon_state = "whitehall"
 	},
 /area/maintenance/asmaint)
+"ezX" = (
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/maintenance/abandonedrobotics)
 "eAT" = (
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
@@ -78066,7 +78074,7 @@
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "eQa" = (
 /obj/machinery/camera{
 	c_tag = "Central Primary Hallway Psychiatrist Office"
@@ -78702,7 +78710,7 @@
 /obj/item/stack/sheet/glass,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plasteel,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "fkR" = (
 /turf/simulated/wall/r_wall/coated,
 /area/space)
@@ -79438,6 +79446,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/explab_chamber)
+"fPz" = (
+/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating,
+/area/maintenance/abandonedrobotics)
 "fQo" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -79464,7 +79477,7 @@
 	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "fQT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -79520,7 +79533,7 @@
 	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "fRL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/item/radio/intercom{
@@ -79626,6 +79639,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/genetics)
+"fWq" = (
+/obj/machinery/light{
+	dir = 4;
+	icon_state = "tube1"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "whitepurplecorner"
+	},
+/area/toxins/hallway)
 "fWF" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/syringes,
@@ -79696,6 +79719,9 @@
 "fZt" = (
 /obj/structure/chair/office/light{
 	dir = 4
+	},
+/obj/effect/landmark/start{
+	name = "Quartermaster"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -80247,7 +80273,7 @@
 	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "gAg" = (
 /obj/effect/landmark{
 	name = "blobstart"
@@ -80703,7 +80729,7 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating/airless,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "hcJ" = (
 /obj/machinery/door_control{
 	desc = "A remote control-switch for the pod doors.";
@@ -81366,7 +81392,7 @@
 	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plasteel,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "hKT" = (
 /obj/machinery/door/firedoor,
 /obj/structure/curtain/open/medical,
@@ -81456,7 +81482,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "hPS" = (
 /obj/structure/chair/office/light{
 	dir = 4
@@ -81769,7 +81795,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "ifI" = (
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating/airless,
@@ -81808,7 +81834,7 @@
 /obj/structure/sign/poster/contraband/random,
 /obj/effect/landmark/burnturf,
 /turf/simulated/wall,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "igW" = (
 /obj/machinery/disposal,
 /obj/effect/turf_decal/bot,
@@ -83230,7 +83256,7 @@
 /obj/item/stack/sheet/metal,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "jzk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9;
@@ -84933,7 +84959,7 @@
 /obj/effect/decal/warning_stripes/white/hollow,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "kRD" = (
 /turf/simulated/floor/wood,
 /area/maintenance/asmaint)
@@ -85303,7 +85329,7 @@
 /obj/effect/decal/warning_stripes/white/hollow,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plasteel,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "ldl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -86157,7 +86183,7 @@
 /obj/machinery/mecha_part_fabricator,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "lNw" = (
 /obj/machinery/disposal,
 /obj/effect/turf_decal/delivery/red,
@@ -87258,7 +87284,7 @@
 	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plasteel,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "mLx" = (
 /turf/simulated/wall/r_wall,
 /area/toxins/storage)
@@ -87309,6 +87335,9 @@
 	on = 1;
 	scrub_N2O = 1;
 	scrub_Toxins = 1
+	},
+/obj/effect/landmark/start{
+	name = "Roboticist"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -87550,7 +87579,7 @@
 /obj/machinery/constructable_frame/machine_frame,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "nbU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -88288,7 +88317,7 @@
 /obj/item/toy/plushie/robo_corgi,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "nJv" = (
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
@@ -88559,7 +88588,7 @@
 /obj/effect/spawner/random_spawners/blood_maybe,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "nUX" = (
 /turf/simulated/wall/r_wall,
 /area/toxins/misc_lab)
@@ -88759,7 +88788,7 @@
 /obj/structure/mecha_wreckage/durand/old,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "oeV" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -90233,6 +90262,10 @@
 	tag = "icon-whitebluefull"
 	},
 /area/medical/medbay2)
+"pfE" = (
+/obj/effect/decal/cleanable/fungus,
+/turf/simulated/wall,
+/area/maintenance/abandonedrobotics)
 "pfV" = (
 /obj/structure/table/glass,
 /obj/item/stamp/cmo,
@@ -90315,7 +90348,7 @@
 /obj/item/clothing/head/welding,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "pjt" = (
 /obj/machinery/airlock_sensor{
 	frequency = 1450;
@@ -90351,7 +90384,7 @@
 /obj/machinery/constructable_frame/machine_frame,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "plz" = (
 /obj/structure/table,
 /obj/item/storage/box/bodybags{
@@ -90523,7 +90556,7 @@
 /obj/effect/spawner/window/reinforced,
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "puE" = (
 /obj/structure/chair{
 	dir = 1
@@ -90734,7 +90767,7 @@
 /obj/effect/spawner/random_spawners/oil_maybe,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "pBN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4;
@@ -91251,7 +91284,7 @@
 	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "qcC" = (
 /obj/structure/sink{
 	dir = 8;
@@ -91432,7 +91465,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "qlt" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -92157,6 +92190,7 @@
 	},
 /area/assembly/chargebay)
 "qKB" = (
+/obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/space/nearstation)
 "qLI" = (
@@ -92485,7 +92519,7 @@
 	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/bluegrid,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "rcM" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
@@ -92682,7 +92716,7 @@
 /obj/effect/spawner/random_spawners/blood_maybe,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plasteel,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "rlX" = (
 /obj/item/stack/sheet/metal{
 	amount = 50
@@ -92972,6 +93006,10 @@
 	icon_state = "white"
 	},
 /area/medical/genetics)
+"ryA" = (
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating,
+/area/maintenance/abandonedrobotics)
 "ryH" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -93253,6 +93291,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint)
+"rLc" = (
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall,
+/area/maintenance/abandonedrobotics)
 "rLg" = (
 /turf/simulated/floor/engine,
 /area/toxins/explab_chamber)
@@ -93974,7 +94016,7 @@
 /obj/effect/spawner/random_spawners/oil_maybe,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "suM" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -94266,19 +94308,6 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3";
 	tag = "icon-wood-broken3"
-	},
-/area/maintenance/asmaint)
-"sGJ" = (
-/mob/living/simple_animal/hostile/headslug{
-	healable = 0;
-	health = -50;
-	icon_state = "headslug_dead";
-	maxHealth = 0
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/blood_maybe,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
 	},
 /area/maintenance/asmaint)
 "sGL" = (
@@ -95295,7 +95324,7 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plasteel,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "twR" = (
 /obj/structure/table/glass,
 /obj/item/hemostat{
@@ -95404,7 +95433,7 @@
 /obj/item/mounted/frame/apc_frame,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "tBr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -95787,7 +95816,7 @@
 "tRa" = (
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/mech_bay_recharge_floor,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "tRc" = (
 /obj/effect/turf_decal/delivery/white,
 /turf/simulated/floor/plasteel{
@@ -95952,7 +95981,7 @@
 /obj/structure/mecha_wreckage/ripley,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "tZv" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 2;
@@ -96714,7 +96743,7 @@
 /obj/item/wrench,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "uAR" = (
 /obj/structure/table/glass,
 /obj/machinery/reagentgrinder,
@@ -97020,7 +97049,7 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "uPL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -97610,7 +97639,7 @@
 	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plasteel,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "vrE" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
@@ -98455,7 +98484,7 @@
 /obj/effect/decal/warning_stripes/white,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "wdP" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -98927,6 +98956,9 @@
 	tag = "icon-whitehall (WEST)"
 	},
 /area/medical/virology)
+"wBb" = (
+/turf/simulated/wall,
+/area/maintenance/abandonedrobotics)
 "wCh" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
@@ -99248,7 +99280,7 @@
 	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "wRp" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken";
@@ -99478,7 +99510,7 @@
 	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/area/maintenance/abandonedrobotics)
 "xec" = (
 /obj/structure/rack{
 	dir = 8;
@@ -99970,6 +100002,9 @@
 /area/hallway/secondary/exit)
 "xzA" = (
 /obj/machinery/hologram/holopad,
+/obj/effect/landmark/start{
+	name = "Roboticist"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -140331,7 +140366,7 @@ usu
 cBw
 bLK
 lZa
-sGJ
+bId
 xPr
 czi
 chf
@@ -149073,7 +149108,7 @@ lKx
 lKx
 mka
 ygw
-ccI
+fWq
 ccI
 omk
 nCM
@@ -152921,14 +152956,14 @@ cuQ
 cuQ
 cjA
 cuQ
-cuQ
-cuQ
-loO
+wBb
+wBb
+rLc
 puo
 puo
-cuQ
-loO
-loO
+wBb
+rLc
+rLc
 iED
 wxF
 bGG
@@ -153184,8 +153219,8 @@ ldk
 rcz
 tRa
 fRE
-loO
-djP
+rLc
+ezX
 bGG
 wxF
 ful
@@ -153692,14 +153727,14 @@ vGA
 cuQ
 bGG
 bGG
-loO
+rLc
 tYr
-cTS
+ryA
 rkL
-guk
+fPz
 mLt
-cuQ
-djP
+wBb
+ezX
 bGG
 cLh
 cuQ
@@ -153949,14 +153984,14 @@ mmn
 cuQ
 dfc
 bGG
-cxS
+pfE
 igO
 suG
 hce
 fkB
 qcd
-loO
-cuQ
+rLc
+wBb
 cuQ
 cuQ
 cuQ
@@ -154206,7 +154241,7 @@ aaa
 cuQ
 dbg
 bGG
-loO
+rLc
 tAz
 gzN
 jzh
@@ -154464,7 +154499,7 @@ cuQ
 bKl
 bGG
 cEG
-cTS
+ryA
 pBI
 hKu
 wRh
@@ -154720,14 +154755,14 @@ aaa
 cuQ
 cuQ
 cuQ
-cuQ
+wBb
 nJr
 ePU
 piM
 uAP
 twi
 oeM
-cuQ
+wBb
 aaa
 aaa
 aaa
@@ -154977,14 +155012,14 @@ aaa
 aaa
 qUv
 aaa
-cuQ
-cuQ
-cuQ
-loO
-loO
-loO
-cuQ
-cuQ
+wBb
+wBb
+wBb
+rLc
+rLc
+rLc
+wBb
+wBb
 aaa
 aaa
 aaa
