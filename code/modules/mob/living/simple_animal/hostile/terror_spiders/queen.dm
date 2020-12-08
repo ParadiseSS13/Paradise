@@ -279,6 +279,9 @@
 	if(eggtype == null || numlings == null)
 		to_chat(src, "<span class='danger'>Cancelled.</span>")
 		return
+	if(!isturf(loc))
+		to_chat(src, "<span class='danger'>Eggs can only be laid while standing on a floor.</span>")
+		return
 	// Actually lay the eggs.
 	if(canlay < numlings)
 		// We have to check this again after the popups, to account for people spam-clicking the button, then doing all the popups at once.
