@@ -48764,13 +48764,24 @@
 /turf/simulated/floor/plasteel,
 /area/teleporter)
 "bTY" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown";
 	opacity = 0
+	},
+/obj/structure/grille,
+/obj/structure/window/reinforced/polarized{
+	dir = 1;
+	id = "med2"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "med2"
+	},
+/obj/structure/window/reinforced/polarized{
+	id = "med2"
 	},
 /turf/simulated/floor/plating,
 /area/medical/morgue)
@@ -56493,7 +56504,7 @@
 /area/maintenance/asmaint)
 "cqZ" = (
 /obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
+	req_access_txt = "64"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -60488,9 +60499,6 @@
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "cFx" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
@@ -75198,10 +75206,7 @@
 /area/maintenance/storage)
 "dol" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 8;
-	frequency = 1441;
-	id = "co2_in";
-	pixel_y = 1
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/turret_protected/aisat_interior)
@@ -78518,7 +78523,6 @@
 	pixel_x = -1;
 	pixel_y = 27
 	},
-/obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint2)
 "ffO" = (
@@ -79557,7 +79561,7 @@
 	},
 /area/toxins/robolab)
 "fTQ" = (
-/obj/structure/table,
+/obj/structure/rack,
 /obj/item/storage/box/syringes,
 /obj/machinery/light{
 	dir = 1;
@@ -79715,7 +79719,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Quartermaster"
+	name = "Research Director"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -80871,6 +80875,11 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
+/obj/machinery/shower{
+	dir = 8;
+	icon_state = "shower";
+	tag = "icon-shower (WEST)"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -80966,7 +80975,6 @@
 	},
 /area/medical/cmostore)
 "hln" = (
-/obj/structure/closet/l3closet/scientist,
 /obj/machinery/alarm{
 	pixel_y = 22
 	},
@@ -81794,6 +81802,11 @@
 	},
 /obj/item/stack/rods{
 	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 20;
+	pixel_x = 1;
+	pixel_y = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint2)
@@ -82799,6 +82812,15 @@
 	icon_state = "dark"
 	},
 /area/medical/morgue)
+"iXU" = (
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/upgraded{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurple"
+	},
+/area/toxins/mixing)
 "iYL" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/decal/warning_stripes/yellow,
@@ -84036,6 +84058,12 @@
 /obj/machinery/light_switch{
 	pixel_y = -25
 	},
+/obj/machinery/button/windowtint{
+	desc = "A remote control switch for polarized windows.  For those private treatments.";
+	id = "coroner";
+	pixel_x = 8;
+	pixel_y = -25
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -84235,12 +84263,6 @@
 	icon_state = "purplecorner"
 	},
 /area/hallway/primary/starboard/east)
-"kiJ" = (
-/obj/structure/table,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high/plus,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
 "kiO" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner"
@@ -85670,6 +85692,10 @@
 	tag_exterior_door = "sci_bombrange_outer";
 	tag_interior_door = "sci_bombrange_inner"
 	},
+/obj/machinery/airlock_sensor{
+	id_tag = "sci_bombrange_sensor";
+	pixel_y = -25
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "lmY" = (
@@ -86094,6 +86120,16 @@
 	icon_state = "whitecorner"
 	},
 /area/maintenance/asmaint)
+"lDH" = (
+/obj/structure/closet/l3closet/scientist,
+/obj/machinery/newscaster{
+	pixel_x = 30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "purple"
+	},
+/area/toxins/hallway)
 "lEI" = (
 /obj/machinery/ai_status_display{
 	pixel_x = 0;
@@ -87029,15 +87065,6 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/toxins/hallway)
-"mtO" = (
-/obj/machinery/door/poddoor{
-	id_tag = "toxinstest";
-	name = "Toxins Launcher Bay Door";
-	protected = 0
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/toxins/test_area)
 "mtR" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 6
@@ -87664,7 +87691,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "mYa" = (
-/obj/structure/closet/l3closet/scientist,
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/multitool,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -88379,10 +88408,7 @@
 /area/maintenance/asmaint)
 "nEh" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 8;
-	frequency = 1441;
-	id = "co2_in";
-	pixel_y = 1
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/asmaint2)
@@ -90942,7 +90968,7 @@
 /area/toxins/xenobiology)
 "pzN" = (
 /obj/machinery/door/airlock/external{
-	frequency = 1450;
+	frequency = 1379;
 	icon_state = "door_locked";
 	id_tag = "sci_bombrange_outer";
 	locked = 1;
@@ -91530,8 +91556,8 @@
 	},
 /area/medical/virology)
 "qdr" = (
-/obj/machinery/constructable_frame/machine_frame,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/chem_heater,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "cmo"
@@ -94243,15 +94269,12 @@
 	},
 /area/medical/genetics)
 "sqb" = (
-/obj/item/stack/sheet/glass{
-	amount = 20;
-	pixel_x = 1;
-	pixel_y = 1
-	},
-/obj/structure/rack,
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high/plus,
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint2)
 "sqM" = (
@@ -95413,7 +95436,8 @@
 /area/medical/reception)
 "tpO" = (
 /obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
+	name = "Internal Medbay Maintenance";
+	req_access_txt = "5"
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -95760,7 +95784,7 @@
 /area/toxins/mixing)
 "tzK" = (
 /obj/machinery/door/airlock/engineering{
-	name = "Electrical Maintenance";
+	name = "Toxin Testing EVA Maintenance";
 	req_access_txt = "11"
 	},
 /obj/structure/cable{
@@ -96762,7 +96786,8 @@
 /area/shuttle/escape)
 "usq" = (
 /obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
+	name = "Internal Medbay Maintenance";
+	req_access_txt = "5"
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -98323,6 +98348,11 @@
 /area/maintenance/asmaint2)
 "vGP" = (
 /obj/effect/decal/warning_stripes/west,
+/obj/machinery/shower{
+	dir = 4;
+	icon_state = "shower";
+	tag = "icon-shower (EAST)"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -98934,7 +98964,6 @@
 /turf/simulated/floor/wood,
 /area/maintenance/asmaint)
 "wje" = (
-/obj/effect/spawner/window/reinforced,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -98942,6 +98971,18 @@
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown";
 	opacity = 0
+	},
+/obj/structure/grille,
+/obj/structure/window/reinforced/polarized{
+	dir = 8;
+	id = "coroner"
+	},
+/obj/structure/window/reinforced/polarized{
+	id = "med2"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 1;
+	id = "med2"
 	},
 /turf/simulated/floor/plating,
 /area/medical/morgue)
@@ -99529,7 +99570,7 @@
 /area/medical/cryo)
 "wNC" = (
 /obj/machinery/door/airlock/external{
-	frequency = 1450;
+	frequency = 1379;
 	icon_state = "door_locked";
 	id_tag = "sci_bombrange_inner";
 	locked = 1;
@@ -99699,12 +99740,6 @@
 	on = 1;
 	scrub_N2O = 1;
 	scrub_Toxins = 1
-	},
-/obj/machinery/door_control{
-	id = "toxinstest";
-	name = "External Shutter Control";
-	pixel_x = -9;
-	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/launch{
@@ -101390,18 +101425,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "whitepurplecorner"
-	},
-/area/toxins/hallway)
-"ygY" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/multitool,
-/obj/machinery/newscaster{
-	pixel_y = 30
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "purple"
 	},
 /area/toxins/hallway)
 "yhj" = (
@@ -151306,8 +151329,8 @@ pfk
 rQb
 pfk
 pfk
-ygY
 idT
+lDH
 nng
 jdz
 xit
@@ -151563,8 +151586,8 @@ wIA
 sdf
 xzS
 bGH
-cuQ
 jUH
+cuQ
 kmK
 xit
 xit
@@ -153130,7 +153153,7 @@ aab
 aab
 aab
 cuQ
-kiJ
+cLh
 lbQ
 taI
 qEJ
@@ -154387,7 +154410,7 @@ osi
 iNz
 xKo
 ucz
-ucz
+iXU
 oZF
 xfm
 lXA
@@ -160834,7 +160857,7 @@ aaa
 aaa
 aaa
 aab
-mtO
+tIf
 tIf
 tIf
 tIf
