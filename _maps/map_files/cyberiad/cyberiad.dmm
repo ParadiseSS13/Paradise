@@ -95551,7 +95551,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "tqE" = (
-/obj/structure/bookcase/random/reference,
+/obj/structure/bookcase,
 /turf/simulated/floor/wood,
 /area/maintenance/asmaint2)
 "tqG" = (
