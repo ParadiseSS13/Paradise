@@ -359,6 +359,19 @@
 			M.emote("laugh")
 	return list(effect, update_flags)
 
+/datum/reagent/methamphaldehyde
+	name = "methamphaldehyde"
+	id = "methamphaldehyde"
+	description = ""
+	reagent_state = LIQUID
+	color = "#60A584" // rgb: 96, 165, 132
+	overdose_threshold = 0
+	addiction_chance = 0
+	addiction_threshold = 0
+	metabolization_rate = 0.6
+	heart_rate_increase = 1
+	taste_description = "speed"
+
 /datum/reagent/bath_salts
 	name = "Bath Salts"
 	id = "bath_salts"

@@ -50,6 +50,13 @@
 			C.reagents.add_reagent("toxin", 10)
 			C.reagents.add_reagent("neurotoxin2", 20)
 
+/datum/chemical_reaction/methamphaldehyde
+	name = "methamphaldehyde"
+	id = "methamphaldehyde"
+	result = "methamphaldehyde"
+	required_reagents = list("methamphetamine" = 1, "mannitol" = 1)
+	result_amount = 2
+
 /datum/chemical_reaction/bath_salts
 	name = "bath_salts"
 	id = "bath_salts"

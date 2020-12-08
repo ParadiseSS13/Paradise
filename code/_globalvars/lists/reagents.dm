@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(standard_chemicals, list("slimejelly","blood","water","lube","c
 								"plasma","teporone","lexorin","silver_sulfadiazine","salbutamol",
 								"perfluorodecalin","omnizine","synaptizine","haloperidol","potass_iodide",
 								"pen_acid","mannitol","oculine","styptic_powder","methamphetamine",
-								"cryoxadone","spaceacillin","carpotoxin","lsd","fluorosurfactant",
+								"methamphaldehyde","cryoxadone","spaceacillin","carpotoxin","lsd","fluorosurfactant",
 								"fluorosurfactant","ethanol","ammonia","diethylamine","antihol","pancuronium",
 								"lipolicide","condensedcapsaicin","frostoil","amanitin","psilocybin",
 								"enzyme","nothing","salglu_solution","antifreeze","neurotoxin", "jestosterone"))
