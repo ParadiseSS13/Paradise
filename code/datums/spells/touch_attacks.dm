@@ -74,8 +74,8 @@
 	hand_path = /obj/item/melee/touch_attack/heart_curse
 
 	school = "evocation"
-	charge_max = 450
+	charge_max = 45 SECONDS
 	clothes_req = 1
-	cooldown_min = 50 //100 deciseconds reduction per rank
+	cooldown_min = 5 SECONDS //100 deciseconds reduction per rank
 
 	action_icon_state = "gib"
