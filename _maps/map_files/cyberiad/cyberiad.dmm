@@ -83074,9 +83074,8 @@
 /turf/simulated/floor/plating,
 /area/medical/cmo)
 "jrc" = (
-/obj/machinery/door/airlock/medical/glass{
-	id_tag = "GeneticsDoor";
-	name = "Genetics";
+/obj/machinery/door/airlock/medical{
+	name = "Genetics Monkey Pen";
 	req_access_txt = "9"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{

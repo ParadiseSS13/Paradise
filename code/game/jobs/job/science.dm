@@ -121,3 +121,36 @@
 	l_ear = /obj/item/radio/headset/headset_sci
 	id = /obj/item/card/id/research
 	pda = /obj/item/pda/roboticist
+
+/datum/job/geneticist
+	title = "Geneticist"
+	flag = JOB_GENETICIST
+	department_flag = JOBCAT_MEDSCI
+	total_positions = 2
+	spawn_positions = 2
+	is_medical = 1
+	supervisors = "the chief medical officer and the research director"
+	department_head = list("Chief Medical Officer", "Research Director")
+	selection_color = "#ffeef0"
+	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_MORGUE, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MINERAL_STOREROOM)
+	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_RESEARCH, ACCESS_MAINT_TUNNELS)
+	minimal_player_age = 3
+	exp_requirements = 180
+	exp_type = EXP_TYPE_CREW
+	outfit = /datum/outfit/job/geneticist
+
+/datum/outfit/job/geneticist
+	name = "Geneticist"
+	jobtype = /datum/job/geneticist
+
+	uniform = /obj/item/clothing/under/rank/geneticist
+	suit = /obj/item/clothing/suit/storage/labcoat/genetics
+	shoes = /obj/item/clothing/shoes/white
+	l_ear = /obj/item/radio/headset/headset_sci
+	id = /obj/item/card/id/medical
+	suit_store = /obj/item/flashlight/pen
+	pda = /obj/item/pda/geneticist
+
+	backpack = /obj/item/storage/backpack/genetics
+	satchel = /obj/item/storage/backpack/satchel_gen
+	dufflebag = /obj/item/storage/backpack/duffel/genetics
