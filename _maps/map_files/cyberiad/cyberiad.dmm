@@ -27130,9 +27130,6 @@
 "aYR" = (
 /turf/simulated/wall/r_wall,
 /area/chapel/main)
-"aYS" = (
-/turf/simulated/wall/r_wall,
-/area/escapepodbay)
 "aYT" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
@@ -53033,6 +53030,12 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
+/obj/machinery/alarm{
+	dir = 4;
+	icon_state = "alarm0";
+	pixel_x = -22;
+	pixel_y = 0
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkgreencorners"
@@ -71535,9 +71538,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
-"dgS" = (
-/turf/simulated/wall/r_wall,
-/area/maintenance/turbine)
 "dgT" = (
 /turf/simulated/wall,
 /area/maintenance/turbine)
@@ -71959,14 +71959,14 @@
 	dir = 4;
 	level = 2
 	},
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/maintenance/turbine)
 "dhM" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 5;
 	tag = "icon-intact-y (NORTHWEST)"
 	},
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/maintenance/turbine)
 "dhN" = (
 /obj/machinery/alarm{
@@ -78963,6 +78963,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/tcommsat/chamber)
 "fBz" = (
+/obj/machinery/monkey_recycler,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple";
@@ -81764,19 +81765,26 @@
 /turf/simulated/floor/plating,
 /area/maintenance/genetics)
 "idT" = (
-/obj/structure/table,
-/obj/item/reagent_containers/spray/cleaner{
-	desc = "Someone has crossed out the 'Space' from Space Cleaner and written in Chemistry. Scrawled on the back is, 'Okay, whoever filled this with polytrinic acid, it was only funny the first time. It was hard enough replacing the CMO's first cat!'";
-	name = "Chemistry Cleaner"
+/obj/machinery/door/window/eastright{
+	base_state = "left";
+	dir = 8;
+	icon_state = "left";
+	name = "Research Division Delivery";
+	req_access_txt = "47"
 	},
-/obj/item/clothing/ears/earmuffs{
-	pixel_x = 4;
-	pixel_y = -2
+/obj/structure/window/reinforced{
+	dir = 1
 	},
-/obj/item/clothing/ears/earmuffs,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Biohazard";
+	name = "Biohazard Shutter";
+	opacity = 0
+	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "purple"
+	icon_state = "delivery"
 	},
 /area/toxins/hallway)
 "ieA" = (
@@ -83849,6 +83857,19 @@
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
 /area/toxins/test_chamber)
+"jUH" = (
+/obj/machinery/navbeacon{
+	codes_txt = "delivery";
+	dir = 8;
+	location = "Research Division"
+	},
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bot"
+	},
+/area/maintenance/asmaint2)
 "jUL" = (
 /obj/structure/table,
 /obj/item/storage/bag/money,
@@ -85916,6 +85937,11 @@
 	dir = 1;
 	in_use = 1
 	},
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the 'Space' from Space Cleaner and written in Chemistry. Scrawled on the back is, 'Okay, whoever filled this with polytrinic acid, it was only funny the first time. It was hard enough replacing the CMO's first cat!'";
+	name = "Chemistry Cleaner";
+	pixel_x = -8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -86168,6 +86194,11 @@
 /obj/machinery/camera{
 	c_tag = "Research Test Lab";
 	network = list("Research","SS13")
+	},
+/obj/item/clothing/ears/earmuffs,
+/obj/item/clothing/ears/earmuffs{
+	pixel_x = 4;
+	pixel_y = -2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -86672,6 +86703,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
+/mob/living/simple_animal/pet/dog/corgi/borgi,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -88181,9 +88213,19 @@
 	},
 /area/shuttle/escape)
 "nvX" = (
-/obj/structure/chair,
-/obj/machinery/alarm{
-	pixel_y = 22
+/obj/effect/decal/warning_stripes/yellow,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/door/window/eastright{
+	base_state = "left";
+	dir = 2;
+	icon_state = "left";
+	name = "Medical Delivery";
+	req_access_txt = "5"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen"
@@ -88343,7 +88385,7 @@
 	pixel_y = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/maintenance/asmaint2)
 "nEv" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -92848,7 +92890,7 @@
 	},
 /obj/structure/lattice,
 /turf/space,
-/area/space/nearstation)
+/area/maintenance/asmaint2)
 "rfW" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency,
@@ -93437,6 +93479,17 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
+"rFj" = (
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "delivery";
+	dir = 4;
+	location = "Medbay"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/genetics)
 "rFy" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -98249,6 +98302,13 @@
 	pixel_y = 4
 	},
 /obj/item/clothing/glasses/science,
+/obj/machinery/requests_console{
+	department = "Science";
+	departmentType = 2;
+	name = "Science Requests Console";
+	pixel_x = 0;
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -138947,11 +139007,11 @@ cPw
 cPw
 dhM
 dhL
-dgS
-dgS
+dgT
+dgT
 dkj
-dgS
-dgS
+dgT
+dgT
 aaa
 aaa
 aab
@@ -139198,17 +139258,17 @@ cBP
 cBQ
 cBQ
 cBQ
-cBP
-cBP
-cBP
-dgS
+chf
+chf
+chf
+dgT
 dhL
 cXm
 dcy
 dcV
 ddf
 ddn
-dgS
+dgT
 aaa
 aaa
 aab
@@ -139465,7 +139525,7 @@ dcz
 dcz
 ddg
 ddo
-dgS
+dgT
 aaa
 aaa
 aab
@@ -141781,7 +141841,7 @@ dkZ
 csL
 csL
 dfM
-cBP
+chf
 aaa
 aaa
 aaa
@@ -142496,7 +142556,7 @@ ciY
 veU
 bVV
 ciY
-bWi
+bQX
 ole
 ciY
 jpJ
@@ -142753,9 +142813,9 @@ frV
 bUI
 bVU
 ciY
-bXV
+bQX
 ole
-ciY
+rFj
 nvX
 xAi
 rpJ
@@ -142809,7 +142869,7 @@ hXq
 ddH
 cXr
 ddH
-cBP
+chf
 cBQ
 cBQ
 cBQ
@@ -143010,7 +143070,7 @@ ciY
 ljm
 ole
 ciY
-bXW
+bQX
 nez
 ciY
 hTr
@@ -143267,7 +143327,7 @@ ciY
 oON
 bVW
 ciY
-sCU
+bXW
 ole
 ciY
 nZb
@@ -143524,7 +143584,7 @@ ciY
 ciY
 xFv
 ciY
-bQX
+sCU
 ole
 cep
 oQQ
@@ -143778,7 +143838,7 @@ bEu
 bEu
 bEu
 ciY
-bQX
+bXV
 sVm
 cbd
 usx
@@ -150690,14 +150750,14 @@ aYR
 aXl
 aYR
 aYQ
-aYR
-aYR
-aYR
-aYR
-aYR
-aYR
-aYS
-aYS
+aYP
+aYP
+aYP
+aYP
+aYP
+aYP
+big
+big
 big
 big
 big
@@ -151504,7 +151564,7 @@ sdf
 xzS
 bGH
 cuQ
-cuQ
+jUH
 kmK
 xit
 xit
@@ -151978,11 +152038,11 @@ aaa
 aaa
 daC
 daD
-aYS
-aYS
-aYS
-aYS
-aYS
+big
+big
+big
+big
+big
 bEF
 ykJ
 pUr
