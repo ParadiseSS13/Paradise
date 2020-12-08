@@ -3,7 +3,7 @@
 	set name = "Who"
 	set category = "OOC"
 
-	var/msg = "<b>Current Players:</b>\n"
+	var/msg = "<b>Онлайн Игроков:</b>\n"
 
 
 	var/list/Lines = list()
@@ -15,22 +15,22 @@
 
 			var/entry = "\t[C.key]"
 			if(C.holder && C.holder.fakekey)
-				entry += " <i>(as [C.holder.fakekey])</i>"
-			entry += " - Playing as [C.mob.real_name]"
+				entry += " <i>(как [C.holder.fakekey])</i>"
+			entry += " - Играет за [C.mob.real_name]"
 			switch(C.mob.stat)
 				if(UNCONSCIOUS)
-					entry += " - <font color='darkgray'><b>Unconscious</b></font>"
+					entry += " - <font color='darkgray'><b>Без сознания</b></font>"
 				if(DEAD)
 					if(isobserver(C.mob))
 						var/mob/dead/observer/O = C.mob
 						if(O.started_as_observer)
-							entry += " - <font color='gray'>Observing</font>"
+							entry += " - <font color='gray'>Наблюдает</font>"
 						else
-							entry += " - <font color='black'><b>DEAD</b></font>"
+							entry += " - <font color='black'><b>МЕРТВ</b></font>"
 					else if(isnewplayer(C.mob))
-						entry += " - <font color='green'>New Player</font>"
+						entry += " - <font color='green'>Новый Игрок</font>"
 					else
-						entry += " - <font color='black'><b>DEAD</b></font>"
+						entry += " - <font color='black'><b>МЕРТВ</b></font>"
 
 			var/age
 			if(isnum(C.player_age))
@@ -46,7 +46,7 @@
 			entry += " - [age]"
 
 			if(is_special_character(C.mob))
-				entry += " - <b><font color='red'>Antagonist</font></b>"
+				entry += " - <b><font color='red'>Антагонист</font></b>"
 			entry += " ([ADMIN_QUE(C.mob,"?")])"
 			Lines += entry
 	else
@@ -62,7 +62,7 @@
 	for(var/line in sortList(Lines))
 		msg += "[line]\n"
 
-	msg += "<b>Total Players: [length(Lines)]</b>"
+	msg += "<b>Всего Игроков: [length(Lines)]</b>"
 	to_chat(src, msg)
 
 /client/verb/adminwho()
@@ -83,36 +83,36 @@
 				if(C.holder.big_brother && !check_rights(R_PERMISSIONS, 0))		// normal admins can't see BB
 					continue
 
-				msg += "\t[C] is a [C.holder.rank]"
+				msg += "\[[C.holder.rank]\]  \t[C]"
 
 				if(C.holder.fakekey)
-					msg += " <i>(as [C.holder.fakekey])</i>"
+					msg += " <i>(как [C.holder.fakekey])</i>"
 
 				if(isobserver(C.mob))
-					msg += " - Observing"
+					msg += " - Наблюдает"
 				else if(isnewplayer(C.mob))
-					msg += " - Lobby"
+					msg += " - В Лобби"
 				else
-					msg += " - Playing"
+					msg += " - Играет"
 
 				if(C.is_afk())
-					msg += " (AFK)"
+					msg += " (АФК)"
 				msg += "\n"
 
 				num_admins_online++
 
 			else if(check_rights(R_MENTOR|R_MOD, 0, C.mob))
-				modmsg += "\t[C] is a [C.holder.rank]"
+				modmsg += "\[[C.holder.rank]\]  \t[C]"
 
 				if(isobserver(C.mob))
-					modmsg += " - Observing"
+					modmsg += " - Наблюдает"
 				else if(isnewplayer(C.mob))
-					modmsg += " - Lobby"
+					modmsg += " - В Лобби"
 				else
-					modmsg += " - Playing"
+					modmsg += " - Играет"
 
 				if(C.is_afk())
-					modmsg += " (AFK)"
+					modmsg += " (АФК)"
 				modmsg += "\n"
 				num_mods_online++
 	else
@@ -120,12 +120,18 @@
 
 			if(check_rights(R_ADMIN, 0, C.mob))
 				if(!C.holder.fakekey)
-					msg += "\t[C] is a [C.holder.rank]\n"
+					msg += "\[[C.holder.rank]\]  \t[C]\n"
 					num_admins_online++
 			else if(check_rights(R_MOD|R_MENTOR, 0, C.mob) && !check_rights(R_ADMIN, 0, C.mob))
-				modmsg += "\t[C] is a [C.holder.rank]\n"
+				modmsg += "\[[C.holder.rank]\]  \t[C]\n"
 				num_mods_online++
 
-	var/noadmins_info = "\n<span class='notice'><small>If no admins or mentors are online, make a ticket anyways. Adminhelps and mentorhelps will be relayed to discord, and staff will still be informed.<small></span>"
-	msg = "<b>Current Admins ([num_admins_online]):</b>\n" + msg + "\n<b>Current Mentors ([num_mods_online]):</b>\n" + modmsg + noadmins_info
+	var/noadmins_info = "\n<span class='notice'><small>Если никого из админсостава нет онлайн, все равно создавайте тикеты. Админхэлпы и менторхэлпы будут перенаправлены в дискорд!<small></span>"
+	msg = "<b>Онлайн Админов ([num_admins_online]):</b>\n" + msg + "\n<b>Онлайн Менторов/Модераторов ([num_mods_online]):</b>\n" + modmsg + noadmins_info
+	msg = replacetext(msg, "\[Хост\]",	"\[<font color='#1ABC9C'>Хост</font>\]")
+	msg = replacetext(msg, "\[Старший Админ\]",	"\[<font color='#f02f2f'>Старший Админ</font>\]")
+	msg = replacetext(msg, "\[Админ\]",	"\[<font color='#ee8f29'>Админ</font>\]")
+	msg = replacetext(msg, "\[Триал Админ\]",	"\[<font color='#cfc000'>Триал Админ</font>\]")
+	msg = replacetext(msg, "\[Модератор\]",	"\[<font color='#9db430'>Модератор</font>\]")
+	msg = replacetext(msg, "\[Ментор\]",	"\[<font color='#67761e'>Ментор</font>\]")
 	to_chat(src, msg)

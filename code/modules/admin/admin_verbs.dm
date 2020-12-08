@@ -738,7 +738,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 					to_chat(src, "Error while re-adminning, ckey [admin_ckey] was not found in the admin database.")
 					qdel(admin_read)
 					return
-				if(admin_rank == "Removed") //This person was de-adminned. They are only in the admin list for archive purposes.
+				if(admin_rank == "Удален") //This person was de-adminned. They are only in the admin list for archive purposes.
 					to_chat(src, "Error while re-adminning, ckey [admin_ckey] is not an admin.")
 					qdel(admin_read)
 					return

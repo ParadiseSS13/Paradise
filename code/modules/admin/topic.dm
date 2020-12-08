@@ -249,50 +249,50 @@
 
 		var/task = href_list["editrights"]
 		if(task == "add")
-			var/new_ckey = ckey(clean_input("New admin's ckey","Admin ckey", null))
+			var/new_ckey = ckey(clean_input("Сикей нового админа","Добавление админа", null))
 			if(!new_ckey)	return
 			if(new_ckey in GLOB.admin_datums)
-				to_chat(usr, "<font color='red'>Error: Topic 'editrights': [new_ckey] is already an admin</font>")
+				to_chat(usr, "<font color='red'>Ошибка: Topic 'editrights': [new_ckey] уже админ!</font>")
 				return
 			adm_ckey = new_ckey
 			task = "rank"
 		else if(task != "show")
 			adm_ckey = ckey(href_list["ckey"])
 			if(!adm_ckey)
-				to_chat(usr, "<font color='red'>Error: Topic 'editrights': No valid ckey</font>")
+				to_chat(usr, "<font color='red'>Ошибка: Topic 'editrights': Неверный сикей</font>")
 				return
 
 		var/datum/admins/D = GLOB.admin_datums[adm_ckey]
 
 		if(task == "remove")
-			if(alert("Are you sure you want to remove [adm_ckey]?","Message","Yes","Cancel") == "Yes")
+			if(alert("Вы уверены что хотите удалить [adm_ckey]?","Внимание!","Да","Отмена") == "Да")
 				if(!D)	return
 				GLOB.admin_datums -= adm_ckey
 				D.disassociate()
 
-				updateranktodb(adm_ckey, "player")
-				message_admins("[key_name_admin(usr)] removed [adm_ckey] from the admins list")
-				log_admin("[key_name(usr)] removed [adm_ckey] from the admins list")
-				log_admin_rank_modification(adm_ckey, "Removed")
+				updateranktodb(adm_ckey, "Игрок")
+				message_admins("[key_name_admin(usr)] удалил [adm_ckey] из списка админов")
+				log_admin("[key_name(usr)] удалил [adm_ckey] из списка админов")
+				log_admin_rank_modification(adm_ckey, "Удален")
 
 		else if(task == "rank")
 			var/new_rank
 			if(GLOB.admin_ranks.len)
-				new_rank = input("Please select a rank", "New rank", null, null) as null|anything in (GLOB.admin_ranks|"*New Rank*")
+				new_rank = input("Выберите стандартный ранг или создайте новый", "Выбор ранга", null, null) as null|anything in (GLOB.admin_ranks|"*Новый Ранг*")
 			else
-				new_rank = input("Please select a rank", "New rank", null, null) as null|anything in list("Mentor", "Trial Admin", "Game Admin", "*New Rank*")
+				new_rank = input("Выберите стандартный ранг или создайте новый", "Выбор ранга", null, null) as null|anything in list("Старший Админ", "Админ", "Триал Админ", "Модератор", "Ментор", "*Новый Ранг*")
 
 			var/rights = 0
 			if(D)
 				rights = D.rights
 			switch(new_rank)
 				if(null,"") return
-				if("*New Rank*")
-					new_rank = input("Please input a new rank", "New custom rank", null, null) as null|text
+				if("*Новый Ранг*")
+					new_rank = input("Введите название нового ранга", "Новый Ранг", null, null) as null|text
 					if(config.admin_legacy_system)
 						new_rank = ckeyEx(new_rank)
 					if(!new_rank)
-						to_chat(usr, "<font color='red'>Error: Topic 'editrights': Invalid rank</font>")
+						to_chat(usr, "<font color='red'>Ошибка: Topic 'editrights': Неверный ранг</font>")
 						return
 					if(config.admin_legacy_system)
 						if(GLOB.admin_ranks.len)
@@ -316,8 +316,8 @@
 			D.associate(C)											//link up with the client and add verbs
 
 			updateranktodb(adm_ckey, new_rank)
-			message_admins("[key_name_admin(usr)] edited the admin rank of [adm_ckey] to [new_rank]")
-			log_admin("[key_name(usr)] edited the admin rank of [adm_ckey] to [new_rank]")
+			message_admins("[key_name_admin(usr)] изменил ранг админа [adm_ckey] на [new_rank]")
+			log_admin("[key_name(usr)] изменил ранг админа [adm_ckey] на [new_rank]")
 			log_admin_rank_modification(adm_ckey, new_rank)
 
 		else if(task == "permissions")
@@ -326,17 +326,17 @@
 				var/list/permissionlist = list()
 				for(var/i=1, i<=R_MAXPERMISSION, i<<=1)		//that <<= is shorthand for i = i << 1. Which is a left bitshift
 					permissionlist[rights2text(i)] = i
-				var/new_permission = input("Select a permission to turn on/off", adm_ckey + "'s Permissions", null, null) as null|anything in permissionlist
+				var/new_permission = input("Выберите флаг для включения/отключения", "Флаги " + adm_ckey, null, null) as null|anything in permissionlist
 				if(!new_permission)
 					return
 				var/oldrights = D.rights
-				var/toggleresult = "ON"
+				var/toggleresult = "ВКЛ"
 				D.rights ^= permissionlist[new_permission]
 				if(oldrights > D.rights)
-					toggleresult = "OFF"
+					toggleresult = "ВЫКЛ"
 
-				message_admins("[key_name_admin(usr)] toggled the [new_permission] permission of [adm_ckey] to [toggleresult]")
-				log_admin("[key_name(usr)] toggled the [new_permission] permission of [adm_ckey] to [toggleresult]")
+				message_admins("[key_name_admin(usr)] переключил флаг [new_permission] админу [adm_ckey] на [toggleresult]")
+				log_admin("[key_name(usr)] переключил флаг [new_permission] админу [adm_ckey] на [toggleresult]")
 				log_admin_permission_modification(adm_ckey, permissionlist[new_permission])
 
 
