@@ -104,7 +104,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	var/obj/structure/AIcore/deactivated/linked_core //For exosuit control
 
-	var/announce_arrivals = TRUE //If our AI doesn't want to be the arrivals announcer, this gets set to 0.
+	var/announce_arrivals = TRUE //If our AI doesn't want to be the arrivals announcer, this gets set to FALSE.
 	var/arrivalmsg = "$name, $rank, has arrived on the station."
 
 	var/multicam_allowed = FALSE
