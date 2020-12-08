@@ -375,11 +375,11 @@
 	name = "Buy Item"
 	refundable = 0
 	buy_word = "Summon"
-	var/not_hands = FALSE
+	var/spawn_on_floor = FALSE
 	var/item_path = null
 
 /datum/spellbook_entry/item/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
-	if(not_hands == FALSE)
+	if(spawn_on_floor == FALSE)
 		user.put_in_hands(new item_path)
 	else
 		new item_path(user.loc)
@@ -459,7 +459,7 @@
 	item_path = /obj/item/warp_cube/red
 	log_name = "WC"
 	cost = 1
-	not_hands = TRUE // breaks if spawned in hand
+	spawn_on_floor = TRUE // breaks if spawned in hand
 	category = "Artefacts"
 
 //Weapons and Armors
