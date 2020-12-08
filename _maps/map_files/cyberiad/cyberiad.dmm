@@ -50029,9 +50029,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/structure/chair/office/light{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel,
 /area/teleporter)
 "bXx" = (
@@ -78716,10 +78713,6 @@
 	name = "Med. CMO";
 	sortType = 10
 	},
-/obj/machinery/camera{
-	c_tag = "Medbay Corridor East";
-	dir = 6
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue";
 	tag = "icon-whiteblue"
@@ -82063,12 +82056,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
-"ioy" = (
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "o"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
 "ioI" = (
 /obj/structure/reagent_dispensers/fueltank/chem{
 	pixel_x = -32;
@@ -82788,12 +82775,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/toxins/robolab)
-"jaJ" = (
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "v"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
 "jbf" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -83535,12 +83516,6 @@
 	icon_state = "white"
 	},
 /area/hallway/primary/starboard/east)
-"jIo" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/turf/simulated/floor/bluegrid,
-/area/turret_protected/ai_upload)
 "jIA" = (
 /turf/simulated/floor/plasteel,
 /area/toxins/hallway)
@@ -83774,6 +83749,10 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Medbay Corridor East";
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue";
@@ -84019,12 +83998,6 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/toxins/hallway)
-"kck" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/turf/space,
-/area/space)
 "kcw" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research{
@@ -84286,12 +84259,6 @@
 	icon_state = "dark"
 	},
 /area/toxins/server)
-"koP" = (
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "r"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
 "kpN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/computerframe,
@@ -95091,9 +95058,6 @@
 	},
 /area/medical/paramedic)
 "tll" = (
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "p"
-	},
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
@@ -95608,12 +95572,6 @@
 	icon_state = "darkred"
 	},
 /area/hallway/secondary/exit)
-"tCY" = (
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "x"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
 "tDq" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/turf_decal/bot_white,
@@ -98357,6 +98315,7 @@
 "vQH" = (
 /obj/item/organ/internal/lungs/vox,
 /obj/effect/landmark/burnturf,
+/obj/item/reagent_containers/food/snacks/fried_vox,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "vSa" = (
@@ -99133,6 +99092,7 @@
 "wCP" = (
 /obj/item/storage/bag/plasticbag,
 /obj/effect/landmark/burnturf,
+/obj/item/trash/fried_vox,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "wDr" = (
@@ -121883,7 +121843,7 @@ aaa
 aaa
 aaa
 aaa
-kck
+aaa
 aaa
 aaa
 aaa
@@ -130701,7 +130661,7 @@ bvX
 bxs
 bDZ
 bxq
-jIo
+bxq
 bxq
 bvX
 bFP
@@ -140847,7 +140807,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -143896,7 +143856,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+abp
 aaa
 aaa
 aaa
@@ -144169,7 +144129,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+abp
 aaa
 aaa
 aaa
@@ -149530,7 +149490,7 @@ bGG
 bZZ
 aaa
 bZZ
-jaJ
+bGG
 bGG
 bGG
 bGG
@@ -149787,7 +149747,7 @@ bGG
 bZZ
 aaa
 bZZ
-ioy
+bGG
 bGG
 uEk
 bGG
@@ -150044,7 +150004,7 @@ bGG
 cxS
 aaa
 cuQ
-tCY
+dfc
 riB
 cuQ
 cuQ
@@ -150302,7 +150262,7 @@ cuQ
 cuQ
 cuQ
 pEY
-koP
+bGG
 cuQ
 hep
 vQH
@@ -150816,7 +150776,7 @@ bGG
 bGG
 dkv
 bGG
-ioy
+bGG
 cuQ
 wCP
 dvv
@@ -151073,7 +151033,7 @@ djA
 dbg
 cLh
 dfc
-tCY
+bGG
 cuQ
 cuQ
 cuQ
@@ -156698,7 +156658,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+abp
 aaa
 aaa
 aaa
@@ -156929,7 +156889,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+abp
 aaa
 aaa
 aaa
@@ -157003,7 +156963,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+abp
 aaa
 aaa
 aaa
