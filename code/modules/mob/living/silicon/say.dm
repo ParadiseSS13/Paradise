@@ -78,7 +78,7 @@
 		var/obj/effect/overlay/holo_pad_hologram/H = T.masters[src]
 		if ((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
 			var/message = combine_message(message_pieces, null, src)
-			create_chat_message(H, message)
+			create_chat_message(H, message, TRUE, FALSE)
 		for(var/mob/M in hearers(T.loc))//The location is the object, default distance.
 			M.hear_holopad_talk(message_pieces, verb, src, H)
 		to_chat(src, "<i><span class='game say'>Holopad transmitted, <span class='name'>[real_name]</span> [combine_message(message_pieces, verb, src)]</span></i>")

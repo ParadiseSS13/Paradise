@@ -53,10 +53,11 @@
   * * text - The text content of the overlay
   * * target - The target atom to display the overlay at
   * * owner - The mob that owns this overlay, only this mob will be able to view it
+  * * radio_speech - If we talk directly into radio
   * * italics - Should we use italics or not
   * * lifespan - The lifespan of the message in deciseconds
   */
-/datum/chatmessage/New(text, atom/target, mob/owner, italics, size, lifespan = CHAT_MESSAGE_LIFESPAN)
+/datum/chatmessage/New(text, atom/target, mob/owner, radio_speech, italics, lifespan = CHAT_MESSAGE_LIFESPAN)
 	. = ..()
 	if (!istype(target))
 		CRASH("Invalid target given for chatmessage")
@@ -64,7 +65,7 @@
 		stack_trace("/datum/chatmessage created with [isnull(owner) ? "null" : "invalid"] mob owner")
 		qdel(src)
 		return
-	INVOKE_ASYNC(src, .proc/generate_image, text, target, owner, lifespan, italics, size)
+	INVOKE_ASYNC(src, .proc/generate_image, text, target, owner, radio_speech, lifespan, italics)
 
 /datum/chatmessage/Destroy()
 	if (owned_by)
@@ -94,7 +95,11 @@
   * * lifespan - The lifespan of the message in deciseconds
   * * italics - Just copy and paste, sir
   */
-/datum/chatmessage/proc/generate_image(text, atom/target, mob/owner, lifespan, italics, size)
+/datum/chatmessage/proc/generate_image(text, atom/target, mob/owner, radio_speech, lifespan, italics)
+	if(!owner && !owner.client)
+		qdel(src)
+		return
+
 	// Register client who owns this message
 	owned_by = owner.client
 	RegisterSignal(owned_by, COMSIG_PARENT_QDELETING, .proc/on_parent_qdel)
@@ -107,9 +112,10 @@
 		text = jointext(s.opening, "") + chattext + jointext(s.closing, "")
 
 	// Calculate target color if not already present
-	if (!target.chat_color || target.chat_color_name != target.name)
-		target.chat_color = colorize_string(target.name)
-		target.chat_color_name = target.name
+//	if (!target.chat_color || target.chat_color_name != target.name)
+//		target.chat_color = colorize_string(target.name)
+//		target.chat_color_darkened = colorize_string(target.name, 0.85, 0.85)
+//		target.chat_color_name = target.name
 
 	// Get rid of any URL schemes that might cause BYOND to automatically wrap something in an anchor tag
 	var/static/regex/url_scheme = new(@"[A-Za-z][A-Za-z0-9+-\.]*:\/\/", "g")
@@ -121,12 +127,21 @@
 		qdel(src)
 		return
 
-	var/output_color = sanitize_color(target.get_runechat_color()) // Get_runechat_color can be overriden on atoms to display a specific one (Example: Humans having their hair colour as runechat colour)
+	// Append radio icon
+	if (radio_speech)
+		var/image/r_icon = image('icons/effects/chat_icons.dmi', icon_state = "radio")
+		text =  "\icon[r_icon]&nbsp;" + text
+
+	// We dim italicized text to make it more distinguishable from regular text
+	var/tgt_color = radio_speech ? target.chat_color_darkened : target.chat_color
 
 	// Approximate text height
+	// Note we have to replace HTML encoded metacharacters otherwise MeasureText will return a zero height
+	// BYOND Bug #2563917
+	// Construct text
 	var/static/regex/html_metachars = new(@"&[A-Za-z]{1,7};", "g")
-	var/complete_text = "<span class='center maptext[size ? " [size]" : ""]' style='[italics ? "font-style: italic; " : ""]color: [output_color]'>[text]</span>"
-	var/mheight = WXH_TO_HEIGHT(owned_by.MeasureText(complete_text, null, CHAT_MESSAGE_WIDTH))
+	var/complete_text = "<span class='center maptext[italics ? " italics" : ""]'[tgt_color ? " style='color: [tgt_color]'" : ""]>[text]</span>"
+	var/mheight = WXH_TO_HEIGHT(owned_by.MeasureText(replacetext(complete_text, html_metachars, "m"), null, CHAT_MESSAGE_WIDTH))
 	approx_lines = max(1, mheight / CHAT_MESSAGE_APPROX_LHEIGHT)
 
 	// Translate any existing messages upwards, apply exponential decay factors to timers
@@ -182,24 +197,20 @@
   * * speaker - The atom who is saying this message
   * * raw_message - The text content of the message
   * * italics - Vacuum and other things
-  * * size - Size of the message
+  * * radio_speech - Should we use radio speech icon
   */
-/mob/proc/create_chat_message(atom/movable/speaker, raw_message, italics=FALSE, size)
+/mob/proc/create_chat_message(atom/movable/speaker, raw_message, radio_speech, italics = FALSE)
+	if(SStimer.can_fire && SSrunechat.can_fire) // Disable Runechat if SSTimer or SSRunechat stopped
+		// Display visual above source
+		new /datum/chatmessage(raw_message, speaker, src, radio_speech, italics)
 
-	if(isobserver(src))
-		return
-
-
-	// Display visual above source
-	new /datum/chatmessage(raw_message, speaker, src, italics, size)
-
-
+/*
 // Tweak these defines to change the available color ranges
 #define CM_COLOR_SAT_MIN	0.6
 #define CM_COLOR_SAT_MAX	0.7
 #define CM_COLOR_LUM_MIN	0.65
 #define CM_COLOR_LUM_MAX	0.75
-
+*/
 /**
   * Gets a color for a name, will return the same color for a given string consistently within a round.atom
   *
@@ -210,6 +221,7 @@
   * * sat_shift - A value between 0 and 1 that will be multiplied against the saturation
   * * lum_shift - A value between 0 and 1 that will be multiplied against the luminescence
   */
+/*
 /datum/chatmessage/proc/colorize_string(name, sat_shift = 1, lum_shift = 1)
 	// seed to help randomness
 	var/static/rseed = rand(1,26)
@@ -245,7 +257,7 @@
 			return "#[num2hex(x, 2)][num2hex(m, 2)][num2hex(c, 2)]"
 		if(5)
 			return "#[num2hex(c, 2)][num2hex(m, 2)][num2hex(x, 2)]"
-
+*/
 
 /**
   * Ensures a colour is bright enough for the system

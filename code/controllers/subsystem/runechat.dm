@@ -63,6 +63,16 @@ SUBSYSTEM_DEF(runechat)
 		practical_offset = 1
 		resumed = FALSE
 
+	if((length(bucket_list) != BUCKET_LEN) || (world.tick_lag != bucket_resolution))
+		bucket_list.len = 0
+		bucket_list.len = BUCKET_LEN
+		practical_offset = 1
+		bucket_count = 0
+		head_offset = world.time
+		bucket_resolution = world.tick_lag
+		bucket_list = src.bucket_list
+		resumed = FALSE
+
 	// Store a reference to the 'working' chatmessage so that we can resume if the MC
 	// has us stop mid-way through processing
 	var/static/datum/chatmessage/cm
