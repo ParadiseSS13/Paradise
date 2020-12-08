@@ -360,17 +360,39 @@
 	return list(effect, update_flags)
 
 /datum/reagent/methamphaldehyde
-	name = "methamphaldehyde"
+	name = "Methamphaldehyde"
 	id = "methamphaldehyde"
-	description = ""
+	description = "A diluted mix of methamphetamine and mannitol. Its effects are weaker leading to no chance at brain damage or addiction, but it reacts poorly to one's immune system."
 	reagent_state = LIQUID
-	color = "#60A584" // rgb: 96, 165, 132
+	color = "#97d1b5" // rgb: 59, 82, 71
 	overdose_threshold = 0
 	addiction_chance = 0
 	addiction_threshold = 0
 	metabolization_rate = 0.6
 	heart_rate_increase = 1
 	taste_description = "speed"
+
+/datum/reagent/methamphaldehyde/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(5))
+		M.emote(pick("twitch_s","blink_r","shiver"))
+	if(current_cycle >= 25)
+		M.AdjustJitter(5)
+	M.AdjustDrowsy(-10)
+	update_flags |= M.AdjustParalysis(-1.5, FALSE)
+	update_flags |= M.AdjustStunned(-1.5, FALSE)
+	update_flags |= M.AdjustWeakened(-1.5, FALSE)
+	update_flags |= M.adjustStaminaLoss(-1, FALSE)
+	update_flags |= M.SetSleeping(0, FALSE)
+	M.status_flags |= GOTTAGOFAST
+	if(prob(10))
+		var/mob/living/carbon/human/C = M
+		C.vomit()
+	return ..() | update_flags
+
+/datum/reagent/methamphaldehyde/on_mob_delete(mob/living/M)
+	M.status_flags &= ~GOTTAGOFAST
+	..()
 
 /datum/reagent/bath_salts
 	name = "Bath Salts"
