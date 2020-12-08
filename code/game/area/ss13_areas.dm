@@ -672,16 +672,16 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance/abandonedbar
 	name = "Maintenance Bar"
 	icon_state = "yellow"
-	power_equip = 0
-	power_light = 0
-	power_environ = 0
+	power_equip = FALSE
+	power_light = FALSE
+	power_environ = FALSE
 
 /area/maintenance/abandonedrobotics
 	name = "Maintenance Robotics"
 	icon_state = "abandonedrobotics"
-	power_equip = 0
-	power_light = 0
-	power_environ = 0
+	power_equip = FALSE
+	power_light = FALSE
+	power_environ = FALSE
 
 /area/maintenance/electrical_shop
 	name ="Electronics Den"
