@@ -1141,7 +1141,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set desc = "Change whether or not you wish to announce arrivals."
 	set category = "AI Commands"
 	announce_arrivals = !announce_arrivals
-	to_chat(usr, "Arrivals announcement system toggled.")
+	to_chat(usr, "Arrivals announcement system [announce_arrivals ? "enabled" : "disabled"]")
 
 /mob/living/silicon/ai/proc/change_arrival_message()
 	set name = "Set Arrival Message"
