@@ -204,17 +204,17 @@ effective or pretty fucking useless.
 	attempt_teleport(user, FALSE)
 
 /obj/item/teleporter/process()
-	if(prob(10) && charges != max_charges)
-		charges += 1
+	if(prob(10) && charges < max_charges)
+		charges++
 
 /obj/item/teleporter/emp_act(severity)
 	if(prob(50 / severity))
-		var/mob/living/carbon/human/user = src.loc
-		if((user && ishuman(user)))
+		var/mob/living/carbon/human/user = loc
+		if(user && ishuman(user))
 			to_chat(user, "<span class='danger'>The [src] buzzes and activates!</span>")
 			attempt_teleport(user, TRUE)
 		else
-			src.visible_message("<span class='warning'> The [src] activates and blinks out of existance!</span>")
+			visible_message("<span class='warning'> The [src] activates and blinks out of existance!</span>")
 			do_sparks(2, 1, src)
 			qdel(src)
 
@@ -231,7 +231,7 @@ effective or pretty fucking useless.
 	for(var/turf/T in range(user, tp_range))
 		if(!is_teleport_allowed(T.z))
 			break
-		if(!(bagholding.len && !flawless)) //Chaos if you have a bag of holding
+		if(!(length(bagholding) && !flawless)) //Chaos if you have a bag of holding
 			if(get_dir(C, T) != C.dir)
 				continue
 		if(T in range(user, inner_tp_range))
@@ -271,7 +271,7 @@ effective or pretty fucking useless.
 		return TRUE
 
 /obj/item/teleporter/proc/panic_teleport(mob/user, turf/destination, direction = NORTH)
-	var/saving_throw = 0
+	var/saving_throw
 	switch(direction)
 		if(NORTH || SOUTH)
 			if(prob(50))
@@ -288,7 +288,7 @@ effective or pretty fucking useless.
 
 	var/mob/living/carbon/C = user
 	var/turf/mobloc = get_turf(C)
-	var/list/turfs = new/list()
+	var/list/turfs = list()
 	var/found_turf = FALSE
 	for(var/turf/T in range(destination, saving_throw_distance))
 		if(get_dir(destination, T) != saving_throw)
@@ -309,8 +309,8 @@ effective or pretty fucking useless.
 		telefrag(fragging_location, user)
 		C.forceMove(new_destination)
 		playsound(mobloc, "sparks", 50, TRUE)
-		new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
-		new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(new_destination)
+		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
+		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(new_destination)
 		playsound(new_destination, "sparks", 50, TRUE)
 	else //We tried to save. We failed. Death time.
 		get_fragged(user, destination)
@@ -320,8 +320,8 @@ effective or pretty fucking useless.
 	var/turf/mobloc = get_turf(user)
 	user.forceMove(destination)
 	playsound(mobloc, "sparks", 50, TRUE)
-	new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
-	new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
+	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
+	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
 	playsound(destination, "sparks", 50, TRUE)
 	playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
 	destination.ex_act(rand(1,2))
@@ -361,6 +361,7 @@ effective or pretty fucking useless.
 	new /obj/item/teleporter(src)
 	new /obj/item/paper/teleporter(src)
 	return
+
 /obj/effect/temp_visual/teleport_abductor/syndi_teleporter
 	duration = 5
 
