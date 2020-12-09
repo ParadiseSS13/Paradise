@@ -780,10 +780,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/proc/can_copy_design(datum/design/D)
 	if(D)
-		if(D.build_type & AUTOLATHE)
+		if(D.build_type & PROTOLATHE)
 			return TRUE
 
-		if(D.build_type & PROTOLATHE)
+		if(D.build_type & AUTOLATHE)
 			for(var/M in D.materials)
 				if(M != MAT_METAL && M != MAT_GLASS)
 					return FALSE

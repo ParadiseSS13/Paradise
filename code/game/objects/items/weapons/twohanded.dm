@@ -163,7 +163,7 @@
 	if(slot == slot_l_hand || slot == slot_r_hand)
 		wield(user)
 		if(!wielded) // Drop immediately if we couldn't wield
-			user.drop_item()
+			user.unEquip(src)
 			to_chat(user, "<span class='notice'>[src] is too cumbersome to carry in one hand!</span>")
 	else
 		unwield(user)
@@ -201,7 +201,6 @@
 		if(istype(A, /obj/structure/window) || istype(A, /obj/structure/grille))
 			var/obj/structure/W = A
 			W.obj_destruction("fireaxe")
-
 
 /obj/item/twohanded/fireaxe/boneaxe  // Blatant imitation of the fireaxe, but made out of bone.
 	icon_state = "bone_axe0"

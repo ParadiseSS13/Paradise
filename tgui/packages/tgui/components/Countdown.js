@@ -30,6 +30,21 @@ export class Countdown extends Component {
     clearInterval(this.timer);
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.current !== prevProps.current) {
+      // https://github.com/yannickcr/eslint-plugin-react/issues/1707
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState(prevState => {
+        return {
+          value: Math.max(this.props.timeLeft * 100, 0),
+        };
+      });
+    }
+    if (!this.timer) {
+      this.componentDidMount();
+    }
+  }
+
   render() {
     const {
       format,
