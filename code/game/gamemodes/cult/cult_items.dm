@@ -247,6 +247,7 @@
 	icon_state = "blindfold"
 	item_state = "blindfold"
 	see_in_dark = 8
+	invis_override = SEE_INVISIBLE_HIDDEN_RUNES
 	flash_protect = TRUE
 	prescription = TRUE
 	origin_tech = null
