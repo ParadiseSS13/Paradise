@@ -41195,9 +41195,6 @@
 	pixel_y = 0;
 	tag = ""
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/purple{
-	dir = 4
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "bBa" = (
@@ -82616,9 +82613,7 @@
 	pixel_y = 0;
 	tag = ""
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/purple{
-	dir = 5
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/purple,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "iQP" = (
@@ -83606,9 +83601,6 @@
 	},
 /obj/machinery/light/small{
 	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/purple{
-	dir = 10
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
@@ -87094,6 +87086,14 @@
 /turf/simulated/floor/bluegrid,
 /area/tcommsat/chamber)
 "mkS" = (
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Chief Medical Officer's Desk";
+	departmentType = 5;
+	name = "Chief Medical Officer Requests Console";
+	pixel_x = 0;
+	pixel_y = -30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "darkblue"
@@ -94360,6 +94360,18 @@
 	tag = "icon-vault (NORTHEAST)"
 	},
 /area/turret_protected/aisat_interior)
+"rWs" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/purple{
+	dir = 10
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "rWB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -95507,9 +95519,12 @@
 /area/toxins/storage)
 "sYP" = (
 /obj/machinery/computer/crew,
-/obj/structure/sign/poster/official/random{
-	pixel_x = 32;
-	pixel_y = 0
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Chief Medical Officer's Desk";
+	departmentType = 5;
+	name = "Chief Medical Officer Requests Console";
+	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -100269,6 +100284,13 @@
 	tag = "icon-wood-broken"
 	},
 /area/maintenance/asmaint)
+"wRw" = (
+/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/machinery/atmospherics/pipe/simple/hidden/purple{
+	dir = 5
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "wTD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -150576,7 +150598,7 @@ vru
 ezC
 hmt
 iPS
-uEk
+wRw
 uEk
 cuQ
 dbg
@@ -150833,7 +150855,7 @@ pZa
 pZa
 bKl
 bAZ
-bGG
+tTu
 bGG
 cuQ
 dbg
@@ -151090,7 +151112,7 @@ tIQ
 pZa
 pZa
 jFc
-xAQ
+rWs
 kNz
 sfd
 xAQ
