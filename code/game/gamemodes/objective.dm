@@ -54,6 +54,27 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(possible_targets.len > 0)
 		target = pick(possible_targets)
 
+/**
+  * Called when the objective's target goes to cryo.
+  */
+/datum/objective/proc/on_target_cryo()
+	if(owner?.current)
+		to_chat(owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
+		SEND_SOUND(owner.current, 'sound/ambience/alarm4.ogg')
+	target = null
+	INVOKE_ASYNC(src, .proc/post_target_cryo)
+
+/**
+  * Called a tick after when the objective's target goes to cryo.
+  */
+/datum/objective/proc/post_target_cryo()
+	find_target()
+	if(!target)
+		GLOB.all_objectives -= src
+		owner?.objectives -= src
+		qdel(src)
+	owner?.announce_objectives()
+
 /datum/objective/assassinate
 	martyr_compatible = 1
 
@@ -97,6 +118,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			return 1
 		return 0
 	return 1
+
+/datum/objective/mutiny/on_target_cryo()
+	// We don't want revs to get objectives that aren't for heads of staff. Letting
+	// them win or lose based on cryo is silly so we remove the objective.
+	qdel(src)
 
 /datum/objective/maroon
 	martyr_compatible = 1

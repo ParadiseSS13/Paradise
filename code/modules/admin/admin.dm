@@ -270,6 +270,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			<A href='?_src_=holder;tdome2=[M.UID()]'>Thunderdome 2</A> |
 			<A href='?_src_=holder;tdomeadmin=[M.UID()]'>Thunderdome Admin</A> |
 			<A href='?_src_=holder;tdomeobserve=[M.UID()]'>Thunderdome Observer</A> |
+			<A href='?_src_=holder;contractor_stop=[M.UID()]'>Stop Syndicate Jail Timer</A> |
+			<A href='?_src_=holder;contractor_start=[M.UID()]'>Start Syndicate Jail Timer</A> |
+			<A href='?_src_=holder;contractor_release=[M.UID()]'>Release now from Syndicate Jail</A> |
 		"}
 
 	body += {"<br>

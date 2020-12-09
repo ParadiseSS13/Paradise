@@ -192,15 +192,15 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	return FALSE
 
 /obj/machinery/porta_turret/attack_ai(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/porta_turret/attack_ghost(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/porta_turret/attack_hand(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/porta_turret/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/porta_turret/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	if(HasController())
 		to_chat(user, "<span class='notice'>[src] can only be controlled using the assigned turret controller.</span>")
 		return
@@ -212,7 +212,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		ui = new(user, src, ui_key, "PortableTurret", name, 500, access_is_configurable() ? 800 : 400)
 		ui.open()
 
-/obj/machinery/porta_turret/tgui_data(mob/user)
+/obj/machinery/porta_turret/ui_data(mob/user)
 	var/list/data = list(
 		"locked" = isLocked(user), // does the current user have access?
 		"on" = enabled,
@@ -232,12 +232,12 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	)
 	return data
 
-/obj/machinery/porta_turret/tgui_static_data(mob/user)
+/obj/machinery/porta_turret/ui_static_data(mob/user)
 	var/list/data = list()
 	data["regions"] = get_accesslist_static_data(region_min, region_max)
 	return data
 
-/obj/machinery/porta_turret/tgui_act(action, params)
+/obj/machinery/porta_turret/ui_act(action, params)
 	if (..())
 		return
 	if(isLocked(usr))

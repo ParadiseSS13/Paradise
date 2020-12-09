@@ -20,6 +20,14 @@
 	var/traitors_possible = 4 //hard limit on traitors if scaling is turned off
 	var/const/traitor_scaling_coeff = 5.0 //how much does the amount of players get divided by to determine traitors
 	var/antag_datum = /datum/antagonist/traitor //what type of antag to create
+	// Contractor related
+	/// Minimum number of possible contractors regardless of the number of traitors.
+	var/min_contractors = 1
+	/// How many contractors there are in proportion to traitors.
+	/// Calculated as: num_contractors = max(min_contractors, CEILING(num_traitors * contractor_traitor_ratio, 1))
+	var/contractor_traitor_ratio = 0.25
+	/// List of traitors who are eligible to become a contractor.
+	var/list/datum/mind/selected_contractors = list()
 
 /datum/game_mode/traitor/announce()
 	to_chat(world, "<B>The current game mode is - Traitor!</B>")
@@ -44,6 +52,8 @@
 	else
 		num_traitors = max(1, min(num_players(), traitors_possible))
 
+	var/num_contractors = max(min_contractors, CEILING(num_traitors * contractor_traitor_ratio, 1))
+
 	for(var/j = 0, j < num_traitors, j++)
 		if(!possible_traitors.len)
 			break
@@ -52,6 +62,8 @@
 		traitor.special_role = SPECIAL_ROLE_TRAITOR
 		traitor.restricted_roles = restricted_jobs
 		possible_traitors.Remove(traitor)
+		if(num_contractors-- > 0)
+			selected_contractors += traitor
 
 	if(!pre_traitors.len)
 		return 0
@@ -61,6 +73,7 @@
 /datum/game_mode/traitor/post_setup()
 	for(var/datum/mind/traitor in pre_traitors)
 		var/datum/antagonist/traitor/new_antag = new antag_datum()
+		new_antag.is_contractor = (traitor in selected_contractors)
 		addtimer(CALLBACK(traitor, /datum/mind.proc/add_antag_datum, new_antag), rand(10,100))
 	if(!exchange_blue)
 		exchange_blue = -1 //Block latejoiners from getting exchange objectives
@@ -117,6 +130,27 @@
 			else
 				special_role_text = "antagonist"
 
+			var/datum/antagonist/traitor/contractor/contractor = traitor.has_antag_datum(/datum/antagonist/traitor/contractor)
+			if(contractor?.contractor_uplink)
+				var/count = 1
+				var/earned_tc = contractor.contractor_uplink.hub.reward_tc_paid_out
+				for(var/c in contractor.contractor_uplink.hub.contracts)
+					var/datum/syndicate_contract/C = c
+					// Locations
+					var/locations = list()
+					for(var/a in C.contract.candidate_zones)
+						var/area/A = a
+						locations += (A == C.contract.extraction_zone ? "<b><u>[A.map_name]</u></b>" : A.map_name)
+					var/display_locations = english_list(locations, and_text = " or ")
+					// Result
+					var/result = ""
+					if(C.status == CONTRACT_STATUS_COMPLETED)
+						result = "<font color='green'><B>Success!</B></font>"
+					else if(C.status != CONTRACT_STATUS_INACTIVE)
+						result = "<font color='red'>Fail.</font>"
+					text += "<br><font color='orange'><B>Contract #[count]</B></font>: Kidnap and extract [C.target_name] at [display_locations]. [result]"
+					count++
+				text += "<br><font color='orange'><B>[earned_tc] TC were earned from the contracts.</B></font>"
 
 			if(traitorwin)
 				text += "<br><font color='green'><B>The [special_role_text] was successful!</B></font><br>"

@@ -4,6 +4,7 @@
  * Base state and helpers for states. Just does some sanity checks, implement a state for in-depth checks.
  */
 
+
 /**
  * public
  *
@@ -14,8 +15,8 @@
  *
  * return UI_state The state of the UI.
  */
-/datum/proc/tgui_status(mob/user, datum/tgui_state/state)
-	var/src_object = tgui_host(user)
+/datum/proc/ui_status(mob/user, datum/ui_state/state)
+	var/src_object = ui_host(user)
 	. = STATUS_CLOSE
 	if(!state)
 		return
@@ -45,7 +46,7 @@
  *
  * return UI_state The state of the UI.
  */
-/datum/tgui_state/proc/can_use_topic(src_object, mob/user)
+/datum/ui_state/proc/can_use_topic(src_object, mob/user)
 	return STATUS_CLOSE // Don't allow interaction by default.
 
 /**
@@ -55,7 +56,7 @@
  *
  * return UI_state The state of the UI.
  */
-/mob/proc/shared_tgui_interaction(src_object)
+/mob/proc/shared_ui_interaction(src_object)
 	if(!client) // Close UIs if mindless.
 		return STATUS_CLOSE
 	else if(stat) // Disable UIs if unconcious.
@@ -64,12 +65,12 @@
 		return STATUS_UPDATE
 	return STATUS_INTERACTIVE
 
-/mob/living/silicon/ai/shared_tgui_interaction(src_object)
+/mob/living/silicon/ai/shared_ui_interaction(src_object)
 	if(lacks_power()) // Disable UIs if the AI is unpowered.
 		return STATUS_DISABLED
 	return ..()
 
-/mob/living/silicon/robot/shared_tgui_interaction(src_object)
+/mob/living/silicon/robot/shared_ui_interaction(src_object)
 	if(!cell || cell.charge <= 0 || lockcharge) // Disable UIs if the Borg is unpowered or locked.
 		return STATUS_DISABLED
 	return ..()
@@ -86,8 +87,8 @@
  *
  * return UI_state The state of the UI.
  */
-/atom/proc/contents_tgui_distance(src_object, mob/living/user)
-	return user.shared_living_tgui_distance(src_object) // Just call this mob's check.
+/atom/proc/contents_ui_distance(src_object, mob/living/user)
+	return user.shared_living_ui_distance(src_object) // Just call this mob's check.
 
 /**
  * public
@@ -98,7 +99,7 @@
  *
  * return UI_state The state of the UI.
  */
-/mob/living/proc/shared_living_tgui_distance(atom/movable/src_object, viewcheck = TRUE)
+/mob/living/proc/shared_living_ui_distance(atom/movable/src_object, viewcheck = TRUE)
 	if(viewcheck && !(src_object in view(src))) // If the object is obscured, close it.
 		return STATUS_CLOSE
 
@@ -111,7 +112,7 @@
 		return STATUS_DISABLED
 	return STATUS_CLOSE // Otherwise, we got nothing.
 
-/mob/living/carbon/human/shared_living_tgui_distance(atom/movable/src_object)
+/mob/living/carbon/human/shared_living_ui_distance(atom/movable/src_object)
 	if((TK in mutations) && (get_dist(src, src_object) <= 2))
 		return STATUS_INTERACTIVE
 	return ..()

@@ -275,10 +275,10 @@
 	return
 
 /obj/machinery/door_timer/attack_ai(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/door_timer/attack_ghost(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 //Allows humans to use door_timer
 //Opens dialog window when someone clicks on door timer
@@ -287,15 +287,15 @@
 /obj/machinery/door_timer/attack_hand(mob/user)
 	if(..())
 		return
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/door_timer/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/door_timer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "BrigTimer",  name, 500, 450, master_ui, state)
 		ui.open()
 
-/obj/machinery/door_timer/tgui_static_data(mob/user)
+/obj/machinery/door_timer/ui_static_data(mob/user)
 	var/list/data = list()
 	data["spns"] = list()
 	for(var/mob/living/carbon/human/H in range(4, get_turf(src)))
@@ -303,7 +303,7 @@
 			data["spns"] += H.name
 	return data
 
-/obj/machinery/door_timer/tgui_data(mob/user)
+/obj/machinery/door_timer/ui_data(mob/user)
 	var/list/data = list()
 	data["cell_id"] = name
 	data["occupant"] = occupant
@@ -324,7 +324,7 @@
 		return TRUE
 	return ..()
 
-/obj/machinery/door_timer/tgui_act(action, params)
+/obj/machinery/door_timer/ui_act(action, params)
 	if(..())
 		return
 	if(!allowed(usr))

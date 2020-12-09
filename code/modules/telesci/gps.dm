@@ -38,7 +38,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	overlays += "working"
 
 /obj/item/gps/AltClick(mob/user)
-	if(CanUseTopic(user, GLOB.inventory_state) != STATUS_INTERACTIVE)
+	if(ui_status(user, GLOB.inventory_state) != STATUS_INTERACTIVE)
 		return 1 //user not valid to use gps
 	if(emped)
 		to_chat(user, "<span class='warning'>It's busted!</span>")

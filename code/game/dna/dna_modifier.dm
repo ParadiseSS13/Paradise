@@ -408,9 +408,9 @@
 		if(stat & (NOPOWER|BROKEN))
 			return
 
-		tgui_interact(user)
+		ui_interact(user)
 
-/obj/machinery/computer/scan_consolenew/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/computer/scan_consolenew/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	if(user == connected.occupant)
 		return
 
@@ -419,8 +419,8 @@
 		ui = new(user, src, ui_key, "DNAModifier", name, 660, 700, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/scan_consolenew/tgui_data(mob/user)
-	var/data[0]
+/obj/machinery/computer/scan_consolenew/ui_data(mob/user)
+	var/list/data = list()
 	data["selectedMenuKey"] = selected_menu_key
 	data["locked"] = connected.locked
 	data["hasOccupant"] = connected.occupant ? 1 : 0
@@ -494,11 +494,11 @@
 				data["beakerVolume"] += R.volume
 
 	// Transfer modal information if there is one
-	data["modal"] = tgui_modal_data(src)
+	data["modal"] = ui_modal_data(src)
 
 	return data
 
-/obj/machinery/computer/scan_consolenew/tgui_act(action, params)
+/obj/machinery/computer/scan_consolenew/ui_act(action, params)
 	if(..())
 		return FALSE // don't update uis
 	if(!istype(usr.loc, /turf))
@@ -512,7 +512,7 @@
 
 	add_fingerprint(usr)
 
-	if(tgui_act_modal(action, params))
+	if(ui_act_modal(action, params))
 		return TRUE
 
 	. = TRUE
@@ -721,7 +721,7 @@
 				if("clear")
 					buffers[bufferId] = new /datum/dna2/record()
 				if("changeLabel")
-					tgui_modal_input(src, "changeBufferLabel", "Please enter the new buffer label:", null, list("id" = bufferId), buffer.name, TGUI_MODAL_INPUT_MAX_LENGTH_NAME)
+					ui_modal_input(src, "changeBufferLabel", "Please enter the new buffer label:", null, list("id" = bufferId), buffer.name, UI_MODAL_INPUT_MAX_LENGTH_NAME)
 				if("transfer")
 					if(!connected.occupant || (NOCLONE in connected.occupant.mutations && connected.scan_level < 3) || !connected.occupant.dna)
 						return
@@ -758,7 +758,7 @@
 						return
 					if(text2num(params["block"]) > 0)
 						var/list/choices = all_dna_blocks((buffer.types & DNA2_BUF_SE) ? buffer.dna.SE : buffer.dna.UI)
-						tgui_modal_choice(src, "createInjectorBlock", "Please select the block to create an injector from:", null, list("id" = bufferId), null, choices)
+						ui_modal_choice(src, "createInjectorBlock", "Please select the block to create an injector from:", null, list("id" = bufferId), null, choices)
 					else
 						create_injector(bufferId, TRUE)
 				if("loadDisk")
@@ -814,18 +814,18 @@
 	injector_ready = TRUE
 
 /**
-  * Called in tgui_act() to process modal actions
+  * Called in ui_act() to process modal actions
   *
   * Arguments:
   * * action - The action passed by tgui
   * * params - The params passed by tgui
   */
-/obj/machinery/computer/scan_consolenew/proc/tgui_act_modal(action, params)
+/obj/machinery/computer/scan_consolenew/proc/ui_act_modal(action, params)
 	. = TRUE
 	var/id = params["id"] // The modal's ID
 	var/list/arguments = istext(params["arguments"]) ? json_decode(params["arguments"]) : params["arguments"]
-	switch(tgui_modal_act(src, action, params))
-		if(TGUI_MODAL_ANSWER)
+	switch(ui_modal_act(src, action, params))
+		if(UI_MODAL_ANSWER)
 			var/answer = params["answer"]
 			switch(id)
 				if("createInjectorBlock")

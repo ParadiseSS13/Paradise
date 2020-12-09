@@ -41,7 +41,7 @@
 	GLOB.human_list += src
 
 /mob/living/carbon/human/OpenCraftingMenu()
-	handcrafting.tgui_interact(src)
+	handcrafting.ui_interact(src)
 
 /mob/living/carbon/human/prepare_data_huds()
 	//Update med hud images...
@@ -1181,8 +1181,6 @@
 
 /mob/living/carbon/human/resist_restraints()
 	if(wear_suit && wear_suit.breakouttime)
-		changeNext_move(CLICK_CD_BREAKOUT)
-		last_special = world.time + CLICK_CD_BREAKOUT
 		cuff_resist(wear_suit)
 	else
 		..()
@@ -1544,7 +1542,10 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			if(judgebot.check_for_weapons(r_hand))
 				threatcount += 4
 			if(judgebot.check_for_weapons(belt))
-				threatcount += 2
+				threatcount += 4
+			if(judgebot.check_for_weapons(s_store))
+				threatcount += 4
+
 
 	//Check for arrest warrant
 	if(judgebot.check_records)

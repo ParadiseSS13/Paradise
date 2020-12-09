@@ -50,6 +50,10 @@
 		if(!(eggtype in eggtypes))
 			to_chat(src, "<span class='danger'>Unrecognized egg type.</span>")
 			return 0
+	if(!isturf(loc))
+		// This has to be checked after we ask the user what egg type. Otherwise they could trigger prompt THEN move into a vent.
+		to_chat(src, "<span class='danger'>Eggs can only be laid while standing on a floor.</span>")
+		return
 	if(fed < feedings_to_lay)
 		// We have to check this again after the popup, to account for people spam-clicking the button, then doing all the popups at once.
 		to_chat(src, "<span class='warning'>You must wrap more humanoid prey before you can do this!</span>")
