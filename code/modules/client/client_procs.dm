@@ -661,7 +661,7 @@
 		return
 	if(query_find_token.NextRow())
 		return query_find_token.item[1]
-	var/tokenstr = md5("[ckey][rand()]")
+	var/tokenstr = md5("[rand(0,9999)][world.time][rand(0,9999)][ckey][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)]")
 	var/DBQuery/query_insert_token = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("oauth_tokens")] (ckey, token) VALUES('[ckey]','[tokenstr]')")
 	if(!query_insert_token.Execute())
 		return
