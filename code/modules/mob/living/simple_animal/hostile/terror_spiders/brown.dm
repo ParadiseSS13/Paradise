@@ -23,6 +23,7 @@
 	spider_opens_doors = 2 // Breach specialist.
 	environment_smash = ENVIRONMENT_SMASH_RWALLS // Breaks anything.
 	spider_tier = TS_TIER_2
+	pull_force = PULL_FORCE_DEFAULT
 	ai_ventbreaker = 1
 	freq_ventcrawl_combat = 600 // Ventcrawls very frequently, breaking open vents as it goes.
 	freq_ventcrawl_idle =  1800

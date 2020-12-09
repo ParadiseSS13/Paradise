@@ -296,6 +296,16 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	U.add_hud_to(src)
 	spider_creation_time = world.time
 
+/mob/living/simple_animal/hostile/poison/terror_spider/Initialize(mapload)
+	if(!pull_force)
+		switch(spider_tier)
+			if(TS_TIER_3, TS_TIER_4)
+				pull_force = MOVE_FORCE_DEFAULT
+			else
+				pull_force = MOVE_FORCE_WEAK
+	return ..()
+
+
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/announcetoghosts()
 	if(spider_awaymission)
 		return
@@ -366,6 +376,11 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 			F.open()
 			return 1
 	. = ..()
+
+/mob/living/simple_animal/hostile/poison/terror_spider/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
+	if(isliving(AM))
+		force = max(PULL_FORCE_DEFAULT, force) // Primal force engage
+	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/msg_terrorspiders(msgtext)
 	for(var/thing in GLOB.ts_spiderlist)
