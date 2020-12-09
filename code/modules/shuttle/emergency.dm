@@ -231,7 +231,6 @@
 					return
 				mode = SHUTTLE_DOCKED
 				timer = world.time
-				SSdiscord.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "The Emergency Shuttle has docked with the station.")
 				emergency_shuttle_docked.Announce("The Emergency Shuttle has docked with the station. You have [timeLeft(600)] minutes to board the Emergency Shuttle.")
 
 /*
