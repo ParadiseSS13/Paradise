@@ -249,8 +249,7 @@ effective or pretty fucking useless.
 			to_chat(C, "<span class='danger'>The [src] will not work here!</span>")
 		charges--
 		var/turf/destination = pick(turfs)
-		var/turf/TC = destination
-		if(tile_check(TC) || flawless) // Why is there so many bloody floor types
+		if(tile_check(destination) || flawless) // Why is there so many bloody floor types
 			var/turf/fragging_location = destination
 			telefrag(fragging_location, user)
 			C.forceMove(destination)
@@ -266,8 +265,8 @@ effective or pretty fucking useless.
 	else
 		to_chat(C, "<span class='danger'>The [src] will not work here!</span>")
 
-/obj/item/teleporter/proc/tile_check(turf/TC)
-	if(istype(TC, /turf/simulated/floor) || istype(TC, /turf/space) || istype(TC, /turf/simulated/shuttle/floor) || istype(TC, /turf/simulated/shuttle/floor4) || istype(TC, /turf/simulated/shuttle/plating))
+/obj/item/teleporter/proc/tile_check(turf)
+	if(istype(turf, /turf/simulated/floor) || istype(turf, /turf/space) || istype(turf, /turf/simulated/shuttle/floor) || istype(turf, /turf/simulated/shuttle/floor4) || istype(turf, /turf/simulated/shuttle/plating))
 		return TRUE
 
 /obj/item/teleporter/proc/panic_teleport(mob/user, turf/destination, direction = NORTH)
@@ -297,8 +296,7 @@ effective or pretty fucking useless.
 			continue	//putting them at the edge is dumb
 		if(T.y > world.maxy-saving_throw_distance || T.y < saving_throw_distance)
 			continue
-		var/turf/TC = T
-		if(!tile_check(TC))
+		if(!tile_check(T))
 			continue // We are only looking for safe tiles on the saving throw, since we are nice
 		turfs += T
 		found_turf = TRUE
