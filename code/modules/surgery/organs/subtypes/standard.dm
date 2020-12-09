@@ -23,12 +23,10 @@
 		return
 	switch(severity)
 		if(1)
-			owner?.AdjustLoseBreath(4)
 			owner?.adjustStaminaLoss(20)
 		if(2)
-			owner?.AdjustLoseBreath(2)
 			owner?.adjustStaminaLoss(10)
-	to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, rendering you unable to breathe!</span>")
+	to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, causing fatigue!</span>")
 
 /obj/item/organ/external/groin
 	name = "lower body"
@@ -42,17 +40,6 @@
 	parent_organ = "chest"
 	amputation_point = "lumbar"
 	gendered_icon = 1
-
-/obj/item/organ/external/groin/emp_act(severity)
-	..()
-	if(!is_robotic() || emp_proof || !tough) // Augmented groin does toxin damage to the user on EMP.
-		return
-	switch(severity)
-		if(1)
-			owner?.adjustToxLoss(20)
-		if(2)
-			owner?.adjustToxLoss(10)
-	to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, leaving toxins in your body unfiltered!</span>")
 
 /obj/item/organ/external/arm
 	limb_name = "l_arm"
