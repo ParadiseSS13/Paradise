@@ -205,6 +205,17 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 5 //you need two for full damage, so total of 10 for maximum damage
 	job = list("Shaft Miner")
 
+//Janitor
+
+/datum/uplink_item/jobspecific/cautionsign
+	name = "Proximity Mine"
+	desc = "An Anti-Personnel proximity mine cleverly disguised as a wet floor caution sign that is triggered by running past it, activate it to start the 15 second timer and activate again to disarm."
+	reference = "PM"
+	item = /obj/item/caution/proximity_sign
+	cost = 4
+	job = list("Janitor")
+	surplus = 0
+
 //Chef
 /datum/uplink_item/jobspecific/specialsauce
 	name = "Chef Excellence's Special Sauce"
@@ -921,7 +932,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "X4"
 	item = /obj/item/grenade/plastic/x4
 	cost = 2
-	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/explosives/x4bag
 	name = "Bag of X-4 explosives"
@@ -930,9 +940,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			For when you want a controlled explosion that leaves a wider, deeper, hole."
 	reference = "X4B"
 	item = /obj/item/storage/backpack/duffel/syndie/x4
-	cost = 4
+	cost = 5
 	cant_discount = TRUE
-	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/explosives/syndicate_bomb
 	name = "Syndicate Bomb"
