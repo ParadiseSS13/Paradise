@@ -57,3 +57,48 @@
 /datum/sprite_accessory/hair/diona/diona_wildflow
 	name = "Wildflowers"
 	icon_state = "wildflower"
+//Sprites by skittles above
+
+
+/datum/sprite_accessory/hair/diona/diona_frost
+	name = "Frost"
+	icon_state = "frost"
+
+/datum/sprite_accessory/hair/diona/diona_largerose
+	name = "Large Rose"
+	icon_state = "largerose"
+
+/datum/sprite_accessory/hair/diona/diona_lily
+	name = "Lilies"
+	icon_state = "lily"
+	glasses_over = FALSE
+
+/datum/sprite_accessory/hair/diona/diona_sunflower
+	name = "Sunflower"
+	icon_state = "sunflower"
+	glasses_over = FALSE
+
+/datum/sprite_accessory/hair/diona/diona_mushrooms
+	name = "Field Mushrooms"
+	icon_state = "shroom"
+
+/datum/sprite_accessory/hair/diona/diona_poppy
+	name = "Poppies"
+	icon_state = "poppy"
+
+/datum/sprite_accessory/hair/diona/diona_daisies
+	name = "Daisies"
+	icon_state = "daisy"
+
+/datum/sprite_accessory/hair/diona/diona_marigold
+	name = "Marigold"
+	icon_state = "marigold"
+
+/datum/sprite_accessory/hair/diona/diona_hydrangea
+	name = "Hydrangea"
+	icon_state = "hydrangea"
+
+/datum/sprite_accessory/hair/diona/diona_bigleaf
+	name = "Big Leaf"
+	icon_state = "bigleaf"
+	glasses_over = FALSE
