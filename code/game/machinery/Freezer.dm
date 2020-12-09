@@ -4,7 +4,7 @@
 	icon_state = "freezer"
 	density = 1
 	var/min_temperature = 0
-	anchored = 1.0
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	active_power_usage = 5000	//cooling down massive amounts of air's not cheap. This is still very low considering everything
 	power_channel = EQUIP
@@ -168,7 +168,7 @@
 	icon_state = "heater"
 	density = 1
 	var/max_temperature = 0
-	anchored = 1.0
+	anchored = TRUE
 	layer = 3
 	current_heat_capacity = 1000
 	active_power_usage = 5000
@@ -195,12 +195,8 @@
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/upgraded/New()
 	..()
-	var/obj/item/circuitboard/thermomachine/H = new
-	H.build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
-	H.board_name = "Heater"
-	H.format_board_name()
 	component_parts = list()
-	component_parts += H
+	component_parts += new /obj/item/circuitboard/thermomachine(src)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(src)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(src)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(src)

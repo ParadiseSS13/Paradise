@@ -262,9 +262,8 @@ to destroy them and players will be able to make replacements.
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	var/choice =  input(user, "Choose a new brand", "Select an Item") as null|anything in vending_names_paths
-	if(loc != user)
-		to_chat(user, "<span class='notice'>You need to keep [src] in your hands while doing that!</span>")
+	var/choice = input(user, "Choose a new brand", "Select an Item") as null|anything in vending_names_paths
+	if(!choice)
 		return
 	set_type(choice)
 
@@ -496,7 +495,7 @@ to destroy them and players will be able to make replacements.
 	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1)
-	var/list/fridge_names_paths = list(
+	var/static/list/fridge_names_paths = list(
 							"SmartFridge" = /obj/machinery/smartfridge,
 							"MegaSeed Servitor" = /obj/machinery/smartfridge/seeds,
 							"Refrigerated Medicine Storage" = /obj/machinery/smartfridge/medbay,
@@ -508,23 +507,25 @@ to destroy them and players will be able to make replacements.
 	)
 
 
-
-/obj/item/circuitboard/smartfridge/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver))
-		set_type(user)
+/obj/item/circuitboard/smartfridge/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	return ..()
+	var/choice = input(user, "Circuit Setting", "What would you change the board setting to?") as null|anything in fridge_names_paths
+	if(!choice)
+		return
+	set_type(user, choice)
 
-/obj/item/circuitboard/smartfridge/proc/set_type(mob/user, typepath)
-	if(!typepath)
-		board_name = input("Circuit Setting", "What would you change the board setting to?") in fridge_names_paths
-		typepath = fridge_names_paths[board_name]
+/obj/item/circuitboard/smartfridge/proc/set_type(mob/user, type)
+	if(!ispath(type))
+		board_name = type
+		type = fridge_names_paths[type]
 	else
 		for(var/name in fridge_names_paths)
-			if(fridge_names_paths[name] == typepath)
+			if(fridge_names_paths[name] == type)
 				board_name = name
 				break
-	build_path = typepath
+	build_path = type
 	format_board_name()
 	if(user)
 		to_chat(user, "<span class='notice'>You set the board to [board_name].</span>")
