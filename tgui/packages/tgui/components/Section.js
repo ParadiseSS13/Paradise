@@ -11,6 +11,7 @@ export const Section = props => {
     stretchContents,
     noTopPadding,
     children,
+    scrollable,
     ...rest
   } = props;
   const hasTitle = !isFalsy(title) || !isFalsy(buttons);

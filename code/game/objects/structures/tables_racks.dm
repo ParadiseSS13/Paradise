@@ -71,10 +71,6 @@
 			base = "rtable"
 		if(istype(src, /obj/structure/table/wood/poker))
 			base = "poker"	
-		if(istype(src, /obj/structure/table/wood/fancy))
-			base = "fancy"	
-		if(istype(src, /obj/structure/table/wood/fancy/black))
-			base = "fancyblack"	
 
 		icon_state = "[base]flip[type][type == 1 ? subtype : ""]"
 

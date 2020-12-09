@@ -12,7 +12,6 @@
 	desc = "An issue of The Griffon, the newspaper circulating aboard Nanotrasen Space Stations."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "newspaper"
-	item_state = "newspaper"
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("bapped")
 	/// The current screen to display.
@@ -29,8 +28,6 @@
 	var/scribble = ""
 	/// The page of said scribble.
 	var/scribble_page = null
-	/// Whether the newspaper is rolled or not, making it a deadly weapon.
-	var/rolled = FALSE
 
 /obj/item/newspaper/Initialize(mapload)
 	. = ..()
@@ -38,9 +35,6 @@
 		news_content = list()
 
 /obj/item/newspaper/attack_self(mob/user)
-	if(rolled)
-		to_chat(user, "<span class='warning'>Unroll it first!</span>")
-		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
 		var/dat
@@ -152,9 +146,6 @@
 
 /obj/item/newspaper/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
-		if(rolled)
-			to_chat(user, "<span class='warning'>Unroll it first!</span>")
-			return
 		if(scribble_page == curr_page)
 			to_chat(user, "<span class='notice'>There's already a scribble in this page... You wouldn't want to make things too cluttered, would you?</span>")
 		else
@@ -168,17 +159,6 @@
 								 "<span class='notice'>You scribble on page number [curr_page] of [src].</span>")
 			attack_self(user)
 		return
-	return ..()
-
-/obj/item/newspaper/AltClick(mob/user)
-	if(ishuman(user) && Adjacent(user) && !user.incapacitated())
-		rolled = !rolled
-		icon_state = "newspaper[rolled ? "_rolled" : ""]"
-		update_icon()
-		var/verbtext = "[rolled ? "" : "un"]roll"
-		user.visible_message("<span class='notice'>[user] [verbtext]s [src].</span>",\
-								"<span class='notice'>You [verbtext] [src].</span>")
-		name = "[rolled ? "rolled" : ""] [initial(name)]"
 	return ..()
 
 #undef SCREEN_COVER

@@ -22,18 +22,19 @@
 		return ..()
 
 /obj/machinery/computer/aifixer/attack_ai(var/mob/user as mob)
-	ui_interact(user)
+	tgui_interact(user)
 
 /obj/machinery/computer/aifixer/attack_hand(var/mob/user as mob)
-	ui_interact(user)
+	tgui_interact(user)
 
-/obj/machinery/computer/aifixer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/computer/aifixer/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
 	if(!ui)
 		ui = new(user, src, ui_key, "AIFixer", name, 550, 500, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/aifixer/ui_data(mob/user)
+/obj/machinery/computer/aifixer/tgui_data(mob/user, datum/topic_state/state)
 	var/data[0]
 	data["occupant"] = (occupant ? occupant.name : null) // a null occupant isn't passed on if this is below the if.
 	if(occupant)
@@ -55,7 +56,7 @@
 
 	return data
 
-/obj/machinery/computer/aifixer/ui_act(action, params)
+/obj/machinery/computer/aifixer/tgui_act(action, params)
 	if(..())
 		return
 	switch(action)

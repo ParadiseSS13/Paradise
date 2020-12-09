@@ -494,7 +494,7 @@
 	flags_inv = HIDESHOES
 
 /obj/item/clothing/under/wedding/bride_white
-	name = "white wedding dress"
+	name = "orange wedding dress"
 	desc = "A white wedding gown made from the finest silk."
 	icon_state = "bride_white"
 	item_color = "bride_white"
@@ -853,3 +853,4 @@
 	icon_state = "tourist"
 	icon_state = "tourist"
 	item_color = "tourist"
+	

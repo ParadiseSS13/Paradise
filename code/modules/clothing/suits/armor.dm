@@ -260,8 +260,7 @@
 /obj/item/clothing/suit/armor/reactive
 	name = "reactive armor"
 	desc = "Doesn't seem to do much for some reason."
-	var/active = FALSE
-	var/emp_d = FALSE
+	var/active = 0
 	icon_state = "reactiveoff"
 	item_state = "reactiveoff"
 	blood_overlay_type = "armor"
@@ -272,9 +271,6 @@
 
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
 	active = !(active)
-	if(emp_d)
-		to_chat(user, "<span class='warning'>[src] is disabled from an electromagnetic pulse!</span>")
-		return
 	if(active)
 		to_chat(user, "<span class='notice'>[src] is now active.</span>")
 		icon_state = "reactive"
@@ -290,18 +286,13 @@
 		A.UpdateButtonIcon()
 
 /obj/item/clothing/suit/armor/reactive/emp_act(severity)
-	active = FALSE
-	emp_d = TRUE
+	active = 0
 	icon_state = "reactiveoff"
 	item_state = "reactiveoff"
 	if(istype(loc, /mob/living/carbon/human))
 		var/mob/living/carbon/human/C = loc
 		C.update_inv_wear_suit()
-		addtimer(CALLBACK(src, .proc/reboot), 100 / severity)
 	..()
-
-/obj/item/clothing/suit/armor/reactive/proc/reboot()
-	emp_d = FALSE
 
 //When the wearer gets hit, this armor will teleport the user a short distance away (to safety or to more danger, no one knows. That's the fun of it!)
 /obj/item/clothing/suit/armor/reactive/teleport

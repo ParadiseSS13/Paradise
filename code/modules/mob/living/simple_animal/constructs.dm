@@ -1,6 +1,7 @@
 /mob/living/simple_animal/hostile/construct
 	name = "Construct"
 	real_name = "Construct"
+	desc = ""
 	speak_emote = list("hisses")
 	emote_hear = list("wails","screeches")
 	response_help  = "thinks better of touching"
@@ -20,25 +21,25 @@
 	pressure_resistance = 100
 	universal_speak = 1
 	AIStatus = AI_OFF //normal constructs don't have AI
+	var/const_type = "shade"
+	var/list/construct_spells = list()
+	var/playstyle_string = "<b>You are a generic construct! Your job is to not exist, and you should probably adminhelp this.</b>"
 	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
 	del_on_death = 1
 	deathmessage = "collapses in a shattered heap."
-	var/construct_type = "shade"
-	var/list/construct_spells = list()
-	var/playstyle_string = "<b>You are a generic construct! Your job is to not exist, and you should probably adminhelp this.</b>"
 
 /mob/living/simple_animal/hostile/construct/New()
 	. = ..()
 	if(!SSticker.mode)//work around for maps with runes and cultdat is not loaded all the way
-		name = "[construct_type] ([rand(1, 1000)])"
-		real_name = construct_type
-		icon_living = construct_type
-		icon_state = construct_type
+		name = "[const_type] ([rand(1, 1000)])"
+		real_name = const_type
+		icon_living = const_type
+		icon_state = const_type
 	else
-		name = "[SSticker.cultdat.get_name(construct_type)] ([rand(1, 1000)])"
-		real_name = SSticker.cultdat.get_name(construct_type)
-		icon_living = SSticker.cultdat.get_icon(construct_type)
-		icon_state = SSticker.cultdat.get_icon(construct_type)
+		name = "[SSticker.cultdat.get_name(const_type)] ([rand(1, 1000)])"
+		real_name = SSticker.cultdat.get_name(const_type)
+		icon_living = SSticker.cultdat.get_icon(const_type)
+		icon_state = SSticker.cultdat.get_icon(const_type)
 
 	for(var/spell in construct_spells)
 		AddSpell(new spell(null))
@@ -112,7 +113,7 @@
 	environment_smash = 2
 	attack_sound = 'sound/weapons/punch3.ogg'
 	status_flags = 0
-	construct_type = "juggernaut"
+	const_type = "juggernaut"
 	mob_size = MOB_SIZE_LARGE
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision, /obj/effect/proc_holder/spell/aoe_turf/conjure/lesserforcewall)
 	force_threshold = 11
@@ -157,7 +158,7 @@
 	melee_damage_upper = 25
 	attacktext = "slashes"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	construct_type = "wraith"
+	const_type = "wraith"
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision, /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift)
 	retreat_distance = 2 //AI wraiths will move in and out of combat
 	playstyle_string = "<b>You are a Wraith. Though relatively fragile, you are fast, deadly, and even able to phase through walls.</b>"
@@ -188,14 +189,14 @@
 	retreat_distance = 10
 	minimum_distance = 10 //AI artificers will flee like fuck
 	attack_sound = 'sound/weapons/punch2.ogg'
-	construct_type = "builder"
+	const_type = "builder"
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision,
-							/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/floor,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/pylon,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone)
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone,
+							/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser)
 
 	playstyle_string = "<b>You are an Artificer. You are incredibly weak and fragile, but you are able to construct fortifications, \
 						use magic missile, repair allied constructs (by clicking on them), \
@@ -268,7 +269,7 @@
 	environment_smash = 2
 	attack_sound = 'sound/weapons/punch4.ogg'
 	force_threshold = 11
-	construct_type = "behemoth"
+	const_type = "behemoth"
 	var/energy = 0
 	var/max_energy = 1000
 
@@ -297,7 +298,7 @@
 	attacktext = "prods"
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	attack_sound = 'sound/weapons/tap.ogg'
-	construct_type = "harvester"
+	const_type = "harvester"
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/floor,

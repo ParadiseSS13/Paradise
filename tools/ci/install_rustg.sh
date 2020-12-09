@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# This script is not actually used by CI, but kept as a reference incase we refactor CI again
-
 source _build_dependencies.sh
 
 mkdir -p ~/.byond/bin

@@ -42,44 +42,6 @@
 	var/mob/living/simple_animal/hostile/poison/terror_spider/user = owner
 	user.DoVentSmash()
 
-/datum/action/innate/terrorspider/remoteview
-	name = "Remote View"
-	icon_icon = 'icons/obj/eyes.dmi'
-	button_icon_state = "heye"
-
-/datum/action/innate/terrorspider/remoteview/Activate()
-	var/mob/living/simple_animal/hostile/poison/terror_spider/user = owner
-	user.DoRemoteView()
-
-
-// ---------- MOTHER ACTIONS
-
-/datum/action/innate/terrorspider/mother/royaljelly
-	name = "Lay Royal Jelly"
-	icon_icon = 'icons/mob/actions/actions.dmi'
-	button_icon_state = "spiderjelly"
-
-/datum/action/innate/terrorspider/mother/royaljelly/Activate()
-	var/mob/living/simple_animal/hostile/poison/terror_spider/mother/user = owner
-	user.DoCreateJelly()
-
-/datum/action/innate/terrorspider/mother/gatherspiderlings
-	name = "Gather Spiderlings"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "spiderling"
-
-/datum/action/innate/terrorspider/mother/gatherspiderlings/Activate()
-	var/mob/living/simple_animal/hostile/poison/terror_spider/mother/user = owner
-	user.PickupSpiderlings()
-
-/datum/action/innate/terrorspider/mother/incubateeggs
-	name = "Incubate Eggs"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "eggs"
-
-/datum/action/innate/terrorspider/mother/incubateeggs/Activate()
-	var/mob/living/simple_animal/hostile/poison/terror_spider/mother/user = owner
-	user.IncubateEggs()
 
 // ---------- QUEEN ACTIONS
 
@@ -136,9 +98,6 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/Web()
 	if(!web_type)
-		return
-	if(!isturf(loc))
-		to_chat(src, "<span class='danger'>Webs can only be spun while standing on a floor.</span>")
 		return
 	var/turf/mylocation = loc
 	visible_message("<span class='notice'>[src] begins to secrete a sticky substance.</span>")
@@ -230,7 +189,7 @@
 			choices += L
 		for(var/obj/O in oview(1,src))
 			if(Adjacent(O) && !O.anchored)
-				if(!istype(O, /obj/structure/spider))
+				if(!istype(O, /obj/structure/spider/terrorweb) && !istype(O, /obj/structure/spider/cocoon) && !istype(O, /obj/structure/spider/spiderling/terror_spiderling))
 					choices += O
 		if(choices.len)
 			cocoon_target = input(src,"What do you wish to cocoon?") in null|choices
@@ -257,10 +216,7 @@
 						if(!O.anchored)
 							if(istype(O, /obj/item))
 								O.loc = C
-							else if(istype(O, /obj/machinery))
-								O.loc = C
-								large_cocoon = 1
-							else if(istype(O, /obj/structure) && !istype(O, /obj/structure/spider)) // can't wrap spiderlings/etc
+							else if(istype(O, /obj/machinery) || istype(O, /obj/structure))
 								O.loc = C
 								large_cocoon = 1
 					for(var/mob/living/L in C.loc)
@@ -315,4 +271,3 @@
 				C.visible_message("<span class='danger'>[src] smashes the welded cover off [C]!</span>")
 				return
 		to_chat(src, "<span class='danger'>There is no welded vent or scrubber close enough to do this.</span>")
-

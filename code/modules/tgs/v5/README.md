@@ -1,4 +1,4 @@
-# DMAPI V5
+# DMAPI V4
 
 This DMAPI implements bridge requests using HTTP GET requests to TGS. It has no security restrictions.
 

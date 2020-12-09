@@ -1,23 +1,23 @@
-/datum/ui_module/power_monitor
+/datum/tgui_module/power_monitor
 	name = "Power monitor"
 	var/select_monitor = FALSE
 	var/obj/machinery/computer/monitor/powermonitor
 
-/datum/ui_module/power_monitor/digital
+/datum/tgui_module/power_monitor/digital
 	select_monitor = TRUE
 
-/datum/ui_module/power_monitor/New()
+/datum/tgui_module/power_monitor/New()
 	..()
 	if(!select_monitor)
-		powermonitor = ui_host()
+		powermonitor = tgui_host()
 
-/datum/ui_module/power_monitor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/datum/tgui_module/power_monitor/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "PowerMonitor", name, 600, 650, master_ui, state)
 		ui.open()
 
-/datum/ui_module/power_monitor/ui_data(mob/user)
+/datum/tgui_module/power_monitor/tgui_data(mob/user)
 	var/list/data = list()
 
 	// Sanity check
@@ -29,22 +29,18 @@
 		data["select_monitor"] = TRUE
 		data["powermonitors"] = GLOB.powermonitor_repository.powermonitor_data()
 
-	if(powermonitor)
+	if(powermonitor && !isnull(powermonitor.powernet))
 		if(select_monitor && (powermonitor.stat & (NOPOWER|BROKEN)))
 			powermonitor = null
 			return
-		if(powermonitor.powernet)
-			data["poweravail"] = DisplayPower(powermonitor.powernet.viewavail)
-			data["powerdemand"] = DisplayPower(powermonitor.powernet.viewload)
-			data["history"] = powermonitor.history
-			data["apcs"] = GLOB.apc_repository.apc_data(powermonitor.powernet)
-			data["no_powernet"] = FALSE
-		else
-			data["no_powernet"] = TRUE
+		data["poweravail"] = DisplayPower(powermonitor.powernet.viewavail)
+		data["powerdemand"] = DisplayPower(powermonitor.powernet.viewload)
+		data["history"] = powermonitor.history
+		data["apcs"] = GLOB.apc_repository.apc_data(powermonitor.powernet)
 
 	return data
 
-/datum/ui_module/power_monitor/ui_act(action, list/params)
+/datum/tgui_module/power_monitor/tgui_act(action, list/params)
 	if(..())
 		return
 

@@ -262,14 +262,16 @@
 /obj/item/organ/external/emp_act(severity)
 	if(!is_robotic() || emp_proof)
 		return
-	if(tough) // Augmented limbs (remember they take -5 brute/-4 burn damage flat so any value below is compensated)
+	if(tough) // Augmented limbs
 		switch(severity)
 			if(1)
-				// 44 total burn damage with 11 augmented limbs
-				receive_damage(0, 8)
+				receive_damage(0, 5.5)
+				if(owner)
+					owner.Stun(10)
 			if(2)
-				// 22 total burn damage with 11 augmented limbs
-				receive_damage(0, 6)
+				receive_damage(0, 2.8)
+				if(owner)
+					owner.Stun(5)
 	else if(emp_resistant) // IPC limbs
 		switch(severity)
 			if(1)
@@ -806,3 +808,23 @@ Note that amputating the affected organ does in fact remove the infection from t
 		var/obj/item/organ/external/L = X
 		for(var/obj/item/I in L.embedded_objects)
 			return 1
+
+/obj/item/organ/external/emp_act(severity)
+	if(!is_robotic() || emp_proof)
+		return
+	if(tough)
+		switch(severity)
+			if(1)
+				receive_damage(0, 5.5)
+				if(owner)
+					owner.Stun(10)
+			if(2)
+				receive_damage(0, 2.8)
+				if(owner)
+					owner.Stun(5)
+	else
+		switch(severity)
+			if(1)
+				receive_damage(0, 20)
+			if(2)
+				receive_damage(0, 7)

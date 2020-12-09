@@ -1,0 +1,197 @@
+.itemGroup {
+    border: 1px solid #e9c183;
+    background: #2c2c2c;
+    padding: 4px;
+    clear: both;
+}
+
+
+.item {
+    width: 100%;
+    margin: 4px 0 0 0;
+    clear: both;
+    overflow: auto;
+}
+
+.itemContentNarrow, .itemContent {
+    float: left;
+}
+
+.itemContentNarrow {
+    width: 30%;
+}
+
+.itemContent {
+    width: 69%;
+}
+
+.itemLabelNarrow, .itemLabel, .itemLabelWide, .itemLabelWider, .itemLabelWidest {
+    float: left;
+    color: #e9c183;
+}
+
+.itemLabelNarrow {
+    width: 20%;
+}
+
+.itemLabel {
+    width: 30%;
+}
+
+.itemLabelWide {
+    width: 45%;
+}
+
+.itemLabelWider {
+    width: 69%;
+}
+
+.itemLabelWidest {
+    width: 100%;
+}
+
+.itemContentWide {
+    float: left;
+    width: 79%;
+}
+
+.itemContentSmall {
+    float: left;
+    width: 33%;
+}
+
+.itemContentMedium {
+    float: left;
+    width: 55%;
+}
+
+.block {
+    padding: 8px;
+    margin: 10px 4px 4px 4px;
+    border: 1px solid #40628a;
+    background-color: #202020;
+}
+
+.block h3 {
+    padding: 0;
+}
+
+.clearBoth {
+    clear: both;
+}
+
+.clearLeft {
+    clear: left;
+}
+
+.clearRight {
+    clear: right;
+}
+
+.line {
+    width: 100%;
+    clear: both;
+}
+
+.fixedLeft {
+    width: 110px;
+    float: left;
+}
+
+.fixedLeftWide {
+    width: 165px;
+    float: left;
+}
+
+.fixedLeftWider {
+    width: 220px;
+    float: left;
+}
+
+.fixedLeftWidest {
+    width: 250px;
+    float: left;
+}
+
+.floatRight {
+    float: right;
+}
+
+.floatLeft {
+    float: left;
+}
+
+.hidden {
+    display: none;
+}
+
+
+.statusDisplay {
+    background: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    border: 1px solid #40628a;
+    padding: 4px;
+    margin: 3px 0;
+    overflow: hidden;
+}
+
+.statusDisplayRecords {
+    background: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    border: 1px solid #40628a;
+    padding: 4px;
+    margin: 3px 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.statusLabel {
+    width: 138px;
+    float: left;
+    overflow: hidden;
+    color: #98B0C3;
+}
+
+.statusValue {
+    float: left;
+}
+
+.jobValues {
+	float: left;
+	width: 30%;
+}
+
+// CHROMELESS STUFF
+
+.fancy {
+    display: none;
+}
+
+i.fancy {
+    display: none;
+}
+
+.titlebutton() {
+    color: #E9C183;
+    // Since we're on some hilariously outdated libraries, the below is an issue
+    // https://github.com/FortAwesome/Font-Awesome/issues/1274
+    // Using the !important directive is necessary to override the FA styles
+    cursor: pointer !important; 
+    z-index: 102; // This is for the corners - makes sure the buttons render on top
+
+    &:hover {
+        color: lighten(#98b0c3, 10%);
+    }
+}
+.minimize {
+    .titlebutton;
+    position: absolute;
+    top: 6px;
+    right: 46px;
+}
+.close {
+    .titlebutton;
+    position: absolute;
+    top: 4px;
+    right: 12px;
+}

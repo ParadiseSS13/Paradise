@@ -34,7 +34,6 @@ export const Safe = (properties, context) => {
               src="safe_dial.png"
               style={{
                 "transform": "rotate(-" + (3.6 * dial) + "deg)",
-                "z-index": 0,
               }}
             />
           )}
@@ -64,9 +63,6 @@ const Dialer = (properties, context) => {
         onClick={() => act(!right ? "turnright" : "turnleft", {
           num: amount,
         })}
-        style={{
-          "z-index": 10,
-        }}
       />
     );
   };

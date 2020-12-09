@@ -40,10 +40,6 @@
 			GLOB.prisonwarp += loc
 			qdel(src)
 
-		if("syndieprisonwarp")
-			GLOB.syndieprisonwarp += loc
-			qdel(src)
-
 		if("prisonsecuritywarp")
 			GLOB.prisonsecuritywarp += loc
 			qdel(src)

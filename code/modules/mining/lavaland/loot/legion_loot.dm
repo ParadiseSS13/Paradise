@@ -9,7 +9,6 @@
 	force = 25
 	damtype = BURN
 	hitsound = 'sound/weapons/sear.ogg'
-	needs_permit = TRUE
 	var/storm_type = /datum/weather/ash_storm
 	var/storm_cooldown = 0
 

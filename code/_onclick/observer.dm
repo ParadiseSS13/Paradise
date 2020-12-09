@@ -55,7 +55,7 @@
 /mob/dead/observer/ShiftClickOn(var/atom/A)
 	examinate(A)
 
-/atom/proc/attack_ghost(mob/user)
+/atom/proc/attack_ghost(mob/user as mob)
 	return
 
 // health + cyborg analyzer for ghosts

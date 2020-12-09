@@ -31,15 +31,16 @@
 		return INITIALIZE_HINT_QDEL
 
 /obj/machinery/mineral/processing_unit_console/attack_ghost(mob/user)
-	return open_ui(user)
+	return ui_interact(user)
 
 /obj/machinery/mineral/processing_unit_console/attack_hand(mob/user)
 	if(..())
 		return TRUE
 
-	return open_ui(user)
+	return ui_interact(user)
 
-/obj/machinery/mineral/processing_unit_console/proc/open_ui(mob/user)
+/obj/machinery/mineral/processing_unit_console/ui_interact(mob/user)
+	. = ..()
 	if(!machine)
 		return
 

@@ -162,9 +162,6 @@
 	..()
 	if(slot == slot_l_hand || slot == slot_r_hand)
 		wield(user)
-		if(!wielded) // Drop immediately if we couldn't wield
-			user.unEquip(src)
-			to_chat(user, "<span class='notice'>[src] is too cumbersome to carry in one hand!</span>")
 	else
 		unwield(user)
 
@@ -202,12 +199,12 @@
 			var/obj/structure/W = A
 			W.obj_destruction("fireaxe")
 
+
 /obj/item/twohanded/fireaxe/boneaxe  // Blatant imitation of the fireaxe, but made out of bone.
 	icon_state = "bone_axe0"
 	name = "bone axe"
 	desc = "A large, vicious axe crafted out of several sharpened bone plates and crudely tied together. Made of monsters, by killing monsters, for killing monsters."
 	force_wielded = 23
-	needs_permit = TRUE
 
 /obj/item/twohanded/fireaxe/boneaxe/update_icon()
 	icon_state = "bone_axe[wielded]"
@@ -276,7 +273,6 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
 	resistance_flags = FIRE_PROOF
 	light_power = 2
-	needs_permit = TRUE
 	var/brightness_on = 2
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
 
@@ -386,7 +382,6 @@
 	var/obj/item/grenade/explosive = null
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
-	needs_permit = TRUE
 	var/icon_prefix = "spearglass"
 
 /obj/item/twohanded/spear/update_icon()

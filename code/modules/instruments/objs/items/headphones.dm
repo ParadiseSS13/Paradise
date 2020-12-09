@@ -20,20 +20,20 @@
 	return ..()
 
 /obj/item/clothing/ears/headphones/attack_self(mob/user)
-	ui_interact(user)
+	tgui_interact(user)
 
-/obj/item/clothing/ears/headphones/ui_data(mob/user)
-	return song.ui_data(user)
+/obj/item/clothing/ears/headphones/tgui_data(mob/user)
+	return song.tgui_data(user)
 
-/obj/item/clothing/ears/headphones/ui_interact(mob/user)
+/obj/item/clothing/ears/headphones/tgui_interact(mob/user)
 	if(should_stop_playing(user) || user.incapacitated())
 		return
-	song.ui_interact(user)
+	song.tgui_interact(user)
 
-/obj/item/clothing/ears/headphones/ui_act(action, params)
+/obj/item/clothing/ears/headphones/tgui_act(action, params)
 	if(..())
 		return
-	return song.ui_act(action, params)
+	return song.tgui_act(action, params)
 
 /obj/item/clothing/ears/headphones/update_icon()
 	var/mob/living/carbon/human/user = loc

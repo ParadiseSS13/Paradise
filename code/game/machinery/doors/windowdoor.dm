@@ -296,9 +296,9 @@
 					if(!req_access)
 						check_access()
 					if(req_access.len)
-						ae.selected_accesses = req_access
+						ae.conf_access = req_access
 					else if(req_one_access.len)
-						ae.selected_accesses = req_one_access
+						ae.conf_access = req_one_access
 						ae.one_access = 1
 				else
 					ae = electronics
