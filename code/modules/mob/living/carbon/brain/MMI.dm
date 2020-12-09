@@ -50,6 +50,7 @@
 			brainmob.forceMove(src)
 			brainmob.container = src
 			brainmob.stat = CONSCIOUS
+			brainmob.see_invisible = initial(brainmob.see_invisible)
 			GLOB.respawnable_list -= brainmob
 			GLOB.dead_mob_list -= brainmob//Update dem lists
 			GLOB.alive_mob_list += brainmob
@@ -278,18 +279,8 @@
 	return 1
 
 // As a synthetic, the only limit on visibility is view range
-/obj/item/mmi/contents_nano_distance(var/src_object, var/mob/living/user)
+/obj/item/mmi/contents_ui_distance(src_object, mob/living/user)
+	. = ..()
 	if((src_object in view(src)) && get_dist(src_object, src) <= user.client.view)
 		return STATUS_INTERACTIVE	// interactive (green visibility)
-	return user.shared_living_nano_distance(src_object)
-
-// For now the only thing that is helped by this is radio access
-// Later a more intricate system for MMI UI interaction can be established
-/obj/item/mmi/contents_nano_interact(var/src_object, var/mob/living/user)
-	if(!istype(user, /mob/living/carbon/brain))
-		log_runtime(EXCEPTION("Somehow a non-brain mob is inside an MMI!"), user)
-		return ..()
-	var/mob/living/carbon/brain/BM = user
-	if(BM.container == src && src_object == radio)
-		return STATUS_INTERACTIVE
-	return ..()
+	return user.shared_living_ui_distance()

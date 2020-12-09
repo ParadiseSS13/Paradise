@@ -1,7 +1,7 @@
 /mob/living/carbon/human/proc/change_appearance(flags = APPEARANCE_ALL_HAIR, datum/location = src, mob/user = src, check_species_whitelist = TRUE, list/species_whitelist = list(), list/species_blacklist = list())
-	var/datum/tgui_module/appearance_changer/AC = new(location, src, check_species_whitelist, species_whitelist, species_blacklist)
+	var/datum/ui_module/appearance_changer/AC = new(location, src, check_species_whitelist, species_whitelist, species_blacklist)
 	AC.flags = flags
-	AC.tgui_interact(user)
+	AC.ui_interact(user)
 
 /mob/living/carbon/human/proc/change_gender(var/new_gender, var/update_dna = 1)
 	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]

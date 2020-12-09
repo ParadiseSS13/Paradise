@@ -1,7 +1,7 @@
-/datum/tgui_module/atmos_control
+/datum/ui_module/atmos_control
 	name = "Atmospherics Control"
 
-/datum/tgui_module/atmos_control/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+/datum/ui_module/atmos_control/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
@@ -9,9 +9,9 @@
 		if("open_alarm")
 			var/obj/machinery/alarm/alarm = locate(params["aref"]) in GLOB.air_alarms
 			if(alarm)
-				alarm.tgui_interact(usr, master_ui = ui, state = GLOB.tgui_always_state) // ALWAYS is intentional here, as the master_ui pass will prevent fuckery
+				alarm.ui_interact(usr, master_ui = ui, state = GLOB.always_state) // ALWAYS is intentional here, as the master_ui pass will prevent fuckery
 
-/datum/tgui_module/atmos_control/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/datum/ui_module/atmos_control/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "AtmosControl", name, 800, 600, master_ui, state)
@@ -22,7 +22,7 @@
 
 		ui.open()
 
-/datum/tgui_module/atmos_control/tgui_data(mob/user)
+/datum/ui_module/atmos_control/ui_data(mob/user)
 	var/list/data = list()
 	data["alarms"] = GLOB.air_alarm_repository.air_alarm_data(GLOB.air_alarms, target_z=level_name_to_num(MAIN_STATION))
 
