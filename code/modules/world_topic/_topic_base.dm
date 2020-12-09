@@ -32,5 +32,4 @@
   * * key_valid - Has the user entered the correct auth key
   */
 /datum/world_topic_handler/proc/execute(list/input, key_valid = FALSE)
-	PRIVATE_PROC(TRUE) // Ensures no one can call this arbitrarily without checking key auth
 	CRASH("execute() not implemented/overridden for [type]")
