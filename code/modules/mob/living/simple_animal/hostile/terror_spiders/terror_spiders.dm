@@ -299,7 +299,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/Initialize(mapload)
 	if(!pull_force)
 		switch(spider_tier)
-			if(TS_TIER_3, TS_TIER_4)
+			if(TS_TIER_3 to INFINITY)
 				pull_force = MOVE_FORCE_DEFAULT
 			else
 				pull_force = MOVE_FORCE_WEAK
