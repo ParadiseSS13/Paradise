@@ -655,13 +655,16 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/wall/invoke(list/invokers)
 	var/mob/living/user = invokers[1]
 	..()
+	var/amount = 1
 	if(B.Toggle()) // Toggling on
 		for(var/obj/effect/rune/wall/rune in orange(1, src)) // Chaining barriers
-			if(!rune.B.density) // Barrier is invisible
+			if(!rune.B.density) // Barrier is currently invisible
+				amount++ // Count the invoke damage for each rune
+				rune.do_invoke_glow()
 				rune.B.Toggle()
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
-		C.cult_self_harm(2)
+		C.cult_self_harm(2 * amount)
 
 //Rite of Joined Souls: Summons a single cultist.
 /obj/effect/rune/summon
