@@ -233,20 +233,3 @@
 		output += ruler
 	usr << browse(output, "window=show_notes;size=900x500")
 
-/proc/show_player_info_irc(var/key as text)
-	var/target_sql_ckey = ckey(key)
-	var/datum/db_query/query_get_notes = SSdbcore.NewQuery("SELECT timestamp, notetext, adminckey, server, crew_playtime FROM [format_table_name("notes")] WHERE ckey=:targetkey ORDER BY timestamp", list(
-		"targetkey" = target_sql_ckey
-	))
-	if(!query_get_notes.warn_execute())
-		qdel(query_get_notes)
-		return
-	var/output = " Info on [key]%0D%0A"
-	while(query_get_notes.NextRow())
-		var/timestamp = query_get_notes.item[1]
-		var/notetext = query_get_notes.item[2]
-		var/adminckey = query_get_notes.item[3]
-		var/server = query_get_notes.item[4]
-		output += "[notetext]%0D%0Aby [adminckey] on [timestamp] (Server: [server])%0D%0A%0D%0A"
-	qdel(query_get_notes)
-	return output

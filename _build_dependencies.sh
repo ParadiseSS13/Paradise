@@ -7,5 +7,5 @@ export NODE_VERSION=12
 export BYOND_MAJOR=513
 # Byond Minor
 export BYOND_MINOR=1526
-# For the RUSTG library
+# For the RUSTG library. Not actually installed by CI but kept as a reference
 export RUSTG_VERSION=2.1-P

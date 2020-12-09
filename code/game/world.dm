@@ -55,242 +55,41 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	investigate_reset() // This is part of the admin investigate system. PLEASE DONT SS THIS EITHER
 	makeDatumRefLists() // Setups up lists of datums and their subtypes
 
-//world/Topic(href, href_list[])
-//		to_chat(world, "Received a Topic() call!")
-//		to_chat(world, "[href]")
-//		for(var/a in href_list)
-//			to_chat(world, "[a]")
-//		if(href_list["hello"])
-//			to_chat(world, "Hello world!")
-//			return "Hello world!"
-//		to_chat(world, "End of Topic() call.")
-//		..()
+/// List of all world topic spam prevention handlers. See code/modules/world_topic/_spam_prevention_handler.dm
+GLOBAL_LIST_EMPTY(world_topic_spam_prevention_handlers)
+/// List of all world topic handler datums. Populated inside makeDatumRefLists()
+GLOBAL_LIST_EMPTY(world_topic_handlers)
 
-GLOBAL_VAR_INIT(world_topic_spam_protect_ip, "0.0.0.0")
-GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 
 /world/Topic(T, addr, master, key)
 	TGS_TOPIC
 	log_misc("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key]")
 
+	// Handle spam prevention
+	if(!GLOB.world_topic_spam_prevention_handlers[address])
+		GLOB.world_topic_spam_prevention_handlers[address] = new /datum/world_topic_spam_prevention_handler
+
+	var/datum/world_topic_spam_prevention_handler/sph = GLOB.world_topic_spam_prevention_handlers[address]
+
+	// Lock the user out and cancel their topic if needed
+	if(sph.check_lockout())
+		return
+
 	var/list/input = params2list(T)
-	var/key_valid = (config.comms_password && input["key"] == config.comms_password) //no password means no comms, not any password
 
-	if("ping" in input)
-		var/x = 1
-		for(var/client/C)
-			x++
-		return x
+	var/datum/world_topic_handler/wth
 
-	else if("players" in input)
-		var/n = 0
-		for(var/mob/M in GLOB.player_list)
-			if(M.client)
-				n++
-		return n
+	for(var/H in GLOB.world_topic_handlers)
+		if(H in input)
+			wth = GLOB.world_topic_handlers[H]
+			break
 
-	else if("status" in input)
-		var/list/s = list()
-		var/list/admins = list()
-		s["version"] = GLOB.game_version
-		s["mode"] = GLOB.master_mode
-		s["respawn"] = config ? GLOB.abandon_allowed : 0
-		s["enter"] = GLOB.enter_allowed
-		s["vote"] = config.allow_vote_mode
-		s["ai"] = config.allow_ai
-		s["host"] = host ? host : null
-		s["players"] = list()
-		s["roundtime"] = worldtime2text()
-		s["stationtime"] = station_time_timestamp()
-		s["oldstationtime"] = classic_worldtime2text() // more "consistent" indication of the round's running time
-		s["listed"] = "Public"
-		if(!hub_password)
-			s["listed"] = "Invisible"
-		var/player_count = 0
-		var/admin_count = 0
+	if(!wth)
+		return
 
-		for(var/client/C in GLOB.clients)
-			if(C.holder)
-				if(C.holder.fakekey)
-					continue	//so stealthmins aren't revealed by the hub
-				admin_count++
-				admins += list(list(C.key, C.holder.rank))
-			s["player[player_count]"] = C.key
-			player_count++
-		s["players"] = player_count
-		s["admins"] = admin_count
-		s["map_name"] = GLOB.map_name ? GLOB.map_name : "Unknown"
-
-		if(key_valid)
-			if(SSticker && SSticker.mode)
-				s["real_mode"] = SSticker.mode.name
-				s["security_level"] = get_security_level()
-				s["ticker_state"] = SSticker.current_state
-
-			if(SSshuttle && SSshuttle.emergency)
-				// Shuttle status, see /__DEFINES/stat.dm
-				s["shuttle_mode"] = SSshuttle.emergency.mode
-				// Shuttle timer, in seconds
-				s["shuttle_timer"] = SSshuttle.emergency.timeLeft()
-
-			for(var/i in 1 to admins.len)
-				var/list/A = admins[i]
-				s["admin[i - 1]"] = A[1]
-				s["adminrank[i - 1]"] = A[2]
-
-		return list2params(s)
-
-	else if("manifest" in input)
-		var/list/positions = list()
-		var/list/set_names = list(
-			"heads" = GLOB.command_positions,
-			"sec" = GLOB.security_positions,
-			"eng" = GLOB.engineering_positions,
-			"med" = GLOB.medical_positions,
-			"sci" = GLOB.science_positions,
-			"car" = GLOB.supply_positions,
-			"srv" = GLOB.service_positions,
-			"civ" = GLOB.civilian_positions,
-			"bot" = GLOB.nonhuman_positions
-		)
-
-		for(var/datum/data/record/t in GLOB.data_core.general)
-			var/name = t.fields["name"]
-			var/rank = t.fields["rank"]
-			var/real_rank = t.fields["real_rank"]
-
-			var/department = 0
-			for(var/k in set_names)
-				if(real_rank in set_names[k])
-					if(!positions[k])
-						positions[k] = list()
-					positions[k][name] = rank
-					department = 1
-			if(!department)
-				if(!positions["misc"])
-					positions["misc"] = list()
-				positions["misc"][name] = rank
-
-		return json_encode(positions)
-
-	else if("adminmsg" in input)
-		/*
-			We got an adminmsg from IRC bot lets split the input then validate the input.
-			expected output:
-				1. adminmsg = ckey of person the message is to
-				2. msg = contents of message, parems2list requires
-				3. validatationkey = the key the bot has, it should match the gameservers commspassword in it's configuration.
-				4. sender = the ircnick that send the message.
-		*/
-		if(!key_valid)
-			return keySpamProtect(addr)
-
-		var/client/C
-
-		for(var/client/K in GLOB.clients)
-			if(K.ckey == input["adminmsg"])
-				C = K
-				break
-		if(!C)
-			return "No client with that name on server"
-
-		var/message =	"<font color='red'>Discord PM from <b><a href='?discord_msg=1'>[input["sender"]]</a></b>: [input["msg"]]</font>"
-		var/amessage =  "<font color='blue'>Discord PM from <a href='?discord_msg=1'>[input["sender"]]</a> to <b>[key_name(C)]</b>: [input["msg"]]</font>"
-
-		// THESE TWO VARS DO VERY DIFFERENT THINGS. DO NOT ATTEMPT TO COMBINE THEM
-		C.received_discord_pm = world.time
-		C.last_discord_pm_time = 0
-
-		SEND_SOUND(C, 'sound/effects/adminhelp.ogg')
-		to_chat(C, message)
-
-		for(var/client/A in GLOB.admins)
-			if(A != C)
-				to_chat(A, amessage)
-
-		return "Message Successful"
-
-	else if("notes" in input)
-		/*
-			We got a request for notes from the IRC Bot
-			expected output:
-				1. notes = ckey of person the notes lookup is for
-				2. validationkey = the key the bot has, it should match the gameservers commspassword in it's configuration.
-		*/
-		if(!key_valid)
-			return keySpamProtect(addr)
-
-		return show_player_info_irc(input["notes"])
-
-	else if("announce" in input)
-		if(config.comms_password)
-			if(input["key"] != config.comms_password)
-				return "Bad Key"
-			else
-				var/prtext = input["announce"]
-				var/pr_substring = copytext(prtext, 1, 23)
-				if(pr_substring == "Pull Request merged by")
-					GLOB.pending_server_update = TRUE
-				for(var/client/C in GLOB.clients)
-					to_chat(C, "<span class='announce'>PR: [prtext]</span>")
-
-	else if("kick" in input)
-		/*
-			We have a kick request over coms.
-			Only needed portion is the ckey
-		*/
-		if(!key_valid)
-			return keySpamProtect(addr)
-
-		var/client/C
-
-		for(var/client/K in GLOB.clients)
-			if(K.ckey == input["kick"])
-				C = K
-				break
-		if(!C)
-			return "No client with that name on server"
-
-		qdel(C)
-
-		return "Kick Successful"
-
-	else if("setlog" in input)
-		if(!key_valid)
-			return keySpamProtect(addr)
-
-		SetupLogs()
-
-		return "Logs set to current date"
-
-	else if("setlist" in input)
-		if(!key_valid)
-			return keySpamProtect(addr)
-		if(input["req"] == "public")
-			hub_password = initial(hub_password)
-			update_status()
-			return "Set listed status to public."
-		else
-			hub_password = ""
-			update_status()
-			return "Set listed status to invisible."
-
-
-	else if("hostannounce" in input)
-		if(!key_valid)
-			return keySpamProtect(addr)
-		GLOB.pending_server_update = TRUE
-		to_chat(world, "<hr><span style='color: #12A5F4'><b>Server Announcement:</b> [input["message"]]</span><hr>")
-
-/proc/keySpamProtect(var/addr)
-	if(GLOB.world_topic_spam_protect_ip == addr && abs(GLOB.world_topic_spam_protect_time - world.time) < 50)
-		spawn(50)
-			GLOB.world_topic_spam_protect_time = world.time
-			return "Bad Key (Throttled)"
-
-	GLOB.world_topic_spam_protect_time = world.time
-	GLOB.world_topic_spam_protect_ip = addr
-	return "Bad Key"
+	// If we are here, the handler exists, so it needs to be invoked
+	wth = new wth()
+	return wth.invoke(input)
 
 /world/Reboot(var/reason, var/feedback_c, var/feedback_r, var/time)
 	TgsReboot()

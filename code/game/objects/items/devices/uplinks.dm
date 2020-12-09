@@ -23,6 +23,10 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/job = null
 	var/temp_category
 	var/uplink_type = "traitor"
+	/// If set, the uplink will show the option to become a contractor through this variable.
+	var/datum/antagonist/traitor/contractor/contractor = null
+	/// Whether the uplink is jammed and cannot be used to order items.
+	var/is_jammed = FALSE
 
 /obj/item/uplink/ui_host()
 	return loc
@@ -78,6 +82,9 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	return pick(random_items)
 
 /obj/item/uplink/proc/buy(var/datum/uplink_item/UI, var/reference)
+	if(is_jammed)
+		to_chat(usr, "<span class='warning'>[src] seems to be jammed - it cannot be used here!</span>")
+		return
 	if(!UI)
 		return
 	if(UI.limited_stock == 0)
@@ -144,7 +151,10 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 // Checks to see if the value meets the target. Like a frequency being a traitor_frequency, in order to unlock a headset.
 // If true, it accesses trigger() and returns 1. If it fails, it returns false. Use this to see if you need to close the
 // current item's menu.
-/obj/item/uplink/hidden/proc/check_trigger(mob/user as mob, var/value, var/target)
+/obj/item/uplink/hidden/proc/check_trigger(mob/user, var/value, var/target)
+	if(is_jammed)
+		to_chat(user, "<span class='warning'>[src] seems to be jammed - it cannot be used here!</span>")
+		return
 	if(value == target)
 		trigger(user)
 		return TRUE
@@ -160,6 +170,16 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/list/data = list()
 
 	data["crystals"] = uses
+	data["modal"] = ui_modal_data(src)
+
+	if(contractor)
+		var/list/contractor_data = list(
+			available = uses >= contractor.tc_cost && world.time < contractor.offer_deadline,
+			affordable = uses >= contractor.tc_cost,
+			accepted = !isnull(contractor.contractor_uplink),
+			time_left = contractor.offer_deadline - world.time,
+		)
+		data["contractor"] = contractor_data
 
 	return data
 
@@ -198,6 +218,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		return
 
 	. = TRUE
+	if(tgui_act_modal(action, params))
+		return
 
 	switch(action)
 		if("lock")
@@ -217,6 +239,28 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			var/datum/uplink_item/UI = uplink_items[params["item"]]
 			return buy(UI, UI ? UI.reference : "")
 
+/**
+  * Called in tgui_act() to process modal actions
+  *
+  * Arguments:
+  * * action - The action passed by tgui
+  * * params - The params passed by tgui
+  */
+/obj/item/uplink/hidden/proc/tgui_act_modal(action, list/params)
+	. = TRUE
+	var/id = params["id"]
+	switch(ui_modal_act(src, action, params))
+		if(UI_MODAL_OPEN)
+			if(id == "become_contractor")
+				ui_modal_boolean(src, id, "")
+				return
+		if(UI_MODAL_ANSWER)
+			if(id == "become_contractor")
+				if(text2num(params["answer"]))
+					var/datum/antagonist/traitor/contractor/C = usr.mind.has_antag_datum(/datum/antagonist/traitor/contractor)
+					C?.become_contractor(usr, src)
+				return
+	return FALSE
 
 // I placed this here because of how relevant it is.
 // You place this in your uplinkable item to check if an uplink is active or not.

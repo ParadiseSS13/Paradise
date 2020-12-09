@@ -223,7 +223,7 @@ GLOBAL_LIST_EMPTY(safes)
 	var/list/data = list()
 	data["dial"] = dial
 	data["open"] = open
-	data["locked"] = locked
+	data["locked"] = locked && !broken
 
 	if(open)
 		var/list/contents_names = list()

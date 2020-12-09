@@ -75,12 +75,11 @@ jobs:
           sudo systemctl start mysql
           python3 tools/ci/generate_sql_scripts.py
           tools/ci/validate_sql.sh
-      - name: Install RUST_G
+      - name: Install RUST_G Deps
         run: |
           sudo dpkg --add-architecture i386
           sudo apt update || true
           sudo apt install libssl1.1:i386
-          bash tools/ci/install_rustg.sh
       - name: Compile & Run Unit Tests
         run: |
           tools/ci/install_byond.sh

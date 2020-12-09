@@ -138,6 +138,10 @@ The previous code made compliant:
   code
 ```
 
+### User Interfaces
+All new user interfaces in the game must be created using the TGUI framework. Documentation can be found inside the `tgui/docs` folder.
+This is to ensure all ingame UIs are snappy and respond well. An exception is made for user interfaces which are purely for OOC actions (Such as character creation, or anything admin related)
+
 ### No overriding type safety checks
 The use of the : operator to override type safety checks is not allowed. You must cast the variable to the proper type.
 
