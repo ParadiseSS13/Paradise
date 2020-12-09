@@ -173,14 +173,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 5
 	job = list("Clown")
 
-/datum/uplink_item/jobspecific/clownmagboots
-	name = "Clown Magboots"
-	desc = "A pair of modified clown shoes fitted with an advanced magnetic traction system. Look and sound exactly like regular clown shoes unless closely inspected."
-	reference = "CM"
-	item = /obj/item/clothing/shoes/magboots/clown
-	cost = 3
-	job = list("Clown")
-
 /datum/uplink_item/jobspecific/trick_revolver
 	name = "Trick Revolver"
 	desc = "A revolver that will fire backwards and kill whoever attempts to use it. Perfect for those pesky vigilante or just a good laugh."
@@ -219,7 +211,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A custom sauce made from the highly poisonous fly amanita mushrooms. Anyone who ingests it will take variable toxin damage depending on how long it has been in their system, with a higher dosage taking longer to metabolize."
 	reference = "CESS"
 	item = /obj/item/reagent_containers/food/condiment/syndisauce
-	cost = 2
+	cost = 1
 	job = list("Chef")
 
 /datum/uplink_item/jobspecific/meatcleaver
@@ -266,17 +258,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 0 //No lucky chances from the crate; if you get this, this is ALL you're getting
 	hijack_only = TRUE //This is a murderbone weapon, as such, it should only be available in those scenarios.
 
-//Janitor
-
-/datum/uplink_item/jobspecific/cautionsign
-	name = "Proximity Mine"
-	desc = "An Anti-Personnel proximity mine cleverly disguised as a wet floor caution sign that is triggered by running past it, activate it to start the 15 second timer and activate again to disarm."
-	reference = "PM"
-	item = /obj/item/caution/proximity_sign
-	cost = 4
-	job = list("Janitor")
-	surplus = 0
-
 //Medical
 
 /datum/uplink_item/jobspecific/rad_laser
@@ -284,18 +265,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A radiation laser concealed inside of a Health Analyzer. After a moderate delay, causes temporary collapse and radiation. Has adjustable controls, but will not function as a regular health analyzer, only appears like one. May not function correctly on radiation resistant humanoids!"
 	reference = "RL"
 	item = /obj/item/rad_laser
-	cost = 5
-	job = list("Chief Medical Officer", "Medical Doctor", "Geneticist", "Psychiatrist",	"Chemist", "Paramedic", "Coroner", "Virologist")
-
-//Virology
-
-/datum/uplink_item/jobspecific/viral_injector
-	name = "Viral Injector"
-	desc = "A modified hypospray disguised as a functional pipette. The pipette can infect victims with viruses upon injection."
-	reference = "VI"
-	item = /obj/item/reagent_containers/dropper/precision/viral_injector
 	cost = 3
-	job = list("Virologist")
+	job = list("Chief Medical Officer", "Medical Doctor", "Geneticist", "Psychiatrist",	"Chemist", "Paramedic", "Coroner", "Virologist")
 
 /datum/uplink_item/jobspecific/cat_grenade
 	name = "Feral Cat Delivery Grenade"
@@ -365,16 +336,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 12
 	job = list("Research Director")
 
-//Roboticist
-/datum/uplink_item/jobspecific/syndiemmi
-	name = "Syndicate MMI"
-	desc = "A syndicate developed man-machine-interface which will make any cyborg it is inserted into follow the standard syndicate lawset."
-	reference = "SMMI"
-	item = /obj/item/mmi/syndie
-	cost = 2
-	job = list("Roboticist")
-	surplus = 0
-
 //Librarian
 /datum/uplink_item/jobspecific/etwenty
 	name = "The E20"
@@ -383,6 +344,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/dice/d20/e20
 	cost = 3
 	job = list("Librarian")
+	surplus = 0 //hijack only so no surplus
+	hijack_only = TRUE // a fun item, but not a good idea to not have it be hijack-only considering you'll get banned if your RNG is too good
 
 //Botanist
 /datum/uplink_item/jobspecific/ambrosiacruciatus
@@ -407,7 +370,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A fire axe with a massive energy charge built into it. Upon striking someone while charged it will throw them backwards while stunning them briefly, but will take some time to charge up again. It is also much sharper than a regular axe and can pierce light armor."
 	reference = "EFA"
 	item = /obj/item/twohanded/fireaxe/energized
-	cost = 10
+	cost = 8
 	job = list("Life Support Specialist")
 
 //Stimulants
@@ -429,18 +392,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/reagent_containers/glass/bottle/traitor
 	cost = 2
 	job = list("Research Director", "Chief Medical Officer", "Medical Doctor", "Psychiatrist", "Chemist", "Paramedic", "Virologist", "Bartender", "Chef")
-
-// Paper contact poison pen
-
-/datum/uplink_item/jobspecific/poison_pen
-	name = "Poison Pen"
-	desc = "Cutting edge of deadly writing implements technology, this gadget will infuse any piece of paper with delayed contact poison."
-	reference = "PP"
-	item = /obj/item/pen/poison
-	cost = 2
-	excludefrom = list(/datum/game_mode/nuclear)
-	job = list("Head of Personnel", "Quartermaster", "Cargo Technician", "Librarian")
-
 
 // DANGEROUS WEAPONS
 
@@ -672,21 +623,21 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds that are less effective at injuring the target but penetrate protective gear."
 	reference = "10MMAP"
 	item = /obj/item/ammo_box/magazine/m10mm/ap
-	cost = 2
+	cost = 1
 
 /datum/uplink_item/ammo/pistolfire
 	name = "Stechkin - 10mm Incendiary Magazine"
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with incendiary rounds which ignite the target."
 	reference = "10MMFIRE"
 	item = /obj/item/ammo_box/magazine/m10mm/fire
-	cost = 2
+	cost = 1
 
 /datum/uplink_item/ammo/pistolhp
 	name = "Stechkin - 10mm Hollow Point Magazine"
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds which are more damaging but ineffective against armour."
 	reference = "10MMHP"
 	item = /obj/item/ammo_box/magazine/m10mm/hp
-	cost = 3
+	cost = 1
 
 /datum/uplink_item/ammo/bullslug
 	name = "Bulldog - 12g Slug Magazine"
@@ -831,7 +782,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A speed loader that contains seven additional .357 Magnum rounds for the syndicate revolver. For when you really need a lot of things dead."
 	reference = "357"
 	item = /obj/item/ammo_box/a357
-	cost = 3
+	cost = 1
 
 // STEALTHY WEAPONS
 
@@ -864,6 +815,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CQC"
 	item = /obj/item/CQC_manual
 	cost = 13
+	cant_discount = TRUE
 
 /datum/uplink_item/stealthy_weapons/cameraflash
 	name = "Camera Flash"
@@ -950,36 +902,19 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Just add water to make your very own hostile to everything space carp. It looks just like a plushie. The first person to squeeze it will be registered as its owner, who it will not attack. If no owner is registered, it'll just attack everyone."
 	reference = "DSC"
 	item = /obj/item/toy/carpplushie/dehy_carp
-	cost = 2
+	cost = 1
 
 // GRENADES AND EXPLOSIVES
 
 /datum/uplink_item/explosives
 	category = "Grenades and Explosives"
 
-/datum/uplink_item/explosives/plastic_explosives
-	name = "Composition C-4"
-	desc = "C-4 is plastic explosive of the common variety Composition C. You can use it to breach walls or connect an assembly to its wiring to make it remotely detonable. It has a modifiable timer with a minimum setting of 10 seconds."
-	reference = "C4"
-	item = /obj/item/grenade/plastic/c4
-	cost = 1
-
 /datum/uplink_item/explosives/plastic_explosives_pack
 	name = "Pack of 5 C-4 Explosives"
 	desc = "A package containing 5 C-4 Explosives at a discounted price. For when you need that little bit extra for your sabotaging needs."
 	reference = "C4P"
 	item = /obj/item/storage/box/syndie_kit/c4
-	cost = 4
-
-/datum/uplink_item/explosives/c4bag
-	name = "Bag of C-4 explosives"
-	desc = "Because sometimes quantity is quality. Contains 10 C-4 plastic explosives."
-	reference = "C4B"
-	item = /obj/item/storage/backpack/duffel/syndie/c4
-	cost = 8 //20% discount!
-	cant_discount = TRUE
-	gamemodes = list(/datum/game_mode/nuclear)
-
+	cost = 3
 /datum/uplink_item/explosives/breaching_charge
 	name = "Composition X-4"
 	desc = "X-4 is a shaped charge designed to be safe to the user while causing maximum damage to the occupants of the room beach breached. It has a modifiable timer with a minimum setting of 10 seconds."
@@ -1008,6 +943,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 11
 	surplus = 0
 	cant_discount = TRUE
+	hijack_only = TRUE
 
 /datum/uplink_item/explosives/emp_bomb
 	name = "EMP bomb"
@@ -1094,14 +1030,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	it can also be used in a washing machine to forge clothing."
 	reference = "CHST"
 	item = /obj/item/stamp/chameleon
-	cost = 1
-	surplus = 35
-
-/datum/uplink_item/stealthy_tools/chameleonflag
-	name = "Chameleon Flag"
-	desc = "A flag that can be disguised as any other known flag. There is a hidden spot in the pole to boobytrap the flag with a grenade or minibomb, which will detonate some time after the flag is set on fire."
-	reference = "CHFLAG"
-	item = /obj/item/flag/chameleon
 	cost = 1
 	surplus = 35
 
@@ -1228,15 +1156,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	excludefrom = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 
-/datum/uplink_item/stealthy_tools/cutouts
-	name = "Adaptive Cardboard Cutouts"
-	desc = "These cardboard cutouts are coated with a thin material that prevents discoloration and makes the images on them appear more lifelike. This pack contains three as well as a \
-	spraycan for changing their appearances."
-	reference = "ADCC"
-	item = /obj/item/storage/box/syndie_kit/cutouts
-	cost = 1
-	surplus = 20
-
 /datum/uplink_item/stealthy_tools/safecracking
 	name = "Safe-cracking Kit"
 	desc = "Everything you need to quietly open a mechanical combination safe."
@@ -1292,7 +1211,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Stolen prototype bone repair nanites. Contains one nanocalcium autoinjector and guide."
 	reference = "NCAI"
 	item = /obj/item/storage/box/syndie_kit/bonerepair
-	cost = 4
+	cost = 3
 
 /datum/uplink_item/device_tools/thermal_drill
 	name = "Thermal Safe Drill"
@@ -1410,19 +1329,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/powersink
 	cost = 10
 
-/datum/uplink_item/device_tools/singularity_beacon
-	name = "Power Beacon"
-	desc = "When screwed to wiring attached to an electric grid and activated, this large device pulls any \
-			active gravitational singularities or tesla balls towards it. This will not work when the engine is still \
-			in containment. Because of its size, it cannot be carried. Ordering this \
-			sends you a small beacon that will teleport the larger beacon to your location upon activation."
-	reference = "SNGB"
-	item = /obj/item/radio/beacon/syndicate
-	cost = 10
-	surplus = 0
-	hijack_only = TRUE //This is an item only useful for a hijack traitor, as such, it should only be available in those scenarios.
-	cant_discount = TRUE
-
 /datum/uplink_item/device_tools/syndicate_detonator
 	name = "Syndicate Detonator"
 	desc = "The Syndicate Detonator is a companion device to the Syndicate Bomb. Simply press the included button and an encrypted radio frequency will instruct all live syndicate bombs to detonate. \
@@ -1451,7 +1357,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "This device will disrupt any nearby outgoing radio communication when activated."
 	reference = "RJ"
 	item = /obj/item/jammer
-	cost = 5
+	cost = 2
 
 /datum/uplink_item/device_tools/teleporter
 	name = "Teleporter Circuit Board"
@@ -1506,7 +1412,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "An implant injected into the body, and later activated manually to open an uplink with 10 telecrystals. The ability for an agent to open an uplink after their possessions have been stripped from them makes this implant excellent for escaping confinement."
 	reference = "UI"
 	item = /obj/item/implanter/uplink
-	cost = 14
+	cost = 12
 	surplus = 0
 	cant_discount = TRUE
 
@@ -1538,7 +1444,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "MBI"
 	item = /obj/item/implanter/explosive
 	cost = 2
-	gamemodes = list(/datum/game_mode/nuclear)
 
 // Cybernetics
 /datum/uplink_item/cyber_implants
