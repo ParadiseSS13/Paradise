@@ -365,12 +365,12 @@
 	description = "A diluted mix of methamphetamine and mannitol. Its effects are weaker leading to no chance at brain damage or addiction, but it reacts poorly to one's immune system."
 	reagent_state = LIQUID
 	color = "#97d1b5" // rgb: 59, 82, 71
-	overdose_threshold = 0
-	addiction_chance = 0
-	addiction_threshold = 0
+	overdose_threshold = 20
+	addiction_chance = 10
+	addiction_threshold = 5
 	metabolization_rate = 0.6
 	heart_rate_increase = 1
-	taste_description = "speed"
+	taste_description = "quick"
 
 /datum/reagent/methamphaldehyde/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -379,20 +379,40 @@
 	if(current_cycle >= 25)
 		M.AdjustJitter(5)
 	M.AdjustDrowsy(-10)
-	update_flags |= M.AdjustParalysis(-1.5, FALSE)
-	update_flags |= M.AdjustStunned(-1.5, FALSE)
-	update_flags |= M.AdjustWeakened(-1.5, FALSE)
+	update_flags |= M.AdjustParalysis(-2, FALSE)
+	update_flags |= M.AdjustStunned(-2, FALSE)
+	update_flags |= M.AdjustWeakened(-2, FALSE)
+	update_flags |= M.adjustStaminaLoss(-1.5, FALSE)
 	update_flags |= M.SetSleeping(0, FALSE)
-	M.status_flags |= GOTTAGOFAST
-	if(prob(5))
-		if(iscarbon(M))
-			var/mob/living/carbon/human/C = M
-			C.vomit()
 	return ..() | update_flags
 
-/datum/reagent/methamphaldehyde/on_mob_delete(mob/living/M)
-	M.status_flags &= ~GOTTAGOFAST
-	..()
+/datum/reagent/methamphaldehyde/overdose_process(mob/living/M, severity)
+	var/list/overdose_info = ..()
+	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
+	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
+	if(severity == 1)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] can't seem to control [M.p_their()] legs!</span>")
+			M.AdjustConfused(20)
+			update_flags |= M.Weaken(4, FALSE)
+		else if(effect <= 4)
+			M.visible_message("<span class='warning'>[M]'s hands flip out and flail everywhere!</span>")
+			M.drop_l_hand()
+			M.drop_r_hand()
+		else if(effect <= 7)
+			M.emote("laugh")
+	else if(severity == 2)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M]'s hands flip out and flail everywhere!</span>")
+			M.drop_l_hand()
+			M.drop_r_hand()
+		else if(effect <= 4)
+			M.visible_message("<span class='warning'>[M] falls to the floor and flails uncontrollably!</span>")
+			M.Jitter(10)
+			update_flags |= M.Weaken(10, FALSE)
+		else if(effect <= 7)
+			M.emote("laugh")
+	return list(effect, update_flags)
 
 /datum/reagent/bath_salts
 	name = "Bath Salts"
