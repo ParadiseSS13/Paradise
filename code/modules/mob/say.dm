@@ -27,7 +27,7 @@
 			return
 	*/
 	message = replace_characters(message, ILLEGAL_CHARACTERS_LIST)
-	set_typing_indicator(0)
+	set_typing_indicator(FALSE)
 	usr.say(message)
 
 
@@ -37,7 +37,7 @@
 
 	message = strip_html_properly(message)
 
-	set_typing_indicator(0)
+	set_typing_indicator(FALSE, TRUE)
 	if(use_me)
 		custom_emote(usr.emote_type, message)
 	else

@@ -66172,7 +66172,6 @@
 "cjr" = (
 /obj/machinery/mecha_part_fabricator{
 	dir = 1;
-	id = "0";
 	name = "counterfeit fabricator";
 	req_access = "0"
 	},
@@ -87001,11 +87000,7 @@
 	pixel_x = -2;
 	pixel_y = 2
 	},
-/obj/item/nullrod{
-	pixel_x = 4
-	},
 /obj/item/organ/internal/heart,
-/obj/item/soulstone/anybody/chaplain,
 /turf/simulated/floor/plasteel{
 	tag = "icon-cult";
 	icon_state = "cult";

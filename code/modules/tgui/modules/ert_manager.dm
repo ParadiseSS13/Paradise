@@ -1,4 +1,4 @@
-/datum/tgui_module/ert_manager
+/datum/ui_module/ert_manager
 	name = "ERT Manager"
 	var/ert_type = "Red"
 	var/commander_slots = 1 // defaults for open slots
@@ -9,14 +9,14 @@
 	var/paranormal_slots = 0
 	var/cyborg_slots = 0
 
-/datum/tgui_module/ert_manager/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_admin_state)
+/datum/ui_module/ert_manager/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "ERTManager", name, 350, 430, master_ui, state)
 		ui.autoupdate = TRUE
 		ui.open()
 
-/datum/tgui_module/ert_manager/tgui_data(mob/user)
+/datum/ui_module/ert_manager/ui_data(mob/user)
 	var/list/data = list()
 	data["str_security_level"] = capitalize(get_security_level())
 	switch(GLOB.security_level)
@@ -40,7 +40,7 @@
 	data["spawnpoints"] = GLOB.emergencyresponseteamspawn.len
 	return data
 
-/datum/tgui_module/ert_manager/tgui_act(action, params)
+/datum/ui_module/ert_manager/ui_act(action, params)
 	if(..())
 		return
 	. = TRUE

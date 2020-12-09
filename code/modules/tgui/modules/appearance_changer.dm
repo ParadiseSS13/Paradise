@@ -1,4 +1,4 @@
-/datum/tgui_module/appearance_changer
+/datum/ui_module/appearance_changer
 	name = "Appearance Editor"
 	var/flags = APPEARANCE_ALL_HAIR
 	var/mob/living/carbon/human/owner = null
@@ -17,7 +17,7 @@
 	var/list/whitelist
 	var/list/blacklist
 
-/datum/tgui_module/appearance_changer/New(datum/host, mob/living/carbon/human/H, check_species_whitelist = TRUE, list/species_whitelist = list(), list/species_blacklist = list())
+/datum/ui_module/appearance_changer/New(datum/host, mob/living/carbon/human/H, check_species_whitelist = TRUE, list/species_whitelist = list(), list/species_blacklist = list())
 	..()
 	owner = H
 	head_organ = owner.get_organ("head")
@@ -25,7 +25,7 @@
 	whitelist = species_whitelist
 	blacklist = species_blacklist
 
-/datum/tgui_module/appearance_changer/tgui_act(action, list/params)
+/datum/ui_module/appearance_changer/ui_act(action, list/params)
 	if(..())
 		return
 
@@ -175,13 +175,13 @@
 					cut_and_generate_data()
 
 
-/datum/tgui_module/appearance_changer/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/datum/ui_module/appearance_changer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "AppearanceChanger", name, 800, 450, master_ui, state)
 		ui.open()
 
-/datum/tgui_module/appearance_changer/tgui_data(mob/user)
+/datum/ui_module/appearance_changer/ui_data(mob/user)
 	generate_data(check_whitelist, whitelist, blacklist)
 	var/list/data = list()
 
@@ -277,26 +277,26 @@
 
 	return data
 
-/datum/tgui_module/appearance_changer/proc/update_dna()
+/datum/ui_module/appearance_changer/proc/update_dna()
 	if(owner && (flags & APPEARANCE_UPDATE_DNA))
 		owner.update_dna()
 
-/datum/tgui_module/appearance_changer/proc/can_change(flag)
+/datum/ui_module/appearance_changer/proc/can_change(flag)
 	return owner && (flags & flag)
 
-/datum/tgui_module/appearance_changer/proc/can_change_skin_tone()
+/datum/ui_module/appearance_changer/proc/can_change_skin_tone()
 	return owner && (flags & APPEARANCE_SKIN) && ((owner.dna.species.bodyflags & HAS_SKIN_TONE) || (owner.dna.species.bodyflags & HAS_ICON_SKIN_TONE))
 
-/datum/tgui_module/appearance_changer/proc/can_change_skin_color()
+/datum/ui_module/appearance_changer/proc/can_change_skin_color()
 	return owner && (flags & APPEARANCE_SKIN) && (owner.dna.species.bodyflags & HAS_SKIN_COLOR)
 
-/datum/tgui_module/appearance_changer/proc/can_change_head_accessory()
+/datum/ui_module/appearance_changer/proc/can_change_head_accessory()
 	if(!head_organ)
 		log_runtime(EXCEPTION("Missing head!"), owner)
 		return FALSE
 	return owner && (flags & APPEARANCE_HEAD_ACCESSORY) && (head_organ.dna.species.bodyflags & HAS_HEAD_ACCESSORY)
 
-/datum/tgui_module/appearance_changer/proc/can_change_markings(location = "body")
+/datum/ui_module/appearance_changer/proc/can_change_markings(location = "body")
 	var/marking_flag = HAS_BODY_MARKINGS
 	var/body_flags = owner.dna.species.bodyflags
 	if(location == "head")
@@ -312,16 +312,16 @@
 
 	return owner && (flags & APPEARANCE_MARKINGS) && (body_flags & marking_flag)
 
-/datum/tgui_module/appearance_changer/proc/can_change_body_accessory()
+/datum/ui_module/appearance_changer/proc/can_change_body_accessory()
 	return owner && (flags & APPEARANCE_BODY_ACCESSORY) && (owner.dna.species.bodyflags & HAS_TAIL)
 
-/datum/tgui_module/appearance_changer/proc/can_change_alt_head()
+/datum/ui_module/appearance_changer/proc/can_change_alt_head()
 	if(!head_organ)
 		log_debug("Missing head!")
 		return FALSE
 	return owner && (flags & APPEARANCE_ALT_HEAD) && (head_organ.dna.species.bodyflags & HAS_ALT_HEADS)
 
-/datum/tgui_module/appearance_changer/proc/cut_and_generate_data()
+/datum/ui_module/appearance_changer/proc/cut_and_generate_data()
 	// Making the assumption that the available species remain constant
 	valid_hairstyles.Cut()
 	valid_facial_hairstyles.Cut()
@@ -333,7 +333,7 @@
 	valid_alt_head_styles.Cut()
 	generate_data()
 
-/datum/tgui_module/appearance_changer/proc/generate_data()
+/datum/ui_module/appearance_changer/proc/generate_data()
 	if(!owner)
 		return
 	if(!length(valid_species))

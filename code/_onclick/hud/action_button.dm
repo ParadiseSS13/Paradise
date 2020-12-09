@@ -1,6 +1,8 @@
 /obj/screen/movable/action_button
 	var/datum/action/linked_action
+	var/actiontooltipstyle = ""
 	screen_loc = null
+	var/ordered = TRUE
 
 /obj/screen/movable/action_button/MouseDrop(over_object)
 	if((istype(over_object, /obj/screen/movable/action_button) && !istype(over_object, /obj/screen/movable/action_button/hide_toggle)))
@@ -12,7 +14,9 @@
 		var/list/actions = usr.actions
 		actions.Swap(actions.Find(linked_action), actions.Find(B.linked_action))
 		moved = FALSE
+		ordered = TRUE
 		B.moved = FALSE
+		B.ordered = TRUE
 		closeToolTip(usr)
 		usr.update_action_buttons()
 	else if(istype(over_object, /obj/screen/movable/action_button/hide_toggle))
@@ -28,7 +32,7 @@
 			to_chat(usr, "<span class='warning'>Action button \"[name]\" is locked, unlock it first.</span>")
 			return TRUE
 		moved = FALSE
-		usr.update_action_buttons() //redraw buttons that are no longer considered "moved"
+		usr.update_action_buttons(TRUE) //redraw buttons that are no longer considered "moved"
 		return TRUE
 	if(modifiers["ctrl"])
 		locked = !locked
@@ -120,7 +124,7 @@
 
 /obj/screen/movable/action_button/MouseEntered(location, control, params)
 	if(!QDELETED(src))
-		openToolTip(usr, src, params, title = name, content = desc)
+		openToolTip(usr, src, params, title = name, content = desc, theme = actiontooltipstyle)
 
 /obj/screen/movable/action_button/MouseExited()
 	closeToolTip(usr)
@@ -147,9 +151,12 @@
 				client.screen += A.button
 	else
 		for(var/datum/action/A in actions)
-			button_number++
+			A.override_location() // If the action has a location override, call it
 			A.UpdateButtonIcon()
+
 			var/obj/screen/movable/action_button/B = A.button
+			if(B.ordered)
+				button_number++
 			if(!B.moved)
 				B.screen_loc = hud_used.ButtonNumberToScreenCoords(button_number)
 			else

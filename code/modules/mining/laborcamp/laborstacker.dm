@@ -50,18 +50,18 @@
 	return ..()
 
 /obj/machinery/mineral/labor_claim_console/attack_hand(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/mineral/labor_claim_console/attack_ghost(mob/user)
 	attack_hand(user)
 
-/obj/machinery/mineral/labor_claim_console/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/mineral/labor_claim_console/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "LaborClaimConsole", name, 315, 470, master_ui, state)
 		ui.open()
 
-/obj/machinery/mineral/labor_claim_console/tgui_data(mob/user)
+/obj/machinery/mineral/labor_claim_console/ui_data(mob/user)
 	var/list/data = list()
 	var/can_go_home = FALSE
 
@@ -82,7 +82,7 @@
 
 	return data
 
-/obj/machinery/mineral/labor_claim_console/tgui_act(action, params)
+/obj/machinery/mineral/labor_claim_console/ui_act(action, params)
 	if(..())
 		return
 

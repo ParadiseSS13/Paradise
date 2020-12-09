@@ -166,14 +166,14 @@
 		update_icon()
 
 /obj/machinery/newscaster/attack_ghost(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/newscaster/attack_hand(mob/user)
 	if(..())
 		return
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/newscaster/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/newscaster/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	if(can_scan(user))
 		scanned_user = get_scanned_user(user)["name"]
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -182,7 +182,7 @@
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
-/obj/machinery/newscaster/tgui_data(mob/user)
+/obj/machinery/newscaster/ui_data(mob/user)
 	var/list/data = list()
 	data["unit_number"] = unit_number
 	data["is_security"] = is_security
@@ -190,7 +190,7 @@
 	data["is_silent"] = is_silent
 	data["is_printing"] = is_printing
 	data["screen"] = screen
-	data["modal"] = tgui_modal_data(src)
+	data["modal"] = ui_modal_data(src)
 	if(data["modal"] && !isnull(data["modal"]["args"]["is_admin"]))
 		data["modal"]["args"]["is_admin"] = user.can_admin_interact()
 	data["temp"] = temp_notice
@@ -208,7 +208,7 @@
 			if(screen == NEWSCASTER_CHANNEL)
 				if(!viewing_channel) // Uh oh, channel doesn't exist! Redirect to Headlines
 					screen = NEWSCASTER_HEADLINES
-					return tgui_data(user)
+					return ui_data(user)
 				message_list = viewing_channel.messages
 				data["channel_idx"] = GLOB.news_network.channels.Find(viewing_channel)
 				data["channel_can_manage"] = viewing_channel.can_modify(usr, user_name)
@@ -326,12 +326,12 @@
 		has_photo = !isnull(FM.img),
 	))
 
-/obj/machinery/newscaster/tgui_act(action, list/params)
+/obj/machinery/newscaster/ui_act(action, list/params)
 	if(..())
 		return
 
 	. = TRUE
-	if(tgui_act_modal(action, params))
+	if(ui_act_modal(action, params))
 		return
 
 	switch(action)
@@ -352,7 +352,7 @@
 			screen = NEWSCASTER_CHANNEL
 			viewing_channel = FC
 		if("attach_photo")
-			var/list/open_modal = tgui_modal_data(src)
+			var/list/open_modal = ui_modal_data(src)
 			if(photo || !open_modal || !(open_modal["id"] in list("create_story", "wanted_notice")))
 				return
 			if(ishuman(usr))
@@ -432,18 +432,18 @@
 	add_fingerprint(usr)
 
 /**
-  * Called in tgui_act() to process modal actions
+  * Called in ui_act() to process modal actions
   *
   * Arguments:
   * * action - The action passed by tgui
   * * params - The params passed by tgui
   */
-/obj/machinery/newscaster/proc/tgui_act_modal(action, list/params)
+/obj/machinery/newscaster/proc/ui_act_modal(action, list/params)
 	. = TRUE
 	var/id = params["id"]
 	var/list/arguments = istext(params["arguments"]) ? json_decode(params["arguments"]) : params["arguments"]
-	switch(tgui_modal_act(src, action, params))
-		if(TGUI_MODAL_OPEN)
+	switch(ui_modal_act(src, action, params))
+		if(UI_MODAL_OPEN)
 			switch(id)
 				if("create_channel", "manage_channel")
 					// If trying to manage the channel, make sure the user is allowed to!
@@ -451,7 +451,7 @@
 						var/datum/feed_channel/FC = locateUID(arguments["uid"])
 						if(!istype(FC) || !FC.can_modify(usr, get_scanned_user(usr)["name"]))
 							return
-					tgui_modal_message(src, id, "", arguments = list(
+					ui_modal_message(src, id, "", arguments = list(
 						uid = arguments["uid"], // Only when managing a channel
 						scanned_user = scanned_user,
 						is_admin = usr.can_admin_interact(),
@@ -459,13 +459,13 @@
 				if("create_story", "wanted_notice") // Other modals
 					if(id == "wanted_notice" && !(is_security || usr.can_admin_interact()))
 						return
-					tgui_modal_message(src, id, "", arguments = list(
+					ui_modal_message(src, id, "", arguments = list(
 						scanned_user = scanned_user,
 						is_admin = usr.can_admin_interact(),
 					))
 				else
 					return FALSE
-		if(TGUI_MODAL_ANSWER)
+		if(UI_MODAL_ANSWER)
 			switch(id)
 				if("create_channel", "manage_channel")
 					var/author = trim(arguments["author"])

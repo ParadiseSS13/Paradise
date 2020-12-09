@@ -36,13 +36,13 @@
 		tag_chamber_sensor = given_tag_chamber_sensor
 	..()
 
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "ExternalAirlockController", name, 470, 290, master_ui, state)
 		ui.open()
 
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller/tgui_data(mob/user)
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller/ui_data(mob/user)
 	var/list/data = list()
 
 	data["chamber_pressure"] = round(program.memory["chamber_sensor_pressure"])
@@ -53,7 +53,7 @@
 	return data
 
 
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller/tgui_act(action, params)
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller/ui_act(action, params)
 	if(..())
 		return
 
@@ -83,13 +83,13 @@
 	else
 		icon_state = "access_control_off"
 
-/obj/machinery/embedded_controller/radio/airlock/access_controller/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/embedded_controller/radio/airlock/access_controller/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "AirlockAccessController", name, 470, 290, master_ui, state)
 		ui.open()
 
-/obj/machinery/embedded_controller/radio/airlock/access_controller/tgui_data(mob/user)
+/obj/machinery/embedded_controller/radio/airlock/access_controller/ui_data(mob/user)
 	var/list/data = list()
 
 	data["exterior_status"] = program.memory["exterior_status"]
@@ -98,7 +98,7 @@
 
 	return data
 
-/obj/machinery/embedded_controller/radio/airlock/access_controller/tgui_act(action, params)
+/obj/machinery/embedded_controller/radio/airlock/access_controller/ui_act(action, params)
 	if(..())
 		return
 
