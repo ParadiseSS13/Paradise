@@ -660,7 +660,9 @@
 		if(!fromban)
 			to_chat(src, "Your forum account is already set.")
 		return
-	var/datum/db_query/query_find_link = SSdbcore.NewQuery("SELECT fuid FROM [format_table_name("player")] WHERE ckey=:ckey limit 1")
+	var/datum/db_query/query_find_link = SSdbcore.NewQuery("SELECT fuid FROM [format_table_name("player")] WHERE ckey=:ckey LIMIT 1", list(
+		"ckey" = ckey
+	))
 	if(!query_find_link.warn_execute())
 		qdel(query_find_link)
 		return
