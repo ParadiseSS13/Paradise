@@ -382,12 +382,12 @@
 	update_flags |= M.AdjustParalysis(-1.5, FALSE)
 	update_flags |= M.AdjustStunned(-1.5, FALSE)
 	update_flags |= M.AdjustWeakened(-1.5, FALSE)
-	update_flags |= M.adjustStaminaLoss(-1, FALSE)
 	update_flags |= M.SetSleeping(0, FALSE)
 	M.status_flags |= GOTTAGOFAST
-	if(prob(10))
-		var/mob/living/carbon/human/C = M
-		C.vomit()
+	if(prob(5))
+		if(iscarbon(M))
+			var/mob/living/carbon/human/C = M
+			C.vomit()
 	return ..() | update_flags
 
 /datum/reagent/methamphaldehyde/on_mob_delete(mob/living/M)
