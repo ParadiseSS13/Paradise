@@ -28,11 +28,11 @@
 			new /obj/item/encryptionkey/syndicate(src) // 2TC
 			return
 
-		if("bond") // 33TC + three 0TC
+		if("bond") // 30TC + three 0TC
 			new /obj/item/gun/projectile/automatic/pistol(src) // 4TC
 			new /obj/item/suppressor(src) // 1TC
-			new /obj/item/ammo_box/magazine/m10mm/hp(src)  // 3TC
-			new /obj/item/ammo_box/magazine/m10mm/ap(src) // 2TC
+			new /obj/item/ammo_box/magazine/m10mm/hp(src)  // 1TC
+			new /obj/item/ammo_box/magazine/m10mm/ap(src) // 1TC
 			new /obj/item/clothing/under/suit_jacket/really_black(src) // 0TC
 			new /obj/item/card/id/syndicate(src) // 2TC
 			new /obj/item/clothing/suit/storage/lawyer/blackjacket/armored(src) // 0TC
@@ -58,12 +58,12 @@
 			new /obj/item/encryptionkey/syndicate(src) // 2TC
 			return
 
-		if("payday") // 35TC + four 0TC
+		if("payday") // 28TC + four 0TC
 			new /obj/item/gun/projectile/revolver(src) // 13TC
-			new /obj/item/ammo_box/a357(src) // 3TC
-			new /obj/item/ammo_box/a357(src) // 3TC
+			new /obj/item/ammo_box/a357(src) // 1TC
+			new /obj/item/ammo_box/a357(src) // 1TC
 			new /obj/item/card/emag(src) // 6TC
-			new /obj/item/jammer(src) // 5TC
+			new /obj/item/jammer(src) // 2TC
 			new /obj/item/card/id/syndicate(src) // 2TC
 			new /obj/item/clothing/under/suit_jacket/really_black(src) //0TC
 			new /obj/item/clothing/suit/storage/lawyer/blackjacket/armored(src) //0TC
@@ -73,9 +73,9 @@
 			new /obj/item/encryptionkey/syndicate(src) // 2TC
 			return
 
-		if("implant") // 39TC + ten free TC
+		if("implant") // 37TC + ten free TC
 			new /obj/item/implanter/freedom(src) // 5TC
-			new /obj/item/implanter/uplink(src) // 14TC (ten free TC)
+			new /obj/item/implanter/uplink(src) // 12TC (ten free TC)
 			new /obj/item/implanter/emp(src) // 0TC
 			new /obj/item/implanter/adrenalin(src) // 8TC
 			new /obj/item/implanter/explosive(src) // 2TC
