@@ -12,7 +12,8 @@
 	var/should_equip = TRUE
 	var/traitor_kind = TRAITOR_HUMAN
 	var/list/assigned_targets = list() // This includes assassinate as well as steal objectives. prevents duplicate objectives
-
+	/// Whether the traitor can specialize into a contractor.
+	var/is_contractor = FALSE
 
 /datum/antagonist/traitor/on_gain()
 	if(owner.current && isAI(owner.current))
@@ -410,3 +411,8 @@
 					<b>The code responses were:</b> <span class='redtext'>[responses]</span><br>"
 
 	return message
+
+/datum/antagonist/traitor/specialization(datum/mind/new_owner)
+	if(isAI(new_owner?.current) || !is_contractor)
+		return ..()
+	return new /datum/antagonist/traitor/contractor
