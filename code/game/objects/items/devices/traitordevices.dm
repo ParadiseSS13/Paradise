@@ -265,8 +265,8 @@ effective or pretty fucking useless.
 	else
 		to_chat(C, "<span class='danger'>The [src] will not work here!</span>")
 
-/obj/item/teleporter/proc/tile_check(turf)
-	if(istype(turf, /turf/simulated/floor) || istype(turf, /turf/space) || istype(turf, /turf/simulated/shuttle/floor) || istype(turf, /turf/simulated/shuttle/floor4) || istype(turf, /turf/simulated/shuttle/plating))
+/obj/item/teleporter/proc/tile_check(turf/T)
+	if(istype(T, /turf/simulated/floor) || istype(T, /turf/space) || istype(T, /turf/simulated/shuttle/floor) || istype(T, /turf/simulated/shuttle/floor4) || istype(T, /turf/simulated/shuttle/plating))
 		return TRUE
 
 /obj/item/teleporter/proc/panic_teleport(mob/user, turf/destination, direction = NORTH)
