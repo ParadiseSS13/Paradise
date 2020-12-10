@@ -29,7 +29,7 @@
 	item_state = "wintercoat_hos"
 	strip_delay = 40
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 90)
-	hoodtype = /obj/item/clothing/head/hooded/winterhood/security/hos
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/security/warden/hos
 
 /obj/item/clothing/suit/hooded/armor/detective
 	name = "winter coat"
@@ -43,7 +43,7 @@
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|HANDS
 	allowed = list(/obj/item/tank/emergency_oxygen, /obj/item/reagent_containers/spray/pepper, /obj/item/flashlight, /obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/detective_scanner, /obj/item/taperecorder, /obj/item/melee/classic_baton/telescopic, /obj/item/kitchen/knife)
 	armor = list("melee" = 25, "bullet" = 10, "laser" = 25, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 45)
-	hoodtype = /obj/item/clothing/head/hooded/winterhood/security/detective
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/security/warden/detective
 
 /obj/item/clothing/suit/hooded/armor/brigdoc
 	name = "brig physician winter coat"
