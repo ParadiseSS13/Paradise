@@ -51,12 +51,6 @@
 			return 1
 	return 0
 
-/proc/ismindslave(A) //Checks to see if the person contains a mindslave implant, then checks that the implant is actually inside of them
-	for(var/obj/item/implant/traitor/T in A)
-		if(T && T.implanted)
-			return 1
-	return 0
-
 /proc/isLivingSSD(mob/M)
 	return istype(M) && M.player_logged && M.stat != DEAD
 
