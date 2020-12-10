@@ -49,3 +49,11 @@
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 500, MAT_SILVER = 500)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
+
+/datum/design/paintkit
+	name = "Mecha paintkit"
+	id = "Mecha_paintkit"
+	build_type = MECHFAB
+	build_path = /obj/item/paintkit/hispania
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
+	category = list("Misc")

@@ -9,6 +9,7 @@
 	var/new_icon = "ripley"  //What base icon will the new mech use?
 	var/removable = null     //Can the kit be removed?
 	var/list/allowed_types = list() //Types of mech that the kit will work on.
+	var/new_icon_carpet //esta variable sirve indicar el dmi correspondiente
 
 /obj/item/paintkit/titansfist
 	name = "APLU \"Ripley\" customisation kit"
