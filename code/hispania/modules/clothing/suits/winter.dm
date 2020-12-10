@@ -12,13 +12,13 @@
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO|LOWER_TORSO|HANDS
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
-	strip_delay = 70
+	strip_delay = 35
 	put_on_delay = 40
 	max_integrity = 250
 	flags_inv = HIDEJUMPSUIT
 	resistance_flags = NONE
 	dog_fashion = null
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 25, "acid" = 25)
+	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 25)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security/warden
 	sprite_sheets = list("Vox" = 'icons/hispania/mob/species/vox/suit.dmi')
 
@@ -27,7 +27,7 @@
 	desc = "A trench coat enhanced with a special alloy for some protection and style. Hood Included"
 	icon_state = "wintercoat_hos"
 	item_state = "wintercoat_hos"
-	strip_delay = 80
+	strip_delay = 40
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 90)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security/hos
 
@@ -37,7 +37,7 @@
 	icon_state = "wintercoat_detective"
 	item_state = "wintercoat_detective"
 	blood_overlay_type = "coat"
-	strip_delay = 60
+	strip_delay = 30
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|HANDS
@@ -50,25 +50,25 @@
 	desc = "A winter coat often worn by doctors caring for inmates."
 	icon_state = "wintercoat_brigdoc"
 	item_state = "wintercoat_brigdoc"
-	strip_delay = 60
+	strip_delay = 30
 	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/melee/classic_baton/telescopic,/obj/item/kitchen/knife,/obj/item/stack/medical,/obj/item/reagent_containers/dropper,/obj/item/reagent_containers/hypospray,/obj/item/reagent_containers/applicator,/obj/item/reagent_containers/syringe,/obj/item/healthanalyzer,/obj/item/radio,/obj/item/tank/emergency_oxygen,/obj/item/rad_laser)
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0, fire = 25, acid = 25)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security
 
 /obj/item/clothing/head/hooded/winterhood/security/warden
 	icon_state = "winterhood_warden"
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 15, "acid" = 25)
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 15)
 	hispania_icon = TRUE
 	sprite_sheets = list("Vox" = 'icons/hispania/mob/species/vox/head.dmi')
 
 /obj/item/clothing/head/hooded/winterhood/security/detective
 	icon_state = "winterhood_detective"
-	armor = list("melee" = 25, "bullet" = 5, "laser" = 25, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 15, "acid" = 25)
+	armor = list("melee" = 25, "bullet" = 5, "laser" = 25, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 15)
 	hispania_icon = TRUE
 	sprite_sheets = list("Vox" = 'icons/hispania/mob/species/vox/head.dmi')
 
 /obj/item/clothing/head/hooded/winterhood/security/hos
 	icon_state = "winterhood_hos"
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 15, "acid" = 25)
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 15)
 	hispania_icon = TRUE
 	sprite_sheets = list("Vox" = 'icons/hispania/mob/species/vox/head.dmi')
