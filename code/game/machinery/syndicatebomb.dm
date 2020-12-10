@@ -273,6 +273,10 @@
 	desc = "A salvaged syndicate device gutted of its explosives to be used as a training aid for aspiring bomb defusers."
 	payload = /obj/item/bombcore/training
 
+/obj/machinery/syndicatebomb/hijack
+	minimum_timer = 30
+	timer_set = 30
+
 /obj/machinery/syndicatebomb/emp
 	name = "emp bomb"
 	icon_state = "emp-bomb"

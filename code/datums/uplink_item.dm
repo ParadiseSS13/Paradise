@@ -877,13 +877,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 3
 	surplus = 10
 
-/datum/uplink_item/stealthy_weapons/false_briefcase
-	name = "False Bottomed Briefcase"
-	desc = "A modified briefcase capable of storing and firing a gun under a false bottom. Use a screwdriver to pry away the false bottom and make modifications. Distinguishable upon close examination due to the added weight."
-	reference = "FBBC"
-	item = /obj/item/storage/briefcase/false_bottomed
-	cost = 3
-
 /datum/uplink_item/stealthy_weapons/soap
 	name = "Syndicate Soap"
 	desc = "A sinister-looking surfactant used to clean blood stains to hide murders and prevent DNA analysis. You can also drop it underfoot to slip people."
@@ -954,14 +947,24 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/explosives/syndicate_bomb
 	name = "Syndicate Bomb"
-	desc = "The Syndicate Bomb has an adjustable timer with a minimum setting of 90 seconds. Ordering the bomb sends you a small beacon, which will teleport the explosive to your location when you activate it. \
+	desc = "The Syndicate Bomb has an adjustable timer with a minimum setting of 30 seconds. Ordering the bomb sends you a small beacon, which will teleport the explosive to your location when you activate it. \
 	You can wrench the bomb down to prevent removal. The crew may attempt to defuse the bomb."
 	reference = "SB"
-	item = /obj/item/radio/beacon/syndicate/bomb
+	item = /obj/item/radio/beacon/syndicate/bomb/hijack
 	cost = 11
 	surplus = 0
 	cant_discount = TRUE
 	hijack_only = TRUE
+	excludefrom = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/explosives/syndicate_bomb/nukies
+	desc = "The Syndicate Bomb has an adjustable timer with a minimum setting of 90 seconds. Ordering the bomb sends you a small beacon, which will teleport the explosive to your location when you activate it. \
+	You can wrench the bomb down to prevent removal. The crew may attempt to defuse the bomb."
+	reference = "NSB"
+	item = /obj/item/radio/beacon/syndicate/bomb
+	cost = 11
+	excludefrom = list()
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/explosives/emp_bomb
 	name = "EMP bomb"
@@ -1231,21 +1234,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/bonerepair
 	cost = 3
 
-/datum/uplink_item/device_tools/thermal_drill
-	name = "Thermal Safe Drill"
-	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Guaranteed 100% jam proof."
-	reference = "DRL"
-	item = /obj/item/thermal_drill
-	cost = 3
-	excludefrom = list(/datum/game_mode/nuclear)
-
 /datum/uplink_item/device_tools/diamond_drill
 	name = "Diamond Tipped Thermal Safe Drill"
 	desc = "A diamond tipped thermal drill with magnetic clamps for the purpose of quickly drilling hardened objects. Guaranteed 100% jam proof."
 	reference = "DDRL"
 	item = /obj/item/thermal_drill/diamond_drill
 	cost = 1
-	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/medkit
 	name = "Syndicate Combat Medic Kit"

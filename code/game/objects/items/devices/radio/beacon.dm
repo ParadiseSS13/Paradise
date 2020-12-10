@@ -86,6 +86,9 @@
 		user.drop_item()
 		qdel(src)
 
+/obj/item/radio/beacon/syndicate/bomb/hijack
+	bomb = /obj/machinery/syndicatebomb/hijack
+
 /obj/item/radio/beacon/syndicate/bomb/emp
 	desc = "A label on it reads: <i>Warning: Activating this device will send a high-ordinance EMP explosive to your location</i>."
 	bomb = /obj/machinery/syndicatebomb/emp
