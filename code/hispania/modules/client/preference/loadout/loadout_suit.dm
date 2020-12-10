@@ -84,3 +84,23 @@
 /datum/gear/suit/nt_old_coat
 	display_name = "old nanotrasen coat red"
 	path = /obj/item/clothing/suit/fluff/vetcoat/red
+
+/datum/gear/suit/coat/job/hos
+	display_name = "winter coat, head of security"
+	path = /obj/item/clothing/suit/hooded/armor/hos
+	allowed_roles = list("Head of Security")
+
+/datum/gear/suit/coat/job/warden
+	display_name = "winter coat, warden"
+	path = /obj/item/clothing/suit/hooded/armor
+	allowed_roles = list("Warden")
+
+/datum/gear/suit/coat/job/detective
+	display_name = "winter coat, detective"
+	path = /obj/item/clothing/suit/hooded/armor/detective
+	allowed_roles = list("Detective")
+
+/datum/gear/suit/coat/job/brigphysician
+	display_name = "winter coat, brig physician"
+	path = /obj/item/clothing/suit/hooded/armor/brigdoc
+	allowed_roles = list("Brig Physician")
