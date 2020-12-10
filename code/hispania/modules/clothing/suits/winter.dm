@@ -56,19 +56,16 @@
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security
 
 /obj/item/clothing/head/hooded/winterhood/security/warden
+	icon = 'icons/hispania/mob/head.dmi'
 	icon_state = "winterhood_warden"
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 15)
 	hispania_icon = TRUE
 	sprite_sheets = list("Vox" = 'icons/hispania/mob/species/vox/head.dmi')
 
-/obj/item/clothing/head/hooded/winterhood/security/detective
+/obj/item/clothing/head/hooded/winterhood/security/warden/detective
 	icon_state = "winterhood_detective"
 	armor = list("melee" = 25, "bullet" = 5, "laser" = 25, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 15)
-	hispania_icon = TRUE
-	sprite_sheets = list("Vox" = 'icons/hispania/mob/species/vox/head.dmi')
 
-/obj/item/clothing/head/hooded/winterhood/security/hos
+/obj/item/clothing/head/hooded/winterhood/security/warden/hos
 	icon_state = "winterhood_hos"
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 15)
-	hispania_icon = TRUE
-	sprite_sheets = list("Vox" = 'icons/hispania/mob/species/vox/head.dmi')
