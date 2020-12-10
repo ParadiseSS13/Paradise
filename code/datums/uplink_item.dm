@@ -287,6 +287,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 4
 	job = list("Psychiatrist")//why? Becuase its funny that a person in charge of your mental wellbeing has a cat granade..
 
+//Virology
+
+/datum/uplink_item/jobspecific/viral_injector
+	name = "Viral Injector"
+	desc = "A modified hypospray disguised as a functional pipette. The pipette can infect victims with viruses upon injection."
+	reference = "VI"
+	item = /obj/item/reagent_containers/dropper/precision/viral_injector
+	cost = 2
+	job = list("Virologist")
+
 //Assistant
 
 /datum/uplink_item/jobspecific/pickpocketgloves
@@ -1447,11 +1457,21 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/implants/microbomb
 	name = "Microbomb Implant"
-	desc = "An implant injected into the body, and later activated either manually or automatically upon death. The more implants inside of you, the higher the explosive power. \
-	This will permanently destroy your body, however."
+	desc = "An implant injected into the body, and later activated either manually or automatically upon death. \
+	Limited stock of one per uplink."
 	reference = "MBI"
 	item = /obj/item/implanter/explosive
 	cost = 2
+	limited_stock = 1
+	excludefrom = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/implants/microbomb/nukies
+	desc = "An implant injected into the body, and later activated either manually or automatically upon death. The more implants inside of you, the higher the explosive power. \
+	This will permanently destroy your body, however."
+	reference = "NMBI"
+	item = /obj/item/implanter/explosive
+	limited_stock = -1
+	excludefrom = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 
 // Cybernetics
