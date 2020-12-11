@@ -46,36 +46,45 @@
 
 /area/ruin/unpowered/syndicate_lava_base/engineering
 	name = "Syndicate Lavaland Engineering"
+	icon_state = "engine"
 
 /area/ruin/unpowered/syndicate_lava_base/medbay
 	name = "Syndicate Lavaland Medbay"
+	icon_state = "medbay2"
 
 /area/ruin/unpowered/syndicate_lava_base/arrivals
 	name = "Syndicate Lavaland Arrivals"
 
 /area/ruin/unpowered/syndicate_lava_base/bar
 	name = "Syndicate Lavaland Bar"
+	icon_state = "bar"
 
 /area/ruin/unpowered/syndicate_lava_base/main
 	name = "Syndicate Lavaland Primary Hallway"
 
 /area/ruin/unpowered/syndicate_lava_base/cargo
 	name = "Syndicate Lavaland Cargo Bay"
+	icon_state = "storage"
 
 /area/ruin/unpowered/syndicate_lava_base/chemistry
 	name = "Syndicate Lavaland Chemistry"
+	icon_state = "chem"
 
 /area/ruin/unpowered/syndicate_lava_base/virology
 	name = "Syndicate Lavaland Virology"
+	icon_state = "virology"
 
 /area/ruin/unpowered/syndicate_lava_base/testlab
 	name = "Syndicate Lavaland Experimentation Lab"
+	icon_state = "toxtest"
 
 /area/ruin/unpowered/syndicate_lava_base/dormitories
 	name = "Syndicate Lavaland Dormitories"
+	icon_state = "dorms"
 
 /area/ruin/unpowered/syndicate_lava_base/telecomms
 	name = "Syndicate Lavaland Telecommunications"
+	icon_state = "tcomsatcham"
 
 //Xeno Nest
 
