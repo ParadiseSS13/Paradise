@@ -54,6 +54,7 @@
 
 /area/ruin/unpowered/syndicate_lava_base/arrivals
 	name = "Syndicate Lavaland Arrivals"
+	icon_state = "entry"
 
 /area/ruin/unpowered/syndicate_lava_base/bar
 	name = "Syndicate Lavaland Bar"
