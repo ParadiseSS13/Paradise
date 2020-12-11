@@ -85,7 +85,7 @@
 	// Die a glorious death objective.
 	if(prob(20))
 		var/martyr_compatibility = TRUE
-		for(var/objective in owner.objectives)
+		for(var/objective in owner.get_all_objectives())
 			var/datum/objective/O = objective
 			if(!O.martyr_compatible) // Check if our current objectives can co-exist with martyr.
 				martyr_compatibility = FALSE
@@ -126,6 +126,7 @@
 				continue
 		assigned_targets.Add("[kill_objective.target]")
 		objectives += kill_objective
+		i++
 
 	// Always give the AI a survive until the end objective.
 	var/datum/objective/survive/survive_objective = new
@@ -264,7 +265,7 @@
 			freq += 2
 			if((freq % 2) == 0)
 				freq += 1
-		freq = freqlist[rand(1, length(freqlist))]
+		freq = pick(freqlist)
 
 		var/obj/item/uplink/hidden/T = new(R)
 		target_radio.hidden_uplink = T

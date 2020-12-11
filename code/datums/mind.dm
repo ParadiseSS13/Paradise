@@ -184,11 +184,11 @@
 
 	for(var/antag in antag_datums)
 		var/datum/antagonist/A = antag
-		all_objectives |= A.objectives // Add all antag datum objectives.
+		all_objectives += A.objectives // Add all antag datum objectives.
 
 	for(var/objective in objectives)
 		var/datum/objective/O = objective
-		all_objectives |= O // Add all mind objectives.
+		all_objectives += O // Add all mind objectives.
 
 	return all_objectives
 
@@ -1118,7 +1118,7 @@
 
 			if("autoobjectives")
 				var/datum/antagonist/traitor/T = has_antag_datum(/datum/antagonist/traitor)
-				if(isAI(src))
+				if(isAI(current))
 					T.forge_ai_objectives()
 				else
 					T.forge_human_objectives()
