@@ -1225,6 +1225,22 @@
 	else
 		to_chat(usr, "<span class='notice'>[self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)].</span>")
 
+
+/mob/living/carbon/human/proc/change_dna(datum/dna/new_dna, include_species_change = FALSE, keep_flavor_text = FALSE)
+	if(include_species_change)
+		set_species(new_dna.species.type, retain_damage = TRUE)
+	dna = new_dna.Clone()
+	real_name = new_dna.real_name
+	domutcheck(src, null, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
+	if(!keep_flavor_text)
+		flavor_text = ""
+	dna.UpdateSE()
+	dna.UpdateUI()
+	sync_organ_dna(TRUE)
+	UpdateAppearance()
+	sec_hud_set_ID()
+
+
 /mob/living/carbon/human/proc/set_species(datum/species/new_species, default_colour, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE)
 	if(!skip_same_check)
 		if(dna.species.name == initial(new_species.name))
