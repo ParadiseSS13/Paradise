@@ -4,7 +4,6 @@ import { Window } from '../layouts';
 
 export const WizardApprenticeContract = (props, context) => {
   const { act, data } = useBackend(context);
-  // Extract `health` and `color` variables from the `data` object.
   const {
     used,
   } = data;
