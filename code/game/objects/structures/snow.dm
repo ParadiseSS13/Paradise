@@ -21,5 +21,5 @@
 
 		if(H.put_in_hands(S))
 			playsound(src, 'sound/weapons/slashmiss.ogg', 15) // crunchy snow sound
-		else if(!QDELETED(S))
+		else
 			qdel(S) // Spawn in hands only
