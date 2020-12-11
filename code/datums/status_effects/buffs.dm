@@ -113,13 +113,13 @@
 /datum/status_effect/hippocraticOath/on_apply()
 	//Makes the user passive, it's in their oath not to harm!
 	ADD_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
-	var/datum/atom_hud/H = huds[DATA_HUD_MEDICAL_ADVANCED]
+	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	H.add_hud_to(owner)
 	return ..()
 
 /datum/status_effect/hippocraticOath/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
-	var/datum/atom_hud/H = huds[DATA_HUD_MEDICAL_ADVANCED]
+	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	H.remove_hud_from(owner)
 
 /datum/status_effect/hippocraticOath/tick()
@@ -190,7 +190,7 @@
 				L.adjustBrainLoss(-3.5)
 				L.adjustCloneLoss(-1) //Becasue apparently clone damage is the bastion of all health
 				if(ishuman(L))
-					var/var/mob/living/carbon/human/H = L
+					var/mob/living/carbon/human/H = L
 					for(var/obj/item/organ/external/E in H.bodyparts)
 						if(prob(10))
 							E.mend_fracture()
@@ -215,18 +215,20 @@
 	alert_type = /obj/screen/alert/status_effect/regenerative_core
 
 /datum/status_effect/regenerative_core/on_apply()
-	owner.status_flags |= IGNORESLOWDOWN
+	owner.status_flags |= IGNORE_SPEED_CHANGES
 	owner.adjustBruteLoss(-25)
 	owner.adjustFireLoss(-25)
 	owner.remove_CC()
-	owner.bodytemperature = BODYTEMP_NORMAL
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
+		H.bodytemperature = H.dna.species.body_temperature
 		for(var/thing in H.bodyparts)
 			var/obj/item/organ/external/E = thing
 			E.internal_bleeding = FALSE
 			E.mend_fracture()
+	else
+		owner.bodytemperature = BODYTEMP_NORMAL
 	return TRUE
 
 /datum/status_effect/regenerative_core/on_remove()
-	owner.status_flags &= ~IGNORESLOWDOWN
+	owner.status_flags &= ~IGNORE_SPEED_CHANGES

@@ -18,6 +18,7 @@
 	is_small = 1
 	has_fine_manipulation = 0
 	ventcrawler = VENTCRAWLER_NUDE
+	dietflags = DIET_OMNI
 	show_ssd = 0
 	eyes = "blank_eyes"
 	death_message = "lets out a faint chimper as it collapses and stops moving..."
@@ -41,7 +42,7 @@
 	if(H.stat != CONSCIOUS)
 		return
 	if(prob(33) && H.canmove && isturf(H.loc) && !H.pulledby) //won't move if being pulled
-		step(H, pick(cardinal))
+		step(H, pick(GLOB.cardinal))
 	if(prob(1))
 		H.emote(pick("scratch","jump","roll","tail"))
 
@@ -57,8 +58,8 @@
 /datum/species/monkey/handle_dna(mob/living/carbon/human/H, remove)
 	..()
 	if(!remove)
-		H.dna.SetSEState(MONKEYBLOCK, TRUE)
-		genemutcheck(H, MONKEYBLOCK, null, MUTCHK_FORCED)
+		H.dna.SetSEState(GLOB.monkeyblock, TRUE)
+		genemutcheck(H, GLOB.monkeyblock, null, MUTCHK_FORCED)
 
 /datum/species/monkey/tajaran
 	name = "Farwa"

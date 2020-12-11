@@ -90,14 +90,14 @@
 
 /obj/machinery/atmospherics/pipe/manifold4w/update_icon(var/safety = 0)
 	..()
-	
+
 	if(!check_icon_cache())
 		return
 
 	alpha = 255
 	overlays.Cut()
-	overlays += GLOB.pipe_icon_manager.get_atmos_icon("manifold", , pipe_color, "4way" + icon_connect_type)
-	overlays += GLOB.pipe_icon_manager.get_atmos_icon("manifold", , , "clamps_4way" + icon_connect_type)
+	overlays += SSair.icon_manager.get_atmos_icon("manifold", , pipe_color, "4way" + icon_connect_type)
+	overlays += SSair.icon_manager.get_atmos_icon("manifold", , , "clamps_4way" + icon_connect_type)
 	underlays.Cut()
 
 	var/turf/T = get_turf(src)
@@ -137,7 +137,7 @@
 
 /obj/machinery/atmospherics/pipe/manifold4w/atmos_init()
 	..()
-	for(var/D in cardinal)
+	for(var/D in GLOB.cardinal)
 		for(var/obj/machinery/atmospherics/target in get_step(src, D))
 			if(target.initialize_directions & get_dir(target,src))
 				var/c = check_connect_types(target,src)

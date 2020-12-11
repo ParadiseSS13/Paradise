@@ -33,7 +33,7 @@
 
 /obj/machinery/atmospherics/pipe/manifold/atmos_init()
 	..()
-	for(var/D in cardinal)
+	for(var/D in GLOB.cardinal)
 		if(D == dir)
 			continue
 		for(var/obj/machinery/atmospherics/target in get_step(src, D))
@@ -116,15 +116,15 @@
 
 /obj/machinery/atmospherics/pipe/manifold/update_icon(var/safety = 0)
 	..()
-	
+
 	if(!check_icon_cache())
 		return
 
 	alpha = 255
 
 	overlays.Cut()
-	overlays += GLOB.pipe_icon_manager.get_atmos_icon("manifold", , pipe_color, "core" + icon_connect_type)
-	overlays += GLOB.pipe_icon_manager.get_atmos_icon("manifold", , , "clamps" + icon_connect_type)
+	overlays += SSair.icon_manager.get_atmos_icon("manifold", , pipe_color, "core" + icon_connect_type)
+	overlays += SSair.icon_manager.get_atmos_icon("manifold", , , "clamps" + icon_connect_type)
 	underlays.Cut()
 
 	var/turf/T = get_turf(src)

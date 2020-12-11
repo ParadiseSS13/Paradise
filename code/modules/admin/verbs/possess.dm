@@ -2,6 +2,9 @@
 	set name = "Possess Obj"
 	set category = null
 
+	if(!check_rights(R_POSSESS))
+		return
+
 	if(istype(O,/obj/singularity))
 		if(config.forbid_singulo_possession)
 			to_chat(usr, "It is forbidden to possess singularities.")
@@ -34,6 +37,9 @@
 	set name = "Release Obj"
 	set category = null
 	//usr.loc = get_turf(usr)
+
+	if(!check_rights(R_POSSESS))
+		return
 
 	if(usr.control_object && usr.name_archive) //if you have a name archived and if you are actually relassing an object
 		usr.real_name = usr.name_archive

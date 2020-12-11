@@ -214,9 +214,9 @@
 
 	if(M.equip_to_appropriate_slot(src))
 		if(M.hand)
-			M.update_inv_l_hand(0)
+			M.update_inv_l_hand()
 		else
-			M.update_inv_r_hand(0)
+			M.update_inv_r_hand()
 		return 1
 
 	if(M.s_active && M.s_active.can_be_inserted(src, 1))	//if storage active insert there
@@ -263,3 +263,12 @@
 			return r_hand
 	return null
 
+//search for a path in inventory and storage items in that inventory (backpack, belt, etc) and return it. Not recursive, so doesnt search storage in storage
+/mob/proc/find_item(path)
+	for(var/obj/item/I in contents)
+		if(istype(I, /obj/item/storage))
+			for(var/obj/item/SI in I.contents)
+				if(istype(SI, path))
+					return SI
+		else if(istype(I, path))
+			return I

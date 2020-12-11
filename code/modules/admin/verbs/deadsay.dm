@@ -2,18 +2,18 @@
 	set category = "Admin"
 	set name = "Dsay" //Gave this shit a shorter name so you only have to time out "dsay" rather than "dead say" to use it --NeoFite
 	set hidden = 1
-	
+
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
-		
+
 	if(!src.mob)
 		return
-		
+
 	if(prefs.muted & MUTE_DEADCHAT)
 		to_chat(src, "<span class='warning'>You cannot send DSAY messages (muted).</span>")
 		return
 
-	if(!(prefs.toggles & CHAT_DEAD))
+	if(!(prefs.toggles & PREFTOGGLE_CHAT_DEAD))
 		to_chat(src, "<span class='warning'>You have deadchat muted.</span>")
 		return
 

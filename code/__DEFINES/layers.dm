@@ -7,6 +7,7 @@
 #define PLANE_SPACE_PARALLAX -90
 
 #define FLOOR_PLANE -2
+#define FLOOR_OVERLAY_PLANE -1.5
 #define GAME_PLANE -1
 #define BLACKNESS_PLANE 0 //To keep from conflicts with SEE_BLACKNESS internals
 
@@ -78,6 +79,9 @@
 #define AREA_LAYER 10
 #define MASSIVE_OBJ_LAYER 11
 #define POINT_LAYER 12
+
+#define CHAT_LAYER 12.0001 // Do not insert layers between these two values
+#define CHAT_LAYER_MAX 12.9999
 
 #define LIGHTING_PLANE 15
 #define LIGHTING_LAYER 15

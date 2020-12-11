@@ -35,8 +35,8 @@
 		animation.dir = dir
 
 		ExtinguishMob()
-		if(pulling && bloodcrawl == BLOODCRAWL_EAT)
-			if(istype(pulling, /mob/living/))
+		if(pulling && HAS_TRAIT(src, TRAIT_BLOODCRAWL_EAT))
+			if(isliving(pulling))
 				var/mob/living/victim = pulling
 				if(victim.stat == CONSCIOUS)
 					visible_message("<span class='warning'>[victim] kicks free of [B] just before entering it!</span>")
@@ -76,13 +76,17 @@
 				adjustToxLoss(-1000)
 
 				if(istype(src, /mob/living/simple_animal/slaughter)) //rason, do not want humans to get this
-
 					var/mob/living/simple_animal/slaughter/demon = src
 					demon.devoured++
 					to_chat(kidnapped, "<span class='userdanger'>You feel teeth sink into your flesh, and the--</span>")
 					kidnapped.adjustBruteLoss(1000)
 					kidnapped.forceMove(src)
 					demon.consumed_mobs.Add(kidnapped)
+					if(ishuman(kidnapped))
+						var/mob/living/carbon/human/H = kidnapped
+						if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under))
+							var/obj/item/clothing/under/U = H.w_uniform
+							U.sensor_mode = SENSOR_OFF
 				else
 					kidnapped.ghostize()
 					qdel(kidnapped)

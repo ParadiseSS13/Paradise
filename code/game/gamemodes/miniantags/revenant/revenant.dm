@@ -16,6 +16,7 @@
 	var/icon_stun = "revenant_stun"
 	var/icon_drain = "revenant_draining"
 	incorporeal_move = 3
+	see_invisible = INVISIBILITY_REVENANT
 	invisibility = INVISIBILITY_REVENANT
 	health =  INFINITY //Revenants don't use health, they use essence instead
 	maxHealth =  INFINITY
@@ -33,7 +34,7 @@
 	status_flags = 0
 	wander = 0
 	density = 0
-	flying = 1
+	flying = TRUE
 	move_resist = INFINITY
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
@@ -84,6 +85,10 @@
 
 /mob/living/simple_animal/revenant/narsie_act()
 	return //most humans will now be either bones or harvesters, but we're still un-alive.
+
+
+/mob/living/simple_animal/revenant/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+	return FALSE //You are a ghost, atmos and grill makes sparks, and you make your own shocks with lights.
 
 /mob/living/simple_animal/revenant/adjustHealth(amount, updating_health = TRUE)
 	if(!revealed)
@@ -140,7 +145,7 @@
 		giveObjectivesandGoals()
 		giveSpells()
 	else
-		var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as a revenant?", poll_time = 15 SECONDS)
+		var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a revenant?", poll_time = 15 SECONDS, source = /mob/living/simple_animal/revenant)
 		var/mob/dead/observer/theghost = null
 		if(candidates.len)
 			theghost = pick(candidates)
@@ -320,7 +325,6 @@
 
 /datum/objective/revenantFluff/New()
 	var/list/explanationTexts = list("Assist and exacerbate existing threats at critical moments.", \
-									 "Avoid killing in plain sight.", \
 									 "Cause as much chaos and anger as you can without being killed.", \
 									 "Damage and render as much of the station rusted and unusable as possible.", \
 									 "Disable and cause malfunctions in as many machines as possible.", \
@@ -329,6 +333,10 @@
 									 "Make the crew as miserable as possible.", \
 									 "Make the clown as miserable as possible.", \
 									 "Make the captain as miserable as possible.", \
+									 "Make the AI as miserable as possible.", \
+									 "Annoy the ones that insult you the most.", \
+									 "Whisper ghost jokes into peoples heads.", \
+									 "Help the crew in critical situations, but take your payments in souls.", \
 									 "Prevent the use of energy weapons where possible.")
 	explanation_text = pick(explanationTexts)
 	..()
@@ -396,7 +404,7 @@
 	spawn()
 		if(!key_of_revenant)
 			message_admins("The new revenant's old client either could not be found or is in a new, living mob - grabbing a random candidate instead...")
-			var/list/candidates = pollCandidates("Do you want to play as a revenant?", ROLE_REVENANT, 1)
+			var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a revenant?", ROLE_REVENANT, TRUE, source = /mob/living/simple_animal/revenant)
 			if(!candidates.len)
 				qdel(R)
 				message_admins("No candidates were found for the new revenant. Oh well!")

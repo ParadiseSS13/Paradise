@@ -400,7 +400,7 @@
 	while(time)
 		sleep(speed)
 		for(var/i in 1 to speed)
-			M.setDir(pick(cardinal))
+			M.setDir(pick(GLOB.cardinal))
 			M.resting = !M.resting
 			M.update_canmove()
 		 time--
@@ -483,3 +483,13 @@
 		playsound(src,'sound/machines/terminal_off.ogg',50,1)
 		icon_state = "disco0"
 		stop = world.time + 100
+
+
+
+/obj/machinery/disco/immobile
+	name = "radiant dance machine mark V"
+	desc = "The mark V is nigh-immovable, thanks to its bluespace-plastitanium anchor. The technology required to stop visitors from stealing this thing is astounding."
+	anchored = TRUE
+
+/obj/machinery/disco/immobile/wrench_act()
+	return FALSE

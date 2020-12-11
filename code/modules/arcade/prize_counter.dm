@@ -140,11 +140,11 @@ th.cost.toomuch {background:maroon;}
 		<tbody>
 	"}
 
-	for(var/datum/prize_item/item in global_prizes.prizes)
+	for(var/datum/prize_item/item in GLOB.global_prizes.prizes)
 		var/cost_class="affordable"
 		if(item.cost>tickets)
 			cost_class="toomuch"
-		var/itemID = global_prizes.prizes.Find(item)
+		var/itemID = GLOB.global_prizes.prizes.Find(item)
 		var/row_color="light"
 		if(itemID%2 == 0)
 			row_color="dark"
@@ -185,12 +185,12 @@ th.cost.toomuch {background:maroon;}
 
 	if(href_list["buy"])
 		var/itemID = text2num(href_list["buy"])
-		var/datum/prize_item/item = global_prizes.prizes[itemID]
+		var/datum/prize_item/item = GLOB.global_prizes.prizes[itemID]
 		var/sure = alert(usr,"Are you sure you wish to purchase [item.name] for [item.cost] tickets?","You sure?","Yes","No") in list("Yes","No")
 		if(sure=="No")
 			updateUsrDialog()
 			return
-		if(!global_prizes.PlaceOrder(src, itemID))
+		if(!GLOB.global_prizes.PlaceOrder(src, itemID))
 			to_chat(usr, "<span class='warning'>Unable to complete the exchange.</span>")
 		else
 			to_chat(usr, "<span class='notice'>You've successfully purchased the item.</span>")

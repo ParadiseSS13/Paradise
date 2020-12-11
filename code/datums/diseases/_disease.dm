@@ -29,7 +29,7 @@
 #define BIOHAZARD	"BIOHAZARD THREAT!"
 
 
-var/list/diseases = subtypesof(/datum/disease)
+GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
 
 /datum/disease
@@ -75,7 +75,7 @@ var/list/diseases = subtypesof(/datum/disease)
 	var/cure = has_cure()
 
 	if(carrier && !cure)
-		return
+		return TRUE
 
 	stage = min(stage, max_stages)
 
@@ -89,6 +89,8 @@ var/list/diseases = subtypesof(/datum/disease)
 	if(disease_flags & CURABLE)
 		if(cure && prob(cure_chance))
 			cure()
+			return FALSE
+	return TRUE
 
 
 /datum/disease/proc/has_cure()

@@ -1,13 +1,13 @@
 /obj/item/clothing/under/plasmaman/cargo
 	name = "cargo plasma envirosuit"
-	desc = "A joint envirosuit used by plasmamen quartermasters and cargo techs alike, due to the logistical problems of differenciating the two with the length of their pant legs."
+	desc = "An envirosuit used by plasmaman quartermasters and cargo techs alike, due to the logistical problems of differentiating the two by the length of their pant legs."
 	icon_state = "cargo_envirosuit"
 	item_state = "cargo_envirosuit"
 	item_color = "cargo_envirosuit"
 
 /obj/item/clothing/under/plasmaman/mining
 	name = "mining plasma envirosuit"
-	desc = "An air-tight khaki suit designed for operations on lavaland by plasmamen."
+	desc = "An airtight khaki suit designed for operations on Lavaland by plasmamen."
 	icon_state = "explorer_envirosuit"
 	item_state = "explorer_envirosuit"
 	item_color = "explorer_envirosuit"
@@ -15,14 +15,14 @@
 
 /obj/item/clothing/under/plasmaman/chef
 	name = "chef's plasma envirosuit"
-	desc = "A white plasmaman envirosuit designed for cullinary practices. One might question why a member of a species that doesn't need to eat would become a chef."
+	desc = "A white plasmaman envirosuit designed for culinary practices. One might question why a member of a species that doesn't need to eat would become a chef."
 	icon_state = "chef_envirosuit"
 	item_state = "chef_envirosuit"
 	item_color = "chef_envirosuit"
 
 /obj/item/clothing/under/plasmaman/enviroslacks
 	name = "enviroslacks"
-	desc = "The pet project of a particularly posh plasmaman, this custom suit was quickly appropriated by Nano-Trasen for it's detectives, lawyers, and bar-tenders alike."
+	desc = "The pet project of a particularly posh plasmaman, this custom suit was quickly appropriated by Nanotrasen for its detectives, lawyers, and bartenders alike."
 	icon_state = "enviroslacks"
 	item_state = "enviroslacks"
 	item_color = "enviroslacks"
@@ -36,14 +36,14 @@
 
 /obj/item/clothing/under/plasmaman/librarian
 	name = "librarian's plasma envirosuit"
-	desc = "Made out of a modified voidsuit, this suit was Nano-Trasen's first solution to the *logistical problems* that come with employing plasmamen. Due to the modifications, the suit is no longer space-worthy. Despite their limitations, these suits are still in used by historian and old-styled plasmamen alike."
+	desc = "Made out of a modified voidsuit, this suit was Nanotrasen's first solution to the *logistical problems* that come with employing plasmamen. Due to the modifications, the suit is no longer space-worthy. Despite their limitations, these suits are still in used by historian and old-styled plasmamen alike."
 	icon_state = "prototype_envirosuit"
 	item_state = "prototype_envirosuit"
 	item_color = "prototype_envirosuit"
 
 /obj/item/clothing/under/plasmaman/janitor
 	name = "janitor's plasma envirosuit"
-	desc = "A grey and purple envirosuit designated for plasmamen janitors."
+	desc = "A grey and purple envirosuit designated for plasmaman janitors."
 	icon_state = "janitor_envirosuit"
 	item_state = "janitor_envirosuit"
 	item_color = "janitor_envirosuit"

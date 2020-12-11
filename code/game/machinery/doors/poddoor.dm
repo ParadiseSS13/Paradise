@@ -59,9 +59,18 @@
 /obj/machinery/door/poddoor/try_to_activate_door(mob/user)
  	return
 
-/obj/machinery/door/poddoor/try_to_crowbar(obj/item/I, mob/user)
+/obj/machinery/door/poddoor/try_to_crowbar(mob/user, obj/item/I)
+	if(!density)
+		return
 	if(!hasPower())
-		open()
+		to_chat(user, "<span class='notice'>You start forcing [src] open...</span>")
+		if(do_after(user, 50 * I.toolspeed, target = src))
+			if(!hasPower())
+				open()
+			else
+				to_chat(user, "<span class='warning'>[src] resists your efforts to force it!</span>")
+	else
+		to_chat(user, "<span class='warning'>[src] resists your efforts to force it!</span>")
 
  // Whoever wrote the old code for multi-tile spesspod doors needs to burn in hell. - Unknown
  // Wise words. - Bxil

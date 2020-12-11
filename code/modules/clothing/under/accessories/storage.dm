@@ -37,8 +37,8 @@
 	return hold.attackby(W, user, params)
 
 /obj/item/clothing/accessory/storage/emp_act(severity)
-	hold.emp_act(severity)
 	..()
+	hold.emp_act(severity)
 
 /obj/item/clothing/accessory/storage/hear_talk(mob/M, list/message_pieces, verb)
 	hold.hear_talk(M, message_pieces, verb)

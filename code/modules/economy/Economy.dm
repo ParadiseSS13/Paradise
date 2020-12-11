@@ -63,35 +63,38 @@
 //Destroyers are medium sized vessels, often used for escorting larger ships but able to go toe-to-toe with them if need be.
 //Frigates are medium sized vessels, often used for escorting larger ships. They will rapidly find themselves outclassed if forced to face heavy warships head on.
 
-var/setup_economy = 0
+GLOBAL_VAR_INIT(setup_economy, 0)
 /proc/setup_economy()
-	if(setup_economy)
+	if(GLOB.setup_economy)
 		return
 
 	var/datum/feed_channel/newChannel = new /datum/feed_channel
 	newChannel.channel_name = "Public Station Announcements"
 	newChannel.author = "Automated Announcement Listing"
-	newChannel.locked = 1
-	newChannel.is_admin_channel = 1
-	news_network.network_channels += newChannel
+	newChannel.icon = "bullhorn"
+	newChannel.frozen = TRUE
+	newChannel.admin_locked = TRUE
+	GLOB.news_network.channels += newChannel
 
 	newChannel = new /datum/feed_channel
 	newChannel.channel_name = "Nyx Daily"
 	newChannel.author = "CentComm Minister of Information"
-	newChannel.locked = 1
-	newChannel.is_admin_channel = 1
-	news_network.network_channels += newChannel
+	newChannel.icon = "meteor"
+	newChannel.frozen = TRUE
+	newChannel.admin_locked = TRUE
+	GLOB.news_network.channels += newChannel
 
 	newChannel = new /datum/feed_channel
 	newChannel.channel_name = "The Gibson Gazette"
 	newChannel.author = "Editor Mike Hammers"
-	newChannel.locked = 1
-	newChannel.is_admin_channel = 1
-	news_network.network_channels += newChannel
+	newChannel.icon = "star"
+	newChannel.frozen = TRUE
+	newChannel.admin_locked = TRUE
+	GLOB.news_network.channels += newChannel
 
 	for(var/loc_type in subtypesof(/datum/trade_destination))
 		var/datum/trade_destination/D = new loc_type
-		weighted_randomevent_locations[D] = D.viable_random_events.len
-		weighted_mundaneevent_locations[D] = D.viable_mundane_events.len
+		GLOB.weighted_randomevent_locations[D] = D.viable_random_events.len
+		GLOB.weighted_mundaneevent_locations[D] = D.viable_mundane_events.len
 
-	setup_economy = 1
+	GLOB.setup_economy = 1

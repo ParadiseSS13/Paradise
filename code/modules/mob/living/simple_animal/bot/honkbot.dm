@@ -33,7 +33,7 @@
 /obj/machinery/bot_core/honkbot
 	req_one_access = list(ACCESS_CLOWN, ACCESS_ROBOTICS, ACCESS_MIME)
 
-/mob/living/simple_animal/bot/honkbot/Initialize()
+/mob/living/simple_animal/bot/honkbot/Initialize(mapload)
 	. = ..()
 	update_icon()
 	auto_patrol = TRUE
@@ -91,11 +91,9 @@
 	return	dat
 
 /mob/living/simple_animal/bot/honkbot/proc/retaliate(mob/living/carbon/human/H)
-	threatlevel = H.assess_threat(src)
-	threatlevel += 6
-	if(threatlevel >= 4)
-		target = H
-		mode = BOT_HUNT
+	threatlevel = 6
+	target = H
+	mode = BOT_HUNT
 
 /mob/living/simple_animal/bot/honkbot/attack_hand(mob/living/carbon/human/H)
 	if(H.a_intent == INTENT_HARM)

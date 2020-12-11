@@ -2,24 +2,24 @@
 /client/proc/cmd_admin_pm_context(mob/M as mob in GLOB.mob_list)
 	set category = null
 	set name = "Admin PM Mob"
-	if(!holder)
-		to_chat(src, "<span class='danger'>Error: Admin-PM-Context: Only administrators may use this command.</span>")
+	if(!check_rights(R_ADMIN|R_MENTOR))
 		return
-	if( !ismob(M) || !M.client )	return
+	if(!ismob(M) || !M.client)
+		return
 	cmd_admin_pm(M.client,null)
 	feedback_add_details("admin_verb","APMM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 
 //shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm
 /client/proc/cmd_admin_pm_panel()
 	set category = "Admin"
 	set name = "Admin PM Name"
-	if(!holder)
-		to_chat(src, "<span class='danger'>Error: Admin-PM-Panel: Only administrators may use this command.</span>")
+	if(!check_rights(R_ADMIN|R_MENTOR))
 		return
 	var/list/client/targets[0]
 	for(var/client/T)
 		if(T.mob)
-			if(istype(T.mob, /mob/new_player))
+			if(isnewplayer(T.mob))
 				targets["(New Player) - [T]"] = T
 			else if(istype(T.mob, /mob/dead/observer))
 				targets["[T.mob.name](Ghost) - [T]"] = T
@@ -36,13 +36,12 @@
 /client/proc/cmd_admin_pm_by_key_panel()
 	set category = "Admin"
 	set name = "Admin PM Key"
-	if(!holder)
-		to_chat(src, "<span class='danger'>Error: Admin-PM-Panel: Only administrators may use this command.</span>")
+	if(!check_rights(R_ADMIN|R_MENTOR))
 		return
 	var/list/client/targets[0]
 	for(var/client/T)
 		if(T.mob)
-			if(istype(T.mob, /mob/new_player))
+			if(isnewplayer(T.mob))
 				targets["[T] - (New Player)"] = T
 			else if(istype(T.mob, /mob/dead/observer))
 				targets["[T] - [T.mob.name](Ghost)"] = T
@@ -65,9 +64,7 @@
 
 	var/client/C
 	if(istext(whom))
-		if(cmptext(copytext(whom,1,2),"@"))
-			whom = findStealthKey(whom)
-		C = GLOB.directory[whom]
+		C = get_client_by_ckey(whom)
 	else if(istype(whom,/client))
 		C = whom
 
@@ -214,34 +211,40 @@
 			i.addResponse(src, msg)
 		return
 
-
-/client/proc/cmd_admin_irc_pm()
+/client/proc/cmd_admin_discord_pm()
 	if(prefs.muted & MUTE_ADMINHELP)
-		to_chat(src, "<span class='danger'>Error: Private-Message: You are unable to use PM-s (muted).</span>")
+		to_chat(src, "<span class='danger'>Error: Private-Message: You are unable to use PMs (muted).</span>")
 		return
 
-	var/msg = clean_input("Message:", "Private message to admins on IRC / 400 character limit", , src)
+	if(last_discord_pm_time > world.time)
+		to_chat(usr, "<span class='warning'>Please wait [(last_discord_pm_time - world.time)/10] seconds, or for a reply, before sending another PM to Discord.</span>")
+		return
+
+	// We only allow PMs once every 10 seconds, othewrise the channel can get spammed very quickly
+	last_discord_pm_time = world.time + 10 SECONDS
+
+	var/msg = clean_input("Message:", "Private message to admins on Discord / 400 character limit", , src)
 
 	if(!msg)
 		return
 
 	sanitize(msg)
 
-	if(length(msg) > 400) // TODO: if message length is over 400, divide it up into seperate messages, the message length restriction is based on IRC limitations.  Probably easier to do this on the bots ends.
+	if(length(msg) > 400) // Dont want them super spamming
 		to_chat(src, "<span class='warning'>Your message was not sent because it was more then 400 characters find your message below for ease of copy/pasting</span>")
 		to_chat(src, "<span class='notice'>[msg]</span>")
 		return
 
-	send2adminirc("PlayerPM from [key_name(src)]: [html_decode(msg)]")
+	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "PM from [key_name(src)]: [html_decode(msg)]")
 
-	to_chat(src, "<span class='pmsend'>IRC PM to-<b>IRC-Admins</b>: [msg]</span>")
+	to_chat(src, "<span class='pmsend'>PM to-<b>Discord Admins</b>: [msg]</span>")
 
-	log_admin("PM: [key_name(src)]->IRC: [msg]")
+	log_admin("PM: [key_name(src)]->Discord: [msg]")
 	for(var/client/X in GLOB.admins)
 		if(X == src)
 			continue
-		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
-			to_chat(X, "<B><span class='pmsend'>PM: [key_name(src, TRUE, 0)]-&gt;IRC-Admins:</B> <span class='notice'>[msg]</span></span>")
+		if(check_rights(R_ADMIN, 0, X.mob))
+			to_chat(X, "<span class='pmsend'><b>PM: [key_name_admin(src)]-&gt;Discord Admins:</b> <span class='notice'>[msg]</span></span>")
 
 /client/verb/open_pms_ui()
 	set name = "My PMs"
@@ -261,7 +264,7 @@
 /datum/pm_tracker
 	var/current_title = ""
 	var/open = FALSE
-	var/list/pms = list()
+	var/list/datum/pm_convo/pms = list()
 	var/show_archived = FALSE
 	var/window_id = "pms_window"
 

@@ -1,7 +1,7 @@
-/var/datum/announcement/minor/minor_announcement = new()
-/var/datum/announcement/priority/priority_announcement = new(do_log = 0)
-/var/datum/announcement/priority/command/command_announcement = new(do_log = 0, do_newscast = 0)
-/var/datum/announcement/priority/command/event/event_announcement = new(do_log = 0, do_newscast = 0)
+GLOBAL_DATUM_INIT(minor_announcement, /datum/announcement/minor, new())
+GLOBAL_DATUM_INIT(priority_announcement, /datum/announcement/priority, new(do_log = 0))
+GLOBAL_DATUM_INIT(command_announcement, /datum/announcement/priority/command, new(do_log = 0, do_newscast = 0))
+GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event, new(do_log = 0, do_newscast = 0))
 
 /datum/announcement
 	var/title = "Attention"
@@ -109,7 +109,7 @@
 /datum/announcement/proc/Format_Message(message, message_title, message_announcer, from)
 	var/formatted_message
 	formatted_message += "<h2 class='alert'>[message_title]</h2>"
-	formatted_message += "<br><span class='alert'>[message]</span>"
+	formatted_message += "<br><span class='alert body'>[message]</span>"
 	if(message_announcer)
 		formatted_message += "<br><span class='alert'> -[message_announcer]</span>"
 
@@ -125,7 +125,7 @@
 /datum/announcement/priority/Format_Message(message, message_title, message_announcer, from)
 	var/formatted_message
 	formatted_message += "<h1 class='alert'>[message_title]</h1>"
-	formatted_message += "<br><span class='alert'>[message]</span>"
+	formatted_message += "<br><span class='alert body'>[message]</span>"
 	if(message_announcer)
 		formatted_message += "<br><span class='alert'> -[message_announcer]</span>"
 	formatted_message += "<br>"
@@ -136,7 +136,7 @@
 	var/formatted_message
 	formatted_message += "<h1 class='alert'>[from]</h1>"
 	if(message_title)
-		formatted_message += "<br><h2 class='alert'>[message_title]</h2>"
+		formatted_message += "<br><h2 class='alert body'>[message_title]</h2>"
 	formatted_message += "<br><span class='alert'>[message]</span><br>"
 	formatted_message += "<br>"
 

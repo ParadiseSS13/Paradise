@@ -38,7 +38,7 @@
 	if(!light_power || !light_range) // We won't emit light anyways, destroy the light source.
 		QDEL_NULL(light)
 	else
-		if(!ismovableatom(loc)) // We choose what atom should be the top atom of the light here.
+		if(!ismovable(loc)) // We choose what atom should be the top atom of the light here.
 			. = src
 		else
 			. = loc
@@ -80,15 +80,6 @@
 		T.recalc_atom_opacity()
 		if(old_has_opaque_atom != T.has_opaque_atom)
 			T.reconsider_lights()
-
-
-/atom/movable/Moved(atom/OldLoc, Dir)
-	. = ..()
-	var/datum/light_source/L
-	var/thing
-	for (thing in light_sources) // Cycle through the light sources on this atom and tell them to update.
-		L = thing
-		L.source_atom.update_light()
 
 /atom/vv_edit_var(var_name, var_value)
 	switch (var_name)

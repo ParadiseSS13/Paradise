@@ -50,7 +50,7 @@
 		update_icon()
 		return
 
-	speed = Clamp(speed - friction, 0, MAX_SPEED)
+	speed = clamp(speed - friction, 0, MAX_SPEED)
 	for(var/A in (loc.contents - src))
 		var/atom/movable/AM = A
 		if(AM.anchored)

@@ -1,4 +1,4 @@
-var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away_mission_config.txt")
+GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away_mission_config.txt"))
 
 // Call this before you remove the last dirt on a z level - that way, all objects
 // will have proper atmos and other important enviro things
@@ -39,27 +39,28 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 		T.ChangeTurf(T.baseturf)
 
 /proc/createRandomZlevel()
-	if(awaydestinations.len)	//crude, but it saves another var!
+	if(GLOB.awaydestinations.len)	//crude, but it saves another var!
 		return
 
-	if(potentialRandomZlevels && potentialRandomZlevels.len)
+	if(GLOB.potentialRandomZlevels && GLOB.potentialRandomZlevels.len)
 		var/watch = start_watch()
 		log_startup_progress("Loading away mission...")
 
-		var/map = pick(potentialRandomZlevels)
+		var/map = pick(GLOB.potentialRandomZlevels)
 		var/file = file(map)
 		if(isfile(file))
-			var/zlev = space_manager.add_new_zlevel(AWAY_MISSION, linkage = UNAFFECTED, traits = list(AWAY_LEVEL,BLOCK_TELEPORT))
-			space_manager.add_dirt(zlev)
-			maploader.load_map(file, z_offset = zlev)
+			var/zlev = GLOB.space_manager.add_new_zlevel(AWAY_MISSION, linkage = UNAFFECTED, traits = list(AWAY_LEVEL,BLOCK_TELEPORT))
+			GLOB.space_manager.add_dirt(zlev)
+			GLOB.maploader.load_map(file, z_offset = zlev)
 			late_setup_level(block(locate(1, 1, zlev), locate(world.maxx, world.maxy, zlev)))
-			space_manager.remove_dirt(zlev)
+			GLOB.space_manager.remove_dirt(zlev)
 			log_world("  Away mission loaded: [map]")
 
-		for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+		for(var/thing in GLOB.landmarks_list)
+			var/obj/effect/landmark/L = thing
 			if(L.name != "awaystart")
 				continue
-			awaydestinations.Add(L)
+			GLOB.awaydestinations.Add(L)
 
 		log_startup_progress("  Away mission loaded in [stop_watch(watch)]s.")
 
@@ -69,30 +70,31 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 
 
 /proc/createALLZlevels()
-	if(awaydestinations.len)	//crude, but it saves another var!
+	if(GLOB.awaydestinations.len)	//crude, but it saves another var!
 		return
 
-	if(potentialRandomZlevels && potentialRandomZlevels.len)
+	if(GLOB.potentialRandomZlevels && GLOB.potentialRandomZlevels.len)
 		var/watch = start_watch()
 		log_startup_progress("Loading away missions...")
 
-		for(var/map in potentialRandomZlevels)
+		for(var/map in GLOB.potentialRandomZlevels)
 			var/file = file(map)
 			if(isfile(file))
 				log_startup_progress("Loading away mission: [map]")
-				var/zlev = space_manager.add_new_zlevel()
-				space_manager.add_dirt(zlev)
-				maploader.load_map(file, z_offset = zlev)
+				var/zlev = GLOB.space_manager.add_new_zlevel()
+				GLOB.space_manager.add_dirt(zlev)
+				GLOB.maploader.load_map(file, z_offset = zlev)
 				late_setup_level(block(locate(1, 1, zlev), locate(world.maxx, world.maxy, zlev)))
-				space_manager.remove_dirt(zlev)
+				GLOB.space_manager.remove_dirt(zlev)
 				log_world("  Away mission loaded: [map]")
 
 			//map_transition_config.Add(AWAY_MISSION_LIST)
 
-			for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+			for(var/thing in GLOB.landmarks_list)
+				var/obj/effect/landmark/L = thing
 				if(L.name != "awaystart")
 					continue
-				awaydestinations.Add(L)
+				GLOB.awaydestinations.Add(L)
 
 			log_startup_progress("  Away mission loaded in [stop_watch(watch)]s.")
 			watch = start_watch()
@@ -172,87 +174,3 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 		new /obj/effect/landmark/ruin(central_turf, src)
 		return TRUE
 	return FALSE
-
-/proc/seedRuins(list/z_levels = null, budget = 0, whitelist = /area/space, list/potentialRuins)
-	if(!z_levels || !z_levels.len)
-		WARNING("No Z levels provided - Not generating ruins")
-		return
-
-	for(var/zl in z_levels)
-		var/turf/T = locate(1, 1, zl)
-		if(!T)
-			WARNING("Z level [zl] does not exist - Not generating ruins")
-			return
-
-	var/list/ruins = potentialRuins.Copy()
-
-	var/list/forced_ruins = list()		//These go first on the z level associated (same random one by default)
-	var/list/ruins_availible = list()	//we can try these in the current pass
-	var/forced_z	//If set we won't pick z level and use this one instead.
-
-	//Set up the starting ruin list
-	for(var/key in ruins)
-		var/datum/map_template/ruin/R = ruins[key]
-		if(R.cost > budget) //Why would you do that
-			continue
-		if(R.always_place)
-			forced_ruins[R] = -1
-		if(R.unpickable)
-			continue
-		ruins_availible[R] = R.placement_weight
-
-	while(budget > 0 && (ruins_availible.len || forced_ruins.len))
-		var/datum/map_template/ruin/current_pick
-		var/forced = FALSE
-		if(forced_ruins.len) //We have something we need to load right now, so just pick it
-			for(var/ruin in forced_ruins)
-				current_pick = ruin
-				if(forced_ruins[ruin] > 0) //Load into designated z
-					forced_z = forced_ruins[ruin]
-				forced = TRUE
-				break
-		else //Otherwise just pick random one
-			current_pick = pickweight(ruins_availible)
-
-		var/placement_tries = PLACEMENT_TRIES
-		var/failed_to_place = TRUE
-		var/z_placed = 0
-		while(placement_tries > 0)
-			placement_tries--
-			z_placed = pick(z_levels)
-			if(!current_pick.try_to_place(forced_z ? forced_z : z_placed,whitelist))
-				continue
-			else
-				failed_to_place = FALSE
-				break
-
-		//That's done remove from priority even if it failed
-		if(forced)
-			//TODO : handle forced ruins with multiple variants
-			forced_ruins -= current_pick
-			forced = FALSE
-
-		if(failed_to_place)
-			for(var/datum/map_template/ruin/R in ruins_availible)
-				if(R.id == current_pick.id)
-					ruins_availible -= R
-			log_world("Failed to place [current_pick.name] ruin.")
-		else
-			budget -= current_pick.cost
-			if(!current_pick.allow_duplicates)
-				for(var/datum/map_template/ruin/R in ruins_availible)
-					if(R.id == current_pick.id)
-						ruins_availible -= R
-			if(current_pick.never_spawn_with)
-				for(var/blacklisted_type in current_pick.never_spawn_with)
-					for(var/possible_exclusion in ruins_availible)
-						if(istype(possible_exclusion,blacklisted_type))
-							ruins_availible -= possible_exclusion
-		forced_z = 0
-
-		//Update the availible list
-		for(var/datum/map_template/ruin/R in ruins_availible)
-			if(R.cost > budget)
-				ruins_availible -= R
-
-	log_world("Ruin loader finished with [budget] left to spend.")

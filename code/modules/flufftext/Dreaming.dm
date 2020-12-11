@@ -19,7 +19,7 @@
 	var/list/newlist = dreamlist.Copy()
 	for(var/i in 1 to newlist.len)
 		newlist[i] = replacetext(newlist[i], "\[DREAMER\]", "[user.name]")
-	return dreamlist
+	return newlist
 
 
 //NIGHTMARES
@@ -44,7 +44,7 @@
 		if(ishuman(src))
 			if(prob(10))
 				custom_emote(1,"writhes in [p_their()] sleep.")
-				dir = pick(cardinal)
+				dir = pick(GLOB.cardinal)
 
 /mob/living/carbon/proc/experience_dream(dream_image, isNightmare)
 	dreaming--

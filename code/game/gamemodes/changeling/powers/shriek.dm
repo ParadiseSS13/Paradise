@@ -11,6 +11,10 @@
 /datum/action/changeling/resonant_shriek/sting_action(var/mob/user)
 	for(var/mob/living/M in get_mobs_in_view(4, user))
 		if(iscarbon(M))
+			if(ishuman(M))
+				var/mob/living/carbon/human/H = M
+				if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
+					continue
 			if(!M.mind || !M.mind.changeling)
 				M.MinimumDeafTicks(30)
 				M.AdjustConfused(20)

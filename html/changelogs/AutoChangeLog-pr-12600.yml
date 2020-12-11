@@ -1,5 +1,0 @@
-author: "SteelSlayer"
-delete-after: True
-changes: 
-  - bugfix: "Fixes the \"List SSDs and AFKs panel\" showing everyone as the target of an assassinate objective"
-  - bugfix: "The global objectives list is now viewable in the MC Globals menu"

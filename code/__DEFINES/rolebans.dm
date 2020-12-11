@@ -1,5 +1,5 @@
 // Bannable antag roles
-var/global/list/antag_roles = list(
+GLOBAL_LIST_INIT(antag_roles, list(
 	ROLE_TRAITOR,
 	ROLE_OPERATIVE,
 	ROLE_CHANGELING,
@@ -18,14 +18,14 @@ var/global/list/antag_roles = list(
 	ROLE_GUARDIAN,
 	ROLE_MORPH,
 	ROLE_GSPIDER,
-)
+))
 
 // Bannable other roles
-var/global/list/other_roles = list(
+GLOBAL_LIST_INIT(other_roles, list(
 	ROLE_SENTIENT,
 	ROLE_NYMPH,
 	ROLE_ERT,
 	ROLE_GHOST,
 	"AntagHUD",
 	"Records"
-)
+))

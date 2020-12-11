@@ -115,6 +115,7 @@
 	name = "gold airlock"
 	icon = 'icons/obj/doors/airlocks/station/gold.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_gold
+	paintable = FALSE
 
 /obj/machinery/door/airlock/gold/glass
 	opacity = 0
@@ -124,6 +125,7 @@
 	name = "silver airlock"
 	icon = 'icons/obj/doors/airlocks/station/silver.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_silver
+	paintable = FALSE
 
 /obj/machinery/door/airlock/silver/glass
 	opacity = 0
@@ -135,6 +137,7 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_diamond
 	normal_integrity = 1000
 	explosion_block = 2
+	paintable = FALSE
 
 /obj/machinery/door/airlock/diamond/glass
 	normal_integrity = 950
@@ -146,6 +149,7 @@
 	desc = "And they said I was crazy."
 	icon = 'icons/obj/doors/airlocks/station/uranium.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_uranium
+	paintable = FALSE
 	var/event_step = 20
 
 /obj/machinery/door/airlock/uranium/New()
@@ -169,6 +173,7 @@
 	desc = "No way this can end badly."
 	icon = 'icons/obj/doors/airlocks/station/plasma.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_plasma
+	paintable = FALSE
 
 /obj/machinery/door/airlock/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
@@ -214,6 +219,7 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_bananium
 	doorOpen = 'sound/items/bikehorn.ogg'
 	doorClose = 'sound/items/bikehorn.ogg'
+	paintable = FALSE
 
 /obj/machinery/door/airlock/bananium/glass
 	opacity = 0
@@ -227,11 +233,13 @@
 	doorDeni = null
 	boltUp = null
 	boltDown = null
+	paintable = FALSE
 
 /obj/machinery/door/airlock/sandstone
 	name = "sandstone airlock"
 	icon = 'icons/obj/doors/airlocks/station/sandstone.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_sandstone
+	paintable = FALSE
 
 /obj/machinery/door/airlock/sandstone/glass
 	opacity = 0
@@ -241,6 +249,7 @@
 	name = "wooden airlock"
 	icon = 'icons/obj/doors/airlocks/station/wood.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_wood
+	paintable = FALSE
 
 /obj/machinery/door/airlock/wood/glass
 	opacity = 0
@@ -252,6 +261,7 @@
 	icon = 'icons/obj/doors/airlocks/shuttle/shuttle.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/shuttle/overlays.dmi'
 	normal_integrity = 400
+	paintable = FALSE
 
 /obj/machinery/door/airlock/titanium/glass
 	normal_integrity = 350
@@ -317,6 +327,7 @@
 	explosion_block = 2
 	normal_integrity = 400 // reverse engieneerd: 400 * 1.5 (sec lvl 6) = 600 = original
 	security_level = 6
+	paintable = FALSE
 
 //////////////////////////////////
 /*
@@ -329,6 +340,7 @@
 	overlays_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
 	note_overlay_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_hatch
+	paintable = FALSE
 
 /obj/machinery/door/airlock/hatch/syndicate
 	name = "syndicate hatch"
@@ -353,14 +365,14 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_vault
 	security_level = 6
 	hackProof = TRUE
-	aiControlDisabled = TRUE
+	aiControlDisabled = AICONTROLDISABLED_ON
 
 /obj/machinery/door/airlock/hatch/gamma
 	name = "gamma level hatch"
-	hackProof = 1
-	aiControlDisabled = 1
+	hackProof = TRUE
+	aiControlDisabled = AICONTROLDISABLED_ON
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	is_special = 1
+	is_special = TRUE
 
 /obj/machinery/door/airlock/hatch/gamma/attackby(obj/C, mob/user, params)
 	if(!issilicon(user))
@@ -400,6 +412,7 @@
 	overlays_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
 	note_overlay_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_mhatch
+	paintable = FALSE
 
 //////////////////////////////////
 /*
@@ -415,11 +428,12 @@
 	normal_integrity = 500
 	security_level = 1
 	damage_deflection = 30
+	paintable = FALSE
 
 /obj/machinery/door/airlock/highsecurity/red
 	name = "secure armory airlock"
-	hackProof = 1
-	aiControlDisabled = 1
+	hackProof = TRUE
+	aiControlDisabled = AICONTROLDISABLED_ON
 
 /obj/machinery/door/airlock/highsecurity/red/attackby(obj/C, mob/user, params)
 	if(!issilicon(user))
@@ -457,6 +471,7 @@
 	icon = 'icons/obj/doors/airlocks/shuttle/shuttle.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/shuttle/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_shuttle
+	paintable = FALSE
 
 /obj/machinery/door/airlock/shuttle/glass
 	opacity = 0
@@ -472,9 +487,10 @@
 	damage_deflection = 30
 	explosion_block = 3
 	hackProof = TRUE
-	aiControlDisabled = 1
+	aiControlDisabled = AICONTROLDISABLED_ON
 	normal_integrity = 700
 	security_level = 1
+	paintable = FALSE
 
 //////////////////////////////////
 /*
@@ -488,9 +504,24 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_cult
 	damage_deflection = 10
 	hackProof = TRUE
-	aiControlDisabled = TRUE
+	aiControlDisabled = AICONTROLDISABLED_ON
+	paintable = FALSE
+	/// Spawns an effect when opening
 	var/openingoverlaytype = /obj/effect/temp_visual/cult/door
+	/// Will the door let anyone through
 	var/friendly = FALSE
+	/// Is this door currently concealed
+	var/stealthy = FALSE
+	/// Door sprite when concealed
+	var/stealth_icon = 'icons/obj/doors/airlocks/station/maintenance.dmi'
+	/// Door overlays when concealed (Bolt lights, maintenance panel, etc.)
+	var/stealth_overlays = 'icons/obj/doors/airlocks/station/overlays.dmi'
+	/// Is the concealed airlock glass
+	var/stealth_glass = FALSE
+	/// Opacity when concealed (For glass doors)
+	var/stealth_opacity = TRUE
+	/// Inner airlock material (Glass, plasteel)
+	var/stealth_airlock_material = null
 
 /obj/machinery/door/airlock/cult/Initialize()
 	. = ..()
@@ -504,19 +535,42 @@
 
 /obj/machinery/door/airlock/cult/allowed(mob/living/L)
 	if(!density)
-		return 1
+		return TRUE
 	if(friendly || iscultist(L) || isshade(L)|| isconstruct(L))
-		new openingoverlaytype(loc)
-		return 1
+		if(!stealthy)
+			new openingoverlaytype(loc)
+		return TRUE
 	else
-		new /obj/effect/temp_visual/cult/sac(loc)
-		var/atom/throwtarget
-		throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(L, src)))
-		L << pick(sound('sound/hallucinations/turn_around1.ogg',0,1,50), sound('sound/hallucinations/turn_around2.ogg',0,1,50))
-		L.Weaken(2)
-		spawn(0)
+		if(!stealthy)
+			new /obj/effect/temp_visual/cult/sac(loc)
+			var/atom/throwtarget
+			throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(L, src)))
+			SEND_SOUND(L, pick(sound('sound/hallucinations/turn_around1.ogg', 0, 1, 50), sound('sound/hallucinations/turn_around2.ogg', 0, 1, 50)))
+			L.Weaken(2)
 			L.throw_at(throwtarget, 5, 1,src)
-		return 0
+		return FALSE
+
+/obj/machinery/door/airlock/cult/cult_conceal()
+	icon = stealth_icon
+	overlays_file = stealth_overlays
+	opacity = stealth_opacity
+	glass = stealth_glass
+	airlock_material = stealth_airlock_material
+	name = "airlock"
+	desc = "It opens and closes."
+	stealthy = TRUE
+	update_icon()
+
+/obj/machinery/door/airlock/cult/cult_reveal()
+	icon = SSticker.cultdat?.airlock_runed_icon_file
+	overlays_file = SSticker.cultdat?.airlock_runed_overlays_file
+	opacity = initial(opacity)
+	glass = initial(glass)
+	airlock_material = initial(airlock_material)
+	name = initial(name)
+	desc = initial(desc)
+	stealthy = initial(stealthy)
+	update_icon()
 
 /obj/machinery/door/airlock/cult/narsie_act()
 	return
@@ -561,6 +615,13 @@
 /obj/machinery/door/airlock/cult/unruned/glass/friendly
 	friendly = TRUE
 
+/obj/machinery/door/airlock/cult/weak
+	name = "brittle cult airlock"
+	desc = "An airlock hastily corrupted by blood magic, it is unusually brittle in this state."
+	normal_integrity = 150
+	damage_deflection = 5
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+
 //////////////////////////////////
 /*
 	Misc Airlocks
@@ -575,6 +636,7 @@
 	overlays_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
 	note_overlay_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/multi_tile
+	paintable = FALSE
 
 /obj/machinery/door/airlock/multi_tile/narsie_act()
 	return

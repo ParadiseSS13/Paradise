@@ -1,7 +1,7 @@
 /obj/item/storage/box/syndicate/New()
 	..()
 	switch(pickweight(list("bloodyspai" = 1, "thief" = 1, "bond" = 1, "sabotage" = 1, "payday" = 1, "implant" = 1, "hacker" = 1, "darklord" = 1, "professional" = 1)))
-		if("bloodyspai") // 35TC + one 0TC
+		if("bloodyspai") // 37TC + one 0TC
 			new /obj/item/clothing/under/chameleon(src) // 2TC
 			new /obj/item/clothing/mask/chameleon(src) // 0TC
 			new /obj/item/card/id/syndicate(src) // 2TC
@@ -14,12 +14,12 @@
 			new /obj/item/storage/fancy/cigarettes/cigpack_syndicate(src) // 2TC
 			new /obj/item/flashlight/emp(src) // 2TC
 			new /obj/item/clothing/glasses/hud/security/chameleon(src) // 2TC
-			new /obj/item/chameleon(src) // 8TC
+			new /obj/item/chameleon(src) // 7TC
 			return
 
-		if("thief")	// 40TC
+		if("thief")	// 39TC
 			new /obj/item/gun/energy/kinetic_accelerator/crossbow(src) // 12TC
-			new /obj/item/chameleon(src) // 8TC
+			new /obj/item/chameleon(src) // 7TC
 			new /obj/item/clothing/glasses/chameleon/thermal(src) // 6TC
 			new /obj/item/clothing/gloves/color/black/thief(src) // 6TC
 			new /obj/item/card/id/syndicate(src) // 2TC
@@ -43,7 +43,7 @@
 			new /obj/item/CQC_manual(src) // 13TC
 			return
 
-		if("sabotage") // 47TC + three 0TC
+		if("sabotage") // 41TC + two 0TC
 			new /obj/item/grenade/plastic/c4(src) // 1TC
 			new /obj/item/grenade/plastic/c4(src) // 1TC
 			new /obj/item/camera_bug(src) // 1TC
@@ -53,23 +53,23 @@
 			new /obj/item/card/emag(src) // 6TC
 			new /obj/item/clothing/gloves/color/yellow(src) // 0TC
 			new /obj/item/grenade/syndieminibomb(src) // 6TC
-			new /obj/item/grenade/clusterbuster/n2o(src) // 0TC
+			new /obj/item/grenade/clusterbuster/n2o(src) // 4TC
 			new /obj/item/storage/box/syndie_kit/space(src) // 4TC
 			new /obj/item/encryptionkey/syndicate(src) // 2TC
 			return
 
-		if("payday") // 33TC + four 0TC
+		if("payday") // 35TC + four 0TC
 			new /obj/item/gun/projectile/revolver(src) // 13TC
 			new /obj/item/ammo_box/a357(src) // 3TC
 			new /obj/item/ammo_box/a357(src) // 3TC
 			new /obj/item/card/emag(src) // 6TC
-			new /obj/item/grenade/plastic/c4(src) // 1TC
+			new /obj/item/jammer(src) // 5TC
 			new /obj/item/card/id/syndicate(src) // 2TC
 			new /obj/item/clothing/under/suit_jacket/really_black(src) //0TC
 			new /obj/item/clothing/suit/storage/lawyer/blackjacket/armored(src) //0TC
 			new /obj/item/clothing/gloves/color/latex/nitrile(src) //0 TC
 			new /obj/item/clothing/mask/gas/clown_hat(src) // 0TC
-			new /obj/item/thermal_drill(src) // 3TC
+			new /obj/item/thermal_drill/diamond_drill(src) // 1TC
 			new /obj/item/encryptionkey/syndicate(src) // 2TC
 			return
 
@@ -83,17 +83,20 @@
 			new /obj/item/encryptionkey/syndicate(src) // 2TC
 			return
 
-		if("hacker") // 30TC + one 0TC
+		if("hacker") // 37TC + two 0TC
 			new /obj/item/aiModule/syndicate(src) // 12TC
 			new /obj/item/card/emag(src) // 6TC
 			new /obj/item/encryptionkey/syndicate(src) // 2TC
 			new /obj/item/encryptionkey/binary(src) // 5TC
 			new /obj/item/aiModule/toyAI(src) // 0TC
+			new /obj/item/clothing/glasses/chameleon/thermal(src) // 6TC
+			new /obj/item/storage/belt/military/traitor/hacker(src) // 3TC
+			new /obj/item/clothing/gloves/combat(src) // 0TC
 			new /obj/item/multitool/ai_detect(src) // 1TC
-			new /obj/item/storage/box/syndie_kit/c4 // 4TC
+			new /obj/item/flashlight/emp(src) // 2TC
 			return
 
-		if("darklord") // 22TC + two 0TC
+		if("darklord") // 24TC + two 0TC
 			new /obj/item/melee/energy/sword/saber/red(src) // 8TC
 			new /obj/item/melee/energy/sword/saber/red(src) // 8TC
 			new /obj/item/dnainjector/telemut/darkbundle(src) // 0TC
@@ -104,7 +107,7 @@
 			new /obj/item/encryptionkey/syndicate(src) // 2TC
 			return
 
-		if("professional") // 32 TC + two 0TC
+		if("professional") // 34TC + two 0TC
 			new /obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator(src) // 16TC
 			new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src) // 5TC
 			new /obj/item/ammo_box/magazine/sniper_rounds/soporific(src) // 3TC
@@ -120,19 +123,6 @@
 	name = "Box"
 	desc = "A sleek, sturdy box"
 	icon_state = "box_of_doom"
-
-/obj/item/storage/box/syndie_kit/romerol
-	name = "Romerol Kit"
-	desc = "A box containing a deadly virus capable of reanimating dead as zombies."
-	max_w_class = WEIGHT_CLASS_NORMAL
-	can_hold = list(/obj/item/reagent_containers/glass/bottle/romerol,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/dropper)
-
-/obj/item/storage/box/syndie_kit/romerol/New()
-	..()
-	new /obj/item/reagent_containers/glass/bottle/romerol(src)
-	new /obj/item/reagent_containers/syringe(src)
-	new /obj/item/reagent_containers/dropper(src)
-	return
 
 /obj/item/storage/box/syndie_kit/space
 	name = "Boxed Space Suit and Helmet"
@@ -170,14 +160,14 @@
 /obj/item/storage/box/syndie_kit/boolets
 	name = "Shotgun shells"
 
-	New()
-		..()
-		new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
-		new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
-		new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
-		new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
-		new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
-		new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
+/obj/item/storage/box/syndie_kit/boolets/New()
+	..()
+	new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
+	new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
+	new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
+	new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
+	new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
+	new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
 
 /obj/item/storage/box/syndie_kit/emp
 	name = "boxed EMP kit"
@@ -218,26 +208,26 @@
 /obj/item/storage/box/syndie_kit/sarin
 	name = "Sarin Gas Grenades"
 
-	New()
-		..()
-		new /obj/item/grenade/chem_grenade/saringas(src)
-		new /obj/item/grenade/chem_grenade/saringas(src)
-		new /obj/item/grenade/chem_grenade/saringas(src)
-		new /obj/item/grenade/chem_grenade/saringas(src)
+/obj/item/storage/box/syndie_kit/sarin/New()
+	..()
+	new /obj/item/grenade/chem_grenade/saringas(src)
+	new /obj/item/grenade/chem_grenade/saringas(src)
+	new /obj/item/grenade/chem_grenade/saringas(src)
+	new /obj/item/grenade/chem_grenade/saringas(src)
 
 /obj/item/storage/box/syndie_kit/bioterror
 	name = "bioterror syringe box"
 
-	New()
-		..()
-		new /obj/item/reagent_containers/syringe/bioterror(src)
-		new /obj/item/reagent_containers/syringe/bioterror(src)
-		new /obj/item/reagent_containers/syringe/bioterror(src)
-		new /obj/item/reagent_containers/syringe/bioterror(src)
-		new /obj/item/reagent_containers/syringe/bioterror(src)
-		new /obj/item/reagent_containers/syringe/bioterror(src)
-		new /obj/item/reagent_containers/syringe/bioterror(src)
-		return
+/obj/item/storage/box/syndie_kit/bioterror/New()
+	..()
+	new /obj/item/reagent_containers/syringe/bioterror(src)
+	new /obj/item/reagent_containers/syringe/bioterror(src)
+	new /obj/item/reagent_containers/syringe/bioterror(src)
+	new /obj/item/reagent_containers/syringe/bioterror(src)
+	new /obj/item/reagent_containers/syringe/bioterror(src)
+	new /obj/item/reagent_containers/syringe/bioterror(src)
+	new /obj/item/reagent_containers/syringe/bioterror(src)
+	return
 
 /obj/item/storage/box/syndie_kit/caneshotgun
 	name = "cane gun kit"

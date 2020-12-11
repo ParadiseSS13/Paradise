@@ -1,5 +1,0 @@
-author: "JKnutson101"
-delete-after: True
-changes: 
-  - tweak: "Combined the Rite of Tribute and Rite of Enlightenment into one Rite of Offering."
-  - bugfix: "Sacrificing now properly puts victims that have at one point had CKeys into soul stones, or polls dead-chat to do so."

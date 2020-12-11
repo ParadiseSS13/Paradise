@@ -26,7 +26,7 @@
 	var/secure = FALSE	//set to true to enable ID locking
 	var/shocked = FALSE//is it shocking anyone that touches it?
 	req_access = list(ACCESS_EVA)	//the ID needed if ID lock is enabled
-	var/datum/wires/suitstorage/wires
+	var/datum/wires/suitstorage/wires = null
 
 	var/uv = FALSE
 	var/uv_super = FALSE
@@ -96,7 +96,7 @@
 	name = "atmospherics suit storage unit"
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/engine/atmos
 	mask_type    = /obj/item/clothing/mask/gas
-	magboots_type = /obj/item/clothing/shoes/magboots
+	magboots_type = /obj/item/clothing/shoes/magboots/atmos
 	req_access = list(ACCESS_ATMOSPHERICS)
 
 /obj/machinery/suit_storage_unit/atmos/secure
@@ -255,6 +255,7 @@
 		occupant_typecache = typecacheof(occupant_typecache)
 
 /obj/machinery/suit_storage_unit/Destroy()
+	SStgui.close_uis(wires)
 	QDEL_NULL(suit)
 	QDEL_NULL(helmet)
 	QDEL_NULL(mask)
@@ -287,7 +288,7 @@
 	else if(occupant)
 		add_overlay("human")
 
-/obj/machinery/suit_storage_unit/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
 	if(shocked)
 		if(shock(user, 100))
 			return
@@ -297,11 +298,9 @@
 		else
 			to_chat(usr, "<span class='warning'>The unit is not operational.</span>")
 		return
-
 	if(panel_open)
 		wires.Interact(user)
 		return
-
 	if(state_open)
 		if(store_item(I, user))
 			update_icon()
@@ -313,22 +312,14 @@
 	return ..()
 
 /obj/machinery/suit_storage_unit/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
-	if(shocked && shock(user, 100))
-		return
-	if(!is_operational())
-		if(panel_open)
-			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
-		else
-			to_chat(user, "<span class='warning'>The unit is not operational.</span>")
-		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-
-	panel_open = !panel_open
-	to_chat(user, text("<span class='notice'>You [panel_open ? "open up" : "close"] the unit's maintenance panel.</span>"))
-	updateUsrDialog()
-	return
+	. = TRUE
+	if(shocked && !(stat & NOPOWER))
+		if(shock(user, 100))
+			return
+	if(default_deconstruction_screwdriver(user, "panel", "close", I))
+		I.play_tool_sound(user, I.tool_volume)
 
 /obj/machinery/suit_storage_unit/proc/store_item(obj/item/I, mob/user)
 	. = FALSE
@@ -425,16 +416,17 @@
 		if(uv_super)
 			visible_message("<span class='warning'>[src]'s door creaks open with a loud whining noise. A cloud of foul black smoke escapes from its chamber.</span>")
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 50, 1)
-			helmet = null
 			qdel(helmet)
-			suit = null
-			qdel(suit) // Delete everything but the occupant.
-			mask = null
 			qdel(mask)
-			magboots = null
 			qdel(magboots)
-			storage = null
 			qdel(storage)
+			qdel(suit)
+			helmet = null
+			suit = null
+			mask = null
+			magboots = null
+			storage = null
+
 		else
 			if(!occupant)
 				visible_message("<span class='notice'>[src]'s door slides open. The glowing yellow lights dim to a gentle green.</span>")
@@ -444,14 +436,6 @@
 		open_machine(FALSE)
 		if(occupant)
 			dump_contents()
-
-/obj/machinery/suit_storage_unit/shock(mob/user, prb)
-	if(prob(prb))	//why was this inverted before?!?
-		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-		s.set_up(5, 1, src)
-		s.start()
-		if(electrocute_mob(user, src, src, 1, TRUE))
-			return TRUE
 
 /obj/machinery/suit_storage_unit/relaymove(mob/user)
 	if(locked)
@@ -467,8 +451,6 @@
 		open_machine()
 		dump_contents()
 		return
-	user.changeNext_move(CLICK_CD_BREAKOUT)
-	user.last_special = world.time + CLICK_CD_BREAKOUT
 	user.visible_message("<span class='notice'>You see [user] kicking against the doors of [src]!</span>", \
 		"<span class='notice'>You start kicking against the doors... (this will take about [DisplayTimeText(breakout_time)].)</span>", \
 		"<span class='italics'>You hear a thump from [src].</span>")
@@ -538,23 +520,20 @@
 
 ////////
 
-/obj/machinery/suit_storage_unit/attack_hand(mob/user as mob)
+/obj/machinery/suit_storage_unit/attack_hand(mob/user)
 	var/dat
-	if(shocked)
-		if(shock(usr, 100))
+	if(shocked && !(stat & NOPOWER))
+		if(shock(user, 100))
 			return
-	if(..())
-		return
 	if(stat & NOPOWER)
 		return
-	if(!user.IsAdvancedToolUser())
-		return FALSE
+	if(..())
+		return
 	if(panel_open) //The maintenance panel is open. Time for some shady stuff
 		wires.Interact(user)
 	if(uv) //The thing is running its cauterisation cycle. You have to wait.
 		dat += "<HEAD><TITLE>Suit storage unit</TITLE></HEAD>"
 		dat+= "<font color ='red'><B>Unit is cauterising contents with selected UV ray intensity. Please wait.</font></B><BR>"
-
 	else
 		if(!broken)
 			dat+= "<B>Welcome to the Unit control panel.</B><HR>"
@@ -605,7 +584,7 @@
 /obj/machinery/suit_storage_unit/Topic(href, href_list)
 	if(..())
 		return 1
-	if(shocked)
+	if(shocked && !(stat & NOPOWER))
 		if(shock(usr, 100))
 			return
 	if((usr.contents.Find(src) || ((get_dist(src, usr) <= 1) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon/ai)))
@@ -662,8 +641,7 @@
 	return
 
 
-/obj/machinery/suit_storage_unit/proc/toggleUV(mob/user as mob)
-
+/obj/machinery/suit_storage_unit/proc/toggleUV(mob/user)
 	if(!panel_open)
 		return
 	else
@@ -674,7 +652,7 @@
 			to_chat(user, "<span class='notice'>You crank the dial all the way up to \"15nm\".</span>")
 			uv_super = TRUE
 
-/obj/machinery/suit_storage_unit/proc/togglesafeties(mob/user as mob)
+/obj/machinery/suit_storage_unit/proc/togglesafeties(mob/user)
 	if(!panel_open)
 		return
 	else
@@ -740,10 +718,11 @@
 	if(!occupant)
 		return
 
-	if(user != occupant)
-		to_chat(occupant, "<span class='warning'>The machine kicks you out!</span>")
-	if(user.loc != loc)
-		to_chat(occupant, "<span class='warning'>You leave the not-so-cozy confines of the SSU.</span>")
+	if(user)
+		if(user != occupant)
+			to_chat(occupant, "<span class='warning'>The machine kicks you out!</span>")
+		if(user.loc != loc)
+			to_chat(occupant, "<span class='warning'>You leave the not-so-cozy confines of [src].</span>")
 	occupant.forceMove(loc)
 	occupant = null
 	if(!state_open)
@@ -751,6 +730,8 @@
 	update_icon()
 	return
 
+/obj/machinery/suit_storage_unit/force_eject_occupant(mob/target)
+	eject_occupant()
 
 /obj/machinery/suit_storage_unit/verb/get_out()
 	set name = "Eject Suit Storage Unit"
@@ -771,6 +752,8 @@
 	set src in oview(1)
 
 	if(usr.stat != 0)
+		return
+	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
 		return
 	if(!state_open)
 		to_chat(usr, "<span class='warning'>The unit's doors are shut.</span>")
@@ -797,3 +780,7 @@
 
 /obj/machinery/suit_storage_unit/attack_ai(mob/user as mob)
 	return attack_hand(user)
+
+/obj/machinery/suit_storage_unit/proc/check_electrified_callback()
+	if(!wires.is_cut(WIRE_ELECTRIFY))
+		shocked = FALSE

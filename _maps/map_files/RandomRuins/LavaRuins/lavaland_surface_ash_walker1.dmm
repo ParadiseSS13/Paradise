@@ -112,7 +112,7 @@
 	dir = 1
 	},
 /obj/item/flashlight/lantern,
-/turf/simulated/floor/indestructible/boss/air,
+/turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "av" = (
 /obj/structure/stone_tile/block,
@@ -122,7 +122,7 @@
 /obj/structure/stone_tile{
 	dir = 4
 	},
-/turf/simulated/floor/indestructible/boss/air,
+/turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "aw" = (
 /obj/structure/stone_tile/block,
@@ -133,7 +133,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/indestructible/boss/air,
+/turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "ax" = (
 /obj/structure/stone_tile/block,
@@ -143,7 +143,7 @@
 /obj/structure/stone_tile{
 	dir = 4
 	},
-/turf/simulated/floor/indestructible/boss/air,
+/turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "ay" = (
 /obj/structure/stone_tile,
@@ -157,7 +157,7 @@
 	dir = 8
 	},
 /obj/item/flashlight/lantern,
-/turf/simulated/floor/indestructible/boss/air,
+/turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "az" = (
 /obj/structure/stone_tile/block{
@@ -214,7 +214,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/turf/simulated/floor/indestructible/boss/air,
+/turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "aH" = (
 /obj/structure/stone_tile/surrounding_tile/cracked,
@@ -251,7 +251,7 @@
 	},
 /obj/structure/stone_tile,
 /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck,
-/turf/simulated/floor/indestructible/boss/air,
+/turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "aM" = (
 /obj/structure/stone_tile/cracked{
@@ -307,7 +307,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/indestructible/boss/air,
+/turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "aT" = (
 /obj/structure/stone_tile/block/cracked{
@@ -333,7 +333,7 @@
 /obj/structure/stone_tile{
 	dir = 1
 	},
-/turf/simulated/floor/indestructible/boss/air,
+/turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "aY" = (
 /obj/structure/stone_tile,
@@ -381,7 +381,7 @@
 	dir = 4
 	},
 /mob/living/simple_animal/hostile/asteroid/gutlunch/guthen,
-/turf/simulated/floor/indestructible/boss/air,
+/turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "bd" = (
 /obj/structure/stone_tile/surrounding_tile/cracked{
@@ -421,7 +421,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile,
-/turf/simulated/floor/indestructible/boss/air,
+/turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "bh" = (
 /obj/structure/stone_tile/block{
@@ -519,7 +519,7 @@
 	dir = 4
 	},
 /obj/item/flashlight/lantern,
-/turf/simulated/floor/indestructible/boss/air,
+/turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "bq" = (
 /obj/structure/stone_tile/block{
@@ -529,11 +529,11 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/turf/simulated/floor/indestructible/boss/air,
+/turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "br" = (
 /obj/structure/stone_tile/slab/cracked,
-/turf/simulated/floor/indestructible/boss/air,
+/turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "bs" = (
 /obj/structure/stone_tile/block/cracked{
@@ -544,7 +544,7 @@
 	},
 /obj/structure/stone_tile,
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/indestructible/boss/air,
+/turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "bt" = (
 /obj/structure/stone_tile,
@@ -558,7 +558,7 @@
 	dir = 4
 	},
 /obj/item/flashlight/lantern,
-/turf/simulated/floor/indestructible/boss/air,
+/turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "bv" = (
 /obj/structure/stone_tile/cracked{
@@ -632,7 +632,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
 	},
-/turf/simulated/floor/indestructible/boss/air,
+/turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "bC" = (
 /obj/structure/stone_tile/block/cracked{
@@ -672,7 +672,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/indestructible/boss/air,
+/turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "bI" = (
 /obj/structure/stone_tile/slab/cracked,
@@ -1205,9 +1205,9 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "dg" = (
-/obj/structure/bonfire/dense,
 /obj/structure/stone_tile/center,
 /obj/effect/mapping_helpers/no_lava,
+/obj/structure/bonfire,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "di" = (

@@ -22,6 +22,10 @@
 		to_chat(src, "Nowhere to jump to!")
 		return
 
+	if(isobj(usr.loc))
+		var/obj/O = usr.loc
+		O.force_eject_occupant(usr)
+
 	admin_forcemove(usr, T)
 	log_admin("[key_name(usr)] jumped to [A]")
 	if(!isobserver(usr))
@@ -35,6 +39,9 @@
 	if(!check_rights(R_ADMIN))
 		return
 
+	if(isobj(usr.loc))
+		var/obj/O = usr.loc
+		O.force_eject_occupant(usr)
 	log_admin("[key_name(usr)] jumped to [T.x], [T.y], [T.z] in [T.loc]")
 	if(!isobserver(usr))
 		message_admins("[key_name_admin(usr)] jumped to [T.x], [T.y], [T.z] in [T.loc]", 1)
@@ -52,6 +59,9 @@
 	log_admin("[key_name(usr)] jumped to [key_name(M)]")
 	if(!isobserver(usr))
 		message_admins("[key_name_admin(usr)] jumped to [key_name_admin(M)]", 1)
+	if(isobj(usr.loc))
+		var/obj/O = usr.loc
+		O.force_eject_occupant(usr)
 	if(src.mob)
 		var/mob/A = src.mob
 		var/turf/T = get_turf(M)
@@ -70,6 +80,9 @@
 
 	var/turf/T = locate(tx, ty, tz)
 	if(T)
+		if(isobj(usr.loc))
+			var/obj/O = usr.loc
+			O.force_eject_occupant(usr)
 		admin_forcemove(usr, T)
 		if(isobserver(usr))
 			var/mob/dead/observer/O = usr
@@ -96,13 +109,15 @@
 	log_admin("[key_name(usr)] jumped to [key_name(M)]")
 	if(!isobserver(usr))
 		message_admins("[key_name_admin(usr)] jumped to [key_name_admin(M)]", 1)
-
+	if(isobj(usr.loc))
+		var/obj/O = usr.loc
+		O.force_eject_occupant(usr)
 	admin_forcemove(usr, M.loc)
 
 	feedback_add_details("admin_verb","JK") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/Getmob(var/mob/M in GLOB.mob_list)
-	set category = "Admin"
+	set category = null
 	set name = "Get Mob"
 	set desc = "Mob to teleport"
 
@@ -111,11 +126,15 @@
 
 	log_admin("[key_name(usr)] teleported [key_name(M)]")
 	message_admins("[key_name_admin(usr)] teleported [key_name_admin(M)]", 1)
+
+	if(isobj(M.loc))
+		var/obj/O = M.loc
+		O.force_eject_occupant(M)
 	admin_forcemove(M, get_turf(usr))
 	feedback_add_details("admin_verb","GM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/Getkey()
-	set category = "Admin"
+	set category = null
 	set name = "Get Key"
 	set desc = "Key to teleport"
 
@@ -135,6 +154,9 @@
 	log_admin("[key_name(usr)] teleported [key_name(M)]")
 	message_admins("[key_name_admin(usr)] teleported [key_name(M)]", 1)
 	if(M)
+		if(isobj(M.loc))
+			var/obj/O = M.loc
+			O.force_eject_occupant(M)
 		admin_forcemove(M, get_turf(usr))
 		admin_forcemove(usr, M.loc)
 		feedback_add_details("admin_verb","GK") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -148,6 +170,9 @@
 
 	var/area/A = input(usr, "Pick an area.", "Pick an area") in return_sorted_areas()
 	if(A)
+		if(isobj(M.loc))
+			var/obj/O = M.loc
+			O.force_eject_occupant(M)
 		admin_forcemove(M, pick(get_area_turfs(A)))
 		feedback_add_details("admin_verb","SMOB") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		log_admin("[key_name(usr)] teleported [key_name(M)] to [A]")

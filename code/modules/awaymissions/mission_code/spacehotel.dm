@@ -272,7 +272,7 @@
 
 	var/mob/deadbeat = D.occupant
 
-	radio.autosay("[deadbeat], your card has been rejected. You have 30 seconds to check out.", name, zlevel = list(z))
+	radio.autosay("[deadbeat], your card has been rejected. You have 30 seconds to check out.", name)
 	spawn(300)
 		if(D.occupant == deadbeat)
 			// they still haven't checked out...

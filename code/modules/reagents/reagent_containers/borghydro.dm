@@ -1,3 +1,4 @@
+#define BORGHYPO_REFILL_VALUE 5
 
 /obj/item/reagent_containers/borghypo
 	name = "Cyborg Hypospray"
@@ -46,18 +47,21 @@
 
 /obj/item/reagent_containers/borghypo/process() //Every [recharge_time] seconds, recharge some reagents for the cyborg
 	charge_tick++
-	if(charge_tick < recharge_time) return 0
+	if(charge_tick < recharge_time)
+		return FALSE
 	charge_tick = 0
 
 	if(isrobot(loc))
 		var/mob/living/silicon/robot/R = loc
 		if(R && R.cell)
 			var/datum/reagents/RG = reagent_list[mode]
-			if(RG.total_volume < RG.maximum_volume) 	//Don't recharge reagents and drain power if the storage is full.
-				R.cell.use(charge_cost) 					//Take power from borg...
-				RG.add_reagent(reagent_ids[mode], 5)		//And fill hypo with reagent.
+			if(!refill_borghypo(RG, reagent_ids[mode], R)) 	//If the storage is not full recharge reagents and drain power.
+				for(var/i in 1 to reagent_list.len)     	//if active mode is full loop through the list and fill the first one that is not full
+					RG = reagent_list[i]
+					if(refill_borghypo(RG, reagent_ids[i], R))
+						break
 	//update_icon()
-	return 1
+	return TRUE
 
 // Use this to add more chemicals for the borghypo to produce.
 /obj/item/reagent_containers/borghypo/proc/add_reagent(reagent)
@@ -69,7 +73,14 @@
 	var/datum/reagents/R = reagent_list[reagent_list.len]
 	R.add_reagent(reagent, 30)
 
-/obj/item/reagent_containers/borghypo/attack(mob/living/M, mob/user)
+/obj/item/reagent_containers/borghypo/proc/refill_borghypo(datum/reagents/RG, reagent_id, mob/living/silicon/robot/R)
+	if(RG.total_volume < RG.maximum_volume)
+		RG.add_reagent(reagent_id, BORGHYPO_REFILL_VALUE)
+		R.cell.use(charge_cost)
+		return TRUE
+	return FALSE
+
+/obj/item/reagent_containers/borghypo/attack(mob/living/carbon/human/M, mob/user)
 	var/datum/reagents/R = reagent_list[mode]
 	if(!R.total_volume)
 		to_chat(user, "<span class='warning'>The injector is empty.</span>")
@@ -86,9 +97,7 @@
 			var/contained = injected.name
 			var/trans = R.trans_to(M, amount_per_transfer_from_this)
 			add_attack_logs(user, M, "Injected with [name] containing [contained], transfered [trans] units", injected.harmless ? ATKLOG_ALMOSTALL : null)
-			M.LAssailant = user
 			to_chat(user, "<span class='notice'>[trans] units injected. [R.total_volume] units remaining.</span>")
-	return
 
 /obj/item/reagent_containers/borghypo/attack_self(mob/user)
 	playsound(loc, 'sound/effects/pop.ogg', 50, 0)		//Change the mode
@@ -114,3 +123,10 @@
 
 		if(empty)
 			. += "<span class='notice'>It is currently empty. Allow some time for the internal syntheszier to produce more.</span>"
+
+/obj/item/reagent_containers/borghypo/basic
+	name = "Basic Medical Hypospray"
+	desc = "A very basic medical hypospray, capable of providing simple medical treatment in emergencies."
+	reagent_ids = list("salglu_solution", "epinephrine")
+
+#undef BORGHYPO_REFILL_VALUE

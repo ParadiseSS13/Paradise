@@ -299,7 +299,7 @@
 /area/awaymission/centcomAway/cafe)
 "aO" = (
 /obj/structure/table,
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_x = -3;
 	pixel_y = 6
 	},
@@ -1785,7 +1785,7 @@
 /area/awaymission/centcomAway/hangar)
 "ey" = (
 /obj/structure/table,
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_x = -3;
 	pixel_y = 6
 	},
@@ -2234,13 +2234,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/centcomAway/general)
-"fK" = (
-/obj/machinery/telecomms/relay/preset/ruskie,
-/obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "floor"
-	},
 /area/awaymission/centcomAway/general)
 "fL" = (
 /obj/structure/table,
@@ -6149,7 +6142,7 @@
 	},
 /area/awaymission/centcomAway/thunderdome)
 "oN" = (
-/obj/machinery/icecream_vat,
+/obj/machinery/icemachine,
 /turf/simulated/floor/plasteel{
 	tag = "icon-barber (WEST)";
 	icon_state = "barber";
@@ -6819,6 +6812,15 @@
 	},
 /turf/simulated/shuttle/floor,
 /area/awaymission/centcomAway/hangar)
+"JB" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/tcomms/relay/ruskie{
+	network_id = "XCC-P5831-RELAY"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floor"
+	},
+/area/awaymission/centcomAway/general)
 
 (1,1,1) = {"
 aa
@@ -14280,7 +14282,7 @@ ak
 ff
 eF
 gd
-fK
+JB
 eO
 il
 iL

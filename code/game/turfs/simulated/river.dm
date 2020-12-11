@@ -82,7 +82,7 @@
 			var/turf/simulated/mineral/M = T
 			logged_turf_type = M.turf_type
 
-		if(get_dir(src, F) in cardinal)
+		if(get_dir(src, F) in GLOB.cardinal)
 			cardinal_turfs += F
 		else
 			diagonal_turfs += F

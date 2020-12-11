@@ -76,7 +76,7 @@
 	speciesbox = /obj/item/storage/box/survival_vox
 
 /datum/species/vox/handle_death(gibbed, mob/living/carbon/human/H)
-	H.stop_tail_wagging(1)
+	H.stop_tail_wagging()
 
 /datum/species/vox/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != "Clown" && H.mind.assigned_role != "Mime")

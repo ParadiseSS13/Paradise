@@ -147,16 +147,16 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 //These datums are used to populate the asset cache, the proc "register()" does this.
 
 //all of our asset datums, used for referring to these later
-/var/global/list/asset_datums = list()
+GLOBAL_LIST_EMPTY(asset_datums)
 
 //get a assetdatum or make a new one
 /proc/get_asset_datum(var/type)
-	if(!(type in asset_datums))
+	if(!(type in GLOB.asset_datums))
 		return new type()
-	return asset_datums[type]
+	return GLOB.asset_datums[type]
 
 /datum/asset/New()
-	asset_datums[type] = src
+	GLOB.asset_datums[type] = src
 
 /datum/asset/proc/register()
 	return
@@ -177,6 +177,12 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 
 
 //DEFINITIONS FOR ASSET DATUMS START HERE.
+/datum/asset/simple/tgui
+	assets = list(
+		"tgui.bundle.js" = 'tgui/packages/tgui/public/tgui.bundle.js',
+		"tgui.bundle.css" = 'tgui/packages/tgui/public/tgui.bundle.css'
+)
+
 /datum/asset/simple/paper
 	assets = list(
 		"large_stamp-clown.png"     = 'icons/paper_icons/large_stamp-clown.png',
@@ -195,7 +201,8 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 		"large_stamp-rep.png"	    = 'icons/paper_icons/large_stamp-rep.png',
 		"large_stamp-magistrate.png"= 'icons/paper_icons/large_stamp-magistrate.png',
 		"talisman.png"              = 'icons/paper_icons/talisman.png',
-		"ntlogo.png"                = 'icons/paper_icons/ntlogo.png'
+		"ntlogo.png"                = 'icons/paper_icons/ntlogo.png',
+		"syndielogo.png"		='icons/paper_icons/syndielogo.png'
 	)
 
 /datum/asset/simple/chess
@@ -214,77 +221,9 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 		"rook_white.png"			= 'icons/chess_pieces/rook_white.png',
 		"sprites.png"			    = 'icons/chess_pieces/sprites.png',
 		"blank.gif"                 = 'icons/chess_pieces/blank.gif',
-		"background.png"            = 'nano/images/uiBackground.png',
 		"garbochess.js"             = 'html/browser/garbochess.js',
 		"boardui.js"                = 'html/browser/boardui.js'
 	)
-
-/datum/asset/simple/headers
-	assets = list(
-		"alarm_green.gif" 			= 'icons/program_icons/alarm_green.gif',
-		"alarm_red.gif" 			= 'icons/program_icons/alarm_red.gif',
-		"batt_5.gif" 				= 'icons/program_icons/batt_5.gif',
-		"batt_20.gif" 				= 'icons/program_icons/batt_20.gif',
-		"batt_40.gif" 				= 'icons/program_icons/batt_40.gif',
-		"batt_60.gif" 				= 'icons/program_icons/batt_60.gif',
-		"batt_80.gif" 				= 'icons/program_icons/batt_80.gif',
-		"batt_100.gif" 				= 'icons/program_icons/batt_100.gif',
-		"charging.gif" 				= 'icons/program_icons/charging.gif',
-		"downloader_finished.gif" 	= 'icons/program_icons/downloader_finished.gif',
-		"downloader_running.gif" 	= 'icons/program_icons/downloader_running.gif',
-		"ntnrc_idle.gif"			= 'icons/program_icons/ntnrc_idle.gif',
-		"ntnrc_new.gif"				= 'icons/program_icons/ntnrc_new.gif',
-		"power_norm.gif"			= 'icons/program_icons/power_norm.gif',
-		"power_warn.gif"			= 'icons/program_icons/power_warn.gif',
-		"sig_high.gif" 				= 'icons/program_icons/sig_high.gif',
-		"sig_low.gif" 				= 'icons/program_icons/sig_low.gif',
-		"sig_lan.gif" 				= 'icons/program_icons/sig_lan.gif',
-		"sig_none.gif" 				= 'icons/program_icons/sig_none.gif',
-		"smmon_0.gif"				= 'icons/program_icons/smmon_0.gif',
-		"smmon_1.gif"				= 'icons/program_icons/smmon_1.gif',
-		"smmon_2.gif"				= 'icons/program_icons/smmon_2.gif',
-		"smmon_3.gif"				= 'icons/program_icons/smmon_3.gif',
-		"smmon_4.gif"				= 'icons/program_icons/smmon_4.gif',
-		"smmon_5.gif"				= 'icons/program_icons/smmon_5.gif',
-		"smmon_6.gif"				= 'icons/program_icons/smmon_6.gif',
-	)
-
-/datum/asset/nanoui
-	var/list/common = list()
-
-	var/list/common_dirs = list(
-		"nano/assets/",
-		"nano/codemirror/",
-		"nano/images/",
-		"nano/layouts/"
-	)
-	var/list/uncommon_dirs = list(
-		"nano/templates/"
-	)
-
-/datum/asset/nanoui/register()
-	// Crawl the directories to find files.
-	for(var/path in common_dirs)
-		var/list/filenames = flist(path)
-		for(var/filename in filenames)
-			if(copytext(filename, length(filename)) != "/") // Ignore directories.
-				if(fexists(path + filename))
-					common[filename] = fcopy_rsc(path + filename)
-					register_asset(filename, common[filename])
-	for(var/path in uncommon_dirs)
-		var/list/filenames = flist(path)
-		for(var/filename in filenames)
-			if(copytext(filename, length(filename)) != "/") // Ignore directories.
-				if(fexists(path + filename))
-					register_asset(filename, fcopy_rsc(path + filename))
-
-/datum/asset/nanoui/send(client, uncommon)
-	if(!islist(uncommon))
-		uncommon = list(uncommon)
-
-	send_asset_list(client, uncommon)
-	send_asset_list(client, common)
-
 
 //Pill sprites for UIs
 /datum/asset/chem_master
@@ -302,6 +241,20 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 /datum/asset/chem_master/send(client)
 	send_asset_list(client, assets, verify)
 
+//Cloning pod sprites for UIs
+/datum/asset/cloning
+	var/assets = list()
+	var/verify = FALSE
+
+/datum/asset/cloning/register()
+	assets["pod_idle.gif"] = icon('icons/obj/cloning.dmi', "pod_idle")
+	assets["pod_cloning.gif"] = icon('icons/obj/cloning.dmi', "pod_cloning")
+	assets["pod_mess.gif"] = icon('icons/obj/cloning.dmi', "pod_mess")
+	for(var/asset_name in assets)
+		register_asset(asset_name, assets[asset_name])
+
+/datum/asset/cloning/send(client)
+	send_asset_list(client, assets, verify)
 
 //Pipe sprites for UIs
 /datum/asset/rpd
@@ -313,14 +266,14 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 		if(!(state in list("cap", "connector", "dtvalve", "dual-port vent", "dvalve", "filter", "he", "heunary", "injector", "junction", "manifold", "mixer", "tvalve", "mvalve", "passive vent", "passivegate", "pump", "scrubber", "simple", "universal", "uvent", "volumepump"))) //Basically all the pipes we want sprites for
 			continue
 		if(state in list("he", "simple"))
-			for(var/D in alldirs)
+			for(var/D in GLOB.alldirs)
 				assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipe-item.dmi', state, D)
-		for(var/D in cardinal)
+		for(var/D in GLOB.cardinal)
 			assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipe-item.dmi', state, D)
 	for(var/state in icon_states('icons/obj/pipes/disposal.dmi'))
 		if(!(state in list("pipe-c", "pipe-j1", "pipe-s", "pipe-t", "pipe-y", "intake", "outlet", "pipe-j1s"))) //Pipes we want sprites for
 			continue
-		for(var/D in cardinal)
+		for(var/D in GLOB.cardinal)
 			assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipes/disposal.dmi', state, D)
 	for(var/asset_name in assets)
 		register_asset(asset_name, assets[asset_name])
@@ -343,3 +296,42 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 
 /datum/asset/mob_hunt/send(client)
 	send_asset_list(client, assets, verify)
+
+// Fontawesome
+/datum/asset/simple/fontawesome
+	verify = FALSE
+	assets = list(
+		"fa-regular-400.eot"  = 'html/font-awesome/webfonts/fa-regular-400.eot',
+		"fa-regular-400.woff" = 'html/font-awesome/webfonts/fa-regular-400.woff',
+		"fa-solid-900.eot"    = 'html/font-awesome/webfonts/fa-solid-900.eot',
+		"fa-solid-900.woff"   = 'html/font-awesome/webfonts/fa-solid-900.woff',
+		"font-awesome.css"    = 'html/font-awesome/css/all.min.css',
+		"v4shim.css"          = 'html/font-awesome/css/v4-shims.min.css'
+	)
+
+// Nanomaps
+/datum/asset/simple/nanomaps
+	// It REALLY doesnt matter too much if these arent up to date
+	// They are relatively big
+	verify = FALSE
+	assets = list(
+		"Cyberiad_nanomap_z1.png"		= 'icons/_nanomaps/Cyberiad_nanomap_z1.png',
+		"Delta_nanomap_z1.png"			= 'icons/_nanomaps/Delta_nanomap_z1.png',
+		"MetaStation_nanomap_z1.png"	= 'icons/_nanomaps/MetaStation_nanomap_z1.png',
+	)
+
+/datum/asset/simple/safe
+	verify = FALSE
+	assets = list(
+		"safe_dial.png" = 'icons/safe_dial.png'
+	)
+
+// Materials (metal, glass...)
+/datum/asset/simple/materials
+	verify = FALSE
+
+/datum/asset/simple/materials/register()
+	for(var/n in list("metal", "glass", "silver", "gold", "diamond", "uranium", "plasma", "clown", "mime", "titanium", "plastic"))
+		assets["sheet-[n].png"] = icon('icons/obj/items.dmi', "sheet-[n]")
+	assets["sheet-bluespace.png"] = icon('icons/obj/telescience.dmi', "polycrystal")
+	..()

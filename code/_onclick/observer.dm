@@ -15,7 +15,6 @@
 
 	// Otherwise jump
 	else
-		following = null
 		forceMove(get_turf(A))
 		update_parallax_contents()
 
@@ -56,7 +55,7 @@
 /mob/dead/observer/ShiftClickOn(var/atom/A)
 	examinate(A)
 
-/atom/proc/attack_ghost(mob/user as mob)
+/atom/proc/attack_ghost(mob/user)
 	return
 
 // health + cyborg analyzer for ghosts
@@ -64,7 +63,7 @@
 	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the health_scan var.
 		return
 	if(user.client && user.health_scan)
-		if(issilicon(src) || ismachine(src))
+		if(issilicon(src) || ismachineperson(src))
 			robot_healthscan(user, src)
 		else if(ishuman(src))
 			healthscan(user, src, 1, TRUE)

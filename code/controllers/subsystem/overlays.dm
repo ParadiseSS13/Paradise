@@ -4,6 +4,7 @@ SUBSYSTEM_DEF(overlays)
 	wait = 1
 	priority = FIRE_PRIORITY_OVERLAYS
 	init_order = INIT_ORDER_OVERLAY
+	offline_implications = "Overlays may look strange. No immediate action is needed."
 
 	var/list/queue
 	var/list/stats

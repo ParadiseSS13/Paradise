@@ -44,10 +44,10 @@
 	owner.objectives -= O
 
 /datum/antagonist/mindslave/proc/update_mindslave_icons_added()
-	var/datum/atom_hud/antag/traitorhud = huds[ANTAG_HUD_TRAITOR]
+	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
 	traitorhud.join_hud(owner.current, null)
 	set_antag_hud(owner.current, "hudmindslave")
 
 /datum/antagonist/mindslave/proc/update_mindslave_icons_removed()
-	var/datum/atom_hud/antag/traitorhud = huds[ANTAG_HUD_TRAITOR]
+	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
 	traitorhud.leave_hud(owner.current, null)

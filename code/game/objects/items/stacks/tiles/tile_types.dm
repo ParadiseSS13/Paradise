@@ -72,10 +72,16 @@
 	turf_type = /turf/simulated/floor/carpet
 	resistance_flags = FLAMMABLE
 
+/obj/item/stack/tile/carpet/twenty
+	amount = 20
+
 /obj/item/stack/tile/carpet/black
 	name = "black carpet"
 	icon_state = "tile-carpet-black"
 	turf_type = /turf/simulated/floor/carpet/black
+
+/obj/item/stack/tile/carpet/black/twenty
+	amount = 20
 
 //Plasteel
 /obj/item/stack/tile/plasteel

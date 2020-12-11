@@ -33,9 +33,9 @@
 	if(visualsOnly)
 		return
 
-	H.dna.SetSEState(SOBERBLOCK,1)
-	genemutcheck(H, SOBERBLOCK, null, MUTCHK_FORCED)
-	H.dna.default_blocks.Add(SOBERBLOCK)
+	H.dna.SetSEState(GLOB.soberblock,1)
+	genemutcheck(H, GLOB.soberblock, null, MUTCHK_FORCED)
+	H.dna.default_blocks.Add(GLOB.soberblock)
 	H.check_mutations = 1
 
 
@@ -61,10 +61,15 @@
 
 	uniform = /obj/item/clothing/under/rank/chef
 	suit = /obj/item/clothing/suit/chef
+	belt = /obj/item/storage/belt/chef
 	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/chefhat
 	l_ear = /obj/item/radio/headset/headset_service
 	pda = /obj/item/pda/chef
+	backpack_contents = list(
+		/obj/item/eftpos=1,\
+		/obj/item/paper/chef=1,\
+		/obj/item/book/manual/chef_recipes=1)
 
 /datum/outfit/job/chef/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -282,17 +287,17 @@
 	if(visualsOnly)
 		return
 
-	if(ismachine(H))
+	if(ismachineperson(H))
 		var/obj/item/organ/internal/cyberimp/brain/clown_voice/implant = new
 		implant.insert(H)
 
-	H.dna.SetSEState(CLUMSYBLOCK, TRUE)
-	genemutcheck(H, CLUMSYBLOCK, null, MUTCHK_FORCED)
-	H.dna.default_blocks.Add(CLUMSYBLOCK)
-	if(!ismachine(H))
-		H.dna.SetSEState(COMICBLOCK, TRUE)
-		genemutcheck(H, COMICBLOCK, null, MUTCHK_FORCED)
-		H.dna.default_blocks.Add(COMICBLOCK)
+	H.dna.SetSEState(GLOB.clumsyblock, TRUE)
+	genemutcheck(H, GLOB.clumsyblock, null, MUTCHK_FORCED)
+	H.dna.default_blocks.Add(GLOB.clumsyblock)
+	if(!ismachineperson(H))
+		H.dna.SetSEState(GLOB.comicblock, TRUE)
+		genemutcheck(H, GLOB.comicblock, null, MUTCHK_FORCED)
+		H.dna.default_blocks.Add(GLOB.comicblock)
 	H.check_mutations = TRUE
 	H.add_language("Clownish")
 
@@ -450,3 +455,25 @@
 		/obj/item/storage/box/lip_stick = 1,
 		/obj/item/storage/box/barber = 1
 	)
+
+/datum/job/explorer
+	title = "Explorer"
+	flag = JOB_EXPLORER
+	department_flag = JOBCAT_SUPPORT
+	total_positions = 0
+	spawn_positions = 0
+	supervisors = "the head of personnel"
+	department_head = list("Head of Personnel")
+	selection_color = "#dddddd"
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
+	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
+	outfit = /datum/outfit/job/explorer
+	hidden_from_job_prefs = TRUE
+
+/datum/outfit/job/explorer
+	// This outfit is never used, because there are no slots for this job.
+	// To get it, you have to go to the HOP and ask for a transfer to it.
+	name = "Explorer"
+	jobtype = /datum/job/explorer
+	uniform = /obj/item/clothing/under/color/random
+	shoes = /obj/item/clothing/shoes/black

@@ -35,7 +35,7 @@
 				new /obj/effect/hallucination/delusion(target.loc, target, force_kind = "custom", duration = 200, skip_nearby = 0, custom_icon = icon_state, custom_icon_file = icon)
 	else
 		if(prob(45))
-			if(ismovableatom(target))
+			if(ismovable(target))
 				var/atom/movable/M = target
 				if(!M.anchored && M != summoner)
 					new /obj/effect/temp_visual/guardian/phase/out(get_turf(M))

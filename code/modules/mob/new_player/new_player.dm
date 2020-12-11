@@ -12,8 +12,13 @@
 	stat = 2
 	canmove = 0
 
-/mob/new_player/New()
+/mob/new_player/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
+	if(initialized)
+		stack_trace("Warning: [src]([type]) initialized multiple times!")
+	initialized = TRUE
 	GLOB.mob_list += src
+	return INITIALIZE_HINT_NORMAL
 
 /mob/new_player/verb/new_player_panel()
 	set src = usr
@@ -27,11 +32,11 @@
 		return TRUE
 
 	establish_db_connection()
-	if(!dbcon.IsConnected())
+	if(!GLOB.dbcon.IsConnected())
 		tos_consent = TRUE
 		return TRUE
 
-	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("privacy")] WHERE ckey='[src.ckey]' AND consent=1")
+	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT * FROM [format_table_name("privacy")] WHERE ckey='[src.ckey]' AND consent=1")
 	query.Execute()
 	while(query.NextRow())
 		tos_consent = TRUE
@@ -55,7 +60,7 @@
 
 /mob/new_player/proc/new_player_panel_proc()
 	var/real_name = client.prefs.real_name
-	if(client.prefs.randomslot)
+	if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
 		real_name = "Random Character Slot"
 	var/output = "<center><p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"
 
@@ -72,7 +77,10 @@
 		else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
 		output += "<br /><small>You are <b>[client.skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
 
-	output += "<p><a href='byond://?src=[UID()];observe=1'>Observe</A></p>"
+	if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
+		output += "<p>Observe (Please wait...)</p>"
+	else
+		output += "<p><a href='byond://?src=[UID()];observe=1'>Observe</A></p>"
 
 	if(GLOB.join_tos)
 		output += "<p><a href='byond://?src=[UID()];tos=1'>Terms of Service</A></p>"
@@ -80,11 +88,11 @@
 	if(!IsGuestKey(src.key))
 		establish_db_connection()
 
-		if(dbcon.IsConnected() && client.can_vote())
+		if(GLOB.dbcon.IsConnected() && client.can_vote())
 			var/isadmin = 0
 			if(src.client && src.client.holder)
 				isadmin = 1
-			var/DBQuery/query = dbcon.NewQuery("SELECT id FROM [format_table_name("poll_question")] WHERE [(isadmin ? "" : "adminonly = false AND")] Now() BETWEEN starttime AND endtime AND id NOT IN (SELECT pollid FROM [format_table_name("poll_vote")] WHERE ckey = \"[ckey]\") AND id NOT IN (SELECT pollid FROM [format_table_name("poll_textreply")] WHERE ckey = \"[ckey]\")")
+			var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT id FROM [format_table_name("poll_question")] WHERE [(isadmin ? "" : "adminonly = false AND")] Now() BETWEEN starttime AND endtime AND id NOT IN (SELECT pollid FROM [format_table_name("poll_vote")] WHERE ckey = \"[ckey]\") AND id NOT IN (SELECT pollid FROM [format_table_name("poll_textreply")] WHERE ckey = \"[ckey]\")")
 			query.Execute()
 			var/newpoll = 0
 			while(query.NextRow())
@@ -98,26 +106,30 @@
 
 	output += "</center>"
 
-	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 220, 290)
+	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 240, 330)
 	popup.set_window_options("can_close=0")
 	popup.set_content(output)
 	popup.open(0)
 	return
 
 /mob/new_player/Stat()
+	statpanel("Status")
+
+	..()
+
 	statpanel("Lobby")
 	if(client.statpanel=="Lobby" && SSticker)
 		if(SSticker.hide_mode)
 			stat("Game Mode:", "Secret")
 		else
 			if(SSticker.hide_mode == 0)
-				stat("Game Mode:", "[master_mode]") // Old setting for showing the game mode
+				stat("Game Mode:", "[GLOB.master_mode]") // Old setting for showing the game mode
 			else
 				stat("Game Mode: ", "Secret")
 
-		if((SSticker.current_state == GAME_STATE_PREGAME) && going)
+		if((SSticker.current_state == GAME_STATE_PREGAME) && SSticker.ticker_going)
 			stat("Time To Start:", round(SSticker.pregame_timeleft/10))
-		if((SSticker.current_state == GAME_STATE_PREGAME) && !going)
+		if((SSticker.current_state == GAME_STATE_PREGAME) && !SSticker.ticker_going)
 			stat("Time To Start:", "DELAYED")
 
 		if(SSticker.current_state == GAME_STATE_PREGAME)
@@ -133,17 +145,14 @@
 				if(player.ready)
 					totalPlayersReady++
 
-	..()
-
-	statpanel("Status")
-
 
 /mob/new_player/Topic(href, href_list[])
-	if(!client)	return 0
+	if(!client)
+		return FALSE
 
 	if(href_list["consent_signed"])
 		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
-		var/DBQuery/query = dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 1)")
+		var/DBQuery/query = GLOB.dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 1)")
 		query.Execute()
 		src << browse(null, "window=privacy_consent")
 		tos_consent = 1
@@ -152,17 +161,20 @@
 		tos_consent = 0
 		to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
-		var/DBQuery/query = dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 0)")
+		var/DBQuery/query = GLOB.dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 0)")
 		query.Execute()
 
 	if(href_list["show_preferences"])
 		client.prefs.ShowChoices(src)
-		return 1
+		return TRUE
 
 	if(href_list["ready"])
 		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
-			return 0
+			return FALSE
+		if(client.version_blocked)
+			client.show_update_notice()
+			return FALSE
 		ready = !ready
 		new_player_panel_proc()
 
@@ -177,7 +189,13 @@
 	if(href_list["observe"])
 		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
-			return 0
+			return FALSE
+		if(client.version_blocked)
+			client.show_update_notice()
+			return FALSE
+		if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
+			to_chat(usr, "<span class='warning'>You must wait for the server to finish starting before you can join!</span>")
+			return FALSE
 
 		if(alert(src,"Are you sure you wish to observe? You cannot normally join the round after doing this!","Player Setup","Yes","No") == "Yes")
 			if(!client)
@@ -205,17 +223,21 @@
 			if(!client.holder && !config.antag_hud_allowed)           // For new ghosts we remove the verb from even showing up if it's not allowed.
 				observer.verbs -= /mob/dead/observer/verb/toggle_antagHUD        // Poor guys, don't know what they are missing!
 			observer.key = key
+			QDEL_NULL(mind)
 			GLOB.respawnable_list += observer
 			qdel(src)
 			return 1
 	if(href_list["tos"])
 		privacy_consent()
-		return 0
+		return FALSE
 
 	if(href_list["late_join"])
 		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
-			return 0
+			return FALSE
+		if(client.version_blocked)
+			client.show_update_notice()
+			return FALSE
 		if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 			return
@@ -223,7 +245,7 @@
 
 			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
 				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
-				return 0
+				return FALSE
 
 		LateChoices()
 
@@ -232,17 +254,17 @@
 
 	if(href_list["SelectedJob"])
 
-		if(!enter_allowed)
+		if(!GLOB.enter_allowed)
 			to_chat(usr, "<span class='notice'>There is an administrative lock on entering the game!</span>")
 			return
 
-		if(client.prefs.randomslot)
+		if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
 			client.prefs.load_random_character_slot(client)
 
 		if(client.prefs.species in GLOB.whitelisted_species)
 			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
 				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
-				return 0
+				return FALSE
 
 		AttemptLateSpawn(href_list["SelectedJob"],client.prefs.spawnpoint)
 		return
@@ -304,7 +326,7 @@
 	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 		to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 		return 0
-	if(!enter_allowed)
+	if(!GLOB.enter_allowed)
 		to_chat(usr, "<span class='notice'>There is an administrative lock on entering the game!</span>")
 		return 0
 	if(!IsJobAvailable(rank))
@@ -338,25 +360,25 @@
 
 	if(IsAdminJob(rank))
 		if(IsERTSpawnJob(rank))
-			character.loc = pick(ertdirector)
+			character.loc = pick(GLOB.ertdirector)
 		else if(IsSyndicateCommand(rank))
-			character.loc = pick(syndicateofficer)
+			character.loc = pick(GLOB.syndicateofficer)
 		else
-			character.forceMove(pick(aroomwarp))
+			character.forceMove(pick(GLOB.aroomwarp))
 		join_message = "has arrived"
 	else
 		if(spawning_at)
-			S = spawntypes[spawning_at]
+			S = GLOB.spawntypes[spawning_at]
 		if(S && istype(S))
 			if(S.check_job_spawning(rank))
 				character.forceMove(pick(S.turfs))
 				join_message = S.msg
 			else
 				to_chat(character, "Your chosen spawnpoint ([S.display_name]) is unavailable for your chosen job. Spawning you at the Arrivals shuttle instead.")
-				character.forceMove(pick(latejoin))
+				character.forceMove(pick(GLOB.latejoin))
 				join_message = "has arrived on the station"
 		else
-			character.forceMove(pick(latejoin))
+			character.forceMove(pick(GLOB.latejoin))
 			join_message = "has arrived on the station"
 
 	character.lastarea = get_area(loc)
@@ -375,7 +397,7 @@
 	else
 		SSticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
 		if(!IsAdminJob(rank))
-			data_core.manifest_inject(character)
+			GLOB.data_core.manifest_inject(character)
 			AnnounceArrival(character, rank, join_message)
 			AddEmploymentContract(character)
 
@@ -384,7 +406,7 @@
 			if(GLOB.summon_magic_triggered)
 				give_magic(character)
 
-	if(!thisjob.is_position_available() && thisjob in SSjobs.prioritized_jobs)
+	if(!thisjob.is_position_available() && (thisjob in SSjobs.prioritized_jobs))
 		SSjobs.prioritized_jobs -= thisjob
 	qdel(src)
 
@@ -392,8 +414,9 @@
 /mob/new_player/proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank, var/join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
-		for(var/mob/living/silicon/ai/A in GLOB.living_mob_list)
-			ailist += A
+		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
+			if(A.announce_arrivals)
+				ailist += A
 		if(ailist.len)
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
@@ -412,19 +435,19 @@
 				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
 					if(character.mind.role_alt_title)
 						rank = character.mind.role_alt_title
-					global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
+					GLOB.global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
 
 /mob/new_player/proc/AddEmploymentContract(mob/living/carbon/human/employee)
 	spawn(30)
-		for(var/C in employmentCabinets)
+		for(var/C in GLOB.employmentCabinets)
 			var/obj/structure/filingcabinet/employment/employmentCabinet = C
-			if(!employmentCabinet.virgin)
+			if(employmentCabinet.populated)
 				employmentCabinet.addFile(employee)
 
 /mob/new_player/proc/AnnounceCyborg(var/mob/living/character, var/rank, var/join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
-		for(var/mob/living/silicon/ai/A in GLOB.living_mob_list)
+		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
 			ailist += A
 		if(ailist.len)
 			var/mob/living/silicon/ai/announcer = pick(ailist)
@@ -436,7 +459,7 @@
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)
 					// can't use their name here, since cyborg namepicking is done post-spawn, so we'll just say "A new Cyborg has arrived"/"A new Android has arrived"/etc.
-					global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
+					GLOB.global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
 
 /mob/new_player/proc/LateChoices()
 	var/mills = ROUND_TIME // 1/10 of a second, not real milliseconds but whatever
@@ -467,15 +490,15 @@
 	var/num_jobs_available = 0
 	var/list/activePlayers = list()
 	var/list/categorizedJobs = list(
-		"Command" = list(jobs = list(), titles = command_positions, color = "#aac1ee"),
-		"Engineering" = list(jobs = list(), titles = engineering_positions, color = "#ffd699"),
-		"Security" = list(jobs = list(), titles = security_positions, color = "#ff9999"),
+		"Command" = list(jobs = list(), titles = GLOB.command_positions, color = "#aac1ee"),
+		"Engineering" = list(jobs = list(), titles = GLOB.engineering_positions, color = "#ffd699"),
+		"Security" = list(jobs = list(), titles = GLOB.security_positions, color = "#ff9999"),
 		"Miscellaneous" = list(jobs = list(), titles = list(), color = "#ffffff", colBreak = 1),
-		"Synthetic" = list(jobs = list(), titles = nonhuman_positions, color = "#ccffcc"),
-		"Support / Service" = list(jobs = list(), titles = service_positions, color = "#cccccc"),
-		"Medical" = list(jobs = list(), titles = medical_positions, color = "#99ffe6", colBreak = 1),
-		"Science" = list(jobs = list(), titles = science_positions, color = "#e6b3e6"),
-		"Supply" = list(jobs = list(), titles = supply_positions, color = "#ead4ae"),
+		"Synthetic" = list(jobs = list(), titles = GLOB.nonhuman_positions, color = "#ccffcc"),
+		"Support / Service" = list(jobs = list(), titles = GLOB.service_positions, color = "#cccccc"),
+		"Medical" = list(jobs = list(), titles = GLOB.medical_positions, color = "#99ffe6", colBreak = 1),
+		"Science" = list(jobs = list(), titles = GLOB.science_positions, color = "#e6b3e6"),
+		"Supply" = list(jobs = list(), titles = GLOB.supply_positions, color = "#ead4ae"),
 		)
 	for(var/datum/job/job in SSjobs.occupations)
 		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client))
@@ -495,7 +518,7 @@
 						else
 							jobs += job
 					else // Put heads at top of non-command jobs
-						if(job.title in command_positions)
+						if(job.title in GLOB.command_positions)
 							jobs.Insert(1, job)
 						else
 							jobs += job
@@ -584,7 +607,7 @@
 /mob/new_player/proc/ViewManifest()
 	var/dat = "<html><body>"
 	dat += "<h4>Crew Manifest</h4>"
-	dat += data_core.get_manifest(OOC = 1)
+	dat += GLOB.data_core.get_manifest(OOC = 1)
 
 	src << browse(dat, "window=manifest;size=370x420;can_close=1")
 

@@ -1,5 +1,4 @@
 //Bot Construction
-var/robot_arm = /obj/item/robot_parts/l_arm
 
 //Cleanbot assembly
 /obj/item/bucket_sensor
@@ -13,6 +12,7 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	var/created_name = "Cleanbot"
+	var/robot_arm = /obj/item/robot_parts/l_arm
 
 /obj/item/bucket_sensor/attackby(obj/item/W, mob/user as mob, params)
 	..()
@@ -350,6 +350,7 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 	var/treatment_fire = "salglu_solution"
 	var/treatment_tox = "charcoal"
 	var/treatment_virus = "spaceacillin"
+	var/robot_arm = /obj/item/robot_parts/l_arm
 
 /obj/item/firstaid_arm_assembly/New(loc, new_skin)
 	..()
@@ -419,6 +420,7 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 	item_state = "helmet"
 	var/created_name = "Securitron" //To preserve the name if it's a unique securitron I guess
 	var/build_step = 0
+	var/robot_arm = /obj/item/robot_parts/l_arm
 
 /obj/item/clothing/head/helmet/attackby(obj/item/assembly/signaler/S, mob/user, params)
 	..()
@@ -472,8 +474,7 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 			return
 		build_step++
 		to_chat(user, "<span class='notice'>You complete the Securitron! Beep boop.</span>")
-		var/mob/living/simple_animal/bot/secbot/S = new /mob/living/simple_animal/bot/secbot
-		S.forceMove(get_turf(src))
+		var/mob/living/simple_animal/bot/secbot/S = new /mob/living/simple_animal/bot/secbot(get_turf(src))
 		S.name = created_name
 		S.robot_arm = robot_arm
 		qdel(I)
@@ -510,7 +511,7 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 //General Griefsky
 
 	else if((istype(I, /obj/item/wrench)) && (build_step == 3))
-		var/obj/item/griefsky_assembly/A = new /obj/item/griefsky_assembly
+		var/obj/item/griefsky_assembly/A = new /obj/item/griefsky_assembly(get_turf(src))
 		user.put_in_hands(A)
 		to_chat(user, "<span class='notice'>You adjust the arm slots for extra weapons!.</span>")
 		user.unEquip(src, 1)
@@ -538,8 +539,7 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 		if(!user.unEquip(I))
 			return
 		to_chat(user, "<span class='notice'>You complete General Griefsky!.</span>")
-		var/mob/living/simple_animal/bot/secbot/griefsky/S = new /mob/living/simple_animal/bot/secbot/griefsky
-		S.forceMove(get_turf(src))
+		new /mob/living/simple_animal/bot/secbot/griefsky(get_turf(src))
 		qdel(I)
 		qdel(src)
 
@@ -554,8 +554,7 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 		if(!user.unEquip(I))
 			return
 		to_chat(user, "<span class='notice'>You complete Genewul Giftskee!.</span>")
-		var/mob/living/simple_animal/bot/secbot/griefsky/toy/S = new /mob/living/simple_animal/bot/secbot/griefsky/toy
-		S.forceMove(get_turf(src))
+		new /mob/living/simple_animal/bot/secbot/griefsky/toy(get_turf(src))
 		qdel(I)
 		qdel(src)
 
@@ -596,6 +595,7 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 	req_one_access = list(ACCESS_CLOWN, ACCESS_ROBOTICS, ACCESS_MIME)
 	var/build_step = 0
 	var/created_name = "Honkbot" //To preserve the name if it's a unique medbot I guess
+	var/robot_arm = /obj/item/robot_parts/l_arm
 
 /obj/item/honkbot_arm_assembly/attackby(obj/item/W, mob/user, params)
 	..()

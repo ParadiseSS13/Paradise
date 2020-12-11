@@ -1,4 +1,4 @@
-var/list/department_radio_keys = list(
+GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":r" = "right ear",	"#r" = "right ear",		".r" = "right ear",
 	  ":l" = "left ear",	"#l" = "left ear",		".l" = "left ear",
 	  ":i" = "intercom",	"#i" = "intercom",		".i" = "intercom",
@@ -7,6 +7,7 @@ var/list/department_radio_keys = list(
 	  ":c" = "Command",		"#c" = "Command",		".c" = "Command",
 	  ":n" = "Science",		"#n" = "Science",		".n" = "Science",
 	  ":m" = "Medical",		"#m" = "Medical",		".m" = "Medical",
+	  ":x" = "Procedure",	"#x" = "Procedure",		".x" = "Procedure",
 	  ":e" = "Engineering", "#e" = "Engineering",	".e" = "Engineering",
 	  ":s" = "Security",	"#s" = "Security",		".s" = "Security",
 	  ":w" = "whisper",		"#w" = "whisper",		".w" = "whisper",
@@ -14,7 +15,6 @@ var/list/department_radio_keys = list(
 	  ":u" = "Supply",		"#u" = "Supply",		".u" = "Supply",
 	  ":z" = "Service",		"#z" = "Service",		".z" = "Service",
 	  ":p" = "AI Private",	"#p" = "AI Private",	".p" = "AI Private",
-	  ":x" = "cords",		"#x" = "cords",			".x" = "cords",
 
 	  ":R" = "right ear",	"#R" = "right ear",		".R" = "right ear",
 	  ":L" = "left ear",	"#L" = "left ear",		".L" = "left ear",
@@ -23,6 +23,7 @@ var/list/department_radio_keys = list(
 	  ":C" = "Command",		"#C" = "Command",		".C" = "Command",
 	  ":N" = "Science",		"#N" = "Science",		".N" = "Science",
 	  ":M" = "Medical",		"#M" = "Medical",		".M" = "Medical",
+	  ":X" = "Procedure",	"#X" = "Procedure",		".X" = "Procedure",
 	  ":E" = "Engineering",	"#E" = "Engineering",	".E" = "Engineering",
 	  ":S" = "Security",	"#S" = "Security",		".S" = "Security",
 	  ":W" = "whisper",		"#W" = "whisper",		".W" = "whisper",
@@ -33,21 +34,21 @@ var/list/department_radio_keys = list(
 	  ":$" = "Response Team", "#$" = "Response Team", ".$" = "Response Team",
 	  ":-" = "Special Ops",	"#-" = "Special Ops",	".-" = "Special Ops",
 	  ":_" = "SyndTeam",	"#_" = "SyndTeam",		"._" = "SyndTeam",
-	  ":X" = "cords",		"#X" = "cords",			".X" = "cords"
-)
+	  ":~" = "cords",		"#~" = "cords",			".~" = "cords"
+))
 
+GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
-var/list/channel_to_radio_key = new
-proc/get_radio_key_from_channel(var/channel)
-	var/key = channel_to_radio_key[channel]
+/proc/get_radio_key_from_channel(var/channel)
+	var/key = GLOB.channel_to_radio_key[channel]
 	if(!key)
-		for(var/radio_key in department_radio_keys)
-			if(department_radio_keys[radio_key] == channel)
+		for(var/radio_key in GLOB.department_radio_keys)
+			if(GLOB.department_radio_keys[radio_key] == channel)
 				key = radio_key
 				break
 		if(!key)
 			key = ""
-		channel_to_radio_key[channel] = key
+		GLOB.channel_to_radio_key[channel] = key
 
 	return key
 
@@ -61,7 +62,7 @@ proc/get_radio_key_from_channel(var/channel)
 	return default_language
 
 /mob/living/proc/handle_speech_problems(list/message_pieces, var/verb)
-	var/robot = isSynthetic()
+	var/robot = ismachineperson(src)
 	for(var/datum/multilingual_say_piece/S in message_pieces)
 		if(S.speaking && S.speaking.flags & NO_STUTTER)
 			continue
@@ -172,11 +173,18 @@ proc/get_radio_key_from_channel(var/channel)
 		var/list/hsp = handle_speech_problems(message_pieces, verb)
 		verb = hsp["verb"]
 
+	// Do this so it gets logged for all types of communication
+	var/log_message = "[message_mode ? "([message_mode])" : ""] '[message]'"
+	create_log(SAY_LOG, log_message)
 
 	var/list/used_radios = list()
 	if(handle_message_mode(message_mode, message_pieces, verb, used_radios))
 		return 1
 
+	// Log of what we've said, plain message, no spans or junk
+	// handle_message_mode should have logged this already if it handled it
+	say_log += log_message
+	log_say(log_message, src)
 
 	var/list/handle_v = handle_speech_sound()
 	var/sound/speech_sound = handle_v[1]
@@ -244,7 +252,7 @@ proc/get_radio_key_from_channel(var/channel)
 				continue
 
 			if(isobserver(M))
-				if(M.get_preference(CHAT_GHOSTEARS) && client) // The client check is so that ghosts don't have to listen to mice.
+				if(M.get_preference(PREFTOGGLE_CHAT_GHOSTEARS) && client) // The client check is so that ghosts don't have to listen to mice.
 					listening |= M
 					continue
 
@@ -262,21 +270,18 @@ proc/get_radio_key_from_channel(var/channel)
 		M.hear_say(message_pieces, verb, italics, src, speech_sound, sound_vol, sound_frequency)
 		if(M.client)
 			speech_bubble_recipients.Add(M.client)
-	spawn(0)
-		if(loc && !isturf(loc))
-			var/atom/A = loc //Non-turf, let it handle the speech bubble
-			A.speech_bubble("hR[speech_bubble_test]", A, speech_bubble_recipients)
-		else //Turf, leave speech bubbles to the mob
-			speech_bubble("h[speech_bubble_test]", src, speech_bubble_recipients)
+
+	if(loc && !isturf(loc))
+		var/atom/A = loc //Non-turf, let it handle the speech bubble
+		A.speech_bubble("[A.bubble_icon][speech_bubble_test]", A, speech_bubble_recipients)
+	else //Turf, leave speech bubbles to the mob
+		speech_bubble("[bubble_icon][speech_bubble_test]", src, speech_bubble_recipients)
 
 	for(var/obj/O in listening_obj)
 		spawn(0)
 			if(O) //It's possible that it could be deleted in the meantime.
 				O.hear_talk(src, message_pieces, verb)
 
-	//Log of what we've said, plain message, no spans or junk
-	say_log += message
-	log_say(message, src)
 	return 1
 
 /obj/effect/speech_bubble
@@ -307,7 +312,7 @@ proc/get_radio_key_from_channel(var/channel)
 			if(isnewplayer(M))
 				continue
 
-			if(isobserver(M) && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
+			if(isobserver(M) && M.get_preference(PREFTOGGLE_CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
 				M.show_message(message)
 
 		switch(type)
@@ -332,7 +337,8 @@ proc/get_radio_key_from_channel(var/channel)
 		var/datum/multilingual_say_piece/S = message_pieces // Yay BYOND's hilarious typecasting
 		S.speaking.broadcast(src, S.message)
 		return 1
-
+	// Log it here since it skips the default way say handles it
+	create_log(SAY_LOG, "(whisper) '[message]'")
 	whisper_say(message_pieces)
 
 // for weird circumstances where you're inside an atom that is also you, like pai's
@@ -346,8 +352,6 @@ proc/get_radio_key_from_channel(var/channel)
 			return
 
 	if(stat)
-		if(stat == DEAD)
-			return say_dead(message_pieces)
 		return
 
 	if(is_muzzled())
@@ -415,7 +419,7 @@ proc/get_radio_key_from_channel(var/channel)
 			continue
 
 		if(isobserver(M))
-			if(M.get_preference(CHAT_GHOSTEARS)) // The client check is so that ghosts don't have to listen to mice.
+			if(M.get_preference(PREFTOGGLE_CHAT_GHOSTEARS)) // The client check is so that ghosts don't have to listen to mice.
 				listening |= M
 				continue
 
@@ -446,21 +450,18 @@ proc/get_radio_key_from_channel(var/channel)
 	var/speech_bubble_test = say_test(message)
 
 	for(var/mob/M in listening)
-		M.hear_say(message_pieces, verb, italics, src)
+		M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE)
 		if(M.client)
 			speech_bubble_recipients.Add(M.client)
 
 	if(eavesdropping.len)
 		stars_all(message_pieces)	//hopefully passing the message twice through stars() won't hurt... I guess if you already don't understand the language, when they speak it too quietly to hear normally you would be able to catch even less.
 		for(var/mob/M in eavesdropping)
-			M.hear_say(message_pieces, verb, italics, src)
+			M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE)
 			if(M.client)
 				speech_bubble_recipients.Add(M.client)
 
-	spawn(0)
-		var/image/I = image('icons/mob/talk.dmi', src, "h[speech_bubble_test]", MOB_LAYER + 1)
-		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-		flick_overlay(I, speech_bubble_recipients, 30)
+	speech_bubble("[bubble_icon][speech_bubble_test]", src, speech_bubble_recipients)
 
 	if(watching.len)
 		var/rendered = "<span class='game say'><span class='name'>[name]</span> [not_heard].</span>"
@@ -469,7 +470,7 @@ proc/get_radio_key_from_channel(var/channel)
 
 	return 1
 
-/mob/living/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())
-	var/image/I = image('icons/mob/talk.dmi', bubble_loc, bubble_state, MOB_LAYER + 1)
+/mob/living/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
+	var/image/I = image('icons/mob/talk.dmi', bubble_loc, bubble_state, FLY_LAYER)
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-	flick_overlay(I, bubble_recipients, 30)
+	INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, I, bubble_recipients, 30)

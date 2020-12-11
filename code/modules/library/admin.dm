@@ -3,15 +3,14 @@
 	set desc = "Permamently deletes a book from the database."
 	set category = "Admin"
 
-	if(!holder)
-		to_chat(src, "Only administrators may use this command.")
+	if(!check_rights(R_ADMIN))
 		return
 
 	var/isbn = input("ISBN number?", "Delete Book") as num | null
 	if(!isbn)
 		return
 
-	var/DBQuery/query_delbook = dbcon.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=[isbn]")
+	var/DBQuery/query_delbook = GLOB.dbcon.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=[isbn]")
 	if(!query_delbook.Execute())
 		var/err = query_delbook.ErrorMsg()
 		log_game("SQL ERROR deleting book. Error : \[[err]\]\n")
@@ -25,8 +24,7 @@
 	set desc = "View books flagged for content."
 	set category = "Admin"
 
-	if(!holder)
-		to_chat(src, "Only administrators may use this command.")
+	if(!check_rights(R_ADMIN))
 		return
 
 	holder.view_flagged_books()
@@ -37,7 +35,7 @@
 
 	var/dat = "<table><tr><th>ISBN</th><th>Title</th><th>Total Flags</th><th>Options</th></tr>"
 
-	var/DBQuery/query = dbcon.NewQuery("SELECT id, title, flagged FROM [format_table_name("library")] WHERE flagged > 0 ORDER BY flagged DESC")
+	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT id, title, flagged FROM [format_table_name("library")] WHERE flagged > 0 ORDER BY flagged DESC")
 	if(!query.Execute())
 		var/err = query.ErrorMsg()
 		log_game("SQL ERROR getting flagged books. Error : \[[err]\]\n")

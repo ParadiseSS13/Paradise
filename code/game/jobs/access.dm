@@ -20,8 +20,6 @@
 	else
 		return check_access_list(acc)
 
-	return 0
-
 /obj/item/proc/GetAccess()
 	return list()
 
@@ -129,18 +127,15 @@
 			return list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND)
 
 /proc/get_all_accesses()
-	return list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_FORENSICS_LOCKERS, ACCESS_COURT,
-	            ACCESS_MEDICAL, ACCESS_GENETICS, ACCESS_MORGUE, ACCESS_RD,
-	            ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_CHEMISTRY, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_MAINT_TUNNELS,
-	            ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CHANGE_IDS, ACCESS_AI_UPLOAD,
-	            ACCESS_TELEPORTER, ACCESS_EVA, ACCESS_HEADS, ACCESS_CAPTAIN, ACCESS_ALL_PERSONAL_LOCKERS,
-	            ACCESS_TECH_STORAGE, ACCESS_CHAPEL_OFFICE, ACCESS_ATMOSPHERICS, ACCESS_KITCHEN,
-	            ACCESS_BAR, ACCESS_JANITOR, ACCESS_CREMATORIUM, ACCESS_ROBOTICS, ACCESS_CARGO, ACCESS_CONSTRUCTION,
-	            ACCESS_HYDROPONICS, ACCESS_LIBRARY, ACCESS_LAWYER, ACCESS_VIROLOGY, ACCESS_PSYCHIATRIST, ACCESS_CMO, ACCESS_QM, ACCESS_CLOWN, ACCESS_MIME, ACCESS_SURGERY,
-	            ACCESS_THEATRE, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_MAILSORTING,
-	            ACCESS_HEADS_VAULT, ACCESS_MINING_STATION, ACCESS_XENOBIOLOGY, ACCESS_CE, ACCESS_HOP, ACCESS_HOS, ACCESS_RC_ANNOUNCE,
-	            ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_GATEWAY, ACCESS_XENOARCH, ACCESS_PARAMEDIC, ACCESS_BLUESHIELD, ACCESS_MECHANIC,ACCESS_WEAPONS,
-	            ACCESS_PILOT, ACCESS_NTREP, ACCESS_MAGISTRATE, ACCESS_MINERAL_STOREROOM, ACCESS_MINISAT, ACCESS_NETWORK)
+	return list(ACCESS_MINISAT, ACCESS_AI_UPLOAD,  ACCESS_ARMORY, ACCESS_ATMOSPHERICS, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_BLUESHIELD,
+				ACCESS_HEADS, ACCESS_CAPTAIN, ACCESS_CARGO, ACCESS_MAILSORTING, ACCESS_CHAPEL_OFFICE, ACCESS_CE, ACCESS_CHEMISTRY, ACCESS_CLOWN, ACCESS_CMO,
+				ACCESS_COURT, ACCESS_CONSTRUCTION, ACCESS_CREMATORIUM, ACCESS_JANITOR, ACCESS_ENGINE, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_FORENSICS_LOCKERS,
+				ACCESS_GENETICS, ACCESS_GATEWAY, ACCESS_BRIG, ACCESS_HOP, ACCESS_HOS, ACCESS_HYDROPONICS, ACCESS_CHANGE_IDS, ACCESS_KEYCARD_AUTH, ACCESS_KITCHEN,
+				ACCESS_LAWYER, ACCESS_LIBRARY, ACCESS_MAGISTRATE, ACCESS_MAINT_TUNNELS, ACCESS_HEADS_VAULT, ACCESS_MEDICAL, ACCESS_MECHANIC, ACCESS_MIME,
+				ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_MORGUE, ACCESS_NETWORK, ACCESS_NTREP, ACCESS_PARAMEDIC,  ACCESS_ALL_PERSONAL_LOCKERS,
+				ACCESS_ENGINE_EQUIP, ACCESS_PSYCHIATRIST, ACCESS_QM, ACCESS_RD, ACCESS_RC_ANNOUNCE, ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_RESEARCH, ACCESS_SECURITY, ACCESS_PILOT,
+				ACCESS_SURGERY, ACCESS_TECH_STORAGE, ACCESS_TELEPORTER, ACCESS_THEATRE, ACCESS_TCOMSAT, ACCESS_TOX_STORAGE, ACCESS_VIROLOGY, ACCESS_WEAPONS, ACCESS_XENOBIOLOGY,
+				ACCESS_XENOARCH)
 
 /proc/get_all_centcom_access()
 	return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_MEDICAL, ACCESS_CENT_SECURITY, ACCESS_CENT_STORAGE, ACCESS_CENT_SHUTTLES, ACCESS_CENT_TELECOMMS, ACCESS_CENT_TELEPORTER, ACCESS_CENT_SPECOPS, ACCESS_CENT_SPECOPS_COMMANDER, ACCESS_CENT_BLACKOPS, ACCESS_CENT_THUNDER, ACCESS_CENT_BRIDGE, ACCESS_CENT_COMMANDER)
@@ -431,6 +426,7 @@
 
 //gets the alt title, failing that the actual job rank
 //this is unused
+// THEN WHY IS IT STILL HERE?? -AA07, 2020-07-31
 /obj/proc/sdsdsd()	//GetJobDisplayName
 	if(!istype(src, /obj/item/pda) && !istype(src,/obj/item/card/id))
 		return
@@ -447,7 +443,7 @@
 
 	return "Unknown"
 
-proc/GetIdCard(var/mob/living/carbon/human/H)
+/proc/GetIdCard(var/mob/living/carbon/human/H)
 	if(H.wear_id)
 		var/id = H.wear_id.GetID()
 		if(id)
@@ -456,7 +452,7 @@ proc/GetIdCard(var/mob/living/carbon/human/H)
 		var/obj/item/I = H.get_active_hand()
 		return I.GetID()
 
-proc/FindNameFromID(var/mob/living/carbon/human/H)
+/proc/FindNameFromID(var/mob/living/carbon/human/H)
 	ASSERT(istype(H))
 	var/obj/item/card/id/C = H.get_active_hand()
 	if( istype(C) || istype(C, /obj/item/pda) )
@@ -485,7 +481,7 @@ proc/FindNameFromID(var/mob/living/carbon/human/H)
 		if(ID)
 			return ID.registered_name
 
-proc/get_all_job_icons() //For all existing HUD icons
+/proc/get_all_job_icons() //For all existing HUD icons
 	return GLOB.joblist + list("Prisoner")
 
 /obj/proc/GetJobName() //Used in secHUD icon generation
@@ -499,7 +495,7 @@ proc/get_all_job_icons() //For all existing HUD icons
 		var/obj/item/card/id/I = src
 		assignmentName = I.assignment
 		rankName = I.rank
-		
+
 
 	var/job_icons = get_all_job_icons()
 	var/centcom = get_all_centcom_jobs()
@@ -513,5 +509,28 @@ proc/get_all_job_icons() //For all existing HUD icons
 		return assignmentName
 	if(rankName in job_icons)
 		return rankName
-	
+
 	return "Unknown" //Return unknown if none of the above apply
+
+/proc/get_accesslist_static_data(num_min_region = REGION_GENERAL, num_max_region = REGION_COMMAND)
+	var/list/retval
+	for(var/i in num_min_region to num_max_region)
+		var/list/accesses = list()
+		var/list/available_accesses
+		if(i == REGION_CENTCOMM) // Override necessary, because get_region_accesses(REGION_CENTCOM) returns BOTH CC and crew accesses.
+			available_accesses = get_all_centcom_access()
+		else
+			available_accesses = get_region_accesses(i)
+		for(var/access in available_accesses)
+			var/access_desc = (i == REGION_CENTCOMM) ? get_centcom_access_desc(access) : get_access_desc(access)
+			if (access_desc)
+				accesses += list(list(
+					"desc" = replacetext(access_desc, "&nbsp", " "),
+					"ref" = access,
+				))
+		retval += list(list(
+			"name" = get_region_accesses_name(i),
+			"regid" = i,
+			"accesses" = accesses
+		))
+	return retval

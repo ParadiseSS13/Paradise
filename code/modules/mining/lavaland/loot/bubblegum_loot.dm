@@ -82,7 +82,7 @@
 			B.mineEffect(L)
 
 		for(var/mob/living/carbon/human/H in GLOB.player_list)
-			if(H == L)
+			if(H.stat == DEAD || H == L)
 				continue
 			to_chat(H, "<span class='userdanger'>You have an overwhelming desire to kill [L]. [L.p_they(TRUE)] [L.p_have()] been marked red! Go kill [L.p_them()]!</span>")
 			H.put_in_hands(new /obj/item/kitchen/knife/butcher(H))

@@ -3,7 +3,7 @@
 
 	use_corner_selection = TRUE
 	var/use_json = TRUE
-	
+
 /datum/buildmode_mode/save/show_help(mob/user)
 	to_chat(user, "<span class='notice'>***********************************************************</span>")
 	to_chat(user, "<span class='notice'>Left Mouse Button on turf/obj/mob      = Select corner</span>")
@@ -23,6 +23,6 @@
 		if(use_json)
 			map_flags = 32 // Magic number defined in `writer.dm` that I can't use directly
 			// because #defines are for some reason our coding standard
-		var/our_map = maploader.save_map(cornerA, cornerB, map_name, map_flags)
+		var/our_map = GLOB.maploader.save_map(cornerA, cornerB, map_name, map_flags)
 		user << ftp(our_map) // send the map they've made! Or are stealing, whatever
 		to_chat(user, "Map saving complete! [our_map]")

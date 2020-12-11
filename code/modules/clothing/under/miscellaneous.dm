@@ -74,6 +74,7 @@
 	desc = "A comfortable and durable combat uniform worn by Sol Federation Marine Forces. This one has additional insignia on its shoulders."
 	icon_state = "solgovc"
 	item_color = "solgovc"
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 
 /obj/item/clothing/under/solgov/rep
 	name = "Sol Federation representative's uniform"
@@ -88,6 +89,10 @@
 	item_state = "g_suit"
 	item_color = "officer"
 
+/obj/item/clothing/under/rank/centcom_officer/sensor
+	sensor_mode = SENSOR_COORDS
+	random_sensor = FALSE
+
 /obj/item/clothing/under/rank/centcom_commander
 	desc = "It's a jumpsuit worn by CentComm's highest-tier Commanders."
 	name = "\improper CentComm officer's jumpsuit"
@@ -101,8 +106,8 @@
 	icon_state = "navy_gold"
 	item_state = "navy_gold"
 	item_color = "navy_gold"
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	displays_id = 0
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/captain
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.A.S. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
@@ -110,26 +115,25 @@
 	icon_state = "navy_gold"
 	item_state = "navy_gold"
 	item_color = "navy_gold"
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	displays_id = 0
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/blueshield
-	desc = "Gold trim on space-black cloth, this uniform bears \"Close Protection\" on the left shoulder."
-	name = "\improper Formal Nanotrasen Uniform"
+	desc = "Gold trim on space-black cloth, this uniform bears \"Close Protection\" on the left shoulder. It's got exotic materials for protection."
+	name = "\improper Formal Blueshield's Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	displays_id = 0
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/representative
 	desc = "Gold trim on space-black cloth, this uniform bears \"N.S.S. Cyberiad\" on the left shoulder."
-	name = "\improper Formal Nanotrasen Uniform"
+	name = "\improper Formal Nanotrasen Representative's Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
 	displays_id = 0
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/representative/New()
 	..()
@@ -137,12 +141,11 @@
 
 /obj/item/clothing/under/rank/centcom/magistrate
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears \"N.S.S. Cyberiad\" on the left shoulder."
-	name = "\improper Formal Nanotrasen Uniform"
+	name = "\improper Formal Magistrate's Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
 	displays_id = 0
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/magistrate/New()
 	..()
@@ -157,15 +160,15 @@
 	displays_id = 0
 
 /obj/item/clothing/under/rank/blueshield
-	name = "blueshield uniform"
-	desc = "A short-sleeved black uniform, paired with grey digital-camo cargo pants. Standard issue to Blueshields."
+	name = "blueshield's uniform"
+	desc = "A short-sleeved black uniform, paired with grey digital-camo cargo pants, all made out of a sturdy material. Blueshield standard issue."
 	icon_state = "ert_uniform"
 	item_state = "bl_suit"
 	item_color = "ert_uniform"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 
 /obj/item/clothing/under/rank/blueshield/skirt
-	name = "blueshield skirt"
+	name = "blueshield's skirt"
 	desc = "A short, black and grey with blue markings skirted uniform. For the feminine Blueshield."
 	icon_state = "blueshieldf"
 	item_state = "blueshieldf"
@@ -272,7 +275,6 @@
 	icon_state = "red_suit"
 	item_state = "r_suit"
 	item_color = "red_suit"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/suit_jacket/navy
 	name = "navy suit"
@@ -492,7 +494,7 @@
 	flags_inv = HIDESHOES
 
 /obj/item/clothing/under/wedding/bride_white
-	name = "orange wedding dress"
+	name = "white wedding dress"
 	desc = "A white wedding gown made from the finest silk."
 	icon_state = "bride_white"
 	item_color = "bride_white"
@@ -751,7 +753,6 @@
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
 	flags = NODROP
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	flags_size = ONESIZEFITSALL
 	has_sensor = 0 // HUNKE
 
 /obj/item/clothing/under/victdress
@@ -809,7 +810,6 @@
 	icon_state = "hawaiianred"
 	item_state = "hawaiianred"
 	item_color = "hawaiianred"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/pinkhawaiianshirt
 	name = "pink hawaiian shirt"
@@ -817,7 +817,6 @@
 	icon_state = "hawaiianpink"
 	item_state = "hawaiianpink"
 	item_color = "hawaiianpink"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/orangehawaiianshirt
 	name = "orange hawaiian shirt"
@@ -825,7 +824,6 @@
 	icon_state = "hawaiianorange"
 	item_state = "hawaiianorange"
 	item_color = "hawaiianorange"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/bluehawaiianshirt
 	name = "blue hawaiian shirt"
@@ -833,7 +831,6 @@
 	icon_state = "hawaiianblue"
 	item_state = "hawaiianblue"
 	item_color = "hawaiianblue"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/misc/durathread
 	name = "durathread jumpsuit"
@@ -849,3 +846,10 @@
 	icon_state = "cuban_suit"
 	item_state = "cuban_suit"
 	item_color = "cuban_suit"
+
+/obj/item/clothing/under/tourist_suit
+	name = "tourist outfit"
+	desc = "A light blue shirt with brown shorts. Feels oddly spooky."
+	icon_state = "tourist"
+	icon_state = "tourist"
+	item_color = "tourist"

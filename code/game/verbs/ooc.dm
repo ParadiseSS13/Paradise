@@ -1,12 +1,12 @@
-var/global/normal_ooc_colour = "#002eb8"
-var/global/member_ooc_colour = "#035417"
-var/global/mentor_ooc_colour = "#0099cc"
-var/global/moderator_ooc_colour = "#184880"
-var/global/admin_ooc_colour = "#b82e00"
+GLOBAL_VAR_INIT(normal_ooc_colour, "#275FC5")
+GLOBAL_VAR_INIT(member_ooc_colour, "#035417")
+GLOBAL_VAR_INIT(mentor_ooc_colour, "#00B0EB")
+GLOBAL_VAR_INIT(moderator_ooc_colour, "#184880")
+GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 //Checks if the client already has a text input open
 /client/proc/checkTyping()
-	return (prefs.toggles & TYPING_ONCE && typing)
+	return (prefs.toggles & PREFTOGGLE_TYPING_ONCE && typing)
 
 /client/verb/ooc(msg = "" as text)
 	set name = "OOC"
@@ -36,7 +36,7 @@ var/global/admin_ooc_colour = "#b82e00"
 	if(!msg)
 		return
 
-	if(!(prefs.toggles & CHAT_OOC))
+	if(!(prefs.toggles & PREFTOGGLE_CHAT_OOC))
 		to_chat(src, "<span class='danger'>You have OOC muted.</span>")
 		return
 
@@ -53,34 +53,35 @@ var/global/admin_ooc_colour = "#b82e00"
 			return
 
 	log_ooc(msg, src)
+	mob.create_log(OOC_LOG, msg)
 
-	var/display_colour = normal_ooc_colour
+	var/display_colour = GLOB.normal_ooc_colour
 	if(holder && !holder.fakekey)
-		display_colour = mentor_ooc_colour
+		display_colour = GLOB.mentor_ooc_colour
 		if(check_rights(R_MOD,0) && !check_rights(R_ADMIN,0))
-			display_colour = moderator_ooc_colour
+			display_colour = GLOB.moderator_ooc_colour
 		else if(check_rights(R_ADMIN,0))
 			if(config.allow_admin_ooccolor)
 				display_colour = src.prefs.ooccolor
 			else
-				display_colour = admin_ooc_colour
+				display_colour = GLOB.admin_ooc_colour
 
 	if(prefs.unlock_content)
-		if(display_colour == normal_ooc_colour)
-			if((prefs.toggles & MEMBER_PUBLIC))
-				display_colour = member_ooc_colour
+		if(display_colour == GLOB.normal_ooc_colour)
+			if((prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC))
+				display_colour = GLOB.member_ooc_colour
 
 	for(var/client/C in GLOB.clients)
-		if(C.prefs.toggles & CHAT_OOC)
+		if(C.prefs.toggles & PREFTOGGLE_CHAT_OOC)
 			var/display_name = key
 
 			if(prefs.unlock_content)
-				if(prefs.toggles & MEMBER_PUBLIC)
+				if(prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC)
 					var/icon/byond = icon('icons/member_content.dmi', "blag")
 					display_name = "[bicon(byond)][display_name]"
 
 			if(donator_level > 0)
-				if((prefs.toggles & DONATOR_PUBLIC))
+				if((prefs.toggles & PREFTOGGLE_DONATOR_PUBLIC))
 					var/icon/donator = icon('icons/ooc_tag_16x.dmi', "donator")
 					display_name = "[bicon(donator)][display_name]"
 
@@ -114,7 +115,7 @@ var/global/admin_ooc_colour = "#b82e00"
 
 	if(!check_rights(R_SERVER))	return
 
-	normal_ooc_colour = newColor
+	GLOB.normal_ooc_colour = newColor
 	message_admins("[key_name_admin(usr)] has set the default player OOC color to [newColor]")
 	log_admin("[key_name(usr)] has set the default player OOC color to [newColor]")
 
@@ -128,7 +129,7 @@ var/global/admin_ooc_colour = "#b82e00"
 
 	if(!check_rights(R_SERVER))	return
 
-	normal_ooc_colour = initial(normal_ooc_colour)
+	GLOB.normal_ooc_colour = initial(GLOB.normal_ooc_colour)
 	message_admins("[key_name_admin(usr)] has reset the default player OOC color")
 	log_admin("[key_name(usr)] has reset the default player OOC color")
 
@@ -191,7 +192,7 @@ var/global/admin_ooc_colour = "#b82e00"
 	if(!msg)
 		return
 
-	if(!(prefs.toggles & CHAT_LOOC))
+	if(!(prefs.toggles & PREFTOGGLE_CHAT_LOOC))
 		to_chat(src, "<span class='danger'>You have LOOC muted.</span>")
 		return
 
@@ -205,7 +206,7 @@ var/global/admin_ooc_colour = "#b82e00"
 			return
 
 	log_looc(msg, src)
-
+	mob.create_log(LOOC_LOG, msg)
 	var/mob/source = mob.get_looc_source()
 	var/list/heard = get_mobs_in_view(7, source)
 
@@ -216,7 +217,7 @@ var/global/admin_ooc_colour = "#b82e00"
 		display_name = mob.name
 
 	for(var/client/target in GLOB.clients)
-		if(target.prefs.toggles & CHAT_LOOC)
+		if(target.prefs.toggles & PREFTOGGLE_CHAT_LOOC)
 			var/prefix = ""
 			var/admin_stuff = ""
 			var/send = 0

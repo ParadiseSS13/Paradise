@@ -346,6 +346,22 @@
 	return
 	// HOLOFLOOR DOES NOT GIVE A FUCK
 
+/turf/simulated/floor/holofloor/space
+	name = "\proper space"
+	icon = 'icons/turf/space.dmi'
+	icon_state = "0"
+	plane = PLANE_SPACE
+
+/turf/simulated/floor/holofloor/space/Initialize(mapload)
+	icon_state = SPACE_ICON_STATE // so realistic
+	. = ..()
+
+/turf/simulated/floor/holofloor/space/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+	underlay_appearance.icon = 'icons/turf/space.dmi'
+	underlay_appearance.icon_state = SPACE_ICON_STATE
+	underlay_appearance.plane = PLANE_SPACE
+	return TRUE
+
 /obj/structure/table/holotable
 	flags = NODECONSTRUCT
 	canSmoothWith = list(/obj/structure/table/holotable)
@@ -356,6 +372,10 @@
 	icon = 'icons/obj/smooth_structures/wood_table.dmi'
 	icon_state = "wood_table"
 	canSmoothWith = list(/obj/structure/table/holotable/wood)
+
+/obj/structure/chair/stool/holostool
+	flags = NODECONSTRUCT
+	item_chair = null
 
 /obj/item/clothing/gloves/boxing/hologlove
 	name = "boxing gloves"

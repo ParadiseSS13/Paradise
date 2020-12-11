@@ -82,9 +82,8 @@
 	content_mob = /mob/living/simple_animal/pet/dog/fox
 
 /obj/structure/closet/critter/butterfly
-	name = "butterflies crate"
+	name = "butterfly crate"
 	content_mob = /mob/living/simple_animal/butterfly
-	amount = 50
 
 /obj/structure/closet/critter/deer
 	name = "deer crate"

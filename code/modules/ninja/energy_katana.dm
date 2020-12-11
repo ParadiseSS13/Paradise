@@ -52,7 +52,7 @@
 
 	if(user.put_in_hands(src))
 		msg = "Your Energy Katana teleports into your hand!"
-	else if(user.equip_to_slot_if_possible(src, slot_belt, 0, 1, 1))
+	else if(user.equip_to_slot_if_possible(src, slot_belt, FALSE, TRUE))
 		msg = "Your Energy Katana teleports back to you, sheathing itself as it does so!</span>"
 	else
 		loc = get_turf(user)

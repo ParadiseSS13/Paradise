@@ -3,6 +3,7 @@ SUBSYSTEM_DEF(acid)
 	priority = FIRE_PRIORITY_ACID
 	flags = SS_NO_INIT|SS_BACKGROUND
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
+	offline_implications = "Objects will no longer react to acid. No immediate action is needed."
 
 	var/list/currentrun = list()
 	var/list/processing = list()

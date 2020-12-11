@@ -47,7 +47,7 @@
 	SSmob_hunt.connected_clients += src
 	connected = 1
 	if(pda)
-		pda.audible_message("[bicon(pda)] Connection established. Capture all of the mobs, [pda.owner ? pda.owner : "hunter"]!", null, 2)
+		pda.atom_say("Connection established. Capture all of the mobs, [pda.owner ? pda.owner : "hunter"]!")
 	return 1
 
 /datum/data/pda/app/mob_hunter_game/proc/get_player()
@@ -67,7 +67,7 @@
 	connected = 0
 	//show a disconnect message if we were disconnected involuntarily (reason argument provided)
 	if(pda && reason)
-		pda.audible_message("[bicon(pda)] Disconnected from server. Reason: [reason].", null, 2)
+		pda.atom_say("Disconnected from server. Reason: [reason].")
 
 /datum/data/pda/app/mob_hunter_game/program_process()
 	if(!SSmob_hunt || !connected)
@@ -152,8 +152,12 @@
 	bait = bait.type
 	new bait(1, get_turf(pda))
 
-/datum/data/pda/app/mob_hunter_game/Topic(href, list/href_list)
-	switch(href_list["choice"])
+/datum/data/pda/app/mob_hunter_game/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return
+
+	. = TRUE
+	switch(action)
 		if("Rename")
 			assign_nickname()
 		if("Release")

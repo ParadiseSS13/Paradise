@@ -50,4 +50,4 @@
 		"is holding their breath!")
 
 /datum/species/vulpkanin/handle_death(gibbed, mob/living/carbon/human/H)
-	H.stop_tail_wagging(1)
+	H.stop_tail_wagging()

@@ -119,7 +119,7 @@
 	amount_per_transfer_from_this = 50
 	possible_transfer_amounts = list(25,50,100)
 	volume = 500
-	flags = NODROP | NOBLUDGEON
+	flags = NOBLUDGEON
 	container_type = OPENCONTAINER
 
 	var/obj/item/watertank/tank
@@ -232,6 +232,7 @@
 	var/nanofrost_cooldown = 0
 
 /obj/item/extinguisher/mini/nozzle/New(parent_tank)
+	. = ..()
 	if(check_tank_exists(parent_tank, src))
 		tank = parent_tank
 		reagents = tank.reagents

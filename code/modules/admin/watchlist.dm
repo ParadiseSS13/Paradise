@@ -6,7 +6,7 @@
 		if(!new_ckey)
 			return
 		new_ckey = sanitizeSQL(new_ckey)
-		var/DBQuery/query_watchfind = dbcon.NewQuery("SELECT ckey FROM [format_table_name("player")] WHERE ckey = '[new_ckey]'")
+		var/DBQuery/query_watchfind = GLOB.dbcon.NewQuery("SELECT ckey FROM [format_table_name("player")] WHERE ckey = '[new_ckey]'")
 		if(!query_watchfind.Execute())
 			var/err = query_watchfind.ErrorMsg()
 			log_game("SQL ERROR obtaining ckey from player table. Error : \[[err]\]\n")
@@ -29,7 +29,7 @@
 	if(!adminckey)
 		return
 	var/admin_sql_ckey = sanitizeSQL(adminckey)
-	var/DBQuery/query_watchadd = dbcon.NewQuery("INSERT INTO [format_table_name("watch")] (ckey, reason, adminckey, timestamp) VALUES ('[target_sql_ckey]', '[reason]', '[admin_sql_ckey]', '[timestamp]')")
+	var/DBQuery/query_watchadd = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("watch")] (ckey, reason, adminckey, timestamp) VALUES ('[target_sql_ckey]', '[reason]', '[admin_sql_ckey]', '[timestamp]')")
 	if(!query_watchadd.Execute())
 		var/err = query_watchadd.ErrorMsg()
 		log_game("SQL ERROR during adding new watch entry. Error : \[[err]\]\n")
@@ -43,7 +43,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 	var/target_sql_ckey = sanitizeSQL(target_ckey)
-	var/DBQuery/query_watchdel = dbcon.NewQuery("DELETE FROM [format_table_name("watch")] WHERE ckey = '[target_sql_ckey]'")
+	var/DBQuery/query_watchdel = GLOB.dbcon.NewQuery("DELETE FROM [format_table_name("watch")] WHERE ckey = '[target_sql_ckey]'")
 	if(!query_watchdel.Execute())
 		var/err = query_watchdel.ErrorMsg()
 		log_game("SQL ERROR during removing watch entry. Error : \[[err]\]\n")
@@ -57,7 +57,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 	var/target_sql_ckey = sanitizeSQL(target_ckey)
-	var/DBQuery/query_watchreason = dbcon.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey = '[target_sql_ckey]'")
+	var/DBQuery/query_watchreason = GLOB.dbcon.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey = '[target_sql_ckey]'")
 	if(!query_watchreason.Execute())
 		var/err = query_watchreason.ErrorMsg()
 		log_game("SQL ERROR obtaining reason from watch table. Error : \[[err]\]\n")
@@ -71,7 +71,7 @@
 		var/sql_ckey = sanitizeSQL(usr.ckey)
 		var/edit_text = "Edited by [sql_ckey] on [SQLtime()] from \"[watch_reason]\" to \"[new_reason]\""
 		edit_text = sanitizeSQL(edit_text)
-		var/DBQuery/query_watchupdate = dbcon.NewQuery("UPDATE [format_table_name("watch")] SET reason = '[new_reason]', last_editor = '[sql_ckey]', edits = CONCAT(IFNULL(edits,''),'[edit_text]') WHERE ckey = '[target_sql_ckey]'")
+		var/DBQuery/query_watchupdate = GLOB.dbcon.NewQuery("UPDATE [format_table_name("watch")] SET reason = '[new_reason]', last_editor = '[sql_ckey]', edits = CONCAT(IFNULL(edits,''),'[edit_text]') WHERE ckey = '[target_sql_ckey]'")
 		if(!query_watchupdate.Execute())
 			var/err = query_watchupdate.ErrorMsg()
 			log_game("SQL ERROR editing watchlist reason. Error : \[[err]\]\n")
@@ -96,7 +96,7 @@
 	else
 		search = "^."
 	search = sanitizeSQL(search)
-	var/DBQuery/query_watchlist = dbcon.NewQuery("SELECT ckey, reason, adminckey, timestamp, last_editor FROM [format_table_name("watch")] WHERE ckey REGEXP '[search]' ORDER BY ckey")
+	var/DBQuery/query_watchlist = GLOB.dbcon.NewQuery("SELECT ckey, reason, adminckey, timestamp, last_editor FROM [format_table_name("watch")] WHERE ckey REGEXP '[search]' ORDER BY ckey")
 	if(!query_watchlist.Execute())
 		var/err = query_watchlist.ErrorMsg()
 		log_game("SQL ERROR obtaining ckey, reason, adminckey, timestamp, last_editor from watch table. Error : \[[err]\]\n")
@@ -115,7 +115,7 @@
 
 /proc/check_watchlist(target_ckey)
 	var/target_sql_ckey = sanitizeSQL(target_ckey)
-	var/DBQuery/query_watch = dbcon.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey = '[target_sql_ckey]'")
+	var/DBQuery/query_watch = GLOB.dbcon.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey = '[target_sql_ckey]'")
 	if(!query_watch.Execute())
 		var/err = query_watch.ErrorMsg()
 		log_game("SQL ERROR obtaining reason from watch table. Error : \[[err]\]\n")

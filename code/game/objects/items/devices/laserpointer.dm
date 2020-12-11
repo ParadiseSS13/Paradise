@@ -138,6 +138,7 @@
 
 			log_admin("[key_name(user)] EMPd a camera with a laser pointer")
 			user.create_attack_log("[key_name(user)] EMPd a camera with a laser pointer")
+			add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
 		else
 			outmsg = "<span class='info'>You missed the lens of [C] with [src].</span>"
 

@@ -222,7 +222,7 @@
 				// EOF
 			)
 
-	spawn_result(mob/user as mob)
-		..()
-		feedback_inc("spacepod_created",1)
-		return
+/datum/construction/reversible2/pod/spawn_result(mob/user as mob)
+	..()
+	feedback_inc("spacepod_created",1)
+	return

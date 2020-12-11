@@ -1,9 +1,8 @@
 /*
 VOX HEIST ROUNDTYPE
 */
-
-var/global/list/raider_spawn = list()
-var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' objective. Clumsy, rewrite sometime.
+GLOBAL_LIST_EMPTY(raider_spawn)
+GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective. Clumsy, rewrite sometime.
 
 /datum/game_mode/
 	var/list/datum/mind/raiders = list()  //Antags.
@@ -70,10 +69,10 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 	//Spawn the vox!
 	for(var/datum/mind/raider in raiders)
 
-		if(index > raider_spawn.len)
+		if(index > GLOB.raider_spawn.len)
 			index = 1
 
-		raider.current.loc = raider_spawn[index]
+		raider.current.loc = GLOB.raider_spawn[index]
 		index++
 
 		create_vox(raider)
@@ -128,16 +127,16 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 	//Now apply cortical stack.
 	var/obj/item/implant/cortical/I = new(vox)
 	I.implant(vox)
-	cortical_stacks += I
+	GLOB.cortical_stacks += I
 
 	vox.equip_vox_raider()
 	vox.regenerate_icons()
 
 /datum/game_mode/proc/is_raider_crew_safe()
-	if(cortical_stacks.len == 0)
+	if(GLOB.cortical_stacks.len == 0)
 		return 0
 
-	for(var/obj/stack in cortical_stacks)
+	for(var/obj/stack in GLOB.cortical_stacks)
 		if(get_area(stack) != locate(/area/shuttle/vox) && get_area(stack) != locate(/area/vox_station))
 			return 0 //this is stupid as fuck
 	return 1
@@ -251,7 +250,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 
 	..()
 
-datum/game_mode/proc/auto_declare_completion_heist()
+/datum/game_mode/proc/auto_declare_completion_heist()
 	if(raiders.len)
 		var/check_return = 0
 		if(GAMEMODE_IS_HEIST)
@@ -288,17 +287,17 @@ datum/game_mode/proc/auto_declare_completion_heist()
 	return ..()
 
 
-/obj/vox/win_button
+/obj/machinery/vox_win_button
 	name = "shoal contact computer"
 	desc = "Used to contact the Vox Shoal, generally to arrange for pickup."
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "tcstation"
 
-/obj/vox/win_button/New()
+/obj/machinery/vox_win_button/New()
 	. = ..()
 	overlays += icon('icons/obj/computer.dmi', "syndie")
 
-/obj/vox/win_button/attack_hand(mob/user)
+/obj/machinery/vox_win_button/attack_hand(mob/user)
 	if(!GAMEMODE_IS_HEIST || (world.time < 10 MINUTES)) //has to be heist, and at least ten minutes into the round
 		to_chat(user, "<span class='warning'>\The [src] does not appear to have a connection.</span>")
 		return 0

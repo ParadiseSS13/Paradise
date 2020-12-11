@@ -34,16 +34,15 @@
 /obj/item/reagent_containers/food/snacks/proc/On_Consume(mob/M, mob/user)
 	if(!user)
 		return
-	spawn(0)
-		if(!reagents.total_volume)
-			if(M == user)
-				to_chat(user, "<span class='notice'>You finish eating \the [src].</span>")
-			user.visible_message("<span class='notice'>[M] finishes eating \the [src].</span>")
-			user.unEquip(src)	//so icons update :[
-			Post_Consume(M)
-			var/obj/item/trash_item = generate_trash(usr)
-			usr.put_in_hands(trash_item)
-			qdel(src)
+	if(!reagents.total_volume)
+		if(M == user)
+			to_chat(user, "<span class='notice'>You finish eating \the [src].</span>")
+		user.visible_message("<span class='notice'>[M] finishes eating \the [src].</span>")
+		user.unEquip(src)	//so icons update :[
+		Post_Consume(M)
+		var/obj/item/trash_item = generate_trash(usr)
+		usr.put_in_hands(trash_item)
+		qdel(src)
 	return
 
 /obj/item/reagent_containers/food/snacks/proc/Post_Consume(mob/living/M)
@@ -272,7 +271,6 @@
 //		reagents.add_reagent("xenomicrobes", 10)						//This is what is in the food item. you may copy/paste
 //		reagents.add_reagent("nutriment", 2)							//	this line of code for all the contents.
 //		bitesize = 3													//This is the amount each bite consumes.
-
 
 /obj/item/reagent_containers/food/snacks/badrecipe
 	name = "burned mess"

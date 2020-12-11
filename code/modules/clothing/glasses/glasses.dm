@@ -376,7 +376,6 @@
 	desc = "Covers the eyes, preventing sight."
 	icon_state = "blindfold"
 	item_state = "blindfold"
-	//vision_flags = BLIND
 	flash_protect = 2
 	tint = 3				//to make them blind
 	prescription_upgradable = 0
@@ -412,7 +411,7 @@
 		if(M.glasses == src)
 			M.EyeBlind(3)
 			M.EyeBlurry(5)
-			if(!(M.disabilities & NEARSIGHTED))
+			if(!(NEARSIGHTED in M.mutations))
 				M.BecomeNearsighted()
 				spawn(100)
 					M.CureNearsighted()

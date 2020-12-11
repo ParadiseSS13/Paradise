@@ -12,19 +12,12 @@
 		to_chat(A, "<br>")
 
 	if(prob(30))	//most of the time, we don't want an announcement, so as to allow AIs to fake blackouts.
-		event_announcement.Announce(alert)
+		GLOB.event_announcement.Announce(alert)
 
 /datum/event/communications_blackout/start()
-	for(var/obj/machinery/telecomms/T in telecomms_list)
-		T.emp_act(1)
-
-/proc/communications_blackout(var/silent = 1)
-	if(!silent)
-		event_announcement.Announce("Ionospheric anomalies detected. Temporary telecommunication failure imminent. Please contact you-BZZT", new_sound = 'sound/misc/interference.ogg')
-	else // AIs will always know if there's a comm blackout, rogue AIs could then lie about comm blackouts in the future while they shutdown comms
-		for(var/mob/living/silicon/ai/A in GLOB.player_list)
-			to_chat(A, "<br>")
-			to_chat(A, "<span class='warning'><b>Ionospheric anomalies detected. Temporary telecommunication failure imminent. Please contact you-BZZT<b></span>")
-			to_chat(A, "<br>")
-	for(var/obj/machinery/telecomms/T in telecomms_list)
-		T.emp_act(1)
+	// This only affects the cores, relays should be unaffected imo
+	for(var/obj/machinery/tcomms/core/T in GLOB.tcomms_machines)
+		T.start_ion()
+		// Bring it back sometime between 3-5 minutes. This uses deciseconds, so 1800 and 3000 respecticely.
+		// The AI cannot disable this, it must be waited for
+		addtimer(CALLBACK(T, /obj/machinery/tcomms.proc/end_ion), rand(1800, 3000))

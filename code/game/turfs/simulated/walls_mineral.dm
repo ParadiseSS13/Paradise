@@ -277,6 +277,9 @@
 /turf/simulated/wall/mineral/titanium/nodecon/burn_down()
 	return
 
+/turf/simulated/wall/mineral/titanium/nodecon/welder_act()
+	return
+
 /////////////////////Plastitanium walls/////////////////////
 
 /turf/simulated/wall/mineral/plastitanium

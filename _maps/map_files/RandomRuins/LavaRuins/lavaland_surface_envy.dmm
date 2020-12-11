@@ -95,6 +95,7 @@
 /area/ruin/unpowered)
 "p" = (
 /obj/machinery/door/airlock/hatch,
+/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "q" = (

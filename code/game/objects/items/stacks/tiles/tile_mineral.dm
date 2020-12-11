@@ -27,9 +27,9 @@
 	mineralType = "uranium"
 	materials = list(MAT_URANIUM=500)
 
-var/global/list/datum/stack_recipe/gold_tile_recipes = list ( \
+GLOBAL_LIST_INIT(gold_tile_recipes, list ( \
 	new/datum/stack_recipe("fancy gold tile", /obj/item/stack/tile/mineral/gold/fancy, max_res_amount = 20), \
-	)
+	))
 
 /obj/item/stack/tile/mineral/gold
 	name = "gold tile"
@@ -42,11 +42,11 @@ var/global/list/datum/stack_recipe/gold_tile_recipes = list ( \
 
 /obj/item/stack/tile/mineral/gold/New(loc, amount=null)
 	..()
-	recipes = gold_tile_recipes
+	recipes = GLOB.gold_tile_recipes
 
-var/global/list/datum/stack_recipe/goldfancy_tile_recipes = list ( \
+GLOBAL_LIST_INIT(goldfancy_tile_recipes, list ( \
 	new/datum/stack_recipe("regular gold tile", /obj/item/stack/tile/mineral/gold, max_res_amount = 20), \
-	)
+	))
 
 /obj/item/stack/tile/mineral/gold/fancy
 	icon_state = "tile_goldfancy"
@@ -54,11 +54,11 @@ var/global/list/datum/stack_recipe/goldfancy_tile_recipes = list ( \
 
 /obj/item/stack/tile/mineral/gold/fancy/New(loc, amount=null)
 	..()
-	recipes = goldfancy_tile_recipes
+	recipes = GLOB.goldfancy_tile_recipes
 
-var/global/list/datum/stack_recipe/silver_tile_recipes = list ( \
+GLOBAL_LIST_INIT(silver_tile_recipes, list ( \
 	new/datum/stack_recipe("fancy silver tile", /obj/item/stack/tile/mineral/silver/fancy, max_res_amount = 20), \
-	)
+	))
 
 /obj/item/stack/tile/mineral/silver
 	name = "silver tile"
@@ -71,11 +71,11 @@ var/global/list/datum/stack_recipe/silver_tile_recipes = list ( \
 
 /obj/item/stack/tile/mineral/silver/New(loc, amount=null)
 	..()
-	recipes = silver_tile_recipes
+	recipes = GLOB.silver_tile_recipes
 
-var/global/list/datum/stack_recipe/silverfancy_tile_recipes = list ( \
+GLOBAL_LIST_INIT(silverfancy_tile_recipes, list ( \
 	new/datum/stack_recipe("regular silver tile", /obj/item/stack/tile/mineral/silver, max_res_amount = 20), \
-	)
+	))
 
 /obj/item/stack/tile/mineral/silver/fancy
 	icon_state = "tile_silverfancy"
@@ -83,7 +83,7 @@ var/global/list/datum/stack_recipe/silverfancy_tile_recipes = list ( \
 
 /obj/item/stack/tile/mineral/silver/fancy/New(loc, amount=null)
 	..()
-	recipes = silverfancy_tile_recipes
+	recipes = GLOB.silverfancy_tile_recipes
 
 /obj/item/stack/tile/mineral/diamond
 	name = "diamond tile"

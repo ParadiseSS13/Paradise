@@ -124,8 +124,7 @@
 	//Attach hydraulic clamp
 	var/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/HC = new
 	HC.attach(src)
-	for(var/obj/item/mecha_parts/mecha_tracking/B in trackers)//Deletes the beacon so it can't be found easily
-		qdel(B)
+	QDEL_LIST(trackers) //Deletes the beacon so it can't be found easily
 
 	var/obj/item/mecha_parts/mecha_equipment/mining_scanner/scanner = new
 	scanner.attach(src)
@@ -139,7 +138,7 @@
 	..()
 	if(href_list["drop_from_cargo"])
 		var/obj/O = locate(href_list["drop_from_cargo"])
-		if(O && O in cargo)
+		if(O && (O in cargo))
 			occupant_message("<span class='notice'>You unload [O].</span>")
 			O.loc = get_turf(src)
 			cargo -= O

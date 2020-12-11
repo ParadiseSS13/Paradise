@@ -186,11 +186,11 @@
 
 	L.Stun(stunforce)
 	L.Weaken(stunforce)
-	L.apply_effect(STUTTER, stunforce)
+	L.SetStuttering(stunforce)
 
 	if(user)
-		user.lastattacked = L
-		L.lastattacker = user
+		L.lastattacker = user.real_name
+		L.lastattackerckey = user.ckey
 		L.visible_message("<span class='danger'>[user] has stunned [L] with [src]!</span>", \
 								"<span class='userdanger'>[user] has stunned you with [src]!</span>")
 		add_attack_logs(user, L, "stunned")

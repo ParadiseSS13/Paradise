@@ -455,8 +455,8 @@
 		EscapeConfinement()
 		var/dir_to_target = get_dir(targets_from, target)
 		var/dir_list = list()
-		if(dir_to_target in diagonals) //it's diagonal, so we need two directions to hit
-			for(var/direction in cardinal)
+		if(dir_to_target in GLOB.diagonals) //it's diagonal, so we need two directions to hit
+			for(var/direction in GLOB.cardinal)
 				if(direction & dir_to_target)
 					dir_list += direction
 		else
@@ -467,7 +467,7 @@
 /mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with megafauna destroying everything around them
 	if(environment_smash)
 		EscapeConfinement()
-		for(var/dir in cardinal)
+		for(var/dir in GLOB.cardinal)
 			DestroyObjectsInDirection(dir)
 
 /mob/living/simple_animal/hostile/proc/EscapeConfinement()

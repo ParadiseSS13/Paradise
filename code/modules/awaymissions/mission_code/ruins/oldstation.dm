@@ -105,7 +105,7 @@
 
 /obj/item/paper/fluff/ruins/oldstation/damagereport
 	name = "Damage Report"
-	info = "<b>*Damage Report*</b><br><br><b>Alpha Station</b> - Destroyed<br><br><b>Beta Station</b> - Catastrophic Damage. Medical, destroyed. Atmospherics, partially destroyed. Engine Core, destroyed.<br><br><b>Charlie Station</b> - Intact. Loss of oxygen to eastern side of main corridor.<br><br><b>Delta Station</b> - Intact. <b>WARNING</b>: Unknown force occupying Delta Station. Intent unknown. Species unknown. Numbers unknown.<br><br>Recommendation - Reestablish station powernet via solar array. Reestablish station atmospherics system to restore air."
+	info = "<b>*Damage Report*</b><br><br><b>Alpha Station</b> - Destroyed<br><br><b>Beta Station</b> - Catastrophic Damage. Medical, destroyed. Atmospherics, partially destroyed. Engine Core, destroyed.<br><br><b>Charlie Station</b> - Intact. Loss of oxygen to eastern side of main corridor.<br><br><b>Theta Station</b> - Intact. <b>WARNING</b>: Unknown force occupying Theta Station. Intent unknown. Species unknown. Numbers unknown.<br><br>Recommendation - Reestablish station powernet via solar array. Reestablish station atmospherics system to restore air."
 
 /obj/item/paper/fluff/ruins/oldstation/protosuit
 	name = "B01-RIG Hardsuit Report"
@@ -145,7 +145,7 @@
 	info = "Artificial Program's report to surviving crewmembers.<br><br>Crew were placed into cryostasis on March 10th, 2445.<br><br>Crew were awoken from cryostasis around June, 2557.<br><br> \
 	<b>SIGNIFICANT EVENTS OF NOTE</b><br>1: The primary radiation detectors were taken offline after 112 years due to power failure, secondary radiation detectors showed no residual \
 	radiation on station. Deduction, primarily detector was malfunctioning and was producing a radiation signal when there was none.<br><br>2: A data burst from a nearby Nanotrasen Space \
-	Station was received, this data burst contained research data that has been uploaded to our RnD labs.<br><br>3: Unknown invasion force has occupied Delta station."
+	Station was received, this data burst contained research data that has been uploaded to our RnD labs.<br><br>3: Unknown invasion force has occupied Theta station."
 
 /obj/item/paper/fluff/ruins/oldstation/generator_manual
 	name = "S.U.P.E.R.P.A.C.M.A.N.-type portable generator manual"
@@ -321,6 +321,7 @@
 	name = "Beta Station Atmospherics"
 	icon_state = "red"
 	has_gravity = FALSE
+	ambientsounds = ENGINEERING_SOUNDS
 
 /area/ruin/space/ancientstation/betanorth
 	name = "Beta Station North Corridor"
@@ -333,6 +334,7 @@
 /area/ruin/space/ancientstation/engi
 	name = "Charlie Station Engineering"
 	icon_state = "engine"
+	ambientsounds = ENGINEERING_SOUNDS
 
 /area/ruin/space/ancientstation/comm
 	name = "Charlie Station Command"
@@ -350,16 +352,16 @@
 	name = "Charlie Station Security"
 	icon_state = "red"
 
-/area/ruin/space/ancientstation/deltacorridor
-	name = "Delta Station Main Corridor"
+/area/ruin/space/ancientstation/thetacorridor
+	name = "Theta Station Main Corridor"
 	icon_state = "green"
 
 /area/ruin/space/ancientstation/proto
-	name = "Delta Station Prototype Lab"
+	name = "Theta Station Prototype Lab"
 	icon_state = "toxlab"
 
 /area/ruin/space/ancientstation/rnd
-	name = "Delta Station Research and Development"
+	name = "Theta Station Research and Development"
 	icon_state = "toxlab"
 
 /area/ruin/space/ancientstation/hivebot

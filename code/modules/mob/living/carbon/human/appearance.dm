@@ -1,7 +1,7 @@
-/mob/living/carbon/human/proc/change_appearance(var/flags = APPEARANCE_ALL_HAIR, var/location = src, var/mob/user = src, var/check_species_whitelist = 1, var/list/species_whitelist = list(), var/list/species_blacklist = list(), var/datum/topic_state/state = default_state)
-	var/datum/nano_module/appearance_changer/AC = new(location, src, check_species_whitelist, species_whitelist, species_blacklist)
+/mob/living/carbon/human/proc/change_appearance(flags = APPEARANCE_ALL_HAIR, datum/location = src, mob/user = src, check_species_whitelist = TRUE, list/species_whitelist = list(), list/species_blacklist = list())
+	var/datum/ui_module/appearance_changer/AC = new(location, src, check_species_whitelist, species_whitelist, species_blacklist)
 	AC.flags = flags
-	AC.ui_interact(user, state = state)
+	AC.ui_interact(user)
 
 /mob/living/carbon/human/proc/change_gender(var/new_gender, var/update_dna = 1)
 	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
@@ -104,9 +104,9 @@
 	if(!body_accessory_style || (body_accessory && body_accessory.name == body_accessory_style))
 		return
 
-	for(var/B in body_accessory_by_name)
+	for(var/B in GLOB.body_accessory_by_name)
 		if(B == body_accessory_style)
-			body_accessory = body_accessory_by_name[body_accessory_style]
+			body_accessory = GLOB.body_accessory_by_name[body_accessory_style]
 			found = 1
 
 	if(!found)
@@ -131,7 +131,7 @@
 			m_styles["head"] = "None"
 			update_markings()
 
-	update_body(1, 1) //Update the body and force limb icon regeneration to update the head with the new icon.
+	update_body(TRUE) //Update the body and force limb icon regeneration to update the head with the new icon.
 	if(wear_mask)
 		update_inv_wear_mask()
 	return 1
@@ -307,6 +307,7 @@
 /mob/living/carbon/human/proc/update_dna()
 	check_dna()
 	dna.ready_dna(src)
+	SEND_SIGNAL(src, COMSIG_HUMAN_UPDATE_DNA)
 
 /mob/living/carbon/human/proc/generate_valid_species(var/check_whitelist = 1, var/list/whitelist = list(), var/list/blacklist = list())
 	var/list/valid_species = new()
@@ -340,7 +341,7 @@
 		if((H.gender == MALE && S.gender == FEMALE) || (H.gender == FEMALE && S.gender == MALE))
 			continue
 		if(H.dna.species.bodyflags & ALL_RPARTS) //If the user is a species who can have a robotic head...
-			var/datum/robolimb/robohead = all_robolimbs[H.model]
+			var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
 			if((H.dna.species.name in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 				valid_hairstyles += hairstyle //Give them their hairstyles if they do.
 			else
@@ -368,7 +369,7 @@
 		if((H.gender == MALE && S.gender == FEMALE) || (H.gender == FEMALE && S.gender == MALE))
 			continue
 		if(H.dna.species.bodyflags & ALL_RPARTS) //If the user is a species who can have a robotic head...
-			var/datum/robolimb/robohead = all_robolimbs[H.model]
+			var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
 			if(H.dna.species.name in S.species_allowed) //If this is a facial hair style native to the user's species...
 				if((H.dna.species.name in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a facial hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 					valid_facial_hairstyles += facialhairstyle //Give them their facial hairstyles if they do.
@@ -422,7 +423,7 @@
 		if(location == "head")
 			var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_list[S.name]
 			if(H.dna.species.bodyflags & ALL_RPARTS) //If the user is a species that can have a robotic head...
-				var/datum/robolimb/robohead = all_robolimbs[H.model]
+				var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
 				if(!(S.models_allowed && (robohead.company in S.models_allowed))) //Make sure they don't get markings incompatible with their head.
 					continue
 			else if(H.alt_head && H.alt_head != "None") //If the user's got an alt head, validate markings for that head.
@@ -437,10 +438,10 @@
 
 /mob/living/carbon/human/proc/generate_valid_body_accessories()
 	var/list/valid_body_accessories = new()
-	for(var/B in body_accessory_by_name)
-		var/datum/body_accessory/A = body_accessory_by_name[B]
+	for(var/B in GLOB.body_accessory_by_name)
+		var/datum/body_accessory/A = GLOB.body_accessory_by_name[B]
 		if(check_rights(R_ADMIN, 0, src))
-			valid_body_accessories = body_accessory_by_name.Copy()
+			valid_body_accessories = GLOB.body_accessory_by_name.Copy()
 		else
 			if(!istype(A))
 				valid_body_accessories["None"] = "None" //The only null entry should be the "None" option.
@@ -469,7 +470,7 @@
 	scramble(1, src, 100)
 	real_name = random_name(gender, dna.species.name) //Give them a name that makes sense for their species.
 	sync_organ_dna(assimilate = 1)
-	update_body(0)
+	update_body()
 	reset_hair() //No more winding up with hairstyles you're not supposed to have, and blowing your cover.
 	reset_markings() //...Or markings.
 	dna.ResetUIFrom(src)

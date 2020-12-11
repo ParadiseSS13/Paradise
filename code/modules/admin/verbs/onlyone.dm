@@ -54,7 +54,7 @@
 
 	message_admins("[key_name_admin(usr)] used THERE CAN BE ONLY ONE! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-", 1)
 	log_admin("[key_name(usr)] used there can be only one.")
-	nologevent = 1
+	GLOB.nologevent = 1
 	world << sound('sound/music/thunderdome.ogg')
 
 /client/proc/only_me()
@@ -84,7 +84,7 @@
 		var/obj/item/slot_item_hand = H.get_item_by_slot(slot_r_hand)
 		H.unEquip(slot_item_hand)
 
-		var /obj/item/multisword/pure_evil/multi = new(H)
+		var/obj/item/multisword/pure_evil/multi = new(H)
 		H.equip_to_slot_or_del(multi, slot_r_hand)
 
 		var/obj/item/card/id/W = new(H)
@@ -100,5 +100,5 @@
 
 	message_admins("[key_name_admin(usr)] used THERE CAN BE ONLY ME! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-", 1)
 	log_admin("[key_name(usr)] used there can be only me.")
-	nologevent = 1
+	GLOB.nologevent = 1
 	world << sound('sound/music/thunderdome.ogg')

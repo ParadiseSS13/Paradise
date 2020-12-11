@@ -7,6 +7,7 @@
 #define TARGET_INVALID_GOLEM		6
 #define TARGET_INVALID_EVENT		7
 #define TARGET_INVALID_IS_TARGET	8
+#define TARGET_INVALID_BLACKLISTED	9
 
 //gamemode istype helpers
 #define GAMEMODE_IS_BLOB		(SSticker && istype(SSticker.mode, /datum/game_mode/blob))
@@ -15,6 +16,7 @@
 #define GAMEMODE_IS_NUCLEAR		(SSticker && istype(SSticker.mode, /datum/game_mode/nuclear))
 #define GAMEMODE_IS_REVOLUTION	(SSticker && istype(SSticker.mode, /datum/game_mode/revolution))
 #define GAMEMODE_IS_WIZARD		(SSticker && istype(SSticker.mode, /datum/game_mode/wizard))
+#define GAMEMODE_IS_RAGIN_MAGES (SSticker && istype(SSticker.mode, /datum/game_mode/wizard/raginmages))
 
 //special roles
 // Distinct from the ROLE_X defines because some antags have multiple special roles but only one ban type

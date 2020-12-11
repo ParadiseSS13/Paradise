@@ -7,10 +7,10 @@
 /* DATA HUD DATUMS */
 
 /atom/proc/add_to_all_human_data_huds()
-	for(var/datum/atom_hud/data/human/hud in huds) hud.add_to_hud(src)
+	for(var/datum/atom_hud/data/human/hud in GLOB.huds) hud.add_to_hud(src)
 
 /atom/proc/remove_from_all_data_huds()
-	for(var/datum/atom_hud/data/hud in huds) hud.remove_from_hud(src)
+	for(var/datum/atom_hud/data/hud in GLOB.huds) hud.remove_from_hud(src)
 
 /datum/atom_hud/data
 
@@ -70,13 +70,29 @@
 
 //HELPERS
 
-//called when a carbon changes virus
-/mob/living/carbon/proc/check_virus()
+/// Whether the carbon mob is currently in crit.
+// Even though "crit" does not realistically happen for non-humans..
+/mob/living/carbon/proc/is_in_crit()
+	for(var/thing in viruses)
+		var/datum/disease/D = thing
+		if(istype(D, /datum/disease/critical))
+			return TRUE
+	return FALSE
+
+/mob/living/carbon/human/is_in_crit()
+	if(..())
+		return TRUE
+	if(undergoing_cardiac_arrest())
+		return TRUE
+	return FALSE
+
+/// Whether a virus worthy displaying on the HUD is present.
+/mob/living/carbon/proc/has_virus()
 	for(var/thing in viruses)
 		var/datum/disease/D = thing
 		if((!(D.visibility_flags & HIDDEN_SCANNER)) && (D.severity != NONTHREAT))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 //helper for getting the appropriate health status
 /proc/RoundHealth(mob/living/M)
@@ -135,14 +151,12 @@
 			return "health-90"
 		else
 			return "health-100" //past this point, you're just in trouble
-	return "0"
-
 
 ///HOOKS
 
 //called when a human changes suit sensors
 /mob/living/carbon/proc/update_suit_sensors()
-	var/datum/atom_hud/data/human/medical/basic/B = huds[DATA_HUD_MEDICAL_BASIC]
+	var/datum/atom_hud/data/human/medical/basic/B = GLOB.huds[DATA_HUD_MEDICAL_BASIC]
 	B.update_suit_sensors(src)
 
 
@@ -164,19 +178,22 @@
 /mob/living/carbon/med_hud_set_status()
 	var/image/holder = hud_list[STATUS_HUD]
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
-	if(stat == DEAD || (status_flags & FAKEDEATH))
-		if(timeofdeath)
-			var/tdelta = round(world.time - timeofdeath)
-			if(tdelta < (DEFIB_TIME_LIMIT * 10))
-				holder.icon_state = "huddefib"
-				return
-		holder.icon_state = "huddead"
+	var/dead = stat == DEAD || (status_flags & FAKEDEATH)
+	// To the right of health bar
+	if(dead)
+		var/revivable = timeofdeath && (round(world.time - timeofdeath) < DEFIB_TIME_LIMIT)
+		if(revivable)
+			holder.icon_state = "hudflatline"
+		else
+			holder.icon_state = "huddead"
 	else if(status_flags & XENO_HOST)
 		holder.icon_state = "hudxeno"
-	else if(check_virus())
-		holder.icon_state = "hudill"
 	else if(B && B.controlling)
 		holder.icon_state = "hudbrainworm"
+	else if(is_in_crit())
+		holder.icon_state = "huddefib"
+	else if(has_virus())
+		holder.icon_state = "hudill"
 	else
 		holder.icon_state = "hudhealthy"
 
@@ -220,22 +237,31 @@
 	var/perpname = get_visible_name(TRUE) //gets the name of the perp, works if they have an id or if their face is uncovered
 	if(!SSticker) return //wait till the game starts or the monkeys runtime....
 	if(perpname)
-		var/datum/data/record/R = find_record("name", perpname, data_core.security)
+		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
 		if(R)
 			switch(R.fields["criminal"])
-				if("*Execute*")
+				if(SEC_RECORD_STATUS_EXECUTE)
 					holder.icon_state = "hudexecute"
 					return
-				if("*Arrest*")
+				if(SEC_RECORD_STATUS_ARREST)
 					holder.icon_state = "hudwanted"
 					return
-				if("Incarcerated")
+				if(SEC_RECORD_STATUS_SEARCH)
+					holder.icon_state = "hudsearch"
+					return
+				if(SEC_RECORD_STATUS_MONITOR)
+					holder.icon_state = "hudmonitor"
+					return
+				if(SEC_RECORD_STATUS_DEMOTE)
+					holder.icon_state = "huddemote"
+					return
+				if(SEC_RECORD_STATUS_INCARCERATED)
 					holder.icon_state = "hudprisoner"
 					return
-				if("Parolled")
+				if(SEC_RECORD_STATUS_PAROLLED)
 					holder.icon_state = "hudparolled"
 					return
-				if("Released")
+				if(SEC_RECORD_STATUS_RELEASED)
 					holder.icon_state = "hudreleased"
 					return
 	holder.icon_state = null
@@ -261,7 +287,6 @@
 			return "crit"
 		else
 			return "dead"
-	return "dead"
 
 //Sillycone hooks
 /mob/living/silicon/proc/diag_hud_set_health()
@@ -391,7 +416,6 @@
 			return "max"
 		else
 			return "zero"
-	return "zero"
 
 /obj/machinery/hydroponics/proc/plant_hud_set_nutrient()
 	var/image/holder = hud_list[PLANT_NUTRIENT_HUD]
@@ -441,3 +465,37 @@
 		holder.icon_state = ""
 		return
 	holder.icon_state = "hudweed[RoundPlantBar(weedlevel/10)]"
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	I'll just put this somewhere near the end...
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/// Helper function to add a "comment" to a data record. Used for medical or security records.
+/mob/living/carbon/human/proc/add_comment(mob/commenter, comment_kind, comment_text)
+	var/perpname = get_visible_name(TRUE) //gets the name of the perp, works if they have an id or if their face is uncovered
+	if(!perpname)
+		return
+	var/datum/data/record/R
+	switch(comment_kind)
+		if("security")
+			R = find_record("name", perpname, GLOB.data_core.security)
+		if("medical")
+			R = find_record("name", perpname, GLOB.data_core.medical)
+	if(!R)
+		return
+
+	var/commenter_display = "Something(???)"
+	if(ishuman(commenter))
+		var/mob/living/carbon/human/U = commenter
+		commenter_display = "[U.get_authentification_name()] ([U.get_assignment()])"
+	else if(isrobot(commenter))
+		var/mob/living/silicon/robot/U = commenter
+		commenter_display = "[U.name] ([U.modtype] [U.braintype])"
+	else if(isAI(commenter))
+		var/mob/living/silicon/ai/U = commenter
+		commenter_display = "[U.name] (artificial intelligence)"
+	comment_text = "Made by [commenter_display] on [GLOB.current_date_string] [station_time_timestamp()]:<br>[comment_text]"
+
+	if(!R.fields["comments"])
+		R.fields["comments"] = list()
+	R.fields["comments"] += list(comment_text)

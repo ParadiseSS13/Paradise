@@ -11,14 +11,10 @@
 	throw_speed = 4
 	throw_range = 20
 	discrete = 1
-
-	trip_stun = 4
-	trip_weaken = 2
-	trip_chance = 100
-	trip_walksafe = FALSE
-	trip_verb = TV_SLIP
-
 	var/cleanspeed = 50 //slower than mop
+
+/obj/item/soap/ComponentInitialize()
+	AddComponent(/datum/component/slippery, src, 4, 2, 100, 0, FALSE)
 
 /obj/item/soap/afterattack(atom/target, mob/user, proximity)
 	if(!proximity) return
@@ -32,7 +28,7 @@
 			to_chat(user, "You take a bite of the [name]. Delicious!")
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 			user.adjust_nutrition(2)
-	else if(istype(target,/obj/effect/decal/cleanable))
+	else if(istype(target, /obj/effect/decal/cleanable) || istype(target, /obj/effect/rune))
 		user.visible_message("<span class='warning'>[user] begins to scrub \the [target.name] out with [src].</span>")
 		if(do_after(user, cleanspeed, target = target) && target)
 			to_chat(user, "<span class='notice'>You scrub \the [target.name] out.</span>")

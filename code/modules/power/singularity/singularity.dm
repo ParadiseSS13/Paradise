@@ -113,7 +113,7 @@
 	if(allowed_size >= STAGE_TWO)
 		// Start moving even before we reach "true" stage two.
 		// If we are stage one and are sufficiently energetic to be allowed to 2,
-		//  it might mean we are stuck in a corner somewere. So move around to try to expand. 
+		//  it might mean we are stuck in a corner somewere. So move around to try to expand.
 		move()
 	if(current_size >= STAGE_TWO)
 		pulse()
@@ -253,7 +253,6 @@
 
 
 /obj/singularity/proc/eat()
-	set background = BACKGROUND_ENABLED
 	for(var/tile in spiral_range_turfs(grav_pull, src))
 		var/turf/T = tile
 		if(!T || !isturf(loc))
@@ -269,7 +268,8 @@
 					X.singularity_pull(src, current_size)
 				else
 					consume(X)
-			CHECK_TICK
+			if(TICK_CHECK)
+				return // You've eaten enough. Prevents weirdness like the singulo eating the containment on stage 2
 
 
 /obj/singularity/proc/consume(atom/A)
@@ -280,6 +280,15 @@
 		name = "supermatter-charged [initial(name)]"
 		consumedSupermatter = 1
 		set_light(10)
+	if(istype(A, /obj/singularity/narsie))
+		if(current_size == STAGE_SIX)
+			visible_message("<span class='userdanger'>[SSticker.cultdat?.entity_name] is consumed by [src]!</span>")
+			qdel(A)
+		else
+			visible_message("<span class='userdanger'>[SSticker.cultdat?.entity_name] strikes down [src]!</span>")
+			investigate_log("has been destroyed by Nar'Sie","singulo")
+			qdel(src)
+
 	return
 
 
@@ -287,7 +296,7 @@
 	if(!move_self)
 		return 0
 
-	var/movement_dir = pick(alldirs - last_failed_movement)
+	var/movement_dir = pick(GLOB.alldirs - last_failed_movement)
 
 	if(force_move)
 		movement_dir = force_move
@@ -431,7 +440,7 @@
 
 
 /obj/singularity/proc/pulse()
-	for(var/obj/machinery/power/rad_collector/R in rad_collectors)
+	for(var/obj/machinery/power/rad_collector/R in GLOB.rad_collectors)
 		if(R.z == z && get_dist(R, src) <= 15) // Better than using orange() every process
 			R.receive_pulse(energy)
 

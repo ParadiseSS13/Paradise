@@ -22,5 +22,4 @@
 /mutable_appearance/clean/New()
 	. = ..()
 	alpha = 255
-	opacity = 1
 	transform = null

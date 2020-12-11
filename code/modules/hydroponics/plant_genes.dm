@@ -1,5 +1,7 @@
 /datum/plant_gene
 	var/name
+	/// Used to determine if the trait should be logged when the holder is used
+	var/dangerous = FALSE
 
 /datum/plant_gene/proc/get_name() // Used for manipulator display and gene disk name.
 	return name
@@ -175,9 +177,6 @@
 /datum/plant_gene/trait/proc/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
 	return
 
-/datum/plant_gene/trait/proc/on_cross(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
-	return
-
 /datum/plant_gene/trait/proc/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
 	return
 
@@ -197,6 +196,7 @@
 	name = "Liquid Contents"
 	examine_line = "<span class='info'>It has a lot of liquid contents inside.</span>"
 	origin_tech = list("biotech" = 5)
+	dangerous = TRUE
 
 /datum/plant_gene/trait/slip
 	// Makes plant slippery, unless it has a grown-type trash. Then the trash gets slippery.
@@ -204,6 +204,7 @@
 	name = "Slippery Skin"
 	rate = 0.1
 	examine_line = "<span class='info'>It has a very slippery skin.</span>"
+	dangerous = TRUE
 
 /datum/plant_gene/trait/slip/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
 	. = ..()
@@ -217,11 +218,7 @@
 
 	stun_len = min(stun_len, 7) // No fun allowed
 
-	G.trip_stun = stun_len
-	G.trip_weaken = stun_len
-	G.trip_chance = 100
-	G.trip_verb = TV_SLIP
-	G.trip_walksafe = FALSE
+	G.AddComponent(/datum/component/slippery, G, stun_len, stun_len, 100, 0, FALSE)
 
 /datum/plant_gene/trait/cell_charge
 	// Cell recharging trait. Charges all mob's power cells to (potency*rate)% mark when eaten.
@@ -231,6 +228,7 @@
 	name = "Electrical Activity"
 	rate = 0.2
 	origin_tech = list("powerstorage" = 5)
+	dangerous = TRUE
 
 /datum/plant_gene/trait/cell_charge/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	var/power = G.seed.potency*rate
@@ -305,6 +303,7 @@
 	name = "Bluespace Activity"
 	rate = 0.1
 	origin_tech = list("bluespace" = 5)
+	dangerous = TRUE
 
 /datum/plant_gene/trait/teleport/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	if(isliving(target))
@@ -392,11 +391,15 @@
 
 /datum/plant_gene/trait/stinging
 	name = "Hypodermic Prickles"
+	dangerous = TRUE
 
 /datum/plant_gene/trait/stinging/on_throw_impact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	if(isliving(target) && G.reagents && G.reagents.total_volume)
 		var/mob/living/L = target
-		if(L.reagents && L.can_inject(null, FALSE))
+		// It would be nice to inject the body part the original thrower aimed at,
+		// but we don't have this kind of information here. So pick something at random.
+		var/target_zone = pick("chest", "chest", "chest", "l_leg", "r_leg", "l_arm", "r_arm", "head")
+		if(L.reagents && L.can_inject(null, FALSE, target_zone))
 			var/injecting_amount = max(1, G.seed.potency*0.2) // Minimum of 1, max of 20
 			var/fraction = min(injecting_amount/G.reagents.total_volume, 1)
 			G.reagents.reaction(L, REAGENT_INGEST, fraction)
@@ -405,6 +408,7 @@
 
 /datum/plant_gene/trait/smoke
 	name = "gaseous decomposition"
+	dangerous = TRUE
 
 /datum/plant_gene/trait/smoke/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	var/datum/effect_system/smoke_spread/chem/S = new

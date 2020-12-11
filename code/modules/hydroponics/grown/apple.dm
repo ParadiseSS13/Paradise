@@ -24,7 +24,7 @@
 	filling_color = "#FF4500"
 	bitesize = 100 // Always eat the apple in one bite
 	tastes = list("apple" = 1)
-	distill_reagent = "hcider"
+	distill_reagent = "cider"
 
 // Posioned Apple
 /obj/item/seeds/apple/poisoned

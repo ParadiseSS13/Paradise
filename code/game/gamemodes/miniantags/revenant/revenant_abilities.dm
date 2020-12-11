@@ -153,7 +153,7 @@
 	else
 		name = "[initial(name)] ([cast_amount]E)"
 
-/obj/effect/proc_holder/spell/aoe_turf/revenant/can_cast(mob/living/simple_animal/revenant/user = usr)
+/obj/effect/proc_holder/spell/aoe_turf/revenant/can_cast(mob/living/simple_animal/revenant/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.inhibited)
 		return 0
 	if(charge_counter < charge_max)
@@ -265,8 +265,8 @@
 
 				if(!istype(T, /turf/simulated/floor/plating) && !istype(T, /turf/simulated/floor/engine/cult) && istype(T, /turf/simulated/floor) && prob(15))
 					var/turf/simulated/floor/floor = T
-					if(floor.intact)
-						floor.builtin_tile.loc = floor
+					if(floor.intact && floor.floor_tile)
+						new floor.floor_tile(floor)
 					floor.broken = 0
 					floor.burnt = 0
 					floor.make_plating(1)

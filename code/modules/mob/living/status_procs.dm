@@ -125,10 +125,6 @@
 	var/stuttering = 0
 	var/weakened = 0
 
-/mob/living
-	// Bitfields
-	var/disabilities = 0
-
 // RESTING
 
 /mob/living/proc/StartResting(updating = 1)
@@ -144,18 +140,6 @@
 
 	if(updating && val_change)
 		update_canmove()
-
-/mob/living/proc/StartFlying()
-	var/val_change = !flying
-	flying = TRUE
-	if(val_change)
-		update_animations()
-
-/mob/living/proc/StopFlying()
-	var/val_change = !!flying
-	flying = FALSE
-	if(val_change)
-		update_animations()
 
 
 // SCALAR STATUS EFFECTS
@@ -380,6 +364,11 @@
 /mob/living/SetSlur(amount)
 	slurring = max(amount, 0)
 
+	if(slurring && drunk)
+		throw_alert("drunk", /obj/screen/alert/drunk)
+	else
+		clear_alert("drunk")
+
 /mob/living/AdjustSlur(amount, bound_lower = 0, bound_upper = INFINITY)
 	var/new_value = directional_bounded_sum(slurring, amount, bound_lower, bound_upper)
 	SetSlur(new_value)
@@ -387,10 +376,10 @@
 // CULTSLURRING
 
 /mob/living/CultSlur(amount)
-	SetSlur(max(slurring, amount))
+	SetCultSlur(max(cultslurring, amount))
 
 /mob/living/SetCultSlur(amount)
-	slurring = max(amount, 0)
+	cultslurring = max(amount, 0)
 
 /mob/living/AdjustCultSlur(amount, bound_lower = 0, bound_upper = INFINITY)
 	var/new_value = directional_bounded_sum(cultslurring, amount, bound_lower, bound_upper)
@@ -467,90 +456,90 @@
 // Blind
 
 /mob/living/proc/BecomeBlind(updating = TRUE)
-	var/val_change = !(disabilities & BLIND)
+	var/val_change = !(BLINDNESS in mutations)
 	. = val_change ? STATUS_UPDATE_BLIND : STATUS_UPDATE_NONE
-	disabilities |= BLIND
+	mutations |= BLINDNESS
 	if(val_change && updating)
 		update_blind_effects()
 
 /mob/living/proc/CureBlind(updating = TRUE)
-	var/val_change = !!(disabilities & BLIND)
+	var/val_change = !!(BLINDNESS in mutations)
 	. = val_change ? STATUS_UPDATE_BLIND : STATUS_UPDATE_NONE
-	disabilities &= ~BLIND
+	mutations -= BLINDNESS
 	if(val_change && updating)
-		CureIfHasDisability(BLINDBLOCK)
+		CureIfHasDisability(GLOB.blindblock)
 		update_blind_effects()
 
 // Coughing
 
 /mob/living/proc/BecomeCoughing()
-	disabilities |= COUGHING
+	mutations |= COUGHING
 
 /mob/living/proc/CureCoughing()
-	disabilities &= ~COUGHING
-	CureIfHasDisability(COUGHBLOCK)
+	mutations -= COUGHING
+	CureIfHasDisability(GLOB.coughblock)
 
 // Deaf
 
 /mob/living/proc/BecomeDeaf()
-	disabilities |= DEAF
+	mutations |= DEAF
 
 /mob/living/proc/CureDeaf()
-	disabilities &= ~DEAF
-	CureIfHasDisability(DEAFBLOCK)
+	mutations -= DEAF
+	CureIfHasDisability(GLOB.deafblock)
 
 // Epilepsy
 
 /mob/living/proc/BecomeEpilepsy()
-	disabilities |= EPILEPSY
+	mutations |= EPILEPSY
 
 /mob/living/proc/CureEpilepsy()
-	disabilities &= ~EPILEPSY
-	CureIfHasDisability(EPILEPSYBLOCK)
+	mutations -= EPILEPSY
+	CureIfHasDisability(GLOB.epilepsyblock)
 
 // Mute
 
 /mob/living/proc/BecomeMute()
-	disabilities |= MUTE
+	mutations |= MUTE
 
 /mob/living/proc/CureMute()
-	disabilities &= ~MUTE
-	CureIfHasDisability(MUTEBLOCK)
+	mutations -= MUTE
+	CureIfHasDisability(GLOB.muteblock)
 
 // Nearsighted
 
 /mob/living/proc/BecomeNearsighted(updating = TRUE)
-	var/val_change = !(disabilities & NEARSIGHTED)
+	var/val_change = !(NEARSIGHTED in mutations)
 	. = val_change ? STATUS_UPDATE_NEARSIGHTED : STATUS_UPDATE_NONE
-	disabilities |= NEARSIGHTED
+	mutations |= NEARSIGHTED
 	if(val_change && updating)
 		update_nearsighted_effects()
 
 /mob/living/proc/CureNearsighted(updating = TRUE)
-	var/val_change = !!(disabilities & NEARSIGHTED)
+	var/val_change = !!(NEARSIGHTED in mutations)
 	. = val_change ? STATUS_UPDATE_NEARSIGHTED : STATUS_UPDATE_NONE
-	disabilities &= ~NEARSIGHTED
+	mutations -= NEARSIGHTED
 	if(val_change && updating)
-		CureIfHasDisability(GLASSESBLOCK)
+		CureIfHasDisability(GLOB.glassesblock)
 		update_nearsighted_effects()
 
 // Nervous
 
 /mob/living/proc/BecomeNervous()
-	disabilities |= NERVOUS
+	mutations |= NERVOUS
 
 /mob/living/proc/CureNervous()
-	disabilities &= ~NERVOUS
-	CureIfHasDisability(NERVOUSBLOCK)
+	mutations -= NERVOUS
+	CureIfHasDisability(GLOB.nervousblock)
 
 // Tourettes
 
 /mob/living/proc/BecomeTourettes()
-	disabilities |= TOURETTES
+	mutations |= TOURETTES
 
 /mob/living/proc/CureTourettes()
-	disabilities &= ~TOURETTES
-	CureIfHasDisability(TWITCHBLOCK)
+	mutations -= TOURETTES
+	CureIfHasDisability(GLOB.twitchblock)
 
 /mob/living/proc/CureIfHasDisability(block)
 	if(dna && dna.GetSEState(block))

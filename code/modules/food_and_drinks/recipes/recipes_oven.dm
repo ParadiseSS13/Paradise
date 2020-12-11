@@ -40,9 +40,9 @@
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/dough,
-		/obj/item/reagent_containers/food/snacks/xenomeat,
-		/obj/item/reagent_containers/food/snacks/xenomeat,
-		/obj/item/reagent_containers/food/snacks/xenomeat,
+		/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
+		/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
+		/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
@@ -115,7 +115,7 @@
 /datum/recipe/oven/xemeatpie
 	items = list(
 		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
-		/obj/item/reagent_containers/food/snacks/xenomeat,
+		/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat
 	)
 	result = /obj/item/reagent_containers/food/snacks/xemeatpie
 
@@ -162,6 +162,12 @@
 		/obj/item/reagent_containers/food/snacks/grown/potato
 	)
 	result = /obj/item/reagent_containers/food/snacks/loadedbakedpotato
+
+/datum/recipe/oven/yakiimo
+	items = list(
+		/obj/item/reagent_containers/food/snacks/grown/potato/sweet
+	)
+	result = /obj/item/reagent_containers/food/snacks/yakiimo
 
 ////cookies by Ume
 
@@ -457,6 +463,12 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/flatbread
 
+/datum/recipe/oven/toastedsandwich
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sandwich
+	)
+	result = /obj/item/reagent_containers/food/snacks/toastedsandwich
+
 /datum/recipe/oven/turkey  // Magic
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meat,
@@ -467,6 +479,14 @@
 		/obj/item/reagent_containers/food/snacks/stuffing
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/turkey
+
+/datum/recipe/oven/tofurkey
+	items = list(
+		/obj/item/reagent_containers/food/snacks/tofu,
+		/obj/item/reagent_containers/food/snacks/tofu,
+		/obj/item/reagent_containers/food/snacks/stuffing,
+	)
+	result = /obj/item/reagent_containers/food/snacks/tofurkey
 
 /datum/recipe/oven/lasagna
 	items = list(

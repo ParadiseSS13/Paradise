@@ -1,9 +1,9 @@
 
 /client/proc/forceEvent(var/type in SSevents.allEvents)
-	set name = "Trigger Event (Debug Only)"
+	set name = "Trigger Event"
 	set category = "Debug"
 
-	if(!holder)
+	if(!check_rights(R_EVENT))
 		return
 
 	if(ispath(type))
@@ -45,7 +45,7 @@
 
 	var/list/event_areas = list()
 
-	for(var/areapath in the_station_areas)
+	for(var/areapath in GLOB.the_station_areas)
 		event_areas += typesof(areapath)
 	for(var/areapath in safe_areas)
 		event_areas -= typesof(areapath)
@@ -80,19 +80,24 @@
 		if(!M.mind || !M.client || M.client.inactivity > 10 * 10 * 60) // longer than 10 minutes AFK counts them as inactive
 			continue
 
-		if(istype(M, /mob/living/silicon/robot) && M:module && M:module.name == "engineering robot module")
-			active_with_role["Engineer"]++
+		if(istype(M, /mob/living/silicon/robot))
+			var/mob/living/silicon/robot/R = M
+			if(R.module && (R.module.name == "engineering robot module"))
+				active_with_role["Engineer"]++
+
+			if(R.module && (R.module.name == "medical robot module"))
+				active_with_role["Medical"]++
+
+			if(R.module && (R.module.name == "security robot module"))
+				active_with_role["Security"]++
+
 		if(M.mind.assigned_role in list("Chief Engineer", "Station Engineer"))
 			active_with_role["Engineer"]++
 
-		if(istype(M, /mob/living/silicon/robot) && M:module && M:module.name == "medical robot module")
-			active_with_role["Medical"]++
 		if(M.mind.assigned_role in list("Chief Medical Officer", "Medical Doctor"))
 			active_with_role["Medical"]++
 
-		if(istype(M, /mob/living/silicon/robot) && M:module && M:module.name == "security robot module")
-			active_with_role["Security"]++
-		if(M.mind.assigned_role in security_positions)
+		if(M.mind.assigned_role in GLOB.security_positions)
 			active_with_role["Security"]++
 
 		if(M.mind.assigned_role in list("Research Director", "Scientist"))

@@ -1,3 +1,5 @@
+#define WATER_STUN_TIME 2 //Stun time for water, to edit/find easier
+#define WATER_WEAKEN_TIME 1 //Weaken time for water, to edit/find easier
 /turf/simulated
 	name = "station"
 	var/wet = 0
@@ -8,12 +10,6 @@
 	nitrogen = MOLES_N2STANDARD
 	var/to_be_destroyed = 0 //Used for fire, if a melting temperature was reached, it will be destroyed
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
-	var/dirtoverlay = null
-
-/turf/simulated/New()
-	..()
-	levelupdate()
-	visibilityChanged()
 
 /turf/simulated/proc/break_tile()
 	return
@@ -35,7 +31,12 @@
 		assume_air(lowertemp)
 		qdel(hotspot)
 
-/turf/simulated/proc/MakeSlippery(wet_setting = TURF_WET_WATER, infinite = FALSE) // 1 = Water, 2 = Lube, 3 = Ice, 4 = Permafrost
+/*
+ * Makes a turf slippery using the given parameters
+ * @param wet_setting The type of slipperyness used
+ * @param time Time the turf is slippery. If null it will pick a random time between 790 and 820 ticks. If INFINITY then it won't dry up ever
+*/
+/turf/simulated/proc/MakeSlippery(wet_setting = TURF_WET_WATER, time = null) // 1 = Water, 2 = Lube, 3 = Ice, 4 = Permafrost
 	if(wet >= wet_setting)
 		return
 	wet = wet_setting
@@ -54,14 +55,15 @@
 				wet_overlay = image('icons/effects/water.dmi', src, "ice_floor")
 			else
 				wet_overlay = image('icons/effects/water.dmi', src, "wet_static")
+		wet_overlay.plane = FLOOR_OVERLAY_PLANE
 		overlays += wet_overlay
-	if(!infinite)
-		spawn(rand(790, 820)) // Purely so for visual effect
-			if(!istype(src, /turf/simulated)) //Because turfs don't get deleted, they change, adapt, transform, evolve and deform. they are one and they are all.
-				return
-			MakeDry(wet_setting)
+	if(time == INFINITY)
+		return
+	if(!time)
+		time =	rand(790, 820)
+	addtimer(CALLBACK(src, .proc/MakeDry, wet_setting), time)
 
-/turf/simulated/proc/MakeDry(wet_setting = TURF_WET_WATER)
+/turf/simulated/MakeDry(wet_setting = TURF_WET_WATER)
 	if(wet > wet_setting)
 		return
 	wet = TURF_DRY
@@ -81,7 +83,7 @@
 
 			switch(src.wet)
 				if(TURF_WET_WATER)
-					if(!(M.slip("the wet floor", 4, 2, tilesSlipped = 0, walkSafely = 1)))
+					if(!(M.slip("the wet floor", WATER_STUN_TIME, WATER_WEAKEN_TIME, tilesSlipped = 0, walkSafely = 1)))
 						M.inertia_dir = 0
 						return
 
@@ -107,3 +109,6 @@
 	queue_smooth_neighbors(src)
 
 /turf/simulated/proc/is_shielded()
+
+#undef WATER_STUN_TIME
+#undef WATER_WEAKEN_TIME

@@ -103,7 +103,7 @@
 				if(RC.is_drainable())
 					for(var/datum/reagent/A in RC.reagents.reagent_list)
 						.["other"][A.type] += A.volume
-			.["other"][I.type] += 1 
+			.["other"][I.type] += 1
 		.["toolsother"][I] += 1
 
 /datum/personal_crafting/proc/check_tools(mob/user, datum/crafting_recipe/R, list/contents)
@@ -128,20 +128,20 @@
 					continue main_loop
 			return FALSE
 	for(var/obj/item/T in tools_used)
-		if(!T.tool_start_check(user, 0)) //Check if all our tools are valid for their use
+		if(!T.tool_start_check(null, user, 0)) //Check if all our tools are valid for their use
 			return FALSE
 	return TRUE
 
 /datum/personal_crafting/proc/check_pathtools(mob/user, datum/crafting_recipe/R, list/contents)
 	if(!R.pathtools.len) //does not run if no tools are needed
 		return TRUE
-	var/list/other_possible_tools = list() 
+	var/list/other_possible_tools = list()
 	for(var/obj/item/I in user.contents) // searchs the inventory of the mob
 		if(istype(I, /obj/item/storage))
 			for(var/obj/item/SI in I.contents)
 				other_possible_tools += SI.type	// filters type paths
 		other_possible_tools += I.type
-	
+
 	other_possible_tools |= contents["other"] // this adds contents to the other_possible_tools
 	main_loop: // checks if all tools found are usable with the recipe
 		for(var/A in R.pathtools)
@@ -151,7 +151,7 @@
 			return FALSE
 	return TRUE
 
-/datum/personal_crafting/proc/construct_item(mob/user, datum/crafting_recipe/R) 
+/datum/personal_crafting/proc/construct_item(mob/user, datum/crafting_recipe/R)
 	var/list/contents = get_surroundings(user)
 	var/send_feedback = 1
 	if(check_contents(R, contents))
@@ -297,14 +297,14 @@
 		Deletion.Cut(Deletion.len)
 		qdel(DL)
 
-/datum/personal_crafting/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, datum/topic_state/state = not_incapacitated_turf_state)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/personal_crafting/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.not_incapacitated_turf_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "personal_crafting.tmpl", "Crafting Menu", 700, 800, state = state)
+		ui = new(user, src, ui_key, "PersonalCrafting", "Crafting Menu", 700, 800, master_ui, state)
 		ui.open()
 
 /datum/personal_crafting/proc/close(mob/user)
-	var/datum/nanoui/ui = SSnanoui.get_open_ui(user, src, "main")
+	var/datum/tgui/ui = SStgui.get_open_ui(user, src, "main")
 	if(ui)
 		ui.close()
 
@@ -312,10 +312,12 @@
 	var/list/data = list()
 	var/list/subs = list()
 	var/cur_subcategory = CAT_NONE
+
 	var/cur_category = categories[viewing_category]
 	if(islist(subcategories[viewing_category]))
 		subs = subcategories[viewing_category]
 		cur_subcategory = subs[viewing_subcategory]
+
 	data["busy"] = busy
 	data["prev_cat"] = categories[prev_cat()]
 	data["prev_subcat"] = subs[prev_subcat()]
@@ -329,6 +331,7 @@
 	var/list/surroundings = get_surroundings(user)
 	var/list/can_craft = list()
 	var/list/cant_craft = list()
+
 	for(var/rec in GLOB.crafting_recipes)
 		var/datum/crafting_recipe/R = rec
 
@@ -341,47 +344,52 @@
 			can_craft += list(build_recipe_data(R))
 		else
 			cant_craft += list(build_recipe_data(R))
+
 	data["can_craft"] = can_craft
 	data["cant_craft"] = cant_craft
 	return data
 
-/datum/personal_crafting/Topic(href, href_list)
+/datum/personal_crafting/ui_act(action, list/params)
 	if(..())
 		return
 
-	if(href_list["make"])
-		var/datum/crafting_recipe/TR = locate(href_list["make"]) in GLOB.crafting_recipes
-		busy = TRUE
-		SSnanoui.update_uis(src)
-		var/fail_msg = construct_item(usr, TR)
-		if(!fail_msg)
-			to_chat(usr, "<span class='notice'>[TR.name] constructed.</span>")
-		else
-			to_chat(usr, "<span class ='warning'>Construction failed[fail_msg]</span>")
-		busy = FALSE
-		SSnanoui.update_uis(src)
-	if(href_list["forwardCat"])
-		viewing_category = next_cat(FALSE)
-		. = TRUE
-	if(href_list["backwardCat"])
-		viewing_category = prev_cat(FALSE)
-		. = TRUE
-	if(href_list["forwardSubCat"])
-		viewing_subcategory = next_subcat()
-		. = TRUE
-	if(href_list["backwardSubCat"])
-		viewing_subcategory = prev_subcat()
-		. = TRUE
-	if(href_list["toggle_recipes"])
-		display_craftable_only = !display_craftable_only
-		. = TRUE
-	if(href_list["toggle_compact"])
-		display_compact = !display_compact
-		. = TRUE
+	. = TRUE
 
-	SSnanoui.update_uis(src)
+	switch(action)
+		if("make")
+			var/datum/crafting_recipe/TR = locate(params["make"]) in GLOB.crafting_recipes
+			if(!istype(TR))
+				return
+			busy = TRUE
+			SStgui.update_uis(src)
+			var/fail_msg = construct_item(usr, TR)
+			if(!fail_msg)
+				to_chat(usr, "<span class='notice'>[TR.name] constructed.</span>")
+				if(TR.alert_admins_on_craft)
+					message_admins("[key_name_admin(usr)] has created a [TR.name] at [ADMIN_COORDJMP(usr)]")
+			else
+				to_chat(usr, "<span class='warning'>Construction failed[fail_msg]</span>")
+			busy = FALSE
+			SStgui.update_uis(src)
 
-//Next works nicely with modular arithmetic
+		if("forwardCat")
+			viewing_category = next_cat(FALSE)
+
+		if("backwardCat")
+			viewing_category = prev_cat(FALSE)
+
+		if("forwardSubCat")
+			viewing_subcategory = next_subcat()
+
+		if("backwardSubCat")
+			viewing_subcategory = prev_subcat()
+
+		if("toggle_recipes")
+			display_craftable_only = !display_craftable_only
+
+		if("toggle_compact")
+			display_compact = !display_compact
+
 //Next works nicely with modular arithmetic
 /datum/personal_crafting/proc/next_cat(readonly = TRUE)
 	if (!readonly)

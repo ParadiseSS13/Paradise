@@ -60,6 +60,7 @@
 /mob/living/simple_animal/hostile/poison/bees/New()
 	..()
 	generate_bee_visuals()
+	AddComponent(/datum/component/swarming)
 
 /mob/living/simple_animal/hostile/poison/bees/Destroy()
 	beegent = null
@@ -93,6 +94,10 @@
 			. += A
 		for(var/mob/A in searched_for)
 			. += A
+
+// All bee sprites are made up of overlays. They do not have any special sprite overlays for items placed on them, such as collars, so this proc is unneeded.
+/mob/living/simple_animal/hostile/poison/bees/regenerate_icons()
+	return
 
 /mob/living/simple_animal/hostile/poison/bees/proc/generate_bee_visuals()
 	overlays.Cut()

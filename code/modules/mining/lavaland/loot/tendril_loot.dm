@@ -358,6 +358,7 @@
 	projectile_type = /obj/item/projectile/hook
 	caliber = "hook"
 	icon_state = "hook"
+	muzzle_flash_effect = null
 
 /obj/item/projectile/hook
 	name = "hook"
@@ -383,7 +384,10 @@
 		var/mob/living/L = target
 		if(!L.anchored)
 			L.visible_message("<span class='danger'>[L] is snagged by [firer]'s hook!</span>")
+			var/old_density = L.density
+			L.density = FALSE // Ensures the hook does not hit the target multiple times
 			L.forceMove(get_turf(firer))
+			L.density = old_density
 
 /obj/item/projectile/hook/Destroy()
 	QDEL_NULL(chain)

@@ -169,7 +169,7 @@
 
 /obj/structure/sign/kiddieplaque
 	name = "AI developers plaque"
-	desc = "Next to the extremely long list of names and job titles, there is a drawing of a little child. The child appears to be retarded. Beneath the image, someone has scratched the word \"PACKETS\"."
+	desc = "Next to the extremely long list of names and job titles, there is a drawing of a little child. The child's eyes are crossed, and is drooling. Beneath the image, someone has scratched the word \"PACKETS\"."
 	icon_state = "kiddieplaque"
 
 /obj/structure/sign/atmosplaque
@@ -292,12 +292,12 @@
 
 /obj/structure/sign/directions/engineering
 	name = "\improper Engineering Department"
-	desc = "A direction sign, pointing out which way the Engineering department is."
+	desc = "A direction sign, pointing out which way the Engineering Department is."
 	icon_state = "direction_eng"
 
 /obj/structure/sign/directions/security
 	name = "\improper Security Department"
-	desc = "A direction sign, pointing out which way the Security department is."
+	desc = "A direction sign, pointing out which way the Security Department is."
 	icon_state = "direction_sec"
 
 /obj/structure/sign/directions/medical
@@ -307,12 +307,12 @@
 
 /obj/structure/sign/directions/evac
 	name = "\improper Escape Arm"
-	desc = "A direction sign, pointing out which way escape shuttle dock is."
+	desc = "A direction sign, pointing out which way Escape Shuttle Dock is."
 	icon_state = "direction_evac"
 
 /obj/structure/sign/directions/cargo
 	name = "\improper Cargo Department"
-	desc = "A direction sign, pointing out which way the Cargo department is."
+	desc = "A direction sign, pointing out which way the Cargo Department is."
 	icon_state = "direction_supply"
 
 /obj/structure/sign/explosives

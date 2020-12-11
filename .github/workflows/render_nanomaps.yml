@@ -1,0 +1,35 @@
+# GitHub action to autorender nanomaps outside the game
+# This kills off the awful verb we have that takes a full 50 seconds and hangs the whole server
+# The file names and locations are VERY important here
+# DO NOT EDIT THIS UNLESS YOU KNOW WHAT YOU ARE DOING
+# -aa
+name: 'Render Nanomaps'
+on:
+  push:
+    branches: master
+    paths:
+      - '_maps/map_files/**'
+
+jobs:
+  generate_maps:
+    name: 'Generate NanoMaps'
+    runs-on: ubuntu-18.04
+    steps:
+    - name: 'Update Branch'
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+
+    - name: 'Generate Maps'
+      run: './tools/github-actions/nanomap-renderer-invoker.sh'
+
+    - name: 'Commit Maps'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "NanoMap Generation"
+        git pull origin master
+        git commit -m "NanoMap Auto-Update (`date`)" -a || true
+    - name: 'Push Maps'
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}

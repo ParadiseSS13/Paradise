@@ -7,12 +7,14 @@
 	else if(stat == UNCONSCIOUS)
 		return 0
 	create_attack_log("<font color='red'>Fallen unconscious at [atom_loc_line(get_turf(src))]</font>")
+	add_attack_logs(src, null, "Fallen unconscious", ATKLOG_ALL)
 	log_game("[key_name(src)] fell unconscious at [atom_loc_line(get_turf(src))]")
 	stat = UNCONSCIOUS
 	if(updating)
 		update_sight()
 		update_blind_effects()
 		update_canmove()
+		set_typing_indicator(FALSE)
 	return 1
 
 /mob/living/proc/WakeUp(updating = 1)
@@ -22,6 +24,7 @@
 	else if(stat == CONSCIOUS)
 		return 0
 	create_attack_log("<font color='red'>Woken up at [atom_loc_line(get_turf(src))]</font>")
+	add_attack_logs(src, null, "Woken up", ATKLOG_ALL)
 	log_game("[key_name(src)] woke up at [atom_loc_line(get_turf(src))]")
 	stat = CONSCIOUS
 	if(updating)
@@ -45,10 +48,11 @@
 	if(!can_be_revived())
 		return 0
 	create_attack_log("<font color='red'>Came back to life at [atom_loc_line(get_turf(src))]</font>")
+	add_attack_logs(src, null, "Came back to life", ATKLOG_ALL)
 	log_game("[key_name(src)] came back to life at [atom_loc_line(get_turf(src))]")
 	stat = CONSCIOUS
 	GLOB.dead_mob_list -= src
-	GLOB.living_mob_list += src
+	GLOB.alive_mob_list += src
 	if(mind)
 		GLOB.respawnable_list -= src
 	timeofdeath = null

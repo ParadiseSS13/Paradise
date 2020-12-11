@@ -4,6 +4,7 @@ SUBSYSTEM_DEF(idlenpcpool)
 	priority = FIRE_PRIORITY_IDLE_NPC
 	wait = 60
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
+	offline_implications = "Idle simple animals will no longer process. Shuttle call recommended."
 
 	var/list/currentrun = list()
 	var/static/list/idle_mobs_by_zlevel[][]
@@ -39,4 +40,4 @@ SUBSYSTEM_DEF(idlenpcpool)
 			if(SA.stat != DEAD)
 				SA.consider_wakeup()
 		if(MC_TICK_CHECK)
-			return 
+			return

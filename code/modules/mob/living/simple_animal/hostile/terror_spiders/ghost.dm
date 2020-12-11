@@ -14,7 +14,7 @@
 	var/error_on_humanize = ""
 	var/humanize_prompt = "Take direct control of [src]?"
 	humanize_prompt += " Role: [spider_role_summary]"
-	if(user.ckey in ts_ckey_blacklist)
+	if(user.ckey in GLOB.ts_ckey_blacklist)
 		error_on_humanize = "You are not able to control any terror spider this round."
 	else if(cannotPossess(user))
 		error_on_humanize = "You have enabled antag HUD and are unable to re-enter the round."

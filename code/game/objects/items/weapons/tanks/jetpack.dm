@@ -5,20 +5,16 @@
 	w_class = WEIGHT_CLASS_BULKY
 	item_state = "jetpack"
 	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
-	var/datum/effect_system/trail_follow/ion/ion_trail
 	actions_types = list(/datum/action/item_action/set_internals, /datum/action/item_action/toggle_jetpack, /datum/action/item_action/jetpack_stabilization)
 	var/on = 0
 	var/stabilizers = 0
 	var/volume_rate = 500              //Needed for borg jetpack transfer
 
-/obj/item/tank/jetpack/New()
-	..()
-	ion_trail = new /datum/effect_system/trail_follow/ion()
-	ion_trail.set_up(src)
-
-/obj/item/tank/jetpack/Destroy()
-	QDEL_NULL(ion_trail)
-	return ..()
+/obj/item/tank/jetpack/on_mob_move(direction, mob/user)
+	if(on)
+		var/turf/T = get_step(src, GetOppositeDir(direction))
+		if(!has_gravity(T))
+			new /obj/effect/particle_effect/ion_trails(T, direction)
 
 /obj/item/tank/jetpack/ui_action_click(mob/user, actiontype)
 	if(actiontype == /datum/action/item_action/toggle_jetpack)
@@ -59,14 +55,11 @@
 /obj/item/tank/jetpack/proc/turn_on(mob/user)
 	on = TRUE
 	icon_state = "[initial(icon_state)]-on"
-	ion_trail.start()
 
 /obj/item/tank/jetpack/proc/turn_off(mob/user)
 	on = FALSE
 	stabilizers = FALSE
 	icon_state = initial(icon_state)
-	ion_trail.stop()
-
 
 /obj/item/tank/jetpack/proc/allow_thrust(num, mob/living/user)
 	if(!on)
@@ -150,8 +143,6 @@
 
 /obj/item/tank/jetpack/carbondioxide/New()
 	..()
-	ion_trail = new /datum/effect_system/trail_follow/ion()
-	ion_trail.set_up(src)
 	air_contents.carbon_dioxide = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 
 /obj/item/tank/jetpack/carbondioxide/examine(mob/user)
@@ -219,28 +210,3 @@
 		turn_off(cur_user)
 		return
 	..()
-
-/obj/item/tank/jetpack/rig
-	name = "jetpack"
-	var/obj/item/rig/holder
-	actions_types = list(/datum/action/item_action/toggle_jetpack, /datum/action/item_action/jetpack_stabilization)
-
-/obj/item/tank/jetpack/rig/examine()
-	. = list("It's a jetpack. If you can see this, report it on the bug tracker.")
-
-/obj/item/tank/jetpack/rig/allow_thrust(num, mob/living/user)
-	if(!on)
-		return 0
-
-	if(!istype(holder) || !holder.air_supply)
-		return 0
-
-	var/datum/gas_mixture/removed = holder.air_supply.air_contents.remove(num)
-	if(removed.total_moles() < 0.005)
-		turn_off(user)
-		return 0
-
-	var/turf/T = get_turf(user)
-	T.assume_air(removed)
-
-	return 1

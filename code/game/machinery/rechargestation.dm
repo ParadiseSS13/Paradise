@@ -177,8 +177,8 @@
 							F.broken = 0
 							F.times_used = 0
 							F.icon_state = "flash"
-					if(istype(O,/obj/item/gun/energy/disabler/cyborg))
-						var/obj/item/gun/energy/disabler/cyborg/D = O
+					if(istype(O,/obj/item/gun/energy))
+						var/obj/item/gun/energy/D = O
 						if(D.cell.charge < D.cell.maxcharge)
 							var/obj/item/ammo_casing/energy/E = D.ammo_type[D.select]
 							D.cell.give(E.e_cost)

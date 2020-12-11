@@ -16,6 +16,8 @@
 	var/to_transfer = 0
 	var/max_amount = 50 //also see stack recipes initialisation, param "max_res_amount" must be equal to this max_amount
 	var/merge_type = null // This path and its children should merge with this stack, defaults to src.type
+	var/recipe_width = 400 //Width of the recipe popup 
+	var/recipe_height = 400 //Height of the recipe popup
 
 /obj/item/stack/New(loc, new_amount, merge = TRUE)
 	..()
@@ -138,7 +140,7 @@
 				if(!(max_multiplier in multipliers))
 					t1 += " <A href='?src=[UID()];make=[i];multiplier=[max_multiplier]'>[max_multiplier * R.res_amount]x</A>"
 
-	var/datum/browser/popup = new(user, "stack", name, 400, 400)
+	var/datum/browser/popup = new(user, "stack", name, recipe_width, recipe_height)
 	popup.set_content(t1)
 	popup.open(0)
 	onclose(user, "stack")
@@ -170,7 +172,7 @@
 				to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.req_amount * multiplier] [R.title]\s!</span>")
 			else
 				to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.title]!</span>")
-			return 0
+			return FALSE
 
 		if(R.window_checks && !valid_window_location(usr.loc, usr.dir))
 			to_chat(usr, "<span class='warning'>The [R.title] won't fit here!</span>")
@@ -178,11 +180,15 @@
 
 		if(R.one_per_turf && (locate(R.result_type) in usr.drop_location()))
 			to_chat(usr, "<span class='warning'>There is another [R.title] here!</span>")
-			return 0
+			return FALSE
 
 		if(R.on_floor && !istype(usr.drop_location(), /turf/simulated))
 			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
-			return 0
+			return FALSE
+
+		if(R.no_cult_structure && (locate(/obj/structure/cult) in usr.drop_location()))
+			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
+			return FALSE
 
 		if(R.time)
 			to_chat(usr, "<span class='notice'>Building [R.title] ...</span>")
@@ -204,7 +210,7 @@
 
 		if(amount < 1) // Just in case a stack's amount ends up fractional somehow
 			var/oldsrc = src
-			src = null //dont kill proc after del()
+			src = null //dont kill proc after qdel()
 			usr.unEquip(oldsrc, 1)
 			qdel(oldsrc)
 			if(istype(O, /obj/item))
