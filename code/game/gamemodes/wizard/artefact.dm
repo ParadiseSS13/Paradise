@@ -10,7 +10,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/used = 0
 
-/obj/item/contract/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/item/contract/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "WizardApprenticeContract", name, 400, 600, master_ui, state)
@@ -87,12 +87,17 @@
 		M.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
 		SSticker.mode.update_wiz_icons_added(M.mind)
 		M.faction = list("wizard")
+		SStgui.close_uis(src)
 	else
 		used = FALSE
 		to_chat(H, "<span class='warning'>Unable to reach your apprentice! You can either attack the spellbook with the contract to refund your points, or wait and try again later.</span>")
 
 /obj/item/contract/attack_self(mob/user as mob)
 	if(..())
+		return
+
+	if(used)
+		to_chat(user, "<span class = 'warning'> You've already summoned an apprentice or you are in process of summoning one. </span>")
 		return
 
 	ui_interact(user)
