@@ -381,8 +381,7 @@
 			var/datum/reagent/R = I
 			if(stimulant_list.Find(R.id))
 				has_stimulant = TRUE
-				if(R.id == "methamphetamine")
-					M.reagents.remove_reagent(R.id, 5)
+				M.reagents.remove_reagent(R.id, 5)
 			else
 				has_stimulant = FALSE
 	if(has_stimulant == TRUE)
