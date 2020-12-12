@@ -15,7 +15,9 @@
 					return
 				page = newpage
 			if("extract")
-				var/error_message = current_contract?.start_extraction_process(ui_host(), usr)
+				var/error_message
+				if(current_contract)
+					error_message = current_contract.start_extraction_process(ui_host(), usr)
 				if(length(error_message))
 					to_chat(usr, "<span class='warning'>[error_message]</span>")
 			if("claim")

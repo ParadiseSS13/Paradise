@@ -368,7 +368,9 @@
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Kill(mob/living/carbon/human/H)
 	playsound(H, 'sound/spookoween/scary_horn2.ogg', 100, 0)
-	var/old_color = H.client?.color
+	var/old_color
+	if(H && H.client && H.client.color)
+		old_color = H.client.color
 	client_kill_animation(H)
 
 	for(var/turf/T in orange(H, 4))
