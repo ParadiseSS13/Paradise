@@ -362,7 +362,7 @@
 /datum/reagent/methamphaldehyde
 	name = "Methamphaldehyde"
 	id = "methamphaldehyde"
-	description = "A diluted mix of methamphetamine and mannitol. Its effects are weaker leading to no chance at brain damage or addiction, but it reacts poorly to one's immune system."
+	description = "A diluted mix of methamphetamine and mannitol. Its effects are weaker leading to no chance at brain damage or addiction, but it reacts VERY poorly with other stimulants, causing severe stomach aches and vomiting."
 	reagent_state = LIQUID
 	color = "#97d1b5" // rgb: 59, 82, 71
 	overdose_threshold = 20
@@ -371,9 +371,26 @@
 	metabolization_rate = 0.6
 	heart_rate_increase = 1
 	taste_description = "quick"
+	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants")
 
 /datum/reagent/methamphaldehyde/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
+	var/has_stimulant = FALSE
+	if(M.reagents.reagent_list)
+		for(var/I in M.reagents.reagent_list)
+			var/datum/reagent/R = I
+			if(stimulant_list.Find(R.id))
+				has_stimulant = TRUE
+				if(R.id == "methamphetamine")
+					M.reagents.remove_reagent(R.id, 5)
+			else
+				has_stimulant = FALSE
+	if(has_stimulant == TRUE)
+		if(prob(10))
+			if(iscarbon(M))
+				var/mob/living/carbon/human/C = M
+				C.vomit()
+				update_flags |= M.Weaken(15, FALSE)
 	if(prob(5))
 		M.emote(pick("twitch_s","blink_r","shiver"))
 	if(current_cycle >= 25)
