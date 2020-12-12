@@ -1249,8 +1249,7 @@
 					return
 				var/datum/antagonist/traitor/T = has_antag_datum(/datum/antagonist/traitor)
 				var/memory
-				if(T && T.antag_memory)
-					memory = T.antag_memory // Need to preserve the codewords and such
+				memory = T?.antag_memory // Need to preserve the codewords and such
 				// Replace the traitor datum by a contractor one
 				remove_antag_datum(/datum/antagonist/traitor)
 				C = new()

@@ -366,8 +366,7 @@
 			else if(issilicon(usr))
 				var/mob/living/silicon/M = usr
 				var/datum/picture/selection
-				if(M.aiCamera)
-					selection = M.aiCamera.selectpicture()
+				selection = M.aiCamera?.selectpicture()
 				if(!selection)
 					return
 				var/obj/item/photo/P = new
