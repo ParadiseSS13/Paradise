@@ -44,6 +44,10 @@
 	if(!broken && !(flags & NODECONSTRUCT))
 		broken = TRUE
 
+/obj/structure/sign/barsign/deconstruct(disassembled = TRUE)
+	new /obj/item/stack/sheet/metal(drop_location(), 2)
+	new /obj/item/stack/cable_coil(drop_location(), 2)
+	qdel(src)
 
 /obj/structure/sign/barsign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -55,9 +59,40 @@
 /obj/structure/sign/barsign/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 
+/obj/structure/sign/barsign/attackby(var/obj/item/I, var/mob/user)
+		if(istype(I, /obj/item/stack/cable_coil) && panel_open)
+		var/obj/item/stack/cable_coil/C = I
+		if(emagged) //Emagged, not broken by EMP
+			to_chat(user, "<span class='warning'>Sign has been damaged beyond repair!</span>")
+			return
+		else if(!broken)
+			to_chat(user, "<span class='warning'>This sign is functioning properly!</span>")
+			return
+
+		if(C.use(2))
+			to_chat(user, "<span class='notice'>You replace the burnt wiring.</span>")
+			broken = 0
+		else
+			to_chat(user, "<span class='warning'>You need at least two lengths of cable!</span>")
+	else
+		return ..()
+
 // Added to prevent people from unscrewing the barsign, making go invisible in the process
 /obj/structure/sign/barsign/screwdriver_act()
-    return
+    if( istype(I, /obj/item/screwdriver))
+		if(!panel_open)
+			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
+			set_sign(new /datum/barsign/hiddensigns/signoff)
+			panel_open = 1
+		else
+			to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
+			if(!broken && !emagged)
+				set_sign(pick(barsigns))
+			else if(emagged)
+				set_sign(new /datum/barsign/hiddensigns/syndibarsign)
+			else
+				set_sign(new /datum/barsign/hiddensigns/empbarsign)
+			panel_open = 0
 
 
 /obj/structure/sign/barsign/attack_hand(mob/user as mob)
