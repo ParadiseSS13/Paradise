@@ -92,7 +92,8 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	return wth.invoke(input)
 
 /world/Reboot(var/reason, var/feedback_c, var/feedback_r, var/time)
-	if(reason) //special reboot, do none of the normal stuff
+	//special reboot, do none of the normal stuff
+	if(reason == 1) // Do NOT change this to if(reason). You WILL break the entirety of world rebooting
 		if(usr)
 			if(!check_rights(R_SERVER))
 				message_admins("[key_name_admin(usr)] attempted to restart the server via the Profiler, without access.")
