@@ -465,6 +465,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Syndicate Infiltrators"
 	icon_state = "syndie-elite"
 
+/area/syndicate_mothership/jail
+	name = "\improper Syndicate Jail"
+
 //EXTRA
 
 /area/asteroid					// -- TLE

@@ -1477,6 +1477,77 @@
 		log_admin("[key_name(usr)] has sent [key_name(M)] to the thunderdome. (Observer.)")
 		message_admins("[key_name_admin(usr)] has sent [key_name_admin(M)] to the thunderdome. (Observer.)", 1)
 
+	else if(href_list["contractor_stop"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["contractor_stop"])
+		if(!istype(M))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob.</span>")
+			return
+
+		var/datum/syndicate_contract/contract = LAZYACCESS(GLOB.prisoner_belongings.prisoners, M)
+		if(!contract)
+			to_chat(usr, "<span class='warning'>[M] is currently not imprisoned by the Syndicate.</span>")
+			return
+		if(!contract.prisoner_timer_handle)
+			to_chat(usr, "<span class='warning'>[M] is already NOT scheduled to return from the Syndicate Jail.</span>")
+			return
+
+		deltimer(contract.prisoner_timer_handle)
+		contract.prisoner_timer_handle = null
+		to_chat(usr, "Stopped automatic return of [M] from the Syndicate Jail.")
+		message_admins("[key_name_admin(usr)] has stopped the automatic return of [key_name_admin(M)] from the Syndicate Jail")
+		log_admin("[key_name(usr)] has stopped the automatic return of [key_name(M)] from the Syndicate Jail")
+
+	else if(href_list["contractor_start"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["contractor_start"])
+		if(!istype(M))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob.</span>")
+			return
+
+		var/datum/syndicate_contract/contract = LAZYACCESS(GLOB.prisoner_belongings.prisoners, M)
+		if(!contract)
+			to_chat(usr, "<span class='warning'>[M] is currently not imprisoned by the Syndicate.</span>")
+			return
+		if(contract.prisoner_timer_handle)
+			to_chat(usr, "<span class='warning'>[M] is already scheduled to return from the Syndicate Jail.</span>")
+			return
+
+		var/time_seconds = input(usr, "Enter the jail time in seconds:", "Start Syndicate Jail Timer") as num|null
+		time_seconds = text2num(time_seconds)
+		if(time_seconds < 0)
+			return
+
+		contract.prisoner_timer_handle = addtimer(CALLBACK(contract, /datum/syndicate_contract.proc/handle_target_return, M), time_seconds * 10, TIMER_STOPPABLE)
+		to_chat(usr, "Started automatic return of [M] from the Syndicate Jail in [time_seconds] second\s.")
+		message_admins("[key_name_admin(usr)] has started the automatic return of [key_name_admin(M)] from the Syndicate Jail in [time_seconds] second\s")
+		log_admin("[key_name(usr)] has started the automatic return of [key_name(M)] from the Syndicate Jail in [time_seconds] second\s")
+
+	else if(href_list["contractor_release"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["contractor_release"])
+		if(!istype(M))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob.</span>")
+			return
+
+		var/datum/syndicate_contract/contract = LAZYACCESS(GLOB.prisoner_belongings.prisoners, M)
+		if(!contract)
+			to_chat(usr, "<span class='warning'>[M] is currently not imprisoned by the Syndicate.</span>")
+			return
+
+		deltimer(contract.prisoner_timer_handle)
+		contract.handle_target_return(M)
+		to_chat(usr, "Immediately returned [M] from the Syndicate Jail.")
+		message_admins("[key_name_admin(usr)] has immediately returned [key_name_admin(M)] from the Syndicate Jail")
+		log_admin("[key_name(usr)] has immediately returned [key_name(M)] from the Syndicate Jail")
+
+
 	else if(href_list["aroomwarp"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
 
