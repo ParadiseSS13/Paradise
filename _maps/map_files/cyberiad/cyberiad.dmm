@@ -1218,9 +1218,9 @@
 /obj/structure/snow,
 /obj/item/toy/figure/secofficer,
 /obj/item/gun/projectile/automatic/toy/pistol,
-/obj/item/ammo_box/magazine/toy/pistol/riot,
 /obj/item/clothing/head/helmet/justice,
 /obj/item/nanomob_card,
+/obj/item/ammo_box/magazine/toy/pistol,
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "adY" = (
@@ -5437,10 +5437,10 @@
 /obj/item/clothing/head/cowboyhat/pink,
 /obj/structure/snow,
 /obj/item/toy/figure/hos,
-/obj/item/gun/projectile/automatic/sniper_rifle/toy,
-/obj/item/ammo_box/magazine/toy/sniper_rounds,
 /obj/item/toy/prize/gygax,
 /obj/item/nanomob_card,
+/obj/item/gun/projectile/automatic/toy,
+/obj/item/ammo_box/magazine/toy/smg,
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "akG" = (
@@ -67738,8 +67738,8 @@
 /obj/structure/snow,
 /obj/item/a_gift,
 /obj/item/id_decal/centcom,
-/obj/item/gun/projectile/automatic/l6_saw/toy/riot,
-/obj/item/ammo_box/magazine/toy/m762/riot,
+/obj/item/gun/projectile/automatic/toy,
+/obj/item/ammo_box/magazine/toy/smg,
 /turf/simulated/floor/plasteel{
 	icon_state = "bcarpet05"
 	},
@@ -97898,10 +97898,10 @@
 /obj/item/clothing/head/cowboyhat/white,
 /obj/structure/snow,
 /obj/item/toy/figure/warden,
-/obj/item/gun/projectile/automatic/toy/pistol/enforcer,
-/obj/item/ammo_box/magazine/toy/enforcer,
 /obj/item/toy/prize/durand,
 /obj/item/nanomob_card,
+/obj/item/gun/projectile/shotgun/toy,
+/obj/item/ammo_box/magazine/internal/shot/toy,
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "jGi" = (
