@@ -499,5 +499,5 @@
 /obj/machinery/autolathe/syndicate/New()
 	..()
 	if(files)
-		qdel(files)
+		QDEL_NULL(files)
 	files = new /datum/research/autolathe/syndicate(src)
