@@ -1355,6 +1355,7 @@
 #include "code\hispania\modules\projectiles\ammo\energy.dm"
 #include "code\hispania\modules\projectiles\guns\energy.dm"
 #include "code\hispania\modules\projectiles\guns\medbeam.dm"
+#include "code\hispania\modules\projectiles\guns\energy\kinetic_accelerator.dm"
 #include "code\hispania\modules\projectiles\guns\projectile\revolver.dm"
 #include "code\hispania\modules\projectiles\projectiles\beams.dm"
 #include "code\hispania\modules\reagents\chemistry\reagents\alcohol.dm"

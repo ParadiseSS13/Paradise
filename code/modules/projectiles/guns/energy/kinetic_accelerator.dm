@@ -568,6 +568,9 @@
 	var/chassis_name = "super-kinetic accelerator"
 
 /obj/item/borg/upgrade/modkit/chassis_mod/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
+	if(istype(KA, /obj/item/gun/energy/kinetic_accelerator/premiumka))
+		to_chat(user, "<span class='notice'>This modkit does not fit into the [KA.name].</span>")
+		return
 	. = ..()
 	if(.)
 		KA.icon_state = chassis_icon
