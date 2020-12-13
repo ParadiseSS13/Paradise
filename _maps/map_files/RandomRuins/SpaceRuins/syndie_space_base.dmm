@@ -1153,6 +1153,17 @@
 	tag = "icon-whiteblue (WEST)"
 	},
 /area/ruin/unpowered/syndicate_lava_base/medbay)
+"pK" = (
+/obj/effect/mob_spawn/human/lavaland_syndicate{
+	dir = 8;
+	mob_name = "Syndicate Scientist";
+	name = "Syndicate Base sleeper"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkblue"
+	},
+/area/ruin/unpowered/syndicate_lava_base/dormitories)
 "pR" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2879,6 +2890,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
+"KJ" = (
+/obj/effect/mob_spawn/human/lavaland_syndicate{
+	dir = 4;
+	mob_name = "Syndicate Scientist";
+	name = "Syndicate Base sleeper"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkblue"
+	},
+/area/ruin/unpowered/syndicate_lava_base/dormitories)
 "KK" = (
 /obj/structure/chair{
 	dir = 1
@@ -3886,14 +3908,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "Zy" = (
-/obj/effect/mob_spawn/human/lavaland_syndicate{
-	description = "Practice various aspects of the game in relative peace.";
-	dir = 8;
-	flavour_text = "You are a syndicate agent, employed in a deep space research facility. Discover how to do various things.";
-	important_info = "Do not work against traitors or nukies. Do not leave the base. Do not communicate with the Cyberiad except via syndicate comms.";
-	mob_name = "Syndicate Scientist";
-	name = "Syndicate Base sleeper"
-	},
+/obj/item/flag/syndi,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -4730,13 +4745,13 @@ AV
 AV
 AV
 fF
-Vs
+KJ
 As
 fF
-Vs
+KJ
 As
 fF
-Vs
+KJ
 As
 nj
 iy
@@ -5288,13 +5303,13 @@ AV
 AV
 AV
 fF
-Zy
+pK
 ju
 fF
-Zy
+pK
 ju
 fF
-Zy
+pK
 ju
 fF
 La
