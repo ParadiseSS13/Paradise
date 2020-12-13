@@ -1482,7 +1482,7 @@
 		return
 	var/datum/antagonist/A = has_antag_datum(datum_type)
 	if(A)
-		if(!A.owner || !A.owner.current)
+		if(!A.owner?.current)
 			CRASH("attempted to remove an antag datum ([A.type]) that didn't have an owner or owner.current")
 		A.on_removal()
 		return TRUE
@@ -1491,7 +1491,7 @@
 /datum/mind/proc/remove_all_antag_datums() //For the Lazy amongst us.
 	for(var/a in antag_datums)
 		var/datum/antagonist/A = a
-		if(!A.owner || !A.owner.current)
+		if(!A.owner?.current)
 			stack_trace("attempted to remove an antag datum ([A.type]) that didn't have an owner or owner.current")
 			continue
 		A.on_removal()
