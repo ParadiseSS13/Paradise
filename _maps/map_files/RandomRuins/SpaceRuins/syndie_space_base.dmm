@@ -1936,17 +1936,6 @@
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/virology)
-"zy" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/chem_dispenser/upgraded,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (SOUTHEAST)"
-	},
-/area/space)
 "zG" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/cans/beer,
@@ -3751,12 +3740,6 @@
 	icon_state = "yellow"
 	},
 /area/ruin/unpowered/syndicate_lava_base/main)
-"XO" = (
-/obj/item/gps/ruin{
-	gpstag = "ERR#UNID"
-	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/unpowered/syndicate_lava_base/arrivals)
 "XQ" = (
 /obj/machinery/light{
 	dir = 4
@@ -5586,7 +5569,7 @@ hp
 XS
 UF
 Fp
-zy
+PH
 Og
 cU
 SE
@@ -6810,7 +6793,7 @@ AV
 AV
 AV
 AV
-XO
+yE
 WG
 WG
 sr
