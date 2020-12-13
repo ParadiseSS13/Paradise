@@ -93,6 +93,7 @@
 	"bar" = "spoons",
 	"brain" = "noggin",
 	"break" = "smash",
+	"broke" = "smashed",
 	"broken" = "gone kaput",
 	"comdom" = "knob'ed",
 	"cool" = "ace",
@@ -109,18 +110,19 @@
 	"fight" = "scuffle",
 	"food" = "nosh",
 	"friend" = "blud",
+	"fuck" = "fook",
 	"get" = "giz",
 	"girl" = "bird",
 	"go away" = "jog on",
 	"good" = "mint",
 	"great" = "bangin'",
-	"great" = "crackin'",
 	"happy" = "chuffed",
 	"hello" = "orite",
 	"hi" = "sup",
 	"idiot" = "twit",
 	"isn't it" = "innit",
 	"kill" = "bang",
+	"killed" = "banged",
 	"man" = "bloke",
 	"mess" = "shambles",
 	"mistake" = "cock-up",
@@ -144,8 +146,7 @@
 	"windows" = "windies",
 	"yes" = "ye",
 	"yikes" = "blimey",
-	"you" = "u",
-	"your" = "ur"
+	"your" = "yur"
 	)
 
 /datum/dna/gene/disability/speech/chav/New()
