@@ -223,16 +223,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
-"dt" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_lava_base/arrivals)
 "dP" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/portable_atmospherics/canister/sleeping_agent,
@@ -527,16 +517,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_lava_base/bar)
-"hD" = (
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 4;
-	initialize_directions = 11;
-	level = 2
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_lava_base/arrivals)
 "hK" = (
 /obj/machinery/light{
 	dir = 4
@@ -657,6 +637,14 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
+"iA" = (
+/obj/machinery/atmospherics/pipe/simple/visible/universal{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_lava_base/engineering)
 "iF" = (
 /obj/structure/table,
 /obj/item/pen,
@@ -762,6 +750,17 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_lava_base/bar)
+"jS" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 4;
+	initialize_directions = 11;
+	level = 2
+	},
+/obj/machinery/meter,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_lava_base/engineering)
 "jW" = (
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/beer/upgraded{
@@ -774,14 +773,6 @@
 	icon_state = "grimy"
 	},
 /area/ruin/unpowered/syndicate_lava_base/bar)
-"kk" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 9
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_lava_base/arrivals)
 "ku" = (
 /obj/structure/window/basic{
 	dir = 4
@@ -1148,16 +1139,6 @@
 	icon_state = "floorgrime"
 	},
 /area/ruin/unpowered/syndicate_lava_base/bar)
-"oX" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/obj/machinery/meter,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_lava_base/arrivals)
 "oZ" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/binary/pump{
@@ -1179,6 +1160,16 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_lava_base/bar)
+"pA" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_lava_base/engineering)
 "pI" = (
 /obj/structure/table/reinforced,
 /obj/item/retractor,
@@ -1319,6 +1310,14 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
+"rN" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_lava_base/engineering)
 "rV" = (
 /obj/machinery/seed_extractor,
 /turf/simulated/floor/plasteel{
@@ -1494,6 +1493,7 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "uz" = (
+/obj/machinery/portable_atmospherics/pump,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "yellow"
@@ -1585,13 +1585,7 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "vn" = (
-/obj/structure/window/plasmareinforced{
-	dir = 1
-	},
-/obj/effect/turf_decal/caution/red,
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 4
-	},
+/obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2177,6 +2171,15 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_lava_base/main)
+"Ce" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_lava_base/engineering)
 "Cf" = (
 /obj/machinery/conveyor/east{
 	id = "syndiegarbage"
@@ -2255,6 +2258,7 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/main)
 "Dv" = (
+/obj/machinery/portable_atmospherics/pump,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "yellow"
@@ -2314,6 +2318,15 @@
 	tag = "icon-whitegreen (WEST)"
 	},
 /area/ruin/unpowered/syndicate_lava_base/virology)
+"El" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_lava_base/main)
 "Em" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
@@ -2746,20 +2759,17 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "Jg" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+/obj/structure/window/plasmareinforced{
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
+/obj/effect/turf_decal/caution/red,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/syndicate_lava_base/main)
+/area/ruin/unpowered/syndicate_lava_base/engineering)
 "Ji" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-22"
@@ -2864,9 +2874,15 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
 "Ko" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	pixel_y = 0;
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3109,14 +3125,6 @@
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "Ms" = (
 /obj/structure/falsewall/plastitanium,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_lava_base/arrivals)
-"MG" = (
-/obj/machinery/atmospherics/pipe/simple/visible/universal{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3614,7 +3622,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/syndicate_lava_base/arrivals)
+/area/ruin/unpowered/syndicate_lava_base/engineering)
 "Vc" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -5728,7 +5736,7 @@ hX
 sz
 BS
 FW
-Jg
+Ko
 yB
 BS
 xG
@@ -5790,7 +5798,7 @@ hK
 uk
 uk
 uk
-Ko
+El
 uk
 uk
 yz
@@ -5852,8 +5860,8 @@ Em
 Em
 Em
 sR
-dt
-yE
+pA
+Em
 yE
 nT
 QO
@@ -5914,8 +5922,8 @@ Wr
 Wr
 Vx
 Aj
-oX
-WG
+Ce
+vn
 yE
 nT
 WG
@@ -5974,9 +5982,9 @@ Em
 Wr
 xt
 Wr
-vn
+Jg
 Aj
-MG
+iA
 UR
 yE
 nT
@@ -6038,8 +6046,8 @@ lm
 fi
 wJ
 be
-hD
-kk
+jS
+rN
 yE
 nT
 WG
