@@ -120,7 +120,7 @@
 		var/assassin_count = length(SSticker.mode.protect_target_assassins)
 		var/protector_count = length(SSticker.mode.protect_target_protectors)
 
-		// Make a new protector if there is no target set yet (first protector) or at a 20% chance if there are less or equal protectors compared to assassins
+		// Make a new protector if there is no target set yet (first protector) or at a 10% chance if there are less or equal protectors compared to assassins
 		if(!SSticker.mode.VIP_target || (protector_count <= assassin_count && prob(10)))
 			create_objective(/datum/objective/protect/vip)
 			objective_count++
