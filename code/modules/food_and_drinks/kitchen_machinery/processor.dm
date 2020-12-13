@@ -166,7 +166,7 @@
 		to_chat(user, "<span class='warning'>\the [src] is already processing something!</span>")
 		return 1
 
-	if(default_deconstruction_screwdriver(user, "processor1", "processor", O))
+	if(default_deconstruction_screwdriver(user, "processor_open", "processor", O))
 		return
 
 	if(exchange_parts(user, O))
