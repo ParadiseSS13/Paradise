@@ -498,7 +498,6 @@
 
 /obj/machinery/autolathe/syndicate/New()
 	..()
-	if(files)
-		qdel(files)
-	files = new /datum/research/autolathe/syndicate(src)
-	matching_designs = list()
+	files.known_designs -= "intercom_electronics"
+	files.known_designs -= "radio_headset"
+	files.known_designs -= "bounced_radio"

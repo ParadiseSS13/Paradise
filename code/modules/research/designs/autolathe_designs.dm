@@ -170,7 +170,6 @@
 	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
 	build_path = /obj/item/intercom_electronics
 	category = list("initial", "Electronics")
-	syndi_allowed = FALSE
 
 /datum/design/earmuffs
 	name = "Earmuffs"
@@ -527,7 +526,6 @@
 	materials = list(MAT_METAL = 75)
 	build_path = /obj/item/radio/headset
 	category = list("initial", "Communication")
-	syndi_allowed = FALSE
 
 /datum/design/bounced_radio
 	name = "Station Bounced Radio"
@@ -536,7 +534,6 @@
 	materials = list(MAT_METAL = 75, MAT_GLASS = 25)
 	build_path = /obj/item/radio/off
 	category = list("initial", "Communication")
-	syndi_allowed = FALSE
 
 /datum/design/infrared_emitter
 	name = "Infrared Emitter"

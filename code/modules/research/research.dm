@@ -409,10 +409,3 @@ datum/tech/robotics
 	. = ..()
 	var/datum/design/golem_shell/G = new
 	blueprint = G
-
-/datum/research/autolathe/syndicate/DesignHasReqs(var/datum/design/D)
-	if(!istype(D))
-		return FALSE
-	if(!D.syndi_allowed)
-		return FALSE
-	return ..()
