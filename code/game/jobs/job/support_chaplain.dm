@@ -44,14 +44,14 @@
 	user.put_in_l_hand(B)
 
 	var/religion_name = "Christianity"
-	var/new_religion = sanitize(copytext(input(user, "You are the Chaplain. What name do you give your beliefs? Default is Christianity.", "Name change", religion_name), 1, MAX_NAME_LEN))
+	var/new_religion = copytext(clean_input("You are the Chaplain. What name do you give your beliefs? Default is Christianity.", "Name change", religion_name, user), 1, MAX_NAME_LEN)
 
 	if(!new_religion)
 		new_religion = religion_name
 
 	switch(lowertext(new_religion))
 		if("christianity")
-			B.name = pick("The Holy Bible")
+			B.name = "The Holy Bible"
 		if("satanism")
 			B.name = "The Unholy Bible"
 		if("cthulu")
@@ -73,7 +73,7 @@
 	feedback_set_details("religion_name", "[new_religion]")
 
 	var/deity_name = "Space Jesus"
-	var/new_deity = sanitize(copytext(input(user, "Who or what do you worship? Default is Space Jesus.", "Name change", deity_name), 1, MAX_NAME_LEN))
+	var/new_deity = copytext(clean_input("Who or what do you worship? Default is Space Jesus.", "Name change", deity_name, user), 1, MAX_NAME_LEN)
 
 	if(!length(new_deity) || (new_deity == "Space Jesus"))
 		new_deity = deity_name

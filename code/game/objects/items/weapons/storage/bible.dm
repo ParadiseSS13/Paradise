@@ -11,16 +11,26 @@
 	/// Is the sprite of this bible customisable
 	var/customisable = FALSE
 
-	// ALL OF THESE MUST BE THE SAME LENGTH
-	/// List of bible variant names, used for the radial menu
-	var/static/list/bible_names = list("Bible", "Koran", "Scrapbook", "Creeper", "White Bible", "Holy Light", "PlainRed", "Tome", "The King in Yellow", "Ithaqua", "Scientology", "the bible melts", "Necronomicon", "Greentext")
-	/// List of bible variant icon states, used for the radial menu
-	var/static/list/bible_states = list("bible", "koran", "scrapbook", "creeper", "white", "holylight", "athiest", "tome", "kingyellow", "ithaqua", "scientology", "melted", "necronomicon", "greentext")
-	/// List of bible variant inhand states, used for the radial menu
-	var/static/list/bible_inhand = list("bible", "koran", "scrapbook", "syringe_kit", "syringe_kit", "syringe_kit", "syringe_kit", "syringe_kit", "kingyellow", "ithaqua", "scientology", "melted", "necronomicon", "greentext")
+	/// Associative list of accociative lists of bible variants, used for the radial menu
+	var/static/list/bible_variants = list(
+		"Bible" =			   list("state" = "bible",		  "inhand" = "bible"),
+		"Koran" =			   list("state" = "koran",		  "inhand" = "koran"),
+		"Scrapbook" =		   list("state" = "scrapbook",	  "inhand" = "scrapbook"),
+		"Creeper" =			   list("state" = "creeper",	  "inhand" = "syringe_kit"),
+		"White Bible" =		   list("state" = "white",		  "inhand" = "syringe_kit"),
+		"Holy Light" =		   list("state" = "holylight",	  "inhand" = "syringe_kit"),
+		"PlainRed" =		   list("state" = "athiest",	  "inhand" = "syringe_kit"),
+		"Tome" =			   list("state" = "tome",		  "inhand" = "syringe_kit"),
+		"The King in Yellow" = list("state" = "kingyellow",	  "inhand" = "kingyellow"),
+		"Ithaqua" =			   list("state" = "ithaqua",	  "inhand" = "ithaqua"),
+		"Scientology" =		   list("state" = "scientology",  "inhand" = "scientology"),
+		"the bible melts" =	   list("state" = "melted",		  "inhand" = "melted"),
+		"Necronomicon" =	   list("state" = "necronomicon", "inhand" = "necronomicon"),
+		"Greentext" =		   list("state" = "greentext",	  "inhand" = "greentext"),
+	)
 
 /obj/item/storage/bible/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='boldwarning'>[user] stares into [name] and attempts to transcend understanding of the universe!</span>")
+	user.visible_message("<span class='suicide'>[user] stares into [name] and attempts to transcend understanding of the universe!</span>")
 	user.dust()
 	return OBLITERATION
 
@@ -130,18 +140,18 @@
 		return
 
 	var/list/skins = list()
-	for(var/I in 1 to length(bible_states))
-		var/image/bible_image = image('icons/obj/storage.dmi', icon_state = bible_states[I])
-		skins += list(bible_names[I] = bible_image)
+	for(var/I in bible_variants)
+		var/icons = bible_variants[I] // Get the accociated list
+		var/image/bible_image = image('icons/obj/storage.dmi', icon_state = icons["state"])
+		skins[I] = bible_image
 
 	var/choice = show_radial_menu(user, src, skins, null, 42, CALLBACK(src, .proc/radial_check, user), TRUE)
 	if(!choice || !radial_check(user))
 		return
-	var/index = bible_names.Find(choice)
-	if(!index)
-		return
-	icon_state = bible_states[index]
-	item_state = bible_inhand[index]
+	var/choice_icons = bible_variants[choice]
+
+	icon_state = choice_icons["state"]
+	item_state = choice_icons["inhand"]
 	customisable = FALSE
 
 	// Carpet symbol icons are currently broken, so commented out until it's fixed
