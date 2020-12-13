@@ -133,3 +133,12 @@
 	icon = 'icons/obj/doors/1x2blast_hor.dmi'
 	width = 2
 	dir = EAST
+
+/obj/machinery/door/poddoor/impassable/brass
+	name = "brass blast door"
+	desc = "A great brass blast door. It looks like it can withstand a lot of punishment."
+	icon = 'icons/obj/doors/blastdoor_brass.dmi'
+
+/obj/machinery/door/poddoor/impassable/brass/beach_brass_temple/Initialize()
+	. = ..()
+	id_tag = "brassbeachtempledoor[rand(1, 12)]"

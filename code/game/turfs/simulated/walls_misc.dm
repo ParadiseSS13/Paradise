@@ -54,6 +54,8 @@
 /turf/simulated/wall/clockwork
 	name = "clockwork wall"
 	desc = "A huge chunk of warm metal. The clanging of machinery emanates from within."
+	icon = 'icons/obj/clockwork_objects.dmi'
+	icon_state = "clockwork_wall"
 	explosion_block = 2
 	hardness = 10
 	slicing_duration = 80
@@ -71,7 +73,7 @@
 	realappearance = new /obj/effect/clockwork/overlay/wall(src)
 	realappearance.linked = src
 
-/turf/simulated/wall/clockwork/Destroy()
+/turf/simulated/wall/clockwork/BeforeChange()
 	QDEL_NULL(realappearance)
 	return ..()
 
@@ -87,25 +89,6 @@
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
 		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
-
-/turf/simulated/wall/clockwork/dismantle_wall(devastated=0, explode=0)
-	if(devastated)
-		devastate_wall()
-		ChangeTurf(baseturf)
-	else
-		playsound(src, 'sound/items/welder.ogg', 100, 1)
-		var/newgirder = break_wall()
-		if(newgirder) //maybe we want a gear!
-			transfer_fingerprints_to(newgirder)
-		ChangeTurf(baseturf)
-
-	for(var/obj/O in src) //Eject contents!
-		if(istype(O, /obj/structure/sign/poster))
-			var/obj/structure/sign/poster/P = O
-			P.roll_and_drop(src)
-		else
-			O.forceMove(src)
-	return TRUE
 
 /turf/simulated/wall/clockwork/devastate_wall()
 	for(var/i in 1 to 2)
@@ -136,11 +119,11 @@
 		heated = TRUE
 		hardness = -100 //Lower numbers are tougher, so this makes the wall essentially impervious to smashing
 		slicing_duration = 150
-		animate(realappearance, color = "#FFC3C3", time = 5)
+		animate(color = "#FFC3C3", time = 5)
 	else
 		name = initial(name)
 		visible_message("<span class='notice'>[src] cools down.</span>")
 		heated = FALSE
 		hardness = initial(hardness)
 		slicing_duration = initial(slicing_duration)
-		animate(realappearance, color = initial(realappearance.color), time = 25)
+		animate(color = initial(color), time = 25)

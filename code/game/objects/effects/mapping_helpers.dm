@@ -42,6 +42,14 @@
 	name = "beach sand baseturf editor"
 	baseturf = /turf/simulated/floor/beach/sand
 
+/obj/effect/baseturf_helper/beach/roughsand
+	name = "beach sand baseturf editor"
+	baseturf =/turf/simulated/floor/beach/roughsand
+
+/obj/effect/baseturf_helper/beach/dense_roughsand
+	name = "beach sand baseturf editor"
+	baseturf =/turf/simulated/floor/beach/roughsand/dense
+
 /obj/effect/baseturf_helper/beach/water
 	name = "water baseturf editor"
 	baseturf = /turf/simulated/floor/beach/water
@@ -61,7 +69,7 @@
 
 /obj/effect/mapping_helpers/Initialize(mapload)
 	..()
-	
+
 	return late ? INITIALIZE_HINT_LATELOAD : qdel(src) // INITIALIZE_HINT_QDEL <-- Doesn't work
 
 /obj/effect/mapping_helpers/no_lava
@@ -83,7 +91,7 @@
 		airlock.unres_sides ^= dir
 	else
 		log_world("### MAP WARNING, [src] failed to find an airlock at [AREACOORD(src)]")
-	..()	
+	..()
 /obj/effect/mapping_helpers/no_lava/New()
 	var/turf/T = get_turf(src)
 	T.flags |= NO_LAVA_GEN

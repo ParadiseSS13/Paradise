@@ -53,3 +53,13 @@
 	response_disarm = "shoves"
 	response_harm = "stomps"
 	gold_core_spawnable = HOSTILE_SPAWN
+
+/mob/living/simple_animal/crab/strange
+	name = "Strange Crab"
+	real_name = "Strange Crab"
+	desc = "A hard-shelled crustacean. Its eyes regard you with a mix of desperation and madness."
+	response_help = "pokes"
+	response_disarm = "shoves"
+	response_harm = "stomps"
+	faction = list("nether")
+	gold_core_spawnable = NO_SPAWN

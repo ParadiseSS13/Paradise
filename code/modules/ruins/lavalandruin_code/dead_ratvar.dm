@@ -69,17 +69,70 @@
 /obj/effect/clockwork/overlay/floor/bloodcult //this is used by BLOOD CULT, it shouldn't use such a path...
 	icon_state = "cult"
 
+//The base clockwork structure. Can have an alternate desc and will show up in the list of clockwork objects.
+/obj/structure/clockwork
+	icon = 'icons/obj/clockwork_objects.dmi'
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	max_integrity = 100
+	anchored = TRUE
+	density = TRUE
+	var/buildstacktype = /obj/item/stack/tile/brass
+	var/buildstackamount = 1
+
+/obj/structure/clockwork/decorative/deconstruct()
+	// If we have materials, and don't have the NOCONSTRUCT flag
+	if(buildstacktype && (!(flags & NODECONSTRUCT)))
+		new buildstacktype(loc, buildstackamount)
+	..()
+
+/obj/structure/clockwork/decorative/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(flags & NODECONSTRUCT)
+		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct [src].</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	deconstruct(TRUE)
+
+/obj/structure/clockwork/decorative/prolonging_prism
+	name = "prolonging prism"
+	icon_state = "prolonging_prism"
+	desc = "A brass structure of unknown purpose but being around it feels strange."
+	buildstackamount = 3
+
+
+/obj/structure/clockwork/decorative/mania_motor
+	name = "mania motor"
+	icon_state = "mania_motor"
+	desc = "A sourceless sound of ticking gears constantly plays in your mind when near it."
+	buildstackamount = 3
+
+/obj/structure/clockwork/decorative/obelisk
+	name = "brass obelisk"
+	icon_state = "obelisk"
+	desc = "A brass obelisk floating in the air. It gives off a yellow glow."
+	light_range = 5
+	light_color = "#dab40e"
+	buildstackamount = 3
+
+/obj/structure/clockwork/decorative/tinkerers_cache
+	name = "tinkerers cache"
+	icon_state = "tinkerers_cache"
+	desc = "A cache of unknown devices and whirling cogs."
+	buildstackamount = 3
+
+/obj/structure/clockwork/decorative/relay
+	name = "brass relay"
+	icon_state = "relay"
+	desc = "You sense something is looking back when you stare at it."
+	buildstackamount = 3
+
 // Wall gears
 //A massive gear, effectively a girder for clocks.
 /obj/structure/clockwork/wall_gear
 	name = "massive gear"
-	icon = 'icons/obj/clockwork_objects.dmi'
 	icon_state = "wall_gear"
 	climbable = TRUE
-	max_integrity = 100
-	anchored = TRUE
-	density = TRUE
-	resistance_flags = FIRE_PROOF | ACID_PROOF
 	desc = "A massive brass gear. You could probably secure or unsecure it with a wrench, or just climb over it."
 
 /obj/structure/clockwork/wall_gear/displaced

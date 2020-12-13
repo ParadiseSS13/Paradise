@@ -152,7 +152,8 @@
 	var/suit = -1
 	var/shoes = -1
 	var/gloves = -1
-	var/ears = -1
+	var/l_ear = -1
+	var/r_ear = -1
 	var/glasses = -1
 	var/mask = -1
 	var/head = -1
@@ -169,7 +170,7 @@
 	var/facial_hair_style
 	var/skin_tone
 
-	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
+	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset) //make the var's list blank in the spawns you want to start with headsets and PDAs
 
 /obj/effect/mob_spawn/human/Initialize()
 	if(ispath(outfit))
@@ -223,7 +224,7 @@
 	H.update_dna()
 	H.regenerate_icons()
 	if(outfit)
-		var/static/list/slots = list("uniform", "r_hand", "l_hand", "suit", "shoes", "gloves", "ears", "glasses", "mask", "head", "belt", "r_pocket", "l_pocket", "back", "id", "neck", "backpack_contents", "suit_store")
+		var/static/list/slots = list("uniform", "r_hand", "l_hand", "suit", "shoes", "gloves", "l_ear", "r_ear", "glasses", "mask", "head", "belt", "r_pocket", "l_pocket", "back", "id", "neck", "backpack_contents", "suit_store")
 		for(var/slot in slots)
 			var/T = vars[slot]
 			if(!isnum(T))
@@ -515,6 +516,52 @@
 	name = "Beach Bum"
 	glasses = /obj/item/clothing/glasses/sunglasses
 	uniform = /obj/item/clothing/under/shorts/red
+
+/obj/effect/mob_spawn/human/resort_host
+	death = FALSE
+	roundstart = FALSE
+	random = TRUE
+	allow_species_pick = TRUE
+	name = "Resort Sleeper"
+	mob_name = "Resort host"
+	desc = "A small sleeper with a palm tree logo on it. A well dressed humanoid occupant sleeps within."
+	icon = 'icons/obj/cryogenic2.dmi'
+	icon_state = "sleeper"
+	description = "You are a beach resort host!"
+	flavour_text = " Your job is to man the resort and tend to the customers, handle riff raff, keeping the resort clean, and treating customer's injuries.\
+	 Don't leave the resort unless it is to recover someone's body from the ocean for revival. Feel free to do some light advertizing for the resort but don't spam coms."
+	assignedrole = "Resort Host"
+	id_job = "Resort Host"
+	id_access_list = list(ACCESS_BAR, ACCESS_KITCHEN)
+	outfit = /datum/outfit/resort_host
+	del_types = list() //this reenables spawn roles to have headsets and PDAs again
+
+/datum/outfit/resort_host
+	name = "Resort Host"
+	uniform = /obj/item/clothing/under/waiter
+	suit = /obj/item/clothing/suit/storage/lawyer/blackjacket/armored
+	r_pocket = /obj/item/flash
+	belt = /obj/item/melee/classic_baton/telescopic
+	back = /obj/item/storage/backpack/satchel_norm
+	shoes = /obj/item/clothing/shoes/laceup
+	l_ear = /obj/item/radio/headset/headset_service
+	glasses = /obj/item/clothing/glasses/sunglasses/reagent
+	gloves = /obj/item/clothing/gloves/color/white
+	id = /obj/item/card/id
+	backpack_contents = list(
+		/obj/item/reagent_containers/food/drinks/shaker = 1,
+		/obj/item/soap/deluxe = 1,
+		/obj/item/storage/firstaid/regular = 1) //in case people run off with the stuff to maintain the resort
+
+/datum/outfit/resort_host/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	var/obj/item/implant/exile/E = new(H)
+	E.implant(H)
+
+
 
 /////////////////Spooky Undead//////////////////////
 

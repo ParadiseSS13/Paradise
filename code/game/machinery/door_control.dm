@@ -124,3 +124,28 @@
 		icon_state = "doorctrl-p"
 	else
 		icon_state = "doorctrl0"
+
+/obj/machinery/door_control/brass
+	name = "brass door-control"
+	desc = "A brass remote control-switch for a door."
+	icon = 'icons/obj/clockwork_objects.dmi'
+
+/obj/machinery/door_control/brass/beach_brass_temple_switch/Initialize()
+	. = ..()
+	id = "brassbeachtempledoor[rand(1, 12)]"
+
+/obj/machinery/door_control/brass/beach_brass_temple_switch/attack_hand(mob/user as mob)
+	. = ..()
+	var/temple_traps = rand(1,10) //no forbidden temple is complete without some traps!
+	switch(temple_traps)
+		if(1 to 5)//You're safe, this time.
+			return
+		if(6 to 8)
+			new /mob/living/simple_animal/hostile/poison/giant_spider(get_turf(src))
+			visible_message("<span class='boldannounce'>A hatch opens above you and a giant spider falls down on your head!</span>")
+			playsound(get_turf(src), 'sound/effects/bin_close.ogg', 200, TRUE)
+		if(9,10)
+			addtimer(CALLBACK(GLOBAL_PROC, .proc/explosion, user.loc, -1, rand(1,5), rand(1,5), rand(1,5), rand(1,5), 1, 0, 2), 60)
+			playsound(get_turf(src), 'sound/mecha/powerup.ogg', 200, TRUE)
+			visible_message("<span class='boldannounce'>A high pitched whine can be heard and the walls looks to be heating up!</span>")
+

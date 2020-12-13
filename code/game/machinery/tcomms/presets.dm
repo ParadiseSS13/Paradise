@@ -30,3 +30,8 @@
 	autolink_id = "STATION-CORE"
 	hidden_link = TRUE
 
+/obj/machinery/tcomms/relay/beachresort
+	network_id = "BEACH-RESORT"
+	autolink_id = "STATION-CORE"
+	active = FALSE
+	hidden_link = TRUE
