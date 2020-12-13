@@ -44148,6 +44148,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "bHW" = (
@@ -51988,7 +51989,9 @@
 	layer = 2.9
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 4;
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
 	},
 /area/medical/sleeper)
 "cdl" = (
@@ -52553,7 +52556,9 @@
 	pixel_y = 0
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 4;
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
 	},
 /area/medical/sleeper)
 "ceP" = (
@@ -54120,7 +54125,9 @@
 	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 4;
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
 	},
 /area/medical/sleeper)
 "cju" = (
@@ -55609,7 +55616,9 @@
 	dir = 5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 5;
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (NORTHEAST)"
 	},
 /area/toxins/xenobiology)
 "cov" = (
@@ -55838,13 +55847,8 @@
 	},
 /area/medical/medbay2)
 "cpd" = (
-/obj/structure/table,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = 2
-	},
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -3
-	},
+/obj/structure/mopbucket/full,
+/obj/item/mop,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -69600,7 +69604,6 @@
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "dck" = (
-/obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
 	initialize_directions = 11;
@@ -77331,8 +77334,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "whitepurple"
+	icon_state = "white"
 	},
 /area/toxins/xenobiology)
 "edJ" = (
@@ -79786,10 +79788,12 @@
 "fRO" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/bot,
-/obj/item/clothing/shoes/magboots,
-/obj/item/clothing/shoes/magboots{
-	pixel_x = 3;
-	pixel_y = -4
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = 2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -80398,8 +80402,9 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull";
-	tag = "icon-whitebluefull"
+	dir = 5;
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
 	},
 /area/medical/medbay2)
 "gqo" = (
@@ -80942,7 +80947,9 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_x = 28
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/toxins/storage)
 "gUF" = (
@@ -81244,7 +81251,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 4;
+	icon_state = "whitepurple"
 	},
 /area/toxins/xenobiology)
 "hhr" = (
@@ -81493,7 +81501,9 @@
 /area/maintenance/asmaint)
 "hqZ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /obj/structure/sign/fire{
 	pixel_y = 32
 	},
@@ -84223,19 +84233,6 @@
 	icon_state = "white"
 	},
 /area/toxins/xenobiology)
-"jCo" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
-	},
-/area/medical/medbay2)
 "jCA" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -84529,26 +84526,6 @@
 	tag = "icon-whiteblue (EAST)"
 	},
 /area/shuttle/escape)
-"jNg" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/xenobiology)
 "jNl" = (
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -86430,7 +86407,9 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 10;
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (SOUTHWEST)"
 	},
 /area/toxins/xenobiology)
 "leU" = (
@@ -86552,7 +86531,9 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 8;
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner (WEST)"
 	},
 /area/medical/medbay2)
 "lkv" = (
@@ -86765,7 +86746,9 @@
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 4;
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (EAST)"
 	},
 /area/toxins/hallway)
 "ltF" = (
@@ -87067,7 +87050,9 @@
 	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 4;
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
 	},
 /area/medical/sleeper)
 "lBc" = (
@@ -89860,8 +89845,6 @@
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
 "nKe" = (
-/obj/structure/mopbucket/full,
-/obj/item/mop,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5;
 	level = 1
@@ -90094,7 +90077,9 @@
 	},
 /area/toxins/server_coldroom)
 "nTW" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -90512,7 +90497,7 @@
 /turf/simulated/floor/plating,
 /area/medical/virology)
 "oiW" = (
-/obj/item/clothing/under/fluff/lfvicsuit,
+/obj/item/clothing/under/assistantformal,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken";
 	tag = "icon-wood-broken"
@@ -90630,7 +90615,9 @@
 /obj/machinery/portable_atmospherics/scrubber/huge,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = -24
@@ -90677,7 +90664,9 @@
 	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 6;
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (SOUTHEAST)"
 	},
 /area/toxins/hallway)
 "ood" = (
@@ -90814,9 +90803,9 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
+	dir = 9;
 	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTH)"
+	tag = "icon-whiteblue (NORTHWEST)"
 	},
 /area/medical/medbay2)
 "osi" = (
@@ -91206,7 +91195,9 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 9;
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (NORTHWEST)"
 	},
 /area/toxins/hallway)
 "oEV" = (
@@ -91219,7 +91210,8 @@
 /obj/structure/closet/firecloset/full,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 2;
+	icon_state = "whitepurple"
 	},
 /area/toxins/xenobiology)
 "oFc" = (
@@ -92206,7 +92198,9 @@
 /obj/structure/closet/firecloset,
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 10;
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (SOUTHWEST)"
 	},
 /area/toxins/hallway)
 "poD" = (
@@ -94163,9 +94157,8 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTHWEST)"
+	icon_state = "whitebluefull";
+	tag = "icon-whitebluefull"
 	},
 /area/medical/medbay2)
 "qHx" = (
@@ -94355,6 +94348,7 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
 "qOo" = (
@@ -95203,7 +95197,8 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 8;
+	icon_state = "whitepurple"
 	},
 /area/toxins/hallway)
 "ryw" = (
@@ -97140,7 +97135,9 @@
 	},
 /area/hallway/secondary/exit)
 "sXM" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plasteel,
 /area/toxins/storage)
@@ -97472,6 +97469,10 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
+"tjF" = (
+/obj/item/reagent_containers/food/snacks/cubancarp,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "tjV" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
@@ -98923,8 +98924,12 @@
 "ulJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/caution/red,
-/obj/effect/decal/warning_stripes/northwestcorner,
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/landmark/burnturf,
@@ -99117,7 +99122,9 @@
 /obj/machinery/computer/area_atmos,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurplecorner"
@@ -99500,7 +99507,9 @@
 	},
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 5;
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (NORTHEAST)"
 	},
 /area/toxins/hallway)
 "uEk" = (
@@ -99645,7 +99654,9 @@
 /area/toxins/xenobiology)
 "uMi" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/toxins/storage)
 "uMl" = (
@@ -99792,7 +99803,8 @@
 	dir = 5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 2;
+	icon_state = "whitepurple"
 	},
 /area/toxins/xenobiology)
 "uTa" = (
@@ -100397,6 +100409,13 @@
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plasteel,
 /area/maintenance/abandonedrobotics)
+"vqT" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/hallway/secondary/exit)
 "vru" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
 /turf/space,
@@ -100426,6 +100445,7 @@
 /area/toxins/storage)
 "vsj" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
+/obj/item/clothing/under/cuban_suit,
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology/xenoflora{
 	name = "\improper Toxin Testing Chute Chamber"
@@ -100763,7 +100783,9 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 8;
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (WEST)"
 	},
 /area/toxins/xenobiology)
 "vGS" = (
@@ -100974,6 +100996,11 @@
 	tag = "icon-whiteblue"
 	},
 /area/medical/reception)
+"vNV" = (
+/obj/structure/closet,
+/obj/item/clothing/head/cuban_hat,
+/turf/simulated/floor/plasteel/airless,
+/area/toxins/test_area)
 "vOC" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -103296,7 +103323,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 4;
+	icon_state = "whitepurple"
 	},
 /area/toxins/xenobiology)
 "xII" = (
@@ -103703,7 +103731,9 @@
 	dir = 6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 6;
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (SOUTHEAST)"
 	},
 /area/toxins/xenobiology)
 "xWJ" = (
@@ -103716,7 +103746,8 @@
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 9;
+	icon_state = "whitepurple"
 	},
 /area/toxins/xenobiology)
 "xWL" = (
@@ -141558,7 +141589,7 @@ rmb
 qBz
 bIq
 oFt
-jCo
+hvU
 bWd
 bXM
 tNO
@@ -148282,7 +148313,7 @@ kel
 ydo
 sEc
 pJD
-hTI
+nav
 wtd
 lzd
 sld
@@ -148539,7 +148570,7 @@ rhG
 iIk
 hfG
 gCq
-nav
+hTI
 svV
 rKv
 sld
@@ -149254,7 +149285,7 @@ blj
 bxV
 bau
 bFs
-xsN
+bHI
 kiF
 frL
 kuN
@@ -149310,7 +149341,7 @@ nst
 trA
 sEc
 mVN
-hTI
+nav
 wtd
 scV
 sld
@@ -149567,7 +149598,7 @@ ssl
 iIk
 hfG
 hav
-jNg
+ped
 eeg
 xxN
 sld
@@ -151053,7 +151084,7 @@ boJ
 bya
 aYQ
 bvg
-bHI
+xsN
 kiF
 bte
 lYz
@@ -156737,7 +156768,7 @@ lpH
 vuQ
 nWW
 cgs
-vGA
+tjF
 cuQ
 bGG
 saq
@@ -158249,7 +158280,7 @@ kIe
 ouC
 bjR
 mSF
-kIe
+vqT
 egr
 bjR
 mSF
@@ -163446,7 +163477,7 @@ tIf
 tIf
 kaF
 cvt
-ckb
+vNV
 ckb
 ckb
 ckb
