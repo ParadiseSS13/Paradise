@@ -341,8 +341,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/Topic(href, href_list)
 	if(href_list["GhostFaxView"])
-		var/mob/dead/observer/ghost = usr
-		if(istype(ghost))
+		if(isobserver(usr))
 			var/obj/item/fax = locate(href_list["ghostfaxview"])
 			if(istype(fax, /obj/item/paper))
 				var/obj/item/paper/P = fax
@@ -365,13 +364,12 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 				to_chat(usr, "<span class='warning'>The faxed item is not viewable. This is probably a bug, and should be reported on the tracker: [fax.type]</span>")
 
 	else if(href_list["GhostFaxViewPage"])
-		var/mob/dead/observer/ghost = usr
-		if(istype(ghost))
+		if(isobserver(usr))
 			var/page = text2num(href_list["GhostFaxViewPage"])
 			var/obj/item/paper_bundle/bundle = locate(href_list["paper_bundle"])
 
 			if(!bundle)
-			    return
+				return
 
 			if(istype(bundle.contents[page], /obj/item/paper))
 				var/obj/item/paper/P = bundle.contents[page]
@@ -379,7 +377,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			else if(istype(bundle.contents[page], /obj/item/photo))
 				var/obj/item/photo/H = bundle.contents[page]
 				H.show(usr)
-		return
 
 /obj/machinery/photocopier/faxmachine/proc/cooldown_seconds()
 	if(sendcooldown < world.time)
