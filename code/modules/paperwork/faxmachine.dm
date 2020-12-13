@@ -346,7 +346,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			var/obj/item/fax = locate(href_list["ghostfaxview"])
 			if(istype(fax, /obj/item/paper))
 				var/obj/item/paper/P = fax
-				P.show_content(usr,1)
+				P.show_content(usr, 1)
 			else if(istype(fax, /obj/item/photo))
 				var/obj/item/photo/H = fax
 				H.show(usr)
@@ -356,7 +356,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 				var/data = ""
 				var/obj/item/paper_bundle/B = fax
 
-				for(var/page = 1, page <= B.amount + 1, page++)
+				for(var/page in 1 to B.amount + 1)
 					var/obj/pageobj = B.contents[page]
 					data += "<A href='?src=[UID()];GhostFaxViewPage=[page];paper_bundle=\ref[B]'>Page [page] - [pageobj.name]</A><BR>"
 
@@ -370,7 +370,8 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			var/page = text2num(href_list["GhostFaxViewPage"])
 			var/obj/item/paper_bundle/bundle = locate(href_list["paper_bundle"])
 
-			if(!bundle) return
+			if(!bundle)
+			    return
 
 			if(istype(bundle.contents[page], /obj/item/paper))
 				var/obj/item/paper/P = bundle.contents[page]
