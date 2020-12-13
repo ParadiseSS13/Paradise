@@ -27,15 +27,15 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "aT" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+/obj/effect/decal/cleanable/blood,
+/obj/item/clothing/mask/gas/clown_hat{
+	desc = "What is this? A secret syndie space face, inside the secret syndie space base?";
+	name = "syndicate clown mask"
 	},
-/obj/machinery/door/airlock/hatch/syndicate,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/syndicate_lava_base/engineering)
+/area/ruin/unpowered/syndicate_lava_base/dormitories)
 "aX" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -52,8 +52,8 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
 "be" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 9
+/obj/machinery/atmospherics/binary/pump{
+	name = "Air to Distro"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -223,6 +223,16 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
+"dt" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_lava_base/arrivals)
 "dP" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/portable_atmospherics/canister/sleeping_agent,
@@ -329,7 +339,6 @@
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
 "fi" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
-/obj/machinery/meter,
 /turf/simulated/floor/engine/air,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "fn" = (
@@ -518,6 +527,16 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_lava_base/bar)
+"hD" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 4;
+	initialize_directions = 11;
+	level = 2
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_lava_base/arrivals)
 "hK" = (
 /obj/machinery/light{
 	dir = 4
@@ -755,6 +774,14 @@
 	icon_state = "grimy"
 	},
 /area/ruin/unpowered/syndicate_lava_base/bar)
+"kk" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_lava_base/arrivals)
 "ku" = (
 /obj/structure/window/basic{
 	dir = 4
@@ -1121,6 +1148,16 @@
 	icon_state = "floorgrime"
 	},
 /area/ruin/unpowered/syndicate_lava_base/bar)
+"oX" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/obj/machinery/meter,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_lava_base/arrivals)
 "oZ" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/binary/pump{
@@ -1548,15 +1585,17 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "vn" = (
-/obj/effect/decal/cleanable/blood,
-/obj/item/clothing/mask/gas/clown_hat{
-	desc = "What is this? A secret syndie space face, inside the secret syndie space base?";
-	name = "syndicate clown mask"
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
+/obj/effect/turf_decal/caution/red,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/syndicate_lava_base/arrivals)
+/area/ruin/unpowered/syndicate_lava_base/engineering)
 "vq" = (
 /obj/machinery/light{
 	dir = 8
@@ -1741,13 +1780,16 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "wJ" = (
-/obj/machinery/atmospherics/binary/pump{
-	name = "Air to Distro"
-	},
 /obj/structure/window/plasmareinforced{
 	dir = 1
 	},
 /obj/effect/turf_decal/caution/red,
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 4;
+	initialize_directions = 11;
+	level = 2
+	},
+/obj/machinery/meter,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1955,16 +1997,6 @@
 	icon_state = "grimy"
 	},
 /area/ruin/unpowered/syndicate_lava_base/bar)
-"zR" = (
-/obj/machinery/meter,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_lava_base/engineering)
 "zS" = (
 /obj/structure/window/basic{
 	dir = 4
@@ -1975,10 +2007,6 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "Aj" = (
-/obj/machinery/atmospherics/pipe/simple/visible/universal{
-	dir = 4
-	},
-/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2718,9 +2746,15 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "Jg" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	pixel_y = 0;
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2830,15 +2864,9 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
 "Ko" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3081,6 +3109,14 @@
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "Ms" = (
 /obj/structure/falsewall/plastitanium,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_lava_base/arrivals)
+"MG" = (
+/obj/machinery/atmospherics/pipe/simple/visible/universal{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3571,8 +3607,9 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
 "UR" = (
-/obj/machinery/light/small{
-	dir = 1
+/obj/machinery/light,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5313,7 +5350,7 @@ fF
 pK
 ju
 fF
-La
+aT
 fF
 xN
 uk
@@ -5690,8 +5727,8 @@ BS
 hX
 sz
 BS
-Ko
-BS
+FW
+Jg
 yB
 BS
 xG
@@ -5752,8 +5789,8 @@ uk
 hK
 uk
 uk
-Jg
 uk
+Ko
 uk
 uk
 yz
@@ -5814,8 +5851,8 @@ Em
 Em
 Em
 Em
-aT
-yE
+sR
+dt
 yE
 yE
 nT
@@ -5876,9 +5913,9 @@ Wr
 Wr
 Wr
 Vx
-zR
-yE
-vn
+Aj
+oX
+WG
 yE
 nT
 WG
@@ -5937,9 +5974,9 @@ Em
 Wr
 xt
 Wr
-Vx
+vn
 Aj
-yE
+MG
 UR
 yE
 nT
@@ -6001,8 +6038,8 @@ lm
 fi
 wJ
 be
-yE
-WG
+hD
+kk
 yE
 nT
 WG
