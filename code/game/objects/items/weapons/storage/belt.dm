@@ -607,16 +607,14 @@
 	new /obj/item/melee/rapier(src)
 	update_icon()
 
-/obj/item/storage/belt/rapier/examine(mob/user)
-	. = ..()
-	if(length(contents))
-		. += "<span class='notice'>Alt-click it to quickly draw the blade.</span>"
+/obj/item/storage/belt/rapier/attack_hand(mob/user)
+	if(loc != user)
+		return ..()
 
-/obj/item/storage/belt/rapier/AltClick(mob/user)
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if((loc != H) || H.incapacitated())
+	if(H.incapacitated())
 		return
 
 	if(length(contents))
