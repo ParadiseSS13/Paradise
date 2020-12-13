@@ -379,16 +379,9 @@
 
 	//Update any existing objectives involving this mob.
 	for(var/datum/objective/O in GLOB.all_objectives)
-		// We don't want revs to get objectives that aren't for heads of staff. Letting
-		// them win or lose based on cryo is silly so we remove the objective.
-		if(istype(O,/datum/objective/mutiny) && O.target == occupant.mind)
-			qdel(O)
-		else if(O.target && istype(O.target,/datum/mind))
-			if(O.target == occupant.mind)
-				var/datum/mind/obj_owner = O.owner
-				if(!(O.on_target_loss()))
-					qdel(O)
-				obj_owner.announce_objectives()
+		if(O.target != occupant.mind)
+			continue
+		O.on_target_loss()
 	if(occupant.mind && occupant.mind.assigned_role)
 		//Handle job slot/tater cleanup.
 		var/job = occupant.mind.assigned_role
@@ -564,7 +557,7 @@
 		willing = 1
 
 	if(willing)
-		if(!Adjacent(L))
+		if(!Adjacent(L) && !Adjacent(user))
 			to_chat(user, "<span class='boldnotice'>You're not close enough to [src].</span>")
 			return
 		if(L == user)

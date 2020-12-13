@@ -37,7 +37,7 @@
 	/// The status/visibility of the UI.
 	var/status = STATUS_INTERACTIVE
 	/// Topic state used to determine status/interactability.
-	var/datum/tgui_state/state = null
+	var/datum/ui_state/state = null
 	/// The parent UI.
 	var/datum/tgui/master_ui
 	/// Children of this UI.
@@ -60,7 +60,7 @@
  *
  * return datum/tgui The requested UI.
  */
-/datum/tgui/New(mob/user, datum/src_object, ui_key, interface, title, width = 0, height = 0, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/datum/tgui/New(mob/user, datum/src_object, ui_key, interface, title, width = 0, height = 0, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	src.user = user
 	src.src_object = src_object
 	src.ui_key = ui_key
@@ -115,7 +115,7 @@
 	var/html
 	html = SStgui.basehtml
 	// Allow the src object to override the html if needed
-	html = src_object.tgui_base_html(html)
+	html = src_object.ui_base_html(html)
 	// Replace template tokens with important UI data
 	html = replacetextEx(html, "\[tgui:ref]", "[src.UID()]")
 
@@ -123,16 +123,14 @@
 	user << browse(html, "window=[window_id];[window_options]")
 
 	// Instruct the client to signal UI when the window is closed.
-	// NOTE: Intentional \ref usage; tgui datums can't/shouldn't
-	// be tagged, so this is an effective unwrap
-	winset(user, window_id, "on-close=\"uiclose [UID()]\"")
+	winset(user, window_id, "on-close=\"uiclose [src.UID()]\"")
 
 	// Pre-fetch initial state while browser is still loading in
 	// another thread
 	if(!initial_data)
-		initial_data = src_object.tgui_data(user)
+		initial_data = src_object.ui_data(user)
 	if(!initial_static_data)
-		initial_static_data = src_object.tgui_static_data(user)
+		initial_static_data = src_object.ui_static_data(user)
 	_initial_update = url_encode(get_json(initial_data, initial_static_data))
 
 	SStgui.on_open(src)
@@ -162,7 +160,7 @@
  */
 /datum/tgui/proc/close()
 	user << browse(null, "window=[window_id]") // Close the window.
-	src_object.tgui_close(user)
+	src_object.ui_close(user)
 	SStgui.on_close(src)
 	for(var/datum/tgui/child in children) // Loop through and close all children.
 		child.close()
@@ -200,7 +198,6 @@
 		"observer" = isobserver(user),
 		"window" = window_id,
 		"map" = (GLOB.using_map && GLOB.using_map.name) ? GLOB.using_map.name : "Unknown",
-
 		"ref" = "[src.UID()]"
 	)
 
@@ -260,12 +257,11 @@
 			log_message(params["log"])
 		if("tgui:link")
 			user << link(params["url"])
-
 		else
 			// Update the window state.
 			update_status(push = FALSE)
-			// Call tgui_act() on the src_object.
-			if(src_object.tgui_act(action, params, src, state))
+			// Call ui_act() on the src_object.
+			if(src_object.ui_act(action, params, src, state))
 				// Update if the object requested it.
 				SStgui.update_uis(src_object)
 
@@ -278,7 +274,7 @@
  * optional force bool If the UI should be forced to update.
  */
 /datum/tgui/process(force = FALSE)
-	var/datum/host = src_object.tgui_host(user)
+	var/datum/host = src_object.ui_host(user)
 	if(!src_object || !host || !user) // If the object or user died (or something else), abort.
 		close()
 		return
@@ -319,7 +315,7 @@
  * optional force_open bool If force_open should be passed to ui_interact.
  */
 /datum/tgui/proc/update(force_open = FALSE)
-	src_object.tgui_interact(user, ui_key, src, force_open, master_ui, state)
+	src_object.ui_interact(user, ui_key, src, force_open, master_ui, state)
 
 /**
  * private
@@ -329,10 +325,9 @@
  * optional push bool Push an update to the UI (an update is always sent for UI_DISABLED).
  */
 /datum/tgui/proc/update_status(push = FALSE)
-	var/status = src_object.tgui_status(user, state)
+	var/status = src_object.ui_status(user, state)
 	if(master_ui)
 		status = min(status, master_ui.status)
-
 	set_status(status, push)
 	if(status == STATUS_CLOSE)
 		close()

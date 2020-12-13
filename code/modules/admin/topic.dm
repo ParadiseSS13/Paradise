@@ -1500,6 +1500,77 @@
 		log_admin("[key_name(usr)] has sent [key_name(M)] to the thunderdome. (Observer.)")
 		message_admins("[key_name_admin(usr)] has sent [key_name_admin(M)] to the thunderdome. (Observer.)", 1)
 
+	else if(href_list["contractor_stop"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["contractor_stop"])
+		if(!istype(M))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob.</span>")
+			return
+
+		var/datum/syndicate_contract/contract = LAZYACCESS(GLOB.prisoner_belongings.prisoners, M)
+		if(!contract)
+			to_chat(usr, "<span class='warning'>[M] is currently not imprisoned by the Syndicate.</span>")
+			return
+		if(!contract.prisoner_timer_handle)
+			to_chat(usr, "<span class='warning'>[M] is already NOT scheduled to return from the Syndicate Jail.</span>")
+			return
+
+		deltimer(contract.prisoner_timer_handle)
+		contract.prisoner_timer_handle = null
+		to_chat(usr, "Stopped automatic return of [M] from the Syndicate Jail.")
+		message_admins("[key_name_admin(usr)] has stopped the automatic return of [key_name_admin(M)] from the Syndicate Jail")
+		log_admin("[key_name(usr)] has stopped the automatic return of [key_name(M)] from the Syndicate Jail")
+
+	else if(href_list["contractor_start"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["contractor_start"])
+		if(!istype(M))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob.</span>")
+			return
+
+		var/datum/syndicate_contract/contract = LAZYACCESS(GLOB.prisoner_belongings.prisoners, M)
+		if(!contract)
+			to_chat(usr, "<span class='warning'>[M] is currently not imprisoned by the Syndicate.</span>")
+			return
+		if(contract.prisoner_timer_handle)
+			to_chat(usr, "<span class='warning'>[M] is already scheduled to return from the Syndicate Jail.</span>")
+			return
+
+		var/time_seconds = input(usr, "Enter the jail time in seconds:", "Start Syndicate Jail Timer") as num|null
+		time_seconds = text2num(time_seconds)
+		if(time_seconds < 0)
+			return
+
+		contract.prisoner_timer_handle = addtimer(CALLBACK(contract, /datum/syndicate_contract.proc/handle_target_return, M), time_seconds * 10, TIMER_STOPPABLE)
+		to_chat(usr, "Started automatic return of [M] from the Syndicate Jail in [time_seconds] second\s.")
+		message_admins("[key_name_admin(usr)] has started the automatic return of [key_name_admin(M)] from the Syndicate Jail in [time_seconds] second\s")
+		log_admin("[key_name(usr)] has started the automatic return of [key_name(M)] from the Syndicate Jail in [time_seconds] second\s")
+
+	else if(href_list["contractor_release"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["contractor_release"])
+		if(!istype(M))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob.</span>")
+			return
+
+		var/datum/syndicate_contract/contract = LAZYACCESS(GLOB.prisoner_belongings.prisoners, M)
+		if(!contract)
+			to_chat(usr, "<span class='warning'>[M] is currently not imprisoned by the Syndicate.</span>")
+			return
+
+		deltimer(contract.prisoner_timer_handle)
+		contract.handle_target_return(M)
+		to_chat(usr, "Immediately returned [M] from the Syndicate Jail.")
+		message_admins("[key_name_admin(usr)] has immediately returned [key_name_admin(M)] from the Syndicate Jail")
+		log_admin("[key_name(usr)] has immediately returned [key_name(M)] from the Syndicate Jail")
+
+
 	else if(href_list["aroomwarp"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
 
@@ -3372,21 +3443,6 @@
 		// Refresh the page
 		src.view_flagged_books()
 
-	// Force unlink a discord key
-	// TODO: Delete this
-	else if(href_list["force_discord_unlink"])
-		if(!check_rights(R_ADMIN))
-			return
-		var/target_ckey = href_list["force_discord_unlink"]
-		var/DBQuery/admin_unlink_discord_id = GLOB.dbcon.NewQuery("DELETE FROM [format_table_name("discord")] WHERE ckey = '[target_ckey]'")
-		if(!admin_unlink_discord_id.Execute())
-			var/err = admin_unlink_discord_id.ErrorMsg()
-			log_game("SQL ERROR while admin-unlinking discord account. Error : \[[err]\]\n")
-			return
-		to_chat(src, "<span class='notice'>Successfully forcefully unlinked discord account from [target_ckey]</span>")
-		message_admins("[key_name_admin(usr)] forcefully unlinked the discord account belonging to [target_ckey]")
-		log_admin("[key_name_admin(usr)] forcefully unlinked the discord account belonging to [target_ckey]")
-
 	else if(href_list["create_outfit_finalize"])
 		if(!check_rights(R_EVENT))
 			return
@@ -3409,6 +3465,11 @@
 			return
 		var/datum/outfit/O = locate(href_list["chosen_outfit"]) in GLOB.custom_outfits
 		save_outfit(usr,O)
+	else if(href_list["open_ccbdb"])
+		if(!check_rights(R_ADMIN))
+			return
+		create_ccbdb_lookup(href_list["open_ccbdb"])
+
 
 /client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)
 	if(!check_rights(R_EVENT))
@@ -3440,8 +3501,8 @@
 	hunter_mob.equipOutfit(O, FALSE)
 	var/obj/item/pinpointer/advpinpointer/N = new /obj/item/pinpointer/advpinpointer(hunter_mob)
 	hunter_mob.equip_to_slot_or_del(N, slot_in_backpack)
-	N.active = 1
-	N.mode = 2
+	N.mode = 3 //MODE_ADV, not defined here
+	N.setting = 2 //SETTING_OBJECT, not defined here
 	N.target = H
 	N.point_at(N.target)
 	N.modelocked = TRUE

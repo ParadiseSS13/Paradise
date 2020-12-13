@@ -152,7 +152,7 @@
 	bait = bait.type
 	new bait(1, get_turf(pda))
 
-/datum/data/pda/app/mob_hunter_game/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+/datum/data/pda/app/mob_hunter_game/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 

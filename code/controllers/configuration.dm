@@ -252,18 +252,21 @@
 	/// Role ID to be pinged for administrative events
 	var/discord_admin_role_id = null // Intentional null usage
 
-	/// Webhook URL for the main public webhook
-	var/discord_main_webhook_url
+	/// Webhook URLs for the main public webhook
+	var/list/discord_main_webhook_urls = list()
 
-	/// Webhook URL for the admin webhook
-	var/discord_admin_webhook_url
+	/// Webhook URLs for the admin webhook
+	var/list/discord_admin_webhook_urls = list()
 
-	/// Webhook URL for the mentor webhook
-	var/discord_mentor_webhook_url
+	/// Webhook URLs for the mentor webhook
+	var/list/discord_mentor_webhook_urls = list()
 
 	/// Do we want to forward all adminhelps to the discord or just ahelps when admins are offline.
 	/// (This does not mean all ahelps are pinged, only ahelps sent when staff are offline get the ping, regardless of this setting)
 	var/discord_forward_all_ahelps = FALSE
+
+	/// URL for the CentCom Ban DB API
+	var/centcom_ban_db_url = null
 
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
@@ -746,14 +749,16 @@
 				if("discord_webhooks_admin_role_id")
 					discord_admin_role_id = "[value]" // This MUST be a string because BYOND doesnt like massive integers
 				if("discord_webhooks_main_url")
-					discord_main_webhook_url = value
+					discord_main_webhook_urls = splittext(value, "|")
 				if("discord_webhooks_admin_url")
-					discord_admin_webhook_url = value
+					discord_admin_webhook_urls = splittext(value, "|")
 				if("discord_webhooks_mentor_url")
-					discord_mentor_webhook_url = value
+					discord_mentor_webhook_urls = splittext(value, "|")
 				if("discord_forward_all_ahelps")
 					discord_forward_all_ahelps = TRUE
 				// End discord stuff
+				if("centcom_ban_db_url")
+					centcom_ban_db_url = value
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 

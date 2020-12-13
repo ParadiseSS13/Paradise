@@ -7,8 +7,8 @@
 	icon_keyboard = "med_key"
 	icon_screen = "crew"
 	circuit = /obj/item/circuitboard/operating
-	var/obj/machinery/optable/table
 	light_color = LIGHT_COLOR_PURE_BLUE
+	var/obj/machinery/optable/table
 	var/verbose = TRUE //general speaker toggle
 	var/oxyAlarm = 30 //oxy damage at which the computer will beep
 	var/choice = FALSE //just for going into and out of the options menu
@@ -17,7 +17,10 @@
 	var/nextTick = OP_COMPUTER_COOLDOWN
 	var/healthAlarm = 50
 	var/oxy = TRUE //oxygen beeping toggle
-	var/mob/living/carbon/currentPatient //Who is on the Operating Table connected to the respective Operating Computer?
+	/// Who is on the Operating Table connected to the respective Operating Computer?
+	/// Only used to see if it changed from the previous occupant. If you want any actual information
+	/// about the mob - use `table.patient` instead.
+	var/mob/living/carbon/currentPatient
 	var/patientStatusHolder //Hold the last instance of table.patient.status. When table.patient.status no longer matches this variable, the computer should tell the doctor
 
 /obj/machinery/computer/operating/New()
@@ -40,7 +43,7 @@
 	add_fingerprint(user)
 	if(stat & (BROKEN|NOPOWER))
 		return
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/computer/operating/attack_hand(mob/user)
 	if(..(user))
@@ -50,16 +53,16 @@
 		return
 
 	add_fingerprint(user)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/computer/operating/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/computer/operating/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "OperatingComputer", "Patient Monitor", 650, 455, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/operating/tgui_data(mob/user)
-	var/data[0]
+/obj/machinery/computer/operating/ui_data(mob/user)
+	var/list/data = list()
 	var/mob/living/carbon/human/occupant
 	if(table)
 		occupant = table.patient
@@ -133,7 +136,7 @@
 	return data
 
 
-/obj/machinery/computer/operating/tgui_act(action, params)
+/obj/machinery/computer/operating/ui_act(action, params)
 	if(..())
 		return
 	if(stat & (NOPOWER|BROKEN))
@@ -176,7 +179,7 @@
 		return
 	if(!verbose) //Are the speakers on?
 		return
-	if(!table.check_patient()) //Is there a patient on the table?
+	if(!table.patient) //Is there a patient on the table?
 		currentPatient = null
 		return
 	var/patientStatus // Tell the computer what to say based on the status of the patient on the table.

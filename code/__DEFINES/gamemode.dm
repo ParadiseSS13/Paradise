@@ -7,7 +7,8 @@
 #define TARGET_INVALID_GOLEM		6
 #define TARGET_INVALID_EVENT		7
 #define TARGET_INVALID_IS_TARGET	8
-#define TARGET_INVALID_IS_IN_CRYO	9
+#define TARGET_INVALID_BLACKLISTED	9
+#define TARGET_INVALID_IS_IN_CRYO	10
 
 //gamemode istype helpers
 #define GAMEMODE_IS_BLOB		(SSticker && istype(SSticker.mode, /datum/game_mode/blob))

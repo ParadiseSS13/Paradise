@@ -29,7 +29,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(owner?.current)
 		to_chat(owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
 		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/alarm4.ogg', 100, FALSE, pressure_affected = FALSE)
-	return find_target()
+	target = null
+	. = find_target()
+	if(!target)
+		qdel(src)
+	owner?.announce_objectives()
 
 /datum/objective/proc/check_completion()
 	return completed
@@ -47,7 +51,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		if(possible_target.current.stat == DEAD)
 			return TARGET_INVALID_DEAD
 		var/turf/current_location = get_turf(possible_target.current)
-		if(current_location && !is_level_reachable(current_location.z))
+		if(!current_location || !is_level_reachable(current_location.z))
 			return TARGET_INVALID_UNREACHABLE
 		if(istype(possible_target.current.loc, /obj/machinery/cryopod))
 			return TARGET_INVALID_IS_IN_CRYO
@@ -109,7 +113,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/assassinate/vip/set_target(new_target)
 	..()
 	if(target && owner)
-		SSticker.mode.protect_target_assassins += owner
+		SSticker.mode.protect_target_assassins |= owner
 
 /datum/objective/assassinate/vip/on_target_loss()
 	if(SSticker.mode.VIP_target == target)
@@ -144,6 +148,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			return 1
 		return 0
 	return 1
+
+/datum/objective/mutiny/on_target_loss()
+	// We don't want revs to get objectives that aren't for heads of staff. Letting
+	// them win or lose based on cryo is silly so we remove the objective.
+	qdel(src)
 
 /datum/objective/maroon
 	martyr_compatible = 1
@@ -230,7 +239,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/protect/vip/set_target(new_target)
 	..()
 	if(target && owner)
-		SSticker.mode.protect_target_protectors += owner
+		SSticker.mode.protect_target_protectors |= owner
 
 /datum/objective/protect/vip/set_explaination_text()
 	if(target && target.current)

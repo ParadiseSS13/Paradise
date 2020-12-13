@@ -37,18 +37,18 @@
 		overlays.Cut()
 
 /obj/item/aicard/attack_self(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 
-/obj/item/aicard/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_inventory_state)
+/obj/item/aicard/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "AICard", "[name]", 600, 394,  master_ui, state)
 		ui.open()
 
 
-/obj/item/aicard/tgui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.inventory_state)
-	var/data[0]
+/obj/item/aicard/ui_data(mob/user)
+	var/list/data = list()
 
 	var/mob/living/silicon/ai/AI = locate() in src
 	if(istype(AI))
@@ -75,7 +75,7 @@
 	return data
 
 
-/obj/item/aicard/tgui_act(action, params)
+/obj/item/aicard/ui_act(action, params)
 	if(..())
 		return
 
@@ -90,7 +90,7 @@
 				to_chat(user, "<span class='warning'>You are already wiping this AI!</span>")
 				return
 			var/confirm = alert("Are you sure you want to wipe this card's memory? This cannot be undone once started.", "Confirm Wipe", "Yes", "No")
-			if(confirm == "Yes" && (tgui_status(user, GLOB.tgui_inventory_state) == STATUS_INTERACTIVE)) // And make doubly sure they want to wipe (three total clicks)
+			if(confirm == "Yes" && (ui_status(user, GLOB.inventory_state) == STATUS_INTERACTIVE)) // And make doubly sure they want to wipe (three total clicks)
 				msg_admin_attack("[key_name_admin(user)] wiped [key_name_admin(AI)] with \the [src].", ATKLOG_FEW)
 				add_attack_logs(user, AI, "Wiped with [src].")
 				INVOKE_ASYNC(src, .proc/wipe_ai)

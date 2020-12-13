@@ -415,7 +415,7 @@
 
 /datum/outfit/job/centcom/response_team/paranormal/red
 	name = "RT Paranormal (Red)"
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal
 	suit_store = /obj/item/gun/energy/gun
 	r_pocket = /obj/item/nullrod/ert
 	glasses = /obj/item/clothing/glasses/sunglasses
