@@ -339,7 +339,9 @@
 	blade_color = "blue"
 
 /obj/item/twohanded/dualsaber/unwield()
-	..()
+	. = ..()
+	if(!.)
+		return
 	hitsound = "swing_hit"
 	w_class = initial(w_class)
 
