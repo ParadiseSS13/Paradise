@@ -203,6 +203,9 @@
 	pixel_y = 5
 	},
 /obj/item/reagent_containers/glass/beaker/large,
+/obj/machinery/alarm/syndicate{
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple";
@@ -394,6 +397,14 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_lava_base/main)
+"fU" = (
+/obj/machinery/alarm/syndicate{
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_lava_base/telecomms)
 "fX" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
@@ -736,6 +747,9 @@
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/beer/upgraded{
 	dir = 1
+	},
+/obj/machinery/alarm/syndicate{
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -1113,6 +1127,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
+"pa" = (
+/obj/machinery/alarm/syndicate{
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_lava_base/dormitories)
 "pp" = (
 /obj/machinery/vending/hydronutrients,
 /turf/simulated/floor/plasteel{
@@ -1743,6 +1765,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/vending/medical/syndicate_access,
+/obj/machinery/alarm/syndicate{
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue";
@@ -2004,6 +2029,9 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/main)
 "AG" = (
+/obj/machinery/alarm/syndicate{
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitegreen";
@@ -2634,6 +2662,14 @@
 	},
 /turf/simulated/wall/r_wall/coated,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
+"Ih" = (
+/obj/machinery/alarm/syndicate{
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_lava_base/arrivals)
 "Il" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
 /obj/item/reagent_containers/food/condiment/enzyme,
@@ -2846,6 +2882,14 @@
 /mob/living/simple_animal/pig,
 /turf/simulated/floor/grass,
 /area/ruin/unpowered/syndicate_lava_base/bar)
+"KH" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/alarm/syndicate{
+	pixel_y = 24
+	},
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/syndicate_lava_base/engineering)
 "KK" = (
 /obj/structure/chair{
 	dir = 1
@@ -3239,6 +3283,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
+/obj/machinery/alarm/syndicate{
+	pixel_y = 24
+	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "Rr" = (
@@ -3371,6 +3418,9 @@
 	},
 /obj/item/storage/box/donkpockets{
 	pixel_x = 2
+	},
+/obj/machinery/alarm/syndicate{
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -4768,7 +4818,7 @@ fF
 fP
 SO
 nj
-jl
+fU
 gY
 Vd
 gY
@@ -5008,7 +5058,7 @@ AV
 AV
 AV
 fF
-La
+pa
 gl
 La
 La
@@ -5035,7 +5085,7 @@ Dy
 Dy
 JX
 yz
-YC
+Fl
 AG
 cs
 wg
@@ -6203,7 +6253,7 @@ rD
 vK
 WG
 yE
-WG
+Ih
 QO
 yE
 yE
@@ -6442,7 +6492,7 @@ Bt
 qF
 Kj
 Em
-Cr
+KH
 qF
 qF
 dP
