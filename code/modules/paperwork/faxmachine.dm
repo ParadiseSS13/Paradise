@@ -330,12 +330,55 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	switch(destination)
 		if("Central Command")
 			message_admins(sender, "CENTCOM FAX", destination, copyitem, "#006100")
+			notify_ghosts("[sender] has sent a fax to [destination].", 'sound/goonstation/machines/printer_dotmatrix.ogg', "<a href='?_src_=holder;GhostFaxView=\ref[copyitem]'>view message</a>", "Fax sent", src)
 		if("Syndicate")
 			message_admins(sender, "SYNDICATE FAX", destination, copyitem, "#DC143C")
+			notify_ghosts("[sender] has sent a fax to the [destination].", 'sound/goonstation/machines/printer_dotmatrix.ogg', "<a href='?_src_=holder;GhostFaxView=\ref[copyitem]'>view message</a>", "Fax sent", src)
 	for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 		if(F.department == destination)
 			F.receivefax(copyitem)
 	visible_message("[src] beeps, \"Message transmitted successfully.\"")
+
+/obj/machinery/photocopier/faxmachine/Topic(href, href_list)
+	if(href_list["GhostFaxView"])
+		var/mob/dead/observer/ghost = usr
+		if(istype(ghost))
+			var/obj/item/fax = locate(href_list["ghostfaxview"])
+			if(istype(fax, /obj/item/paper))
+				var/obj/item/paper/P = fax
+				P.show_content(usr,1)
+			else if(istype(fax, /obj/item/photo))
+				var/obj/item/photo/H = fax
+				H.show(usr)
+			else if(istype(fax, /obj/item/paper_bundle))
+				//having multiple people turning pages on a paper_bundle can cause issues
+				//open a browse window listing the contents instead
+				var/data = ""
+				var/obj/item/paper_bundle/B = fax
+
+				for(var/page = 1, page <= B.amount + 1, page++)
+					var/obj/pageobj = B.contents[page]
+					data += "<A href='?src=[UID()];GhostFaxViewPage=[page];paper_bundle=\ref[B]'>Page [page] - [pageobj.name]</A><BR>"
+
+				usr << browse(data, "window=PaperBundle[B.UID()]")
+			else
+				to_chat(usr, "<span class='warning'>The faxed item is not viewable. This is probably a bug, and should be reported on the tracker: [fax.type]</span>")
+
+	else if(href_list["GhostFaxViewPage"])
+		var/mob/dead/observer/ghost = usr
+		if(istype(ghost))
+			var/page = text2num(href_list["GhostFaxViewPage"])
+			var/obj/item/paper_bundle/bundle = locate(href_list["paper_bundle"])
+
+			if(!bundle) return
+
+			if(istype(bundle.contents[page], /obj/item/paper))
+				var/obj/item/paper/P = bundle.contents[page]
+				P.show_content(usr, 1)
+			else if(istype(bundle.contents[page], /obj/item/photo))
+				var/obj/item/photo/H = bundle.contents[page]
+				H.show(usr)
+		return
 
 /obj/machinery/photocopier/faxmachine/proc/cooldown_seconds()
 	if(sendcooldown < world.time)
