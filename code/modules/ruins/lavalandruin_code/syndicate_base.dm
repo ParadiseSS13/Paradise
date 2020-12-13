@@ -28,7 +28,7 @@
 	death = FALSE
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper_s"
-	important_info = "Do not work against Syndicate personnel (such as traitors or nuclear operatives). You may work with or against non-Syndicate antagonists on a case-by-case basis. Do not leave your base without admin permission."
+	important_info = "Do not work against traitors or nukies. Do not leave the base. Do not communicate with the Cyberiad except via syndicate comms."
 	description = "Experiment with deadly chems, plants, viruses, etc in peace."
 	flavour_text = "You are a syndicate agent, employed in a top secret research facility developing biological weapons. Continue your research as best you can, and try to keep a low profile. Do not abandon your base or let it fall into enemy hands."
 	outfit = /datum/outfit/lavaland_syndicate
@@ -42,8 +42,7 @@
 	return ..()
 
 /datum/outfit/lavaland_syndicate
-	name = "Lavaland Syndicate Agent"
-	r_hand = /obj/item/gun/projectile/automatic/sniper_rifle
+	name = "Syndicate Base Scientist"
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/combat
@@ -63,4 +62,5 @@
 
 /datum/outfit/lavaland_syndicate/post_equip(mob/living/carbon/human/H)
 	H.faction |= "syndicate"
-
+	var/random_name = random_name(pick(MALE,FEMALE), H.dna.species.name)
+	H.rename_character(H.real_name, random_name)

@@ -336,6 +336,7 @@
 	var/anyone = FALSE //Can anyone forge the ID or just syndicate?
 
 /obj/item/card/id/syndicate/anyone
+	icon_state = "syndie"
 	anyone = TRUE
 
 /obj/item/card/id/syndicate/New()
