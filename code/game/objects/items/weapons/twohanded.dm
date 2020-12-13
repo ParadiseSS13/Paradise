@@ -622,11 +622,13 @@
 		return ..()
 
 /obj/item/twohanded/chainsaw/wield() //you can't disarm an active chainsaw, you crazy person.
-	if((. = ..()))
+	. = ..()
+	if(.)
 		flags |= NODROP
 
 /obj/item/twohanded/chainsaw/unwield()
-	if((. = ..()))
+	. = ..()
+	if(.)
 		flags &= ~NODROP
 
 // SINGULOHAMMER
