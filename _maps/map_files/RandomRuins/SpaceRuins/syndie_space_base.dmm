@@ -807,6 +807,7 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "lo" = (
 /obj/machinery/optable,
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "whiteblue";
