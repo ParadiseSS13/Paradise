@@ -130,8 +130,8 @@
 	var/stamina_damage = 10
 
 /obj/item/snowball/throw_impact(atom/target)
-	..()
-	if(istype(target, /mob/living))
+	. = ..()
+	if(!. && isliving(target))
 		var/mob/living/M = target
 		M.adjustStaminaLoss(stamina_damage)
 	qdel(src)
