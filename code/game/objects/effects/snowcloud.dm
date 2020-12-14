@@ -125,7 +125,6 @@
 /obj/item/snowball
 	name = "snowball"
 	desc = "Get ready for a snowball fight!"
-	force = 0
 	throwforce = 10
 	icon_state = "snowball"
 	damtype = STAMINA
