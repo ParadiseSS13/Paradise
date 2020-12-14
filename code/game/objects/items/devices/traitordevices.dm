@@ -175,7 +175,7 @@ effective or pretty fucking useless.
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndi-tele"
 	throwforce = 5
-	w_class = WEIGHT_CLASS_TINY
+	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 4
 	throw_range = 10
 	flags = CONDUCT
@@ -209,12 +209,12 @@ effective or pretty fucking useless.
 
 /obj/item/teleporter/emp_act(severity)
 	if(prob(50 / severity))
-		var/mob/living/carbon/human/user = loc
-		if(user && ishuman(user))
+		if(istype(loc, /mob/living/carbon/human))
+			var/mob/living/carbon/human/user = loc
 			to_chat(user, "<span class='danger'>The [src] buzzes and activates!</span>")
 			attempt_teleport(user, TRUE)
 		else
-			visible_message("<span class='warning'> The [src] activates and blinks out of existance!</span>")
+			visible_message("<span class='warning'> The [src] activates and blinks out of existence!</span>")
 			do_sparks(2, 1, src)
 			qdel(src)
 
@@ -328,7 +328,7 @@ effective or pretty fucking useless.
 			continue
 		if(!user.unEquip(W))
 			qdel(W)
-	to_chat(user, "<span class='userdanger'><font size=3>You teleport into the wall, the teleporter tries to save you, but--</font></span>")
+	to_chat(user, "<span class='biggerdanger'>You teleport into the wall, the teleporter tries to save you, but--</span>")
 	user.gib()
 
 /obj/item/teleporter/proc/telefrag(turf/fragging_location, mob/user)
@@ -364,7 +364,7 @@ effective or pretty fucking useless.
 	duration = 5
 
 /obj/item/teleporter/admin
-	desc = "A strange syndicate version of a cult veil shifter. \n\ This one seems EMP proof, and with much better saftey protocols."
+	desc = "A strange syndicate version of a cult veil shifter. \n This one seems EMP proof, and with much better saftey protocols."
 	charges = 8
 	max_charges = 8
 	flawless = TRUE
