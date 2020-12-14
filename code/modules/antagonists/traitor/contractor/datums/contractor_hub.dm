@@ -26,6 +26,7 @@
 	var/list/datum/rep_purchase/purchases = list(
 		/datum/rep_purchase/reroll,
 		/datum/rep_purchase/item/pinpointer,
+		/datum/rep_purchase/item/baton,
 		/datum/rep_purchase/item/fulton,
 		/datum/rep_purchase/blackout,
 		/datum/rep_purchase/item/zippo,

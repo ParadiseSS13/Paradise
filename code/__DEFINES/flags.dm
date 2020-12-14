@@ -1,9 +1,6 @@
 #define ALL ~0 //For convenience.
 #define NONE 0
 
-// for /datum/var/datum_flags
-#define DF_USE_TAG		(1<<0)
-
 //FLAGS BITMASK
 #define STOPSPRESSUREDMAGE 		1		//This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & SLOT_BACK) if you see it anywhere To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
 #define NODROP					2		// This flag makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
