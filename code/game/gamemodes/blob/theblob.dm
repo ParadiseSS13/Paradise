@@ -205,6 +205,7 @@
 /obj/structure/blob/examine(mob/user)
 	. = ..()
 	. += "It looks like it's made of [get_chem_name()]."
+	. += "It looks like this chemical does: [get_chem_desc()]"
 
 
 /obj/structure/blob/proc/get_chem_name()
@@ -213,6 +214,11 @@
 			return B.blob_reagent_datum.name
 	return "unknown"
 
+/obj/structure/blob/proc/get_chem_desc()
+	for(var/mob/camera/blob/B in GLOB.mob_list)
+		if(lowertext(B.blob_reagent_datum.color) == lowertext(src.color)) // Goddamit why we use strings for these
+			return B.blob_reagent_datum.description
+	return "something unknown"
 /obj/structure/blob/normal
 	icon_state = "blob"
 	light_range = 0

@@ -2901,6 +2901,12 @@
 	dir = 2
 	},
 /area/syndicate_mothership)
+"ip" = (
+/obj/machinery/light/spot,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
 "iq" = (
 /obj/structure/noticeboard{
 	pixel_x = -32
@@ -4451,6 +4457,28 @@
 	dir = 2
 	},
 /area/centcom/control)
+"mF" = (
+/obj/machinery/light/spot,
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
+"mG" = (
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1441;
+	master_tag = "syndicate_jail_airlock_control";
+	name = "Syndicate Jail Access Button";
+	pixel_y = 24;
+	req_access_txt = "150"
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership)
 "mI" = (
 /obj/structure/flora/ausbushes/brflowers,
 /turf/unsimulated/floor{
@@ -11737,6 +11765,12 @@
 	},
 /turf/unsimulated/floor/snow,
 /area/syndicate_mothership)
+"Cf" = (
+/obj/structure/kitchenspike,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
 "Cm" = (
 /obj/structure/table/holotable,
 /turf/simulated/floor/holofloor{
@@ -11744,6 +11778,12 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_thunderdomecourt)
+"CD" = (
+/obj/structure/table/wood,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
 "CF" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -11770,9 +11810,39 @@
 "Dv" = (
 /turf/space,
 /area/admin)
+"DG" = (
+/obj/machinery/embedded_controller/radio/airlock/access_controller{
+	frequency = 1441;
+	id_tag = "syndicate_jail_airlock_control";
+	name = "Syndicate Jail Access Controller";
+	pixel_x = 0;
+	pixel_y = 24;
+	req_access_txt = "150";
+	tag_exterior_door = "syndicate_jail_airlock_external";
+	tag_interior_door = "syndicate_jail_airlock_internal"
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership)
+"DL" = (
+/turf/unsimulated/wall/fakeglass{
+	dir = 8;
+	icon_state = "fakewindows3";
+	tag = "icon-fakewindows (WEST)"
+	},
+/area/syndicate_mothership/jail)
 "DX" = (
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/admin)
+"DY" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "Torture Room"
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
 "Ei" = (
 /obj/structure/holohoop{
 	dir = 1
@@ -11796,6 +11866,14 @@
 	dir = 4
 	},
 /area/holodeck/source_meetinghall)
+"ED" = (
+/obj/structure/toilet{
+	dir = 8
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
 "Fe" = (
 /obj/structure/table/holotable,
 /turf/simulated/floor/holofloor{
@@ -11833,6 +11911,12 @@
 	dir = 4
 	},
 /area/holodeck/source_desert)
+"Gu" = (
+/obj/structure/bed,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
 "Gx" = (
 /turf/simulated/floor/holofloor{
 	tag = "icon-wood (EAST)";
@@ -11850,6 +11934,25 @@
 	icon_state = "gcircuit"
 	},
 /area/admin)
+"GZ" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	autoclose = 0;
+	frequency = 1441;
+	id_tag = "syndicate_jail_airlock_internal";
+	locked = 1;
+	name = "Syndicate Jail Internal Airlock"
+	},
+/obj/machinery/door/airlock/hatch/syndicate{
+	autoclose = 0;
+	frequency = 1441;
+	id_tag = "syndicate_jail_airlock_internal";
+	locked = 1;
+	name = "Syndicate Jail Internal Airlock"
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
 "Hb" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -11887,6 +11990,9 @@
 	dir = 2
 	},
 /area/holodeck/source_theatre)
+"Hr" = (
+/turf/unsimulated/wall,
+/area/syndicate_mothership/jail)
 "Hu" = (
 /obj/structure/rack,
 /obj/item/clothing/gloves/space_ninja,
@@ -11930,6 +12036,16 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_knightarena)
+"HN" = (
+/obj/machinery/light/spot{
+	tag = "icon-tube1 (NORTH)";
+	icon_state = "tube1";
+	dir = 1
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
 "HR" = (
 /obj/structure/closet/secure_closet/freezer/meat{
 	req_access_txt = "112"
@@ -11946,6 +12062,12 @@
 	icon_state = "white"
 	},
 /area/tdome)
+"HU" = (
+/obj/effect/decal/remains/human,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
 "HY" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave/upgraded,
@@ -12010,6 +12132,36 @@
 "Iw" = (
 /turf/simulated/floor/bluegrid,
 /area/tdome/arena)
+"Iz" = (
+/obj/structure/chair/stool,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
+"IA" = (
+/obj/structure/table/wood,
+/obj/machinery/door_control{
+	id = "syndicate_jail_cell";
+	name = "Bolt Cell Doors";
+	normaldoorcontrol = 1;
+	pixel_x = 6;
+	pixel_y = 0;
+	req_access_txt = "150";
+	specialfunctions = 4
+	},
+/obj/machinery/door_control{
+	id = "syndicate_jail";
+	name = "Bolt Jail Door";
+	normaldoorcontrol = 1;
+	pixel_x = -5;
+	pixel_y = 0;
+	req_access_txt = "150";
+	specialfunctions = 4
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
 "IE" = (
 /obj/structure/holowindow{
 	dir = 1
@@ -12128,6 +12280,13 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/escape)
+"KB" = (
+/obj/structure/table/wood,
+/obj/machinery/kitchen_machine/microwave,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
 "KK" = (
 /obj/machinery/tcomms/relay/cc,
 /turf/unsimulated/floor{
@@ -12211,6 +12370,24 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"Mo" = (
+/obj/structure/table,
+/obj/item/circular_saw,
+/obj/item/surgicaldrill{
+	pixel_y = 5
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
+"MG" = (
+/obj/effect/landmark{
+	name = "syndieprisonwarp"
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
 "MR" = (
 /turf/simulated/floor/holofloor{
 	tag = "icon-asteroid1 (EAST)";
@@ -12218,6 +12395,16 @@
 	dir = 4
 	},
 /area/holodeck/source_desert)
+"Nv" = (
+/obj/machinery/light/spot{
+	tag = "icon-tube1 (EAST)";
+	icon_state = "tube1";
+	dir = 4
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
 "Nz" = (
 /obj/effect/decal/warning_stripes/northwest,
 /turf/unsimulated/floor{
@@ -12231,6 +12418,15 @@
 	name = "plating"
 	},
 /area/centcom/control)
+"NG" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/landmark{
+	name = "syndieprisonwarp"
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
 "NI" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/unsimulated/floor{
@@ -12243,6 +12439,12 @@
 	name = "plating"
 	},
 /area/centcom/control)
+"NW" = (
+/turf/unsimulated/wall/fakeglass{
+	icon_state = "fakewindows";
+	dir = 1
+	},
+/area/syndicate_mothership/jail)
 "Oh" = (
 /obj/effect/decal/warning_stripes/southwest,
 /turf/unsimulated/floor{
@@ -12256,6 +12458,18 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_basketball)
+"Om" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	autoclose = 0;
+	frequency = 1441;
+	id_tag = "syndicate_jail_airlock_internal";
+	locked = 1;
+	name = "Syndicate Jail Internal Airlock"
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
 "Oq" = (
 /obj/effect/decal/warning_stripes/south,
 /turf/unsimulated/floor{
@@ -12268,6 +12482,25 @@
 	name = "plating"
 	},
 /area/centcom/control)
+"Ot" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	autoclose = 0;
+	frequency = 1441;
+	id_tag = "syndicate_jail_airlock_external";
+	locked = 1;
+	name = "Syndicate Jail External Airlock"
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership)
+"Ov" = (
+/obj/structure/kitchenspike,
+/obj/effect/decal/cleanable/blood,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
 "OP" = (
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 8
@@ -12293,12 +12526,25 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"Pr" = (
+/obj/structure/chair/office/dark,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
 "PJ" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/unsimulated/floor{
 	name = "plating"
 	},
 /area/centcom/specops)
+"Qc" = (
+/turf/unsimulated/wall/fakeglass{
+	tag = "icon-fakewindows (SOUTHEAST)";
+	icon_state = "fakewindows";
+	dir = 6
+	},
+/area/syndicate_mothership/jail)
 "Qr" = (
 /obj/effect/landmark/ai_multicam_room,
 /turf/unsimulated/ai_visible,
@@ -12307,6 +12553,18 @@
 /obj/machinery/poolcontroller/invisible,
 /turf/unsimulated/beach/water,
 /area/ninja/holding)
+"Qu" = (
+/obj/effect/decal/cleanable/blood,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
+"Qv" = (
+/obj/machinery/door/window/westleft,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
 "QB" = (
 /obj/structure/table/holotable,
 /obj/item/clothing/gloves/boxing/hologlove,
@@ -12327,6 +12585,17 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/escape)
+"QL" = (
+/obj/structure/table,
+/obj/item/kitchen/knife/butcher,
+/obj/item/melee/baseball_bat,
+/obj/item/clothing/mask/muzzle{
+	pixel_y = 8
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
 "QQ" = (
 /turf/simulated/floor/holofloor{
 	tag = "icon-asteroid6";
@@ -12351,6 +12620,13 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"Ri" = (
+/turf/unsimulated/wall/fakeglass{
+	tag = "icon-fakewindows (NORTHEAST)";
+	icon_state = "fakewindows";
+	dir = 5
+	},
+/area/syndicate_mothership/jail)
 "Rj" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/holofloor/grass,
@@ -12384,6 +12660,17 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_knightarena)
+"SI" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	damage_deflection = 75;
+	id_tag = "syndicate_jail";
+	locked = 1;
+	name = "Syndicate Jail"
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
 "SY" = (
 /obj/structure/table/holotable,
 /obj/item/clothing/suit/armor/riot/knight/blue,
@@ -12525,9 +12812,22 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_thunderdomecourt)
+"UZ" = (
+/turf/unsimulated/wall/fakeglass{
+	icon_state = "fakewindows";
+	dir = 8
+	},
+/area/syndicate_mothership/jail)
 "Vc" = (
 /turf/unsimulated/ai_visible,
 /area/ai_multicam_room)
+"Vm" = (
+/obj/structure/table/wood,
+/obj/item/storage/box/donkpockets,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
 "Vz" = (
 /turf/unsimulated/wall,
 /area/ai_multicam_room)
@@ -12625,6 +12925,11 @@
 	icon_state = "floor4"
 	},
 /area/centcom/evac)
+"WA" = (
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
 "WI" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -12662,12 +12967,45 @@
 	icon_state = "floor"
 	},
 /area/centcom)
+"Xq" = (
+/obj/structure/table,
+/obj/item/radio/electropack{
+	pixel_x = -5
+	},
+/obj/item/assembly/signaler{
+	code = 2;
+	frequency = 1449;
+	pixel_x = 8
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
 "Xr" = (
 /obj/structure/bed,
 /turf/unsimulated/floor{
 	name = "plating"
 	},
 /area/centcom)
+"XJ" = (
+/obj/machinery/light/spot{
+	tag = "icon-tube1 (WEST)";
+	icon_state = "tube1";
+	dir = 8
+	},
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1441;
+	master_tag = "syndicate_jail_airlock_control";
+	name = "Syndicate Jail Access Button";
+	pixel_x = -24;
+	pixel_y = -8;
+	req_access_txt = "150"
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
 "XL" = (
 /obj/structure/table/abductor,
 /obj/item/bonegel/alien,
@@ -12701,15 +13039,35 @@
 "Yp" = (
 /turf/simulated/floor/beach/water,
 /area/holodeck/source_beach)
+"Yx" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	damage_deflection = 75;
+	id_tag = "syndicate_jail_cell";
+	locked = 1;
+	name = "Syndicate Jail Cell"
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
 "Zv" = (
 /turf/simulated/floor/beach/coastline,
 /area/holodeck/source_beach)
+"ZE" = (
+/turf/unsimulated/wall/fakeglass,
+/area/syndicate_mothership/jail)
 "ZR" = (
 /turf/simulated/floor/holofloor{
 	dir = 10;
 	icon_state = "green"
 	},
 /area/holodeck/source_emptycourt)
+"ZZ" = (
+/obj/structure/closet/secure_closet/contractor,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/jail)
 
 (1,1,1) = {"
 ck
@@ -63927,8 +64285,8 @@ BG
 kr
 BG
 nj
-kr
-kr
+mG
+mv
 nj
 aN
 aN
@@ -64184,8 +64542,8 @@ nP
 kr
 nP
 nj
-kr
-kr
+Ot
+Ot
 nj
 aN
 aN
@@ -64441,8 +64799,8 @@ nj
 nj
 nj
 nj
-nj
-nj
+kr
+kr
 nj
 aN
 aN
@@ -64697,10 +65055,10 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
+nj
+DG
+mv
+nj
 aN
 aN
 aN
@@ -64952,17 +65310,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Hr
+Hr
+Hr
+Om
+GZ
+Hr
+Hr
+Hr
+Hr
+Hr
+Hr
 aN
 aN
 aN
@@ -65209,17 +65567,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Hr
+WA
+XJ
+WA
+WA
+ZZ
+Hr
+Mo
+QL
+Xq
+Hr
 aN
 aN
 aN
@@ -65466,17 +65824,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Hr
+WA
+WA
+WA
+WA
+WA
+Hr
+WA
+Qu
+WA
+Hr
 aN
 aN
 aN
@@ -65723,17 +66081,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Hr
+CD
+Qv
+CD
+CD
+WA
+DY
+WA
+WA
+mF
+Hr
 aN
 aN
 aN
@@ -65980,17 +66338,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Hr
+Vm
+WA
+Pr
+CD
+WA
+Hr
+HU
+WA
+Qu
+Hr
 aN
 aN
 aN
@@ -66237,17 +66595,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Hr
+KB
+WA
+Nv
+IA
+WA
+Hr
+Ov
+Cf
+Gu
+Hr
 aN
 aN
 aN
@@ -66494,17 +66852,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Hr
+Hr
+Hr
+Hr
+Hr
+SI
+Hr
+Hr
+Hr
+Hr
+Hr
 aN
 aN
 aN
@@ -66751,17 +67109,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Hr
+Gu
+MG
+Yx
+WA
+WA
+WA
+Yx
+MG
+Gu
+Hr
 aN
 aN
 aN
@@ -67008,17 +67366,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Hr
+ED
+Qu
+UZ
+WA
+WA
+WA
+UZ
+WA
+ED
+Hr
 aN
 aN
 aN
@@ -67265,17 +67623,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Hr
+Hr
+NW
+Qc
+HN
+WA
+ip
+Ri
+ZE
+Hr
+Hr
 aN
 aN
 aN
@@ -67522,17 +67880,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Hr
+Gu
+MG
+Yx
+WA
+WA
+WA
+Yx
+NG
+Gu
+Hr
 aN
 aN
 aN
@@ -67779,17 +68137,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Hr
+ED
+WA
+UZ
+WA
+WA
+WA
+UZ
+WA
+ED
+Hr
 aN
 aN
 aN
@@ -68036,17 +68394,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Hr
+Hr
+NW
+Qc
+HN
+WA
+ip
+Ri
+ZE
+Hr
+Hr
 aN
 aN
 aN
@@ -68293,17 +68651,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Hr
+Gu
+MG
+Yx
+Qu
+WA
+WA
+Yx
+MG
+Gu
+Hr
 aN
 aN
 aN
@@ -68550,17 +68908,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Hr
+ED
+WA
+DL
+WA
+Iz
+WA
+DL
+WA
+ED
+Hr
 aN
 aN
 aN
@@ -68807,17 +69165,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Hr
+Hr
+Hr
+Hr
+Hr
+Hr
+Hr
+Hr
+Hr
+Hr
+Hr
 aN
 aN
 aN

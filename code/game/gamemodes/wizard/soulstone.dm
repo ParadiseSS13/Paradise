@@ -145,7 +145,7 @@
 	return
 
 /obj/item/soulstone/attackby(obj/item/O, mob/user)
-	if(istype(O, /obj/item/storage/bible) && !iscultist(user))
+	if(istype(O, /obj/item/storage/bible) && !iscultist(user) && user.mind.isholy)
 		if(purified)
 			return
 		to_chat(user, "<span class='notice'>You begin to exorcise [src].</span>")
@@ -342,7 +342,12 @@
 		set_light(3, 5, LIGHT_COLOR_DARK_BLUE)
 		name = "Holy [name]"
 		real_name = "Holy [real_name]"
-	if(iscultist(src) && !SS.purified) // Re-grant cult actions, lost in the transfer
+
+		// Replace regular soulstone summoning with purified soulstones
+		RemoveSpell(/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone)
+		AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/holy)
+
+	else if(iscultist(src)) // Re-grant cult actions, lost in the transfer
 		var/datum/action/innate/cult/comm/CC = new
 		var/datum/action/innate/cult/check_progress/D = new
 		CC.Grant(src)

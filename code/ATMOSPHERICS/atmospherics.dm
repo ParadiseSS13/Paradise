@@ -13,7 +13,7 @@ Pipelines + Other Objects -> Pipe network
 	layer = GAS_PIPE_HIDDEN_LAYER  //under wires
 	resistance_flags = FIRE_PROOF
 	max_integrity = 200
-	plane = FLOOR_PLANE
+	plane = GAME_PLANE
 	idle_power_usage = 0
 	active_power_usage = 0
 	power_channel = ENVIRON

@@ -12,6 +12,7 @@
 	var/silent = 0 // No message on putting items in
 	var/list/can_hold = new/list() //List of objects which this item can store (if set, it can't store anything else)
 	var/list/cant_hold = new/list() //List of objects which this item can't store (in effect only if can_hold isn't set)
+	var/empty = FALSE // Will this spawn as an empty box
 	var/max_w_class = WEIGHT_CLASS_SMALL //Max size of objects that this object can store (in effect only if can_hold isn't set)
 	var/max_combined_w_class = 14 //The sum of the w_classes of all the items in this storage item.
 	var/storage_slots = 7 //The number of storage slots in this container.
@@ -23,6 +24,11 @@
 	var/allow_quick_gather	//Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.
 	var/collection_mode = 1;  //0 = pick one at a time, 1 = pick all on tile
 	var/use_sound = "rustle"	//sound played when used. null for no sound.
+
+	/// What kind of [/obj/item/stack] can this be folded into. (e.g. Boxes and cardboard)
+	var/foldable = null
+	/// How much of the stack item do you get.
+	var/foldable_amt = 0
 
 /obj/item/storage/MouseDrop(obj/over_object as obj)
 	if(ishuman(usr)) //so monkeys can take off their backpacks -- Urist
@@ -502,10 +508,33 @@
 		O.hear_message(M, msg)
 
 /obj/item/storage/attack_self(mob/user)
-
 	//Clicking on itself will empty it, if allow_quick_empty is TRUE
 	if(allow_quick_empty && user.is_in_active_hand(src))
 		drop_inventory(user)
+
+	else if(foldable)
+		fold(user)
+
+/obj/item/storage/proc/fold(mob/user)
+	if(length(contents))
+		to_chat(user, "<span class='warning'>You can't fold this [name] with items still inside!</span>")
+		return
+	if(!ispath(foldable))
+		return
+
+	var/found = FALSE
+	for(var/mob/M in range(1))
+		if(M.s_active == src) // Close any open UI windows first
+			close(M)
+		if(M == user)
+			found = TRUE
+	if(!found)	// User is too far away
+		return
+
+	to_chat(user, "<span class='notice'>You fold [src] flat.</span>")
+	var/obj/item/stack/I = new foldable(get_turf(src), foldable_amt)
+	user.put_in_hands(I)
+	qdel(src)
 
 //Returns the storage depth of an atom. This is the number of storage items the atom is contained in before reaching toplevel (the area).
 //Returns -1 if the atom was not found on container.
