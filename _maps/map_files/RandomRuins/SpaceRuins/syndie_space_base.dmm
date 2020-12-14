@@ -37,20 +37,11 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "aX" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
-	},
+/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/syndicate_lava_base/chemistry)
+/area/ruin/unpowered/syndicate_lava_base/dormitories)
 "be" = (
 /obj/machinery/atmospherics/binary/pump{
 	name = "Air to Distro"
@@ -126,6 +117,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
+"cj" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_lava_base/arrivals)
 "cs" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -218,11 +217,15 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "dl" = (
-/obj/machinery/light{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/turf/simulated/floor/engine,
-/area/ruin/unpowered/syndicate_lava_base/testlab)
+/area/ruin/unpowered/syndicate_lava_base/dormitories)
+"ds" = (
+/obj/structure/sign/poster/contraband/hacking_guide,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/unpowered/syndicate_lava_base/engineering)
 "dP" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/portable_atmospherics/canister/sleeping_agent,
@@ -292,6 +295,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
+"eN" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/unpowered/syndicate_lava_base/testlab)
 "eQ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/structure/cable{
@@ -479,6 +489,16 @@
 "gY" = (
 /turf/simulated/floor/redgrid,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
+"gZ" = (
+/obj/machinery/light,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_lava_base/arrivals)
 "hc" = (
 /obj/machinery/atmospherics/binary/volume_pump,
 /turf/simulated/floor/plating,
@@ -950,8 +970,8 @@
 	pixel_y = 0;
 	tag = ""
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -995,6 +1015,10 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_lava_base/cargo)
+"nv" = (
+/obj/machinery/light,
+/turf/simulated/floor/engine,
+/area/ruin/unpowered/syndicate_lava_base/testlab)
 "ny" = (
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -1220,6 +1244,12 @@
 	tag = "icon-whitehall (WEST)"
 	},
 /area/ruin/unpowered/syndicate_lava_base/medbay)
+"qv" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/unpowered/syndicate_lava_base/testlab)
 "qz" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -1237,6 +1267,16 @@
 "qF" = (
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
+"qN" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4;
+	initialize_directions = 11;
+	level = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_lava_base/bar)
 "qT" = (
 /obj/machinery/conveyor_switch/oneway{
 	id = "syndiegarbage";
@@ -1296,6 +1336,9 @@
 /obj/item/gun/energy/floragun,
 /obj/item/gun/energy/floragun,
 /obj/structure/closet/crate/hydroponics,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -1306,6 +1349,15 @@
 	},
 /obj/item/reagent_containers/spray/cleaner,
 /obj/item/reagent_containers/spray/cleaner,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_lava_base/arrivals)
+"rK" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1740,7 +1792,6 @@
 	req_access_txt = "150"
 	},
 /obj/item/grenade/clusterbuster/syndieminibomb,
-/obj/item/grenade/clusterbuster/nervegas,
 /obj/item/ammo_box/magazine/m10mm/ap,
 /obj/item/ammo_box/magazine/m10mm/ap,
 /obj/item/ammo_box/magazine/m10mm/fire,
@@ -1898,9 +1949,10 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/main)
 "yf" = (
-/obj/structure/table,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high/plus,
+/obj/machinery/computer/monitor{
+	name = "Engine Grid Power Monitoring Computer"
+	},
+/obj/structure/cable/yellow,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "yz" = (
@@ -2112,10 +2164,15 @@
 /turf/simulated/mineral,
 /area/template_noop)
 "AX" = (
-/obj/machinery/computer/monitor{
-	name = "Engine Grid Power Monitoring Computer"
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "Bt" = (
@@ -2331,9 +2388,6 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "Es" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2381,8 +2435,10 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "EK" = (
-/obj/structure/sign/poster/contraband/hacking_guide,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "EM" = (
 /obj/effect/spawner/window/reinforced,
@@ -2403,6 +2459,7 @@
 	icon_state = "1-8";
 	tag = ""
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2426,9 +2483,15 @@
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "EX" = (
-/obj/machinery/light,
-/turf/simulated/floor/engine,
-/area/ruin/unpowered/syndicate_lava_base/testlab)
+/obj/machinery/door/airlock/hatch/syndicate,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_lava_base/engineering)
 "Fd" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular{
@@ -3020,6 +3083,14 @@
 	icon_state = "floorgrime"
 	},
 /area/ruin/unpowered/syndicate_lava_base/bar)
+"LP" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_lava_base/chemistry)
 "LQ" = (
 /obj/structure/closet/crate/secure/gear{
 	req_access_txt = "150"
@@ -3260,6 +3331,12 @@
 	icon_state = "yellow"
 	},
 /area/ruin/unpowered/syndicate_lava_base/main)
+"PB" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_lava_base/chemistry)
 "PE" = (
 /obj/machinery/vending/medical/syndicate_access,
 /turf/simulated/floor/plasteel{
@@ -3434,12 +3511,12 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "SQ" = (
-/obj/machinery/light{
-	dir = 1;
-	on = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
 	},
-/turf/simulated/floor/engine,
-/area/ruin/unpowered/syndicate_lava_base/testlab)
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/syndicate_lava_base/engineering)
 "SU" = (
 /obj/machinery/vending/coffee/free,
 /turf/simulated/floor/plasteel{
@@ -3867,23 +3944,17 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "YJ" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_lava_base/main)
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high/plus,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/syndicate_lava_base/engineering)
 "YP" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
@@ -4419,7 +4490,7 @@ ic
 ic
 ic
 ic
-ic
+AV
 AV
 AV
 AV
@@ -4480,7 +4551,7 @@ ic
 ic
 ic
 ic
-ic
+AV
 AV
 AV
 AV
@@ -4540,7 +4611,7 @@ ic
 ic
 ic
 ic
-ic
+AV
 AV
 AV
 AV
@@ -5045,18 +5116,18 @@ La
 La
 La
 La
-La
-La
-La
-La
-La
+aX
+dl
+dl
+dl
+dl
 ne
 LR
 ap
 Gd
 ap
 Gd
-ap
+qN
 Gd
 ap
 Gd
@@ -5174,7 +5245,7 @@ Tm
 fF
 fF
 fF
-YJ
+Op
 Es
 HZ
 Ki
@@ -5728,7 +5799,7 @@ Gq
 Da
 Gq
 eQ
-FW
+Ko
 BS
 BS
 BS
@@ -5740,7 +5811,7 @@ Ko
 yB
 BS
 xG
-BS
+Ko
 BS
 BS
 BS
@@ -5751,11 +5822,11 @@ Sh
 un
 ge
 Kf
-aX
+Kf
 EP
-Xb
-Xb
-Xb
+PB
+PB
+LP
 Xb
 Xb
 Xb
@@ -5790,7 +5861,7 @@ uk
 uk
 uk
 uk
-uk
+El
 uk
 uk
 uk
@@ -5802,7 +5873,7 @@ El
 uk
 uk
 yz
-uk
+El
 uk
 uk
 uk
@@ -5852,7 +5923,7 @@ Em
 Em
 Em
 xu
-sR
+EX
 xu
 wz
 Em
@@ -5864,7 +5935,7 @@ pA
 Em
 yE
 nT
-QO
+gZ
 yE
 yE
 yE
@@ -5914,7 +5985,7 @@ qF
 TC
 qF
 qF
-qF
+SQ
 bO
 Em
 Wr
@@ -5926,7 +5997,7 @@ Ce
 vn
 yE
 nT
-WG
+rK
 xc
 uq
 uq
@@ -5976,8 +6047,8 @@ VH
 lZ
 AM
 Je
-qF
-qF
+SQ
+YJ
 Em
 Wr
 xt
@@ -5988,7 +6059,7 @@ iA
 UR
 yE
 nT
-WG
+rK
 yE
 Kv
 yE
@@ -6008,8 +6079,8 @@ TD
 CM
 ZR
 TD
-TD
-TD
+AV
+AV
 AV
 AV
 AV
@@ -6050,7 +6121,7 @@ jS
 rN
 yE
 nT
-WG
+rK
 yE
 LY
 yE
@@ -6069,9 +6140,9 @@ Vl
 Vl
 ol
 Vl
-Vl
-Vl
 TD
+AV
+AV
 AV
 AV
 AV
@@ -6101,7 +6172,7 @@ AM
 AM
 nm
 EK
-Em
+ds
 Em
 Em
 Em
@@ -6112,7 +6183,7 @@ yE
 Ms
 yE
 Tr
-WG
+rK
 yE
 yE
 yE
@@ -6131,9 +6202,9 @@ Vl
 Vl
 Vl
 Vl
-Vl
-Vl
 TD
+AV
+AV
 AV
 AV
 AV
@@ -6162,7 +6233,7 @@ qF
 qF
 qF
 at
-TC
+qF
 YP
 hc
 BG
@@ -6174,7 +6245,7 @@ ur
 WG
 aj
 WG
-WG
+cj
 aj
 WG
 qT
@@ -6193,9 +6264,9 @@ Vl
 Vl
 Vl
 Vl
-Vl
-Vl
 TD
+AV
+AV
 AV
 AV
 AV
@@ -6244,8 +6315,6 @@ Cf
 yE
 AV
 TD
-TD
-TD
 Vl
 Vl
 Vl
@@ -6258,6 +6327,8 @@ Vl
 Vl
 Vl
 TD
+AV
+AV
 AV
 AV
 AV
@@ -6305,8 +6376,6 @@ gj
 vP
 yE
 AV
-AV
-AV
 TD
 Vl
 Vl
@@ -6320,6 +6389,8 @@ Vl
 Vl
 Vl
 TD
+AV
+AV
 AV
 AV
 AV
@@ -6367,8 +6438,6 @@ WG
 Cf
 yE
 AV
-AV
-AV
 TD
 Vl
 Vl
@@ -6382,6 +6451,8 @@ Vl
 Vl
 Vl
 TD
+AV
+AV
 AV
 AV
 AV
@@ -6429,21 +6500,21 @@ WG
 yE
 yE
 AV
+TD
+eN
+Vl
+Vl
+Vl
+Vl
+Vl
+Vl
+Vl
+Vl
+Vl
+nv
+TD
 AV
 AV
-TD
-SQ
-Vl
-Vl
-Vl
-Vl
-Vl
-Vl
-Vl
-Vl
-Vl
-EX
-TD
 AV
 AV
 AV
@@ -6473,7 +6544,7 @@ qF
 qF
 qF
 qF
-qF
+Kj
 qF
 qF
 qF
@@ -6491,8 +6562,6 @@ yE
 yE
 AV
 AV
-AV
-AV
 TD
 Vl
 Vl
@@ -6506,6 +6575,8 @@ Vl
 Vl
 Vl
 TD
+AV
+AV
 AV
 AV
 AV
@@ -6534,7 +6605,7 @@ rW
 cE
 Bt
 qF
-Kj
+qF
 Em
 KH
 qF
@@ -6553,8 +6624,6 @@ AV
 AV
 AV
 AV
-AV
-AV
 TD
 Vl
 Vl
@@ -6568,6 +6637,8 @@ Vl
 Vl
 Vl
 TD
+AV
+AV
 AV
 AV
 AV
@@ -6615,8 +6686,6 @@ AV
 AV
 AV
 AV
-AV
-AV
 TD
 Vl
 Vl
@@ -6630,6 +6699,8 @@ Vl
 Vl
 Vl
 TD
+AV
+AV
 AV
 AV
 AV
@@ -6677,8 +6748,6 @@ AV
 AV
 AV
 AV
-AV
-AV
 TD
 Vl
 Vl
@@ -6692,6 +6761,8 @@ Vl
 Vl
 Vl
 TD
+AV
+AV
 AV
 AV
 AV
@@ -6739,8 +6810,6 @@ AV
 AV
 AV
 AV
-AV
-AV
 TD
 Vl
 Vl
@@ -6754,6 +6823,8 @@ Vl
 Vl
 Vl
 TD
+AV
+AV
 AV
 AV
 AV
@@ -6801,21 +6872,21 @@ AV
 AV
 AV
 AV
+TD
+eN
+Vl
+Vl
+Vl
+Vl
+Vl
+Vl
+Vl
+Vl
+Vl
+nv
+TD
 AV
 AV
-TD
-SQ
-Vl
-Vl
-Vl
-Vl
-Vl
-Vl
-Vl
-Vl
-Vl
-EX
-TD
 AV
 AV
 AV
@@ -6863,8 +6934,6 @@ AV
 AV
 AV
 AV
-AV
-AV
 TD
 Vl
 Vl
@@ -6878,6 +6947,8 @@ Vl
 Vl
 Vl
 TD
+AV
+AV
 AV
 AV
 AV
@@ -6925,8 +6996,6 @@ AV
 AV
 AV
 AV
-AV
-AV
 TD
 Vl
 Vl
@@ -6940,6 +7009,8 @@ Vl
 Vl
 Vl
 TD
+AV
+AV
 AV
 AV
 AV
@@ -6987,11 +7058,9 @@ AV
 AV
 AV
 AV
-AV
-AV
 TD
 Vl
-dl
+qv
 Vl
 Vl
 Vl
@@ -6999,9 +7068,11 @@ Vl
 Vl
 Vl
 Vl
-dl
+qv
 Vl
 TD
+AV
+AV
 AV
 AV
 AV
@@ -7027,9 +7098,9 @@ AV
 AV
 AV
 AV
-ic
-ic
-ic
+AV
+AV
+AV
 AV
 AV
 AV
@@ -7049,21 +7120,21 @@ AV
 AV
 AV
 AV
+TD
+TD
+TD
+TD
+TD
+TD
+TD
+TD
+TD
+TD
+TD
+TD
+TD
 AV
 AV
-TD
-TD
-TD
-TD
-TD
-TD
-TD
-TD
-TD
-TD
-TD
-TD
-TD
 AV
 AV
 AV
@@ -7086,16 +7157,16 @@ AV
 AV
 AV
 AV
-ic
-ic
-ic
-ic
 AV
 AV
 AV
-ic
-ic
-ic
+AV
+AV
+AV
+AV
+AV
+AV
+AV
 AV
 AV
 AV
@@ -7157,7 +7228,7 @@ AV
 AV
 AV
 AV
-ic
+AV
 AV
 AV
 AV
@@ -7219,7 +7290,7 @@ AV
 AV
 AV
 AV
-ic
+AV
 AV
 AV
 AV
@@ -7284,14 +7355,14 @@ ic
 ic
 AV
 AV
-ic
-AV
-AV
-ic
 AV
 AV
 AV
-ic
+AV
+AV
+AV
+AV
+AV
 AV
 AV
 AV
@@ -7346,16 +7417,16 @@ ic
 ic
 ic
 ic
-ic
-ic
-AV
-ic
-ic
 AV
 AV
-ic
-ic
-ic
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+AV
 AV
 AV
 AV
@@ -7410,16 +7481,16 @@ ic
 AV
 ic
 ic
-ic
-ic
-ic
 AV
 AV
 AV
 AV
-ic
-ic
-ic
+AV
+AV
+AV
+AV
+AV
+AV
 AV
 AV
 AV
@@ -7473,7 +7544,7 @@ ic
 ic
 AV
 ic
-ic
+AV
 AV
 AV
 AV
@@ -7598,17 +7669,17 @@ ic
 AV
 ic
 ic
+ic
 AV
 AV
 AV
+ic
+ic
+ic
+ic
+ic
+ic
 AV
-ic
-ic
-ic
-ic
-ic
-ic
-ic
 ic
 ic
 ic
@@ -7643,17 +7714,8 @@ ic
 ic
 ic
 ic
-AV
 ic
 ic
-ic
-AV
-ic
-ic
-ic
-ic
-ic
-AV
 ic
 ic
 ic
@@ -7668,6 +7730,15 @@ ic
 ic
 ic
 ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+ic
+AV
 ic
 ic
 ic
