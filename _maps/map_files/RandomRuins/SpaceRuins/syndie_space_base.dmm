@@ -369,22 +369,13 @@
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "fH" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
 	pixel_y = 0;
 	tag = ""
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/obj/structure/window/plasmareinforced{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "fP" = (
 /obj/machinery/light{
@@ -568,9 +559,21 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/main)
 "hS" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/engine,
-/area/ruin/unpowered/syndicate_lava_base/testlab)
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0;
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_lava_base/chemistry)
 "hX" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
@@ -756,6 +759,12 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
+"jE" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/unpowered/syndicate_lava_base/testlab)
 "jI" = (
 /obj/machinery/light{
 	dir = 4
@@ -1325,10 +1334,27 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "rr" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
-/turf/simulated/floor/engine,
+/obj/structure/fans/tiny,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0;
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "rw" = (
 /obj/item/gun/energy/floragun,
@@ -1497,31 +1523,20 @@
 /area/ruin/unpowered/syndicate_lava_base/main)
 "un" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
 	pixel_y = 0;
 	tag = ""
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/syndicate_lava_base/main)
+/area/ruin/unpowered/syndicate_lava_base/testlab)
 "uq" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -1590,22 +1605,16 @@
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "uN" = (
 /obj/structure/cable{
-	d1 = 4;
+	d1 = 1;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
+	icon_state = "1-8";
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4;
 	level = 1
 	},
-/obj/structure/window/plasmareinforced{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "uX" = (
 /obj/machinery/door/airlock/hatch/syndicate,
@@ -2459,7 +2468,15 @@
 	icon_state = "1-8";
 	tag = ""
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4";
+	tag = "90Curve"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3413,9 +3430,6 @@
 /turf/simulated/wall/r_wall/coated,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "Rn" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
 /obj/machinery/alarm/syndicate{
 	pixel_y = 24
 	},
@@ -3701,20 +3715,11 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "Vc" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4;
 	level = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "Vd" = (
 /obj/structure/chair{
@@ -3988,12 +3993,8 @@
 	pixel_y = 24
 	},
 /obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
@@ -5819,7 +5820,7 @@ BS
 BS
 BS
 Sh
-un
+yB
 ge
 Kf
 Kf
@@ -5881,11 +5882,11 @@ uk
 uk
 uk
 uk
-Op
+uk
 Xb
 Xb
 Xb
-Xb
+hS
 CI
 Xb
 mX
@@ -5943,11 +5944,11 @@ yE
 yE
 yE
 TD
-fH
 TD
 TD
 TD
-ZR
+TD
+rr
 CM
 TD
 TD
@@ -6005,11 +6006,11 @@ uq
 uq
 uq
 TD
-Vc
-TD
+ia
+ia
 ia
 TD
-mE
+un
 TD
 ia
 ia
@@ -6067,11 +6068,11 @@ TN
 yE
 TN
 TD
-uN
 TD
 TD
 TD
-ZR
+TD
+rr
 CM
 TD
 TD
@@ -6130,10 +6131,10 @@ yE
 VQ
 TD
 Zg
-Vl
-Vl
-Vl
-Vl
+fH
+fH
+fH
+uN
 ol
 Vl
 Vl
@@ -6192,10 +6193,10 @@ yE
 yE
 TD
 Rn
-hS
-hS
-rr
 Vl
+Vl
+Vl
+Vc
 Vl
 Vl
 Vl
@@ -6257,7 +6258,7 @@ Vl
 Vl
 Vl
 Vl
-Vl
+jE
 Vl
 Vl
 Vl
