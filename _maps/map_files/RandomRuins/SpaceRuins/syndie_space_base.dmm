@@ -202,9 +202,6 @@
 	pixel_y = 5
 	},
 /obj/item/reagent_containers/glass/beaker/large,
-/obj/machinery/alarm/syndicate{
-	pixel_y = 24
-	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple";
