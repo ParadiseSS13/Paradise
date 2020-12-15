@@ -91,12 +91,16 @@
 /obj/item/borg/upgrade/vtec/action(var/mob/living/silicon/robot/R)
 	if(..())
 		return
-	if(R.speed < 0)
+	if(R.health != 100)
+		to_chat(R, "<span class='notice'>System damaged, unable to install upgrade!</span>")
+		to_chat(usr, "<span class='notice'>VTEC is unable to be engaged when robot is damaged, repair it first!</span>")
+	if(R.has_vtec)
 		to_chat(R, "<span class='notice'>A VTEC unit is already installed!</span>")
 		to_chat(usr, "<span class='notice'>There's no room for another VTEC unit!</span>")
 		return
 
 	R.speed = -1 // Gotta go fast.
+	R.has_vtec = TRUE
 
 	return TRUE
 

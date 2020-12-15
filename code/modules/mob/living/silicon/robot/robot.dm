@@ -1,3 +1,7 @@
+#define SLOWDOWN_THRESHOLD_ONE 50
+#define SLOWDOWN_THRESHOLD_TWO 0
+#define SLOWDOWN_THRESHOLD_THREE -50
+
 GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/mob/living/silicon/robot/proc/sensor_mode,
 ))
@@ -112,6 +116,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/list/module_actions = list()
 
 	var/see_reagents = FALSE // Determines if the cyborg can see reagents
+
+	/// Can the borg be slowed down?
+	var/can_slowdown = TRUE
+	/// Value to increase threshold to slowdown by
+	var/slowdown_damage_increase = 0
+	/// Does it have vtec?
+	var/has_vtec = FALSE
+
 
 /mob/living/silicon/robot/get_cell()
 	return cell
@@ -481,6 +493,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	update_headlamp()
 
 	speed = 0 // Remove upgrades.
+	has_vtec = FALSE
 	ionpulse = FALSE
 	magpulse = FALSE
 	add_language("Robot Talk", 1)
@@ -1427,6 +1440,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
 	see_reagents = TRUE
+	can_slowdown = FALSE
 
 /mob/living/silicon/robot/deathsquad/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/deathsquad
@@ -1493,6 +1507,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	damage_protection = 5 // Reduce all incoming damage by this number
 	eprefix = "Gamma"
 	magpulse = 1
+	slowdown_damage_increase = 25
 
 
 /mob/living/silicon/robot/destroyer
@@ -1515,6 +1530,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
 	see_reagents = TRUE
+	can_slowdown = FALSE
 
 /mob/living/silicon/robot/destroyer/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
@@ -1636,6 +1652,21 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 							audible_message("<span class='warning'>[src] sounds an alarm! \"CRITICAL ERROR: All modules OFFLINE.\"</span>")
 							playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
 						to_chat(src, "<span class='userdanger'>CRITICAL ERROR: All modules OFFLINE.</span>")
+	if(can_slowdown)
+		if(has_vtec && (health < (SLOWDOWN_THRESHOLD_ONE - slowdown_damage_increase)))
+			speed = 0
+
+		if(health < (SLOWDOWN_THRESHOLD_TWO - slowdown_damage_increase))
+			speed = 1
+
+			if(health < (SLOWDOWN_THRESHOLD_THREE - slowdown_damage_increase))
+				speed = 2
+		if(health > (SLOWDOWN_THRESHOLD_ONE - slowdown_damage_increase))
+			speed = (0 - has_vtec)
 
 /mob/living/silicon/robot/can_see_reagents()
 	return see_reagents
+
+#undef SLOWDOWN_THRESHOLD_ONE
+#undef SLOWDOWN_THRESHOLD_TWO
+#undef SLOWDOWN_THRESHOLD_THREE
