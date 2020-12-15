@@ -598,8 +598,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/destroy/find_target()
 	var/list/possible_targets = active_ais()
 	var/mob/living/silicon/ai/target_ai = safepick(possible_targets)
-	var/found_target // TODO CHANGE once we get to latest byond version
-	found_target = target_ai?.mind
+	var/found_target = target_ai?.mind
 	set_target(found_target)
 	return found_target
 
