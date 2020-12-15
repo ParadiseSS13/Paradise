@@ -953,6 +953,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		if(!zlevel_turf_indexes["[T.z]"])
 			zlevel_turf_indexes["[T.z]"] = list()
 		zlevel_turf_indexes["[T.z]"] |= T
+		CHECK_TICK
 
 	// Sort the keys
 	zlevel_turf_indexes = sortAssoc(zlevel_turf_indexes)
@@ -976,6 +977,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	for(var/x in zlevel_turf_indexes["[z_to_view]"])
 		var/turf/T = x
 		turf_markers += "s([T.x],[T.y]);"
+		CHECK_TICK
 
 	ui_dat += "<script>[turf_markers.Join("")]</script>"
 
