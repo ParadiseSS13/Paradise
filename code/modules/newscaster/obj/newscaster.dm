@@ -365,8 +365,7 @@
 					playsound(loc, 'sound/machines/terminal_insert_disc.ogg', 30, TRUE)
 			else if(issilicon(usr))
 				var/mob/living/silicon/M = usr
-				var/datum/picture/selection
-				selection = M.aiCamera?.selectpicture()
+				var/datum/picture/selection = M.aiCamera?.selectpicture()
 				if(!selection)
 					return
 				var/obj/item/photo/P = new
