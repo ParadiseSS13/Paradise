@@ -337,8 +337,7 @@
 			if(!istype(thing, /datum/objective/protect/vip) && !istype(thing, /datum/objective/assassinate/vip))
 				continue
 			var/datum/objective/O = thing
-			if(!O.on_target_loss())
-				qdel(O)
+			O.on_target_loss()
 		check_antagonists()
 		return
 

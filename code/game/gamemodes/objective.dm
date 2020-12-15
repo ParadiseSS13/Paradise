@@ -19,6 +19,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	GLOB.all_objectives -= src
 	if(owner)
 		owner.objectives -= src
+		owner = null
 	return ..()
 
 /**
@@ -30,10 +31,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		to_chat(owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
 		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/alarm4.ogg', 100, FALSE, pressure_affected = FALSE)
 	target = null
-	. = find_target()
-	if(!target)
+	var/new_target = find_target()
+	var/datum/mind/old_owner = owner
+	if(!new_target)
 		qdel(src)
-	owner?.announce_objectives()
+	old_owner?.announce_objectives()
 
 /datum/objective/proc/check_completion()
 	return completed
@@ -595,9 +597,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/destroy/find_target()
 	var/list/possible_targets = active_ais()
-	var/mob/living/silicon/ai/target_ai = pick(possible_targets)
-	set_target(target_ai.mind)
-	return target_ai.mind
+	var/mob/living/silicon/ai/target_ai = safepick(possible_targets)
+	var/found_target = target_ai?.mind
+	set_target(found_target)
+	return found_target
 
 /datum/objective/destroy/check_completion()
 	if(target && target.current)

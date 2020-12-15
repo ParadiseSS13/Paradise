@@ -271,6 +271,11 @@
 							//			recommended_enemies if the number of people with that role set to yes is less than recomended_enemies,
 							//			Less if there are not enough valid players in the game entirely to make recommended_enemies.
 
+/**
+ * Handles a player being removed from the round by cryoing or something similar
+ */
+/datum/game_mode/proc/handle_player_removal(mob/M)
+	return
 
 /datum/game_mode/proc/latespawn(var/mob)
 

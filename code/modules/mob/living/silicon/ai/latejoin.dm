@@ -13,19 +13,9 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 	// We warned you.
 	GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(loc)
 	GLOB.global_announcer.autosay("[src] has been moved to intelligence storage.", "Artificial Intelligence Oversight")
-
-	//Handle job slot/tater cleanup.
-	var/job = mind.assigned_role
-
-	SSjobs.FreeRole(job)
-
-	if(mind.objectives.len)
-		mind.objectives.Cut()
-		mind.special_role = null
-	else
-		if(SSticker.mode.name == "AutoTraitor")
-			var/datum/game_mode/traitor/autotraitor/current_mode = SSticker.mode
-			current_mode.possible_traitors.Remove(src)
+	control_disabled = TRUE // Ensure the AI is not chosen again as target
+	//Update any existing objectives involving this mob and their job
+	handle_removal()
 
 	// Ghost the current player and disallow them to return to the body
 	ghostize(FALSE)

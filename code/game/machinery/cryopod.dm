@@ -377,24 +377,8 @@
 		if(!SSticker.mode.cult_objs.find_new_sacrifice_target())
 			SSticker.mode.cult_objs.ready_to_summon()
 
-	//Update any existing objectives involving this mob.
-	for(var/datum/objective/O in GLOB.all_objectives)
-		if(O.target != occupant.mind)
-			continue
-		O.on_target_loss()
-	if(occupant.mind && occupant.mind.assigned_role)
-		//Handle job slot/tater cleanup.
-		var/job = occupant.mind.assigned_role
-
-		SSjobs.FreeRole(job)
-
-		if(occupant.mind.objectives.len)
-			occupant.mind.objectives.Cut()
-			occupant.mind.special_role = null
-		else
-			if(SSticker.mode.name == "AutoTraitor")
-				var/datum/game_mode/traitor/autotraitor/current_mode = SSticker.mode
-				current_mode.possible_traitors.Remove(occupant)
+	//Update any existing objectives involving this mob and their job
+	occupant.handle_removal()
 
 	// Delete them from datacore.
 

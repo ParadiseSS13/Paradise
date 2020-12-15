@@ -192,6 +192,25 @@
 	return 0
 
 
+/**
+ * Will handle a player cryoing or leaving the round in a similar way
+ *
+ */
+/mob/proc/handle_removal()
+	if(!mind)
+		return
+	QDEL_LIST(mind.objectives)
+	mind.special_role = null
+	for(var/thing in GLOB.all_objectives)
+		var/datum/objective/O = thing
+		if(O.target != mind)
+			continue
+		O.on_target_loss()
+
+	if(mind.assigned_role)
+		SSjobs.FreeRole(mind.assigned_role)
+
+	SSticker.mode.handle_player_removal(src)
 
 //This is a SAFE proc. Use this instead of equip_to_slot()!
 //set del_on_fail to have it delete W if it fails to equip
