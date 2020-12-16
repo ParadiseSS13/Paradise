@@ -166,6 +166,19 @@
 	if(wear_id)
 		msg += "[p_they(TRUE)] [p_are()] wearing [bicon(wear_id)] \a [wear_id].\n"
 
+	//Stamp Marks
+	var/stamps_len = length(stamp_marks_desc)
+	if(stamps_len)
+		msg += "[p_they(TRUE)] [p_have()] been stamped: "
+		if(stamps_len > 2)
+			msg += stamp_marks_desc.Join(", ", 1, stamps_len - 1)
+			msg += ", and [stamp_marks_desc[stamps_len]]"
+		else if(stamps_len == 2)
+			msg += "[stamp_marks_desc[1]], and [stamp_marks_desc[2]]"
+		else
+			msg += stamp_marks_desc[1]
+		msg += ".\n"
+
 	//Jitters
 	switch(jitteriness)
 		if(300 to INFINITY)

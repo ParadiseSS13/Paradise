@@ -2306,16 +2306,18 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 /datum/preferences/proc/open_load_dialog(mob/user)
 
-	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT slot,real_name FROM [format_table_name("characters")] WHERE ckey='[user.ckey]' ORDER BY slot")
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT slot, real_name FROM [format_table_name("characters")] WHERE ckey=:ckey ORDER BY slot", list(
+		"ckey" = user.ckey
+	))
 	var/list/slotnames[max_save_slots]
 
-	if(!query.Execute())
-		var/err = query.ErrorMsg()
-		log_game("SQL ERROR during character slot loading. Error : \[[err]\]\n")
-		message_admins("SQL ERROR during character slot loading. Error : \[[err]\]\n")
+	if(!query.warn_execute())
+		qdel(query)
 		return
+
 	while(query.NextRow())
 		slotnames[text2num(query.item[1])] = query.item[2]
+	qdel(query)
 
 	var/dat = "<body>"
 	dat += "<tt><center>"

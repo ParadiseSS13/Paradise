@@ -36,7 +36,7 @@
 /proc/rustg_create_async_http_client() return call(RUST_G, "start_http_client")()
 /proc/rustg_close_async_http_client() return call(RUST_G, "shutdown_http_client")()
 
-// SQL stuff // - AA TODO: Async SQL + SSdbcore
+// SQL stuff //
 #define rustg_sql_connect_pool(options) call(RUST_G, "sql_connect_pool")(options)
 #define rustg_sql_query_async(handle, query, params) call(RUST_G, "sql_query_async")(handle, query, params)
 #define rustg_sql_query_blocking(handle, query, params) call(RUST_G, "sql_query_blocking")(handle, query, params)
