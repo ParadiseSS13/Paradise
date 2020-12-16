@@ -32,7 +32,7 @@
 
 /obj/item/twohanded/proc/unwield(mob/living/carbon/user)
 	if(!wielded || !user)
-		return
+		return FALSE
 	wielded = FALSE
 	force = force_unwielded
 	if(sharp_when_wielded)
@@ -55,18 +55,19 @@
 	var/obj/item/twohanded/offhand/O = user.get_inactive_hand()
 	if(O && istype(O))
 		O.unwield()
+	return TRUE
 
 /obj/item/twohanded/proc/wield(mob/living/carbon/user)
 	if(wielded)
-		return
+		return FALSE
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.dna.species.is_small)
 			to_chat(user, "<span class='warning'>It's too heavy for you to wield fully.</span>")
-			return
+			return FALSE
 	if(user.get_inactive_hand())
 		to_chat(user, "<span class='warning'>You need your other hand to be empty!</span>")
-		return
+		return FALSE
 	wielded = TRUE
 	force = force_wielded
 	if(sharp_when_wielded)
@@ -86,6 +87,7 @@
 	O.name = "[name] - offhand"
 	O.desc = "Your second grip on the [name]"
 	user.put_in_inactive_hand(O)
+	return TRUE
 
 /obj/item/twohanded/dropped(mob/user)
 	..()
@@ -201,7 +203,6 @@
 		if(istype(A, /obj/structure/window) || istype(A, /obj/structure/grille))
 			var/obj/structure/W = A
 			W.obj_destruction("fireaxe")
-
 
 /obj/item/twohanded/fireaxe/boneaxe  // Blatant imitation of the fireaxe, but made out of bone.
 	icon_state = "bone_axe0"
@@ -338,7 +339,9 @@
 	blade_color = "blue"
 
 /obj/item/twohanded/dualsaber/unwield()
-	..()
+	. = ..()
+	if(!.)
+		return
 	hitsound = "swing_hit"
 	w_class = initial(w_class)
 
@@ -350,7 +353,9 @@
 	if(HULK in M.mutations)
 		to_chat(M, "<span class='warning'>You lack the grace to wield this!</span>")
 		return
-	..()
+	. = ..()
+	if(!.)
+		return
 	hitsound = 'sound/weapons/blade1.ogg'
 	w_class = w_class_on
 
@@ -617,12 +622,14 @@
 		return ..()
 
 /obj/item/twohanded/chainsaw/wield() //you can't disarm an active chainsaw, you crazy person.
-	..()
-	flags |= NODROP
+	. = ..()
+	if(.)
+		flags |= NODROP
 
 /obj/item/twohanded/chainsaw/unwield()
-	..()
-	flags &= ~NODROP
+	. = ..()
+	if(.)
+		flags &= ~NODROP
 
 // SINGULOHAMMER
 /obj/item/twohanded/singularityhammer

@@ -202,18 +202,3 @@
 		output += ruler
 	usr << browse(output, "window=show_notes;size=900x500")
 
-/proc/show_player_info_irc(var/key as text)
-	var/target_sql_ckey = ckey(key)
-	var/DBQuery/query_get_notes = GLOB.dbcon.NewQuery("SELECT timestamp, notetext, adminckey, server, crew_playtime FROM [format_table_name("notes")] WHERE ckey = '[target_sql_ckey]' ORDER BY timestamp")
-	if(!query_get_notes.Execute())
-		var/err = query_get_notes.ErrorMsg()
-		log_game("SQL ERROR obtaining timestamp, notetext, adminckey, server, crew_playtime from notes table. Error : \[[err]\]\n")
-		return
-	var/output = " Info on [key]%0D%0A"
-	while(query_get_notes.NextRow())
-		var/timestamp = query_get_notes.item[1]
-		var/notetext = query_get_notes.item[2]
-		var/adminckey = query_get_notes.item[3]
-		var/server = query_get_notes.item[4]
-		output += "[notetext]%0D%0Aby [adminckey] on [timestamp] (Server: [server])%0D%0A%0D%0A"
-	return output

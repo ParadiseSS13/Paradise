@@ -89,7 +89,7 @@
 
 /obj/item/gun/projectile/revolver/detective
 	desc = "A cheap Martian knock-off of a classic law enforcement firearm. Uses .38-special rounds."
-	name = "\improper .38 Mars Special"
+	name = ".38 Mars Special"
 	icon_state = "detective"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38
 	unique_rename = 1
