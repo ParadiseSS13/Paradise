@@ -28,10 +28,10 @@
 	return ..()
 
 /obj/item/camera_bug/attack_self(mob/user as mob)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/item/camera_bug/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_inventory_state)
-	integrated_console.tgui_interact(user, ui_key, ui, force_open, master_ui, state)
+/obj/item/camera_bug/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
+	integrated_console.ui_interact(user, ui_key, ui, force_open, master_ui, state)
 
 
 /obj/item/camera_bug/ert

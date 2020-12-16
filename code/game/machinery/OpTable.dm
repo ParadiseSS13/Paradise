@@ -57,19 +57,20 @@
 		return
 	take_patient(O, user)
 
-/obj/machinery/optable/proc/check_patient()
+/**
+  * Updates the `patient` var to be the mob occupying the table
+  */
+/obj/machinery/optable/proc/update_patient()
 	var/mob/living/carbon/human/M = locate(/mob/living/carbon/human, loc)
-	if(!M)
-		return FALSE
-	if(M.lying)
+	if(M && M.lying)
 		patient = M
-		if(!no_icon_updates)
-			icon_state = M.pulse ? "table2-active" : "table2-idle"
-		return TRUE
-	patient = null
+	else
+		patient = null
 	if(!no_icon_updates)
-		icon_state = "table2-idle"
-	return FALSE
+		if(patient && patient.pulse)
+			icon_state = "table2-active"
+		else
+			icon_state = "table2-idle"
 
 /obj/machinery/optable/Crossed(atom/movable/AM, oldloc)
 	. = ..()
@@ -77,36 +78,27 @@
 		to_chat(AM, "<span class='danger'>You feel a series of tiny pricks!</span>")
 
 /obj/machinery/optable/process()
-	check_patient()
+	update_patient()
 	if(LAZYLEN(injected_reagents))
 		for(var/mob/living/carbon/C in get_turf(src))
 			var/datum/reagents/R = C.reagents
 			for(var/chemical in injected_reagents)
 				R.check_and_add(chemical,reagent_target_amount,inject_amount)
 
-/obj/machinery/optable/proc/take_patient(mob/living/carbon/C, mob/living/carbon/user)
-	if(C == user)
+/obj/machinery/optable/proc/take_patient(mob/living/carbon/new_patient, mob/living/carbon/user)
+	if(new_patient == user)
 		user.visible_message("[user] climbs on the operating table.","You climb on the operating table.")
 	else
-		visible_message("<span class='alert'>[C] has been laid on the operating table by [user].</span>")
-	C.resting = TRUE
-	C.update_canmove()
-	C.forceMove(loc)
-	if(user.pulling == C)
+		visible_message("<span class='alert'>[new_patient] has been laid on the operating table by [user].</span>")
+	new_patient.resting = TRUE
+	new_patient.update_canmove()
+	new_patient.forceMove(loc)
+	if(user.pulling == new_patient)
 		user.stop_pulling()
-	if(C.s_active) //Close the container opened
-		C.s_active.close(C)
-	for(var/obj/O in src)
-		O.loc = src.loc
+	if(new_patient.s_active) //Close the container opened
+		new_patient.s_active.close(new_patient)
 	add_fingerprint(user)
-	if(ishuman(C))
-		var/mob/living/carbon/human/H = C
-		patient = H
-		if(!no_icon_updates)
-			icon_state = H.pulse ? "table2-active" : "table2-idle"
-	else
-		if(!no_icon_updates)
-			icon_state = "table2-idle"
+	update_patient()
 
 /obj/machinery/optable/verb/climb_on()
 	set name = "Climb On Table"
@@ -135,7 +127,8 @@
 		qdel(src)
 
 /obj/machinery/optable/proc/check_table()
-	if(check_patient() && patient.lying)
+	update_patient()
+	if(patient != null)
 		to_chat(usr, "<span class='notice'>The table is already occupied!</span>")
 		return FALSE
 	else

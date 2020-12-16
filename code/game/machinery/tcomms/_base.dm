@@ -94,15 +94,15 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 // Attack overrides. These are needed so the UIs can be opened up //
 /obj/machinery/tcomms/attack_ai(mob/user)
 	add_hiddenprint(user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/tcomms/attack_ghost(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/tcomms/attack_hand(mob/user)
 	if(..(user))
 		return
-	tgui_interact(user)
+	ui_interact(user)
 
 
 // If we do not override the default process(), the machine defaults to not processing, meaning it uses no power.

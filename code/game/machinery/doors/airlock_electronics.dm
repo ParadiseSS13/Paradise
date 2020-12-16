@@ -3,16 +3,29 @@
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"
 	w_class = WEIGHT_CLASS_SMALL
-	materials = list(MAT_METAL=50, MAT_GLASS=50)
+	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
 	origin_tech = "engineering=2;programming=1"
 	req_access = list(ACCESS_ENGINE)
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
-	var/list/conf_access = null
-	var/one_access = 0 //if set to 1, door would receive req_one_access instead of req_access
-	var/const/max_brain_damage = 60 // Maximum brain damage a mob can have until it can't use the electronics
-	var/unres_sides = 0
-	var/unres_direction = null
+	/// List of accesses currently set
+	var/list/selected_accesses = list()
+	/// Is the door access using req_one_access (TRUE) or req_access (FALSE)
+	var/one_access = FALSE
+	/// An associative list containing all station accesses. Includes their name and access number.
+	var/static/list/door_accesses_list = list()
+	/// Maximum brain damage a mob can have until it can't use the electronics
+	var/const/max_brain_damage = 60
+	/// Which direction has unrestricted access to the airlock (e.g. medbay doors from the inside)
+	var/unres_access_from = null
+
+/obj/item/airlock_electronics/Initialize(mapload)
+	. = ..()
+	if(!length(door_accesses_list))
+		for(var/access in get_all_accesses())
+			door_accesses_list += list(list(
+				"name" = get_access_desc(access),
+				"id" = access))
 
 /obj/item/airlock_electronics/attack_self(mob/user)
 	if(!ishuman(user) && !isrobot(user))
@@ -21,82 +34,71 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.getBrainLoss() >= max_brain_damage)
-			to_chat(user, "<span class='warning'>You forget how to use \the [src].</span>")
+			to_chat(user, "<span class='warning'>You forget how to use [src].</span>")
 			return
+	ui_interact(user)
 
-	var/t1 = text("<B>Access control</B><br>\n")
-	t1 += "<hr>"
-	t1 += "<B> Unrestricted Access Settings</B><br>"
 
-	var/list/Directions = list("North","South",,"East",,,,"West")
-	for(var/direction in GLOB.cardinal)
-		if (unres_direction && unres_direction == direction)
-			t1 += "<a style='color: red' href='?src=[UID()];unres_direction=[direction]'>[Directions[direction]]</a><br>"
-		else
-			t1 += "<a href='?src=[UID()];unres_direction=[direction]'>[Directions[direction]]</a><br>"
+// tgui\packages\tgui\interfaces\AirlockElectronics.js
+/obj/item/airlock_electronics/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "AirlockElectronics", name, 450, 575, master_ui, state)
+		ui.open()
 
-	t1 += "<hr>"
-	t1 += "Access requirement is set to "
-	t1 += one_access ? "<a style='color: green' href='?src=[UID()];one_access=1'>ONE</a><hr>" : "<a style='color: red' href='?src=[UID()];one_access=1'>ALL</a><hr>"
+/obj/item/airlock_electronics/ui_data(mob/user)
+	var/list/data = list()
+	data["selected_accesses"] = selected_accesses
+	data["one_access"] = one_access
+	data["unrestricted_dir"] = dir2text(unres_access_from)
+	return data
 
-	t1 += conf_access == null ? "<font color=red>All</font><br>" : "<a href='?src=[UID()];access=all'>All</a><br>"
+/obj/item/airlock_electronics/ui_static_data(mob/user)
+	var/list/data = list()
+	data["regions"] = get_accesslist_static_data(REGION_GENERAL, REGION_COMMAND)
+	data["door_access_list"] = door_accesses_list
+	return data
 
-	var/list/accesses = get_all_accesses()
-	for(var/acc in accesses)
-		var/aname = get_access_desc(acc)
-
-		if(!conf_access || !conf_access.len || !(acc in conf_access))
-			t1 += "<a href='?src=[UID()];access=[acc]'>[aname]</a><br>"
-		else if(one_access)
-			t1 += "<a style='color: green' href='?src=[UID()];access=[acc]'>[aname]</a><br>"
-		else
-			t1 += "<a style='color: red' href='?src=[UID()];access=[acc]'>[aname]</a><br>"
-
-	t1 += "<p><a href='?src=[UID()];close=1'>Close</a></p>\n"
-
-	var/datum/browser/popup = new(user, "airlock_electronics", name, 400, 400)
-	popup.set_content(t1)
-	popup.open(0)
-	onclose(user, "airlock")
-
-/obj/item/airlock_electronics/Topic(href, href_list)
-	..()
-
-	if(usr.incapacitated() || (!ishuman(usr) && !isrobot(usr)))
-		return 1
-
-	if(href_list["close"])
-		usr << browse(null, "window=airlock_electronics")
+/obj/item/airlock_electronics/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
 		return
 
-	if(href_list["one_access"])
-		one_access = !one_access
+	. = TRUE
+	// Mostly taken from the RCD code
+	switch(action)
+		if("unrestricted_access")
+			var/direction = text2dir(params["unres_dir"])
+			if(direction == unres_access_from)
+				unres_access_from = null // Deselecting
+				return
+			unres_access_from = direction
 
-	if(href_list["access"])
-		toggle_access(href_list["access"])
+		if("set_one_access")
+			one_access = params["access"] == "one" ? TRUE : FALSE
 
-	if(href_list["unres_direction"])
-		unres_direction = text2num(href_list["unres_direction"])
-		if (unres_sides == unres_direction)
-			unres_sides = 0
-			unres_direction = null
-		else
-			unres_sides = unres_direction
+		if("set")
+			var/access = text2num(params["access"])
+			if(isnull(access))
+				return FALSE
+			if(access in selected_accesses)
+				selected_accesses -= access
+			else
+				selected_accesses |= access
 
-	attack_self(usr)
+		if("grant_region")
+			var/region = text2num(params["region"])
+			if(isnull(region) || region < REGION_GENERAL || region > REGION_COMMAND)
+				return FALSE
+			selected_accesses |= get_region_accesses(region)
 
-/obj/item/airlock_electronics/proc/toggle_access(access)
-	if(access == "all")
-		conf_access = null
-	else
-		var/req = text2num(access)
+		if("deny_region")
+			var/region = text2num(params["region"])
+			if(isnull(region) || region < REGION_GENERAL || region > REGION_COMMAND)
+				return FALSE
+			selected_accesses -= get_region_accesses(region)
 
-		if(conf_access == null)
-			conf_access = list()
+		if("grant_all")
+			selected_accesses = get_all_accesses()
 
-		if(!(req in conf_access))
-			conf_access += req
-		else
-			conf_access -= req
-			if(!conf_access.len)
-				conf_access = null
+		if("clear_all")
+			selected_accesses = list()

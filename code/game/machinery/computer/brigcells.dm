@@ -12,7 +12,7 @@
 
 /obj/machinery/computer/brigcells/attack_ai(mob/user)
     attack_hand(user)
-    tgui_interact(user)
+    ui_interact(user)
 
 /obj/machinery/computer/brigcells/attack_hand(mob/user)
     add_fingerprint(user)
@@ -21,16 +21,15 @@
     if(!allowed(user))
         to_chat(user, "<span class='warning'>Access denied.</span>")
         return
-    tgui_interact(user)
+    ui_interact(user)
 
-/obj/machinery/computer/brigcells/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/computer/brigcells/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "BrigCells", "Brig Cell Management", 1000, 400, master_ui, state)
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
-/obj/machinery/computer/brigcells/tgui_data(mob/user)
+/obj/machinery/computer/brigcells/ui_data(mob/user)
 	var/list/data = list()
 	var/list/timers = list()
 	for(var/obj/machinery/door_timer/T in GLOB.celltimers_list)
@@ -47,7 +46,7 @@
 	data["cells"] = timers
 	return data
 
-/obj/machinery/computer/brigcells/tgui_act(action, params)
+/obj/machinery/computer/brigcells/ui_act(action, params)
 	if (..())
 		return FALSE
 

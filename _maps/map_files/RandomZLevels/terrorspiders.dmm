@@ -2470,9 +2470,6 @@
 	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/centralhall)
-"ga" = (
-/turf/simulated/wall/r_wall,
-/area/awaymission/UO71/mother)
 "gb" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2583,17 +2580,6 @@
 	icon_state = "vault"
 	},
 /area/awaymission/UO71/gateway)
-"gp" = (
-/turf/simulated/floor/vault,
-/area/awaymission/UO71/mother)
-"gq" = (
-/obj/machinery/camera{
-	c_tag = "Research Lab";
-	dir = 2;
-	network = list("UO71")
-	},
-/turf/simulated/floor/vault,
-/area/awaymission/UO71/mother)
 "gr" = (
 /obj/machinery/gateway{
 	dir = 1
@@ -2879,10 +2865,6 @@
 	icon_state = "dark"
 	},
 /area/awaymission/UO71/gateway)
-"gU" = (
-/mob/living/simple_animal/hostile/poison/terror_spider/mother,
-/turf/simulated/floor/vault,
-/area/awaymission/UO71/mother)
 "gV" = (
 /obj/structure/chair{
 	icon_state = "chair";
@@ -3234,12 +3216,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/science)
-"hG" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	on = 1
-	},
-/turf/simulated/floor/vault,
-/area/awaymission/UO71/mother)
 "hH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -3356,22 +3332,6 @@
 	icon_state = "dark"
 	},
 /area/awaymission/UO71/gateway)
-"hU" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber,
-/turf/simulated/floor/vault,
-/area/awaymission/UO71/mother)
-"hV" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/vault,
-/area/awaymission/UO71/mother)
-"hW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/vault,
-/area/awaymission/UO71/mother)
 "hX" = (
 /obj/structure/window/reinforced,
 /obj/effect/decal/cleanable/dirt,
@@ -3650,19 +3610,6 @@
 	},
 /turf/simulated/mineral/random/labormineral,
 /area/awaymission/UO71/outside)
-"iC" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4;
-	level = 1
-	},
-/turf/simulated/wall/r_wall,
-/area/awaymission/UO71/mother)
-"iD" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
-/turf/simulated/wall/r_wall,
-/area/awaymission/UO71/mother)
 "iE" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/chair{
@@ -3705,12 +3652,6 @@
 	icon_state = "white"
 	},
 /area/awaymission/UO71/gateway)
-"iO" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/UO71/mother)
 "iP" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -3882,10 +3823,6 @@
 	icon_state = "neutral"
 	},
 /area/awaymission/UO71/centralhall)
-"jg" = (
-/obj/structure/sign/biohazard,
-/turf/simulated/wall/r_wall,
-/area/awaymission/UO71/mother)
 "jh" = (
 /obj/structure/chair/comfy/black{
 	dir = 4
@@ -3921,9 +3858,6 @@
 	icon_state = "white"
 	},
 /area/awaymission/UO71/gateway)
-"jn" = (
-/turf/simulated/floor/plasteel,
-/area/awaymission/UO71/mother)
 "jo" = (
 /obj/structure/table,
 /obj/item/folder/white,
@@ -4098,13 +4032,6 @@
 	icon_state = "white"
 	},
 /area/awaymission/UO71/gateway)
-"jK" = (
-/obj/machinery/door/poddoor{
-	id_tag = "UO71_Containment";
-	name = "Containment 1"
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/UO71/mother)
 "jM" = (
 /obj/structure/grille,
 /obj/structure/window/full/basic,
@@ -4362,20 +4289,6 @@
 	name = "CONTAINMENT AREA"
 	},
 /turf/simulated/wall,
-/area/awaymission/UO71/science)
-"kf" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurple";
-	dir = 9
-	},
-/area/awaymission/UO71/science)
-"kg" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurple";
-	dir = 5
-	},
 /area/awaymission/UO71/science)
 "ki" = (
 /obj/structure/dispenser/oxygen,
@@ -4679,17 +4592,6 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplecorner";
-	dir = 4;
-	heat_capacity = 1e+006
-	},
-/area/awaymission/UO71/science)
-"kP" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner";
 	dir = 4;
@@ -5623,17 +5525,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/centralhall)
-"mx" = (
-/obj/machinery/alarm/monitor{
-	dir = 8;
-	frequency = 1439;
-	locked = 0;
-	pixel_x = 23;
-	pixel_y = 0;
-	req_access = null
-	},
-/turf/simulated/floor/vault,
-/area/awaymission/UO71/mother)
 "mz" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -12744,14 +12635,6 @@
 	icon_state = "green"
 	},
 /area/awaymission/UO71/plaza)
-"BE" = (
-/obj/machinery/door/poddoor{
-	id_tag = "UO71_Containment";
-	name = "Containment 1"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel,
-/area/awaymission/UO71/mother)
 "CA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -12787,13 +12670,6 @@
 	},
 /turf/simulated/floor/vault,
 /area/awaymission/UO71/prince)
-"Fu" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel,
-/area/awaymission/UO71/mother)
 "Gl" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
@@ -12924,10 +12800,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/plaza)
-"PS" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel,
-/area/awaymission/UO71/mother)
 "Rk" = (
 /obj/structure/bed,
 /obj/item/bedsheet,
@@ -16953,12 +16825,12 @@ ab
 ab
 ab
 ab
-ga
-ga
-ga
-ga
-ga
-iC
+ab
+ab
+ab
+ab
+ab
+ab
 ab
 ab
 fO
@@ -17103,12 +16975,12 @@ ab
 ab
 ab
 ab
-ga
-gp
-gp
-gp
-hU
-iD
+ab
+ab
+ab
+ab
+ab
+ab
 ab
 ab
 fO
@@ -17253,12 +17125,12 @@ ab
 ab
 ab
 ab
-ga
-gp
-gp
-gp
-gp
-ga
+ab
+ab
+ab
+ab
+ab
+ab
 ab
 ab
 fO
@@ -17403,15 +17275,15 @@ ab
 ab
 ab
 ab
-ga
-gq
-gU
-gp
-hV
-ga
-jg
-jG
-ke
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+fO
 kM
 lJ
 fN
@@ -17553,17 +17425,17 @@ ab
 ab
 ab
 ab
-ga
-hG
-hW
-hW
-hW
-Fu
-PS
-BE
-kf
-kP
-lI
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+fO
+kJ
+lH
 fO
 fO
 fO
@@ -17703,15 +17575,15 @@ ab
 ab
 ab
 ab
-ga
-gp
-gp
-gp
-gp
-iO
-jn
-jK
-kg
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+fN
 kN
 lL
 fO
@@ -17853,15 +17725,15 @@ ab
 ab
 ab
 ab
-ga
-gp
-gp
-gp
-hV
-ga
-jg
-jG
-ke
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+fN
 kO
 lK
 mq
@@ -18003,14 +17875,14 @@ ab
 ab
 ab
 ab
-ga
-gp
-gp
-gp
-mx
-ga
-fO
-fO
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 fN
 kJ
 lN
@@ -18153,13 +18025,13 @@ ab
 ab
 ab
 ab
-ga
-ga
-ga
-ga
-ga
-ga
-fO
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 fO
 fN
 kQ

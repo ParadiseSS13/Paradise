@@ -42,15 +42,15 @@
 /mob/living/attackby(obj/item/I, mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(attempt_harvest(I, user))
-		return 1
+		return TRUE
 	return I.attack(src, user)
 
 /obj/item/proc/attack(mob/living/M, mob/living/user, def_zone)
 	SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, M, user)
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, M, user)
 	if(flags & (NOBLUDGEON))
-		return 0
-	
+		return FALSE
+
 	if(force && HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
 		return

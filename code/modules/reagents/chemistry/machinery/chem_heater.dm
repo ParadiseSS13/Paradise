@@ -99,16 +99,16 @@
 	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/chem_heater/attack_hand(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/chem_heater/attack_ghost(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/chem_heater/attack_ai(mob/user)
 	add_hiddenprint(user)
 	return attack_hand(user)
 
-/obj/machinery/chem_heater/tgui_act(action, params)
+/obj/machinery/chem_heater/ui_act(action, params)
 	if(..())
 		return
 	if(stat & (NOPOWER|BROKEN))
@@ -129,7 +129,7 @@
 			return FALSE
 	add_fingerprint(usr)
 
-/obj/machinery/chem_heater/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/chem_heater/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	if(user.stat || user.restrained())
 		return
 
@@ -138,7 +138,7 @@
 		ui = new(user, src, ui_key, "ChemHeater", "Chemical Heater", 350, 270, master_ui, state)
 		ui.open()
 
-/obj/machinery/chem_heater/tgui_data(mob/user)
+/obj/machinery/chem_heater/ui_data(mob/user)
 	var/data[0]
 	var/cur_temp = beaker ? beaker.reagents.chem_temp : null
 

@@ -32,7 +32,7 @@
 
 /obj/item/twohanded/proc/unwield(mob/living/carbon/user)
 	if(!wielded || !user)
-		return
+		return FALSE
 	wielded = FALSE
 	force = force_unwielded
 	if(sharp_when_wielded)
@@ -55,18 +55,19 @@
 	var/obj/item/twohanded/offhand/O = user.get_inactive_hand()
 	if(O && istype(O))
 		O.unwield()
+	return TRUE
 
 /obj/item/twohanded/proc/wield(mob/living/carbon/user)
 	if(wielded)
-		return
+		return FALSE
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.dna.species.is_small)
 			to_chat(user, "<span class='warning'>It's too heavy for you to wield fully.</span>")
-			return
+			return FALSE
 	if(user.get_inactive_hand())
 		to_chat(user, "<span class='warning'>You need your other hand to be empty!</span>")
-		return
+		return FALSE
 	wielded = TRUE
 	force = force_wielded
 	if(sharp_when_wielded)
@@ -86,6 +87,7 @@
 	O.name = "[name] - offhand"
 	O.desc = "Your second grip on the [name]"
 	user.put_in_inactive_hand(O)
+	return TRUE
 
 /obj/item/twohanded/dropped(mob/user)
 	..()
@@ -162,6 +164,9 @@
 	..()
 	if(slot == slot_l_hand || slot == slot_r_hand)
 		wield(user)
+		if(!wielded) // Drop immediately if we couldn't wield
+			user.unEquip(src)
+			to_chat(user, "<span class='notice'>[src] is too cumbersome to carry in one hand!</span>")
 	else
 		unwield(user)
 
@@ -199,12 +204,12 @@
 			var/obj/structure/W = A
 			W.obj_destruction("fireaxe")
 
-
 /obj/item/twohanded/fireaxe/boneaxe  // Blatant imitation of the fireaxe, but made out of bone.
 	icon_state = "bone_axe0"
 	name = "bone axe"
 	desc = "A large, vicious axe crafted out of several sharpened bone plates and crudely tied together. Made of monsters, by killing monsters, for killing monsters."
 	force_wielded = 23
+	needs_permit = TRUE
 
 /obj/item/twohanded/fireaxe/boneaxe/update_icon()
 	icon_state = "bone_axe[wielded]"
@@ -273,6 +278,7 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
 	resistance_flags = FIRE_PROOF
 	light_power = 2
+	needs_permit = TRUE
 	var/brightness_on = 2
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
 
@@ -333,7 +339,9 @@
 	blade_color = "blue"
 
 /obj/item/twohanded/dualsaber/unwield()
-	..()
+	. = ..()
+	if(!.)
+		return
 	hitsound = "swing_hit"
 	w_class = initial(w_class)
 
@@ -345,7 +353,9 @@
 	if(HULK in M.mutations)
 		to_chat(M, "<span class='warning'>You lack the grace to wield this!</span>")
 		return
-	..()
+	. = ..()
+	if(!.)
+		return
 	hitsound = 'sound/weapons/blade1.ogg'
 	w_class = w_class_on
 
@@ -382,6 +392,7 @@
 	var/obj/item/grenade/explosive = null
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
+	needs_permit = TRUE
 	var/icon_prefix = "spearglass"
 
 /obj/item/twohanded/spear/update_icon()
@@ -611,12 +622,14 @@
 		return ..()
 
 /obj/item/twohanded/chainsaw/wield() //you can't disarm an active chainsaw, you crazy person.
-	..()
-	flags |= NODROP
+	. = ..()
+	if(.)
+		flags |= NODROP
 
 /obj/item/twohanded/chainsaw/unwield()
-	..()
-	flags &= ~NODROP
+	. = ..()
+	if(.)
+		flags &= ~NODROP
 
 // SINGULOHAMMER
 /obj/item/twohanded/singularityhammer

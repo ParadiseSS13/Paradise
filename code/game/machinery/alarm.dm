@@ -566,7 +566,7 @@
 		return
 
 	add_hiddenprint(user)
-	return tgui_interact(user)
+	return ui_interact(user)
 
 /obj/machinery/alarm/attack_ghost(mob/user)
 	return interact(user)
@@ -585,7 +585,7 @@
 		wires.Interact(user)
 
 	if(!shorted)
-		tgui_interact(user)
+		ui_interact(user)
 
 /obj/machinery/alarm/proc/ui_air_status()
 	var/turf/location = get_turf(src)
@@ -656,7 +656,7 @@
 	return user && (isAI(user) || allowed(user) || emagged || rcon_setting == RCON_YES)
 
 // Intentional nulls here
-/obj/machinery/alarm/tgui_data(mob/user)
+/obj/machinery/alarm/ui_data(mob/user)
 	var/list/data = list()
 
 	data["name"] = sanitize(name)
@@ -767,7 +767,7 @@
 
 	return thresholds
 
-/obj/machinery/alarm/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/alarm/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "AirAlarm", name, 570, 410, master_ui, state)
@@ -776,7 +776,7 @@
 /obj/machinery/alarm/proc/is_authenticated(mob/user, datum/tgui/ui=null)
 	// Return true if they are connecting with a remote console
 	// DO NOT CHANGE THIS TO USE ISTYPE, IT WILL NOT WORK
-	if(ui?.master_ui?.src_object.type == /datum/tgui_module/atmos_control)
+	if(ui?.master_ui?.src_object.type == /datum/ui_module/atmos_control)
 		return TRUE
 	if(user.can_admin_interact())
 		return TRUE
@@ -785,7 +785,7 @@
 	else
 		return !locked
 
-/obj/machinery/alarm/tgui_status(mob/user, datum/tgui_state/state)
+/obj/machinery/alarm/ui_status(mob/user, datum/ui_state/state)
 	if(buildstage != 2)
 		return STATUS_CLOSE
 
@@ -798,7 +798,7 @@
 	return min(..(), .)
 
 // TODO: Refactor these utter pieces of garbage
-/obj/machinery/alarm/tgui_act(action, list/params)
+/obj/machinery/alarm/ui_act(action, list/params)
 	if(..())
 		return
 

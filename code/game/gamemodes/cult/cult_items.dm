@@ -183,7 +183,6 @@
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	armor = list("melee" = -50, "bullet" = -50, "laser" = -50,"energy" = -50, "bomb" = -50, "bio" = -50, "rad" = -50, "fire" = 0, "acid" = 0)
-	slowdown = -1
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/species/drask/suit.dmi',
@@ -200,6 +199,13 @@
 		user.unEquip(src, 1)
 		user.Confused(10)
 		user.Weaken(5)
+	else if(slot == slot_wear_suit)
+		user.status_flags |= GOTTAGOFAST
+
+/obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/dropped(mob/user)
+	. = ..()
+	if(user)
+		user.status_flags &= ~GOTTAGOFAST
 
 /obj/item/clothing/head/hooded/flagellant_hood
 	name = "flagellant's robes"
@@ -247,6 +253,7 @@
 	icon_state = "blindfold"
 	item_state = "blindfold"
 	see_in_dark = 8
+	invis_override = SEE_INVISIBLE_HIDDEN_RUNES
 	flash_protect = TRUE
 	prescription = TRUE
 	origin_tech = null
@@ -531,6 +538,7 @@
 	sharp = TRUE
 	no_spin_thrown = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	needs_permit = TRUE
 	var/datum/action/innate/cult/spear/spear_act
 
 /obj/item/twohanded/cult_spear/Destroy()
@@ -649,3 +657,12 @@
 				M.adjustHealth(-5)
 		new /obj/effect/temp_visual/cult/sparks(target)
 	..()
+
+/obj/item/blood_orb
+	name = "orb of blood"
+	icon = 'icons/obj/cult.dmi'
+	icon_state = "summoning_orb"
+	item_state = "summoning_orb"
+	desc = "It's an orb of crystalized blood. Can be used to transfer blood between cultists."
+	var/blood = 50
+
