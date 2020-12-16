@@ -92,8 +92,8 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	return wth.invoke(input)
 
 /world/Reboot(var/reason, var/feedback_c, var/feedback_r, var/time)
-	TgsReboot()
-	if(reason == 1) //special reboot, do none of the normal stuff
+	//special reboot, do none of the normal stuff
+	if(reason == 1) // Do NOT change this to if(reason). You WILL break the entirety of world rebooting
 		if(usr)
 			if(!check_rights(R_SERVER))
 				message_admins("[key_name_admin(usr)] attempted to restart the server via the Profiler, without access.")
@@ -104,6 +104,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		spawn(0)
 			to_chat(world, "<span class='boldannounce'>Rebooting world immediately due to host request</span>")
 		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
+		TgsReboot()
 		if(config && config.shutdown_on_reboot)
 			sleep(0)
 			if(GLOB.shutdown_shell_command)
@@ -142,6 +143,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	Master.Shutdown()	//run SS shutdowns
 	GLOB.dbcon.Disconnect() // DCs cleanly from the database
 	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
+	TgsReboot()
 
 	#ifdef UNIT_TESTS
 	FinishTestRun()
