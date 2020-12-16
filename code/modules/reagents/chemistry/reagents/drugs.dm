@@ -382,24 +382,23 @@
 			if(stimulant_list.Find(R.id))
 				has_stimulant = TRUE
 				M.reagents.remove_reagent(R.id, 5)
-			else
-				has_stimulant = FALSE
 	if(has_stimulant == TRUE)
 		if(prob(10))
 			if(iscarbon(M))
 				var/mob/living/carbon/human/C = M
 				C.vomit()
-				update_flags |= M.Weaken(15, FALSE)
+				update_flags |= M.Weaken(5, FALSE)
+	else
+		M.AdjustDrowsy(-10)
+		update_flags |= M.AdjustParalysis(-2, FALSE)
+		update_flags |= M.AdjustStunned(-2, FALSE)
+		update_flags |= M.AdjustWeakened(-2, FALSE)
+		update_flags |= M.adjustStaminaLoss(-1.5, FALSE)
+		update_flags |= M.SetSleeping(0, FALSE)
 	if(prob(5))
 		M.emote(pick("twitch_s","blink_r","shiver"))
 	if(current_cycle >= 25)
 		M.AdjustJitter(5)
-	M.AdjustDrowsy(-10)
-	update_flags |= M.AdjustParalysis(-2, FALSE)
-	update_flags |= M.AdjustStunned(-2, FALSE)
-	update_flags |= M.AdjustWeakened(-2, FALSE)
-	update_flags |= M.adjustStaminaLoss(-1.5, FALSE)
-	update_flags |= M.SetSleeping(0, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/methamphaldehyde/overdose_process(mob/living/M, severity)
