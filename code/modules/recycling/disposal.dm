@@ -103,8 +103,8 @@
 		to_chat(user, "You can't place that item inside the disposal unit.")
 		return
 
-	if(istype(I, /obj/item/storage))
-		var/obj/item/storage/S = I
+	var/obj/item/storage/S = I
+	if(istype(S))
 		if((S.allow_quick_empty || S.allow_quick_gather) && S.contents.len)
 			S.hide_from(user)
 			user.visible_message("[user] empties \the [S] into \the [src].", "You empty \the [S] into \the [src].")
@@ -134,6 +134,8 @@
 	if(!user.drop_item())
 		return
 	if(I)
+		if(istype(S))
+			S.hide_from_all()
 		I.forceMove(src)
 
 	to_chat(user, "You place \the [I] into the [src].")
