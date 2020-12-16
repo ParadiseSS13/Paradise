@@ -233,12 +233,7 @@ Thus, the two variables affect pump operation are set in New():
 
 /obj/machinery/atmospherics/binary/volume_pump/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
-		var/t = copytext(stripped_input(user, "Enter the name for the volume pump.", "Rename", name), 1, MAX_NAME_LEN)
-		if(!t)
-			return
-		if(!in_range(src, usr) && loc != usr)
-			return
-		name = t
+		rename_interactive(user, W)
 		return
 	else if(!istype(W, /obj/item/wrench))
 		return ..()
