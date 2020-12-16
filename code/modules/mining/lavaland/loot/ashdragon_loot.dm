@@ -120,13 +120,18 @@
 		return
 
 	var/mob/living/carbon/human/H = user
-	var/random = rand(1,2)
+	var/random = rand(1,3)
 
 	switch(random)
 		if(1)
 			to_chat(user, "<span class='danger'>Your flesh begins to melt! Miraculously, you seem fine otherwise.</span>")
 			H.set_species(/datum/species/skeleton)
 		if(2)
+			to_chat(user, "<span class='danger'>Power courses through you! You can now shift your form at will.")
+			if(user.mind)
+				var/obj/effect/proc_holder/spell/targeted/shapeshift/dragon/D = new
+				user.mind.AddSpell(D)
+		if(3)
 			to_chat(user, "<span class='danger'>You feel like you could walk straight through lava now.</span>")
 			H.weather_immunities |= "lava"
 
@@ -164,6 +169,7 @@
 	damtype = BURN
 	hitsound = 'sound/weapons/sear.ogg'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	needs_permit = TRUE
 	var/turf_type = /turf/simulated/floor/plating/lava/smooth
 	var/transform_string = "lava"
 	var/reset_turf_type = /turf/simulated/floor/plating/asteroid/basalt

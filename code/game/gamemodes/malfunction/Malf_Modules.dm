@@ -616,7 +616,7 @@
 		active = FALSE
 		return
 	var/turf/T = get_turf(owner_AI.eyeobj)
-	new /obj/machinery/transformer/conveyor(T)
+	new /obj/machinery/transformer(T, owner_AI)
 	playsound(T, 'sound/effects/phasein.ogg', 100, 1)
 	owner_AI.can_shunt = FALSE
 	to_chat(owner, "<span class='warning'>You are no longer able to shunt your core to APCs.</span>")
@@ -677,9 +677,9 @@
 
 /datum/action/innate/ai/blackout/Activate()
 	for(var/thing in GLOB.apcs)
-		var/obj/machinery/power/apc/apc
+		var/obj/machinery/power/apc/apc = thing
 		if(prob(30 * apc.overload))
-			apc.overload_lighting()
+			INVOKE_ASYNC(apc, /obj/machinery/power/apc.proc/overload_lighting)
 		else
 			apc.overload++
 	to_chat(owner, "<span class='notice'>Overcurrent applied to the powernet.</span>")
@@ -780,4 +780,18 @@
 /datum/AI_Module/large/eavesdrop/upgrade(mob/living/silicon/ai/AI)
 	if(AI.eyeobj)
 		AI.eyeobj.relay_speech = TRUE
+
+/datum/AI_Module/large/cameracrack
+	module_name = "Core Camera Cracker"
+	mod_pick_name = "cameracrack"
+	description = "By shortcirucuting the camera network chip, it overheats, preventing the camera console from using your internal camera."
+	cost = 10
+	one_purchase = TRUE
+	upgrade = TRUE
+	unlock_text = "<span class='notice'>Network chip short circuited. Internal camera disconected from network. Minimal damage to other internal components.</span>"
+	unlock_sound = 'sound/items/wirecutter.ogg'
+
+/datum/AI_Module/large/cameracrack/upgrade(mob/living/silicon/ai/AI)
+	if(AI.builtInCamera)
+		QDEL_NULL(AI.builtInCamera)
 

@@ -128,12 +128,6 @@
 	if(usr)
 		GLOB.lastsignalers.Add("[time] <B>:</B> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(frequency)]/[code]")
 
-/obj/item/assembly/signaler/pulse(var/radio = FALSE)
-	if(connected && wires)
-		connected.Pulse(src)
-	else
-		return ..(radio)
-
 /obj/item/assembly/signaler/receive_signal(datum/signal/signal)
 	if(!receiving || !signal)
 		return FALSE

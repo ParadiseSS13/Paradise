@@ -17,7 +17,6 @@
 
 	var/area/initial_loc
 	var/area_uid
-	var/id_tag = null
 
 	req_one_access_txt = "24;10"
 
@@ -40,8 +39,7 @@
 	var/welded = 0 // Added for aliens -- TLE
 	var/weld_burst_pressure = 50 * ONE_ATMOSPHERE	//the (internal) pressure at which welded covers will burst off
 
-	var/frequency = ATMOS_VENTSCRUB
-	var/datum/radio_frequency/radio_connection
+	frequency = ATMOS_VENTSCRUB
 	Mtoollink = 1
 
 	var/radio_filter_out
@@ -81,7 +79,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/update_icon(safety = 0)
 	..()
 
-	plane = FLOOR_PLANE
+	plane = GAME_PLANE
 
 	if(!check_icon_cache())
 		return
@@ -104,7 +102,7 @@
 	else
 		vent_icon += "[on ? "[pump_direction ? "out" : "in"]" : "off"]"
 
-	overlays += GLOB.pipe_icon_manager.get_atmos_icon("device", , , vent_icon)
+	overlays += SSair.icon_manager.get_atmos_icon("device", , , vent_icon)
 
 	update_pipe_image()
 
@@ -128,70 +126,60 @@
 
 /obj/machinery/atmospherics/unary/vent_pump/process_atmos()
 	..()
-	if((stat & (NOPOWER|BROKEN)))
-		return 0
+	if(stat & (NOPOWER|BROKEN))
+		return FALSE
 	if(!node)
-		on = 0
+		on = FALSE
 	//broadcast_status() // from now air alarm/control computer should request update purposely --rastaf0
 	if(!on)
-		return 0
+		return FALSE
 
 	if(welded)
 		if(air_contents.return_pressure() >= weld_burst_pressure && prob(5))	//the weld is on but the cover is welded shut, can it withstand the internal pressure?
 			visible_message("<span class='danger'>The welded cover of [src] bursts open!</span>")
-			for(var/mob/M in range(1, src))
+			for(var/mob/living/M in range(1))
 				unsafe_pressure_release(M, air_contents.return_pressure())	//let's send everyone flying
 			welded = FALSE
 			update_icon()
-		return 0
+		return FALSE
 
 	var/datum/gas_mixture/environment = loc.return_air()
 	var/environment_pressure = environment.return_pressure()
-
 	if(pump_direction) //internal -> external
 		var/pressure_delta = 10000
-
-		if(pressure_checks&1)
+		if(pressure_checks & 1)
 			pressure_delta = min(pressure_delta, (external_pressure_bound - environment_pressure))
-		if(pressure_checks&2)
+		if(pressure_checks & 2)
 			pressure_delta = min(pressure_delta, (air_contents.return_pressure() - internal_pressure_bound))
 
-		if(pressure_delta > 0.5)
-			if(air_contents.temperature > 0)
-				var/transfer_moles = pressure_delta*environment.volume/(air_contents.temperature * R_IDEAL_GAS_EQUATION)
-
-				var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
-
-				loc.assume_air(removed)
-				air_update_turf()
-
-				parent.update = 1
+		if(pressure_delta > 0.5 && air_contents.temperature > 0)
+			var/transfer_moles = pressure_delta * environment.volume / (air_contents.temperature * R_IDEAL_GAS_EQUATION)
+			var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
+			loc.assume_air(removed)
+			air_update_turf()
+			parent.update = TRUE
 
 	else //external -> internal
 		var/pressure_delta = 10000
-		if(pressure_checks&1)
+		if(pressure_checks & 1)
 			pressure_delta = min(pressure_delta, (environment_pressure - external_pressure_bound))
-		if(pressure_checks&2)
+		if(pressure_checks & 2)
 			pressure_delta = min(pressure_delta, (internal_pressure_bound - air_contents.return_pressure()))
 
-		if(pressure_delta > 0.5)
-			if(environment.temperature > 0)
-				var/transfer_moles = pressure_delta*air_contents.volume/(environment.temperature * R_IDEAL_GAS_EQUATION)
+		if(pressure_delta > 0.5 && environment.temperature > 0)
+			var/transfer_moles = pressure_delta * air_contents.volume / (environment.temperature * R_IDEAL_GAS_EQUATION)
+			var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
+			if(isnull(removed)) //in space
+				return
+			air_contents.merge(removed)
+			air_update_turf()
+			parent.update = TRUE
 
-				var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
-				if(isnull(removed)) //in space
-					return
-
-				air_contents.merge(removed)
-				air_update_turf()
-
-				parent.update = 1
-
-	return 1
+	return TRUE
 
 //Radio remote control
 
-/obj/machinery/atmospherics/unary/vent_pump/proc/set_frequency(new_frequency)
+/obj/machinery/atmospherics/unary/vent_pump/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	if(frequency)
@@ -243,7 +231,7 @@
 	radio_filter_out = frequency==ATMOS_VENTSCRUB?(RADIO_TO_AIRALARM):null
 	if(frequency)
 		set_frequency(frequency)
-		src.broadcast_status()
+		broadcast_status()
 
 /obj/machinery/atmospherics/unary/vent_pump/receive_signal(datum/signal/signal)
 	if(stat & (NOPOWER|BROKEN))
@@ -386,11 +374,11 @@
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
 		if(!welded)
 			welded = TRUE
-			visible_message("<span class='notice'>[user] welds [src] shut!</span>",\
+			user.visible_message("<span class='notice'>[user] welds [src] shut!</span>",\
 				"<span class='notice'>You weld [src] shut!</span>")
 		else
 			welded = FALSE
-			visible_message("<span class='notice'>[user] unwelds [src]!</span>",\
+			user.visible_message("<span class='notice'>[user] unwelds [src]!</span>",\
 				"<span class='notice'>You unweld [src]!</span>")
 		update_icon()
 

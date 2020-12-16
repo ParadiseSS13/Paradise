@@ -147,6 +147,7 @@
 		else
 			if((href_list["type"] == "R") && (emagged == 0) && (!l_setshort))
 				locked = 1
+				hide_from_all()
 				overlays = null
 				code = null
 				close(usr)

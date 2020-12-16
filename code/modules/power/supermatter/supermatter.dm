@@ -121,13 +121,12 @@
 	aw_emerg = status_adminwarn_check(SUPERMATTER_EMERGENCY, aw_emerg, "CRIT: Supermatter integrity is below 50%!<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.", FALSE)
 	aw_delam = status_adminwarn_check(SUPERMATTER_DELAMINATING, aw_delam, "CRIT: Supermatter is delaminating!<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.", TRUE)
 
-/obj/machinery/power/supermatter_shard/proc/status_adminwarn_check(var/min_status, var/current_state, var/message, var/send_to_irc = FALSE)
+/obj/machinery/power/supermatter_shard/proc/status_adminwarn_check(min_status, current_state, message)
 	var/status = get_status()
 	if(status >= min_status)
 		if(!current_state)
 			log_and_message_admins(message)
-			if(send_to_irc)
-				send2adminirc(message)
+			SSdiscord.send2discord_simple_noadmins(message)
 		return TRUE
 	else
 		return FALSE
@@ -311,17 +310,10 @@
 /obj/machinery/power/supermatter_shard/attack_robot(mob/user as mob)
 	if(Adjacent(user))
 		return attack_hand(user)
-	else
-		ui_interact(user)
-	return
-
-/obj/machinery/power/supermatter_shard/attack_ai(mob/user as mob)
-	ui_interact(user)
-
-/obj/machinery/power/supermatter_shard/attack_ghost(mob/user as mob)
-	ui_interact(user)
 
 /obj/machinery/power/supermatter_shard/attack_hand(mob/user as mob)
+	if(isAI(user))
+		return
 	user.visible_message("<span class=\"warning\">\The [user] reaches out and touches \the [src], inducing a resonance... [user.p_their(TRUE)] body starts to glow and bursts into flames before flashing into ash.</span>",\
 		"<span class=\"danger\">You reach out and touch \the [src]. Everything starts burning and all you can hear is ringing. Your last thought is \"That was not a wise decision.\"</span>",\
 		"<span class=\"warning\">You hear an uneartly ringing, then what sounds like a shrilling kettle as you are washed with a wave of heat.</span>")
@@ -335,35 +327,6 @@
 	integrity = round(100 - integrity * 100)
 	integrity = integrity < 0 ? 0 : integrity
 	return integrity
-
-// This is purely informational UI that may be accessed by AIs or robots
-/obj/machinery/power/supermatter_shard/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "supermatter_crystal.tmpl", "Supermatter Crystal", 500, 300)
-		ui.open()
-		ui.set_auto_update(1)
-
-/obj/machinery/power/supermatter_shard/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
-
-	data["integrity_percentage"] = round(get_integrity())
-	var/datum/gas_mixture/env = null
-	if(!istype(src.loc, /turf/space))
-		env = src.loc.return_air()
-
-	if(!env)
-		data["ambient_temp"] = 0
-		data["ambient_pressure"] = 0
-	else
-		data["ambient_temp"] = round(env.temperature)
-		data["ambient_pressure"] = round(env.return_pressure())
-	if(damage > explosion_point)
-		data["detonating"] = 1
-	else
-		data["detonating"] = 0
-
-	return data
 
 /obj/machinery/power/supermatter_shard/proc/transfer_energy()
 	for(var/obj/machinery/power/rad_collector/R in GLOB.rad_collectors)

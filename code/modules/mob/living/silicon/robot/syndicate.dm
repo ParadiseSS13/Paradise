@@ -11,6 +11,10 @@
 	modtype = "Syndicate"
 	req_access = list(ACCESS_SYNDICATE)
 	ionpulse = 1
+	damage_protection = 5
+	brute_mod = 0.7 //30% less damage
+	burn_mod = 0.7
+	can_lock_cover = TRUE
 	lawchannel = "State"
 	var/playstyle_string = "<span class='userdanger'>You are a Syndicate assault cyborg!</span><br>\
 							<b>You are armed with powerful offensive tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
@@ -40,6 +44,8 @@
 	icon_state = "syndi-medi"
 	modtype = "Syndicate Medical"
 	designation = "Syndicate Medical"
+	brute_mod = 0.8 //20% less damage
+	burn_mod = 0.8
 	playstyle_string = "<span class='userdanger'>You are a Syndicate medical cyborg!</span><br>\
 						<b>You are armed with powerful medical tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
 						Your hypospray will produce Restorative Nanites, a wonder-drug that will heal most types of bodily damages, including clone and brain damage. It also produces morphine for offense. \
@@ -56,6 +62,8 @@
 	icon_state = "syndi-engi"
 	modtype = "Syndicate Saboteur"
 	designation = "Syndicate Saboteur"
+	brute_mod = 0.8
+	burn_mod = 0.8
 	var/mail_destination = 0
 	var/obj/item/borg_chameleon/cham_proj = null
 	playstyle_string = "<span class='userdanger'>You are a Syndicate saboteur cyborg!</span><br>\

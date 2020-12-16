@@ -1,3 +1,6 @@
+#define MENU_MAIN 1
+#define MENU_RECORDS 2
+
 /obj/machinery/computer/cloning
 	name = "cloning console"
 	icon = 'icons/obj/computer.dmi'
@@ -6,11 +9,11 @@
 	circuit = /obj/item/circuitboard/cloning
 	req_access = list(ACCESS_HEADS) //Only used for record deletion right now.
 	var/obj/machinery/dna_scannernew/scanner = null //Linked scanner. For scanning.
-	var/list/pods = list() //Linked cloning pods.
-	var/temp = ""
-	var/scantemp = "Scanner ready."
-	var/menu = 1 //Which menu screen to display
-	var/list/records = list()
+	var/list/pods = null //Linked cloning pods.
+	var/list/temp = null
+	var/list/scantemp = null
+	var/menu = MENU_MAIN //Which menu screen to display
+	var/list/records = null
 	var/datum/dna2/record/active_record = null
 	var/obj/item/disk/data/diskette = null //Mostly so the geneticist can steal everything.
 	var/loading = 0 // Nice loading text
@@ -24,6 +27,9 @@
 
 /obj/machinery/computer/cloning/Initialize()
 	..()
+	pods = list()
+	records = list()
+	set_scan_temp("Scanner ready.", "good")
 	updatemodules()
 
 /obj/machinery/computer/cloning/Destroy()
@@ -91,7 +97,7 @@
 			W.loc = src
 			src.diskette = W
 			to_chat(user, "You insert [W].")
-			SSnanoui.update_uis(src)
+			SStgui.update_uis(src)
 			return
 	else if(istype(W, /obj/item/multitool))
 		var/obj/item/multitool/M = W
@@ -119,17 +125,19 @@
 	updatemodules()
 	ui_interact(user)
 
-/obj/machinery/computer/cloning/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+/obj/machinery/computer/cloning/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	// Set up the Nano UI
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+	var/datum/asset/cloning/assets = get_asset_datum(/datum/asset/cloning)
+	assets.send(user)
+
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "cloning_console.tmpl", "Cloning Console UI", 640, 520)
+		ui = new(user, src, ui_key, "CloningConsole", "Cloning Console", 640, 520)
 		ui.open()
 
-/obj/machinery/computer/cloning/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+/obj/machinery/computer/cloning/ui_data(mob/user)
 	var/data[0]
 	data["menu"] = src.menu
 	data["scanner"] = sanitize("[src.scanner]")
@@ -143,7 +151,18 @@
 			if(pod.efficiency > 5)
 				canpodautoprocess = 1
 
-			tempods.Add(list(list("pod" = "\ref[pod]", "name" = sanitize(capitalize(pod.name)), "biomass" = pod.biomass)))
+			var/status = "idle"
+			if(pod.mess)
+				status = "mess"
+			else if(pod.occupant && !(pod.stat & NOPOWER))
+				status = "cloning"
+			tempods.Add(list(list(
+				"pod" = "\ref[pod]",
+				"name" = sanitize(capitalize(pod.name)),
+				"biomass" = pod.biomass,
+				"status" = status,
+				"progress" = (pod.occupant && pod.occupant.stat != DEAD) ? pod.get_completion() : 0
+			)))
 			data["pods"] = tempods
 
 	data["loading"] = loading
@@ -168,188 +187,190 @@
 		temprecords.Add(list(list("record" = "\ref[R]", "realname" = sanitize(tempRealName))))
 	data["records"] = temprecords
 
-	if(src.menu == 3)
-		if(src.active_record)
-			data["activerecord"] = "\ref[src.active_record]"
-			var/obj/item/implant/health/H = null
-			if(src.active_record.implant)
-				H = locate(src.active_record.implant)
+	if(selected_pod && (selected_pod in pods) && selected_pod.biomass >= CLONE_BIOMASS)
+		data["podready"] = 1
+	else
+		data["podready"] = 0
 
-			if((H) && (istype(H)))
-				data["health"] = H.sensehealth()
-			data["realname"] = sanitize(src.active_record.dna.real_name)
-			data["unidentity"] = src.active_record.dna.uni_identity
-			data["strucenzymes"] = src.active_record.dna.struc_enzymes
-		if(selected_pod && (selected_pod in pods) && selected_pod.biomass >= CLONE_BIOMASS)
-			data["podready"] = 1
-		else
-			data["podready"] = 0
+	data["modal"] = ui_modal_data(src)
 
 	return data
 
-/obj/machinery/computer/cloning/Topic(href, href_list)
+/obj/machinery/computer/cloning/ui_act(action, params)
 	if(..())
-		return 1
-
-	if(loading)
+		return
+	if(stat & (NOPOWER|BROKEN))
 		return
 
-	if(href_list["scan"] && scanner && scanner.occupant)
-		scantemp = "Scanner ready."
-
-		loading = 1
-
-		spawn(20)
-			if(can_brainscan() && scan_mode)
-				scan_mob(scanner.occupant, scan_brain = 1)
-			else
-				scan_mob(scanner.occupant)
-
-			loading = 0
-			SSnanoui.update_uis(src)
-
-	if(href_list["task"])
-		switch(href_list["task"])
-			if("autoprocess")
-				autoprocess = 1
-				SSnanoui.update_uis(src)
-			if("stopautoprocess")
-				autoprocess = 0
-				SSnanoui.update_uis(src)
-
-	//No locking an open scanner.
-	else if((href_list["lock"]) && (!isnull(src.scanner)))
-		if((!src.scanner.locked) && (src.scanner.occupant))
-			src.scanner.locked = 1
-		else
-			src.scanner.locked = 0
-
-	else if(href_list["view_rec"])
-		src.active_record = locate(href_list["view_rec"])
-		if(istype(src.active_record,/datum/dna2/record))
-			if((isnull(src.active_record.ckey)))
-				qdel(src.active_record)
-				src.temp = "<span class=\"bad\">Error: Record corrupt.</span>"
-			else
-				src.menu = 3
-		else
-			src.active_record = null
-			src.temp = "<span class=\"bad\">Error: Record missing.</span>"
-
-	else if(href_list["del_rec"])
-		if((!src.active_record) || (src.menu < 3))
-			return
-		if(src.menu == 3) //If we are viewing a record, confirm deletion
-			src.temp = "Please confirm that you want to delete the record?"
-			src.menu = 4
-
-		else if(src.menu == 4)
-			var/obj/item/card/id/C = usr.get_active_hand()
-			if(istype(C)||istype(C, /obj/item/pda))
-				if(src.check_access(C))
-					src.records.Remove(src.active_record)
-					qdel(src.active_record)
-					src.temp = "Record deleted."
-					src.menu = 2
+	. = TRUE
+	switch(ui_modal_act(src, action, params))
+		if(UI_MODAL_ANSWER)
+			if(params["id"] == "del_rec" && active_record)
+				var/obj/item/card/id/C = usr.get_active_hand()
+				if(!istype(C) && !istype(C, /obj/item/pda))
+					set_temp("ID not in hand.", "danger")
+					return
+				if(check_access(C))
+					records.Remove(active_record)
+					qdel(active_record)
+					set_temp("Record deleted.", "success")
+					menu = MENU_RECORDS
 				else
-					src.temp = "<span class=\"bad\">Error: Access denied.</span>"
-
-	else if(href_list["disk"]) //Load or eject.
-		switch(href_list["disk"])
-			if("load")
-				if((isnull(src.diskette)) || isnull(src.diskette.buf))
-					src.temp = "<span class=\"bad\">Error: The disk's data could not be read.</span>"
-					SSnanoui.update_uis(src)
-					return
-				if(isnull(src.active_record))
-					src.temp = "<span class=\"bad\">Error: No active record was found.</span>"
-					src.menu = 1
-					SSnanoui.update_uis(src)
-					return
-
-				src.active_record = src.diskette.buf.copy()
-
-				src.temp = "Load successful."
-
-			if("eject")
-				if(!isnull(src.diskette))
-					src.diskette.loc = src.loc
-					src.diskette = null
-
-	else if(href_list["save_disk"]) //Save to disk!
-		if((isnull(src.diskette)) || (src.diskette.read_only) || (isnull(src.active_record)))
-			src.temp = "<span class=\"bad\">Error: The data could not be saved.</span>"
-			SSnanoui.update_uis(src)
+					set_temp("Access denied.", "danger")
 			return
 
-		// DNA2 makes things a little simpler.
-		src.diskette.buf=src.active_record.copy()
-		src.diskette.buf.types=0
-		switch(href_list["save_disk"]) //Save as Ui/Ui+Ue/Se
-			if("ui")
-				src.diskette.buf.types=DNA2_BUF_UI
-			if("ue")
-				src.diskette.buf.types=DNA2_BUF_UI|DNA2_BUF_UE
-			if("se")
-				src.diskette.buf.types=DNA2_BUF_SE
-		src.diskette.name = "data disk - '[src.active_record.dna.real_name]'"
-		src.temp = "Save \[[href_list["save_disk"]]\] successful."
+	switch(action)
+		if("scan")
+			if(!scanner || !scanner.occupant || loading)
+				return
+			set_scan_temp("Scanner ready.", "good")
+			loading = TRUE
 
-	else if(href_list["refresh"])
-		SSnanoui.update_uis(src)
-
-	else if(href_list["selectpod"])
-		var/obj/machinery/clonepod/selected = locate(href_list["selectpod"])
-		if(istype(selected) && (selected in pods))
-			selected_pod = selected
-
-	else if(href_list["clone"])
-		var/datum/dna2/record/C = locate(href_list["clone"])
-		//Look for that player! They better be dead!
-		if(istype(C))
-			//Can't clone without someone to clone.  Or a pod.  Or if the pod is busy. Or full of gibs.
-			if(!pods.len)
-				temp = "<span class=\"bad\">Error: No cloning pod detected.</span>"
-			else
-				var/obj/machinery/clonepod/pod = selected_pod
-				var/cloneresult
-				if(!selected_pod)
-					temp = "<span class=\"bad\">Error: No cloning pod selected.</span>"
-				else if(pod.occupant)
-					temp = "<span class=\"bad\">Error: The cloning pod is currently occupied.</span>"
-				else if(pod.biomass < CLONE_BIOMASS)
-					temp = "<span class=\"bad\">Error: Not enough biomass.</span>"
-				else if(pod.mess)
-					temp = "<span class=\"bad\">Error: The cloning pod is malfunctioning.</span>"
-				else if(!config.revival_cloning)
-					temp = "<span class=\"bad\">Error: Unable to initiate cloning cycle.</span>"
+			spawn(20)
+				if(can_brainscan() && scan_mode)
+					scan_mob(scanner.occupant, scan_brain = TRUE)
 				else
-					cloneresult = pod.growclone(C)
-					if(cloneresult)
-						if(cloneresult > 0)
-							temp = "Initiating cloning cycle..."
-						records.Remove(C)
-						qdel(C)
-						menu = 1
+					scan_mob(scanner.occupant)
+				loading = FALSE
+				SStgui.update_uis(src)
+		if("autoprocess")
+			autoprocess = text2num(params["on"]) > 0
+		if("lock")
+			if(isnull(scanner) || !scanner.occupant) //No locking an open scanner.
+				return
+			scanner.locked = !scanner.locked
+		if("view_rec")
+			var/ref = params["ref"]
+			if(!length(ref))
+				return
+			active_record = locate(ref)
+			if(istype(active_record))
+				if(isnull(active_record.ckey))
+					qdel(active_record)
+					set_temp("Error: Record corrupt.", "danger")
+				else
+					var/obj/item/implant/health/H = null
+					if(active_record.implant)
+						H = locate(active_record.implant)
+					var/list/payload = list(
+						activerecord = "\ref[active_record]",
+						health = (H && istype(H)) ? H.sensehealth() : "",
+						realname = sanitize(active_record.dna.real_name),
+						unidentity = active_record.dna.uni_identity,
+						strucenzymes = active_record.dna.struc_enzymes,
+					)
+					ui_modal_message(src, action, "", null, payload)
+			else
+				active_record = null
+				set_temp("Error: Record missing.", "danger")
+		if("del_rec")
+			if(!active_record)
+				return
+			ui_modal_boolean(src, action, "Please confirm that you want to delete the record by holding your ID and pressing Delete:", yes_text = "Delete", no_text = "Cancel")
+		if("disk") // Disk management.
+			if(!length(params["option"]))
+				return
+			switch(params["option"])
+				if("load")
+					if(isnull(diskette) || isnull(diskette.buf))
+						set_temp("Error: The disk's data could not be read.", "danger")
+						return
+					else if(isnull(active_record))
+						set_temp("Error: No active record was found.", "danger")
+						menu = MENU_MAIN
+						return
+
+					active_record = diskette.buf.copy()
+					set_temp("Successfully loaded from disk.", "success")
+				if("save")
+					if(isnull(diskette) || diskette.read_only || isnull(active_record))
+						set_temp("Error: The data could not be saved.", "danger")
+						return
+
+					// DNA2 makes things a little simpler.
+					var/types
+					switch(params["savetype"]) // Save as Ui/Ui+Ue/Se
+						if("ui")
+							types = DNA2_BUF_UI
+						if("ue")
+							types = DNA2_BUF_UI|DNA2_BUF_UE
+						if("se")
+							types = DNA2_BUF_SE
+						else
+							set_temp("Error: Invalid save format.", "danger")
+							return
+					diskette.buf = active_record.copy()
+					diskette.buf.types = types
+					diskette.name = "data disk - '[active_record.dna.real_name]'"
+					set_temp("Successfully saved to disk.", "success")
+				if("eject")
+					if(!isnull(diskette))
+						diskette.loc = loc
+						diskette = null
+		if("refresh")
+			SStgui.update_uis(src)
+		if("selectpod")
+			var/ref = params["ref"]
+			if(!length(ref))
+				return
+			var/obj/machinery/clonepod/selected = locate(ref)
+			if(istype(selected) && (selected in pods))
+				selected_pod = selected
+		if("clone")
+			var/ref = params["ref"]
+			if(!length(ref))
+				return
+			var/datum/dna2/record/C = locate(ref)
+			//Look for that player! They better be dead!
+			if(istype(C))
+				ui_modal_clear(src)
+				//Can't clone without someone to clone.  Or a pod.  Or if the pod is busy. Or full of gibs.
+				if(!length(pods))
+					set_temp("Error: No cloning pod detected.", "danger")
+				else
+					var/obj/machinery/clonepod/pod = selected_pod
+					var/cloneresult
+					if(!selected_pod)
+						set_temp("Error: No cloning pod selected.", "danger")
+					else if(pod.occupant)
+						set_temp("Error: The cloning pod is currently occupied.", "danger")
+					else if(pod.biomass < CLONE_BIOMASS)
+						set_temp("Error: Not enough biomass.", "danger")
+					else if(pod.mess)
+						set_temp("Error: The cloning pod is malfunctioning.", "danger")
+					else if(!config.revival_cloning)
+						set_temp("Error: Unable to initiate cloning cycle.", "danger")
 					else
-						temp = "[C.name] => <font class='bad'>Initialisation failure.</font>"
-
+						cloneresult = pod.growclone(C)
+						if(cloneresult)
+							set_temp("Initiating cloning cycle...", "success")
+							records.Remove(C)
+							qdel(C)
+							menu = MENU_MAIN
+						else
+							set_temp("Error: Initialisation failure.", "danger")
+			else
+				set_temp("Error: Data corruption.", "danger")
+		if("menu")
+			menu = clamp(text2num(params["num"]), MENU_MAIN, MENU_RECORDS)
+		if("toggle_mode")
+			if(loading)
+				return
+			if(can_brainscan())
+				scan_mode = !scan_mode
+			else
+				scan_mode = FALSE
+		if("eject")
+			if(usr.incapacitated() || !scanner || loading)
+				return
+			scanner.eject_occupant(usr)
+			scanner.add_fingerprint(usr)
+		if("cleartemp")
+			temp = null
 		else
-			temp = "<span class=\"bad\">Error: Data corruption.</span>"
-
-	else if(href_list["menu"])
-		src.menu = text2num(href_list["menu"])
-		temp = ""
-		scantemp = "Scanner ready."
-	else if(href_list["toggle_mode"])
-		if(can_brainscan())
-			scan_mode = !scan_mode
-		else
-			scan_mode = 0
+			return FALSE
 
 	src.add_fingerprint(usr)
-	SSnanoui.update_uis(src)
-	return
 
 /obj/machinery/computer/cloning/proc/scan_mob(mob/living/carbon/human/subject as mob, var/scan_brain = 0)
 	if(stat & NOPOWER)
@@ -360,46 +381,46 @@
 		return
 	if(isnull(subject) || (!(ishuman(subject))) || (!subject.dna))
 		if(isalien(subject))
-			scantemp = "<span class=\"bad\">Error: Xenomorphs are not scannable.</span>"
-			SSnanoui.update_uis(src)
+			set_scan_temp("Xenomorphs are not scannable.", "bad")
+			SStgui.update_uis(src)
 			return
 		// can add more conditions for specific non-human messages here
 		else
-			scantemp = "<span class=\"bad\">Error: Subject species is not scannable.</span>"
-			SSnanoui.update_uis(src)
+			set_scan_temp("Subject species is not scannable.", "bad")
+			SStgui.update_uis(src)
 			return
 	if(subject.get_int_organ(/obj/item/organ/internal/brain))
 		var/obj/item/organ/internal/brain/Brn = subject.get_int_organ(/obj/item/organ/internal/brain)
 		if(istype(Brn))
 			if(NO_SCAN in Brn.dna.species.species_traits)
-				scantemp = "<span class=\"bad\">Error: [Brn.dna.species.name_plural] are not scannable.</span>"
-				SSnanoui.update_uis(src)
+				set_scan_temp("[Brn.dna.species.name_plural] are not scannable.", "bad")
+				SStgui.update_uis(src)
 				return
 	if(!subject.get_int_organ(/obj/item/organ/internal/brain))
-		scantemp = "<span class=\"bad\">Error: No brain detected in subject.</span>"
-		SSnanoui.update_uis(src)
+		set_scan_temp("No brain detected in subject.", "bad")
+		SStgui.update_uis(src)
 		return
 	if(subject.suiciding)
-		scantemp = "<span class=\"bad\">Error: Subject has committed suicide and is not scannable.</span>"
-		SSnanoui.update_uis(src)
+		set_scan_temp("Subject has committed suicide and is not scannable.", "bad")
+		SStgui.update_uis(src)
 		return
 	if((!subject.ckey) || (!subject.client))
-		scantemp = "<span class=\"bad\">Error: Subject's brain is not responding. Further attempts after a short delay may succeed.</span>"
-		SSnanoui.update_uis(src)
+		set_scan_temp("Subject's brain is not responding. Further attempts after a short delay may succeed.", "bad")
+		SStgui.update_uis(src)
 		return
 	if((NOCLONE in subject.mutations) && src.scanner.scan_level < 2)
-		scantemp = "<span class=\"bad\">Error: Subject has incompatible genetic mutations.</span>"
-		SSnanoui.update_uis(src)
+		set_scan_temp("Subject has incompatible genetic mutations.", "bad")
+		SStgui.update_uis(src)
 		return
 	if(!isnull(find_record(subject.ckey)))
-		scantemp = "Subject already in database."
-		SSnanoui.update_uis(src)
+		set_scan_temp("Subject already in database.")
+		SStgui.update_uis(src)
 		return
 
 	for(var/obj/machinery/clonepod/pod in pods)
 		if(pod.occupant && pod.clonemind == subject.mind)
-			scantemp = "Subject already getting cloned."
-			SSnanoui.update_uis(src)
+			set_scan_temp("Subject already getting cloned.")
+			SStgui.update_uis(src)
 			return
 
 	subject.dna.check_integrity()
@@ -434,8 +455,8 @@
 		R.mind = "\ref[subject.mind]"
 
 	src.records += R
-	scantemp = "Subject successfully scanned. " + extra_info
-	SSnanoui.update_uis(src)
+	set_scan_temp("Subject successfully scanned. [extra_info]", "good")
+	SStgui.update_uis(src)
 
 //Find a specific record by key.
 /obj/machinery/computer/cloning/proc/find_record(var/find_key)
@@ -451,3 +472,30 @@
 
 /obj/machinery/computer/cloning/proc/can_brainscan()
 	return (scanner && scanner.scan_level > 3)
+
+/**
+  * Sets a temporary message to display to the user
+  *
+  * Arguments:
+  * * text - Text to display, null/empty to clear the message from the UI
+  * * style - The style of the message: (color name), info, success, warning, danger
+  */
+/obj/machinery/computer/cloning/proc/set_temp(text = "", style = "info", update_now = FALSE)
+	temp = list(text = text, style = style)
+	if(update_now)
+		SStgui.update_uis(src)
+
+/**
+  * Sets a temporary scan message to display to the user
+  *
+  * Arguments:
+  * * text - Text to display, null/empty to clear the message from the UI
+  * * color - The color of the message: (color name)
+  */
+/obj/machinery/computer/cloning/proc/set_scan_temp(text = "", color = "", update_now = FALSE)
+	scantemp = list(text = text, color = color)
+	if(update_now)
+		SStgui.update_uis(src)
+
+#undef MENU_MAIN
+#undef MENU_RECORDS

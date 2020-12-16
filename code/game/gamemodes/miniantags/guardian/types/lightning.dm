@@ -3,12 +3,12 @@
 	layer = LYING_MOB_LAYER
 
 /mob/living/simple_animal/hostile/guardian/beam
-	melee_damage_lower = 7
-	melee_damage_upper = 7
+	melee_damage_lower = 12
+	melee_damage_upper = 12
 	attacktext = "shocks"
 	melee_damage_type = BURN
 	attack_sound = 'sound/machines/defib_zap.ogg'
-	damage_transfer = 0.7
+	damage_transfer = 0.6
 	range = 7
 	playstyle_string = "As a <b>Lightning</b> type, you will apply lightning chains to targets on attack and have a lightning chain to your summoner. Lightning chains will shock anyone near them."
 	magic_fluff_string = "..And draw the Tesla, a shocking, lethal source of power."
@@ -17,6 +17,16 @@
 	var/datum/beam/summonerchain
 	var/list/enemychains = list()
 	var/successfulshocks = 0
+
+/mob/living/simple_animal/hostile/guardian/beam/Initialize(mapload, mob/living/host)
+	. = ..()
+	if(!summoner)
+		return
+	if(!(NO_SHOCK in summoner.mutations))
+		summoner.mutations.Add(NO_SHOCK)
+
+/mob/living/simple_animal/hostile/guardian/beam/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+	return FALSE //You are lightning, you should not be hurt by such things.
 
 /mob/living/simple_animal/hostile/guardian/beam/AttackingTarget()
 	. = ..()
@@ -106,3 +116,8 @@
 					)
 				L.adjustFireLoss(1.2) //adds up very rapidly
 				. = 1
+
+/mob/living/simple_animal/hostile/guardian/beam/death(gibbed)
+    if(summoner && (NO_SHOCK in summoner.mutations))
+        summoner.mutations.Remove(NO_SHOCK)
+    return ..()

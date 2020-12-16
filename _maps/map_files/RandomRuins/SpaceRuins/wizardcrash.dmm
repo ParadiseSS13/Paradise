@@ -152,12 +152,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/unpowered)
 "az" = (
-/obj/item/spellbook/oneuse/charge{
-	desc = "For the technology-hating wizard.";
-	spell = /obj/effect/proc_holder/spell/targeted/emplosion/disable_tech;
-	spellname = "Disable Technology";
-	used = 1
-	},
+/obj/item/spellbook/oneuse/emp/used,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered)
 "aA" = (

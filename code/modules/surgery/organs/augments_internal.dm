@@ -1,5 +1,3 @@
-#define STUN_SET_AMOUNT	2
-
 /obj/item/organ/internal/cyberimp
 	name = "cybernetic implant"
 	desc = "a state-of-the-art implant that improves a baseline's functionality"
@@ -117,28 +115,37 @@
 		r_hand_obj.flags ^= NODROP
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/remove(var/mob/living/carbon/M, special = 0)
-	. = ..()
 	if(active)
 		ui_action_click()
-
+	return ..()
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun
 	name = "CNS Rebooter implant"
-	desc = "This implant will automatically give you back control over your central nervous system, reducing downtime when stunned."
+	desc = "This implant will automatically give you back control over your central nervous system, reducing downtime when stunned. Incompatible with the Neural Jumpstarter."
 	implant_color = "#FFFF00"
 	slot = "brain_antistun"
 	origin_tech = "materials=5;programming=4;biotech=5"
+	var/stun_max_amount = 2
+
+/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
+	name = "Hardened CNS Rebooter implant"
+	emp_proof = TRUE
+
+/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened/Initialize(mapload)
+	. = ..()
+	desc += " The implant has been hardened. It is invulnerable to EMPs."
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun/on_life()
 	..()
 	if(crit_fail)
 		return
-	if(owner.stunned > STUN_SET_AMOUNT)
-		owner.SetStunned(STUN_SET_AMOUNT)
-	if(owner.weakened > STUN_SET_AMOUNT)
-		owner.SetWeakened(STUN_SET_AMOUNT)
+	if(owner.stunned > stun_max_amount)
+		owner.SetStunned(stun_max_amount)
+	if(owner.weakened > stun_max_amount)
+		owner.SetWeakened(stun_max_amount)
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun/emp_act(severity)
+	..()
 	if(crit_fail || emp_proof)
 		return
 	crit_fail = TRUE
@@ -146,6 +153,60 @@
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun/proc/reboot()
 	crit_fail = FALSE
+
+/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
+	name = "Hardened CNS Rebooter implant"
+	desc = "A military-grade version of the standard implant, for NT's more elite forces."
+	origin_tech = "materials=6;programming=5;biotech=5"
+	emp_proof = TRUE
+
+/obj/item/organ/internal/cyberimp/brain/anti_sleep
+	name = "Nerual Jumpstarter implant"
+	desc = "This implant will automatically attempt to jolt you awake when it detects you have fallen unconscious. Has a short cooldown, incompatible with the CNS Rebooter."
+	implant_color = "#0356fc"
+	slot = "brain_antistun" //one or the other not both.
+	origin_tech = "materials=5;programming=4;biotech=5"
+	var/cooldown = FALSE
+
+/obj/item/organ/internal/cyberimp/brain/anti_sleep/on_life()
+	..()
+	if(crit_fail)
+		return
+	if(owner.stat == UNCONSCIOUS && cooldown == FALSE)
+		owner.AdjustSleeping(-100, FALSE)
+		owner.AdjustParalysis(-100, FALSE)
+		to_chat(owner, "<span class='notice'>You feel a rush of energy course through your body!</span>")
+		cooldown = TRUE
+		addtimer(CALLBACK(src, .proc/sleepy_timer_end), 50)
+
+/obj/item/organ/internal/cyberimp/brain/anti_sleep/proc/sleepy_timer_end()
+		cooldown = FALSE
+		to_chat(owner, "<span class='notice'>You hear a small beep in your head as your Neural Jumpstarter finishes recharging.</span>")
+
+/obj/item/organ/internal/cyberimp/brain/anti_sleep/emp_act(severity)
+	. = ..()
+	if(crit_fail || emp_proof)
+		return
+	crit_fail = TRUE
+	owner.AdjustSleeping(200)
+	cooldown = TRUE
+	addtimer(CALLBACK(src, .proc/reboot), 90 / severity)
+
+/obj/item/organ/internal/cyberimp/brain/anti_sleep/proc/reboot()
+	crit_fail = FALSE
+	cooldown = FALSE
+
+/obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened
+	name = "Hardened Neural Jumpstarter implant"
+	desc = "A military-grade version of the standard implant, for NT's more elite forces."
+	origin_tech = "materials=6;programming=5;biotech=5"
+	emp_proof = TRUE
+
+/obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened/compatible
+	name = "Hardened Neural Jumpstarter implant"
+	desc = "A military-grade version of the standard implant, for NT's more elite forces. This one is compatible with the CNS Rebooter implant"
+	slot = "brain_antisleep"
+	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/brain/clown_voice
 	name = "Comical implant"

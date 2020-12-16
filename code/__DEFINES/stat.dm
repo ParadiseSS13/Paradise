@@ -3,7 +3,7 @@
 #define UNCONSCIOUS	1
 #define DEAD		2
 
-// NanoUI & TGUI flags
+// TGUI flags
 #define STATUS_INTERACTIVE 2 // GREEN Visability
 #define STATUS_UPDATE 1 // ORANGE Visability
 #define STATUS_DISABLED 0 // RED Visability
@@ -22,16 +22,9 @@
 
 // these define the time taken for the shuttle to get to SS13
 // and the time before it leaves again
-#define SHUTTLE_PREPTIME 				300	// 5 minutes = 300 seconds - after this time, the shuttle departs centcom and cannot be recalled
-#define SHUTTLE_LEAVETIME 				180	// 3 minutes = 180 seconds - the duration for which the shuttle will wait at the station after arriving
-#define SHUTTLE_TRANSIT_DURATION		300	// 5 minutes = 300 seconds - how long it takes for the shuttle to get to the station
-#define SHUTTLE_TRANSIT_DURATION_RETURN 120	// 2 minutes = 120 seconds - for some reason it takes less time to come back, go figure.
-
-//Ferry shuttle processing status
-#define IDLE_STATE		0
-#define WAIT_LAUNCH		1
-#define WAIT_ARRIVE		2
-#define WAIT_FINISH		3
+#define SHUTTLE_CALLTIME 	6000	//10 minutes = 6000 deciseconds - time taken for emergency shuttle to reach the station when called (in deciseconds)
+#define SHUTTLE_DOCKTIME 	1800	//3 minutes = 1800 deciseconds - time taken for emergency shuttle to leave again once it has docked (in deciseconds)
+#define SHUTTLE_ESCAPETIME	1200	//2 minutes = 1200 deciseconds - time taken for emergency shuttle to reach a safe distance after leaving station (in deciseconds)
 
 //shuttle mode defines
 #define SHUTTLE_IGNITING 0

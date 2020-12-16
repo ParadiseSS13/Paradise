@@ -314,6 +314,7 @@
 	playsound(chassis, 'sound/items/syringeproj.ogg', 50, 1)
 	log_message("Launched [mechsyringe] from [src], targeting [target].")
 	var/mob/originaloccupant = chassis.occupant
+	var/original_target_zone = originaloccupant.zone_selected
 	spawn(0)
 		src = null //if src is deleted, still process the syringe
 		var/max_range = 6
@@ -330,7 +331,7 @@
 			if(M)
 				var/R
 				mechsyringe.visible_message("<span class=\"attack\"> [M] was hit by the syringe!</span>")
-				if(M.can_inject(null, TRUE))
+				if(M.can_inject(originaloccupant, TRUE, original_target_zone))
 					if(mechsyringe.reagents)
 						for(var/datum/reagent/A in mechsyringe.reagents.reagent_list)
 							R += A.id + " ("

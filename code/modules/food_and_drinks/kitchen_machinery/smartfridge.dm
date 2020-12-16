@@ -1,5 +1,3 @@
-#define SMART_FRIDGE_LOCK_SHORTED -1
-
 /**
   * # Smart Fridge
   *
@@ -23,8 +21,6 @@
 	var/seconds_electrified = 0
 	/// Whether the fridge should randomly shoot held items at a nearby living target or not.
 	var/shoot_inventory = FALSE
-	/// Whether the fridge is locked. Used for the secure variant of the fridge.
-	var/locked = FALSE
 	/// Whether the fridge requires ID scanning. Used for the secure variant of the fridge.
 	var/scan_id = TRUE
 	/// Whether the fridge is considered secure. Used for wiring and display.
@@ -70,6 +66,7 @@
 		max_n_of_items = 1500 * B.rating
 
 /obj/machinery/smartfridge/Destroy()
+	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	for(var/atom/movable/A in contents)
 		A.forceMove(loc)
@@ -138,7 +135,7 @@
 
 /obj/machinery/smartfridge/attackby(obj/item/O, var/mob/user)
 	if(exchange_parts(user, O))
-		SSnanoui.update_uis(src)
+		SStgui.update_uis(src)
 		return
 	if(stat & (BROKEN|NOPOWER))
 		to_chat(user, "<span class='notice'>\The [src] is unpowered and useless.</span>")
@@ -146,7 +143,7 @@
 
 	if(load(O, user))
 		user.visible_message("<span class='notice'>[user] has added \the [O] to \the [src].</span>", "<span class='notice'>You add \the [O] to \the [src].</span>")
-		SSnanoui.update_uis(src)
+		SStgui.update_uis(src)
 		update_icon()
 	else if(istype(O, /obj/item/storage/bag))
 		var/obj/item/storage/bag/P = O
@@ -156,7 +153,7 @@
 				items_loaded++
 		if(items_loaded)
 			user.visible_message("<span class='notice'>[user] loads \the [src] with \the [P].</span>", "<span class='notice'>You load \the [src] with \the [P].</span>")
-			SSnanoui.update_uis(src)
+			SStgui.update_uis(src)
 			update_icon()
 		var/failed = length(P.contents)
 		if(failed)
@@ -197,33 +194,28 @@
 			items_loaded++
 	if(items_loaded)
 		user.visible_message("<span class='notice'>[user] empties \the [P] into \the [src].</span>", "<span class='notice'>You empty \the [P] into \the [src].</span>")
-		SSnanoui.update_uis(src)
 		update_icon()
 	var/failed = length(P.contents)
 	if(failed)
 		to_chat(user, "<span class='notice'>[failed] item\s [failed == 1 ? "is" : "are"] refused.</span>")
 
-// UI
-/obj/machinery/smartfridge/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = TRUE)
+/obj/machinery/smartfridge/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	user.set_machine(src)
 
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "smartfridge.tmpl", name, 400, 500)
+		ui = new(user, src, ui_key, "Smartfridge", name, 500, 500)
 		ui.open()
 
-/obj/machinery/smartfridge/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
+/obj/machinery/smartfridge/ui_data(mob/user)
+	var/list/data = list()
 
 	data["contents"] = null
-	data["electrified"] = seconds_electrified > 0
-	data["shoot_inventory"] = shoot_inventory
-	data["locked"] = locked
 	data["secure"] = is_secure
 	data["can_dry"] = can_dry
 	data["drying"] = drying
 
-	var/list/items[0]
+	var/list/items = list()
 	for(var/i in 1 to length(item_quants))
 		var/K = item_quants[i]
 		var/count = item_quants[K]
@@ -235,30 +227,31 @@
 
 	return data
 
-/obj/machinery/smartfridge/Topic(href, href_list)
+/obj/machinery/smartfridge/ui_act(action, params)
 	if(..())
-		return FALSE
+		return
+
+	. = TRUE
 
 	var/mob/user = usr
-	var/datum/nanoui/ui = SSnanoui.get_open_ui(user, src, "main")
 
 	add_fingerprint(user)
 
-	if(href_list["close"])
-		user.unset_machine()
-		ui.close()
-		return FALSE
+	switch(action)
+		if("vend")
+			if(is_secure && !emagged && scan_id && !allowed(usr)) //secure fridge check
+				to_chat(usr, "<span class='warning'>Access denied.</span>")
+				return FALSE
 
-	if(href_list["vend"])
-		var/index = text2num(href_list["vend"])
-		var/amount = text2num(href_list["amount"])
-		if(isnull(index) || !ISINDEXSAFE(item_quants, index) || isnull(amount))
-			return FALSE
-		var/K = item_quants[index]
-		var/count = item_quants[K]
+			var/index = text2num(params["index"])
+			var/amount = text2num(params["amount"])
+			if(isnull(index) || !ISINDEXSAFE(item_quants, index) || isnull(amount))
+				return FALSE
+			var/K = item_quants[index]
+			var/count = item_quants[K]
+			if(count == 0) // Sanity check, there are probably ways to press the button when it shouldn't be possible.
+				return FALSE
 
-		// Sanity check, there are probably ways to press the button when it shouldn't be possible.
-		if(count > 0)
 			item_quants[K] = max(count - amount, 0)
 
 			var/i = amount
@@ -270,7 +263,6 @@
 							adjust_item_drop_location(O)
 						update_icon()
 						break
-				return TRUE
 			else
 				for(var/obj/O in contents)
 					if(O.name == K)
@@ -280,9 +272,7 @@
 						i--
 						if(i <= 0)
 							return TRUE
-		return TRUE
 
-	return FALSE
 
 /**
   * Tries to load an item if it is accepted by [/obj/machinery/smartfridge/proc/accept_check].
@@ -363,26 +353,12 @@
 
 /obj/machinery/smartfridge/secure/emag_act(mob/user)
 	emagged = TRUE
-	locked = SMART_FRIDGE_LOCK_SHORTED
 	to_chat(user, "<span class='notice'>You short out the product lock on \the [src].</span>")
 
 /obj/machinery/smartfridge/secure/emp_act(severity)
-	if(!emagged && locked != SMART_FRIDGE_LOCK_SHORTED && prob(40 / severity))
+	if(!emagged && prob(40 / severity))
 		playsound(loc, 'sound/effects/sparks4.ogg', 60, TRUE)
 		emagged = TRUE
-		locked = SMART_FRIDGE_LOCK_SHORTED
-
-/obj/machinery/smartfridge/secure/Topic(href, href_list)
-	if(stat & (BROKEN|NOPOWER))
-		return FALSE
-
-	if(href_list["vend"] && (usr.contents.Find(src) || Adjacent(usr)))
-		if(!emagged && locked != SMART_FRIDGE_LOCK_SHORTED && scan_id && !allowed(usr))
-			to_chat(usr, "<span class='warning'>Access denied.</span>")
-			SSnanoui.update_uis(src)
-			return FALSE
-
-	return ..()
 
 /**
   * # Seed Storage
@@ -671,23 +647,14 @@
 	..()
 	atmos_spawn_air(LINDA_SPAWN_HEAT)
 
-/obj/machinery/smartfridge/drying_rack/Topic(href, href_list)
-	if(..())
-		return TRUE
+/obj/machinery/smartfridge/drying_rack/ui_act(action, params)
+	. = ..()
 
-	if(href_list["dryingOn"])
-		drying = TRUE
-		use_power = ACTIVE_POWER_USE
-		update_icon()
-		return TRUE
-
-	if(href_list["dryingOff"])
-		drying = FALSE
-		use_power = IDLE_POWER_USE
-		update_icon()
-		return TRUE
-
-	return FALSE
+	switch(action)
+		if("drying")
+			drying = !drying
+			use_power = drying ? ACTIVE_POWER_USE : IDLE_POWER_USE
+			update_icon()
 
 /obj/machinery/smartfridge/drying_rack/update_icon()
 	..()
@@ -740,15 +707,13 @@
 			new dried(loc)
 			item_quants[S.name]--
 			qdel(S)
-		SSnanoui.update_uis(src)
+			SStgui.update_uis(src)
 		return TRUE
 	for(var/obj/item/stack/sheet/wetleather/WL in contents)
 		var/obj/item/stack/sheet/leather/L = new(loc)
 		L.amount = WL.amount
 		item_quants[WL.name]--
 		qdel(WL)
-		SSnanoui.update_uis(src)
+		SStgui.update_uis(src)
 		return TRUE
 	return FALSE
-
-#undef SMART_FRIDGE_LOCK_SHORTED

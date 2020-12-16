@@ -46,7 +46,7 @@
 				w_class = I.w_class
 
 		update_icon()
-		SSnanoui.update_uis(src) // update all UIs attached to src
+		SStgui.update_uis(src) // update all UIs attached to src
 //TODO: Have this take an assemblyholder
 	else if(isassembly(I))
 		var/obj/item/assembly/A = I
@@ -62,12 +62,14 @@
 		to_chat(user, "<span class='notice'>You attach the [A] to the valve controls and secure it.</span>")
 		A.holder = src
 		A.toggle_secure()	//this calls update_icon(), which calls update_icon() on the holder (i.e. the bomb).
+		if(istype(attached_device, /obj/item/assembly/prox_sensor))
+			AddComponent(/datum/component/proximity_monitor)
 
 		investigate_log("[key_name(user)] attached a [A] to a transfer valve.", INVESTIGATE_BOMB)
-		msg_admin_attack("[key_name_admin(user)]attached [A] to a transfer valve.", ATKLOG_FEW)
+		add_attack_logs(user, src, "attached [A] to a transfer valve", ATKLOG_FEW)
 		log_game("[key_name_admin(user)] attached [A] to a transfer valve.")
 		attacher = user
-		SSnanoui.update_uis(src) // update all UIs attached to src
+		SStgui.update_uis(src) // update all UIs attached to src
 
 
 /obj/item/transfer_valve/HasProximity(atom/movable/AM)
@@ -88,62 +90,63 @@
 /obj/item/transfer_valve/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/transfer_valve/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
-	// update the ui if it exists, returns null if no ui is passed/found
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/transfer_valve/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "transfer_valve.tmpl", "Tank Transfer Valve", 460, 280)
-		// open the new ui window
+		ui = new(user, src, ui_key, "TransferValve",  name, 460, 320, master_ui, state)
 		ui.open()
-		// auto update every Master Controller tick
-		//ui.set_auto_update(1)
 
-/obj/item/transfer_valve/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
-
-	data["attachmentOne"] = tank_one ? tank_one.name : null
-	data["attachmentTwo"] = tank_two ? tank_two.name : null
-	data["valveAttachment"] = attached_device ? attached_device.name : null
-	data["valveOpen"] = valve_open ? 1 : 0
-
+/obj/item/transfer_valve/ui_data(mob/user)
+	var/list/data = list()
+	data["tank_one"] = tank_one ? tank_one.name : null
+	data["tank_two"] = tank_two ? tank_two.name : null
+	data["attached_device"] = attached_device ? attached_device.name : null
+	data["valve"] = valve_open
 	return data
 
-/obj/item/transfer_valve/Topic(href, href_list)
-	..()
-	if(usr.incapacitated())
-		return 0
-	if(loc != usr)
-		return 0
-	if(tank_one && href_list["tankone"])
-		split_gases()
-		valve_open = 0
-		tank_one.forceMove(get_turf(src))
-		tank_one = null
+
+
+/obj/item/transfer_valve/ui_act(action, params)
+	if(..())
+		return
+	. = TRUE
+	switch(action)
+		if("tankone")
+			if(tank_one)
+				split_gases()
+				valve_open = FALSE
+				tank_one.forceMove(get_turf(src))
+				tank_one = null
+				update_icon()
+				if((!tank_two || tank_two.w_class < WEIGHT_CLASS_BULKY) && (w_class > WEIGHT_CLASS_NORMAL))
+					w_class = WEIGHT_CLASS_NORMAL
+		if("tanktwo")
+			if(tank_two)
+				split_gases()
+				valve_open = FALSE
+				tank_two.forceMove(get_turf(src))
+				tank_two = null
+				update_icon()
+				if((!tank_one || tank_one.w_class < WEIGHT_CLASS_BULKY) && (w_class > WEIGHT_CLASS_NORMAL))
+					w_class = WEIGHT_CLASS_NORMAL
+		if("toggle")
+			toggle_valve(usr)
+		if("device")
+			if(attached_device)
+				attached_device.attack_self(usr)
+		if("remove_device")
+			if(attached_device)
+				attached_device.forceMove(get_turf(src))
+				attached_device.holder = null
+				attached_device = null
+				qdel(GetComponent(/datum/component/proximity_monitor))
+				update_icon()
+		else
+			. = FALSE
+	if(.)
 		update_icon()
-		if((!tank_two || tank_two.w_class < WEIGHT_CLASS_BULKY) && (w_class > WEIGHT_CLASS_NORMAL))
-			w_class = WEIGHT_CLASS_NORMAL
-	else if(tank_two && href_list["tanktwo"])
-		split_gases()
-		valve_open = 0
-		tank_two.forceMove(get_turf(src))
-		tank_two = null
-		update_icon()
-		if((!tank_one || tank_one.w_class < WEIGHT_CLASS_BULKY) && (w_class > WEIGHT_CLASS_NORMAL))
-			w_class = WEIGHT_CLASS_NORMAL
-	else if(href_list["open"])
-		toggle_valve()
-	else if(attached_device)
-		if(href_list["rem_device"])
-			attached_device.forceMove(get_turf(src))
-			attached_device.holder = null
-			attached_device = null
-			update_icon()
-		if(href_list["device"])
-			attached_device.attack_self(usr)
-	add_fingerprint(usr)
-	return 1 // Returning 1 sends an update to attached UIs
+		add_fingerprint(usr)
+
 
 /obj/item/transfer_valve/proc/process_activation(obj/item/D)
 	if(toggle)
@@ -190,7 +193,7 @@
 	it explodes properly when it gets a signal (and it does).
 	*/
 
-/obj/item/transfer_valve/proc/toggle_valve()
+/obj/item/transfer_valve/proc/toggle_valve(mob/user)
 	if(!valve_open && tank_one && tank_two)
 		valve_open = 1
 		var/turf/bombturf = get_turf(src)
@@ -207,6 +210,8 @@
 		investigate_log("Bomb valve opened at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]", INVESTIGATE_BOMB)
 		message_admins("Bomb valve opened at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name_admin(mob)]")
 		log_game("Bomb valve opened at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]")
+		if(user)
+			add_attack_logs(user, src, "Bomb valve opened with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]", ATKLOG_FEW)
 		merge_gases()
 		spawn(20) // In case one tank bursts
 			for(var/i in 1 to 5)

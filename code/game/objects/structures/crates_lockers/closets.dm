@@ -25,9 +25,13 @@
 	..()
 	spawn(1)
 		if(!opened)		// if closed, any item at the crate's loc is put in the contents
+			var/itemcount = 0
 			for(var/obj/item/I in loc)
 				if(I.density || I.anchored || I == src) continue
 				I.forceMove(src)
+				// Ensure the storage cap is respected
+				if(++itemcount >= storage_capacity)
+					break
 
 // Fix for #383 - C4 deleting fridges with corpses
 /obj/structure/closet/Destroy()
@@ -99,6 +103,9 @@
 		if(!I.anchored)
 			I.forceMove(src)
 			itemcount++
+			if(istype(I, /obj/item/storage))
+				var/obj/item/storage/S = I
+				S.hide_from_all()
 
 	for(var/mob/M in loc)
 		if(itemcount >= storage_capacity)
@@ -230,7 +237,7 @@
 	add_fingerprint(user)
 
 /obj/structure/closet/attack_ai(mob/user)
-	if(isrobot(user) && Adjacent(user) && !istype(user.loc, /obj/machinery/atmospherics)) //Robots can open/close it, but not the AI
+	if(isrobot(user) && Adjacent(user)) //Robots can open/close it, but not the AI
 		attack_hand(user)
 
 /obj/structure/closet/relaymove(mob/user)
@@ -305,8 +312,6 @@
 	//		breakout_time++ //Harder to get out of welded lockers than locked lockers
 
 	//okay, so the closet is either welded or locked... resist!!!
-	L.changeNext_move(CLICK_CD_BREAKOUT)
-	L.last_special = world.time + CLICK_CD_BREAKOUT
 	to_chat(L, "<span class='warning'>You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time] minutes)</span>")
 	for(var/mob/O in viewers(usr.loc))
 		O.show_message("<span class='danger'>The [src] begins to shake violently!</span>", 1)
@@ -354,7 +359,7 @@
 /obj/structure/closet/AllowDrop()
 	return TRUE
 
-/obj/structure/closet/force_eject_occupant()
+/obj/structure/closet/force_eject_occupant(mob/target)
 	// Its okay to silently teleport mobs out of lockers, since the only thing affected is their contents list.
 	return
 

@@ -204,8 +204,10 @@
 		/obj/item/flashlight/pen,
 		/obj/item/seeds,
 		/obj/item/wirecutters,
-        /obj/item/wrench,
-	)
+		/obj/item/wrench,
+		/obj/item/reagent_containers/spray/weedspray,
+		/obj/item/reagent_containers/spray/pestspray
+		)
 
 /obj/item/storage/belt/security
 	name = "security belt"
@@ -255,6 +257,14 @@
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/grenade/flashbang(src)
 	update_icon()
+
+/obj/item/storage/belt/security/webbing
+	name = "security webbing"
+	desc = "Unique and versatile chest rig, can hold security gear."
+	icon_state = "securitywebbing"
+	item_state = "securitywebbing"
+	storage_slots = 6
+	use_item_overlays = FALSE
 
 /obj/item/storage/belt/soulstone
 	name = "soul stone belt"
@@ -307,6 +317,18 @@
 	icon_state = "utilitybelt"
 	item_state = "utility"
 	use_item_overlays = 1 // So it will still show tools in it in case sec get lazy and just glance at it.
+
+/obj/item/storage/belt/military/traitor/hacker
+
+/obj/item/storage/belt/military/traitor/hacker/New()
+	..()
+	new /obj/item/screwdriver(src, "red")
+	new /obj/item/wrench(src)
+	new /obj/item/weldingtool/largetank(src)
+	new /obj/item/crowbar/red(src)
+	new /obj/item/wirecutters(src, "red")
+	new /obj/item/stack/cable_coil(src, 30, COLOR_RED)
+	update_icon()
 
 /obj/item/storage/belt/grenade
 	name = "grenadier belt"
@@ -580,21 +602,49 @@
 	max_w_class = WEIGHT_CLASS_BULKY
 	can_hold = list(/obj/item/melee/rapier)
 
-/obj/item/storage/belt/rapier/update_icon()
-	icon_state = "[initial(icon_state)]"
-	item_state = "[initial(item_state)]"
-	if(contents.len)
-		icon_state = "[initial(icon_state)]-rapier"
-		item_state = "[initial(item_state)]-rapier"
-	if(isliving(loc))
-		var/mob/living/L = loc
-		L.update_inv_belt()
-	..()
-
 /obj/item/storage/belt/rapier/New()
 	..()
 	new /obj/item/melee/rapier(src)
 	update_icon()
+
+/obj/item/storage/belt/rapier/attack_hand(mob/user)
+	if(loc != user)
+		return ..()
+
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(H.incapacitated())
+		return
+
+	if(length(contents))
+		var/obj/item/I = contents[1]
+		H.visible_message("<span class='notice'>[H] takes [I] out of [src].</span>", "<span class='notice'>You take [I] out of [src].</span>")
+		H.put_in_hands(I)
+		update_icon()
+	else
+		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+
+/obj/item/storage/belt/rapier/handle_item_insertion(obj/item/W, prevent_warning)
+	if(!..())
+		return
+	playsound(src, 'sound/weapons/blade_sheath.ogg', 20)
+
+/obj/item/storage/belt/rapier/remove_from_storage(obj/item/W, atom/new_location)
+	if(!..())
+		return
+	playsound(src, 'sound/weapons/blade_unsheath.ogg', 20)
+
+/obj/item/storage/belt/rapier/update_icon()
+	. = ..()
+	icon_state = initial(icon_state)
+	item_state = initial(item_state)
+	if(length(contents))
+		icon_state = "[icon_state]-rapier"
+		item_state = "[item_state]-rapier"
+	if(isliving(loc))
+		var/mob/living/L = loc
+		L.update_inv_belt()
 
 // -------------------------------------
 //     Bluespace Belt
@@ -667,7 +717,6 @@
 				bolacount++
 		cooldown = world.time
 		update_icon()
-		orient2hud()
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
 			if(H.belt && H.belt == src)
@@ -792,3 +841,29 @@
 	icon_state = "ebelt"
 	item_state = "ebelt"
 	storage_slots = 5
+
+/obj/item/storage/belt/chef
+	name = "culinary tool apron"
+	desc = "An apron with various pockets for holding all your cooking tools and equipment."
+	icon_state = "chefbelt"
+	item_state = "chefbelt"
+	storage_slots = 10
+	max_w_class = WEIGHT_CLASS_NORMAL
+	max_combined_w_class = 25
+	can_hold = list(
+		/obj/item/kitchen/utensil,
+		/obj/item/kitchen/knife,
+		/obj/item/kitchen/rollingpin,
+		/obj/item/kitchen/mould,
+		/obj/item/kitchen/sushimat,
+		/obj/item/kitchen/cutter,
+		/obj/item/assembly/mousetrap,
+		/obj/item/reagent_containers/spray/pestspray,
+		/obj/item/reagent_containers/food/drinks/flask,
+		/obj/item/reagent_containers/food/drinks/drinkingglass,
+		/obj/item/reagent_containers/food/drinks/bottle,
+		/obj/item/reagent_containers/food/drinks/cans,
+		/obj/item/reagent_containers/food/drinks/shaker,
+		/obj/item/reagent_containers/food/snacks,
+		/obj/item/reagent_containers/food/condiment,
+		/obj/item/reagent_containers/glass/beaker)

@@ -11,8 +11,9 @@
 	resistance_flags = NONE
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
 		)
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clothing/suit/armor/vest
 	name = "armor"
@@ -39,17 +40,19 @@
 /obj/item/clothing/suit/armor/vest/security
 	name = "security armor"
 	desc = "An armored vest that protects against some damage. This one has a clip for a holobadge."
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/species/grey/suit.dmi'
+	)
 	icon_state = "armor"
 	item_state = "armor"
 	var/obj/item/clothing/accessory/holobadge/attached_badge
 
-/obj/item/clothing/suit/armor/vest/security/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/clothing/accessory/holobadge))
-		if(user.unEquip(W))
+/obj/item/clothing/suit/armor/vest/security/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/clothing/accessory/holobadge))
+		if(user.unEquip(I))
 			add_fingerprint(user)
-			W.forceMove(src)
-			attached_badge = W
-
+			I.forceMove(src)
+			attached_badge = I
 			var/datum/action/A = new /datum/action/item_action/remove_badge(src)
 			A.Grant(user)
 			icon_state = "armorsec"
@@ -59,7 +62,7 @@
 		return
 	..()
 
-/obj/item/clothing/suit/armor/vest/security/attack_self(mob/user as mob)
+/obj/item/clothing/suit/armor/vest/security/attack_self(mob/user)
 	if(attached_badge)
 		add_fingerprint(user)
 		user.put_in_hands(attached_badge)
@@ -72,11 +75,9 @@
 		user.update_inv_wear_suit()
 		desc = "An armored vest that protects against some damage. This one has a clip for a holobadge."
 		to_chat(user, "<span class='notice'>You remove [attached_badge] from [src].</span>")
-
 		attached_badge = null
 
 		return
-
 	..()
 
 /obj/item/clothing/suit/armor/vest/blueshield
@@ -233,7 +234,7 @@
 
 /obj/item/clothing/suit/armor/laserproof
 	name = "Ablative Armor Vest"
-	desc = "A vest that excels in protecting the wearer against energy projectiles."
+	desc = "A vest that excels in protecting the wearer against energy projectiles. Projects an energy field around the user, allowing a chance of energy projectile deflection no matter where on the user it would hit."
 	icon_state = "armor_reflec"
 	item_state = "armor_reflec"
 	blood_overlay_type = "armor"
@@ -241,9 +242,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/hit_reflect_chance = 40
 
-/obj/item/clothing/suit/armor/laserproof/IsReflect(var/def_zone)
-	if(!(def_zone in list("chest", "groin"))) //If not shot where ablative is covering you, you don't get the reflection bonus!
-		return 0
+/obj/item/clothing/suit/armor/laserproof/IsReflect()
 	if(prob(hit_reflect_chance))
 		return 1
 
@@ -261,7 +260,8 @@
 /obj/item/clothing/suit/armor/reactive
 	name = "reactive armor"
 	desc = "Doesn't seem to do much for some reason."
-	var/active = 0
+	var/active = FALSE
+	var/emp_d = FALSE
 	icon_state = "reactiveoff"
 	item_state = "reactiveoff"
 	blood_overlay_type = "armor"
@@ -272,6 +272,9 @@
 
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
 	active = !(active)
+	if(emp_d)
+		to_chat(user, "<span class='warning'>[src] is disabled from an electromagnetic pulse!</span>")
+		return
 	if(active)
 		to_chat(user, "<span class='notice'>[src] is now active.</span>")
 		icon_state = "reactive"
@@ -287,13 +290,18 @@
 		A.UpdateButtonIcon()
 
 /obj/item/clothing/suit/armor/reactive/emp_act(severity)
-	active = 0
+	active = FALSE
+	emp_d = TRUE
 	icon_state = "reactiveoff"
 	item_state = "reactiveoff"
 	if(istype(loc, /mob/living/carbon/human))
 		var/mob/living/carbon/human/C = loc
 		C.update_inv_wear_suit()
+		addtimer(CALLBACK(src, .proc/reboot), 100 / severity)
 	..()
+
+/obj/item/clothing/suit/armor/reactive/proc/reboot()
+	emp_d = FALSE
 
 //When the wearer gets hit, this armor will teleport the user a short distance away (to safety or to more danger, no one knows. That's the fun of it!)
 /obj/item/clothing/suit/armor/reactive/teleport

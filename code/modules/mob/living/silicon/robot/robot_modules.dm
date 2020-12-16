@@ -74,7 +74,7 @@
 	var/list/temp_list = modules
 	modules = list()
 	for(var/obj/O in temp_list)
-		if(O)
+		if(!QDELETED(O)) //so items getting deleted don't stay in module list and haunt you
 			modules += O
 
 /obj/item/robot_module/proc/add_languages(mob/living/silicon/robot/R)
@@ -114,7 +114,7 @@
 /obj/item/robot_module/proc/handle_custom_removal(component_id, mob/living/user, obj/item/W)
 	return FALSE
 
-/obj/item/robot_module/proc/handle_death(gibbed)
+/obj/item/robot_module/proc/handle_death(mob/living/silicon/robot/R, gibbed)
 	return
 
 /obj/item/robot_module/standard
@@ -255,7 +255,7 @@
 
 	fix_modules()
 
-/obj/item/robot_module/engineering/handle_death()
+/obj/item/robot_module/engineering/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
 	if(G)
 		G.drop_gripped_item(silent = TRUE)
@@ -301,28 +301,14 @@
 
 /obj/item/robot_module/butler/New()
 	..()
-	modules += new /obj/item/reagent_containers/food/drinks/cans/beer(src)
-	modules += new /obj/item/reagent_containers/food/drinks/cans/cola(src)
-	modules += new /obj/item/reagent_containers/food/drinks/cans/sodawater(src)
-	modules += new /obj/item/reagent_containers/food/condiment/enzyme(src)
-	modules += new /obj/item/reagent_containers/food/drinks/bottle/orangejuice(src) // -0.3 oxy/sec
-	modules += new /obj/item/reagent_containers/food/drinks/bottle/tomatojuice(src) // -0.2 fire/sec
-	modules += new /obj/item/reagent_containers/food/drinks/bottle/limejuice(src) // -0.2 tox/sec
-	modules += new /obj/item/reagent_containers/food/drinks/coffee(src) // -1 paralysis stunned & weakened/sec
-	modules += new /obj/item/reagent_containers/food/drinks/tea(src)
-	modules += new /obj/item/reagent_containers/food/drinks/bottle/milk(src) // -0.2 brute/sec
-	modules += new /obj/item/reagent_containers/food/condiment/sugar(src)
-	modules += new /obj/item/reagent_containers/food/drinks/ice(src)
-	modules += new /obj/item/reagent_containers/food/drinks/bottle/cream(src)
-
-	modules += new /obj/item/reagent_containers/food/drinks/bottle/tequila(src)
-	modules += new /obj/item/reagent_containers/food/drinks/bottle/vodka(src)
-	modules += new /obj/item/reagent_containers/food/drinks/bottle/whiskey(src)
+	modules += new /obj/item/handheld_chem_dispenser/booze(src)
+	modules += new /obj/item/handheld_chem_dispenser/soda(src)
 
 	modules += new /obj/item/pen(src)
 	modules += new /obj/item/razor(src)
 	modules += new /obj/item/instrument/piano_synth(src)
 	modules += new /obj/item/healthanalyzer/advanced(src)
+	modules += new /obj/item/reagent_scanner/adv(src)
 
 	var/obj/item/rsf/M = new /obj/item/rsf(src)
 	M.matter = 30
@@ -343,8 +329,6 @@
 	fix_modules()
 
 /obj/item/robot_module/butler/respawn_consumable(var/mob/living/silicon/robot/R)
-	var/obj/item/reagent_containers/food/condiment/enzyme/E = locate() in modules
-	E.reagents.add_reagent("enzyme", 2)
 	if(emag)
 		var/obj/item/reagent_containers/food/drinks/cans/beer/B = emag
 		B.reagents.add_reagent("beer2", 2)
@@ -367,6 +351,11 @@
 	R.add_language("Bubblish", 1)
 	R.add_language("Clownish",1)
 	R.add_language("Neo-Russkiya", 1)
+
+/obj/item/robot_module/butler/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/storage/bag/tray/cyborg/T = locate(/obj/item/storage/bag/tray/cyborg) in modules
+	if(istype(T))
+		T.drop_inventory(R)
 
 
 /obj/item/robot_module/miner
@@ -623,7 +612,7 @@
 	..()
 
 
-/obj/item/robot_module/drone/handle_death()
+/obj/item/robot_module/drone/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
 	if(G)
 		G.drop_gripped_item(silent = TRUE)

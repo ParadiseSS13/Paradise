@@ -16,12 +16,14 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/New()
 	..()
 	GLOB.GPS_list.Add(src)
+	GLOB.poi_list.Add(src)
 	if(name == "default gps")	//use default naming scheme
 		name = "global positioning system ([gpstag])"
 	overlays += "working"
 
 /obj/item/gps/Destroy()
 	GLOB.GPS_list.Remove(src)
+	GLOB.poi_list.Remove(src)
 	return ..()
 
 /obj/item/gps/emp_act(severity)
@@ -36,7 +38,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	overlays += "working"
 
 /obj/item/gps/AltClick(mob/user)
-	if(CanUseTopic(user, GLOB.inventory_state) != STATUS_INTERACTIVE)
+	if(ui_status(user, GLOB.inventory_state) != STATUS_INTERACTIVE)
 		return 1 //user not valid to use gps
 	if(emped)
 		to_chat(user, "<span class='warning'>It's busted!</span>")

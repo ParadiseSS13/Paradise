@@ -3,7 +3,7 @@
 /datum/game_mode
 	var/list/datum/mind/syndicates = list()
 
-proc/issyndicate(mob/living/M as mob)
+/proc/issyndicate(mob/living/M as mob)
 	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.syndicates)
 
 /datum/game_mode/nuclear
@@ -103,7 +103,7 @@ proc/issyndicate(mob/living/M as mob)
 
 	var/obj/effect/landmark/nuke_spawn = locate("landmark*Nuclear-Bomb")
 
-	var/nuke_code = "[rand(10000, 99999)]"
+	var/nuke_code = rand(10000, 99999)
 	var/leader_selected = 0
 	var/agent_number = 1
 	var/spawnpos = 1

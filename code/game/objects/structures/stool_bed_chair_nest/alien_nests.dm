@@ -89,3 +89,6 @@
 		return attack_hand(user)
 	else
 		return ..()
+
+/obj/structure/bed/nest/prevents_buckled_mobs_attacking()
+	return TRUE

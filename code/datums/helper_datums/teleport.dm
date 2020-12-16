@@ -152,13 +152,11 @@
 		return doTeleport()
 	return 0
 
-/datum/teleport/instant //teleports when datum is created
-
-	start(ateleatom, adestination, aprecision=0, afteleport=1, aeffectin=null, aeffectout=null, asoundin=null, asoundout=null)
-		if(..())
-			if(teleport())
-				return 1
-		return 0
+/datum/teleport/instant/start(ateleatom, adestination, aprecision=0, afteleport=1, aeffectin=null, aeffectout=null, asoundin=null, asoundout=null)
+	if(..())
+		if(teleport())
+			return 1
+	return 0
 
 
 /datum/teleport/instant/science

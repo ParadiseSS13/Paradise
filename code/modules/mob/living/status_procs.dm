@@ -141,18 +141,6 @@
 	if(updating && val_change)
 		update_canmove()
 
-/mob/living/proc/StartFlying()
-	var/val_change = !flying
-	flying = TRUE
-	if(val_change)
-		update_animations()
-
-/mob/living/proc/StopFlying()
-	var/val_change = !!flying
-	flying = FALSE
-	if(val_change)
-		update_animations()
-
 
 // SCALAR STATUS EFFECTS
 
@@ -376,6 +364,11 @@
 /mob/living/SetSlur(amount)
 	slurring = max(amount, 0)
 
+	if(slurring && drunk)
+		throw_alert("drunk", /obj/screen/alert/drunk)
+	else
+		clear_alert("drunk")
+
 /mob/living/AdjustSlur(amount, bound_lower = 0, bound_upper = INFINITY)
 	var/new_value = directional_bounded_sum(slurring, amount, bound_lower, bound_upper)
 	SetSlur(new_value)
@@ -383,10 +376,10 @@
 // CULTSLURRING
 
 /mob/living/CultSlur(amount)
-	SetSlur(max(slurring, amount))
+	SetCultSlur(max(cultslurring, amount))
 
 /mob/living/SetCultSlur(amount)
-	slurring = max(amount, 0)
+	cultslurring = max(amount, 0)
 
 /mob/living/AdjustCultSlur(amount, bound_lower = 0, bound_upper = INFINITY)
 	var/new_value = directional_bounded_sum(cultslurring, amount, bound_lower, bound_upper)

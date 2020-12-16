@@ -14,6 +14,8 @@
 	name = "Telecommunications Core"
 	desc = "A large rack full of communications equipment. Looks important."
 	icon_state = "core"
+	// This starts as off so you cant make cores as hot spares
+	active = FALSE
 	/// The NTTC config for this device
 	var/datum/nttc_configuration/nttc = new()
 	/// List of all reachable devices
@@ -35,6 +37,11 @@
 	link_password = GenerateKey()
 	reachable_zlevels |= loc.z
 	component_parts += new /obj/item/circuitboard/tcomms/core(null)
+	if(check_power_on())
+		active = TRUE
+	else
+		visible_message("<span class='warning'>Error: Another core is already active in this sector. Power-up cancelled due to radio interference.</span>")
+	update_icon()
 
 /**
   * Destructor for the core.
@@ -121,102 +128,130 @@
 			reachable_zlevels |= R.loc.z
 
 
+/**
+  * Z-Level transit change helper
+  *
+  * Handles parent call of disabling the machine if it changes Z-level, but also rebuilds the list of reachable levels
+  */
+/obj/machinery/tcomms/core/onTransitZ(old_z, new_z)
+	. = ..()
+	refresh_zlevels()
+
+/**
+  * Power-on checker
+  *
+  * Checks the z-level to see if an existing core is already powered on, and deny this one turning on if there is one. Returns TRUE if it can power on, or FALSE if it cannot
+  */
+/obj/machinery/tcomms/core/proc/check_power_on()
+	// Cancel if we are already on
+	if(active)
+		return TRUE
+
+	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
+		// Make sure we dont check ourselves
+		if(C == src)
+			continue
+		// We dont care about ones on other zlevels
+		if(!atoms_share_level(C, src))
+			continue
+		// If another core is active, return FALSE
+		if(C.active)
+			if(C.stat & NOPOWER)	// If another core has no power but is supposed to be on, we shut it down so we can continue.
+				C.active = FALSE	// Since only one active core is allowed per z level, give priority to the one actually working.
+				C.update_icon()
+			else
+				return FALSE
+	// If we got here there isnt an active core on this Z-level. So return true
+	return TRUE
+
 //////////////
 // UI STUFF //
 //////////////
 
-/obj/machinery/tcomms/core/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	// this is silly but it has to be done because NTTC inits before languages do
-	if(nttc.valid_languages.len == 1)
+/obj/machinery/tcomms/core/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	// This needs to happen here because of how late the language datum initializes. I dont like it
+	if(length(nttc.valid_languages) == 1)
 		nttc.update_languages()
 
-	// Now the actual UI stuff
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "tcomms_core.tmpl", "Telecommunications Core", 900, 600)
+		ui = new(user, src, ui_key, "TcommsCore", name, 900, 600, master_ui, state)
 		ui.open()
-		ui.set_auto_update(1)
 
-/obj/machinery/tcomms/core/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
-	// What tab are we on
-	data["tab"] = ui_tab
+/obj/machinery/tcomms/core/ui_data(mob/user)
+	var/list/data = list()
 	data["ion"] = ion
 
-	// Only send NTTC settings if were on the right tab. This saves on sending overhead.
-	if(ui_tab == UI_TAB_CONFIG)
-		// Z-level list. Note that this will also show sectors with hidden relay links, but you cant see the relays themselves
-		// This allows the crew to realise that sectors have hidden relays
-		data["sectors_available"] = "Count: [length(reachable_zlevels)] | List: [jointext(reachable_zlevels, " ")]"
-		// Toggles
-		data["active"] = active
-		data["nttc_toggle_jobs"] = nttc.toggle_jobs
-		data["nttc_toggle_job_color"] = nttc.toggle_job_color
-		data["nttc_toggle_name_color"] = nttc.toggle_name_color
-		data["nttc_toggle_command_bold"] = nttc.toggle_command_bold
-		// Strings
-		data["nttc_setting_language"] = nttc.setting_language
-		data["nttc_job_indicator_type"] = nttc.job_indicator_type
-		// Network ID
-		data["network_id"] = network_id
+	// Z-level list. Note that this will also show sectors with hidden relay links, but you cant see the relays themselves
+	// This allows the crew to realise that sectors have hidden relays
+	data["sectors_available"] = "Count: [length(reachable_zlevels)] | List: [jointext(reachable_zlevels, " ")]"
+	// Toggles
+	data["active"] = active
+	data["nttc_toggle_jobs"] = nttc.toggle_jobs
+	data["nttc_toggle_job_color"] = nttc.toggle_job_color
+	data["nttc_toggle_name_color"] = nttc.toggle_name_color
+	data["nttc_toggle_command_bold"] = nttc.toggle_command_bold
+	// Strings
+	data["nttc_setting_language"] = nttc.setting_language
+	data["nttc_job_indicator_type"] = nttc.job_indicator_type
+	// Network ID
+	data["network_id"] = network_id
 
-	if(ui_tab == UI_TAB_LINKS)
-		data["link_password"] = link_password
-		// You ready to see some shit?
-		for(var/obj/machinery/tcomms/relay/R in linked_relays)
-			// Dont show relays with a hidden link
-			if(R.hidden_link)
-				continue
-			// Assume false
-			var/status = FALSE
-			var/status_color = "'background-color: #eb4034'" // Red
-			if(R.active && !(R.stat & NOPOWER))
-				status = TRUE
-				status_color = "'background-color: #32a852'" // Green
+	data["link_password"] = link_password
 
+	// You ready to see some awful shit?
+	var/list/relays = list()
+	for(var/obj/machinery/tcomms/relay/R in linked_relays)
+		// Dont show relays with a hidden link
+		if(R.hidden_link)
+			continue
+		// Assume false
+		var/status = FALSE
+		if(R.active && !(R.stat & NOPOWER))
+			status = TRUE
 
+		relays += list(list("addr" = "\ref[R]", "net_id" = R.network_id, "sector" = R.loc.z, "status" = status))
 
-			data["entries"] += list(list("addr" = "\ref[R]", "net_id" = R.network_id, "sector" = R.loc.z, "status" = status, "status_color" = status_color))
-		// End the shit
+	data["relay_entries"] = relays
+	// End the shit
 
-	if(ui_tab == UI_TAB_FILTER)
-		data["filtered_users"] = nttc.filtering
+	data["filtered_users"] = nttc.filtering
 
 	return data
 
-/obj/machinery/tcomms/core/Topic(href, href_list)
+/obj/machinery/tcomms/core/ui_act(action, list/params)
 	// Check against href exploits
 	if(..())
 		return
 
-	if(href_list["tab"])
-		// Make sure its a valid tab
-		if(href_list["tab"] in list(UI_TAB_CONFIG, UI_TAB_LINKS, UI_TAB_FILTER))
-			ui_tab = href_list["tab"]
+	. = TRUE
 
-	// Check if they did a href, but only for that current tab
-	if(ui_tab == UI_TAB_CONFIG)
+	switch(action)
 		// All the toggle on/offs go here
-		if(href_list["toggle_active"])
-			active = !active
-			update_icon()
+		if("toggle_active")
+			if(check_power_on())
+				active = !active
+				update_icon()
+			else
+				to_chat(usr, "<span class='warning'>Error: Another core is already active in this sector. Power-up cancelled due to radio interference.</span>")
+
 		// NTTC Toggles
-		if(href_list["nttc_toggle_jobs"])
+		if("nttc_toggle_jobs")
 			nttc.toggle_jobs = !nttc.toggle_jobs
 			log_action(usr, "toggled job tags (Now [nttc.toggle_jobs])")
-		if(href_list["nttc_toggle_job_color"])
+		if("nttc_toggle_job_color")
 			nttc.toggle_job_color = !nttc.toggle_job_color
 			log_action(usr, "toggled job colors (Now [nttc.toggle_job_color])")
-		if(href_list["nttc_toggle_name_color"])
+		if("nttc_toggle_name_color")
 			nttc.toggle_name_color = !nttc.toggle_name_color
 			log_action(usr, "toggled name colors (Now [nttc.toggle_name_color])")
-		if(href_list["nttc_toggle_command_bold"])
+		if("nttc_toggle_command_bold")
 			nttc.toggle_command_bold = !nttc.toggle_command_bold
 			log_action(usr, "toggled command bold (Now [nttc.toggle_command_bold])")
 		// We need to be a little more fancy for the others
 
 		// Job Format
-		if(href_list["nttc_job_indicator_type"])
+		if("nttc_job_indicator_type")
 			var/card_style = input(usr, "Pick a job card format.", "Job Card Format") as null|anything in nttc.job_card_styles
 			if(!card_style)
 				return
@@ -225,7 +260,7 @@
 			log_action(usr, "has set NTTC job card format to [card_style]")
 
 		// Language Settings
-		if(href_list["nttc_setting_language"])
+		if("nttc_setting_language")
 			var/new_language = input(usr, "Pick a language to convert messages to.", "Language Conversion") as null|anything in nttc.valid_languages
 			if(!new_language)
 				return
@@ -239,24 +274,23 @@
 			log_action(usr, new_language == "--DISABLE--" ? "disabled NTTC language conversion" : "set NTTC language conversion to [new_language]", TRUE)
 
 		// Imports and exports
-		if(href_list["import"])
+		if("import")
 			var/json = input(usr, "Provide configuration JSON below.", "Load Config", nttc.nttc_serialize()) as message
 			if(nttc.nttc_deserialize(json, usr.ckey))
 				log_action(usr, "has uploaded a NTTC JSON configuration: [ADMIN_SHOWDETAILS("Show", json)]", TRUE)
 
-		if(href_list["export"])
+		if("export")
 			usr << browse(nttc.nttc_serialize(), "window=save_nttc")
 
 		// Set network ID
-		if(href_list["network_id"])
+		if("network_id")
 			var/new_id = input(usr, "Please enter a new network ID", "Network ID", network_id)
 			log_action(usr, "renamed core with ID [network_id] to [new_id]")
 			to_chat(usr, "<span class='notice'>Device ID changed from <b>[network_id]</b> to <b>[new_id]</b>.</span>")
 			network_id = new_id
 
-	if(ui_tab == UI_TAB_LINKS)
-		if(href_list["unlink"])
-			var/obj/machinery/tcomms/relay/R = locate(href_list["unlink"])
+		if("unlink")
+			var/obj/machinery/tcomms/relay/R = locate(params["addr"])
 			if(istype(R, /obj/machinery/tcomms/relay))
 				var/confirm = alert("Are you sure you want to unlink this relay?\nID: [R.network_id]\nADDR: \ref[R]", "Relay Unlink", "Yes", "No")
 				if(confirm == "Yes")
@@ -265,14 +299,13 @@
 			else
 				to_chat(usr, "<span class='alert'><b>ERROR:</b> Relay not found. Please file an issue report.</span>")
 
-		if(href_list["change_password"])
+		if("change_password")
 			var/new_password = input(usr, "Please enter a new password","New Password", link_password)
 			log_action(usr, "has changed the password on core with ID [network_id] from [link_password] to [new_password]")
 			to_chat(usr, "<span class='notice'>Successfully changed password from <b>[link_password]</b> to <b>[new_password]</b>.</span>")
 			link_password = new_password
 
-	if(ui_tab == UI_TAB_FILTER)
-		if(href_list["add_filter"])
+		if("add_filter")
 			// This is a stripped input because I did NOT come this far for this system to be abused by HTML injection
 			var/name_to_add = stripped_input(usr, "Enter a name to add to the filtering list", "Name Entry")
 			if(name_to_add == "")
@@ -284,9 +317,8 @@
 				log_action(usr, "has added [name_to_add] to the NTTC filter list on core with ID [network_id]", TRUE)
 				to_chat(usr, "<span class='notice'>Successfully added <b>[name_to_add]</b> to the NTTC filtering list.</span>")
 
-
-		if(href_list["remove_filter"])
-			var/name_to_remove = href_list["remove_filter"]
+		if("remove_filter")
+			var/name_to_remove = params["user"]
 			if(!(name_to_remove in nttc.filtering))
 				to_chat(usr, "<span class='alert'><b>ERROR:</b> Name does not exist in filter list. Please file an issue report.</span>")
 			else
@@ -296,9 +328,6 @@
 					log_action(usr, "has removed [name_to_remove] from the NTTC filter list on core with ID [network_id]", TRUE)
 					to_chat(usr, "<span class='notice'>Successfully removed <b>[name_to_remove]</b> from the NTTC filtering list.</span>")
 
-
-	// Hack to speed update the nanoUI
-	SSnanoui.update_uis(src)
 
 #undef UI_TAB_CONFIG
 #undef UI_TAB_LINKS

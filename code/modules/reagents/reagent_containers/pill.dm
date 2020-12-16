@@ -23,13 +23,12 @@
 
 /obj/item/reagent_containers/food/pill/attack(mob/living/carbon/M, mob/user, def_zone)
 	if(!istype(M))
-		return 0
+		return FALSE
 	bitesize = reagents.total_volume
 	if(M.eat(src, user))
-		spawn(0)
-			qdel(src)
-		return 1
-	return 0
+		qdel(src)
+		return TRUE
+	return FALSE
 
 /obj/item/reagent_containers/food/pill/afterattack(obj/target, mob/user, proximity)
 	if(!proximity)

@@ -358,6 +358,7 @@
 	projectile_type = /obj/item/projectile/hook
 	caliber = "hook"
 	icon_state = "hook"
+	muzzle_flash_effect = null
 
 /obj/item/projectile/hook
 	name = "hook"

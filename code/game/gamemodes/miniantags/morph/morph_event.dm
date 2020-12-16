@@ -3,7 +3,7 @@
 
 /datum/event/spawn_morph/proc/get_morph()
 	spawn()
-		var/list/candidates = pollCandidates("Do you want to play as a morph?", ROLE_MORPH, 1)
+		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a morph?", ROLE_MORPH, TRUE, source = /mob/living/simple_animal/hostile/morph)
 		if(!candidates.len)
 			key_of_morph = null
 			return kill()

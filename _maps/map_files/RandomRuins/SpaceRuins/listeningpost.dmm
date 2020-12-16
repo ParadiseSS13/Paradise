@@ -99,6 +99,12 @@
 /obj/item/tank/air,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
+"u" = (
+/obj/machinery/tcomms/relay/ruskie{
+	network_id = "LISTENINGOUTPOST-RELAY"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
 "w" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel,
@@ -922,7 +928,7 @@ b
 f
 f
 f
-c
+f
 f
 D
 m
@@ -964,7 +970,7 @@ f
 f
 p
 Y
-f
+u
 f
 j
 i

@@ -33,13 +33,13 @@
 
 /obj/structure/bookcase/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(busy) //So that you can't mess with it while deconstructing
-		return 1
+		return TRUE
 	if(is_type_in_list(O, allowed_books))
 		if(!user.drop_item())
 			return
 		O.forceMove(src)
 		update_icon()
-		return 1
+		return TRUE
 	else if(istype(O, /obj/item/storage/bag/books))
 		var/obj/item/storage/bag/books/B = O
 		for(var/obj/item/T in B.contents)
@@ -47,28 +47,26 @@
 				B.remove_from_storage(T, src)
 		to_chat(user, "<span class='notice'>You empty [O] into [src].</span>")
 		update_icon()
-		return 1
+		return TRUE
 	else if(istype(O, /obj/item/wrench))
 		user.visible_message("<span class='warning'>[user] starts disassembling \the [src].</span>", \
 		"<span class='notice'>You start disassembling \the [src].</span>")
 		playsound(get_turf(src), O.usesound, 50, 1)
-		busy = 1
+		busy = TRUE
 
 		if(do_after(user, 50 * O.toolspeed, target = src))
 			playsound(get_turf(src), O.usesound, 75, 1)
 			user.visible_message("<span class='warning'>[user] disassembles \the [src].</span>", \
 			"<span class='notice'>You disassemble \the [src].</span>")
-			busy = 0
+			busy = FALSE
 			density = 0
 			deconstruct(TRUE)
 		else
-			busy = 0
-		return 1
+			busy = FALSE
+		return TRUE
 	else if(istype(O, /obj/item/pen))
-		var/newname = stripped_input(user, "What would you like to title this [name]?")
-		if(newname)
-			name = ("bookcase ([sanitize(newname)])")
-		return 1
+		rename_interactive(user, O)
+		return TRUE
 	else
 		return ..()
 
@@ -101,32 +99,32 @@
 /obj/structure/bookcase/manuals/medical
 	name = "Medical Manuals bookcase"
 
-	New()
-		..()
-		new /obj/item/book/manual/medical_cloning(src)
-		update_icon()
+/obj/structure/bookcase/manuals/medical/New()
+	..()
+	new /obj/item/book/manual/medical_cloning(src)
+	update_icon()
 
 
 /obj/structure/bookcase/manuals/engineering
 	name = "Engineering Manuals bookcase"
 
-	New()
-		..()
-		new /obj/item/book/manual/engineering_construction(src)
-		new /obj/item/book/manual/engineering_particle_accelerator(src)
-		new /obj/item/book/manual/engineering_hacking(src)
-		new /obj/item/book/manual/engineering_guide(src)
-		new /obj/item/book/manual/engineering_singularity_safety(src)
-		new /obj/item/book/manual/robotics_cyborgs(src)
-		update_icon()
+/obj/structure/bookcase/manuals/engineering/New()
+	..()
+	new /obj/item/book/manual/engineering_construction(src)
+	new /obj/item/book/manual/engineering_particle_accelerator(src)
+	new /obj/item/book/manual/engineering_hacking(src)
+	new /obj/item/book/manual/engineering_guide(src)
+	new /obj/item/book/manual/engineering_singularity_safety(src)
+	new /obj/item/book/manual/robotics_cyborgs(src)
+	update_icon()
 
 /obj/structure/bookcase/manuals/research_and_development
 	name = "R&D Manuals bookcase"
 
-	New()
-		..()
-		new /obj/item/book/manual/research_and_development(src)
-		update_icon()
+/obj/structure/bookcase/manuals/research_and_development/New()
+	..()
+	new /obj/item/book/manual/research_and_development(src)
+	update_icon()
 
 
 /*
@@ -288,26 +286,26 @@
 	var/obj/item/book/book	 //  Currently scanned book
 	var/mode = 0 					// 0 - Scan only, 1 - Scan and Set Buffer, 2 - Scan and Attempt to Check In, 3 - Scan and Attempt to Add to Inventory
 
-	attack_self(mob/user as mob)
-		mode += 1
-		if(mode > 3)
-			mode = 0
-		to_chat(user, "[src] Status Display:")
-		var/modedesc
-		switch(mode)
-			if(0)
-				modedesc = "Scan book to local buffer."
-			if(1)
-				modedesc = "Scan book to local buffer and set associated computer buffer to match."
-			if(2)
-				modedesc = "Scan book to local buffer, attempt to check in scanned book."
-			if(3)
-				modedesc = "Scan book to local buffer, attempt to add book to general inventory."
-			else
-				modedesc = "ERROR"
-		to_chat(user, " - Mode [mode] : [modedesc]")
-		if(src.computer)
-			to_chat(user, "<font color=green>Computer has been associated with this unit.</font>")
+/obj/item/barcodescanner/attack_self(mob/user as mob)
+	mode += 1
+	if(mode > 3)
+		mode = 0
+	to_chat(user, "[src] Status Display:")
+	var/modedesc
+	switch(mode)
+		if(0)
+			modedesc = "Scan book to local buffer."
+		if(1)
+			modedesc = "Scan book to local buffer and set associated computer buffer to match."
+		if(2)
+			modedesc = "Scan book to local buffer, attempt to check in scanned book."
+		if(3)
+			modedesc = "Scan book to local buffer, attempt to add book to general inventory."
 		else
-			to_chat(user, "<font color=red>No associated computer found. Only local scans will function properly.</font>")
-		to_chat(user, "\n")
+			modedesc = "ERROR"
+	to_chat(user, " - Mode [mode] : [modedesc]")
+	if(src.computer)
+		to_chat(user, "<font color=green>Computer has been associated with this unit.</font>")
+	else
+		to_chat(user, "<font color=red>No associated computer found. Only local scans will function properly.</font>")
+	to_chat(user, "\n")

@@ -2,7 +2,6 @@
 	var/fire = null
 	var/atmosalm = ATMOS_ALARM_NONE
 	var/poweralm = TRUE
-	var/party = null
 	var/report_alerts = TRUE // Should atmos alerts notify the AI/computers
 	level = null
 	name = "Space"
@@ -16,8 +15,6 @@
 	var/valid_territory = TRUE //used for cult summoning areas on station zlevel
 	var/map_name // Set in New(); preserves the name set by the map maker, even if renamed by the Blueprints.
 	var/lightswitch = TRUE
-
-	var/eject = null
 
 	var/debug = FALSE
 	var/requires_power = TRUE
@@ -57,12 +54,19 @@
 
 	var/list/ambientsounds = GENERIC_SOUNDS
 
+	var/list/firedoors
+	var/list/cameras
+	var/list/firealarms
+	var/firedoors_last_closed_on = 0
+
 	var/fast_despawn = FALSE
 	var/can_get_auto_cryod = TRUE
 	var/hide_attacklogs = FALSE // For areas such as thunderdome, lavaland syndiebase, etc which generate a lot of spammy attacklogs. Reduces log priority.
 
 	var/parallax_movedir = 0
 	var/moving = FALSE
+	/// "Haunted" areas such as the morgue and chapel are easier to boo. Because flavor.
+	var/is_haunted = FALSE
 
 /area/Initialize(mapload)
 	GLOB.all_areas += src
@@ -125,35 +129,6 @@
 		cameras += C
 	return cameras
 
-
-/area/proc/atmosalert(danger_level, var/alarm_source, var/force = FALSE)
-	if(report_alerts)
-		if(danger_level == ATMOS_ALARM_NONE)
-			SSalarms.atmosphere_alarm.clearAlarm(src, alarm_source)
-		else
-			SSalarms.atmosphere_alarm.triggerAlarm(src, alarm_source, severity = danger_level)
-
-	//Check all the alarms before lowering atmosalm. Raising is perfectly fine. If force = 1 we don't care.
-	for(var/obj/machinery/alarm/AA in src)
-		if(!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted && AA.report_danger_level && !force)
-			danger_level = max(danger_level, AA.danger_level)
-
-	if(danger_level != atmosalm)
-		if(danger_level < ATMOS_ALARM_WARNING && atmosalm >= ATMOS_ALARM_WARNING)
-			//closing the doors on red and opening on green provides a bit of hysteresis that will hopefully prevent fire doors from opening and closing repeatedly due to noise
-			air_doors_open()
-		else if(danger_level >= ATMOS_ALARM_DANGER && atmosalm < ATMOS_ALARM_DANGER)
-			air_doors_close()
-
-		atmosalm = danger_level
-		for(var/obj/machinery/alarm/AA in src)
-			AA.update_icon()
-
-		GLOB.air_alarm_repository.update_cache(src)
-		return 1
-	GLOB.air_alarm_repository.update_cache(src)
-	return 0
-
 /area/proc/air_doors_close()
 	if(!air_doors_activated)
 		air_doors_activated = TRUE
@@ -179,86 +154,210 @@
 						D.open()
 
 
-/area/proc/fire_alert()
+/area/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/**
+  * Generate a power alert for this area
+  *
+  * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
+  */
+/area/proc/poweralert(state, obj/source)
+	if(state != poweralm)
+		poweralm = state
+		if(istype(source))	//Only report power alarms on the z-level where the source is located.
+			for(var/thing in cameras)
+				var/obj/machinery/camera/C = locateUID(thing)
+				if(!QDELETED(C) && is_station_level(C.z))
+					if(state)
+						C.network -= "Power Alarms"
+					else
+						C.network |= "Power Alarms"
+
+			if(state)
+				SSalarm.cancelAlarm("Power", src, source)
+			else
+				SSalarm.triggerAlarm("Power", src, cameras, source)
+
+/**
+  * Generate an atmospheric alert for this area
+  *
+  * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
+  */
+/area/proc/atmosalert(danger_level, obj/source)
+	if(danger_level != atmosalm)
+		if(danger_level == ATMOS_ALARM_DANGER)
+
+			for(var/thing in cameras)
+				var/obj/machinery/camera/C = locateUID(thing)
+				if(!QDELETED(C) && is_station_level(C.z))
+					C.network |= "Atmosphere Alarms"
+
+
+			SSalarm.triggerAlarm("Atmosphere", src, cameras, source)
+
+		else if(atmosalm == ATMOS_ALARM_DANGER)
+			for(var/thing in cameras)
+				var/obj/machinery/camera/C = locateUID(thing)
+				if(!QDELETED(C) && is_station_level(C.z))
+					C.network -= "Atmosphere Alarms"
+
+			SSalarm.cancelAlarm("Atmosphere", src, source)
+
+		atmosalm = danger_level
+		return TRUE
+	return FALSE
+
+/**
+  * Try to close all the firedoors in the area
+  */
+/area/proc/ModifyFiredoors(opening)
+	if(firedoors)
+		firedoors_last_closed_on = world.time
+		for(var/FD in firedoors)
+			var/obj/machinery/door/firedoor/D = FD
+			var/cont = !D.welded
+			if(cont && opening)	//don't open if adjacent area is on fire
+				for(var/I in D.affecting_areas)
+					var/area/A = I
+					if(A.fire)
+						cont = FALSE
+						break
+			if(cont && D.is_operational())
+				if(D.operating)
+					D.nextstate = opening ? FD_OPEN : FD_CLOSED
+				else if(!(D.density ^ opening))
+					INVOKE_ASYNC(D, (opening ? /obj/machinery/door/firedoor.proc/open : /obj/machinery/door/firedoor.proc/close))
+
+/**
+  * Generate a firealarm alert for this area
+  *
+  * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
+  *
+  * Also starts the area processing on SSobj
+  */
+/area/proc/firealert(obj/source)
+	if(always_unpowered) //no fire alarms in space/asteroid
+		return
+
 	if(!fire)
-		fire = 1	//used for firedoor checks
-		updateicon()
-		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-		air_doors_close()
+		set_fire_alarm_effect()
+		ModifyFiredoors(FALSE)
+		for(var/item in firealarms)
+			var/obj/machinery/firealarm/F = item
+			F.update_icon()
 
-/area/proc/fire_reset()
+	for(var/thing in cameras)
+		var/obj/machinery/camera/C = locateUID(thing)
+		if(!QDELETED(C) && is_station_level(C.z))
+			C.network |= "Fire Alarms"
+
+	SSalarm.triggerAlarm("Fire", src, cameras, source)
+
+	START_PROCESSING(SSobj, src)
+
+/**
+  * Reset the firealarm alert for this area
+  *
+  * resets the alert sent to all ai players, alert consoles, drones and alarm monitor programs
+  * in the world
+  *
+  * Also cycles the icons of all firealarms and deregisters the area from processing on SSOBJ
+  */
+/area/proc/firereset(obj/source)
 	if(fire)
-		fire = 0	//used for firedoor checks
-		updateicon()
-		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-		air_doors_open()
+		unset_fire_alarm_effects()
+		ModifyFiredoors(TRUE)
+		for(var/item in firealarms)
+			var/obj/machinery/firealarm/F = item
+			F.update_icon()
 
-	return
+	for(var/thing in cameras)
+		var/obj/machinery/camera/C = locateUID(thing)
+		if(!QDELETED(C) && is_station_level(C.z))
+			C.network -= "Fire Alarms"
 
-/area/proc/burglaralert(var/obj/trigger)
-	if(always_unpowered == 1) //no burglar alarms in space/asteroid
+	SSalarm.cancelAlarm("Fire", src, source)
+
+	STOP_PROCESSING(SSobj, src)
+
+/**
+  * If 100 ticks has elapsed, toggle all the firedoors closed again
+  */
+/area/process()
+	if(firedoors_last_closed_on + 100 < world.time)	//every 10 seconds
+		ModifyFiredoors(FALSE)
+
+/**
+  * Close and lock a door passed into this proc
+  *
+  * Does this need to exist on area? probably not
+  */
+/area/proc/close_and_lock_door(obj/machinery/door/DOOR)
+	set waitfor = FALSE
+	DOOR.close()
+	if(DOOR.density)
+		DOOR.lock()
+
+/**
+  * Raise a burglar alert for this area
+  *
+  * Close and locks all doors in the area and alerts silicon mobs of a break in
+  *
+  * Alarm auto resets after 600 ticks
+  */
+/area/proc/burglaralert(obj/trigger)
+	if(always_unpowered) //no burglar alarms in space/asteroid
 		return
 
 	//Trigger alarm effect
 	set_fire_alarm_effect()
-
 	//Lockdown airlocks
-	for(var/obj/machinery/door/airlock/A in src)
-		spawn(0)
-			A.close()
-			if(A.density)
-				A.lock()
+	for(var/obj/machinery/door/DOOR in src)
+		close_and_lock_door(DOOR)
 
-	SSalarms.burglar_alarm.triggerAlarm(src, trigger)
-	spawn(600)
-		SSalarms.burglar_alarm.clearAlarm(src, trigger)
+	if(SSalarm.triggerAlarm("Burglar", src, cameras, trigger))
+		//Cancel silicon alert after 1 minute
+		addtimer(CALLBACK(SSalarm, /datum/controller/subsystem/alarm.proc/cancelAlarm, "Burglar", src, trigger), 600)
 
+/**
+  * Trigger the fire alarm visual affects in an area
+  *
+  * Updates the fire light on fire alarms in the area and sets all lights to emergency mode
+  */
 /area/proc/set_fire_alarm_effect()
-	fire = 1
-	updateicon()
+	fire = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	for(var/alarm in firealarms)
+		var/obj/machinery/firealarm/F = alarm
+		F.update_fire_light(fire)
+	for(var/obj/machinery/light/L in src)
+		L.update()
 
-/area/proc/readyalert()
-	if(!eject)
-		eject = 1
-		updateicon()
-
-/area/proc/readyreset()
-	if(eject)
-		eject = 0
-		updateicon()
-
-/area/proc/partyalert()
-	if(!party)
-		party = 1
-		updateicon()
-		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
-/area/proc/partyreset()
-	if(party)
-		party = 0
-		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-		updateicon()
+/**
+  * unset the fire alarm visual affects in an area
+  *
+  * Updates the fire light on fire alarms in the area and sets all lights to emergency mode
+  */
+/area/proc/unset_fire_alarm_effects()
+	fire = FALSE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	for(var/alarm in firealarms)
+		var/obj/machinery/firealarm/F = alarm
+		F.update_fire_light(fire)
+	for(var/obj/machinery/light/L in src)
+		L.update()
 
 /area/proc/updateicon()
-	if((fire || eject || party) && (!requires_power||power_environ))//If it doesn't require power, can still activate this proc.
-		if(fire && !eject && !party)
-			icon_state = "red"
-		else if(!fire && eject && !party)
-			icon_state = "red"
-		else if(party && !fire && !eject)
-			icon_state = "party"
-		else
-			icon_state = "blue-red"
-	else
-		var/weather_icon
-		for(var/V in SSweather.processing)
-			var/datum/weather/W = V
-			if(W.stage != END_STAGE && (src in W.impacted_areas))
-				W.update_areas()
-				weather_icon = TRUE
-		if(!weather_icon)
-			icon_state = null
+	var/weather_icon
+	for(var/V in SSweather.processing)
+		var/datum/weather/W = V
+		if(W.stage != END_STAGE && (src in W.impacted_areas))
+			W.update_areas()
+			weather_icon = TRUE
+	if(!weather_icon)
+		icon_state = null
 
 /area/space/updateicon()
 	icon_state = null
@@ -288,11 +387,15 @@
 /area/space/powered(chan) //Nope.avi
 	return 0
 
-// called when power status changes
-
+/**
+  * Called when the area power status changes
+  *
+  * Updates the area icon, calls power change on all machines in the area, and sends the `COMSIG_AREA_POWER_CHANGE` signal.
+  */
 /area/proc/power_change()
 	for(var/obj/machinery/M in src)	// for each machine in the area
 		M.power_change()			// reverify power status (to update icons etc.)
+	SEND_SIGNAL(src, COMSIG_AREA_POWER_CHANGE)
 	updateicon()
 
 /area/proc/usage(var/chan)
@@ -438,7 +541,7 @@
 
 /area/proc/prison_break()
 	for(var/obj/machinery/power/apc/temp_apc in src)
-		temp_apc.overload_lighting(70)
+		INVOKE_ASYNC(temp_apc, /obj/machinery/power/apc.proc/overload_lighting, 70)
 	for(var/obj/machinery/door/airlock/temp_airlock in src)
 		temp_airlock.prison_open()
 	for(var/obj/machinery/door/window/temp_windoor in src)

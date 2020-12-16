@@ -55,14 +55,14 @@
 
 /obj/machinery/atmospherics/pipe/cap/update_icon(var/safety = 0)
 	..()
-	
+
 	if(!check_icon_cache())
 		return
 
 	alpha = 255
 
 	overlays.Cut()
-	overlays += GLOB.pipe_icon_manager.get_atmos_icon("pipe", , pipe_color, "cap" + icon_connect_type)
+	overlays += SSair.icon_manager.get_atmos_icon("pipe", , pipe_color, "cap" + icon_connect_type)
 
 /obj/machinery/atmospherics/pipe/cap/atmos_init()
 	..()

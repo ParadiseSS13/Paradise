@@ -273,11 +273,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		overlays_standing[UNDERWEAR_LAYER] = mutable_appearance(underwear_standing, layer = -UNDERWEAR_LAYER)
 	apply_overlay(UNDERWEAR_LAYER)
 
-	if(lip_style && (LIPS in dna.species.species_traits))
-		var/mutable_appearance/lips = mutable_appearance('icons/mob/human_face.dmi', "lips_[lip_style]_s")
-		lips.color = lip_color
-		standing += lips
-
 	overlays_standing[BODY_LAYER] = standing
 	apply_overlay(BODY_LAYER)
 	//tail
@@ -530,6 +525,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	UpdateDamageIcon()
 	force_update_limbs()
 	update_tail_layer()
+	update_halo_layer()
 	overlays.Cut() // Force all overlays to regenerate
 	update_fire()
 	update_icons()
@@ -1269,6 +1265,17 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	apply_overlay(MISC_LAYER)
 
+/mob/living/carbon/human/proc/update_halo_layer()
+	remove_overlay(HALO_LAYER)
+
+	if(iscultist(src) && SSticker.mode.cult_ascendant)
+		var/istate = pick("halo1", "halo2", "halo3", "halo4", "halo5", "halo6")
+		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/32x64.dmi', istate, -HALO_LAYER)
+		overlays_standing[HALO_LAYER] = new_halo_overlay
+
+	apply_overlay(HALO_LAYER)
+
+
 /mob/living/carbon/human/admin_Freeze(client/admin, skip_overlays = TRUE, mech = null)
 	if(..())
 		overlays_standing[FROZEN_LAYER] = mutable_appearance(frozen, layer = -FROZEN_LAYER)
@@ -1294,12 +1301,20 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/husk = (HUSK in mutations)
 	var/hulk = (HULK in mutations)
 	var/skeleton = (SKELETON in mutations)
+	var/g = dna.GetUITriState(DNA_UI_GENDER)
+	if(g == DNA_GENDER_PLURAL)
+		g = DNA_GENDER_FEMALE
 
 	. = ""
 
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes)
 		. += "[eyes.eye_colour]"
+	else
+		. += "#000000"
+
+	if(lip_color && (LIPS in dna.species.species_traits))
+		. += "[lip_color]"
 	else
 		. += "#000000"
 
@@ -1317,8 +1332,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(part)
 			var/datum/species/S = GLOB.all_species[part.dna.species.name]
 			. += "[S.race_key]"
-			. += "[part.dna.GetUIState(DNA_UI_GENDER)]"
 			. += "[part.dna.GetUIValue(DNA_UI_SKIN_TONE)]"
+			. += "[g]"
 			if(part.s_col)
 				. += "[part.s_col]"
 			if(part.s_tone)

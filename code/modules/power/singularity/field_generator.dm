@@ -144,7 +144,7 @@ field_generator power level display
 		..()
 
 /obj/machinery/field/generator/bullet_act(obj/item/projectile/Proj)
-	if(Proj.flag != "bullet")
+	if(Proj.flag != "bullet" && !Proj.nodamage)
 		power = min(power + Proj.damage, field_generator_max_power)
 		check_power_level()
 	return 0
@@ -310,16 +310,25 @@ field_generator power level display
 	//This is here to help fight the "hurr durr, release singulo cos nobody will notice before the
 	//singulo eats the evidence". It's not fool-proof but better than nothing.
 	//I want to avoid using global variables.
-	spawn(1)
-		var/temp = 1 //stops spam
-		for(var/thing in GLOB.singularities)
-			var/obj/singularity/O = thing
-			if(O.last_warning && temp)
-				if((world.time - O.last_warning) > 50) //to stop message-spam
-					temp = 0
-					message_admins("A singulo exists and a containment field has failed. Location: [get_area(src)] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</A>)",1)
-					investigate_log("has <font color='red'>failed</font> whilst a singulo exists.","singulo")
-			O.last_warning = world.time
+	INVOKE_ASYNC(src, .proc/admin_alert)
+
+/obj/machinery/field/generator/proc/admin_alert()
+	var/temp = TRUE //stops spam
+	for(var/thing in GLOB.singularities)
+		var/obj/singularity/O = thing
+		if(O.last_warning && temp && atoms_share_level(O, src))
+			if((world.time - O.last_warning) > 50) //to stop message-spam
+				temp = FALSE
+				// To the person who asks "Hey affected, why are you using this massive operator when you can use AREACOORD?" Well, ill tell you
+				// get_area_name is fucking broken and uses a for(x in world) search
+				// It doesnt even work, is expensive, and returns 0
+				// Im not refactoring one thing which could risk breaking all admin location logs
+				// Fight me
+				// [src ? "[get_location_name(src, TRUE)] [COORD(src)]" : "nonexistent location"] [ADMIN_JMP(src)] works much better and actually works at all
+				// Oh and yes, this exact comment was pasted from the exact same thing I did to tcomms code. Dont at me.
+				message_admins("A singularity exists and a containment field has failed on the same Z-Level. Singulo location: [O ? "[get_location_name(O, TRUE)] [COORD(O)]" : "nonexistent location"] [ADMIN_JMP(O)] | Field generator location: [src ? "[get_location_name(src, TRUE)] [COORD(src)]" : "nonexistent location"] [ADMIN_JMP(src)]")
+				investigate_log("has <font color='red'>failed</font> whilst a singulo exists.","singulo")
+		O.last_warning = world.time
 
 /obj/machinery/field/generator/shock_field(mob/living/user)
 	if(fields.len)

@@ -28,11 +28,19 @@
 /obj/structure/closet/crate/can_close()
 	return TRUE
 
-/obj/structure/closet/crate/open()
+/obj/structure/closet/crate/open(by_hand = FALSE)
 	if(src.opened)
 		return FALSE
 	if(!src.can_open())
 		return FALSE
+
+	if(by_hand)
+		for(var/obj/O in src)
+			if(O.density)
+				var/response = alert(usr, "This crate has been packed with bluespace compression, an item inside won't fit back inside. Are you sure you want to open it?","Bluespace Compression Warning", "No", "Yes")
+				if(response == "No" || !Adjacent(usr))
+					return FALSE
+				break
 
 	if(rigged && locate(/obj/item/radio/electropack) in src)
 		if(isliving(usr))
@@ -73,6 +81,9 @@
 				continue
 		O.forceMove(src)
 		itemcount++
+		if(istype(O, /obj/item/storage))
+			var/obj/item/storage/S = O
+			S.hide_from_all()
 
 	icon_state = icon_closed
 	src.opened = FALSE
@@ -82,6 +93,10 @@
 	if(!opened && try_rig(W, user))
 		return
 	return ..()
+
+/obj/structure/closet/crate/toggle(mob/user, by_hand = FALSE)
+	if(!(opened ? close() : open(by_hand)))
+		to_chat(user, "<span class='notice'>It won't budge!</span>")
 
 /obj/structure/closet/crate/proc/try_rig(obj/item/W, mob/user)
 	if(istype(W, /obj/item/stack/cable_coil))
@@ -137,7 +152,7 @@
 					do_sparks(5, 1, src)
 					return
 		src.add_fingerprint(user)
-		src.toggle(user)
+		src.toggle(user, by_hand = TRUE)
 
 // Called when a crate is delivered by MULE at a location, for notifying purposes
 /obj/structure/closet/crate/proc/notifyRecipient(var/destination)
@@ -187,6 +202,7 @@
 	if(user)
 		to_chat(user, "<span class='danger'>The crate's anti-tamper system activates!</span>")
 		investigate_log("[key_name(user)] has detonated a [src]", INVESTIGATE_BOMB)
+		add_attack_logs(user, src, "has detonated", ATKLOG_MOST)
 	for(var/atom/movable/AM in src)
 		qdel(AM)
 	explosion(get_turf(src), 0, 1, 5, 5)
@@ -236,7 +252,7 @@
 	if(locked)
 		src.togglelock(user)
 	else
-		src.toggle(user)
+		src.toggle(user, by_hand = TRUE)
 
 /obj/structure/closet/crate/secure/closed_item_click(mob/user)
 	togglelock(user)
@@ -338,24 +354,23 @@
 	var/target_temp = T0C - 40
 	var/cooling_power = 40
 
-	return_air()
-		var/datum/gas_mixture/gas = (..())
-		if(!gas)	return null
-		var/datum/gas_mixture/newgas = new/datum/gas_mixture()
-		newgas.oxygen = gas.oxygen
-		newgas.carbon_dioxide = gas.carbon_dioxide
-		newgas.nitrogen = gas.nitrogen
-		newgas.toxins = gas.toxins
-		newgas.volume = gas.volume
-		newgas.temperature = gas.temperature
-		if(newgas.temperature <= target_temp)	return
+/obj/structure/closet/crate/freezer/return_air()
+	var/datum/gas_mixture/gas = (..())
+	if(!gas)	return null
+	var/datum/gas_mixture/newgas = new/datum/gas_mixture()
+	newgas.oxygen = gas.oxygen
+	newgas.carbon_dioxide = gas.carbon_dioxide
+	newgas.nitrogen = gas.nitrogen
+	newgas.toxins = gas.toxins
+	newgas.volume = gas.volume
+	newgas.temperature = gas.temperature
+	if(newgas.temperature <= target_temp)	return
 
-		if((newgas.temperature - cooling_power) > target_temp)
-			newgas.temperature -= cooling_power
-		else
-			newgas.temperature = target_temp
-		return newgas
-
+	if((newgas.temperature - cooling_power) > target_temp)
+		newgas.temperature -= cooling_power
+	else
+		newgas.temperature = target_temp
+	return newgas
 
 /obj/structure/closet/crate/can
 	desc = "A large can, looks like a bin to me."
@@ -496,22 +511,23 @@
 /obj/structure/closet/crate/hydroponics/prespawned
 	//This exists so the prespawned hydro crates spawn with their contents.
 
-	New()
-		..()
-		new /obj/item/reagent_containers/glass/bucket(src)
-		new /obj/item/reagent_containers/glass/bucket(src)
-		new /obj/item/screwdriver(src)
-		new /obj/item/screwdriver(src)
-		new /obj/item/wrench(src)
-		new /obj/item/wrench(src)
-		new /obj/item/wirecutters(src)
-		new /obj/item/wirecutters(src)
-		new /obj/item/shovel/spade(src)
-		new /obj/item/shovel/spade(src)
-		new /obj/item/storage/box/beakers(src)
-		new /obj/item/storage/box/beakers(src)
-		new /obj/item/hand_labeler(src)
-		new /obj/item/hand_labeler(src)
+// Do I need the definition above? Who knows!
+/obj/structure/closet/crate/hydroponics/prespawned/New()
+	..()
+	new /obj/item/reagent_containers/glass/bucket(src)
+	new /obj/item/reagent_containers/glass/bucket(src)
+	new /obj/item/screwdriver(src)
+	new /obj/item/screwdriver(src)
+	new /obj/item/wrench(src)
+	new /obj/item/wrench(src)
+	new /obj/item/wirecutters(src)
+	new /obj/item/wirecutters(src)
+	new /obj/item/shovel/spade(src)
+	new /obj/item/shovel/spade(src)
+	new /obj/item/storage/box/beakers(src)
+	new /obj/item/storage/box/beakers(src)
+	new /obj/item/hand_labeler(src)
+	new /obj/item/hand_labeler(src)
 
 /obj/structure/closet/crate/sci
 	name = "science crate"

@@ -201,7 +201,7 @@
 	feedback_add_details("admin_verb","GOD") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
-proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
+/proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
 	if(automute)
 		if(!config.automute_on)
 			return
@@ -281,7 +281,7 @@ proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
 			if(!g.client.holder)						//Remove the verb from non-admin ghosts
 				g.verbs -= /mob/dead/observer/verb/toggle_antagHUD
 			if(g.antagHUD)
-				g.antagHUD = 0						// Disable it on those that have it enabled
+				g.antagHUD = FALSE						// Disable it on those that have it enabled
 				g.has_enabled_antagHUD = 2				// We'll allow them to respawn
 				to_chat(g, "<span class='danger'>The Administrator has disabled AntagHUD </span>")
 		config.antag_hud_allowed = 0
@@ -320,7 +320,7 @@ proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
 		for(var/mob/dead/observer/g in get_ghosts())
 			to_chat(g, "<span class='danger'>The administrator has placed restrictions on joining the round if you use AntagHUD</span>")
 			to_chat(g, "<span class='danger'>Your AntagHUD has been disabled, you may choose to re-enabled it but will be under restrictions </span>")
-			g.antagHUD = 0
+			g.antagHUD = FALSE
 			g.has_enabled_antagHUD = 0
 		action = "placed restrictions"
 		config.antag_hud_restricted = 1
@@ -624,11 +624,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			var/beepsound = input(usr, "What sound should the announcement make?", "Announcement Sound", "") as anything in MsgSound
 
 			GLOB.command_announcement.Announce(input, customname, MsgSound[beepsound], , , type)
-			print_command_report(input, "[command_name()] Update")
+			print_command_report(input, customname)
 		if("No")
 			//same thing as the blob stuff - it's not public, so it's classified, dammit
 			GLOB.command_announcer.autosay("A classified message has been printed out at all communication consoles.")
-			print_command_report(input, "Classified [command_name()] Update")
+			print_command_report(input, "Classified: [customname]")
 		else
 			return
 
@@ -872,6 +872,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 	if(!check_rights(R_ADMIN))
+		return
+
+	if(alert(usr, "Do you want to [SSshuttle.emergencyNoEscape ? "ALLOW" : "DENY"] shuttle calls?", "Toggle Deny Shuttle", "Yes", "No") != "Yes")
 		return
 
 	if(SSshuttle)

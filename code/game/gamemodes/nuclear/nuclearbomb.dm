@@ -14,59 +14,59 @@ GLOBAL_VAR(bomb_set)
 	icon_state = "nuclearbomb0"
 	density = 1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	var/deployable = 0
-	var/extended = 0
-	var/lighthack = 0
+	var/extended = FALSE
+	var/lighthack = FALSE
 	var/timeleft = 120
-	var/timing = 0
+	var/timing = FALSE
+	var/exploded = FALSE
 	var/r_code = "ADMIN"
-	var/code = ""
-	var/yes_code = 0
-	var/safety = 1
+	var/code
+	var/yes_code = FALSE
+	var/safety = TRUE
 	var/obj/item/disk/nuclear/auth = null
 	var/removal_stage = NUKE_INTACT
 	var/lastentered
-	var/is_syndicate = 0
+	var/is_syndicate = FALSE
 	use_power = NO_POWER_USE
 	var/previous_level = ""
 	var/datum/wires/nuclearbomb/wires = null
 
 /obj/machinery/nuclearbomb/syndicate
-	is_syndicate = 1
+	is_syndicate = TRUE
 
 /obj/machinery/nuclearbomb/New()
 	..()
-	r_code = "[rand(10000, 99999.0)]"//Creates a random code upon object spawn.
+	r_code = rand(10000, 99999.0) // Creates a random code upon object spawn.
 	wires = new/datum/wires/nuclearbomb(src)
 	previous_level = get_security_level()
 	GLOB.poi_list |= src
 
 /obj/machinery/nuclearbomb/Destroy()
+	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	GLOB.poi_list.Remove(src)
 	return ..()
 
 /obj/machinery/nuclearbomb/process()
 	if(timing)
-		GLOB.bomb_set = 1 //So long as there is one nuke timing, it means one nuke is armed.
+		GLOB.bomb_set = TRUE // So long as there is one nuke timing, it means one nuke is armed.
 		timeleft = max(timeleft - 2, 0) // 2 seconds per process()
 		if(timeleft <= 0)
 			INVOKE_ASYNC(src, .proc/explode)
-		SSnanoui.update_uis(src)
 	return
 
 /obj/machinery/nuclearbomb/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/disk/nuclear))
 		if(extended)
 			if(!user.drop_item())
-				to_chat(user, "<span class='notice'>\The [O] is stuck to your hand!</span>")
+				to_chat(user, "<span class='notice'>[O] is stuck to your hand!</span>")
 				return
 			O.forceMove(src)
 			auth = O
 			add_fingerprint(user)
 			return attack_hand(user)
 		else
-			to_chat(user, "<span class='notice'>You need to deploy \the [src] first. Right click on the sprite, select 'Make Deployable' then click on \the [src] with an empty hand.</span>")
+			to_chat(user, "<span class='notice'>You need to deploy [src] first.</span>")
 		return
 	return ..()
 
@@ -170,181 +170,157 @@ GLOBAL_VAR(bomb_set)
 		removal_stage = NUKE_SEALANT_OPEN
 
 /obj/machinery/nuclearbomb/attack_ghost(mob/user as mob)
-	if(extended)
-		attack_hand(user)
+	attack_hand(user)
 
 /obj/machinery/nuclearbomb/attack_hand(mob/user as mob)
-	if(extended)
-		if(panel_open)
-			wires.Interact(user)
-		else
-			ui_interact(user)
-	else if(deployable)
-		if(removal_stage != NUKE_MOBILE)
-			anchored = 1
-			visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring!</span>")
-		else
-			visible_message("<span class='warning'>\The [src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
-		if(!lighthack)
-			flick("nuclearbombc", src)
-			icon_state = "nuclearbomb1"
-		extended = 1
-	return
-
-/obj/machinery/nuclearbomb/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "nuclear_bomb.tmpl", "Nuke Control Panel", 450, 550, state = GLOB.physical_state)
-		ui.open()
-		ui.set_auto_update(1)
-
-/obj/machinery/nuclearbomb/ui_data(mob/user, datum/topic_state/state)
-	var/data[0]
-	data["is_syndicate"] = is_syndicate
-	data["hacking"] = 0
-	data["auth"] = is_auth(user)
-	if(is_auth(user))
-		if(yes_code)
-			data["authstatus"] = timing ? "Functional/Set" : "Functional"
-		else
-			data["authstatus"] = "Auth. S2"
+	if(panel_open)
+		wires.Interact(user)
 	else
-		if(timing)
-			data["authstatus"] = "Set"
-		else
-			data["authstatus"] = "Auth. S1"
+		ui_interact(user)
+
+/obj/machinery/nuclearbomb/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "NuclearBomb", name, 450, 300, master_ui, state)
+		ui.open()
+
+/obj/machinery/nuclearbomb/ui_data(mob/user)
+	var/list/data = list()
+	data["extended"] = extended
+	data["authdisk"] = is_auth(user)
+	data["diskname"] = auth ? auth.name : FALSE
+	data["authcode"] = yes_code
+	data["authfull"] = data["authdisk"] && data["authcode"]
 	data["safe"] = safety ? "Safe" : "Engaged"
 	data["time"] = timeleft
 	data["timer"] = timing
 	data["safety"] = safety
 	data["anchored"] = anchored
-	data["yescode"] = yes_code
-	data["message"] = "AUTH"
 	if(is_auth(user))
-		data["message"] = code
 		if(yes_code)
-			data["message"] = "*****"
-
-	return data
-
-/obj/machinery/nuclearbomb/verb/make_deployable()
-	set category = "Object"
-	set name = "Make Deployable"
-	set src in oview(1)
-
-	if(usr.stat || !usr.canmove || usr.restrained())
-		return
-
-	if(deployable)
-		to_chat(usr, "<span class='warning'>You close several panels to make [src] undeployable.</span>")
-		deployable = 0
+			data["codemsg"] = "CLEAR CODE"
+		else if(code)
+			data["codemsg"] = "RE-ENTER CODE"
+		else
+			data["codemsg"] = "ENTER CODE"
 	else
-		to_chat(usr, "<span class='warning'>You adjust some panels to make [src] deployable.</span>")
-		deployable = 1
-	return
+		data["codemsg"] = "-----"
+	return data
 
 /obj/machinery/nuclearbomb/proc/is_auth(var/mob/user)
 	if(auth)
-		return 1
+		return TRUE
 	else if(user.can_admin_interact())
-		return 1
+		return TRUE
 	else
-		return 0
+		return FALSE
 
-/obj/machinery/nuclearbomb/Topic(href, href_list)
+/obj/machinery/nuclearbomb/ui_act(action, params)
 	if(..())
-		return 1
-
-	if(href_list["auth"])
-		if(auth)
-			auth.loc = loc
-			yes_code = 0
-			auth = null
-		else
-			var/obj/item/I = usr.get_active_hand()
-			if(istype(I, /obj/item/disk/nuclear))
-				usr.drop_item()
-				I.loc = src
-				auth = I
-	if(is_auth(usr))
-		if(href_list["type"])
-			if(href_list["type"] == "E")
+		return
+	. = TRUE
+	if(exploded)
+		return
+	switch(action)
+		if("deploy")
+			if(removal_stage != NUKE_MOBILE)
+				anchored = TRUE
+				visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring!</span>")
+			else
+				visible_message("<span class='warning'>[src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
+			if(!lighthack)
+				flick("nuclearbombc", src)
+				icon_state = "nuclearbomb1"
+			extended = TRUE
+			return
+		if("auth")
+			if(auth)
+				if(!usr.get_active_hand() && Adjacent(usr))
+					usr.put_in_hands(auth)
+				else
+					auth.forceMove(get_turf(src))
+				yes_code = FALSE
+				auth = null
+			else
+				var/obj/item/I = usr.get_active_hand()
+				if(istype(I, /obj/item/disk/nuclear))
+					usr.drop_item()
+					I.forceMove(src)
+					auth = I
+			return
+	if(!is_auth(usr)) // All requests below here require NAD inserted.
+		return FALSE
+	switch(action)
+		if("code")
+			if(yes_code) // Clear code
+				code = null
+				yes_code = FALSE
+				return
+			// If no code set, enter new one
+			var/tempcode = input(usr, "Code", "Input Code", null) as num|null
+			if(tempcode)
+				code = min(max(round(tempcode), 0), 999999)
 				if(code == r_code)
-					yes_code = 1
+					yes_code = TRUE
 					code = null
 				else
 					code = "ERROR"
+			return
+
+	if(!yes_code) // All requests below here require both NAD inserted AND code correct
+		return
+
+	switch(action)
+		if("toggle_anchor")
+			if(removal_stage == NUKE_MOBILE)
+				anchored = FALSE
+				visible_message("<span class='warning'>[src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
+			else if(isinspace())
+				to_chat(usr, "<span class='warning'>There is nothing to anchor to!</span>")
+				return FALSE
 			else
-				if(href_list["type"] == "R")
-					yes_code = 0
-					code = null
+				anchored = !(anchored)
+				if(anchored)
+					visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring.</span>")
 				else
-					lastentered = text("[]", href_list["type"])
-					if(text2num(lastentered) == null)
-						var/turf/LOC = get_turf(usr)
-						message_admins("[key_name_admin(usr)] tried to exploit a nuclear bomb by entering non-numerical codes: <a href='?_src_=vars;Vars=[UID()]'>[lastentered]</a>! ([LOC ? "<a href='?_src_=holder;adminplayerobservecoodjump=1;X=[LOC.x];Y=[LOC.y];Z=[LOC.z]'>JMP</a>" : "null"])", 0)
-						log_admin("EXPLOIT: [key_name(usr)] tried to exploit a nuclear bomb by entering non-numerical codes: [lastentered]!")
-					else
-						code += lastentered
-						if(length(code) > 5)
-							code = "ERROR"
-		if(yes_code)
-			if(href_list["time"])
-				var/time = text2num(href_list["time"])
-				timeleft += time
-				timeleft = min(max(round(src.timeleft), 120), 600)
-			if(href_list["timer"])
-				if(timing == -1.0)
-					SSnanoui.update_uis(src)
-					return
-				if(safety)
-					to_chat(usr, "<span class='warning'>The safety is still on.</span>")
-					SSnanoui.update_uis(src)
-					return
-				timing = !(timing)
-				if(timing)
-					if(!lighthack)
-						icon_state = "nuclearbomb2"
-					if(!safety)
-						message_admins("[key_name_admin(usr)] engaged a nuclear bomb (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-						if(!is_syndicate)
-							set_security_level("delta")
-						GLOB.bomb_set = 1 //There can still be issues with this resetting when there are multiple bombs. Not a big deal though for Nuke/N
-					else
-						GLOB.bomb_set = 0
-				else
+					visible_message("<span class='warning'>The anchoring bolts slide back into the depths of [src].</span>")
+			return
+		if("set_time")
+			var/time = input(usr, "Detonation time (seconds, min 120, max 600)", "Input Time", 120) as num|null
+			if(time)
+				timeleft = min(max(round(time), 120), 600)
+		if("toggle_safety")
+			safety = !(safety)
+			if(safety)
+				if(!is_syndicate)
+					set_security_level(previous_level)
+				timing = FALSE
+				GLOB.bomb_set = FALSE
+		if("toggle_armed")
+			if(safety)
+				to_chat(usr, "<span class='notice'>The safety is still on.</span>")
+				return
+			timing = !(timing)
+			if(timing)
+				if(!lighthack)
+					icon_state = "nuclearbomb2"
+				if(!safety)
+					message_admins("[key_name_admin(usr)] engaged a nuclear bomb [ADMIN_JMP(src)]")
 					if(!is_syndicate)
-						set_security_level(previous_level)
-					GLOB.bomb_set = 0
-					if(!lighthack)
-						icon_state = "nuclearbomb1"
-			if(href_list["safety"])
-				safety = !(safety)
-				if(safety)
-					if(!is_syndicate)
-						set_security_level(previous_level)
-					timing = 0
-					GLOB.bomb_set = 0
-			if(href_list["anchor"])
-				if(removal_stage == NUKE_MOBILE)
-					anchored = 0
-					visible_message("<span class='warning'>\The [src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
-					SSnanoui.update_uis(src)
-					return
-
-				if(!isinspace())
-					anchored = !(anchored)
-					if(anchored)
-						visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring.</span>")
-					else
-						visible_message("<span class='warning'>The anchoring bolts slide back into the depths of [src].</span>")
+						set_security_level("delta")
+					GLOB.bomb_set = TRUE // There can still be issues with this resetting when there are multiple bombs. Not a big deal though for Nuke
 				else
-					to_chat(usr, "<span class='warning'>There is nothing to anchor to!</span>")
+					GLOB.bomb_set = TRUE
+			else
+				if(!is_syndicate)
+					set_security_level(previous_level)
+				GLOB.bomb_set = FALSE
+				if(!lighthack)
+					icon_state = "nuclearbomb1"
 
-	SSnanoui.update_uis(src)
 
 /obj/machinery/nuclearbomb/blob_act(obj/structure/blob/B)
-	if(timing == -1.0)
+	if(exploded)
 		return
 	if(timing)	//boom
 		INVOKE_ASYNC(src, .proc/explode)
@@ -359,11 +335,11 @@ GLOBAL_VAR(bomb_set)
 #define NUKERANGE 80
 /obj/machinery/nuclearbomb/proc/explode()
 	if(safety)
-		timing = 0
+		timing = FALSE
 		return
-	timing = -1.0
-	yes_code = 0
-	safety = 1
+	exploded = TRUE
+	yes_code = FALSE
+	safety = TRUE
 	if(!lighthack)
 		icon_state = "nuclearbomb3"
 	playsound(src,'sound/machines/alarm.ogg',100,0,5)
@@ -407,6 +383,20 @@ GLOBAL_VAR(bomb_set)
 				return
 	return
 
+/obj/machinery/nuclearbomb/proc/reset_lighthack_callback()
+	lighthack = !lighthack
+
+/obj/machinery/nuclearbomb/proc/reset_safety_callback()
+	safety = !safety
+	if(safety == 1)
+		if(!is_syndicate)
+			set_security_level(previous_level)
+		visible_message("<span class='notice'>The [src] quiets down.</span>")
+		if(!lighthack)
+			if(icon_state == "nuclearbomb2")
+				icon_state = "nuclearbomb1"
+	else
+		visible_message("<span class='notice'>The [src] emits a quiet whirling noise!</span>")
 
 //==========DAT FUKKEN DISK===============
 /obj/item/disk/nuclear

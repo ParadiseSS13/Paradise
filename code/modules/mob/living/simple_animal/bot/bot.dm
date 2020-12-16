@@ -94,7 +94,6 @@
 	hud_possible = list(DIAG_STAT_HUD, DIAG_BOT_HUD, DIAG_HUD, DIAG_PATH_HUD = HUD_LIST_LIST)//Diagnostic HUD views
 
 /obj/item/radio/headset/bot
-	subspace_transmission = 1
 	requires_tcomms = FALSE
 	canhear_range = 0
 
@@ -872,28 +871,36 @@ Pass a positive integer as an argument to override a bot's default speed.
 		if("remote")
 			remote_disabled = !remote_disabled
 		if("hack")
-			if(emagged != 2)
-				emagged = 2
-				hacked = 1
-				locked = 1
-				to_chat(usr, "<span class='warning'>[text_hack]</span>")
-				show_laws()
-				bot_reset()
-				add_attack_logs(usr, src, "Hacked")
-			else if(!hacked)
-				to_chat(usr, "<span class='userdanger'>[text_dehack_fail]</span>")
-			else
-				emagged = 0
-				hacked = 0
-				to_chat(usr, "<span class='notice'>[text_dehack]</span>")
-				show_laws()
-				bot_reset()
-				add_attack_logs(usr, src, "Dehacked")
+			handle_hacking(usr)
 		if("ejectpai")
 			if(paicard && (!locked || issilicon(usr) || usr.can_admin_interact()))
 				to_chat(usr, "<span class='notice'>You eject [paicard] from [bot_name]</span>")
 				ejectpai(usr)
 	update_controls()
+
+/mob/living/simple_animal/bot/proc/canhack(mob/M)
+	return ((issilicon(M) && (!emagged || hacked)) || M.can_admin_interact())
+
+/mob/living/simple_animal/bot/proc/handle_hacking(mob/M) // refactored out of Topic/ to allow re-use by TGUIs
+	if(!canhack(M))
+		return
+	if(emagged != 2)
+		emagged = 2
+		hacked = TRUE
+		locked = TRUE
+		to_chat(M, "<span class='warning'>[text_hack]</span>")
+		show_laws()
+		bot_reset()
+		add_attack_logs(M, src, "Hacked")
+	else if(!hacked)
+		to_chat(M, "<span class='userdanger'>[text_dehack_fail]</span>")
+	else
+		emagged = FALSE
+		hacked = FALSE
+		to_chat(M, "<span class='notice'>[text_dehack]</span>")
+		show_laws()
+		bot_reset()
+		add_attack_logs(M, src, "Dehacked")
 
 /mob/living/simple_animal/bot/proc/update_icon()
 	icon_state = "[initial(icon_state)][on]"
@@ -911,16 +918,17 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/proc/topic_denied(mob/user) //Access check proc for bot topics! Remember to place in a bot's individual Topic if desired.
 	if(user.can_admin_interact())
-		return 0
+		return FALSE
 	if(user.incapacitated() || !(issilicon(user) || in_range(src, user)))
-		return 1
-	// 0 for access, 1 for denied.
+		return TRUE
 	if(emagged == 2) //An emagged bot cannot be controlled by humans, silicons can if one hacked it.
 		if(!hacked) //Manually emagged by a human - access denied to all.
-			return 1
+			return TRUE
 		else if(!issilicon(user)) //Bot is hacked, so only silicons are allowed access.
-			return 1
-	return 0
+			return TRUE
+	if(locked && !issilicon(user))
+		return TRUE
+	return FALSE
 
 /mob/living/simple_animal/bot/proc/hack(mob/user)
 	var/hack

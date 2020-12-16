@@ -86,6 +86,7 @@
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
 	resistance_flags = FIRE_PROOF
+	needs_permit = TRUE
 
 /obj/item/katana/cursed
 	slot_flags = null
@@ -185,6 +186,7 @@
 	throwforce = 12
 	attack_verb = list("beat", "smacked")
 	w_class = WEIGHT_CLASS_HUGE
+	var/next_throw_time = 0
 	var/homerun_ready = 0
 	var/homerun_able = 0
 
@@ -253,16 +255,38 @@
 		to_chat(user, "<span class='warning'>You cannot attack in deflect mode!</span>")
 		return
 	. = ..()
-	var/atom/throw_target = get_edge_target_turf(target, user.dir)
 	if(homerun_ready)
+		var/atom/throw_target = get_edge_target_turf(target, user.dir)
 		user.visible_message("<span class='userdanger'>It's a home run!</span>")
 		target.throw_at(throw_target, rand(8,10), 14, user)
 		target.ex_act(2)
 		playsound(get_turf(src), 'sound/weapons/homerun.ogg', 100, 1)
 		homerun_ready = 0
 		return
-	else if(!target.anchored)
-		target.throw_at(throw_target, rand(1,2), 7, user)
+	if(world.time < next_throw_time)
+		// Limit the rate of throwing, so you can't spam it.
+		return
+	if(!istype(target))
+		// Should already be /mob/living, but check anyway.
+		return
+	if(target.anchored)
+		// No throwing mobs that are anchored to the floor.
+		return
+	if(target.mob_size > MOB_SIZE_HUMAN)
+		// No throwing things that are physically bigger than you are.
+		// Covers: blobbernaut, alien empress, ai core, juggernaut, ed209, mulebot, alien/queen/large, carp/megacarp, deathsquid, hostile/tree, megafauna, hostile/asteroid, terror_spider/queen/empress
+		return
+	if(!(target.status_flags & CANPUSH))
+		// No throwing mobs specifically flagged as immune to being pushed.
+		// Covers: revenant, hostile/blob/*, most borgs, juggernauts, hivebot/tele, spaceworms, shades, bots, alien queens, hostile/syndicate/melee, hostile/asteroid
+		return
+	if(target.move_resist > MOVE_RESIST_DEFAULT)
+		// No throwing mobs that have higher than normal move_resist.
+		// Covers: revenant, bot/mulebot, hostile/statue, hostile/megafauna, goliath
+		return
+	var/atom/throw_target = get_edge_target_turf(target, user.dir)
+	target.throw_at(throw_target, rand(1, 2), 7, user)
+	next_throw_time = world.time + 10 SECONDS
 
 /obj/item/melee/baseball_bat/ablative
 	name = "metal baseball bat"

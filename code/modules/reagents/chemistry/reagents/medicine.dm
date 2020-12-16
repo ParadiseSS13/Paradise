@@ -121,7 +121,14 @@
 
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(M.bodytemperature < TCRYO)
+	var/external_temp
+	if(istype(M.loc, /obj/machinery/atmospherics/unary/cryo_cell))
+		var/obj/machinery/atmospherics/unary/cryo_cell/C = M.loc
+		external_temp = C.temperature_archived
+	else
+		var/turf/T = get_turf(M)
+		external_temp = T.temperature
+	if(external_temp < TCRYO)
 		update_flags |= M.adjustCloneLoss(-4, FALSE)
 		update_flags |= M.adjustOxyLoss(-10, FALSE)
 		update_flags |= M.adjustToxLoss(-3, FALSE)
@@ -849,7 +856,7 @@
 /datum/reagent/medicine/stimulants
 	name = "Stimulants"
 	id = "stimulants"
-	description = "Increases run speed and eliminates stuns, can heal minor damage. If overdosed it will deal toxin damage and stun."
+	description = "An illegal compound that dramatically enhances the body's performance and healing capabilities."
 	color = "#C8A5DC"
 	harmless = FALSE
 	can_synth = FALSE
@@ -886,7 +893,7 @@
 /datum/reagent/medicine/stimulative_agent
 	name = "Stimulative Agent"
 	id = "stimulative_agent"
-	description = "An illegal compound that dramatically enhances the body's performance and healing capabilities."
+	description = "Increases run speed and eliminates stuns, can heal minor damage. If overdosed it will deal toxin damage and be less effective for healing stamina."
 	color = "#C8A5DC"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 60
@@ -994,19 +1001,14 @@
 	reagent_state = LIQUID
 	color = "#FFDCFF"
 	taste_description = "stability"
+	var/list/drug_list = list("crank","methamphetamine","space_drugs","psilocybin","ephedrine","epinephrine","stimulants","bath_salts","lsd","thc")
 
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.reagents.remove_reagent("crank", 5)
-	M.reagents.remove_reagent("methamphetamine", 5)
-	M.reagents.remove_reagent("space_drugs", 5)
-	M.reagents.remove_reagent("psilocybin", 5)
-	M.reagents.remove_reagent("ephedrine", 5)
-	M.reagents.remove_reagent("epinephrine", 5)
-	M.reagents.remove_reagent("stimulants", 3)
-	M.reagents.remove_reagent("bath_salts", 5)
-	M.reagents.remove_reagent("lsd", 5)
-	M.reagents.remove_reagent("thc", 5)
+	for(var/I in M.reagents.reagent_list)
+		var/datum/reagent/R = I
+		if(drug_list.Find(R.id))
+			M.reagents.remove_reagent(R.id, 5)
 	update_flags |= M.AdjustDruggy(-5, FALSE)
 	M.AdjustHallucinate(-5)
 	M.AdjustJitter(-5)
@@ -1234,9 +1236,15 @@
 	can_synth = FALSE
 	harmless = FALSE
 	taste_description = "wholeness"
+	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants")
 
 /datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
+	var/has_stimulant = FALSE
+	for(var/I in M.reagents.reagent_list)
+		var/datum/reagent/R = I
+		if(stimulant_list.Find(R.id))
+			has_stimulant = TRUE
 	switch(current_cycle)
 		if(1 to 19)
 			M.AdjustJitter(4)
@@ -1244,7 +1252,7 @@
 				to_chat(M, "<span class='warning'>Your skin feels hot and your veins are on fire!</span>")
 		if(20 to 43)
 			//If they have stimulants or stimulant drugs then just apply toxin damage instead.
-			if(M.reagents.has_reagent("methamphetamine") || M.reagents.has_reagent("crank") || M.reagents.has_reagent("bath_salts") || M.reagents.has_reagent("stimulative_agent") || M.reagents.has_reagent("stimulants"))
+			if(has_stimulant == TRUE)
 				update_flags |= M.adjustToxLoss(10, FALSE)
 			else //apply debilitating effects
 				if(prob(75))
@@ -1255,7 +1263,7 @@
 			to_chat(M, "<span class='warning'>Your body goes rigid, you cannot move at all!</span>")
 			update_flags |= M.AdjustWeakened(15, FALSE)
 		if(45 to INFINITY) // Start fixing bones | If they have stimulants or stimulant drugs in their system then the nanites won't work.
-			if(M.reagents.has_reagent("methamphetamine") || M.reagents.has_reagent("crank") || M.reagents.has_reagent("bath_salts") || M.reagents.has_reagent("stimulative_agent") || M.reagents.has_reagent("stimulants"))
+			if(has_stimulant == TRUE)
 				return ..()
 			else
 				for(var/obj/item/organ/external/E in M.bodyparts)

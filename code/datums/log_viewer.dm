@@ -4,6 +4,9 @@ if(!result || result.ckey != __ckey){\
 	selected_ckeys_mobs[__ckey] = result;\
 }
 
+#define RECORD_WARN_LIMIT 1000
+#define RECORD_HARD_LIMIT 2500
+
 /datum/log_viewer
 	var/time_from = 0
 	var/time_to = 4 HOURS					// 4 Hours should be enough. INFINITY would screw the UI up
@@ -23,7 +26,7 @@ if(!result || result.ckey != __ckey){\
 	log_records.Cut()
 	return
 
-/datum/log_viewer/proc/search()
+/datum/log_viewer/proc/search(user)
 	log_records.Cut() // Empty the old results
 	var/list/invalid_mobs = list()
 	var/list/ckeys = selected_ckeys.Copy()
@@ -47,8 +50,8 @@ if(!result || result.ckey != __ckey){\
 					continue
 				log_records.Add(logs.Copy(start_index, end_index + 1))
 
-	if(invalid_mobs.len)
-		to_chat(usr, "<span class='warning'>The search criteria contained invalid mobs. They have been removed from the criteria.</span>")
+	if(length(invalid_mobs))
+		to_chat(user, "<span class='warning'>The search criteria contained invalid mobs. They have been removed from the criteria.</span>")
 		for(var/i in invalid_mobs)
 			selected_mobs -= i // Cleanup
 
@@ -103,13 +106,13 @@ if(!result || result.ckey != __ckey){\
 	return 0
 
 /datum/log_viewer/proc/add_mobs(list/mob/mobs)
-	if(!mobs?.len)
+	if(!length(mobs))
 		return
 	for(var/i in mobs)
 		add_mob(usr, i, FALSE)
 
 /datum/log_viewer/proc/add_ckey(mob/user, ckey)
-	if(!user || !user)
+	if(!user || !ckey)
 		return
 	selected_ckeys |= ckey
 	UPDATE_CKEY_MOB(ckey)
@@ -127,7 +130,7 @@ if(!result || result.ckey != __ckey){\
 	var/all_log_types	= ALL_LOGS
 	var/trStyleTop		= "border-top:2px solid; border-bottom:2px solid; padding-top: 5px; padding-bottom: 5px;"
 	var/trStyle			= "border-top:1px solid; border-bottom:1px solid; padding-top: 5px; padding-bottom: 5px;"
-	var/dat
+	var/list/dat = list()
 	dat += "<head><meta http-equiv='X-UA-Compatible' content='IE=edge'><style>.adminticket{border:2px solid} td{border:1px solid grey;} th{border:1px solid grey;} span{float:left;width:150px;}</style></head>"
 	dat += "<div style='min-height:100px'>"
 	dat += "<span>Time Search Range:</span> <a href='?src=[UID()];start_time=1'>[gameTimestamp(wtime = time_from)]</a>"
@@ -184,13 +187,12 @@ if(!result || result.ckey != __ckey){\
 
 		dat +="<tr style='[trStyle]'><td style='[tdStyleTime]'>[time]</td><td style='[tdStyleType]background: [get_logtype_color(L.log_type)]'>[L.log_type]</td>\
 		<td style='[tdStyleWho]'>[L.who]</td><td style='background: [get_logtype_color(L.log_type)];'>[L.what]</td>\
-		<td style='[tdStyleWho]'>[L.target]</td><td style='[tdStyleWhere]'>[ADMIN_COORDJMP(L.where)]</td></tr>"
-
+		<td style='[tdStyleWho]'>[L.target]</td><td style='[tdStyleWhere]'>[L.where]</td></tr>"
 	dat += "</table>"
 	dat += "</div>"
 
 	var/datum/browser/popup = new(user, "Log Viewer", "Log Viewer", 1500, 600)
-	popup.set_content(dat)
+	popup.set_content(dat.Join())
 	popup.open()
 
 /datum/log_viewer/Topic(href, href_list)
@@ -219,6 +221,19 @@ if(!result || result.ckey != __ckey){\
 		return
 	if(href_list["search"])
 		search(usr)
+		var/records_len = length(log_records)
+		if(records_len > RECORD_WARN_LIMIT)
+			var/datum/log_record/last_record = log_records[RECORD_WARN_LIMIT]
+			var/last_time = gameTimestamp(wtime = last_record.raw_time - 9.99)
+			var/answer = alert(usr, "More than [RECORD_WARN_LIMIT] records were found. continuing will take a long time. This won't cause much lag for the server. Time at the [RECORD_WARN_LIMIT]th record '[last_time]'", "Warning", "Continue", "Limit to [RECORD_WARN_LIMIT]", "Cancel")
+			if(answer == "Limit to [RECORD_WARN_LIMIT]")
+				log_records.Cut(RECORD_WARN_LIMIT)
+			else if(answer == "Cancel")
+				log_records.Cut()
+			else
+				if(records_len > RECORD_HARD_LIMIT)
+					to_chat(usr, "<span class='warning'>Record limit reached. Limiting to [RECORD_HARD_LIMIT].</span>")
+					log_records.Cut(RECORD_HARD_LIMIT)
 		show_ui(usr)
 		return
 	if(href_list["clear_all"])
@@ -300,3 +315,5 @@ if(!result || result.ckey != __ckey){\
 	return get_display_name(M)
 
 #undef UPDATE_CKEY_MOB
+#undef RECORD_WARN_LIMIT
+#undef RECORD_HARD_LIMIT

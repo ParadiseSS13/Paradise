@@ -54,8 +54,6 @@
 	var/eggs_hatched = 0 // num of hatch events completed
 	var/awaymission_checked = FALSE
 	var/awaymission_infection = FALSE // TRUE if infection occurred inside gateway
-	var/list/types_basic = list(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray)
-	var/list/types_adv = list(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green)
 
 
 /obj/item/organ/internal/body_egg/terror_eggs/on_life()
@@ -104,12 +102,16 @@
 	var/infection_completed = FALSE
 	var/obj/structure/spider/spiderling/terror_spiderling/S = new(get_turf(owner))
 	switch(eggs_hatched)
-		if(0) // First spiderling
-			S.grow_as = pick(types_basic)
-		if(1) // Second
-			S.grow_as = pick(types_adv)
-		if(2) // Last
-			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/princess
+		if(0) // 1st spiderling
+			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/gray
+		if(1) // 2nd
+			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/red
+		if(2) // 3rd
+			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/brown
+		if(3) // 4th
+			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/green
+		if(4) // 5th
+			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/green
 			infection_completed = TRUE
 	S.immediate_ventcrawl = TRUE
 	eggs_hatched++

@@ -97,8 +97,8 @@
 		return FALSE
 	//Flies right over the chasm
 	if(isliving(AM))
-		var/mob/M = AM
-		if(M.flying)
+		var/mob/living/M = AM
+		if(M.flying || M.floating)
 			return FALSE
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM

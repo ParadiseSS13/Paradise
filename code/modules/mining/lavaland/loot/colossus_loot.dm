@@ -16,95 +16,6 @@
 	..()
 	new /obj/item/crusher_trophy/blaster_tubes(src)
 
-
-//Black Box
-
-/obj/machinery/smartfridge/black_box
-	name = "black box"
-	desc = "A completely indestructible chunk of crystal, rumoured to predate the start of this universe. It looks like you could store things inside it."
-	icon = 'icons/obj/lavaland/artefacts.dmi'
-	icon_state = "blackbox"
-	luminosity = 8
-	max_n_of_items = INFINITY
-	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	pixel_y = -4
-	use_power = NO_POWER_USE
-	var/memory_saved = FALSE
-	var/list/stored_items = list()
-	var/static/list/blacklist = typecacheof(list(/obj/item/spellbook))
-
-/obj/machinery/smartfridge/black_box/update_icon()
-	return
-
-/obj/machinery/smartfridge/black_box/accept_check(obj/item/O)
-	if(!istype(O))
-		return FALSE
-	if(is_type_in_typecache(O, blacklist))
-		return FALSE
-	return TRUE
-
-/obj/machinery/smartfridge/black_box/New()
-	var/static/obj/machinery/smartfridge/black_box/current
-	if(current && current != src)
-		qdel(src, force=TRUE)
-		return
-	current = src
-	ReadMemory()
-	. = ..()
-
-/obj/machinery/smartfridge/black_box/process()
-	..()
-	if(!memory_saved && SSticker.current_state == GAME_STATE_FINISHED)
-		WriteMemory()
-
-/obj/machinery/smartfridge/black_box/proc/WriteMemory()
-	var/savefile/S = new /savefile("data/npc_saves/Blackbox.sav")
-	stored_items = list()
-
-	for(var/obj/O in (contents-component_parts))
-		stored_items += O.type
-
-	S["stored_items"]				<< stored_items
-	memory_saved = TRUE
-
-/obj/machinery/smartfridge/black_box/proc/ReadMemory()
-	var/savefile/S = new /savefile("data/npc_saves/Blackbox.sav")
-	S["stored_items"] 		>> stored_items
-
-	if(isnull(stored_items))
-		stored_items = list()
-
-	for(var/item in stored_items)
-		create_item(item)
-
-//in it's own proc to avoid issues with items that nolonger exist in the code base.
-//try catch doesn't always prevent byond runtimes from halting a proc,
-/obj/machinery/smartfridge/black_box/proc/create_item(item_type)
-	new item_type(src)
-
-/obj/machinery/smartfridge/black_box/Destroy(force = FALSE)
-	if(force)
-		for(var/thing in src)
-			qdel(thing)
-		return ..()
-	else
-		return QDEL_HINT_LETMELIVE
-
-
-//No taking it apart
-
-/obj/machinery/smartfridge/black_box/default_deconstruction_screwdriver()
-	return
-
-/obj/machinery/smartfridge/black_box/exchange_parts()
-	return
-
-/obj/machinery/smartfridge/black_box/default_unfasten_wrench()
-	return
-
-/obj/machinery/smartfridge/black_box/default_deconstruction_crowbar()
-	return
-
 ///Anomolous Crystal///
 
 /obj/machinery/anomalous_crystal
@@ -166,7 +77,8 @@
 /obj/machinery/anomalous_crystal/ex_act()
 	ActivationReaction(null,"bomb")
 
-/obj/machinery/anomalous_crystal/random/New()//Just a random crysal spawner for loot
+/obj/machinery/anomalous_crystal/random/New() //Just a random crysal spawner for loot
+	. = ..()
 	var/random_crystal = pick(typesof(/obj/machinery/anomalous_crystal) - /obj/machinery/anomalous_crystal/random - /obj/machinery/anomalous_crystal)
 	new random_crystal(loc)
 	qdel(src)
@@ -349,7 +261,7 @@
 	harm_intent_damage = 1
 	friendly = "mends"
 	density = 0
-	flying = 1
+	flying = TRUE
 	obj_damage = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	ventcrawler = 2
@@ -393,7 +305,8 @@
 	activation_method = "touch"
 	cooldown_add = 50
 	activation_sound = 'sound/magic/timeparadox2.ogg'
-	var/list/banned_items_typecache = list(/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear, /obj/item/projectile, /obj/item/spellbook)
+	var/list/banned_items_typecache = list(/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear,
+										   /obj/item/projectile, /obj/item/spellbook, /obj/item/clothing/mask/facehugger, /obj/item/contractor_uplink)
 
 /obj/machinery/anomalous_crystal/refresher/New()
 	..()

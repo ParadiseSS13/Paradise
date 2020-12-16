@@ -66,6 +66,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 	..()
 	light()
 
+/obj/item/clothing/mask/cigarette/catch_fire()
+	if(!lit)
+		light("<span class='warning'>The [name] is lit by the flames!</span>")
+
 /obj/item/clothing/mask/cigarette/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(I.tool_use_check(user, 0)) //Don't need to flash eyes because you are a badass

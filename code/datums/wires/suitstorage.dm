@@ -1,24 +1,13 @@
 /datum/wires/suitstorage
 	holder_type = /obj/machinery/suit_storage_unit
 	wire_count = 8
+	proper_name = "Suit storage unit"
+	window_x = 350
+	window_y = 85
 
-#define SSU_WIRE_ID 1
-#define SSU_WIRE_SHOCK 2
-#define SSU_WIRE_SAFETY 4
-#define SSU_WIRE_UV 8
-
-
-/datum/wires/suitstorage/GetWireName(index)
-	switch(index)
-		if(SSU_WIRE_ID)
-			return "ID lock"
-		if(SSU_WIRE_SHOCK)
-			return "Shock wire"
-		if(SSU_WIRE_SAFETY)
-			return "Safety wire"
-		if(SSU_WIRE_UV)
-			return "UV wire"
-
+/datum/wires/suitstorage/New(atom/_holder)
+	wires = list(WIRE_IDSCAN, WIRE_ELECTRIFY, WIRE_SAFETY, WIRE_SSU_UV)
+	return ..()
 
 /datum/wires/suitstorage/get_status()
 	. = ..()
@@ -28,42 +17,46 @@
 	. += "The green light is [A.shocked ? "on" : "off"]."
 	. += "The UV display shows [A.uv_super ? "15 nm" : "185 nm"]."
 
-datum/wires/suitstorage/CanUse()
+/datum/wires/suitstorage/interactable(mob/user)
 	var/obj/machinery/suit_storage_unit/A = holder
 	if(A.panel_open)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
-/datum/wires/suitstorage/UpdateCut(index, mended)
+/datum/wires/suitstorage/on_cut(wire, mend)
 	var/obj/machinery/suit_storage_unit/A = holder
-	switch(index)
-		if(SSU_WIRE_ID)
-			A.secure = mended
-		if(SSU_WIRE_SAFETY)
-			A.safeties = mended
-		if(SSU_WIRE_SHOCK)
-			A.shocked = !mended
+	switch(wire)
+		if(WIRE_IDSCAN)
+			A.secure = mend
+
+		if(WIRE_SAFETY)
+			A.safeties = mend
+
+		if(WIRE_ELECTRIFY)
+			A.shocked = !mend
 			A.shock(usr, 50)
-		if(SSU_WIRE_UV)
-			A.uv_super = !mended
+
+		if(WIRE_SSU_UV)
+			A.uv_super = !mend
 	..()
 
-datum/wires/suitstorage/UpdatePulsed(index)
+/datum/wires/suitstorage/on_pulse(wire)
 	var/obj/machinery/suit_storage_unit/A = holder
-	if(IsIndexCut(index))
+	if(is_cut(wire))
 		return
-	switch(index)
-		if(SSU_WIRE_ID)
+	switch(wire)
+		if(WIRE_IDSCAN)
 			A.secure = !A.secure
-		if(SSU_WIRE_SAFETY)
+
+		if(WIRE_SAFETY)
 			A.safeties = !A.safeties
-		if(SSU_WIRE_SHOCK)
+
+		if(WIRE_ELECTRIFY)
 			A.shocked = !A.shocked
 			if(A.shocked)
 				A.shock(usr, 100)
-				spawn(50)
-					if(A && !IsIndexCut(index))
-						A.shocked = FALSE
-		if(SSU_WIRE_UV)
+				addtimer(CALLBACK(A, /obj/machinery/suit_storage_unit/.proc/check_electrified_callback), 5 SECONDS)
+
+		if(WIRE_SSU_UV)
 			A.uv_super = !A.uv_super
 	..()

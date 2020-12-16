@@ -6,13 +6,12 @@
 	resistance_flags = INDESTRUCTIBLE
 	flags = NODECONSTRUCT
 
-/obj/machinery/computer/shuttle/ert/Topic(href, href_list)
-	if(href_list["move"])
+/obj/machinery/computer/shuttle/ert/can_call_shuttle(mob/user, action)
+	if(action == "move")
 		var/authorized_roles = list(SPECIAL_ROLE_ERT, SPECIAL_ROLE_DEATHSQUAD)
-		if(!((usr.mind?.assigned_role in authorized_roles) || is_admin(usr)))
-			message_admins("Potential ERT shuttle hijack, ERT shuttle moved by unauthorized user: [key_name_admin(usr)]")
-	..()
-
+		if(!((user.mind?.assigned_role in authorized_roles) || is_admin(user)))
+			message_admins("Potential ERT shuttle hijack, ERT shuttle moved by unauthorized user: [key_name_admin(user)]")
+	return TRUE
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/ert
 	name = "specops navigation computer"

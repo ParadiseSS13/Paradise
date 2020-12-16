@@ -221,6 +221,7 @@
 	projectile_type = /obj/item/projectile/tentacle
 	caliber = "tentacle"
 	icon_state = "tentacle_end"
+	muzzle_flash_effect = null
 	var/obj/item/gun/magic/tentacle/gun //the item that shot it
 
 /obj/item/ammo_casing/magic/tentacle/New(obj/item/gun/magic/tentacle/tentacle_gun)

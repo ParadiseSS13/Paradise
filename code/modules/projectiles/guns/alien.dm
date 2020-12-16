@@ -1,58 +1,30 @@
-/obj/item/gun/projectile/automatic/spikethrower
+/obj/item/gun/energy/spikethrower //It's like the cyborg LMG, uses energy to make spikes
 	name = "\improper Vox spike thrower"
 	desc = "A vicious alien projectile weapon. Parts of it quiver gelatinously, as though the thing is insectile and alive."
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "spikethrower"
 	item_state = "spikethrower"
 	w_class = WEIGHT_CLASS_SMALL
 	fire_sound_text = "a strange noise"
-	mag_type = /obj/item/ammo_box/magazine/internal/spikethrower
-	burst_size = 2
-	fire_delay = 3
 	can_suppress = 0
-	var/charge_tick = 0
-	var/charge_delay = 15
+	burst_size = 2 // burst has to be stored here
+	can_charge = FALSE
+	selfcharge = TRUE
+	charge_delay = 10
 	restricted_species = list(/datum/species/vox)
+	ammo_type = list(/obj/item/ammo_casing/energy/spike)
 
-/obj/item/gun/projectile/automatic/spikethrower/New()
-	..()
-	START_PROCESSING(SSobj, src)
-
-/obj/item/gun/projectile/automatic/spikethrower/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
-
-/obj/item/gun/projectile/automatic/spikethrower/update_icon()
+/obj/item/gun/energy/spikethrower/emp_act()
 	return
 
-/obj/item/gun/projectile/automatic/spikethrower/process()
-	charge_tick++
-	if(charge_tick < charge_delay || !magazine)
-		return
-	charge_tick = 0
-	var/obj/item/ammo_casing/caseless/spike/S = new(get_turf(src))
-	magazine.give_round(S)
-	return 1
-
-/obj/item/gun/projectile/automatic/spikethrower/attack_self()
-	return
-
-/obj/item/gun/projectile/automatic/spikethrower/process_chamber(eject_casing = 0, empty_chamber = 1)
-	..()
-
-/obj/item/ammo_box/magazine/internal/spikethrower
-	name = "\improper Vox spikethrower internal magazine"
-	ammo_type = /obj/item/ammo_casing/caseless/spike
-	caliber = "spike"
-	max_ammo = 10
-
-/obj/item/ammo_casing/caseless/spike
+/obj/item/ammo_casing/energy/spike
 	name = "alloy spike"
 	desc = "A broadhead spike made out of a weird silvery metal."
 	projectile_type = /obj/item/projectile/bullet/spike
-	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
-	caliber = "spike"
-	icon_state = "bolt"
+	muzzle_flash_effect = null
+	e_cost = 100
+	delay = 3 //and delay has to be stored here on energy guns
+	select_name = "spike"
 	fire_sound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/projectile/bullet/spike

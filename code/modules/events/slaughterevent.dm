@@ -3,7 +3,7 @@
 
 /datum/event/spawn_slaughter/proc/get_slaughter(var/end_if_fail = 0)
 	spawn()
-		var/list/candidates = pollCandidates("Do you want to play as a slaughter demon?", ROLE_DEMON, 1)
+		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a slaughter demon?", ROLE_DEMON, TRUE, source = /mob/living/simple_animal/slaughter)
 		if(!candidates.len)
 			key_of_slaughter = null
 			return kill()

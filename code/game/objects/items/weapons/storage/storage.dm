@@ -12,6 +12,7 @@
 	var/silent = FALSE // No message on putting items in
 	var/list/can_hold = new/list() //List of objects which this item can store (if set, it can't store anything else)
 	var/list/cant_hold = new/list() //List of objects which this item can't store (in effect only if can_hold isn't set)
+	var/empty = FALSE // Will this spawn as an empty box
 	var/max_w_class = WEIGHT_CLASS_SMALL //Max size of objects that this object can store (in effect only if can_hold isn't set)
 	var/max_combined_w_class = 14 //The sum of the w_classes of all the items in this storage item.
 	var/storage_slots = 7 //The number of storage slots in this container.
@@ -23,6 +24,12 @@
 	var/allow_quick_gather	//Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.
 	var/pickup_all_on_tile = TRUE  //FALSE = pick one at a time, TRUE = pick all on tile
 	var/use_sound = "rustle"	//sound played when used. null for no sound.
+	var/list/active_users = list() // list of ckey(user.key), who is viewing the inventory?
+
+	/// What kind of [/obj/item/stack] can this be folded into. (e.g. Boxes and cardboard)
+	var/foldable = null
+	/// How much of the stack item do you get.
+	var/foldable_amt = 0
 
 /obj/item/storage/MouseDrop(obj/over_object)
 	if(ishuman(usr)) //so monkeys can take off their backpacks -- Urist
@@ -32,7 +39,6 @@
 			return
 
 		if(over_object == M && Adjacent(M)) // this must come before the screen objects only block
-			orient2hud(M)          // dunno why it wasn't before
 			if(M.s_active)
 				M.s_active.close(M)
 			show_to(M)
@@ -83,12 +89,11 @@
 
 /obj/item/storage/AltClick(mob/user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
-		orient2hud(user)
-		if(user.s_active)
-			user.s_active.close(user)
 		show_to(user)
 		playsound(loc, "rustle", 50, TRUE, -5)
 		add_fingerprint(user)
+	else if(isobserver(user))
+		show_to(user)
 	return ..()
 
 /obj/item/storage/proc/return_inv()
@@ -113,6 +118,7 @@
 		for(var/obj/item/I in src)
 			if(I.on_found(user))
 				return
+	orient2hud(user)  // this only needs to happen to make .contents show properly as screen objects.
 	if(user.s_active)
 		user.s_active.hide_from(user)
 	user.client.screen -= boxes
@@ -122,6 +128,9 @@
 	user.client.screen += closer
 	user.client.screen += contents
 	user.s_active = src
+	if(user.key)
+		active_users[ckey(user.key)] = TRUE
+	return
 
 /obj/item/storage/proc/hide_from(mob/user)
 	if(!user.client)
@@ -133,11 +142,18 @@
 	if(user.s_active == src)
 		user.s_active = null
 
+/obj/item/storage/proc/hide_from_all()
+	for(var/K in active_users)
+		var/client/C = get_client_by_ckey(K)
+		if(C)
+			var/mob/M = C.mob
+			if(M)
+				hide_from(M)
+
+
 /obj/item/storage/proc/open(mob/user)
 	if(use_sound)
 		playsound(loc, use_sound, 50, TRUE, -5)
-
-	orient2hud(user)
 	if(user.s_active)
 		user.s_active.close(user)
 	show_to(user)
@@ -415,6 +431,12 @@
 				close(M)
 	add_fingerprint(user)
 
+/obj/item/storage/attack_ghost(mob/user)
+	if(isobserver(user))
+		// Revenants don't get to play with the toys.
+		show_to(user)
+	return ..()
+
 /obj/item/storage/verb/toggle_gathering_mode()
 	set name = "Switch Gathering Method"
 	set category = "Object"
@@ -433,8 +455,11 @@
 	if((!ishuman(usr) && (loc != usr)) || usr.stat || usr.restrained())
 		return
 
+	drop_inventory(usr)
+
+/obj/item/storage/proc/drop_inventory(user)
 	var/turf/T = get_turf(src)
-	hide_from(usr)
+	hide_from(user)
 	for(var/obj/item/I in contents)
 		remove_from_storage(I, T)
 		CHECK_TICK
@@ -493,10 +518,33 @@
 		O.hear_message(M, msg)
 
 /obj/item/storage/attack_self(mob/user)
-	//Clicking on itself will empty it, if it has the verb to do that.
-	if(user.is_in_active_hand(src))
-		if(verbs.Find(/obj/item/storage/verb/quick_empty))
-			quick_empty()
+	//Clicking on itself will empty it, if allow_quick_empty is TRUE
+	if(allow_quick_empty && user.is_in_active_hand(src))
+		drop_inventory(user)
+
+	else if(foldable)
+		fold(user)
+
+/obj/item/storage/proc/fold(mob/user)
+	if(length(contents))
+		to_chat(user, "<span class='warning'>You can't fold this [name] with items still inside!</span>")
+		return
+	if(!ispath(foldable))
+		return
+
+	var/found = FALSE
+	for(var/mob/M in range(1))
+		if(M.s_active == src) // Close any open UI windows first
+			close(M)
+		if(M == user)
+			found = TRUE
+	if(!found)	// User is too far away
+		return
+
+	to_chat(user, "<span class='notice'>You fold [src] flat.</span>")
+	var/obj/item/stack/I = new foldable(get_turf(src), foldable_amt)
+	user.put_in_hands(I)
+	qdel(src)
 
 //Returns the storage depth of an atom. This is the number of storage items the atom is contained in before reaching toplevel (the area).
 //Returns -1 if the atom was not found on container.

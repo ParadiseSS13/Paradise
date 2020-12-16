@@ -34,16 +34,15 @@
 /obj/item/reagent_containers/food/snacks/proc/On_Consume(mob/M, mob/user)
 	if(!user)
 		return
-	spawn(0)
-		if(!reagents.total_volume)
-			if(M == user)
-				to_chat(user, "<span class='notice'>You finish eating \the [src].</span>")
-			user.visible_message("<span class='notice'>[M] finishes eating \the [src].</span>")
-			user.unEquip(src)	//so icons update :[
-			Post_Consume(M)
-			var/obj/item/trash_item = generate_trash(usr)
-			usr.put_in_hands(trash_item)
-			qdel(src)
+	if(!reagents.total_volume)
+		if(M == user)
+			to_chat(user, "<span class='notice'>You finish eating \the [src].</span>")
+		user.visible_message("<span class='notice'>[M] finishes eating \the [src].</span>")
+		user.unEquip(src)	//so icons update :[
+		Post_Consume(M)
+		var/obj/item/trash_item = generate_trash(usr)
+		usr.put_in_hands(trash_item)
+		qdel(src)
 	return
 
 /obj/item/reagent_containers/food/snacks/proc/Post_Consume(mob/living/M)
@@ -84,9 +83,7 @@
 
 /obj/item/reagent_containers/food/snacks/attackby(obj/item/W, mob/user, params)
 	if(istype(W,/obj/item/pen))
-		var/n_name = sanitize(copytext(input(usr, "What would you like to name this dish?", "Food Renaming", null)  as text, 1, MAX_NAME_LEN))
-		if((loc == usr && usr.stat == 0))
-			name = "[n_name]"
+		rename_interactive(user, W, use_prefix = FALSE, prompt = "What would you like to name this dish?")
 		return
 	if(istype(W,/obj/item/storage))
 		..() // -> item/attackby(, params)

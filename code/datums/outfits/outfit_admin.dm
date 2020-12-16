@@ -222,10 +222,10 @@
 	name = "NT Undercover Operative"
 	// Disguised NT special forces, sent to quietly eliminate or keep tabs on people in high positions (e.g: captain)
 
-	uniform = /obj/item/clothing/under/color/black
+	uniform = /obj/item/clothing/under/color/random
 	back = /obj/item/storage/backpack
 	belt = /obj/item/storage/belt/utility/full/multitool
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/color/yellow
 	shoes = /obj/item/clothing/shoes/chameleon/noslip
 	l_ear = /obj/item/radio/headset/centcom
 	id = /obj/item/card/id
@@ -242,7 +242,7 @@
 		/obj/item/organ/internal/cyberimp/eyes/shield,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/eyes/xray,
-		/obj/item/organ/internal/cyberimp/brain/anti_stun,
+		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
 		/obj/item/organ/internal/cyberimp/arm/combat/centcom
 	)

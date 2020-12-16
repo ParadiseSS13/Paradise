@@ -48,7 +48,13 @@
 	var/list/atom_colours	 //used to store the different colors on an atom
 						//its inherent color, the colored paint applied on it, special color effect etc...
 
+	/// Last name used to calculate a color for the chatmessage overlays. Used for caching.
+	var/chat_color_name
+	/// Last color calculated for the the chatmessage overlays. Used for caching.
+	var/chat_color
+
 /atom/New(loc, ...)
+	SHOULD_CALL_PARENT(TRUE)
 	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
 		GLOB._preloader.load(src)
 	. = ..()
@@ -76,6 +82,7 @@
 // /turf/open/space/Initialize
 
 /atom/proc/Initialize(mapload, ...)
+	SHOULD_CALL_PARENT(TRUE)
 	if(initialized)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
@@ -231,7 +238,7 @@
 /atom/proc/on_reagent_change()
 	return
 
-/atom/proc/Bumped(AM as mob|obj)
+/atom/proc/Bumped(atom/movable/AM)
 	return
 
 /// Convenience proc to see if a container is open for chemistry handling
@@ -257,7 +264,7 @@
 /atom/proc/CheckExit()
 	return TRUE
 
-/atom/proc/HasProximity(atom/movable/AM as mob|obj)
+/atom/proc/HasProximity(atom/movable/AM)
 	return
 
 /atom/proc/emp_act(severity)
@@ -415,8 +422,15 @@
 	if(AM && isturf(AM.loc))
 		step(AM, turn(AM.dir, 180))
 
+/*
+ * Base proc, terribly named but it's all over the code so who cares I guess right?
+ *
+ * Returns FALSE by default, if a child returns TRUE it is implied that the atom has in
+ * some way done a spooky thing. Current usage is so that Boo knows if it needs to cool
+ * down or not, but this could be expanded upon if you were a bad enough dude.
+ */
 /atom/proc/get_spooked()
-	return
+	return FALSE
 
 /**
 	Base proc, intended to be overriden.
@@ -847,6 +861,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		if(M.client)
 			speech_bubble_hearers += M.client
 
+		if((M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && M.can_hear())
+			M.create_chat_message(src, message)
+
 	if(length(speech_bubble_hearers))
 		var/image/I = image('icons/mob/talk.dmi', src, "[bubble_icon][say_test(message)]", FLY_LAYER)
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
@@ -941,3 +958,70 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		else if(C)
 			color = C
 			return
+
+
+/** Call this when you want to present a renaming prompt to the user.
+
+    It's a simple proc, but handles annoying edge cases such as forgetting to add a "cancel" button,
+	or being able to rename stuff remotely.
+
+	Arguments:
+	* user - the renamer.
+	* implement - the tool doing the renaming (usually, a pen).
+	* use_prefix - whether the new name should follow the format of "thing - user-given label" or
+		if we allow to change the name completely arbitrarily.
+	* actually_rename - whether we want to really change the `src.name`, or if we want to do everything *except* that.
+	* prompt - a custom "what do you want rename this thing to be?" prompt shown in the inpit box.
+
+	Returns: Either null if the renaming was aborted, or the user-provided sanitized string.
+ **/
+/atom/proc/rename_interactive(mob/user, obj/implement = null, use_prefix = TRUE,
+		actually_rename = TRUE, prompt = null)
+	// Sanity check that the user can, indeed, rename the thing.
+	// This, sadly, means you can't rename things with a telekinetic pen, but that's
+	// too much of a hassle to make work nicely.
+	if((implement && implement.loc != user) || !in_range(src, user) || user.incapacitated(ignore_lying = TRUE))
+		return null
+
+	var/prefix = ""
+	if(use_prefix)
+		prefix = "[initial(name)] - "
+
+	var/default_value
+	if(!use_prefix)
+		default_value = name
+	else if(findtext(name, prefix) != 0)
+		default_value = copytext(name, length(prefix) + 1)
+	else
+		// Either the thing has a non-conforming name due to being set in the map
+		// OR (much more likely) the thing is unlabeled yet.
+		default_value = ""
+	if(!prompt)
+		prompt = "What would you like the label on [src] to be?"
+
+	var/t = input(user, prompt, "Renaming [src]", default_value)  as text | null
+	if(isnull(t))
+		// user pressed Cancel
+		return null
+
+	// Things could have changed between when `input` is called and when it returns.
+	if(!user)
+		return null
+	else if(implement && implement.loc != user)
+		to_chat(user, "<span class='warning'>You no longer have the pen to rename [src].</span>")
+		return null
+	else if(!in_range(src, user))
+		to_chat(user, "<span class='warning'>You cannot rename [src] from here.</span>")
+		return null
+	else if (user.incapacitated(ignore_lying = TRUE))
+		to_chat(user, "<span class='warning'>You cannot rename [src] in your current state.</span>")
+		return null
+
+
+	t = sanitize(copytext(t, 1, MAX_NAME_LEN))
+	if(actually_rename)
+		if(t == "")
+			name = "[initial(name)]"
+		else
+			name = "[prefix][t]"
+	return t

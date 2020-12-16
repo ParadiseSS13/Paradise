@@ -12,6 +12,7 @@
 /obj/item/clothing/suit/bluetag
 	name = "blue laser tag armour"
 	desc = "Blue Pride, Station Wide."
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "bluetag"
 	item_state = "bluetag"
 	blood_overlay_type = "armor"
@@ -26,6 +27,7 @@
 /obj/item/clothing/suit/redtag
 	name = "red laser tag armour"
 	desc = "Pew pew pew."
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "redtag"
 	item_state = "redtag"
 	blood_overlay_type = "armor"
@@ -71,6 +73,7 @@
 /obj/item/clothing/suit/cyborg_suit
 	name = "cyborg suit"
 	desc = "Suit for a cyborg costume."
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "death"
 	item_state = "death"
 	flags = CONDUCT
@@ -309,6 +312,22 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
 
+/obj/item/clothing/suit/hooded/salmon_costume
+	name = "salmon suit"
+	desc = "A costume made from authentic salmon scales, it reeks!"
+	icon_state = "salmon"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	allowed = list(/obj/item/fish/salmon, /obj/item/fish_eggs/salmon)
+	hoodtype = /obj/item/clothing/head/hooded/salmon_hood
+
+/obj/item/clothing/head/hooded/salmon_hood
+	name = "salmon hood"
+	desc = "A hood attached to a salmon suit."
+	icon_state = "salmon"
+	body_parts_covered = HEAD
+	flags = BLOCKHAIR
+	flags_inv = HIDEEARS
+
 /obj/item/clothing/suit/hooded/bee_costume // It's Hip!
 	name = "bee costume"
 	desc = "Bee the true Queen!"
@@ -371,6 +390,7 @@
 /obj/item/clothing/suit/hooded/wintercoat/captain
 	name = "captain's winter coat"
 	icon_state = "wintercoat_captain"
+	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatcaptain"
 	armor = list("melee" = 25, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50)
 	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic)
@@ -382,6 +402,7 @@
 /obj/item/clothing/suit/hooded/wintercoat/security
 	name = "security winter coat"
 	icon_state = "wintercoat_sec"
+	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatsecurity"
 	armor = list("melee" = 15, "bullet" = 10, "laser" = 15, "energy" = 5, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic)
@@ -393,6 +414,7 @@
 /obj/item/clothing/suit/hooded/wintercoat/medical
 	name = "medical winter coat"
 	icon_state = "wintercoat_med"
+	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatmedical"
 	allowed = list(/obj/item/analyzer, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/telescopic)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 50, "rad" = 0, "fire" = 0, "acid" = 45)
@@ -404,6 +426,7 @@
 /obj/item/clothing/suit/hooded/wintercoat/science
 	name = "science winter coat"
 	icon_state = "wintercoat_sci"
+	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatscience"
 	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/telescopic)
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 0, rad = 0, fire = 0, acid = 0)
@@ -415,6 +438,7 @@
 /obj/item/clothing/suit/hooded/wintercoat/engineering
 	name = "engineering winter coat"
 	icon_state = "wintercoat_engi"
+	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatengineer"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 20, "fire" = 30, "acid" = 45)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/emergency_oxygen, /obj/item/t_scanner, /obj/item/rcd)
@@ -454,6 +478,7 @@
 /obj/item/clothing/suit/hooded/wintercoat/miner
 	name = "mining winter coat"
 	icon_state = "wintercoat_miner"
+	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatminer"
 	allowed = list(/obj/item/pickaxe, /obj/item/flashlight, /obj/item/tank/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
@@ -767,6 +792,7 @@
 /obj/item/clothing/suit/jacket/pilot
 	name = "security bomber jacket"
 	desc = "A stylish and worn-in armoured black bomber jacket emblazoned with the NT Security crest on the left breast. Looks rugged."
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "bombersec"
 	item_state = "bombersec"
 	ignore_suitadjust = 0
@@ -788,6 +814,22 @@
 	actions_types = list()
 	adjust_flavour = null
 	resistance_flags = NONE
+
+/obj/item/clothing/suit/jacket/motojacket
+	name = "leather motorcycle jacket"
+	desc = "A vintage classic, loved by rockers, rebels, and punks alike."
+	icon_state = "motojacket_open"
+	item_state = "motojacket_open"
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
+	actions_types = list(/datum/action/item_action/zipper)
+	adjust_flavour = "unzip"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/species/grey/suit.dmi'
+		)
 
 /obj/item/clothing/suit/jacket/leather/overcoat
 	name = "leather overcoat"
@@ -825,6 +867,7 @@
 /obj/item/clothing/suit/toggle/owlwings
 	name = "owl cloak"
 	desc = "A soft brown cloak made of synthetic feathers. Soft to the touch, stylish, and a 2 meter wing span that will drive the ladies mad."
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "owl_wings"
 	item_state = "owl_wings"
 	body_parts_covered = ARMS
@@ -871,6 +914,7 @@
 /obj/item/clothing/suit/advanced_protective_suit
 	name = "Advanced Protective Suit"
 	desc = "An incredibly advanced and complex suit; it has so many buttons and dials as to be incomprehensible."
+	w_class = WEIGHT_CLASS_BULKY
 	icon_state = "bomb"
 	item_state = "bomb"
 	actions_types = list(/datum/action/item_action/toggle)
@@ -924,6 +968,7 @@
 //Syndicate Chaplain Robe (WOLOLO!)
 /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe
 	description_antag = "This robe is made of reinforced fibers, granting it superior protection. The robes also wirelessly generate power for the neurotransmitter in the linked missionary staff while being worn."
+	w_class = WEIGHT_CLASS_NORMAL
 	armor = list(melee = 10, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 15, fire = 30, acid = 30)
 	var/obj/item/nullrod/missionary_staff/linked_staff = null
 
