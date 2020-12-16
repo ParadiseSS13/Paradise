@@ -67,8 +67,8 @@
 
 	switch(page)
 		if(HUB_PAGE_CONTRACTS)
-			var/list/contracts = list()
-			data["contracts"] = contracts
+			var/list/contracts_out = list()
+			data["contracts"] = contracts_out
 			for(var/c in contracts)
 				var/datum/syndicate_contract/C = c
 				if(C.status == CONTRACT_STATUS_INVALID)
@@ -105,7 +105,7 @@
 						reward_tc = C.reward_tc[C.chosen_difficulty],
 						reward_credits = C.reward_credits,
 					)
-				contracts += list(contract_data)
+				contracts_out += list(contract_data)
 
 			data["can_extract"] = current_contract?.contract.can_start_extraction_process(ui_host(), usr) || FALSE
 		if(HUB_PAGE_SHOP)

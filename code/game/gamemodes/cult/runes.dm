@@ -122,7 +122,7 @@ To draw a rune, use a ritual dagger.
 
 /obj/effect/rune/cult_conceal() //for concealing spell
 	visible_message("<span class='danger'>[src] fades away.</span>")
-	invisibility = INVISIBILITY_OBSERVER
+	invisibility = INVISIBILITY_HIDDEN_RUNES
 	alpha = 100 //To help ghosts distinguish hidden runes
 
 /obj/effect/rune/cult_reveal() //for revealing spell
@@ -142,7 +142,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	//This proc determines if the rune can be invoked at the time. If there are multiple required cultists, it will find all nearby cultists.
 	var/list/invokers = list() //people eligible to invoke the rune
 	var/list/chanters = list() //people who will actually chant the rune when passed to invoke()
-	if(invisibility == INVISIBILITY_OBSERVER)//hidden rune
+	if(invisibility == INVISIBILITY_HIDDEN_RUNES)//hidden rune
 		return
 	// Get the user
 	if(user)
@@ -211,7 +211,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/proc/fail_invoke()
 	//This proc contains the effects of a rune if it is not invoked correctly, through either invalid wording or not enough cultists. By default, it's just a basic fizzle.
-	visible_message("<span class='warning'>The markings pulse with a small flash of red light, then fall dark.</span>")
+	if(!invisibility) // No visible messages if not visible
+		visible_message("<span class='warning'>The markings pulse with a small flash of red light, then fall dark.</span>")
 	animate(src, color = rgb(255, 0, 0), time = 0)
 	animate(src, color = rune_blood_color, time = 5)
 
@@ -634,7 +635,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 //Rite of the Corporeal Shield: When invoked, becomes solid and cannot be passed. Invoke again to undo.
 /obj/effect/rune/wall
 	cultist_name = "Barrier"
-	cultist_desc = "when invoked, makes a temporary invisible wall to block passage. Can be destroyed by brute force. Can be invoked again to reverse this."
+	cultist_desc = "when invoked makes a temporary wall to block passage. Can be destroyed by brute force. Can be invoked again to reverse this."
 	invocation = "Khari'd! Eske'te tannin!"
 	icon_state = "barrier"
 	///The barrier summoned by the rune when invoked. Tracked as a variable to prevent refreshing the barrier's integrity. shieldgen.dm
@@ -643,6 +644,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/wall/Initialize(mapload)
 	. = ..()
 	GLOB.wall_runes += src
+	B = new /obj/machinery/shield/cult/barrier(loc)
+	B.parent_rune = src
 
 /obj/effect/rune/wall/Destroy()
 	GLOB.wall_runes -= src
@@ -653,13 +656,16 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/wall/invoke(list/invokers)
 	var/mob/living/user = invokers[1]
 	..()
-	if(!B)
-		B = new /obj/machinery/shield/cult/barrier(loc)
-		B.parent_rune = src
-	B.Toggle()
+	var/amount = 1
+	if(B.Toggle()) // Toggling on
+		for(var/obj/effect/rune/wall/rune in orange(1, src)) // Chaining barriers
+			if(!rune.B.density) // Barrier is currently invisible
+				amount++ // Count the invoke damage for each rune
+				rune.do_invoke_glow()
+				rune.B.Toggle()
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
-		C.cult_self_harm(2)
+		C.cult_self_harm(2 * amount)
 
 //Rite of Joined Souls: Summons a single cultist.
 /obj/effect/rune/summon

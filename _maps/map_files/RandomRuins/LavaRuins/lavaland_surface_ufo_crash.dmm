@@ -8,66 +8,66 @@
 "c" = (
 /obj/machinery/abductor/experiment,
 /turf/unsimulated/floor/abductor,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "d" = (
 /turf/simulated/wall/mineral/abductor,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "e" = (
 /turf/unsimulated/floor/abductor,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "g" = (
 /obj/machinery/abductor/pad,
 /turf/unsimulated/floor/abductor,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "h" = (
 /obj/item/hemostat/alien,
 /turf/unsimulated/floor/abductor,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "i" = (
 /obj/effect/mob_spawn/human/abductor,
 /turf/unsimulated/floor/abductor,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "j" = (
 /obj/structure/closet/abductor,
 /turf/unsimulated/floor/abductor,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "k" = (
 /obj/effect/baseturf_helper/lava_land/surface,
 /turf/unsimulated/floor/abductor,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "l" = (
 /obj/machinery/optable/abductor,
 /obj/item/cautery/alien,
 /turf/unsimulated/floor/abductor,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "m" = (
 /obj/structure/table/abductor,
 /obj/item/storage/box/alienhandcuffs,
 /turf/unsimulated/floor/abductor,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "n" = (
 /obj/item/scalpel/alien,
 /obj/item/surgical_drapes,
 /turf/unsimulated/floor/abductor,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "o" = (
 /obj/item/retractor/alien,
 /turf/unsimulated/floor/abductor,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "p" = (
 /obj/machinery/abductor/gland_dispenser,
 /turf/unsimulated/floor/abductor,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "q" = (
 /obj/structure/table/abductor,
 /obj/item/surgicaldrill/alien,
 /obj/item/circular_saw/alien,
 /turf/unsimulated/floor/abductor,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "r" = (
 /obj/structure/bed/abductor,
 /turf/unsimulated/floor/abductor,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 
 (1,1,1) = {"
 a

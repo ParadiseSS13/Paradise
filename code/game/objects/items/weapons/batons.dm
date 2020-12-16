@@ -98,6 +98,7 @@
   */
 /obj/item/melee/classic_baton/proc/on_silicon_stun(mob/living/silicon/target, mob/living/user)
 	target.flash_eyes(affect_silicon = TRUE)
+	target.Weaken(stun_time_silicon)
 
 /**
   * Called when a non-silicon has been stunned.
