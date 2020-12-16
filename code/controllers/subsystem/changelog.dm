@@ -197,7 +197,7 @@ SUBSYSTEM_DEF(changelog)
 
 		// Now we gather the data from the DB
 		var/datum/db_query/pr_meta = SSdbcore.NewQuery(
-			"SELECT author, DATE(date_merged) AS date FROM changelog WHERE pr_number = :prnum LIMIT 1",
+			"SELECT author, DATE_FORMAT(date_merged, '%Y-%m-%d at %T') AS date FROM changelog WHERE pr_number = :prnum LIMIT 1",
 			list("prnum" = pr_number)
 		)
 
