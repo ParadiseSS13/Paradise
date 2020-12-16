@@ -56,12 +56,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/space/firereset(obj/source)
 	return
 
-/area/space/readyalert()
-	return
-
-/area/space/partyalert()
-	return
-
 //These are shuttle areas, they must contain two areas in a subgroup if you want to move a shuttle from one
 //place to another. Look at escape shuttle for example.
 //All shuttles show now be under shuttle since we have smooth-wall code.
@@ -471,6 +465,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Syndicate Infiltrators"
 	icon_state = "syndie-elite"
 
+/area/syndicate_mothership/jail
+	name = "\improper Syndicate Jail"
+
 //EXTRA
 
 /area/asteroid					// -- TLE
@@ -696,6 +693,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 
 //Hallway
+
+/area/hallway
+	valid_territory = FALSE //too many areas with similar/same names, also not very interesting summon spots
 
 /area/hallway/primary/fore
 	name = "\improper Fore Primary Hallway"
@@ -929,6 +929,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/chapel
 	icon_state = "chapel"
 	ambientsounds = HOLY_SOUNDS
+	is_haunted = TRUE
 
 /area/chapel/main
 	name = "\improper Chapel"
@@ -1299,6 +1300,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Morgue"
 	icon_state = "morgue"
 	ambientsounds = SPOOKY_SOUNDS
+	is_haunted = TRUE
 
 /area/medical/chemistry
 	name = "\improper Chemistry"
@@ -1777,10 +1779,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/derelict/medical/morgue
 	name = "\improper Derelict Morgue"
 	icon_state = "morgue"
+	is_haunted = TRUE
 
 /area/derelict/medical/chapel
 	name = "\improper Derelict Chapel"
 	icon_state = "chapel"
+	is_haunted = TRUE
 
 /area/derelict/teleporter
 	name = "\improper Derelict Teleporter"

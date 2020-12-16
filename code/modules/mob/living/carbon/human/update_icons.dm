@@ -522,9 +522,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_inv_legcuffed()
 	update_inv_pockets()
 	update_inv_wear_pda()
+	update_misc_effects()
 	UpdateDamageIcon()
 	force_update_limbs()
 	update_tail_layer()
+	update_halo_layer()
 	overlays.Cut() // Force all overlays to regenerate
 	update_fire()
 	update_icons()
@@ -1257,12 +1259,25 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/proc/update_misc_effects()
 	remove_overlay(MISC_LAYER)
-
+	var/mutable_appearance/standing = mutable_appearance(layer = -MISC_LAYER)
+	if(length(stamp_marks.overlays))
+		standing.overlays += stamp_marks
 	//Begin appending miscellaneous effects.
 	if(eyes_shine())
-		overlays_standing[MISC_LAYER] = get_eye_shine() //Image layer is specified in get_eye_shine() proc as LIGHTING_LAYER + 1.
-
+		standing.overlays += get_eye_shine() //Image layer is specified in get_eye_shine() proc as LIGHTING_LAYER + 1.
+	overlays_standing[MISC_LAYER] = standing
 	apply_overlay(MISC_LAYER)
+
+/mob/living/carbon/human/proc/update_halo_layer()
+	remove_overlay(HALO_LAYER)
+
+	if(iscultist(src) && SSticker.mode.cult_ascendant)
+		var/istate = pick("halo1", "halo2", "halo3", "halo4", "halo5", "halo6")
+		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/32x64.dmi', istate, -HALO_LAYER)
+		overlays_standing[HALO_LAYER] = new_halo_overlay
+
+	apply_overlay(HALO_LAYER)
+
 
 /mob/living/carbon/human/admin_Freeze(client/admin, skip_overlays = TRUE, mech = null)
 	if(..())

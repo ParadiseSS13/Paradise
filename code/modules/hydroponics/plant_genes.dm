@@ -396,7 +396,10 @@
 /datum/plant_gene/trait/stinging/on_throw_impact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	if(isliving(target) && G.reagents && G.reagents.total_volume)
 		var/mob/living/L = target
-		if(L.reagents && L.can_inject(null, FALSE))
+		// It would be nice to inject the body part the original thrower aimed at,
+		// but we don't have this kind of information here. So pick something at random.
+		var/target_zone = pick("chest", "chest", "chest", "l_leg", "r_leg", "l_arm", "r_arm", "head")
+		if(L.reagents && L.can_inject(null, FALSE, target_zone))
 			var/injecting_amount = max(1, G.seed.potency*0.2) // Minimum of 1, max of 20
 			var/fraction = min(injecting_amount/G.reagents.total_volume, 1)
 			G.reagents.reaction(L, REAGENT_INGEST, fraction)

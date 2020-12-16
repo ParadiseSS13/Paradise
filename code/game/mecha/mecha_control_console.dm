@@ -14,15 +14,15 @@
 	return attack_hand(user)
 
 /obj/machinery/computer/mecha/attack_hand(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/computer/mecha/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/computer/mecha/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "MechaControlConsole", name, 420, 500, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/mecha/tgui_data(mob/user)
+/obj/machinery/computer/mecha/ui_data(mob/user)
 	var/list/data = list()
 	data["beacons"] = list()
 	var/list/trackerlist = list()
@@ -40,7 +40,7 @@
 	return data
 
 
-/obj/machinery/computer/mecha/tgui_act(action, params)
+/obj/machinery/computer/mecha/ui_act(action, params)
 	if(..())
 		return
 	switch(action)

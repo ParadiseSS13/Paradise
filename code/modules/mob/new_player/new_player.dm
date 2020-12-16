@@ -114,6 +114,10 @@
 
 /mob/new_player/Stat()
 	statpanel("Status")
+
+	..()
+
+	statpanel("Lobby")
 	if(client.statpanel=="Lobby" && SSticker)
 		if(SSticker.hide_mode)
 			stat("Game Mode:", "Secret")
@@ -140,10 +144,6 @@
 				totalPlayers++
 				if(player.ready)
 					totalPlayersReady++
-
-	..()
-
-	statpanel("Lobby")
 
 
 /mob/new_player/Topic(href, href_list[])
@@ -172,6 +172,9 @@
 		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 			return FALSE
+		if(client.version_blocked)
+			client.show_update_notice()
+			return FALSE
 		ready = !ready
 		new_player_panel_proc()
 
@@ -187,7 +190,9 @@
 		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 			return FALSE
-
+		if(client.version_blocked)
+			client.show_update_notice()
+			return FALSE
 		if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
 			to_chat(usr, "<span class='warning'>You must wait for the server to finish starting before you can join!</span>")
 			return FALSE
@@ -229,6 +234,9 @@
 	if(href_list["late_join"])
 		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
+			return FALSE
+		if(client.version_blocked)
+			client.show_update_notice()
 			return FALSE
 		if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
@@ -407,7 +415,8 @@
 	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
 		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
-			ailist += A
+			if(A.announce_arrivals)
+				ailist += A
 		if(ailist.len)
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)

@@ -67,7 +67,7 @@
 		to_chat(user, "<span class='warning'>Nothing happens.</span>")//If not emagged, don't do anything, and don't tell the user that it can be emagged.
 
 /obj/machinery/poolcontroller/attack_hand(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/poolcontroller/process()
 	processMob() //Call the mob affecting proc
@@ -150,7 +150,7 @@
 	linkedmist.Cut()
 
 
-/obj/machinery/poolcontroller/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/poolcontroller/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "PoolController", "Pool Controller Interface", 520, 410)
@@ -200,7 +200,7 @@
 		set_temp(temp)
 
 
-/obj/machinery/poolcontroller/tgui_data(mob/user)
+/obj/machinery/poolcontroller/ui_data(mob/user)
 	var/list/data = list()
 	data["currentTemp"] = temp_to_str(temperature)
 	data["emagged"] = emagged
@@ -208,7 +208,7 @@
 	return data
 
 
-/obj/machinery/poolcontroller/tgui_act(action, list/params)
+/obj/machinery/poolcontroller/ui_act(action, list/params)
 	if(..())
 		return
 

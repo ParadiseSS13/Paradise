@@ -138,6 +138,10 @@ The previous code made compliant:
   code
 ```
 
+### User Interfaces
+All new user interfaces in the game must be created using the TGUI framework. Documentation can be found inside the `tgui/docs` folder.
+This is to ensure all ingame UIs are snappy and respond well. An exception is made for user interfaces which are purely for OOC actions (Such as character creation, or anything admin related)
+
 ### No overriding type safety checks
 The use of the : operator to override type safety checks is not allowed. You must cast the variable to the proper type.
 
@@ -597,8 +601,8 @@ pull requests/issues, and merging/closing pull requests.
   matter how trivial. This is to ensure quality.
   * A subset of this instruction: Do not push directly to the repository, always make a
   pull request.
-* Wait for the Travis CI build to complete. If it fails, the pull request may only be
- merged if there is a very good reason (example: fixing the Travis configuration).
+* Wait for the CI build to complete. If it fails, the pull request may only be
+ merged if there is a very good reason (example: fixing the CI configuration).
 * Pull requests labeled as bugfixes and refactors may be merged as soon as they are
  reviewed.
 * The shortest waiting period for -any- feature or balancing altering pull request is 24

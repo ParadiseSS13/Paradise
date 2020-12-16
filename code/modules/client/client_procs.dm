@@ -6,9 +6,11 @@
 
 #define TOPIC_SPAM_DELAY	2		//2 ticks is about 2/10ths of a second; it was 4 ticks, but that caused too many clicks to be lost due to lag
 #define UPLOAD_LIMIT		10485760	//Restricts client uploads to the server to 10MB //Boosted this thing. What's the worst that can happen?
-#define MIN_CLIENT_VERSION	0		//Just an ambiguously low version for now, I don't want to suddenly stop people playing.
+#define MIN_CLIENT_VERSION	513		// Minimum byond major version required to play.
 									//I would just like the code ready should it ever need to be used.
-#define SUGGESTED_CLIENT_VERSION	511		// only integers (e.g: 510, 511) useful here. Does not properly handle minor versions (e.g: 510.58, 511.848)
+#define SUGGESTED_CLIENT_VERSION	513		// only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
+#define SUGGESTED_CLIENT_BUILD	1536		// only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
+
 #define SSD_WARNING_TIMER 30 // cycles, not seconds, so 30=60s
 
 #define LIMITER_SIZE	5
@@ -50,12 +52,6 @@
 	#if defined(TOPIC_DEBUGGING)
 	to_chat(world, "[src]'s Topic: [href] destined for [hsrc].")
 	#endif
-
-	if(href_list["nano_err"]) //nano throwing errors
-		if(topic_debugging)
-			to_chat(src, "## NanoUI: " + html_decode(href_list["nano_err"]))//NANO DEBUG HOOK
-
-
 
 	if(href_list["asset_cache_confirm_arrival"])
 //		to_chat(src, "ASSET JOB [href_list["asset_cache_confirm_arrival"]] ARRIVED.")
@@ -113,14 +109,14 @@
 		cmd_admin_pm(ckey_txt, null, href_list["type"])
 		return
 
-	if(href_list["irc_msg"])
-		if(!holder && received_irc_pm < world.time - 6000) //Worse they can do is spam IRC for 10 minutes
-			to_chat(usr, "<span class='warning'>You are no longer able to use this, it's been more then 10 minutes since an admin on IRC has responded to you</span>")
+	if(href_list["discord_msg"])
+		if(!holder && received_discord_pm < world.time - 6000) // Worse they can do is spam discord for 10 minutes
+			to_chat(usr, "<span class='warning'>You are no longer able to use this, it's been more then 10 minutes since an admin on Discord has responded to you</span>")
 			return
-		if(mute_irc)
-			to_chat(usr, "<span class='warning'You cannot use this as your client has been muted from sending messages to the admins on IRC</span>")
+		if(prefs.muted & MUTE_ADMINHELP)
+			to_chat(usr, "<span class='warning'>You cannot use this as your client has been muted from sending messages to the admins on Discord</span>")
 			return
-		cmd_admin_irc_pm()
+		cmd_admin_discord_pm()
 		return
 
 
@@ -328,13 +324,16 @@
 	if(connection != "seeker")					//Invalid connection type.
 		return null
 	if(byond_version < MIN_CLIENT_VERSION) // Too out of date to play at all. Unfortunately, we can't send them a message here.
-		return null
+		version_blocked = TRUE
 	if(byond_build < config.minimum_client_build)
-		alert(src, "You are using a byond build which is not supported by this server. Please use a build version of atleast [config.minimum_client_build].", "Incorrect build", "OK")
-		qdel(src)
-		return
+		version_blocked = TRUE
+
+	var/show_update_prompt = FALSE
 	if(byond_version < SUGGESTED_CLIENT_VERSION) // Update is suggested, but not required.
-		to_chat(src,"<span class='userdanger'>Your BYOND client (v: [byond_version]) is out of date. This can cause glitches. We highly suggest you download the latest client from http://www.byond.com/ before playing. </span>")
+		show_update_prompt = TRUE
+	else if(byond_version == SUGGESTED_CLIENT_VERSION && byond_build < SUGGESTED_CLIENT_BUILD)
+		show_update_prompt = TRUE
+	// Actually sent to client much later, so it appears after MOTD.
 
 	to_chat(src, "<span class='warning'>If the title screen is black, resources are still downloading. Please be patient until the title screen appears.</span>")
 
@@ -415,6 +414,9 @@
 
 	generate_clickcatcher()
 	apply_clickcatcher()
+
+	if(show_update_prompt)
+		show_update_notice()
 
 	check_forum_link()
 
@@ -561,7 +563,7 @@
 	var/watchreason = check_watchlist(ckey)
 	if(watchreason)
 		message_admins("<font color='red'><B>Notice: </B></font><font color='blue'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
-		send2irc(config.admin_notify_irc, "Watchlist - [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
+		SSdiscord.send2discord_simple_noadmins("**\[Watchlist]** [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
 
 
 	//Just the standard check to see if it's actually a number
@@ -583,6 +585,8 @@
 			var/err = query_update.ErrorMsg()
 			log_game("SQL ERROR during log_client_to_db (update). Error : \[[err]\]\n")
 			message_admins("SQL ERROR during log_client_to_db (update). Error : \[[err]\]\n")
+		// After the regular update
+		INVOKE_ASYNC(src, /client/.proc/get_byond_account_date, FALSE) // Async to avoid other procs in the client chain being delayed by a web request
 	else
 		//New player!! Need to insert all the stuff
 
@@ -598,6 +602,9 @@
 			var/err = query_insert.ErrorMsg()
 			log_game("SQL ERROR during log_client_to_db (insert). Error : \[[err]\]\n")
 			message_admins("SQL ERROR during log_client_to_db (insert). Error : \[[err]\]\n")
+		// This is their first connection instance, so TRUE here to nofiy admins
+		// This needs to happen here to ensure they actually have a row to update
+		INVOKE_ASYNC(src, /client/.proc/get_byond_account_date, TRUE) // Async to avoid other procs in the client chain being delayed by a web request
 
 	// Log player connections to DB
 	var/DBQuery/query_accesslog = GLOB.dbcon.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`datetime`,`ckey`,`ip`,`computerid`) VALUES(Now(),'[ckey]','[sql_ip]','[sql_computerid]');")
@@ -654,7 +661,7 @@
 		return
 	if(query_find_token.NextRow())
 		return query_find_token.item[1]
-	var/tokenstr = md5("[ckey][rand()]")
+	var/tokenstr = md5("[rand(0,9999)][world.time][rand(0,9999)][ckey][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)]")
 	var/DBQuery/query_insert_token = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("oauth_tokens")] (ckey, token) VALUES('[ckey]','[tokenstr]')")
 	if(!query_insert_token.Execute())
 		return
@@ -755,7 +762,7 @@
 
 			if(!cidcheck_failedckeys[ckey])
 				message_admins("<span class='adminnotice'>[key_name(src)] has been detected as using a CID randomizer. Connection rejected.</span>")
-				send2irc(config.cidrandomizer_irc, "[key_name(src)] has been detected as using a CID randomizer. Connection rejected.")
+				SSdiscord.send2discord_simple_noadmins("**\[Warning]** [key_name(src)] has been detected as using a CID randomizer. Connection rejected.")
 				cidcheck_failedckeys[ckey] = TRUE
 				note_randomizer_user()
 
@@ -768,7 +775,7 @@
 			if(cidcheck_failedckeys[ckey])
 				// Atonement
 				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after showing they removed their cid randomizer</span>")
-				send2irc(config.cidrandomizer_irc, "[key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
+				SSdiscord.send2discord_simple_noadmins("**\[Info]** [key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
 				cidcheck_failedckeys -= ckey
 			if (cidcheck_spoofckeys[ckey])
 				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after appearing to have attempted to spoof a cid randomizer check because it <i>appears</i> they aren't spoofing one this time</span>")
@@ -829,7 +836,7 @@
 		preload_rsc = 1 // If config.resource_urls is not set, preload like normal.
 	// Most assets are now handled through global_cache.dm
 	getFiles(
-		'html/search.js', // Used in various non-NanoUI HTML windows for search functionality
+		'html/search.js', // Used in various non-TGUI HTML windows for search functionality
 		'html/panels.css' // Used for styling certain panels, such as in the new player panel
 	)
 	spawn (10) //removing this spawn causes all clients to not get verbs.
@@ -950,18 +957,15 @@
 		to_chat(usr, "<span class='warning'>You requested your UI resource files too quickly. Please try again in [(last_ui_resource_send - world.time)/10] seconds.</span>")
 		return
 
-	var/choice = alert(usr, "This will reload your NanoUI and TGUI resources. If you have any open UIs this may break them. Are you sure?", "Resource Reloading", "Yes", "No")
+	var/choice = alert(usr, "This will reload your TGUI resources. If you have any open UIs this may break them. Are you sure?", "Resource Reloading", "Yes", "No")
 	if(choice == "Yes")
 		// 600 deciseconds = 1 minute
 		last_ui_resource_send = world.time + 60 SECONDS
 
 		// Close their open UIs
-		SSnanoui.close_user_uis(usr)
 		SStgui.close_user_uis(usr)
 
 		// Resend the resources
-		var/datum/asset/nano_assets = get_asset_datum(/datum/asset/nanoui)
-		nano_assets.register()
 
 		var/datum/asset/tgui_assets = get_asset_datum(/datum/asset/simple/tgui)
 		tgui_assets.register()
@@ -975,6 +979,117 @@
 
 		to_chat(usr, "<span class='notice'>UI resource files resent successfully. If you are still having issues, please try manually clearing your BYOND cache. <b>This can be achieved by opening your BYOND launcher, pressing the cog in the top right, selecting preferences, going to the Games tab, and pressing 'Clear Cache'.</b></span>")
 
+
+/**
+  * Retrieves the BYOND accounts data from the BYOND servers
+  *
+  * Makes a web request to byond.com to retrieve the details for the BYOND account associated with the clients ckey.
+  * Returns the data in a parsed, associative list
+  */
+/client/proc/retrieve_byondacc_data()
+	// Do not refactor this to use SShttp, because that requires the subsystem to be firing for requests to be made, and this will be triggered before the MC has finished loading
+	var/list/http[] = world.Export("http://www.byond.com/members/[ckey]?format=text")
+	if(http)
+		var/status = text2num(http["STATUS"])
+
+		if(status == 200)
+			// This is wrapped in try/catch because lummox could change the format on any day without informing anyone
+			try
+				var/list/lines = splittext(file2text(http["CONTENT"]), "\n")
+				var/list/initial_data = list()
+				var/current_index = ""
+				for(var/L in lines)
+					if(L == "")
+						continue
+					if(!findtext(L, "\t"))
+						current_index = L
+						initial_data[current_index] = list()
+						continue
+					initial_data[current_index] += replacetext(replacetext(L, "\t", ""), "\"", "")
+
+				var/list/parsed_data = list()
+
+				for(var/key in initial_data)
+					var/inner_list = list()
+					for(var/entry in initial_data[key])
+						var/list/split = splittext(entry, " = ")
+						var/inner_key = split[1]
+						var/inner_value = split[2]
+						inner_list[inner_key] = inner_value
+
+					parsed_data[key] = inner_list
+
+				// Main return is here
+				return parsed_data
+			catch
+				message_admins("Error parsing byond.com data for [ckey]. Please inform maintainers.")
+				return null
+		else
+			message_admins("Error retrieving data from byond.com for [ckey]. Invalid status code (Expected: 200 | Got: [status]).")
+			return null
+	else
+		message_admins("Failed to retrieve data from byond.com for [ckey]. Connection failed.")
+		return null
+
+
+/**
+  * Sets the clients BYOND date up properly
+  *
+  * If the client does not have a saved BYOND account creation date, retrieve it from the website
+  * If they do have a saved date, use that from the DB, because this value will never change
+  * Arguments:
+  * * notify - Do we notify admins of this new accounts date
+  */
+
+/client/proc/get_byond_account_date(notify = FALSE)
+	// First we see if the client has a saved date in the DB
+	var/sql_ckey = sanitizeSQL(ckey)
+	var/DBQuery/query_date = GLOB.dbcon.NewQuery("SELECT byond_date, DATEDIFF(Now(), byond_date) FROM [format_table_name("player")] WHERE ckey = '[sql_ckey]'")
+	if(!query_date.Execute())
+		var/err = query_date.ErrorMsg()
+		log_game("SQL ERROR during get_byond_account_date (Line 1047). Error: \[[err]\]\n")
+		message_admins("SQL ERROR during get_byond_account_date (Line 1047). Error: \[[err]\]\n")
+
+	while(query_date.NextRow())
+		byondacc_date = query_date.item[1]
+		byondacc_age = max(text2num(query_date.item[2]), 0) // Ensure account isnt negative days old
+
+	// They have a date, lets bail
+	if(byondacc_date)
+		return
+
+	// They dont have a date, lets grab one
+	var/list/byond_data = retrieve_byondacc_data()
+	if(isnull(byond_data) || !(byond_data["general"]["joined"]))
+		message_admins("Failed to retrieve an account creation date for [ckey].")
+		return
+
+	byondacc_date = byond_data["general"]["joined"]
+
+	// Now save it
+	var/sql_date = sanitizeSQL(byondacc_date) // Yes, this is top level paranoia
+	var/DBQuery/query_update = GLOB.dbcon.NewQuery("UPDATE [format_table_name("player")] SET byond_date = '[sql_date]' WHERE ckey = '[sql_ckey]'")
+	if(!query_update.Execute())
+		var/err = query_update.ErrorMsg()
+		log_game("SQL ERROR during get_byond_account_date (Line 1071). Error: \[[err]\]\n")
+		message_admins("SQL ERROR during get_byond_account_date (Line 1071). Error: \[[err]\]\n")
+
+	// Now retrieve the age again because BYOND doesnt have native methods for this
+	var/DBQuery/query_age = GLOB.dbcon.NewQuery("SELECT DATEDIFF(Now(), byond_date) FROM [format_table_name("player")] WHERE ckey = '[sql_ckey]'")
+	if(!query_age.Execute())
+		var/err = query_age.ErrorMsg()
+		log_game("SQL ERROR during get_byond_account_date (Line 1078). Error: \[[err]\]\n")
+		message_admins("SQL ERROR during get_byond_account_date (Line 1078). Error: \[[err]\]\n")
+
+	while(query_age.NextRow())
+		byondacc_age = max(text2num(query_age.item[1]), 0) // Ensure account isnt negative days old
+
+	// Notify admins on new clients connecting, if the byond account age is less than a config value
+	if(notify && (byondacc_age < config.byond_account_age_threshold))
+		message_admins("[key] has just connected for the first time. BYOND account registered on [byondacc_date] ([byondacc_age] days old)")
+
+/client/proc/show_update_notice()
+	to_chat(src, "<span class='userdanger'>Your BYOND client (v: [byond_version].[byond_build]) is out of date. This can cause glitches. We highly suggest you download the latest client from <a href='https://www.byond.com/download/'>byond.com</a> before playing. You can also update via the BYOND launcher application.</span>")
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

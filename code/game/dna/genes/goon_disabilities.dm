@@ -81,41 +81,85 @@
 /datum/dna/gene/disability/speech/chav
 	name = "Chav"
 	desc = "Forces the language center of the subject's brain to construct sentences in a more rudimentary manner."
-	activation_message = "Ye feel like a reet prat like, innit?"
+	activation_message = "Ye feel like a rite prat like, innit?"
 	deactivation_message = "You no longer feel like being rude and sassy."
 	mutation = CHAV
+	//List of swappable words. Normal word first, chav word second.
+	var/static/list/chavlinks = list(
+	"arrest" = "nick",
+	"arrested" = "nicked",
+	"ass" = "arse",
+	"bad" = "pants",
+	"bar" = "spoons",
+	"brain" = "noggin",
+	"break" = "smash",
+	"broke" = "smashed",
+	"broken" = "gone kaput",
+	"comdom" = "knob'ed",
+	"cool" = "ace",
+	"crazy" = "well mad",
+	"cup of tea" = "cuppa",
+	"destroyed" = "rekt",
+	"dick" = "prat",
+	"disappointed" = "gutted",
+	"disgusting" = "minging",
+	"disposals" = "bins",
+	"drink" = "bevvy",
+	"engineer" = "sparky",
+	"excited" = "jacked",
+	"fight" = "scuffle",
+	"food" = "nosh",
+	"friend" = "blud",
+	"fuck" = "fook",
+	"get" = "giz",
+	"girl" = "bird",
+	"go away" = "jog on",
+	"good" = "mint",
+	"great" = "bangin'",
+	"happy" = "chuffed",
+	"hello" = "orite",
+	"hi" = "sup",
+	"idiot" = "twit",
+	"isn't it" = "innit",
+	"kill" = "bang",
+	"killed" = "banged",
+	"man" = "bloke",
+	"mess" = "shambles",
+	"mistake" = "cock-up",
+	"murder" = "hench",
+	"murdered" = "henched",
+	"no" = "naw",
+	"really" = "propa",
+	"robust" = "'ard",
+	"run" = "leg it",
+	"sec" = "cops",
+	"security" = "coppers",
+	"silly" = "daft",
+	"steal" = "nick",
+	"stole" = "nicked",
+	"surprised" = "gobsmacked",
+	"suspicious" = "dodgy",
+	"tired" = "knackered",
+	"wet" = "moist",
+	"what" = "wot",
+	"window" = "windy",
+	"windows" = "windies",
+	"yes" = "ye",
+	"yikes" = "blimey",
+	"your" = "yur"
+	)
 
 /datum/dna/gene/disability/speech/chav/New()
 	..()
 	block = GLOB.chavblock
-
+	
 /datum/dna/gene/disability/speech/chav/OnSay(mob/M, message)
-	// THIS ENTIRE THING BEGS FOR REGEX
-	message = replacetext(message,"dick","prat")
-	message = replacetext(message,"comdom","knob'ead")
-	message = replacetext(message,"looking at","gawpin' at")
-	message = replacetext(message,"great","bangin'")
-	message = replacetext(message,"man","mate")
-	message = replacetext(message,"friend",pick("mate","bruv","bledrin"))
-	message = replacetext(message,"what","wot")
-	message = replacetext(message,"drink","wet")
-	message = replacetext(message,"get","giz")
-	message = replacetext(message,"what","wot")
-	message = replacetext(message,"no thanks","wuddent fukken do one")
-	message = replacetext(message,"i don't know","wot mate")
-	message = replacetext(message,"no","naw")
-	message = replacetext(message,"robust","chin")
-	message = replacetext(message," hi ","how what how")
-	message = replacetext(message,"hello","sup bruv")
-	message = replacetext(message,"kill","bang")
-	message = replacetext(message,"murder","bang")
-	message = replacetext(message,"windows","windies")
-	message = replacetext(message,"window","windy")
-	message = replacetext(message,"break","do")
-	message = replacetext(message,"your","yer")
-	message = replacetext(message,"security","coppers")
+	var/static/regex/R = regex("\\b([chavlinks.Join("|")])\\b", "g")
+	message = R.Replace(message, /datum/dna/gene/disability/speech/chav/proc/replace_speech)
 	return message
-
+/datum/dna/gene/disability/speech/chav/proc/replace_speech(matched)
+	return chavlinks[matched]
+	
 // WAS: /datum/bioEffect/swedish
 /datum/dna/gene/disability/speech/swedish
 	name = "Swedish"

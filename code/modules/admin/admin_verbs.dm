@@ -69,7 +69,8 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
 	/client/proc/toggle_mentor_chat,
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
-	/client/proc/list_ssds_afks
+	/client/proc/list_ssds_afks,
+	/client/proc/ccbdb_lookup_ckey
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
@@ -166,7 +167,8 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/admin_serialize,
 	/client/proc/jump_to_ruin,
 	/client/proc/toggle_medal_disable,
-	/client/proc/uid_log
+	/client/proc/uid_log,
+	/client/proc/visualise_active_turfs
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -677,12 +679,17 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		//load text from file
 		var/list/Lines = file2list("config/admins.txt")
 		for(var/line in Lines)
+			if(findtext(line, "#")) // Skip comments
+				continue
+
 			var/list/splitline = splittext(line, " - ")
+			if(length(splitline) != 2) // Always 'ckey - rank'
+				continue
 			if(lowertext(splitline[1]) == ckey)
-				if(splitline.len >= 2)
-					rank = ckeyEx(splitline[2])
+				rank = ckeyEx(splitline[2])
 				break
 			continue
+
 	else
 		if(!GLOB.dbcon.IsConnected())
 			message_admins("Warning, MySQL database is not connected.")
@@ -767,8 +774,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	var/mob/living/silicon/S = input("Select silicon.", "Manage Silicon Laws") as null|anything in GLOB.silicon_mob_list
 	if(!S) return
 
-	var/datum/tgui_module/law_manager/L = new(S)
-	L.tgui_interact(usr, state = GLOB.tgui_admin_state)
+	var/datum/ui_module/law_manager/L = new(S)
+	L.ui_interact(usr, state = GLOB.admin_state)
 	log_and_message_admins("has opened [S]'s law manager.")
 	feedback_add_details("admin_verb","MSL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

@@ -91,6 +91,15 @@
 	to_chat(src, "You will [(prefs.toggles & PREFTOGGLE_CHAT_PRAYER) ? "now" : "no longer"] see prayerchat.")
 	feedback_add_details("admin_verb","TP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/verb/toggleprayernotify()
+	set name = "Hear/Silence Prayer Notification Sound"
+	set category = "Preferences"
+	set desc = "Toggles hearing when prayers are made"
+	prefs.sound ^= SOUND_PRAYERNOTIFY
+	prefs.save_preferences(src)
+	to_chat(src, "You will [(prefs.sound & SOUND_PRAYERNOTIFY) ? "now" : "no longer"] hear when prayers are made.")
+	feedback_add_details("admin_verb","TPS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc! 
+
 /client/verb/togglescoreboard()
 	set name = "Hide/Display End Round Scoreboard"
 	set category = "Preferences"
@@ -293,7 +302,7 @@
 /client/verb/toggle_ghost_pda()
 	set name = "Show/Hide GhostPDA"
 	set category = "Preferences"
-	set desc = ".Toggle seeing PDA messages as an observer."
+	set desc = "Toggle seeing PDA messages as an observer."
 	prefs.toggles ^= PREFTOGGLE_CHAT_GHOSTPDA
 	to_chat(src, "As a ghost, you will now [(prefs.toggles & PREFTOGGLE_CHAT_GHOSTPDA) ? "see all PDA messages" : "no longer see PDA messages"].")
 	prefs.save_preferences(src)
@@ -305,3 +314,20 @@
 	set desc = "Silence the current admin midi playing"
 	usr.stop_sound_channel(CHANNEL_ADMIN)
 	to_chat(src, "The current admin midi has been silenced")
+
+
+/client/verb/toggle_runechat()
+	set name = "Enable/Disable Runechat"
+	set category = "Preferences"
+	set desc = "Toggle runechat messages"
+	prefs.toggles2 ^= PREFTOGGLE_2_RUNECHAT
+	prefs.save_preferences(src)
+	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) ? "now see" : "no longer see"] floating chat messages.")
+
+/client/verb/toggle_death_messages()
+	set name = "Show/Hide Death Notifications"
+	set category = "Preferences"
+	set desc = "Toggle player death notifications"
+	prefs.toggles2 ^= PREFTOGGLE_2_DEATHMESSAGE
+	prefs.save_preferences(src)
+	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_DEATHMESSAGE) ? "now" : "no longer"] see a notification in deadchat when a player dies.")

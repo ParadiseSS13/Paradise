@@ -146,7 +146,7 @@
 	result_amount = 5
 	mix_message = "The mixture curdles up."
 
-/datum/chemical_reaction/cheese/on_reaction(datum/reagents/holder)
+/datum/chemical_reaction/fake_cheese/on_reaction(datum/reagents/holder)
 	var/turf/T = get_turf(holder.my_atom)
 	T.visible_message("<span class='notice'>A faint cheese-ish smell drifts through the air...</span>")
 

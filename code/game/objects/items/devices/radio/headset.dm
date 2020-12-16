@@ -128,6 +128,14 @@
 	icon_state = "sec_headset_alt"
 	item_state = "sec_headset_alt"
 
+/obj/item/radio/headset/headset_iaa
+	name = "internal affairs bowman headset"
+	desc = "This is used by your elite legal team. Protects ears from flashbangs."
+	flags = EARBANGPROTECT
+	icon_state = "sec_headset_alt"
+	item_state = "sec_headset_alt"
+	ks2type = /obj/item/encryptionkey/headset_iaa
+
 /obj/item/radio/headset/headset_eng
 	name = "engineering radio headset"
 	desc = "When the engineers wish to chat like girls."

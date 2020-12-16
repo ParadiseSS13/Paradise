@@ -22,19 +22,19 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 #define BRAIN_INITIAL_DAMAGE 90 // our minds are too feeble for 190
 
 /obj/machinery/clonepod
-	anchored = 1
+	anchored = TRUE
 	name = "cloning pod"
 	desc = "An electronically-lockable pod for growing organic tissue."
-	density = 1
+	density = TRUE
 	icon = 'icons/obj/cloning.dmi'
 	icon_state = "pod_idle"
-	req_access = list(ACCESS_GENETICS) //For premature unlocking.
+	req_access = list(ACCESS_MEDICAL) //For premature unlocking.
 
 	var/mob/living/carbon/human/occupant
 	var/heal_level //The clone is released once its health reaches this level.
 	var/obj/machinery/computer/cloning/connected = null //So we remember the connected clone machine.
-	var/mess = 0 //Need to clean out it if it's full of exploded clone.
-	var/attempting = 0 //One clone attempt at a time thanks
+	var/mess = FALSE //Need to clean out it if it's full of exploded clone.
+	var/attempting = FALSE //One clone attempt at a time thanks
 	var/biomass = 0
 	var/speed_coeff
 	var/efficiency
@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	var/grab_ghost_when = CLONER_MATURE_CLONE
 
 	var/obj/item/radio/Radio
-	var/radio_announce = 0
+	var/radio_announce = TRUE
 
 	var/obj/effect/countdown/clonepod/countdown
 
@@ -100,10 +100,9 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 /obj/machinery/clonepod/Destroy()
 	if(connected)
 		connected.pods -= src
-	for(var/s in sharedSoulhooks)
-		var/datum/soullink/S = s
-		S.removeSoulsharer(src) //If a sharer is destroy()'d, they are simply removed
-	sharedSoulhooks = null
+	if(clonemind)
+		UnregisterSignal(clonemind.current, COMSIG_LIVING_REVIVE)
+		UnregisterSignal(clonemind, COMSIG_MIND_TRANSER_TO)
 	QDEL_NULL(Radio)
 	QDEL_NULL(countdown)
 	QDEL_LIST(missing_organs)
@@ -124,7 +123,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	name = "Cloning Data Disk"
 	icon_state = "datadisk0" //Gosh I hope syndies don't mistake them for the nuke disk.
 	var/datum/dna2/record/buf = null
-	var/read_only = 0 //Well,it's still a floppy disk
+	var/read_only = FALSE //Well,it's still a floppy disk
 
 /obj/item/disk/data/proc/initialize()
 	buf = new
@@ -136,7 +135,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 /obj/item/disk/data/demo
 	name = "data disk - 'God Emperor of Mankind'"
-	read_only = 1
+	read_only = TRUE
 
 /obj/item/disk/data/demo/New()
 	..()
@@ -213,7 +212,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 /obj/machinery/clonepod/proc/spooky_devil_flavor()
 	playsound(loc, pick('sound/goonstation/voice/male_scream.ogg', 'sound/goonstation/voice/female_scream.ogg'), 100, 1)
-	mess = 1
+	mess = TRUE
 	update_icon()
 	connected_message("<font face=\"REBUFFED\" color=#600A0A>If you keep trying to steal from me, you'll end up with me.</font>")
 
@@ -255,7 +254,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	else
 		return 0
 
-	attempting = 1 //One at a time!!
+	attempting = TRUE //One at a time!!
 	countdown.start()
 
 	if(!R.dna)
@@ -299,20 +298,20 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		clonemind.transfer_to(H)
 		H.ckey = R.ckey
 		update_clone_antag(H) //Since the body's got the mind, update their antag stuff right now. Otherwise, wait until they get kicked out (as per the CLONER_MATURE_CLONE business) to do it.
-		to_chat(H, {"<span class='notice'><b>Consciousness slowly creeps over you
-			as your body regenerates.</b><br><i>So this is what cloning
-			feels like?</i></span>"})
+		var/message
+		message += "<b>Consciousness slowly creeps over you as your body regenerates.</b><br>"
+		message += "<i>So this is what cloning feels like?</i>"
+		to_chat(H, "<span class='notice'>[message]</span>")
 	else if(grab_ghost_when == CLONER_MATURE_CLONE)
-		to_chat(clonemind.current, {"<span class='notice'>Your body is
-			beginning to regenerate in a cloning pod. You will
-			become conscious when it is complete.</span>"})
+		to_chat(clonemind.current, "<span class='notice'>Your body is beginning to regenerate in a cloning pod. You will become conscious when it is complete.</span>")
 		// Set up a soul link with the dead body to catch a revival
-		soullink(/datum/soullink/soulhook, clonemind.current, src)
+		RegisterSignal(clonemind.current, COMSIG_LIVING_REVIVE, .proc/occupant_got_revived)
+		RegisterSignal(clonemind, COMSIG_MIND_TRANSER_TO, .proc/occupant_got_revived)
 
 	update_icon()
 
-	H.suiciding = 0
-	attempting = 0
+	H.suiciding = FALSE
+	attempting = FALSE
 	return 1
 
 //Grow clones to maturity then kick them out. FREELOADERS
@@ -451,9 +450,12 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(H.mind in SSticker.mode.syndicates)
 		SSticker.mode.update_synd_icons_added()
 	if(H.mind in SSticker.mode.cult)
-		SSticker.mode.add_cultist(occupant.mind)
-		SSticker.mode.update_cult_icons_added() //So the icon actually appears
-		SSticker.mode.update_cult_comms_added(H.mind) //So the comms actually appears
+		SSticker.mode.update_cult_icons_added(H.mind) // Adds the cult antag hud
+		SSticker.mode.add_cult_actions(H.mind) // And all the actions
+		if(SSticker.mode.cult_risen)
+			SSticker.mode.rise(H)
+			if(SSticker.mode.cult_ascendant)
+				SSticker.mode.ascend(H)
 	if(H.mind.vampire)
 		H.mind.vampire.update_owner(H)
 	if((H.mind in SSticker.mode.vampire_thralls) || (H.mind in SSticker.mode.vampire_enthralled))
@@ -466,13 +468,13 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 //Put messages in the connected computer's temp var for display.
 /obj/machinery/clonepod/proc/connected_message(message)
 	if((isnull(connected)) || (!istype(connected, /obj/machinery/computer/cloning)))
-		return 0
+		return FALSE
 	if(!message)
-		return 0
+		return FALSE
 
 	connected.temp = "[name] : [message]"
 	connected.updateUsrDialog()
-	return 1
+	return TRUE
 
 /obj/machinery/clonepod/proc/go_out()
 	countdown.stop()
@@ -492,16 +494,16 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		return
 
 	if(grab_ghost_when == CLONER_MATURE_CLONE)
+		UnregisterSignal(clonemind.current, COMSIG_LIVING_REVIVE)
+		UnregisterSignal(clonemind, COMSIG_MIND_TRANSER_TO)
 		clonemind.transfer_to(occupant)
 		occupant.grab_ghost()
 		update_clone_antag(occupant)
+		to_chat(occupant, "<span class='userdanger'>You remember nothing from the time that you were dead!</span>")
 		to_chat(occupant, "<span class='notice'><b>There is a bright flash!</b><br>\
 			<i>You feel like a new being.</i></span>")
 		occupant.flash_eyes(visual = 1)
-		for(var/s in sharedSoulhooks)
-			var/datum/soullink/S = s
-			S.removeSoulsharer(src) //If a sharer is destroy()'d, they are simply removed
-		sharedSoulhooks = null
+		clonemind = null
 
 
 	for(var/i in missing_organs)
@@ -522,21 +524,21 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(occupant)
 		connected_message("Critical Error!")
 		announce_radio_message("Critical error! Please contact a Thinktronic Systems technician, as your warranty may be affected.")
-		for(var/s in sharedSoulhooks)
-			var/datum/soullink/S = s
-			S.removeSoulsharer(src) //If a sharer is destroy()'d, they are simply removed
-		sharedSoulhooks = null
+		UnregisterSignal(clonemind.current, COMSIG_LIVING_REVIVE)
+		UnregisterSignal(clonemind, COMSIG_MIND_TRANSER_TO)
 		if(!go_easy)
 			if(occupant.mind != clonemind)
 				clonemind.transfer_to(occupant)
 			occupant.grab_ghost() // We really just want to make you suffer.
-			to_chat(occupant, {"<span class='warning'><b>Agony blazes across your
-				consciousness as your body is torn apart.</b><br>
-				<i>Is this what dying is like? Yes it is.</i></span>"})
+			var/message
+			message += "<b>Agony blazes across your consciousness as your body is torn apart.</b><br>"
+			message += "<i>Is this what dying is like? Yes it is.</i>"
+			to_chat(occupant, "<span class='warning'>[message]</span>")
 			occupant << sound('sound/hallucinations/veryfar_noise.ogg',0,1,50)
 		for(var/i in missing_organs)
 			qdel(i)
 		missing_organs.Cut()
+		clonemind = null
 		spawn(40)
 			qdel(occupant)
 
@@ -582,10 +584,9 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		go_out()
 	..()
 
-/obj/machinery/clonepod/onSoullinkRevive(mob/living/L)
-	if(occupant && L == clonemind.current)
-		// The old body's back in shape, time to ditch the cloning one
-		malfunction(go_easy = TRUE)
+/obj/machinery/clonepod/proc/occupant_got_revived()
+	// The old body's back in shape, time to ditch the cloning one
+	malfunction(go_easy = TRUE)
 
 /obj/machinery/clonepod/proc/maim_clone(mob/living/carbon/human/H)
 	LAZYINITLIST(missing_organs)

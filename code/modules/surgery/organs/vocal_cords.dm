@@ -71,7 +71,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	var/message = input(owner, "Resonate a message to all nearby golems.", "Resonate")
 	if(QDELETED(src) || QDELETED(owner) || !message)
 		return
-	owner.say(".x[message]")
+	owner.say(".~[message]")
 
 /obj/item/organ/internal/vocal_cords/adamantine/handle_speech(message)
 	var/msg = "<span class='resonate'><span class='name'>[owner.real_name]</span> <span class='message'>resonates, \"[message]\"</span></span>"
@@ -124,7 +124,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	var/command = input(owner, "Speak with the Voice of God", "Command")
 	if(!command)
 		return
-	owner.say(".x[command]")
+	owner.say(".~[command]")
 
 /obj/item/organ/internal/vocal_cords/colossus/prepare_eat()
 	return

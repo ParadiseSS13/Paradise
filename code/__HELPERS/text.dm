@@ -615,3 +615,61 @@
 	text = replacetext(text, "<td>",					"\[cell\]")
 	text = replacetext(text, "<img src = ntlogo.png>",	"\[logo\]")
 	return text
+
+/datum/html/split_holder
+	var/list/opening
+	var/inner_text
+	var/list/closing
+
+/datum/html/split_holder/New()
+	opening = list()
+	inner_text = ""
+	closing = list()
+
+/proc/split_html(raw_text="")
+	// gently borrowed and re-purposed from code/modules/pda/utilities.dm
+	// define a datum to hold our result
+	var/datum/html/split_holder/s = new()
+
+	// copy the raw_text to get started
+	var/text = copytext_char(raw_text, 1)
+
+	// search for tag brackets
+	var/tag_start = findtext_char(text, "<")
+	var/tag_stop = findtext_char(text, ">")
+
+	// until we run out of opening tags
+	while((tag_start != 0) && (tag_stop != 0))
+		// if the tag isn't at the beginning of the string
+		if(tag_start > 1)
+			// we've found our text, so copy it out
+			s.inner_text = copytext_char(text, 1, tag_start)
+			// and chop the text for the next round
+			text = copytext_char(text, tag_start)
+			break
+		// otherwise, we found an opening tag, so add it to the list
+		var/tag = copytext_char(text, tag_start, tag_stop+1)
+		s.opening.Add(tag)
+		// and chop the text for the next round
+		text = copytext_char(text, tag_stop+1)
+		// look for the next tag in what's left
+		tag_start = findtext(text, "<")
+		tag_stop = findtext(text, ">")
+
+	// search for tag brackets
+	tag_start = findtext(text, "<")
+	tag_stop = findtext(text, ">")
+
+	// until we run out of closing tags
+	while((tag_start != 0) && (tag_stop != 0))
+		// we found a closing tag, so add it to the list
+		var/tag = copytext_char(text, tag_start, tag_stop+1)
+		s.closing.Add(tag)
+		// and chop the text for the next round
+		text = copytext_char(text, tag_stop+1)
+		// look for the next tag in what's left
+		tag_start = findtext(text, "<")
+		tag_stop = findtext(text, ">")
+
+	// return the split html object to the caller
+	return s

@@ -1,8 +1,6 @@
-
 /mob/living/simple_animal/hostile/construct
 	name = "Construct"
 	real_name = "Construct"
-	desc = ""
 	speak_emote = list("hisses")
 	emote_hear = list("wails","screeches")
 	response_help  = "thinks better of touching"
@@ -11,45 +9,45 @@
 	icon_dead = "shade_dead"
 	speed = 0
 	a_intent = INTENT_HARM
-	stop_automated_movement = 1
-	status_flags = CANPUSH
+	stop_automated_movement = TRUE
+	see_in_dark = 8
+	see_invisible = SEE_INVISIBLE_HIDDEN_RUNES
 	attack_sound = 'sound/weapons/punch1.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	faction = list("cult")
 	flying = TRUE
 	pressure_resistance = 100
-	universal_speak = 1
+	universal_speak = TRUE
 	AIStatus = AI_OFF //normal constructs don't have AI
-	var/const_type = "shade"
+	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
+	del_on_death = TRUE
+	deathmessage = "collapses in a shattered heap."
+	var/construct_type = "shade"
 	var/list/construct_spells = list()
 	var/playstyle_string = "<b>You are a generic construct! Your job is to not exist, and you should probably adminhelp this.</b>"
-	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
-	del_on_death = 1
-	deathmessage = "collapses in a shattered heap."
 
 /mob/living/simple_animal/hostile/construct/New()
 	. = ..()
 	if(!SSticker.mode)//work around for maps with runes and cultdat is not loaded all the way
-		name = "[const_type] ([rand(1, 1000)])"
-		real_name = const_type
-		icon_living = const_type
-		icon_state = const_type
+		name = "[construct_type] ([rand(1, 1000)])"
+		real_name = construct_type
+		icon_living = construct_type
+		icon_state = construct_type
 	else
-		name = "[SSticker.cultdat.get_name(const_type)] ([rand(1, 1000)])"
-		real_name = SSticker.cultdat.get_name(const_type)
-		icon_living = SSticker.cultdat.get_icon(const_type)
-		icon_state = SSticker.cultdat.get_icon(const_type)
+		name = "[SSticker.cultdat.get_name(construct_type)] ([rand(1, 1000)])"
+		real_name = SSticker.cultdat.get_name(construct_type)
+		icon_living = SSticker.cultdat.get_icon(construct_type)
+		icon_state = SSticker.cultdat.get_icon(construct_type)
 
 	for(var/spell in construct_spells)
 		AddSpell(new spell(null))
 
-	if(SSticker.cultdat?.theme == "blood")
-		updateglow()
+	set_light(2, 3, l_color = SSticker.cultdat ? SSticker.cultdat.construct_glow : LIGHT_COLOR_BLOOD_MAGIC)
 
 /mob/living/simple_animal/hostile/construct/death(gibbed)
 	. = ..()
-	SSticker.mode.remove_cultist(src.mind, FALSE)
+	SSticker.mode.remove_cultist(mind, FALSE)
 
 /mob/living/simple_animal/hostile/construct/examine(mob/user)
 	. = ..()
@@ -85,7 +83,6 @@
 	else if(src != M)
 		return ..()
 
-
 /mob/living/simple_animal/hostile/construct/narsie_act()
 	return
 
@@ -115,13 +112,12 @@
 	environment_smash = 2
 	attack_sound = 'sound/weapons/punch3.ogg'
 	status_flags = 0
-	const_type = "juggernaut"
+	construct_type = "juggernaut"
 	mob_size = MOB_SIZE_LARGE
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision, /obj/effect/proc_holder/spell/aoe_turf/conjure/lesserforcewall)
 	force_threshold = 11
 	playstyle_string = "<b>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, \
 						create shield walls, rip apart enemies and walls alike, and even deflect energy weapons.</b>"
-
 
 /mob/living/simple_animal/hostile/construct/armoured/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
@@ -160,9 +156,8 @@
 	melee_damage_lower = 25
 	melee_damage_upper = 25
 	attacktext = "slashes"
-	see_in_dark = 8
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	const_type = "wraith"
+	construct_type = "wraith"
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision, /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift)
 	retreat_distance = 2 //AI wraiths will move in and out of combat
 	playstyle_string = "<b>You are a Wraith. Though relatively fragile, you are fast, deadly, and even able to phase through walls.</b>"
@@ -193,14 +188,14 @@
 	retreat_distance = 10
 	minimum_distance = 10 //AI artificers will flee like fuck
 	attack_sound = 'sound/weapons/punch2.ogg'
-	const_type = "builder"
+	construct_type = "builder"
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision,
+							/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/floor,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/pylon,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone,
-							/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser)
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone)
 
 	playstyle_string = "<b>You are an Artificer. You are incredibly weak and fragile, but you are able to construct fortifications, \
 						use magic missile, repair allied constructs (by clicking on them), \
@@ -257,14 +252,14 @@
 /mob/living/simple_animal/hostile/construct/behemoth
 	name = "Behemoth"
 	real_name = "Behemoth"
-	desc = "The pinnacle of occult technology, Behemoths are the ultimate weapon in the Cult of Nar-Sie's arsenal."
+	desc = "The pinnacle of occult technology, Behemoths are the ultimate weapon in the Cult's arsenal."
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "behemoth"
 	icon_living = "behemoth"
 	maxHealth = 750
 	health = 750
 	speak_emote = list("rumbles")
-	response_harm   = "harmlessly punches"
+	response_harm = "harmlessly punches"
 	harm_intent_damage = 0
 	melee_damage_lower = 50
 	melee_damage_upper = 50
@@ -273,7 +268,7 @@
 	environment_smash = 2
 	attack_sound = 'sound/weapons/punch4.ogg'
 	force_threshold = 11
-	const_type = "behemoth"
+	construct_type = "behemoth"
 	var/energy = 0
 	var/max_energy = 1000
 
@@ -291,7 +286,7 @@
 /mob/living/simple_animal/hostile/construct/harvester
 	name = "Harvester"
 	real_name = "Harvester"
-	desc = "A harbinger of Nar-Sie's enlightenment. It'll be all over soon."
+	desc = "A harbinger of enlightenment. It'll be all over soon."
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "harvester"
 	icon_living = "harvester"
@@ -301,9 +296,8 @@
 	melee_damage_upper = 5
 	attacktext = "prods"
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
-	see_in_dark = 8
 	attack_sound = 'sound/weapons/tap.ogg'
-	const_type = "harvester"
+	construct_type = "harvester"
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/floor,
@@ -314,22 +308,12 @@
 
 
 /mob/living/simple_animal/hostile/construct/harvester/Process_Spacemove(var/movement_dir = 0)
-	return 1
+	return TRUE
 
 
 /mob/living/simple_animal/hostile/construct/harvester/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
-
-////////////////Glow////////////////////
-/mob/living/simple_animal/hostile/construct/proc/updateglow()
-	overlays = 0
-	var/overlay_layer = LIGHTING_LAYER + 1
-	if(layer != MOB_LAYER)
-		overlay_layer=TURF_LAYER+0.2
-
-	overlays += image(icon,"glow-[icon_state]",overlay_layer)
-	set_light(2, -2, l_color = "#FFFFFF")
 
 ///ui stuff
 
