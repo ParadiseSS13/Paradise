@@ -365,7 +365,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/sheet/glass = 1)
 
 /obj/item/circuitboard/plantgenes
-	name = "Plant DNA Manipulator (Machine Board)"
+	board_name = "Plant DNA Manipulator"
 	build_path = /obj/machinery/plantgenes
 	board_type = "machine"
 	origin_tech = "programming=3;biotech=3"

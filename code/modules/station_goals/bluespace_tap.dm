@@ -42,7 +42,7 @@
 	product_cost = cost
 
 /obj/item/circuitboard/machine/bluespace_tap
-	name = "Bluespace Harvester (Machine Board)"
+	board_name = "Bluespace Harvester"
 	build_path = /obj/machinery/power/bluespace_tap
 	origin_tech = "engineering=2;combat=2;bluespace=3"
 	req_components = list(

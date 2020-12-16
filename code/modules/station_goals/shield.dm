@@ -35,7 +35,7 @@
 	return coverage.len
 
 /obj/item/circuitboard/computer/sat_control
-	name = "Satellite Network Control (Computer Board)"
+	board_name = "Satellite Network Control"
 	build_path = /obj/machinery/computer/sat_control
 	origin_tech = "engineering=3"
 
