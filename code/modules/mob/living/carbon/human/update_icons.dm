@@ -522,7 +522,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_inv_legcuffed()
 	update_inv_pockets()
 	update_inv_wear_pda()
-	update_misc_effects()
 	UpdateDamageIcon()
 	force_update_limbs()
 	update_tail_layer()
@@ -1259,13 +1258,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/proc/update_misc_effects()
 	remove_overlay(MISC_LAYER)
-	var/mutable_appearance/standing = mutable_appearance(layer = -MISC_LAYER)
-	if(length(stamp_marks.overlays))
-		standing.overlays += stamp_marks
+
 	//Begin appending miscellaneous effects.
 	if(eyes_shine())
-		standing.overlays += get_eye_shine() //Image layer is specified in get_eye_shine() proc as LIGHTING_LAYER + 1.
-	overlays_standing[MISC_LAYER] = standing
+		overlays_standing[MISC_LAYER] = get_eye_shine() //Image layer is specified in get_eye_shine() proc as LIGHTING_LAYER + 1.
+
 	apply_overlay(MISC_LAYER)
 
 /mob/living/carbon/human/proc/update_halo_layer()
