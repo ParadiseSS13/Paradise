@@ -6,6 +6,7 @@
 ### AffectedArc07
 # Actual Code
 /code/controllers/subsystem/mapping.dm @AffectedArc07
+/code/controllers/subsystem/ticker.dm @AffectedArc07
 /tgui/ @AffectedArc07
 
 # CI + Tooling

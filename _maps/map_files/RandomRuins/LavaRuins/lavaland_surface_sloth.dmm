@@ -1,23 +1,23 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /turf/unsimulated/wall,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "b" = (
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "c" = (
 /obj/item/paper/fluff/stations/lavaland/sloth/note,
 /turf/simulated/floor/sepia{
 	blocks_air = 0;
 	slowdown = 10
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "d" = (
 /turf/simulated/floor/sepia{
 	blocks_air = 0;
 	slowdown = 10
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "e" = (
 /obj/machinery/door/airlock/wood,
 /obj/structure/fans/tiny/invisible,
@@ -25,7 +25,7 @@
 	blocks_air = 0;
 	slowdown = 10
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "f" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange,
@@ -33,7 +33,7 @@
 	blocks_air = 0;
 	slowdown = 10
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "g" = (
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
@@ -41,14 +41,14 @@
 	blocks_air = 0;
 	slowdown = 10
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "h" = (
 /obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/sepia{
 	blocks_air = 0;
 	slowdown = 10
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 
 (1,1,1) = {"
 a

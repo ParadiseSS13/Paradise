@@ -39,4 +39,7 @@
 	if(example_db_version != SQL_VERSION)
 		Fail("SQL version error: Game is running V[SQL_VERSION] but config/example/dbconfig.txt is V[example_db_version].")
 
+	if(SSdbcore.total_errors > 0)
+		Fail("SQL errors occured on startup. Please fix them.")
+
 

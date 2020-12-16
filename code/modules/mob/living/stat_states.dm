@@ -62,6 +62,7 @@
 		update_sight()
 		updatehealth("update revive")
 
+	SEND_SIGNAL(src, COMSIG_LIVING_REVIVE, updating)
 	for(var/s in ownedSoullinks)
 		var/datum/soullink/S = s
 		S.ownerRevives(src)

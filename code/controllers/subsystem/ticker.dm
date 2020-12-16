@@ -7,32 +7,54 @@ SUBSYSTEM_DEF(ticker)
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME
 	offline_implications = "The game is no longer aware of when the round ends. Immediate server restart recommended."
 
+	/// Time the world started, relative to world.time
 	var/round_start_time = 0
+	/// Default timeout for if world.Reboot() doesnt have a time specified
 	var/const/restart_timeout = 600
+	/// Current status of the game. See code\__DEFINES\game.dm
 	var/current_state = GAME_STATE_STARTUP
-	var/force_start = 0 // Do we want to force-start as soon as we can
-	var/force_ending = 0
-	var/hide_mode = 0 // leave here at 0 ! setup() will take care of it when needed for Secret mode -walter0o
+	/// Do we want to force-start as soon as we can
+	var/force_start = FALSE
+	/// Do we want to force-end as soon as we can
+	var/force_ending = FALSE
+	/// Leave here at FALSE ! setup() will take care of it when needed for Secret mode -walter0o
+	var/hide_mode = FALSE 
+	/// Our current game mode
 	var/datum/game_mode/mode = null
-	var/event_time = null
-	var/event = 0
-	var/login_music // music played in pregame lobby
-	var/list/datum/mind/minds = list()//The people in the game. Used for objective tracking.
-	var/Bible_icon_state	// icon_state the chaplain has chosen for his bible
-	var/Bible_item_state	// item_state the chaplain has chosen for his bible
-	var/Bible_name			// name of the bible
+	/// The current pick of lobby music played in the lobby
+	var/login_music
+	/// List of all minds in the game. Used for objective tracking
+	var/list/datum/mind/minds = list()
+	/// icon_state the chaplain has chosen for his bible
+	var/Bible_icon_state
+	/// item_state the chaplain has chosen for his bible
+	var/Bible_item_state
+	/// Name of the bible
+	var/Bible_name
+	/// Name of the bible deity
 	var/Bible_deity_name
-	var/datum/cult_info/cultdat = null //here instead of cult for adminbus purposes
-	var/random_players = 0 	// if set to nonzero, ALL players who latejoin or declare-ready join will have random appearances/genders
-	var/tipped = FALSE		//Did we broadcast the tip of the day yet?
-	var/selected_tip	// What will be the tip of the day?
-	var/pregame_timeleft // This is used for calculations
-	var/delay_end = 0	//if set to nonzero, the round will not restart on it's own
-	var/triai = 0//Global holder for Triumvirate
-	var/next_autotransfer = 0 //holder for inital autotransfer vote timer
-	var/obj/screen/cinematic = null			//used for station explosion cinematic
-	var/round_end_announced = 0 // Spam Prevention. Announce round end only once.
-	var/ticker_going = TRUE // This used to be in the unused globals, but it turns out its actually used in a load of places. Its now a ticker var because its related to round stuff, -aa
+	/// Cult data. Here instead of cult for adminbus purposes
+	var/datum/cult_info/cultdat = null
+	/// If set to nonzero, ALL players who latejoin or declare-ready join will have random appearances/genders
+	var/random_players = FALSE 
+	/// Did we broadcast the tip of the round yet?
+	var/tipped = FALSE
+	/// What will be the tip of the round?
+	var/selected_tip
+	/// This is used for calculations for the statpanel
+	var/pregame_timeleft
+	/// If set to TRUE, the round will not restart on it's own
+	var/delay_end = FALSE
+	/// Global holder for triple AI mode
+	var/triai = FALSE
+	/// Holder for inital autotransfer vote timer
+	var/next_autotransfer = 0
+	/// Used for station explosion cinematic
+	var/obj/screen/cinematic = null	
+	/// Spam Prevention. Announce round end only once.
+	var/round_end_announced = FALSE
+	/// Is the ticker currently processing? If FALSE, roundstart is delayed
+	var/ticker_going = TRUE
 
 /datum/controller/subsystem/ticker/Initialize()
 	login_music = pick(\
@@ -41,17 +63,6 @@ SUBSYSTEM_DEF(ticker)
 	'sound/music/title1.ogg',\
 	'sound/music/title2.ogg',\
 	'sound/music/title3.ogg',)
-	// Map name
-	if(GLOB.using_map && GLOB.using_map.name)
-		GLOB.map_name = "[GLOB.using_map.name]"
-	else
-		GLOB.map_name = "Unknown"
-
-	// World name
-	if(config && config.server_name)
-		world.name = "[config.server_name]: [station_name()]"
-	else
-		world.name = station_name()
 
 	return ..()
 
@@ -73,9 +84,9 @@ SUBSYSTEM_DEF(ticker)
 
 			// This is so we dont have sleeps in controllers, because that is a bad, bad thing
 			if(!delay_end)
-				pregame_timeleft = max(0,round_start_time - world.time) // Normal lobby countdown when roundstart was not delayed
+				pregame_timeleft = max(0, round_start_time - world.time) // Normal lobby countdown when roundstart was not delayed
 			else
-				pregame_timeleft = max(0,pregame_timeleft - 20) // If roundstart was delayed, we should resume the countdown where it left off
+				pregame_timeleft = max(0, pregame_timeleft - 20) // If roundstart was delayed, we should resume the countdown where it left off
 
 			if(pregame_timeleft <= 600 && !tipped) // 60 seconds
 				send_tip_of_the_round()
@@ -89,7 +100,7 @@ SUBSYSTEM_DEF(ticker)
 				current_state = GAME_STATE_STARTUP
 				Master.SetRunLevel(RUNLEVEL_LOBBY)
 		if(GAME_STATE_PLAYING)
-			delay_end = 0 // reset this in case round start was delayed
+			delay_end = FALSE // reset this in case round start was delayed
 			mode.process()
 			mode.process_job_tasks()
 
@@ -107,10 +118,9 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_FINISHED)
 			current_state = GAME_STATE_FINISHED
 			Master.SetRunLevel(RUNLEVEL_POSTGAME) // This shouldnt process more than once, but you never know
-			auto_toggle_ooc(1) // Turn it on
+			auto_toggle_ooc(TRUE) // Turn it on
 
-			spawn(0)
-				declare_completion()
+			declare_completion()
 
 			spawn(50)
 				if(mode.station_was_nuked)
@@ -120,43 +130,47 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/setup()
 	cultdat = setupcult()
-	//Create and announce mode
-	if(GLOB.master_mode=="secret")
-		src.hide_mode = 1
+
+	// Create and announce mode
+	if(GLOB.master_mode == "secret")
+		hide_mode = TRUE
+
 	var/list/datum/game_mode/runnable_modes
-	if((GLOB.master_mode=="random") || (GLOB.master_mode=="secret"))
+
+	if(GLOB.master_mode == "random" || GLOB.master_mode == "secret")
 		runnable_modes = config.get_runnable_modes()
-		if(runnable_modes.len==0)
+		if(!length(runnable_modes))
 			to_chat(world, "<B>Unable to choose playable game mode.</B> Reverting to pre-game lobby.")
 			force_start = FALSE
 			current_state = GAME_STATE_PREGAME
 			Master.SetRunLevel(RUNLEVEL_LOBBY)
-			return 0
+			return FALSE
 		if(GLOB.secret_force_mode != "secret")
 			var/datum/game_mode/M = config.pick_mode(GLOB.secret_force_mode)
 			if(M.can_start())
-				src.mode = config.pick_mode(GLOB.secret_force_mode)
+				mode = config.pick_mode(GLOB.secret_force_mode)
 		SSjobs.ResetOccupations()
-		if(!src.mode)
-			src.mode = pickweight(runnable_modes)
-		if(src.mode)
-			var/mtype = src.mode.type
-			src.mode = new mtype
+		if(!mode)
+			mode = pickweight(runnable_modes)
+		if(mode)
+			var/mtype = mode.type
+			mode = new mtype
 	else
-		src.mode = config.pick_mode(GLOB.master_mode)
-	if(!src.mode.can_start())
+		mode = config.pick_mode(GLOB.master_mode)
+
+	if(!mode.can_start())
 		to_chat(world, "<B>Unable to start [mode.name].</B> Not enough players, [mode.required_players] players needed. Reverting to pre-game lobby.")
 		mode = null
 		current_state = GAME_STATE_PREGAME
 		force_start = FALSE
 		SSjobs.ResetOccupations()
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
-		return 0
+		return FALSE
 
 	//Configure mode and assign player to special mode stuff
-	src.mode.pre_pre_setup()
+	mode.pre_pre_setup()
 	var/can_continue
-	can_continue = src.mode.pre_setup()//Setup special modes
+	can_continue = mode.pre_setup() //Setup special modes
 	SSjobs.DivideOccupations() //Distribute jobs
 	if(!can_continue)
 		qdel(mode)
@@ -165,27 +179,45 @@ SUBSYSTEM_DEF(ticker)
 		force_start = FALSE
 		SSjobs.ResetOccupations()
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
-		return 0
+		return FALSE
 
 	if(hide_mode)
 		var/list/modes = new
 		for(var/datum/game_mode/M in runnable_modes)
-			modes+=M.name
+			modes += M.name
 		modes = sortList(modes)
 		to_chat(world, "<B>The current game mode is - Secret!</B>")
 		to_chat(world, "<B>Possibilities:</B> [english_list(modes)]")
 	else
-		src.mode.announce()
+		mode.announce()
 
-	create_characters() //Create player characters and transfer them
-	populate_spawn_points()
-	collect_minds()
-	equip_characters()
-	GLOB.data_core.manifest()
+	// Behold, a rough way of figuring out what takes 10 years
+	var/watch = start_watch()
+	create_characters() // Create player characters and transfer clients
+	log_debug("Creating characters took [stop_watch(watch)]s")
+
+	watch = start_watch()
+	populate_spawn_points() // Put mobs in their spawn locations
+	log_debug("Populating spawn points took [stop_watch(watch)]s")
+
+	// Gather everyones minds
+	for(var/mob/living/player in GLOB.player_list)
+		if(player.mind)
+			minds += player.mind
+
+	watch = start_watch()
+	equip_characters() // Apply outfits and loadouts to the characters
+	log_debug("Equipping characters took [stop_watch(watch)]s")
+
+	watch = start_watch()
+	GLOB.data_core.manifest() // Create the manifest
+	log_debug("Manifest creation took [stop_watch(watch)]s")
+
+	// Update the MC and state to game playing
 	current_state = GAME_STATE_PLAYING
 	Master.SetRunLevel(RUNLEVEL_GAME)
 
-	// Generate the list of playable AI cores in the world
+	// Generate the list of empty playable AI cores in the world
 	for(var/obj/effect/landmark/start/S in GLOB.landmarks_list)
 		if(S.name != "AI")
 			continue
@@ -194,93 +226,34 @@ SUBSYSTEM_DEF(ticker)
 		GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(S))
 
 
-	//here to initialize the random events nicely at round start
-	setup_economy()
+	// Setup pregenerated newsfeeds
+	setup_news_feeds()
 
-	//shuttle_controller.setup_shuttle_docks()
+	// Generate code phrases and responses
+	if(!GLOB.syndicate_code_phrase)
+		GLOB.syndicate_code_phrase = generate_code_phrase()
+	if(!GLOB.syndicate_code_response)
+		GLOB.syndicate_code_response = generate_code_phrase()
 
-	spawn(0)//Forking here so we dont have to wait for this to finish
-		if(!GLOB.syndicate_code_phrase)
-			GLOB.syndicate_code_phrase = generate_code_phrase()
-		if(!GLOB.syndicate_code_response)
-			GLOB.syndicate_code_response	= generate_code_phrase()
-		mode.post_setup()
-		//Cleanup some stuff
-		for(var/obj/effect/landmark/start/S in GLOB.landmarks_list)
-			//Deleting Startpoints but we need the ai point to AI-ize people later
-			if(S.name != "AI")
-				qdel(S)
+	// Run post setup stuff
+	mode.post_setup()
 
-		// take care of random spesspod spawning
-		var/list/obj/effect/landmark/spacepod/random/L = list()
-		for(var/obj/effect/landmark/spacepod/random/SS in GLOB.landmarks_list)
-			if(istype(SS))
-				L += SS
-		if(L.len)
-			var/obj/effect/landmark/spacepod/random/S = pick(L)
-			new /obj/spacepod/random(S.loc)
-			for(var/obj/effect/landmark/spacepod/random/R in L)
-				qdel(R)
+	// Delete starting landmarks (not AI ones because we need those for AI-ize)
+	for(var/obj/effect/landmark/start/S in GLOB.landmarks_list)
+		if(S.name != "AI")
+			qdel(S)
 
-		to_chat(world, "<span class='darkmblue'><B>Enjoy the game!</B></span>")
-		world << sound('sound/AI/welcome.ogg')// Skie
+	to_chat(world, "<span class='darkmblue'><B>Enjoy the game!</B></span>")
+	world << sound('sound/AI/welcome.ogg')
 
-		if(SSholiday.holidays)
-			to_chat(world, "<span class='darkmblue'>and...</span>")
-			for(var/holidayname in SSholiday.holidays)
-				var/datum/holiday/holiday = SSholiday.holidays[holidayname]
-				to_chat(world, "<h4>[holiday.greet()]</h4>")
-
-	spawn(0) // Forking dynamic room selection
-		var/list/area/dynamic/source/available_source_candidates = subtypesof(/area/dynamic/source)
-		var/list/area/dynamic/destination/available_destination_candidates = subtypesof(/area/dynamic/destination)
-
-		for(var/area/dynamic/destination/current_destination_candidate in available_destination_candidates)
-			var/area/dynamic/destination/current_destination = locate(current_destination_candidate)
-
-			if(!current_destination)
-				continue
-
-			if(current_destination.match_width == 0 || current_destination.match_height == 0)
-				message_admins("Dynamic area destination '[current_destination.name]' does not have its size requirements set.")
-				continue
-
-			var/list/area/dynamic/source/candidate_source_areas = new /list(0)
-			for(var/area/dynamic/source/candidate_source_area in available_source_candidates)
-				var/area/dynamic/source/candidate_source = locate(candidate_source_area)
-
-				if(!candidate_source)
-					continue
-
-				if(candidate_source.match_tag != current_destination.match_tag)
-					continue
-
-				if(candidate_source.match_width != current_destination.match_width || \
-					candidate_source.match_height != current_destination.match_height)
-					continue
-
-				candidate_source_areas += candidate_source
-
-			if(candidate_source_areas.len == 0)
-				message_admins("Failed to find a matching source for dynamic area: [current_destination.name]")
-				continue
-
-			var/area/dynamic/source/selected_source = pick(candidate_source_areas)
-			available_source_candidates -= selected_source
-
-			selected_source.copy_contents_to(current_destination, 0)
-
-			if(current_destination.enable_lights || selected_source.enable_lights)
-				current_destination.power_light = 1
-			else
-				current_destination.power_light = 0
-			current_destination.power_change()
-
-	//start_events() //handles random events and space dust.
-	//new random event system is handled from the MC.
-
+	if(SSholiday.holidays)
+		to_chat(world, "<span class='darkmblue'>and...</span>")
+		for(var/holidayname in SSholiday.holidays)
+			var/datum/holiday/holiday = SSholiday.holidays[holidayname]
+			to_chat(world, "<h4>[holiday.greet()]</h4>")
+	
 	SSdiscord.send2discord_simple_noadmins("**\[Info]** Round has started")
-	auto_toggle_ooc(0) // Turn it off
+	auto_toggle_ooc(FALSE) // Turn it off
 	round_start_time = world.time
 
 	// Sets the auto shuttle vote to happen after the config duration
@@ -310,7 +283,7 @@ SUBSYSTEM_DEF(ticker)
 	if(cinematic)
 		return	//already a cinematic in progress!
 
-	auto_toggle_ooc(1) // Turn it on
+	auto_toggle_ooc(TRUE) // Turn it on
 	//initialise our cinematic screen object
 	cinematic = new /obj/screen(src)
 	cinematic.icon = 'icons/effects/station_explosion.dmi'
@@ -410,22 +383,15 @@ SUBSYSTEM_DEF(ticker)
 				player.create_character()
 				qdel(player)
 
-
-/datum/controller/subsystem/ticker/proc/collect_minds()
-	for(var/mob/living/player in GLOB.player_list)
-		if(player.mind)
-			SSticker.minds += player.mind
-
-
 /datum/controller/subsystem/ticker/proc/equip_characters()
-	var/captainless=1
+	var/captainless = TRUE
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(player && player.mind && player.mind.assigned_role)
 			if(player.mind.assigned_role == "Captain")
-				captainless=0
+				captainless = FALSE
 			if(player.mind.assigned_role != player.mind.special_role)
-				SSjobs.AssignRank(player, player.mind.assigned_role, 0)
-				SSjobs.EquipRank(player, player.mind.assigned_role, 0)
+				SSjobs.AssignRank(player, player.mind.assigned_role, FALSE)
+				SSjobs.EquipRank(player, player.mind.assigned_role, FALSE)
 				EquipCustomItems(player)
 	if(captainless)
 		for(var/mob/M in GLOB.player_list)
@@ -448,7 +414,7 @@ SUBSYSTEM_DEF(ticker)
 		to_chat(world, "<span class='purple'><b>Tip of the round: </b>[html_encode(m)]</span>")
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
-	GLOB.nologevent = 1 //end of round murder and shenanigans are legal; there's no need to jam up attack logs past this point.
+	GLOB.nologevent = TRUE //end of round murder and shenanigans are legal; there's no need to jam up attack logs past this point.
 	//Round statistics report
 	var/datum/station_state/end_state = new /datum/station_state()
 	end_state.count()
@@ -464,7 +430,7 @@ SUBSYSTEM_DEF(ticker)
 			to_chat(world, "<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws at the end of the game were:</b>")
 		else
 			to_chat(world, "<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws when it was deactivated were:</b>")
-		aiPlayer.show_laws(1)
+		aiPlayer.show_laws(TRUE)
 
 		if(aiPlayer.connected_robots.len)
 			var/robolist = "<b>The AI's loyal minions were:</b> "
@@ -528,10 +494,41 @@ SUBSYSTEM_DEF(ticker)
 			var/mob/M = m
 			H.add_hud_to(M)
 
-	return 1
+	return TRUE
 
 /datum/controller/subsystem/ticker/proc/HasRoundStarted()
 	return current_state >= GAME_STATE_PLAYING
 
 /datum/controller/subsystem/ticker/proc/IsRoundInProgress()
 	return current_state == GAME_STATE_PLAYING
+
+
+/datum/controller/subsystem/ticker/proc/setup_news_feeds()
+	var/datum/feed_channel/newChannel = new /datum/feed_channel
+	newChannel.channel_name = "Public Station Announcements"
+	newChannel.author = "Automated Announcement Listing"
+	newChannel.icon = "bullhorn"
+	newChannel.frozen = TRUE
+	newChannel.admin_locked = TRUE
+	GLOB.news_network.channels += newChannel
+
+	newChannel = new /datum/feed_channel
+	newChannel.channel_name = "Nyx Daily"
+	newChannel.author = "CentComm Minister of Information"
+	newChannel.icon = "meteor"
+	newChannel.frozen = TRUE
+	newChannel.admin_locked = TRUE
+	GLOB.news_network.channels += newChannel
+
+	newChannel = new /datum/feed_channel
+	newChannel.channel_name = "The Gibson Gazette"
+	newChannel.author = "Editor Mike Hammers"
+	newChannel.icon = "star"
+	newChannel.frozen = TRUE
+	newChannel.admin_locked = TRUE
+	GLOB.news_network.channels += newChannel
+
+	for(var/loc_type in subtypesof(/datum/trade_destination))
+		var/datum/trade_destination/D = new loc_type
+		GLOB.weighted_randomevent_locations[D] = D.viable_random_events.len
+		GLOB.weighted_mundaneevent_locations[D] = D.viable_mundane_events.len
