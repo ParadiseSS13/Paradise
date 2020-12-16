@@ -103,9 +103,6 @@
 		if(!I.anchored)
 			I.forceMove(src)
 			itemcount++
-			if(istype(I, /obj/item/storage))
-				var/obj/item/storage/S = I
-				S.hide_from_all()
 
 	for(var/mob/M in loc)
 		if(itemcount >= storage_capacity)
