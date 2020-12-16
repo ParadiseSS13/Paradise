@@ -111,16 +111,17 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 
 	else
 		//The current admin system uses SQL
-
-		establish_db_connection()
-		if(!GLOB.dbcon.IsConnected())
+		if(!SSdbcore.IsConnected())
 			log_world("Failed to connect to database in load_admins(). Reverting to legacy system.")
 			config.admin_legacy_system = 1
 			load_admins()
 			return
 
-		var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT ckey, rank, level, flags FROM [format_table_name("admin")]")
-		query.Execute()
+		var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey, rank, level, flags FROM [format_table_name("admin")]")
+		if(!query.warn_execute())
+			qdel(query)
+			return
+
 		while(query.NextRow())
 			var/ckey = query.item[1]
 			var/rank = query.item[2]
@@ -135,6 +136,9 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 
 			//find the client for a ckey if they are connected and associate them with the new admin datum
 			D.associate(GLOB.directory[ckey])
+
+		qdel(query)
+
 		if(!GLOB.admin_datums)
 			log_world("The database query in load_admins() resulted in no admins being added to the list. Reverting to legacy system.")
 			config.admin_legacy_system = 1

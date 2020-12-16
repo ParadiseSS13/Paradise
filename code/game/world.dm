@@ -11,7 +11,7 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	log_world("World loaded at [time_stamp()]")
 	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
 	GLOB.revision_info.log_info()
-	connectDB() // This NEEDS TO HAPPEN EARLY. I CANNOT STRESS THIS ENOUGH!!!!!!! -aa
+	SSdbcore.CheckSchemaVersion() // This doesnt just check the schema version, it also connects to the db! This needs to happen super early! I cannot stress this enough!
 	load_admins() // Same here
 
 	#ifdef UNIT_TESTS
@@ -141,7 +141,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	//kick_clients_in_lobby("<span class='boldannounce'>The round came to an end with you in the lobby.</span>", 1)
 
 	Master.Shutdown()	//run SS shutdowns
-	GLOB.dbcon.Disconnect() // DCs cleanly from the database
+	SSdbcore.Disconnect() // DCs cleanly from the database
 	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 	TgsReboot()
 
@@ -239,10 +239,6 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 
 	return s
 
-#define FAILED_DB_CONNECTION_CUTOFF 5
-GLOBAL_VAR_INIT(failed_db_connections, 0)
-GLOBAL_VAR_INIT(failed_old_db_connections, 0)
-
 /world/proc/SetupLogs()
 	GLOB.log_directory = "data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day")]"
 	GLOB.world_game_log = "[GLOB.log_directory]/game.log"
@@ -252,12 +248,14 @@ GLOBAL_VAR_INIT(failed_old_db_connections, 0)
 	GLOB.world_asset_log = "[GLOB.log_directory]/asset.log"
 	GLOB.tgui_log = "[GLOB.log_directory]/tgui.log"
 	GLOB.http_log = "[GLOB.log_directory]/http.log"
+	GLOB.sql_log = "[GLOB.log_directory]/sql.log"
 	start_log(GLOB.world_game_log)
 	start_log(GLOB.world_href_log)
 	start_log(GLOB.world_runtime_log)
 	start_log(GLOB.world_qdel_log)
 	start_log(GLOB.tgui_log)
 	start_log(GLOB.http_log)
+	start_log(GLOB.sql_log)
 
 	// This log follows a special format and this path should NOT be used for anything else
 	GLOB.runtime_summary_log = "data/logs/runtime_summary.log"
@@ -270,49 +268,6 @@ GLOBAL_VAR_INIT(failed_old_db_connections, 0)
 		fcopy(GLOB.config_error_log, "[GLOB.log_directory]/config_error.log")
 		fdel(GLOB.config_error_log)
 
-
-/world/proc/connectDB()
-	if(!setup_database_connection())
-		log_world("Your server failed to establish a connection with the feedback database.")
-	else
-		log_world("Feedback database connection established.")
-	return 1
-
-/proc/setup_database_connection()
-
-	if(GLOB.failed_db_connections > FAILED_DB_CONNECTION_CUTOFF)	//If it failed to establish a connection more than 5 times in a row, don't bother attempting to conenct anymore.
-		return 0
-
-	if(!GLOB.dbcon)
-		GLOB.dbcon = new()
-
-	var/user = sqlfdbklogin
-	var/pass = sqlfdbkpass
-	var/db = sqlfdbkdb
-	var/address = sqladdress
-	var/port = sqlport
-
-	GLOB.dbcon.Connect("dbi:mysql:[db]:[address]:[port]","[user]","[pass]")
-	. = GLOB.dbcon.IsConnected()
-	if( . )
-		GLOB.failed_db_connections = 0	//If this connection succeeded, reset the failed connections counter.
-	else
-		GLOB.failed_db_connections++		//If it failed, increase the failed connections counter.
-		log_world(GLOB.dbcon.ErrorMsg())
-
-	return .
-
-//This proc ensures that the connection to the feedback database (global variable dbcon) is established
-/proc/establish_db_connection()
-	if(GLOB.failed_db_connections > FAILED_DB_CONNECTION_CUTOFF)
-		return 0
-
-	if(!GLOB.dbcon || !GLOB.dbcon.IsConnected())
-		return setup_database_connection()
-	else
-		return 1
-
-#undef FAILED_DB_CONNECTION_CUTOFF
 
 // Proc to enable the extools debugger, which allows breakpoints, live var checking, and many other useful tools
 // The DLL is injected into the env by visual studio code. If not running VSCode, the proc will not call the initialization
