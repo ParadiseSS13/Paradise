@@ -1472,6 +1472,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	default_cell_type = /obj/item/stock_parts/cell/super
 	var/eprefix = "Amber"
 	see_reagents = TRUE
+	can_slowdown = FALSE
 
 
 /mob/living/silicon/robot/ert/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
@@ -1507,7 +1508,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	damage_protection = 5 // Reduce all incoming damage by this number
 	eprefix = "Gamma"
 	magpulse = 1
-	slowdown_damage_increase = 25
 
 
 /mob/living/silicon/robot/destroyer

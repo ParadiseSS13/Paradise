@@ -91,7 +91,7 @@
 /obj/item/borg/upgrade/vtec/action(var/mob/living/silicon/robot/R)
 	if(..())
 		return
-	if(R.health != 100)
+	if(R.health != R.maxHealth)
 		to_chat(R, "<span class='notice'>System damaged, unable to install upgrade!</span>")
 		to_chat(usr, "<span class='notice'>VTEC is unable to be engaged when robot is damaged, repair it first!</span>")
 	if(R.has_vtec)

@@ -14,7 +14,7 @@
 	damage_protection = 5
 	brute_mod = 0.7 //30% less damage
 	burn_mod = 0.7
-	slowdown_damage_increase = 25
+	can_slowdown = FALSE
 	can_lock_cover = TRUE
 	lawchannel = "State"
 	var/playstyle_string = "<span class='userdanger'>You are a Syndicate assault cyborg!</span><br>\
