@@ -113,22 +113,3 @@
 		else
 			H.makeAntiCluwne()
 	..()
-
-/obj/item/melee/touch_attack/heart_curse
-	name = "Heart Curse"
-	desc = "Heart attack-ack-ack-ack-ack-ack-ack!"
-	catchphrase = "COR COR IMP TUM!!"
-	on_use_sound = 'sound/machines/defib_zap.ogg'
-	icon_state = "disintegrate"
-	item_state = "disintegrate"
-
-/obj/item/melee/touch_attack/heart_curse/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.lying || user.handcuffed) //exploding after touching yourself would be bad
-		return
-	var/mob/living/carbon/human/H = target
-	if(NO_BLOOD in H.dna.species.species_traits)
-		to_chat(user, "<span class='userdanger'>[H]'s heart can not be cursed!</span>")
-		return
-	var/obj/item/organ/internal/organ = new /obj/item/organ/internal/heart/cursed
-	organ.insert(H)
-	return ..()

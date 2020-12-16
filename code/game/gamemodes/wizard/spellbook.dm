@@ -172,12 +172,6 @@
 	log_name = "IG"
 	category = "Offensive"
 
-/datum/spellbook_entry/heart_curse
-	name = "Heart Curse"
-	spell_type = /obj/effect/proc_holder/spell/targeted/touch/heart_curse
-	cost = 1
-	log_name = "HC"
-
 /datum/spellbook_entry/sacred_flame
 	name = "Sacred Flame"
 	spell_type = /obj/effect/proc_holder/spell/targeted/sacred_flame
