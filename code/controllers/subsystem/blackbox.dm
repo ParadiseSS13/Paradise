@@ -1,13 +1,15 @@
 SUBSYSTEM_DEF(blackbox)
 	name = "Blackbox"
 	flags = SS_NO_FIRE | SS_NO_INIT
-	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
-	init_order = INIT_ORDER_BLACKBOX
 
-	var/list/feedback = list()	//list of datum/feedback_variable
-	var/sealed = FALSE	//time to stop tracking stats?
-	var/list/research_levels = list() //list of highest tech levels attained that isn't lost lost by destruction of RD computers
-	var/list/versions = list() //associative list of any feedback variables that have had their format changed since creation and their current version, remember to update this
+	/// List of all recorded feedback
+	var/list/datum/feedback_variable/feedback = list()
+	/// Is it time to stop tracking stats?
+	var/sealed = FALSE
+	/// List of highest tech levels attained that isn't lost lost by destruction of RD computers
+	var/list/research_levels = list()
+	/// Associative list of any feedback variables that have had their format changed since creation and their current version, remember to update this
+	var/list/versions = list()
 
 /datum/controller/subsystem/blackbox/Recover()
 	feedback = SSblackbox.feedback
@@ -168,6 +170,8 @@ Versioning
 	list/versions = list("round_end_stats" = 4,
 						"admin_toggle" = 2,
 						"gun_fired" = 2)
+
+Note: Even though you can call this function all throughout the round, its only written at round restart
 */
 /datum/controller/subsystem/blackbox/proc/record_feedback(key_type, key, increment, data, overwrite)
 	if(sealed || !key_type || !istext(key) || !isnum(increment || !data))
