@@ -3,26 +3,12 @@
 #
 #Before starting ensure you have installed the mysqlclient package https://github.com/PyMySQL/mysqlclient-python
 #It can be downloaded from command line with pip:
-#pip install mysqlclient
-#
-#You will also have to create a new feedback table for inserting converted data to per the schema:
-#CREATE TABLE `feedback_new` (
-#  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-#  `datetime` datetime NOT NULL,
-#  `round_id` int(11) unsigned NOT NULL,
-#  `key_name` varchar(32) NOT NULL,
-#  `key_type` enum('text', 'amount', 'tally', 'nested tally', 'associative') NOT NULL,
-#  `version` tinyint(3) unsigned NOT NULL,
-#  `json` json NOT NULL,
-#  PRIMARY KEY (`id`)
-#) ENGINE=MyISAM
-#This is to prevent the destruction of legacy data and allow rollbacks to be performed in the event of an error during conversion
-#Once conversion is complete remember to rename the old and new feedback tables; it's up to you if you want to keep the old table
+#pip install mysql-connector
 #
 #To view the parameters for this script, execute it with the argument --help
 #All the positional arguments are required, remember to include prefixes in your table names if you use them
 #An example of the command used to execute this script from powershell:
-#python feedback_conversion_2017-11-12.py "localhost" "root" "password" "feedback" "SS13_feedback" "SS13_feedback_new"
+#python feedback_conversion_2017-11-12.py "localhost" "root" "password" "feedback" "feedback" "feedback_2"
 #I found that this script would complete conversion of 10000 rows approximately every 2-3 seconds
 #Depending on the size of your feedback table and the computer used it may take several minutes for the script to finish
 #

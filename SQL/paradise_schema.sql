@@ -579,4 +579,4 @@ CREATE TABLE `round` (
   `map_name` VARCHAR(32) NULL,
   `station_name` VARCHAR(80) NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
