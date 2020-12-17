@@ -44,6 +44,7 @@ os.mkdir("tools/ci/sql_tmp")
 scriptLines = [
     "#!/bin/bash\n",
     "set -euo pipefail\n"
+    "python3 -m pip install setuptools\n" # Yes I know you can PIP multiple things but they need to happen in this order
     "python3 -m pip install mysql-connector\n"
     "mysql -u root -proot < tools/ci/sql_v0.sql\n"
 ]
