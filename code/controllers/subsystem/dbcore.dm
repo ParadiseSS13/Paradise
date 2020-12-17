@@ -109,16 +109,15 @@ SUBSYSTEM_DEF(dbcore)
 			config.sql_enabled = FALSE
 			schema_valid = FALSE
 			SSticker.ticker_going = FALSE
-			log_world("Database connection failed: Invalid SQL Versions")
+			SEND_TEXT(world.log, "Database connection failed: Invalid SQL Versions")
 			return FALSE
 		#endif
 		if(Connect())
-			log_world("Database connection established")
+			SEND_TEXT(world.log, "Database connection established")
 		else
-			// log_sql() because then an error will be logged in the same place
-			log_sql("Your server failed to establish a connection with the database")
+			SEND_TEXT(world.log, "Your server failed to establish a connection with the database. Please check SQL error logs.")
 	else
-		log_sql("Database is not enabled in configuration")
+		SEND_TEXT(world.log, "Database is not enabled in configuration")
 
 /**
   * Disconnection Handler
@@ -131,6 +130,57 @@ SUBSYSTEM_DEF(dbcore)
 	if(connection)
 		rustg_sql_disconnect_pool(connection)
 	connection = null
+
+/datum/controller/subsystem/dbcore/Shutdown()
+	//This is as close as we can get to the true round end before Disconnect() without changing where it's called, defeating the reason this is a subsystem
+	if(SSdbcore.Connect())
+		var/datum/db_query/query_round_shutdown = SSdbcore.NewQuery(
+			"UPDATE [format_table_name("round")] SET shutdown_datetime = Now(), end_state = :end_state WHERE id = :round_id",
+			list("end_state" = SSticker.end_state, "round_id" = GLOB.round_id)
+		)
+		query_round_shutdown.Execute()
+		qdel(query_round_shutdown)
+	if(IsConnected())
+		Disconnect()
+
+/datum/controller/subsystem/dbcore/proc/SetRoundID()
+	if(!IsConnected())
+		return
+	var/datum/db_query/query_round_initialize = SSdbcore.NewQuery(
+		"INSERT INTO [format_table_name("round")] (initialize_datetime, server_ip, server_port) VALUES (Now(), INET_ATON(:internet_address), :port)",
+		list("internet_address" = world.internet_address || "0", "port" = "[world.port]")
+	)
+	query_round_initialize.Execute(async = FALSE)
+	GLOB.round_id = "[query_round_initialize.last_insert_id]"
+	qdel(query_round_initialize)
+
+/datum/controller/subsystem/dbcore/proc/SetRoundStart()
+	if(!IsConnected())
+		return
+	var/datum/db_query/query_round_start = SSdbcore.NewQuery(
+		"UPDATE [format_table_name("round")] SET start_datetime=NOW() WHERE id=:round_id",
+		list("round_id" = GLOB.round_id)
+	)
+	query_round_start.Execute()
+	qdel(query_round_start)
+	// Lets also throw the commit hash in
+	if(GLOB.revision_info.commit_hash)
+		var/datum/db_query/query_commit_hash = SSdbcore.NewQuery(
+			"UPDATE [format_table_name("round")] SET commit_hash=:hash WHERE id=:round_id",
+			list("hash" = GLOB.revision_info.commit_hash, "round_id" = GLOB.round_id)
+		)
+		query_commit_hash.Execute()
+		qdel(query_commit_hash)
+
+/datum/controller/subsystem/dbcore/proc/SetRoundEnd()
+	if(!IsConnected())
+		return
+	var/datum/db_query/query_round_end = SSdbcore.NewQuery(
+		"UPDATE [format_table_name("round")] SET end_datetime = Now(), game_mode_result = :game_mode_result, station_name = :station_name WHERE id = :round_id",
+		list("game_mode_result" = SSticker.mode_result, "station_name" = station_name(), "round_id" = GLOB.round_id)
+	)
+	query_round_end.Execute()
+	qdel(query_round_end)
 
 /**
   * IsConnected Helper
@@ -428,7 +478,7 @@ SUBSYSTEM_DEF(dbcore)
 
 	log_admin("[key_name(usr)] is attempting to re-establish the DB Connection")
 	message_admins("[key_name_admin(usr)] is attempting to re-establish the DB Connection")
-	feedback_add_details("admin_verb", "FRDBC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "FRDBC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 	SSdbcore.failed_connections = 0 // Reset this
 	if(!SSdbcore.Connect())

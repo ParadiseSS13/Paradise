@@ -155,7 +155,7 @@
 					M.setTimer(50)
 					message_admins("[key_name_admin(usr)] fast travelled [M]")
 					log_admin("[key_name(usr)] fast travelled [M]")
-					feedback_add_details("shuttle_fasttravel", M.name)
+					SSblackbox.record_feedback("text", "shuttle_fasttravel", 1, "[M.name]")
 					break
 
 		if("preview")
@@ -181,7 +181,7 @@
 					usr.forceMove(get_turf(mdp))
 					message_admins("[key_name_admin(usr)] loaded [mdp] with the shuttle manipulator.")
 					log_admin("[key_name(usr)] loaded [mdp] with the shuttle manipulator.</span>")
-					feedback_add_details("shuttle_manipulator", mdp.name)
+					SSblackbox.record_feedback("text", "shuttle_manipulator", 1, "[mdp.name]")
 
 
 /obj/machinery/shuttle_manipulator/proc/action_load(datum/map_template/shuttle/loading_template)

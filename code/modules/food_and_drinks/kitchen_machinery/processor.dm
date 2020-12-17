@@ -119,7 +119,7 @@
 		return
 	for(var/i in 1 to (C+processor.rating_amount-1))
 		new S.coretype(processor.drop_location())
-		feedback_add_details("slime_core_harvested","[replacetext(S.colour," ","_")]")
+		SSblackbox.record_feedback("tally", "slime_core_harvested", 1, S.colour)
 	..()
 
 /datum/food_processor_process/mob/monkey
