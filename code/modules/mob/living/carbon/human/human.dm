@@ -5,8 +5,13 @@
 	icon = 'icons/mob/human.dmi'
 	icon_state = "body_m_s"
 	deathgasp_on_death = TRUE
+	/// descriptions of stamps applied to this human that will be visible on examine
+	var/list/stamp_marks_desc = list()
+	/// combined image of all the stamp marks
+	var/image/stamp_marks
 
 /mob/living/carbon/human/New(loc)
+	stamp_marks = new /image()
 	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.
 	if(length(args) > 1)
 		log_runtime(EXCEPTION("human/New called with more than 1 argument (REPORT THIS ENTIRE RUNTIME TO A CODER)"))

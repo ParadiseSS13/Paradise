@@ -767,6 +767,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(belt)
 		if(belt.clean_blood())
 			update_inv_belt()
+	stamp_marks.cut_overlays()		//cleans person of stamp marks
+	stamp_marks_desc = list()		//cleans person of stamp mark descriptions
+	update_misc_effects()
 	..(clean_hands, clean_mask, clean_feet)
 	update_icons()	//apply the now updated overlays to the mob
 
