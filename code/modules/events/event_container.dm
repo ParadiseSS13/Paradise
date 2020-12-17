@@ -189,17 +189,17 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 /datum/event_container/major
 	severity = EVENT_LEVEL_MAJOR
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Nothing",			/datum/event/nothing,			1320),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Carp Migration",	/datum/event/carp_migration,	0,						list(ASSIGNMENT_SECURITY =  3), TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Nothing",			/datum/event/nothing,			590),															// 57% on high pop (120+). 64.2% on lowpop (70+)
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Carp Migration",	/datum/event/carp_migration,	10,						list(ASSIGNMENT_SECURITY =  3), TRUE),	// 4.8% on high pop, 3.4% on low pop
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Containment Breach",	/datum/event/prison_break/station,	0,			list(ASSIGNMENT_ANY = 5)),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "APC Overload",	/datum/event/apc_overload,		0),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Blob",			/datum/event/blob, 				0,						list(ASSIGNMENT_ENGINEER = 30), TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Meteor Wave",		/datum/event/meteor_wave,		0,						list(ASSIGNMENT_ENGINEER =  5),	TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Abductor Visit",	/datum/event/abductor, 		    80, is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Blob",			/datum/event/blob, 				30,						list(ASSIGNMENT_ENGINEER =  5), TRUE),	// 6.9% on high pop, 5.5% on low pop
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Meteor Wave",		/datum/event/meteor_wave,		30,						list(ASSIGNMENT_ENGINEER =  5),	TRUE),	// 6.9% on high pop, 5.5% on low pop
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Abductor Visit",	/datum/event/abductor, 		    20, 					list(ASSIGNMENT_SECURITY =  3), TRUE),	// 5.8% on high pop, 4.5% on low pop
 		//new /datum/event_meta/alien(EVENT_LEVEL_MAJOR, "Alien Infestation",	/datum/event/alien_infestation, 		0,		list(ASSIGNMENT_SECURITY = 15), TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Traders",			/datum/event/traders,			180, is_one_shot = TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Terror Spiders",			/datum/event/spider_terror, 		0,			list(ASSIGNMENT_SECURITY = 15), is_one_shot = TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Slaughter Demon",	/datum/event/spawn_slaughter,	15, is_one_shot = TRUE)
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Traders",			/datum/event/traders,			85, is_one_shot = TRUE),										// 8.4% on high pop, 9.4% on low pop
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Terror Spiders",	/datum/event/spider_terror, 	20,						list(ASSIGNMENT_SECURITY = 4), TRUE),	// 7.1% on high pop, 5.3% on low pop
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Slaughter Demon",	/datum/event/spawn_slaughter,	10,  is_one_shot = TRUE)	// 3% on high pop, 2.1% on low pop
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Floor Cluwne",	/datum/event/spawn_floor_cluwne,	15, is_one_shot = TRUE)
 	)
 

@@ -199,6 +199,9 @@
 ///Called by client/Move()
 ///Checks to see if you are being grabbed and if so attemps to break it
 /client/proc/Process_Grab()
+	if(mob.incapacitated(FALSE, TRUE, TRUE)) // Can't break out of grabs if you're incapacitated
+		return TRUE
+
 	if(mob.grabbed_by.len)
 		var/list/grabbing = list()
 
@@ -221,17 +224,17 @@
 				if(GRAB_AGGRESSIVE)
 					move_delay = world.time + 10
 					if(!prob(25))
-						return 1
+						return TRUE
 					mob.visible_message("<span class='danger'>[mob] has broken free of [G.assailant]'s grip!</span>")
 					qdel(G)
 
 				if(GRAB_NECK)
 					move_delay = world.time + 10
 					if(!prob(5))
-						return 1
+						return TRUE
 					mob.visible_message("<span class='danger'>[mob] has broken free of [G.assailant]'s headlock!</span>")
 					qdel(G)
-	return 0
+	return FALSE
 
 
 ///Process_Incorpmove
