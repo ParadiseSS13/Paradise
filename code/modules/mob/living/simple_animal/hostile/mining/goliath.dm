@@ -60,15 +60,16 @@
 	if(!isturf(tturf))
 		return
 	if(get_dist(src, target) <= 7)//Screen range check, so you can't get tentacle'd offscreen
-		visible_message("<span class='warning'>[src] digs its tentacles under [target]!</span>")
-		new /obj/effect/temp_visual/goliath_tentacle/original(tturf, src)
+		visible_message("<span class='warning'>[src] digs [aux_tentacles > 0 ? "its tentacles " : "a tentacle"] under [target]!</span>")
+		new /obj/effect/temp_visual/goliath_tentacle/original(tturf, src, aux_tentacles)
 		ranged_cooldown = world.time + ranged_cooldown_time
 		icon_state = icon_aggro
 		pre_attack = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/goliath/adjustHealth(amount, updating_health = TRUE)
-	ranged_cooldown -= 10
-	handle_preattack()
+	if(amount > 0)
+		ranged_cooldown -= 10
+		handle_preattack()
 	. = ..()
 
 /mob/living/simple_animal/hostile/asteroid/goliath/Aggro()
@@ -99,6 +100,9 @@
 	if(prob(1))
 		new /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient(loc)
 		return INITIALIZE_HINT_QDEL
+	else if(prob(10))
+		new /mob/living/simple_animal/hostile/asteroid/goliath/beast/juvenile(loc)
+		return INITIALIZE_HINT_QDEL
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient
 	name = "ancient goliath"
@@ -116,9 +120,12 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/goliath= 2, /obj/item/stack/sheet/bone = 2)
 	crusher_drop_mod = 30
 	wander = FALSE
+	growth_stage = ANCIENT
+	aux_tentacles = 1
 	var/list/cached_tentacle_turfs
 	var/turf/last_location
 	var/tentacle_recheck_cooldown = 100
+	var/goliaths_owned = 0
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient/Life()
 	. = ..()
@@ -137,6 +144,7 @@
 					new /obj/effect/temp_visual/goliath_tentacle(t, src)
 			else
 				cached_tentacle_turfs -= t
+	handle_goliaths_owned()
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/tendril
 	fromtendril = TRUE
@@ -162,10 +170,10 @@
 	deltimer(timerid)
 	timerid = addtimer(CALLBACK(src, .proc/tripanim), 7, TIMER_STOPPABLE)
 
-/obj/effect/temp_visual/goliath_tentacle/original/Initialize(mapload, new_spawner)
+/obj/effect/temp_visual/goliath_tentacle/original/Initialize(mapload, new_spawner, aux_tentacles)
 	. = ..()
 	var/list/directions = GLOB.cardinal.Copy()
-	for(var/i in 1 to 3)
+	for(var/i in 1 to aux_tentacles)
 		var/spawndir = pick_n_take(directions)
 		var/turf/T = get_step(src, spawndir)
 		if(T)
@@ -177,13 +185,18 @@
 	timerid = addtimer(CALLBACK(src, .proc/trip), 3, TIMER_STOPPABLE)
 
 /obj/effect/temp_visual/goliath_tentacle/proc/trip()
+	var/mob/living/simple_animal/hostile/asteroid/goliath/G = spawner
 	var/latched = FALSE
 	for(var/mob/living/L in loc)
 		if((!QDELETED(spawner) && spawner.faction_check_mob(L)) || L.stat == DEAD)
 			continue
 		visible_message("<span class='danger'>[src] grabs hold of [L]!</span>")
-		L.Stun(5)
-		L.adjustBruteLoss(rand(10,15))
+		if((istype(G, /mob/living/simple_animal/hostile/asteroid/goliath) && G.growth_stage == ADULT) || !istype(G, /mob/living/simple_animal/hostile/asteroid/goliath))
+			L.Stun(5)
+			L.adjustBruteLoss(rand(10,15))
+		else
+			L.Weaken(2)
+			L.adjustBruteLoss(rand(5,10))
 		latched = TRUE
 	if(!latched)
 		retract()
