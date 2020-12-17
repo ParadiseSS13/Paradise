@@ -20,7 +20,6 @@
 
 	burn_mod = 1.5
 	heatmod = 1.5
-	brute_mod = 1.5
 
 	//Has default darksight of 2.
 

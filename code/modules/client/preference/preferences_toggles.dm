@@ -91,6 +91,15 @@
 	to_chat(src, "You will [(prefs.toggles & PREFTOGGLE_CHAT_PRAYER) ? "now" : "no longer"] see prayerchat.")
 	feedback_add_details("admin_verb","TP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/verb/toggleprayernotify()
+	set name = "Hear/Silence Prayer Notification Sound"
+	set category = "Preferences"
+	set desc = "Toggles hearing when prayers are made"
+	prefs.sound ^= SOUND_PRAYERNOTIFY
+	prefs.save_preferences(src)
+	to_chat(src, "You will [(prefs.sound & SOUND_PRAYERNOTIFY) ? "now" : "no longer"] hear when prayers are made.")
+	feedback_add_details("admin_verb","TPS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc! 
+
 /client/verb/togglescoreboard()
 	set name = "Hide/Display End Round Scoreboard"
 	set category = "Preferences"

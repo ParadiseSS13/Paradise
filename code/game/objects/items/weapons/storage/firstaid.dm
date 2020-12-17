@@ -317,21 +317,9 @@
 
 /obj/item/storage/pill_bottle/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pen) || istype(I, /obj/item/flashlight/pen))
-		var/tmp_label = sanitize(input(user, "Enter a label for [name]","Label",label_text))
-		if(length(tmp_label) > MAX_NAME_LEN)
-			to_chat(user, "<span class='warning'>The label can be at most [MAX_NAME_LEN] characters long.</span>")
-		else
-			to_chat(user, "<span class='notice'>You set the label to \"[tmp_label]\".</span>")
-			label_text = tmp_label
-			update_name_label()
+		rename_interactive(user, I)
 	else
 		return ..()
-
-/obj/item/storage/pill_bottle/proc/update_name_label()
-	if(label_text == "")
-		name = base_name
-	else
-		name = "[base_name] ([label_text])"
 
 /obj/item/storage/pill_bottle/patch_pack
 	name = "Patch Pack"

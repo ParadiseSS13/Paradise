@@ -929,3 +929,57 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	message_admins("<span class='adminnotice'>[key_name_admin(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout.</span>")
 	feedback_add_details("admin_verb","TMH") // If...
 	log_admin("[key_name(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout.")
+
+
+/client/proc/visualise_active_turfs()
+	set category = "Debug"
+	set name = "Visualise Active Turfs"
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	// This can potentially iterate through a list thats 20k things long. Give ample warning to the user
+	var/confirm = alert(usr, "WARNING: This process is lag intensive and should only be used if the atmos controller is screaming bloody murder. Are you sure you with to continue", "WARNING", "Im sure", "Nope")
+	if(confirm != "Im sure")
+		return
+
+	message_admins("[key_name_admin(usr)] is visualising active atmos turfs. Server may lag.")
+
+	var/list/zlevel_turf_indexes = list()
+
+	for(var/i in SSair.active_turfs)
+		var/turf/T = i
+		// ENSURE YOU USE STRING NUMBERS HERE, THIS IS A DICTIONARY KEY NOT AN INDEX!!!
+		if(!zlevel_turf_indexes["[T.z]"])
+			zlevel_turf_indexes["[T.z]"] = list()
+		zlevel_turf_indexes["[T.z]"] |= T
+		CHECK_TICK
+
+	// Sort the keys
+	zlevel_turf_indexes = sortAssoc(zlevel_turf_indexes)
+
+	for(var/key in zlevel_turf_indexes)
+		to_chat(usr, "<span class='notice'>Z[key]: <b>[length(zlevel_turf_indexes["[key]"])] ATs</b></span>")
+
+	var/z_to_view = input(usr, "A list of z-levels their ATs has appeared in chat. Please enter a Z to visualise. Enter 0 to cancel.", "Selection", 0) as num
+
+	if(!z_to_view)
+		return
+
+	// Do not combine these
+	var/list/ui_dat = list()
+	var/list/turf_markers = list()
+
+	var/datum/browser/vis = new(usr, "atvis", "Active Turfs (Z[z_to_view])", 300, 315)
+	ui_dat += "<center><canvas width=\"255px\" height=\"255px\" id=\"atmos\"></canvas></center>"
+	ui_dat += "<script>e=document.getElementById(\"atmos\");c=e.getContext('2d');c.fillStyle='#ffffff';c.fillRect(0,0,255,255);function s(x,y){var p=c.createImageData(1,1);p.data\[0]=255;p.data\[1]=0;p.data\[2]=0;p.data\[3]=255;c.putImageData(p,(x-1),255-Math.abs(y-1));}</script>"
+	// Now generate the other list
+	for(var/x in zlevel_turf_indexes["[z_to_view]"])
+		var/turf/T = x
+		turf_markers += "s([T.x],[T.y]);"
+		CHECK_TICK
+
+	ui_dat += "<script>[turf_markers.Join("")]</script>"
+
+	vis.set_content(ui_dat.Join(""))
+	vis.open(FALSE)

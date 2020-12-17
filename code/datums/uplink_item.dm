@@ -1294,6 +1294,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/bonerepair
 	cost = 4
 
+/datum/uplink_item/device_tools/syndicate_teleporter
+	name = "Experimental Syndicate Teleporter"
+	desc = "The Syndicate teleporter is a handheld device that teleports the user 4-8 meters forward. \
+			Beware, teleporting into a wall will make the teleporter do a parallel emergency teleport, \
+			but if that emergency teleport fails, it will kill you. \
+			Has 4 charges, recharges, warrenty voided if exposed to EMP."
+	reference = "TELE"
+	item = /obj/item/storage/box/syndie_kit/teleporter
+	cost = 8
+
 /datum/uplink_item/device_tools/thermal_drill
 	name = "Thermal Safe Drill"
 	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Guaranteed 100% jam proof."
