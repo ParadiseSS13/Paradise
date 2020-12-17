@@ -23,7 +23,9 @@
 	var/datum/mindslaves/slaved = new
 	owner.som = slaved
 	slaved.masters += owner
+
 	SSticker.mode.traitors |= owner
+	assigned_targets = list()
 
 	if(give_objectives)
 		if(isAI(owner))
@@ -79,8 +81,13 @@
 		return // Hijack should be their only objective (normally), so return.
 
 	// Will give normal steal/kill/etc. type objectives.
-	for(var/i in 1 to config.traitor_objectives_amount)
-		forge_single_human_objective()
+	var/iteration = 0
+	var/obj_amount = config.traitor_objectives_amount
+	for(var/i = 0, i < obj_amount, iteration++)
+		if(iteration > (obj_amount + 3)) // Gives us a few extra tries at finding a target in case we find duplicates.
+			break
+		if(forge_single_human_objective())
+			i++ // Only increment if the objective is actually added, else keep trying.
 
 	// Die a glorious death objective.
 	if(prob(20))
@@ -135,6 +142,8 @@
 
 /**
  * Create and assign a single randomized human traitor objective.
+ *
+ * Returns TRUE if an objective was added, and FALSE if it failed due to it being a duplicate.
  */
 /datum/antagonist/traitor/proc/forge_single_human_objective()
 	if(prob(50))
@@ -188,6 +197,8 @@
 		else if(steal_objective.steal_target)
 			assigned_targets.Add("[steal_objective.steal_target]")
 		objectives += steal_objective
+
+	return TRUE
 
 /**
  * Give human traitors their uplink, and AI traitors their law 0. Play the traitor an alert sound.
