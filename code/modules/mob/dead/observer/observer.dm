@@ -422,7 +422,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!orbit_menu)
 		orbit_menu = new(src)
 
-	orbit_menu.tgui_interact(src)
+	orbit_menu.ui_interact(src)
 
 // This is the ghost's follow verb with an argument
 /mob/dead/observer/proc/ManualFollow(atom/movable/target)
@@ -739,9 +739,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 //overriden here and in /mob/living for different point span classes and sanity checks
 /mob/dead/observer/pointed(atom/A as mob|obj|turf in view())
 	if(!..())
-		return 0
-	usr.visible_message("<span class='deadsay'><b>[src]</b> points to [A].</span>")
-	return 1
+		return FALSE
+	var/follow_link
+	if(invisibility) // Only show the button if the ghost is not visible to the living
+		follow_link = " ([ghost_follow_link(A, src)])"
+	usr.visible_message("<span class='deadsay'><b>[src]</b> points to [A][follow_link].</span>")
+	return TRUE
 
 /mob/dead/observer/proc/incarnate_ghost()
 	if(!client)
@@ -785,4 +788,4 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "Ghost"
 
 	var/datum/spawners_menu/menu = new /datum/spawners_menu(src)
-	menu.tgui_interact(src)
+	menu.ui_interact(src)

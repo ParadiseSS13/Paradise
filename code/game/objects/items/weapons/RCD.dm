@@ -199,15 +199,15 @@
 		if(MODE_AIRLOCK, MODE_DECON, MODE_WINDOW, MODE_TURF)
 			mode = choice
 		if("UI")
-			tgui_interact(user)
+			ui_interact(user)
 			return
 		if("Change Access")
 			ui_tab = TAB_AIRLOCK_ACCESS
-			tgui_interact(user)
+			ui_interact(user)
 			return
 		if("Change Airlock Type")
 			ui_tab = TAB_AIRLOCK_TYPE
-			tgui_interact(user)
+			ui_interact(user)
 			return
 		else
 			return
@@ -222,13 +222,13 @@
 /obj/item/rcd/attack_self_tk(mob/user)
 	radial_menu(user)
 
-/obj/item/rcd/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_inventory_state)
+/obj/item/rcd/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "RCD", "Rapid Construction Device", 471, 673, master_ui, state)
 		ui.open()
 
-/obj/item/rcd/tgui_data(mob/user)
+/obj/item/rcd/ui_data(mob/user)
 	var/list/data = list(
 		"tab" = ui_tab,
 		"mode" = mode,
@@ -238,11 +238,11 @@
 		"door_name" = door_name,
 		"one_access" = one_access,
 		"selected_accesses" = selected_accesses,
-		"modal" = tgui_modal_data(src)
+		"modal" = ui_modal_data(src)
 	)
 	return data
 
-/obj/item/rcd/tgui_static_data(mob/user)
+/obj/item/rcd/ui_static_data(mob/user)
 	var/list/data = list(
 		"max_matter" = max_matter,
 		"regions" = get_accesslist_static_data(REGION_GENERAL, REGION_COMMAND),
@@ -251,14 +251,14 @@
 	)
 	return data
 
-/obj/item/rcd/tgui_act(action, list/params)
+/obj/item/rcd/ui_act(action, list/params)
 	if(..())
 		return
 
 	if(prob(20))
 		spark_system.start()
 
-	if(tgui_act_modal(action, params))
+	if(ui_act_modal(action, params))
 		return TRUE
 
 	. = TRUE
@@ -319,22 +319,22 @@
 			selected_accesses = get_all_accesses()
 
 /**
-  * Called in tgui_act() to process modal actions
+  * Called in ui_act() to process modal actions
   *
   * Arguments:
   * * action - The action passed by tgui
   * * params - The params passed by tgui
   */
-/obj/item/rcd/proc/tgui_act_modal(action, list/params)
+/obj/item/rcd/proc/ui_act_modal(action, list/params)
 	. = TRUE
-	switch(tgui_modal_act(src, action, params))
-		if(TGUI_MODAL_OPEN)
-			tgui_modal_input(src, "renameAirlock", "Enter a new name:", value = door_name, max_length = TGUI_MODAL_INPUT_MAX_LENGTH_NAME)
-		if(TGUI_MODAL_ANSWER)
+	switch(ui_modal_act(src, action, params))
+		if(UI_MODAL_OPEN)
+			ui_modal_input(src, "renameAirlock", "Enter a new name:", value = door_name, max_length = UI_MODAL_INPUT_MAX_LENGTH_NAME)
+		if(UI_MODAL_ANSWER)
 			var/answer = params["answer"]
 			if(!answer)
 				return
-			door_name = sanitize(copytext(answer, 1, TGUI_MODAL_INPUT_MAX_LENGTH_NAME))
+			door_name = sanitize(copytext(answer, 1, UI_MODAL_INPUT_MAX_LENGTH_NAME))
 		else
 			return FALSE
 

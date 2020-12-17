@@ -126,6 +126,8 @@ Class Procs:
 	var/frequency = NONE
 	/// A reference to a `datum/radio_frequency`. Gives the machine the ability to interact with things using radio signals.
 	var/datum/radio_frequency/radio_connection
+	/// This is if the machinery is being repaired
+	var/being_repaired = FALSE
 
 /*
  * reimp, attempts to flicker this machinery if the behavior is supported.
@@ -315,7 +317,7 @@ Class Procs:
 			update_multitool_menu(usr)
 			return TRUE
 
-/obj/machinery/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state = GLOB.default_state)
+/obj/machinery/Topic(href, href_list, var/nowindow = 0, var/datum/ui_state/state = GLOB.default_state)
 	if(..(href, href_list, nowindow, state))
 		return 1
 
@@ -329,13 +331,13 @@ Class Procs:
 /obj/machinery/proc/inoperable(var/additional_flags = 0)
 	return (stat & (NOPOWER|BROKEN|additional_flags))
 
-/obj/machinery/CanUseTopic(var/mob/user)
+/obj/machinery/ui_status(mob/user, datum/ui_state/state)
 	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
 		return STATUS_CLOSE
 
 	return ..()
 
-/obj/machinery/tgui_status(mob/user, datum/tgui_state/state)
+/obj/machinery/ui_status(mob/user, datum/ui_state/state)
 	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
 		return STATUS_CLOSE
 
@@ -476,6 +478,34 @@ Class Procs:
 	if(.)
 		power_change()
 
+/obj/machinery/attackby(obj/item/O, mob/user, params)
+	if(istype(O, /obj/item/stack/nanopaste))
+		var/obj/item/stack/nanopaste/N = O
+		if(stat & BROKEN)
+			to_chat(user, "<span class='notice'>[src] is too damaged to be fixed with nanopaste!</span>")
+			return
+		if(obj_integrity == max_integrity)
+			to_chat(user, "<span class='notice'>[src] is fully intact.</span>")
+			return
+		if(being_repaired)
+			return
+		if(N.get_amount() < 1)
+			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>")
+			return
+		to_chat(user, "<span class='notice'>You start applying [O] to [src].</span>")
+		being_repaired = TRUE
+		var/result = do_after(user, 3 SECONDS, target = src)
+		being_repaired = FALSE
+		if(!result)
+			return
+		if(!N.use(1))
+			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>") // this is here, as we don't want to use nanopaste until you finish applying
+			return
+		obj_integrity = min(obj_integrity + 50, max_integrity)
+		user.visible_message("<span class='notice'>[user] applied some [O] at [src]'s damaged areas.</span>",\
+			"<span class='notice'>You apply some [O] at [src]'s damaged areas.</span>")
+	else
+		return ..()
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	var/shouldplaysound = 0
 	if((flags & NODECONSTRUCT))
@@ -562,18 +592,13 @@ Class Procs:
 	if(check_access && !allowed(perp))
 		threatcount += 4
 
-	if(auth_weapons && !allowed(perp))
-		if(istype(perp.l_hand, /obj/item/gun) || istype(perp.l_hand, /obj/item/melee))
+	if(auth_weapons && (!id || !(ACCESS_WEAPONS in id.access)))
+		if(isitem(perp.l_hand) && perp.l_hand.needs_permit)
 			threatcount += 4
-
-		if(istype(perp.r_hand, /obj/item/gun) || istype(perp.r_hand, /obj/item/melee))
+		if(isitem(perp.r_hand) && perp.r_hand.needs_permit)
 			threatcount += 4
-
-		if(istype(perp.belt, /obj/item/gun) || istype(perp.belt, /obj/item/melee))
-			threatcount += 2
-
-		if(!ishumanbasic(perp)) //beepsky so racist.
-			threatcount += 2
+		if(isitem(perp.belt) && perp.belt.needs_permit)
+			threatcount += 4
 
 	if(check_records || check_arrest)
 		var/perpname = perp.get_visible_name(TRUE)

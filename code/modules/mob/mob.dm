@@ -600,10 +600,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	if(next_move >= world.time)
 		return
-	if(!src || !isturf(src.loc))
-		return 0
-	if(istype(A, /obj/effect/temp_visual/point))
-		return 0
+	if(!isturf(loc) || istype(A, /obj/effect/temp_visual/point))
+		return FALSE
 
 	var/tile = get_turf(A)
 	if(!tile)
@@ -744,7 +742,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 		flavor_text = msg
 
-/mob/proc/print_flavor_text(var/shrink = 1)
+/mob/proc/print_flavor_text(var/shrink = TRUE)
 	if(flavor_text && flavor_text != "")
 		var/msg = replacetext(flavor_text, "\n", " ")
 		if(length(msg) <= 40 || !shrink)

@@ -9,11 +9,16 @@ SUBSYSTEM_DEF(http)
 	var/list/datum/http_request/active_async_requests
 	/// Variable to define if logging is enabled or not. Disabled by default since we know the requests the server is making. Enable with VV if you need to debug requests
 	var/logging_enabled = FALSE
+	/// Total requests the SS has processed in a round
+	var/total_requests
 
 /datum/controller/subsystem/http/Initialize(start_timeofday)
 	rustg_create_async_http_client() // Open the door
 	active_async_requests = list()
 	return ..()
+
+/datum/controller/subsystem/http/stat_entry()
+	..("P: [length(active_async_requests)] | T: [total_requests]")
 
 /datum/controller/subsystem/http/fire(resumed)
 	for(var/r in active_async_requests)
@@ -57,6 +62,7 @@ SUBSYSTEM_DEF(http)
 	// Begin it and add it to the SS active list
 	req.begin_async()
 	active_async_requests += req
+	total_requests++
 
 	if(logging_enabled)
 		// Create a log holder

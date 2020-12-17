@@ -6,7 +6,7 @@
 
 /obj/machinery/door/firedoor
 	name = "firelock"
-	desc = "Apply crowbar."
+	desc = "A convenable firelock. Equipped with a manual lever for operating in case of emergency."
 	icon = 'icons/obj/doors/doorfireglass.dmi'
 	icon_state = "door_open"
 	opacity = 0
@@ -19,13 +19,14 @@
 	safe = FALSE
 	layer = BELOW_OPEN_DOOR_LAYER
 	closingLayer = CLOSED_FIREDOOR_LAYER
-	auto_close_time = 50
+	auto_close_time = 5 SECONDS
 	assemblytype = /obj/structure/firelock_frame
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 95, "acid" = 70)
-	var/can_force = TRUE
-	var/force_open_time = 300
+	/// How long does opening by hand take, in deciseconds.
+	var/manual_open_time = 5 SECONDS
 	var/can_crush = TRUE
 	var/nextstate = null
+	/// Whether the "bolts" are "screwed". Used for deconstruction sequence. Has nothing to do with airlock bolting.
 	var/boltslocked = TRUE
 	var/active_alarm = FALSE
 	var/list/affecting_areas
@@ -89,20 +90,22 @@
 	if(operating || !density)
 		return
 
+	if(welded)
+		to_chat(user, "<span class='warning'>[src] is welded shut!</span>")
+		return
+
 	add_fingerprint(user)
 	user.changeNext_move(CLICK_CD_MELEE)
 
-	if(can_force && (!glass || user.a_intent != INTENT_HELP))
-		user.visible_message("<span class='notice'>[user] begins forcing \the [src].</span>", \
-							 "<span class='notice'>You begin forcing \the [src].</span>")
-		if(do_after(user, force_open_time, target = src))
-			user.visible_message("<span class='notice'>[user] forces \the [src].</span>", \
-								 "<span class='notice'>You force \the [src].</span>")
-			open()
-	else if(glass)
-		user.visible_message("<span class='warning'>[user] bangs on \the [src].</span>",
-							 "<span class='warning'>You bang on \the [src].</span>")
-		playsound(get_turf(src), 'sound/effects/glassknock.ogg', 10, 1)
+	user.visible_message(
+		"<span class='notice'>[user] tries to open [src] manually.</span>",
+		"<span class='notice'>You operate the manual lever on [src].</span>")
+
+	if(do_after(user, manual_open_time, target = src))
+		user.visible_message(
+			"<span class='notice'>[user] opens [src].</span>",
+			"<span class='notice'>You open [src].</span>")
+		open(auto_close = FALSE)
 
 /obj/machinery/door/firedoor/attackby(obj/item/C, mob/user, params)
 	add_fingerprint(user)
@@ -298,7 +301,6 @@
 	opacity = 1
 	explosion_block = 2
 	assemblytype = /obj/structure/firelock_frame/heavy
-	can_force = FALSE
 	max_integrity = 550
 
 /obj/item/firelock_electronics

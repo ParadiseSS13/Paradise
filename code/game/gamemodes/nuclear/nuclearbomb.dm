@@ -176,15 +176,15 @@ GLOBAL_VAR(bomb_set)
 	if(panel_open)
 		wires.Interact(user)
 	else
-		tgui_interact(user)
+		ui_interact(user)
 
-/obj/machinery/nuclearbomb/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_physical_state)
+/obj/machinery/nuclearbomb/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "NuclearBomb", name, 450, 300, master_ui, state)
 		ui.open()
 
-/obj/machinery/nuclearbomb/tgui_data(mob/user)
+/obj/machinery/nuclearbomb/ui_data(mob/user)
 	var/list/data = list()
 	data["extended"] = extended
 	data["authdisk"] = is_auth(user)
@@ -215,7 +215,7 @@ GLOBAL_VAR(bomb_set)
 	else
 		return FALSE
 
-/obj/machinery/nuclearbomb/tgui_act(action, params)
+/obj/machinery/nuclearbomb/ui_act(action, params)
 	if(..())
 		return
 	. = TRUE

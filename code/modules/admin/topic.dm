@@ -962,15 +962,17 @@
 		show_note(index = target)
 
 	else if(href_list["noteedits"])
-		var/note_id = sanitizeSQL("[href_list["noteedits"]]")
-		var/DBQuery/query_noteedits = GLOB.dbcon.NewQuery("SELECT edits FROM [format_table_name("notes")] WHERE id = '[note_id]'")
-		if(!query_noteedits.Execute())
-			var/err = query_noteedits.ErrorMsg()
-			log_game("SQL ERROR obtaining edits from notes table. Error : \[[err]\]\n")
+		var/note_id = text2num(href_list["noteedits"])
+		var/datum/db_query/query_noteedits = SSdbcore.NewQuery("SELECT edits FROM [format_table_name("notes")] WHERE id=:note_id", list(
+			"note_id" = note_id
+		))
+		if(!query_noteedits.warn_execute())
+			qdel(query_noteedits)
 			return
 		if(query_noteedits.NextRow())
 			var/edit_log = query_noteedits.item[1]
 			usr << browse(edit_log,"window=noteedits")
+		qdel(query_noteedits)
 
 	else if(href_list["removejobban"])
 		if(!check_rights(R_BAN))	return
@@ -1080,15 +1082,17 @@
 		usr.client.watchlist_show()
 
 	else if(href_list["watcheditlog"])
-		var/target_ckey = sanitizeSQL("[href_list["watcheditlog"]]")
-		var/DBQuery/query_watchedits = GLOB.dbcon.NewQuery("SELECT edits FROM [format_table_name("watch")] WHERE ckey = '[target_ckey]'")
-		if(!query_watchedits.Execute())
-			var/err = query_watchedits.ErrorMsg()
-			log_game("SQL ERROR obtaining edits from watch table. Error : \[[err]\]\n")
+		var/target_ckey = href_list["watcheditlog"]
+		var/datum/db_query/query_watchedits = SSdbcore.NewQuery("SELECT edits FROM [format_table_name("watch")] WHERE ckey=:targetkey", list(
+			"targetkey" = target_ckey
+		))
+		if(!query_watchedits.warn_execute())
+			qdel(query_watchedits)
 			return
 		if(query_watchedits.NextRow())
 			var/edit_log = query_watchedits.item[1]
 			usr << browse(edit_log,"window=watchedits")
+		qdel(query_watchedits)
 
 	else if(href_list["mute"])
 		if(!check_rights(R_ADMIN|R_MOD))
@@ -1476,6 +1480,77 @@
 			to_chat(M, "<span class='notice'>You have been sent to the Thunderdome.</span>")
 		log_admin("[key_name(usr)] has sent [key_name(M)] to the thunderdome. (Observer.)")
 		message_admins("[key_name_admin(usr)] has sent [key_name_admin(M)] to the thunderdome. (Observer.)", 1)
+
+	else if(href_list["contractor_stop"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["contractor_stop"])
+		if(!istype(M))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob.</span>")
+			return
+
+		var/datum/syndicate_contract/contract = LAZYACCESS(GLOB.prisoner_belongings.prisoners, M)
+		if(!contract)
+			to_chat(usr, "<span class='warning'>[M] is currently not imprisoned by the Syndicate.</span>")
+			return
+		if(!contract.prisoner_timer_handle)
+			to_chat(usr, "<span class='warning'>[M] is already NOT scheduled to return from the Syndicate Jail.</span>")
+			return
+
+		deltimer(contract.prisoner_timer_handle)
+		contract.prisoner_timer_handle = null
+		to_chat(usr, "Stopped automatic return of [M] from the Syndicate Jail.")
+		message_admins("[key_name_admin(usr)] has stopped the automatic return of [key_name_admin(M)] from the Syndicate Jail")
+		log_admin("[key_name(usr)] has stopped the automatic return of [key_name(M)] from the Syndicate Jail")
+
+	else if(href_list["contractor_start"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["contractor_start"])
+		if(!istype(M))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob.</span>")
+			return
+
+		var/datum/syndicate_contract/contract = LAZYACCESS(GLOB.prisoner_belongings.prisoners, M)
+		if(!contract)
+			to_chat(usr, "<span class='warning'>[M] is currently not imprisoned by the Syndicate.</span>")
+			return
+		if(contract.prisoner_timer_handle)
+			to_chat(usr, "<span class='warning'>[M] is already scheduled to return from the Syndicate Jail.</span>")
+			return
+
+		var/time_seconds = input(usr, "Enter the jail time in seconds:", "Start Syndicate Jail Timer") as num|null
+		time_seconds = text2num(time_seconds)
+		if(time_seconds < 0)
+			return
+
+		contract.prisoner_timer_handle = addtimer(CALLBACK(contract, /datum/syndicate_contract.proc/handle_target_return, M), time_seconds * 10, TIMER_STOPPABLE)
+		to_chat(usr, "Started automatic return of [M] from the Syndicate Jail in [time_seconds] second\s.")
+		message_admins("[key_name_admin(usr)] has started the automatic return of [key_name_admin(M)] from the Syndicate Jail in [time_seconds] second\s")
+		log_admin("[key_name(usr)] has started the automatic return of [key_name(M)] from the Syndicate Jail in [time_seconds] second\s")
+
+	else if(href_list["contractor_release"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["contractor_release"])
+		if(!istype(M))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob.</span>")
+			return
+
+		var/datum/syndicate_contract/contract = LAZYACCESS(GLOB.prisoner_belongings.prisoners, M)
+		if(!contract)
+			to_chat(usr, "<span class='warning'>[M] is currently not imprisoned by the Syndicate.</span>")
+			return
+
+		deltimer(contract.prisoner_timer_handle)
+		contract.handle_target_return(M)
+		to_chat(usr, "Immediately returned [M] from the Syndicate Jail.")
+		message_admins("[key_name_admin(usr)] has immediately returned [key_name_admin(M)] from the Syndicate Jail")
+		log_admin("[key_name(usr)] has immediately returned [key_name(M)] from the Syndicate Jail")
+
 
 	else if(href_list["aroomwarp"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
@@ -2713,15 +2788,17 @@
 
 	else if(href_list["memoeditlist"])
 		if(!check_rights(R_SERVER)) return
-		var/sql_key = sanitizeSQL("[href_list["memoeditlist"]]")
-		var/DBQuery/query_memoedits = GLOB.dbcon.NewQuery("SELECT edits FROM [format_table_name("memo")] WHERE (ckey = '[sql_key]')")
-		if(!query_memoedits.Execute())
-			var/err = query_memoedits.ErrorMsg()
-			log_game("SQL ERROR obtaining edits from memo table. Error : \[[err]\]\n")
+		var/sql_key = href_list["memoeditlist"]
+		var/datum/db_query/query_memoedits = SSdbcore.NewQuery("SELECT edits FROM [format_table_name("memo")] WHERE (ckey=:sql_key)", list(
+			"sql_key" = sql_key
+		))
+		if(!query_memoedits.warn_execute())
+			qdel(query_memoedits)
 			return
 		if(query_memoedits.NextRow())
 			var/edit_log = query_memoedits.item[1]
 			usr << browse(edit_log,"window=memoeditlist")
+		qdel(query_memoedits)
 
 	else if(href_list["secretsfun"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
@@ -3299,13 +3376,14 @@
 
 	// Library stuff
 	else if(href_list["library_book_id"])
-		var/isbn = sanitizeSQL(href_list["library_book_id"])
+		var/isbn = text2num(href_list["library_book_id"])
 
 		if(href_list["view_library_book"])
-			var/DBQuery/query_view_book = GLOB.dbcon.NewQuery("SELECT content, title FROM [format_table_name("library")] WHERE id=[isbn]")
-			if(!query_view_book.Execute())
-				var/err = query_view_book.ErrorMsg()
-				log_game("SQL ERROR viewing book. Error : \[[err]\]\n")
+			var/datum/db_query/query_view_book = SSdbcore.NewQuery("SELECT content, title FROM [format_table_name("library")] WHERE id=:isbn", list(
+				"isbn" = isbn
+			))
+			if(!query_view_book.warn_execute())
+				qdel(query_view_book)
 				return
 
 			var/content = ""
@@ -3322,47 +3400,37 @@
 			popup.set_content(dat)
 			popup.open(0)
 
+			qdel(query_view_book)
 			log_admin("[key_name(usr)] has viewed the book [isbn].")
 			message_admins("[key_name_admin(usr)] has viewed the book [isbn].")
 			return
 
 		else if(href_list["unflag_library_book"])
-			var/DBQuery/query_unflag_book = GLOB.dbcon.NewQuery("UPDATE [format_table_name("library")] SET flagged = 0 WHERE id=[isbn]")
-			if(!query_unflag_book.Execute())
-				var/err = query_unflag_book.ErrorMsg()
-				log_game("SQL ERROR unflagging book. Error : \[[err]\]\n")
+			var/datum/db_query/query_unflag_book = SSdbcore.NewQuery("UPDATE [format_table_name("library")] SET flagged = 0 WHERE id=:isbn", list(
+				"isbn" = isbn
+			))
+			if(!query_unflag_book.warn_execute())
+				qdel(query_unflag_book)
 				return
 
+			qdel(query_unflag_book)
 			log_admin("[key_name(usr)] has unflagged the book [isbn].")
 			message_admins("[key_name_admin(usr)] has unflagged the book [isbn].")
 
 		else if(href_list["delete_library_book"])
-			var/DBQuery/query_delbook = GLOB.dbcon.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=[isbn]")
-			if(!query_delbook.Execute())
-				var/err = query_delbook.ErrorMsg()
-				log_game("SQL ERROR deleting book. Error : \[[err]\]\n")
+			var/datum/db_query/query_delbook = SSdbcore.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=:isbn", list(
+				"isbn" = isbn
+			))
+			if(!query_delbook.warn_execute())
+				qdel(query_delbook)
 				return
 
+			qdel(query_delbook)
 			log_admin("[key_name(usr)] has deleted the book [isbn].")
 			message_admins("[key_name_admin(usr)] has deleted the book [isbn].")
 
 		// Refresh the page
 		src.view_flagged_books()
-
-	// Force unlink a discord key
-	// TODO: Delete this
-	else if(href_list["force_discord_unlink"])
-		if(!check_rights(R_ADMIN))
-			return
-		var/target_ckey = href_list["force_discord_unlink"]
-		var/DBQuery/admin_unlink_discord_id = GLOB.dbcon.NewQuery("DELETE FROM [format_table_name("discord")] WHERE ckey = '[target_ckey]'")
-		if(!admin_unlink_discord_id.Execute())
-			var/err = admin_unlink_discord_id.ErrorMsg()
-			log_game("SQL ERROR while admin-unlinking discord account. Error : \[[err]\]\n")
-			return
-		to_chat(src, "<span class='notice'>Successfully forcefully unlinked discord account from [target_ckey]</span>")
-		message_admins("[key_name_admin(usr)] forcefully unlinked the discord account belonging to [target_ckey]")
-		log_admin("[key_name_admin(usr)] forcefully unlinked the discord account belonging to [target_ckey]")
 
 	else if(href_list["create_outfit_finalize"])
 		if(!check_rights(R_EVENT))
@@ -3386,6 +3454,24 @@
 			return
 		var/datum/outfit/O = locate(href_list["chosen_outfit"]) in GLOB.custom_outfits
 		save_outfit(usr,O)
+	else if(href_list["open_ccbdb"])
+		if(!check_rights(R_ADMIN))
+			return
+		create_ccbdb_lookup(href_list["open_ccbdb"])
+	else if(href_list["slowquery"])
+		if(!check_rights(R_ADMIN))
+			return
+		message_admins("[key_name_admin(usr)] started responding to a query hang report") // So multiple admins dont try file the same report
+		var/answer = href_list["slowquery"]
+		if(answer == "yes")
+			log_sql("[usr.key] | Reported a server hang")
+			if(alert(usr, "Had you just pressed any admin buttons which could lag the server?", "Query server hang report", "Yes", "No") == "Yes")
+				var/response = input(usr,"What were you just doing?","Query server hang report") as null|text
+				if(response)
+					log_sql("[usr.key] | [response]")
+		else if(answer == "no")
+			log_sql("[usr.key] | Reported no server hang. Please investigate")
+
 
 /client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)
 	if(!check_rights(R_EVENT))
@@ -3417,8 +3503,8 @@
 	hunter_mob.equipOutfit(O, FALSE)
 	var/obj/item/pinpointer/advpinpointer/N = new /obj/item/pinpointer/advpinpointer(hunter_mob)
 	hunter_mob.equip_to_slot_or_del(N, slot_in_backpack)
-	N.active = 1
-	N.mode = 2
+	N.mode = 3 //MODE_ADV, not defined here
+	N.setting = 2 //SETTING_OBJECT, not defined here
 	N.target = H
 	N.point_at(N.target)
 	N.modelocked = TRUE

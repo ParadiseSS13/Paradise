@@ -1,0 +1,89 @@
+name: CI
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  run_linters:
+    name: Run Linters
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Cache
+        uses: actions/cache@v2
+        with:
+          path: $HOME/SpacemanDMM
+          key: ${{ runner.os }}-spacemandmm
+      - name: Install Tools
+        run: |
+          bash tools/ci/install_build_deps.sh
+          bash tools/ci/install_dreamchecker.sh
+      - name: Run Linters
+        run: |
+          find . -name "*.json" -not -path "*/node_modules/*" -print0 | xargs -0 python3 ./tools/ci/json_verifier.py
+          tools/ci/build_tgui.sh
+          tools/ci/check_grep.sh
+          python3 tools/ci/check_line_endings.py
+          ~/dreamchecker > ${GITHUB_WORKSPACE}/output-annotations.txt 2>&1
+      - name: Annotate Lints
+        uses: yogstation13/DreamAnnotate@v1
+        if: always()
+        with:
+          outputFile: output-annotations.txt
+
+  compile_all_maps:
+    name: Compile All Maps
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Cache
+        uses: actions/cache@v2
+        with:
+          path: $HOME/BYOND
+          key: ${{ runner.os }}-byond
+      - name: Compile All Maps
+        run: |
+          tools/ci/install_byond.sh
+          source $HOME/BYOND/byond/bin/byondsetup
+          tools/ci/generate_maplist.sh
+          tools/ci/dm.sh -Mci_map_testing paradise.dme
+
+  unit_tests_and_sql:
+    name: Unit Tests + SQL Validation
+    runs-on: ubuntu-18.04
+    services:
+      mariadb:
+        image: mariadb:latest
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306
+        options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Cache
+        uses: actions/cache@v2
+        with:
+          path: $HOME/BYOND
+          key: ${{ runner.os }}-byond
+      - name: Setup & Validate DB
+        run: |
+          sudo systemctl start mysql
+          python3 tools/ci/generate_sql_scripts.py
+          tools/ci/validate_sql.sh
+      - name: Install RUST_G Deps
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt update || true
+          sudo apt install libssl1.1:i386
+      - name: Compile & Run Unit Tests
+        run: |
+          tools/ci/install_byond.sh
+          source $HOME/BYOND/byond/bin/byondsetup
+          tools/ci/dm.sh -DCIBUILDING paradise.dme
+          tools/ci/run_server.sh
+

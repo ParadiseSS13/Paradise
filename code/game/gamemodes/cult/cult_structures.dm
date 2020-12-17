@@ -71,6 +71,9 @@
 	if(!iscultist(user))
 		to_chat(user, "[heathen_message]")
 		return
+	if(invisibility)
+		to_chat(user, "<span class='cultitalic'>The magic in [src] is being channeled into Redspace, reveal the structure first!</span>")
+		return
 	if(HULK in user.mutations)
 		to_chat(user, "<span class='danger'>You cannot seem to manipulate this structure with your bulky hands!</span>")
 		return
@@ -80,12 +83,15 @@
 	if(cooldowntime > world.time)
 		to_chat(user, "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [get_ETA()].</span>")
 		return
-	var/choice = input(user, selection_prompt, selection_title) as null|anything in choosable_items
-	var/pickedtype = choosable_items[choice]
-	if(pickedtype && Adjacent(user) && src && !QDELETED(src) && !user.incapacitated() && cooldowntime <= world.time)
+
+	var/choice = show_radial_menu(user, src, choosable_items, require_near = TRUE)
+	var/picked_type = choosable_items[choice]
+	if(!QDELETED(src) && picked_type && Adjacent(user) && !user.incapacitated() && cooldowntime <= world.time)
 		cooldowntime = world.time + creation_delay
-		var/obj/item/N = new pickedtype(get_turf(src))
-		to_chat(user, replacetext("[creation_message]", "%ITEM%", "[N.name]"))
+		var/obj/O = new picked_type
+		if(istype(O, /obj/structure) || !user.put_in_hands(O))
+			O.forceMove(get_turf(src))
+		to_chat(user, replacetext("[creation_message]", "%ITEM%", "[O.name]"))
 
 /**
   * Returns the cooldown time in minutes and seconds
@@ -105,7 +111,7 @@
 /obj/structure/cult/functional/cult_conceal()
 	density = FALSE
 	visible_message("<span class='danger'>[src] fades away.</span>")
-	invisibility = INVISIBILITY_OBSERVER
+	invisibility = INVISIBILITY_HIDDEN_RUNES
 	alpha = 100 //To help ghosts distinguish hidden objs
 	light_range = 0
 	light_power = 0

@@ -48,7 +48,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 /datum/game_mode/cult
 	name = "cult"
 	config_tag = "cult"
-	restricted_jobs = list("Chaplain","AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Warden", "Detective", "Security Pod Pilot", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Magistrate", "Brig Physician", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
+	restricted_jobs = list("Chaplain", "AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Warden", "Detective", "Security Pod Pilot", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Magistrate", "Brig Physician", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
 	protected_jobs = list()
 	required_players = 30
 	required_enemies = 3
@@ -95,8 +95,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 		add_cult_actions(cult_mind)
 		update_cult_icons_added(cult_mind)
 		cult_objs.study(cult_mind.current)
-	threshold_check()
-	addtimer(CALLBACK(src, .proc/threshold_check), 2 MINUTES) // Check again in 2 minutes for latejoiners
+	cult_threshold_check()
+	addtimer(CALLBACK(src, .proc/cult_threshold_check), 2 MINUTES) // Check again in 2 minutes for latejoiners
 	..()
 
 /**
@@ -108,7 +108,7 @@ GLOBAL_LIST_EMPTY(all_cults)
   * Below 100 players, [CULT_RISEN_LOW] and [CULT_ASCENDANT_LOW] are used.
   * Above 100 players, [CULT_RISEN_HIGH] and [CULT_ASCENDANT_HIGH] are used.
   */
-/datum/game_mode/cult/proc/threshold_check()
+/datum/game_mode/proc/cult_threshold_check()
 	var/players = length(GLOB.player_list)
 	var/cultists = get_cultists() // Don't count the starting cultists towards the number of needed conversions
 	if(players >= CULT_POPULATION_THRESHOLD)
@@ -171,6 +171,10 @@ GLOBAL_LIST_EMPTY(all_cults)
 	if(!istype(cult_mind))
 		return FALSE
 
+	if(!ascend_percent) // If the rise/ascend thresholds haven't been set (non-cult rounds)
+		cult_objs.setup()
+		cult_threshold_check()
+
 	if(!(cult_mind in cult))
 		cult += cult_mind
 		cult_mind.current.faction |= "cult"
@@ -212,7 +216,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	if((cult_players >= rise_number) && !cult_risen)
 		cult_risen = TRUE
 		for(var/datum/mind/M in cult)
-			if(!M.current || !ishuman(M))
+			if(!M.current || !ishuman(M.current))
 				continue
 			SEND_SOUND(M.current, 'sound/hallucinations/i_see_you2.ogg')
 			to_chat(M.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...</span>")
@@ -221,7 +225,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	else if(cult_players >= ascend_number)
 		cult_ascendant = TRUE
 		for(var/datum/mind/M in cult)
-			if(!M.current || !ishuman(M))
+			if(!M.current || !ishuman(M.current))
 				continue
 			SEND_SOUND(M.current, 'sound/hallucinations/im_here1.ogg')
 			to_chat(M.current, "<span class='cultlarge'>Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!")
@@ -290,18 +294,6 @@ GLOBAL_LIST_EMPTY(all_cults)
 			var/datum/action/innate/cult/use_dagger/dagger = new
 			dagger.Grant(cult_mind.current)
 		cult_mind.current.update_action_buttons(TRUE)
-
-/datum/game_mode/cult/proc/get_unconvertables()
-	var/list/ucs = list()
-	for(var/mob/living/carbon/human/player in GLOB.player_list)
-		if(player.mind && player.mind.offstation_role)
-			continue
-		if(!is_convertable_to_cult(player.mind))
-			ucs += player.mind
-	return ucs
-
-/atom/proc/cult_log(message)
-	investigate_log(message, "cult")
 
 
 /datum/game_mode/cult/declare_completion()

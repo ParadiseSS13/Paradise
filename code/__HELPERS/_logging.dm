@@ -143,6 +143,10 @@ GLOBAL_PROTECT(log_end)
 /proc/log_tgui(text)
 	rustg_log_write(GLOB.tgui_log, "[text][GLOB.log_end]")
 
+/proc/log_sql(text)
+	rustg_log_write(GLOB.sql_log, "[text][GLOB.log_end]")
+	SEND_TEXT(world.log, text) // Redirect it to DD too
+
 /**
  * Standardized method for tracking startup times.
  */

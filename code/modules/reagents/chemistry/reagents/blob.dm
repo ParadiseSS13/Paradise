@@ -152,6 +152,41 @@
 							if(!step_towards(X, pull))
 								break
 
+/datum/reagent/blob/radioactive_gel
+	name = "Radioactive gel"
+	description = "Deals medium toxin damage and a little brute damage, but irradiates those struck."
+	id = "radioactive_gel"
+	color = "#2476f0"
+	complementary_color = "#24f0f0"
+	message_living = ", and you feel a strange warmth from within"
+
+/datum/reagent/blob/radioactive_gel/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
+	if(method == REAGENT_TOUCH)
+		volume = ..()
+		M.apply_damage(0.3 * volume, TOX)
+		M.apply_damage(0.2 * volume, BRUTE) // lets not have IPC / plasmaman only take 7.5 damage from this
+		if(M.reagents)
+			M.reagents.add_reagent("uranium", 0.3 * volume)
+
+/datum/reagent/blob/teslium_paste
+	name = "Teslium paste"
+	description = "Deals medium burn damage, and shocks those struck over time"
+	id = "teslium_paste"
+	color = "#20324D"
+	complementary_color = "#412968"
+	message_living = ", and you feel a static shock"
+
+/datum/reagent/blob/teslium_paste/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_TOUCH)
+		volume = ..()
+		M.apply_damage(0.4 * volume, BURN)
+		if(M.reagents)
+			if(M.reagents.has_reagent("teslium") && prob(0.6 * volume))
+				M.electrocute_act((0.5 * volume), "the blob's electrical discharge", 1, TRUE)
+				M.reagents.del_reagent("teslium")
+				return //don't add more teslium after you shock it out of someone.
+			M.reagents.add_reagent("teslium", 0.125 * volume)  // a little goes a long way
+
 /datum/reagent/blob/proc/send_message(mob/living/M)
 	var/totalmessage = message
 	if(message_living && !issilicon(M))

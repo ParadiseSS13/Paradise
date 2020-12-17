@@ -15,7 +15,7 @@
 /datum/nttc_configuration
 	var/regex/word_blacklist = new("(<iframe|<embed|<script|<svg|<canvas|<video|<audio|onload)", "i") // Blacklist of naughties
 	// ALL OF THE JOB CRAP
-	// Dict of all jobs and their department color classes
+	/// Associative list of all jobs and their department color classes
 	var/all_jobs = list(
 		// AI
 		"AI" = "airadio",
@@ -43,12 +43,14 @@
 		"Maintenance Technician" = "engradio",
 		"Mechanic" = "engradio",
 		"Station Engineer" = "engradio",
-		// ERT
+		// Central Command
 		"Emergency Response Team Engineer" = "dsquadradio", // I know this says deathsquad but the class for responseteam is neon green. No.
 		"Emergency Response Team Leader" = "dsquadradio",
 		"Emergency Response Team Medic" = "dsquadradio",
 		"Emergency Response Team Member" = "dsquadradio",
 		"Emergency Response Team Officer" = "dsquadradio",
+		"Nanotrasen Navy Officer" = "dsquadradio",
+		"Special Operations Officer" = "dsquadradio",
 		// Medical
 		"Chemist" = "medradio",
 		"Chief Medical Officer" = "medradio",
@@ -112,10 +114,12 @@
 		"Librarian" = "srvradio",
 		"Mime" = "srvradio",
 	)
-	// Just command members
-	var/heads = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Magistrate", "AI")
-	// Just ERT
-	var/ert_jobs = list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Leader", "Emergency Response Team Member")
+	/// List of Command jobs
+	var/list/heads = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Magistrate", "AI")
+	/// List of ERT jobs
+	var/list/ert_jobs = list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Leader", "Emergency Response Team Member")
+	/// List of CentComm jobs
+	var/list/cc_jobs = list("Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
 	// Defined so code compiles and incase someone has a non-standard job
 	var/job_class = "radio"
 	// NOW FOR ACTUAL TOGGLES
@@ -274,7 +278,7 @@
 	// Makes heads of staff bold
 	if(toggle_command_bold)
 		var/job = tcm.sender_job
-		if((job in ert_jobs) || (job in heads))
+		if((job in ert_jobs) || (job in heads) || (job in cc_jobs))
 			for(var/datum/multilingual_say_piece/S in message_pieces)
 				if(S.message)
 					S.message = "<b>[capitalize(S.message)]</b>" // This only capitalizes the first word

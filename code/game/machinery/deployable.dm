@@ -77,14 +77,16 @@
 /obj/structure/barricade/wooden/attackby(obj/item/I, mob/user)
 	if(istype(I,/obj/item/stack/sheet/wood))
 		var/obj/item/stack/sheet/wood/W = I
-		if(W.amount < 5)
+		if(W.get_amount() < 5)
 			to_chat(user, "<span class='warning'>You need at least five wooden planks to make a wall!</span>")
 			return
 		else
 			to_chat(user, "<span class='notice'>You start adding [I] to [src]...</span>")
 			if(do_after(user, 50, target = src))
-				W.use(5)
-				new /turf/simulated/wall/mineral/wood/nonmetal(get_turf(src))
+				if(!W.use(5))
+					return
+				var/turf/T = get_turf(src)
+				T.ChangeTurf(/turf/simulated/wall/mineral/wood/nonmetal)
 				qdel(src)
 				return
 	return ..()
