@@ -129,7 +129,7 @@
 			"slot" = slot,
 			"ckey" = C.ckey
 		))
-		if(!firstquery.warn_execute())
+		if(!firstquery.warn_execute(async = FALSE)) // Dont make this async. It makes roundstart slow.
 			qdel(firstquery)
 			return
 		qdel(firstquery)
@@ -192,7 +192,7 @@
 						 "ckey" = C.ckey,
 						 "slot" = slot
 					 ))
-	if(!query.warn_execute())
+	if(!query.warn_execute(async = FALSE)) // Dont make this async. It makes roundstart slow.
 		qdel(query)
 		return
 
@@ -481,7 +481,7 @@
 			qdel(firstquery)
 			qdel(query)
 			return 1
-	
+
 	qdel(firstquery)
 
 	var/datum/db_query/query = SSdbcore.NewQuery({"
@@ -612,7 +612,7 @@
 	))
 	var/list/saves = list()
 
-	if(!query.warn_execute())
+	if(!query.warn_execute(async = FALSE)) // Dont async this. Youll make roundstart slow.
 		qdel(query)
 		return
 
@@ -633,7 +633,7 @@
 		"ckey" = C.ckey,
 		"slot" = default_slot
 	))
-	
+
 	if(!query.warn_execute())
 		qdel(query)
 		return

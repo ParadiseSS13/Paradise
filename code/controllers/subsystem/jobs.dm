@@ -271,6 +271,8 @@ SUBSYSTEM_DEF(jobs)
 *  This proc must not have any side effect besides of modifying "assigned_role".
 **/
 /datum/controller/subsystem/jobs/proc/DivideOccupations()
+	// Lets roughly time this
+	var/watch = start_watch()
 	//Setup new player list and get the jobs list
 	Debug("Running DO")
 	SetupOccupations()
@@ -404,6 +406,7 @@ SUBSYSTEM_DEF(jobs)
 			player.ready = 0
 			unassigned -= player
 
+	log_debug("Dividing Occupations took [stop_watch(watch)]s")
 	return 1
 
 /datum/controller/subsystem/jobs/proc/AssignRank(var/mob/living/carbon/human/H, var/rank, var/joined_late = 0)

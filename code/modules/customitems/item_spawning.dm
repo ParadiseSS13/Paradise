@@ -9,7 +9,7 @@
 			"ckey" = M.ckey,
 			"realname" = M.real_name
 		))
-	if(!query.warn_execute())
+	if(!query.warn_execute(async = FALSE)) // Dont make this async. Youll make roundstart slow. Trust me.
 		qdel(query)
 		return
 
