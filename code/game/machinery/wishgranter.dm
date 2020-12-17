@@ -38,7 +38,7 @@
 		to_chat(user, "You wish for a better tool to help you in your adventure.")
 		to_chat(user, "<span class='notice'>The Wish Granter listens and materializes!</span>")
 		if(prob(50))
-			new /obj/item/gun/energy/kinetic_accelerator/experimental(get_turf(src))
+			new /obj/item/gun/energy/kinetic_accelerator/premiumka/bloody(get_turf(src))
 		else
 			new /obj/item/twohanded/kinetic_crusher/cursed(get_turf(src))
 

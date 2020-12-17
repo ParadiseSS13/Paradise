@@ -133,3 +133,28 @@
 	damage = 0
 	range = 1
 
+//Bloody KA
+/obj/item/gun/energy/kinetic_accelerator/premiumka/bloody
+	name = "bloody accelerator"
+	desc = "This Kinetic Accelerator are covered in blood and flesh, looks corrupted and cursed."
+	icon_state = "bdpka"
+	item_state = "kineticgun"
+	overheat_time = 9
+	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/premium/bloody)
+	max_mod_capacity = 0
+	flags = NODROP
+
+	empty_state = "modularka_empty"
+
+/obj/item/ammo_casing/energy/kinetic/premium/bloody
+	projectile_type = /obj/item/projectile/kinetic/premium/bloody
+
+/obj/item/projectile/kinetic/premium/bloody
+	name = "bloody kinetic force"
+	icon = 'icons/hispania/obj/projectiles.dmi'
+	icon_state = "ka_tracer"
+	color = "#FF0000"
+	damage = 25
+	range = 4
+	pressure_decrease = 1
+
