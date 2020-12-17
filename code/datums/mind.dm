@@ -716,6 +716,9 @@
 		var/datum/objective/objective = locate(href_list["obj_delete"])
 		if(!istype(objective))
 			return
+		for(var/antag in antag_datums)
+			var/datum/antagonist/A = antag
+			A.objectives -= objective
 		objectives -= objective
 
 		log_admin("[key_name(usr)] has removed one of [key_name(current)]'s objectives: [objective]")

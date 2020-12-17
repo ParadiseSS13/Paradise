@@ -23,7 +23,9 @@
 	var/datum/mindslaves/slaved = new
 	owner.som = slaved
 	slaved.masters += owner
+
 	SSticker.mode.traitors |= owner
+	assigned_targets = list()
 
 	if(give_objectives)
 		if(isAI(owner))
@@ -135,6 +137,8 @@
 
 /**
  * Create and assign a single randomized human traitor objective.
+ *
+ * Returns TRUE if an objective was added, and FALSE if it failed due to it being a duplicate.
  */
 /datum/antagonist/traitor/proc/forge_single_human_objective()
 	if(prob(50))
@@ -188,6 +192,8 @@
 		else if(steal_objective.steal_target)
 			assigned_targets.Add("[steal_objective.steal_target]")
 		objectives += steal_objective
+
+	return TRUE
 
 /**
  * Give human traitors their uplink, and AI traitors their law 0. Play the traitor an alert sound.
