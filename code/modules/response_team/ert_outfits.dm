@@ -509,6 +509,9 @@
 
 	r_hand = /obj/item/gun/energy/disabler
 
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/arm/advmop)
+
 /datum/outfit/job/centcom/response_team/janitorial/red
 	name = "RT Janitor (Red)"
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor
@@ -518,7 +521,7 @@
 	l_pocket = /obj/item/gun/energy/gun/mini
 
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/arm/advmop,
+		/obj/item/organ/internal/cyberimp/arm/janitorial,
 		/obj/item/organ/internal/cyberimp/chest/nutriment
 	)
 

@@ -23,7 +23,6 @@
 
 /proc/get_ip_intel(ip, bypasscache = FALSE, updatecache = TRUE)
 	var/datum/ipintel/res = new()
-	ip = sanitizeSQL(ip)
 	res.ip = ip
 	. = res
 	if(!ip || !config.ipintel_email || !SSipintel.enabled)
@@ -34,24 +33,28 @@
 			cachedintel.cache = TRUE
 			return cachedintel
 
-		if(GLOB.dbcon.IsConnected())
-			var/rating_bad = config.ipintel_rating_bad
-			var/DBQuery/query_get_ip_intel = GLOB.dbcon.NewQuery({"
+		if(SSdbcore.IsConnected())
+			var/datum/db_query/query_get_ip_intel = SSdbcore.NewQuery({"
 				SELECT date, intel, TIMESTAMPDIFF(MINUTE,date,NOW())
 				FROM [format_table_name("ipintel")]
 				WHERE
-					ip = INET_ATON('[ip]')
+					ip = INET_ATON(:ip)
 					AND ((
-							intel < [rating_bad]
+							intel < :rating_bad
 							AND
-							date + INTERVAL [config.ipintel_save_good] HOUR > NOW()
+							date + INTERVAL :save_good HOUR > NOW()
 						) OR (
-							intel >= [rating_bad]
+							intel >= :rating_bad
 							AND
-							date + INTERVAL [config.ipintel_save_bad] HOUR > NOW()
+							date + INTERVAL :save_bad HOUR > NOW()
 					))
-				"})
-			if(!query_get_ip_intel.Execute())
+				"}, list(
+					"ip" = ip,
+					"rating_bad" = config.ipintel_rating_bad,
+					"save_good" = config.ipintel_save_good,
+					"save_bad" = config.ipintel_save_bad,
+				))
+			if(!query_get_ip_intel.warn_execute())
 				qdel(query_get_ip_intel)
 				return
 			if(query_get_ip_intel.NextRow())
@@ -67,9 +70,16 @@
 	res.intel = ip_intel_query(ip)
 	if(updatecache && res.intel >= 0)
 		SSipintel.cache[ip] = res
-		if(GLOB.dbcon.IsConnected())
-			var/DBQuery/query_add_ip_intel = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("ipintel")] (ip, intel) VALUES (INET_ATON('[ip]'), [res.intel]) ON DUPLICATE KEY UPDATE intel = VALUES(intel), date = NOW()")
-			query_add_ip_intel.Execute()
+		if(SSdbcore.IsConnected())
+			var/datum/db_query/query_add_ip_intel = SSdbcore.NewQuery({"
+				INSERT INTO [format_table_name("ipintel")] (ip, intel) VALUES (INET_ATON(:ip), :intel)
+				ON DUPLICATE KEY UPDATE intel = VALUES(intel), date = NOW()"},
+				list(
+					"ip" = ip,
+					"intel" = res.intel
+				)
+			)
+			query_add_ip_intel.warn_execute()
 			qdel(query_add_ip_intel)
 
 
@@ -140,7 +150,7 @@
 		return FALSE
 	if(!config.ipintel_whitelist)
 		return FALSE
-	if(!GLOB.dbcon.IsConnected())
+	if(!SSdbcore.IsConnected())
 		return FALSE
 	if(!ipintel_badip_check(t_ip))
 		return FALSE
@@ -157,12 +167,16 @@
 	if(!valid_hours)
 		log_debug("ipintel_badip_check reports misconfigured ipintel_save_bad directive")
 		return FALSE
-	target_ip = sanitizeSQL(target_ip)
-	rating_bad = sanitizeSQL(rating_bad)
-	valid_hours = sanitizeSQL(valid_hours)
-	var/check_sql = {"SELECT * FROM [format_table_name("ipintel")] WHERE ip = INET_ATON('[target_ip]') AND intel >= [rating_bad] AND (date + INTERVAL [valid_hours] HOUR) > NOW()"}
-	var/DBQuery/query_get_ip_intel = GLOB.dbcon.NewQuery(check_sql)
-	if(!query_get_ip_intel.Execute())
+	var/datum/db_query/query_get_ip_intel = SSdbcore.NewQuery({"
+		SELECT * FROM [format_table_name("ipintel")] WHERE ip = INET_ATON(:target_ip)
+		AND intel >= :rating_bad AND (date + INTERVAL :valid_hours HOUR) > NOW()"},
+		list(
+			"target_ip" = target_ip,
+			"rating_bad" = rating_bad,
+			"valid_hours" = valid_hours
+		)
+	)
+	if(!query_get_ip_intel.warn_execute())
 		log_debug("ipintel_badip_check reports failed query execution")
 		qdel(query_get_ip_intel)
 		return FALSE
@@ -175,36 +189,40 @@
 /proc/vpn_whitelist_check(target_ckey)
 	if(!config.ipintel_whitelist)
 		return FALSE
-	var/target_sql_ckey = ckey(target_ckey)
-	var/DBQuery/query_whitelist_check = GLOB.dbcon.NewQuery("SELECT * FROM [format_table_name("vpn_whitelist")] WHERE ckey = '[target_sql_ckey]'")
-	if(!query_whitelist_check.Execute())
-		var/err = query_whitelist_check.ErrorMsg()
-		log_debug("SQL ERROR on proc/vpn_whitelist_check for ckey '[target_sql_ckey]'. Error : \[[err]\]\n")
+	var/datum/db_query/query_whitelist_check = SSdbcore.NewQuery("SELECT * FROM [format_table_name("vpn_whitelist")] WHERE ckey=:ckey", list(
+		"ckey" = target_ckey
+	))
+	if(!query_whitelist_check.warn_execute())
+		qdel(query_whitelist_check)
 		return FALSE
 	if(query_whitelist_check.NextRow())
+		qdel(query_whitelist_check)
 		return TRUE // At least one row in the whitelist names their ckey. That means they are whitelisted.
+	qdel(query_whitelist_check)
 	return FALSE
 
 /proc/vpn_whitelist_add(target_ckey)
-	var/target_sql_ckey = ckey(target_ckey)
 	var/reason_string = input(usr, "Enter link to the URL of their whitelist request on the forum.","Reason required") as message|null
 	if(!reason_string)
 		return FALSE
-	reason_string = sanitizeSQL(reason_string)
-	var/DBQuery/query_whitelist_add = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("vpn_whitelist")] (ckey,reason) VALUES ('[target_sql_ckey]','[reason_string]')")
-	if(!query_whitelist_add.Execute())
-		var/err = query_whitelist_add.ErrorMsg()
-		log_debug("SQL ERROR on proc/vpn_whitelist_add for ckey '[target_sql_ckey]'. Error : \[[err]\]\n")
+	var/datum/db_query/query_whitelist_add = SSdbcore.NewQuery("INSERT INTO [format_table_name("vpn_whitelist")] (ckey,reason) VALUES (:targetckey, :reason)", list(
+		"targetckey" = target_ckey,
+		"reason" = reason_string
+	))
+	if(!query_whitelist_add.warn_execute())
+		qdel(query_whitelist_add)
 		return FALSE
+	qdel(query_whitelist_add)
 	return TRUE
 
 /proc/vpn_whitelist_remove(target_ckey)
-	var/target_sql_ckey = ckey(target_ckey)
-	var/DBQuery/query_whitelist_remove = GLOB.dbcon.NewQuery("DELETE FROM [format_table_name("vpn_whitelist")] WHERE ckey = '[target_sql_ckey]'")
-	if(!query_whitelist_remove.Execute())
-		var/err = query_whitelist_remove.ErrorMsg()
-		log_debug("SQL ERROR on proc/vpn_whitelist_remove for ckey '[target_sql_ckey]'. Error : \[[err]\]\n")
+	var/datum/db_query/query_whitelist_remove = SSdbcore.NewQuery("DELETE FROM [format_table_name("vpn_whitelist")] WHERE ckey=:targetckey", list(
+		"targetckey" = target_ckey
+	))
+	if(!query_whitelist_remove.warn_execute())
+		qdel(query_whitelist_remove)
 		return FALSE
+	qdel(query_whitelist_remove)
 	return TRUE
 
 /proc/vpn_whitelist_panel(target_ckey as text)

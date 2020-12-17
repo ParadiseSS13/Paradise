@@ -24,7 +24,6 @@
 	var/allow_quick_gather	//Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.
 	var/pickup_all_on_tile = TRUE  //FALSE = pick one at a time, TRUE = pick all on tile
 	var/use_sound = "rustle"	//sound played when used. null for no sound.
-	var/list/active_users = list() // list of ckey(user.key), who is viewing the inventory?
 
 	/// What kind of [/obj/item/stack] can this be folded into. (e.g. Boxes and cardboard)
 	var/foldable = null
@@ -128,8 +127,6 @@
 	user.client.screen += closer
 	user.client.screen += contents
 	user.s_active = src
-	if(user.key)
-		active_users[ckey(user.key)] = TRUE
 	return
 
 /obj/item/storage/proc/hide_from(mob/user)
@@ -141,19 +138,12 @@
 	user.client.screen -= contents
 	if(user.s_active == src)
 		user.s_active = null
+	return
 
-/obj/item/storage/proc/hide_from_all()
-	for(var/K in active_users)
-		var/client/C = get_client_by_ckey(K)
-		if(C)
-			var/mob/M = C.mob
-			if(M)
-				hide_from(M)
-
-
-/obj/item/storage/proc/open(mob/user)
+/obj/item/storage/proc/open(mob/user as mob)
 	if(use_sound)
 		playsound(loc, use_sound, 50, TRUE, -5)
+
 	if(user.s_active)
 		user.s_active.close(user)
 	show_to(user)

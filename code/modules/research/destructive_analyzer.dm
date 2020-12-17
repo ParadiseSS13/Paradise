@@ -81,9 +81,6 @@ Note: Must be placed within 3 tiles of the R&D Console
 		busy = 1
 		loaded_item = O
 		O.loc = src
-		if(istype(O, /obj/item/storage))
-			var/obj/item/storage/S = O
-			S.hide_from_all()
 		to_chat(user, "<span class='notice'>You add the [O.name] to the [src.name]!</span>")
 		flick("d_analyzer_la", src)
 		spawn(10)

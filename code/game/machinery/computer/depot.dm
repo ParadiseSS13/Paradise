@@ -23,9 +23,9 @@
 	var/has_alerted = FALSE
 
 
-/obj/machinery/computer/syndicate_depot/New()
+/obj/machinery/computer/syndicate_depot/Initialize(mapload)
 	. = ..()
-	depotarea = areaMaster
+	depotarea = get_area(src)
 
 /obj/machinery/computer/syndicate_depot/attack_ai(mob/user)
 	if(req_access.len && !("syndicate" in user.faction))
@@ -191,7 +191,7 @@
 	alerts_when_broken = TRUE
 	var/area/syndicate_depot/perimeter/perimeterarea
 
-/obj/machinery/computer/syndicate_depot/shieldcontrol/New()
+/obj/machinery/computer/syndicate_depot/shieldcontrol/Initialize(mapload)
 	. = ..()
 	perimeterarea = locate(/area/syndicate_depot/perimeter)
 
@@ -245,7 +245,7 @@
 	alerts_when_broken = TRUE
 	var/message_sent = FALSE
 
-/obj/machinery/computer/syndicate_depot/syndiecomms/New()
+/obj/machinery/computer/syndicate_depot/syndiecomms/Initialize(mapload)
 	. = ..()
 	if(depotarea)
 		depotarea.comms_computer = src
@@ -361,11 +361,13 @@
 	var/portal_enabled = FALSE
 	var/portaldir = WEST
 
-/obj/machinery/computer/syndicate_depot/teleporter/New()
-	. = ..()
-	spawn(10)
-		findbeacon()
-		update_portal()
+/obj/machinery/computer/syndicate_depot/teleporter/Initialize(mapload)
+	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/computer/syndicate_depot/teleporter/LateInitialize()
+	findbeacon()
+	update_portal()
 
 /obj/machinery/computer/syndicate_depot/teleporter/Destroy()
 	if(mybeacon)
