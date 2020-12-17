@@ -607,15 +607,19 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	var/tile = get_turf(A)
 	if(!tile)
-		return 0
+		return FALSE
 
 	changeNext_move(CLICK_CD_POINT)
-
 	var/image/I = image('icons/mob/screen_gen.dmi', tile, "arrow", POINT_LAYER)
-	I.pixel_x = A.pixel_x
-	I.pixel_y = A.pixel_y
 	I.invisibility = invisibility
 	I.plane = GAME_PLANE
+	if(loc != tile)
+		I.pixel_x = (x - A.x) * 32
+		I.pixel_y = (y - A.y) * 32
+		animate(I, 0.5 SECONDS, pixel_x = A.pixel_x, pixel_y = A.pixel_y, easing = QUAD_EASING)
+	else
+		I.pixel_x = A.pixel_x
+		I.pixel_y = A.pixel_y
 
 	var/list/viewers = list()
 	for(var/mob/M in range(src))
