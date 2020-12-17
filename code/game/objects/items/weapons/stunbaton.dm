@@ -186,7 +186,7 @@
 
 	L.Stun(stunforce)
 	L.Weaken(stunforce)
-	L.apply_effect(STUTTER, stunforce)
+	L.SetStuttering(stunforce)
 
 	if(user)
 		L.lastattacker = user.real_name

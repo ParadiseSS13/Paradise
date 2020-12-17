@@ -41,7 +41,7 @@
 	GLOB.human_list += src
 
 /mob/living/carbon/human/OpenCraftingMenu()
-	handcrafting.tgui_interact(src)
+	handcrafting.ui_interact(src)
 
 /mob/living/carbon/human/prepare_data_huds()
 	//Update med hud images...
@@ -1181,8 +1181,6 @@
 
 /mob/living/carbon/human/resist_restraints()
 	if(wear_suit && wear_suit.breakouttime)
-		changeNext_move(CLICK_CD_BREAKOUT)
-		last_special = world.time + CLICK_CD_BREAKOUT
 		cuff_resist(wear_suit)
 	else
 		..()
@@ -1226,6 +1224,22 @@
 		to_chat(usr, "You moved while counting. Try again.")
 	else
 		to_chat(usr, "<span class='notice'>[self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)].</span>")
+
+
+/mob/living/carbon/human/proc/change_dna(datum/dna/new_dna, include_species_change = FALSE, keep_flavor_text = FALSE)
+	if(include_species_change)
+		set_species(new_dna.species.type, retain_damage = TRUE)
+	dna = new_dna.Clone()
+	real_name = new_dna.real_name
+	domutcheck(src, null, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
+	if(!keep_flavor_text)
+		flavor_text = ""
+	dna.UpdateSE()
+	dna.UpdateUI()
+	sync_organ_dna(TRUE)
+	UpdateAppearance()
+	sec_hud_set_ID()
+
 
 /mob/living/carbon/human/proc/set_species(datum/species/new_species, default_colour, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE)
 	if(!skip_same_check)
@@ -1544,7 +1558,10 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			if(judgebot.check_for_weapons(r_hand))
 				threatcount += 4
 			if(judgebot.check_for_weapons(belt))
-				threatcount += 2
+				threatcount += 4
+			if(judgebot.check_for_weapons(s_store))
+				threatcount += 4
+
 
 	//Check for arrest warrant
 	if(judgebot.check_records)

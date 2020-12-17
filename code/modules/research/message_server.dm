@@ -315,23 +315,36 @@ GLOBAL_DATUM(blackbox, /obj/machinery/blackbox_recorder)
 	if(!feedback) return
 
 	round_end_data_gathering() //round_end time logging and some other data processing
-	establish_db_connection()
-	if(!GLOB.dbcon.IsConnected()) return
+	
+	if(!SSdbcore.IsConnected())
+		return
 	var/round_id
 
-	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT MAX(round_id) AS round_id FROM [format_table_name("feedback")]")
-	query.Execute()
-	while(query.NextRow())
-		round_id = query.item[1]
+	var/datum/db_query/query_roundid = SSdbcore.NewQuery("SELECT MAX(round_id) AS round_id FROM [format_table_name("feedback")]")
+	if(!query_roundid.warn_execute())
+		qdel(query_roundid)
+		return
+	while(query_roundid.NextRow())
+		round_id = query_roundid.item[1]
 
 	if(!isnum(round_id))
 		round_id = text2num(round_id)
 	round_id++
 
+	qdel(query_roundid)
+
 	for(var/datum/feedback_variable/FV in feedback)
-		var/sql = "INSERT INTO [format_table_name("feedback")] VALUES (null, Now(), [round_id], \"[FV.get_variable()]\", [FV.get_value()], \"[FV.get_details()]\")"
-		var/DBQuery/query_insert = GLOB.dbcon.NewQuery(sql)
-		query_insert.Execute()
+		var/sql = "INSERT INTO [format_table_name("feedback")] VALUES (null, Now(), :rid, :var, :val, :details)"
+		var/datum/db_query/query_insert = SSdbcore.NewQuery(sql, list(
+			"rid" = text2num(round_id),
+			"var" = FV.get_variable(),
+			"val" = FV.get_value(),
+			"details" = FV.get_details()
+		))
+		if(!query_insert.warn_execute())
+			qdel(query_insert)
+			return
+		qdel(query_insert)
 
 /obj/machinery/blackbox_recorder/vv_edit_var(var_name, var_value)
 	return FALSE // don't fuck with the stupid blackbox shit
@@ -344,8 +357,6 @@ GLOBAL_DATUM(blackbox, /obj/machinery/blackbox_recorder)
 		log_admin("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
 		return
 	if(!GLOB.blackbox) return
-
-	variable = sanitizeSQL(variable)
 
 	var/datum/feedback_variable/FV = GLOB.blackbox.find_feedback_datum(variable)
 
@@ -361,8 +372,6 @@ GLOBAL_DATUM(blackbox, /obj/machinery/blackbox_recorder)
 		return
 	if(!GLOB.blackbox) return
 
-	variable = sanitizeSQL(variable)
-
 	var/datum/feedback_variable/FV = GLOB.blackbox.find_feedback_datum(variable)
 
 	if(!FV) return
@@ -376,8 +385,6 @@ GLOBAL_DATUM(blackbox, /obj/machinery/blackbox_recorder)
 		log_admin("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
 		return
 	if(!GLOB.blackbox) return
-
-	variable = sanitizeSQL(variable)
 
 	var/datum/feedback_variable/FV = GLOB.blackbox.find_feedback_datum(variable)
 
@@ -393,9 +400,6 @@ GLOBAL_DATUM(blackbox, /obj/machinery/blackbox_recorder)
 		return
 	if(!GLOB.blackbox) return
 
-	variable = sanitizeSQL(variable)
-	details = sanitizeSQL(details)
-
 	var/datum/feedback_variable/FV = GLOB.blackbox.find_feedback_datum(variable)
 
 	if(!FV) return
@@ -409,9 +413,6 @@ GLOBAL_DATUM(blackbox, /obj/machinery/blackbox_recorder)
 		log_admin("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
 		return
 	if(!GLOB.blackbox) return
-
-	variable = sanitizeSQL(variable)
-	details = sanitizeSQL(details)
 
 	var/datum/feedback_variable/FV = GLOB.blackbox.find_feedback_datum(variable)
 

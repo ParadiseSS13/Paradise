@@ -171,6 +171,10 @@ GLOBAL_LIST_EMPTY(all_cults)
 	if(!istype(cult_mind))
 		return FALSE
 
+	if(!ascend_percent) // If the rise/ascend thresholds haven't been set (non-cult rounds)
+		cult_objs.setup()
+		cult_threshold_check()
+
 	if(!(cult_mind in cult))
 		cult += cult_mind
 		cult_mind.current.faction |= "cult"

@@ -23,6 +23,7 @@
 	stop_automated_movement = TRUE
 	status_flags = 0
 	pull_force = 0
+	see_invisible = SEE_INVISIBLE_HIDDEN_RUNES
 	universal_speak = TRUE
 	faction = list("cult")
 	status_flags = CANPUSH

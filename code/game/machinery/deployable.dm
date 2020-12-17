@@ -83,8 +83,10 @@
 		else
 			to_chat(user, "<span class='notice'>You start adding [I] to [src]...</span>")
 			if(do_after(user, 50, target = src))
-				W.use(5)
-				new /turf/simulated/wall/mineral/wood/nonmetal(get_turf(src))
+				if(!W.use(5))
+					return
+				var/turf/T = get_turf(src)
+				T.ChangeTurf(/turf/simulated/wall/mineral/wood/nonmetal)
 				qdel(src)
 				return
 	return ..()

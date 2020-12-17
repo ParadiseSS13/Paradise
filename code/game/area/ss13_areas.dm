@@ -56,12 +56,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/space/firereset(obj/source)
 	return
 
-/area/space/readyalert()
-	return
-
-/area/space/partyalert()
-	return
-
 //These are shuttle areas, they must contain two areas in a subgroup if you want to move a shuttle from one
 //place to another. Look at escape shuttle for example.
 //All shuttles show now be under shuttle since we have smooth-wall code.
@@ -470,6 +464,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/syndicate_mothership/infteam
 	name = "\improper Syndicate Infiltrators"
 	icon_state = "syndie-elite"
+
+/area/syndicate_mothership/jail
+	name = "\improper Syndicate Jail"
 
 //EXTRA
 

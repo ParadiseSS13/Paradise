@@ -327,69 +327,81 @@
 	var/id = null
 	var/sheet_type = null
 	var/coin_type = null
+	var/ore_type = null
 
 /datum/material/metal
 	name = "Metal"
 	id = MAT_METAL
 	sheet_type = /obj/item/stack/sheet/metal
 	coin_type = /obj/item/coin/iron
+	ore_type = /obj/item/stack/ore/iron
 
 /datum/material/glass
 	name = "Glass"
 	id = MAT_GLASS
 	sheet_type = /obj/item/stack/sheet/glass
+	ore_type = /obj/item/stack/ore/glass
 
 /datum/material/silver
 	name = "Silver"
 	id = MAT_SILVER
 	sheet_type = /obj/item/stack/sheet/mineral/silver
 	coin_type = /obj/item/coin/silver
+	ore_type = /obj/item/stack/ore/silver
 
 /datum/material/gold
 	name = "Gold"
 	id = MAT_GOLD
 	sheet_type = /obj/item/stack/sheet/mineral/gold
 	coin_type = /obj/item/coin/gold
+	ore_type = /obj/item/stack/ore/gold
 
 /datum/material/diamond
 	name = "Diamond"
 	id = MAT_DIAMOND
 	sheet_type = /obj/item/stack/sheet/mineral/diamond
 	coin_type = /obj/item/coin/diamond
+	ore_type = /obj/item/stack/ore/diamond
 
 /datum/material/uranium
 	name = "Uranium"
 	id = MAT_URANIUM
 	sheet_type = /obj/item/stack/sheet/mineral/uranium
 	coin_type = /obj/item/coin/uranium
+	ore_type = /obj/item/stack/ore/uranium
 
 /datum/material/plasma
 	name = "Solid Plasma"
 	id = MAT_PLASMA
 	sheet_type = /obj/item/stack/sheet/mineral/plasma
 	coin_type = /obj/item/coin/plasma
+	ore_type = /obj/item/stack/ore/plasma
 
 /datum/material/bluespace
 	name = "Bluespace Mesh"
 	id = MAT_BLUESPACE
 	sheet_type = /obj/item/stack/sheet/bluespace_crystal
+	ore_type = /obj/item/stack/ore/bluespace_crystal
 
 /datum/material/bananium
 	name = "Bananium"
 	id = MAT_BANANIUM
 	sheet_type = /obj/item/stack/sheet/mineral/bananium
 	coin_type = /obj/item/coin/clown
+	ore_type = /obj/item/stack/ore/bananium
 
 /datum/material/tranquillite
 	name = "Tranquillite"
 	id = MAT_TRANQUILLITE
 	sheet_type = /obj/item/stack/sheet/mineral/tranquillite
 	coin_type = /obj/item/coin/mime
+	ore_type = /obj/item/stack/ore/tranquillite
 
 /datum/material/titanium
 	name = "Titanium"
 	id = MAT_TITANIUM
 	sheet_type = /obj/item/stack/sheet/mineral/titanium
+	ore_type = /obj/item/stack/ore/titanium
 
 /datum/material/biomass
 	name = "Biomass"

@@ -103,11 +103,13 @@
 	if(!usr.is_literate())
 		to_chat(usr, "<span class='notice'>You don't know how to read.</span>")
 		return
-	var/n_name = sanitize(copytext(input(usr, "What would you like to label the paper?", "Paper Labelling", name) as text, 1, MAX_MESSAGE_LEN))
-	if((loc == usr && usr.stat == 0))
-		name = "[(n_name ? text("[n_name]") : initial(name))]"
-	if(name != "paper")
+	var/n_name = rename_interactive(usr)
+	if(isnull(n_name))
+		return
+	if(n_name != "")
 		desc = "This is a paper titled '" + name + "'."
+	else
+		desc = initial(desc)
 	add_fingerprint(usr)
 	return
 

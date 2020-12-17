@@ -339,16 +339,16 @@
 
 /obj/machinery/power/smes/attack_ai(mob/user)
 	add_hiddenprint(user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/power/smes/attack_ghost(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/power/smes/attack_hand(mob/user)
 	add_fingerprint(user)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/power/smes/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/power/smes/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	if(stat & BROKEN)
 		return
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -356,7 +356,7 @@
 		ui = new(user, src, ui_key, "Smes",  name, 340, 350, master_ui, state)
 		ui.open()
 
-/obj/machinery/power/smes/tgui_data(mob/user)
+/obj/machinery/power/smes/ui_data(mob/user)
 	var/list/data = list(
 		"capacity" = capacity,
 		"capacityPercent" = round(100*charge/capacity, 0.1),
@@ -376,7 +376,7 @@
 	)
 	return data
 
-/obj/machinery/power/smes/tgui_act(action, params)
+/obj/machinery/power/smes/ui_act(action, params)
 	if(..())
 		return
 	. = TRUE

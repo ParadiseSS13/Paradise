@@ -57,7 +57,7 @@
 	name = "sentry mine"
 
 /obj/effect/mine/depot/mineEffect(mob/living/victim)
-	var/area/syndicate_depot/core/depotarea = areaMaster
+	var/area/syndicate_depot/core/depotarea = get_area(src)
 	if(istype(depotarea))
 		if(depotarea.mine_triggered(victim))
 			explosion(loc, 1, 0, 0, 1) // devastate the tile you are on, but leave everything else untouched

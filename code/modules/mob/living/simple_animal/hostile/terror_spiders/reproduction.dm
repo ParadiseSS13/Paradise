@@ -20,6 +20,7 @@
 	var/spider_awaymission = FALSE
 	var/frustration = 0
 	var/debug_ai_choices = FALSE
+	var/movement_disabled = FALSE
 
 /obj/structure/spider/spiderling/terror_spiderling/New()
 	..()
@@ -81,6 +82,25 @@
 				new /obj/effect/temp_visual/cult/sparks(T) // red sparks, this is an unsafe area, I won't go here unless fleeing something worse
 
 /obj/structure/spider/spiderling/terror_spiderling/process()
+	var/turf/T = get_turf(src)
+	amount_grown += rand(0,2)
+	if(amount_grown >= 100)
+		if(spider_awaymission && !is_away_level(T.z))
+			stillborn = TRUE
+		if(stillborn)
+			if(amount_grown >= 300)
+				// Fake spiderlings stick around for awhile, just to be spooky.
+				qdel(src)
+		else
+			if(!grow_as)
+				grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green)
+			var/mob/living/simple_animal/hostile/poison/terror_spider/S = new grow_as(T)
+			S.spider_myqueen = spider_myqueen
+			S.spider_mymother = spider_mymother
+			S.enemies = enemies
+			qdel(src)
+	if(movement_disabled)
+		return
 	if(travelling_in_vent)
 		if(isturf(loc))
 			travelling_in_vent = 0
@@ -90,6 +110,8 @@
 			frustration = 0
 			var/list/vents = list()
 			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in entry_vent.parent.other_atmosmch)
+				if(temp_vent.welded) // no point considering a vent we can't even use
+					continue
 				vents.Add(temp_vent)
 			if(!vents.len)
 				entry_vent = null
@@ -155,23 +177,7 @@
 				entry_vent = v
 				walk_to(src, entry_vent, 1)
 				break
-	if(isturf(loc))
-		amount_grown += rand(0,2)
-		if(amount_grown >= 100)
-			if(spider_awaymission && !is_away_level(z))
-				stillborn = TRUE
-			if(stillborn)
-				if(amount_grown >= 300)
-					// Fake spiderlings stick around for awhile, just to be spooky.
-					qdel(src)
-			else
-				if(!grow_as)
-					grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green)
-				var/mob/living/simple_animal/hostile/poison/terror_spider/S = new grow_as(loc)
-				S.spider_myqueen = spider_myqueen
-				S.spider_mymother = spider_mymother
-				S.enemies = enemies
-				qdel(src)
+
 
 
 // --------------------------------------------------------------------------------
@@ -244,3 +250,8 @@
 			if(spider_growinstantly)
 				S.amount_grown = 250
 		qdel(src)
+
+/obj/structure/spider/royaljelly
+	name = "royal jelly"
+	desc = "A pulsating mass of slime, jelly, blood, and or liquified human organs considered delicious and highly nutritious by terror spiders."
+	icon_state = "spiderjelly"
