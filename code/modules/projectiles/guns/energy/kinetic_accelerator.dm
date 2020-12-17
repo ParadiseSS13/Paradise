@@ -166,7 +166,7 @@
 	name = "experimental kinetic accelerator"
 	desc = "A modified version of the proto-kinetic accelerator, with twice the modkit space of the standard version."
 	icon_state = "kineticgun_h"
-	item_state = "kineticgun_h"
+	item_state = "kineticgun"
 	origin_tech = "combat=5;powerstorage=3;engineering=5"
 	max_mod_capacity = 200
 
