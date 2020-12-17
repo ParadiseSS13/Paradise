@@ -12,7 +12,7 @@
 
 #define rustg_noise_get_at_coordinates(seed, x, y) call(RUST_G, "noise_get_at_coordinates")(seed, x, y)
 
-// Git related operations // - AA TODO: Add in in-code revision parsing
+// Git related operations //
 #define rustg_git_revparse(rev) call(RUST_G, "rg_git_revparse")(rev)
 #define rustg_git_commit_date(rev) call(RUST_G, "rg_git_commit_date")(rev)
 
@@ -36,7 +36,7 @@
 /proc/rustg_create_async_http_client() return call(RUST_G, "start_http_client")()
 /proc/rustg_close_async_http_client() return call(RUST_G, "shutdown_http_client")()
 
-// SQL stuff // - AA TODO: Async SQL + SSdbcore
+// SQL stuff //
 #define rustg_sql_connect_pool(options) call(RUST_G, "sql_connect_pool")(options)
 #define rustg_sql_query_async(handle, query, params) call(RUST_G, "sql_query_async")(handle, query, params)
 #define rustg_sql_query_blocking(handle, query, params) call(RUST_G, "sql_query_blocking")(handle, query, params)

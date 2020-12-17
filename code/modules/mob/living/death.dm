@@ -94,6 +94,14 @@
 		mind.store_memory("Time of death: [station_time_timestamp("hh:mm:ss", timeofdeath)]", 0)
 		GLOB.respawnable_list += src
 
+		if(mind.name && !isbrain(src)) // !isbrain() is to stop it from being called twice
+			var/turf/T = get_turf(src)
+			var/area_name = get_area_name(T)
+			for(var/P in GLOB.dead_mob_list)
+				var/mob/M = P
+				if((M.client?.prefs.toggles2 & PREFTOGGLE_2_DEATHMESSAGE) && (isobserver(M) || M.stat == DEAD))
+					to_chat(M, "<span class='deadsay'><b>[mind.name]</b> has died at <b>[area_name]</b>. (<a href='?src=[M.UID()];jump=\ref[src]'>JMP</a>)</span>")
+
 	if(SSticker && SSticker.mode)
 		SSticker.mode.check_win()
 	if(mind && mind.devilinfo) // Expand this into a general-purpose death-response system when appropriate

@@ -597,7 +597,7 @@
 			if(overeatduration < 100)
 				becomeSlim()
 		else
-			if(overeatduration > 500)
+			if(overeatduration > 500 && !(NO_OBESITY in dna.species.species_traits))
 				becomeFat()
 
 		// nutrition decrease

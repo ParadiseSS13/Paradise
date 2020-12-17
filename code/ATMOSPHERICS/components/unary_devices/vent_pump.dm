@@ -79,7 +79,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/update_icon(safety = 0)
 	..()
 
-	plane = FLOOR_PLANE
+	plane = GAME_PLANE
 
 	if(!check_icon_cache())
 		return

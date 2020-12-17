@@ -100,10 +100,9 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 /obj/machinery/clonepod/Destroy()
 	if(connected)
 		connected.pods -= src
-	for(var/s in sharedSoulhooks)
-		var/datum/soullink/S = s
-		S.removeSoulsharer(src) //If a sharer is destroy()'d, they are simply removed
-	sharedSoulhooks = null
+	if(clonemind)
+		UnregisterSignal(clonemind.current, COMSIG_LIVING_REVIVE)
+		UnregisterSignal(clonemind, COMSIG_MIND_TRANSER_TO)
 	QDEL_NULL(Radio)
 	QDEL_NULL(countdown)
 	QDEL_LIST(missing_organs)
@@ -299,15 +298,15 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		clonemind.transfer_to(H)
 		H.ckey = R.ckey
 		update_clone_antag(H) //Since the body's got the mind, update their antag stuff right now. Otherwise, wait until they get kicked out (as per the CLONER_MATURE_CLONE business) to do it.
-		to_chat(H, {"<span class='notice'><b>Consciousness slowly creeps over you
-			as your body regenerates.</b><br><i>So this is what cloning
-			feels like?</i></span>"})
+		var/message
+		message += "<b>Consciousness slowly creeps over you as your body regenerates.</b><br>"
+		message += "<i>So this is what cloning feels like?</i>"
+		to_chat(H, "<span class='notice'>[message]</span>")
 	else if(grab_ghost_when == CLONER_MATURE_CLONE)
-		to_chat(clonemind.current, {"<span class='notice'>Your body is
-			beginning to regenerate in a cloning pod. You will
-			become conscious when it is complete.</span>"})
+		to_chat(clonemind.current, "<span class='notice'>Your body is beginning to regenerate in a cloning pod. You will become conscious when it is complete.</span>")
 		// Set up a soul link with the dead body to catch a revival
-		soullink(/datum/soullink/soulhook, clonemind.current, src)
+		RegisterSignal(clonemind.current, COMSIG_LIVING_REVIVE, .proc/occupant_got_revived)
+		RegisterSignal(clonemind, COMSIG_MIND_TRANSER_TO, .proc/occupant_got_revived)
 
 	update_icon()
 
@@ -495,16 +494,16 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		return
 
 	if(grab_ghost_when == CLONER_MATURE_CLONE)
+		UnregisterSignal(clonemind.current, COMSIG_LIVING_REVIVE)
+		UnregisterSignal(clonemind, COMSIG_MIND_TRANSER_TO)
 		clonemind.transfer_to(occupant)
 		occupant.grab_ghost()
 		update_clone_antag(occupant)
+		to_chat(occupant, "<span class='userdanger'>You remember nothing from the time that you were dead!</span>")
 		to_chat(occupant, "<span class='notice'><b>There is a bright flash!</b><br>\
 			<i>You feel like a new being.</i></span>")
 		occupant.flash_eyes(visual = 1)
-		for(var/s in sharedSoulhooks)
-			var/datum/soullink/S = s
-			S.removeSoulsharer(src) //If a sharer is destroy()'d, they are simply removed
-		sharedSoulhooks = null
+		clonemind = null
 
 
 	for(var/i in missing_organs)
@@ -525,21 +524,21 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(occupant)
 		connected_message("Critical Error!")
 		announce_radio_message("Critical error! Please contact a Thinktronic Systems technician, as your warranty may be affected.")
-		for(var/s in sharedSoulhooks)
-			var/datum/soullink/S = s
-			S.removeSoulsharer(src) //If a sharer is destroy()'d, they are simply removed
-		sharedSoulhooks = null
+		UnregisterSignal(clonemind.current, COMSIG_LIVING_REVIVE)
+		UnregisterSignal(clonemind, COMSIG_MIND_TRANSER_TO)
 		if(!go_easy)
 			if(occupant.mind != clonemind)
 				clonemind.transfer_to(occupant)
 			occupant.grab_ghost() // We really just want to make you suffer.
-			to_chat(occupant, {"<span class='warning'><b>Agony blazes across your
-				consciousness as your body is torn apart.</b><br>
-				<i>Is this what dying is like? Yes it is.</i></span>"})
+			var/message
+			message += "<b>Agony blazes across your consciousness as your body is torn apart.</b><br>"
+			message += "<i>Is this what dying is like? Yes it is.</i>"
+			to_chat(occupant, "<span class='warning'>[message]</span>")
 			occupant << sound('sound/hallucinations/veryfar_noise.ogg',0,1,50)
 		for(var/i in missing_organs)
 			qdel(i)
 		missing_organs.Cut()
+		clonemind = null
 		spawn(40)
 			qdel(occupant)
 
@@ -585,10 +584,9 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		go_out()
 	..()
 
-/obj/machinery/clonepod/onSoullinkRevive(mob/living/L)
-	if(occupant && L == clonemind.current)
-		// The old body's back in shape, time to ditch the cloning one
-		malfunction(go_easy = TRUE)
+/obj/machinery/clonepod/proc/occupant_got_revived()
+	// The old body's back in shape, time to ditch the cloning one
+	malfunction(go_easy = TRUE)
 
 /obj/machinery/clonepod/proc/maim_clone(mob/living/carbon/human/H)
 	LAZYINITLIST(missing_organs)

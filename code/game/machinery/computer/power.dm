@@ -9,7 +9,7 @@
 	light_color = LIGHT_COLOR_ORANGE
 	circuit = /obj/item/circuitboard/powermonitor
 	var/datum/powernet/powernet = null
-	var/datum/tgui_module/power_monitor/power_monitor
+	var/datum/ui_module/power_monitor/power_monitor
 	/// Will this monitor be hidden from viewers?
 	var/is_secret_monitor = FALSE
 	/// How many records to keep of supply and demand
@@ -67,13 +67,13 @@
 		return
 	// Update the powernet
 	powernet = find_powernet()
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/computer/monitor/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
-	power_monitor.tgui_interact(user, ui_key, ui, force_open)
+/obj/machinery/computer/monitor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	power_monitor.ui_interact(user, ui_key, ui, force_open)
 
 /obj/machinery/computer/monitor/interact(mob/user)
-	power_monitor.tgui_interact(user)
+	power_monitor.ui_interact(user)
 
 /obj/machinery/computer/monitor/process()
 	record()

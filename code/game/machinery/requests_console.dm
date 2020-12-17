@@ -125,21 +125,21 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	if(stat & NOPOWER)
 		return
 
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/requests_console/attack_hand(user as mob)
 	if(..(user))
 		return
 
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/requests_console/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/requests_console/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "RequestConsole", "[department] Request Console", 520, 410, master_ui, state)
 		ui.open()
 
-/obj/machinery/requests_console/tgui_data(mob/user)
+/obj/machinery/requests_console/ui_data(mob/user)
 	var/list/data = list()
 
 	data["department"] = department
@@ -165,7 +165,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 	return data
 
-/obj/machinery/requests_console/tgui_act(action, list/params)
+/obj/machinery/requests_console/ui_act(action, list/params)
 	if(..())
 		return
 

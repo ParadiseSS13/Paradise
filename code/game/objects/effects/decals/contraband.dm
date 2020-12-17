@@ -41,6 +41,9 @@
 	poster_type = /obj/structure/sign/poster/official/random
 	icon_state = "rolled_poster_legit"
 
+/obj/item/poster/syndicate_recruitment
+	poster_type = /obj/structure/sign/poster/contraband/syndicate_recruitment
+	icon_state = "rolled_poster"
 
 //############################## THE ACTUAL DECALS ###########################
 

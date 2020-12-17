@@ -23,15 +23,15 @@
 	add_fingerprint(user)
 	if(stat & (BROKEN|NOPOWER))
 		return
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/computer/sm_monitor/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/computer/sm_monitor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "SupermatterMonitor", name, 600, 325, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/sm_monitor/tgui_data(mob/user)
+/obj/machinery/computer/sm_monitor/ui_data(mob/user)
 	var/list/data = list()
 
 	if(istype(active))
@@ -95,7 +95,7 @@
   */
 /obj/machinery/computer/sm_monitor/proc/refresh()
 	supermatters = list()
-	var/turf/T = get_turf(tgui_host()) // Get the TGUI host incase this ever turned into a supermatter monitoring module for AIs to use or something
+	var/turf/T = get_turf(ui_host()) // Get the UI host incase this ever turned into a supermatter monitoring module for AIs to use or something
 	if(!T)
 		return
 	for(var/obj/machinery/power/supermatter_shard/S in SSair.atmos_machinery)
@@ -122,7 +122,7 @@
 
 	return TRUE
 
-/obj/machinery/computer/sm_monitor/tgui_act(action, params)
+/obj/machinery/computer/sm_monitor/ui_act(action, params)
 	if(..())
 		return
 

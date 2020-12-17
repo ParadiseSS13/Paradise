@@ -12,6 +12,7 @@
 	var/silent = 0 // No message on putting items in
 	var/list/can_hold = new/list() //List of objects which this item can store (if set, it can't store anything else)
 	var/list/cant_hold = new/list() //List of objects which this item can't store (in effect only if can_hold isn't set)
+	var/empty = FALSE // Will this spawn as an empty box
 	var/max_w_class = WEIGHT_CLASS_SMALL //Max size of objects that this object can store (in effect only if can_hold isn't set)
 	var/max_combined_w_class = 14 //The sum of the w_classes of all the items in this storage item.
 	var/storage_slots = 7 //The number of storage slots in this container.
@@ -24,6 +25,11 @@
 	var/collection_mode = 1;  //0 = pick one at a time, 1 = pick all on tile
 	var/use_sound = "rustle"	//sound played when used. null for no sound.
 
+	/// What kind of [/obj/item/stack] can this be folded into. (e.g. Boxes and cardboard)
+	var/foldable = null
+	/// How much of the stack item do you get.
+	var/foldable_amt = 0
+
 /obj/item/storage/MouseDrop(obj/over_object as obj)
 	if(ishuman(usr)) //so monkeys can take off their backpacks -- Urist
 		var/mob/M = usr
@@ -32,7 +38,6 @@
 			return
 
 		if(over_object == M && Adjacent(M)) // this must come before the screen objects only block
-			orient2hud(M)          // dunno why it wasn't before
 			if(M.s_active)
 				M.s_active.close(M)
 			show_to(M)
@@ -84,12 +89,11 @@
 
 /obj/item/storage/AltClick(mob/user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
-		orient2hud(user)
-		if(user.s_active)
-			user.s_active.close(user)
 		show_to(user)
 		playsound(loc, "rustle", 50, 1, -5)
 		add_fingerprint(user)
+	else if(isobserver(user))
+		show_to(user)
 	return ..()
 
 /obj/item/storage/proc/return_inv()
@@ -115,14 +119,15 @@
 		for(var/obj/item/I in src)
 			if(I.on_found(user))
 				return
+	orient2hud(user)  // this only needs to happen to make .contents show properly as screen objects.
 	if(user.s_active)
 		user.s_active.hide_from(user)
-	user.client.screen -= src.boxes
-	user.client.screen -= src.closer
-	user.client.screen -= src.contents
-	user.client.screen += src.boxes
-	user.client.screen += src.closer
-	user.client.screen += src.contents
+	user.client.screen -= boxes
+	user.client.screen -= closer
+	user.client.screen -= contents
+	user.client.screen += boxes
+	user.client.screen += closer
+	user.client.screen += contents
 	user.s_active = src
 	return
 
@@ -141,7 +146,6 @@
 	if(src.use_sound)
 		playsound(src.loc, src.use_sound, 50, 1, -5)
 
-	orient2hud(user)
 	if(user.s_active)
 		user.s_active.close(user)
 	show_to(user)
@@ -317,7 +321,6 @@
 				else if(W && W.w_class >= WEIGHT_CLASS_NORMAL) //Otherwise they can only see large or normal items from a distance...
 					M.show_message("<span class='notice'>[usr] puts [W] into [src].</span>")
 
-		src.orient2hud(usr)
 		if(usr.s_active)
 			usr.s_active.show_to(usr)
 	W.mouse_opacity = MOUSE_OPACITY_OPAQUE //So you can click on the area around the item to equip it, instead of having to pixel hunt
@@ -352,7 +355,6 @@
 		W.forceMove(get_turf(src))
 
 	if(usr)
-		src.orient2hud(usr)
 		if(usr.s_active)
 			usr.s_active.show_to(usr)
 	if(W.maptext)
@@ -406,7 +408,6 @@
 			H.r_store = null
 			return
 
-	src.orient2hud(user)
 	if(src.loc == user)
 		if(user.s_active)
 			user.s_active.close(user)
@@ -418,6 +419,12 @@
 				src.close(M)
 	src.add_fingerprint(user)
 	return
+
+/obj/item/storage/attack_ghost(mob/user)
+	if(isobserver(user))
+		// Revenants don't get to play with the toys.
+		show_to(user)
+	return ..()
 
 /obj/item/storage/verb/toggle_gathering_mode()
 	set name = "Switch Gathering Method"
@@ -501,10 +508,33 @@
 		O.hear_message(M, msg)
 
 /obj/item/storage/attack_self(mob/user)
-
 	//Clicking on itself will empty it, if allow_quick_empty is TRUE
 	if(allow_quick_empty && user.is_in_active_hand(src))
 		drop_inventory(user)
+
+	else if(foldable)
+		fold(user)
+
+/obj/item/storage/proc/fold(mob/user)
+	if(length(contents))
+		to_chat(user, "<span class='warning'>You can't fold this [name] with items still inside!</span>")
+		return
+	if(!ispath(foldable))
+		return
+
+	var/found = FALSE
+	for(var/mob/M in range(1))
+		if(M.s_active == src) // Close any open UI windows first
+			close(M)
+		if(M == user)
+			found = TRUE
+	if(!found)	// User is too far away
+		return
+
+	to_chat(user, "<span class='notice'>You fold [src] flat.</span>")
+	var/obj/item/stack/I = new foldable(get_turf(src), foldable_amt)
+	user.put_in_hands(I)
+	qdel(src)
 
 //Returns the storage depth of an atom. This is the number of storage items the atom is contained in before reaching toplevel (the area).
 //Returns -1 if the atom was not found on container.

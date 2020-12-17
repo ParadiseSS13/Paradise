@@ -54,7 +54,7 @@
 			break
 
 /obj/item/eftpos/attack_self(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/item/eftpos/attackby(obj/O, mob/user, params)
 	if(istype(O, /obj/item/card))
@@ -72,13 +72,13 @@
 	else
 		return ..()
 
-/obj/item/eftpos/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_inventory_state)
+/obj/item/eftpos/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "EFTPOS", name, 800, 300, master_ui, state)
 		ui.open()
 
-/obj/item/eftpos/tgui_data(mob/user)
+/obj/item/eftpos/ui_data(mob/user)
 	var/list/data = list()
 	data["machine_name"] = machine_name
 	data["transaction_locked"] = transaction_locked
@@ -88,7 +88,7 @@
 	data["linked_account"] = linked_account ? linked_account.owner_name : null
 	return data
 
-/obj/item/eftpos/tgui_act(action, list/params)
+/obj/item/eftpos/ui_act(action, list/params)
 	if(..())
 		return
 
