@@ -24,7 +24,7 @@
 
 	var/mob/living/carbon/human/H = target
 
-	if(length(H.stamp_marks.overlays) == 50)	//no more than 50 marks on a person, otherwise infinite laggy stamp marks
+	if(length(H.stamp_marks.overlays) >= 20)	//no more than 50 marks on a person, otherwise infinite laggy stamp marks
 		to_chat(user, "<span class='notice'>Bluespace mechanics prevent any more marks from appearing on [target.name].</span>")
 		return
 
