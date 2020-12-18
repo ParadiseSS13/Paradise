@@ -99,6 +99,21 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
+"cg" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	pixel_y = 0;
+	tag = ""
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/dormitories)
 "ch" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -334,6 +349,13 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
+"ff" = (
+/obj/item/flag/syndi,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkblue"
+	},
+/area/ruin/unpowered/syndicate_space_base/dormitories)
 "fi" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/engine/air,
@@ -375,12 +397,9 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "fP" = (
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
+/obj/item/flag/syndi,
 /turf/simulated/floor/plasteel{
-	dir = 1;
+	dir = 9;
 	icon_state = "darkblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
@@ -440,8 +459,12 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "gl" = (
-/obj/machinery/light{
-	dir = 4
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	pixel_y = 0;
+	tag = ""
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -785,6 +808,16 @@
 	icon_state = "grimy"
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
+"kg" = (
+/obj/machinery/computer/cryopod{
+	pixel_x = -32;
+	req_one_access = null
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkblue"
+	},
+/area/ruin/unpowered/syndicate_space_base/dormitories)
 "ku" = (
 /obj/structure/window/basic{
 	dir = 4
@@ -888,6 +921,15 @@
 	tag = "icon-whitegreen (WEST)"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
+"lM" = (
+/obj/effect/mob_spawn/human/spacebase_syndicate{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkblue"
+	},
+/area/ruin/unpowered/syndicate_space_base/dormitories)
 "lZ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -1163,11 +1205,19 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "pa" = (
-/obj/machinery/alarm/syndicate{
-	pixel_y = 24
+/obj/effect/mob_spawn/human/spacebase_syndicate{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 5;
+	icon_state = "darkblue"
+	},
+/area/ruin/unpowered/syndicate_space_base/dormitories)
+"ph" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "darkblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "pp" = (
@@ -1200,12 +1250,10 @@
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "pK" = (
 /obj/effect/mob_spawn/human/spacebase_syndicate{
-	dir = 8;
-	mob_name = "Syndicate Scientist";
-	name = "Syndicate Base sleeper"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
+	dir = 4;
 	icon_state = "darkblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
@@ -1243,15 +1291,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "qz" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	name = "Dorms APC";
-	pixel_y = 24
-	},
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2586,8 +2626,9 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/telecomms)
 "Ga" = (
+/obj/item/flag/syndi,
 /turf/simulated/floor/plasteel{
-	dir = 6;
+	dir = 5;
 	icon_state = "darkblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
@@ -2723,27 +2764,13 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/cargo)
 "HS" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
+/obj/machinery/alarm/syndicate{
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/syndicate_space_base/main)
+/area/ruin/unpowered/syndicate_space_base/dormitories)
 "HZ" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/bar)
@@ -2985,13 +3012,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "KJ" = (
-/obj/effect/mob_spawn/human/spacebase_syndicate{
-	dir = 4;
-	mob_name = "Syndicate Scientist";
-	name = "Syndicate Base sleeper"
-	},
+/obj/machinery/cryopod/offstation,
 /turf/simulated/floor/plasteel{
-	dir = 9;
+	dir = 8;
 	icon_state = "darkblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
@@ -3034,8 +3057,9 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
 "Lf" = (
+/obj/machinery/cryopod/offstation,
 /turf/simulated/floor/plasteel{
-	dir = 10;
+	dir = 9;
 	icon_state = "darkblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
@@ -3161,6 +3185,12 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4";
+	tag = "90Curve"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3220,6 +3250,13 @@
 /obj/item/t_scanner,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
+"MV" = (
+/obj/item/flag/syndi,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/ruin/unpowered/syndicate_space_base/dormitories)
 "NE" = (
 /obj/machinery/atmospherics/unary/outlet_injector{
 	dir = 2;
@@ -3303,13 +3340,14 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "OY" = (
-/obj/machinery/door/airlock/hatch/syndicate,
+/obj/machinery/power/apc/syndicate{
+	dir = 1;
+	name = "Dorms APC";
+	pixel_y = 24
+	},
 /obj/structure/cable{
-	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3407,6 +3445,13 @@
 "QQ" = (
 /turf/simulated/wall/r_wall/coated,
 /area/ruin/unpowered/syndicate_space_base/engineering)
+"Rk" = (
+/obj/machinery/cryopod/offstation,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/ruin/unpowered/syndicate_space_base/dormitories)
 "Rn" = (
 /obj/machinery/alarm/syndicate{
 	pixel_y = 24
@@ -3497,8 +3542,12 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "SO" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
+	dir = 1;
 	icon_state = "darkblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
@@ -3727,9 +3776,8 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "Vs" = (
-/obj/item/flag/syndi,
 /turf/simulated/floor/plasteel{
-	dir = 9;
+	dir = 8;
 	icon_state = "darkblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
@@ -4004,9 +4052,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Zy" = (
-/obj/item/flag/syndi,
 /turf/simulated/floor/plasteel{
-	dir = 5;
+	dir = 4;
 	icon_state = "darkblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
@@ -4778,7 +4825,7 @@ AV
 AV
 AV
 AV
-fF
+AV
 fF
 fF
 fF
@@ -4840,15 +4887,15 @@ AV
 AV
 AV
 AV
+AV
 fF
-KJ
 Lf
-fF
 KJ
-Lf
-fF
 KJ
-Lf
+kg
+KJ
+KJ
+Rk
 nj
 iy
 iF
@@ -4902,15 +4949,15 @@ AV
 AV
 AV
 AV
+AV
 fF
-fP
 SO
-fF
-fP
-SO
-fF
-fP
-SO
+La
+La
+La
+La
+La
+ph
 nj
 fU
 gY
@@ -4964,15 +5011,15 @@ AV
 AV
 AV
 AV
+AV
 fF
-Zy
 Ga
-fF
 Zy
-Ga
-fF
 Zy
-Ga
+La
+Zy
+Zy
+ff
 nj
 mB
 FY
@@ -5026,15 +5073,15 @@ AV
 AV
 AV
 AV
+AV
 fF
 fF
+fF
+qz
 Tm
+qz
 fF
 fF
-Tm
-fF
-fF
-Tm
 nj
 nj
 kE
@@ -5089,10 +5136,10 @@ AV
 AV
 AV
 AV
+AV
+AV
 fF
-La
-La
-La
+HS
 La
 La
 aX
@@ -5151,17 +5198,17 @@ AV
 AV
 AV
 AV
+AV
+AV
 fF
-pa
+OY
 gl
-La
-La
-La
-La
-La
 gl
-La
-La
+gl
+cg
+gl
+gl
+gl
 Mi
 IL
 pR
@@ -5212,15 +5259,15 @@ AV
 AV
 AV
 AV
+AV
 fF
 fF
+fF
+qz
 Tm
+qz
 fF
 fF
-Tm
-fF
-fF
-Tm
 fF
 fF
 fF
@@ -5274,15 +5321,15 @@ AV
 AV
 AV
 AV
+AV
 fF
+fP
 Vs
-Lf
-fF
 Vs
-Lf
-fF
+La
 Vs
-Lf
+Vs
+MV
 fF
 CL
 fF
@@ -5336,19 +5383,19 @@ AV
 AV
 AV
 AV
+AV
 fF
-fP
 SO
+La
+La
+La
+La
+La
+ph
 fF
-fP
-SO
+La
 fF
-fP
-SO
-fF
-qz
-OY
-HS
+xN
 uk
 HZ
 Jq
@@ -5398,15 +5445,15 @@ AV
 AV
 AV
 AV
+AV
 fF
+pa
 pK
-Ga
-fF
 pK
-Ga
-fF
+Zy
 pK
-Ga
+pK
+lM
 fF
 aT
 fF

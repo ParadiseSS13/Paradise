@@ -212,6 +212,7 @@
 	var/willing_time_divisor = 10
 	var/time_entered = 0          // Used to keep track of the safe period.
 	var/obj/item/radio/intercom/announce
+	var/silent = FALSE
 
 	var/obj/machinery/computer/cryopod/control_computer
 	var/last_no_computer_message = 0
@@ -420,20 +421,21 @@
 	//Make an announcement and log the person entering storage.
 	control_computer.frozen_crew += "[occupant.real_name]"
 
-	var/ailist[] = list()
-	for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
-		ailist += A
-	if(ailist.len)
-		var/mob/living/silicon/ai/announcer = pick(ailist)
-		if (announce_rank)
-			announcer.say(";[occupant.real_name] ([announce_rank]) [on_store_message]")
+	if(!silent)
+		var/ailist[] = list()
+		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
+			ailist += A
+		if(ailist.len)
+			var/mob/living/silicon/ai/announcer = pick(ailist)
+			if (announce_rank)
+				announcer.say(";[occupant.real_name] ([announce_rank]) [on_store_message]")
+			else
+				announcer.say(";[occupant.real_name] [on_store_message]")
 		else
-			announcer.say(";[occupant.real_name] [on_store_message]")
-	else
-		if (announce_rank)
-			announce.autosay("[occupant.real_name]  ([announce_rank]) [on_store_message]", "[on_store_name]")
-		else
-			announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
+			if (announce_rank)
+				announce.autosay("[occupant.real_name]  ([announce_rank]) [on_store_message]", "[on_store_name]")
+			else
+				announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
 	visible_message("<span class='notice'>\The [src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
 
 	// Ghost and delete the mob.
@@ -700,6 +702,12 @@
 //Attacks/effects.
 /obj/machinery/cryopod/blob_act()
 	return //Sorta gamey, but we don't really want these to be destroyed.
+
+/obj/machinery/cryopod/offstation
+	// Won't announce when used for cryoing.
+	silent = TRUE
+	orient_right = 1
+	icon_state = "body_scanner_0-r"
 
 /obj/machinery/computer/cryopod/robot
 	name = "robotic storage console"
