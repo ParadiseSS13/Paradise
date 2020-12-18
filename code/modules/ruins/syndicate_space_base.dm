@@ -21,7 +21,7 @@
 	resistance_flags = FIRE_PROOF
 
 // Spawners
-/obj/effect/mob_spawn/human/lavaland_syndicate
+/obj/effect/mob_spawn/human/spacebase_syndicate
 	name = "Syndicate Bioweapon Scientist sleeper"
 	mob_name = "Syndicate Bioweapon Scientist"
 	roundstart = FALSE
@@ -31,17 +31,17 @@
 	important_info = "Do not work against traitors or nukies. Do not leave the base. Do not communicate with the Cyberiad except via syndicate comms."
 	description = "Experiment with deadly chems, plants, viruses, etc in peace."
 	flavour_text = "You are a syndicate agent, employed in a top secret research facility developing biological weapons. Continue your research as best you can, and try to keep a low profile. Do not abandon your base or let it fall into enemy hands."
-	outfit = /datum/outfit/lavaland_syndicate
+	outfit = /datum/outfit/spacebase_syndicate
 	assignedrole = "Lavaland Syndicate"
 	del_types = list() // Necessary to prevent del_types from removing radio!
 	allow_species_pick = TRUE
 
-/obj/effect/mob_spawn/human/lavaland_syndicate/Destroy()
+/obj/effect/mob_spawn/human/spacebase_syndicate/Destroy()
 	var/obj/structure/fluff/empty_sleeper/syndicate/S = new /obj/structure/fluff/empty_sleeper/syndicate(get_turf(src))
 	S.setDir(dir)
 	return ..()
 
-/datum/outfit/lavaland_syndicate
+/datum/outfit/spacebase_syndicate
 	name = "Syndicate Base Scientist"
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/storage/labcoat
@@ -60,7 +60,7 @@
 		/obj/item/tank/emergency_oxygen/syndi = 1
 	)
 
-/datum/outfit/lavaland_syndicate/post_equip(mob/living/carbon/human/H)
+/datum/outfit/spacebase_syndicate/post_equip(mob/living/carbon/human/H)
 	H.faction |= "syndicate"
 	var/random_name = random_name(pick(MALE,FEMALE), H.dna.species.name)
 	H.rename_character(H.real_name, random_name)
