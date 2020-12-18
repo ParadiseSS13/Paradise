@@ -132,6 +132,12 @@ SUBSYSTEM_DEF(dbcore)
 		rustg_sql_disconnect_pool(connection)
 	connection = null
 
+/**
+  * Shutdown Handler
+  *
+  * Called during world/Reboot() as part of the MC shutdown
+  * Finalises a round in the DB before disconnecting.
+  */
 /datum/controller/subsystem/dbcore/Shutdown()
 	//This is as close as we can get to the true round end before Disconnect() without changing where it's called, defeating the reason this is a subsystem
 	if(SSdbcore.Connect())
@@ -144,6 +150,12 @@ SUBSYSTEM_DEF(dbcore)
 	if(IsConnected())
 		Disconnect()
 
+/**
+  * Round ID Setter
+  *
+  * Called during world/New() at the earliest point
+  * Declares a round ID in the database and assigns it to a global. Also ensures that server address and ports are set
+  */
 /datum/controller/subsystem/dbcore/proc/SetRoundID()
 	if(!IsConnected())
 		return
@@ -155,6 +167,12 @@ SUBSYSTEM_DEF(dbcore)
 	GLOB.round_id = "[query_round_initialize.last_insert_id]"
 	qdel(query_round_initialize)
 
+/**
+  * Round End Time Setter
+  *
+  * Called during SSticker.setup()
+  * Sets the time that the round started in the DB
+  */
 /datum/controller/subsystem/dbcore/proc/SetRoundStart()
 	if(!IsConnected())
 		return
@@ -164,15 +182,13 @@ SUBSYSTEM_DEF(dbcore)
 	)
 	query_round_start.Execute()
 	qdel(query_round_start)
-	// Lets also throw the commit hash in
-	if(GLOB.revision_info.commit_hash)
-		var/datum/db_query/query_commit_hash = SSdbcore.NewQuery(
-			"UPDATE [format_table_name("round")] SET commit_hash=:hash WHERE id=:round_id",
-			list("hash" = GLOB.revision_info.commit_hash, "round_id" = GLOB.round_id)
-		)
-		query_commit_hash.Execute()
-		qdel(query_commit_hash)
 
+/**
+  * Round End Time Setter
+  *
+  * Called during SSticker.declare_completion()
+  * Sets the time that the round ended in the DB, as well as some other params
+  */
 /datum/controller/subsystem/dbcore/proc/SetRoundEnd()
 	if(!IsConnected())
 		return

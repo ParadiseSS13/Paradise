@@ -36,6 +36,11 @@ SUBSYSTEM_DEF(blackbox)
 			return FALSE
 	return ..()
 
+/**
+  * Shutdown Helper
+  *
+  * Dumps all feedback stats to the DB. Doesnt get much simpler than that.
+  */
 /datum/controller/subsystem/blackbox/Shutdown()
 	sealed = FALSE
 	for(var/obj/machinery/message_server/MS in GLOB.message_servers)
@@ -47,7 +52,7 @@ SUBSYSTEM_DEF(blackbox)
 	if(length(research_levels))
 		record_feedback("associative", "high_research_level", 1, research_levels)
 
-	if(!SSdbcore.Connect())
+	if(!SSdbcore.IsConnected())
 		return
 
 	var/list/datum/db_query/queries = list()
@@ -70,6 +75,11 @@ SUBSYSTEM_DEF(blackbox)
 
 	SSdbcore.MassExecute(queries, TRUE, TRUE)
 
+/**
+  * Blackbox Sealer
+  *
+  * Seals the blackbox, preventing new data from being stored. This is to avoid data being bloated during end round grief
+  */
 /datum/controller/subsystem/blackbox/proc/Seal()
 	if(sealed)
 		return FALSE
@@ -77,10 +87,29 @@ SUBSYSTEM_DEF(blackbox)
 	sealed = TRUE
 	return TRUE
 
+/**
+  * Research level broadcast logging helper
+  *
+  * This is called on R&D updates for a safe way of logging tech levels if an R&D console is destroyed
+  *
+  * Arguments:
+  * * tech - Research technology name
+  * * level - Research technology level
+  */
 /datum/controller/subsystem/blackbox/proc/log_research(tech, level)
 	if(!(tech in research_levels) || research_levels[tech] < level)
 		research_levels[tech] = level
 
+
+/**
+  * Radio broadcast logging helper
+  *
+  * Called during [/proc/broadcast_message()] to log a message to the blackbox.
+  * Translates the specific frequency to a name
+  *
+  * Arguments:
+  * * freq - Frequency of the transmission
+  */
 /datum/controller/subsystem/blackbox/proc/LogBroadcast(freq)
 	if(sealed)
 		return
@@ -112,6 +141,17 @@ SUBSYSTEM_DEF(blackbox)
 		else
 			record_feedback("tally", "radio_usage", 1, "other")
 
+
+/**
+  * Helper to find and return a feeedback datum
+  *
+  * Pass in a feedback datum key and key_type to do a lookup.
+  * It will create the feedback datum if it doesnt exist
+  *
+  * Arguments:
+  * * key - Key of the variable to lookup
+  * * key_type - Type of feedback to be recorded if the feedback datum cant be found
+  */
 /datum/controller/subsystem/blackbox/proc/find_feedback_datum(key, key_type)
 	for(var/datum/feedback_variable/FV in feedback)
 		if(FV.key == key)
@@ -184,6 +224,21 @@ Versioning
 
 Note: Even though you can call this function all throughout the round, its only written at round restart
 */
+
+
+/**
+  * Main feedback recording proc
+  *
+  * This is the bulk of this subsystem and is in charge of creating and using the variables.
+  * See the massive comment above for info
+  *
+  * Arguments:
+  * * key_type - Type of key. Either "text", "amount", "tally", "nested tally", "associative"
+  * * key - Key of the data to be used (EG: "admin_verb")
+  * * increment - If using "amount", how much to increment why
+  * * data - The actual data to logged
+  * * overwrite - Do we want to overwrite the existing key
+  */
 /datum/controller/subsystem/blackbox/proc/record_feedback(key_type, key, increment, data, overwrite)
 	if(sealed || !key_type || !istext(key) || !isnum(increment || !data))
 		return
@@ -220,6 +275,17 @@ Note: Even though you can call this function all throughout the round, its only 
 			for(var/i in data)
 				FV.json["data"]["[pos]"]["[i]"] = "[data[i]]" //and here with "[FV.json["data"].len]"
 
+/**
+  * Recursive list recorder
+  *
+  * Used by the above proc for nested tallies
+  *
+  * Arguments:
+  * * L - List to use
+  * * key_list - List of keys to add
+  * * increment - How much to increase by
+  * * depth - Depth to use
+  */
 /datum/controller/subsystem/blackbox/proc/record_feedback_recurse_list(list/L, list/key_list, increment, depth = 1)
 	if(depth == key_list.len)
 		if(L.Find(key_list[depth]))
@@ -234,15 +300,31 @@ Note: Even though you can call this function all throughout the round, its only 
 		L["[key_list[depth-1]]"] = .(L["[key_list[depth]]"], key_list, increment, ++depth)
 	return L
 
+/**
+  * # feedback_variable
+  *
+  * Datum to hold feedback data, which gets logged at round end
+  *
+  * Holds all the information being logged
+  */
 /datum/feedback_variable
 	var/key
 	var/key_type
 	var/list/json = list()
 
+// Basically just takes some args and sets them
 /datum/feedback_variable/New(new_key, new_key_type)
 	key = new_key
 	key_type = new_key_type
 
+/**
+  * Death reporting proc
+  *
+  * Called when humans and cyborgs die, and logs death info to the `death` table
+  *
+  * Arguments:
+  * * L - The human or cyborg to be logged
+  */
 /datum/controller/subsystem/blackbox/proc/ReportDeath(mob/living/L)
 	if(sealed)
 		return

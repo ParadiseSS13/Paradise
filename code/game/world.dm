@@ -146,7 +146,6 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		SSticker.end_state = end_string
 
 	Master.Shutdown()	//run SS shutdowns
-	SSdbcore.Disconnect() // DCs cleanly from the database
 	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 	TgsReboot()
 
