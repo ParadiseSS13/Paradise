@@ -441,7 +441,7 @@
 	else
 		menutext += {"<BR><BR>Incoming Teleport Beacon: Reconnecting to beacon..."}
 	menutext += {"<BR><BR>Outgoing Teleport Portal: [portal_enabled ? "ON" : "OFF"]"}
-	if(check_rights(R_ADMIN, 0, user) || (depotarea.on_peaceful && !portal_enabled))
+	if(check_rights(R_ADMIN, 0, user) || (istype(depotarea) && depotarea.on_peaceful && !portal_enabled))
 		menutext += {" (<a href='?src=[UID()];secondary=1'>[portal_enabled ? "Disable" : "Enable"]</a>)<BR>"}
 	return menutext
 
