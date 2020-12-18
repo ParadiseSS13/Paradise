@@ -28,9 +28,9 @@
 	death = FALSE
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper_s"
-	important_info = "Do not work against traitors or nukies. Do not leave the base. Do not communicate with the Cyberiad except via syndicate comms."
+	important_info = "Do not work against traitors or nukies. Do not leave the base."
 	description = "Experiment with deadly chems, plants, viruses, etc in peace."
-	flavour_text = "You are a syndicate agent, employed in a top secret research facility developing biological weapons. Continue your research as best you can, and try to keep a low profile. Do not abandon your base or let it fall into enemy hands."
+	flavour_text = "You are a syndicate agent, employed in a top secret research facility developing biological weapons. Continue your research as best you can, and try to keep a low profile. Do not leave your base or let non-syndicate enter it."
 	outfit = /datum/outfit/spacebase_syndicate
 	assignedrole = "Syndicate Base Researcher"
 	del_types = list() // Necessary to prevent del_types from removing radio!
@@ -51,7 +51,7 @@
 	back = /obj/item/storage/backpack
 	belt = /obj/item/storage/belt/utility/full/multitool
 	r_pocket = /obj/item/gun/projectile/automatic/pistol
-	id = /obj/item/card/id/syndicate/anyone
+	id = /obj/item/card/id/syndicate/researcher
 	implants = list(/obj/item/implant/weapons_auth)
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/m10mm = 1,
@@ -64,3 +64,4 @@
 	H.faction |= "syndicate"
 	var/random_name = random_name(pick(MALE,FEMALE), H.dna.species.name)
 	H.rename_character(H.real_name, random_name)
+	H.job = "Syndi Researcher" // ensures they show up right in player panel for admins
