@@ -41,6 +41,7 @@
 
 				gib.blood_DNA = list()
 				if(MobDNA)
+					gib.color = MobDNA.species.blood_color
 					gib.blood_DNA[MobDNA.unique_enzymes] = MobDNA.blood_type
 				else if(istype(src, /obj/effect/gibspawner/xeno))
 					gib.blood_DNA["UNKNOWN DNA"] = "X*"
