@@ -63,6 +63,18 @@ SUBSYSTEM_DEF(mapping)
 
 	GLOB.ghostteleportlocs = sortAssoc(GLOB.ghostteleportlocs)
 
+	// Map name. Break these down into SSmapping controller vars instaed of GLOBs at some point
+	if(GLOB.using_map && GLOB.using_map.name)
+		GLOB.map_name = "[GLOB.using_map.name]"
+	else
+		GLOB.map_name = "Unknown"
+
+	// World name
+	if(config && config.server_name)
+		world.name = "[config.server_name]: [station_name()]"
+	else
+		world.name = station_name()
+
 	return ..()
 
 

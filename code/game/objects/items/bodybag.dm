@@ -27,23 +27,17 @@
 
 /obj/structure/closet/body_bag/attackby(W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/pen))
-		var/t = input(user, "What would you like the label to be?", text("[]", src.name), null)  as text
-		if(user.get_active_hand() != W)
+		var/t = rename_interactive(user, W)
+		if(isnull(t))
 			return
-		if(!in_range(src, user) && src.loc != user)
-			return
-		t = sanitize(copytext(t,1,MAX_MESSAGE_LEN))
+		cut_overlays()
 		if(t)
-			src.name = "body bag - "
-			src.name += t
-			src.overlays += image(src.icon, "bodybag_label")
-		else
-			src.name = "body bag"
+			add_overlay(image(icon, "bodybag_label"))
 		return
 	if(istype(W, /obj/item/wirecutters))
 		to_chat(user, "You cut the tag off the bodybag")
-		src.name = "body bag"
-		src.overlays.Cut()
+		name = "body bag"
+		cut_overlays()
 		return
 	return ..()
 

@@ -1027,6 +1027,7 @@
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/emergency_oxygen/engi/full(src)
 	new /obj/item/flashlight/flare(src)
+	new /obj/item/crowbar/red(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/radio/centcom(src)
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)

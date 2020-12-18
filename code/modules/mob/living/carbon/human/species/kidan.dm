@@ -7,6 +7,8 @@
 	unarmed_type = /datum/unarmed_attack/claws
 
 	brute_mod = 0.8
+	hunger_drain = 0.15
+	tox_mod = 1.7
 
 	species_traits = list()
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS

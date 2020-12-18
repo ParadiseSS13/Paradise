@@ -606,21 +606,49 @@
 	max_w_class = WEIGHT_CLASS_BULKY
 	can_hold = list(/obj/item/melee/rapier)
 
-/obj/item/storage/belt/rapier/update_icon()
-	icon_state = "[initial(icon_state)]"
-	item_state = "[initial(item_state)]"
-	if(contents.len)
-		icon_state = "[initial(icon_state)]-rapier"
-		item_state = "[initial(item_state)]-rapier"
-	if(isliving(loc))
-		var/mob/living/L = loc
-		L.update_inv_belt()
-	..()
-
 /obj/item/storage/belt/rapier/New()
 	..()
 	new /obj/item/melee/rapier(src)
 	update_icon()
+
+/obj/item/storage/belt/rapier/attack_hand(mob/user)
+	if(loc != user)
+		return ..()
+
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(H.incapacitated())
+		return
+
+	if(length(contents))
+		var/obj/item/I = contents[1]
+		H.visible_message("<span class='notice'>[H] takes [I] out of [src].</span>", "<span class='notice'>You take [I] out of [src].</span>")
+		H.put_in_hands(I)
+		update_icon()
+	else
+		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+
+/obj/item/storage/belt/rapier/handle_item_insertion(obj/item/W, prevent_warning)
+	if(!..())
+		return
+	playsound(src, 'sound/weapons/blade_sheath.ogg', 20)
+
+/obj/item/storage/belt/rapier/remove_from_storage(obj/item/W, atom/new_location)
+	if(!..())
+		return
+	playsound(src, 'sound/weapons/blade_unsheath.ogg', 20)
+
+/obj/item/storage/belt/rapier/update_icon()
+	. = ..()
+	icon_state = initial(icon_state)
+	item_state = initial(item_state)
+	if(length(contents))
+		icon_state = "[icon_state]-rapier"
+		item_state = "[item_state]-rapier"
+	if(isliving(loc))
+		var/mob/living/L = loc
+		L.update_inv_belt()
 
 // -------------------------------------
 //     Bluespace Belt

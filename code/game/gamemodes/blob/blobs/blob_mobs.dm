@@ -16,6 +16,8 @@
 	universal_speak = 1 //So mobs can understand them when a blob uses Blob Broadcast
 	sentience_type = SENTIENCE_OTHER
 	gold_core_spawnable = NO_SPAWN
+	can_be_on_fire = TRUE
+	fire_damage = 3
 	var/mob/camera/blob/overmind = null
 
 /mob/living/simple_animal/hostile/blob/proc/adjustcolors(var/a_color)
@@ -56,11 +58,6 @@
 	var/list/human_overlays = list()
 	var/mob/living/carbon/human/oldguy
 	var/is_zombie = FALSE
-
-/mob/living/simple_animal/hostile/blob/blobspore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
-	..()
-	adjustBruteLoss(clamp(0.01 * exposed_temperature, 1, 5))
-
 
 /mob/living/simple_animal/hostile/blob/blobspore/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover, /obj/structure/blob))
@@ -189,6 +186,8 @@
 		if(locate(/obj/structure/blob) in get_turf(src))
 			adjustBruteLoss(-0.25)
 			adjustFireLoss(-0.25)
+			if(on_fire)
+				adjust_fire_stacks(-1)	// Slowly extinguish the flames
 		else
 			adjustBruteLoss(0.2) // If you are at full health, you won't lose health. You'll need it. However the moment anybody sneezes on you, the decaying will begin.
 			adjustFireLoss(0.2)

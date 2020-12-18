@@ -1,12 +1,6 @@
 //Blocks an attempt to connect before even creating our client datum thing.
 /world/IsBanned(key, address, computer_id, type, check_ipintel = TRUE)
 
-	if(!config.ban_legacy_system)
-		if(address)
-			address = sanitizeSQL(address)
-		if(computer_id)
-			computer_id = sanitizeSQL(computer_id)
-
 	if(!key || !address || !computer_id)
 		log_adminwarn("Failed Login (invalid data): [key] [address]-[computer_id]")
 		return list("reason"="invalid login data", "desc"="Error: Could not check ban status, please try again. Error message: Your computer provided invalid or blank information to the server on connection (BYOND Username, IP, and Computer ID). Provided information for reference: Username: '[key]' IP: '[address]' Computer ID: '[computer_id]'. If you continue to get this error, please restart byond or contact byond support.")
@@ -59,21 +53,33 @@
 	else
 		var/ckeytext = ckey(key)
 
-		if(!establish_db_connection())
+		if(!SSdbcore.IsConnected())
 			log_world("Ban database connection failure. Key [ckeytext] not checked")
 			return
+
+		var/list/sql_query_params = list(
+			"ckeytext" = ckeytext
+		)
 
 		var/ipquery = ""
 		var/cidquery = ""
 		if(address)
-			ipquery = " OR ip = '[address]' "
+			ipquery = " OR ip=:ip "
+			sql_query_params["ip"] = address
 
 		if(computer_id)
-			cidquery = " OR computerid = '[computer_id]' "
+			cidquery = " OR computerid=:cid "
+			sql_query_params["cid"] = computer_id
 
-		var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT ckey, ip, computerid, a_ckey, reason, expiration_time, duration, bantime, bantype FROM [format_table_name("ban")] WHERE (ckey = '[ckeytext]' [ipquery] [cidquery]) AND (bantype = 'PERMABAN' OR bantype = 'ADMIN_PERMABAN' OR ((bantype = 'TEMPBAN' OR bantype = 'ADMIN_TEMPBAN') AND expiration_time > Now())) AND isnull(unbanned)")
+		var/datum/db_query/query = SSdbcore.NewQuery({"
+		SELECT ckey, ip, computerid, a_ckey, reason, expiration_time, duration, bantime, bantype FROM [format_table_name("ban")]
+		WHERE (ckey=:ckeytext [ipquery] [cidquery]) AND (bantype = 'PERMABAN' OR bantype = 'ADMIN_PERMABAN'
+		OR ((bantype = 'TEMPBAN' OR bantype = 'ADMIN_TEMPBAN') AND expiration_time > Now())) AND isnull(unbanned)"}, sql_query_params)
 
-		query.Execute()
+		if(!query.warn_execute())
+			message_admins("Failed to do a DB ban check for [ckeytext]. You have been warned.")
+			qdel(query)
+			return
 
 		while(query.NextRow())
 			var/pckey = query.item[1]
@@ -113,7 +119,9 @@
 			. = list("reason"="[bantype]", "desc"="[desc]")
 
 			log_adminwarn("Failed Login: [key] [computer_id] [address] - Banned [.["reason"]]")
+			qdel(query)
 			return .
+		qdel(query)
 
 	. = ..()	//default pager ban stuff
 	if(.)

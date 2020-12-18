@@ -20,7 +20,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	/mob/living/silicon/ai/proc/toggle_acceleration,
 	/mob/living/silicon/ai/proc/toggle_camera_light,
 	/mob/living/silicon/ai/proc/botcall,
-	/mob/living/silicon/ai/proc/change_arrival_message
+	/mob/living/silicon/ai/proc/change_arrival_message,
+	/mob/living/silicon/ai/proc/arrivals_announcement
 ))
 
 //Not sure why this is necessary...
@@ -103,6 +104,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	var/obj/structure/AIcore/deactivated/linked_core //For exosuit control
 
+	/// If our AI doesn't want to be the arrivals announcer, this gets set to FALSE.
+	var/announce_arrivals = TRUE
 	var/arrivalmsg = "$name, $rank, has arrived on the station."
 
 	var/multicam_allowed = FALSE
@@ -1140,6 +1143,13 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set desc = "Augment visual feed with internal sensor overlays."
 	set category = "AI Commands"
 	toggle_sensor_mode()
+
+/mob/living/silicon/ai/proc/arrivals_announcement()
+	set name = "Toggle Arrivals Announcer"
+	set desc = "Change whether or not you wish to announce arrivals."
+	set category = "AI Commands"
+	announce_arrivals = !announce_arrivals
+	to_chat(usr, "Arrivals announcement system [announce_arrivals ? "enabled" : "disabled"]")
 
 /mob/living/silicon/ai/proc/change_arrival_message()
 	set name = "Set Arrival Message"

@@ -95,12 +95,6 @@ GLOBAL_DATUM_INIT(data_core, /datum/datacore, new) // Station datacore, manifest
 GLOBAL_VAR_INIT(panic_bunker_enabled, FALSE) // Is the panic bunker enabled
 GLOBAL_VAR_INIT(pending_server_update, FALSE)
 
-//Database connections
-//A connection is established on world creation. Ideally, the connection dies when the server restarts (After feedback logging.).
-// This is a protected datum which means its read only. I hope the reason for protecting this is obvious
-GLOBAL_DATUM_INIT(dbcon, /DBConnection, new)	//Feedback database (New database)
-GLOBAL_PROTECT(dbcon)
-
 GLOBAL_LIST_EMPTY(ability_verbs) // Create-level abilities
 GLOBAL_LIST_INIT(pipe_colors, list("grey" = PIPE_COLOR_GREY, "red" = PIPE_COLOR_RED, "blue" = PIPE_COLOR_BLUE, "cyan" = PIPE_COLOR_CYAN, "green" = PIPE_COLOR_GREEN, "yellow" = PIPE_COLOR_YELLOW, "purple" = PIPE_COLOR_PURPLE))
 

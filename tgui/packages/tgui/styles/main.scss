@@ -42,12 +42,13 @@
 @include meta.load-css('./interfaces/AccountsUplinkTerminal.scss');
 @include meta.load-css('./interfaces/BrigCells.scss');
 @include meta.load-css('./interfaces/CameraConsole.scss');
+@include meta.load-css('./interfaces/Contractor.scss');
 @include meta.load-css('./interfaces/ExosuitFabricator.scss');
 @include meta.load-css('./interfaces/Newscaster.scss');
 @include meta.load-css('./interfaces/NuclearBomb.scss');
+@include meta.load-css('./interfaces/OreRedemption.scss');
 @include meta.load-css('./interfaces/PDA.scss');
 @include meta.load-css('./interfaces/PoolController.scss');
-@include meta.load-css('./interfaces/OreRedemption.scss');
 @include meta.load-css('./interfaces/RndConsole.scss');
 @include meta.load-css('./interfaces/Roulette.scss');
 @include meta.load-css('./interfaces/Safe.scss');

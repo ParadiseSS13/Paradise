@@ -276,6 +276,12 @@
 	/// URL for the CentCom Ban DB API
 	var/centcom_ban_db_url = null
 
+	/// Timeout (seconds) for async SQL queries
+	var/async_sql_query_timeout = 10 SECONDS
+
+	/// Limit of how many SQL threads can run at once
+	var/rust_sql_thread_limit = 50
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -885,20 +891,12 @@
 				sqlfdbktableprefix = value
 			if("db_version")
 				sql_version = text2num(value)
+			if("async_query_timeout")
+				async_sql_query_timeout = text2num(value)
+			if("rust_sql_thread_limit")
+				config.rust_sql_thread_limit = text2num(value)
 			else
 				log_config("Unknown setting in configuration: '[name]'")
-
-	// The unit tests have their own version of this check, which wont hold the server up infinitely, so this is disabled if we are running unit tests
-	#ifndef UNIT_TESTS
-	if(config.sql_enabled && sql_version != SQL_VERSION)
-		config.sql_enabled = 0
-		log_config("WARNING: DB_CONFIG DEFINITION MISMATCH!")
-		spawn(60)
-			if(SSticker.current_state == GAME_STATE_PREGAME)
-				SSticker.ticker_going = FALSE
-				spawn(600)
-					to_chat(world, "<span class='alert'>DB_CONFIG MISMATCH, ROUND START DELAYED. <BR>Please check database version for recent upstream changes!</span>")
-	#endif
 
 /datum/configuration/proc/loadoverflowwhitelist(filename)
 	var/list/Lines = file2list(filename)

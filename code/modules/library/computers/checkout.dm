@@ -91,7 +91,7 @@
 				<A href='?src=[UID()];switchscreen=0'>(Return to main menu)</A><BR>"}
 		if(4)
 			dat += "<h3>External Archive</h3>"
-			if(!GLOB.dbcon.IsConnected())
+			if(!SSdbcore.IsConnected())
 				dat += "<font color=red><b>ERROR</b>: Unable to contact External Archive. Please contact your system administrator for assistance.</font>"
 			else
 				num_results = src.get_num_results()
@@ -262,11 +262,13 @@
 		var/datum/cachedbook/target = getBookByID(href_list["del"]) // Sanitized in getBookByID
 		var/ans = alert(usr, "Are you sure you wish to delete \"[target.title]\", by [target.author]? This cannot be undone.", "Library System", "Yes", "No")
 		if(ans=="Yes")
-			var/DBQuery/query = GLOB.dbcon.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=[target.id]")
-			var/response = query.Execute()
-			if(!response)
-				to_chat(usr, query.ErrorMsg())
+			var/datum/db_query/query = SSdbcore.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=:id", list(
+				"id" = text2num(target.id)
+			))
+			if(!query.warn_execute())
+				qdel(query)
 				return
+			qdel(query)
 			log_admin("LIBRARY: [key_name(usr)] has deleted \"[target.title]\", by [target.author] ([target.ckey])!")
 			message_admins("[key_name_admin(usr)] has deleted \"[target.title]\", by [target.author] ([target.ckey])!")
 			src.updateUsrDialog()
@@ -278,22 +280,25 @@
 		var/tckey = ckey(href_list["delbyckey"])
 		var/ans = alert(usr,"Are you sure you wish to delete all books by [tckey]? This cannot be undone.", "Library System", "Yes", "No")
 		if(ans=="Yes")
-			var/DBQuery/query = GLOB.dbcon.NewQuery("DELETE FROM [format_table_name("library")] WHERE ckey='[sanitizeSQL(tckey)]'")
-			var/response = query.Execute()
-			if(!response)
-				to_chat(usr, query.ErrorMsg())
+			var/datum/db_query/query = SSdbcore.NewQuery("DELETE FROM [format_table_name("library")] WHERE ckey=:ckey", list(
+				"ckey" = tckey
+			))
+			if(!query.warn_execute())
+				qdel(query)
 				return
-			var/affected=query.RowsAffected()
-			if(affected==0)
+		
+			if(query.affected == 0)
 				to_chat(usr, "<span class='danger'>Unable to find any matching rows.</span>")
+				qdel(query)
 				return
-			log_admin("LIBRARY: [key_name(usr)] has deleted [affected] books written by [tckey]!")
-			message_admins("[key_name_admin(usr)] has deleted [affected] books written by [tckey]!")
+			qdel(query)
+			log_admin("LIBRARY: [key_name(usr)] has deleted [query.affected] books written by [tckey]!")
+			message_admins("[key_name_admin(usr)] has deleted [query.affected] books written by [tckey]!")
 			src.updateUsrDialog()
 			return
 
 	if(href_list["flag"])
-		if(!GLOB.dbcon.IsConnected())
+		if(!SSdbcore.IsConnected())
 			alert("Connection to Archive has been severed. Aborting.")
 			return
 		var/id = href_list["flag"]
@@ -378,21 +383,26 @@
 			if(scanner.cache)
 				var/choice = input("Are you certain you wish to upload this title to the Archive?") in list("Confirm", "Abort")
 				if(choice == "Confirm")
-					establish_db_connection()
-					if(!GLOB.dbcon.IsConnected())
+					if(!SSdbcore.IsConnected())
 						alert("Connection to Archive has been severed. Aborting.")
 					else
-						var/sqltitle = sanitizeSQL(scanner.cache.name)
-						var/sqlauthor = sanitizeSQL(scanner.cache.author)
-						var/sqlcontent = sanitizeSQL(scanner.cache.dat)
-						var/sqlcategory = sanitizeSQL(upload_category)
-						var/DBQuery/query = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("library")] (author, title, content, category, ckey, flagged) VALUES ('[sqlauthor]', '[sqltitle]', '[sqlcontent]', '[sqlcategory]', '[ckey(usr.key)]', 0)")
-						var/response = query.Execute()
-						if(!response)
-							to_chat(usr, query.ErrorMsg())
-						else
-							log_admin("[usr.name]/[usr.key] has uploaded the book titled [scanner.cache.name], [length(scanner.cache.dat)] characters in length")
-							message_admins("[key_name_admin(usr)] has uploaded the book titled [scanner.cache.name], [length(scanner.cache.dat)] characters in length")
+						var/datum/db_query/query = SSdbcore.NewQuery({"
+							INSERT INTO [format_table_name("library")] (author, title, content, category, ckey, flagged)
+							VALUES (:author, :title, :content, :category, :ckey, 0)"}, list(
+								"author" = scanner.cache.author,
+								"title" = scanner.cache.name,
+								"content" = scanner.cache.dat,
+								"category" = upload_category,
+								"ckey" = usr.ckey
+							))
+						
+						if(!query.warn_execute())
+							qdel(query)
+							return
+
+						qdel(query)
+						log_admin("[usr.name]/[usr.key] has uploaded the book titled [scanner.cache.name], [length(scanner.cache.dat)] characters in length")
+						message_admins("[key_name_admin(usr)] has uploaded the book titled [scanner.cache.name], [length(scanner.cache.dat)] characters in length")
 
 	if(href_list["id"])
 		if(href_list["id"]=="-1")
@@ -400,7 +410,7 @@
 			if(!href_list["id"])
 				return
 
-		if(!GLOB.dbcon.IsConnected())
+		if(!SSdbcore.IsConnected())
 			alert("Connection to Archive has been severed. Aborting.")
 			return
 
@@ -423,7 +433,7 @@
 		if(!href_list["manual"]) return
 		var/bookid = href_list["manual"]
 
-		if(!GLOB.dbcon.IsConnected())
+		if(!SSdbcore.IsConnected())
 			alert("Connection to Archive has been severed. Aborting.")
 			return
 

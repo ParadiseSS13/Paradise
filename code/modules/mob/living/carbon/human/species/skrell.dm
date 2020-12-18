@@ -14,7 +14,7 @@
 	the secrets of their empire to their allies."
 
 
-	species_traits = list(LIPS)
+	species_traits = list(LIPS, NO_OBESITY)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_BODY_MARKINGS
 	dietflags = DIET_HERB

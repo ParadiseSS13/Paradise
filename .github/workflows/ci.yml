@@ -55,8 +55,8 @@ jobs:
     name: Unit Tests + SQL Validation
     runs-on: ubuntu-18.04
     services:
-      mysql:
-        image: mysql:latest
+      mariadb:
+        image: mariadb:latest
         env:
           MYSQL_ROOT_PASSWORD: root
         ports:

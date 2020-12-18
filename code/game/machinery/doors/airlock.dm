@@ -1110,11 +1110,15 @@ About the new airlock wires panel:
 	if(istype(I, /obj/item/twohanded/fireaxe)) //let's make this more specific //FUCK YOU
 		var/obj/item/twohanded/fireaxe/F = I
 		if(F.wielded)
-			spawn(0)
-				if(density)
-					open(1)
-				else
-					close(1)
+			if(density && !prying_so_hard)
+				playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
+				prying_so_hard = TRUE //so you dont pry the door when you are already trying to pry it
+				var/result = do_after(user, 5 SECONDS, target = src)
+				prying_so_hard = FALSE
+				if(result)
+					open(TRUE)
+					if(density && !open(TRUE))
+						to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
 		else
 			to_chat(user, "<span class='warning'>You need to be wielding the fire axe to do that!</span>")
 		return

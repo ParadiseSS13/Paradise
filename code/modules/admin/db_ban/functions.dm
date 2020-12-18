@@ -4,8 +4,8 @@
 
 	if(!check_rights(R_BAN))	return
 
-	establish_db_connection()
-	if(!GLOB.dbcon.IsConnected())
+	if(!SSdbcore.IsConnected())
+		to_chat(usr, "<span class='boldannounce'>Database connection failure when attempting to make DB ban. Please freeze them and write their ckey in notepad, so they can be banned when the DB returns.</span>")
 		return
 
 	var/serverip = "[world.internet_address]:[world.port]"
@@ -86,16 +86,22 @@
 		message_admins("<font color='red'>[key_name_admin(usr)] attempted to add a ban based on a non-existent mob, with no ckey provided. Report this bug.",1)
 		return
 
-	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT id FROM [format_table_name("player")] WHERE ckey = '[ckey]'")
-	query.Execute()
-	var/validckey = 0
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id FROM [format_table_name("player")] WHERE ckey=:ckey", list(
+		"ckey" = ckey
+	))
+	if(!query.warn_execute())
+		qdel(query)
+		return
+	var/validckey = FALSE
 	if(query.NextRow())
-		validckey = 1
+		validckey = TRUE
 	if(!validckey)
 		if(!banned_mob || (banned_mob && !IsGuestKey(banned_mob.key)))
 			message_admins("<font color='red'>[key_name_admin(usr)] attempted to ban [ckey], but [ckey] does not exist in the player database. Please only ban actual players.</font>",1)
+			qdel(query)
 			return
 
+	qdel(query)
 	var/a_ckey
 	var/a_computerid
 	var/a_ip
@@ -124,25 +130,51 @@
 		else
 			adminwho += ", [C]"
 
-	reason = sanitizeSQL(reason)
-
 	if(maxadminbancheck)
-		var/DBQuery/adm_query = GLOB.dbcon.NewQuery("SELECT count(id) AS num FROM [format_table_name("ban")] WHERE (a_ckey = '[a_ckey]') AND (bantype = 'ADMIN_PERMABAN'  OR (bantype = 'ADMIN_TEMPBAN' AND expiration_time > Now())) AND isnull(unbanned)")
-		adm_query.Execute()
+		var/datum/db_query/adm_query = SSdbcore.NewQuery("SELECT count(id) AS num FROM [format_table_name("ban")] WHERE (a_ckey=:a_ckey) AND (bantype = 'ADMIN_PERMABAN'  OR (bantype = 'ADMIN_TEMPBAN' AND expiration_time > Now())) AND isnull(unbanned)", list(
+			"a_ckey" = a_ckey
+		))
+		if(!adm_query.warn_execute())
+			qdel(adm_query)
+			return
 		if(adm_query.NextRow())
 			var/adm_bans = text2num(adm_query.item[1])
 			if(adm_bans >= MAX_ADMIN_BANS_PER_ADMIN)
 				to_chat(usr, "<span class='danger'>You already logged [MAX_ADMIN_BANS_PER_ADMIN] admin ban(s) or more. Do not abuse this function!</span>")
+				qdel(adm_query)
 				return
+		qdel(adm_query)
 
-	var/sql = "INSERT INTO [format_table_name("ban")] (`id`,`bantime`,`serverip`,`bantype`,`reason`,`job`,`duration`,`rounds`,`expiration_time`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`) VALUES (null, Now(), '[serverip]', '[bantype_str]', '[reason]', '[job]', [(duration)?"[duration]":"0"], [(rounds)?"[rounds]":"0"], Now() + INTERVAL [(duration>0) ? duration : 0] MINUTE, '[ckey]', '[computerid]', '[ip]', '[a_ckey]', '[a_computerid]', '[a_ip]', '[who]', '[adminwho]', '', null, null, null, null, null)"
-	var/DBQuery/query_insert = GLOB.dbcon.NewQuery(sql)
-	query_insert.Execute()
+	var/datum/db_query/query_insert = SSdbcore.NewQuery({"
+		INSERT INTO [format_table_name("ban")] (`id`,`bantime`,`serverip`,`bantype`,`reason`,`job`,`duration`,`rounds`,`expiration_time`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`)
+		VALUES (null, Now(), :serverip, :bantype_str, :reason, :job, :duration, :rounds, Now() + INTERVAL :duration MINUTE, :ckey, :computerid, :ip, :a_ckey, :a_computerid, :a_ip, :who, :adminwho, '', null, null, null, null, null)
+	"}, list(
+		// Get ready for parameters
+		"serverip" = serverip,
+		"bantype_str" = bantype_str,
+		"reason" = reason,
+		"job" = job,
+		"duration" = (duration ? "[duration]" : "0"), // Strings are important here
+		"rounds" = (rounds ? "[rounds]" : "0"), // And here
+		"ckey" = ckey,
+		"computerid" = computerid,
+		"ip" = ip,
+		"a_ckey" = a_ckey,
+		"a_computerid" = a_computerid,
+		"a_ip" = a_ip,
+		"who" = who,
+		"adminwho" = adminwho
+	))
+	if(!query_insert.warn_execute())
+		qdel(query_insert)
+		return
+
+	qdel(query_insert)
 	to_chat(usr, "<span class='notice'>Ban saved to database.</span>")
 	message_admins("[key_name_admin(usr)] has added a [bantype_str] for [ckey] [(job)?"([job])":""] [(duration > 0)?"([duration] minutes)":""] with the reason: \"[reason]\" to the ban database.",1)
 
 	if(announce_in_discord)
-		SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**BAN ALERT** [a_ckey] applied a [bantype_str] on [ckey]")
+		SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**\[Ban]** [a_ckey] applied a [bantype_str] on [ckey]")
 
 	if(kickbannedckey)
 		if(banned_mob && banned_mob.client && banned_mob.client.ckey == banckey)
@@ -156,6 +188,10 @@
 /datum/admins/proc/DB_ban_unban(var/ckey, var/bantype, var/job = "")
 
 	if(!check_rights(R_BAN))	return
+
+	if(!SSdbcore.IsConnected())
+		to_chat(usr, "<span class='boldannounce'>Database connection failure when attempting to remove DB ban. Please remember to unban them at a later date!.</span>")
+		return
 
 	var/bantype_str
 	var/isjobban // For job bans, which need to be removed from the job ban lists
@@ -196,22 +232,27 @@
 	else
 		bantype_sql = "bantype = '[bantype_str]'"
 
-	var/sql = "SELECT id FROM [format_table_name("ban")] WHERE ckey = '[ckey]' AND [bantype_sql] AND (unbanned is null OR unbanned = false)"
+	var/sql = "SELECT id FROM [format_table_name("ban")] WHERE ckey=:ckey AND [bantype_sql] AND (unbanned is null OR unbanned = false)"
+	var/list/sql_params = list(
+		"ckey" = ckey
+	)
 	if(job)
-		sql += " AND job = '[job]'"
-
-	establish_db_connection()
-	if(!GLOB.dbcon.IsConnected())
-		return
+		sql += " AND job=:job"
+		sql_params["job"] = job
 
 	var/ban_id
 	var/ban_number = 0 //failsafe
 
-	var/DBQuery/query = GLOB.dbcon.NewQuery(sql)
-	query.Execute()
+	var/datum/db_query/query = SSdbcore.NewQuery(sql, sql_params)
+	if(!query.warn_execute())
+		qdel(query)
+		return
+
 	while(query.NextRow())
 		ban_id = query.item[1]
 		ban_number++
+
+	qdel(query)
 
 	if(ban_number == 0)
 		to_chat(usr, "<span class='warning'>Database update failed due to no bans fitting the search criteria. If this is not a legacy ban you should contact the database admin.</span>")
@@ -241,8 +282,12 @@
 		to_chat(usr, "Cancelled")
 		return
 
-	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT ckey, duration, reason, job FROM [format_table_name("ban")] WHERE id = [banid]")
-	query.Execute()
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey, duration, reason, job FROM [format_table_name("ban")] WHERE id=:banid", list(
+		"banid" = banid
+	))
+	if(!query.warn_execute())
+		qdel(query)
+		return
 
 	var/eckey = usr.ckey	//Editing admin ckey
 	var/pckey				//(banned) Player ckey
@@ -257,22 +302,31 @@
 		job = query.item[4]
 	else
 		to_chat(usr, "Invalid ban id. Contact the database admin")
+		qdel(query)
 		return
 
-	reason = sanitizeSQL(reason)
+	qdel(query)
 	var/value
 
 	switch(param)
 		if("reason")
 			if(!value)
 				value = input("Insert the new reason for [pckey]'s ban", "New Reason", "[reason]", null) as null|text
-				value = sanitizeSQL(value)
 				if(!value)
 					to_chat(usr, "Cancelled")
 					return
 
-			var/DBQuery/update_query = GLOB.dbcon.NewQuery("UPDATE [format_table_name("ban")] SET reason = '[value]', edits = CONCAT(edits,'- [eckey] changed ban reason from <cite><b>\\\"[reason]\\\"</b></cite> to <cite><b>\\\"[value]\\\"</b></cite><BR>') WHERE id = [banid]")
-			update_query.Execute()
+			var/edit_reason = "- [eckey] changed ban reason from <cite><b>\\\"[reason]\\\"</b></cite> to <cite><b>\\\"[value]\\\"</b></cite><BR>"
+			var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE [format_table_name("ban")] SET reason=:value, edits = CONCAT(IFNULL(edits,''), :edittext) WHERE id=:banid", list(
+				"edittext" = edit_reason,
+				"banid" = banid,
+				"value" = value
+			))
+
+			if(!update_query.warn_execute())
+				qdel(update_query)
+				return
+			qdel(update_query)
 			message_admins("[key_name_admin(usr)] has edited a ban for [pckey]'s reason from [reason] to [value]",1)
 		if("duration")
 			if(!value)
@@ -281,9 +335,18 @@
 					to_chat(usr, "Cancelled")
 					return
 
-			var/DBQuery/update_query = GLOB.dbcon.NewQuery("UPDATE [format_table_name("ban")] SET duration = [value], edits = CONCAT(edits,'- [eckey] changed ban duration from [duration] to [value]<br>'), expiration_time = DATE_ADD(bantime, INTERVAL [value] MINUTE) WHERE id = [banid]")
+			var/edittext = "- [eckey] changed ban duration from [duration] to [value]<br>"
+			var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE [format_table_name("ban")] SET duration=:value, edits = CONCAT(IFNULL(edits, ''), :edittext), expiration_time = DATE_ADD(bantime, INTERVAL :value MINUTE) WHERE id=:banid", list(
+				"edittext" = edittext,
+				"banid" = banid,
+				"value" = value
+			))
+			if(!update_query.warn_execute())
+				qdel(update_query)
+				return
+
+			qdel(update_query)
 			message_admins("[key_name_admin(usr)] has edited a ban for [pckey]'s duration from [duration] to [value]",1)
-			update_query.Execute()
 		if("unban")
 			if(alert("Unban [pckey]?", "Unban?", "Yes", "No") == "Yes")
 				DB_ban_unban_by_id(banid)
@@ -302,20 +365,24 @@
 	if(!check_rights(R_BAN))
 		return
 
-	var/sql = "SELECT ckey FROM [format_table_name("ban")] WHERE id = [id]"
-
-	establish_db_connection()
-	if(!GLOB.dbcon.IsConnected())
+	if(!SSdbcore.IsConnected())
+		to_chat(usr, "<span class='boldannounce'>Database connection failure when attempting to remove DB ban. Please remember to unban them at a later date!.</span>")
 		return
 
 	var/ban_number = 0 //failsafe
 
 	var/pckey
-	var/DBQuery/query = GLOB.dbcon.NewQuery(sql)
-	query.Execute()
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("ban")] WHERE id=:banid", list(
+		"banid" = id
+	))
+	if(!query.warn_execute())
+		qdel(query)
+		return
 	while(query.NextRow())
 		pckey = query.item[1]
 		ban_number++
+
+	qdel(query)
 
 	if(ban_number == 0)
 		to_chat(usr, "<span class='warning'>Database update failed due to a ban id not being present in the database.</span>")
@@ -332,13 +399,20 @@
 	var/unban_computerid = src.owner:computer_id
 	var/unban_ip = src.owner:address
 
-	var/sql_update = "UPDATE [format_table_name("ban")] SET unbanned = 1, unbanned_datetime = Now(), unbanned_ckey = '[unban_ckey]', unbanned_computerid = '[unban_computerid]', unbanned_ip = '[unban_ip]' WHERE id = [id]"
-	message_admins("[key_name_admin(usr)] has lifted [pckey]'s ban.",1)
+	var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE [format_table_name("ban")] SET unbanned = 1, unbanned_datetime = Now(), unbanned_ckey=:unban_ckey, unbanned_computerid=:unban_computerid, unbanned_ip=:unban_ip WHERE id=:id", list(
+		"unban_ckey" = unban_ckey,
+		"unban_computerid" = unban_computerid,
+		"unban_ip" = unban_ip,
+		"id" = id
+	))
+	if(!query_update.warn_execute())
+		qdel(query_update)
+		return
+
+	qdel(query_update)
+
+	message_admins("[key_name_admin(usr)] has lifted [pckey]'s ban.")
 	ryzorbot("notify", "unban=[key_name(usr)]&[pckey]")
-
-	var/DBQuery/query_update = GLOB.dbcon.NewQuery(sql_update)
-	query_update.Execute()
-
 	flag_account_for_forum_sync(pckey)
 
 
@@ -361,8 +435,7 @@
 	if(!check_rights(R_BAN))
 		return
 
-	establish_db_connection()
-	if(!GLOB.dbcon.IsConnected())
+	if(!SSdbcore.IsConnected())
 		to_chat(usr, "<span class='warning'>Failed to establish database connection</span>")
 		return
 
@@ -437,8 +510,6 @@
 
 		adminckey = ckey(adminckey)
 		playerckey = ckey(playerckey)
-		playerip = sanitizeSQL(playerip)
-		playercid = sanitizeSQL(playercid)
 
 		if(adminckey || playerckey || playerip || playercid || dbbantype)
 
@@ -462,24 +533,34 @@
 			var/cidsearch = ""
 			var/bantypesearch = ""
 
+			var/list/sql_params = list()
+
 			if(!match)
 				if(adminckey)
-					adminsearch = "AND a_ckey = '[adminckey]' "
+					adminsearch = "AND a_ckey=:adminckey "
+					sql_params["adminckey"] = adminckey
 				if(playerckey)
-					playersearch = "AND ckey = '[playerckey]' "
+					playersearch = "AND ckey=:playerckey "
+					sql_params["playerckey"] = playerckey
 				if(playerip)
-					ipsearch  = "AND ip = '[playerip]' "
+					ipsearch  = "AND ip=:playerip "
+					sql_params["playerip"] = playerip
 				if(playercid)
-					cidsearch  = "AND computerid = '[playercid]' "
+					cidsearch  = "AND computerid=:playercid "
+					sql_params["playercid"] = playercid
 			else
 				if(adminckey && length(adminckey) >= 3)
-					adminsearch = "AND a_ckey LIKE '[adminckey]%' "
+					adminsearch = "AND a_ckey LIKE :adminckey "
+					sql_params["adminckey"] = "[adminckey]%"
 				if(playerckey && length(playerckey) >= 3)
-					playersearch = "AND ckey LIKE '[playerckey]%' "
+					playersearch = "AND ckey LIKE :playerckey "
+					sql_params["playerckey"] = "[playerckey]%"
 				if(playerip && length(playerip) >= 3)
-					ipsearch  = "AND ip LIKE '[playerip]%' "
+					ipsearch  = "AND ip LIKE :playerip "
+					sql_params["playerip"] = "[playerip]%"
 				if(playercid && length(playercid) >= 7)
-					cidsearch  = "AND computerid LIKE '[playercid]%' "
+					cidsearch  = "AND computerid LIKE :playercid "
+					sql_params["playercid"] = "[playercid]%"
 
 			if(dbbantype)
 				bantypesearch = "AND bantype = "
@@ -501,8 +582,13 @@
 						bantypesearch += "'PERMABAN' "
 
 
-			var/DBQuery/select_query = GLOB.dbcon.NewQuery("SELECT id, bantime, bantype, reason, job, duration, expiration_time, ckey, a_ckey, unbanned, unbanned_ckey, unbanned_datetime, edits, ip, computerid FROM [format_table_name("ban")] WHERE 1 [playersearch] [adminsearch] [ipsearch] [cidsearch] [bantypesearch] ORDER BY bantime DESC LIMIT 100")
-			select_query.Execute()
+			var/datum/db_query/select_query = SSdbcore.NewQuery({"
+				SELECT id, bantime, bantype, reason, job, duration, expiration_time, ckey, a_ckey, unbanned, unbanned_ckey, unbanned_datetime, edits, ip, computerid
+				FROM [format_table_name("ban")] WHERE 1 [playersearch] [adminsearch] [ipsearch] [cidsearch] [bantypesearch] ORDER BY bantime DESC LIMIT 100"}, sql_params)
+
+			if(!select_query.warn_execute())
+				qdel(select_query)
+				return
 
 			while(select_query.NextRow())
 				var/banid = select_query.item[1]
@@ -553,7 +639,7 @@
 				output += "</tr>"
 				output += "<tr bgcolor='[dcolor]'>"
 				output += "<td align='center' colspan='2' bgcolor=''><b>IP:</b> [ip]</td>"
-				output += "<td align='center' colspan='3' bgcolor=''><b>CIP:</b> [cid]</td>"
+				output += "<td align='center' colspan='3' bgcolor=''><b>CID:</b> [cid]</td>"
 				output += "</tr>"
 				output += "<tr bgcolor='[lcolor]'>"
 				output += "<td align='center' colspan='5'><b>Reason: [(unbanned) ? "" : "(<a href=\"byond://?src=[UID()];dbbanedit=reason;dbbanid=[banid]\">Edit</a>)"]</b> <cite>\"[reason]\"</cite></td>"
@@ -575,12 +661,17 @@
 
 			output += "</table></div>"
 
+			qdel(select_query)
+
 	usr << browse(output,"window=lookupbans;size=900x700")
 
 /proc/flag_account_for_forum_sync(ckey)
-	if(!GLOB.dbcon)
+	if(!SSdbcore.IsConnected())
 		return
-	var/skey = sanitizeSQL(ckey)
-	var/sql = "UPDATE [format_table_name("player")] SET fupdate = 1 WHERE ckey = '[skey]'"
-	var/DBQuery/adm_query = GLOB.dbcon.NewQuery(sql)
-	adm_query.Execute()
+	var/datum/db_query/adm_query = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET fupdate = 1 WHERE ckey=:ckey", list(
+		"ckey" = ckey
+	))
+	// We do nothing with output here so we dont need to wrap the warn_execute() inside an if statement
+	adm_query.warn_execute()
+	qdel(adm_query)
+

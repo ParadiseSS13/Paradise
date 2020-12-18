@@ -50,7 +50,7 @@
 /datum/theft_objective/hand_tele
 	name = "a hand teleporter"
 	typepath = /obj/item/hand_tele
-	protected_jobs = list("Captain", "Research Director")
+	protected_jobs = list("Captain", "Research Director", "Chief Engineer")
 
 /datum/theft_objective/ai
 	name = "a functional AI"
@@ -67,7 +67,7 @@
 /datum/theft_objective/defib
 	name = "a compact defibrillator"
 	typepath = /obj/item/defibrillator/compact
-	protected_jobs = list("Chief Medical Officer")
+	protected_jobs = list("Chief Medical Officer", "Paramedic")
 
 /datum/theft_objective/magboots
 	name = "the chief engineer's advanced magnetic boots"

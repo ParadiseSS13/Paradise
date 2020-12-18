@@ -266,6 +266,12 @@
 ///called when the movable is added to a disposal holder object for disposal movement: (obj/structure/disposalholder/holder, obj/machinery/disposal/source)
 #define COMSIG_MOVABLE_DISPOSING "movable_disposing"
 
+
+// /datum/mind signals
+
+///from base of /datum/mind/proc/transfer_to(mob/living/new_character)
+#define COMSIG_MIND_TRANSER_TO "mind_transfer_to"
+
 // /mob signals
 
 ///from base of /mob/Login(): ()

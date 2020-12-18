@@ -94,12 +94,4 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 	if(!D)
 		return
 
-	H.set_species(D.species.type, retain_damage = TRUE)
-	H.dna = D.Clone()
-	H.real_name = D.real_name
-	domutcheck(H, null, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
-	H.flavor_text = ""
-	H.dna.UpdateSE()
-	H.dna.UpdateUI()
-	H.sync_organ_dna(1)
-	H.UpdateAppearance()
+	H.change_dna(D, TRUE)

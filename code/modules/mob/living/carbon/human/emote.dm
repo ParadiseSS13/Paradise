@@ -85,13 +85,13 @@
 
 		if("clack", "clacks")
 			if(iskidan(src))	//Only Kidan can clack and rightfully so.
-				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+				on_CD = handle_emote_CD(30)			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
 
 		if("click", "clicks")
 			if(iskidan(src))	//Only Kidan can click and rightfully so.
-				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+				on_CD = handle_emote_CD(30)			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
 
@@ -209,14 +209,14 @@
 
 		if("clack", "clacks")
 			var/M = handle_emote_param(param)
-
+			mineral_scan_pulse(get_turf(src), range = world.view)
 			message = "<B>[src]</B> clacks [p_their()] mandibles[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/effects/Kidanclack.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
 
 		if("click", "clicks")
 			var/M = handle_emote_param(param)
-
+			mineral_scan_pulse(get_turf(src), range = world.view)
 			message = "<B>[src]</B> clicks [p_their()] mandibles[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/effects/Kidanclack2.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2

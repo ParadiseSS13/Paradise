@@ -1,4 +1,3 @@
-//BUBBLEGUM MODIFICADO PARA QUE DEJEN DE LLORAR
 
 /obj/structure/closet/crate/necropolis/bubblegum
 	name = "bubblegum chest"
@@ -7,21 +6,7 @@
 	..()
 	new /obj/item/clothing/suit/space/hostile_environment(src)
 	new /obj/item/clothing/head/helmet/space/hostile_environment(src)
-	/*//NNERFEADO REMOVER EN CASO DE QUITAR NERF
-	var/loot = rand(1,3)
-	switch(loot)
-		if(1)
-			new /obj/item/mayhem(src)
-			new /obj/item/organ/internal/heart/demon(src)
-		if(2)
-			new /obj/item/blood_contract(src)
-			new /obj/item/organ/internal/heart/demon(src)
-		if(3)
-			new /obj/item/gun/magic/staff/spellblade(src)
-			new /obj/item/organ/internal/heart/demon(src)
-	*/
 	new /obj/item/gun/magic/staff/spellblade(src)
-	new /obj/item/organ/internal/heart/demon(src)
 
 /obj/structure/closet/crate/necropolis/bubblegum/crusher
 	name = "bloody bubblegum chest"
