@@ -958,3 +958,70 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		else if(C)
 			color = C
 			return
+
+
+/** Call this when you want to present a renaming prompt to the user.
+
+    It's a simple proc, but handles annoying edge cases such as forgetting to add a "cancel" button,
+	or being able to rename stuff remotely.
+
+	Arguments:
+	* user - the renamer.
+	* implement - the tool doing the renaming (usually, a pen).
+	* use_prefix - whether the new name should follow the format of "thing - user-given label" or
+		if we allow to change the name completely arbitrarily.
+	* actually_rename - whether we want to really change the `src.name`, or if we want to do everything *except* that.
+	* prompt - a custom "what do you want rename this thing to be?" prompt shown in the inpit box.
+
+	Returns: Either null if the renaming was aborted, or the user-provided sanitized string.
+ **/
+/atom/proc/rename_interactive(mob/user, obj/implement = null, use_prefix = TRUE,
+		actually_rename = TRUE, prompt = null)
+	// Sanity check that the user can, indeed, rename the thing.
+	// This, sadly, means you can't rename things with a telekinetic pen, but that's
+	// too much of a hassle to make work nicely.
+	if((implement && implement.loc != user) || !in_range(src, user) || user.incapacitated(ignore_lying = TRUE))
+		return null
+
+	var/prefix = ""
+	if(use_prefix)
+		prefix = "[initial(name)] - "
+
+	var/default_value
+	if(!use_prefix)
+		default_value = name
+	else if(findtext(name, prefix) != 0)
+		default_value = copytext(name, length(prefix) + 1)
+	else
+		// Either the thing has a non-conforming name due to being set in the map
+		// OR (much more likely) the thing is unlabeled yet.
+		default_value = ""
+	if(!prompt)
+		prompt = "What would you like the label on [src] to be?"
+
+	var/t = input(user, prompt, "Renaming [src]", default_value)  as text | null
+	if(isnull(t))
+		// user pressed Cancel
+		return null
+
+	// Things could have changed between when `input` is called and when it returns.
+	if(!user)
+		return null
+	else if(implement && implement.loc != user)
+		to_chat(user, "<span class='warning'>You no longer have the pen to rename [src].</span>")
+		return null
+	else if(!in_range(src, user))
+		to_chat(user, "<span class='warning'>You cannot rename [src] from here.</span>")
+		return null
+	else if (user.incapacitated(ignore_lying = TRUE))
+		to_chat(user, "<span class='warning'>You cannot rename [src] in your current state.</span>")
+		return null
+
+
+	t = sanitize(copytext(t, 1, MAX_NAME_LEN))
+	if(actually_rename)
+		if(t == "")
+			name = "[initial(name)]"
+		else
+			name = "[prefix][t]"
+	return t

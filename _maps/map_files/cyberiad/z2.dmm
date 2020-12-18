@@ -2685,13 +2685,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
-"hH" = (
-/obj/machinery/vending/sovietsoda,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/wood,
-/area/dynamic/source/lobby_russian)
 "hI" = (
 /turf/unsimulated/floor/snow,
 /turf/unsimulated/floor/snow{
@@ -2700,11 +2693,6 @@
 	dir = 1
 	},
 /area/syndicate_mothership)
-"hJ" = (
-/obj/structure/table/wood,
-/obj/item/gun/projectile/revolver/russian,
-/turf/simulated/floor/wood,
-/area/dynamic/source/lobby_russian)
 "hK" = (
 /turf/unsimulated/floor/snow,
 /turf/unsimulated/floor/snow{
@@ -2713,13 +2701,6 @@
 	dir = 5
 	},
 /area/syndicate_mothership)
-"hL" = (
-/obj/machinery/vending/cigarette,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/wood,
-/area/dynamic/source/lobby_russian)
 "hM" = (
 /turf/unsimulated/wall/fakeglass{
 	dir = 8;
@@ -2750,39 +2731,6 @@
 	dir = 2
 	},
 /area/syndicate_mothership)
-"hR" = (
-/obj/structure/reagent_dispensers/beerkeg,
-/turf/simulated/floor/wood,
-/area/dynamic/source/lobby_bar)
-"hS" = (
-/obj/structure/table/wood,
-/obj/machinery/chem_dispenser/beer,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/wood,
-/area/dynamic/source/lobby_bar)
-"hT" = (
-/obj/structure/table/wood,
-/obj/machinery/chem_dispenser/soda,
-/turf/simulated/floor/wood,
-/area/dynamic/source/lobby_bar)
-"hU" = (
-/obj/structure/table/wood,
-/obj/item/storage/box/drinkingglasses,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/wood,
-/area/dynamic/source/lobby_bar)
-"hV" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/shaker,
-/turf/simulated/floor/wood,
-/area/dynamic/source/lobby_bar)
-"hW" = (
-/turf/simulated/floor/wood,
-/area/dynamic/source/lobby_russian)
 "hX" = (
 /obj/item/storage/fancy/crayons,
 /obj/machinery/light{
@@ -2796,27 +2744,6 @@
 	dir = 2
 	},
 /area/syndicate_mothership)
-"hY" = (
-/turf/simulated/floor/wood,
-/area/dynamic/source/lobby_disco)
-"hZ" = (
-/turf/simulated/floor/light,
-/area/dynamic/source/lobby_disco)
-"ia" = (
-/turf/simulated/floor/wood,
-/area/dynamic/source/lobby_bar)
-"ib" = (
-/obj/structure/table/wood,
-/turf/simulated/floor/wood,
-/area/dynamic/source/lobby_russian)
-"ic" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/wood,
-/area/dynamic/source/lobby_russian)
-"id" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/light,
-/area/dynamic/source/lobby_disco)
 "ie" = (
 /obj/machinery/washing_machine,
 /turf/unsimulated/floor{
@@ -2824,17 +2751,6 @@
 	dir = 2
 	},
 /area/syndicate_mothership)
-"if" = (
-/obj/structure/table/wood,
-/obj/machinery/light/small,
-/turf/simulated/floor/wood,
-/area/dynamic/source/lobby_bar)
-"ig" = (
-/obj/structure/table/wood,
-/obj/item/book/manual/barman_recipes,
-/obj/machinery/light/small,
-/turf/simulated/floor/wood,
-/area/dynamic/source/lobby_bar)
 "ih" = (
 /turf/unsimulated/wall,
 /area/wizard_station)
@@ -12216,50 +12132,6 @@
 	icon_state = "blue"
 	},
 /area/holodeck/source_knightarena)
-"Kc" = (
-/obj/structure/chair/comfy/brown{
-	dir = 4
-	},
-/turf/simulated/floor/wood,
-/area/dynamic/source/lobby_russian)
-"Kd" = (
-/obj/structure/chair/comfy/brown{
-	dir = 8
-	},
-/turf/simulated/floor/wood,
-/area/dynamic/source/lobby_russian)
-"Ke" = (
-/obj/structure/chair/sofa/right,
-/turf/simulated/floor/wood,
-/area/dynamic/source/lobby_disco)
-"Kf" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/chair/sofa/left,
-/turf/simulated/floor/wood,
-/area/dynamic/source/lobby_disco)
-"Kg" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/chair/sofa/right,
-/turf/simulated/floor/wood,
-/area/dynamic/source/lobby_disco)
-"Kh" = (
-/obj/structure/chair/sofa/left,
-/turf/simulated/floor/wood,
-/area/dynamic/source/lobby_disco)
-"Ki" = (
-/obj/structure/chair/comfy/brown{
-	dir = 1
-	},
-/turf/simulated/floor/wood,
-/area/dynamic/source/lobby_russian)
-"Kk" = (
-/obj/structure/chair/stool,
-/turf/simulated/floor/wood,
-/area/dynamic/source/lobby_bar)
 "Kq" = (
 /obj/structure/chair/comfy/red,
 /obj/effect/landmark{
@@ -73746,12 +73618,12 @@ an
 an
 eW
 aN
-bZ
-ak
-ak
-ak
-ak
-bZ
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 bZ
@@ -74003,12 +73875,12 @@ Zv
 Yp
 cc
 aN
-af
-hH
-hW
-hW
-ib
-cc
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 bZ
@@ -74260,12 +74132,12 @@ Zv
 Yp
 cc
 aN
-af
-Kc
-hW
-hW
-ic
-cc
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 bZ
@@ -74517,12 +74389,12 @@ Zv
 Yp
 cc
 aN
-af
-hJ
-Ki
-hW
-hW
-cc
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 bZ
@@ -74774,12 +74646,12 @@ Zv
 Yp
 cc
 aN
-af
-Kd
-hW
-hW
-ic
-cc
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 bZ
@@ -75031,12 +74903,12 @@ Zv
 Yp
 cc
 aN
-af
-hL
-hW
-hW
-ib
-cc
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 bZ
@@ -75288,12 +75160,12 @@ an
 an
 eW
 aN
-bZ
-an
-an
-an
-an
-bZ
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 bZ
@@ -75545,12 +75417,12 @@ TX
 FF
 cc
 aN
-af
-Ke
-hY
-hY
-hY
-cc
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 bZ
 bZ
@@ -75802,12 +75674,12 @@ eN
 IK
 cc
 aN
-af
-Kf
-hZ
-hZ
-id
-cc
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 bZ
 dF
@@ -76059,12 +75931,12 @@ eN
 IK
 cc
 aN
-af
-hY
-hZ
-hZ
-hZ
-cc
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 bZ
 dF
@@ -76316,12 +76188,12 @@ eN
 IK
 cc
 aN
-af
-Kg
-hZ
-hZ
-id
-cc
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 bZ
 dF
@@ -76573,12 +76445,12 @@ fT
 Uy
 cc
 aN
-af
-Kh
-hY
-hY
-hY
-cc
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 bZ
 dF
@@ -76830,12 +76702,12 @@ an
 an
 eW
 aN
-bZ
-an
-an
-an
-an
-bZ
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 bZ
 dF
@@ -77087,12 +76959,12 @@ CR
 zi
 cc
 aN
-af
-hR
-ia
-ia
-Kk
-cc
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 bZ
 bZ
@@ -77344,12 +77216,12 @@ eQ
 eH
 cc
 aN
-af
-hS
-ia
-ia
-if
-cc
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -77601,12 +77473,12 @@ eQ
 eH
 cc
 aN
-af
-hT
-ia
-ia
-ia
-cc
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -77858,12 +77730,12 @@ eQ
 eH
 cc
 aN
-af
-hU
-ia
-ia
-ig
-cc
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -78115,12 +77987,12 @@ dO
 eM
 cc
 aN
-af
-hV
-ia
-ia
-Kk
-cc
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -78372,12 +78244,12 @@ aE
 aE
 eX
 aN
-bZ
-aE
-aE
-aE
-aE
-bZ
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN

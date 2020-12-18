@@ -23,7 +23,7 @@
 	desc = "Red Operations, Depot General Emission Regulator"
 	icon_state = "ai-magma"
 
-/mob/living/silicon/decoy/syndicate/New()
+/mob/living/silicon/decoy/syndicate/Initialize(mapload)
 	. = ..()
 	icon_state = "ai-magma"
 
