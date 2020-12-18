@@ -22,8 +22,8 @@
 
 // Spawners
 /obj/effect/mob_spawn/human/spacebase_syndicate
-	name = "Syndicate Bioweapon Scientist sleeper"
-	mob_name = "Syndicate Bioweapon Scientist"
+	name = "Syndicate Researcher sleeper"
+	mob_name = "Syndicate Researcher"
 	roundstart = FALSE
 	death = FALSE
 	icon = 'icons/obj/cryogenic2.dmi'
@@ -32,7 +32,7 @@
 	description = "Experiment with deadly chems, plants, viruses, etc in peace."
 	flavour_text = "You are a syndicate agent, employed in a top secret research facility developing biological weapons. Continue your research as best you can, and try to keep a low profile. Do not leave your base or let non-syndicate enter it."
 	outfit = /datum/outfit/spacebase_syndicate
-	assignedrole = "Syndicate Base Researcher"
+	assignedrole = "Syndicate Researcher"
 	del_types = list() // Necessary to prevent del_types from removing radio!
 	allow_species_pick = TRUE
 
@@ -42,7 +42,7 @@
 	return ..()
 
 /datum/outfit/spacebase_syndicate
-	name = "Syndicate Base Scientist"
+	name = "Syndicate Researcher"
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/combat
