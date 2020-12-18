@@ -25,7 +25,7 @@
 	var/mob/living/carbon/human/H = target
 
 	if(length(H.stamp_marks.overlays) >= 20)	//no more than 20 marks on a person, otherwise infinite laggy stamp marks
-		to_chat(user, "<span class='warning'>[target.name]'s skin is saturated with ink! No more marks can appear on them.'.</span>")
+		to_chat(user, "<span class='warning'>[target.name]'s skin is saturated with ink! No more marks can appear on them.</span>")
 		return
 
 	var/attackedSide				//the stamp mark will appear on this side, NORTH = forwards, SOUTH = back, EAST = right, WEST = left
