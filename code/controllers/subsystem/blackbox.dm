@@ -222,7 +222,6 @@ Versioning
 						"admin_toggle" = 2,
 						"gun_fired" = 2)
 
-Note: Even though you can call this function all throughout the round, its only written at round restart
 */
 
 
@@ -230,7 +229,8 @@ Note: Even though you can call this function all throughout the round, its only 
   * Main feedback recording proc
   *
   * This is the bulk of this subsystem and is in charge of creating and using the variables.
-  * See the massive comment above for info
+  * See the massive comment above for info.
+  * Note that feedback is not recorded to the DB during this function. That happens at round end.
   *
   * Arguments:
   * * key_type - Type of key. Either "text", "amount", "tally", "nested tally", "associative"
