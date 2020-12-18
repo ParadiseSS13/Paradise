@@ -115,7 +115,8 @@ SUBSYSTEM_DEF(dbcore)
 		if(Connect())
 			SEND_TEXT(world.log, "Database connection established")
 		else
-			SEND_TEXT(world.log, "Your server failed to establish a connection with the database. Please check SQL error logs.")
+			// log_sql() because then an error will be logged in the same place
+			log_sql("Your server failed to establish a connection with the database")
 	else
 		SEND_TEXT(world.log, "Database is not enabled in configuration")
 

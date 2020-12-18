@@ -1,6 +1,11 @@
 SUBSYSTEM_DEF(blackbox)
 	name = "Blackbox"
 	flags = SS_NO_FIRE | SS_NO_INIT
+	// Even though we dont initialize, we need this init_order
+	// On Master.Shutdown(), it shuts down subsystems in the REVERSE order
+	// The database SS has INIT_ORDER_DBCORE=20, and this SS has INIT_ORDER_BLACKBOX=19
+	// So putting this ensures it shuts down in the right order
+	init_order = INIT_ORDER_BLACKBOX
 
 	/// List of all recorded feedback
 	var/list/datum/feedback_variable/feedback = list()
@@ -68,7 +73,7 @@ SUBSYSTEM_DEF(blackbox)
 /datum/controller/subsystem/blackbox/proc/Seal()
 	if(sealed)
 		return FALSE
-	log_game("Blackbox sealed.")
+	log_game("Blackbox sealed")
 	sealed = TRUE
 	return TRUE
 
@@ -118,6 +123,7 @@ SUBSYSTEM_DEF(blackbox)
 
 /*
 feedback data can be recorded in 5 formats:
+
 "text"
 	used for simple single-string records i.e. the current map
 	further calls to the same key will append saved data unless the overwrite argument is true or it already exists
@@ -125,12 +131,14 @@ feedback data can be recorded in 5 formats:
 	calls: 	SSblackbox.record_feedback("text", "example", 1, "sample text")
 			SSblackbox.record_feedback("text", "example", 1, "other text")
 	json: {"data":["sample text","other text"]}
+
 "amount"
 	used to record simple counts of data i.e. the number of ahelps recieved
 	further calls to the same key will add or subtract (if increment argument is a negative) from the saved amount
 	calls:	SSblackbox.record_feedback("amount", "example", 8)
 			SSblackbox.record_feedback("amount", "example", 2)
 	json: {"data":10}
+
 "tally"
 	used to track the number of occurances of multiple related values i.e. how many times each type of gun is fired
 	further calls to the same key will:
@@ -140,6 +148,7 @@ feedback data can be recorded in 5 formats:
 			SSblackbox.record_feedback("tally", "example", 4, "sample data")
 			SSblackbox.record_feedback("tally", "example", 2, "other data")
 	json: {"data":{"sample data":5,"other data":2}}
+
 "nested tally"
 	used to track the number of occurances of structured semi-relational values i.e. the results of arcade machines
 	similar to running total, but related values are nested in a multi-dimensional array built
@@ -153,9 +162,11 @@ feedback data can be recorded in 5 formats:
 			SSblackbox.record_feedback("nested tally", "example", 10, list("fruit", "red", "apple"))
 			SSblackbox.record_feedback("nested tally", "example", 1, list("vegetable", "orange", "carrot"))
 	json: {"data":{"fruit":{"orange":{"apricot":4,"orange":2},"red":{"apple":10}},"vegetable":{"orange":{"carrot":1}}}}
+
 	tracking values associated with a number can't merge with a nesting value, trying to do so will append the list
 	call:	SSblackbox.record_feedback("nested tally", "example", 3, list("fruit", "orange"))
 	json: {"data":{"fruit":{"orange":{"apricot":4,"orange":2},"red":{"apple":10},"orange":3},"vegetable":{"orange":{"carrot":1}}}}
+
 "associative"
 	used to record text that's associated with a value i.e. coordinates
 	further calls to the same key will append a new list to existing data
