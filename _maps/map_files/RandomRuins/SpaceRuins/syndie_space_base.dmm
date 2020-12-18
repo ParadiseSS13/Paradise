@@ -3039,6 +3039,15 @@
 	icon_state = "darkblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
+"Lh" = (
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/item/wrench,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/syndicate_space_base/engineering)
 "Lj" = (
 /obj/item/reagent_containers/food/drinks/shaker,
 /obj/structure/table,
@@ -6328,7 +6337,7 @@ qF
 qF
 ji
 AM
-AM
+Lh
 mP
 qF
 qF

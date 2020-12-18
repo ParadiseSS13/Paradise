@@ -32,7 +32,7 @@
 	description = "Experiment with deadly chems, plants, viruses, etc in peace."
 	flavour_text = "You are a syndicate agent, employed in a top secret research facility developing biological weapons. Continue your research as best you can, and try to keep a low profile. Do not abandon your base or let it fall into enemy hands."
 	outfit = /datum/outfit/spacebase_syndicate
-	assignedrole = "Lavaland Syndicate"
+	assignedrole = "Syndicate Base Researcher"
 	del_types = list() // Necessary to prevent del_types from removing radio!
 	allow_species_pick = TRUE
 
@@ -47,7 +47,7 @@
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
-	r_ear = /obj/item/radio/headset/syndicate/alt/lavaland // See del_types above
+	r_ear = /obj/item/radio/headset/syndicate/alt/nocommon // See del_types above
 	back = /obj/item/storage/backpack
 	belt = /obj/item/storage/belt/utility/full/multitool
 	r_pocket = /obj/item/gun/projectile/automatic/pistol

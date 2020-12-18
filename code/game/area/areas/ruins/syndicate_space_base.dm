@@ -15,7 +15,8 @@
 
 /area/ruin/unpowered/syndicate_space_base/arrivals
 	name = "Syndicate Space Base Arrivals"
-	icon_state = "entry"
+	icon_state = "teleporter"
+
 
 /area/ruin/unpowered/syndicate_space_base/bar
 	name = "Syndicate Space Base Bar"
