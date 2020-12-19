@@ -6,6 +6,8 @@
 	origin_tech = "magnets=4;combat=4"
 	///used if it is a clusterbuster, so it deletes if it fails to activate, and doesnt leave 10+ unactivated nades
 	var/clustersegment = FALSE
+	///How long untill gravity returns (In deciseconds)?
+	var/gravity_timer = 300
 
 /obj/item/grenade/gravitygrenade/prime()
 	update_mob()
@@ -27,12 +29,12 @@
 	else
 		area.gravitychange(1, area)
 
-	if(area.skreked_gravity)
-		area.skreked_gravity = FALSE
+	if(area.special_gravity)
+		area.special_gravity = FALSE
 	else
-		area.skreked_gravity = TRUE
+		area.special_gravity = TRUE
 	playsound(loc, 'sound/weapons/wave.ogg', 60, 1)
-	addtimer(CALLBACK(null, .proc/unskrek_gravity, area), 30 SECONDS)
+	addtimer(CALLBACK(null, .proc/unskrek_gravity, area), gravity_timer)
 	qdel(src)
 
 /obj/item/grenade/gravitygrenade/proc/unskrek_gravity(area/area)
@@ -41,10 +43,10 @@
 	else
 		area.gravitychange(1, area)
 
-	if(area.skreked_gravity)
-		area.skreked_gravity = FALSE
+	if(area.special_gravity)
+		area.special_gravity = FALSE
 	else
-		area.skreked_gravity = TRUE
+		area.special_gravity = TRUE
 
 /obj/item/grenade/gravitygrenade/proc/unprime()
 	active = 0

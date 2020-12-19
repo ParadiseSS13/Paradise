@@ -67,8 +67,8 @@
 	var/moving = FALSE
 	/// "Haunted" areas such as the morgue and chapel are easier to boo. Because flavor.
 	var/is_haunted = FALSE
-	///Did a gravity grenade mess with gravity and we need to pay attention?
-	var/skreked_gravity = FALSE
+	///This variable, normaly set to true by a gravity grenade, means it checks this variable before it checks if a gravity generator exists on the level, meaning you can have a no gravity room on the same level as a generator.
+	var/special_gravity = FALSE
 
 /area/Initialize(mapload)
 	GLOB.all_areas += src
@@ -534,7 +534,7 @@
 		return FALSE
 	else if(A && A.has_gravity) // Areas which always has gravity
 		return TRUE
-	else if(A && A.skreked_gravity)
+	else if(A && A.special_gravity)
 		return FALSE
 	else
 		// There's a gravity generator on our z level
