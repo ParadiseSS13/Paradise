@@ -58831,8 +58831,7 @@
 /obj/machinery/computer/security/telescreen{
 	desc = "Used for watching the RD's goons from the safety of his office.";
 	name = "Research Monitor";
-	network = list("Research","Research Outpost","RD");
-	pixel_x = 0;
+	network = list("Research","MiniSat","RD");
 	pixel_y = 2
 	},
 /obj/structure/table/glass,
