@@ -15,7 +15,7 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 30)
 	actions_types = list(/datum/action/item_action/set_internals)
 	var/datum/gas_mixture/air_contents = null
-	var/distribute_pressure = ONE_ATMOSPHERE
+	var/distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 	var/integrity = 3
 	var/volume = 70
 
@@ -25,7 +25,6 @@
 	air_contents = new /datum/gas_mixture()
 	air_contents.volume = volume //liters
 	air_contents.temperature = T20C
-
 	START_PROCESSING(SSobj, src)
 	return
 
@@ -138,15 +137,15 @@
 	if(!(air_contents))
 		return
 
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/item/tank/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_inventory_state)
+/obj/item/tank/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "Tank",  name, 300, 150, master_ui, state)
 		ui.open()
 
-/obj/item/tank/tgui_data(mob/user)
+/obj/item/tank/ui_data(mob/user)
 	var/list/data = list()
 	data["tankPressure"] = round(air_contents.return_pressure() ? air_contents.return_pressure() : 0)
 	data["releasePressure"] = round(distribute_pressure ? distribute_pressure : 0)
@@ -162,7 +161,7 @@
 	data["connected"] = (C.internal && C.internal == src) ? TRUE : FALSE
 	return data
 
-/obj/item/tank/tgui_act(action, params)
+/obj/item/tank/ui_act(action, params)
 	if(..())
 		return
 	. = TRUE

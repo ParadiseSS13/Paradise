@@ -1,6 +1,8 @@
 /obj/screen/movable/action_button
 	var/datum/action/linked_action
+	var/actiontooltipstyle = ""
 	screen_loc = null
+	var/ordered = TRUE
 
 /obj/screen/movable/action_button/MouseDrop(over_object)
 	if((istype(over_object, /obj/screen/movable/action_button) && !istype(over_object, /obj/screen/movable/action_button/hide_toggle)))
@@ -12,7 +14,9 @@
 		var/list/actions = usr.actions
 		actions.Swap(actions.Find(linked_action), actions.Find(B.linked_action))
 		moved = FALSE
+		ordered = TRUE
 		B.moved = FALSE
+		B.ordered = TRUE
 		closeToolTip(usr)
 		usr.update_action_buttons()
 	else if(istype(over_object, /obj/screen/movable/action_button/hide_toggle))
@@ -28,7 +32,7 @@
 			to_chat(usr, "<span class='warning'>Action button \"[name]\" is locked, unlock it first.</span>")
 			return TRUE
 		moved = FALSE
-		usr.update_action_buttons() //redraw buttons that are no longer considered "moved"
+		usr.update_action_buttons(TRUE) //redraw buttons that are no longer considered "moved"
 		return TRUE
 	if(modifiers["ctrl"])
 		locked = !locked
@@ -46,7 +50,7 @@
 	desc = "Shift-click any button to reset its position, and Control-click it to lock/unlock its position. Alt-click this button to reset all buttons to their default positions."
 	icon = 'icons/mob/actions/actions.dmi'
 	icon_state = "bg_default"
-	var/hidden = 0
+	var/hidden = FALSE
 
 /obj/screen/movable/action_button/hide_toggle/MouseDrop(over_object)
 	if(istype(over_object, /obj/screen/movable/action_button))
@@ -99,19 +103,28 @@
 
 /obj/screen/movable/action_button/hide_toggle/proc/InitialiseIcon(mob/living/user)
 	if(isalien(user))
+		icon = 'icons/mob/actions/actions.dmi'
 		icon_state = "bg_alien"
 	else
+		icon = initial(icon)
 		icon_state = "bg_default"
+		if(user.client) // Apply the client's UI style
+			icon = ui_style2icon(user.client.prefs.UI_style)
+			icon_state = "template"
+	if(user.client)
+		alpha = user.client.prefs.UI_style_alpha
+		color = user.client.prefs.UI_style_color
 	UpdateIcon()
 
 /obj/screen/movable/action_button/hide_toggle/proc/UpdateIcon()
-	overlays.Cut()
-	var/image/img = image(icon, src, hidden ? "show" : "hide")
+	cut_overlays()
+	var/image/img = image(initial(icon), src, hidden ? "show" : "hide")
+	img.appearance_flags = RESET_COLOR | RESET_ALPHA
 	overlays += img
 
 /obj/screen/movable/action_button/MouseEntered(location, control, params)
 	if(!QDELETED(src))
-		openToolTip(usr, src, params, title = name, content = desc)
+		openToolTip(usr, src, params, title = name, content = desc, theme = actiontooltipstyle)
 
 /obj/screen/movable/action_button/MouseExited()
 	closeToolTip(usr)
@@ -138,9 +151,12 @@
 				client.screen += A.button
 	else
 		for(var/datum/action/A in actions)
-			button_number++
+			A.override_location() // If the action has a location override, call it
 			A.UpdateButtonIcon()
+
 			var/obj/screen/movable/action_button/B = A.button
+			if(B.ordered)
+				button_number++
 			if(!B.moved)
 				B.screen_loc = hud_used.ButtonNumberToScreenCoords(button_number)
 			else

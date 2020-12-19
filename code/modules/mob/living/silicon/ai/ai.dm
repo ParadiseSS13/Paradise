@@ -20,7 +20,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	/mob/living/silicon/ai/proc/toggle_acceleration,
 	/mob/living/silicon/ai/proc/toggle_camera_light,
 	/mob/living/silicon/ai/proc/botcall,
-	/mob/living/silicon/ai/proc/change_arrival_message
+	/mob/living/silicon/ai/proc/change_arrival_message,
+	/mob/living/silicon/ai/proc/arrivals_announcement
 ))
 
 //Not sure why this is necessary...
@@ -103,6 +104,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	var/obj/structure/AIcore/deactivated/linked_core //For exosuit control
 
+	/// If our AI doesn't want to be the arrivals announcer, this gets set to FALSE.
+	var/announce_arrivals = TRUE
 	var/arrivalmsg = "$name, $rank, has arrived on the station."
 
 	var/multicam_allowed = FALSE
@@ -1134,6 +1137,13 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = "AI Commands"
 	toggle_sensor_mode()
 
+/mob/living/silicon/ai/proc/arrivals_announcement()
+	set name = "Toggle Arrivals Announcer"
+	set desc = "Change whether or not you wish to announce arrivals."
+	set category = "AI Commands"
+	announce_arrivals = !announce_arrivals
+	to_chat(usr, "Arrivals announcement system [announce_arrivals ? "enabled" : "disabled"]")
+
 /mob/living/silicon/ai/proc/change_arrival_message()
 	set name = "Set Arrival Message"
 	set desc = "Change the message that's transmitted when a new crew member arrives on station."
@@ -1268,6 +1278,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/name_used = M.GetVoice()
 	//This communication is imperfect because the holopad "filters" voices and is only designed to connect to the master only.
 	var/rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [message]</span></i>"
+	if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+		var/message_clean = combine_message(message_pieces, null, M)
+		create_chat_message(M, message_clean)
 	show_message(rendered, 2)
 
 /mob/living/silicon/ai/proc/malfhacked(obj/machinery/power/apc/apc)

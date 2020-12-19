@@ -45,7 +45,8 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 			break
 
 	// Find ghosts willing to be SST
-	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, SYNDICATE_COMMANDOS_POSSIBLE, "Join the Syndicate Strike Team?",, 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE)
+	var/image/I = new('icons/obj/cardboard_cutout.dmi', "cutout_commando")
+	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, SYNDICATE_COMMANDOS_POSSIBLE, "Join the Syndicate Strike Team?",, 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = I)
 	if(!commando_ghosts.len)
 		to_chat(usr, "<span class='userdanger'>Nobody volunteered to join the SST.</span>")
 		return

@@ -111,7 +111,7 @@
 	return ..()
 
 /obj/structure/AIcore/crowbar_act(mob/living/user, obj/item/I)
-	if(state !=CIRCUIT_CORE || state != GLASS_CORE || !(state == CABLED_CORE && brain))
+	if(state !=CIRCUIT_CORE && state != GLASS_CORE && !(state == CABLED_CORE && brain))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -225,7 +225,7 @@
 	qdel(src)
 
 /obj/structure/AIcore/welder_act(mob/user, obj/item/I)
-	if(!state)
+	if(state)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))

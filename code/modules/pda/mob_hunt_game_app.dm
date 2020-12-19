@@ -152,8 +152,12 @@
 	bait = bait.type
 	new bait(1, get_turf(pda))
 
-/datum/data/pda/app/mob_hunter_game/Topic(href, list/href_list)
-	switch(href_list["choice"])
+/datum/data/pda/app/mob_hunter_game/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return
+
+	. = TRUE
+	switch(action)
 		if("Rename")
 			assign_nickname()
 		if("Release")

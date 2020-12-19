@@ -12,17 +12,16 @@
 	var/obj/machinery/computer/account_database/linked_db
 	var/datum/money_account/linked_account
 
-/obj/item/eftpos/New()
-	..()
+/obj/item/eftpos/Initialize(mapload)
 	machine_name = "[station_name()] EFTPOS #[GLOB.num_financial_terminals++]"
 	access_code = rand(1111,111111)
 	reconnect_database()
-	spawn(0)
-		print_reference()
+	print_reference()
 
 	//by default, connect to the station account
 	//the user of the EFTPOS device can change the target account though, and no-one will be the wiser (except whoever's being charged)
 	linked_account = GLOB.station_account
+	return ..()
 
 /obj/item/eftpos/proc/print_reference()
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
@@ -65,7 +64,7 @@
 		if(linked_db)
 			if(linked_account)
 				scan_card(O, user)
-				SSnanoui.update_uis(src)
+				SStgui.update_uis(src)
 			else
 				to_chat(user, "[bicon(src)]<span class='warning'>Unable to connect to linked account.</span>")
 		else
@@ -73,14 +72,14 @@
 	else
 		return ..()
 
-/obj/item/eftpos/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/eftpos/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "eftpos.tmpl", name, 790, 310)
+		ui = new(user, src, ui_key, "EFTPOS", name, 800, 300, master_ui, state)
 		ui.open()
 
-/obj/item/eftpos/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
+/obj/item/eftpos/ui_data(mob/user)
+	var/list/data = list()
 	data["machine_name"] = machine_name
 	data["transaction_locked"] = transaction_locked
 	data["transaction_paid"] = transaction_paid
@@ -89,76 +88,75 @@
 	data["linked_account"] = linked_account ? linked_account.owner_name : null
 	return data
 
-/obj/item/eftpos/Topic(href, list/href_list)
+/obj/item/eftpos/ui_act(action, list/params)
 	if(..())
-		return 1
+		return
 
-	if(href_list["choice"])
-		switch(href_list["choice"])
-			if("change_code")
-				var/attempt_code = input("Re-enter the current EFTPOS access code", "Confirm old EFTPOS code") as num
+	. = TRUE
+
+	switch(action)
+		if("change_code")
+			var/attempt_code = input("Re-enter the current EFTPOS access code", "Confirm old EFTPOS code") as num
+			if(attempt_code == access_code)
+				var/trycode = input("Enter a new access code for this device (4-6 digits, numbers only)", "Enter new EFTPOS code") as num
+				if(trycode >= 1000 && trycode <= 999999)
+					access_code = trycode
+				else
+					alert("That is not a valid code!")
+				print_reference()
+			else
+				to_chat(usr, "[bicon(src)]<span class='warning'>Incorrect code entered.</span>")
+		if("link_account")
+			if(!linked_db)
+				reconnect_database()
+			if(linked_db)
+				var/attempt_account_num = input("Enter account number to pay EFTPOS charges into", "New account number") as num
+				var/attempt_pin = input("Enter pin code", "Account pin") as num
+				linked_account = attempt_account_access(attempt_account_num, attempt_pin, 1)
+			else
+				to_chat(usr, "[bicon(src)]<span class='warning'>Unable to connect to accounts database.</span>")
+		if("trans_purpose")
+			var/purpose = clean_input("Enter reason for EFTPOS transaction", "Transaction purpose", transaction_purpose)
+			if(purpose)
+				transaction_purpose = purpose
+		if("trans_value")
+			var/try_num = input("Enter amount for EFTPOS transaction", "Transaction amount", transaction_amount) as num
+			if(try_num < 0)
+				alert("That is not a valid amount!")
+			else
+				transaction_amount = try_num
+		if("toggle_lock")
+			if(transaction_locked)
+				var/attempt_code = input("Enter EFTPOS access code", "Reset Transaction") as num
 				if(attempt_code == access_code)
-					var/trycode = input("Enter a new access code for this device (4-6 digits, numbers only)", "Enter new EFTPOS code") as num
-					if(trycode >= 1000 && trycode <= 999999)
-						access_code = trycode
-					else
-						alert("That is not a valid code!")
-					print_reference()
-				else
-					to_chat(usr, "[bicon(src)]<span class='warning'>Incorrect code entered.</span>")
-			if("link_account")
-				if(!linked_db)
-					reconnect_database()
-				if(linked_db)
-					var/attempt_account_num = input("Enter account number to pay EFTPOS charges into", "New account number") as num
-					var/attempt_pin = input("Enter pin code", "Account pin") as num
-					linked_account = attempt_account_access(attempt_account_num, attempt_pin, 1)
-				else
-					to_chat(usr, "[bicon(src)]<span class='warning'>Unable to connect to accounts database.</span>")
-			if("trans_purpose")
-				var/purpose = clean_input("Enter reason for EFTPOS transaction", "Transaction purpose", transaction_purpose)
-				if(purpose)
-					transaction_purpose = purpose
-			if("trans_value")
-				var/try_num = input("Enter amount for EFTPOS transaction", "Transaction amount", transaction_amount) as num
-				if(try_num < 0)
-					alert("That is not a valid amount!")
-				else
-					transaction_amount = try_num
-			if("toggle_lock")
-				if(transaction_locked)
-					var/attempt_code = input("Enter EFTPOS access code", "Reset Transaction") as num
-					if(attempt_code == access_code)
-						transaction_locked = 0
-						transaction_paid = 0
-				else if(linked_account)
-					transaction_locked = 1
-				else
-					to_chat(usr, "[bicon(src)]<span class='warning'>No account connected to send transactions to.</span>")
-			if("scan_card")
-				//attempt to connect to a new db, and if that doesn't work then fail
-				if(!linked_db)
-					reconnect_database()
-				if(linked_db && linked_account)
-					var/obj/item/I = usr.get_active_hand()
-					if(istype(I, /obj/item/card))
-						scan_card(I, usr)
-				else
-					to_chat(usr, "[bicon(src)]<span class='warning'>Unable to link accounts.</span>")
-			if("reset")
-				//reset the access code - requires HoP/captain access
+					transaction_locked = 0
+					transaction_paid = 0
+			else if(linked_account)
+				transaction_locked = 1
+			else
+				to_chat(usr, "[bicon(src)]<span class='warning'>No account connected to send transactions to.</span>")
+		if("scan_card")
+			//attempt to connect to a new db, and if that doesn't work then fail
+			if(!linked_db)
+				reconnect_database()
+			if(linked_db && linked_account)
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/card))
-					var/obj/item/card/id/C = I
-					if((ACCESS_CENT_COMMANDER in C.access) || (ACCESS_HOP in C.access) || (ACCESS_CAPTAIN in C.access))
-						access_code = 0
-						to_chat(usr, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
-				else if(istype(I, /obj/item/card/emag))
+					scan_card(I, usr)
+			else
+				to_chat(usr, "[bicon(src)]<span class='warning'>Unable to link accounts.</span>")
+		if("reset")
+			//reset the access code - requires HoP/captain access
+			var/obj/item/I = usr.get_active_hand()
+			if(istype(I, /obj/item/card))
+				var/obj/item/card/id/C = I
+				if((ACCESS_CENT_COMMANDER in C.access) || (ACCESS_HOP in C.access) || (ACCESS_CAPTAIN in C.access))
 					access_code = 0
 					to_chat(usr, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
+			else if(istype(I, /obj/item/card/emag))
+				access_code = 0
+				to_chat(usr, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
 
-	SSnanoui.update_uis(src)
-	return 1
 
 /obj/item/eftpos/proc/scan_card(obj/item/card/I, mob/user)
 	if(istype(I, /obj/item/card/id))

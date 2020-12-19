@@ -75,7 +75,7 @@
 	reagents.add_reagent("[extra_reagent]", 5)
 
 /obj/item/reagent_containers/food/snacks/wishsoup
-	name = "Wish Soup"
+	name = "wish soup"
 	desc = "I wish this was soup."
 	icon_state = "wishsoup"
 	trash = /obj/item/trash/snack_bowl
@@ -101,14 +101,14 @@
 	list_reagents = list("nutriment" = 5, "tomatojuice" = 10, "vitamin" = 3)
 	tastes = list("tomato" = 1)
 
-/obj/item/reagent_containers/food/snacks/milosoup
-	name = "milosoup"
+/obj/item/reagent_containers/food/snacks/misosoup
+	name = "miso soup"
 	desc = "The universe's best soup! Yum!!!"
-	icon_state = "milosoup"
+	icon_state = "misosoup"
 	trash = /obj/item/trash/snack_bowl
 	bitesize = 5
 	list_reagents = list("nutriment" = 7, "vitamin" = 2)
-	tastes = list("milo" = 1)
+	tastes = list("miso" = 1)
 
 /obj/item/reagent_containers/food/snacks/mushroomsoup
 	name = "chantrelle soup"

@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(radio)
 	"Common"		= PUB_FREQ,
 	"Science"		= SCI_FREQ,
 	"Command"		= COMM_FREQ,
+	"Procedure"		= PROC_FREQ,
 	"Medical"		= MED_FREQ,
 	"Engineering"	= ENG_FREQ,
 	"Security" 		= SEC_FREQ,
@@ -21,7 +22,7 @@ SUBSYSTEM_DEF(radio)
 	)
 	var/list/CENT_FREQS = list(ERT_FREQ, DTH_FREQ)
 	var/list/ANTAG_FREQS = list(SYND_FREQ, SYNDTEAM_FREQ)
-	var/list/DEPT_FREQS = list(AI_FREQ, COMM_FREQ, ENG_FREQ, MED_FREQ, SEC_FREQ, SCI_FREQ, SRV_FREQ, SUP_FREQ)
+	var/list/DEPT_FREQS = list(AI_FREQ, COMM_FREQ, ENG_FREQ, MED_FREQ, SEC_FREQ, SCI_FREQ, SRV_FREQ, SUP_FREQ, PROC_FREQ)
 	var/list/datum/radio_frequency/frequencies = list()
 
 // This is fucking disgusting and needs to die
@@ -50,6 +51,8 @@ SUBSYSTEM_DEF(radio)
 			return "supradio"
 		if(SRV_FREQ)
 			return "srvradio"
+		if(PROC_FREQ)
+			return "proradio"
 
 	// If the above switch somehow failed. And it needs the SSradio. part otherwise it fails to compile
 	if(frequency in DEPT_FREQS)

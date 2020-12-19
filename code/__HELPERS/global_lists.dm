@@ -72,8 +72,6 @@
 			to_chat(world, "<span class='warning'>pAI software module [P.name] has the same key as [O.name]!</span>")
 			continue
 		GLOB.pai_software_by_key[P.id] = P
-		if(P.default)
-			GLOB.default_pai_software[P.id] = P
 
 	// Setup loadout gear
 	for(var/geartype in subtypesof(/datum/gear))
@@ -118,6 +116,17 @@
 					GLOB.chargen_robolimbs[R.company] = R //List only main brands and solo parts.
 		if(R.selectable)
 			GLOB.selectable_robolimbs[R.company] = R
+
+	// Setup world topic handlers
+	for(var/topic_handler_type in subtypesof(/datum/world_topic_handler))
+		var/datum/world_topic_handler/wth = new topic_handler_type()
+		if(!wth.topic_key)
+			stack_trace("[wth.type] has no topic key!")
+			continue
+		if(GLOB.world_topic_handlers[wth.topic_key])
+			stack_trace("[wth.type] has the same topic key as [GLOB.world_topic_handlers[wth.topic_key]]! ([wth.topic_key])")
+			continue
+		GLOB.world_topic_handlers[wth.topic_key] = topic_handler_type
 
 /* // Uncomment to debug chemical reaction list.
 /client/verb/debug_chemical_list()

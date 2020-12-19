@@ -271,6 +271,8 @@ SUBSYSTEM_DEF(jobs)
 *  This proc must not have any side effect besides of modifying "assigned_role".
 **/
 /datum/controller/subsystem/jobs/proc/DivideOccupations()
+	// Lets roughly time this
+	var/watch = start_watch()
 	//Setup new player list and get the jobs list
 	Debug("Running DO")
 	SetupOccupations()
@@ -285,7 +287,7 @@ SUBSYSTEM_DEF(jobs)
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(player.ready && player.has_valid_preferences() && player.mind && !player.mind.assigned_role)
 			unassigned += player
-			if(player.client.prefs.randomslot)
+			if(player.client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
 				player.client.prefs.load_random_character_slot(player.client)
 
 	Debug("DO, Len: [unassigned.len]")
@@ -404,6 +406,7 @@ SUBSYSTEM_DEF(jobs)
 			player.ready = 0
 			unassigned -= player
 
+	log_debug("Dividing Occupations took [stop_watch(watch)]s")
 	return 1
 
 /datum/controller/subsystem/jobs/proc/AssignRank(var/mob/living/carbon/human/H, var/rank, var/joined_late = 0)

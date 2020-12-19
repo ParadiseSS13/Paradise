@@ -17,6 +17,11 @@
 			if(A.attack_hulk(src))
 				return
 
+	if(buckled && isstructure(buckled))
+		var/obj/structure/S = buckled
+		if(S.prevents_buckled_mobs_attacking())
+			return
+
 	A.attack_hand(src)
 
 /atom/proc/attack_hand(mob/user as mob)

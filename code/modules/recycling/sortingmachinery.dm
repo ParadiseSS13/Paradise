@@ -56,12 +56,7 @@
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 
 	else if(istype(W, /obj/item/pen))
-		var/str = copytext(sanitize(input(user,"Label text?","Set label","")),1,MAX_NAME_LEN)
-		if(!str || !length(str))
-			to_chat(user, "<span class='notice'>Invalid text.</span>")
-			return
-		user.visible_message("<span class='notice'>[user] labels [src] as [str].</span>")
-		name = "[name] ([str])"
+		rename_interactive(user, W)
 
 	else if(istype(W, /obj/item/stack/wrapping_paper) && !giftwrapped)
 		var/obj/item/stack/wrapping_paper/WP = W
@@ -132,12 +127,7 @@
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 
 	else if(istype(W, /obj/item/pen))
-		var/str = copytext(sanitize(input(user,"Label text?","Set label","")),1,MAX_NAME_LEN)
-		if(!str || !length(str))
-			to_chat(user, "<span class='notice'>Invalid text.</span>")
-			return
-		user.visible_message("<span class='notice'>[user] labels [src] as [str].</span>")
-		name = "[name] ([str])"
+		rename_interactive(user, W)
 
 	else if(istype(W, /obj/item/stack/wrapping_paper) && !giftwrapped)
 		var/obj/item/stack/wrapping_paper/WP = W

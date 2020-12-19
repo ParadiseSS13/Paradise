@@ -10,11 +10,16 @@
 	throw_range	= 20
 	origin_tech = "syndicate=1;engineering=3"
 	/// Integrated camera console to serve UI data
-	var/obj/machinery/computer/security/integrated_console
+	var/obj/machinery/computer/security/camera_bug/integrated_console
+
+/obj/machinery/computer/security/camera_bug
+	name = "invasive camera utility"
+	desc = "How did this get here?! Please report this as a bug to github"
+	use_power = NO_POWER_USE
 
 /obj/item/camera_bug/Initialize(mapload)
 	. = ..()
-	integrated_console = new
+	integrated_console = new(src)
 	integrated_console.parent = src
 	integrated_console.network = list("SS13")
 
@@ -23,7 +28,17 @@
 	return ..()
 
 /obj/item/camera_bug/attack_self(mob/user as mob)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/item/camera_bug/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_inventory_state)
-	integrated_console.tgui_interact(user, ui_key, ui, force_open, master_ui, state)
+/obj/item/camera_bug/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
+	integrated_console.ui_interact(user, ui_key, ui, force_open, master_ui, state)
+
+
+/obj/item/camera_bug/ert
+	name = "ERT Camera Monitor"
+	desc = "A small handheld device used by ERT commanders to view camera feeds remotely."
+
+/obj/item/camera_bug/ert/Initialize(mapload)
+	. = ..()
+	integrated_console.network = list("ERT")
+

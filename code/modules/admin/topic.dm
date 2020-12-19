@@ -26,17 +26,16 @@
 		message_admins("[key_name_admin(usr)] rejected [key_name_admin(C.mob)]'s admin help")
 		log_admin("[key_name(usr)] rejected [key_name(C.mob)]'s admin help")
 
-	if(href_list["openadminticket"])
-		if(!check_rights(R_ADMIN))
-			return
-		var/ticketID = text2num(href_list["openadminticket"])
-		SStickets.showDetailUI(usr, ticketID)
-
-	if(href_list["openmentorticket"])
-		if(!check_rights(R_MENTOR|R_MOD|R_ADMIN))
-			return
-		var/ticketID = text2num(href_list["openmentorticket"])
-		SSmentor_tickets.showDetailUI(usr, ticketID)
+	if(href_list["openticket"])
+		var/ticketID = text2num(href_list["openticket"])
+		if(!href_list["is_mhelp"])
+			if(!check_rights(R_ADMIN))
+				return
+			SStickets.showDetailUI(usr, ticketID)
+		else
+			if(!check_rights(R_MENTOR|R_MOD|R_ADMIN))
+				return
+			SSmentor_tickets.showDetailUI(usr, ticketID)
 
 	if(href_list["stickyban"])
 		stickyban(href_list["stickyban"],href_list)
@@ -963,15 +962,17 @@
 		show_note(index = target)
 
 	else if(href_list["noteedits"])
-		var/note_id = sanitizeSQL("[href_list["noteedits"]]")
-		var/DBQuery/query_noteedits = GLOB.dbcon.NewQuery("SELECT edits FROM [format_table_name("notes")] WHERE id = '[note_id]'")
-		if(!query_noteedits.Execute())
-			var/err = query_noteedits.ErrorMsg()
-			log_game("SQL ERROR obtaining edits from notes table. Error : \[[err]\]\n")
+		var/note_id = text2num(href_list["noteedits"])
+		var/datum/db_query/query_noteedits = SSdbcore.NewQuery("SELECT edits FROM [format_table_name("notes")] WHERE id=:note_id", list(
+			"note_id" = note_id
+		))
+		if(!query_noteedits.warn_execute())
+			qdel(query_noteedits)
 			return
 		if(query_noteedits.NextRow())
 			var/edit_log = query_noteedits.item[1]
 			usr << browse(edit_log,"window=noteedits")
+		qdel(query_noteedits)
 
 	else if(href_list["removejobban"])
 		if(!check_rights(R_BAN))	return
@@ -1081,15 +1082,17 @@
 		usr.client.watchlist_show()
 
 	else if(href_list["watcheditlog"])
-		var/target_ckey = sanitizeSQL("[href_list["watcheditlog"]]")
-		var/DBQuery/query_watchedits = GLOB.dbcon.NewQuery("SELECT edits FROM [format_table_name("watch")] WHERE ckey = '[target_ckey]'")
-		if(!query_watchedits.Execute())
-			var/err = query_watchedits.ErrorMsg()
-			log_game("SQL ERROR obtaining edits from watch table. Error : \[[err]\]\n")
+		var/target_ckey = href_list["watcheditlog"]
+		var/datum/db_query/query_watchedits = SSdbcore.NewQuery("SELECT edits FROM [format_table_name("watch")] WHERE ckey=:targetkey", list(
+			"targetkey" = target_ckey
+		))
+		if(!query_watchedits.warn_execute())
+			qdel(query_watchedits)
 			return
 		if(query_watchedits.NextRow())
 			var/edit_log = query_watchedits.item[1]
 			usr << browse(edit_log,"window=watchedits")
+		qdel(query_watchedits)
 
 	else if(href_list["mute"])
 		if(!check_rights(R_ADMIN|R_MOD))
@@ -1478,6 +1481,77 @@
 		log_admin("[key_name(usr)] has sent [key_name(M)] to the thunderdome. (Observer.)")
 		message_admins("[key_name_admin(usr)] has sent [key_name_admin(M)] to the thunderdome. (Observer.)", 1)
 
+	else if(href_list["contractor_stop"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["contractor_stop"])
+		if(!istype(M))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob.</span>")
+			return
+
+		var/datum/syndicate_contract/contract = LAZYACCESS(GLOB.prisoner_belongings.prisoners, M)
+		if(!contract)
+			to_chat(usr, "<span class='warning'>[M] is currently not imprisoned by the Syndicate.</span>")
+			return
+		if(!contract.prisoner_timer_handle)
+			to_chat(usr, "<span class='warning'>[M] is already NOT scheduled to return from the Syndicate Jail.</span>")
+			return
+
+		deltimer(contract.prisoner_timer_handle)
+		contract.prisoner_timer_handle = null
+		to_chat(usr, "Stopped automatic return of [M] from the Syndicate Jail.")
+		message_admins("[key_name_admin(usr)] has stopped the automatic return of [key_name_admin(M)] from the Syndicate Jail")
+		log_admin("[key_name(usr)] has stopped the automatic return of [key_name(M)] from the Syndicate Jail")
+
+	else if(href_list["contractor_start"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["contractor_start"])
+		if(!istype(M))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob.</span>")
+			return
+
+		var/datum/syndicate_contract/contract = LAZYACCESS(GLOB.prisoner_belongings.prisoners, M)
+		if(!contract)
+			to_chat(usr, "<span class='warning'>[M] is currently not imprisoned by the Syndicate.</span>")
+			return
+		if(contract.prisoner_timer_handle)
+			to_chat(usr, "<span class='warning'>[M] is already scheduled to return from the Syndicate Jail.</span>")
+			return
+
+		var/time_seconds = input(usr, "Enter the jail time in seconds:", "Start Syndicate Jail Timer") as num|null
+		time_seconds = text2num(time_seconds)
+		if(time_seconds < 0)
+			return
+
+		contract.prisoner_timer_handle = addtimer(CALLBACK(contract, /datum/syndicate_contract.proc/handle_target_return, M), time_seconds * 10, TIMER_STOPPABLE)
+		to_chat(usr, "Started automatic return of [M] from the Syndicate Jail in [time_seconds] second\s.")
+		message_admins("[key_name_admin(usr)] has started the automatic return of [key_name_admin(M)] from the Syndicate Jail in [time_seconds] second\s")
+		log_admin("[key_name(usr)] has started the automatic return of [key_name(M)] from the Syndicate Jail in [time_seconds] second\s")
+
+	else if(href_list["contractor_release"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["contractor_release"])
+		if(!istype(M))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob.</span>")
+			return
+
+		var/datum/syndicate_contract/contract = LAZYACCESS(GLOB.prisoner_belongings.prisoners, M)
+		if(!contract)
+			to_chat(usr, "<span class='warning'>[M] is currently not imprisoned by the Syndicate.</span>")
+			return
+
+		deltimer(contract.prisoner_timer_handle)
+		contract.handle_target_return(M)
+		to_chat(usr, "Immediately returned [M] from the Syndicate Jail.")
+		message_admins("[key_name_admin(usr)] has immediately returned [key_name_admin(M)] from the Syndicate Jail")
+		log_admin("[key_name(usr)] has immediately returned [key_name(M)] from the Syndicate Jail")
+
+
 	else if(href_list["aroomwarp"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
 
@@ -1669,6 +1743,9 @@
 			SStickets.resolveTicket(index)
 
 	else if(href_list["autorespond"])
+		if(href_list["is_mhelp"])
+			to_chat(usr, "<span class='warning'>Auto responses are not available for mentor helps.</span>")
+			return
 		var/index = text2num(href_list["autorespond"])
 		if(!check_rights(R_ADMIN|R_MOD))
 			return
@@ -1680,33 +1757,65 @@
 			SSmentor_tickets.convert_to_other_ticket(indexNum)
 		else
 			SStickets.convert_to_other_ticket(indexNum)
-	else if(href_list["cult_nextobj"])
-		if(alert(usr, "Validate the current Cult objective and unlock the next one?", "Cult Cheat Code", "Yes", "No") != "Yes")
-			return
-
-		if(!GAMEMODE_IS_CULT)
-			alert("Couldn't locate cult mode datum! This shouldn't ever happen, tell a coder!")
-			return
-
-		var/datum/game_mode/cult/cult_round = SSticker.mode
-		cult_round.bypass_phase()
-		message_admins("Admin [key_name_admin(usr)] has unlocked the Cult's next objective.")
-		log_admin("Admin [key_name_admin(usr)] has unlocked the Cult's next objective.")
 
 	else if(href_list["cult_mindspeak"])
-		var/input = stripped_input(usr, "Communicate to all the cultists with the voice of [SSticker.cultdat.entity_name]", "Voice of [SSticker.cultdat.entity_name]", "")
+		var/input = stripped_input(usr, "Communicate to all the cultists with the voice of [SSticker.cultdat.entity_name]", "Voice of [SSticker.cultdat.entity_name]")
 		if(!input)
 			return
 
 		for(var/datum/mind/H in SSticker.mode.cult)
-			if (H.current)
-				to_chat(H.current, "<span class='danger'>[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span>")
+			if(H.current)
+				to_chat(H.current, "<span class='cult'>[SSticker.cultdat.entity_name] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
 
 		for(var/mob/dead/observer/O in GLOB.player_list)
-			to_chat(O, "<span class='danger'>[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span>")
+			to_chat(O, "<span class='cult'>[SSticker.cultdat.entity_name] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
 
 		message_admins("Admin [key_name_admin(usr)] has talked with the Voice of [SSticker.cultdat.entity_name].")
 		log_admin("[key_name(usr)] Voice of [SSticker.cultdat.entity_name]: [input]")
+
+	else if(href_list["cult_adjustsacnumber"])
+		var/amount = input("Adjust the amount of sacrifices required before summoning Nar'Sie", "Sacrifice Adjustment", 2) as null | num
+		if(amount > 0)
+			var/datum/game_mode/gamemode = SSticker.mode
+			var/old = gamemode.cult_objs.sacrifices_required
+			gamemode.cult_objs.sacrifices_required = amount
+			message_admins("Admin [key_name_admin(usr)] has modified the amount of cult sacrifices required before summoning from [old] to [amount]")
+			log_admin("Admin [key_name_admin(usr)] has modified the amount of cult sacrifices required before summoning from [old] to [amount]")
+
+	else if(href_list["cult_newtarget"])
+		if(alert(usr, "Reroll the cult's sacrifice target?", "Cult Debug", "Yes", "No") != "Yes")
+			return
+
+		var/datum/game_mode/gamemode = SSticker.mode
+		if(!gamemode.cult_objs.find_new_sacrifice_target())
+			gamemode.cult_objs.ready_to_summon()
+
+		message_admins("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
+		log_admin("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
+
+	else if(href_list["cult_newsummonlocations"])
+		if(alert(usr, "Reroll the cult's summoning locations?", "Cult Debug", "Yes", "No") != "Yes")
+			return
+
+		var/datum/game_mode/gamemode = SSticker.mode
+		gamemode.cult_objs.obj_summon.find_summon_locations(TRUE)
+		if(gamemode.cult_objs.cult_status == NARSIE_NEEDS_SUMMONING) //Only update cultists if they are already have the summon goal since they arent aware of summon spots till then
+			for(var/datum/mind/cult_mind in gamemode.cult)
+				if(cult_mind && cult_mind.current)
+					to_chat(cult_mind.current, "<span class='cult'>The veil has shifted! Our summoning will need to take place elsewhere.</span>")
+					to_chat(cult_mind.current, "<span class='cult'>Current goal : [gamemode.cult_objs.obj_summon.explanation_text]</span>")
+
+		message_admins("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
+		log_admin("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
+
+	else if(href_list["cult_unlocknarsie"])
+		if(alert(usr, "Unlock the ability to summon Nar'Sie?", "Cult Debug", "Yes", "No") != "Yes")
+			return
+
+		var/datum/game_mode/gamemode = SSticker.mode
+		gamemode.cult_objs.ready_to_summon()
+		message_admins("Admin [key_name_admin(usr)] has unlocked the Cult's ability to summon Nar'Sie.")
+		log_admin("Admin [key_name_admin(usr)] has unlocked the Cult's ability to summon Nar'Sie.")
 
 	else if(href_list["adminplayerobservecoodjump"])
 		if(!check_rights(R_ADMIN))	return
@@ -2679,15 +2788,17 @@
 
 	else if(href_list["memoeditlist"])
 		if(!check_rights(R_SERVER)) return
-		var/sql_key = sanitizeSQL("[href_list["memoeditlist"]]")
-		var/DBQuery/query_memoedits = GLOB.dbcon.NewQuery("SELECT edits FROM [format_table_name("memo")] WHERE (ckey = '[sql_key]')")
-		if(!query_memoedits.Execute())
-			var/err = query_memoedits.ErrorMsg()
-			log_game("SQL ERROR obtaining edits from memo table. Error : \[[err]\]\n")
+		var/sql_key = href_list["memoeditlist"]
+		var/datum/db_query/query_memoedits = SSdbcore.NewQuery("SELECT edits FROM [format_table_name("memo")] WHERE (ckey=:sql_key)", list(
+			"sql_key" = sql_key
+		))
+		if(!query_memoedits.warn_execute())
+			qdel(query_memoedits)
 			return
 		if(query_memoedits.NextRow())
 			var/edit_log = query_memoedits.item[1]
 			usr << browse(edit_log,"window=memoeditlist")
+		qdel(query_memoedits)
 
 	else if(href_list["secretsfun"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
@@ -2923,6 +3034,7 @@
 				message_admins("[key_name_admin(usr)] fixed all lights", 1)
 				for(var/obj/machinery/light/L in GLOB.machines)
 					L.fix()
+					L.switchcount = 0
 			if("floorlava")
 				feedback_inc("admin_secrets_fun_used", 1)
 				feedback_add_details("admin_secrets_fun_used", "LF")
@@ -3138,6 +3250,9 @@
 				usr << browse(dat, "window=manifest;size=440x410")
 			if("check_antagonist")
 				check_antagonists()
+			if("view_codewords")
+				to_chat(usr, "<b>Code Phrases:</b> <span class='codephrases'>[GLOB.syndicate_code_phrase]</span>")
+				to_chat(usr, "<b>Code Responses:</b> <span class='coderesponses'>[GLOB.syndicate_code_response]</span>")
 			if("DNA")
 				var/dat = "<b>Showing DNA from blood.</b><hr>"
 				dat += "<table cellspacing=5><tr><th>Name</th><th>DNA</th><th>Blood Type</th></tr>"
@@ -3214,220 +3329,6 @@
 				J.spawn_positions = -1
 				message_admins("[key_name_admin(usr)] has removed the cap on security officers.")
 
-	else if(href_list["ac_view_wanted"])            //Admin newscaster Topic() stuff be here
-		src.admincaster_screen = 18                 //The ac_ prefix before the hrefs stands for AdminCaster.
-		src.access_news_network()
-
-	else if(href_list["ac_set_channel_name"])
-		src.admincaster_feed_channel.channel_name = strip_html_simple(input(usr, "Provide a Feed Channel Name", "Network Channel Handler", ""))
-		while(findtext(src.admincaster_feed_channel.channel_name," ") == 1)
-			src.admincaster_feed_channel.channel_name = copytext(src.admincaster_feed_channel.channel_name,2,length(src.admincaster_feed_channel.channel_name)+1)
-		src.access_news_network()
-
-	else if(href_list["ac_set_channel_lock"])
-		src.admincaster_feed_channel.locked = !src.admincaster_feed_channel.locked
-		src.access_news_network()
-
-	else if(href_list["ac_submit_new_channel"])
-		var/check = 0
-		for(var/datum/feed_channel/FC in GLOB.news_network.network_channels)
-			if(FC.channel_name == src.admincaster_feed_channel.channel_name)
-				check = 1
-				break
-		if(src.admincaster_feed_channel.channel_name == "" || src.admincaster_feed_channel.channel_name == "\[REDACTED\]" || check )
-			src.admincaster_screen=7
-		else
-			var/choice = alert("Please confirm Feed channel creation","Network Channel Handler","Confirm","Cancel")
-			if(choice=="Confirm")
-				var/datum/feed_channel/newChannel = new /datum/feed_channel
-				newChannel.channel_name = src.admincaster_feed_channel.channel_name
-				newChannel.author = src.admincaster_signature
-				newChannel.locked = src.admincaster_feed_channel.locked
-				newChannel.is_admin_channel = 1
-				feedback_inc("newscaster_channels",1)
-				GLOB.news_network.network_channels += newChannel                        //Adding channel to the global network
-				log_admin("[key_name_admin(usr)] created command feed channel: [src.admincaster_feed_channel.channel_name]!")
-				src.admincaster_screen=5
-		src.access_news_network()
-
-	else if(href_list["ac_set_channel_receiving"])
-		var/list/available_channels = list()
-		for(var/datum/feed_channel/F in GLOB.news_network.network_channels)
-			available_channels += F.channel_name
-		src.admincaster_feed_channel.channel_name = adminscrub(input(usr, "Choose receiving Feed Channel", "Network Channel Handler") in available_channels )
-		src.access_news_network()
-
-	else if(href_list["ac_set_new_message"])
-		src.admincaster_feed_message.body = adminscrub(input(usr, "Write your Feed story", "Network Channel Handler", ""))
-		while(findtext(src.admincaster_feed_message.body," ") == 1)
-			src.admincaster_feed_message.body = copytext(src.admincaster_feed_message.body,2,length(src.admincaster_feed_message.body)+1)
-		src.access_news_network()
-
-	else if(href_list["ac_submit_new_message"])
-		if(src.admincaster_feed_message.body =="" || src.admincaster_feed_message.body =="\[REDACTED\]" || src.admincaster_feed_channel.channel_name == "" )
-			src.admincaster_screen = 6
-		else
-			var/datum/feed_message/newMsg = new /datum/feed_message
-			newMsg.author = src.admincaster_signature
-			newMsg.body = src.admincaster_feed_message.body
-			newMsg.is_admin_message = 1
-			feedback_inc("newscaster_stories",1)
-			for(var/datum/feed_channel/FC in GLOB.news_network.network_channels)
-				if(FC.channel_name == src.admincaster_feed_channel.channel_name)
-					FC.messages += newMsg                  //Adding message to the network's appropriate feed_channel
-					break
-			src.admincaster_screen=4
-
-		for(var/obj/machinery/newscaster/NEWSCASTER in GLOB.allNewscasters)
-			NEWSCASTER.newsAlert(src.admincaster_feed_channel.channel_name)
-
-		log_admin("[key_name_admin(usr)] submitted a feed story to channel: [src.admincaster_feed_channel.channel_name]!")
-		src.access_news_network()
-
-	else if(href_list["ac_create_channel"])
-		src.admincaster_screen=2
-		src.access_news_network()
-
-	else if(href_list["ac_create_feed_story"])
-		src.admincaster_screen=3
-		src.access_news_network()
-
-	else if(href_list["ac_menu_censor_story"])
-		src.admincaster_screen=10
-		src.access_news_network()
-
-	else if(href_list["ac_menu_censor_channel"])
-		src.admincaster_screen=11
-		src.access_news_network()
-
-	else if(href_list["ac_menu_wanted"])
-		var/already_wanted = 0
-		if(GLOB.news_network.wanted_issue)
-			already_wanted = 1
-
-		if(already_wanted)
-			src.admincaster_feed_message.author = GLOB.news_network.wanted_issue.author
-			src.admincaster_feed_message.body = GLOB.news_network.wanted_issue.body
-		src.admincaster_screen = 14
-		src.access_news_network()
-
-	else if(href_list["ac_set_wanted_name"])
-		src.admincaster_feed_message.author = adminscrub(input(usr, "Provide the name of the Wanted person", "Network Security Handler", ""))
-		while(findtext(src.admincaster_feed_message.author," ") == 1)
-			src.admincaster_feed_message.author = copytext(admincaster_feed_message.author,2,length(admincaster_feed_message.author)+1)
-		src.access_news_network()
-
-	else if(href_list["ac_set_wanted_desc"])
-		src.admincaster_feed_message.body = adminscrub(input(usr, "Provide the a description of the Wanted person and any other details you deem important", "Network Security Handler", ""))
-		while(findtext(src.admincaster_feed_message.body," ") == 1)
-			src.admincaster_feed_message.body = copytext(src.admincaster_feed_message.body,2,length(src.admincaster_feed_message.body)+1)
-		src.access_news_network()
-
-	else if(href_list["ac_submit_wanted"])
-		var/input_param = text2num(href_list["ac_submit_wanted"])
-		if(src.admincaster_feed_message.author == "" || src.admincaster_feed_message.body == "")
-			src.admincaster_screen = 16
-		else
-			var/choice = alert("Please confirm Wanted Issue [(input_param==1) ? ("creation.") : ("edit.")]","Network Security Handler","Confirm","Cancel")
-			if(choice=="Confirm")
-				if(input_param==1)          //If input_param == 1 we're submitting a new wanted issue. At 2 we're just editing an existing one. See the else below
-					var/datum/feed_message/WANTED = new /datum/feed_message
-					WANTED.author = src.admincaster_feed_message.author               //Wanted name
-					WANTED.body = src.admincaster_feed_message.body                   //Wanted desc
-					WANTED.backup_author = src.admincaster_signature                  //Submitted by
-					WANTED.is_admin_message = 1
-					GLOB.news_network.wanted_issue = WANTED
-					for(var/obj/machinery/newscaster/NEWSCASTER in GLOB.allNewscasters)
-						NEWSCASTER.newsAlert()
-						NEWSCASTER.update_icon()
-					src.admincaster_screen = 15
-				else
-					GLOB.news_network.wanted_issue.author = src.admincaster_feed_message.author
-					GLOB.news_network.wanted_issue.body = src.admincaster_feed_message.body
-					GLOB.news_network.wanted_issue.backup_author = src.admincaster_feed_message.backup_author
-					src.admincaster_screen = 19
-				log_admin("[key_name_admin(usr)] issued a Station-wide Wanted Notification for [src.admincaster_feed_message.author]!")
-		src.access_news_network()
-
-	else if(href_list["ac_cancel_wanted"])
-		var/choice = alert("Please confirm Wanted Issue removal","Network Security Handler","Confirm","Cancel")
-		if(choice=="Confirm")
-			GLOB.news_network.wanted_issue = null
-			for(var/obj/machinery/newscaster/NEWSCASTER in GLOB.allNewscasters)
-				NEWSCASTER.update_icon()
-			src.admincaster_screen=17
-		src.access_news_network()
-
-	else if(href_list["ac_censor_channel_author"])
-		var/datum/feed_channel/FC = locate(href_list["ac_censor_channel_author"])
-		if(FC.author != "<b>\[REDACTED\]</b>")
-			FC.backup_author = FC.author
-			FC.author = "<b>\[REDACTED\]</b>"
-		else
-			FC.author = FC.backup_author
-		src.access_news_network()
-
-	else if(href_list["ac_censor_channel_story_author"])
-		var/datum/feed_message/MSG = locate(href_list["ac_censor_channel_story_author"])
-		if(MSG.author != "<b>\[REDACTED\]</b>")
-			MSG.backup_author = MSG.author
-			MSG.author = "<b>\[REDACTED\]</b>"
-		else
-			MSG.author = MSG.backup_author
-		src.access_news_network()
-
-	else if(href_list["ac_censor_channel_story_body"])
-		var/datum/feed_message/MSG = locate(href_list["ac_censor_channel_story_body"])
-		if(MSG.body != "<b>\[REDACTED\]</b>")
-			MSG.backup_body = MSG.body
-			MSG.body = "<b>\[REDACTED\]</b>"
-		else
-			MSG.body = MSG.backup_body
-		src.access_news_network()
-
-	else if(href_list["ac_pick_d_notice"])
-		var/datum/feed_channel/FC = locate(href_list["ac_pick_d_notice"])
-		src.admincaster_feed_channel = FC
-		src.admincaster_screen=13
-		src.access_news_network()
-
-	else if(href_list["ac_toggle_d_notice"])
-		var/datum/feed_channel/FC = locate(href_list["ac_toggle_d_notice"])
-		FC.censored = !FC.censored
-		src.access_news_network()
-
-	else if(href_list["ac_view"])
-		src.admincaster_screen=1
-		src.access_news_network()
-
-	else if(href_list["ac_setScreen"]) //Brings us to the main menu and resets all fields~
-		src.admincaster_screen = text2num(href_list["ac_setScreen"])
-		if(src.admincaster_screen == 0)
-			if(src.admincaster_feed_channel)
-				src.admincaster_feed_channel = new /datum/feed_channel
-			if(src.admincaster_feed_message)
-				src.admincaster_feed_message = new /datum/feed_message
-		src.access_news_network()
-
-	else if(href_list["ac_show_channel"])
-		var/datum/feed_channel/FC = locate(href_list["ac_show_channel"])
-		src.admincaster_feed_channel = FC
-		src.admincaster_screen = 9
-		src.access_news_network()
-
-	else if(href_list["ac_pick_censor_channel"])
-		var/datum/feed_channel/FC = locate(href_list["ac_pick_censor_channel"])
-		src.admincaster_feed_channel = FC
-		src.admincaster_screen = 12
-		src.access_news_network()
-
-	else if(href_list["ac_refresh"])
-		src.access_news_network()
-
-	else if(href_list["ac_set_signature"])
-		src.admincaster_signature = adminscrub(input(usr, "Provide your desired signature", "Network Identity Handler", ""))
-		src.access_news_network()
-
 	if(href_list["secretsmenu"])
 		switch(href_list["secretsmenu"])
 			if("tab")
@@ -3475,13 +3376,14 @@
 
 	// Library stuff
 	else if(href_list["library_book_id"])
-		var/isbn = sanitizeSQL(href_list["library_book_id"])
+		var/isbn = text2num(href_list["library_book_id"])
 
 		if(href_list["view_library_book"])
-			var/DBQuery/query_view_book = GLOB.dbcon.NewQuery("SELECT content, title FROM [format_table_name("library")] WHERE id=[isbn]")
-			if(!query_view_book.Execute())
-				var/err = query_view_book.ErrorMsg()
-				log_game("SQL ERROR viewing book. Error : \[[err]\]\n")
+			var/datum/db_query/query_view_book = SSdbcore.NewQuery("SELECT content, title FROM [format_table_name("library")] WHERE id=:isbn", list(
+				"isbn" = isbn
+			))
+			if(!query_view_book.warn_execute())
+				qdel(query_view_book)
 				return
 
 			var/content = ""
@@ -3498,47 +3400,37 @@
 			popup.set_content(dat)
 			popup.open(0)
 
+			qdel(query_view_book)
 			log_admin("[key_name(usr)] has viewed the book [isbn].")
 			message_admins("[key_name_admin(usr)] has viewed the book [isbn].")
 			return
 
 		else if(href_list["unflag_library_book"])
-			var/DBQuery/query_unflag_book = GLOB.dbcon.NewQuery("UPDATE [format_table_name("library")] SET flagged = 0 WHERE id=[isbn]")
-			if(!query_unflag_book.Execute())
-				var/err = query_unflag_book.ErrorMsg()
-				log_game("SQL ERROR unflagging book. Error : \[[err]\]\n")
+			var/datum/db_query/query_unflag_book = SSdbcore.NewQuery("UPDATE [format_table_name("library")] SET flagged = 0 WHERE id=:isbn", list(
+				"isbn" = isbn
+			))
+			if(!query_unflag_book.warn_execute())
+				qdel(query_unflag_book)
 				return
 
+			qdel(query_unflag_book)
 			log_admin("[key_name(usr)] has unflagged the book [isbn].")
 			message_admins("[key_name_admin(usr)] has unflagged the book [isbn].")
 
 		else if(href_list["delete_library_book"])
-			var/DBQuery/query_delbook = GLOB.dbcon.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=[isbn]")
-			if(!query_delbook.Execute())
-				var/err = query_delbook.ErrorMsg()
-				log_game("SQL ERROR deleting book. Error : \[[err]\]\n")
+			var/datum/db_query/query_delbook = SSdbcore.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=:isbn", list(
+				"isbn" = isbn
+			))
+			if(!query_delbook.warn_execute())
+				qdel(query_delbook)
 				return
 
+			qdel(query_delbook)
 			log_admin("[key_name(usr)] has deleted the book [isbn].")
 			message_admins("[key_name_admin(usr)] has deleted the book [isbn].")
 
 		// Refresh the page
 		src.view_flagged_books()
-
-	// Force unlink a discord key
-	// TODO: Delete this
-	else if(href_list["force_discord_unlink"])
-		if(!check_rights(R_ADMIN))
-			return
-		var/target_ckey = href_list["force_discord_unlink"]
-		var/DBQuery/admin_unlink_discord_id = GLOB.dbcon.NewQuery("DELETE FROM [format_table_name("discord")] WHERE ckey = '[target_ckey]'")
-		if(!admin_unlink_discord_id.Execute())
-			var/err = admin_unlink_discord_id.ErrorMsg()
-			log_game("SQL ERROR while admin-unlinking discord account. Error : \[[err]\]\n")
-			return
-		to_chat(src, "<span class='notice'>Successfully forcefully unlinked discord account from [target_ckey]</span>")
-		message_admins("[key_name_admin(usr)] forcefully unlinked the discord account belonging to [target_ckey]")
-		log_admin("[key_name_admin(usr)] forcefully unlinked the discord account belonging to [target_ckey]")
 
 	else if(href_list["create_outfit_finalize"])
 		if(!check_rights(R_EVENT))
@@ -3562,6 +3454,24 @@
 			return
 		var/datum/outfit/O = locate(href_list["chosen_outfit"]) in GLOB.custom_outfits
 		save_outfit(usr,O)
+	else if(href_list["open_ccbdb"])
+		if(!check_rights(R_ADMIN))
+			return
+		create_ccbdb_lookup(href_list["open_ccbdb"])
+	else if(href_list["slowquery"])
+		if(!check_rights(R_ADMIN))
+			return
+		message_admins("[key_name_admin(usr)] started responding to a query hang report") // So multiple admins dont try file the same report
+		var/answer = href_list["slowquery"]
+		if(answer == "yes")
+			log_sql("[usr.key] | Reported a server hang")
+			if(alert(usr, "Had you just pressed any admin buttons which could lag the server?", "Query server hang report", "Yes", "No") == "Yes")
+				var/response = input(usr,"What were you just doing?","Query server hang report") as null|text
+				if(response)
+					log_sql("[usr.key] | [response]")
+		else if(answer == "no")
+			log_sql("[usr.key] | Reported no server hang. Please investigate")
+
 
 /client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)
 	if(!check_rights(R_EVENT))
@@ -3577,7 +3487,7 @@
 	var/datum/outfit/O = hunter_outfits[dresscode]
 	message_admins("[key_name_admin(mob)] is sending a ([dresscode]) to [killthem ? "assassinate" : "protect"] [key_name_admin(H)]...")
 	var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_traitor")
-	var/list/candidates = SSghost_spawns.poll_candidates("Play as a [killthem ? "murderous" : "protective"] [dresscode]?", ROLE_TRAITOR, TRUE, source = source)
+	var/list/candidates = SSghost_spawns.poll_candidates("Play as a [killthem ? "murderous" : "protective"] [dresscode]?", ROLE_TRAITOR, TRUE, source = source, role_cleanname = "[killthem ? "murderous" : "protective"] [dresscode]")
 	if(!candidates.len)
 		to_chat(usr, "<span class='warning'>ERROR: Could not create eventmob. No valid candidates.</span>")
 		return
@@ -3593,8 +3503,8 @@
 	hunter_mob.equipOutfit(O, FALSE)
 	var/obj/item/pinpointer/advpinpointer/N = new /obj/item/pinpointer/advpinpointer(hunter_mob)
 	hunter_mob.equip_to_slot_or_del(N, slot_in_backpack)
-	N.active = 1
-	N.mode = 2
+	N.mode = 3 //MODE_ADV, not defined here
+	N.setting = 2 //SETTING_OBJECT, not defined here
 	N.target = H
 	N.point_at(N.target)
 	N.modelocked = TRUE

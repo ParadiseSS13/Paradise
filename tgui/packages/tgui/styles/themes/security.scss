@@ -23,4 +23,7 @@
   ));
   @include meta.load-css('../components/NoticeBox.scss');
   @include meta.load-css('../components/Section.scss');
+
+  // Interfaces
+  @include meta.load-css('../interfaces/Newscaster.scss');
 }

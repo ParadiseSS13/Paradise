@@ -20,6 +20,9 @@
 #define DROWSY		"drowsy"
 #define JITTER		"jitter"
 
+/// Jitter decays at a rate of 3 per life cycle, 15 if resting.
+#define SECONDS_TO_JITTER SECONDS_TO_LIFE_CYCLES*3
+
 //I hate adding defines like this but I'd much rather deal with bitflags than lists and string searches
 #define BRUTELOSS 1
 #define FIRELOSS 2
@@ -36,6 +39,7 @@
 #define PASSEMOTES	16      //Mob has a cortical borer or holders inside of it that need to see emotes.
 #define GOTTAGOFAST	32
 #define IGNORESLOWDOWN	128
+#define IGNORE_SPEED_CHANGES	256
 #define GODMODE		4096
 #define FAKEDEATH	8192	//Replaces stuff like changeling.changeling_fakedeath
 #define XENO_HOST	16384	//Tracks whether we're gonna be a baby alien's mummy.

@@ -681,7 +681,7 @@ proc/dd_sortedObjectList(list/incoming)
 #define LAZYREMOVE(L, I) if(L) { L -= I; if(!L.len) { L = null; } }
 #define LAZYADD(L, I) if(!L) { L = list(); } L += I;
 #define LAZYACCESS(L, I) (L ? (isnum(I) ? (I > 0 && I <= L.len ? L[I] : null) : L[I]) : null)
-#define LAZYLEN(L) length(L)
+#define LAZYLEN(L) length(L) // Despite how pointless this looks, it's still needed in order to convey that the list is specificially a 'Lazy' list.
 #define LAZYCLEARLIST(L) if(L) L.Cut()
 
 // LAZYING PT 2: THE LAZENING
@@ -689,6 +689,9 @@ proc/dd_sortedObjectList(list/incoming)
 
 // Lazying Episode 3
 #define LAZYSET(L, K, V) LAZYINITLIST(L); L[K] = V;
+
+#define LAZYADDASSOC(L, K, V) if(!L) { L = list(); } L[K] += list(V);
+#define LAZYREMOVEASSOC(L, K, V) if(L) { if(L[K]) { L[K] -= V; if(!length(L[K])) L -= K; } if(!length(L)) L = null; }
 
 /// Returns whether a numerical index is within a given list's bounds. Faster than isnull(LAZYACCESS(L, I)).
 #define ISINDEXSAFE(L, I) (I >= 1 && I <= length(L))

@@ -571,20 +571,22 @@
 		event = null
 
 	else if(href_list["killcrew"]) //shoot a crewmember
+		if(length(settlers) <= 0 || alive <= 0)
+			return
 		var/sheriff = remove_crewmember() //I shot the sheriff
-		playsound(loc,'sound/weapons/gunshots/gunshot.ogg', 100, 1)
+		playsound(loc, 'sound/weapons/gunshots/gunshot.ogg', 100, 1)
 
-		if(settlers.len == 0 || alive == 0)
+		if(length(settlers) == 0 || alive == 0)
 			atom_say("The last crewmember [sheriff], shot themselves, GAME OVER!")
 			if(emagged)
-				usr.death(0)
-				emagged = 0
-			gameover = 1
+				usr.death(FALSE)
+				emagged = FALSE
+			gameover = TRUE
 			event = null
 		else if(emagged)
 			if(usr.name == sheriff)
 				atom_say("The crew of the ship chose to kill [usr.name]!")
-				usr.death(0)
+				usr.death(FALSE)
 
 		if(event == ORION_TRAIL_LING) //only ends the ORION_TRAIL_LING event, since you can do this action in multiple places
 			event = null

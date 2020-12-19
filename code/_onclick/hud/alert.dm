@@ -269,9 +269,9 @@ or something covering your eyes."
 	desc = "Whoa man, you're tripping balls! Careful you don't get addicted... if you aren't already."
 	icon_state = "high"
 
-/obj/screen/alert/drunk //Not implemented
+/obj/screen/alert/drunk
 	name = "Drunk"
-	desc = "All that alcohol you've been drinking is impairing your speech, motor skills, and mental cognition. Make sure to act like it."
+	desc = "All that alcohol you've been drinking is impairing your speech, motor skills, and mental cognition."
 	icon_state = "drunk"
 
 /obj/screen/alert/embeddedobject
@@ -570,10 +570,7 @@ so as to remain in compliance with the most up-to-date laws."
 				G.ManualFollow(target)
 
 /obj/screen/alert/notify_action/Topic(href, href_list)
-	if(..())
-		return TRUE
-
-	if(href_list["signup"] && isobserver(usr) && poll?.sign_up(usr))
+	if(href_list["signup"] && poll?.sign_up(usr))
 		display_signed_up()
 
 /obj/screen/alert/notify_action/proc/display_signed_up()

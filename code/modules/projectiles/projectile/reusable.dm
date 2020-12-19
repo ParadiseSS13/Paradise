@@ -42,7 +42,7 @@
 	if(dropped)
 		return
 	dropped = 1
-	var/obj/item/ammo_casing/caseless/foam_dart/newdart = new ammo_type(loc)
+	var/obj/item/ammo_casing/caseless/foam_dart/newdart = new ammo_type(get_turf(src))
 	var/obj/item/ammo_casing/caseless/foam_dart/old_dart = ammo_casing
 	newdart.modified = old_dart.modified
 	if(pen)

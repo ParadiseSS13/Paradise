@@ -172,7 +172,7 @@
 	if(stat & (BROKEN|NOPOWER))
 		return
 	wires.Interact(user)
-	tgui_interact(user)
+	ui_interact(user)
 	return ..()
 
 //Drag pill bottle to fridge to empty it into the fridge
@@ -199,7 +199,7 @@
 	if(failed)
 		to_chat(user, "<span class='notice'>[failed] item\s [failed == 1 ? "is" : "are"] refused.</span>")
 
-/obj/machinery/smartfridge/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/smartfridge/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	user.set_machine(src)
 
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -207,7 +207,7 @@
 		ui = new(user, src, ui_key, "Smartfridge", name, 500, 500)
 		ui.open()
 
-/obj/machinery/smartfridge/tgui_data(mob/user)
+/obj/machinery/smartfridge/ui_data(mob/user)
 	var/list/data = list()
 
 	data["contents"] = null
@@ -227,7 +227,7 @@
 
 	return data
 
-/obj/machinery/smartfridge/tgui_act(action, params)
+/obj/machinery/smartfridge/ui_act(action, params)
 	if(..())
 		return
 
@@ -647,7 +647,7 @@
 	..()
 	atmos_spawn_air(LINDA_SPAWN_HEAT)
 
-/obj/machinery/smartfridge/drying_rack/tgui_act(action, params)
+/obj/machinery/smartfridge/drying_rack/ui_act(action, params)
 	. = ..()
 
 	switch(action)

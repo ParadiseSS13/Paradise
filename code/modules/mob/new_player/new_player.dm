@@ -31,17 +31,25 @@
 		tos_consent = TRUE
 		return TRUE
 
-	establish_db_connection()
-	if(!GLOB.dbcon.IsConnected())
+	if(!SSdbcore.IsConnected())
 		tos_consent = TRUE
 		return TRUE
 
-	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT * FROM [format_table_name("privacy")] WHERE ckey='[src.ckey]' AND consent=1")
-	query.Execute()
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("privacy")] WHERE ckey=:ckey AND consent=1", list(
+		"ckey" = ckey
+	))
+	if(!query.warn_execute())
+		qdel(query)
+		// If our query failed, just assume yes
+		tos_consent = TRUE
+		return TRUE
+
 	while(query.NextRow())
+		qdel(query)
 		tos_consent = TRUE
 		return TRUE
 
+	qdel(query)
 	privacy_consent()
 	return FALSE
 
@@ -60,7 +68,7 @@
 
 /mob/new_player/proc/new_player_panel_proc()
 	var/real_name = client.prefs.real_name
-	if(client.prefs.randomslot)
+	if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
 		real_name = "Random Character Slot"
 	var/output = "<center><p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"
 
@@ -77,39 +85,27 @@
 		else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
 		output += "<br /><small>You are <b>[client.skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
 
-	output += "<p><a href='byond://?src=[UID()];observe=1'>Observe</A></p>"
+	if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
+		output += "<p>Observe (Please wait...)</p>"
+	else
+		output += "<p><a href='byond://?src=[UID()];observe=1'>Observe</A></p>"
 
 	if(GLOB.join_tos)
 		output += "<p><a href='byond://?src=[UID()];tos=1'>Terms of Service</A></p>"
 
-	if(!IsGuestKey(src.key))
-		establish_db_connection()
-
-		if(GLOB.dbcon.IsConnected() && client.can_vote())
-			var/isadmin = 0
-			if(src.client && src.client.holder)
-				isadmin = 1
-			var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT id FROM [format_table_name("poll_question")] WHERE [(isadmin ? "" : "adminonly = false AND")] Now() BETWEEN starttime AND endtime AND id NOT IN (SELECT pollid FROM [format_table_name("poll_vote")] WHERE ckey = \"[ckey]\") AND id NOT IN (SELECT pollid FROM [format_table_name("poll_textreply")] WHERE ckey = \"[ckey]\")")
-			query.Execute()
-			var/newpoll = 0
-			while(query.NextRow())
-				newpoll = 1
-				break
-
-			if(newpoll)
-				output += "<p><b><a href='byond://?showpoll=1'>Show Player Polls</A> (NEW!)</b></p>"
-			else
-				output += "<p><a href='byond://?showpoll=1'>Show Player Polls</A></p>"
-
 	output += "</center>"
 
-	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 220, 290)
+	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 240, 330)
 	popup.set_window_options("can_close=0")
 	popup.set_content(output)
 	popup.open(0)
 	return
 
 /mob/new_player/Stat()
+	statpanel("Status")
+
+	..()
+
 	statpanel("Lobby")
 	if(client.statpanel=="Lobby" && SSticker)
 		if(SSticker.hide_mode)
@@ -138,36 +134,42 @@
 				if(player.ready)
 					totalPlayersReady++
 
-	..()
-
-	statpanel("Status")
-
 
 /mob/new_player/Topic(href, href_list[])
-	if(!client)	return 0
+	if(!client)
+		return FALSE
 
 	if(href_list["consent_signed"])
-		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
-		var/DBQuery/query = GLOB.dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 1)")
-		query.Execute()
+		var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES (:ckey, Now(), 1)", list(
+			"ckey" = ckey
+		))
+		// If the query fails we dont want them permenantly stuck on being unable to accept TOS
+		query.warn_execute()
+		qdel(query)
 		src << browse(null, "window=privacy_consent")
 		tos_consent = 1
 		new_player_panel_proc()
 	if(href_list["consent_rejected"])
 		tos_consent = 0
 		to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
-		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
-		var/DBQuery/query = GLOB.dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 0)")
-		query.Execute()
+		var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES (:ckey, Now(), 0)", list(
+			"ckey" = ckey
+		))
+		// If the query fails we dont want them permenantly stuck on being unable to accept TOS
+		query.warn_execute()
+		qdel(query)
 
 	if(href_list["show_preferences"])
 		client.prefs.ShowChoices(src)
-		return 1
+		return TRUE
 
 	if(href_list["ready"])
 		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
-			return 0
+			return FALSE
+		if(client.version_blocked)
+			client.show_update_notice()
+			return FALSE
 		ready = !ready
 		new_player_panel_proc()
 
@@ -182,7 +184,13 @@
 	if(href_list["observe"])
 		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
-			return 0
+			return FALSE
+		if(client.version_blocked)
+			client.show_update_notice()
+			return FALSE
+		if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
+			to_chat(usr, "<span class='warning'>You must wait for the server to finish starting before you can join!</span>")
+			return FALSE
 
 		if(alert(src,"Are you sure you wish to observe? You cannot normally join the round after doing this!","Player Setup","Yes","No") == "Yes")
 			if(!client)
@@ -216,12 +224,15 @@
 			return 1
 	if(href_list["tos"])
 		privacy_consent()
-		return 0
+		return FALSE
 
 	if(href_list["late_join"])
 		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
-			return 0
+			return FALSE
+		if(client.version_blocked)
+			client.show_update_notice()
+			return FALSE
 		if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 			return
@@ -229,7 +240,7 @@
 
 			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
 				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
-				return 0
+				return FALSE
 
 		LateChoices()
 
@@ -242,13 +253,13 @@
 			to_chat(usr, "<span class='notice'>There is an administrative lock on entering the game!</span>")
 			return
 
-		if(client.prefs.randomslot)
+		if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
 			client.prefs.load_random_character_slot(client)
 
 		if(client.prefs.species in GLOB.whitelisted_species)
 			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
 				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
-				return 0
+				return FALSE
 
 		AttemptLateSpawn(href_list["SelectedJob"],client.prefs.spawnpoint)
 		return
@@ -399,7 +410,8 @@
 	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
 		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
-			ailist += A
+			if(A.announce_arrivals)
+				ailist += A
 		if(ailist.len)
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
@@ -424,7 +436,7 @@
 	spawn(30)
 		for(var/C in GLOB.employmentCabinets)
 			var/obj/structure/filingcabinet/employment/employmentCabinet = C
-			if(!employmentCabinet.virgin)
+			if(employmentCabinet.populated)
 				employmentCabinet.addFile(employee)
 
 /mob/new_player/proc/AnnounceCyborg(var/mob/living/character, var/rank, var/join_message)

@@ -49,7 +49,6 @@
 		return
 	summoner = host
 	host.grant_guardian_actions(src)
-	RegisterSignal(host, COMSIG_MOB_DEATH, .proc/on_host_death)
 
 /mob/living/simple_animal/hostile/guardian/med_hud_set_health()
 	if(summoner)
@@ -66,21 +65,15 @@
 		else
 			holder.icon_state = "hudhealthy"
 
-/**
- * Proc which is called when the guardian's host dies.
- *
- * This will only fire if the guardian was created through a holoparsite injector, or the equivalent.
- */
-/mob/living/simple_animal/hostile/guardian/proc/on_host_death()
-	if(summoner.stat == DEAD || (!summoner.check_death_method() && summoner.health <= HEALTH_THRESHOLD_DEAD))
-		summoner.remove_guardian_actions() // Remove our summoner's action buttons.
-		to_chat(src, "<span class='danger'>Your summoner has died!</span>")
-		visible_message("<span class='danger'>[src] dies along with its user!</span>")
-		ghostize()
-		qdel(src)
-
 /mob/living/simple_animal/hostile/guardian/Life(seconds, times_fired)
 	..()
+	if(summoner)
+		if(summoner.stat == DEAD || (!summoner.check_death_method() && summoner.health <= HEALTH_THRESHOLD_DEAD))
+			summoner.remove_guardian_actions()
+			to_chat(src, "<span class='danger'>Your summoner has died!</span>")
+			visible_message("<span class='danger'>[src] dies along with its user!</span>")
+			ghostize()
+			qdel(src)
 	snapback()
 	if(summoned && !summoner && !admin_spawned)
 		to_chat(src, "<span class='danger'>You somehow lack a summoner! As a result, you dispel!</span>")

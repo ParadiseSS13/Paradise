@@ -6,6 +6,8 @@
 	var/min_temperature = 0
 	anchored = 1.0
 	use_power = IDLE_POWER_USE
+	active_power_usage = 5000	//cooling down massive amounts of air's not cheap. This is still very low considering everything
+	power_channel = EQUIP
 	current_heat_capacity = 1000
 	layer = 3
 	plane = GAME_PLANE
@@ -50,6 +52,9 @@
 /obj/machinery/atmospherics/unary/cold_sink/freezer/on_construction()
 	..(dir,dir)
 
+/obj/machinery/atmospherics/unary/cold_sink/freezer/process()
+	return	// need to overwrite the parent or it returns PROCESS_KILL and it stops processing/using power
+
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attackby(obj/item/I, mob/user, params)
 	if(exchange_parts(user, I))
 		return
@@ -62,6 +67,7 @@
 /obj/machinery/atmospherics/unary/cold_sink/freezer/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "freezer-o", "freezer", I))
 		on = FALSE
+		use_power = IDLE_POWER_USE
 		update_icon()
 		return TRUE
 
@@ -104,15 +110,15 @@
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
 
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/atmospherics/unary/cold_sink/freezer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "GasFreezer", "Gas Cooling System", 540, 200)
 		ui.open()
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/tgui_data(mob/user)
+/obj/machinery/atmospherics/unary/cold_sink/freezer/ui_data(mob/user)
 	var/list/data = list()
 	data["on"] = on
 	data["pressure"] = round(air_contents.return_pressure())
@@ -126,7 +132,7 @@
 	data["targetCelsius"] = round(current_temperature - T0C, 1)
 	return data
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/tgui_act(action, params)
+/obj/machinery/atmospherics/unary/cold_sink/freezer/ui_act(action, params)
 	if(..())
 		return
 	add_fingerprint(usr)
@@ -135,6 +141,10 @@
 	switch(action)
 		if("power")
 			on = !on
+			if(on)
+				use_power = ACTIVE_POWER_USE
+			else
+				use_power = IDLE_POWER_USE
 			update_icon()
 		if("minimum")
 			current_temperature = min_temperature
@@ -149,6 +159,7 @@
 	..()
 	if(stat & NOPOWER)
 		on = 0
+		use_power = IDLE_POWER_USE
 		update_icon()
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/
@@ -160,6 +171,8 @@
 	anchored = 1.0
 	layer = 3
 	current_heat_capacity = 1000
+	active_power_usage = 5000
+	power_channel = EQUIP
 	max_integrity = 300
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 30)
 
@@ -197,6 +210,9 @@
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/on_construction()
 	..(dir,dir)
 
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/process()
+	return	// need to override the parent or it stops processing, meaning it stops using power.
+
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/RefreshParts()
 	var/H
 	var/T
@@ -219,6 +235,7 @@
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "heater-o", "heater", I))
 		on = 0
+		use_power = IDLE_POWER_USE
 		update_icon()
 		return TRUE
 
@@ -260,15 +277,15 @@
 	if(panel_open)
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "GasFreezer", "Gas Heating System", 540, 200)
 		ui.open()
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/tgui_data(mob/user)
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/ui_data(mob/user)
 	var/list/data = list()
 	data["on"] = on
 	data["pressure"] = round(air_contents.return_pressure())
@@ -282,7 +299,7 @@
 	data["targetCelsius"] = round(current_temperature - T0C, 1)
 	return data
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/tgui_act(action, params)
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/ui_act(action, params)
 	if(..())
 		return
 	add_fingerprint(usr)
@@ -291,6 +308,10 @@
 	switch(action)
 		if("power")
 			on = !on
+			if(on)
+				use_power = ACTIVE_POWER_USE
+			else
+				use_power = IDLE_POWER_USE
 			update_icon()
 		if("minimum")
 			current_temperature = T20C
@@ -305,4 +326,5 @@
 	..()
 	if(stat & NOPOWER)
 		on = 0
+		use_power = IDLE_POWER_USE
 		update_icon()

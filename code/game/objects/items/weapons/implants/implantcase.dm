@@ -29,15 +29,7 @@
 /obj/item/implantcase/attackby(obj/item/W, mob/user, params)
 	..()
 	if(istype(W, /obj/item/pen))
-		var/t = stripped_input(user, "What would you like the label to be?", name, null)
-		if(user.get_active_hand() != W)
-			return
-		if(!in_range(src, user) && loc != user)
-			return
-		if(t)
-			name = "implant case - '[t]'"
-		else
-			name = "implant case"
+		rename_interactive(user, W)
 	else if(istype(W, /obj/item/implanter))
 		var/obj/item/implanter/I = W
 		if(I.imp)

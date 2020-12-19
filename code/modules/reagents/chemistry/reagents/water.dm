@@ -69,7 +69,7 @@
 /datum/reagent/space_cleaner/reaction_turf(turf/T, volume)
 	if(volume >= 1)
 		var/floor_only = TRUE
-		for(var/obj/effect/decal/cleanable/C in src)
+		for(var/obj/effect/decal/cleanable/C in T)
 			var/obj/effect/decal/cleanable/blood/B = C
 			if(istype(B) && B.off_floor)
 				floor_only = FALSE
@@ -241,9 +241,14 @@
 	if(current_cycle >= 30)		// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
 		M.AdjustStuttering(4, bound_lower = 0, bound_upper = 20)
 		M.Dizzy(5)
-		if(iscultist(M) && prob(5))
-			M.AdjustCultSlur(5)//5 seems like a good number...
-			M.say(pick("Av'te Nar'sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","Egkau'haom'nai en Chaous","Ho Diak'nos tou Ap'iron","R'ge Na'sie","Diabo us Vo'iscum","Si gn'um Co'nu"))
+		if(iscultist(M))
+			for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
+				for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
+					to_chat(M, "<span class='cultlarge'>Your blood rites falter as holy water scours your body!</span>")
+					qdel(BS)
+			if(prob(5))
+				M.AdjustCultSlur(5)//5 seems like a good number...
+				M.say(pick("Av'te Nar'sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","Egkau'haom'nai en Chaous","Ho Diak'nos tou Ap'iron","R'ge Na'sie","Diabo us Vo'iscum","Si gn'um Co'nu"))
 	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
 		M.AdjustConfused(3)
 		if(isvampirethrall(M))
@@ -259,6 +264,11 @@
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
+			if(ishuman(M)) // Unequip all cult clothing
+				var/mob/living/carbon/human/H = M
+				for(var/I in H.contents - (H.bodyparts | H.internal_organs)) // Satanic liver NYI
+					if(is_type_in_list(I, CULT_CLOTHING))
+						H.unEquip(I)
 			return
 	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full) && prob(80))
 		var/mob/living/carbon/V = M

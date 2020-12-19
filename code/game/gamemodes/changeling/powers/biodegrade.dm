@@ -9,7 +9,7 @@
 
 /datum/action/changeling/biodegrade/sting_action(mob/living/carbon/human/user)
 	var/used = FALSE // only one form of shackles removed per use
-	if(!user.restrained() && !istype(user.loc, /obj/structure/closet) && !istype(user.loc, /obj/structure/spider/cocoon))
+	if(!user.restrained() && !user.legcuffed && !istype(user.loc, /obj/structure/closet) && !istype(user.loc, /obj/structure/spider/cocoon))
 		to_chat(user, "<span class='warning'>We are already free!</span>")
 		return FALSE
 
@@ -19,7 +19,16 @@
 			return FALSE
 		user.visible_message("<span class='warning'>[user] vomits a glob of acid on [user.p_their()] [O.name]!</span>", \
 			"<span class='warning'>We vomit acidic ooze onto our restraints!</span>")
-		addtimer(CALLBACK(src, .proc/dissolve_handcuffs, user, O), 30)
+		addtimer(CALLBACK(src, .proc/dissolve_restraint, user, O), 3 SECONDS)
+		used = TRUE
+
+	if(user.legcuffed)
+		var/obj/O = user.get_item_by_slot(slot_legcuffed)
+		if(!istype(O))
+			return FALSE
+		user.visible_message("<span class='warning'>[user] vomits a glob of acid on [user.p_their()] [O.name]!</span>", \
+			"<span class='warning'>We vomit acidic ooze onto our leg restraints!</span>")
+		addtimer(CALLBACK(src, .proc/dissolve_restraint, user, O), 3 SECONDS)
 		used = TRUE
 
 	if(user.wear_suit && user.wear_suit.breakouttime && !used)
@@ -28,7 +37,7 @@
 			return FALSE
 		user.visible_message("<span class='warning'>[user] vomits a glob of acid across the front of [user.p_their()] [S.name]!</span>", \
 			"<span class='warning'>We vomit acidic ooze onto our straight jacket!</span>")
-		addtimer(CALLBACK(src, .proc/dissolve_straightjacket, user, S), 30)
+		addtimer(CALLBACK(src, .proc/dissolve_restraint, user, S), 3 SECONDS)
 		used = TRUE
 
 	if(istype(user.loc, /obj/structure/closet) && !used)
@@ -37,7 +46,7 @@
 			return FALSE
 		C.visible_message("<span class='warning'>[C]'s hinges suddenly begin to melt and run!</span>")
 		to_chat(user, "<span class='warning'>We vomit acidic goop onto the interior of [C]!</span>")
-		addtimer(CALLBACK(src, .proc/open_closet, user, C), 70)
+		addtimer(CALLBACK(src, .proc/open_closet, user, C), 7 SECONDS)
 		used = TRUE
 
 	if(istype(user.loc, /obj/structure/spider/cocoon) && !used)
@@ -46,26 +55,19 @@
 			return FALSE
 		C.visible_message("<span class='warning'>[src] shifts and starts to fall apart!</span>")
 		to_chat(user, "<span class='warning'>We secrete acidic enzymes from our skin and begin melting our cocoon...</span>")
-		addtimer(CALLBACK(src, .proc/dissolve_cocoon, user, C), 25) //Very short because it's just webs
+		addtimer(CALLBACK(src, .proc/dissolve_cocoon, user, C), 2.5 SECONDS) //Very short because it's just webs
 		used = TRUE
 
 	if(used)
 		feedback_add_details("changeling_powers","BD")
 	return TRUE
 
-/datum/action/changeling/biodegrade/proc/dissolve_handcuffs(mob/living/carbon/human/user, obj/O)
-	if(O && user.handcuffed == O)
+/datum/action/changeling/biodegrade/proc/dissolve_restraint(mob/living/carbon/human/user, obj/O)
+	if(O && (user.handcuffed == O || user.legcuffed == O || user.wear_suit == O))
 		user.unEquip(O)
 		O.visible_message("<span class='warning'>[O] dissolves into a puddle of sizzling goop.</span>")
 		O.forceMove(get_turf(user))
 		qdel(O)
-
-/datum/action/changeling/biodegrade/proc/dissolve_straightjacket(mob/living/carbon/human/user, obj/S)
-	if(S && user.wear_suit == S)
-		user.unEquip(S)
-		S.visible_message("<span class='warning'>[S] dissolves into a puddle of sizzling goop.</span>")
-		S.forceMove(get_turf(user))
-		qdel(S)
 
 /datum/action/changeling/biodegrade/proc/open_closet(mob/living/carbon/human/user, obj/structure/closet/C)
 	if(C && user.loc == C)

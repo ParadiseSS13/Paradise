@@ -107,17 +107,17 @@
 	return attack_hand(user)
 
 /obj/machinery/portable_atmospherics/scrubber/attack_hand(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 	return
 
-/obj/machinery/portable_atmospherics/scrubber/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/portable_atmospherics/scrubber/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "PortableScrubber", "Portable Scrubber", 433, 346, master_ui, state)
 		ui.open()
 		ui.set_autoupdate(TRUE)
 
-/obj/machinery/portable_atmospherics/scrubber/tgui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.physical_state)
+/obj/machinery/portable_atmospherics/scrubber/ui_data(mob/user)
 	var/list/data = list(
 		"on" = on,
 		"port_connected" = connected_port ? TRUE : FALSE,
@@ -133,7 +133,7 @@
 
 	return data
 
-/obj/machinery/portable_atmospherics/scrubber/tgui_act(action, list/params)
+/obj/machinery/portable_atmospherics/scrubber/ui_act(action, list/params)
 	if(..())
 		return
 

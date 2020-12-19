@@ -39,6 +39,10 @@
 	name = "Scaredy's Private Reserve Beef Jerky"
 	icon_state = "sosjerky"
 
+/obj/item/trash/spacetwinkie
+	name = "Space Twinkie"
+	icon_state = "space_twinkie"
+
 /obj/item/trash/syndi_cakes
 	name = "Syndi cakes"
 	icon_state = "syndi_cakes"

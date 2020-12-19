@@ -109,13 +109,13 @@
 /obj/machinery/mineral/equipment_vendor/attack_hand(mob/user)
 	if(..())
 		return
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/mineral/equipment_vendor/attack_ghost(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/mineral/equipment_vendor/tgui_data(mob/user)
-	var/list/data[0]
+/obj/machinery/mineral/equipment_vendor/ui_data(mob/user)
+	var/list/data = list()
 
 	// ID
 	if(inserted_id)
@@ -129,8 +129,8 @@
 
 	return data
 
-/obj/machinery/mineral/equipment_vendor/tgui_static_data(mob/user)
-	var/list/static_data[0]
+/obj/machinery/mineral/equipment_vendor/ui_static_data(mob/user)
+	var/list/static_data = list()
 
 	// Available items - in static data because we don't wanna compute this list every time! It hardly changes.
 	static_data["items"] = list()
@@ -149,13 +149,13 @@
 		dirty_items = TRUE
 	return ..()
 
-/obj/machinery/mineral/equipment_vendor/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/mineral/equipment_vendor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	// Update static data if need be
 	if(dirty_items)
 		if(!ui)
 			ui = SStgui.get_open_ui(user, src, ui_key)
 		if(ui) // OK so ui?. somehow breaks the implied src so this is needed
-			ui.initial_static_data = tgui_static_data(user)
+			ui.initial_static_data = ui_static_data(user)
 		dirty_items = FALSE
 
 	// Open the window
@@ -165,7 +165,7 @@
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
-/obj/machinery/mineral/equipment_vendor/tgui_act(action, params)
+/obj/machinery/mineral/equipment_vendor/ui_act(action, params)
 	if(..())
 		return
 
@@ -174,7 +174,10 @@
 		if("logoff")
 			if(!inserted_id)
 				return
-			usr.put_in_hands(inserted_id)
+			if(ishuman(usr))
+				usr.put_in_hands(inserted_id)
+			else
+				inserted_id.forceMove(get_turf(src))
 			inserted_id = null
 		if("purchase")
 			if(!inserted_id)
@@ -217,7 +220,7 @@
 				return
 			C.forceMove(src)
 			inserted_id = C
-			tgui_interact(user)
+			ui_interact(user)
 		return
 	return ..()
 
@@ -254,7 +257,7 @@
 			new /obj/item/extinguisher/mini(drop_location)
 			new /obj/item/twohanded/kinetic_crusher(drop_location)
 		if("Mining Conscription Kit")
-			new /obj/item/storage/backpack/duffel/mining_conscript/full(drop_location)
+			new /obj/item/storage/backpack/duffel/mining_conscript(drop_location)
 
 	qdel(voucher)
 
@@ -262,6 +265,12 @@
 	do_sparks(5, TRUE, src)
 	if(prob(50 / severity) && severity < 3)
 		qdel(src)
+
+/obj/machinery/mineral/equipment_vendor/Destroy()
+	if(inserted_id)
+		inserted_id.forceMove(loc)
+	return ..()
+
 
 /**********************Mining Equiment Vendor (Golem)**************************/
 
@@ -291,6 +300,47 @@
 		EQUIPMENT("KA Trigger Modification Kit",	/obj/item/borg/upgrade/modkit/trigger_guard, 			1000),
 		EQUIPMENT("Shuttle Console Board", 			/obj/item/circuitboard/shuttle/golem_ship, 				2000),
 		EQUIPMENT("The Liberator's Legacy", 		/obj/item/storage/box/rndboards, 						2000),
+	)
+
+/**********************Mining Equiment Vendor (Gulag)**************************/
+
+/obj/machinery/mineral/equipment_vendor/labor
+	name = "labor camp equipment vendor"
+	desc = "An equipment vendor for scum, points collected at an ore redemption machine can be spent here."
+
+/obj/machinery/mineral/equipment_vendor/labor/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/mining_equipment_vendor/labor(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	RefreshParts()
+
+/obj/machinery/mineral/equipment_vendor/labor/Initialize()
+	. = ..()
+	prize_list = list()
+	prize_list["Scum"] += list(
+		EQUIPMENT("Trauma Kit", 					/obj/item/stack/medical/bruise_pack/advanced, 						150),
+		EQUIPMENT("Whisky", 						/obj/item/reagent_containers/food/drinks/bottle/whiskey, 			100),
+		EQUIPMENT("Beer", 							/obj/item/reagent_containers/food/drinks/cans/beer, 				50),
+		EQUIPMENT("Absinthe", 						/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium, 	250),
+		EQUIPMENT("Cigarettes", 					/obj/item/storage/fancy/cigarettes, 		 						100),
+		EQUIPMENT("Medical Marijuana", 				/obj/item/storage/fancy/cigarettes/cigpack_med,						250),
+		EQUIPMENT("Cigar", 							/obj/item/clothing/mask/cigarette/cigar/havana, 					150),
+		EQUIPMENT("Box of matches", 				/obj/item/storage/box/matches, 										50),
+		EQUIPMENT("Cheeseburger", 					/obj/item/reagent_containers/food/snacks/cheeseburger, 				150),
+		EQUIPMENT("Big Burger", 					/obj/item/reagent_containers/food/snacks/bigbiteburger, 			250),
+		EQUIPMENT("Recycled Prisoner",	 			/obj/item/reagent_containers/food/snacks/soylentgreen, 				500),
+		EQUIPMENT("Crayons", 						/obj/item/storage/fancy/crayons, 									350),
+		EQUIPMENT("Plushie", 						/obj/random/plushie, 												750),
+		EQUIPMENT("Dnd set", 						/obj/item/storage/box/characters, 									500),
+		EQUIPMENT("Dice set", 						/obj/item/storage/box/dice, 										250),
+		EQUIPMENT("Cards", 							/obj/item/toy/cards/deck, 											150),
+		EQUIPMENT("Guitar", 						/obj/item/instrument/guitar, 										750),
+		EQUIPMENT("Synthesizer", 					/obj/item/instrument/piano_synth, 									1500),
+		EQUIPMENT("Diamond Pickaxe", 				/obj/item/pickaxe/diamond, 											2000)
 	)
 
 /**********************Mining Equipment Datum**************************/
@@ -337,27 +387,6 @@
 	. = ..()
 	. += "There's [points] points on the card."
 
-/**********************Conscription Kit**********************/
-
-/obj/item/card/id/mining_access_card
-	name = "mining access card"
-	desc = "A small card, that when used on any ID, will add mining access."
-	icon_state = "data"
-
-/obj/item/card/id/mining_access_card/afterattack(atom/movable/AM, mob/user, proximity)
-	. = ..()
-	if(istype(AM, /obj/item/card/id) && proximity)
-		var/obj/item/card/id/I = AM
-		I.access |= list(ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO)
-		to_chat(user, "You upgrade [I] with mining access.")
-		qdel(src)
-
-/obj/item/storage/backpack/duffel/mining_conscript/full
-	name = "mining conscription kit"
-	desc = "A kit containing everything a crewmember needs to support a shaft miner in the field."
-
-/obj/item/storage/backpack/duffel/mining_conscript/full/New()
-	..()
-	new /obj/item/card/id/mining_access_card(src)
 
 #undef EQUIPMENT
+

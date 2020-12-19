@@ -419,17 +419,26 @@
 			update_icon()
 			updating_icon = 0
 
-/obj/machinery/power/apc/get_spooked(second_pass = FALSE)
+/obj/machinery/power/apc/flicker(second_pass = FALSE)
 	if(opened || panel_open)
-		return
+		return FALSE
 	if(stat & (NOPOWER | BROKEN))
-		return
+		return FALSE
 	if(!second_pass) //The first time, we just cut overlays
-		addtimer(CALLBACK(src, /obj/machinery/power/apc/proc.get_spooked, TRUE), 1)
+		addtimer(CALLBACK(src, /obj/machinery/power/apc/proc.flicker, TRUE), 1)
 		cut_overlays()
+		// APC power distruptions have a chance to propogate to other machines on its network
+		for(var/obj/machinery/M in area)
+			// Please don't cascade, thanks
+			if(M == src)
+				continue
+			if(prob(10))
+				M.flicker()
 	else
 		flick("apcemag", src) //Second time we cause the APC to update its icon, then add a timer to update icon later
 		addtimer(CALLBACK(src, /obj/machinery/power/apc/proc.update_icon, TRUE), 10)
+
+	return TRUE
 
 //attack with an item - open/close cover, insert cell, or (un)lock interface
 /obj/machinery/power/apc/attackby(obj/item/W, mob/living/user, params)
@@ -738,7 +747,7 @@
 /obj/machinery/power/apc/attack_ghost(mob/user)
 	if(panel_open)
 		wires.Interact(user)
-	return tgui_interact(user)
+	return ui_interact(user)
 
 /obj/machinery/power/apc/interact(mob/user)
 	if(!user)
@@ -747,7 +756,7 @@
 	if(panel_open)
 		wires.Interact(user)
 
-	return tgui_interact(user)
+	return ui_interact(user)
 
 
 /obj/machinery/power/apc/proc/get_malf_status(mob/living/silicon/ai/malf)
@@ -768,13 +777,13 @@
 	else
 		return APC_MALF_NOT_HACKED
 
-/obj/machinery/power/apc/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/power/apc/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "APC", name, 510, 460, master_ui, state)
 		ui.open()
 
-/obj/machinery/power/apc/tgui_data(mob/user)
+/obj/machinery/power/apc/ui_data(mob/user)
 	var/list/data = list()
 	data["locked"] = is_locked(user)
 	data["normallyLocked"] = locked
@@ -897,7 +906,7 @@
 	else
 		return locked
 
-/obj/machinery/power/apc/tgui_act(action, params)
+/obj/machinery/power/apc/ui_act(action, params)
 	if(..() || !can_use(usr, TRUE) || (locked && !usr.has_unlimited_silicon_privilege && (action != "toggle_nightshift") && !usr.can_admin_interact()))
 		return
 	. = TRUE
@@ -1195,8 +1204,13 @@
 			charging = 0
 			chargecount = 0
 
-		if(excess >= 5000000 && !shock_proof) //If there's more than 5,000,000 watts in the grid, start arcing and shocking people.
-			if(prob(5))
+		if(excess >= 2500000 && !shock_proof)
+			var/shock_chance = 5 // 5%
+			if(excess >= 7500000)
+				shock_chance = 15
+			else if(excess >= 5000000)
+				shock_chance = 10
+			if(prob(shock_chance))
 				var/list/shock_mobs = list()
 				for(var/C in view(get_turf(src), 5)) //We only want to shock a single random mob in range, not every one.
 					if(isliving(C))
@@ -1225,6 +1239,21 @@
 		update()
 	else if(last_ch != charging)
 		queue_icon_update()
+
+	if(prob(MACHINE_FLICKER_CHANCE))
+		flicker()
+
+	// lights don't have their own processing loop, so APCs will be the father they never had. 3x as likely to cause a light flicker in a particular area, pick a light to flicker at random
+	if(prob(MACHINE_FLICKER_CHANCE) * 3)
+		var/list/lights = list()
+		for(var/obj/machinery/light/L in area)
+			lights += L
+
+		if(lights.len > 0)
+			var/obj/machinery/light/picked_light = pick(lights)
+			ASSERT(istype(picked_light))
+			picked_light.flicker()
+
 
 /obj/machinery/power/apc/proc/autoset(var/val, var/on)
 	if(on==0)
