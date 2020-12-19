@@ -67,6 +67,8 @@
 	var/moving = FALSE
 	/// "Haunted" areas such as the morgue and chapel are easier to boo. Because flavor.
 	var/is_haunted = FALSE
+	///Did a gravity grenade mess with gravity and we need to pay attention?
+	var/skreked_gravity = FALSE
 
 /area/Initialize(mapload)
 	GLOB.all_areas += src
@@ -529,15 +531,17 @@
 		T = get_turf(AT)
 	var/area/A = get_area(T)
 	if(istype(T, /turf/space)) // Turf never has gravity
-		return 0
+		return FALSE
 	else if(A && A.has_gravity) // Areas which always has gravity
-		return 1
+		return TRUE
+	else if(A && A.skreked_gravity)
+		return FALSE
 	else
 		// There's a gravity generator on our z level
 		// This would do well when integrated with the z level manager
 		if(T && GLOB.gravity_generators["[T.z]"] && length(GLOB.gravity_generators["[T.z]"]))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /area/proc/prison_break()
 	for(var/obj/machinery/power/apc/temp_apc in src)

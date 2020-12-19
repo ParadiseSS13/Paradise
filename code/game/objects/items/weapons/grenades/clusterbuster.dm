@@ -252,6 +252,11 @@
 	desc = "For when you need to knock out EVERYONE."
 	payload = /obj/item/grenade/gas/knockout
 
+/obj/item/grenade/clusterbuster/gravity
+	name = "Gravatonic Slam"
+	desc = "And welcome to the jam."
+	payload = /obj/item/grenade/gravitygrenade/clustersegment
+
 ////////////Clusterbuster of Clusterbusters////////////
 
 /obj/item/grenade/clusterbuster/mega_fox
