@@ -26,7 +26,11 @@
 		area.gravitychange(0, area)
 	else
 		area.gravitychange(1, area)
-	area.skreked_gravity = TRUE
+
+	if(area.skreked_gravity)
+		area.skreked_gravity = FALSE
+	else
+		area.skreked_gravity = TRUE
 	playsound(loc, 'sound/weapons/wave.ogg', 60, 1)
 	addtimer(CALLBACK(null, .proc/unskrek_gravity, area), 30 SECONDS)
 	qdel(src)
@@ -36,7 +40,11 @@
 		area.gravitychange(0, area)
 	else
 		area.gravitychange(1, area)
-	area.skreked_gravity = FALSE
+
+	if(area.skreked_gravity)
+		area.skreked_gravity = FALSE
+	else
+		area.skreked_gravity = TRUE
 
 /obj/item/grenade/gravitygrenade/proc/unprime()
 	active = 0
