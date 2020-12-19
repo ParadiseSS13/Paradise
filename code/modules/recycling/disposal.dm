@@ -198,7 +198,7 @@
 			V.show_message("[usr] starts stuffing [target.name] into the disposal.", 3)
 	if(!do_after(usr, 20, target = target))
 		return
-	if(target_loc != target.loc)
+	if(QDELETED(src) || target_loc != target.loc)
 		return
 	if(target == user && !user.stat && !user.IsWeakened() && !user.stunned && !user.paralysis)	// if drop self, then climbed in
 											// must be awake, not stunned or whatever

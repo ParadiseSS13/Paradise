@@ -174,10 +174,11 @@
 				to_chat(usr, "<span class='warning'>Invalid design (not in autolathe's known designs, report this error.)</span>")
 				return
 			var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-			if(design_last_ordered.materials["$metal"] > materials.amount(MAT_METAL))
+			var/coeff = get_coeff(design_last_ordered)
+			if(design_last_ordered.materials["$metal"] / coeff > materials.amount(MAT_METAL))
 				to_chat(usr, "<span class='warning'>Invalid design (not enough metal)</span>")
 				return
-			if(design_last_ordered.materials["$glass"] > materials.amount(MAT_GLASS))
+			if(design_last_ordered.materials["$glass"] / coeff > materials.amount(MAT_GLASS))
 				to_chat(usr, "<span class='warning'>Invalid design (not enough glass)</span>")
 				return
 			if(!hacked && ("hacked" in design_last_ordered.category))
@@ -295,7 +296,6 @@
 		return
 	if(panel_open)
 		default_deconstruction_crowbar(user, I)
-		I.play_tool_sound(user, I.tool_volume)
 
 /obj/machinery/autolathe/screwdriver_act(mob/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = 0))
@@ -304,8 +304,7 @@
 	if(busy)
 		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
 		return
-	if(default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", I))
-		I.play_tool_sound(user, I.tool_volume)
+	default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", I)
 
 /obj/machinery/autolathe/wirecutter_act(mob/user, obj/item/I)
 	if(!panel_open)
@@ -356,6 +355,8 @@
 	materials.max_amount = tot_rating * 3
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		prod_coeff += M.rating - 1
+	recipiecache = list()
+	SStgui.close_uis(src) // forces all connected users to re-open the TGUI. Imported entries won't show otherwise due to static_data
 
 /obj/machinery/autolathe/proc/get_coeff(datum/design/D)
 	var/coeff = (ispath(D.build_path,/obj/item/stack) ? 1 : 2 ** prod_coeff)//stacks are unaffected by production coefficient

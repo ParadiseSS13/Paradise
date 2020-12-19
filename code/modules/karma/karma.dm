@@ -14,7 +14,7 @@
 
 	if(!SSdbcore.IsConnected())
 		return
-	
+
 	var/datum/db_query/log_query = SSdbcore.NewQuery({"
 		INSERT INTO [format_table_name("karma")] (spendername, spenderkey, receivername, receiverkey, receiverrole, receiverspecial, spenderip, time)
 		VALUES (:sname, :skey, :rname, :rkey, :rrole, :rspecial, :sip, Now())"}, list(
@@ -36,7 +36,7 @@
 	var/datum/db_query/select_spender = SSdbcore.NewQuery("SELECT id, karma FROM [format_table_name("karmatotals")] WHERE byondkey=:rkey", list(
 		"rkey" = receiver.ckey
 	))
-	
+
 	if(!select_spender.warn_execute())
 		qdel(select_spender)
 		return
@@ -238,7 +238,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 		dbckey = query.item[1]
 		dbjob = query.item[2]
 		dbspecies = query.item[3]
-	
+
 	qdel(query)
 
 	if(dbckey)
@@ -406,7 +406,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			to_chat(usr, "You have unlocked [job].")
 			message_admins("[key_name(usr)] has unlocked [job].") // why do we admin log this
 			karmacharge(cost)
-	
+
 		qdel(insert_query)
 
 	if(dbckey)
@@ -443,6 +443,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 	while(select_query.NextRow())
 		dbckey = select_query.item[1]
 		dbspecies = select_query.item[2]
+	qdel(select_query)
 	if(!dbckey)
 		var/datum/db_query/insert_query = SSdbcore.NewQuery("INSERT INTO [format_table_name("whitelist")] (ckey, species) VALUES (:ckey, :species)", list(
 			"ckey" = ckey,
@@ -497,11 +498,13 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			"ckey" = ckey
 		))
 		if(!update_query.warn_execute())
+			qdel(select_query)
 			qdel(update_query)
 			return
 		else
 			to_chat(usr, "You have been [refund ? "refunded" : "charged"] [cost] karma.")
 			message_admins("[key_name(usr)] has been [refund ? "refunded" : "charged"] [cost] karma.")
+			qdel(select_query)
 			qdel(update_query)
 			return
 
