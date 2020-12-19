@@ -1103,16 +1103,6 @@
 	battery.charge = max(0, battery.charge - 1)
 	next_move = world.time + move_delay
 
-/obj/effect/landmark/spacepod/random
-	name = "spacepod spawner"
-	invisibility = 101
-	icon = 'icons/mob/screen_gen.dmi'
-	icon_state = "x"
-	anchored = 1
-
-/obj/effect/landmark/spacepod/random/New()
-	..()
-
 #undef DAMAGE
 #undef FIRE
 #undef WINDOW

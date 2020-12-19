@@ -458,15 +458,7 @@
 /obj/item/disk/plantgene/attackby(obj/item/W, mob/user, params)
 	..()
 	if(istype(W, /obj/item/pen))
-		var/t = stripped_input(user, "What would you like the label to be?", name, null)
-		if(user.get_active_hand() != W)
-			return
-		if(!in_range(src, user) && loc != user)
-			return
-		if(t)
-			name = "plant data disk - '[t]'"
-		else
-			name = "plant data disk"
+		rename_interactive(user, W)
 
 /obj/item/disk/plantgene/proc/update_name()
 	if(gene)

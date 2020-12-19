@@ -183,7 +183,6 @@
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	armor = list("melee" = -50, "bullet" = -50, "laser" = -50,"energy" = -50, "bomb" = -50, "bio" = -50, "rad" = -50, "fire" = 0, "acid" = 0)
-	slowdown = -1
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/species/drask/suit.dmi',
@@ -200,6 +199,13 @@
 		user.unEquip(src, 1)
 		user.Confused(10)
 		user.Weaken(5)
+	else if(slot == slot_wear_suit)
+		user.status_flags |= GOTTAGOFAST
+
+/obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/dropped(mob/user)
+	. = ..()
+	if(user)
+		user.status_flags &= ~GOTTAGOFAST
 
 /obj/item/clothing/head/hooded/flagellant_hood
 	name = "flagellant's robes"
@@ -247,6 +253,7 @@
 	icon_state = "blindfold"
 	item_state = "blindfold"
 	see_in_dark = 8
+	invis_override = SEE_INVISIBLE_HIDDEN_RUNES
 	flash_protect = TRUE
 	prescription = TRUE
 	origin_tech = null

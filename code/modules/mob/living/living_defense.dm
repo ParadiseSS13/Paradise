@@ -179,24 +179,28 @@
 	if(on_fire && fire_stacks <= 0)
 		ExtinguishMob()
 
+/**
+ * Burns a mob and slowly puts the fires out. Returns TRUE if the mob is on fire
+ */
 /mob/living/proc/handle_fire()
 	if(fire_stacks < 0) //If we've doused ourselves in water to avoid fire, dry off slowly
 		fire_stacks = min(0, fire_stacks + 1)//So we dry ourselves back to default, nonflammable.
 	if(!on_fire)
-		return 1
+		return FALSE
 	if(fire_stacks > 0)
 		adjust_fire_stacks(-0.1) //the fire is slowly consumed
 		for(var/obj/item/clothing/C in contents)
 			C.catch_fire()
 	else
 		ExtinguishMob()
-		return
+		return FALSE
 	var/datum/gas_mixture/G = loc.return_air() // Check if we're standing in an oxygenless environment
 	if(G.oxygen < 1)
 		ExtinguishMob() //If there's no oxygen in the tile we're on, put out the fire
-		return
+		return FALSE
 	var/turf/location = get_turf(src)
 	location.hotspot_expose(700, 50, 1)
+	return TRUE
 
 /mob/living/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()

@@ -55,12 +55,11 @@
 
 /obj/structure/door_assembly/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
-		var/t = copytext(stripped_input(user, "Enter the name for the door.", name, created_name),1,MAX_NAME_LEN)
-		if(!t)
-			return
-		if(!in_range(src, usr) && loc != usr)
-			return
-		created_name = t
+		// The door assembly gets renamed to "Assembly - Foobar",
+		// but the `t` returned from the proc is just "Foobar" without the prefix.
+		var/t = rename_interactive(user, W)
+		if(!isnull(t))
+			created_name = t
 		return
 
 	else if(iscoil(W) && state == AIRLOCK_ASSEMBLY_NEEDS_WIRES && anchored)

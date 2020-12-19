@@ -9,19 +9,19 @@
 	icon_dead = "shade_dead"
 	speed = 0
 	a_intent = INTENT_HARM
-	stop_automated_movement = 1
-	status_flags = CANPUSH
+	stop_automated_movement = TRUE
 	see_in_dark = 8
+	see_invisible = SEE_INVISIBLE_HIDDEN_RUNES
 	attack_sound = 'sound/weapons/punch1.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	faction = list("cult")
 	flying = TRUE
 	pressure_resistance = 100
-	universal_speak = 1
+	universal_speak = TRUE
 	AIStatus = AI_OFF //normal constructs don't have AI
 	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
-	del_on_death = 1
+	del_on_death = TRUE
 	deathmessage = "collapses in a shattered heap."
 	var/construct_type = "shade"
 	var/list/construct_spells = list()
