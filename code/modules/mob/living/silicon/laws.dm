@@ -131,19 +131,19 @@
 		laws = new /datum/ai_laws/crewsimov()
 
 /mob/living/silicon/proc/get_random_lawset()
-	// The weights here add up to 100 because it's probably a bit easier to reason about them that way,
-	// but they don't need to.
-	// With a round being ~2h on average
-	// 1% chance of law appearance means it would occur ~once a week
-	// 8% chance - ~once a day
+	// The weights here add up to ~900. That is 10x the average number of rounds we have in a week.
+	// So a law that has a weight of 10 would appear ~once a week.
+	// (At the time of writing, the average round length in the preceeding 3 months is ~113 minutes)
 	var/weights = list(
-		/datum/ai_laws/crewsimov = 30,
-		/datum/ai_laws/corporate = 30,
-		/datum/ai_laws/nanotrasen = 30,
-		/datum/ai_laws/paladin = 4,
-		/datum/ai_laws/nanotrasen_aggressive = 2,
-		/datum/ai_laws/robocop = 2,
-		/datum/ai_laws/tyrant = 2,
+		// Normal laws
+		/datum/ai_laws/crewsimov = 277,  //  = (900 - 70) / 3
+		/datum/ai_laws/corporate = 277,
+		/datum/ai_laws/nanotrasen = 277,
+		// Meme-ish laws; Each 24h, we'd get one meme law, on average.
+		/datum/ai_laws/paladin = 18, // = 70 / 4
+		/datum/ai_laws/nanotrasen_aggressive = 17,
+		/datum/ai_laws/robocop = 17,
+		/datum/ai_laws/tyrant = 17,
 	)
 	var/law = pickweight(weights)
 	return new law()
