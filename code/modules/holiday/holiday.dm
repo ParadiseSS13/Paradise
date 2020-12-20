@@ -232,7 +232,10 @@
 	eventChance = 20
 
 /datum/holiday/xmas/greet()
-	return "Have a merry Christmas!"
+	var/Greetings = "Have a merry Christmas!"
+	if(prob(30))
+		Greetings += "<br><br>To celebrate, choose a random crewmate on the Manifest and give them a gift!"
+	return Greetings
 
 /datum/holiday/boxing
 	name = "Boxing Day"
