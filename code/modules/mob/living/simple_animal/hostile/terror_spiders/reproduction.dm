@@ -186,9 +186,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoLayTerrorEggs(lay_type, lay_number)
 	stop_automated_movement = 1
-	var/obj/structure/spider/eggcluster/terror_eggcluster/C = new /obj/structure/spider/eggcluster/terror_eggcluster(get_turf(src))
-	C.spiderling_type = lay_type
-	C.update_name() // Sets the name after setting the egg type on the line above
+	var/obj/structure/spider/eggcluster/terror_eggcluster/C = new /obj/structure/spider/eggcluster/terror_eggcluster(get_turf(src), lay_type)
 	C.spiderling_number = lay_number
 	C.spider_myqueen = spider_myqueen
 	C.spider_mymother = src
@@ -210,11 +208,11 @@
 	var/spiderling_number = 1
 	var/list/enemies = list()
 
-/obj/structure/spider/eggcluster/terror_eggcluster/Initialize(mapload)
+/obj/structure/spider/eggcluster/terror_eggcluster/Initialize(mapload, lay_type)
 	. = ..()
 	GLOB.ts_egg_list += src
+	spiderling_type = lay_type
 
-/obj/structure/spider/eggcluster/terror_eggcluster/proc/update_name()
 	switch(spiderling_type)
 		if(/mob/living/simple_animal/hostile/poison/terror_spider/red)
 			name = "red terror eggs"

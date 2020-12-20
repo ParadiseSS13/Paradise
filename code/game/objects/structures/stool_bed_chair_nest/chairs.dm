@@ -40,10 +40,9 @@
 			to_chat(user, "<span class='notice'>[SK] is not ready to be attached!</span>")
 			return
 		user.drop_item()
-		var/obj/structure/chair/e_chair/E = new /obj/structure/chair/e_chair(src.loc)
+		var/obj/structure/chair/e_chair/E = new /obj/structure/chair/e_chair(get_turf(src), SK)
 		playsound(src.loc, W.usesound, 50, 1)
 		E.dir = dir
-		E.part = SK
 		SK.loc = E
 		SK.master = E
 		qdel(src)

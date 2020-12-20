@@ -7,15 +7,18 @@
 	var/last_time = 1.0
 	var/delay_time = 50
 
-/obj/structure/chair/e_chair/Initialize(mapload)
+/obj/structure/chair/e_chair/Initialize(mapload, obj/item/assembly/shock_kit/sk)
 	. = ..()
 	overlays += image('icons/obj/chairs.dmi', src, "echair_over", MOB_LAYER + 1, dir)
+
+	if(sk)
+		part = sk
 
 	if(isnull(part)) //This e-chair was not custom built
 		part = new(src)
 		var/obj/item/clothing/head/helmet/part1 = new(part)
 		var/obj/item/radio/electropack/part2 = new(part)
-		part2.frequency = 1445
+		part2.set_frequency(1445)
 		part2.code = 6
 		part2.master = part
 		part.part1 = part1
