@@ -188,6 +188,7 @@
 	stop_automated_movement = 1
 	var/obj/structure/spider/eggcluster/terror_eggcluster/C = new /obj/structure/spider/eggcluster/terror_eggcluster(get_turf(src))
 	C.spiderling_type = lay_type
+	C.update_name() // Sets the name after setting the egg type on the line above
 	C.spiderling_number = lay_number
 	C.spider_myqueen = spider_myqueen
 	C.spider_mymother = src
@@ -213,24 +214,26 @@
 	. = ..()
 	GLOB.ts_egg_list += src
 
-	if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/red)
-		name = "red terror eggs"
-	else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/gray)
-		name = "gray terror eggs"
-	else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/green)
-		name = "green terror eggs"
-	else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/black)
-		name = "black terror eggs"
-	else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/purple)
-		name = "purple terror eggs"
-	else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/white)
-		name = "white terror eggs"
-	else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/mother)
-		name = "mother of terror eggs"
-	else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/prince)
-		name = "prince of terror eggs"
-	else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/queen)
-		name = "queen of terror eggs"
+/obj/structure/spider/eggcluster/terror_eggcluster/proc/update_name()
+	switch(spiderling_type)
+		if(/mob/living/simple_animal/hostile/poison/terror_spider/red)
+			name = "red terror eggs"
+		if(/mob/living/simple_animal/hostile/poison/terror_spider/gray)
+			name = "gray terror eggs"
+		if(/mob/living/simple_animal/hostile/poison/terror_spider/green)
+			name = "green terror eggs"
+		if(/mob/living/simple_animal/hostile/poison/terror_spider/black)
+			name = "black terror eggs"
+		if(/mob/living/simple_animal/hostile/poison/terror_spider/purple)
+			name = "purple terror eggs"
+		if(/mob/living/simple_animal/hostile/poison/terror_spider/white)
+			name = "white terror eggs"
+		if(/mob/living/simple_animal/hostile/poison/terror_spider/mother)
+			name = "mother of terror eggs"
+		if(/mob/living/simple_animal/hostile/poison/terror_spider/prince)
+			name = "prince of terror eggs"
+		if(/mob/living/simple_animal/hostile/poison/terror_spider/queen)
+			name = "queen of terror eggs"
 
 /obj/structure/spider/eggcluster/terror_eggcluster/Destroy()
 	GLOB.ts_egg_list -= src
