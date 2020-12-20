@@ -846,39 +846,6 @@
 	var/list/options = list("Blood Orb (50)", "Blood Recharge (75)", "Blood Spear (150)", "Blood Bolt Barrage (300)")
 	var/choice = input(user, "Choose a greater blood rite...", "Greater Blood Rites") as null|anything in options
 	switch(choice)
-		if("Blood Spear (150)")
-			if(uses < BLOOD_SPEAR_COST)
-				to_chat(user, "<span class='warning'>You need [BLOOD_SPEAR_COST] charges to perform this rite.</span>")
-			else
-				uses -= BLOOD_SPEAR_COST
-				var/turf/T = get_turf(user)
-				qdel(src)
-				var/datum/action/innate/cult/spear/S = new(user)
-				var/obj/item/twohanded/cult_spear/rite = new(T)
-				S.Grant(user, rite)
-				rite.spear_act = S
-				if(user.put_in_hands(rite))
-					to_chat(user, "<span class='cult'>A [rite.name] appears in your hand!</span>")
-				else
-					user.visible_message("<span class='warning'>A [rite.name] appears at [user]'s feet!</span>", \
-					"<span class='cult'>A [rite.name] materializes at your feet.</span>")
-
-		if("Blood Bolt Barrage (300)")
-			if(uses < BLOOD_BARRAGE_COST)
-				to_chat(user, "<span class='cultitalic'>You need [BLOOD_BARRAGE_COST] charges to perform this rite.</span>")
-			else
-				var/obj/rite = new /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood()
-				uses -= BLOOD_BARRAGE_COST
-				qdel(src)
-				user.swap_hand()
-				user.drop_item()
-				if(user.put_in_hands(rite))
-					to_chat(user, "<span class='cult'>Both of your hands glow with power!</span>")
-				else
-					to_chat(user, "<span class='warning'>You need a free hand for this rite!</span>")
-					uses += BLOOD_BARRAGE_COST // Refund the charges
-					qdel(rite)
-
 		if("Blood Orb (50)")
 			if(uses < BLOOD_ORB_COST)
 				to_chat(user, "<span class='warning'>You need [BLOOD_ORB_COST] charges to perform this rite.</span>")
@@ -898,7 +865,7 @@
 				if(user.put_in_hands(rite))
 					to_chat(user, "<span class='cult'>A [rite.name] appears in your hand!</span>")
 				else
-					user.visible_message("<span class='warning'>A [rite.name] appears at [user]'s feet!</span>", \
+					user.visible_message("<span class='warning'>A [rite.name] appears at [user]'s feet!</span>",
 					"<span class='cult'>A [rite.name] materializes at your feet.</span>")
 
 		if("Blood Recharge (75)")
@@ -913,4 +880,37 @@
 				else
 					to_chat(user, "<span class='warning'>You need a free hand for this rite!</span>")
 					uses += BLOOD_RECHARGE_COST // Refund the charges
+					qdel(rite)
+
+		if("Blood Spear (150)")
+			if(uses < BLOOD_SPEAR_COST)
+				to_chat(user, "<span class='warning'>You need [BLOOD_SPEAR_COST] charges to perform this rite.</span>")
+			else
+				uses -= BLOOD_SPEAR_COST
+				var/turf/T = get_turf(user)
+				qdel(src)
+				var/datum/action/innate/cult/spear/S = new(user)
+				var/obj/item/twohanded/cult_spear/rite = new(T)
+				S.Grant(user, rite)
+				rite.spear_act = S
+				if(user.put_in_hands(rite))
+					to_chat(user, "<span class='cult'>A [rite.name] appears in your hand!</span>")
+				else
+					user.visible_message("<span class='warning'>A [rite.name] appears at [user]'s feet!</span>",
+					"<span class='cult'>A [rite.name] materializes at your feet.</span>")
+
+		if("Blood Bolt Barrage (300)")
+			if(uses < BLOOD_BARRAGE_COST)
+				to_chat(user, "<span class='cultitalic'>You need [BLOOD_BARRAGE_COST] charges to perform this rite.</span>")
+			else
+				var/obj/rite = new /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood()
+				uses -= BLOOD_BARRAGE_COST
+				qdel(src)
+				user.swap_hand()
+				user.drop_item()
+				if(user.put_in_hands(rite))
+					to_chat(user, "<span class='cult'>Both of your hands glow with power!</span>")
+				else
+					to_chat(user, "<span class='warning'>You need a free hand for this rite!</span>")
+					uses += BLOOD_BARRAGE_COST // Refund the charges
 					qdel(rite)
