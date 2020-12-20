@@ -1085,11 +1085,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/explosives/gravity
 	name = "Gravaton Grenade Kit."
-	desc = "This box contains 4 gravaton grenades, which upon dentation release a pulse of negative gravatons, which invert gravity in the area. \
+	desc = "This box contains 4 gravaton grenades, which upon detonation release a pulse of negative gravatons, which inverts gravity in the area. \
 			Lasts for 30 seconds, good for moving fast, causing people to float by, chaos, or just for the slam of gravity returning 30 seconds later. \
 			Magboots reccomended."
 	reference = "GRAV"
-	item =/obj/item/storage/box/syndie_kit/gravity
+	item = /obj/item/storage/box/syndie_kit/gravity
 	cost = 3
 
 // STEALTHY TOOLS

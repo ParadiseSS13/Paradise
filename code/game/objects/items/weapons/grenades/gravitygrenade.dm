@@ -1,13 +1,13 @@
 /obj/item/grenade/gravitygrenade
 	name = "Gravaton Grenade"
-	desc = "This grenade emmits a blast of negative gravatons, inverting gravity in the nearbye area for 30 seconds."
+	desc = "This grenade emmits a blast of negative gravatons, inverting gravity in the nearby area for 30 seconds."
 	icon_state = "gravity"
 	item_state = "flashtool"
 	origin_tech = "magnets=4;combat=4"
 	///used if it is a clusterbuster, so it deletes if it fails to activate, and doesnt leave 10+ unactivated nades
 	var/clustersegment = FALSE
 	///How long untill gravity returns (In deciseconds)?
-	var/gravity_timer = 300
+	var/gravity_timer = 30 SECONDS
 
 /obj/item/grenade/gravitygrenade/prime()
 	update_mob()
@@ -49,7 +49,7 @@
 		area.special_gravity = TRUE
 
 /obj/item/grenade/gravitygrenade/proc/unprime()
-	active = 0
+	active = FALSE
 	icon_state = initial(icon_state)
 	if(clustersegment)
 		qdel(src)
