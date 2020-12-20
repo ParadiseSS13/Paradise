@@ -306,7 +306,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 			message_admins("The gravity generator was brought online. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[area.name]</a>)")
 			for(var/area/A in world)
 				if(!is_station_level(A.z)) continue
-				A.gravitychange(1,A)
+				A.gravitychange(TRUE)
 	else
 		if(gravity_in_level() == 1)
 			alert = 1
@@ -314,7 +314,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 			message_admins("The gravity generator was brought offline with no backup generator. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[area.name]</a>)")
 			for(var/area/A in world)
 				if(!is_station_level(A.z)) continue
-				A.gravitychange(0,A)
+				A.gravitychange(FALSE)
 
 	update_icon()
 	update_list()

@@ -68,7 +68,7 @@
 	/// "Haunted" areas such as the morgue and chapel are easier to boo. Because flavor.
 	var/is_haunted = FALSE
 	///This variable, normaly set to true by a gravity grenade, means it checks this variable before it checks if a gravity generator exists on the level, meaning you can have a no gravity room on the same level as a generator.
-	var/special_gravity = FALSE
+	var/has_negative_gravatons = FALSE
 
 /area/Initialize(mapload)
 	GLOB.all_areas += src
@@ -497,11 +497,11 @@
 /client/proc/ResetAmbiencePlayed()
 	played = FALSE
 
-/area/proc/gravitychange(var/gravitystate = 0, var/area/A)
-	A.has_gravity = gravitystate
+/area/proc/gravitychange(var/gravitystate = FALSE)
+	src.has_gravity = gravitystate
 
 	if(gravitystate)
-		for(var/mob/living/carbon/human/M in A)
+		for(var/mob/living/carbon/human/M in src)
 			thunk(M)
 
 /area/proc/thunk(var/mob/living/carbon/human/M)
@@ -532,9 +532,9 @@
 	var/area/A = get_area(T)
 	if(istype(T, /turf/space)) // Turf never has gravity
 		return FALSE
-	else if(A && A.has_gravity) // Areas which always has gravity
+	else if(A && A.has_gravity) // Areas which currently have gravity
 		return TRUE
-	else if(A && A.special_gravity)
+	else if(A && A.has_negative_gravatons) // Ignores gravity generator
 		return FALSE
 	else
 		// There's a gravity generator on our z level

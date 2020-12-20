@@ -31,7 +31,7 @@
 
 /obj/item/grenade/gravitygrenade/proc/invert_gravity(area/area)
 	area.gravitychange(!area.has_gravity, area)
-	area.special_gravity = !area.special_gravity
+	area.has_negative_gravatons = !area.has_negative_gravatons
 
 /obj/item/grenade/gravitygrenade/proc/unprime()
 	active = FALSE
