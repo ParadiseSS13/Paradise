@@ -22,11 +22,7 @@
 			if(jumping)
 				return jumptomob(jumping)
 		if("Key")
-			var/list/keys = list()
-			for(var/I in GLOB.player_list)
-				var/mob/M = I
-				keys += M.client
-			jumping = input(src, "Key to jump to", "Jump to Key") as null|anything in sortKey(keys)
+			jumping = input(src, "Key to jump to", "Jump to Key") as null|anything in sortKey(GLOB.clients)
 			if(jumping)
 				return jumptokey(jumping)
 		if("Coordinates")
@@ -123,17 +119,8 @@
 		message_admins("[key_name_admin(usr)] jumped to coordinates [tx], [ty], [tz]")
 
 /client/proc/jumptokey(client/C)
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN) || !C.mob)
 		return
-
-	if(!C)
-		var/list/keys = list()
-		for(var/mob/M in GLOB.player_list)
-			keys += M.client
-		C = input(src, "Please, select a player!", "Admin Jumping") as null|anything in sortKey(keys)
-		if(!C) // Still no selection
-			to_chat(src, "No keys found.")
-			return
 	var/mob/M = C.mob
 	log_admin("[key_name(usr)] jumped to [key_name(M)]")
 	if(!isobserver(usr))
