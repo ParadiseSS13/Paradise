@@ -24,29 +24,14 @@
 		visible_message("<span class='warning'> The [src] seems to not work here!</span>")
 		unprime()
 		return
-	if(area.has_gravity)
-		area.gravitychange(0, area)
-	else
-		area.gravitychange(1, area)
-
-	if(area.special_gravity)
-		area.special_gravity = FALSE
-	else
-		area.special_gravity = TRUE
+	invert_gravity(area)
 	playsound(loc, 'sound/weapons/wave.ogg', 60, 1)
-	addtimer(CALLBACK(null, .proc/unskrek_gravity, area), gravity_timer)
+	addtimer(CALLBACK(null, .proc/invert_gravity, area), gravity_timer)
 	qdel(src)
 
-/obj/item/grenade/gravitygrenade/proc/unskrek_gravity(area/area)
-	if(area.has_gravity)
-		area.gravitychange(0, area)
-	else
-		area.gravitychange(1, area)
-
-	if(area.special_gravity)
-		area.special_gravity = FALSE
-	else
-		area.special_gravity = TRUE
+/obj/item/grenade/gravitygrenade/proc/invert_gravity(area/area)
+	area.gravitychange(!area.has_gravity, area)
+	area.special_gravity = !area.special_gravity
 
 /obj/item/grenade/gravitygrenade/proc/unprime()
 	active = FALSE
