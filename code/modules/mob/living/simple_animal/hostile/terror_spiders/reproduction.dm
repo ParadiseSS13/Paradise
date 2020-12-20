@@ -35,8 +35,6 @@
 /obj/structure/spider/spiderling/terror_spiderling/Bump(obj/O)
 	if(istype(O, /obj/structure/table))
 		forceMove(O.loc)
-	else if(istype(O, /obj/machinery/recharge_station))
-		qdel(src)
 	. = ..()
 
 
