@@ -349,17 +349,14 @@
 	var/target_set = FALSE //have we set a target at any point?
 
 /obj/item/pinpointer/crew/proc/trackable(mob/living/carbon/human/H)
-	var/turf/here = get_turf(src)
-	if(istype(H.w_uniform, /obj/item/clothing/under))
+	if(H && istype(H.w_uniform, /obj/item/clothing/under))
+		var/turf/here = get_turf(src)
 		var/obj/item/clothing/under/U = H.w_uniform
-
 		// Suit sensors must be on maximum.
 		if(!U.has_sensor || U.sensor_mode < 3)
 			return FALSE
-
 		var/turf/there = get_turf(U)
-		return there && there.z == here.z
-
+		return istype(there) && there.z == here.z
 	return FALSE
 
 /obj/item/pinpointer/crew/process()
