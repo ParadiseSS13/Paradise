@@ -364,7 +364,7 @@
 		point_at(target)
 
 /obj/item/pinpointer/crew/point_at(atom/target)
-	if(!trackable(target) || !target)
+	if(!target || !trackable(target))
 		icon_state = icon_null
 		return
 
@@ -410,7 +410,7 @@
 /obj/item/pinpointer/crew/centcom/trackable(mob/living/carbon/human/H)
 	var/turf/here = get_turf(src)
 	var/turf/there = get_turf(H)
-	return there && there.z == here.z
+	return istype(there) && istype(here) && there.z == here.z
 
 #undef MODE_OFF
 #undef MODE_DISK
