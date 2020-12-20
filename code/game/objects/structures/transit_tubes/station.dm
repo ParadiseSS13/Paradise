@@ -19,8 +19,8 @@
 
 	var/list/disallowed_mobs = list(/mob/living/silicon/ai)
 
-/obj/structure/transit_tube/station/New()
-	..()
+/obj/structure/transit_tube/station/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/transit_tube/station/Destroy()

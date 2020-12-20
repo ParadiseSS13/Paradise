@@ -33,8 +33,8 @@
 	/turf/simulated/wall/r_wall/rust)
 	smooth = SMOOTH_TRUE
 
-/obj/structure/falsewall/New(loc)
-	..()
+/obj/structure/falsewall/Initialize(mapload)
+	. = ..()
 	air_update_turf(1)
 
 /obj/structure/falsewall/ratvar_act()
@@ -349,8 +349,8 @@
 	walltype = /turf/simulated/wall/clockwork
 	mineral = /obj/item/stack/tile/brass
 
-/obj/structure/falsewall/brass/New(loc)
-	..()
+/obj/structure/falsewall/brass/Initialize(mapload)
+	. = ..()
 	var/turf/T = get_turf(src)
 	new /obj/effect/temp_visual/ratvar/wall/false(T)
 	new /obj/effect/temp_visual/ratvar/beam/falsewall(T)

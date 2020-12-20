@@ -412,7 +412,7 @@
 	metalUsed = 1
 	metal_type = /obj/item/stack/sheet/runed_metal
 
-/obj/structure/girder/cult/New()
+/obj/structure/girder/cult/Initialize(mapload)
 	. = ..()
 	icon_state = SSticker.cultdat?.cult_girder_icon_state
 
