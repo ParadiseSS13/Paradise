@@ -21,6 +21,7 @@
 	max_integrity = 50
 	attack_verb = list("bapped")
 	dog_fashion = /datum/dog_fashion/head
+
 	var/header //Above the main body, displayed at the top
 	var/info		//What's actually written on the paper.
 	var/footer 	//The bottom stuff before the stamp but after the body
@@ -384,6 +385,7 @@
 				return
 
 		stamp(P)
+		playsound(loc, 'sound/items/stamp-down.ogg', 30, TRUE)
 
 		to_chat(user, "<span class='notice'>You stamp the paper with your rubber stamp.</span>")
 
