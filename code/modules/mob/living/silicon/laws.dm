@@ -125,18 +125,25 @@
 	laws.sort_laws()
 
 /mob/living/silicon/proc/make_laws()
-	switch(config.default_laws)
-		if(0)
-			laws = new /datum/ai_laws/crewsimov()
-		else
-			laws = get_random_lawset()
+	if(config.default_laws)
+		laws = get_random_lawset()
+	else
+		laws = new /datum/ai_laws/crewsimov()
 
 /mob/living/silicon/proc/get_random_lawset()
-	var/list/law_options[0]
-	var/paths = subtypesof(/datum/ai_laws)
-	for(var/law in paths)
-		var/datum/ai_laws/L = new law
-		if(!L.default)
-			continue
-		law_options += L
-	return pick(law_options)
+	// The weights here add up to 100 because it's probably a bit easier to reason about them that way,
+	// but they don't need to.
+	// With a round being ~2h on average
+	// 1% chance of law appearance means it would occur ~once a week
+	// 8% chance - ~once a day
+	var/weights = list(
+		/datum/ai_laws/crewsimov = 30,
+		/datum/ai_laws/corporate = 30,
+		/datum/ai_laws/nanotrasen = 30,
+		/datum/ai_laws/paladin = 4,
+		/datum/ai_laws/nanotrasen_aggressive = 2,
+		/datum/ai_laws/robocop = 2,
+		/datum/ai_laws/tyrant = 2,
+	)
+	var/law = pickweight(weights)
+	return new law()
