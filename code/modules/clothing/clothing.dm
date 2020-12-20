@@ -668,12 +668,16 @@ BLIND     // can't see anything
 	var/list/accessories = list()
 
 	/// List of blacklisted accessory types
-	var/list/blacklisted_accessory_typecache = list(
-		/obj/item/clothing/accessory/petcollar // No collars on jumpsuits
-	)
+	var/list/blacklisted_accessory_typecache
 	var/displays_id = 1
 	var/rolled_down = 0
 	var/basecolor
+
+/obj/item/clothing/under/Initialize(mapload)
+	. = ..()
+	blacklisted_accessory_typecache = typecacheof(list(
+		/obj/item/clothing/accessory/petcollar // No collars on jumpsuits
+	))
 
 /obj/item/clothing/under/rank/New()
 	if(random_sensor)
@@ -690,7 +694,7 @@ BLIND     // can't see anything
 	else
 		return FALSE
 
-	if(A.type in blacklisted_accessory_typecache)
+	if(is_type_in_typecache(A, blacklisted_accessory_typecache))
 		to_chat(usr, "<span class='notice'>[A] doesn't fit on [src].</span>")
 		return FALSE
 
