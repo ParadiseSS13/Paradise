@@ -74,7 +74,7 @@
 				feedback_inc("alert_comms_blue",1)
 	tmp_alertlevel = 0
 
-/obj/machinery/computer/communications/tgui_act(action, params)
+/obj/machinery/computer/communications/ui_act(action, params)
 	if(..())
 		return
 	if(!is_secure_level(z))
@@ -314,15 +314,15 @@
 		to_chat(user, "<span class='warning'>Unable to establish a connection: You're too far away from the station!</span>")
 		return
 
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/computer/communications/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/computer/communications/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "CommunicationsComputer",  name, 500, 600, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/communications/tgui_data(mob/user)
+/obj/machinery/computer/communications/ui_data(mob/user)
 	var/list/data = list()
 	data["is_ai"]         = isAI(user) || isrobot(user)
 	data["menu_state"]    = data["is_ai"] ? ai_menu_state : menu_state

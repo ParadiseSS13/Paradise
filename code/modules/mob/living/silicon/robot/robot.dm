@@ -59,6 +59,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/ear_protection = 0
 	var/damage_protection = 0
 	var/emp_protection = FALSE
+ 	/// Value incoming brute damage to borgs is mutiplied by.
+	var/brute_mod = 1
+	/// Value incoming burn damage to borgs is multiplied by.
+	var/burn_mod = 1
 
 	var/list/force_modules = list()
 	var/allow_rename = TRUE
@@ -103,10 +107,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/magpulse = 0
 	var/ionpulse = 0 // Jetpack-like effect.
 	var/ionpulse_on = 0 // Jetpack-like effect.
-	var/datum/effect_system/trail_follow/ion/ion_trail // Ionpulse effect.
 
 	var/datum/action/item_action/toggle_research_scanner/scanner = null
 	var/list/module_actions = list()
+
+	var/see_reagents = FALSE // Determines if the cyborg can see reagents
 
 /mob/living/silicon/robot/get_cell()
 	return cell
@@ -170,6 +175,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	diag_hud_set_borgcell()
 	scanner = new(src)
 	scanner.Grant(src)
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/create_trail)
+
+/mob/living/silicon/robot/proc/create_trail(datum/source, atom/oldloc, _dir, forced)
+	if(ionpulse_on)
+		var/turf/T = get_turf(oldloc)
+		if(!has_gravity(T))
+			new /obj/effect/particle_effect/ion_trails(T, _dir)
 
 /mob/living/silicon/robot/proc/init(alien, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
@@ -217,6 +229,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 				if(Entry[2] == ckey)	//They're in the list? Custom sprite time, var and icon change required
 					custom_sprite = 1
+
+	if(mmi && mmi.brainmob)
+		mmi.brainmob.name = newname
 
 	return 1
 
@@ -330,6 +345,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Standard"] = "Standard-Serv"
 			module_sprites["Noble-SRV"] = "Noble-SRV"
 			module_sprites["Cricket"] = "Cricket-SERV"
+			see_reagents = TRUE
 
 		if("Miner")
 			module = new /obj/item/robot_module/miner(src)
@@ -357,6 +373,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Noble-MED"] = "Noble-MED"
 			module_sprites["Cricket"] = "Cricket-MEDI"
 			status_flags &= ~CANPUSH
+			see_reagents = TRUE
 
 		if("Security")
 			if(!weapons_unlock)
@@ -447,7 +464,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	notify_ai(2)
 
 	uneq_all()
-	SSnanoui.close_user_uis(src)
 	SStgui.close_user_uis(src)
 	sight_mode = null
 	update_sight()
@@ -601,16 +617,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		to_chat(src, "<span class='notice'>No thrusters are installed!</span>")
 		return
 
-	if(!ion_trail)
-		ion_trail = new
-		ion_trail.set_up(src)
-
 	ionpulse_on = !ionpulse_on
 	to_chat(src, "<span class='notice'>You [ionpulse_on ? null :"de"]activate your ion thrusters.</span>")
-	if(ionpulse_on)
-		ion_trail.start()
-	else
-		ion_trail.stop()
 	if(thruster_button)
 		thruster_button.icon_state = "ionpulse[ionpulse_on]"
 
@@ -1418,6 +1426,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	is_emaggable = FALSE
 	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
+	see_reagents = TRUE
 
 /mob/living/silicon/robot/deathsquad/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/deathsquad
@@ -1448,6 +1457,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/super
 	var/eprefix = "Amber"
+	see_reagents = TRUE
 
 
 /mob/living/silicon/robot/ert/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
@@ -1504,6 +1514,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	damage_protection = 20 // Reduce all incoming damage by this number. Very high in the case of /destroyer borgs, since it is an admin-only borg.
 	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
+	see_reagents = TRUE
 
 /mob/living/silicon/robot/destroyer/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
@@ -1625,3 +1636,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 							audible_message("<span class='warning'>[src] sounds an alarm! \"CRITICAL ERROR: All modules OFFLINE.\"</span>")
 							playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
 						to_chat(src, "<span class='userdanger'>CRITICAL ERROR: All modules OFFLINE.</span>")
+
+/mob/living/silicon/robot/can_see_reagents()
+	return see_reagents

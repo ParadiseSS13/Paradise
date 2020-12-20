@@ -195,6 +195,7 @@
 	//layer = 15
 
 /obj/effect/self_deleting/New(atom/location, icon/I, duration = 20, oname = "something")
+	. = ..()
 	name = oname
 	loc=location
 	icon = I

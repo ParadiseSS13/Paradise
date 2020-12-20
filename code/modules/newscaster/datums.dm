@@ -121,6 +121,7 @@
 /datum/feed_channel/Destroy()
 	for(var/m in messages)
 		GLOB.news_network.stories -= m
+	return ..()
 
 /**
   * Returns whether the given user can publish new stories to this channel.

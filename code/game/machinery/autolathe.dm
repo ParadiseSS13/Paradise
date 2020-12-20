@@ -79,17 +79,17 @@
 
 	if(panel_open)
 		wires.Interact(user)
-	else
-		tgui_interact(user)
+	else if(!disabled)
+		ui_interact(user)
 
-/obj/machinery/autolathe/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/autolathe/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "Autolathe", name, 750, 700, master_ui, state)
 		ui.open()
 
 
-/obj/machinery/autolathe/tgui_static_data(mob/user)
+/obj/machinery/autolathe/ui_static_data(mob/user)
 	var/list/data = list()
 	data["categories"] = categories
 	if(!recipiecache.len)
@@ -129,8 +129,8 @@
 	data["recipes"] = recipiecache
 	return data
 
-/obj/machinery/autolathe/tgui_data(mob/user)
-	var/list/data = list() //..()
+/obj/machinery/autolathe/ui_data(mob/user)
+	var/list/data = list()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	data["total_amount"] = materials.total_amount
 	data["max_amount"] = materials.max_amount
@@ -148,7 +148,7 @@
 	data["buildQueueLen"] = queue.len
 	return data
 
-/obj/machinery/autolathe/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+/obj/machinery/autolathe/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return FALSE
 
@@ -174,10 +174,11 @@
 				to_chat(usr, "<span class='warning'>Invalid design (not in autolathe's known designs, report this error.)</span>")
 				return
 			var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-			if(design_last_ordered.materials["$metal"] > materials.amount(MAT_METAL))
+			var/coeff = get_coeff(design_last_ordered)
+			if(design_last_ordered.materials["$metal"] / coeff > materials.amount(MAT_METAL))
 				to_chat(usr, "<span class='warning'>Invalid design (not enough metal)</span>")
 				return
-			if(design_last_ordered.materials["$glass"] > materials.amount(MAT_GLASS))
+			if(design_last_ordered.materials["$glass"] / coeff > materials.amount(MAT_GLASS))
 				to_chat(usr, "<span class='warning'>Invalid design (not enough glass)</span>")
 				return
 			if(!hacked && ("hacked" in design_last_ordered.category))
@@ -191,7 +192,7 @@
 			if(!is_stack && (multiplier > 1))
 				return
 			if(!(multiplier in list(1, 10, 25, max_multiplier))) //"enough materials ?" is checked in the build proc
-				message_admins("Player [key_name_admin(usr)] attempted to pass invalid multiplier [multiplier] to an autolathe in tgui_act. Possible href exploit.")
+				message_admins("Player [key_name_admin(usr)] attempted to pass invalid multiplier [multiplier] to an autolathe in ui_act. Possible href exploit.")
 				return
 			if((queue.len + 1) < queue_max_len)
 				add_to_queue(design_last_ordered, multiplier)
@@ -201,6 +202,11 @@
 				busy = TRUE
 				process_queue()
 				busy = FALSE
+
+/obj/machinery/autolathe/ui_status(mob/user, datum/ui_state/state)
+	. = disabled ? STATUS_DISABLED : STATUS_INTERACTIVE
+
+	return min(..(), .)
 
 /obj/machinery/autolathe/proc/design_cost_data(datum/design/D)
 	var/list/data = list()
@@ -290,7 +296,6 @@
 		return
 	if(panel_open)
 		default_deconstruction_crowbar(user, I)
-		I.play_tool_sound(user, I.tool_volume)
 
 /obj/machinery/autolathe/screwdriver_act(mob/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = 0))
@@ -299,8 +304,7 @@
 	if(busy)
 		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
 		return
-	if(default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", I))
-		I.play_tool_sound(user, I.tool_volume)
+	default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", I)
 
 /obj/machinery/autolathe/wirecutter_act(mob/user, obj/item/I)
 	if(!panel_open)
@@ -351,6 +355,8 @@
 	materials.max_amount = tot_rating * 3
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		prod_coeff += M.rating - 1
+	recipiecache = list()
+	SStgui.close_uis(src) // forces all connected users to re-open the TGUI. Imported entries won't show otherwise due to static_data
 
 /obj/machinery/autolathe/proc/get_coeff(datum/design/D)
 	var/coeff = (ispath(D.build_path,/obj/item/stack) ? 1 : 2 ** prod_coeff)//stacks are unaffected by production coefficient
@@ -445,7 +451,7 @@
 		else
 			return
 	while(D)
-		if(stat & (NOPOWER|BROKEN))
+		if((stat & (NOPOWER|BROKEN)) || disabled)
 			being_built = new /list()
 			return 0
 		if(!can_build(D, multiplier))

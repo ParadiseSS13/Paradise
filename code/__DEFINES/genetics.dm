@@ -149,3 +149,5 @@
 #define NO_DECAY		"no_decay"
 #define PIERCEIMMUNE	"pierce_immunity"
 #define NO_HUNGER		"no_hunger"
+#define EXOTIC_COLOR	"exotic_blood_colour"
+#define NO_OBESITY		"no_obesity"

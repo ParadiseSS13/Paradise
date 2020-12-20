@@ -2,6 +2,9 @@
 	var/name = "Cult of Nar'Sie"
 	var/theme = "blood"
 	var/tome_icon = "tome"
+	var/dagger_icon = "blood_dagger"
+	var/sword_icon = "blood_blade"
+	var/construct_glow = LIGHT_COLOR_BLOOD_MAGIC
 
 	//God Entity
 	var/entity_name = "Nar'Sie"
@@ -75,6 +78,9 @@
 	name = "Cult of Kha'Rin"
 	theme = "fire"
 	tome_icon = "helltome"
+	dagger_icon = "hell_dagger"
+	sword_icon = "hell_blade"
+	construct_glow = LIGHT_COLOR_FIRE
 
 	entity_name = "Kha'Rin"
 	entity_title1 = "The Burning One"
@@ -87,24 +93,24 @@
 	cult_floor_icon_state = "culthell"
 	cult_girder_icon_state = "hell_girder"
 
-	artificer_name = "Summoner"
+	//artificer_name = "Summoner"
 	artificer_icon_state = "summoner"
 
-	behemoth_name = "Incarnation of Pain"
+	//behemoth_name = "Incarnation of Pain"
 	behemoth_icon_state = "incarnation_of_pain"
 
-	wraith_name = "Hell Knight"
+	//wraith_name = "Hell Knight"
 	wraith_icon_state = "hell_knight"
 	wraith_jaunt_out_animation = "infernal_rift_out"
 	wraith_jaunt_in_animation = "infernal_rift_in"
 
-	juggernaut_name = "Incarnation of Pain"
+	//juggernaut_name = "Incarnation of Pain"
 	juggernaut_icon_state = "incarnation_of_pain"
 
-	harvester_name = "Lost Soul"
+	//harvester_name = "Lost Soul"
 	harvester_icon_state = "lost_soul"
 
-	shade_name = "Ifrit"
+	//shade_name = "Ifrit"
 	shade_icon_state = "ifrit"
 
 	pylon_icon_state = "hell_pylon"
@@ -131,6 +137,9 @@
 	name = "Cult of Mortality"
 	theme = "death"
 	tome_icon = "deathtome"
+	dagger_icon = "death_dagger"
+	sword_icon = "death_blade"
+	construct_glow = LIGHT_COLOR_DARKRED
 
 	entity_name = "The Reaper"
 	entity_title1 = "The Silent One"
@@ -143,24 +152,24 @@
 	cult_floor_icon_state = "cultdeath"
 	cult_girder_icon_state = "reaper_cultgirder"
 
-	artificer_name = "Boneshaper"
+	//artificer_name = "Boneshaper"
 	artificer_icon_state = "boneshaper"
 
-	behemoth_name = "Draugr"
+	//behemoth_name = "Draugr"
 	behemoth_icon_state = "golem"
 
-	wraith_name = "Envoy of Death"
+	//wraith_name = "Envoy of Death"
 	wraith_icon_state = "envoy_of_death"
 	wraith_jaunt_out_animation = "shadowstep_out"
 	wraith_jaunt_in_animation = "shadowstep_in"
 
-	juggernaut_name = "Golem"
+	//juggernaut_name = "Golem"
 	juggernaut_icon_state = "golem"
 
-	harvester_name = "Necrophage"
+	//harvester_name = "Necrophage"
 	harvester_icon_state = "necrophage"
 
-	shade_name = "Banshee"
+	//shade_name = "Banshee"
 	shade_icon_state = "banshee"
 
 	pylon_icon_state = "reaper_pylon"

@@ -14,6 +14,7 @@
 		update_sight()
 		update_blind_effects()
 		update_canmove()
+		set_typing_indicator(FALSE)
 	return 1
 
 /mob/living/proc/WakeUp(updating = 1)
@@ -61,6 +62,7 @@
 		update_sight()
 		updatehealth("update revive")
 
+	SEND_SIGNAL(src, COMSIG_LIVING_REVIVE, updating)
 	for(var/s in ownedSoullinks)
 		var/datum/soullink/S = s
 		S.ownerRevives(src)

@@ -101,11 +101,11 @@
 	return M
 
 /**
-  * tgui_act sanity check helper
+  * ui_act sanity check helper
   *
   * Basically checks the existing href exploit stuff, as well as making sure the user using the UI is the pAI itself
   */
-/datum/pai_software/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+/datum/pai_software/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return TRUE
 

@@ -42,7 +42,7 @@
 
 	return data
 
-/datum/pai_software/main_menu/tgui_act(action, list/params)
+/datum/pai_software/main_menu/ui_act(action, list/params)
 	if(..())
 		return
 
@@ -83,7 +83,7 @@
 
 	return data
 
-/datum/pai_software/directives/tgui_act(action, list/params)
+/datum/pai_software/directives/ui_act(action, list/params)
 	if(..())
 		return
 
@@ -140,11 +140,11 @@
 	integrated_records.update_ui(user, data)
 	return data
 
-/datum/pai_software/med_records/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+/datum/pai_software/med_records/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 	// Double proxy here
-	integrated_records.tgui_act(action, params, ui, state)
+	integrated_records.ui_act(action, params, ui, state)
 
 // Sec Records //
 /datum/pai_software/sec_records
@@ -162,11 +162,11 @@
 	integrated_records.update_ui(user, data)
 	return data
 
-/datum/pai_software/sec_records/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+/datum/pai_software/sec_records/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 	// Double proxy here
-	integrated_records.tgui_act(action, params, ui, state)
+	integrated_records.ui_act(action, params, ui, state)
 
 // Atmos Scan //
 /datum/pai_software/atmosphere_sensor
@@ -208,14 +208,14 @@
 
 	return data
 
-/datum/pai_software/messenger/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+/datum/pai_software/messenger/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
 	// Grab their messenger
 	var/datum/data/pda/app/messenger/PM = pai_holder.pda.find_program(/datum/data/pda/app/messenger)
 	// Double proxy here
-	PM.tgui_act(action, params, ui, state)
+	PM.ui_act(action, params, ui, state)
 
 // Radio
 /datum/pai_software/radio_config
@@ -233,7 +233,7 @@
 	data["broadcasting"] = user.radio.broadcasting
 	return data
 
-/datum/pai_software/radio_config/tgui_act(action, list/params)
+/datum/pai_software/radio_config/ui_act(action, list/params)
 	if(..())
 		return
 
@@ -264,7 +264,7 @@
 
 	return data
 
-/datum/pai_software/signaler/tgui_act(action, list/params)
+/datum/pai_software/signaler/ui_act(action, list/params)
 	if(..())
 		return
 
@@ -305,7 +305,7 @@
 
 	return data
 
-/datum/pai_software/door_jack/tgui_act(action, list/params)
+/datum/pai_software/door_jack/ui_act(action, list/params)
 	if(..())
 		return
 

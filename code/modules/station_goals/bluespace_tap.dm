@@ -1,7 +1,7 @@
 //Station goal stuff goes here
 /datum/station_goal/bluespace_tap
 	name = "Bluespace Harvester"
-	var/goal = 500000
+	var/goal = 45000
 
 /datum/station_goal/bluespace_tap/get_report()
 	return {"<b>Bluespace Harvester Experiment</b><br>
@@ -24,7 +24,7 @@
 	var/highscore = 0
 	for(var/obj/machinery/power/bluespace_tap/T in GLOB.machines)
 		highscore = max(highscore, T.total_points)
-	to_chat(world, "<b>Bluespace Harvester Highscore</b> : [highscore >= goal ? "<span class='greenannounce'>": "<span class='boldannounce'>"][highscore]</span>")
+	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? "<span class='greenannounce'>": "<span class='boldannounce'>"][highscore]</span>")
 	if(highscore >= goal)
 		return TRUE
 	return FALSE
@@ -169,6 +169,10 @@
 		/obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread //maybe add some dangerous/special food here, ie robobuger?
 	)
 
+#define kW *1000
+#define MW kW *1000
+#define GW MW *1000
+
 /**
   * # Bluespace Harvester
   *
@@ -188,16 +192,20 @@
 	/// For faking having a big machine, dummy 'machines' that are hidden inside the large sprite and make certain tiles dense. See new and destroy.
 	var/list/obj/structure/fillers = list()
 	use_power = NO_POWER_USE	// power usage is handelled manually
-	/// Value that will be multiplied with mining level to generate actual power use
-	active_power_usage = 500
 	density = TRUE
 	interact_offline = TRUE
 	luminosity = 1
 
+	/// Correspond to power required for a mining level, first entry for level 1, etc.
+	var/list/power_needs = list(1 kW, 5 kW, 50 kW, 100 kW, 500 kW,
+								1 MW, 2 MW, 5 MW, 10 MW, 25 MW,
+								50 MW, 75 MW, 125 MW, 200 MW, 500 MW,
+								1 GW, 5 GW, 15 GW, 45 GW, 500 GW)
+
 	/// list of possible products
 	var/static/product_list = list(
-	new /datum/data/bluespace_tap_product("Unknown Exotic Hat", /obj/effect/spawner/lootdrop/bluespace_tap/hat, 10000),
-	new /datum/data/bluespace_tap_product("Unknown Snack", /obj/effect/spawner/lootdrop/bluespace_tap/food, 12000),
+	new /datum/data/bluespace_tap_product("Unknown Exotic Hat", /obj/effect/spawner/lootdrop/bluespace_tap/hat, 5000),
+	new /datum/data/bluespace_tap_product("Unknown Snack", /obj/effect/spawner/lootdrop/bluespace_tap/food, 6000),
 	new /datum/data/bluespace_tap_product("Unknown Cultural Artifact", /obj/effect/spawner/lootdrop/bluespace_tap/cultural, 15000),
 	new /datum/data/bluespace_tap_product("Unknown Biological Artifact", /obj/effect/spawner/lootdrop/bluespace_tap/organic, 20000)
 	)
@@ -218,12 +226,10 @@
 
 	/// Max power input level, I don't expect this to be ever reached
 	var/max_level = 20
-	/// Used for power consumption, higher means more power consumed per level
-	var/base_value = 5
 	/// Amount of points to give per mining level
 	var/base_points = 4
 	/// How high the machine can be run before it starts having a chance for dimension breaches.
-	var/safe_levels = 7
+	var/safe_levels = 10
 
 
 /obj/machinery/power/bluespace_tap/New()
@@ -302,7 +308,7 @@
 /obj/machinery/power/bluespace_tap/proc/get_power_use(i_level)
 	if(!i_level)
 		return 0
-	return (base_value ** i_level) * active_power_usage	//each level takes one order of magnitude more power than the previous one
+	return power_needs[i_level]
 
 /obj/machinery/power/bluespace_tap/process()
 	actual_power_usage = get_power_use(input_level)
@@ -330,8 +336,8 @@
 
 
 
-/obj/machinery/power/bluespace_tap/tgui_data(mob/user)
-	var/data[0]
+/obj/machinery/power/bluespace_tap/ui_data(mob/user)
+	var/list/data = list()
 
 	data["desiredLevel"] = desired_level
 	data["inputLevel"] = input_level
@@ -358,13 +364,13 @@
 
 /obj/machinery/power/bluespace_tap/attack_hand(mob/user)
 	add_fingerprint(user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/power/bluespace_tap/attack_ghost(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/power/bluespace_tap/attack_ai(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /**
   * Produces the product with the desired key and increases product cost accordingly
@@ -387,7 +393,7 @@
 
 //UI stuff below
 
-/obj/machinery/power/bluespace_tap/tgui_act(action, params)
+/obj/machinery/power/bluespace_tap/ui_act(action, params)
 	if(..())
 		return
 	. = TRUE	// we want to refresh in all the cases below
@@ -402,7 +408,7 @@
 			var/key = text2num(params["target"])
 			produce(key)
 
-/obj/machinery/power/bluespace_tap/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/power/bluespace_tap/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "BluespaceTap", name, 650, 400, master_ui, state)
@@ -443,3 +449,7 @@
 	<p>NT Science Directorate, Extradimensional Exploitation Research Group</p> \
 	<p><small>Device highly experimental. Not for sale. Do not operate near small children or vital NT assets. Do not tamper with machine. In case of existential dread, stop machine immediately. \
 	Please document any and all extradimensional incursions. In case of imminent death, please leave said documentation in plain sight for clean-up teams to recover.</small></p>"
+
+#undef kW
+#undef MW
+#undef GW

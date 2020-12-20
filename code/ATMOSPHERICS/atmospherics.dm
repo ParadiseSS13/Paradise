@@ -13,7 +13,7 @@ Pipelines + Other Objects -> Pipe network
 	layer = GAS_PIPE_HIDDEN_LAYER  //under wires
 	resistance_flags = FIRE_PROOF
 	max_integrity = 200
-	plane = FLOOR_PLANE
+	plane = GAME_PLANE
 	idle_power_usage = 0
 	active_power_usage = 0
 	power_channel = ENVIRON
@@ -62,6 +62,12 @@ Pipelines + Other Objects -> Pipe network
 		L.forceMove(get_turf(src))
 	QDEL_NULL(pipe_image) //we have to qdel it, or it might keep a ref somewhere else
 	return ..()
+
+/obj/machinery/atmospherics/set_frequency(new_frequency)
+	SSradio.remove_object(src, frequency)
+	frequency = new_frequency
+	if(frequency)
+		radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
 
 // Icons/overlays/underlays
 /obj/machinery/atmospherics/update_icon()

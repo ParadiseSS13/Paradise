@@ -10,7 +10,8 @@ GLOBAL_LIST_EMPTY(whitelist)
 
 /proc/load_whitelist()
 	GLOB.whitelist = file2list(WHITELISTFILE)
-	if(!GLOB.whitelist.len)	GLOB.whitelist = null
+	if(!GLOB.whitelist.len)
+		GLOB.whitelist = null
 /*
 /proc/check_whitelist(mob/M, var/rank)
 	if(!whitelist)
@@ -21,28 +22,38 @@ GLOBAL_LIST_EMPTY(whitelist)
 /proc/is_job_whitelisted(mob/M, var/rank)
 	if(guest_jobbans(rank))
 		if(!config.usewhitelist)
-			return 1
+			return TRUE
 		if(config.disable_karma)
-			return 1
+			return TRUE
 		if(check_rights(R_ADMIN, 0, M))
-			return 1
-		if(!GLOB.dbcon.IsConnected())
-			to_chat(usr, "<span class='warning'>Unable to connect to whitelist database. Please try again later.<br></span>")
-			return 0
+			return TRUE
+		if(!SSdbcore.IsConnected())
+			return FALSE
 		else
-			var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT job FROM [format_table_name("whitelist")] WHERE ckey='[M.ckey]'")
-			query.Execute()
+			var/datum/db_query/job_read = SSdbcore.NewQuery(
+				"SELECT job FROM [format_table_name("whitelist")] WHERE ckey=:ckey",
+				list("ckey" = M.ckey)
+			)
 
+			if(!job_read.warn_execute(async = FALSE)) // Dont async this. Youll make roundstart slow.
+				qdel(job_read)
+				return FALSE
 
-			while(query.NextRow())
-				var/joblist = query.item[1]
-				if(joblist!="*")
-					var/allowed_jobs = splittext(joblist,",")
-					if(rank in allowed_jobs) return 1
-				else return 1
-			return 0
+			. = FALSE
+			while(job_read.NextRow())
+				var/joblist = job_read.item[1]
+				if(joblist != "*")
+					var/allowed_jobs = splittext(joblist, ",")
+					if(rank in allowed_jobs)
+						. = TRUE
+						break
+				else
+					. = TRUE
+					break
+
+			qdel(job_read)
 	else
-		return 1
+		return TRUE
 
 
 
@@ -59,29 +70,40 @@ GLOBAL_LIST_EMPTY(alien_whitelist)
 //todo: admin aliens
 /proc/is_alien_whitelisted(mob/M, var/species)
 	if(!config.usealienwhitelist)
-		return 1
+		return TRUE
 	if(config.disable_karma)
-		return 1
+		return TRUE
 	if(species == "human" || species == "Human")
-		return 1
+		return TRUE
 	if(check_rights(R_ADMIN, 0))
-		return 1
+		return TRUE
 	if(!GLOB.alien_whitelist)
-		return 0
-	if(!GLOB.dbcon.IsConnected())
-		to_chat(usr, "<span class='warning'>Unable to connect to whitelist database. Please try again later.<br></span>")
-		return 0
+		return FALSE
+	if(!SSdbcore.IsConnected())
+		return FALSE
 	else
-		var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT species FROM [format_table_name("whitelist")] WHERE ckey='[M.ckey]'")
-		query.Execute()
+		var/datum/db_query/species_read = SSdbcore.NewQuery(
+			"SELECT species FROM [format_table_name("whitelist")] WHERE ckey=:ckey",
+			list("ckey" = M.ckey)
+		)
 
-		while(query.NextRow())
-			var/specieslist = query.item[1]
-			if(specieslist!="*")
-				var/allowed_species = splittext(specieslist,",")
-				if(species in allowed_species) return 1
-			else return 1
-		return 0
+		if(!species_read.warn_execute(async = FALSE)) // Dont async this one. It makes roundstart take 10 years.
+			qdel(species_read)
+			return FALSE
+
+		. = FALSE
+		while(species_read.NextRow())
+			var/specieslist = species_read.item[1]
+			if(specieslist != "*")
+				var/allowed_species = splittext(specieslist, ",")
+				if(species in allowed_species)
+					. = TRUE
+					break
+			else
+				. = TRUE
+				break
+
+		qdel(species_read)
 /*
 	if(M && species)
 		for(var/s in alien_whitelist)

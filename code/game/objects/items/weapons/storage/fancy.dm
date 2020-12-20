@@ -39,13 +39,14 @@
  */
 
 /obj/item/storage/fancy/donut_box
+	name = "donut box"
 	icon_type = "donut"
 	icon_state = "donutbox_back"
-	name = "donut box"
-	name = "donut box"
 	storage_slots = 6
 	can_hold = list(/obj/item/reagent_containers/food/snacks/donut)
 	icon_type = "donut"
+	foldable = /obj/item/stack/sheet/cardboard
+	foldable_amt = 1
 
 /obj/item/storage/fancy/donut_box/update_icon()
 	overlays.Cut()
@@ -60,9 +61,13 @@
 
 /obj/item/storage/fancy/donut_box/New()
 	..()
-	for(var/i = 1 to storage_slots)
-		new /obj/item/reagent_containers/food/snacks/donut(src)
+	if(!empty)
+		for(var/i = 1 to storage_slots)
+			new /obj/item/reagent_containers/food/snacks/donut(src)
 	update_icon()
+
+/obj/item/storage/fancy/donut_box/empty
+	empty = TRUE
 
 /*
  * Egg Box
@@ -395,7 +400,7 @@
 	med_bot_skin = "fish"
 
 /obj/item/storage/firstaid/aquatic_kit/full
-	desc = "It's a starter kit for an acquarium; includes 1 tank brush, 1 egg scoop, 1 fish net, and 1 container of fish food."
+	desc = "It's a starter kit for an aquarium; includes 1 tank brush, 1 egg scoop, 1 fish net, 1 container of fish food and 1 fish bag."
 
 /obj/item/storage/firstaid/aquatic_kit/full/New()
 	..()
@@ -403,3 +408,4 @@
 	new /obj/item/fish_net(src)
 	new /obj/item/tank_brush(src)
 	new /obj/item/fishfood(src)
+	new /obj/item/storage/bag/fish(src)

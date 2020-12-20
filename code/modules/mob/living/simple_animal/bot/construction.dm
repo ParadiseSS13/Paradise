@@ -29,13 +29,10 @@
 		qdel(src)
 
 	else if(istype(W, /obj/item/pen))
-		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
-		if(!t)
-			return
-		if(!in_range(src, user) && loc != user)
-			return
-		created_name = t
-		log_game("[key_name(user)] has renamed a robot to [t]")
+		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
+		if(!isnull(t))
+			created_name = t
+			log_game("[key_name(user)] has renamed a robot to [t]")
 
 //Edbot Assembly
 
@@ -53,13 +50,10 @@
 	..()
 
 	if(istype(W, /obj/item/pen))
-		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
-		if(!t)
-			return
-		if(!in_range(src, user) && loc != user)
-			return
-		created_name = t
-		log_game("[key_name(user)] has renamed a robot to [t]")
+		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
+		if(!isnull(t))
+			created_name = t
+			log_game("[key_name(user)] has renamed a robot to [t]")
 		return
 
 	switch(build_step)
@@ -277,14 +271,10 @@
 		qdel(src)
 
 	else if(istype(W, /obj/item/pen))
-		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
-		if(!t)
-			return
-		if(!in_range(src, user) && loc != user)
-			return
-
-		created_name = t
-		log_game("[key_name(user)] has renamed a robot to [t]")
+		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
+		if(!isnull(t))
+			created_name = t
+			log_game("[key_name(user)] has renamed a robot to [t]")
 
 /obj/item/toolbox_tiles/sensor/attackby(obj/item/W, mob/user, params)
 	..()
@@ -297,14 +287,10 @@
 		user.unEquip(src, 1)
 		qdel(src)
 	else if(istype(W, /obj/item/pen))
-		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
-		if(!t)
-			return
-		if(!in_range(src, user) && loc != user)
-			return
-
-		created_name = t
-		log_game("[key_name(user)] has renamed a robot to [t]")
+		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
+		if(!isnull(t))
+			created_name = t
+			log_game("[key_name(user)] has renamed a robot to [t]")
 
 //Medbot Assembly
 /obj/item/storage/firstaid/attackby(obj/item/I, mob/user, params)
@@ -369,13 +355,10 @@
 /obj/item/firstaid_arm_assembly/attackby(obj/item/I, mob/user, params)
 	..()
 	if(istype(I, /obj/item/pen))
-		var/t = stripped_input(user, "Enter new robot name", name, created_name, MAX_NAME_LEN)
-		if(!t)
-			return
-		if(!in_range(src, user) && loc != user)
-			return
-		created_name = t
-		log_game("[key_name(user)] has renamed a robot to [t]")
+		var/t = rename_interactive(user, I, prompt = "Enter new robot name")
+		if(!isnull(t))
+			created_name = t
+			log_game("[key_name(user)] has renamed a robot to [t]")
 	else
 		switch(build_step)
 			if(0)
@@ -481,13 +464,10 @@
 		qdel(src)
 
 	else if(istype(I, /obj/item/pen))
-		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
-		if(!t)
-			return
-		if(!in_range(src, user) && loc != user)
-			return
-		created_name = t
-		log_game("[key_name(user)] has renamed a robot to [t]")
+		var/t = rename_interactive(user, I, prompt = "Enter new robot name")
+		if(!isnull(t))
+			created_name = t
+			log_game("[key_name(user)] has renamed a robot to [t]")
 
 	else if(istype(I, /obj/item/screwdriver))
 		if(!build_step)

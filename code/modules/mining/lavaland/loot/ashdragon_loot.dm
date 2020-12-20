@@ -1,8 +1,7 @@
 /obj/structure/closet/crate/necropolis/dragon
 	name = "dragon chest"
 
-/obj/structure/closet/crate/necropolis/dragon/New()
-	..()
+/obj/structure/closet/crate/necropolis/dragon/populate_contents()
 	var/loot = rand(1,4)
 	switch(loot)
 		if(1)
@@ -19,8 +18,8 @@
 /obj/structure/closet/crate/necropolis/dragon/crusher
 	name = "firey dragon chest"
 
-/obj/structure/closet/crate/necropolis/dragon/crusher/New()
-	..()
+/obj/structure/closet/crate/necropolis/dragon/crusher/populate_contents()
+	. = ..()
 	new /obj/item/crusher_trophy/tail_spike(src)
 
 
@@ -158,7 +157,7 @@
 
 /obj/item/lava_staff
 	name = "staff of lava"
-	desc = "The ability to fill the emergency shuttle with lava. What more could you want out of life?"
+	desc = "The power of fire and rocks in your hands!"
 	icon_state = "staffofstorms"
 	item_state = "staffofstorms"
 	icon = 'icons/obj/guns/magic.dmi'
@@ -169,6 +168,7 @@
 	damtype = BURN
 	hitsound = 'sound/weapons/sear.ogg'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	needs_permit = TRUE
 	var/turf_type = /turf/simulated/floor/plating/lava/smooth
 	var/transform_string = "lava"
 	var/reset_turf_type = /turf/simulated/floor/plating/asteroid/basalt
@@ -189,6 +189,12 @@
 		return
 
 	if(is_type_in_typecache(target, banned_turfs))
+		return
+
+	if(!is_mining_level(user.z)) //Will only spawn a few sparks if not on mining z level
+		timer = world.time + create_delay + 1
+		user.visible_message("<span class='danger'>[user]'s [src] malfunctions!</span>")
+		do_sparks(5, FALSE, user)
 		return
 
 	if(target in view(user.client.view, get_turf(user)))

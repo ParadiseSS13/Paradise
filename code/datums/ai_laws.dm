@@ -107,6 +107,8 @@
 			laws.set_zeroth_law(zeroth_law_borg.law)
 		else if(zeroth_law)
 			laws.set_zeroth_law(zeroth_law.law)
+		else
+			laws.clear_zeroth_laws()
 
 /mob/living/silicon/ai/sync_zeroth(var/datum/ai_law/zeroth_law, var/datum/ai_law/zeroth_law_borg)
 	if(zeroth_law)

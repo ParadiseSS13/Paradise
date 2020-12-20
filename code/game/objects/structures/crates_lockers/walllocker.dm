@@ -15,33 +15,23 @@
 	..()
 	density = 0 //It's a locker in a wall, you aren't going to be walking into it.
 
-//spawns endless (3 sets) amounts of breathmask, emergency oxy tank and crowbar
-
-/obj/structure/closet/walllocker/CtrlClick()
-	if(ishuman(usr) && Adjacent(usr))
-		verb_toggleopen()
-
 /obj/structure/closet/walllocker/emerglocker
 	name = "emergency locker"
 	desc = "A wall mounted locker with emergency supplies"
-	var/list/spawnitems = list(/obj/item/tank/emergency_oxygen,/obj/item/clothing/mask/breath,/obj/item/crowbar)
-	var/amount = 3 // spawns each items X times.
 	icon_state = "emerg"
 	icon_closed = "emerg"
 	icon_opened = "emergopen"
 
-/obj/structure/closet/walllocker/emerglocker/attack_hand(mob/user as mob)
-	if(istype(user, /mob/living/silicon/ai))	//Added by Strumpetplaya - AI shouldn't be able to
-		return									//activate emergency lockers.  This fixes that.  (Does this make sense, the AI can't call attack_hand, can it? --Mloc)
-	if(!amount)
-		to_chat(usr, "<spawn class='notice'>It's empty.")
-		return
-	if(amount)
-		to_chat(usr, "<spawn class='notice'>You take out some items from \the [src].")
-		for(var/path in spawnitems)
-			new path(src.loc)
-		amount--
-	return
+/obj/structure/closet/walllocker/emerglocker/populate_contents()
+	new /obj/item/tank/emergency_oxygen(src)
+	new /obj/item/tank/emergency_oxygen(src)
+	new /obj/item/tank/emergency_oxygen(src)
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/crowbar(src)
+	new /obj/item/crowbar(src)
+	new /obj/item/crowbar(src)
 
 /obj/structure/closet/walllocker/emerglocker/north
 	pixel_y = 32
