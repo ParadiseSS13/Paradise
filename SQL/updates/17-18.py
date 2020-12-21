@@ -484,7 +484,7 @@ max_id = query_id[0]
 start_time = datetime.now()
 print("Beginning conversion at {0}".format(start_time.strftime("%Y-%m-%d %H:%M:%S")), flush = True)
 try:
-    # This is a range from 800,000 UPWARDS. Paradise feedback was flushed on 2018-03-22, and the row ID of the new start is around the 800k range
+    # This is a range from 820,000 UPWARDS. Paradise feedback was flushed on 2018-03-22, and the row ID of the new start is around the 820k range
     # The script can handle empty rows just fine (and in this case, does), this just saves a LOT of time and useless querying -aa
     for current_id in range(820000, max_id):
         if current_id % 10000 == 0:
