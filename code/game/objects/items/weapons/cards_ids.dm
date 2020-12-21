@@ -336,6 +336,7 @@
 
 /obj/item/card/id/syndicate/researcher
 	initial_access = list(ACCESS_SYNDICATE)
+	assignment = "Syndicate Researcher"
 	icon_state = "syndie"
 
 /obj/item/card/id/syndicate/New()
