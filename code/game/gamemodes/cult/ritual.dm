@@ -84,6 +84,10 @@
 /obj/item/melee/cultblade/dagger/proc/can_scribe(mob/living/user)
 	if(!src || !user || loc != user || user.incapacitated())
 		return FALSE
+	if(drawing_rune)
+		to_chat(user, "<span class='warning'>You're already drawing a rune!</span>")
+		return FALSE
+
 	var/turf/T = get_turf(user)
 	if(isspaceturf(T))
 		return FALSE
@@ -148,7 +152,7 @@
 			var/turf/T = I
 			var/obj/machinery/shield/cult/narsie/N = new(T)
 			shields |= N
-		user.color = "red"
+		user.color = COLOR_RED
 
 	// Draw the rune
 	var/mob/living/carbon/human/H = user
@@ -161,12 +165,14 @@
 	user.visible_message(others_message,
 		"<span class='cultitalic'>You slice open your body and begin drawing a sigil of [SSticker.cultdat.entity_title3].</span>")
 
+	drawing_rune = TRUE // Only one at a time
 	var/scribe_successful = do_after(user, initial(rune.scribe_delay) * scribe_multiplier, target = runeturf)
 	for(var/V in shields) // Only used for the 'Tear Veil' rune
 		var/obj/machinery/shield/S = V
 		if(S && !QDELETED(S))
 			qdel(S)
 	user.color = old_color
+	drawing_rune = FALSE
 	if(!scribe_successful)
 		return
 

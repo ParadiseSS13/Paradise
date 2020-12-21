@@ -999,7 +999,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	//BEGIN THE SUMMONING
 	gamemode.cult_objs.succesful_summon()
 	used = TRUE
-	color = rgb(255, 0, 0)
+	color = COLOR_RED
 	..()
 	SEND_SOUND(world, 'sound/effects/dimensional_rend.ogg')
 	to_chat(world, "<span class='cultitalic'><b>The veil... <span class='big'>is...</span> <span class='reallybig'>TORN!!!--</span></b></span>")

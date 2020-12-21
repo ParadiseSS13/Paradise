@@ -1084,7 +1084,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "engine"
 
 /area/engine/equipmentstorage
-	name = "\improper Engineering Equipment Storage"
+	name = "Engineering Equipment Storage"
 	icon_state = "storage"
 
 /area/engine/hardsuitstorage
@@ -1229,7 +1229,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 
 /area/medical/biostorage
-	name = "\improper Medical Storage"
+	name = "Medical Storage"
 	icon_state = "medbaysecstorage"
 
 /area/medical/reception
@@ -1253,19 +1253,19 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "patientsward"
 
 /area/medical/patient_a
-	name = "\improper Isolation A"
+	name = "Isolation A"
 	icon_state = "medbayisoa"
 
 /area/medical/patient_b
-	name = "\improper Isolation B"
+	name = "Isolation B"
 	icon_state = "medbayisob"
 
 /area/medical/patient_c
-	name = "\improper Isolation C"
+	name = "Isolation C"
 	icon_state = "medbayisoc"
 
 /area/medical/iso_access
-	name = "\improper Isolation Access"
+	name = "Isolation Access"
 	icon_state = "medbayisoaccess"
 
 /area/medical/cmo
@@ -1273,15 +1273,15 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "CMO"
 
 /area/medical/cmostore
-	name = "\improper Medical Secondary Storage"
+	name = "Medical Secondary Storage"
 	icon_state = "medbaysecstorage"
 
 /area/medical/robotics
-	name = "\improper Robotics"
+	name = "Robotics"
 	icon_state = "medresearch"
 
 /area/medical/research
-	name = "\improper Medical Research"
+	name = "Medical Research"
 	icon_state = "medresearch"
 
 /area/medical/research_shuttle_dock
@@ -1289,7 +1289,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "medresearch"
 
 /area/medical/virology
-	name = "\improper Virology"
+	name = "Virology"
 	icon_state = "virology"
 
 /area/medical/virology/lab
@@ -1303,7 +1303,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	is_haunted = TRUE
 
 /area/medical/chemistry
-	name = "\improper Chemistry"
+	name = "Chemistry"
 	icon_state = "chem"
 
 /area/medical/surgery
@@ -1311,19 +1311,19 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "surgery"
 
 /area/medical/surgery1
-	name = "\improper Surgery 1"
+	name = "Surgery 1"
 	icon_state = "surgery1"
 
 /area/medical/surgery2
-	name = "\improper Surgery 2"
+	name = "Surgery 2"
 	icon_state = "surgery2"
 
 /area/medical/surgeryobs
-	name = "\improper Surgery Observation"
+	name = "Surgery Observation"
 	icon_state = "surgery"
 
 /area/medical/cryo
-	name = "\improper Cryogenics"
+	name = "Cryogenics"
 	icon_state = "cryo"
 
 /area/medical/exam_room
@@ -1343,7 +1343,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "exam_room"
 
 /area/medical/paramedic
-	name = "\improper Paramedic"
+	name = "Paramedic"
 	icon_state = "medbay"
 
 //Security
@@ -1407,22 +1407,22 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "brig"
 
 /area/security/execution
-	name = "\improper Execution"
+	name = "Execution"
 	icon_state = "execution"
 	can_get_auto_cryod = FALSE
 
 /area/security/processing
-	name = "\improper Prisoner Processing"
+	name = "Prisoner Processing"
 	icon_state = "prisonerprocessing"
 	can_get_auto_cryod = FALSE
 
 /area/security/interrogation
-	name = "\improper Interrogation"
+	name = "Interrogation"
 	icon_state = "interrogation"
 	can_get_auto_cryod = FALSE
 
 /area/security/seceqstorage
-	name = "\improper Security Equipment Storage"
+	name = "Security Equipment Storage"
 	icon_state = "securityequipmentstorage"
 
 /area/security/interrogationhallway
@@ -1434,7 +1434,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "seccourt"
 
 /area/security/interrogationobs
-	name = "\improper Interrogation Observation"
+	name = "Interrogation Observation"
 	icon_state = "security"
 	can_get_auto_cryod = FALSE
 
@@ -1494,11 +1494,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "nuke_storage"
 
 /area/security/customs
-	name = "\improper Customs"
+	name = "Customs"
 	icon_state = "checkpoint1"
 
 /area/security/customs2
-	name = "\improper Customs"
+	name = "Customs"
 	icon_state = "security"
 
 /area/security/checkpoint
@@ -1562,7 +1562,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "mining"
 
 /area/quartermaster/miningstorage
-	name = "\improper Mining Storage"
+	name = "Mining Storage"
 	icon_state = "green"
 
 /area/quartermaster/mechbay
@@ -1574,7 +1574,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "janitor"
 
 /area/hydroponics
-	name = "\improper Hydroponics"
+	name = "Hydroponics"
 	icon_state = "hydro"
 
 /area/hydroponics/abandoned_garden
@@ -1584,7 +1584,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 //Toxins
 
 /area/toxins/lab
-	name = "\improper Research and Development"
+	name = "Research and Development"
 	icon_state = "toxlab"
 
 /area/toxins/hallway
@@ -1605,7 +1605,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	xenobiology_compatible = TRUE
 
 /area/toxins/xenobiology/xenoflora_storage
-	name = "\improper Xenoflora Storage"
+	name = "Xenoflora Storage"
 	icon_state = "toxlab"
 
 /area/toxins/xenobiology/xenoflora
@@ -1613,7 +1613,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "toxlab"
 
 /area/toxins/storage
-	name = "\improper Toxins Storage"
+	name = "Toxins Storage"
 	icon_state = "toxstorage"
 
 /area/toxins/test_area
@@ -1626,7 +1626,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "toxmix"
 
 /area/toxins/launch
-	name = "Toxins Launch Room"
+	name = "\improper Toxins Launch Room"
 	icon_state = "toxlaunch"
 
 /area/toxins/misc_lab
@@ -1692,7 +1692,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "auxstorage"
 
 /area/storage/office
-	name = "\improper Office Supplies"
+	name = "Office Supplies"
 	icon_state = "office_supplies"
 
 // ENGIE OUTPOST
