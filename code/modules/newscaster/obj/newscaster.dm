@@ -487,7 +487,7 @@
 							return
 						FC = new
 						GLOB.news_network.channels += FC
-						SSblackbox.record_feedback("text", "newscaster_channels", 1, "[name]")
+						SSblackbox.record_feedback("amount", "newscaster_channels", 1)
 						// Redirect
 						screen = NEWSCASTER_CHANNEL
 						viewing_channel = FC
