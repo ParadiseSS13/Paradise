@@ -385,7 +385,7 @@
 				return
 
 		stamp(P)
-		playsound(loc, 'sound/items/stamp-down.ogg', 30, TRUE)
+		playsound(loc, 'sound/items/stamp-assault.ogg', 70, TRUE)
 
 		to_chat(user, "<span class='notice'>You stamp the paper with your rubber stamp.</span>")
 
