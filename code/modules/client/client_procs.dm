@@ -633,8 +633,9 @@
 		qdel(query_find_token)
 		return
 	if(query_find_token.NextRow())
+		var/tkn = query_find_token.item[1]
 		qdel(query_find_token)
-		return query_find_token.item[1]
+		return tkn
 	qdel(query_find_token)
 
 	var/tokenstr = md5("[rand(0,9999)][world.time][rand(0,9999)][ckey][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)]")
