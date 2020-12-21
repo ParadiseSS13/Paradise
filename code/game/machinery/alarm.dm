@@ -536,9 +536,14 @@
 
 /obj/machinery/alarm/proc/post_alert(alert_level)
 	if(!report_danger_level)
+		// Don't report the level to computers, but do toggle firedoors
+		var/area/A = get_area(src)
+		if(alert_level == ATMOS_ALARM_NONE && A.air_doors_activated)
+			A.air_doors_open()
+		else if(alert_level != ATMOS_ALARM_NONE && !A.air_doors_activated)
+			A.air_doors_close()
 		return
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(alarm_frequency)
-
 	if(!frequency)
 		return
 
