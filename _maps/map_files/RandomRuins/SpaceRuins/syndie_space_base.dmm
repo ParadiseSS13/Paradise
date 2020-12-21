@@ -1365,6 +1365,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
+"rc" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/telecomms)
 "rp" = (
 /obj/machinery/vending/toyliberationstation{
 	req_access_txt = "150"
@@ -1485,6 +1496,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "sH" = (
+/obj/machinery/vending/artvend,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -3911,12 +3923,6 @@
 	},
 /turf/simulated/floor/redgrid,
 /area/ruin/unpowered/syndicate_space_base/telecomms)
-"Ve" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/turf/simulated/floor/redgrid,
-/area/ruin/unpowered/syndicate_space_base/telecomms)
 "Vf" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3938,6 +3944,12 @@
 "Vl" = (
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
+"Vm" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/redgrid,
+/area/ruin/unpowered/syndicate_space_base/telecomms)
 "Vs" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3950,16 +3962,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
-"Vw" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4;
-	initialize_directions = 11;
-	level = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/main)
 "Vx" = (
 /obj/structure/window/plasmareinforced{
 	dir = 1
@@ -4031,17 +4033,6 @@
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
-"Wk" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/telecomms)
 "Wl" = (
 /obj/machinery/light{
 	dir = 8
@@ -4132,6 +4123,16 @@
 	icon_state = "yellow"
 	},
 /area/ruin/unpowered/syndicate_space_base/engineering)
+"Xu" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4;
+	initialize_directions = 11;
+	level = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "XQ" = (
 /obj/machinery/light{
 	dir = 4
@@ -5195,7 +5196,7 @@ La
 ph
 nj
 fU
-Ve
+Vm
 Vd
 gY
 nj
@@ -5319,7 +5320,7 @@ fF
 fF
 nj
 nj
-Wk
+rc
 uX
 kE
 nj
@@ -5381,7 +5382,7 @@ dl
 dl
 Tm
 LR
-Vw
+Xu
 ne
 LR
 ik
