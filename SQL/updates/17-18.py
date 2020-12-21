@@ -1,8 +1,8 @@
 #Python 3+ Script for jsonifying feedback table data as of 2017-11-12 made by Jordie0608
 #Apologies for the boilerplated and squirrely code in parts, this has been my first foray into python
+# Script modified for ParadiseSS13 as of 2020-12-21 by AffectedArc07
 #
-#Before starting ensure you have installed the mysqlclient package https://github.com/PyMySQL/mysqlclient-python
-#It can be downloaded from command line with pip:
+#Before starting ensure you have installed mysql-connector
 #pip install mysql-connector
 #
 #To view the parameters for this script, execute it with the argument --help
@@ -12,13 +12,14 @@
 #I found that this script would complete conversion of 10000 rows approximately every 2-3 seconds
 #Depending on the size of your feedback table and the computer used it may take several minutes for the script to finish
 #
-#The script has been tested to complete with tgstation's feedback table as of 2017-10-23 01:34:06
+#The script has been tested to complete with Paradise's feedback table as of 2020-12-21
 #Due to the complexity of data that has potentially changed formats multiple times and suffered errors when recording I cannot guarantee it'll always execute successfully
 #In the event of an error the new feedback table is automatically truncated
 #The source table is never modified so you don't have to worry about losing any data due to errors
 #Note that some feedback keys are renamed or coalesced into one, additionnaly some have been entirely removed
 #
 #While this script can be run with your game server(s) active, it may interfere with other database operations and any feedback created after the script has started won't be converted
+# AA: Dont run this with the server on. You WILL break things
 
 import mysql.connector
 import argparse
@@ -69,7 +70,7 @@ def parse_nested(var_name, details):
     if not details:
         return
     #group by data before pipe
-    if var_name in ("admin_toggle", "preferences_verb", "changeling_objective", "cult_objective", "traitor_objective", "wizard_objective", "mining_equipment_bought", "vending_machine_usage", "changeling_powers", "wizard_spell_improved", "testmerged_prs"):
+    if var_name in ("admin_toggle", "preferences_verb", "mining_equipment_bought", "vending_machine_usage", "changeling_powers", "wizard_spell_improved", "testmerged_prs"):
         if details.startswith('"') and details.endswith('"'):
             details = details[1:-1]
             split_details = details.split('" | "')
@@ -92,6 +93,20 @@ def parse_nested(var_name, details):
             else:
                 if i in details and type(details[i]) is not dict: #sometimes keys that should have a value after a pipe just don't and would otherwise error here
                     details[i] += 1
+        return details
+    # Begin snowflakery for para changes
+    elif var_name in ("traitor_objective", "job_objective", "cult_objective", "wizard_objective", "changeling_objective", "employee_objective"):
+        split_details = details.split(' ')
+        details = {}
+        for i in split_details:
+            if "|" in i and i[:i.find('|')] not in details:
+                details[i[:i.find('|')]] = {}
+        for i in split_details:
+            if "|" in i:
+                if i[i.find('|')+1:] in details[i[:i.find('|')]]:
+                    details[i[:i.find('|')]][i[i.find('|')+1:]] += 1
+                else:
+                    details[i[:i.find('|')]][i[i.find('|')+1:]] = 1
         return details
     #group by data after pipe
     elif var_name in ("cargo_imports", "traitor_uplink_items_bought", "export_sold_cost", "item_used_for_combat", "played_url"):
@@ -216,8 +231,7 @@ def parse_special(var_name, var_value, details):
         return len(split_details)
     #now records channel names, so we have to fill in whats missing
     elif var_name == "newscaster_channels":
-        details = ["missing data"]
-        details *= var_value
+        details = var_value
         return details
     #all the channels got renamed, plus we ignore any with an amount of zero
     elif var_name == "radio_usage":
@@ -436,19 +450,19 @@ def pick_parsing(var_name, var_value, details, multirows_completed):
 
 if sys.version_info[0] < 3:
     raise Exception("Python must be at least version 3 for this script.")
-text_keys = ["religion_book", "religion_deity", "religion_name", "shuttle_fasttravel", "shuttle_manipulator", "shuttle_purchase", "shuttle_reason", "station_renames"]
+text_keys = ["religion_book", "religion_deity", "religion_name", "shuttle_fasttravel", "shuttle_manipulator", "shuttle_purchase", "shuttle_reason", "station_renames", "chaplain_weapon"]
 amount_keys = ["admin_cookies_spawned", "cyborg_ais_created", "cyborg_frames_built", "cyborg_mmis_filled", "newscaster_newspapers_printed", "newscaster_stories", "nuclear_challenge_mode"]
-simple_tallies = ["admin_secrets_fun_used", "admin_verb", "assembly_made", "brother_success", "cell_used", "changeling_power_purchase", "changeling_success", "chaplain_weapon", "chemical_reaction", "circuit_printed", "clockcult_scripture_recited", "contamination", "cult_runes_scribed", "engine_started", "employee_success", "event_admin_cancelled", "event_ran", "food_harvested", "food_made", "gun_fired", "handcuffs", "item_deconstructed", "item_printed", "jaunter", "lazarus_injector", "megafauna_kills", "mining_voucher_redeemed", "mobs_killed_mining", "object_crafted", "ore_mined", "pick_used_mining", "slime_cores_used", "spacepod_created", "surgeries_completed", "time_dilation_current", "traitor_random_uplink_items_gotten", "traitor_success", "voice_of_god", "warp_cube", "wisp_lantern", "wizard_spell_learned", "wizard_success", "zone_targeted"]
+simple_tallies = ["admin_secrets_fun_used", "admin_verb", "assembly_made", "brother_success", "cell_used", "changeling_power_purchase", "changeling_success", "chemical_reaction", "circuit_printed", "clockcult_scripture_recited", "contamination", "cult_runes_scribed", "engine_started", "employee_success", "event_admin_cancelled", "event_ran", "food_harvested", "food_made", "gun_fired", "handcuffs", "item_deconstructed", "item_printed", "jaunter", "lazarus_injector", "mining_voucher_redeemed", "mobs_killed_mining", "object_crafted", "ore_mined", "pick_used_mining", "slime_cores_used", "spacepod_created", "surgeries_completed", "time_dilation_current", "traitor_random_uplink_items_gotten", "traitor_success", "voice_of_god", "warp_cube", "wisp_lantern", "wizard_spell_learned", "wizard_success", "zone_targeted"]
 nested_tallies = ["admin_toggle", "cargo_imports", "changeling_objective", "changeling_powers", "cult_objective", "employee_objective", "export_sold_cost", "hivelord_core", "item_used_for_combat", "job_preferences", "mining_equipment_bought", "played_url", "preferences_verb", "testmerged_prs", "traitor_objective", "traitor_uplink_items_bought", "vending_machine_usage", "wizard_objective", "wizard_spell_improved"]
-associatives = ["colonies_dropped", "commendation", "high_research_level"]
+associatives = ["colonies_dropped", "commendation"]
 special_cases = ["immortality_talisman", "newscaster_channels", "radio_usage", "shuttle_gib", "slime_babies_born", "slime_core_harvested"]
 multirow = ["ahelp_close", "ahelp_icissue", "ahelp_reject", "ahelp_reopen", "ahelp_resolve", "ahelp_unresolved", "alert_comms_blue", "alert_comms_green", "alert_keycard_auth_bsa", "alert_keycard_auth_maint", "arcade_loss_hp_emagged", "arcade_loss_hp_normal", "arcade_loss_mana_emagged", "arcade_loss_mana_normal", "arcade_win_emagged", "arcade_win_normal", "cyborg_engineering", "cyborg_janitor", "cyborg_medical", "cyborg_miner", "cyborg_peacekeeper", "cyborg_security", "cyborg_service", "cyborg_standard", "escaped_human", "escaped_total", "mecha_durand_created", "mecha_firefighter_created", "mecha_gygax_created", "mecha_honker_created", "mecha_odysseus_created", "mecha_phazon_created", "mecha_ripley_created", "round_end_clients", "round_end_ghosts", "survived_human", "survived_total"]
 renames = {"ahelp_stats":["ahelp_close", "ahelp_icissue", "ahelp_reject", "ahelp_reopen", "ahelp_resolve", "ahelp_unresolved"], "ais_created":["cyborg_ais_created"], "arcade_results":["arcade_loss_hp_emagged", "arcade_loss_hp_normal", "arcade_loss_mana_emagged", "arcade_loss_mana_normal", "arcade_win_emagged", "arcade_win_normal"], "cyborg_modules":["cyborg_engineering", "cyborg_janitor", "cyborg_medical", "cyborg_miner", "cyborg_peacekeeper", "cyborg_security", "cyborg_service", "cyborg_standard"], "immortality_talisman_uses":["immortality_talisman"], "keycard_auths":["alert_keycard_auth_bsa", "alert_keycard_auth_maint"], "mechas_created":["mecha_durand_created", "mecha_firefighter_created", "mecha_gygax_created", "mecha_honker_created", "mecha_odysseus_created", "mecha_phazon_created", "mecha_ripley_created"], "mmis_filled":["cyborg_mmis_filled"], "newspapers_printed":["newscaster_newspapers_printed"], "round_end_stats":["escaped_human", "escaped_total", "round_end_clients", "round_end_ghosts", "survived_human", "survived_total"], "security_level_changes":["alert_comms_blue", "alert_comms_green"]}
 key_types = {"amount":["ais_created", "immortality_talisman_uses", "mmis_filled", "newspapers_printed", "admin_cookies_spawned", "cyborg_frames_built", "newscaster_stories", "nuclear_challenge_mode"],
-"associative":["colonies_dropped", "commendation", "high_research_level"],
-"nested tally":["admin_toggle", "arcade_results", "cargo_imports", "changeling_objective", "changeling_powers", "cult_objective", "export_sold_cost", "hivelord_core", "item_used_for_combat", "job_preferences", "keycard_auths", "mining_equipment_bought", "played_url", "preferences_verb", "round_end_stats", "testmerged_prs", "traitor_objective", "traitor_uplink_items_bought", "vending_machine_usage", "wizard_objective", "wizard_spell_improved"],
-"tally":[ "admin_secrets_fun_used", "admin_verb", "ahelp_stats", "assembly_made", "brother_success", "cell_used", "changeling_power_purchase", "changeling_success", "chaplain_weapon", "chemical_reaction", "circuit_printed", "clockcult_scripture_recited", "contamination", "cult_runes_scribed", "cyborg_modules", "engine_started", "event_admin_cancelled", "event_ran", "food_harvested", "food_made", "gun_fired", "handcuffs", "item_deconstructed", "item_printed", "jaunter", "lazarus_injector", "mechas_created", "megafauna_kills", "mining_voucher_redeemed", "mobs_killed_mining", "object_crafted", "ore_mined", "pick_used_mining", "radio_usage", "security_level_changes", "shuttle_gib", "slime_babies_born", "slime_cores_used", "slime_core_harvested", "surgeries_completed", "time_dilation_current", "traitor_random_uplink_items_gotten", "traitor_success", "voice_of_god", "warp_cube", "wisp_lantern", "wizard_spell_learned", "wizard_success", "zone_targeted", "employee_success"],
-"text":["shuttle_fasttravel", "shuttle_manipulator", "shuttle_purchase", "shuttle_reason", "newscaster_channels", "religion_book", "religion_deity", "religion_name", "station_renames"]}
+"associative":["colonies_dropped", "commendation"],
+"nested tally":["admin_toggle", "arcade_results", "cargo_imports", "changeling_objective", "changeling_powers", "cult_objective", "export_sold_cost", "hivelord_core", "item_used_for_combat", "job_preferences", "keycard_auths", "mining_equipment_bought", "played_url", "preferences_verb", "round_end_stats", "testmerged_prs", "traitor_objective", "traitor_uplink_items_bought", "vending_machine_usage", "wizard_objective", "wizard_spell_improved", "employee_objective"],
+"tally":[ "admin_secrets_fun_used", "admin_verb", "ahelp_stats", "assembly_made", "brother_success", "cell_used", "changeling_power_purchase", "changeling_success", "chemical_reaction", "circuit_printed", "clockcult_scripture_recited", "contamination", "cult_runes_scribed", "cyborg_modules", "engine_started", "event_admin_cancelled", "event_ran", "food_harvested", "food_made", "gun_fired", "handcuffs", "item_deconstructed", "item_printed", "jaunter", "lazarus_injector", "mechas_created", "mining_voucher_redeemed", "mobs_killed_mining", "object_crafted", "ore_mined", "pick_used_mining", "radio_usage", "security_level_changes", "shuttle_gib", "slime_babies_born", "slime_cores_used", "slime_core_harvested", "surgeries_completed", "time_dilation_current", "traitor_random_uplink_items_gotten", "traitor_success", "voice_of_god", "warp_cube", "wisp_lantern", "wizard_spell_learned", "wizard_success", "zone_targeted", "employee_success"],
+"text":["shuttle_fasttravel", "shuttle_manipulator", "shuttle_purchase", "shuttle_reason", "newscaster_channels", "religion_book", "religion_deity", "religion_name", "station_renames", "chaplain_weapon"]}
 multirows_completed = []
 query_values = ""
 current_round = 0
@@ -472,7 +486,7 @@ print("Beginning conversion at {0}".format(start_time.strftime("%Y-%m-%d %H:%M:%
 try:
     # This is a range from 800,000 UPWARDS. Paradise feedback was flushed on 2018-03-22, and the row ID of the new start is around the 800k range
     # The script can handle empty rows just fine (and in this case, does), this just saves a LOT of time and useless querying -aa
-    for current_id in range(800000, max_id):
+    for current_id in range(820000, max_id):
         if current_id % 10000 == 0:
             cur_time = datetime.now()
             print("Reached row ID {0} Duration: {1}".format(current_id, cur_time - start_time), flush = True)
