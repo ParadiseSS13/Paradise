@@ -5975,10 +5975,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/hostile/retaliate/araneus,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/mob/living/simple_animal/hostile/retaliate/araneus,
 /turf/simulated/floor/carpet,
 /area/security/hos)
 "akC" = (
@@ -24098,11 +24098,11 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/mob/living/simple_animal/mouse,
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 4;
 	on = 1
 	},
+/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -43606,11 +43606,11 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/mob/living/simple_animal/bot/secbot/pingsky,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
+/mob/living/simple_animal/bot/secbot/pingsky,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -58452,7 +58452,6 @@
 /area/library)
 "cab" = (
 /obj/structure/table/wood,
-/obj/item/paper,
 /obj/machinery/light,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -79034,10 +79033,10 @@
 	},
 /area/medical/virology)
 "cJI" = (
-/mob/living/carbon/human/monkey,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
+/mob/living/carbon/human/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -79057,10 +79056,10 @@
 	},
 /area/medical/virology)
 "cJK" = (
-/mob/living/carbon/human/monkey,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
+/mob/living/carbon/human/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
