@@ -188,7 +188,16 @@
 
 		SStgui.update_uis(src)
 		PM.notify("<b>Message from [pda.owner] ([pda.ownjob]), </b>\"[t]\" (<a href='?src=[PM.UID()];choice=Message;target=[pda.UID()]'>Reply</a>)")
-		log_pda("(PDA: [src.name]) sent \"[t]\" to [P.name]", usr)
+		log_pda("(PDA: [src.name]) sent \"[t]\" to [P.name]", U)
+		var/log_message = "sent PDA message \"[t]\" using [pda]"
+		var/receiver
+		if(ishuman(P.loc))
+			receiver = P.loc
+			log_message = "[log_message] to [P]"
+		else
+			receiver = P
+			log_message = "[log_message] (no holder)"
+		U.create_log(MISC_LOG, log_message, receiver)
 	else
 		to_chat(U, "<span class='notice'>ERROR: Messaging server is not responding.</span>")
 
