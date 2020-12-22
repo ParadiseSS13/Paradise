@@ -416,3 +416,4 @@ datum/tech/robotics
 	known_designs -= "intercom_electronics"
 	known_designs -= "radio_headset"
 	known_designs -= "bounced_radio"
+	known_designs -= "newscaster_frame"

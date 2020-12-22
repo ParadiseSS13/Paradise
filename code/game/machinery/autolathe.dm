@@ -494,7 +494,7 @@
 		disabled = FALSE
 
 /obj/machinery/autolathe/syndicate
-	name = "suspicious autolathe"
+	name = "syndicate autolathe"
 	board_type = /obj/item/circuitboard/autolathe/syndi
 
 /obj/machinery/autolathe/syndicate/New()
