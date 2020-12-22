@@ -452,7 +452,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
-	if(!src || QDELETED(src) || !actual_selected_rune || QDELETED(actual_selected_rune) ||!Adjacent(user) || user.incapacitated())
+	if(QDELETED(src) || QDELETED(actual_selected_rune) ||!Adjacent(user) || user.incapacitated())
 		fail_invoke()
 		return
 
@@ -685,7 +685,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			cultists[M.current.real_name] = M.current
 	var/input = input(user, "Who do you wish to call to [src]?", "Acolytes") as null|anything in cultists
 	var/mob/living/cultist_to_summon = cultists[input]
-	if(!src || QDELETED(src) || !Adjacent(user) || user.incapacitated())
+	if(QDELETED(src) || !Adjacent(user) || user.incapacitated())
 		return
 	if(!cultist_to_summon)
 		log_game("Summon Cultist rune failed - no target")

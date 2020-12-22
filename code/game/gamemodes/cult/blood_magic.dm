@@ -249,7 +249,7 @@
 /datum/action/innate/cult/blood_spell/horror/Destroy()
 	var/obj/effect/proc_holder/horror/destroy = PH
 	. = ..()
-	if(destroy  && !QDELETED(destroy))
+	if(destroy && !QDELETED(destroy))
 		QDEL_NULL(destroy)
 
 /datum/action/innate/cult/blood_spell/horror/Activate()
@@ -490,7 +490,7 @@
 	var/mob/living/L = target
 	var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
-	if(!src || QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune)
+	if(QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune)
 		return
 	uses--
 
