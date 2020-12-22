@@ -195,8 +195,7 @@
 		available_turfs += S
 	if(!length(available_turfs))
 		return FALSE
-	var/turf/T = pick(available_turfs)
-	walk_to(src, T)
+	walk_to(src, pick(available_turfs))
 	return TRUE
 
 /obj/structure/spider/spiderling/decompile_act(obj/item/matter_decompiler/C, mob/user)
