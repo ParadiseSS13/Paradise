@@ -39,7 +39,7 @@
 
 
 /client/proc/jumptoarea(area/A)
-	if(!check_rights(R_ADMIN) || !A)
+	if(!A || !check_rights(R_ADMIN))
 		return
 
 	var/list/turfs = list()
@@ -50,7 +50,7 @@
 			continue
 		turfs += T
 
-	var/turf/T = pick_n_take(turfs)
+	var/turf/T = safepick(turfs)
 	if(!T)
 		to_chat(src, "Nowhere to jump to!")
 		return
@@ -83,7 +83,7 @@
 
 /client/proc/jumptomob(mob/M)
 	set name = "Jump to Mob"
-	if(!check_rights(R_ADMIN) || !M)
+	if(!M || !check_rights(R_ADMIN))
 		return
 
 	log_admin("[key_name(usr)] jumped to [key_name(M)]")
@@ -119,7 +119,7 @@
 		message_admins("[key_name_admin(usr)] jumped to coordinates [tx], [ty], [tz]")
 
 /client/proc/jumptokey(client/C)
-	if(!check_rights(R_ADMIN) || !C.mob)
+	if(!C?.mob || !check_rights(R_ADMIN))
 		return
 	var/mob/M = C.mob
 	log_admin("[key_name(usr)] jumped to [key_name(M)]")
