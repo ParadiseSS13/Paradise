@@ -24,7 +24,7 @@
 	if(istype(loc, /turf)) //basically if a badmin spawns it
 		Gib(loc, MobDNA)
 
-/obj/effect/gibspawner/proc/Gib(atom/location, datum/dna/MobDNA = null)
+/obj/effect/gibspawner/proc/Gib(atom/location, datum/dna/MobDNA)
 	var/obj/effect/decal/cleanable/blood/gibs/gib = null
 
 	if(sparks)
@@ -38,19 +38,18 @@
 			gib = new gib_type(location)
 			gib.blood_DNA = list()
 
-			if(MobDNA)
-				gib.basecolor = MobDNA.species.blood_color
-				gib.update_icon()
-				gib.blood_DNA[MobDNA.unique_enzymes] = MobDNA.blood_type
-
-			else if(istype(src, /obj/effect/gibspawner/xeno))
-				gib.blood_DNA["UNKNOWN DNA"] = "X*"
-
-			else if(istype(src, /obj/effect/gibspawner/human)) // Probably a monkey
-				gib.blood_DNA["Non-human DNA"] = "A+"
+			gib_dna(gib, MobDNA)
 
 			var/list/directions = gibdirections[I]
 			if(length(directions))
 				gib.streak(directions)
 
 	qdel(src) // qdel once done
+
+/obj/effect/gibspawner/proc/gib_dna(obj/effect/decal/cleanable/blood/gibs/gib, datum/dna/MobDNA)
+	if(!MobDNA)
+		return TRUE
+
+	gib.basecolor = MobDNA.species.blood_color
+	gib.update_icon()
+	gib.blood_DNA[MobDNA.unique_enzymes] = MobDNA.blood_type
