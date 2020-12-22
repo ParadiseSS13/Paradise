@@ -228,6 +228,8 @@
 	if(has_gravity(H))
 		if(H.status_flags & GOTTAGOFAST)
 			. -= 1
+		else if(H.status_flags & GOTTAGONOTSOFAST)
+			. -= 0.5
 
 		var/ignoreslow = FALSE
 		if((H.status_flags & IGNORESLOWDOWN) || (RUN in H.mutations))
