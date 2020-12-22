@@ -678,7 +678,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		var/datum/outfit/O = path //not much to initalize here but whatever
 		if(initial(O.can_be_admin_equipped))
 			outfits[initial(O.name)] = path
-	outfits = special_outfits + sortTim(outfits, cmp=/proc/cmp_text_asc)
+	outfits = special_outfits + sortTim(outfits, /proc/cmp_text_asc)
 
 	var/dresscode = input("Select outfit", "Robust quick dress shop") as null|anything in outfits
 	if(isnull(dresscode))
@@ -694,7 +694,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			var/datum/outfit/O = path
 			if(initial(O.can_be_admin_equipped))
 				job_outfits[initial(O.name)] = path
-		job_outfits = sortTim(job_outfits, cmp=/proc/cmp_text_asc)
+		job_outfits = sortTim(job_outfits, /proc/cmp_text_asc)
 
 		dresscode = input("Select job equipment", "Robust quick dress shop") as null|anything in job_outfits
 		dresscode = job_outfits[dresscode]
