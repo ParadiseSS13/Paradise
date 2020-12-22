@@ -57,7 +57,7 @@ BOMBCAP 20
 ### ROUNDSTART SILICON LAWS ###
 ## This controls what the AI's laws are at the start of the round.
 ## Set to 0/commented for "off", silicons will just start with Crewsimov.
-## Set to 1 for "random", silicons will start with a random lawset picked from (at the time of writing): Crewsimov, Corporate, Nanotrasen Default, P.A.L.A.D.I.N., Robop, T.Y.R.A.N.T. and NT Aggressive. More can be added by tweaking get_random_lawset() proc.
+## Set to 1 for "random", silicons will start with a random lawset picked from (at the time of writing): Crewsimov, Corporate, Nanotrasen Default. More can be added by tweaking get_random_lawset() proc.
 
 DEFAULT_LAWS 1
 
