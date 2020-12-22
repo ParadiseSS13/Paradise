@@ -73,8 +73,7 @@
 	log_and_message_admins("APC Short Out event has shorted out [affected_apc_count] APCs.")
 
 /proc/power_restore(announce=TRUE, var/power_type)
-	var/type = power_type //Using if() statements instead of a Switch since ifs are supposed to be slightly faster and it's for three case types
-	if(type == 0)	//Power without Repairing
+	if(power_type == 0)	//Power without Repairing
 		if(announce)
 			GLOB.event_announcement.Announce("All operational APCs on [station_name()] have been fully charged.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
 		var/affected_apc_count = 0
@@ -88,7 +87,7 @@
 			affected_apc_count++
 			current_area.power_change()
 		log_and_message_admins("Power has been restored to [affected_apc_count] APCs.")
-	if(type == 1)	//Repair without charging
+	if(power_type == 1)	//Repair without charging
 		if(announce)
 			GLOB.event_announcement.Announce("All APCs on [station_name()] have been repaired.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
 		for(var/thing in GLOB.apcs)
@@ -99,7 +98,7 @@
 			A.repair_apc()
 			current_area.power_change()
 		log_and_message_admins("Power has been restored to all APCs.")
-	if(type == 2)	//Repair and Power APCs
+	if(power_type == 2)	//Repair and Power APCs
 		if(announce)
 			GLOB.event_announcement.Announce("All APCs on [station_name()] have been repaired and recharged. We apologize for the inconvenience.", "Power Systems Optimal", new_sound = 'sound/AI/poweron.ogg')
 		// repair the APCs and recharge them
