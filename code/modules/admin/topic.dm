@@ -2070,7 +2070,7 @@
 					P.universal_understand = 1
 					P.can_collar = 1
 					P.faction = list("neutral")
-					var/obj/item/clothing/accessory/petcollar/C = new
+					var/obj/item/petcollar/C = new
 					P.add_collar(C)
 					var/obj/item/card/id/I = H.wear_id
 					if(I)
