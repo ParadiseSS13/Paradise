@@ -161,75 +161,11 @@ SUBSYSTEM_DEF(blackbox)
 	feedback += FV
 	return FV
 
-/*
-feedback data can be recorded in 5 formats:
-
-"text"
-	used for simple single-string records i.e. the current map
-	further calls to the same key will append saved data unless the overwrite argument is true or it already exists
-	when encoded calls made with overwrite will lack square brackets
-	calls: 	SSblackbox.record_feedback("text", "example", 1, "sample text")
-			SSblackbox.record_feedback("text", "example", 1, "other text")
-	json: {"data":["sample text","other text"]}
-
-"amount"
-	used to record simple counts of data i.e. the number of ahelps recieved
-	further calls to the same key will add or subtract (if increment argument is a negative) from the saved amount
-	calls:	SSblackbox.record_feedback("amount", "example", 8)
-			SSblackbox.record_feedback("amount", "example", 2)
-	json: {"data":10}
-
-"tally"
-	used to track the number of occurances of multiple related values i.e. how many times each type of gun is fired
-	further calls to the same key will:
-	 	add or subtract from the saved value of the data key if it already exists
-		append the key and it's value if it doesn't exist
-	calls:	SSblackbox.record_feedback("tally", "example", 1, "sample data")
-			SSblackbox.record_feedback("tally", "example", 4, "sample data")
-			SSblackbox.record_feedback("tally", "example", 2, "other data")
-	json: {"data":{"sample data":5,"other data":2}}
-
-"nested tally"
-	used to track the number of occurances of structured semi-relational values i.e. the results of arcade machines
-	similar to running total, but related values are nested in a multi-dimensional array built
-	the final element in the data list is used as the tracking key, all prior elements are used for nesting
-	further calls to the same key will:
-	 	add or subtract from the saved value of the data key if it already exists in the same multi-dimensional position
-		append the key and it's value if it doesn't exist
-	calls: 	SSblackbox.record_feedback("nested tally", "example", 1, list("fruit", "orange", "apricot"))
-			SSblackbox.record_feedback("nested tally", "example", 2, list("fruit", "orange", "orange"))
-			SSblackbox.record_feedback("nested tally", "example", 3, list("fruit", "orange", "apricot"))
-			SSblackbox.record_feedback("nested tally", "example", 10, list("fruit", "red", "apple"))
-			SSblackbox.record_feedback("nested tally", "example", 1, list("vegetable", "orange", "carrot"))
-	json: {"data":{"fruit":{"orange":{"apricot":4,"orange":2},"red":{"apple":10}},"vegetable":{"orange":{"carrot":1}}}}
-
-	tracking values associated with a number can't merge with a nesting value, trying to do so will append the list
-	call:	SSblackbox.record_feedback("nested tally", "example", 3, list("fruit", "orange"))
-	json: {"data":{"fruit":{"orange":{"apricot":4,"orange":2},"red":{"apple":10},"orange":3},"vegetable":{"orange":{"carrot":1}}}}
-
-"associative"
-	used to record text that's associated with a value i.e. coordinates
-	further calls to the same key will append a new list to existing data
-	calls:	SSblackbox.record_feedback("associative", "example", 1, list("text" = "example", "path" = /obj/item, "number" = 4))
-			SSblackbox.record_feedback("associative", "example", 1, list("number" = 7, "text" = "example", "other text" = "sample"))
-	json: {"data":{"1":{"text":"example","path":"/obj/item","number":"4"},"2":{"number":"7","text":"example","other text":"sample"}}}
-
-Versioning
-	If the format of a feedback variable is ever changed, i.e. how many levels of nesting are used or a new type of data is added to it, add it to the versions list
-	When feedback is being saved if a key is in the versions list the value specified there will be used, otherwise all keys are assumed to be version = 1
-	versions is an associative list, remember to use the same string in it as defined on a feedback variable, example:
-	list/versions = list("round_end_stats" = 4,
-						"admin_toggle" = 2,
-						"gun_fired" = 2)
-
-*/
-
-
 /**
   * Main feedback recording proc
   *
   * This is the bulk of this subsystem and is in charge of creating and using the variables.
-  * See the massive comment above for info.
+  * See .github/USING_FEEDBACK_DATA.md for instructions
   * Note that feedback is not recorded to the DB during this function. That happens at round end.
   *
   * Arguments:
@@ -271,9 +207,9 @@ Versioning
 			if(!islist(FV.json["data"]))
 				FV.json["data"] = list()
 			var/pos = length(FV.json["data"]) + 1
-			FV.json["data"]["[pos]"] = list() //in 512 "pos" can be replaced with "[FV.json["data"].len+1]"
+			FV.json["data"]["[pos]"] = list()
 			for(var/i in data)
-				FV.json["data"]["[pos]"]["[i]"] = "[data[i]]" //and here with "[FV.json["data"].len]"
+				FV.json["data"]["[pos]"]["[i]"] = "[data[i]]"
 
 /**
   * Recursive list recorder
