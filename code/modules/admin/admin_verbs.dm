@@ -69,7 +69,8 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
 	/client/proc/toggle_mentor_chat,
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
-	/client/proc/list_ssds_afks
+	/client/proc/list_ssds_afks,
+	/client/proc/ccbdb_lookup_ckey
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
@@ -166,7 +167,9 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/admin_serialize,
 	/client/proc/jump_to_ruin,
 	/client/proc/toggle_medal_disable,
-	/client/proc/uid_log
+	/client/proc/uid_log,
+	/client/proc/visualise_active_turfs,
+	/client/proc/reestablish_db_connection
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -174,7 +177,6 @@ GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	))
 GLOBAL_LIST_INIT(admin_verbs_permissions, list(
 	/client/proc/edit_admin_permissions,
-	/client/proc/create_poll,
 	/client/proc/big_brother
 	))
 GLOBAL_LIST_INIT(admin_verbs_rejuv, list(
@@ -677,22 +679,35 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		//load text from file
 		var/list/Lines = file2list("config/admins.txt")
 		for(var/line in Lines)
+			if(findtext(line, "#")) // Skip comments
+				continue
+
 			var/list/splitline = splittext(line, " - ")
+			if(length(splitline) != 2) // Always 'ckey - rank'
+				continue
 			if(lowertext(splitline[1]) == ckey)
-				if(splitline.len >= 2)
-					rank = ckeyEx(splitline[2])
+				rank = ckeyEx(splitline[2])
 				break
 			continue
+
 	else
-		if(!GLOB.dbcon.IsConnected())
-			message_admins("Warning, MySQL database is not connected.")
+		if(!SSdbcore.IsConnected())
 			to_chat(src, "Warning, MYSQL database is not connected.")
 			return
-		var/sql_ckey = sanitizeSQL(ckey)
-		var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT rank FROM [format_table_name("admin")] WHERE ckey = '[sql_ckey]'")
-		query.Execute()
-		while(query.NextRow())
-			rank = ckeyEx(query.item[1])
+
+		var/datum/db_query/rank_read = SSdbcore.NewQuery(
+			"SELECT rank FROM [format_table_name("admin")] WHERE ckey=:ckey",
+			list("ckey" = ckey)
+		)
+
+		if(!rank_read.warn_execute())
+			qdel(rank_read)
+			return FALSE
+
+		while(rank_read.NextRow())
+			rank = ckeyEx(rank_read.item[1])
+
+		qdel(rank_read)
 	if(!D)
 		if(config.admin_legacy_system)
 			if(GLOB.admin_ranks[rank] == null)
@@ -702,23 +717,37 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 			D = new(rank, GLOB.admin_ranks[rank], ckey)
 		else
-			var/sql_ckey = sanitizeSQL(ckey)
-			var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT ckey, rank, flags FROM [format_table_name("admin")] WHERE ckey = '[sql_ckey]'")
-			query.Execute()
-			while(query.NextRow())
-				var/admin_ckey = query.item[1]
-				var/admin_rank = query.item[2]
-				var/flags = query.item[3]
+			if(!SSdbcore.IsConnected())
+				to_chat(src, "Warning, MYSQL database is not connected.")
+				return
+
+			var/datum/db_query/admin_read = SSdbcore.NewQuery(
+				"SELECT ckey, rank, flags FROM [format_table_name("admin")] WHERE ckey=:ckey",
+				list("ckey" = ckey)
+			)
+
+			if(!admin_read.warn_execute())
+				qdel(admin_read)
+				return FALSE
+
+			while(admin_read.NextRow())
+				var/admin_ckey = admin_read.item[1]
+				var/admin_rank = admin_read.item[2]
+				var/flags = admin_read.item[3]
 				if(!admin_ckey)
 					to_chat(src, "Error while re-adminning, ckey [admin_ckey] was not found in the admin database.")
+					qdel(admin_read)
 					return
 				if(admin_rank == "Removed") //This person was de-adminned. They are only in the admin list for archive purposes.
 					to_chat(src, "Error while re-adminning, ckey [admin_ckey] is not an admin.")
+					qdel(admin_read)
 					return
 
 				if(istext(flags))
 					flags = text2num(flags)
 				D = new(admin_rank, flags, ckey)
+
+			qdel(admin_read)
 
 		var/client/C = GLOB.directory[ckey]
 		D.associate(C)
@@ -767,8 +796,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	var/mob/living/silicon/S = input("Select silicon.", "Manage Silicon Laws") as null|anything in GLOB.silicon_mob_list
 	if(!S) return
 
-	var/datum/tgui_module/law_manager/L = new(S)
-	L.tgui_interact(usr, state = GLOB.tgui_admin_state)
+	var/datum/ui_module/law_manager/L = new(S)
+	L.ui_interact(usr, state = GLOB.admin_state)
 	log_and_message_admins("has opened [S]'s law manager.")
 	feedback_add_details("admin_verb","MSL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

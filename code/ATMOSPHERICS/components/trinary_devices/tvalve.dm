@@ -104,9 +104,7 @@
 	desc = "A digitally controlled valve."
 	icon = 'icons/atmos/digital_tvalve.dmi'
 
-	var/frequency = 0
 	var/id = null
-	var/datum/radio_frequency/radio_connection
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/Destroy()
 	if(SSradio)
@@ -135,7 +133,7 @@
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/update_icon()
 	..()
-	
+
 	if(!powered())
 		icon_state = "tvalvenopower"
 
@@ -149,13 +147,6 @@
 		to_chat(user, "<span class='alert'>Access denied.</span>")
 		return
 	..()
-
-//Radio remote control
-/obj/machinery/atmospherics/trinary/tvalve/digital/proc/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	if(frequency)
-		radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/atmos_init()
 	..()

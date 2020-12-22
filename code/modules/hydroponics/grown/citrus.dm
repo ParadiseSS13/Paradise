@@ -55,7 +55,7 @@
 	seed = /obj/item/seeds/orange
 	name = "orange"
 	desc = "It's an tangy fruit."
-	icon_state = "orange"
+	icon_state = "orange" // Sprite created by https://github.com/binarysudoku for Goonstation, They have relicensed it for our use.
 	tastes = list("orange" = 1)
 	filling_color = "#FFA500"
 	distill_reagent = "triple_sec"

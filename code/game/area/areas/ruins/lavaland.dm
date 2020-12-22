@@ -1,6 +1,7 @@
 //Lavaland Ruins
 
 /area/ruin/powered/beach
+	name = "Beach Bar"
 	icon_state = "dk_yellow"
 
 /area/ruin/powered/clownplanet
@@ -89,3 +90,6 @@
 //ash walker nest
 /area/ruin/unpowered/ash_walkers
 	icon_state = "red"
+
+// This area exists so that lavaland ruins dont overwrite the baseturfs on regular space ruins
+/area/ruin/unpowered/misc_lavaruin

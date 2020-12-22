@@ -93,7 +93,7 @@
 	name = "Wine"
 	id = "wine"
 	result = "wine"
-	required_reagents = list("berryjuice" = 10)
+	required_reagents = list("grapejuice" = 10)
 	required_catalysts = list("enzyme" = 5)
 	result_amount = 10
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
@@ -868,7 +868,7 @@
 	required_reagents = list("hooch" = 1, "absinthe" = 1, "manlydorf" = 1, "syndicatebomb" = 1)
 	result_amount = 4
 	mix_message = "<span class='warning'>The mixture turns to a sickening froth.</span>"
-	
+
 /datum/chemical_reaction/icecoco
 	name = "Iced Cocoa"
 	id = "icecoco"

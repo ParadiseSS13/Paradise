@@ -18,7 +18,6 @@
 	. = ..()
 	announcer = new /obj/item/radio/intercom(null)
 	announcer.config(list("Security" = 0))
-	locate_stacking_machine()
 
 	if(!sheet_values)
 		for(var/sheet_type in subtypesof(/obj/item/stack/sheet))
@@ -51,18 +50,18 @@
 	return ..()
 
 /obj/machinery/mineral/labor_claim_console/attack_hand(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/mineral/labor_claim_console/attack_ghost(mob/user)
 	attack_hand(user)
 
-/obj/machinery/mineral/labor_claim_console/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/mineral/labor_claim_console/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "LaborClaimConsole", name, 315, 470, master_ui, state)
 		ui.open()
 
-/obj/machinery/mineral/labor_claim_console/tgui_data(mob/user)
+/obj/machinery/mineral/labor_claim_console/ui_data(mob/user)
 	var/list/data = list()
 	var/can_go_home = FALSE
 
@@ -70,7 +69,7 @@
 	data["id_inserted"] = inserted_id != null
 	if(inserted_id)
 		data["id_name"] = inserted_id.registered_name
-		data["id_points"] = inserted_id.points
+		data["id_points"] = inserted_id.mining_points
 		data["id_goal"] = inserted_id.goal
 	if(check_auth())
 		can_go_home = TRUE
@@ -83,7 +82,7 @@
 
 	return data
 
-/obj/machinery/mineral/labor_claim_console/tgui_act(action, params)
+/obj/machinery/mineral/labor_claim_console/ui_act(action, params)
 	if(..())
 		return
 
@@ -103,7 +102,7 @@
 		if("claim_points")
 			if(!inserted_id)
 				return
-			inserted_id.points += stacking_machine.points
+			inserted_id.mining_points += stacking_machine.points
 			stacking_machine.points = 0
 			to_chat(usr, "Points transferred.")
 		if("move_shuttle")
@@ -129,14 +128,7 @@
 /obj/machinery/mineral/labor_claim_console/proc/check_auth()
 	if(emagged)
 		return TRUE //Shuttle is emagged, let any ol' person through
-	return (istype(inserted_id) && inserted_id.points >= inserted_id.goal) //Otherwise, only let them out if the prisoner's reached his quota.
-
-/obj/machinery/mineral/labor_claim_console/proc/locate_stacking_machine()
-	stacking_machine = locate(/obj/machinery/mineral/stacking_machine, get_step(src, machinedir))
-	if(stacking_machine)
-		stacking_machine.CONSOLE = src
-	else
-		qdel(src)
+	return (istype(inserted_id) && inserted_id.mining_points >= inserted_id.goal) //Otherwise, only let them out if the prisoner's reached his quota.
 
 /obj/machinery/mineral/labor_claim_console/emag_act(mob/user)
 	if(!(emagged))
@@ -179,7 +171,7 @@
 		if(istype(I, /obj/item/card/id/prisoner))
 			var/obj/item/card/id/prisoner/prisoner_id = I
 			to_chat(user, "<span class='notice'><B>ID: [prisoner_id.registered_name]</B></span>")
-			to_chat(user, "<span class='notice'>Points Collected:[prisoner_id.points]</span>")
+			to_chat(user, "<span class='notice'>Points Collected:[prisoner_id.mining_points]</span>")
 			to_chat(user, "<span class='notice'>Point Quota: [prisoner_id.goal]</span>")
 			to_chat(user, "<span class='notice'>Collect points by bringing smelted minerals to the Labor Shuttle stacking machine. Reach your quota to earn your release.</span>")
 		else

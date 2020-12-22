@@ -76,14 +76,19 @@
 	name = "suspicious beacon"
 	desc = "A label on it reads: <i>Warning: Activating this device will send a high-ordinance explosive to your location</i>."
 	origin_tech = "bluespace=5;syndicate=5"
+	var/bomb = /obj/machinery/syndicatebomb
 
 /obj/item/radio/beacon/syndicate/bomb/attack_self(mob/user)
 	if(user)
 		to_chat(user, "<span class='notice'>Locked In</span>")
-		new /obj/machinery/syndicatebomb( user.loc )
+		new bomb(user.loc)
 		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
 		user.drop_item()
 		qdel(src)
+
+/obj/item/radio/beacon/syndicate/bomb/emp
+	desc = "A label on it reads: <i>Warning: Activating this device will send a high-ordinance EMP explosive to your location</i>."
+	bomb = /obj/machinery/syndicatebomb/emp
 
 /obj/item/radio/beacon/engine
 	desc = "A label on it reads: <i>Warning: This device is used for transportation of high-density objects used for high-yield power generation. Stay away!</i>."

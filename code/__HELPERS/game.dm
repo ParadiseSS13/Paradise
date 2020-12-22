@@ -523,7 +523,8 @@
 			if(visible_by_mobs)
 				continue
 		if(!vent.parent) // This seems to have been an issue in the past, so this is here until it's definitely fixed
-			log_debug("get_valid_vent_spawns(), vent has no parent: [vent], qdeled: [QDELETED(vent)], loc: [vent.loc]")
+			// Can cause heavy message spam in some situations (e.g. pipenets breaking)
+			// log_debug("get_valid_vent_spawns(), vent has no parent: [vent], qdeled: [QDELETED(vent)], loc: [vent.loc]")
 			continue
 		if(length(vent.parent.other_atmosmch) <= min_network_size)
 			continue

@@ -12,10 +12,6 @@
 	// A list of beacon names that the crate will announce the arrival of, when delivered.
 	var/list/announce_beacons = list()
 
-/obj/structure/closet/crate/New()
-	..()
-	update_icon()
-
 /obj/structure/closet/crate/update_icon()
 	..()
 	overlays.Cut()
@@ -28,11 +24,19 @@
 /obj/structure/closet/crate/can_close()
 	return TRUE
 
-/obj/structure/closet/crate/open()
+/obj/structure/closet/crate/open(by_hand = FALSE)
 	if(src.opened)
 		return FALSE
 	if(!src.can_open())
 		return FALSE
+
+	if(by_hand)
+		for(var/obj/O in src)
+			if(O.density)
+				var/response = alert(usr, "This crate has been packed with bluespace compression, an item inside won't fit back inside. Are you sure you want to open it?","Bluespace Compression Warning", "No", "Yes")
+				if(response == "No" || !Adjacent(usr))
+					return FALSE
+				break
 
 	if(rigged && locate(/obj/item/radio/electropack) in src)
 		if(isliving(usr))
@@ -82,6 +86,10 @@
 	if(!opened && try_rig(W, user))
 		return
 	return ..()
+
+/obj/structure/closet/crate/toggle(mob/user, by_hand = FALSE)
+	if(!(opened ? close() : open(by_hand)))
+		to_chat(user, "<span class='notice'>It won't budge!</span>")
 
 /obj/structure/closet/crate/proc/try_rig(obj/item/W, mob/user)
 	if(istype(W, /obj/item/stack/cable_coil))
@@ -137,7 +145,7 @@
 					do_sparks(5, 1, src)
 					return
 		src.add_fingerprint(user)
-		src.toggle(user)
+		src.toggle(user, by_hand = TRUE)
 
 // Called when a crate is delivered by MULE at a location, for notifying purposes
 /obj/structure/closet/crate/proc/notifyRecipient(var/destination)
@@ -237,7 +245,7 @@
 	if(locked)
 		src.togglelock(user)
 	else
-		src.toggle(user)
+		src.toggle(user, by_hand = TRUE)
 
 /obj/structure/closet/crate/secure/closed_item_click(mob/user)
 	togglelock(user)
@@ -323,8 +331,7 @@
 	icon_opened = "crateopen"
 	icon_closed = "crate"
 
-/obj/structure/closet/crate/rcd/New()
-	..()
+/obj/structure/closet/crate/rcd/populate_contents()
 	new /obj/item/rcd_ammo(src)
 	new /obj/item/rcd_ammo(src)
 	new /obj/item/rcd_ammo(src)
@@ -378,8 +385,7 @@
 	icon_opened = "radiationopen"
 	icon_closed = "radiation"
 
-/obj/structure/closet/crate/radiation/New()
-	..()
+/obj/structure/closet/crate/radiation/populate_contents()
 	new /obj/item/clothing/suit/radiation(src)
 	new /obj/item/clothing/head/radiation(src)
 	new /obj/item/clothing/suit/radiation(src)
@@ -497,8 +503,7 @@
 	//This exists so the prespawned hydro crates spawn with their contents.
 
 // Do I need the definition above? Who knows!
-/obj/structure/closet/crate/hydroponics/prespawned/New()
-	..()
+/obj/structure/closet/crate/hydroponics/prespawned/populate_contents()
 	new /obj/item/reagent_containers/glass/bucket(src)
 	new /obj/item/reagent_containers/glass/bucket(src)
 	new /obj/item/screwdriver(src)
@@ -549,14 +554,12 @@
 	icon_opened = "electricalcrateopen"
 	icon_closed = "electricalcrate"
 
-/obj/structure/closet/crate/tape/New()
+/obj/structure/closet/crate/tape/populate_contents()
 	if(prob(10))
 		new /obj/item/bikehorn/rubberducky(src)
-	..()
 
 //crates of gear in the free golem ship
-/obj/structure/closet/crate/golemgear/New()
-	..()
+/obj/structure/closet/crate/golemgear/populate_contents()
 	new /obj/item/storage/backpack/industrial(src)
 	new /obj/item/shovel(src)
 	new /obj/item/pickaxe(src)

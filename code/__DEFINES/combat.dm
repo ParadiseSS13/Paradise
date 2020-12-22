@@ -20,6 +20,9 @@
 #define DROWSY		"drowsy"
 #define JITTER		"jitter"
 
+/// Jitter decays at a rate of 3 per life cycle, 15 if resting.
+#define SECONDS_TO_JITTER SECONDS_TO_LIFE_CYCLES*3
+
 //I hate adding defines like this but I'd much rather deal with bitflags than lists and string searches
 #define BRUTELOSS 1
 #define FIRELOSS 2
@@ -37,6 +40,7 @@
 #define GOTTAGOFAST	32
 #define IGNORESLOWDOWN	128
 #define IGNORE_SPEED_CHANGES	256
+#define GOTTAGONOTSOFAST 512 //This is used for nukacola, mormal meth is a "1" speed up, nuka is 0.5 and they don't stack, feel free to use this one somewhere else
 #define GODMODE		4096
 #define FAKEDEATH	8192	//Replaces stuff like changeling.changeling_fakedeath
 #define XENO_HOST	16384	//Tracks whether we're gonna be a baby alien's mummy.

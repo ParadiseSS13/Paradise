@@ -407,19 +407,19 @@
 
 ///FIRE CODE
 /mob/living/carbon/human/handle_fire()
-	if(..())
+	. = ..()
+	if(!.)
 		return
 	if(HEATRES in mutations)
 		return
-	if(on_fire)
-		var/thermal_protection = get_thermal_protection()
+	var/thermal_protection = get_thermal_protection()
 
-		if(thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
-			return
-		if(thermal_protection >= FIRE_SUIT_MAX_TEMP_PROTECT)
-			bodytemperature += 11
-		else
-			bodytemperature += (BODYTEMP_HEATING_MAX + (fire_stacks * 12))
+	if(thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
+		return
+	if(thermal_protection >= FIRE_SUIT_MAX_TEMP_PROTECT)
+		bodytemperature += 11
+	else
+		bodytemperature += (BODYTEMP_HEATING_MAX + (fire_stacks * 12))
 
 /mob/living/carbon/human/proc/get_thermal_protection()
 	var/thermal_protection = 0 //Simple check to estimate how protected we are against multiple temperatures
@@ -597,7 +597,7 @@
 			if(overeatduration < 100)
 				becomeSlim()
 		else
-			if(overeatduration > 500)
+			if(overeatduration > 500 && !(NO_OBESITY in dna.species.species_traits))
 				becomeFat()
 
 		// nutrition decrease
