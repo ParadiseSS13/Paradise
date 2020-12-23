@@ -136,15 +136,15 @@
 
 /obj/item/melee/arm_blade/New(location, silent, fake)
 	..()
-	if(ismob(loc))
-		if(!silent)
-			loc.visible_message("<span class='warning'>A grotesque blade forms around [loc.name]\'s arm!</span>", "<span class='warning'>Our arm twists and mutates, transforming it into a deadly blade.</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
-			return
+	if(!ismob(loc))
+		return
+	if(!silent)
+		loc.visible_message("<span class='warning'>A grotesque blade forms around [loc.name]\'s arm!</span>", "<span class='warning'>Our arm twists and mutates, transforming it into a deadly blade.</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
+		return
 
-		if(fake)
-			return
-		else
-			to_chat(loc, "<span class='notice'>You silently extend your armblade.</span>")
+	if(fake)
+		return
+	to_chat(loc, "<span class='notice'>You silently extend your armblade.</span>")
 
 /obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)

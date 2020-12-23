@@ -29,10 +29,7 @@
 		var/mob/living/carbon/human/H = user
 		H.restore_blood()
 		H.next_pain_time = 0
-		if(H.mind.changeling.bioadaptive)
-			H.dna.species.create_organs(H, TRUE)
-		else
-			H.dna.species.create_organs(H)
+		H.dna.species.create_organs(H, H.mind.changeling.bioadaptive)
 
 		// Now that recreating all organs is necessary, the rest of this organ stuff probably
 		//  isn't, but I don't want to remove it, just in case.
@@ -51,7 +48,7 @@
 			O.status = 0
 			O.trace_chemicals.Cut()
 		for(var/obj/item/organ/internal/IO in H.internal_organs)
-			if(!IO.status == ORGAN_ROBOT)
+			if(IO.status != ORGAN_ROBOT)
 				IO.rejuvenate()
 				IO.trace_chemicals.Cut()
 		H.remove_all_embedded_objects()

@@ -103,12 +103,12 @@
 			var/mob/living/carbon/human/H = owner
 			H.dna.species.stamina_mod *= 0.1
 			owner.status_flags |= IGNORESLOWDOWN
-			owner.SetSleeping(0)
-			owner.stat = 0
+			owner.SetSleeping(0, FALSE)
+			owner.stat = CONSCIOUS
 			owner.SetParalysis(0)
 			owner.SetStunned(0)
 			owner.SetWeakened(0)
-			owner.lying = 0
+			owner.lying = FALSE
 			owner.update_canmove()
 			owner.adjustStaminaLoss(-75)
 			owner.emote("scream")

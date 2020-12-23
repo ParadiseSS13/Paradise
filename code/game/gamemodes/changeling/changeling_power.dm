@@ -92,7 +92,4 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 /datum/action/changeling/proc/transform_dna(var/mob/living/carbon/human/H, var/datum/dna/D)
 	if(!D)
 		return
-	if(H.mind.changeling.bioadaptive)
-		H.change_dna(D, TRUE, keep_special = TRUE)
-	else
-		H.change_dna(D, TRUE)
+	H.change_dna(D, TRUE, keep_special = H.mind.changeling.bioadaptive)

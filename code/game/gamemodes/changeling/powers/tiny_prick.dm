@@ -90,7 +90,7 @@
 		return
 	..()
 
-	var/obj/item/melee/arm_blade/false/blade = new(target,1)
+	var/obj/item/melee/arm_blade/false/blade = new(target, TRUE)
 	target.put_in_hands(blade)
 	target.visible_message("<span class='warning'>A grotesque blade forms around [target.name]\'s arm!</span>", "<span class='userdanger'>Your arm twists and mutates, transforming into a horrific monstrosity!</span>", "<span class='hear'>You hear organic matter ripping and tearing!</span>")
 
@@ -99,7 +99,7 @@
 
 
 /datum/action/changeling/sting/false_armblade/proc/remove_fake(mob/target, obj/item/melee/arm_blade/false/blade)
-	target.visible_message("<span class='warning'>With a sickening crunch, [target] reforms [target.p_their()] [blade.name] into an arm!</span>","<span class='userdanger'>Your arm twists and mutates... Back to normal, thank god.</span>",)
+	target.visible_message("<span class='warning'>With a sickening crunch, [target] reforms [target.p_their()] [blade.name] into an arm!</span>", "<span class='userdanger'>Your arm twists and mutates... Back to normal, thank god.</span>")
 	qdel(blade)
 	target.update_inv_r_hand()
 	target.update_inv_l_hand()

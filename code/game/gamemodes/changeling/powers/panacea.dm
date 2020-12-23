@@ -50,7 +50,7 @@
 		D.cure()
 
 	for(var/obj/item/implant/L in user)
-		if(L && L.implanted && is_type_in_list(L, bad_cling_implants))
+		if(L.implanted && is_type_in_list(L, bad_cling_implants))
 			to_chat(user, "<span class='notice'>We expel \a [L] from our form.</span>")
 			qdel(L)
 

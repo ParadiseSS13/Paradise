@@ -1228,10 +1228,7 @@
 
 /mob/living/carbon/human/proc/change_dna(datum/dna/new_dna, include_species_change = FALSE, keep_flavor_text = FALSE, keep_special = FALSE)
 	if(include_species_change)
-		if(!keep_special)
-			set_species(new_dna.species.type, retain_damage = TRUE)
-		else
-			set_species(new_dna.species.type, retain_damage = TRUE, keep_special = TRUE)
+		set_species(new_dna.species.type, retain_damage = TRUE, keep_special = keep_special)
 	dna = new_dna.Clone()
 	real_name = new_dna.real_name
 	domutcheck(src, null, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
@@ -1324,10 +1321,7 @@
 			internal_damages += list(stats)
 
 		//Create the new organs for the species change
-		if(keep_special)
-			dna.species.create_organs(src, TRUE)
-		else
-			dna.species.create_organs(src)
+		dna.species.create_organs(src, keep_special)
 
 		//Apply relevant damages and variables to the new organs.
 		for(var/B in bodyparts)
@@ -1363,10 +1357,7 @@
 					qdel(part)
 
 	else
-		if(keep_special)
-			dna.species.create_organs(src, TRUE)
-		else
-			dna.species.create_organs(src)
+		dna.species.create_organs(src, keep_special)
 
 	for(var/obj/item/thing in kept_items)
 		equip_to_slot_if_possible(thing, kept_items[thing])
