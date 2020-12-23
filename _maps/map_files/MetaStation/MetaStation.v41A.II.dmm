@@ -93553,6 +93553,13 @@
 /area/medical/research{
 	name = "Research Division"
 	})
+"iWv" = (
+/obj/machinery/alarm{
+	dir = 4;
+	pixel_x = -23
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/tcommsat/server)
 "iYb" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 2
@@ -150072,7 +150079,7 @@ bDf
 bFi
 bIz
 bKl
-bOa
+iWv
 bOb
 odO
 bKl
