@@ -103,8 +103,8 @@
 		to_chat(user, "You can't place that item inside the disposal unit.")
 		return
 
-	var/obj/item/storage/S = I
-	if(istype(S))
+	if(istype(I, /obj/item/storage))
+		var/obj/item/storage/S = I
 		if((S.allow_quick_empty || S.allow_quick_gather) && S.contents.len)
 			S.hide_from(user)
 			user.visible_message("[user] empties \the [S] into \the [src].", "You empty \the [S] into \the [src].")
@@ -134,8 +134,6 @@
 	if(!user.drop_item())
 		return
 	if(I)
-		if(istype(S))
-			S.hide_from_all()
 		I.forceMove(src)
 
 	to_chat(user, "You place \the [I] into the [src].")
@@ -200,7 +198,7 @@
 			V.show_message("[usr] starts stuffing [target.name] into the disposal.", 3)
 	if(!do_after(usr, 20, target = target))
 		return
-	if(target_loc != target.loc)
+	if(QDELETED(src) || target_loc != target.loc)
 		return
 	if(target == user && !user.stat && !user.IsWeakened() && !user.stunned && !user.paralysis)	// if drop self, then climbed in
 											// must be awake, not stunned or whatever
