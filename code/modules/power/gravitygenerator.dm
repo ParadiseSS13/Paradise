@@ -430,8 +430,8 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ac
 // Misc
 
 /obj/item/paper/gravity_gen
-	name = "paper- 'Generate your own gravity!'"
-	info = {"<h1>Gravity Generator Instructions For Dummies</h1>
+	name = "paper - 'Generate your own gravity!'"
+	info = {"<h1>Generating Gravity For Dummies</h1>
 	<p>Surprisingly, gravity isn't that hard to make! All you have to do is inject deadly radioactive minerals into a ball of
 	energy and you have yourself gravity! You can turn the machine on or off when required but you must remember that the generator
 	will EMIT RADIATION when charging or discharging, you can tell it is charging or discharging by the noise it makes, so please WEAR PROTECTIVE CLOTHING.</p>
@@ -439,7 +439,16 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ac
 	<h3>It blew up!</h3>
 	<p>Don't panic! The gravity generator was designed to be easily repaired. If, somehow, the sturdy framework did not survive then
 	please proceed to panic; otherwise follow these steps.</p><ol>
-	<li>Secure the screws of the framework with a screwdriver.</li>
 	<li>Mend the damaged framework with a welding tool.</li>
 	<li>Add additional plasteel plating.</li>
-	<li>Secure the additional plating with a wrench.</li></ol>"}
+	<li>Secure the additional plating with a wrench.</li>
+	<li>Secure the cover screws with a screwdriver.</li></ol>"}
+
+#undef GRAV_POWER_IDLE
+#undef GRAV_POWER_UP
+#undef GRAV_POWER_DOWN
+
+#undef GRAV_NEEDS_WELDING
+#undef GRAV_NEEDS_PLASTEEL
+#undef GRAV_NEEDS_WRENCH
+#undef GRAV_NEEDS_SCREWDRIVER
