@@ -90,7 +90,7 @@
 		return
 	..()
 
-	var/obj/item/melee/arm_blade/false/blade = new(target, TRUE)
+	var/obj/item/melee/arm_blade/false/blade = new(target)
 	target.put_in_hands(blade)
 	target.visible_message("<span class='warning'>A grotesque blade forms around [target.name]\'s arm!</span>", "<span class='userdanger'>Your arm twists and mutates, transforming into a horrific monstrosity!</span>", "<span class='hear'>You hear organic matter ripping and tearing!</span>")
 

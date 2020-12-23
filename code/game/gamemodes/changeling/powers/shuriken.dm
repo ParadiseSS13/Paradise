@@ -26,32 +26,20 @@
 		desc = "A gross shard of bone and flesh, now much duller than it used to be."
 		throwforce = 7
 		embed_chance = FALSE //No using these over and over, for the crew, or the clings.
-	else
-		..()
+
+/datum/action/changeling/shuriken/proc/arm_check(var/obj/item/organ/external/O)
+	if(O && (!(O.status & ORGAN_SPLINTED)) && (!(O.status & ORGAN_BROKEN)))
+		return TRUE
+
 /datum/action/changeling/shuriken/sting_action(var/mob/living/carbon/human/user)
 	if(iscarbon(user))
 		var/obj/item/organ/external/L = user.get_organ("l_hand")
 		var/obj/item/organ/external/LA = user.get_organ("l_arm")
 		var/obj/item/organ/external/R = user.get_organ("r_hand")
 		var/obj/item/organ/external/RA = user.get_organ("r_arm")
-
-		var/left_hand_good_c = FALSE
-		var/left_arm_good_c = FALSE
-		var/right_hand_good_c = FALSE
-		var/right_arm_good_c = FALSE
 		var/made_stuff = FALSE
 
-		if(L && (!(L.status & ORGAN_SPLINTED)) && (!(L.status & ORGAN_BROKEN)))
-			left_hand_good_c = TRUE
-		if(LA && (!(LA.status & ORGAN_SPLINTED)) && (!(LA.status & ORGAN_BROKEN)))
-			left_arm_good_c = TRUE
-		if(R && (!(R.status & ORGAN_SPLINTED)) && (!(R.status & ORGAN_BROKEN)))
-			right_hand_good_c = TRUE
-		if(RA && (!(RA.status & ORGAN_SPLINTED)) && (!(RA.status & ORGAN_BROKEN)))
-			right_arm_good_c = TRUE
-
-
-		if(left_hand_good_c && left_arm_good_c)
+		if(arm_check(L) && arm_check(LA))
 			if(user.put_in_l_hand(new /obj/item/throwing_star/bone(user)))
 				user.apply_damage(7.5, BRUTE, "l_arm")
 				user.mind.changeling.geneticdamage += 10
@@ -60,8 +48,9 @@
 				user.mind.changeling.chem_charges += 15 //if you dont make a star, you do not pay
 		else
 			to_chat(user, "<span class='warning'>Our left arm is too damaged to make our weapons.</span>")
+			user.mind.changeling.chem_charges += 15
 
-		if(right_hand_good_c && right_arm_good_c)
+		if(arm_check(R) && arm_check(RA))
 			if(user.put_in_r_hand(new /obj/item/throwing_star/bone(user)))
 				user.apply_damage(7.5, BRUTE, "r_arm")
 				user.mind.changeling.geneticdamage += 10
@@ -70,6 +59,7 @@
 				user.mind.changeling.chem_charges += 15
 		else
 			to_chat(user, "<span class='warning'>Our right arm is too damaged to make our weapons.</span>")
+			user.mind.changeling.chem_charges += 15
 
 		if(made_stuff)
 			user.visible_message("<span class='warning'>Shards of bones grow from [user.name]\'s arms, pierce their skin, and fall into their hands!</span>", "<span class='warning'>We sharpen our new bone growths, and expell them from our body.</span>", "<span class='hear'>You hear organic matter ripping and tearing!</span>")

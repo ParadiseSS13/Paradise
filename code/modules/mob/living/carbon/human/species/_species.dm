@@ -176,15 +176,15 @@
 	var/datum/language/species_language = GLOB.all_languages[language]
 	return species_language.get_random_name(gender)
 
-/datum/species/proc/create_organs(mob/living/carbon/human/H, special = FALSE) //Handles creation of mob organs.
-	var/list/special_sauce = list()
-	if(special)
+/datum/species/proc/create_organs(mob/living/carbon/human/H, includes_special_organs = FALSE) //Handles creation of mob organs.
+	var/list/special_organs = list()
+	if(includes_special_organs)
 		for(var/obj/item/organ/internal/I in H.internal_organs)
 			if(I.special)
 				if((I.status & ORGAN_DEAD) && (I.status & ORGAN_ROBOT)) // cybernetic + broken
 					to_chat(H, "<span class='warning'>The [I] is broken, and no more use to us, and we destroy it!</span>")
 				else
-					special_sauce += I
+					special_organs += I
 					I.remove(H, TRUE)
 
 	QDEL_LIST(H.internal_organs)
@@ -204,9 +204,10 @@
 		var/organ = has_organ[index]
 		// organ new code calls `insert` on its own
 		new organ(H)
-	if(special)
-		for(var/obj/item/organ/internal/I in special_sauce)
-			I.insert(H)
+	if(includes_special_organs)
+		for(var/I in special_organs)
+			var/obj/item/organ/internal/O = I
+			O.insert(H)
 
 	create_mutant_organs(H)
 

@@ -105,12 +105,12 @@
 			owner.status_flags |= IGNORESLOWDOWN
 			owner.SetSleeping(0, FALSE)
 			owner.stat = CONSCIOUS
-			owner.SetParalysis(0)
-			owner.SetStunned(0)
-			owner.SetWeakened(0)
+			owner.SetParalysis(0, FALSE)
+			owner.SetStunned(0, FALSE)
+			owner.SetWeakened(0, FALSE)
 			owner.lying = FALSE
+			owner.adjustStaminaLoss(-75, FALSE)
 			owner.update_canmove()
-			owner.adjustStaminaLoss(-75)
 			owner.emote("scream")
 		owner.add_stun_absorption("Epinephrine Overdose", INFINITY, 4, FALSE, "We push through the pain and keep going.")
 
