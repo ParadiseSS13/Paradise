@@ -35,7 +35,7 @@ GLOBAL_LIST_EMPTY(whitelist)
 				list("ckey" = M.ckey)
 			)
 
-			if(!job_read.warn_execute())
+			if(!job_read.warn_execute(async = FALSE)) // Dont async this. Youll make roundstart slow.
 				qdel(job_read)
 				return FALSE
 
@@ -87,7 +87,7 @@ GLOBAL_LIST_EMPTY(alien_whitelist)
 			list("ckey" = M.ckey)
 		)
 
-		if(!species_read.warn_execute())
+		if(!species_read.warn_execute(async = FALSE)) // Dont async this one. It makes roundstart take 10 years.
 			qdel(species_read)
 			return FALSE
 

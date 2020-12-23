@@ -11,7 +11,7 @@
 	use_to_pickup = TRUE
 	allow_quick_gather = TRUE
 	allow_quick_empty = TRUE
-	collect_all = TRUE
+	pickup_all_on_tile = TRUE
 	display_contents_with_number = TRUE
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 100

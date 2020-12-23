@@ -42,7 +42,7 @@
 		qdel(query)
 		// If our query failed, just assume yes
 		tos_consent = TRUE
-		return TRUE 
+		return TRUE
 
 	while(query.NextRow())
 		qdel(query)

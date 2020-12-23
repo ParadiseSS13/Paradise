@@ -33,7 +33,7 @@
 	/// Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.
 	var/allow_quick_gather
 	/// Pick up one item at a time or everything on the tile
-	var/collect_all = TRUE
+	var/pickup_all_on_tile = TRUE
 	/// Sound played when used. `null` for no sound.
 	var/use_sound = "rustle"
 
@@ -88,7 +88,7 @@
 		return
 
 	if((istype(over_object, /obj/structure/table) || isfloorturf(over_object)) && length(contents) \
-		&& loc == M && !M.stat && !M.restrained() && M.canmove && over_object.Adjacent(M) && !istype(M, /obj/item/storage/lockbox))
+		&& loc == M && !M.stat && !M.restrained() && M.canmove && over_object.Adjacent(M) && !istype(M, /obj/item/storage/lockbox)) // Worlds longest `if()`
 		var/turf/T = get_turf(over_object)
 		if(isfloorturf(over_object))
 			if(get_turf(M) != T)
@@ -132,7 +132,7 @@
 	. = ..()
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
 		show_to(user)
-		playsound(loc, "rustle", 50, 1, -5)
+		playsound(loc, "rustle", 50, TRUE, -5)
 		add_fingerprint(user)
 	else if(isobserver(user))
 		show_to(user)
@@ -191,8 +191,8 @@
 		user.s_active = null
 
 /obj/item/storage/proc/open(mob/user)
-	if(src.use_sound)
-		playsound(loc, use_sound, 50, 1, -5)
+	if(use_sound)
+		playsound(loc, use_sound, 50, TRUE, -5)
 
 	if(user.s_active)
 		user.s_active.close(user)
@@ -213,7 +213,7 @@
 /obj/item/storage/proc/orient_objs(tx, ty, mx, my)
 	var/cx = tx
 	var/cy = ty
-	boxes.screen_loc = "[tx]:,[ty] to [mx],[my]"
+	boxes.screen_loc = "[tx],[ty] to [mx],[my]"
 	for(var/obj/O in contents)
 		O.screen_loc = "[cx],[cy]"
 		O.layer = ABOVE_HUD_LAYER
@@ -225,7 +225,7 @@
 	closer.screen_loc = "[mx + 1],[my]"
 
 //This proc draws out the inventory and places the items on it. It uses the standard position.
-/obj/item/storage/proc/standard_orient_objs(rows, cols, list/display_contents)
+/obj/item/storage/proc/standard_orient_objs(rows, cols, list/datum/numbered_display/display_contents)
 	var/cx = 4
 	var/cy = 2 + rows
 	boxes.screen_loc = "4:16,2:16 to [4 + cols]:16,[2 + rows]:16"
@@ -234,7 +234,7 @@
 		for(var/datum/numbered_display/ND in display_contents)
 			ND.sample_object.mouse_opacity = MOUSE_OPACITY_OPAQUE
 			ND.sample_object.screen_loc = "[cx]:16,[cy]:16"
-			ND.sample_object.maptext = "<font color='white'>[(ND.number > 1)? "[ND.number]" : ""]</font>"
+			ND.sample_object.maptext = "<font color='white' face='Small Fonts'>[(ND.number > 1) ? "[ND.number]" : ""]</font>"
 			ND.sample_object.layer = ABOVE_HUD_LAYER
 			ND.sample_object.plane = ABOVE_HUD_PLANE
 			cx++
@@ -259,17 +259,21 @@
 /datum/numbered_display/New(obj/item/sample)
 	if(!istype(sample))
 		qdel(src)
+		return
 	sample_object = sample
 	number = 1
 
 //This proc determins the size of the inventory to be displayed. Please touch it only if you know what you're doing.
 /obj/item/storage/proc/orient2hud(mob/user)
-
 	var/adjusted_contents = length(contents)
 
 	//Numbered contents display
 	var/list/datum/numbered_display/numbered_contents
 	if(display_contents_with_number)
+		for(var/obj/O in contents)
+			O.layer = initial(O.layer)
+			O.plane = initial(O.plane)
+
 		numbered_contents = list()
 		adjusted_contents = 0
 		for(var/obj/item/I in contents)
@@ -380,6 +384,7 @@
 				else if(I && I.w_class >= WEIGHT_CLASS_NORMAL) //Otherwise they can only see large or normal items from a distance...
 					M.show_message("<span class='notice'>[usr] puts [I] into [src].</span>")
 
+		orient2hud(usr)
 		if(usr.s_active)
 			usr.s_active.show_to(usr)
 	I.mouse_opacity = MOUSE_OPACITY_OPAQUE //So you can click on the area around the item to equip it, instead of having to pixel hunt
@@ -420,6 +425,7 @@
 		I.forceMove(get_turf(src))
 
 	if(usr)
+		orient2hud(usr)
 		if(usr.s_active)
 			usr.s_active.show_to(usr)
 	if(I.maptext)
@@ -461,7 +467,7 @@
 
 
 /obj/item/storage/attack_hand(mob/user)
-	playsound(src.loc, "rustle", 50, 1, -5)
+	playsound(loc, "rustle", 50, TRUE, -5)
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -475,6 +481,7 @@
 				H.r_store = null
 				return
 
+	orient2hud(user)
 	if(loc == user)
 		if(user.s_active)
 			user.s_active.close(user)
@@ -496,13 +503,12 @@
 	set name = "Switch Gathering Method"
 	set category = "Object"
 
-	collect_all = !collect_all
-	switch(collect_all)
+	pickup_all_on_tile = !pickup_all_on_tile
+	switch(pickup_all_on_tile)
 		if(TRUE)
 			to_chat(usr, "[src] now picks up all items in a tile at once.")
 		if(FALSE)
 			to_chat(usr, "[src] now picks up one item at a time.")
-
 
 /obj/item/storage/verb/quick_empty()
 	set name = "Empty Contents"
@@ -666,3 +672,24 @@
 		A.ex_act(severity)
 		CHECK_TICK
 	..()
+
+/obj/item/storage/proc/can_items_stack(obj/item/item_1, obj/item/item_2)
+	if(!item_1 || !item_2)
+		return
+
+	return item_1.type == item_2.type && item_1.name == item_2.name
+
+/obj/item/storage/proc/swap_items(obj/item/item_1, obj/item/item_2, mob/user = null)
+	if(!(item_1.loc == src && item_2.loc == src))
+		return
+
+	var/index_1 = contents.Find(item_1)
+	var/index_2 = contents.Find(item_2)
+
+	var/list/new_contents = contents.Copy()
+	new_contents.Swap(index_1, index_2)
+	contents = new_contents
+
+	if(user && user.s_active == src)
+		orient2hud(user)
+		show_to(user)

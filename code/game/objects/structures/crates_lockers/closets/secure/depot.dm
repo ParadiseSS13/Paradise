@@ -9,11 +9,6 @@
 	var/is_armory = FALSE
 	var/ignore_use = FALSE
 
-
-/obj/structure/closet/secure_closet/syndicate/depot/New()
-	. = ..()
-	update_icon()
-
 /obj/structure/closet/secure_closet/syndicate/depot/emag_act()
 	. = ..()
 	loot_pickup()
