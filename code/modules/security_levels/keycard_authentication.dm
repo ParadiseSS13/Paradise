@@ -155,19 +155,14 @@
 	switch(event)
 		if("Red Alert")
 			set_security_level(SEC_LEVEL_RED)
-			feedback_inc("alert_keycard_auth_red",1)
 		if("Grant Emergency Maintenance Access")
 			make_maint_all_access()
-			feedback_inc("alert_keycard_auth_maintGrant",1)
 		if("Revoke Emergency Maintenance Access")
 			revoke_maint_all_access()
-			feedback_inc("alert_keycard_auth_maintRevoke",1)
 		if("Activate Station-Wide Emergency Access")
 			make_station_all_access()
-			feedback_inc("alert_keycard_auth_stationGrant",1)
 		if("Deactivate Station-Wide Emergency Access")
 			revoke_station_all_access()
-			feedback_inc("alert_keycard_auth_stationRevoke",1)
 		if("Emergency Response Team")
 			if(is_ert_blocked())
 				atom_say("All Emergency Response Teams are dispatched and can not be called at this time.")
@@ -184,7 +179,7 @@
 				GLOB.ert_request_answered = TRUE
 				ERT_Announce(ert_reason , event_triggered_by, 0)
 				ert_reason = null
-				feedback_inc("alert_keycard_auth_ert",1)
+				SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("ert", "called"))
 				spawn(3000)
 					if(!GLOB.ert_request_answered)
 						ERT_Announce(ert_reason , event_triggered_by, 1)
@@ -197,13 +192,15 @@
 GLOBAL_VAR_INIT(maint_all_access, 0)
 GLOBAL_VAR_INIT(station_all_access, 0)
 
+// Why are these global procs?
 /proc/make_maint_all_access()
-	for(var/area/maintenance/A in world)
+	for(var/area/maintenance/A in world) // Why are these global lists? AAAAAAAAAAAAAA
 		for(var/obj/machinery/door/airlock/D in A)
 			D.emergency = 1
 			D.update_icon(0)
 	GLOB.minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been removed.")
 	GLOB.maint_all_access = 1
+	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "enabled"))
 
 /proc/revoke_maint_all_access()
 	for(var/area/maintenance/A in world)
@@ -212,6 +209,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 			D.update_icon(0)
 	GLOB.minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been re-added.")
 	GLOB.maint_all_access = 0
+	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "disabled"))
 
 /proc/make_station_all_access()
 	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
@@ -220,6 +218,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 			D.update_icon(0)
 	GLOB.minor_announcement.Announce("Access restrictions on all station airlocks have been removed due to an ongoing crisis. Trespassing laws still apply unless ordered otherwise by Command staff.")
 	GLOB.station_all_access = 1
+	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "enabled"))
 
 /proc/revoke_station_all_access()
 	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
@@ -228,3 +227,4 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 			D.update_icon(0)
 	GLOB.minor_announcement.Announce("Access restrictions on all station airlocks have been re-added. Seek station AI or a colleague's assistance if you are stuck.")
 	GLOB.station_all_access = 0
+	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "disabled"))

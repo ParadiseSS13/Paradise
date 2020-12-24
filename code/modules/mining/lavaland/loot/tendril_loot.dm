@@ -253,7 +253,7 @@
 		user.update_sight()
 		to_chat(user, "<span class='notice'>The wisp enhances your vision.</span>")
 
-		feedback_add_details("wisp_lantern","F") // freed
+		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Freed") // freed
 	else
 		UnregisterSignal(user, COMSIG_MOB_UPDATE_SIGHT)
 
@@ -266,7 +266,7 @@
 		to_chat(user, "<span class='notice'>Your vision returns to normal.</span>")
 
 		icon_state = "lantern-blue"
-		feedback_add_details("wisp_lantern","R") // returned
+		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Returned") // returned
 
 /obj/item/wisp_lantern/Initialize(mapload)
 	. = ..()
@@ -321,7 +321,7 @@
 	smoke.start()
 
 	user.forceMove(get_turf(linked))
-	feedback_add_details("warp_cube","[src.type]")
+	SSblackbox.record_feedback("tally", "warp_cube", 1, type)
 
 	var/datum/effect_system/smoke_spread/smoke2 = new
 	smoke2.set_up(1, 0, user.loc)
@@ -415,7 +415,7 @@
 
 /obj/item/immortality_talisman/attack_self(mob/user)
 	if(cooldown < world.time)
-		feedback_add_details("immortality_talisman","U") // usage
+		SSblackbox.record_feedback("amount", "immortality_talisman_uses", 1) // usage
 		cooldown = world.time + 600
 		user.visible_message("<span class='danger'>[user] vanishes from reality, leaving a a hole in [user.p_their()] place!</span>")
 		var/obj/effect/immortality_talisman/Z = new(get_turf(src.loc))
