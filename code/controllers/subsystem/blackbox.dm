@@ -1,3 +1,5 @@
+// Dont touch this subsystem unless you ABSOLUTELY know what you are doing
+
 SUBSYSTEM_DEF(blackbox)
 	name = "Blackbox"
 	flags = SS_NO_FIRE | SS_NO_INIT
@@ -227,12 +229,12 @@ SUBSYSTEM_DEF(blackbox)
 		if(L.Find(key_list[depth]))
 			L["[key_list[depth]]"] += increment
 		else
-			var/list/LFI = list(key_list[depth] = increment)
-			L += LFI
+			var/list/list_found_index = list(key_list[depth] = increment)
+			L += list_found_index
 	else
 		if(!L.Find(key_list[depth]))
-			var/list/LGD = list(key_list[depth] = list())
-			L += LGD
+			var/list/list_go_down = list(key_list[depth] = list())
+			L += list_go_down
 		L["[key_list[depth-1]]"] = .(L["[key_list[depth]]"], key_list, increment, ++depth)
 	return L
 
