@@ -59,7 +59,7 @@
 		used = TRUE
 
 	if(used)
-		feedback_add_details("changeling_powers","BD")
+		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
 /datum/action/changeling/biodegrade/proc/dissolve_restraint(mob/living/carbon/human/user, obj/O)

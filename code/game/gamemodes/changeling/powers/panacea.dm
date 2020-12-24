@@ -40,5 +40,5 @@
 			continue
 		D.cure()
 
-	feedback_add_details("changeling_powers","AP")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1

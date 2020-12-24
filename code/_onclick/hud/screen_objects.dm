@@ -120,7 +120,8 @@
 	usr.stop_pulling()
 
 /obj/screen/pull/update_icon(mob/mymob)
-	if(!mymob) return
+	if(!mymob)
+		return
 	if(mymob.pulling)
 		icon_state = "pull"
 	else
@@ -151,16 +152,49 @@
 
 /obj/screen/storage/Click(location, control, params)
 	if(world.time <= usr.next_move)
-		return 1
-	if(usr.stat || usr.paralysis || usr.stunned || usr.IsWeakened())
-		return 1
+		return TRUE
+	if(usr.incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE))
+		return TRUE
 	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
-		return 1
+		return TRUE
 	if(master)
 		var/obj/item/I = usr.get_active_hand()
 		if(I)
 			master.attackby(I, usr, params)
-	return 1
+	return TRUE
+
+/obj/screen/storage/MouseDrop_T(obj/item/I, mob/user)
+	if(!user || !istype(I) || user.incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE) || istype(user.loc, /obj/mecha) || !master)
+		return
+
+	var/obj/item/storage/S = master
+	if(!S)
+		return
+
+	if(I in S.contents) // If the item is already in the storage, move them to the end of the list
+		if(S.contents[S.contents.len] == I) // No point moving them at the end if they're already there!
+			return
+
+		var/list/new_contents = S.contents.Copy()
+		if(S.display_contents_with_number)
+			// Basically move all occurences of I to the end of the list.
+			var/list/obj/item/to_append = list()
+			for(var/obj/item/stored_item in S.contents)
+				if(S.can_items_stack(stored_item, I))
+					new_contents -= stored_item
+					to_append += stored_item
+
+			new_contents.Add(to_append)
+		else
+			new_contents -= I
+			new_contents += I // oof
+		S.contents = new_contents
+
+		if(user.s_active == S)
+			S.orient2hud(user)
+			S.show_to(user)
+	else // If it's not in the storage, try putting it inside
+		S.attackby(I, user)
 
 /obj/screen/zone_sel
 	name = "damage zone"
@@ -271,7 +305,7 @@
 
 	if(choice != selecting)
 		selecting = choice
-		update_icon(usr)
+		update_icon(user)
 	return 1
 
 /obj/screen/zone_sel/update_icon(mob/user)
