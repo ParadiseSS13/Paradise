@@ -4,7 +4,7 @@
 /datum/action/changeling/strained_muscles
 	name = "Strained Muscles"
 	desc = "We evolve the ability to reduce the acid buildup in our muscles, allowing us to move much faster."
-	helptext = "The strain will use up our chemicals faster over time."
+	helptext = "The strain will use up our chemicals faster over time, and is not sustainable."
 	button_icon_state = "strained_muscles"
 	chemical_cost = 0
 	dna_cost = 1
@@ -46,6 +46,8 @@
 		stacks++
 		//user.take_organ_damage(stacks * 0.03, 0)
 		user.mind.changeling.chem_charges -= stacks * 3 //At first the changeling may regenerate chemicals fast enough to nullify fatigue, but it will stack
+		if(stacks == 11) //Warning message that the stacks are getting too high
+			to_chat(user, "<span class='warning'>Our legs are really starting to hurt...</span>")
 
 		sleep(40)
 

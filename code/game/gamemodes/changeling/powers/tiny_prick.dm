@@ -68,7 +68,7 @@
 
 /datum/action/changeling/sting/false_armblade //Port from TG, credit to them
 	name = "False Armblade Sting"
-	desc = "We silently sting a human, injecting a retrovirus that mutates their arm to temporarily appear as an armblade. Costs 20 chemicals."
+	desc = "We silently sting a target, injecting a retrovirus that mutates their arm to temporarily appear as an armblade. Costs 20 chemicals."
 	helptext = "The victim will form an armblade much like a changeling would, except the armblade is dull and useless."
 	button_icon_state = "sting_armblade"
 	sting_icon = "sting_armblade"
@@ -77,7 +77,7 @@
 	genetic_damage = 15
 	max_genetic_damage = 25
 
-/obj/item/melee/arm_blade/false
+/obj/item/melee/arm_blade/fake
 	desc = "A grotesque mass of flesh that used to be your arm. Although it looks dangerous at first, you can tell it's actually quite dull and useless."
 	force = 5 //Basically as strong as a punch
 	fake = TRUE
@@ -85,20 +85,21 @@
 /datum/action/changeling/sting/false_armblade/sting_action(var/mob/user, var/mob/living/carbon/target)
 	add_attack_logs(user, target, "Fake armblade sting (changeling)")
 
-	if(!target.drop_item())
+	if((!(target.drop_l_hand()) && !(target.drop_r_hand())))
 		to_chat(user, "<span class='warning'>The [target.get_active_hand()] is stuck to [target.p_their()] hand, we cannot grow a false armblade over it!</span>")
 		return
 	..()
 
-	var/obj/item/melee/arm_blade/false/blade = new(target)
+	var/obj/item/melee/arm_blade/fake/blade = new(target)
 	target.put_in_hands(blade)
+
 	target.visible_message("<span class='warning'>A grotesque blade forms around [target.name]\'s arm!</span>", "<span class='userdanger'>Your arm twists and mutates, transforming into a horrific monstrosity!</span>", "<span class='hear'>You hear organic matter ripping and tearing!</span>")
 
 	addtimer(CALLBACK(src, /datum/action/changeling/sting/false_armblade/proc/remove_fake, target, blade), 60 SECONDS)
 	return TRUE
 
 
-/datum/action/changeling/sting/false_armblade/proc/remove_fake(mob/target, obj/item/melee/arm_blade/false/blade)
+/datum/action/changeling/sting/false_armblade/proc/remove_fake(mob/target, obj/item/melee/arm_blade/fake/blade)
 	target.visible_message("<span class='warning'>With a sickening crunch, [target] reforms [target.p_their()] [blade.name] into an arm!</span>", "<span class='userdanger'>Your arm twists and mutates... Back to normal, thank god.</span>")
 	qdel(blade)
 	target.update_inv_r_hand()
@@ -126,7 +127,7 @@
 
 /datum/action/changeling/sting/mute
 	name = "Mute Sting"
-	desc = "We silently sting a human, completely silencing them for a short time. Costs 20 chemicals."
+	desc = "We silently sting a target, completely silencing them for a short time. Costs 20 chemicals."
 	helptext = "Does not provide a warning to the victim that they have been stung, until they try to speak and cannot."
 	button_icon_state = "sting_mute"
 	sting_icon = "sting_mute"
