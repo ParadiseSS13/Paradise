@@ -16,7 +16,7 @@
 		/obj/item/implant/chem,
 		/obj/item/implant/death_alarm,
 		/obj/item/implant/explosive,
-		/obj/item/implant/dust
+		/obj/item/implant/dust,
 		)
 
 	to_chat(user, "<span class='notice'>We cleanse impurities from our form.</span>")

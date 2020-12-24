@@ -48,9 +48,11 @@
 			O.status = 0
 			O.trace_chemicals.Cut()
 		for(var/obj/item/organ/internal/IO in H.internal_organs)
-			if(IO.status != ORGAN_ROBOT)
-				IO.rejuvenate()
-				IO.trace_chemicals.Cut()
+			if(IO.status == ORGAN_ROBOT)
+				// If it's a robotic organ and no other flags are present (i.e. it's not broken/splintered etc) - leave it be.
+				continue
+			IO.rejuvenate()
+			IO.trace_chemicals.Cut()
 		H.remove_all_embedded_objects()
 	for(var/datum/disease/critical/C in user.viruses)
 		C.cure()

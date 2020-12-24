@@ -99,8 +99,8 @@
 /datum/status_effect/epi_overdose/on_apply()
 	. = ..()
 	if(.)
-		if(ishuman(owner))
-			var/mob/living/carbon/human/H = owner
+		var/mob/living/carbon/human/H = owner
+		if(istype(owner))
 			H.dna.species.stamina_mod *= 0.1
 			owner.status_flags |= IGNORESLOWDOWN
 			owner.SetSleeping(0, FALSE)

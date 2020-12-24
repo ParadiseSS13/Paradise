@@ -133,6 +133,7 @@
 	throw_range = 0
 	throw_speed = 0
 	var/fake = FALSE
+	/// Whether extending/retracting it is silent or not. (Slashing is hella loud regardless)
 	var/silent = FALSE
 
 /obj/item/melee/arm_blade/New(location)
@@ -142,7 +143,10 @@
 	if(fake)
 		return
 	if(!silent)
-		loc.visible_message("<span class='warning'>A grotesque blade forms around [loc.name]\'s arm!</span>", "<span class='warning'>Our arm twists and mutates, transforming it into a deadly blade.</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
+		loc.visible_message(
+			"<span class='warning'>A grotesque blade forms around [loc.name]\'s arm!</span>",
+			"<span class='warning'>Our arm twists and mutates, transforming it into a deadly blade.</span>",
+			"<span class='italics'>You hear organic matter ripping and tearing!</span>")
 		return
 	to_chat(loc, "<span class='notice'>You silently extend your armblade.</span>")
 

@@ -30,6 +30,7 @@
 /datum/action/changeling/shuriken/proc/arm_check(var/obj/item/organ/external/O)
 	if(O && (!(O.status & ORGAN_SPLINTED)) && (!(O.status & ORGAN_BROKEN)))
 		return TRUE
+	return FALSE
 
 /datum/action/changeling/shuriken/sting_action(var/mob/living/carbon/human/user)
 	if(iscarbon(user))

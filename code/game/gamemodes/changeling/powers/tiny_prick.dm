@@ -94,7 +94,7 @@
 	target.put_in_hands(blade)
 	target.visible_message("<span class='warning'>A grotesque blade forms around [target.name]\'s arm!</span>", "<span class='userdanger'>Your arm twists and mutates, transforming into a horrific monstrosity!</span>", "<span class='hear'>You hear organic matter ripping and tearing!</span>")
 
-	addtimer(CALLBACK(src, /datum/action/changeling/sting/false_armblade/proc/remove_fake, target, blade), 600)
+	addtimer(CALLBACK(src, /datum/action/changeling/sting/false_armblade/proc/remove_fake, target, blade), 60 SECONDS)
 	return TRUE
 
 

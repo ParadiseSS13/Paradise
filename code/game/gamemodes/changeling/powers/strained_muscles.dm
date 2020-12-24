@@ -20,14 +20,14 @@
 			to_chat(user, "<span class='notice'>We are moving as fast as we can, we can not go faster.</span>")
 		else
 			to_chat(user, "<span class='notice'>Our muscles tense and strengthen.</span>")
-			enabled = !enabled
+			enabled = TRUE
 	else
 		user.status_flags &= ~GOTTAGOFAST
 		if(stacks < 3) //no turning it on and off real fast to cheese the cost
 			to_chat(user, "<span class='notice'>Our muscles just tensed up, they will not relax so fast.</span>")
 		else
 			to_chat(user, "<span class='notice'>Our muscles relax.</span>")
-			enabled = !enabled
+			enabled = FALSE
 			if(stacks >= 10)
 				to_chat(user, "<span class='danger'>We collapse in exhaustion.</span>")
 				user.Weaken(3)

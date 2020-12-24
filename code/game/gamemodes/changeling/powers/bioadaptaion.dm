@@ -7,10 +7,10 @@
 	needs_button = FALSE
 
 
-/datum/action/changeling/bioadaptaion/on_purchase(var/mob/user)
+/datum/action/changeling/bioadaptaion/on_purchase(mob/user)
 	..()
 	user.mind.changeling.bioadaptive = TRUE
 
-/datum/action/changeling/bioadaptaion/Remove(var/mob/user)
+/datum/action/changeling/bioadaptaion/Remove(mob/user)
 	user.mind.changeling.bioadaptive = FALSE
 	..()
