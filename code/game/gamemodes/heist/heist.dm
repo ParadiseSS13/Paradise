@@ -236,16 +236,16 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 
 	to_chat(world, "<span class='warning'><FONT size = 3><B>[win_type] [win_group] victory!</B></FONT></span>")
 	to_chat(world, "[win_msg]")
-	feedback_set_details("round_end_result","heist - [win_type] [win_group]")
+	SSticker.mode_result = "heist - [win_type] [win_group]"
 
 	var/count = 1
 	for(var/datum/objective/objective in raid_objectives)
 		if(objective.check_completion())
 			to_chat(world, "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>")
-			feedback_add_details("traitor_objective","[objective.type]|SUCCESS")
+			SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "SUCCESS"))
 		else
 			to_chat(world, "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>")
-			feedback_add_details("traitor_objective","[objective.type]|FAIL")
+			SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "FAIL"))
 		count++
 
 	..()

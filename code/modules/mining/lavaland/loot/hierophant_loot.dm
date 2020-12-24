@@ -49,8 +49,17 @@
 
 /obj/item/hierophant_club/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	..()
+	if(world.time < timer)
+		return
+
+	if(!is_mining_level(user.z))//Will only spawn a few sparks if not on mining z level
+		timer = world.time + cooldown_time
+		user.visible_message("<span class='danger'>[user]'s hierophant club malfunctions!</span>")
+		do_sparks(5, FALSE, user)
+		return
+
 	var/turf/T = get_turf(target)
-	if(!T || timer > world.time)
+	if(!T)
 		return
 	calculate_anger_mod(user)
 	timer = world.time + CLICK_CD_MELEE //by default, melee attacks only cause melee blasts, and have an accordingly short cooldown

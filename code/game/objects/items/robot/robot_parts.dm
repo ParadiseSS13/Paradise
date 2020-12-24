@@ -136,7 +136,7 @@
 	if(l_arm && r_arm)
 		if(l_leg && r_leg)
 			if(chest && head)
-				feedback_inc("cyborg_frames_built",1)
+				SSblackbox.record_feedback("amount", "cyborg_frames_built", 1)
 				return 1
 	return 0
 
@@ -307,7 +307,7 @@
 			O.mmi = W
 			O.Namepick()
 
-			feedback_inc("cyborg_birth",1)
+			SSblackbox.record_feedback("amount", "cyborg_birth", 1)
 
 			forceMove(O)
 			O.robot_suit = src
