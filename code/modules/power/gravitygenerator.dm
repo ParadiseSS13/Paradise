@@ -1,4 +1,5 @@
-GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding active gravity generators to the list, and keying it with the z level.
+/// Global list of all active gravity generators. Keyed by the Z level
+GLOBAL_LIST_EMPTY(gravity_generators)
 
 #define GRAV_POWER_IDLE 0
 #define GRAV_POWER_UP 1
