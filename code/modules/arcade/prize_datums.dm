@@ -329,12 +329,6 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/clothing/gloves/fingerless/rapid/headpat
 	cost = 150
 
-/datum/prize_item/laser_pointer
-	name = "Laser Pointer"
-	desc = "Point to your friends where the clown eyes are!"
-	typepath = /obj/item/laser_pointer
-	cost = 2000
-
 /datum/prize_item/bike
 	name = "Awesome Bike!"
 	desc = "WOAH."
