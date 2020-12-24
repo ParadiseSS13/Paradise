@@ -32,4 +32,4 @@ GLOBAL_LIST_INIT(admin_verbs_show_debug_verbs, list(
 
 	verbs += GLOB.admin_verbs_show_debug_verbs
 
-	feedback_add_details("admin_verb","mDV") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Debug Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

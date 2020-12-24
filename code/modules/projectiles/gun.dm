@@ -282,7 +282,7 @@
 			user.update_inv_l_hand()
 		else
 			user.update_inv_r_hand()
-	feedback_add_details("gun_fired","[type]")
+	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 
 /obj/item/gun/attack(mob/M, mob/user)
 	if(user.a_intent == INTENT_HARM) //Flogging
