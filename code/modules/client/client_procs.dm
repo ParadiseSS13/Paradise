@@ -531,9 +531,12 @@
 			return
 
 	if(sql_id)
+		var/client_address = address
+		if(!client_address) // Localhost can sometimes have no address set
+			client_address = "127.0.0.1"
 		//Player already identified previously, we need to just update the 'lastseen', 'ip' and 'computer_id' variables
 		var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET lastseen = Now(), ip=:sql_ip, computerid=:sql_cid, lastadminrank=:sql_ar WHERE id=:sql_id", list(
-			"sql_ip" = address,
+			"sql_ip" = client_address,
 			"sql_cid" = computer_id,
 			"sql_ar" = admin_rank,
 			"sql_id" = sql_id
@@ -633,8 +636,9 @@
 		qdel(query_find_token)
 		return
 	if(query_find_token.NextRow())
+		var/tkn = query_find_token.item[1]
 		qdel(query_find_token)
-		return query_find_token.item[1]
+		return tkn
 	qdel(query_find_token)
 
 	var/tokenstr = md5("[rand(0,9999)][world.time][rand(0,9999)][ckey][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)]")
