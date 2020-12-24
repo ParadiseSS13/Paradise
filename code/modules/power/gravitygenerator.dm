@@ -271,7 +271,6 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ac
 		breaker_on = !breaker_on
 		investigate_log("was toggled [breaker_on ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>"] by [usr.key].", "gravity")
 		set_power()
-		updateUsrDialog()
 
 // Power and Icon States
 
@@ -337,7 +336,6 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ac
 
 	update_icon()
 	update_gen_list()
-	updateUsrDialog()
 	if(alert)
 		shake_everyone()
 
@@ -364,7 +362,6 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ac
 		if(charge_count < 100 && prob(75)) // Let them know it is charging/discharging.
 			playsound(loc, 'sound/effects/empulse.ogg', 100, TRUE)
 
-		updateDialog()
 		if(prob(25)) // To help stop "Your clothes feel warm" spam.
 			pulse_radiation()
 
