@@ -31,7 +31,7 @@
 	var/hidden_pain = FALSE //will it skip pain messages?
 	var/requires_robotic_bodypart = FALSE
 	/// Is this a special (or cybernetic) organ that clings will not want to lose?
-	var/special = FALSE
+	var/important_to_clings = FALSE
 
 /obj/item/organ/Destroy()
 	STOP_PROCESSING(SSobj, src)

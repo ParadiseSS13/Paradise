@@ -180,7 +180,7 @@
 	var/list/special_organs = list()
 	if(includes_special_organs)
 		for(var/obj/item/organ/internal/I in H.internal_organs)
-			if(I.special)
+			if(I.important_to_clings)
 				if((I.status & ORGAN_DEAD) && (I.status & ORGAN_ROBOT)) // cybernetic + broken
 					to_chat(H, "<span class='warning'>The [I] is broken, and no more use to us, and we destroy it!</span>")
 				else

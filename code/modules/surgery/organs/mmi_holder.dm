@@ -4,7 +4,7 @@
 	parent_organ = "chest"
 	status = ORGAN_ROBOT
 	var/obj/item/mmi/stored_mmi
-	special = TRUE //This uh, probably is special. This may have side effects
+	important_to_clings = TRUE //This uh, probably is important. This may have side effects
 
 /obj/item/organ/internal/brain/mmi_holder/Destroy()
 	QDEL_NULL(stored_mmi)

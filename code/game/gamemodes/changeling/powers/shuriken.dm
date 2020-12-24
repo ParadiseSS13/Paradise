@@ -28,7 +28,7 @@
 		embed_chance = FALSE //No using these over and over, for the crew, or the clings.
 
 /datum/action/changeling/shuriken/proc/arm_check(var/obj/item/organ/external/O)
-	if(O && (!(O.status & ORGAN_SPLINTED)) && (!(O.status & ORGAN_BROKEN)))
+	if(O && (!(O.status & ORGAN_SPLINTED)) && (!(O.status & ORGAN_BROKEN)) && (!(O.status & ORGAN_ROBOT)))
 		return TRUE
 	return FALSE
 
