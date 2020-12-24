@@ -70,7 +70,7 @@ GLOBAL_VAR(test_log)
 
 		CHECK_TICK
 
-	world.Reboot("Unit Test Reboot", "end_test", "tests ended", 0)
+	world.Reboot("Unit Test Reboot", "tests ended", 0)
 
 
 // OTHER MISC PROCS RELATED TO UNIT TESTS //
