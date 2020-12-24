@@ -8,8 +8,9 @@
 		if(!is_station_level(D.z))
 			continue
 		INVOKE_ASYNC(D, /obj/machinery/door.proc/hostile_lockdown)
-		addtimer(CALLBACK(D, /obj/machinery/door.proc/disable_lockdown), 900)
+		addtimer(CALLBACK(D, /obj/machinery/door.proc/disable_lockdown), 90 SECONDS)
+	addtimer(CALLBACK(src, .proc/reboot), 90 SECONDS)
 
 	post_status("alert", "lockdown")
-	spawn(900)
-		GLOB.minor_announcement.Announce("Automatic system reboot complete. Have a secure day.","Network reset:")
+/datum/event/door_runtime/proc/reboot()
+	GLOB.minor_announcement.Announce("Automatic system reboot complete. Have a secure day.","Network reset:")
