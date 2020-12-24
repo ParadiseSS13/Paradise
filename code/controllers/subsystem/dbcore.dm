@@ -177,8 +177,8 @@ SUBSYSTEM_DEF(dbcore)
 	if(!IsConnected())
 		return
 	var/datum/db_query/query_round_start = SSdbcore.NewQuery(
-		"UPDATE [format_table_name("round")] SET start_datetime=NOW() WHERE id=:round_id",
-		list("round_id" = GLOB.round_id)
+		"UPDATE [format_table_name("round")] SET start_datetime=NOW(), commit_hash=:hash WHERE id=:round_id",
+		list("hash" = GLOB.revision_info.commit_hash, "round_id" = GLOB.round_id)
 	)
 	query_round_start.Execute()
 	qdel(query_round_start)
