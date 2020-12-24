@@ -1,17 +1,22 @@
 GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
 /world/New()
-	//temporary file used to record errors with loading config, moved to log directory once logging is set up
-	GLOB.config_error_log = GLOB.world_game_log = GLOB.world_runtime_log = "data/logs/config_error.log"
+	//temporary file used to record errors with loading config and the database, moved to log directory once logging is set up
+	GLOB.config_error_log = GLOB.world_game_log = GLOB.world_runtime_log = GLOB.sql_log = "data/logs/config_error.log"
 	load_configuration()
-	// Setup all log paths and stamp them with startups
-	SetupLogs()
 	enable_debugger() // Enable the extools debugger
+
+	// Right off the bat, load up the DB
+	SSdbcore.CheckSchemaVersion() // This doesnt just check the schema version, it also connects to the db! This needs to happen super early! I cannot stress this enough!
+	SSdbcore.SetRoundID() // Set the round ID here
+
+	// Setup all log paths and stamp them with startups, including round IDs
+	SetupLogs()
+
 	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED) // creates a new TGS object
 	log_world("World loaded at [time_stamp()]")
 	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
 	GLOB.revision_info.log_info()
-	SSdbcore.CheckSchemaVersion() // This doesnt just check the schema version, it also connects to the db! This needs to happen super early! I cannot stress this enough!
 	load_admins() // Same here
 
 	#ifdef UNIT_TESTS
@@ -91,7 +96,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	wth = new wth()
 	return wth.invoke(input)
 
-/world/Reboot(var/reason, var/feedback_c, var/feedback_r, var/time)
+/world/Reboot(var/reason, end_string, var/time)
 	//special reboot, do none of the normal stuff
 	if(reason == 1) // Do NOT change this to if(reason). You WILL break the entirety of world rebooting
 		if(usr)
@@ -131,17 +136,16 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 			if(!SSticker.delay_end)
 				world << round_end_sound
 	sleep(delay)
-	if(GLOB.blackbox)
-		GLOB.blackbox.save_all_data_to_sql()
 	if(SSticker.delay_end)
 		to_chat(world, "<span class='boldannounce'>Reboot was cancelled by an admin.</span>")
 		return
-	feedback_set_details("[feedback_c]","[feedback_r]")
 	log_game("<span class='boldannounce'>Rebooting world. [reason]</span>")
 	//kick_clients_in_lobby("<span class='boldannounce'>The round came to an end with you in the lobby.</span>", 1)
 
+	if(end_string)
+		SSticker.end_state = end_string
+
 	Master.Shutdown()	//run SS shutdowns
-	SSdbcore.Disconnect() // DCs cleanly from the database
 	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 	TgsReboot()
 
@@ -154,8 +158,8 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	if(GLOB.pending_server_update)
 		secs_before_auto_reconnect = 60
 		to_chat(world, "<span class='boldannounce'>Reboot will take a little longer, due to pending updates.</span>")
-	for(var/client/C in GLOB.clients)
 
+	for(var/client/C in GLOB.clients)
 		C << output(list2params(list(secs_before_auto_reconnect)), "browseroutput:reboot")
 		if(config.server)       //if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
 			C << link("byond://[config.server]")
@@ -240,7 +244,10 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	return s
 
 /world/proc/SetupLogs()
-	GLOB.log_directory = "data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day")]"
+	if(GLOB.round_id)
+		GLOB.log_directory = "data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day")]/round-[GLOB.round_id]"
+	else
+		GLOB.log_directory = "data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day")]" // Dont stick a round ID if we dont have one
 	GLOB.world_game_log = "[GLOB.log_directory]/game.log"
 	GLOB.world_href_log = "[GLOB.log_directory]/hrefs.log"
 	GLOB.world_runtime_log = "[GLOB.log_directory]/runtime.log"

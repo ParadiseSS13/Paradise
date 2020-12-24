@@ -30,7 +30,7 @@
 		L.on = 1
 		L.break_light_tube()
 
-	feedback_add_details("changeling_powers","RS")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1
 
 /datum/action/changeling/dissonant_shriek
