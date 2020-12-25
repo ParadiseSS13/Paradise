@@ -171,7 +171,7 @@
 					if(isitem(I))
 						user.put_in_hands(I)
 					if(send_feedback)
-						feedback_add_details("object_crafted","[I.type]")
+						SSblackbox.record_feedback("tally", "object_crafted", 1, I.type)
 					return 0
 				return "."
 			return ", missing tool."

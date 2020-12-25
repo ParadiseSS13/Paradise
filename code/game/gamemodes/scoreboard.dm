@@ -1,21 +1,20 @@
+//Thresholds for Score Ratings
+#define SINGULARITY_DESERVES_BETTER -3500
+#define SINGULARITY_FODDER -3000
+#define ALL_FIRED -2500
+#define WASTE_OF_OXYGEN -2000
+#define HEAP_OF_SCUM -1500
+#define LAB_MONKEYS -1000
+#define UNDESIREABLES -500
+#define SERVANTS_OF_SCIENCE 500
+#define GOOD_BUNCH 1000
+#define MACHINE_THIRTEEN 1500
+#define PROMOTIONS_FOR_EVERYONE 2000
+#define AMBASSADORS_OF_DISCOVERY 3000
+#define PRIDE_OF_SCIENCE 4000
+#define NANOTRANSEN_FINEST 5000
+
 /datum/controller/subsystem/ticker/proc/scoreboard()
-
-	//Thresholds for Score Ratings
-	#define SINGULARITY_DESERVES_BETTER -3500
-	#define SINGULARITY_FODDER -3000
-	#define ALL_FIRED -2500
-	#define WASTE_OF_OXYGEN -2000
-	#define HEAP_OF_SCUM -1500
-	#define LAB_MONKEYS -1000
-	#define UNDESIREABLES -500
-	#define SERVANTS_OF_SCIENCE 500
-	#define GOOD_BUNCH 1000
-	#define MACHINE_THIRTEEN 1500
-	#define PROMOTIONS_FOR_EVERYONE 2000
-	#define AMBASSADORS_OF_DISCOVERY 3000
-	#define PRIDE_OF_SCIENCE 4000
-	#define NANOTRANSEN_FINEST 5000
-
 	//Print a list of antagonists to the server log
 	var/list/total_antagonists = list()
 	//Look into all mobs in world, dead or alive
@@ -156,37 +155,11 @@
 	// Show the score - might add "ranks" later
 	to_chat(world, "<b>The crew's final score is:</b>")
 	to_chat(world, "<b><font size='4'>[GLOB.score_crewscore]</font></b>")
-	for(var/mob/E in GLOB.player_list)
-		if(E.client && !E.get_preference(PREFTOGGLE_DISABLE_SCOREBOARD))
-			E.scorestats()
 
-// A recursive function to properly determine the wealthiest escapee
-/datum/controller/subsystem/ticker/proc/get_score_container_worth(atom/C, level=0)
-	if(level >= 5)
-		// in case the containers recurse or something
-		return 0
-	else
-		. = 0
-		for(var/obj/item/card/id/id in C.contents)
-			var/datum/money_account/A = get_money_account(id.associated_account_number)
-			// has an account?
-			if(A)
-				. += A.money
-		for(var/obj/item/stack/spacecash/cash in C.contents)
-			. += cash.amount
-		for(var/obj/item/storage/S in C.contents)
-			. += .(S, level + 1)
-
-/datum/game_mode/proc/get_scoreboard_stats()
-	return null
-
-/datum/game_mode/proc/set_scoreboard_gvars()
-	return null
-
-/mob/proc/scorestats()
+	// Generate the score panel
 	var/dat = "<b>Round Statistics and Score</b><br><hr>"
-	if(SSticker && SSticker.mode)
-		dat += SSticker.mode.get_scoreboard_stats()
+	if(mode)
+		dat += mode.get_scoreboard_stats()
 
 	dat += {"
 	<b><u>General Statistics</u></b><br>
@@ -215,7 +188,7 @@
 		else
 			dat += "No-one escaped!<br>"
 
-	dat += SSticker.mode.declare_job_completion()
+	dat += mode.declare_job_completion()
 
 	dat += {"
 	<hr><br>
@@ -243,17 +216,44 @@
 	dat += "<b><u>RATING:</u></b> [score_rating]"
 	src << browse(dat, "window=roundstats;size=500x600")
 
-	#undef SINGULARITY_DESERVES_BETTER
-	#undef SINGULARITY_FODDER
-	#undef ALL_FIRED
-	#undef WASTE_OF_OXYGEN
-	#undef HEAP_OF_SCUM
-	#undef LAB_MONKEYS
-	#undef UNDESIREABLES
-	#undef SERVANTS_OF_SCIENCE
-	#undef GOOD_BUNCH
-	#undef MACHINE_THIRTEEN
-	#undef PROMOTIONS_FOR_EVERYONE
-	#undef AMBASSADORS_OF_DISCOVERY
-	#undef PRIDE_OF_SCIENCE
-	#undef NANOTRANSEN_FINEST
+	for(var/mob/E in GLOB.player_list)
+		if(E.client && !E.get_preference(PREFTOGGLE_DISABLE_SCOREBOARD))
+			E << browse(dat, "window=roundstats;size=500x600")
+
+// A recursive function to properly determine the wealthiest escapee
+/datum/controller/subsystem/ticker/proc/get_score_container_worth(atom/C, level=0)
+	if(level >= 5)
+		// in case the containers recurse or something
+		return 0
+	else
+		. = 0
+		for(var/obj/item/card/id/id in C.contents)
+			var/datum/money_account/A = get_money_account(id.associated_account_number)
+			// has an account?
+			if(A)
+				. += A.money
+		for(var/obj/item/stack/spacecash/cash in C.contents)
+			. += cash.amount
+		for(var/obj/item/storage/S in C.contents)
+			. += .(S, level + 1)
+
+/datum/game_mode/proc/get_scoreboard_stats()
+	return null
+
+/datum/game_mode/proc/set_scoreboard_gvars()
+	return null
+
+#undef SINGULARITY_DESERVES_BETTER
+#undef SINGULARITY_FODDER
+#undef ALL_FIRED
+#undef WASTE_OF_OXYGEN
+#undef HEAP_OF_SCUM
+#undef LAB_MONKEYS
+#undef UNDESIREABLES
+#undef SERVANTS_OF_SCIENCE
+#undef GOOD_BUNCH
+#undef MACHINE_THIRTEEN
+#undef PROMOTIONS_FOR_EVERYONE
+#undef AMBASSADORS_OF_DISCOVERY
+#undef PRIDE_OF_SCIENCE
+#undef NANOTRANSEN_FINEST

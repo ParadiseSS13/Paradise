@@ -14,8 +14,7 @@
 	icon_state = "black"
 	icon_closed = "black"
 
-/obj/structure/closet/gmcloset/New()
-	..()
+/obj/structure/closet/gmcloset/populate_contents()
 	new /obj/item/clothing/head/that(src)
 	new /obj/item/clothing/head/that(src)
 	new /obj/item/radio/headset/headset_service(src)
@@ -42,8 +41,7 @@
 	icon_state = "black"
 	icon_closed = "black"
 
-/obj/structure/closet/chefcloset/New()
-	..()
+/obj/structure/closet/chefcloset/populate_contents()
 	new /obj/item/clothing/under/waiter(src)
 	new /obj/item/clothing/under/waiter(src)
 	new /obj/item/radio/headset/headset_service(src)
@@ -70,8 +68,7 @@
 	icon_state = "mixed"
 	icon_closed = "mixed"
 
-/obj/structure/closet/jcloset/New()
-	..()
+/obj/structure/closet/jcloset/populate_contents()
 	new /obj/item/flashlight(src)
 	new /obj/item/flashlight(src)
 	new /obj/item/melee/flyswatter(src)
@@ -111,8 +108,7 @@
 	icon_state = "blue"
 	icon_closed = "blue"
 
-/obj/structure/closet/lawcloset/New()
-	..()
+/obj/structure/closet/lawcloset/populate_contents()
 	new /obj/item/storage/box/tapes(src)
 	new /obj/item/book/manual/faxes(src)
 	new /obj/item/clothing/under/lawyer/female(src)
@@ -138,8 +134,7 @@
 	icon_closed = "blue"
 
 
-/obj/structure/closet/paramedic/New()
-	. = ..()
+/obj/structure/closet/paramedic/populate_contents()
 	new /obj/item/clothing/under/rank/medical/paramedic(src)
 	new /obj/item/clothing/under/rank/medical/paramedic(src)
 	new /obj/item/radio/headset/headset_med(src)

@@ -439,7 +439,7 @@
 
 					var/created_volume = C.result_amount*multiplier
 					if(C.result)
-						feedback_add_details("chemical_reaction","[C.result]|[C.result_amount*multiplier]")
+						SSblackbox.record_feedback("tally", "chemical_reaction", C.result_amount * multiplier, C.result)
 						multiplier = max(multiplier, 1) //this shouldnt happen ...
 						add_reagent(C.result, C.result_amount*multiplier)
 						set_data(C.result, preserved_data)
