@@ -63,7 +63,7 @@
 	log_admin("[key_name(usr)] jumped to [A]")
 	if(!isobserver(usr))
 		message_admins("[key_name_admin(usr)] jumped to [A]")
-	feedback_add_details("admin_verb", "JA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Area")
 
 /client/proc/jumptoturf(turf/T in world)
 	set name = "Jump to Turf"
@@ -79,7 +79,8 @@
 	if(!isobserver(usr))
 		message_admins("[key_name_admin(usr)] jumped to [T.x], [T.y], [T.z] in [T.loc]", 1)
 	admin_forcemove(usr, T)
-	feedback_add_details("admin_verb", "JT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Turf")
+	return
 
 /client/proc/jumptomob(mob/M)
 	set name = "Jump to Mob"
@@ -96,7 +97,7 @@
 		var/mob/A = src.mob
 		var/turf/T = get_turf(M)
 		if(T && isturf(T))
-			feedback_add_details("admin_verb", "JM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+			SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Mob")
 			admin_forcemove(A, M.loc)
 		else
 			to_chat(A, "This mob is not located in the game world.")
@@ -114,7 +115,7 @@
 		if(isobserver(usr))
 			var/mob/dead/observer/O = usr
 			O.ManualFollow(T)
-		feedback_add_details("admin_verb", "JC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Coordinate")
 	if(!isobserver(usr))
 		message_admins("[key_name_admin(usr)] jumped to coordinates [tx], [ty], [tz]")
 
@@ -130,7 +131,7 @@
 		O.force_eject_occupant(usr)
 	admin_forcemove(usr, M.loc)
 
-	feedback_add_details("admin_verb", "JK") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Key")
 
 /client/proc/Getmob(var/mob/M in GLOB.mob_list)
 	set category = null
@@ -147,7 +148,7 @@
 		var/obj/O = M.loc
 		O.force_eject_occupant(M)
 	admin_forcemove(M, get_turf(usr))
-	feedback_add_details("admin_verb", "GM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Get Mob")
 
 /client/proc/Getkey()
 	set category = null
@@ -175,7 +176,7 @@
 			O.force_eject_occupant(M)
 		admin_forcemove(M, get_turf(usr))
 		admin_forcemove(usr, M.loc)
-		feedback_add_details("admin_verb", "GK") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Get Key")
 
 /client/proc/sendmob(var/mob/M in GLOB.mob_list)
 	set category = "Admin"
@@ -190,7 +191,7 @@
 			var/obj/O = M.loc
 			O.force_eject_occupant(M)
 		admin_forcemove(M, pick(get_area_turfs(A)))
-		feedback_add_details("admin_verb", "SMOB") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Send Mob")
 		log_admin("[key_name(usr)] teleported [key_name(M)] to [A]")
 		message_admins("[key_name_admin(usr)] teleported [key_name_admin(M)] to [A]", 1)
 
