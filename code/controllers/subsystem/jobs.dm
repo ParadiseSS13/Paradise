@@ -551,40 +551,44 @@ SUBSYSTEM_DEF(jobs)
 
 /datum/controller/subsystem/jobs/proc/HandleFeedbackGathering()
 	for(var/datum/job/job in occupations)
-		var/tmp_str = "|[job.title]|"
 
-		var/level1 = 0 //high
-		var/level2 = 0 //medium
-		var/level3 = 0 //low
-		var/level4 = 0 //never
-		var/level5 = 0 //banned
-		var/level6 = 0 //account too young
-		var/level7 = 0 //has disability rendering them ineligible
+		var/high = 0 //high
+		var/medium = 0 //medium
+		var/low = 0 //low
+		var/never = 0 //never
+		var/banned = 0 //banned
+		var/young = 0 //account too young
+		var/disabled = 0 //has disability rendering them ineligible
 		for(var/mob/new_player/player in GLOB.player_list)
 			if(!(player.ready && player.mind && !player.mind.assigned_role))
 				continue //This player is not ready
 			if(jobban_isbanned(player, job.title))
-				level5++
+				banned++
 				continue
 			if(!job.player_old_enough(player.client))
-				level6++
+				young++
 				continue
 			if(job.available_in_playtime(player.client))
-				level6++
+				young++
 				continue
 			if(job.barred_by_disability(player.client))
-				level7++
+				disabled++
 				continue
 			if(player.client.prefs.GetJobDepartment(job, 1) & job.flag)
-				level1++
+				high++
 			else if(player.client.prefs.GetJobDepartment(job, 2) & job.flag)
-				level2++
+				medium++
 			else if(player.client.prefs.GetJobDepartment(job, 3) & job.flag)
-				level3++
-			else level4++ //not selected
+				low++
+			else never++ //not selected
 
-		tmp_str += "HIGH=[level1]|MEDIUM=[level2]|LOW=[level3]|NEVER=[level4]|BANNED=[level5]|YOUNG=[level6]|DISABILITY=[level7]|-"
-		feedback_add_details("job_preferences",tmp_str)
+		SSblackbox.record_feedback("nested tally", "job_preferences", high, list("[job.title]", "high"))
+		SSblackbox.record_feedback("nested tally", "job_preferences", medium, list("[job.title]", "medium"))
+		SSblackbox.record_feedback("nested tally", "job_preferences", low, list("[job.title]", "low"))
+		SSblackbox.record_feedback("nested tally", "job_preferences", never, list("[job.title]", "never"))
+		SSblackbox.record_feedback("nested tally", "job_preferences", banned, list("[job.title]", "banned"))
+		SSblackbox.record_feedback("nested tally", "job_preferences", young, list("[job.title]", "young"))
+		SSblackbox.record_feedback("nested tally", "job_preferences", disabled, list("[job.title]", "disabled"))
 
 
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)

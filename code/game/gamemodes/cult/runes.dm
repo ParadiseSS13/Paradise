@@ -418,6 +418,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/teleport/Destroy()
 	GLOB.teleport_runes -= src
+	QDEL_NULL(inner_portal)
+	QDEL_NULL(outer_portal)
 	return ..()
 
 /obj/effect/rune/teleport/invoke(list/invokers)
