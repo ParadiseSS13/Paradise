@@ -43,7 +43,6 @@
 	icon = 'icons/hispania/obj/lavaland/artefacts.dmi'
 	icon_state = "miner_mask"
 	bonus_value = 5
-	denied_type = /obj/item/crusher_trophy/blaster_tubes/mask
 
 /obj/item/crusher_trophy/blaster_tubes/mask/effect_desc()
 	return "the crusher to deal <b>[bonus_value]</b> extra melee damage"

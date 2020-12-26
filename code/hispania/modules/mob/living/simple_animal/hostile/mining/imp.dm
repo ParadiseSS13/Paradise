@@ -64,7 +64,6 @@
 	icon = 'icons/hispania/obj/lavaland/artefacts.dmi'
 	icon_state = "impskull"
 	bonus_value = 5
-	denied_type = /obj/item/crusher_trophy/blaster_tubes/impskull
 
 /obj/item/crusher_trophy/blaster_tubes/impskull/effect_desc()
 	return "causes every marker to deal <b>[bonus_value]</b> damage."
