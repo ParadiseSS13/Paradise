@@ -1406,7 +1406,7 @@
 /datum/reagent/consumable/ethanol/fernet/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(!M.nutrition)
-		switch(rand(1,3))
+		switch(rand(1, 3))
 			if(1)
 				to_chat(M, "<span class='warning'>You feel hungry...</span>")
 			if(2)
