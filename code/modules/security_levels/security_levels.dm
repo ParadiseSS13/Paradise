@@ -126,6 +126,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_delta")
 
 		SSnightshift.check_nightshift(TRUE)
+		SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
 
 	else
 		return

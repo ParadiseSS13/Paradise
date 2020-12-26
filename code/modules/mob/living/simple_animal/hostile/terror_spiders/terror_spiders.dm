@@ -468,3 +468,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		to_chat(src, "<span class='warning'>Cancelled remote view due to being under attack!</span>")
 		reset_perspective()
 	. = ..()
+
+/mob/living/simple_animal/hostile/poison/terror_spider/movement_delay()
+	. = ..()
+	if(pulling && !ismob(pulling))
+		. += 6 // drastic move speed penalty for dragging anything that is not a mob

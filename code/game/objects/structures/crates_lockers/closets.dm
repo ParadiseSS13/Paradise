@@ -22,17 +22,32 @@
 	var/material_drop_amount = 2
 	drag_slowdown = 1.5
 
-/obj/structure/closet/New()
-	..()
-	spawn(1)
-		if(!opened)		// if closed, any item at the crate's loc is put in the contents
-			var/itemcount = 0
-			for(var/obj/item/I in loc)
-				if(I.density || I.anchored || I == src) continue
-				I.forceMove(src)
-				// Ensure the storage cap is respected
-				if(++itemcount >= storage_capacity)
-					break
+// Please dont override this unless you absolutely have to
+/obj/structure/closet/Initialize(mapload)
+	. = ..()
+	if(!opened)
+		// Youre probably asking, why is this a 0 seconds timer AA?
+		// Well, I will tell you. One day, all /obj/effect/spawner will use Initialize
+		// This includes maint loot spawners. The problem with that is if a closet loads before a spawner,
+		// the loot will just be in a pile. Adding a timer with 0 delay will cause it to only take in contents once the MC has loaded,
+		// therefore solving the issue on mapload. During rounds, everything will happen as normal
+		addtimer(CALLBACK(src, .proc/take_contents), 0)
+	update_icon() // Set it to the right icon if needed
+	populate_contents() // Spawn all its stuff
+
+// Override this to spawn your things in. This lets you use probabilities, and also doesnt cause init overrides
+/obj/structure/closet/proc/populate_contents()
+	return
+
+// This is called on Initialize to add contents on the tile
+/obj/structure/closet/proc/take_contents()
+	var/itemcount = 0
+	for(var/obj/item/I in loc)
+		if(I.density || I.anchored || I == src) continue
+		I.forceMove(src)
+		// Ensure the storage cap is respected
+		if(++itemcount >= storage_capacity)
+			break
 
 // Fix for #383 - C4 deleting fridges with corpses
 /obj/structure/closet/Destroy()

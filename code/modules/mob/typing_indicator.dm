@@ -99,7 +99,7 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 		if(istype(mob))
 			mob.set_typing_indicator(FALSE)
 
-	feedback_add_details("admin_verb", "TID") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Typing Indicator (Speech)") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
 /client/verb/emote_indicator()
@@ -110,6 +110,6 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 	prefs.save_preferences(src)
 	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_EMOTE_BUBBLE) ? "no longer" : "now"] display a typing indicator for emotes.")
 
-	feedback_add_details("admin_verb", "EID") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Typing Indicator (Emote)") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 #undef TYPING_INDICATOR_LIFETIME

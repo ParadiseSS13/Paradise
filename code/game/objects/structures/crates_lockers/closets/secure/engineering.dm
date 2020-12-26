@@ -8,8 +8,7 @@
 	icon_broken = "securecebroken"
 	icon_off = "secureceoff"
 
-/obj/structure/closet/secure_closet/engineering_chief/New()
-	..()
+/obj/structure/closet/secure_closet/engineering_chief/populate_contents()
 	if(prob(50))
 		new /obj/item/storage/backpack/industrial(src)
 	else
@@ -56,8 +55,7 @@
 	icon_broken = "secureengelecbroken"
 	icon_off = "secureengelecoff"
 
-/obj/structure/closet/secure_closet/engineering_electrical/New()
-	..()
+/obj/structure/closet/secure_closet/engineering_electrical/populate_contents()
 	new /obj/item/clothing/gloves/color/yellow(src)
 	new /obj/item/clothing/gloves/color/yellow(src)
 	new /obj/item/storage/toolbox/electrical(src)
@@ -82,8 +80,7 @@
 	icon_broken = "secureengweldbroken"
 	icon_off = "secureengweldoff"
 
-/obj/structure/closet/secure_closet/engineering_welding/New()
-	..()
+/obj/structure/closet/secure_closet/engineering_welding/populate_contents()
 	new /obj/item/clothing/head/welding(src)
 	new /obj/item/clothing/head/welding(src)
 	new /obj/item/clothing/head/welding(src)
@@ -102,8 +99,7 @@
 	icon_broken = "secureengbroken"
 	icon_off = "secureengoff"
 
-/obj/structure/closet/secure_closet/engineering_personal/New()
-	..()
+/obj/structure/closet/secure_closet/engineering_personal/populate_contents()
 	if(prob(50))
 		new /obj/item/storage/backpack/industrial(src)
 	else
@@ -131,8 +127,7 @@
 	icon_broken = "secureatmbroken"
 	icon_off = "secureatmoff"
 
-/obj/structure/closet/secure_closet/atmos_personal/New()
-	..()
+/obj/structure/closet/secure_closet/atmos_personal/populate_contents()
 	new /obj/item/radio/headset/headset_eng(src)
 	new /obj/item/cartridge/atmos(src)
 	new /obj/item/storage/toolbox/mechanical(src)

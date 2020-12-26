@@ -79,7 +79,7 @@
 	var/picked_type = variant_names[choice]
 	var/obj/item/nullrod/new_rod = new picked_type(get_turf(user))
 
-	feedback_set_details("chaplain_weapon", "[picked_type]")
+	SSblackbox.record_feedback("text", "chaplain_weapon", 1, "[picked_type]", 1)
 
 	if(new_rod)
 		new_rod.reskinned = TRUE

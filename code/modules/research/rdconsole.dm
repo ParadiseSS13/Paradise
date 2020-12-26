@@ -351,9 +351,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			to_chat(usr, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
 		else
 			for(var/T in temp_tech)
-				var/datum/tech/KT = files.known_tech[T] //For stat logging of high levels
-				if(files.IsTechHigher(T, temp_tech[T]) && KT.level >= 5) //For stat logging of high levels
-					feedback_add_details("high_research_level","[KT][KT.level + 1]") //+1 to show the level which we're about to get
 				files.UpdateTech(T, temp_tech[T])
 			send_mats()
 			linked_destroy.loaded_item = null

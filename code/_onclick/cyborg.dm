@@ -17,6 +17,8 @@
 
 	if(is_ventcrawling(src)) // To stop drones interacting with anything while ventcrawling
 		return
+	if(stat == DEAD)
+		return
 
 	var/list/modifiers = params2list(params)
 	if(modifiers["shift"] && modifiers["ctrl"])

@@ -9,8 +9,7 @@
 	icon_off = "medicaloff"
 	req_access = list(ACCESS_MEDICAL)
 
-/obj/structure/closet/secure_closet/medical1/New()
-	..()
+/obj/structure/closet/secure_closet/medical1/populate_contents()
 	new /obj/item/storage/box/autoinjectors(src)
 	new /obj/item/storage/box/syringes(src)
 	new /obj/item/storage/box/pillbottles(src)
@@ -37,8 +36,7 @@
 	icon_off = "medicaloff"
 	req_access = list(ACCESS_SURGERY)
 
-/obj/structure/closet/secure_closet/medical2/New()
-	..()
+/obj/structure/closet/secure_closet/medical2/populate_contents()
 	new /obj/item/tank/anesthetic(src)
 	new /obj/item/tank/anesthetic(src)
 	new /obj/item/tank/anesthetic(src)
@@ -57,8 +55,7 @@
 	icon_broken = "securemedbroken"
 	icon_off = "securemedoff"
 
-/obj/structure/closet/secure_closet/medical3/New()
-	..()
+/obj/structure/closet/secure_closet/medical3/populate_contents()
 	if(prob(50))
 		new /obj/item/storage/backpack/medic(src)
 	else
@@ -89,8 +86,7 @@
 	icon_off = "medicaloff"
 	req_access = list(ACCESS_MEDICAL)
 
-/obj/structure/closet/secure_closet/exam/New()
-	..()
+/obj/structure/closet/secure_closet/exam/populate_contents()
 	new /obj/item/storage/box/syringes(src)
 	new /obj/item/reagent_containers/dropper(src)
 	new /obj/item/storage/belt/medical(src)
@@ -113,6 +109,7 @@
 	desc = "Contains various pills to calm or sedate patients."
 	wrapper_color = COLOR_PALE_BTL_GREEN
 
+// Why the hell is this in the closets folder?
 /obj/item/storage/pill_bottle/psychiatrist/New()
 	..()
 	new /obj/item/reagent_containers/food/pill/haloperidol(src)
@@ -137,8 +134,7 @@
 	icon_broken = "securemedbroken"
 	icon_off = "securemedoff"
 
-/obj/structure/closet/secure_closet/psychiatrist/New()
-	..()
+/obj/structure/closet/secure_closet/psychiatrist/populate_contents()
 	new /obj/item/clothing/suit/straight_jacket(src)
 	new /obj/item/reagent_containers/syringe(src)
 	new /obj/item/reagent_containers/glass/bottle/ether(src)
@@ -161,8 +157,7 @@
 	icon_broken = "cmosecurebroken"
 	icon_off = "cmosecureoff"
 
-/obj/structure/closet/secure_closet/CMO/New()
-	..()
+/obj/structure/closet/secure_closet/CMO/populate_contents()
 	if(prob(50))
 		new /obj/item/storage/backpack/medic(src)
 	else
@@ -204,8 +199,7 @@
 	name = "animal control locker"
 	req_access = list(ACCESS_SURGERY)
 
-/obj/structure/closet/secure_closet/animal/New()
-	..()
+/obj/structure/closet/secure_closet/animal/populate_contents()
 	new /obj/item/assembly/signaler(src)
 	new /obj/item/radio/electropack(src)
 	new /obj/item/radio/electropack(src)
@@ -223,8 +217,7 @@
 	icon_off = "medicaloff"
 	req_access = list(ACCESS_CHEMISTRY)
 
-/obj/structure/closet/secure_closet/chemical/New()
-	..()
+/obj/structure/closet/secure_closet/chemical/populate_contents()
 	new /obj/item/storage/box/pillbottles(src)
 	new /obj/item/storage/box/pillbottles(src)
 	new /obj/item/storage/box/patch_packs(src)
@@ -268,8 +261,7 @@
 	icon_off = "medicaloff"
 	req_access = list(ACCESS_PARAMEDIC)
 
-/obj/structure/closet/secure_closet/paramedic/New()
-	..()
+/obj/structure/closet/secure_closet/paramedic/populate_contents()
 	new /obj/item/clothing/suit/space/eva/paramedic(src)
 	new /obj/item/clothing/head/helmet/space/eva/paramedic(src)
 	new /obj/item/sensor_device(src)
@@ -288,8 +280,7 @@
 	icon_off = "chemicaloff"
 	req_access = list(ACCESS_CHEMISTRY)
 
-/obj/structure/closet/secure_closet/reagents/New()
-	..()
+/obj/structure/closet/secure_closet/reagents/populate_contents()
 	new /obj/item/reagent_containers/glass/bottle/reagent/phenol(src)
 	new /obj/item/reagent_containers/glass/bottle/reagent/ammonia(src)
 	new /obj/item/reagent_containers/glass/bottle/reagent/oil(src)

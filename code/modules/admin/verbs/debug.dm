@@ -14,7 +14,7 @@
 		message_admins("[key_name_admin(src)] toggled debugging on.")
 		log_admin("[key_name(src)] toggled debugging on.")
 
-	feedback_add_details("admin_verb","DG2") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Debug Game") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
 /* 21st Sept 2010
@@ -93,7 +93,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			returnval = WrapAdminProcCall(GLOBAL_PROC, procname, lst) // Pass the lst as an argument list to the proc
 
 		to_chat(usr, "<font color='blue'>[procname] returned: [!isnull(returnval) ? returnval : "null"]</font>")
-		feedback_add_details("admin_verb","APC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Advanced Proc-Call") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 // All these vars are related to proc call protection
 // If you add more of these, for the love of fuck, protect them
@@ -200,7 +200,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		var/returnval = WrapAdminProcCall(A, procname, lst) // Pass the lst as an argument list to the proc
 		to_chat(src, "<span class='notice'>[procname] returned: [!isnull(returnval) ? returnval : "null"]</span>")
 
-	feedback_add_details("admin_verb","DPC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Atom Proc-Call") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/get_callproc_args()
 	var/argnum = input("Number of arguments","Number:",0) as num|null
@@ -282,7 +282,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	t+= "CO2: [env.carbon_dioxide]\n"
 
 	usr.show_message(t, 1)
-	feedback_add_details("admin_verb","ASL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Air Status (Location)") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_robotize(var/mob/M in GLOB.mob_list)
 	set category = "Event"
@@ -360,7 +360,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	for(var/datum/paiCandidate/candidate in GLOB.paiController.pai_candidates)
 		if(candidate.key == choice.key)
 			GLOB.paiController.pai_candidates.Remove(candidate)
-	feedback_add_details("admin_verb","MPAI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make pAI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_alienize(var/mob/M in GLOB.mob_list)
 	set category = "Event"
@@ -376,7 +376,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		log_admin("[key_name(src)] has alienized [M.key].")
 		spawn(10)
 			M:Alienize()
-			feedback_add_details("admin_verb","MKAL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+			SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Alien") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		log_admin("[key_name(usr)] made [key_name(M)] into an alien.")
 		message_admins("<span class='notice'>[key_name_admin(usr)] made [key_name(M)] into an alien.</span>", 1)
 	else
@@ -396,7 +396,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		log_admin("[key_name(src)] has slimeized [M.key].")
 		spawn(10)
 			M:slimeize()
-			feedback_add_details("admin_verb","MKMET") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+			SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Slime") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		log_admin("[key_name(usr)] made [key_name(M)] into a slime.")
 		message_admins("<span class='notice'>[key_name_admin(usr)] made [key_name(M)] into a slime.</span>", 1)
 	else
@@ -441,7 +441,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		qdel(S)
 	log_admin("[key_name(src)] has deleted all Singularities and Tesla orbs.")
 	message_admins("[key_name_admin(src)] has deleted all Singularities and Tesla orbs.", 0)
-	feedback_add_details("admin_verb","DELS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Del Singulo/Tesla") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_debug_make_powernets()
 	set category = "Debug"
@@ -453,7 +453,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	SSmachines.makepowernets()
 	log_admin("[key_name(src)] has remade the powernet. makepowernets() called.")
 	message_admins("[key_name_admin(src)] has remade the powernets. makepowernets() called.", 0)
-	feedback_add_details("admin_verb","MPWN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Powernets") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_grantfullaccess(var/mob/M in GLOB.mob_list)
 	set category = "Admin"
@@ -485,7 +485,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			H.update_inv_wear_id()
 	else
 		alert("Invalid mob")
-	feedback_add_details("admin_verb","GFA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Grant Full Access") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(src)] has granted [M.key] full access.")
 	message_admins("<span class='notice'>[key_name_admin(usr)] has granted [M.key] full access.</span>", 1)
 
@@ -509,7 +509,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	M.ckey = src.ckey
 	if( isobserver(adminmob) )
 		qdel(adminmob)
-	feedback_add_details("admin_verb","ADC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Assume Direct Control") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
 /client/proc/cmd_admin_areatest()
@@ -661,7 +661,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	H.regenerate_icons()
 
-	feedback_add_details("admin_verb", "SE") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Select Equipment") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] changed the equipment of [key_name(M)] to [dresscode].")
 	message_admins("<span class='notice'>[key_name_admin(usr)] changed the equipment of [key_name_admin(M)] to [dresscode].</span>", 1)
 
@@ -914,7 +914,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		if(!isobserver(usr))
 			message_admins("[key_name_admin(usr)] jumped to ruin [ruinname]", 1)
 
-		feedback_add_details("admin_verb","JT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Ruin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/toggle_medal_disable()
 	set category = "Debug"
@@ -927,7 +927,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	SSmedals.hub_enabled = !SSmedals.hub_enabled
 
 	message_admins("<span class='adminnotice'>[key_name_admin(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout.</span>")
-	feedback_add_details("admin_verb","TMH") // If...
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Medal Disable") // If...
 	log_admin("[key_name(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout.")
 
 
