@@ -134,7 +134,6 @@
 
 /datum/chemical_reaction/silme/slimebork/on_reaction(datum/reagents/holder)
 
-	feedback_add_details("slime_cores_used","[type]")
 	/*var/list/blocked = list(/obj/item/reagent_containers/food/snacks, //CODE OBSOLETO DE PARADISE, NOSTROS USAMOS GET_BORK, GET_DRINK Y GET_FOOD//
 		/obj/item/reagent_containers/food/snacks/breadslice,
 		/obj/item/reagent_containers/food/snacks/sliceable,

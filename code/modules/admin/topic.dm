@@ -1035,7 +1035,6 @@
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.")
 				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.</span>")
 				ryzorbot("notify", "addban=[key_name(usr)]&[M.ckey]&This ban does not expire automatically and must be appealed.","[reason]")
-				feedback_inc("ban_perma",1)
 				DB_ban_record(BANTYPE_PERMA, M, -1, reason)
 				to_chat(world, "<b><span class='info'>El jugador <span class='warning'>[M.ckey]</span> fue baneado.</span></b><p><span class='rose'>[reason]</span></p>")
 				del(M.client)

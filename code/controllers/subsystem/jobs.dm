@@ -614,13 +614,13 @@ SUBSYSTEM_DEF(jobs)
 				disabled++
 				continue
 			if(job.age_restringed(player.client))
-				level7++
+				disabled++
 				continue
 			if(job.command_age_restringed(player.client))
-				level7++
+				disabled++
 				continue
 			if(job.captain_age_restringed(player.client))
-				level7++
+				disabled++
 				continue
 			if(player.client.prefs.GetJobDepartment(job, 1) & job.flag)
 				high++

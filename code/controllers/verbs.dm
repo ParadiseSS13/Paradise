@@ -38,10 +38,8 @@
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "Debug Cameras")
 		if("Space Manager")
 			debug_variables(GLOB.space_manager)
-			feedback_add_details("admin_verb","DSpace")
 		if("Quirks")
 			debug_variables(SSquirks)
-			feedback_add_details("admin_verb","DQuirks")
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "Debug Space")
 
 	message_admins("Admin [key_name_admin(usr)] is debugging the [controller] controller.")
