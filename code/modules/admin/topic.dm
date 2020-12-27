@@ -2884,7 +2884,7 @@
 			if("quickpower")
 				power_restore_quick()
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power All SMESs")
-				log_and_message_admins("[key_name(usr)] made all SMESs powered", 1)
+				log_and_message_admins("<span class='notice'>[key_name(usr)] made all SMESs powered</span>", 1)
 			if("prisonwarp")
 				if(!SSticker)
 					alert("The game hasn't started yet!", null, null, null, null, null)
