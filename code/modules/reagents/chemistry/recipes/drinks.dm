@@ -881,7 +881,7 @@
 	name = "Fernet Cola"
 	id = "fernet_cola"
 	result = "fernet_cola"
-	required_reagents = list("fernet" = 1, "cola" = 2, "ice" = 1)
+	required_reagents = list("fernet" = 1, "cola" = 2)
 	result_amount = 3
 	mix_message = "The ingredients mix into a dark brown godly substance"
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
