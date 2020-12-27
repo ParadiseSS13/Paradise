@@ -1357,6 +1357,19 @@
 		aidisabled = FALSE
 		updateDialog()
 
+/obj/machinery/power/apc/proc/repair_apc()
+	if(wires)
+		wires.repair()
+	if(!operating)
+		toggle_breaker()
+	if(shorted)
+		shorted = FALSE
+
+/obj/machinery/power/apc/proc/recharge_apc()
+	var/obj/item/stock_parts/cell/C = get_cell()
+	if(C)
+		C.charge = C.maxcharge
+
 #undef APC_UPDATE_ICON_COOLDOWN
 
 #undef APC_EXTERNAL_POWER_NOTCONNECTED
