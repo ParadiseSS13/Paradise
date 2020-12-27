@@ -1026,13 +1026,13 @@
 				// Main return is here
 				return parsed_data
 			catch
-				message_admins("Error parsing byond.com data for [ckey]. Please inform maintainers.")
+				log_debug("Error parsing byond.com data for [ckey]. Please inform maintainers.")
 				return null
 		else
-			message_admins("Error retrieving data from byond.com for [ckey]. Invalid status code (Expected: 200 | Got: [status]).")
+			log_debug("Error retrieving data from byond.com for [ckey]. Invalid status code (Expected: 200 | Got: [status]).")
 			return null
 	else
-		message_admins("Failed to retrieve data from byond.com for [ckey]. Connection failed.")
+		log_debug("Failed to retrieve data from byond.com for [ckey]. Connection failed.")
 		return null
 
 
@@ -1067,7 +1067,7 @@
 	// They dont have a date, lets grab one
 	var/list/byond_data = retrieve_byondacc_data()
 	if(isnull(byond_data) || !(byond_data["general"]["joined"]))
-		message_admins("Failed to retrieve an account creation date for [ckey].")
+		log_debug("Failed to retrieve an account creation date for [ckey].")
 		return
 
 	byondacc_date = byond_data["general"]["joined"]
