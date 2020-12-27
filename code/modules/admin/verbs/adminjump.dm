@@ -75,7 +75,7 @@
 	set category = "Admin"
 	set name = "Jump to Coordinate"
 
-	if(!check_rights(R_ADMIN))
+	if(!isobserver(usr) && !check_rights(R_ADMIN)) // Only admins can jump without being a ghost
 		return
 
 	var/turf/T = locate(tx, ty, tz)
