@@ -40,5 +40,5 @@
 	changeling.purchasedpowers -= src
 	//O.mind.changeling.purchasedpowers += new /datum/action/changeling/lesserform(null)
 	src.Remove(user)
-	feedback_add_details("changeling_powers","LFT")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1

@@ -666,7 +666,6 @@ BLIND     // can't see anything
 		3 = Report location
 		*/
 	var/list/accessories = list()
-
 	var/displays_id = 1
 	var/rolled_down = 0
 	var/basecolor
@@ -689,10 +688,8 @@ BLIND     // can't see anything
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/AC in accessories)
 			if((A.slot in list(ACCESSORY_SLOT_UTILITY, ACCESSORY_SLOT_ARMBAND)) && AC.slot == A.slot)
-				to_chat(usr, "<span class='notice'>[A] doesn't fit on [src].</span>")
 				return FALSE
 			if(!A.allow_duplicates && AC.type == A.type)
-				to_chat(usr, "<span class='notice'>You cannot attach more accessories of this type to [src].</span>")
 				return FALSE
 
 /obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
@@ -719,6 +716,8 @@ BLIND     // can't see anything
 			H.update_inv_w_uniform()
 
 		return TRUE
+	else
+		to_chat(user, "<span class='notice'>You cannot attach more accessories of this type to [src].</span>")
 
 	return FALSE
 

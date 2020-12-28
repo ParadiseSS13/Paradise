@@ -260,6 +260,7 @@ const AreaCharge = props => {
           )
           || charging === "C" && 'bolt'
           || charging === "F" && 'battery-full'
+          || charging === "M" && 'slash'
         )}
         color={(
           charging === "N" && (
@@ -269,6 +270,7 @@ const AreaCharge = props => {
           )
           || charging === "C" && 'yellow'
           || charging === "F" && 'green'
+          || charging === "M" && 'orange'
         )} />
       <Box
         inline
