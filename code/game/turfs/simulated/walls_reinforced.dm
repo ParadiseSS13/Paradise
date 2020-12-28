@@ -147,9 +147,12 @@
 	update_icon()
 
 /turf/simulated/wall/r_wall/screwdriver_act(mob/user, obj/item/I)
-	if(d_state != RWALL_SUPPORT_LINES && d_state != RWALL_COVER)
-		return
 	. = TRUE
+	if(d_state != RWALL_SUPPORT_LINES && d_state != RWALL_COVER)
+		user.visible_message("<span class='notice'>[user] begins messing with some bolts on the wall.</span>", "<span class='warning'>You begin to mess with the bolts on the wall.</span>")
+		if(do_after_once(user, 50, target = src))
+			user.visible_message("<span class='notice'>[user] tries to loosen some bolts on the wall, but they don't budge.</span>", "<span class='warning'>You try to loosen some bolts on the wall, but they don't budge.</span>")
+			return
 	if(!I.tool_use_check(user, 0))
 		return
 	var/state_check = d_state

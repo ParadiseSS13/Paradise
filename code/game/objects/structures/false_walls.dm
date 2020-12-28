@@ -18,6 +18,8 @@
 	var/walltype = /turf/simulated/wall
 	var/girder_type = /obj/structure/girder/displaced
 	var/opening = FALSE
+	/// If the false wall is 'locked', it won't open when clicked
+	var/locked = FALSE
 
 	density = TRUE
 	opacity = TRUE
@@ -70,6 +72,11 @@
 
 /obj/structure/falsewall/proc/toggle(mob/user)
 	if(opening)
+		return
+	if(locked)
+		user.changeNext_move(CLICK_CD_MELEE)	//copied from wall code
+		to_chat(user, "<span class='notice'>You push the wall but nothing happens!</span>")	//sneak 100
+		playsound(src, 'sound/weapons/genhit.ogg', 25, 1)
 		return
 
 	opening = 1
@@ -126,11 +133,14 @@
 			to_chat(user, "<span class='warning'>[src] is blocked!</span>")
 			return
 		if(istype(W, /obj/item/screwdriver))
-			if(!istype(T, /turf/simulated/floor))
-				to_chat(user, "<span class='warning'>[src] bolts must be tightened on the floor!</span>")
-				return
-			user.visible_message("<span class='notice'>[user] tightens some bolts on the wall.</span>", "<span class='warning'>You tighten the bolts on the wall.</span>")
-			ChangeToWall()
+			user.visible_message("<span class='notice'>[user] begins messing with some bolts on the wall.</span>", "<span class='warning'>You begin to mess with the bolts on the wall.</span>")
+			if(do_after_once(user, 50, target = src))
+				if(!locked)
+					user.visible_message("<span class='notice'>[user] tightens some bolts on the wall.</span>", "<span class='warning'>You tighten the bolts on the wall.</span>")
+					locked = TRUE
+				else
+					user.visible_message("<span class='notice'>[user] loosens some bolts on the wall.</span>", "<span class='warning'>You loosen the bolts on the wall.</span>")
+					locked = FALSE
 	else
 		to_chat(user, "<span class='warning'>You can't reach, close it first!</span>")
 

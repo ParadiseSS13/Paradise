@@ -360,6 +360,14 @@
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature)
 
+
+/**
+  * Calls the right tool act.
+  *
+  * Call the appropriate tool act, such as screwdriver_act, crowbar_act and so on.
+  * Returns TRUE if a tool act was found/used.
+  * This means the tool shouldn't call its attack_by proc.
+  */
 /atom/proc/tool_act(mob/living/user, obj/item/I, tool_type)
 	switch(tool_type)
 		if(TOOL_CROWBAR)
@@ -377,27 +385,68 @@
 
 
 // Tool-specific behavior procs. To be overridden in subtypes.
+
+/**
+  * Tool-specific behaviour proc, to be overriden in subtype.
+  *
+  * Called by tool_act. Returns TRUE if an appropriate act was found and executed,
+  * which prevents the tool from calling the attack_by proc.
+  */
 /atom/proc/crowbar_act(mob/living/user, obj/item/I)
 	return
-
+/**
+  * Tool-specific behaviour proc, to be overriden in subtype.
+  *
+  * Called by tool_act. Returns TRUE if an appropriate act was found and executed,
+  * which prevents the tool from calling the attack_by proc.
+  */
 /atom/proc/multitool_act(mob/living/user, obj/item/I)
 	return
 
-//Check if the multitool has an item in its data buffer
+/**
+  * Tool-specific behaviour proc, to be overriden in subtype.
+  *
+  * Called by tool_act. Returns TRUE if an appropriate act was found and executed,
+  * which prevents the tool from calling the attack_by proc.
+  */
 /atom/proc/multitool_check_buffer(user, silent = FALSE)
 	if(!silent)
 		to_chat(user, "<span class='warning'>[src] has no data buffer!</span>")
 	return FALSE
 
+/**
+  * Tool-specific behaviour proc, to be overriden in subtype.
+  *
+  * Called by tool_act. Returns TRUE if an appropriate act was found and executed,
+  * which prevents the tool from calling the attack_by proc.
+  */
 /atom/proc/screwdriver_act(mob/living/user, obj/item/I)
 	return
 
+/**
+  * Tool-specific behaviour proc, to be overriden in subtype.
+  *
+  * Called by tool_act. Returns TRUE if an appropriate act was found and executed,
+  * which prevents the tool from calling the attack_by proc.
+  */
 /atom/proc/wrench_act(mob/living/user, obj/item/I)
 	return
 
+/**
+  * Tool-specific behaviour proc, to be overriden in subtype.
+  *
+  * Called by tool_act. Returns TRUE if an appropriate act was found and executed,
+  * which prevents the tool from calling the attack_by proc.
+  */
 /atom/proc/wirecutter_act(mob/living/user, obj/item/I)
 	return
 
+/**
+  * Tool-specific behaviour proc, to be overriden in subtype.
+  *
+  * Called by tool_act. Returns TRUE if an appropriate act was found and executed,
+  * which prevents the tool from calling the attack_by proc.
+  */
 /atom/proc/welder_act(mob/living/user, obj/item/I)
 	return
 

@@ -323,6 +323,13 @@
 
 	return ..()
 
+/turf/simulated/wall/screwdriver_act(mob/living/user, obj/item/I)	//for false wall stealth
+	. = TRUE
+	user.visible_message("<span class='notice'>[user] begins messing with some bolts on the wall.</span>", "<span class='warning'>You begin to mess with the bolts on the wall.</span>")
+	if(do_after_once(user, 50, target = src))
+		user.visible_message("<span class='notice'>[user] tries to loosen some bolts on the wall, but they don't budge.</span>", "<span class='warning'>You try to loosen some bolts on the wall, but they don't budge.</span>")
+
+
 /turf/simulated/wall/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(thermite && I.use_tool(src, user, volume = I.tool_volume))
