@@ -169,7 +169,7 @@
 			n = get_step(mob, direct)
 
 	. = mob.SelfMove(n, direct, delay)
-	if(mob.pulling && isstructure(mob.pulling))
+	if(mob.pulling?.face_while_pulling)
 		mob.setDir(get_dir(mob, mob.pulling)) // Face welding tanks and stuff when pulling
 	else
 		mob.setDir(direct)
