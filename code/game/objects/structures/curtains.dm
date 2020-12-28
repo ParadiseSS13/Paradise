@@ -5,6 +5,7 @@
 	icon = 'icons/obj/curtain.dmi'
 	name = "curtain"
 	icon_state = "closed"
+	face_while_pulling = FALSE
 	layer = SHOWER_CLOSED_LAYER
 	opacity = 1
 	density = 0
