@@ -51,7 +51,6 @@
 	return 0*/
 
 /datum/event	//NOTE: Times are measured in master controller ticks!
-	var/processing = 1
 	/// When in the lifetime to call start().
 	var/startWhen		= 0
 	/// When in the lifetime to call announce().
@@ -143,9 +142,6 @@
   * Ensure none of the code paths have a sleep in them. Use INVOKE_ASYNC to call procs which do.
   */
 /datum/event/process()
-	if(!processing)
-		return
-
 	if(activeFor > startWhen && activeFor < endWhen || noAutoEnd)
 		tick()
 

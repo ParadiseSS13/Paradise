@@ -230,9 +230,8 @@
 	if(explosion_severity < 3)
 		qdel(holder)
 	else
-		. = 1
-		spawn(5)
-			holder.wither()
+		addtimer(CALLBACK(holder, /obj/structure/spacevine.proc/wither), 5)
+		return TRUE
 
 /datum/spacevine_mutation/explosive/on_death(obj/structure/spacevine/holder, mob/hitter, obj/item/I)
 	explosion(holder.loc, 0, 0, severity, 0, 0)
