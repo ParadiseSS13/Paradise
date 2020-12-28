@@ -1,7 +1,7 @@
 /datum/event/sentience
 
 /datum/event/sentience/start()
-	INVOKE_ASYNC(src, /datum/event/sentience.proc/make_sentient_mob)
+	INVOKE_ASYNC(src, .proc/make_sentient_mob)
 
 /datum/event/sentience/proc/make_sentient_mob()
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to awaken as a sentient being?", ROLE_SENTIENT, TRUE)

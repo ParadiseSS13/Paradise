@@ -33,7 +33,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 
 	trader_objectives = forge_trader_objectives()
 
-	INVOKE_ASYNC(src, /datum/event/traders.proc/spawn_traders, spawnlocs)
+	INVOKE_ASYNC(src, .proc/spawn_traders, spawnlocs)
 
 /datum/event/traders/proc/spawn_traders(list/spawnlocs)
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a Sol Trader?", ROLE_TRADER, TRUE)

@@ -55,7 +55,7 @@
 			if(ismob(A) && !(A in flashers)) // don't flash if we're already doing an effect
 				var/mob/M = A
 				if(M.client)
-					INVOKE_ASYNC(src, /datum/event/anomaly/anomaly_bluespace.proc/do_bluespace_effect, M)
+					INVOKE_ASYNC(src, .proc/do_bluespace_effect, M)
 	qdel(newAnomaly)
 
 /datum/event/anomaly/anomaly_bluespace/proc/do_bluespace_effect(mob/M)

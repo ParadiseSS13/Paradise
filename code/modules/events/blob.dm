@@ -13,7 +13,7 @@
 	var/turf/T = pick(GLOB.blobstart)
 	if(!T)
 		return kill()
-	INVOKE_ASYNC(src, /datum/event/blob.proc/make_blob)
+	INVOKE_ASYNC(src, .proc/make_blob)
 
 /datum/event/blob/proc/make_blob()
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob infested mouse?", ROLE_BLOB, TRUE, source = /mob/living/simple_animal/mouse/blobinfected)

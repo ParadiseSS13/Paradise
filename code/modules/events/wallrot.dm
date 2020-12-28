@@ -6,7 +6,7 @@
 	GLOB.event_announcement.Announce("Harmful fungi detected on station. Station structures may be contaminated.", "Biohazard Alert")
 
 /datum/event/wallrot/start()
-	INVOKE_ASYNC(src, /datum/event/wallrot.proc/spawn_wallrot)
+	INVOKE_ASYNC(src, .proc/spawn_wallrot)
 
 /datum/event/wallrot/proc/spawn_wallrot()
 	var/turf/simulated/wall/center = null

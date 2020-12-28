@@ -45,4 +45,4 @@
 	log_game("[key_name_admin(S)] was spawned as a Slaughter Demon by an event.")
 
 /datum/event/spawn_slaughter/start()
-	INVOKE_ASYNC(src, /datum/event/spawn_slaughter.proc/get_slaughter)
+	INVOKE_ASYNC(src, .proc/get_slaughter)

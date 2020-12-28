@@ -1,7 +1,7 @@
 /datum/event/abductor
 
 /datum/event/abductor/start()
-	INVOKE_ASYNC(src, /datum/event/abductor.proc/try_makeAbductorTeam)
+	INVOKE_ASYNC(src, .proc/try_makeAbductorTeam)
 
 /datum/event/abductor/proc/try_makeAbductorTeam()
 	if(!makeAbductorTeam())
