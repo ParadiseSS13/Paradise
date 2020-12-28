@@ -520,9 +520,9 @@
 	name = "Read Mind"
 	desc = "Read the minds of others for information."
 	charge_max = 180
-	clothes_req = 0
-	human_req = 1
-	stat_allowed = 0
+	clothes_req = FALSE
+	human_req = TRUE
+	stat_allowed = CONSCIOUS
 	invocation_type = "none"
 	range = -2
 	selection_type = "range"
@@ -530,14 +530,16 @@
 	action_icon_state = "genetic_empath"
 
 /obj/effect/proc_holder/spell/targeted/empath/choose_targets(mob/user = usr)
-	var/list/targets = new /list()
-	targets += input("Choose the target to spy on.", "Targeting") as null|mob in range(7,usr)
+	var/list/possible_targets = list()
+	for(var/mob/living/carbon/C in range(7, user))
+		possible_targets += C
+	var/target = input("Choose the target to spy on.", "Targeting") as null|mob in possible_targets
 
-	if(!targets.len || !targets[1]) //doesn't waste the spell
+	if(!target) //doesn't waste the spell
 		revert_cast(user)
 		return
 
-	perform(targets, user = user)
+	perform(list(target), user = user)
 
 /obj/effect/proc_holder/spell/targeted/empath/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/M in targets)

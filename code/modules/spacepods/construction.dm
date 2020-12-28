@@ -224,5 +224,5 @@
 
 /datum/construction/reversible2/pod/spawn_result(mob/user as mob)
 	..()
-	feedback_inc("spacepod_created",1)
+	SSblackbox.record_feedback("amount", "spacepod_created", 1)
 	return

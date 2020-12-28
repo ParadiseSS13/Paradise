@@ -66,8 +66,7 @@ export const GravityGen = (props, context) => {
                   good: [0.9, Infinity],
                   average: [0.5, 0.9],
                   bad: [-Infinity, 0.5],
-                }}
-              />
+                }} />
             </LabeledList.Item>
           </LabeledList>
         </Section>
