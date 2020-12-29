@@ -1,5 +1,5 @@
 #define MORPHED_SPEED 2
-
+#define ITEM_EAT_COST 5
 /mob/living/simple_animal/hostile/morph
 	name = "morph"
 	real_name = "morph"
@@ -34,6 +34,7 @@
 	attack_sound = 'sound/effects/blobattack.ogg'
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 2)
 
+	/// If the morph is disguised or not
 	var/morphed = FALSE
 	/// If the morph is ready to perform an ambush
 	var/ambush_prepared = FALSE
@@ -52,7 +53,11 @@
 							Finally, you can attack any item or dead creature to consume it - creatures will restore 1/3 of your max health.</b>"
 	/// The spell the morph uses to morph
 	var/obj/effect/proc_holder/spell/targeted/click/mimic/morph/mimic_spell
-	var/datum/action/morph_ambush/ambush_action
+	/// The ambush action used by the morph
+	var/datum/action/morph/ambush/ambush_action
+
+	/// How much the morph has gathered in terms of food. Used to reproduce and such
+	var/gathered_food = 0
 
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	. = ..()
@@ -62,6 +67,14 @@
 	AddSpell(mimic_spell)
 	ambush_action = new
 	ambush_action.Grant(src)
+	var/datum/action/morph/reproduce/R = new
+	R.Grant(src)
+
+/mob/living/simple_animal/hostile/morph/Stat(Name, Value)
+	..()
+	if(statpanel("Status"))
+		stat(null, "Food Stored: [gathered_food]")
+		return TRUE
 
 /mob/living/simple_animal/hostile/morph/wizard
 	name = "magical morph"
@@ -76,19 +89,49 @@
 /mob/living/simple_animal/hostile/morph/proc/eat(atom/movable/A)
 	if(A && A.loc != src)
 		visible_message("<span class='warning'>[src] swallows [A] whole!</span>")
+
+		var/mob/living/carbon/human/H = A
+		if(istype(H) && H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under))
+			var/obj/item/clothing/under/U = H.w_uniform
+			U.turn_sensors_off()
+
+		A.extinguish_light()
 		A.forceMove(src)
+		add_food(calc_food_gained(A))
 		return TRUE
 	return FALSE
+
+/mob/living/simple_animal/hostile/morph/proc/calc_food_gained(mob/living/L)
+	if(!istype(L))
+		return -ITEM_EAT_COST // Anything other than a tasty mob will make me sad ;(
+	var/gained_food = max(5, 10 * L.mob_size) // Tiny things are worth less
+	if(ishuman(L) && !ismonkeybasic(L))
+		gained_food += 10 // Humans are extra tasty
+
+	return gained_food
 
 /mob/living/simple_animal/hostile/morph/proc/assume()
 	morphed = TRUE
 
-	//Morph is weaker initially when disguising
+	//Morph is weaker initially when disguised
 	melee_damage_lower = 5
 	melee_damage_upper = 5
 	speed = MORPHED_SPEED
 	ambush_action.UpdateButtonIcon()
 
+/mob/living/simple_animal/hostile/morph/proc/use_food(amount)
+	if(amount > gathered_food)
+		return FALSE
+	add_food(-amount)
+	return TRUE
+
+/**
+ * Adds the given amount of food to the gathered food and updates the actions.
+ * Does not include a check to see if it goes below 0 or not
+ */
+/mob/living/simple_animal/hostile/morph/proc/add_food(amount)
+	gathered_food += amount
+	update_action_buttons_icon()
 
 /mob/living/simple_animal/hostile/morph/proc/restore()
 	if(!morphed)
@@ -155,7 +198,7 @@
 	L.apply_damage(total_damage, BRUTE)
 	add_attack_logs(src, L, "morph ambush attacked")
 	do_attack_animation(L, ATTACK_EFFECT_BITE)
-	visible_message("<span class='danger'>[src] Suddenly leaps towards [L]!</span>", "<span class='warning'>You strike [L] when [L.p_they()] least expected it!</span>")
+	visible_message("<span class='danger'>[src] Suddenly leaps towards [L]!</span>", "<span class='warning'>You strike [L] when [L.p_they()] least expected it!</span>", "You hear a horrible crunch!")
 
 	mimic_spell.restore_form(src)
 
@@ -186,6 +229,10 @@
 	else if(istype(target,/obj/item)) // Eat items just to be annoying
 		var/obj/item/I = target
 		if(!I.anchored)
+			if(gathered_food < ITEM_EAT_COST)
+				to_chat(src, "<span class='warning'>You can't force yourself to eat more disgusting items. Eat some living things first.</span>")
+				return
+			to_chat(src, "<span class='warning'>You start eating [I]... disgusting....</span>")
 			if(do_after(src, 20, target = I))
 				eat(I)
 			return
@@ -193,33 +240,5 @@
 	if(. && morphed)
 		mimic_spell.restore_form(src)
 
-/datum/action/morph_ambush
-	name = "Prepare Ambush"
-	desc = "Prepare an ambush. Dealing significantly more damage on the first hit and you will weaken the target. Only works while morphed. If the target tries to use you with their hands then you will do even more damage."
-	var/preparing = FALSE
-	var/prepared = FALSE
-
-/datum/action/morph_ambush/IsAvailable()
-	var/mob/living/simple_animal/hostile/morph/M = owner
-	if(!istype(M) || !M.morphed || M.ambush_prepared)
-		return FALSE
-	return ..()
-
-/datum/action/morph_ambush/Trigger()
-	if(!..())
-		return
-	var/mob/living/simple_animal/hostile/morph/M = owner
-	to_chat(M, "<span class='sinister'>You start preparing an ambush.</span>")
-	if(!do_after(owner, 4 SECONDS, FALSE, owner, list(CALLBACK(src, .proc/prepare_check), FALSE)))
-		if(!M.morphed)
-			to_chat(M, "<span class='warning'>You need to stay morphed to prepare the ambush!</span>")
-			return
-		to_chat(M, "<span class='warning'>You need to stay still to prepare the ambush!</span>")
-		return
-	M.prepare_ambush()
-
-/datum/action/morph_ambush/proc/prepare_check()
-	var/mob/living/simple_animal/hostile/morph/M = owner
-	return !M.morphed
-
 #undef MORPHED_SPEED
+#undef ITEM_EAT_COST

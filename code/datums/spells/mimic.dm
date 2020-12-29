@@ -10,6 +10,7 @@
 	click_radius = -1
 	selection_activated_message = "<span class='sinister'>Click on a target to remember it's form. Click on yourself to change form.</span>"
 	create_logs = FALSE
+	action_icon_state = "morph_mimic"
 	/// Which form is currently selected
 	var/datum/mimic_form/selected_form
 	/// Which forms the user can become
@@ -163,6 +164,7 @@
 
 
 /obj/effect/proc_holder/spell/targeted/click/mimic/morph
+	action_background_icon_state = "bg_morph"
 
 /obj/effect/proc_holder/spell/targeted/click/mimic/morph/valid_target(atom/target, user)
 	if(target != user && istype(target, /mob/living/simple_animal/hostile/morph))
