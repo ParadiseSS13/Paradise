@@ -18,7 +18,7 @@
 		H.dna.SetSEState(GLOB.chameleonblock, 1)
 		genemutcheck(H, GLOB.chameleonblock, null, MUTCHK_FORCED)
 
-	feedback_add_details("changeling_powers","CS")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
 /datum/action/changeling/chameleon_skin/Remove(mob/user)

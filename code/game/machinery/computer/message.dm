@@ -459,6 +459,15 @@
 
 							recipient_messenger.notify("<b>Message from [PDARec.owner] ([customjob]), </b>\"[custommessage]\" (<a href='?src=[recipient_messenger.UID()];choice=Message;target=\ref[PDARec]'>Reply</a>)")
 							log_pda("(PDA: [PDARec.owner]) sent \"[custommessage]\" to [customrecepient.owner]", usr)
+						var/log_message = "sent PDA message \"[custommessage]\" using [src] as [customsender] ([customjob])"
+						var/receiver
+						if(ishuman(customrecepient.loc))
+							receiver = customrecepient.loc
+							log_message = "[log_message] to [customrecepient]"
+						else
+							receiver = customrecepient
+							log_message = "[log_message] (no holder)"
+						usr.create_log(MISC_LOG, log_message, receiver)
 						//Finally..
 						ResetMessage()
 

@@ -163,7 +163,7 @@ GLOBAL_PROTECT(log_end)
 
 /* For logging round startup. */
 /proc/start_log(log)
-	rustg_log_write(log, "Starting up.\n-------------------------[GLOB.log_end]")
+	rustg_log_write(log, "Starting up. Round ID is [GLOB.round_id ? GLOB.round_id : "NULL"]\n-------------------------[GLOB.log_end]")
 
 // Helper procs for building detailed log lines
 
