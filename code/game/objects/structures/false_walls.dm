@@ -115,12 +115,6 @@
 	else
 		icon_state = "fwall_open"
 
-/obj/structure/falsewall/proc/ChangeToWall(delete = TRUE)
-	var/turf/T = get_turf(src)
-	T.ChangeTurf(walltype)
-	if(delete)
-		qdel(src)
-	return T
 
 /obj/structure/falsewall/attackby(obj/item/W, mob/user, params)
 	if(opening)
@@ -134,11 +128,12 @@
 			return
 		if(istype(W, /obj/item/screwdriver))
 			user.visible_message("<span class='notice'>[user] begins messing with some bolts on the wall.</span>", "<span class='warning'>You begin to mess with the bolts on the wall.</span>")
-			if(do_after_once(user, 50, target = src))
-				if(!locked)
+			if(!locked)
+				if(do_after_once(user, 10, target = src))
 					user.visible_message("<span class='notice'>[user] tightens some bolts on the wall.</span>", "<span class='warning'>You tighten the bolts on the wall.</span>")
 					locked = TRUE
-				else
+			else
+				if(do_after_once(user, 50, target = src))
 					user.visible_message("<span class='notice'>[user] loosens some bolts on the wall.</span>", "<span class='warning'>You loosen the bolts on the wall.</span>")
 					locked = FALSE
 	else
@@ -184,13 +179,6 @@
 /obj/structure/falsewall/reinforced/examine_status(mob/user)
 	. = ..()
 	. += "<br><span class='notice'>The outer <b>grille</b> is fully intact.</span>"	//not going to fake other states of disassembly
-
-/obj/structure/falsewall/reinforced/ChangeToWall(delete = 1)
-	var/turf/T = get_turf(src)
-	T.ChangeTurf(/turf/simulated/wall/r_wall)
-	if(delete)
-		qdel(src)
-	return T
 
 /*
  * Uranium Falsewalls
