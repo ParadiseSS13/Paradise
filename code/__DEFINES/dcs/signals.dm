@@ -740,3 +740,8 @@
 ///SSalarm signals
 #define COMSIG_TRIGGERED_ALARM "ssalarm_triggered"
 #define COMSIG_CANCELLED_ALARM "ssalarm_cancelled"
+
+
+// Magic signals
+#define COMSIG_MAGIC_MIMIC_CHANGE_FORM "magic_mimic_change_form"
+#define COMSIG_MAGIC_MIMIC_RESTORE_FORM "magic_mimic_restore_form"

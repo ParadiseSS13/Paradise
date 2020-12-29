@@ -429,6 +429,7 @@
 #include "code\datums\spells\magnet.dm"
 #include "code\datums\spells\mime.dm"
 #include "code\datums\spells\mime_malaise.dm"
+#include "code\datums\spells\mimic.dm"
 #include "code\datums\spells\mind_transfer.dm"
 #include "code\datums\spells\night_vision.dm"
 #include "code\datums\spells\projectile.dm"
