@@ -17,8 +17,8 @@
 	var/opened = 0
 	var/material_drop = /obj/item/stack/sheet/metal
 
-/obj/structure/extinguisher_cabinet/New(turf/loc, direction = null)
-	..()
+/obj/structure/extinguisher_cabinet/Initialize(mapload, direction = null)
+	. = ..()
 	if(direction)
 		setDir(direction)
 		set_pixel_offsets_from_dir(28, -28, 30, -30)

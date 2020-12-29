@@ -13,8 +13,8 @@
 	var/mob/living/swirlie = null	//the mob being given a swirlie
 
 
-/obj/structure/toilet/New()
-	..()
+/obj/structure/toilet/Initialize(mapload)
+	. = ..()
 	open = round(rand(0, 1))
 	update_icon()
 
@@ -181,7 +181,7 @@
 /obj/structure/toilet/secret
 	var/secret_type = null
 
-/obj/structure/toilet/secret/New()
+/obj/structure/toilet/secret/Initialize(mapload)
 	. = ..()
 	if(secret_type)
 		var/obj/item/secret = new secret_type(src)
