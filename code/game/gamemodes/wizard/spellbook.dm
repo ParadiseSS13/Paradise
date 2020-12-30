@@ -516,8 +516,9 @@
 	item_path = /obj/item/antag_spawner/slaughter_demon/laughter
 	log_name = "HB"
 	category = "Summons"
-	limit = 3
+	limit = 1
 	cost = 1 // Non-destructive; it's just a jape, sibling!
+	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/item/bloodbottle
 	name = "Bottle of Blood"
@@ -525,7 +526,8 @@
 	item_path = /obj/item/antag_spawner/slaughter_demon
 	log_name = "BB"
 	category = "Summons"
-	limit = 3
+	limit = 1
+	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/item/contract
 	name = "Contract of Apprenticeship"
