@@ -331,7 +331,7 @@
 		var/mob/living/carbon/human/new_target = input("Select new VIP:", "Objective target") as null|anything in possible_targets
 		if(!new_target)
 			return
-		SSticker.mode.VIP_target = new_target.mind
+		SSticker.mode.change_vip_target(new_target.mind)
 		// Update the existing objectives
 		for(var/thing in GLOB.all_objectives)
 			if(!istype(thing, /datum/objective/protect/vip) && !istype(thing, /datum/objective/assassinate/vip))

@@ -528,6 +528,16 @@
 		var/datum/station_goal/G = V
 		G.print_result()
 
+/datum/game_mode/proc/change_vip_target(datum/mind/new_target)
+	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_TRAITOR]
+	if(VIP_target)	// Reset the old one
+		antaghud.leave_hud(VIP_target.current)
+		set_antag_hud(VIP_target.current, null)
+	VIP_target = new_target
+	if(new_target)
+		antaghud.join_hud(VIP_target.current)
+		set_antag_hud(new_target.current, "hudvip")
+
 /datum/game_mode/proc/update_eventmisc_icons_added(datum/mind/mob_mind)
 	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
 	antaghud.join_hud(mob_mind.current)

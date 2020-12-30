@@ -119,12 +119,12 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/assassinate/vip/on_target_loss()
 	if(SSticker.mode.VIP_target == target)
-		SSticker.mode.VIP_target = null
+		SSticker.mode.change_vip_target(null)
 	return ..()
 
 /datum/objective/assassinate/vip/find_target()
 	if(!SSticker.mode.VIP_target)
-		SSticker.mode.VIP_target = ..() // Get a new one
+		SSticker.mode.change_vip_target(..())
 	else
 		if(SSticker.mode.VIP_target == owner)
 			return null // Can't target yourself
@@ -235,7 +235,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/protect/vip/on_target_loss()
 	if(SSticker.mode.VIP_target == target)
-		SSticker.mode.VIP_target = null
+		SSticker.mode.change_vip_target(null)
 	return ..()
 
 /datum/objective/protect/vip/set_target(new_target)
@@ -251,7 +251,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/protect/vip/find_target()
 	if(!SSticker.mode.VIP_target)
-		SSticker.mode.VIP_target = ..() // Get a new one
+		SSticker.mode.change_vip_target(..())
 	else
 		if(SSticker.mode.VIP_target == owner)
 			return null // Can't target yourself
