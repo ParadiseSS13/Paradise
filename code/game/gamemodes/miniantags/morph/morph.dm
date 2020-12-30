@@ -202,6 +202,7 @@
 /mob/living/simple_animal/hostile/morph/attack_slime(mob/living/simple_animal/slime/M)
 	MORPH_ATTACKED
 
+#undef MORPH_ATTACKED
 
 /mob/living/simple_animal/hostile/morph/proc/ambush_attack(mob/living/L, touched)
 	ambush_prepared = FALSE
@@ -224,7 +225,7 @@
 
 /mob/living/simple_animal/hostile/morph/AIShouldSleep(var/list/possible_targets)
 	. = ..()
-	if(.)
+	if(. && !morphed)
 		var/list/things = list()
 		for(var/atom/movable/A in view(src))
 			if(mimic_spell.valid_target(A, src))

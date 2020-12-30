@@ -31,6 +31,8 @@
 		return FALSE
 	if(istype(target, /mob/living/simple_animal/hostile/megafauna))
 		return FALSE
+	if(istype(target, /atom/movable/lighting_object))
+		return FALSE
 	if(istype(target, /atom/movable))
 		var/atom/movable/M = target
 		if(M.bound_height > world.icon_size || M.bound_width > world.icon_size)

@@ -77,8 +77,7 @@
 	desc = "Split yourself in half making a new morph."
 	hunger_cost = 150 // 5 humans
 	charge_max = 30 SECONDS
-	// TODO
-	action_icon_state = "morph_ambush"
+	action_icon_state = "morph_reproduce"
 
 
 /obj/effect/proc_holder/spell/morph/reproduce/choose_targets(mob/user)
@@ -96,15 +95,14 @@
 	var/mob/living/simple_animal/hostile/morph/new_morph = new /mob/living/simple_animal/hostile/morph(get_turf(user))
 	var/datum/mind/player_mind = new /datum/mind(C.key)
 	player_mind.active = TRUE
-	player_mind.transfer_to(user)
+	player_mind.transfer_to(new_morph)
 	new_morph.make_morph_antag()
 	user.create_log(MISC_LOG, "Made a new morph using [src]", new_morph)
 
 /obj/effect/proc_holder/spell/morph/open_vent
 	name = "Open Vents"
 	desc = "Spit out acidic puke on nearby vents or scrubbers. Will take a little while for the acid to take effect."
-	// TODO
-	action_icon_state = "alien_barf"
+	action_icon_state = "acid_vent"
 	charge_max = 10 SECONDS
 	hunger_cost = 10
 
