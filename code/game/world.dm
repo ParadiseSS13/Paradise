@@ -1,6 +1,10 @@
 GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
 /world/New()
+	// IMPORTANT
+	// If you do any SQL operations inside this proc, they must ***NOT*** be ran async. Otherwise players can join mid query
+	// This is BAD.
+
 	//temporary file used to record errors with loading config and the database, moved to log directory once logging is set up
 	GLOB.config_error_log = GLOB.world_game_log = GLOB.world_runtime_log = GLOB.sql_log = "data/logs/config_error.log"
 	load_configuration()
@@ -13,11 +17,14 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	// Setup all log paths and stamp them with startups, including round IDs
 	SetupLogs()
 
+	// This needs to happen early, otherwise people can get a null species, nuking their character
+	makeDatumRefLists()
+
 	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED) // creates a new TGS object
 	log_world("World loaded at [time_stamp()]")
 	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
 	GLOB.revision_info.log_info()
-	load_admins() // Same here
+	load_admins(run_async=FALSE) // This better happen early on.
 
 	#ifdef UNIT_TESTS
 	log_world("Unit Tests Are Enabled!")
@@ -58,7 +65,6 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	load_motd() // Loads up the MOTD (Welcome message players see when joining the server)
 	load_mode() // Loads up the gamemode
 	investigate_reset() // This is part of the admin investigate system. PLEASE DONT SS THIS EITHER
-	makeDatumRefLists() // Setups up lists of datums and their subtypes
 
 /// List of all world topic spam prevention handlers. See code/modules/world_topic/_spam_prevention_handler.dm
 GLOBAL_LIST_EMPTY(world_topic_spam_prevention_handlers)
