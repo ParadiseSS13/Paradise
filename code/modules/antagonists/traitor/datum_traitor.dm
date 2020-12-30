@@ -120,11 +120,11 @@
 		var/assassin_count = length(SSticker.mode.protect_target_assassins)
 		var/protector_count = length(SSticker.mode.protect_target_protectors)
 
-		// Make a new protector if there is no target set yet (first protector) or at a 10% chance if there are less or equal protectors compared to assassins
-		if(!SSticker.mode.VIP_target || (protector_count <= assassin_count && prob(10)))
+		// Make a new protector if there is no target set yet (first protector) or when the dice roll succeeds
+		if(!SSticker.mode.VIP_target || (protector_count <= assassin_count && prob(max(10, 30 - protector_count * 10)))) // 30% -> 20% -> 10%
 			create_objective(/datum/objective/protect/vip)
 			objective_count++
-		else if(assassin_count < protector_count && prob(50))
+		else if(assassin_count < protector_count && prob(max(50, 80 - assassin_count * 10))) // 80 -> 70 -> 60 -> 50%
 			// Create a new assassin
 			create_objective(/datum/objective/assassinate/vip)
 			objective_count++
