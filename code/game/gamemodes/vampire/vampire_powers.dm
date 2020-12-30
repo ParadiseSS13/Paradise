@@ -86,9 +86,9 @@
 		return 1 //target and source are in the same thing
 	return M in oview_or_orange(range, usr, selection_type)
 
-/obj/effect/proc_holder/spell/vampire/before_cast(list/targets)
+/obj/effect/proc_holder/spell/vampire/before_cast(list/targets, mob/user)
 	// sanity check before we cast
-	if(!usr.mind || !usr.mind.vampire)
+	if(!user.mind || !user.mind.vampire)
 		targets.Cut()
 		return
 
@@ -96,7 +96,7 @@
 		return
 
 	// enforce blood
-	var/datum/vampire/vampire = usr.mind.vampire
+	var/datum/vampire/vampire = user.mind.vampire
 
 	if(required_blood <= vampire.bloodusable)
 		vampire.bloodusable -= required_blood
@@ -105,7 +105,7 @@
 		targets.Cut()
 
 	if(targets.len)
-		to_chat(usr, "<span class='notice'><b>You have [vampire.bloodusable] left to use.</b></span>")
+		to_chat(user, "<span class='notice'><b>You have [vampire.bloodusable] left to use.</b></span>")
 
 /obj/effect/proc_holder/spell/vampire/targetted/choose_targets(mob/user = usr)
 	var/list/possible_targets[0]

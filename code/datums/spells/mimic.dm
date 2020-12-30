@@ -2,7 +2,7 @@
 	name = "Mimic"
 	desc =  "Learn a new form to mimic or become one of your known forms"
 	clothes_req = FALSE
-	charge_max = 50
+	charge_max = 30
 	include_user = TRUE // To change forms
 	action_icon_state = "genetic_morph"
 	allowed_type = /atom/movable
@@ -26,6 +26,16 @@
 	if(istype(target, /obj/screen))
 		return FALSE
 	if(istype(target, /obj/singularity))
+		return FALSE
+	if(istype(target, /obj/effect))
+		return FALSE
+	if(istype(target, /mob/living/simple_animal/hostile/megafauna))
+		return FALSE
+	if(istype(target, /atom/movable))
+		var/atom/movable/M = target
+		if(M.bound_height > world.icon_size || M.bound_width > world.icon_size)
+			return FALSE // No multitile structures
+	if(istype(target, /obj/machinery/dna_vault) || istype(target, /obj/machinery/power/bluespace_tap)) // ugh
 		return FALSE
 	return ..()
 
