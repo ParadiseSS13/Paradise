@@ -92,14 +92,15 @@
 			"status" = "This terminal requires a syndicate ID of sufficient clearance.",
 		))
 	/*
-		Guide for making your own template sections for SimpleComputer:
+		Guide for making your own template sections:
 		data["rows"] += list(list(
 			"title" = "Example Section Title",
-			"status" = "Example text box contents",
-			"buttontitle" = "Example Button Title", // null = no button
-			"buttonact" = "primary", // function name called when button is pressed (usually 'primary' or 'secondary')
+			"status" = "Example text box contents. Can be long.",
+			"bullets" = list(X,Y,Z) // a list of strings that appear, one per line, in the section.
+			"buttontitle" = "Example Button Title", // If present, button shows up on right with the provided title. null = no button
+			"buttonact" = "primary", // function name called when button is pressed ('primary' or 'secondary')
 			"buttondisabled" = !allowed(user) // if true, button is not clickable, used to allow ghosts to see but not use buttons
-			"buttontooltip" = "This is what will happen when you press the button"
+			"buttontooltip" = "Tooltip that appears when you hover over the button"
 		))
 	*/
 	return data
