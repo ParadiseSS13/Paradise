@@ -425,18 +425,25 @@
 	return FALSE
 
 /area/syndicate_depot/core/proc/list_show(list/L, show_ckeys = FALSE)
-	var/list/formatted = list()
+	// Returns a string of the names of the list members, separated by ", "
+	var/list/formatted = list_shownames(L, show_ckeys)
+	return formatted.Join(", ")
+
+/area/syndicate_depot/core/proc/list_shownames(list/L, show_ckeys = FALSE)
+	// Returns a list of the names of the list members
+	var/list/names = list()
 	for(var/uid in L)
 		var/mob/M = locateUID(uid)
 		if(!istype(M))
 			continue
 		if(show_ckeys)
-			formatted += "[M.ckey]([M])"
+			names += "[M.ckey]([M])"
 		else
-			formatted += "[M]"
-	return formatted.Join(", ")
+			names += "[M]"
+	return names
 
 /area/syndicate_depot/core/proc/list_getmobs(list/L, show_ckeys = FALSE)
+	// Returns a list of references to the mobs
 	var/list/moblist = list()
 	for(var/uid in L)
 		var/mob/M = locateUID(uid)
@@ -444,19 +451,6 @@
 			continue
 		moblist += M
 	return moblist
-
-/area/syndicate_depot/core/proc/list_gethtmlmobs(list/L)
-	var/returntext = ""
-	var/list/moblist = list_getmobs(L)
-	if(moblist.len)
-		returntext += "<UL>"
-		for(var/mob/thismob in moblist)
-			returntext += "<LI>[thismob]</LI>"
-		returntext += "</UL>"
-	else
-		returntext += "<BR>NONE"
-	return returntext
-
 /area/syndicate_depot/outer
 	name = "Suspicious Asteroid"
 	icon_state = "green"
