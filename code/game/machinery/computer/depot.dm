@@ -129,14 +129,10 @@
 
 
 /obj/machinery/computer/syndicate_depot/proc/primary(mob/user)
-	if(!allowed(user))
-		return 1
-	return 0
+	return FALSE
 
 /obj/machinery/computer/syndicate_depot/proc/secondary(mob/user)
-	if(!allowed(user))
-		return 1
-	return 0
+	return FALSE
 
 /obj/machinery/computer/syndicate_depot/proc/raise_alert(reason)
 	if(istype(depotarea))
@@ -173,8 +169,6 @@
 	return data
 
 /obj/machinery/computer/syndicate_depot/doors/primary(mob/user)
-	if(..())
-		return
 	if(depotarea)
 		pub_access = !pub_access
 		if(pub_access)
@@ -186,8 +180,6 @@
 		playsound(user, sound_yes, 50, 0)
 
 /obj/machinery/computer/syndicate_depot/doors/secondary(mob/user, subcommand)
-	if(..())
-		return
 	if(depotarea)
 		depotarea.toggle_falsewalls(src)
 		to_chat(user, "<span class='notice'>False walls toggled.</span>")
@@ -216,8 +208,6 @@
 	return data
 
 /obj/machinery/computer/syndicate_depot/selfdestruct/primary(mob/user)
-	if(..())
-		return
 	if(depotarea.used_self_destruct)
 		playsound(user, sound_no, 50, 0)
 		return
@@ -266,8 +256,6 @@
 	return data
 
 /obj/machinery/computer/syndicate_depot/shieldcontrol/primary(mob/user)
-	if(..())
-		return
 	if(depotarea.used_self_destruct)
 		playsound(user, sound_no, 50, 0)
 		return
@@ -283,8 +271,6 @@
 
 
 /obj/machinery/computer/syndicate_depot/shieldcontrol/secondary(mob/user)
-	if(..())
-		return
 	if(!istype(depotarea))
 		return
 	if(length(depotarea.shield_list))
@@ -335,8 +321,6 @@
 	return data
 
 /obj/machinery/computer/syndicate_depot/syndiecomms/primary(mob/user)
-	if(..())
-		return
 	if(!isliving(user))
 		to_chat(user, "ERROR: No lifesigns detected at terminal, aborting.") // Safety to prevent aghosts accidentally consuming the only use.
 		return
@@ -355,8 +339,6 @@
 	playsound(user, sound_yes, 50, 0)
 
 /obj/machinery/computer/syndicate_depot/syndiecomms/secondary(mob/user)
-	if(..())
-		return
 	if(!istype(depotarea))
 		to_chat(user, "<span class='warning'>ERROR: [src] is unable to uplink to depot network.</span>")
 		return
@@ -509,8 +491,6 @@
 	return data
 
 /obj/machinery/computer/syndicate_depot/teleporter/primary(mob/user)
-	if(..())
-		return
 	if(!mybeacon && user)
 		to_chat(user, "<span class='notice'>Unable to connect to teleport beacon.</span>")
 		return
@@ -519,8 +499,6 @@
 	playsound(user, sound_yes, 50, 0)
 
 /obj/machinery/computer/syndicate_depot/teleporter/secondary(mob/user)
-	if(..())
-		return
 	if(!depotarea.on_peaceful && !check_rights(R_ADMIN, 0, user))
 		to_chat(user, "<span class='notice'>Outgoing Teleport Portal controls are only enabled when the depot has a signed-in agent visitor.</span>")
 		return
@@ -595,8 +573,6 @@
 	return data
 
 /obj/machinery/computer/syndicate_depot/aiterminal/primary(mob/user)
-	if(..())
-		return
 	if(!check_rights(R_ADMIN, 0, user))
 		return
 	if(!istype(depotarea))
@@ -609,8 +585,6 @@
 	playsound(user, sound_yes, 50, 0)
 
 /obj/machinery/computer/syndicate_depot/aiterminal/secondary(mob/user)
-	if(..())
-		return
 	for(var/mob/living/simple_animal/bot/ed209/syndicate/B in depotarea.list_getmobs(depotarea.guard_list))
 		depotarea.list_remove(B, depotarea.guard_list)
 		new /obj/effect/portal(get_turf(B))
