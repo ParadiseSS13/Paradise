@@ -4,7 +4,7 @@ import { Button, LabeledList, Section, Box, Table, ProgressBar } from "../compon
 import { LabeledListItem } from "../components/LabeledList";
 import { Window } from "../layouts";
 
-export const ComputerSimple = (props, context) => {
+export const SyndicateComputerSimple = (props, context) => {
   const { act, data } = useBackend(context);
   return (
     <Window theme="syndicate">

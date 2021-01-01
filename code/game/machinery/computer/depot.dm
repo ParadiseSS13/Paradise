@@ -32,7 +32,7 @@
 /obj/machinery/computer/syndicate_depot/attack_ai(mob/user)
 	if(length(req_access) && !("syndicate" in user.faction))
 		to_chat(user, "<span class='warning'>A firewall blocks your access.</span>")
-		return 1
+		return TRUE
 	return ..()
 
 /obj/machinery/computer/syndicate_depot/emp_act(severity)
@@ -44,11 +44,11 @@
 
 /obj/machinery/computer/syndicate_depot/allowed(mob/user)
 	if(user.can_advanced_admin_interact())
-		return 1
+		return TRUE
 	if(!isliving(user))
-		return 0
+		return FALSE
 	if(security_lockout)
-		return 0
+		return FALSE
 	return ..()
 
 /obj/machinery/computer/syndicate_depot/proc/activate_security_lockout()
@@ -75,14 +75,14 @@
 /obj/machinery/computer/syndicate_depot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "ComputerSimple",  name, window_width, window_height, master_ui, state)
+		ui = new(user, src, ui_key, "SyndicateComputerSimple",  name, window_width, window_height, master_ui, state)
 		ui.open()
 
 /obj/machinery/computer/syndicate_depot/ui_data(mob/user)
 	var/list/data = list()
 	data["rows"] = list()
 	if(security_lockout)
-		data["rows"].Add(list(list(
+		data["rows"] += list(list(
 			"title" = "Security Lockout",
 			"status" = "Due to heightened security alert, base computers are locked out.",
 		)))
