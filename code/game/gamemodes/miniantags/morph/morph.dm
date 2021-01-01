@@ -77,6 +77,19 @@
 	AddSpell(new /obj/effect/proc_holder/spell/targeted/smoke)
 	AddSpell(new /obj/effect/proc_holder/spell/targeted/forcewall)
 
+/mob/living/simple_animal/hostile/morph/proc/try_eat(atom/movable/A)
+	var/food_value = calc_food_gained(A)
+	if(food_value + gathered_food < 0)
+		to_chat(src, "<span class='warning'>You can't force yourself to eat more disgusting items. Eat some living things first.</span>")
+		return
+	if(food_value < 0)
+		to_chat(src, "<span class='warning'>You start eating [A]... disgusting....</span>")
+	if(do_after(src, 30, target = A))
+		if(food_value + gathered_food < 0)
+			to_chat(src, "<span class='warning'>You can't force yourself to eat more disgusting items. Eat some living things first.</span>")
+			return
+		eat(A)
+
 /mob/living/simple_animal/hostile/morph/proc/eat(atom/movable/A)
 	if(A && A.loc != src)
 		visible_message("<span class='warning'>[src] swallows [A] whole!</span>")
@@ -89,6 +102,8 @@
 		A.extinguish_light()
 		A.forceMove(src)
 		add_food(calc_food_gained(A))
+		if(isliving(A))
+			adjustHealth(-50)
 		add_attack_logs(src, A, "morph ate")
 		return TRUE
 	return FALSE
@@ -238,22 +253,16 @@
 	if(isliving(target)) // Eat Corpses to regen health
 		var/mob/living/L = target
 		if(L.stat == DEAD)
-			if(do_after(src, 30, target = L))
-				if(eat(L))
-					adjustHealth(-50)
-			return
+			try_eat(L)
+			return TRUE
 		if(ambush_prepared)
 			ambush_attack(L)
+			return TRUE // No double attack
 	else if(istype(target,/obj/item)) // Eat items just to be annoying
 		var/obj/item/I = target
 		if(!I.anchored)
-			if(gathered_food < ITEM_EAT_COST)
-				to_chat(src, "<span class='warning'>You can't force yourself to eat more disgusting items. Eat some living things first.</span>")
-				return
-			to_chat(src, "<span class='warning'>You start eating [I]... disgusting....</span>")
-			if(do_after(src, 20, target = I))
-				eat(I)
-			return
+			try_eat(I)
+			return TRUE
 	. = ..()
 	if(. && morphed)
 		mimic_spell.restore_form(src)
