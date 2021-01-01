@@ -85,22 +85,22 @@
 		data["rows"] += list(list(
 			"title" = "Security Lockout",
 			"status" = "Due to heightened security alert, base computers are locked out.",
-		)))
+		))
 	else if(length(req_access))
-		data["rows"].Add(list(list(
+		data["rows"] += list(list(
 			"title" = "Security Notice",
 			"status" = "This terminal requires a syndicate ID of sufficient clearance.",
-		)))
+		))
 	/*
 		Guide for making your own template sections for SimpleComputer:
-		data["rows"].Add(list(list(
+		data["rows"] += list(list(
 			"title" = "Example Section Title",
 			"status" = "Example text box contents",
 			"buttontitle" = "Example Button Title", // null = no button
 			"buttonact" = "primary", // function name called when button is pressed (usually 'primary' or 'secondary')
 			"buttondisabled" = !allowed(user) // if true, button is not clickable, used to allow ghosts to see but not use buttons
 			"buttontooltip" = "This is what will happen when you press the button"
-		)))
+		))
 	*/
 	return data
 
@@ -154,22 +154,22 @@
 
 /obj/machinery/computer/syndicate_depot/doors/ui_data(mob/user)
 	var/list/data = ..()
-	data["rows"].Add(list(list(
+	data["rows"] += list(list(
 		"title" = "Airlock Emergency Access",
 		"status" = "Connected",
 		"buttontitle" = pub_access ? "Disable" : "Enable",
 		"buttonact" = "primary",
 		"buttondisabled" = !allowed(user),
 		"buttontooltip" = "Enables/disables emergency access on every airlock nearby."
-	)))
-	data["rows"].Add(list(list(
+	))
+	data["rows"] += list(list(
 		"title" = "Secret Doors",
 		"status" = "Connected",
 		"buttontitle" = "Toggle Open/Closed",
 		"buttonact" = "secondary",
 		"buttondisabled" = !allowed(user),
 		"buttontooltip" = "Opens/closes secret doors nearby."
-	)))
+	))
 	return data
 
 /obj/machinery/computer/syndicate_depot/doors/primary(mob/user)
@@ -205,14 +205,14 @@
 
 /obj/machinery/computer/syndicate_depot/selfdestruct/ui_data(mob/user)
 	var/list/data = ..()
-	data["rows"].Add(list(list(
+	data["rows"] += list(list(
 		"title" = "Reactor Containment Fields",
 		"status" = (istype(depotarea) && !depotarea.used_self_destruct) ? "Online" : "Offline",
 		"buttontitle" = (istype(depotarea) && !depotarea.used_self_destruct) ? "Disable" : null,
 		"buttonact" = "primary",
 		"buttondisabled" = !allowed(user),
 		"buttontooltip" = "Disables the containment field of the reactor."
-	)))
+	))
 	return data
 
 /obj/machinery/computer/syndicate_depot/selfdestruct/primary(mob/user)
@@ -247,22 +247,22 @@
 
 /obj/machinery/computer/syndicate_depot/shieldcontrol/ui_data(mob/user)
 	var/list/data = ..()
-	data["rows"].Add(list(list(
+	data["rows"] += list(list(
 		"title" = "Asteroid Perimeter Shield",
 		"status" = length(perimeterarea.shield_list) ? "ON" : "OFF",
 		"buttontitle" = length(perimeterarea.shield_list) ? "Disable" : "Enable",
 		"buttonact" = "primary",
 		"buttondisabled" = !allowed(user),
 		"buttontooltip" = "While on, nobody can get into the depot."
-	)))
-	data["rows"].Add(list(list(
+	))
+	data["rows"] += list(list(
 		"title" = "Armory Shield",
 		"status" = length(depotarea.shield_list) ? "ON" : "OFF",
 		"buttontitle" = length(depotarea.shield_list) ? "Disable" : "Enable",
 		"buttonact" = "secondary",
 		"buttondisabled" = !allowed(user),
 		"buttontooltip" = "While on, the armory is protected from looters."
-	)))
+	))
 	return data
 
 /obj/machinery/computer/syndicate_depot/shieldcontrol/primary(mob/user)
@@ -316,14 +316,14 @@
 
 /obj/machinery/computer/syndicate_depot/syndiecomms/ui_data(mob/user)
 	var/list/data = ..()
-	data["rows"].Add(list(list(
+	data["rows"] += list(list(
 		"title" = "Communications Array",
 		"status" = message_sent ? "Offline" : "Online",
 		"buttontitle" = message_sent ? null : "Contact Syndicate HQ",
 		"buttonact" = "primary",
 		"buttondisabled" = !allowed(user)
-	)))
-	data["rows"].Add(list(list(
+	))
+	data["rows"] += list(list(
 		"title" = "Visiting Agents",
 		"status" = !length(depotarea.peaceful_list) ? "None" : null,
 		"bullets" = length(depotarea.peaceful_list) ? depotarea.list_shownames(depotarea.peaceful_list) : null,
@@ -331,7 +331,7 @@
 		"buttonact" = "secondary",
 		"buttondisabled" = !allowed(user),
 		"buttontooltip" = "Only actual syndicate agents can do this."
-	)))
+	))
 	return data
 
 /obj/machinery/computer/syndicate_depot/syndiecomms/primary(mob/user)
@@ -490,22 +490,22 @@
 	findbeacon()
 	var/list/data = ..()
 	if(mybeacon)
-		data["rows"].Add(list(list(
+		data["rows"] += list(list(
 			"title" = "Incoming Teleport Beacon",
 			"status" = mybeacon.enabled ? "ON" : "OFF",
 			"buttontitle" = mybeacon.enabled ? "Disable" : "Enable",
 			"buttonact" = "primary",
 			"buttondisabled" = !allowed(user),
 			"buttontooltip" = "When on, emagged teleporters can lock onto this location and open portals here."
-		)))
-	data["rows"].Add(list(list(
+		))
+	data["rows"] += list(list(
 		"title" = "Outgoing Teleport Portal",
 		"status" = portal_enabled ? "ON" : "OFF",
 		"buttontitle" = portal_enabled ? "Disable" : "Enable",
 		"buttonact" = "secondary",
 		"buttondisabled" = (!depotarea.on_peaceful && (!allowed(user) || !check_rights(R_ADMIN, 0, user))),
 		"buttontooltip" = "When on, creates a bi-directional portal to the beacon of your choice."
-	)))
+	))
 	return data
 
 /obj/machinery/computer/syndicate_depot/teleporter/primary(mob/user)
@@ -559,16 +559,16 @@
 		alertlevel = "Blue"
 	else
 		alertlevel = "Green"
-	data["rows"].Add(list(list(
+	data["rows"] += list(list(
 		"title" = "Alert Level",
 		"status" = alertlevel,
 		"buttontitle" = (allowed(user) && check_rights(R_ADMIN, 0, user)) ? "(ADMIN) Reset Alert Level" : null,
 		"buttonact" = "primary"
-	)))
+	))
 	var/has_bot = FALSE
 	for(var/mob/living/simple_animal/bot/ed209/syndicate/B in depotarea.list_getmobs(depotarea.guard_list))
 		has_bot = TRUE
-	data["rows"].Add(list(list(
+	data["rows"] += list(list(
 		"title" = "Extra Security Forces",
 		"status" = !length(depotarea.guard_list) ? "None Present" : null,
 		"bullets" = length(depotarea.guard_list) ? depotarea.list_shownames(depotarea.guard_list) : null,
@@ -576,22 +576,22 @@
 		"buttonact" = "secondary",
 		"buttondisabled" = !allowed(user),
 		"buttontooltip" = "Removes the sentry bot, but increases the alert level."
-	)))
-	data["rows"].Add(list(list(
+	))
+	data["rows"] += list(list(
 		"title" = "Logs",
 		"status" = !length(depotarea.alert_log) ? "None" : null,
 		"bullets" = depotarea.alert_log // this is naturally a list
-	)))
-	data["rows"].Add(list(list(
+	))
+	data["rows"] += list(list(
 		"title" = "Terminated Intruders",
 		"status" = !length(depotarea.dead_list) ? "None" : null,
 		"bullets" = length(depotarea.dead_list) ? depotarea.list_shownames(depotarea.dead_list) : null
-	)))
-	data["rows"].Add(list(list(
+	))
+	data["rows"] += list(list(
 		"title" = "Visiting Agents",
 		"status" = !length(depotarea.peaceful_list) ? "None" : null,
 		"bullets" = length(depotarea.peaceful_list) ? depotarea.list_shownames(depotarea.peaceful_list) : null
-	)))
+	))
 	return data
 
 /obj/machinery/computer/syndicate_depot/aiterminal/primary(mob/user)
