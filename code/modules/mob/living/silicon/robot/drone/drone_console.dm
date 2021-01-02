@@ -91,8 +91,8 @@
 			dronefab.produce_drones = !dronefab.produce_drones
 			var/toggle = dronefab.produce_drones ? "enable" : "disable"
 			to_chat(usr, "<span class='notice'>You [toggle] drone production in the nearby fabricator.</span>")
-			message_admins("[key_name_admin(usr)] [toggle]d drone production from the control console.")
-			log_game("[key_name(usr)] [toggle]d drone production from the control console.")
+			message_admins("[key_name_admin(usr)] [toggle]d maintenance drone production from the control console.")
+			log_game("[key_name(usr)] [toggle]d maintenance drone production from the control console.")
 
 		if("set_area")
 			drone_call_area = params["area"]

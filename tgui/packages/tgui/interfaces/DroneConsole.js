@@ -136,6 +136,10 @@ const DroneList = (props, context) => {
         icon="broadcast-tower"
         disabled={ping_cd || !drones.length}
         title={drones.length ? null : "No active drones!"}
+        fluid={1}
+        textAlign="center"
+        py={0.4}
+        mt={0.6}
         onClick={() => act('ping')} />
 
       <Divide />
