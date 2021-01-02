@@ -486,7 +486,7 @@
 		"status" = portal_enabled ? "ON" : "OFF",
 		"buttontitle" = portal_enabled ? "Disable" : "Enable",
 		"buttonact" = "secondary",
-		"buttondisabled" = (!depotarea.on_peaceful && (!allowed(user) || !check_rights(R_ADMIN, 0, user))),
+		"buttondisabled" = (!allowed(user) || (!depotarea.on_peaceful && !check_rights(R_ADMIN, FALSE, user))),
 		"buttontooltip" = "When on, creates a bi-directional portal to the beacon of your choice."
 	))
 	return data
@@ -500,7 +500,7 @@
 	playsound(user, sound_yes, 50, 0)
 
 /obj/machinery/computer/syndicate_depot/teleporter/secondary(mob/user)
-	if(!depotarea.on_peaceful && !check_rights(R_ADMIN, 0, user))
+	if(!depotarea.on_peaceful && !check_rights(R_ADMIN, FALSE, user))
 		to_chat(user, "<span class='notice'>Outgoing Teleport Portal controls are only enabled when the depot has a signed-in agent visitor.</span>")
 		return
 	if(!portal_enabled && myportal)
