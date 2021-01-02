@@ -283,11 +283,11 @@
 	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.vampire_enthralled)
 
 /obj/effect/proc_holder/spell/vampire/targetted/enthrall
-	name = "Enthrall (300)"
+	name = "Enthrall (220)"
 	desc = "You use a large portion of your power to sway those loyal to none to be loyal to you only."
-	gain_desc = "You have gained the Enthrall ability which at a heavy blood cost allows you to enslave a human that is not loyal to any other for a random period of time."
+	gain_desc = "You have gained the Enthrall ability which at a heavy blood cost allows you to enslave a human that is not loyal to any other."
 	action_icon_state = "vampire_enthrall"
-	required_blood = 300
+	required_blood = 220
 
 /obj/effect/proc_holder/spell/vampire/targetted/enthrall/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
