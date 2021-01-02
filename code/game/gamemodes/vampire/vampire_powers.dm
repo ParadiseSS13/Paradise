@@ -296,7 +296,7 @@
 		if(!ishuman(target))
 			to_chat(user, "<span class='warning'>You can only enthrall humans.</span>")
 			break
-		if(do_mob(user, target, 50))
+		if(do_mob(user, target, 150))
 			if(can_enthrall(user, target))
 				handle_enthrall(user, target)
 			else
