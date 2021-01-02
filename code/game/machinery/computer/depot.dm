@@ -541,7 +541,7 @@
 	data["rows"] += list(list(
 		"title" = "Alert Level",
 		"status" = alertlevel,
-		"buttontitle" = (allowed(user) && check_rights(R_ADMIN, 0, user)) ? "(ADMIN) Reset Alert Level" : null,
+		"buttontitle" = (allowed(user) && check_rights(R_ADMIN, FALSE, user)) ? "(ADMIN) Reset Alert Level" : null,
 		"buttonact" = "primary"
 	))
 	var/has_bot = FALSE
@@ -574,7 +574,7 @@
 	return data
 
 /obj/machinery/computer/syndicate_depot/aiterminal/primary(mob/user)
-	if(!check_rights(R_ADMIN, 0, user))
+	if(!check_rights(R_ADMIN, FALSE, user))
 		return
 	if(!istype(depotarea))
 		return
