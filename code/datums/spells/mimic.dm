@@ -111,6 +111,7 @@
 		user.pixel_y = initial(user.pixel_y)
 		user.pixel_x = initial(user.pixel_x)
 
+	playsound(user, "bonebreak", 75, TRUE)
 	show_change_form_message(user, old_name, "[user]")
 	user.create_log(MISC_LOG, "Mimicked into [user]")
 	RegisterSignal(user, COMSIG_PARENT_EXAMINE, .proc/examine_override)
@@ -137,6 +138,7 @@
 		user.name = initial(user.name)
 		user.desc = initial(user.desc)
 
+	playsound(user, "bonebreak", 150, TRUE)
 	if(show_message)
 		show_restore_form_message(user, old_name, "[user]")
 
