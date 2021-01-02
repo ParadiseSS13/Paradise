@@ -68,6 +68,9 @@ GLOBAL_VAR(bomb_set)
 		else
 			to_chat(user, "<span class='notice'>You need to deploy [src] first.</span>")
 		return
+	else if(istype(O, /obj/item/disk/plantgene))
+		to_chat(user, "<span class='warning'> You try to put the Nuclear Authentication Disk into the nuke, but it does not fi- Wait, this isn't the right disk!</span>")
+		return
 	return ..()
 
 /obj/machinery/nuclearbomb/crowbar_act(mob/user, obj/item/I)
