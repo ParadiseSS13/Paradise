@@ -719,12 +719,6 @@ BLIND     // can't see anything
 	lefthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_lefthand.dmi' : lefthand_file)
 	righthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_righthand.dmi' : righthand_file)
 
-/obj/item/clothing/under/Initialize(mapload)
-	. = ..()
-	blacklisted_accessory_typecache = typecacheof(list(
-		/obj/item/clothing/accessory/petcollar // No collars on jumpsuits
-	))
-
 /obj/item/clothing/under/rank/New()
 	if(random_sensor)
 		sensor_mode = pick(SENSOR_OFF, SENSOR_LIVING, SENSOR_VITALS, SENSOR_COORDS)
