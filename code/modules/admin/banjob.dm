@@ -68,7 +68,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 		//Job permabans
 		var/datum/db_query/permabans = SSdbcore.NewQuery("SELECT ckey, job FROM [format_table_name("ban")] WHERE bantype = 'JOB_PERMABAN' AND isnull(unbanned)")
 
-		if(!permabans.warn_execute())
+		if(!permabans.warn_execute(async=FALSE))
 			qdel(permabans)
 			return FALSE
 
@@ -83,7 +83,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 		// Job tempbans
 		var/datum/db_query/tempbans = SSdbcore.NewQuery("SELECT ckey, job FROM [format_table_name("ban")] WHERE bantype = 'JOB_TEMPBAN' AND isnull(unbanned) AND expiration_time > Now()")
 
-		if(!tempbans.warn_execute())
+		if(!tempbans.warn_execute(async=FALSE))
 			qdel(tempbans)
 			return FALSE
 

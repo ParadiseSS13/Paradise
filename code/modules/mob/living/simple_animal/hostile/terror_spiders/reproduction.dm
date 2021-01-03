@@ -22,8 +22,8 @@
 	var/debug_ai_choices = FALSE
 	var/movement_disabled = FALSE
 
-/obj/structure/spider/spiderling/terror_spiderling/New()
-	..()
+/obj/structure/spider/spiderling/terror_spiderling/Initialize(mapload)
+	. = ..()
 	GLOB.ts_spiderling_list += src
 	if(is_away_level(z))
 		spider_awaymission = TRUE
@@ -186,8 +186,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoLayTerrorEggs(lay_type, lay_number)
 	stop_automated_movement = 1
-	var/obj/structure/spider/eggcluster/terror_eggcluster/C = new /obj/structure/spider/eggcluster/terror_eggcluster(get_turf(src))
-	C.spiderling_type = lay_type
+	var/obj/structure/spider/eggcluster/terror_eggcluster/C = new /obj/structure/spider/eggcluster/terror_eggcluster(get_turf(src), lay_type)
 	C.spiderling_number = lay_number
 	C.spider_myqueen = spider_myqueen
 	C.spider_mymother = src
@@ -209,27 +208,29 @@
 	var/spiderling_number = 1
 	var/list/enemies = list()
 
-/obj/structure/spider/eggcluster/terror_eggcluster/New()
-	..()
+/obj/structure/spider/eggcluster/terror_eggcluster/Initialize(mapload, lay_type)
+	. = ..()
 	GLOB.ts_egg_list += src
-	spawn(50)
-		if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/red)
+	spiderling_type = lay_type
+
+	switch(spiderling_type)
+		if(/mob/living/simple_animal/hostile/poison/terror_spider/red)
 			name = "red terror eggs"
-		else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/gray)
+		if(/mob/living/simple_animal/hostile/poison/terror_spider/gray)
 			name = "gray terror eggs"
-		else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/green)
+		if(/mob/living/simple_animal/hostile/poison/terror_spider/green)
 			name = "green terror eggs"
-		else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/black)
+		if(/mob/living/simple_animal/hostile/poison/terror_spider/black)
 			name = "black terror eggs"
-		else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/purple)
+		if(/mob/living/simple_animal/hostile/poison/terror_spider/purple)
 			name = "purple terror eggs"
-		else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/white)
+		if(/mob/living/simple_animal/hostile/poison/terror_spider/white)
 			name = "white terror eggs"
-		else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/mother)
+		if(/mob/living/simple_animal/hostile/poison/terror_spider/mother)
 			name = "mother of terror eggs"
-		else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/prince)
+		if(/mob/living/simple_animal/hostile/poison/terror_spider/prince)
 			name = "prince of terror eggs"
-		else if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/queen)
+		if(/mob/living/simple_animal/hostile/poison/terror_spider/queen)
 			name = "queen of terror eggs"
 
 /obj/structure/spider/eggcluster/terror_eggcluster/Destroy()
