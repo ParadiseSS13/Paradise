@@ -291,10 +291,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Disabilities:</b> <a href='?_src_=prefs;preference=disabilities'>\[Set\]</a><br>"
 			dat += "<b>Nanotrasen Relation:</b> <a href ='?_src_=prefs;preference=nt_relation;task=input'>[nanotrasen_relation]</a><br>"
 			dat += "<a href='byond://?_src_=prefs;preference=flavor_text;task=input'>Set Flavor Text</a><br>"
-			if(length(flavor_text) <= 40)
-				if(!length(flavor_text))	dat += "\[...\]<br>"
-				else						dat += "[flavor_text]<br>"
-			else dat += "[TextPreview(flavor_text)]...<br>"
+			dat += "[TextPreview(flavor_text)]<br>"
 
 			dat += "<h2>Hair & Accessories</h2>"
 
@@ -1791,7 +1788,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/msg = input(usr,"Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.","Flavor Text",html_decode(flavor_text)) as message
 
 					if(msg != null)
-						msg = copytext(msg, 1, MAX_MESSAGE_LEN)
+						msg = copytext_char(msg, 1, MAX_PAPER_MESSAGE_LEN)
 						msg = html_encode(msg)
 
 						flavor_text = msg

@@ -496,8 +496,8 @@
 						if(!FC || !FC.can_modify(usr, get_scanned_user(usr)["name"]))
 							return
 					// Add/update the information
-					FC.channel_name = copytext(name, 1, CHANNEL_NAME_MAX_LENGTH)
-					FC.description = copytext(description, 1, CHANNEL_DESC_MAX_LENGTH)
+					FC.channel_name = copytext_char(name, 1, CHANNEL_NAME_MAX_LENGTH)
+					FC.description = copytext_char(description, 1, CHANNEL_DESC_MAX_LENGTH)
 					FC.icon = usr.can_admin_interact() ? icon : "newspaper"
 					FC.author = usr.can_admin_interact() ? author : scanned_user
 					FC.is_public = public
@@ -518,8 +518,8 @@
 						return
 					var/datum/feed_message/FM = new
 					FM.author = usr.can_admin_interact() ? author : scanned_user
-					FM.title = copytext(title, 1, STORY_NAME_MAX_LENGTH)
-					FM.body = copytext(body, 1, STORY_BODY_MAX_LENGTH)
+					FM.title = copytext_char(title, 1, STORY_NAME_MAX_LENGTH)
+					FM.body = copytext_char(body, 1, STORY_BODY_MAX_LENGTH)
 					FM.img = photo?.img
 					FM.admin_locked = usr.can_admin_interact() && admin_locked
 					// Register it
@@ -555,8 +555,8 @@
 						WN = new
 						GLOB.news_network.wanted_issue = WN
 					WN.author = usr.can_admin_interact() ? author : scanned_user
-					WN.title = "WANTED: [copytext(name, 1, WANTED_NOTICE_NAME_MAX_LENGTH)]"
-					WN.body = copytext(description, 1, WANTED_NOTICE_DESC_MAX_LENGTH)
+					WN.title = "WANTED: [copytext_char(name, 1, WANTED_NOTICE_NAME_MAX_LENGTH)]"
+					WN.body = copytext_char(description, 1, WANTED_NOTICE_DESC_MAX_LENGTH)
 					WN.img = photo?.img
 					WN.admin_locked = usr.can_admin_interact() && admin_locked
 					WN.publish_time = world.time

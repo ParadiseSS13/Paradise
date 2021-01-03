@@ -728,7 +728,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	var/msg = input(usr,"Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance.","Flavor Text",html_decode(flavor_text)) as message|null
 
 	if(msg != null)
-		msg = copytext(msg, 1, MAX_MESSAGE_LEN)
+		msg = copytext_char(msg, 1, MAX_PAPER_MESSAGE_LEN)
 		msg = html_encode(msg)
 
 		flavor_text = msg
@@ -736,10 +736,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/print_flavor_text(var/shrink = TRUE)
 	if(flavor_text && flavor_text != "")
 		var/msg = replacetext(flavor_text, "\n", " ")
-		if(length(msg) <= 40 || !shrink)
+		if(length(msg) <= 60 || !shrink)
 			return "<span class='notice'>[html_encode(msg)]</span>" //Repeat after me, "I will not give players access to decoded HTML."
 		else
-			return "<span class='notice'>[copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
+			return "<span class='notice'>[copytext_preserve_html(msg, 1, 57)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
 
 /mob/proc/is_dead()
 	return stat == DEAD
