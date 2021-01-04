@@ -1,5 +1,4 @@
 import { filter } from 'common/collections';
-import { decodeHtmlEntities } from 'common/string';
 import { useBackend, useLocalState } from "../../backend";
 import { Box, Button, Icon, LabeledList, Section } from "../../components";
 
@@ -79,7 +78,7 @@ export const ActiveConversation = (props, context) => {
                   "border-radius": "10px",
                   "word-break": "normal",
                 }}>
-                {im.sent ? "You:" : "Them:"} {decodeHtmlEntities(im.message)}
+                {im.sent ? "You:" : "Them:"} {im.message}
               </Box>
             </Box>
           ))}
@@ -119,7 +118,7 @@ export const ActiveConversation = (props, context) => {
               style={{
                 "word-break": "normal",
               }}>
-              {im.sent ? "You:" : "Them:"} <Box inline>{decodeHtmlEntities(im.message)}</Box>
+              {im.sent ? "You:" : "Them:"} <Box inline>{im.message}</Box>
             </Box>
           ))}
         </Section>
