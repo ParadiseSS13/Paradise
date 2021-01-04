@@ -1,3 +1,4 @@
+import { decodeHtmlEntities } from "common/string";
 import { useBackend } from "../../backend";
 import { Box, Button, Section } from "../../components";
 
@@ -11,7 +12,7 @@ export const pda_notes = (props, context) => {
   return (
     <Box>
       <Section>
-        {note}
+        {decodeHtmlEntities(note)}
       </Section>
       <Button
         icon="pen"
