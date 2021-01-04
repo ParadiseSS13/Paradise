@@ -145,8 +145,8 @@
 
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		if(stat == DEAD)
-
-			if(!config.allow_drone_spawn || emagged || health < -35) //It's dead, Dave.
+		// Currently not functional, so commenting out until it's fixed to avoid confusion
+			/*if(!config.allow_drone_spawn || emagged || health < -35) //It's dead, Dave.
 				to_chat(user, "<span class='warning'>The interface is fried, and a distressing burned smell wafts from the robot's interior. You're not rebooting this one.</span>")
 				return
 
@@ -168,7 +168,7 @@
 				if(D.key && D.client)
 					drones++
 			if(drones < config.max_maint_drones)
-				request_player()
+				request_player()*/
 			return
 
 		else
@@ -188,7 +188,7 @@
 
 	..()
 
-/mob/living/silicon/robot/drone/emag_act(user)
+/mob/living/silicon/robot/drone/emag_act(mob/user)
 	if(!client || stat == DEAD)
 		to_chat(user, "<span class='warning'>There's not much point subverting this heap of junk.</span>")
 		return
@@ -280,7 +280,7 @@
 	for(var/mob/dead/observer/O in GLOB.player_list)
 		if(cannotPossess(O))
 			continue
-		if(jobban_isbanned(O, "nonhumandept") || jobban_isbanned(O, ROLE_DRONE))
+		if(jobban_isbanned(O, "nonhumandept") || jobban_isbanned(O, "Drone"))
 			continue
 		if(O.client)
 			if(ROLE_PAI in O.client.prefs.be_special)
@@ -288,7 +288,7 @@
 
 /mob/living/silicon/robot/drone/proc/question(client/C, mob/M)
 	spawn(0)
-		if(!C || !M || jobban_isbanned(M, "nonhumandept") || jobban_isbanned(M, ROLE_DRONE))
+		if(!C || !M || jobban_isbanned(M, "nonhumandept") || jobban_isbanned(M, "Drone"))
 			return
 		var/response = alert(C, "Someone is attempting to reboot a maintenance drone. Would you like to play as one?", "Maintenance drone reboot", "Yes", "No")
 		if(!C || ckey)

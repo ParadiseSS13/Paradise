@@ -90,7 +90,7 @@
 	if(usr != src)
 		return FALSE //something is terribly wrong
 
-	if(jobban_isbanned(src, "nonhumandept") || jobban_isbanned(src, ROLE_DRONE))
+	if(jobban_isbanned(src, "nonhumandept") || jobban_isbanned(src, "Drone"))
 		to_chat(usr, "<span class='warning'>You are banned from playing drones, and cannot spawn as one.</span>")
 		return
 
@@ -103,7 +103,7 @@
 		to_chat(usr, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
 		return
 
-	var/pt_req = role_available_in_playtime(client, ROLE_DRONE)
+	var/pt_req = role_available_in_playtime(client, "Drone")
 	if(pt_req)
 		var/pt_req_string = get_exp_format(pt_req)
 		to_chat(usr, "<span class='warning'>This role is not yet available to you. Play another [pt_req_string] to unlock it.</span>")

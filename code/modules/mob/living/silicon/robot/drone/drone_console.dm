@@ -14,7 +14,7 @@
 	var/ping_cooldown = 0
 
 /obj/machinery/computer/drone_control/Initialize(mapload)
-	..()
+	. = ..()
 	find_fab()
 
 /obj/machinery/computer/drone_control/attack_hand(mob/user)
