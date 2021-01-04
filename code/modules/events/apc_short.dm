@@ -2,7 +2,6 @@
 
 /datum/event/apc_short
 	var/const/announce_after_mc_ticks     = 5
-	var/const/delayed                     = FALSE
 	var/const/event_max_duration_mc_ticks = announce_after_mc_ticks * 2
 	var/const/event_min_duration_mc_ticks = announce_after_mc_ticks
 
@@ -12,7 +11,7 @@
 	endWhen = rand(event_min_duration_mc_ticks, event_max_duration_mc_ticks)
 
 /datum/event/apc_short/start()
-	power_failure(announce=delayed)
+	power_failure(announce = FALSE)
 	var/sound/S = sound('sound/effects/powerloss.ogg')
 	for(var/mob/living/M in GLOB.player_list)
 		var/turf/T = get_turf(M)
@@ -42,7 +41,7 @@
 		current_area.power_change()
 	log_and_message_admins("Power has been drained from all APCs.")
 
-/proc/power_failure(announce=TRUE)
+/proc/power_failure(announce = TRUE)
 	// skip any APCs that are too critical to disable
 	var/list/skipped_areas_apc = list(
 		/area/engine/engineering,
@@ -72,24 +71,24 @@
 			affected_apc_count++
 	log_and_message_admins("APC Short Out event has shorted out [affected_apc_count] APCs.")
 
-/proc/power_restore(announce=TRUE, var/power_type)
+/proc/power_restore(announce = TRUE, var/power_type)
 	if(power_type == 0)	//Power without Repairing
 		if(announce)
-			GLOB.event_announcement.Announce("All operational APCs on [station_name()] have been fully charged.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
+			GLOB.event_announcement.Announce("All operational APCs on \the [station_name()] have been fully charged.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
 		var/affected_apc_count = 0
 		for(var/thing in GLOB.apcs)
 			var/obj/machinery/power/apc/A = thing
 			var/area/current_area = get_area(A)
 			if(!is_station_level(A.z))
 				continue
-			if((length(A.wires.cut_wires) == 0) && A.operating && !A.shorted)
+			if(!length(A.wires.cut_wires) && A.operating && !A.shorted)
 				A.recharge_apc()
 			affected_apc_count++
 			current_area.power_change()
 		log_and_message_admins("Power has been restored to [affected_apc_count] APCs.")
 	if(power_type == 1)	//Repair without charging
 		if(announce)
-			GLOB.event_announcement.Announce("All APCs on [station_name()] have been repaired.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
+			GLOB.event_announcement.Announce("All APCs on \the [station_name()] have been repaired.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
 		for(var/thing in GLOB.apcs)
 			var/obj/machinery/power/apc/A = thing
 			var/area/current_area = get_area(A)
@@ -100,7 +99,7 @@
 		log_and_message_admins("Power has been restored to all APCs.")
 	if(power_type == 2)	//Repair and Power APCs
 		if(announce)
-			GLOB.event_announcement.Announce("All APCs on [station_name()] have been repaired and recharged. We apologize for the inconvenience.", "Power Systems Optimal", new_sound = 'sound/AI/poweron.ogg')
+			GLOB.event_announcement.Announce("All APCs on \the [station_name()] have been repaired and recharged. We apologize for the inconvenience.", "Power Systems Optimal", new_sound = 'sound/AI/poweron.ogg')
 		// repair the APCs and recharge them
 		for(var/thing in GLOB.apcs)
 			var/obj/machinery/power/apc/A = thing
@@ -112,9 +111,9 @@
 			current_area.power_change()
 		log_and_message_admins("Power has been restored to all APCs.")
 
-/proc/power_restore_quick(announce=TRUE)
+/proc/power_restore_quick(announce = TRUE)
 	if(announce)
-		GLOB.event_announcement.Announce("All SMESs on [station_name()] have been recharged. We apologize for the inconvenience.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
+		GLOB.event_announcement.Announce("All SMESs on \the [station_name()] have been recharged. We apologize for the inconvenience.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
 	// fix all of the SMESs
 	for(var/obj/machinery/power/smes/S in GLOB.machines)
 		if(!is_station_level(S.z))
