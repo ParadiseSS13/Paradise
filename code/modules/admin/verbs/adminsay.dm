@@ -26,8 +26,9 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Asay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/get_admin_say()
-	var/msg = input(src, null, "asay \"text\"") as text|null
-	cmd_admin_say(msg)
+	if(check_rights(R_ADMIN))
+		var/msg = input(src, null, "asay \"text\"") as text|null
+		cmd_admin_say(msg)
 
 /client/proc/cmd_mentor_say(msg as text)
 	set category = "Admin"
