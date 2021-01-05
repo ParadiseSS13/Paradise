@@ -1,4 +1,5 @@
 /datum/configuration
+	var/config_loaded = 0				// Have the config files actually been loaded (Integer, must be 2 to pass)
 	var/server_name = null				// server name (for world name / status)
 	var/server_tag_line = null			// server tagline (for showing on hub entry)
 	var/server_extra_features = null		// server-specific extra features (for hub entry)
@@ -319,6 +320,9 @@
 
 		if(type == "config")
 			switch(name)
+				if("config_loaded")
+					config_loaded++
+
 				if("resource_urls")
 					config.resource_urls = splittext(value, " ")
 
@@ -773,6 +777,8 @@
 			value = text2num(value)
 
 			switch(name)
+				if("game_config_loaded")
+					config_loaded++
 				if("revival_pod_plants")
 					config.revival_pod_plants = value
 				if("revival_cloning")

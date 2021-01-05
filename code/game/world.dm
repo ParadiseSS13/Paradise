@@ -22,14 +22,16 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
 	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED) // creates a new TGS object
 	log_world("World loaded at [time_stamp()]")
-	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
+	log_world("[length(GLOB.vars) - length(GLOB.gvars_datum_in_built_vars)] global variables")
 	GLOB.revision_info.log_info()
-	load_admins(run_async=FALSE) // This better happen early on.
+	load_admins() // This better happen early on.
 
 	#ifdef UNIT_TESTS
 	log_world("Unit Tests Are Enabled!")
 	#endif
 
+	if(config.config_loaded != 2)
+		stack_trace("The game config files have not been properly set! Please move ALL files from '/example/config' into the parent folder, '/config'.")
 
 	if(byond_version < MIN_COMPILER_VERSION || byond_build < MIN_COMPILER_BUILD)
 		log_world("Your server's byond version does not meet the recommended requirements for this code. Please update BYOND")
@@ -42,7 +44,7 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
 	startup_procs() // Call procs that need to occur on startup (Generate lists, load MOTD, etc)
 
-	src.update_status()
+	update_status()
 
 	GLOB.space_manager.initialize() //Before the MC starts up
 
@@ -55,7 +57,6 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	HandleTestRun()
 	#endif
 
-	return
 
 // This is basically a replacement for hook/startup. Please dont shove random bullshit here
 // If it doesnt need to happen IMMEDIATELY on world load, make a subsystem for it
