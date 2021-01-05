@@ -24,13 +24,13 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	log_world("World loaded at [time_stamp()]")
 	log_world("[length(GLOB.vars) - length(GLOB.gvars_datum_in_built_vars)] global variables")
 	GLOB.revision_info.log_info()
-	load_admins() // This better happen early on.
+	load_admins(FALSE) // This better happen early on.
 
 	#ifdef UNIT_TESTS
 	log_world("Unit Tests Are Enabled!")
 	#endif
 
-	if(config.config_loaded != 2)
+	if(!fexists("config/config.txt") || !fexists("config/game_options.txt"))
 		stack_trace("The game config files have not been properly set! Please move ALL files from '/example/config' into the parent folder, '/config'.")
 
 	if(byond_version < MIN_COMPILER_VERSION || byond_build < MIN_COMPILER_BUILD)

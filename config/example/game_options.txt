@@ -77,7 +77,3 @@ LAVALAND_BUDGET 60
 ## Cube monkey limit
 # Amount of cube monkeys that can be spawned before the game limits them
 CUBEMONKEY_CAP 32
-
-## This is to let the game know that the config files are loaded properly.
-## DO NOT COMMENT THIS (unless you know what you're doing)
-GAME_CONFIG_LOADED

@@ -471,7 +471,3 @@ BYOND_ACCOUNT_AGE_THRESHOLD 7
 ## THE TRAILING SLASH ON THE END IS IMPORTANT SINCE IT JUST APPENDS THE CKEY TO THE END IN RAW
 ## Add a hash before the line below to disable the system
 CENTCOM_BAN_DB_URL https://centcom.melonmesa.com/ban/search/
-
-## This is to let the game know that the config files are loaded properly.
-## DO NOT COMMENT THIS (unless you know what you're doing)
-CONFIG_LOADED
