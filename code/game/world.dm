@@ -24,7 +24,7 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	log_world("World loaded at [time_stamp()]")
 	log_world("[length(GLOB.vars) - length(GLOB.gvars_datum_in_built_vars)] global variables")
 	GLOB.revision_info.log_info()
-	load_admins(FALSE) // This better happen early on.
+	load_admins(run_async = FALSE) // This better happen early on.
 
 	#ifdef UNIT_TESTS
 	log_world("Unit Tests Are Enabled!")
