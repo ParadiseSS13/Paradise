@@ -297,6 +297,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 3
 	job = list("Virologist")
 
+/datum/uplink_item/jobspecific/gbs_bottle
+	name = "Bottle of GBS"
+	desc = "An extremely dangerous illness caused by contagious micro-singularities that will cause the human body to be torn apart from the inside. The initial phase begins in the lungs and mimics flu symptoms. Wear your protective suit."
+	reference = "GBS"
+	item = /obj/item/reagent_containers/glass/bottle/gbs
+	cost = 20
+	job = list("Virologist")
+	surplus = 0 //No lucky chances from the crate; if you get this, this is ALL you're getting
+	hijack_only = TRUE //This is an extremely lethal disease and will do similar damage to the crew that a mass bombing would
+
 /datum/uplink_item/jobspecific/cat_grenade
 	name = "Feral Cat Delivery Grenade"
 	desc = "The feral cat delivery grenade contains 5 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
