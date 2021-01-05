@@ -29,6 +29,9 @@
 	if(check_rights(R_ADMIN))
 		var/msg = input(src, null, "asay \"text\"") as text|null
 		cmd_admin_say(msg)
+	else if(check_rights(R_MENTOR))
+		var/msg = input(src, null, "msay \"text\"") as text|null
+		cmd_mentor_say(msg)
 
 /client/proc/cmd_mentor_say(msg as text)
 	set category = "Admin"
