@@ -83,6 +83,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot
 	sawn_desc = "Come with me if you want to live."
 	sawn_state = SAWN_INTACT
+	weapon_weight = WEAPON_HEAVY
 
 /obj/item/gun/projectile/shotgun/riot/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
@@ -308,6 +309,7 @@
 	origin_tech = "combat=6"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
 	w_class = WEIGHT_CLASS_HUGE
+	weapon_weight = WEAPON_HEAVY
 
 //Dual Feed Shotgun
 
