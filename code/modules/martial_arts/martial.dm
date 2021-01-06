@@ -8,6 +8,7 @@
 	var/temporary = FALSE
 	var/datum/martial_art/base = null // The permanent style
 	var/deflection_chance = 0 //Chance to deflect projectiles
+	var/reroute_deflection = FALSE // Can it reflect projectiles in a random direction?
 	var/block_chance = 0 //Chance to block melee attacks using items while on throw mode.
 	var/help_verb = null
 	var/no_guns = FALSE	//set to TRUE to prevent users of this style from using guns (sleeping carp, highlander). They can still pick them up, but not fire them.
