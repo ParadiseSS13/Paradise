@@ -39,6 +39,7 @@
 	var/del_new_on_log = 1				// qdel's new players if they log before they spawn in
 	var/feature_object_spell_system = 0 //spawns a spellbook which gives object-type spells instead of verb-type spells for the wizard
 	var/traitor_scaling = 0 			//if amount of traitors scales based on amount of players
+	var/brothers_scaling = 0
 	var/protect_roles_from_antagonist = 0// If security and such can be tratior/cult/other
 	var/continuous_rounds = 0			// Gamemodes which end instantly will instead keep on going until the round ends by escape shuttle or nuke.
 	var/allow_Metadata = 0				// Metadata is supported.
@@ -83,6 +84,7 @@
 	var/list_afk_minimum = 5 // How long people have to be AFK before it's listed on the "List AFK players" verb
 
 	var/traitor_objectives_amount = 2
+	var/brother_objectives_amount = 1
 	var/shadowling_max_age = 0
 
 	var/max_maint_drones = 5				//This many drones can spawn,
@@ -546,6 +548,9 @@
 
 				if("traitor_scaling")
 					config.traitor_scaling = 1
+				
+				if("brother_scaling")
+					config.brother_scaling = 1
 
 				if("protect_roles_from_antagonist")
 					config.protect_roles_from_antagonist = 1
@@ -803,6 +808,8 @@
 					config.shuttle_refuel_delay     = text2num(value)
 				if("traitor_objectives_amount")
 					config.traitor_objectives_amount = text2num(value)
+				if("brother_objectives_amount")
+					config.brother_objectives_amount = text2num(value)
 				if("reactionary_explosions")
 					config.reactionary_explosions	= 1
 				if("bombcap")

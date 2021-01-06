@@ -10,6 +10,7 @@
 // justice if someone's abusing your role
 #define ROLE_SYNDICATE			"Syndicate"
 #define ROLE_TRAITOR			"traitor"
+#define ROLE_BROTHER			"Brother"
 #define ROLE_OPERATIVE			"operative"
 #define ROLE_CHANGELING			"changeling"
 #define ROLE_WIZARD				"wizard"
@@ -68,7 +69,8 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_DEMON, 										// Slaguther demon
 	ROLE_NINJA, 										// Space ninja
 	ROLE_TRADER, 										// Trader
-	ROLE_TRAITOR = /datum/game_mode/traitor, 			// Traitor
+	ROLE_TRAITOR = /datum/game_mode/traitor,			// Traitor
+	ROLE_BROTHER = /datum/game_mode/traitor/bros		// Blood Brother
 	ROLE_VAMPIRE = /datum/game_mode/vampire, 			// Vampire
 	ROLE_RAIDER = /datum/game_mode/heist, 				// Vox raider
 	ROLE_ALIEN, 										// Xenomorph
