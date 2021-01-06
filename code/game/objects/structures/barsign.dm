@@ -93,7 +93,7 @@
 	if(allowed(user))
 		if(!panel_open)
 			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
-			set_sign(new /datum/barsign/hiddensigns/signoff)
+			set_sign(new /datum/barsign/signoff)
 			panel_open = TRUE
 		else
 			to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
@@ -105,18 +105,19 @@
 /obj/structure/sign/barsign/proc/pick_sign()
 	var/list/signs = barsigns
 	var/new_sign
-	if(!broken && !emagged)
-		new_sign = input("Available Signage: ", "Bar Sign", null) as null|anything in signs
-		set_sign(new_sign)
-	else if(!broken && emagged)
-		signs += hiddensigns
-		new_sign = input("Available Signage: ", "Bar Sign", null) as null|anything in signs
-		set_sign(new_sign)
+	if(!broken)
+		if(!emagged)
+			new_sign = input("Available Signage: ", "Bar Sign", null) as null|anything in signs
+			set_sign(new_sign)
+		else
+			signs += hiddensigns
+			new_sign = input("Available Signage: ", "Bar Sign", null) as null|anything in signs
+			set_sign(new_sign)
 	else
-		set_sign(new /datum/barsign/hiddensigns/empbarsign)
+		set_sign(new /datum/barsign/empbarsign)
 
 /obj/structure/sign/barsign/emp_act(severity)
-	set_sign(new /datum/barsign/hiddensigns/empbarsign)
+	set_sign(new /datum/barsign/empbarsign)
 	broken = TRUE
 
 /obj/structure/sign/barsign/emag_act(mob/user)
@@ -129,7 +130,7 @@
 /obj/structure/sign/barsign/proc/post_emag()
 	if(broken || emagged)
 		return
-	set_sign(new /datum/barsign/hiddensigns/syndibarsign)
+	set_sign(new /datum/barsign/syndibarsign)
 	emagged = TRUE
 	req_access = list(ACCESS_SYNDICATE)
 
@@ -138,7 +139,7 @@
 	var/name = "Name"
 	var/icon = "Icon"
 	var/desc = "desc"
-	var/hidden = 0
+	var/hidden = FALSE
 
 
 //Anything below this is where all the specific signs are. If people want to add more signs, add them below.
@@ -362,21 +363,22 @@
 	icon = "spaceasshole"
 	desc = "Open since 2125, Not much has changed since then; the engineers still release the singulo and the damn miners still are more likely to cave your face in that deliver ores."
 
-/datum/barsign/hiddensigns
-	hidden = TRUE
 
 //Hidden signs list below this point
-/datum/barsign/hiddensigns/empbarsign
+/datum/barsign/empbarsign
 	name = "Haywire Barsign"
 	icon = "empbarsign"
 	desc = "Something has gone very wrong."
+	hidden = TRUE
 
-/datum/barsign/hiddensigns/syndibarsign
+/datum/barsign/syndibarsign
 	name = "Syndi Cat Takeover"
 	icon = "syndibarsign"
 	desc = "Syndicate or die."
+	hidden = TRUE
 
-/datum/barsign/hiddensigns/signoff
+/datum/barsign/signoff
 	name = "Bar Sign"
 	icon = "off"
 	desc = "This sign doesn't seem to be on."
+	hidden = TRUE
