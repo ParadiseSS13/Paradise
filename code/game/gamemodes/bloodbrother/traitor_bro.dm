@@ -5,7 +5,7 @@
 /datum/game_mode/traitor/bros
     name = "traitor+brothers"
     config_tag = "traitorbro"
-    restricted_jobs = ("cyborg","AI")
+    restricted_jobs = list("cyborg","AI")
 
     var/list/datum/team/brother_team/pre_brother_teams = list()
 	var/const/team_amount = 2 //hard limit on brother teams if scaling is turned off
