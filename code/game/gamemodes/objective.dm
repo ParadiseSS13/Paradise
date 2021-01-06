@@ -4,7 +4,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective
 	var/datum/mind/owner = null			//Who owns the objective.
+	var/datum/team/team = null			//What team owns the objective
 	var/explanation_text = "Nothing"	//What that person is supposed to do.
+	var/team_explanation_text			//for when there is multiple owners.
 	var/datum/mind/target = null		//If they are focused on a particular person.
 	var/target_amount = 0				//If they are focused on a particular number. Steal objectives have their own counter.
 	var/completed = 0					//currently only used for custom objectives.
@@ -17,6 +19,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/Destroy()
 	GLOB.all_objectives -= src
+	if(owner)
+		for(var/datum/antagonist/A in owner.antag_datums)
+			A.objectives -= src
+	if(team)
+		team.objectives -= src
 	return ..()
 
 /datum/objective/proc/check_completion()

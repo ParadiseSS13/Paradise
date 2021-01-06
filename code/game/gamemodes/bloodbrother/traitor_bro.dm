@@ -1,25 +1,24 @@
 /datum/game_mode
-    var/list/datum/mind/brothers = list()
-    var/list/datum/mind/brother_team/brother_teams = list()
+	var/list/datum/mind/brothers = list()
+	var/list/datum/team/brother_team/brother_teams = list()
 
 /datum/game_mode/traitor/bros
     name = "traitor+brothers"
     config_tag = "traitorbro"
     restricted_jobs = list("cyborg","AI")
 
-    var/list/datum/team/brother_team/pre_brother_teams = list()
+	var/list/datum/team/brother_team/pre_brother_teams = list()
 	var/const/team_amount = 2 //hard limit on brother teams if scaling is turned off
 	var/const/min_team_size = 2
 
 /datum/gamemode/traitor/bros/announce()
-    announce_span = "danger"
-	announce_text = "There are Syndicate agents and Blood Brothers on the station!\n\
+	to_chat(world, "<B>There are Syndicate agents and Blood Brothers on the station!</B>\n\
 	<span class='danger'>Traitors</span>: Accomplish your objectives.\n\
 	<span class='danger'>Blood Brothers</span>: Accomplish your objectives.\n\
-	<span class='notice'>Crew</span>: Do not let the traitors or brothers succeed!"
+	<span class='notice'>Crew</span>: Do not let the traitors or brothers succeed!")
 
 /datum/game_mode/traitor/bros/pre_setup()
-	if(config.protect_roles_from_antagonist))
+	if(config.protect_roles_from_antagonist)
 		restricted_jobs += protected_jobs
 
 	var/list/datum/mind/possible_brothers = get_players_for_role(ROLE_BROTHER)
@@ -37,7 +36,7 @@
 		for(var/k = 1 to team_size)
 			var/datum/mind/bro = pick(possible_brothers)
 			possible_brothers -= bro
-            possible_traitors -= bro
+			// make it possible to not be traitor too
 			team.add_member(bro)
 			bro.special_role = "brother"
 			bro.restricted_roles = restricted_jobs

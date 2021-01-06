@@ -549,8 +549,8 @@
 				if("traitor_scaling")
 					config.traitor_scaling = 1
 				
-				if("brother_scaling")
-					config.brother_scaling = 1
+				if("brothers_scaling")
+					config.brothers_scaling = 1
 
 				if("protect_roles_from_antagonist")
 					config.protect_roles_from_antagonist = 1

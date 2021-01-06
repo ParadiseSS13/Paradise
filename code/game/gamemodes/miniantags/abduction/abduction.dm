@@ -232,7 +232,6 @@
 // OBJECTIVES
 /datum/objective/experiment
 	target_amount = 6
-	var/team
 
 /datum/objective/stay_hidden
 
