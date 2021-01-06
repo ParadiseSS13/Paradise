@@ -273,26 +273,10 @@ effective or pretty fucking useless.
 /obj/item/teleporter/proc/dir_correction(mob/user) //Direction movement, screws with teleport distance and saving throw, and thus must be removed first
 	var/temp_direction = user.dir
 	switch(temp_direction)
-		if(NORTHEAST)
-			if(prob(50))
-				user.dir = NORTH
-			else
-				user.dir = EAST
-		if(NORTHWEST)
-			if(prob(50))
-				user.dir = NORTH
-			else
-				user.dir = WEST
-		if(SOUTHEAST)
-			if(prob(50))
-				user.dir = SOUTH
-			else
-				user.dir = EAST
-		if(SOUTHWEST)
-			if(prob(50))
-				user.dir = SOUTH
-			else
-				user.dir = WEST
+		if(NORTHEAST || SOUTHEAST)
+			user.dir = EAST
+		if(NORTHWEST || SOUTHWEST)
+			user.dir = WEST
 
 /obj/item/teleporter/proc/panic_teleport(mob/user, turf/destination, direction = NORTH)
 	var/saving_throw
