@@ -30,16 +30,6 @@
 	owner.special_role = null
 	return ..()
 
-/datum/antagonist/brother/apply_innate_effects(mob/living/mob_override)
-	var/mob/living/M = mob_override || owner.current
-	// todo: add hud icon so brothers can identify each other.
-
-/datum/antagonist/brother/remove_innate_effects(mob/living/mob_override)
-	var/mob/living/M = mob_override || owner.current
-	// todo: remove hud icon because they're no longer a brother.
-
-/datum/antagonist/brother/ // todo: add to antag panel data
-
 /datum/antagonist/brother/proc/get_brother_names()
 	var/list/brothers = team.members - owner
 	var/brother_text = ""
@@ -68,29 +58,21 @@
 /datum/antagonist/brother/proc/finalize_brother()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE)
 
+/datum/antagonist/brother/proc/update_traitor_icons_added(datum/mind/brother_mind)
+	if(locate(/datum/objective/hijack) in owner.objectives)
+		var/datum/atom_hud/antag/hijackhud = GLOB.huds[ANTAG_HUD_TRAITOR]
+		hijackhud.join_hud(owner.current, null)
+		set_antag_hud(owner.current, "hudhijack") //placeholders
+	else
+		var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
+		traitorhud.join_hud(owner.current, null)
+		set_antag_hud(owner.current, "hudsyndicate")
 
-/datum/antagonist/brother/admin_add(datum/mind/new_owner,mob/admin)
-	//show list of possible brothers
-	var/list/candidates = list()
-	for(var/mob/living/L in GLOB.alive_mob_list)
-		if(!L.mind || L.mind == new_owner || !can_be_owned(L.mind))
-			continue
-		candidates[L.mind.name] = L.mind
+/datum/antagonist/brother/proc/update_traitor_icons_removed(datum/mind/brother_mind)
+	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
+	traitorhud.leave_hud(owner.current, null)
+	set_antag_hud(owner.current, null)
 
-	var/choice = input(admin,"Choose the blood brother.", "Brother") as null|anything in sortNames(candidates)
-	if(!choice)
-		return
-	var/datum/mind/bro = candidates[choice]
-	var/datum/team/brother_team/T = new
-	T.add_member(new_owner)
-	T.add_member(bro)
-	T.pick_meeting_area()
-	T.forge_brother_objectives()
-	new_owner.add_antag_datum(/datum/antagonist/brother,T)
-	bro.add_antag_datum(/datum/antagonist/brother, T)
-	T.update_name()
-	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] and [key_name_admin(bro)] into blood brothers.")
-	log_admin("[key_name(admin)] made [key_name(new_owner)] and [key_name(bro)] into blood brothers.")
 
 /datum/team/brother_team
 	name = "brotherhood"
@@ -133,7 +115,7 @@
 	else
 		parts += "<span class='redtext'>The blood brothers have failed!</span>"
 
-	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
+	return parts.Join("<br>")
 
 /datum/team/brother_team/proc/add_objective(datum/objective/O)
 	O.team = src
@@ -149,8 +131,6 @@
 			add_objective(new/datum/objective/hijack)
 	else if(!locate(/datum/objective/escape) in objectives)
 		add_objective(new/datum/objective/escape)
-
-//todo: add ability for admins to remove objectives from blood brother teams
 
 /datum/team/brother_team/proc/forge_single_objective()
 	if(prob(50))

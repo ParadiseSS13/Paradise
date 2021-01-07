@@ -1215,6 +1215,40 @@
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 
+	else if(href_list["Brother"])
+		switch(href_list["Brother"])
+			if("clear")
+				if(has_antag_datum(/datum/antagonist/brother))
+					to_chat("<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a blood brother!</B></FONT></span>")
+					remove_antag_datum(/datum/antagonist/brother)
+					log_admin("[key_name(usr)] has de-brothered [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has de-brothered[key_name_admin(current)]")
+
+			if("Brother")
+				if(!(has_antag_datum(/datum/antagonist/brother)))
+					var/list/candidates = list()
+					for(var/mob/living/L in GLOB.alive_mob_list)
+						if(!L.mind || L.mind == current)
+							continue
+						candidates[L.mind.name] = L.mind
+
+					var/choice = input(usr,"Choose the blood brother.", "Brother") as null|anything in sortNames(candidates)
+					if(!choice)
+						return
+					var/datum/mind/new_owner = current
+					var/datum/mind/bro = candidates[choice]
+					var/datum/team/brother_team/T = new
+					T.add_member(new_owner)
+					T.add_member(bro)
+					T.pick_meeting_area()
+					T.forge_brother_objectives()
+					new_owner.add_antag_datum(/datum/antagonist/brother,T)
+					bro.add_antag_datum(/datum/antagonist/brother, T)
+					T.update_name()
+					message_admins("[key_name_admin(usr)] made [key_name_admin(current)] and [key_name_admin(bro)] into blood brothers.")
+					log_admin("[key_name(usr)] made [key_name(current)] and [key_name(bro)] into blood brothers.")
+
+
 	else if(href_list["contractor"])
 		var/datum/antagonist/traitor/contractor/C = has_antag_datum(/datum/antagonist/traitor/contractor)
 		var/datum/contractor_hub/H = C && C.contractor_uplink?.hub

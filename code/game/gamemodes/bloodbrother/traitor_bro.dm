@@ -3,15 +3,15 @@
 	var/list/datum/team/brother_team/brother_teams = list()
 
 /datum/game_mode/traitor/bros
-    name = "traitor+brothers"
-    config_tag = "traitorbro"
-    restricted_jobs = list("cyborg","AI")
+	name = "traitor+brothers"
+	config_tag = "traitorbro"
+	restricted_jobs = list("cyborg","AI")
 
 	var/list/datum/team/brother_team/pre_brother_teams = list()
 	var/const/team_amount = 2 //hard limit on brother teams if scaling is turned off
 	var/const/min_team_size = 2
 
-/datum/gamemode/traitor/bros/announce()
+/datum/game_mode/traitor/bros/announce()
 	to_chat(world, "<B>There are Syndicate agents and Blood Brothers on the station!</B>\n\
 	<span class='danger'>Traitors</span>: Accomplish your objectives.\n\
 	<span class='danger'>Blood Brothers</span>: Accomplish your objectives.\n\
@@ -59,4 +59,3 @@
 		team.update_name()
 	brother_teams += pre_brother_teams
 	return ..()
-
