@@ -35,7 +35,7 @@
 	src.drops_core = drops_core
 
 	aSignal = new aSignal(src)
-	aSignal.code = rand(1,100)
+	aSignal.code = rand(1, 100)
 	aSignal.anomaly_type = type
 
 	var/frequency = rand(PUBLIC_LOW_FREQ, PUBLIC_HIGH_FREQ)
@@ -97,12 +97,12 @@
 	name = "gravitational anomaly"
 	icon_state = "shield2"
 	density = FALSE
-	var/boing = 0
+	var/boing = FALSE
 	aSignal = /obj/item/assembly/signaler/anomaly/grav
 
 /obj/effect/anomaly/grav/anomalyEffect()
 	..()
-	boing = 1
+	boing = TRUE
 	for(var/obj/O in orange(4, src))
 		if(!O.anchored)
 			step_towards(O,src)
@@ -132,7 +132,7 @@
 		A.Weaken(2)
 		var/atom/target = get_edge_target_turf(A, get_dir(src, get_step_away(A, src)))
 		A.throw_at(target, 5, 1)
-		boing = 0
+		boing = FALSE
 
 /////////////////////
 
@@ -168,17 +168,7 @@
 /obj/effect/anomaly/flux/proc/mobShock(mob/living/M)
 	if(canshock && istype(M))
 		canshock = FALSE //Just so you don't instakill yourself if you slam into the anomaly five times in a second.
-		if(iscarbon(M))
-			if(ishuman(M))
-				M.electrocute_act(shockdamage, "[name]", safety = TRUE)
-				return
-			M.electrocute_act(shockdamage, "[name]")
-			return
-		else
-			M.adjustFireLoss(shockdamage)
-			M.visible_message("<span class='danger'>[M] was shocked by \the [name]!</span>", \
-		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
-		"<span class='hear'>You hear a heavy electrical crack.</span>")
+		M.electrocute_act(shockdamage, "[name]", safety = TRUE)
 
 /obj/effect/anomaly/flux/detonate()
 	if(explosive)
@@ -197,7 +187,7 @@
 
 /obj/effect/anomaly/bluespace/anomalyEffect()
 	..()
-	for(var/mob/living/M in range(1,src))
+	for(var/mob/living/M in range(1, src))
 		do_teleport(M, locate(M.x, M.y, M.z), 4)
 
 /obj/effect/anomaly/bluespace/Bumped(atom/movable/AM)
@@ -207,20 +197,19 @@
 /obj/effect/anomaly/bluespace/detonate()
 	var/turf/T = pick(get_area_turfs(impact_area))
 	if(T)
-			// Calculate new position (searches through beacons in world)
+		// Calculate new position (searches through beacons in world)
 		var/obj/item/radio/beacon/chosen
 		var/list/possible = list()
-		for(var/obj/item/radio/beacon/W in GLOB.global_radios)
+		for(var/obj/item/radio/beacon/W in GLOB.beacons)
 			if(!is_station_level(W.z))
 				continue
 			possible += W
 
-		if(possible.len > 0)
+		if(length(possible))
 			chosen = pick(possible)
 
 		if(chosen)
-				// Calculate previous position for transition
-
+			// Calculate previous position for transition
 			var/turf/FROM = T // the turf of origin we're travelling FROM
 			var/turf/TO = get_turf(chosen) // the turf of origin we're travelling TO
 
@@ -234,10 +223,10 @@
 
 			var/y_distance = TO.y - FROM.y
 			var/x_distance = TO.x - FROM.x
-			for(var/atom/movable/A in urange(12, FROM )) // iterate thru list of mobs in the area
+			for(var/atom/movable/A in urange(12, FROM)) // iterate thru list of mobs in the area
 				if(istype(A, /obj/item/radio/beacon))
 					continue // don't teleport beacons because that's just insanely stupid
-				if(A.anchored)
+				if(A.anchored || A.move_resist == INFINITY)
 					continue
 
 				var/turf/newloc = locate(A.x + x_distance, A.y + y_distance, TO.z) // calculate the new place
@@ -318,14 +307,14 @@
 		qdel(src)
 		return
 
-	grav(rand(0,3), rand(2,3), 50, 25)
+	grav(rand(0, 3), rand(2, 3), 50, 25)
 
 	//Throwing stuff around!
-	for(var/obj/O in range(2,src))
+	for(var/obj/O in range(2, src))
 		if(O == src)
 			return //DON'T DELETE YOURSELF GOD DAMN
 		if(!O.anchored)
-			var/mob/living/target = locate() in view(4,src)
+			var/mob/living/target = locate() in view(4, src)
 			if(target && !target.stat)
 				O.throw_at(target, 7, 5)
 		else
@@ -333,10 +322,10 @@
 
 /obj/effect/anomaly/bhole/proc/grav(r, ex_act_force, pull_chance, turf_removal_chance)
 	for(var/t = -r, t < r, t++)
-		affect_coord(x+t, y-r, ex_act_force, pull_chance, turf_removal_chance)
-		affect_coord(x-t, y+r, ex_act_force, pull_chance, turf_removal_chance)
-		affect_coord(x+r, y+t, ex_act_force, pull_chance, turf_removal_chance)
-		affect_coord(x-r, y-t, ex_act_force, pull_chance, turf_removal_chance)
+		affect_coord(x + t, y - r, ex_act_force, pull_chance, turf_removal_chance)
+		affect_coord(x - t, y + r, ex_act_force, pull_chance, turf_removal_chance)
+		affect_coord(x + r, y + t, ex_act_force, pull_chance, turf_removal_chance)
+		affect_coord(x - r, y - t, ex_act_force, pull_chance, turf_removal_chance)
 
 /obj/effect/anomaly/bhole/proc/affect_coord(x, y, ex_act_force, pull_chance, turf_removal_chance)
 	//Get turf at coordinate

@@ -51,7 +51,7 @@
 	displayed_text = new_val
 
 	if(displayed_text)
-		maptext = "<font size = [text_size]>[displayed_text]</font>"
+		maptext = "<font face='Small Fonts' size=[text_size]>[displayed_text]</font>"
 	else
 		maptext = null
 
