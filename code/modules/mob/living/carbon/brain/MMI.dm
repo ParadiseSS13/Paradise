@@ -50,6 +50,7 @@
 			brainmob.forceMove(src)
 			brainmob.container = src
 			brainmob.stat = CONSCIOUS
+			brainmob.see_invisible = initial(brainmob.see_invisible)
 			GLOB.respawnable_list -= brainmob
 			GLOB.dead_mob_list -= brainmob//Update dem lists
 			GLOB.alive_mob_list += brainmob
@@ -68,7 +69,7 @@
 
 			if(radio_action)
 				radio_action.UpdateButtonIcon()
-			feedback_inc("cyborg_mmis_filled",1)
+			SSblackbox.record_feedback("amount", "mmis_filled", 1)
 		else
 			to_chat(user, "<span class='warning'>You can't drop [B]!</span>")
 

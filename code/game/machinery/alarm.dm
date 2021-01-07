@@ -244,7 +244,7 @@
 	if(!alarm_area)
 		alarm_area = get_area(src)
 	if(!alarm_area)
-		log_runtime(EXCEPTION("Air alarm /obj/machinery/alarm lacks alarm_area and areaMaster vars during proc/master_is_operating()"), src)
+		log_runtime(EXCEPTION("Air alarm /obj/machinery/alarm lacks alarm_area vars during proc/master_is_operating()"), src)
 		return FALSE
 	return alarm_area.master_air_alarm && !(alarm_area.master_air_alarm.stat & (NOPOWER|BROKEN))
 

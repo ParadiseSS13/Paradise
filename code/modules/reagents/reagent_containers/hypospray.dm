@@ -75,6 +75,7 @@
 	safety_hypo = TRUE
 
 /obj/item/reagent_containers/hypospray/safety/ert
+	name = "medical hypospray (Omnizine)"
 	list_reagents = list("omnizine" = 30)
 
 /obj/item/reagent_containers/hypospray/CMO

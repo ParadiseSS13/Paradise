@@ -2,10 +2,12 @@
 # Dont use it ingame
 # Remember to update this when you increase the SQL version! -aa
 SQL_ENABLED
-DB_VERSION 14
+DB_VERSION 19
 ADDRESS 127.0.0.1
 PORT 3306
 FEEDBACK_DATABASE feedback
 FEEDBACK_TABLEPREFIX
 FEEDBACK_LOGIN ci_sql
 FEEDBACK_PASSWORD not_a_strong_password
+ASYNC_QUERY_TIMEOUT 10
+RUST_SQL_THREAD_LIMIT 50

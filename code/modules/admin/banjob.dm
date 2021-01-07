@@ -59,33 +59,41 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 			else
 				log_runtime(EXCEPTION("Skipping malformed job ban: [s]"))
 	else
-		if(!establish_db_connection())
+		if(!SSdbcore.IsConnected())
 			log_world("Database connection failed. Reverting to the legacy ban system.")
 			config.ban_legacy_system = 1
 			jobban_loadbanfile()
 			return
 
 		//Job permabans
-		var/DBQuery/permabans = GLOB.dbcon.NewQuery("SELECT ckey, job FROM [format_table_name("ban")] WHERE bantype = 'JOB_PERMABAN' AND isnull(unbanned)")
-		permabans.Execute()
-		// Job tempbans
-		var/DBQuery/tempbans = GLOB.dbcon.NewQuery("SELECT ckey, job FROM [format_table_name("ban")] WHERE bantype = 'JOB_TEMPBAN' AND isnull(unbanned) AND expiration_time > Now()")
-		tempbans.Execute()
+		var/datum/db_query/permabans = SSdbcore.NewQuery("SELECT ckey, job FROM [format_table_name("ban")] WHERE bantype = 'JOB_PERMABAN' AND isnull(unbanned)")
 
-		while(TRUE)
-			var/ckey
-			var/job
-			if(permabans.NextRow())
-				ckey = permabans.item[1]
-				job = permabans.item[2]
-			else if(tempbans.NextRow())
-				ckey = tempbans.item[1]
-				job = tempbans.item[2]
-			else
-				break
+		if(!permabans.warn_execute(async=FALSE))
+			qdel(permabans)
+			return FALSE
 
+		while(permabans.NextRow())
+			var/ckey = permabans.item[1]
+			var/job = permabans.item[2]
 			GLOB.jobban_keylist.Add("[ckey] - [job]")
 			jobban_assoc_insert(ckey, job)
+
+		qdel(permabans)
+
+		// Job tempbans
+		var/datum/db_query/tempbans = SSdbcore.NewQuery("SELECT ckey, job FROM [format_table_name("ban")] WHERE bantype = 'JOB_TEMPBAN' AND isnull(unbanned) AND expiration_time > Now()")
+
+		if(!tempbans.warn_execute(async=FALSE))
+			qdel(tempbans)
+			return FALSE
+
+		while(tempbans.NextRow())
+			var/ckey = tempbans.item[1]
+			var/job = tempbans.item[2]
+			GLOB.jobban_keylist.Add("[ckey] - [job]")
+			jobban_assoc_insert(ckey, job)
+
+		qdel(tempbans)
 
 /proc/jobban_savebanfile()
 	var/savefile/S=new("data/job_full.ban")
@@ -134,8 +142,16 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 	else
 		//using the SQL ban system
 		var/is_actually_banned = FALSE
-		var/DBQuery/select_query = GLOB.dbcon.NewQuery("SELECT bantime, bantype, reason, job, duration, expiration_time, a_ckey FROM [format_table_name("ban")] WHERE ckey like '[ckey]' AND ((bantype like 'JOB_TEMPBAN' AND expiration_time > Now()) OR (bantype like 'JOB_PERMABAN')) AND isnull(unbanned) ORDER BY bantime DESC LIMIT 100")
-		select_query.Execute()
+		var/datum/db_query/select_query = SSdbcore.NewQuery({"
+			SELECT bantime, bantype, reason, job, duration, expiration_time, a_ckey FROM [format_table_name("ban")]
+			WHERE ckey LIKE :ckey AND ((bantype like 'JOB_TEMPBAN' AND expiration_time > Now()) OR (bantype like 'JOB_PERMABAN')) AND isnull(unbanned)
+			ORDER BY bantime DESC LIMIT 100"},
+			list("ckey" = ckey)
+		)
+
+		if(!select_query.warn_execute())
+			qdel(select_query)
+			return FALSE
 
 		while(select_query.NextRow())
 
@@ -153,6 +169,8 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 				to_chat(src, "<span class='warning'>[bantype]: [job] - REASON: [reason], by [ackey]; [bantime]; [duration]; expires [expiration]</span>")
 
 			is_actually_banned = TRUE
+
+		qdel(select_query)
 
 		if(is_actually_banned)
 			if(config.banappeals)

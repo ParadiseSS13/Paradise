@@ -9,7 +9,7 @@
 ## This value must be set to the version of the paradise schema in use.
 ## If this value does not match, the SQL database will not be loaded and an error will be generated.
 ## Roundstart will be delayed.
-DB_VERSION 14
+DB_VERSION 19
 
 ## Server the MySQL database can be found at.
 # Examples: localhost, 200.135.5.43, www.mysqldb.com, etc.
@@ -37,3 +37,10 @@ FEEDBACK_LOGIN username
 
 ## Password used to access the database.
 FEEDBACK_PASSWORD password
+
+## Time in seconds for asynchronous queries to timeout
+## Set to 0 for infinite
+ASYNC_QUERY_TIMEOUT 10
+
+## The maximum number of additional threads Rust SQL is allowed to run at once
+RUST_SQL_THREAD_LIMIT 50

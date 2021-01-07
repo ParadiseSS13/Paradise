@@ -25,5 +25,5 @@
 	user.reagents.add_reagent("synaptizine", 20)
 	user.adjustStaminaLoss(-75)
 
-	feedback_add_details("changeling_powers","UNS")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1

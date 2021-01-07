@@ -8,9 +8,29 @@
 	resistance_flags = FIRE_PROOF
 	var/mob/affecting = null
 	var/deity_name = "Christ"
+	/// Is the sprite of this bible customisable
+	var/customisable = FALSE
+
+	/// Associative list of accociative lists of bible variants, used for the radial menu
+	var/static/list/bible_variants = list(
+		"Bible" =			   list("state" = "bible",		  "inhand" = "bible"),
+		"Koran" =			   list("state" = "koran",		  "inhand" = "koran"),
+		"Scrapbook" =		   list("state" = "scrapbook",	  "inhand" = "scrapbook"),
+		"Creeper" =			   list("state" = "creeper",	  "inhand" = "syringe_kit"),
+		"White Bible" =		   list("state" = "white",		  "inhand" = "syringe_kit"),
+		"Holy Light" =		   list("state" = "holylight",	  "inhand" = "syringe_kit"),
+		"PlainRed" =		   list("state" = "athiest",	  "inhand" = "syringe_kit"),
+		"Tome" =			   list("state" = "tome",		  "inhand" = "syringe_kit"),
+		"The King in Yellow" = list("state" = "kingyellow",	  "inhand" = "kingyellow"),
+		"Ithaqua" =			   list("state" = "ithaqua",	  "inhand" = "ithaqua"),
+		"Scientology" =		   list("state" = "scientology",  "inhand" = "scientology"),
+		"the bible melts" =	   list("state" = "melted",		  "inhand" = "melted"),
+		"Necronomicon" =	   list("state" = "necronomicon", "inhand" = "necronomicon"),
+		"Greentext" =		   list("state" = "greentext",	  "inhand" = "greentext"),
+	)
 
 /obj/item/storage/bible/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='warning'><b>[user] stares into [src.name] and attempts to transcend understanding of the universe!</b></span>")
+	user.visible_message("<span class='suicide'>[user] stares into [name] and attempts to transcend understanding of the universe!</span>")
 	user.dust()
 	return OBLITERATION
 
@@ -38,7 +58,7 @@
 	new /obj/item/stack/spacecash(src)
 //BS12 EDIT
  // All cult functionality moved to Null Rod
-/obj/item/storage/bible/proc/bless(mob/living/carbon/M as mob)
+/obj/item/storage/bible/proc/bless(mob/living/carbon/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/heal_amt = 10
@@ -47,19 +67,19 @@
 				H.UpdateDamageIcon()
 	return
 
-/obj/item/storage/bible/attack(mob/living/M as mob, mob/living/user as mob)
+/obj/item/storage/bible/attack(mob/living/M, mob/living/user)
 	add_attack_logs(user, M, "Hit with [src]")
 	if(!iscarbon(user))
 		M.LAssailant = null
 	else
 		M.LAssailant = user
 
-	if(!(istype(user, /mob/living/carbon/human) || SSticker) && SSticker.mode.name != "monkey")
+	if(!(ishuman(user) || SSticker) && SSticker.mode.name != "monkey")
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
-	if(!user.mind || !user.mind.isholy)
+	if(!user.mind?.isholy)
 		to_chat(user, "<span class='warning'>The book sizzles in your hands.</span>")
-		user.take_organ_damage(0,10)
+		user.take_organ_damage(0, 10)
 		return
 
 	if((CLUMSY in user.mutations) && prob(50))
@@ -68,51 +88,98 @@
 		user.Paralyse(20)
 		return
 
-	if(M.stat !=2)
-		if((istype(M, /mob/living/carbon/human) && prob(60)))
-			bless(M)
-			for(var/mob/O in viewers(M, null))
-				O.show_message(text("<span class='danger'>[] heals [] with the power of [src.deity_name]!</span>", user, M), 1)
-			to_chat(M, "<span class='warning'>May the power of [src.deity_name] compel you to be healed!</span>")
-			playsound(src.loc, "punch", 25, 1, -1)
+	if(M.stat != DEAD && ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(prob(60))
+			bless(H)
+			H.visible_message("<span class='danger>[user] heals [H == user ? "[user.p_them()]self" : "[H]"] with the power of [deity_name]!</span>",
+				"<span class='danger'>May the power of [deity_name] compel you to be healed!</span>")
+			playsound(loc, "punch", 25, 1, -1)
 		else
-			if(ishuman(M) && !istype(M:head, /obj/item/clothing/head/helmet))
+			if(!istype(H.head, /obj/item/clothing/head/helmet))
 				M.adjustBrainLoss(10)
 				to_chat(M, "<span class='warning'>You feel dumber.</span>")
-			for(var/mob/O in viewers(M, null))
-				O.show_message(text("<span class='danger'>[] beats [] over the head with []!</span>", user, M, src), 1)
+			H.visible_message("<span class='danger'>[user] beats [H == user ? "[user.p_them()]self" : "[H]"] over the head with [src]!</span>")
 			playsound(src.loc, "punch", 25, 1, -1)
-	else if(M.stat == 2)
-		for(var/mob/O in viewers(M, null))
-			O.show_message(text("<span class='danger'>[] smacks []'s lifeless corpse with [].</span>", user, M, src), 1)
+	else
+		M.visible_message("<span class='danger'>[user] smacks [M]'s lifeless corpse with [src].</span>")
 		playsound(src.loc, "punch", 25, 1, -1)
-	return
 
-/obj/item/storage/bible/afterattack(atom/A, mob/user as mob, proximity)
+
+/obj/item/storage/bible/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
-	if(istype(A, /turf/simulated/floor))
-		to_chat(user, "<span class='notice'>You hit the floor with the bible.</span>")
-		if(user.mind && user.mind.isholy)
-			for(var/obj/O in A)
-				O.cult_reveal()
-	if(istype(A, /obj/machinery/door/airlock))
-		to_chat(user, "<span class='notice'>You hit the airlock with the bible.</span>")
-		if(user.mind && user.mind.isholy)
-			var/obj/airlock = A
-			airlock.cult_reveal()
-	if(user.mind && (user.mind.isholy))
-		if(A.reagents && A.reagents.has_reagent("water")) //blesses all the water in the holder
-			to_chat(user, "<span class='notice'>You bless [A].</span>")
-			var/water2holy = A.reagents.get_reagent_amount("water")
-			A.reagents.del_reagent("water")
-			A.reagents.add_reagent("holywater",water2holy)
-		if(A.reagents && A.reagents.has_reagent("unholywater")) //yeah yeah, copy pasted code - sue me
-			to_chat(user, "<span class='notice'>You purify [A].</span>")
-			var/unholy2clean = A.reagents.get_reagent_amount("unholywater")
-			A.reagents.del_reagent("unholywater")
-			A.reagents.add_reagent("holywater",unholy2clean)
 
-/obj/item/storage/bible/attackby(obj/item/W as obj, mob/user as mob, params)
-	playsound(src.loc, "rustle", 50, 1, -5)
-	..()
+	if(isfloorturf(target))
+		to_chat(user, "<span class='notice'>You hit the floor with the bible.</span>")
+		if(user.mind?.isholy)
+			for(var/obj/O in target)
+				O.cult_reveal()
+	if(istype(target, /obj/machinery/door/airlock))
+		to_chat(user, "<span class='notice'>You hit the airlock with the bible.</span>")
+		if(user.mind?.isholy)
+			var/obj/airlock = target
+			airlock.cult_reveal()
+
+	if(user.mind?.isholy && target.reagents)
+		if(target.reagents.has_reagent("water")) //blesses all the water in the holder
+			to_chat(user, "<span class='notice'>You bless [target].</span>")
+			var/water2holy = target.reagents.get_reagent_amount("water")
+			target.reagents.del_reagent("water")
+			target.reagents.add_reagent("holywater", water2holy)
+
+		if(target.reagents.has_reagent("unholywater")) //yeah yeah, copy pasted code - sue me
+			to_chat(user, "<span class='notice'>You purify [target].</span>")
+			var/unholy2clean = target.reagents.get_reagent_amount("unholywater")
+			target.reagents.del_reagent("unholywater")
+			target.reagents.add_reagent("holywater", unholy2clean)
+
+/obj/item/storage/bible/attack_self(mob/user)
+	. = ..()
+	if(!customisable || !user.mind?.isholy)
+		return
+
+	var/list/skins = list()
+	for(var/I in bible_variants)
+		var/icons = bible_variants[I] // Get the accociated list
+		var/image/bible_image = image('icons/obj/storage.dmi', icon_state = icons["state"])
+		skins[I] = bible_image
+
+	var/choice = show_radial_menu(user, src, skins, null, 40, CALLBACK(src, .proc/radial_check, user), TRUE)
+	if(!choice || !radial_check(user))
+		return
+	var/choice_icons = bible_variants[choice]
+
+	icon_state = choice_icons["state"]
+	item_state = choice_icons["inhand"]
+	customisable = FALSE
+
+	// Carpet symbol icons are currently broken, so commented out until it's fixed
+	/*var/carpet_dir
+	switch(choice)
+		if("Bible")
+			carpet_dir = 2
+		if("Koran")
+			carpet_dir = 4
+		if("Scientology")
+			carpet_dir = 8
+	if(carpet_dir)
+		for(var/area/chapel/main/A in world)
+			for(var/turf/T in A.contents)
+				if(T.icon_state == "carpetsymbol")
+					T.dir = carpet_dir*/
+
+	SSblackbox.record_feedback("text", "religion_book", 1, "[choice]", 1)
+
+	if(SSticker)
+		SSticker.Bible_name = name
+		SSticker.Bible_icon_state = icon_state
+		SSticker.Bible_item_state = item_state
+
+/obj/item/storage/bible/proc/radial_check(mob/user)
+	if(!user?.mind.isholy || !ishuman(user))
+		return FALSE
+	var/mob/living/carbon/human/H = user
+	if(!src || !H.is_in_hands(src) || H.incapacitated())
+		return FALSE
+	return TRUE

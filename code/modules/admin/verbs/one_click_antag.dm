@@ -161,7 +161,7 @@
 
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
-	var/antnum = input(owner, "How many cultists you want to create? Enter 0 to cancel.","Amount:", 0) as num
+	var/antnum = input(owner, "How many cultists do you want to create? Enter 0 to cancel.", "Amount:", 0) as num
 	if(!antnum || antnum <= 0) // 5 because cultist can really screw balance over if spawned in high amount.
 		return
 	log_admin("[key_name(owner)] tried making a Cult with One-Click-Antag")
@@ -171,15 +171,17 @@
 		if(CandCheck(ROLE_CULTIST, applicant, temp))
 			candidates += applicant
 
-	if(candidates.len)
-		var/numCultists = min(candidates.len, antnum)
+	if(length(candidates))
+		var/numCultists = min(length(candidates), antnum)
 
-		for(var/i = 0, i<numCultists, i++)
+		for(var/I in 1 to numCultists)
 			H = pick(candidates)
+			to_chat(H, CULT_GREETING)
 			SSticker.mode.add_cultist(H.mind)
+			SSticker.mode.equip_cultist(H)
 			candidates.Remove(H)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 

@@ -61,6 +61,11 @@
 
 	summon_type = list(/obj/item/soulstone)
 
+/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/holy
+	action_icon_state = "summonsoulstone_holy"
+
+	summon_type = list(/obj/item/soulstone/anybody/purified)
+
 /obj/effect/proc_holder/spell/aoe_turf/conjure/pylon
 	name = "Cult Pylon"
 	desc = "This spell conjures a fragile crystal from Nar'Sie's realm. Makes for a convenient light source."

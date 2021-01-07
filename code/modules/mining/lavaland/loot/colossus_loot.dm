@@ -2,8 +2,7 @@
 /obj/structure/closet/crate/necropolis/colossus
 	name = "colossus chest"
 
-/obj/structure/closet/crate/necropolis/colossus/New()
-	..()
+/obj/structure/closet/crate/necropolis/colossus/populate_contents()
 	var/list/choices = subtypesof(/obj/machinery/anomalous_crystal)
 	var/random_crystal = pick(choices)
 	new random_crystal(src)
@@ -12,8 +11,8 @@
 /obj/structure/closet/crate/necropolis/colossus/crusher
 	name = "angelic colossus chest"
 
-/obj/structure/closet/crate/necropolis/colossus/crusher/New()
-	..()
+/obj/structure/closet/crate/necropolis/colossus/crusher/populate_contents()
+	. = ..()
 	new /obj/item/crusher_trophy/blaster_tubes(src)
 
 ///Anomolous Crystal///
@@ -306,7 +305,7 @@
 	cooldown_add = 50
 	activation_sound = 'sound/magic/timeparadox2.ogg'
 	var/list/banned_items_typecache = list(/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear,
-										   /obj/item/projectile, /obj/item/spellbook, /obj/item/clothing/mask/facehugger)
+										   /obj/item/projectile, /obj/item/spellbook, /obj/item/clothing/mask/facehugger, /obj/item/contractor_uplink)
 
 /obj/machinery/anomalous_crystal/refresher/New()
 	..()
@@ -361,8 +360,8 @@
 			holder_animal.gib()
 			return
 
-/obj/structure/closet/stasis/New()
-	..()
+/obj/structure/closet/stasis/Initialize(mapload)
+	. = ..()
 	if(isanimal(loc))
 		holder_animal = loc
 	START_PROCESSING(SSobj, src)

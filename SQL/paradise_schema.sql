@@ -231,12 +231,13 @@ DROP TABLE IF EXISTS `feedback`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `feedback` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `time` datetime NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `datetime` datetime NOT NULL,
   `round_id` int(8) NOT NULL,
-  `var_name` varchar(32) NOT NULL,
-  `var_value` int(16) DEFAULT NULL,
-  `details` text,
+  `key_name` varchar(32) NOT NULL,
+  `key_type` enum('text', 'amount', 'tally', 'nested tally', 'associative') NOT NULL,
+  `version` tinyint(3) UNSIGNED NOT NULL,
+  `json` LONGTEXT NOT NULL COLLATE 'utf8mb4_general_ci',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=257638 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -282,87 +283,6 @@ CREATE TABLE `player` (
   KEY `fuid` (`fuid`),
   KEY `fupdate` (`fupdate`)
 ) ENGINE=InnoDB AUTO_INCREMENT=135298 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `poll_option`
---
-
-DROP TABLE IF EXISTS `poll_option`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `poll_option` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `pollid` int(11) NOT NULL,
-  `text` varchar(255) NOT NULL,
-  `percentagecalc` tinyint(1) NOT NULL DEFAULT '1',
-  `minval` int(3) DEFAULT NULL,
-  `maxval` int(3) DEFAULT NULL,
-  `descmin` varchar(32) DEFAULT NULL,
-  `descmid` varchar(32) DEFAULT NULL,
-  `descmax` varchar(32) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `poll_question`
---
-
-DROP TABLE IF EXISTS `poll_question`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `poll_question` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `polltype` varchar(16) NOT NULL DEFAULT 'OPTION',
-  `starttime` datetime NOT NULL,
-  `endtime` datetime NOT NULL,
-  `question` varchar(255) NOT NULL,
-  `adminonly` tinyint(1) DEFAULT '0',
-  `multiplechoiceoptions` int(2) DEFAULT NULL,
-  `createdby_ckey` varchar(45) NULL DEFAULT NULL,
-  `createdby_ip` varchar(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `poll_textreply`
---
-
-DROP TABLE IF EXISTS `poll_textreply`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `poll_textreply` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `datetime` datetime NOT NULL,
-  `pollid` int(11) NOT NULL,
-  `ckey` varchar(32) NOT NULL,
-  `ip` varchar(18) NOT NULL,
-  `replytext` text NOT NULL,
-  `adminrank` varchar(32) NOT NULL DEFAULT 'Player',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `poll_vote`
---
-
-DROP TABLE IF EXISTS `poll_vote`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `poll_vote` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `datetime` datetime NOT NULL,
-  `pollid` int(11) NOT NULL,
-  `optionid` int(11) NOT NULL,
-  `ckey` varchar(255) NOT NULL,
-  `ip` varchar(16) NOT NULL,
-  `adminrank` varchar(32) NOT NULL,
-  `rating` int(2) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -639,3 +559,24 @@ CREATE TABLE `ip2group` (
   KEY `groupstr` (`groupstr`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Table structure for table `round`
+--
+DROP TABLE IF EXISTS `round`;
+CREATE TABLE `round` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `initialize_datetime` DATETIME NOT NULL,
+  `start_datetime` DATETIME NULL,
+  `shutdown_datetime` DATETIME NULL,
+  `end_datetime` DATETIME NULL,
+  `server_ip` INT(10) UNSIGNED NOT NULL,
+  `server_port` SMALLINT(5) UNSIGNED NOT NULL,
+  `commit_hash` CHAR(40) NULL,
+  `game_mode` VARCHAR(32) NULL,
+  `game_mode_result` VARCHAR(64) NULL,
+  `end_state` VARCHAR(64) NULL,
+  `shuttle_name` VARCHAR(64) NULL,
+  `map_name` VARCHAR(32) NULL,
+  `station_name` VARCHAR(80) NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
