@@ -64,7 +64,7 @@
 
 	// Forget the old form if needed
 	if(length(available_forms) >= max_forms)
-		qdel(available_forms[next_override_index])
+		qdel(available_forms[available_forms[next_override_index]]) // Delete the value using the key
 		available_forms[next_override_index++] = A.name
 		// Reset if needed
 		if(next_override_index > max_forms)
@@ -79,7 +79,10 @@
 		revert_cast(user)
 		return
 
-	var/list/forms = list("Original Form")
+	var/list/forms = list()
+	if(selected_form)
+		forms += "Original Form"
+
 	forms += available_forms.Copy()
 	var/what = input(user, "Which form do you want to become", "Mimic") as null|anything in forms
 	if(!what)
@@ -97,7 +100,6 @@
 	take_form(available_forms[what], user)
 
 /obj/effect/proc_holder/spell/targeted/click/mimic/proc/take_form(datum/mimic_form/form, mob/user)
-	selected_form = form
 
 	var/old_name = "[user]"
 	if(ishuman(user))
@@ -110,12 +112,17 @@
 		user.transform = initial(user.transform)
 		user.pixel_y = initial(user.pixel_y)
 		user.pixel_x = initial(user.pixel_x)
+		user.layer = MOB_LAYER // Avoids weirdness when mimicing something below the vent layer
 
 	playsound(user, "bonebreak", 75, TRUE)
 	show_change_form_message(user, old_name, "[user]")
 	user.create_log(MISC_LOG, "Mimicked into [user]")
-	RegisterSignal(user, COMSIG_PARENT_EXAMINE, .proc/examine_override)
-	RegisterSignal(user, COMSIG_MOB_DEATH, .proc/on_death)
+
+	if(!selected_form)
+		RegisterSignal(user, COMSIG_PARENT_EXAMINE, .proc/examine_override)
+		RegisterSignal(user, COMSIG_MOB_DEATH, .proc/on_death)
+
+	selected_form = form
 
 	SEND_SIGNAL(user, COMSIG_MAGIC_MIMIC_CHANGE_FORM, form)
 
@@ -151,7 +158,7 @@
 /obj/effect/proc_holder/spell/targeted/click/mimic/proc/examine_override(datum/source, mob/user, var/list/examine_list)
 	examine_list.Cut()
 	examine_list += selected_form.examine_text
-	if(!perfect_disguise && get_dist(user, src) <= 3)
+	if(!perfect_disguise && get_dist(user, source) <= 3)
 		examine_list += "<span class='warning'>It doesn't look quite right...</span>"
 
 /obj/effect/proc_holder/spell/targeted/click/mimic/proc/on_death(mob/user, gibbed)

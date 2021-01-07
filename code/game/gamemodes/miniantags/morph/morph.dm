@@ -1,5 +1,6 @@
-#define MORPHED_SPEED 2
+#define MORPHED_SPEED 2.5
 #define ITEM_EAT_COST 5
+
 /mob/living/simple_animal/hostile/morph
 	name = "morph"
 	real_name = "morph"
@@ -10,11 +11,12 @@
 	icon_state = "morph"
 	icon_living = "morph"
 	icon_dead = "morph_dead"
-	speed = 1
+	speed = 1.5
 	a_intent = INTENT_HARM
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	pass_flags = PASSTABLE
+	move_resist = MOVE_FORCE_STRONG // Fat being
 	ventcrawler = 2
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -46,6 +48,8 @@
 	var/obj/effect/proc_holder/spell/targeted/click/mimic/morph/mimic_spell
 	/// The ambush action used by the morph
 	var/obj/effect/proc_holder/spell/morph/ambush/ambush_spell
+	/// The spell the morph uses to pass through airlocks
+	var/obj/effect/proc_holder/spell/targeted/click/pass_airlock/pass_airlock_spell
 
 	/// How much the morph has gathered in terms of food. Used to reproduce and such
 	var/gathered_food = 20 // Start with a bit to use abilities
@@ -60,6 +64,8 @@
 	AddSpell(ambush_spell)
 	AddSpell(new /obj/effect/proc_holder/spell/morph/reproduce)
 	AddSpell(new /obj/effect/proc_holder/spell/morph/open_vent)
+	pass_airlock_spell = new
+	AddSpell(pass_airlock_spell)
 
 /mob/living/simple_animal/hostile/morph/Stat(Name, Value)
 	..()
@@ -77,13 +83,18 @@
 	AddSpell(new /obj/effect/proc_holder/spell/targeted/smoke)
 	AddSpell(new /obj/effect/proc_holder/spell/targeted/forcewall)
 
+
 /mob/living/simple_animal/hostile/morph/proc/try_eat(atom/movable/A)
 	var/food_value = calc_food_gained(A)
 	if(food_value + gathered_food < 0)
 		to_chat(src, "<span class='warning'>You can't force yourself to eat more disgusting items. Eat some living things first.</span>")
 		return
+	var/eat_self_message
 	if(food_value < 0)
-		to_chat(src, "<span class='warning'>You start eating [A]... disgusting....</span>")
+		eat_self_message = "<span class='warning'>You start eating [A]... disgusting....</span>"
+	else
+		eat_self_message = "<span class='notice'>You start eating [A].</span>"
+	visible_message("<span class='warning'>[src] starts eating [target]!</span>", eat_self_message, "You hear loud crunching!")
 	if(do_after(src, 30, target = A))
 		if(food_value + gathered_food < 0)
 			to_chat(src, "<span class='warning'>You can't force yourself to eat more disgusting items. Eat some living things first.</span>")
@@ -101,9 +112,10 @@
 
 		A.extinguish_light()
 		A.forceMove(src)
-		add_food(calc_food_gained(A))
-		if(isliving(A))
-			adjustHealth(-50)
+		var/food_value = calc_food_gained(A)
+		add_food(food_value)
+		if(food_value > 0)
+			adjustHealth(-food_value)
 		add_attack_logs(src, A, "morph ate")
 		return TRUE
 	return FALSE
@@ -132,6 +144,7 @@
 	for(var/obj/effect/proc_holder/spell/morph/MS in mind.spell_list)
 		MS.updateButtonIcon()
 
+
 /mob/living/simple_animal/hostile/morph/proc/assume()
 	morphed = TRUE
 
@@ -140,6 +153,8 @@
 	melee_damage_upper = 5
 	speed = MORPHED_SPEED
 	ambush_spell.updateButtonIcon()
+	pass_airlock_spell.updateButtonIcon()
+	move_resist = MOVE_FORCE_DEFAULT // They become more fragile and easier to move
 
 /mob/living/simple_animal/hostile/morph/proc/restore()
 	if(!morphed)
@@ -153,10 +168,25 @@
 	if(ambush_prepared)
 		to_chat(src, "<span class='warning'>The ambush potential has faded as you take your true form.</span>")
 	failed_ambush()
+	pass_airlock_spell.updateButtonIcon()
+	move_resist = MOVE_FORCE_STRONG // Return to their fatness
+
 
 /mob/living/simple_animal/hostile/morph/proc/prepare_ambush()
 	ambush_prepared = TRUE
-	to_chat(src, "<span class='sinister'>You are ready to ambush any unsuspected target. Your next attack will hurt a lot more and weaken the target! Moving will break your focus.</span>")
+	to_chat(src, "<span class='sinister'>You are ready to ambush any unsuspected target. Your next attack will hurt a lot more and weaken the target! Moving will break your focus. Standing still will perfect your disguise.</span>")
+	apply_status_effect(/datum/status_effect/morph_ambush)
+
+/mob/living/simple_animal/hostile/morph/proc/failed_ambush()
+	ambush_prepared = FALSE
+	ambush_spell.updateButtonIcon()
+	mimic_spell.perfect_disguise = FALSE // Reset the perfect disguise
+	remove_status_effect(/datum/status_effect/morph_ambush)
+
+/mob/living/simple_animal/hostile/morph/proc/perfect_ambush()
+	mimic_spell.perfect_disguise = TRUE // Reset the perfect disguise
+	to_chat(src, "<span class='sinister'>You've perfected your disguise. Making you indistinguishable from the real form!</span>")
+
 
 /mob/living/simple_animal/hostile/morph/Moved(atom/OldLoc, Dir, Forced)
 	. = ..()
@@ -164,9 +194,6 @@
 		failed_ambush()
 		to_chat(src, "<span class='warning'>You moved out of your ambush spot!</span>")
 
-/mob/living/simple_animal/hostile/morph/proc/failed_ambush()
-	ambush_prepared = FALSE
-	ambush_spell.updateButtonIcon()
 
 /mob/living/simple_animal/hostile/morph/death(gibbed)
 	. = ..()
