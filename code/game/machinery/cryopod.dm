@@ -367,7 +367,7 @@
 			control_computer.frozen_items += I
 			if(preserve == CRYO_OBJECTIVE)
 				control_computer.objective_items += I
-			I.loc = null
+			I.forceMove(control_computer)
 		else
 			I.forceMove(loc)
 
