@@ -825,3 +825,8 @@ proc/dd_sortedObjectList(list/incoming)
 			L1[key] += other_value
 		else
 			L1[key] = other_value
+
+/proc/make_associative(list/flat_list)
+	. = list()
+	for(var/thing in flat_list)
+		.[thing] = TRUE
