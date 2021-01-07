@@ -405,6 +405,14 @@
 	else
 		. += "mindslave|<b>NO</b>"
 
+/datum/mind/proc/memory_edit_brother()
+	. = _memory_edit_header("Brother")
+	if(has_antag_datum(/datum/antagonist/brother))
+		. += "<b><font color='red'>BROTHER</font></b>|<a href='?src=[UID()];Brother=clear'>no</a>"
+	else
+		. += "<a href='?src=[UID()];Brother=Brother'>Brother</a>|<b>NO</b>"
+	. += _memory_edit_role_enabled(ROLE_BROTHER)
+
 /datum/mind/proc/memory_edit_silicon()
 	. = "<i><b>Silicon</b></i>: "
 	var/mob/living/silicon/robot/robot = current
@@ -456,6 +464,7 @@
 		"vampire", // "traitorvamp",
 		"nuclear",
 		"traitor", // "traitorchan",
+		"Brother"
 	)
 	var/mob/living/carbon/human/H = current
 	if(ishuman(current))
@@ -488,6 +497,8 @@
 	/** SILICON ***/
 	if(issilicon(current))
 		sections["silicon"] = memory_edit_silicon()
+	/** BLOOD BROTHERS **/
+	sections["Brother"] = memory_edit_brother(H)
 	/*
 		This prioritizes antags relevant to the current round to make them appear at the top of the panel.
 		Traitorchan and traitorvamp are snowflaked in because they have multiple sections.
@@ -1230,6 +1241,8 @@
 					for(var/mob/living/L in GLOB.alive_mob_list)
 						if(!L.mind || L.mind == current)
 							continue
+						else
+							message_admins("[key_name_admin(usr)] tried to create blood brother team with no suitable candidates")
 						candidates[L.mind.name] = L.mind
 
 					var/choice = input(usr,"Choose the blood brother.", "Brother") as null|anything in sortNames(candidates)

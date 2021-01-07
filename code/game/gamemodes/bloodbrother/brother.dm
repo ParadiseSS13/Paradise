@@ -62,11 +62,11 @@
 	if(locate(/datum/objective/hijack) in owner.objectives)
 		var/datum/atom_hud/antag/hijackhud = GLOB.huds[ANTAG_HUD_TRAITOR]
 		hijackhud.join_hud(owner.current, null)
-		set_antag_hud(owner.current, "hudhijack") //placeholders
+		set_antag_hud(owner.current, "hudhijackbrother")
 	else
 		var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
 		traitorhud.join_hud(owner.current, null)
-		set_antag_hud(owner.current, "hudsyndicate")
+		set_antag_hud(owner.current, "hudbrother")
 
 /datum/antagonist/brother/proc/update_traitor_icons_removed(datum/mind/brother_mind)
 	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
@@ -95,27 +95,6 @@
 
 	name = last_names.Join(" & ")
 
-/datum/team/brother_team/roundend_report()
-	var/list/parts = list()
-
-	parts += "<span class='header'>The blood brothers of [name] were:</span>"
-	for(var/datum/mind/M in members)
-		parts += printplayer(M)
-	var/win = TRUE
-	var/objective_count = 1
-	for(var/datum/objective/objective in objectives)
-		if(objective.check_completion())
-			parts += "<B>Objective #[objective_count]</B>: [objective.explanation_text] <span class='greentext'>Success!</span>"
-		else
-			parts += "<B>Objective #[objective_count]</B>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
-			win = FALSE
-		objective_count++
-	if(win)
-		parts += "<span class='greentext'>The blood brothers were successful!</span>"
-	else
-		parts += "<span class='redtext'>The blood brothers have failed!</span>"
-
-	return parts.Join("<br>")
 
 /datum/team/brother_team/proc/add_objective(datum/objective/O)
 	O.team = src
@@ -135,11 +114,10 @@
 /datum/team/brother_team/proc/forge_single_objective()
 	if(prob(50))
 		if(LAZYLEN(active_ais()) && prob(100/GLOB.player_list.len))
-			add_objective(new/datum/objective/destroy, TRUE)
+			add_objective(new/datum/objective/destroy)
 		else if(prob(30))
-			add_objective(new/datum/objective/maroon, TRUE)
+			add_objective(new/datum/objective/maroon)
 		else
-			add_objective(new/datum/objective/assassinate, TRUE)
+			add_objective(new/datum/objective/assassinate)
 	else
-		add_objective(new/datum/objective/steal, TRUE)
-
+		add_objective(new/datum/objective/steal)

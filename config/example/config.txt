@@ -102,6 +102,7 @@ AUTO_DESPAWN_AFK 0
 ## default probablity is 1, increase to make that mode more likely to be picked
 ## set to 0 to disable that mode
 PROBABILITY EXTEND-A-TRAITORMONGOUS 3
+PROBABILITY TRAITORBRO 3
 PROBABILITY TRAITORCHAN 3
 PROBABILITY TRAITORVAMP 3
 PROBABILITY REVOLUTION 0

@@ -59,3 +59,28 @@
 		team.update_name()
 	brother_teams += pre_brother_teams
 	return ..()
+
+/datum/game_mode/traitor/bros/proc/auto_declare_completion_brother()
+	if(brother_teams.len)
+		var/text
+		for(var/team in brother_teams)
+			var/datum/team/brother_team/B = team
+			var/win = TRUE
+			var/objective_count = 1
+			text += "<span class='header'>The blood brothers of [B.name] were:</span>"
+			for(var/brother in B.members)
+				text += "[brother]"
+			for(var/datum/objective/objective in B.objectives)
+				if(objective.check_completion())
+					text += "<B>Objective #[objective_count]</B>: [objective.explanation_text] <span class='greentext'>Success!</span>"
+				else
+					text += "<B>Objective #[objective_count]</B>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
+					win = FALSE
+				objective_count++
+			if(win)
+				text += "<span class='greentext'>The blood brothers were successful!</span>"
+			else
+				text += "<span class='redtext'>The blood brothers have failed!</span>"
+	
+		to_chat(world, text)
+	return 1

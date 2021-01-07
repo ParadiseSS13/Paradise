@@ -23,6 +23,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/proc/check_completion()
 	return completed
 
+/datum/objective/proc/check_team_completion()
+	return check_completion()
+
 /datum/objective/proc/is_invalid_target(datum/mind/possible_target)
 	if(possible_target == owner)
 		return TARGET_INVALID_IS_OWNER
