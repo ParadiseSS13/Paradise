@@ -3,7 +3,7 @@
 	name = "Pass Airlock"
 	desc = "Reform yourself so you can fit through a non bolted airlock. Takes a while to do and can only be used in a non disguised form."
 	clothes_req = FALSE
-	charge_max = 100
+	charge_max = 10 SECONDS
 	range = 1
 	allowed_type = /obj/machinery/door/airlock
 	selection_activated_message = "<span class='sinister'>Click on an airlock to try pass it.</span>"

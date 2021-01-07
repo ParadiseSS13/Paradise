@@ -56,8 +56,6 @@
 
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_MAGIC_MIMIC_CHANGE_FORM, .proc/assume)
-	RegisterSignal(src, COMSIG_MAGIC_MIMIC_RESTORE_FORM, .proc/restore)
 	mimic_spell = new
 	AddSpell(mimic_spell)
 	ambush_spell = new
@@ -95,7 +93,7 @@
 	else
 		eat_self_message = "<span class='notice'>You start eating [A].</span>"
 	visible_message("<span class='warning'>[src] starts eating [target]!</span>", eat_self_message, "You hear loud crunching!")
-	if(do_after(src, 30, target = A))
+	if(do_after(src, 3 SECONDS, target = A))
 		if(food_value + gathered_food < 0)
 			to_chat(src, "<span class='warning'>You can't force yourself to eat more disgusting items. Eat some living things first.</span>")
 			return
@@ -176,23 +174,23 @@
 	ambush_prepared = TRUE
 	to_chat(src, "<span class='sinister'>You are ready to ambush any unsuspected target. Your next attack will hurt a lot more and weaken the target! Moving will break your focus. Standing still will perfect your disguise.</span>")
 	apply_status_effect(/datum/status_effect/morph_ambush)
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/on_move)
 
 /mob/living/simple_animal/hostile/morph/proc/failed_ambush()
 	ambush_prepared = FALSE
 	ambush_spell.updateButtonIcon()
 	mimic_spell.perfect_disguise = FALSE // Reset the perfect disguise
 	remove_status_effect(/datum/status_effect/morph_ambush)
+	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
 
 /mob/living/simple_animal/hostile/morph/proc/perfect_ambush()
 	mimic_spell.perfect_disguise = TRUE // Reset the perfect disguise
 	to_chat(src, "<span class='sinister'>You've perfected your disguise. Making you indistinguishable from the real form!</span>")
 
 
-/mob/living/simple_animal/hostile/morph/Moved(atom/OldLoc, Dir, Forced)
-	. = ..()
-	if(ambush_prepared)
-		failed_ambush()
-		to_chat(src, "<span class='warning'>You moved out of your ambush spot!</span>")
+/mob/living/simple_animal/hostile/morph/proc/on_move()
+	failed_ambush()
+	to_chat(src, "<span class='warning'>You moved out of your ambush spot!</span>")
 
 
 /mob/living/simple_animal/hostile/morph/death(gibbed)
@@ -315,7 +313,7 @@
 		mind.objectives += eat
 		var/datum/objective/procreate = new /datum/objective
 		procreate.owner = mind
-		procreate.explanation_text = "Split yourself in as many other [src.name]'s as possible!"
+		procreate.explanation_text = "Split yourself in as many other [name]'s as possible!"
 		procreate.completed = TRUE
 		mind.objectives += procreate
 		mind.announce_objectives()

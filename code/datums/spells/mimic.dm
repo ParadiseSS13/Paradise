@@ -2,7 +2,7 @@
 	name = "Mimic"
 	desc =  "Learn a new form to mimic or become one of your known forms"
 	clothes_req = FALSE
-	charge_max = 30
+	charge_max = 3 SECONDS
 	include_user = TRUE // To change forms
 	action_icon_state = "genetic_morph"
 	allowed_type = /atom/movable
@@ -22,22 +22,17 @@
 	/// If a message is shown when somebody examines the user from close range
 	var/perfect_disguise = FALSE
 
+	var/static/list/black_listed_form_types = list(/obj/screen, /obj/singularity, /obj/effect, /mob/living/simple_animal/hostile/megafauna, /atom/movable/lighting_object, /obj/machinery/dna_vault,
+													/obj/machinery/power/bluespace_tap)
+
 /obj/effect/proc_holder/spell/targeted/click/mimic/valid_target(atom/target, user)
-	if(istype(target, /obj/screen))
-		return FALSE
-	if(istype(target, /obj/singularity))
-		return FALSE
-	if(istype(target, /obj/effect))
-		return FALSE
-	if(istype(target, /mob/living/simple_animal/hostile/megafauna))
-		return FALSE
-	if(istype(target, /atom/movable/lighting_object))
+	if(is_type_in_list(target, black_listed_form_types))
 		return FALSE
 	if(istype(target, /atom/movable))
 		var/atom/movable/M = target
 		if(M.bound_height > world.icon_size || M.bound_width > world.icon_size)
 			return FALSE // No multitile structures
-	if(istype(target, /obj/machinery/dna_vault) || istype(target, /obj/machinery/power/bluespace_tap)) // ugh
+	if(user != target && istype(target, /mob/living/simple_animal/hostile/morph))
 		return FALSE
 	return ..()
 
@@ -84,7 +79,7 @@
 		forms += "Original Form"
 
 	forms += available_forms.Copy()
-	var/what = input(user, "Which form do you want to become", "Mimic") as null|anything in forms
+	var/what = input(user, "Which form do you want to become?", "Mimic") as null|anything in forms
 	if(!what)
 		to_chat(user, "<span class='notice'>You decide against changing forms.</span>")
 		revert_cast(user)
@@ -124,8 +119,6 @@
 
 	selected_form = form
 
-	SEND_SIGNAL(user, COMSIG_MAGIC_MIMIC_CHANGE_FORM, form)
-
 /obj/effect/proc_holder/spell/targeted/click/mimic/proc/show_change_form_message(mob/user, old_name, new_name)
 	user.visible_message("<span class='warning'>[old_name] contorts and slowly becomes [new_name]!</span>", "<span class='sinister'>You take form of [new_name].</span>", "You hear loud cracking noises!")
 
@@ -150,12 +143,11 @@
 		show_restore_form_message(user, old_name, "[user]")
 
 	UnregisterSignal(user, list(COMSIG_PARENT_EXAMINE, COMSIG_MOB_DEATH))
-	SEND_SIGNAL(user, COMSIG_MAGIC_MIMIC_RESTORE_FORM)
 
 /obj/effect/proc_holder/spell/targeted/click/mimic/proc/show_restore_form_message(mob/user, old_name, new_name)
 	user.visible_message("<span class='warning'>[old_name] shakes and contorts and quickly becomes [new_name]!</span>", "<span class='sinister'>You take return to your normal self.</span>", "You hear loud cracking noises!")
 
-/obj/effect/proc_holder/spell/targeted/click/mimic/proc/examine_override(datum/source, mob/user, var/list/examine_list)
+/obj/effect/proc_holder/spell/targeted/click/mimic/proc/examine_override(datum/source, mob/user, list/examine_list)
 	examine_list.Cut()
 	examine_list += selected_form.examine_text
 	if(!perfect_disguise && get_dist(user, source) <= 3)
@@ -191,6 +183,14 @@
 	if(target != user && istype(target, /mob/living/simple_animal/hostile/morph))
 		return FALSE
 	return ..()
+
+/obj/effect/proc_holder/spell/targeted/click/mimic/morph/take_form(datum/mimic_form/form, mob/living/simple_animal/hostile/morph/user)
+	..()
+	user.assume()
+
+/obj/effect/proc_holder/spell/targeted/click/mimic/morph/restore_form(mob/living/simple_animal/hostile/morph/user, show_message = TRUE)
+	..()
+	user.restore()
 
 /obj/effect/proc_holder/spell/targeted/click/mimic/morph/show_change_form_message(mob/user, old_name, new_name)
 	user.visible_message("<span class='warning'>[old_name] suddenly twists and changes shape, becoming a copy of [new_name]!</span>", \
