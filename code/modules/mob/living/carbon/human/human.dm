@@ -296,7 +296,7 @@
 	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, "melee"))
 
 /mob/living/carbon/human/bullet_act(obj/item/projectile/P, def_zone)
-	if(mind && mind.martial_art && mind.martial_art.deflection_chance  && in_throw_mode) //Some martial arts users can deflect projectiles!
+	if(mind?.martial_art?.deflection_chance && in_throw_mode) //Some martial arts users can deflect projectiles!
 		if(!prob(mind.martial_art.deflection_chance))
 			return ..()
 		if(!src.lying && !(HULK in mutations)) //But only if they're not lying down, and hulks can't do it
