@@ -74,7 +74,8 @@
 		air.temperature = temperature
 
 /turf/simulated/Destroy()
-	QDEL_NULL(active_hotspot)
+	if(!QDELETED(active_hotspot)) // hotspots being qdeleted can sometimes destroy the turf. Avoid a loop
+		qdel(active_hotspot)
 	QDEL_NULL(wet_overlay)
 	return ..()
 
