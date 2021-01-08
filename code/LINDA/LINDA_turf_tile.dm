@@ -75,7 +75,9 @@
 
 /turf/simulated/Destroy()
 	if(!QDELETED(active_hotspot)) // hotspots being qdeleted can sometimes destroy the turf. Avoid a loop
-		qdel(active_hotspot)
+		QDEL_NULL(active_hotspot)
+	else
+		active_hotspot = null
 	QDEL_NULL(wet_overlay)
 	return ..()
 
