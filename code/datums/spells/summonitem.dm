@@ -13,7 +13,7 @@
 
 	var/obj/marked_item
 	/// List of objects which will result in the spell stopping with the recursion search
-	var/static/list/blacklisted_summons = list(/obj/machinery/computer/cryopod, /obj/machinery/atmospherics, /obj/structure/disposalholder, /obj/machinery/disposal)
+	var/static/list/blacklisted_summons = list(/obj/machinery/computer/cryopod = TRUE, /obj/machinery/atmospherics = TRUE, /obj/structure/disposalholder = TRUE, /obj/machinery/disposal = TRUE)
 	action_icon_state = "summons"
 
 /obj/effect/proc_holder/spell/targeted/summonitem/cast(list/targets, mob/user = usr)
@@ -90,7 +90,7 @@
 						var/obj/machinery/portable_atmospherics/P = item_to_retrieve.loc
 						P.disconnect()
 						P.update_icon()
-					if(is_type_in_list(item_to_retrieve.loc, blacklisted_summons))
+					if(is_type_in_typecache(item_to_retrieve.loc, blacklisted_summons))
 						break
 					item_to_retrieve = item_to_retrieve.loc
 
