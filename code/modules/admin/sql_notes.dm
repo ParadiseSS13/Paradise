@@ -58,14 +58,15 @@
 			server = config.server_name
 
 	var/datum/db_query/query_noteadd = SSdbcore.NewQuery({"
-		INSERT INTO [format_table_name("notes")] (ckey, timestamp, notetext, adminckey, server, crew_playtime)
-		VALUES (:targetckey, NOW(), :notetext, :adminkey, :server, :crewnum)
+		INSERT INTO [format_table_name("notes")] (ckey, timestamp, notetext, adminckey, server, crew_playtime, round_id)
+		VALUES (:targetckey, NOW(), :notetext, :adminkey, :server, :crewnum, :roundid)
 	"}, list(
 		"targetckey" = target_ckey,
 		"notetext" = notetext,
 		"adminkey" = adminckey,
 		"server" = server,
-		"crewnum" = crew_number
+		"crewnum" = crew_number,
+		"roundid" = GLOB.round_id
 	))
 	if(!query_noteadd.warn_execute())
 		qdel(query_noteadd)
@@ -172,7 +173,7 @@
 	if(target_ckey)
 		var/target_sql_ckey = ckey(target_ckey)
 		var/datum/db_query/query_get_notes = SSdbcore.NewQuery({"
-			SELECT id, timestamp, notetext, adminckey, last_editor, server, crew_playtime
+			SELECT id, timestamp, notetext, adminckey, last_editor, server, crew_playtime, round_id
 			FROM [format_table_name("notes")] WHERE ckey=:targetkey ORDER BY timestamp"}, list(
 				"targetkey" = target_sql_ckey
 			))
@@ -191,7 +192,8 @@
 			var/last_editor = query_get_notes.item[5]
 			var/server = query_get_notes.item[6]
 			var/mins = text2num(query_get_notes.item[7])
-			output += "<b>[timestamp] | [server] | [adminckey]"
+			var/round_id = text2num(query_get_notes.item[8])
+			output += "<b>[timestamp][round_id ? " (Round [round_id])" : ""] | [server] | [adminckey]"
 			if(mins)
 				var/playstring = get_exp_format(mins)
 				output += " | [playstring] as Crew"

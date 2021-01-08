@@ -1149,6 +1149,10 @@
 	if(config.max_client_cid_history == 0)
 		return
 
+	// If we have no DB, dont even bother
+	if(!SSdbcore.IsConnected())
+		return
+
 	// Now query how many cids they have
 	var/datum/db_query/query_cidcheck = SSdbcore.NewQuery("SELECT COUNT(DISTINCT computerID) FROM connection_log WHERE ckey=:ckey", list(
 		"ckey" = ckey
@@ -1183,10 +1187,11 @@
 			var/new_text = "Connected on the date of this note with unique CID #[cidcount]"
 			// Only update the note if the text is different. Otherwise it bumps the timestamp when it shouldnt
 			if(note_text != new_text)
-				var/datum/db_query/query_update_track_note = SSdbcore.NewQuery("UPDATE [format_table_name("notes")] SET notetext=:notetext, timestamp=NOW() WHERE ckey=:ckey AND adminckey=:ackey", list(
+				var/datum/db_query/query_update_track_note = SSdbcore.NewQuery("UPDATE [format_table_name("notes")] SET notetext=:notetext, timestamp=NOW(), round_id=:rid WHERE ckey=:ckey AND adminckey=:ackey", list(
 					"notetext" = new_text,
 					"ckey" = ckey,
-					"ackey" = CIDTRACKING_PSUEDO_CKEY
+					"ackey" = CIDTRACKING_PSUEDO_CKEY,
+					"rid" = GLOB.round_id
 				))
 				if(!query_update_track_note.warn_execute())
 					qdel(query_update_track_note)
