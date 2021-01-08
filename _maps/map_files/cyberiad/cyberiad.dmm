@@ -95325,15 +95325,6 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
-"mJq" = (
-/obj/effect/decal/warning_stripes/east,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/engine/engineering)
 "mMw" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -95945,15 +95936,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
-"vfN" = (
-/obj/effect/decal/warning_stripes/south,
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/engine/engineering)
 "vup" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 10
@@ -95990,21 +95972,6 @@
 	icon_state = "cmo"
 	},
 /area/shuttle/escape)
-"vIU" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Singularity";
-	name = "Singularity Blast Doors";
-	opacity = 0
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plating,
-/area/engine/engineering)
 "vJw" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/extinguisher_cabinet{
@@ -96085,6 +96052,21 @@
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
+"wyr" = (
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Singularity";
+	name = "Singularity Blast Doors";
+	opacity = 0
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating,
+/area/engine/engineering)
 "wHx" = (
 /obj/machinery/door/airlock/shuttle/glass{
 	name = "Shuttle Cargo Hatch"
@@ -96143,6 +96125,15 @@
 	tag = "icon-whiteblue (SOUTHEAST)"
 	},
 /area/shuttle/escape)
+"xio" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/engine/engineering)
 "xlr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -96175,6 +96166,15 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"xqR" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/engine/engineering)
 "xtk" = (
 /obj/structure/bed/roller,
 /turf/simulated/floor/plasteel{
@@ -125499,7 +125499,7 @@ cOg
 cVj
 deC
 dfs
-vfN
+xqR
 dfo
 cSF
 afO
@@ -125755,7 +125755,7 @@ cYZ
 cQG
 cVc
 cVy
-mJq
+xio
 cVT
 dfo
 cSF
@@ -126782,7 +126782,7 @@ cYo
 cZE
 cZQ
 cSv
-vIU
+wyr
 cRp
 dfo
 afO
