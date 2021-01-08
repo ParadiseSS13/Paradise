@@ -79456,6 +79456,13 @@
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
+"cNW" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/structure/cable/cyan{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/engine/engineering)
 "cNX" = (
 /obj/machinery/power/terminal{
 	dir = 4
@@ -79479,10 +79486,10 @@
 /area/assembly/assembly_line)
 "cOa" = (
 /obj/structure/cable/cyan{
-	icon_state = "1-8"
+	icon_state = "2-8"
 	},
 /obj/structure/cable/cyan{
-	icon_state = "2-8"
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -80829,6 +80836,11 @@
 /obj/effect/decal/warning_stripes/east,
 /obj/structure/cable/cyan{
 	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -83421,6 +83433,11 @@
 	req_access_txt = "10"
 	},
 /obj/effect/decal/warning_stripes/east,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "cVd" = (
@@ -83691,6 +83708,11 @@
 	pixel_y = 0
 	},
 /obj/effect/decal/warning_stripes/east,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "cVz" = (
@@ -83819,6 +83841,11 @@
 "cVN" = (
 /obj/item/wirecutters,
 /obj/effect/decal/warning_stripes/south,
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "cVO" = (
@@ -83874,6 +83901,11 @@
 /area/engine/engineering)
 "cVT" = (
 /obj/effect/decal/warning_stripes/southeast,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "cVU" = (
@@ -84849,6 +84881,11 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "cXF" = (
@@ -85211,6 +85248,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/engine/engineering)
 "cYn" = (
@@ -85492,8 +85534,10 @@
 	dir = 9;
 	pixel_y = 0
 	},
-/obj/structure/cable/cyan{
-	icon_state = "4-8"
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -85555,13 +85599,15 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/structure/cable/cyan{
-	icon_state = "2-4"
-	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "cYZ" = (
 /obj/effect/decal/warning_stripes/northeast,
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "cZa" = (
@@ -85642,8 +85688,10 @@
 	scrub_N2O = 1;
 	scrub_Toxins = 1
 	},
-/obj/structure/cable/cyan{
-	icon_state = "2-8"
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -87465,6 +87513,9 @@
 /area/maintenance/turbine)
 "ddb" = (
 /obj/structure/particle_accelerator/end_cap,
+/obj/structure/cable/cyan{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/engine/engineering)
 "ddc" = (
@@ -95274,6 +95325,15 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"mJq" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/engine/engineering)
 "mMw" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -95523,21 +95583,6 @@
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
-"pEb" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Singularity";
-	name = "Singularity Blast Doors";
-	opacity = 0
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plating,
-/area/engine/engineering)
 "pGQ" = (
 /obj/machinery/mech_bay_recharge_port,
 /turf/simulated/floor/plasteel{
@@ -95900,6 +95945,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
+"vfN" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/engine/engineering)
 "vup" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 10
@@ -95936,6 +95990,21 @@
 	icon_state = "cmo"
 	},
 /area/shuttle/escape)
+"vIU" = (
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Singularity";
+	name = "Singularity Blast Doors";
+	opacity = 0
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating,
+/area/engine/engineering)
 "vJw" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/extinguisher_cabinet{
@@ -124141,7 +124210,7 @@ cWC
 cXx
 dbs
 cYF
-cQG
+cNW
 cSx
 cRf
 cRp
@@ -125426,11 +125495,11 @@ cSl
 cXH
 dbG
 cZf
-acF
+cOg
 cVj
 deC
 dfs
-cSv
+vfN
 dfo
 cSF
 afO
@@ -125686,7 +125755,7 @@ cYZ
 cQG
 cVc
 cVy
-cQH
+mJq
 cVT
 dfo
 cSF
@@ -126713,7 +126782,7 @@ cYo
 cZE
 cZQ
 cSv
-pEb
+vIU
 cRp
 dfo
 afO
