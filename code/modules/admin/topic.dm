@@ -3425,7 +3425,57 @@
 		if(!check_rights(R_ADMIN))
 			return
 		add_note(href_list["suppresscidwarning"], CIDWARNING_SUPPRESSED_NOTETEXT, show_after = FALSE)
+	else if(href_list["viewkarma"])
+		if(!check_rights(R_ADMIN))
+			return
 
+		var/target_ckey = href_list["viewkarma"]
+
+		var/total_karma = 0
+		var/spent_karma = 0
+		var/unlocked_jobs = ""
+		var/unlocked_species = ""
+		// Get their totals
+		var/datum/db_query/query_get_totals = SSdbcore.NewQuery("SELECT karma, karmaspent FROM [format_table_name("karmatotals")] WHERE byondkey=:ckey", list(
+			"ckey" = target_ckey
+		))
+		if(!query_get_totals.warn_execute())
+			qdel(query_get_totals)
+			return
+		// Even if there aint a row, we can still assume the defaults of 0 above
+		if(query_get_totals.NextRow())
+			total_karma = query_get_totals.item[1]
+			spent_karma = query_get_totals.item[2]
+
+		qdel(query_get_totals)
+
+		// Now get their unlocks
+		var/datum/db_query/query_get_unlocks = SSdbcore.NewQuery("SELECT job, species FROM [format_table_name("whitelist")] WHERE ckey=:ckey", list(
+			"ckey" = target_ckey
+		))
+		if(!query_get_unlocks.warn_execute())
+			qdel(query_get_unlocks)
+			return
+		if(query_get_unlocks.NextRow())
+			unlocked_jobs = query_get_unlocks.item[1]
+			unlocked_species = query_get_unlocks.item[2]
+
+		qdel(query_get_unlocks)
+
+		// Pack it into a dat
+		var/dat = {"
+		<ul>
+		<li>Total Karma: [total_karma]</li>
+		<li>Spent Karma: [spent_karma]</li>
+		<li>Available Karma: [total_karma - spent_karma]</li>
+		<li>Unlocked Jobs: [unlocked_jobs]</li>
+		<li>Unlocked Species: [unlocked_species]</li>
+		</ul>
+		"}
+
+		var/datum/browser/popup = new(usr, "view_karma", "Karma stats for [target_ckey]", 600, 300)
+		popup.set_content(dat)
+		popup.open(FALSE)
 
 /client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)
 	if(!check_rights(R_EVENT))
