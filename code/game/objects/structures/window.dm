@@ -69,8 +69,9 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	if(!anchored && !fulltile)
 		. += "<span class='notice'>Alt-click to rotate it.</span>"
 
-/obj/structure/window/New(Loc, direct)
-	..()
+/obj/structure/window/Initialize(mapload, direct)
+	. = ..()
+
 	if(direct)
 		setDir(direct)
 	if(reinf && anchored)
@@ -106,9 +107,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
 
-/obj/structure/window/Initialize()
-	air_update_turf(1)
-	return ..()
+	air_update_turf(TRUE)
 
 /obj/structure/window/narsie_act()
 	color = NARSIE_WINDOW_COLOUR
@@ -729,10 +728,10 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	cancolor = FALSE
 	var/made_glow = FALSE
 
-/obj/structure/window/reinforced/clockwork/New(loc, direct)
+/obj/structure/window/reinforced/clockwork/Initialize(mapload, direct)
+	. = ..()
 	if(fulltile)
 		made_glow = TRUE
-	..()
 	QDEL_LIST(debris)
 	if(fulltile)
 		new /obj/effect/temp_visual/ratvar/window(get_turf(src))
