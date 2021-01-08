@@ -85,6 +85,9 @@ GLOBAL_LIST_EMPTY(all_cults)
 		to_chat(cult_mind.current, CULT_GREETING)
 		equip_cultist(cult_mind.current)
 		cult_mind.current.faction |= "cult"
+		var/datum/objective/servecult/obj = new
+		obj.owner = cult_mind
+		cult_mind.objectives += obj
 
 		if(cult_mind.assigned_role == "Clown")
 			to_chat(cult_mind.current, "<span class='cultitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
@@ -98,50 +101,6 @@ GLOBAL_LIST_EMPTY(all_cults)
 	cult_threshold_check()
 	addtimer(CALLBACK(src, .proc/cult_threshold_check), 2 MINUTES) // Check again in 2 minutes for latejoiners
 	..()
-
-/**
-  * Decides at the start of the round how many conversions are needed to rise/ascend.
-  *
-  * The number is decided by (Percentage * (Players - Cultists)), so for example at 110 players it would be 11 conversions for rise. (0.1 * (110 - 4))
-  * These values change based on population because 20 cultists are MUCH more powerful if there's only 50 players, compared to 120.
-  *
-  * Below 100 players, [CULT_RISEN_LOW] and [CULT_ASCENDANT_LOW] are used.
-  * Above 100 players, [CULT_RISEN_HIGH] and [CULT_ASCENDANT_HIGH] are used.
-  */
-/datum/game_mode/proc/cult_threshold_check()
-	var/players = length(GLOB.player_list)
-	var/cultists = get_cultists() // Don't count the starting cultists towards the number of needed conversions
-	if(players >= CULT_POPULATION_THRESHOLD)
-		// Highpop
-		ascend_percent = CULT_ASCENDANT_HIGH
-		rise_number = round(CULT_RISEN_HIGH * (players - cultists))
-		ascend_number = round(CULT_ASCENDANT_HIGH * (players - cultists))
-	else
-		// Lowpop
-		ascend_percent = CULT_ASCENDANT_LOW
-		rise_number = round(CULT_RISEN_LOW * (players - cultists))
-		ascend_number = round(CULT_ASCENDANT_LOW * (players - cultists))
-
-/**
-  * Returns the current number of cultists and constructs.
-  *
-  * Returns the number of cultists and constructs in a list ([1] = Cultists, [2] = Constructs), or as one combined number.
-  *
-  * * separate - Should the number be returned in two separate values (Humans and Constructs) or as one?
-  */
-/datum/game_mode/proc/get_cultists(separate = FALSE)
-	var/cultists = 0
-	var/constructs = 0
-	for(var/I in cult)
-		var/datum/mind/M = I
-		if(ishuman(M.current) && !M.current.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
-			cultists++
-		else if(isconstruct(M.current))
-			constructs++
-	if(separate)
-		return list(cultists, constructs)
-	else
-		return cultists + constructs
 
 /datum/game_mode/proc/equip_cultist(mob/living/carbon/human/H, metal = TRUE)
 	if(!istype(H))
@@ -207,6 +166,75 @@ GLOBAL_LIST_EMPTY(all_cults)
 		cult_objs.study(cult_mind.current)
 		return TRUE
 
+/datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE)
+	if(cult_mind in cult)
+		var/mob/cultist = cult_mind.current
+		cult -= cult_mind
+		cultist.faction -= "cult"
+		cult_mind.special_role = null
+		for(var/I in cult_mind.objectives)
+			if(istype(I, /datum/objective/servecult))
+				cult_mind.objectives -= I
+		for(var/datum/action/innate/cult/C in cultist.actions)
+			qdel(C)
+		update_cult_icons_removed(cult_mind)
+
+		if(ishuman(cultist))
+			var/mob/living/carbon/human/H = cultist
+			REMOVE_TRAIT(H, CULT_EYES, null)
+			H.change_eye_color(H.original_eye_color, FALSE)
+			H.update_eyes()
+			H.remove_overlay(HALO_LAYER)
+			H.update_body()
+		check_cult_size()
+		if(show_message)
+			cultist.visible_message("<span class='cult'>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</span>",
+			"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] and the memories of your time as their servant with it.</span>")
+
+
+/**
+  * Decides at the start of the round how many conversions are needed to rise/ascend.
+  *
+  * The number is decided by (Percentage * (Players - Cultists)), so for example at 110 players it would be 11 conversions for rise. (0.1 * (110 - 4))
+  * These values change based on population because 20 cultists are MUCH more powerful if there's only 50 players, compared to 120.
+  *
+  * Below 100 players, [CULT_RISEN_LOW] and [CULT_ASCENDANT_LOW] are used.
+  * Above 100 players, [CULT_RISEN_HIGH] and [CULT_ASCENDANT_HIGH] are used.
+  */
+/datum/game_mode/proc/cult_threshold_check()
+	var/players = length(GLOB.player_list)
+	var/cultists = get_cultists() // Don't count the starting cultists towards the number of needed conversions
+	if(players >= CULT_POPULATION_THRESHOLD)
+		// Highpop
+		ascend_percent = CULT_ASCENDANT_HIGH
+		rise_number = round(CULT_RISEN_HIGH * (players - cultists))
+		ascend_number = round(CULT_ASCENDANT_HIGH * (players - cultists))
+	else
+		// Lowpop
+		ascend_percent = CULT_ASCENDANT_LOW
+		rise_number = round(CULT_RISEN_LOW * (players - cultists))
+		ascend_number = round(CULT_ASCENDANT_LOW * (players - cultists))
+
+/**
+  * Returns the current number of cultists and constructs.
+  *
+  * Returns the number of cultists and constructs in a list ([1] = Cultists, [2] = Constructs), or as one combined number.
+  *
+  * * separate - Should the number be returned in two separate values (Humans and Constructs) or as one?
+  */
+/datum/game_mode/proc/get_cultists(separate = FALSE)
+	var/cultists = 0
+	var/constructs = 0
+	for(var/I in cult)
+		var/datum/mind/M = I
+		if(ishuman(M.current) && !M.current.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
+			cultists++
+		else if(isconstruct(M.current))
+			constructs++
+	if(separate)
+		return list(cultists, constructs)
+	else
+		return cultists + constructs
 
 /datum/game_mode/proc/check_cult_size()
 	if(cult_ascendant)
@@ -247,29 +275,6 @@ GLOBAL_LIST_EMPTY(all_cults)
 		var/mob/living/carbon/human/H = cultist
 		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
 		H.update_halo_layer()
-
-
-/datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE)
-	if(cult_mind in cult)
-		var/mob/cultist = cult_mind.current
-		cult -= cult_mind
-		cultist.faction -= "cult"
-		cult_mind.special_role = null
-		for(var/datum/action/innate/cult/C in cultist.actions)
-			qdel(C)
-		update_cult_icons_removed(cult_mind)
-
-		if(ishuman(cultist))
-			var/mob/living/carbon/human/H = cultist
-			REMOVE_TRAIT(H, CULT_EYES, null)
-			H.change_eye_color(H.original_eye_color, FALSE)
-			H.update_eyes()
-			H.remove_overlay(HALO_LAYER)
-			H.update_body()
-		check_cult_size()
-		if(show_message)
-			cultist.visible_message("<span class='cult'>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</span>",
-			"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] and the memories of your time as their servant with it.</span>")
 
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)
 	var/datum/atom_hud/antag/culthud = GLOB.huds[ANTAG_HUD_CULT]
