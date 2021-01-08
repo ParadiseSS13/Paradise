@@ -3421,6 +3421,10 @@
 					log_sql("[usr.key] | [response]")
 		else if(answer == "no")
 			log_sql("[usr.key] | Reported no server hang. Please investigate")
+	else if(href_list["suppresscidwarning"])
+		if(!check_rights(R_ADMIN))
+			return
+		add_note(href_list["suppresscidwarning"], CIDWARNING_SUPPRESSED_NOTETEXT, show_after = FALSE)
 
 
 /client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)

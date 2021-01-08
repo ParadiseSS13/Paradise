@@ -1,5 +1,5 @@
 // Do not attemtp to remove the blank string from the server arg. It will break DB saving.
-/proc/add_note(target_ckey, notetext, timestamp, adminckey, logged = 1, server = "", checkrights = 1)
+/proc/add_note(target_ckey, notetext, timestamp, adminckey, logged = 1, server = "", checkrights = 1, show_after = TRUE)
 	if(checkrights && !check_rights(R_ADMIN|R_MOD))
 		return
 	if(!SSdbcore.IsConnected())
@@ -74,7 +74,8 @@
 	if(logged)
 		log_admin("[usr ? key_name(usr) : adminckey] has added a note to [target_ckey]: [notetext]")
 		message_admins("[usr ? key_name_admin(usr) : adminckey] has added a note to [target_ckey]:<br>[notetext]")
-		show_note(target_ckey)
+		if(show_after)
+			show_note(target_ckey)
 
 /proc/remove_note(note_id)
 	if(!check_rights(R_ADMIN|R_MOD))

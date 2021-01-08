@@ -72,3 +72,9 @@
 #define MAX_KEYPRESS_AUTOKICK 50
 ///Length of held key rolling buffer
 #define HELD_KEY_BUFFER_LENGTH 15
+
+/// Note text for suppressed CID warning
+#define CIDWARNING_SUPPRESSED_NOTETEXT "CID COUNT WARNING DISABLED - Delete this note to re-enable"
+
+/// Note "ckey" for CID info tracking. Do not EVER update this.
+#define CIDTRACKING_PSUEDO_CKEY "ALICE-CIDTRACKING"
