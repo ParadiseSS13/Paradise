@@ -72,7 +72,7 @@
 			sql_query_params["cid"] = computer_id
 
 		var/datum/db_query/query = SSdbcore.NewQuery({"
-		SELECT ckey, ip, computerid, a_ckey, reason, expiration_time, duration, bantime, bantype FROM [format_table_name("ban")]
+		SELECT ckey, ip, computerid, a_ckey, reason, expiration_time, duration, bantime, bantype, ban_round_id FROM [format_table_name("ban")]
 		WHERE (ckey=:ckeytext [ipquery] [cidquery]) AND (bantype = 'PERMABAN' OR bantype = 'ADMIN_PERMABAN'
 		OR ((bantype = 'TEMPBAN' OR bantype = 'ADMIN_TEMPBAN') AND expiration_time > Now())) AND isnull(unbanned)"}, sql_query_params)
 
@@ -91,6 +91,7 @@
 			var/duration = query.item[7]
 			var/bantime = query.item[8]
 			var/bantype = query.item[9]
+			var/ban_round_id = query.item[10]
 			if(bantype == "ADMIN_PERMABAN" || bantype == "ADMIN_TEMPBAN")
 				//admin bans MUST match on ckey to prevent cid-spoofing attacks
 				//	as well as dynamic ip abuse
@@ -114,7 +115,7 @@
 					appealmessage = " You may appeal it at <a href='[config.banappeals]'>[config.banappeals]</a>."
 				expires = " This ban does not expire automatically and must be appealed.[appealmessage]"
 
-			var/desc = "\nReason: You, or another user of this computer or connection ([pckey]) is banned from playing here. The ban reason is:\n[reason]\nThis ban was applied by [ackey] on [bantime].[expires]"
+			var/desc = "\nReason: You, or another user of this computer or connection ([pckey]) is banned from playing here. The ban reason is:\n[reason]\nThis ban was applied by [ackey] on [bantime][ban_round_id ? " (Round [ban_round_id])" : ""].[expires]"
 
 			. = list("reason"="[bantype]", "desc"="[desc]")
 

@@ -195,6 +195,7 @@ DROP TABLE IF EXISTS `ban`;
 CREATE TABLE `ban` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `bantime` datetime NOT NULL,
+  `ban_round_id` INT(11) NULL DEFAULT NULL,
   `serverip` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `bantype` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `reason` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -213,6 +214,7 @@ CREATE TABLE `ban` (
   `edits` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `unbanned` tinyint(1) DEFAULT NULL,
   `unbanned_datetime` datetime DEFAULT NULL,
+  `unbanned_round_id` INT(11) NULL DEFAULT NULL,
   `unbanned_ckey` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `unbanned_computerid` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `unbanned_ip` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -433,6 +435,7 @@ CREATE TABLE `notes` (
   `ckey` varchar(32) NOT NULL,
   `notetext` text NOT NULL,
   `timestamp` datetime NOT NULL,
+  `round_id` INT(11) NULL DEFAULT NULL,
   `adminckey` varchar(32) NOT NULL,
   `last_editor` varchar(32),
   `edits` text,
