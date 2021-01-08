@@ -422,11 +422,13 @@
 	},
 /area/security/main)
 "acF" = (
-/obj/structure/cable/cyan{
-	icon_state = "1-4"
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
 	},
-/turf/simulated/floor/plasteel,
-/area/engine/engineering)
+/turf/simulated/floor/plating,
+/area/security/prisonershuttle)
 "acG" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -11015,14 +11017,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/siberia)
-"atM" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plating,
-/area/security/prisonershuttle)
 "atN" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -75858,11 +75852,10 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
 "cHh" = (
-/obj/structure/cable/cyan{
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
-	},
-/obj/structure/cable/cyan{
-	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -78996,14 +78989,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
-"cMZ" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/engine/engineering)
 "cNa" = (
 /obj/machinery/light,
 /obj/structure/reagent_dispensers/watertank,
@@ -79067,6 +79052,17 @@
 /obj/effect/spawner/random_spawners/oil_maybe,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"cNj" = (
+/obj/structure/cable/cyan{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/engine/engineering)
 "cNl" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -82534,6 +82530,16 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
+"cTy" = (
+/obj/structure/cable/cyan{
+	icon_state = "1-2"
+	},
+/obj/structure/grille,
+/obj/structure/cable/cyan{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating/airless,
+/area/engine/engineering)
 "cTz" = (
 /obj/machinery/power/emitter{
 	anchored = 1;
@@ -82542,6 +82548,16 @@
 	},
 /obj/structure/cable/cyan{
 	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating/airless,
+/area/engine/engineering)
+"cTA" = (
+/obj/structure/cable/cyan{
+	icon_state = "1-2"
+	},
+/obj/structure/grille,
+/obj/structure/cable/cyan{
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/engine/engineering)
@@ -83032,6 +83048,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
+"cUn" = (
+/obj/structure/cable/cyan{
+	icon_state = "1-4"
+	},
+/obj/structure/grille,
+/turf/simulated/floor/plating/airless,
+/area/engine/engineering)
 "cUo" = (
 /obj/structure/cable/cyan{
 	icon_state = "1-8"
@@ -83183,33 +83206,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"cUD" = (
-/obj/structure/cable/cyan{
-	icon_state = "1-2"
-	},
-/obj/structure/grille,
-/obj/structure/cable/cyan{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plating/airless,
-/area/engine/engineering)
-"cUE" = (
-/obj/structure/cable/cyan{
-	icon_state = "1-2"
-	},
-/obj/structure/grille,
-/obj/structure/cable/cyan{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plating/airless,
-/area/engine/engineering)
-"cUF" = (
-/obj/structure/cable/cyan{
-	icon_state = "1-4"
-	},
-/obj/structure/grille,
-/turf/simulated/floor/plating/airless,
-/area/engine/engineering)
 "cUG" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -83891,14 +83887,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/atmos/distribution)
-"cVS" = (
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plasteel,
-/area/engine/engineering)
 "cVT" = (
 /obj/effect/decal/warning_stripes/southeast,
 /obj/structure/cable/yellow{
@@ -84121,56 +84109,6 @@
 	icon_state = "white"
 	},
 /area/toxins/xenobiology)
-"cWs" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Singularity";
-	name = "Singularity Blast Doors";
-	opacity = 0
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plating,
-/area/engine/engineering)
-"cWt" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Singularity";
-	name = "Singularity Blast Doors";
-	opacity = 0
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plating,
-/area/engine/engineering)
 "cWu" = (
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
@@ -86044,17 +85982,6 @@
 	},
 /obj/structure/cable/cyan{
 	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/engine/engineering)
-"cZR" = (
-/obj/structure/cable/cyan{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -94654,12 +94581,36 @@
 	icon_state = "redcorner"
 	},
 /area/shuttle/escape)
+"eDN" = (
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Singularity";
+	name = "Singularity Blast Doors";
+	opacity = 0
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating,
+/area/engine/engineering)
 "eJA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
 /turf/simulated/wall,
 /area/maintenance/fsmaint)
+"eLr" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/engine/engineering)
 "eTE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	req_access_txt = "0"
@@ -94686,11 +94637,26 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
+"fmm" = (
+/obj/structure/cable/cyan{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/engine/engineering)
 "fpO" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
 /area/shuttle/escape)
+"fxm" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/engine/engineering)
 "fyM" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/latex/nitrile,
@@ -94752,6 +94718,14 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"fVd" = (
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/engine/engineering)
 "fZO" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/backpack/medic,
@@ -95844,6 +95818,15 @@
 	icon_state = "browncorner"
 	},
 /area/shuttle/escape)
+"tbu" = (
+/obj/structure/cable/cyan{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/cyan{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/engine/engineering)
 "tbC" = (
 /obj/structure/chair{
 	dir = 4
@@ -96052,7 +96035,13 @@
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
-"wyr" = (
+"wHx" = (
+/obj/machinery/door/airlock/shuttle/glass{
+	name = "Shuttle Cargo Hatch"
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/escape)
+"wJb" = (
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
@@ -96061,18 +96050,22 @@
 	opacity = 0
 	},
 /obj/structure/cable/yellow{
-	d1 = 2;
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
 	d2 = 8;
-	icon_state = "2-8"
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
 /area/engine/engineering)
-"wHx" = (
-/obj/machinery/door/airlock/shuttle/glass{
-	name = "Shuttle Cargo Hatch"
-	},
-/turf/simulated/floor/plasteel,
-/area/shuttle/escape)
 "wOS" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/black,
@@ -96125,15 +96118,6 @@
 	tag = "icon-whiteblue (SOUTHEAST)"
 	},
 /area/shuttle/escape)
-"xio" = (
-/obj/effect/decal/warning_stripes/east,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/engine/engineering)
 "xlr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -96166,15 +96150,6 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
-"xqR" = (
-/obj/effect/decal/warning_stripes/south,
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/engine/engineering)
 "xtk" = (
 /obj/structure/bed/roller,
 /turf/simulated/floor/plasteel{
@@ -96258,6 +96233,31 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"yis" = (
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Singularity";
+	name = "Singularity Blast Doors";
+	opacity = 0
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plating,
+/area/engine/engineering)
 "ylx" = (
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
@@ -118953,13 +118953,13 @@ aaa
 aaa
 aaa
 aaa
-atM
+acF
 auy
-atM
+acF
 adZ
-atM
+acF
 auy
-atM
+acF
 akZ
 akZ
 akZ
@@ -120494,7 +120494,7 @@ aaa
 aaa
 aaa
 aaa
-atM
+acF
 acW
 adr
 adK
@@ -122403,7 +122403,7 @@ cKb
 cOX
 cSU
 dsI
-acF
+fmm
 cVj
 cVj
 cVx
@@ -122676,16 +122676,16 @@ daG
 cSU
 cSC
 cTt
-cUD
+cTy
 cTt
-cUF
+cUn
 cSU
 cSU
 cSU
 cSC
 cTt
-cUD
-cUF
+cTy
+cUn
 cSU
 cSU
 aaa
@@ -122925,7 +122925,7 @@ cVj
 cWP
 cVj
 cYE
-cHh
+tbu
 cRw
 cQY
 cRo
@@ -123951,11 +123951,11 @@ dtb
 dtl
 cVj
 cXy
-cMZ
-cMZ
-cZR
+cHh
+cHh
+cNj
 cSN
-cWs
+wJb
 cRq
 dfo
 dgE
@@ -125499,7 +125499,7 @@ cOg
 cVj
 deC
 dfs
-xqR
+eLr
 dfo
 cSF
 afO
@@ -125755,7 +125755,7 @@ cYZ
 cQG
 cVc
 cVy
-xio
+fxm
 cVT
 dfo
 cSF
@@ -126522,10 +126522,10 @@ cYR
 cZM
 cXN
 cSU
-cVS
-cZR
+fVd
+cNj
 cVq
-cWt
+yis
 cRp
 dfo
 dgE
@@ -126782,7 +126782,7 @@ cYo
 cZE
 cZQ
 cSv
-wyr
+eDN
 cRp
 dfo
 afO
@@ -127565,7 +127565,7 @@ cSC
 cTt
 cUq
 cTt
-cUF
+cUn
 dib
 dbQ
 cUI
@@ -127816,7 +127816,7 @@ daj
 cSU
 cTm
 cTt
-cUE
+cTA
 cTt
 cUo
 cSU
@@ -127824,7 +127824,7 @@ cSU
 cSU
 cTm
 cTt
-cUE
+cTA
 cUK
 cSU
 cSU
