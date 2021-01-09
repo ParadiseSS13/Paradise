@@ -12,7 +12,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	var/recentpump = 0 // to prevent spammage
-	weapon_weight = WEAPON_MEDIUM
+	weapon_weight = WEAPON_HEAVY
 
 /obj/item/gun/projectile/shotgun/attackby(obj/item/A, mob/user, params)
 	. = ..()
@@ -131,6 +131,7 @@
 	name = "assault shotgun"
 	desc = sawn_desc
 	w_class = WEIGHT_CLASS_NORMAL
+	weapon_weight = WEAPON_MEDIUM
 	current_skin = "riotshotgun-short"
 	item_state = "gun"			//phil235 is it different with different skin?
 	slot_flags &= ~SLOT_BACK    //you can't sling it on your back
@@ -320,6 +321,7 @@
 	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/tube
 	w_class = WEIGHT_CLASS_HUGE
+	weapon_weight = WEAPON_HEAVY
 	var/toggled = 0
 	var/obj/item/ammo_box/magazine/internal/shot/alternate_magazine
 
