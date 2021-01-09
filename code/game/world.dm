@@ -281,6 +281,10 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		fcopy(GLOB.config_error_log, "[GLOB.log_directory]/config_error.log")
 		fdel(GLOB.config_error_log)
 
+	// Save the current round's log path to a text file for other scripts to use.
+	var/F = file("data/logpath.txt")
+	fdel(F)
+	F << GLOB.log_directory
 
 // Proc to enable the extools debugger, which allows breakpoints, live var checking, and many other useful tools
 // The DLL is injected into the env by visual studio code. If not running VSCode, the proc will not call the initialization
