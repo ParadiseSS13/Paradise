@@ -58,10 +58,7 @@
 			server = config.server_name
 
 	// Force cast this to 1/0 incase someone tries to feed bad data
-	if(automated)
-		automated = TRUE
-	else
-		automated = FALSE
+	automated = !!automated
 
 	var/datum/db_query/query_noteadd = SSdbcore.NewQuery({"
 		INSERT INTO [format_table_name("notes")] (ckey, timestamp, notetext, adminckey, server, crew_playtime, round_id, automated)

@@ -49,19 +49,16 @@
 
 	if(has_note)
 		deserialize_and_load(raw_text)
-		last_infraction_date = SQLtime()
 		infraction_count++
-		matched_ckeys |= matched_ckey
-		matched_ips |= matched_ip
-		matched_cids |= matched_cid
 	else
 		// Sane defaults
 		first_infraction_date = SQLtime()
-		last_infraction_date = SQLtime()
 		infraction_count = 1
-		matched_ckeys |= matched_ckey
-		matched_ips |= matched_ip
-		matched_cids |= matched_cid
+
+	last_infraction_date = SQLtime()
+	matched_ckeys |= matched_ckey
+	matched_ips |= matched_ip
+	matched_cids |= matched_cid
 
 	serialize_and_save(has_note)
 
@@ -111,11 +108,6 @@
 		if(!update_existing_note.warn_execute())
 			qdel(update_existing_note)
 			return
+		qdel(update_existing_note)
 	else // They dont have a note. Insert.
 		add_note(cookie_holder_ckey, serialized_text, adminckey = COOKIERECORD_PSUEDO_CKEY, logged = FALSE, checkrights = FALSE, automated = TRUE)
-
-/client/verb/aatesting()
-	var/target_ckey = input(usr, "Target ckey")
-	var/target_ip = input(usr, "Target IP")
-	var/target_cid = input(usr, "Target CID")
-	new /datum/cookie_record(ckey, target_ckey, target_ip, target_cid)

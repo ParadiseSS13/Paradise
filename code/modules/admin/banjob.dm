@@ -44,7 +44,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 
 /proc/jobban_isbanned_ckey(ckey, rank)
 	if(!ckey || !rank)
-		return 0
+		return null
 
 	if(config.guest_jobban && guest_jobbans(rank))
 		if(IsGuestKey(ckey))
@@ -52,8 +52,8 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 
 	if(GLOB.jobban_assoclist[ckey])
 		return GLOB.jobban_assoclist[ckey][rank]
-	else
-		return 0
+
+	return null
 
 /proc/jobban_loadbanfile()
 	if(config.ban_legacy_system)
