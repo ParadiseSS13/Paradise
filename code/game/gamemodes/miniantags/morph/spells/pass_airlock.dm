@@ -2,6 +2,8 @@
 /obj/effect/proc_holder/spell/targeted/click/pass_airlock
 	name = "Pass Airlock"
 	desc = "Reform yourself so you can fit through a non bolted airlock. Takes a while to do and can only be used in a non disguised form."
+	action_background_icon_state = "bg_morph"
+	action_icon_state = "morph_airlock"
 	clothes_req = FALSE
 	charge_max = 10 SECONDS
 	range = 1
