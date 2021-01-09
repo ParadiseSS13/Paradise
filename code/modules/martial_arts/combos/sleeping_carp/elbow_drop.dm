@@ -1,7 +1,7 @@
 /datum/martial_combo/sleeping_carp/elbow_drop
 	name = "Elbow Drop"
 	steps = list(MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_HARM)
-	explaination_text = "Opponent must be on the ground. Deals huge damage, instantly kills anyone in critical condition."
+	explaination_text = "Opponent must be on the ground. Deals huge damage, instantly kills anyone."
 
 /datum/martial_combo/sleeping_carp/elbow_drop/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(target.IsWeakened() || target.resting || target.stat)
