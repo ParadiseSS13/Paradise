@@ -65,7 +65,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				to_chat(H, "<i><b>You are free!</b></i>")
 				H.status_flags = temp_flags
 				sleep(10)
-				playsound(H.loc, 'sound/effects/ghost.ogg', 50, 1)
+				playsound(H.loc, 'sound/effects/ghost.ogg', 50, TRUE)
 				var/newNameId = pick(GLOB.possibleShadowlingNames)
 				GLOB.possibleShadowlingNames.Remove(newNameId)
 				H.real_name = newNameId
