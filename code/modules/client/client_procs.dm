@@ -293,6 +293,9 @@
 	if(world.byond_version >= 511 && byond_version >= 511 && prefs.clientfps)
 		fps = prefs.clientfps
 
+	// Check if the client has or has not accepted TOS
+	check_tos_consent()
+
 	// This has to go here to avoid issues
 	// If you sleep past this point, you will get SSinput errors as well as goonchat errors
 	// DO NOT STUFF RANDOM SQL QUERIES BELOW THIS POINT WITHOUT USING `INVOKE_ASYNC()` OR SIMILAR
@@ -1044,7 +1047,6 @@
   * Arguments:
   * * notify - Do we notify admins of this new accounts date
   */
-
 /client/proc/get_byond_account_date(notify = FALSE)
 	// First we see if the client has a saved date in the DB
 	var/datum/db_query/query_date = SSdbcore.NewQuery("SELECT byond_date, DATEDIFF(Now(), byond_date) FROM [format_table_name("player")] WHERE ckey=:ckey", list(
@@ -1100,6 +1102,42 @@
 
 /client/proc/show_update_notice()
 	to_chat(src, "<span class='userdanger'>Your BYOND client (v: [byond_version].[byond_build]) is out of date. This can cause glitches. We highly suggest you download the latest client from <a href='https://www.byond.com/download/'>byond.com</a> before playing. You can also update via the BYOND launcher application.</span>")
+
+/**
+  * Checks if the client has accepted TOS
+  *
+  * Runs some checks against vars and the DB to see if the client has accepted TOS.
+  * Returns TRUE or FALSE if they have or have not
+  */
+/client/proc/check_tos_consent()
+	// If there is no TOS, auto accept
+	if(!GLOB.join_tos)
+		tos_consent = TRUE
+		return TRUE
+
+	// If theres no DB, assume yes
+	if(!SSdbcore.IsConnected())
+		tos_consent = TRUE
+		return TRUE
+
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("privacy")] WHERE ckey=:ckey AND consent=1", list(
+		"ckey" = ckey
+	))
+	if(!query.warn_execute())
+		qdel(query)
+		// If our query failed, just assume yes
+		tos_consent = TRUE
+		return TRUE
+
+	// If we returned a row, they accepted
+	while(query.NextRow())
+		qdel(query)
+		tos_consent = TRUE
+		return TRUE
+
+	qdel(query)
+	// If we are here, they have not accepted, and need to read it
+	return FALSE
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

@@ -645,10 +645,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	closeToolTip(usr)
 
 /obj/item/MouseDrop_T(obj/item/I, mob/user)
-	if(!user || src == I)
+	if(!user || user.incapacitated(ignore_lying = TRUE) || src == I)
 		return
 
-	if(loc && I.loc == loc && istype(loc, /obj/item/storage)) // Are we trying to swap two items in the storage?
+	if(loc && I.loc == loc && istype(loc, /obj/item/storage) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?
 		var/obj/item/storage/S = loc
 		S.swap_items(src, I, user)
 

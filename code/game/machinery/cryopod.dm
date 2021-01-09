@@ -377,10 +377,11 @@
 			SSticker.mode.cult_objs.ready_to_summon()
 
 	//Update any existing objectives involving this mob.
-	for(var/datum/objective/O in GLOB.all_objectives)
-		if(O.target != occupant.mind)
-			continue
-		O.on_target_cryo()
+	if(occupant.mind)
+		for(var/datum/objective/O in GLOB.all_objectives)
+			if(O.target != occupant.mind)
+				continue
+			O.on_target_cryo()
 	if(occupant.mind && occupant.mind.assigned_role)
 		//Handle job slot/tater cleanup.
 		var/job = occupant.mind.assigned_role
