@@ -156,8 +156,7 @@
 /obj/machinery/computer/cryopod/proc/dispense_item(obj/item/I)
 	if(!(I in frozen_items))
 		return
-	I.forceMove(get_turf(src))
-	item_got_removed(I)
+	I.forceMove(get_turf(src)) // Will call item_got_removed due to the signal being registered to COMSIG_MOVABLE_MOVED
 
 /obj/machinery/computer/cryopod/emag_act(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
