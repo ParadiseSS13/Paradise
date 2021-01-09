@@ -1201,7 +1201,7 @@
 		else // They dont have a note. Make one.
 			// NOT logged because its automatic and will spam logs otherwise
 			// Also right checking must be disabled because its a psuedockey, not a real one
-			add_note(ckey, "Connected on the date of this note with unique CID #[cidcount]", adminckey = CIDTRACKING_PSUEDO_CKEY, logged = FALSE, checkrights = FALSE)
+			add_note(ckey, "Connected on the date of this note with unique CID #[cidcount]", adminckey = CIDTRACKING_PSUEDO_CKEY, logged = FALSE, checkrights = FALSE, automated = TRUE)
 
 		var/show_warning = TRUE
 		// Check if they have a note that matches the warning suppressor

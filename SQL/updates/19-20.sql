@@ -6,5 +6,6 @@ ALTER TABLE `ban` ADD COLUMN `ban_round_id` INT NULL DEFAULT NULL AFTER `bantime
 ALTER TABLE `ban` ADD COLUMN `unbanned_round_id` INT NULL DEFAULT NULL AFTER `unbanned_datetime`;
 
 
-# Add new column to notes
+# Add new columns to notes
 ALTER TABLE `notes` ADD COLUMN `round_id` INT NULL DEFAULT NULL AFTER `timestamp`;
+ALTER TABLE `notes` ADD COLUMN `automated` TINYINT UNSIGNED NULL DEFAULT '0' AFTER `crew_playtime`;

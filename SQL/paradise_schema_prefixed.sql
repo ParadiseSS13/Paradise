@@ -440,6 +440,7 @@ CREATE TABLE `SS13_notes` (
   `edits` text,
   `server` varchar(50) NOT NULL,
   `crew_playtime` mediumint(8) UNSIGNED DEFAULT '0',
+  `automated` TINYINT(3) UNSIGNED NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
