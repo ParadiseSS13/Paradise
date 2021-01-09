@@ -32,8 +32,8 @@
 	if(!impact_area)
 		CRASH("No valid areas for anomaly found.")
 	var/list/turf_test = get_area_turfs(impact_area)
-	if(!turf_test.len)
-		CRASH("Anomaly : No valid turfs found for [impact_area] - [impact_area.type]")
+	if(!length(turf_test))
+		CRASH("Anomaly: No valid turfs found for [impact_area] - [impact_area.type]")
 
 /datum/event/anomaly/announce()
 	GLOB.event_announcement.Announce("Localized hyper-energetic flux wave detected on long range scanners. Expected location of impact: [impact_area.name].", "Anomaly Alert")

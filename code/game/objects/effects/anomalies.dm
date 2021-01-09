@@ -13,7 +13,7 @@
 	var/movechance = ANOMALY_MOVECHANCE
 	var/obj/item/assembly/signaler/anomaly/aSignal = /obj/item/assembly/signaler/anomaly
 	var/area/impact_area
-
+	/// Time in deciseconds before the anomaly triggers
 	var/lifespan = 990
 	var/death_time
 
@@ -23,7 +23,7 @@
 	/// Do we drop a core when we're neutralized?
 	var/drops_core = TRUE
 
-/obj/effect/anomaly/Initialize(mapload, new_lifespan, drops_core = TRUE)
+/obj/effect/anomaly/Initialize(mapload, new_lifespan, _drops_core = TRUE)
 	. = ..()
 	GLOB.poi_list |= src
 	START_PROCESSING(SSobj, src)
@@ -32,7 +32,7 @@
 	if(!impact_area)
 		return INITIALIZE_HINT_QDEL
 
-	src.drops_core = drops_core
+	drops_core = _drops_core
 
 	aSignal = new aSignal(src)
 	aSignal.code = rand(1, 100)
@@ -73,7 +73,7 @@
 	return
 
 /obj/effect/anomaly/ex_act(severity)
-	if(severity == 1)
+	if(severity == EXPLODE_DEVASTATE)
 		qdel(src)
 
 /obj/effect/anomaly/proc/anomalyNeutralize()
@@ -152,7 +152,7 @@
 /obj/effect/anomaly/flux/anomalyEffect()
 	..()
 	canshock = TRUE
-	for(var/mob/living/M in range(0, src))
+	for(var/mob/living/M in get_turf(src))
 		mobShock(M)
 
 /obj/effect/anomaly/flux/Crossed(atom/movable/AM)
@@ -210,26 +210,26 @@
 
 		if(chosen)
 			// Calculate previous position for transition
-			var/turf/FROM = T // the turf of origin we're travelling FROM
-			var/turf/TO = get_turf(chosen) // the turf of origin we're travelling TO
+			var/turf/turf_from = T // the turf of origin we're travelling FROM
+			var/turf/turf_to = get_turf(chosen) // the turf of origin we're travelling TO
 
-			playsound(TO, 'sound/effects/phasein.ogg', 100, TRUE)
+			playsound(turf_to, 'sound/effects/phasein.ogg', 100, TRUE)
 			GLOB.event_announcement.Announce("Massive bluespace translocation detected.", "Anomaly Alert")
 
 			var/list/flashers = list()
-			for(var/mob/living/carbon/C in viewers(TO, null))
+			for(var/mob/living/carbon/C in viewers(turf_to, null))
 				if(C.flash_eyes())
 					flashers += C
 
-			var/y_distance = TO.y - FROM.y
-			var/x_distance = TO.x - FROM.x
-			for(var/atom/movable/A in urange(12, FROM)) // iterate thru list of mobs in the area
+			var/y_distance = turf_to.y - turf_from.y
+			var/x_distance = turf_to.x - turf_from.x
+			for(var/atom/movable/A in urange(12, turf_from)) // iterate thru list of mobs in the area
 				if(istype(A, /obj/item/radio/beacon))
 					continue // don't teleport beacons because that's just insanely stupid
 				if(A.anchored || A.move_resist == INFINITY)
 					continue
 
-				var/turf/newloc = locate(A.x + x_distance, A.y + y_distance, TO.z) // calculate the new place
+				var/turf/newloc = locate(A.x + x_distance, A.y + y_distance, turf_to.z) // calculate the new place
 				if(!A.Move(newloc) && newloc) // if the atom, for some reason, can't move, FORCE them to move! :) We try Move() first to invoke any movement-related checks the atom needs to perform after moving
 					A.forceMove(newloc)
 

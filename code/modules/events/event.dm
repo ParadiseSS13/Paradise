@@ -51,8 +51,8 @@
 	return 0*/
 
 /datum/event	//NOTE: Times are measured in master controller ticks!
-	var/name
 	/// The human-readable name of the event
+	var/name
 	var/processing = 1
 	/// When in the lifetime to call start().
 	var/startWhen		= 0
