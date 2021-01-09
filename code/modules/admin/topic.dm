@@ -108,6 +108,10 @@
 		var/banjob = href_list["dbbanaddjob"]
 		var/banreason = href_list["dbbanreason"]
 
+		var/job_ban = FALSE
+		var/multi_job = FALSE
+		var/list/jobs_to_ban = list()
+
 		banckey = ckey(banckey)
 
 		switch(bantype)
@@ -127,10 +131,12 @@
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey, reason and job)</span>")
 					return
 				banduration = null
+				job_ban = TRUE
 			if(BANTYPE_JOB_TEMP)
 				if(!banckey || !banreason || !banjob || !banduration)
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey, reason and job)</span>")
 					return
+				job_ban = TRUE
 			if(BANTYPE_APPEARANCE)
 				if(!banckey || !banreason)
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey and reason)</span>")
@@ -167,7 +173,68 @@
 		else
 			message_admins("Ban process: A mob matching [playermob.ckey] was found at location [playermob.x], [playermob.y], [playermob.z]. Custom IP and computer id fields replaced with the IP and computer id from the located mob")
 
-		DB_ban_record(bantype, playermob, banduration, banreason, banjob, null, banckey, banip, bancid )
+		if(job_ban)
+			if(banjob in list("commanddept","securitydept","engineeringdept","medicaldept","sciencedept","supportdept","nonhumandept"))
+				multi_job = TRUE
+				switch(banjob)
+					if("commanddept")
+						for(var/jobPos in GLOB.command_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("securitydept")
+						for(var/jobPos in GLOB.security_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("engineeringdept")
+						for(var/jobPos in GLOB.engineering_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("medicaldept")
+						for(var/jobPos in GLOB.medical_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("sciencedept")
+						for(var/jobPos in GLOB.science_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("supportdept")
+						for(var/jobPos in GLOB.support_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("nonhumandept")
+						jobs_to_ban += "pAI"
+						for(var/jobPos in GLOB.nonhuman_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+
+		// If the job ban is for multiple jobs in one group (IE: Command), iterate through jobs and ban each individually
+		if(multi_job)
+			//Create a list of unbanned jobs within joblist
+			var/list/notbannedlist = list()
+			for(var/job in jobs_to_ban)
+				if(!jobban_isbanned_ckey(banckey, job))
+					notbannedlist += job
+
+			for(var/job in notbannedlist)
+				DB_ban_record(bantype, playermob, banduration, banreason, job, null, banckey, banip, bancid)
+
+		// Otherwise, do it normally
+		else
+			DB_ban_record(bantype, playermob, banduration, banreason, banjob, null, banckey, banip, bancid)
 
 
 	else if(href_list["editrights"])
