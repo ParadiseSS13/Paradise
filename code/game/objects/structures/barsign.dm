@@ -18,7 +18,7 @@
 /obj/structure/sign/barsign/New()
 	..()
 	//filling the barsigns lists
-	for(var/bartype in subtypesof(/datum/barsign))
+	for(var/bartype in typesof(/datum/barsign))
 		var/datum/barsign/signinfo = new bartype
 		if(!signinfo.hidden)
 			barsigns += signinfo
@@ -58,13 +58,17 @@
 
 /obj/structure/sign/barsign/attack_hand(mob/user)
 	if(panel_open)
-		if(broken)
-			to_chat(user, "<span class='danger'>The controls seem unresponsive.</span>")
-			return
+		if(allowed(user))
+			if(broken)
+				to_chat(user, "<span class='danger'>The controls seem unresponsive.</span>")
+				return
+			else
+				pick_sign()
+				to_chat(user, "<span class='notice'>You set the barsign and close the maintenance panel.</span>")
+				panel_open = FALSE
+				return
 		else
-			pick_sign()
-			to_chat(user, "<span class='notice'>You set the barsign and close the maintenance panel.</span>")
-			panel_open = FALSE
+			to_chat(user, "<span class='info'>Access denied.</span>")
 			return
 	else
 		to_chat(user, "<span class='info'>The maintenance panel is currently closed.</span>")
@@ -90,20 +94,17 @@
 		return
 
 /obj/structure/sign/barsign/screwdriver_act(mob/user)
-	if(allowed(user))
-		if(!panel_open)
-			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
-			set_sign(new /datum/barsign/signoff)
-			panel_open = TRUE
-		else
-			to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
-			panel_open = FALSE
+	if(!panel_open)
+		to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
+		set_sign(new /datum/barsign/signoff)
+		panel_open = TRUE
 	else
-		to_chat(user, "<span class='info'>Access denied.</span>")
-		return
+		to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
+		panel_open = FALSE
+	return
 
 /obj/structure/sign/barsign/proc/pick_sign()
-	var/list/signs = barsigns
+	var/list/signs = barsigns.Copy()
 	var/new_sign
 	if(!broken)
 		if(!emagged)
@@ -132,7 +133,7 @@
 		return
 	set_sign(new /datum/barsign/syndibarsign)
 	emagged = TRUE
-	req_access = list(ACCESS_SYNDICATE)
+	req_access += list(ACCESS_SYNDICATE)
 
 //Code below is to define useless variables for datums. It errors without these
 /datum/barsign
