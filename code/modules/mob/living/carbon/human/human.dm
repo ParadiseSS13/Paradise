@@ -911,7 +911,7 @@
 
 	if(href_list["employment_more"])
 		if(hasHUD(usr, EXAMINE_HUD_SKILLS))
-			if(usr.incapacitated())
+			if(usr.incapacitated() && !isobserver(usr))
 				return
 
 			var/skills
