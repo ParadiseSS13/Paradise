@@ -18,19 +18,25 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/Destroy()
 	GLOB.all_objectives -= src
+	if(owner)
+		for(var/datum/antagonist/A in owner.antag_datums)
+			A.objectives -= src
+	if(team)
+		team.objectives -= src
 	return ..()
 
 /datum/objective/proc/check_completion()
 	return completed
-
-/datum/objective/proc/check_team_completion()
-	return check_completion()
+	
+/datum/objective/proc/get_owners() // Combine owner and team into a single list. 
+	. = (team && team.members) ? team.members.Copy() : list()
+	if(owner)
+		. += owner
 
 /datum/objective/proc/is_invalid_target(datum/mind/possible_target)
-	if(possible_target == owner)
+	var/list/datum/mind/owners = get_owners()
+	if(possible_target in owners)
 		return TARGET_INVALID_IS_OWNER
-	if(possible_target in owner.targets)
-		return TARGET_INVALID_IS_TARGET
 	if(!ishuman(possible_target.current))
 		return TARGET_INVALID_NOT_HUMAN
 	if(possible_target.current.stat == DEAD)
@@ -57,6 +63,32 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 	if(possible_targets.len > 0)
 		target = pick(possible_targets)
+
+/datum/objective/proc/considered_escape(datum/mind/M) //find out if the owner escaped
+	if(issilicon(M.current))
+		return FALSE
+	if(isbrain(M.current))
+		return FALSE
+	if(!M.current || M.current.stat == DEAD)
+		return FALSE
+	if(SSticker.force_ending) //This one isn't their fault, so lets just assume good faith
+		return TRUE
+	if(SSticker.mode.station_was_nuked) //If they escaped the blast somehow, let them win
+		return TRUE
+	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
+		return FALSE
+
+	var/turf/location = get_turf(M.current)
+	if(!location)
+		return FALSE
+
+	if(istype(location, /turf/simulated/shuttle/floor4) || istype(location, /turf/simulated/floor/mineral/plastitanium/red/brig)) // Fails traitors if they are in the shuttle brig -- Polymorph
+		return FALSE
+
+	if(location.onCentcom() || location.onSyndieBase())
+		return TRUE
+
+	return FALSE
 
 /**
   * Called when the objective's target goes to cryo.
@@ -101,6 +133,22 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return 0
 	return 1
 
+/datum/objective/assassinate/shared // team version
+
+/datum/objective/assassinate/shared/post_target_cryo()
+	var/list/datum/mind/owners = get_owners()
+	if(owner)
+		owner?.objectives -= src
+	if(team)
+		find_target()
+		if(!target)
+			GLOB.all_objectives -= src
+			team?.objectives -= src
+			qdel(src)
+			return
+		for(var/datum/mind/M in owners)
+			M?.objectives += src
+			M?.announce_objectives()
 
 /datum/objective/mutiny
 	martyr_compatible = 1
@@ -216,16 +264,18 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	Syndicate agents, other enemies of Nanotrasen, cyborgs, pets, and cuffed/restrained hostages may be allowed on the shuttle alive."
 
 /datum/objective/hijack/check_completion()
-	if(!owner.current || owner.current.stat)
-		return 0
 	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
-		return 0
-	if(issilicon(owner.current))
-		return 0
+		return FALSE
+	var/list/datum/mind/owners = get_owners()
+	for(var/datum/mind/M in owners) //require all owners to pass
+		if(!M.current || M.current.stat)
+			return FALSE
+		if(issilicon(M.current))
+			return FALSE
 
-	var/area/A = get_area(owner.current)
-	if(SSshuttle.emergency.areaInstance != A)
-		return 0
+		var/area/A = get_area(M.current)
+		if(SSshuttle.emergency.areaInstance != A)
+			return FALSE
 
 	return SSshuttle.emergency.is_hijacked()
 
@@ -287,30 +337,12 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/escape
 	explanation_text = "Escape on the shuttle or an escape pod alive and free."
 
-/datum/objective/escape/check_completion()
-	if(issilicon(owner.current))
-		return 0
-	if(isbrain(owner.current))
-		return 0
-	if(!owner.current || owner.current.stat == DEAD)
-		return 0
-	if(SSticker.force_ending) //This one isn't their fault, so lets just assume good faith
-		return 1
-	if(SSticker.mode.station_was_nuked) //If they escaped the blast somehow, let them win
-		return 1
-	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
-		return 0
-	var/turf/location = get_turf(owner.current)
-	if(!location)
-		return 0
-
-	if(istype(location, /turf/simulated/shuttle/floor4) || istype(location, /turf/simulated/floor/mineral/plastitanium/red/brig)) // Fails traitors if they are in the shuttle brig -- Polymorph
-		return 0
-
-	if(location.onCentcom() || location.onSyndieBase())
-		return 1
-
-	return 0
+/datum/objective/escape/check_completion() //require all owners to escape alive
+	var/list/datum/mind/owners = get_owners()
+	for(var/datum/mind/M in owners) 
+		if(!considered_escape(M))
+			return FALSE
+	return TRUE
 
 
 /datum/objective/escape/escape_with_identity
@@ -392,8 +424,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		var/datum/theft_objective/O = new thefttype
 		if(owner.assigned_role in O.protected_jobs)
 			continue
-		if(O in owner.targets)
-			continue
 		if(O.flags & 2)
 			continue
 		steal_target = O
@@ -426,19 +456,22 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return steal_target
 
 /datum/objective/steal/check_completion()
+	var/list/datum/mind/owners = get_owners()
 	if(!steal_target)
-		return 1 // Free Objective
+		return TRUE // Free Objective
 
-	if(!owner.current)
-		return FALSE
+	for(var/datum/mind/M in owners)
+		if(!isliving(M.current))
+			continue
+		
+		var/list/all_items = M.current.GetAllContents()
 
-	var/list/all_items = owner.current.GetAllContents()
-
-	for(var/obj/I in all_items)
-		if(istype(I, steal_target.typepath))
-			return steal_target.check_special_completion(I)
-		if(I.type in steal_target.altitems)
-			return steal_target.check_special_completion(I)
+		for(var/obj/I in all_items)
+			if(istype(I, steal_target.typepath))
+				return steal_target.check_special_completion(I)
+			if(I.type in steal_target.altitems)
+				return steal_target.check_special_completion(I)
+	return FALSE
 
 
 /datum/objective/steal/exchange

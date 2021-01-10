@@ -68,8 +68,8 @@
 			var/win = TRUE
 			var/objective_count = 1
 			text += "<span class='header'>The blood brothers of [B.name] were:</span>"
-			for(var/brother in B.members)
-				text += "[brother]"
+			for(var/datum/mind/brother in B.members)
+				text += "[brother.name]"
 			for(var/datum/objective/objective in B.objectives)
 				if(objective.check_completion())
 					text += "<B>Objective #[objective_count]</B>: [objective.explanation_text] <span class='greentext'>Success!</span>"
