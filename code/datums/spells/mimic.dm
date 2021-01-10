@@ -23,7 +23,7 @@
 	var/perfect_disguise = FALSE
 
 	var/static/list/black_listed_form_types = list(/obj/screen, /obj/singularity, /obj/effect, /mob/living/simple_animal/hostile/megafauna, /atom/movable/lighting_object, /obj/machinery/dna_vault,
-													/obj/machinery/power/bluespace_tap)
+													/obj/machinery/power/bluespace_tap, /obj/structure/sign/barsign, /obj/machinery/atmospherics/unary/cryo_cell)
 
 /obj/effect/proc_holder/spell/targeted/click/mimic/valid_target(atom/target, user)
 	if(is_type_in_list(target, black_listed_form_types))
