@@ -15,7 +15,8 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	if(user.stat || !ishuman(user) || !user || !is_shadow(user || isinspace(user)))
 		return
 	if(!isturf(user.loc))
-		to_chat(user, "<span class='warning'>You can't hatch here!</span>")
+		revert_cast(user)
+		to_chat(user, "<span class='warning'>You must be standing on a floor to hatch!</span>")
 		return
 	for(var/mob/living/carbon/human/H in targets)
 		var/hatch_or_no = alert(H,"Are you sure you want to hatch? You cannot undo this!",,"Yes","No")
