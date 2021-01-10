@@ -3,6 +3,8 @@
 
 	if(!key || !address || !computer_id)
 		log_adminwarn("Failed Login (invalid data): [key] [address]-[computer_id]")
+		// The nested ternaries are needed here
+		INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, (ckey(key) || ""), (address || ""), (computer_id || ""), CONNECTION_TYPE_DROPPED_INVALID)
 		return list("reason"="invalid login data", "desc"="Error: Could not check ban status, please try again. Error message: Your computer provided invalid or blank information to the server on connection (BYOND Username, IP, and Computer ID). Provided information for reference: Username: '[key]' IP: '[address]' Computer ID: '[computer_id]'. If you continue to get this error, please restart byond or contact byond support.")
 
 	if(type == "world")
@@ -10,6 +12,7 @@
 
 	if(text2num(computer_id) == 2147483647) //this cid causes stickybans to go haywire
 		log_adminwarn("Failed Login (invalid cid): [key] [address]-[computer_id]")
+		INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey(key), address, computer_id, CONNECTION_TYPE_DROPPED_INVALID)
 		return list("reason"="invalid login data", "desc"="Error: Could not check ban status, Please try again. Error message: Your computer provided an invalid Computer ID.")
 
 	var/admin = 0
@@ -28,6 +31,7 @@
 	if(!GLOB.guests_allowed && IsGuestKey(key))
 		log_adminwarn("Failed Login: [key] [computer_id] [address] - Guests not allowed")
 		// message_admins("<span class='notice'>Failed Login: [key] - Guests not allowed</span>")
+		INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey(key), address, computer_id, CONNECTION_TYPE_DROPPED_BANNED)
 		return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a BYOND account.")
 
 	//check if the IP address is a known proxy/vpn, and the user is not whitelisted
@@ -36,6 +40,7 @@
 		var/mistakemessage = ""
 		if(config.banappeals)
 			mistakemessage = "\nIf you have to use one, request whitelisting at:  [config.banappeals]"
+		INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey(key), address, computer_id, CONNECTION_TYPE_DROPPED_IPINTEL)
 		return list("reason"="using proxy or vpn", "desc"="\nReason: Proxies/VPNs are not allowed here. [mistakemessage]")
 
 
@@ -120,6 +125,7 @@
 			. = list("reason"="[bantype]", "desc"="[desc]")
 
 			log_adminwarn("Failed Login: [key] [computer_id] [address] - Banned [.["reason"]]")
+			INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey(key), address, computer_id, CONNECTION_TYPE_DROPPED_BANNED)
 			qdel(query)
 			return .
 		qdel(query)
@@ -136,5 +142,5 @@
 			return null
 		else
 			log_adminwarn("Failed Login: [key] [computer_id] [address] - Banned [.["message"]]")
-
+			INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey(key), address, computer_id, CONNECTION_TYPE_DROPPED_BANNED)
 	return .
