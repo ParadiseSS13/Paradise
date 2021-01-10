@@ -68,6 +68,9 @@ GLOBAL_VAR(bomb_set)
 		else
 			to_chat(user, "<span class='notice'>You need to deploy [src] first.</span>")
 		return
+	else if(istype(O, /obj/item/disk/plantgene))
+		to_chat(user, "<span class='warning'>You try to plant the disk, but despite rooting around, it won't fit! After you branch out to read the instructions, you find out where the problem stems from. You've been bamboo-zled, this isn't a nuclear disk at all!</span>")
+		return
 	return ..()
 
 /obj/machinery/nuclearbomb/crowbar_act(mob/user, obj/item/I)

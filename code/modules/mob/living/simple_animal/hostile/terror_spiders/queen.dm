@@ -367,7 +367,7 @@
 	desc = "This multi-layered web seems to be able to resist air pressure."
 
 
-/obj/structure/spider/terrorweb/queen/New()
+/obj/structure/spider/terrorweb/queen/Initialize(mapload)
 	. = ..()
 	air_update_turf(TRUE)
 
