@@ -120,7 +120,9 @@ var/list/chatResources = list(
 		to_chat(owner, message)
 
 	messageQueue = null
-	src.sendClientData()
+	// We can only store a cookie on the client if they actually accept TOS because GDPR is GDPR
+	if(owner.tos_consent)
+		sendClientData()
 
 	pingLoop()
 
