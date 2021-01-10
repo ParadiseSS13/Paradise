@@ -36,15 +36,14 @@
 
 	if(target.is_open_container() != 0 && target.reagents)
 		if(!target.reagents.total_volume)
-			to_chat(user, "<span class='warning'>[target] is empty. Cant dissolve [src].</span>")
+			to_chat(user, "<span class='warning'>[target] has no liquid to dissolve [src] in.</span>")
 			return
 
-		to_chat(user, "<span class='notify'>You dissolve [src] in [target].</span>")
+		to_chat(user, "<span class='notice'>You dissolve [src] in [target].</span>")
 		reagents.trans_to(target, reagents.total_volume)
 		for(var/mob/O in viewers(2, user))
 			O.show_message("<span class='warning'>[user] puts something in [target].</span>", 1)
-		spawn(5)
-			qdel(src)
+		qdel(src)
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Pills. END
