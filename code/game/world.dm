@@ -31,7 +31,7 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	#endif
 
 	if(!fexists("config/config.txt") || !fexists("config/game_options.txt"))
-		stack_trace("The game config files have not been properly set! Please move ALL files from '/example/config' into the parent folder, '/config'.")
+		stack_trace("The game config files have not been properly set! Please copy ALL files from '/example/config' into the parent folder, '/config'.")
 
 	if(byond_version < MIN_COMPILER_VERSION || byond_build < MIN_COMPILER_BUILD)
 		log_world("Your server's byond version does not meet the recommended requirements for this code. Please update BYOND")
