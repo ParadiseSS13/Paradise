@@ -728,7 +728,7 @@ SUBSYSTEM_DEF(jobs)
 	id_change_records = new_id_change_records
 
 // This proc will update all players EXP at once. It will calculate amount of time to add dynamically based on the SS fire time.
-/datum/controller/subsystem/proc/batch_update_player_exp(announce = FALSE)
+/datum/controller/subsystem/jobs/proc/batch_update_player_exp(announce = FALSE)
 	// Right off the bat
 	var/start_time = start_watch()
 	// First calculate minutes
@@ -740,11 +740,12 @@ SUBSYSTEM_DEF(jobs)
 
 	// Step 1: Get us a list of clients to process
 	var/list/client/clients_to_process = GLOB.clients.Copy() // This is copied so that clients joining in the middle of this dont break things
-	log_debug("Starting EXP update for [length(clients_to_process)] clients. (Adding [minutes] minutes)")
+	Debug("Starting EXP update for [length(clients_to_process)] clients. (Adding [minutes] minutes)")
 
 	var/list/datum/db_query/select_queries = list() // List of SELECT queries to mass grab EXP.
 
-	for(var/client/C in clients_to_process)
+	for(var/i in clients_to_process)
+		var/client/C = i
 		if(!C)
 			continue // If a client logs out in the middle of this
 
@@ -760,9 +761,11 @@ SUBSYSTEM_DEF(jobs)
 	// TRUE: We want warnings if these fail
 	// FALSE: Do NOT qdel() queries here, otherwise they wont be read. At all.
 	// TRUE: This is an assoc list, so it needs to prepare for that
-	SSdbcore.MassExecute(select_queries, TRUE, FALSE, TRUE) // Batch execute so we can take advantage of async magic
+	// FALSE: We dont want to logspam
+	SSdbcore.MassExecute(select_queries, TRUE, FALSE, TRUE, FALSE) // Batch execute so we can take advantage of async magic
 
-	for(var/client/C in clients_to_process)
+	for(var/i in clients_to_process)
+		var/client/C = i
 		if(!C)
 			continue // If a client logs out in the middle of this
 
@@ -777,7 +780,8 @@ SUBSYSTEM_DEF(jobs)
 	var/list/datum/db_query/player_update_queries = list() // List of queries to update player EXP
 	var/list/datum/db_query/playtime_history_update_queries = list() // List of queries to update the playtime history table
 
-	for(var/client/C in clients_to_process)
+	for(var/i in clients_to_process)
+		var/client/C = i
 		if(!C)
 			continue // If a client logs out in the middle of this
 		// Get us a container
@@ -803,27 +807,27 @@ SUBSYSTEM_DEF(jobs)
 			added_living += minutes
 
 			if(announce)
-				to_chat(C.mob,"<span class='notice'>You got: [minutes] Living EXP!</span>")
+				to_chat(C.mob, "<span class='notice'>You got: [minutes] Living EXP!</span>")
 
 			for(var/category in GLOB.exp_jobsmap)
 				if(GLOB.exp_jobsmap[category]["titles"])
 					if(myrole in GLOB.exp_jobsmap[category]["titles"])
 						play_records[C.ckey][category] += minutes
 						if(announce)
-							to_chat(C.mob,"<span class='notice'>You got: [minutes] [category] EXP!</span>")
+							to_chat(C.mob, "<span class='notice'>You got: [minutes] [category] EXP!</span>")
 
 			if(C.mob.mind.special_role)
 				play_records[C.ckey][EXP_TYPE_SPECIAL] += minutes
 				if(announce)
-					to_chat(C.mob,"<span class='notice'>You got: [minutes] Special EXP!</span>")
+					to_chat(C.mob, "<span class='notice'>You got: [minutes] Special EXP!</span>")
 
 		else if(isobserver(C.mob))
 			play_records[C.ckey][EXP_TYPE_GHOST] += minutes
 			added_ghost += minutes
 			if(announce)
-				to_chat(C.mob,"<span class='notice'>You got: [minutes] Ghost EXP!</span>")
+				to_chat(C.mob, "<span class='notice'>You got: [minutes] Ghost EXP!</span>")
 		else
-			return
+			continue
 
 		var/new_exp = list2params(play_records[C.ckey])
 
@@ -853,8 +857,8 @@ SUBSYSTEM_DEF(jobs)
 		playtime_history_update_queries += update_query_history
 
 
-	// warn=TRUE, qdel=TRUE, assoc=FALSE
-	SSdbcore.MassExecute(player_update_queries, TRUE, TRUE, FALSE) // Batch execute so we can take advantage of async magic
-	SSdbcore.MassExecute(playtime_history_update_queries, TRUE, TRUE, FALSE)
+	// warn=TRUE, qdel=TRUE, assoc=FALSE, log=FALSE
+	SSdbcore.MassExecute(player_update_queries, TRUE, TRUE, FALSE, FALSE) // Batch execute so we can take advantage of async magic
+	SSdbcore.MassExecute(playtime_history_update_queries, TRUE, TRUE, FALSE, FALSE)
 
-	log_debug("Successfully updated all EXP data in [stop_watch(start_time)]s")
+	Debug("Successfully updated all EXP data in [stop_watch(start_time)]s")
