@@ -137,28 +137,27 @@
 
 /obj/item/paper/attack(mob/living/carbon/M, mob/living/carbon/user, def_zone)
 	if(!ishuman(M))
-		return
+		return ..()
 	var/mob/living/carbon/human/H = M
 	if(user.zone_selected == "eyes")
-		user.visible_message("<span class='notice'> [user] holds up a paper and shows it to [H]. </span>",
-			"<span class='notice'>You show the paper to [H]. </span>")
+		user.visible_message("<span class='notice'>[user] holds up a paper and shows it to [H].</span>",
+			"<span class='notice'>You show the paper to [H].</span>")
 		H.examinate(src)
 
 	else if(user.zone_selected == "mouth")
 		if(H == user)
 			to_chat(user, "<span class='notice'>You wipe off your face with [src].</span>")
-			H.lip_style = null
-			H.update_body()
 		else
 			user.visible_message("<span class='warning'>[user] begins to wipe [H]'s face clean with \the [src].</span>",
 							 	 "<span class='notice'>You begin to wipe off [H]'s face.</span>")
-			if(do_after(user, 1 SECONDS, target = H) && do_after(H, 1 SECONDS, FALSE))	//user needs to keep their active hand, H does not.
-				user.visible_message("<span class='notice'>[user] wipes [H]'s face clean with \the [src].</span>",
-					"<span class='notice'>You wipe off [H]'s face.</span>")
-				H.lip_style = null
-				H.update_body()
-	else
-		..()
+			if(!do_after(user, 1 SECONDS, target = H) && do_after(H, 1 SECONDS, FALSE)) // user needs to keep their active hand, H does not.
+				return
+			user.visible_message("<span class='notice'>[user] wipes [H]'s face clean with \the [src].</span>",
+				"<span class='notice'>You wipe off [H]'s face.</span>")
+
+		H.lip_style = null
+		H.lip_color = null
+		H.update_body()
 
 /obj/item/paper/proc/addtofield(var/id, var/text, var/links = 0)
 	if(id > MAX_PAPER_FIELDS)
