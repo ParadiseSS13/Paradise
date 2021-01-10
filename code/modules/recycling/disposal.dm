@@ -1157,11 +1157,12 @@
 	return ..()
 
 /obj/structure/disposalpipe/trunk/proc/getlinked()
-	var/obj/machinery/disposal/D = locate() in src.loc
+	var/turf/T = get_turf(src)
+	var/obj/machinery/disposal/D = locate() in T
 	if(D)
 		nicely_link_to_other_stuff(D)
 		return
-	var/obj/structure/disposaloutlet/O = locate() in src.loc
+	var/obj/structure/disposaloutlet/O = locate() in T
 	if(O)
 		nicely_link_to_other_stuff(O)
 
