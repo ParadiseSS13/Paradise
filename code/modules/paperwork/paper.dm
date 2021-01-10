@@ -150,7 +150,7 @@
 		else
 			user.visible_message("<span class='warning'>[user] begins to wipe [H]'s face clean with \the [src].</span>",
 							 	 "<span class='notice'>You begin to wipe off [H]'s face.</span>")
-			if(!do_after(user, 1 SECONDS, target = H) && do_after(H, 1 SECONDS, FALSE)) // user needs to keep their active hand, H does not.
+			if(!do_after(user, 1 SECONDS, target = H) || !do_after(H, 1 SECONDS, FALSE)) // user needs to keep their active hand, H does not.
 				return
 			user.visible_message("<span class='notice'>[user] wipes [H]'s face clean with \the [src].</span>",
 				"<span class='notice'>You wipe off [H]'s face.</span>")
