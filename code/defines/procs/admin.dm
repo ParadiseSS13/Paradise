@@ -48,7 +48,7 @@
 			if(include_link && C)
 				. += "<a href='?priv_msg=[C.ckey];type=[type]'>"
 			. += key
-			if(C.watchlisted)
+			if(C && C.watchlisted)
 				. += "<font color='orange'><b>(W)</b></font>"
 
 		if(include_link)

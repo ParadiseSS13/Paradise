@@ -157,11 +157,11 @@
 
 		var/mob/playermob
 
-		for(var/mob/M in GLOB.player_list)
-			if(M.ckey == banckey)
-				playermob = M
-				break
-
+		if("autopopulate" in href_list)
+			for(var/mob/M in GLOB.player_list)
+				if(M.ckey == banckey)
+					playermob = M
+					break
 
 		banreason = "(MANUAL BAN) "+banreason
 
