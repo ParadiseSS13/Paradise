@@ -247,8 +247,9 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	//HALLUCINATE
 	else if((findtext(message, GLOB.hallucinate_words)))
 		for(var/V in listeners)
-			var/mob/living/L = V
-			new /obj/effect/hallucination/delusion(get_turf(L),L,duration=150 * power_multiplier,skip_nearby=0)
+			#warn TODO: port
+			// var/mob/living/L = V
+			// new /obj/effect/hallucination/delusion(get_turf(L),L,duration=150 * power_multiplier,skip_nearby=0)
 		next_command = world.time + cooldown_meme
 
 	//WAKE UP

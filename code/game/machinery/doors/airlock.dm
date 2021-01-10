@@ -1188,6 +1188,7 @@ About the new airlock wires panel:
 
 	if(!density)
 		return TRUE
+	SEND_SIGNAL(src, COMSIG_AIRLOCK_OPEN)
 	operating = TRUE
 	update_icon(AIRLOCK_OPENING, 1)
 	sleep(1)
@@ -1228,6 +1229,7 @@ About the new airlock wires panel:
 	if(killthis)
 		killthis.ex_act(EXPLODE_HEAVY)//Smashin windows
 
+	SEND_SIGNAL(src, COMSIG_AIRLOCK_CLOSE)
 	operating = TRUE
 	update_icon(AIRLOCK_CLOSING, 1)
 	layer = CLOSED_DOOR_LAYER

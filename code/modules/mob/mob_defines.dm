@@ -202,3 +202,6 @@
 	var/registered_z
 
 	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override
+
+	/// Overrides the health HUD element state if set.
+	var/health_hud_override = HEALTH_HUD_OVERRIDE_NONE

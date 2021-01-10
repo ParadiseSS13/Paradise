@@ -546,8 +546,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	var/mob/living/carbon/human/clone = null
 	var/clone_weapon = null
 
-	for(var/thing in GLOB.human_list)
-		var/mob/living/carbon/human/H = thing
+	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		if(H.stat || H.lying)
 			continue
 		clone = H

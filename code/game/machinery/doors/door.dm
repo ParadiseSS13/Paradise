@@ -266,6 +266,7 @@
 		return TRUE
 	if(operating)
 		return
+	SEND_SIGNAL(src, COMSIG_DOOR_OPEN)
 	operating = TRUE
 	do_animate("opening")
 	set_opacity(0)
@@ -295,6 +296,7 @@
 						autoclose_in(60)
 					return
 
+	SEND_SIGNAL(src, COMSIG_DOOR_CLOSE)
 	operating = TRUE
 
 	do_animate("closing")

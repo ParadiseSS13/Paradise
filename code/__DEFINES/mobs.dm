@@ -251,3 +251,9 @@
 #define HEARING_PROTECTION_MINOR	1
 #define HEARING_PROTECTION_MAJOR	2
 #define HEARING_PROTECTION_TOTAL	3
+
+// Defines used in /mob/living/carbon/human/update_health_hud to override the health status
+#define HEALTH_HUD_OVERRIDE_NONE 0
+#define HEALTH_HUD_OVERRIDE_CRIT 1
+#define HEALTH_HUD_OVERRIDE_DEAD 2
+#define HEALTH_HUD_OVERRIDE_HEALTHY 3
