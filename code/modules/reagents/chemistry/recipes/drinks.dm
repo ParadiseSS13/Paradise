@@ -876,3 +876,12 @@
 	required_reagents = list("ice" = 1, "hot_coco" = 3)
 	result_amount = 4
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/fernet_cola
+	name = "Fernet Cola"
+	id = "fernet_cola"
+	result = "fernet_cola"
+	required_reagents = list("fernet" = 1, "cola" = 2)
+	result_amount = 3
+	mix_message = "The ingredients mix into a dark brown godly substance"
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
