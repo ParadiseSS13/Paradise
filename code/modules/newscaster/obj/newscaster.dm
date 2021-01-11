@@ -678,8 +678,6 @@
 /obj/machinery/newscaster/proc/alert_news(announcement, wanted_notice = FALSE)
 	if(!is_operational())
 		return
-
-
 	if(wanted_notice)
 		atom_say("Attention! Wanted issue distributed!")
 		playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
