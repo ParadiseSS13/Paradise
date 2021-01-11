@@ -295,7 +295,7 @@
 
 	fix_modules()
 
-/obj/item/robot_module/janitor/respawn_consumable(var/mob/living/silicon/robot/R)
+/obj/item/robot_module/janitor/respawn_consumable(mob/living/silicon/robot/R)
 	if(emag)
 		var/obj/item/reagent_containers/spray/S = emag
 		S.reagents.add_reagent("lube", 5)
