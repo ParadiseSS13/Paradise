@@ -34,8 +34,8 @@
 /obj/structure/spider/stickyweb
 	icon_state = "stickyweb1"
 
-/obj/structure/spider/stickyweb/New()
-	..()
+/obj/structure/spider/stickyweb/Initialize(mapload)
+	. = ..()
 	if(prob(50))
 		icon_state = "stickyweb2"
 
@@ -60,8 +60,8 @@
 	var/player_spiders = 0
 	var/list/faction = list("spiders")
 
-/obj/structure/spider/eggcluster/New()
-	..()
+/obj/structure/spider/eggcluster/Initialize(mapload)
+	. = ..()
 	pixel_x = rand(3,-3)
 	pixel_y = rand(3,-3)
 	START_PROCESSING(SSobj, src)
@@ -93,8 +93,8 @@
 	var/list/faction = list("spiders")
 	var/selecting_player = 0
 
-/obj/structure/spider/spiderling/New()
-	..()
+/obj/structure/spider/spiderling/Initialize(mapload)
+	. = ..()
 	pixel_x = rand(6,-6)
 	pixel_y = rand(6,-6)
 	START_PROCESSING(SSobj, src)
@@ -156,12 +156,8 @@
 	//=================
 
 	else if(prob(33))
-		var/list/nearby = oview(10, src)
-		if(nearby.len)
-			var/target_atom = pick(nearby)
-			walk_to(src, target_atom)
-			if(prob(40))
-				visible_message("<span class='notice'>[src] skitters[pick(" away"," around","")].</span>")
+		if(random_skitter() && prob(40))
+			visible_message("<span class='notice'>[src] skitters[pick(" away"," around","")].</span>")
 	else if(prob(10))
 		//ventcrawl!
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
@@ -190,6 +186,18 @@
 								to_chat(S, "<span class='biggerdanger'>You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost.</span>")
 			qdel(src)
 
+/obj/structure/spider/spiderling/proc/random_skitter()
+	var/list/available_turfs = list()
+	for(var/turf/simulated/S in oview(10, src))
+		// no !isspaceturf check needed since /turf/simulated is not a subtype of /turf/space
+		if(S.density)
+			continue
+		available_turfs += S
+	if(!length(available_turfs))
+		return FALSE
+	walk_to(src, pick(available_turfs))
+	return TRUE
+
 /obj/structure/spider/spiderling/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!istype(user, /mob/living/silicon/robot/drone))
 		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
@@ -213,8 +221,8 @@
 	icon_state = "cocoon1"
 	max_integrity = 60
 
-/obj/structure/spider/cocoon/New()
-	..()
+/obj/structure/spider/cocoon/Initialize(mapload)
+	. = ..()
 	icon_state = pick("cocoon1","cocoon2","cocoon3")
 
 /obj/structure/spider/cocoon/Destroy()

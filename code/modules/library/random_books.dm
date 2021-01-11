@@ -27,7 +27,7 @@
 	icon_state = "random_bookcase"
 	anchored = TRUE
 
-/obj/structure/bookcase/random/New()
+/obj/structure/bookcase/random/Initialize()
 	. = ..()
 	if(!book_count || !isnum(book_count))
 		update_icon()
@@ -54,7 +54,7 @@
 	if(category)
 		c = " AND category=:category"
 		sql_params["category"] = category
-	
+
 	sql_params["amount"] = amount
 	var/datum/db_query/query_get_random_books = SSdbcore.NewQuery("SELECT author, title, content FROM [format_table_name("library")] WHERE (isnull(flagged) OR flagged = 0)[c] GROUP BY title ORDER BY rand() LIMIT :amount", sql_params)
 	if(!query_get_random_books.warn_execute())
