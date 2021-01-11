@@ -920,7 +920,7 @@
 /area/awaymission/spacebattle/cruiser)
 "cF" = (
 /obj/structure/table/reinforced,
-/obj/machinery/microwave,
+/obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria";
 	dir = 2

@@ -24,6 +24,7 @@
 	projectiletype = /obj/item/projectile/terrorqueenspit/empress
 	icon = 'icons/mob/terrorspider64.dmi'
 	pixel_x = -16
+	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 	mob_size = MOB_SIZE_LARGE
 	icon_state = "terror_empress"
 	icon_living = "terror_empress"
@@ -99,7 +100,7 @@
 	for(var/thing in GLOB.ts_spiderlist)
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
 		if(T.spider_tier < spider_tier)
-			T.degenerate = 1
+			T.degenerate = TRUE
 			to_chat(T, "<span class='userdanger'>Through the hivemind, the raw power of [src] floods into your body, burning it from the inside out!</span>")
 	for(var/obj/structure/spider/eggcluster/terror_eggcluster/T in GLOB.ts_egg_list)
 		qdel(T)

@@ -14,5 +14,5 @@
 		to_chat(user, "<span class='notice'>We distort our form to prevent AI-tracking.</span>")
 	user.digitalcamo = !user.digitalcamo
 
-	feedback_add_details("changeling_powers","CAM")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1

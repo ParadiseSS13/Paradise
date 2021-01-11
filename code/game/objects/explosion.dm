@@ -122,13 +122,13 @@
 							affecting_level = S.is_shielded() ? 2 : (S.intact ? 2 : 1)
 						for(var/atom in S.contents)	//bypass type checking since only atom can be contained by turfs anyway
 							var/atom/AM = atom
-							if(AM && AM.simulated)
+							if(!QDELETED(AM) && AM.simulated)
 								if(AM.level >= affecting_level)
 									AM.ex_act(dist)
 					else
 						for(var/atom in T.contents)	//see above
 							var/atom/AM = atom
-							if(AM && AM.simulated)
+							if(!QDELETED(AM) && AM.simulated)
 								AM.ex_act(dist)
 							CHECK_TICK
 					if(breach)

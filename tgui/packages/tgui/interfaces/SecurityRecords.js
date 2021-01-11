@@ -15,6 +15,9 @@ const statusStyles = {
   "Incarcerated": "incarcerated",
   "Parolled": "parolled",
   "Released": "released",
+  "Demote": "demote",
+  "Search": "search",
+  "Monitor": "monitor",
 };
 
 const doEdit = (context, field) => {

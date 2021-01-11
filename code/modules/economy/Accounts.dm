@@ -19,7 +19,7 @@ GLOBAL_LIST_EMPTY(all_money_accounts)
 		GLOB.station_account = new()
 		GLOB.station_account.owner_name = "[station_name()] Station Account"
 		GLOB.station_account.account_number = rand(111111, 999999)
-		GLOB.station_account.remote_access_pin = rand(1111, 111111)
+		GLOB.station_account.remote_access_pin = rand(111111, 999999)
 		GLOB.station_account.money = STATION_START_CASH
 
 		//create an entry in the account transaction log for when it was created
@@ -35,7 +35,7 @@ GLOBAL_LIST_EMPTY(all_money_accounts)
 	var/datum/money_account/department_account = new()
 	department_account.owner_name = "[department] Account"
 	department_account.account_number = rand(111111, 999999)
-	department_account.remote_access_pin = rand(1111, 111111)
+	department_account.remote_access_pin = rand(111111, 999999)
 	department_account.money = DEPARTMENT_START_CASH
 
 	//create an entry in the account transaction log for when it was created
@@ -55,7 +55,7 @@ GLOBAL_LIST_EMPTY(all_money_accounts)
 	//create a new account
 	var/datum/money_account/M = new()
 	M.owner_name = new_owner_name
-	M.remote_access_pin = rand(1111, 111111)
+	M.remote_access_pin = rand(111111, 999999)
 	M.money = starting_funds
 
 	//create an entry in the account transaction log for when it was created
@@ -87,8 +87,9 @@ GLOBAL_LIST_EMPTY(all_money_accounts)
 		R.name = "Account information: [M.owner_name]"
 
 		var/overseer = "Unknown"
-		if(source_db.held_card)
-			overseer = source_db.held_card.registered_name
+		var/datum/ui_login/L = source_db.ui_login_get()
+		if(L.id)
+			overseer = L.id.registered_name
 		R.info = {"<b>Account details (confidential)</b><br><hr><br>
 			<i>Account holder:</i> [M.owner_name]<br>
 			<i>Account number:</i> [M.account_number]<br>

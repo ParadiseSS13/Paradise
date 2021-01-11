@@ -56,10 +56,15 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	wander = FALSE
 	layer = BELOW_MOB_LAYER
 	AIStatus = AI_OFF
+	del_on_death = TRUE
+	/// Current spawn cooldown remaining
 	var/swarmer_spawn_cooldown = 0
-	var/swarmer_spawn_cooldown_amt = 150 //Deciseconds between the swarmers we spawn
+	/// Current help cooldown remaining
 	var/call_help_cooldown = 0
-	var/call_help_cooldown_amt = 150 //Deciseconds between calling swarmers to help us when attacked
+	/// Time between the swarmers we spawn
+	var/swarmer_spawn_cooldown_amt = 15 SECONDS
+	/// Time between calling swarmers to help us when attacked
+	var/call_help_cooldown_amt = 15 SECONDS
 	var/static/list/swarmer_caps
 
 
@@ -87,6 +92,8 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 		call_help_cooldown = world.time + call_help_cooldown_amt
 		summon_backup(25) //long range, only called max once per 15 seconds, so it's not deathlag
 
+/mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/emp_act(severity)
+	adjustHealth(50)
 
 /obj/item/gps/internal/swarmer_beacon
 	icon_state = null

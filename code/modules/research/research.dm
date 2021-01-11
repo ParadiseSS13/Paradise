@@ -100,8 +100,13 @@ research holder datum.
 		return
 	known_tech[T.id] = T
 
+/datum/research/proc/CanAddDesign2Known(var/datum/design/D)
+	if (D.id in known_designs)
+		return FALSE
+	return TRUE
+
 /datum/research/proc/AddDesign2Known(var/datum/design/D)
-	if(D.id in known_designs)
+	if(!CanAddDesign2Known(D))
 		return
 	// Global datums make me nervous
 	known_designs[D.id] = D
@@ -129,6 +134,7 @@ research holder datum.
 			// after that it'll bump it up by 1 until it's greater
 			// than the source tech
 			KT.level = max((KT.level + 1), level)
+			SSblackbox.log_research(KT.name, KT.level)
 
 //Checks if the origin level can raise current tech levels
 //Input: Tech's ID and Level; Output: TRUE for yes, FALSE for no
@@ -163,10 +169,16 @@ research holder datum.
 /datum/research/autolathe/DesignHasReqs(var/datum/design/D)
 	return D && (D.build_type & AUTOLATHE) && ("initial" in D.category)
 
-/datum/research/autolathe/AddDesign2Known(var/datum/design/D)
-	if(!(D.build_type & AUTOLATHE))
-		return
-	..()
+/datum/research/autolathe/CanAddDesign2Known(var/datum/design/design)
+	// Specifically excludes circuit imprinter and mechfab
+	if(design.locked || !(design.build_type & (AUTOLATHE|PROTOLATHE|CRAFTLATHE)))
+		return FALSE
+
+	for(var/mat in design.materials)
+		if(mat != MAT_METAL && mat != MAT_GLASS)
+			return FALSE
+
+	return ..()
 
 //Biogenerator files
 /datum/research/biogenerator/New()
@@ -178,10 +190,10 @@ research holder datum.
 		if((D.build_type & BIOGENERATOR) && ("initial" in D.category))
 			AddDesign2Known(D)
 
-/datum/research/biogenerator/AddDesign2Known(datum/design/D)
+/datum/research/biogenerator/CanAddDesign2Known(datum/design/D)
 	if(!(D.build_type & BIOGENERATOR))
-		return
-	..()
+		return FALSE
+	return ..()
 
 //Smelter files
 /datum/research/smelter/New()
@@ -193,10 +205,10 @@ research holder datum.
 		if((D.build_type & SMELTER) && ("initial" in D.category))
 			AddDesign2Known(D)
 
-/datum/research/smelter/AddDesign2Known(datum/design/D)
+/datum/research/smelter/CanAddDesign2Known(datum/design/D)
 	if(!(D.build_type & SMELTER))
-		return
-	..()
+		return FALSE
+	return ..()
 
 /***************************************************************
 **						Technology Datums					  **

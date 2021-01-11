@@ -73,11 +73,11 @@
 	update_flags |= M.Druggy(30, FALSE)
 	M.AdjustDizzy(5)
 	M.SetDrowsy(0)
-	M.status_flags |= GOTTAGOFAST
+	M.status_flags |= GOTTAGONOTSOFAST
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/cold/nuka_cola/on_mob_delete(mob/living/M)
-	M.status_flags &= ~GOTTAGOFAST
+	M.status_flags &= ~GOTTAGONOTSOFAST
 	..()
 
 /datum/reagent/consumable/drink/cold/spacemountainwind

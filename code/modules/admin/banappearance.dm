@@ -39,7 +39,7 @@ DEBUG
 
 	appearance_loadbanfile()
 */
-
+// AA 2020-11-25: This entire proc isnt even called. What the actual fuck.
 /proc/appearance_loadbanfile()
 	if(config.ban_legacy_system)
 		var/savefile/S=new("data/appearance_full.ban")
@@ -51,20 +51,25 @@ DEBUG
 			GLOB.appearance_keylist=list()
 			log_admin("appearance_keylist was empty")
 	else
-		if(!establish_db_connection())
+		if(!SSdbcore.IsConnected())
 			log_world("Database connection failed. Reverting to the legacy ban system.")
 			config.ban_legacy_system = 1
 			appearance_loadbanfile()
 			return
 
 		//appearance bans
-		var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT ckey FROM [format_table_name("ban")] WHERE bantype = 'APPEARANCE_BAN' AND NOT unbanned = 1")
-		query.Execute()
+		var/datum/db_query/appearanceban_query = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("ban")] WHERE bantype = 'APPEARANCE_BAN' AND NOT unbanned = 1")
 
-		while(query.NextRow())
-			var/ckey = query.item[1]
+		if(!appearanceban_query.warn_execute())
+			qdel(appearanceban_query)
+			return FALSE
+
+		while(appearanceban_query.NextRow())
+			var/ckey = appearanceban_query.item[1]
 
 			GLOB.appearance_keylist.Add("[ckey]")
+
+		qdel(appearanceban_query)
 
 /proc/appearance_savebanfile()
 	var/savefile/S=new("data/appearance_full.ban")

@@ -143,29 +143,26 @@
 ///////////////////////////////////////
 */
 
+GLOBAL_LIST_EMPTY(pod_trackers)
+
 /obj/item/spacepod_equipment/misc
 	name = "pod misc"
 	desc = "You shouldn't be seeing this"
 	icon = 'icons/goonstation/pods/ship.dmi'
 	icon_state = "blank"
-	var/enabled
 
 /obj/item/spacepod_equipment/misc/tracker
 	name = "\improper spacepod tracking system"
 	desc = "A tracking device for spacepods."
 	icon_state = "pod_locator"
-	enabled = 0
 
-/obj/item/spacepod_equipment/misc/tracker/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	if(enabled)
-		enabled = 0
-		user.show_message("<span class='notice'>You disable \the [src]'s power.")
-		return
-	enabled = 1
-	user.show_message("<span class='notice'>You enable \the [src]'s power.</span>")
+/obj/item/spacepod_equipment/misc/tracker/Initialize(mapload)
+	GLOB.pod_trackers |= src
+	return ..()
+
+/obj/item/spacepod_equipment/misc/tracker/Destroy()
+	GLOB.pod_trackers -= src
+	return ..()
 
 /*
 ///////////////////////////////////////

@@ -92,10 +92,12 @@
 
 
 /mob/living/carbon/proc/vomit(var/lost_nutrition = 10, var/blood = 0, var/stun = 1, var/distance = 0, var/message = 1)
-	if(src.is_muzzled())
+	if(ismachineperson(src)) //IPCs do not vomit particulates
+		return FALSE
+	if(is_muzzled())
 		if(message)
 			to_chat(src, "<span class='warning'>The muzzle prevents you from vomiting!</span>")
-		return 0
+		return FALSE
 	if(stun)
 		Stun(4)
 	if(nutrition < 100 && !blood)
@@ -125,7 +127,7 @@
 			T = get_step(T, dir)
 			if(is_blocked_turf(T))
 				break
-	return 1
+	return TRUE
 
 /mob/living/carbon/gib()
 	. = death(1)
@@ -246,6 +248,25 @@
 						"<span class='notice'>[M] shakes [src] trying to wake [p_them()] up!</span>",\
 						"<span class='notice'>You shake [src] trying to wake [p_them()] up!</span>",\
 						)
+
+			else if(on_fire)
+				var/self_message = "<span class='warning'>You try to extinguish [src]!</span>"
+				if(prob(30) && ishuman(M)) // 30% chance of burning your hands
+					var/mob/living/carbon/human/H = M
+					var/protected = FALSE // Protected from the fire
+					if((H.gloves?.max_heat_protection_temperature > 360) || (HEATRES in H.mutations))
+						protected = TRUE
+
+					var/obj/item/organ/external/active_hand = H.get_organ("[H.hand ? "l" : "r"]_hand")
+					if(active_hand && !protected) // Wouldn't really work without a hand
+						active_hand.receive_damage(0, 5)
+						self_message = "<span class='danger'>You burn your hand trying to extinguish [src]!</span>"
+						H.update_icons()
+
+				M.visible_message("<span class='warning'>[M] tries to extinguish [src]!</span>", self_message)
+				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				adjust_fire_stacks(-0.5)
+
 			// BEGIN HUGCODE - N3X
 			else
 				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
@@ -647,6 +668,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		update_handcuffed()
 	else if(I == legcuffed)
 		legcuffed = null
+		toggle_move_intent()
 		update_inv_legcuffed()
 
 /mob/living/carbon/show_inv(mob/user)
@@ -784,8 +806,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if((I = get_restraining_item())) // If there is nothing to restrain him then he is not restrained
 		var/breakouttime = I.breakouttime
 		var/displaytime = breakouttime / 10
-		changeNext_move(CLICK_CD_BREAKOUT)
-		last_special = world.time + CLICK_CD_BREAKOUT
 		visible_message("<span class='warning'>[src] attempts to unbuckle [p_them()]self!</span>", \
 					"<span class='notice'>You attempt to unbuckle yourself... (This will take around [displaytime] seconds and you need to stay still.)</span>")
 		if(do_after(src, breakouttime, 0, target = src))
@@ -821,8 +841,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	else if(legcuffed)
 		I = legcuffed
 	if(I)
-		changeNext_move(CLICK_CD_BREAKOUT)
-		last_special = world.time + CLICK_CD_BREAKOUT
 		cuff_resist(I)
 
 /mob/living/carbon/resist_muzzle()
@@ -868,6 +886,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				legcuffed.forceMove(drop_location())
 				legcuffed.dropped()
 				legcuffed = null
+				toggle_move_intent()
 				update_inv_legcuffed()
 				return
 			else
@@ -894,6 +913,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				return
 			else if(I == legcuffed)
 				legcuffed = null
+				toggle_move_intent()
 				update_inv_legcuffed()
 				return
 			return 1
@@ -967,6 +987,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(legcuffed)
 		var/obj/item/W = legcuffed
 		legcuffed = null
+		toggle_move_intent()
 		update_inv_legcuffed()
 		if(client)
 			client.screen -= W

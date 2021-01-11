@@ -229,7 +229,7 @@
 			var/turf/ear = get_turf(M)
 			if(ear)
 				// Ghostship is magic: Ghosts can hear radio chatter from anywhere
-				if(speaker_coverage[ear] || (istype(M, /mob/dead/observer) && M.get_preference(CHAT_GHOSTRADIO)))
+				if(speaker_coverage[ear] || (istype(M, /mob/dead/observer) && M.get_preference(PREFTOGGLE_CHAT_GHOSTRADIO)))
 					. |= M		// Since we're already looping through mobs, why bother using |= ? This only slows things down.
 	return .
 
@@ -469,7 +469,7 @@
 		var/mob/M = C
 		if(M.client)
 			C = M.client
-	if(!C || !C.prefs.windowflashing)
+	if(!C || !(C.prefs.toggles2 & PREFTOGGLE_2_WINDOWFLASHING))
 		return
 	winset(C, "mainwindow", "flash=5")
 
@@ -523,7 +523,8 @@
 			if(visible_by_mobs)
 				continue
 		if(!vent.parent) // This seems to have been an issue in the past, so this is here until it's definitely fixed
-			log_debug("get_valid_vent_spawns(), vent has no parent: [vent], qdeled: [QDELETED(vent)], loc: [vent.loc]")
+			// Can cause heavy message spam in some situations (e.g. pipenets breaking)
+			// log_debug("get_valid_vent_spawns(), vent has no parent: [vent], qdeled: [QDELETED(vent)], loc: [vent.loc]")
 			continue
 		if(length(vent.parent.other_atmosmch) <= min_network_size)
 			continue
