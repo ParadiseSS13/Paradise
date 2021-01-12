@@ -1204,15 +1204,6 @@
 	else if(href_list["contractor"])
 		var/datum/contractor_hub/H = LAZYACCESS(GLOB.contractors, src)
 		switch(href_list["contractor"])
-			if("clear")
-				if(!H)
-					return
-				LAZYSET(GLOB.contractors, src, null)
-				// Notify
-				to_chat(current, "<span class='warning'><font size=3><b>You are no longer a Contractor!</b></font></span>")
-				log_admin("[key_name(usr)] has de-contractored [key_name(current)]")
-				message_admins("[key_name_admin(usr)] has de-contractored [key_name_admin(current)]")
-
 			if("add")
 				if(!H)
 					return
