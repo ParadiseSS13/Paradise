@@ -33,6 +33,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(owner)
 		. += owner
 
+/**
+  *Called when you want to know if objective target is valid or not.
+  */
 /datum/objective/proc/is_invalid_target(datum/mind/possible_target)
 	var/list/datum/mind/owners = get_owners()
 	if(possible_target in owners)
@@ -64,6 +67,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(possible_targets.len > 0)
 		target = pick(possible_targets)
 
+/**
+  *Called when you want to know if owner has escaped or not.
+  */
 /datum/objective/proc/considered_escape(datum/mind/M) //find out if the owner escaped
 	if(issilicon(M.current))
 		return FALSE
@@ -89,6 +95,24 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TRUE
 
 	return FALSE
+
+/**
+  *Called when you need members of an antag team's objective to be updated.
+  */
+/datum/objective/proc/team_update()
+	var/list/datum/mind/owners = get_owners()
+	if(owner)
+		owner?.objectives -= src
+	if(team)
+		find_target()
+		if(!target)
+			GLOB.all_objectives -= src
+			team?.objectives -= src
+			qdel(src)
+			return
+		for(var/datum/mind/M in owners)
+			M?.objectives += src
+			M?.announce_objectives()
 
 /**
   * Called when the objective's target goes to cryo.
@@ -136,19 +160,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/assassinate/shared // team version
 
 /datum/objective/assassinate/shared/post_target_cryo()
-	var/list/datum/mind/owners = get_owners()
-	if(owner)
-		owner?.objectives -= src
-	if(team)
-		find_target()
-		if(!target)
-			GLOB.all_objectives -= src
-			team?.objectives -= src
-			qdel(src)
-			return
-		for(var/datum/mind/M in owners)
-			M?.objectives += src
-			M?.announce_objectives()
+	team_update()
 
 /datum/objective/mutiny
 	martyr_compatible = 1
@@ -203,6 +215,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return 1
 	return 1
 
+/datum/objective/maroon/shared //team version
+
+/datum/objective/maroon/shared/post_target_cryo()
+	team_update()
+	
 
 /datum/objective/debrain //I want braaaainssss
 	martyr_compatible = 0

@@ -406,11 +406,11 @@
 		. += "mindslave|<b>NO</b>"
 
 /datum/mind/proc/memory_edit_brother()
-	. = _memory_edit_header("Brother")
+	. = _memory_edit_header("brother")
 	if(has_antag_datum(/datum/antagonist/brother))
-		. += "<b><font color='red'>BROTHER</font></b>|<a href='?src=[UID()];Brother=clear'>no</a>"
+		. += "<b><font color='red'>BROTHER</font></b>|<a href='?src=[UID()];brother=clear'>no</a>"
 	else
-		. += "<a href='?src=[UID()];Brother=Brother'>Brother</a>|<b>NO</b>"
+		. += "<a href='?src=[UID()];brother=brother'>brother</a>|<b>NO</b>"
 	. += _memory_edit_role_enabled(ROLE_BROTHER)
 
 /datum/mind/proc/memory_edit_silicon()
@@ -464,7 +464,7 @@
 		"vampire", // "traitorvamp",
 		"nuclear",
 		"traitor", // "traitorchan",
-		"Brother"
+		"brother"
 	)
 	var/mob/living/carbon/human/H = current
 	if(ishuman(current))
@@ -498,7 +498,7 @@
 	if(issilicon(current))
 		sections["silicon"] = memory_edit_silicon()
 	/** BLOOD BROTHERS **/
-	sections["Brother"] = memory_edit_brother(H)
+	sections["brother"] = memory_edit_brother(H)
 	/*
 		This prioritizes antags relevant to the current round to make them appear at the top of the panel.
 		Traitorchan and traitorvamp are snowflaked in because they have multiple sections.
@@ -1226,8 +1226,8 @@
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 
-	else if(href_list["Brother"])
-		switch(href_list["Brother"])
+	else if(href_list["brother"])
+		switch(href_list["brother"])
 			if("clear")
 				if(has_antag_datum(/datum/antagonist/brother))
 					to_chat("<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a blood brother!</B></FONT></span>")
@@ -1235,18 +1235,18 @@
 					log_admin("[key_name(usr)] has de-brothered [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-brothered[key_name_admin(current)]")
 
-			if("Brother")
+			if("brother")
 				if(!(has_antag_datum(/datum/antagonist/brother)))
 					var/list/candidates = list()
 					for(var/mob/living/L in GLOB.alive_mob_list)
 						if(!L.mind || L.mind == current)
 							continue
-						else
-							message_admins("[key_name_admin(usr)] tried to create blood brother team with no suitable candidates")
+						
 						candidates[L.mind.name] = L.mind
 
 					var/choice = input(usr,"Choose the blood brother.", "Brother") as null|anything in sortNames(candidates)
 					if(!choice)
+						message_admins("[key_name_admin(usr)] tried to create blood brother team with no suitable candidates")
 						return
 					var/datum/mind/new_owner = current
 					var/datum/mind/bro = candidates[choice]

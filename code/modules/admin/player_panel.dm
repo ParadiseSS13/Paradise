@@ -472,7 +472,13 @@
 
 		if(SSticker.mode.traitors.len)
 			dat += check_role_table("Traitors", SSticker.mode.traitors)
-
+		
+		if(SSticker.mode.brother_teams.len)
+			dat += check_role_table("Brother Teams", SSticker.mode.traitors)
+		
+		if(SSticker.mode.brothers.len)
+			dat += check_role_table("Brothers", SSticker.mode.traitors)
+			
 		if(SSticker.mode.implanted.len)
 			dat += check_role_table("Mindslaves", SSticker.mode.implanted)
 

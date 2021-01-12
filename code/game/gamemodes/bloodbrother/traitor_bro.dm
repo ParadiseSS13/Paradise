@@ -60,17 +60,16 @@
 	brother_teams += pre_brother_teams
 	return ..()
 
-/datum/game_mode/traitor/bros/proc/auto_declare_completion_brother()
+/datum/game_mode/proc/auto_declare_completion_bros()
 	if(brother_teams.len)
 		var/text
-		for(var/team in brother_teams)
-			var/datum/team/brother_team/B = team
+		for(var/datum/team/brother_team/team in brother_teams)
 			var/win = TRUE
 			var/objective_count = 1
-			text += "<span class='header'>The blood brothers of [B.name] were:</span>"
-			for(var/datum/mind/brother in B.members)
+			text += "<span class='header'>The blood brothers of [team.name] were:</span>"
+			for(var/datum/mind/brother in team.members)
 				text += "[brother.name]"
-			for(var/datum/objective/objective in B.objectives)
+			for(var/datum/objective/objective in team.objectives)
 				if(objective.check_completion())
 					text += "<B>Objective #[objective_count]</B>: [objective.explanation_text] <span class='greentext'>Success!</span>"
 				else

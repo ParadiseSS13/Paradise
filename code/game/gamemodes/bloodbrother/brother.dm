@@ -20,6 +20,7 @@
 	SSticker.mode.brothers += owner
 	owner.objectives += team.objectives
 	owner.special_role = special_role
+	update_brother_icons_added()
 	finalize_brother()
 	return ..()
 
@@ -28,6 +29,7 @@
 	if(owner.current)
 		to_chat(owner.current,"<span class='userdanger'> You are no longer the [special_role]!</span>")
 	owner.special_role = null
+	update_brother_icons_removed()
 	return ..()
 
 /datum/antagonist/brother/proc/get_brother_names()
@@ -58,7 +60,7 @@
 /datum/antagonist/brother/proc/finalize_brother()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE)
 
-/datum/antagonist/brother/proc/update_traitor_icons_added(datum/mind/brother_mind)
+/datum/antagonist/brother/proc/update_brother_icons_added(datum/mind/brother_mind)
 	if(locate(/datum/objective/hijack) in owner.objectives)
 		var/datum/atom_hud/antag/hijackhud = GLOB.huds[ANTAG_HUD_TRAITOR]
 		hijackhud.join_hud(owner.current, null)
@@ -68,7 +70,7 @@
 		traitorhud.join_hud(owner.current, null)
 		set_antag_hud(owner.current, "hudbrother")
 
-/datum/antagonist/brother/proc/update_traitor_icons_removed(datum/mind/brother_mind)
+/datum/antagonist/brother/proc/update_brother_icons_removed(datum/mind/brother_mind)
 	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
 	traitorhud.leave_hud(owner.current, null)
 	set_antag_hud(owner.current, null)
@@ -79,6 +81,7 @@
 	member_name = "Blood brother"
 	var/meeting_area
 	var/static/meeting_areas = list("The Bar","Dorms","Escape Dock","Arrivals","Holodeck","Primary Tool Storage","Recreation Area","Chapel","Library")
+	var/list/assigned_targets = list() // This includes assassinate as well as steal objectives. prevents duplicate objectives
 
 /datum/team/brother_team/is_solo()
 	return FALSE
@@ -95,10 +98,21 @@
 
 	name = last_names.Join(" & ")
 
+/datum/team/brother_team/proc/add_objective(datum/objective/O) // pre team set up.
+	objectives += O
 
-/datum/team/brother_team/proc/add_objective(datum/objective/O)
+/datum/team/brother_team/proc/add_team_objective(datum/objective/O, needs_target = FALSE) // admin edit.
 	O.team = src
 	objectives += O
+	if(needs_target)
+		O.find_target()
+	for(var/datum/mind/M in members)
+		M.objectives += O
+
+/datum/team/brother_team/proc/remove_team_objective(datum/objective/O)
+	objectives -= O
+	for(var/datum/mind/M in members)
+		M.objectives -= O
 
 /datum/team/brother_team/proc/forge_brother_objectives()
 	objectives = list()
@@ -113,11 +127,40 @@
 
 /datum/team/brother_team/proc/forge_single_objective()
 	if(prob(50))
-		if(LAZYLEN(active_ais()) && prob(100/GLOB.player_list.len))
-			add_objective(new/datum/objective/destroy)
+		var/list/active_ais = active_ais()
+		if(active_ais.len && prob(100/GLOB.player_list.len))
+			var/datum/objective/destroy/destroy_objective = new
+			destroy_objective.team = src
+			destroy_objective.find_target()
+			if("[destroy_objective]" in assigned_targets)	        
+				return FALSE
+			else if(destroy_objective.target)					    
+				assigned_targets.Add("[destroy_objective.target]")
+			add_objective(destroy_objective)
 		else if(prob(30))
-			add_objective(new/datum/objective/maroon)
+			var/datum/objective/maroon/shared/maroon_objective = new
+			maroon_objective.team = src
+			maroon_objective.find_target()
+			if("[maroon_objective]" in assigned_targets)
+				return FALSE
+			else if(maroon_objective.target)
+				assigned_targets.Add("[maroon_objective.target]")
+			add_objective(maroon_objective)
 		else
-			add_objective(new/datum/objective/assassinate)
+			var/datum/objective/assassinate/shared/kill_objective = new
+			kill_objective.team = src
+			kill_objective.find_target()
+			if("[kill_objective.target]" in assigned_targets)
+				return FALSE
+			else if(kill_objective.target)
+				assigned_targets.Add("[kill_objective.target]")
+			add_objective(kill_objective)
 	else
-		add_objective(new/datum/objective/steal)
+		var/datum/objective/steal/steal_objective = new
+		steal_objective.team = src
+		steal_objective.find_target()
+		if("[steal_objective.steal_target]" in assigned_targets)
+			return FALSE
+		else if(steal_objective.steal_target)
+			assigned_targets.Add("[steal_objective.steal_target]")
+		add_objective(steal_objective)
