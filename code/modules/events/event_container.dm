@@ -184,9 +184,9 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Disease Outbreak",			/datum/event/disease_outbreak, 			0,		list(ASSIGNMENT_MEDICAL = 150), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Headcrabs",				/datum/event/headcrabs, 				0,		list(ASSIGNMENT_SECURITY = 20)),
 		//eventos hispania
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Temperature Change",		/datum/event/temperature_change,		135,		list(ASSIGNMENT_ENGINEER = 50))
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Temperature Change",		/datum/event/temperature_change,		135,		list(ASSIGNMENT_ENGINEER = 50)),
 		//No more hispania events.
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Door Runtime",				/datum/event/door_runtime,				50,		list(ASSIGNMENT_ENGINEER = 25, ASSIGNMENT_AI = 150), TRUE)
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Door Runtime",				/datum/event/door_runtime,				50,		list(ASSIGNMENT_ENGINEER = 25, ASSIGNMENT_AI = 150), TRUE)	
 	)
 
 /datum/event_container/major
