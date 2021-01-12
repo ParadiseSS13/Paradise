@@ -11850,25 +11850,6 @@
 	icon_state = "gcircuit"
 	},
 /area/admin)
-"GZ" = (
-/obj/machinery/door/airlock/hatch/syndicate{
-	autoclose = 0;
-	frequency = 1441;
-	id_tag = "syndicate_jail_airlock_internal";
-	locked = 1;
-	name = "Syndicate Jail Internal Airlock"
-	},
-/obj/machinery/door/airlock/hatch/syndicate{
-	autoclose = 0;
-	frequency = 1441;
-	id_tag = "syndicate_jail_airlock_internal";
-	locked = 1;
-	name = "Syndicate Jail Internal Airlock"
-	},
-/turf/unsimulated/floor{
-	icon_state = "dark"
-	},
-/area/syndicate_mothership/jail)
 "Hb" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -65186,7 +65167,7 @@ Hr
 Hr
 Hr
 Om
-GZ
+Om
 Hr
 Hr
 Hr
