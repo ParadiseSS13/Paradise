@@ -10,7 +10,7 @@
 /**
   * # Syndicate Contract
   *
-  * Describes a contract that can be completed by a [/datum/antagonist/traitor/contractor].
+  * Describes a contract that can be completed by a Contractor.
   */
 /datum/syndicate_contract
 	// Settings
@@ -320,6 +320,7 @@
   */
 /datum/syndicate_contract/proc/target_received(mob/living/M, obj/effect/portal/redspace/contractor/P)
 	INVOKE_ASYNC(src, .proc/clean_up)
+	add_attack_logs(owning_hub.owner.current, M, "extracted to Syndicate Jail")
 	complete(M.stat == DEAD)
 	handle_target_experience(M, P)
 
