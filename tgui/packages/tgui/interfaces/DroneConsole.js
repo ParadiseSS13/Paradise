@@ -110,7 +110,9 @@ const DroneList = (props, context) => {
   const Divide = () => {
     if (drones.length) {
       return (
-        <Divider />
+        <Box py={0.2}>
+          <Divider />
+        </Box>
       );
     }
   };
