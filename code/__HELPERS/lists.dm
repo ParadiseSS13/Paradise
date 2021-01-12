@@ -824,3 +824,18 @@ proc/dd_sortedObjectList(list/incoming)
 			L1[key] += other_value
 		else
 			L1[key] = other_value
+
+/**
+  * A proc for turning a list into an associative list.
+  *
+  * A simple proc for turning all things in a list into an associative list, instead
+  * Each item in the list will have an associative value of TRUE
+
+  * Arguments:
+  * * flat_list - the list that it passes to make associative
+  */
+
+/proc/make_associative(list/flat_list)
+	. = list()
+	for(var/thing in flat_list)
+		.[thing] = TRUE

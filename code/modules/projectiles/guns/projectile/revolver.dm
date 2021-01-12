@@ -331,6 +331,7 @@
 	icon_state = "dshotgun"
 	item_state = "shotgun"
 	w_class = WEIGHT_CLASS_BULKY
+	weapon_weight = WEAPON_HEAVY
 	force = 10
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
@@ -362,6 +363,10 @@
 		sawoff(user)
 	else
 		return ..()
+
+/obj/item/gun/projectile/revolver/doublebarrel/sawoff(mob/user)
+    . = ..()
+    weapon_weight = WEAPON_MEDIUM
 
 /obj/item/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user)
 	var/num_unloaded = 0

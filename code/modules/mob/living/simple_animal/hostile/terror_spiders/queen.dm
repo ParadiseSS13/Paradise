@@ -26,6 +26,7 @@
 	ai_spins_webs = FALSE
 	ai_ventcrawls = FALSE
 	idle_ventcrawl_chance = 0
+	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 	force_threshold = 18 // outright immune to anything of force under 18, this means welders can't hurt it, only guns can
 	ranged = 1
 	retreat_distance = 5

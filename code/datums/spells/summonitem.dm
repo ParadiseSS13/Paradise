@@ -12,7 +12,8 @@
 	include_user = 1
 
 	var/obj/marked_item
-
+	/// List of objects which will result in the spell stopping with the recursion search
+	var/static/list/blacklisted_summons = list(/obj/machinery/computer/cryopod = TRUE, /obj/machinery/atmospherics = TRUE, /obj/structure/disposalholder = TRUE, /obj/machinery/disposal = TRUE)
 	action_icon_state = "summons"
 
 /obj/effect/proc_holder/spell/targeted/summonitem/cast(list/targets, mob/user = usr)
@@ -89,7 +90,7 @@
 						var/obj/machinery/portable_atmospherics/P = item_to_retrieve.loc
 						P.disconnect()
 						P.update_icon()
-					if(istype(item_to_retrieve.loc, /obj/structure/disposalholder) || istype(item_to_retrieve.loc, /obj/machinery/disposal))//fixes the breaking of disposals. No more bluespace connected disposal bins!
+					if(is_type_in_typecache(item_to_retrieve.loc, blacklisted_summons))
 						break
 					item_to_retrieve = item_to_retrieve.loc
 

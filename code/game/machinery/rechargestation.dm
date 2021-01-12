@@ -84,7 +84,8 @@
 	qdel(src)
 
 /obj/machinery/recharge_station/Bumped(var/mob/AM)
-	move_inside(AM)
+	if(ismob(AM))
+		move_inside(AM)
 
 /obj/machinery/recharge_station/AllowDrop()
 	return FALSE
