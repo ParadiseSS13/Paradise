@@ -387,6 +387,10 @@
 		GLOB.panic_bunker_enabled = FALSE
 		message_admins("Panic bunker has been automatically disabled due to playercount dropping below [threshold]")
 
+	// Tell clients about active testmerges
+	if(world.TgsAvailable() && length(GLOB.revision_info.testmerges))
+		to_chat(src, GLOB.revision_info.get_testmerge_chatmessage(TRUE))
+
 /client/proc/is_connecting_from_localhost()
 	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
 	if(!isnull(address) && (address in localhost_addresses))

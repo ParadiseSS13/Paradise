@@ -13,11 +13,13 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	// Setup all log paths and stamp them with startups, including round IDs
 	SetupLogs()
 
-	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED) // creates a new TGS object
+	// Initialize loading for the TGS suite
+	InitTGS()
+
 	log_world("World loaded at [time_stamp()]")
 	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
 	GLOB.revision_info.log_info()
-	load_admins() // Same here
+	load_admins() // This needs to happen early for obvious reasons
 
 	#ifdef UNIT_TESTS
 	log_world("Unit Tests Are Enabled!")
@@ -49,6 +51,10 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	#endif
 
 	return
+
+/world/proc/InitTGS()
+	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED) // creates a new TGS object
+	GLOB.revision_info.load_tgs_info() // Loads git and TM info from TGS itself
 
 // This is basically a replacement for hook/startup. Please dont shove random bullshit here
 // If it doesnt need to happen IMMEDIATELY on world load, make a subsystem for it
