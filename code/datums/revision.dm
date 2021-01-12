@@ -46,7 +46,7 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 
 	// Check if we were on TGS
 	if(world.TgsAvailable())
-		if(commit_hash != origin_commit) // Commits are different, theres likely a testmerge
+		if(origin_commit && (commit_hash != origin_commit)) // Commits are different, theres likely a testmerge
 			logmsgs += "Origin commit: [origin_commit]"
 		if(length(testmerges))
 			logmsgs += "The following PRs are testmerged:"
@@ -95,7 +95,7 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 	// Commit info
 	if(GLOB.revision_info.commit_hash && GLOB.revision_info.commit_date)
 		msg += "<b>Server Commit:</b> <a href='[config.githuburl]/commit/[GLOB.revision_info.commit_hash]'>[GLOB.revision_info.commit_hash]</a> (Date: [GLOB.revision_info.commit_date])"
-		if(GLOB.revision_info.commit_hash != GLOB.revision_info.origin_commit)
+		if(GLOB.revision_info.origin_commit && (GLOB.revision_info.commit_hash != GLOB.revision_info.origin_commit))
 			msg += "<b>Origin Commit:</b> <a href='[config.githuburl]/commit/[GLOB.revision_info.origin_commit]'>[GLOB.revision_info.origin_commit]</a>"
 	else
 		msg += "<b>Server Commit:</b> <i>Unable to determine</i>"
