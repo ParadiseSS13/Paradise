@@ -1720,7 +1720,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 	var/obj/item/I = ..()
 	// Init the hub
-	var/obj/item/contractor_uplink/CU = locate(/obj/item/contractor_uplink, I)
+	var/obj/item/contractor_uplink/CU = locate(/obj/item/contractor_uplink) in I
 	CU.hub = new(mind, CU)
 	// Update their mind stuff
 	LAZYSET(GLOB.contractors, mind, CU.hub)
