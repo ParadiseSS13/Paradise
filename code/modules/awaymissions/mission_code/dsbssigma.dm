@@ -295,17 +295,17 @@
 	desc = "A slightly faded black and red access card. Only oddity you can make out is the word 'SIGMA' printed at the bottom right corner of the card."
 	icon = 'icons/obj/card.dmi'
 	icon_state = "syndie"
-	access = list(ACCESS_AWAY_SIGMA01)
+	access = list(ACCESS_AWAY01)
 
 /obj/item/card/id/away/dsbssigma/private
 	registered_name = "William Simmons"
 	assignment = "Private"
-	access = list(ACCESS_AWAY_SIGMA01, ACCESS_AWAY_SIGMA02)
+	access = list(ACCESS_AWAY01, ACCESS_AWAY02)
 
 /obj/item/card/id/away/dsbssigma/officer
 	registered_name = "Xiu Yao"
 	assignment = "Officer"
-	access = list(ACCESS_AWAY_SIGMA01, ACCESS_AWAY_SIGMA02, ACCESS_AWAY_SIGMA03)
+	access = list(ACCESS_AWAY01, ACCESS_AWAY02, ACCESS_AWAY03)
 
 /obj/item/organ/internal/heart/gland/heals/weak
 	name = "fleshy growth"
@@ -329,10 +329,10 @@
 
 /obj/machinery/computer/id_upgrader/dsbssigma
 	icon_keyboard = "laptop_key"
-	access_to_give = list(ACCESS_AWAY_SIGMA01)
+	access_to_give = list(ACCESS_AWAY01)
 
 /obj/machinery/vending/medical/syndicate_access/dsbssigma
-	req_access = list(ACCESS_AWAY_SIGMA01)
+	req_access = list(ACCESS_AWAY01)
 	products = list(/obj/item/reagent_containers/syringe = 4, /obj/item/reagent_containers/food/pill/patch/styptic = 2, /obj/item/reagent_containers/food/pill/patch/silver_sulf = 2, /obj/item/reagent_containers/applicator/brute = 1, /obj/item/reagent_containers/applicator/burn = 1,
 					/obj/item/reagent_containers/glass/bottle/charcoal = 1, /obj/item/reagent_containers/glass/bottle/salicylic = 1, /obj/item/reagent_containers/glass/bottle/saline = 1, /obj/item/reagent_containers/glass/bottle/ether = 1,
 					/obj/item/reagent_containers/glass/bottle/atropine = 1, /obj/item/reagent_containers/glass/bottle/oculine = 1, /obj/item/reagent_containers/glass/bottle/toxin = 1, /obj/item/reagent_containers/syringe/antiviral = 2,
@@ -387,7 +387,7 @@
 	armor = list(melee = 20, bullet = 20, laser = 25, energy = 20, bomb = 10, bio = 0, rad = 10, fire = 50, acid = 50)
 	max_temperature = 25000
 	leg_overload_coeff = 50
-	operation_req_access = list(ACCESS_AWAY_SIGMA01)
+	operation_req_access = list(ACCESS_AWAY01)
 	internal_damage_threshold = 25
 	max_equip = 0
 	destruction_sleep_duration = 2
@@ -405,7 +405,7 @@
 	name = "officer's display case"
 	desc = "A display case containing a single telecrystal. A crimson reminder that no matter how big or small an atrocity is - someone, somewhere will sponsor it."
 	start_showpiece_type = /obj/item/stack/telecrystal
-	req_access = list(ACCESS_AWAY_SIGMA03)
+	req_access = list(ACCESS_AWAY03)
 
 /obj/structure/closet/fireaxecabinet/empty
 	fireaxe = null
