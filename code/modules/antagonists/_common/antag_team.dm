@@ -22,4 +22,4 @@
 
 /datum/team/proc/remove_member(datum/mind/member)
 	members -= member
-				
+		

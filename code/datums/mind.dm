@@ -1244,20 +1244,20 @@
 						
 						candidates[L.mind.name] = L.mind
 
-					var/choice = input(usr,"Choose the blood brother.", "Brother") as null|anything in sortNames(candidates)
+					var/choice = input(usr,"Choose the blood brother.", "Brother") as null|anything in candidates
 					if(!choice)
 						message_admins("[key_name_admin(usr)] tried to create blood brother team with no suitable candidates")
 						return
-					var/datum/mind/new_owner = current
 					var/datum/mind/bro = candidates[choice]
 					var/datum/team/brother_team/T = new
-					T.add_member(new_owner)
+					T.add_member(src)
 					T.add_member(bro)
 					T.pick_meeting_area()
 					T.forge_brother_objectives()
-					new_owner.add_antag_datum(/datum/antagonist/brother,T)
+					add_antag_datum(/datum/antagonist/brother,T)
 					bro.add_antag_datum(/datum/antagonist/brother, T)
 					T.update_name()
+					SSticker.mode.brother_teams += T
 					message_admins("[key_name_admin(usr)] made [key_name_admin(current)] and [key_name_admin(bro)] into blood brothers.")
 					log_admin("[key_name(usr)] made [key_name(current)] and [key_name(bro)] into blood brothers.")
 

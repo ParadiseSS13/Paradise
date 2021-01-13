@@ -435,12 +435,14 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/steal/find_target()
 	var/loop=50
+	var/list/datum/mind/owners = get_owners()
 	while(!steal_target && loop > 0)
 		loop--
 		var/thefttype = pick(GLOB.potential_theft_objectives)
 		var/datum/theft_objective/O = new thefttype
-		if(owner.assigned_role in O.protected_jobs)
-			continue
+		for(var/datum/mind/M in owners)
+			if(M.assigned_role in O.protected_jobs)
+				continue
 		if(O.flags & 2)
 			continue
 		steal_target = O

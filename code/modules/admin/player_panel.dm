@@ -474,11 +474,15 @@
 			dat += check_role_table("Traitors", SSticker.mode.traitors)
 		
 		if(SSticker.mode.brother_teams.len)
-			dat += check_role_table("Brother Teams", SSticker.mode.traitors)
-		
-		if(SSticker.mode.brothers.len)
-			dat += check_role_table("Brothers", SSticker.mode.traitors)
-			
+			dat += "<br><table cellspacing=5><tr><td><B>Brother Teams</B></td><td></td></tr>"
+			for(var/datum/team/brother_team/team in SSticker.mode.brother_teams)
+				dat += "<br><tr><td><B>[team.name]</B></td></tr>"
+				for(var/datum/mind/brother in team.members)
+					dat += "<br><tr><td>[brother.name]</td></tr>"
+				for(var/datum/objective/objective in team.objectives)
+					dat += "<br><tr><td><B>Objective</B>: [objective.explanation_text]</td></tr>"
+			dat += "</table>"
+
 		if(SSticker.mode.implanted.len)
 			dat += check_role_table("Mindslaves", SSticker.mode.implanted)
 

@@ -68,18 +68,18 @@
 			var/objective_count = 1
 			text += "<span class='header'>The blood brothers of [team.name] were:</span>"
 			for(var/datum/mind/brother in team.members)
-				text += "[brother.name]"
+				text += " [brother.name]"
 			for(var/datum/objective/objective in team.objectives)
 				if(objective.check_completion())
-					text += "<B>Objective #[objective_count]</B>: [objective.explanation_text] <span class='greentext'>Success!</span>"
+					text += "<br><B>Objective #[objective_count]</B>: [objective.explanation_text] <span class='greentext'>Success!</span>"
 				else
-					text += "<B>Objective #[objective_count]</B>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
+					text += "<br><B>Objective #[objective_count]</B>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
 					win = FALSE
 				objective_count++
 			if(win)
-				text += "<span class='greentext'>The blood brothers were successful!</span>"
+				text += "<br><span class='greentext'>The blood brothers were successful!</span>"
 			else
-				text += "<span class='redtext'>The blood brothers have failed!</span>"
+				text += "<br><span class='redtext'>The blood brothers have failed!</span>"
 	
 		to_chat(world, text)
 	return 1
