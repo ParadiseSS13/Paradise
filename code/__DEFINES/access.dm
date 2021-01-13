@@ -106,6 +106,9 @@
 
 //Awaymissions
 #define ACCESS_AWAY01 271
+#define ACCESS_AWAY_SIGMA01 280
+#define ACCESS_AWAY_SIGMA02 281
+#define ACCESS_AWAY_SIGMA03 282
 
 //Ghost roles
 #define ACCESS_FREE_GOLEMS 300
