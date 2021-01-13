@@ -91,6 +91,13 @@
 /datum/team/brother_team/is_solo()
 	return FALSE
 
+/datum/team/brother_team/Destroy()
+	for(var/datum/mind/brother in members)
+		if(brother.has_antag_datum(/datum/antagonist/brother))
+			brother.remove_antag_datum(/datum/antagonist/brother)
+	SSticker.mode.brother_teams -= src	
+	return ..()
+
 /datum/team/brother_team/proc/pick_meeting_area()
 	meeting_area = pick(meeting_areas)
 	meeting_areas -= meeting_area
@@ -105,19 +112,6 @@
 
 /datum/team/brother_team/proc/add_objective(datum/objective/O) // pre team set up.
 	objectives += O
-
-/datum/team/brother_team/proc/add_team_objective(datum/objective/O, needs_target = FALSE) // admin edit.
-	O.team = src
-	objectives += O
-	if(needs_target)
-		O.find_target()
-	for(var/datum/mind/M in members)
-		M.objectives += O
-
-/datum/team/brother_team/proc/remove_team_objective(datum/objective/O)
-	objectives -= O
-	for(var/datum/mind/M in members)
-		M.objectives -= O
 
 /datum/team/brother_team/proc/forge_brother_objectives()
 	objectives = list()
