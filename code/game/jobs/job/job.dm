@@ -49,6 +49,7 @@
 	var/exp_requirements = 0
 	var/exp_type = ""
 
+	var/min_age_allowed = 0
 	var/disabilities_allowed = 1
 	var/transfer_allowed = TRUE // If false, ID computer will always discourage transfers to this job, even if player is eligible
 	var/hidden_from_job_prefs = FALSE // if true, job preferences screen never shows this job.
@@ -123,6 +124,13 @@
 		if(C.prefs.disabilities & this_disability)
 			return 1
 	return 0
+
+/datum/job/proc/character_old_enough(client/C)
+	if(!C)
+		return FALSE
+	if(C.prefs.age >= min_age_allowed)
+		return TRUE
+	return FALSE
 
 /datum/job/proc/is_position_available()
 	return (current_positions < total_positions) || (total_positions == -1)

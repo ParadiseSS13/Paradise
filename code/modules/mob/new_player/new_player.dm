@@ -301,20 +301,29 @@
 
 /mob/new_player/proc/AttemptLateSpawn(rank,var/spawning_at)
 	if(src != usr)
-		return 0
+		return FALSE
 	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
-		to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
-		return 0
+		to_chat(usr, "<span class='warning'>Раунд либо еще не готов, либо уже завершился...</span>")
+		return FALSE
 	if(!GLOB.enter_allowed)
-		to_chat(usr, "<span class='notice'>There is an administrative lock on entering the game!</span>")
-		return 0
+		to_chat(usr, "<span class='notice'>Администратор заблокировал вход в игру!</span>")
+		return FALSE
 	if(!IsJobAvailable(rank))
-		to_chat(src, alert("[rank] is not available. Please try another."))
-		return 0
+		var/msg = "Должность [rank] недоступна. Пожалуйста, попробуйте другую."
+		to_chat(src, msg)
+		alert(msg)
+		return FALSE
 	var/datum/job/thisjob = SSjobs.GetJob(rank)
 	if(thisjob.barred_by_disability(client))
-		to_chat(src, alert("[rank] is not available due to your character's disability. Please try another."))
-		return 0
+		var/msg = "Должность [rank] недоступна в связи с инвалидностью персонажа. Пожалуйста, попробуйте другую."
+		to_chat(src, msg)
+		alert(msg)
+		return FALSE
+	if(!thisjob.character_old_enough(client))
+		var/msg = "Должность [rank] недоступна в связи с недостаточным возрастом персонажа ([client?.prefs.age]). Минимальный возраст - [thisjob.min_age_allowed]"
+		to_chat(src, msg)
+		alert(msg)
+		return FALSE
 
 	SSjobs.AssignRole(src, rank, 1)
 

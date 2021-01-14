@@ -651,21 +651,24 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				rank = job.title
 			lastJob = job
 			if(!is_job_whitelisted(user, job.title))
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[KARMA]</b></td></tr>"
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[КАРМА]</b></td></tr>"
 				continue
 			if(jobban_isbanned(user, job.title))
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[BANNED]</b></td></tr>"
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[ЗАБАНЕНО]</b></td></tr>"
 				continue
 			var/available_in_playtime = job.available_in_playtime(user.client)
 			if(available_in_playtime)
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[" + get_exp_format(available_in_playtime) + " as " + job.get_exp_req_type()  + "\]</b></td></tr>"
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[" + get_exp_format(available_in_playtime) + " за " + job.get_exp_req_type()  + "\]</b></td></tr>"
 				continue
 			if(job.barred_by_disability(user.client))
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[DISABILITY\]</b></td></tr>"
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[ИНВАЛИДНОСТЬ\]</b></td></tr>"
 				continue
 			if(!job.player_old_enough(user.client))
 				var/available_in_days = job.available_in_days(user.client)
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[IN [(available_in_days)] DAYS]</b></td></tr>"
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[ЧЕРЕЗ [(available_in_days)] ДНЕЙ]</b></td></tr>"
+				continue
+			if(!job.character_old_enough(user.client))
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[ВОЗРАСТ ОТ [(job.min_age_allowed)]]</b></td></tr>"
 				continue
 			if((job_support_low & JOB_CIVILIAN) && (job.title != "Civilian"))
 				html += "<font color=orange>[rank]</font></td><td></td></tr>"

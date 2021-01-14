@@ -81,6 +81,8 @@ SUBSYSTEM_DEF(jobs)
 			return 0
 		if(job.barred_by_disability(player.client))
 			return 0
+		if(!job.character_old_enough(player.client))
+			return 0
 		if(!is_job_whitelisted(player, rank))
 			return 0
 
@@ -136,6 +138,9 @@ SUBSYSTEM_DEF(jobs)
 		if(job.barred_by_disability(player.client))
 			Debug("FOC player has disability rendering them ineligible for job, Player: [player]")
 			continue
+		if(!job.character_old_enough(player.client))
+			Debug("FOC player character not old enough rendering them ineligible for job, Player: [player]")
+			continue
 		if(flag && !(flag in player.client.prefs.be_special))
 			Debug("FOC flag failed, Player: [player], Flag: [flag], ")
 			continue
@@ -179,6 +184,10 @@ SUBSYSTEM_DEF(jobs)
 
 		if(job.barred_by_disability(player.client))
 			Debug("GRJ player has disability rendering them ineligible for job, Player: [player]")
+			continue
+
+		if(!job.character_old_enough(player.client))
+			Debug("GRJ player character not old enough rendering them ineligible for job, Player: [player]")
 			continue
 
 		if(player.mind && (job.title in player.mind.restricted_roles))
@@ -358,6 +367,10 @@ SUBSYSTEM_DEF(jobs)
 
 				if(job.barred_by_disability(player.client))
 					Debug("DO player has disability rendering them ineligible for job, Player: [player], Job:[job.title]")
+					continue
+
+				if(!job.character_old_enough(player.client))
+					Debug("DO player character not old enough rendering them ineligible for job, Player: [player], Job:[job.title]")
 					continue
 
 				if(player.mind && (job.title in player.mind.restricted_roles))
@@ -560,6 +573,7 @@ SUBSYSTEM_DEF(jobs)
 		var/never = 0 //never
 		var/banned = 0 //banned
 		var/young = 0 //account too young
+		var/charyoung = 0 //character too young
 		var/disabled = 0 //has disability rendering them ineligible
 		for(var/mob/new_player/player in GLOB.player_list)
 			if(!(player.ready && player.mind && !player.mind.assigned_role))
@@ -576,6 +590,9 @@ SUBSYSTEM_DEF(jobs)
 			if(job.barred_by_disability(player.client))
 				disabled++
 				continue
+			if(!job.character_old_enough(player.client))
+				charyoung++
+				continue
 			if(player.client.prefs.GetJobDepartment(job, 1) & job.flag)
 				high++
 			else if(player.client.prefs.GetJobDepartment(job, 2) & job.flag)
@@ -591,6 +608,7 @@ SUBSYSTEM_DEF(jobs)
 		SSblackbox.record_feedback("nested tally", "job_preferences", banned, list("[job.title]", "banned"))
 		SSblackbox.record_feedback("nested tally", "job_preferences", young, list("[job.title]", "young"))
 		SSblackbox.record_feedback("nested tally", "job_preferences", disabled, list("[job.title]", "disabled"))
+		SSblackbox.record_feedback("nested tally", "job_preferences", charyoung, list("[job.title]", "charyoung"))
 
 
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
