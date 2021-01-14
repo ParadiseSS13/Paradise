@@ -3529,7 +3529,6 @@
 	},
 /area/awaymission/DSBSSigma/gateway)
 "gK" = (
-/obj/structure/grille,
 /turf/unsimulated/wall/fakeglass/reinforced,
 /area/awaymission/DSBSSigma/holding_cells)
 "gL" = (
@@ -10046,7 +10045,6 @@
 /turf/simulated/floor/engine/n2,
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "ri" = (
-/obj/structure/grille,
 /turf/unsimulated/wall/fakeglass/reinforced,
 /area/awaymission/DSBSSigma/virology_lab)
 "rj" = (
@@ -18212,7 +18210,6 @@
 	},
 /area/awaymission/DSBSSigma/cave_junction_west)
 "Ez" = (
-/obj/structure/grille,
 /turf/unsimulated/wall/fakeglass/reinforced,
 /area/awaymission/DSBSSigma/lockdown)
 "ED" = (
@@ -20098,7 +20095,16 @@
 "IT" = (
 /turf/simulated/mineral/asteroid/loose/cave/cracked,
 /area/awaymission/DSBSSigma/cave_junction_west)
-"Kw" = (
+"Nd" = (
+/obj/item/stack/rods,
+/obj/structure/fluff/utility/broken/smooth{
+	desc = "A broken section of catwalk.";
+	dir = 4;
+	name = "broken catwalk"
+	},
+/turf/space,
+/area/space)
+"OG" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/fluff/utility/broken/smooth{
 	desc = "A broken section of catwalk.";
@@ -20107,8 +20113,14 @@
 	},
 /turf/space,
 /area/space)
-"Md" = (
-/obj/item/stack/rods,
+"QB" = (
+/obj/structure/fluff/utility/broken/smooth{
+	desc = "A broken section of catwalk.";
+	name = "broken catwalk"
+	},
+/turf/space,
+/area/space)
+"Wp" = (
 /obj/structure/fluff/utility/broken/smooth{
 	desc = "A broken section of catwalk.";
 	dir = 4;
@@ -20116,26 +20128,11 @@
 	},
 /turf/space,
 /area/space)
-"MB" = (
+"WT" = (
 /obj/item/stack/rods,
 /obj/structure/fluff/utility/broken/smooth{
 	desc = "A broken section of catwalk.";
 	dir = 1;
-	name = "broken catwalk"
-	},
-/turf/space,
-/area/space)
-"SS" = (
-/obj/structure/fluff/utility/broken/smooth{
-	desc = "A broken section of catwalk.";
-	dir = 4;
-	name = "broken catwalk"
-	},
-/turf/space,
-/area/space)
-"Tx" = (
-/obj/structure/fluff/utility/broken/smooth{
-	desc = "A broken section of catwalk.";
 	name = "broken catwalk"
 	},
 /turf/space,
@@ -27565,7 +27562,7 @@ aa
 aa
 aa
 FU
-SS
+Wp
 aa
 ah
 ah
@@ -28035,7 +28032,7 @@ aa
 aa
 aa
 HR
-Kw
+OG
 aa
 aa
 ah
@@ -30701,7 +30698,7 @@ aa
 aa
 aa
 HN
-Md
+Nd
 rm
 ai
 ai
@@ -31012,7 +31009,7 @@ aa
 aa
 aa
 aa
-Kw
+OG
 HR
 HN
 aa
@@ -41086,7 +41083,7 @@ HN
 HN
 In
 aa
-MB
+WT
 hU
 hU
 qY
@@ -41240,7 +41237,7 @@ ae
 qY
 hU
 hV
-Tx
+QB
 HR
 HN
 aa
@@ -41273,7 +41270,7 @@ ah
 ah
 ah
 In
-Md
+Nd
 aa
 aa
 aa
@@ -41586,7 +41583,7 @@ ae
 qY
 qY
 Im
-Tx
+QB
 aa
 aa
 aa

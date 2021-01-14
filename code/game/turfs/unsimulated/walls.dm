@@ -14,8 +14,7 @@
 /turf/unsimulated/wall/fakeglass/reinforced
 	name = "reinforced plastitanium window"
 	desc = "An evil looking window of plasma and titanium. This one looks heavily reinforced."
-	icon = 'icons/obj/smooth_structures/plastitanium_window.dmi'
-	icon_state = "plastitanium_window"
+	icon_state = "fakewindows_p"
 	layer = ABOVE_OBJ_LAYER
 	level = 3
 	blocks_air = TRUE
