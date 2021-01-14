@@ -50,7 +50,7 @@
 	team_names[team_number] = "Mothership [pick(GLOB.possible_changeling_IDs)]" //TODO Ensure unique and actual alieny names
 	//Team Objective
 	var/datum/objective/experiment/team_objective = new
-	team_objective.team = team_number
+	team_objective.abteam = team_number
 	team_objectives[team_number] = team_objective
 	//Team Members
 
@@ -232,6 +232,7 @@
 // OBJECTIVES
 /datum/objective/experiment
 	target_amount = 6
+	var/abteam
 
 /datum/objective/stay_hidden
 
@@ -244,7 +245,7 @@
 	explanation_text = "Experiment on [target_amount] humans."
 
 /datum/objective/experiment/check_completion()
-	var/ab_team = team
+	var/ab_team = abteam
 	if(owner)
 		if(!owner.current || !ishuman(owner.current))
 			return FALSE
