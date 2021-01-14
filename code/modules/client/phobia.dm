@@ -16,16 +16,12 @@
 	src.owner = owner
 	RegisterSignal(owner.mob.mind, COMSIG_MIND_TRANSER_TO, .proc/on_mob_change)
 	enable()
-	RegisterSignal(owner, COMSIG_PARENT_QDELETING, .proc/on_delete_client)
 
 /datum/phobia/Destroy(force, ...)
 	if(current_mob)
 		disable()
 	owner = null
 	. = ..()
-
-/datum/phobia/proc/on_delete_client()
-	qdel(src)
 
 /**
  * Returns the atoms that will get a different sprite for the owner
