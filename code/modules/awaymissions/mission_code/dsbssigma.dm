@@ -285,10 +285,10 @@
 	<i>-n further testing, <b>subject 701</b> appears to somehow developed a mutation rendering it highly resistant to viral pathogen. It has been locked up with other specimen, pending transport fo-</i><br>
 	"}
 
-/obj/item/paper/dsbssigma/researchnotes
-	name = "paper - 'syndicate research notes'"
-	info = "<b>The notes appear gibberish to you. Perhaps a destructive analyzer in R&D could make sense of them.</b>"
+/obj/item/paper/researchnotes/syndicate3/New()
+	..()
 	origin_tech = "syndicate=3"
+	name = "paper - 'syndicate research notes'"
 
 /obj/item/card/id/away/dsbssigma
 	name = "syndicate ID card"
