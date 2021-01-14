@@ -55,4 +55,15 @@
 	desc = "Densely packed asteroid rock."
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "rock"
+	smooth = SMOOTH_MORE | SMOOTH_BORDER
+	canSmoothWith = list(/turf/unsimulated/wall/asteroid,
+						/turf/simulated/mineral/asteroid)
+	layer = EDGED_TURF_LAYER
 	blocks_air = TRUE
+
+/turf/unsimulated/wall/asteroid/Initialize(mapload)
+	. = ..()
+	var/matrix/M = new
+	M.Translate(-4, -4)
+	transform = M
+	icon = 'icons/turf/smoothrocks_a.dmi'

@@ -572,32 +572,3 @@
 
 /mob/living/simple_animal/hostile/alien/queen/large/stationary
 	wander = FALSE
-
-////////////////////////// TURFS //////////////////////////
-
-/turf/simulated/mineral/asteroid
-	name = "loose rock"
-	desc = "Loosely packed asteroid rock. A pickaxe or drill should be able to clear it out."
-	icon = 'icons/turf/walls.dmi'
-	icon_state = "rock"
-	smooth_icon = 'icons/turf/walls.dmi'
-	smooth = SMOOTH_FALSE
-	mineralAmt = 0
-	defer_change = FALSE
-
-/turf/simulated/mineral/asteroid/Initialize(mapload)
-	. = ..()
-	var/matrix/M = new
-	M.Translate(0, 0)
-	transform = M
-
-/turf/simulated/mineral/asteroid/cave
-	baseturf = /turf/simulated/floor/plating/asteroid
-	turf_type  = /turf/simulated/floor/plating/asteroid
-	defer_change = TRUE
-
-/turf/simulated/mineral/asteroid/cave/cracked
-	name = "cracked loose rock"
-	desc = "Loosely packed asteroid rock with visible cracks in it. A pickaxe or drill should be able to clear it out."
-	icon_state = "rock_crack"
-

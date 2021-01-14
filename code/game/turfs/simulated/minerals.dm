@@ -398,6 +398,30 @@
 	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface
 	defer_change = 1
 
+//Asteroid turfs
+/turf/simulated/mineral/asteroid
+	mineralAmt = 0
+	icon = 'icons/turf/walls.dmi'
+	icon_state = "rock"
+	smooth_icon = 'icons/turf/smoothrocks_a.dmi'
+	canSmoothWith = list(/turf/unsimulated/wall/asteroid,
+						/turf/simulated/mineral/asteroid)
+
+/turf/simulated/mineral/asteroid/loose
+	name = "loose rock"
+	desc = "Loosely packed asteroid rock. A pickaxe or drill should be able to clear it out."
+	defer_change = TRUE
+
+/turf/simulated/mineral/asteroid/loose/cave
+	baseturf = /turf/simulated/floor/plating/asteroid
+	turf_type  = /turf/simulated/floor/plating/asteroid
+
+/turf/simulated/mineral/asteroid/loose/cave/cracked
+	name = "cracked loose rock"
+	desc = "Loosely packed asteroid rock with visible cracks in it. A pickaxe or drill should be able to clear it out."
+	icon_state = "rock_crack"
+	smooth_icon = 'icons/turf/smoothrocks_a_c.dmi'
+
 //gibtonite state defines
 #define GIBTONITE_UNSTRUCK 0
 #define GIBTONITE_ACTIVE 1

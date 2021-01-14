@@ -25,7 +25,7 @@
 /turf/space,
 /area/awaymission/DSBSSigma/exterior)
 "ah" = (
-/turf/simulated/mineral/asteroid,
+/turf/simulated/mineral/asteroid/loose,
 /area/awaymission/DSBSSigma/caverns)
 "ai" = (
 /turf/unsimulated/wall/asteroid,
@@ -327,7 +327,7 @@
 	},
 /area/awaymission/DSBSSigma/hangar)
 "aU" = (
-/turf/simulated/mineral/asteroid/cave,
+/turf/simulated/mineral/asteroid/loose/cave,
 /area/awaymission/DSBSSigma/caverns)
 "aV" = (
 /obj/structure/closet/walllocker/emerglocker/west,
@@ -1079,7 +1079,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/awaymission/DSBSSigma/surgery)
 "cz" = (
-/turf/simulated/mineral/asteroid/cave,
+/turf/simulated/mineral/asteroid/loose/cave,
 /area/awaymission/DSBSSigma/medical_center)
 "cA" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -1115,7 +1115,7 @@
 /area/awaymission/DSBSSigma/hangar)
 "cF" = (
 /obj/machinery/door/firedoor,
-/turf/simulated/mineral/asteroid/cave,
+/turf/simulated/mineral/asteroid/loose/cave,
 /area/awaymission/DSBSSigma/medical_center)
 "cG" = (
 /obj/effect/turf_decal/delivery,
@@ -2633,7 +2633,7 @@
 	},
 /area/awaymission/DSBSSigma/hangar)
 "eY" = (
-/turf/simulated/mineral/asteroid/cave/cracked,
+/turf/simulated/mineral/asteroid/loose/cave/cracked,
 /area/awaymission/DSBSSigma/caverns)
 "eZ" = (
 /obj/structure/closet/emcloset,
@@ -6809,7 +6809,7 @@
 	},
 /area/awaymission/DSBSSigma/chemistry_lab)
 "lG" = (
-/turf/simulated/mineral/asteroid/cave/cracked,
+/turf/simulated/mineral/asteroid/loose/cave/cracked,
 /area/awaymission/DSBSSigma/medical_center)
 "lH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -13936,7 +13936,7 @@
 /area/awaymission/DSBSSigma/cave_junction_east)
 "wT" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/mineral/asteroid/cave,
+/turf/simulated/mineral/asteroid/loose/cave,
 /area/awaymission/DSBSSigma/cave_junction_east)
 "wU" = (
 /obj/structure/cable/yellow{
@@ -14070,7 +14070,7 @@
 /area/awaymission/DSBSSigma/cave_junction_west)
 "xh" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/mineral/asteroid/cave,
+/turf/simulated/mineral/asteroid/loose/cave,
 /area/awaymission/DSBSSigma/cave_junction_west)
 "xi" = (
 /obj/structure/disposalpipe/segment,
@@ -14670,7 +14670,7 @@
 /area/awaymission/DSBSSigma/cave_junction_west)
 "yp" = (
 /obj/structure/spacevine,
-/turf/simulated/mineral/asteroid/cave,
+/turf/simulated/mineral/asteroid/loose/cave,
 /area/awaymission/DSBSSigma/caverns)
 "yq" = (
 /turf/unsimulated/wall/metal/reinforced,
@@ -14858,7 +14858,7 @@
 /area/awaymission/DSBSSigma/caverns)
 "yI" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/mineral/asteroid/cave,
+/turf/simulated/mineral/asteroid/loose/cave,
 /area/awaymission/DSBSSigma/caverns)
 "yJ" = (
 /turf/simulated/floor/plasteel{
@@ -15289,7 +15289,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/mineral/asteroid/cave,
+/turf/simulated/mineral/asteroid/loose/cave,
 /area/awaymission/DSBSSigma/cave_junction_west)
 "zz" = (
 /obj/machinery/power/turbine{
@@ -15454,7 +15454,7 @@
 	},
 /area/awaymission/DSBSSigma/kitchen)
 "zO" = (
-/turf/simulated/mineral/asteroid/cave/cracked,
+/turf/simulated/mineral/asteroid/loose/cave/cracked,
 /area/awaymission/DSBSSigma/command)
 "zP" = (
 /obj/item/clothing/ears/earmuffs,
@@ -15472,7 +15472,7 @@
 /area/awaymission/DSBSSigma/hydroponics)
 "zR" = (
 /obj/structure/flora/rock/pile,
-/turf/simulated/mineral/asteroid/cave,
+/turf/simulated/mineral/asteroid/loose/cave,
 /area/awaymission/DSBSSigma/cave_junction_west)
 "zS" = (
 /obj/structure/chair/wood{
@@ -15574,7 +15574,7 @@
 /area/awaymission/DSBSSigma/mess_hall)
 "Ac" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/mineral/asteroid/cave/cracked,
+/turf/simulated/mineral/asteroid/loose/cave/cracked,
 /area/awaymission/DSBSSigma/cave_junction_east)
 "Ad" = (
 /obj/structure/cable{
@@ -18676,7 +18676,7 @@
 	},
 /area/awaymission/DSBSSigma/dormitories)
 "Fx" = (
-/turf/simulated/mineral/asteroid/cave,
+/turf/simulated/mineral/asteroid/loose/cave,
 /area/awaymission/DSBSSigma/armory)
 "Fy" = (
 /obj/structure/closet/walllocker/emerglocker/west,
@@ -20044,7 +20044,7 @@
 	},
 /area/awaymission/DSBSSigma/dormitories)
 "IC" = (
-/turf/simulated/mineral/asteroid/cave/cracked,
+/turf/simulated/mineral/asteroid/loose/cave/cracked,
 /area/awaymission/DSBSSigma/armory)
 "ID" = (
 /obj/structure/disposalpipe/segment,
@@ -20089,16 +20089,16 @@
 /area/awaymission/DSBSSigma/mess_hall)
 "IP" = (
 /obj/structure/spacevine,
-/turf/simulated/mineral/asteroid/cave/cracked,
+/turf/simulated/mineral/asteroid/loose/cave/cracked,
 /area/awaymission/DSBSSigma/caverns)
 "IS" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/mineral/asteroid/cave/cracked,
+/turf/simulated/mineral/asteroid/loose/cave/cracked,
 /area/awaymission/DSBSSigma/cave_junction_west)
 "IT" = (
-/turf/simulated/mineral/asteroid/cave/cracked,
+/turf/simulated/mineral/asteroid/loose/cave/cracked,
 /area/awaymission/DSBSSigma/cave_junction_west)
-"IW" = (
+"Kw" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/fluff/utility/broken/smooth{
 	desc = "A broken section of catwalk.";
@@ -20107,7 +20107,16 @@
 	},
 /turf/space,
 /area/space)
-"KH" = (
+"Md" = (
+/obj/item/stack/rods,
+/obj/structure/fluff/utility/broken/smooth{
+	desc = "A broken section of catwalk.";
+	dir = 4;
+	name = "broken catwalk"
+	},
+/turf/space,
+/area/space)
+"MB" = (
 /obj/item/stack/rods,
 /obj/structure/fluff/utility/broken/smooth{
 	desc = "A broken section of catwalk.";
@@ -20116,15 +20125,7 @@
 	},
 /turf/space,
 /area/space)
-"Pb" = (
-/obj/structure/fluff/utility/broken/smooth{
-	desc = "A broken section of catwalk.";
-	name = "broken catwalk"
-	},
-/turf/space,
-/area/space)
-"RJ" = (
-/obj/item/stack/rods,
+"SS" = (
 /obj/structure/fluff/utility/broken/smooth{
 	desc = "A broken section of catwalk.";
 	dir = 4;
@@ -20132,10 +20133,9 @@
 	},
 /turf/space,
 /area/space)
-"Us" = (
+"Tx" = (
 /obj/structure/fluff/utility/broken/smooth{
 	desc = "A broken section of catwalk.";
-	dir = 4;
 	name = "broken catwalk"
 	},
 /turf/space,
@@ -27565,7 +27565,7 @@ aa
 aa
 aa
 FU
-Us
+SS
 aa
 ah
 ah
@@ -28035,7 +28035,7 @@ aa
 aa
 aa
 HR
-IW
+Kw
 aa
 aa
 ah
@@ -30701,7 +30701,7 @@ aa
 aa
 aa
 HN
-RJ
+Md
 rm
 ai
 ai
@@ -31012,7 +31012,7 @@ aa
 aa
 aa
 aa
-IW
+Kw
 HR
 HN
 aa
@@ -41086,7 +41086,7 @@ HN
 HN
 In
 aa
-KH
+MB
 hU
 hU
 qY
@@ -41240,7 +41240,7 @@ ae
 qY
 hU
 hV
-Pb
+Tx
 HR
 HN
 aa
@@ -41273,7 +41273,7 @@ ah
 ah
 ah
 In
-RJ
+Md
 aa
 aa
 aa
@@ -41586,7 +41586,7 @@ ae
 qY
 qY
 Im
-Pb
+Tx
 aa
 aa
 aa
