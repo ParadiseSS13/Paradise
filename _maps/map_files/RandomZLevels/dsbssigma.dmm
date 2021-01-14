@@ -9462,7 +9462,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/unsimulated/wall/metal/reinforced,
 /area/awaymission/DSBSSigma/virology_lab)
 "pZ" = (
 /obj/structure/disposalpipe/segment{
@@ -9675,7 +9675,8 @@
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "qw" = (
 /obj/structure/alien/resin,
-/turf/unsimulated/wall/asteroid,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/caverns)
 "qx" = (
 /obj/structure/flora/rock,
@@ -20095,44 +20096,48 @@
 "IT" = (
 /turf/simulated/mineral/asteroid/loose/cave/cracked,
 /area/awaymission/DSBSSigma/cave_junction_west)
-"Nd" = (
-/obj/item/stack/rods,
-/obj/structure/fluff/utility/broken/smooth{
-	desc = "A broken section of catwalk.";
-	dir = 4;
-	name = "broken catwalk"
-	},
-/turf/space,
-/area/space)
-"OG" = (
-/obj/structure/flora/rock/pile,
-/obj/structure/fluff/utility/broken/smooth{
-	desc = "A broken section of catwalk.";
-	dir = 8;
-	name = "broken catwalk"
-	},
-/turf/space,
-/area/space)
-"QB" = (
-/obj/structure/fluff/utility/broken/smooth{
-	desc = "A broken section of catwalk.";
-	name = "broken catwalk"
-	},
-/turf/space,
-/area/space)
-"Wp" = (
-/obj/structure/fluff/utility/broken/smooth{
-	desc = "A broken section of catwalk.";
-	dir = 4;
-	name = "broken catwalk"
-	},
-/turf/space,
-/area/space)
-"WT" = (
+"Jw" = (
 /obj/item/stack/rods,
 /obj/structure/fluff/utility/broken/smooth{
 	desc = "A broken section of catwalk.";
 	dir = 1;
+	name = "broken catwalk"
+	},
+/turf/space,
+/area/space)
+"Ki" = (
+/obj/structure/fluff/utility/broken/smooth{
+	desc = "A broken section of catwalk.";
+	dir = 4;
+	name = "broken catwalk"
+	},
+/turf/space,
+/area/space)
+"Kj" = (
+/obj/item/stack/rods,
+/obj/structure/fluff/utility/broken/smooth{
+	desc = "A broken section of catwalk.";
+	dir = 4;
+	name = "broken catwalk"
+	},
+/turf/space,
+/area/space)
+"Mv" = (
+/obj/structure/alien/resin,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/caverns)
+"Of" = (
+/obj/structure/fluff/utility/broken/smooth{
+	desc = "A broken section of catwalk.";
+	name = "broken catwalk"
+	},
+/turf/space,
+/area/space)
+"WX" = (
+/obj/structure/flora/rock/pile,
+/obj/structure/fluff/utility/broken/smooth{
+	desc = "A broken section of catwalk.";
+	dir = 8;
 	name = "broken catwalk"
 	},
 /turf/space,
@@ -25420,7 +25425,7 @@ ai
 ai
 ai
 qw
-qw
+Mv
 qS
 qS
 qS
@@ -26038,7 +26043,7 @@ qw
 qw
 ai
 ai
-po
+ai
 xa
 ai
 xg
@@ -27562,7 +27567,7 @@ aa
 aa
 aa
 FU
-Wp
+Ki
 aa
 ah
 ah
@@ -28032,7 +28037,7 @@ aa
 aa
 aa
 HR
-OG
+WX
 aa
 aa
 ah
@@ -28539,7 +28544,7 @@ pc
 on
 pG
 pW
-on
+uR
 ai
 qw
 rM
@@ -28696,7 +28701,7 @@ nc
 on
 on
 pX
-on
+uR
 ai
 rL
 rL
@@ -28853,7 +28858,7 @@ nc
 ai
 on
 pY
-on
+uR
 qw
 rL
 qw
@@ -30698,7 +30703,7 @@ aa
 aa
 aa
 HN
-Nd
+Kj
 rm
 ai
 ai
@@ -31009,7 +31014,7 @@ aa
 aa
 aa
 aa
-OG
+WX
 HR
 HN
 aa
@@ -41083,7 +41088,7 @@ HN
 HN
 In
 aa
-WT
+Jw
 hU
 hU
 qY
@@ -41237,7 +41242,7 @@ ae
 qY
 hU
 hV
-QB
+Of
 HR
 HN
 aa
@@ -41270,7 +41275,7 @@ ah
 ah
 ah
 In
-Nd
+Kj
 aa
 aa
 aa
@@ -41583,7 +41588,7 @@ ae
 qY
 qY
 Im
-QB
+Of
 aa
 aa
 aa
