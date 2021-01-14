@@ -93,16 +93,15 @@
 			if(!def_value)//If it's a custom objective, it will be an empty string.
 				def_value = "custom"
 		
-		// if your adding new objectives, insert the name here.
-		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in list("assassinate", "hijack", "escape", "steal", "destroy", "maroon", "custom")
+		// If your adding new objectives, insert the name here.
+		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in list("assassinate", "protect", "hijack", "escape", "steal", "destroy", "maroon", "custom")
 		if(!new_obj_type)
 			return
 
 		var/datum/objective/new_objective = null
 
-		switch(new_obj_type)
-			if("assassinate", "maroon") //insert objectives here if they require a target, otherwise add a new if to the switch.
-				var/objective_type = new_obj_type
+		switch(new_obj_type) //if an objective doesn't require a target add a new if to the switch
+			if("assassinate", "maroon", "protect") 
 				var/list/possible_targets = list()
 				for(var/datum/mind/possible_target in SSticker.minds)
 					if((possible_target != src) && istype(possible_target.current, /mob/living/carbon/human))
@@ -133,17 +132,25 @@
 					new_objective.team = src
 					new_objective:target = null
 					new_objective.explanation_text = "Free objective"
-				else if(objective_type == "assassinate")
-					new_objective = new /datum/objective/assassinate/shared
-					new_objective.team = src
-					new_objective:target = new_target:mind
-					//Will display as special role if assigned mode is equal to special role.. Ninjas/commandos/nuke ops.
-					new_objective.explanation_text = "Assassinate [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
-				else if(objective_type == "maroon")
-					new_objective = new /datum/objective/maroon/shared
-					new_objective.team = src
-					new_objective:target = new_target:mind
-					new_objective.explanation_text = "Maroon [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
+					return
+
+				switch(new_obj_type) //Objectives requiring targets go here
+					if("assassinate")
+						new_objective = new /datum/objective/assassinate/shared
+						new_objective.team = src
+						new_objective:target = new_target:mind
+						//Will display as special role if assigned mode is equal to special role.. Ninjas/commandos/nuke ops.
+						new_objective.explanation_text = "Assassinate [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
+					if("maroon")
+						new_objective = new /datum/objective/maroon/shared
+						new_objective.team = src
+						new_objective:target = new_target:mind
+						new_objective.explanation_text = "Maroon [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
+					if("protect")
+						new_objective = new /datum/objective/protect/shared
+						new_objective.team = src
+						new_objective:target = new_target:mind
+						new_objective.explanation_text = "Maroon [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
 
 			if("destroy")
 				var/list/possible_targets = active_ais(1)

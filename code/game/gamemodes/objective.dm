@@ -162,6 +162,37 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/assassinate/shared/post_target_cryo()
 	team_update()
 
+/datum/objective/assassinate/once
+	var/won = FALSE
+
+/datum/objective/assassinate/once/find_target()
+	..()
+	if(target && target.current)
+		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]. You only need to kill them once."
+		START_PROCESSING(SSprocessing,src)
+	else
+		explanation_text = "Free Objective"
+	
+/datum/objective/assassinate/once/check_completion()
+	return won || ..()
+	
+/datum/objective/assassinate/once/process()
+	won = check_completion()
+	if(won)
+		STOP_PROCESSING(SSprocessing, src)
+
+/datum/objective/assassinate/once/on_target_cryo()
+	if(won)
+		return
+	return ..()
+	
+/datum/objective/assassinate/once/shared
+
+/datum/objective/assassinate/once/shared/post_target_cryo()
+	STOP_PROCESSING(SSprocessing, src)
+	team_update()
+	
+
 /datum/objective/mutiny
 	martyr_compatible = 1
 
@@ -272,6 +303,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return 1
 	return 0
 
+/datum/objective/protect/shared
+
+/datum/objective/protect/shared/post_target_cryo()
+	team_update()
+	
 /datum/objective/protect/mindslave //subytpe for mindslave implants
 
 
