@@ -232,7 +232,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	return s
 
 /world/proc/SetupLogs()
-	if(GLOB.round_id)
+	if(GLOB.round_id && !config.full_day_logs)
 		GLOB.log_directory = "data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day")]/round-[GLOB.round_id]"
 	else
 		GLOB.log_directory = "data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day")]" // Dont stick a round ID if we dont have one

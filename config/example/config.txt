@@ -514,3 +514,6 @@ RESPAWN_DELAY_DRONE 10
 
 ## Force restrict maint access. 0 - Disabled, 1 - Engie/Brig, 2 - Brig only.
 #RESTRICT_MAINT 0
+
+## Disable splitting logs by Round_ID.
+#FULL_DAY_LOGS
