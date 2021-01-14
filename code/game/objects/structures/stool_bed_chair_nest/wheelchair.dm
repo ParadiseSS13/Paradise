@@ -41,7 +41,7 @@
 
 		if(ishuman(buckled_mob))
 			var/mob/living/carbon/human/driver = user
-			if(!driver.has_left_hand() && !driver.has_right_hand())
+			if(!driver.has_both_hands())
 				return 0 // No hands to drive your chair? Tough luck!
 
 			for(var/organ_name in list("l_hand","r_hand","l_arm","r_arm"))
