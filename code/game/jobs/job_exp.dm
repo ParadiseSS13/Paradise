@@ -28,7 +28,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 
 	// TEAM ANTAGS
 	// Higher numbers here, because they require more experience to be played correctly
-	ROLE_BROTHER = 10
+	ROLE_BROTHER = 10,
 	ROLE_SHADOWLING = 10,
 	ROLE_REV = 10,
 	ROLE_OPERATIVE = 10,
