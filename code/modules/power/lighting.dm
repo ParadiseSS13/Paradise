@@ -235,6 +235,22 @@
 	brightness_range = 12
 	brightness_power = 4
 
+/**
+  * # Broken light fixtures
+  *
+  * Broken variants of the tube and bulb light fixtures
+  */
+
+/obj/machinery/light/broken
+	active_power_usage = 0
+	icon_state = "tube-broken"
+	status = 2
+
+/obj/machinery/light/small/broken
+	active_power_usage = 0
+	icon_state = "bulb-broken"
+	status = 2
+
 /obj/machinery/light/built/Initialize(mapload)
 	status = LIGHT_EMPTY
 	..()

@@ -79,3 +79,36 @@
 	name = "conduit"
 	desc = "It allows a deity to extend their reach.  Their powers are just as potent near a conduit as a nexus."
 	icon_state = "conduit"
+
+/obj/structure/fluff/utility //Catwalks that are placed on top of the piping and cable layer.
+	name = "utility catwalk"
+	desc = "A utility catwalk for easier life support maintenance and cable access."
+	icon = 'icons/obj/smooth_structures/catwalk.dmi'
+	icon_state = "catwalk"
+	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50)
+	max_integrity = 50
+	layer = LOW_OBJ_LAYER
+	plane = -1
+	smooth = SMOOTH_MORE
+	canSmoothWith = list(/obj/structure/fluff/utility,
+						/obj/structure/lattice/catwalk)
+
+/obj/structure/fluff/utility/broken
+	desc = "A broken utility catwalk."
+	icon = 'icons/obj/smooth_structures/catwalk.dmi'
+	icon_state = "catwalk-b"
+	smooth = SMOOTH_FALSE
+	canSmoothWith = null
+
+/obj/structure/fluff/utility/broken/smooth
+	icon_state = "catwalk-bs"
+
+/obj/structure/fluff/utility/lattice
+	name = "collapsed ceiling"
+	desc = "A collapsed section of lightweight support lattice."
+	icon = 'icons/obj/smooth_structures/lattice.dmi'
+	icon_state = "lattice"
+	layer = 3.1
+	level = 2
+	smooth = SMOOTH_FALSE
+	canSmoothWith = null

@@ -81,7 +81,9 @@
 	icon_state = "catwalk"
 	number_of_rods = 2
 	smooth = SMOOTH_TRUE
-	canSmoothWith = null
+	canSmoothWith = list(/obj/structure/lattice/catwalk,
+						/obj/structure/fluff/utility,
+						/obj/structure/fluff/utility/broken/smooth)
 
 /obj/structure/lattice/catwalk/deconstruction_hints(mob/user)
 	to_chat(user, "<span class='notice'>The supporting rods look like they could be <b>cut</b>.</span>")

@@ -6,7 +6,7 @@
 	report_alerts = FALSE
 	ambientsounds = AWAY_MISSION_SOUNDS
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
-	tele_proof = 1
+	tele_proof = TRUE
 
 /area/awaymission/DSBSSigma/exterior
 	name = "Asteroid Exterior"
@@ -342,40 +342,7 @@
 	contraband = list(/obj/item/reagent_containers/glass/bottle/sulfonal = 1, /obj/item/reagent_containers/glass/bottle/pancuronium = 1)
 
 /obj/machinery/autolathe/hacked
-	hacked = 1
-
-/obj/machinery/light/broken
-	active_power_usage = 0
-	icon_state = "tube-broken"
-	status = 2
-
-/obj/machinery/light/small/broken
-	active_power_usage = 0
-	icon_state = "bulb-broken"
-	status = 2
-
-/obj/machinery/door/poddoor/shutters/rusted
-	name = "Rusted Shutter"
-	desc = "Heavy duty shutters that has been warped and corroded by the elements. It does not seem it will take much to break it down by force."
-	armor = list("melee" = 10, "bullet" = 5, "laser" = 15, "energy" = 15, "bomb" = 0, "bio" = 50, "rad" = 100, "fire" = 50, "acid" = 25)
-	damage_deflection = 0
-	max_integrity = 300
-	icon_state = "rusted_closed"
-
-/obj/machinery/door/poddoor/shutters/rusted/do_animate(animation)
-	switch(animation)
-		if("opening")
-			flick("rusted_opening", src)
-			playsound(src, 'sound/machines/blastdoor.ogg', 30, 1)
-		if("closing")
-			flick("rusted_closing", src)
-			playsound(src, 'sound/machines/blastdoor.ogg', 30, 1)
-
-/obj/machinery/door/poddoor/shutters/rusted/update_icon()
-	if(density)
-		icon_state = "rusted_closed"
-	else
-		icon_state = "rusted_open"
+	hacked = TRUE
 
 //////// MECHA ////////
 
@@ -401,62 +368,17 @@
 
 ////// STRUCTURES //////
 
-/obj/structure/displaycase/telecrystal
-	name = "officer's display case"
-	desc = "A display case containing a single telecrystal. A crimson reminder that no matter how big or small an atrocity is - someone, somewhere will sponsor it."
-	start_showpiece_type = /obj/item/stack/telecrystal
+/obj/structure/displaycase/telecrystal/dsbssigma
 	req_access = list(ACCESS_AWAY03)
-
-/obj/structure/closet/fireaxecabinet/empty
-	fireaxe = null
-	icon_closed = "fireaxe0000"
-	icon_opened = "fireaxe0140"
-	icon_state = "fireaxe0140"
-	locked = 0
-	opened = 1
-	localopened = TRUE
-
-/obj/structure/utility
-	name = "utility catwalk"
-	desc = "A utility catwalk for easier life support maintenance and cable access."
-	icon = 'icons/obj/smooth_structures/catwalk.dmi'
-	icon_state = "catwalk"
-	density = FALSE
-	anchored = TRUE
-	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50)
-	max_integrity = 50
-	layer = 2.5
-	plane = -1
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/utility,
-						/obj/structure/utility/broken/smooth)
-
-/obj/structure/utility/broken
-	desc = "A broken utility catwalk."
-	icon = 'icons/obj/smooth_structures/catwalk.dmi'
-	icon_state = "catwalk-b"
-	smooth = SMOOTH_FALSE
-	canSmoothWith = null
-
-/obj/structure/utility/broken/smooth
-	icon_state = "catwalk-bs"
-
-/obj/structure/utility/lattice
-	name = "collapsed ceiling"
-	desc = "A collapsed section of lightweight support lattice."
-	icon = 'icons/obj/smooth_structures/lattice.dmi'
-	icon_state = "lattice"
-	layer = 3.1
-	level = 2
-	smooth = SMOOTH_FALSE
-	canSmoothWith = null
 
 //////// LOOT ////////
 
+/obj/effect/spawner/lootdrop/away/dsbssigma
+	lootcount = 1
+	lootdoubles = FALSE
+
 /obj/effect/spawner/lootdrop/away/dsbssigma/cleaning
 	name = "cleaning supplies spawner"
-	lootcount = 1
-	lootdoubles = 0
 	loot = list (
 				/obj/item/reagent_containers/spray/cleaner = 1,
 				/obj/item/soap/syndie = 1,
@@ -464,8 +386,6 @@
 
 /obj/effect/spawner/lootdrop/away/dsbssigma/goggles
 	name = "science goggle spawner"
-	lootcount = 1
-	lootdoubles = 0
 	loot = list (
 				/obj/item/clothing/glasses/material = 1,
 				/obj/item/clothing/glasses/science = 3,
@@ -474,8 +394,6 @@
 
 /obj/effect/spawner/lootdrop/away/dsbssigma/pistolammo
 	name = "pistol ammo spawner"
-	lootcount = 1
-	lootdoubles = 0
 	loot = list(
 				/obj/item/ammo_box/magazine/m10mm = 2,
 				/obj/item/ammo_box/magazine/m10mm/ap = 1,
@@ -485,8 +403,6 @@
 
 /obj/effect/spawner/lootdrop/away/dsbssigma/healinjector_40pc
 	name = "healinjector 40 percent"
-	lootcount = 1
-	lootdoubles = 0
 	loot = list(
 				/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium = 2,
 				/obj/item/reagent_containers/hypospray/autoinjector/survival = 2,
@@ -495,8 +411,6 @@
 
 /obj/effect/spawner/lootdrop/away/dsbssigma/implant_arm
 	name = "arm implant spawner"
-	lootcount = 1
-	lootdoubles = 0
 	loot = list(
 				/obj/item/organ/internal/cyberimp/arm/advmop = 1,
 				/obj/item/organ/internal/cyberimp/arm/botanical = 2,
@@ -507,8 +421,6 @@
 
 /obj/effect/spawner/lootdrop/away/dsbssigma/implant_other
 	name = "other implant spawner"
-	lootcount = 1
-	lootdoubles = 0
 	loot = list(
 				/obj/item/organ/internal/cyberimp/eyes/hud/medical = 15,
 				/obj/item/organ/internal/cyberimp/eyes/hud/security = 5,
@@ -522,8 +434,6 @@
 
 /obj/effect/spawner/lootdrop/away/dsbssigma/safe_loot_high
 	name = "safe high value loot spawner"
-	lootcount = 1
-	lootdoubles = 0
 	loot = list(
 				/obj/item/clothing/glasses/thermal = 1,
 				/obj/item/pen/edagger = 5,
@@ -536,8 +446,6 @@
 
 /obj/effect/spawner/lootdrop/away/dsbssigma/safe_loot_low
 	name = "safe low value loot spawner"
-	lootcount = 1
-	lootdoubles = 0
 	loot = list(
 				/obj/item/clothing/suit/storage/lawyer/blackjacket/armored = 10,
 				/obj/item/implanter/storage = 7,
@@ -621,7 +529,7 @@
 	melee_damage_lower = 30
 	melee_damage_upper = 20
 	move_to_delay = 5
-	robust_searching = 1
+	robust_searching = TRUE
 
 /mob/living/simple_animal/hostile/carp/stationary
 	wander = FALSE
@@ -629,13 +537,13 @@
 /mob/living/simple_animal/hostile/syndicate/ranged/dsbssigma
 	name = "Staff Sgt Hope"
 	desc = "Battered, wounded and on the verge of insanity, but determined to survive. As the saying goes, Hope dies last!"
-	robust_searching = 1
+	robust_searching = TRUE
 	stat_attack = UNCONSCIOUS
 	loot = list()
 	maxHealth = 200
 	health = 200
-	del_on_death = 1
-	ranged = 1
+	del_on_death = TRUE
+	ranged = TRUE
 	rapid = 1
 	retreat_distance = 3
 	minimum_distance = 1
@@ -653,30 +561,6 @@
 	new /obj/effect/gibspawner/human(get_turf(src))
 	return ..()
 
-/mob/living/simple_animal/hostile/alien/larva
-	name = "alien larva"
-	icon = 'icons/mob/alien.dmi'
-	icon_state = "larva1"
-	icon_dead = "larva1_dead"
-	layer = 2.5
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat = 1)
-	maxHealth = 25
-	health = 25
-	retreat_distance = 4
-	minimum_distance = 1
-	density = 0
-	melee_damage_lower = 5
-	melee_damage_upper = 10
-	attacktext = "bites"
-	attack_sound = 'sound/weapons/bite.ogg'
-	pass_flags = PASSTABLE | PASSMOB
-	mob_size = MOB_SIZE_SMALL
-	environment_smash = FALSE
-	status_flags = null
-	gold_core_spawnable = NO_SPAWN
-	death_sound = null
-	deathmessage = "lets out a waning high-pitched cry."
-
 /mob/living/simple_animal/hostile/alien/stationary
 	wander = FALSE
 
@@ -691,83 +575,29 @@
 
 ////////////////////////// TURFS //////////////////////////
 
-/turf/unsimulated/wall/fakeglass/reinforced
-	name = "reinforced plastitanium window"
-	desc = "An evil looking window of plasma and titanium. This one looks heavily reinforced."
-	icon = 'icons/obj/smooth_structures/plastitanium_window.dmi'
-	icon_state = "plastitanium_window"
-	layer = 3.2
-	level = 3
-	blocks_air = TRUE
-
-/turf/unsimulated/wall/metal/reinforced
-	name = "reinforced wall"
-	desc = "An evil wall of plasma and titanium. This one looks heavily reinforced."
-	icon = 'icons/turf/walls/plastitanium_wall.dmi'
-	icon_state = "map-shuttle_nd"
-	blocks_air = TRUE
-
-/turf/unsimulated/wall/asteroid
-	name = "dense rock"
-	desc = "Densely packed asteroid rock."
-	icon = 'icons/turf/walls.dmi'
-	icon_state = "rock"
-	blocks_air = TRUE
-
-/turf/simulated/asteroid
+/turf/simulated/mineral/asteroid
 	name = "loose rock"
 	desc = "Loosely packed asteroid rock. A pickaxe or drill should be able to clear it out."
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "rock"
-	opacity = 1
-	layer = 4.3
-	baseturf = /turf/simulated/floor/plating/asteroid/airless
-	blocks_air = TRUE
-	density = TRUE
-	var/last_act = 0
-	var/turf/simulated/floor/plating/turf_type = /turf/simulated/floor/plating/asteroid/airless
-	var/defer_change = 0
+	smooth_icon = 'icons/turf/walls.dmi'
+	smooth = SMOOTH_FALSE
+	mineralAmt = 0
+	defer_change = FALSE
 
-/turf/simulated/asteroid/cave
-	turf_type  = /turf/simulated/floor/plating/asteroid
+/turf/simulated/mineral/asteroid/Initialize(mapload)
+	. = ..()
+	var/matrix/M = new
+	M.Translate(0, 0)
+	transform = M
+
+/turf/simulated/mineral/asteroid/cave
 	baseturf = /turf/simulated/floor/plating/asteroid
-	defer_change = 1
+	turf_type  = /turf/simulated/floor/plating/asteroid
+	defer_change = TRUE
 
-/turf/simulated/asteroid/attackby(obj/item/I, mob/user, params)
-	if(!user.IsAdvancedToolUser())
-		to_chat(usr, "<span class='warning'>You don't have the dexterity to do this!</span>")
-		return
-
-	if(istype(I, /obj/item/pickaxe))
-		var/obj/item/pickaxe/P = I
-		var/turf/T = user.loc
-		if(!isturf(T))
-			return
-
-		if(last_act + (40 * P.toolspeed) > world.time)
-			return
-		last_act = world.time
-		to_chat(user, "<span class='notice'>You start picking...</span>")
-		P.playDigSound()
-
-		if(do_after(user, 40 * P.toolspeed, target = src))
-			to_chat(user, "<span class='notice'>You finish cutting into the rock.</span>")
-			gets_drilled(user)
-		else
-			return attack_hand(user)
-
-/turf/simulated/asteroid/proc/gets_drilled()
-	for(var/obj/effect/temp_visual/mining_overlay/M in src)
-		qdel(M)
-	ChangeTurf(turf_type, defer_change)
-	addtimer(CALLBACK(src, .proc/AfterChange), 1, TIMER_UNIQUE)
-	playsound(src, 'sound/effects/break_stone.ogg', 50, 1)
-
-/turf/simulated/asteroid/cracked
+/turf/simulated/mineral/asteroid/cave/cracked
 	name = "cracked loose rock"
 	desc = "Loosely packed asteroid rock with visible cracks in it. A pickaxe or drill should be able to clear it out."
-	icon = 'icons/turf/walls.dmi'
 	icon_state = "rock_crack"
-	turf_type  = /turf/simulated/floor/plating/asteroid
-	baseturf = /turf/simulated/floor/plating/asteroid
-	defer_change = 1
+

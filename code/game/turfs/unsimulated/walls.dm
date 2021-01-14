@@ -11,6 +11,15 @@
 	icon_state = "fakewindows"
 	opacity = 0
 
+/turf/unsimulated/wall/fakeglass/reinforced
+	name = "reinforced plastitanium window"
+	desc = "An evil looking window of plasma and titanium. This one looks heavily reinforced."
+	icon = 'icons/obj/smooth_structures/plastitanium_window.dmi'
+	icon_state = "plastitanium_window"
+	layer = ABOVE_OBJ_LAYER
+	level = 3
+	blocks_air = TRUE
+
 /turf/unsimulated/wall/fakedoor
 	name = "Centcom Access"
 	icon = 'icons/obj/doors/airlocks/centcom/centcom.dmi'
@@ -30,6 +39,20 @@
 	icon_state = "wall"
 	smooth = SMOOTH_TRUE
 
+/turf/unsimulated/wall/metal/reinforced
+	name = "reinforced wall"
+	desc = "An evil wall of plasma and titanium. This one looks heavily reinforced."
+	icon = 'icons/turf/walls/plastitanium_wall.dmi'
+	icon_state = "map-shuttle_nd"
+	blocks_air = TRUE
+
 /turf/unsimulated/wall/abductor
 	icon_state = "alien1"
 	explosion_block = 50
+
+/turf/unsimulated/wall/asteroid
+	name = "dense rock"
+	desc = "Densely packed asteroid rock."
+	icon = 'icons/turf/walls.dmi'
+	icon_state = "rock"
+	blocks_air = TRUE

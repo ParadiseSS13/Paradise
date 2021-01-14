@@ -14,6 +14,10 @@
 	damage_deflection = 70
 	var/id_tag = 1.0
 	var/protected = 1
+	var/anim_opening = "opening"
+	var/anim_closing = "closing"
+	var/icon_opened = "open"
+	var/icon_closed = "closed"
 
 /obj/machinery/door/poddoor/preopen
 	icon_state = "open"
@@ -44,17 +48,17 @@
 /obj/machinery/door/poddoor/do_animate(animation)
 	switch(animation)
 		if("opening")
-			flick("opening", src)
+			flick(anim_opening, src)
 			playsound(src, 'sound/machines/blastdoor.ogg', 30, 1)
 		if("closing")
-			flick("closing", src)
+			flick(anim_closing, src)
 			playsound(src, 'sound/machines/blastdoor.ogg', 30, 1)
 
 /obj/machinery/door/poddoor/update_icon()
 	if(density)
-		icon_state = "closed"
+		icon_state = icon_closed
 	else
-		icon_state = "open"
+		icon_state = icon_opened
 
 /obj/machinery/door/poddoor/try_to_activate_door(mob/user)
  	return

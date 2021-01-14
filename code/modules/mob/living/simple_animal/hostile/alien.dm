@@ -164,3 +164,27 @@
 		M.clean_blood()
 		visible_message("<span class='notice'>\The [src] polishes \the [target].</span>")
 		return TRUE
+
+/mob/living/simple_animal/hostile/alien/larva
+	name = "alien larva"
+	icon = 'icons/mob/alien.dmi'
+	icon_state = "larva1"
+	icon_dead = "larva1_dead"
+	layer = LOW_OBJ_LAYER
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat = 1)
+	maxHealth = 25
+	health = 25
+	retreat_distance = 4
+	minimum_distance = 1
+	density = FALSE
+	melee_damage_lower = 5
+	melee_damage_upper = 10
+	attacktext = "bites"
+	attack_sound = 'sound/weapons/bite.ogg'
+	pass_flags = PASSTABLE | PASSMOB
+	mob_size = MOB_SIZE_SMALL
+	environment_smash = FALSE
+	status_flags = null
+	gold_core_spawnable = NO_SPAWN
+	death_sound = null
+	deathmessage = "lets out a waning high-pitched cry."

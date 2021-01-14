@@ -236,3 +236,9 @@
 	desc = "A display case containing a humble stechkin pistol. Never forget your roots."
 	start_showpiece_type = /obj/item/gun/projectile/automatic/pistol
 	req_access = list(ACCESS_SYNDICATE_COMMAND)
+
+/obj/structure/displaycase/telecrystal
+	name = "officer's display case"
+	desc = "A display case containing a single telecrystal. A crimson reminder that no matter how big or small an atrocity is - someone, somewhere will sponsor it."
+	start_showpiece_type = /obj/item/stack/telecrystal
+	req_access = list(ACCESS_SYNDICATE_COMMAND)

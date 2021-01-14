@@ -200,3 +200,13 @@
 
 /obj/structure/closet/fireaxecabinet/welder_act(mob/user, obj/item/I) //A bastion of sanity in a sea of madness
 	return
+
+//Opened and unlocked variant with no fireaxe inside.
+/obj/structure/closet/fireaxecabinet/empty
+	fireaxe = null
+	icon_closed = "fireaxe0000"
+	icon_opened = "fireaxe0140"
+	icon_state = "fireaxe0140"
+	locked = FALSE
+	opened = TRUE
+	localopened = TRUE

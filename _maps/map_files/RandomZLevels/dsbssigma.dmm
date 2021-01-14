@@ -25,7 +25,7 @@
 /turf/space,
 /area/awaymission/DSBSSigma/exterior)
 "ah" = (
-/turf/simulated/asteroid,
+/turf/simulated/mineral/asteroid,
 /area/awaymission/DSBSSigma/caverns)
 "ai" = (
 /turf/unsimulated/wall/asteroid,
@@ -35,13 +35,13 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/DSBSSigma/exterior)
 "ak" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/DSBSSigma/exterior)
 "al" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/DSBSSigma/exterior)
@@ -60,7 +60,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/awaymission/DSBSSigma/hangar)
 "ap" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating{
 	carbon_dioxide = 0;
@@ -279,7 +279,7 @@
 	},
 /area/awaymission/DSBSSigma/exterior)
 "aQ" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating{
@@ -293,7 +293,7 @@
 	},
 /area/awaymission/DSBSSigma/exterior)
 "aR" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
 /obj/structure/flora/rock,
@@ -327,7 +327,7 @@
 	},
 /area/awaymission/DSBSSigma/hangar)
 "aU" = (
-/turf/simulated/asteroid/cave,
+/turf/simulated/mineral/asteroid/cave,
 /area/awaymission/DSBSSigma/caverns)
 "aV" = (
 /obj/structure/closet/walllocker/emerglocker/west,
@@ -491,7 +491,7 @@
 /area/awaymission/DSBSSigma/hangar)
 "bn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "4-se"
 	},
 /turf/simulated/floor/plasteel{
@@ -608,7 +608,7 @@
 	level = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -803,7 +803,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/tile,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -943,7 +943,7 @@
 /obj/structure/flora/rock/pile,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "2-f"
 	},
 /turf/simulated/floor/plating,
@@ -1079,7 +1079,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/awaymission/DSBSSigma/surgery)
 "cz" = (
-/turf/simulated/asteroid/cave,
+/turf/simulated/mineral/asteroid/cave,
 /area/awaymission/DSBSSigma/medical_center)
 "cA" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -1115,7 +1115,7 @@
 /area/awaymission/DSBSSigma/hangar)
 "cF" = (
 /obj/machinery/door/firedoor,
-/turf/simulated/asteroid/cave,
+/turf/simulated/mineral/asteroid/cave,
 /area/awaymission/DSBSSigma/medical_center)
 "cG" = (
 /obj/effect/turf_decal/delivery,
@@ -1320,7 +1320,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1410,7 +1410,7 @@
 	},
 /area/awaymission/DSBSSigma/surgery)
 "dl" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating{
@@ -1503,7 +1503,7 @@
 	initialize_directions = 10;
 	level = 1
 	},
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/dirt,
@@ -1537,7 +1537,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "3-sw"
 	},
 /turf/simulated/floor/plasteel{
@@ -1583,7 +1583,7 @@
 /obj/effect/decal/cleanable/blood{
 	color = "red"
 	},
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/cloning)
@@ -1642,7 +1642,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/tile,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1651,7 +1651,7 @@
 /obj/structure/flora/rock/pile,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "1-nw"
 	},
 /turf/simulated/floor/plating,
@@ -1663,7 +1663,7 @@
 "dF" = (
 /obj/effect/landmark/damageturf,
 /obj/item/stack/tile,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/hangar)
 "dG" = (
@@ -1883,7 +1883,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "2-f"
 	},
 /turf/simulated/floor/plasteel{
@@ -1892,7 +1892,7 @@
 /area/awaymission/DSBSSigma/cloning)
 "dT" = (
 /obj/structure/cable,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/machinery/power/apc/noalarm{
 	name = "DSBSS Cloning";
 	pixel_y = -24;
@@ -2377,7 +2377,7 @@
 	pixel_x = -24
 	},
 /obj/item/stack/tile,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2633,7 +2633,7 @@
 	},
 /area/awaymission/DSBSSigma/hangar)
 "eY" = (
-/turf/simulated/asteroid/cracked,
+/turf/simulated/mineral/asteroid/cave/cracked,
 /area/awaymission/DSBSSigma/caverns)
 "eZ" = (
 /obj/structure/closet/emcloset,
@@ -2916,7 +2916,7 @@
 /obj/machinery/constructable_frame,
 /obj/effect/landmark/damageturf,
 /obj/item/stack/tile,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/structure/flora/rock/pile,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2939,7 +2939,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -2949,7 +2949,7 @@
 /area/awaymission/DSBSSigma/medical_center)
 "fH" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "3-sw"
 	},
 /turf/simulated/floor/plating,
@@ -2983,7 +2983,7 @@
 	dir = 4;
 	icon_state = "pipe-c"
 	},
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
@@ -3046,7 +3046,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "4-se"
 	},
 /turf/simulated/floor/plasteel{
@@ -3133,7 +3133,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
@@ -3145,7 +3145,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -3154,7 +3154,7 @@
 	},
 /area/awaymission/DSBSSigma/medical_center)
 "fY" = (
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/dirt,
@@ -3234,7 +3234,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/dirt,
@@ -3440,7 +3440,7 @@
 /area/awaymission/DSBSSigma/mission_control)
 "gD" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "1-nw"
 	},
 /turf/simulated/floor/plasteel{
@@ -3530,7 +3530,6 @@
 /area/awaymission/DSBSSigma/gateway)
 "gK" = (
 /obj/structure/grille,
-/turf/simulated/floor/plating,
 /turf/unsimulated/wall/fakeglass/reinforced,
 /area/awaymission/DSBSSigma/holding_cells)
 "gL" = (
@@ -3561,7 +3560,7 @@
 	icon_state = "bulb-broken";
 	dir = 1
 	},
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
@@ -3701,7 +3700,7 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
@@ -3774,7 +3773,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
@@ -3831,7 +3830,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
@@ -3881,7 +3880,7 @@
 	tag = "icon-pipe-j2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "2-f"
 	},
 /turf/simulated/floor/plasteel{
@@ -3920,7 +3919,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/dirt,
@@ -3965,7 +3964,7 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
@@ -3976,7 +3975,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/shard{
 	icon_state = "small";
 	pixel_x = 4;
@@ -3989,7 +3988,7 @@
 	},
 /area/awaymission/DSBSSigma/medical_center)
 "hv" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -4189,7 +4188,7 @@
 /obj/effect/landmark/damageturf,
 /obj/structure/flora/rock,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/broken/smooth,
+/obj/structure/fluff/utility/broken/smooth,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
@@ -4268,7 +4267,7 @@
 	},
 /area/awaymission/DSBSSigma/medical_center)
 "hT" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10;
 	initialize_directions = 10;
@@ -4406,7 +4405,7 @@
 	},
 /area/awaymission/DSBSSigma/overseer)
 "ie" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -4465,7 +4464,7 @@
 	dir = 8
 	},
 /obj/item/shard,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "1-f"
 	},
 /turf/simulated/floor/plasteel{
@@ -4562,7 +4561,7 @@
 	},
 /area/awaymission/DSBSSigma/holding_cells)
 "io" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -4643,7 +4642,7 @@
 "iu" = (
 /obj/structure/table_frame/wood,
 /obj/item/stack/sheet/wood,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/effect/landmark/damageturf,
 /obj/item/stack/tile,
 /obj/effect/decal/cleanable/generic,
@@ -4815,7 +4814,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/awaymission/DSBSSigma/holding_cells)
 "iH" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -4852,7 +4851,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/DSBSSigma/command)
 "iJ" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5;
 	level = 1
@@ -5005,7 +5004,7 @@
 /area/awaymission/DSBSSigma/cave_junction_north)
 "iS" = (
 /obj/structure/flora/rock,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "3-sw"
 	},
 /turf/simulated/floor/wood{
@@ -5032,7 +5031,7 @@
 /obj/effect/landmark/damageturf,
 /obj/structure/flora/rock,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/broken/smooth{
+/obj/structure/fluff/utility/broken/smooth{
 	icon_state = "catwalk-bs";
 	dir = 4
 	},
@@ -5043,7 +5042,7 @@
 	},
 /area/awaymission/DSBSSigma/cave_junction_north)
 "iU" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9;
 	pixel_y = 0
@@ -5108,7 +5107,7 @@
 /area/awaymission/DSBSSigma/command)
 "iY" = (
 /obj/effect/landmark/damageturf,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /obj/effect/decal/cleanable/blood{
 	color = "red"
@@ -5126,7 +5125,7 @@
 	pixel_y = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
@@ -5226,7 +5225,7 @@
 	},
 /area/awaymission/DSBSSigma/communications)
 "jh" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
@@ -5433,7 +5432,7 @@
 	pixel_y = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/flora/rock/pile,
 /turf/simulated/floor/plating{
@@ -5470,7 +5469,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/DSBSSigma/command)
 "jB" = (
-/obj/structure/displaycase/telecrystal,
+/obj/structure/displaycase/telecrystal/dsbssigma,
 /turf/simulated/floor/wood,
 /area/awaymission/DSBSSigma/command)
 "jC" = (
@@ -5524,7 +5523,7 @@
 	pixel_y = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4;
 	initialize_directions = 11;
@@ -5540,7 +5539,7 @@
 /obj/structure/flora/rock/pile,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
@@ -5779,7 +5778,7 @@
 /area/awaymission/DSBSSigma/chemistry_lab)
 "kh" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "2-f"
 	},
 /turf/simulated/floor/plasteel{
@@ -5813,7 +5812,7 @@
 /obj/machinery/constructable_frame,
 /obj/item/stack/tile,
 /obj/item/stack/rods/ten,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/structure/flora/rock,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
@@ -5831,7 +5830,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/cave_junction_north)
 "kl" = (
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /turf/simulated/floor/carpet/black,
 /area/awaymission/DSBSSigma/command)
@@ -6365,7 +6364,7 @@
 	},
 /obj/structure/flora/rock/pile,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "3-f"
 	},
 /turf/simulated/floor/plasteel{
@@ -6627,7 +6626,7 @@
 /area/awaymission/DSBSSigma/chemistry_lab)
 "ls" = (
 /obj/machinery/constructable_frame,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/shard,
 /obj/item/stack/tile,
 /obj/effect/decal/cleanable/dirt,
@@ -6694,7 +6693,7 @@
 /area/awaymission/DSBSSigma/lockdown)
 "ly" = (
 /obj/structure/table_frame,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
@@ -6724,7 +6723,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "1-nw"
 	},
 /turf/simulated/floor/plasteel{
@@ -6810,7 +6809,7 @@
 	},
 /area/awaymission/DSBSSigma/chemistry_lab)
 "lG" = (
-/turf/simulated/asteroid/cracked,
+/turf/simulated/mineral/asteroid/cave/cracked,
 /area/awaymission/DSBSSigma/medical_center)
 "lH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -6856,7 +6855,7 @@
 	},
 /obj/structure/flora/rock/pile,
 /obj/effect/landmark/damageturf,
-/obj/structure/utility/broken/smooth,
+/obj/structure/fluff/utility/broken/smooth,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
@@ -6898,7 +6897,7 @@
 	},
 /obj/effect/landmark/damageturf,
 /obj/structure/flora/rock/pile,
-/obj/structure/utility/broken/smooth,
+/obj/structure/fluff/utility/broken/smooth,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
@@ -6912,7 +6911,7 @@
 /obj/item/stack/rods/ten,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/generic,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "4-se"
 	},
 /turf/simulated/floor/plating,
@@ -6944,7 +6943,7 @@
 /obj/structure/disposalpipe/broken,
 /obj/effect/landmark/damageturf,
 /obj/structure/flora/rock/pile,
-/obj/structure/utility/broken/smooth{
+/obj/structure/fluff/utility/broken/smooth{
 	icon_state = "catwalk-bs";
 	dir = 1
 	},
@@ -7140,7 +7139,7 @@
 /area/awaymission/DSBSSigma/chemistry_lab)
 "mk" = (
 /obj/machinery/constructable_frame,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/rods/ten,
 /obj/item/stack/tile,
 /obj/effect/decal/cleanable/dirt,
@@ -7153,7 +7152,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "2-f"
 	},
 /turf/simulated/floor/plasteel{
@@ -7176,7 +7175,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
@@ -7212,7 +7211,7 @@
 	pixel_y = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
@@ -7223,7 +7222,7 @@
 "mq" = (
 /obj/structure/table_frame,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "1-f"
 	},
 /obj/item/stack/tile,
@@ -7264,7 +7263,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
@@ -7275,7 +7274,7 @@
 /turf/unsimulated/wall/metal/reinforced,
 /area/awaymission/DSBSSigma/cave_junction_north)
 "mv" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -7617,7 +7616,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
@@ -7745,7 +7744,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/light/small{
 	dir = 8;
 	pixel_y = -8
@@ -8098,7 +8097,7 @@
 /area/awaymission/DSBSSigma/storage)
 "nK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -8126,7 +8125,7 @@
 	},
 /area/awaymission/DSBSSigma/storage)
 "nN" = (
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
@@ -8284,7 +8283,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "4-f"
 	},
 /turf/simulated/floor/plasteel{
@@ -8593,7 +8592,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "3-sw"
 	},
 /turf/simulated/floor/plasteel{
@@ -8601,7 +8600,7 @@
 	},
 /area/awaymission/DSBSSigma/science_lab)
 "oy" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -8764,7 +8763,7 @@
 	},
 /area/awaymission/DSBSSigma/janitorial)
 "oL" = (
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
@@ -8794,7 +8793,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_north)
 "oP" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -8845,7 +8844,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "1-f"
 	},
 /turf/simulated/floor/carpet,
@@ -8854,7 +8853,7 @@
 /turf/unsimulated/wall/asteroid,
 /area/awaymission/DSBSSigma/hydroponics)
 "oV" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -9032,7 +9031,7 @@
 /obj/machinery/constructable_frame,
 /obj/effect/landmark/damageturf,
 /obj/structure/flora/rock/pile,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -9052,7 +9051,7 @@
 /obj/machinery/light/small/broken,
 /obj/structure/flora/rock,
 /obj/effect/landmark/damageturf,
-/obj/structure/utility/broken/smooth,
+/obj/structure/fluff/utility/broken/smooth,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
@@ -9078,7 +9077,7 @@
 	pixel_y = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
@@ -9168,7 +9167,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
@@ -9247,7 +9246,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/DSBSSigma/virology_lab)
 "pE" = (
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /obj/item/shard,
 /obj/effect/landmark/damageturf,
@@ -9284,7 +9283,7 @@
 /obj/structure/disposalpipe/broken,
 /obj/structure/flora/rock/pile,
 /obj/effect/landmark/damageturf,
-/obj/structure/utility/broken/smooth{
+/obj/structure/fluff/utility/broken/smooth{
 	icon_state = "catwalk-bs";
 	dir = 1
 	},
@@ -9310,7 +9309,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
@@ -9348,7 +9347,7 @@
 	icon_state = "medium"
 	},
 /obj/structure/flora/rock/pile,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "2-f"
 	},
 /turf/simulated/floor/plasteel{
@@ -9357,7 +9356,7 @@
 	},
 /area/awaymission/DSBSSigma/virology_lab)
 "pO" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -9485,7 +9484,7 @@
 	pixel_y = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
@@ -9671,7 +9670,7 @@
 /area/awaymission/DSBSSigma/virology_lab)
 "qv" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /turf/simulated/floor/engine/o2,
 /area/awaymission/DSBSSigma/engineering_lifesupport)
@@ -9697,7 +9696,7 @@
 	pixel_y = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/flora/rock,
 /turf/simulated/floor/plating{
@@ -9970,7 +9969,7 @@
 /turf/unsimulated/wall/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_west)
 "rb" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9;
 	pixel_y = 0
@@ -10048,7 +10047,6 @@
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "ri" = (
 /obj/structure/grille,
-/turf/simulated/floor/plating,
 /turf/unsimulated/wall/fakeglass/reinforced,
 /area/awaymission/DSBSSigma/virology_lab)
 "rj" = (
@@ -10100,7 +10098,7 @@
 	pixel_y = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
@@ -10263,7 +10261,7 @@
 	dir = 4;
 	pixel_y = 0
 	},
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
@@ -10388,7 +10386,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/structure/flora/rock/pile,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating{
@@ -10589,7 +10587,7 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -10718,7 +10716,7 @@
 /obj/structure/flora/rock/pile,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "4-f"
 	},
 /turf/simulated/floor/plasteel{
@@ -10852,7 +10850,7 @@
 	pixel_y = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/flora/rock/pile,
 /turf/simulated/floor/plating{
@@ -10874,7 +10872,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -11040,7 +11038,7 @@
 	},
 /obj/structure/flora/rock,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "3-sw"
 	},
 /turf/simulated/floor/plasteel{
@@ -11155,7 +11153,7 @@
 	},
 /area/awaymission/DSBSSigma/hydroponics)
 "sR" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -11188,7 +11186,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -11255,7 +11253,7 @@
 	dir = 4;
 	level = 2
 	},
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -11265,7 +11263,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/universal{
 	dir = 4
 	},
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "3-sw"
 	},
 /turf/simulated/floor/plasteel{
@@ -11343,7 +11341,7 @@
 	dir = 8
 	},
 /obj/structure/spacevine,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "4-f"
 	},
 /turf/simulated/floor/plasteel{
@@ -11492,13 +11490,13 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/rock/pile,
 /obj/structure/spacevine,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "3-sw"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/hydroponics)
 "to" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
 	initialize_directions = 11
@@ -11531,7 +11529,7 @@
 	},
 /area/awaymission/DSBSSigma/cave_junction_west)
 "tp" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -11586,7 +11584,7 @@
 	},
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "tt" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9;
 	pixel_y = 0
@@ -11614,7 +11612,7 @@
 	dir = 4;
 	name = "Mix to Incinerator B"
 	},
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "4-se"
 	},
 /turf/simulated/floor/plasteel{
@@ -11640,7 +11638,7 @@
 	},
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "tx" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9;
 	level = 1
@@ -11693,7 +11691,7 @@
 	},
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "tA" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -11733,7 +11731,7 @@
 	},
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "tC" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -11752,7 +11750,7 @@
 	},
 /area/awaymission/DSBSSigma/cave_junction_west)
 "tD" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9;
 	level = 1
@@ -11854,7 +11852,7 @@
 	dir = 10;
 	level = 2
 	},
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -11862,7 +11860,7 @@
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "tL" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -11905,7 +11903,7 @@
 	},
 /area/awaymission/DSBSSigma/virology_lab)
 "tQ" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -12020,7 +12018,7 @@
 /obj/effect/decal/warning_stripes/green/hollow,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/constructable_frame,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /obj/effect/landmark/damageturf,
 /obj/structure/spacevine,
@@ -12039,7 +12037,7 @@
 	pixel_y = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_west)
@@ -12059,7 +12057,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
@@ -12222,7 +12220,7 @@
 "up" = (
 /obj/structure/table_frame,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /obj/effect/landmark/damageturf,
 /obj/structure/spacevine,
@@ -12285,7 +12283,7 @@
 	},
 /area/awaymission/DSBSSigma/mech_bay)
 "uu" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/structure/disposalpipe/junction{
 	dir = 8;
 	icon_state = "pipe-j2";
@@ -12499,7 +12497,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/supply{
 	dir = 4
 	},
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "2-f"
 	},
 /turf/simulated/floor/plasteel{
@@ -12519,7 +12517,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "1-nw"
 	},
 /turf/simulated/floor/plasteel{
@@ -12577,7 +12575,7 @@
 	},
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "uL" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -13207,7 +13205,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -13238,7 +13236,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/rock/pile,
 /obj/structure/spacevine,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "2-f"
 	},
 /turf/simulated/floor/plasteel{
@@ -13365,7 +13363,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table_frame,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -13446,7 +13444,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "wb" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -13468,7 +13466,7 @@
 	},
 /area/awaymission/DSBSSigma/cave_junction_west)
 "wc" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -13545,7 +13543,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/caverns)
 "wl" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9;
 	level = 1
@@ -13568,7 +13566,7 @@
 "wm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/item/ammo_casing/c10mm/spent,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
@@ -13831,7 +13829,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_west)
 "wK" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -13938,7 +13936,7 @@
 /area/awaymission/DSBSSigma/cave_junction_east)
 "wT" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/asteroid/cave,
+/turf/simulated/mineral/asteroid/cave,
 /area/awaymission/DSBSSigma/cave_junction_east)
 "wU" = (
 /obj/structure/cable/yellow{
@@ -13980,7 +13978,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/caverns)
 "wX" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -14072,7 +14070,7 @@
 /area/awaymission/DSBSSigma/cave_junction_west)
 "xh" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/asteroid/cave,
+/turf/simulated/mineral/asteroid/cave,
 /area/awaymission/DSBSSigma/cave_junction_west)
 "xi" = (
 /obj/structure/disposalpipe/segment,
@@ -14204,7 +14202,7 @@
 	pixel_y = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/light/broken{
 	icon_state = "tube-broken";
@@ -14328,7 +14326,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/mining)
 "xK" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -14366,7 +14364,7 @@
 	dir = 4;
 	level = 1
 	},
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
@@ -14393,7 +14391,7 @@
 	icon = 'icons/effects/blood.dmi';
 	icon_state = "tracks"
 	},
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
@@ -14435,7 +14433,7 @@
 	icon_state = "1-2";
 	pixel_y = 0
 	},
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
@@ -14614,7 +14612,7 @@
 	pixel_y = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
 	initialize_directions = 11
@@ -14672,7 +14670,7 @@
 /area/awaymission/DSBSSigma/cave_junction_west)
 "yp" = (
 /obj/structure/spacevine,
-/turf/simulated/asteroid/cave,
+/turf/simulated/mineral/asteroid/cave,
 /area/awaymission/DSBSSigma/caverns)
 "yq" = (
 /turf/unsimulated/wall/metal/reinforced,
@@ -14692,7 +14690,7 @@
 	},
 /area/awaymission/DSBSSigma/hydroponics)
 "yt" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -14780,7 +14778,7 @@
 	},
 /area/awaymission/DSBSSigma/mech_bay)
 "yB" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9;
 	pixel_y = 0
@@ -14819,7 +14817,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/caverns)
 "yF" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9;
 	pixel_y = 0
@@ -14860,7 +14858,7 @@
 /area/awaymission/DSBSSigma/caverns)
 "yI" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/asteroid/cave,
+/turf/simulated/mineral/asteroid/cave,
 /area/awaymission/DSBSSigma/caverns)
 "yJ" = (
 /turf/simulated/floor/plasteel{
@@ -14884,7 +14882,7 @@
 	pixel_y = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating{
@@ -14928,7 +14926,7 @@
 /obj/structure/disposalpipe/broken{
 	dir = 1
 	},
-/obj/structure/utility/broken/smooth,
+/obj/structure/fluff/utility/broken/smooth,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
@@ -15036,7 +15034,7 @@
 /area/awaymission/DSBSSigma/mech_bay)
 "yY" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "4-f"
 	},
 /turf/simulated/floor/plating/asteroid,
@@ -15291,7 +15289,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/asteroid/cave,
+/turf/simulated/mineral/asteroid/cave,
 /area/awaymission/DSBSSigma/cave_junction_west)
 "zz" = (
 /obj/machinery/power/turbine{
@@ -15350,7 +15348,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/mess_hall)
 "zG" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9;
 	pixel_y = 0
@@ -15456,7 +15454,7 @@
 	},
 /area/awaymission/DSBSSigma/kitchen)
 "zO" = (
-/turf/simulated/asteroid/cracked,
+/turf/simulated/mineral/asteroid/cave/cracked,
 /area/awaymission/DSBSSigma/command)
 "zP" = (
 /obj/item/clothing/ears/earmuffs,
@@ -15474,7 +15472,7 @@
 /area/awaymission/DSBSSigma/hydroponics)
 "zR" = (
 /obj/structure/flora/rock/pile,
-/turf/simulated/asteroid/cave,
+/turf/simulated/mineral/asteroid/cave,
 /area/awaymission/DSBSSigma/cave_junction_west)
 "zS" = (
 /obj/structure/chair/wood{
@@ -15576,7 +15574,7 @@
 /area/awaymission/DSBSSigma/mess_hall)
 "Ac" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/asteroid/cracked,
+/turf/simulated/mineral/asteroid/cave/cracked,
 /area/awaymission/DSBSSigma/cave_junction_east)
 "Ad" = (
 /obj/structure/cable{
@@ -15678,7 +15676,7 @@
 /area/awaymission/DSBSSigma/kitchen)
 "Aj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "3-sw"
 	},
 /turf/simulated/floor/plating,
@@ -15731,7 +15729,7 @@
 	},
 /area/awaymission/DSBSSigma/armory)
 "Ao" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9;
 	pixel_y = 0
@@ -15861,7 +15859,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/rock/pile,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "3-sw"
 	},
 /turf/simulated/floor/plasteel{
@@ -15952,7 +15950,7 @@
 /turf/unsimulated/wall/asteroid,
 /area/awaymission/DSBSSigma/kitchen)
 "AK" = (
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating{
@@ -16078,7 +16076,7 @@
 	},
 /area/awaymission/DSBSSigma/cave_junction_west)
 "AV" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -16103,7 +16101,7 @@
 /area/awaymission/DSBSSigma/cave_junction_west)
 "AW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "1-nw"
 	},
 /turf/simulated/floor/plating,
@@ -16286,7 +16284,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
@@ -16350,7 +16348,7 @@
 "By" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
@@ -16393,7 +16391,7 @@
 "BE" = (
 /obj/structure/flora/rock/pile,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "3-sw"
 	},
 /turf/simulated/floor/plasteel{
@@ -16531,7 +16529,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/awaymission/DSBSSigma/kitchen)
 "BU" = (
-/obj/structure/utility,
+/obj/structure/fluff/utility,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
@@ -16599,7 +16597,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/utility/broken/smooth{
+/obj/structure/fluff/utility/broken/smooth{
 	icon_state = "catwalk-bs";
 	dir = 1
 	},
@@ -16613,7 +16611,7 @@
 	},
 /area/awaymission/DSBSSigma/cave_junction_east)
 "Ca" = (
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
@@ -16660,7 +16658,7 @@
 /area/awaymission/DSBSSigma/cave_junction_west)
 "Cg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "3-sw"
 	},
 /turf/simulated/floor/plasteel{
@@ -16899,7 +16897,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "2-f"
 	},
 /turf/simulated/floor/plasteel{
@@ -16927,7 +16925,7 @@
 	color = "green"
 	},
 /obj/effect/landmark/burnturf,
-/obj/structure/utility/broken/smooth,
+/obj/structure/fluff/utility/broken/smooth,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
@@ -17011,7 +17009,7 @@
 /area/awaymission/DSBSSigma/dormitories)
 "CN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -17108,7 +17106,7 @@
 /obj/effect/landmark/burnturf,
 /obj/structure/flora/rock,
 /obj/effect/landmark/damageturf,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/armory)
 "CX" = (
@@ -17123,7 +17121,7 @@
 "CY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/rock/pile,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "1-f"
 	},
 /turf/simulated/floor/plasteel{
@@ -17161,7 +17159,7 @@
 	},
 /area/awaymission/DSBSSigma/dormitories)
 "Db" = (
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "2-ne"
 	},
 /turf/simulated/floor/plasteel{
@@ -17231,7 +17229,7 @@
 /area/awaymission/DSBSSigma/dormitories)
 "Di" = (
 /obj/item/ammo_casing/c10mm/spent,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "1-f"
 	},
 /turf/simulated/floor/plasteel{
@@ -17316,7 +17314,7 @@
 	},
 /area/awaymission/DSBSSigma/dormitories)
 "Do" = (
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
@@ -17408,7 +17406,7 @@
 /area/awaymission/DSBSSigma/armory)
 "Dv" = (
 /obj/item/ammo_casing/c45/spent,
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "3-f"
 	},
 /turf/simulated/floor/plasteel{
@@ -17453,7 +17451,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -17480,7 +17478,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/utility/lattice{
+/obj/structure/fluff/utility/lattice{
 	icon_state = "1-f"
 	},
 /turf/simulated/floor/plasteel{
@@ -17525,20 +17523,20 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/mess_hall)
 "DD" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/dormitories)
 "DE" = (
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/sheet/wood,
 /obj/structure/table_frame/wood,
 /obj/item/stack/tile,
@@ -17670,7 +17668,7 @@
 	},
 /area/awaymission/DSBSSigma/dormitories)
 "DP" = (
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /obj/item/shard,
 /obj/effect/landmark/damageturf,
@@ -17940,7 +17938,7 @@
 /area/awaymission/DSBSSigma/dormitories)
 "Ed" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -17952,7 +17950,7 @@
 	pixel_y = 0
 	},
 /obj/effect/decal/cleanable/generic,
-/obj/structure/utility/lattice,
+/obj/structure/fluff/utility/lattice,
 /obj/item/stack/tile,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
@@ -18203,7 +18201,7 @@
 /obj/structure/disposalpipe/broken,
 /obj/effect/landmark/burnturf,
 /obj/effect/decal/cleanable/blood/xeno,
-/obj/structure/utility/broken/smooth{
+/obj/structure/fluff/utility/broken/smooth{
 	icon_state = "catwalk-bs";
 	dir = 1
 	},
@@ -18215,7 +18213,6 @@
 /area/awaymission/DSBSSigma/cave_junction_west)
 "Ez" = (
 /obj/structure/grille,
-/turf/simulated/floor/plating,
 /turf/unsimulated/wall/fakeglass/reinforced,
 /area/awaymission/DSBSSigma/lockdown)
 "ED" = (
@@ -18679,7 +18676,7 @@
 	},
 /area/awaymission/DSBSSigma/dormitories)
 "Fx" = (
-/turf/simulated/asteroid/cave,
+/turf/simulated/mineral/asteroid/cave,
 /area/awaymission/DSBSSigma/armory)
 "Fy" = (
 /obj/structure/closet/walllocker/emerglocker/west,
@@ -19682,7 +19679,7 @@
 /area/awaymission/DSBSSigma/dormitories)
 "HG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/lattice/catwalk,
+/obj/structure/fluff/utility,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/DSBSSigma/exterior)
 "HH" = (
@@ -20047,7 +20044,7 @@
 	},
 /area/awaymission/DSBSSigma/dormitories)
 "IC" = (
-/turf/simulated/asteroid/cracked,
+/turf/simulated/mineral/asteroid/cave/cracked,
 /area/awaymission/DSBSSigma/armory)
 "ID" = (
 /obj/structure/disposalpipe/segment,
@@ -20092,15 +20089,57 @@
 /area/awaymission/DSBSSigma/mess_hall)
 "IP" = (
 /obj/structure/spacevine,
-/turf/simulated/asteroid/cracked,
+/turf/simulated/mineral/asteroid/cave/cracked,
 /area/awaymission/DSBSSigma/caverns)
 "IS" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/asteroid/cracked,
+/turf/simulated/mineral/asteroid/cave/cracked,
 /area/awaymission/DSBSSigma/cave_junction_west)
 "IT" = (
-/turf/simulated/asteroid/cracked,
+/turf/simulated/mineral/asteroid/cave/cracked,
 /area/awaymission/DSBSSigma/cave_junction_west)
+"IW" = (
+/obj/structure/flora/rock/pile,
+/obj/structure/fluff/utility/broken/smooth{
+	desc = "A broken section of catwalk.";
+	dir = 8;
+	name = "broken catwalk"
+	},
+/turf/space,
+/area/space)
+"KH" = (
+/obj/item/stack/rods,
+/obj/structure/fluff/utility/broken/smooth{
+	desc = "A broken section of catwalk.";
+	dir = 1;
+	name = "broken catwalk"
+	},
+/turf/space,
+/area/space)
+"Pb" = (
+/obj/structure/fluff/utility/broken/smooth{
+	desc = "A broken section of catwalk.";
+	name = "broken catwalk"
+	},
+/turf/space,
+/area/space)
+"RJ" = (
+/obj/item/stack/rods,
+/obj/structure/fluff/utility/broken/smooth{
+	desc = "A broken section of catwalk.";
+	dir = 4;
+	name = "broken catwalk"
+	},
+/turf/space,
+/area/space)
+"Us" = (
+/obj/structure/fluff/utility/broken/smooth{
+	desc = "A broken section of catwalk.";
+	dir = 4;
+	name = "broken catwalk"
+	},
+/turf/space,
+/area/space)
 
 (1,1,1) = {"
 aa
@@ -27526,7 +27565,7 @@ aa
 aa
 aa
 FU
-aa
+Us
 aa
 ah
 ah
@@ -27996,7 +28035,7 @@ aa
 aa
 aa
 HR
-HN
+IW
 aa
 aa
 ah
@@ -30662,7 +30701,7 @@ aa
 aa
 aa
 HN
-HR
+RJ
 rm
 ai
 ai
@@ -30973,7 +31012,7 @@ aa
 aa
 aa
 aa
-HN
+IW
 HR
 HN
 aa
@@ -41047,7 +41086,7 @@ HN
 HN
 In
 aa
-HR
+KH
 hU
 hU
 qY
@@ -41201,7 +41240,7 @@ ae
 qY
 hU
 hV
-aa
+Pb
 HR
 HN
 aa
@@ -41234,7 +41273,7 @@ ah
 ah
 ah
 In
-HR
+RJ
 aa
 aa
 aa
@@ -41547,7 +41586,7 @@ ae
 qY
 qY
 Im
-aa
+Pb
 aa
 aa
 aa
