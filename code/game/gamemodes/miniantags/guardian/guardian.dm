@@ -194,7 +194,7 @@
 	// Show the message to the host and to the guardian.
 	to_chat(summoner, "<span class='changeling'><i>[src]:</i> [input]</span>")
 	to_chat(src, "<span class='changeling'><i>[src]:</i> [input]</span>")
-	log_say("(GUARDIAN to [key_name(summoner)]) [input]", src)
+	log_say("(GUARDIAN to [key_name(summoner)]): [input]", src)
 	create_log(SAY_LOG, "GUARDIAN to HOST: [input]", summoner)
 
 	// Show the message to any ghosts/dead players.
@@ -239,6 +239,8 @@
 	var/ling_failure = "The deck refuses to respond to a souless creature such as you."
 	var/list/possible_guardians = list("Chaos", "Standard", "Ranged", "Support", "Explosive", "Assassin", "Lightning", "Charger", "Protector")
 	var/random = FALSE
+	/// What type was picked the first activation
+	var/picked_random_type
 	var/color_list = list("Pink" = "#FFC0CB",
 		"Red" = "#FF0000",
 		"Orange" = "#FFA500",
@@ -264,12 +266,25 @@
 		used = FALSE
 		return
 	to_chat(user, "[use_message]")
-	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the [mob_name] of [user.real_name]?", ROLE_GUARDIAN, FALSE, 10 SECONDS, source = src)
+
+	var/guardian_type
+	if(random)
+		if(!picked_random_type) // Only pick the type once. No type fishing
+			picked_random_type = pick(possible_guardians)
+		guardian_type = picked_random_type
+	else
+		guardian_type = input(user, "Pick the type of [mob_name]", "[mob_name] Creation") as null|anything in possible_guardians
+		if(!guardian_type)
+			to_chat(user, "<span class='warning'>You decide against using the [name].</span>")
+			used = FALSE
+			return
+
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the [mob_name] ([guardian_type]) of [user.real_name]?", ROLE_GUARDIAN, FALSE, 10 SECONDS, source = src, role_cleanname = "[mob_name] ([guardian_type])")
 	var/mob/dead/observer/theghost = null
 
 	if(candidates.len)
 		theghost = pick(candidates)
-		spawn_guardian(user, theghost.key)
+		spawn_guardian(user, theghost.key, guardian_type)
 	else
 		to_chat(user, "[failure_message]")
 		used = FALSE
@@ -279,12 +294,7 @@
 	if(used)
 		. += "<span class='notice'>[used_message]</span>"
 
-/obj/item/guardiancreator/proc/spawn_guardian(mob/living/user, key)
-	var/guardian_type = "Standard"
-	if(random)
-		guardian_type = pick(possible_guardians)
-	else
-		guardian_type = input(user, "Pick the type of [mob_name]", "[mob_name] Creation") as null|anything in possible_guardians
+/obj/item/guardiancreator/proc/spawn_guardian(mob/living/user, key, guardian_type)
 	var/pickedtype = /mob/living/simple_animal/hostile/guardian/punch
 	switch(guardian_type)
 

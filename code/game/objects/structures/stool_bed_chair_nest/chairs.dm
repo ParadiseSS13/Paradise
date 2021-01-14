@@ -18,12 +18,6 @@
 	var/propelled = FALSE // Check for fire-extinguisher-driven chairs
 	var/comfort = 0
 
-/obj/structure/chair/New()
-	..()
-	spawn(3)	//sorry. i don't think there's a better way to do this.
-		handle_rotation()
-	return
-
 /obj/structure/chair/narsie_act()
 	if(prob(20))
 		var/obj/structure/chair/wood/W = new/obj/structure/chair/wood(get_turf(src))
@@ -46,10 +40,9 @@
 			to_chat(user, "<span class='notice'>[SK] is not ready to be attached!</span>")
 			return
 		user.drop_item()
-		var/obj/structure/chair/e_chair/E = new /obj/structure/chair/e_chair(src.loc)
+		var/obj/structure/chair/e_chair/E = new /obj/structure/chair/e_chair(get_turf(src), SK)
 		playsound(src.loc, W.usesound, 50, 1)
 		E.dir = dir
-		E.part = SK
 		SK.loc = E
 		SK.master = E
 		qdel(src)

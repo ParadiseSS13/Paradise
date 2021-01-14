@@ -40,6 +40,7 @@
 #define GOTTAGOFAST	32
 #define IGNORESLOWDOWN	128
 #define IGNORE_SPEED_CHANGES	256
+#define GOTTAGONOTSOFAST 512 //This is used for nukacola, mormal meth is a "1" speed up, nuka is 0.5 and they don't stack, feel free to use this one somewhere else
 #define GODMODE		4096
 #define FAKEDEATH	8192	//Replaces stuff like changeling.changeling_fakedeath
 #define XENO_HOST	16384	//Tracks whether we're gonna be a baby alien's mummy.

@@ -70,8 +70,8 @@
 	/// Structure: [/mob/living] => [/datum/syndicate_contract]
 	var/list/prisoners = null
 
-/obj/structure/closet/secure_closet/contractor/New()
-	..()
+/obj/structure/closet/secure_closet/contractor/Initialize(mapload)
+	. = ..()
 	if(!GLOB.prisoner_belongings)
 		GLOB.prisoner_belongings = src
 

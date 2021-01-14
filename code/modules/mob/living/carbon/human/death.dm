@@ -106,8 +106,7 @@
 		dna.species.handle_death(gibbed, src)
 
 	if(SSticker && SSticker.mode)
-//		log_world("k")
-		sql_report_death(src)
+		SSblackbox.ReportDeath(src)
 
 /mob/living/carbon/human/update_revive()
 	. = ..()

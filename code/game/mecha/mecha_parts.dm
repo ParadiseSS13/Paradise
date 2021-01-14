@@ -259,6 +259,11 @@
 	..()
 	construct = new /datum/construction/mecha/phazon_chassis(src)
 
+/obj/item/mecha_parts/chassis/phazon/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(istype(I, /obj/item/assembly/signaler/anomaly) && !istype(I, /obj/item/assembly/signaler/anomaly/bluespace))
+		to_chat(user, "<span class='warning'>The anomaly core socket only accepts bluespace anomaly cores!</span>")
+
 /obj/item/mecha_parts/part/phazon_torso
 	name="Phazon Torso"
 	icon_state = "phazon_harness"

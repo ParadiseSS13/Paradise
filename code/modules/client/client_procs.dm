@@ -293,6 +293,9 @@
 	if(world.byond_version >= 511 && byond_version >= 511 && prefs.clientfps)
 		fps = prefs.clientfps
 
+	// Check if the client has or has not accepted TOS
+	check_tos_consent()
+
 	// This has to go here to avoid issues
 	// If you sleep past this point, you will get SSinput errors as well as goonchat errors
 	// DO NOT STUFF RANDOM SQL QUERIES BELOW THIS POINT WITHOUT USING `INVOKE_ASYNC()` OR SIMILAR
@@ -531,9 +534,12 @@
 			return
 
 	if(sql_id)
+		var/client_address = address
+		if(!client_address) // Localhost can sometimes have no address set
+			client_address = "127.0.0.1"
 		//Player already identified previously, we need to just update the 'lastseen', 'ip' and 'computer_id' variables
 		var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET lastseen = Now(), ip=:sql_ip, computerid=:sql_cid, lastadminrank=:sql_ar WHERE id=:sql_id", list(
-			"sql_ip" = address,
+			"sql_ip" = client_address,
 			"sql_cid" = computer_id,
 			"sql_ar" = admin_rank,
 			"sql_id" = sql_id
@@ -572,7 +578,7 @@
 	// Log player connections to DB
 	var/datum/db_query/query_accesslog = SSdbcore.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`datetime`,`ckey`,`ip`,`computerid`) VALUES(Now(), :ckey, :ip, :cid)", list(
 		"ckey" = ckey,
-		"ip" = address,
+		"ip" = "[address ? address : ""]", // This is important. NULL is not the same as "", and if you directly open the `.dmb` file, you get a NULL IP.
 		"cid" = computer_id
 	))
 	// We do nothing with output here, or anything else after, so we dont need to if() wrap it
@@ -633,8 +639,9 @@
 		qdel(query_find_token)
 		return
 	if(query_find_token.NextRow())
+		var/tkn = query_find_token.item[1]
 		qdel(query_find_token)
-		return query_find_token.item[1]
+		return tkn
 	qdel(query_find_token)
 
 	var/tokenstr = md5("[rand(0,9999)][world.time][rand(0,9999)][ckey][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)]")
@@ -1022,13 +1029,13 @@
 				// Main return is here
 				return parsed_data
 			catch
-				message_admins("Error parsing byond.com data for [ckey]. Please inform maintainers.")
+				log_debug("Error parsing byond.com data for [ckey]. Please inform maintainers.")
 				return null
 		else
-			message_admins("Error retrieving data from byond.com for [ckey]. Invalid status code (Expected: 200 | Got: [status]).")
+			log_debug("Error retrieving data from byond.com for [ckey]. Invalid status code (Expected: 200 | Got: [status]).")
 			return null
 	else
-		message_admins("Failed to retrieve data from byond.com for [ckey]. Connection failed.")
+		log_debug("Failed to retrieve data from byond.com for [ckey]. Connection failed.")
 		return null
 
 
@@ -1040,7 +1047,6 @@
   * Arguments:
   * * notify - Do we notify admins of this new accounts date
   */
-
 /client/proc/get_byond_account_date(notify = FALSE)
 	// First we see if the client has a saved date in the DB
 	var/datum/db_query/query_date = SSdbcore.NewQuery("SELECT byond_date, DATEDIFF(Now(), byond_date) FROM [format_table_name("player")] WHERE ckey=:ckey", list(
@@ -1063,7 +1069,7 @@
 	// They dont have a date, lets grab one
 	var/list/byond_data = retrieve_byondacc_data()
 	if(isnull(byond_data) || !(byond_data["general"]["joined"]))
-		message_admins("Failed to retrieve an account creation date for [ckey].")
+		log_debug("Failed to retrieve an account creation date for [ckey].")
 		return
 
 	byondacc_date = byond_data["general"]["joined"]
@@ -1096,6 +1102,42 @@
 
 /client/proc/show_update_notice()
 	to_chat(src, "<span class='userdanger'>Your BYOND client (v: [byond_version].[byond_build]) is out of date. This can cause glitches. We highly suggest you download the latest client from <a href='https://www.byond.com/download/'>byond.com</a> before playing. You can also update via the BYOND launcher application.</span>")
+
+/**
+  * Checks if the client has accepted TOS
+  *
+  * Runs some checks against vars and the DB to see if the client has accepted TOS.
+  * Returns TRUE or FALSE if they have or have not
+  */
+/client/proc/check_tos_consent()
+	// If there is no TOS, auto accept
+	if(!GLOB.join_tos)
+		tos_consent = TRUE
+		return TRUE
+
+	// If theres no DB, assume yes
+	if(!SSdbcore.IsConnected())
+		tos_consent = TRUE
+		return TRUE
+
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("privacy")] WHERE ckey=:ckey AND consent=1", list(
+		"ckey" = ckey
+	))
+	if(!query.warn_execute())
+		qdel(query)
+		// If our query failed, just assume yes
+		tos_consent = TRUE
+		return TRUE
+
+	// If we returned a row, they accepted
+	while(query.NextRow())
+		qdel(query)
+		tos_consent = TRUE
+		return TRUE
+
+	qdel(query)
+	// If we are here, they have not accepted, and need to read it
+	return FALSE
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND
