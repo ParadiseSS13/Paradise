@@ -1139,6 +1139,21 @@
 	// If we are here, they have not accepted, and need to read it
 	return FALSE
 
+/client/proc/add_phobia(phobia_type)
+	var/datum/phobia/spiders/P = new phobia_type(src)
+	LAZYINITLIST(phobias)
+	phobias[P.phobia_key] = P
+
+/client/proc/remove_phobia(phobia_type)
+	if(!length(phobias))
+		return
+	var/datum/phobia/P = phobia_type
+	P = phobias[initial(P.phobia_key)]
+	phobias -= P.phobia_key
+	qdel(P)
+	if(!length(phobias))
+		phobias = null
+
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND
 #undef SECOND_COUNT

@@ -280,6 +280,10 @@
 #define COMSIG_MOB_LOGOUT "mob_logout"
 ///from base of mob/death(): (gibbed)
 #define COMSIG_MOB_DEATH "mob_death"
+///from base of mob/ghostize(): (ghost)
+#define COMSIG_MOB_GHOSTIZED "mob_ghostized"
+///from base of mob/reenter_corpse(): (corpse)
+#define COMSIG_OBSERVER_RE_ENTER_BODY "ghost_re_enter_body"
 ///from base of mob/set_stat(): (new_stat)
 #define COMSIG_MOB_STATCHANGE "mob_statchange"
 ///from base of mob/clickon(): (atom/A, params)

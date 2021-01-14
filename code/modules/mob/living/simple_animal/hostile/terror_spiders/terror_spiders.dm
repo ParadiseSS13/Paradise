@@ -25,6 +25,11 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	icon_living = "terror_red"
 	icon_dead = "terror_red_dead"
 
+	/// An alternative sprite state for those who suffer from arachnophobia. Living variant
+	var/alternative_living_sprite_state
+	/// An alternative sprite state for those who suffer from arachnophobia. Dead variant
+	var/alternative_dead_sprite_state
+
 	// Health
 	maxHealth = 120
 	health = 120
@@ -295,6 +300,13 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/datum/atom_hud/U = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	U.add_hud_to(src)
 	spider_creation_time = world.time
+
+/mob/living/simple_animal/hostile/poison/terror_spider/Initialize(mapload)
+	. = ..()
+	// TEMP POC. Replace later with the sprites once available
+	var/image/I = image(icon = 'icons/mob/robots.dmi' , icon_state = "robot", loc = src)
+	I.override = TRUE
+	add_alt_appearance(PHOBIA_ARACHNOPHOBIA, I, GLOB.arachnophobic_players)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/announcetoghosts()
 	if(spider_awaymission)

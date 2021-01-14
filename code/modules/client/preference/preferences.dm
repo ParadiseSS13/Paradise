@@ -440,6 +440,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<b>Adminhelp sound:</b> <a href='?_src_=prefs;preference=hear_adminhelps'><b>[(sound & SOUND_ADMINHELP)?"On":"Off"]</b></a><br>"
 			dat += "<b>AFK Cryoing:</b> <a href='?_src_=prefs;preference=afk_watch'>[(toggles2 & PREFTOGGLE_2_AFKWATCH) ? "Yes" : "No"]</a><br>"
 			dat += "<b>Ambient Occlusion:</b> <a href='?_src_=prefs;preference=ambientocclusion'><b>[toggles & PREFTOGGLE_AMBIENT_OCCLUSION ? "Enabled" : "Disabled"]</b></a><br>"
+			dat += "<b>Arachnophobia Mode:</b> <a href='?_src_=prefs;preference=arachnophobia_mode'>[(toggles2 & PREFTOGGLE_2_ARACHNOPHOBIA) ? "Yes" : "No"]</a><br>"
 			dat += "<b>Attack Animations:</b> <a href='?_src_=prefs;preference=ghost_att_anim'>[(toggles2 & PREFTOGGLE_2_ITEMATTACK) ? "Yes" : "No"]</a><br>"
 			if(unlock_content)
 				dat += "<b>BYOND Membership Publicity:</b> <a href='?_src_=prefs;preference=publicity'><b>[(toggles & PREFTOGGLE_MEMBER_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
@@ -2007,6 +2008,17 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("ghost_att_anim")
 					toggles2 ^= PREFTOGGLE_2_ITEMATTACK
+
+				if("arachnophobia_mode")
+					toggles2 ^= PREFTOGGLE_2_ARACHNOPHOBIA
+
+					if(toggles2 & PREFTOGGLE_2_ARACHNOPHOBIA)
+						to_chat(user, "<span class='info'>Arachnophobia mode activated. Spiders will now appear as beetles.</span>")
+						parent.add_phobia(/datum/phobia/spiders)
+					else
+						to_chat(user, "<span class='info'>Arachnophobia mode deactivated. Spiders will now appear as spiders again.</span>")
+						parent.remove_phobia(/datum/phobia/spiders)
+
 
 				if("winflash")
 					toggles2 ^= PREFTOGGLE_2_WINDOWFLASHING

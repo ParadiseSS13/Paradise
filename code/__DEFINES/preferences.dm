@@ -52,8 +52,9 @@
 #define PREFTOGGLE_2_RUNECHAT		64
 #define PREFTOGGLE_2_DEATHMESSAGE	128
 #define PREFTOGGLE_2_EMOTE_BUBBLE	256
+#define PREFTOGGLE_2_ARACHNOPHOBIA	512
 
-#define TOGGLES_2_TOTAL 			511 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_2_TOTAL 			1023 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
 #define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_EMOTE_BUBBLE)
 

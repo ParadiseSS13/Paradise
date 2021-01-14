@@ -27,6 +27,8 @@
 
 	var/adminhelped = 0
 
+	/// List of phobias the player has
+	var/list/phobias
 		///////////////
 		//SOUND STUFF//
 		///////////////

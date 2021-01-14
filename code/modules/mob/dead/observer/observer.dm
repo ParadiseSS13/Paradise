@@ -149,22 +149,24 @@ Works together with spawning an observer, noted above.
 	return 1
 
 /mob/proc/ghostize(flags = GHOST_CAN_REENTER)
-	if(key)
-		if(player_logged) //if they have disconnected we want to remove their SSD overlay
-			overlays -= image('icons/effects/effects.dmi', icon_state = "zzz_glow")
-		if(GLOB.non_respawnable_keys[ckey])
-			flags &= ~GHOST_CAN_REENTER
-		var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
-		ghost.timeofdeath = src.timeofdeath //BS12 EDIT
-		GLOB.respawnable_list -= src
-		if(ghost.can_reenter_corpse)
-			GLOB.respawnable_list += ghost
-		else
-			GLOB.non_respawnable_keys[ckey] = 1
-		ghost.key = key
-		if(!(ghost.client && ghost.client.holder) && !config.antag_hud_allowed)    // For new ghosts we remove the verb from even showing up if it's not allowed.
-			ghost.verbs -= /mob/dead/observer/verb/toggle_antagHUD  // Poor guys, don't know what they are missing!
-		return ghost
+	if(!key)
+		return
+	if(player_logged) //if they have disconnected we want to remove their SSD overlay
+		overlays -= image('icons/effects/effects.dmi', icon_state = "zzz_glow")
+	if(GLOB.non_respawnable_keys[ckey])
+		flags &= ~GHOST_CAN_REENTER
+	var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
+	ghost.timeofdeath = src.timeofdeath //BS12 EDIT
+	GLOB.respawnable_list -= src
+	if(ghost.can_reenter_corpse)
+		GLOB.respawnable_list += ghost
+	else
+		GLOB.non_respawnable_keys[ckey] = 1
+	ghost.key = key
+	if(!(ghost.client && ghost.client.holder) && !config.antag_hud_allowed)    // For new ghosts we remove the verb from even showing up if it's not allowed.
+		ghost.verbs -= /mob/dead/observer/verb/toggle_antagHUD  // Poor guys, don't know what they are missing!
+	SEND_SIGNAL(src, COMSIG_MOB_GHOSTIZED, ghost)
+	return ghost
 
 /*
 This is the proc mobs get to turn into a ghost. Forked from ghostize due to compatibility issues.
@@ -283,7 +285,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		Morgue = mind.current.loc
 	if(Morgue)
 		Morgue.update()
-
+	SEND_SIGNAL(src, COMSIG_OBSERVER_RE_ENTER_BODY, mind.current)
 	return 1
 
 

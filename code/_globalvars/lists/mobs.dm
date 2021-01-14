@@ -28,6 +28,8 @@ GLOBAL_LIST_EMPTY(non_respawnable_keys)	//List of ckeys that are excluded from r
 GLOBAL_LIST_INIT(simple_animals, list(list(), list(), list(), list()))			//One for each AI_* status define, List of all simple animals, including clientless
 GLOBAL_LIST_EMPTY(bots_list) 					//List of all bots(beepsky, medibots,etc)
 
+GLOBAL_LIST_EMPTY(arachnophobic_players)	// List of players who have the arachnophobe option checked on
+
 GLOBAL_LIST_EMPTY(med_hud_users)
 GLOBAL_LIST_EMPTY(sec_hud_users)
 GLOBAL_LIST_EMPTY(antag_hud_users)

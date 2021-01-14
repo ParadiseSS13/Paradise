@@ -35,8 +35,19 @@
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
 	gold_core_spawnable = HOSTILE_SPAWN
+	/// An alternative sprite state for those who suffer from arachnophobia. Living variant
+	var/alternative_living_sprite_state
+	/// An alternative sprite state for those who suffer from arachnophobia. Dead variant
+	var/alternative_dead_sprite_state
 	var/venom_per_bite = 0 // While the /poison/ type path remains as-is for consistency reasons, we're really talking about venom, not poison.
 	var/busy = 0
+
+/mob/living/simple_animal/hostile/poison/giant_spider/Initialize(mapload)
+	. = ..()
+	// TEMP POC. Replace later with the sprites once available
+	var/image/I = image(icon = 'icons/mob/robots.dmi' , icon_state = "robot", loc = src)
+	I.override = TRUE
+	add_alt_appearance(PHOBIA_ARACHNOPHOBIA, I, GLOB.arachnophobic_players)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/AttackingTarget()
 	// This is placed here, NOT on /poison, because the other subtypes of /poison/ already override AttackingTarget() completely, and as such it would do nothing but confuse people there.
