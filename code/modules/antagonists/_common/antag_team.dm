@@ -17,7 +17,7 @@
 /datum/team/proc/is_solo()
 	return members.len == 1
 
-/datum/team/proc/add_member(datum/mind/new_member)
+/datum/team/proc/add_member(datum/mind/new_member) //subtypes should handle what happens when a new member is added
 	members |= new_member
 
 /datum/team/proc/remove_member(datum/mind/member)
@@ -59,7 +59,7 @@
 		var/choice = input(usr,"Choose new member to add", "Member") as null|anything in candidates
 		if(!choice)
 			return
-		members += choice
+		add_member(choice)
 		log_admin("[key_name(usr)] has added [choice] to [name]")
 		message_admins("[key_name_admin(usr)] has added [choice] to [name]")
 
@@ -67,7 +67,7 @@
 		var/choice = input(usr, "Choose which member to remove", "Member") as null|anything in members
 		if(!choice)
 			return
-		members -= choice
+		remove_member(choice)
 		log_admin("[key_name(usr)] has removed [choice] to [name]")
 		message_admins("[key_name_admin(usr)] has removed [choice] to [name]")
 
@@ -93,6 +93,7 @@
 			if(!def_value)//If it's a custom objective, it will be an empty string.
 				def_value = "custom"
 		
+		// if your adding new objectives, insert the name here.
 		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in list("assassinate", "hijack", "escape", "steal", "destroy", "maroon", "custom")
 		if(!new_obj_type)
 			return
@@ -100,20 +101,16 @@
 		var/datum/objective/new_objective = null
 
 		switch(new_obj_type)
-			if("assassinate", "maroon")
-				//To determine what to name the objective in explanation text.
-				var/objective_type_capital = uppertext(copytext(new_obj_type, 1,2))//Capitalize first letter.
-				var/objective_type_text = copytext(new_obj_type, 2)//Leave the rest of the text.
-				var/objective_type = "[objective_type_capital][objective_type_text]"//Add them together into a text string.
-
+			if("assassinate", "maroon") //insert objectives here if they require a target, otherwise add a new if to the switch.
+				var/objective_type = new_obj_type
 				var/list/possible_targets = list()
 				for(var/datum/mind/possible_target in SSticker.minds)
 					if((possible_target != src) && istype(possible_target.current, /mob/living/carbon/human))
 						possible_targets += possible_target.current
 
 				var/mob/def_target = null
-				var/objective_list[] = list(/datum/objective/assassinate/)
-				if(objective&&(objective.type in objective_list) && objective:target)
+				var/list/objective_list = list(/datum/objective/assassinate, /datum/objective/maroon)
+				if(objective && (objective.type in objective_list) && objective:target)
 					def_target = objective.target.current
 				possible_targets = sortAtom(possible_targets)
 
@@ -131,18 +128,22 @@
 					to_chat(usr, "<span class='warning'>No possible target found. Defaulting to a Free objective.</span>")
 					new_target = "Free objective"
 
-				var/objective_path = text2path("/datum/objective/[new_obj_type]")
 				if(new_target == "Free objective")
-					new_objective = new objective_path
+					new_objective = new /datum/objective
 					new_objective.team = src
 					new_objective:target = null
 					new_objective.explanation_text = "Free objective"
-				else
-					new_objective = new objective_path
+				else if(objective_type == "assassinate")
+					new_objective = new /datum/objective/assassinate/shared
 					new_objective.team = src
 					new_objective:target = new_target:mind
 					//Will display as special role if assigned mode is equal to special role.. Ninjas/commandos/nuke ops.
-					new_objective.explanation_text = "[objective_type] [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
+					new_objective.explanation_text = "Assassinate [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
+				else if(objective_type == "maroon")
+					new_objective = new /datum/objective/maroon/shared
+					new_objective.team = src
+					new_objective:target = new_target:mind
+					new_objective.explanation_text = "Maroon [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
 
 			if("destroy")
 				var/list/possible_targets = active_ais(1)
