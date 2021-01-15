@@ -17,34 +17,31 @@
 	origin_tech = "materials=1"
 
 
-
-
 /*
  * Utensils
  */
 /obj/item/kitchen/utensil
-	force = 5.0
+	force = 5
 	w_class = WEIGHT_CLASS_TINY
-	throwforce = 0.0
 	throw_speed = 3
 	throw_range = 5
 	flags = CONDUCT
 	attack_verb = list("attacked", "stabbed", "poked")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
-	sharp = 0
+	sharp = FALSE
 	var/max_contents = 1
 
-/obj/item/kitchen/utensil/New()
-	..()
+/obj/item/kitchen/utensil/Initialize(mapload)
+	. = ..()
 	if(prob(60))
-		src.pixel_y = rand(0, 4)
-
+		pixel_y = rand(0, 4)
 	create_reagents(5)
 
-/obj/item/kitchen/utensil/attack(mob/living/carbon/C, mob/living/carbon/user)
-	if(!istype(C))
+/obj/item/kitchen/utensil/attack(mob/living/M, mob/living/carbon/user, def_zone)
+	if(!iscarbon(M))
 		return ..()
+	var/mob/living/carbon/C = M
 
 	if(user.a_intent != INTENT_HELP)
 		if(user.zone_selected == "head" || user.zone_selected == "eyes")
@@ -60,7 +57,6 @@
 			if(C.eat(toEat, user))
 				toEat.On_Consume(C, user)
 				overlays.Cut()
-				return
 
 
 /obj/item/kitchen/utensil/fork
@@ -68,7 +64,7 @@
 	desc = "It's a fork. Sure is pointy."
 	icon_state = "fork"
 
-/obj/item/kitchen/utensil/pfork
+/obj/item/kitchen/utensil/fork/plastic
 	name = "plastic fork"
 	desc = "Yay, no washing up to do."
 	icon_state = "pfork"
@@ -79,11 +75,10 @@
 	icon_state = "spoon"
 	attack_verb = list("attacked", "poked")
 
-/obj/item/kitchen/utensil/pspoon
+/obj/item/kitchen/utensil/spoon/plastic
 	name = "plastic spoon"
 	desc = "It's a plastic spoon. How dull."
 	icon_state = "pspoon"
-	attack_verb = list("attacked", "poked")
 
 /obj/item/kitchen/utensil/spork
 	name = "spork"
@@ -91,11 +86,10 @@
 	icon_state = "spork"
 	attack_verb = list("attacked", "sporked")
 
-/obj/item/kitchen/utensil/pspork
+/obj/item/kitchen/utensil/spork/plastic
 	name = "plastic spork"
 	desc = "It's a plastic spork. It's the fork side of the spoon!"
 	icon_state = "pspork"
-	attack_verb = list("attacked", "sporked")
 
 /*
  * Knives

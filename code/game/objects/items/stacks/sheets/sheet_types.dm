@@ -465,9 +465,9 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty,3), \
 	new /datum/stack_recipe("plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = 1, on_floor = 1), \
 	new /datum/stack_recipe("plastic ashtray", /obj/item/ashtray/plastic, 2, one_per_turf = 1, on_floor = 1), \
-	new /datum/stack_recipe("plastic fork", /obj/item/kitchen/utensil/pfork, 1, on_floor = 1), \
-	new /datum/stack_recipe("plastic spoon", /obj/item/kitchen/utensil/pspoon, 1, on_floor = 1), \
-	new /datum/stack_recipe("plastic spork", /obj/item/kitchen/utensil/pspork, 1, on_floor = 1), \
+	new /datum/stack_recipe("plastic fork", /obj/item/kitchen/utensil/fork/plastic, 1, on_floor = 1), \
+	new /datum/stack_recipe("plastic spoon", /obj/item/kitchen/utensil/spoon/plastic, 1, on_floor = 1), \
+	new /datum/stack_recipe("plastic spork", /obj/item/kitchen/utensil/spork/plastic, 1, on_floor = 1), \
 	new /datum/stack_recipe("plastic knife", /obj/item/kitchen/knife/plastic, 1, on_floor = 1), \
 	new /datum/stack_recipe("plastic bag", /obj/item/storage/bag/plasticbag, 3, on_floor = 1), \
 	new /datum/stack_recipe("bear mould", /obj/item/kitchen/mould/bear, 1, on_floor = 1), \
