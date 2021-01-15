@@ -75,12 +75,12 @@
 	desc = "It's a spoon. You can see your own upside-down face in it."
 	icon_state = "spoon"
 	attack_verb = list("attacked", "poked")
+	sharp = FALSE // It's a spoon.
 
 /obj/item/kitchen/utensil/spoon/plastic
 	name = "plastic spoon"
 	desc = "It's a plastic spoon. How dull."
 	icon_state = "pspoon"
-	sharp = FALSE
 
 /obj/item/kitchen/utensil/spork
 	name = "spork"
