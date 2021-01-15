@@ -219,6 +219,7 @@ effective or pretty fucking useless.
 			qdel(src)
 
 /obj/item/teleporter/proc/attempt_teleport(mob/user, EMP_D = FALSE)
+	dir_correction(user)
 	if(!charges)
 		to_chat(user, "<span class='warning'>The [src] is recharging still.</span>")
 		return
@@ -268,6 +269,14 @@ effective or pretty fucking useless.
 /obj/item/teleporter/proc/tile_check(turf/T)
 	if(istype(T, /turf/simulated/floor) || istype(T, /turf/space) || istype(T, /turf/simulated/shuttle/floor) || istype(T, /turf/simulated/shuttle/floor4) || istype(T, /turf/simulated/shuttle/plating))
 		return TRUE
+
+/obj/item/teleporter/proc/dir_correction(mob/user) //Direction movement, screws with teleport distance and saving throw, and thus must be removed first
+	var/temp_direction = user.dir
+	switch(temp_direction)
+		if(NORTHEAST || SOUTHEAST)
+			user.dir = EAST
+		if(NORTHWEST || SOUTHWEST)
+			user.dir = WEST
 
 /obj/item/teleporter/proc/panic_teleport(mob/user, turf/destination, direction = NORTH)
 	var/saving_throw
