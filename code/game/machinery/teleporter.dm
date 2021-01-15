@@ -27,7 +27,7 @@
 	var/cc_beacon = FALSE
 
 /obj/machinery/computer/teleporter/Initialize()
-	..()
+	. = ..()
 	link_power_station()
 	update_icon()
 	id = "[rand(1000, 9999)]"
