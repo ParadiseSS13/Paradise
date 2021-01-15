@@ -150,7 +150,7 @@
 						new_objective = new /datum/objective/protect/shared
 						new_objective.team = src
 						new_objective:target = new_target:mind
-						new_objective.explanation_text = "Maroon [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
+						new_objective.explanation_text = "Protect [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
 
 			if("destroy")
 				var/list/possible_targets = active_ais(1)
