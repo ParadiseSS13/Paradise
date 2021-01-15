@@ -29,7 +29,7 @@
 	attack_verb = list("attacked", "stabbed", "poked")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
-	sharp = FALSE
+	sharp = TRUE
 	var/max_contents = 1
 
 /obj/item/kitchen/utensil/Initialize(mapload)
@@ -68,6 +68,7 @@
 	name = "plastic fork"
 	desc = "Yay, no washing up to do."
 	icon_state = "pfork"
+	sharp = FALSE
 
 /obj/item/kitchen/utensil/spoon
 	name = "spoon"
@@ -79,6 +80,7 @@
 	name = "plastic spoon"
 	desc = "It's a plastic spoon. How dull."
 	icon_state = "pspoon"
+	sharp = FALSE
 
 /obj/item/kitchen/utensil/spork
 	name = "spork"
@@ -90,6 +92,7 @@
 	name = "plastic spork"
 	desc = "It's a plastic spork. It's the fork side of the spoon!"
 	icon_state = "pspork"
+	sharp = FALSE
 
 /*
  * Knives
