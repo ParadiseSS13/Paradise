@@ -108,6 +108,10 @@
 		var/banjob = href_list["dbbanaddjob"]
 		var/banreason = href_list["dbbanreason"]
 
+		var/job_ban = FALSE
+		var/multi_job = FALSE
+		var/list/jobs_to_ban = list()
+
 		banckey = ckey(banckey)
 
 		switch(bantype)
@@ -127,10 +131,12 @@
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey, reason and job)</span>")
 					return
 				banduration = null
+				job_ban = TRUE
 			if(BANTYPE_JOB_TEMP)
 				if(!banckey || !banreason || !banjob || !banduration)
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey, reason and job)</span>")
 					return
+				job_ban = TRUE
 			if(BANTYPE_APPEARANCE)
 				if(!banckey || !banreason)
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey and reason)</span>")
@@ -151,11 +157,11 @@
 
 		var/mob/playermob
 
-		for(var/mob/M in GLOB.player_list)
-			if(M.ckey == banckey)
-				playermob = M
-				break
-
+		if("autopopulate" in href_list)
+			for(var/mob/M in GLOB.player_list)
+				if(M.ckey == banckey)
+					playermob = M
+					break
 
 		banreason = "(MANUAL BAN) "+banreason
 
@@ -167,7 +173,68 @@
 		else
 			message_admins("Ban process: A mob matching [playermob.ckey] was found at location [playermob.x], [playermob.y], [playermob.z]. Custom IP and computer id fields replaced with the IP and computer id from the located mob")
 
-		DB_ban_record(bantype, playermob, banduration, banreason, banjob, null, banckey, banip, bancid )
+		if(job_ban)
+			if(banjob in list("commanddept","securitydept","engineeringdept","medicaldept","sciencedept","supportdept","nonhumandept"))
+				multi_job = TRUE
+				switch(banjob)
+					if("commanddept")
+						for(var/jobPos in GLOB.command_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("securitydept")
+						for(var/jobPos in GLOB.security_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("engineeringdept")
+						for(var/jobPos in GLOB.engineering_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("medicaldept")
+						for(var/jobPos in GLOB.medical_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("sciencedept")
+						for(var/jobPos in GLOB.science_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("supportdept")
+						for(var/jobPos in GLOB.support_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("nonhumandept")
+						jobs_to_ban += "pAI"
+						for(var/jobPos in GLOB.nonhuman_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+
+		// If the job ban is for multiple jobs in one group (IE: Command), iterate through jobs and ban each individually
+		if(multi_job)
+			//Create a list of unbanned jobs within joblist
+			var/list/notbannedlist = list()
+			for(var/job in jobs_to_ban)
+				if(!jobban_isbanned_ckey(banckey, job))
+					notbannedlist += job
+
+			for(var/job in notbannedlist)
+				DB_ban_record(bantype, playermob, banduration, banreason, job, null, banckey, banip, bancid)
+
+		// Otherwise, do it normally
+		else
+			DB_ban_record(bantype, playermob, banduration, banreason, banjob, null, banckey, banip, bancid)
 
 
 	else if(href_list["editrights"])
@@ -317,6 +384,8 @@
 		SSticker.delay_end = !SSticker.delay_end
 		log_admin("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
 		message_admins("<span class='notice'>[key_name_admin(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].</span>", 1)
+		if(SSticker.delay_end)
+			SSticker.real_reboot_time = 0 // If they set this at round end, show the "Reboot was cancelled by an admin" message instantly
 		href_list["secretsadmin"] = "check_antagonist"
 
 	else if(href_list["simplemake"])
@@ -3421,7 +3490,61 @@
 					log_sql("[usr.key] | [response]")
 		else if(answer == "no")
 			log_sql("[usr.key] | Reported no server hang. Please investigate")
+	else if(href_list["suppresscidwarning"])
+		if(!check_rights(R_ADMIN))
+			return
+		add_note(href_list["suppresscidwarning"], CIDWARNING_SUPPRESSED_NOTETEXT, show_after = FALSE)
+	else if(href_list["viewkarma"])
+		if(!check_rights(R_ADMIN))
+			return
 
+		var/target_ckey = href_list["viewkarma"]
+
+		var/total_karma = 0
+		var/spent_karma = 0
+		var/unlocked_jobs = ""
+		var/unlocked_species = ""
+		// Get their totals
+		var/datum/db_query/query_get_totals = SSdbcore.NewQuery("SELECT karma, karmaspent FROM [format_table_name("karmatotals")] WHERE byondkey=:ckey", list(
+			"ckey" = target_ckey
+		))
+		if(!query_get_totals.warn_execute())
+			qdel(query_get_totals)
+			return
+		// Even if there aint a row, we can still assume the defaults of 0 above
+		if(query_get_totals.NextRow())
+			total_karma = query_get_totals.item[1]
+			spent_karma = query_get_totals.item[2]
+
+		qdel(query_get_totals)
+
+		// Now get their unlocks
+		var/datum/db_query/query_get_unlocks = SSdbcore.NewQuery("SELECT job, species FROM [format_table_name("whitelist")] WHERE ckey=:ckey", list(
+			"ckey" = target_ckey
+		))
+		if(!query_get_unlocks.warn_execute())
+			qdel(query_get_unlocks)
+			return
+		if(query_get_unlocks.NextRow())
+			unlocked_jobs = query_get_unlocks.item[1]
+			unlocked_species = query_get_unlocks.item[2]
+
+		qdel(query_get_unlocks)
+
+		// Pack it into a dat
+		var/dat = {"
+		<ul>
+		<li>Total Karma: [total_karma]</li>
+		<li>Spent Karma: [spent_karma]</li>
+		<li>Available Karma: [total_karma - spent_karma]</li>
+		<li>Unlocked Jobs: [unlocked_jobs]</li>
+		<li>Unlocked Species: [unlocked_species]</li>
+		</ul>
+		"}
+
+		var/datum/browser/popup = new(usr, "view_karma", "Karma stats for [target_ckey]", 600, 300)
+		popup.set_content(dat)
+		popup.open(FALSE)
 
 /client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)
 	if(!check_rights(R_EVENT))
