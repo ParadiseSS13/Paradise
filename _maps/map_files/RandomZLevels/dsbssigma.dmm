@@ -17,8 +17,10 @@
 /turf/space,
 /area/awaymission/DSBSSigma/exterior)
 "af" = (
-/obj/machinery/porta_turret/syndicate/exterior,
 /obj/structure/lattice/catwalk,
+/obj/structure/flora/rock,
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/dirt,
 /turf/space,
 /area/awaymission/DSBSSigma/exterior)
 "ag" = (
@@ -154,9 +156,9 @@
 /area/awaymission/DSBSSigma/exterior)
 "aC" = (
 /obj/structure/shuttle/engine/propulsion{
-	tag = "icon-propulsion (NORTH)";
+	dir = 1;
 	icon_state = "propulsion";
-	dir = 1
+	tag = "icon-propulsion (NORTH)"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/hangar)
@@ -220,8 +222,8 @@
 /area/awaymission/DSBSSigma/hangar)
 "aK" = (
 /obj/machinery/light/broken{
-	icon_state = "tube-broken";
-	dir = 4
+	dir = 4;
+	icon_state = "tube-broken"
 	},
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
@@ -672,8 +674,8 @@
 	dir = 8
 	},
 /obj/machinery/light/broken{
-	icon_state = "tube-broken";
-	dir = 1
+	dir = 1;
+	icon_state = "tube-broken"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
@@ -713,7 +715,7 @@
 "bL" = (
 /obj/structure/closet/crate/freezer,
 /obj/effect/decal/cleanable/cobweb,
-/obj/effect/spawner/lootdrop/away/dsbssigma/implant_other,
+/obj/effect/spawner/random_spawners/away/dsbssigma/loot/implant_other,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -874,7 +876,7 @@
 "cf" = (
 /obj/structure/closet/crate/freezer,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/away/dsbssigma/implant_arm,
+/obj/effect/spawner/random_spawners/away/dsbssigma/loot/implant_arm,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -891,7 +893,7 @@
 /area/awaymission/DSBSSigma/medical_center)
 "ci" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/away/dsbssigma/healinjector_40pc,
+/obj/effect/spawner/random_spawners/away/dsbssigma/loot/healinjector_40pc,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -915,7 +917,7 @@
 "cl" = (
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "Shuttle Dispatch";
-	req_access_txt = "272"
+	req_access_txt = "271"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1546,8 +1548,8 @@
 /area/awaymission/DSBSSigma/cloning)
 "dv" = (
 /obj/machinery/light/broken{
-	icon_state = "tube-broken";
-	dir = 4
+	dir = 4;
+	icon_state = "tube-broken"
 	},
 /obj/machinery/computer{
 	icon_keyboard = "generic_key_off";
@@ -1560,8 +1562,8 @@
 /area/awaymission/DSBSSigma/cloning)
 "dw" = (
 /obj/machinery/light/broken{
-	icon_state = "tube-broken";
-	dir = 8
+	dir = 8;
+	icon_state = "tube-broken"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/hangar)
@@ -2291,8 +2293,8 @@
 	name = "Broken Console"
 	},
 /obj/machinery/light/broken{
-	icon_state = "tube-broken";
-	dir = 8
+	dir = 8;
+	icon_state = "tube-broken"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -2675,38 +2677,7 @@
 /obj/structure/flora/rock,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_north)
-"ff" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/awaymission/DSBSSigma/overseer)
-"fg" = (
-/obj/machinery/light/small{
-	dir = 1;
-	pixel_x = 5
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/awaymission/DSBSSigma/overseer)
-"fh" = (
-/obj/structure/curtain/black,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/awaymission/DSBSSigma/overseer)
 "fi" = (
-/turf/simulated/floor/wood,
-/area/awaymission/DSBSSigma/overseer)
-"fj" = (
-/obj/machinery/door_control{
-	desc = "A remote control-switch for a set of explosives. It appears to have already been activated.";
-	id = "doesnothing";
-	name = "Tunnel Collapse Trigger";
-	pixel_x = 24;
-	pixel_y = 5;
-	req_access_txt = "0"
-	},
 /turf/simulated/floor/wood,
 /area/awaymission/DSBSSigma/overseer)
 "fk" = (
@@ -2729,8 +2700,8 @@
 /area/awaymission/DSBSSigma/surgery)
 "fm" = (
 /obj/machinery/light/broken{
-	icon_state = "tube-broken";
-	dir = 8
+	dir = 8;
+	icon_state = "tube-broken"
 	},
 /obj/machinery/vending/medical/syndicate_access/dsbssigma,
 /turf/simulated/floor/plasteel{
@@ -2805,7 +2776,7 @@
 	req_access_txt = "271";
 	start_charge = 0
 	},
-/obj/effect/spawner/lootdrop/away/dsbssigma/cleaning,
+/obj/effect/spawner/random_spawners/away/dsbssigma/loot/cleaning,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "darkblue"
@@ -2862,22 +2833,10 @@
 /obj/structure/flora/rock/pile,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_north)
-"fx" = (
-/obj/effect/decal/warning_stripes/blue,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/awaymission/DSBSSigma/overseer)
 "fy" = (
 /obj/structure/curtain/black,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/wood,
-/area/awaymission/DSBSSigma/overseer)
-"fz" = (
-/obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
 /area/awaymission/DSBSSigma/overseer)
 "fA" = (
 /obj/structure/window/reinforced/tinted{
@@ -3356,16 +3315,10 @@
 /area/awaymission/DSBSSigma/overseer)
 "gv" = (
 /obj/structure/table/wood,
-/obj/machinery/photocopier/faxmachine{
-	department = "Syndicate High Command";
-	fax_network = "Site Sigma";
-	req_one_access = null
-	},
 /obj/machinery/light/small{
 	dir = 4;
 	pixel_y = -8
 	},
-/obj/item/paper/dsbssigma/note1,
 /turf/simulated/floor/carpet,
 /area/awaymission/DSBSSigma/overseer)
 "gw" = (
@@ -3556,8 +3509,8 @@
 	icon_state = "pipe-c"
 	},
 /obj/machinery/light/small/broken{
-	icon_state = "bulb-broken";
-	dir = 1
+	dir = 1;
+	icon_state = "bulb-broken"
 	},
 /obj/structure/fluff/utility,
 /turf/simulated/floor/plating{
@@ -4113,8 +4066,8 @@
 /area/awaymission/DSBSSigma/holding_cells)
 "hH" = (
 /obj/machinery/light/small/broken{
-	icon_state = "bulb-broken";
-	dir = 1
+	dir = 1;
+	icon_state = "bulb-broken"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -4392,17 +4345,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
 /area/awaymission/DSBSSigma/command)
-"id" = (
-/obj/machinery/computer{
-	desc = "A very advanced Syndicate teleportation console. It appears to have been designed to be used by someone with non-humanoid anatomy.";
-	icon_keyboard = "teleport_key";
-	icon_screen = "telesci";
-	name = "Advanced Teleporter Console"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/awaymission/DSBSSigma/overseer)
 "ie" = (
 /obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -4593,8 +4535,8 @@
 /area/awaymission/DSBSSigma/medical_center)
 "iq" = (
 /obj/machinery/light/broken{
-	icon_state = "tube-broken";
-	dir = 1
+	dir = 1;
+	icon_state = "tube-broken"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -4731,9 +4673,6 @@
 /area/awaymission/DSBSSigma/mission_control)
 "iB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/generic,
 /obj/machinery/door_control{
@@ -4742,6 +4681,10 @@
 	pixel_x = -24;
 	pixel_y = 0;
 	req_access_txt = "271"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5;
+	level = 2
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/DSBSSigma/command)
@@ -4753,12 +4696,6 @@
 /turf/simulated/floor/wood,
 /area/awaymission/DSBSSigma/command)
 "iD" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4;
-	initialize_directions = 11;
-	level = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/flora/rock/pile,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/tracks{
@@ -4767,6 +4704,9 @@
 	dir = 4;
 	icon = 'icons/effects/blood.dmi';
 	icon_state = "tracks"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
 	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6";
@@ -4838,14 +4778,6 @@
 	},
 /area/awaymission/DSBSSigma/cave_junction_north)
 "iI" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10;
-	initialize_directions = 10;
-	level = 1
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
 /area/awaymission/DSBSSigma/command)
@@ -4970,16 +4902,18 @@
 	id_tag = "dsbss_gateway_shutters";
 	name = "Gateway Access Shutters"
 	},
+/obj/machinery/door_control{
+	desc = "A remote control switch for the  gateway shutters.";
+	id = "dsbss_gateway_shutters";
+	name = "Gateway Shutter Control";
+	pixel_x = 32;
+	pixel_y = -6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/awaymission/DSBSSigma/gateway)
 "iP" = (
-/obj/machinery/photocopier/faxmachine{
-	department = "Sigma Mission Control";
-	fax_network = "Site Sigma";
-	req_one_access = null
-	},
 /obj/structure/table/wood,
 /obj/machinery/alarm{
 	dir = 8;
@@ -5007,8 +4941,8 @@
 	icon_state = "3-sw"
 	},
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken2";
-	icon_state = "wood-broken2"
+	icon_state = "wood-broken2";
+	tag = "icon-wood-broken2"
 	},
 /area/awaymission/DSBSSigma/command)
 "iT" = (
@@ -5031,8 +4965,8 @@
 /obj/structure/flora/rock,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/fluff/utility/broken/smooth{
-	icon_state = "catwalk-bs";
-	dir = 4
+	dir = 4;
+	icon_state = "catwalk-bs"
 	},
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
@@ -5112,8 +5046,8 @@
 	color = "red"
 	},
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken2";
-	icon_state = "wood-broken2"
+	icon_state = "wood-broken2";
+	tag = "icon-wood-broken2"
 	},
 /area/awaymission/DSBSSigma/command)
 "iZ" = (
@@ -5351,20 +5285,6 @@
 	tag = "icon-stage_stairs"
 	},
 /area/awaymission/DSBSSigma/mission_control)
-"jt" = (
-/obj/machinery/door_control{
-	desc = "A remote control switch for the  gateway shutters.";
-	id = "dsbss_gateway_shutters";
-	name = "Gateway Shutter Control";
-	normaldoorcontrol = 0;
-	pixel_x = 0;
-	pixel_y = 26;
-	req_access_txt = "0"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/awaymission/DSBSSigma/mission_control)
 "ju" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -5380,12 +5300,11 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm{
-	dir = 2;
 	name = "DSBSS Gateway";
 	pixel_y = -24;
 	req_access = null;
 	req_access_txt = "271";
-	start_charge = 0
+	start_charge = 100
 	},
 /obj/item/flashlight/flare{
 	pixel_x = 1;
@@ -5456,7 +5375,6 @@
 /turf/unsimulated/wall/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_north)
 "jz" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/structure/flora/rock/pile,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
@@ -5491,11 +5409,6 @@
 "jE" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/awaymission/DSBSSigma/chemistry_lab)
-"jF" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/unsimulated/wall/asteroid,
-/area/awaymission/DSBSSigma/command)
 "jG" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -5671,36 +5584,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
 /area/awaymission/DSBSSigma/command)
-"jW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5;
-	level = 2
-	},
-/turf/unsimulated/wall/asteroid,
-/area/awaymission/DSBSSigma/command)
 "jX" = (
 /obj/structure/chair/comfy/black{
 	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/carpet/black,
 /area/awaymission/DSBSSigma/command)
 "jY" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/structure/flora/rock/pile,
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/dirt,
@@ -5728,15 +5619,15 @@
 	},
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken2";
-	icon_state = "wood-broken2"
+	icon_state = "wood-broken2";
+	tag = "icon-wood-broken2"
 	},
 /area/awaymission/DSBSSigma/command)
 "kb" = (
 /obj/structure/safe/floor,
 /obj/item/folder/syndicate/red,
-/obj/effect/spawner/lootdrop/away/dsbssigma/safe_loot_high,
-/obj/effect/spawner/lootdrop/away/dsbssigma/safe_loot_low,
+/obj/effect/spawner/random_spawners/away/dsbssigma/loot/safe_loot_high,
+/obj/effect/spawner/random_spawners/away/dsbssigma/loot/safe_loot_low,
 /turf/simulated/floor/wood,
 /area/awaymission/DSBSSigma/command)
 "kc" = (
@@ -6190,13 +6081,7 @@
 	id_tag = null;
 	locked = 0;
 	name = "Officer Quarters";
-	req_access_txt = "273"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+	req_access_txt = "271"
 	},
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "dsbss_officerquarters_blast";
@@ -6211,11 +6096,11 @@
 	name = "Delta Armory Door Control";
 	pixel_x = 6;
 	pixel_y = 4;
-	req_access_txt = "272"
+	req_access_txt = "271"
 	},
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken2";
-	icon_state = "wood-broken2"
+	icon_state = "wood-broken2";
+	tag = "icon-wood-broken2"
 	},
 /area/awaymission/DSBSSigma/command)
 "kH" = (
@@ -6303,7 +6188,7 @@
 /obj/item/grenade/clusterbuster/smoke{
 	name = "Smoke Bomb"
 	},
-/obj/effect/spawner/lootdrop/away/dsbssigma/goggles,
+/obj/effect/spawner/random_spawners/away/dsbssigma/loot/goggles_science,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6571,8 +6456,8 @@
 /area/awaymission/DSBSSigma/caverns)
 "lo" = (
 /obj/machinery/light/broken{
-	icon_state = "tube-broken";
-	dir = 4
+	dir = 4;
+	icon_state = "tube-broken"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -6597,8 +6482,8 @@
 "lq" = (
 /obj/structure/bed/roller,
 /obj/machinery/light/small/broken{
-	icon_state = "bulb-broken";
-	dir = 8
+	dir = 8;
+	icon_state = "bulb-broken"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/paper/researchnotes/syndicate3,
@@ -6675,8 +6560,8 @@
 /obj/structure/closet/cardboard,
 /obj/item/storage/box/autoinjectors,
 /obj/machinery/light/small/broken{
-	icon_state = "bulb-broken";
-	dir = 4
+	dir = 4;
+	icon_state = "bulb-broken"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -6943,8 +6828,8 @@
 /obj/effect/landmark/damageturf,
 /obj/structure/flora/rock/pile,
 /obj/structure/fluff/utility/broken/smooth{
-	icon_state = "catwalk-bs";
-	dir = 1
+	dir = 1;
+	icon_state = "catwalk-bs"
 	},
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
@@ -8216,13 +8101,6 @@
 "nV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/rock/pile,
-/obj/machinery/door_control{
-	id = "dsbss_officerquarters_blast";
-	name = "Officer Quarters Door Control";
-	pixel_x = 24;
-	pixel_y = 5;
-	req_access_txt = "273"
-	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/DSBSSigma/command)
 "nW" = (
@@ -8347,8 +8225,8 @@
 "od" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/light/small/broken{
-	icon_state = "bulb-broken";
-	dir = 4
+	dir = 4;
+	icon_state = "bulb-broken"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/rock,
@@ -9283,8 +9161,8 @@
 /obj/structure/flora/rock/pile,
 /obj/effect/landmark/damageturf,
 /obj/structure/fluff/utility/broken/smooth{
-	icon_state = "catwalk-bs";
-	dir = 1
+	dir = 1;
+	icon_state = "catwalk-bs"
 	},
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
@@ -9554,8 +9432,8 @@
 	pixel_x = 5
 	},
 /obj/machinery/light/small/broken{
-	icon_state = "bulb-broken";
-	dir = 1
+	dir = 1;
+	icon_state = "bulb-broken"
 	},
 /obj/structure/flora/rock/pile,
 /obj/effect/decal/cleanable/dirt,
@@ -9624,16 +9502,16 @@
 /area/awaymission/DSBSSigma/hydroponics)
 "qq" = (
 /obj/machinery/light/small/broken{
-	icon_state = "bulb-broken";
-	dir = 1
+	dir = 1;
+	icon_state = "bulb-broken"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine/n2,
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "qr" = (
 /obj/machinery/light/small/broken{
-	icon_state = "bulb-broken";
-	dir = 1
+	dir = 1;
+	icon_state = "bulb-broken"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine/plasma,
@@ -9675,14 +9553,13 @@
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "qw" = (
 /obj/structure/alien/resin,
-/obj/structure/alien/weeds,
 /turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
+/area/awaymission/DSBSSigma/hive)
 "qx" = (
 /obj/structure/flora/rock,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
+/area/awaymission/DSBSSigma/hive)
 "qy" = (
 /obj/structure/disposalpipe/segment,
 /turf/unsimulated/wall/asteroid,
@@ -9901,8 +9778,14 @@
 /area/awaymission/DSBSSigma/hydroponics)
 "qS" = (
 /obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/tracks{
+	color = "red";
+	desc = "Tracks left by something being dragged.";
+	icon = 'icons/effects/blood.dmi';
+	icon_state = "tracks"
+	},
 /turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
+/area/awaymission/DSBSSigma/hive)
 "qT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/rock/pile,
@@ -9945,9 +9828,10 @@
 /area/awaymission/DSBSSigma/exterior)
 "qZ" = (
 /obj/structure/alien/weeds,
-/obj/structure/alien/egg/burst,
+/obj/structure/flora/rock/pile,
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_50pc,
 /turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
+/area/awaymission/DSBSSigma/hive)
 "ra" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -10354,7 +10238,7 @@
 "rG" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/away/dsbssigma/cleaning,
+/obj/effect/spawner/random_spawners/away/dsbssigma/loot/cleaning,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -10424,7 +10308,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
+/area/awaymission/DSBSSigma/hive)
 "rM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/alien/weeds,
@@ -10432,12 +10316,12 @@
 	color = "red"
 	},
 /turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
+/area/awaymission/DSBSSigma/hive)
 "rN" = (
 /obj/structure/alien/weeds/node,
 /mob/living/simple_animal/hostile/alien/larva,
 /turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
+/area/awaymission/DSBSSigma/hive)
 "rO" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -10811,7 +10695,7 @@
 /obj/structure/alien/weeds,
 /obj/structure/alien/egg/burst,
 /turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
+/area/awaymission/DSBSSigma/hive)
 "sq" = (
 /obj/structure/rack,
 /obj/item/reagent_containers/glass/bucket{
@@ -11272,8 +11156,9 @@
 "sZ" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_50pc,
 /turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
+/area/awaymission/DSBSSigma/hive)
 "ta" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -12138,8 +12023,8 @@
 /obj/item/stack/rods/ten,
 /obj/effect/landmark/damageturf,
 /obj/machinery/light/broken{
-	icon_state = "tube-broken";
-	dir = 4
+	dir = 4;
+	icon_state = "tube-broken"
 	},
 /obj/structure/spacevine,
 /turf/simulated/floor/plasteel{
@@ -12263,13 +12148,6 @@
 	icon_state = "dark"
 	},
 /area/awaymission/DSBSSigma/holding_cells)
-"us" = (
-/obj/structure/alien/weeds,
-/obj/effect/decal/cleanable/blood/drip{
-	color = "red"
-	},
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
 "ut" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -12601,8 +12479,9 @@
 /area/awaymission/DSBSSigma/cave_junction_east)
 "uM" = (
 /obj/structure/alien/weeds/node,
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien,
 /turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
+/area/awaymission/DSBSSigma/hive)
 "uN" = (
 /obj/machinery/light_switch{
 	dir = 2;
@@ -12858,15 +12737,10 @@
 	},
 /turf/simulated/floor/grass,
 /area/awaymission/DSBSSigma/hydroponics)
-"vd" = (
-/obj/structure/alien/weeds,
-/obj/structure/flora/rock,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
 "ve" = (
 /obj/machinery/light/small/broken{
-	icon_state = "bulb-broken";
-	dir = 4
+	dir = 4;
+	icon_state = "bulb-broken"
 	},
 /obj/structure/spacevine,
 /turf/simulated/floor/plasteel{
@@ -13014,7 +12888,7 @@
 	stat = 2
 	},
 /turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
+/area/awaymission/DSBSSigma/hive)
 "vs" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -13289,11 +13163,6 @@
 	icon_state = "dark"
 	},
 /area/awaymission/DSBSSigma/engineering_lifesupport)
-"vK" = (
-/obj/structure/alien/weeds,
-/mob/living/simple_animal/hostile/alien/drone,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
 "vL" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -13357,8 +13226,8 @@
 /area/awaymission/DSBSSigma/disposal)
 "vT" = (
 /obj/machinery/light/broken{
-	icon_state = "tube-broken";
-	dir = 1
+	dir = 1;
+	icon_state = "tube-broken"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table_frame,
@@ -13484,11 +13353,6 @@
 	name = "compacted asteroid sand"
 	},
 /area/awaymission/DSBSSigma/cave_junction_west)
-"wd" = (
-/obj/structure/alien/weeds/node,
-/mob/living/simple_animal/hostile/alien/drone,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
 "we" = (
 /obj/structure/disposalpipe/segment,
 /turf/unsimulated/wall/asteroid,
@@ -13536,11 +13400,6 @@
 	icon_state = "dark"
 	},
 /area/awaymission/DSBSSigma/dormitories)
-"wk" = (
-/obj/structure/alien/weeds/node,
-/mob/living/simple_animal/hostile/alien/stationary,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
 "wl" = (
 /obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -13753,16 +13612,6 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_east)
-"wD" = (
-/obj/structure/alien/weeds,
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Tracks left by something being dragged.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks"
-	},
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
 "wE" = (
 /obj/structure/plasticflaps,
 /obj/machinery/conveyor/south{
@@ -13798,8 +13647,8 @@
 	name = "Incinerator Input"
 	},
 /obj/machinery/light/small/broken{
-	icon_state = "bulb-broken";
-	dir = 4
+	dir = 4;
+	icon_state = "bulb-broken"
 	},
 /obj/structure/flora/rock,
 /obj/effect/decal/cleanable/dirt,
@@ -13973,9 +13822,9 @@
 /obj/effect/decal/cleanable/blood/drip{
 	color = "red"
 	},
-/mob/living/simple_animal/hostile/alien,
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_50pc,
 /turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
+/area/awaymission/DSBSSigma/hive)
 "wX" = (
 /obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -14204,8 +14053,8 @@
 /obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/light/broken{
-	icon_state = "tube-broken";
-	dir = 8
+	dir = 8;
+	icon_state = "tube-broken"
 	},
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
@@ -14266,11 +14115,6 @@
 /obj/structure/flora/rock,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_east)
-"xC" = (
-/obj/structure/alien/weeds,
-/mob/living/simple_animal/hostile/alien/stationary,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
 "xD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/mecha_wreckage/ripley,
@@ -14405,11 +14249,6 @@
 	},
 /turf/unsimulated/wall/asteroid,
 /area/awaymission/DSBSSigma/armory)
-"xO" = (
-/obj/structure/alien/weeds,
-/mob/living/simple_animal/hostile/alien/sentinel/stationary,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
 "xP" = (
 /obj/machinery/floodlight,
 /turf/simulated/floor/plating/asteroid,
@@ -14505,11 +14344,6 @@
 	icon_state = "tranquillite"
 	},
 /area/awaymission/DSBSSigma/kitchen)
-"xY" = (
-/obj/structure/alien/weeds,
-/mob/living/simple_animal/hostile/alien/queen/large/stationary,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
 "xZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/drip{
@@ -14543,8 +14377,8 @@
 /area/awaymission/DSBSSigma/cave_junction_east)
 "yc" = (
 /obj/machinery/light/broken{
-	icon_state = "tube-broken";
-	dir = 8
+	dir = 8;
+	icon_state = "tube-broken"
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_west)
@@ -14652,7 +14486,7 @@
 	},
 /obj/structure/alien/weeds/node,
 /turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
+/area/awaymission/DSBSSigma/hive)
 "yn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/mecha_wreckage/gygax/dark,
@@ -14850,15 +14684,6 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_east)
-"yH" = (
-/obj/structure/alien/weeds,
-/obj/structure/flora/rock/pile,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
-"yI" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/mineral/asteroid/loose/cave,
-/area/awaymission/DSBSSigma/caverns)
 "yJ" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -14867,8 +14692,8 @@
 "yK" = (
 /obj/structure/table,
 /obj/item/weldingtool/hugetank,
-/obj/item/clothing/glasses/welding/superior,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/away/dsbssigma/loot/goggles_welding,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -14971,7 +14796,7 @@
 /obj/structure/flora/rock/pile,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
+/area/awaymission/DSBSSigma/hive)
 "yS" = (
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating{
@@ -15093,7 +14918,7 @@
 	icon_state = "tracks"
 	},
 /turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
+/area/awaymission/DSBSSigma/hive)
 "ze" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/rock,
@@ -15127,25 +14952,9 @@
 	name = "compacted asteroid sand"
 	},
 /area/awaymission/DSBSSigma/cave_junction_west)
-"zi" = (
-/obj/structure/alien/weeds,
-/mob/living/simple_animal/hostile/alien/sentinel,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
-"zj" = (
-/obj/structure/alien/weeds,
-/obj/structure/flora/rock/pile,
-/mob/living/simple_animal/hostile/alien/stationary,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
 "zk" = (
 /obj/structure/flora/rock,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
-"zl" = (
-/obj/structure/alien/weeds,
-/mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/caverns)
 "zm" = (
@@ -15182,18 +14991,7 @@
 	icon_state = "tracks"
 	},
 /turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
-"zq" = (
-/obj/structure/alien/weeds,
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Tracks left by something being dragged.";
-	dir = 5;
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks"
-	},
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
+/area/awaymission/DSBSSigma/hive)
 "zr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -15224,7 +15022,7 @@
 	icon_state = "tracks"
 	},
 /turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
+/area/awaymission/DSBSSigma/hive)
 "zt" = (
 /obj/effect/decal/warning_stripes/red/partial{
 	dir = 1
@@ -15746,8 +15544,8 @@
 	icon_state = "pipe-c"
 	},
 /obj/machinery/light/broken{
-	icon_state = "tube-broken";
-	dir = 4
+	dir = 4;
+	icon_state = "tube-broken"
 	},
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
@@ -15804,7 +15602,7 @@
 	name = "armoury closet"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/gun/projectile/automatic/shotgun/bulldog,
+/obj/effect/spawner/random_spawners/away/dsbssigma/loot/pistolammo,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -15874,9 +15672,9 @@
 /area/awaymission/DSBSSigma/mess_hall)
 "AC" = (
 /obj/structure/chair/wood{
-	tag = "icon-wooden_chair (NORTH)";
+	dir = 1;
 	icon_state = "wooden_chair";
-	dir = 1
+	tag = "icon-wooden_chair (NORTH)"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -16121,7 +15919,7 @@
 	stat = 2
 	},
 /turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
+/area/awaymission/DSBSSigma/hive)
 "AZ" = (
 /obj/item/chair/wood,
 /turf/simulated/floor/plasteel{
@@ -16267,8 +16065,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/tile,
 /obj/structure/disposalpipe/junction{
-	icon_state = "pipe-j1";
-	dir = 1
+	dir = 1;
+	icon_state = "pipe-j1"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/mess_hall)
@@ -16336,8 +16134,8 @@
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/broken{
-	icon_state = "tube-broken";
-	dir = 1
+	dir = 1;
+	icon_state = "tube-broken"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -16597,8 +16395,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/fluff/utility/broken/smooth{
-	icon_state = "catwalk-bs";
-	dir = 1
+	dir = 1;
+	icon_state = "catwalk-bs"
 	},
 /obj/structure/disposalpipe/broken,
 /obj/item/stack/rods,
@@ -16732,9 +16530,9 @@
 /area/awaymission/DSBSSigma/dormitories)
 "Cq" = (
 /obj/structure/chair/wood{
-	tag = "icon-wooden_chair (NORTH)";
+	dir = 1;
 	icon_state = "wooden_chair";
-	dir = 1
+	tag = "icon-wooden_chair (NORTH)"
 	},
 /obj/effect/decal/cleanable/generic,
 /turf/simulated/floor/plasteel{
@@ -16827,8 +16625,8 @@
 	icon_state = "medium"
 	},
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken2";
-	icon_state = "wood-broken2"
+	icon_state = "wood-broken2";
+	tag = "icon-wood-broken2"
 	},
 /area/awaymission/DSBSSigma/mess_hall)
 "CA" = (
@@ -17128,20 +16926,6 @@
 	icon_state = "darkredcorners"
 	},
 /area/awaymission/DSBSSigma/armory)
-"CZ" = (
-/obj/structure/alien/weeds,
-/obj/structure/bed/nest,
-/obj/effect/mob_spawn/human/corpse/away/dsbssigma/operative,
-/obj/effect/decal/cleanable/blood{
-	color = "red"
-	},
-/obj/item/clothing/mask/facehugger{
-	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
-	},
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
 "Da" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
@@ -18018,7 +17802,7 @@
 	stat = 2
 	},
 /turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
+/area/awaymission/DSBSSigma/hive)
 "Ej" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor/southright{
@@ -18056,8 +17840,8 @@
 	icon_state = "plant-22"
 	},
 /obj/machinery/light/broken{
-	icon_state = "tube-broken";
-	dir = 8
+	dir = 8;
+	icon_state = "tube-broken"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -18201,8 +17985,8 @@
 /obj/effect/landmark/burnturf,
 /obj/effect/decal/cleanable/blood/xeno,
 /obj/structure/fluff/utility/broken/smooth{
-	icon_state = "catwalk-bs";
-	dir = 1
+	dir = 1;
+	icon_state = "catwalk-bs"
 	},
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
@@ -18525,7 +18309,7 @@
 /obj/effect/decal/cleanable/blood/gibs,
 /obj/item/organ/internal/heart/gland/heals/weak,
 /turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
+/area/awaymission/DSBSSigma/hive)
 "Fm" = (
 /obj/structure/sign/poster/contraband/syndicate_recruitment{
 	pixel_y = -32
@@ -18669,8 +18453,8 @@
 /obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken2";
-	icon_state = "wood-broken2"
+	icon_state = "wood-broken2";
+	tag = "icon-wood-broken2"
 	},
 /area/awaymission/DSBSSigma/dormitories)
 "Fx" = (
@@ -18751,12 +18535,6 @@
 	icon_state = "dark"
 	},
 /area/awaymission/DSBSSigma/dormitories)
-"FH" = (
-/obj/structure/alien/weeds,
-/obj/structure/bed/nest,
-/mob/living/simple_animal/hostile/alien,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
 "FI" = (
 /obj/machinery/light/small{
 	dir = 1;
@@ -19497,8 +19275,8 @@
 /area/awaymission/DSBSSigma/armory)
 "Hm" = (
 /obj/machinery/light/small/broken{
-	icon_state = "bulb-broken";
-	dir = 8
+	dir = 8;
+	icon_state = "bulb-broken"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -19511,7 +19289,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/away/dsbssigma/pistolammo,
+/obj/item/kitchen/knife/combat,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -19588,17 +19366,6 @@
 	icon_state = "dark"
 	},
 /area/awaymission/DSBSSigma/armory)
-"Hw" = (
-/obj/structure/alien/weeds,
-/obj/structure/bed/nest,
-/obj/effect/mob_spawn/human/corpse/away/dsbssigma/operative/miner,
-/obj/item/clothing/mask/facehugger{
-	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
-	},
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
 "Hx" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-22"
@@ -19918,10 +19685,6 @@
 /obj/effect/landmark/damageturf,
 /turf/space,
 /area/awaymission/DSBSSigma/exterior)
-"In" = (
-/obj/structure/flora/rock,
-/turf/space,
-/area/space)
 "Io" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 9;
@@ -19949,7 +19712,7 @@
 /obj/item/stack/rods,
 /obj/structure/flora/rock/pile,
 /turf/space,
-/area/space)
+/area/awaymission/DSBSSigma/exterior)
 "Is" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
@@ -20085,6 +19848,15 @@
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/DSBSSigma/mess_hall)
+"IO" = (
+/obj/structure/flora/rock/pile,
+/obj/structure/fluff/utility/broken/smooth{
+	desc = "A broken section of catwalk.";
+	dir = 4;
+	name = "broken catwalk"
+	},
+/turf/space,
+/area/awaymission/DSBSSigma/exterior)
 "IP" = (
 /obj/structure/spacevine,
 /turf/simulated/mineral/asteroid/loose/cave/cracked,
@@ -20096,24 +19868,12 @@
 "IT" = (
 /turf/simulated/mineral/asteroid/loose/cave/cracked,
 /area/awaymission/DSBSSigma/cave_junction_west)
-"Jw" = (
-/obj/item/stack/rods,
-/obj/structure/fluff/utility/broken/smooth{
-	desc = "A broken section of catwalk.";
-	dir = 1;
-	name = "broken catwalk"
-	},
-/turf/space,
-/area/space)
-"Ki" = (
-/obj/structure/fluff/utility/broken/smooth{
-	desc = "A broken section of catwalk.";
-	dir = 4;
-	name = "broken catwalk"
-	},
-/turf/space,
-/area/space)
-"Kj" = (
+"Ja" = (
+/obj/structure/flora/rock,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/awaymission/DSBSSigma/exterior)
+"Jl" = (
 /obj/item/stack/rods,
 /obj/structure/fluff/utility/broken/smooth{
 	desc = "A broken section of catwalk.";
@@ -20121,19 +19881,127 @@
 	name = "broken catwalk"
 	},
 /turf/space,
-/area/space)
-"Mv" = (
-/obj/structure/alien/resin,
+/area/awaymission/DSBSSigma/exterior)
+"Jm" = (
+/obj/structure/alien/weeds/node,
 /turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
-"Of" = (
-/obj/structure/fluff/utility/broken/smooth{
-	desc = "A broken section of catwalk.";
-	name = "broken catwalk"
-	},
+/area/awaymission/DSBSSigma/hive)
+"JB" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Kf" = (
+/obj/structure/alien/weeds,
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_guard,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"KB" = (
+/obj/structure/flora/rock/pile,
 /turf/space,
-/area/space)
-"WX" = (
+/area/awaymission/DSBSSigma/exterior)
+"LA" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/tracks{
+	color = "red";
+	desc = "Tracks left by something being dragged.";
+	icon = 'icons/effects/blood.dmi';
+	icon_state = "tracks"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"LW" = (
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/tracks{
+	color = "red";
+	desc = "Bloody tracks of someone hobbling away.";
+	dir = 9;
+	icon = 'icons/effects/blood.dmi';
+	icon_state = "tracks"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Mb" = (
+/obj/structure/alien/weeds/node,
+/obj/effect/landmark/away{
+	name = "dsbssigma_queen_spawn"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Mo" = (
+/obj/structure/alien/weeds,
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Ms" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/tracks{
+	color = "red";
+	desc = "Tracks left by something being dragged.";
+	dir = 5;
+	icon = 'icons/effects/blood.dmi';
+	icon_state = "tracks"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"MD" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/drip{
+	color = "red"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"MG" = (
+/obj/structure/alien/weeds,
+/obj/structure/flora/rock,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"MQ" = (
+/obj/structure/alien/weeds,
+/obj/structure/bed/nest,
+/obj/effect/mob_spawn/human/corpse/away/dsbssigma/operative/miner,
+/obj/item/clothing/mask/facehugger{
+	icon_state = "facehugger_impregnated";
+	item_state = "facehugger_impregnated";
+	stat = 2
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"MX" = (
+/obj/structure/flora/rock,
+/turf/space,
+/area/awaymission/DSBSSigma/exterior)
+"Nc" = (
+/obj/item/stack/rods,
+/turf/space,
+/area/awaymission/DSBSSigma/exterior)
+"Nl" = (
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/drip{
+	color = "red"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Od" = (
+/obj/structure/alien/weeds,
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_50pc,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Oe" = (
+/obj/structure/alien/weeds,
+/obj/structure/flora/rock/pile,
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_30pc,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"OF" = (
+/obj/structure/alien/weeds,
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_stationary_50pc,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"OQ" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/fluff/utility/broken/smooth{
 	desc = "A broken section of catwalk.";
@@ -20141,7 +20009,182 @@
 	name = "broken catwalk"
 	},
 /turf/space,
+/area/awaymission/DSBSSigma/exterior)
+"OY" = (
+/obj/structure/flora/rock,
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/awaymission/DSBSSigma/exterior)
+"PS" = (
+/obj/structure/lattice,
+/obj/effect/decal/cleanable/dirt,
+/turf/space,
+/area/awaymission/DSBSSigma/exterior)
+"QI" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/egg/burst,
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_50pc,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Rd" = (
+/obj/structure/flora/rock/pile,
+/obj/item/stack/rods,
+/turf/space,
 /area/space)
+"Rk" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/tracks{
+	color = "red";
+	desc = "Tracks left by something being dragged.";
+	dir = 10;
+	icon = 'icons/effects/blood.dmi';
+	icon_state = "tracks"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"RY" = (
+/obj/structure/lattice,
+/obj/structure/flora/rock/pile,
+/obj/effect/decal/cleanable/dirt,
+/turf/space,
+/area/awaymission/DSBSSigma/exterior)
+"Sl" = (
+/obj/structure/alien/weeds,
+/obj/structure/bed/nest,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Sv" = (
+/obj/structure/alien/weeds,
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_30pc,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"SO" = (
+/obj/item/stack/rods,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/awaymission/DSBSSigma/exterior)
+"SY" = (
+/obj/structure/fluff/utility/broken/smooth{
+	desc = "A broken section of catwalk.";
+	dir = 1;
+	name = "broken catwalk"
+	},
+/turf/space,
+/area/awaymission/DSBSSigma/exterior)
+"Tz" = (
+/obj/structure/alien/weeds,
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/queen,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"TK" = (
+/obj/structure/alien/weeds,
+/obj/structure/bed/nest,
+/obj/effect/mob_spawn/human/corpse/away/dsbssigma/operative,
+/obj/effect/decal/cleanable/blood{
+	color = "red"
+	},
+/obj/item/clothing/mask/facehugger{
+	icon_state = "facehugger_impregnated";
+	item_state = "facehugger_impregnated";
+	stat = 2
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"UC" = (
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"UT" = (
+/obj/item/stack/rods,
+/obj/structure/fluff/utility/broken/smooth{
+	desc = "A broken section of catwalk.";
+	dir = 1;
+	name = "broken catwalk"
+	},
+/turf/space,
+/area/awaymission/DSBSSigma/exterior)
+"VT" = (
+/obj/structure/fluff/utility/broken/smooth{
+	desc = "A broken section of catwalk.";
+	dir = 4;
+	name = "broken catwalk"
+	},
+/turf/space,
+/area/awaymission/DSBSSigma/exterior)
+"Wg" = (
+/obj/structure/alien/weeds,
+/obj/effect/landmark/away{
+	name = "dsbssigma_queen_spawn"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Wp" = (
+/obj/structure/fluff/utility/broken/smooth{
+	desc = "A broken section of catwalk.";
+	name = "broken catwalk"
+	},
+/turf/space,
+/area/awaymission/DSBSSigma/exterior)
+"Ws" = (
+/turf/simulated/mineral/asteroid/loose/cave,
+/area/awaymission/DSBSSigma/cave_junction_east)
+"WX" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/flora/rock/pile,
+/obj/effect/decal/cleanable/dirt,
+/turf/space,
+/area/awaymission/DSBSSigma/exterior)
+"XR" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_50pc,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Yc" = (
+/obj/structure/alien/weeds,
+/obj/structure/flora/rock/pile,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"YD" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/tracks{
+	color = "red";
+	desc = "Tracks left by something being dragged.";
+	dir = 4;
+	icon = 'icons/effects/blood.dmi';
+	icon_state = "tracks"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Zf" = (
+/obj/structure/alien/resin,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"ZD" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_30pc,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"ZM" = (
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/tracks{
+	color = "red";
+	desc = "Tracks left by something being dragged.";
+	dir = 5;
+	icon = 'icons/effects/blood.dmi';
+	icon_state = "tracks"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"ZO" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/egg/burst,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
 
 (1,1,1) = {"
 aa
@@ -21818,11 +21861,11 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
+ai
+ai
+ai
+ai
+ai
 aa
 aa
 aa
@@ -21971,19 +22014,19 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
 aa
 aa
 aa
@@ -22127,24 +22170,24 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
 aa
 aa
 aa
@@ -22283,28 +22326,28 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-ah
-ah
-ah
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
 aa
 aa
 aa
@@ -22426,12 +22469,12 @@ aa
 aa
 aa
 aa
-ah
-ah
-ah
-ah
-ah
-ah
+ai
+ai
+ai
+ai
+ai
+ai
 aa
 aa
 aa
@@ -22439,33 +22482,33 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-ah
-ah
-ah
-ah
-ah
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
 aa
 aa
 aa
@@ -22538,9 +22581,9 @@ aa
 aa
 aa
 aa
-ad
-ae
-ad
+aa
+aa
+aa
 aa
 aa
 aa
@@ -22582,48 +22625,48 @@ aa
 aa
 aa
 aa
-ah
-ah
-ah
-ah
-ah
-ah
-ah
-ah
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
 aa
 aa
 aa
 aa
 aa
 aa
-ah
-ah
-ah
-ah
-ah
-ah
-ah
-ah
-ah
-ah
-ah
-ah
-ah
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+Zf
+Zf
+Zf
+Zf
+ai
+ai
+ai
+ai
+ai
+ai
+ai
 aa
 aa
 aa
@@ -22695,9 +22738,9 @@ aa
 aa
 aa
 aa
-ae
-af
-ae
+aa
+aa
+aa
 aa
 aa
 aa
@@ -22732,58 +22775,58 @@ aa
 ac
 ab
 ab
-ab
 aa
 aa
 aa
 aa
 aa
-ah
-ah
-ah
-ai
-ai
-ai
-ai
-ah
-ah
-ah
-ah
-ah
-ah
-ah
-ah
-ah
-ah
 ai
 ai
 ai
 ai
 ai
-ah
-ah
-ah
-ah
-ah
-ah
-ah
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+Zf
+Zf
+Zf
+Zf
+Sl
+ZO
+Zf
+Zf
+Zf
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
 aa
 aa
 aa
@@ -22852,9 +22895,9 @@ aa
 aa
 aa
 aa
-ad
-ae
-ad
+aa
+aa
+aa
 aa
 aa
 aa
@@ -22883,31 +22926,13 @@ aa
 aa
 aa
 aa
-ab
-aa
-aa
-aa
-aa
-ab
-ab
 aa
 aa
 aa
 aa
 aa
-ah
-ah
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ah
+aa
+aa
 ai
 ai
 ai
@@ -22919,28 +22944,46 @@ ai
 ai
 ai
 ai
-ah
-ah
-ah
-ah
-ah
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+ai
+Zf
+Zf
+Zf
+UC
+UC
+UC
+UC
+UC
+UC
+Sl
+Zf
+Zf
+ai
+ai
+ai
+ai
+ai
+ai
+ai
 aa
 aa
 aa
@@ -23009,9 +23052,9 @@ aa
 aa
 aa
 aa
-ad
-ad
-ad
+aa
+aa
+aa
 aa
 aa
 aa
@@ -23041,18 +23084,6 @@ aa
 aa
 aa
 aa
-ab
-aa
-aa
-aa
-ab
-ab
-aa
-aa
-aa
-aa
-ah
-ah
 ai
 ai
 ai
@@ -23071,34 +23102,46 @@ ai
 ai
 ai
 ai
-qw
-qw
-qw
 ai
 ai
 ai
 ai
-ah
-ah
-ah
-ah
-ah
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+Zf
+Zf
+UC
+UC
+Yc
+UC
+Zf
+Zf
+Zf
+UC
+UC
+UC
+UC
+UC
+Yc
+Jm
+UC
+JB
+ZO
+Zf
+Zf
+Zf
+ai
+ai
+ai
+ai
+ai
+ai
 aa
 aa
 aa
@@ -23166,9 +23209,9 @@ aa
 aa
 aa
 aa
-ad
-ad
-ad
+aa
+aa
+aa
 aa
 aa
 aa
@@ -23196,25 +23239,6 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ah
-ah
-ai
-qw
-qw
-qw
-qw
 ai
 ai
 ai
@@ -23226,36 +23250,55 @@ ai
 ai
 ai
 ai
-qw
-qw
-qw
-qZ
-qw
-qw
 ai
 ai
 ai
-ah
-ah
-ah
-ah
-ah
-ah
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ai
+Zf
+Zf
+Zf
+Zf
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+Zf
+Zf
+Zf
+UC
+UC
+UC
+UC
+UC
+UC
+UC
+UC
+UC
+UC
+UC
+Sv
+Zf
+Zf
+Kf
+UC
+JB
+UC
+Od
+ZO
+Zf
+Zf
+ai
+ai
+ai
+ai
+ai
 aa
 aa
 aa
@@ -23352,67 +23395,67 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ah
-ah
-ai
-qw
-qw
-qZ
-sZ
-qw
-qw
-qw
-ai
-qw
-qw
-qw
-qw
-qw
-qw
-qw
-qw
-qw
-sZ
-qS
-qS
-CZ
-qw
-qw
 ai
 ai
 ai
-ah
-ah
-ah
-ah
-ah
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+Zf
+Zf
+Zf
+Zf
+ZO
+Sl
+Zf
+Zf
+Zf
+ai
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Sl
+Sv
+UC
+UC
+UC
+Zf
+Zf
+Zf
+Zf
+Zf
+MG
+UC
+UC
+UC
+Zf
+Zf
+MG
+UC
+MD
+UC
+UC
+UC
+TK
+Zf
+ai
+ai
+ai
+ai
+ai
 aa
 aa
 aa
@@ -23508,68 +23551,68 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ah
 ai
 ai
 ai
-qw
-qZ
+ai
+Zf
+Zf
+Zf
+ai
+ai
+ai
+ai
+ai
+ai
+Zf
+Zf
+MG
+UC
+Yc
+OF
+UC
+UC
+UC
+Zf
+Zf
+Zf
+ZO
+ZO
+UC
+UC
+ZO
+Zf
+Zf
+ZO
+UC
+UC
+UC
+UC
+OF
+Zf
+ai
+ai
+ai
+Zf
+Zf
+Od
+UC
+LW
 qS
-wd
-sZ
-qZ
-qw
-qw
-qw
-qZ
-qZ
-qS
-qS
-qZ
-qw
-qw
-qZ
-uM
-qS
-us
-vK
-qZ
-qw
+UC
+UC
+UC
+JB
+Wg
+UC
+Sv
+Sl
+Zf
 ai
 ai
 ai
 ai
-ah
-ah
-ah
-ah
-ah
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ai
 aa
 aa
 aa
@@ -23664,69 +23707,69 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
 ai
 ai
 ai
 ai
-aa
-aa
-aa
-aa
-aa
-aa
-ai
-ai
-ai
-ai
-qw
-CZ
-qS
-us
-qS
-qZ
-qw
-qw
-qS
-qS
-zi
-qS
-qS
-qS
-qZ
-qw
-qw
-xC
-qS
-qS
-us
-CZ
-qw
+Zf
+Zf
+Sl
+Zf
+Zf
 ai
 ai
 ai
 ai
 ai
-ah
-ah
-ah
-ah
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+Zf
+UC
+JB
+UC
+UC
+UC
+UC
+Jm
+UC
+Zf
+Zf
+UC
+UC
+UC
+Kf
+UC
+UC
+QI
+Zf
+Zf
+UC
+UC
+Jm
+UC
+MG
+Zf
+Zf
+Zf
+ai
+ai
+Zf
+Zf
+UC
+UC
+UC
+UC
+Yc
+UC
+JB
+UC
+Jm
+UC
+ZO
+Zf
+ai
+ai
+ai
+ai
+ai
 aa
 aa
 aa
@@ -23819,71 +23862,71 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
 ai
 ai
 ai
 ai
 ai
+Zf
+Zf
+TK
+UC
+ZO
+Zf
 ai
 ai
-aa
-aa
-aa
-aa
 ai
 ai
-ai
-ai
-qw
-qw
-vK
-qS
+Zf
+Zf
+UC
+UC
+Zf
+Zf
+UC
+UC
 wW
-qS
-qS
-qS
-qS
-qS
-qS
-qS
-uM
-zl
-qS
-us
-wD
-zd
-qS
-uM
-qZ
-qw
-qw
+UC
+UC
+UC
+UC
+UC
+UC
+UC
+UC
+UC
+UC
+Nl
+UC
+UC
+UC
+UC
+UC
+Zf
+Zf
+ZO
+Zf
+ai
+ai
+ai
+Zf
+UC
+UC
+UC
+Zf
+Zf
+Zf
+ZO
+Kf
+UC
+Od
+ZO
+Zf
 ai
 ai
 ai
 ai
 ai
-ai
-ah
-ah
-ah
-aa
-aa
-ab
-aa
-aa
-aa
-aa
-aa
-ac
-ac
-aa
-aa
-aa
-aa
 aa
 aa
 aa
@@ -23975,73 +24018,73 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
+ai
+ai
+ai
+ai
+ai
+Zf
+Zf
+ZO
+JB
+JB
+ZO
+Zf
+ai
+ai
+ai
+Zf
+Zf
+UC
+UC
+Zf
+Zf
+Zf
+Zf
+MG
+UC
+UC
+UC
+UC
+Jm
+Yc
+UC
+Wg
+UC
+Nl
+UC
+UC
+UC
+Nl
+UC
+UC
+Zf
+Zf
+ZO
+Od
+Zf
+ai
+Zf
+Zf
+Zf
+UC
+UC
+Zf
+Zf
+ai
+Zf
+Zf
+Zf
+Sl
+ZO
+Zf
+Zf
 ai
 ai
 ai
 ai
 ai
 ai
-ai
-ai
-ai
-ai
-aa
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-qw
-qw
-vd
-uM
-qS
-qS
-qS
-qS
-uM
-qS
-xY
-qS
-us
-qS
-qS
-qS
-us
-qS
-qZ
-qw
-qw
-qw
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ah
-ah
-ah
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ac
-ac
-aa
-aa
-aa
-aa
-aa
 aa
 aa
 aa
@@ -24132,8 +24175,66 @@ aa
 aa
 aa
 aa
-aa
-aa
+ai
+ai
+ai
+ai
+Zf
+Zf
+Od
+UC
+Jm
+UC
+Zf
+Zf
+ai
+ai
+Zf
+Zf
+UC
+UC
+Zf
+Zf
+ai
+ai
+Zf
+Zf
+UC
+UC
+Zf
+UC
+UC
+UC
+UC
+UC
+UC
+Jm
+UC
+Yc
+Zf
+UC
+UC
+Zf
+Zf
+Sl
+UC
+UC
+Zf
+Zf
+Zf
+MG
+UC
+Nl
+UC
+Zf
+ai
+ai
+ai
+ai
+Zf
+Zf
+Zf
+Zf
 ai
 ai
 ai
@@ -24142,64 +24243,6 @@ ai
 ai
 ai
 ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-qw
-qw
-qS
-qZ
-qw
-qS
-qS
-qS
-qS
-qS
-qS
-qS
-qS
-yH
-qw
-qS
-us
-qw
-qw
-FH
-qw
-qw
-qw
-ai
-ai
-ai
-ai
-ai
-ah
-ah
-ah
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ac
-ac
-ac
-aa
-aa
-aa
-aa
-aa
 aa
 aa
 aa
@@ -24288,75 +24331,75 @@ aa
 aa
 aa
 aa
-ah
-ah
-ah
 ai
 ai
 ai
 ai
 ai
+Zf
+Sl
+UC
+Yc
+UC
+UC
+Zf
+ai
+ai
+ai
+Zf
+UC
+JB
+UC
+Zf
 ai
 ai
 ai
 ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-qw
-us
-qZ
-qw
-qZ
-qS
-xC
-qS
-qS
+Zf
+UC
+UC
+Zf
+ZO
+UC
+UC
+UC
+UC
 zp
-wk
-qS
-qZ
-qw
-qS
-us
-qw
-yH
-qS
-qS
-yH
-qw
+UC
+UC
+ZO
+Zf
+zp
+UC
+UC
+Yc
+UC
+Jm
+Yc
+UC
+UC
+UC
+JB
+UC
+UC
+UC
+Zf
+Zf
 ai
 ai
 ai
 ai
 ai
-ah
-ah
-ah
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-ac
-ac
-aa
-aa
-aa
-aa
-aa
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
 aa
 aa
 aa
@@ -24444,76 +24487,76 @@ aa
 aa
 aa
 aa
-ah
-ah
-ah
 ai
 ai
 ai
 ai
 ai
+Zf
+Zf
+Sl
+UC
+UC
+UC
+Kf
+Zf
+Zf
+ai
+Zf
+Zf
+UC
+UC
+Zf
+Zf
 ai
 ai
 ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-qw
-qw
-qS
-qw
-qw
-qw
+Zf
+Zf
+UC
+Zf
+Zf
+Zf
 sZ
+UC
+UC
+Kf
+Nl
+UC
+ZO
+Zf
+Zf
+ZM
+UC
+Mo
+JB
 qS
-uM
-qS
-us
-qS
-qZ
-qw
-qw
-qS
-qS
-qS
-qS
-qw
-qw
-qS
-qw
+Nl
+UC
+UC
+Sv
+UC
+UC
+Zf
+UC
+YD
+Sv
+Zf
+Zf
 ai
 ai
 ai
 ai
 ai
-ah
-ah
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
 aa
 aa
 aa
@@ -24600,9 +24643,63 @@ aa
 aa
 aa
 ah
-ah
-ah
-ah
+ai
+ai
+ai
+ai
+ai
+ai
+Zf
+ZO
+Sv
+UC
+Nl
+UC
+UC
+ZO
+Zf
+Zf
+Zf
+UC
+JB
+UC
+Zf
+ai
+ai
+ai
+ai
+Zf
+UC
+UC
+Zf
+ai
+Zf
+Zf
+Sl
+UC
+UC
+UC
+MG
+Zf
+Zf
+UC
+UC
+Tz
+UC
+UC
+Zf
+Zf
+UC
+UC
+Zf
+Zf
+Zf
+Zf
+UC
+Ms
+MD
+UC
+Zf
 ai
 ai
 ai
@@ -24617,60 +24714,6 @@ ai
 ai
 ai
 ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-qw
-qS
-qS
-qw
-ai
-qw
-qw
-sZ
-qS
-qS
-xO
-vd
-qw
-qw
-zl
-qS
-zp
-qS
-qw
-qw
-qw
-qS
-qw
-qw
-ai
-ai
-ai
-ah
-ah
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
 aa
 aa
 aa
@@ -24757,77 +24800,77 @@ aa
 aa
 ah
 ah
-ah
-ah
 ai
 ai
 ai
 ai
 ai
 ai
+Zf
+ZO
+UC
+UC
+UC
+UC
+UC
+UC
+UC
+UC
+UC
+JB
+JB
+Zf
+Zf
 ai
 ai
 ai
+Zf
+Zf
+Mo
+Zf
+Zf
 ai
 ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-qw
-qw
-us
-qw
-qw
-ai
-ai
-qw
-qw
-qZ
-qZ
+Zf
+Zf
+ZO
+ZO
 Ei
-qw
-qw
-sZ
-qS
-qS
-zq
+Zf
+Zf
+UC
+UC
+UC
+UC
 zd
-qS
-qw
-qS
-zl
-uM
-qw
+UC
+Zf
+OF
+UC
+UC
+Zf
+ai
+ai
+Zf
+Zf
+UC
+JB
+UC
+Zf
+Zf
+Zf
+ai
+Zf
+Zf
+Zf
 ai
 ai
 ai
-ah
-ah
-aa
-aa
-aa
-aa
-aa
-aa
-ac
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ai
+ai
+ai
+ai
+ai
 aa
 aa
 aa
@@ -24914,7 +24957,70 @@ ah
 ah
 ah
 ah
-ah
+ai
+ai
+ai
+ai
+ai
+ai
+Zf
+ZO
+UC
+Wg
+UC
+UC
+Yc
+MG
+Zf
+Zf
+Sv
+UC
+Jm
+OF
+Zf
+ai
+ai
+ai
+Zf
+UC
+UC
+Zf
+ai
+ai
+ai
+ai
+Zf
+Zf
+Zf
+Zf
+Zf
+UC
+UC
+Jm
+OF
+Zf
+UC
+Yc
+Zf
+ZO
+Zf
+Zf
+Zf
+ai
+ai
+ai
+Zf
+Zf
+UC
+UC
+MG
+Zf
+Zf
+Zf
+Zf
+ZO
+Zf
+Zf
 ai
 ai
 ai
@@ -24923,69 +25029,6 @@ ai
 ai
 ai
 ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-qw
-qS
-qS
-qw
-ai
-ai
-ai
-ai
-qw
-qw
-qw
-qw
-qw
-qw
-qw
-uM
-xC
-qw
-zp
-zj
-qw
-Hw
-qw
-qw
-qw
-ai
-ai
-ah
-ah
-aa
-aa
-aa
-aa
-aa
-aa
-ac
-ac
-aa
-ac
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
 aa
 aa
 aa
@@ -25077,6 +25120,65 @@ ai
 ai
 ai
 ai
+Zf
+MG
+UC
+Jm
+UC
+UC
+JB
+JB
+UC
+Nl
+UC
+UC
+Rk
+UC
+Zf
+ai
+ai
+ai
+Zf
+UC
+Zf
+Zf
+ai
+ai
+ai
+ai
+ai
+Zf
+Zf
+Zf
+UC
+JB
+UC
+Zf
+Zf
+Zf
+Nl
+Zf
+Zf
+Zf
+Zf
+ai
+ai
+ai
+ai
+ai
+Zf
+Zf
+UC
+Nl
+UC
+UC
+UC
+UC
+UC
+UC
+ZO
+Zf
+Zf
 ai
 ai
 ai
@@ -25084,65 +25186,6 @@ ai
 ai
 ai
 ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-qw
-qS
-qw
-qw
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-qw
-yH
-sZ
-qw
-us
-qw
-qw
-qw
-qw
-ai
-ai
-ai
-ai
-ah
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ac
-ac
-ac
-ac
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
 aa
 aa
 aa
@@ -25234,72 +25277,72 @@ ai
 ai
 ai
 ai
+Zf
+Zf
+Sl
+UC
+UC
+UC
+QI
+Zf
+Zf
+Zf
+Zf
+Zf
+ZM
+UC
+Zf
+ai
+ai
+Zf
+Zf
+UC
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+UC
+Nl
+JB
+UC
+Zf
+Zf
+Zf
+Zf
+UC
+Zf
+Zf
 ai
 ai
 ai
 ai
 ai
 ai
+Zf
+Zf
+Kf
+UC
+UC
+UC
+UC
+Yc
+LA
+JB
+JB
+XR
+ZO
+Zf
+Zf
 ai
 ai
 ai
 ai
 ai
 ai
-ai
-ai
-ai
-ai
-ai
-qw
-qw
-qS
-qw
-qw
-qw
-qw
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-qw
-qw
-qw
-qw
-us
-qw
-qw
-ai
-ai
-ai
-ai
-ai
-ai
-ah
-aa
-aa
-aa
-aa
-aa
-aa
-ac
-ac
-ac
-ac
-ac
-ac
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
 aa
 aa
 aa
@@ -25392,71 +25435,71 @@ ai
 ai
 ai
 ai
+Zf
+Zf
+TK
+Kf
+ZO
+Zf
+Zf
 ai
 ai
 ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
+Zf
+UC
+UC
+Zf
+Zf
+Zf
+Zf
+Sv
+UC
+Zf
+UC
+UC
+UC
+Od
+UC
+UC
+UC
+LA
+UC
+Sv
+Zf
+Zf
+Zf
 qw
-qw
-qw
-qS
-qS
-uM
-qZ
-qZ
-qw
-qw
+UC
+UC
+UC
+Zf
+Zf
+ai
+ai
+ai
+ai
+Zf
+Zf
+UC
+UC
+UC
+Sv
+Zf
+Zf
+Zf
+Sv
+Jm
+UC
+UC
+UC
+UC
+Zf
 ai
 ai
 ai
 ai
 ai
 ai
-ai
-ai
-qw
-Mv
-qS
-qS
-qS
-qw
-qw
-ai
-ai
-ai
-ai
-ah
-aa
-aa
-aa
-aa
-aa
-aa
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-aa
-aa
-aa
-ab
-aa
-aa
-aa
-aa
 aa
 aa
 aa
@@ -25550,69 +25593,69 @@ ai
 ai
 ai
 ai
+Zf
+Zf
+Zf
+Zf
+Zf
 ai
 ai
 ai
 ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-qw
-qw
+Zf
+UC
+UC
+Zf
+Zf
+UC
+UC
+UC
+UC
+UC
 qS
-qS
-qS
-us
-qS
-qS
-qS
-CZ
-qw
+Nl
+UC
+UC
+UC
+UC
+UC
+UC
+Zf
+Zf
+Zf
+ai
+Zf
+UC
+UC
+UC
+UC
+UC
+Zf
 ai
 ai
 ai
-ai
-ai
-ai
-ai
-ai
-qw
-qS
-us
-us
-qS
-vK
-qw
-ai
-ai
-ai
-ai
-ah
-aa
-aa
-aa
-aa
-aa
+Zf
+Zf
+UC
+Nl
+Mb
+UC
+UC
+Zf
 ac
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+Zf
+ZO
+UC
+Wg
+Nl
+UC
+Sl
+Zf
+ai
+ai
+ai
+ai
+ai
 aa
 aa
 aa
@@ -25716,58 +25759,58 @@ ai
 ai
 ai
 ai
+Zf
+Yc
+UC
+Zf
+UC
+UC
+UC
+Jm
+UC
+UC
+UC
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
 ai
 ai
-ai
-qw
-qS
-qS
+Zf
+Zf
+UC
+UC
+Zf
 uM
-qS
-vK
-qS
-CZ
-qZ
-qw
-qw
+UC
+Zf
 ai
 ai
 ai
+Zf
+MQ
+UC
+UC
+UC
+UC
+UC
+Zf
+Zf
+Zf
+ZO
+UC
+UC
+UC
+UC
+Sl
+Zf
 ai
 ai
 ai
-ai
-qw
-qw
-qS
-qS
-qw
-uM
-qS
-qw
-ai
-ai
-ai
-ai
-ah
-ah
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ac
-ac
-ac
-ac
-aa
-aa
-aa
-aa
-aa
 aa
 aa
 aa
@@ -25873,58 +25916,58 @@ ai
 ai
 ai
 ai
+Zf
+Zf
+UC
+Nl
+UC
+Zf
+UC
+UC
+UC
+MG
+Zf
+Zf
 ai
 ai
 ai
-qS
-qS
-qw
-sZ
-uM
-qS
-vd
-qw
-qw
-qw
 ai
 ai
 ai
 ai
-xa
-xa
 ai
 ai
-qw
-xC
+Zf
+Kf
 qx
 ym
-qw
-qw
-qS
-qw
-qw
+Zf
+Zf
+UC
+Zf
+Zf
+ai
+ai
+Zf
+Zf
+qZ
+UC
+Zf
+UC
+UC
+Oe
+Zf
+Zf
+UC
+UC
+UC
+UC
+UC
+Sv
+Zf
 ai
 ai
 ai
-ah
-ah
-ah
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ac
-ac
-ac
-ac
-aa
-aa
-aa
-aa
 aa
 aa
 aa
@@ -26030,17 +26073,17 @@ ai
 ai
 ai
 ai
-ai
-ai
-ai
-qS
-qw
-qw
+Zf
+Zf
+Mo
+UC
+Zf
+Zf
 qZ
-qS
-qZ
-qw
-qw
+UC
+ZO
+Zf
+Zf
 ai
 ai
 ai
@@ -26053,35 +26096,35 @@ xa
 ai
 ai
 yR
-qS
+UC
 zp
-qS
-qw
-qS
-qS
-qw
-qw
+UC
+Zf
+UC
+UC
+Zf
+Zf
 ai
 ai
-ah
-ah
-ah
-ah
-aa
-aa
-aa
-ab
-ab
-ab
-ab
-ac
-ac
-ac
-aa
-aa
-aa
-aa
-aa
+Zf
+Zf
+Zf
+Zf
+Zf
+UC
+UC
+UC
+UC
+UC
+UC
+UC
+UC
+TK
+Zf
+Zf
+ai
+ai
+ai
 aa
 aa
 aa
@@ -26187,16 +26230,16 @@ ai
 ai
 ai
 ai
-ai
-kf
-kf
-kf
-ai
-qw
-qw
-sZ
-qw
-qw
+Zf
+UC
+UC
+UC
+Zf
+Zf
+Zf
+Sl
+Zf
+Zf
 ai
 ai
 ai
@@ -26210,35 +26253,35 @@ po
 wI
 sr
 xQ
-wD
+qS
 zs
-qS
-qw
-qw
-qS
-qS
-qw
+Kf
+Zf
+Zf
+Mo
+UC
+Zf
 ai
 ai
 ai
-ah
-ah
-ah
-ah
-aa
-aa
-aa
-ab
-aa
-ab
-ab
-ac
-aa
-aa
-aa
-aa
-ab
-aa
+ai
+ai
+ai
+Zf
+UC
+UC
+UC
+UC
+Kf
+ZO
+ZO
+ZO
+Zf
+Zf
+ai
+ai
+ai
+ai
 aa
 aa
 aa
@@ -26343,16 +26386,16 @@ kf
 kf
 ke
 ai
-kf
-kf
-kf
+UC
+UC
+UC
+Zf
+Zf
+Zf
 ai
-ai
-ai
-ai
-qw
-qw
-qw
+Zf
+Zf
+Zf
 ai
 ai
 ai
@@ -26368,34 +26411,34 @@ yf
 po
 po
 po
-qS
-zj
-qw
-qw
-qw
-qS
-qw
+UC
+Yc
+Zf
+Zf
+Zf
+UC
+Zf
+Zf
+Zf
+Zf
+Zf
+ai
+ai
+Zf
+Zf
+UC
+UC
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
 ai
 ai
 ai
 ai
-ah
-ah
-ah
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ac
 aa
 aa
 aa
@@ -26502,8 +26545,8 @@ kf
 kf
 kf
 ai
-ke
-kf
+Yc
+UC
 ai
 ai
 ai
@@ -26529,30 +26572,30 @@ ai
 ai
 ai
 ai
-qw
-yH
-qw
-qw
-qw
+Zf
+Yc
+UC
+UC
+ZD
+UC
+Zf
+Zf
+Zf
+Zf
+UC
+UC
+UC
+Zf
 ai
 ai
-ah
-ah
-ah
-ah
+ai
+ai
+ai
+ai
+ai
+ai
+ai
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ac
 aa
 aa
 aa
@@ -26686,29 +26729,29 @@ ai
 ai
 ai
 ai
-qw
-qS
-qS
-CZ
-qw
+Zf
+UC
+UC
+UC
+UC
+JB
+UC
+Zf
+Zf
+MG
+UC
+UC
+Zf
+Zf
 ai
 ai
 ai
-ah
-ah
-ah
-ah
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ab
-aa
-aa
-ac
+ai
+ai
+ai
+ai
+ai
+ai
 aa
 aa
 aa
@@ -26842,30 +26885,30 @@ ai
 ai
 ai
 ai
-qw
-qw
-uM
-sZ
-qw
-qw
+Zf
+Zf
+UC
+UC
+Zf
+Zf
+UC
+UC
+UC
+UC
+UC
+Jm
+UC
+Zf
 ai
 ai
 ai
 ai
-ah
-ah
-ah
-aa
-aa
-aa
-aa
-aa
-aa
+ai
+ai
+ai
+ai
+ai
 ab
-aa
-aa
-aa
-aa
 aa
 aa
 aa
@@ -26999,30 +27042,30 @@ ai
 ai
 ai
 ai
-qw
-yH
-vK
-qw
-qw
+Zf
+ZO
+OF
+Zf
+Zf
+Zf
+Zf
+Zf
+Od
+UC
+Yc
+UC
+Zf
+Zf
 ai
 ai
 ai
 ai
 ai
 ai
-ah
-ah
-ah
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ai
+ab
+ab
+ab
 aa
 aa
 aa
@@ -27156,30 +27199,30 @@ ai
 ai
 ai
 ai
-qw
-qw
-qw
-qw
+Zf
+Zf
+Zf
+Zf
+ai
+ai
+ai
+Zf
+Zf
+Zf
+Zf
+Zf
+Zf
 ai
 ai
 ai
 ai
 ai
 ai
-ai
-ai
-ah
-ah
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ab
+ab
+ab
+ab
 aa
 aa
 aa
@@ -27326,18 +27369,18 @@ ai
 ai
 ai
 ai
-ah
-ah
+ai
+ai
+ai
+ai
+ai
+ai
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ab
+ab
+ac
+ac
 aa
 aa
 aa
@@ -27483,18 +27526,18 @@ ai
 ai
 ai
 ai
-ah
-ah
+ai
+ai
+ai
+ab
 aa
 aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
+ac
+ac
+ac
 aa
 aa
 aa
@@ -27567,8 +27610,8 @@ aa
 aa
 aa
 FU
-Ki
-aa
+VT
+ag
 ah
 ah
 ai
@@ -27642,8 +27685,8 @@ Bv
 ai
 ai
 ah
-aa
-aa
+ab
+ab
 aa
 aa
 aa
@@ -27723,9 +27766,9 @@ aa
 aa
 aa
 aa
-aa
-HR
-HN
+ag
+Nc
+KB
 ah
 ah
 ah
@@ -27800,7 +27843,7 @@ ai
 ai
 ah
 ah
-aa
+ab
 aa
 aa
 aa
@@ -27880,9 +27923,9 @@ aa
 aa
 aa
 aa
-aa
-In
-aa
+ag
+MX
+ag
 ah
 ah
 ah
@@ -28036,10 +28079,10 @@ aa
 aa
 aa
 aa
-HR
-WX
-aa
-aa
+Nc
+OQ
+ag
+ag
 ah
 ah
 ah
@@ -28193,10 +28236,10 @@ aa
 aa
 aa
 aa
-aa
+ag
 hU
-HN
-aa
+KB
+ag
 ah
 ah
 ah
@@ -28546,7 +28589,7 @@ pG
 pW
 uR
 ai
-qw
+Zf
 rM
 ai
 ai
@@ -28804,9 +28847,9 @@ aa
 aa
 aa
 aa
-ad
-ae
-ad
+aa
+aa
+aa
 aa
 aa
 aa
@@ -28859,9 +28902,9 @@ ai
 on
 pY
 uR
-qw
+Zf
 rL
-qw
+Zf
 ai
 ai
 ai
@@ -28961,10 +29004,10 @@ aa
 aa
 aa
 aa
-ae
-af
-ae
-ad
+aa
+aa
+aa
+aa
 aa
 aa
 ac
@@ -29015,7 +29058,7 @@ nc
 ai
 ai
 pu
-qw
+Zf
 vr
 rM
 ai
@@ -29118,11 +29161,11 @@ aa
 ac
 aa
 aa
-ad
-ae
-ad
-ad
-ad
+aa
+aa
+aa
+aa
+aa
 ac
 ac
 aa
@@ -29173,9 +29216,9 @@ ai
 ai
 pu
 qx
-qZ
-qS
-qw
+ZO
+UC
+Zf
 ai
 ai
 ai
@@ -29276,9 +29319,9 @@ ab
 aa
 aa
 aa
-ad
-ad
-ad
+aa
+aa
+aa
 ab
 ac
 ac
@@ -29302,10 +29345,10 @@ ai
 ai
 ai
 ai
-eE
-eE
-eE
-eE
+ai
+ai
+ai
+ai
 ai
 ai
 ai
@@ -29318,7 +29361,7 @@ iZ
 iZ
 iZ
 mt
-ai
+fO
 nc
 nt
 nG
@@ -29329,7 +29372,7 @@ nc
 ai
 ai
 pu
-qw
+Zf
 AY
 rN
 AY
@@ -29434,8 +29477,8 @@ aa
 aa
 aa
 aa
-ad
-ad
+aa
+aa
 ab
 ab
 ac
@@ -29459,10 +29502,10 @@ ai
 ai
 ai
 ai
-eE
-ff
-fx
-eE
+ai
+ai
+ai
+ai
 ai
 ai
 ai
@@ -29486,11 +29529,11 @@ nc
 ai
 ai
 pu
-qw
+Zf
 Fl
-qS
+UC
 sp
-qw
+Zf
 ai
 ai
 ai
@@ -29616,10 +29659,10 @@ ai
 ai
 ai
 ai
-eE
-fg
-id
-eE
+ai
+ai
+ai
+ai
 ai
 ai
 ai
@@ -29644,9 +29687,9 @@ ai
 ai
 pu
 ai
-qw
+Zf
 vr
-qw
+Zf
 ai
 ai
 ai
@@ -29773,10 +29816,10 @@ ai
 ai
 ai
 ai
-eE
-ff
-fz
-eE
+ai
+ai
+ai
+ai
 ai
 ai
 ai
@@ -29811,7 +29854,7 @@ qy
 tQ
 wl
 wm
-we
+qy
 qy
 qy
 qy
@@ -29931,7 +29974,7 @@ ai
 ai
 ai
 eE
-fh
+eE
 eE
 eE
 eE
@@ -30545,7 +30588,7 @@ aa
 aa
 aa
 aa
-aa
+ag
 hV
 hU
 ad
@@ -30559,7 +30602,7 @@ ai
 aU
 eY
 fy
-fj
+fi
 fD
 fQ
 gv
@@ -30701,9 +30744,9 @@ aa
 aa
 aa
 aa
-aa
-HN
-Kj
+ag
+KB
+Jl
 rm
 ai
 ai
@@ -30857,11 +30900,11 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-HN
+ag
+ag
+ag
+ag
+KB
 ai
 ai
 aU
@@ -31014,10 +31057,10 @@ aa
 aa
 aa
 aa
-WX
-HR
-HN
-aa
+OQ
+Nc
+KB
+ag
 ai
 ai
 ai
@@ -31172,7 +31215,7 @@ aa
 aa
 ad
 hU
-aa
+ag
 ai
 Ib
 ai
@@ -31514,8 +31557,8 @@ fd
 fd
 fd
 fd
-ai
-ai
+fO
+fO
 kS
 kS
 lT
@@ -31671,8 +31714,8 @@ fd
 fd
 gr
 fw
-ai
-ai
+fO
+fO
 kS
 pv
 mP
@@ -32086,9 +32129,9 @@ aa
 aa
 aa
 aa
-ad
-ae
-ad
+aa
+aa
+aa
 aa
 aa
 aa
@@ -32243,9 +32286,9 @@ aa
 aa
 aa
 aa
-ae
-af
-ae
+aa
+aa
+aa
 aa
 aa
 aa
@@ -32400,9 +32443,9 @@ aa
 aa
 aa
 aa
-ad
-ae
-ad
+aa
+aa
+aa
 aa
 aa
 aa
@@ -32557,9 +32600,9 @@ aa
 aa
 aa
 aa
-ad
-ad
-ad
+aa
+aa
+aa
 aa
 aa
 aa
@@ -32714,9 +32757,9 @@ aa
 aa
 aa
 aa
-ad
-ad
-ad
+aa
+aa
+aa
 aa
 aa
 aa
@@ -32871,8 +32914,8 @@ aa
 aa
 aa
 aa
-ad
-ad
+aa
+aa
 ab
 ab
 aa
@@ -34441,7 +34484,7 @@ aa
 aa
 aa
 aa
-aa
+ag
 ab
 ab
 ac
@@ -34598,9 +34641,9 @@ aa
 aa
 aa
 aa
-ad
-ad
-ab
+Nc
+ag
+OY
 ac
 ac
 aa
@@ -34910,10 +34953,10 @@ aa
 aa
 aa
 aa
-aa
+HN
 ad
 ae
-ad
+PS
 ad
 aa
 aa
@@ -35068,9 +35111,9 @@ aa
 aa
 aa
 aa
-ae
+SY
 af
-ae
+qY
 ad
 aa
 aa
@@ -35225,11 +35268,11 @@ aa
 aa
 aa
 aa
-ad
-ae
-ad
+ag
+VT
+FU
 aa
-aa
+HR
 aa
 aa
 aa
@@ -35382,7 +35425,7 @@ aa
 aa
 aa
 aa
-aa
+Rd
 aa
 aa
 aa
@@ -35624,9 +35667,9 @@ pr
 pr
 xL
 pr
-yI
-aU
-aU
+wT
+Ws
+Ws
 uQ
 pr
 ww
@@ -35781,7 +35824,7 @@ vO
 uP
 xL
 pr
-aU
+Ws
 ai
 ai
 vx
@@ -37946,7 +37989,7 @@ gi
 hZ
 iy
 gi
-jt
+jR
 jR
 kz
 lg
@@ -38174,7 +38217,7 @@ aa
 aa
 ad
 ad
-ad
+PS
 ab
 ab
 ab
@@ -38330,8 +38373,8 @@ ad
 ad
 ad
 ae
-ad
-ad
+PS
+RY
 ad
 aa
 ab
@@ -38485,10 +38528,10 @@ ac
 ac
 ab
 ad
-ae
+WX
 af
-ae
-ad
+qY
+Nc
 aa
 aa
 aa
@@ -38641,9 +38684,9 @@ ac
 ac
 ac
 ad
-ad
-ad
-ae
+rm
+Nc
+IO
 ad
 aa
 aa
@@ -39202,8 +39245,8 @@ iV
 ic
 iB
 iD
-jF
-jW
+hp
+hp
 kG
 hp
 kN
@@ -39479,7 +39522,7 @@ aa
 aa
 aa
 aa
-aa
+HR
 aa
 aa
 aa
@@ -39633,7 +39676,7 @@ aa
 aa
 aa
 aa
-ad
+KB
 ae
 ad
 aa
@@ -39790,11 +39833,11 @@ aa
 aa
 aa
 aa
-ae
-af
+SY
+hU
 ae
 ad
-aa
+HN
 aa
 aa
 aa
@@ -39947,9 +39990,9 @@ aa
 aa
 aa
 aa
-ad
-ae
-ad
+ag
+VT
+PS
 ad
 ad
 aa
@@ -40105,9 +40148,9 @@ aa
 aa
 aa
 aa
-ad
-ad
-ad
+ag
+MX
+ag
 ad
 aa
 aa
@@ -40261,11 +40304,11 @@ aa
 aa
 aa
 aa
+HR
 aa
-aa
-ad
-ad
-ab
+ag
+PS
+Ja
 ac
 aa
 aa
@@ -40421,8 +40464,8 @@ aa
 aa
 aa
 ad
-ab
-ab
+SO
+aj
 ac
 ab
 ab
@@ -40577,7 +40620,7 @@ aa
 aa
 aa
 aa
-ab
+dg
 ac
 ac
 ac
@@ -40772,7 +40815,7 @@ ai
 ai
 ai
 ai
-aa
+ag
 ai
 ai
 ai
@@ -40931,7 +40974,7 @@ ai
 ai
 ad
 rm
-HN
+KB
 ah
 ah
 ah
@@ -41084,11 +41127,11 @@ ah
 ah
 ah
 ad
-HN
-HN
-In
-aa
-Jw
+KB
+KB
+MX
+ag
+UT
 hU
 hU
 qY
@@ -41242,11 +41285,11 @@ ae
 qY
 hU
 hV
-Of
-HR
-HN
-aa
-HN
+Wp
+Nc
+KB
+ag
+KB
 rm
 ad
 ad
@@ -41274,9 +41317,9 @@ ah
 ah
 ah
 ah
-In
-Kj
-aa
+MX
+Jl
+ag
 aa
 aa
 aa
@@ -41399,8 +41442,8 @@ ad
 ad
 ad
 ad
-aa
-aa
+ag
+ag
 aa
 aa
 aa
@@ -41430,10 +41473,10 @@ ah
 ah
 ah
 zJ
-aa
+ag
 Ir
-aa
-aa
+ag
+ag
 aa
 aa
 aa
@@ -41457,7 +41500,7 @@ aa
 aa
 ab
 ab
-ad
+aa
 aa
 aa
 aa
@@ -41588,7 +41631,8 @@ ae
 qY
 qY
 Im
-Of
+Wp
+ag
 aa
 aa
 aa
@@ -41612,12 +41656,11 @@ aa
 aa
 aa
 aa
-ad
-ad
-ae
-ad
-ad
-ad
+aa
+aa
+aa
+aa
+aa
 ac
 ac
 ac
@@ -41745,7 +41788,7 @@ ad
 ad
 ad
 rm
-HN
+KB
 aa
 aa
 aa
@@ -41769,12 +41812,12 @@ aa
 aa
 aa
 aa
-ad
-ae
-af
-ae
-ad
-ad
+aa
+aa
+aa
+aa
+aa
+aa
 ac
 ac
 aa
@@ -41927,12 +41970,12 @@ aa
 aa
 aa
 aa
-ad
-ae
-ad
-ad
-ad
-ad
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -42813,7 +42856,7 @@ aa
 aa
 aa
 aa
-ad
+aa
 ab
 ab
 ab
@@ -42970,7 +43013,7 @@ aa
 aa
 aa
 aa
-ad
+aa
 ab
 ab
 ac
@@ -43127,8 +43170,8 @@ ab
 aa
 aa
 aa
-ad
-ad
+aa
+aa
 ac
 ac
 ac
@@ -43284,9 +43327,9 @@ ab
 aa
 aa
 aa
-ad
-ad
-ad
+aa
+aa
+aa
 aa
 aa
 aa
@@ -43441,9 +43484,9 @@ aa
 aa
 aa
 aa
-ad
-ae
-ad
+aa
+aa
+aa
 aa
 aa
 aa
@@ -43580,8 +43623,8 @@ ab
 ac
 ab
 ab
-ad
-ad
+aa
+aa
 ab
 ac
 aa
@@ -43598,9 +43641,9 @@ aa
 aa
 aa
 aa
-ae
-af
-ae
+aa
+aa
+aa
 aa
 aa
 aa
@@ -43737,10 +43780,6 @@ ac
 ac
 ab
 ab
-ad
-ad
-ad
-ad
 aa
 aa
 aa
@@ -43755,9 +43794,13 @@ aa
 aa
 aa
 aa
-ad
-ae
-ad
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -43893,12 +43936,12 @@ aa
 ac
 ac
 ab
-ad
-ad
-ad
-ad
-ae
-ad
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -44052,10 +44095,10 @@ aa
 aa
 aa
 aa
-ad
-ae
-af
-ae
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -44210,9 +44253,9 @@ aa
 aa
 aa
 aa
-ad
-ae
-ad
+aa
+aa
+aa
 aa
 aa
 aa

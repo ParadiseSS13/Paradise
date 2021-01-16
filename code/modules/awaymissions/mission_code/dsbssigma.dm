@@ -142,6 +142,11 @@
 	icon_state = "mining"
 	requires_power = TRUE
 
+/area/awaymission/DSBSSigma/hive
+	name = "DSBS:Sigma - Hive"
+	icon_state = "purple"
+	requires_power = TRUE
+
 ////////////////////////// OBJECTS //////////////////////////
 
 //////// DECALS ////////
@@ -290,23 +295,6 @@
 	origin_tech = "syndicate=3"
 	name = "paper - 'syndicate research notes'"
 
-/obj/item/card/id/away/dsbssigma
-	name = "syndicate ID card"
-	desc = "A slightly faded black and red access card. Only oddity you can make out is the word 'SIGMA' printed at the bottom right corner of the card."
-	icon = 'icons/obj/card.dmi'
-	icon_state = "syndie"
-	access = list(ACCESS_AWAY01)
-
-/obj/item/card/id/away/dsbssigma/private
-	registered_name = "William Simmons"
-	assignment = "Private"
-	access = list(ACCESS_AWAY01, ACCESS_AWAY02)
-
-/obj/item/card/id/away/dsbssigma/officer
-	registered_name = "Xiu Yao"
-	assignment = "Officer"
-	access = list(ACCESS_AWAY01, ACCESS_AWAY02, ACCESS_AWAY03)
-
 /obj/item/organ/internal/heart/gland/heals/weak
 	name = "fleshy growth"
 	desc = "A nausea-inducing growth of flesh."
@@ -330,6 +318,26 @@
 /obj/machinery/computer/id_upgrader/dsbssigma
 	icon_keyboard = "laptop_key"
 	access_to_give = list(ACCESS_AWAY01)
+	door_to_open = null
+
+/obj/machinery/computer/id_upgrader/dsbssigma/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/card/id))
+		var/obj/item/card/id/D = I
+		if(!access_to_give.len)
+			to_chat(user, "<span class='notice'>This machine appears to be configured incorrectly.</span>")
+			return
+		var/did_upgrade = FALSE
+		var/list/id_access = D.GetAccess()
+		for(var/this_access in access_to_give)
+			if(!(this_access in id_access))
+				D.access |= this_access
+				did_upgrade = TRUE
+		if(did_upgrade)
+			to_chat(user, "<span class='notice'>An access type was added to your ID card. You think you will be able to lift the lockdown with this.</span>")
+		else
+			to_chat(user, "<span class='notice'>Your ID card already has all the access this machine can give.</span>")
+		return
+	return ..()
 
 /obj/machinery/vending/medical/syndicate_access/dsbssigma
 	req_access = list(ACCESS_AWAY01)
@@ -369,96 +377,170 @@
 ////// STRUCTURES //////
 
 /obj/structure/displaycase/telecrystal/dsbssigma
-	req_access = list(ACCESS_AWAY03)
+	req_access = list(ACCESS_AWAY01)
 
-//////// LOOT ////////
+/////// SPAWNERS ///////
 
-/obj/effect/spawner/lootdrop/away/dsbssigma
-	lootcount = 1
-	lootdoubles = FALSE
+/obj/effect/landmark/away
 
-/obj/effect/spawner/lootdrop/away/dsbssigma/cleaning
+/obj/effect/spawner/random_spawners/away
+	name = "random spawners"
+	result = list()
+	spawn_inside = null
+
+///LOOT///
+
+/obj/effect/spawner/random_spawners/away/dsbssigma/loot
+	icon_state = "x3"
+
+/obj/effect/spawner/random_spawners/away/dsbssigma/loot/cleaning
 	name = "cleaning supplies spawner"
-	loot = list (
-				/obj/item/reagent_containers/spray/cleaner = 1,
-				/obj/item/soap/syndie = 1,
-				)
+	result = list (
+	/obj/item/reagent_containers/spray/cleaner = 1,
+	/obj/item/soap/syndie = 1)
 
-/obj/effect/spawner/lootdrop/away/dsbssigma/goggles
+/obj/effect/spawner/random_spawners/away/dsbssigma/loot/goggles_science
 	name = "science goggle spawner"
-	loot = list (
-				/obj/item/clothing/glasses/material = 1,
-				/obj/item/clothing/glasses/science = 3,
-				/obj/item/clothing/glasses/science/night = 2,
-				)
+	result = list (
+	/obj/item/clothing/glasses/science = 3,
+	/obj/item/clothing/glasses/science/night = 2)
 
-/obj/effect/spawner/lootdrop/away/dsbssigma/pistolammo
+/obj/effect/spawner/random_spawners/away/dsbssigma/loot/goggles_welding
+	name = "welding goggle spawner"
+	result = list (
+	/obj/item/clothing/head/welding = 1,
+	/obj/item/clothing/glasses/welding = 2,
+	/obj/item/clothing/glasses/welding/superior = 1)
+
+/obj/effect/spawner/random_spawners/away/dsbssigma/loot/pistolammo
 	name = "pistol ammo spawner"
-	loot = list(
-				/obj/item/ammo_box/magazine/m10mm = 2,
-				/obj/item/ammo_box/magazine/m10mm/ap = 1,
-				/obj/item/ammo_box/magazine/m10mm/hp = 1,
-				/obj/item/ammo_box/magazine/m10mm/fire = 1,
-				)
+	result = list(
+	/obj/item/ammo_box/magazine/m10mm = 2,
+	/obj/item/ammo_box/magazine/m10mm/ap = 1,
+	/obj/item/ammo_box/magazine/m10mm/hp = 1,
+	/obj/item/ammo_box/magazine/m10mm/fire = 1)
 
-/obj/effect/spawner/lootdrop/away/dsbssigma/healinjector_40pc
+/obj/effect/spawner/random_spawners/away/dsbssigma/loot/healinjector_40pc
 	name = "healinjector 40 percent"
-	loot = list(
-				/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium = 2,
-				/obj/item/reagent_containers/hypospray/autoinjector/survival = 2,
-				"" = 6,
-				)
+	result = list(
+	/datum/nothing = 13,
+	/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium = 2,
+	/obj/item/reagent_containers/hypospray/autoinjector/survival = 2)
 
-/obj/effect/spawner/lootdrop/away/dsbssigma/implant_arm
+/obj/effect/spawner/random_spawners/away/dsbssigma/loot/implant_arm
 	name = "arm implant spawner"
-	loot = list(
-				/obj/item/organ/internal/cyberimp/arm/advmop = 1,
-				/obj/item/organ/internal/cyberimp/arm/botanical = 2,
-				/obj/item/organ/internal/cyberimp/arm/janitorial = 2,
-				/obj/item/organ/internal/cyberimp/arm/surgery = 2,
-				/obj/item/organ/internal/cyberimp/arm/toolset = 2,
-				)
+	result = list(
+	/obj/item/organ/internal/cyberimp/arm/advmop = 1,
+	/obj/item/organ/internal/cyberimp/arm/botanical = 2,
+	/obj/item/organ/internal/cyberimp/arm/janitorial = 2,
+	/obj/item/organ/internal/cyberimp/arm/surgery = 2,
+	/obj/item/organ/internal/cyberimp/arm/toolset = 2)
 
-/obj/effect/spawner/lootdrop/away/dsbssigma/implant_other
+/obj/effect/spawner/random_spawners/away/dsbssigma/loot/implant_other
 	name = "other implant spawner"
-	loot = list(
-				/obj/item/organ/internal/cyberimp/eyes/hud/medical = 15,
-				/obj/item/organ/internal/cyberimp/eyes/hud/security = 5,
-				/obj/item/organ/internal/cyberimp/eyes/meson = 20,
-				/obj/item/organ/internal/cyberimp/eyes/shield = 20,
-				/obj/item/organ/internal/cyberimp/chest/nutriment = 20,
-				/obj/item/organ/internal/cyberimp/brain/anti_drop = 2,
-				/obj/item/organ/internal/cyberimp/brain/anti_sleep = 2,
-				"" = 60,
-				)
+	result = list(
+	/datum/nothing = 60,
+	/obj/item/organ/internal/cyberimp/eyes/hud/medical = 15,
+	/obj/item/organ/internal/cyberimp/eyes/meson = 20,
+	/obj/item/organ/internal/cyberimp/eyes/shield = 20,
+	/obj/item/organ/internal/cyberimp/chest/nutriment = 20,
+	/obj/item/organ/internal/cyberimp/brain/anti_drop = 2,
+	/obj/item/organ/internal/cyberimp/brain/anti_sleep = 2)
 
-/obj/effect/spawner/lootdrop/away/dsbssigma/safe_loot_high
+/obj/effect/spawner/random_spawners/away/dsbssigma/loot/safe_loot_high
 	name = "safe high value loot spawner"
-	loot = list(
-				/obj/item/clothing/glasses/thermal = 1,
-				/obj/item/pen/edagger = 5,
-				/obj/item/chameleon = 3,
-				/obj/item/clothing/gloves/fingerless/rapid = 2,
-				/obj/item/clothing/shoes/magboots/syndie/advance = 3,
-				/obj/item/stack/telecrystal/five = 3,
-				/obj/item/door_remote/omni/access_tuner = 1,
-				)
+	result = list(
+	/obj/item/pen/edagger = 5,
+	/obj/item/chameleon = 3,
+	/obj/item/clothing/shoes/magboots/syndie/advance = 3,
+	/obj/item/storage/box/syndie_kit/hardsuit = 2,
+	/obj/item/implanter/storage = 5,
+	/obj/item/gun/projectile/automatic/shotgun/bulldog = 1)
 
-/obj/effect/spawner/lootdrop/away/dsbssigma/safe_loot_low
+/obj/effect/spawner/random_spawners/away/dsbssigma/loot/safe_loot_low
 	name = "safe low value loot spawner"
-	loot = list(
-				/obj/item/clothing/suit/storage/lawyer/blackjacket/armored = 10,
-				/obj/item/implanter/storage = 7,
-				/obj/item/jammer = 7,
-				/obj/item/camera_bug = 7,
-				/obj/item/dnascrambler = 7,
-				/obj/item/clothing/gloves/color/black/thief = 5,
-				/obj/item/clothing/shoes/chameleon/noslip = 15,
-				/obj/item/clothing/under/chameleon = 15,
-				/obj/item/storage/box/syndie_kit/hardsuit = 5,
-				/obj/item/encryptionkey/binary = 2,
-				/obj/item/clothing/glasses/hud/security/chameleon = 5,
-				)
+	result = list(
+	/obj/item/clothing/suit/storage/lawyer/blackjacket/armored = 10,
+	/obj/item/jammer = 7,
+	/obj/item/camera_bug = 7,
+	/obj/item/dnascrambler = 7,
+	/obj/item/clothing/gloves/color/black/thief = 5,
+	/obj/item/clothing/shoes/chameleon/noslip = 15,
+	/obj/item/clothing/under/chameleon = 15)
+
+/// MOBS ///
+
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob
+	icon_state = "x"
+	color = "#ff0000"
+
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien
+	name = "random alien spawner"
+	result = list(
+	/mob/living/simple_animal/hostile/alien = 1,
+	/mob/living/simple_animal/hostile/alien/drone = 1,
+	/mob/living/simple_animal/hostile/alien/sentinel = 1)
+
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_guard
+	name = "random alien guard spawner"
+	result = list(
+	/mob/living/simple_animal/hostile/alien/stationary = 1,
+	/mob/living/simple_animal/hostile/alien/sentinel/stationary = 1)
+
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_50pc
+	name = "random alien spawner 50pc"
+	result = list(
+	/datum/nothing = 3,
+	/mob/living/simple_animal/hostile/alien = 1,
+	/mob/living/simple_animal/hostile/alien/drone = 1,
+	/mob/living/simple_animal/hostile/alien/sentinel = 1)
+
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_30pc
+	name = "random alien spawner 30pc"
+	result = list(
+	/datum/nothing = 7,
+	/mob/living/simple_animal/hostile/alien = 1,
+	/mob/living/simple_animal/hostile/alien/drone = 1,
+	/mob/living/simple_animal/hostile/alien/sentinel = 1)
+
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_stationary
+	name = "random stationary alien spawner"
+	result = list(
+	/mob/living/simple_animal/hostile/alien/stationary = 1,
+	/mob/living/simple_animal/hostile/alien/drone/stationary = 1,
+	/mob/living/simple_animal/hostile/alien/sentinel/stationary = 1)
+
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_stationary_50pc
+	name = "random stationary alien spawner 50pc"
+	result = list(
+	/datum/nothing = 3,
+	/mob/living/simple_animal/hostile/alien/stationary = 1,
+	/mob/living/simple_animal/hostile/alien/drone/stationary = 1,
+	/mob/living/simple_animal/hostile/alien/sentinel/stationary = 1)
+
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_stationary_30pc
+	name = "random stationary alien spawner 30pc"
+	result = list(
+	/datum/nothing = 7,
+	/mob/living/simple_animal/hostile/alien/stationary = 1,
+	/mob/living/simple_animal/hostile/alien/drone/stationary = 1,
+	/mob/living/simple_animal/hostile/alien/sentinel/stationary = 1)
+
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/queen/
+	result = list(/datum/nothing = 1)
+	name = "queen spawn randomizer"
+	color = "#800080"
+
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/queen/New()
+	..()
+	var/list/possible_queen_spawns = list()
+	for(var/thing in GLOB.landmarks_list)
+		var/obj/effect/landmark/away/L = thing
+		if(L.name == "dsbssigma_queen_spawn")
+			possible_queen_spawns |= L
+	if(possible_queen_spawns.len)
+		var/obj/effect/landmark/S = pick(possible_queen_spawns)
+		new /mob/living/simple_animal/hostile/alien/queen/large/dsbssigma(get_turf(S))
 
 ////////////////////////// MOBS //////////////////////////
 
@@ -473,7 +555,6 @@
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/color/black
 	l_pocket = /obj/item/radio
-	id = /obj/item/card/id/away/dsbssigma/private
 
 /obj/effect/mob_spawn/human/corpse/away/dsbssigma/yao
 	brute_damage = 1000
@@ -486,7 +567,6 @@
 	shoes = /obj/item/clothing/shoes/laceup
 	gloves = /obj/item/clothing/gloves/combat
 	head = /obj/item/clothing/head/beret
-	id = /obj/item/card/id/away/dsbssigma/officer
 
 /obj/effect/mob_spawn/human/corpse/away/dsbssigma/operative
 	brute_damage = 1000
@@ -570,5 +650,17 @@
 /mob/living/simple_animal/hostile/alien/sentinel/stationary
 	wander = FALSE
 
-/mob/living/simple_animal/hostile/alien/queen/large/stationary
+/mob/living/simple_animal/hostile/alien/queen/large/dsbssigma
 	wander = FALSE
+	var/hasdied = FALSE
+
+/mob/living/simple_animal/hostile/alien/queen/large/dsbssigma/death()
+	if(can_die() && !hasdied)
+		hasdied = TRUE
+		UnlockBlastDoors("dsbss_officerquarters_blast")
+	return ..()
+
+mob/living/simple_animal/hostile/alien/queen/large/dsbssigma/proc/UnlockBlastDoors(target_id_tag)
+	for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
+		if(P.density && P.id_tag == target_id_tag && P.z == z && !P.operating)
+			P.open()

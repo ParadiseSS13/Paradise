@@ -409,8 +409,13 @@
 
 /turf/simulated/mineral/asteroid/loose
 	name = "loose rock"
+	icon_state = "rock_marked"
 	desc = "Loosely packed asteroid rock. A pickaxe or drill should be able to clear it out."
 	defer_change = TRUE
+
+/turf/simulated/mineral/asteroid/loose/Initialize(mapload)
+	. = ..()
+	icon_state = "rock"
 
 /turf/simulated/mineral/asteroid/loose/cave
 	baseturf = /turf/simulated/floor/plating/asteroid
