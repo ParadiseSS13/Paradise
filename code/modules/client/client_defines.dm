@@ -109,6 +109,9 @@
 	/// Has the client accepted the TOS about data collection and other stuff
 	var/tos_consent = FALSE
 
+	/// Is the client watchlisted
+	var/watchlisted = FALSE
+
 /client/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		// I know we will never be in a world where admins are editing client vars to let people bypass TOS
