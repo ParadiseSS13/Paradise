@@ -5,8 +5,20 @@ GLOBAL_VAR_INIT(CELLRATE, 0.002)  // conversion ratio between a watt-tick and ki
 GLOBAL_VAR_INIT(CHARGELEVEL, 0.001) // Cap for how fast cells charge, as a percentage-per-tick (.001 means cellcharge is capped to 1% per second)
 
 // Announcer intercom, because too much stuff creates an intercom for one message then qdel()s it.
-GLOBAL_DATUM_INIT(global_announcer, /obj/item/radio/intercom, new(null))
-GLOBAL_DATUM_INIT(command_announcer, /obj/item/radio/intercom/command, new(null))
+GLOBAL_DATUM_INIT(global_announcer, /obj/item/radio/intercom, create_global_announcer())
+GLOBAL_DATUM_INIT(command_announcer, /obj/item/radio/intercom/command, create_command_announcer())
+
+// Load order issues means this can't be new'd until other code runs
+// This is probably not the way I should be doing this, but I don't know how to do it right!
+/proc/create_global_announcer()
+  spawn(0)
+    GLOB.global_announcer = new(null)
+  return
+
+/proc/create_command_announcer()
+  spawn(0)
+    GLOB.command_announcer = new(null)
+  return
 
 GLOBAL_LIST_INIT(paper_tag_whitelist, list("center","p","div","span","h1","h2","h3","h4","h5","h6","hr","pre",	\
 	"big","small","font","i","u","b","s","sub","sup","tt","br","hr","ol","ul","li","caption","col",	\
