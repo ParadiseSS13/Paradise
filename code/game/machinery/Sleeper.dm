@@ -462,7 +462,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
+	if(usr.incapacitated() || !Adjacent(usr))
 		return
 
 	if(beaker)
