@@ -66,7 +66,7 @@
 		for(var/datum/team/brother_team/team in brother_teams)
 			var/win = TRUE
 			var/objective_count = 1
-			text += "<span class='header'>The blood brothers of [team.name] were:</span>"
+			text += "<br><span class='header'>The blood brothers of [team.name] were:</span>"
 			for(var/datum/mind/brother in team.members)
 				text += " [brother.name]"
 			for(var/datum/objective/objective in team.objectives)

@@ -38,9 +38,9 @@
 			dat += "<a href='?src=[UID()];obj_completed=[objective.UID()]'>" // Mark Completed
 			dat += "<font color=[objective.completed ? "green" : "red"]>Toggle Completion</font>"
 			dat += "</a></td></tr>"
-		dat += "<br><tr><td><a href='?src=[UID()];obj_add=[src.UID()]'>Add objective</a></td></tr>"
-		dat += "<br><tr><td><a href='?src=[UID()];obj_announce=[src.UID()]'>Announce Objectives</a></td></tr>"
-		dat += "<br><tr><td><a href='?src=[UID()];delete_team=[src.UID()]'>Disband team</a></td></tr>"
+	dat += "<br><tr><td><a href='?src=[UID()];obj_add=[src.UID()]'>Add objective</a></td></tr>"
+	dat += "<br><tr><td><a href='?src=[UID()];obj_announce=[src.UID()]'>Announce Objectives</a></td></tr>"
+	dat += "<br><tr><td><a href='?src=[UID()];delete_team=[src.UID()]'>Disband team</a></td></tr>"
 	dat += "</table>"
 	usr << browse(dat, "window=roundstatus;size=400x500")
 
@@ -204,7 +204,7 @@
 		else
 			objectives += new_objective
 			for(var/datum/mind/M in members)
-				M.objectives += objective
+				M.objectives += new_objective
 		log_admin("[key_name(usr)] has updated [name]'s objectives: [new_objective]")
 		message_admins("[key_name_admin(usr)] has updated [name]'s objectives: [new_objective]")
 
