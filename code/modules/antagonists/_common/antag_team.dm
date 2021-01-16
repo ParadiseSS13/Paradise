@@ -38,6 +38,7 @@
 			dat += "<a href='?src=[UID()];obj_completed=[objective.UID()]'>" // Mark Completed
 			dat += "<font color=[objective.completed ? "green" : "red"]>Toggle Completion</font>"
 			dat += "</a></td></tr>"
+		dat += "<br><tr><td><a href='?src=[UID()];obj_add=[src.UID()]'>Add objective</a></td></tr>"
 		dat += "<br><tr><td><a href='?src=[UID()];obj_announce=[src.UID()]'>Announce Objectives</a></td></tr>"
 		dat += "<br><tr><td><a href='?src=[UID()];delete_team=[src.UID()]'>Disband team</a></td></tr>"
 	dat += "</table>"
@@ -94,7 +95,7 @@
 				def_value = "custom"
 		
 		// If your adding new objectives, insert the name here.
-		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in list("assassinate", "protect", "hijack", "escape", "steal", "destroy", "maroon", "custom")
+		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in list("assassinate","protect", "hijack", "escape", "steal", "destroy", "maroon", "custom")
 		if(!new_obj_type)
 			return
 

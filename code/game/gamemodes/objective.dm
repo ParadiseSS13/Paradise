@@ -162,22 +162,35 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/assassinate/shared/post_target_cryo()
 	team_update()
 
-/datum/objective/assassinate/once
+/datum/objective/assassinate/once //this objective doesn't work if added via admin.
 	var/won = FALSE
 
 /datum/objective/assassinate/once/find_target()
 	..()
 	if(target && target.current)
-		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]. You only need to kill them once."
+		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]. You only need to kill them once. If they come back you still succeed."
 		START_PROCESSING(SSprocessing,src)
 	else
 		explanation_text = "Free Objective"
 	
 /datum/objective/assassinate/once/check_completion()
-	return won || ..()
+	if(won)
+		return won
+	return ..()
+
+/datum/objective/assassinate/once/proc/check_midround_completion()
+	if(target && target.current)
+		if(target.current.stat == DEAD)
+			return TRUE
+		if(issilicon(target.current) || isbrain(target.current))
+			return TRUE
+		if(!target.current.ckey)
+			return TRUE
+		return FALSE
+	return TRUE
 	
 /datum/objective/assassinate/once/process()
-	won = check_completion()
+	won = check_midround_completion()
 	if(won)
 		STOP_PROCESSING(SSprocessing, src)
 

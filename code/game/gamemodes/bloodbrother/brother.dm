@@ -145,6 +145,15 @@
 			else if(maroon_objective.target)
 				assigned_targets.Add("[maroon_objective.target]")
 			add_objective(maroon_objective)
+		else if(prob(50))
+			var/datum/objective/assassinate/once/shared/kill_objective = new
+			kill_objective.team = src
+			kill_objective.find_target()
+			if("[kill_objective.target]" in assigned_targets)
+				return FALSE
+			else if(kill_objective.target)
+				assigned_targets.Add("[kill_objective.target]")
+			add_objective(kill_objective)
 		else
 			var/datum/objective/assassinate/shared/kill_objective = new
 			kill_objective.team = src
