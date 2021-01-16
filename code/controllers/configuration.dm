@@ -274,6 +274,9 @@
 	/// Limit of how many SQL threads can run at once
 	var/rust_sql_thread_limit = 50
 
+	/// Max amount of CIDs that one ckey can have attached to them before they trip a warning
+	var/max_client_cid_history = 3
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -765,6 +768,8 @@
 				// End discord stuff
 				if("centcom_ban_db_url")
 					centcom_ban_db_url = value
+				if("max_client_cid_history")
+					max_client_cid_history = text2num(value)
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
