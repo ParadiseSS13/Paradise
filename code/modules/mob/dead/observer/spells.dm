@@ -21,9 +21,9 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 
 	action_icon_state = "boo"
 	school = "transmutation"
-	charge_max = 2 MINUTES
+	charge_max = 1 MINUTES + 20 SECONDS
 	starts_charged = FALSE
-	clothes_req = 0
+	clothes_req = FALSE
 	stat_allowed = 1
 	invocation = ""
 	invocation_type = "none"
@@ -38,7 +38,7 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 
 	if(target.get_spooked())
 		var/area/spook_zone = get_area(target)
-		if (spook_zone.is_haunted == TRUE)
+		if(spook_zone.is_haunted == TRUE)
 			to_chat(usr, "<span class='shadowling'>The veil is weak in [spook_zone], it took less effort to influence [target].</span>")
 			charge_counter = charge_max / 2
 		return
