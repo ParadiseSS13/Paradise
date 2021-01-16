@@ -130,9 +130,9 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/call_reboot()
 	if(mode.station_was_nuked)
-		reboot_helper("Station destroyed by Nuclear Device.", "end_proper", "nuke")
+		reboot_helper("Station destroyed by Nuclear Device.", "nuke")
 	else
-		reboot_helper("Round ended.", "end_proper", "proper completion")
+		reboot_helper("Round ended.", "proper completion")
 
 /datum/controller/subsystem/ticker/proc/setup()
 	cultdat = setupcult()
