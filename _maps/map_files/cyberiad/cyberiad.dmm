@@ -27036,13 +27036,11 @@
 /obj/item/folder/yellow,
 /obj/item/stamp/ce,
 /obj/item/book/manual/sop_engineering,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
 /obj/item/storage/fancy/cigarettes,
 /obj/item/lighter/zippo,
 /obj/item/pen/multi,
+/obj/item/paper_bin/nanotrasen,
+/obj/item/paper/tcommskey,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -75840,6 +75838,7 @@
 	pixel_x = 32;
 	pixel_y = 0
 	},
+/obj/machinery/computer/station_alert,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -77214,6 +77213,7 @@
 	dir = 8;
 	pixel_x = -24
 	},
+/obj/machinery/computer/sm_monitor,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "cJC" = (
@@ -84510,7 +84510,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/suit_storage_unit/atmos,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cXP" = (
@@ -92632,14 +92631,14 @@
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
 "doI" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/item/radio/intercom{
 	broadcasting = 0;
 	listening = 1;
 	name = "station intercom (General)";
 	pixel_y = 25
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_4)
@@ -92662,9 +92661,6 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_4)
 "doM" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/status_display{
 	density = 0;
 	layer = 4;
@@ -92672,6 +92668,9 @@
 	pixel_y = 32
 	},
 /obj/machinery/light,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/pod_4)
 "doN" = (
@@ -95856,6 +95855,17 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"qoT" = (
+/obj/structure/table,
+/obj/item/clothing/gloves/color/black,
+/obj/item/clothing/gloves/color/black,
+/obj/item/clothing/gloves/color/black,
+/obj/item/pipe_painter,
+/obj/item/pipe_painter,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/turf/simulated/floor/plasteel,
+/area/atmos)
 "qpq" = (
 /obj/structure/reflector/box{
 	anchored = 1;
@@ -129262,7 +129272,7 @@ cSd
 cOF
 cTk
 dfF
-dtn
+qoT
 dcq
 dcq
 dcq
