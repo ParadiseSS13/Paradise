@@ -5625,7 +5625,6 @@
 /area/awaymission/DSBSSigma/command)
 "kb" = (
 /obj/structure/safe/floor,
-/obj/item/folder/syndicate/red,
 /obj/effect/spawner/random_spawners/away/dsbssigma/loot/safe_loot_high,
 /obj/effect/spawner/random_spawners/away/dsbssigma/loot/safe_loot_low,
 /turf/simulated/floor/wood,
@@ -6185,9 +6184,6 @@
 "kQ" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/grenade/clusterbuster/smoke{
-	name = "Smoke Bomb"
-	},
 /obj/effect/spawner/random_spawners/away/dsbssigma/loot/goggles_science,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
