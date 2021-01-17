@@ -400,7 +400,7 @@
 			C.pm_tracker.current_title = usr.key
 			C.pm_tracker.forced = TRUE // We forced it open
 			window_flash(C)
-			C.pm_tracker.show_ui(C.mob, TRUE)
+			C.pm_tracker.show_ui(C.mob)
 			to_chat(usr, "<span class='notice'>Forced open [C]'s messages window.</span>")
 		return
 
