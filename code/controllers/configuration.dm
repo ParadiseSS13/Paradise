@@ -84,7 +84,7 @@
 	var/list_afk_minimum = 5 // How long people have to be AFK before it's listed on the "List AFK players" verb
 
 	var/traitor_objectives_amount = 2
-	var/brother_objectives_amount = 1
+	var/brother_objectives_amount = 2
 	var/shadowling_max_age = 0
 
 	var/max_maint_drones = 5				//This many drones can spawn,

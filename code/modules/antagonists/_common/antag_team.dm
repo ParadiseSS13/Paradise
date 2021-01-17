@@ -27,7 +27,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 	var/dat = "<br><table cellspacing=5><tr><td><B>[name]</B></td><td></td></tr>"
-	dat += "<br><tr><td><a href='?src=[UID()];add_member=[src.UID()]'>Add a member</a></td></tr>"
+	dat += "<br><tr><td><a href='?src=[UID()];add_member=[src.UID()]'>Add a member</a></td></tr>" //try not to mix teams, it gets very messy.
 	dat += "<br><tr><td><a href='?src=[UID()];remove_member=[src.UID()]'>Remove a member</a></td></tr>"
 	for(var/datum/mind/member in members)
 		dat += "<br><tr><td>[member.name]</td></tr>"

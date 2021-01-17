@@ -1,11 +1,14 @@
+/*
+	*Blood brother is a team orientated antagonist that is meant to complete traitor style objectives using just their team members and game knowledge.
+	*/
 /datum/antagonist/brother
 	name = "Brother"
 	roundend_category = "Brother"
 	job_rank = ROLE_BROTHER
-	var/special_role = ROLE_BROTHER
-	var/give_objectives = TRUE
-	var/datum/team/brother_team/team
-
+	var/datum/team/brother_team/team //the owning team is stored here.
+/*
+	* This proc is called when a new brother team is created.
+	*/
 /datum/antagonist/brother/create_team(datum/team/brother_team/new_team)
 	if(!new_team)
 		return
@@ -19,7 +22,7 @@
 /datum/antagonist/brother/on_gain()
 	SSticker.mode.brothers += owner
 	owner.objectives += team.objectives
-	owner.special_role = special_role
+	owner.special_role |= ROLE_BROTHER
 	update_brother_icons_added()
 	finalize_brother()
 	return ..()
@@ -28,34 +31,20 @@
 	SSticker.mode.brothers -= owner
 	owner.objectives -= team.objectives
 	if(owner.current)
-		to_chat(owner.current,"<span class='userdanger'> You are no longer the [special_role]!</span>")
-	owner.special_role = null
+		to_chat(owner.current,"<span class='userdanger'> You are no longer a blood brother!</span>")
+	owner.special_role -= ROLE_BROTHER
 	update_brother_icons_removed()
 	return ..()
-
-/datum/antagonist/brother/proc/get_brother_names()
-	var/list/brothers = team.members - owner
-	var/brother_text = ""
-	for(var/i = 1 to brothers.len)
-		var/datum/mind/M = brothers[i]
-		brother_text += M.name
-		if(i == brothers.len - 1)
-			brother_text += " and "
-		else if(i != brothers.len)
-			brother_text += " , "
-	return brother_text
 
 /datum/antagonist/brother/proc/give_meeting_area()
 	if(!owner.current || !team || !team.meeting_area)
 		return
-	to_chat(owner.current, "<B>Your designated meeting area:</B> [team.meeting_area]")
+	to_chat(owner.current, "<b>Your designated meeting area:</b> [team.meeting_area]")
 	antag_memory += "<b>Meeting Area</b>: [team.meeting_area]<br>"
 
-/datum/antagonist/brother/proc/get_team_members()
-	
-
 /datum/antagonist/brother/greet()
-	var/brother_text = get_brother_names()
+	var/list/brothers = team.members - owner
+	var/brother_text = english_list(brothers)
 	to_chat(owner.current, "<span class='alertsyndie'>You are the [owner.special_role] of [brother_text].</span>")
 	to_chat(owner.current, "The Syndicate only accepts those that have proven themselves. Prove yourself and prove your [team.member_name]s by completing your objectives together!")
 	owner.announce_objectives()
@@ -80,12 +69,20 @@
 	traitorhud.leave_hud(owner.current, null)
 	set_antag_hud(owner.current, null)
 
+#define HIJACKBROTHERCHANCE 10
+#define BROTHEROBJSTEALCHANCE 50
+#define BROTHEROBJDESTROYCHANCE 20
+#define BROTHEROBJMAROONCHANCE 30
+#define BROTHEROBJKILLONCECHANCE 50
 
+/*
+	*This is the holder for a blood brothers team, objectives, team members and team name are stored here for bookkeeping purposes.
+	*/
 /datum/team/brother_team
 	name = "brotherhood"
 	member_name = "Blood brother"
 	var/meeting_area
-	var/static/meeting_areas = list("The Bar","Dorms","Escape Dock","Arrivals","Holodeck","Primary Tool Storage","Recreation Area","Chapel","Library")
+	var/meeting_areas = list("The Bar", "Dorms", "Escape Dock", "Arrivals", "Holodeck", "Primary Tool Storage", "Recreation Area", "Chapel", "Library")
 	var/list/assigned_targets = list() // This includes assassinate as well as steal objectives. prevents duplicate objectives
 
 /datum/team/brother_team/is_solo()
@@ -100,23 +97,22 @@
 
 /datum/team/brother_team/proc/pick_meeting_area()
 	meeting_area = pick(meeting_areas)
-	meeting_areas -= meeting_area
 
 /datum/team/brother_team/proc/update_name()
 	var/list/last_names = list()
 	for(var/datum/mind/M in members)
-		var/list/split_name = splittext(M.name," ")
+		var/list/split_name = splittext(M.name, " ")
 		last_names += split_name[split_name.len]
 
 	name = last_names.Join(" & ")
 
-/datum/team/brother_team/proc/add_objective(datum/objective/O) // pre team set up.
+/datum/team/brother_team/proc/add_objective(datum/objective/O)
 	objectives += O
 
 /datum/team/brother_team/proc/forge_brother_objectives()
 	objectives = list()
-	var/is_hijacker = prob(10)
-	for(var/i = 1 to max(1, (config.brother_objectives_amount + (members.len >2) - is_hijacker)))
+	var/is_hijacker = prob(HIJACKBROTHERCHANCE)
+	for(var/i = 1 to max(1, (config.brother_objectives_amount + (members.len > 2) - is_hijacker))) //this determines the number of objectives generated.
 		forge_single_objective()
 	if(is_hijacker)
 		if(!locate(/datum/objective/hijack) in objectives)
@@ -124,10 +120,10 @@
 	else if(!locate(/datum/objective/escape) in objectives)
 		add_objective(new/datum/objective/escape)
 
-/datum/team/brother_team/proc/forge_single_objective()
-	if(prob(50))
+/datum/team/brother_team/proc/forge_single_objective() //objectives are chosen here.
+	if(prob(BROTHEROBJSTEALCHANCE))
 		var/list/active_ais = active_ais()
-		if(active_ais.len && prob(100/GLOB.player_list.len))
+		if(active_ais.len && prob(BROTHEROBJDESTROYCHANCE))
 			var/datum/objective/destroy/destroy_objective = new
 			destroy_objective.team = src
 			destroy_objective.find_target()
@@ -136,7 +132,7 @@
 			else if(destroy_objective.target)					    
 				assigned_targets.Add("[destroy_objective.target]")
 			add_objective(destroy_objective)
-		else if(prob(30))
+		else if(prob(BROTHEROBJMAROONCHANCE))
 			var/datum/objective/maroon/shared/maroon_objective = new
 			maroon_objective.team = src
 			maroon_objective.find_target()
@@ -145,7 +141,7 @@
 			else if(maroon_objective.target)
 				assigned_targets.Add("[maroon_objective.target]")
 			add_objective(maroon_objective)
-		else if(prob(50))
+		else if(prob(BROTHEROBJKILLONCECHANCE))
 			var/datum/objective/assassinate/once/shared/kill_objective = new
 			kill_objective.team = src
 			kill_objective.find_target()

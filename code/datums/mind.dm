@@ -1230,21 +1230,21 @@
 		switch(href_list["brother"])
 			if("clear")
 				if(has_antag_datum(/datum/antagonist/brother))
-					to_chat("<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a blood brother!</B></FONT></span>")
+					to_chat("<span class='warning'><font size=3><b>You have been brainwashed! You are no longer a blood brother!</b></font></span>")
 					remove_antag_datum(/datum/antagonist/brother)
 					log_admin("[key_name(usr)] has de-brothered [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has de-brothered[key_name_admin(current)]")
+					message_admins("[key_name_admin(usr)] has de-brothered [key_name_admin(current)]")
 
 			if("brother")
-				if(!(has_antag_datum(/datum/antagonist/brother)))
+				if(!has_antag_datum(/datum/antagonist/brother))
 					var/list/candidates = list()
 					for(var/mob/living/L in GLOB.alive_mob_list)
-						if(!L.mind || L.mind == current)
+						if(!L.mind || L.mind == current || L.mind.has_antag_datum(/datum/antagonist/brother))
 							continue
 						
 						candidates[L.mind.name] = L.mind
 
-					var/choice = input(usr,"Choose the blood brother.", "Brother") as null|anything in candidates
+					var/choice = input(usr, "Choose the blood brother.", "Brother") as null|anything in candidates
 					if(!choice)
 						message_admins("[key_name_admin(usr)] tried to create blood brother team with no suitable candidates")
 						return
@@ -1254,7 +1254,7 @@
 					T.add_member(bro)
 					T.pick_meeting_area()
 					T.forge_brother_objectives()
-					add_antag_datum(/datum/antagonist/brother,T)
+					add_antag_datum(/datum/antagonist/brother, T)
 					bro.add_antag_datum(/datum/antagonist/brother, T)
 					T.update_name()
 					SSticker.mode.brother_teams += T
