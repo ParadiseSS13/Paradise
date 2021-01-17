@@ -88,7 +88,7 @@
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50)
 	max_integrity = 50
 	layer = LOW_OBJ_LAYER
-	plane = -1
+	plane = GAME_PLANE
 	smooth = SMOOTH_MORE
 	canSmoothWith = list(/obj/structure/fluff/utility,
 						/obj/structure/lattice/catwalk)
@@ -108,7 +108,7 @@
 	desc = "A collapsed section of lightweight support lattice."
 	icon = 'icons/obj/smooth_structures/lattice.dmi'
 	icon_state = "lattice"
-	layer = 3.1
+	layer = CLOSED_DOOR_LAYER
 	level = 2
 	smooth = SMOOTH_FALSE
 	canSmoothWith = null

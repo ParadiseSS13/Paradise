@@ -222,8 +222,8 @@
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='syndielogo.png' width='220' height='135' /></p><hr />"
 	info = {"<br>
 	<b>This is an emergency transmission from Site Sigma to Syndicate High Command.</b><br><br>
-	Our mining team has stirred up something in the depths of the asteroid. Contact with the excavation team was lost almost immedietely following reports of hostile contacts.<br><br>
-	Response team has been authorized to bring heavy armaments in response but are rapidly losing ground. The scale of combat is destabalizing the asteroid, reports of collapsed tunnels in multiple areas.<br><br>
+	Our mining team has stirred up something in the depths of the asteroid. Contact with the excavation team was lost almost immediately following reports of hostile contacts.<br><br>
+	Response team has been authorized to bring heavy armaments in response but are rapidly losing ground. The scale of combat is destabilizing the asteroid, reports of collapsed tunnels in multiple areas.<br><br>
 	If the situation does not improve soon I shall order a full retreat and initiate the lockdown procedures. Should it come to it I shall await for any survivors in my quarters and then evacuate through the gateway with them.<br><br>
 	Should there be no follow-up transmission consider Site Sigma lost and may our souls find rest.<br><br>
 	<i>Officer Yao, CO of Site Sigma.</i><br>
@@ -260,7 +260,7 @@
 	Here are the basic instructions for running out turbine generators:<br><br>
 	<b>1:</b> Make sure the flow pumps from the O2 and Plasma chambers are enabled and pumping gas into the mixer.<br>
 	<b>2:</b> Configure the mixer's ratios and enable it (when in doubt - set it to 50/50).<br>
-	<b>3:</b> Note the gas flow meeter to ensure the gas is flowing and enable the pumps along the pipleline leading into the ignition chambers (there should be 2 pumps per side, 1 directly after the mixer and 1 right before the chamber).<br>
+	<b>3:</b> Note the gas flow meter to ensure the gas is flowing and enable the pumps along the pipeline leading into the ignition chambers (there should be 2 pumps per side, 1 directly after the mixer and 1 right before the chamber).<br>
 	<b>4:</b> Ensuring that all doors are properly secured you may initiate the ignition by using the button next to the door controller.<br>
 	<b>5:</b> Open the exterior output blast doors so the turbine does not overheat.<br>
 	<b>6:</b> Initiate the turbine boot up procedure on the console and configure the SMES units to evenly match the output.<br><br>
@@ -281,7 +281,7 @@
 	name = "paper - 'Torn Report'"
 	info = {"<br>
 	<b>Warden's Report, Cell 6 Incident.</b><br><br>
-	<i>Somehow the prisoner in cell 6 managed to aquire a set of tools and kitchen utensils that they then used to, over the span of several-</i><br>
+	<i>Somehow the prisoner in cell 6 managed to acquire a set of tools and kitchen utensils that they then used to, over the span of several-</i><br>
 	"}
 
 /obj/item/paper/dsbssigma/note7
@@ -290,10 +290,11 @@
 	<i>-n further testing, <b>subject 701</b> appears to somehow developed a mutation rendering it highly resistant to viral pathogen. It has been locked up with other specimen, pending transport fo-</i><br>
 	"}
 
-/obj/item/paper/researchnotes/syndicate3/New()
-	..()
-	origin_tech = "syndicate=3"
+/obj/item/paper/researchnotes/syndicate3
 	name = "paper - 'syndicate research notes'"
+	origin_tech = "syndicate=3"
+	randomized = FALSE
+
 
 /obj/item/organ/internal/heart/gland/heals/weak
 	name = "fleshy growth"
@@ -313,7 +314,7 @@
 /obj/item/ammo_casing/c45/spent
 	projectile_type = null
 
-////// MACHINARY //////
+////// MACHINERY //////
 
 /obj/machinery/computer/id_upgrader/dsbssigma
 	icon_keyboard = "laptop_key"
@@ -323,7 +324,7 @@
 /obj/machinery/computer/id_upgrader/dsbssigma/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id))
 		var/obj/item/card/id/D = I
-		if(!access_to_give.len)
+		if(!length(access_to_give))
 			to_chat(user, "<span class='notice'>This machine appears to be configured incorrectly.</span>")
 			return
 		var/did_upgrade = FALSE
@@ -381,7 +382,8 @@
 
 /////// SPAWNERS ///////
 
-/obj/effect/landmark/away
+/obj/effect/landmark/away/queen_spawn
+	name = "dsbssigma_queen_spawn"
 
 /obj/effect/spawner/random_spawners/away
 	name = "random spawners"
@@ -395,13 +397,13 @@
 
 /obj/effect/spawner/random_spawners/away/dsbssigma/loot/cleaning
 	name = "cleaning supplies spawner"
-	result = list (
+	result = list(
 	/obj/item/reagent_containers/spray/cleaner = 1,
 	/obj/item/soap/syndie = 1)
 
 /obj/effect/spawner/random_spawners/away/dsbssigma/loot/goggles_science
 	name = "science goggle spawner"
-	result = list (
+	result = list(
 	/obj/item/clothing/glasses/science = 3,
 	/obj/item/clothing/glasses/science/night = 2)
 
@@ -538,7 +540,7 @@
 		var/obj/effect/landmark/away/L = thing
 		if(L.name == "dsbssigma_queen_spawn")
 			possible_queen_spawns |= L
-	if(possible_queen_spawns.len)
+	if(length(possible_queen_spawns))
 		var/obj/effect/landmark/S = pick(possible_queen_spawns)
 		new /mob/living/simple_animal/hostile/alien/queen/large/dsbssigma(get_turf(S))
 
@@ -658,6 +660,10 @@
 	if(can_die() && !hasdied)
 		hasdied = TRUE
 		UnlockBlastDoors("dsbss_officerquarters_blast")
+		for(var/mob/M in GLOB.player_list)
+			if(M.z == z)
+				to_chat(M, "<span class='notice'>You hear a distant sound of a blast door opening.</span>")
+				M.playsound_local(null, 'sound/machines/blastdoor.ogg', 10, 1)
 	return ..()
 
 /mob/living/simple_animal/hostile/alien/queen/large/dsbssigma/proc/UnlockBlastDoors(target_id_tag)

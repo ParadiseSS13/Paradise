@@ -19992,9 +19992,7 @@
 /area/awaymission/DSBSSigma/hive)
 "PU" = (
 /obj/structure/alien/weeds/node,
-/obj/effect/landmark/away{
-	name = "dsbssigma_queen_spawn"
-	},
+/obj/effect/landmark/away/queen_spawn,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
 "Qg" = (
@@ -20161,9 +20159,7 @@
 /area/awaymission/DSBSSigma/hive)
 "Zc" = (
 /obj/structure/alien/weeds,
-/obj/effect/landmark/away{
-	name = "dsbssigma_queen_spawn"
-	},
+/obj/effect/landmark/away/queen_spawn,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
 "Zu" = (
