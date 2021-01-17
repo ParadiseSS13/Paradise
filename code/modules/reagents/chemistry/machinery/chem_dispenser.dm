@@ -64,7 +64,7 @@
 	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null)
-	component_parts += new /obj/item/stock_parts/cell/bluespace 
+	component_parts += new /obj/item/stock_parts/cell/bluespace
 	RefreshParts()
 
 /obj/machinery/chem_dispenser/mutagensaltpeter
@@ -404,6 +404,26 @@
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/capacitor/super(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new cell_type(null)
+	RefreshParts()
+
+//botanical chemical dispenser
+/obj/machinery/chem_dispenser/botanical
+	name = "botanical chemical dispenser"
+	desc = "A botanical chemical dispenser on a budget."
+	ui_title = "Botanical Chem Dispenser"
+	dispensable_reagents = list("mutagen", "saltpetre", "ammonia", "water")
+	upgrade_reagents = list("atrazine", "glyphosate", "pestkiller", "diethylamine", "ash")
+
+/obj/machinery/chem_dispenser/botanical/New()
+	..()
+	QDEL_LIST(component_parts)
+	component_parts += new /obj/item/circuitboard/chem_dispenser/botanical(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new cell_type(null)
 	RefreshParts()
