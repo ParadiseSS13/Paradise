@@ -409,7 +409,7 @@
 
 /obj/effect/spawner/random_spawners/away/dsbssigma/loot/goggles_welding
 	name = "welding goggle spawner"
-	result = list (
+	result = list(
 	/obj/item/clothing/head/welding = 1,
 	/obj/item/clothing/glasses/welding = 2,
 	/obj/item/clothing/glasses/welding/superior = 1)
