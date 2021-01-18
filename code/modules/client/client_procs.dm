@@ -183,26 +183,20 @@
 					return
 
 	switch(href_list["_src_"])
-		if("holder")
-			hsrc = holder
-		if("usr")
-			hsrc = mob
-		if("prefs")
-			return prefs.process_link(usr,href_list)
-		if("vars")
-			return view_var_Topic(href,href_list,hsrc)
+		if("holder")	hsrc = holder
+		if("usr")		hsrc = mob
+		if("prefs")		return prefs.process_link(usr,href_list)
+		if("vars")		return view_var_Topic(href,href_list,hsrc)
 
 	if(href_list["ssdwarning"])
 		ssd_warning_acknowledged = TRUE
 		to_chat(src, "<span class='notice'>SSD warning acknowledged.</span>")
 	if(href_list["link_forum_account"])
 		link_forum_account()
-		return // prevents a recursive loop where the ..() after this makes the proc endlessly re-call itself
-	if(href_list["openLink"])
-		src << link(href_list["link"])
-	if(href_list["who_names"])
-		to_chat(src, who_names())
-		return
+		return // prevents a recursive loop where the ..() 5 lines after this makes the proc endlessly re-call itself
+	switch(href_list["action"])
+		if("openLink")
+			src << link(href_list["link"])
 
 	..()	//redirect to hsrc.Topic()
 

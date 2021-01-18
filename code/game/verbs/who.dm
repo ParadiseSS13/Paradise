@@ -1,22 +1,16 @@
+
 /client/verb/who()
 	set name = "Who"
 	set category = "OOC"
 
-	var/players = 0
-	for(var/I in GLOB.clients)
-		var/client/C = I
-		if(C.holder?.big_brother && !check_rights(R_PERMISSIONS, FALSE)) // need PERMISSIONS to see BB
-			continue
-		players++
-
-	to_chat(src, "<b>Total Players: [players]</b>\n <a href='byond://?src=[usr.UID()];who_names=1'>Current Players...</a>")
-
-/client/proc/who_names()
-	var/list/Lines = list()
 	var/msg = "<b>Current Players:</b>\n"
-	if(check_rights(R_ADMIN, FALSE))
+
+
+	var/list/Lines = list()
+
+	if(check_rights(R_ADMIN,0))
 		for(var/client/C in GLOB.clients)
-			if(C.holder?.big_brother && !check_rights(R_PERMISSIONS, FALSE)) // need PERMISSIONS to see BB
+			if(C.holder && C.holder.big_brother && !check_rights(R_PERMISSIONS, 0)) // need PERMISSIONS to see BB
 				continue
 
 			var/entry = "\t[C.key]"
@@ -67,8 +61,9 @@
 
 	for(var/line in sortList(Lines))
 		msg += "[line]\n"
-	return msg
 
+	msg += "<b>Total Players: [length(Lines)]</b>"
+	to_chat(src, msg)
 
 /client/verb/adminwho()
 	set category = "Admin"
