@@ -14,7 +14,7 @@
 	var/const/min_team_size = 2 //absolutle minimum team size
 
 /datum/game_mode/traitor/bros/announce()
-	to_chat(world, "<B>There are Syndicate agents and Blood Brothers on the station!</B>\n\
+	to_chat(world, "<b>There are Syndicate agents and Blood Brothers on the station!</b>\n\
 	<span class='danger'>Traitors</span>: Accomplish your objectives.\n\
 	<span class='danger'>Blood Brothers</span>: Accomplish your objectives.\n\
 	<span class='notice'>Crew</span>: Do not let the traitors or brothers succeed!")

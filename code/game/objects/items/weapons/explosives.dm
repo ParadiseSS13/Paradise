@@ -98,7 +98,7 @@
 			if(role == ROLE_TRAITOR || role == "syndicate" || role == "syndicate commando")
 				message_say = "FOR THE SYNDICATE!"
 			else if(role == ROLE_BROTHER)
-				message_say = "FOR MY BROTHER"
+				message_say = "FOR MY BROTHER!"
 			else if(role == ROLE_CHANGELING)
 				message_say = "FOR THE HIVE!"
 			else if(role == ROLE_CULTIST)
