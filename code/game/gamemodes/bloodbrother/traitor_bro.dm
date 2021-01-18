@@ -69,7 +69,8 @@
 			var/objective_count = 1
 			text += "<br><span class='header'>The blood brothers of [team.name] were:</span>"
 			for(var/datum/mind/brother in team.members)
-				text += " [brother.name]"
+				text += "<br>"
+				text += printplayer(brother)
 			for(var/datum/objective/objective in team.objectives)
 				if(objective.check_completion())
 					text += "<br><b>Objective #[objective_count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
