@@ -156,7 +156,7 @@
 	///An effect we show to admins and ghosts the percentage of delam we're at
 	var/obj/effect/countdown/supermatter/countdown
 
-	///Used along with a global var to track if we can give out the sm sliver stealing objective
+	///Used to track if we can give out the sm sliver stealing objective
 	var/is_main_engine = FALSE
 	///Our soundloop
 	var/datum/looping_sound/supermatter/soundloop
@@ -202,13 +202,10 @@
 	. = ..()
 	if(!ishuman(user))
 		return
-
-	var/range = HALLUCINATION_RANGE(power)
-	for(var/mob/living/carbon/human/H in viewers(range, src))
-		if(H != user)
-			continue
-		if(!istype(H.glasses, /obj/item/clothing/glasses/meson))
-			. += "<span class='danger'>You get headaches just from looking at it.</span>"
+	var/mob/living/carbon/human/H = user
+	var/immune = istype(H.glasses, /obj/item/clothing/glasses/meson)
+	if(!immune && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
+		. += "<span class='danger'>You get headaches just from looking at it.</span>"
 
 /obj/machinery/power/supermatter_crystal/proc/get_status()
 	var/turf/T = get_turf(src)
@@ -288,7 +285,7 @@
 /obj/machinery/power/supermatter_crystal/proc/explode()
 	for(var/mob in GLOB.alive_mob_list)
 		var/mob/living/L = mob
-		if(istype(L) && L.z == z)
+		if(istype(L) && atoms_share_level(L, src))
 			if(ishuman(mob))
 				//Hilariously enough, running into a closet should make you get hit the hardest.
 				var/mob/living/carbon/human/H = mob
@@ -299,10 +296,10 @@
 	var/turf/T = get_turf(src)
 	for(var/mob/M in GLOB.player_list)
 		var/turf/mob_turf = get_turf(M)
-		if(T.z == mob_turf.z)
+		if(atoms_share_level(T, mob_turf))
 			SEND_SOUND(M, 'sound/magic/charge.ogg')
 
-			if(M.z == z)
+			if(atoms_share_level(M, src))
 				to_chat(M, "<span class='boldannounce'>You feel reality distort for a moment...</span>")
 			else
 				to_chat(M, "<span class='boldannounce'>You hold onto \the [M.loc] as hard as you can, as reality distorts around you. You feel safe.</span>")
@@ -467,7 +464,7 @@
 
 		if(prob(50))
 			for(var/obj/machinery/power/rad_collector/R in GLOB.rad_collectors)
-				if(R.z == z && get_dist(R, src) <= 15) //Better than using orange() every process
+				if(atoms_share_level(R, src) && get_dist(R, src) <= 15) //Better than using orange() every process
 					R.receive_pulse(power * (1 + power_transmission_bonus / 10))
 
 		//Power * 0.55 * a value between 1 and 0.8
@@ -598,7 +595,7 @@
 	visible_message("<span class='userdanger'>[src] is consumed by the singularity!</span>")
 	var/supermatter_sound = 'sound/effects/supermatter.ogg'
 	for(var/mob/M in GLOB.player_list)
-		if(M.z == z)
+		if(atoms_share_level(M, src))
 			SEND_SOUND(M, supermatter_sound) //everyone goan know bout this
 			to_chat(M, "<span class='boldannounce'>A horrible screeching fills your ears, and a wave of dread washes over you...</span>")
 	qdel(src)
@@ -712,7 +709,7 @@
 			var/suspicion = ""
 			if(AM.fingerprintslast)
 				suspicion = "last touched by [AM.fingerprintslast]"
-				message_admins("[src] has consumed [AM], [suspicion] [ADMIN_JMP(src)].")
+			message_admins("[src] has consumed [AM], [suspicion] [ADMIN_JMP(src)].")
 			investigate_log("has consumed [AM] - [suspicion].", "supermatter")
 		qdel(AM)
 	if(!iseffect(AM) && power_changes)
@@ -851,22 +848,25 @@
 	if(target_mob)
 		target_mob.electrocute_act(rand(5, 10), "Supermatter Discharge Bolt", 1, stun = FALSE)
 		if(prob(15))
-			supermatter_zap(target_mob, 5, power / 2)
-			supermatter_zap(target_mob, 5, power / 2)
+			for(var/i in 1 to 2)
+				supermatter_zap(target_mob, 5, power / 2)
+				supermatter_zap(target_mob, 5, power / 2)
 		else
 			supermatter_zap(target_mob, 5, power / 1.5)
 
 	else if(target_machine)
 		if(prob(15))
-			supermatter_zap(target_machine, 5, power / 2)
-			supermatter_zap(target_machine, 5, power / 2)
+			for(var/i in 1 to 2)
+				supermatter_zap(target_machine, 5, power / 2)
+				supermatter_zap(target_machine, 5, power / 2)
 		else
 			supermatter_zap(target_machine, 5, power / 1.5)
 
 	else if(target_structure)
 		if(prob(15))
-			supermatter_zap(target_structure, 5, power / 2)
-			supermatter_zap(target_structure, 5, power / 2)
+			for(var/i in 1 to 2)
+				supermatter_zap(target_structure, 5, power / 2)
+				supermatter_zap(target_structure, 5, power / 2)
 		else
 			supermatter_zap(target_structure, 5, power / 1.5)
 

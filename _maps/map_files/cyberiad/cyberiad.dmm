@@ -81571,6 +81571,12 @@
 	level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8";
+	tag = ""
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "cRP" = (
@@ -82059,12 +82065,6 @@
 	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
-	tag = ""
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8";
 	tag = ""
 	},
 /turf/simulated/floor/plasteel,
@@ -82598,13 +82598,6 @@
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "cTO" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
-	},
 /obj/structure/table,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -82963,6 +82956,12 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8";
+	tag = ""
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
@@ -84836,8 +84835,9 @@
 	dir = 4;
 	level = 2
 	},
+/obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "cYC" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor{
@@ -84974,7 +84974,7 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/engine/engineering)
 "cYS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -85000,6 +85000,11 @@
 	icon_state = "1-2";
 	tag = ""
 	},
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'HIGH VOLTAGE'";
+	icon_state = "shock";
+	name = "HIGH VOLTAGE"
+	},
 /turf/simulated/wall/r_wall,
 /area/engine/engineering)
 "cYV" = (
@@ -85011,14 +85016,6 @@
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
 /turf/simulated/floor/plasteel,
 /area/atmos)
-"cYX" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE"
-	},
-/turf/simulated/wall/r_wall,
-/area/engine/engineering)
 "cYY" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Supermatter Engine Room";
@@ -89478,33 +89475,6 @@
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	level = 2
-	},
-/turf/space,
-/area/space/nearstation)
-"diX" = (
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/simple/visible/green{
-	level = 2
-	},
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
-	dir = 4
-	},
-/turf/space,
-/area/space/nearstation)
-"diY" = (
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 4
-	},
-/turf/space,
-/area/space/nearstation)
-"diZ" = (
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	level = 2
-	},
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 4
 	},
 /turf/space,
 /area/space/nearstation)
@@ -94296,6 +94266,14 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"ggO" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 4;
+	level = 2
+	},
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "ghD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -94427,8 +94405,9 @@
 	dir = 9;
 	tag = "icon-intact-y (NORTHWEST)"
 	},
+/obj/structure/lattice/catwalk,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "hbq" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/cable/yellow{
@@ -95768,6 +95747,17 @@
 	dir = 1
 	},
 /area/shuttle/escape)
+"pMd" = (
+/obj/structure/closet/secure_closet/engineering_personal,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0;
+	tag = ""
+	},
+/turf/simulated/floor/plasteel,
+/area/engine/equipmentstorage)
 "pOj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -96165,8 +96155,9 @@
 	dir = 4;
 	level = 2
 	},
+/obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "sJK" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -126699,7 +126690,7 @@ cOy
 cPo
 cRX
 cUt
-cUt
+pMd
 cWB
 cXL
 cYJ
@@ -127473,7 +127464,7 @@ cUv
 cRP
 cSO
 cTO
-cYM
+cZM
 cJI
 cXM
 cYo
@@ -128244,7 +128235,7 @@ cQP
 cRV
 cSY
 cUs
-cYX
+cYM
 dac
 vaH
 uZx
@@ -130577,7 +130568,7 @@ cQZ
 cQZ
 cQZ
 sIy
-aab
+aaa
 dcq
 dfD
 dgc
@@ -130827,14 +130818,14 @@ cSd
 dgR
 dhE
 dit
-diX
+diU
 djB
 dkq
 dkT
 dkT
 cQZ
 sIy
-aab
+aaa
 aaa
 dmW
 aaa
@@ -131084,14 +131075,14 @@ cSd
 dgQ
 dhD
 dhI
-diY
+aab
 cTo
 dkp
 bbO
 dlw
 cQZ
 sIy
-aab
+aaa
 aaa
 dmW
 aaa
@@ -131341,7 +131332,7 @@ dgt
 dgP
 dhF
 dip
-diZ
+diV
 djB
 dks
 dkT
@@ -131598,14 +131589,14 @@ cXW
 dgQ
 cSd
 dhI
-diY
+aab
 cQZ
 cQZ
 cQZ
 cQZ
 cQZ
 sIy
-aab
+aaa
 aaa
 dmW
 aaa
@@ -131862,7 +131853,7 @@ dkV
 dkV
 cQZ
 sIy
-aab
+aaa
 aaa
 dmW
 aaa
@@ -132119,7 +132110,7 @@ bdG
 dlx
 cQZ
 sIy
-aab
+aaa
 aaa
 dmW
 aaa
@@ -132375,7 +132366,7 @@ dkx
 dkV
 dkV
 cQZ
-sIy
+ggO
 doE
 doE
 ddC
@@ -132632,7 +132623,7 @@ cQZ
 cQZ
 cQZ
 cQZ
-sIy
+ggO
 aab
 aaa
 dmW
