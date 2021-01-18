@@ -51,6 +51,8 @@
 	return 0*/
 
 /datum/event	//NOTE: Times are measured in master controller ticks!
+	/// The human-readable name of the event
+	var/name
 	var/processing = 1
 	/// When in the lifetime to call start().
 	var/startWhen		= 0
@@ -190,3 +192,10 @@
 
 	setup()
 	..()
+
+//Called after something followable has been spawned by an event
+//Provides ghosts a follow link to an atom if possible
+//Only called once.
+/datum/event/proc/announce_to_ghosts(atom/atom_of_interest)
+	if(atom_of_interest)
+		notify_ghosts("[name] has an object of interest: [atom_of_interest]!", title = "Something's Interesting!", source = atom_of_interest, action = NOTIFY_FOLLOW)

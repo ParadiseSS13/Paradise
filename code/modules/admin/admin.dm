@@ -126,6 +126,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		body += "<A href='?_src_=holder;jobban2=[M.UID()];dbbanaddckey=[M.ckey]'>Jobban</A> | "
 		body += "<A href='?_src_=holder;appearanceban=[M.UID()];dbbanaddckey=[M.ckey]'>Appearance Ban</A> | "
 		body += "<A href='?_src_=holder;shownoteckey=[M.ckey]'>Notes</A> | "
+		body += "<A href='?_src_=holder;viewkarma=[M.ckey]'>View Karma</A> | "
 		if(config.forum_playerinfo_url)
 			body += "<A href='?_src_=holder;webtools=[M.ckey]'>WebInfo</A> | "
 	if(M.client)
@@ -363,16 +364,47 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_SERVER))
 		return
 
-	var/delay = input("What delay should the restart have (in seconds)?", "Restart Delay", 5) as num|null
-	if(isnull(delay))
-		return
-	else
-		delay = delay * 10
-	message_admins("[key_name_admin(usr)] has initiated a server restart with a delay of [delay/10] seconds")
-	log_admin("[key_name(usr)] has initiated a server restart with a delay of [delay/10] seconds")
-	SSticker.delay_end = 0
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Reboot Server") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	world.Reboot("Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key].", "admin reboot - by [usr.key] [usr.client.holder.fakekey ? "(stealth)" : ""]", delay)
+	// Give an extra popup if they are rebooting a live server
+	var/is_live_server = TRUE
+	if(usr.client.is_connecting_from_localhost())
+		is_live_server = FALSE
+
+	var/list/options = list("Regular Restart", "Hard Restart")
+	if(world.TgsAvailable()) // TGS lets you kill the process entirely
+		options += "Terminate Process (Kill and restart DD)"
+
+	var/result = input(usr, "Select reboot method", "World Reboot", options[1]) as null|anything in options
+
+	if(is_live_server)
+		if(alert(usr, "WARNING: THIS IS A LIVE SERVER, NOT A LOCAL TEST SERVER. DO YOU STILL WANT TO RESTART","This server is live","Restart","Cancel") != "Restart")
+			return FALSE
+
+	if(result)
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Reboot World") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		var/init_by = "Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key]."
+		switch(result)
+
+			if("Regular Restart")
+				var/delay = input("What delay should the restart have (in seconds)?", "Restart Delay", 5) as num|null
+				if(!delay)
+					return FALSE
+
+
+				// These are pasted each time so that they dont false send if reboot is cancelled
+				message_admins("[key_name_admin(usr)] has initiated a server restart of type [result]")
+				log_admin("[key_name(usr)] has initiated a server restart of type [result]")
+				SSticker.delay_end = FALSE // We arent delayed anymore
+				SSticker.reboot_helper(init_by, "admin reboot - by [usr.key] [usr.client.holder.fakekey ? "(stealth)" : ""]", delay * 10)
+
+			if("Hard Restart")
+				message_admins("[key_name_admin(usr)] has initiated a server restart of type [result]")
+				log_admin("[key_name(usr)] has initiated a server restart of type [result]")
+				world.Reboot(fast_track = TRUE)
+
+			if("Terminate Process (Kill and restart DD)")
+				message_admins("[key_name_admin(usr)] has initiated a server restart of type [result]")
+				log_admin("[key_name(usr)] has initiated a server restart of type [result]")
+				world.TgsEndProcess() // Just nuke the entire process if we are royally fucked
 
 /datum/admins/proc/end_round()
 	set category = "Server"
@@ -576,6 +608,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		SSticker.delay_end = !SSticker.delay_end
 		log_admin("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
 		message_admins("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].", 1)
+		if(SSticker.delay_end)
+			SSticker.real_reboot_time = 0 // Immediately show the "Admin delayed round end" message
 		return //alert("Round end delayed", null, null, null, null, null)
 	if(SSticker.ticker_going)
 		SSticker.ticker_going = FALSE
@@ -883,3 +917,4 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 			continue
 		result[1]++
 	return result
+
