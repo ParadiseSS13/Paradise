@@ -15902,20 +15902,6 @@
 "AX" = (
 /turf/unsimulated/wall/asteroid,
 /area/awaymission/DSBSSigma/dormitories)
-"AY" = (
-/obj/structure/alien/weeds,
-/obj/structure/bed/nest,
-/obj/effect/mob_spawn/human/corpse/away/dsbssigma/monkey,
-/obj/effect/decal/cleanable/blood{
-	color = "red"
-	},
-/obj/item/clothing/mask/facehugger{
-	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
-	},
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
 "AZ" = (
 /obj/item/chair/wood,
 /turf/simulated/floor/plasteel{
@@ -18297,15 +18283,6 @@
 	},
 /turf/unsimulated/wall/asteroid,
 /area/awaymission/DSBSSigma/dormitories)
-"Fl" = (
-/obj/structure/alien/weeds,
-/obj/effect/decal/cleanable/blood/gibs/body,
-/obj/effect/decal/cleanable/blood/innards,
-/obj/effect/decal/cleanable/blood/gibs,
-/obj/effect/decal/cleanable/blood/gibs,
-/obj/item/organ/internal/heart/gland/heals/weak,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
 "Fm" = (
 /obj/structure/sign/poster/contraband/syndicate_recruitment{
 	pixel_y = -32
@@ -19880,17 +19857,6 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
-"Kw" = (
-/obj/structure/alien/weeds,
-/obj/structure/bed/nest,
-/obj/effect/mob_spawn/human/corpse/away/dsbssigma/operative/miner,
-/obj/item/clothing/mask/facehugger{
-	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
-	},
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
 "Ln" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/egg/burst,
@@ -19988,15 +19954,30 @@
 /area/awaymission/DSBSSigma/hive)
 "PU" = (
 /obj/structure/alien/weeds/node,
-/obj/effect/landmark/away/queen_spawn,
+/obj/effect/landmark/away/dsbssigma{
+	color = "#ff0000";
+	name = "dsbssigma_queen"
+	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
+"PW" = (
+/obj/effect/spawner/random_spawners/away/dsbssigma/randomizer,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/awaymission/DSBSSigma/mission_control)
 "Qg" = (
 /obj/structure/flora/rock,
 /obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/DSBSSigma/exterior)
+"Qu" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/gibs,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
 "QT" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/fluff/utility/broken/smooth{
@@ -20006,11 +19987,6 @@
 	},
 /turf/space,
 /area/awaymission/DSBSSigma/exterior)
-"QU" = (
-/obj/structure/alien/weeds,
-/obj/effect/spawner/random_spawners/away/dsbssigma/mob/queen,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
 "Ri" = (
 /obj/structure/alien/weeds,
 /obj/structure/flora/rock/pile,
@@ -20027,6 +20003,12 @@
 	icon = 'icons/effects/blood.dmi';
 	icon_state = "tracks"
 	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"RO" = (
+/obj/structure/alien/weeds,
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_50pc,
+/obj/structure/flora/rock/pile,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
 "Sk" = (
@@ -20072,6 +20054,11 @@
 	},
 /turf/space,
 /area/awaymission/DSBSSigma/exterior)
+"Va" = (
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/gibs,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
 "Vd" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds,
@@ -20106,6 +20093,16 @@
 "Wp" = (
 /obj/structure/alien/weeds,
 /obj/structure/flora/rock/pile,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Wy" = (
+/obj/structure/alien/weeds,
+/obj/structure/bed/nest,
+/obj/effect/landmark/away/dsbssigma{
+	color = "#1ad600";
+	name = "dsbssigma_organ"
+	},
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/dead_monkey_50pc,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
 "WA" = (
@@ -20155,7 +20152,19 @@
 /area/awaymission/DSBSSigma/hive)
 "Zc" = (
 /obj/structure/alien/weeds,
-/obj/effect/landmark/away/queen_spawn,
+/obj/effect/landmark/away/dsbssigma{
+	color = "#ff0000";
+	name = "dsbssigma_queen"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Zi" = (
+/obj/structure/alien/weeds,
+/obj/structure/bed/nest,
+/obj/effect/landmark/away/dsbssigma{
+	color = "#ffc800";
+	name = "dsbssigma_miner"
+	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
 "Zu" = (
@@ -22966,7 +22975,7 @@ ZJ
 ZJ
 ZJ
 ZJ
-VI
+Wy
 Zb
 Zb
 ai
@@ -23123,7 +23132,7 @@ ZJ
 Wp
 Pr
 ZJ
-Nj
+Qu
 Ln
 Zb
 Zb
@@ -23405,7 +23414,7 @@ Zb
 Zb
 Zb
 Ln
-VI
+Wy
 Zb
 Zb
 Zb
@@ -23419,7 +23428,7 @@ Zb
 Zb
 Zb
 Zb
-VI
+Wy
 TK
 ZJ
 ZJ
@@ -23562,7 +23571,7 @@ YX
 ZJ
 Wp
 WA
-ZJ
+Va
 ZJ
 ZJ
 Zb
@@ -23598,7 +23607,7 @@ Nj
 Zc
 ZJ
 TK
-VI
+Wy
 Zb
 ai
 ai
@@ -23705,7 +23714,7 @@ ai
 ai
 Zb
 Zb
-VI
+Wy
 Zb
 Zb
 ai
@@ -23862,7 +23871,7 @@ ai
 Zb
 Zb
 Pp
-ZJ
+Va
 Ln
 Zb
 ai
@@ -23910,7 +23919,7 @@ Zb
 Zb
 Ln
 JS
-ZJ
+Va
 IQ
 Ln
 Zb
@@ -24067,7 +24076,7 @@ ai
 Zb
 Zb
 Zb
-VI
+Zi
 Ln
 Zb
 Zb
@@ -24208,7 +24217,7 @@ ZJ
 ZJ
 Zb
 Zb
-VI
+Wy
 ZJ
 ZJ
 Zb
@@ -24329,8 +24338,8 @@ ai
 ai
 ai
 Zb
-VI
-ZJ
+Zi
+Va
 Wp
 ZJ
 ZJ
@@ -24667,8 +24676,8 @@ Zb
 ai
 Zb
 Zb
-VI
-ZJ
+Zi
+Va
 ZJ
 ZJ
 YX
@@ -24676,7 +24685,7 @@ Zb
 Zb
 ZJ
 ZJ
-QU
+ZJ
 ZJ
 ZJ
 Zb
@@ -25271,7 +25280,7 @@ ai
 ai
 Zb
 Zb
-VI
+Wy
 ZJ
 ZJ
 ZJ
@@ -25566,7 +25575,7 @@ aa
 aa
 aa
 ab
-dg
+ab
 aj
 ab
 ai
@@ -25610,7 +25619,7 @@ ZJ
 ZJ
 ZJ
 ZJ
-ZJ
+ST
 ZJ
 Zb
 Zb
@@ -25640,8 +25649,8 @@ Ln
 ZJ
 Zc
 Kc
-ZJ
-VI
+Va
+Wy
 Zb
 ai
 ai
@@ -25784,8 +25793,8 @@ ai
 ai
 ai
 Zb
-Kw
-ZJ
+Zi
+Va
 ZJ
 ZJ
 ZJ
@@ -25798,7 +25807,7 @@ ZJ
 ZJ
 ZJ
 ZJ
-VI
+Zi
 Zb
 ai
 ai
@@ -25914,7 +25923,7 @@ ZJ
 Kc
 ZJ
 Zb
-ZJ
+RO
 ZJ
 ZJ
 YX
@@ -26071,8 +26080,8 @@ ST
 ZJ
 Zb
 Zb
-qZ
-ZJ
+Wy
+Va
 Ln
 Zb
 Zb
@@ -26229,7 +26238,7 @@ ZJ
 Zb
 Zb
 Zb
-VI
+Zi
 Zb
 Zb
 ai
@@ -26880,7 +26889,7 @@ ai
 Zb
 Zb
 ZJ
-ZJ
+Wy
 Zb
 Zb
 ZJ
@@ -29365,9 +29374,9 @@ ai
 ai
 pu
 Zb
-AY
+Wy
 rN
-AY
+VI
 qx
 ai
 ai
@@ -29522,7 +29531,7 @@ ai
 ai
 pu
 Zb
-Fl
+ZJ
 ZJ
 sp
 Zb
@@ -37982,7 +37991,7 @@ hZ
 iy
 gi
 jR
-jR
+PW
 kz
 lg
 lC

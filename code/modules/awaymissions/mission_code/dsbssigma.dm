@@ -382,18 +382,23 @@
 
 /////// SPAWNERS ///////
 
-/obj/effect/landmark/away/queen_spawn
-	name = "dsbssigma_queen_spawn"
+/obj/effect/landmark/away/dsbssigma
+	name = "dsbssigma_landmark"
+	icon = 'icons/misc/mark.dmi'
+	icon_state = "r_land"
+	color = "#0055b3"
 
 /obj/effect/spawner/random_spawners/away
 	name = "random spawners"
-	result = list()
+	result = list(/datum/nothing = 1)
 	spawn_inside = null
 
 ///LOOT///
 
 /obj/effect/spawner/random_spawners/away/dsbssigma/loot
-	icon_state = "x3"
+	icon = 'icons/misc/mark.dmi'
+	icon_state = "r_loot"
+	color = "#1ad600"
 
 /obj/effect/spawner/random_spawners/away/dsbssigma/loot/cleaning
 	name = "cleaning supplies spawner"
@@ -473,8 +478,9 @@
 /// MOBS ///
 
 /obj/effect/spawner/random_spawners/away/dsbssigma/mob
-	icon_state = "x"
-	color = "#ff0000"
+	icon = 'icons/misc/mark.dmi'
+	icon_state = "r_mob"
+	color = "#c80004"
 
 /obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien
 	name = "random alien spawner"
@@ -485,12 +491,14 @@
 
 /obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_guard
 	name = "random alien guard spawner"
+	color = "#960018"
 	result = list(
 	/mob/living/simple_animal/hostile/alien/stationary = 1,
 	/mob/living/simple_animal/hostile/alien/sentinel/stationary = 1)
 
 /obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_50pc
 	name = "random alien spawner 50pc"
+	color = "#ff7700"
 	result = list(
 	/datum/nothing = 3,
 	/mob/living/simple_animal/hostile/alien = 1,
@@ -499,6 +507,7 @@
 
 /obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_30pc
 	name = "random alien spawner 30pc"
+	color = "#ffc800"
 	result = list(
 	/datum/nothing = 7,
 	/mob/living/simple_animal/hostile/alien = 1,
@@ -514,6 +523,7 @@
 
 /obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_stationary_50pc
 	name = "random stationary alien spawner 50pc"
+	color = "#ff7700"
 	result = list(
 	/datum/nothing = 3,
 	/mob/living/simple_animal/hostile/alien/stationary = 1,
@@ -522,27 +532,55 @@
 
 /obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_stationary_30pc
 	name = "random stationary alien spawner 30pc"
+	color = "#ffc800"
 	result = list(
 	/datum/nothing = 7,
 	/mob/living/simple_animal/hostile/alien/stationary = 1,
 	/mob/living/simple_animal/hostile/alien/drone/stationary = 1,
 	/mob/living/simple_animal/hostile/alien/sentinel/stationary = 1)
 
-/obj/effect/spawner/random_spawners/away/dsbssigma/mob/queen/
-	result = list(/datum/nothing = 1)
-	name = "queen spawn randomizer"
-	color = "#800080"
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/dead_monkey_50pc
+	name = "dead monkey 50pc"
+	color = "#0e7500"
+	result = list(
+	/datum/nothing = 1,
+	/obj/effect/mob_spawn/human/corpse/away/dsbssigma/monkey = 1)
 
-/obj/effect/spawner/random_spawners/away/dsbssigma/mob/queen/New()
-	..()
-	var/list/possible_queen_spawns = list()
+/// RANDOMIZER ///
+
+/obj/effect/spawner/random_spawners/away/dsbssigma/randomizer
+	name = "spawn randomizer"
+	icon_state = "x"
+	color = "#800080"
+	early_del = FALSE
+	var/r_location = null
+	var/r_object = null
+
+/obj/effect/spawner/random_spawners/away/dsbssigma/randomizer/proc/randomize(r_location, r_object)
+	var/list/possible_locations = list()
 	for(var/thing in GLOB.landmarks_list)
 		var/obj/effect/landmark/away/L = thing
-		if(L.name == "dsbssigma_queen_spawn")
-			possible_queen_spawns |= L
-	if(length(possible_queen_spawns))
-		var/obj/effect/landmark/S = pick(possible_queen_spawns)
-		new /mob/living/simple_animal/hostile/alien/queen/large/dsbssigma(get_turf(S))
+		if(L.name == r_location)
+			possible_locations |= L
+	if(length(possible_locations))
+		var/obj/effect/landmark/S = pick(possible_locations)
+		new r_object(get_turf(S))
+
+/obj/effect/spawner/random_spawners/away/dsbssigma/randomizer/Initialize()
+	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/effect/spawner/random_spawners/away/dsbssigma/randomizer/LateInitialize()
+	r_location = "dsbssigma_queen"
+	r_object = /mob/living/simple_animal/hostile/alien/queen/large/dsbssigma
+	randomize(r_location, r_object)
+	r_location = "dsbssigma_miner"
+	r_object = /obj/effect/mob_spawn/human/corpse/away/dsbssigma/operative/miner
+	randomize(r_location, r_object)
+	r_location = "dsbssigma_organ"
+	r_object = /obj/item/organ/internal/heart/gland/heals/weak
+	randomize(r_location, r_object)
+	qdel(src)
 
 ////////////////////////// MOBS //////////////////////////
 

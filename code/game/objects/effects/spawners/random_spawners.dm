@@ -9,6 +9,7 @@
 	/obj/effect/decal/cleanable/blood/oil = 1,
 	/obj/effect/decal/cleanable/fungus = 1)
 	var/spawn_inside = null
+	var/early_del = TRUE // Set to false if it needs to reach Initialize().
 
 // This needs to use New() instead of Initialize() because the thing it creates might need to be initialized too
 /obj/effect/spawner/random_spawners/New()
@@ -32,7 +33,8 @@
 			O.forceMove(E)
 		else
 			new thing_to_place(T)
-	qdel(src)
+	if(early_del)
+		qdel(src)
 
 /obj/effect/spawner/random_spawners/blood_maybe
 	name = "blood maybe"
