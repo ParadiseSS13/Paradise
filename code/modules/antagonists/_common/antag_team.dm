@@ -236,3 +236,5 @@
 			SEND_SOUND(M.current, sound('sound/ambience/alarm4.ogg'))
 		log_admin("[key_name(usr)] has announced [name]'s objectives")
 		message_admins("[key_name_admin(usr)] has announced [name]'s objectives")
+
+	edit_team()
