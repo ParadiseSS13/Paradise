@@ -13,7 +13,7 @@
 	/// How many life ticks does the stun last for
 	var/stunforce = 7
 	/// Is the baton currently turned on
-	var/enabled = FALSE
+	var/turned_on = FALSE
 	/// How much power does it cost to stun someone
 	var/hitcost = 1000
 	/// Chance for the baton to stun when thrown at someone
@@ -41,7 +41,7 @@
 
 /obj/item/melee/baton/throw_impact(atom/hit_atom)
 	..()
-	if(enabled && prob(throw_hit_chance) && isliving(hit_atom))
+	if(turned_on && prob(throw_hit_chance) && isliving(hit_atom))
 		baton_stun(hit_atom)
 
 /**
@@ -56,7 +56,7 @@
 	if(isrobot(loc))
 		var/mob/living/silicon/robot/R = loc
 		if(R.cell?.charge < (hitcost + amount))
-			enabled = FALSE
+			turned_on = FALSE
 			update_icon()
 			playsound(src, "sparks", 75, TRUE, -1)
 		if(R.cell.use(amount))
@@ -65,7 +65,7 @@
 			return FALSE
 	// Regular baton
 	if(cell?.charge < (hitcost + amount)) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off.
-		enabled = FALSE
+		turned_on = FALSE
 		update_icon()
 		playsound(src, "sparks", 75, TRUE, -1)
 	if(cell.use(amount))
@@ -74,7 +74,7 @@
 		return FALSE
 
 /obj/item/melee/baton/update_icon()
-	if(enabled)
+	if(turned_on)
 		icon_state = "[base_icon]_active"
 	else if(!cell)
 		icon_state = "[base_icon]_nocell"
@@ -118,7 +118,7 @@
 	cell.loc = get_turf(src)
 	cell = null
 	to_chat(user, "<span class='notice'>You remove the cell from [src].</span>")
-	enabled = FALSE
+	turned_on = FALSE
 	update_icon()
 
 /obj/item/melee/baton/attack_self(mob/user)
@@ -126,20 +126,20 @@
 	if(isrobot(loc))
 		var/mob/living/silicon/robot/R = loc
 		if(R?.cell?.charge >= hitcost)
-			enabled = !enabled
-			to_chat(user, "<span class='notice'>[src] is now [enabled ? "on" : "off"].</span>")
+			turned_on = !turned_on
+			to_chat(user, "<span class='notice'>[src] is now [turned_on ? "on" : "off"].</span>")
 			playsound(src, "sparks", 75, TRUE, -1)
 		else
-			enabled = FALSE
+			turned_on = FALSE
 			to_chat(user, "<span class='warning'>You do not have enough reserve power to charge [src]!</span>")
 
 	// Regular baton
 	else if(cell?.charge >= hitcost)
-		enabled = !enabled
-		to_chat(user, "<span class='notice'>[src] is now [enabled ? "on" : "off"].</span>")
+		turned_on = !turned_on
+		to_chat(user, "<span class='notice'>[src] is now [turned_on ? "on" : "off"].</span>")
 		playsound(src, "sparks", 75, TRUE, -1)
 	else
-		enabled = FALSE
+		turned_on = FALSE
 		if(!cell)
 			to_chat(user, "<span class='warning'>[src] does not have a power source!</span>")
 		else
@@ -149,7 +149,7 @@
 
 
 /obj/item/melee/baton/attack(mob/M, mob/living/user)
-	if(enabled && (CLUMSY in user.mutations) && prob(50))
+	if(turned_on && (CLUMSY in user.mutations) && prob(50))
 		user.visible_message("<span class='danger'>[user] accidentally hits [user.p_them()]self with [src]!</span>",
 							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
 		user.Weaken(stunforce * 3)
@@ -169,11 +169,11 @@
 			return
 
 	if(user.a_intent == INTENT_HARM)
-		if(enabled)
+		if(turned_on)
 			baton_stun(L, user)
 		return ..() // Whack them too if in harm intent
 
-	if(!enabled)
+	if(!turned_on)
 		L.visible_message("<span class='warning'>[user] has prodded [L] with [src]. Luckily it was off.</span>",
 			"<span class='danger'>[L == user ? "You prod yourself" : "[user] has prodded you"] with [src]. Luckily it was off.</span>")
 		return
@@ -214,7 +214,7 @@
 		deductcharge(1000 / severity)
 
 /obj/item/melee/baton/wash(mob/user, atom/source)
-	if(enabled && cell?.charge > 0)
+	if(turned_on && cell?.charge > 0)
 		flick("baton_active", source)
 		user.Stun(stunforce)
 		user.Weaken(stunforce)

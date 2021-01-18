@@ -8,7 +8,7 @@
 
 /obj/item/melee/baton/cattleprod/teleprod/attack(mob/living/carbon/M, mob/living/carbon/user)//handles making things teleport when hit
 	..()
-	if(!enabled)
+	if(!turned_on)
 		return
 	if((CLUMSY in user.mutations) && prob(50))
 		user.visible_message("<span class='danger'>[user] accidentally hits [user.p_them()]self with [src]!</span>",
