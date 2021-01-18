@@ -158,6 +158,8 @@
 		H.lip_style = null
 		H.lip_color = null
 		H.update_body()
+	else
+		return ..()
 
 /obj/item/paper/proc/addtofield(var/id, var/text, var/links = 0)
 	if(id > MAX_PAPER_FIELDS)
