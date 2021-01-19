@@ -21,6 +21,7 @@ AI MODULES
 	origin_tech = "programming=3"
 	materials = list(MAT_GOLD=50)
 	var/datum/ai_laws/laws = null
+	var/uses = 0
 
 /obj/item/aiModule/proc/install(var/obj/machinery/computer/C)
 	if(istype(C, /obj/machinery/computer/aiupload))
@@ -48,6 +49,7 @@ AI MODULES
 					to_chat(R, "These are your laws now:")
 					R.show_laws()
 			to_chat(usr, "<span class='notice'>Upload complete. The AI's laws have been modified.</span>")
+			comp.current.law_location_check(comp, src)
 
 	else if(istype(C, /obj/machinery/computer/borgupload))
 		var/obj/machinery/computer/borgupload/comp = C
@@ -88,6 +90,23 @@ AI MODULES
 	log_and_message_admins("used [src.name] on [target.name]([target.key])")
 
 /obj/item/aiModule/proc/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
+
+/mob/living/silicon/ai/proc/law_location_check(var/obj/machinery/computer/aiupload/comp, var/obj/item/aiModule/A)
+	var/list/turfs = new/list()
+	var/found_turf = FALSE
+	for(var/turf/T in range(get_turf(comp), (max(1,(16 - comp.uses - A.uses)))))
+		if(istype(T, /turf/space) || istype(T, /turf/simulated/wall))
+			continue
+
+		turfs += T
+		found_turf = TRUE
+
+	if(found_turf)
+		var/turf/relay_location = pick(turfs)
+		to_chat(src, "<b>Law upload bounced off relay in [relay_location.loc], at X [relay_location.x] Y [relay_location.y]</b>")
+		src.mind.store_memory("Law upload bounced off relay in [relay_location.loc], at X [relay_location.x] Y [relay_location.y]")
+	comp.uses++
+	A.uses++
 
 
 /******************** Safeguard ********************/

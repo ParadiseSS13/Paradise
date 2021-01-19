@@ -104,6 +104,7 @@
 	name = "Circuit board (AI Upload)"
 	build_path = /obj/machinery/computer/aiupload
 	origin_tech = "programming=4;engineering=4"
+	var/uses = 0
 /obj/item/circuitboard/borgupload
 	name = "Circuit board (Cyborg Upload)"
 	build_path = /obj/machinery/computer/borgupload
@@ -536,6 +537,10 @@
 					var/obj/machinery/computer/supplycomp/SC = B
 					var/obj/item/circuitboard/supplycomp/C = circuit
 					SC.can_order_contraband = C.contraband_enabled
+				if(istype(circuit,/obj/item/circuitboard/aiupload))
+					var/obj/machinery/computer/aiupload/AI = B
+					var/obj/item/circuitboard/aiupload/C = circuit
+					AI.uses = C.uses
 				qdel(src)
 				return
 	if(user.a_intent == INTENT_HARM)

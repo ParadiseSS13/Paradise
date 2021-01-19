@@ -5,26 +5,10 @@
 	icon_keyboard = "med_key"
 	circuit = /obj/item/circuitboard/aiupload
 	var/mob/living/silicon/ai/current = null
-	var/opened = 0
+	var/uses = 0
 
 	light_color = LIGHT_COLOR_WHITE
 	light_range_on = 2
-
-
-// What the fuck even is this
-/obj/machinery/computer/aiupload/verb/AccessInternals()
-	set category = "Object"
-	set name = "Access Computer's Internals"
-	set src in oview(1)
-	if(get_dist(src, usr) > 1 || usr.restrained() || usr.lying || usr.stat || istype(usr, /mob/living/silicon))
-		return
-
-	opened = !opened
-	if(opened)
-		to_chat(usr, "<span class='notice'>The access panel is now open.</span>")
-	else
-		to_chat(usr, "<span class='notice'>The access panel is now closed.</span>")
-	return
 
 
 /obj/machinery/computer/aiupload/attackby(obj/item/O as obj, mob/user as mob, params)
@@ -61,7 +45,11 @@
 /obj/machinery/computer/aiupload/attack_ghost(user as mob)
 	return 1
 
-// Why is this not a subtype
+///obj/machinery/computer/aiupload/deconstruct()
+//	M.circuit.uses = uses
+//	..()
+
+
 /obj/machinery/computer/borgupload
 	name = "cyborg upload console"
 	desc = "Used to upload laws to Cyborgs."
