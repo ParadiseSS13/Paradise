@@ -21,7 +21,7 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 
 	action_icon_state = "boo"
 	school = "transmutation"
-	charge_max = 1 MINUTES + 20 SECONDS
+	charge_max = 2 MINUTES
 	starts_charged = FALSE
 	clothes_req = FALSE
 	stat_allowed = 1
@@ -31,7 +31,6 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 	// no need to spam admins regarding boo casts
 	create_logs = FALSE
 
-
 /obj/effect/proc_holder/spell/targeted/click/boo/cast(list/targets, mob/user = usr)
 	var/atom/target = targets[1]
 	ASSERT(istype(target))
@@ -39,8 +38,9 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 	if(target.get_spooked())
 		var/area/spook_zone = get_area(target)
 		if(spook_zone.is_haunted == TRUE)
-			to_chat(usr, "<span class='shadowling'>The veil is weak in [spook_zone], it took less effort to influence [target].</span>")
+			to_chat(user, "<span class='shadowling'>The veil is weak in [spook_zone], it took less effort to influence [target].</span>")
 			charge_counter = charge_max / 2
 		return
 
-	charge_counter = charge_max * 0.9 // We've targetted a non-spookable object! Try again fast!
+	revert_cast() // We've targetted a non-spookable object! Try again!
+	to_chat(user, "<span class='shadowling'>Your presence will not be known. For now.</span>")
