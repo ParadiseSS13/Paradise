@@ -191,6 +191,7 @@
 	if(href_list["ssdwarning"])
 		ssd_warning_acknowledged = TRUE
 		to_chat(src, "<span class='notice'>SSD warning acknowledged.</span>")
+		return
 	if(href_list["link_forum_account"])
 		link_forum_account()
 		return // prevents a recursive loop where the ..() 5 lines after this makes the proc endlessly re-call itself
@@ -390,6 +391,8 @@
 		GLOB.panic_bunker_enabled = FALSE
 		message_admins("Panic bunker has been automatically disabled due to playercount dropping below [threshold]")
 
+	INVOKE_ASYNC(src, .proc/cid_count_check)
+
 /client/proc/is_connecting_from_localhost()
 	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
 	if(!isnull(address) && (address in localhost_addresses))
@@ -524,6 +527,7 @@
 	if(watchreason)
 		message_admins("<font color='red'><B>Notice: </B></font><font color='blue'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
 		SSdiscord.send2discord_simple_noadmins("**\[Watchlist]** [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
+		watchlisted = TRUE
 
 
 	//Just the standard check to see if it's actually a number
@@ -576,15 +580,7 @@
 		INVOKE_ASYNC(src, /client/.proc/get_byond_account_date, TRUE) // Async to avoid other procs in the client chain being delayed by a web request
 
 	// Log player connections to DB
-	var/datum/db_query/query_accesslog = SSdbcore.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`datetime`,`ckey`,`ip`,`computerid`) VALUES(Now(), :ckey, :ip, :cid)", list(
-		"ckey" = ckey,
-		"ip" = "[address ? address : ""]", // This is important. NULL is not the same as "", and if you directly open the `.dmb` file, you get a NULL IP.
-		"cid" = computer_id
-	))
-	// We do nothing with output here, or anything else after, so we dont need to if() wrap it
-	// If you ever extend this proc below this point, please wrap these with an if() in the same way its done above
-	query_accesslog.warn_execute()
-	qdel(query_accesslog)
+	INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey, address, computer_id, CONNECTION_TYPE_ESTABLISHED)
 
 /client/proc/check_ip_intel()
 	set waitfor = 0 //we sleep when getting the intel, no need to hold up the client connection while we sleep
@@ -1138,6 +1134,85 @@
 	qdel(query)
 	// If we are here, they have not accepted, and need to read it
 	return FALSE
+
+/**
+  * Checks if the client has more than a configured amount of CIDs tied to them in the past
+  */
+/client/proc/cid_count_check()
+	// If the config is 0, disable this
+	if(config.max_client_cid_history == 0)
+		return
+
+	// If we have no DB, dont even bother
+	if(!SSdbcore.IsConnected())
+		return
+
+	// Now query how many cids they have
+	var/datum/db_query/query_cidcheck = SSdbcore.NewQuery("SELECT COUNT(DISTINCT computerID) FROM connection_log WHERE ckey=:ckey", list(
+		"ckey" = ckey
+	))
+	if(!query_cidcheck.warn_execute())
+		qdel(query_cidcheck)
+		return
+
+	var/cidcount = 0
+	if(query_cidcheck.NextRow())
+		cidcount = query_cidcheck.item[1]
+	qdel(query_cidcheck)
+
+	if(cidcount > config.max_client_cid_history)
+		// Check their notes for CID tracking in the past
+		var/has_note = FALSE
+		var/note_text = ""
+		var/datum/db_query/query_find_track_note = SSdbcore.NewQuery("SELECT notetext FROM [format_table_name("notes")] WHERE ckey=:ckey AND adminckey=:ackey", list(
+			"ckey" = ckey,
+			"ackey" = CIDTRACKING_PSUEDO_CKEY
+		))
+		if(!query_find_track_note.warn_execute())
+			qdel(query_find_track_note)
+			return
+		if(query_find_track_note.NextRow())
+			note_text = query_find_track_note.item[1] // Grab existing note text
+			has_note = TRUE
+		qdel(query_find_track_note)
+
+
+		if(has_note) // They have a note. Update it.
+			var/new_text = "Connected on the date of this note with unique CID #[cidcount]"
+			// Only update the note if the text is different. Otherwise it bumps the timestamp when it shouldnt
+			if(note_text != new_text)
+				var/datum/db_query/query_update_track_note = SSdbcore.NewQuery("UPDATE [format_table_name("notes")] SET notetext=:notetext, timestamp=NOW(), round_id=:rid WHERE ckey=:ckey AND adminckey=:ackey", list(
+					"notetext" = new_text,
+					"ckey" = ckey,
+					"ackey" = CIDTRACKING_PSUEDO_CKEY,
+					"rid" = GLOB.round_id
+				))
+				if(!query_update_track_note.warn_execute())
+					qdel(query_update_track_note)
+					return
+				qdel(query_update_track_note)
+
+		else // They dont have a note. Make one.
+			// NOT logged because its automatic and will spam logs otherwise
+			// Also right checking must be disabled because its a psuedockey, not a real one
+			add_note(ckey, "Connected on the date of this note with unique CID #[cidcount]", adminckey = CIDTRACKING_PSUEDO_CKEY, logged = FALSE, checkrights = FALSE, automated = TRUE)
+
+		var/show_warning = TRUE
+		// Check if they have a note that matches the warning suppressor
+		var/datum/db_query/query_find_note = SSdbcore.NewQuery("SELECT id FROM [format_table_name("notes")] WHERE ckey=:ckey AND notetext=:notetext", list(
+			"ckey" = ckey,
+			"notetext" = CIDWARNING_SUPPRESSED_NOTETEXT
+		))
+		if(!query_find_note.warn_execute())
+			qdel(query_find_note)
+			return
+		if(query_find_note.NextRow())
+			show_warning = FALSE
+		qdel(query_find_note)
+
+		if(show_warning)
+			message_admins("<font color='red'>[ckey] has just connected and has a history of [cidcount] different CIDs.</font> (<a href='?_src_=holder;webtools=[ckey]'>WebInfo</a>) (<a href='?_src_=holder;suppresscidwarning=[ckey]'>Suppress Warning</a>)")
+
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

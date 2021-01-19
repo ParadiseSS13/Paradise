@@ -103,9 +103,9 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	wth = new wth()
 	return wth.invoke(input)
 
-/world/Reboot(var/reason, end_string, var/time)
+/world/Reboot(reason, fast_track = FALSE)
 	//special reboot, do none of the normal stuff
-	if(reason == 1) // Do NOT change this to if(reason). You WILL break the entirety of world rebooting
+	if((reason == 1) || fast_track) // Do NOT change this to if(reason). You WILL break the entirety of world rebooting
 		if(usr)
 			if(!check_rights(R_SERVER))
 				message_admins("[key_name_admin(usr)] attempted to restart the server via the Profiler, without access.")
@@ -113,71 +113,53 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 				return
 			message_admins("[key_name_admin(usr)] has requested an immediate world restart via client side debugging tools")
 			log_admin("[key_name(usr)] has requested an immediate world restart via client side debugging tools")
-		spawn(0)
 			to_chat(world, "<span class='boldannounce'>Rebooting world immediately due to host request</span>")
 		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
-		TgsReboot()
+		// Now handle a reboot
 		if(config && config.shutdown_on_reboot)
 			sleep(0)
 			if(GLOB.shutdown_shell_command)
 				shell(GLOB.shutdown_shell_command)
 			del(world)
+			TgsEndProcess() // We want to shutdown on reboot. That means kill our TGS process "gracefully", instead of the watchdog crying
 			return
 		else
+			TgsReboot() // Tell TGS we did a reboot
 			return ..(1)
 
-	var/delay
-	if(!isnull(time))
-		delay = max(0,time)
-	else
-		delay = SSticker.restart_timeout
-	if(SSticker.delay_end)
-		to_chat(world, "<span class='boldannounce'>An admin has delayed the round end.</span>")
-		return
-	to_chat(world, "<span class='boldannounce'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>")
+	// If we got here, we are in a "normal" reboot
+	Master.Shutdown() // Shutdown subsystems
 
-	var/round_end_sound = pick(GLOB.round_end_sounds)
-	var/sound_length = GLOB.round_end_sounds[round_end_sound]
-	if(delay > sound_length) // If there's time, play the round-end sound before rebooting
-		spawn(delay - sound_length)
-			if(!SSticker.delay_end)
-				world << round_end_sound
-	sleep(delay)
-	if(SSticker.delay_end)
-		to_chat(world, "<span class='boldannounce'>Reboot was cancelled by an admin.</span>")
-		return
-	log_game("<span class='boldannounce'>Rebooting world. [reason]</span>")
-	//kick_clients_in_lobby("<span class='boldannounce'>The round came to an end with you in the lobby.</span>", 1)
-
-	if(end_string)
-		SSticker.end_state = end_string
-
-	Master.Shutdown()	//run SS shutdowns
-	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
-	TgsReboot()
-
+	// If we were running unit tests, finish that run
 	#ifdef UNIT_TESTS
 	FinishTestRun()
 	return
 	#endif
 
+	// If we had an update or pending TM, set a 60 second timeout
 	var/secs_before_auto_reconnect = 10
 	if(GLOB.pending_server_update)
 		secs_before_auto_reconnect = 60
 		to_chat(world, "<span class='boldannounce'>Reboot will take a little longer, due to pending updates.</span>")
 
+	// Send the reboot banner to all players
 	for(var/client/C in GLOB.clients)
 		C << output(list2params(list(secs_before_auto_reconnect)), "browseroutput:reboot")
-		if(config.server)       //if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
+		if(config.server) // If you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
 			C << link("byond://[config.server]")
 
+	// And begin the real shutdown
+	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 	if(config && config.shutdown_on_reboot)
 		sleep(0)
 		if(GLOB.shutdown_shell_command)
 			shell(GLOB.shutdown_shell_command)
+		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 		del(world)
+		TgsEndProcess() // We want to shutdown on reboot. That means kill our TGS process "gracefully", instead of the watchdog crying
 		return
 	else
+		TgsReboot() // We did a normal reboot. Tell TGS we did a normal reboot.
 		..(0)
 
 /world/proc/load_mode()

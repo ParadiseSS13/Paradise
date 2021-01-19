@@ -265,15 +265,17 @@ SUBSYSTEM_DEF(dbcore)
   * * warn - Boolean to warn on query failure
   * * qdel - Boolean to enable auto qdel of queries
   * * assoc - Boolean to enable support for an associative list of queries
+  * * log - Do we want to generate logs for these queries
   */
-/datum/controller/subsystem/dbcore/proc/MassExecute(list/querys, warn = FALSE, qdel = FALSE, assoc = FALSE)
+/datum/controller/subsystem/dbcore/proc/MassExecute(list/querys, warn = FALSE, qdel = FALSE, assoc = FALSE, log = TRUE)
 	if(!islist(querys))
 		if(!istype(querys, /datum/db_query))
 			CRASH("Invalid query passed to MassExecute: [querys]")
 		querys = list(querys)
 
 	var/start_time = start_watch()
-	log_debug("Mass executing [length(querys)] queries...")
+	if(log)
+		log_debug("Mass executing [length(querys)] queries...")
 
 	for(var/thing in querys)
 		var/datum/db_query/query
@@ -296,7 +298,8 @@ SUBSYSTEM_DEF(dbcore)
 		if(qdel)
 			qdel(query)
 
-	log_debug("Executed [length(querys)] queries in [stop_watch(start_time)]s")
+	if(log)
+		log_debug("Executed [length(querys)] queries in [stop_watch(start_time)]s")
 
 /**
   * # db_query
