@@ -1,4 +1,4 @@
-#define EXTRABROTHERSCHANCE 10
+#define EXTRA_BROTHERS_CHANCE 10
 
 /datum/game_mode
 	var/list/datum/mind/brothers = list() //all participating brothers are stored here
@@ -12,6 +12,7 @@
 	var/list/datum/team/brother_team/pre_brother_teams = list()
 	var/const/team_amount = 2 //hard limit on brother teams if scaling is turned off
 	var/const/min_team_size = 2 //absolutle minimum team size
+	var/const/brother_scaling_coeff = 30.0 //how much does the amount of players get divided by to determine the number of brother teams.
 
 /datum/game_mode/traitor/bros/announce()
 	to_chat(world, "<b>There are Syndicate agents and Blood Brothers on the station!</b>\n\
@@ -26,20 +27,20 @@
 	var/list/datum/mind/possible_brothers = get_players_for_role(ROLE_BROTHER) 
 
 	var/num_teams = team_amount //how many brother teams do we want
-	var/bsc = config.brothers_scaling //what scaling is used.
+	var/bsc = config.brothers_scaling //if scaling is used.
 	if(bsc)
-		num_teams = max(1, round(num_players() / bsc)) //if scaling generate additional teams.
+		num_teams = max(1, round(num_players() / brother_scaling_coeff)) //if scaling generate additional teams.
 
 	for(var/j = 1 to num_teams) //Count the teams as we generate them.
-		if(possible_brothers.len < min_team_size) //if the number of avaliable brothers are less then the minimum size stop.
+		if(length(possible_brothers) < min_team_size) //if the number of avaliable brothers are less then the minimum size stop.
 			break 
 		var/datum/team/brother_team/team = new
-		var/team_size = prob(EXTRABROTHERSCHANCE) ? min(3, possible_brothers.len) : 2 //sometimes we want larger teams, sometimes we want normal sized teams.
+		var/team_size = prob(EXTRA_BROTHERS_CHANCE) ? min(3, length(possible_brothers)) : 2 //sometimes we want larger teams, sometimes we want normal sized teams.
 		for(var/k = 1 to team_size) //Now we generate the teams
 			var/datum/mind/bro = pick(possible_brothers)
 			possible_brothers -= bro
 			team.add_member(bro)
-			bro.special_role = "brother"
+			bro.special_role = ROLE_BROTHER
 			bro.restricted_roles = restricted_jobs
 			log_game("[key_name(bro)] has been selected as a Brother")
 		pre_brother_teams += team
@@ -62,7 +63,7 @@
 	return ..()
 
 /datum/game_mode/proc/auto_declare_completion_bros()
-	if(brother_teams.len)
+	if(length(brother_teams))
 		var/text
 		for(var/datum/team/brother_team/team in brother_teams)
 			var/win = TRUE

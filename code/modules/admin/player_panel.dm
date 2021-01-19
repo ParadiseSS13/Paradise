@@ -363,6 +363,8 @@
 				dat += "ETA: <a href='?_src_=holder;edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><BR>"
 
 		dat += "<a href='?src=[UID()];delay_round_end=1'>[SSticker.delay_end ? "End Round Normally" : "Delay Round End"]</a><br>"
+		dat += "<a href='?src=[UID()];check_antagonist_teams=1'>Check Antagonist Teams</a><br>"
+
 		if(SSticker.mode.syndicates.len)
 			dat += "<br><table cellspacing=5><tr><td><B>Syndicates</B></td><td></td></tr>"
 			for(var/datum/mind/N in SSticker.mode.syndicates)
@@ -472,15 +474,6 @@
 
 		if(SSticker.mode.traitors.len)
 			dat += check_role_table("Traitors", SSticker.mode.traitors)
-		if(SSticker.mode.brother_teams.len)
-			dat += "<br><table cellspacing=5><tr><td><B>Brother Teams</B></td><td></td></tr>"
-			for(var/datum/team/brother_team/team in SSticker.mode.brother_teams)
-				dat += "<br><tr><td><a href='?src=[UID()];edit_team=[team.UID()]'><B>[team.name]</B></a></td></tr>"
-				for(var/datum/mind/brother in team.members)
-					dat += "<br><tr><td>[brother.name]</td></tr>"
-				for(var/datum/objective/objective in team.objectives)
-					dat += "<br><tr><td><B>Objective</B>: [objective.explanation_text]</td></tr>"
-			dat += "</table>"
 
 		if(SSticker.mode.implanted.len)
 			dat += check_role_table("Mindslaves", SSticker.mode.implanted)
@@ -578,3 +571,26 @@
 
 	txt += "</tr>"
 	return txt
+
+/datum/admins/proc/check_antagonist_teams() // stick any proper antagonist teams in here please.
+	if(!check_rights(R_ADMIN))
+		return
+	if(SSticker && SSticker.current_state >= GAME_STATE_PLAYING)
+		var/dat = "<html><head><title>Antagonist Teams</title></head><body><h1><B>Antagonist Teams</B></h1>"
+
+		if(SSticker.mode.brother_teams.len)
+			dat += "<br><table><tr><td><B>Brother Teams</B></td><td></td></tr>"
+			for(var/datum/team/brother_team/team in SSticker.mode.brother_teams)
+				dat += "<tr><td><a href='?src=[UID()];edit_team=[team.UID()]'><B>[team.name]</B></a></td></tr>"
+				for(var/datum/mind/brother in team.members)
+					var/mob/M = brother.current
+					dat += check_antagonists_line(M, close = TRUE)
+				var/objective_count = 1
+				for(var/datum/objective/objective in team.objectives)
+					dat += "<tr><td><B>Objective #[objective_count]</B>: [objective.explanation_text]</td></tr>"
+					objective_count++
+			dat += "</table>"
+		dat += "</body></html>"
+		usr << browse(dat, "window=antagonistteams;size=600x480")
+	else
+		alert("The game hasn't started yet!")

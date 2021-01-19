@@ -1,4 +1,10 @@
 //A barebones antagonist team.
+/*Guide lines to using antag teams properly
+	*Teams should have team specific antag datums to clarify that they are different from normal antags.
+	*Teams do not mix, for each assigned team a mind would need a seperate datum/antag to acommodate it.
+	*Team subtypes should handle their own add and remove member as they will have differing requirements.
+	*Team subtypes should handle their own destroy as they will have differing requirements.
+	*/
 /datum/team
 	var/list/datum/mind/members = list()
 	var/name = "team"
@@ -15,7 +21,7 @@
 			add_member(starting_members)
 
 /datum/team/proc/is_solo()
-	return members.len == 1
+	return length(members) == 1
 
 /datum/team/proc/add_member(datum/mind/new_member) //subtypes should handle what happens when a new member is added
 	members |= new_member
@@ -26,23 +32,28 @@
 /datum/team/proc/edit_team()
 	if(!check_rights(R_ADMIN))
 		return
-	var/dat = "<br><table cellspacing=5><tr><td><B>[name]</B></td><td></td></tr>"
-	dat += "<br><tr><td><a href='?src=[UID()];add_member=[src.UID()]'>Add a member</a></td></tr>" //try not to mix teams, it gets very messy.
-	dat += "<br><tr><td><a href='?src=[UID()];remove_member=[src.UID()]'>Remove a member</a></td></tr>"
+	var/dat = "<html><head><title>Team [name]</title></head><br><body><table><tr><td><B>[name]</B></td><td></td></tr>"
+	dat += "<tr><td><a href='?src=[UID()];add_member=[src.UID()]'>Add a member</a></td></tr>"
+	dat += "<tr><td><a href='?src=[UID()];remove_member=[src.UID()]'>Remove a member</a></td></tr>"
+	dat += "<tr><td><b>Team Members:</b></td></tr>"
 	for(var/datum/mind/member in members)
-		dat += "<br><tr><td>[member.name]</td></tr>"
-		for(var/datum/objective/objective in objectives)
-			dat += "<br><tr><td><B>Objective</B>: [objective.explanation_text]"
-			dat += " <a href='?src=[UID()];obj_edit=[objective.UID()]'>Edit</a> " // Edit
-			dat += "<a href='?src=[UID()];obj_delete=[objective.UID()]'>Delete</a> " // Delete
-			dat += "<a href='?src=[UID()];obj_completed=[objective.UID()]'>" // Mark Completed
-			dat += "<font color=[objective.completed ? "green" : "red"]>Toggle Completion</font>"
-			dat += "</a></td></tr>"
-	dat += "<br><tr><td><a href='?src=[UID()];obj_add=[src.UID()]'>Add objective</a></td></tr>"
-	dat += "<br><tr><td><a href='?src=[UID()];obj_announce=[src.UID()]'>Announce Objectives</a></td></tr>"
-	dat += "<br><tr><td><a href='?src=[UID()];delete_team=[src.UID()]'>Disband team</a></td></tr>"
-	dat += "</table>"
-	usr << browse(dat, "window=roundstatus;size=400x500")
+		var/mob/M = member.current
+		dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td></tr>"
+	dat += "<tr><td><b>Objectives:</b></td></tr>"
+	var/objective_count = 1
+	for(var/datum/objective/objective in objectives)
+		dat += "<tr><td><b>Objective #[objective_count]</b>: [objective.explanation_text]"
+		dat += " <a href='?src=[UID()];obj_edit=[objective.UID()]'>Edit</a> " // Edit
+		dat += "<a href='?src=[UID()];obj_delete=[objective.UID()]'>Delete</a> " // Delete
+		dat += "<a href='?src=[UID()];obj_completed=[objective.UID()]'>" // Mark Completed
+		dat += "<font color=[objective.completed ? "green" : "red"]>Toggle Completion</font>"
+		dat += "</a></td></tr>"
+		objective_count++
+	dat += "<tr><td><a href='?src=[UID()];obj_add=[src.UID()]'>Add objective</a></td></tr>"
+	dat += "<tr><td><a href='?src=[UID()];obj_announce=[src.UID()]'>Announce Objectives</a></td></tr>"
+	dat += "<tr><td><a href='?src=[UID()];delete_team=[src.UID()]'>Disband team</a></td></tr>"
+	dat += "</body></table><html>"
+	usr << browse(dat, "window=editteam;size=400x500")
 
 /*
 	*Theses are what you call when you need to edit teams in any way.
@@ -53,7 +64,7 @@
 
 	if(href_list["add_member"])
 		var/list/candidates = list()
-		for(var/mob/living/L in GLOB.alive_mob_list)
+		for(var/mob/living/L in GLOB.player_list)
 			if(!L.mind) //technically anyone can be a member of a team, even silicons and simple mobs.
 				continue						
 			candidates[L.mind.name] = L.mind
@@ -61,20 +72,20 @@
 		if(!choice)
 			return
 		add_member(choice)
-		log_admin("[key_name(usr)] has added [choice] to [name]")
-		message_admins("[key_name_admin(usr)] has added [choice] to [name]")
+		log_admin("[key_name(usr)] has added [choice] to antag team \"[name]\"")
+		message_admins("[key_name_admin(usr)] has added [choice] to antag team \"[name]\"")
 
 	else if (href_list["remove_member"])
 		var/choice = input(usr, "Choose which member to remove", "Member") as null|anything in members
 		if(!choice)
 			return
 		remove_member(choice)
-		log_admin("[key_name(usr)] has removed [choice] to [name]")
-		message_admins("[key_name_admin(usr)] has removed [choice] to [name]")
+		log_admin("[key_name(usr)] has removed [choice] to antag team \"[name]\"")
+		message_admins("[key_name_admin(usr)] has removed [choice] to antag team \"[name]\"")
 
 	else if(href_list["delete_team"])
-		log_admin("[key_name(usr)] has disbanded [name]")
-		message_admins("[key_name_admin(usr)] has disbanded [name]")
+		log_admin("[key_name(usr)] has disbanded antag team \"[name]\"")
+		message_admins("[key_name_admin(usr)] has disbanded antag team \"[name]\"")
 		qdel(src)
 
 	else if(href_list["obj_edit"] || href_list["obj_add"])
@@ -155,7 +166,7 @@
 
 			if("destroy")
 				var/list/possible_targets = active_ais(1)
-				if(possible_targets.len)
+				if(length(possible_targets))
 					var/mob/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
 					new_objective = new /datum/objective/destroy
 					new_objective.target = new_target.mind

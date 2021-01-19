@@ -409,6 +409,8 @@
 	. = _memory_edit_header("brother")
 	if(has_antag_datum(/datum/antagonist/brother))
 		. += "<b><font color='red'>BROTHER</font></b>|<a href='?src=[UID()];brother=clear'>no</a>"
+		if(objectives.len==0)
+			. += "<br>Objectives are empty! Check Antagonist teams."
 	else
 		. += "<a href='?src=[UID()];brother=brother'>brother</a>|<b>NO</b>"
 	. += _memory_edit_role_enabled(ROLE_BROTHER)
@@ -1238,7 +1240,7 @@
 			if("brother")
 				if(!has_antag_datum(/datum/antagonist/brother))
 					var/list/candidates = list()
-					for(var/mob/living/L in GLOB.alive_mob_list)
+					for(var/mob/living/L in GLOB.player_list)
 						if(!L.mind || L.mind == current || L.mind.has_antag_datum(/datum/antagonist/brother))
 							continue
 						
@@ -1248,19 +1250,22 @@
 					if(!choice)
 						message_admins("[key_name_admin(usr)] tried to create blood brother team with no suitable candidates")
 						return
+					var/choice2 = alert(usr, "Randomise blood bother objectives?", "Randomise Objectives", "Yes", "No") //We're asking here, otherwise go set up objectives in the teams edit_team
+					if(choice2 == "No")
+						message_admins("[key_name_admin(usr)] created blood brother team with no objectives")
 					var/datum/mind/bro = candidates[choice]
 					var/datum/team/brother_team/T = new
 					T.add_member(src)
 					T.add_member(bro)
+					if(choice2 == "Yes")
+						T.forge_brother_objectives()
 					T.pick_meeting_area()
-					T.forge_brother_objectives()
 					add_antag_datum(/datum/antagonist/brother, T)
 					bro.add_antag_datum(/datum/antagonist/brother, T)
 					T.update_name()
 					SSticker.mode.brother_teams += T
 					message_admins("[key_name_admin(usr)] made [key_name_admin(current)] and [key_name_admin(bro)] into blood brothers.")
 					log_admin("[key_name(usr)] made [key_name(current)] and [key_name(bro)] into blood brothers.")
-
 
 	else if(href_list["contractor"])
 		var/datum/antagonist/traitor/contractor/C = has_antag_datum(/datum/antagonist/traitor/contractor)

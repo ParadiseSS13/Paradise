@@ -1717,6 +1717,9 @@
 	else if(href_list["check_antagonist"])
 		check_antagonists()
 
+	else if(href_list["check_antagonist_teams"])
+		check_antagonist_teams()
+
 	else if(href_list["take_question"])
 		var/index = text2num(href_list["take_question"])
 
