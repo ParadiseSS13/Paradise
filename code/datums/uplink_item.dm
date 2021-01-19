@@ -1717,6 +1717,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	else if(!AT)
 		to_chat(usr, "<span class='warning'>Error: Embedded Syndicate credentials not found.</span>")
 		return
+	else if (mind.changeling || mind.vampire)
+		to_chat(usr, "<span class='warning'>Error: Embedded Syndicate credentials contain an abnormal signature. Aborting.</span>")
+		return
 
 	var/obj/item/I = ..()
 	// Init the hub
