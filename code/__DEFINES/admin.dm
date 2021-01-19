@@ -72,3 +72,19 @@
 #define MAX_KEYPRESS_AUTOKICK 50
 ///Length of held key rolling buffer
 #define HELD_KEY_BUFFER_LENGTH 15
+
+/// Note text for suppressed CID warning
+#define CIDWARNING_SUPPRESSED_NOTETEXT "CID COUNT WARNING DISABLED - Delete this note to re-enable"
+
+/// Note "ckey" for CID info tracking. Do not EVER update this.
+#define CIDTRACKING_PSUEDO_CKEY "ALICE-CIDTRACKING"
+
+// Connection types. These match enums in the SQL DB. Dont change them
+/// Client was let into the server
+#define CONNECTION_TYPE_ESTABLISHED "ESTABLISHED"
+/// Client was disallowed due to IPIntel
+#define CONNECTION_TYPE_DROPPED_IPINTEL "DROPPED - IPINTEL"
+/// Client was disallowed due to being banned
+#define CONNECTION_TYPE_DROPPED_BANNED "DROPPED - BANNED"
+/// Client was disallowed due to invalid data
+#define CONNECTION_TYPE_DROPPED_INVALID "DROPPED - INVALID"
