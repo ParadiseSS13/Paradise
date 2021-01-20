@@ -104,11 +104,12 @@ emp_act
 	var/obj/item/organ/external/affecting = get_organ(check_zone(def_zone))
 	if(affecting && !affecting.cannot_amputate && affecting.get_damage() >= (affecting.max_damage - P.dismemberment))
 		var/damtype = DROPLIMB_SHARP
-		switch(P.damage_type)
-			if(BRUTE)
-				damtype = DROPLIMB_BLUNT
-			if(BURN)
-				damtype = DROPLIMB_BURN
+		if(!P.sharp)
+			switch(P.damage_type)
+				if(BRUTE)
+					damtype = DROPLIMB_BLUNT
+				if(BURN)
+					damtype = DROPLIMB_BURN
 
 		affecting.droplimb(FALSE, damtype)
 
