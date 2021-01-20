@@ -18,6 +18,7 @@
 							//some ban types kick players after this proc passes (tempban, permaban), but some are specific to db_ban, so
 							//they should kick within this proc.
 	var/isjobban // For job bans, which need to be inserted into the job ban lists
+	var/is_species_ban = FALSE // Is this a species ban?
 	switch(bantype)
 		if(BANTYPE_PERMA)
 			bantype_str = "PERMABAN"
@@ -56,6 +57,11 @@
 			announce_in_discord = TRUE
 			blockselfban = 1
 			kickbannedckey = 1
+		if(BANTYPE_SPECIES)
+			bantype_str = "SPECIES_BAN"
+			duration = -1
+			bantype_pass = TRUE
+			is_species_ban = TRUE
 
 	if( !bantype_pass ) return
 	if( !istext(reason) ) return
@@ -183,6 +189,8 @@
 
 	if(isjobban)
 		jobban_client_fullban(ckey, job)
+	else if (is_species_ban)
+		add_species_ban(ckey, job)
 	else
 		flag_account_for_forum_sync(ckey)
 
@@ -353,6 +361,7 @@
 				DB_ban_unban_by_id(banid)
 				if(job && length(job))
 					jobban_unban_client(pckey, job)
+					remove_species_ban(pckey, job)
 				return
 			else
 				to_chat(usr, "Cancelled")
@@ -460,12 +469,14 @@
 	output += "<option value='[BANTYPE_APPEARANCE]'>APPEARANCE BAN</option>"
 	output += "<option value='[BANTYPE_ADMIN_PERMA]'>ADMIN PERMABAN</option>"
 	output += "<option value='[BANTYPE_ADMIN_TEMP]'>ADMIN TEMPBAN</option>"
+	output += "<option value='[BANTYPE_SPECIES]'>SPECIES BAN</option>"
 	output += "</select></td>"
 	output += "<td width='50%' align='right'><b>Ckey:</b> <input type='text' name='dbbanaddckey'></td></tr>"
 	output += "<tr><td width='50%' align='right'><b>IP:</b> <input type='text' name='dbbanaddip'></td>"
 	output += "<td width='50%' align='right'><b>CID:</b> <input type='text' name='dbbanaddcid'></td></tr>"
-	output += "<tr><td width='50%' align='right'><b>Duration:</b> <input type='text' name='dbbaddduration'></td>"
-	output += "<td width='50%' align='right'><b>Job:</b><select name='dbbanaddjob'>"
+	output += "<tr><td width='40%'><b>Duration:</b><br><input type='text' name='dbbaddduration'></td>"
+	// Add jobs in
+	output += "<td width='30%'><b>Job:</b><br><select name='dbbanaddjob'>"
 	output += "<option value=''>--</option>"
 	for(var/j in get_all_jobs())
 		output += "<option value='[j]'>[j]</option>"
@@ -477,6 +488,12 @@
 		output += "<option value='[j]'>[j]</option>"
 	for(var/j in list("Syndicate") + GLOB.antag_roles)
 		output += "<option value='[j]'>[j]</option>"
+	// Add species in
+	output += "</select></td><td width='30%'><small><b>Species (If Applicable):</b></small><br><select name='dbbanaddspecies'>"
+	output += "<option value=''>--</option>"
+	for(var/s in GLOB.all_species) // Keys only
+		output += "<option value='[s]'>[s]</option>"
+
 	output += "</select></td></tr></table>"
 	output += "<b>Reason:<br></b><textarea name='dbbanreason' cols='50'></textarea><br>"
 	output += "<input type='checkbox' value='1' name='autopopulate' checked='1'>&nbsp;Auto populate CID & IP for online players<br>"

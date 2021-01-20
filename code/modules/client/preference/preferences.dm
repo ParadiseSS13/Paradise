@@ -1318,7 +1318,14 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					else //Not using the whitelist? Aliens for everyone!
 						new_species += GLOB.whitelisted_species
 
-					species = input("Please select a species", "Character Generation", null) in sortTim(new_species, /proc/cmp_text_asc)
+					var/formatted_species = list()
+					for(var/species in new_species)
+						if(is_species_banned(user.ckey, species))
+							formatted_species += "--[species]-- BANNED" // This name is not only a good identifier for a user, it also isnt a valid name to select from the GLOB list
+						else
+							formatted_species += species
+
+					species = input("Please select a species", "Character Generation", null) in sortTim(formatted_species, /proc/cmp_text_asc)
 					var/datum/species/NS = GLOB.all_species[species]
 					if(!istype(NS)) //The species was invalid. Notify the user and fail out.
 						species = prev_species

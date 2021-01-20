@@ -21,6 +21,7 @@
 #define BANTYPE_APPEARANCE  6
 #define BANTYPE_ADMIN_PERMA	7
 #define BANTYPE_ADMIN_TEMP	8
+#define BANTYPE_SPECIES		9
 
 //Please don't edit these values without speaking to Errorage first	~Carn
 //Admin Permissions

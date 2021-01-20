@@ -1214,6 +1214,20 @@
 			message_admins("<font color='red'>[ckey] has just connected and has a history of [cidcount] different CIDs.</font> (<a href='?_src_=holder;webtools=[ckey]'>WebInfo</a>) (<a href='?_src_=holder;suppresscidwarning=[ckey]'>Suppress Warning</a>)")
 
 
+#define DB_VERB_COOLDOWN 2 SECONDS // Edit this if you see fit in the future -aa
+/// Helper to make sure client cant macro-spam verbs which make DB lookups. 2 second delay between each one.
+/client/proc/handle_db_verb_limit()
+	if(last_db_verb < world.time)
+		last_db_verb = world.time + DB_VERB_COOLDOWN
+		return FALSE
+
+	// If they tried to spam it, reset their cooldown
+	last_db_verb = world.time + DB_VERB_COOLDOWN
+	to_chat(usr, "<span class='warning'>You cant press that so quickly. Please wait [DB_VERB_COOLDOWN / 10] seconds.</span>")
+	return TRUE
+
+#undef DB_VERB_COOLDOWN
+
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND
 #undef SECOND_COUNT

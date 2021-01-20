@@ -34,6 +34,9 @@
 	switch(action)
 		if("race")
 			if(can_change(APPEARANCE_RACE) && (params["race"] in valid_species))
+				if(is_species_banned(owner.ckey, params["race"]))
+					to_chat(owner, "<span class='danger'>You are banned from [params["race"]]. You cannot transform to them.</span>")
+					return FALSE
 				var/datum/species/S = GLOB.all_species[params["race"]]
 				if(owner.set_species(S.type))
 					cut_and_generate_data()

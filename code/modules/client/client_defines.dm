@@ -112,6 +112,9 @@
 	/// Is the client watchlisted
 	var/watchlisted = FALSE
 
+	/// Time of last DB verb used (Avoids DB spam with verbs)
+	var/last_db_verb = 0
+
 /client/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		// I know we will never be in a world where admins are editing client vars to let people bypass TOS

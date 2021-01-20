@@ -148,11 +148,15 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 
 	if(!client || !ckey)
 		return
+
 	if(config.ban_legacy_system)
 		//using the legacy .txt ban system
 		to_chat(src, "The server is using the legacy ban system. Ask an administrator for help!")
 
 	else
+		// Dont let the client melt the server with SQL queries on a macro'd verb
+		if(client.handle_db_verb_limit())
+			return
 		//using the SQL ban system
 		var/is_actually_banned = FALSE
 		var/datum/db_query/select_query = SSdbcore.NewQuery({"

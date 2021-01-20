@@ -106,6 +106,7 @@
 		var/bancid = href_list["dbbanaddcid"]
 		var/banduration = text2num(href_list["dbbaddduration"])
 		var/banjob = href_list["dbbanaddjob"]
+		var/banspecies = href_list["dbbanaddspecies"]
 		var/banreason = href_list["dbbanreason"]
 
 		var/job_ban = FALSE
@@ -121,39 +122,52 @@
 					return
 				banduration = null
 				banjob = null
+				banspecies = null
 			if(BANTYPE_TEMP)
 				if(!banckey || !banreason || !banduration)
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey, reason and duration)</span>")
 					return
 				banjob = null
+				banspecies = null
 			if(BANTYPE_JOB_PERMA)
 				if(!banckey || !banreason || !banjob)
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey, reason and job)</span>")
 					return
 				banduration = null
 				job_ban = TRUE
+				banspecies = null
 			if(BANTYPE_JOB_TEMP)
 				if(!banckey || !banreason || !banjob || !banduration)
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey, reason and job)</span>")
 					return
 				job_ban = TRUE
+				banspecies = null
 			if(BANTYPE_APPEARANCE)
 				if(!banckey || !banreason)
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey and reason)</span>")
 					return
 				banduration = null
 				banjob = null
+				banspecies = null
 			if(BANTYPE_ADMIN_PERMA)
 				if(!banckey || !banreason)
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey and reason)</span>")
 					return
 				banduration = null
 				banjob = null
+				banspecies = null
 			if(BANTYPE_ADMIN_TEMP)
 				if(!banckey || !banreason || !banduration)
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey, reason and duration)</span>")
 					return
 				banjob = null
+				banspecies = null
+			if(BANTYPE_SPECIES)
+				if(!banckey || !banspecies)
+					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey and species)</span>")
+					return
+				// We piggyback on job bans here to avoid another column in the DB
+				banjob = banspecies
 
 		var/mob/playermob
 
@@ -231,7 +245,6 @@
 
 			for(var/job in notbannedlist)
 				DB_ban_record(bantype, playermob, banduration, banreason, job, null, banckey, banip, bancid)
-
 		// Otherwise, do it normally
 		else
 			DB_ban_record(bantype, playermob, banduration, banreason, banjob, null, banckey, banip, bancid)

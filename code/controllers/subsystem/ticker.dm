@@ -387,8 +387,8 @@ SUBSYSTEM_DEF(ticker)
 			else if(!player.mind.assigned_role)
 				continue
 			else
-				player.create_character()
-				qdel(player)
+				if(player.create_character())
+					qdel(player)
 
 /datum/controller/subsystem/ticker/proc/equip_characters()
 	var/captainless = TRUE

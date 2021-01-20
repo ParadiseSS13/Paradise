@@ -121,12 +121,19 @@
 			else
 				race_list += GLOB.whitelisted_species
 
+
+			// Format the list
+			var/list/formatted_races = list()
+			for(var/species in race_list)
+				if(!is_species_banned(H.ckey, species))
+					formatted_races += species
+
 			var/datum/ui_module/appearance_changer/AC = ui_users[user]
 			if(!AC)
 				AC = new(src, user)
 				AC.name = "Magic Mirror"
 				AC.flags = APPEARANCE_ALL
-				AC.whitelist = race_list
+				AC.whitelist = formatted_races
 				ui_users[user] = AC
 			AC.ui_interact(user)
 

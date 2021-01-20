@@ -298,6 +298,9 @@
 	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 		to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 		return 0
+	if(is_species_banned(ckey, client.prefs.species))
+		to_chat(usr, "<span class='danger'>You are banned from [client.prefs.species]. You have been returned to lobby.</span>")
+		return FALSE // Do NOT spawn them
 	if(!GLOB.enter_allowed)
 		to_chat(usr, "<span class='notice'>There is an administrative lock on entering the game!</span>")
 		return 0
@@ -528,6 +531,9 @@
 	popup.open(0) // 0 is passed to open so that it doesn't use the onclose() proc
 
 /mob/new_player/proc/create_character()
+	if(is_species_banned(ckey, client.prefs.species))
+		to_chat(client, "<span class='danger'>You are banned from [client.prefs.species]. You have been returned to lobby.</span>")
+		return FALSE // Do NOT spawn them
 	spawning = 1
 	close_spawn_windows()
 

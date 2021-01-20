@@ -61,6 +61,7 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 // If it doesnt need to happen IMMEDIATELY on world load, make a subsystem for it
 /world/proc/startup_procs()
 	LoadBans() // Load up who is banned and who isnt. DONT PUT THIS IN A SUBSYSTEM IT WILL TAKE TOO LONG TO BE CALLED
+	load_all_species_bans() // Load up species bans. See above and below comments.
 	jobban_loadbanfile() // Load up jobbans. Again, DO NOT PUT THIS IN A SUBSYSTEM IT WILL TAKE TOO LONG TO BE CALLED
 	load_motd() // Loads up the MOTD (Welcome message players see when joining the server)
 	load_mode() // Loads up the gamemode
