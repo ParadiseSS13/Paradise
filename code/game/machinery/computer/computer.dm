@@ -132,6 +132,10 @@
 			var/obj/item/circuitboard/M = new circuit(A)
 			A.setDir(dir)
 			A.circuit = M
+			if(istype(src,/obj/machinery/computer/aiupload))
+				var/obj/machinery/computer/aiupload/AI = src
+				var/obj/item/circuitboard/aiupload/C = M //If you had a circuit that is not an ai upload circuit in an AI upload, someone was var edititng
+				C.uses = AI.uses
 			A.anchored = TRUE
 			if(stat & BROKEN)
 				if(user)

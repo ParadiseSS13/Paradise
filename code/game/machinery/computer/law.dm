@@ -45,11 +45,6 @@
 /obj/machinery/computer/aiupload/attack_ghost(user as mob)
 	return 1
 
-///obj/machinery/computer/aiupload/deconstruct()
-//	M.circuit.uses = uses
-//	..()
-
-
 /obj/machinery/computer/borgupload
 	name = "cyborg upload console"
 	desc = "Used to upload laws to Cyborgs."
