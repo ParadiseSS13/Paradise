@@ -198,7 +198,7 @@
 			V.show_message("[usr] starts stuffing [target.name] into the disposal.", 3)
 	if(!do_after(usr, 20, target = target))
 		return
-	if(target_loc != target.loc)
+	if(QDELETED(src) || target_loc != target.loc)
 		return
 	if(target == user && !user.stat && !user.IsWeakened() && !user.stunned && !user.paralysis)	// if drop self, then climbed in
 											// must be awake, not stunned or whatever
@@ -368,7 +368,6 @@
 		if( contents.len )
 			if(mode == 2)
 				spawn(0)
-					feedback_inc("disposal_auto_flush",1)
 					flush()
 		flush_count = 0
 
@@ -693,8 +692,8 @@
 	var/base_icon_state	// initial icon state on map
 
 	// new pipe, set the icon_state as on map
-/obj/structure/disposalpipe/New()
-	..()
+/obj/structure/disposalpipe/Initialize(mapload)
+	. = ..()
 	base_icon_state = icon_state
 
 
@@ -754,8 +753,8 @@
 
 // update the icon_state to reflect hidden status
 /obj/structure/disposalpipe/proc/update()
-	var/turf/T = src.loc
-	hide(T.intact && !istype(T,/turf/space))	// space never hides pipes
+	var/turf/T = get_turf(src)
+	hide(T.intact && !istype(T, /turf/space))	// space never hides pipes
 	update_icon()
 
 // hide called by levelupdate if turf intact status changes
@@ -935,13 +934,12 @@
 /obj/structure/disposalpipe/segment
 	icon_state = "pipe-s"
 
-/obj/structure/disposalpipe/segment/New()
-	..()
+/obj/structure/disposalpipe/segment/Initialize(mapload)
+	. = ..()
 	if(icon_state == "pipe-s")
 		dpdir = dir | turn(dir, 180)
 	else
 		dpdir = dir | turn(dir, -90)
-
 	update()
 
 
@@ -950,8 +948,8 @@
 /obj/structure/disposalpipe/junction
 	icon_state = "pipe-j1"
 
-/obj/structure/disposalpipe/junction/New()
-	..()
+/obj/structure/disposalpipe/junction/Initialize(mapload)
+	. = ..()
 	if(icon_state == "pipe-j1")
 		dpdir = dir | turn(dir, -90) | turn(dir,180)
 	else if(icon_state == "pipe-j2")
@@ -1016,8 +1014,8 @@
 
 	dpdir = sortdir | posdir | negdir
 
-/obj/structure/disposalpipe/sortjunction/New()
-	..()
+/obj/structure/disposalpipe/sortjunction/Initialize(mapload)
+	. = ..()
 	updatedir()
 	updatedesc()
 	update()
@@ -1083,8 +1081,8 @@
 	var/negdir = 0
 	var/sortdir = 0
 
-/obj/structure/disposalpipe/wrapsortjunction/New()
-	..()
+/obj/structure/disposalpipe/wrapsortjunction/Initialize(mapload)
+	. = ..()
 	posdir = dir
 	if(icon_state == "pipe-j1s")
 		sortdir = turn(posdir, -90)
@@ -1138,11 +1136,10 @@
 	icon_state = "pipe-t"
 	var/obj/linked 	// the linked obj/machinery/disposal or obj/disposaloutlet
 
-/obj/structure/disposalpipe/trunk/New()
-	..()
+/obj/structure/disposalpipe/trunk/Initialize(mapload)
+	. = ..()
 	dpdir = dir
-	spawn(1)
-		getlinked()
+	addtimer(CALLBACK(src, .proc/getlinked), 0) // This has a delay of 0, but wont actually start until the MC is done
 
 	update()
 	return
@@ -1160,11 +1157,12 @@
 	return ..()
 
 /obj/structure/disposalpipe/trunk/proc/getlinked()
-	var/obj/machinery/disposal/D = locate() in src.loc
+	var/turf/T = get_turf(src)
+	var/obj/machinery/disposal/D = locate() in T
 	if(D)
 		nicely_link_to_other_stuff(D)
 		return
-	var/obj/structure/disposaloutlet/O = locate() in src.loc
+	var/obj/structure/disposaloutlet/O = locate() in T
 	if(O)
 		nicely_link_to_other_stuff(O)
 
@@ -1244,8 +1242,8 @@
 					// i.e. will be treated as an empty turf
 	desc = "A broken piece of disposal pipe."
 
-/obj/structure/disposalpipe/broken/New()
-	..()
+/obj/structure/disposalpipe/broken/Initialize(mapload)
+	. = ..()
 	update()
 	return
 
@@ -1270,13 +1268,16 @@
 	var/obj/structure/disposalpipe/trunk/linkedtrunk
 	var/mode = 0
 
-/obj/structure/disposaloutlet/New()
-	..()
-	spawn(1)
-		target = get_ranged_target_turf(src, dir, 10)
-		var/obj/structure/disposalpipe/trunk/T = locate() in loc
-		if(T)
-			T.nicely_link_to_other_stuff(src)
+/obj/structure/disposaloutlet/Initialize(mapload)
+	. = ..()
+	addtimer(CALLBACK(src, .proc/setup), 0) // Wait of 0, but this wont actually do anything until the MC is firing
+
+
+/obj/structure/disposaloutlet/proc/setup()
+	target = get_ranged_target_turf(src, dir, 10)
+	var/obj/structure/disposalpipe/trunk/T = locate() in get_turf(src)
+	if(T)
+		T.nicely_link_to_other_stuff(src)
 
 /obj/structure/disposaloutlet/Destroy()
 	if(linkedtrunk)

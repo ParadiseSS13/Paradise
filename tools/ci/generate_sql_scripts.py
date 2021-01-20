@@ -6,6 +6,7 @@
 import glob, os, shutil, stat
 os.chdir("SQL/updates")
 sqlFiles = glob.glob("*.sql")
+sqlFiles += glob.glob("*.py")
 orderedSqlFiles = []
 # These need to be ordered properly, so begin awful hacky code
 for fileName in sqlFiles:
@@ -15,8 +16,12 @@ for fileName in sqlFiles:
 orderedSqlFiles = sorted(orderedSqlFiles)
 
 for index in orderedSqlFiles:
-    # Yes I know half these casts are probably not necassary, but python is very picky
-    orderedSqlFiles[index] = str(index) + "-" + (str(int(index)+1)) + ".sql"
+    # Yes I know half of the casts below this are probably not necassary, but python is very picky
+    # AND YES I KNOW THIS IS SNOWFLAKEY AS HELL, BUT IT MUST BE DONE FOR PROPER CI
+    if index in [16, 17]:
+        orderedSqlFiles[index] = str(index) + "-" + (str(int(index)+1)) + ".py"
+    else:
+        orderedSqlFiles[index] = str(index) + "-" + (str(int(index)+1)) + ".sql"
 
 print("Found " + str(len(orderedSqlFiles)) + " SQL update files to validate")
 
@@ -39,24 +44,36 @@ os.mkdir("tools/ci/sql_tmp")
 scriptLines = [
     "#!/bin/bash\n",
     "set -euo pipefail\n"
+    "python3 -m pip install setuptools\n" # Yes I know you can PIP multiple things but they need to happen in this order
+    "python3 -m pip install mysql-connector\n"
     "mysql -u root -proot < tools/ci/sql_v0.sql\n"
 ]
 
 # And write the files and tell them to be used
 for file in orderedSqlFiles:
-    inFile = open("SQL/updates/" + file, "r")
-    fileLines = inFile.readlines()
-    inFile.close()
-    # Add in a line which tells it to use the feedback DB
-    fileLines.insert(0, "USE `feedback`;\n")
+    if file.endswith(".py"):
+        # Begin snowflakery
+        if file == "16-17.py":
+            scriptLines.append("python3 SQL/updates/" + str(file) + " 127.0.0.1 root root feedback feedback round\n")
+        elif file == "17-18.py":
+            scriptLines.append("python3 SQL/updates/" + str(file) + " 127.0.0.1 root root feedback feedback feedback_2\n")
+        else:
+            print("ERROR: CI failed due to invalid python file in SQL/updates")
+            exit(1)
+    else:
+        inFile = open("SQL/updates/" + file, "r")
+        fileLines = inFile.readlines()
+        inFile.close()
+        # Add in a line which tells it to use the feedback DB
+        fileLines.insert(0, "USE `feedback`;\n")
 
-    # Write new files to be used by the testing script
-    outFile = open("tools/ci/sql_tmp/" + file, "w+")
-    outFile.writelines(fileLines)
-    outFile.close()
+        # Write new files to be used by the testing script
+        outFile = open("tools/ci/sql_tmp/" + file, "w+")
+        outFile.writelines(fileLines)
+        outFile.close()
 
-    # Add a line to the script being made that tells it to use this SQL file
-    scriptLines.append("mysql -u root -proot < tools/ci/sql_tmp/" + str(file) + "\n")
+        # Add a line to the script being made that tells it to use this SQL file
+        scriptLines.append("mysql -u root -proot < tools/ci/sql_tmp/" + str(file) + "\n")
 
 scriptLines.append("mysql -u root -proot -e 'DROP DATABASE feedback;'\n")
 scriptLines.append("mysql -u root -proot < SQL/paradise_schema_prefixed.sql\n")

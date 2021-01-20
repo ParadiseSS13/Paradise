@@ -1,6 +1,6 @@
 /obj/item/nullrod
 	name = "null rod"
-	desc = "A rod of pure obsidian, its very presence disrupts and dampens the powers of Nar'Sie's followers."
+	desc = "A rod of pure obsidian, its very presence disrupts and dampens the powers of dark magic."
 	icon_state = "nullrod"
 	item_state = "nullrod"
 	force = 15
@@ -8,10 +8,27 @@
 	throw_range = 4
 	throwforce = 10
 	w_class = WEIGHT_CLASS_TINY
+	/// Null rod variant names, used for the radial menu
+	var/static/list/variant_names = list()
+	/// Null rod variant icons, used for the radial menu
+	var/static/list/variant_icons = list()
+	/// Has the null rod been reskinned yet
 	var/reskinned = FALSE
-	var/reskin_selectable = TRUE			//set to FALSE if a subtype is meant to not normally be available as a reskin option (fluff ones will get re-added through their list)
-	var/list/fluff_transformations = list() //does it have any special transformations only accessible to it? Should only be subtypes of /obj/item/nullrod
+	/// Is this variant selectable through the reskin menu (Set to FALSE for fluff items)
+	var/reskin_selectable = TRUE
+	/// Does this null rod have fluff variants available
+	var/list/fluff_transformations = list()
+	/// Extra 'Holy' burn damage for ERT null rods
 	var/sanctify_force = 0
+
+/obj/item/nullrod/Initialize(mapload)
+	. = ..()
+	if(!length(variant_names))
+		for(var/I in typesof(/obj/item/nullrod))
+			var/obj/item/nullrod/rod = I
+			if(initial(rod.reskin_selectable))
+				variant_names[initial(rod.name)] = rod
+				variant_icons += list(initial(rod.name) = image(icon = initial(rod.icon), icon_state = initial(rod.icon_state)))
 
 /obj/item/nullrod/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is killing [user.p_them()]self with \the [src.name]! It looks like [user.p_theyre()] trying to get closer to god!</span>")
@@ -19,12 +36,10 @@
 
 /obj/item/nullrod/attack(mob/M, mob/living/carbon/user)
 	..()
-	if(M.mind)
-		if(M.mind.vampire)
-			if(ishuman(M))
-				if(!M.mind.vampire.get_ability(/datum/vampire_passive/full))
-					to_chat(M, "<span class='warning'>The nullrod's power interferes with your own!</span>")
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+	if(ishuman(M) && M.mind?.vampire)
+		if(!M.mind.vampire.get_ability(/datum/vampire_passive/full))
+			to_chat(M, "<span class='warning'>The nullrod's power interferes with your own!</span>")
+			M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 
 /obj/item/nullrod/pickup(mob/living/user)
 	. = ..()
@@ -41,7 +56,7 @@
 
 
 /obj/item/nullrod/attack_self(mob/user)
-	if(user.mind && (user.mind.isholy) && !reskinned)
+	if(user.mind?.isholy && !reskinned)
 		reskin_holy_weapon(user)
 
 /obj/item/nullrod/examine(mob/living/user)
@@ -49,39 +64,35 @@
 	if(sanctify_force)
 		. += "<span class='notice'>It bears the inscription: 'Sanctified weapon of the inquisitors. Only the worthy may wield. Nobody shall expect us.'</span>"
 
-/obj/item/nullrod/proc/reskin_holy_weapon(mob/M)
-	var/list/holy_weapons_list = typesof(/obj/item/nullrod)
-	for(var/entry in holy_weapons_list)
-		var/obj/item/nullrod/variant = entry
-		if(!initial(variant.reskin_selectable))
-			holy_weapons_list -= variant
-	if(fluff_transformations.len)
-		for(var/thing in fluff_transformations)
-			holy_weapons_list += thing
-	var/list/display_names = list()
-	for(var/V in holy_weapons_list)
-		var/atom/A = V
-		display_names += initial(A.name)
-
-	var/choice = input(M,"What theme would you like for your holy weapon?","Holy Weapon Theme") as null|anything in display_names
-	if(!src || !choice || !in_range(M, src) || M.incapacitated() || reskinned)
+/obj/item/nullrod/proc/reskin_holy_weapon(mob/user)
+	if(!ishuman(user))
+		return
+	for(var/I in fluff_transformations) // If it's a fluffy null rod
+		var/obj/item/nullrod/rod = I
+		variant_names[initial(rod.name)] = rod
+		variant_icons += list(initial(rod.name) = image(icon = initial(rod.icon), icon_state = initial(rod.icon_state)))
+	var/mob/living/carbon/human/H = user
+	var/choice = show_radial_menu(H, src, variant_icons, null, 40, CALLBACK(src, .proc/radial_check, H), TRUE)
+	if(!choice || !radial_check(H))
 		return
 
-	var/index = display_names.Find(choice)
-	var/A = holy_weapons_list[index]
+	var/picked_type = variant_names[choice]
+	var/obj/item/nullrod/new_rod = new picked_type(get_turf(user))
 
-	var/obj/item/nullrod/holy_weapon = new A
+	SSblackbox.record_feedback("text", "chaplain_weapon", 1, "[picked_type]", 1)
 
-	feedback_set_details("chaplain_weapon","[choice]")
-
-	if(holy_weapon)
-		holy_weapon.reskinned = TRUE
-		M.unEquip(src)
-		M.put_in_active_hand(holy_weapon)
-		if(sanctify_force)
-			holy_weapon.sanctify_force = sanctify_force
-			holy_weapon.name = "sanctified " + holy_weapon.name
+	if(new_rod)
+		new_rod.reskinned = TRUE
 		qdel(src)
+		user.put_in_active_hand(new_rod)
+		if(sanctify_force)
+			new_rod.sanctify_force = sanctify_force
+			new_rod.name = "sanctified " + new_rod.name
+
+/obj/item/nullrod/proc/radial_check(mob/living/carbon/human/user)
+	if(!src || !user.is_in_hands(src) || user.incapacitated() || reskinned)
+		return FALSE
+	return TRUE
 
 /obj/item/nullrod/afterattack(atom/movable/AM, mob/user, proximity)
 	. = ..()
@@ -133,7 +144,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = SLOT_BACK|SLOT_BELT
 	block_chance = 30
-	sharp = 1
+	sharp = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
@@ -219,7 +230,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 35
 	slot_flags = SLOT_BACK
-	sharp = 1
+	sharp = TRUE
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 
@@ -258,13 +269,13 @@
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the spirit of [user.real_name]'s blade?", ROLE_PAI, FALSE, 10 SECONDS, source = src)
 	var/mob/dead/observer/theghost = null
 
-	if(candidates.len)
+	if(length(candidates))
 		theghost = pick(candidates)
 		var/mob/living/simple_animal/shade/sword/S = new(src)
 		S.real_name = name
 		S.name = name
 		S.ckey = theghost.ckey
-		var/input = stripped_input(S,"What are you named?", ,"", MAX_NAME_LEN)
+		var/input = stripped_input(S, "What are you named?", null, "", MAX_NAME_LEN)
 
 		if(src && input)
 			name = input
@@ -297,7 +308,7 @@
 	item_state = "mounted_chainsaw"
 	w_class = WEIGHT_CLASS_HUGE
 	flags = NODROP | ABSTRACT
-	sharp = 1
+	sharp = TRUE
 	attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsaw.ogg'
 
@@ -308,7 +319,7 @@
 	item_state = "gold_horn"
 	desc = "Used for absolutely hilarious sacrifices."
 	hitsound = 'sound/items/bikehorn.ogg'
-	sharp = 1
+	sharp = TRUE
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "honked")
 
 /obj/item/nullrod/whip
@@ -353,7 +364,7 @@
 	item_state = "arm_blade"
 	flags = ABSTRACT | NODROP
 	w_class = WEIGHT_CLASS_HUGE
-	sharp = 1
+	sharp = TRUE
 
 /obj/item/nullrod/carp
 	name = "carp-sie plushie"
@@ -382,7 +393,7 @@
 	force = 13
 	block_chance = 40
 	slot_flags = SLOT_BACK
-	sharp = 0
+	sharp = FALSE
 	hitsound = "swing_hit"
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
 	icon_state = "bostaff0"
@@ -394,7 +405,7 @@
 	item_state = "crysknife"
 	w_class = WEIGHT_CLASS_HUGE
 	desc = "They say fear is the true mind killer, but stabbing them in the head works too. Honour compels you to not sheathe it once drawn."
-	sharp = 1
+	sharp = TRUE
 	slot_flags = null
 	flags = HANDSLOW
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -419,7 +430,7 @@
 	desc = "Holding this makes you look absolutely devilish."
 	attack_verb = list("poked", "impaled", "pierced", "jabbed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharp = 1
+	sharp = TRUE
 
 /obj/item/nullrod/rosary
 	name = "prayer beads"
@@ -428,7 +439,7 @@
 	desc = "A set of prayer beads used by many of the more traditional religions in space.<br>Vampires and other unholy abominations have learned to fear these."
 	force = 0
 	throwforce = 0
-	var/praying = 0
+	var/praying = FALSE
 
 /obj/item/nullrod/rosary/New()
 	..()
@@ -438,7 +449,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/nullrod/rosary/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+/obj/item/nullrod/rosary/attack(mob/living/carbon/M, mob/living/carbon/user)
 	if(!iscarbon(M))
 		return ..()
 
@@ -450,24 +461,24 @@
 		to_chat(user, "<span class='notice'>You are already using [src].</span>")
 		return
 
-	user.visible_message("<span class='info'>[user] kneels[M == user ? null : " next to [M]"] and begins to utter a prayer to [SSticker.Bible_deity_name].</span>", \
+	user.visible_message("<span class='info'>[user] kneels[M == user ? null : " next to [M]"] and begins to utter a prayer to [SSticker.Bible_deity_name].</span>",
 		"<span class='info'>You kneel[M == user ? null : " next to [M]"] and begin a prayer to [SSticker.Bible_deity_name].</span>")
 
-	praying = 1
-	if(do_after(user, 150, target = M))
+	praying = TRUE
+	if(do_after(user, 15 SECONDS, target = M))
 		if(ishuman(M))
 			var/mob/living/carbon/human/target = M
 
 			if(target.mind)
 				if(iscultist(target))
 					SSticker.mode.remove_cultist(target.mind) // This proc will handle message generation.
-					praying = 0
+					praying = FALSE
 					return
 
 				if(target.mind.vampire && !target.mind.vampire.get_ability(/datum/vampire_passive/full)) // Getting a full prayer off on a vampire will interrupt their powers for a large duration.
 					target.mind.vampire.nullified = max(120, target.mind.vampire.nullified + 120)
 					to_chat(target, "<span class='userdanger'>[user]'s prayer to [SSticker.Bible_deity_name] has interfered with your power!</span>")
-					praying = 0
+					praying = FALSE
 					return
 
 			if(prob(25))
@@ -477,16 +488,16 @@
 				target.adjustBruteLoss(-5)
 				target.adjustFireLoss(-5)
 
-			praying = 0
+			praying = FALSE
 
 	else
 		to_chat(user, "<span class='notice'>Your prayer to [SSticker.Bible_deity_name] was interrupted.</span>")
-		praying = 0
+		praying = FALSE
 
 /obj/item/nullrod/rosary/process()
 	if(ishuman(loc))
 		var/mob/living/carbon/human/holder = loc
-		if(src == holder.l_hand || src == holder.r_hand) // Holding this in your hand will
+		if(holder.l_hand == src || holder.r_hand == src) // Holding this in your hand will
 			for(var/mob/living/carbon/human/H in range(5, loc))
 				if(H.mind && H.mind.vampire && !H.mind.vampire.get_ability(/datum/vampire_passive/full))
 					H.mind.vampire.nullified = max(5, H.mind.vampire.nullified + 2)
@@ -510,8 +521,8 @@
 		return
 
 	if(!(ghostcall_CD > world.time))
-		ghostcall_CD = world.time + 3000 //deciseconds..5 minutes
-		user.visible_message("<span class='info'>[user] kneels and begins to utter a prayer to [SSticker.Bible_deity_name] while drawing a circle with salt!</span>", \
+		ghostcall_CD = world.time + 5 MINUTES
+		user.visible_message("<span class='info'>[user] kneels and begins to utter a prayer to [SSticker.Bible_deity_name] while drawing a circle with salt!</span>",
 		"<span class='info'>You kneel and begin a prayer to [SSticker.Bible_deity_name] while drawing a circle!</span>")
 		notify_ghosts("The Chaplain is calling ghosts to [get_area(src)] with [name]!", source = src)
 	else
@@ -570,23 +581,23 @@
 
 /obj/item/nullrod/missionary_staff/attack_self(mob/user)
 	if(robes)	//as long as it is linked, sec can't try to meta by stealing your staff and seeing if they get the link error message
-		return 0
+		return FALSE
 	if(!ishuman(user))		//prevents the horror (runtimes) of missionary xenos and other non-human mobs that might be able to activate the item
-		return 0
+		return FALSE
 	var/mob/living/carbon/human/missionary = user
 	if(missionary.wear_suit && istype(missionary.wear_suit, /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe))
 		var/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/robe_to_link = missionary.wear_suit
 		if(robe_to_link.linked_staff)
 			to_chat(missionary, "<span class='warning'>These robes are already linked with a staff and cannot support another. Connection refused.</span>")
-			return 0
+			return FALSE
 		robes = robe_to_link
 		robes.linked_staff = src
 		to_chat(missionary, "<span class='notice'>Link established. Faith generators initialized. Go spread the word.</span>")
 		faith = 100		//full charge when a fresh link is made (can't be delinked without destroying the robes so this shouldn't be an exploitable thing)
-		return 1
+		return TRUE
 	else
 		to_chat(missionary, "<span class='warning'>You must be wearing the missionary robes you wish to link with this staff.</span>")
-		return 0
+		return FALSE
 
 /obj/item/nullrod/missionary_staff/afterattack(mob/living/carbon/human/target, mob/living/carbon/human/missionary, flag, params)
 	if(!ishuman(target) || !ishuman(missionary)) //ishuman checks
@@ -619,7 +630,7 @@
 		to_chat(missionary, "<span class='warning'>Your concentration was broken!</span>")
 
 /obj/item/nullrod/missionary_staff/proc/do_convert(mob/living/carbon/human/target, mob/living/carbon/human/missionary)
-	var/convert_duration = 6000		//10 min
+	var/convert_duration = 10 MINUTES
 
 	if(!target || !ishuman(target) || !missionary || !ishuman(missionary))
 		return

@@ -119,6 +119,7 @@
 
 	if(active)
 		new_character.key = key		//now transfer the key to link the client to our new body
+	SEND_SIGNAL(src, COMSIG_MIND_TRANSER_TO, new_character)
 
 /datum/mind/proc/store_memory(new_text)
 	memory += "[new_text]<BR>"
@@ -891,12 +892,8 @@
 					message_admins("[key_name_admin(usr)] has de-culted [key_name_admin(current)]")
 			if("cultist")
 				if(!(src in SSticker.mode.cult))
-					if(!SSticker.mode.ascend_percent) // If the rise/ascend thresholds haven't been set (non-cult rounds)
-						SSticker.mode.cult_objs.setup()
-						SSticker.mode.cult_threshold_check()
-					SSticker.mode.add_cultist(src)
-					special_role = SPECIAL_ROLE_CULTIST
 					to_chat(current, CULT_GREETING)
+					SSticker.mode.add_cultist(src)
 					to_chat(current, "<span class='cultitalic'>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve [SSticker.cultdat.entity_title2] above all else. Bring It back.</span>")
 					log_and_message_admins("[key_name(usr)] has culted [key_name(current)]")
 			if("dagger")

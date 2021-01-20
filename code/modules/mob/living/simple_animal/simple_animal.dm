@@ -36,8 +36,14 @@
 	//Temperature effect
 	var/minbodytemp = 250
 	var/maxbodytemp = 350
-	var/heat_damage_per_tick = 2	//amount of damage applied if animal's body temperature is higher than maxbodytemp
-	var/cold_damage_per_tick = 2	//same as heat_damage_per_tick, only if the bodytemperature it's lower than minbodytemp
+	/// Amount of damage applied if animal's body temperature is higher than maxbodytemp
+	var/heat_damage_per_tick = 2
+	/// Same as heat_damage_per_tick, only if the bodytemperature it's lower than minbodytemp
+	var/cold_damage_per_tick = 2
+	/// If the mob can catch fire
+	var/can_be_on_fire = FALSE
+	/// Damage the mob will take if it is on fire
+	var/fire_damage = 2
 
 	//Healable by medical stacks? Defaults to yes.
 	var/healable = 1
@@ -394,13 +400,30 @@
 	return TRUE
 
 /mob/living/simple_animal/handle_fire()
-	return TRUE
+	if(!can_be_on_fire)
+		return FALSE
+	. = ..()
+	if(!.)
+		return
+	adjustFireLoss(fire_damage) // Slowly start dying from being on fire
 
 /mob/living/simple_animal/IgniteMob()
-	return FALSE
+	if(!can_be_on_fire)
+		return FALSE
+	return ..()
 
 /mob/living/simple_animal/ExtinguishMob()
-	return
+	if(!can_be_on_fire)
+		return
+	return ..()
+
+
+/mob/living/simple_animal/update_fire()
+	if(!can_be_on_fire)
+		return
+	overlays -= image("icon"='icons/mob/OnFire.dmi', "icon_state"="Generic_mob_burning")
+	if(on_fire)
+		overlays += image("icon"='icons/mob/OnFire.dmi', "icon_state"="Generic_mob_burning")
 
 /mob/living/simple_animal/revive()
 	..()

@@ -8,8 +8,7 @@
 	icon_broken = "capsecurebroken"
 	icon_off = "capsecureoff"
 
-/obj/structure/closet/secure_closet/captains/New()
-	..()
+/obj/structure/closet/secure_closet/captains/populate_contents()
 	if(prob(50))
 		new /obj/item/storage/backpack/captain(src)
 	else
@@ -46,8 +45,7 @@
 	icon_broken = "hopsecurebroken"
 	icon_off = "hopsecureoff"
 
-/obj/structure/closet/secure_closet/hop/New()
-	..()
+/obj/structure/closet/secure_closet/hop/populate_contents()
 	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
 	new /obj/item/clothing/head/hopcap(src)
 	new /obj/item/cartridge/hop(src)
@@ -72,8 +70,7 @@
 	icon_broken = "hopsecurebroken"
 	icon_off = "hopsecureoff"
 
-/obj/structure/closet/secure_closet/hop2/New()
-	..()
+/obj/structure/closet/secure_closet/hop2/populate_contents()
 	new /obj/item/clothing/under/rank/head_of_personnel(src)
 	new /obj/item/clothing/suit/mantle/armor/head_of_personnel(src)
 	new /obj/item/clothing/under/dress/dress_hop(src)
@@ -99,8 +96,7 @@
 	icon_broken = "hossecurebroken"
 	icon_off = "hossecureoff"
 
-/obj/structure/closet/secure_closet/hos/New()
-	..()
+/obj/structure/closet/secure_closet/hos/populate_contents()
 	if(prob(50))
 		new /obj/item/storage/backpack/security(src)
 	else
@@ -140,8 +136,7 @@
 	icon_broken = "wardensecurebroken"
 	icon_off = "wardensecureoff"
 
-/obj/structure/closet/secure_closet/warden/New()
-	..()
+/obj/structure/closet/secure_closet/warden/populate_contents()
 	if(prob(50))
 		new /obj/item/storage/backpack/security(src)
 	else
@@ -178,8 +173,7 @@
 	icon_broken = "secbroken"
 	icon_off = "secoff"
 
-/obj/structure/closet/secure_closet/security/New()
-	..()
+/obj/structure/closet/secure_closet/security/populate_contents()
 	if(prob(50))
 		new /obj/item/storage/backpack/security(src)
 	else
@@ -209,8 +203,7 @@
 	icon_broken = "securemedbroken"
 	icon_off = "securemedoff"
 
-/obj/structure/closet/secure_closet/brigdoc/New()
-	..()
+/obj/structure/closet/secure_closet/brigdoc/populate_contents()
 	if(prob(50))
 		new /obj/item/storage/backpack/medic(src)
 	else
@@ -239,8 +232,7 @@
 	icon_broken = "bssecurebroken"
 	icon_off = "bssecureoff"
 
-/obj/structure/closet/secure_closet/blueshield/New()
-	..()
+/obj/structure/closet/secure_closet/blueshield/populate_contents()
 	new /obj/item/storage/briefcase(src)
 	new	/obj/item/storage/firstaid/adv(src)
 	new /obj/item/pinpointer/crew(src)
@@ -274,8 +266,7 @@
 	icon_broken = "ntsecurebroken"
 	icon_off = "ntsecureoff"
 
-/obj/structure/closet/secure_closet/ntrep/New()
-	..()
+/obj/structure/closet/secure_closet/ntrep/populate_contents()
 	new /obj/item/book/manual/faxes(src)
 	new /obj/item/storage/briefcase(src)
 	new /obj/item/paicard(src)
@@ -295,32 +286,28 @@
 
 /obj/structure/closet/secure_closet/security/cargo
 
-/obj/structure/closet/secure_closet/security/cargo/New()
-	..()
+/obj/structure/closet/secure_closet/security/cargo/populate_contents()
 	new /obj/item/clothing/accessory/armband/cargo(src)
 	new /obj/item/encryptionkey/headset_cargo(src)
 
 
 /obj/structure/closet/secure_closet/security/engine
 
-/obj/structure/closet/secure_closet/security/engine/New()
-	..()
+/obj/structure/closet/secure_closet/security/engine/populate_contents()
 	new /obj/item/clothing/accessory/armband/engine(src)
 	new /obj/item/encryptionkey/headset_eng(src)
 
 
 /obj/structure/closet/secure_closet/security/science
 
-/obj/structure/closet/secure_closet/security/science/New()
-	..()
+/obj/structure/closet/secure_closet/security/science/populate_contents()
 	new /obj/item/clothing/accessory/armband/science(src)
 	new /obj/item/encryptionkey/headset_sci(src)
 
 
 /obj/structure/closet/secure_closet/security/med
 
-/obj/structure/closet/secure_closet/security/med/New()
-	..()
+/obj/structure/closet/secure_closet/security/med/populate_contents()
 	new /obj/item/clothing/accessory/armband/medgreen(src)
 	new /obj/item/encryptionkey/headset_med(src)
 
@@ -337,8 +324,7 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 
-/obj/structure/closet/secure_closet/detective/New()
-	..()
+/obj/structure/closet/secure_closet/detective/populate_contents()
 	new /obj/item/clothing/under/det(src)
 	new /obj/item/clothing/suit/storage/det_suit(src)
 	new /obj/item/clothing/suit/storage/det_suit/forensics/blue(src)
@@ -379,8 +365,7 @@
 	name = "lethal injections locker"
 	req_access = list(ACCESS_SECURITY)
 
-/obj/structure/closet/secure_closet/injection/New()
-	..()
+/obj/structure/closet/secure_closet/injection/populate_contents()
 	new /obj/item/reagent_containers/syringe/lethal(src)
 	new /obj/item/reagent_containers/syringe/lethal(src)
 
@@ -391,8 +376,7 @@
 	anchored = 1
 	var/id = null
 
-/obj/structure/closet/secure_closet/brig/New()
-	..()
+/obj/structure/closet/secure_closet/brig/populate_contents()
 	new /obj/item/clothing/under/color/orange/prison(src)
 	new /obj/item/clothing/shoes/orange(src)
 	new /obj/item/card/id/prisoner/random(src)
@@ -403,8 +387,7 @@
 	name = "courtroom locker"
 	req_access = list(ACCESS_COURT)
 
-/obj/structure/closet/secure_closet/courtroom/New()
-	..()
+/obj/structure/closet/secure_closet/courtroom/populate_contents()
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/paper/Court (src)
 	new /obj/item/paper/Court (src)
@@ -451,8 +434,7 @@
 	icon_broken = "magistratesecurebroken"
 	icon_off = "magistratesecureoff"
 
-/obj/structure/closet/secure_closet/magistrate/New()
-	..()
+/obj/structure/closet/secure_closet/magistrate/populate_contents()
 	new /obj/item/book/manual/faxes(src)
 	new /obj/item/storage/secure/briefcase(src)
 	new /obj/item/flash(src)

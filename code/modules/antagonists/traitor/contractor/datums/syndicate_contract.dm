@@ -465,6 +465,8 @@
 					we thank you for providing them. Your value is expended, and you will be ransomed back to your station. We always get paid, \
 					so it's only a matter of time before we send you back...\"</i></span>")
 
+		to_chat(M, "<span class='danger'><font size=3>You have been kidnapped and interrogated for valuable information! You will be sent back to the station in a few minutes...</font></span>")
+
 /**
   * Handles the target's return to station.
   *
