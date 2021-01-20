@@ -236,8 +236,7 @@
 	if(emp_proof)
 		return
 	if(owner && active && !crit_fail)
-		to_chat(owner, "<span class='danger'>Your translator implant shuts down as a terrible headache hits you!</span>")
-		owner.adjustBrainLoss(20)
+		to_chat(owner, "<span class='danger'>Your translator implant shuts down with a harsh buzz.</span>")
 		addtimer(CALLBACK(src, .proc/reboot), 60 SECONDS)
 		crit_fail = TRUE
 		active = FALSE
