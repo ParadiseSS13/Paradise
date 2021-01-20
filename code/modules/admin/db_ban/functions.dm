@@ -189,7 +189,7 @@
 
 	if(isjobban)
 		jobban_client_fullban(ckey, job)
-	else if (is_species_ban)
+	else if(is_species_ban)
 		add_species_ban(ckey, job)
 	else
 		flag_account_for_forum_sync(ckey)
@@ -695,4 +695,3 @@
 	// We do nothing with output here so we dont need to wrap the warn_execute() inside an if statement
 	adm_query.warn_execute()
 	qdel(adm_query)
-

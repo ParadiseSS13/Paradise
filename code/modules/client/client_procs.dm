@@ -1223,7 +1223,7 @@
 
 	// If they tried to spam it, reset their cooldown
 	last_db_verb = world.time + DB_VERB_COOLDOWN
-	to_chat(usr, "<span class='warning'>You cant press that so quickly. Please wait [DB_VERB_COOLDOWN / 10] seconds.</span>")
+	to_chat(usr, "<span class='warning'>You cannot press that so quickly. Please wait [DB_VERB_COOLDOWN / 10] seconds.</span>")
 	return TRUE
 
 #undef DB_VERB_COOLDOWN
