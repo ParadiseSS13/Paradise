@@ -165,13 +165,13 @@
 		if(!demon_candidates.len)
 			visible_message("<span class='warning'>[src] disappears in a flash of red light!</span>")
 			qdel(src)
-			return 0
+			return
 		var/mob/M = pick(demon_candidates)
 		var/mob/living/simple_animal/slaughter/cult/S = src
 		if(!M || !M.client)
 			visible_message("<span class='warning'>[src] disappears in a flash of red light!</span>")
 			qdel(src)
-			return 0
+			return
 		var/client/C = M.client
 
 		S.key = C.key
