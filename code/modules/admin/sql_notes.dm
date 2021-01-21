@@ -1,5 +1,5 @@
 // Do not attemtp to remove the blank string from the server arg. It will break DB saving.
-/proc/add_note(target_ckey, notetext, timestamp, adminckey, logged = 1, server = "", checkrights = 1)
+/proc/add_note(target_ckey, notetext, timestamp, adminckey, logged = 1, server = "", checkrights = 1, show_after = TRUE, automated = FALSE)
 	if(checkrights && !check_rights(R_ADMIN|R_MOD))
 		return
 	if(!SSdbcore.IsConnected())
@@ -57,15 +57,20 @@
 		if(config && config.server_name)
 			server = config.server_name
 
+	// Force cast this to 1/0 incase someone tries to feed bad data
+	automated = !!automated
+
 	var/datum/db_query/query_noteadd = SSdbcore.NewQuery({"
-		INSERT INTO [format_table_name("notes")] (ckey, timestamp, notetext, adminckey, server, crew_playtime)
-		VALUES (:targetckey, NOW(), :notetext, :adminkey, :server, :crewnum)
+		INSERT INTO [format_table_name("notes")] (ckey, timestamp, notetext, adminckey, server, crew_playtime, round_id, automated)
+		VALUES (:targetckey, NOW(), :notetext, :adminkey, :server, :crewnum, :roundid, :automated)
 	"}, list(
 		"targetckey" = target_ckey,
 		"notetext" = notetext,
 		"adminkey" = adminckey,
 		"server" = server,
-		"crewnum" = crew_number
+		"crewnum" = crew_number,
+		"roundid" = GLOB.round_id,
+		"automated" = automated
 	))
 	if(!query_noteadd.warn_execute())
 		qdel(query_noteadd)
@@ -74,7 +79,8 @@
 	if(logged)
 		log_admin("[usr ? key_name(usr) : adminckey] has added a note to [target_ckey]: [notetext]")
 		message_admins("[usr ? key_name_admin(usr) : adminckey] has added a note to [target_ckey]:<br>[notetext]")
-		show_note(target_ckey)
+		if(show_after)
+			show_note(target_ckey)
 
 /proc/remove_note(note_id)
 	if(!check_rights(R_ADMIN|R_MOD))
@@ -124,7 +130,7 @@
 		return
 	note_id = text2num(note_id)
 	var/target_ckey
-	var/datum/db_query/query_find_note_edit = SSdbcore.NewQuery("SELECT ckey, notetext, adminckey FROM [format_table_name("notes")] WHERE id=:note_id", list(
+	var/datum/db_query/query_find_note_edit = SSdbcore.NewQuery("SELECT ckey, notetext, adminckey, automated FROM [format_table_name("notes")] WHERE id=:note_id", list(
 		"note_id" = note_id
 	))
 	if(!query_find_note_edit.warn_execute())
@@ -134,6 +140,10 @@
 		target_ckey = query_find_note_edit.item[1]
 		var/old_note = query_find_note_edit.item[2]
 		var/adminckey = query_find_note_edit.item[3]
+		var/automated = query_find_note_edit.item[4]
+		if(automated)
+			to_chat(usr, "<span class='notice'>That note is generated automatically. You can't edit it.</span>")
+			return
 		var/new_note = input("Input new note", "New Note", "[old_note]") as message|null
 		if(!new_note)
 			return
@@ -171,7 +181,7 @@
 	if(target_ckey)
 		var/target_sql_ckey = ckey(target_ckey)
 		var/datum/db_query/query_get_notes = SSdbcore.NewQuery({"
-			SELECT id, timestamp, notetext, adminckey, last_editor, server, crew_playtime
+			SELECT id, timestamp, notetext, adminckey, last_editor, server, crew_playtime, round_id, automated
 			FROM [format_table_name("notes")] WHERE ckey=:targetkey ORDER BY timestamp"}, list(
 				"targetkey" = target_sql_ckey
 			))
@@ -190,14 +200,16 @@
 			var/last_editor = query_get_notes.item[5]
 			var/server = query_get_notes.item[6]
 			var/mins = text2num(query_get_notes.item[7])
-			output += "<b>[timestamp] | [server] | [adminckey]"
+			var/round_id = text2num(query_get_notes.item[8])
+			var/automated = text2num(query_get_notes.item[9]) // 0/1 bool stored in table
+			output += "<b>[timestamp][round_id ? " (Round [round_id])" : ""] | [server] | [adminckey]"
 			if(mins)
 				var/playstring = get_exp_format(mins)
 				output += " | [playstring] as Crew"
 			output += "</b>"
 
 			if(!linkless)
-				output += " <a href='?_src_=holder;removenote=[id]'>\[Remove Note\]</a> <a href='?_src_=holder;editnote=[id]'>\[Edit Note\]</a>"
+				output += " <a href='?_src_=holder;removenote=[id]'>\[Remove Note\]</a> [automated ? "\[Automated Note\]" : "<a href='?_src_=holder;editnote=[id]'>\[Edit Note\]</a>"]"
 				if(last_editor)
 					output += " <font size='2'>Last edit by [last_editor] <a href='?_src_=holder;noteedits=[id]'>(Click here to see edit log)</a></font>"
 			output += "<br>[notetext]<hr style='background:#000000; border:0; height:1px'>"

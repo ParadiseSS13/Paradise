@@ -146,8 +146,8 @@
 		qdel(adm_query)
 
 	var/datum/db_query/query_insert = SSdbcore.NewQuery({"
-		INSERT INTO [format_table_name("ban")] (`id`,`bantime`,`serverip`,`bantype`,`reason`,`job`,`duration`,`rounds`,`expiration_time`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`)
-		VALUES (null, Now(), :serverip, :bantype_str, :reason, :job, :duration, :rounds, Now() + INTERVAL :duration MINUTE, :ckey, :computerid, :ip, :a_ckey, :a_computerid, :a_ip, :who, :adminwho, '', null, null, null, null, null)
+		INSERT INTO [format_table_name("ban")] (`id`,`bantime`,`serverip`,`bantype`,`reason`,`job`,`duration`,`rounds`,`expiration_time`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`,`ban_round_id`,`unbanned_round_id`)
+		VALUES (null, Now(), :serverip, :bantype_str, :reason, :job, :duration, :rounds, Now() + INTERVAL :duration MINUTE, :ckey, :computerid, :ip, :a_ckey, :a_computerid, :a_ip, :who, :adminwho, '', null, null, null, null, null, :roundid, null)
 	"}, list(
 		// Get ready for parameters
 		"serverip" = serverip,
@@ -163,7 +163,8 @@
 		"a_computerid" = a_computerid,
 		"a_ip" = a_ip,
 		"who" = who,
-		"adminwho" = adminwho
+		"adminwho" = adminwho,
+		"roundid" = GLOB.round_id
 	))
 	if(!query_insert.warn_execute())
 		qdel(query_insert)
@@ -399,10 +400,11 @@
 	var/unban_computerid = src.owner:computer_id
 	var/unban_ip = src.owner:address
 
-	var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE [format_table_name("ban")] SET unbanned = 1, unbanned_datetime = Now(), unbanned_ckey=:unban_ckey, unbanned_computerid=:unban_computerid, unbanned_ip=:unban_ip WHERE id=:id", list(
+	var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE [format_table_name("ban")] SET unbanned = 1, unbanned_datetime = Now(), unbanned_ckey=:unban_ckey, unbanned_computerid=:unban_computerid, unbanned_ip=:unban_ip, unbanned_round_id=:roundid WHERE id=:id", list(
 		"unban_ckey" = unban_ckey,
 		"unban_computerid" = unban_computerid,
 		"unban_ip" = unban_ip,
+		"roundid" = GLOB.round_id,
 		"id" = id
 	))
 	if(!query_update.warn_execute())
@@ -477,6 +479,7 @@
 		output += "<option value='[j]'>[j]</option>"
 	output += "</select></td></tr></table>"
 	output += "<b>Reason:<br></b><textarea name='dbbanreason' cols='50'></textarea><br>"
+	output += "<input type='checkbox' value='1' name='autopopulate' checked='1'>&nbsp;Auto populate CID & IP for online players<br>"
 	output += "<input type='submit' value='Add ban'>"
 	output += "</form>"
 
@@ -582,7 +585,7 @@
 
 
 			var/datum/db_query/select_query = SSdbcore.NewQuery({"
-				SELECT id, bantime, bantype, reason, job, duration, expiration_time, ckey, a_ckey, unbanned, unbanned_ckey, unbanned_datetime, edits, ip, computerid
+				SELECT id, bantime, bantype, reason, job, duration, expiration_time, ckey, a_ckey, unbanned, unbanned_ckey, unbanned_datetime, edits, ip, computerid, ban_round_id, unbanned_round_id
 				FROM [format_table_name("ban")] WHERE 1 [playersearch] [adminsearch] [ipsearch] [cidsearch] [bantypesearch] ORDER BY bantime DESC LIMIT 100"}, sql_params)
 
 			if(!select_query.warn_execute())
@@ -605,6 +608,8 @@
 				var/edits = select_query.item[13]
 				var/ip = select_query.item[14]
 				var/cid = select_query.item[15]
+				var/ban_round_id = select_query.item[16]
+				var/unban_round_id = select_query.item[17]
 
 				var/lcolor = blcolor
 				var/dcolor = bdcolor
@@ -632,7 +637,7 @@
 				output += "<tr bgcolor='[dcolor]'>"
 				output += "<td align='center'>[typedesc]</td>"
 				output += "<td align='center'><b>[ckey]</b></td>"
-				output += "<td align='center'>[bantime]</td>"
+				output += "<td align='center'>[bantime][ban_round_id ? " (Round [ban_round_id])" : ""]</td>"
 				output += "<td align='center'><b>[ackey]</b></td>"
 				output += "<td align='center'>[(unbanned) ? "" : "<b><a href=\"byond://?src=[UID()];dbbanedit=unban;dbbanid=[banid]\">Unban</a></b>"]</td>"
 				output += "</tr>"
@@ -652,7 +657,7 @@
 					output += "</tr>"
 				if(unbanned)
 					output += "<tr bgcolor='[dcolor]'>"
-					output += "<td align='center' colspan='5' bgcolor=''><b>UNBANNED by admin [unbanckey] on [unbantime]</b></td>"
+					output += "<td align='center' colspan='5' bgcolor=''><b>UNBANNED by admin [unbanckey] on [unbantime][unban_round_id ? " (Round [unban_round_id])" : ""]</b></td>"
 					output += "</tr>"
 				output += "<tr>"
 				output += "<td colspan='5' bgcolor='white'>&nbsp</td>"
