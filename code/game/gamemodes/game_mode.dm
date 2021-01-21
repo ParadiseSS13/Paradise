@@ -87,9 +87,9 @@
 
 // I wonder what this could do guessing by the name
 /datum/game_mode/proc/set_mode_in_db()
-	if(SSticker && SSticker.mode && SSdbcore.IsConnected())
+	if(SSticker?.mode && SSdbcore.IsConnected())
 		var/datum/db_query/query_round_game_mode = SSdbcore.NewQuery("UPDATE [format_table_name("round")] SET game_mode=:gm WHERE id=:rid", list(
-			"gm" = SSticker.mode,
+			"gm" = SSticker.mode.name,
 			"rid" = GLOB.round_id
 		))
 		// We dont do anything with output. Dont bother wrapping with if()
