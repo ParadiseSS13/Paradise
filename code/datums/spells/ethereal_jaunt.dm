@@ -23,8 +23,10 @@
 	/// Do we show the fun blue water effect spread out thing
 	var/has_smoke_jaunt_effect = TRUE
 
-	/// Sounds to play
+	/// Sound to play on jaunting
 	var/jaunt_enter_sound = 'sound/magic/ethereal_enter.ogg'
+
+	/// Sound to play when we start exiting jaunt
 	var/jaunt_exit_sound = 'sound/magic/ethereal_exit.ogg'
 
 	/// Do we unstun (currently shadowling)
