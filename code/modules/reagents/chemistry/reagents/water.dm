@@ -253,8 +253,7 @@
 			if(prob(10))
 				M.say(pick("*gasp", "*cough", "*sneeze"))
 			if(prob(5)) //Same as cult, for the real big tell
-				for(var/mob/O in viewers(M, null))
-					O.show_message(text("<span class = 'warning'> A fog lifts from []'s eyes for a moment, but soon returns.</span>", M), 1)
+				M.visible_message("<span class='warning'>A fog lifts from [M]'s eyes for a moment, but soon returns.</span>")
 
 	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
 		M.AdjustConfused(3)
