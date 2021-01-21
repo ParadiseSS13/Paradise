@@ -116,7 +116,7 @@
 		//  it might mean we are stuck in a corner somewere. So move around to try to expand.
 		move()
 	if(current_size >= STAGE_TWO)
-		pulse()
+		radiation_pulse(src, min(5000, (energy * 4.5) + 1000), RAD_DISTANCE_COEFFICIENT * 0.5)
 		if(prob(event_chance))//Chance for it to run a special event TODO:Come up with one or two more that fit
 			event()
 	eat()
@@ -437,12 +437,6 @@
 /obj/singularity/proc/emp_area()
 	empulse(src, 8, 10)
 	return
-
-
-/obj/singularity/proc/pulse()
-	for(var/obj/machinery/power/rad_collector/R in GLOB.rad_collectors)
-		if(R.z == z && get_dist(R, src) <= 15) // Better than using orange() every process
-			R.receive_pulse(energy)
 
 /obj/singularity/singularity_act()
 	var/gain = (energy/2)

@@ -5,6 +5,7 @@
 	bubble_icon = "machine"
 	has_unlimited_silicon_privilege = 1
 	weather_immunities = list("ash")
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	var/syndicate = 0
 	var/const/MAIN_CHANNEL = "Main Frequency"
 	var/lawchannel = MAIN_CHANNEL // Default channel on which to state laws

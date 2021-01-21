@@ -1601,12 +1601,17 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)	&& unEquip(hand))
 				step_towards(hand, src)
 				to_chat(src, "<span class='warning'>\The [S] pulls \the [hand] from your grip!</span>")
-	apply_effect(current_size * 3, IRRADIATE)
+	rad_act(current_size * 3)
 
 /mob/living/carbon/human/narsie_act()
 	if(iswizard(src) && iscultist(src)) //Wizard cultists are immune to narsie because it would prematurely end the wiz round that's about to end by the automated shuttle call anyway
 		return
 	..()
+
+/mob/living/rad_act(amount)
+	if(RADIMMUNE in dna.species.species_traits)
+		return SEND_SIGNAL(src, COMSIG_ATOM_RAD_ACT, amount)
+	. = ..()
 
 /mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
 	if(H == src)

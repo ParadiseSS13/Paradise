@@ -131,7 +131,7 @@
 	strip_delay = 60
 	put_on_delay = 60
 	resistance_flags = NONE
-
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi',
 		"Grey" = 'icons/mob/species/grey/head.dmi'
@@ -154,7 +154,7 @@
 	strip_delay = 60
 	put_on_delay = 60
 	resistance_flags = NONE
-
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)

@@ -1225,14 +1225,14 @@ so that different stomachs can handle things in different ways VB*/
 		I.extinguish() //extinguishes our clothes
 	..()
 
-/mob/living/carbon/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
+/mob/living/carbon/clean_blood(radiation_clean = FALSE, clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
 	if(head)
-		if(head.clean_blood())
+		if(head.clean_blood(radiation_clean))
 			update_inv_head()
 		if(head.flags_inv & HIDEMASK)
 			clean_mask = FALSE
 	if(wear_suit)
-		if(wear_suit.clean_blood())
+		if(wear_suit.clean_blood(radiation_clean))
 			update_inv_wear_suit()
 		if(wear_suit.flags_inv & HIDESHOES)
 			clean_feet = FALSE

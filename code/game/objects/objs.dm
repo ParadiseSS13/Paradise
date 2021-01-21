@@ -29,6 +29,7 @@
 	var/on_blueprints = FALSE //Are we visible on the station blueprints at roundstart?
 	var/force_blueprints = FALSE //forces the obj to be on the blueprints, regardless of when it was created.
 	var/suicidal_hands = FALSE // Does it requires you to hold it to commit suicide with it?
+	var/emagged = FALSE // Is it emagged or not?
 
 /obj/New()
 	..()
