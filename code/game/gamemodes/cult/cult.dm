@@ -166,7 +166,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		cult_objs.study(cult_mind.current)
 		return TRUE
 
-/datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE)
+/datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE, remove_gear = FALSE)
 	if(cult_mind in cult)
 		var/mob/cultist = cult_mind.current
 		cult -= cult_mind
@@ -186,6 +186,10 @@ GLOBAL_LIST_EMPTY(all_cults)
 			H.update_eyes()
 			H.remove_overlay(HALO_LAYER)
 			H.update_body()
+			if(remove_gear) // No flagellants robe for non-cultists
+				for(var/I in H.contents - (H.bodyparts | H.internal_organs)) // Satanic liver NYI
+					if(is_type_in_list(I, CULT_CLOTHING))
+						H.unEquip(I)
 		check_cult_size()
 		if(show_message)
 			cultist.visible_message("<span class='cult'>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</span>",
