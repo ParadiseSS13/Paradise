@@ -15,13 +15,33 @@
 
 	var/jaunt_duration = 50 //in deciseconds
 	var/jaunt_in_time = 5
+
+	///Do we do the glowy wizard thing on the tile the wizard entered / exit
+	var/has_jaunt_effect = TRUE
 	var/jaunt_in_type = /obj/effect/temp_visual/wizard
 	var/jaunt_out_type = /obj/effect/temp_visual/wizard/out
+	/// Do we show the fun blue water effect spread out thing
+	var/has_smoke_jaunt_effect = TRUE
+
+	/// Sounds to play
+	var/jaunt_enter_sound = 'sound/magic/ethereal_enter.ogg'
+	var/jaunt_exit_sound = 'sound/magic/ethereal_exit.ogg'
+
+	/// Do we unstun (currently shadowling)
+	var/unstuns = FALSE
+
+	/// Do we play a message when activating / deactivating the spell, in the format of "<span class='warning'>(user's name) (message to be displayed)</span>"
+	var/plays_message = FALSE
+	var/message_in = "Should not"
+	var/message_out = "See this"
+
+	/// Do we pop out instantly when the spell ends (not reccomended if using jaunt effects)
+	var/instant_pop_out = FALSE
 
 	action_icon_state = "jaunt"
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/cast(list/targets, mob/user = usr) //magnets, so mostly hardcoded
-	playsound(get_turf(user), 'sound/magic/ethereal_enter.ogg', 50, 1, -1)
+	playsound(get_turf(user), jaunt_enter_sound, 50, 1, -1)
 	for(var/mob/living/target in targets)
 		if(!target.can_safely_leave_loc()) // No more brainmobs hopping out of their brains
 			to_chat(target, "<span class='warning'>You are somehow too bound to your current location to abandon it.</span>")
@@ -29,15 +49,22 @@
 		INVOKE_ASYNC(src, .proc/do_jaunt, target)
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/proc/do_jaunt(mob/living/target)
+	if(plays_message)
+		target.visible_message("<span class='warning'>[target] [message_in]</span>")
 	target.notransform = 1
 	var/turf/mobloc = get_turf(target)
 	var/obj/effect/dummy/spell_jaunt/holder = new /obj/effect/dummy/spell_jaunt(mobloc)
-	new jaunt_out_type(mobloc, target.dir)
+	if(has_jaunt_effect)
+		new jaunt_out_type(mobloc, target.dir)
 	target.ExtinguishMob()
+	if(unstuns)
+		target.SetStunned(0)
+		target.SetWeakened(0)
 	target.forceMove(holder)
 	target.reset_perspective(holder)
 	target.notransform = 0 //mob is safely inside holder now, no need for protection.
-	jaunt_steam(mobloc)
+	if(has_smoke_jaunt_effect)
+		jaunt_steam(mobloc)
 
 	sleep(jaunt_duration)
 
@@ -45,14 +72,18 @@
 		qdel(holder)
 		return
 	mobloc = get_turf(target.loc)
-	jaunt_steam(mobloc)
+	if(has_smoke_jaunt_effect)
+		jaunt_steam(mobloc)
 	target.canmove = 0
 	holder.reappearing = 1
-	playsound(get_turf(target), 'sound/magic/ethereal_exit.ogg', 50, 1, -1)
-	sleep(25 - jaunt_in_time)
-	new jaunt_in_type(mobloc, holder.dir)
+	playsound(get_turf(target), jaunt_exit_sound, 50, 1, -1)
+	if(!instant_pop_out)
+		sleep(25 - jaunt_in_time)
+	if(has_jaunt_effect)
+		new jaunt_in_type(mobloc, holder.dir)
 	target.setDir(holder.dir)
-	sleep(jaunt_in_time)
+	if(!instant_pop_out)
+		sleep(jaunt_in_time)
 	qdel(holder)
 	if(!QDELETED(target))
 		if(mobloc.density)
@@ -62,6 +93,8 @@
 					if(target.Move(T))
 						break
 		target.canmove = 1
+		if(plays_message)
+			target.visible_message("<span class='warning'>[target] [message_out]</span>")
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/proc/jaunt_steam(mobloc)
 	var/datum/effect_system/steam_spread/steam = new /datum/effect_system/steam_spread()

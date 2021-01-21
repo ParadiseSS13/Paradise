@@ -93,38 +93,23 @@
 		for(var/atom/A in T.contents)
 			A.extinguish_light()
 
-/obj/effect/proc_holder/spell/targeted/shadow_walk
+
+/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shadowling
 	name = "Shadow Walk"
 	desc = "Phases you into the space between worlds for a short time, allowing movement through walls and invisbility."
 	panel = "Shadowling Abilities"
-	charge_max = 300 //Used to be twice this, buffed
-	clothes_req = 0
-	range = -1
-	include_user = 1
-	action_icon_state = "shadow_walk"
 
-/obj/effect/proc_holder/spell/targeted/shadow_walk/cast(list/targets, mob/user = usr)
-	if(!shadowling_check(user))
-		charge_counter = charge_max
-		return
-	for(var/mob/living/target in targets)
-		playsound(user.loc, 'sound/effects/bamf.ogg', 50, 1)
-		target.visible_message("<span class='warning'>[target] vanishes in a puff of black mist!</span>", "<span class='shadowling'>You enter the space between worlds as a passageway.</span>")
-		target.SetStunned(0)
-		target.SetWeakened(0)
-		target.incorporeal_move = 1
-		target.alpha = 0
-		target.ExtinguishMob()
-		var/turf/T = get_turf(target)
-		target.forceMove(T) //to properly move the mob out of a potential container
-		if(target.pulledby)
-			target.pulledby.stop_pulling()
-		target.stop_pulling()
-		sleep(40) //4 seconds
-		target.visible_message("<span class='warning'>[target] suddenly manifests!</span>", "<span class='shadowling'>The pressure becomes too much and you vacate the interdimensional darkness.</span>")
-		target.incorporeal_move = 0
-		target.alpha = 255
-		target.forceMove(user.loc)
+	clothes_req = 0
+	action_icon_state = "shadow_walk"
+	has_jaunt_effect = FALSE
+	has_smoke_jaunt_effect = FALSE
+	jaunt_enter_sound = 'sound/effects/bamf.ogg'
+	jaunt_exit_sound = 'sound/effects/bamf.ogg'
+	unstuns = TRUE
+	plays_message = TRUE
+	instant_pop_out = TRUE
+	message_in = "vanishes in a puff of black mist!"
+	message_out = "suddenly manifests!"
 
 /obj/effect/proc_holder/spell/targeted/lesser_shadow_walk
 	name = "Guise"
@@ -588,7 +573,7 @@
 		thrallToRevive.set_species(/datum/species/shadow/ling/lesser)
 		thrallToRevive.mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/lesser_shadow_walk)
 		thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/glare(null))
-		thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_walk(null))
+		thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shadowling(null))
 	else if(thrallToRevive.stat == DEAD)
 		user.visible_message("<span class='danger'>[user] kneels over [thrallToRevive], placing [user.p_their()] hands on [thrallToRevive.p_their()] chest.</span>", \
 							"<span class='shadowling'>You crouch over the body of your thrall and begin gathering energy...</span>")
