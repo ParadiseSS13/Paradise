@@ -52,12 +52,14 @@ GLOBAL_LIST_EMPTY(brother_teams)
 	if(.)	// To ensure the game mode is going ahead
 		for(var/T in pre_brother_teams)
 			var/datum/team/brother_team/team = T
-			for(var/datum/mind/antag in team.members)
+			for(var/A in team.members)
+				var/datum/mind/antag = A
 				pre_traitors += antag // we add possible brothers to the pre antag list
 	return
 
 /datum/game_mode/traitor/bros/post_setup()
-	for(var/datum/team/brother_team/team in pre_brother_teams) //generating meeting area and objectives.
+	for(var/t in pre_brother_teams) //generating meeting area and objectives.
+		var/datum/team/brother_team/team = t
 		team.pick_meeting_area()
 		team.forge_brother_objectives()
 		for(var/m in team.members) // finally assigning the brothers and teams together while also denying normal traitor status to them.
