@@ -7,9 +7,9 @@ Ask ninjanomnom if they're around
 #define RAD_BACKGROUND_RADIATION 9 					// How much radiation is harmless to a mob, this is also when radiation waves stop spreading
 													// WARNING: Lowering this value significantly increases SSradiation load
 
-// apply_effect((amount*RAD_MOB_COEFFICIENT)/max(1, (radiation**2)*RAD_OVERDOSE_REDUCTION), IRRADIATE, blocked)
+// apply_effect((amount * RAD_MOB_COEFFICIENT) / max(1, (radiation ** 2) * RAD_OVERDOSE_REDUCTION), IRRADIATE, blocked)
 #define RAD_MOB_COEFFICIENT 0.20					// Radiation applied is multiplied by this
-#define RAD_MOB_SKIN_PROTECTION ((1/RAD_MOB_COEFFICIENT)+RAD_BACKGROUND_RADIATION)
+#define RAD_MOB_SKIN_PROTECTION ((1 / RAD_MOB_COEFFICIENT) + RAD_BACKGROUND_RADIATION)
 
 #define RAD_LOSS_PER_TICK 0.5
 #define RAD_TOX_COEFFICIENT 0.08					// Toxin damage per tick coefficient
@@ -20,7 +20,7 @@ Ask ninjanomnom if they're around
 //You probably want to plot any tweaks you make so you can see the curves visually
 #define RAD_BURN_LOG_BASE 1.1
 #define RAD_BURN_LOG_GRADIENT 10000
-#define RAD_BURN_CURVE(X) log(1+((X-RAD_BURN_THRESHOLD)/RAD_BURN_LOG_GRADIENT))/log(RAD_BURN_LOG_BASE)
+#define RAD_BURN_CURVE(X) log(1 + ((X - RAD_BURN_THRESHOLD) / RAD_BURN_LOG_GRADIENT)) / log(RAD_BURN_LOG_BASE)
 
 #define RAD_MOB_SAFE 500							// How much stored radiation in a mob with no ill effects
 
@@ -44,7 +44,7 @@ Ask ninjanomnom if they're around
 #define RAD_FULL_INSULATION 0						// Unused
 
 // WARNING: The defines below could have disastrous consequences if tweaked incorrectly. See: The great SM purge of Oct.6.2017
-// contamination_strength = 	(strength-RAD_MINIMUM_CONTAMINATION) * RAD_CONTAMINATION_STR_COEFFICIENT
+// contamination_strength = 	(strength - RAD_MINIMUM_CONTAMINATION) * RAD_CONTAMINATION_STR_COEFFICIENT
 #define RAD_MINIMUM_CONTAMINATION 350				// How strong does a radiation wave have to be to contaminate objects
 #define RAD_CONTAMINATION_STR_COEFFICIENT 0.25		// Higher means higher strength scaling contamination strength
 #define RAD_DISTANCE_COEFFICIENT 1					// Lower means further rad spread

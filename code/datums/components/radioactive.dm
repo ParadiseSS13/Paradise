@@ -11,7 +11,7 @@
 	var/strength
 	var/can_contaminate
 
-/datum/component/radioactive/Initialize(_strength=0, _source, _half_life=RAD_HALF_LIFE, _can_contaminate=TRUE)
+/datum/component/radioactive/Initialize(_strength = 0, _source, _half_life = RAD_HALF_LIFE, _can_contaminate = TRUE)
 	strength = _strength
 	source = _source
 	hl3_release_date = _half_life
@@ -29,7 +29,7 @@
 	//This relies on parent not being a turf or something. IF YOU CHANGE THAT, CHANGE THIS
 	var/atom/movable/master = parent
 	master.add_filter("rad_glow", 2, list("type" = "outline", "color" = "#39ff1430", "size" = 2))
-	addtimer(CALLBACK(src, .proc/glow_loop, master), rand(1,19))//Things should look uneven
+	addtimer(CALLBACK(src, .proc/glow_loop, master), rand(1, 19))//Things should look uneven
 	START_PROCESSING(SSradiation, src)
 
 /datum/component/radioactive/Destroy()
@@ -91,8 +91,8 @@
 /datum/component/radioactive/proc/rad_attack(datum/source, atom/movable/target, mob/living/user)
 	SIGNAL_HANDLER
 
-	radiation_pulse(parent, strength/20)
-	target.rad_act(strength/2)
+	radiation_pulse(parent, strength / 20)
+	target.rad_act(strength / 2)
 	if(!hl3_release_date)
 		return
 	strength -= strength / hl3_release_date

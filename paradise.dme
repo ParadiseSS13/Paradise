@@ -33,7 +33,6 @@
 #include "code\__DEFINES\construction.dm"
 #include "code\__DEFINES\contractors.dm"
 #include "code\__DEFINES\contracts.dm"
-#include "code\__DEFINES\cooldown.dm"
 #include "code\__DEFINES\crafting.dm"
 #include "code\__DEFINES\criminal_status.dm"
 #include "code\__DEFINES\cult.dm"

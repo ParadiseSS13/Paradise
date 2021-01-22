@@ -140,7 +140,7 @@
 		var/mob/living/carbon/human/H = M
 		if(IS_PLANT in H.dna.species.species_traits)
 			if(prob(15))
-				H.rad_act(rand(30,80))
+				H.rad_act(rand(30, 80))
 				H.Weaken(5)
 				H.visible_message("<span class='warning'>[H] writhes in pain as [M.p_their()] vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
 				if(prob(80))
@@ -150,7 +150,7 @@
 					randmutg(H)
 					domutcheck(H, null)
 			else
-				H.adjustFireLoss(rand(5,15))
+				H.adjustFireLoss(rand(5, 15))
 				H.show_message("<span class='warning'>The radiation beam singes you!</span>")
 	else if(iscarbon(target))
 		M.show_message("<span class='notice'>The radiation beam dissipates harmlessly through your body.</span>")

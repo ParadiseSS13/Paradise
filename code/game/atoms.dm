@@ -803,12 +803,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return TRUE
 
 /obj/effect/decal/cleanable/blood/clean_blood(radiation_clean = FALSE)
-	if(radiation_clean)
-		var/datum/component/radioactive/healthy_green_glow = GetComponent(/datum/component/radioactive) // Gosh darn boilerplate snowflake bullcrap
-		if(!QDELETED(healthy_green_glow))
-			healthy_green_glow.strength = max(0, (healthy_green_glow.strength - (RAD_BACKGROUND_RADIATION * 2)))
-			if(healthy_green_glow.strength <= RAD_BACKGROUND_RADIATION)
-				qdel(healthy_green_glow)
 	return // While this seems nonsensical, clean_blood isn't supposed to be used like this on a blood decal.
 
 /obj/item/clean_blood(radiation_clean = FALSE)
