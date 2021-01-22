@@ -1245,12 +1245,12 @@
 							continue
 						
 						candidates[L.mind.name] = L.mind
-					/// We pick from the list we just generated who will be the associate antag.
+					// We pick from the list we just generated who will be the associate antag.
 					var/choice = input(usr, "Choose the blood brother.", "Brother") as null|anything in candidates
 					if(!choice)
 						message_admins("[key_name_admin(usr)] tried to create blood brother team with no suitable candidates")
 						return
-					/// We're asking here, otherwise go set up objectives in the teams edit_team
+					// We're asking here, otherwise go set up objectives in the teams edit_team
 					var/choice2 = alert(usr, "Randomise blood bother objectives?", "Randomise Objectives", "Yes", "No")					
 					var/datum/mind/bro = candidates[choice]
 					var/datum/team/brother_team/T = new

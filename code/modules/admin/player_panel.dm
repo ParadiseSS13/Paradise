@@ -571,7 +571,9 @@
 
 	txt += "</tr>"
 	return txt
-
+/*
+	*This window is for datum/team antags. 
+	*/
 /datum/admins/proc/check_antagonist_teams() // stick any proper antagonist teams in here please.
 	if(!check_rights(R_ADMIN))
 		return

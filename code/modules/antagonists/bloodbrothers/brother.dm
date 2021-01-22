@@ -9,7 +9,7 @@
 	///the owning team is stored here.
 	var/datum/team/brother_team/team 
 /*
-	* This proc is called when a new brother team is created.
+	* This proc is called when a new brother is created, and creates a team if it's not assigned to one.		
 	*/
 /datum/antagonist/brother/create_team(datum/team/brother_team/new_team)
 	if(!new_team)

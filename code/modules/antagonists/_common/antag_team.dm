@@ -1,11 +1,11 @@
 #define TEAM_OBJECTIVE_ASSASSINATE	"Assassinate"
-#define TEAM_OBJECTIVE_MAROON		"Maroon"
-#define TEAM_OBJECTIVE_PROTECT		"Protect"
-#define TEAM_OBJECTIVE_DESTROY		"Destroy"
-#define TEAM_OBJECTIVE_STEAL		"Steal"
-#define TEAM_OBJECTIVE_ESCAPE		"Escape"
-#define TEAM_OBJECTIVE_HIJACK		"Hijack"
-#define TEAM_OBJECTIVE_CUSTOM		"Custom"
+#define TEAM_OBJECTIVE_MAROON	"Maroon"
+#define TEAM_OBJECTIVE_PROTECT	"Protect"
+#define TEAM_OBJECTIVE_DESTROY	"Destroy"
+#define TEAM_OBJECTIVE_STEAL	"Steal"
+#define TEAM_OBJECTIVE_ESCAPE	"Escape"
+#define TEAM_OBJECTIVE_HIJACK	"Hijack"
+#define TEAM_OBJECTIVE_CUSTOM	"Custom"
 
 #define TEAM_OBJECTIVE_LIST list(TEAM_OBJECTIVE_ASSASSINATE, TEAM_OBJECTIVE_MAROON, TEAM_OBJECTIVE_PROTECT, TEAM_OBJECTIVE_DESTROY, TEAM_OBJECTIVE_STEAL, TEAM_OBJECTIVE_ESCAPE, TEAM_OBJECTIVE_HIJACK, TEAM_OBJECTIVE_CUSTOM)
 
@@ -120,19 +120,19 @@
 				return
 			objective_pos = objectives.Find(objective)
 
-			/// Text strings are easy to manipulate. Revised for simplicity.
+			// Text strings are easy to manipulate. Revised for simplicity.
 			var/temp_obj_type = "[objective.type]"// Convert path into a text string.
 			def_value = copytext(temp_obj_type, 19)// Convert last part of path into an objective keyword.
 			if(!def_value)//If it's a custom objective, it will be an empty string.
 				def_value = "custom"
 		
-		/// If your adding new objectives, insert the name here.
+		// If your adding new objectives, insert the name here.
 		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in TEAM_OBJECTIVE_LIST
 		if(!new_obj_type)
 			return
 
 		var/datum/objective/new_objective = null
-		/// if an objective doesn't require a target add a new if to the switch
+		// if an objective doesn't require a target add a new if to the switch
 		switch(new_obj_type) 
 			if(TEAM_OBJECTIVE_ASSASSINATE, TEAM_OBJECTIVE_MAROON, TEAM_OBJECTIVE_PROTECT) 
 				var/list/possible_targets = list()
@@ -167,13 +167,13 @@
 					new_objective.target = null
 					new_objective.explanation_text = "Free objective"
 					return
-				/// Objectives requiring targets go here
+				// Objectives requiring targets go here
 				switch(new_obj_type) 
 					if(TEAM_OBJECTIVE_ASSASSINATE)
 						new_objective = new /datum/objective/assassinate/shared
 						new_objective.team = src
 						new_objective.target = new_target
-						/// Will display as special role if assigned mode is equal to special role.. Ninjas/commandos/nuke ops.
+						// Will display as special role if assigned mode is equal to special role.. Ninjas/commandos/nuke ops.
 						new_objective.explanation_text = "Assassinate [new_target.name], the [new_target.mind.assigned_role == new_target.mind.special_role ? (new_target.mind.special_role) : (new_target.mind.assigned_role)]."
 					if(TEAM_OBJECTIVE_MAROON)
 						new_objective = new /datum/objective/maroon/shared
@@ -275,14 +275,13 @@
 
 	edit_team()
 
-#undef TEAM_OBJECTIVE_ASSASSINATE
-#undef TEAM_OBJECTIVE_MAROON
-#undef TEAM_OBJECTIVE_PROTECT
-#undef TEAM_OBJECTIVE_DESTROY
-#undef TEAM_OBJECTIVE_STEAL
-#undef TEAM_OBJECTIVE_ESCAPE
-#undef TEAM_OBJECTIVE_HIJACK
-#undef TEAM_OBJECTIVE_CUSTOM
+#undef	TEAM_OBJECTIVE_ASSASSINATE
+#undef	TEAM_OBJECTIVE_MAROON
+#undef	TEAM_OBJECTIVE_PROTECT
+#undef	TEAM_OBJECTIVE_DESTROY
+#undef	TEAM_OBJECTIVE_STEAL
+#undef	TEAM_OBJECTIVE_ESCAPE
+#undef	TEAM_OBJECTIVE_HIJACK
+#undef	TEAM_OBJECTIVE_CUSTOM
 
-#undef TEAM_OBJECTIVE_LIST
-
+#undef	TEAM_OBJECTIVE_LIST

@@ -46,7 +46,7 @@
 	* This builds the name of the team
 	*/
 /datum/team/brother_team/proc/update_name()
-	///we're grabbing the last names of the players in question, if they don't have a last name, doesn't matter first name will be used instead.
+	//we're grabbing the last names of the players in question, if they don't have a last name, doesn't matter first name will be used instead.
 	var/list/last_names = list()
 	for(var/m in members)
 		var/datum/mind/M = m
@@ -78,45 +78,45 @@
 			var/datum/objective/destroy/destroy_objective = new
 			destroy_objective.team = src
 			destroy_objective.find_target()
-			if("[destroy_objective]" in assigned_targets)	        
+			if(destroy_objective in assigned_targets)	        
 				return FALSE
 			else if(destroy_objective.target)					    
-				assigned_targets.Add("[destroy_objective.target]")
+				assigned_targets.Add(destroy_objective.target)
 			objectives += destroy_objective
 		else if(prob(BROTHER_OBJ_MAROON_CHANCE))
 			var/datum/objective/maroon/shared/maroon_objective = new
 			maroon_objective.team = src
 			maroon_objective.find_target()
-			if("[maroon_objective]" in assigned_targets)
+			if(maroon_objective in assigned_targets)
 				return FALSE
 			else if(maroon_objective.target)
-				assigned_targets.Add("[maroon_objective.target]")
+				assigned_targets.Add(maroon_objective.target)
 			objectives += maroon_objective
 		else if(prob(BROTHER_OBJ_KILL_ONCE_CHANCE))
 			var/datum/objective/assassinate/once/shared/kill_objective = new
 			kill_objective.team = src
 			kill_objective.find_target()
-			if("[kill_objective.target]" in assigned_targets)
+			if(kill_objective.target in assigned_targets)
 				return FALSE
 			else if(kill_objective.target)
-				assigned_targets.Add("[kill_objective.target]")
+				assigned_targets.Add(kill_objective.target)
 			objectives += kill_objective
 		else
 			var/datum/objective/assassinate/shared/kill_objective = new
 			kill_objective.team = src
 			kill_objective.find_target()
-			if("[kill_objective.target]" in assigned_targets)
+			if(kill_objective.target in assigned_targets)
 				return FALSE
 			else if(kill_objective.target)
-				assigned_targets.Add("[kill_objective.target]")
+				assigned_targets.Add(kill_objective.target)
 			objectives += kill_objective
 	else
 		var/datum/objective/steal/steal_objective = new
 		steal_objective.team = src
 		steal_objective.find_target()
-		if("[steal_objective.steal_target]" in assigned_targets)
+		if(steal_objective.steal_target in assigned_targets)
 			return FALSE
 		else if(steal_objective.steal_target)
-			assigned_targets.Add("[steal_objective.steal_target]")
+			assigned_targets.Add(steal_objective.steal_target)
 		objectives += steal_objective
 
