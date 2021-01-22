@@ -115,7 +115,7 @@
 			S.broken = broken
 			S.emagged = emagged
 			S.req_access = req_access
-			S.bolted = !bolted
+			S.bolted = TRUE
 			S.panel_open = !panel_open
 			qdel(src)
 		else
@@ -156,38 +156,15 @@
 		S.name = name
 		S.desc = desc
 		S.icon_state = sign_state
-		to_chat(user, "You fasten \the [S] with your wrench.")
+		S.broken = broken
+		S.emagged = emagged
+		S.req_access = req_access
+		S.bolted = bolted
+		S.panel_open = panel_open
+		to_chat(user, "You fasten \the [S] with your wrench, closing the maintenance panel in the process.")
 		qdel(src)
 	else
 		return
-
-/obj/item/sign/attackby(obj/item/tool, mob/user)	//construction
-	if(istype(tool, /obj/item/screwdriver) && isturf(user.loc))
-		var/direction = input("In which direction?", "Select direction.") in list("North", "East", "South", "West", "Cancel")
-		if(direction == "Cancel")
-			return
-		if(QDELETED(src))
-			return
-		var/obj/structure/sign/S = new(user.loc)
-		switch(direction)
-			if("North")
-				S.pixel_y = 32
-			if("East")
-				S.pixel_x = 32
-			if("South")
-				S.pixel_y = -32
-			if("West")
-				S.pixel_x = -32
-			else
-				return
-		S.name = name
-		S.desc = desc
-		S.icon_state = sign_state
-		to_chat(user, "You fasten \the [S] with your [tool].")
-		qdel(src)
-	else
-		return ..()
-
 
 /obj/structure/sign/barsign/proc/pick_sign()
 	var/list/signs = barsigns.Copy()
