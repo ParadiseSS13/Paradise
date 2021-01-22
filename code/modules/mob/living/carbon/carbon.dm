@@ -511,8 +511,7 @@ GLOBAL_LIST_EMPTY(ventcrawlers) // List of all mobs currently ventcrawling for p
 		if(!A.pipe_image)
 			A.update_pipe_image()
 		pipes_shown += A.pipe_image
-		if(client)
-			client.images += A.pipe_image
+		client?.images += A.pipe_image
 
 /mob/living/proc/remove_ventcrawl()
 	GLOB.ventcrawlers.Remove(src)
@@ -527,15 +526,13 @@ GLOBAL_LIST_EMPTY(ventcrawlers) // List of all mobs currently ventcrawling for p
 	if(!P.pipe_image)
 		P.update_pipe_image()
 	pipes_shown += P.pipe_image
-	if(client)
-		client.images += P.pipe_image
+	client?.images += P.pipe_image
 
 /mob/living/proc/remove_from_pipe_vision(obj/machinery/atmospherics/P)
 	if(!P.pipe_image)
 		P.update_pipe_image()
 	pipes_shown -= P.pipe_image
-	if(client)
-		client.images -= P.pipe_image
+	client?.images -= P.pipe_image
 
 /mob/living/proc/try_crawl_out(obj/machinery/atmospherics/A)
 	if(A.can_crawl_through())
