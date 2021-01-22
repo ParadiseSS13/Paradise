@@ -916,7 +916,7 @@
 	})
 "bo" = (
 /obj/structure/table,
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_x = -3;
 	pixel_y = 6
 	},
@@ -6360,7 +6360,7 @@
 	})
 "iW" = (
 /obj/structure/table,
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_x = -3;
 	pixel_y = 6
 	},
@@ -6371,7 +6371,7 @@
 	})
 "iX" = (
 /obj/structure/table,
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_x = -3;
 	pixel_y = 6
 	},

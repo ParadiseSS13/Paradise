@@ -32,6 +32,7 @@
 	life = 40
 
 /obj/effect/space_dust/New()
+	. = ..()
 	var/startx = 0
 	var/starty = 0
 	var/endy = 0
@@ -86,7 +87,7 @@
 				walk(src,0)
 				spawn(1)
 					qdel(src)
-				return 0
+				return
 	return
 
 /obj/effect/space_dust/Bumped(atom/A)

@@ -1,5 +1,4 @@
 #define SOLAR_MAX_DIST 40
-#define SOLARGENRATE 1500
 
 /obj/machinery/power/solar
 	name = "solar panel"
@@ -131,7 +130,7 @@
 		if(powernet == control.powernet)//check if the panel is still connected to the computer
 			if(obscured) //get no light from the sun, so don't generate power
 				return
-			var/sgen = SOLARGENRATE * sunfrac
+			var/sgen = SSsun.solar_gen_rate * sunfrac
 			add_avail(sgen)
 			control.gen += sgen
 		else //if we're no longer on the same powernet, remove from control computer
@@ -358,28 +357,28 @@
 
 /obj/machinery/power/solar_control/attack_ai(mob/user as mob)
 	add_hiddenprint(user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/power/solar_control/attack_ghost(mob/user as mob)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/power/solar_control/attack_hand(mob/user)
 	if(..(user))
 		return TRUE
 	if(stat & BROKEN)
 		return
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/power/solar_control/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/power/solar_control/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "SolarControl", name, 490, 300)
 		ui.open()
 
-/obj/machinery/power/solar_control/tgui_data(mob/user)
+/obj/machinery/power/solar_control/ui_data(mob/user)
 	var/list/data = list()
 	data["generated"] = round(lastgen) //generated power by all connected panels
-	data["generated_ratio"] = data["generated"] / round(max(connected_panels.len, 1) * SOLARGENRATE) //power generation ratio. Used for the power bar
+	data["generated_ratio"] = data["generated"] / round(max(connected_panels.len, 1) * SSsun.solar_gen_rate) //power generation ratio. Used for the power bar
 	data["direction"] = angle2text(cdir)	//current orientation of the panels
 	data["cdir"] = cdir	//current orientation of the of the panels in degrees
 	data["tracking_state"] = track	//tracker status: TRACKER_OFF, TRACKER_TIMED, TRACKER_AUTO
@@ -389,7 +388,7 @@
 	data["connected_tracker"] = (connected_tracker ? TRUE : FALSE)
 	return data
 
-/obj/machinery/power/solar_control/tgui_act(action, params)
+/obj/machinery/power/solar_control/ui_act(action, params)
 	if(..())
 		return
 	. = TRUE

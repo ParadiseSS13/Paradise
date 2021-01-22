@@ -47,11 +47,11 @@
 	return istype(M) && M.player_logged && M.stat != DEAD
 
 /proc/isAntag(A)
-	if(istype(A, /mob/living/carbon))
-		var/mob/living/carbon/C = A
-		if(C.mind && C.mind.special_role)
-			return 1
-	return 0
+	if(isliving(A))
+		var/mob/living/L = A
+		if(L.mind?.special_role)
+			return TRUE
+	return FALSE
 
 /proc/isNonCrewAntag(A)
 	if(!isAntag(A))
@@ -459,7 +459,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				name = realname
 
 	for(var/mob/M in GLOB.player_list)
-		if(M.client && ((!isnewplayer(M) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M)) && M.get_preference(CHAT_DEAD))
+		if(M.client && ((!isnewplayer(M) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M)) && M.get_preference(PREFTOGGLE_CHAT_DEAD))
 			var/follow
 			var/lname
 			if(subject)
@@ -471,9 +471,9 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				if(istype(subject, /mob/dead/observer))
 					DM = subject
 				if(check_rights(R_ADMIN|R_MOD,0,M)) 							// What admins see
-					lname = "[keyname][(DM && DM.client && DM.client.prefs.ghost_anonsay) ? "*" : (DM ? "" : "^")] ([name])"
+					lname = "[keyname][(DM && DM.client && DM.client.prefs.toggles2 & PREFTOGGLE_2_ANONDCHAT) ? "*" : (DM ? "" : "^")] ([name])"
 				else
-					if(DM && DM.client && DM.client.prefs.ghost_anonsay)	// If the person is actually observer they have the option to be anonymous
+					if(DM && DM.client && DM.client.prefs.toggles2 & PREFTOGGLE_2_ANONDCHAT)	// If the person is actually observer they have the option to be anonymous
 						lname = "Ghost of [name]"
 					else if(DM)									// Non-anons
 						lname = "[keyname] ([name])"

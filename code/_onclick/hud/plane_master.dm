@@ -39,7 +39,7 @@
 
 /obj/screen/plane_master/game_world/backdrop(mob/mymob)
 	clear_filters()
-	if(istype(mymob) && mymob.client && mymob.client.prefs && (mymob.client.prefs.toggles & AMBIENT_OCCLUSION))
+	if(istype(mymob) && mymob.client && mymob.client.prefs && (mymob.client.prefs.toggles & PREFTOGGLE_AMBIENT_OCCLUSION))
 		filters += FILTER_AMBIENT_OCCLUSION
 
 /obj/screen/plane_master/lighting

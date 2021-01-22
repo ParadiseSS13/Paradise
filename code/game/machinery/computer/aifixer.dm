@@ -22,19 +22,18 @@
 		return ..()
 
 /obj/machinery/computer/aifixer/attack_ai(var/mob/user as mob)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/computer/aifixer/attack_hand(var/mob/user as mob)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/computer/aifixer/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/computer/aifixer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
-
 	if(!ui)
 		ui = new(user, src, ui_key, "AIFixer", name, 550, 500, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/aifixer/tgui_data(mob/user, datum/topic_state/state)
+/obj/machinery/computer/aifixer/ui_data(mob/user)
 	var/data[0]
 	data["occupant"] = (occupant ? occupant.name : null) // a null occupant isn't passed on if this is below the if.
 	if(occupant)
@@ -56,7 +55,7 @@
 
 	return data
 
-/obj/machinery/computer/aifixer/tgui_act(action, params)
+/obj/machinery/computer/aifixer/ui_act(action, params)
 	if(..())
 		return
 	switch(action)
@@ -116,7 +115,7 @@
 		if(stat & (NOPOWER|BROKEN))
 			to_chat(user, "[src] is offline and cannot take an AI at this time!")
 			return
-		AI.loc = src
+		AI.forceMove(src)
 		occupant = AI
 		AI.control_disabled = 1
 		AI.aiRadio.disabledAi = 1
@@ -128,7 +127,7 @@
 		if(occupant && !active)
 			to_chat(occupant, "You have been downloaded to a mobile storage device. Still no remote access.")
 			to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [occupant.name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
-			occupant.loc = card
+			occupant.forceMove(card)
 			occupant = null
 			update_icon()
 		else if(active)

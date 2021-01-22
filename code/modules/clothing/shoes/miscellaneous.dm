@@ -147,7 +147,7 @@
 
 /obj/item/clothing/shoes/cult
 	name = "boots"
-	desc = "A pair of boots worn by the followers of Nar-Sie."
+	desc = "A pair of boots usually worn by cultists."
 	icon_state = "cult"
 	item_state = "cult"
 	item_color = "cult"
@@ -156,6 +156,7 @@
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	heat_protection = FEET
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
+	magical = TRUE
 
 /obj/item/clothing/shoes/cyborg
 	name = "cyborg boots"

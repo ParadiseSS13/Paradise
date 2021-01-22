@@ -55,8 +55,8 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 			infiltrators += candidate
 	else
 		to_chat(src, "Polling candidates...")
-		var/mutable_appearance/ma = new('icons/mob/simple_human.dmi', "syndicate")
-		infiltrators = SSghost_spawns.poll_candidates("Do you want to play as a SYNDICATE INFILTRATOR?", ROLE_TRAITOR, TRUE, source = ma)
+		var/image/I = new('icons/obj/cardboard_cutout.dmi', "cutout_sit")
+		infiltrators = SSghost_spawns.poll_candidates("Do you want to play as a Syndicate infiltrator?", ROLE_TRAITOR, TRUE, source = I, role_cleanname = "Syndicate infiltrator")
 
 	if(!infiltrators.len)
 		to_chat(src, "Nobody volunteered.")
@@ -115,7 +115,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 			break
 	message_admins("[key_name_admin(src)] has spawned a Syndicate Infiltration Team.", 1)
 	log_admin("[key_name(src)] used Spawn Syndicate Infiltration Team.")
-	feedback_add_details("admin_verb","SPAWNSIT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn SIT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 // ---------------------------------------------------------------------------------------------------------
 

@@ -214,6 +214,7 @@
 	color = "#FF6600"
 
 /obj/item/projectile/beam/wormhole/New(var/obj/item/ammo_casing/energy/wormhole/casing)
+	. = ..()
 	if(casing)
 		gun = casing.gun
 
@@ -245,6 +246,7 @@
 	damage = 5
 	range = 3
 	dismemberment = 20
+	sharp = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 
 /obj/item/projectile/plasma/on_hit(atom/target)

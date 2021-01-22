@@ -26,6 +26,7 @@
 	ai_spins_webs = FALSE
 	ai_ventcrawls = FALSE
 	idle_ventcrawl_chance = 0
+	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 	force_threshold = 18 // outright immune to anything of force under 18, this means welders can't hurt it, only guns can
 	ranged = 1
 	retreat_distance = 5
@@ -50,12 +51,15 @@
 	var/datum/action/innate/terrorspider/queen/queensense/queensense_action
 	var/datum/action/innate/terrorspider/queen/queeneggs/queeneggs_action
 	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
+	var/datum/action/innate/terrorspider/remoteview/remoteview_action
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/New()
 	..()
 	ventsmash_action = new()
 	ventsmash_action.Grant(src)
+	remoteview_action = new()
+	remoteview_action.Grant(src)
 	grant_queen_subtype_abilities()
 	spider_myqueen = src
 	if(spider_awaymission)
@@ -101,6 +105,8 @@
 		for(var/thing in GLOB.ts_spiderlist)
 			var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
 			if(!T.spider_myqueen)
+				continue
+			if(T == src)
 				continue
 			if(T.spider_myqueen != src)
 				continue
@@ -274,6 +280,9 @@
 	if(eggtype == null || numlings == null)
 		to_chat(src, "<span class='danger'>Cancelled.</span>")
 		return
+	if(!isturf(loc))
+		to_chat(src, "<span class='danger'>Eggs can only be laid while standing on a floor.</span>")
+		return
 	// Actually lay the eggs.
 	if(canlay < numlings)
 		// We have to check this again after the popups, to account for people spam-clicking the button, then doing all the popups at once.
@@ -314,7 +323,7 @@
 	if(MinutesAlive() >= 20)
 		var/list/spider_array = CountSpidersDetailed(TRUE, list(/mob/living/simple_animal/hostile/poison/terror_spider/mother, /mob/living/simple_animal/hostile/poison/terror_spider/prince, /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess))
 		if(spider_array["all"] == 0)
-			return list(TS_DESC_PRINCE, TS_DESC_PRINCESS) // Mother will be added to this list.... AFTER mothers are reworked.
+			return list(TS_DESC_PRINCE, TS_DESC_PRINCESS, TS_DESC_MOTHER)
 
 	var/list/valid_types = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN)
 	var/list/spider_array = CountSpidersDetailed(FALSE, list(/mob/living/simple_animal/hostile/poison/terror_spider/brown, /mob/living/simple_animal/hostile/poison/terror_spider/purple, /mob/living/simple_animal/hostile/poison/terror_spider/black))
@@ -359,10 +368,14 @@
 	desc = "This multi-layered web seems to be able to resist air pressure."
 
 
-/obj/structure/spider/terrorweb/queen/New()
+/obj/structure/spider/terrorweb/queen/Initialize(mapload)
 	. = ..()
 	air_update_turf(TRUE)
 
 /obj/structure/spider/terrorweb/queen/CanAtmosPass(turf/T)
 	return FALSE
 
+/obj/structure/spider/terrorweb/queen/Destroy()
+	var/turf/T = get_turf(src)
+	. = ..()
+	T.air_update_turf(TRUE)

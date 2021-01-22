@@ -58,6 +58,7 @@
 		if(INTENT_HELP)
 			M.visible_message("<span class='notice'>[M] pets [src]!</span>", \
 							"<span class='notice'>You pet [src]!</span>")
+			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 		if("grab")
 			grabbedby(M)
 		else

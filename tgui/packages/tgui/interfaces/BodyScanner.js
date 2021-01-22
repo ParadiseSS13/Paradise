@@ -46,11 +46,15 @@ const mapTwoByTwo = (a, c) => {
 const reduceOrganStatus = A => {
   return A.length > 0
     ? A
-      .filter(s => !!s && s.length > 0)
-      .reduce((a, s) => a === null
-        ? [s]
-        : <Fragment key={s}>{a}<br />{s}</Fragment>, null
-      )
+      .filter(s => !!s)
+      .reduce((a, s) => (
+        <Fragment>
+          {a}
+          <Box key={s}>
+            {s}
+          </Box>
+        </Fragment>
+      ), null)
     : null;
 };
 
@@ -277,7 +281,13 @@ const BodyScannerMainOrgansExternal = props => {
         </Table.Row>
         {props.organs.map((o, i) => (
           <Table.Row key={i} textTransform="capitalize">
-            <Table.Cell width="33%">
+            <Table.Cell
+              color={
+                !!o.status.dead && "bad"
+                || ((!!o.internalBleeding || !!o.lungRuptured || !!o.status.broken || !!o.open || o.germ_level > 100) && "average")
+                || (!!o.status.robotic && "label")
+              }
+              width="33%">
               {o.name}
             </Table.Cell>
             <Table.Cell textAlign="center" q>
@@ -314,11 +324,13 @@ const BodyScannerMainOrgansExternal = props => {
             </Table.Cell>
             <Table.Cell
               textAlign="right"
-              width="33%">
+              verticalAlign="top"
+              width="33%"
+              pt={i > 0 && "calc(0.5rem + 2px)"}>
               <Box color="average" display="inline">
                 {reduceOrganStatus([
-                  o.internalBleeding && "Internal bleeding",
-                  o.lungRuptured && "Ruptured lung",
+                  !!o.internalBleeding && "Internal bleeding",
+                  !!o.lungRuptured && "Ruptured lung",
                   !!o.status.broken && o.status.broken,
                   germStatus(o.germ_level),
                   !!o.open && "Open incision",
@@ -326,13 +338,9 @@ const BodyScannerMainOrgansExternal = props => {
               </Box>
               <Box display="inline">
                 {reduceOrganStatus([
-                  !!o.status.splinted && "Splinted",
-                  !!o.status.robotic && "Robotic",
-                  !!o.status.dead && (
-                    <Box color="bad">
-                      DEAD
-                    </Box>
-                  ),
+                  !!o.status.splinted && <Box color="good">Splinted</Box>,
+                  !!o.status.robotic && <Box color="label">Robotic</Box>,
+                  !!o.status.dead && <Box color="bad" bold>DEAD</Box>,
                 ])}
                 {reduceOrganStatus(o.shrapnel.map(
                   s => s.known
@@ -375,7 +383,13 @@ const BodyScannerMainOrgansInternal = props => {
         </Table.Row>
         {props.organs.map((o, i) => (
           <Table.Row key={i} textTransform="capitalize">
-            <Table.Cell width="33%">
+            <Table.Cell
+              color={
+                !!o.dead && "bad"
+                || (o.germ_level > 100 && "average")
+                || (o.robotic > 0 && "label")
+              }
+              width="33%">
               {o.name}
             </Table.Cell>
             <Table.Cell textAlign="center">
@@ -390,7 +404,9 @@ const BodyScannerMainOrgansInternal = props => {
             </Table.Cell>
             <Table.Cell
               textAlign="right"
-              width="33%">
+              verticalAlign="top"
+              width="33%"
+              pt={i > 0 && "calc(0.5rem + 2px)"}>
               <Box color="average" display="inline">
                 {reduceOrganStatus([
                   germStatus(o.germ_level),
@@ -398,13 +414,9 @@ const BodyScannerMainOrgansInternal = props => {
               </Box>
               <Box display="inline">
                 {reduceOrganStatus([
-                  (o.robotic === 1) && "Robotic",
-                  (o.robotic === 2) && "Assisted",
-                  !!o.dead && (
-                    <Box color="bad">
-                      DEAD
-                    </Box>
-                  ),
+                  (o.robotic === 1) && <Box color="label">Robotic</Box>,
+                  (o.robotic === 2) && <Box color="label">Assisted</Box>,
+                  !!o.dead && <Box color="bad" bold>DEAD</Box>,
                 ])}
               </Box>
             </Table.Cell>

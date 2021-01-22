@@ -15,9 +15,8 @@
 	can_unwrench = 1
 
 	var/area/initial_loc
-	var/id_tag = null
-	var/frequency = ATMOS_VENTSCRUB
-	var/datum/radio_frequency/radio_connection
+
+	frequency = ATMOS_VENTSCRUB
 
 	var/list/turf/simulated/adjacent_turfs = list()
 
@@ -98,7 +97,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/update_icon(var/safety = 0)
 	..()
 
-	plane = FLOOR_PLANE
+	plane = GAME_PLANE
 
 	if(!check_icon_cache())
 		return
@@ -118,7 +117,7 @@
 	if(welded)
 		scrubber_icon = "scrubberweld"
 
-	overlays += GLOB.pipe_icon_manager.get_atmos_icon("device", , , scrubber_icon)
+	overlays += SSair.icon_manager.get_atmos_icon("device", , , scrubber_icon)
 	update_pipe_image()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/update_underlays()
@@ -135,7 +134,7 @@
 			else
 				add_underlay(T,, dir)
 
-/obj/machinery/atmospherics/unary/vent_scrubber/proc/set_frequency(new_frequency)
+/obj/machinery/atmospherics/unary/vent_scrubber/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, radio_filter_in)

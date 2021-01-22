@@ -27,7 +27,7 @@
 			return
 	*/
 	message = replace_characters(message, ILLEGAL_CHARACTERS_LIST)
-	set_typing_indicator(0)
+	set_typing_indicator(FALSE)
 	usr.say(message)
 
 
@@ -37,7 +37,7 @@
 
 	message = strip_html_properly(message)
 
-	set_typing_indicator(0)
+	set_typing_indicator(FALSE, TRUE)
 	if(use_me)
 		custom_emote(usr.emote_type, message)
 	else
@@ -55,7 +55,7 @@
 			to_chat(src, "<span class='warning'>You cannot talk in deadchat (muted).</span>")
 			return
 
-		if(!(client.prefs.toggles & CHAT_DEAD))
+		if(!(client.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
 			to_chat(src, "<span class='danger'>You have deadchat muted.</span>")
 			return
 

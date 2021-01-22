@@ -5766,7 +5766,7 @@
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "mx" = (
 /obj/structure/table/wood,
-/obj/machinery/microwave,
+/obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "my" = (

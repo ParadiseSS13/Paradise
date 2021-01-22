@@ -39,14 +39,17 @@
 /mob/living/silicon/New()
 	GLOB.silicon_mob_list |= src
 	..()
-	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
-	diag_hud.add_to_hud(src)
-	diag_hud_set_status()
-	diag_hud_set_health()
 	add_language("Galactic Common")
 	init_subsystems()
 	RegisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM, .proc/alarm_triggered)
 	RegisterSignal(SSalarm, COMSIG_CANCELLED_ALARM, .proc/alarm_cancelled)
+
+/mob/living/silicon/Initialize()
+	. = ..()
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.add_to_hud(src)
+	diag_hud_set_status()
+	diag_hud_set_health()
 
 /mob/living/silicon/med_hud_set_health()
 	return //we use a different hud

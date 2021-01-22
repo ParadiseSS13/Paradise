@@ -1,10 +1,9 @@
 /mob/living/silicon
-	var/register_alarms = 1
-	var/datum/nano_module/alarm_monitor/all/alarm_monitor
-	var/datum/nano_module/atmos_control/atmos_control
-	var/datum/tgui_module/crew_monitor/crew_monitor
-	var/datum/nano_module/law_manager/law_manager
-	var/datum/nano_module/power_monitor/silicon/power_monitor
+	var/register_alarms = TRUE
+	var/datum/ui_module/atmos_control/atmos_control
+	var/datum/ui_module/crew_monitor/crew_monitor
+	var/datum/ui_module/law_manager/law_manager
+	var/datum/ui_module/power_monitor/digital/power_monitor
 
 /mob/living/silicon
 	var/list/silicon_subsystems = list(
@@ -49,7 +48,7 @@
 /mob/living/silicon/proc/subsystem_crew_monitor()
 	set category = "Subsystems"
 	set name = "Crew Monitor"
-	crew_monitor.tgui_interact(usr, state = GLOB.tgui_self_state)
+	crew_monitor.ui_interact(usr, state = GLOB.self_state)
 
 /****************
 *	Law Manager	*

@@ -121,13 +121,12 @@
 	aw_emerg = status_adminwarn_check(SUPERMATTER_EMERGENCY, aw_emerg, "CRIT: Supermatter integrity is below 50%!<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.", FALSE)
 	aw_delam = status_adminwarn_check(SUPERMATTER_DELAMINATING, aw_delam, "CRIT: Supermatter is delaminating!<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.", TRUE)
 
-/obj/machinery/power/supermatter_shard/proc/status_adminwarn_check(var/min_status, var/current_state, var/message, var/send_to_irc = FALSE)
+/obj/machinery/power/supermatter_shard/proc/status_adminwarn_check(min_status, current_state, message)
 	var/status = get_status()
 	if(status >= min_status)
 		if(!current_state)
 			log_and_message_admins(message)
-			if(send_to_irc)
-				send2adminirc(message)
+			SSdiscord.send2discord_simple_noadmins(message)
 		return TRUE
 	else
 		return FALSE
@@ -313,6 +312,8 @@
 		return attack_hand(user)
 
 /obj/machinery/power/supermatter_shard/attack_hand(mob/user as mob)
+	if(isAI(user))
+		return
 	user.visible_message("<span class=\"warning\">\The [user] reaches out and touches \the [src], inducing a resonance... [user.p_their(TRUE)] body starts to glow and bursts into flames before flashing into ash.</span>",\
 		"<span class=\"danger\">You reach out and touch \the [src]. Everything starts burning and all you can hear is ringing. Your last thought is \"That was not a wise decision.\"</span>",\
 		"<span class=\"warning\">You hear an uneartly ringing, then what sounds like a shrilling kettle as you are washed with a wave of heat.</span>")
