@@ -16,14 +16,16 @@
 	var/jaunt_duration = 50 //in deciseconds
 	var/jaunt_in_time = 5
 
-	///Do we do the glowy wizard thing on the tile the wizard entered / exit
+	/// Do we do the glowy wizard thing on the tile the wizard entered / exit
 	var/has_jaunt_effect = TRUE
+	/// Visual to make when entering jaunt
 	var/jaunt_in_type = /obj/effect/temp_visual/wizard
+	/// Visual to make when exiting jaunt.
 	var/jaunt_out_type = /obj/effect/temp_visual/wizard/out
 	/// Do we show the fun blue water effect spread out thing
 	var/has_smoke_jaunt_effect = TRUE
 
-	/// Sound to play on jaunting
+	/// Sound to play on entering jaunt
 	var/jaunt_enter_sound = 'sound/magic/ethereal_enter.ogg'
 
 	/// Sound to play when we start exiting jaunt
@@ -34,7 +36,9 @@
 
 	/// Do we play a message when activating / deactivating the spell, in the format of "<span class='warning'>(user's name) (message to be displayed)</span>"
 	var/plays_message = FALSE
+	/// Message to play to chat when entering jaunt
 	var/message_in = "Should not"
+	/// Message to play to chat when exiting jaunt.
 	var/message_out = "See this"
 
 	/// Do we pop out instantly when the spell ends (not reccomended if using jaunt effects)
