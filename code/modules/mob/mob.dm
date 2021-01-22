@@ -196,7 +196,7 @@
  * Will handle a player cryoing or leaving the round in a similar way
  *
  */
-/mob/proc/handle_removal()
+/mob/proc/handle_removal_from_round()
 	if(!mind)
 		return
 	QDEL_LIST(mind.objectives)

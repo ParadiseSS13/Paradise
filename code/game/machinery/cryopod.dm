@@ -384,7 +384,7 @@
 			SSticker.mode.cult_objs.ready_to_summon()
 
 	//Update any existing objectives involving this mob and their job
-	occupant.handle_removal()
+	occupant.handle_removal_from_round()
 
 	// Delete them from datacore.
 

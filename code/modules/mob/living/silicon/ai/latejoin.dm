@@ -15,7 +15,7 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 	GLOB.global_announcer.autosay("[src] has been moved to intelligence storage.", "Artificial Intelligence Oversight")
 	control_disabled = TRUE // Ensure the AI is not chosen again as target
 	//Update any existing objectives involving this mob and their job
-	handle_removal()
+	handle_removal_from_round()
 
 	// Ghost the current player and disallow them to return to the body
 	ghostize(FALSE)

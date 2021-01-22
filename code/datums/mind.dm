@@ -612,7 +612,7 @@
 
 				var/list/possible_targets = list()
 				for(var/datum/mind/possible_target in SSticker.minds)
-					if((possible_target != src) && istype(possible_target.current, /mob/living/carbon/human))
+					if((possible_target != src) && ishuman(possible_target.current))
 						possible_targets += possible_target.current
 
 				var/mob/def_target = null

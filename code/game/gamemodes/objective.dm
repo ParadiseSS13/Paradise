@@ -31,9 +31,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		to_chat(owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
 		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/alarm4.ogg', 100, FALSE, pressure_affected = FALSE)
 	target = null
-	var/new_target = find_target()
 	var/datum/mind/old_owner = owner
-	if(!new_target)
+	if(!find_target())
 		qdel(src)
 	old_owner?.announce_objectives()
 
