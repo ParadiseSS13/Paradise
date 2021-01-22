@@ -380,9 +380,6 @@
 
 //Yes, showers are super powerful as far as washing goes.
 /obj/machinery/shower/proc/wash(atom/A)
-	if(!on)
-		return
-
 	if(isitem(A))
 		var/obj/item/I = A
 		I.extinguish()
@@ -394,20 +391,18 @@
 		check_heat(L)
 		L.ExtinguishMob()
 		L.adjust_fire_stacks(-20) //Douse ourselves with water to avoid fire more easily
-		to_chat(L, "<span class='warning'>You've been drenched in water!</span>")
-
-	if(isturf(loc))
-		var/turf/tile = loc
-		tile.water_act(100, convertHeat(), src)
-		tile.clean_blood(radiation_clean = TRUE)
-		for(var/obj/effect/E in tile)
-			if(is_cleanable(E))
-				qdel(E)
 
 	A.clean_blood(radiation_clean = TRUE)
 
 /obj/machinery/shower/process()
 	if(on)
+		if(isturf(loc))
+			var/turf/tile = loc
+			tile.water_act(100, convertHeat(), src)
+			tile.clean_blood(radiation_clean = TRUE)
+			for(var/obj/effect/E in tile)
+				if(is_cleanable(E))
+					qdel(E)
 		for(var/A in loc)
 			wash(A)
 	else
