@@ -393,7 +393,7 @@
 		to_chat(src, "<span class='notice'>Using specialized micro tools you begin disconnecting the [A] from its frame....</span>")
 		if(do_after(src, 100, target = A))
 			remove_ventcrawl()
-			forceMove(A.loc) //handles entering and so on
+			forceMove(get_turf(A)) //handles exiting
 			visible_message("<span class='boldnotice'>You hear something squeezing through the ducts. With a resounding snap the [A] is fastened back in place.</span>", \
 				"<span class='notice'>You climb out the ventilation system. With a resounding snap the [A] is fastened back in place.</span>")
 		return TRUE

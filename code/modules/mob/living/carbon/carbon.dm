@@ -536,7 +536,7 @@ GLOBAL_LIST_EMPTY(ventcrawlers) // List of all mobs currently ventcrawling for p
 /mob/living/proc/try_crawl_out(obj/machinery/atmospherics/A)
 	if(A.can_crawl_through())
 		remove_ventcrawl()
-		forceMove(A.loc) //handles entering and so on
+		forceMove(get_turf(A)) //handles exiting
 		visible_message("<span class='notice'>You hear something squeezing through the ducts.</span>", \
 		"<span class='notice'>You climb out the ventilation system.</span>")
 		return TRUE
