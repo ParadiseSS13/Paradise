@@ -11,7 +11,6 @@
 	var/list/hiddensigns = list()
 	var/panel_open = FALSE
 	var/emagged = TRUE
-	var/bolted = TRUE
 	var/prev_sign = ""
 	var/state = 0
 
@@ -106,37 +105,32 @@
 /obj/structure/sign/barsign/wrench_act(mob/user)
 	if(!panel_open)
 		to_chat(user, "<span_class='notice>You must first open the maintenance panel before trying to unbolt the barsign.</span>")
+		return
 	else
-		if(bolted)
-			var/obj/item/sign/barsign/S = new(user.loc)
-			S.name = name
-			S.desc = desc
-			S.sign_state = "[icon_state]_s"	//The only sprite direction that exists is South.
-			S.broken = broken
-			S.emagged = emagged
-			S.req_access = req_access
-			S.bolted = TRUE
-			S.panel_open = !panel_open
-			qdel(src)
-		else
-			to_chat(user, "<span_class='warning'=Something bad has happened. Contact an Admin. Tell them to report this exact message to the Coders.</span>")
+		var/obj/item/sign/barsign/S = new(user.loc)
+		S.name = name
+		S.desc = desc
+		S.icon_state = icon_state	//The only sprite direction that exists is South.
+		S.broken = broken
+		S.emagged = emagged
+		S.req_access = req_access
+		S.panel_open = !panel_open
+		qdel(src)
 
 /obj/item/sign/barsign
 	name = "barsign"
 	desc = ""
 	icon = 'icons/obj/barsigns.dmi'
-	sign_state = ""
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FLAMMABLE
 	var/panel_open
-	var/bolted
-	var/req_access
 	var/broken
+	var/emagged
 
 /obj/item/sign/barsign/wrench_act(mob/user)	//construction
 	if(isturf(user.loc))
 		var/direction = input("In which direction?", "Select direction.") in list("North", "East", "South", "West", "Cancel")
-		//The only sprite that exists is South.
+		//The only sprite that exists is South, but we forced this in when we dismantled the barsign.
 		if(direction == "Cancel")
 			return
 		if(QDELETED(src))
@@ -155,13 +149,13 @@
 				return
 		S.name = name
 		S.desc = desc
-		S.icon_state = sign_state
+		S.icon_state = icon_state
 		S.broken = broken
 		S.emagged = emagged
 		S.req_access = req_access
-		S.bolted = bolted
+
 		S.panel_open = panel_open
-		to_chat(user, "You fasten \the [S] with your wrench, closing the maintenance panel in the process.")
+		to_chat(user, "You bolt \the [S] with your wrench, closing the maintenance panel in the process.")
 		qdel(src)
 	else
 		return
