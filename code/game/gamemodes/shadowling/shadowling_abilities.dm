@@ -99,8 +99,8 @@
 	desc = "Phases you into the space between worlds for a short time, allowing movement through walls and invisbility."
 	panel = "Shadowling Abilities"
 
-	jaunt_duration = 100
-	charge_max = 360 // If you are wondering why, this it to keep the ammount of time, 26 seconds out of jaunt, the same as before, when it was 4 seconds in jaunt, 26 out, now its 10 and 26
+	jaunt_duration = 10 SECONDS
+	charge_max = 36 SECONDS // If you are wondering why, this it to keep the ammount of time, 26 seconds out of jaunt, the same as before, when it was 4 seconds in jaunt, 26 out, now its 10 and 26
 	clothes_req = 0
 	action_icon_state = "shadow_walk"
 	has_jaunt_effect = FALSE
