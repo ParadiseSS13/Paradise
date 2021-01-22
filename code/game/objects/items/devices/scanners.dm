@@ -51,6 +51,7 @@ REAGENT SCANNER
 	for(var/obj/O in orange(distance, viewer))
 		if(O.level != 1)
 			continue
+
 		if(O.invisibility == INVISIBILITY_MAXIMUM)
 			var/image/I = new(loc = get_turf(O))
 			var/mutable_appearance/MA = new(O)
