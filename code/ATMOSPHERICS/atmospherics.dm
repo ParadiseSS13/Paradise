@@ -56,7 +56,6 @@ Pipelines + Other Objects -> Pipe network
 	update_underlays()
 
 /obj/machinery/atmospherics/Destroy()
-	update_all_pipe_vision()
 	QDEL_NULL(stored)
 	SSair.atmos_machinery -= src
 	SSair.deferred_pipenet_rebuilds -= src
@@ -64,6 +63,7 @@ Pipelines + Other Objects -> Pipe network
 		L.remove_ventcrawl()
 		L.forceMove(get_turf(src))
 	QDEL_NULL(pipe_image) //we have to qdel it, or it might keep a ref somewhere else
+	update_all_pipe_vision() // Remove it from the vision of ventcrawlers
 	return ..()
 
 /obj/machinery/atmospherics/set_frequency(new_frequency)
@@ -324,7 +324,7 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/proc/check_open()
 	for(var/direction in GLOB.cardinal)
-		if(!findConnecting(direction) && direction & initialize_directions)
+		if((direction & initialize_directions) && !findConnecting(direction)) // Checks if a pipe can connect in a direction, then returns true if there isn't a pipe connected there
 			return TRUE
 	return FALSE
 

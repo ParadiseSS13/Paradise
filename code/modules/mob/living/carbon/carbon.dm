@@ -418,7 +418,7 @@
 
 
 GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber, /obj/machinery/atmospherics/unary/passive_vent))
-GLOBAL_LIST_EMPTY(ventcrawlers)
+GLOBAL_LIST_EMPTY(ventcrawlers) // List of all mobs currently ventcrawling for purpose of updating their visual pipes when pipes are changed
 
 /mob/living/handle_ventcrawl(var/atom/clicked_on) // -- TLE -- Merged by Carn
 	if(!Adjacent(clicked_on))
@@ -458,11 +458,12 @@ GLOBAL_LIST_EMPTY(ventcrawlers)
 		entrance_found = null
 
 	if(!entrance_found)
+		to_chat(src, "<span class='warning'>This ventilation duct is not connected to anything!</span>")
 		return
 
 	if(entrance_found)
 		var/datum/pipeline/P = entrance_found.returnPipenet()
-		if(P && length(P.members) || P.other_atmosmch)
+		if(P && (length(P.members) || P.other_atmosmch))
 			if(entrance_found.can_crawl_through())
 				visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
 				"<span class='notice'>You begin climbing into the ventilation system...</span>")
@@ -510,9 +511,6 @@ GLOBAL_LIST_EMPTY(ventcrawlers)
 				visible_message("<span class='boldnotice'>[src] scrambles into the ventilation ducts!</span>", "<span class='notice'>You climb into the ventilation system.</span>")
 			loc = entrance_found
 			add_ventcrawl(entrance_found)
-
-	else
-		to_chat(src, "<span class='warning'>This ventilation duct is not connected to anything!</span>")
 
 
 /mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
