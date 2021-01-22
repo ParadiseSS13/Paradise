@@ -318,7 +318,8 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/proc/update_all_pipe_vision()
 	for(var/mob/living/M in GLOB.ventcrawlers)
-		M.update_pipe_vision()
+		M.remove_from_pipe_vision(src)
+		M.add_to_pipe_vision(src)
 
 /obj/machinery/atmospherics/proc/add_to_all_pipe_vision()
 	for(var/mob/living/M in GLOB.ventcrawlers)
