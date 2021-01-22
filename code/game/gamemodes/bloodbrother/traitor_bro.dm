@@ -1,10 +1,9 @@
-#define EXTRA_BROTHERS_CHANCE 10
+/// all participating brothers are stored here
+GLOBAL_LIST_EMPTY(brothers)
+/// all particapting brother teams are stored here
+GLOBAL_LIST_EMPTY(brother_teams)
 
-/datum/game_mode
-	/// all participating brothers are stored here
-	var/list/datum/mind/brothers = list()
-	/// all particapting brother teams are stored here
-	var/list/datum/team/brother_team/brother_teams = list() 
+#define EXTRA_BROTHERS_CHANCE 10
 
 /datum/game_mode/traitor/bros
 	name = "traitor+brothers"
@@ -44,7 +43,7 @@
 		for(var/k = 1 to team_size) // Now we generate the teams
 			var/datum/mind/bro = pick(possible_brothers)
 			possible_brothers -= bro
-			team.add_member(bro)
+			team.members += bro
 			bro.special_role = ROLE_BROTHER
 			bro.restricted_roles = restricted_jobs
 			log_game("[key_name(bro)] has been selected as a Brother")
@@ -66,13 +65,13 @@
 			M.add_antag_datum(/datum/antagonist/brother, team)
 			pre_traitors -= M 
 		team.update_name()
-	brother_teams += pre_brother_teams
+	GLOB.brother_teams += pre_brother_teams
 	return ..()
 
 /datum/game_mode/proc/auto_declare_completion_bros()
-	if(length(brother_teams))
+	if(length(GLOB.brother_teams))
 		var/text
-		for(var/T in brother_teams)
+		for(var/T in GLOB.brother_teams)
 			var/datum/team/brother_team/team = T
 			var/win = TRUE
 			var/objective_count = 1

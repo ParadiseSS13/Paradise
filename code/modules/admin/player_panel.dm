@@ -578,9 +578,9 @@
 	if(SSticker.current_state >= GAME_STATE_PLAYING)
 		var/dat = "<html><head><title>Antagonist Teams</title></head><body><h1><b>Antagonist Teams</b></h1>"
 
-		if(length(SSticker.mode.brother_teams))
+		if(length(GLOB.brother_teams))
 			dat += "<br><table><tr><td><b>Brother Teams</b></td><td></td></tr>"
-			for(var/T in SSticker.mode.brother_teams)
+			for(var/T in GLOB.brother_teams)
 				var/datum/team/brother_team/team = T
 				dat += "<tr><td><a href='?src=[UID()];edit_team=[team.UID()]'><b>[team.name]</b></a></td></tr>"
 				for(var/B in team.members)

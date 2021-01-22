@@ -23,6 +23,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		for(var/a in owner.antag_datums)
 			var/datum/antagonist/A = a
 			A.objectives -= src
+		owner.objectives -= src
+		owner = null
 	if(team)
 		team.objectives -= src
 	return ..()

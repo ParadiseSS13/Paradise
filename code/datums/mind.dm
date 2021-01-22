@@ -1232,7 +1232,7 @@
 		switch(href_list["brother"])
 			if("clear")
 				if(has_antag_datum(/datum/antagonist/brother))
-					to_chat("<span class='warning'><font size=3><b>You have been brainwashed! You are no longer a blood brother!</b></font></span>")
+					to_chat(src, "<span class='warning'><font size=3><b>You have been brainwashed! You are no longer a blood brother!</b></font></span>")
 					remove_antag_datum(/datum/antagonist/brother)
 					log_admin("[key_name(usr)] has de-brothered [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-brothered [key_name_admin(current)]")
@@ -1245,12 +1245,13 @@
 							continue
 						
 						candidates[L.mind.name] = L.mind
-
+					/// We pick from the list we just generated who will be the associate antag.
 					var/choice = input(usr, "Choose the blood brother.", "Brother") as null|anything in candidates
 					if(!choice)
 						message_admins("[key_name_admin(usr)] tried to create blood brother team with no suitable candidates")
 						return
-					var/choice2 = alert(usr, "Randomise blood bother objectives?", "Randomise Objectives", "Yes", "No") //We're asking here, otherwise go set up objectives in the teams edit_team						
+					/// We're asking here, otherwise go set up objectives in the teams edit_team
+					var/choice2 = alert(usr, "Randomise blood bother objectives?", "Randomise Objectives", "Yes", "No")					
 					var/datum/mind/bro = candidates[choice]
 					var/datum/team/brother_team/T = new
 					T.add_member(src)
@@ -1264,7 +1265,7 @@
 					add_antag_datum(/datum/antagonist/brother, T)
 					bro.add_antag_datum(/datum/antagonist/brother, T)
 					T.update_name()
-					SSticker.mode.brother_teams += T
+					GLOB.brother_teams += T
 					message_admins("[key_name_admin(usr)] made [key_name_admin(current)] and [key_name_admin(bro)] into blood brothers.")
 					log_admin("[key_name(usr)] made [key_name(current)] and [key_name(bro)] into blood brothers.")
 

@@ -6,7 +6,7 @@
 
 /*
 	*This is the holder for a blood brothers team, objectives, team members and team name are stored here for bookkeeping purposes.
-	*Guide lines for Blood brother teams: This team is for 2 members only, if you need to add or remove members from a blood brother team, disband the team and traitor the remaining blood brother instead.
+	*Guide lines for Blood brother teams: This team is a two or three members, if you need to add or remove members from a pre-generated blood brother team, disband the team and traitor the remaining blood brother instead.
 	*/
 /datum/team/brother_team
 	name = "brotherhood"
@@ -21,11 +21,19 @@
 /datum/team/brother_team/is_solo()
 	return FALSE
 
+/datum/team/brother_team/add_member(datum/mind/new_member)
+	. = ..()
+	new_member.add_antag_datum(/datum/antagonist/brother)
+
+/datum/team/brother_team/remove_member(datum/mind/member)
+	. = ..()
+	member.remove_antag_datum(/datum/antagonist/brother)
+
 /datum/team/brother_team/Destroy()
 	for(var/b in members)
 		var/datum/mind/brother = b
 		brother.remove_antag_datum(/datum/antagonist/brother)
-	SSticker.mode.brother_teams -= src	
+	GLOB.brother_teams -= src	
 	return ..()
 
 /*
@@ -47,6 +55,9 @@
 
 	name = last_names.Join(" & ")
 
+/*
+	* This builds the blood brother team objectives.
+	*/
 /datum/team/brother_team/proc/forge_brother_objectives()
 	objectives = list()
 	var/is_hijacker = prob(HIJACK_BROTHER_CHANCE)
@@ -57,8 +68,10 @@
 			objectives += new /datum/objective/hijack
 	else if(!(locate(/datum/objective/escape) in objectives))
 		objectives += new /datum/objective/escape
-
-/datum/team/brother_team/proc/forge_single_objective() //objectives are chosen here.
+/*
+	* This is what picks the blood brother team objectives.
+	*/
+/datum/team/brother_team/proc/forge_single_objective()
 	if(prob(BROTHER_OBJ_STEAL_CHANCE))
 		var/list/active_ais = active_ais()
 		if(length(active_ais) && prob(BROTHER_OBJ_DESTROY_CHANCE))

@@ -1,4 +1,14 @@
-//A barebones antagonist team.
+#define TEAM_OBJECTIVE_ASSASSINATE	"Assassinate"
+#define TEAM_OBJECTIVE_MAROON		"Maroon"
+#define TEAM_OBJECTIVE_PROTECT		"Protect"
+#define TEAM_OBJECTIVE_DESTROY		"Destroy"
+#define TEAM_OBJECTIVE_STEAL		"Steal"
+#define TEAM_OBJECTIVE_ESCAPE		"Escape"
+#define TEAM_OBJECTIVE_HIJACK		"Hijack"
+#define TEAM_OBJECTIVE_CUSTOM		"Custom"
+
+#define TEAM_OBJECTIVE_LIST list(TEAM_OBJECTIVE_ASSASSINATE, TEAM_OBJECTIVE_MAROON, TEAM_OBJECTIVE_PROTECT, TEAM_OBJECTIVE_DESTROY, TEAM_OBJECTIVE_STEAL, TEAM_OBJECTIVE_ESCAPE, TEAM_OBJECTIVE_HIJACK, TEAM_OBJECTIVE_CUSTOM)
+
 /*Guide lines to using antag teams properly
 	*Teams should have team specific antag datums to clarify that they are different from normal antags.
 	*Teams do not mix, for each assigned team a mind would need a seperate datum/antag to acommodate it.
@@ -9,7 +19,8 @@
 	var/list/datum/mind/members = list()
 	var/name = "team"
 	var/member_name = "member"
-	var/list/objectives = list() //common objectives, these won't be added or removed automatically, subtypes handle this, this is here for bookkeeping purposes.
+	/// Common objectives, these won't be added or removed automatically, subtypes handle this, this is here for bookkeeping purposes.
+	var/list/objectives = list() 
 
 /datum/team/New(starting_members)
 	. = ..()
@@ -116,14 +127,14 @@
 				def_value = "custom"
 		
 		/// If your adding new objectives, insert the name here.
-		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in list("assassinate","protect", "hijack", "escape", "steal", "destroy", "maroon", "custom")
+		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in TEAM_OBJECTIVE_LIST
 		if(!new_obj_type)
 			return
 
 		var/datum/objective/new_objective = null
 		/// if an objective doesn't require a target add a new if to the switch
 		switch(new_obj_type) 
-			if("assassinate", "maroon", "protect") 
+			if(TEAM_OBJECTIVE_ASSASSINATE, TEAM_OBJECTIVE_MAROON, TEAM_OBJECTIVE_PROTECT) 
 				var/list/possible_targets = list()
 				for(var/pt in SSticker.minds)
 					var/datum/mind/possible_target = pt
@@ -136,7 +147,7 @@
 					def_target = objective.target.current
 				possible_targets = sortAtom(possible_targets)
 
-				var/datum/mind/new_target = null
+				var/mob/living/new_target = null
 				if(length(possible_targets))
 					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
 						possible_targets += "Free objective"
@@ -158,24 +169,24 @@
 					return
 				/// Objectives requiring targets go here
 				switch(new_obj_type) 
-					if("assassinate")
+					if(TEAM_OBJECTIVE_ASSASSINATE)
 						new_objective = new /datum/objective/assassinate/shared
 						new_objective.team = src
 						new_objective.target = new_target
 						/// Will display as special role if assigned mode is equal to special role.. Ninjas/commandos/nuke ops.
-						new_objective.explanation_text = "Assassinate [new_target.name], the [new_target.assigned_role == new_target.special_role ? (new_target.special_role) : (new_target.assigned_role)]."
-					if("maroon")
+						new_objective.explanation_text = "Assassinate [new_target.name], the [new_target.mind.assigned_role == new_target.mind.special_role ? (new_target.mind.special_role) : (new_target.mind.assigned_role)]."
+					if(TEAM_OBJECTIVE_MAROON)
 						new_objective = new /datum/objective/maroon/shared
 						new_objective.team = src
 						new_objective.target = new_target
-						new_objective.explanation_text = "Maroon [new_target.name], the [new_target.assigned_role == new_target.special_role ? (new_target.special_role) : (new_target.assigned_role)]."
-					if("protect")
+						new_objective.explanation_text = "Maroon [new_target.name], the [new_target.mind.assigned_role == new_target.mind.special_role ? (new_target.mind.special_role) : (new_target.mind.assigned_role)]."
+					if(TEAM_OBJECTIVE_PROTECT)
 						new_objective = new /datum/objective/protect/shared
 						new_objective.team = src
 						new_objective.target = new_target
-						new_objective.explanation_text = "Protect [new_target.name], the [new_target.assigned_role == new_target.special_role ? (new_target.special_role) : (new_target.assigned_role)]."
+						new_objective.explanation_text = "Protect [new_target.name], the [new_target.mind.assigned_role == new_target.mind.special_role ? (new_target.mind.special_role) : (new_target.mind.assigned_role)]."
 
-			if("destroy")
+			if(TEAM_OBJECTIVE_DESTROY)
 				var/list/possible_targets = active_ais()
 				if(length(possible_targets))
 					var/mob/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
@@ -186,15 +197,15 @@
 				else
 					to_chat(usr, "No active AIs with minds")
 
-			if("hijack")
+			if(TEAM_OBJECTIVE_HIJACK)
 				new_objective = new /datum/objective/hijack
 				new_objective.team = src
 
-			if("escape")
+			if(TEAM_OBJECTIVE_ESCAPE)
 				new_objective = new /datum/objective/escape
 				new_objective.team = src
 
-			if("steal")
+			if(TEAM_OBJECTIVE_STEAL)
 				if(!istype(objective, /datum/objective/steal))
 					new_objective = new /datum/objective/steal
 					new_objective.team = src
@@ -204,7 +215,7 @@
 				if(!steal.select_target())
 					return
 
-			if("custom")
+			if(TEAM_OBJECTIVE_CUSTOM)
 				var/expl = sanitize(copytext(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null, 1 ,MAX_MESSAGE_LEN))
 				if(!expl)
 					return
@@ -262,3 +273,15 @@
 		message_admins("[key_name_admin(usr)] has announced [name]'s objectives")
 
 	edit_team()
+
+#undef TEAM_OBJECTIVE_ASSASSINATE
+#undef TEAM_OBJECTIVE_MAROON
+#undef TEAM_OBJECTIVE_PROTECT
+#undef TEAM_OBJECTIVE_DESTROY
+#undef TEAM_OBJECTIVE_STEAL
+#undef TEAM_OBJECTIVE_ESCAPE
+#undef TEAM_OBJECTIVE_HIJACK
+#undef TEAM_OBJECTIVE_CUSTOM
+
+#undef TEAM_OBJECTIVE_LIST
+

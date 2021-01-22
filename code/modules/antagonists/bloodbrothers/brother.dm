@@ -22,7 +22,7 @@
 	return team
 
 /datum/antagonist/brother/on_gain()
-	SSticker.mode.brothers |= owner
+	GLOB.brothers |= owner
 	owner.objectives += team.objectives
 	owner.special_role = ROLE_BROTHER
 	update_brother_icons_added()
@@ -30,7 +30,7 @@
 	return ..()
 
 /datum/antagonist/brother/on_removal()
-	SSticker.mode.brothers -= owner
+	GLOB.brothers -= owner
 	owner.objectives -= team.objectives
 	if(owner.current)
 		to_chat(owner.current, "<span class='userdanger'> You are no longer a blood brother!</span>")
