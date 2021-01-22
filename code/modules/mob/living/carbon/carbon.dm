@@ -461,42 +461,41 @@ GLOBAL_LIST_EMPTY(ventcrawlers) // List of all mobs currently ventcrawling for p
 		to_chat(src, "<span class='warning'>This ventilation duct is not connected to anything!</span>")
 		return
 
-	if(entrance_found)
-		var/datum/pipeline/P = entrance_found.returnPipenet()
-		if(P && (length(P.members) || P.other_atmosmch))
-			if(!try_crawl_in(entrance_found))
-				return
+	var/datum/pipeline/P = entrance_found.returnPipenet()
+	if(P && (length(P.members) || P.other_atmosmch))
+		if(!try_crawl_in(entrance_found))
+			return
 
-			if(has_buckled_mobs())
-				to_chat(src, "<span class='warning'>You can't vent crawl with other creatures on you!</span>")
-				return
+		if(has_buckled_mobs())
+			to_chat(src, "<span class='warning'>You can't vent crawl with other creatures on you!</span>")
+			return
 
-			if(buckled)
-				to_chat(src, "<span class='warning'>You cannot crawl into a vent while buckled to something!</span>")
-				return
+		if(buckled)
+			to_chat(src, "<span class='warning'>You cannot crawl into a vent while buckled to something!</span>")
+			return
 
-			if(!client)
-				return
+		if(!client)
+			return
 
-			if(iscarbon(src) && contents.len && ventcrawlerlocal < 2)//It must have atleast been 1 to get this far
-				for(var/obj/item/I in contents)
-					var/failed = 0
-					if(istype(I, /obj/item/implant))
-						continue
-					if(istype(I, /obj/item/organ))
-						continue
-					if(I.flags & ABSTRACT)
-						continue
-					else
-						failed++
+		if(iscarbon(src) && contents.len && ventcrawlerlocal < 2)//It must have atleast been 1 to get this far
+			for(var/obj/item/I in contents)
+				var/failed = 0
+				if(istype(I, /obj/item/implant))
+					continue
+				if(istype(I, /obj/item/organ))
+					continue
+				if(I.flags & ABSTRACT)
+					continue
+				else
+					failed++
 
-					if(failed)
-						to_chat(src, "<span class='warning'>You can't crawl around in the ventilation ducts with items!</span>")
-						return
+				if(failed)
+					to_chat(src, "<span class='warning'>You can't crawl around in the ventilation ducts with items!</span>")
+					return
 
-			show_ventcrawl(entrance_found)
-			loc = entrance_found // This can not be a forcemove. It will break the ventcrawl UI
-			add_ventcrawl(entrance_found)
+		show_ventcrawl(entrance_found)
+		loc = entrance_found // This can not be a forcemove. It will break the ventcrawl UI
+		add_ventcrawl(entrance_found)
 
 
 /mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
