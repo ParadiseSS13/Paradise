@@ -41,21 +41,21 @@
 	STOP_PROCESSING(SSradiation, src)
 	..()
 
-/datum/radiation_wave/process(delta_time)
+/datum/radiation_wave/process()
 	master_turf = get_step(master_turf, move_dir)
 	if(!master_turf)
 		qdel(src)
 		return
-	steps += delta_time
+	steps++
 	var/list/atoms = get_rad_atoms()
 
 	var/strength
-	if(steps>1)
-		strength = INVERSE_SQUARE(intensity, max(range_modifier*steps, 1), 1)
+	if(steps > 1)
+		strength = INVERSE_SQUARE(intensity, max(range_modifier * steps, 1), 1)
 	else
 		strength = intensity
 
-	if(strength<RAD_BACKGROUND_RADIATION)
+	if(strength < RAD_BACKGROUND_RADIATION)
 		qdel(src)
 		return
 	radiate(atoms, strength)
@@ -88,7 +88,7 @@
 	var/cmove_dir = move_dir
 	if(cmove_dir == NORTH || cmove_dir == SOUTH)
 		width--
-	width = 1+(2*width)
+	width = 1 + (2 * width)
 
 	for(var/k in 1 to atoms.len)
 		var/atom/thing = atoms[k]
@@ -97,7 +97,7 @@
 		if (SEND_SIGNAL(thing, COMSIG_ATOM_RAD_WAVE_PASSING, src, width) & COMPONENT_RAD_WAVE_HANDLED)
 			continue
 		if (thing.rad_insulation != RAD_NO_INSULATION)
-			intensity *= (1-((1-thing.rad_insulation)/width))
+			intensity *= (1 - ((1 - thing.rad_insulation) / width))
 
 /datum/radiation_wave/proc/radiate(list/atoms, strength)
 	var/can_contam = strength >= RAD_MINIMUM_CONTAMINATION

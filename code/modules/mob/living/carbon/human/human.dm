@@ -1608,7 +1608,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 	..()
 
-/mob/living/rad_act(amount)
+/mob/living/carbon/human/rad_act(amount)
 	if(RADIMMUNE in dna.species.species_traits)
 		return SEND_SIGNAL(src, COMSIG_ATOM_RAD_ACT, amount)
 	. = ..()
