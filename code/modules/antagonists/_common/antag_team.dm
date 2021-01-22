@@ -247,7 +247,8 @@
 		var/datum/objective/objective = locateUID(href_list["obj_delete"])
 		if(!istype(objective))
 			return
-		for(var/datum/mind/M in members)
+		for(var/m in members)
+			var/datum/mind/M = m
 			M.objectives -= objective
 		objectives -= objective
 
