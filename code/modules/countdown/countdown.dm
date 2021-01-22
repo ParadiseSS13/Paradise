@@ -5,22 +5,22 @@
 		And maybe we'll come back\n\
 		To earth, who can tell?"
 
-	var/displayed_text
-	var/atom/attached_to
-	color = "#ff0000"
-	var/text_size = 4
-	var/started = FALSE
 	invisibility = INVISIBILITY_OBSERVER
 	anchored = TRUE
-	layer = GHOST_LAYER
+	layer = MASSIVE_OBJ_LAYER
+	color = "#ff0000" // text color
+	var/text_size = 3 // larger values clip when the displayed text is larger than 2 digits.
+	var/started = FALSE
+	var/displayed_text
+	var/atom/attached_to
 
-/obj/effect/countdown/New(atom/A)
+/obj/effect/countdown/Initialize(mapload)
 	. = ..()
-	attach(A)
+	attach(loc)
 
 /obj/effect/countdown/examine(mob/user)
 	. = ..()
-	. += "This countdown is displaying: [displayed_text]"
+	. += "This countdown is displaying: [displayed_text]."
 
 /obj/effect/countdown/proc/attach(atom/A)
 	attached_to = A
@@ -51,7 +51,7 @@
 	displayed_text = new_val
 
 	if(displayed_text)
-		maptext = "<font size = [text_size]>[displayed_text]</font>"
+		maptext = "<font face='Small Fonts' size=[text_size]>[displayed_text]</font>"
 	else
 		maptext = null
 
@@ -90,3 +90,13 @@
 	else if(C.occupant)
 		var/completion = round(C.get_completion())
 		return completion
+
+/obj/effect/countdown/anomaly
+	name = "anomaly countdown"
+
+/obj/effect/countdown/anomaly/get_value()
+	var/obj/effect/anomaly/A = attached_to
+	if(!istype(A))
+		return
+	var/time_left = max(0, (A.death_time - world.time) / 10)
+	return round(time_left)

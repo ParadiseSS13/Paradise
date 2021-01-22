@@ -3,7 +3,6 @@
 	var/spawning = 0	//Referenced when you want to delete the new_player later on in the code.
 	var/totalPlayers = 0		 //Player counts for the Lobby tab
 	var/totalPlayersReady = 0
-	var/tos_consent = FALSE
 	universal_speak = 1
 
 	invisibility = 101
@@ -23,35 +22,11 @@
 /mob/new_player/verb/new_player_panel()
 	set src = usr
 
-	if(handle_tos_consent())
+	if(client.tos_consent)
 		new_player_panel_proc()
+	else
+		privacy_consent()
 
-/mob/new_player/proc/handle_tos_consent()
-	if(!GLOB.join_tos)
-		tos_consent = TRUE
-		return TRUE
-
-	if(!SSdbcore.IsConnected())
-		tos_consent = TRUE
-		return TRUE
-
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("privacy")] WHERE ckey=:ckey AND consent=1", list(
-		"ckey" = ckey
-	))
-	if(!query.warn_execute())
-		qdel(query)
-		// If our query failed, just assume yes
-		tos_consent = TRUE
-		return TRUE
-
-	while(query.NextRow())
-		qdel(query)
-		tos_consent = TRUE
-		return TRUE
-
-	qdel(query)
-	privacy_consent()
-	return FALSE
 
 /mob/new_player/proc/privacy_consent()
 	src << browse(null, "window=playersetup")
@@ -147,10 +122,12 @@
 		query.warn_execute()
 		qdel(query)
 		src << browse(null, "window=privacy_consent")
-		tos_consent = 1
+		client.tos_consent = TRUE
+		// Now they have accepted TOS, we can log data
+		client.chatOutput.sendClientData()
 		new_player_panel_proc()
 	if(href_list["consent_rejected"])
-		tos_consent = 0
+		client.tos_consent = FALSE
 		to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 		var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES (:ckey, Now(), 0)", list(
 			"ckey" = ckey
@@ -164,7 +141,7 @@
 		return TRUE
 
 	if(href_list["ready"])
-		if(!tos_consent)
+		if(!client.tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 			return FALSE
 		if(client.version_blocked)
@@ -182,7 +159,7 @@
 		new_player_panel_proc()
 
 	if(href_list["observe"])
-		if(!tos_consent)
+		if(!client.tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 			return FALSE
 		if(client.version_blocked)
@@ -227,7 +204,7 @@
 		return FALSE
 
 	if(href_list["late_join"])
-		if(!tos_consent)
+		if(!client.tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 			return FALSE
 		if(client.version_blocked)

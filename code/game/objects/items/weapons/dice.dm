@@ -126,9 +126,9 @@
 	return
 
 /obj/item/dice/d20/e20
-	var/triggered = 0
+	var/triggered = FALSE
 
-/obj/item/dice/attack_self(mob/user as mob)
+/obj/item/dice/attack_self(mob/user)
 	diceroll(user)
 
 /obj/item/dice/throw_impact(atom/target)
@@ -138,7 +138,7 @@
 /obj/item/dice/proc/diceroll(mob/user)
 	result = roll(sides)
 	if(rigged != DICE_NOT_RIGGED && result != rigged_value)
-		if(rigged == DICE_BASICALLY_RIGGED && prob(clamp(1/(sides - 1) * 100, 25, 80)))
+		if(rigged == DICE_BASICALLY_RIGGED && prob(clamp(1 / (sides - 1) * 100, 25, 80)))
 			result = rigged_value
 		else if(rigged == DICE_TOTALLY_RIGGED)
 			result = rigged_value
@@ -153,17 +153,17 @@
 		comment = "Ouch, bad luck."
 	update_icon()
 	if(initial(icon_state) == "d00")
-		result = (result - 1)*10
-	if(special_faces.len == sides)
+		result = (result - 1) * 10
+	if(length(special_faces) == sides)
 		result = special_faces[result]
 	if(user != null) //Dice was rolled in someone's hand
-		user.visible_message("[user] has thrown [src]. It lands on [result]. [comment]", \
-							 "<span class='notice'>You throw [src]. It lands on [result]. [comment]</span>", \
+		user.visible_message("[user] has thrown [src]. It lands on [result]. [comment]",
+							 "<span class='notice'>You throw [src]. It lands on [result]. [comment]</span>",
 							 "<span class='italics'>You hear [src] rolling, it sounds like a [fake_result].</span>")
-	else if(!src.throwing) //Dice was thrown and is coming to rest
+	else if(!throwing) //Dice was thrown and is coming to rest
 		visible_message("<span class='notice'>[src] rolls to a stop, landing on [result]. [comment]</span>")
 
-/obj/item/dice/d20/e20/diceroll(mob/user as mob, thrown)
+/obj/item/dice/d20/e20/diceroll(mob/user, thrown)
 	if(triggered)
 		return
 
@@ -172,26 +172,27 @@
 	if(result == 1)
 		to_chat(user, "<span class='danger'>Rocks fall, you die.</span>")
 		user.gib()
+		add_attack_logs(src, user, "detonated with a roll of [result], gibbing them!", ATKLOG_FEW)
 	else
-		triggered = 1
+		triggered = TRUE
 		visible_message("<span class='notice'>You hear a quiet click.</span>")
-		spawn(40)
+		addtimer(CALLBACK(src, .proc/boom, user, result), 4 SECONDS)
 
-			var/cap = 0
-			if(result > GLOB.max_ex_light_range && result != 20)
-				cap = 1
-				result = min(result, GLOB.max_ex_light_range) //Apply the bombcap
-			else if(result == 20) //Roll a nat 20, screw the bombcap
-				result = 24
-			var/turf/epicenter = get_turf(src)
-			explosion(epicenter, round(result*0.25), round(result*0.5), round(result), round(result*1.5), 1, cap)
+/obj/item/dice/d20/e20/proc/boom(mob/user, result)
+	var/capped = FALSE
+	var/actual_result = result
+	if(result != 20)
+		capped = TRUE
+		result = min(result, GLOB.max_ex_light_range) // Apply the bombcap
+	else // Rolled a nat 20, screw the bombcap
+		result = 24
 
-			var/turf/bombturf = get_turf(src)
-			var/area/A = get_area(bombturf)
-			investigate_log("E20 detonated at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with a roll of [result]. Triggered by: [key_name(user)]", INVESTIGATE_BOMB)
-			log_game("E20 detonated at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with a roll of [result]. Triggered by: [key_name(user)]")
-			add_attack_logs(user, src, "detonated with a roll of [result]", ATKLOG_FEW)
-
+	var/turf/epicenter = get_turf(src)
+	var/area/A = get_area(epicenter)
+	explosion(epicenter, round(result * 0.25), round(result * 0.5), round(result), round(result * 1.5), TRUE, capped)
+	investigate_log("E20 detonated at [A.name] ([epicenter.x],[epicenter.y],[epicenter.z]) with a roll of [actual_result]. Triggered by: [key_name(user)]", INVESTIGATE_BOMB)
+	log_game("E20 detonated at [A.name] ([epicenter.x],[epicenter.y],[epicenter.z]) with a roll of [actual_result]. Triggered by: [key_name(user)]")
+	add_attack_logs(user, src, "detonated with a roll of [actual_result]", ATKLOG_FEW)
 
 /obj/item/dice/update_icon()
 	overlays.Cut()
