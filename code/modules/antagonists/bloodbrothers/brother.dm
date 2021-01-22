@@ -6,7 +6,8 @@
 	name = "Brother"
 	roundend_category = "Brother"
 	job_rank = ROLE_BROTHER
-	var/datum/team/brother_team/team //the owning team is stored here.
+	///the owning team is stored here.
+	var/datum/team/brother_team/team 
 /*
 	* This proc is called when a new brother team is created.
 	*/
@@ -21,7 +22,7 @@
 	return team
 
 /datum/antagonist/brother/on_gain()
-	SSticker.mode.brothers += owner
+	SSticker.mode.brothers |= owner
 	owner.objectives += team.objectives
 	owner.special_role = ROLE_BROTHER
 	update_brother_icons_added()
@@ -32,7 +33,7 @@
 	SSticker.mode.brothers -= owner
 	owner.objectives -= team.objectives
 	if(owner.current)
-		to_chat(owner.current,"<span class='userdanger'> You are no longer a blood brother!</span>")
+		to_chat(owner.current, "<span class='userdanger'> You are no longer a blood brother!</span>")
 	owner.special_role = null
 	update_brother_icons_removed()
 	return ..()

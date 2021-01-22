@@ -409,7 +409,7 @@
 	. = _memory_edit_header("brother")
 	if(has_antag_datum(/datum/antagonist/brother))
 		. += "<b><font color='red'>BROTHER</font></b>|<a href='?src=[UID()];brother=clear'>no</a>"
-		if(objectives.len==0)
+		if(!length(objectives))
 			. += "<br>Objectives are empty! Check Antagonist teams."
 	else
 		. += "<a href='?src=[UID()];brother=brother'>brother</a>|<b>NO</b>"
@@ -500,7 +500,7 @@
 	if(issilicon(current))
 		sections["silicon"] = memory_edit_silicon()
 	/** BLOOD BROTHERS **/
-	sections["brother"] = memory_edit_brother(H)
+	sections["brother"] = memory_edit_brother()
 	/*
 		This prioritizes antags relevant to the current round to make them appear at the top of the panel.
 		Traitorchan and traitorvamp are snowflaked in because they have multiple sections.
@@ -1250,15 +1250,16 @@
 					if(!choice)
 						message_admins("[key_name_admin(usr)] tried to create blood brother team with no suitable candidates")
 						return
-					var/choice2 = alert(usr, "Randomise blood bother objectives?", "Randomise Objectives", "Yes", "No") //We're asking here, otherwise go set up objectives in the teams edit_team
-					if(choice2 == "No")
-						message_admins("[key_name_admin(usr)] created blood brother team with no objectives")
+					var/choice2 = alert(usr, "Randomise blood bother objectives?", "Randomise Objectives", "Yes", "No") //We're asking here, otherwise go set up objectives in the teams edit_team						
 					var/datum/mind/bro = candidates[choice]
 					var/datum/team/brother_team/T = new
 					T.add_member(src)
 					T.add_member(bro)
 					if(choice2 == "Yes")
 						T.forge_brother_objectives()
+						message_admins("[key_name_admin(usr)] created blood brother team with randomised objectives")
+					else
+						message_admins("[key_name_admin(usr)] created blood brother team with no objectives")
 					T.pick_meeting_area()
 					add_antag_datum(/datum/antagonist/brother, T)
 					bro.add_antag_datum(/datum/antagonist/brother, T)

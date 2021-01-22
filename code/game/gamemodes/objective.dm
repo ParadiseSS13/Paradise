@@ -4,7 +4,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective
 	var/datum/mind/owner = null			//Who owns the objective.
-	var/datum/team/team = null			//What team owns the objective
+	/// What team owns the objective
+	var/datum/team/team = null			
 	var/explanation_text = "Nothing"	//What that person is supposed to do.
 	var/datum/mind/target = null		//If they are focused on a particular person.
 	var/target_amount = 0				//If they are focused on a particular number. Steal objectives have their own counter.
@@ -19,7 +20,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/Destroy()
 	GLOB.all_objectives -= src
 	if(owner)
-		for(var/datum/antagonist/A in owner.antag_datums)
+		for(var/a in owner.antag_datums)
+			var/datum/antagonist/A = a
 			A.objectives -= src
 	if(team)
 		team.objectives -= src
@@ -28,7 +30,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/proc/check_completion()
 	return completed
 	
-/datum/objective/proc/get_owners() // Combine owner and team into a single list. 
+/** 
+  *Combine owner and team into a single list. 	
+  */
+/datum/objective/proc/get_owners() 
 	. = (team && team.members) ? team.members.Copy() : list()
 	if(owner)
 		. += owner
@@ -71,11 +76,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
   *Called when you want to know if owner has escaped or not.
   */
 /datum/objective/proc/considered_escape(datum/mind/M) //find out if the owner escaped
+	if(!M.current || M.current.stat == DEAD)
+		return FALSE
 	if(issilicon(M.current))
 		return FALSE
 	if(isbrain(M.current))
-		return FALSE
-	if(!M.current || M.current.stat == DEAD)
 		return FALSE
 	if(SSticker.force_ending) //This one isn't their fault, so lets just assume good faith
 		return TRUE
@@ -102,17 +107,16 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/proc/team_update()
 	var/list/datum/mind/owners = get_owners()
 	if(owner)
-		owner?.objectives -= src
+		owner.objectives -= src
 	if(team)
 		find_target()
 		if(!target)
-			GLOB.all_objectives -= src
-			team?.objectives -= src
 			qdel(src)
 			return
-		for(var/datum/mind/M in owners)
-			M?.objectives += src
-			M?.announce_objectives()
+		for(var/m in owners)
+			var/datum/mind/M = m
+			M.objectives += src
+			M.announce_objectives()
 
 /**
   * Called when the objective's target goes to cryo.
@@ -147,7 +151,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return target
 
 /datum/objective/assassinate/check_completion()
-	if(target && target.current)
+	if(target?.current)
 		if(target.current.stat == DEAD)
 			return 1
 		if(issilicon(target.current) || isbrain(target.current)) //Borgs/brains/AIs count as dead for traitor objectives. --NeoFite
@@ -162,38 +166,24 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/assassinate/shared/post_target_cryo()
 	team_update()
 
-/datum/objective/assassinate/once //this objective doesn't work if added via admin.
+/datum/objective/assassinate/once
 	var/won = FALSE
 
 /datum/objective/assassinate/once/find_target()
 	..()
 	if(target && target.current)
 		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]. You only need to kill them once. If they come back you still succeed."
-		START_PROCESSING(SSprocessing,src)
+		RegisterSignal(target, COMSIG_MOB_DEATH, .proc/check_midround_completion)
 	else
 		explanation_text = "Free Objective"
 	
 /datum/objective/assassinate/once/check_completion()
-	if(won)
-		return won
-	return ..()
+	return won || ..()
 
 /datum/objective/assassinate/once/proc/check_midround_completion()
-	if(target && target.current)
-		if(target.current.stat == DEAD)
-			return TRUE
-		if(issilicon(target.current) || isbrain(target.current))
-			return TRUE
-		if(!target.current.ckey)
-			return TRUE
-		return FALSE
-	return TRUE
+	won = TRUE
+	UnregisterSignal(target, COMSIG_MOB_DEATH)
 	
-/datum/objective/assassinate/once/process()
-	won = check_midround_completion()
-	if(won)
-		STOP_PROCESSING(SSprocessing, src)
-
 /datum/objective/assassinate/once/on_target_cryo()
 	if(won)
 		return
@@ -202,7 +192,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/assassinate/once/shared
 
 /datum/objective/assassinate/once/shared/post_target_cryo()
-	STOP_PROCESSING(SSprocessing, src)
 	team_update()
 	
 
@@ -333,7 +322,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
 		return FALSE
 	var/list/datum/mind/owners = get_owners()
-	for(var/datum/mind/M in owners) //require all owners to pass
+	for(var/m in owners) //require all owners to pass
+		var/datum/mind/M = m
 		if(!M.current || M.current.stat)
 			return FALSE
 		if(issilicon(M.current))
@@ -405,7 +395,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/escape/check_completion() //require all owners to escape alive
 	var/list/datum/mind/owners = get_owners()
-	for(var/datum/mind/M in owners) 
+	for(var/m in owners) 
+		var/datum/mind/M = m
 		if(!considered_escape(M))
 			return FALSE
 	return TRUE
@@ -528,7 +519,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(!steal_target)
 		return TRUE // Free Objective
 
-	for(var/datum/mind/M in owners)
+	for(var/m in owners)
+		var/datum/mind/M = m
 		if(!isliving(M.current))
 			continue
 		

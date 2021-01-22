@@ -575,18 +575,20 @@
 /datum/admins/proc/check_antagonist_teams() // stick any proper antagonist teams in here please.
 	if(!check_rights(R_ADMIN))
 		return
-	if(SSticker && SSticker.current_state >= GAME_STATE_PLAYING)
-		var/dat = "<html><head><title>Antagonist Teams</title></head><body><h1><B>Antagonist Teams</B></h1>"
+	if(SSticker.current_state >= GAME_STATE_PLAYING)
+		var/dat = "<html><head><title>Antagonist Teams</title></head><body><h1><b>Antagonist Teams</b></h1>"
 
-		if(SSticker.mode.brother_teams.len)
-			dat += "<br><table><tr><td><B>Brother Teams</B></td><td></td></tr>"
-			for(var/datum/team/brother_team/team in SSticker.mode.brother_teams)
-				dat += "<tr><td><a href='?src=[UID()];edit_team=[team.UID()]'><B>[team.name]</B></a></td></tr>"
-				for(var/datum/mind/brother in team.members)
-					var/mob/M = brother.current
-					dat += check_antagonists_line(M, close = TRUE)
+		if(length(SSticker.mode.brother_teams))
+			dat += "<br><table><tr><td><b>Brother Teams</b></td><td></td></tr>"
+			for(var/T in SSticker.mode.brother_teams)
+				var/datum/team/brother_team/team = T
+				dat += "<tr><td><a href='?src=[UID()];edit_team=[team.UID()]'><b>[team.name]</b></a></td></tr>"
+				for(var/B in team.members)
+					var/datum/mind/brother = B
+					dat += check_antagonists_line(brother.current, close = TRUE)
 				var/objective_count = 1
-				for(var/datum/objective/objective in team.objectives)
+				for(var/O in team.objectives)
+					var/datum/objective/objective = O
 					dat += "<tr><td><B>Objective #[objective_count]</B>: [objective.explanation_text]</td></tr>"
 					objective_count++
 			dat += "</table>"

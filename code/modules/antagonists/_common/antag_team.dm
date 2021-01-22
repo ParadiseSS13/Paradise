@@ -29,19 +29,29 @@
 /datum/team/proc/remove_member(datum/mind/member)
 	members -= member
 
+/*
+ *This proc brings up a teams edit window, child this off to team subtypes if they require specific additions otherwise leave as is.
+ *Team edit handles the following:
+ *Adding and removing members, remove_member and add_member should have childern in their own team subtypes, since those are required to do extra work to keep the team functioning properly.
+ *Displays members, as well as providing links to the players /datum/mind, also whether they are dead or not.
+ *Displays objectives, their explanation text, as well as allowing adding, announcing, editing and removing for normal objectives and objective completion toggle for custom objectives.
+ *Finally allows for the disbanding of teams entirely, the proc/destory() on team subtypes should handle everything relating to this.
+ */
 /datum/team/proc/edit_team()
 	if(!check_rights(R_ADMIN))
 		return
-	var/dat = "<html><head><title>Team [name]</title></head><br><body><table><tr><td><B>[name]</B></td><td></td></tr>"
-	dat += "<tr><td><a href='?src=[UID()];add_member=[src.UID()]'>Add a member</a></td></tr>"
-	dat += "<tr><td><a href='?src=[UID()];remove_member=[src.UID()]'>Remove a member</a></td></tr>"
+	var/dat = "<html><head><title>Team [name]</title></head><br><body><table><tr><td><b>[name]</b></td><td></td></tr>"
+	dat += "<tr><td><a href='?src=[UID()];add_member=1'>Add a member</a></td></tr>"
+	dat += "<tr><td><a href='?src=[UID()];remove_member=1'>Remove a member</a></td></tr>"
 	dat += "<tr><td><b>Team Members:</b></td></tr>"
-	for(var/datum/mind/member in members)
+	for(var/m in members)
+		var/datum/mind/member = m
 		var/mob/M = member.current
-		dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td></tr>"
+		dat += "<tr><td>[ADMIN_PP(M, "[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == DEAD ? " <b><font color=red>(DEAD)</font></b>" : ""]</td></tr>"
 	dat += "<tr><td><b>Objectives:</b></td></tr>"
 	var/objective_count = 1
-	for(var/datum/objective/objective in objectives)
+	for(var/O in objectives)
+		var/datum/objective/objective = O
 		dat += "<tr><td><b>Objective #[objective_count]</b>: [objective.explanation_text]"
 		dat += " <a href='?src=[UID()];obj_edit=[objective.UID()]'>Edit</a> " // Edit
 		dat += "<a href='?src=[UID()];obj_delete=[objective.UID()]'>Delete</a> " // Delete
@@ -49,9 +59,9 @@
 		dat += "<font color=[objective.completed ? "green" : "red"]>Toggle Completion</font>"
 		dat += "</a></td></tr>"
 		objective_count++
-	dat += "<tr><td><a href='?src=[UID()];obj_add=[src.UID()]'>Add objective</a></td></tr>"
-	dat += "<tr><td><a href='?src=[UID()];obj_announce=[src.UID()]'>Announce Objectives</a></td></tr>"
-	dat += "<tr><td><a href='?src=[UID()];delete_team=[src.UID()]'>Disband team</a></td></tr>"
+	dat += "<tr><td><a href='?src=[UID()];obj_add=1'>Add objective</a></td></tr>"
+	dat += "<tr><td><a href='?src=[UID()];obj_announce=1'>Announce Objectives</a></td></tr>"
+	dat += "<tr><td><a href='?src=[UID()];delete_team=1'>Disband team</a></td></tr>"
 	dat += "</body></table><html>"
 	usr << browse(dat, "window=editteam;size=400x500")
 
@@ -68,7 +78,7 @@
 			if(!L.mind) //technically anyone can be a member of a team, even silicons and simple mobs.
 				continue						
 			candidates[L.mind.name] = L.mind
-		var/choice = input(usr,"Choose new member to add", "Member") as null|anything in candidates
+		var/choice = input(usr, "Choose new member to add", "Member") as null|anything in candidates
 		if(!choice)
 			return
 		add_member(choice)
@@ -80,8 +90,8 @@
 		if(!choice)
 			return
 		remove_member(choice)
-		log_admin("[key_name(usr)] has removed [choice] to antag team \"[name]\"")
-		message_admins("[key_name_admin(usr)] has removed [choice] to antag team \"[name]\"")
+		log_admin("[key_name(usr)] has removed [choice] from antag team \"[name]\"")
+		message_admins("[key_name_admin(usr)] has removed [choice] from antag team \"[name]\"")
 
 	else if(href_list["delete_team"])
 		log_admin("[key_name(usr)] has disbanded antag team \"[name]\"")
@@ -94,39 +104,40 @@
 		var/def_value
 
 		if(href_list["obj_edit"])
-			objective = locate(href_list["obj_edit"])
+			objective = locateUID(href_list["obj_edit"])
 			if(!objective)
 				return
 			objective_pos = objectives.Find(objective)
 
-			//Text strings are easy to manipulate. Revised for simplicity.
-			var/temp_obj_type = "[objective.type]"//Convert path into a text string.
-			def_value = copytext(temp_obj_type, 19)//Convert last part of path into an objective keyword.
+			/// Text strings are easy to manipulate. Revised for simplicity.
+			var/temp_obj_type = "[objective.type]"// Convert path into a text string.
+			def_value = copytext(temp_obj_type, 19)// Convert last part of path into an objective keyword.
 			if(!def_value)//If it's a custom objective, it will be an empty string.
 				def_value = "custom"
 		
-		// If your adding new objectives, insert the name here.
+		/// If your adding new objectives, insert the name here.
 		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in list("assassinate","protect", "hijack", "escape", "steal", "destroy", "maroon", "custom")
 		if(!new_obj_type)
 			return
 
 		var/datum/objective/new_objective = null
-
-		switch(new_obj_type) //if an objective doesn't require a target add a new if to the switch
+		/// if an objective doesn't require a target add a new if to the switch
+		switch(new_obj_type) 
 			if("assassinate", "maroon", "protect") 
 				var/list/possible_targets = list()
-				for(var/datum/mind/possible_target in SSticker.minds)
-					if((possible_target != src) && istype(possible_target.current, /mob/living/carbon/human))
+				for(var/pt in SSticker.minds)
+					var/datum/mind/possible_target = pt
+					if(possible_target != src && ishuman(possible_target.current))
 						possible_targets += possible_target.current
 
 				var/mob/def_target = null
 				var/list/objective_list = list(/datum/objective/assassinate, /datum/objective/maroon)
-				if(objective && (objective.type in objective_list) && objective:target)
+				if(objective && (objective.type in objective_list) && objective.target)
 					def_target = objective.target.current
 				possible_targets = sortAtom(possible_targets)
 
-				var/new_target
-				if(length(possible_targets) > 0)
+				var/datum/mind/new_target = null
+				if(length(possible_targets))
 					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
 						possible_targets += "Free objective"
 						new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
@@ -142,30 +153,30 @@
 				if(new_target == "Free objective")
 					new_objective = new /datum/objective
 					new_objective.team = src
-					new_objective:target = null
+					new_objective.target = null
 					new_objective.explanation_text = "Free objective"
 					return
-
-				switch(new_obj_type) //Objectives requiring targets go here
+				/// Objectives requiring targets go here
+				switch(new_obj_type) 
 					if("assassinate")
 						new_objective = new /datum/objective/assassinate/shared
 						new_objective.team = src
-						new_objective:target = new_target:mind
-						//Will display as special role if assigned mode is equal to special role.. Ninjas/commandos/nuke ops.
-						new_objective.explanation_text = "Assassinate [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
+						new_objective.target = new_target
+						/// Will display as special role if assigned mode is equal to special role.. Ninjas/commandos/nuke ops.
+						new_objective.explanation_text = "Assassinate [new_target.name], the [new_target.assigned_role == new_target.special_role ? (new_target.special_role) : (new_target.assigned_role)]."
 					if("maroon")
 						new_objective = new /datum/objective/maroon/shared
 						new_objective.team = src
-						new_objective:target = new_target:mind
-						new_objective.explanation_text = "Maroon [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
+						new_objective.target = new_target
+						new_objective.explanation_text = "Maroon [new_target.name], the [new_target.assigned_role == new_target.special_role ? (new_target.special_role) : (new_target.assigned_role)]."
 					if("protect")
 						new_objective = new /datum/objective/protect/shared
 						new_objective.team = src
-						new_objective:target = new_target:mind
-						new_objective.explanation_text = "Protect [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
+						new_objective.target = new_target
+						new_objective.explanation_text = "Protect [new_target.name], the [new_target.assigned_role == new_target.special_role ? (new_target.special_role) : (new_target.assigned_role)]."
 
 			if("destroy")
-				var/list/possible_targets = active_ais(1)
+				var/list/possible_targets = active_ais()
 				if(length(possible_targets))
 					var/mob/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
 					new_objective = new /datum/objective/destroy
@@ -194,7 +205,7 @@
 					return
 
 			if("custom")
-				var/expl = sanitize(copytext(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
+				var/expl = sanitize(copytext(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null, 1 ,MAX_MESSAGE_LEN))
 				if(!expl)
 					return
 				new_objective = new /datum/objective
@@ -206,22 +217,23 @@
 
 		if(objective)
 			objectives -= objective
-			for(var/datum/mind/M in members)
+			for(var/m in members)
+				var/datum/mind/M = m
 				M.objectives -= objective
 				M.objectives += new_objective
 			qdel(objective)
 			objectives.Insert(objective_pos, new_objective)
-
 		else
 			objectives += new_objective
-			for(var/datum/mind/M in members)
+			for(var/m in members)
+				var/datum/mind/M = m
 				M.objectives += new_objective
 		log_admin("[key_name(usr)] has updated [name]'s objectives: [new_objective]")
 		message_admins("[key_name_admin(usr)] has updated [name]'s objectives: [new_objective]")
 
 
 	else if(href_list["obj_delete"])
-		var/datum/objective/objective = locate(href_list["obj_delete"])
+		var/datum/objective/objective = locateUID(href_list["obj_delete"])
 		if(!istype(objective))
 			return
 		for(var/datum/mind/M in members)
@@ -233,7 +245,7 @@
 		qdel(objective)
 
 	else if(href_list["obj_completed"])
-		var/datum/objective/objective = locate(href_list["obj_completed"])
+		var/datum/objective/objective = locateUID(href_list["obj_completed"])
 		if(!istype(objective))
 			return
 		objective.completed = !objective.completed
@@ -242,7 +254,8 @@
 		message_admins("[key_name_admin(usr)] has toggled the completion of one of [name]'s objectives")
 
 	else if(href_list["obj_announce"])
-		for(var/datum/mind/M in members)
+		for(var/m in members)
+			var/datum/mind/M = m
 			M.announce_objectives()
 			SEND_SOUND(M.current, sound('sound/ambience/alarm4.ogg'))
 		log_admin("[key_name(usr)] has announced [name]'s objectives")

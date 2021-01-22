@@ -1812,7 +1812,7 @@
 
 	else if(href_list["edit_team"])
 		var/datum/team/T = locateUID(href_list["edit_team"])
-		T.edit_team()
+		T?.edit_team()
 
 	else if(href_list["adminplayerobservecoodjump"])
 		if(!check_rights(R_ADMIN))	return

@@ -11,26 +11,37 @@
 /datum/team/brother_team
 	name = "brotherhood"
 	member_name = "Blood brother"
+	/// The chosen meeting area for a blood brother team.
 	var/meeting_area
+	/// list of meeting area's for blood brothers
 	var/meeting_areas = list("The Bar", "Dorms", "Escape Dock", "Arrivals", "Holodeck", "Primary Tool Storage", "Recreation Area", "Chapel", "Library")
-	var/list/assigned_targets = list() // This includes assassinate as well as steal objectives. prevents duplicate objectives
+	/// This includes assassinate as well as steal objectives. prevents duplicate objectives
+	var/list/assigned_targets = list() 
 
 /datum/team/brother_team/is_solo()
 	return FALSE
 
 /datum/team/brother_team/Destroy()
-	for(var/datum/mind/brother in members)
-		if(brother.has_antag_datum(/datum/antagonist/brother))
-			brother.remove_antag_datum(/datum/antagonist/brother)
+	for(var/b in members)
+		var/datum/mind/brother = b
+		brother.remove_antag_datum(/datum/antagonist/brother)
 	SSticker.mode.brother_teams -= src	
 	return ..()
 
+/*
+	* This picks the meeting area for the team from var/meeting_areas
+	*/
 /datum/team/brother_team/proc/pick_meeting_area()
 	meeting_area = pick(meeting_areas)
 
+/*
+	* This builds the name of the team
+	*/
 /datum/team/brother_team/proc/update_name()
+	///we're grabbing the last names of the players in question, if they don't have a last name, doesn't matter first name will be used instead.
 	var/list/last_names = list()
-	for(var/datum/mind/M in members)
+	for(var/m in members)
+		var/datum/mind/M = m
 		var/list/split_name = splittext(M.name, " ")
 		last_names += split_name[length(split_name)]
 
@@ -42,10 +53,10 @@
 	for(var/i = 1 to max(1, (config.brother_objectives_amount + (length(members) > 2) - is_hijacker))) //this determines the number of objectives generated.
 		forge_single_objective()
 	if(is_hijacker)
-		if(!locate(/datum/objective/hijack) in objectives)
-			objectives += new/datum/objective/hijack
-	else if(!locate(/datum/objective/escape) in objectives)
-		objectives += new/datum/objective/escape
+		if(!(locate(/datum/objective/hijack) in objectives))
+			objectives += new /datum/objective/hijack
+	else if(!(locate(/datum/objective/escape) in objectives))
+		objectives += new /datum/objective/escape
 
 /datum/team/brother_team/proc/forge_single_objective() //objectives are chosen here.
 	if(prob(BROTHER_OBJ_STEAL_CHANCE))
