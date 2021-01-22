@@ -241,6 +241,7 @@
 	modules += new /obj/item/multitool/cyborg(src)
 	modules += new /obj/item/t_scanner(src)
 	modules += new /obj/item/analyzer(src)
+	modules += new /obj/item/geiger_counter/cyborg(src)
 	modules += new /obj/item/holosign_creator/engineering(src)
 	modules += new /obj/item/gripper(src)
 	modules += new /obj/item/matter_decompiler(src)
