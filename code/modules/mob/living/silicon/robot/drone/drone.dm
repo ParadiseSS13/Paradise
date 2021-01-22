@@ -387,3 +387,29 @@
 		qdel(src)
 		return TRUE
 	return ..()
+
+/mob/living/silicon/robot/drone/try_crawl_out(obj/machinery/atmospherics/A)
+	if(!A.can_crawl_through())
+		to_chat(src, "<span class='notice'>Using specialized micro tools you begin disconnecting the [A] from its frame....</span>")
+		if(do_after(src, 100, target = A))
+			remove_ventcrawl()
+			forceMove(A.loc) //handles entering and so on
+			visible_message("<span class='boldnotice'>You hear something squeezing through the ducts. With a resounding snap the [A] is fastened back in place.</span>", \
+				"<span class='notice'>You climb out the ventilation system. With a resounding snap the [A] is fastened back in place.</span>")
+		return TRUE
+	return ..()
+
+/mob/living/silicon/robot/drone/try_crawl_in(obj/machinery/atmospherics/A)
+	if(!A.can_crawl_through())
+		visible_message("<span class='notice'>Using specialized micro tools [src] begins disconnecting the [A] from its frame...</span>", \
+		"<span class='notice'>Using specialized micro tools you begin disconnecting the [A] from its frame....</span>")
+		if(do_after(src, 150, target = src))
+			return TRUE
+	return ..()
+
+/mob/living/silicon/robot/drone/show_ventcrawl(obj/machinery/atmospherics/A)
+	if(!A.can_crawl_through())
+		visible_message("<span class='boldnotice'>[src] scrambles into the ventilation ducts! With a resounding snap the [A] is fastened back in place.</span>", \
+		"<span class='notice'>You climb into the ventilation system. With a resounding snap the [A] is fastened back in place.</span>")
+		return
+	return ..()

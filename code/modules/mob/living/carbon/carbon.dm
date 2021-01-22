@@ -464,17 +464,7 @@ GLOBAL_LIST_EMPTY(ventcrawlers) // List of all mobs currently ventcrawling for p
 	if(entrance_found)
 		var/datum/pipeline/P = entrance_found.returnPipenet()
 		if(P && (length(P.members) || P.other_atmosmch))
-			if(entrance_found.can_crawl_through())
-				visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
-				"<span class='notice'>You begin climbing into the ventilation system...</span>")
-				if(!do_after(src, 45, target = src))
-					return
-			else if(istype(src, /mob/living/silicon/robot/drone))
-				visible_message("<span class='notice'>Using specialized micro tools [src] begins disconnecting the [entrance_found] from its frame...</span>", \
-				"<span class='notice'>Using specialized micro tools you begin disconnecting the [entrance_found] from its frame....</span>")
-				if(!do_after(src, 150, target = src))
-					return
-			else
+			if(!try_crawl_in(entrance_found))
 				return
 
 			if(has_buckled_mobs())
@@ -504,12 +494,8 @@ GLOBAL_LIST_EMPTY(ventcrawlers) // List of all mobs currently ventcrawling for p
 						to_chat(src, "<span class='warning'>You can't crawl around in the ventilation ducts with items!</span>")
 						return
 
-			if(istype(src, /mob/living/silicon/robot/drone) && !entrance_found.can_crawl_through())
-				visible_message("<span class='boldnotice'>[src] scrambles into the ventilation ducts! With a resounding snap the [entrance_found] is fastened back in place.</span>", \
-				"<span class='notice'>You climb into the ventilation system. With a resounding snap the [entrance_found] is fastened back in place.</span>")
-			else
-				visible_message("<span class='boldnotice'>[src] scrambles into the ventilation ducts!</span>", "<span class='notice'>You climb into the ventilation system.</span>")
-			loc = entrance_found
+			show_ventcrawl(entrance_found)
+			loc = entrance_found // This can not be a forcemove. It will break the ventcrawl UI
 			add_ventcrawl(entrance_found)
 
 
@@ -537,21 +523,48 @@ GLOBAL_LIST_EMPTY(ventcrawlers) // List of all mobs currently ventcrawling for p
 
 	pipes_shown.len = 0
 
+/mob/living/proc/add_to_pipe_vision(obj/machinery/atmospherics/P)
+	if(!P.pipe_image)
+		P.update_pipe_image()
+	pipes_shown += P.pipe_image
+	if(client)
+		client.images += P.pipe_image
+
+/mob/living/proc/remove_from_pipe_vision(obj/machinery/atmospherics/P)
+	if(!P.pipe_image)
+		P.update_pipe_image()
+	pipes_shown -= P.pipe_image
+	if(client)
+		client.images -= P.pipe_image
+
+/mob/living/proc/try_crawl_out(obj/machinery/atmospherics/A)
+	if(A.can_crawl_through())
+		remove_ventcrawl()
+		forceMove(A.loc) //handles entering and so on
+		visible_message("<span class='notice'>You hear something squeezing through the ducts.</span>", \
+		"<span class='notice'>You climb out the ventilation system.</span>")
+		return TRUE
+	return FALSE
+
+/mob/living/proc/try_crawl_in(obj/machinery/atmospherics/A)
+	if(A.can_crawl_through())
+		visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
+		"<span class='notice'>You begin climbing into the ventilation system...</span>")
+		if(do_after(src, 45, target = src))
+			return TRUE
+	return FALSE
+
+/mob/living/proc/show_ventcrawl(obj/machinery/atmospherics/A)
+	visible_message("<span class='boldnotice'>[src] scrambles into the ventilation ducts!</span>", "<span class='notice'>You climb into the ventilation system.</span>")
+
 //OOP
 /atom/proc/update_pipe_vision()
 	return
 
 /mob/living/update_pipe_vision()
-	if(pipes_shown.len)
-		remove_ventcrawl()
-		if(is_ventcrawling(src))
-			add_ventcrawl(loc)
-	else
-		if(is_ventcrawling(src))
-			add_ventcrawl(loc)
-		else
-			remove_ventcrawl()
-
+	remove_ventcrawl()
+	if(is_ventcrawling(src))
+		add_ventcrawl(loc)
 
 //Throwing stuff
 

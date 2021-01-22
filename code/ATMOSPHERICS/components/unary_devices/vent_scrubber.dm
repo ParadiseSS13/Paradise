@@ -410,4 +410,5 @@
 			user.visible_message("<span class='notice'>[user] unwelds [src]!</span>",\
 				"<span class='notice'>You unweld [src]!</span>")
 		update_icon()
-		update_all_pipe_vision()
+		remove_from_all_pipe_vision()
+		add_to_all_pipe_vision()

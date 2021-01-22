@@ -43,11 +43,10 @@ Pipelines + Other Objects -> Pipe network
 	if(!pipe_color_check(pipe_color))
 		pipe_color = null
 
-	update_all_pipe_vision()
-
 /obj/machinery/atmospherics/Initialize()
 	. = ..()
 	SSair.atmos_machinery += src
+	add_to_all_pipe_vision()
 
 /obj/machinery/atmospherics/proc/atmos_init()
 	if(can_unwrench)
@@ -56,6 +55,7 @@ Pipelines + Other Objects -> Pipe network
 	update_underlays()
 
 /obj/machinery/atmospherics/Destroy()
+	remove_from_all_pipe_vision() // Remove it from the vision of ventcrawlers
 	QDEL_NULL(stored)
 	SSair.atmos_machinery -= src
 	SSair.deferred_pipenet_rebuilds -= src
@@ -63,7 +63,6 @@ Pipelines + Other Objects -> Pipe network
 		L.remove_ventcrawl()
 		L.forceMove(get_turf(src))
 	QDEL_NULL(pipe_image) //we have to qdel it, or it might keep a ref somewhere else
-	update_all_pipe_vision() // Remove it from the vision of ventcrawlers
 	return ..()
 
 /obj/machinery/atmospherics/set_frequency(new_frequency)
@@ -281,22 +280,11 @@ Pipelines + Other Objects -> Pipe network
 	var/obj/machinery/atmospherics/target_move = findConnecting(direction)
 	if(target_move)
 		if(is_type_in_list(target_move, GLOB.ventcrawl_machinery))
-			if(target_move.can_crawl_through())
-				user.remove_ventcrawl()
-				user.forceMove(target_move.loc) //handles entering and so on
-				user.visible_message("<span class='notice'>You hear something squeezing through the ducts.</span>", \
-				"<span class='notice'>You climb out the ventilation system.</span>")
-			else if(istype(user, /mob/living/silicon/robot/drone))
-				to_chat(user, "<span class='notice'>Using specialized micro tools you begin disconnecting the [target_move] from its frame....</span>")
-				if(do_after(user, 100, target = target_move))
-					user.remove_ventcrawl()
-					user.forceMove(target_move.loc) //handles entering and so on
-					user.visible_message("<span class='boldnotice'>You hear something squeezing through the ducts. With a resounding snap the [target_move] is fastened back in place.</span>", \
-						"<span class='notice'>You climb out the ventilation system. With a resounding snap the [target_move] is fastened back in place.</span>")
+			user.try_crawl_out(target_move)
 		else if(target_move.can_crawl_through())
 			user.loc = target_move
 			user.client.eye = target_move //if we don't do this, Byond only updates the eye every tick - required for smooth movement
-			if(returnPipenet() != target_move.returnPipenet())
+			if(returnPipenet() != target_move.returnPipenet()) // This forces a redraw of the pipes for the ventcrawler
 				user.update_pipe_vision()
 			if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
 				user.last_played_vent = world.time
@@ -331,6 +319,14 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/update_all_pipe_vision()
 	for(var/mob/living/M in GLOB.ventcrawlers)
 		M.update_pipe_vision()
+
+/obj/machinery/atmospherics/proc/add_to_all_pipe_vision()
+	for(var/mob/living/M in GLOB.ventcrawlers)
+		M.add_to_pipe_vision(src)
+
+/obj/machinery/atmospherics/proc/remove_from_all_pipe_vision()
+	for(var/mob/living/M in GLOB.ventcrawlers)
+		M.remove_from_pipe_vision(src)
 
 /obj/machinery/atmospherics/proc/change_color(var/new_color)
 	//only pass valid pipe colors please ~otherwise your pipe will turn invisible
