@@ -42,8 +42,9 @@
 	resistance_flags = FLAMMABLE
 	var/sign_state = ""
 
-/obj/item/sign/attackby(obj/item/tool, mob/user)	//construction
-	if(istype(tool, /obj/item/screwdriver) && isturf(user.loc))
+/obj/item/sign/screwdriver_act(mob/user)	//construction
+	if(isturf(user.loc) && !(istype(src, /obj/item/sign/barsign)))
+	// Please don't use a screwdriver on the sign/barsign.
 		var/direction = input("In which direction?", "Select direction.") in list("North", "East", "South", "West", "Cancel")
 		if(direction == "Cancel")
 			return
@@ -64,10 +65,10 @@
 		S.name = name
 		S.desc = desc
 		S.icon_state = sign_state
-		to_chat(user, "You fasten \the [S] with your [tool].")
+		to_chat(user, "You fasten \the [S] with your screwdriver.")
 		qdel(src)
 	else
-		return ..()
+		return
 
 /obj/structure/sign/double/map
 	name = "station map"
