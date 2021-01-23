@@ -317,16 +317,19 @@ Pipelines + Other Objects -> Pipe network
 	return FALSE
 
 /obj/machinery/atmospherics/proc/update_all_pipe_vision()
-	for(var/mob/living/M in GLOB.ventcrawlers)
+	for(var/V in GLOB.ventcrawlers)
+		var/mob/living/M = V
 		M.remove_from_pipe_vision(src)
 		M.add_to_pipe_vision(src)
 
 /obj/machinery/atmospherics/proc/add_to_all_pipe_vision()
-	for(var/mob/living/M in GLOB.ventcrawlers)
+	for(var/V in GLOB.ventcrawlers)
+		var/mob/living/M = V
 		M.add_to_pipe_vision(src)
 
 /obj/machinery/atmospherics/proc/remove_from_all_pipe_vision()
-	for(var/mob/living/M in GLOB.ventcrawlers)
+	for(var/V in GLOB.ventcrawlers)
+		var/mob/living/M = V
 		M.remove_from_pipe_vision(src)
 
 /obj/machinery/atmospherics/proc/change_color(var/new_color)
