@@ -137,7 +137,7 @@ const Settings = (properties, context) => {
           <Button
             selected={!same_z}
             icon={same_z ? "compress" : "expand"}
-            content={same_z ? "Normal" : "Extended"}
+            content={same_z ? "Local Sector" : "Global"}
             onClick={() => act('same_z')}
           />
         </LabeledList.Item>
@@ -184,7 +184,7 @@ const Signals = (properties, context) => {
               key={i}
               backgroundColor={(i % 2 === 0) && "rgba(255, 255, 255, 0.05)"}>
               <Table.Cell
-                width="20%"
+                width="30%"
                 verticalAlign="middle"
                 color="label"
                 p="0.25rem"
