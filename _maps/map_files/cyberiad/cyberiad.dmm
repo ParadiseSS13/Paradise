@@ -80828,7 +80828,7 @@
 /obj/structure/table/reinforced,
 /obj/item/tank/emergency_oxygen/engi,
 /obj/item/clothing/gloves/color/black,
-/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson/engine,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "cQG" = (
@@ -96306,6 +96306,21 @@
 	pixel_y = 12
 	},
 /turf/simulated/floor/plating,
+/area/engine/engineering)
+"tQJ" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/table/reinforced,
+/obj/item/clothing/suit/radiation,
+/obj/item/clothing/head/radiation,
+/obj/item/clothing/glasses/meson,
+/obj/item/geiger_counter,
+/obj/item/geiger_counter,
+/turf/simulated/floor/engine,
 /area/engine/engineering)
 "ubz" = (
 /obj/structure/table,
@@ -126441,7 +126456,7 @@ cZP
 cXx
 cVj
 cSU
-cQG
+tQJ
 cSx
 cVy
 omz
