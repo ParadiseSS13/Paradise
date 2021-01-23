@@ -25,7 +25,11 @@
 	update_icon()
 
 /obj/item/melee/baton/loaded/Initialize(mapload) //this one starts with a cell pre-installed.
-	cell = new(src)
+	if(isrobot(loc.loc)) // First loc would be the module
+		var/mob/living/silicon/robot/R = loc.loc
+		cell = R.cell
+	else
+		cell = new(src)
 	return ..()
 
 /obj/item/melee/baton/Destroy()
@@ -35,43 +39,6 @@
 /obj/item/melee/baton/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return FIRELOSS
-
-/obj/item/melee/baton/get_cell()
-	return cell
-
-/obj/item/melee/baton/throw_impact(atom/hit_atom)
-	..()
-	if(turned_on && prob(throw_hit_chance) && isliving(hit_atom))
-		baton_stun(hit_atom)
-
-/**
-  * Removes the specified amount of charge from the batons power cell.
-  *
-  * If `src` is a cyborg baton, this removes the charge from the borg's internal power cell instead.
-  * Arguments:
-  * * amount - The amount of battery charge to be used.
-  */
-/obj/item/melee/baton/proc/deductcharge(amount)
-	// Cyborg baton
-	if(isrobot(loc))
-		var/mob/living/silicon/robot/R = loc
-		if(R.cell?.charge < (hitcost + amount))
-			turned_on = FALSE
-			update_icon()
-			playsound(src, "sparks", 75, TRUE, -1)
-		if(R.cell.use(amount))
-			return TRUE
-		else
-			return FALSE
-	// Regular baton
-	if(cell?.charge < (hitcost + amount)) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off.
-		turned_on = FALSE
-		update_icon()
-		playsound(src, "sparks", 75, TRUE, -1)
-	if(cell.use(amount))
-		return TRUE
-	else
-		return FALSE
 
 /obj/item/melee/baton/update_icon()
 	if(turned_on)
@@ -83,13 +50,36 @@
 
 /obj/item/melee/baton/examine(mob/user)
 	. = ..()
-	if(isrobot(loc))
+	if(isrobot(user))
 		. += "<span class='notice'>This baton is drawing power directly from your own internal charge.</span>"
 	if(cell)
 		. += "<span class='notice'>The baton is [round(cell.percent())]% charged.</span>"
 	else
 		. += "<span class='warning'>The baton does not have a power source installed.</span>"
 
+/obj/item/melee/baton/get_cell()
+	return cell
+
+/obj/item/melee/baton/throw_impact(atom/hit_atom)
+	..()
+	if(prob(throw_hit_chance) && turned_on && isliving(hit_atom))
+		baton_stun(hit_atom)
+
+/**
+  * Removes the specified amount of charge from the batons power cell.
+  *
+  * If `src` is a cyborg baton, this removes the charge from the borg's internal power cell instead.
+  * Arguments:
+  * * amount - The amount of battery charge to be used.
+  */
+/obj/item/melee/baton/proc/deductcharge(amount)
+	if(!cell)
+		return
+	cell.use(amount)
+	if(cell.charge < (hitcost)) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off.
+		turned_on = FALSE
+		update_icon()
+		playsound(src, "sparks", 75, TRUE, -1)
 
 /obj/item/melee/baton/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stock_parts/cell))
@@ -98,13 +88,13 @@
 			to_chat(user, "<span class='warning'>[src] already has a cell!</span>")
 			return
 		if(C.maxcharge < hitcost)
-			to_chat(user, "<span class='notice'>[src] requires a higher capacity cell.</span>")
+			to_chat(user, "<span class='warning'>[src] requires a higher capacity cell!</span>")
 			return
 		if(!user.unEquip(I))
 			return
-		I.loc = src
+		I.forceMove(src)
 		cell = I
-		to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
+		to_chat(user, "<span class='notice'>You install [I] into [src].</span>")
 		update_icon()
 
 /obj/item/melee/baton/screwdriver_act(mob/living/user, obj/item/I)
@@ -114,33 +104,22 @@
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
 
+	user.put_in_hands(cell)
+	to_chat(user, "<span class='notice'>You remove [cell] from [src].</span>")
 	cell.update_icon()
-	cell.loc = get_turf(src)
 	cell = null
-	to_chat(user, "<span class='notice'>You remove the cell from [src].</span>")
 	turned_on = FALSE
 	update_icon()
 
 /obj/item/melee/baton/attack_self(mob/user)
-	// Cyborg baton
-	if(isrobot(loc))
-		var/mob/living/silicon/robot/R = loc
-		if(R?.cell?.charge >= hitcost)
-			turned_on = !turned_on
-			to_chat(user, "<span class='notice'>[src] is now [turned_on ? "on" : "off"].</span>")
-			playsound(src, "sparks", 75, TRUE, -1)
-		else
-			turned_on = FALSE
-			to_chat(user, "<span class='warning'>You do not have enough reserve power to charge [src]!</span>")
-
-	// Regular baton
-	else if(cell?.charge >= hitcost)
+	if(cell?.charge >= hitcost)
 		turned_on = !turned_on
 		to_chat(user, "<span class='notice'>[src] is now [turned_on ? "on" : "off"].</span>")
 		playsound(src, "sparks", 75, TRUE, -1)
 	else
-		turned_on = FALSE
-		if(!cell)
+		if(isrobot(loc))
+			to_chat(user, "<span class='warning'>You do not have enough reserve power to charge [src]!</span>")
+		else if(!cell)
 			to_chat(user, "<span class='warning'>[src] does not have a power source!</span>")
 		else
 			to_chat(user, "<span class='warning'>[src] is out of charge.</span>")
@@ -181,7 +160,6 @@
 	baton_stun(L, user)
 	user.do_attack_animation(L)
 
-
 /obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user)
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
@@ -214,7 +192,7 @@
 		deductcharge(1000 / severity)
 
 /obj/item/melee/baton/wash(mob/user, atom/source)
-	if(turned_on && cell?.charge > 0)
+	if(turned_on && cell?.charge)
 		flick("baton_active", source)
 		user.Stun(stunforce)
 		user.Weaken(stunforce)
