@@ -48,8 +48,8 @@ Difficulty: Hard
 	faction = list("boss") //asteroid mobs? get that shit out of my beautiful square house
 	speak_emote = list("preaches")
 	armour_penetration = 50
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage_lower = 40
+	melee_damage_upper = 40
 	speed = 10
 	move_to_delay = 10
 	ranged = TRUE
@@ -468,6 +468,8 @@ Difficulty: Hard
 		if(target && isliving(target))
 			var/mob/living/L = target
 			if(L.stat != DEAD)
+				if(isslime(L))
+					return ..()
 				if(ranged_cooldown <= world.time)
 					calculate_rage()
 					ranged_cooldown = world.time + max(5, ranged_cooldown_time - anger_modifier * 0.75)
