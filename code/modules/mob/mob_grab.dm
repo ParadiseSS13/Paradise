@@ -170,15 +170,15 @@
 	var/breathing_tube = affecting.get_organ_slot("breathing_tube")
 
 	if(state >= GRAB_NECK)
-		affecting.Stun(5)  //It will hamper your voice, being choked and all.
+		affecting.Stun(2)  //It will hamper your voice, being choked and all.
 		if(isliving(affecting) && !breathing_tube)
 			var/mob/living/L = affecting
 			L.adjustOxyLoss(1)
 
 	if(state >= GRAB_KILL)
 		//affecting.apply_effect(STUTTER, 5) //would do this, but affecting isn't declared as mob/living for some stupid reason.
-		affecting.Stuttering(5) //It will hamper your voice, being choked and all.
-		affecting.Weaken(5)	//Should keep you down unless you get help.
+		affecting.Stuttering(2) //It will hamper your voice, being choked and all.
+		affecting.Weaken(2)	//Should keep you down unless you get help.
 		if(!breathing_tube)
 			affecting.AdjustLoseBreath(2, bound_lower = 0, bound_upper = 3)
 

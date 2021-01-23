@@ -666,7 +666,11 @@
 *///////////////////////
 
 /mob/living/can_resist()
-	return !((next_move > world.time) || incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE))
+	if(next_move > world.time)
+		return FALSE
+	if(incapacitated(FALSE, FALSE, TRUE, list(CALLBACK(src, .proc/IsWeakened), CALLBACK(src, .proc/resist_grab_check)), FALSE))
+		return FALSE
+	return TRUE
 
 /mob/living/verb/resist()
 	set name = "Resist"
@@ -700,11 +704,27 @@
 /*////////////////////
 	RESIST SUBPROCS
 */////////////////////
+/**
+  * Checks if src can resist out of a grab.
+  *
+  * Returns FALSE (Not stunned) if not stunned or stunned by a grab, and TRUE otherwise.
+  */
+/mob/living/proc/resist_grab_check()
+	if(!IsStunned()) // If not stunned, you can resist.
+		return FALSE
+
+	for(var/I in grabbed_by) // Otherwise, if you're being stunned by a grab
+		var/obj/item/grab/G = I
+		if(G.state == GRAB_AGGRESSIVE || G.state == GRAB_NECK)
+			return FALSE // Allow the user to break out of grab stuns
+
+	return TRUE
+
 /mob/living/proc/resist_grab()
-	var/resisting = 0
+	var/resisting = FALSE
 	for(var/X in grabbed_by)
 		var/obj/item/grab/G = X
-		resisting++
+		resisting = TRUE
 		switch(G.state)
 			if(GRAB_PASSIVE)
 				qdel(G)
@@ -712,16 +732,18 @@
 			if(GRAB_AGGRESSIVE)
 				if(prob(60))
 					visible_message("<span class='danger'>[src] has broken free of [G.assailant]'s grip!</span>")
+					resisting = FALSE
 					qdel(G)
 
 			if(GRAB_NECK)
 				if(prob(5))
 					visible_message("<span class='danger'>[src] has broken free of [G.assailant]'s headlock!</span>")
+					resisting = FALSE
 					qdel(G)
 
-	if(resisting)
-		visible_message("<span class='danger'>[src] resists!</span>")
-		return 1
+		if(resisting)
+			visible_message("<span class='warning'>[src] tries to break out of [G.assailant]'s grab!</span>")
+			return TRUE
 
 /mob/living/proc/resist_buckle()
 	spawn(0)
