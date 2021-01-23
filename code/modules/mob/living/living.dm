@@ -715,8 +715,8 @@
 
 	for(var/I in grabbed_by) // Otherwise, if you're being stunned by a grab
 		var/obj/item/grab/G = I
-		if(G.state == GRAB_AGGRESSIVE || G.state == GRAB_NECK)
-			return FALSE // Allow the user to break out of grab stuns
+		if(G.state == GRAB_NECK)
+			return FALSE // Allow the user to break out of neck grabs
 
 	return TRUE
 
