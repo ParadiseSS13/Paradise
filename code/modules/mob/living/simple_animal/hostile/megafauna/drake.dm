@@ -43,9 +43,9 @@ Difficulty: Medium
 	icon_dead = "dragon_dead"
 	friendly = "stares down"
 	speak_emote = list("roars")
-	armour_penetration = 40
-	melee_damage_lower = 40
-	melee_damage_upper = 40
+	armour_penetration = 10
+	melee_damage_lower = 50
+	melee_damage_upper = 50
 	speed = 5
 	move_to_delay = 5
 	ranged = TRUE

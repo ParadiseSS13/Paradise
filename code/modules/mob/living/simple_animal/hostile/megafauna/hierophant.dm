@@ -68,16 +68,18 @@ Difficulty: Hard
 							   /datum/action/innate/megafauna_attack/cross_blasts,
 							   /datum/action/innate/megafauna_attack/blink_spam)
 
+	var/abilities_landed = 0 //amount of abilities that has been landed on the current target
 	var/burst_range = 3 //range on burst aoe
 	var/beam_range = 5 //range on cross blast beams
 	var/chaser_speed = 3 //how fast chasers are currently
 	var/chaser_cooldown = 101 //base cooldown/cooldown var between spawning chasers
-	var/major_attack_cooldown = 60 //base cooldown for major attacks
-	var/arena_cooldown = 200 //base cooldown/cooldown var for creating an arena
+	var/major_attack_cooldown = 6 SECONDS //base cooldown for major attacks
+	var/arena_cooldown = 20 SECONDS //base cooldown/cooldown var for creating an arena
 	var/blinking = FALSE //if we're doing something that requires us to stand still and not attack
 	var/obj/effect/hierophant/spawned_beacon //the beacon we teleport back to
 	var/timeout_time = 15 //after this many Life() ticks with no target, we return to our beacon
 	var/did_reset = TRUE //if we timed out, returned to our beacon, and healed some
+	var/immune = FALSE //is the hierophant immune to damage?
 	var/list/kill_phrases = list("Wsyvgi sj irivkc xettih. Vitemvmrk...", "Irivkc wsyvgi jsyrh. Vitemvmrk...", "Jyip jsyrh. Egxmzexmrk vitemv gcgpiw...", "Kix fiex. Liepmrk...")
 	var/list/target_phrases = list("Xevkix psgexih.", "Iriqc jsyrh.", "Eguymvih xevkix.")
 	var/list/stored_nearby = list() // stores people nearby the hierophant when it enters the death animation
@@ -194,12 +196,24 @@ Difficulty: Hard
 	else //just release a burst of power
 		INVOKE_ASYNC(src, .proc/burst, get_turf(src))
 
+/mob/living/simple_animal/hostile/megafauna/hierophant/bullet_act()
+	if(immune)
+		visible_message("<span class='danger'>[src] deflects the attack; [p_they()] can't be hit while focused!</span>", "<span class='userdanger'>You deflect the attack!</span>")
+		return
+	return ..()
+
+// This is its own var modification in a callback to avoid using spawn()
+/mob/living/simple_animal/hostile/megafauna/hierophant/proc/toggleImmunity(state)
+	immune = state
+
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/blink_spam(var/blink_counter, var/target_slowness, var/cross_counter)
 	ranged_cooldown = world.time + max(5, major_attack_cooldown - anger_modifier * 0.75)
 	if(health < maxHealth * 0.5 && blink_counter > 1)
 		visible_message("<span class='hierophant'>\"Mx ampp rsx iwgeti.\"</span>")
 		var/oldcolor = color
+		immune = TRUE
 		animate(src, color = "#660099", time = 6)
+		addtimer(CALLBACK(src, .proc/toggleImmunity, FALSE), 6 SECONDS)
 		SLEEP_CHECK_DEATH(6)
 		while(!QDELETED(target) && blink_counter)
 			if(loc == target.loc || loc == target) //we're on the same tile as them after about a second we can stop now
@@ -221,7 +235,9 @@ Difficulty: Hard
 	visible_message("<span class='hierophant'>\"Piezi mx rsalivi xs vyr.\"</span>")
 	blinking = TRUE
 	var/oldcolor = color
+	immune = TRUE
 	animate(src, color = "#660099", time = 6)
+	addtimer(CALLBACK(src, .proc/toggleImmunity, FALSE), 6 SECONDS)
 	SLEEP_CHECK_DEATH(6)
 	while(!QDELETED(target) && cross_counter)
 		cross_counter--
@@ -241,7 +257,9 @@ Difficulty: Hard
 	visible_message("<span class='hierophant'>\"Mx gerrsx lmhi.\"</span>")
 	blinking = TRUE
 	var/oldcolor = color
+	immune = TRUE
 	animate(src, color = "#660099", time = 6)
+	addtimer(CALLBACK(src, .proc/toggleImmunity, FALSE), 6 SECONDS)
 	SLEEP_CHECK_DEATH(6)
 	var/list/targets = ListTargets()
 	var/list/cardinal_copy = GLOB.cardinal.Copy()
@@ -430,11 +448,16 @@ Difficulty: Hard
 	var/targets_the_same = (new_target == target)
 	. = ..()
 	if(. && target && !targets_the_same)
+		abilities_landed = 0 // Reset for new targets
 		visible_message("<span class='hierophant_warning'>\"[pick(target_phrases)]\"</span>")
 		if(spawned_beacon && loc == spawned_beacon.loc && did_reset)
 			arena_trap(src)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/adjustHealth(amount, updating_health = TRUE)
+	if(immune)
+		visible_message("<span class='danger'>[src] deflects the attack; [p_they()] can't be hit while focused!</span>", "<span class='userdanger'>You deflect the attack!</span>")
+		return
+
 	. = ..()
 	if(src && . && !blinking)
 		wander = TRUE
@@ -553,7 +576,7 @@ Difficulty: Hard
 	var/currently_seeking = FALSE
 	var/friendly_fire_check = FALSE //if blasts produced apply friendly fire
 	var/monster_damage_boost = TRUE
-	var/damage = 10
+	var/damage = 15
 
 /obj/effect/temp_visual/hierophant/chaser/Initialize(mapload, new_caster, new_target, new_speed, is_friendly_fire)
 	. = ..()
@@ -631,7 +654,7 @@ Difficulty: Hard
 	light_power = 2
 	desc = "Get out of the way!"
 	duration = 9
-	var/damage = 10 //how much damage do we do?
+	var/damage = 15 //how much damage do we do?
 	var/monster_damage_boost = TRUE //do we deal extra damage to monsters? Used by the boss
 	var/list/hit_things = list() //we hit these already, ignore them
 	var/friendly_fire_check = FALSE
@@ -664,6 +687,7 @@ Difficulty: Hard
 		do_damage(get_turf(src))
 
 /obj/effect/temp_visual/hierophant/blast/proc/do_damage(turf/T)
+	var/mob/living/simple_animal/hostile/megafauna/hierophant/C = caster
 	if(!damage)
 		return
 	for(var/mob/living/L in T.contents - hit_things) //find and damage mobs...
@@ -676,7 +700,8 @@ Difficulty: Hard
 		to_chat(L, "<span class='userdanger'>You're struck by a [name]!</span>")
 		var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
 		var/armor = L.run_armor_check(limb_to_hit, "melee", "Your armor absorbs [src]!", "Your armor blocks part of [src]!", 50, "Your armor was penetrated by [src]!")
-		L.apply_damage(damage, BURN, limb_to_hit, armor)
+		L.apply_damage(damage+C.abilities_landed, BURN, limb_to_hit, armor)
+		C.abilities_landed++
 		if(ishostile(L))
 			var/mob/living/simple_animal/hostile/H = L //mobs find and damage you...
 			if(H.stat == CONSCIOUS && !H.target && H.AIStatus != AI_OFF && !H.client)

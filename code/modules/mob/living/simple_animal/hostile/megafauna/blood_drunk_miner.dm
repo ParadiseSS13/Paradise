@@ -106,9 +106,7 @@ Difficulty: Medium
 		shoot_ka()
 	transform_weapon()
 
-/obj/item/melee/energy/cleaving_saw/miner //nerfed saw because it is very murdery
-	force = 6
-	force_on = 10
+/obj/item/melee/energy/cleaving_saw/miner
 
 /obj/item/melee/energy/cleaving_saw/miner/attack(mob/living/target, mob/living/carbon/human/user)
 	target.add_stun_absorption("miner", 10, INFINITY)
