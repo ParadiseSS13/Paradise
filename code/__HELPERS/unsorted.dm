@@ -1984,7 +1984,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	. = list()
 	if(!loc)
 		return
-	for(var/atom/A in loc)
+	for(var/a in loc)
+		var/atom/A = a
 		if(!istype(A, type))
 			continue
 		if(check_shift && !(A.pixel_x == shift_x && A.pixel_y == shift_y))
