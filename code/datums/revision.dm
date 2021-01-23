@@ -29,7 +29,7 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 	if(revinfo)
 		commit_hash = revinfo.commit
 		origin_commit = revinfo.origin_commit
-		commit_date = rustg_git_commit_date(commit_hash)
+		commit_date = revinfo.timestamp
 
 /**
   * Code Revision Logging Helper
@@ -52,9 +52,9 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 			logmsgs += "The following PRs are testmerged:"
 			for(var/pr in testmerges)
 				var/datum/tgs_revision_information/test_merge/tm = pr
-				logmsgs += "PR #[tm.number] at commit [tm.pull_request_commit]"
+				logmsgs += "PR #[tm.number] at commit [tm.commit]"
 				// Log these in blackbox so they can be attributed to round IDs easier in the future
-				SSblackbox.record_feedback("associative", "testmerged_prs", 1, list("number" = "[tm.number]", "commit" = "[tm.pull_request_commit]", "title" = "[tm.title]", "author" = "[tm.author]"))
+				SSblackbox.record_feedback("associative", "testmerged_prs", 1, list("number" = "[tm.number]", "commit" = "[tm.commit]", "title" = "[tm.title]", "author" = "[tm.author]"))
 
 	var/logmsg = logmsgs.Join("\n")
 
@@ -78,7 +78,7 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 
 	for(var/pr in GLOB.revision_info.testmerges)
 		var/datum/tgs_revision_information/test_merge/tm = pr
-		msg += "- PR <a href='[config.githuburl]/pull/[tm.number]'>#[tm.number] - [tm.title]</a>"
+		msg += "- PR <a href='[tm.url]'>#[tm.number] - [tm.title]</a>"
 
 	return msg.Join("<br>")
 
