@@ -261,7 +261,7 @@
 	name = "reactive armor"
 	desc = "Doesn't seem to do much for some reason."
 	var/active = FALSE
-	var/emp_d = FALSE
+	var/disabled = FALSE
 	icon_state = "reactiveoff"
 	item_state = "reactiveoff"
 	blood_overlay_type = "armor"
@@ -272,8 +272,8 @@
 
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
 	active = !(active)
-	if(emp_d)
-		to_chat(user, "<span class='warning'>[src] is disabled from an electromagnetic pulse!</span>")
+	if(disabled)
+		to_chat(user, "<span class='warning'>[src] is disabled and rebooting!</span>")
 		return
 	if(active)
 		to_chat(user, "<span class='notice'>[src] is now active.</span>")
@@ -290,18 +290,28 @@
 		A.UpdateButtonIcon()
 
 /obj/item/clothing/suit/armor/reactive/emp_act(severity)
+	var/emp_power = 5 + (severity-1 ? 0 : 5)
+	disable(emp_power)
+	..()
+
+/obj/item/clothing/suit/armor/reactive/proc/disable(var/disable_time = 0)
 	active = FALSE
-	emp_d = TRUE
+	disabled = TRUE
 	icon_state = "reactiveoff"
 	item_state = "reactiveoff"
 	if(istype(loc, /mob/living/carbon/human))
 		var/mob/living/carbon/human/C = loc
 		C.update_inv_wear_suit()
-		addtimer(CALLBACK(src, .proc/reboot), 100 / severity)
-	..()
+		addtimer(CALLBACK(src, .proc/reboot), disable_time SECONDS)
 
 /obj/item/clothing/suit/armor/reactive/proc/reboot()
-	emp_d = FALSE
+	disabled = FALSE
+	active = TRUE
+	icon_state = "reactive"
+	item_state = "reactive"
+	if(istype(loc, /mob/living/carbon/human))
+		var/mob/living/carbon/human/C = loc
+		C.update_inv_wear_suit()
 
 //When the wearer gets hit, this armor will teleport the user a short distance away (to safety or to more danger, no one knows. That's the fun of it!)
 /obj/item/clothing/suit/armor/reactive/teleport
@@ -337,6 +347,7 @@
 
 /obj/item/clothing/suit/armor/reactive/fire
 	name = "reactive incendiary armor"
+	desc = "This armor uses the power of a pyro anomaly core to shoot protective jets of fire."
 
 /obj/item/clothing/suit/armor/reactive/fire/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
@@ -354,6 +365,7 @@
 
 /obj/item/clothing/suit/armor/reactive/stealth
 	name = "reactive stealth armor"
+	desc = "This armor uses an anomaly core combined with holographic projectors to make the user invisible temporarly, and make a fake image of the user."
 
 /obj/item/clothing/suit/armor/reactive/stealth/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
@@ -371,6 +383,7 @@
 
 /obj/item/clothing/suit/armor/reactive/tesla
 	name = "reactive tesla armor"
+	desc = "This armor uses the power of a flux anomaly core to protect the user in shocking ways."
 
 /obj/item/clothing/suit/armor/reactive/tesla/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
@@ -381,8 +394,50 @@
 			if(M == owner)
 				continue
 			owner.Beam(M,icon_state="lightning[rand(1, 12)]",icon='icons/effects/effects.dmi',time=5)
-			M.adjustFireLoss(25)
+			M.adjustFireLoss(20)
 			playsound(M, 'sound/machines/defib_zap.ogg', 50, 1, -1)
+		disable(rand(2, 5)) // let's not have buckshot set it off 4 times and do 80 burn damage.
+		return 1
+
+/obj/item/clothing/suit/armor/reactive/repulse
+	name = "reactive repulse armor"
+	desc = "An experimental suit of armor that violently throws back attackers with the power of a gravitational anomaly core."
+	///How strong the reactive armor is for throwing
+	var/repulse_power = 3
+	/// How far away are we finding things to throw
+	var/repulse_range = 5
+
+/obj/item/clothing/suit/armor/reactive/repulse/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(!active)
+		return 0
+	if(prob(hit_reaction_chance))
+		owner.visible_message("<span class='danger'>[src] blocks [attack_text], converting the attack into a wave of force!</span>")
+		var/list/thrownatoms = list()
+		var/atom/throwtarget
+		var/distfromuser
+		for(var/turf/T in range(repulse_range, owner)) //Done this way so things don't get thrown all around hilariously.
+			for(var/atom/movable/AM in T)
+				thrownatoms += AM
+
+		for(var/am in thrownatoms)
+			var/atom/movable/AM = am
+			if(AM == owner || AM.anchored)
+				continue
+
+			throwtarget = get_edge_target_turf(owner, get_dir(owner, get_step_away(AM, owner)))
+			distfromuser= get_dist(owner, AM)
+			if(distfromuser == 0)
+				if(isliving(AM))
+					var/mob/living/M = AM
+					M.Weaken(3)
+					to_chat(M, "<span class='userdanger'>You're slammed into the floor by [owner]'s reactive armor!</span>")
+			else
+				if(isliving(AM))
+					var/mob/living/M = AM
+					to_chat(M, "<span class='userdanger'>You're thrown back by the [owner]'s reactive armor!</span>")
+				spawn(0)
+					AM.throw_at(throwtarget, ((clamp((repulse_power - (clamp(distfromuser - 2, 0, distfromuser))), 3, repulse_power))), 1)//So stuff gets tossed around at the same time.
+		disable(rand(2, 5))
 		return 1
 
 //All of the armor below is mostly unused
