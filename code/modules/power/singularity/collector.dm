@@ -2,7 +2,6 @@
 #define RAD_COLLECTOR_EFFICIENCY 80 	// radiation needs to be over this amount to get power
 #define RAD_COLLECTOR_COEFFICIENT 100
 #define RAD_COLLECTOR_STORED_OUT 0.04	// (this * 100)% of stored power outputted per tick. Doesn't actualy change output total, lower numbers just means collectors output for longer in absence of a source
-#define RAD_COLLECTOR_MINING_CONVERSION_RATE 0.00001 //This is gonna need a lot of tweaking to get right. This is the number used to calculate the conversion of watts to research points per process()
 #define RAD_COLLECTOR_OUTPUT min(stored_energy, (stored_energy * RAD_COLLECTOR_STORED_OUT) + 1000) //Produces at least 1000 watts if it has more than that stored
 
 GLOBAL_LIST_EMPTY(rad_collectors)
@@ -12,16 +11,15 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	desc = "A device which uses Hawking Radiation and plasma to produce power."
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "ca"
-	anchored = 0
-	density = 1
+	anchored = FALSE
+	density = TRUE
 	req_access = list(ACCESS_ENGINE_EQUIP)
-//	use_power = NO_POWER_USE
 	max_integrity = 350
 	integrity_failure = 80
 	rad_insulation = RAD_EXTREME_INSULATION
 	var/obj/item/tank/plasma/loaded_tank = null
 	var/stored_energy = 0
-	var/active = 0
+	var/active = FALSE
 	var/locked = FALSE
 	var/drainratio = 1
 	var/powerproduction_drain = 0.001
@@ -37,7 +35,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 /obj/machinery/power/rad_collector/process()
 	if(!loaded_tank)
 		return
-	if(loaded_tank.air_contents.toxins <= 0)
+	if(!loaded_tank.air_contents.toxins)
 		investigate_log("<font color='red'>out of fuel</font>.", "singulo")
 		playsound(src, 'sound/machines/ding.ogg', 50, TRUE)
 		eject()
@@ -50,62 +48,56 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		stored_energy -= power_produced
 
 
-
-/obj/machinery/power/rad_collector/attack_hand(mob/user as mob)
+/obj/machinery/power/rad_collector/attack_hand(mob/user)
 	if(anchored)
-		if(!src.locked)
+		if(!locked)
 			toggle_power()
-			user.visible_message("[user.name] turns the [src.name] [active? "on":"off"].", \
-			"You turn the [src.name] [active? "on":"off"].")
-			investigate_log("turned [active?"<font color='green'>on</font>":"<font color='red'>off</font>"] by [user.key]. [loaded_tank ? "Fuel: [round(loaded_tank.air_contents.toxins / 0.29)]%":"<font color='red'>It is empty</font>"].", "singulo")
-			return
+			user.visible_message("[user.name] turns the [name] [active ? "on" : "off"].", "You turn the [name] [active ? "on" : "off"].")
+			investigate_log("turned [active ? "<font color='green'>on</font>" : "<font color='red'>off</font>"] by [user.key]. [loaded_tank ? "Fuel: [round(loaded_tank.air_contents.toxins / 0.29)]%" : "<font color='red'>It is empty</font>"].", "singulo")
 		else
 			to_chat(user, "<span class='warning'>The controls are locked!</span>")
-			return
 
 
-/obj/machinery/power/rad_collector/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/analyzer) && loaded_tank)
+/obj/machinery/power/rad_collector/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/analyzer) && loaded_tank)
 		atmosanalyzer_scan(loaded_tank.air_contents, user)
-	else if(istype(W, /obj/item/tank/plasma))
-		if(!src.anchored)
+	else if(istype(I, /obj/item/tank/plasma))
+		if(!anchored)
 			to_chat(user, "<span class='warning'>The [src] needs to be secured to the floor first.</span>")
-			return 1
+			return TRUE
 		if(loaded_tank)
 			to_chat(user, "<span class='warning'>There's already a plasma tank loaded.</span>")
-			return 1
-		user.drop_item()
-		loaded_tank = W
-		W.loc = src
-		update_icons()
-	else if(istype(W, /obj/item/crowbar))
-		if(loaded_tank && !src.locked)
+			return TRUE
+		if(user.drop_item())
+			loaded_tank = I
+			I.forceMove(src)
+			update_icons()
+	else if(iscrowbar(I))
+		if(loaded_tank && !locked)
 			eject()
-			return 1
-	else if(istype(W, /obj/item/wrench))
+			return TRUE
+	else if(iswrench(I))
 		if(loaded_tank)
 			to_chat(user, "<span class='notice'>Remove the plasma tank first.</span>")
-			return 1
-		playsound(src.loc, W.usesound, 75, 1)
-		src.anchored = !src.anchored
-		user.visible_message("[user.name] [anchored? "secures":"unsecures"] the [src.name].", \
-			"You [anchored? "secure":"undo"] the external bolts.", \
-			"You hear a ratchet")
+			return TRUE
+		playsound(loc, I.usesound, 75, TRUE)
+		anchored = !anchored
+		user.visible_message("[user.name] [anchored ? "secures" : "unsecures"] the [name].", "You [anchored ? "secure" : "undo"] the external bolts.", "You hear a ratchet")
 		if(anchored)
 			connect_to_network()
 		else
 			disconnect_from_network()
-	else if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
-		if(src.allowed(user))
+	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
+		if(allowed(user))
 			if(active)
-				src.locked = !src.locked
-				to_chat(user, "The controls are now [src.locked ? "locked." : "unlocked."]")
+				locked = !locked
+				to_chat(user, "The controls are now [locked ? "locked." : "unlocked."]")
 			else
-				src.locked = 0 //just in case it somehow gets locked
+				locked = FALSE //just in case it somehow gets locked
 				to_chat(user, "<span class='warning'>The controls can only be locked when the [src] is active</span>")
 		else
 			to_chat(user, "<span class='warning'>Access denied!</span>")
-			return 1
+			return TRUE
 	else
 		return ..()
 
@@ -146,13 +138,13 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 
 
 /obj/machinery/power/rad_collector/proc/update_icons()
-	overlays.Cut()
+	cut_overlays()
 	if(loaded_tank)
-		overlays += image('icons/obj/singularity.dmi', "ptank")
+		add_overlay("ptank")
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if(active)
-		overlays += image('icons/obj/singularity.dmi', "on")
+		add_overlay("on")
 
 
 /obj/machinery/power/rad_collector/proc/toggle_power()
@@ -168,5 +160,4 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 #undef RAD_COLLECTOR_EFFICIENCY
 #undef RAD_COLLECTOR_COEFFICIENT
 #undef RAD_COLLECTOR_STORED_OUT
-#undef RAD_COLLECTOR_MINING_CONVERSION_RATE
 #undef RAD_COLLECTOR_OUTPUT
