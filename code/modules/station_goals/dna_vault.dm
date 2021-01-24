@@ -164,7 +164,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	var/list/dna = list()
 
 	var/completed = FALSE
-	var/list/power_lottery = list()
+	var/static/list/power_lottery = list()
 
 	var/list/obj/structure/fillers = list()
 
@@ -254,6 +254,8 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 			data["used"] = FALSE
 			data["choiceA"] = L[1]
 			data["choiceB"] = L[2]
+		else if(L)
+			data["used"] = TRUE
 	return data
 
 /obj/machinery/dna_vault/ui_act(action, params)

@@ -625,7 +625,7 @@
 				else
 					overeatduration -= 2
 
-		if(!ismachineperson(src) && nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA) //Gosh damn snowflakey IPCs
+		if(!ismachineperson(src) && !isLivingSSD(src) && nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA) //Gosh damn snowflakey IPCs
 			var/datum/disease/D = new /datum/disease/critical/hypoglycemia
 			ForceContractDisease(D)
 

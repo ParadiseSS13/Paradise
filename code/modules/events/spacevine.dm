@@ -417,8 +417,8 @@
 	var/obj/structure/spacevine_controller/master = null
 	var/list/mutations = list()
 
-/obj/structure/spacevine/New()
-	..()
+/obj/structure/spacevine/Initialize(mapload)
+	. = ..()
 	color = "#ffffff"
 
 /obj/structure/spacevine/examine(mob/user)
