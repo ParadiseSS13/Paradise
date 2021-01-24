@@ -52,9 +52,9 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 			logmsgs += "The following PRs are testmerged:"
 			for(var/pr in testmerges)
 				var/datum/tgs_revision_information/test_merge/tm = pr
-				logmsgs += "PR #[tm.number] at commit [tm.commit]"
+				logmsgs += "PR #[tm.number] at commit [tm.head_commit]"
 				// Log these in blackbox so they can be attributed to round IDs easier in the future
-				SSblackbox.record_feedback("associative", "testmerged_prs", 1, list("number" = "[tm.number]", "commit" = "[tm.commit]", "title" = "[tm.title]", "author" = "[tm.author]"))
+				SSblackbox.record_feedback("associative", "testmerged_prs", 1, list("number" = "[tm.number]", "commit" = "[tm.head_commit]", "title" = "[tm.title]", "author" = "[tm.author]"))
 
 	var/logmsg = logmsgs.Join("\n")
 
