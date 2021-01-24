@@ -1,6 +1,5 @@
 /obj/effect/mazegen/module_loot
 	name = "maze loot"
-	desc = "You should not be seeing this!"
 	/// Probability for this to spawn in a dead end at all. 0-100%. I dont recommend using values higher than 10
 	var/spawn_probability = 0
 

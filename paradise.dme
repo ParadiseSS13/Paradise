@@ -1721,6 +1721,7 @@
 #include "code\modules\martial_arts\combos\sleeping_carp\stomach_knee.dm"
 #include "code\modules\martial_arts\combos\sleeping_carp\wrist_wrench.dm"
 #include "code\modules\maze_generation\maze_generator.dm"
+#include "code\modules\maze_generation\maze_generator_blockwise.dm"
 #include "code\modules\maze_generation\maze_helper_atoms.dm"
 #include "code\modules\maze_generation\helper_modules\_helper_module_base.dm"
 #include "code\modules\maze_generation\helper_modules\entry_exit.dm"

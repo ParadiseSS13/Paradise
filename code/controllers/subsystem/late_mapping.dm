@@ -14,5 +14,5 @@ SUBSYSTEM_DEF(late_mapping)
 		log_startup_progress("Generating mazes...")
 		for(var/i in maze_generators)
 			var/obj/effect/mazegen/generator/MG = i
-			MG.generate()
+			MG.run_generator()
 	return ..()

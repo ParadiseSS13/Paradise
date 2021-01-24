@@ -9,6 +9,15 @@
 
 */
 
+// Nice way to format logs
+#define LOG_MAZE_PROGRESS(proc2run, opname) \
+do { \
+	var/timer = start_watch(); \
+	proc2run ;\
+	log_debug("\[MAZE] Operation '[opname]' on maze at [##x],[##y],[##z] took [stop_watch(timer)]s"); \
+} while (FALSE)
+
+
 // These defines are used to mark the cells as explored or not
 #define MAZEGEN_TURF_UNSEARCHED "#ff0000"
 #define MAZEGEN_TURF_CELL "#00ff00"
@@ -16,17 +25,16 @@
 // Dont place this in the very corner of a map. It relies on adjacent turfs, and at the very edges you dont have turfs on all sides
 /obj/effect/mazegen/generator
 	name = "maze generator"
-	desc = "You should not be seeing this!"
 	/// List of turfs to iterate in total
 	var/list/turf_list = list()
 	/// "Stack" structure to be used while iterating
 	var/list/working_stack = list()
 	/// List of all loot modules being used in this maze
 	var/list/obj/effect/mazegen/module_loot/loot_modules = list()
-	/// Total turfs
-	var/total_turfs = 0
-	/// Generation start time
-	var/start_time = 0
+	/// List of all helper modules being used in this maze
+	var/list/obj/effect/mazegen/module_helper/helper_modules = list()
+	/// Potential loot spots
+	var/list/turf/potential_loot_spots = list()
 	/// Maze width
 	var/mwidth = 0
 	/// Maze height
@@ -50,13 +58,21 @@
 	working_stack.Remove(T) // Take it off the top
 	return T // Send it back
 
-// This is the main proc that does the work. It can get very performance intensive if youre not careful
-// I was testing this and I managed to make the MC erase itself. Dont ask.
-/obj/effect/mazegen/generator/proc/generate()
-	// Setup some initial vars
-	var/start_time = start_watch()
-	log_debug("Starting to generate maze at [x],[y],[z] (WxH: [mwidth]x[mheight])")
+// Main generator runner. Override on children
+/obj/effect/mazegen/generator/proc/run_generator()
+	ASSERT(ISODD(mwidth))
+	ASSERT(ISODD(mheight))
+	var/total_time = start_watch()
+	log_debug("\[MAZE] Started generation on maze at [x],[y],[z] | [mwidth * mheight] turfs total")
+	LOG_MAZE_PROGRESS(generate_path(), "Path Generation")
+	LOG_MAZE_PROGRESS(apply_helper_modules(FALSE), "Helper Modules")
+	if(length(loot_modules)) // Only bother with this if we have some
+		LOG_MAZE_PROGRESS(calculate_loot_spots(), "Loot Spot Calculation")
+		LOG_MAZE_PROGRESS(apply_loot_modules(), "Loot Modules")
+	log_debug("\[MAZE] Generation of maze at [x],[y],[z] complete within [stop_watch(total_time)]s")
+	qdel(src)
 
+/obj/effect/mazegen/generator/proc/generate_path()
 	// Setup our turf list
 	var/width = clamp(mwidth, 0, (world.maxx - x)) // Make sure they dont loop off the world
 	var/height = clamp(mheight, 0, (world.maxy - y)) // Make sure they dont loop off the world
@@ -81,9 +97,6 @@
 			WW.dir = WEST
 			CHECK_TICK
 		CHECK_TICK
-
-	total_turfs = length(turf_list)
-	log_debug("Maze at [x],[y],[z] has [total_turfs] turfs to process")
 
 	// Do the actual work
 	push_turf(turf_list[1]) // Use the first turf as the stack base
@@ -134,41 +147,56 @@
 			loot_modules |= ML
 			CHECK_TICK
 
-		// Apply helper modules
+		// Gather helper modules
 		for(var/obj/effect/mazegen/module_helper/MH in T)
-			MH.helper_run()
+			helper_modules |= MH
 			CHECK_TICK
 
 		// Make sure we have adequate CPU
 		CHECK_TICK
 
-	// Apply them. Presence check the list first to save CPU.
-	if(length(loot_modules))
-		for(var/i in turf_list)
-			var/turf/T = i
-			// Gather the windows. If a spot has 3 windows on it, its a dead end
-			var/windowcount = 0
-			for(var/obj/structure/window/reinforced/mazeglass/W in T)
-				pass(W) // Stops DM whining about unused vars
-				windowcount++
-				CHECK_TICK
+/obj/effect/mazegen/generator/proc/apply_helper_modules(blockwise = FALSE)
+	// Apply helpers
+	for(var/i in helper_modules)
+		var/obj/effect/mazegen/module_helper/MH = i
+		helper_modules -= MH // Make it happy
+		MH.helper_run(blockwise, src)
+		qdel(MH)
 
-			// Its a dead end. Apply loot.
-			if(windowcount == 3)
-				// Grab a random one
-				var/obj/effect/mazegen/module_loot/ML = pick(loot_modules)
-				if(prob(ML.spawn_probability))
-					ML.spawn_loot(T) // Spawn on the turf
-
+/obj/effect/mazegen/generator/proc/calculate_loot_spots()
+	for(var/i in turf_list)
+		var/turf/T = i
+		// Gather the windows. If a spot has 3 windows on it, its a dead end
+		var/windowcount = 0
+		for(var/obj/structure/window/reinforced/mazeglass/W in T)
+			pass(W) // Stops DM whining about unused vars
+			windowcount++
 			CHECK_TICK
 
+		// Its a dead end. Mark for loot.
+		if(windowcount == 3)
+			potential_loot_spots |= T
+
+		CHECK_TICK
+
+/obj/effect/mazegen/generator/proc/apply_loot_modules()
+	for(var/i in potential_loot_spots)
+		var/turf/T = i
+
+		// Apply loot modules
+		var/obj/effect/mazegen/module_loot/ML = pick(loot_modules)
+		if(prob(ML.spawn_probability))
+			ML.spawn_loot(T) // Spawn on the turf
+
+		CHECK_TICK
+
 	// Cleanup loot modules
-	for(var/obj/effect/mazegen/module_loot/ML in loot_modules)
+	for(var/i in loot_modules)
+		var/obj/effect/mazegen/module_loot/ML = i
 		loot_modules -= ML // Take it out to make the GC happy
 		qdel(ML)
+		CHECK_TICK
 
-	log_debug("Generation of maze at [x],[y],[z] completed within [stop_watch(start_time)] seconds")
-	qdel(src)
 
 #undef MAZEGEN_TURF_UNSEARCHED
 #undef MAZEGEN_TURF_CELL

@@ -1,5 +1,6 @@
 // Initial declaration
 /obj/effect/mazegen
+	desc = "You should not be seeing this!"
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x2"
 	color = "#00FF00"
