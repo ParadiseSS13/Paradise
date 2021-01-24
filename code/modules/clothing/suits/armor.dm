@@ -261,6 +261,7 @@
 	name = "reactive armor"
 	desc = "Doesn't seem to do much for some reason."
 	var/active = FALSE
+	/// Is the armor disabled, and prevented from reactivating temporarly?
 	var/disabled = FALSE
 	icon_state = "reactiveoff"
 	item_state = "reactiveoff"
