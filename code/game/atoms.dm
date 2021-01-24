@@ -7,8 +7,8 @@
 	var/list/fingerprints
 	var/list/fingerprintshidden
 	var/fingerprintslast = null
-
-	var/list/filter_data //For handling persistent filters
+	///For handling persistent filters
+	var/list/filter_data
 
 	var/list/blood_DNA
 	var/blood_color
@@ -440,7 +440,7 @@
 		step(AM, turn(AM.dir, 180))
 
 
-/atom/proc/add_filter(name,priority, list/params)
+/atom/proc/add_filter(name, priority, list/params)
 	LAZYINITLIST(filter_data)
 	var/list/p = params.Copy()
 	p["priority"] = priority

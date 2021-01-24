@@ -1,6 +1,8 @@
-// A special GetAllContents that doesn't search past things with rad insulation
-// Components which return COMPONENT_BLOCK_RADIATION prevent further searching into that object's contents. The object itself will get returned still.
-// The ignore list makes those objects never return at all
+/**
+  * A special GetAllContents that doesn't search past things with rad insulation
+  * Components which return COMPONENT_BLOCK_RADIATION prevent further searching into that object's contents. The object itself will get returned still.
+  * The ignore list makes those objects never return at all
+  */
 /proc/get_rad_contents(atom/location)
 	var/static/list/ignored_things = typecacheof(list(
 		/mob/dead,
@@ -8,11 +10,10 @@
 		/obj/effect,
 		/obj/docking_port,
 		/atom/movable/lighting_object,
-		/obj/item/projectile,
-		))
+		/obj/item/projectile))
 	var/list/processing_list = list(location)
 	. = list()
-	while(processing_list.len)
+	while(length(processing_list))
 		var/atom/thing = processing_list[1]
 		processing_list -= thing
 		if(ignored_things[thing.type])
@@ -29,7 +30,7 @@
 		new /datum/radiation_wave(source, dir, intensity, range_modifier, can_contaminate)
 
 	var/list/things = get_rad_contents(source) //copypasta because I don't want to put special code in waves to handle their origin
-	for(var/k in 1 to things.len)
+	for(var/k in 1 to length(things))
 		var/atom/thing = things[k]
 		if(!thing)
 			continue

@@ -412,7 +412,7 @@
 		update_icon()
 
 /obj/machinery/shower/proc/check_heat(mob/M)
-	if(current_temperature  == SHOWER_NORMAL)
+	if(current_temperature == SHOWER_NORMAL)
 		return
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M

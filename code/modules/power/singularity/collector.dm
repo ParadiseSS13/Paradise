@@ -7,7 +7,7 @@
 GLOBAL_LIST_EMPTY(rad_collectors)
 
 /obj/machinery/power/rad_collector
-	name = "Radiation Collector Array"
+	name = "\improper radiation collector array"
 	desc = "A device which uses Hawking Radiation and plasma to produce power."
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "ca"
@@ -63,7 +63,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		atmosanalyzer_scan(loaded_tank.air_contents, user)
 	else if(istype(I, /obj/item/tank/plasma))
 		if(!anchored)
-			to_chat(user, "<span class='warning'>The [src] needs to be secured to the floor first.</span>")
+			to_chat(user, "<span class='warning'>[src] needs to be secured to the floor first.</span>")
 			return TRUE
 		if(loaded_tank)
 			to_chat(user, "<span class='warning'>There's already a plasma tank loaded.</span>")
@@ -94,7 +94,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 				to_chat(user, "The controls are now [locked ? "locked." : "unlocked."]")
 			else
 				locked = FALSE //just in case it somehow gets locked
-				to_chat(user, "<span class='warning'>The controls can only be locked when the [src] is active</span>")
+				to_chat(user, "<span class='warning'>The controls can only be locked when [src] is active</span>")
 		else
 			to_chat(user, "<span class='warning'>Access denied!</span>")
 			return TRUE

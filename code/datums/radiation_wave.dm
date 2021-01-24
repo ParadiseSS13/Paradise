@@ -26,8 +26,8 @@
 
 	move_dir = dir
 	__dirs = list()
-	__dirs+=turn(dir, 90)
-	__dirs+=turn(dir, -90)
+	__dirs += turn(dir, 90)
+	__dirs += turn(dir, -90)
 
 	intensity = _intensity
 	remaining_contam = intensity
@@ -94,9 +94,9 @@
 		var/atom/thing = atoms[k]
 		if(!thing)
 			continue
-		if (SEND_SIGNAL(thing, COMSIG_ATOM_RAD_WAVE_PASSING, src, width) & COMPONENT_RAD_WAVE_HANDLED)
+		if(SEND_SIGNAL(thing, COMSIG_ATOM_RAD_WAVE_PASSING, src, width) & COMPONENT_RAD_WAVE_HANDLED)
 			continue
-		if (thing.rad_insulation != RAD_NO_INSULATION)
+		if(thing.rad_insulation != RAD_NO_INSULATION)
 			intensity *= (1 - ((1 - thing.rad_insulation) / width))
 
 /datum/radiation_wave/proc/radiate(list/atoms, strength)

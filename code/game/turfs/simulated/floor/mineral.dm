@@ -240,7 +240,7 @@
 		if(world.time > last_event + 15)
 			active = TRUE
 			radiation_pulse(src, 10)
-			for(var/turf/simulated/floor/mineral/uranium/T  in orange(1, src))
+			for(var/turf/simulated/floor/mineral/uranium/T in orange(1, src))
 				T.radiate()
 			last_event = world.time
 			active = FALSE

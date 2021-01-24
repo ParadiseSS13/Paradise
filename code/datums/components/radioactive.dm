@@ -7,7 +7,8 @@
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
 
 	var/source
-	var/hl3_release_date //the half-life measured in ticks
+	///the half-life measured in ticks
+	var/hl3_release_date
 	var/strength
 	var/can_contaminate
 

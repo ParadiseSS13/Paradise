@@ -383,7 +383,7 @@
 			emp_area()
 		if(2) //Stun mobs who lack optic scanners
 			mezzer()
-		if(3,4) //Sets all nearby mobs on fire
+		if(3, 4) //Sets all nearby mobs on fire
 			if(current_size < STAGE_SIX)
 				return 0
 			combust_mobs()
