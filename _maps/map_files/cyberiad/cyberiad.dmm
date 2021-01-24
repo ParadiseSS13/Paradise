@@ -29520,7 +29520,7 @@
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
-	id_tag = "bridge blast";
+	id_tag = "bridge blast west";
 	name = "Bridge Blast Doors";
 	opacity = 0
 	},
@@ -29891,7 +29891,7 @@
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
-	id_tag = "bridge blast";
+	id_tag = "bridge blast east";
 	name = "Bridge Blast Doors";
 	opacity = 0
 	},
@@ -33730,15 +33730,15 @@
 /turf/simulated/floor/wood,
 /area/library)
 "bkR" = (
+/obj/machinery/door/firedoor,
+/obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
-	id_tag = "bridge blast";
+	id_tag = "bridge blast west";
 	name = "Bridge Blast Doors";
 	opacity = 0
 	},
-/obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/bridge)
 "bkS" = (
@@ -34255,7 +34255,7 @@
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
-	id_tag = "bridge blast";
+	id_tag = "bridge blast north";
 	name = "Bridge Blast Doors";
 	opacity = 0
 	},
@@ -34263,10 +34263,6 @@
 /obj/structure/cable{
 	icon_state = "0-4";
 	d2 = 4
-	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
 /area/bridge)
@@ -34290,15 +34286,11 @@
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
-	id_tag = "bridge blast";
+	id_tag = "bridge blast north";
 	name = "Bridge Blast Doors";
 	opacity = 0
 	},
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
 /obj/structure/cable{
 	icon_state = "0-4";
 	d2 = 4
@@ -34306,6 +34298,13 @@
 /obj/machinery/status_display{
 	density = 0;
 	layer = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0;
+	tag = ""
 	},
 /turf/simulated/floor/plating,
 /area/bridge)
@@ -34316,7 +34315,7 @@
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
-	id_tag = "bridge blast";
+	id_tag = "bridge blast north";
 	name = "Bridge Blast Doors";
 	opacity = 0
 	},
@@ -34324,10 +34323,6 @@
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
 	},
 /turf/simulated/floor/plating,
 /area/bridge)
@@ -34342,22 +34337,25 @@
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
-	id_tag = "bridge blast";
+	id_tag = "bridge blast north";
 	name = "Bridge Blast Doors";
 	opacity = 0
 	},
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
-	},
-/obj/structure/cable{
 	icon_state = "0-2";
 	d2 = 2
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
 /area/bridge)
@@ -35989,23 +35987,6 @@
 /obj/item/flash,
 /turf/simulated/floor/plasteel,
 /area/bridge)
-"bps" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/machinery/door_control{
-	id = "bridge blast";
-	name = "Bridge Blast Door Control";
-	pixel_x = 28;
-	pixel_y = -2;
-	req_access_txt = "19"
-	},
-/obj/machinery/keycard_auth{
-	pixel_x = 29;
-	pixel_y = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/bridge)
 "bpt" = (
 /obj/structure/chair{
 	dir = 1
@@ -36044,6 +36025,31 @@
 /area/hallway/primary/central/north)
 "bpw" = (
 /obj/structure/table/reinforced,
+/obj/machinery/door_control{
+	id = "bridge blast east";
+	name = "East Bridge Blast Door Control";
+	pixel_x = 6;
+	pixel_y = -2;
+	req_access_txt = "19"
+	},
+/obj/machinery/door_control{
+	id = "bridge blast west";
+	name = "West Bridge Blast Door Control";
+	pixel_x = -6;
+	pixel_y = -2;
+	req_access_txt = "19"
+	},
+/obj/machinery/door_control{
+	id = "bridge blast north";
+	name = "North Bridge Blast Door Control";
+	pixel_x = 6;
+	pixel_y = 8;
+	req_access_txt = "19"
+	},
+/obj/machinery/keycard_auth{
+	pixel_x = -6;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "blue";
 	dir = 4
@@ -39550,13 +39556,6 @@
 	},
 /area/crew_quarters/locker/locker_toilet)
 "bwR" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "bridge blast";
-	name = "Bridge Blast Doors";
-	opacity = 0
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -39570,6 +39569,13 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "bridge blast west";
+	name = "Bridge Blast Doors";
+	opacity = 0
 	},
 /turf/simulated/floor/plasteel,
 /area/bridge)
@@ -40316,13 +40322,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "byf" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "bridge blast";
-	name = "Bridge Blast Doors";
-	opacity = 0
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -40339,6 +40338,13 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "bridge blast east";
+	name = "Bridge Blast Doors";
+	opacity = 0
 	},
 /turf/simulated/floor/plasteel,
 /area/bridge)
@@ -93888,6 +93894,18 @@
 	icon_state = "neutral"
 	},
 /area/shuttle/escape)
+"dLF" = (
+/obj/machinery/door/firedoor,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "bridge blast east";
+	name = "Bridge Blast Doors";
+	opacity = 0
+	},
+/turf/simulated/floor/plasteel,
+/area/bridge)
 "dQa" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/engine,
@@ -94907,6 +94925,28 @@
 	},
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
+"kwt" = (
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "bridge blast north";
+	name = "Bridge Blast Doors";
+	opacity = 0
+	},
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable{
+	icon_state = "0-4";
+	d2 = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0;
+	tag = ""
+	},
+/turf/simulated/floor/plating,
+/area/bridge)
 "kyW" = (
 /obj/structure/table,
 /obj/item/weldingtool/largetank{
@@ -124832,7 +124872,7 @@ aRw
 bgU
 bna
 bkz
-blU
+kwt
 bnR
 bpo
 bqS
@@ -125346,7 +125386,7 @@ diw
 bhb
 bnd
 bkz
-blU
+kwt
 bnV
 bpq
 buo
@@ -125603,7 +125643,7 @@ bdv
 bhc
 bnh
 bkz
-bma
+kwt
 bnY
 bpu
 bqU
@@ -125860,9 +125900,9 @@ bhd
 biI
 bnf
 bkB
-bma
+kwt
 bnX
-bps
+bpt
 bqS
 bsz
 bxC
@@ -126117,7 +126157,7 @@ bhV
 biK
 bnj
 bkz
-bma
+kwt
 boa
 bpw
 bqV
@@ -126374,7 +126414,7 @@ bdw
 bgW
 bni
 bkC
-bma
+kwt
 aYf
 aYg
 bup
@@ -128436,7 +128476,7 @@ aaa
 bmc
 bdP
 byf
-bkR
+dLF
 bxv
 byV
 bAa
