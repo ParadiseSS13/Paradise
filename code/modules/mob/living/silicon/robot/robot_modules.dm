@@ -295,6 +295,12 @@
 
 	fix_modules()
 
+/obj/item/robot_module/janitor/respawn_consumable(mob/living/silicon/robot/R)
+	if(emag)
+		var/obj/item/reagent_containers/spray/S = emag
+		S.reagents.add_reagent("lube", 5)
+	..()
+
 /obj/item/robot_module/butler
 	name = "service robot module"
 	module_type = "Service"
