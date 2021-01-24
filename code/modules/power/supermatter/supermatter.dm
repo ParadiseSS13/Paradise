@@ -76,6 +76,7 @@
 	icon_state = "darkmatter"
 	density = TRUE
 	anchored = TRUE
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	light_range = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	var/base_icon_state = "darkmatter"
@@ -291,7 +292,7 @@
 				var/mob/living/carbon/human/H = mob
 				H.hallucination += max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1))))
 			var/rads = DETONATION_RADS * sqrt(1 / (get_dist(L, src) + 1))
-			L.apply_effect(rads, IRRADIATE)
+			L.rad_act(rads)
 
 	var/turf/T = get_turf(src)
 	for(var/mob/M in GLOB.player_list)
@@ -463,9 +464,8 @@
 			power = max((removed.temperature * temp_factor / T0C) * gasmix_power_ratio + power, 0)
 
 		if(prob(50))
-			for(var/obj/machinery/power/rad_collector/R in GLOB.rad_collectors)
-				if(atoms_share_level(R, src) && get_dist(R, src) <= 15) //Better than using orange() every process
-					R.receive_pulse(power * (1 + power_transmission_bonus / 10))
+
+			radiation_pulse(src, power * max(0, (1 + (power_transmission_bonus / 10))))
 
 		//Power * 0.55 * a value between 1 and 0.8
 		var/device_energy = power * REACTION_POWER_MODIFIER
@@ -500,7 +500,7 @@
 			l.hallucination = clamp(l.hallucination, 0, 200)
 	for(var/mob/living/l in range(src, round((power / 100) ** 0.25)))
 		var/rads = (power / 10) * sqrt( 1 / max(get_dist(l, src), 1) )
-		l.apply_effect(rads, IRRADIATE)
+		l.rad_act(rads)
 
 	//Transitions between one function and another, one we use for the fast inital startup, the other is used to prevent errors with fusion temperatures.
 	//Use of the second function improves the power gain imparted by using co2
@@ -676,7 +676,7 @@
 		Consume(I)
 		playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
 
-		user.apply_effect(150, IRRADIATE)
+		radiation_pulse(src, 150, 4)
 
 /obj/machinery/power/supermatter_crystal/Bumped(atom/movable/AM)
 	if(isliving(AM))
@@ -716,9 +716,8 @@
 		matter_power += 200
 
 	//Some poor sod got eaten, go ahead and irradiate people nearby.
+	radiation_pulse(src, 3000, 2, TRUE)
 	for(var/mob/living/L in range(10))
-		var/rads = 500 * sqrt( 1 / (get_dist(L, src) + 1))
-		L.apply_effect(rads, IRRADIATE)
 		investigate_log("has irradiated [key_name(L)] after consuming [AM].", "supermatter")
 		if(L in view())
 			L.show_message("<span class='danger'>As [src] slowly stops resonating, you find your skin covered in new radiation burns.</span>", 1,

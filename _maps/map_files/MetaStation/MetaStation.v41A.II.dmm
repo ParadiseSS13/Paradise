@@ -23621,6 +23621,7 @@
 	pixel_y = 5
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/item/clothing/glasses/meson/engine,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "aQS" = (
@@ -31850,6 +31851,7 @@
 	},
 /obj/structure/closet/radiation,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/item/clothing/glasses/meson/engine,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "bfz" = (
@@ -32918,6 +32920,7 @@
 	pixel_x = 29
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/item/clothing/glasses/meson/engine,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "bhp" = (
@@ -34940,6 +34943,7 @@
 "bkT" = (
 /obj/structure/closet/toolcloset,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/item/clothing/glasses/meson/engine,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "bkU" = (

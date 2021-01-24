@@ -54034,6 +54034,12 @@
 /area/hallway/primary/central/sw)
 "bWT" = (
 /obj/machinery/computer/arcade,
+/obj/machinery/status_display{
+	density = 0;
+	layer = 4;
+	pixel_x = 0;
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "bWU" = (
@@ -54518,14 +54524,16 @@
 	},
 /area/medical/sleeper)
 "bXK" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = -24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+/obj/machinery/shower{
+	icon_state = "shower";
+	dir = 4
 	},
+/obj/effect/decal/warning_stripes/blue/hollow,
+/turf/simulated/floor/plasteel/dark,
 /area/medical/cryo)
 "bXL" = (
 /obj/structure/table/glass,
@@ -54552,7 +54560,6 @@
 /turf/simulated/floor/plating,
 /area/medical/genetics)
 "bXO" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/power/apc{
 	cell_type = 15000;
 	dir = 4;
@@ -54563,9 +54570,11 @@
 	icon_state = "0-2";
 	d2 = 2
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+/obj/machinery/shower{
+	dir = 8
 	},
+/obj/effect/decal/warning_stripes/blue/hollow,
+/turf/simulated/floor/plasteel/dark,
 /area/medical/cryo)
 "bXP" = (
 /obj/structure/disposalpipe/segment,
@@ -55477,6 +55486,7 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
+/obj/effect/decal/warning_stripes/blue/partial,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -55514,6 +55524,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/decal/warning_stripes/blue/partial,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -58525,13 +58536,10 @@
 	name = "Research Division"
 	})
 "cdG" = (
-/obj/structure/table,
-/obj/machinery/status_display{
-	density = 0;
-	layer = 4;
-	pixel_x = 0;
-	pixel_y = 32
+/obj/machinery/shower{
+	pixel_y = 8
 	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "cdH" = (
@@ -73786,6 +73794,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/obj/item/radio/intercom{
+	name = "station intercom (General)";
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "cDB" = (
@@ -73859,10 +73871,6 @@
 	},
 /area/toxins/misc_lab)
 "cDI" = (
-/obj/item/radio/intercom{
-	name = "station intercom (General)";
-	pixel_y = -28
-	},
 /obj/machinery/computer/drone_control,
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
@@ -75401,7 +75409,10 @@
 	dir = 4;
 	icon_state = "tube1"
 	},
-/obj/structure/table,
+/obj/machinery/shower{
+	pixel_y = 8
+	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "cGv" = (
@@ -80828,7 +80839,7 @@
 /obj/structure/table/reinforced,
 /obj/item/tank/emergency_oxygen/engi,
 /obj/item/clothing/gloves/color/black,
-/obj/item/clothing/glasses/meson,
+/obj/item/clothing/glasses/meson/engine,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "cQG" = (
@@ -84506,9 +84517,11 @@
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "cXO" = (
-/obj/machinery/light{
-	dir = 8
+/obj/machinery/shower{
+	icon_state = "shower";
+	dir = 4
 	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cXP" = (
@@ -86239,6 +86252,7 @@
 	network = list("SS13")
 	},
 /obj/structure/reagent_dispensers/fueltank,
+/obj/effect/decal/warning_stripes/yellow/partial,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "dbL" = (
@@ -86516,6 +86530,9 @@
 /area/maintenance/asmaint)
 "dct" = (
 /obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "dcu" = (
@@ -89643,7 +89660,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
+/obj/machinery/door/poddoor/shutters/radiation/preopen{
 	dir = 2;
 	id_tag = "engsm";
 	name = "Radiation Chamber Shutters"
@@ -93728,6 +93745,9 @@
 	dir = 4
 	},
 /obj/structure/closet/wardrobe/atmospherics_yellow,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "dtk" = (
@@ -94021,7 +94041,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/poddoor/shutters/preopen{
+/obj/machinery/door/poddoor/shutters/radiation/preopen{
 	dir = 2;
 	id_tag = "engsm";
 	name = "Radiation Chamber Shutters"
@@ -94084,7 +94104,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/oil,
-/obj/machinery/door/poddoor/shutters/preopen{
+/obj/machinery/door/poddoor/shutters/radiation/preopen{
 	dir = 2;
 	id_tag = "engsm";
 	name = "Radiation Chamber Shutters"
@@ -95092,6 +95112,10 @@
 	icon_state = "cmo"
 	},
 /area/shuttle/escape)
+"lnQ" = (
+/obj/effect/decal/warning_stripes/yellow/partial,
+/turf/simulated/floor/plasteel,
+/area/engine/break_room)
 "lop" = (
 /obj/structure/chair{
 	dir = 8
@@ -95170,6 +95194,10 @@
 	dir = 4;
 	icon_state = "alarm0";
 	pixel_x = -22
+	},
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 1;
+	icon_state = "3"
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -95683,7 +95711,7 @@
 	},
 /obj/item/tank/plasma,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/poddoor/shutters/preopen{
+/obj/machinery/door/poddoor/shutters/radiation/preopen{
 	dir = 2;
 	id_tag = "engsm";
 	name = "Radiation Chamber Shutters"
@@ -95909,7 +95937,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
+/obj/machinery/door/poddoor/shutters/radiation/preopen{
 	dir = 2;
 	id_tag = "engsm";
 	name = "Radiation Chamber Shutters"
@@ -95993,6 +96021,19 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"rzU" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/effect/decal/warning_stripes/yellow/partial{
+	icon_state = "3";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/atmos)
 "rAt" = (
 /obj/structure/extinguisher_cabinet,
 /turf/simulated/shuttle/wall{
@@ -96307,6 +96348,21 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/engineering)
+"tQJ" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/table/reinforced,
+/obj/item/clothing/suit/radiation,
+/obj/item/clothing/head/radiation,
+/obj/item/clothing/glasses/meson,
+/obj/item/geiger_counter,
+/obj/item/geiger_counter,
+/turf/simulated/floor/engine,
+/area/engine/engineering)
 "ubz" = (
 /obj/structure/table,
 /obj/item/rpd,
@@ -96487,7 +96543,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/poddoor/shutters/preopen{
+/obj/machinery/door/poddoor/shutters/radiation/preopen{
 	dir = 2;
 	id_tag = "engsm";
 	name = "Radiation Chamber Shutters"
@@ -126441,7 +126497,7 @@ cZP
 cXx
 cVj
 cSU
-cQG
+tQJ
 cSx
 cVy
 omz
@@ -128221,7 +128277,7 @@ cCJ
 cvI
 cHQ
 cdG
-dcj
+lnQ
 cHX
 dcj
 dcj
@@ -128478,7 +128534,7 @@ cCa
 cDR
 cHQ
 cGu
-dcj
+lnQ
 cIh
 cIX
 cJq
@@ -129779,7 +129835,7 @@ cWU
 cXV
 cVI
 cVI
-cVI
+rzU
 dbL
 dcL
 dds
