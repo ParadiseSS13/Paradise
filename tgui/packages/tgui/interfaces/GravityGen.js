@@ -15,13 +15,13 @@ export const GravityGen = (props, context) => {
   let chargeStatus = state => {
     if (state > 0) {
       return (
-        <Box color="average" inline={1}>
+        <Box inline color="average">
           [ {state === 1 ? "Charging" : "Discharging"} ]
         </Box>
       );
     } else {
       return (
-        <Box color={ext_power ? 'good' : 'bad'} inline={1}>
+        <Box inline color={ext_power ? 'good' : 'bad'}>
           [ {ext_power ? "Powered" : "Unpowered"} ]
         </Box>
       );
@@ -31,7 +31,7 @@ export const GravityGen = (props, context) => {
   let radWarning = state => {
     if (state > 0) {
       return (
-        <NoticeBox danger={1} p={2}>
+        <NoticeBox danger p={1.5}>
           <b>WARNING:</b> Radiation Detected!
         </NoticeBox>
       );
@@ -42,17 +42,16 @@ export const GravityGen = (props, context) => {
     <Window>
       <Window.Content>
         {radWarning(charging_state)}
-        <Section>
-          <LabeledList.Item label="Main Breaker">
+        <Section
+          title="Generator Status"
+          buttons={
             <Button
               icon={breaker ? 'power-off' : 'times'}
-              content={breaker ? "On" : "Off"}
-              selected={breaker}
+              content={breaker ? "Online" : "Offline"}
+              color={breaker ? 'green' : 'red'}
               px={1.5}
               onClick={() => act('breaker')} />
-          </LabeledList.Item>
-        </Section>
-        <Section title="Generator Status">
+          }>
           <LabeledList>
             <LabeledList.Item
               label="Power Status"

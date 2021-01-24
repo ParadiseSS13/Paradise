@@ -142,7 +142,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	for(var/area/A in world)
 		if(!is_station_level(A.z))
 			continue
-		A.gravitychange(0, A)
+		A.gravitychange(FALSE, A)
 	shake_everyone()
 	return ..()
 
@@ -252,7 +252,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 /obj/machinery/gravity_generator/main/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui && !(stat & BROKEN))
-		ui = new(user, src, ui_key, "GravityGen", name, 350, 350, master_ui, state)
+		ui = new(user, src, ui_key, "GravityGen", name, 350, 250, master_ui, state)
 		ui.open()
 
 /obj/machinery/gravity_generator/main/ui_data(mob/user)
@@ -324,7 +324,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 			for(var/area/A in world)
 				if(!is_station_level(A.z))
 					continue
-				A.gravitychange(1, A)
+				A.gravitychange(TRUE, A)
 
 	else if(generators_in_level() == TRUE) // Turned off, and there is gravity
 		alert = TRUE
@@ -333,7 +333,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 		for(var/area/A in world)
 			if(!is_station_level(A.z))
 				continue
-			A.gravitychange(0, A)
+			A.gravitychange(FALSE, A)
 
 	update_icon()
 	update_gen_list()
@@ -381,9 +381,9 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 
 		if(overlay_state != current_overlay)
 			if(middle)
-				middle.overlays.Cut()
+				middle.cut_overlays()
 				if(overlay_state)
-					middle.overlays += overlay_state
+					middle.add_overlay(overlay_state)
 				current_overlay = overlay_state
 
 
@@ -404,7 +404,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 			M.update_gravity(M.mob_has_gravity())
 			if(M.client)
 				shake_camera(M, 15, 1)
-				M.playsound_local(our_turf, null, 100, 1, 0.5, S = alert_sound)
+				M.playsound_local(our_turf, null, 100, TRUE, 0.5, S = alert_sound)
 
 // TODO: Make the gravity generator cooperate with the space manager
 /obj/machinery/gravity_generator/main/proc/generators_in_level()
