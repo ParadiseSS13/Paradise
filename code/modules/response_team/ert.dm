@@ -177,6 +177,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	M.mind.original = M
 	M.mind.assigned_role = SPECIAL_ROLE_ERT
 	M.mind.special_role = SPECIAL_ROLE_ERT
+	M.mind.offstation_role = TRUE
 	if(!(M.mind in SSticker.minds))
 		SSticker.minds += M.mind //Adds them to regular mind list.
 	SSticker.mode.ert += M.mind

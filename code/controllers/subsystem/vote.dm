@@ -180,7 +180,7 @@ SUBSYSTEM_DEF(vote)
 
 
 	if(restart)
-		world.Reboot("Restart vote successful.", "restart vote")
+		SSticker.reboot_helper("Restart vote successful.", "restart vote")
 
 	return .
 
