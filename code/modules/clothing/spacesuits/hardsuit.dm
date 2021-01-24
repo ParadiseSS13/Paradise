@@ -14,11 +14,6 @@
 	item_color = "engineering" //Determines used sprites: hardsuit[on]-[color] and hardsuit[on]-[color]2 (lying down sprite)
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
-	var/current_tick_amount = 0
-	var/radiation_count = 0
-	var/grace = RAD_GEIGER_GRACE_PERIOD
-	var/datum/looping_sound/geiger/soundloop
-
 	//Species-specific stuff.
 	species_restricted = list("exclude","Wryn")
 	sprite_sheets = list(
@@ -37,16 +32,6 @@
 		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi',
 		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/hats.dmi'
 		)
-
-/obj/item/clothing/head/helmet/space/hardsuit/Initialize(mapload)
-	. = ..()
-	soundloop = new(list(), FALSE, TRUE)
-	soundloop.volume = 5
-	START_PROCESSING(SSobj, src)
-
-/obj/item/clothing/head/helmet/space/hardsuit/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/attack_self(mob/user)
 	toggle_light(user)
@@ -76,7 +61,6 @@
 	..()
 	if(suit)
 		suit.RemoveHelmet()
-		soundloop.stop(user)
 
 /obj/item/clothing/head/helmet/space/hardsuit/item_action_slot_check(slot)
 	if(slot == slot_head)
@@ -87,37 +71,13 @@
 	if(slot != slot_head)
 		if(suit)
 			suit.RemoveHelmet()
-			soundloop.stop(user)
 		else
 			qdel(src)
-	else
-		soundloop.start(user)
 
 /obj/item/clothing/head/helmet/space/hardsuit/proc/display_visor_message(var/msg)
 	var/mob/wearer = loc
 	if(msg && ishuman(wearer))
 		wearer.show_message("<b><span class='robot'>[msg]</span></b>", 1)
-
-/obj/item/clothing/head/helmet/space/hardsuit/rad_act(amount)
-	. = ..()
-	if(amount <= RAD_BACKGROUND_RADIATION)
-		return
-	current_tick_amount += amount
-
-/obj/item/clothing/head/helmet/space/hardsuit/process()
-	radiation_count -= radiation_count / RAD_GEIGER_MEASURE_SMOOTHING
-	radiation_count += current_tick_amount / RAD_GEIGER_MEASURE_SMOOTHING
-
-	if(current_tick_amount)
-		grace = RAD_GEIGER_GRACE_PERIOD
-
-	grace--
-	if(grace <= 0)
-		radiation_count = 0
-
-	current_tick_amount = 0
-
-	soundloop.last_radiation = radiation_count
 
 /obj/item/clothing/head/helmet/space/hardsuit/emp_act(severity)
 	..()
@@ -628,3 +588,24 @@
 	item_state = "syndie_helm"
 	item_color = "syndi"
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 15, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
+
+
+//////Security Version (Gamma armory only)
+
+/obj/item/clothing/suit/space/hardsuit/shielded/gamma
+	name = "shielded security hardsuit"
+	desc = "A more advanced and combat focused version of the normal security hardsuit. This model comes with armor made of lighter materials and built in energy shielding."
+	icon_state = "hardsuit-sec"
+	item_state = "sec-hardsuit"
+	armor = list("melee" = 35, "bullet" = 15, "laser" = 30, "energy" = 10, "bomb" = 10, "bio" = 100, "rad" = 50, "fire" = 75, "acid" = 75)
+	allowed = list(/obj/item/gun,/obj/item/flashlight,/obj/item/tank,/obj/item/melee/baton,/obj/item/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/restraints/handcuffs)
+	slowdown = 0
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/gamma
+
+/obj/item/clothing/head/helmet/space/hardsuit/shielded/gamma
+	name = "security hardsuit helmet"
+	desc = "A more advanced and combat focused version of the normal security hardsuit helmet. This model comes with armor made of lighter materials and built in energy shielding."
+	icon_state = "hardsuit0-sec"
+	item_state = "sec_helm"
+	item_color = "sec"
+	armor = list("melee" = 35, "bullet" = 15, "laser" = 30,"energy" = 10, "bomb" = 10, "bio" = 100, "rad" = 50, "fire" = 75, "acid" = 75)

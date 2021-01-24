@@ -92,6 +92,15 @@
 /obj/machinery/suit_storage_unit/security/pod_pilot
 	req_access = list(ACCESS_PILOT)
 
+/obj/machinery/suit_storage_unit/gamma
+	name = "gamma shielded suit storage unit"
+	suit_type    = /obj/item/clothing/suit/space/hardsuit/shielded/gamma
+	mask_type    = /obj/item/clothing/mask/gas/sechailer/swat
+	req_access = list(ACCESS_SECURITY)
+
+/obj/machinery/suit_storage_unit/gamma/secure
+	secure = TRUE
+
 /obj/machinery/suit_storage_unit/atmos
 	name = "atmospherics suit storage unit"
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/engine/atmos
@@ -207,7 +216,6 @@
 	name = "radiation suit storage unit"
 	suit_type = /obj/item/clothing/suit/radiation
 	helmet_type = /obj/item/clothing/head/radiation
-	storage_type = /obj/item/geiger_counter
 
 //copied from /obj/effect/nasavoidsuitspawner
 /obj/machinery/suit_storage_unit/telecoms/Initialize()
