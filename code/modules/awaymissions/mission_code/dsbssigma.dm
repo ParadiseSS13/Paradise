@@ -353,6 +353,10 @@
 /obj/machinery/autolathe/hacked
 	hacked = TRUE
 
+/obj/machinery/autolathe/hacked/Initialize()
+    ..()
+    adjust_hacked(TRUE)
+
 //////// MECHA ////////
 
 /obj/mecha/combat/gygax/dark/rusted
