@@ -89643,7 +89643,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
+/obj/machinery/door/poddoor/shutters/radiation/preopen{
 	dir = 2;
 	id_tag = "engsm";
 	name = "Radiation Chamber Shutters"
@@ -94021,7 +94021,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/poddoor/shutters/preopen{
+/obj/machinery/door/poddoor/shutters/radiation/preopen{
 	dir = 2;
 	id_tag = "engsm";
 	name = "Radiation Chamber Shutters"
@@ -94084,7 +94084,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/oil,
-/obj/machinery/door/poddoor/shutters/preopen{
+/obj/machinery/door/poddoor/shutters/radiation/preopen{
 	dir = 2;
 	id_tag = "engsm";
 	name = "Radiation Chamber Shutters"
@@ -95683,7 +95683,7 @@
 	},
 /obj/item/tank/plasma,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/poddoor/shutters/preopen{
+/obj/machinery/door/poddoor/shutters/radiation/preopen{
 	dir = 2;
 	id_tag = "engsm";
 	name = "Radiation Chamber Shutters"
@@ -95909,7 +95909,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
+/obj/machinery/door/poddoor/shutters/radiation/preopen{
 	dir = 2;
 	id_tag = "engsm";
 	name = "Radiation Chamber Shutters"
@@ -96502,7 +96502,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/poddoor/shutters/preopen{
+/obj/machinery/door/poddoor/shutters/radiation/preopen{
 	dir = 2;
 	id_tag = "engsm";
 	name = "Radiation Chamber Shutters"
