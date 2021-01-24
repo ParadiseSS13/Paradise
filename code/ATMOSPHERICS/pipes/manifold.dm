@@ -189,6 +189,12 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/purple
 	color = PIPE_COLOR_PURPLE
 
+/obj/machinery/atmospherics/pipe/manifold/visible/red
+	color = PIPE_COLOR_RED
+
+/obj/machinery/atmospherics/pipe/manifold/visible/blue
+	color = PIPE_COLOR_BLUE
+
 /obj/machinery/atmospherics/pipe/manifold/hidden
 	icon_state = "map"
 	level = 1
@@ -223,3 +229,9 @@
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/purple
 	color = PIPE_COLOR_PURPLE
+
+/obj/machinery/atmospherics/pipe/manifold/hidden/red
+	color = PIPE_COLOR_RED
+
+/obj/machinery/atmospherics/pipe/manifold/hidden/blue
+	color = PIPE_COLOR_BLUE
