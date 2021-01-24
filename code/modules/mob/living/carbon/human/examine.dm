@@ -412,6 +412,8 @@
 
 	. = list(msg)
 
+	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
+
 //Helper procedure. Called by /mob/living/carbon/human/examine() and /mob/living/carbon/human/Topic() to determine HUD access to security and medical records.
 /proc/hasHUD(mob/M, hudtype)
 	if(istype(M, /mob/living/carbon/human))

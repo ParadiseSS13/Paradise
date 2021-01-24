@@ -4,6 +4,8 @@
 	icon_state = "riveted"
 	opacity = 1
 	density = 1
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	rad_insulation = RAD_MEDIUM_INSULATION
 	explosion_block = 2
 
 /turf/unsimulated/wall/fakeglass

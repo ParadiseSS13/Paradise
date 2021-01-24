@@ -608,7 +608,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/clothing/head/welding,
 					/obj/item/clothing/head/hardhat,
 					/obj/item/clothing/head/hardhat,
-					/obj/item/clothing/head/hardhat)
+					/obj/item/clothing/head/hardhat,
+					/obj/item/clothing/glasses/meson/engine,
+					/obj/item/clothing/glasses/meson/engine)
 	cost = 10
 	containername = "engineering gear crate"
 
@@ -704,6 +706,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/structure/particle_accelerator/end_cap)
 	cost = 25
 	containername = "particle accelerator crate"
+
+/datum/supply_packs/engineering/radiation
+	name = "Radiation Protection Crate"
+	cost = 20
+	contains = list(/obj/item/clothing/head/radiation,
+					/obj/item/clothing/head/radiation,
+					/obj/item/clothing/suit/radiation,
+					/obj/item/clothing/suit/radiation,
+					/obj/item/geiger_counter,
+					/obj/item/geiger_counter)
+	containername = "radiation protection crate"
+	containertype = /obj/structure/closet/crate/radiation
 
 /datum/supply_packs/engineering/engine/spacesuit
 	name = "Space Suit Crate"

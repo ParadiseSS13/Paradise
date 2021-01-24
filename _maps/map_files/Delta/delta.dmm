@@ -62882,8 +62882,8 @@
 /obj/structure/rack,
 /obj/item/clothing/gloves/color/black,
 /obj/item/wrench,
-/obj/item/clothing/glasses/meson,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/clothing/glasses/meson/engine,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "cjT" = (
@@ -70613,8 +70613,8 @@
 /obj/structure/rack,
 /obj/item/clothing/gloves/color/black,
 /obj/item/wrench,
-/obj/item/clothing/glasses/meson,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/clothing/glasses/meson/engine,
 /turf/simulated/floor/plasteel,
 /area/engine/engine_smes)
 "cxI" = (

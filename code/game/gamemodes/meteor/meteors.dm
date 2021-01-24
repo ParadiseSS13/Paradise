@@ -245,8 +245,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	..(heavy)
 	explosion(src.loc, 0, 0, 4, 3, 0)
 	new /obj/effect/decal/cleanable/greenglow(get_turf(src))
-	for(var/mob/living/L in view(5, src))
-		L.apply_effect(40, IRRADIATE)
+	radiation_pulse(src, 500)
 
 //Station buster Tunguska
 /obj/effect/meteor/tunguska
