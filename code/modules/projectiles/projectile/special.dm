@@ -246,6 +246,7 @@
 	damage = 5
 	range = 3
 	dismemberment = 20
+	sharp = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 
 /obj/item/projectile/plasma/on_hit(atom/target)
