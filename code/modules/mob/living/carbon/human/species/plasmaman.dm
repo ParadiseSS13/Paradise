@@ -134,6 +134,9 @@
 		if("Blueshield")
 			O = new /datum/outfit/plasmaman/blueshield
 
+		if("Assistant", "Tourist", "Civilian", "Businessman", "Trader")
+			O = new /datum/outfit/plasmaman/assistant
+
 	H.equipOutfit(O, visualsOnly)
 	H.internal = H.r_hand
 	H.update_action_buttons_icon()
