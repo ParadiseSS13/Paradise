@@ -474,7 +474,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	while(!steal_target && length(potential))
 		var/thefttype = pick_n_take(potential)
 		var/datum/theft_objective/O = new thefttype
-		for(var/datum/mind/M in owners)
+		for(var/m in owners)
+			var/datum/mind/M = m
 			if(M.assigned_role in O.protected_jobs)
 				continue
 		if(O.flags & 2) // THEFT_FLAG_UNIQUE
