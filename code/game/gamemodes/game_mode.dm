@@ -211,7 +211,14 @@
 	if(escaped_on_pod_5)
 		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_5, list("escapees", "on_pod_5"))
 
-	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "Una ronda en modo [name] acaba de terminar - [surviving_total] supervivientes, [ghosts] muertos. <@&[config.discord_newround_role_id]> ")
+	// HISPANIA EMBED ○_○
+
+	var/datum/discord_embed/new_round_embed/nwe = new
+	nwe.embed_title = "Ronda Terminada"
+	nwe.embed_colour = "FF002E"
+	nwe.embed_content = "Una ronda en modo `[name]` acaba de terminar.\n• **[surviving_total]** supervivientes.\n• **[ghosts]** muertos.\n *Una nueva ronda comenzara en breve.* <@&[config.discord_newround_role_id]>"
+	var/datum/discord_webhook_payload/nr = new
+	nr.embeds += nwe // Insertamos el nuevo discord_embed en la lista.
 	return 0
 
 

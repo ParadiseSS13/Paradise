@@ -1192,6 +1192,7 @@
 #include "code\hispania\__HELPERS\cmp.dm"
 #include "code\hispania\__HELPERS\unsorted.dm"
 #include "code\hispania\controllers\subsystem\processing\quirks.dm"
+#include "code\hispania\datums\discord.dm"
 #include "code\hispania\datums\supplypacks.dm"
 #include "code\hispania\datums\uplink_item.dm"
 #include "code\hispania\datums\diseases\black_death.dm"
