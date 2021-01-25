@@ -12,7 +12,7 @@
 	switch(damage_type)
 		if(BRUTE)
 			if(damage_amount)
-				playsound(src.loc, 'sound/weapons/slash.ogg', 80, TRUE)
+				playsound(loc, 'sound/weapons/slash.ogg', 80, TRUE)
 			else
 				playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE)
 		if(BURN)
@@ -29,7 +29,7 @@
 	S.name = name
 	S.desc = desc
 	S.icon_state = icon_state
-	//var/icon/I = icon('icons/obj/decals.dmi', icon_state)
+	//var/icon/I = icon('icons/obj/decals.dmi', icon_state)	//This code was already commented off. I'm leaving it here for legacy. I'm happy to remove it, however.
 	//S.icon = I.Scale(24, 24)
 	S.sign_state = icon_state
 	qdel(src)
@@ -43,8 +43,14 @@
 	resistance_flags = FLAMMABLE
 	var/sign_state = ""
 
-/obj/item/sign/attackby(obj/item/tool as obj, mob/user as mob)	//construction
-	if(istype(tool, /obj/item/screwdriver) && isturf(user.loc))
+/obj/item/sign/attackby(obj/item/I, mob/user)
+	if(isscrewdriver(I))
+		return	// No damage from a screwdriver. We have a screwdriver_act().
+	else
+		return ..()
+
+/obj/item/sign/screwdriver_act(mob/user)	//construction
+	if(isturf(user.loc) && !(istype(src, /obj/item/sign/barsign)))	// Please don't use a screwdriver on the sign/barsign in this way. Though, maybe?
 		var/direction = input("In which direction?", "Select direction.") in list("North", "East", "South", "West", "Cancel")
 		if(direction == "Cancel")
 			return
@@ -65,7 +71,7 @@
 		S.name = name
 		S.desc = desc
 		S.icon_state = sign_state
-		to_chat(user, "You fasten \the [S] with your [tool].")
+		to_chat(user, "You fasten \the [S] with your screwdriver.")
 		qdel(src)
 	else
 		return ..()
