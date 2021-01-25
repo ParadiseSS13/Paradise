@@ -74,7 +74,7 @@
 		to_chat(user, "You fasten \the [S] with your screwdriver.")
 		qdel(src)
 	else
-		return ..()
+		return
 
 /obj/structure/sign/double/map
 	name = "station map"
