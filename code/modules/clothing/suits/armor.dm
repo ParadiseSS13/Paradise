@@ -295,7 +295,7 @@
 	disable(emp_power)
 	..()
 
-/obj/item/clothing/suit/armor/reactive/proc/disable(var/disable_time = 0)
+/obj/item/clothing/suit/armor/reactive/proc/disable(disable_time = 0)
 	active = FALSE
 	disabled = TRUE
 	icon_state = "reactiveoff"
@@ -310,7 +310,7 @@
 	active = TRUE
 	icon_state = "reactive"
 	item_state = "reactive"
-	if(istype(loc, /mob/living/carbon/human))
+	if(ishuman(loc))
 		var/mob/living/carbon/human/C = loc
 		C.update_inv_wear_suit()
 
@@ -398,7 +398,7 @@
 			M.adjustFireLoss(20)
 			playsound(M, 'sound/machines/defib_zap.ogg', 50, 1, -1)
 		disable(rand(2, 5)) // let's not have buckshot set it off 4 times and do 80 burn damage.
-		return 1
+		return TRUE
 
 /obj/item/clothing/suit/armor/reactive/repulse
 	name = "reactive repulse armor"
@@ -410,12 +410,10 @@
 
 /obj/item/clothing/suit/armor/reactive/repulse/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
-		return 0
+		return FALSE
 	if(prob(hit_reaction_chance))
 		owner.visible_message("<span class='danger'>[src] blocks [attack_text], converting the attack into a wave of force!</span>")
 		var/list/thrownatoms = list()
-		var/atom/throwtarget
-		var/distfromuser
 		for(var/turf/T in range(repulse_range, owner)) //Done this way so things don't get thrown all around hilariously.
 			for(var/atom/movable/AM in T)
 				thrownatoms += AM
@@ -425,8 +423,8 @@
 			if(AM == owner || AM.anchored)
 				continue
 
-			throwtarget = get_edge_target_turf(owner, get_dir(owner, get_step_away(AM, owner)))
-			distfromuser= get_dist(owner, AM)
+			var/throwtarget = get_edge_target_turf(owner, get_dir(owner, get_step_away(AM, owner)))
+			var/distfromuser = get_dist(owner, AM)
 			if(distfromuser == 0)
 				if(isliving(AM))
 					var/mob/living/M = AM

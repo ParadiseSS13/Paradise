@@ -266,6 +266,6 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_PLASMA = 8000, MAT_TITANIUM = 14000, MAT_BLUESPACE = 6000) //Big strong armor needs big-ish investment
 	build_path = /obj/item/reactive_armour_shell
-	locked = 1
+	locked = TRUE
 	access_requirement = list(ACCESS_RD)
 	category = list("Weapons")

@@ -69,7 +69,7 @@
 	icon = 'icons/obj/clothing/suits.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/reactive_armour_shell/attackby(obj/item/I as obj, mob/user, params)
+/obj/item/reactive_armour_shell/attackby(obj/item/I, mob/user, params)
 	var/static/list/anomaly_armour_types = list(
 		/obj/item/assembly/signaler/anomaly/grav = /obj/item/clothing/suit/armor/reactive/repulse,
 		/obj/item/assembly/signaler/anomaly/flux = /obj/item/clothing/suit/armor/reactive/tesla,
