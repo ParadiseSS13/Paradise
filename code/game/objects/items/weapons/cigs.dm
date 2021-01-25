@@ -221,6 +221,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 
 /obj/item/clothing/mask/cigarette/menthol
+	desc = "A roll of tobacco and nicotine in a black and blue paper. Smells... minty."
+	icon_state = "cigoff_menthol"
+	icon_on = "cigon_menthol"
+	icon_off = "cigoff_menthol"
+	type_butt = /obj/item/cigbutt/menthol
 	list_reagents = list("nicotine" = 40, "menthol" = 20)
 
 /obj/item/clothing/mask/cigarette/random
@@ -230,15 +235,35 @@ LIGHTERS ARE IN LIGHTERS.DM
 	..()
 
 /obj/item/clothing/mask/cigarette/syndicate
+	desc = "A roll of tobacco and nicotine in a cool buy suspicious black and red paper. Smells... in a way that makes your nose feel better."
+	icon_state = "cigoff_syndicate"
+	icon_on = "cigon_syndicate"
+	icon_off = "cigoff_syndicate"
+	type_butt = /obj/item/cigbutt/syndicate
 	list_reagents = list("nicotine" = 40, "omnizine" = 20)
 
 /obj/item/clothing/mask/cigarette/medical_marijuana
+	desc = "A roll of marijuana in a medical white paper with a blue band. Smells... calming."
+	icon_state = "cigoff_med"
+	icon_on = "cigon_med"
+	icon_off = "cigoff_med"
+	type_butt = /obj/item/cigbutt/med
 	list_reagents = list("thc" = 40, "cbd" = 20)
 
 /obj/item/clothing/mask/cigarette/robustgold
+	desc = "A premium roll of of tobacco and nicotine in a fancy gold paper. Smells a bit like wealth... and cancer."
+	icon_state = "cigoff_gold"	
+	icon_on = "cigon_gold"
+	icon_off = "cigoff_gold"
+	type_butt = /obj/item/cigbutt/gold
 	list_reagents = list("nicotine" = 40, "gold" = 1)
 
 /obj/item/clothing/mask/cigarette/shadyjims
+	desc = "A surprisingly thin roll of of tobacco and nicotine in a rather dull gray paper. Smells... like being fit feels...and a bit like battery acid."
+	icon_state = "cigoff_shadyjims"	
+	icon_on = "cigon_shadyjims"
+	icon_off = "cigoff_shadyjims"
+	type_butt = /obj/item/cigbutt/shadyjims
 	list_reagents = list("nicotine" = 40, "lipolicide" = 7.5, "ammonia" = 2, "atrazine" = 1, "toxin" = 1.5)
 
 /obj/item/clothing/mask/cigarette/rollie
@@ -249,7 +274,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_off = "spliffoff"
 	type_butt = /obj/item/cigbutt/roach
 	throw_speed = 0.5
-	item_state = "spliffoff"
 
 /obj/item/clothing/mask/cigarette/rollie/New()
 	..()
@@ -257,10 +281,30 @@ LIGHTERS ARE IN LIGHTERS.DM
 	pixel_y = rand(-5, 5)
 
 
-/obj/item/cigbutt/roach
-	name = "roach"
-	desc = "A manky old roach, or for non-stoners, a used rollup."
-	icon_state = "roach"
+/obj/item/cigbutt/menthol
+	name = "cigarette butt"
+	desc = "A manky old cigarette butt... still has a very faint minty smell, huh."
+	icon_state = "cigbutt_menthol"
+
+/obj/item/cigbutt/syndicate
+	name = "cigarette butt"
+	desc = "A manky old cigarette butt... looks suspicious."
+	icon_state = "cigbutt_syndicate"
+
+/obj/item/cigbutt/med
+	name = "cigarette butt"
+	desc = "A manky old cigarette butt... looks medical for some reason."
+	icon_state = "cigbutt_med"
+
+/obj/item/cigbutt/gold
+	name = "cigarette butt"
+	desc = "A manky old but gold cigarette butt... even when used up it still looks premium."
+	icon_state = "cigbutt_gold"
+
+/obj/item/cigbutt/shadyjims
+	name = "cigarette butt"
+	desc = "A manky old cigarette butt... looks dull."
+	icon_state = "cigbutt_shadyjims"
 
 /obj/item/cigbutt/roach/New()
 	..()
