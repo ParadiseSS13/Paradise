@@ -8,7 +8,6 @@ z2 = station
 z3 = lavaland
 */
 
-
 #if !defined(USING_MAP_DATUM)
 	#include "map_files\generic\centcomm.dmm"
 	#include "map_files\MetaStation\MetaStation.dmm"
