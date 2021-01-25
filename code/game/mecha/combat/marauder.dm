@@ -50,13 +50,10 @@
 	icon_state = "ares"
 	initial_icon = "ares"
 	operation_req_access = list(ACCESS_SECURITY)
-	step_in = 5
 	max_integrity = 450
 	armor = list(melee = 50, bullet = 40, laser = 20, energy = 20, bomb = 20, bio = 100, rad = 60, fire = 100, acid = 100)
 	max_temperature = 40000
 	wreckage = /obj/structure/mecha_wreckage/ares
-	internal_damage_threshold = 25
-	force = 45
 	max_equip = 4
 
 /obj/mecha/combat/marauder/ares/loaded/New()
