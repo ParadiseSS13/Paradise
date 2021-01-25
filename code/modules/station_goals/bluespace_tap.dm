@@ -326,10 +326,15 @@
 	else if(input_level > desired_level)
 		input_level--
 	if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
+		if(!emagged && prob(99))	//makes non-sabotaged events MUCH less likely
+			return
 		GLOB.event_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [get_area(src).name]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : "Emergency shutdown initiated."]", "Bluespace Harvester Malfunction")
 		if(!emagged)
 			input_level = 0	//emergency shutdown unless we're sabotaged
 			desired_level = 0
+		else	//no more infinite hellportals, makes sabotaging a high-power BSH much more dangerous than a low-power one
+			input_level--
+			desired_level--
 		for(var/i in 1 to rand(1, 3))
 			var/turf/location = locate(x + rand(-5, 5), y + rand(-5, 5), z)
 			new /obj/structure/spawner/nether/bluespace_tap(location)
