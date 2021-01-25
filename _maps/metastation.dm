@@ -11,11 +11,9 @@ z3 = lavaland
 
 #if !defined(USING_MAP_DATUM)
 	#include "map_files\generic\centcomm.dmm"
-	#include "map_files\MetaStation\MetaStation.v41A.II.dmm"
+	#include "map_files\MetaStation\MetaStation.dmm"
 	#include "map_files\generic\Lavaland.dmm"
 
-	#define MAP_FILE "MetaStation.v41A.II.dmm"
-	#define MAP_NAME "MetaStation"
 	#define MAP_TRANSITION_CONFIG list(\
 DECLARE_LEVEL(CENTCOMM, SELFLOOPING, list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC)),\
 DECLARE_LEVEL(MAIN_STATION, CROSSLINKED, list(STATION_LEVEL, STATION_CONTACT, REACHABLE, AI_OK)),\
