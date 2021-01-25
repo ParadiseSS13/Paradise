@@ -7,32 +7,36 @@
 	max_integrity = 500
 	integrity_failure = 250
 	armor = list("melee" = 20, "bullet" = 20, "laser" = 20, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
-	var/list/barsigns = list()
+	var/list/barsigns=list()
 	var/list/hiddensigns = list()
 	var/panel_open = FALSE
-	var/emagged = TRUE
-	var/prev_sign = ""
-	var/state = 0
+	var/datum/barsign/prev_sign
+	var/datum/barsign/sign_holder	//I feel this could be done with one variable instead of two, but I'm not sure.
 
-/obj/structure/sign/barsign/New()
-	..()
-	//filling the barsigns lists
+/obj/structure/sign/barsign/Initialize(mapload)
+	. = ..()
+	//filling the barsigns list
 	for(var/bartype in typesof(/datum/barsign))
 		var/datum/barsign/signinfo = new bartype
 		if(!signinfo.hidden)
 			barsigns += signinfo
 		else
 			hiddensigns += signinfo
-	//randomly assigning a sign
-	set_sign(pick(barsigns))
+	if(!prev_sign)
+		set_sign(pick(barsigns))	// Randomly assigning a sign
+	else							// Unless there is a prev_sign
+		set_sign(prev_sign)
 
-/obj/structure/sign/barsign/proc/set_sign(var/datum/barsign/sign)
-	if(!istype(sign))
+/obj/structure/sign/barsign/proc/set_sign(datum/barsign/S)
+	if(!istype(S))
 		return
-	icon_state = sign.icon
-	name = sign.name
-	if(sign.desc)
-		desc = sign.desc
+	if(sign_holder)	// Set this before changing sign_holder
+		prev_sign = sign_holder
+	sign_holder = S
+	icon_state = S.icon
+	name = S.name
+	if(S.desc)
+		desc = S.desc
 	else
 		desc = "It displays \"[name]\"."
 
@@ -74,7 +78,7 @@
 		return
 
 
-/obj/structure/sign/barsign/attackby(var/obj/item/I, mob/user)
+/obj/structure/sign/barsign/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/stack/cable_coil) && panel_open)
 		var/obj/item/stack/cable_coil/C = I
 		if(broken && emagged) //Emagged, not broken by EMP
@@ -89,8 +93,10 @@
 		else if(!broken && !emagged)
 			to_chat(user, "<span class='warning'>This sign is functioning properly!</span>")
 			return
+	if(isscrewdriver(I) || iswrench(I))
+		return	// No damage.
 	else
-		return
+		return ..()
 
 /obj/structure/sign/barsign/screwdriver_act(mob/user)
 	if(!panel_open)
@@ -98,6 +104,8 @@
 		set_sign(new /datum/barsign/signoff)
 		panel_open = TRUE
 	else
+		if(prev_sign.icon != icon_state && istype(prev_sign, /datum/barsign))	// Sanity, I suppose
+			set_sign(prev_sign)
 		to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
 		panel_open = FALSE
 	return
@@ -115,17 +123,18 @@
 		S.emagged = emagged
 		S.req_access = req_access
 		S.panel_open = !panel_open
+		S.prev_sign = prev_sign
 		qdel(src)
 
 /obj/item/sign/barsign
 	name = "barsign"
 	desc = ""
 	icon = 'icons/obj/barsigns.dmi'
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_HUGE		// Don't put this in your backpack!
 	resistance_flags = FLAMMABLE
 	var/panel_open
 	var/broken
-	var/emagged
+	var/datum/barsign/prev_sign
 
 /obj/item/sign/barsign/wrench_act(mob/user)	//construction
 	if(isturf(user.loc))
@@ -149,13 +158,14 @@
 				return
 		S.name = name
 		S.desc = desc
-		S.icon_state = icon_state
 		S.broken = broken
 		S.emagged = emagged
 		S.req_access = req_access
-
 		S.panel_open = panel_open
-		to_chat(user, "You bolt \the [S] with your wrench, closing the maintenance panel in the process.")
+		S.prev_sign = prev_sign
+		S.icon_state = prev_sign.icon
+		S.sign_holder = null
+		to_chat(user, "<span_class='notice>You bolt \the [S] with your wrench, closing the maintenance panel in the process.</span>")
 		qdel(src)
 	else
 		return
