@@ -343,8 +343,8 @@
 		if(!isturf(picked))
 			return
 		H.forceMove(picked)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/item/clothing/suit/armor/reactive/fire
 	name = "reactive incendiary armor"
@@ -352,7 +352,7 @@
 
 /obj/item/clothing/suit/armor/reactive/fire/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
-		return 0
+		return TRUE
 	if(prob(hit_reaction_chance))
 		owner.visible_message("<span class='danger'>The [src] blocks the [attack_text], sending out jets of flame!</span>")
 		for(var/mob/living/carbon/C in range(6, owner))
@@ -360,8 +360,8 @@
 				C.fire_stacks += 8
 				C.IgniteMob()
 		owner.fire_stacks = -20
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 /obj/item/clothing/suit/armor/reactive/stealth
@@ -370,7 +370,7 @@
 
 /obj/item/clothing/suit/armor/reactive/stealth/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
-		return 0
+		return FALSE
 	if(prob(hit_reaction_chance))
 		var/mob/living/simple_animal/hostile/illusion/escape/E = new(owner.loc)
 		E.Copy_Parent(owner, 50)
@@ -380,7 +380,7 @@
 		owner.visible_message("<span class='danger'>[owner] is hit by [attack_text] in the chest!</span>") //We pretend to be hit, since blocking it would stop the message otherwise
 		spawn(40)
 			owner.alpha = initial(owner.alpha)
-		return 1
+		return TRUE
 
 /obj/item/clothing/suit/armor/reactive/tesla
 	name = "reactive tesla armor"
@@ -388,7 +388,7 @@
 
 /obj/item/clothing/suit/armor/reactive/tesla/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
-		return 0
+		return FALSE
 	if(prob(hit_reaction_chance))
 		owner.visible_message("<span class='danger'>The [src] blocks the [attack_text], sending out arcs of lightning!</span>")
 		for(var/mob/living/M in view(6, owner))
@@ -437,7 +437,7 @@
 				spawn(0)
 					AM.throw_at(throwtarget, ((clamp((repulse_power - (clamp(distfromuser - 2, 0, distfromuser))), 3, repulse_power))), 1)//So stuff gets tossed around at the same time.
 		disable(rand(2, 5))
-		return 1
+		return TRUE
 
 //All of the armor below is mostly unused
 
