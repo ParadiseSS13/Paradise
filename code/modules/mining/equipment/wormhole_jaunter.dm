@@ -11,7 +11,6 @@
 	throw_range = 5
 	origin_tech = "bluespace=2"
 	slot_flags = SLOT_BELT
-	var/emagged = FALSE
 
 /obj/item/wormhole_jaunter/attack_self(mob/user)
 	user.visible_message("<span class='notice'>[user.name] activates the [name]!</span>")
@@ -73,7 +72,6 @@
 	icon_state = "bhole3"
 	desc = "A stable hole in the universe made by a wormhole jaunter. Turbulent doesn't even begin to describe how rough passage through one of these is, but at least it will always get you somewhere near a beacon."
 	failchance = 0
-	var/emagged = FALSE
 
 /obj/effect/portal/jaunt_tunnel/can_teleport(atom/movable/M)
 	if(!emagged && ismegafauna(M))

@@ -160,7 +160,7 @@
 
 /datum/reagent/radium/on_mob_life(mob/living/M)
 	if(M.radiation < 80)
-		M.apply_effect(4, IRRADIATE, negate_armor = 1)
+		M.apply_effect(4, IRRADIATE)
 	return ..()
 
 /datum/reagent/radium/reaction_turf(turf/T, volume)
@@ -190,7 +190,7 @@
 /datum/reagent/mutagen/on_mob_life(mob/living/M)
 	if(!M.dna)
 		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
-	M.apply_effect(2*REAGENTS_EFFECT_MULTIPLIER, IRRADIATE, negate_armor = 1)
+	M.apply_effect(2 * REAGENTS_EFFECT_MULTIPLIER, IRRADIATE)
 	if(prob(4))
 		randmutb(M)
 	return ..()
@@ -215,7 +215,7 @@
 /datum/reagent/stable_mutagen/on_mob_life(mob/living/M)
 	if(!ishuman(M) || !M.dna)
 		return
-	M.apply_effect(2*REAGENTS_EFFECT_MULTIPLIER, IRRADIATE, negate_armor = 1)
+	M.apply_effect(2 * REAGENTS_EFFECT_MULTIPLIER, IRRADIATE)
 	if(current_cycle == 10 && islist(data))
 		if(istype(data["dna"], /datum/dna))
 			var/mob/living/carbon/human/H = M
@@ -241,7 +241,7 @@
 	taste_description = "the inside of a reactor"
 
 /datum/reagent/uranium/on_mob_life(mob/living/M)
-	M.apply_effect(2, IRRADIATE, negate_armor = 1)
+	M.apply_effect(2, IRRADIATE)
 	return ..()
 
 /datum/reagent/uranium/reaction_turf(turf/T, volume)
@@ -472,7 +472,7 @@
 	taste_mult = 0
 
 /datum/reagent/polonium/on_mob_life(mob/living/M)
-	M.apply_effect(8, IRRADIATE, negate_armor = 1)
+	M.apply_effect(8, IRRADIATE)
 	return ..()
 
 /datum/reagent/histamine
@@ -1182,7 +1182,7 @@
 		M.UpdateAppearance()
 
 /datum/reagent/glowing_slurry/on_mob_life(mob/living/M)
-	M.apply_effect(2, IRRADIATE, 0, negate_armor = 1)
+	M.apply_effect(2, IRRADIATE)
 	if(!M.dna)
 		return
 	var/did_mutation = FALSE

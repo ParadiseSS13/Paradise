@@ -204,7 +204,6 @@
 	var/invis_override = 0
 	var/lighting_alpha
 
-	var/emagged = 0
 	var/list/color_view = null//overrides client.color while worn
 	var/prescription = 0
 	var/prescription_upgradable = 0
