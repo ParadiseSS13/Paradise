@@ -94,6 +94,7 @@
 				/obj/item/book/manual/engineering_construction = 10,
 				/obj/item/book/manual/engineering_hacking = 10,
 				/obj/item/clothing/head/cone = 10,
+				/obj/item/geiger_counter = 30,
 				/obj/item/coin/silver = 10,
 				/obj/item/coin/twoheaded = 10,
 				/obj/item/poster/random_contraband = 10,

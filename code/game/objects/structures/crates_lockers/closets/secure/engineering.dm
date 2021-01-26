@@ -34,6 +34,7 @@
 	new /obj/item/holosign_creator/engineering(src)
 	new /obj/item/flash(src)
 	new /obj/item/clothing/head/beret/eng(src)
+	new /obj/item/clothing/glasses/meson/engine(src)
 	new /obj/item/door_remote/chief_engineer(src)
 	new /obj/item/rpd(src)
 	new /obj/item/reagent_containers/food/drinks/mug/ce(src)
@@ -109,7 +110,7 @@
 	new /obj/item/clothing/under/rank/engineer/skirt(src)
 	new /obj/item/clothing/suit/storage/hazardvest(src)
 	new /obj/item/clothing/mask/gas(src)
-	new /obj/item/clothing/glasses/meson(src)
+	new /obj/item/clothing/glasses/meson/engine(src)
 	new /obj/item/cartridge/engineering(src)
 	new /obj/item/clothing/head/beret/eng(src)
 
@@ -143,5 +144,6 @@
 	new /obj/item/watertank/atmos(src)
 	new /obj/item/clothing/suit/fire/atmos(src)
 	new /obj/item/clothing/head/hardhat/atmos(src)
+	new /obj/item/clothing/glasses/meson/engine/tray(src)
 	new /obj/item/rpd(src)
 	new /obj/item/destTagger(src)

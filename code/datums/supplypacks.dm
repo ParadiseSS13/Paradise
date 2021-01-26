@@ -608,7 +608,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/clothing/head/welding,
 					/obj/item/clothing/head/hardhat,
 					/obj/item/clothing/head/hardhat,
-					/obj/item/clothing/head/hardhat)
+					/obj/item/clothing/head/hardhat,
+					/obj/item/clothing/glasses/meson/engine,
+					/obj/item/clothing/glasses/meson/engine)
 	cost = 10
 	containername = "engineering gear crate"
 
@@ -705,6 +707,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 25
 	containername = "particle accelerator crate"
 
+/datum/supply_packs/engineering/radiation
+	name = "Radiation Protection Crate"
+	cost = 20
+	contains = list(/obj/item/clothing/head/radiation,
+					/obj/item/clothing/head/radiation,
+					/obj/item/clothing/suit/radiation,
+					/obj/item/clothing/suit/radiation,
+					/obj/item/geiger_counter,
+					/obj/item/geiger_counter)
+	containername = "radiation protection crate"
+	containertype = /obj/structure/closet/crate/radiation
+
 /datum/supply_packs/engineering/engine/spacesuit
 	name = "Space Suit Crate"
 	contains = list(/obj/item/clothing/suit/space,
@@ -728,7 +742,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/engineering/engine/supermatter_shard
 	name = "Supermatter Shard Crate"
-	contains = list(/obj/machinery/power/supermatter_shard)
+	contains = list(/obj/machinery/power/supermatter_crystal/shard)
 	cost = 50 //So cargo thinks twice before killing themselves with it
 	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "supermatter shard crate"

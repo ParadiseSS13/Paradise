@@ -118,7 +118,7 @@
 
 /mob/living/simple_animal/revenant/New()
 	..()
-
+	flags_2 |= RAD_NO_CONTAMINATE_2
 	remove_from_all_data_huds()
 	random_revenant_name()
 
