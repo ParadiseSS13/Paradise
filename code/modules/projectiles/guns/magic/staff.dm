@@ -60,15 +60,6 @@
 	item_state = "staffofslipping"
 	fire_sound = 'sound/items/bikehorn.ogg'
 
-/obj/item/gun/magic/staff/slipping/ruin
-	name = "staff of slipping"
-	desc = "An artefact that spits... bananas? This one appears to be low on charge..."
-	ammo_type = /obj/item/ammo_casing/magic/slipping
-	icon_state = "staffofslipping"
-	item_state = "staffofslipping"
-	max_charges = 5
-	fire_sound = 'sound/items/bikehorn.ogg'
-
 /obj/item/gun/magic/staff/slipping/honkmother
 	name = "staff of the honkmother"
 	desc = "An ancient artefact, sought after by clowns everywhere."
