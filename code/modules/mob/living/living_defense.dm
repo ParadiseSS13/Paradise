@@ -64,6 +64,7 @@
 		return FALSE
 	if(NO_SHOCK in mutations) //shockproof
 		return FALSE
+	shock_damage *= siemens_coeff
 	if(shock_damage < 1)
 		return FALSE
 	if(!(flags & SHOCK_ILLUSION))

@@ -149,7 +149,7 @@
 	. = ..()
 	if(!.)
 		return
-	//Propagation through pulling, fireman carry
+	//Propagation through pulling
 	if(!(flags & SHOCK_ILLUSION))
 		var/list/shocking_queue = list()
 		if(iscarbon(pulling) && source != pulling)

@@ -70,16 +70,19 @@
 
 		pixel_x = 0
 		pixel_y = 0
-		shocked_things.Cut()
-		tesla_zap(src, 3, TESLA_DEFAULT_POWER, shocked_targets = shocked_things)
+		shocked_things.Cut(1, length(shocked_things) / 1.3)
+		var/list/shocking_info = list()
+		tesla_zap(src, 3, TESLA_DEFAULT_POWER, shocked_targets = shocking_info)
 
 		pixel_x = -32
 		pixel_y = -32
 		for(var/ball in orbiting_balls)
 			var/range = rand(1, clamp(length(orbiting_balls), 2, 3))
 			var/list/temp_shock = list()
-			tesla_zap(ball, range, TESLA_MINI_POWER / 7 * range, shocked_targets = temp_shock)
-			shocked_things += temp_shock
+			//We zap off the main ball instead of ourselves to make things looks proper
+			tesla_zap(src, range, TESLA_MINI_POWER / 7 * range, shocked_targets = temp_shock)
+			shocking_info += temp_shock
+		shocked_things += shocking_info
 	else
 		energy = 0 // ensure we dont have miniballs of miniballs //But it'll be cool broooooooooooooooo
 
@@ -90,9 +93,10 @@
 
 /obj/singularity/energy_ball/proc/move_the_basket_ball(move_amount)
 	var/list/dirs = GLOB.alldirs.Copy()
-	for(var/I in 1 to 30)
-		var/atom/real_thing = pick(shocked_things)
-		dirs += get_dir(src, real_thing) //Carry some momentum yeah? Just a bit tho
+	if(length(shocked_things))
+		for(var/i in 1 to 30)
+			var/atom/real_thing = pick(shocked_things)
+			dirs += get_dir(src, real_thing) //Carry some momentum yeah? Just a bit tho
 	for(var/i in 0 to move_amount)
 		var/move_dir = pick(dirs) //ensures teslas don't just sit around
 		if(target && prob(10))
@@ -211,6 +215,7 @@
 										/obj/machinery/camera,
 										/obj/structure/sign,
 										/obj/machinery/gateway,
+										/obj/structure/lattice,
 										/obj/structure/grille,
 										/obj/machinery/the_singularitygen/tesla,
 										/obj/machinery/constructable_frame))
@@ -290,7 +295,7 @@
 	if(!closest_atom)
 		return
 	//common stuff
-	source.Beam(closest_atom, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5)
+	source.Beam(closest_atom, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5, maxdistance = INFINITY)
 	var/zapdir = get_dir(source, closest_atom)
 	if(zapdir)
 		. = zapdir

@@ -226,7 +226,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 ///Called when the obj is hit by a tesla bolt.
 /obj/zap_act(power, zap_flags)
 	if(QDELETED(src))
-		return 0
+		return FALSE
 	being_shocked = TRUE
 	addtimer(CALLBACK(src, .proc/reset_shocked), 1 SECONDS)
 	return power / 2

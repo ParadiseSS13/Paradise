@@ -38,6 +38,11 @@
 		zap_cooldown -= (C.rating * 20)
 	input_power_multiplier = (0.85 * (power_multiplier / 4)) //Max out at 85% efficency.
 
+/obj/machinery/power/tesla_coil/examine(mob/user)
+	. = ..()
+	if(in_range(user, src) || isobserver(user))
+		. += "<span class='notice'>The status display reads: Power generation at <b>[input_power_multiplier*100]%</b>.<br>Shock interval at <b>[zap_cooldown*0.1]</b> seconds.</span>"
+
 /obj/machinery/power/tesla_coil/attackby(obj/item/W, mob/user, params)
 	if(exchange_parts(user, W))
 		return
@@ -94,7 +99,7 @@
 		var/power_produced = powernet ? power * input_power_multiplier : power
 		add_avail(power_produced)
 		flick("coilhit", src)
-		playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
+		playsound(loc, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
 		return power - power_produced //You get back the amount we didn't use
 	else
 		. = ..()
@@ -106,13 +111,13 @@
 	var/power = (powernet.avail) * 0.2 * input_power_multiplier  //Always always always use more then you output for the love of god
 	power = min(surplus(), power) //Take the smaller of the two
 	add_load(power)
-	playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
+	playsound(loc, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
 	tesla_zap(src, 10, power, zap_flags)
 	zap_buckle_check(power)
 
 /obj/machinery/power/grounding_rod
 	name = "grounding rod"
-	desc = "Keep an area from being fried from Edison's Bane."
+	desc = "Keeps an area from being fried by Edison's Bane."
 	icon = 'icons/obj/tesla_engine/tesla_coil.dmi'
 	icon_state = "grounding_rod0"
 	anchored = FALSE

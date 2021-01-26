@@ -450,13 +450,15 @@
 			powerloss_dynamic_scaling = clamp(powerloss_dynamic_scaling + clamp(co2comp - powerloss_dynamic_scaling, -0.02, 0.02), 0, 1)
 		else
 			powerloss_dynamic_scaling = clamp(powerloss_dynamic_scaling - 0.05, 0, 1)
+		//Ranges from 0 to 1(1-(value between 0 and 1 * ranges from 1 to 1.5(mol / 500)))
+		//We take the mol count, and scale it to be our inhibitor
 		powerloss_inhibitor = clamp(1 - (powerloss_dynamic_scaling * clamp(combined_gas / POWERLOSS_INHIBITION_MOLE_BOOST_THRESHOLD, 1 , 1.5)), 0 , 1)
 
 		//Releases stored power into the general pool
 		//We get this by consuming shit or being scalpeled
 		if(matter_power && power_changes)
 			//We base our removed power off one 10th of the matter_power.
-			var/removed_matter = max(matter_power/MATTER_POWER_CONVERSION, 40)
+			var/removed_matter = max(matter_power / MATTER_POWER_CONVERSION, 40)
 			//Adds at least 40 power
 			power = max(power + removed_matter, 0)
 			//Removes at least 40 matter power
@@ -464,12 +466,13 @@
 
 		var/temp_factor = 50
 		if(gasmix_power_ratio > 0.8)
-			// with a perfect gas mix, make the power less based on heat
+			//with a perfect gas mix, make the power less based on heat
 			icon_state = "[base_icon_state]_glow"
 		else
-			// in normal mode, base the produced energy around the heat
+			//in normal mode, base the produced energy around the heat
 			temp_factor = 30
 			icon_state = base_icon_state
+
 
 		if(power_changes)
 			power = max((removed.temperature * temp_factor / T0C) * gasmix_power_ratio + power, 0)
@@ -549,7 +552,7 @@
 				flags |= (ZAP_MOB_STUN | ZAP_MACHINE_EXPLOSIVE | ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE)
 				zap_count = 4
 		//Now we deal with damage shit
-		if (damage > damage_penalty_point && prob(20))
+		if(damage > damage_penalty_point && prob(20))
 			zap_count += 1
 
 		if(zap_count >= 1)
@@ -565,7 +568,7 @@
 			supermatter_anomaly_gen(src, PYRO_ANOMALY, rand(5, 10))
 
 	if(prob(15))
-		supermatter_pull(loc, min(power/850, 3))//850, 1700, 2550
+		supermatter_pull(loc, min(power / 850, 3)) //850, 1700, 2550
 
 	//Tells the engi team to get their butt in gear
 	if(damage > warning_point) // while the core is still damaged and it's still worth noting its status
@@ -817,8 +820,6 @@
 			if(PYRO_ANOMALY)
 				new /obj/effect/anomaly/pyro(L, 200, FALSE)
 
-
-
 /obj/machinery/power/supermatter_crystal/proc/supermatter_zap(atom/zapstart = src, range = 5, zap_str = 4000, zap_flags = ZAP_SUPERMATTER_FLAGS, list/targets_hit = list())
 	if(QDELETED(zapstart))
 		return
@@ -891,7 +892,7 @@
 				arctargets += test
 				target_type = OBJECT
 
-	if(arctargets.len) //Pick from our pool
+	if(length(arctargets)) //Pick from our pool
 		target = pick(arctargets)
 
 	if(!QDELETED(target)) //If we found something
@@ -926,7 +927,7 @@
 			//There's no increase after that because the input power is effectivly capped at 10k
 			//Does 1.5 damage at the least
 			var/shock_damage = ((zap_flags & ZAP_MOB_DAMAGE) ? (power / 200) - 10 : rand(5, 10))
-			creature.electrocute_act(shock_damage, "Supermatter Discharge Bolt", 1,  ((zap_flags & ZAP_MOB_STUN) ? SHOCK_TESLA : SHOCK_NOSTUN))
+			creature.electrocute_act(shock_damage, "Supermatter Discharge Bolt", 1, ((zap_flags & ZAP_MOB_STUN) ? SHOCK_TESLA : SHOCK_NOSTUN))
 			zap_str /= 1.5 //Meatsacks are conductive, makes working in pairs more destructive
 
 		else
@@ -935,12 +936,12 @@
 		var/turf/T = get_turf(target)
 		var/pressure = 1
 		if(T?.return_air())
-			pressure = max(1,T.return_air().return_pressure())
+			pressure = max(1, T.return_air().return_pressure())
 		//We get our range with the strength of the zap and the pressure, the higher the former and the lower the latter the better
 		var/new_range = clamp(zap_str / pressure * 10, 2, 7)
 		var/zap_count = 1
 		if(prob(5))
-			zap_str -= (zap_str/10)
+			zap_str -= (zap_str / 10)
 			zap_count += 1
 		for(var/j in 1 to zap_count)
 			if(zap_count > 1)
