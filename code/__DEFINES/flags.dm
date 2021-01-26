@@ -45,8 +45,8 @@
 // those restrictions.
 #define OMNITONGUE_2			256
 
-// TESLA_IGNORE grants immunity from being targeted by tesla-style electricity
-#define TESLA_IGNORE_2			512
+/// Prevents mobs from getting chainshocked by teslas and the supermatter
+#define SHOCKED_2 				512
 
 // Stops you from putting things like an RCD or other items into an ORM or protolathe for materials.
 #define NO_MAT_REDEMPTION_2		1024

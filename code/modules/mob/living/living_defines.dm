@@ -57,9 +57,6 @@
 	var/gene_stability = DEFAULT_GENE_STABILITY
 	var/ignore_gene_stability = 0
 
-
-	var/tesla_ignore = FALSE
-
 	var/list/say_log = list() //a log of what we've said, plain text, no spans or junk, essentially just each individual "message"
 	var/list/emote_log = list() //like say_log but for emotes
 
@@ -73,5 +70,3 @@
 	var/stun_absorption = null //converted to a list of stun absorption sources this mob has when one is added
 	var/stam_regen_start_time = 0 //used to halt stamina regen temporarily
 	var/stam_paralyzed = FALSE //knocks you down
-	/// Prevents mobs from getting chainshocked by teslas and the supermatter
-	var/tesla_shocked = FALSE

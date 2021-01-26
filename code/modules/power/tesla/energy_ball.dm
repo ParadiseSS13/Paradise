@@ -260,7 +260,7 @@
 
 		else if(isliving(A))
 			var/mob/living/L = A
-			if(L.stat != DEAD && !(HAS_TRAIT(L, TRAIT_TESLA_SHOCKIMMUNE)) && !L.tesla_shocked)
+			if(L.stat != DEAD && !(HAS_TRAIT(L, TRAIT_TESLA_SHOCKIMMUNE)) && !(L.flags_2 & SHOCKED_2))
 				closest_type = LIVING
 				closest_atom = A
 

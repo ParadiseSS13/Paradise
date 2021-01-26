@@ -590,7 +590,7 @@
 		return TRUE
 
 /mob/living/proc/set_shocked()
-	tesla_shocked = TRUE
+	flags_2 |= SHOCKED_2
 
 /mob/living/proc/reset_shocked()
-	tesla_shocked = FALSE
+	flags_2 &= ~ SHOCKED_2

@@ -864,7 +864,7 @@
 
 		if(isliving(test))
 			var/mob/living/alive = test
-			if(!(HAS_TRAIT(alive, TRAIT_TESLA_SHOCKIMMUNE)) && !alive.tesla_shocked && alive.stat != DEAD && prob(20)) //let's not hit all the engineers with every beam and/or segment of the arc
+			if(!(HAS_TRAIT(alive, TRAIT_TESLA_SHOCKIMMUNE)) && !(alive.flags_2 & SHOCKED_2) && alive.stat != DEAD && prob(20)) //let's not hit all the engineers with every beam and/or segment of the arc
 				if(target_type != LIVING)
 					arctargets = list()
 				arctargets += test
