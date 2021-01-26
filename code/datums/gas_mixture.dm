@@ -82,7 +82,7 @@ What are the archived variables for?
 
 
 /datum/gas_mixture/proc/react(atom/dump_location)
-	var/reacting = FALSE //set to 1 if a notable reaction occured (used by pipe_network)
+	var/reacting = FALSE //set to TRUE if a notable reaction occured (used by pipe_network)
 
 	if(agent_b && temperature > 900)
 		if(toxins > MINIMUM_HEAT_CAPACITY && carbon_dioxide > MINIMUM_HEAT_CAPACITY)
