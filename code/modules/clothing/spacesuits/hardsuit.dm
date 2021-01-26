@@ -634,17 +634,16 @@
 
 /obj/item/clothing/suit/space/hardsuit/shielded/gamma
 	name = "shielded security hardsuit"
-	desc = "A more advanced and combat focused version of the normal security hardsuit. This model comes with armor made of lighter materials and built in energy shielding."
+	desc = "A more advanced version of the normal security hardsuit. Comes with built in energy shielding."
 	icon_state = "hardsuit-sec"
 	item_state = "sec-hardsuit"
 	armor = list("melee" = 35, "bullet" = 15, "laser" = 30, "energy" = 10, "bomb" = 10, "bio" = 100, "rad" = 50, "fire" = 75, "acid" = 75)
 	allowed = list(/obj/item/gun, /obj/item/flashlight, /obj/item/tank, /obj/item/melee/baton, /obj/item/reagent_containers/spray/pepper, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/restraints/handcuffs)
-	slowdown = 0
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/gamma
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/gamma
-	name = "security hardsuit helmet"
-	desc = "A more advanced and combat focused version of the normal security hardsuit helmet. This model comes with armor made of lighter materials and built in energy shielding."
+	name = "shielded security hardsuit helmet"
+	desc = "A more advanced version of the normal security hardsuit helmet. Comes with built in energy shielding."
 	icon_state = "hardsuit0-sec"
 	item_state = "sec_helm"
 	item_color = "sec"
