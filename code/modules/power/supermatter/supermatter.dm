@@ -936,7 +936,8 @@
 		var/turf/T = get_turf(target)
 		var/pressure = 1
 		if(T?.return_air())
-			pressure = max(1, T.return_air().return_pressure())
+			var/datum/gas_mixture/G = T.return_air()
+			pressure = max(1, G.return_pressure())
 		//We get our range with the strength of the zap and the pressure, the higher the former and the lower the latter the better
 		var/new_range = clamp(zap_str / pressure * 10, 2, 7)
 		var/zap_count = 1

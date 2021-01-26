@@ -231,6 +231,6 @@
 /obj/vehicle/space/Process_Spacemove(direction)
 	return TRUE
 
-/obj/vehicle/ridden/zap_act(power, zap_flags)
+/obj/vehicle/zap_act(power, zap_flags)
 	zap_buckle_check(power)
 	return ..()
