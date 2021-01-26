@@ -53,11 +53,20 @@
 	fire_sound = 'sound/magic/staff_door.ogg'
 
 /obj/item/gun/magic/staff/slipping
-	name = "staff of slipping"
+	name = "wand of slipping"
 	desc = "An artefact that spits... bananas?"
 	ammo_type = /obj/item/ammo_casing/magic/slipping
 	icon_state = "staffofslipping"
 	item_state = "staffofslipping"
+	fire_sound = 'sound/items/bikehorn.ogg'
+
+/obj/item/gun/magic/staff/slipping/ruin
+	name = "staff of slipping"
+	desc = "An artefact that spits... bananas? This one appears to be low on charge..."
+	ammo_type = /obj/item/ammo_casing/magic/slipping
+	icon_state = "staffofslipping"
+	item_state = "staffofslipping"
+	max_charges = 5
 	fire_sound = 'sound/items/bikehorn.ogg'
 
 /obj/item/gun/magic/staff/slipping/honkmother
