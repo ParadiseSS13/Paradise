@@ -167,7 +167,7 @@
 ////////////
 /obj/item/storage/fancy/cigarettes
 	name = "cigarette packet"
-	desc = "The most popular brand of Space Cigarettes, sponsors of the Space Olympics."
+	desc = "The most popular brand of Space Cigarettes, sponsors of the Space Olympics. Nothing special to be honest."
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "cigpacket"
 	item_state = "cigpacket"
@@ -238,10 +238,10 @@
 
 /obj/item/storage/fancy/cigarettes/dromedaryco
 	name = "\improper DromedaryCo packet"
-	desc = "A packet of six imported DromedaryCo cancer sticks. A label on the packaging reads, \"Wouldn't a slow death make a change?\""
+	desc = "A packet of six imported, unfiltered DromedaryCo cancer sticks. The production method didn't change in the last 500 years! A label on the packaging reads, \"Wouldn't a slow death make a change?\". Strongest ones you can find."
 	icon_state = "Dpacket"
 	item_state = "Dpacket"
-
+	cigarette_type = /obj/item/clothing/mask/cigarette/dromedaryco
 
 /obj/item/storage/fancy/cigarettes/syndicate
 	name = "\improper Syndicate Cigarettes"
@@ -255,32 +255,32 @@
 	name = "[new_name] cigarette packet"
 
 /obj/item/storage/fancy/cigarettes/cigpack_syndicate
-	name = "cigarette packet"
-	desc = "An obscure brand of cigarettes."
+	name = "\improper Syndi Sticks packet"
+	desc = "Syndicate's entry into the cigarette market. Comes backed with a fierce army of sleeper agents. Rather obscure, won't get it in a standard vending machine. A label written with a rather aggressive and bold font on the packaging reads, \"Fuck Nanotrasen\"."
 	icon_state = "syndiepacket"
 	item_state = "syndiepacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/syndicate
 
 /obj/item/storage/fancy/cigarettes/cigpack_med
-	name = "Medical Marijuana Packet"
+	name = "Medical Marijuana packet"
 	desc = "A prescription packet containing six marijuana cigarettes."
 	icon_state = "medpacket"
 	item_state = "medpacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/medical_marijuana
 
-
 /obj/item/storage/fancy/cigarettes/cigpack_uplift
 	name = "\improper Uplift Smooth packet"
-	desc = "Your favorite brand, now menthol flavored."
+	desc = "Your favorite brand, now menthol flavored. To be honest you barely heard of these ones, the packet smell nice though."
 	icon_state = "upliftpacket"
 	item_state = "upliftpacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/menthol
 
 /obj/item/storage/fancy/cigarettes/cigpack_robust
 	name = "\improper Robust packet"
-	desc = "Smoked by the robust."
+	desc = "Smoked by the robust... and the second most common and the longest cigarettes on the market. The packet smells like robustness ...maybe it's just tobacco. Minus the robust smell these are nothing special"
 	icon_state = "robustpacket"
 	item_state = "robustpacket"
+	cigarette_type = /obj/item/clothing/mask/cigarette/robust
 
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold
 	name = "\improper Robust Gold packet"
@@ -291,15 +291,17 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_carp
 	name = "\improper Carp Classic packet"
-	desc = "Since 2313."
+	desc = "Since 2313. A label on the packaging reads, \"Does not contain Carpotoxin\"... that makes you wonder if they contain carpotoxin. "
 	icon_state = "carppacket"
 	item_state = "carppacket"
+	cigarette_type = /obj/item/clothing/mask/cigarette/carp
 
 /obj/item/storage/fancy/cigarettes/cigpack_midori
 	name = "\improper Midori Tabako packet"
 	desc = "You can't understand the runes, but the packet smells funny."
 	icon_state = "midoripacket"
 	item_state = "midoripacket"
+	cigarette_type = /obj/item/clothing/mask/cigarette/midori
 
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims
 	name ="\improper Shady Jim's Super Slims"
@@ -310,7 +312,7 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_random
 	name ="\improper Embellished Enigma packet"
-	desc = "For the true connoisseur of exotic flavors."
+	desc = "For the true connoisseur of exotic flavors. Made by the same guys that make Shady Jim's... huh."
 	icon_state = "shadyjimpacket"
 	item_state = "shadyjimpacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/random

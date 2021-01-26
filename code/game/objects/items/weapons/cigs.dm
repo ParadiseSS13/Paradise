@@ -232,11 +232,15 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/random
 
 /obj/item/clothing/mask/cigarette/random/New()
+	item_state = "cigoff_shadyjims"
+	icon_state = "cigoff_shadyjims"	
+	icon_on = "cigon_shadyjims"
+	icon_off = "cigoff_shadyjims"
 	list_reagents = list("nicotine" = 40, pick("fuel","saltpetre","synaptizine","green_vomit","potass_iodide","msg","lexorin","mannitol","spaceacillin","cryoxadone","holywater","tea","egg","haloperidol","mutagen","omnizine","carpet","aranesp","cryostylane","chocolate","bilk","cheese","rum","blood","charcoal","coffee","ectoplasm","space_drugs","milk","mutadone","antihol","teporone","insulin","salbutamol","toxin") = 20)
 	..()
 
 /obj/item/clothing/mask/cigarette/syndicate
-	desc = "A roll of tobacco and nicotine in a cool buy suspicious black and red paper. Smells... in a way that makes your nose feel better."
+	desc = "A roll of tobacco and nicotine in a cool but suspicious black and red paper. Smells... weird, but it makes your nose feel better."
 	item_state = "cigoff_syndicate"
 	icon_state = "cigoff_syndicate"
 	icon_on = "cigon_syndicate"
@@ -261,6 +265,15 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_off = "cigoff_gold"
 	type_butt = /obj/item/cigbutt/gold
 	list_reagents = list("nicotine" = 40, "gold" = 1)
+	
+/obj/item/clothing/mask/cigarette/robust
+	desc = "A roll of of tobacco and nicotine in a white paper with an orange filter. Smells... robust. Nothing special about this one otherwise."
+	item_state = "cigoff"
+	icon_state = "cigoff"
+	icon_on = "cigon"
+	icon_off = "cigoff"
+	type_butt = /obj/item/cigbutt/robust
+	list_reagents = list("nicotine" = 40)
 
 /obj/item/clothing/mask/cigarette/shadyjims
 	desc = "A surprisingly thin roll of of tobacco and nicotine in a rather dull gray paper. Smells... like being fit feels...and a bit like battery acid."
@@ -270,6 +283,33 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_off = "cigoff_shadyjims"
 	type_butt = /obj/item/cigbutt/shadyjims
 	list_reagents = list("nicotine" = 40, "lipolicide" = 7.5, "ammonia" = 2, "atrazine" = 1, "toxin" = 1.5)
+
+/obj/item/clothing/mask/cigarette/dromedaryco
+	desc = "An unfiltered roll of of tobacco and nicotine in a normal white paper. Smells rather strong."
+	item_state = "cigoff_dromedaryco"
+	icon_state = "cigoff_dromedaryco"
+	icon_on = "cigon_dromedaryco"
+	icon_off = "cigoff_dromedaryco"
+	type_butt = /obj/item/cigbutt/dromedaryco
+	list_reagents = list("nicotine" = 50)
+
+/obj/item/clothing/mask/cigarette/carp
+	desc = "A roll of of tobacco and nicotine in a normal white paper with a purple filter. Smells like a space carp."
+	item_state = "cigoff_carp"
+	icon_state = "cigoff_carp"
+	icon_on = "cigon_carp"
+	icon_off = "cigoff_carp"
+	type_butt = /obj/item/cigbutt/carp
+	list_reagents = list("nicotine" = 40, "carpotoxin" = 1)
+
+/obj/item/clothing/mask/cigarette/midori
+	desc = "A roll of of tobacco and nicotine in a normal white paper with a yellow filter. Smells rather funny but otherwise nothing special."
+	item_state = "cigoff_midori"
+	icon_state = "cigoff_midori"
+	icon_on = "cigon_midori"
+	icon_off = "cigoff_midori"
+	type_butt = /obj/item/cigbutt/midori
+	list_reagents = list("nicotine" = 40)
 
 /obj/item/clothing/mask/cigarette/rollie
 	name = "rollie"
@@ -306,10 +346,30 @@ LIGHTERS ARE IN LIGHTERS.DM
 	desc = "A manky old but gold cigarette butt... even when used up it still looks premium."
 	icon_state = "cigbutt_gold"
 
+/obj/item/cigbutt/robust
+	name = "cigarette butt"
+	desc = "A manky old cigarette butt... smells faintly robust."
+	icon_state = "cigbutt"
+
 /obj/item/cigbutt/shadyjims
 	name = "cigarette butt"
 	desc = "A manky old cigarette butt... looks dull."
 	icon_state = "cigbutt_shadyjims"
+
+/obj/item/cigbutt/dromedaryco
+	name = "cigarette butt"
+	desc = "A manky old cigarette butt... doesn't have a filter."
+	icon_state = "cigbutt_dromedaryco"
+
+/obj/item/cigbutt/carp
+	name = "cigarette butt"
+	desc = "A manky old cigarette butt... has a purple filter."
+	icon_state = "cigbutt_carp"
+
+/obj/item/cigbutt/midori
+	name = "cigarette butt"
+	desc = "A manky old cigarette butt... has a yellow filter."
+	icon_state = "cigbutt_midori"
 
 /obj/item/cigbutt/roach/New()
 	..()
