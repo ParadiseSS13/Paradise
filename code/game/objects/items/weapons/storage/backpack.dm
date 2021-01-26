@@ -313,8 +313,8 @@
 
 /obj/item/storage/backpack/satchel_flat/hide(intact)
 	if(intact)
-		invisibility = 101
-		anchored = TRUE //otherwise you can start pulling, cover it, and drag around an invisible backpack.
+		invisibility = INVISIBILITY_MAXIMUM
+		anchored = 1 //otherwise you can start pulling, cover it, and drag around an invisible backpack.
 		icon_state = "[initial(icon_state)]2"
 	else
 		invisibility = initial(invisibility)

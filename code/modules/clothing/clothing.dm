@@ -204,7 +204,6 @@
 	var/invis_override = 0
 	var/lighting_alpha
 
-	var/emagged = 0
 	var/list/color_view = null//overrides client.color while worn
 	var/prescription = 0
 	var/prescription_upgradable = 0
@@ -666,18 +665,9 @@ BLIND     // can't see anything
 		3 = Report location
 		*/
 	var/list/accessories = list()
-
-	/// List of blacklisted accessory types
-	var/list/blacklisted_accessory_typecache
 	var/displays_id = 1
 	var/rolled_down = 0
 	var/basecolor
-
-/obj/item/clothing/under/Initialize(mapload)
-	. = ..()
-	blacklisted_accessory_typecache = typecacheof(list(
-		/obj/item/clothing/accessory/petcollar // No collars on jumpsuits
-	))
 
 /obj/item/clothing/under/rank/New()
 	if(random_sensor)
@@ -694,17 +684,11 @@ BLIND     // can't see anything
 	else
 		return FALSE
 
-	if(is_type_in_typecache(A, blacklisted_accessory_typecache))
-		to_chat(usr, "<span class='notice'>[A] doesn't fit on [src].</span>")
-		return FALSE
-
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/AC in accessories)
 			if((A.slot in list(ACCESSORY_SLOT_UTILITY, ACCESSORY_SLOT_ARMBAND)) && AC.slot == A.slot)
-				to_chat(usr, "<span class='notice'>[A] doesn't fit on [src].</span>")
 				return FALSE
 			if(!A.allow_duplicates && AC.type == A.type)
-				to_chat(usr, "<span class='notice'>You cannot attach more accessories of this type to [src].</span>")
 				return FALSE
 
 /obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
@@ -731,6 +715,8 @@ BLIND     // can't see anything
 			H.update_inv_w_uniform()
 
 		return TRUE
+	else
+		to_chat(user, "<span class='notice'>You cannot attach more accessories of this type to [src].</span>")
 
 	return FALSE
 

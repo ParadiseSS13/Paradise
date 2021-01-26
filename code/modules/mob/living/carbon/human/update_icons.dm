@@ -926,6 +926,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(wear_mask && (istype(wear_mask, /obj/item/clothing/mask) || istype(wear_mask, /obj/item/clothing/accessory)))
 		if(!(slot_wear_mask in check_obscured_slots()))
 			var/obj/item/organ/external/head/head_organ = get_organ("head")
+			if(!head_organ)
+				return // Nothing to update here
 			var/datum/sprite_accessory/alt_heads/alternate_head
 			if(head_organ.alt_head && head_organ.alt_head != "None")
 				alternate_head = GLOB.alt_heads_list[head_organ.alt_head]

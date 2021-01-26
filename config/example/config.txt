@@ -471,3 +471,6 @@ BYOND_ACCOUNT_AGE_THRESHOLD 7
 ## THE TRAILING SLASH ON THE END IS IMPORTANT SINCE IT JUST APPENDS THE CKEY TO THE END IN RAW
 ## Add a hash before the line below to disable the system
 CENTCOM_BAN_DB_URL https://centcom.melonmesa.com/ban/search/
+
+## Max amount of CIDs that one ckey can have attached to them before they trip a warning. Set to 0 to disable.
+MAX_CLIENT_CID_HISTORY 2

@@ -87,6 +87,14 @@
 		var/mob/living/silicon/robot/R = usr
 		R.installed_modules()
 
+/obj/screen/robot/mov_intent
+	name = "fast/slow toggle"
+	icon_state = "running"
+
+/obj/screen/robot/mov_intent/Click()
+	usr.toggle_move_intent()
+
+
 /mob/living/silicon/robot/create_mob_hud()
 	if(client && !hud_used)
 		hud_used = new /datum/hud/robot(src)
@@ -131,10 +139,18 @@
 	static_inventory += using
 
 //Intent
+// Attack intent
 	using = new /obj/screen/act_intent/robot()
 	using.icon_state = mymob.a_intent
 	static_inventory += using
 	action_intent = using
+
+// Movement intent
+	using = new /obj/screen/robot/mov_intent()
+	using.icon_state = (mymob.m_intent == MOVE_INTENT_RUN ? "running" : "walking")
+	static_inventory += using
+	using.screen_loc = ui_movi
+	move_intent = using
 
 //Health
 	mymob.healths = new /obj/screen/healths/robot()

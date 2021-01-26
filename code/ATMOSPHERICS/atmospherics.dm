@@ -28,7 +28,6 @@ Pipelines + Other Objects -> Pipe network
 	var/initialize_directions = 0
 
 	var/pipe_color
-	var/obj/item/pipe/stored
 	var/image/pipe_image
 
 /obj/machinery/atmospherics/New()
@@ -48,13 +47,10 @@ Pipelines + Other Objects -> Pipe network
 	SSair.atmos_machinery += src
 
 /obj/machinery/atmospherics/proc/atmos_init()
-	if(can_unwrench)
-		stored = new(src, make_from = src)
 	// Updates all pipe overlays and underlays
 	update_underlays()
 
 /obj/machinery/atmospherics/Destroy()
-	QDEL_NULL(stored)
 	SSair.atmos_machinery -= src
 	SSair.deferred_pipenet_rebuilds -= src
 	for(var/mob/living/L in src) //ventcrawling is serious business
@@ -229,12 +225,10 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		if(can_unwrench)
-			if(stored)
-				stored.forceMove(get_turf(src))
-				if(!disassembled)
-					stored.obj_integrity = stored.max_integrity * 0.5
-				transfer_fingerprints_to(stored)
-				stored = null
+			var/obj/item/pipe/stored = new(loc, make_from = src)
+			if(!disassembled)
+				stored.obj_integrity = stored.max_integrity * 0.5
+			transfer_fingerprints_to(stored)
 	..()
 
 /obj/machinery/atmospherics/on_construction(D, P, C)

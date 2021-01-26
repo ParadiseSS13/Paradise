@@ -12,7 +12,7 @@
 	emote_cd = TRUE	// Starting cooldown
 	spawn(cooldown)
 		if(emote_cd == 2)
-			return TRUE // Don't reset if cooldown emotes were disabled by an admin during the cooldown
+			return // Don't reset if cooldown emotes were disabled by an admin during the cooldown
 		emote_cd = FALSE // Cooldown complete, ready for more!
 	return FALSE // Proceed with emote
 
