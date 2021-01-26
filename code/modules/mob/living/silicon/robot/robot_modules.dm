@@ -377,6 +377,7 @@
 		/obj/item/multitool/cyborg,
 		/obj/item/t_scanner,
 		/obj/item/analyzer,
+		/obj/item/geiger_counter/cyborg,
 		/obj/item/holosign_creator/engineering,
 		/obj/item/gripper,
 		/obj/item/matter_decompiler,

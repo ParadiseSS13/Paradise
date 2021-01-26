@@ -182,3 +182,8 @@
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/wizard
 	uniform = /obj/item/clothing/under/plasmaman/wizard
+
+/datum/outfit/plasmaman/assistant
+	name = "Assistant Plasmaman"
+	head = /obj/item/clothing/head/helmet/space/plasmaman/assistant
+	uniform = /obj/item/clothing/under/plasmaman/assistant

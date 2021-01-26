@@ -302,6 +302,11 @@
 	health = 175
 	melee_damage_lower = 25
 	melee_damage_upper = 25
+	playstyle_string = "<B>You are the Laughter Demon, an adorable creature from another existence. You have a single desire: to hug and tickle.  \
+						You may use the blood crawl icon when on blood pools to travel through them, appearing and dissapearing from the station at will. \
+						Pulling a dead or critical mob while you enter a pool will pull them in with you, allowing you to hug them. \
+						You move quickly upon leaving a pool of blood, but the material world will soon sap your strength and leave you sluggish. \
+						(You should be attacking people on harm intent, and not nuzzling them.)</B>"
 
 	attack_sound = 'sound/items/bikehorn.ogg'
 	feast_sound = 'sound/spookoween/scary_horn2.ogg'

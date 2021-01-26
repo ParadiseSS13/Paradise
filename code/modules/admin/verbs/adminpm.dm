@@ -267,6 +267,7 @@
 	var/list/datum/pm_convo/pms = list()
 	var/show_archived = FALSE
 	var/window_id = "pms_window"
+	var/forced = FALSE
 
 /datum/pm_convo
 	var/list/messages = list()
@@ -302,6 +303,10 @@
 /datum/pm_tracker/proc/show_ui(mob/user)
 	var/dat = ""
 
+	// If it was forced open, make them use a special close button that alerts admins to closure
+	if(forced)
+		dat += "<div style='float: right'><big><a href='?src=[UID()];altclose=1'>Close</a></big></div>"
+
 	dat += "<a href='?src=[UID()];refresh=1'>Refresh</a>"
 	dat += "<a href='?src=[UID()];showarchived=1'>[show_archived ? "Hide" : "Show"] Archived</a>"
 	dat += "<br>"
@@ -319,6 +324,10 @@
 
 	var/datum/pm_convo/convo = pms[current_title]
 	var/datum/browser/popup = new(user, window_id, "Messages", 1000, 600, src)
+
+	if(forced) // Lockout the normal close button, force the UI one
+		popup.set_window_options("can_close=0")
+
 	if(convo)
 		popup.add_head_content(@{"<script type='text/javascript'>
 			window.onload = function () {
@@ -373,6 +382,13 @@
 		show_ui(usr)
 		return
 
+	if(href_list["altclose"])
+		message_admins("[key_name_admin(usr)] closed a force-opened PM window")
+		usr << browse(null, "window=[window_id]")
+		open = FALSE
+		forced = FALSE
+		return
+
 	if(href_list["newtitle"])
 		current_title = href_list["newtitle"]
 		show_ui(usr)
@@ -382,6 +398,7 @@
 		var/client/C = pms[href_list["ping"]].client
 		if(C)
 			C.pm_tracker.current_title = usr.key
+			C.pm_tracker.forced = TRUE // We forced it open
 			window_flash(C)
 			C.pm_tracker.show_ui(C.mob)
 			to_chat(usr, "<span class='notice'>Forced open [C]'s messages window.</span>")

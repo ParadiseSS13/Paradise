@@ -226,29 +226,9 @@
 	return
 
 /mob/living/carbon/handle_mutations_and_radiation()
-	if(radiation)
-
-		switch(radiation)
-			if(0 to 50)
-				radiation--
-				if(prob(25))
-					adjustToxLoss(1)
-					updatehealth("handle mutations and radiation(0-50)")
-
-			if(50 to 75)
-				radiation -= 2
-				adjustToxLoss(1)
-				if(prob(5))
-					radiation -= 5
-				updatehealth("handle mutations and radiation(50-75)")
-
-			if(75 to 100)
-				radiation -= 3
-				adjustToxLoss(3)
-				updatehealth("handle mutations and radiation(75-100)")
-
-		radiation = clamp(radiation, 0, 100)
-
+	radiation -= min(radiation, RAD_LOSS_PER_TICK)
+	if(radiation > RAD_MOB_SAFE)
+		adjustToxLoss(log(radiation - RAD_MOB_SAFE) * RAD_TOX_COEFFICIENT)
 
 /mob/living/carbon/handle_chemicals_in_body()
 	reagents.metabolize(src)

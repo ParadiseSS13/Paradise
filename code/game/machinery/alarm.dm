@@ -120,6 +120,12 @@
 /obj/machinery/alarm/monitor
 	report_danger_level = FALSE
 
+/obj/machinery/alarm/engine
+	name = "engine air alarm"
+	locked = FALSE
+	req_access = null
+	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
+
 /obj/machinery/alarm/syndicate //general syndicate access
 	report_danger_level = FALSE
 	remote_control = FALSE

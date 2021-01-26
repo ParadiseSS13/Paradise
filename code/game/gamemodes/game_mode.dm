@@ -73,13 +73,7 @@
 	spawn (ROUNDSTART_LOGOUT_REPORT_TIME)
 		display_roundstart_logout_report()
 
-	if(SSticker && SSticker.mode && SSdbcore.IsConnected())
-		var/datum/db_query/query_round_game_mode = SSdbcore.NewQuery("UPDATE [format_table_name("round")] SET game_mode=:gm WHERE id=:rid", list(
-			"gm" = SSticker.mode,
-			"rid" = GLOB.round_id
-		))
-		if(query_round_game_mode.warn_execute())
-			qdel(query_round_game_mode)
+	INVOKE_ASYNC(src, .proc/set_mode_in_db) // Async query, dont bother slowing roundstart
 
 	generate_station_goals()
 	GLOB.start_state = new /datum/station_state()
@@ -90,6 +84,17 @@
 ///Called by the gameticker
 /datum/game_mode/process()
 	return 0
+
+// I wonder what this could do guessing by the name
+/datum/game_mode/proc/set_mode_in_db()
+	if(SSticker?.mode && SSdbcore.IsConnected())
+		var/datum/db_query/query_round_game_mode = SSdbcore.NewQuery("UPDATE [format_table_name("round")] SET game_mode=:gm WHERE id=:rid", list(
+			"gm" = SSticker.mode.name,
+			"rid" = GLOB.round_id
+		))
+		// We dont do anything with output. Dont bother wrapping with if()
+		query_round_game_mode.warn_execute()
+		qdel(query_round_game_mode)
 
 //Called by the gameticker
 /datum/game_mode/proc/process_job_tasks()

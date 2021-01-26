@@ -367,8 +367,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 
 /obj/machinery/gravity_generator/main/proc/pulse_radiation()
-	for(var/mob/living/L in view(7, src))
-		L.apply_effect(20, IRRADIATE)
+	radiation_pulse(src, 200)
 
 // Shake everyone on the z level to let them know that gravity was enagaged/disenagaged.
 /obj/machinery/gravity_generator/main/proc/shake_everyone()
