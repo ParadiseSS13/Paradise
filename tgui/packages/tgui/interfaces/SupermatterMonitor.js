@@ -1,5 +1,6 @@
 import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
+import { toFixed } from 'common/math';
 import { Section, Box, Button, Table, LabeledList, ProgressBar } from '../components';
 import { Window } from '../layouts';
 import { TableRow, TableCell } from '../components/Table';
@@ -13,35 +14,7 @@ export const SupermatterMonitor = (props, context) => {
   }
 };
 
-const powerToColor = power => {
-  if (power > 300) {
-    return 'bad';
-  } else if (power > 150) {
-    return 'average';
-  } else {
-    return 'good';
-  }
-};
-
-const temperatureToColor = temp => {
-  if (temp > 5000) {
-    return 'bad';
-  } else if (temp > 4000) {
-    return 'average';
-  } else {
-    return 'good';
-  }
-};
-
-const pressureToColor = pressure => {
-  if (pressure > 10000) {
-    return 'bad';
-  } else if (pressure > 5000) {
-    return 'average';
-  } else {
-    return 'good';
-  }
-};
+const logScale = value => Math.log2(16 + Math.max(0, value)) - 4;
 
 const SupermatterMonitorListView = (props, context) => {
   const { act, data } = useBackend(context);
@@ -102,33 +75,54 @@ const SupermatterMonitorDataView = (props, context) => {
           />
         }>
           <LabeledList>
-            <LabeledList.Item label="Core Integrity">
+            <LabeledList.Item label="Integrity">
               <ProgressBar
+                value={data.SM_integrity / 100}
                 ranges={{
-                  good: [95, Infinity],
-                  average: [80, 94],
-                  bad: [-Infinity, 79],
-                }}
-                minValue="0"
-                maxValue="100"
-                value={data.SM_integrity}>
-                {data.SM_integrity}%
-              </ProgressBar>
+                  good: [0.90, Infinity],
+                  average: [0.5, 0.90],
+                  bad: [-Infinity, 0.5],
+                }} />
             </LabeledList.Item>
             <LabeledList.Item label="Relative EER">
-              <Box color={powerToColor(data.SM_power)}>
-                {data.SM_power} MeV/cm3
-              </Box>
+              <ProgressBar
+                value={data.SM_power}
+                minValue={0}
+                maxValue={5000}
+                ranges={{
+                  good: [-Infinity, 5000],
+                  average: [5000, 7000],
+                  bad: [7000, Infinity],
+                }}>
+                {toFixed(data.SM_power) + ' MeV/cm3'}
+              </ProgressBar>
             </LabeledList.Item>
             <LabeledList.Item label="Temperature">
-              <Box color={temperatureToColor(data.SM_ambienttemp)}>
-                {data.SM_ambienttemp} K
-              </Box>
+              <ProgressBar
+                value={logScale(data.SM_ambienttemp)}
+                minValue={0}
+                maxValue={logScale(10000)}
+                ranges={{
+                  teal: [-Infinity, logScale(80)],
+                  good: [logScale(80), logScale(373)],
+                  average: [logScale(373), logScale(1000)],
+                  bad: [logScale(1000), Infinity],
+                }}>
+                {toFixed(data.SM_ambienttemp) + ' K'}
+              </ProgressBar>
             </LabeledList.Item>
             <LabeledList.Item label="Pressure">
-              <Box color={pressureToColor(data.SM_ambientpressure)}>
-                {data.SM_ambientpressure} kPa
-              </Box>
+              <ProgressBar
+                value={logScale(data.SM_ambientpressure)}
+                minValue={0}
+                maxValue={logScale(50000)}
+                ranges={{
+                  good: [logScale(1), logScale(300)],
+                  average: [-Infinity, logScale(1000)],
+                  bad: [logScale(1000), +Infinity],
+                }}>
+                {toFixed(data.SM_ambientpressure) + ' kPa'}
+              </ProgressBar>
             </LabeledList.Item>
           </LabeledList>
         </Section>
@@ -146,9 +140,12 @@ const SupermatterMonitorDataView = (props, context) => {
             <LabeledList.Item label="Plasma">
               {data.SM_gas_PL}%
             </LabeledList.Item>
-            <LabeledList.Item label="Other">
-              {data.SM_gas_OTHER}%
+            <LabeledList.Item label="Nitrous Oxide">
+              {data.SM_gas_N2O}%
             </LabeledList.Item>
+            <LabeledList.Item label="Agent B">
+              {data.SM_gas_AB}%
+            </LabeledList.Item>			
           </LabeledList>
         </Section>
       </Window.Content>
