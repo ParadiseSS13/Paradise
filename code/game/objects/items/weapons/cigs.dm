@@ -222,6 +222,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/menthol
 	desc = "A roll of tobacco and nicotine in a black and blue paper. Smells... minty."
+	item_state = "cigoff_menthol"
 	icon_state = "cigoff_menthol"
 	icon_on = "cigon_menthol"
 	icon_off = "cigoff_menthol"
@@ -236,6 +237,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/syndicate
 	desc = "A roll of tobacco and nicotine in a cool buy suspicious black and red paper. Smells... in a way that makes your nose feel better."
+	item_state = "cigoff_syndicate"
 	icon_state = "cigoff_syndicate"
 	icon_on = "cigon_syndicate"
 	icon_off = "cigoff_syndicate"
@@ -244,6 +246,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/medical_marijuana
 	desc = "A roll of marijuana in a medical white paper with a blue band. Smells... calming."
+	item_state = "cigoff_med"
 	icon_state = "cigoff_med"
 	icon_on = "cigon_med"
 	icon_off = "cigoff_med"
@@ -252,7 +255,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/robustgold
 	desc = "A premium roll of of tobacco and nicotine in a fancy gold paper. Smells a bit like wealth... and cancer."
-	icon_state = "cigoff_gold"	
+	item_state = "cigoff_gold"
+	icon_state = "cigoff_gold"
 	icon_on = "cigon_gold"
 	icon_off = "cigoff_gold"
 	type_butt = /obj/item/cigbutt/gold
@@ -260,6 +264,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/shadyjims
 	desc = "A surprisingly thin roll of of tobacco and nicotine in a rather dull gray paper. Smells... like being fit feels...and a bit like battery acid."
+	item_state = "cigoff_shadyjims"
 	icon_state = "cigoff_shadyjims"	
 	icon_on = "cigon_shadyjims"
 	icon_off = "cigoff_shadyjims"
