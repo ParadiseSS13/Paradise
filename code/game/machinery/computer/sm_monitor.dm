@@ -28,7 +28,7 @@
 /obj/machinery/computer/sm_monitor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "SupermatterMonitor", name, 600, 360, master_ui, state)
+		ui = new(user, src, ui_key, "SupermatterMonitor", name, 600, 350, master_ui, state)
 		ui.open()
 
 /obj/machinery/computer/sm_monitor/ui_data(mob/user)
@@ -52,21 +52,23 @@
 		data["SM_ambienttemp"] = air.temperature
 		data["SM_ambientpressure"] = air.return_pressure()
 		//data["SM_EPR"] = round((air.total_moles / air.group_multiplier) / 23.1, 0.01)
+		var/list/gasdata = list()
 		var/TM = air.total_moles()
 		if(TM)
-			data["SM_gas_O2"] = round(100 * air.oxygen / TM, 0.01)
-			data["SM_gas_CO2"] = round(100 * air.carbon_dioxide / TM, 0.01)
-			data["SM_gas_N2"] = round(100 * air.nitrogen / TM, 0.01)
-			data["SM_gas_PL"] = round(100 * air.toxins / TM, 0.01)
-			data["SM_gas_N2O"] = round(100 * air.sleeping_agent / TM, 0.01)
-			data["SM_gas_AB"] = round(100 * air.agent_b / TM, 0.01)
+			gasdata.Add(list(list("name"= "Oxygen", "amount" = round(100 * air.oxygen / TM, 0.01))))
+			gasdata.Add(list(list("name"= "Carbon Dioxide", "amount" = round(100 * air.carbon_dioxide / TM, 0.01))))
+			gasdata.Add(list(list("name"= "Nitrogen", "amount" = round(100 * air.nitrogen / TM, 0.01))))
+			gasdata.Add(list(list("name"= "Plasma", "amount" = round(100 * air.toxins / TM, 0.01))))
+			gasdata.Add(list(list("name"= "Nitrous Oxide", "amount" = round(100 * air.sleeping_agent / TM, 0.01))))
+			gasdata.Add(list(list("name"= "Agent B", "amount" = round(100 * air.agent_b / TM, 0.01))))
 		else
-			data["SM_gas_O2"] = 0
-			data["SM_gas_CO2"] = 0
-			data["SM_gas_N2"] = 0
-			data["SM_gas_PL"] = 0
-			data["SM_gas_N2O"] = 0
-			data["SM_gas_AB"] = 0
+			gasdata.Add(list(list("name"= "Oxygen", "amount" = 0)))
+			gasdata.Add(list(list("name"= "Carbon Dioxide", "amount" = 0)))
+			gasdata.Add(list(list("name"= "Nitrogen", "amount" = 0)))
+			gasdata.Add(list(list("name"= "Plasma", "amount" = 0)))
+			gasdata.Add(list(list("name"= "Nitrous Oxide", "amount" = 0)))
+			gasdata.Add(list(list("name"= "Agent B", "amount" = 0)))
+		data["gases"] = gasdata
 	else
 		var/list/SMS = list()
 		for(var/I in supermatters)
@@ -78,7 +80,7 @@
 			SMS.Add(list(list(
 				"area_name" = A.name,
 				"integrity" = S.get_integrity(),
-				"uid" = S.UID()
+				"supermatter_id" = S.supermatter_id
 			)))
 
 		data["active"] = FALSE
@@ -134,9 +136,9 @@
 			refresh()
 
 		if("view")
-			var/newuid = params["view"]
+			var/newuid = text2num(params["view"])
 			for(var/obj/machinery/power/supermatter_crystal/S in supermatters)
-				if(S.UID() == newuid)
+				if(S.supermatter_id == newuid)
 					active = S
 					break
 
