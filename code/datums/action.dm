@@ -370,7 +370,7 @@
 	return ..()
 
 /datum/action/item_action/toggle_geiger_counter
-	name = "Toggle Gieger Counter"
+	name = "Toggle Geiger Counter"
 
 /datum/action/item_action/toggle_geiger_counter/Trigger()
 	var/obj/item/clothing/head/helmet/space/hardsuit/H = target
