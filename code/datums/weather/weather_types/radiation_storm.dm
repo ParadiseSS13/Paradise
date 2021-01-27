@@ -46,7 +46,7 @@
 							randmutg(H)
 					domutcheck(H, null, 1)
 
-		L.apply_effect(20, IRRADIATE, resist)
+		L.rad_act(20)
 
 /datum/weather/rad_storm/end()
 	if(..())

@@ -62,6 +62,8 @@
 
 /obj/structure/holosign/barrier/engineering
 	icon_state = "holosign_engi"
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	rad_insulation = RAD_LIGHT_INSULATION
 
 /obj/structure/holosign/barrier/atmos
 	name = "holo firelock"
@@ -72,6 +74,8 @@
 	anchored = TRUE
 	layer = ABOVE_MOB_LAYER
 	alpha = 150
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	rad_insulation = RAD_LIGHT_INSULATION
 
 /obj/structure/holosign/barrier/atmos/Initialize(mapload)
 	. = ..()

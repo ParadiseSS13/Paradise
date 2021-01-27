@@ -317,7 +317,7 @@
 		if(NO_DNA in H.dna.species.species_traits)
 			return TRUE
 
-	var/radiation_protection = occupant.run_armor_check(null, "rad", "Your clothes feel warm.", "Your clothes feel warm.")
+	var/radiation_protection = occupant.run_armor_check(null, "rad")
 	if(radiation_protection > NEGATE_MUTATION_THRESHOLD)
 		return TRUE
 	return FALSE
@@ -540,7 +540,7 @@
 				return
 
 			var/radiation = (((radiation_intensity * 3) + radiation_duration * 3) / connected.damage_coeff)
-			connected.occupant.apply_effect(radiation, IRRADIATE, 0)
+			connected.occupant.apply_effect(radiation, IRRADIATE)
 			if(connected.radiation_check())
 				return
 
@@ -588,7 +588,7 @@
 
 			if(prob((80 + (radiation_duration / 2))))
 				var/radiation = (radiation_intensity + radiation_duration)
-				connected.occupant.apply_effect(radiation,IRRADIATE,0)
+				connected.occupant.apply_effect(radiation, IRRADIATE)
 
 				if(connected.radiation_check())
 					return
@@ -598,7 +598,7 @@
 				connected.occupant.UpdateAppearance()
 			else
 				var/radiation = ((radiation_intensity * 2) + radiation_duration)
-				connected.occupant.apply_effect(radiation, IRRADIATE, 0)
+				connected.occupant.apply_effect(radiation, IRRADIATE)
 				if(connected.radiation_check())
 					return
 
@@ -644,7 +644,7 @@
 			if(connected.occupant)
 				if(prob((80 + ((radiation_duration / 2) + (connected.precision_coeff ** 3)))))
 					var/radiation = ((radiation_intensity + radiation_duration) / connected.damage_coeff)
-					connected.occupant.apply_effect(radiation, IRRADIATE, 0)
+					connected.occupant.apply_effect(radiation, IRRADIATE)
 
 					if(connected.radiation_check())
 						return 1
@@ -662,7 +662,7 @@
 					domutcheck(connected.occupant, connected)
 				else
 					var/radiation = (((radiation_intensity * 2) + radiation_duration) / connected.damage_coeff)
-					connected.occupant.apply_effect(radiation, IRRADIATE, 0)
+					connected.occupant.apply_effect(radiation, IRRADIATE)
 
 					if(connected.radiation_check())
 						return
@@ -737,7 +737,7 @@
 					connected.locked = lock_state
 
 					var/radiation = (rand(20,50) / connected.damage_coeff)
-					connected.occupant.apply_effect(radiation, IRRADIATE, 0)
+					connected.occupant.apply_effect(radiation, IRRADIATE)
 
 					if(connected.radiation_check())
 						return

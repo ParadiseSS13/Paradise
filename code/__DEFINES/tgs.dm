@@ -1,6 +1,6 @@
 // tgstation-server DMAPI
 
-#define TGS_DMAPI_VERSION "6.0.0"
+#define TGS_DMAPI_VERSION "6.0.1"
 
 // All functions and datums outside this document are subject to change with any version and should not be relied on.
 
@@ -95,7 +95,7 @@
 #define TGS_EVENT_WATCHDOG_SHUTDOWN 15
 /// Before the watchdog detaches for a TGS update/restart. No parameters.
 #define TGS_EVENT_WATCHDOG_DETACH 16
-// We don't actually implement these 3 events as the DMAPI can never receive them.
+// We don't actually implement these 4 events as the DMAPI can never receive them.
 // #define TGS_EVENT_WATCHDOG_LAUNCH 17
 // #define TGS_EVENT_WATCHDOG_CRASH 18
 // #define TGS_EVENT_WORLD_END_PROCESS 19
