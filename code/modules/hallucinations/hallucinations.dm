@@ -5,9 +5,9 @@
 /// Percentage defining the chance at which an hallucination may spawn past the cooldown.
 #define HALLUCINATE_CHANCE 80
 // Severity weights, should sum up to 100!
-#define HALLUCINATE_MINOR_WEIGHT 50
-#define HALLUCINATE_MODERATE_WEIGHT 35
-#define HALLUCINATE_MAJOR_WEIGHT 15
+#define HALLUCINATE_MINOR_WEIGHT 60
+#define HALLUCINATE_MODERATE_WEIGHT 30
+#define HALLUCINATE_MAJOR_WEIGHT 10
 
 GLOBAL_LIST_INIT(hallucinations, list(
 	HALLUCINATE_MINOR = list(
@@ -27,6 +27,7 @@ GLOBAL_LIST_INIT(hallucinations, list(
 	),
 	HALLUCINATE_MAJOR = list(
 		/obj/effect/hallucination/terror_infestation = 10,
+		/obj/effect/hallucination/abduction = 10,
 	)
 ))
 
@@ -60,7 +61,8 @@ GLOBAL_LIST_INIT(hallucinations, list(
 		if((HALLUCINATE_MINOR_WEIGHT + HALLUCINATE_MODERATE_WEIGHT + 1) to 100)
 			severity = HALLUCINATE_MAJOR
 
-	hallucinate(pickweight(GLOB.hallucinations[severity]))
+	var/obj/effect/hallucination/H = hallucinate(pickweight(GLOB.hallucinations[severity]))
+	next_hallucination += H.duration
 
 /**
   * Spawns an hallucination for the mob.
@@ -70,6 +72,7 @@ GLOBAL_LIST_INIT(hallucinations, list(
   */
 /mob/living/carbon/proc/hallucinate(obj/effect/hallucination/H)
 	ASSERT(ispath(H))
+	add_attack_logs(null, src, "Received hallucination [H]")
 	return new H(get_turf(src), src)
 
 /**
@@ -138,6 +141,16 @@ GLOBAL_LIST_INIT(hallucinations, list(
 	LAZYREMOVE(images, I)
 	target?.client?.images -= I
 	qdel(I)
+
+/**
+  * Clears an image from the hallucination after a delay.
+  *
+  * Arguments:
+  * * I - The image to clear.
+  * * delay - Delay in deciseconds.
+  */
+/obj/effect/hallucination/proc/clear_icon_in(image/I, delay)
+	addtimer(CALLBACK(src, .proc/clear_icon, I), delay)
 
 /**
   * Clears all images from the hallucination.

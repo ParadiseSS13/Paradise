@@ -57,3 +57,110 @@
 	target.visible_message("<span class='warning'>[target] flails [target.p_their()] [W.name] as if striking something, only to trip!</span>",
 					  	   "<span class='userdanger'>[src] vanishes as you strike it with [W], causing you to stumble forward!</span>")
 	qdel(src)
+
+/**
+  * # Hallucination - Abduction
+  *
+  * Sends an abductor agent after the target. On knockdown, spawns an abductor scientist next to the target. Nothing else happens.
+  */
+/obj/effect/hallucination/abduction
+	duration = 45 SECONDS
+	/// Abductor team name.
+	var/team_name = "Mothership Alpha"
+	/// The abductor agent hallucination.
+	var/obj/effect/hallucination/chaser/attacker/abductor/agent = null
+	/// The abductor scientist image handle.
+	var/image/scientist = null
+
+/obj/effect/hallucination/abduction/Initialize(mapload, mob/living/carbon/target)
+	. = ..()
+
+	var/list/locs = list()
+	for(var/turf/T in range(world.view, target))
+		if(!is_blocked_turf(T))
+			locs += T
+	if(!length(locs))
+		qdel(src)
+		return
+
+	team_name = "Mothership [pick(GLOB.possible_changeling_IDs)]"
+	agent = new(pick(locs), target)
+	agent.name = "[team_name] Agent"
+	agent.owning_hallucination = src
+
+/obj/effect/hallucination/abduction/Destroy()
+	QDEL_NULL(agent)
+	QDEL_NULL(scientist)
+	return ..()
+
+/**
+  * Called when the fake abductor scientist should spawn.
+  */
+/obj/effect/hallucination/abduction/proc/spawn_scientist()
+	// Find a spot for the scientist to spawn
+	var/list/locs = list()
+	for(var/turf/T in orange(1, target))
+		if(!is_blocked_turf(T))
+			locs += T
+	locs -= get_turf(src)
+	if(!length(locs))
+		qdel(src)
+		return
+
+	QDEL_IN(src, 10 SECONDS)
+
+	var/turf/T = pick(locs)
+	// Spawn the scientist in
+	var/image/teleport = image('icons/obj/abductor.dmi', T, "teleport")
+	teleport.layer = ABOVE_MOB_LAYER
+	add_icon(teleport)
+	clear_icon_in(teleport, 4 SECONDS)
+	addtimer(CALLBACK(src, .proc/do_spawn_scientist, T), 4 SECONDS)
+	playsound(T, "sparks", 100, TRUE)
+
+/**
+  * Timer called to actually spawn the scientist.
+  *
+  * Arguments:
+  * * T - Where to spawn the scientist.
+  */
+/obj/effect/hallucination/abduction/proc/do_spawn_scientist(turf/T)
+	if(QDELETED(target))
+		qdel(src)
+		return
+	else if(scientist)
+		return
+
+	var/image/teleport_end = image('icons/mob/mob.dmi', T, "uncloak")
+	teleport_end.layer = ABOVE_MOB_LAYER
+	add_icon(teleport_end)
+	clear_icon_in(teleport_end, 0.9 SECONDS)
+
+	scientist = image('icons/mob/simple_human.dmi', T, "abductor_scientist")
+	scientist.dir = get_dir(T, target)
+	scientist.layer = MOB_LAYER
+	add_icon(scientist)
+
+/obj/effect/hallucination/chaser/attacker/abductor
+	name = "Mothership Alpha Agent"
+	hallucination_icon = 'icons/mob/simple_human.dmi'
+	hallucination_icon_state = "abductor_agent"
+	duration = 45 SECONDS
+	damage = 100
+	/// The hallucination that spawned us.
+	var/obj/effect/hallucination/abduction/owning_hallucination = null
+
+/obj/effect/hallucination/chaser/attacker/abductor/Initialize(mapload, mob/living/carbon/target)
+	. = ..()
+
+/obj/effect/hallucination/chaser/attacker/abductor/attack_effects()
+	do_attack_animation(target)
+	target.playsound_local(get_turf(src), 'sound/weapons/egloves.ogg', 50, TRUE)
+
+/obj/effect/hallucination/chaser/attacker/abductor/on_knockdown()
+	target.visible_message("<span class='warning'>[target] recoils as if hit by something, before suddenly collapsing!</span>",
+						   "<span class='userdanger'>[name] has stunned you with the advanced baton!</span>")
+	if(!QDELETED(owning_hallucination))
+		owning_hallucination.spawn_scientist()
+	else
+		qdel(src)
