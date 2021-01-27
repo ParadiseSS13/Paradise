@@ -299,7 +299,7 @@ export const CardComputer = (props, context) => {
       }
       break;
     case 1: // job slot management
-      if (!data.authenticated || !data.scan_name) {
+      if (!data.auth_or_ghost) {
         bodyBlock = (
           <Section title="Warning" color="red">
             Not logged in.
@@ -313,8 +313,6 @@ export const CardComputer = (props, context) => {
               {data.cooldown_time ? data.cooldown_time : "Now"}
             </Section>
             <Section title="Job Slots">
-
-
               <Table>
                 <Table.Row>
                   <Table.Cell bold textAlign="center">Title</Table.Cell>
@@ -328,7 +326,11 @@ export const CardComputer = (props, context) => {
                 {data.job_slots.map(slotData => (
                   <Table.Row key={slotData.title}>
                     <Table.Cell textAlign="center">
-                      {slotData.title}
+                      <Box color={slotData.is_priority
+                        ? "green"
+                        : ""}>
+                        {slotData.title}
+                      </Box>
                     </Table.Cell>
                     <Table.Cell textAlign="center">
                       {slotData.current_positions}
@@ -372,10 +374,10 @@ export const CardComputer = (props, context) => {
                         </Box>
                       ) || (
                         <Button
-                          content="Priority"
-                          selected={
-                            data.priority_jobs.indexOf(slotData.title) > -1
-                          }
+                          content={slotData.is_priority
+                            ? "Yes"
+                            : "No"}
+                          selected={slotData.is_priority}
                           disabled={
                             data.cooldown_time || !slotData.can_prioritize
                           }
