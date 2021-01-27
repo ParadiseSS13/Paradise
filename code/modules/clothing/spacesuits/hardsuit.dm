@@ -121,7 +121,7 @@
 	current_tick_amount = 0
 
 	if(ishuman(loc))
-		update_sound(loc)
+		update_sound()
 
 /obj/item/clothing/head/helmet/space/hardsuit/proc/update_sound()
 	var/datum/looping_sound/geiger/loop = soundloop
