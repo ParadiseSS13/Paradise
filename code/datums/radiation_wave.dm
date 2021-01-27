@@ -4,7 +4,7 @@
 	/// The center of the wave
 	var/turf/master_turf
 	/// How far we've moved
-	var/steps=0
+	var/steps = 0
 	/// How strong it was originaly
 	var/intensity
 	/// How much contaminated material it still has
@@ -101,7 +101,7 @@
 
 /datum/radiation_wave/proc/radiate(list/atoms, strength)
 	var/can_contam = strength >= RAD_MINIMUM_CONTAMINATION
-	var/contamination_strength = (strength-RAD_MINIMUM_CONTAMINATION) * RAD_CONTAMINATION_STR_COEFFICIENT
+	var/contamination_strength = (strength - RAD_MINIMUM_CONTAMINATION) * RAD_CONTAMINATION_STR_COEFFICIENT
 	contamination_strength = max(contamination_strength, RAD_BACKGROUND_RADIATION)
 	// It'll never reach 100% chance but the further out it gets the more likely it'll contaminate
 	var/contamination_chance = 100 - (90 / (1 + steps * 0.1))

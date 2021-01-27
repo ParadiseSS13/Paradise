@@ -12,8 +12,9 @@
 	var/on = FALSE
 	var/obj/item/clothing/suit/space/hardsuit/suit
 	item_color = "engineering" //Determines used sprites: hardsuit[on]-[color] and hardsuit[on]-[color]2 (lying down sprite)
-	actions_types = list(/datum/action/item_action/toggle_helmet_light)
+	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_geiger_counter)
 
+	var/scanning = TRUE
 	var/current_tick_amount = 0
 	var/radiation_count = 0
 	var/grace = RAD_GEIGER_GRACE_PERIOD
@@ -46,6 +47,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/Destroy()
 	STOP_PROCESSING(SSobj, src)
+	QDEL_NULL(soundloop)
 	return ..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/attack_self(mob/user)
@@ -90,7 +92,7 @@
 			soundloop.stop(user)
 		else
 			qdel(src)
-	else
+	else if(scanning)
 		soundloop.start(user)
 
 /obj/item/clothing/head/helmet/space/hardsuit/proc/display_visor_message(var/msg)
@@ -105,19 +107,37 @@
 	current_tick_amount += amount
 
 /obj/item/clothing/head/helmet/space/hardsuit/process()
-	radiation_count -= radiation_count / RAD_GEIGER_MEASURE_SMOOTHING
-	radiation_count += current_tick_amount / RAD_GEIGER_MEASURE_SMOOTHING
+	if(scanning)
+		radiation_count -= radiation_count / RAD_GEIGER_MEASURE_SMOOTHING
+		radiation_count += current_tick_amount / RAD_GEIGER_MEASURE_SMOOTHING
 
-	if(current_tick_amount)
-		grace = RAD_GEIGER_GRACE_PERIOD
-
-	grace--
-	if(grace <= 0)
-		radiation_count = 0
+		if(current_tick_amount)
+			grace = RAD_GEIGER_GRACE_PERIOD
+		else
+			grace--
+			if(grace <= 0)
+				radiation_count = 0
 
 	current_tick_amount = 0
 
-	soundloop.last_radiation = radiation_count
+	if(ishuman(loc))
+		update_sound(loc)
+
+/obj/item/clothing/head/helmet/space/hardsuit/proc/update_sound()
+	var/datum/looping_sound/geiger/loop = soundloop
+	if(!scanning)
+		loop.stop(loc)
+		return
+	if(!radiation_count)
+		loop.stop(loc)
+		return
+	loop.last_radiation = radiation_count
+	loop.start(loc)
+
+/obj/item/clothing/head/helmet/space/hardsuit/proc/toggle_geiger_counter()
+	scanning = !scanning
+	if(ishuman(loc))
+		to_chat(loc, "<span class='notice'>You toggle [src]'s internal geiger counter [scanning ? "on" : "off"].</span>")
 
 /obj/item/clothing/head/helmet/space/hardsuit/emp_act(severity)
 	..()

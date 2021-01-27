@@ -33,30 +33,28 @@
 
 /obj/item/geiger_counter/Destroy()
 	STOP_PROCESSING(SSobj, src)
+	QDEL_NULL(soundloop)
 	return ..()
 
 
 /obj/item/geiger_counter/process()
-	update_icon()
-	update_sound()
+	if(scanning)
+		radiation_count -= radiation_count / RAD_GEIGER_MEASURE_SMOOTHING
+		radiation_count += current_tick_amount / RAD_GEIGER_MEASURE_SMOOTHING
 
-	if(!scanning)
-		current_tick_amount = 0
-		return
+		if(current_tick_amount)
+			grace = RAD_GEIGER_GRACE_PERIOD
+			last_tick_amount = current_tick_amount
 
-	radiation_count -= radiation_count / RAD_GEIGER_MEASURE_SMOOTHING
-	radiation_count += current_tick_amount / RAD_GEIGER_MEASURE_SMOOTHING
-
-	if(current_tick_amount)
-		grace = RAD_GEIGER_GRACE_PERIOD
-		last_tick_amount = current_tick_amount
-
-	else if(!emagged)
-		grace--
-		if(grace <= 0)
-			radiation_count = 0
+		else if(!emagged)
+			grace--
+			if(grace <= 0)
+				radiation_count = 0
 
 	current_tick_amount = 0
+
+	update_icon()
+	update_sound()
 
 /obj/item/geiger_counter/examine(mob/user)
 	. = ..()
@@ -169,13 +167,13 @@
 		return ..()
 
 /obj/item/geiger_counter/AltClick(mob/living/user)
-	if(!istype(user) || !!user.Adjacent(src))
+	if(!istype(user) || !user.Adjacent(src))
 		return ..()
 	if(!scanning)
 		to_chat(usr, "<span class='warning'>[src] must be on to reset its radiation level!</span>")
 		return
 	radiation_count = 0
-	to_chat(usr, "<span class='notice'>You flush [src]'s radiation counts, resetting it to normal.</span>")
+	to_chat(user, "<span class='notice'>You flush [src]'s radiation counts, resetting it to normal.</span>")
 	update_icon()
 
 /obj/item/geiger_counter/emag_act(mob/user)
