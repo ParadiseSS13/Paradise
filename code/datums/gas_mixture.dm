@@ -13,6 +13,8 @@ What are the archived variables for?
 #define HEAT_CAPACITY_CALCULATION(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b) \
 	(carbon_dioxide * SPECIFIC_HEAT_CDO + (oxygen + nitrogen) * SPECIFIC_HEAT_AIR + toxins * SPECIFIC_HEAT_TOXIN + sleeping_agent * SPECIFIC_HEAT_N2O + agent_b * SPECIFIC_HEAT_AGENT_B)
 
+#define MINIMUM_MOLE_COUNT		0.01
+
 #define MINIMUM_HEAT_CAPACITY	0.0003
 #define QUANTIZE(variable)		(round(variable, 0.0001))
 
@@ -80,7 +82,7 @@ What are the archived variables for?
 
 
 /datum/gas_mixture/proc/react(atom/dump_location)
-	var/reacting = 0 //set to 1 if a notable reaction occured (used by pipe_network)
+	var/reacting = FALSE //set to TRUE if a notable reaction occured (used by pipe_network)
 
 	if(agent_b && temperature > 900)
 		if(toxins > MINIMUM_HEAT_CAPACITY && carbon_dioxide > MINIMUM_HEAT_CAPACITY)
@@ -93,12 +95,32 @@ What are the archived variables for?
 
 			temperature += (reaction_rate * 20000) / heat_capacity()
 
-			reacting = 1
+			reacting = TRUE
+
+	if((sleeping_agent > MINIMUM_MOLE_COUNT) && temperature > N2O_DECOMPOSITION_MIN_ENERGY)
+		var/energy_released = 0
+		var/old_heat_capacity = heat_capacity()
+		var/burned_fuel = 0
+
+		burned_fuel = max(0, 0.00002 * (temperature - (0.00001 * (temperature ** 2)))) * sleeping_agent
+		if(sleeping_agent - burned_fuel > 0)
+			sleeping_agent -= burned_fuel
+
+			if(burned_fuel)
+				energy_released += (N2O_DECOMPOSITION_ENERGY_RELEASED * burned_fuel)
+
+				oxygen += burned_fuel * 0.5
+				nitrogen += burned_fuel
+
+				var/new_heat_capacity = heat_capacity()
+				if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+					temperature = (temperature * old_heat_capacity + energy_released) / new_heat_capacity
+				reacting = TRUE
 
 	fuel_burnt = 0
 	if(temperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
 		if(fire() > 0)
-			reacting = 1
+			reacting = TRUE
 
 	return reacting
 

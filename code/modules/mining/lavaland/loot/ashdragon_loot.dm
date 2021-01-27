@@ -1,8 +1,7 @@
 /obj/structure/closet/crate/necropolis/dragon
 	name = "dragon chest"
 
-/obj/structure/closet/crate/necropolis/dragon/New()
-	..()
+/obj/structure/closet/crate/necropolis/dragon/populate_contents()
 	var/loot = rand(1,4)
 	switch(loot)
 		if(1)
@@ -19,8 +18,8 @@
 /obj/structure/closet/crate/necropolis/dragon/crusher
 	name = "firey dragon chest"
 
-/obj/structure/closet/crate/necropolis/dragon/crusher/New()
-	..()
+/obj/structure/closet/crate/necropolis/dragon/crusher/populate_contents()
+	. = ..()
 	new /obj/item/crusher_trophy/tail_spike(src)
 
 

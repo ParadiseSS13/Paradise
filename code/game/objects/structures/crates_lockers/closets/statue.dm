@@ -12,8 +12,8 @@
 	var/intialOxy = 0
 	var/timer = 240 //eventually the person will be freed
 
-/obj/structure/closet/statue/New(loc, var/mob/living/L)
-
+/obj/structure/closet/statue/Initialize(mapload, var/mob/living/L)
+	. = ..()
 	if(ishuman(L) || iscorgi(L))
 		if(L.buckled)
 			L.buckled = 0
@@ -42,7 +42,6 @@
 		return
 
 	START_PROCESSING(SSobj, src)
-	..()
 
 /obj/structure/closet/statue/process()
 	timer--

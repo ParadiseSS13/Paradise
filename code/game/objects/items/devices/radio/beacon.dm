@@ -5,7 +5,6 @@
 	item_state = "signaler"
 	var/code = "Beacon"
 	origin_tech = "bluespace=1"
-	var/emagged = 0
 	var/syndicate = 0
 	var/area_bypass = FALSE
 	var/cc_beacon = FALSE //set if allowed to teleport to even if on zlevel2
