@@ -167,8 +167,8 @@
 /////////////////////////////////////
 //WAND OF SLIPPING
 /////////////////////////////////////
-/obj/item/gun/magic/wand/slipping
-    name = "wand of slipping"
+obj/item/gun/magic/wand/slipping
+	name = "wand of slipping"
 	desc = "This wand shoots... banana peels?"
 	fire_sound = 'sound/items/bikehorn.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/slipping
