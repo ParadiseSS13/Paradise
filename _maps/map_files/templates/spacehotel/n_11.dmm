@@ -31,7 +31,7 @@
 "g" = (
 /obj/structure/bed,
 /obj/item/bedsheet/syndie,
-/obj/item/toy/figure/syndie{
+/obj/item/toy/figure/crew/syndie{
 	pixel_x = 8
 	},
 /turf/unsimulated/floor/carpet,

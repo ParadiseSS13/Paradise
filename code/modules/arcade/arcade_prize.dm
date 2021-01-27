@@ -2,7 +2,7 @@
 * Prize balls
 * Prize tickets
 */
-/obj/item/toy/prizeball
+/obj/item/toy/figure/mechball
 	name = "prize ball"
 	desc = "A toy is a toy, but a prize ball could be anything! It could even be a toy!"
 	icon = 'icons/obj/arcade.dmi'
@@ -10,11 +10,11 @@
 	var/opening = 0
 	var/possible_contents = list(/obj/random/carp_plushie, /obj/random/plushie, /obj/random/figure, /obj/item/toy/eight_ball, /obj/item/stack/tickets)
 
-/obj/item/toy/prizeball/New()
+/obj/item/toy/figure/mechball/New()
 	..()
 	icon_state = pick("prizeball_1","prizeball_2","prizeball_3")
 
-/obj/item/toy/prizeball/attack_self(mob/user as mob)
+/obj/item/toy/figure/mechball/attack_self(mob/user as mob)
 	if(opening)
 		return
 	opening = 1
@@ -31,27 +31,27 @@
 			new prize_inside(user.loc)
 		qdel(src)
 
-/obj/item/toy/prizeball/mech
+/obj/item/toy/figure/mechball/mech
 	name = "mecha figure capsule"
 	desc = "Contains one collectible mecha figure!"
 	possible_contents = list(/obj/random/mech)
 
-/obj/item/toy/prizeball/carp_plushie
+/obj/item/toy/figure/mechball/carp_plushie
 	name = "carp plushie capsule"
 	desc = "Contains one space carp plushie!"
 	possible_contents = list(/obj/random/carp_plushie)
 
-/obj/item/toy/prizeball/plushie
+/obj/item/toy/figure/mechball/plushie
 	name = "plushie capsule"
 	desc = "Contains one cuddly plushie!"
 	possible_contents = list(/obj/random/plushie)
 
-/obj/item/toy/prizeball/figure
+/obj/item/toy/figure/mechball/figure
 	name = "action figure capsule"
 	desc = "Contains one action figure!"
 	possible_contents = list(/obj/random/figure)
 
-/obj/item/toy/prizeball/therapy
+/obj/item/toy/figure/mechball/therapy
 	name = "therapy doll capsule"
 	desc = "Contains one squishy therapy doll."
 	possible_contents = list(/obj/random/therapy)

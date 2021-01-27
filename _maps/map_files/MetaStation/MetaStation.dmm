@@ -27471,7 +27471,7 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/toy/figure/cargotech,
+/obj/item/toy/figure/crew/cargotech,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria";
@@ -34649,7 +34649,7 @@
 	})
 "bnL" = (
 /obj/structure/table,
-/obj/item/toy/figure/clown,
+/obj/item/toy/figure/crew/clown,
 /obj/item/reagent_containers/food/snacks/baguette,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -40971,7 +40971,7 @@
 /obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
 /obj/item/lighter/zippo/nt_rep,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
-/obj/item/toy/figure/captain,
+/obj/item/toy/figure/crew/captain,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
 	name = "\improper Captain's Quarters"
@@ -53162,7 +53162,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "bUp" = (
-/obj/item/toy/figure/mime,
+/obj/item/toy/figure/crew/mime,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -54825,7 +54825,7 @@
 /area/crew_quarters/theatre)
 "bXq" = (
 /obj/machinery/light/small,
-/obj/item/toy/prize/honk{
+/obj/item/toy/figure/mech/honk{
 	pixel_y = 12
 	},
 /obj/structure/table/wood,

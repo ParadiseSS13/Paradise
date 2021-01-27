@@ -99,7 +99,7 @@
 	})
 "at" = (
 /obj/structure/table,
-/obj/item/toy/figure/bartender,
+/obj/item/toy/figure/crew/bartender,
 /turf/simulated/floor/wood,
 /area/ruin/powered{
 	name = "Space Bar"

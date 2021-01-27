@@ -4129,7 +4129,7 @@
 /turf/unsimulated/floor/carpet,
 /area/awaymission/spacehotel)
 "jp" = (
-/obj/item/toy/prize/honk,
+/obj/item/toy/figure/mech/honk,
 /turf/unsimulated/floor/carpet,
 /area/awaymission/spacehotel)
 "jq" = (

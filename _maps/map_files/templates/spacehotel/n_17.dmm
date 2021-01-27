@@ -33,7 +33,7 @@
 "f" = (
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
-/obj/item/toy/prize/ripley{
+/obj/item/toy/figure/mech/ripley{
 	pixel_x = 4
 	},
 /turf/unsimulated/floor/carpet,

@@ -30,7 +30,7 @@
 /area/template_noop)
 "f" = (
 /obj/structure/rack,
-/obj/item/toy/griffin{
+/obj/item/toy/figure/griffin{
 	pixel_y = 8
 	},
 /obj/item/toy/snappop,
@@ -40,7 +40,7 @@
 "g" = (
 /obj/structure/rack,
 /obj/item/deck/cards,
-/obj/item/toy/figure/secofficer,
+/obj/item/toy/figure/crew/secofficer,
 /turf/unsimulated/floor/carpet,
 /area/template_noop)
 "h" = (

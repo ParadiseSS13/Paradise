@@ -31,7 +31,7 @@
 "g" = (
 /obj/structure/bed,
 /obj/item/bedsheet/red,
-/obj/item/toy/figure/cmo,
+/obj/item/toy/figure/crew/cmo,
 /turf/unsimulated/floor/carpet,
 /area/template_noop)
 "h" = (
