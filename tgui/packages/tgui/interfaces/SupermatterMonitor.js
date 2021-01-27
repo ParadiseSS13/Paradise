@@ -132,7 +132,7 @@ const SupermatterMonitorDataView = (props, context) => {
                     ranges={{
                       good: [logScale(1), logScale(300)],
                       average: [-Infinity, logScale(1000)],
-                      bad: [logScale(1000), +Infinity],
+                      bad: [logScale(1000), Infinity],
                     }}>
                     {toFixed(SM_ambientpressure) + ' kPa'}
                   </ProgressBar>
