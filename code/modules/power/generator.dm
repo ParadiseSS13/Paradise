@@ -209,7 +209,6 @@
 		data["cold_dir"] = dir2text(cold_dir)
 		data["hot_dir"] = dir2text(hot_dir)
 		data["output_power"] = round(lastgen)
-		data["output_power_color"] = lastgen > 1000000 ? "green" : "red"
 		// Temps are K, pressures are kPa, power is W
 		data["cold_inlet_temp"] = round(cold_circ_air2.temperature, 0.1)
 		data["hot_inlet_temp"] = round(hot_circ_air2.temperature, 0.1)
