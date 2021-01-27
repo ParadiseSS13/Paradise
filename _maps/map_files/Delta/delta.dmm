@@ -16,10 +16,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
-"abp" = (
-/turf/space,
-/turf/space,
-/area/space)
 "abv" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable{
@@ -77273,7 +77269,6 @@
 /area/crew_quarters/sleep)
 "cQf" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/head/kitty,
 /obj/item/clothing/under/maid,
 /obj/item/clothing/suit/browntrenchcoat,
 /turf/simulated/floor/plasteel{
@@ -115737,7 +115732,6 @@ aaa
 aaa
 aaa
 aaa
-abp
 aaa
 aaa
 aaa
@@ -115745,7 +115739,8 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -115988,7 +115983,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -116752,11 +116747,6 @@ aaa
 aaa
 aaa
 aaa
-abp
-aaa
-aaa
-aaa
-abp
 aaa
 aaa
 aaa
@@ -116773,7 +116763,12 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -117286,7 +117281,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -118314,7 +118309,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -118808,11 +118803,11 @@ aaa
 aaa
 aaa
 aaa
-abp
 aaa
 aaa
 aaa
-abp
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -118829,7 +118824,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -119331,7 +119326,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -119849,7 +119844,6 @@ aaa
 aaa
 aaa
 aaa
-abp
 aaa
 aaa
 aaa
@@ -119857,7 +119851,8 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -138351,7 +138346,6 @@ aaa
 aaa
 aaa
 aaa
-abp
 aaa
 aaa
 aaa
@@ -138362,7 +138356,8 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -138607,7 +138602,6 @@ aaa
 aaa
 aaa
 aaa
-abp
 aaa
 aaa
 aaa
@@ -138621,7 +138615,8 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -138863,7 +138858,6 @@ aaa
 aaa
 aaa
 aaa
-abp
 aaa
 aaa
 aaa
@@ -138879,7 +138873,8 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -139119,7 +139114,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -139650,7 +139645,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -139890,7 +139885,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -140404,7 +140399,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -140678,7 +140673,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -141175,7 +141170,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -141433,7 +141428,6 @@ aaa
 aaa
 aaa
 aaa
-abp
 aaa
 aaa
 aaa
@@ -141449,7 +141443,8 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -141691,7 +141686,6 @@ aaa
 aaa
 aaa
 aaa
-abp
 aaa
 aaa
 aaa
@@ -141705,14 +141699,15 @@ aaa
 aaa
 aaa
 aaa
-abp
-aaa
-aaa
-abp
 aaa
 aaa
 aaa
-abp
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -141949,7 +141944,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -141960,15 +141955,15 @@ aaa
 aaa
 aaa
 aaa
-abp
 aaa
 aaa
 aaa
 aaa
 aaa
-abp
+aaa
+aaa
 ajX
-abp
+aaa
 aaa
 aaa
 aaa
@@ -144767,7 +144762,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -144776,7 +144771,7 @@ aaa
 aaa
 dZi
 aaa
-abp
+aaa
 aaa
 acF
 aaa
@@ -144788,7 +144783,6 @@ aaa
 aaa
 aaa
 aaa
-abp
 aaa
 aaa
 aaa
@@ -144798,7 +144792,8 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
+aaa
 abj
 amx
 ajy
@@ -145034,7 +145029,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 acF
 aaa
 abj
@@ -145044,8 +145039,8 @@ aaa
 aaa
 aaa
 aaa
-abp
-abp
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -145548,7 +145543,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 acF
 aaa
 abj
@@ -145558,8 +145553,8 @@ aaa
 aaa
 aaa
 aaa
-abp
-abp
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -145795,7 +145790,6 @@ aaa
 aaa
 aaa
 aaa
-abp
 aaa
 aaa
 aaa
@@ -145804,7 +145798,8 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
+aaa
 aaa
 acF
 aaa
@@ -145816,7 +145811,6 @@ aaa
 aaa
 aaa
 aaa
-abp
 aaa
 aaa
 aaa
@@ -145826,7 +145820,8 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
+aaa
 abj
 amy
 ajf
@@ -151614,7 +151609,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -151636,7 +151631,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -152408,7 +152403,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -152669,7 +152664,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -154982,7 +154977,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -155235,7 +155230,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -155983,7 +155978,6 @@ aaa
 aaa
 aaa
 aaa
-abp
 aaa
 aaa
 aaa
@@ -156005,7 +155999,8 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -156356,7 +156351,6 @@ ahM
 ahM
 aiz
 agL
-abp
 aaa
 aaa
 aaa
@@ -156366,7 +156360,8 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
+aaa
 alI
 aoi
 aoN
@@ -157384,7 +157379,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -157394,7 +157389,7 @@ aaa
 dZG
 aaa
 aaa
-abp
+aaa
 abj
 aaa
 abi
@@ -157410,7 +157405,7 @@ ayH
 axy
 asc
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -157420,7 +157415,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 abj
@@ -157676,7 +157671,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -157954,7 +157949,6 @@ bjU
 aaa
 aaa
 aaa
-abp
 aaa
 aaa
 aaa
@@ -157962,7 +157956,8 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
+aaa
 aaa
 bFS
 bHM
@@ -158202,13 +158197,13 @@ aSf
 aSg
 aSg
 abj
-abp
+aaa
 aaa
 aaa
 bgY
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -158704,7 +158699,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -158952,7 +158947,6 @@ aaa
 aaa
 aaa
 aaa
-abp
 aaa
 aaa
 aaa
@@ -158962,7 +158956,8 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
+aaa
 aaa
 aaa
 abj
@@ -158982,7 +158977,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -158990,7 +158985,7 @@ aaa
 aaa
 bzf
 aaa
-abp
+aaa
 aaa
 bFS
 bFS
@@ -159230,13 +159225,13 @@ abj
 abj
 aaa
 aaa
-abp
 aaa
 aaa
 aaa
 aaa
 aaa
-abp
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -166894,7 +166889,6 @@ aaa
 aaa
 aaa
 aaa
-abp
 aaa
 aaa
 aaa
@@ -166905,7 +166899,8 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -167665,10 +167660,6 @@ aaa
 aaa
 aaa
 aaa
-abp
-aaa
-aaa
-abp
 aaa
 aaa
 aaa
@@ -167676,7 +167667,11 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -168181,7 +168176,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -168437,7 +168432,6 @@ aaa
 aaa
 aaa
 aaa
-abp
 aaa
 aaa
 aaa
@@ -168452,7 +168446,8 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -168693,7 +168688,6 @@ aaa
 aaa
 aaa
 aaa
-abp
 aaa
 aaa
 aaa
@@ -168710,7 +168704,8 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -169721,7 +169716,6 @@ aaa
 aaa
 aaa
 aaa
-abp
 aaa
 aaa
 aaa
@@ -169738,7 +169732,8 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -169979,7 +169974,6 @@ aaa
 aaa
 aaa
 aaa
-abp
 aaa
 aaa
 aaa
@@ -169994,7 +169988,8 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -170237,7 +170232,7 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
 aaa
 aaa
 aaa
@@ -170749,10 +170744,6 @@ aaa
 aaa
 aaa
 aaa
-abp
-aaa
-aaa
-abp
 aaa
 aaa
 aaa
@@ -170760,7 +170751,11 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -171520,7 +171515,6 @@ aaa
 aaa
 aaa
 aaa
-abp
 aaa
 aaa
 aaa
@@ -171531,7 +171525,8 @@ aaa
 aaa
 aaa
 aaa
-abp
+aaa
+aaa
 aaa
 aaa
 aaa
