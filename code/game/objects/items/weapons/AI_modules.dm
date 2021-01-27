@@ -91,11 +91,11 @@ AI MODULES
 
 /obj/item/aiModule/proc/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
 
-/mob/living/silicon/ai/proc/law_location_check(var/obj/machinery/computer/aiupload/comp, var/obj/item/aiModule/A)
-	var/list/turfs = new/list()
+/mob/living/silicon/ai/proc/law_location_check(obj/machinery/computer/aiupload/comp, obj/item/aiModule/A)
+	var/list/turfs = list()
 	var/found_turf = FALSE
-	for(var/turf/T in range(get_turf(comp), (max(1,(16 - comp.uses - A.uses)))))
-		if(istype(T, /turf/space) || istype(T, /turf/simulated/wall))
+	for(var/turf/T in range(get_turf(comp), max(1, (16 - comp.uses - A.uses))))
+		if(isspaceturf(T)) || iswallturf(T))
 			continue
 
 		turfs += T
@@ -104,7 +104,7 @@ AI MODULES
 	if(found_turf)
 		var/turf/relay_location = pick(turfs)
 		to_chat(src, "<b>Law upload bounced off relay in [relay_location.loc], at X [relay_location.x] Y [relay_location.y]</b>")
-		src.mind.store_memory("Law upload bounced off relay in [relay_location.loc], at X [relay_location.x] Y [relay_location.y]")
+		mind.store_memory("Law upload bounced off relay in [relay_location.loc], at X [relay_location.x] Y [relay_location.y]")
 	comp.uses++
 	A.uses++
 

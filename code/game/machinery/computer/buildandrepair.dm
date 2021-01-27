@@ -537,7 +537,7 @@
 					var/obj/machinery/computer/supplycomp/SC = B
 					var/obj/item/circuitboard/supplycomp/C = circuit
 					SC.can_order_contraband = C.contraband_enabled
-				if(istype(circuit,/obj/item/circuitboard/aiupload))
+				if(istype(circuit, /obj/item/circuitboard/aiupload))
 					var/obj/machinery/computer/aiupload/AI = B
 					var/obj/item/circuitboard/aiupload/C = circuit
 					AI.uses = C.uses
