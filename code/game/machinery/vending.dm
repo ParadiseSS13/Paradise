@@ -510,6 +510,10 @@
 	if(ishuman(user))
 		H = user
 		C = H.get_idcard(TRUE)
+		if(!C && istype(H.wear_pda, /obj/item/pda))
+			var/obj/item/pda/P = H.wear_pda
+			if(istype(P.id, /obj/item/card/id))
+				C = P.id
 		var/obj/item/stack/spacecash/S = H.get_active_hand()
 		if(istype(S))
 			data["userMoney"] = S.amount
