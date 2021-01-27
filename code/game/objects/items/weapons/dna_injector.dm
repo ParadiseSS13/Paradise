@@ -70,7 +70,7 @@
 	if(used)
 		return
 	if(istype(M,/mob/living))
-		M.apply_effect(rand(20 / (damage_coeff  ** 2), 50 / (damage_coeff  ** 2)), IRRADIATE, 0, 1)
+		M.apply_effect(rand(20 / (damage_coeff ** 2), 50 / (damage_coeff ** 2)), IRRADIATE)
 	var/mob/living/carbon/human/H
 	if(istype(M, /mob/living/carbon/human))
 		H = M

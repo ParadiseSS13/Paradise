@@ -319,7 +319,7 @@
 	active_power_usage = 2000
 	var/obj/machinery/teleport/station/power_station
 	var/calibrated //Calibration prevents mutation
-	var/admin_usage = FALSE // if 1, works on z2. If 0, doesn't. Used for admin room teleport.
+	var/admin_usage = FALSE // if 1, works on CC level. If 0, doesn't. Used for admin room teleport.
 
 /obj/machinery/teleport/hub/New()
 	..()

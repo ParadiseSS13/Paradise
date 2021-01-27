@@ -6,6 +6,7 @@
 	opacity = 1
 	density = 1
 	explosion_block = 2
+	rad_insulation = RAD_HEAVY_INSULATION
 	damage_cap = 600
 	max_temperature = 6000
 	hardness = 10
