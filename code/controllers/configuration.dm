@@ -272,6 +272,9 @@
 	/// Max amount of CIDs that one ckey can have attached to them before they trip a warning
 	var/max_client_cid_history = 3
 
+	// Enable map voting
+	var/map_voting_enabled = FALSE
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -765,6 +768,8 @@
 					centcom_ban_db_url = value
 				if("max_client_cid_history")
 					max_client_cid_history = text2num(value)
+				if("enable_map_voting")
+					map_voting_enabled = TRUE
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
