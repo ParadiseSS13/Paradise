@@ -276,15 +276,15 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/menthol
 
 /obj/item/storage/fancy/cigarettes/cigpack_robust
-	name = "\improper Robust packet"
-	desc = "Smoked by the robust... and the second most common and the longest cigarettes on the market. The packet smells like robustness ...maybe it's just tobacco. Minus the robust smell these are nothing special"
+	name = "\improper Robust Red packet"
+	desc = "Smoked by the robust... and these are the all new Robust Reds! What is so new about them? No idea. The second most common cigarettes on the market. The packet smells like robustness ...maybe it's just tobacco."
 	icon_state = "robustpacket"
 	item_state = "robustpacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/robust
 
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold
 	name = "\improper Robust Gold packet"
-	desc = "Smoked by the truly robust."
+	desc = "Smoked by the truly robust... and snobs who need their cigarettes to be made from actual gold."
 	icon_state = "robustgpacket"
 	item_state = "robustgpacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/robustgold

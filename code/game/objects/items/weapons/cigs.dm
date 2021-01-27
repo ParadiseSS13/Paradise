@@ -267,11 +267,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 	list_reagents = list("nicotine" = 40, "gold" = 1)
 	
 /obj/item/clothing/mask/cigarette/robust
-	desc = "A roll of of tobacco and nicotine in a white paper with an orange filter. Smells... robust. Nothing special about this one otherwise."
-	item_state = "cigoff"
-	icon_state = "cigoff"
-	icon_on = "cigon"
-	icon_off = "cigoff"
+	desc = "A roll of of tobacco and nicotine in a white paper with a red filter. Smells... robust. Nothing special about this one otherwise."
+	item_state = "cigoff_robust"
+	icon_state = "cigoff_robust"
+	icon_on = "cigon_robust"
+	icon_off = "cigoff_robust"
 	type_butt = /obj/item/cigbutt/robust
 	list_reagents = list("nicotine" = 40)
 
@@ -349,7 +349,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/cigbutt/robust
 	name = "cigarette butt"
 	desc = "A manky old cigarette butt... smells faintly robust."
-	icon_state = "cigbutt"
+	icon_state = "cigbutt_robust"
 
 /obj/item/cigbutt/shadyjims
 	name = "cigarette butt"
