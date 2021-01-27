@@ -95,7 +95,7 @@ AI MODULES
 	var/list/turfs = list()
 	var/found_turf = FALSE
 	for(var/turf/T in range(get_turf(comp), max(1, (16 - comp.uses - A.uses))))
-		if(isspaceturf(T)) || iswallturf(T))
+		if(isspaceturf(T) || iswallturf(T))
 			continue
 
 		turfs += T
