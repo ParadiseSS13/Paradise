@@ -21,7 +21,8 @@
 #define MOLES_O2STANDARD		(MOLES_CELLSTANDARD*O2STANDARD)	// O2 standard value (21%)
 #define MOLES_N2STANDARD		(MOLES_CELLSTANDARD*N2STANDARD)	// N2 standard value (79%)
 #define CELL_VOLUME				2500	//liters in a cell
-#define BREATH_VOLUME			1		//liters in a normal breath
+//liters in a normal breath
+#define BREATH_VOLUME			1
 #define BREATH_PERCENTAGE		(BREATH_VOLUME/CELL_VOLUME)					//Amount of air to take a from a tile
 
 //EXCITED GROUPS
