@@ -176,8 +176,11 @@
 		to_chat(user, "<span class='warning'>[src] needs to be unwelded from the floor!</span>")
 		return
 
-	playsound(src, I.usesound, I.tool_volume, TRUE)
 	if(state == EMITTER_NEEDS_WRENCH)
+		for(var/obj/machinery/power/emitter/E in loc)
+			if(E.anchored)
+				to_chat(user, "<span class='warning'>There is already an emitter here!</span>")
+				return
 		state = EMITTER_NEEDS_WELDER
 		anchored = TRUE
 		user.visible_message("[user] secures [src] to the floor.",
@@ -189,6 +192,7 @@
 		user.visible_message("[user] unsecures [src] reinforcing bolts from the floor.",
 			"You undo the external reinforcing bolts.",
 			"You hear a ratchet")
+	playsound(src, I.usesound, I.tool_volume, TRUE)
 
 /*obj/machinery/power/emitter/screwdriver_act(mob/living/user, obj/item/I) // Multitool menu NYI
 	. = TRUE
