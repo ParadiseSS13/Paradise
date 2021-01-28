@@ -142,11 +142,11 @@
 	light_color = LIGHT_COLOR_RED
 
 /obj/item/pen/edagger/attack(mob/living/M, mob/living/user, def_zone)
-	if(on == 1 && user.dir == M.dir && !M.weakened && user != M)
+	if(on && user.dir == M.dir && !M.incapacitated(TRUE) && user != M)
 		M.apply_damage(10, BRUTE, BODY_ZONE_CHEST)
 		M.Weaken(1)
-		M.visible_message("<span class='warning'>[user] stabs [M] in the back!", "<span class='userdanger'>[user] stabs you in the back! The energy blade makes you collapse in pain!")
-	. = ..()
+		M.visible_message("<span class='warning'>[user] stabs [M] in the back!</span>", "<span class='userdanger'>[user] stabs you in the back! The energy blade makes you collapse in pain!</span>")
+	return ..()
 
 /obj/item/pen/edagger/attack_self(mob/living/user)
 	if(on)
