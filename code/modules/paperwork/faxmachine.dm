@@ -104,7 +104,9 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine/ui_data(mob/user)
 	var/list/data = list()
 	data["authenticated"] = is_authenticated(user)
+	data["realauth"] = authenticated
 	data["scan_name"] = scan ? scan.name : FALSE
+	data["nologin"] = !data["scan_name"] && !data["realauth"]
 	if(!data["authenticated"])
 		data["network"] = "Disconnected"
 	else if(!emagged)
