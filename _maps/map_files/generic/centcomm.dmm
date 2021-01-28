@@ -7863,7 +7863,7 @@
 	},
 /area/centcom/evac)
 "tz" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
