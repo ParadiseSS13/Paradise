@@ -2553,7 +2553,7 @@
 /area/awaymission/centcomAway/general)
 "gB" = (
 /obj/structure/table/reinforced,
-/obj/item/tank/anesthetic,
+/obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/breath/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"

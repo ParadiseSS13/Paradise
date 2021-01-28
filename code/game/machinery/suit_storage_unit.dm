@@ -165,7 +165,7 @@
 /obj/machinery/suit_storage_unit/ert/command
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/ert/commander
 	mask_type    = /obj/item/clothing/mask/breath
-	storage_type = /obj/item/tank/emergency_oxygen/double
+	storage_type = /obj/item/tank/internals/emergency_oxygen/double
 
 /obj/machinery/suit_storage_unit/ert/command/secure
 	secure = TRUE
@@ -173,7 +173,7 @@
 /obj/machinery/suit_storage_unit/ert/security
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/ert/security
 	mask_type    = /obj/item/clothing/mask/breath
-	storage_type = /obj/item/tank/emergency_oxygen/double
+	storage_type = /obj/item/tank/internals/emergency_oxygen/double
 
 /obj/machinery/suit_storage_unit/ert/security/secure
 	secure = TRUE
@@ -181,7 +181,7 @@
 /obj/machinery/suit_storage_unit/ert/engineer
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/ert/engineer
 	mask_type    = /obj/item/clothing/mask/breath
-	storage_type = /obj/item/tank/emergency_oxygen/double
+	storage_type = /obj/item/tank/internals/emergency_oxygen/double
 
 /obj/machinery/suit_storage_unit/ert/engineer/secure
 	secure = TRUE
@@ -189,7 +189,7 @@
 /obj/machinery/suit_storage_unit/ert/medical
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/ert/medical
 	mask_type    = /obj/item/clothing/mask/breath
-	storage_type = /obj/item/tank/emergency_oxygen/double
+	storage_type = /obj/item/tank/internals/emergency_oxygen/double
 
 /obj/machinery/suit_storage_unit/ert/medical/secure
 	secure = TRUE

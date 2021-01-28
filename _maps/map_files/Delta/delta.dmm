@@ -1172,8 +1172,8 @@
 "agT" = (
 /obj/item/clothing/suit/storage/hazardvest,
 /obj/item/clothing/suit/storage/hazardvest,
-/obj/item/tank/emergency_oxygen/double,
-/obj/item/tank/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/head/hardhat/orange,
@@ -1292,7 +1292,7 @@
 /area/security/podbay)
 "ahc" = (
 /obj/structure/rack,
-/obj/item/tank/oxygen,
+/obj/item/tank/internals/oxygen,
 /obj/item/clothing/suit/space/hardsuit/security,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/shoes/magboots,
@@ -7150,8 +7150,8 @@
 /area/engine/controlroom)
 "avK" = (
 /obj/structure/table/reinforced,
-/obj/item/tank/emergency_oxygen/engi,
-/obj/item/tank/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
@@ -12752,7 +12752,7 @@
 	pixel_x = -28;
 	pixel_y = 0
 	},
-/obj/item/tank/plasma,
+/obj/item/tank/internals/plasma,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
@@ -15573,7 +15573,7 @@
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
 /obj/item/wrench,
-/obj/item/tank/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "caution"
@@ -18770,8 +18770,8 @@
 	initialize_directions = 11;
 	level = 1
 	},
-/obj/item/tank/emergency_oxygen,
-/obj/item/tank/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
 /turf/simulated/floor/plasteel{
@@ -23212,7 +23212,7 @@
 	pixel_x = 32;
 	pixel_y = 0
 	},
-/obj/item/tank/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -38451,8 +38451,8 @@
 /area/atmos)
 "bAb" = (
 /obj/structure/table/reinforced,
-/obj/item/tank/emergency_oxygen,
-/obj/item/tank/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
 /turf/simulated/floor/plasteel{
@@ -39565,10 +39565,10 @@
 /obj/item/clothing/suit/storage/hazardvest,
 /obj/item/clothing/suit/storage/hazardvest,
 /obj/item/clothing/suit/storage/hazardvest,
-/obj/item/tank/emergency_oxygen/double,
-/obj/item/tank/emergency_oxygen/double,
-/obj/item/tank/emergency_oxygen/double,
-/obj/item/tank/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
@@ -58772,7 +58772,7 @@
 /obj/structure/rack,
 /obj/item/crowbar,
 /obj/item/wrench,
-/obj/item/tank/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "ciq" = (
@@ -59592,7 +59592,7 @@
 /obj/structure/rack,
 /obj/item/crowbar,
 /obj/item/stack/cable_coil/yellow,
-/obj/item/tank/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -61391,7 +61391,7 @@
 /area/engine/engineering)
 "cmX" = (
 /obj/structure/rack,
-/obj/item/tank/oxygen,
+/obj/item/tank/internals/oxygen,
 /obj/item/radio,
 /obj/machinery/firealarm{
 	dir = 1;
@@ -64507,7 +64507,7 @@
 /obj/structure/rack,
 /obj/item/crowbar/red,
 /obj/item/wrench,
-/obj/item/tank/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 5
 	},
@@ -65106,7 +65106,7 @@
 	pixel_x = -28;
 	pixel_y = 0
 	},
-/obj/item/tank/plasma,
+/obj/item/tank/internals/plasma,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -68703,11 +68703,11 @@
 /obj/item/clothing/suit/storage/hazardvest,
 /obj/item/clothing/suit/storage/hazardvest,
 /obj/item/clothing/suit/storage/hazardvest,
-/obj/item/tank/emergency_oxygen/double,
-/obj/item/tank/emergency_oxygen/double,
-/obj/item/tank/emergency_oxygen/double,
-/obj/item/tank/emergency_oxygen/double,
-/obj/item/tank/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
@@ -106533,10 +106533,10 @@
 /obj/item/clothing/suit/storage/hazardvest,
 /obj/item/clothing/suit/storage/hazardvest,
 /obj/item/clothing/suit/storage/hazardvest,
-/obj/item/tank/emergency_oxygen/double,
-/obj/item/tank/emergency_oxygen/double,
-/obj/item/tank/emergency_oxygen/double,
-/obj/item/tank/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
@@ -106557,7 +106557,7 @@
 	tag = ""
 	},
 /obj/structure/rack,
-/obj/item/tank/oxygen,
+/obj/item/tank/internals/oxygen,
 /obj/item/radio,
 /obj/item/clothing/mask/breath,
 /turf/simulated/floor/plating,
@@ -106570,7 +106570,7 @@
 	tag = ""
 	},
 /obj/structure/rack,
-/obj/item/tank/oxygen,
+/obj/item/tank/internals/oxygen,
 /obj/item/radio,
 /obj/item/clothing/mask/breath,
 /obj/effect/decal/warning_stripes/yellow/hollow,
