@@ -474,3 +474,6 @@ CENTCOM_BAN_DB_URL https://centcom.melonmesa.com/ban/search/
 
 ## Max amount of CIDs that one ckey can have attached to them before they trip a warning. Set to 0 to disable.
 MAX_CLIENT_CID_HISTORY 2
+
+## Uncomment to enable automatic performance profiling of rounds
+#ENABLE_AUTO_PROFILER
