@@ -1,4 +1,5 @@
 /obj/item/circuitboard
+	/// Use `board_name` instead of this.
 	name = "circuit board"
 	icon = 'icons/obj/module.dmi'
 	icon_state = "id_mod"
@@ -16,7 +17,6 @@
 	var/list/req_components = null
 	var/powernet = null
 	var/list/records = null
-	var/contain_parts = 1
 
 /obj/item/circuitboard/computer
 	board_type = "computer"
@@ -29,7 +29,10 @@
 	format_board_name()
 
 /obj/item/circuitboard/proc/format_board_name()
-	name = "[initial(name)] ([board_name])"
+	if(board_name) // Should always have this, but just in case.
+		name = "[initial(name)] ([board_name])"
+	else
+		name = "[initial(name)]"
 
 /obj/item/circuitboard/examine(mob/user)
 	. = ..()
@@ -253,7 +256,7 @@
 	build_path = /obj/machinery/computer/sm_monitor
 	origin_tech = "programming=2;powerstorage=2"
 
-// RD console circuits, so that {de,re}constructing one of the special consoles doesn't ruin everything forever
+// RD console circuits, so that de/reconstructing one of the special consoles doesn't ruin everything forever
 /obj/item/circuitboard/rdconsole
 	board_name = "RD Console"
 	desc = "Swipe a Scientist level ID or higher to reconfigure."
@@ -406,8 +409,8 @@
 	board_type = "honkcomputer"
 
 
-/obj/item/circuitboard/supplycomp/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I,/obj/item/multitool))
+/obj/item/circuitboard/supplycomp/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/multitool))
 		var/catastasis = contraband_enabled
 		var/opposite_catastasis
 		if(catastasis)
@@ -417,9 +420,9 @@
 			opposite_catastasis = "BROAD"
 			catastasis = "STANDARD"
 
-		switch( alert("Current receiver spectrum is set to: [catastasis]","Multitool-Circuitboard interface","Switch to [opposite_catastasis]","Cancel") )
+		switch(alert("Current receiver spectrum is set to: [catastasis]", "Multitool-Circuitboard interface", "Switch to [opposite_catastasis]", "Cancel"))
 		//switch( alert("Current receiver spectrum is set to: " {(contraband_enabled) ? ("BROAD") : ("STANDARD")} , "Multitool-Circuitboard interface" , "Switch to " {(contraband_enabled) ? ("STANDARD") : ("BROAD")}, "Cancel") )
-			if("Switch to STANDARD","Switch to BROAD")
+			if("Switch to STANDARD", "Switch to BROAD")
 				contraband_enabled = !contraband_enabled
 
 			if("Cancel")
@@ -467,11 +470,10 @@
 
 
 /obj/structure/computerframe
-	density = 1
-	anchored = 0
 	name = "computer frame"
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "0"
+	density = TRUE
 	max_integrity = 100
 	var/state = 0
 	var/obj/item/circuitboard/circuit = null
@@ -491,50 +493,50 @@
 		circuit.forceMove(loc)
 		circuit = null
 	if(state >= 3)
-		var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( loc )
+		var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(loc)
 		A.amount = 5
 	if(state >= 4)
 		new /obj/item/stack/sheet/glass(loc, 2)
 
-/obj/structure/computerframe/attackby(obj/item/P as obj, mob/user as mob, params)
+/obj/structure/computerframe/attackby(obj/item/I, mob/user, params)
 	switch(state)
 		if(0)
-			if(istype(P, /obj/item/wrench))
-				playsound(loc, P.usesound, 50, 1)
-				if(do_after(user, 20 * P.toolspeed, target = src))
+			if(istype(I, /obj/item/wrench))
+				playsound(loc, I.usesound, 50, 1)
+				if(do_after(user, 20 * I.toolspeed, target = src))
 					to_chat(user, "<span class='notice'>You wrench the frame into place.</span>")
 					anchored = 1
 					state = 1
 				return
 		if(1)
-			if(istype(P, /obj/item/wrench))
-				playsound(loc, P.usesound, 50, 1)
-				if(do_after(user, 20 * P.toolspeed, target = src))
+			if(istype(I, /obj/item/wrench))
+				playsound(loc, I.usesound, 50, 1)
+				if(do_after(user, 20 * I.toolspeed, target = src))
 					to_chat(user, "<span class='notice'>You unfasten the frame.</span>")
 					anchored = 0
 					state = 0
 				return
-			if(istype(P, /obj/item/circuitboard) && !circuit)
-				var/obj/item/circuitboard/B = P
+			if(istype(I, /obj/item/circuitboard) && !circuit)
+				var/obj/item/circuitboard/B = I
 				if(B.board_type == "computer")
 					playsound(loc, B.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
 					name += " ([B.board_name])"
 					icon_state = "1"
-					circuit = P
+					circuit = I
 					user.drop_item()
-					P.loc = src
+					I.loc = src
 				else
 					to_chat(user, "<span class='warning'>This frame does not accept circuit boards of this type!</span>")
 				return
-			if(istype(P, /obj/item/screwdriver) && circuit)
-				playsound(loc, P.usesound, 50, 1)
+			if(istype(I, /obj/item/screwdriver) && circuit)
+				playsound(loc, I.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You screw the circuit board into place.</span>")
 				state = 2
 				icon_state = "2"
 				return
-			if(istype(P, /obj/item/crowbar) && circuit)
-				playsound(loc, P.usesound, 50, 1)
+			if(istype(I, /obj/item/crowbar) && circuit)
+				playsound(loc, I.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
 				state = 1
 				name = initial(name)
@@ -543,14 +545,14 @@
 				circuit = null
 				return
 		if(2)
-			if(istype(P, /obj/item/screwdriver) && circuit)
-				playsound(loc, P.usesound, 50, 1)
+			if(istype(I, /obj/item/screwdriver) && circuit)
+				playsound(loc, I.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You unfasten the circuit board.</span>")
 				state = 1
 				icon_state = "1"
 				return
-			if(istype(P, /obj/item/stack/cable_coil))
-				var/obj/item/stack/cable_coil/C = P
+			if(istype(I, /obj/item/stack/cable_coil))
+				var/obj/item/stack/cable_coil/C = I
 				if(C.amount >= 5)
 					playsound(loc, C.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
@@ -566,16 +568,16 @@
 					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
 				return
 		if(3)
-			if(istype(P, /obj/item/wirecutters))
-				playsound(loc, P.usesound, 50, 1)
+			if(istype(I, /obj/item/wirecutters))
+				playsound(loc, I.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You remove the cables.</span>")
 				state = 2
 				icon_state = "2"
-				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( loc )
+				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(loc)
 				A.amount = 5
 				return
-			if(istype(P, /obj/item/stack/sheet/glass))
-				var/obj/item/stack/sheet/glass/G = P
+			if(istype(I, /obj/item/stack/sheet/glass))
+				var/obj/item/stack/sheet/glass/G = I
 				if(G.amount >= 2)
 					playsound(loc, G.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You start to add the glass panel to the frame.</span>")
@@ -591,22 +593,22 @@
 					to_chat(user, "<span class='warning'>You need two sheets of glass for this.</span>")
 				return
 		if(4)
-			if(istype(P, /obj/item/crowbar))
-				playsound(loc, P.usesound, 50, 1)
+			if(istype(I, /obj/item/crowbar))
+				playsound(loc, I.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You remove the glass panel.</span>")
 				state = 3
 				icon_state = "3"
 				new /obj/item/stack/sheet/glass(loc, 2)
 				return
-			if(istype(P, /obj/item/screwdriver))
-				playsound(loc, P.usesound, 50, 1)
+			if(istype(I, /obj/item/screwdriver))
+				playsound(loc, I.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You connect the monitor.</span>")
 				var/B = new circuit.build_path (loc)
 				if(circuit.powernet) B:powernet = circuit.powernet
 				if(circuit.id) B:id = circuit.id
 				if(circuit.records) B:records = circuit.records
 				if(circuit.frequency) B:frequency = circuit.frequency
-				if(istype(circuit,/obj/item/circuitboard/supplycomp))
+				if(istype(circuit, /obj/item/circuitboard/supplycomp))
 					var/obj/machinery/computer/supplycomp/SC = B
 					var/obj/item/circuitboard/supplycomp/C = circuit
 					SC.can_order_contraband = C.contraband_enabled
@@ -634,40 +636,40 @@
 	icon = 'icons/obj/machines/HONKputer.dmi'
 	base_mineral = /obj/item/stack/sheet/mineral/bananium
 
-/obj/structure/computerframe/HONKputer/attackby(obj/item/P as obj, mob/user as mob, params)
+/obj/structure/computerframe/HONKputer/attackby(obj/item/I, mob/user, params)
 	switch(state)
 		if(0)
-			if(istype(P, /obj/item/wrench))
-				playsound(loc, P.usesound, 50, 1)
+			if(istype(I, /obj/item/wrench))
+				playsound(loc, I.usesound, 50, 1)
 				if(do_after(user, 20, target = src))
 					to_chat(user, "<span class='notice'>You wrench the frame into place.</span>")
 					anchored = 1
 					state = 1
 		if(1)
-			if(istype(P, /obj/item/wrench))
-				playsound(loc, P.usesound, 50, 1)
-				if(do_after(user, 20 * P.toolspeed, target = src))
+			if(istype(I, /obj/item/wrench))
+				playsound(loc, I.usesound, 50, 1)
+				if(do_after(user, 20 * I.toolspeed, target = src))
 					to_chat(user, "<span class='notice'>You unfasten the frame.</span>")
 					anchored = 0
 					state = 0
-			if(istype(P, /obj/item/circuitboard) && !circuit)
-				var/obj/item/circuitboard/B = P
+			if(istype(I, /obj/item/circuitboard) && !circuit)
+				var/obj/item/circuitboard/B = I
 				if(B.board_type == "honkcomputer")
-					playsound(loc, P.usesound, 50, 1)
+					playsound(loc, I.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
 					icon_state = "1"
-					circuit = P
+					circuit = I
 					user.drop_item()
-					P.loc = src
+					I.loc = src
 				else
 					to_chat(user, "<span class='warning'>This frame does not accept circuit boards of this type!</span>")
-			if(istype(P, /obj/item/screwdriver) && circuit)
-				playsound(loc, P.usesound, 50, 1)
+			if(istype(I, /obj/item/screwdriver) && circuit)
+				playsound(loc, I.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You screw the circuit board into place.</span>")
 				state = 2
 				icon_state = "2"
-			if(istype(P, /obj/item/crowbar) && circuit)
-				playsound(loc, P.usesound, 50, 1)
+			if(istype(I, /obj/item/crowbar) && circuit)
+				playsound(loc, I.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
 				state = 1
 				icon_state = "0"
@@ -675,13 +677,13 @@
 				circuit = null
 			return
 		if(2)
-			if(istype(P, /obj/item/screwdriver) && circuit)
-				playsound(loc, P.usesound, 50, 1)
+			if(istype(I, /obj/item/screwdriver) && circuit)
+				playsound(loc, I.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You unfasten the circuit board.</span>")
 				state = 1
 				icon_state = "1"
-			if(istype(P, /obj/item/stack/cable_coil))
-				var/obj/item/stack/cable_coil/C = P
+			if(istype(I, /obj/item/stack/cable_coil))
+				var/obj/item/stack/cable_coil/C = I
 				if(C.amount >= 5)
 					playsound(loc, C.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
@@ -697,16 +699,16 @@
 					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
 			return
 		if(3)
-			if(istype(P, /obj/item/wirecutters))
-				playsound(loc, P.usesound, 50, 1)
+			if(istype(I, /obj/item/wirecutters))
+				playsound(loc, I.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You remove the cables.</span>")
 				state = 2
 				icon_state = "2"
-				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( loc )
+				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(loc)
 				A.amount = 5
 
-			if(istype(P, /obj/item/stack/sheet/glass))
-				var/obj/item/stack/sheet/glass/G = P
+			if(istype(I, /obj/item/stack/sheet/glass))
+				var/obj/item/stack/sheet/glass/G = I
 				if(G.amount >= 2)
 					playsound(loc, G.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You start to add the glass panel to the frame.</span>")
@@ -722,14 +724,14 @@
 					to_chat(user, "<span class='warning'>You need two sheets of glass for this.</span>")
 			return
 		if(4)
-			if(istype(P, /obj/item/crowbar))
-				playsound(loc, P.usesound, 50, 1)
+			if(istype(I, /obj/item/crowbar))
+				playsound(loc, I.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You remove the glass panel.</span>")
 				state = 3
 				icon_state = "3"
 				new /obj/item/stack/sheet/glass(loc, 2)
-			if(istype(P, /obj/item/screwdriver))
-				playsound(loc, P.usesound, 50, 1)
+			if(istype(I, /obj/item/screwdriver))
+				playsound(loc, I.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You connect the monitor.</span>")
 				var/B = new circuit.build_path (loc)
 				if(circuit.powernet) B:powernet = circuit.powernet
