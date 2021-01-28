@@ -13,12 +13,12 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	// SOLO ANTAGS
 	ROLE_TRAITOR = 5,
 	ROLE_CHANGELING = 5,
-	ROLE_WIZARD = 50,
+	ROLE_WIZARD = 20,
 	ROLE_VAMPIRE = 5,
 	ROLE_BLOB = 20,
 	ROLE_REVENANT = 3,
 	ROLE_BORER = 3,
-	ROLE_NINJA = 50,
+	ROLE_NINJA = 20,
 	ROLE_MORPH = 5,
 	ROLE_DEMON = 5,
 
@@ -28,9 +28,9 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 
 	// TEAM ANTAGS
 	// Higher numbers here, because they require more experience to be played correctly
-	ROLE_SHADOWLING = 40,
+	ROLE_SHADOWLING = 20,
 	ROLE_REV = 10,
-	ROLE_OPERATIVE = 40,
+	ROLE_OPERATIVE = 20,
 	ROLE_CULTIST = 20,
 	ROLE_RAIDER = 10,
 	ROLE_ALIEN = 10,
