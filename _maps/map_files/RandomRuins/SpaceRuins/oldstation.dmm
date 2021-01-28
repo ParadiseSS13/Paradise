@@ -549,9 +549,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation)
 "bD" = (
-/obj/structure/sign/redcross{
-	icon_state = "greencross"
-	},
+/obj/structure/sign/greencross,
 /turf/simulated/wall/rust,
 /area/ruin/space/ancientstation)
 "bE" = (

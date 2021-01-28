@@ -40118,11 +40118,7 @@
 	},
 /area/medical/morgue)
 "bEy" = (
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
-	name = "Medbay"
-	},
+/obj/structure/sign/lifestar,
 /turf/simulated/wall,
 /area/medical/reception)
 "bEz" = (
@@ -44657,11 +44653,7 @@
 	},
 /area/medical/morgue)
 "bNe" = (
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
-	name = "Medbay"
-	},
+/obj/structure/sign/lifestar,
 /turf/simulated/wall/r_wall,
 /area/medical/chemistry)
 "bNf" = (
@@ -47798,11 +47790,7 @@
 /area/medical/medbay2)
 "bSu" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
-	name = "Medbay"
-	},
+/obj/structure/sign/lifestar,
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
@@ -53971,11 +53959,7 @@
 	},
 /area/medical/medbay2)
 "ccD" = (
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
-	name = "Medbay"
-	},
+/obj/structure/sign/lifestar,
 /turf/simulated/wall,
 /area/medical/cryo)
 "ccE" = (
@@ -60893,11 +60877,7 @@
 	},
 /area/hallway/primary/aft)
 "cpj" = (
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
-	name = "Medbay"
-	},
+/obj/structure/sign/lifestar,
 /turf/simulated/wall,
 /area/maintenance/genetics)
 "cpk" = (
