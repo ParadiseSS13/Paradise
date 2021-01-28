@@ -102,10 +102,7 @@
 
 /obj/item/geiger_counter/proc/update_sound()
 	var/datum/looping_sound/geiger/loop = soundloop
-	if(!scanning)
-		loop.stop()
-		return
-	if(!radiation_count)
+	if(!scanning || !radiation_count)
 		loop.stop()
 		return
 	loop.last_radiation = radiation_count
@@ -170,7 +167,7 @@
 	if(!istype(user) || !user.Adjacent(src))
 		return ..()
 	if(!scanning)
-		to_chat(usr, "<span class='warning'>[src] must be on to reset its radiation level!</span>")
+		to_chat(user, "<span class='warning'>[src] must be on to reset its radiation level!</span>")
 		return
 	radiation_count = 0
 	to_chat(user, "<span class='notice'>You flush [src]'s radiation counts, resetting it to normal.</span>")

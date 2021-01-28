@@ -125,10 +125,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/proc/update_sound()
 	var/datum/looping_sound/geiger/loop = soundloop
-	if(!scanning)
-		loop.stop(loc)
-		return
-	if(!radiation_count)
+	if(!scanning || !radiation_count)
 		loop.stop(loc)
 		return
 	loop.last_radiation = radiation_count
