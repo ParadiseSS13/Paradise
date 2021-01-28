@@ -282,9 +282,7 @@
 			ejectItem()
 		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
 			visible_message("<span class='danger'>[src] malfunctions, melting [exp_on] and leaking radiation!</span>")
-			for(var/mob/living/m in oview(1, src))
-				m.apply_effect(25,IRRADIATE)
-				investigate_log("Experimentor has irradiated [m]", "experimentor") //One entry per person so we know what was irradiated.
+			radiation_pulse(src, 500)
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_LOW-badThingCoeff))
 			visible_message("<span class='warning'>[src] malfunctions, spewing toxic waste!</span>")

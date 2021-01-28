@@ -11,6 +11,7 @@
 #define COLOR_WHITE 		   "#FFFFFF"
 #define COLOR_GRAY      	   "#808080"
 #define COLOR_BLACK            "#000000"
+#define COLOR_HALF_TRANSPARENT_BLACK    "#0000007A"
 #define COLOR_NAVY_BLUE        "#000080"
 #define COLOR_LIGHT_GREEN      "#008000"
 #define COLOR_DARK_GRAY        "#404040"

@@ -1033,6 +1033,21 @@
 			return 1
 	return 0
 
+/mob/living/rad_act(amount)
+	. = ..()
+
+	if(!amount || (amount < RAD_MOB_SKIN_PROTECTION))
+		return
+
+	amount -= RAD_BACKGROUND_RADIATION // This will always be at least 1 because of how skin protection is calculated
+
+	var/blocked = getarmor(null, "rad")
+
+	if(amount > RAD_BURN_THRESHOLD)
+		apply_damage(RAD_BURN_CURVE(amount), BURN, null, blocked)
+
+	apply_effect((amount * RAD_MOB_COEFFICIENT) / max(1, (radiation ** 2) * RAD_OVERDOSE_REDUCTION), IRRADIATE, blocked)
+
 /mob/living/proc/fakefireextinguish()
 	return
 

@@ -395,14 +395,18 @@
 	else if((istype(A, /obj/item/pen)) && modified && !FD.pen)
 		if(!user.unEquip(A))
 			return
-		harmful = TRUE
-		A.loc = FD
-		FD.log_override = FALSE
-		FD.pen = A
-		FD.damage = 5
-		FD.nodamage = 0
+		add_pen(A)
 		to_chat(user, "<span class='notice'>You insert [A] into [src].</span>")
 	return
+
+/obj/item/ammo_casing/caseless/foam_dart/proc/add_pen(obj/item/pen/P)
+	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
+	harmful = TRUE
+	P.forceMove(FD)
+	FD.log_override = FALSE
+	FD.pen = P
+	FD.damage = 5
+	FD.nodamage = FALSE
 
 /obj/item/ammo_casing/caseless/foam_dart/attack_self(mob/living/user)
 	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB

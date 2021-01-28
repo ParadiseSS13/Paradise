@@ -439,9 +439,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		anchored = TRUE
 
 /obj/machinery/clonepod/emag_act(user)
-	if(isnull(occupant))
-		return
-	go_out()
+	malfunction()
 
 /obj/machinery/clonepod/proc/update_clone_antag(var/mob/living/carbon/human/H)
 	// Check to see if the clone's mind is an antagonist of any kind and handle them accordingly to make sure they get their spells, HUD/whatever else back.

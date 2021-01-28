@@ -743,11 +743,11 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	for(var/obj/machinery/power/rad_collector/Rad in GLOB.machines)
 		if(Rad.anchored)
-			if(!Rad.P)
+			if(!Rad.loaded_tank)
 				var/obj/item/tank/plasma/Plasma = new/obj/item/tank/plasma(Rad)
 				Plasma.air_contents.toxins = 70
 				Rad.drainratio = 0
-				Rad.P = Plasma
+				Rad.loaded_tank = Plasma
 				Plasma.loc = Rad
 
 			if(!Rad.active)

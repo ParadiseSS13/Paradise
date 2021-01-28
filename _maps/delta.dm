@@ -3,10 +3,9 @@ All z-levels should be identical in size. Their numbers should not matter.
 The order of z-levels should not matter as long as their attributes are properly defined at MAP_TRANSITION_CONFIG.
 Old code checked for the number of the z-level (for example whether there are any revheads on Z1),
 currently it should check for the define (for example whether there are any revheads on any z-levels defined as STATION_LEVEL).
-z1 = station
-z2 = centcomm
-z3 = space (empty)
-z4 = lavaland
+z1 = centcomm
+z2 = station
+z3 = lavaland
 
 Original design by Okand37 of TG Station
 Lovingly ported by Purpose2 to Paradise
@@ -17,11 +16,9 @@ Lovingly ported by Purpose2 to Paradise
 	#include "map_files\Delta\z2.dmm"
 	#include "map_files\hispania\Lavaland.dmm"
 
-	#define MAP_FILE "delta.dmm"
-	#define MAP_NAME "Kerberos"
 	#define MAP_TRANSITION_CONFIG list(\
-DECLARE_LEVEL(MAIN_STATION, CROSSLINKED, list(STATION_LEVEL, STATION_CONTACT, REACHABLE, AI_OK)),\
 DECLARE_LEVEL(CENTCOMM, SELFLOOPING, list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC)),\
+DECLARE_LEVEL(MAIN_STATION, CROSSLINKED, list(STATION_LEVEL, STATION_CONTACT, REACHABLE, AI_OK)),\
 DECLARE_LEVEL(MINING, SELFLOOPING, list(ORE_LEVEL, REACHABLE, STATION_CONTACT, HAS_WEATHER, AI_OK)))
 
 	#define USING_MAP_DATUM /datum/map/delta

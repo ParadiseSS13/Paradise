@@ -102,7 +102,6 @@ Class Procs:
 	max_integrity = 200
 	layer = BELOW_OBJ_LAYER
 	var/stat = 0
-	var/emagged = 0
 	var/use_power = IDLE_POWER_USE
 		//0 = dont run the auto
 		//1 = run auto, use idle

@@ -14,7 +14,6 @@
 	width = 12
 	dwidth = 5
 	height = 7
-	roundstart_move = "supply_away"
 
 /obj/docking_port/mobile/supply/register()
 	if(!..())

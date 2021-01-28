@@ -315,6 +315,7 @@
 	damage = 15
 	damage_type = BURN
 	flag = "magic"
+	sharp = TRUE
 	dismemberment = 50
 	nodamage = 0
 

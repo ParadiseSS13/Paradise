@@ -7,7 +7,7 @@
 	max_damage = 0
 	dir = SOUTH
 	organ_tag = "limb"
-
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2 // On Para, external organs have a loc, ergo they need this.
 	var/brute_mod = 1
 	var/burn_mod = 1
 

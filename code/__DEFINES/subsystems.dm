@@ -129,8 +129,9 @@
 
 #define RUNLEVELS_DEFAULT (RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME)
 
+// This do{} WHILE (FALSE) syntax may look stupid, but it speeds things up because BYOND memes
 #define COMPILE_OVERLAYS(A)\
-	if (TRUE) {\
+	do { \
 		var/list/ad = A.add_overlays;\
 		var/list/rm = A.remove_overlays;\
 		var/list/po = A.priority_overlays;\
@@ -146,4 +147,4 @@
 			A.overlays |= po;\
 		}\
 		A.flags_2 &= ~OVERLAY_QUEUED_2;\
-}
+} while (FALSE)
