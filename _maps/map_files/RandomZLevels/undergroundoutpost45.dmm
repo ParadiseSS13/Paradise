@@ -10849,10 +10849,8 @@
 	name = "UO45 Engineering"
 	})
 "qg" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	current_temperature = 80;
-	dir = 2;
-	on = 1
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on/server{
+	dir = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

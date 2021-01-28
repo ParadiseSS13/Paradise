@@ -575,7 +575,7 @@
 	},
 /area/shuttle/administration)
 "bi" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -1101,7 +1101,7 @@
 	},
 /area/shuttle/administration)
 "cj" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer,
+/obj/machinery/atmospherics/unary/thermomachine/freezer,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},

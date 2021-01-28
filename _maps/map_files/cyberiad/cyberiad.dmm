@@ -47901,7 +47901,7 @@
 	},
 /area/medical/genetics_cloning)
 "bSC" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer,
+/obj/machinery/atmospherics/unary/thermomachine/freezer,
 /obj/machinery/alarm{
 	pixel_y = 25
 	},
@@ -53878,7 +53878,7 @@
 	},
 /area/medical/cryo)
 "ccy" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 1
 	},
 /obj/machinery/camera{
@@ -54287,11 +54287,7 @@
 	},
 /area/engine/gravitygenerator)
 "cdb" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	current_temperature = 80;
-	dir = 2;
-	on = 1
-	},
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on/server,
 /obj/item/radio/intercom{
 	broadcasting = 0;
 	name = "station intercom (General)";
@@ -61596,7 +61592,7 @@
 	dir = 1;
 	in_use = 1
 	},
-/obj/machinery/atmospherics/unary/cold_sink/freezer,
+/obj/machinery/atmospherics/unary/thermomachine/freezer,
 /obj/effect/decal/warning_stripes/northwestcorner,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -77913,10 +77909,8 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "cTA" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	dir = 8;
-	icon_state = "freezer_0";
-	tag = ""
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -81358,10 +81352,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "daV" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	dir = 8;
-	icon_state = "freezer_0";
-	tag = ""
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -82797,10 +82789,8 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "dei" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater{
-	dir = 8;
-	icon_state = "freezer_0";
-	tag = ""
+/obj/machinery/atmospherics/unary/thermomachine/heater{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)

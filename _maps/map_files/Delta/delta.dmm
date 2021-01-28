@@ -9598,9 +9598,8 @@
 /area/space/nearstation)
 "aAf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/unary/heat_reservoir/heater{
-	dir = 4;
-	on = 1
+/obj/machinery/atmospherics/unary/thermomachine/heater/on{
+	dir = 4
 	},
 /obj/machinery/camera{
 	c_tag = "Supermatter West";
@@ -10088,7 +10087,7 @@
 /area/maintenance/fsmaint)
 "aBh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -22428,9 +22427,8 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "aXj" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater{
-	dir = 8;
-	on = 0
+/obj/machinery/atmospherics/unary/thermomachine/heater{
+	dir = 8
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -23122,9 +23120,8 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "aYz" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater{
-	dir = 4;
-	on = 1
+/obj/machinery/atmospherics/unary/thermomachine/heater/on{
+	dir = 4
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -35230,7 +35227,7 @@
 	},
 /area/atmos)
 "bur" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater,
+/obj/machinery/atmospherics/unary/thermomachine/heater,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -35239,7 +35236,7 @@
 /area/atmos)
 "bus" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/yellow,
@@ -35857,9 +35854,8 @@
 	},
 /area/turret_protected/ai)
 "bvD" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater{
-	dir = 1;
-	on = 1
+/obj/machinery/atmospherics/unary/thermomachine/heater/on{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -76544,11 +76540,8 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "cOV" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	current_temperature = 80;
-	dir = 1;
-	min_temperature = 80;
-	on = 1
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on/server{
+	dir = 1
 	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26;
@@ -88980,7 +88973,7 @@
 	},
 /area/medical/medbay)
 "dls" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/south,
@@ -90776,9 +90769,8 @@
 	},
 /area/crew_quarters/hor)
 "doO" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater{
-	dir = 8;
-	on = 0
+/obj/machinery/atmospherics/unary/thermomachine/heater{
+	dir = 8
 	},
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel,
@@ -94950,7 +94942,7 @@
 	},
 /area/toxins/mixing)
 "dwc" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/northwest,
@@ -95039,8 +95031,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	current_temperature = 80;
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on/server{
 	on = 1
 	},
 /turf/simulated/floor/plasteel{

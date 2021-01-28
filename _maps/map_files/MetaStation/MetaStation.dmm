@@ -45821,9 +45821,8 @@
 	name = "Port Maintenance"
 	})
 "bHe" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater{
-	dir = 2;
-	on = 1
+/obj/machinery/atmospherics/unary/thermomachine/heater/on{
+	dir = 2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -56003,7 +56002,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cag" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater{
+/obj/machinery/atmospherics/unary/thermomachine/heater{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -56888,7 +56887,7 @@
 	},
 /area/hydroponics)
 "cbT" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -74002,7 +74001,7 @@
 	})
 "cFF" = (
 /obj/machinery/light,
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/south,
@@ -74537,7 +74536,7 @@
 	dir = 2;
 	pixel_y = 24
 	},
-/obj/machinery/atmospherics/unary/cold_sink/freezer,
+/obj/machinery/atmospherics/unary/thermomachine/freezer,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing{
@@ -79203,10 +79202,8 @@
 	name = "\improper Research Division Server Room"
 	})
 "cOl" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	current_temperature = 80;
-	dir = 2;
-	on = 1
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on/server{
+	dir = 2
 	},
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel{
