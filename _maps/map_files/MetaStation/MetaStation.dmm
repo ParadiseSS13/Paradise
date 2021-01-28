@@ -2755,15 +2755,15 @@
 	},
 /area/security/permabrig)
 "ahA" = (
-/obj/item/tank/oxygen{
+/obj/item/tank/internals/oxygen{
 	pixel_x = -4;
 	pixel_y = -1
 	},
-/obj/item/tank/oxygen{
+/obj/item/tank/internals/oxygen{
 	pixel_x = 4;
 	pixel_y = -1
 	},
-/obj/item/tank/anesthetic{
+/obj/item/tank/internals/anesthetic{
 	pixel_x = 2
 	},
 /obj/item/storage/toolbox/mechanical,
@@ -15684,8 +15684,8 @@
 /obj/item/clothing/gloves/color/yellow,
 /obj/item/clothing/suit/storage/hazardvest,
 /obj/item/clothing/suit/storage/hazardvest,
-/obj/item/tank/emergency_oxygen/engi,
-/obj/item/tank/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -33709,7 +33709,7 @@
 	},
 /area/engine/chiefs_office)
 "bmF" = (
-/obj/item/tank/air,
+/obj/item/tank/internals/air,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral{
@@ -43286,10 +43286,10 @@
 /obj/item/clothing/mask/breath{
 	pixel_x = 4
 	},
-/obj/item/tank/emergency_oxygen{
+/obj/item/tank/internals/emergency_oxygen{
 	pixel_x = -8
 	},
-/obj/item/tank/emergency_oxygen{
+/obj/item/tank/internals/emergency_oxygen{
 	pixel_x = -8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -46532,7 +46532,7 @@
 /obj/item/clothing/mask/breath{
 	pixel_x = 4
 	},
-/obj/item/tank/emergency_oxygen{
+/obj/item/tank/internals/emergency_oxygen{
 	pixel_x = -8
 	},
 /obj/structure/table,
@@ -49053,7 +49053,7 @@
 /obj/machinery/power/rad_collector{
 	anchored = 1
 	},
-/obj/item/tank/plasma,
+/obj/item/tank/internals/plasma,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -54249,8 +54249,8 @@
 /turf/simulated/floor/wood,
 /area/ntrep)
 "bWR" = (
-/obj/item/tank/oxygen,
-/obj/item/tank/oxygen,
+/obj/item/tank/internals/oxygen,
+/obj/item/tank/internals/oxygen,
 /obj/item/clothing/mask/gas,
 /obj/item/clothing/mask/gas,
 /obj/structure/table,
@@ -69575,7 +69575,7 @@
 	})
 "cyh" = (
 /obj/structure/rack,
-/obj/item/tank/anesthetic,
+/obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/gas,
 /turf/simulated/floor/plating,
 /area/maintenance/aft{
@@ -70517,8 +70517,8 @@
 	name = "Aft Maintenance"
 	})
 "czL" = (
-/obj/item/tank/air,
-/obj/item/tank/air,
+/obj/item/tank/internals/air,
+/obj/item/tank/internals/air,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
 /obj/machinery/space_heater,
@@ -72843,7 +72843,7 @@
 /area/medical/genetics)
 "cDB" = (
 /obj/structure/rack,
-/obj/item/tank/air,
+/obj/item/tank/internals/air,
 /obj/item/wrench,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
@@ -88435,7 +88435,7 @@
 "dgm" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/emcloset,
-/obj/item/tank/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
 /obj/item/clothing/mask/breath,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry{
@@ -91155,7 +91155,7 @@
 /obj/item/clothing/mask/breath{
 	pixel_x = 4
 	},
-/obj/item/tank/emergency_oxygen{
+/obj/item/tank/internals/emergency_oxygen{
 	pixel_x = -8
 	},
 /turf/simulated/floor/plating,
