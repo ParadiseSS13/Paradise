@@ -29,6 +29,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/data_hud_seen = FALSE //this should one of the defines in __DEFINES/hud.dm
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 	var/health_scan = FALSE //does the ghost have health scanner mode on? by default it should be off
+	var/datum/orbit_menu/orbit_menu
 
 /mob/dead/observer/New(mob/body=null, flags=1)
 	set_invisibility(GLOB.observer_default_invisibility)
@@ -41,7 +42,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		/mob/dead/observer/proc/open_spawners_menu)
 
 	// Our new boo spell.
-	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/boo(null))
+	AddSpell(new /obj/effect/proc_holder/spell/targeted/click/boo(null))
 
 	can_reenter_corpse = flags & GHOST_CAN_REENTER
 	started_as_observer = flags & GHOST_IS_OBSERVER
@@ -93,6 +94,9 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		GLOB.ghost_images -= ghostimage
 		QDEL_NULL(ghostimage)
 		updateallghostimages()
+	if(orbit_menu)
+		SStgui.close_uis(orbit_menu)
+		QDEL_NULL(orbit_menu)
 	return ..()
 
 /mob/dead/observer/examine(mob/user)
@@ -378,10 +382,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			H.remove_hud_from(usr)
 	if(!M.antagHUD)
 		to_chat(usr, "AntagHud Toggled ON")
-		M.antagHUD = 1
+		M.antagHUD = TRUE
 	else
 		to_chat(usr, "AntagHud Toggled OFF")
-		M.antagHUD = 0
+		M.antagHUD = FALSE
 
 /mob/dead/observer/proc/dead_tele()
 	set category = "Ghost"
@@ -415,9 +419,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Orbit" // "Haunt"
 	set desc = "Follow and orbit a mob."
 
-	var/list/mobs = getpois(FALSE, TRUE, TRUE, TRUE)
-	var/datum/async_input/A = input_autocomplete_async(usr, "Please, select a mob: ", mobs)
-	A.on_close(CALLBACK(src, .proc/ManualFollow))
+	if(!orbit_menu)
+		orbit_menu = new(src)
+
+	orbit_menu.ui_interact(src)
 
 // This is the ghost's follow verb with an argument
 /mob/dead/observer/proc/ManualFollow(atom/movable/target)
@@ -576,7 +581,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/dat
 	dat += "<h4>Crew Manifest</h4>"
-	dat += GLOB.data_core.get_manifest()
+	dat += GLOB.data_core.get_manifest(OOC = TRUE)
 
 	src << browse(dat, "window=manifest;size=370x420;can_close=1")
 
@@ -647,8 +652,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Toggle Anonymous Dead-chat"
 	set category = "Ghost"
 	set desc = "Toggles showing your key in dead chat."
-	client.prefs.ghost_anonsay = !client.prefs.ghost_anonsay
-	to_chat(src, "As a ghost, your key will [(client.prefs.ghost_anonsay) ? "no longer" : "now"] be shown when you speak in dead chat.</span>")
+	client.prefs.toggles2 ^= PREFTOGGLE_2_ANONDCHAT
+	to_chat(src, "As a ghost, your key will [(client.prefs.toggles2 & PREFTOGGLE_2_ANONDCHAT) ? "no longer" : "now"] be shown when you speak in dead chat.</span>")
 	client.prefs.save_preferences(src)
 
 /mob/dead/observer/verb/toggle_ghostsee()
@@ -734,9 +739,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 //overriden here and in /mob/living for different point span classes and sanity checks
 /mob/dead/observer/pointed(atom/A as mob|obj|turf in view())
 	if(!..())
-		return 0
-	usr.visible_message("<span class='deadsay'><b>[src]</b> points to [A].</span>")
-	return 1
+		return FALSE
+	var/follow_link
+	if(invisibility) // Only show the button if the ghost is not visible to the living
+		follow_link = " ([ghost_follow_link(A, src)])"
+	usr.visible_message("<span class='deadsay'><b>[src]</b> points to [A][follow_link].</span>")
+	return TRUE
 
 /mob/dead/observer/proc/incarnate_ghost()
 	if(!client)

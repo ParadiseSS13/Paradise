@@ -42,12 +42,14 @@
 	if(key)
 		if(C && C.holder && C.holder.fakekey && !include_name)
 			if(include_link)
-				. += "<a href='?priv_msg=[C.findStealthKey()];type=[type]'>"
+				. += "<a href='?priv_msg=[C.getStealthKey()];type=[type]'>"
 			. += "Administrator"
 		else
 			if(include_link && C)
-				. += "<a href='?priv_msg=[C.UID()];type=[type]'>"
+				. += "<a href='?priv_msg=[C.ckey];type=[type]'>"
 			. += key
+			if(C && C.watchlisted)
+				. += "<font color='orange'><b>(W)</b></font>"
 
 		if(include_link)
 			if(C)	. += "</a>"

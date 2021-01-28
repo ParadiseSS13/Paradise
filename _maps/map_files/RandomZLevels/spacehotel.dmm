@@ -3298,7 +3298,7 @@
 /area/awaymission/spacehotel/kitchen)
 "hh" = (
 /obj/structure/table,
-/obj/machinery/microwave,
+/obj/machinery/kitchen_machine/microwave,
 /turf/unsimulated/floor{
 	icon_state = "cafeteria"
 	},
@@ -3888,7 +3888,7 @@
 /turf/unsimulated/floor/plating,
 /area/awaymission/spacehotel)
 "iL" = (
-/obj/machinery/power/supermatter_shard,
+/obj/machinery/power/supermatter_crystal/shard,
 /turf/unsimulated/floor/plating,
 /area/awaymission/spacehotel)
 "iM" = (

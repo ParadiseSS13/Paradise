@@ -7,7 +7,7 @@
 	max_damage = 0
 	dir = SOUTH
 	organ_tag = "limb"
-
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2 // On Para, external organs have a loc, ergo they need this.
 	var/brute_mod = 1
 	var/burn_mod = 1
 
@@ -40,6 +40,9 @@
 	var/obj/item/organ/external/parent
 	var/list/obj/item/organ/external/children
 	var/list/convertable_children = list()
+
+	// Does the organ take reduce damage from EMPs? IPC limbs get this by default
+	var/emp_resistant = FALSE
 
 	// Internal organs of this body part
 	var/list/internal_organs = list()
@@ -255,6 +258,32 @@
 		owner.updatehealth("limb heal damage")
 
 	return update_icon()
+
+/obj/item/organ/external/emp_act(severity)
+	if(!is_robotic() || emp_proof)
+		return
+	if(tough) // Augmented limbs (remember they take -5 brute/-4 burn damage flat so any value below is compensated)
+		switch(severity)
+			if(1)
+				// 44 total burn damage with 11 augmented limbs
+				receive_damage(0, 8)
+			if(2)
+				// 22 total burn damage with 11 augmented limbs
+				receive_damage(0, 6)
+	else if(emp_resistant) // IPC limbs
+		switch(severity)
+			if(1)
+				// 5.28 (9 * 0.66 burn_mod) burn damage, 65.34 damage with 11 limbs.
+				receive_damage(0, 9)
+			if(2)
+				// 3.63 (5 * 0.66 burn_mod) burn damage, 39.93 damage with 11 limbs.
+				receive_damage(0, 5.5)
+	else // Basic prosthetic limbs
+		switch(severity)
+			if(1)
+				receive_damage(0, 20)
+			if(2)
+				receive_damage(0, 7)
 
 /*
 This function completely restores a damaged organ to perfect condition.

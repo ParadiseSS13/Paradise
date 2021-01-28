@@ -220,7 +220,9 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/datum/wires/explosive/gibtonite/wires
 
 /obj/item/twohanded/required/gibtonite/Destroy()
-	QDEL_NULL(wires)
+	if(wires)
+		SStgui.close_uis(wires)
+		QDEL_NULL(wires)
 	return ..()
 
 /obj/item/twohanded/required/gibtonite/attackby(obj/item/I, mob/user, params)

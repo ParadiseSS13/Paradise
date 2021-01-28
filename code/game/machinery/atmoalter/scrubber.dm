@@ -1,18 +1,18 @@
+
+#define MAX_RATE 10 * ONE_ATMOSPHERE
+
 /obj/machinery/portable_atmospherics/scrubber
 	name = "Portable Air Scrubber"
-
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "pscrubber:0"
-	density = 1
-
-	var/on = 0
-	var/volume_rate = 800
-	var/widenet = 0 //is this scrubber acting on the 3x3 area around it.
-
+	density = TRUE
 	volume = 750
-
-	var/minrate = 0//probably useless, but whatever
-	var/maxrate = 10 * ONE_ATMOSPHERE
+	/// Whether the scrubber is switched on or off.
+	var/on = FALSE
+	/// The volume of gas that can be scrubbed every time `process_atmos()` is called (0.5 seconds).
+	var/volume_rate = 101.325
+	/// Is this scrubber acting on the 3x3 area around it.
+	var/widenet = FALSE
 
 /obj/machinery/portable_atmospherics/scrubber/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
@@ -26,7 +26,7 @@
 	..(severity)
 
 /obj/machinery/portable_atmospherics/scrubber/update_icon()
-	src.overlays = 0
+	overlays = 0
 
 	if(on)
 		icon_state = "pscrubber:1"
@@ -53,7 +53,7 @@
 			for(var/turf/simulated/tile in T.GetAtmosAdjacentTurfs(alldir=1))
 				scrub(tile)
 
-/obj/machinery/portable_atmospherics/scrubber/proc/scrub(var/turf/simulated/tile)
+/obj/machinery/portable_atmospherics/scrubber/proc/scrub(turf/simulated/tile)
 	var/datum/gas_mixture/environment
 	if(holding)
 		environment = holding.air_contents
@@ -99,62 +99,62 @@
 /obj/machinery/portable_atmospherics/scrubber/return_air()
 	return air_contents
 
-/obj/machinery/portable_atmospherics/scrubber/attack_ai(var/mob/user as mob)
-	src.add_hiddenprint(user)
-	return src.attack_hand(user)
+/obj/machinery/portable_atmospherics/scrubber/attack_ai(mob/user)
+	add_hiddenprint(user)
+	return attack_hand(user)
 
-/obj/machinery/portable_atmospherics/scrubber/attack_ghost(var/mob/user as mob)
-	return src.attack_hand(user)
+/obj/machinery/portable_atmospherics/scrubber/attack_ghost(mob/user)
+	return attack_hand(user)
 
-/obj/machinery/portable_atmospherics/scrubber/attack_hand(var/mob/user as mob)
+/obj/machinery/portable_atmospherics/scrubber/attack_hand(mob/user)
 	ui_interact(user)
 	return
 
-/obj/machinery/portable_atmospherics/scrubber/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = GLOB.physical_state)
-	// update the ui if it exists, returns null if no ui is passed/found
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/portable_atmospherics/scrubber/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "portscrubber.tmpl", "Portable Scrubber", 480, 400, state = state)
-		// open the new ui window
+		ui = new(user, src, ui_key, "PortableScrubber", "Portable Scrubber", 433, 346, master_ui, state)
 		ui.open()
-		// auto update every Master Controller tick
-		ui.set_auto_update(1)
+		ui.set_autoupdate(TRUE)
 
-/obj/machinery/portable_atmospherics/scrubber/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.physical_state)
-	var/data[0]
-	data["portConnected"] = connected_port ? 1 : 0
-	data["tankPressure"] = round(air_contents.return_pressure() > 0 ? air_contents.return_pressure() : 0)
-	data["rate"] = round(volume_rate)
-	data["minrate"] = round(minrate)
-	data["maxrate"] = round(maxrate)
-	data["on"] = on ? 1 : 0
-
-	data["hasHoldingTank"] = holding ? 1 : 0
+/obj/machinery/portable_atmospherics/scrubber/ui_data(mob/user)
+	var/list/data = list(
+		"on" = on,
+		"port_connected" = connected_port ? TRUE : FALSE,
+		"max_rate" = MAX_RATE,
+		"rate" = round(volume_rate, 0.001),
+		"tank_pressure" = air_contents.return_pressure() > 0 ? round(air_contents.return_pressure(), 0.001) : 0
+	)
 	if(holding)
-		data["holdingTank"] = list("name" = holding.name, "tankPressure" = round(holding.air_contents.return_pressure() > 0 ? holding.air_contents.return_pressure() : 0))
+		data["has_holding_tank"] = TRUE
+		data["holding_tank"] = list("name" = holding.name, "tank_pressure" = holding.air_contents.return_pressure() > 0 ? round(holding.air_contents.return_pressure(), 0.001) : 0)
+	else
+		data["has_holding_tank"] = FALSE
 
 	return data
 
-/obj/machinery/portable_atmospherics/scrubber/Topic(href, href_list)
+/obj/machinery/portable_atmospherics/scrubber/ui_act(action, list/params)
 	if(..())
-		return 1
+		return
 
-	if(href_list["power"])
-		on = !on
-		update_icon()
+	switch(action)
+		if("power")
+			on = !on
+			update_icon()
+			return TRUE
 
-	if(href_list["remove_tank"])
-		if(holding)
-			holding.loc = loc
-			holding = null
+		if("remove_tank")
+			if(holding)
+				holding.forceMove(get_turf(src))
+				holding = null
+			update_icon()
+			return TRUE
 
-	if(href_list["volume_adj"])
-		var/diff = text2num(href_list["volume_adj"])
-		volume_rate = clamp(volume_rate+diff, minrate, maxrate)
+		if("set_rate")
+			volume_rate = clamp(text2num(params["rate"]), 0, MAX_RATE)
+			return TRUE
 
-	src.add_fingerprint(usr)
+	add_fingerprint(usr)
 
 /obj/machinery/portable_atmospherics/scrubber/huge
 	name = "Huge Air Scrubber"
@@ -175,36 +175,38 @@
 
 	name = "[name] (ID [id])"
 
-/obj/machinery/portable_atmospherics/scrubber/huge/attack_hand(var/mob/user as mob)
+/obj/machinery/portable_atmospherics/scrubber/huge/attack_hand(mob/user)
 	to_chat(usr, "<span class='warning'>You can't directly interact with this machine. Use the area atmos computer.</span>")
 
 /obj/machinery/portable_atmospherics/scrubber/huge/update_icon()
-	src.overlays = 0
+	overlays = 0
 
 	if(on)
 		icon_state = "scrubber:1"
 	else
 		icon_state = "scrubber:0"
 
-/obj/machinery/portable_atmospherics/scrubber/huge/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	if(istype(W, /obj/item/wrench))
-		if(stationary)
-			to_chat(user, "<span class='warning'>The bolts are too tight for you to unscrew!</span>")
-			return
-		if(on)
-			to_chat(user, "<span class='warning'>Turn it off first!</span>")
-			return
-
-		anchored = !anchored
-		playsound(loc, W.usesound, 50, 1)
-		to_chat(user, "<span class='notice'>You [anchored ? "wrench" : "unwrench"] \the [src].</span>")
-		return
-
+/obj/machinery/portable_atmospherics/scrubber/huge/attackby(obj/item/W, mob/user, params)
 	if((istype(W, /obj/item/analyzer)) && get_dist(user, src) <= 1)
 		atmosanalyzer_scan(air_contents, user)
 		return
 	return ..()
 
+/obj/machinery/portable_atmospherics/scrubber/huge/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(stationary)
+		to_chat(user, "<span class='warning'>The bolts are too tight for you to unscrew!</span>")
+		return
+	if(on)
+		to_chat(user, "<span class='warning'>Turn it off first!</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	anchored = !anchored
+	to_chat(user, "<span class='notice'>You [anchored ? "wrench" : "unwrench"] [src].</span>")
+
 /obj/machinery/portable_atmospherics/scrubber/huge/stationary
 	name = "Stationary Air Scrubber"
 	stationary = 1
+
+#undef MAX_RATE

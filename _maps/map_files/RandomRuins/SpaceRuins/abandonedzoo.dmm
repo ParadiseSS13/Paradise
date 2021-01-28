@@ -396,7 +396,7 @@
 	},
 /obj/structure/rack,
 /obj/item/clothing/suit/space/hardsuit/medical,
-/obj/item/tank/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -622,7 +622,7 @@
 /area/ruin/unpowered)
 "br" = (
 /obj/structure/table/reinforced,
-/obj/machinery/microwave,
+/obj/machinery/kitchen_machine/microwave,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;

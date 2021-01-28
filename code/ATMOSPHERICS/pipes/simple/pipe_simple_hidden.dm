@@ -29,14 +29,14 @@
 
 /obj/machinery/atmospherics/pipe/simple/hidden/universal/update_icon(var/safety = 0)
 	..()
-	
+
 	if(!check_icon_cache())
 		return
 
 	alpha = 255
 
 	overlays.Cut()
-	overlays += GLOB.pipe_icon_manager.get_atmos_icon("pipe", , pipe_color, "universal")
+	overlays += SSair.icon_manager.get_atmos_icon("pipe", , pipe_color, "universal")
 	underlays.Cut()
 
 	if(node1)
@@ -69,3 +69,9 @@
 
 /obj/machinery/atmospherics/pipe/simple/hidden/purple
 	color = PIPE_COLOR_PURPLE
+
+/obj/machinery/atmospherics/pipe/simple/hidden/red
+	color = PIPE_COLOR_RED
+
+/obj/machinery/atmospherics/pipe/simple/hidden/blue
+	color = PIPE_COLOR_BLUE

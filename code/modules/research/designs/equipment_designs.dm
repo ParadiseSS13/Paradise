@@ -71,6 +71,16 @@
 	build_path = /obj/item/clothing/glasses/hud/security/night
 	category = list("Equipment")
 
+/datum/design/skills_hud
+	name = "Skills HUD"
+	desc = "A heads-up display that scans the humans in view and shows a summary of their NT employment history."
+	id = "skills_hud"
+	req_tech = list("magnets" = 3, "combat" = 2)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
+	build_path = /obj/item/clothing/glasses/hud/skills
+	category = list("Equipment")
+
 /datum/design/mesons
 	name = "Optical Meson Scanners"
 	desc = "Used for seeing walls, floors, and stuff through anything."
@@ -79,6 +89,27 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	build_path = /obj/item/clothing/glasses/meson
+	category = list("Equipment")
+
+
+/datum/design/engine_goggles
+	name = "Engineering Scanner Goggles"
+	desc = "Goggles used by engineers. The Meson Scanner mode lets you see basic structural and terrain layouts through walls, regardless of lighting condition. The T-ray Scanner mode lets you see underfloor objects such as cables and pipes."
+	id = "engine_goggles"
+	req_tech = list("materials" = 4, "magnets" = 3, "engineering" = 4, "plasmatech" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_PLASMA = 100)
+	build_path = /obj/item/clothing/glasses/meson/engine
+	category = list("Equipment")
+
+/datum/design/tray_goggles
+	name = "Optical T-Ray Scanners"
+	desc = "Used by engineering staff to see underfloor objects such as cables and pipes."
+	id = "tray_goggles"
+	req_tech = list("materials" = 3, "magnets" = 2, "engineering" = 2)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
+	build_path = /obj/item/clothing/glasses/meson/engine/tray
 	category = list("Equipment")
 
 /datum/design/nvgmesons

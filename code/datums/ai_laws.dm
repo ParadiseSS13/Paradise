@@ -24,8 +24,8 @@
 /datum/ai_laws
 	var/name = "Unknown Laws"
 	var/law_header = "Prime Directives"
-	var/selectable = 0
-	var/default = 0
+	var/selectable = FALSE
+	var/default = FALSE
 	var/datum/ai_law/zero/zeroth_law = null
 	var/datum/ai_law/zero/zeroth_law_borg = null
 	var/list/datum/ai_law/inherent_laws = list()
@@ -107,6 +107,8 @@
 			laws.set_zeroth_law(zeroth_law_borg.law)
 		else if(zeroth_law)
 			laws.set_zeroth_law(zeroth_law.law)
+		else
+			laws.clear_zeroth_laws()
 
 /mob/living/silicon/ai/sync_zeroth(var/datum/ai_law/zeroth_law, var/datum/ai_law/zeroth_law_borg)
 	if(zeroth_law)

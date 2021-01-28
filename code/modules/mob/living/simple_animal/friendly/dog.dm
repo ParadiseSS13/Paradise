@@ -10,8 +10,8 @@
 	response_harm   = "kicks"
 	speak = list("YAP", "Woof!", "Bark!", "AUUUUUU")
 	speak_emote = list("barks", "woofs")
-	emote_hear = list("barks!", "woofs!", "yaps.","pants.")
-	emote_see = list("shakes its head.", "chases its tail.","shivers.")
+	emote_hear = list("barks!", "woofs!", "yaps.", "pants.")
+	emote_see = list("shakes its head.", "chases its tail.", "shivers.")
 	faction = list("neutral")
 	see_in_dark = 5
 	speak_chance = 1
@@ -420,14 +420,19 @@
 	unique_pet = TRUE
 	var/age = 0
 	var/record_age = 1
-	var/memory_saved = FALSE
 	var/saved_head //path
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/Initialize(mapload)
 	. = ..()
-	//parent call must happen first to ensure IAN
-	//is not in nullspace when child puppies spawn
-	Read_Memory()
+	SSpersistent_data.register(src)
+
+/mob/living/simple_animal/pet/dog/corgi/Ian/death()
+	write_memory(TRUE)
+	SSpersistent_data.registered_atoms -= src // We already wrote here, dont overwrite!
+	..()
+
+/mob/living/simple_animal/pet/dog/corgi/Ian/persistent_load()
+	read_memory()
 	if(age == 0)
 		var/turf/target = get_turf(loc)
 		if(target)
@@ -436,7 +441,8 @@
 			P.real_name = "Ian"
 			P.gender = MALE
 			P.desc = "It's the HoP's beloved corgi puppy."
-			Write_Memory(FALSE)
+			write_memory(FALSE)
+			SSpersistent_data.registered_atoms -= src // We already wrote here, dont overwrite!
 			qdel(src)
 			return
 	else if(age == record_age)
@@ -446,18 +452,10 @@
 		desc = "At a ripe old age of [record_age], Ian's not as spry as he used to be, but he'll always be the HoP's beloved corgi." //RIP
 		turns_per_move = 20
 
-/mob/living/simple_animal/pet/dog/corgi/Ian/Life()
-	if(!stat && SSticker.current_state == GAME_STATE_FINISHED && !memory_saved)
-		Write_Memory(FALSE)
-		memory_saved = TRUE
-	..()
+/mob/living/simple_animal/pet/dog/corgi/Ian/persistent_save()
+	write_memory(FALSE)
 
-/mob/living/simple_animal/pet/dog/corgi/Ian/death()
-	if(!memory_saved)
-		Write_Memory(TRUE)
-	..()
-
-/mob/living/simple_animal/pet/dog/corgi/Ian/proc/Read_Memory()
+/mob/living/simple_animal/pet/dog/corgi/Ian/proc/read_memory()
 	if(fexists("data/npc_saves/Ian.sav")) //legacy compatability to convert old format to new
 		var/savefile/S = new /savefile("data/npc_saves/Ian.sav")
 		S["age"] 		>> age
@@ -478,8 +476,9 @@
 		record_age = 1
 	if(saved_head)
 		place_on_head(new saved_head)
+	log_debug("Persistent data for [src] loaded (age: [age] | record_age: [record_age] | saved_head: [saved_head ? saved_head : "None"])")
 
-/mob/living/simple_animal/pet/dog/corgi/Ian/proc/Write_Memory(dead)
+/mob/living/simple_animal/pet/dog/corgi/Ian/proc/write_memory(dead)
 	var/json_file = file("data/npc_saves/Ian.json")
 	var/list/file_data = list()
 	if(!dead)
@@ -498,6 +497,7 @@
 		file_data["saved_head"] = null
 	fdel(json_file)
 	WRITE_FILE(json_file, json_encode(file_data))
+	log_debug("Persistent data for [src] saved (age: [age] | record_age: [record_age] | saved_head: [saved_head ? saved_head : "None"])")
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/handle_automated_movement()
 	. = ..()

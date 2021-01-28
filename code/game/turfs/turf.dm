@@ -40,6 +40,7 @@
 	var/shoe_walking_volume = 20
 
 /turf/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
 	if(initialized)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
@@ -166,13 +167,6 @@
 		if(!O.lastarea)
 			O.lastarea = get_area(O.loc)
 
-	var/loopsanity = 100
-	for(var/atom/A in range(1))
-		if(loopsanity == 0)
-			break
-		loopsanity--
-		A.HasProximity(M)
-
 	// If an opaque movable atom moves around we need to potentially update visibility.
 	if(M.opacity)
 		has_opaque_atom = TRUE // Make sure to do this before reconsider_lights(), incase we're on instant updates. Guaranteed to be on in this case.
@@ -180,7 +174,7 @@
 
 /turf/proc/levelupdate()
 	for(var/obj/O in src)
-		if(O.level == 1)
+		if(O.level == 1 && O.initialized) // Only do this if the object has initialized
 			O.hide(src.intact)
 
 // override for space turfs, since they should never hide anything
@@ -263,6 +257,13 @@
 	if(SSair && !ignore_air)
 		SSair.add_to_active(src)
 
+	//update firedoor adjacency
+	var/list/turfs_to_check = get_adjacent_open_turfs(src) | src
+	for(var/I in turfs_to_check)
+		var/turf/T = I
+		for(var/obj/machinery/door/firedoor/FD in T)
+			FD.CalculateAffectingAreas()
+
 	if(!keep_cabling && !can_have_cabling())
 		for(var/obj/structure/cable/C in contents)
 			qdel(C)
@@ -329,10 +330,6 @@
 
 /turf/proc/Bless()
 	flags |= NOJAUNT
-
-/turf/get_spooked()
-	for(var/atom/movable/AM in contents)
-		AM.get_spooked()
 
 // Defined here to avoid runtimes
 /turf/proc/MakeDry(wet_setting = TURF_WET_WATER)
@@ -563,6 +560,3 @@
 
 /turf/AllowDrop()
 	return TRUE
-
-/turf/proc/water_act(volume, temperature, source)
- 	return FALSE

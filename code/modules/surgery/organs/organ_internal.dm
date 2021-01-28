@@ -36,13 +36,13 @@
 			log_runtime(EXCEPTION("[src] attempted to insert into a [parent_organ], but [parent_organ] wasn't an organ! [atom_loc_line(M)]"), src)
 		else
 			parent.internal_organs |= src
-	//M.internal_bodyparts_by_name[src] |= src(H,1)
 	loc = null
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Grant(M)
 	if(vital)
 		M.update_stat("Vital organ inserted")
+	STOP_PROCESSING(SSobj, src)
 
 // Removes the given organ from its owner.
 // Returns the removed object, which is usually just itself
@@ -71,7 +71,17 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Remove(M)
+	START_PROCESSING(SSobj, src)
 	return src
+
+/obj/item/organ/internal/emp_act(severity)
+	if(!is_robotic() || emp_proof)
+		return
+	switch(severity)
+		if(1)
+			receive_damage(20, 1)
+		if(2)
+			receive_damage(7, 1)
 
 /obj/item/organ/internal/replaced(var/mob/living/carbon/human/target)
     insert(target)
@@ -335,3 +345,18 @@
 			head_organ.f_style = "Very Long Beard"
 			head_organ.facial_colour = "#D8C078"
 			H.update_fhair()
+
+/obj/item/organ/internal/emp_act(severity)
+	if(!is_robotic() || emp_proof)
+		return
+	switch(severity)
+		if(1)
+			receive_damage(20, 1)
+		if(2)
+			receive_damage(7, 1)
+
+/obj/item/organ/internal/handle_germs()
+	..()
+	if(germ_level >= INFECTION_LEVEL_TWO)
+		if(prob(3))	//about once every 30 seconds
+			receive_damage(1, silent = prob(30))

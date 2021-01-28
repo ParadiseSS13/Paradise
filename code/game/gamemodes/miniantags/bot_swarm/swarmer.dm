@@ -19,15 +19,13 @@
 	mob_name = "a swarmer"
 	death = FALSE
 	roundstart = FALSE
-	flavour_text = {"
-	<b>You are a swarmer, a weapon of a long dead civilization. Until further orders from your original masters are received, you must continue to consume and replicate.</b>
-	<b>Clicking on any object will try to consume it, either deconstructing it into its components, destroying it, or integrating any materials it has into you if successful.</b>
-	<b>Ctrl-Clicking on a mob will attempt to remove it from the area and place it in a safe environment for storage.</b>
-	<b>Objectives:</b>
+	important_info = "Follow your objectives, do not make the station inhospitable or try and kill crew."
+	flavour_text = "You are a swarmer, a weapon of a long dead civilization. Until further orders from your original masters are received, you must continue to consume and replicate."
+	description = {" Your goal is to create more of yourself by consuming the station. Clicking on any object will try to consume it, either deconstructing it into its components, destroying it, or integrating any materials it has into you if successful. Ctrl-Clicking on a mob will attempt to remove it from the area and place it in a safe environment for storage.
+	Objectives:
 	1. Consume resources and replicate until there are no more resources left.
 	2. Ensure that this location is fit for invasion at a later date; do not perform actions that would render it dangerous or inhospitable.
-	3. Biological resources will be harvested at a later date; do not harm them.
-	"}
+	3. Biological resources will be harvested at a later date; do not harm them."}
 
 /obj/effect/mob_spawn/swarmer/Initialize(mapload)
 	. = ..()
@@ -196,6 +194,7 @@
 
 /obj/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	if(resistance_flags & INDESTRUCTIBLE)
+		to_chat(S, "<span class='warning'>High value materials detected, consuming [src] would waste them. Aborting.</span>")
 		return FALSE
 	for(var/mob/living/L in contents)
 		if(!issilicon(L) && !isbrain(L))
@@ -204,7 +203,9 @@
 	return ..()
 
 /obj/item/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	return S.Integrate(src)
+	if(..())
+		return S.Integrate(src)
+	return FALSE
 
 /atom/movable/proc/IntegrateAmount()
 	return 0

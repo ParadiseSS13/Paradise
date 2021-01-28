@@ -31,48 +31,65 @@
 /obj/machinery/computer/library/proc/get_page(var/page_num)
 	var/searchquery = ""
 	var/where = 0
+	var/list/sql_params = list()
 	if(query)
 		if(query.title && query.title != "")
-			searchquery += " WHERE title LIKE '%[sanitizeSQL(query.title)]%'"
+			searchquery += " WHERE title LIKE :title"
+			sql_params["title"] = "%[query.title]%"
 			where = 1
 		if(query.author && query.author != "")
-			searchquery += " [!where ? "WHERE" : "AND"] author LIKE '%[sanitizeSQL(query.author)]%'"
+			searchquery += " [!where ? "WHERE" : "AND"] author LIKE :author"
+			sql_params["author"] = "%[query.author]%"
 			where = 1
 		if(query.category && query.category != "")
-			searchquery += " [!where ? "WHERE" : "AND"] category LIKE '%[sanitizeSQL(query.category)]%'"
+			searchquery += " [!where ? "WHERE" : "AND"] category LIKE :cat"
+			sql_params["cat"] = "%[query.category]%"
 			if(query.category == "Fiction")
 				searchquery += " AND category NOT LIKE '%Non-Fiction%'"
 			where = 1
+	
+	// This one doesnt take player input directly, so it doesnt require params
 	searchquery += " [!where ? "WHERE" : "AND"] flagged < [MAX_BOOK_FLAGS]"
-	var/sql = "SELECT id, author, title, category, ckey, flagged FROM [format_table_name("library")] [searchquery] LIMIT [(page_num - 1) * LIBRARY_BOOKS_PER_PAGE], [LIBRARY_BOOKS_PER_PAGE]"
+	// This does though
+	var/sql = "SELECT id, author, title, category, ckey, flagged FROM [format_table_name("library")] [searchquery] LIMIT :lowerlimit, :upperlimit"
+	sql_params["lowerlimit"] = text2num((page_num - 1) * LIBRARY_BOOKS_PER_PAGE)
+	sql_params["upperlimit"] = LIBRARY_BOOKS_PER_PAGE
 
 	// Pagination
-	var/DBQuery/_query = GLOB.dbcon.NewQuery(sql)
-	_query.Execute()
-	if(_query.ErrorMsg())
-		log_world(_query.ErrorMsg())
+	var/datum/db_query/select_query = SSdbcore.NewQuery(sql, sql_params)
+	
+	if(!select_query.warn_execute())
+		qdel(select_query)
+		return
 
 	var/list/results = list()
-	while(_query.NextRow())
+	while(select_query.NextRow())
 		var/datum/cachedbook/CB = new()
 		CB.LoadFromRow(list(
-			"id"      =_query.item[1],
-			"author"  =_query.item[2],
-			"title"   =_query.item[3],
-			"category"=_query.item[4],
-			"ckey"    =_query.item[5],
-			"flagged" =text2num(_query.item[6])
+			"id"      =select_query.item[1],
+			"author"  =select_query.item[2],
+			"title"   =select_query.item[3],
+			"category"=select_query.item[4],
+			"ckey"    =select_query.item[5],
+			"flagged" =text2num(select_query.item[6])
 		))
 		results += CB
+	qdel(select_query)
 	return results
 
 /obj/machinery/computer/library/proc/get_num_results()
-	var/sql = "SELECT COUNT(*) FROM [format_table_name("library")]"
+	var/sql = "SELECT COUNT(id) FROM [format_table_name("library")]"
 
-	var/DBQuery/_query = GLOB.dbcon.NewQuery(sql)
-	_query.Execute()
-	while(_query.NextRow())
-		return text2num(_query.item[1])
+	var/datum/db_query/count_query = SSdbcore.NewQuery(sql)
+	if(!count_query.warn_execute())
+		qdel(count_query)
+		return
+
+	while(count_query.NextRow())
+		var/value = text2num(count_query.item[1])
+		qdel(count_query)
+		return value
+	qdel(count_query)
 	return 0
 
 /obj/machinery/computer/library/proc/get_pagelist()

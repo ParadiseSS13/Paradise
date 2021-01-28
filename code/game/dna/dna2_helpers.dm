@@ -136,7 +136,6 @@
 		var/mob/living/carbon/human/H = src
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 		var/obj/item/organ/internal/eyes/eye_organ = H.get_int_organ(/obj/item/organ/internal/eyes)
-		var/datum/species/S = H.dna.species
 		if(istype(head_organ))
 			dna.write_head_attributes(head_organ)
 		if(istype(eye_organ))
@@ -151,11 +150,13 @@
 
 		H.s_tone   = 35 - dna.GetUIValueRange(DNA_UI_SKIN_TONE, 220) // Value can be negative.
 
-		if(S.has_gender)
-			if(dna.GetUIState(DNA_UI_GENDER))
-				H.change_gender(FEMALE, 0)
-			else
-				H.change_gender(MALE, 0)
+		switch(dna.GetUITriState(DNA_UI_GENDER))
+			if(DNA_GENDER_FEMALE)
+				H.change_gender(FEMALE, FALSE)
+			if(DNA_GENDER_MALE)
+				H.change_gender(MALE, FALSE)
+			if(DNA_GENDER_PLURAL)
+				H.change_gender(PLURAL, FALSE)
 
 		//Head Markings
 		var/head_marks = dna.GetUIValueRange(DNA_UI_HEAD_MARK_STYLE, GLOB.marking_styles_list.len)

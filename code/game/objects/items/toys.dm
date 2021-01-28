@@ -35,7 +35,7 @@
 	desc = "A translucent balloon. There's nothing in it."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "waterballoon-e"
-	item_state = "balloon-empty"
+	item_state = "waterballoon-e"
 
 /obj/item/toy/balloon/New()
 	..()
@@ -99,10 +99,10 @@
 /obj/item/toy/balloon/update_icon()
 	if(src.reagents.total_volume >= 1)
 		icon_state = "waterballoon"
-		item_state = "balloon"
+		item_state = "waterballoon"
 	else
 		icon_state = "waterballoon-e"
-		item_state = "balloon-empty"
+		item_state = "waterballoon-e"
 
 /obj/item/toy/syndicateballoon
 	name = "syndicate balloon"
@@ -210,12 +210,14 @@
 	attack_verb = list("attacked", "struck", "hit")
 	brightness_on = 0
 	sharp_when_wielded = FALSE // It's a toy
+	needs_permit = FALSE
 
 /obj/item/twohanded/dualsaber/toy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
 
-/obj/item/twohanded/dualsaber/toy/IsReflect()//Stops Toy Dualsabers from reflecting energy projectiles
-	return 0
+/obj/item/twohanded/dualsaber/toy/IsReflect()
+	if(wielded)
+		return 2
 
 /obj/item/toy/katana
 	name = "replica katana"
@@ -404,7 +406,7 @@
 
 
 
-obj/item/toy/cards
+/obj/item/toy/cards
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
 	var/parentdeck = null
@@ -416,14 +418,14 @@ obj/item/toy/cards
 	var/card_throw_range = 20
 	var/list/card_attack_verb = list("attacked")
 
-obj/item/toy/cards/New()
+/obj/item/toy/cards/New()
 	..()
 
-obj/item/toy/cards/proc/apply_card_vars(obj/item/toy/cards/newobj, obj/item/toy/cards/sourceobj) // Applies variables for supporting multiple types of card deck
+/obj/item/toy/cards/proc/apply_card_vars(obj/item/toy/cards/newobj, obj/item/toy/cards/sourceobj) // Applies variables for supporting multiple types of card deck
 	if(!istype(sourceobj))
 		return
 
-obj/item/toy/cards/deck
+/obj/item/toy/cards/deck
 	name = "deck of cards"
 	desc = "A deck of space-grade playing cards."
 	icon = 'icons/obj/toy.dmi'
@@ -433,7 +435,7 @@ obj/item/toy/cards/deck
 	var/cooldown = 0
 	var/list/cards = list()
 
-obj/item/toy/cards/deck/New()
+/obj/item/toy/cards/deck/New()
 	..()
 	icon_state = "deck_[deckstyle]_full"
 	for(var/i in 2 to 10)
@@ -458,7 +460,7 @@ obj/item/toy/cards/deck/New()
 	cards += "Ace of Clubs"
 	cards += "Ace of Diamonds"
 
-obj/item/toy/cards/deck/attack_hand(mob/user as mob)
+/obj/item/toy/cards/deck/attack_hand(mob/user as mob)
 	var/choice = null
 	if(cards.len == 0)
 		icon_state = "deck_[deckstyle]_empty"
@@ -476,14 +478,14 @@ obj/item/toy/cards/deck/attack_hand(mob/user as mob)
 	visible_message("<span class='notice'>[user] draws a card from the deck.</span>", "<span class='notice'>You draw a card from the deck.</span>")
 	update_icon()
 
-obj/item/toy/cards/deck/attack_self(mob/user as mob)
+/obj/item/toy/cards/deck/attack_self(mob/user as mob)
 	if(cooldown < world.time - 50)
 		cards = shuffle(cards)
 		playsound(user, 'sound/items/cardshuffle.ogg', 50, 1)
 		user.visible_message("<span class='notice'>[user] shuffles the deck.</span>", "<span class='notice'>You shuffle the deck.</span>")
 		cooldown = world.time
 
-obj/item/toy/cards/deck/attackby(obj/item/toy/cards/singlecard/C, mob/living/user, params)
+/obj/item/toy/cards/deck/attackby(obj/item/toy/cards/singlecard/C, mob/living/user, params)
 	..()
 	if(istype(C))
 		if(C.parentdeck == src)
@@ -498,7 +500,7 @@ obj/item/toy/cards/deck/attackby(obj/item/toy/cards/singlecard/C, mob/living/use
 		update_icon()
 
 
-obj/item/toy/cards/deck/attackby(obj/item/toy/cards/cardhand/C, mob/living/user, params)
+/obj/item/toy/cards/deck/attackby(obj/item/toy/cards/cardhand/C, mob/living/user, params)
 	..()
 	if(istype(C))
 		if(C.parentdeck == src)
@@ -512,7 +514,7 @@ obj/item/toy/cards/deck/attackby(obj/item/toy/cards/cardhand/C, mob/living/user,
 			to_chat(user, "<span class='notice'>You can't mix cards from other decks.</span>")
 		update_icon()
 
-obj/item/toy/cards/deck/MouseDrop(atom/over_object)
+/obj/item/toy/cards/deck/MouseDrop(atom/over_object)
 	var/mob/M = usr
 	if(usr.stat || !ishuman(usr) || !usr.canmove || usr.restrained())
 		return
@@ -536,7 +538,7 @@ obj/item/toy/cards/deck/MouseDrop(atom/over_object)
 	else
 		to_chat(usr, "<span class='notice'>You can't reach it from here.</span>")
 
-obj/item/toy/cards/deck/update_icon()
+/obj/item/toy/cards/deck/update_icon()
 	switch(cards.len)
 		if(0)
 			icon_state = "deck_[deckstyle]_empty"
@@ -547,7 +549,7 @@ obj/item/toy/cards/deck/update_icon()
 		else
 			icon_state = "deck_[deckstyle]_full"
 
-obj/item/toy/cards/cardhand
+/obj/item/toy/cards/cardhand
 	name = "hand of cards"
 	desc = "A number of cards not in a deck, customarily held in ones hand."
 	icon = 'icons/obj/toy.dmi'
@@ -557,11 +559,11 @@ obj/item/toy/cards/cardhand
 	var/choice = null
 
 
-obj/item/toy/cards/cardhand/attack_self(mob/user as mob)
+/obj/item/toy/cards/cardhand/attack_self(mob/user as mob)
 	user.set_machine(src)
 	interact(user)
 
-obj/item/toy/cards/cardhand/interact(mob/user)
+/obj/item/toy/cards/cardhand/interact(mob/user)
 	var/dat = "You have:<BR>"
 	for(var/t in currenthand)
 		dat += "<A href='?src=[UID()];pick=[t]'>A [t].</A><BR>"
@@ -572,7 +574,7 @@ obj/item/toy/cards/cardhand/interact(mob/user)
 	popup.open()
 
 
-obj/item/toy/cards/cardhand/Topic(href, href_list)
+/obj/item/toy/cards/cardhand/Topic(href, href_list)
 	if(..())
 		return
 	if(usr.stat || !ishuman(usr) || !usr.canmove)
@@ -606,7 +608,7 @@ obj/item/toy/cards/cardhand/Topic(href, href_list)
 				qdel(src)
 		return
 
-obj/item/toy/cards/cardhand/attackby(obj/item/toy/cards/singlecard/C, mob/living/user, params)
+/obj/item/toy/cards/cardhand/attackby(obj/item/toy/cards/singlecard/C, mob/living/user, params)
 	if(istype(C))
 		if(C.parentdeck == parentdeck)
 			currenthand += C.cardname
@@ -618,7 +620,7 @@ obj/item/toy/cards/cardhand/attackby(obj/item/toy/cards/singlecard/C, mob/living
 		else
 			to_chat(user, "<span class='notice'>You can't mix cards from other decks.</span>")
 
-obj/item/toy/cards/cardhand/apply_card_vars(obj/item/toy/cards/newobj,obj/item/toy/cards/sourceobj)
+/obj/item/toy/cards/cardhand/apply_card_vars(obj/item/toy/cards/newobj,obj/item/toy/cards/sourceobj)
 	..()
 	newobj.deckstyle = sourceobj.deckstyle
 	newobj.icon_state = "[deckstyle]_hand2" // Another dumb hack, without this the hand is invisible (or has the default deckstyle) until another card is added.
@@ -631,7 +633,7 @@ obj/item/toy/cards/cardhand/apply_card_vars(obj/item/toy/cards/newobj,obj/item/t
 	newobj.resistance_flags = sourceobj.resistance_flags
 
 
-obj/item/toy/cards/singlecard
+/obj/item/toy/cards/singlecard
 	name = "card"
 	desc = "a card"
 	icon = 'icons/obj/toy.dmi'
@@ -642,7 +644,7 @@ obj/item/toy/cards/singlecard
 	pixel_x = -5
 
 
-obj/item/toy/cards/singlecard/examine(mob/user)
+/obj/item/toy/cards/singlecard/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 0)
 		if(ishuman(user))
@@ -653,7 +655,7 @@ obj/item/toy/cards/singlecard/examine(mob/user)
 				. += "<span class='notice'>You need to have the card in your hand to check it.</span>"
 
 
-obj/item/toy/cards/singlecard/verb/Flip()
+/obj/item/toy/cards/singlecard/verb/Flip()
 	set name = "Flip Card"
 	set category = "Object"
 	set src in range(1)
@@ -674,7 +676,7 @@ obj/item/toy/cards/singlecard/verb/Flip()
 		name = "card"
 		pixel_x = -5
 
-obj/item/toy/cards/singlecard/attackby(obj/item/I, mob/living/user, params)
+/obj/item/toy/cards/singlecard/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/toy/cards/singlecard/))
 		var/obj/item/toy/cards/singlecard/C = I
 		if(C.parentdeck == parentdeck)
@@ -704,7 +706,7 @@ obj/item/toy/cards/singlecard/attackby(obj/item/I, mob/living/user, params)
 		else
 			to_chat(user, "<span class='notice'>You can't mix cards from other decks.</span>")
 
-obj/item/toy/cards/cardhand/update_icon()
+/obj/item/toy/cards/cardhand/update_icon()
 	switch(currenthand.len)
 		if(0 to 1)
 			return
@@ -718,12 +720,12 @@ obj/item/toy/cards/cardhand/update_icon()
 			icon_state = "[deckstyle]_hand5"
 
 
-obj/item/toy/cards/singlecard/attack_self(mob/user)
+/obj/item/toy/cards/singlecard/attack_self(mob/user)
 	if(usr.stat || !ishuman(usr) || !usr.canmove || usr.restrained())
 		return
 	Flip()
 
-obj/item/toy/cards/singlecard/apply_card_vars(obj/item/toy/cards/singlecard/newobj,obj/item/toy/cards/sourceobj)
+/obj/item/toy/cards/singlecard/apply_card_vars(obj/item/toy/cards/singlecard/newobj,obj/item/toy/cards/sourceobj)
 	..()
 	newobj.deckstyle = sourceobj.deckstyle
 	newobj.icon_state = "singlecard_down_[deckstyle]" // Without this the card is invisible until flipped. It's an ugly hack, but it works.
@@ -745,7 +747,7 @@ obj/item/toy/cards/singlecard/apply_card_vars(obj/item/toy/cards/singlecard/newo
 || Syndicate playing cards, for pretending you're Gambit and playing poker for the nuke disk. ||
 */
 
-obj/item/toy/cards/deck/syndicate
+/obj/item/toy/cards/deck/syndicate
 	name = "suspicious looking deck of cards"
 	desc = "A deck of space-grade playing cards. They seem unusually rigid."
 	deckstyle = "syndicate"
@@ -760,10 +762,10 @@ obj/item/toy/cards/deck/syndicate
 /*
 || Custom card decks ||
 */
-obj/item/toy/cards/deck/black
+/obj/item/toy/cards/deck/black
 	deckstyle = "black"
 
-obj/item/toy/cards/deck/syndicate/black
+/obj/item/toy/cards/deck/syndicate/black
 	deckstyle = "black"
 
 /obj/item/toy/nuke

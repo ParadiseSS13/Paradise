@@ -40,6 +40,7 @@ GLOBAL_LIST_INIT(round_end_sounds, list(
 		'sound/AI/newroundsexy.ogg' = 2.3 SECONDS,
 		'sound/misc/apcdestroyed.ogg' = 3 SECONDS,
 		'sound/misc/bangindonk.ogg' = 1.6 SECONDS,
+		'sound/misc/berightback.ogg' = 2.9 SECONDS,
 		'sound/goonstation/misc/newround1.ogg' = 6.9 SECONDS,
 		'sound/goonstation/misc/newround2.ogg' = 14.8 SECONDS
 		))  // Maps available round end sounds to their duration
@@ -53,7 +54,5 @@ GLOBAL_LIST_INIT(cooking_recipe_types, list(
 GLOBAL_LIST_INIT(cooking_recipes, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list()))
 GLOBAL_LIST_INIT(cooking_ingredients, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list()))
 GLOBAL_LIST_INIT(cooking_reagents, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list()))
-
-GLOBAL_LIST(station_level_space_turfs)
 
 #define EGG_LAYING_MESSAGES list("lays an egg.", "squats down and croons.", "begins making a huge racket.", "begins clucking raucously.")

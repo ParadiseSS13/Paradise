@@ -57,6 +57,11 @@
 	if(emagged)
 		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
 
+/obj/machinery/door/window/emp_act(severity)
+	. = ..()
+	if(prob(20 / severity))
+		open()
+
 /obj/machinery/door/window/proc/open_and_close()
 	open()
 	if(check_access(null))
@@ -291,9 +296,9 @@
 					if(!req_access)
 						check_access()
 					if(req_access.len)
-						ae.conf_access = req_access
+						ae.selected_accesses = req_access
 					else if(req_one_access.len)
-						ae.conf_access = req_one_access
+						ae.selected_accesses = req_one_access
 						ae.one_access = 1
 				else
 					ae = electronics

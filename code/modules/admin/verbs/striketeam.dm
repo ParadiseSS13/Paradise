@@ -164,6 +164,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	R.set_frequency(DTH_FREQ)
 	R.requires_tcomms = FALSE
 	R.instant = TRUE
+	R.freqlock = TRUE
 	equip_to_slot_or_del(R, slot_l_ear)
 	if(is_leader)
 		equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(src), slot_w_uniform)
@@ -192,7 +193,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 
 	equip_to_slot_or_del(new /obj/item/melee/energy/sword/saber(src), slot_l_store)
 	equip_to_slot_or_del(new /obj/item/shield/energy(src), slot_r_store)
-	equip_to_slot_or_del(new /obj/item/tank/emergency_oxygen/double/full(src), slot_s_store)
+	equip_to_slot_or_del(new /obj/item/tank/internals/emergency_oxygen/double(src), slot_s_store)
 	equip_to_slot_or_del(new /obj/item/gun/projectile/revolver/mateba(src), slot_belt)
 	equip_to_slot_or_del(new /obj/item/gun/energy/pulse(src), slot_r_hand)
 

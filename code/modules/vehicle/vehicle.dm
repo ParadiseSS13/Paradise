@@ -33,6 +33,13 @@
 	QDEL_NULL(inserted_key)
 	return ..()
 
+// So that beepsky can't push the janicart
+/obj/vehicle/CanPass(atom/movable/mover, turf/target, height)
+	if(istype(mover) && mover.checkpass(PASSMOB))
+		return TRUE
+	else
+		return ..()
+
 /obj/vehicle/examine(mob/user)
 	. = ..()
 	if(key_type)

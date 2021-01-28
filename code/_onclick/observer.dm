@@ -41,6 +41,9 @@
 			if(M)
 				admin_mob_info(M)
 			return
+	if(modifiers["middle"])
+		MiddleClickOn(A)
+		return
 	if(modifiers["shift"])
 		ShiftClickOn(A)
 		return
@@ -55,7 +58,7 @@
 /mob/dead/observer/ShiftClickOn(var/atom/A)
 	examinate(A)
 
-/atom/proc/attack_ghost(mob/user as mob)
+/atom/proc/attack_ghost(mob/user)
 	return
 
 // health + cyborg analyzer for ghosts

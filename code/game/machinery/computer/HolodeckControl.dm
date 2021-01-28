@@ -332,10 +332,9 @@
 	icon_state = "grass1"
 	floor_tile = /obj/item/stack/tile/grass
 
-/turf/simulated/floor/holofloor/grass/New()
-	..()
-	spawn(1)
-		update_icon()
+/turf/simulated/floor/holofloor/grass/Initialize(mapload)
+	. = ..()
+	update_icon()
 
 /turf/simulated/floor/holofloor/grass/update_icon()
 	..()
@@ -372,6 +371,10 @@
 	icon = 'icons/obj/smooth_structures/wood_table.dmi'
 	icon_state = "wood_table"
 	canSmoothWith = list(/obj/structure/table/holotable/wood)
+
+/obj/structure/chair/stool/holostool
+	flags = NODECONSTRUCT
+	item_chair = null
 
 /obj/item/clothing/gloves/boxing/hologlove
 	name = "boxing gloves"

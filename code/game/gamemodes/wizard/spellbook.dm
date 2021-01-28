@@ -51,7 +51,7 @@
 					to_chat(user, "<span class='notice'>This spell cannot be strengthened any further.</span>")
 				return TRUE
 	//No same spell found - just learn it
-	feedback_add_details("wizard_spell_learned", log_name)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, log_name)
 	user.mind.AddSpell(newspell)
 	to_chat(user, "<span class='notice'>You have learned [newspell.name].</span>")
 	return TRUE
@@ -80,7 +80,7 @@
 			user.mind.spell_list.Remove(aspell)
 			qdel(aspell)
 			if(S) //If we created a temporary spell above, delete it now.
-				qdel(S)
+				QDEL_NULL(S)
 			return cost * (spell_levels + 1)
 	return -1
 
@@ -132,7 +132,7 @@
 
 /datum/spellbook_entry/horseman
 	name = "Curse of the Horseman"
-	spell_type = /obj/effect/proc_holder/spell/targeted/horsemask
+	spell_type = /obj/effect/proc_holder/spell/targeted/click/horsemask
 	log_name = "HH"
 	category = "Offensive"
 
@@ -144,7 +144,7 @@
 
 /datum/spellbook_entry/fireball
 	name = "Fireball"
-	spell_type = /obj/effect/proc_holder/spell/fireball
+	spell_type = /obj/effect/proc_holder/spell/targeted/click/fireball
 	log_name = "FB"
 	category = "Offensive"
 
@@ -171,7 +171,6 @@
 	spell_type = /obj/effect/proc_holder/spell/targeted/infinite_guns
 	log_name = "IG"
 	category = "Offensive"
-	cost = 4
 
 //Defensive
 /datum/spellbook_entry/disabletech
@@ -257,7 +256,7 @@
 
 /datum/spellbook_entry/mindswap
 	name = "Mindswap"
-	spell_type = /obj/effect/proc_holder/spell/targeted/mind_transfer
+	spell_type = /obj/effect/proc_holder/spell/targeted/click/mind_transfer
 	log_name = "MT"
 	category = "Mobility"
 
@@ -332,7 +331,7 @@
 	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/summon/guns/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
-	feedback_add_details("wizard_spell_learned", log_name)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, log_name)
 	rightandwrong(SUMMON_GUNS, user, 10)
 	active = TRUE
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
@@ -346,7 +345,7 @@
 	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/summon/magic/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
-	feedback_add_details("wizard_spell_learned", log_name)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, log_name)
 	rightandwrong(SUMMON_MAGIC, user, 10)
 	active = TRUE
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
@@ -362,7 +361,7 @@
 
 /datum/spellbook_entry/item/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	user.put_in_hands(new item_path)
-	feedback_add_details("wizard_spell_learned", log_name)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, log_name)
 	return 1
 
 /datum/spellbook_entry/item/GetInfo()
@@ -486,6 +485,7 @@
 	item_path = /obj/item/gun/magic/staff/change
 	log_name = "ST"
 	category = "Staves"
+	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/item/staffchaos
 	name = "Staff of Chaos"
@@ -877,7 +877,7 @@
 	return
 
 /obj/item/spellbook/oneuse/fireball
-	spell = /obj/effect/proc_holder/spell/fireball
+	spell = /obj/effect/proc_holder/spell/targeted/click/fireball
 	spellname = "fireball"
 	icon_state = "bookfireball"
 	desc = "This book feels warm to the touch."
@@ -910,7 +910,7 @@
 	user.EyeBlind(10)
 
 /obj/item/spellbook/oneuse/mindswap
-	spell = /obj/effect/proc_holder/spell/targeted/mind_transfer
+	spell = /obj/effect/proc_holder/spell/targeted/click/mind_transfer
 	spellname = "mindswap"
 	icon_state = "bookmindswap"
 	desc = "This book's cover is pristine, though its pages look ragged and torn."
@@ -934,8 +934,8 @@
 		to_chat(user, "<span class='notice'>You stare at the book some more, but there doesn't seem to be anything else to learn...</span>")
 		return
 
-	var/obj/effect/proc_holder/spell/targeted/mind_transfer/swapper = new
-	swapper.cast(user, stored_swap, 1)
+	var/obj/effect/proc_holder/spell/targeted/click/mind_transfer/swapper = new
+	swapper.cast(user, stored_swap)
 
 	to_chat(stored_swap, "<span class='warning'>You're suddenly somewhere else... and someone else?!</span>")
 	to_chat(user, "<span class='warning'>Suddenly you're staring at [src] again... where are you, who are you?!</span>")
@@ -966,7 +966,7 @@
 	user.Weaken(20)
 
 /obj/item/spellbook/oneuse/horsemask
-	spell = /obj/effect/proc_holder/spell/targeted/horsemask
+	spell = /obj/effect/proc_holder/spell/targeted/click/horsemask
 	spellname = "horses"
 	icon_state = "bookhorses"
 	desc = "This book is more horse than your mind has room for."

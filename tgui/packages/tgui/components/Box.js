@@ -68,7 +68,10 @@ const mapColorPropTo = attrName => (style, value) => {
 
 const styleMapperByPropName = {
   // Direct mapping
+  display: mapRawPropTo('display'),
   position: mapRawPropTo('position'),
+  float: mapRawPropTo('float'),
+  clear: mapRawPropTo('clear'),
   overflow: mapRawPropTo('overflow'),
   overflowX: mapRawPropTo('overflow-x'),
   overflowY: mapRawPropTo('overflow-y'),
@@ -88,6 +91,9 @@ const styleMapperByPropName = {
   opacity: mapRawPropTo('opacity'),
   textAlign: mapRawPropTo('text-align'),
   verticalAlign: mapRawPropTo('vertical-align'),
+  textTransform: mapRawPropTo('text-transform'),
+  wordWrap: mapRawPropTo('word-wrap'),
+  textOverflow: mapRawPropTo('text-overflow'),
   // Boolean props
   inline: mapBooleanPropTo('display', 'inline-block'),
   bold: mapBooleanPropTo('font-weight', 'bold'),
@@ -125,6 +131,18 @@ const styleMapperByPropName = {
   color: mapColorPropTo('color'),
   textColor: mapColorPropTo('color'),
   backgroundColor: mapColorPropTo('background-color'),
+  // Flex props
+  order: mapRawPropTo('order'),
+  flexDirection: mapRawPropTo('flex-direction'),
+  flexGrow: mapRawPropTo('flex-grow'),
+  flexShrink: mapRawPropTo('flex-shrink'),
+  flexWrap: mapRawPropTo('flex-wrap'),
+  flexFlow: mapRawPropTo('flex-flow'),
+  flexBasis: mapRawPropTo('flex-basis'),
+  flex: mapRawPropTo('flex'),
+  alignItems: mapRawPropTo('align-items'),
+  justifyContent: mapRawPropTo('justify-content'),
+  alignSelf: mapRawPropTo('align-self'),
   // Utility props
   fillPositionedParent: (style, value) => {
     if (value) {
@@ -140,6 +158,9 @@ const styleMapperByPropName = {
 export const computeBoxProps = props => {
   const computedProps = {};
   const computedStyles = {};
+  if (props.double) {
+    computedStyles["transform"] = "scale(2);";
+  }
   // Compute props
   for (let propName of Object.keys(props)) {
     if (propName === 'style') {

@@ -282,6 +282,7 @@ em						{font-style: normal;	font-weight: bold;}
 .sciradio				{color: #993399;}
 .supradio				{color: #9F8545;}
 .srvradio				{color: #80A000;}
+.proradio				{color: #F70285;}
 .admin_channel			{color: #fcba03;	font-weight: bold;}
 .mentor_channel			{color: #775BFF;	font-weight: bold;}
 .mentor_channel_admin      {color: #A35CFF;	font-weight: bold;}
@@ -307,7 +308,6 @@ h1.alert, h2.alert			{color: #FFF;}
 
 .info					{color: #6685f5;}
 .notice					{color: #6685f5;}
-.bnotice				{color: #6685f5; 	font-weight: bold;}
 .boldnotice				{color: #6685f5;	font-weight: bold;}
 .suicide				{color: #ff5050;	font-style: italic;}
 .green					{color: #03bb39;}
@@ -328,7 +328,7 @@ h1.alert, h2.alert			{color: #FFF;}
 .sans					{font-family: 'Comic Sans MS', cursive, sans-serif;}
 .wingdings				{font-family: Wingdings, Webdings;}
 .robot					{font-family: 'PxPlus IBM MDA'; font-size: 1.15em;}
-.ancient				{color: #008B8B;	font-stye: italic;}
+.ancient				{color: #008B8B;	font-style: italic;}
 .newscaster				{color: #CC0000;}
 .mod					{color: #735638;	font-weight: bold;}
 .modooc					{color: #184880;	font-weight: bold;}
@@ -401,6 +401,10 @@ h1.alert, h2.alert			{color: #FFF;}
 .connectionClosed.restored {background: green;}
 .internal.boldnshit {color: #6685f5; font-weight: bold;}
 
+.rebooting {background: #2979AF; color: white; padding: 5px;}
+.rebooting a {color: white !important; text-decoration-color: white !important;}
+#reconnectTimer {font-weight: bold;}
+
 /* HELPER CLASSES */
 .text-normal {font-weight: normal; font-style: normal;}
 .hidden {display: none; visibility: hidden;}
@@ -418,3 +422,7 @@ h1.alert, h2.alert			{color: #FFF;}
 .adminticket {color: #3daf21; font-weight: bold}
 
 .adminticketalt {color: #ccb847; font-weight: bold}
+
+/* Syndicate codewords */
+span.body .codephrases {color: #5555FF;}
+span.body .coderesponses {color: #FF3333;}

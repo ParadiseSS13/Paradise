@@ -36,13 +36,13 @@ actual development.
  Due to limitations of the engine, this may not always be possible; but do try your best.
 
  * Document and explain your pull requests thoroughly. Failure to do so will delay a PR as
-  we question why changes were made. This is especially important if you're porting a PR 
+  we question why changes were made. This is especially important if you're porting a PR
   from another codebase (i.e. TG) and divert from the original. Explaining with single
   comment on why you've made changes will help us review the PR faster and understand your
   decision making process.
 
- * Any pull request must have a changelog, this is to allow us to know when a PR is deployed 
- on the live server. Inline changelogs are supported through the format described 
+ * Any pull request must have a changelog, this is to allow us to know when a PR is deployed
+ on the live server. Inline changelogs are supported through the format described
  [here](https://github.com/ParadiseSS13/Paradise/pull/3291#issuecomment-172950466)
  and should be used rather than manually edited .yml file changelogs.
 
@@ -51,14 +51,14 @@ actual development.
  commits. Use `git rebase` or `git reset` to update your branches, not `git pull`.
 
  * Please explain why you are submitting the pull request, and how you think your change will be beneficial to the game. Failure to do so will be grounds for rejecting the PR.
- 
+
  * If your pull request is not finished make sure it is at least testable in a live environment. Pull requests that do not at least meet this requirement may be closed at maintainer discretion. You may request a maintainer reopen the pull request when you're ready, or make a new one.
 
- * While we have no issue helping contributors (and especially new contributors) bring reasonably sized contributions up to standards via the pull request review process, larger contributions are expected to pass a higher bar of completeness and code quality *before* you open a pull request. Maintainers may close such pull requests that are deemed to be substantially flawed. You should take some time to discuss with maintainers or other contributors on how to improve the changes. 
+ * While we have no issue helping contributors (and especially new contributors) bring reasonably sized contributions up to standards via the pull request review process, larger contributions are expected to pass a higher bar of completeness and code quality *before* you open a pull request. Maintainers may close such pull requests that are deemed to be substantially flawed. You should take some time to discuss with maintainers or other contributors on how to improve the changes.
 
 #### Using Changelog
- * Tags used in changelog include add/rscadd, del/rscdel, fix/fixes, typo/spellcheck. 
- * Without specifying a name it will default to using your GitHub name. 
+ * Tags used in changelog include add/rscadd, del/rscdel, fix/fixes, typo/spellcheck.
+ * Without specifying a name it will default to using your GitHub name.
  Some examples
 ```
 :cl:
@@ -76,11 +76,11 @@ typo: Fixes some misspelled words under Using Changelog
 
 ## Specifications
 
-As mentioned before, you are expected to follow these specifications in order to make everyone's lives easier. It'll save both your time and ours, by making 
+As mentioned before, you are expected to follow these specifications in order to make everyone's lives easier. It'll save both your time and ours, by making
 sure you don't have to make any changes and we don't have to ask you to. Thank you for reading this section!
 
 ### Object Oriented Code
-As BYOND's Dream Maker (henceforth "DM") is an object-oriented language, code must be object-oriented when possible in order to be more flexible when adding 
+As BYOND's Dream Maker (henceforth "DM") is an object-oriented language, code must be object-oriented when possible in order to be more flexible when adding
 content to it. If you don't know what "object-oriented" means, we highly recommend you do some light research to grasp the basics.
 
 ### All BYOND paths must contain the full path
@@ -113,7 +113,7 @@ datum
         code
 ```
 
-The use of this is not allowed in this project *unless the majority of the file is already relatively pathed* as it makes finding definitions via full text 
+The use of this is not allowed in this project *unless the majority of the file is already relatively pathed* as it makes finding definitions via full text
 searching next to impossible. The only exception is the variables of an object may be nested to the object, but must not nest further.
 
 The previous code made compliant:
@@ -137,6 +137,10 @@ The previous code made compliant:
   ..()
   code
 ```
+
+### User Interfaces
+All new user interfaces in the game must be created using the TGUI framework. Documentation can be found inside the `tgui/docs` folder.
+This is to ensure all ingame UIs are snappy and respond well. An exception is made for user interfaces which are purely for OOC actions (Such as character creation, or anything admin related)
 
 ### No overriding type safety checks
 The use of the : operator to override type safety checks is not allowed. You must cast the variable to the proper type.
@@ -167,7 +171,7 @@ ever forming.
 
 ```DM
 //Good
-var/atom/A 
+var/atom/A
 "[A]"
 
 //Bad
@@ -177,7 +181,7 @@ var/atom/A
 ### Use the pronoun library instead of `\his` macros.
 We have a system in code/\_\_HELPERS/pronouns.dm for addressing all forms of pronouns. This is useful in a number of ways;
  * BYOND's \his macro can be unpredictable on what object it references.
-   Take this example: `"[user] waves \his [user.weapon] around, hitting \his opponents!"`. 
+   Take this example: `"[user] waves \his [user.weapon] around, hitting \his opponents!"`.
    This will end up referencing the user's gender in the first occurence, but what about the second?
    It'll actually print the gender set on the weapon he's carrying, which is unintended - and there's no way around this.
  * It always prints the real `gender` variable of the atom it's referencing. This can lead to exposing a mob's gender even when their face is covered,
@@ -217,7 +221,7 @@ You must use tabs to indent your code, NOT SPACES.
 Hacky code, such as adding specific checks (ex: `istype(src, /obj/whatever)`), is highly discouraged and only allowed when there is ***no*** other option. (
 Protip: 'I couldn't immediately think of a proper way so thus there must be no other option' is not gonna cut it here! If you can't think of anything else, say that outright and admit that you need help with it. Maintainers exist for exactly that reason.)
 
-You can avoid hacky code by using object-oriented methodologies, such as overriding a function (called "procs" in DM) or sectioning code into functions and 
+You can avoid hacky code by using object-oriented methodologies, such as overriding a function (called "procs" in DM) or sectioning code into functions and
 then overriding them as required.
 
 The same also applies to bugfix - If an invalid value is being passed into a proc from something that shouldn't have that value, don't fix it on the proc itself, fix it at its origin! (Where feasible)
@@ -239,15 +243,15 @@ There are two key points here:
 Remember: although this tradeoff makes sense in many cases, it doesn't cover them all. Think carefully about your addition before deciding if you need to use it.
 
 ### Prefer `Initialize()` over `New()` for atoms
-Our game controller is pretty good at handling long operations and lag, but it can't control what happens when the map is loaded, which calls `New` for all atoms on the map. If you're creating a new atom, use the `Initialize` proc to do what you would normally do in `New`. This cuts down on the number of proc calls needed when the world is loaded. 
+Our game controller is pretty good at handling long operations and lag, but it can't control what happens when the map is loaded, which calls `New` for all atoms on the map. If you're creating a new atom, use the `Initialize` proc to do what you would normally do in `New`. This cuts down on the number of proc calls needed when the world is loaded.
 
 While we normally encourage (and in some cases, even require) bringing out of date code up to date when you make unrelated changes near the out of date code, that is not the case for `New` -> `Initialize` conversions. These systems are generally more dependant on parent and children procs so unrelated random conversions of existing things can cause bugs that take months to figure out.
 
 ### No implicit var/
 When you declare a parameter in a proc, the var/ is implicit. Do not include any implicit var/ when declaring a variable.
 
-I.e. 
-Bad: 
+I.e.
+Bad:
 ````
 obj/item/proc1(var/input1, var/input2)
 ````
@@ -258,7 +262,7 @@ obj/item/proc1(input1, input2)
 ````
 
 ### No magic numbers or strings
-This means stuff like having a "mode" variable for an object set to "1" or "2" with no clear indicator of what that means. Make these #defines with a name that 
+This means stuff like having a "mode" variable for an object set to "1" or "2" with no clear indicator of what that means. Make these #defines with a name that
 more clearly states what it's for. For instance:
 ````DM
 /datum/proc/do_the_thing(thing_to_do)
@@ -285,10 +289,10 @@ This is clearer and enhances readability of your code! Get used to doing it!
 (if, while, for, etc)
 
 * All control statements must not contain code on the same line as the statement (`if(condition) return`)
-* All control statements comparing a variable to a number should use the formula of `thing` `operator` `number`, not the reverse 
+* All control statements comparing a variable to a number should use the formula of `thing` `operator` `number`, not the reverse
   (eg: `if(count <= 10)` not `if(10 >= count)`)
-* All control statements must be spaced as `if()`, with the brackets touching the keyword. 
-* Do not use one-line control statements. 
+* All control statements must be spaced as `if()`, with the brackets touching the keyword.
+* Do not use one-line control statements.
   Instead of doing
   ```
   if(x) return
@@ -305,7 +309,7 @@ you must use `to_chat(mob/client/world, "message")`. Failure to do so will lead 
 
 ### Use early return
 Do not enclose a proc in an if-block when returning on a condition is more feasible.
- 
+
 This is bad:
 ````DM
 /datum/datum1/proc/proc1()
@@ -329,11 +333,11 @@ This prevents nesting levels from getting deeper then they need to be.
 
 ### Uses addtimer() instead of sleep() or spawn()
 If you need to call a proc after a set amount of time, use addtimer() instead of spawn() / sleep() where feasible.
-Although it is more complex, it is more  performant and unlike spawn() or sleep(), it can be cancelled. 
+Although it is more complex, it is more  performant and unlike spawn() or sleep(), it can be cancelled.
 For more details, see https://github.com/tgstation/tgstation/pull/22933.
 
 Look for code example on how to properly use it.
- 
+
 This is bad:
 ````DM
 /datum/datum1/proc/proc1()
@@ -350,12 +354,11 @@ This prevents nesting levels from getting deeper then they need to be.
 #### Spacing
 * Operators that should be separated by spaces
   * Boolean and logic operators like &&, || <, >, ==, etc (but not !)
-  * Bitwise AND &
+  * Bitwise AND & and OR |
   * Argument separator operators like , (and ; when used in a forloop)
   * Assignment operators like = or += or the like
   * Math operators like +, -, /, or \*
 * Operators that should not be separated by spaces
-  * Bitwise OR |
   * Access operators like . and :
   * Parentheses ()
   * logical not !
@@ -369,13 +372,13 @@ This prevents nesting levels from getting deeper then they need to be.
 
 #### Bitflags
 * We prefer using bitshift operators instead of directly typing out the value. I.E.
-    ``` 
+    ```
     #define MACRO_ONE (1<<0)
     #define MACRO_TWO (1<<1)
     #define MACRO_THREE (1<<2)
     ```
     Is preferable to
-    ``` 
+    ```
     #define MACRO_ONE 1
     #define MACRO_TWO 2
     #define MACRO_THREE 4
@@ -435,7 +438,18 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
 
 * Player input must always be escaped safely, we recommend you use stripped_input in all cases where you would use input. Essentially, just always treat input from players as inherently malicious and design with that use case in mind
 
-* Calls to the database must be escaped properly - use sanitizeSQL to escape text based database entries from players or admins, and isnum() for number based database entries from players or admins.
+* Calls to the database must be escaped properly - use proper parameters (values starting with a :). You can then replace these with a list of parameters, and these will be properly escaped during the query, and prevent any SQL injection.
+	* Good:
+	```dm
+		var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey=:target_ckey", list(
+			"target_ckey" = target_ckey
+		)) // Note the use of parameters on the above line and :target_ckey in the query
+	```
+
+	* Bad:
+	```dm
+		var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey='[target_ckey]'")
+	```
 
 * All calls to topics must be checked for correctness. Topic href calls can be easily faked by clients, so you should ensure that the call is valid for the state the item is in. Do not rely on the UI code to provide only valid topic calls, because it won't.
 
@@ -453,9 +467,15 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
 ### SQL
 * Do not use the shorthand sql insert format (where no column names are specified) because it unnecessarily breaks all queries on minor column changes and prevents using these tables for tracking outside related info such as in a connected site/forum.
 
+* Use parameters for queries (Mentioned above in) [###Develop Secure Code](###Develop Secure Code)
+
+* Always check your queries for success with if(!query.warn_execute()). By using this standard format, you can ensure the correct log messages are used
+
+* Always qdel() your queries after you are done with them, this cleans up the results and helps things run smoother
+
 * All changes to the database's layout(schema) must be specified in the database changelog in SQL, as well as reflected in the schema files
 
-* Any time the schema is changed the `DB_MAJOR_VERSION` defines must be incremented, as well as the example config, with an appropriate conversion kit placed 
+* Any time the schema is changed the `SQL_VERSION` defines must be incremented, as well as the example config, with an appropriate conversion kit placed
 in the SQL/updates folder.
 
 * Queries must never specify the database, be it in code, or in text files in the repo.
@@ -463,7 +483,7 @@ in the SQL/updates folder.
 ### Mapping Standards
 * Map Merge
   * You MUST run Map Merge prior to opening your PR when updating existing maps to minimize the change differences (even when using third party mapping programs such as FastDMM.)
-    * Failure to run Map Merge on a map after using third party mapping programs (such as FastDMM) greatly increases the risk of the map's key dictionary 
+    * Failure to run Map Merge on a map after using third party mapping programs (such as FastDMM) greatly increases the risk of the map's key dictionary
     becoming corrupted by future edits after running map merge. Resolving the corruption issue involves rebuilding the map's key dictionary;
 
 * Variable Editing (Var-edits)
@@ -487,12 +507,12 @@ in the SQL/updates folder.
 Like all languages, Dream Maker has its quirks, some of them are beneficial to us, like these
 
 #### In-To for-loops
-```for(var/i = 1, i <= some_value, i++)``` is a fairly standard way to write an incremental for loop in most languages (especially those in the C family), but 
+```for(var/i = 1, i <= some_value, i++)``` is a fairly standard way to write an incremental for loop in most languages (especially those in the C family), but
 DM's ```for(var/i in 1 to some_value)``` syntax is oddly faster than its implementation of the former syntax; where possible, it's advised to use DM's syntax. (
-Note, the ```to``` keyword is inclusive, so it automatically defaults to replacing ```<=```; if you want ```<``` then you should write it as ```1 to 
+Note, the ```to``` keyword is inclusive, so it automatically defaults to replacing ```<=```; if you want ```<``` then you should write it as ```1 to
 some_value-1```).
 
-HOWEVER, if either ```some_value``` or ```i``` changes within the body of the for (underneath the ```for(...)``` header) or if you are looping over a list AND 
+HOWEVER, if either ```some_value``` or ```i``` changes within the body of the for (underneath the ```for(...)``` header) or if you are looping over a list AND
 changing the length of the list then you can NOT use this type of for-loop!
 
 ### for(var/A in list) VS for(var/i in 1 to list.len)
@@ -510,9 +530,9 @@ for(var/obj/item/sword/S in bag_of_items)
   if(!best_sword || S.damage > best_sword.damage)
     best_sword = S
 ```
-The above is a simple proc for checking all swords in a container and returning the one with the highest damage, and it uses DM's standard syntax for a 
-for-loop by specifying a type in the variable of the for's header that DM interprets as a type to filter by. It performs this filter using ```istype()``` (or 
-some internal-magic similar to ```istype()``` - this is BYOND, after all). This is fine in its current state for ```bag_of_items```, but if ```bag_of_items``` 
+The above is a simple proc for checking all swords in a container and returning the one with the highest damage, and it uses DM's standard syntax for a
+for-loop by specifying a type in the variable of the for's header that DM interprets as a type to filter by. It performs this filter using ```istype()``` (or
+some internal-magic similar to ```istype()``` - this is BYOND, after all). This is fine in its current state for ```bag_of_items```, but if ```bag_of_items```
 contained ONLY swords, or only SUBTYPES of swords, then the above is inefficient. For example:
 ```DM
 var/list/bag_of_swords = list(sword, sword, sword, sword)
@@ -521,10 +541,10 @@ for(var/obj/item/sword/S in bag_of_swords)
   if(!best_sword || S.damage > best_sword.damage)
     best_sword = S
 ```
-specifies a type for DM to filter by. 
+specifies a type for DM to filter by.
 
-With the previous example that's perfectly fine, we only want swords, but here the bag only contains swords? Is DM still going to try to filter because we gave 
-it a type to filter by? YES, and here comes the inefficiency. Wherever a list (or other container, such as an atom (in which case you're technically accessing 
+With the previous example that's perfectly fine, we only want swords, but here the bag only contains swords? Is DM still going to try to filter because we gave
+it a type to filter by? YES, and here comes the inefficiency. Wherever a list (or other container, such as an atom (in which case you're technically accessing
 their special contents list, but that's irrelevant)) contains datums of the same datatype or subtypes of the datatype you require for your loop's body,
 you can circumvent DM's filtering and automatic ```istype()``` checks by writing the loop as such:
 ```DM
@@ -535,7 +555,7 @@ for(var/s in bag_of_swords)
   if(!best_sword || S.damage > best_sword.damage)
     best_sword = S
 ```
-Of course, if the list contains data of a mixed type then the above optimisation is DANGEROUS, as it will blindly typecast all data in the list as the 
+Of course, if the list contains data of a mixed type then the above optimisation is DANGEROUS, as it will blindly typecast all data in the list as the
 specified type, even if it isn't really that type, causing runtime errors (AKA your shit won't work if this happens).
 
 #### Dot variable
@@ -559,7 +579,7 @@ DM has a var keyword, called global. This var keyword is for vars inside of type
 ```
 This does NOT mean that you can access it everywhere like a global var. Instead, it means that that var will only exist once for all instances of its type, in this case that var will only exist once for all mobs - it's shared across everything in its type. (Much more like the keyword `static` in other languages like PHP/C++/C#/Java)
 
-Isn't that confusing? 
+Isn't that confusing?
 
 There is also an undocumented keyword called `static` that has the same behaviour as global but more correctly describes BYOND's behaviour. Therefore, we always use static instead of global where we need it, as it reduces suprise when reading BYOND code.
 
@@ -576,7 +596,7 @@ To access it:
 GLOB.my_global_here = X
 ```
 
-There are a few other defines that do other things. `GLOBAL_REAL` shouldn't be used unless you know exactly what you're doing. 
+There are a few other defines that do other things. `GLOBAL_REAL` shouldn't be used unless you know exactly what you're doing.
 `GLOBAL_VAR_INIT` allows you to set an initial value on the var, like `GLOBAL_VAR_INIT(number_one, 1)`.
 `GLOBAL_LIST_INIT` allows you to define a list global var with an initial value. Etc.
 
@@ -589,6 +609,7 @@ pull requests/issues, and merging/closing pull requests.
 * [Fox P McCloud](https://github.com/Fox-McCloud)
 * [Crazy Lemon](https://github.com/Crazylemon64)
 * [Ansari](https://github.com/variableundefined)
+* [AffectedArc07](https://github.com/AffectedArc07)
 
 ### Maintainer instructions
 * Do not `self-merge`; this refers to the practice of opening a pull request, then
@@ -596,14 +617,14 @@ pull requests/issues, and merging/closing pull requests.
   matter how trivial. This is to ensure quality.
   * A subset of this instruction: Do not push directly to the repository, always make a
   pull request.
-* Wait for the Travis CI build to complete. If it fails, the pull request may only be
- merged if there is a very good reason (example: fixing the Travis configuration).
+* Wait for the CI build to complete. If it fails, the pull request may only be
+ merged if there is a very good reason (example: fixing the CI configuration).
 * Pull requests labeled as bugfixes and refactors may be merged as soon as they are
  reviewed.
 * The shortest waiting period for -any- feature or balancing altering pull request is 24
  hours, to allow other coders and the community time to discuss the proposed changes.
 * If the discussion is active, or the change is controversial, the pull request is to be
  put on hold until a consensus is reached.
-* To keep commit history easy to navigate for future contributors (e.g. Git Blame), squash merge 
-is to be preferred to normal merge where suitable. Ensure that the squashed commit name is easy 
+* To keep commit history easy to navigate for future contributors (e.g. Git Blame), squash merge
+is to be preferred to normal merge where suitable. Ensure that the squashed commit name is easy
 to understand and read. Modify it if needed.

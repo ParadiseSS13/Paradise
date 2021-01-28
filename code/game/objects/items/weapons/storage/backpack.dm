@@ -24,8 +24,9 @@
 		) //For Armalis anything but this and the nitrogen tank will use the default backpack icon.
 
 /obj/item/storage/backpack/attackby(obj/item/W as obj, mob/user as mob, params)
-	playsound(src.loc, "rustle", 50, 1, -5)
-	return ..()
+	if(in_range(user, src))
+		playsound(src.loc, "rustle", 50, 1, -5)
+		return ..()
 
 /obj/item/storage/backpack/examine(mob/user)
 	var/space_used = 0
@@ -314,7 +315,7 @@
 
 /obj/item/storage/backpack/satchel_flat/hide(var/intact)
 	if(intact)
-		invisibility = 101
+		invisibility = INVISIBILITY_MAXIMUM
 		anchored = 1 //otherwise you can start pulling, cover it, and drag around an invisible backpack.
 		icon_state = "[initial(icon_state)]2"
 	else
@@ -371,6 +372,15 @@
 	new /obj/item/ammo_box/magazine/m12g/buckshot(src)
 	new /obj/item/ammo_box/magazine/m12g/buckshot(src)
 	new /obj/item/ammo_box/magazine/m12g/dragon(src)
+
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags
+	desc = "A large duffelbag, containing three types of extended drum magazines."
+
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags/New()
+	..()
+	new /obj/item/ammo_box/magazine/m12g/XtrLrg(src)
+	new /obj/item/ammo_box/magazine/m12g/XtrLrg/buckshot(src)
+	new /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon(src)
 
 /obj/item/storage/backpack/duffel/mining_conscript/
 	name = "mining conscription kit"
@@ -547,7 +557,7 @@
 	icon_state = "duffel-clown"
 	item_state = "duffel-clown"
 
-obj/item/storage/backpack/duffel/blueshield
+/obj/item/storage/backpack/duffel/blueshield
 	name = "blueshield duffelbag"
 	desc = "A robust duffelbag issued to Nanotrasen's finest."
 	icon_state = "duffel-blueshield"

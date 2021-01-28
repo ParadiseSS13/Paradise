@@ -25,7 +25,11 @@ FIRE ALARM
 	active_power_usage = 6
 	power_channel = ENVIRON
 	resistance_flags = FIRE_PROOF
-	var/last_process = 0
+
+	light_power = 0
+	light_range = 7
+	light_color = "#ff3232"
+
 	var/wiresexposed = 0
 	var/buildstage = 2 // 2 = complete, 1 = no wires,  0 = circuit gone
 
@@ -79,7 +83,8 @@ FIRE ALARM
 	return attack_hand(user)
 
 /obj/machinery/firealarm/attack_ghost(mob/user)
-	ui_interact(user)
+	if(user.can_advanced_admin_interact())
+		toggle_alarm(user)
 
 /obj/machinery/firealarm/emp_act(severity)
 	if(prob(50/severity))
@@ -191,6 +196,7 @@ FIRE ALARM
 /obj/machinery/firealarm/obj_break(damage_flag)
 	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT) && buildstage != 0) //can't break the electronics if there isn't any inside.
 		stat |= BROKEN
+		LAZYREMOVE(myArea.firealarms, src)
 		update_icon()
 
 /obj/machinery/firealarm/deconstruct(disassembled = TRUE)
@@ -203,20 +209,13 @@ FIRE ALARM
 		new /obj/item/stack/cable_coil(loc, 3)
 	qdel(src)
 
-/obj/machinery/firealarm/process()//Note: this processing was mostly phased out due to other code, and only runs when needed
-	if(stat & (NOPOWER|BROKEN))
-		return
-
-	if(timing)
-		if(time > 0)
-			time = time - ((world.timeofday - last_process)/10)
-		else
-			alarm()
-			time = 0
-			timing = 0
-			STOP_PROCESSING(SSobj, src)
-		updateDialog()
-	last_process = world.timeofday
+/obj/machinery/firealarm/proc/update_fire_light(fire)
+	if(fire == !!light_power)
+		return  // do nothing if we're already active
+	if(fire)
+		set_light(l_power = 0.8)
+	else
+		set_light(l_power = 0)
 
 /obj/machinery/firealarm/power_change()
 	if(powered(ENVIRON))
@@ -234,78 +233,33 @@ FIRE ALARM
 	if(user.incapacitated())
 		return 1
 
-	ui_interact(user)
+	toggle_alarm(user)
 
-/obj/machinery/firealarm/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = GLOB.default_state)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "firealarm.tmpl", name, 400, 400, state = state)
-		ui.open()
-		ui.set_auto_update(1)
 
-/obj/machinery/firealarm/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
-
+/obj/machinery/firealarm/proc/toggle_alarm(mob/user)
 	var/area/A = get_area(src)
-	data["fire"] = A.fire
-	data["timing"] = timing
+	if(istype(A))
+		add_fingerprint(user)
+		if(A.fire)
+			reset()
+		else
+			alarm()
 
-	data["sec_level"] = get_security_level()
-
-	var/second = round(time % 60)
-	var/minute = round(time / 60)
-
-	data["time_left"] = "[minute ? "[minute]:" : ""][add_zero(num2text(second), 2)]"
-	return data
-
-/obj/machinery/firealarm/Topic(href, href_list)
-	if(..())
-		return 1
-
-	if(buildstage != 2)
-		return 1
-
-	add_fingerprint(usr)
-
-	if(href_list["reset"])
-		reset()
-	else if(href_list["alarm"])
-		alarm()
-	else if(href_list["time"])
-		var/oldTiming = timing
-		timing = text2num(href_list["time"])
-		last_process = world.timeofday
-		if(oldTiming != timing)
-			if(timing)
-				START_PROCESSING(SSobj, src)
-			else
-				STOP_PROCESSING(SSobj, src)
-	else if(href_list["tp"])
-		var/tp = text2num(href_list["tp"])
-		time += tp
-		time = min(max(round(time), 0), 120)
+/obj/machinery/firealarm/examine(mob/user)
+	. = ..()
+	. += "It shows the alert level as: <B><U>[capitalize(get_security_level())]</U></B>."
 
 /obj/machinery/firealarm/proc/reset()
-	if(!working)
+	if(!working || !report_fire_alarms)
 		return
 	var/area/A = get_area(src)
-	A.fire_reset()
+	A.firereset(src)
 
-	for(var/obj/machinery/firealarm/FA in A)
-		if(is_station_contact(z) && FA.report_fire_alarms)
-			SSalarms.fire_alarm.clearAlarm(loc, FA)
-
-/obj/machinery/firealarm/proc/alarm(var/duration = 0)
-	if(!working)
+/obj/machinery/firealarm/proc/alarm()
+	if(!working || !report_fire_alarms)
 		return
-
 	var/area/A = get_area(src)
-	for(var/obj/machinery/firealarm/FA in A)
-		if(is_station_contact(z) && FA.report_fire_alarms)
-			SSalarms.fire_alarm.triggerAlarm(loc, FA, duration)
-		else
-			A.fire_alert() // Manually trigger alarms if the alarm isn't reported
-
+	A.firealert(src) // Manually trigger alarms if the alarm isn't reported
 	update_icon()
 
 /obj/machinery/firealarm/New(location, direction, building)
@@ -323,7 +277,13 @@ FIRE ALARM
 		else
 			overlays += image('icons/obj/monitors.dmi', "overlay_green")
 
+	myArea = get_area(src)
+	LAZYADD(myArea.firealarms, src)
 	update_icon()
+
+/obj/machinery/firealarm/Destroy()
+	LAZYREMOVE(myArea.firealarms, src)
+	return ..()
 
 /*
 FIRE ALARM CIRCUIT
@@ -339,105 +299,6 @@ Just a object used in constructing fire alarms
 	origin_tech = "engineering=2;programming=1"
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
-
-/obj/machinery/partyalarm
-	name = "\improper PARTY BUTTON"
-	desc = "Cuban Pete is in the house!"
-	icon = 'icons/obj/monitors.dmi'
-	icon_state = "fire0"
-	var/detecting = 1.0
-	var/working = 1.0
-	var/time = 10.0
-	var/timing = 0.0
-	var/lockdownbyai = 0
-	anchored = 1.0
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 6
-
-/obj/machinery/partyalarm/attack_hand(mob/user)
-	if((user.stat && !isobserver(user)) || stat & (NOPOWER|BROKEN))
-		return
-
-	user.machine = src
-	var/area/A = get_area(src)
-	ASSERT(isarea(A))
-	var/d1
-	var/d2
-	if(istype(user, /mob/living/carbon/human) || istype(user, /mob/living/silicon/ai))
-
-		if(A.party)
-			d1 = "<A href='?src=[UID()];reset=1'>No Party :(</A>"
-		else
-			d1 = "<A href='?src=[UID()];alarm=1'>PARTY!!!</A>"
-		if(timing)
-			d2 = "<A href='?src=[UID()];time=0'>Stop Time Lock</A>"
-		else
-			d2 = "<A href='?src=[UID()];time=1'>Initiate Time Lock</A>"
-		var/second = time % 60
-		var/minute = (time - second) / 60
-		var/dat = text("<HTML><HEAD></HEAD><BODY><TT><B>Party Button</B> []\n<HR>\nTimer System: []<BR>\nTime Left: [][] <A href='?src=[UID()];tp=-30'>-</A> <A href='?src=[UID()];tp=-1'>-</A> <A href='?src=[UID()];tp=1'>+</A> <A href='?src=[UID()];tp=30'>+</A>\n</TT></BODY></HTML>", d1, d2, (minute ? text("[]:", minute) : null), second)
-		user << browse(dat, "window=partyalarm")
-		onclose(user, "partyalarm")
-	else
-		if(A.fire)
-			d1 = text("<A href='?src=[UID()];reset=1'>[]</A>", stars("No Party :("))
-		else
-			d1 = text("<A href='?src=[UID()];alarm=1'>[]</A>", stars("PARTY!!!"))
-		if(timing)
-			d2 = text("<A href='?src=[UID()];time=0'>[]</A>", stars("Stop Time Lock"))
-		else
-			d2 = text("<A href='?src=[UID()];time=1'>[]</A>", stars("Initiate Time Lock"))
-		var/second = time % 60
-		var/minute = (time - second) / 60
-		var/dat = text("<HTML><HEAD></HEAD><BODY><TT><B>[]</B> []\n<HR>\nTimer System: []<BR>\nTime Left: [][] <A href='?src=[UID()];tp=-30'>-</A> <A href='?src=[UID()];tp=-1'>-</A> <A href='?src=[UID()];tp=1'>+</A> <A href='?src=[UID()];tp=30'>+</A>\n</TT></BODY></HTML>", stars("Party Button"), d1, d2, (minute ? text("[]:", minute) : null), second)
-		user << browse(dat, "window=partyalarm")
-		onclose(user, "partyalarm")
-	return
-
-/obj/machinery/partyalarm/proc/reset()
-	if(!( working ))
-		return
-	var/area/A = get_area(src)
-	ASSERT(isarea(A))
-	A.partyreset()
-	return
-
-/obj/machinery/partyalarm/proc/alarm()
-	if(!( working ))
-		return
-	var/area/A = get_area(src)
-	ASSERT(isarea(A))
-	A.partyalert()
-	return
-
-/obj/machinery/partyalarm/Topic(href, href_list)
-	..()
-	if(usr.stat || stat & (BROKEN|NOPOWER))
-		return
-	if((usr.contents.Find(src) || ((get_dist(src, usr) <= 1) && istype(loc, /turf))) || (istype(usr, /mob/living/silicon/ai)))
-		usr.machine = src
-		if(href_list["reset"])
-			reset()
-		else
-			if(href_list["alarm"])
-				alarm()
-			else
-				if(href_list["time"])
-					timing = text2num(href_list["time"])
-				else
-					if(href_list["tp"])
-						var/tp = text2num(href_list["tp"])
-						time += tp
-						time = min(max(round(time), 0), 120)
-		updateUsrDialog()
-
-		add_fingerprint(usr)
-	else
-		usr << browse(null, "window=partyalarm")
-		return
-	return
-
 
 #undef FIRE_ALARM_FRAME
 #undef FIRE_ALARM_UNWIRED

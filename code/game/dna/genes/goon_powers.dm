@@ -123,13 +123,13 @@
 	instability = GENE_INSTABILITY_MODERATE
 	mutation = CRYO
 
-	spelltype = /obj/effect/proc_holder/spell/targeted/cryokinesis
+	spelltype = /obj/effect/proc_holder/spell/targeted/click/cryokinesis
 
 /datum/dna/gene/basic/grant_spell/cryo/New()
 	..()
 	block = GLOB.cryoblock
 
-/obj/effect/proc_holder/spell/targeted/cryokinesis
+/obj/effect/proc_holder/spell/targeted/click/cryokinesis
 	name = "Cryokinesis"
 	desc = "Drops the bodytemperature of another person."
 	panel = "Abilities"
@@ -137,45 +137,44 @@
 	charge_type = "recharge"
 	charge_max = 1200
 
-	clothes_req = 0
-	stat_allowed = 0
+	clothes_req = FALSE
+	stat_allowed = FALSE
+
+	click_radius = 0
+	auto_target_single = FALSE	// Give the clueless geneticists a way out and to have them not target themselves
+	selection_activated_message		= "<span class='notice'>Your mind grow cold. Click on a target to cast the spell.</span>"
+	selection_deactivated_message	= "<span class='notice'>Your mind returns to normal.</span>"
+	allowed_type = /mob/living/carbon
 	invocation_type = "none"
 	range = 7
 	selection_type = "range"
-	include_user = 1
+	include_user = TRUE
 	var/list/compatible_mobs = list(/mob/living/carbon/human)
 
 	action_icon_state = "genetic_cryo"
 
-/obj/effect/proc_holder/spell/targeted/cryokinesis/cast(list/targets, mob/user = usr)
-	if(!targets.len)
-		to_chat(user, "<span class='notice'>No target found in range.</span>")
-		return
+/obj/effect/proc_holder/spell/targeted/click/cryokinesis/cast(list/targets, mob/user = usr)
 
 	var/mob/living/carbon/C = targets[1]
-
-	if(!iscarbon(C))
-		to_chat(user, "<span class='warning'>This will only work on normal organic beings.</span>")
-		return
 
 	if(COLDRES in C.mutations)
 		C.visible_message("<span class='warning'>A cloud of fine ice crystals engulfs [C.name], but disappears almost instantly!</span>")
 		return
-	var/handle_suit = 0
+	var/handle_suit = FALSE
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		if(istype(H.head, /obj/item/clothing/head/helmet/space))
 			if(istype(H.wear_suit, /obj/item/clothing/suit/space))
-				handle_suit = 1
+				handle_suit = TRUE
 				if(H.internal)
 					H.visible_message("<span class='warning'>[user] sprays a cloud of fine ice crystals, engulfing [H]!</span>",
 										"<span class='notice'>[user] sprays a cloud of fine ice crystals over your [H.head]'s visor.</span>")
-					add_attack_logs(user, C, "Cryokinesis")
 				else
 					H.visible_message("<span class='warning'>[user] sprays a cloud of fine ice crystals engulfing, [H]!</span>",
 										"<span class='warning'>[user] sprays a cloud of fine ice crystals cover your [H.head]'s visor and make it into your air vents!.</span>")
-					add_attack_logs(user, C, "Cryokinesis")
+
 					H.bodytemperature = max(0, H.bodytemperature - 100)
+				add_attack_logs(user, C, "Cryokinesis")
 	if(!handle_suit)
 		C.bodytemperature = max(0, C.bodytemperature - 200)
 		C.ExtinguishMob()
@@ -196,6 +195,7 @@
 	//layer = 15
 
 /obj/effect/self_deleting/New(atom/location, icon/I, duration = 20, oname = "something")
+	. = ..()
 	name = oname
 	loc=location
 	icon = I
@@ -454,7 +454,7 @@
 	name = "Polymorphism"
 	desc = "Enables the subject to reconfigure their appearance to mimic that of others."
 
-	spelltype =/obj/effect/proc_holder/spell/targeted/polymorph
+	spelltype =/obj/effect/proc_holder/spell/targeted/click/polymorph
 	//cooldown = 1800
 	activation_messages = list("You don't feel entirely like yourself somehow.")
 	deactivation_messages = list("You feel secure in your identity.")
@@ -465,34 +465,36 @@
 	..()
 	block = GLOB.polymorphblock
 
-/obj/effect/proc_holder/spell/targeted/polymorph
+/obj/effect/proc_holder/spell/targeted/click/polymorph
 	name = "Polymorph"
 	desc = "Mimic the appearance of others!"
 	panel = "Abilities"
 	charge_max = 1800
 
-	clothes_req = 0
-	human_req = 1
-	stat_allowed = 0
+	clothes_req = FALSE
+	stat_allowed = FALSE
+
+	click_radius = -1			// Precision required
+	auto_target_single = FALSE	// Safety to not turn into monkey (420)
+	selection_activated_message		= "<span class='notice'>You body becomes unstable. Click on a target to cast transform into them.</span>"
+	selection_deactivated_message	= "<span class='notice'>Your body calms down again.</span>"
+	allowed_type = /mob/living/carbon/human
+
 	invocation_type = "none"
 	range = 1
 	selection_type = "range"
 
 	action_icon_state = "genetic_poly"
 
-/obj/effect/proc_holder/spell/targeted/polymorph/cast(list/targets, mob/user = usr)
-	var/mob/living/M = targets[1]
-	if(!ishuman(M))
-		to_chat(usr, "<span class='warning'>You can only change your appearance to that of another human.</span>")
-		return
+/obj/effect/proc_holder/spell/targeted/click/polymorph/cast(list/targets, mob/user = usr)
+	var/mob/living/carbon/human/target = targets[1]
 
 	user.visible_message("<span class='warning'>[user]'s body shifts and contorts.</span>")
 
 	spawn(10)
-		if(M && user)
+		if(target && user)
 			playsound(user.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
 			var/mob/living/carbon/human/H = user
-			var/mob/living/carbon/human/target = M
 			H.UpdateAppearance(target.dna.UI)
 			H.real_name = target.real_name
 			H.name = target.name
@@ -518,9 +520,9 @@
 	name = "Read Mind"
 	desc = "Read the minds of others for information."
 	charge_max = 180
-	clothes_req = 0
-	human_req = 1
-	stat_allowed = 0
+	clothes_req = FALSE
+	human_req = TRUE
+	stat_allowed = CONSCIOUS
 	invocation_type = "none"
 	range = -2
 	selection_type = "range"
@@ -528,14 +530,16 @@
 	action_icon_state = "genetic_empath"
 
 /obj/effect/proc_holder/spell/targeted/empath/choose_targets(mob/user = usr)
-	var/list/targets = new /list()
-	targets += input("Choose the target to spy on.", "Targeting") as null|mob in range(7,usr)
+	var/list/possible_targets = list()
+	for(var/mob/living/carbon/C in range(7, user))
+		possible_targets += C
+	var/target = input("Choose the target to spy on.", "Targeting") as null|mob in possible_targets
 
-	if(!targets.len || !targets[1]) //doesn't waste the spell
+	if(!target) //doesn't waste the spell
 		revert_cast(user)
 		return
 
-	perform(targets, user = user)
+	perform(list(target), user = user)
 
 /obj/effect/proc_holder/spell/targeted/empath/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/M in targets)

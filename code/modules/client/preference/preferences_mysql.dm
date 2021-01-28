@@ -1,6 +1,6 @@
 /datum/preferences/proc/load_preferences(client/C)
 
-	var/DBQuery/query = GLOB.dbcon.NewQuery({"SELECT
+	var/datum/db_query/query = SSdbcore.NewQuery({"SELECT
 					ooccolor,
 					UI_style,
 					UI_style_color,
@@ -8,28 +8,22 @@
 					be_role,
 					default_slot,
 					toggles,
+					toggles_2,
 					sound,
-					randomslot,
 					volume,
-					nanoui_fancy,
-					show_ghostitem_attack,
 					lastchangelog,
-					windowflashing,
-					ghost_anonsay,
 					exp,
 					clientfps,
 					atklog,
 					fuid,
-					afk_watch,
 					parallax
 					FROM [format_table_name("player")]
-					WHERE ckey='[C.ckey]'"}
-					)
+					WHERE ckey=:ckey"}, list(
+						"ckey" = C.ckey
+					))
 
-	if(!query.Execute())
-		var/err = query.ErrorMsg()
-		log_game("SQL ERROR during loading player preferences. Error : \[[err]\]\n")
-		message_admins("SQL ERROR during loading player preferences. Error : \[[err]\]\n")
+	if(!query.warn_execute())
+		qdel(query)
 		return
 
 
@@ -42,41 +36,33 @@
 		be_special = params2list(query.item[5])
 		default_slot = text2num(query.item[6])
 		toggles = text2num(query.item[7])
-		sound = text2num(query.item[8])
-		randomslot = text2num(query.item[9])
+		toggles2 = text2num(query.item[8])
+		sound = text2num(query.item[9])
 		volume = text2num(query.item[10])
-		nanoui_fancy = text2num(query.item[11])
-		show_ghostitem_attack = text2num(query.item[12])
-		lastchangelog = query.item[13]
-		windowflashing = text2num(query.item[14])
-		ghost_anonsay = text2num(query.item[15])
-		exp = query.item[16]
-		clientfps = text2num(query.item[17])
-		atklog = text2num(query.item[18])
-		fuid = text2num(query.item[19])
-		afk_watch = text2num(query.item[20])
-		parallax = text2num(query.item[21])
+		lastchangelog = query.item[11]
+		exp = query.item[12]
+		clientfps = text2num(query.item[13])
+		atklog = text2num(query.item[14])
+		fuid = text2num(query.item[15])
+		parallax = text2num(query.item[16])
+
+	qdel(query)
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
 	UI_style		= sanitize_inlist(UI_style, list("White", "Midnight"), initial(UI_style))
 	default_slot	= sanitize_integer(default_slot, 1, max_save_slots, initial(default_slot))
 	toggles			= sanitize_integer(toggles, 0, TOGGLES_TOTAL, initial(toggles))
+	toggles2		= sanitize_integer(toggles2, 0, TOGGLES_2_TOTAL, initial(toggles2))
 	sound			= sanitize_integer(sound, 0, 65535, initial(sound))
 	UI_style_color	= sanitize_hexcolor(UI_style_color, initial(UI_style_color))
 	UI_style_alpha	= sanitize_integer(UI_style_alpha, 0, 255, initial(UI_style_alpha))
-	randomslot		= sanitize_integer(randomslot, 0, 1, initial(randomslot))
 	volume			= sanitize_integer(volume, 0, 100, initial(volume))
-	nanoui_fancy	= sanitize_integer(nanoui_fancy, 0, 1, initial(nanoui_fancy))
-	show_ghostitem_attack = sanitize_integer(show_ghostitem_attack, 0, 1, initial(show_ghostitem_attack))
 	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
-	windowflashing = sanitize_integer(windowflashing, 0, 1, initial(windowflashing))
-	ghost_anonsay = sanitize_integer(ghost_anonsay, 0, 1, initial(ghost_anonsay))
 	exp	= sanitize_text(exp, initial(exp))
 	clientfps = sanitize_integer(clientfps, 0, 1000, initial(clientfps))
 	atklog = sanitize_integer(atklog, 0, 100, initial(atklog))
 	fuid = sanitize_integer(fuid, 0, 10000000, initial(fuid))
-	afk_watch = sanitize_integer(afk_watch, 0, 1, initial(afk_watch))
 	parallax = sanitize_integer(parallax, 0, 16, initial(parallax))
 	return 1
 
@@ -88,36 +74,48 @@
 			log_runtime(EXCEPTION("[C.key] had a malformed role entry: '[role]'. Removing!"), src)
 			be_special -= role
 
-	var/DBQuery/query = GLOB.dbcon.NewQuery({"UPDATE [format_table_name("player")]
+	var/datum/db_query/query = SSdbcore.NewQuery({"UPDATE [format_table_name("player")]
 				SET
-					ooccolor='[ooccolor]',
-					UI_style='[UI_style]',
-					UI_style_color='[UI_style_color]',
-					UI_style_alpha='[UI_style_alpha]',
-					be_role='[sanitizeSQL(list2params(be_special))]',
-					default_slot='[default_slot]',
-					toggles='[num2text(toggles, CEILING(log(10, (TOGGLES_TOTAL)), 1))]',
-					atklog='[atklog]',
-					sound='[sound]',
-					randomslot='[randomslot]',
-					volume='[volume]',
-					nanoui_fancy='[nanoui_fancy]',
-					show_ghostitem_attack='[show_ghostitem_attack]',
-					lastchangelog='[lastchangelog]',
-					windowflashing='[windowflashing]',
-					ghost_anonsay='[ghost_anonsay]',
-					clientfps='[clientfps]',
-					atklog='[atklog]',
-					afk_watch='[afk_watch]',
-					parallax='[parallax]'
-					WHERE ckey='[C.ckey]'"}
+					ooccolor=:ooccolour,
+					UI_style=:ui_style,
+					UI_style_color=:ui_colour,
+					UI_style_alpha=:ui_alpha,
+					be_role=:berole,
+					default_slot=:defaultslot,
+					toggles=:toggles,
+					toggles_2=:toggles2,
+					atklog=:atklog,
+					sound=:sound,
+					volume=:volume,
+					lastchangelog=:lastchangelog,
+					clientfps=:clientfps,
+					parallax=:parallax
+					WHERE ckey=:ckey"}, list(
+						// OH GOD THE PARAMETERS
+						"ooccolour" = ooccolor,
+						"ui_style" = UI_style,
+						"ui_colour" = UI_style_color,
+						"ui_alpha" = UI_style_alpha,
+						"berole" = list2params(be_special),
+						"defaultslot" = default_slot,
+						// Even though its a number in the DB, you have to use num2text here, otherwise byond adds scientific notation to the number
+						"toggles" = num2text(toggles, CEILING(log(10, (TOGGLES_TOTAL)), 1)),
+						"toggles2" = num2text(toggles2, CEILING(log(10, (TOGGLES_2_TOTAL)), 1)),
+						"atklog" = atklog,
+						"sound" = sound,
+						"volume" = volume,
+						"lastchangelog" = lastchangelog,
+						"clientfps" = clientfps,
+						"parallax" = parallax,
+						"ckey" = C.ckey
+					)
 					)
 
-	if(!query.Execute())
-		var/err = query.ErrorMsg()
-		log_game("SQL ERROR during saving player preferences. Error : \[[err]\]\n")
-		message_admins("SQL ERROR during saving player preferences. Error : \[[err]\]\n")
+	if(!query.warn_execute())
+		qdel(query)
 		return
+
+	qdel(query)
 	return 1
 
 /datum/preferences/proc/load_character(client/C,slot)
@@ -127,11 +125,17 @@
 	slot = sanitize_integer(slot, 1, max_save_slots, initial(default_slot))
 	if(slot != default_slot)
 		default_slot = slot
-		var/DBQuery/firstquery = GLOB.dbcon.NewQuery("UPDATE [format_table_name("player")] SET default_slot=[slot] WHERE ckey='[C.ckey]'")
-		firstquery.Execute()
+		var/datum/db_query/firstquery = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET default_slot=:slot WHERE ckey=:ckey", list(
+			"slot" = slot,
+			"ckey" = C.ckey
+		))
+		if(!firstquery.warn_execute(async = FALSE)) // Dont make this async. It makes roundstart slow.
+			qdel(firstquery)
+			return
+		qdel(firstquery)
 
 	// Let's not have this explode if you sneeze on the DB
-	var/DBQuery/query = GLOB.dbcon.NewQuery({"SELECT
+	var/datum/db_query/query = SSdbcore.NewQuery({"SELECT
 					OOC_Notes,
 					real_name,
 					name_is_always_random,
@@ -184,11 +188,12 @@
 					body_accessory,
 					gear,
 					autohiss
-				 	FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' AND slot='[slot]'"})
-	if(!query.Execute())
-		var/err = query.ErrorMsg()
-		log_game("SQL ERROR during character slot loading. Error : \[[err]\]\n")
-		message_admins("SQL ERROR during character slot loading. Error : \[[err]\]\n")
+				 	FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot"}, list(
+						 "ckey" = C.ckey,
+						 "slot" = slot
+					 ))
+	if(!query.warn_execute(async = FALSE)) // Dont make this async. It makes roundstart slow.
+		qdel(query)
 		return
 
 	while(query.NextRow())
@@ -265,6 +270,7 @@
 
 		saved = TRUE
 
+	qdel(query)
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
 	metadata		= sanitize_text(metadata, initial(metadata))
@@ -346,74 +352,139 @@
 	if(!isemptylist(loadout_gear))
 		gearlist = list2params(loadout_gear)
 
-	var/DBQuery/firstquery = GLOB.dbcon.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' ORDER BY slot")
-	firstquery.Execute()
+	var/datum/db_query/firstquery = SSdbcore.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey=:ckey ORDER BY slot", list(
+		"ckey" = C.ckey
+	))
+	if(!firstquery.warn_execute())
+		qdel(firstquery)
+		return
 	while(firstquery.NextRow())
 		if(text2num(firstquery.item[1]) == default_slot)
-			var/DBQuery/query = GLOB.dbcon.NewQuery({"UPDATE [format_table_name("characters")] SET OOC_Notes='[sanitizeSQL(metadata)]',
-												real_name='[sanitizeSQL(real_name)]',
-												name_is_always_random='[be_random_name]',
-												gender='[gender]',
-												age='[age]',
-												species='[sanitizeSQL(species)]',
-												language='[sanitizeSQL(language)]',
-												hair_colour='[h_colour]',
-												secondary_hair_colour='[h_sec_colour]',
-												facial_hair_colour='[f_colour]',
-												secondary_facial_hair_colour='[f_sec_colour]',
-												skin_tone='[s_tone]',
-												skin_colour='[s_colour]',
-												marking_colours='[sanitizeSQL(markingcolourslist)]',
-												head_accessory_colour='[hacc_colour]',
-												hair_style_name='[sanitizeSQL(h_style)]',
-												facial_style_name='[sanitizeSQL(f_style)]',
-												marking_styles='[sanitizeSQL(markingstyleslist)]',
-												head_accessory_style_name='[sanitizeSQL(ha_style)]',
-												alt_head_name='[sanitizeSQL(alt_head)]',
-												eye_colour='[e_colour]',
-												underwear='[underwear]',
-												undershirt='[undershirt]',
-												backbag='[backbag]',
-												b_type='[b_type]',
-												alternate_option='[alternate_option]',
-												job_support_high='[job_support_high]',
-												job_support_med='[job_support_med]',
-												job_support_low='[job_support_low]',
-												job_medsci_high='[job_medsci_high]',
-												job_medsci_med='[job_medsci_med]',
-												job_medsci_low='[job_medsci_low]',
-												job_engsec_high='[job_engsec_high]',
-												job_engsec_med='[job_engsec_med]',
-												job_engsec_low='[job_engsec_low]',
-												job_karma_high='[job_karma_high]',
-												job_karma_med='[job_karma_med]',
-												job_karma_low='[job_karma_low]',
-												flavor_text='[sanitizeSQL(flavor_text)]',
-												med_record='[sanitizeSQL(med_record)]',
-												sec_record='[sanitizeSQL(sec_record)]',
-												gen_record='[sanitizeSQL(gen_record)]',
-												player_alt_titles='[playertitlelist]',
-												disabilities='[disabilities]',
-												organ_data='[organlist]',
-												rlimb_data='[rlimblist]',
-												nanotrasen_relation='[nanotrasen_relation]',
-												speciesprefs='[speciesprefs]',
-												socks='[socks]',
-												body_accessory='[body_accessory]',
-												gear='[gearlist]',
-												autohiss='[autohiss_mode]'
-												WHERE ckey='[C.ckey]'
-												AND slot='[default_slot]'"}
+			var/datum/db_query/query = SSdbcore.NewQuery({"UPDATE [format_table_name("characters")]
+											SET
+												OOC_Notes=:metadata,
+												real_name=:real_name,
+												name_is_always_random=:be_random_name,
+												gender=:gender,
+												age=:age,
+												species=:species,
+												language=:language,
+												hair_colour=:h_colour,
+												secondary_hair_colour=:h_sec_colour,
+												facial_hair_colour=:f_colour,
+												secondary_facial_hair_colour=:f_sec_colour,
+												skin_tone=:s_tone,
+												skin_colour=:s_colour,
+												marking_colours=:markingcolourslist,
+												head_accessory_colour=:hacc_colour,
+												hair_style_name=:h_style,
+												facial_style_name=:f_style,
+												marking_styles=:markingstyleslist,
+												head_accessory_style_name=:ha_style,
+												alt_head_name=:alt_head,
+												eye_colour=:e_colour,
+												underwear=:underwear,
+												undershirt=:undershirt,
+												backbag=:backbag,
+												b_type=:b_type,
+												alternate_option=:alternate_option,
+												job_support_high=:job_support_high,
+												job_support_med=:job_support_med,
+												job_support_low=:job_support_low,
+												job_medsci_high=:job_medsci_high,
+												job_medsci_med=:job_medsci_med,
+												job_medsci_low=:job_medsci_low,
+												job_engsec_high=:job_engsec_high,
+												job_engsec_med=:job_engsec_med,
+												job_engsec_low=:job_engsec_low,
+												job_karma_high=:job_karma_high,
+												job_karma_med=:job_karma_med,
+												job_karma_low=:job_karma_low,
+												flavor_text=:flavor_text,
+												med_record=:med_record,
+												sec_record=:sec_record,
+												gen_record=:gen_record,
+												player_alt_titles=:playertitlelist,
+												disabilities=:disabilities,
+												organ_data=:organlist,
+												rlimb_data=:rlimblist,
+												nanotrasen_relation=:nanotrasen_relation,
+												speciesprefs=:speciesprefs,
+												socks=:socks,
+												body_accessory=:body_accessory,
+												gear=:gearlist,
+												autohiss=:autohiss_mode
+												WHERE ckey=:ckey
+												AND slot=:slot"}, list(
+													// OH GOD SO MANY PARAMETERS
+													"metadata" = metadata,
+													"real_name" = real_name,
+													"be_random_name" = be_random_name,
+													"gender" = gender,
+													"age" = age,
+													"species" = species,
+													"language" = language,
+													"h_colour" = h_colour,
+													"h_sec_colour" = h_sec_colour,
+													"f_colour" = f_colour,
+													"f_sec_colour" = f_sec_colour,
+													"s_tone" = s_tone,
+													"s_colour" = s_colour,
+													"markingcolourslist" = markingcolourslist,
+													"hacc_colour" = hacc_colour,
+													"h_style" = h_style,
+													"f_style" = f_style,
+													"markingstyleslist" = markingstyleslist,
+													"ha_style" = ha_style,
+													"alt_head" = alt_head,
+													"e_colour" = e_colour,
+													"underwear" = underwear,
+													"undershirt" = undershirt,
+													"backbag" = backbag,
+													"b_type" = b_type,
+													"alternate_option" = alternate_option,
+													"job_support_high" = job_support_high,
+													"job_support_med" = job_support_med,
+													"job_support_low" = job_support_low,
+													"job_medsci_high" = job_medsci_high,
+													"job_medsci_med" = job_medsci_med,
+													"job_medsci_low" = job_medsci_low,
+													"job_engsec_high" = job_engsec_high,
+													"job_engsec_med" = job_engsec_med,
+													"job_engsec_low" = job_engsec_low,
+													"job_karma_high" = job_karma_high,
+													"job_karma_med" = job_karma_med,
+													"job_karma_low" = job_karma_low,
+													"flavor_text" = flavor_text,
+													"med_record" = med_record,
+													"sec_record" = sec_record,
+													"gen_record" = gen_record,
+													"playertitlelist" = (playertitlelist ? playertitlelist : ""), // This it intentnional. It wont work without it!
+													"disabilities" = disabilities,
+													"organlist" = (organlist ? organlist : ""),
+													"rlimblist" = (rlimblist ? rlimblist : ""),
+													"nanotrasen_relation" = nanotrasen_relation,
+													"speciesprefs" = speciesprefs,
+													"socks" = socks,
+													"body_accessory" = (body_accessory ? body_accessory : ""),
+													"gearlist" = (gearlist ? gearlist : ""),
+													"autohiss_mode" = autohiss_mode,
+													"ckey" = C.ckey,
+													"slot" = default_slot
+												)
 												)
 
-			if(!query.Execute())
-				var/err = query.ErrorMsg()
-				log_game("SQL ERROR during character slot saving. Error : \[[err]\]\n")
-				message_admins("SQL ERROR during character slot saving. Error : \[[err]\]\n")
+			if(!query.warn_execute())
+				qdel(firstquery)
+				qdel(query)
 				return
+			qdel(firstquery)
+			qdel(query)
 			return 1
 
-	var/DBQuery/query = GLOB.dbcon.NewQuery({"
+	qdel(firstquery)
+
+	var/datum/db_query/query = SSdbcore.NewQuery({"
 					INSERT INTO [format_table_name("characters")] (ckey, slot, OOC_Notes, real_name, name_is_always_random, gender,
 											age, species, language,
 											hair_colour, secondary_hair_colour,
@@ -442,57 +513,112 @@
 											socks, body_accessory, gear, autohiss)
 
 					VALUES
-											('[C.ckey]', '[default_slot]', '[sanitizeSQL(metadata)]', '[sanitizeSQL(real_name)]', '[be_random_name]','[gender]',
-											'[age]', '[sanitizeSQL(species)]', '[sanitizeSQL(language)]',
-											'[h_colour]', '[h_sec_colour]',
-											'[f_colour]', '[f_sec_colour]',
-											'[s_tone]', '[s_colour]',
-											'[sanitizeSQL(markingcolourslist)]',
-											'[hacc_colour]',
-											'[sanitizeSQL(h_style)]',
-											'[sanitizeSQL(f_style)]',
-											'[sanitizeSQL(markingstyleslist)]',
-											'[sanitizeSQL(ha_style)]',
-											'[sanitizeSQL(alt_head)]',
-											'[e_colour]',
-											'[underwear]', '[undershirt]',
-											'[backbag]', '[b_type]', '[alternate_option]',
-											'[job_support_high]', '[job_support_med]', '[job_support_low]',
-											'[job_medsci_high]', '[job_medsci_med]', '[job_medsci_low]',
-											'[job_engsec_high]', '[job_engsec_med]', '[job_engsec_low]',
-											'[job_karma_high]', '[job_karma_med]', '[job_karma_low]',
-											'[sanitizeSQL(flavor_text)]',
-											'[sanitizeSQL(med_record)]',
-											'[sanitizeSQL(sec_record)]',
-											'[sanitizeSQL(gen_record)]',
-											'[playertitlelist]',
-											'[disabilities]', '[organlist]', '[rlimblist]', '[nanotrasen_relation]', '[speciesprefs]',
-											'[socks]', '[body_accessory]', '[gearlist]', '[autohiss_mode]')
+											(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
+											:age, :species, :language,
+											:h_colour, :h_sec_colour,
+											:f_colour, :f_sec_colour,
+											:s_tone, :s_colour,
+											:markingcolourslist,
+											:hacc_colour,
+											:h_style,
+											:f_style,
+											:markingstyleslist,
+											:ha_style,
+											:alt_head,
+											:e_colour,
+											:underwear, :undershirt,
+											:backbag, :b_type, :alternate_option,
+											:job_support_high, :job_support_med, :job_support_low,
+											:job_medsci_high, :job_medsci_med, :job_medsci_low,
+											:job_engsec_high, :job_engsec_med, :job_engsec_low,
+											:job_karma_high, :job_karma_med, :job_karma_low,
+											:flavor_text,
+											:med_record,
+											:sec_record,
+											:gen_record,
+											:playertitlelist,
+											:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :speciesprefs,
+											:socks, :body_accessory, :gearlist, :autohiss_mode)
 
-"}
-)
+	"}, list(
+		// This has too many params for anyone to look at this without going insae
+		"ckey" = C.ckey,
+		"slot" = default_slot,
+		"metadata" = metadata,
+		"name" = real_name,
+		"be_random_name" = be_random_name,
+		"gender" = gender,
+		"age" = age,
+		"species" = species,
+		"language" = language,
+		"h_colour" = h_colour,
+		"h_sec_colour" = h_sec_colour,
+		"f_colour" = f_colour,
+		"f_sec_colour" = f_sec_colour,
+		"s_tone" = s_tone,
+		"s_colour" = s_colour,
+		"markingcolourslist" = markingcolourslist,
+		"hacc_colour" = hacc_colour,
+		"h_style" = h_style,
+		"f_style" = f_style,
+		"markingstyleslist" = markingstyleslist,
+		"ha_style" = ha_style,
+		"alt_head" = alt_head,
+		"e_colour" = e_colour,
+		"underwear" = underwear,
+		"undershirt" = undershirt,
+		"backbag" = backbag,
+		"b_type" = b_type,
+		"alternate_option" = alternate_option,
+		"job_support_high" = job_support_high,
+		"job_support_med" = job_support_med,
+		"job_support_low" = job_support_low,
+		"job_medsci_high" = job_medsci_high,
+		"job_medsci_med" = job_medsci_med,
+		"job_medsci_low" = job_medsci_low,
+		"job_engsec_high" = job_engsec_high,
+		"job_engsec_med" = job_engsec_med,
+		"job_engsec_low" = job_engsec_low,
+		"job_karma_high" = job_karma_high,
+		"job_karma_med" = job_karma_med,
+		"job_karma_low" = job_karma_low,
+		"flavor_text" = flavor_text,
+		"med_record" = med_record,
+		"sec_record" = sec_record,
+		"gen_record" = gen_record,
+		"playertitlelist" = (playertitlelist ? playertitlelist : ""), // This it intentnional. It wont work without it!
+		"disabilities" = disabilities,
+		"organlist" = (organlist ? organlist : ""),
+		"rlimblist" = (rlimblist ? rlimblist : ""),
+		"nanotrasen_relation" = nanotrasen_relation,
+		"speciesprefs" = speciesprefs,
+		"socks" = socks,
+		"body_accessory" = (body_accessory ? body_accessory : ""),
+		"gearlist" = (gearlist ? gearlist : ""),
+		"autohiss_mode" = autohiss_mode
+	))
 
-	if(!query.Execute())
-		var/err = query.ErrorMsg()
-		log_game("SQL ERROR during character slot saving. Error : \[[err]\]\n")
-		message_admins("SQL ERROR during character slot saving. Error : \[[err]\]\n")
+	if(!query.warn_execute())
+		qdel(query)
 		return
 
+	qdel(query)
 	saved = TRUE
 	return 1
 
 /datum/preferences/proc/load_random_character_slot(client/C)
-	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' ORDER BY slot")
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey=:ckey ORDER BY slot", list(
+		"ckey" = C.ckey
+	))
 	var/list/saves = list()
 
-	if(!query.Execute())
-		var/err = query.ErrorMsg()
-		log_game("SQL ERROR during random character slot picking. Error : \[[err]\]\n")
-		message_admins("SQL ERROR during random character slot picking. Error : \[[err]\]\n")
+	if(!query.warn_execute(async = FALSE)) // Dont async this. Youll make roundstart slow.
+		qdel(query)
 		return
 
 	while(query.NextRow())
 		saves += text2num(query.item[1])
+	qdel(query)
 
 	if(!saves.len)
 		load_character(C)
@@ -503,17 +629,31 @@
 /datum/preferences/proc/clear_character_slot(client/C)
 	. = FALSE
 	// Is there a character in that slot?
-	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' AND slot='[default_slot]'")
-	query.Execute()
-	if(!query.RowCount())
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot", list(
+		"ckey" = C.ckey,
+		"slot" = default_slot
+	))
+
+	if(!query.warn_execute())
+		qdel(query)
 		return
 
-	var/DBQuery/query2 = GLOB.dbcon.NewQuery("DELETE FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' AND slot='[default_slot]'")
-	if(!query2.Execute())
-		var/err = query2.ErrorMsg()
-		log_game("SQL ERROR during character slot clearing. Error : \[[err]\]\n")
-		message_admins("SQL ERROR during character slot clearing. Error : \[[err]\]\n")
+	if(!query.NextRow())
+		qdel(query)
 		return
+
+	qdel(query)
+
+	var/datum/db_query/delete_query = SSdbcore.NewQuery("DELETE FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot", list(
+		"ckey" = C.ckey,
+		"slot" = default_slot
+	))
+
+	if(!delete_query.warn_execute())
+		qdel(delete_query)
+		return
+
+	qdel(delete_query)
 
 	saved = FALSE
 	return TRUE
