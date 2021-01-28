@@ -32,5 +32,5 @@
 	changeling.purchasedpowers += HF
 	HF.Grant(user)
 
-	feedback_add_details("changeling_powers","LF")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1

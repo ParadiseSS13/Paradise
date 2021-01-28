@@ -116,9 +116,6 @@
 	if(!istype(M))
 		return
 
-	if(!..())
-		return
-
 	if(!M.can_inject(user, TRUE))
 		return
 	var/transfered = 0

@@ -125,8 +125,8 @@
 		pda.atmosanalyzer_scan(T.parent.air, user, T)
 	else if(istype(A, /obj/machinery/power/rad_collector))
 		var/obj/machinery/power/rad_collector/T = A
-		if(T.P)
-			pda.atmosanalyzer_scan(T.P.air_contents, user, T)
+		if(T.loaded_tank)
+			pda.atmosanalyzer_scan(T.loaded_tank.air_contents, user, T)
 	else if(istype(A, /obj/item/flamethrower))
 		var/obj/item/flamethrower/T = A
 		if(T.ptank)

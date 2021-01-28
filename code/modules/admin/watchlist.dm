@@ -41,6 +41,9 @@
 		return
 	log_admin("[key_name(usr)] has added [target_ckey] to the watchlist - Reason: [reason]")
 	message_admins("[key_name_admin(usr)] has added [target_ckey] to the watchlist - Reason: [reason]", 1)
+	if(GLOB.directory[target_ckey])
+		var/client/C = GLOB.directory[target_ckey]
+		C.watchlisted = TRUE // Mark them ingame now
 	if(browse)
 		watchlist_show(target_ckey)
 
@@ -56,6 +59,9 @@
 	qdel(query_watchdel)
 	log_admin("[key_name(usr)] has removed [target_ckey] from the watchlist")
 	message_admins("[key_name_admin(usr)] has removed [target_ckey] from the watchlist", 1)
+	if(GLOB.directory[target_ckey])
+		var/client/C = GLOB.directory[target_ckey]
+		C.watchlisted = FALSE // Mark them ingame now
 	if(browse)
 		watchlist_show()
 

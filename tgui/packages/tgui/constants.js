@@ -227,6 +227,12 @@ const GASES = [
     'label': 'H₂',
     'color': 'white',
   },
+  {
+    'id': 'ab',
+    'name': 'Agent B',
+    'label': 'Agent B',
+    'color': 'purple',
+  },  
 ];
 
 export const getGasLabel = (gasId, fallbackValue) => {

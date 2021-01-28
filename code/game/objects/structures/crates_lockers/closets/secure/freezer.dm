@@ -28,8 +28,7 @@
 	name = "kitchen cabinet"
 	req_access = list(ACCESS_KITCHEN)
 
-/obj/structure/closet/secure_closet/freezer/kitchen/New()
-	..()
+/obj/structure/closet/secure_closet/freezer/kitchen/populate_contents()
 	for(var/i in 1 to 3)
 		new /obj/item/reagent_containers/food/condiment/flour(src)
 	new /obj/item/reagent_containers/food/condiment/rice(src)
@@ -44,8 +43,7 @@
 	desc = "This refrigerator looks quite dusty, is there anything edible still inside?"
 	req_access = list()
 
-/obj/structure/closet/secure_closet/freezer/kitchen/maintenance/New()
-	..()
+/obj/structure/closet/secure_closet/freezer/kitchen/maintenance/populate_contents()
 	for(var/i = 0, i < 5, i++)
 		new /obj/item/reagent_containers/food/condiment/milk(src)
 	for(var/i = 0, i < 5, i++)
@@ -62,8 +60,7 @@
 	icon_broken = "fridgebroken"
 	icon_off = "fridge1"
 
-/obj/structure/closet/secure_closet/freezer/meat/New()
-	..()
+/obj/structure/closet/secure_closet/freezer/meat/populate_contents()
 	for(var/i in 1 to 4)
 		new /obj/item/reagent_containers/food/snacks/meat/monkey(src)
 
@@ -80,8 +77,7 @@
 	icon_broken = "fridgebroken"
 	icon_off = "fridge1"
 
-/obj/structure/closet/secure_closet/freezer/fridge/New()
-	..()
+/obj/structure/closet/secure_closet/freezer/fridge/populate_contents()
 	for(var/i in 1 to 5)
 		new /obj/item/reagent_containers/food/condiment/milk(src)
 		new /obj/item/reagent_containers/food/condiment/soymilk(src)
@@ -102,8 +98,7 @@
 	icon_off = "fridge1"
 	req_access = list(ACCESS_HEADS_VAULT)
 
-/obj/structure/closet/secure_closet/freezer/money/New()
-	..()
+/obj/structure/closet/secure_closet/freezer/money/populate_contents()
 	for(var/i in 1 to 3)
 		new /obj/item/stack/spacecash/c1000(src)
 	for(var/i in 1 to 5)

@@ -6,6 +6,7 @@
 	density = TRUE
 	anchored = TRUE
 	flags = CONDUCT
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	layer = BELOW_OBJ_LAYER
 	level = 3
@@ -20,10 +21,10 @@
 	var/shockcooldown = 0
 	var/my_shockcooldown = 1 SECONDS
 
-/obj/structure/grille/fence/
+/obj/structure/grille/fence
 	var/width = 3
 
-/obj/structure/grille/fence/New()
+/obj/structure/grille/fence/Initialize(mapload)
 	. = ..()
 	if(width > 1)
 		if(dir in list(EAST, WEST))
@@ -290,8 +291,8 @@
 	desc = "A strangely-shaped grille."
 	broken_type = /obj/structure/grille/ratvar/broken
 
-/obj/structure/grille/ratvar/New()
-	..()
+/obj/structure/grille/ratvar/Initialize(mapload)
+	. = ..()
 	if(broken)
 		new /obj/effect/temp_visual/ratvar/grille/broken(get_turf(src))
 	else

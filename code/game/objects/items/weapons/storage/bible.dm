@@ -169,7 +169,7 @@
 				if(T.icon_state == "carpetsymbol")
 					T.dir = carpet_dir*/
 
-	feedback_set_details("religion_book", "[choice]")
+	SSblackbox.record_feedback("text", "religion_book", 1, "[choice]", 1)
 
 	if(SSticker)
 		SSticker.Bible_name = name

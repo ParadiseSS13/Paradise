@@ -2553,7 +2553,7 @@
 /area/awaymission/centcomAway/general)
 "gB" = (
 /obj/structure/table/reinforced,
-/obj/item/tank/anesthetic,
+/obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/breath/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -3616,9 +3616,7 @@
 	},
 /area/awaymission/centcomAway/general)
 "jd" = (
-/obj/structure/sign/redcross{
-	icon_state = "lifestar"
-	},
+/obj/structure/sign/lifestar,
 /turf/simulated/wall/r_wall,
 /area/awaymission/centcomAway/general)
 "je" = (

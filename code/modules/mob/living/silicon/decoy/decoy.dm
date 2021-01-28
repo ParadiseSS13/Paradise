@@ -34,7 +34,7 @@
 
 /mob/living/silicon/decoy/syndicate/depot/proc/raise_alert()
 	raised_alert = TRUE
-	var/area/syndicate_depot/core/depotarea = get_area(src) // Cannot use myArea or areaMaster as neither will be defined for this mob type
+	var/area/syndicate_depot/core/depotarea = get_area(src) // Cannot use myArea as it wont be defined for this mob type
 	if(istype(depotarea))
 		depotarea.increase_alert("AI Unit Offline")
 	else

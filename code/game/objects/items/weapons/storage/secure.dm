@@ -21,7 +21,6 @@
 	var/l_set = 0
 	var/l_setshort = 0
 	var/l_hacking = 0
-	var/emagged = 0
 	var/open = 0
 	w_class = WEIGHT_CLASS_NORMAL
 	max_w_class = WEIGHT_CLASS_SMALL
@@ -147,7 +146,6 @@
 		else
 			if((href_list["type"] == "R") && (emagged == 0) && (!l_setshort))
 				locked = 1
-				hide_from_all()
 				overlays = null
 				code = null
 				close(usr)

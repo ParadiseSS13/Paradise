@@ -165,8 +165,8 @@
 	icon_state = "stickyweb1"
 	var/creator_ckey = null
 
-/obj/structure/spider/terrorweb/New()
-	..()
+/obj/structure/spider/terrorweb/Initialize(mapload)
+	. = ..()
 	if(prob(50))
 		icon_state = "stickyweb2"
 
