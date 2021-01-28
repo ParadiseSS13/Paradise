@@ -51,6 +51,11 @@
 	sparks.attach(src)
 	sparks.set_up(5, 1, src)
 
+/obj/machinery/power/emitter/examine(mob/user)
+	. = ..()
+	if(panel_open)
+		. += "<span class='notice'>The maintenance panel is open.</span>"
+
 /obj/machinery/power/emitter/RefreshParts()
 	var/max_firedelay = 120
 	var/firedelay = 120
@@ -115,6 +120,9 @@
 	if(!powernet)
 		to_chat(user, "<span class='warning'>The emitter isn't connected to a wire.</span>")
 		return TRUE
+	if(panel_open)
+		to_chat(user, "<span class='warning'>The maintenance panel needs to be closed!</span>")
+		return
 	if(locked)
 		to_chat(user, "<span class='warning'>The controls are locked!</span>")
 		return
@@ -194,14 +202,14 @@
 			"You hear a ratchet")
 	playsound(src, I.usesound, I.tool_volume, TRUE)
 
-/*obj/machinery/power/emitter/screwdriver_act(mob/living/user, obj/item/I) // Multitool menu NYI
+/obj/machinery/power/emitter/screwdriver_act(mob/living/user, obj/item/I) // Multitool menu NYI
 	. = TRUE
 	if(state != EMITTER_WELDED)
 		return
 	if(active)
 		to_chat(user, "<span class='warning'>[src] needs to be disabled first!</span>")
 		return
-	default_deconstruction_screwdriver(user, "emitter_open", "emitter", I)*/
+	default_deconstruction_screwdriver(user, "emitter_open", "emitter", I)
 
 /*obj/machinery/power/emitter/multitool_act(mob/living/user, obj/item/I) // Multitool menu NYI
 	. = TRUE
@@ -219,6 +227,9 @@
 		return
 	if(state == EMITTER_NEEDS_WRENCH)
 		to_chat(user, "<span class='warning'>[src] needs to be wrenched to the floor.</span>")
+		return
+	if(panel_open)
+		to_chat(user, "<span class='warning'>The maintenance panel needs to be closed!</span>")
 		return
 	if(!I.tool_use_check(user, 0))
 		return
