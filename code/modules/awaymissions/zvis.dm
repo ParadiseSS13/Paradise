@@ -87,11 +87,11 @@
 	if(istype(T) && T.lighting_object && !T.lighting_object.needs_update)
 		var/atom/movable/lighting_object/O = T.lighting_object
 		var/hash = 0
-		
+
 		for(var/lighting_corner in O)
 			var/datum/lighting_corner/C = lighting_corner
 			hash = hash + C.lum_r + C.lum_g + C.lum_b
-			
+
 		if(hash != light_hash)
 			light_hash = hash
 			trigger()
@@ -109,8 +109,8 @@
 	var/turf/lower_turf
 	var/obj/effect/portal_sensor/sensor
 
-/turf/unsimulated/floor/upperlevel/New()
-	..()
+/turf/unsimulated/floor/upperlevel/Initialize(mapload)
+	. = ..()
 	var/obj/effect/levelref/R = locate() in get_area(src)
 	if(R && R.other)
 		init(R)

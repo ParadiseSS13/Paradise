@@ -81,6 +81,10 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	var/base_icon_state = "darkmatter"
 
+	///The id of our supermatter
+	var/supermatter_id = 1
+	///The amount of supermatters that have been created this round
+	var/static/global_supermatter_id = 1
 	///Tracks the bolt color we are using
 	var/zap_icon = DEFAULT_ZAP_ICON_STATE
 	///The portion of the gasmix we're on that we should remove
@@ -179,6 +183,7 @@
 
 /obj/machinery/power/supermatter_crystal/Initialize(mapload)
 	. = ..()
+	supermatter_id = global_supermatter_id++
 	SSair.atmos_machinery += src
 	countdown = new(src)
 	countdown.start()
