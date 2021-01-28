@@ -137,10 +137,16 @@
  */
 /obj/item/pen/edagger
 	origin_tech = "combat=3;syndicate=1"
-	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut") //these wont show up if the pen is off
 	var/on = 0
 	var/brightness_on = 2
 	light_color = LIGHT_COLOR_RED
+
+/obj/item/pen/edagger/attack(mob/living/M, mob/living/user, def_zone)
+	if(on == 1 && user.dir == M.dir && !M.weakened && user != M)
+		M.apply_damage(10, BRUTE, BODY_ZONE_CHEST)
+		M.Weaken(1)
+		M.visible_message("<span class='warning'>[user] stabs [M] in the back!", "<span class='userdanger'>[user] stabs you in the back! The energy blade makes you collapse in pain!")
+	. = ..()
 
 /obj/item/pen/edagger/attack_self(mob/living/user)
 	if(on)
@@ -148,6 +154,7 @@
 		force = initial(force)
 		sharp = 0
 		w_class = initial(w_class)
+		attack_verb = list() // no attack verbs when it is off
 		name = initial(name)
 		hitsound = initial(hitsound)
 		embed_chance = initial(embed_chance)
@@ -160,6 +167,7 @@
 		force = 18
 		sharp = 1
 		w_class = WEIGHT_CLASS_NORMAL
+		attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 		name = "energy dagger"
 		hitsound = 'sound/weapons/blade1.ogg'
 		embed_chance = 100 //rule of cool
