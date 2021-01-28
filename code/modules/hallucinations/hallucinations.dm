@@ -19,15 +19,21 @@ GLOBAL_LIST_INIT(hallucinations, list(
 		/obj/effect/hallucination/audio/localized = 25,
 	),
 	HALLUCINATE_MODERATE = list(
+		/obj/effect/hallucination/self_delusion = 5,
 		/obj/effect/hallucination/bolts/moderate = 10,
 		/obj/effect/hallucination/chasms = 10,
 		/obj/effect/hallucination/fake_alert = 10,
+		/obj/effect/hallucination/gunfire = 10,
+		/obj/effect/hallucination/plasma_flood = 10,
+		/obj/effect/hallucination/stunprodding = 10,
+		/obj/effect/hallucination/delamination_alarm = 15,
 		/obj/effect/hallucination/fake_item = 15,
 		/obj/effect/hallucination/fake_weapon = 15,
+		/obj/effect/hallucination/husks = 15,
 	),
 	HALLUCINATE_MAJOR = list(
-		/obj/effect/hallucination/terror_infestation = 10,
 		/obj/effect/hallucination/abduction = 10,
+		/obj/effect/hallucination/terror_infestation = 10,
 	)
 ))
 
@@ -61,8 +67,7 @@ GLOBAL_LIST_INIT(hallucinations, list(
 		if((HALLUCINATE_MINOR_WEIGHT + HALLUCINATE_MODERATE_WEIGHT + 1) to 100)
 			severity = HALLUCINATE_MAJOR
 
-	var/obj/effect/hallucination/H = hallucinate(pickweight(GLOB.hallucinations[severity]))
-	next_hallucination += H.duration
+	hallucinate(pickweight(GLOB.hallucinations[severity]))
 
 /**
   * Spawns an hallucination for the mob.
@@ -114,6 +119,16 @@ GLOBAL_LIST_INIT(hallucinations, list(
 /obj/effect/hallucination/Destroy()
 	clear_icons()
 	return ..()
+
+/obj/effect/hallucination/examine(mob/user, infix, suffix)
+	if(user != target)
+		return list()
+
+	// Overriding to not include call to [/proc/bicon] as it lags the client due to invalid image.
+	. = list(
+		"That's \a [name].",
+		"<span class='whisper'>Something seems odd about this...</span>"
+	)
 
 /obj/effect/hallucination/singularity_pull()
 	return

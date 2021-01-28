@@ -99,6 +99,7 @@
 	var/was_weakened = target.IsWeakened()
 	if(was_weakened && !should_attack_weakened)
 		return
+
 	attack(was_weakened)
 
 /**
@@ -108,6 +109,7 @@
   * * was_weakened - Whether the target was already knocked down prior to this attack.
   */
 /obj/effect/hallucination/chaser/attacker/proc/attack(was_weakened)
+	dir = get_dir(src, target)
 	attack_effects()
 	target.adjustStaminaLoss(damage)
 	if(!was_weakened && target.IsWeakened())

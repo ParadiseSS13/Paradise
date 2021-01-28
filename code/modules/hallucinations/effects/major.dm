@@ -65,8 +65,6 @@
   */
 /obj/effect/hallucination/abduction
 	duration = 45 SECONDS
-	/// Abductor team name.
-	var/team_name = "Mothership Alpha"
 	/// The abductor agent hallucination.
 	var/obj/effect/hallucination/chaser/attacker/abductor/agent = null
 	/// The abductor scientist image handle.
@@ -76,17 +74,23 @@
 	. = ..()
 
 	var/list/locs = list()
-	for(var/turf/T in range(world.view, target))
+	for(var/turf/T in oview(world.view, target))
 		if(!is_blocked_turf(T))
 			locs += T
 	if(!length(locs))
 		qdel(src)
 		return
 
-	team_name = "Mothership [pick(GLOB.possible_changeling_IDs)]"
-	agent = new(pick(locs), target)
-	agent.name = "[team_name] Agent"
+	// Spawn agent
+	var/turf/T = pick(locs)
+	agent = new(T, target)
 	agent.owning_hallucination = src
+
+	// Teleport effect
+	var/image/teleport_end = image('icons/mob/mob.dmi', T, "uncloak", layer = ABOVE_MOB_LAYER)
+	teleport_end.plane = GAME_PLANE
+	add_icon(teleport_end)
+	clear_icon_in(teleport_end, 0.9 SECONDS)
 
 /obj/effect/hallucination/abduction/Destroy()
 	QDEL_NULL(agent)
@@ -102,7 +106,7 @@
 	for(var/turf/T in orange(1, target))
 		if(!is_blocked_turf(T))
 			locs += T
-	locs -= get_turf(src)
+	locs -= get_turf(agent)
 	if(!length(locs))
 		qdel(src)
 		return
@@ -111,8 +115,8 @@
 
 	var/turf/T = pick(locs)
 	// Spawn the scientist in
-	var/image/teleport = image('icons/obj/abductor.dmi', T, "teleport")
-	teleport.layer = ABOVE_MOB_LAYER
+	var/image/teleport = image('icons/obj/abductor.dmi', T, "teleport", layer = ABOVE_MOB_LAYER)
+	teleport.plane = GAME_PLANE
 	add_icon(teleport)
 	clear_icon_in(teleport, 4 SECONDS)
 	addtimer(CALLBACK(src, .proc/do_spawn_scientist, T), 4 SECONDS)
@@ -131,18 +135,17 @@
 	else if(scientist)
 		return
 
-	var/image/teleport_end = image('icons/mob/mob.dmi', T, "uncloak")
-	teleport_end.layer = ABOVE_MOB_LAYER
+	var/image/teleport_end = image('icons/mob/mob.dmi', T, "uncloak", layer = ABOVE_MOB_LAYER)
+	teleport_end.plane = GAME_PLANE
 	add_icon(teleport_end)
 	clear_icon_in(teleport_end, 0.9 SECONDS)
 
-	scientist = image('icons/mob/simple_human.dmi', T, "abductor_scientist")
+	scientist = image('icons/mob/simple_human.dmi', T, "abductor_scientist", layer = MOB_LAYER)
+	scientist.plane = GAME_PLANE
 	scientist.dir = get_dir(T, target)
-	scientist.layer = MOB_LAYER
 	add_icon(scientist)
 
 /obj/effect/hallucination/chaser/attacker/abductor
-	name = "Mothership Alpha Agent"
 	hallucination_icon = 'icons/mob/simple_human.dmi'
 	hallucination_icon_state = "abductor_agent"
 	duration = 45 SECONDS
@@ -152,6 +155,7 @@
 
 /obj/effect/hallucination/chaser/attacker/abductor/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
+	name = "Unknown"
 
 /obj/effect/hallucination/chaser/attacker/abductor/attack_effects()
 	do_attack_animation(target)

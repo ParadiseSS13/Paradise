@@ -57,7 +57,7 @@
 	. = ..()
 
 	var/list/airlocks = list()
-	for(var/obj/machinery/door/airlock/A in range(world.view, target))
+	for(var/obj/machinery/door/airlock/A in oview(world.view, target))
 		airlocks += A
 
 	var/num_bolted = 0
@@ -135,7 +135,7 @@
 	. = ..()
 
 	var/list/mobs = list()
-	for(var/mob/living/M in oviewers(world.view, target))
+	for(var/mob/living/M in oview(world.view, target))
 		mobs += M
 	if(!length(mobs))
 		return
@@ -144,7 +144,7 @@
 	var/message = pick(messages + "[target]!")
 	target.hear_say(message_to_multilingual(message, pick(target.languages)), speaker = M)
 	// Speech bubble
-	var/image/speech_bubble = image('icons/mob/talk.dmi', M, "[target.bubble_icon][say_test(message)]", FLY_LAYER)
+	var/image/speech_bubble = image('icons/mob/talk.dmi', M, "[target.bubble_icon][say_test(message)]", layer = FLY_LAYER)
 	speech_bubble.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 	add_icon(speech_bubble)
 
