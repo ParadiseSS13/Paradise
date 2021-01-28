@@ -207,7 +207,7 @@
 	var/client/C = client
 	if(istype(blobmind) && istype(C))
 		blobmind.special_role = SPECIAL_ROLE_BLOB
-		var/obj/structure/blob/core/core = new(T, 200, C, 3)
+		var/obj/structure/blob/core/core = new(T, C, 3)
 		core.lateblobtimer()
 	else
 		new /obj/structure/blob/core(T) // Ghosts will be prompted to control it.
