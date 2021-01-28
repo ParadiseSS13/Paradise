@@ -105,7 +105,7 @@
 	item_state = "plasmaman_tank_belt"
 	slot_flags = SLOT_BELT
 	force = 5
-	volume = 24
+	volume = 35
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/tank/internals/plasmaman/belt/full/populate_gas()
@@ -189,7 +189,7 @@
 	desc = "A high-tech nitrogen tank designed specifically for Vox."
 	icon_state = "emergency_vox"
 	sprite_sheets = list("Vox Armalis" = 'icons/mob/species/armalis/belt.dmi') //Do it for Big Bird.
-	volume = 24
+	volume = 35
 
 /obj/item/tank/internals/emergency_oxygen/double/vox/populate_gas()
 	air_contents.nitrogen = (10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
