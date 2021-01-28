@@ -1522,9 +1522,7 @@
 	},
 /area/awaymission/research)
 "el" = (
-/obj/machinery/atmospherics/unary/thermomachine/freezer{
-	current_temperature = 80
-	},
+/obj/machinery/atmospherics/unary/thermomachine/freezer,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
