@@ -3,7 +3,7 @@
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman
 	uniform = /obj/item/clothing/under/plasmaman
-	r_hand = /obj/item/tank/plasma/plasmaman/belt/full
+	r_hand = /obj/item/tank/internals/plasmaman/belt/full
 	mask = /obj/item/clothing/mask/breath
 
 /datum/outfit/plasmaman/bar

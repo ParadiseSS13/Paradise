@@ -4414,7 +4414,7 @@
 	dir = 1
 	},
 /obj/effect/decal/remains/human,
-/obj/item/tank/anesthetic,
+/obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/breath,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
