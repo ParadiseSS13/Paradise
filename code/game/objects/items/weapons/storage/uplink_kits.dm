@@ -358,3 +358,12 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/reagent_containers/syringe/sarin(src)
 	new /obj/item/reagent_containers/syringe/pancuronium(src)
 
+/obj/item/storage/box/syndie_kit/gravity
+	name = "gravity grenade kit"
+
+/obj/item/storage/box/syndie_kit/gravity/New()
+	..()
+	new /obj/item/grenade/gravitygrenade(src)
+	new /obj/item/grenade/gravitygrenade(src)
+	new /obj/item/grenade/gravitygrenade(src)
+	new /obj/item/grenade/gravitygrenade(src)

@@ -67,6 +67,8 @@
 	var/moving = FALSE
 	/// "Haunted" areas such as the morgue and chapel are easier to boo. Because flavor.
 	var/is_haunted = FALSE
+	///This variable, normaly set to true by a gravity grenade, means it checks this variable before it checks if a gravity generator exists on the level, meaning you can have a no gravity room on the same level as a generator.
+	var/has_negative_gravatons = FALSE
 
 /area/Initialize(mapload)
 	GLOB.all_areas += src
@@ -495,11 +497,11 @@
 /client/proc/ResetAmbiencePlayed()
 	played = FALSE
 
-/area/proc/gravitychange(var/gravitystate = 0, var/area/A)
-	A.has_gravity = gravitystate
+/area/proc/gravitychange(var/gravitystate = FALSE)
+	src.has_gravity = gravitystate
 
 	if(gravitystate)
-		for(var/mob/living/carbon/human/M in A)
+		for(var/mob/living/carbon/human/M in src)
 			thunk(M)
 
 /area/proc/thunk(var/mob/living/carbon/human/M)
@@ -529,15 +531,17 @@
 		T = get_turf(AT)
 	var/area/A = get_area(T)
 	if(istype(T, /turf/space)) // Turf never has gravity
-		return 0
-	else if(A && A.has_gravity) // Areas which always has gravity
-		return 1
+		return FALSE
+	else if(A && A.has_gravity) // Areas which currently have gravity
+		return TRUE
+	else if(A && A.has_negative_gravatons) // Ignores gravity generator
+		return FALSE
 	else
 		// There's a gravity generator on our z level
 		// This would do well when integrated with the z level manager
 		if(T && GLOB.gravity_generators["[T.z]"] && length(GLOB.gravity_generators["[T.z]"]))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /area/proc/prison_break()
 	for(var/obj/machinery/power/apc/temp_apc in src)
