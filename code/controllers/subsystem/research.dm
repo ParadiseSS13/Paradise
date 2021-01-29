@@ -4,6 +4,7 @@ SUBSYSTEM_DEF(research)
 	priority = FIRE_PRIORITY_RESEARCH
 	wait = 1 SECONDS
 	init_order = INIT_ORDER_RESEARCH
+	offline_implications = "Science will no longer generate research points. Shuttle call recommended."
 	var/list/invalid_design_ids = list()		//associative id = number of times
 	var/list/invalid_node_ids = list()			//associative id = number of times
 	var/list/invalid_node_boost = list()		//associative id = error message
