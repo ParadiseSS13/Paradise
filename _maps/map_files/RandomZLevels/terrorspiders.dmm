@@ -3822,10 +3822,6 @@
 "jo" = (
 /obj/structure/table,
 /obj/item/folder/white,
-/obj/item/disk/tech_disk{
-	pixel_x = 0;
-	pixel_y = 0
-	},
 /obj/item/disk/design_disk,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -8081,11 +8077,7 @@
 	pixel_x = -22;
 	pixel_y = 0
 	},
-/obj/machinery/r_n_d/server/core{
-	id_with_download_string = "3";
-	id_with_upload_string = "3";
-	req_access = null
-	},
+/obj/machinery/r_n_d/server,
 /turf/simulated/floor/bluegrid{
 	name = "Server Base";
 	nitrogen = 500;
