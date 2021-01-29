@@ -78,4 +78,3 @@
 	tastes = list("mint" = 1)
 	filling_color = "#008000"
 	distill_reagent = "mint"
-
