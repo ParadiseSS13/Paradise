@@ -288,4 +288,3 @@
 	required_reagents = list("mint" = 1, "ethanol" = 1)
 	result_amount = 2
 	mix_message = "The mixture precipitates into many large white crystals."
-
