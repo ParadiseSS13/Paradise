@@ -31513,17 +31513,8 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-<<<<<<< HEAD
 	icon_state = "0-4";
 	d2 = 4
-=======
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
->>>>>>> fed65b1b02f59547c14e9bf225b8e772bc133da7
 	},
 /obj/machinery/status_display{
 	density = 0;
@@ -31554,13 +31545,6 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-<<<<<<< HEAD
-=======
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
->>>>>>> fed65b1b02f59547c14e9bf225b8e772bc133da7
 /turf/simulated/floor/plating,
 /area/bridge)
 "bmb" = (
@@ -31584,7 +31568,6 @@
 	d2 = 2
 	},
 /obj/structure/cable{
-<<<<<<< HEAD
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8";
@@ -31594,14 +31577,6 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
-=======
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
->>>>>>> fed65b1b02f59547c14e9bf225b8e772bc133da7
 	},
 /turf/simulated/floor/plating,
 /area/bridge)
@@ -89145,7 +89120,6 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/maintenance/fsmaint)
-<<<<<<< HEAD
 "dHM" = (
 /obj/machinery/light{
 	dir = 1;
@@ -89167,8 +89141,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/bridge)
-=======
->>>>>>> fed65b1b02f59547c14e9bf225b8e772bc133da7
 "dQa" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/engine,
@@ -89945,7 +89917,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
-<<<<<<< HEAD
 "ksF" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -90011,8 +89982,6 @@
 	icon_state = "vault"
 	},
 /area/shuttle/escape)
-=======
->>>>>>> fed65b1b02f59547c14e9bf225b8e772bc133da7
 "kIR" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow,
