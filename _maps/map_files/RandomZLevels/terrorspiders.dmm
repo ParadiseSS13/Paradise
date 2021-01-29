@@ -12388,7 +12388,6 @@
 	},
 /obj/item/borg/upgrade/vtec,
 /obj/item/stock_parts/cell/bluespace,
-/obj/item/paper/researchnotes,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
