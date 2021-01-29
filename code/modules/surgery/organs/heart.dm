@@ -153,7 +153,6 @@
 	icon_state = "heart-c-u-on"
 	icon_base = "heart-c-u"
 	dead_icon = "heart-c-u-off"
-	var/emagged = FALSE
 	var/attempted_restart = FALSE
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/on_life()

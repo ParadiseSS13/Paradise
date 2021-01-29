@@ -37,6 +37,7 @@
 #define SPECIAL_ROLE_MORPH "Morph"
 #define SPECIAL_ROLE_MULTIVERSE "Multiverse Traveller"
 #define SPECIAL_ROLE_NUKEOPS "Syndicate"
+#define SPECIAL_ROLE_PYROCLASTIC_SLIME 	"Pyroclastic Anomaly Slime"
 #define SPECIAL_ROLE_RAIDER "Vox Raider"
 #define SPECIAL_ROLE_REVENANT "Revenant"
 #define SPECIAL_ROLE_SHADOWLING "Shadowling"

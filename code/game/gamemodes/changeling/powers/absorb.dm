@@ -44,7 +44,7 @@
 				user.visible_message("<span class='danger'>[user] stabs [target] with the proboscis!</span>")
 				to_chat(target, "<span class='danger'>You feel a sharp stabbing pain!</span>")
 				target.take_overall_damage(40)
-		feedback_add_details("changeling_powers","A[stage]")
+		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("Absorb DNA", "[stage]"))
 		if(!do_mob(user, target, 150))
 			to_chat(user, "<span class='warning'>Our absorption of [target] has been interrupted!</span>")
 			changeling.isabsorbing = 0

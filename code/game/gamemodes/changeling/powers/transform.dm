@@ -20,7 +20,7 @@
 
 	user.changeling_update_languages(changeling.absorbed_languages)
 
-	feedback_add_details("changeling_powers","TR")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1
 
 /datum/changeling/proc/select_dna(var/prompt, var/title)

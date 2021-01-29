@@ -317,16 +317,17 @@
 					to_chat(usr, "<span class='warning'>You are already hacking that door!</span>")
 				else
 					hacking = TRUE
-					INVOKE_ASYNC(src, /datum/pai_software/door_jack/.proc/hackloop)
+					INVOKE_ASYNC(src, .proc/hackloop)
 		if("cancel")
 			hackdoor = null
 		if("cable")
-			if(cable)
-				to_chat(usr, "<span class='warning'>You already have a cable deployed!</span>")
-				return
-			var/turf/T = get_turf(pai_holder)
-			cable = new /obj/item/pai_cable(T)
-			pai_holder.visible_message("<span class='warning'>A port on [pai_holder] opens to reveal [cable], which promptly falls to the floor.</span>")
+			playsound(pai_holder, 'sound/mecha/mechmove03.ogg', 25, TRUE)
+			if(cable) // Retracting
+				pai_holder.visible_message("<span class='warning'>[cable] is pulled back into [pai_holder] with a quick snap.</span>")
+				QDEL_NULL(cable)
+			else // Extending
+				cable = new /obj/item/pai_cable(get_turf(pai_holder))
+				pai_holder.visible_message("<span class='warning'>A port on [pai_holder] opens to reveal [cable], which promptly falls to the floor.</span>")
 
 /**
   * Door jack hack loop

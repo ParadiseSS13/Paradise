@@ -42,11 +42,15 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 
 	var/list/msg = list()
 	msg += "<span class='notice'><b>Server Revision Info</b></span>"
-	// Commit info first
+	// Round ID first
+	msg += "<b>Round ID:</b> [GLOB.round_id ? GLOB.round_id : "NULL"]"
+
+	// Commit info
 	if(GLOB.revision_info.commit_hash && GLOB.revision_info.commit_date)
 		msg += "<b>Server Commit:</b> <a href='[config.githuburl]/commit/[GLOB.revision_info.commit_hash]'>[GLOB.revision_info.commit_hash]</a> (Date: [GLOB.revision_info.commit_date])"
 	else
 		msg += "<b>Server Commit:</b> <i>Unable to determine</i>"
+
 
 	// Show server BYOND version
 	msg += "<b>Server BYOND Version:</b> [world.byond_version].[world.byond_build]"

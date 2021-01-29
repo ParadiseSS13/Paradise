@@ -193,64 +193,8 @@
 					if(gene_stability < GENETIC_DAMAGE_STAGE_3)
 						gib()
 
-	if(!(RADIMMUNE in dna.species.species_traits))
-		if(radiation)
-			radiation = clamp(radiation, 0, 200)
-
-			var/autopsy_damage = 0
-			switch(radiation)
-				if(1 to 49)
-					radiation = max(radiation-1, 0)
-					if(prob(25))
-						adjustToxLoss(1)
-						adjustFireLoss(1)
-						autopsy_damage = 2
-
-				if(50 to 74)
-					radiation = max(radiation-2, 0)
-					adjustToxLoss(1)
-					adjustFireLoss(1)
-					autopsy_damage = 2
-					if(prob(5))
-						radiation = max(radiation-5, 0)
-						Weaken(3)
-						to_chat(src, "<span class='danger'>You feel weak.</span>")
-						emote("collapse")
-
-				if(75 to 100)
-					radiation = max(radiation-2, 0)
-					adjustToxLoss(2)
-					adjustFireLoss(2)
-					autopsy_damage = 4
-					if(prob(2))
-						to_chat(src, "<span class='danger'>You mutate!</span>")
-						randmutb(src)
-						domutcheck(src, null)
-
-				if(101 to 150)
-					radiation = max(radiation-3, 0)
-					adjustToxLoss(2)
-					adjustFireLoss(3)
-					autopsy_damage = 5
-					if(prob(4))
-						to_chat(src, "<span class='danger'>You mutate!</span>")
-						randmutb(src)
-						domutcheck(src, null)
-
-				if(151 to INFINITY)
-					radiation = max(radiation-3, 0)
-					adjustToxLoss(2)
-					adjustFireLoss(3)
-					autopsy_damage = 5
-					if(prob(6))
-						to_chat(src, "<span class='danger'>You mutate!</span>")
-						randmutb(src)
-						domutcheck(src, null)
-
-			if(autopsy_damage)
-				var/obj/item/organ/external/chest/chest = get_organ("chest")
-				if(chest)
-					chest.add_autopsy_data("Radiation Poisoning", autopsy_damage)
+	if(!dna || !dna.species.handle_mutations_and_radiation(src))
+		..()
 
 /mob/living/carbon/human/breathe()
 	if(!dna.species.breathe(src))
@@ -625,7 +569,7 @@
 				else
 					overeatduration -= 2
 
-		if(!ismachineperson(src) && nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA) //Gosh damn snowflakey IPCs
+		if(!ismachineperson(src) && !isLivingSSD(src) && nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA) //Gosh damn snowflakey IPCs
 			var/datum/disease/D = new /datum/disease/critical/hypoglycemia
 			ForceContractDisease(D)
 
@@ -919,7 +863,7 @@
 		mind.changeling.regenerate(src)
 		if(hud_used)
 			hud_used.lingchemdisplay.invisibility = 0
-			hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(mind.changeling.chem_charges)]</font></div>"
+			hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#dd66dd'>[round(mind.changeling.chem_charges)]</font></div>"
 	else
 		if(hud_used)
 			hud_used.lingchemdisplay.invisibility = 101

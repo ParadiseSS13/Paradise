@@ -1,5 +1,3 @@
-#define TANK_MAX_RELEASE_PRESSURE (3*ONE_ATMOSPHERE)
-
 /obj/item/tank
 	name = "tank"
 	icon = 'icons/obj/tank.dmi'
@@ -8,14 +6,14 @@
 	hitsound = 'sound/weapons/smash.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
 	pressure_resistance = ONE_ATMOSPHERE * 5
-	force = 5.0
-	throwforce = 10.0
+	force = 5
+	throwforce = 10
 	throw_speed = 1
 	throw_range = 4
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 30)
 	actions_types = list(/datum/action/item_action/set_internals)
 	var/datum/gas_mixture/air_contents = null
-	var/distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
+	var/distribute_pressure = ONE_ATMOSPHERE
 	var/integrity = 3
 	var/volume = 70
 
@@ -25,6 +23,9 @@
 	air_contents = new /datum/gas_mixture()
 	air_contents.volume = volume //liters
 	air_contents.temperature = T20C
+
+	populate_gas()
+
 	START_PROCESSING(SSobj, src)
 	return
 
@@ -35,6 +36,8 @@
 
 	return ..()
 
+/obj/item/tank/proc/populate_gas()
+	return
 
 /obj/item/tank/ui_action_click(mob/user)
 	toggle_internals(user)
@@ -82,7 +85,7 @@
 			. += "<span class='notice'>It's \a [bicon(icon)][src]! If you want any more information you'll need to get closer.</span>"
 		return
 
-	var/celsius_temperature = air_contents.temperature-T0C
+	var/celsius_temperature = air_contents.temperature - T0C
 	var/descriptive
 
 	if(celsius_temperature < 20)
@@ -147,10 +150,10 @@
 
 /obj/item/tank/ui_data(mob/user)
 	var/list/data = list()
-	data["tankPressure"] = round(air_contents.return_pressure() ? air_contents.return_pressure() : 0)
-	data["releasePressure"] = round(distribute_pressure ? distribute_pressure : 0)
+	data["tankPressure"] = round(air_contents.return_pressure())
+	data["releasePressure"] = round(distribute_pressure)
 	data["defaultReleasePressure"] = round(TANK_DEFAULT_RELEASE_PRESSURE)
-	data["minReleasePressure"] = round(TANK_DEFAULT_RELEASE_PRESSURE)
+	data["minReleasePressure"] = round(TANK_MIN_RELEASE_PRESSURE)
 	data["maxReleasePressure"] = round(TANK_MAX_RELEASE_PRESSURE)
 	var/mob/living/carbon/C = user
 	if(!istype(C))
@@ -171,7 +174,7 @@
 			if(pressure == "reset")
 				pressure = initial(distribute_pressure)
 			else if(pressure == "min")
-				pressure = TANK_DEFAULT_RELEASE_PRESSURE
+				pressure = TANK_MIN_RELEASE_PRESSURE
 			else if(pressure == "max")
 				pressure = TANK_MAX_RELEASE_PRESSURE
 			else if(text2num(pressure) != null)
@@ -179,7 +182,7 @@
 			else
 				. = FALSE
 			if(.)
-				distribute_pressure = clamp(round(pressure), TANK_DEFAULT_RELEASE_PRESSURE, TANK_MAX_RELEASE_PRESSURE)
+				distribute_pressure = clamp(round(pressure), TANK_MIN_RELEASE_PRESSURE, TANK_MAX_RELEASE_PRESSURE)
 		if("internals")
 			toggle_internals(usr)
 		else
@@ -204,10 +207,9 @@
 		return null
 
 	var/tank_pressure = air_contents.return_pressure()
-	if(tank_pressure < distribute_pressure)
-		distribute_pressure = tank_pressure
+	var/actual_distribute_pressure = clamp(tank_pressure, 0, distribute_pressure)
 
-	var/moles_needed = distribute_pressure*volume_to_return/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
+	var/moles_needed = actual_distribute_pressure * volume_to_return / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
 
 	return remove_air(moles_needed)
 

@@ -67,7 +67,7 @@
 	var/radiation_amount
 
 /obj/effect/mine/dnascramble/mineEffect(mob/living/victim)
-	victim.apply_effect(radiation_amount, IRRADIATE, 0)
+	victim.rad_act(radiation_amount)
 	if(ishuman(victim))
 		var/mob/living/carbon/human/V = victim
 		if(NO_DNA in V.dna.species.species_traits)

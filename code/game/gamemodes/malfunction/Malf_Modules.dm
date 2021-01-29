@@ -368,18 +368,8 @@
 	uses = 1
 
 /datum/action/innate/ai/lockdown/Activate()
-	for(var/obj/machinery/door/D in GLOB.airlocks)
-		if(!is_station_level(D.z))
-			continue
-		INVOKE_ASYNC(D, /obj/machinery/door.proc/hostile_lockdown, owner)
-		addtimer(CALLBACK(D, /obj/machinery/door.proc/disable_lockdown), 900)
-
-	post_status("alert", "lockdown")
-
-	GLOB.minor_announcement.Announce("Hostile runtime detected in door controllers. Isolation lockdown protocols are now in effect. Please remain calm.", "Network Alert")
 	to_chat(owner, "<span class='warning'>Lockdown Initiated. Network reset in 90 seconds.</span>")
-	spawn(900)
-		GLOB.minor_announcement.Announce("Automatic system reboot complete. Have a secure day.","Network reset:")
+	new /datum/event/door_runtime()
 
 //Destroy RCDs: Detonates all non-cyborg RCDs on the station.
 /datum/AI_Module/large/destroy_rcd
