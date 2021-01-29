@@ -44,9 +44,9 @@ export const DeconstructionMenu = (properties, context) => {
           <Box key={n.name}>
             <Box m={1}>
               <Button
-                content={n.name + " (" + n.worth + ")"}
+                content={n.name + (n.worth ? " (" + n.worth + ")" : "")}
                 icon="unlink"
-                disabled={!n.boosted}
+                disabled={n.boosted}
                 onClick={() => {
                   act('deconstruct', { id: n.id });
                 }} />

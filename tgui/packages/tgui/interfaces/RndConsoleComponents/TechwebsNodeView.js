@@ -32,7 +32,7 @@ export const TechwebNodeView = (properties, context) => {
               {node_requirements.map(n => (
                 <Box mt={1} key={n.id} style={{ border: "1px solid #595959", "border-radius ": "5px" }} pt={0.5} pl={0.5} pr={0.5} pb={0.5}>
                   <Button content={n.displayname} fluid onClick={() => act('TW_viewNode', { id: n.id })} selected={n.unlocked} />
-                  <Button content={"Research (" + nodecost + " Points)"} fluid disabled={researchpoints < n.research_cost} onClick={() => act('TW_research', { id: n.id })} />
+                  <Button content={"Research (" + n.research_cost + " Points)"} fluid disabled={researchpoints < n.research_cost} onClick={() => act('TW_research', { id: n.id })} />
                   <Box italic>
                     {n.description}
                     <Box>

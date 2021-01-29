@@ -87,14 +87,14 @@ Note: Must be placed within 3 tiles of the R&D Console
 		var/datum/techweb_node/TN = SSresearch.get_techweb_node_by_id(id)
 		if(!istype(TN))
 			return FALSE
-		var/list/pos1 = techweb_item_boost_check(loaded_item)
-		if(isnull(pos1[id]))
+		var/list/boostable_nodes = techweb_item_boost_check(loaded_item)
+		if(!(id in boostable_nodes))
 			return FALSE
 		var/dpath = loaded_item.type
-		if(isnull(TN.boost_item_paths[dpath]))
+		if(!(dpath in TN.boost_item_paths))
 			return FALSE
 		var/dboost = TN.boost_item_paths[dpath]
-		var/choice = input("Are you sure you want to destroy [loaded_item.name] for a boost of [dboost? 0 : dboost] in node [TN.display_name]") in list("Proceed", "Cancel")
+		var/choice = input("Are you sure you want to destroy [loaded_item.name] for a boost of [dboost ? 0 : dboost] in node [TN.display_name]") in list("Proceed", "Cancel")
 		if(choice == "Cancel")
 			return FALSE
 		if(QDELETED(loaded_item) || QDELETED(linked_console) || !user.Adjacent(linked_console) || QDELETED(src))
