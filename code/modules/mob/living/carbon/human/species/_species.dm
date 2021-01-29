@@ -78,7 +78,7 @@
 	var/bodyflags = 0
 	var/dietflags  = 0	// Make sure you set this, otherwise it won't be able to digest a lot of foods
 
-	var/blood_color = "#A10808" //Red.
+	var/blood_color = COLOR_BLOOD_BASE //Red.
 	var/flesh_color = "#d1aa2e" //Gold.
 	var/single_gib_type = /obj/effect/decal/cleanable/blood/gibs
 	var/remains_type = /obj/effect/decal/remains/human //What sort of remains is left behind when the species dusts
@@ -228,6 +228,8 @@
 	if(has_gravity(H))
 		if(H.status_flags & GOTTAGOFAST)
 			. -= 1
+		else if(H.status_flags & GOTTAGONOTSOFAST)
+			. -= 0.5
 
 		var/ignoreslow = FALSE
 		if((H.status_flags & IGNORESLOWDOWN) || (RUN in H.mutations))
@@ -747,6 +749,49 @@
 /datum/species/proc/update_health_hud(mob/living/carbon/human/H)
 	return FALSE
 
+/datum/species/proc/handle_mutations_and_radiation(mob/living/carbon/human/H)
+	if(RADIMMUNE in species_traits)
+		H.radiation = 0
+		return TRUE
+
+	. = FALSE
+	var/radiation = H.radiation
+
+	if(radiation > RAD_MOB_KNOCKDOWN && prob(RAD_MOB_KNOCKDOWN_PROB))
+		if(!H.IsWeakened())
+			H.emote("collapse")
+		H.Weaken(RAD_MOB_KNOCKDOWN_AMOUNT)
+		to_chat(H, "<span class='danger'>You feel weak.</span>")
+
+	if(radiation > RAD_MOB_VOMIT && prob(RAD_MOB_VOMIT_PROB))
+		H.vomit(10, TRUE)
+
+	if(radiation > RAD_MOB_MUTATE)
+		if(prob(1))
+			to_chat(H, "<span class='danger'>You mutate!</span>")
+			randmutb(H)
+			H.emote("gasp")
+			domutcheck(H, null)
+
+	if(radiation > RAD_MOB_HAIRLOSS)
+		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		if(!head_organ)
+			return
+		if(prob(15) && head_organ.h_style != "Bald")
+			to_chat(H, "<span class='danger'>Your hair starts to fall out in clumps...</span>")
+			addtimer(CALLBACK(src, .proc/go_bald, H), 5 SECONDS)
+
+/datum/species/proc/go_bald(mob/living/carbon/human/H)
+	if(QDELETED(H))	//may be called from a timer
+		return
+	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+	if(!head_organ)
+		return
+	head_organ.f_style = "Shaved"
+	head_organ.h_style = "Bald"
+	H.update_hair()
+	H.update_fhair()
+
 /*
 Returns the path corresponding to the corresponding organ
 It'll return null if the organ doesn't correspond, so include null checks when using this!
@@ -831,6 +876,9 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	if(XRAY in H.mutations)
 		H.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 
+	if(H.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
+		H.see_invisible = SEE_INVISIBLE_OBSERVER
+
 	H.sync_lighting_plane_alpha()
 
 /datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source, method = REAGENT_TOUCH)
@@ -860,3 +908,18 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
 	if(istype(ears) && !ears.deaf)
 		. = TRUE
+
+/**
+  * Species-specific runechat colour handler
+  *
+  * Checks the species datum flags and returns the appropriate colour
+  * Can be overridden on subtypes to short-circuit these checks (Example: Grey colour is eye colour)
+  * Arguments:
+  * * H - The human who this DNA belongs to
+  */
+/datum/species/proc/get_species_runechat_color(mob/living/carbon/human/H)
+	if(bodyflags & HAS_SKIN_COLOR)
+		return H.skin_colour
+	else
+		var/obj/item/organ/external/head/HD = H.get_organ("head")
+		return HD.hair_colour

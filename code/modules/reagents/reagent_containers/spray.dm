@@ -17,7 +17,6 @@
 	volume = 250
 	possible_transfer_amounts = null
 
-
 /obj/item/reagent_containers/spray/afterattack(atom/A, mob/user)
 	if(istype(A, /obj/item/storage) || istype(A, /obj/structure/table) || istype(A, /obj/structure/rack) || istype(A, /obj/structure/closet) \
 	|| istype(A, /obj/item/reagent_containers) || istype(A, /obj/structure/sink) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/machinery/hydroponics))
@@ -112,6 +111,19 @@
 	name = "space cleaner"
 	desc = "BLAM!-brand non-foaming space cleaner!"
 	list_reagents = list("cleaner" = 250)
+
+/obj/item/reagent_containers/spray/cleaner/safety
+	desc = "BLAM!-brand non-foaming space cleaner! This spray bottle can only accept space cleaner."
+
+/obj/item/reagent_containers/spray/cleaner/safety/on_reagent_change()
+	for(var/filth in reagents.reagent_list)
+		var/datum/reagent/R = filth
+		if(R.id != "cleaner") //all chems other than space cleaner are filthy.
+			reagents.del_reagent(R.id)
+			if(ismob(loc))
+				to_chat(loc, "<span class='warning'>[src] identifies and removes a filthy substance.</span>")
+			else
+				visible_message("<span class='warning'>[src] identifies and removes a filthy substance.</span>")
 
 /obj/item/reagent_containers/spray/cleaner/drone
 	name = "space cleaner"

@@ -101,19 +101,20 @@
 #define FIRE_PRIORITY_THROWING		25
 #define FIRE_PRIORITY_SPACEDRIFT	30
 #define FIRE_PRIORITY_FIELDS		30
-#define FIRE_PRIOTITY_SMOOTHING		35
+#define FIRE_PRIORITY_SMOOTHING		35
 #define FIRE_PRIORITY_ORBIT			35
 #define FIRE_PRIORITY_NETWORKS		40
 #define FIRE_PRIORITY_OBJ			40
 #define FIRE_PRIORITY_ACID			40
-#define FIRE_PRIOTITY_BURNING		40
+#define FIRE_PRIORITY_BURNING		40
 #define FIRE_PRIORITY_INBOUNDS		40
 #define FIRE_PRIORITY_DEFAULT		50
 #define FIRE_PRIORITY_PARALLAX		65
 #define FIRE_PRIORITY_FLIGHTPACKS	80
 #define FIRE_PRIORITY_MOBS			100
-#define FIRE_PRIORITY_NANOUI		110
+#define FIRE_PRIORITY_TGUI			110
 #define FIRE_PRIORITY_TICKER		200
+#define FIRE_PRIORITY_RUNECHAT		410 // I hate how high the fire priority on this is -aa
 #define FIRE_PRIORITY_OVERLAYS		500
 #define FIRE_PRIORITY_INPUT			1000 // This must always always be the max highest priority. Player input must never be lost.
 
@@ -128,8 +129,9 @@
 
 #define RUNLEVELS_DEFAULT (RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME)
 
+// This do{} WHILE (FALSE) syntax may look stupid, but it speeds things up because BYOND memes
 #define COMPILE_OVERLAYS(A)\
-	if (TRUE) {\
+	do { \
 		var/list/ad = A.add_overlays;\
 		var/list/rm = A.remove_overlays;\
 		var/list/po = A.priority_overlays;\
@@ -145,4 +147,4 @@
 			A.overlays |= po;\
 		}\
 		A.flags_2 &= ~OVERLAY_QUEUED_2;\
-}
+} while (FALSE)

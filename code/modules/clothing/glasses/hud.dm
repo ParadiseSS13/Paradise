@@ -2,9 +2,11 @@
 	name = "\improper HUD"
 	desc = "A heads-up display that provides important info in (almost) real time."
 	flags = null //doesn't protect eyes because it's a monocle, duh
-	var/HUDType = null //Hudtype is defined on glasses.dm
 	prescription_upgradable = 1
-	var/list/icon/current = list() //the current hud icons
+	/// The visual icons granted by wearing these glasses.
+	var/HUDType = null
+	/// List of things added to examine text, like security or medical records.
+	var/list/examine_extensions = null
 
 
 /obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot)
@@ -29,6 +31,7 @@
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status."
 	icon_state = "healthhud"
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
+	examine_extensions = list(EXAMINE_HUD_MEDICAL)
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
@@ -88,7 +91,7 @@
 	icon_state = "securityhud"
 	var/global/list/jobs[0]
 	HUDType = DATA_HUD_SECURITY_ADVANCED
-	var/read_only = FALSE
+	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
@@ -114,7 +117,7 @@
 	prescription_upgradable = 0
 
 /obj/item/clothing/glasses/hud/security/sunglasses/read_only
-	read_only = TRUE
+	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
 
 /obj/item/clothing/glasses/hud/security/sunglasses
 	name = "HUDSunglasses"
@@ -192,13 +195,26 @@
 /obj/item/clothing/glasses/hud/skills
 	name = "Skills HUD"
 	desc = "A heads-up display capable of showing the employment history records of NT crew members."
-	icon_state = "material"
+	icon_state = "skill"
 	item_state = "glasses"
+	HUDType = DATA_HUD_SECURITY_BASIC
+	examine_extensions = list(EXAMINE_HUD_SKILLS)
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/species/drask/eyes.dmi',
+		"Grey"  = 'icons/mob/species/grey/eyes.dmi',
+		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+	)
 
 /obj/item/clothing/glasses/hud/skills/sunglasses
 	name = "Skills HUD Sunglasses"
 	desc = "Sunglasses with a build-in skills HUD, showing the employment history of nearby NT crew members."
+	icon_state = "sunhudskill"
 	see_in_dark = 1 // None of these three can be converted to booleans. Do not try it.
 	flash_protect = 1
 	tint = 1
 	prescription_upgradable = TRUE
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/species/drask/eyes.dmi',
+		"Grey"  = 'icons/mob/species/grey/eyes.dmi',
+		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+	)

@@ -25,7 +25,7 @@
 	seed = /obj/item/seeds/watermelon
 	name = "watermelon"
 	desc = "It's full of watery goodness."
-	icon_state = "watermelon"
+	icon_state = "watermelon" // Sprite created by https://github.com/binarysudoku for Goonstation, They have relicensed it for our use.
 	slice_path = /obj/item/reagent_containers/food/snacks/watermelonslice
 	slices_num = 5
 	dried_type = null
@@ -51,7 +51,7 @@
 	seed = /obj/item/seeds/watermelon/holy
 	name = "holymelon"
 	desc = "The water within this melon has been blessed by some deity that's particularly fond of watermelon."
-	icon_state = "holymelon"
+	icon_state = "holymelon" // Sprite created by https://github.com/binarysudoku for Goonstation, They have relicensed it for our use.
 	filling_color = "#FFD700"
 	dried_type = null
 	wine_power = 0.7 //Water to wine, baby.

@@ -293,4 +293,5 @@
 	density = 0
 
 /obj/effect/syringe_gun_dummy/New()
+	. = ..()
 	create_reagents(15)

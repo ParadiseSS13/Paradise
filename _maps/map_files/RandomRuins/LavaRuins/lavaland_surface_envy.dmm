@@ -10,7 +10,7 @@
 /area/lavaland/surface/outdoors)
 "d" = (
 /turf/simulated/wall/rust,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "e" = (
 /obj/structure/mirror{
 	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
@@ -22,7 +22,7 @@
 /obj/effect/decal/cleanable/blood,
 /obj/item/clothing/head/human_head,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "f" = (
 /obj/structure/mirror{
 	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
@@ -31,7 +31,7 @@
 	broken = 1
 	},
 /turf/simulated/floor/plating/burnt,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "g" = (
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/structure/mirror{
@@ -41,18 +41,18 @@
 	broken = 1
 	},
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "h" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "i" = (
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "j" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "k" = (
 /obj/structure/mirror{
 	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
@@ -62,7 +62,7 @@
 	},
 /obj/item/kitchen/knife/envy,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "l" = (
 /obj/structure/mirror{
 	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
@@ -71,7 +71,7 @@
 	broken = 1
 	},
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "m" = (
 /obj/structure/mirror{
 	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
@@ -80,10 +80,10 @@
 	broken = 1
 	},
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "n" = (
 /turf/simulated/floor/plating/damaged,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "o" = (
 /obj/structure/mirror{
 	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
@@ -92,16 +92,16 @@
 	broken = 1
 	},
 /turf/simulated/floor/plating/damaged,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "p" = (
 /obj/machinery/door/airlock/hatch,
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "q" = (
 /obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "A" = (
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,

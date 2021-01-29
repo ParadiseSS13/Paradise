@@ -36,27 +36,27 @@
 /mob/living/attackby(obj/item/I, mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(attempt_harvest(I, user))
-		return 1
+		return TRUE
 	return I.attack(src, user)
 
 /obj/item/proc/attack(mob/living/M, mob/living/user, def_zone)
 	SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, M, user)
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, M, user)
 	if(flags & (NOBLUDGEON))
-		return 0
+		return FALSE
 	if(can_operate(M))  //Checks if mob is lying down on table for surgery
 		if(istype(src,/obj/item/robot_parts))//popup override for direct attach
 			if(!attempt_initiate_surgery(src, M, user,1))
-				return 0
+				return FALSE
 			else
-				return 1
+				return TRUE
 		if(istype(src,/obj/item/organ/external))
 			var/obj/item/organ/external/E = src
 			if(E.is_robotic()) // Robot limbs are less messy to attach
 				if(!attempt_initiate_surgery(src, M, user,1))
-					return 0
+					return FALSE
 				else
-					return 1
+					return TRUE
 		var/obj/item/organ/external/O = M.get_organ(user.zone_selected)
 		if((is_sharp(src) || (isscrewdriver(src) && O?.is_robotic())) && user.a_intent == INTENT_HELP)
 			if(!attempt_initiate_surgery(src, M, user))

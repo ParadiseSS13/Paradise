@@ -7,6 +7,8 @@
 
 #define TICKS *world.tick_lag
 
+#define SECONDS_TO_LIFE_CYCLES /2
+
 #define DS2TICKS(DS) ((DS)/world.tick_lag)
 
 #define TICKS2DS(T) ((T) TICKS)

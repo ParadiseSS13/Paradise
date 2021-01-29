@@ -6,6 +6,7 @@
 	item_state = null	//so the human update icon uses the icon_state instead.
 	fire_sound = 'sound/weapons/ionrifle.ogg'
 	w_class = WEIGHT_CLASS_HUGE
+	can_holster = FALSE
 	flags =  CONDUCT
 	slot_flags = SLOT_BACK
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
@@ -15,9 +16,6 @@
 
 /obj/item/gun/energy/ionrifle/emp_act(severity)
 	return
-
-/obj/item/gun/energy/ionrifle/isHandgun()
-	return 0
 
 /obj/item/gun/energy/ionrifle/carbine
 	name = "ion carbine"
@@ -302,6 +300,7 @@
 	weapon_weight = WEAPON_HEAVY
 	slot_flags = SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
+	can_holster = FALSE
 	zoomable = TRUE
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	shaded_charge = 1
@@ -324,8 +323,6 @@
 
 	var/powercost = ""
 	var/powercostcolor = ""
-
-	var/emagged = 0			//ups the temperature cap from 500 to 1000, targets hit by beams over 500 Kelvin will burst into flames
 	var/dat = ""
 
 /obj/item/gun/energy/temperature/Initialize(mapload, ...)

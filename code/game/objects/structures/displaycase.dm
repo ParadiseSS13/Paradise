@@ -201,9 +201,9 @@
 				electronics.forceMove(display)
 				display.electronics = electronics
 				if(electronics.one_access)
-					display.req_one_access = electronics.conf_access
+					display.req_one_access = electronics.selected_accesses
 				else
-					display.req_access = electronics.conf_access
+					display.req_access = electronics.selected_accesses
 			qdel(src)
 	else
 		return ..()

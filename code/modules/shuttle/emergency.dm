@@ -84,7 +84,6 @@
 	height = 11
 	dir = 4
 	travelDir = 0
-	roundstart_move = "emergency_away"
 	var/sound_played = 0 //If the launch sound has been sent to all players on the shuttle itself
 
 	var/datum/announcement/priority/emergency_shuttle_docked = new(0, new_sound = sound('sound/AI/shuttledock.ogg'))
@@ -231,7 +230,6 @@
 					return
 				mode = SHUTTLE_DOCKED
 				timer = world.time
-				send2irc("Server", "The Emergency Shuttle has docked with the station.")
 				emergency_shuttle_docked.Announce("The Emergency Shuttle has docked with the station. You have [timeLeft(600)] minutes to board the Emergency Shuttle.")
 
 /*
@@ -364,8 +362,6 @@
 	width = 8
 	height = 8
 	dir = 4
-
-	roundstart_move = "backup_away"
 
 /obj/docking_port/mobile/emergency/backup/register()
 	var/current_emergency = SSshuttle.emergency

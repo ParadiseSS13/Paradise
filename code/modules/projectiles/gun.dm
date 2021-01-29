@@ -38,8 +38,8 @@
 	var/spread = 0
 	var/randomspread = 1
 
-	var/unique_rename = 0 //allows renaming with a pen
-	var/unique_reskin = 0 //allows one-time reskinning
+	var/unique_rename = TRUE //allows renaming with a pen
+	var/unique_reskin = TRUE //allows one-time reskinning
 	var/current_skin = null //the skin choice if we had a reskin
 	var/list/options = list()
 
@@ -54,6 +54,8 @@
 	var/mutable_appearance/knife_overlay
 	var/knife_x_offset = 0
 	var/knife_y_offset = 0
+
+	var/can_holster = TRUE
 
 	var/list/upgrades = list()
 
@@ -279,7 +281,7 @@
 			user.update_inv_l_hand()
 		else
 			user.update_inv_r_hand()
-	feedback_add_details("gun_fired","[type]")
+	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 
 /obj/item/gun/attack(mob/M, mob/user)
 	if(user.a_intent == INTENT_HARM) //Flogging
@@ -315,7 +317,9 @@
 
 	if(unique_rename)
 		if(istype(I, /obj/item/pen))
-			rename_gun(user)
+			var/t = rename_interactive(user, I, use_prefix = FALSE)
+			if(!isnull(t))
+				to_chat(user, "<span class='notice'>You name the gun [name]. Say hello to your new friend.</span>")
 	if(istype(I, /obj/item/kitchen/knife))
 		var/obj/item/kitchen/knife/K = I
 		if(!can_bayonet || !K.bayonet || bayonet) //ensure the gun has an attachment point available, and that the knife is compatible with it.
@@ -424,13 +428,6 @@
 		to_chat(M, "Your gun is now skinned as [choice]. Say hello to your new friend.")
 		update_icon()
 
-/obj/item/gun/proc/rename_gun(mob/M)
-	var/input = stripped_input(M,"What do you want to name the gun?", ,"", MAX_NAME_LEN)
-	if(src && input && !M.stat && in_range(M,src) && !M.restrained() && M.canmove)
-		name = input
-		to_chat(M, "You name the gun [input]. Say hello to your new friend.")
-		return
-
 /obj/item/gun/proc/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, params)
 	if(!ishuman(user) || !ishuman(target))
 		return
@@ -464,9 +461,6 @@
 		chambered.BB.damage *= 5
 
 	process_fire(target, user, 1, params)
-
-/obj/item/gun/proc/isHandgun()
-	return 1
 
 /////////////
 // ZOOMING //

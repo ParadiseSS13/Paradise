@@ -349,12 +349,22 @@
 			for(var/client/C in group)
 				C.screen -= O
 
+/proc/remove_images_from_clients(image/I, list/show_to)
+	for(var/client/C in show_to)
+		C.images -= I
+
 /proc/flick_overlay(image/I, list/show_to, duration)
 	for(var/client/C in show_to)
 		C.images += I
-	spawn(duration)
-		for(var/client/C in show_to)
-			C.images -= I
+	addtimer(CALLBACK(GLOBAL_PROC, /proc/remove_images_from_clients, I, show_to), duration, TIMER_CLIENT_TIME)
+
+/proc/flick_overlay_view(image/I, atom/target, duration) //wrapper for the above, flicks to everyone who can see the target atom
+	var/list/viewing = list()
+	for(var/m in viewers(target))
+		var/mob/M = m
+		if(M.client)
+			viewing += M.client
+	flick_overlay(I, viewing, duration)
 
 /proc/get_active_player_count()
 	// Get active players who are playing in the round
@@ -469,7 +479,7 @@
 		var/mob/M = C
 		if(M.client)
 			C = M.client
-	if(!C || !C.prefs.toggles2 & PREFTOGGLE_2_WINDOWFLASHING)
+	if(!C || !(C.prefs.toggles2 & PREFTOGGLE_2_WINDOWFLASHING))
 		return
 	winset(C, "mainwindow", "flash=5")
 
@@ -523,7 +533,8 @@
 			if(visible_by_mobs)
 				continue
 		if(!vent.parent) // This seems to have been an issue in the past, so this is here until it's definitely fixed
-			log_debug("get_valid_vent_spawns(), vent has no parent: [vent], qdeled: [QDELETED(vent)], loc: [vent.loc]")
+			// Can cause heavy message spam in some situations (e.g. pipenets breaking)
+			// log_debug("get_valid_vent_spawns(), vent has no parent: [vent], qdeled: [QDELETED(vent)], loc: [vent.loc]")
 			continue
 		if(length(vent.parent.other_atmosmch) <= min_network_size)
 			continue

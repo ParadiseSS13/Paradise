@@ -564,7 +564,7 @@
 	},
 /area/awaymission/wwmines)
 "bR" = (
-/obj/machinery/microwave,
+/obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/plasteel{
 	tag = "icon-cafeteria (NORTHEAST)";
 	icon_state = "cafeteria";
@@ -955,7 +955,7 @@
 	},
 /area/awaymission/wwgov)
 "cQ" = (
-/obj/machinery/microwave,
+/obj/machinery/kitchen_machine/microwave,
 /obj/machinery/light/small{
 	tag = "icon-bulb1 (NORTH)";
 	icon_state = "bulb1";
@@ -2675,7 +2675,7 @@
 /obj/item/clothing/suit/space/syndicate/black/orange,
 /obj/item/clothing/head/helmet/space/syndicate/black/orange,
 /obj/item/clothing/mask/gas/syndicate,
-/obj/item/tank/oxygen,
+/obj/item/tank/internals/oxygen,
 /obj/item/clothing/shoes/magboots,
 /turf/simulated/shuttle{
 	tag = "icon-floor2";

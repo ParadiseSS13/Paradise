@@ -166,7 +166,7 @@
 				var/mob/living/silicon/ai/A = new /mob/living/silicon/ai(loc, laws, brain)
 				if(A) //if there's no brain, the mob is deleted and a structure/AIcore is created
 					A.rename_self("AI", 1)
-			feedback_inc("cyborg_ais_created",1)
+			SSblackbox.record_feedback("amount", "ais_created", 1)
 			qdel(src)
 		if(AI_READY_CORE)
 			to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
@@ -242,8 +242,8 @@
 	anchored = TRUE
 	state = AI_READY_CORE
 
-/obj/structure/AIcore/deactivated/New()
-	..()
+/obj/structure/AIcore/deactivated/Initialize(mapload)
+	. = ..()
 	circuit = new(src)
 
 /obj/structure/AIcore/deactivated/Destroy()

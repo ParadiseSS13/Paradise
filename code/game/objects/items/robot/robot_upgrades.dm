@@ -53,7 +53,8 @@
 	R.name = heldname
 	R.custom_name = heldname
 	R.real_name = heldname
-
+	if(R.mmi && R.mmi.brainmob)
+		R.mmi.brainmob.name = R.name
 	return TRUE
 
 /obj/item/borg/upgrade/restart

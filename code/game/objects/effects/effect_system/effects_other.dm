@@ -1,140 +1,15 @@
-/////////////////////////////////////////////
-//////// Attach a trail to any object, that spawns when it moves (like for the jetpack)
-/// just pass in the object to attach it to in set_up
-/// Then do start() to start it and stop() to stop it, obviously
-/// and don't call start() in a loop that will be repeated otherwise it'll get spammed!
-/////////////////////////////////////////////
-
-/datum/effect_system/trail_follow
-	var/turf/oldposition
-	var/processing = 1
-	var/on = 1
-
-/datum/effect_system/trail_follow/set_up(atom/atom)
-	attach(atom)
-	oldposition = get_turf(atom)
-
-/datum/effect_system/trail_follow/Destroy()
-	oldposition = null
-	return ..()
-
-/datum/effect_system/trail_follow/proc/stop()
-	processing = 0
-	on = 0
-	oldposition = null
-
-/datum/effect_system/trail_follow/steam
-	effect_type = /obj/effect/particle_effect/steam
-
-/datum/effect_system/trail_follow/steam/start() //Whoever is responsible for this abomination of code should become an hero
-	if(!on)
-		on = 1
-		processing = 1
-		if(!oldposition)
-			oldposition = get_turf(holder)
-	if(processing)
-		processing = 0
-		if(number < 3)
-			var/obj/effect/particle_effect/steam/I = new effect_type(oldposition)
-			number++
-			I.dir = holder.dir
-			oldposition = get_turf(holder)
-			spawn(10)
-				qdel(I)
-				number--
-		spawn(2)
-			if(on)
-				processing = 1
-				start()
-
+/// Ion trails for spacepods and other space-flying things
 /obj/effect/particle_effect/ion_trails
 	name = "ion trails"
 	icon_state = "ion_trails"
-	anchored = 1
+	anchored = TRUE
 
-/datum/effect_system/trail_follow/ion
-	effect_type = /obj/effect/particle_effect/ion_trails
-
-/datum/effect_system/trail_follow/ion/start() //Whoever is responsible for this abomination of code should become an hero
-	if(!on)
-		on = 1
-		processing = 1
-	if(processing)
-		processing = 0
-		var/turf/T = get_turf(src.holder)
-		if(T != oldposition)
-			if(!has_gravity(T))
-				var/obj/effect/particle_effect/ion_trails/I = new effect_type(oldposition)
-				I.dir = holder.dir
-				flick("ion_fade", I)
-				I.icon_state = ""
-				spawn(20)
-					qdel(I)
-			oldposition = T
-		spawn(2)
-			if(on)
-				processing = 1
-				start()
-
-/datum/effect_system/trail_follow/ion/space_trail
-	var/turf/oldloc // secondary ion trail loc
-	var/turf/currloc
-
-/datum/effect_system/trail_follow/ion/space_trail/Destroy()
-	oldloc = null
-	currloc = null
-	return ..()
-
-/datum/effect_system/trail_follow/ion/space_trail/start()
-	if(!on)
-		on = 1
-		processing = 1
-	if(processing)
-		processing = 0
-		spawn(0)
-			var/turf/T = get_turf(src.holder)
-			if(currloc != T)
-				switch(holder.dir)
-					if(NORTH)
-						src.oldposition = T
-						src.oldposition = get_step(oldposition, SOUTH)
-						src.oldloc = get_step(oldposition,EAST)
-						//src.oldloc = get_step(oldloc, SOUTH)
-					if(SOUTH) // More difficult, offset to the north!
-						src.oldposition = get_step(holder,NORTH)
-						src.oldposition = get_step(oldposition,NORTH)
-						src.oldloc = get_step(oldposition,EAST)
-						//src.oldloc = get_step(oldloc,NORTH)
-					if(EAST) // Just one to the north should suffice
-						src.oldposition = T
-						src.oldposition = get_step(oldposition, WEST)
-						src.oldloc = get_step(oldposition,NORTH)
-						//src.oldloc = get_step(oldloc,WEST)
-					if(WEST) // One to the east and north from there
-						src.oldposition = get_step(holder,EAST)
-						src.oldposition = get_step(oldposition,EAST)
-						src.oldloc = get_step(oldposition,NORTH)
-						//src.oldloc = get_step(oldloc,EAST)
-				if(istype(T, /turf/space))
-					var/obj/effect/particle_effect/ion_trails/I = new effect_type(oldposition)
-					var/obj/effect/particle_effect/ion_trails/II = new effect_type(oldloc)
-					//src.oldposition = T
-					I.dir = holder.dir
-					II.dir = holder.dir
-					flick("ion_fade", I)
-					flick("ion_fade", II)
-					I.icon_state = ""
-					II.icon_state = ""
-					spawn(20)
-						if(I)
-							qdel(I)
-						if(II)
-							qdel(II)
-			spawn(2)
-				if(on)
-					processing = 1
-					start()
-			currloc = T
+/obj/effect/particle_effect/ion_trails/Initialize(mapload, targetdir)
+	. = ..()
+	dir = targetdir
+	flick("ion_fade", src)
+	icon_state = null
+	QDEL_IN(src, 2 SECONDS)
 
 //Reagent-based explosion effect
 /datum/effect_system/reagents_explosion

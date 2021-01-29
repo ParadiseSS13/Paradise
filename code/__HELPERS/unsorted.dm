@@ -169,7 +169,16 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 /////////////////////////////////////////////////////////////////////////
 
-/proc/getline(atom/M,atom/N)//Ultra-Fast Bresenham Line-Drawing Algorithm
+/**
+ * Gets the turfs which are between the two given atoms. Including their positions
+ * Only works for atoms on the same Z level which is not 0. So an atom located in a non turf won't work
+ * Arguments:
+ * * M - The source atom
+ * * N - The target atom
+ */
+/proc/getline(atom/M, atom/N)//Ultra-Fast Bresenham Line-Drawing Algorithm
+	if(!M.z || M.z != N.z)	// Same Z level and not 0. Else all below breaks
+		return list()
 	var/px=M.x		//starting x
 	var/py=M.y
 	var/line[] = list(locate(px,py,M.z))
@@ -409,6 +418,24 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	else if(powerused < 1000000000) //Less than a GW
 		return "[round((powerused * 0.000001), 0.001)] MW"
 	return "[round((powerused * 0.000000001), 0.0001)] GW"
+
+// Format an energy value in J, kJ, MJ, or GJ. 1W = 1J/s.
+/proc/DisplayJoules(units)
+	if (units < 1000) // Less than a kJ
+		return "[round(units, 0.1)] J"
+	else if (units < 1000000) // Less than a MJ
+		return "[round(units * 0.001, 0.01)] kJ"
+	else if (units < 1000000000) // Less than a GJ
+		return "[round(units * 0.000001, 0.001)] MJ"
+	return "[round(units * 0.000000001, 0.0001)] GJ"
+
+// Format an energy value measured in Power Cell units.
+/proc/DisplayEnergy(units)
+	// APCs process every (SSmachines.wait * 0.1) seconds, and turn 1 W of
+	// excess power into GLOB.CELLRATE energy units when charging cells.
+	// With the current configuration of wait=20 and CELLRATE=0.002, this
+	// means that one unit is 1 kJ.
+	return DisplayJoules(units * SSmachines.wait * 0.1 / GLOB.CELLRATE)
 
 //Forces a variable to be posative
 /proc/modulus(var/M)
@@ -1400,8 +1427,10 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	see_in_dark = 1e6
 
 /mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox
+	SHOULD_CALL_PARENT(FALSE)
 
 /mob/dview/Destroy()
+	SHOULD_CALL_PARENT(FALSE)
 	// should never be deleted
 	return QDEL_HINT_LETMELIVE
 
@@ -2032,3 +2061,23 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 /// Waits at a line of code until X is true
 #define UNTIL(X) while(!(X)) stoplag()
+
+// Check if the source atom contains another atom
+/atom/proc/contains(atom/location)
+	if(!location)
+		return FALSE
+	if(location == src)
+		return TRUE
+
+	return contains(location.loc)
+
+/proc/log_connection(ckey, ip, cid, connection_type)
+	ASSERT(connection_type in list(CONNECTION_TYPE_ESTABLISHED, CONNECTION_TYPE_DROPPED_IPINTEL, CONNECTION_TYPE_DROPPED_BANNED, CONNECTION_TYPE_DROPPED_INVALID))
+	var/datum/db_query/query_accesslog = SSdbcore.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`datetime`, `ckey`, `ip`, `computerid`, `result`) VALUES(Now(), :ckey, :ip, :cid, :result)", list(
+		"ckey" = ckey,
+		"ip" = "[ip ? ip : ""]", // This is important. NULL is not the same as "", and if you directly open the `.dmb` file, you get a NULL IP.
+		"cid" = cid,
+		"result" = connection_type
+	))
+	query_accesslog.warn_execute()
+	qdel(query_accesslog)

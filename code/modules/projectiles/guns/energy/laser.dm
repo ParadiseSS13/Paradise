@@ -68,11 +68,9 @@
 	force = 10
 	flags =  CONDUCT
 	slot_flags = SLOT_BACK
+	can_holster = FALSE
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/accelerator)
 	ammo_x_offset = 3
-
-/obj/item/gun/energy/lasercannon/isHandgun()
-	return 0
 
 /obj/item/ammo_casing/energy/laser/accelerator
 	projectile_type = /obj/item/projectile/beam/laser/accelerator

@@ -275,9 +275,6 @@
 	icon = 'icons/obj/library.dmi'
 	icon_state = "cqcmanual"
 
-/obj/item/CQC_manual/chef
-	desc = "A small, black manual. Written on the back it says: Bringing the home advantage with you."
-
 /obj/item/CQC_manual/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
 		return

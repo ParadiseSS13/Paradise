@@ -238,6 +238,7 @@ to destroy them and players will be able to make replacements.
 		/obj/machinery/vending/hatdispenser = "Hatlord 9000",
 		/obj/machinery/vending/suitdispenser = "Suitlord 9000",
 		/obj/machinery/vending/shoedispenser = "Shoelord 9000",
+		/obj/machinery/vending/autodrobe = "AutoDrobe",
 		/obj/machinery/vending/clothing = "ClothesMate",
 		/obj/machinery/vending/medical = "NanoMed Plus",
 		/obj/machinery/vending/wallmed = "NanoMed",
@@ -308,28 +309,14 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/capacitor = 6)
 
 /obj/item/circuitboard/thermomachine
-	name = "circuit board (Freezer)"
-	desc = "Use screwdriver to switch between heating and cooling modes."
-	build_path = /obj/machinery/atmospherics/unary/cold_sink/freezer
+	name = "Thermomachine (Machine Board)"
+	build_path = /obj/machinery/atmospherics/unary/thermomachine
 	board_type = "machine"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/micro_laser = 2,
 							/obj/item/stack/cable_coil = 1,
 							/obj/item/stack/sheet/glass = 1)
-
-/obj/item/circuitboard/thermomachine/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver))
-		if(build_path == /obj/machinery/atmospherics/unary/cold_sink/freezer)
-			build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
-			name = "circuit board (Heater)"
-			to_chat(user, "<span class='notice'>You set the board to heating.</span>")
-		else
-			build_path = /obj/machinery/atmospherics/unary/cold_sink/freezer
-			name = "circuit board (Freezer)"
-			to_chat(user, "<span class='notice'>You set the board to cooling.</span>")
-		return
-	return ..()
 
 /obj/item/circuitboard/recharger
 	name = "circuit board (Recharger)"
@@ -836,6 +823,10 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Golem Ore Redemption)"
 	build_path = /obj/machinery/mineral/ore_redemption/golem
 
+/obj/item/circuitboard/ore_redemption/labor
+	name = "circuit board (Labor Ore Redemption)"
+	build_path = /obj/machinery/mineral/ore_redemption/labor
+
 /obj/item/circuitboard/mining_equipment_vendor
 	name = "circuit board (Mining Equipment Vendor)"
 	build_path = /obj/machinery/mineral/equipment_vendor
@@ -847,6 +838,10 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/mining_equipment_vendor/golem
 	name = "circuit board (Mining Equipment Vendor)"
 	build_path = /obj/machinery/mineral/equipment_vendor/golem
+
+/obj/item/circuitboard/mining_equipment_vendor/labor
+	name = "circuit board (Labor Equipment Vendor)"
+	build_path = /obj/machinery/mineral/equipment_vendor/labor
 
 /obj/item/circuitboard/clawgame
 	name = "circuit board (Claw Game)"

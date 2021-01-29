@@ -299,7 +299,7 @@
 /area/awaymission/centcomAway/cafe)
 "aO" = (
 /obj/structure/table,
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_x = -3;
 	pixel_y = 6
 	},
@@ -1785,7 +1785,7 @@
 /area/awaymission/centcomAway/hangar)
 "ey" = (
 /obj/structure/table,
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_x = -3;
 	pixel_y = 6
 	},
@@ -2553,7 +2553,7 @@
 /area/awaymission/centcomAway/general)
 "gB" = (
 /obj/structure/table/reinforced,
-/obj/item/tank/anesthetic,
+/obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/breath/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -3616,9 +3616,7 @@
 	},
 /area/awaymission/centcomAway/general)
 "jd" = (
-/obj/structure/sign/redcross{
-	icon_state = "lifestar"
-	},
+/obj/structure/sign/lifestar,
 /turf/simulated/wall/r_wall,
 /area/awaymission/centcomAway/general)
 "je" = (

@@ -40,6 +40,7 @@
 	var/shoe_walking_volume = 20
 
 /turf/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
 	if(initialized)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
@@ -173,7 +174,7 @@
 
 /turf/proc/levelupdate()
 	for(var/obj/O in src)
-		if(O.level == 1)
+		if(O.level == 1 && O.initialized) // Only do this if the object has initialized
 			O.hide(src.intact)
 
 // override for space turfs, since they should never hide anything
@@ -329,10 +330,6 @@
 
 /turf/proc/Bless()
 	flags |= NOJAUNT
-
-/turf/get_spooked()
-	for(var/atom/movable/AM in contents)
-		AM.get_spooked()
 
 // Defined here to avoid runtimes
 /turf/proc/MakeDry(wet_setting = TURF_WET_WATER)
@@ -563,6 +560,3 @@
 
 /turf/AllowDrop()
 	return TRUE
-
-/turf/proc/water_act(volume, temperature, source)
- 	return FALSE

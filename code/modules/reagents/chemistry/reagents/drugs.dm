@@ -409,7 +409,7 @@
 		to_chat(M, "<span class = 'danger'><font face='[pick("Curlz MT", "Comic Sans MS")]' size='[rand(4,6)]'>You feel FUCKED UP!!!!!!</font></span>")
 		M << 'sound/effects/singlebeat.ogg'
 		M.emote("faint")
-		M.apply_effect(5, IRRADIATE, negate_armor = 1)
+		M.apply_effect(5, IRRADIATE)
 		M.adjustToxLoss(5)
 		M.adjustBrainLoss(10)
 	else

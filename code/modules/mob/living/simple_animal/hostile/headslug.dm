@@ -19,6 +19,8 @@
 	obj_damage = 0
 	environment_smash = 0
 	speak_emote = list("squeaks")
+	pass_flags = PASSTABLE | PASSMOB
+	density = FALSE
 	ventcrawler = 2
 	var/datum/mind/origin
 	var/egg_lain = 0

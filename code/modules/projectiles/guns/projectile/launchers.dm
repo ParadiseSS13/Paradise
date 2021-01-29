@@ -36,12 +36,11 @@
 	icon_state = "gyropistol"
 	fire_sound = 'sound/effects/explosion1.ogg'
 	mag_type = /obj/item/ammo_box/magazine/m75
+	can_holster = TRUE // Override default automatic setting since it is a handgun sized gun
 	burst_size = 1
 	fire_delay = 0
 	actions_types = list()
 
-/obj/item/gun/projectile/automatic/gyropistol/isHandgun()
-	return 1
 
 /obj/item/gun/projectile/automatic/gyropistol/process_chamber(eject_casing = 0, empty_chamber = 1)
 	..()

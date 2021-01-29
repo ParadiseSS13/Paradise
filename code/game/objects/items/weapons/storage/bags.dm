@@ -259,7 +259,6 @@
 		else
 			S.loc = src
 
-	orient2hud(usr)
 	if(usr.s_active)
 		usr.s_active.show_to(usr)
 	update_icon()
@@ -301,7 +300,6 @@
 			S.amount -= stacksize
 		if(!S.amount)
 			qdel(S) // todo: there's probably something missing here
-	orient2hud(usr)
 	if(usr.s_active)
 		usr.s_active.show_to(usr)
 	update_icon()

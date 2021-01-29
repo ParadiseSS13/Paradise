@@ -27,7 +27,7 @@
 	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS
 	dietflags = 0		//IPCs can't eat, so no diet
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
-	blood_color = "#1F181F"
+	blood_color = COLOR_BLOOD_MACHINE
 	flesh_color = "#AAAAAA"
 
 	//Default styles for created mobs.
