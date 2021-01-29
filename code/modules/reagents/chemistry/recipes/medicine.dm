@@ -280,3 +280,11 @@
 	result_amount = 3
 	min_temp = T0C + 100
 	mix_message = "The solution gently swirls with a metallic sheen."
+
+/datum/chemical_reaction/menthol
+	name = "Menthol"
+	id = "menthol"
+	result = "menthol"
+	required_reagents = list("mint" = 1, "ethanol" = 1)
+	result_amount = 2
+	mix_message = "The mixture precipitates into many large white crystals."
