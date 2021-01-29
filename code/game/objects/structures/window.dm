@@ -1,26 +1,3 @@
-GLOBAL_LIST_INIT(wcBar, pick(list("#0d8395", "#58b5c3", "#58c366", "#90d79a", "#ffffff")))
-GLOBAL_LIST_INIT(wcBrig, pick(list("#aa0808", "#7f0606", "#ff0000")))
-GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8fcf44", "#ffffff")))
-
-/obj/proc/color_windows(obj/W)
-	var/list/wcBarAreas = list(/area/crew_quarters/bar)
-	var/list/wcBrigAreas = list(/area/security, /area/shuttle/gamma)
-
-	var/newcolor
-	var/turf/T = get_turf(W)
-	if(!istype(T))
-		return
-	var/area/A = T.loc
-
-	if(is_type_in_list(A,wcBarAreas))
-		newcolor = GLOB.wcBar
-	else if(is_type_in_list(A,wcBrigAreas))
-		newcolor = GLOB.wcBrig
-	else
-		newcolor = GLOB.wcCommon
-
-	return newcolor
-
 /obj/structure/window
 	name = "window"
 	desc = "A window."
@@ -45,7 +22,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	var/shardtype = /obj/item/shard
 	var/glass_type = /obj/item/stack/sheet/glass
 	var/glass_amount = 1
-	var/cancolor = FALSE
 	var/mutable_appearance/crack_overlay
 	var/list/debris = list()
 	var/real_explosion_block	//ignore this, just use explosion_block
@@ -80,9 +56,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		state = WINDOW_SCREWED_TO_FRAME
 
 	ini_dir = dir
-
-	if(!color && cancolor)
-		color = color_windows(src)
 
 	// Precreate our own debris
 
@@ -507,7 +480,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	desc = "It looks rather strong. Might take a few good hits to shatter it."
 	icon_state = "rwindow"
 	reinf = TRUE
-	cancolor = TRUE
 	heat_resistance = 1600
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
 	rad_insulation = RAD_HEAVY_INSULATION
@@ -622,7 +594,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	icon_state = "window"
 	max_integrity = 50
 	smooth = SMOOTH_TRUE
-	cancolor = TRUE
 	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced)
 
 /obj/structure/window/full/plasmabasic
@@ -671,7 +642,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	rad_insulation = RAD_HEAVY_INSULATION
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
-	cancolor = TRUE
 
 /obj/structure/window/full/reinforced/tinted
 	name = "tinted window"
@@ -684,7 +654,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	icon = 'icons/obj/smooth_structures/rice_window.dmi'
 	icon_state = "ice_window"
 	max_integrity = 150
-	cancolor = FALSE
 
 /obj/structure/window/full/shuttle
 	name = "shuttle window"
@@ -737,7 +706,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	explosion_block = 2 //fancy AND hard to destroy. the most useful combination.
 	glass_type = /obj/item/stack/tile/brass
 	reinf = FALSE
-	cancolor = FALSE
 	var/made_glow = FALSE
 
 /obj/structure/window/reinforced/clockwork/Initialize(mapload, direct)

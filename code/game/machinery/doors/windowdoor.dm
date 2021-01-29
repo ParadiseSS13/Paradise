@@ -16,7 +16,6 @@
 	var/obj/item/airlock_electronics/electronics
 	var/base_state = "left"
 	var/reinf = 0
-	var/cancolor = TRUE
 	var/shards = 2
 	var/rods = 2
 	var/cable = 1
@@ -29,8 +28,6 @@
 	if(req_access && req_access.len)
 		icon_state = "[icon_state]"
 		base_state = icon_state
-	if(!color && cancolor)
-		color = color_windows(src)
 	for(var/i in 1 to shards)
 		debris += new /obj/item/shard(src)
 	if(rods)
@@ -349,7 +346,6 @@
 	shards = 0
 	rods = 0
 	resistance_flags = ACID_PROOF | FIRE_PROOF
-	cancolor = FALSE
 	var/made_glow = FALSE
 
 /obj/machinery/door/window/clockwork/New(loc, set_dir)
