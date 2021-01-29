@@ -129,6 +129,7 @@
 /datum/techweb_node/emp_adv
 	id = "emp_adv"
 	display_name = "Advanced Electromagnetic Theory"
+	description = "Better electomagnetic technology"
 	prereq_ids = list("emp_basic")
 	design_ids = list("ultra_micro_laser")
 	research_cost = 2500
