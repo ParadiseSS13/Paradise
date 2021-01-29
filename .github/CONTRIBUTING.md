@@ -354,12 +354,11 @@ This prevents nesting levels from getting deeper then they need to be.
 #### Spacing
 * Operators that should be separated by spaces
   * Boolean and logic operators like &&, || <, >, ==, etc (but not !)
-  * Bitwise AND &
+  * Bitwise AND & and OR |
   * Argument separator operators like , (and ; when used in a forloop)
   * Assignment operators like = or += or the like
   * Math operators like +, -, /, or \*
 * Operators that should not be separated by spaces
-  * Bitwise OR |
   * Access operators like . and :
   * Parentheses ()
   * logical not !

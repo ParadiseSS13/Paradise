@@ -180,7 +180,7 @@ SUBSYSTEM_DEF(dbcore)
 		"UPDATE [format_table_name("round")] SET start_datetime=NOW(), commit_hash=:hash WHERE id=:round_id",
 		list("hash" = GLOB.revision_info.commit_hash, "round_id" = GLOB.round_id)
 	)
-	query_round_start.Execute()
+	query_round_start.Execute(async = FALSE) // This happens during a time of intense server lag, so should be non-async
 	qdel(query_round_start)
 
 /**
