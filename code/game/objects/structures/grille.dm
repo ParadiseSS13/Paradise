@@ -182,15 +182,15 @@
 		for(var/obj/structure/window/WINDOW in loc) //checking this for a 2nd time to check if a window was made while we were waiting.
 			to_chat(user, "<span class='warning'>There is already a window there!</span>")
 			return
-		var/obj/structure/window/W = new S.full_window(get_turf(src))
-		S.use(2)
+		var/obj/structure/window/W = new S.full_window(drop_location())
 		W.setDir(dir_to_set)
 		W.ini_dir = dir_to_set
 		W.anchored = FALSE
-		W.state = WINDOW_OUT_OF_FRAME
-		to_chat(user, "<span class='notice'>You place the [W] on [src].</span>")
 		air_update_turf(TRUE)
 		W.update_nearby_icons()
+		W.state = WINDOW_OUT_OF_FRAME
+		S.use(2)
+		to_chat(user, "<span class='notice'>You place the [W] on [src].</span>")
 
 
 /obj/structure/grille/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
