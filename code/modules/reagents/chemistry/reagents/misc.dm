@@ -703,11 +703,3 @@
 
 	if(H.dna.species.bodyflags & HAS_SKIN_COLOR) //take current alien color and darken it slightly
 		H.change_skin_color("#9B7653")
-
-/datum/reagent/mint
-	name = "Mint"
-	id = "mint"
-	description = "Processed mint, useful in the production of menthol."
-	reagent_state = LIQUID
-	color = "#F8F8FF"
-	taste_description = "mint"
