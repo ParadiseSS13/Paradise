@@ -125,7 +125,6 @@
 	name = "reinforced floor"
 	icon_state = "engine"
 	thermal_conductivity = 0.025
-	var/insulated
 	heat_capacity = 325000
 	floor_tile = /obj/item/stack/rods
 
@@ -161,18 +160,6 @@
 				return
 			new /obj/item/stack/rods(src, 2)
 			ChangeTurf(/turf/simulated/floor/plating)
-			return
-
-	if(istype(C, /obj/item/stack/sheet/plasteel) && !insulated) //Insulating the floor
-		to_chat(user, "<span class='notice'>You begin insulating [src]...</span>")
-		if(do_after(user, 40, target = src) && !insulated) //You finish insulating the insulated insulated insulated insulated insulated insulated insulated insulated vacuum floor
-			to_chat(user, "<span class='notice'>You finish insulating [src].</span>")
-			var/obj/item/stack/sheet/plasteel/W = C
-			W.use(1)
-			thermal_conductivity = 0
-			insulated = 1
-			name = "insulated " + name
-			return
 
 /turf/simulated/floor/engine/ex_act(severity)
 	switch(severity)
@@ -257,18 +244,6 @@
 	oxygen = 0
 	nitrogen = 0
 	temperature = TCMB
-
-/turf/simulated/floor/engine/insulated
-	name = "insulated reinforced floor"
-	icon_state = "engine"
-	insulated = 1
-	thermal_conductivity = 0
-
-/turf/simulated/floor/engine/insulated/vacuum
-	name = "insulated vacuum floor"
-	icon_state = "engine"
-	oxygen = 0
-	nitrogen = 0
 
 /turf/simulated/floor/plating/ironsand
 	name = "Iron Sand"

@@ -56013,7 +56013,7 @@
 /turf/simulated/wall/r_wall,
 /area/toxins/mixing)
 "cgu" = (
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/toxins/mixing)
 "cgv" = (
 /obj/machinery/photocopier,
@@ -56029,7 +56029,7 @@
 	name = "Toxins Venting Bay Door";
 	use_power = 0
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/toxins/mixing)
 "cgE" = (
 /turf/simulated/wall/r_wall,
@@ -56915,19 +56915,19 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 4
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/toxins/mixing)
 "cia" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/toxins/mixing)
 "cib" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/toxins/mixing)
 "cic" = (
 /obj/effect/spawner/window/reinforced,
@@ -58039,7 +58039,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/toxins/mixing)
 "cjY" = (
 /obj/structure/cable{
@@ -58074,7 +58074,7 @@
 	frequency = 1222;
 	id_tag = "burn_sensor"
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/toxins/mixing)
 "ckk" = (
 /obj/docking_port/stationary{
@@ -58799,7 +58799,7 @@
 	id = "toxinsigniter";
 	pixel_x = -20
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/toxins/mixing)
 "cly" = (
 /obj/structure/disposalpipe/segment,
@@ -58814,7 +58814,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "clz" = (
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/toxins/mixing)
 "clA" = (
 /obj/structure/closet/emcloset,
@@ -59858,7 +59858,7 @@
 	})
 "cnE" = (
 /obj/machinery/atmospherics/unary/passive_vent,
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/toxins/mixing)
 "cnF" = (
 /obj/structure/sign/biohazard{
@@ -67167,7 +67167,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/maintenance/incinerator)
 "czG" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -67247,7 +67247,7 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/maintenance/incinerator)
 "czQ" = (
 /obj/machinery/atmospherics/binary/pump{
@@ -67883,7 +67883,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/maintenance/incinerator)
 "cAY" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -67965,7 +67965,7 @@
 	pixel_x = 0;
 	pixel_y = 32
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "cBh" = (
 /obj/item/wrench,
@@ -67976,7 +67976,7 @@
 	id_tag = "disvent";
 	name = "Incinerator Vent"
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "cBj" = (
 /obj/machinery/atmospherics/binary/pump{
@@ -67989,7 +67989,7 @@
 /obj/structure/sign/fire{
 	pixel_y = 32
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "cBk" = (
 /obj/structure/sign/securearea,
@@ -68598,7 +68598,7 @@
 /turf/simulated/wall/r_wall,
 /area/maintenance/asmaint2)
 "cCq" = (
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "cCr" = (
 /obj/structure/cable{
@@ -68654,7 +68654,7 @@
 /obj/machinery/igniter{
 	id = "Incinerator"
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "cCx" = (
 /obj/machinery/door/airlock/public/glass{
@@ -68675,7 +68675,7 @@
 	pixel_x = 0;
 	pixel_y = -23
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "cCy" = (
 /obj/machinery/door/airlock/public/glass{
@@ -68695,7 +68695,7 @@
 	pixel_x = 0;
 	pixel_y = -22
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "cCz" = (
 /obj/effect/decal/remains/human{
@@ -69473,7 +69473,7 @@
 	pressure_checks = 2;
 	pump_direction = 0
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "cDQ" = (
 /obj/structure/closet/toolcloset,
@@ -69511,7 +69511,7 @@
 /obj/structure/sign/fire{
 	pixel_y = -32
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "cDV" = (
 /obj/machinery/door_control{
@@ -70008,7 +70008,7 @@
 /turf/simulated/floor/plating/airless,
 /area/toxins/test_area)
 "cEU" = (
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/maintenance/incinerator)
 "cEV" = (
 /obj/machinery/light{
@@ -78931,7 +78931,7 @@
 	pixel_x = 0;
 	pixel_y = 0
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "cVD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -79095,7 +79095,7 @@
 /area/engine/supermatter)
 "cVT" = (
 /obj/structure/sign/fire,
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "cVU" = (
 /obj/effect/spawner/window/reinforced,
@@ -83358,7 +83358,7 @@
 /area/maintenance/starboardsolar)
 "dfq" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green,
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "dfr" = (
 /obj/machinery/door/airlock/engineering/glass{
@@ -83377,7 +83377,7 @@
 /area/engine/supermatter)
 "dfs" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "dft" = (
 /obj/effect/decal/warning_stripes/east,
@@ -86115,11 +86115,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/turbine)
 "dlm" = (
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/maintenance/turbine)
 "dln" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/maintenance/turbine)
 "dlo" = (
 /obj/effect/decal/warning_stripes/east,
@@ -86246,7 +86246,7 @@
 	name = "Turbine Interior Airlock";
 	req_access_txt = "32"
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/maintenance/turbine)
 "dlz" = (
 /obj/structure/closet/toolcloset,
@@ -86397,7 +86397,7 @@
 /obj/structure/sign/fire{
 	pixel_x = -32
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/maintenance/turbine)
 "dlW" = (
 /obj/machinery/atmospherics/binary/pump{
@@ -86417,7 +86417,7 @@
 /obj/structure/sign/fire{
 	pixel_x = 32
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/maintenance/turbine)
 "dlX" = (
 /obj/structure/cable{
@@ -86426,7 +86426,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/maintenance/turbine)
 "dlY" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
@@ -86441,7 +86441,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dma" = (
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/maintenance/asmaint)
 "dmb" = (
 /obj/effect/decal/warning_stripes/west,
@@ -86526,14 +86526,14 @@
 	name = "Turbine Exterior Airlock";
 	req_access_txt = "32"
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/maintenance/turbine)
 "dmi" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/maintenance/asmaint)
 "dmk" = (
 /obj/structure/sign/securearea{
@@ -86666,7 +86666,7 @@
 	frequency = 1443;
 	id = "air_in"
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/maintenance/turbine)
 "dmz" = (
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -86681,7 +86681,7 @@
 /obj/structure/sign/vacuum{
 	pixel_y = -30
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/maintenance/turbine)
 "dmA" = (
 /obj/structure/cable{
@@ -86693,7 +86693,7 @@
 /obj/machinery/igniter{
 	id = "gasturbine"
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/maintenance/turbine)
 "dmB" = (
 /obj/effect/spawner/window/reinforced,
@@ -86705,14 +86705,14 @@
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
 "dmD" = (
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/space/nearstation)
 "dmE" = (
 /obj/machinery/door/poddoor{
 	id_tag = "auxiliaryturbinevent";
 	name = "Auxiliary Turbine Vent"
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/maintenance/turbine)
 "dmF" = (
 /obj/structure/lattice,
@@ -86811,7 +86811,7 @@
 	comp_id = "incineratorturbine";
 	dir = 1
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/maintenance/turbine)
 "dmP" = (
 /obj/structure/cable{
@@ -86992,7 +86992,7 @@
 "dne" = (
 /obj/structure/cable,
 /obj/machinery/power/turbine,
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/maintenance/turbine)
 "dnf" = (
 /obj/structure/cable{
@@ -87212,7 +87212,7 @@
 /area/turret_protected/ai)
 "dnx" = (
 /obj/structure/sign/fire,
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/maintenance/turbine)
 "dny" = (
 /obj/structure/cable{
@@ -87339,7 +87339,7 @@
 	id_tag = "turbinevent";
 	name = "Turbine Vent"
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/maintenance/turbine)
 "dnJ" = (
 /obj/machinery/access_button{
@@ -89172,7 +89172,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "ejU" = (
 /turf/space,
@@ -89322,7 +89322,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/universal{
 	dir = 4
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "fho" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -89957,7 +89957,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "kYw" = (
 /obj/structure/cable{
@@ -90069,7 +90069,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/supply{
 	dir = 10
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "lXg" = (
 /obj/effect/decal/warning_stripes/west,
@@ -90289,7 +90289,7 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "omz" = (
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "oyv" = (
 /obj/machinery/hologram/holopad,
@@ -90721,7 +90721,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers{
 	dir = 6
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "sPb" = (
 /obj/machinery/alarm{
@@ -90846,7 +90846,7 @@
 	icon_state = "shock";
 	name = "HIGH VOLTAGE"
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "utw" = (
 /obj/structure/shuttle/engine/propulsion/burst{
@@ -91107,7 +91107,7 @@
 /area/engine/engineering)
 "wGJ" = (
 /obj/machinery/status_display,
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "wQr" = (
 /obj/machinery/light,
