@@ -631,7 +631,7 @@ doesn't have toxins access.
 /obj/machinery/computer/rdconsole/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "RndConsole", name, 800, 550, master_ui, state)
+		ui = new(user, src, ui_key, "RndConsole", name, 1200, 550, master_ui, state)
 		ui.open()
 
 /obj/machinery/computer/rdconsole/proc/ui_machine_data(obj/machinery/r_n_d/machine, list/data)
@@ -811,7 +811,7 @@ doesn't have toxins access.
 			var/datum/techweb_node/TN = SSresearch.get_techweb_node_by_id(v)
 			var/list/designs = list()
 			for(var/id in TN.design_ids)
-				designs += list(list("name" = SSresearch.id_name_cache[id]))
+				designs += list(list("name" = SSresearch.id_name_cache[id], "id" = id))
 			// We can assume unlocked=TRUE here since its an unlocked node
 			researched += list(list("id" = TN.id, "displayname" = TN.display_name, "description" = TN.description, "research_cost" = TN.research_cost, "designs" = designs))
 
@@ -821,7 +821,7 @@ doesn't have toxins access.
 			var/datum/techweb_node/TN = SSresearch.get_techweb_node_by_id(v)
 			var/list/designs = list()
 			for(var/id in TN.design_ids)
-				designs += list(list("name" = SSresearch.id_name_cache[id]))
+				designs += list(list("name" = SSresearch.id_name_cache[id], "id" = id))
 			available += list(list("id" = TN.id, "displayname" = TN.display_name, "description" = TN.description, "research_cost" = TN.research_cost, "designs" = designs))
 
 		for(var/v in SSresearch.techweb_nodes)
@@ -830,7 +830,7 @@ doesn't have toxins access.
 			var/datum/techweb_node/TN = SSresearch.get_techweb_node_by_id(v)
 			var/list/designs = list()
 			for(var/id in TN.design_ids)
-				designs += list(list("name" = SSresearch.id_name_cache[id]))
+				designs += list(list("name" = SSresearch.id_name_cache[id], "id" = id))
 			unavailable += list(list("id" = TN.id, "displayname" = TN.display_name, "description" = TN.description, "research_cost" = TN.research_cost, "designs" = designs))
 
 		data["available"] = available
@@ -846,7 +846,7 @@ doesn't have toxins access.
 		data["nodeid"] = selected_node.id
 		var/list/designs = list()
 		for(var/id in selected_node.design_ids)
-			designs += list(list("name" = SSresearch.id_name_cache[id]))
+			designs += list(list("name" = SSresearch.id_name_cache[id], "id" = id))
 		data["node_designs"] = designs
 
 		var/list/requirements = list()
@@ -855,9 +855,12 @@ doesn't have toxins access.
 		for(var/v in selected_node.prerequisites)
 			var/datum/techweb_node/TN = SSresearch.get_techweb_node_by_id(v)
 			var/unlocked = FALSE
+			var/list/rn_designs = list()
+			for(var/id in TN.design_ids)
+				rn_designs += list(list("name" = SSresearch.id_name_cache[id], "id" = id))
 			if(stored_research.researched_nodes[v])
 				unlocked = TRUE
-			requirements += list(list("id" = TN.id, "displayname" = TN.display_name, "description" = TN.description, "research_cost" = TN.research_cost, "unlocked" = unlocked))
+			requirements += list(list("id" = TN.id, "displayname" = TN.display_name, "description" = TN.description, "research_cost" = TN.research_cost, "unlocked" = unlocked, "designs" = rn_designs))
 
 		data["node_requirements"] = requirements
 
@@ -866,7 +869,13 @@ doesn't have toxins access.
 		var/list/unlocks = list()
 		for(var/v in selected_node.unlocks)
 			var/datum/techweb_node/TN = SSresearch.get_techweb_node_by_id(v)
-			unlocks += list(list("id" = TN.id, "displayname" = TN.display_name, "description" = TN.description, "research_cost" = TN.research_cost))
+			var/unlocked = FALSE
+			var/list/un_designs = list()
+			for(var/id in TN.design_ids)
+				un_designs += list(list("name" = SSresearch.id_name_cache[id], "id" = id))
+			if(stored_research.researched_nodes[v])
+				unlocked = TRUE
+			unlocks += list(list("id" = TN.id, "displayname" = TN.display_name, "description" = TN.description, "research_cost" = TN.research_cost, "unlocked" = unlocked, "designs" = un_designs))
 
 		data["node_unlocks"] = unlocks
 

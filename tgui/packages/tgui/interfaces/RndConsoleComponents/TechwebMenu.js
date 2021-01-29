@@ -18,7 +18,7 @@ export const TechwebMenu = (properties, context) => {
           </LabeledList.Item>
         </LabeledList>
         <Flex mt={1}>
-          <Flex.Item grow={1}>
+          <Flex.Item grow={1} basis="33%">
             <Box bold mb={1}>
               Researched Nodes
             </Box>
@@ -28,12 +28,17 @@ export const TechwebMenu = (properties, context) => {
                   <Button content={n.displayname} fluid onClick={() => act('TW_viewNode', { id: n.id })} />
                   <Box italic>
                     {n.description}
+                    <Box>
+                      {n.designs.map(d => (
+                        <img src={"design_" + d.id + ".png"} width="32px" title={d.name} key={d.id} />
+                      ))}
+                    </Box>
                   </Box>
                 </Box>
               ))}
             </Box>
           </Flex.Item>
-          <Flex.Item grow={1}>
+          <Flex.Item grow={1} basis="34%">
             <Box bold mb={1}>
               Available Nodes
             </Box>
@@ -41,16 +46,20 @@ export const TechwebMenu = (properties, context) => {
               {available.map(n => (
                 <Box mt={1} key={n.id} style={{ border: "1px solid #595959", "border-radius ": "5px" }} pt={0.5} pl={0.5} pr={0.5} pb={0.5}>
                   <Button content={n.displayname} fluid onClick={() => act('TW_viewNode', { id: n.id })} />
-                  <Button content={"Research (" + n.research_cost + " Points)"} fluid onClick={() => act('TW_research', { id: n.id })} />
+                  <Button content={"Research (" + n.research_cost + " Points)"} fluid disabled={researchpoints < n.research_cost} onClick={() => act('TW_research', { id: n.id })} />
                   <Box italic>
                     {n.description}
+                    <Box>
+                      {n.designs.map(d => (
+                        <img src={"design_" + d.id + ".png"} width="32px" title={d.name} key={d.id} />
+                      ))}
+                    </Box>
                   </Box>
-
                 </Box>
               ))}
             </Box>
           </Flex.Item>
-          <Flex.Item grow={1}>
+          <Flex.Item grow={1} basis="33%">
             <Box bold mb={1}>
               Unavailable Nodes
             </Box>
@@ -61,6 +70,11 @@ export const TechwebMenu = (properties, context) => {
                   <Button content={"Research (" + n.research_cost + " Points)"} fluid disabled />
                   <Box italic>
                     {n.description}
+                    <Box>
+                      {n.designs.map(d => (
+                        <img src={"design_" + d.id + ".png"} width="32px" title={d.name} key={d.id} />
+                      ))}
+                    </Box>
                   </Box>
                 </Box>
               ))}

@@ -51,7 +51,6 @@
 	// Set up some datums
 	var/datum/component/material_container/materials = AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), 0, FALSE, /obj/item/stack, CALLBACK(src, .proc/can_insert_materials), CALLBACK(src, .proc/on_material_insert))
 	materials.precise_insertion = TRUE
-	local_designs = new /datum/research(src)
 	..()
 	// Components
 	component_parts = list()
@@ -92,7 +91,7 @@
 /obj/machinery/mecha_part_fabricator/Destroy()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.retrieve_all()
-	QDEL_NULL(local_designs)
+	QDEL_NULL(stored_research)
 	return ..()
 
 /obj/machinery/mecha_part_fabricator/RefreshParts()
@@ -168,7 +167,7 @@
   */
 /obj/machinery/mecha_part_fabricator/proc/build_design(datum/design/D)
 	. = FALSE
-	if(!local_designs.known_designs[D.id] || !(D.build_type & allowed_design_types))
+	if(!stored_research.researched_designs[D.id] || !(D.build_type & allowed_design_types))
 		return
 	if(being_built)
 		atom_say("Error: Something is already being built!")
@@ -211,7 +210,6 @@
 			var/obj/item/storage/lockbox/research/large/L = new(get_step(src, SOUTH))
 			I.forceMove(L)
 			L.name += " ([I.name])"
-			L.origin_tech = I.origin_tech
 
 	// Clean up
 	being_built = null
@@ -350,8 +348,8 @@
 	// Current category
 	if(selected_category)
 		var/list/category_designs = list()
-		for(var/v in local_designs.known_designs)
-			var/datum/design/D = local_designs.known_designs[v]
+		for(var/v in stored_research.researched_designs)
+			var/datum/design/D = SSresearch.get_techweb_design_by_id(v)
 			if(!(D.build_type & allowed_design_types) || !(selected_category in D.category) || length(D.reagents_list))
 				continue
 			var/list/design_out = list("id" = D.id, "name" = D.name, "cost" = get_design_cost(D), "time" = get_design_build_time(D))
@@ -386,23 +384,23 @@
 			selected_category = new_cat
 		if("build")
 			var/id = params["id"]
-			var/datum/design/D = local_designs.known_designs[id]
+			var/datum/design/D = stored_research.researched_designs[id]
 			if(!D)
 				return
 			build_design(D)
 		if("queue")
 			var/id = params["id"]
-			if(!(id in local_designs.known_designs))
+			if(!(id in stored_research.researched_designs))
 				return
-			var/datum/design/D = local_designs.known_designs[id]
+			var/datum/design/D = stored_research.researched_designs[id]
 			if(!(D.build_type & allowed_design_types) || length(D.reagents_list))
 				return
 			LAZYADD(build_queue, D)
 			process_queue()
 		if("queueall")
 			LAZYINITLIST(build_queue)
-			for(var/v in local_designs.known_designs)
-				var/datum/design/D = local_designs.known_designs[v]
+			for(var/v in stored_research.researched_designs)
+				var/datum/design/D = SSresearch.get_techweb_design_by_id(v)
 				if(!(D.build_type & allowed_design_types) || !(selected_category in D.category) || length(D.reagents_list))
 					continue
 				build_queue += D

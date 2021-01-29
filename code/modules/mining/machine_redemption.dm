@@ -132,8 +132,6 @@
 	inserted_disk?.forceMove(T)
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.retrieve_all()
-	// Clean up
-	QDEL_NULL(files)
 	return ..()
 
 /obj/machinery/mineral/ore_redemption/RefreshParts()
@@ -326,7 +324,7 @@
 				var/desired = min(amount, stored, MAX_STACK_SIZE)
 				materials.retrieve_sheets(desired, id, out_loc)
 			else
-				var/datum/design/D = files.FindDesignByID(id)
+				var/datum/design/D = SSresearch.get_techweb_design_by_id(id)
 				if(!D)
 					return FALSE
 				var/stored = get_num_smeltable_alloy(D)

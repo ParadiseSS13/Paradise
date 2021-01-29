@@ -64,7 +64,7 @@
 	return ..()
 
 /obj/machinery/research_chem_consumer/attack_hand(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/research_chem_consumer/proc/eject_beaker()
 	if(beaker)
@@ -90,13 +90,13 @@
 		return
 	eject_beaker()
 
-/obj/machinery/research_chem_consumer/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/research_chem_consumer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "ResearchChemConsumer", name, 600, 300, master_ui, state)
 		ui.open()
 
-/obj/machinery/research_chem_consumer/tgui_data(mob/user)
+/obj/machinery/research_chem_consumer/ui_data(mob/user)
 	var/list/data = list()
 	data["beaker_loaded"] = istype(beaker) ? TRUE : FALSE
 	data["target_reagent"] = GLOB.chemical_reagents_list[SSresearch.complex_research_chem_id]
@@ -114,7 +114,7 @@
 	data["required_amount"] = required_amount
 	return data
 
-/obj/machinery/research_chem_consumer/tgui_act(action, list/params)
+/obj/machinery/research_chem_consumer/ui_act(action, list/params)
 	if(..())
 		return
 

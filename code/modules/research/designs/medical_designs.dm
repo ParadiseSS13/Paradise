@@ -296,7 +296,6 @@
 	name = "Janitorial Toolset Implant"
 	desc = "A set of janitorial tools hidden behind a concealed panel on the user's arm."
 	id = "ci-janitorial"
-	req_tech = list("materials" = 3, "engineering" = 4, "biotech" = 4)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 1500, MAT_SILVER = 1500)
 	construction_time = 200
@@ -307,7 +306,6 @@
 	name = "Botanical Toolset Implant"
 	desc = "A set of botanical tools hidden behind a concealed panel on the user's arm."
 	id = "ci-botanical"
-	req_tech = list("materials" = 3, "engineering" = 4, "biotech" = 4)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 1500, MAT_SILVER = 1500)
 	construction_time = 200
@@ -318,7 +316,6 @@
 	name = "Hacking Arm Implant"
 	desc = "A small arm implant containing an advanced screwdriver, wirecutters, and multitool designed for engineers and on-the-field machine modification. Actually legal, despite what the name may make you think."
 	id = "ci-hacking"
-	req_tech = list("materials" = 3, "engineering" = 5, "biotech" = 4, "programming" = 4, "abductor" = 4)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 5000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 	construction_time = 200
@@ -414,7 +411,6 @@
 	name = "Neural Jumperstarter implant"
 	desc = "This implant will automatically attempt to jolt you awake when it detects you have fallen unconscious. Has a short cooldown, incompatible with the CNS Rebooter."
 	id = "ci-antisleep"
-	req_tech = list("materials" = 6, "programming" = 5, "biotech" = 6)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 60
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 500, MAT_GOLD = 1000)

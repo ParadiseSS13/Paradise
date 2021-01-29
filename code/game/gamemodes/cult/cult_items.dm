@@ -256,7 +256,6 @@
 	invis_override = SEE_INVISIBLE_HIDDEN_RUNES
 	flash_protect = TRUE
 	prescription = TRUE
-	origin_tech = null
 
 /obj/item/clothing/glasses/hud/health/night/cultblind/equipped(mob/user, slot)
 	..()

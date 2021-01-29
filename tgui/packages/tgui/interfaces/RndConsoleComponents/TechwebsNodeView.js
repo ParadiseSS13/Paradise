@@ -32,9 +32,14 @@ export const TechwebNodeView = (properties, context) => {
               {node_requirements.map(n => (
                 <Box mt={1} key={n.id} style={{ border: "1px solid #595959", "border-radius ": "5px" }} pt={0.5} pl={0.5} pr={0.5} pb={0.5}>
                   <Button content={n.displayname} fluid onClick={() => act('TW_viewNode', { id: n.id })} selected={n.unlocked} />
-                  <Button content={"Research (" + nodecost + " Points)"} fluid onClick={() => act('TW_research', { id: n.id })} />
+                  <Button content={"Research (" + nodecost + " Points)"} fluid disabled={researchpoints < n.research_cost} onClick={() => act('TW_research', { id: n.id })} />
                   <Box italic>
                     {n.description}
+                    <Box>
+                      {n.designs.map(d => (
+                        <img src={"design_" + d.id + ".png"} width="32px" title={d.name} key={d.id} />
+                      ))}
+                    </Box>
                   </Box>
                 </Box>
               ))}
@@ -47,18 +52,15 @@ export const TechwebNodeView = (properties, context) => {
             <Box maxHeight={32} overflowY="auto" overflowX="hidden">
               <Box mt={1} style={{ border: "1px solid #595959", "border-radius ": "5px" }} pt={0.5} pl={0.5} pr={0.5} pb={0.5}>
                 <Button content={nodename} fluid />
-                <Button content={"Research (" + nodecost + " Points)"} fluid onClick={() => act('TW_research', { id: nodeid })} />
+                <Button content={"Research (" + nodecost + " Points)"} fluid disabled={researchpoints < nodecost} onClick={() => act('TW_research', { id: nodeid })} />
                 <Box italic>
                   {nodedesc}
-                </Box>
-                <Box bold mt={1} mb={1}>
-                  Designs:
-                </Box>
-                {node_designs.map(d => (
-                  <Box key={d.name}>
-                    - {d.name}
+                  <Box>
+                    {node_designs.map(d => (
+                      <img src={"design_" + d.id + ".png"} width="32px" title={d.name} key={d.id} />
+                    ))}
                   </Box>
-                ))}
+                </Box>
               </Box>
             </Box>
           </Flex.Item>
@@ -73,6 +75,11 @@ export const TechwebNodeView = (properties, context) => {
                   <Button content={"Research (" + n.research_cost + " Points)"} fluid disabled />
                   <Box italic>
                     {n.description}
+                    <Box>
+                      {n.designs.map(d => (
+                        <img src={"design_" + d.id + ".png"} width="32px" title={d.name} key={d.id} />
+                      ))}
+                    </Box>
                   </Box>
                 </Box>
               ))}

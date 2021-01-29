@@ -7,7 +7,6 @@ export const TachyonArray = (props, context) => {
   const {
     records = [],
     explosion_target,
-    toxins_tech,
     printing,
   } = data;
   return (
@@ -17,9 +16,6 @@ export const TachyonArray = (props, context) => {
           <LabeledList>
             <LabeledList.Item label="Shift's Target">
               {explosion_target}
-            </LabeledList.Item>
-            <LabeledList.Item label="Current Toxins Level">
-              {toxins_tech}
             </LabeledList.Item>
             <LabeledList.Item label="Administration">
               <Button

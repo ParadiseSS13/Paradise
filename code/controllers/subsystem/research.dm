@@ -1,4 +1,3 @@
-
 SUBSYSTEM_DEF(research)
 	name = "Research"
 	flags = SS_KEEP_TIMING

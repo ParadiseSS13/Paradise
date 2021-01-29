@@ -281,6 +281,29 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/rpd/send(client)
 	send_asset_list(client, assets, verify)
 
+
+// Design sprites for techwebs
+/datum/asset/techwebs_designs
+	var/assets = list()
+	var/verify = FALSE
+
+/datum/asset/techwebs_designs/register()
+	// List of designs which dont have proper icons
+	var/list/problematic_design_ids = list("ipc_head")
+	for(var/design in subtypesof(/datum/design))
+		var/datum/design/D = new design()
+		if(D.id in problematic_design_ids)
+			continue
+		if(D.build_path)
+			var/atom/A = D.build_path
+			// Yes initial() is hacky, but it saves instancing stuff in nullspace
+			assets["design_[D.id].png"] = getFlatIcon(image(icon(initial(A.icon), initial(A.icon_state), initial(A.dir))))
+	for(var/asset_name in assets)
+		register_asset(asset_name, assets[asset_name])
+
+/datum/asset/techwebs_designs/send(client)
+	send_asset_list(client, assets, verify)
+
 //Mob Hunt sprites for UIs
 /datum/asset/mob_hunt
 	var/assets = list()

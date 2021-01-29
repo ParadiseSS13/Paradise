@@ -75,15 +75,15 @@
 
 
 /obj/machinery/computer/rdservercontrol/attack_hand(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/computer/rdservercontrol/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_physical_state)
+/obj/machinery/computer/rdservercontrol/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "RndServerController", name, 600, 300, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/rdservercontrol/tgui_data(mob/user)
+/obj/machinery/computer/rdservercontrol/ui_data(mob/user)
 	var/list/data = list()
 
 	if(QDELETED(selected_server))
@@ -122,7 +122,7 @@
 
 	return data
 
-/obj/machinery/computer/rdservercontrol/tgui_act(action, list/params)
+/obj/machinery/computer/rdservercontrol/ui_act(action, list/params)
 	if(..())
 		return
 

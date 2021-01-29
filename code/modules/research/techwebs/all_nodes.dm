@@ -46,7 +46,7 @@
 	prereq_ids = list("base")
 	design_ids = list("solarcontrol", "recharger", "powermonitor", "rped", "pacman", "adv_capacitor", "adv_sensor", "emitter", "high_cell", "adv_matter_bin",
 	"atmosalerts", "air_management", "recycler", "autolathe", "high_micro_laser", "nano_mani", "weldingmask", "mesons", "thermomachine", "tesla_coil", "grounding_rod",
-	"emergencyoxygen", "extendedoxygen", "doubleoxygen", "oxygentank")
+	"emergencyoxygen", "extendedoxygen", "doubleoxygen", "oxygentank", "engine_goggles", "tray_goggles")
 	research_cost = 2500
 
 /datum/techweb_node/adv_engi
@@ -309,7 +309,7 @@
 	display_name = "Cybernetic Implants"
 	description = "Electronic implants that improve humans."
 	prereq_ids = list("adv_biotech", "cyborg", "datatheory")
-	design_ids = list("ci-nutriment", "ci-nutrimentplus", "ci-breather", "ci-welding", "ci-medhud", "ci-sechud", "ci-diaghud", "ci-mesonhud", "ci-clownvoice")
+	design_ids = list("ci-nutriment", "ci-nutrimentplus", "ci-breather", "ci-welding", "ci-medhud", "ci-sechud", "ci-diaghud", "ci-mesonhud", "ci-clownvoice", "ci-janitorial", "ci-hacking", "ci-botanical", "ci-antisleep")
 	research_cost = 2500
 
 /datum/techweb_node/adv_cyber_implants
