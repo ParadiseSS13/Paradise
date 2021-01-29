@@ -191,30 +191,23 @@
 				return
 		state = EMITTER_NEEDS_WELDER
 		anchored = TRUE
-		user.visible_message("[user] secures [src] to the floor.",
-			"You secure the external reinforcing bolts to the floor.",
-			"You hear a ratchet")
+		user.visible_message("<span class='notice'>[user] secures [src] to the floor.</span>",
+			"<span class='notice'>You secure the external reinforcing bolts to the floor.</span>",
+			"<span class='notice'>You hear a ratchet.</span>")
 	else
 		state = EMITTER_NEEDS_WRENCH
 		anchored = FALSE
-		user.visible_message("[user] unsecures [src] reinforcing bolts from the floor.",
-			"You undo the external reinforcing bolts.",
-			"You hear a ratchet")
+		user.visible_message("<span class='notice'>[user] unsecures [src] reinforcing bolts from the floor.</span>",
+			"<span class='notice'>You undo the external reinforcing bolts.</span>",
+			"<span class='notice'>You hear a ratchet.</span>")
 	playsound(src, I.usesound, I.tool_volume, TRUE)
 
 /obj/machinery/power/emitter/screwdriver_act(mob/living/user, obj/item/I) // Multitool menu NYI
 	. = TRUE
-	if(state != EMITTER_WELDED)
-		return
 	if(active)
 		to_chat(user, "<span class='warning'>[src] needs to be disabled first!</span>")
 		return
 	default_deconstruction_screwdriver(user, "emitter_open", "emitter", I)
-
-/*obj/machinery/power/emitter/multitool_act(mob/living/user, obj/item/I) // Multitool menu NYI
-	. = TRUE
-	if(panel_open)
-		update_multitool_menu(user)*/
 
 /obj/machinery/power/emitter/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -227,9 +220,6 @@
 		return
 	if(state == EMITTER_NEEDS_WRENCH)
 		to_chat(user, "<span class='warning'>[src] needs to be wrenched to the floor.</span>")
-		return
-	if(panel_open)
-		to_chat(user, "<span class='warning'>The maintenance panel needs to be closed!</span>")
 		return
 	if(!I.tool_use_check(user, 0))
 		return
@@ -252,15 +242,10 @@
 		state = EMITTER_NEEDS_WELDER
 
 /obj/machinery/power/emitter/emp_act(severity)//Emitters are hardened but still might have issues
-/*	add_load(1000)
-	if((severity == 1)&&prob(1)&&prob(1))
-		if(src.active)
-			src.active = 0
-			src.use_power = IDLE_POWER_USE	*/
 	return TRUE
 
 /obj/machinery/power/emitter/process()
-	if((stat & (BROKEN)) || !active)
+	if((stat & BROKEN) || !active)
 		return
 	if(state != EMITTER_WELDED || (!powernet && active_power_usage))
 		active = FALSE
