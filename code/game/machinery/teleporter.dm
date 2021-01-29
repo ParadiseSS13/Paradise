@@ -592,14 +592,17 @@
 		update_icon()
 		return TRUE
 
-/obj/machinery/teleport/station/wirecutter_act(mob/user, obj/item/I)
+/obj/machinery/teleport/station/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(panel_open)
+		if(teleporter_hub && teleporter_console)
+			to_chat(user, "<span class='warning'>The station is already linked!</span>")
+			return
 		link_console_and_hub()
-		to_chat(user, "<span class='caution'>You reconnect the station to nearby machinery.</span>")
-
+		to_chat(user, "<span class='notice'>You reconnect the station to nearby machinery.</span>")
+		playsound(src, 'sound/items/pshoom.ogg', 50, TRUE)
 
 /obj/machinery/teleport/station/attack_ai()
 	attack_hand()
