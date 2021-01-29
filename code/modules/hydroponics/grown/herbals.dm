@@ -76,5 +76,5 @@
 	desc = "Process for mint. No need to experi-mint." //haha
 	icon_state = "mint"
 	tastes = list("mint" = 1)
-	filling_color = "#008000"
-	distill_reagent = "mint"
+	filling_color = "#A7EE9F"
+	distill_reagent = "menthol"
