@@ -46,7 +46,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	var/glass_type = /obj/item/stack/sheet/glass
 	var/glass_amount = 1
 	var/cancolor = FALSE
-	var/image/crack_overlay
+	var/mutable_appearance/crack_overlay
 	var/list/debris = list()
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/breaksound = "shatter"
@@ -324,6 +324,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	WELDER_ATTEMPT_REPAIR_MESSAGE
 	if(I.use_tool(src, user, 40, volume = I.tool_volume))
 		obj_integrity = max_integrity
+		update_nearby_icons()
 		WELDER_REPAIR_SUCCESS_MESSAGE
 
 /obj/structure/window/proc/check_state(checked_state)
@@ -479,14 +480,16 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		if(!fulltile)
 			return
 		var/ratio = obj_integrity / max_integrity
-		ratio = CEILING(ratio*4, 1) * 25
+		ratio = CEILING(ratio * 4, 1) * 25
+
 		if(smooth)
 			queue_smooth(src)
-		overlays -= crack_overlay
+
+		cut_overlay(crack_overlay)
 		if(ratio > 75)
 			return
-		crack_overlay = image('icons/obj/structures.dmi',"damage[ratio]",-(layer+0.1))
-		overlays += crack_overlay
+		crack_overlay = mutable_appearance('icons/obj/structures.dmi', "damage[ratio]", -(layer+0.1))
+		add_overlay(crack_overlay)
 
 /obj/structure/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
@@ -757,7 +760,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window/reinforced/clockwork/ratvar_act()
 	obj_integrity = max_integrity
-	update_icon()
+	update_nearby_icons()
 
 /obj/structure/window/reinforced/clockwork/narsie_act()
 	take_damage(rand(25, 75), BRUTE)
