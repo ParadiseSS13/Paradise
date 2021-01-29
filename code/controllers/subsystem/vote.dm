@@ -207,7 +207,7 @@ SUBSYSTEM_DEF(vote)
 			return vote
 	return 0
 
-/datum/controller/subsystem/vote/proc/initiate_vote(var/vote_type, var/initiator_key)
+/datum/controller/subsystem/vote/proc/initiate_vote(vote_type, initiator_key, code_invoked = FALSE)
 	if(!mode)
 		if(started_time != null && !check_rights(R_ADMIN))
 			var/next_allowed_time = (started_time + config.vote_delay)
@@ -234,7 +234,7 @@ SUBSYSTEM_DEF(vote)
 					question = "End the shift?"
 					choices.Add("Initiate Crew Transfer", "Continue The Round")
 			if("map")
-				if(!check_rights(R_SERVER))
+				if(!(check_rights(R_SERVER) || code_invoked))
 					return FALSE
 				question = "Map for next round"
 				for(var/x in subtypesof(/datum/map))
