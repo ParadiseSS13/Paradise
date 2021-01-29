@@ -73,7 +73,7 @@
 /obj/item/reagent_containers/food/snacks/grown/mint
 	seed = /obj/item/seeds/mint
 	name = "mint leaves"
-	desc = "Process for mint. No need to experi-mint." //haha
+	desc = "Process for mint. Distill for menthol. No need to experi-mint." //haha
 	icon_state = "mint"
 	tastes = list("mint" = 1)
 	filling_color = "#A7EE9F"
