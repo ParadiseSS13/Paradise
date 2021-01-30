@@ -1257,7 +1257,7 @@
 	name = "\improper Toximate 3000"
 	desc = "All the fine parts you need in one vending machine!"
 	products = list(/obj/item/assembly/prox_sensor = 8, /obj/item/assembly/igniter = 8, /obj/item/assembly/signaler = 8,
-					/obj/item/wirecutters = 1, /obj/item/assembly/timer = 8)
+					/obj/item/wirecutters = 1, /obj/item/assembly/timer = 8, /obj/machinery/syndicatebomb/empty = 3, /obj/item/bombcore/toxins = 3)
 	contraband = list(/obj/item/flashlight = 5, /obj/item/assembly/voice = 3, /obj/item/assembly/health = 3, /obj/item/assembly/infra = 3)
 
 /obj/machinery/vending/wallmed

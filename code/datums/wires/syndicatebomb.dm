@@ -2,7 +2,7 @@
 	randomize = TRUE
 	holder_type = /obj/machinery/syndicatebomb
 	wire_count = 5
-	proper_name = "Syndicate bomb"
+	proper_name = "Bomb"
 	window_x = 320
 	window_y = 22
 

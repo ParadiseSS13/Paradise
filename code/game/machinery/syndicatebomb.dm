@@ -115,6 +115,9 @@
 		if(open_panel)
 			wires.Interact(user)
 	else if(istype(I, /obj/item/bombcore))
+		if(!open_panel)
+			to_chat(user, "<span class='warning'>The cover is screwed on, you can't reach inside!</span>")
+			return
 		if(!payload)
 			if(!user.drop_item())
 				return
@@ -123,6 +126,9 @@
 			payload.forceMove(src)
 		else
 			to_chat(user, "<span class='notice'>[payload] is already loaded into [src], you'll have to remove it first.</span>")
+	else if(!payload && istype(I, /obj/item/transfer_valve))
+		to_chat(user, "<span class='notice'>[I] doesn't fit in [src], you'll need to use a toxins payload.</span>")
+		return
 	else
 		return ..()
 
@@ -292,16 +298,21 @@
 	beepsound = 'sound/items/bikehorn.ogg'
 
 /obj/machinery/syndicatebomb/empty
-	name = "bomb"
+	name = "bomb casing"
 	icon_state = "base-bomb"
-	desc = "An ominous looking device designed to detonate an explosive payload. Can be bolted down using a wrench."
+	desc = "A plasteel bomb casing. Load a payload and mend the wires before use. Can be bolted down using a wrench."
 	payload = null
 	open_panel = TRUE
-	timer_set = 120
 
 /obj/machinery/syndicatebomb/empty/New()
 	..()
 	wires.cut_all()
+
+/obj/machinery/syndicatebomb/empty/activate()
+	name = "bomb"
+	desc = "A plasteel bomb. Can be bolted down using a wrench."
+	..()
+
 
 /obj/machinery/syndicatebomb/self_destruct
 	name = "self destruct device"
@@ -613,7 +624,7 @@
 
 /obj/item/bombcore/toxins
 	name = "toxins payload"
-	desc = "A payload casing designed to secure a gas based bomb. Must be loaded with a tank transfer valve and installed into a plasteel bomb frame in order to be detonated."
+	desc = "A payload designed to secure a gas based bomb. Must be loaded with a tank transfer valve bomb and installed into a plasteel bomb casing in order to be detonated."
 	origin_tech = "materials=1;engineering=1"
 	icon_state = "chemcore"
 	var/obj/item/transfer_valve/ttv = null
