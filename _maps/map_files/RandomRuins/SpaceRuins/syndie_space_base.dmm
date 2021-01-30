@@ -299,11 +299,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "eC" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	current_temperature = 80;
-	dir = 2;
-	on = 1
-	},
+/obj/machinery/atmospherics/unary/thermomachine/freezer,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "eN" = (
@@ -724,7 +720,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/telecomms)
 "iH" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater,
+/obj/machinery/atmospherics/unary/thermomachine/heater,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "ji" = (
@@ -3608,8 +3604,8 @@
 /obj/structure/closet/crate/medical,
 /obj/item/clothing/mask/breath/medical,
 /obj/item/clothing/mask/breath/medical,
-/obj/item/tank/anesthetic,
-/obj/item/tank/anesthetic,
+/obj/item/tank/internals/anesthetic,
+/obj/item/tank/internals/anesthetic,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue";
@@ -4067,7 +4063,7 @@
 /turf/simulated/floor/engine/air,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Wz" = (
-/obj/structure/sign/redcross{
+/obj/structure/sign/lifestar{
 	desc = "The Star of Life, a symbol of Medical Aid.";
 	icon_state = "lifestar";
 	name = "Medbay"
