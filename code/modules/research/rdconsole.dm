@@ -610,7 +610,7 @@ doesn't have toxins access.
 				var/obj/item/I = H.wear_id
 				if(istype(I))
 					var/obj/item/card/id/ID = I.GetID()
-					if(istype(ID))
+					if(ID)
 						logname = "User: [ID.registered_name]"
 			stored_research.research_logs += "[logname] researched node id [id] for [price] points."
 			return TRUE
@@ -844,6 +844,9 @@ doesn't have toxins access.
 		data["nodedesc"] = selected_node.description
 		data["nodecost"] = selected_node.research_cost
 		data["nodeid"] = selected_node.id
+		data["node_unlocked"] = FALSE
+		if(stored_research.researched_nodes[selected_node.id])
+			data["node_unlocked"] = TRUE
 		var/list/designs = list()
 		for(var/id in selected_node.design_ids)
 			designs += list(list("name" = SSresearch.id_name_cache[id], "id" = id))

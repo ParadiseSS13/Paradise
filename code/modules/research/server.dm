@@ -43,7 +43,7 @@
 
 /obj/machinery/r_n_d/server/emp_act()
 	stat |= EMPED
-	addtimer(CALLBACK(src, .proc/unemp), 600)
+	addtimer(CALLBACK(src, .proc/unemp), 1 MINUTES)
 	refresh_working()
 	return ..()
 

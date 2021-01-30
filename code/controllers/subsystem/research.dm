@@ -4,7 +4,7 @@ SUBSYSTEM_DEF(research)
 	priority = FIRE_PRIORITY_RESEARCH
 	wait = 1 SECONDS
 	init_order = INIT_ORDER_RESEARCH
-	offline_implications = "Science will no longer generate research points. Shuttle call recommended."
+	offline_implications = "Science will no longer generate research points automatically. Shuttle call recommended."
 	var/list/invalid_design_ids = list()		//associative id = number of times
 	var/list/invalid_node_ids = list()			//associative id = number of times
 	var/list/invalid_node_boost = list()		//associative id = error message
@@ -22,7 +22,7 @@ SUBSYSTEM_DEF(research)
 	)		//path = value
 	var/list/errored_datums = list()
 	//----------------------------------------------
-	var/single_server_income = 40.7 // AA TODO: Maybe reduce this since we will have extra point gain methods
+	var/single_server_income = 40 // AA TODO: Maybe reduce this since we will have extra point gain methods
 	var/multiserver_calculation = FALSE
 	var/last_income = 0
 	//^^^^^^^^ ALL OF THESE ARE PER SECOND! ^^^^^^^^
@@ -73,7 +73,7 @@ SUBSYSTEM_DEF(research)
 	last_income = world.time
 
 /datum/controller/subsystem/research/proc/calculate_server_coefficient()	//Diminishing returns.
-	var/amt = servers.len
+	var/amt = length(servers)
 	if(!amt)
 		return 0
 	var/coeff = 100
@@ -170,7 +170,7 @@ SUBSYSTEM_DEF(research)
 			var/datum/techweb_node/P = techweb_nodes[p]
 			if(!istype(P))
 				stack_trace("WARNING: Invalid research prerequisite node with ID [p] detected in node [N.display_name]\[[N.id]\] removed.")
-				N.prereq_ids  -= p
+				N.prereq_ids -= p
 				research_node_id_error(p)
 		for(var/d in N.design_ids)
 			var/datum/design/D = techweb_designs[d]
@@ -263,9 +263,8 @@ SUBSYSTEM_DEF(research)
 				continue
 			for(var/reagent in CR.required_reagents)
 				// If one of our required reagents is in the first list
-				if(reagent in id_cache_1)
-					if(CR.result)
-						id_cache_2 |= CR.result
+				if((reagent in id_cache_1) && CR.result)
+					id_cache_2 |= CR.result
 
 	// Set the chem
 	complex_research_chem_id = pick(id_cache_2)

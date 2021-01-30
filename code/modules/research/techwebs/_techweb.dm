@@ -147,7 +147,7 @@
 	recalculate_nodes(TRUE)				//Fully rebuild the tree.
 
 /datum/techweb/proc/boost_with_path(datum/techweb_node/N, itempath)
-	if(!istype(N)||!ispath(itempath))
+	if(!istype(N) || !ispath(itempath))
 		return FALSE
 	var/boost = N.boost_item_paths[itempath]
 	if(!boosted_nodes[N])
@@ -162,7 +162,7 @@
 	var/visible = FALSE
 	if(researched_nodes[node.id])
 		researched = TRUE
-	var/needed = node.prereq_ids.len
+	var/needed = length(node.prereq_ids)
 	for(var/i in node.prereq_ids)
 		if(researched_nodes[i])
 			visible = TRUE
@@ -181,9 +181,8 @@
 	else
 		if(available)
 			available_nodes[node.id] = node
-		else
-			if(visible)
-				visible_nodes[node.id] = node
+		else if(visible)
+			visible_nodes[node.id] = node
 
 //Laggy procs to do specific checks, just in case. Don't use them if you can just use the vars that already store all this!
 /datum/techweb/proc/designHasReqs(datum/design/D)

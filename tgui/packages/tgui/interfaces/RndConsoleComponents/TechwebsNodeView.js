@@ -12,6 +12,7 @@ export const TechwebNodeView = (properties, context) => {
     node_designs,
     node_unlocks,
     node_requirements,
+    node_unlocked,
   } = data;
   return (
     <Box>
@@ -51,7 +52,7 @@ export const TechwebNodeView = (properties, context) => {
             </Box>
             <Box maxHeight={32} overflowY="auto" overflowX="hidden">
               <Box mt={1} style={{ border: "1px solid #595959", "border-radius ": "5px" }} pt={0.5} pl={0.5} pr={0.5} pb={0.5}>
-                <Button content={nodename} fluid />
+                <Button content={nodename} fluid selected={node_unlocked} />
                 <Button content={"Research (" + nodecost + " Points)"} fluid disabled={researchpoints < nodecost} onClick={() => act('TW_research', { id: nodeid })} />
                 <Box italic>
                   {nodedesc}

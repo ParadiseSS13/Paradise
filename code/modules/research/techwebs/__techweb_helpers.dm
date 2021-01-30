@@ -1,10 +1,10 @@
 /proc/count_unique_techweb_nodes()
 	var/static/list/L = typesof(/datum/techweb_node)
-	return L.len
+	return length(L)
 
 /proc/count_unique_techweb_designs()
 	var/static/list/L = typesof(/datum/design)
-	return L.len
+	return length(L)
 
 /proc/node_boost_error(id, message)
 	SSresearch.invalid_node_boost[id] = message
@@ -49,7 +49,7 @@
 
 	for(var/x in subtypesof(/datum/design))
 		var/datum/design/D = new x
-		if(D.build_type in list(AUTOLATHE, BIOGENERATOR, SMELTER, (AUTOLATHE|SMELTER)))
+		if(D.build_type in list(AUTOLATHE, BIOGENERATOR, SMELTER, (AUTOLATHE | SMELTER)))
 			continue
 		all_design_ids |= D.id
 

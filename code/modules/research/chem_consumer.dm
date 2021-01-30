@@ -21,7 +21,7 @@
 		icon_state = "chemical_open"
 	else if(stat & NOPOWER)
 		icon_state = "chemical_powerless"
-	else if(istype(beaker))
+	else if(beaker)
 		icon_state = "chemical_on"
 	else
 		icon_state = "chemical_idle"
@@ -54,7 +54,7 @@
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
-		beaker =  I
+		beaker = I
 		I.forceMove(src)
 		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
 		SStgui.update_uis(src) // update all UIs attached to src
@@ -81,7 +81,7 @@
 	return ..()
 
 /obj/machinery/research_chem_consumer/AltClick(mob/user)
-	if(!ishuman(usr))
+	if(!ishuman(user))
 		return
 	if(!istype(user) || user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
@@ -98,7 +98,7 @@
 
 /obj/machinery/research_chem_consumer/ui_data(mob/user)
 	var/list/data = list()
-	data["beaker_loaded"] = istype(beaker) ? TRUE : FALSE
+	data["beaker_loaded"] = beaker ? TRUE : FALSE
 	data["target_reagent"] = GLOB.chemical_reagents_list[SSresearch.complex_research_chem_id]
 	data["points_per_unit"] = RESEARCHPOINTS_PER_UNIT
 
@@ -125,7 +125,7 @@
 			eject_beaker()
 		if("consume")
 			var/reagent_amount = beaker.reagents.get_reagent_amount(SSresearch.complex_research_chem_id)
-			if(!(reagent_amount > 0))
+			if(!reagent_amount)
 				return
 			beaker.reagents.remove_reagent(SSresearch.complex_research_chem_id, reagent_amount)
 			SSresearch.science_tech.research_points += (reagent_amount * RESEARCHPOINTS_PER_UNIT)
