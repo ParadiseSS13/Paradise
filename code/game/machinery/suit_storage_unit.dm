@@ -402,6 +402,8 @@
 		uv = TRUE
 		locked = TRUE
 		update_icon()
+		for(var/atom/A in contents)
+			A.clean_blood(radiation_clean = TRUE)
 		if(occupant)
 			var/mob/living/mob_occupant = occupant
 			if(uv_super)
