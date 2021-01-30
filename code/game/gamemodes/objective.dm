@@ -371,35 +371,26 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/theft_area
 
 /datum/objective/steal/proc/get_location()
-	if(steal_target.location_override)
-		return steal_target.location_override
-	var/list/obj/item/steal_candidates = get_all_of_type(steal_target.typepath, subtypes = TRUE)
-	for(var/obj/item/candidate in steal_candidates)
-		if(!is_admin_level(candidate.loc.z))
-			theft_area = get_area(candidate.loc)
-			return "[theft_area]"
-	return "an unknown area"
+	return steal_target.location_override || "an unknown area"
 
 /datum/objective/steal/find_target()
-	var/loop=50
-	while(!steal_target && loop > 0)
-		loop--
-		var/thefttype = pick(GLOB.potential_theft_objectives)
+	var/potential = GLOB.potential_theft_objectives.Copy()
+	while(!steal_target && length(potential))
+		var/thefttype = pick_n_take(potential)
 		var/datum/theft_objective/O = new thefttype
 		if(owner.assigned_role in O.protected_jobs)
 			continue
 		if(O in owner.targets)
 			continue
-		if(O.flags & 2)
+		if(O.flags & 2) // THEFT_FLAG_UNIQUE
 			continue
-		steal_target = O
 
+		steal_target = O
 		explanation_text = "Steal [steal_target]. One was last seen in [get_location()]. "
-		if(islist(O.protected_jobs) && O.protected_jobs.len)
-			explanation_text += "It may also be in the possession of the [jointext(O.protected_jobs, ", ")]."
+		if(length(O.protected_jobs))
+			explanation_text += "It may also be in the possession of the [english_list(O.protected_jobs, and_text = " or ")]."
 		return
 	explanation_text = "Free Objective."
-
 
 /datum/objective/steal/proc/select_target()
 	var/list/possible_items_all = GLOB.potential_theft_objectives+"custom"
