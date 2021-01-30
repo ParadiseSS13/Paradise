@@ -3103,7 +3103,7 @@
 /obj/item/clothing/under/plasmaman/wizard,
 /obj/item/clothing/head/helmet/space/plasmaman/wizard,
 /obj/item/clothing/mask/breath,
-/obj/item/tank/plasma/plasmaman/belt/full,
+/obj/item/tank/internals/plasmaman/belt/full,
 /turf/unsimulated/floor{
 	icon_state = "grimy"
 	},
@@ -3745,7 +3745,7 @@
 /area/centcom/gamma)
 "ke" = (
 /obj/structure/rack,
-/obj/item/tank/emergency_oxygen/vox,
+/obj/item/tank/internals/emergency_oxygen/double/vox,
 /obj/item/clothing/mask/breath/vox,
 /turf/unsimulated/floor{
 	icon_state = "grimy"
@@ -6386,7 +6386,7 @@
 /obj/item/storage/box/handcuffs,
 /obj/item/storage/box/flashbangs,
 /obj/item/clothing/mask/gas,
-/obj/item/tank/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
 /obj/item/radio/headset/ert{
 	pixel_x = 6;
 	pixel_y = -6
@@ -7863,7 +7863,7 @@
 	},
 /area/centcom/evac)
 "tz" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -10071,7 +10071,7 @@
 /area/admin)
 "xq" = (
 /obj/structure/table,
-/obj/item/tank/oxygen/yellow,
+/obj/item/tank/internals/oxygen/yellow,
 /obj/random/bomb_supply,
 /obj/item/clothing/under/rebeloutfit,
 /obj/item/clothing/suit/poncho/ponchoshame,
@@ -12717,10 +12717,10 @@
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
-/obj/item/tank/emergency_oxygen/engi,
-/obj/item/tank/emergency_oxygen/engi,
-/obj/item/tank/emergency_oxygen/engi,
-/obj/item/tank/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "bot"
@@ -12960,15 +12960,15 @@
 /area/space)
 "Fo" = (
 /obj/structure/closet/crate/internals,
-/obj/item/tank/oxygen/red,
+/obj/item/tank/internals/oxygen/red,
 /obj/item/clothing/mask/gas,
-/obj/item/tank/oxygen/red,
+/obj/item/tank/internals/oxygen/red,
 /obj/item/clothing/mask/gas,
-/obj/item/tank/oxygen/red,
+/obj/item/tank/internals/oxygen/red,
 /obj/item/clothing/mask/gas,
-/obj/item/tank/oxygen/red,
+/obj/item/tank/internals/oxygen/red,
 /obj/item/clothing/mask/gas,
-/obj/item/tank/oxygen/red,
+/obj/item/tank/internals/oxygen/red,
 /obj/item/clothing/mask/gas,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -14622,7 +14622,7 @@
 /turf/simulated/shuttle/floor4,
 /area/space)
 "MY" = (
-/obj/item/tank/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
 /obj/item/clothing/mask/breath,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
@@ -15169,7 +15169,7 @@
 /obj/item/harpoon,
 /obj/item/harpoon,
 /obj/item/harpoon,
-/obj/item/tank/nitrogen,
+/obj/item/tank/internals/nitrogen,
 /obj/machinery/light/spot{
 	dir = 4;
 	icon_state = "tube1";
@@ -16022,12 +16022,12 @@
 /area/shuttle/vox)
 "TE" = (
 /obj/structure/rack,
-/obj/item/tank/nitrogen,
-/obj/item/tank/nitrogen,
-/obj/item/tank/nitrogen,
-/obj/item/tank/nitrogen,
-/obj/item/tank/nitrogen,
-/obj/item/tank/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "TF" = (
@@ -16320,7 +16320,7 @@
 /obj/item/robot_parts/r_arm,
 /obj/item/clothing/mask/surgical,
 /obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/tank/anesthetic,
+/obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/breath/medical,
 /obj/item/robot_parts/l_leg,
 /obj/item/robot_parts/r_leg,
