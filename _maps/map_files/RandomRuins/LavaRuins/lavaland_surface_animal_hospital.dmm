@@ -629,15 +629,15 @@
 /area/ruin/powered/animal_hospital)
 "bH" = (
 /obj/structure/table,
-/obj/item/tank/oxygen,
-/obj/item/tank/oxygen,
+/obj/item/tank/internals/oxygen,
+/obj/item/tank/internals/oxygen,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/item/tank/oxygen,
+/obj/item/tank/internals/oxygen,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bI" = (

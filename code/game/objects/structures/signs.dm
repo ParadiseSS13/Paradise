@@ -153,10 +153,10 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "xeno_warning"
 
-/obj/structure/sign/redcross
+/obj/structure/sign/lifestar
 	name = "medbay"
-	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here.'"
-	icon_state = "redcross"
+	desc = "The Star of Life, a symbol of Medical Aid."
+	icon_state = "lifestar"
 
 /obj/structure/sign/greencross
 	name = "medbay"
