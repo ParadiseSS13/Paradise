@@ -60,16 +60,13 @@
 
 /turf/simulated/wall/mineral/uranium/proc/radiate()
 	if(!active)
-		if(world.time > last_event+15)
+		if(world.time > last_event + 15)
 			active = 1
-			for(var/mob/living/L in range(3,src))
-				L.apply_effect(12,IRRADIATE,0)
-			for(var/turf/simulated/wall/mineral/uranium/T in range(3,src))
+			radiation_pulse(src, 40)
+			for(var/turf/simulated/wall/mineral/uranium/T in orange(1, src))
 				T.radiate()
 			last_event = world.time
 			active = null
-			return
-	return
 
 /turf/simulated/wall/mineral/uranium/attack_hand(mob/user as mob)
 	radiate()

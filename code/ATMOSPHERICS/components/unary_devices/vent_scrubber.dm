@@ -41,8 +41,6 @@
 
 /obj/machinery/atmospherics/unary/vent_scrubber/on
 	on = TRUE
-	scrub_N2O = TRUE
-	scrub_Toxins = TRUE
 
 /obj/machinery/atmospherics/unary/vent_scrubber/New()
 	..()
@@ -283,12 +281,12 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/receive_signal(datum/signal/signal)
 	if(stat & (NOPOWER|BROKEN))
 		return
-	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))
-		return 0
+	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"] != "command"))
+		return FALSE
 
-	if(signal.data["power"] != null)
+	if("power" in signal.data)
 		on = text2num(signal.data["power"])
-	if(signal.data["power_toggle"] != null)
+	if("power_toggle" in signal.data)
 		on = !on
 
 	if("widenet" in signal.data)
@@ -296,49 +294,46 @@
 	if("toggle_widenet" in signal.data)
 		widenet = !widenet
 
-	if(signal.data["scrubbing"] != null)
+	if("scrubbing" in signal.data)
 		scrubbing = text2num(signal.data["scrubbing"])
-	if(signal.data["toggle_scrubbing"])
+	if("toggle_scrubbing" in signal.data)
 		scrubbing = !scrubbing
 
-	if(signal.data["o2_scrub"] != null)
+	if("o2_scrub" in signal.data)
 		scrub_O2 = text2num(signal.data["o2_scrub"])
-	if(signal.data["toggle_o2_scrub"])
+	if("toggle_o2_scrub" in signal.data)
 		scrub_O2 = !scrub_O2
 
-	if(signal.data["n2_scrub"] != null)
+	if("n2_scrub" in signal.data)
 		scrub_N2 = text2num(signal.data["n2_scrub"])
-	if(signal.data["toggle_n2_scrub"])
+	if("toggle_n2_scrub" in signal.data)
 		scrub_N2 = !scrub_N2
 
-	if(signal.data["co2_scrub"] != null)
+	if("co2_scrub" in signal.data)
 		scrub_CO2 = text2num(signal.data["co2_scrub"])
-	if(signal.data["toggle_co2_scrub"])
+	if("toggle_co2_scrub" in signal.data)
 		scrub_CO2 = !scrub_CO2
 
-	if(signal.data["tox_scrub"] != null)
+	if("tox_scrub" in signal.data)
 		scrub_Toxins = text2num(signal.data["tox_scrub"])
-	if(signal.data["toggle_tox_scrub"])
+	if("toggle_tox_scrub" in signal.data)
 		scrub_Toxins = !scrub_Toxins
 
-	if(signal.data["n2o_scrub"] != null)
+	if("n2o_scrub" in signal.data)
 		scrub_N2O = text2num(signal.data["n2o_scrub"])
-	if(signal.data["toggle_n2o_scrub"])
+	if("toggle_n2o_scrub" in signal.data)
 		scrub_N2O = !scrub_N2O
 
-	if(signal.data["init"] != null)
+	if("init" in signal.data)
 		name = signal.data["init"]
 		return
 
-	if(signal.data["status"] != null)
-		spawn(2)
-			broadcast_status()
+	if("status" in signal.data)
+		broadcast_status()
 		return //do not update_icon
 
-	spawn(2)
-		broadcast_status()
+	broadcast_status()
 	update_icon()
-	return
 
 /obj/machinery/atmospherics/unary/vent_scrubber/power_change()
 	var/old_stat = stat

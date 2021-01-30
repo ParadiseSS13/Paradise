@@ -7,6 +7,9 @@
 	var/list/fingerprints
 	var/list/fingerprintshidden
 	var/fingerprintslast = null
+	///For handling persistent filters
+	var/list/filter_data
+
 	var/list/blood_DNA
 	var/blood_color
 	var/last_bumped = 0
@@ -47,6 +50,9 @@
 
 	var/list/atom_colours	 //used to store the different colors on an atom
 						//its inherent color, the colored paint applied on it, special color effect etc...
+
+	/// Radiation insulation types
+	var/rad_insulation = RAD_NO_INSULATION
 
 	/// Last name used to calculate a color for the chatmessage overlays. Used for caching.
 	var/chat_color_name
@@ -270,6 +276,9 @@
 /atom/proc/emp_act(severity)
 	return
 
+/atom/proc/water_act(volume, temperature, source, method = REAGENT_TOUCH) //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
+	return TRUE
+
 /atom/proc/bullet_act(obj/item/projectile/P, def_zone)
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
 	. = P.on_hit(src, 0, def_zone)
@@ -404,6 +413,14 @@
 /atom/proc/emag_act()
 	return
 
+/**
+ * Respond to a radioactive wave hitting this atom
+ *
+ * Default behaviour is to send [COMSIG_ATOM_RAD_ACT] and return
+ */
+/atom/proc/rad_act(amount)
+	SEND_SIGNAL(src, COMSIG_ATOM_RAD_ACT, amount)
+
 /atom/proc/fart_act(mob/living/M)
 	return FALSE
 
@@ -421,6 +438,71 @@
 /atom/proc/hitby_react(atom/movable/AM)
 	if(AM && isturf(AM.loc))
 		step(AM, turn(AM.dir, 180))
+
+
+/atom/proc/add_filter(name, priority, list/params)
+	LAZYINITLIST(filter_data)
+	var/list/p = params.Copy()
+	p["priority"] = priority
+	filter_data[name] = p
+	update_filters()
+
+/atom/proc/update_filters()
+	filters = null
+	filter_data = sortTim(filter_data, /proc/cmp_filter_data_priority, TRUE)
+	for(var/f in filter_data)
+		var/list/data = filter_data[f]
+		var/list/arguments = data.Copy()
+		arguments -= "priority"
+		filters += filter(arglist(arguments))
+	UNSETEMPTY(filter_data)
+
+/atom/proc/transition_filter(name, time, list/new_params, easing, loop)
+	var/filter = get_filter(name)
+	if(!filter)
+		return
+
+	var/list/old_filter_data = filter_data[name]
+
+	var/list/params = old_filter_data.Copy()
+	for(var/thing in new_params)
+		params[thing] = new_params[thing]
+
+	animate(filter, new_params, time = time, easing = easing, loop = loop)
+	for(var/param in params)
+		filter_data[name][param] = params[param]
+
+/atom/proc/change_filter_priority(name, new_priority)
+	if(!filter_data || !filter_data[name])
+		return
+
+	filter_data[name]["priority"] = new_priority
+	update_filters()
+
+/obj/item/update_filters()
+	. = ..()
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
+
+/atom/proc/get_filter(name)
+	if(filter_data && filter_data[name])
+		return filters[filter_data.Find(name)]
+
+/atom/proc/remove_filter(name_or_names)
+	if(!filter_data)
+		return
+
+	var/list/names = islist(name_or_names) ? name_or_names : list(name_or_names)
+
+	for(var/name in names)
+		if(filter_data[name])
+			filter_data -= name
+	update_filters()
+
+/atom/proc/clear_filters()
+	filter_data = null
+	filters = null
 
 /*
  * Base proc, terribly named but it's all over the code so who cares I guess right?
@@ -708,27 +790,33 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		blood_overlay.color = color
 		overlays += blood_overlay
 
-/atom/proc/clean_blood()
+/atom/proc/clean_blood(radiation_clean = FALSE)
 	germ_level = 0
+	if(radiation_clean)
+		var/datum/component/radioactive/healthy_green_glow = GetComponent(/datum/component/radioactive)
+		if(!QDELETED(healthy_green_glow))
+			healthy_green_glow.strength = max(0, (healthy_green_glow.strength - (RAD_BACKGROUND_RADIATION * 2)))
+			if(healthy_green_glow.strength <= RAD_BACKGROUND_RADIATION)
+				qdel(healthy_green_glow)
 	if(islist(blood_DNA))
 		blood_DNA = null
 		return TRUE
 
-/obj/effect/decal/cleanable/blood/clean_blood()
+/obj/effect/decal/cleanable/blood/clean_blood(radiation_clean = FALSE)
 	return // While this seems nonsensical, clean_blood isn't supposed to be used like this on a blood decal.
 
-/obj/item/clean_blood()
+/obj/item/clean_blood(radiation_clean = FALSE)
 	. = ..()
 	if(.)
 		if(blood_overlay)
 			overlays -= blood_overlay
 
-/obj/item/clothing/gloves/clean_blood()
+/obj/item/clothing/gloves/clean_blood(radiation_clean = FALSE)
 	. = ..()
 	if(.)
 		transfer_blood = 0
 
-/obj/item/clothing/shoes/clean_blood()
+/obj/item/clothing/shoes/clean_blood(radiation_clean = FALSE)
 	..()
 	bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0)
 	blood_state = BLOOD_STATE_NOT_BLOODY
@@ -736,36 +824,36 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		var/mob/M = loc
 		M.update_inv_shoes()
 
-/mob/living/carbon/human/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
+/mob/living/carbon/human/clean_blood(radiation_clean = FALSE, clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
 	if(w_uniform && !(wear_suit && wear_suit.flags_inv & HIDEJUMPSUIT))
-		if(w_uniform.clean_blood())
+		if(w_uniform.clean_blood(radiation_clean))
 			update_inv_w_uniform()
 	if(gloves && !(wear_suit && wear_suit.flags_inv & HIDEGLOVES))
-		if(gloves.clean_blood())
+		if(gloves.clean_blood(radiation_clean))
 			update_inv_gloves()
 			gloves.germ_level = 0
 			clean_hands = FALSE
 	if(shoes && !(wear_suit && wear_suit.flags_inv & HIDESHOES))
-		if(shoes.clean_blood())
+		if(shoes.clean_blood(radiation_clean))
 			update_inv_shoes()
 			clean_feet = FALSE
 	if(s_store && !(wear_suit && wear_suit.flags_inv & HIDESUITSTORAGE))
-		if(s_store.clean_blood())
+		if(s_store.clean_blood(radiation_clean))
 			update_inv_s_store()
 	if(lip_style && !(head && head.flags_inv & HIDEMASK))
 		lip_style = null
 		update_body()
 	if(glasses && !(wear_mask && wear_mask.flags_inv & HIDEEYES))
-		if(glasses.clean_blood())
+		if(glasses.clean_blood(radiation_clean))
 			update_inv_glasses()
 	if(l_ear && !(wear_mask && wear_mask.flags_inv & HIDEEARS))
-		if(l_ear.clean_blood())
+		if(l_ear.clean_blood(radiation_clean))
 			update_inv_ears()
 	if(r_ear && !(wear_mask && wear_mask.flags_inv & HIDEEARS))
-		if(r_ear.clean_blood())
+		if(r_ear.clean_blood(radiation_clean))
 			update_inv_ears()
 	if(belt)
-		if(belt.clean_blood())
+		if(belt.clean_blood(radiation_clean))
 			update_inv_belt()
 	..(clean_hands, clean_mask, clean_feet)
 	update_icons()	//apply the now updated overlays to the mob
