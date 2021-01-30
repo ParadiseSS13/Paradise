@@ -20,10 +20,10 @@
 	var/decon_speed = null
 	var/fulltile = FALSE
 	var/shardtype = /obj/item/shard
+	var/glass_decal = /obj/effect/decal/cleanable/glass
 	var/glass_type = /obj/item/stack/sheet/glass
 	var/glass_amount = 1
 	var/mutable_appearance/crack_overlay
-	var/list/debris = list()
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/breaksound = "shatter"
 	var/hitsound = 'sound/effects/Glasshit.ogg'
@@ -57,26 +57,11 @@
 
 	ini_dir = dir
 
-	// Precreate our own debris
-
-	var/shards = 1
 	if(fulltile)
-		shards++
 		setDir()
 
 	if(decon_speed == null && fulltile)
 		decon_speed = 2 SECONDS
-
-	var/rods = 0
-	if(reinf)
-		rods++
-		if(fulltile)
-			rods++
-
-	for(var/i in 1 to shards)
-		debris += new shardtype(src)
-	if(rods)
-		debris += new /obj/item/stack/rods(src, rods)
 
 	//windows only block while reinforced and fulltile, so we'll use the proc
 	real_explosion_block = explosion_block
@@ -86,8 +71,6 @@
 
 /obj/structure/window/narsie_act()
 	color = NARSIE_WINDOW_COLOUR
-	for(var/obj/item/shard/shard in debris)
-		shard.color = NARSIE_WINDOW_COLOUR
 
 /obj/structure/window/ratvar_act()
 	if(!fulltile)
@@ -345,12 +328,19 @@
 	if(!disassembled)
 		playsound(src, breaksound, 70, 1)
 		if(!(flags & NODECONSTRUCT))
-			for(var/i in debris)
-				var/obj/item/I = i
-				I.forceMove(loc)
-				transfer_fingerprints_to(I)
+			for(var/obj/item/shard/debris in spawnDebris(drop_location()))
+				transfer_fingerprints_to(debris) // transfer fingerprints to shards only
 	qdel(src)
 	update_nearby_icons()
+
+/obj/structure/window/proc/spawnDebris(location)
+	. = list()
+	. += new shardtype(location)
+	. += new glass_decal(location)
+	if(reinf)
+		. += new /obj/item/stack/rods(location, (fulltile ? 2 : 1))
+	if(fulltile)
+		. += new shardtype(location)
 
 /obj/structure/window/verb/rotate()
 	set name = "Rotate Window Counter-Clockwise"
@@ -551,6 +541,7 @@
 	name = "plasma window"
 	desc = "A window made out of a plasma-silicate alloy. It looks insanely tough to break and burn through."
 	icon_state = "plasmawindow"
+	glass_decal = /obj/effect/decal/cleanable/glass/plasma
 	shardtype = /obj/item/shard/plasma
 	glass_type = /obj/item/stack/sheet/plasmaglass
 	heat_resistance = 32000
@@ -566,6 +557,7 @@
 	name = "reinforced plasma window"
 	desc = "A plasma-glass alloy window, with rods supporting it. It looks hopelessly tough to break. It also looks completely fireproof, considering how basic plasma windows are insanely fireproof."
 	icon_state = "plasmarwindow"
+	glass_decal = /obj/effect/decal/cleanable/glass/plasma
 	shardtype = /obj/item/shard/plasma
 	glass_type = /obj/item/stack/sheet/plasmarglass
 	reinf = TRUE
@@ -601,6 +593,7 @@
 	desc = "A plasma-glass alloy window. It looks insanely tough to break. It appears it's also insanely tough to burn through."
 	icon = 'icons/obj/smooth_structures/plasma_window.dmi'
 	icon_state = "plasmawindow"
+	glass_decal = /obj/effect/decal/cleanable/glass/plasma
 	shardtype = /obj/item/shard/plasma
 	glass_type = /obj/item/stack/sheet/plasmaglass
 	heat_resistance = 32000
@@ -616,6 +609,7 @@
 	desc = "A plasma-glass alloy window, with rods supporting it. It looks hopelessly tough to break. It also looks completely fireproof, considering how basic plasma windows are insanely fireproof."
 	icon = 'icons/obj/smooth_structures/rplasma_window.dmi'
 	icon_state = "rplasmawindow"
+	glass_decal = /obj/effect/decal/cleanable/glass/plasma
 	shardtype = /obj/item/shard/plasma
 	glass_type = /obj/item/stack/sheet/plasmarglass
 	smooth = SMOOTH_TRUE
@@ -712,12 +706,12 @@
 	. = ..()
 	if(fulltile)
 		made_glow = TRUE
-	QDEL_LIST(debris)
 	if(fulltile)
 		new /obj/effect/temp_visual/ratvar/window(get_turf(src))
-		debris += new/obj/item/stack/tile/brass(src, 2)
-	else
-		debris += new/obj/item/stack/tile/brass(src, 1)
+
+/obj/structure/window/reinforced/clockwork/spawnDebris(location)
+	. = list()
+	. += new /obj/item/stack/tile/brass(location, (fulltile ? 2 : 1))
 
 /obj/structure/window/reinforced/clockwork/setDir(direct)
 	if(!made_glow)
