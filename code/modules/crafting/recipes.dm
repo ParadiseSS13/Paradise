@@ -45,6 +45,15 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/teleprod
+	name = "Teleprod"
+	result = /obj/item/melee/baton/cattleprod/teleprod
+	reqs = list(/obj/item/melee/baton/cattleprod = 1,
+	            /obj/item/stack/sheet/bluespace_crystal = 1)
+	time = 40
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
 /datum/crafting_recipe/bola
 	name = "Bola"
 	result = /obj/item/restraints/legcuffs/bola
