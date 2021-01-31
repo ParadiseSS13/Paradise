@@ -6,6 +6,7 @@
 	item_state = "teleprod"
 	hitcost = 3000
 	origin_tech = "combat=2;bluespace=4;materials=3"
+	var/uses = 0
 
 /obj/item/melee/baton/cattleprod/teleprod/attack(mob/living/carbon/M, mob/living/carbon/user)//handles making things teleport when hit
 	..()
@@ -18,3 +19,12 @@
 			do_teleport(user, get_turf(user), 50)//honk honk
 		else if(iscarbon(M) && !M.anchored)
 			do_teleport(M, get_turf(M), 15)
+		uses++
+		if(prob((uses-5)*2))
+			user.visible_message("<span class='danger'>The crystal on [user]'s [src] shatters!</span>", \
+								"<span class='userdanger'>Your [src]'s bluespace crystal shattered!</span>")
+			cell.forceMove(get_turf(user))
+			cell = null
+			qdel(src)
+			var/obj/item/wirerod/R = new
+			user.put_in_active_hand(R)
