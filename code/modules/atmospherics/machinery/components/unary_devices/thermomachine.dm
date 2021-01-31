@@ -10,9 +10,6 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 30)
 	layer = OBJ_LAYER
 
-	///Check if the device should be on or off
-	var/on = FALSE
-
 	var/icon_state_off = "freezer"
 	var/icon_state_on = "freezer_1"
 	var/icon_state_open = "freezer-o"

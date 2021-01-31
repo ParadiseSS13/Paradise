@@ -13,7 +13,6 @@
 
 	req_one_access_txt = "24;10"
 
-	var/on = 0
 	var/injecting = 0
 
 	var/volume_rate = 50

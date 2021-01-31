@@ -16,7 +16,6 @@
 
 	connect_types = list(1,2,3) //connects to regular, supply and scrubbers pipes
 
-	var/on = 0
 	var/pump_direction = 1 //0 = siphoning, 1 = releasing
 
 	var/external_pressure_bound = ONE_ATMOSPHERE
