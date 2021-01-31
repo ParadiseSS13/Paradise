@@ -47,7 +47,6 @@
 /obj/machinery/atmospherics/trinary/filter/AltClick(mob/living/user)
 	if(can_use_shortcut(user))
 		set_max(user)
-	return
 
 /obj/machinery/atmospherics/trinary/filter/AIAltClick()
 	set_max()

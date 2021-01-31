@@ -41,7 +41,6 @@ Thus, the two variables affect pump operation are set in New():
 /obj/machinery/atmospherics/binary/volume_pump/AltClick(mob/living/user)
 	if(can_use_shortcut(user))
 		set_max(user)
-	return
 
 /obj/machinery/atmospherics/binary/volume_pump/AIAltClick()
 	set_max()
