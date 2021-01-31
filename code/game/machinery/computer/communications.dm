@@ -3,8 +3,9 @@
 #define COMM_SCREEN_MESSAGES	3
 
 #define COMM_AUTHENTICATION_NONE	0
-#define COMM_AUTHENTICATION_MIN		1
-#define COMM_AUTHENTICATION_MAX		2
+#define COMM_AUTHENTICATION_HEAD	1
+#define COMM_AUTHENTICATION_CAPT	2
+#define COMM_AUTHENTICATION_AGHOST	3
 
 #define COMM_MSGLEN_MINIMUM 6
 #define COMM_CCMSGLEN_MINIMUM 20
@@ -45,16 +46,15 @@
 	crew_announcement.newscast = 0
 
 /obj/machinery/computer/communications/proc/is_authenticated(var/mob/user, var/message = 1)
-	if(authenticated == COMM_AUTHENTICATION_MAX)
-		return COMM_AUTHENTICATION_MAX
-	else if(user.can_admin_interact())
-		return COMM_AUTHENTICATION_MAX
-	else if(authenticated)
-		return COMM_AUTHENTICATION_MIN
-	else
-		if(message)
-			to_chat(user, "<span class='warning'>Access denied.</span>")
-		return COMM_AUTHENTICATION_NONE
+	if(user.can_admin_interact())
+		return COMM_AUTHENTICATION_AGHOST
+	if(authenticated == COMM_AUTHENTICATION_CAPT)
+		return COMM_AUTHENTICATION_CAPT
+	if(authenticated)
+		return COMM_AUTHENTICATION_HEAD
+	if(message)
+		to_chat(user, "<span class='warning'>Access denied.</span>")
+	return COMM_AUTHENTICATION_NONE
 
 /obj/machinery/computer/communications/proc/change_security_level(var/new_level)
 	tmp_alertlevel = new_level
@@ -80,7 +80,7 @@
 
 	if(action == "auth")
 		if(!ishuman(usr))
-			to_chat(usr, "<span class='warning'>Access denied.</span>")
+			to_chat(usr, "<span class='warning'>Access denied, no humanoid lifesign detected.</span>")
 			return FALSE
 		// Logout function.
 		if(authenticated != COMM_AUTHENTICATION_NONE)
@@ -91,15 +91,15 @@
 		// Login function.
 		var/list/access = usr.get_access()
 		if(allowed(usr))
-			authenticated = COMM_AUTHENTICATION_MIN
+			authenticated = COMM_AUTHENTICATION_HEAD
 		if(ACCESS_CAPTAIN in access)
-			authenticated = COMM_AUTHENTICATION_MAX
+			authenticated = COMM_AUTHENTICATION_CAPT
 			var/mob/living/carbon/human/H = usr
 			var/obj/item/card/id = H.get_idcard(TRUE)
 			if(istype(id))
 				crew_announcement.announcer = GetNameAndAssignmentFromId(id)
 		if(authenticated == COMM_AUTHENTICATION_NONE)
-			to_chat(usr, "<span class='warning'>You need to wear your ID.</span>")
+			to_chat(usr, "<span class='warning'>You need to wear a command or Captain-level ID.</span>")
 		return
 
 	// All functions below this point require authentication.
@@ -133,12 +133,12 @@
 				to_chat(usr, "<span class='warning'>You need to wear your ID.</span>")
 
 		if("announce")
-			if(is_authenticated(usr) == COMM_AUTHENTICATION_MAX)
+			if(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT)
 				if(message_cooldown > world.time)
 					to_chat(usr, "<span class='warning'>Please allow at least one minute to pass between announcements.</span>")
 					return
 				var/input = input(usr, "Please write a message to announce to the station crew.", "Priority Announcement")
-				if(!input || message_cooldown > world.time || ..() || !(is_authenticated(usr) == COMM_AUTHENTICATION_MAX))
+				if(!input || message_cooldown > world.time || ..() || !(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_MSGLEN_MINIMUM)
 					to_chat(usr, "<span class='warning'>Message '[input]' is too short. [COMM_MSGLEN_MINIMUM] character minimum.</span>")
@@ -217,12 +217,12 @@
 			setMenuState(usr, COMM_SCREEN_STAT)
 
 		if("nukerequest")
-			if(is_authenticated(usr) == COMM_AUTHENTICATION_MAX)
+			if(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT)
 				if(centcomm_message_cooldown > world.time)
 					to_chat(usr, "<span class='warning'>Arrays recycling. Please stand by.</span>")
 					return
 				var/input = stripped_input(usr, "Please enter the reason for requesting the nuclear self-destruct codes. Misuse of the nuclear request system will not be tolerated under any circumstances.  Transmission does not guarantee a response.", "Self Destruct Code Request.","")
-				if(!input || ..() || !(is_authenticated(usr) == COMM_AUTHENTICATION_MAX))
+				if(!input || ..() || !(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
 					to_chat(usr, "<span class='warning'>Message '[input]' is too short. [COMM_CCMSGLEN_MINIMUM] character minimum.</span>")
@@ -235,12 +235,12 @@
 			setMenuState(usr, COMM_SCREEN_MAIN)
 
 		if("MessageCentcomm")
-			if(is_authenticated(usr) == COMM_AUTHENTICATION_MAX)
+			if(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT)
 				if(centcomm_message_cooldown > world.time)
 					to_chat(usr, "<span class='warning'>Arrays recycling. Please stand by.</span>")
 					return
 				var/input = stripped_input(usr, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination.  Transmission does not guarantee a response.", "To abort, send an empty message.", "")
-				if(!input || ..() || !(is_authenticated(usr) == COMM_AUTHENTICATION_MAX))
+				if(!input || ..() || !(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
 					to_chat(usr, "<span class='warning'>Message '[input]' is too short. [COMM_CCMSGLEN_MINIMUM] character minimum.</span>")
@@ -254,12 +254,12 @@
 
 		// OMG SYNDICATE ...LETTERHEAD
 		if("MessageSyndicate")
-			if((is_authenticated(usr) == COMM_AUTHENTICATION_MAX) && (src.emagged))
+			if((is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT) && (src.emagged))
 				if(centcomm_message_cooldown > world.time)
 					to_chat(usr, "Arrays recycling.  Please stand by.")
 					return
 				var/input = stripped_input(usr, "Please choose a message to transmit to \[ABNORMAL ROUTING CORDINATES\] via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "To abort, send an empty message.", "")
-				if(!input || ..() || !(is_authenticated(usr) == COMM_AUTHENTICATION_MAX))
+				if(!input || ..() || !(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
 					to_chat(usr, "<span class='warning'>Message '[input]' is too short. [COMM_CCMSGLEN_MINIMUM] character minimum.</span>")
@@ -320,10 +320,12 @@
 /obj/machinery/computer/communications/ui_data(mob/user)
 	var/list/data = list()
 	data["is_ai"]         = isAI(user) || isrobot(user)
+	data["noauthbutton"]  = !ishuman(user)
 	data["menu_state"]    = data["is_ai"] ? ai_menu_state : menu_state
 	data["emagged"]       = emagged
 	data["authenticated"] = is_authenticated(user, 0)
-	data["authmax"] = data["authenticated"] == COMM_AUTHENTICATION_MAX ? TRUE : FALSE
+	data["authhead"] = data["authenticated"] >= COMM_AUTHENTICATION_HEAD && (data["authenticated"] == COMM_AUTHENTICATION_AGHOST || !isobserver(user))
+	data["authcapt"] = data["authenticated"] >= COMM_AUTHENTICATION_CAPT && (data["authenticated"] == COMM_AUTHENTICATION_AGHOST || !isobserver(user))
 
 	data["stat_display"] =  list(
 		"type"   = display_type,
