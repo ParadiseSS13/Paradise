@@ -40,15 +40,15 @@
 	if(istype(L))
 		owner = L
 
-/mob/living/simple_animal/hostile/scarybat/Process_Spacemove(var/check_drift = 0)
+/mob/living/simple_animal/hostile/scarybat/Process_Spacemove(check_drift = 0)
 	return ..()	//No drifting in space for space carp!	//original comments do not steal
 
-/mob/living/simple_animal/hostile/scarybat/Found(var/atom/A)//This is here as a potential override to pick a specific target if available
+/mob/living/simple_animal/hostile/scarybat/Found(atom/A)//This is here as a potential override to pick a specific target if available
 	if(istype(A) && A == owner)
 		return 0
 	return ..()
 
-/mob/living/simple_animal/hostile/scarybat/CanAttack(var/atom/the_target)//This is here as a potential override to pick a specific target if available
+/mob/living/simple_animal/hostile/scarybat/CanAttack(atom/the_target)//This is here as a potential override to pick a specific target if available
 	if(istype(the_target) && the_target == owner)
 		return 0
 	return ..()

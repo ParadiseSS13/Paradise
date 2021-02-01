@@ -20,7 +20,7 @@
 	fire_damage = 3
 	var/mob/camera/blob/overmind = null
 
-/mob/living/simple_animal/hostile/blob/proc/adjustcolors(var/a_color)
+/mob/living/simple_animal/hostile/blob/proc/adjustcolors(a_color)
 	if(a_color)
 		color = a_color
 
@@ -64,7 +64,7 @@
 		return 1
 	return ..()
 
-/mob/living/simple_animal/hostile/blob/blobspore/New(loc, var/obj/structure/blob/factory/linked_node)
+/mob/living/simple_animal/hostile/blob/blobspore/New(loc, obj/structure/blob/factory/linked_node)
 	if(istype(linked_node))
 		factory = linked_node
 		factory.spores += src
@@ -143,7 +143,7 @@
 
 	adjustcolors(overmind?.blob_reagent_datum?.complementary_color)
 
-/mob/living/simple_animal/hostile/blob/blobspore/adjustcolors(var/a_color)
+/mob/living/simple_animal/hostile/blob/blobspore/adjustcolors(a_color)
 	color = a_color
 
 	if(is_zombie)

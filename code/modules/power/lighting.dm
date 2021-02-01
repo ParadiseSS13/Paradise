@@ -532,7 +532,7 @@
   * Flicker routine for the light.
   * Called by invoke_async so the parent proc can return immediately.
   */
-/obj/machinery/light/proc/flicker_event(var/amount)
+/obj/machinery/light/proc/flicker_event(amount)
 	if(on && status == LIGHT_OK)
 		for(var/i = 0; i < amount; i++)
 			if(status != LIGHT_OK)

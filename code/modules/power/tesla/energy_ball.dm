@@ -63,7 +63,7 @@
 		. += "The amount of orbiting mini-balls is [len]."
 
 
-/obj/singularity/energy_ball/proc/move_the_basket_ball(var/move_amount)
+/obj/singularity/energy_ball/proc/move_the_basket_ball(move_amount)
 	//we face the last thing we zapped, so this lets us favor that direction a bit
 	var/first_move = dir
 	for(var/i in 0 to move_amount)

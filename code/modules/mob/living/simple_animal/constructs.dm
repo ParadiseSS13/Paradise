@@ -123,7 +123,7 @@
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 
-/mob/living/simple_animal/hostile/construct/armoured/bullet_act(var/obj/item/projectile/P)
+/mob/living/simple_animal/hostile/construct/armoured/bullet_act(obj/item/projectile/P)
 	if(istype(P, /obj/item/projectile/energy) || istype(P, /obj/item/projectile/beam))
 		var/reflectchance = 80 - round(P.damage/3)
 		if(prob(reflectchance))
@@ -219,7 +219,7 @@
 	if(Found(the_target) || ..()) //If we Found it or Can_Attack it normally, we Can_Attack it as long as it wasn't invisible
 		return 1 //as a note this shouldn't be added to base hostile mobs because it'll mess up retaliate hostile mobs
 
-/mob/living/simple_animal/hostile/construct/builder/MoveToTarget(var/list/possible_targets)
+/mob/living/simple_animal/hostile/construct/builder/MoveToTarget(list/possible_targets)
 	..()
 	if(isliving(target))
 		var/mob/living/L = target
@@ -307,7 +307,7 @@
 						Bring those who still cling to this world of illusion back to the master so they may know Truth.</B>"
 
 
-/mob/living/simple_animal/hostile/construct/harvester/Process_Spacemove(var/movement_dir = 0)
+/mob/living/simple_animal/hostile/construct/harvester/Process_Spacemove(movement_dir = 0)
 	return TRUE
 
 

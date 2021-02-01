@@ -44,7 +44,7 @@
 	update_icon()
 	return
 
-/obj/item/melee/baton/proc/deductcharge(var/chrgdeductamt)
+/obj/item/melee/baton/proc/deductcharge(chrgdeductamt)
 	if(isrobot(loc))
 		var/mob/living/silicon/robot/R = loc
 		if(R.cell && R.cell.charge < (hitcost+chrgdeductamt))

@@ -77,7 +77,7 @@
 		else
 			connect_to_network()
 
-/obj/machinery/power/tesla_coil/tesla_act(var/power)
+/obj/machinery/power/tesla_coil/tesla_act(power)
 	if(anchored && !panel_open)
 		being_shocked = 1
 		//don't lose arc power when it's not connected to anything
@@ -133,7 +133,7 @@
 	. = TRUE
 	default_deconstruction_crowbar(user, I)
 
-/obj/machinery/power/grounding_rod/tesla_act(var/power)
+/obj/machinery/power/grounding_rod/tesla_act(power)
 	if(anchored && !panel_open)
 		flick("grounding_rodhit", src)
 	else

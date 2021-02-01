@@ -1,4 +1,4 @@
-/mob/living/carbon/human/say(var/message, var/sanitize = TRUE, var/ignore_speech_problems = FALSE, var/ignore_atmospherics = FALSE)
+/mob/living/carbon/human/say(message, sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE)
 	..(message, sanitize = sanitize, ignore_speech_problems = ignore_speech_problems, ignore_atmospherics = ignore_atmospherics)	//ohgod we should really be passing a datum here.
 
 /mob/living/carbon/human/GetAltName()
@@ -38,7 +38,7 @@
 					say(temp)
 				winset(client, "input", "text=[null]")
 
-/mob/living/carbon/human/say_understands(var/mob/other, var/datum/language/speaking = null)
+/mob/living/carbon/human/say_understands(mob/other, datum/language/speaking = null)
 	if(has_brain_worms()) //Brain worms translate everything. Even mice and alien speak.
 		return 1
 
@@ -107,7 +107,7 @@
 		return !mind.miming
 	return TRUE
 
-/mob/living/carbon/human/proc/SetSpecialVoice(var/new_voice)
+/mob/living/carbon/human/proc/SetSpecialVoice(new_voice)
 	if(new_voice)
 		special_voice = new_voice
 	return
@@ -119,7 +119,7 @@
 /mob/living/carbon/human/proc/GetSpecialVoice()
 	return special_voice
 
-/mob/living/carbon/human/handle_speech_problems(list/message_pieces, var/verb)
+/mob/living/carbon/human/handle_speech_problems(list/message_pieces, verb)
 	var/span = ""
 	var/obj/item/organ/internal/cyberimp/brain/speech_translator/translator = locate(/obj/item/organ/internal/cyberimp/brain/speech_translator) in internal_organs
 	if(translator)
@@ -173,7 +173,7 @@
 			S.message = "<span class='[span]'>[S.message]</span>"
 	return list("verb" = verb)
 
-/mob/living/carbon/human/handle_message_mode(var/message_mode, list/message_pieces, var/verb, var/used_radios)
+/mob/living/carbon/human/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	switch(message_mode)
 		if("intercom")
 			for(var/obj/item/radio/intercom/I in view(1, src))

@@ -41,7 +41,7 @@
 
 	do_climb(usr)
 
-/obj/structure/MouseDrop_T(var/atom/movable/C, mob/user as mob)
+/obj/structure/MouseDrop_T(atom/movable/C, mob/user as mob)
 	if(..())
 		return
 	if(C == user)
@@ -56,7 +56,7 @@
 		return T
 	return null
 
-/obj/structure/proc/do_climb(var/mob/living/user)
+/obj/structure/proc/do_climb(mob/living/user)
 	if(!can_touch(user) || !climbable)
 		return
 	var/blocking_object = density_check()
@@ -127,7 +127,7 @@
 			H.UpdateDamageIcon()
 	return
 
-/obj/structure/proc/can_touch(var/mob/user)
+/obj/structure/proc/can_touch(mob/user)
 	if(!user)
 		return 0
 	if(!Adjacent(user))

@@ -372,7 +372,7 @@
 
 	src.add_fingerprint(usr)
 
-/obj/machinery/computer/cloning/proc/scan_mob(mob/living/carbon/human/subject as mob, var/scan_brain = 0)
+/obj/machinery/computer/cloning/proc/scan_mob(mob/living/carbon/human/subject as mob, scan_brain = 0)
 	if(stat & NOPOWER)
 		return
 	if(scanner.stat & (NOPOWER|BROKEN))
@@ -459,7 +459,7 @@
 	SStgui.update_uis(src)
 
 //Find a specific record by key.
-/obj/machinery/computer/cloning/proc/find_record(var/find_key)
+/obj/machinery/computer/cloning/proc/find_record(find_key)
 	var/selected_record = null
 	for(var/datum/dna2/record/R in src.records)
 		if(R.ckey == find_key)

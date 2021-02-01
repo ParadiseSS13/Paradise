@@ -65,12 +65,12 @@
 		..()
 	return
 
-/obj/item/laser_pointer/afterattack(var/atom/target, var/mob/living/user, flag, params)
+/obj/item/laser_pointer/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)	//we're placing the object on a table or in backpack
 		return
 	laser_act(target, user, params)
 
-/obj/item/laser_pointer/proc/laser_act(var/atom/target, var/mob/living/user, var/params)
+/obj/item/laser_pointer/proc/laser_act(atom/target, mob/living/user, params)
 	if( !(user in (viewers(7,target))) )
 		return
 	if(!diode)

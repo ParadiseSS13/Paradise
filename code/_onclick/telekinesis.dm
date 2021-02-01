@@ -87,7 +87,7 @@
 
 
 	//stops TK grabs being equipped anywhere but into hands
-/obj/item/tk_grab/equipped(mob/user, var/slot)
+/obj/item/tk_grab/equipped(mob/user, slot)
 	if( (slot == slot_l_hand) || (slot== slot_r_hand) )
 		return
 	qdel(src)
@@ -151,7 +151,7 @@
 	if(!.)
 		return I == focus
 
-/obj/item/tk_grab/proc/focus_object(var/obj/target, var/mob/user)
+/obj/item/tk_grab/proc/focus_object(obj/target, mob/user)
 	if(!istype(target,/obj))
 		return//Cant throw non objects atm might let it do mobs later
 	if(target.anchored || !isturf(target.loc))

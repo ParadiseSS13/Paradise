@@ -12,7 +12,7 @@
 	var/projectiles
 	var/projectile_energy_cost
 
-/obj/item/mecha_parts/mecha_equipment/weapon/can_attach(var/obj/mecha/combat/M as obj)
+/obj/item/mecha_parts/mecha_equipment/weapon/can_attach(obj/mecha/combat/M as obj)
 	if(..())
 		if(istype(M))
 			if(size > M.maxsize)

@@ -39,7 +39,7 @@
 		else
 			to_chat(user, "<span class='warning'>You failed to inject [M].</span>")
 
-/obj/item/dnascrambler/proc/injected(var/mob/living/carbon/human/target, var/mob/living/carbon/user)
+/obj/item/dnascrambler/proc/injected(mob/living/carbon/human/target, mob/living/carbon/user)
 	if(istype(target))
 		var/mob/living/carbon/human/H = target
 		scramble(1, H, 100)

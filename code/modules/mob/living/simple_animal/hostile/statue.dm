@@ -52,7 +52,7 @@
 
 // No movement while seen code.
 
-/mob/living/simple_animal/hostile/statue/New(loc, var/mob/living/creator)
+/mob/living/simple_animal/hostile/statue/New(loc, mob/living/creator)
 	..()
 	// Give spells
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/flicker_lights(null))

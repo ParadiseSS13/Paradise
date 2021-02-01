@@ -1,5 +1,5 @@
 ///Harvest
-/mob/living/simple_animal/revenant/ClickOn(var/atom/A, var/params) //Copypaste from ghost code - revenants can't interact with the world directly.
+/mob/living/simple_animal/revenant/ClickOn(atom/A, params) //Copypaste from ghost code - revenants can't interact with the world directly.
 
 	if(client.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)

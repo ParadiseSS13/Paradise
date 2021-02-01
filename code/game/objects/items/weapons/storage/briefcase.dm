@@ -47,7 +47,7 @@
 		var/obj/item/gun/stored_gun = stored_item
 		stored_gun.afterattack(A, user, flag, params)
 
-/obj/item/storage/briefcase/false_bottomed/attackby(var/obj/item/I, mob/user)
+/obj/item/storage/briefcase/false_bottomed/attackby(obj/item/I, mob/user)
 	if(bottom_open)
 		if(stored_item)
 			to_chat(user, "<span class='warning'>There's already something in the false bottom!</span>")

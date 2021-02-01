@@ -54,7 +54,7 @@
 	visible_message("<span class='notice'>The [src.name] burns out!</span>")
 
 
-/obj/item/flash/proc/flash_recharge(var/mob/user)
+/obj/item/flash/proc/flash_recharge(mob/user)
 	if(prob(times_used * 2))	//if you use it 5 times in a minute it has a 10% chance to break!
 		burn_out()
 		return 0
@@ -85,7 +85,7 @@
 	return TRUE
 
 
-/obj/item/flash/proc/flash_carbon(var/mob/living/carbon/M, var/mob/user = null, var/power = 5, targeted = 1)
+/obj/item/flash/proc/flash_carbon(mob/living/carbon/M, mob/user = null, power = 5, targeted = 1)
 	if(user)
 		add_attack_logs(user, M, "Flashed with [src]")
 		if(targeted)

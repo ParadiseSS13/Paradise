@@ -311,7 +311,7 @@
 		return FALSE
 	return TRUE
 
-/obj/structure/closet/container_resist(var/mob/living/L)
+/obj/structure/closet/container_resist(mob/living/L)
 	var/breakout_time = 2 //2 minutes by default
 	if(opened)
 		if(L.loc == src)
@@ -349,7 +349,7 @@
 				BD.attack_hand(usr)
 			open()
 
-/obj/structure/closet/tesla_act(var/power)
+/obj/structure/closet/tesla_act(power)
 	..()
 	visible_message("<span class='danger'>[src] is blown apart by the bolt of electricity!</span>", "<span class='danger'>You hear a metallic screeching sound.</span>")
 	qdel(src)

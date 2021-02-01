@@ -118,7 +118,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	verbs -= GLOB.ai_verbs_default
 	verbs -= silicon_subsystems
 
-/mob/living/silicon/ai/New(loc, var/datum/ai_laws/L, var/obj/item/mmi/B, var/safety = 0)
+/mob/living/silicon/ai/New(loc, datum/ai_laws/L, obj/item/mmi/B, safety = 0)
 	announcement = new()
 	announcement.title = "A.I. Announcement"
 	announcement.announcement_type = "A.I. Announcement"
@@ -752,7 +752,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(target)
 			open_nearest_door(target)
 
-/mob/living/silicon/ai/bullet_act(var/obj/item/projectile/Proj)
+/mob/living/silicon/ai/bullet_act(obj/item/projectile/Proj)
 	..(Proj)
 	return 2
 

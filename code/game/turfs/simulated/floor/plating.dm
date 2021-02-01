@@ -320,7 +320,7 @@
 		if(MFOAM_IRON)
 			icon_state = "ironfoam"
 
-/turf/simulated/floor/plating/metalfoam/attackby(var/obj/item/C, mob/user, params)
+/turf/simulated/floor/plating/metalfoam/attackby(obj/item/C, mob/user, params)
 	if(..())
 		return TRUE
 

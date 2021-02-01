@@ -247,7 +247,7 @@
 	return
 
 //Mobs with objects
-/mob/living/simple_animal/parrot/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/mob/living/simple_animal/parrot/attackby(obj/item/O as obj, mob/user as mob, params)
 	..()
 	if(!stat && !client && !istype(O, /obj/item/stack/medical))
 		if(O.force)
@@ -261,7 +261,7 @@
 	return
 
 //Bullets
-/mob/living/simple_animal/parrot/bullet_act(var/obj/item/projectile/Proj)
+/mob/living/simple_animal/parrot/bullet_act(obj/item/projectile/Proj)
 	..()
 	if(!stat && !client)
 		if(parrot_state == PARROT_PERCH)
@@ -631,7 +631,7 @@
 
 	return
 
-/mob/living/simple_animal/parrot/proc/drop_held_item(var/drop_gently = 1)
+/mob/living/simple_animal/parrot/proc/drop_held_item(drop_gently = 1)
 	set name = "Drop held item"
 	set category = "Parrot"
 	set desc = "Drop the item you're holding."
@@ -706,7 +706,7 @@
 	available_channels = list(":e")
 	..()
 
-/mob/living/simple_animal/parrot/handle_message_mode(var/message_mode, list/message_pieces, var/verb, var/used_radios)
+/mob/living/simple_animal/parrot/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	if(message_mode && istype(ears))
 		ears.talk_into(src, message_pieces, message_mode, verb)
 		used_radios += ears
@@ -718,13 +718,13 @@
 
 
 
-/mob/living/simple_animal/parrot/hear_radio(list/message_pieces, var/verb="says", var/part_a, var/part_b, var/mob/speaker = null, var/hard_to_hear = 0, var/atom/follow_target)
+/mob/living/simple_animal/parrot/hear_radio(list/message_pieces, verb="says", part_a, part_b, mob/speaker = null, hard_to_hear = 0, atom/follow_target)
 	if(speaker != src && prob(50))
 		parrot_hear(html_decode(multilingual_to_message(message_pieces)))
 	..()
 
 
-/mob/living/simple_animal/parrot/proc/parrot_hear(var/message="")
+/mob/living/simple_animal/parrot/proc/parrot_hear(message="")
 	if(!message || stat)
 		return
 	speech_buffer.Add(message)

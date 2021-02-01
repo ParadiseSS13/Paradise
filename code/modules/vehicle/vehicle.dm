@@ -208,7 +208,7 @@
 			for(var/m in buckled_mobs)
 				M.Bumped(m)
 
-/obj/vehicle/proc/RunOver(var/mob/living/carbon/human/H)
+/obj/vehicle/proc/RunOver(mob/living/carbon/human/H)
 	return		//write specifics for different vehicles
 
 

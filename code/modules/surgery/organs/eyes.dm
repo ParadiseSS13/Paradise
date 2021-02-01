@@ -20,7 +20,7 @@
 /obj/item/organ/internal/eyes/proc/update_colour()
 	dna.write_eyes_attributes(src)
 
-/obj/item/organ/internal/eyes/proc/generate_icon(var/mob/living/carbon/human/HA)
+/obj/item/organ/internal/eyes/proc/generate_icon(mob/living/carbon/human/HA)
 	var/mob/living/carbon/human/H = HA
 	if(!istype(H))
 		H = owner

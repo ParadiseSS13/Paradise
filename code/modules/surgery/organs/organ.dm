@@ -72,7 +72,7 @@
 		return
 	return ..()
 
-/obj/item/organ/proc/set_dna(var/datum/dna/new_dna)
+/obj/item/organ/proc/set_dna(datum/dna/new_dna)
 	if(new_dna)
 		dna = new_dna.Clone()
 		if(blood_DNA)
@@ -193,7 +193,7 @@
 	return (damage >= min_broken_damage || ((status & ORGAN_BROKEN) && !(status & ORGAN_SPLINTED)))
 
 //Adds autopsy data for used_weapon.
-/obj/item/organ/proc/add_autopsy_data(var/used_weapon = "Unknown", var/damage)
+/obj/item/organ/proc/add_autopsy_data(used_weapon = "Unknown", damage)
 	var/datum/autopsy_data/W = autopsy_data[used_weapon]
 	if(!W)
 		W = new()
@@ -233,7 +233,7 @@
 /obj/item/organ/proc/shock_organ(intensity)
 	return
 
-/obj/item/organ/proc/remove(var/mob/living/user,special = 0)
+/obj/item/organ/proc/remove(mob/living/user,special = 0)
 	if(!istype(owner))
 		return
 
@@ -251,12 +251,12 @@
 	owner = null
 	return src
 
-/obj/item/organ/proc/replaced(var/mob/living/carbon/human/target)
+/obj/item/organ/proc/replaced(mob/living/carbon/human/target)
 	return // Nothing uses this, it is always overridden
 
 // A version of `replaced` that "flattens" the process of insertion, making organs "Plug'n'play"
 // (Particularly the heart, which stops beating when removed)
-/obj/item/organ/proc/safe_replace(var/mob/living/carbon/human/target)
+/obj/item/organ/proc/safe_replace(mob/living/carbon/human/target)
 	replaced(target)
 
 /obj/item/organ/proc/surgeryize()
@@ -267,7 +267,7 @@ Returns 1 if this is the organ that is handling all the functionalities of that 
 Returns 0 if it isn't
 I use this so that this can be made better once the organ overhaul rolls out -- Crazylemon
 */
-/obj/item/organ/proc/is_primary_organ(var/mob/living/carbon/human/O = null)
+/obj/item/organ/proc/is_primary_organ(mob/living/carbon/human/O = null)
 	if(isnull(O))
 		O = owner
 	if(!istype(owner)) // You're not the primary organ of ANYTHING, bucko

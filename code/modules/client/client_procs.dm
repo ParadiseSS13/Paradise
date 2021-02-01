@@ -211,7 +211,7 @@
 /client/proc/setDir(newdir)
 	dir = newdir
 
-/client/proc/handle_spam_prevention(var/message, var/mute_type, var/throttle = 0)
+/client/proc/handle_spam_prevention(message, mute_type, throttle = 0)
 	if(throttle)
 		if((last_message_time + throttle > world.time) && !check_rights(R_ADMIN, 0))
 			var/wait_time = round(((last_message_time + throttle) - world.time) / 10, 1)

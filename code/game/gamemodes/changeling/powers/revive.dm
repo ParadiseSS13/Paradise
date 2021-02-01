@@ -6,7 +6,7 @@
 	always_keep = 1
 
 //Revive from regenerative stasis
-/datum/action/changeling/revive/sting_action(var/mob/living/carbon/user)
+/datum/action/changeling/revive/sting_action(mob/living/carbon/user)
 	user.setToxLoss(0, FALSE)
 	user.setOxyLoss(0, FALSE)
 	user.setCloneLoss(0, FALSE)

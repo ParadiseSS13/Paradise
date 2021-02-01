@@ -134,18 +134,18 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	. = ..()
 	return . - creator
 
-/mob/living/simple_animal/hostile/mimic/copy/proc/ChangeOwner(var/mob/owner)
+/mob/living/simple_animal/hostile/mimic/copy/proc/ChangeOwner(mob/owner)
 	if(owner != creator)
 		LoseTarget()
 		creator = owner
 		faction |= "\ref[owner]"
 
-/mob/living/simple_animal/hostile/mimic/copy/proc/CheckObject(var/obj/O)
+/mob/living/simple_animal/hostile/mimic/copy/proc/CheckObject(obj/O)
 	if((istype(O, /obj/item) || istype(O, /obj/structure)) && !is_type_in_list(O, GLOB.protected_objects))
 		return 1
 	return 0
 
-/mob/living/simple_animal/hostile/mimic/copy/proc/CopyObject(var/obj/O, var/mob/living/user, var/destroy_original = 0)
+/mob/living/simple_animal/hostile/mimic/copy/proc/CopyObject(obj/O, mob/living/user, destroy_original = 0)
 	if(destroy_original || CheckObject(O))
 		O.loc = src
 		name = O.name
@@ -199,7 +199,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 				 "My logic is undeniable.", "One of us.", "FLESH IS WEAK", "THIS ISN'T WAR, THIS IS EXTERMINATION!")
 	speak_chance = 15
 
-/mob/living/simple_animal/hostile/mimic/copy/machine/CanAttack(var/atom/the_target)
+/mob/living/simple_animal/hostile/mimic/copy/machine/CanAttack(atom/the_target)
 	if(the_target == creator) // Don't attack our creator AI.
 		return 0
 	if(isrobot(the_target))

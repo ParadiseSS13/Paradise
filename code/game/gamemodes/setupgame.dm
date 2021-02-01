@@ -1,4 +1,4 @@
-/proc/getAssignedBlock(var/name,var/list/blocksLeft, var/activity_bounds=DNA_DEFAULT_BOUNDS, var/good=0)
+/proc/getAssignedBlock(name, list/blocksLeft, activity_bounds=DNA_DEFAULT_BOUNDS, good=0)
 	if(blocksLeft.len==0)
 		warning("[name]: No more blocks left to assign!")
 		return 0

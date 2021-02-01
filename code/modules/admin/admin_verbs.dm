@@ -606,7 +606,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	log_admin("[key_name(usr)] gave [key_name(T)] the disease [D].")
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] gave [key_name(T)] the disease [D].</span>")
 
-/client/proc/make_sound(var/obj/O in view()) // -- TLE
+/client/proc/make_sound(obj/O in view()) // -- TLE
 	set category = "Event"
 	set name = "Make Sound"
 	set desc = "Display a message to everyone who can hear the target"
@@ -635,7 +635,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		togglebuildmode(src.mob)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Build Mode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/object_talk(var/msg as text) // -- TLE
+/client/proc/object_talk(msg as text) // -- TLE
 	set category = "Event"
 	set name = "oSay"
 	set desc = "Display a message to everyone who can hear the target"

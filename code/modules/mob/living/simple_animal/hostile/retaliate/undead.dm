@@ -53,7 +53,7 @@
 	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
 	del_on_death = 1
 
-/mob/living/simple_animal/hostile/retaliate/ghost/Process_Spacemove(var/check_drift = 0)
+/mob/living/simple_animal/hostile/retaliate/ghost/Process_Spacemove(check_drift = 0)
 	return 1
 
 /mob/living/simple_animal/hostile/retaliate/ghost/Life(seconds, times_fired)

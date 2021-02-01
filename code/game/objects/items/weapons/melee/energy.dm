@@ -132,7 +132,7 @@
 /obj/item/melee/energy/sword/cyborg
 	var/hitcost = 50
 
-/obj/item/melee/energy/sword/cyborg/attack(mob/M, var/mob/living/silicon/robot/R)
+/obj/item/melee/energy/sword/cyborg/attack(mob/M, mob/living/silicon/robot/R)
 	if(R.cell)
 		var/obj/item/stock_parts/cell/C = R.cell
 		if(active && !(C.use(hitcost)))

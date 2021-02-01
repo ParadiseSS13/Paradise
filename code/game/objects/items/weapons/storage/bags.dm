@@ -107,7 +107,7 @@
 	return ..()
 
 
-/obj/item/storage/bag/plasticbag/equipped(var/mob/user, var/slot)
+/obj/item/storage/bag/plasticbag/equipped(mob/user, slot)
 	if(slot==slot_head)
 		storage_slots = 0
 		START_PROCESSING(SSobj, src)

@@ -18,7 +18,7 @@
 	resistance_flags = FLAMMABLE
 	var/icon_type
 
-/obj/item/storage/fancy/update_icon(var/itemremoved = 0)
+/obj/item/storage/fancy/update_icon(itemremoved = 0)
 	var/total_contents = src.contents.len - itemremoved
 	src.icon_state = "[src.icon_type]box[total_contents]"
 	return
@@ -371,7 +371,7 @@
 	..()
 	update_icon()
 
-/obj/item/storage/lockbox/vials/update_icon(var/itemremoved = 0)
+/obj/item/storage/lockbox/vials/update_icon(itemremoved = 0)
 	var/total_contents = src.contents.len - itemremoved
 	src.icon_state = "vialbox[total_contents]"
 	src.overlays.Cut()

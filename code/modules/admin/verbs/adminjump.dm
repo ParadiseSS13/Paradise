@@ -32,7 +32,7 @@
 		message_admins("[key_name_admin(usr)] jumped to [A]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Area") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/jumptoturf(var/turf/T in world)
+/client/proc/jumptoturf(turf/T in world)
 	set name = "Jump to Turf"
 	set category = null
 
@@ -49,7 +49,7 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Turf") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
-/client/proc/jumptomob(var/mob/M in GLOB.mob_list)
+/client/proc/jumptomob(mob/M in GLOB.mob_list)
 	set category = "Admin"
 	set name = "Jump to Mob"
 
@@ -116,7 +116,7 @@
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Key") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/Getmob(var/mob/M in GLOB.mob_list)
+/client/proc/Getmob(mob/M in GLOB.mob_list)
 	set category = null
 	set name = "Get Mob"
 	set desc = "Mob to teleport"
@@ -161,7 +161,7 @@
 		admin_forcemove(usr, M.loc)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Get Key") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/sendmob(var/mob/M in GLOB.mob_list)
+/client/proc/sendmob(mob/M in GLOB.mob_list)
 	set category = "Admin"
 	set name = "Send Mob"
 

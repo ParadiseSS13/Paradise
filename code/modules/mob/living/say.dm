@@ -39,7 +39,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
-/proc/get_radio_key_from_channel(var/channel)
+/proc/get_radio_key_from_channel(channel)
 	var/key = GLOB.channel_to_radio_key[channel]
 	if(!key)
 		for(var/radio_key in GLOB.department_radio_keys)
@@ -61,7 +61,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 /mob/living/get_default_language()
 	return default_language
 
-/mob/living/proc/handle_speech_problems(list/message_pieces, var/verb)
+/mob/living/proc/handle_speech_problems(list/message_pieces, verb)
 	var/robot = ismachineperson(src)
 	for(var/datum/multilingual_say_piece/S in message_pieces)
 		if(S.speaking && S.speaking.flags & NO_STUTTER)
@@ -108,7 +108,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	return returns
 
 
-/mob/living/say(var/message, var/verb = "says", var/sanitize = TRUE, var/ignore_speech_problems = FALSE, var/ignore_atmospherics = FALSE)
+/mob/living/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE)
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")

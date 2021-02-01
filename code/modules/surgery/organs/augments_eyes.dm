@@ -17,7 +17,7 @@
 	var/flash_protect = 0
 	var/aug_message = "Your vision is augmented!"
 
-/obj/item/organ/internal/cyberimp/eyes/insert(var/mob/living/carbon/M, var/special = 0)
+/obj/item/organ/internal/cyberimp/eyes/insert(mob/living/carbon/M, special = 0)
 	..()
 	var/mob/living/carbon/human/H = M
 	if(istype(H) && eye_colour)
@@ -26,11 +26,11 @@
 		to_chat(owner, "<span class='notice'>[aug_message]</span>")
 	M.update_sight()
 
-/obj/item/organ/internal/cyberimp/eyes/remove(var/mob/living/carbon/M, var/special = 0)
+/obj/item/organ/internal/cyberimp/eyes/remove(mob/living/carbon/M, special = 0)
 	. = ..()
 	M.update_sight()
 
-/obj/item/organ/internal/cyberimp/eyes/proc/generate_icon(var/mob/living/carbon/human/HA)
+/obj/item/organ/internal/cyberimp/eyes/proc/generate_icon(mob/living/carbon/human/HA)
 	var/mob/living/carbon/human/H = HA
 	if(!istype(H))
 		H = owner
@@ -87,14 +87,14 @@
 	/// A list of extension kinds added to the examine text. Things like medical or security records.
 	var/list/examine_extensions = null
 
-/obj/item/organ/internal/cyberimp/eyes/hud/insert(var/mob/living/carbon/M, var/special = 0)
+/obj/item/organ/internal/cyberimp/eyes/hud/insert(mob/living/carbon/M, special = 0)
 	..()
 	if(HUD_type)
 		var/datum/atom_hud/H = GLOB.huds[HUD_type]
 		H.add_hud_to(M)
 		M.permanent_huds |= H
 
-/obj/item/organ/internal/cyberimp/eyes/hud/remove(var/mob/living/carbon/M, var/special = 0)
+/obj/item/organ/internal/cyberimp/eyes/hud/remove(mob/living/carbon/M, special = 0)
 	. = ..()
 	if(HUD_type)
 		var/datum/atom_hud/H = GLOB.huds[HUD_type]

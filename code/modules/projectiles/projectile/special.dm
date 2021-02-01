@@ -8,7 +8,7 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/ion
 	flag = "energy"
 
-/obj/item/projectile/ion/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/ion/on_hit(atom/target, blocked = 0)
 	..()
 	empulse(target, 1, 1, 1, cause = "[type] fired by [key_name(firer)]")
 	return 1
@@ -27,7 +27,7 @@
 	alwayslog = TRUE
 	flag = "bullet"
 
-/obj/item/projectile/bullet/gyro/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/bullet/gyro/on_hit(atom/target, blocked = 0)
 	..()
 	explosion(target, -1, 0, 2, cause = "[type] fired by [key_name(firer)]")
 	return 1
@@ -92,7 +92,7 @@
 			icon_state = "temp_4"
 
 
-/obj/item/projectile/temp/on_hit(var/atom/target, var/blocked = 0)//These two could likely check temp protection on the mob
+/obj/item/projectile/temp/on_hit(atom/target, blocked = 0)//These two could likely check temp protection on the mob
 	..()
 	if(isliving(target))
 		var/mob/living/M = target
@@ -133,7 +133,7 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	flag = "energy"
 
-/obj/item/projectile/energy/floramut/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/energy/floramut/on_hit(atom/target, blocked = 0)
 	..()
 	var/mob/living/M = target
 	if(ishuman(target))
@@ -165,7 +165,7 @@
 	nodamage = 1
 	flag = "energy"
 
-/obj/item/projectile/energy/florayield/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/energy/florayield/on_hit(atom/target, blocked = 0)
 	..()
 	var/mob/M = target
 	if(ishuman(target)) //These rays make plantmen fat.
@@ -181,7 +181,7 @@
 /obj/item/projectile/beam/mindflayer
 	name = "flayer ray"
 
-/obj/item/projectile/beam/mindflayer/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/beam/mindflayer/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/M = target
@@ -213,7 +213,7 @@
 	name = "orange bluespace beam"
 	color = "#FF6600"
 
-/obj/item/projectile/beam/wormhole/New(var/obj/item/ammo_casing/energy/wormhole/casing)
+/obj/item/projectile/beam/wormhole/New(obj/item/ammo_casing/energy/wormhole/casing)
 	. = ..()
 	if(casing)
 		gun = casing.gun
@@ -279,7 +279,7 @@
 	if(tele_target)
 		teleport_target = tele_target
 
-/obj/item/projectile/energy/teleport/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/energy/teleport/on_hit(atom/target, blocked = 0)
 	if(isliving(target))
 		if(teleport_target)
 			do_teleport(target, teleport_target, 0)//teleport what's in the tile to the beacon

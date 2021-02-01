@@ -9,7 +9,7 @@
 	max_genetic_damage = 100
 
 //Fake our own death and fully heal. You will appear to be dead but regenerate fully after a short delay.
-/datum/action/changeling/fakedeath/sting_action(var/mob/living/user)
+/datum/action/changeling/fakedeath/sting_action(mob/living/user)
 
 	to_chat(user, "<span class='notice'>We begin our stasis, preparing energy to arise once more.</span>")
 	if(user.stat != DEAD)
@@ -30,7 +30,7 @@
 		var/datum/action/changeling/revive/R = new
 		R.Grant(user)
 
-/datum/action/changeling/fakedeath/can_sting(var/mob/user)
+/datum/action/changeling/fakedeath/can_sting(mob/user)
 	if(user.status_flags & FAKEDEATH)
 		to_chat(user, "<span class='warning'>We are already regenerating.</span>")
 		return

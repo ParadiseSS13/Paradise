@@ -43,7 +43,7 @@
 	var/melee_block_chance = 20
 	var/ranged_block_chance = 35
 
-/mob/living/simple_animal/hostile/syndicate/melee/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/mob/living/simple_animal/hostile/syndicate/melee/attackby(obj/item/O as obj, mob/user as mob, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	if(O.force)
@@ -64,7 +64,7 @@
 		visible_message("<span class='warning'>[user] gently taps [src] with the [O]. </span>")
 
 
-/mob/living/simple_animal/hostile/syndicate/melee/bullet_act(var/obj/item/projectile/Proj)
+/mob/living/simple_animal/hostile/syndicate/melee/bullet_act(obj/item/projectile/Proj)
 	if(!Proj)
 		return
 	if(prob(ranged_block_chance))
@@ -185,11 +185,11 @@
 	else
 		scan_cycles++
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/AIShouldSleep(var/list/possible_targets)
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/AIShouldSleep(list/possible_targets)
 	FindTarget(possible_targets, 1)
 	return FALSE
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/proc/raise_alert(var/reason)
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/proc/raise_alert(reason)
 	if(istype(depotarea) && (!raised_alert || seen_revived_enemy) && !depotarea.used_self_destruct)
 		raised_alert = TRUE
 		say("Intruder!")
@@ -298,7 +298,7 @@
 	wander = 0
 	alert_on_spacing = FALSE
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/Process_Spacemove(var/movement_dir = 0)
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/Process_Spacemove(movement_dir = 0)
 	return TRUE
 
 
@@ -312,7 +312,7 @@
 	speed = 1
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy)
 
-/mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(var/movement_dir = 0)
+/mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(movement_dir = 0)
 	return TRUE
 
 
@@ -336,7 +336,7 @@
 	speed = 1
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/gun/projectile/automatic/c20r)
 
-/mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(var/movement_dir = 0)
+/mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(movement_dir = 0)
 	return TRUE
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib

@@ -135,7 +135,7 @@
 		base = src
 	H.mind.martial_art = src
 
-/datum/martial_art/proc/remove(var/mob/living/carbon/human/H)
+/datum/martial_art/proc/remove(mob/living/carbon/human/H)
 	if(!H.mind)
 		return
 	if(H.mind.martial_art != src)

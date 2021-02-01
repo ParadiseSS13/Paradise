@@ -313,7 +313,7 @@
 	level = 1
 	cant_hold = list(/obj/item/storage/backpack/satchel_flat) //muh recursive backpacks
 
-/obj/item/storage/backpack/satchel_flat/hide(var/intact)
+/obj/item/storage/backpack/satchel_flat/hide(intact)
 	if(intact)
 		invisibility = INVISIBILITY_MAXIMUM
 		anchored = 1 //otherwise you can start pulling, cover it, and drag around an invisible backpack.

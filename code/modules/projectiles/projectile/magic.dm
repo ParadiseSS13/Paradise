@@ -53,7 +53,7 @@
 		return
 	..()
 
-/obj/item/projectile/magic/fireball/on_hit(var/target)
+/obj/item/projectile/magic/fireball/on_hit(target)
 	. = ..()
 	var/turf/T = get_turf(target)
 	explosion(T, exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire)
@@ -73,7 +73,7 @@
 	name = "bolt of resurrection"
 	icon_state = "ion"
 
-/obj/item/projectile/magic/resurrection/on_hit(var/mob/living/carbon/target)
+/obj/item/projectile/magic/resurrection/on_hit(mob/living/carbon/target)
 	. = ..()
 	if(ismob(target))
 		var/old_stat = target.stat
@@ -95,7 +95,7 @@
 	var/inner_tele_radius = 0
 	var/outer_tele_radius = 6
 
-/obj/item/projectile/magic/teleport/on_hit(var/mob/target)
+/obj/item/projectile/magic/teleport/on_hit(mob/target)
 	. = ..()
 	var/teleammount = 0
 	var/teleloc = target
@@ -116,7 +116,7 @@
 		/obj/structure/mineral_door/gold,/obj/structure/mineral_door/uranium,/obj/structure/mineral_door/sandstone,/obj/structure/mineral_door/transparent/plasma,\
 		/obj/structure/mineral_door/transparent/diamond)
 
-/obj/item/projectile/magic/door/on_hit(var/atom/target)
+/obj/item/projectile/magic/door/on_hit(atom/target)
 	. = ..()
 	var/atom/T = target.loc
 	if(isturf(target) && target.density)
@@ -134,13 +134,13 @@
 	T.ChangeTurf(/turf/simulated/floor/plasteel)
 	D.Open()
 
-/obj/item/projectile/magic/door/proc/OpenDoor(var/obj/machinery/door/D)
+/obj/item/projectile/magic/door/proc/OpenDoor(obj/machinery/door/D)
 	if(istype(D,/obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = D
 		A.locked = FALSE
 	D.open()
 
-/obj/item/projectile/magic/door/proc/OpenCloset(var/obj/structure/closet/C)
+/obj/item/projectile/magic/door/proc/OpenCloset(obj/structure/closet/C)
 	if(istype(C, /obj/structure/closet/secure_closet))
 		var/obj/structure/closet/secure_closet/SC = C
 		SC.locked = FALSE
@@ -151,7 +151,7 @@
 	icon_state = "ice_1"
 	damage_type = BURN
 
-/obj/item/projectile/magic/change/on_hit(var/atom/change)
+/obj/item/projectile/magic/change/on_hit(atom/change)
 	. = ..()
 	wabbajack(change)
 
@@ -282,7 +282,7 @@
 	icon_state = "red_1"
 	damage_type = BURN
 
-/obj/item/projectile/magic/animate/Bump(var/atom/change)
+/obj/item/projectile/magic/animate/Bump(atom/change)
 	..()
 	if(istype(change, /obj/item) || istype(change, /obj/structure) && !is_type_in_list(change, GLOB.protected_objects))
 		if(istype(change, /obj/structure/closet/statue))
@@ -331,7 +331,7 @@
 	..()
 	SpinAnimation()
 
-/obj/item/projectile/magic/slipping/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/magic/slipping/on_hit(atom/target, blocked = 0)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		H.slip(src, slip_stun, slip_weaken, 0, FALSE, TRUE) //Slips even with noslips/magboots on. NO ESCAPE!

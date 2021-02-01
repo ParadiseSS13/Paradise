@@ -708,7 +708,7 @@
 	explosion(get_turf(src), 0, 1, 4, 7)
 	death()
 
-/mob/living/simple_animal/pet/dog/corgi/borgi/proc/shootAt(var/atom/movable/target)
+/mob/living/simple_animal/pet/dog/corgi/borgi/proc/shootAt(atom/movable/target)
 	var/turf/T = get_turf(src)
 	var/turf/U = get_turf(target)
 	if(!T || !U)

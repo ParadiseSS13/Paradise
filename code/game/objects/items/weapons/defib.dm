@@ -187,7 +187,7 @@
 	QDEL_NULL(cell)
 	return ..()
 
-/obj/item/defibrillator/proc/deductcharge(var/chrgdeductamt)
+/obj/item/defibrillator/proc/deductcharge(chrgdeductamt)
 	if(cell)
 		if(cell.charge < (paddles.revivecost+chrgdeductamt))
 			powered = FALSE
@@ -199,7 +199,7 @@
 			update_icon()
 			return FALSE
 
-/obj/item/defibrillator/proc/cooldowncheck(var/mob/user)
+/obj/item/defibrillator/proc/cooldowncheck(mob/user)
 	spawn(50)
 		if(cell)
 			if(cell.charge >= paddles.revivecost)
@@ -309,7 +309,7 @@
 		if(!t.Adjacent(user))
 			defib.remove_paddles(user)
 
-/obj/item/twohanded/shockpaddles/proc/check_defib_exists(mainunit, var/mob/living/carbon/human/M, var/obj/O)
+/obj/item/twohanded/shockpaddles/proc/check_defib_exists(mainunit, mob/living/carbon/human/M, obj/O)
 	if(!mainunit || !istype(mainunit, /obj/item/defibrillator))	//To avoid weird issues from admin spawns
 		M.unEquip(O)
 		qdel(O)

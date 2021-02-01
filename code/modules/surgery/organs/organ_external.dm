@@ -105,7 +105,7 @@
 	return
 
 
-/obj/item/organ/external/New(var/mob/living/carbon/holder)
+/obj/item/organ/external/New(mob/living/carbon/holder)
 	..()
 	var/mob/living/carbon/human/H = holder
 	icobase = dna.species.icobase
@@ -115,7 +115,7 @@
 		sync_colour_to_human(H)
 	get_icon()
 
-/obj/item/organ/external/replaced(var/mob/living/carbon/human/target)
+/obj/item/organ/external/replaced(mob/living/carbon/human/target)
 	owner = target
 	forceMove(owner)
 	if(istype(owner))
@@ -402,7 +402,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		owner.adjustToxLoss(1)
 
 //Updates brute_damn and burn_damn from wound damages. Updates BLEEDING status.
-/obj/item/organ/external/proc/check_fracture(var/damage_inflicted)
+/obj/item/organ/external/proc/check_fracture(damage_inflicted)
 	if(config.bones_can_break && brute_dam > min_broken_damage && !is_robotic())
 		if(prob(damage_inflicted))
 			fracture()
@@ -588,7 +588,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 /****************************************************
 			   HELPERS
 ****************************************************/
-/obj/item/organ/external/proc/release_restraints(var/mob/living/carbon/human/holder)
+/obj/item/organ/external/proc/release_restraints(mob/living/carbon/human/holder)
 	if(!holder)
 		holder = owner
 	if(!holder)
@@ -665,7 +665,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 
-/obj/item/organ/external/proc/set_company(var/company)
+/obj/item/organ/external/proc/set_company(company)
 	model = company
 	var/datum/robolimb/R = GLOB.all_robolimbs[company]
 	if(R)
@@ -699,7 +699,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/is_malfunctioning()
 	return (is_robotic() && (brute_dam + burn_dam) >= 10 && prob(brute_dam + burn_dam) && !tough)
 
-/obj/item/organ/external/remove(var/mob/living/user, var/ignore_children)
+/obj/item/organ/external/remove(mob/living/user, ignore_children)
 
 	if(!owner)
 		return
@@ -753,7 +753,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 							  "<span class='warning'>You hear a sickening sound.</span>")
 	disfigured = TRUE
 
-/obj/item/organ/external/is_primary_organ(var/mob/living/carbon/human/O = null)
+/obj/item/organ/external/is_primary_organ(mob/living/carbon/human/O = null)
 	if(isnull(O))
 		O = owner
 	if(!istype(O)) // You're not the primary organ of ANYTHING, bucko

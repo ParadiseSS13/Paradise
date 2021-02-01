@@ -104,7 +104,7 @@
 
 	weapon_setup(installation)
 
-/obj/machinery/porta_turret/proc/weapon_setup(var/guntype)
+/obj/machinery/porta_turret/proc/weapon_setup(guntype)
 	switch(guntype)
 		if(/obj/item/gun/energy/laser/practice)
 			iconholder = 1
@@ -608,7 +608,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	return TURRET_PRIORITY_TARGET	//if the perp has passed all previous tests, congrats, it is now a "shoot-me!" nominee
 
-/obj/machinery/porta_turret/proc/tryToShootAt(var/list/mob/living/targets)
+/obj/machinery/porta_turret/proc/tryToShootAt(list/mob/living/targets)
 	if(targets.len && last_target && (last_target in targets) && target(last_target))
 		return 1
 
@@ -666,7 +666,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	return ..()
 
-/obj/machinery/porta_turret/proc/set_raised_raising(var/is_raised, var/is_raising)
+/obj/machinery/porta_turret/proc/set_raised_raising(is_raised, is_raising)
 	raised = is_raised
 	raising = is_raising
 	density = is_raised || is_raising
@@ -754,7 +754,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	var/check_borgs
 	var/ailock
 
-/obj/machinery/porta_turret/proc/setState(var/datum/turret_checks/TC)
+/obj/machinery/porta_turret/proc/setState(datum/turret_checks/TC)
 	if(controllock)
 		return
 	enabled = TC.enabled

@@ -20,12 +20,12 @@
 	var/bibledelay = 0 // LOL NO SPAM (1 minute delay) -- Doohl
 	var/booklist
 
-/obj/machinery/computer/library/checkout/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/library/checkout/attack_hand(mob/user as mob)
 	if(..())
 		return
 	interact(user)
 
-/obj/machinery/computer/library/checkout/interact(var/mob/user)
+/obj/machinery/computer/library/checkout/interact(mob/user)
 	if(interact_check(user))
 		return
 
@@ -286,7 +286,7 @@
 			if(!query.warn_execute())
 				qdel(query)
 				return
-		
+
 			if(query.affected == 0)
 				to_chat(usr, "<span class='danger'>Unable to find any matching rows.</span>")
 				qdel(query)
@@ -395,7 +395,7 @@
 								"category" = upload_category,
 								"ckey" = usr.ckey
 							))
-						
+
 						if(!query.warn_execute())
 							qdel(query)
 							return
@@ -462,7 +462,7 @@
  * Library Scanner
  */
 
-/obj/machinery/computer/library/checkout/proc/make_external_book(var/datum/cachedbook/newbook)
+/obj/machinery/computer/library/checkout/proc/make_external_book(datum/cachedbook/newbook)
 	if(!newbook || !newbook.id)
 		return
 	var/obj/item/book/B = new newbook.path(loc)

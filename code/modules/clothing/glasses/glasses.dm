@@ -4,7 +4,7 @@
 		// Pre-upgraded upgradable glasses
 		name = "prescription [name]"
 
-/obj/item/clothing/glasses/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/obj/item/clothing/glasses/attackby(obj/item/O as obj, mob/user as mob)
 	if(user.stat || user.restrained() || !ishuman(user))
 		return ..()
 	var/mob/living/carbon/human/H = user
