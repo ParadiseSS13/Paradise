@@ -32,8 +32,7 @@
 		new /obj/structure/grille(get_turf(src))
 
 	air_update_turf(TRUE) //atmos can pass otherwise
-	// Give some time for nearby window spawners to initialize
-	QDEL_IN(src, 10)
+	return INITIALIZE_HINT_QDEL
 
 
 /obj/effect/spawner/window/reinforced
