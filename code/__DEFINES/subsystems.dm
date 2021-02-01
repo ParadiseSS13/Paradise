@@ -44,7 +44,8 @@
 // Subsystem init_order, from highest priority to lowest priority
 // Subsystems shutdown in the reverse of the order they initialize in
 // The numbers just define the ordering, they are meaningless otherwise.
-#define INIT_ORDER_TITLE 100 // This **MUST** load first or people will se blank lobby screens
+#define INIT_ORDER_PROFILER	101
+#define INIT_ORDER_TITLE 100 // Load this quickly so people dont see a blank lobby screen
 #define INIT_ORDER_GARBAGE 21
 #define INIT_ORDER_DBCORE 20
 #define INIT_ORDER_BLACKBOX 19
@@ -112,7 +113,7 @@
 #define FIRE_PRIORITY_PARALLAX		65
 #define FIRE_PRIORITY_FLIGHTPACKS	80
 #define FIRE_PRIORITY_MOBS			100
-#define FIRE_PRIORITY_NANOUI		110
+#define FIRE_PRIORITY_TGUI			110
 #define FIRE_PRIORITY_TICKER		200
 #define FIRE_PRIORITY_RUNECHAT		410 // I hate how high the fire priority on this is -aa
 #define FIRE_PRIORITY_OVERLAYS		500
@@ -129,8 +130,9 @@
 
 #define RUNLEVELS_DEFAULT (RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME)
 
+// This do{} WHILE (FALSE) syntax may look stupid, but it speeds things up because BYOND memes
 #define COMPILE_OVERLAYS(A)\
-	if (TRUE) {\
+	do { \
 		var/list/ad = A.add_overlays;\
 		var/list/rm = A.remove_overlays;\
 		var/list/po = A.priority_overlays;\
@@ -146,4 +148,4 @@
 			A.overlays |= po;\
 		}\
 		A.flags_2 &= ~OVERLAY_QUEUED_2;\
-}
+} while (FALSE)

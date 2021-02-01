@@ -1,8 +1,9 @@
 /datum/event/sentience
 
 /datum/event/sentience/start()
-	processing = FALSE //so it won't fire again in next tick
+	INVOKE_ASYNC(src, .proc/make_sentient_mob)
 
+/datum/event/sentience/proc/make_sentient_mob()
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to awaken as a sentient being?", ROLE_SENTIENT, TRUE)
 	var/list/potential = list()
 	var/sentience_type = SENTIENCE_ORGANIC
@@ -40,7 +41,6 @@
 	SA.del_on_death = FALSE
 	greet_sentient(SA)
 	print_command_report(sentience_report, "[command_name()] Update", FALSE)
-	processing = TRUE // Let it naturally end, if it runs successfully
 
 /datum/event/sentience/proc/greet_sentient(var/mob/living/carbon/human/M)
 	to_chat(M, "<span class='userdanger'>Hello world!</span>")

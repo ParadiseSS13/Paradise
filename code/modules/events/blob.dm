@@ -10,12 +10,12 @@
 		log_and_message_admins("Warning: Could not spawn any mobs for event Blob")
 
 /datum/event/blob/start()
-	processing = FALSE //so it won't fire again in next tick
-
 	var/turf/T = pick(GLOB.blobstart)
 	if(!T)
 		return kill()
+	INVOKE_ASYNC(src, .proc/make_blob)
 
+/datum/event/blob/proc/make_blob()
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob infested mouse?", ROLE_BLOB, TRUE, source = /mob/living/simple_animal/mouse/blobinfected)
 	if(!length(candidates))
 		return kill()
@@ -32,4 +32,3 @@
 	to_chat(B, "<span class='userdanger'>You are now a mouse, infected with blob spores. Find somewhere isolated... before you burst and become the blob! Use ventcrawl (alt-click on vents) to move around.</span>")
 	notify_ghosts("Infected Mouse has appeared in [get_area(B)].", source = B)
 	successSpawn = TRUE
-	processing = TRUE // Let it naturally end, if it runs successfully

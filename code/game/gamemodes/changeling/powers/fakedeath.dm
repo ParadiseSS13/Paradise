@@ -21,7 +21,7 @@
 	user.mind.changeling.regenerating = TRUE
 
 	addtimer(CALLBACK(src, .proc/ready_to_regenerate, user), LING_FAKEDEATH_TIME)
-	feedback_add_details("changeling_powers","FD")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1
 
 /datum/action/changeling/fakedeath/proc/ready_to_regenerate(mob/user)

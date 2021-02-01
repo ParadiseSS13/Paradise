@@ -171,6 +171,10 @@ GLOBAL_LIST_EMPTY(all_cults)
 	if(!istype(cult_mind))
 		return FALSE
 
+	if(!ascend_percent) // If the rise/ascend thresholds haven't been set (non-cult rounds)
+		cult_objs.setup()
+		cult_threshold_check()
+
 	if(!(cult_mind in cult))
 		cult += cult_mind
 		cult_mind.current.faction |= "cult"
@@ -294,13 +298,13 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 /datum/game_mode/cult/declare_completion()
 	if(cult_objs.cult_status == NARSIE_HAS_RISEN)
-		feedback_set_details("round_end_result","cult win - cult win")
+		SSticker.mode_result = "cult win - cult win"
 		to_chat(world, "<span class='danger'> <FONT size = 3>The cult wins! It has succeeded in summoning [SSticker.cultdat.entity_name]!</FONT></span>")
 	else if(cult_objs.cult_status == NARSIE_HAS_FALLEN)
-		feedback_set_details("round_end_result","cult draw - narsie died, nobody wins")
+		SSticker.mode_result = "cult draw - narsie died, nobody wins"
 		to_chat(world, "<span class='danger'> <FONT size = 3>Nobody wins! [SSticker.cultdat.entity_name] was summoned, but banished!</FONT></span>")
 	else
-		feedback_set_details("round_end_result","cult loss - staff stopped the cult")
+		SSticker.mode_result = "cult loss - staff stopped the cult"
 		to_chat(world, "<span class='warning'> <FONT size = 3>The staff managed to stop the cult!</FONT></span>")
 
 	var/endtext

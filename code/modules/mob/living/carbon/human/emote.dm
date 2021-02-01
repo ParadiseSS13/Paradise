@@ -85,13 +85,13 @@
 
 		if("clack", "clacks")
 			if(iskidan(src))	//Only Kidan can clack and rightfully so.
-				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+				on_CD = handle_emote_CD(30)			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
 
 		if("click", "clicks")
 			if(iskidan(src))	//Only Kidan can click and rightfully so.
-				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+				on_CD = handle_emote_CD(30)			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
 
@@ -209,14 +209,14 @@
 
 		if("clack", "clacks")
 			var/M = handle_emote_param(param)
-
+			mineral_scan_pulse(get_turf(src), range = world.view)
 			message = "<B>[src]</B> clacks [p_their()] mandibles[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/effects/Kidanclack.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
 
 		if("click", "clicks")
 			var/M = handle_emote_param(param)
-
+			mineral_scan_pulse(get_turf(src), range = world.view)
 			message = "<B>[src]</B> clicks [p_their()] mandibles[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/effects/Kidanclack2.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
@@ -932,41 +932,43 @@
 					return
 
 		if("help")
-			var/emotelist = "aflap(s), airguitar, blink(s), blink(s)_r, blush(es), bow(s)-(none)/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s),cry, cries, custom, dance, dap(s)(none)/mob," \
-			+ " deathgasp(s), drool(s), eyebrow, fart(s), faint(s), flap(s), flip(s), frown(s), gasp(s), giggle(s), glare(s)-(none)/mob, grin(s), groan(s), grumble(s), grin(s)," \
-			+ " handshake-mob, hug(s)-(none)/mob, hem, highfive, johnny, jump, laugh(s), look(s)-(none)/mob, moan(s), mumble(s), nod(s), pale(s), point(s)-atom, quiver(s), raise(s), salute(s)-(none)/mob, scream(s), shake(s)," \
-			+ " shiver(s), shrug(s), sigh(s), signal(s)-#1-10,slap(s)-(none)/mob, smile(s),snap(s), sneeze(s), sniff(s), snore(s), stare(s)-(none)/mob, swag(s), tremble(s), twitch(es), twitch(es)_s," \
-			+ " wag(s), wave(s),  whimper(s), wink(s), yawn(s), quill(s)"
+			var/emotelist = "aflap(s), airguitar, blink(s), blink(s)_r, blush(es), bow(s)-none/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s), cry, cries, custom, dance, dap(s)-none/mob," \
+			+ " deathgasp(s), drool(s), eyebrow, fart(s), faint(s), flap(s), flip(s), frown(s), gasp(s), giggle(s), glare(s)-none/mob, grin(s), groan(s), grumble(s), grin(s)," \
+			+ " handshake-mob, hug(s)-none/mob, hem, highfive, johnny, jump, laugh(s), look(s)-none/mob, moan(s), mumble(s), nod(s), pale(s), point(s)-atom, quiver(s), raise(s), salute(s)-none/mob, scream(s), shake(s)," \
+			+ " shiver(s), shrug(s), sigh(s), signal(s)-#1-10,slap(s)-none/mob, smile(s),snap(s), sneeze(s), sniff(s), snore(s), stare(s)-none/mob, tremble(s), twitch(es), twitch(es)_s," \
+			+ " wave(s), whimper(s), wink(s), yawn(s)"
 
 			switch(dna.species.name)
-				if("Drask")
-					emotelist += "\nDrask specific emotes :- drone(s)-(none)/mob, hum(s)-(none)/mob, rumble(s)-(none)/mob"
-				if("Kidan")
-					emotelist += "\nKidan specific emotes :- click(s), clack(s)"
-				if("Unathi")
-					emotelist += "\nUnathi specific emotes :- hiss(es)"
-				if("Vulpkanin")
-					emotelist += "\nVulpkanin specific emotes :- growl(s)-none/mob, howl(s)-none/mob"
-				if("Vox")
-					emotelist += "\nVox specific emotes :- quill(s)"
 				if("Diona")
-					emotelist += "\nDiona specific emotes :- creak(s)"
+					emotelist += "\n<u>Diona specific emotes</u> :- creak(s)"
+				if("Drask")
+					emotelist += "\n<u>Drask specific emotes</u> :- drone(s)-none/mob, hum(s)-none/mob, rumble(s)-none/mob"
+				if("Kidan")
+					emotelist += "\n<u>Kidan specific emotes</u> :- click(s), clack(s)"
 				if("Skrell")
-					emotelist += "\nSkrell specific emotes :- warble(s)"
+					emotelist += "\n<u>Skrell specific emotes</u> :- warble(s)"
+				if("Tajaran")
+					emotelist += "\n<u>Tajaran specifc emotes</u> :- wag(s), swag(s)"
+				if("Unathi")
+					emotelist += "\n<u>Unathi specific emotes</u> :- wag(s), swag(s), hiss(es)"
+				if("Vox")
+					emotelist += "\n<u>Vox specific emotes</u> :- wag(s), swag(s), quill(s)"
+				if("Vulpkanin")
+					emotelist += "\n<u>Vulpkanin specific emotes</u> :- wag(s), swag(s), growl(s)-none/mob, howl(s)-none/mob"
 
 			if(ismachineperson(src))
-				emotelist += "\nMachine specific emotes :- beep(s)-(none)/mob, buzz(es)-none/mob, no-(none)/mob, ping(s)-(none)/mob, yes-(none)/mob, buzz2-(none)/mob"
+				emotelist += "\n<u>Machine specific emotes</u> :- beep(s)-none/mob, buzz(es)-none/mob, no-none/mob, ping(s)-none/mob, yes-none/mob, buzz2-none/mob"
 			else
 				var/obj/item/organ/external/head/H = get_organ("head") // If you have a robotic head, you can make beep-boop noises
 				if(H && H.is_robotic())
-					emotelist += "\nRobotic head specific emotes :- beep(s)-(none)/mob, buzz(es)-none/mob, no-(none)/mob, ping(s)-(none)/mob, yes-(none)/mob, buzz2-(none)/mob"
+					emotelist += "\n<u>Robotic head specific emotes</u> :- beep(s)-none/mob, buzz(es)-none/mob, no-none/mob, ping(s)-none/mob, yes-none/mob, buzz2-none/mob"
 
 			if(isslimeperson(src))
-				emotelist += "\nSlime people specific emotes :- squish(es)-(none)/mob"
+				emotelist += "\n<u>Slime people specific emotes</u> :- squish(es)-none/mob"
 			else
 				for(var/obj/item/organ/external/L in bodyparts) // if your limbs are squishy you can squish too!
 					if(istype(L.dna.species, /datum/species/slime))
-						emotelist += "\nSlime people body part specific emotes :- squish(es)-(none)/mob"
+						emotelist += "\n<u>Slime people body part specific emotes</u> :- squish(es)-none/mob"
 						break
 
 			to_chat(src, emotelist)

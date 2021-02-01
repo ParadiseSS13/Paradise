@@ -9,8 +9,7 @@
 	icon_off = "hydrosecureoff"
 
 
-/obj/structure/closet/secure_closet/hydroponics/New()
-	..()
+/obj/structure/closet/secure_closet/hydroponics/populate_contents()
 	switch(rand(1,2))
 		if(1)
 			new /obj/item/clothing/suit/apron(src)

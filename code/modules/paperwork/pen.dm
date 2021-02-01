@@ -64,7 +64,7 @@
 	var/pen_color_iconstate = "pencolor"
 	var/pen_color_shift = 3
 
-/obj/item/pen/multi/New()
+/obj/item/pen/multi/Initialize(mapload)
 	..()
 	update_icon()
 
@@ -104,21 +104,6 @@
 	icon_state = "fountainpen"
 	pen_color_shift = 0
 
-/obj/item/pen/attack(mob/living/M, mob/user)
-	if(!istype(M))
-		return
-
-	if(!force)
-		if(M.can_inject(user, TRUE))
-			to_chat(user, "<span class='warning'>You stab [M] with the pen.</span>")
-//			to_chat(M, "<span class='danger'>You feel a tiny prick!</span>")
-			. = 1
-
-		add_attack_logs(user, M, "Stabbed with [src]")
-
-	else
-		. = ..()
-
 /*
  * Sleepypens
  */
@@ -128,18 +113,23 @@
 
 
 /obj/item/pen/sleepy/attack(mob/living/M, mob/user)
-	if(!istype(M))	return
+	if(!istype(M))
+		return
 
-	if(..())
-		if(reagents.total_volume)
-			if(M.reagents)
-				reagents.trans_to(M, 50)
+	if(!M.can_inject(user, TRUE))
+		return
+	var/transfered = 0
+	if(reagents.total_volume && M.reagents)
+		transfered = reagents.trans_to(M, 50)
+	to_chat(user, "<span class='warning'>You sneakily stab [M] with the pen.</span>")
+	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered.")
+	return TRUE
 
 
-/obj/item/pen/sleepy/New()
+/obj/item/pen/sleepy/Initialize(mapload)
+	. = ..()
 	create_reagents(100)
 	reagents.add_reagent("ketamine", 100)
-	..()
 
 
 /*

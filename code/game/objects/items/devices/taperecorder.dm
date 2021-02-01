@@ -309,12 +309,7 @@
 			to_chat(user, "<span class='notice'>You wound the tape back in!</span>")
 			fix()
 	else if(istype(I, /obj/item/pen))
-		var/title = stripped_input(usr,"What do you want to name the tape?", "Tape Renaming", name, MAX_NAME_LEN)
-		if(!title || !length(title))
-			name = initial(name)
-			return
-		name = "tape - [title]"
-
+		rename_interactive(user, I)
 
 //Random colour tapes
 /obj/item/tape/random/New()

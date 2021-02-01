@@ -248,6 +248,25 @@
 						"<span class='notice'>[M] shakes [src] trying to wake [p_them()] up!</span>",\
 						"<span class='notice'>You shake [src] trying to wake [p_them()] up!</span>",\
 						)
+
+			else if(on_fire)
+				var/self_message = "<span class='warning'>You try to extinguish [src]!</span>"
+				if(prob(30) && ishuman(M)) // 30% chance of burning your hands
+					var/mob/living/carbon/human/H = M
+					var/protected = FALSE // Protected from the fire
+					if((H.gloves?.max_heat_protection_temperature > 360) || (HEATRES in H.mutations))
+						protected = TRUE
+
+					var/obj/item/organ/external/active_hand = H.get_organ("[H.hand ? "l" : "r"]_hand")
+					if(active_hand && !protected) // Wouldn't really work without a hand
+						active_hand.receive_damage(0, 5)
+						self_message = "<span class='danger'>You burn your hand trying to extinguish [src]!</span>"
+						H.update_icons()
+
+				M.visible_message("<span class='warning'>[M] tries to extinguish [src]!</span>", self_message)
+				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				adjust_fire_stacks(-0.5)
+
 			// BEGIN HUGCODE - N3X
 			else
 				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
@@ -772,50 +791,53 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 
 /mob/living/carbon/proc/canBeHandcuffed()
-	return 0
+	return FALSE
 
 /mob/living/carbon/fall(forced)
-    loc.handle_fall(src, forced)//it's loc so it doesn't call the mob's handle_fall which does nothing
+	loc.handle_fall(src, forced)//it's loc so it doesn't call the mob's handle_fall which does nothing
 
 /mob/living/carbon/is_muzzled()
-	return(istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
+	return(istype(wear_mask, /obj/item/clothing/mask/muzzle))
 
 /mob/living/carbon/resist_buckle()
-	spawn(0)
-		resist_muzzle()
-	var/obj/item/I
-	if((I = get_restraining_item())) // If there is nothing to restrain him then he is not restrained
-		var/breakouttime = I.breakouttime
-		var/displaytime = breakouttime / 10
-		visible_message("<span class='warning'>[src] attempts to unbuckle [p_them()]self!</span>", \
-					"<span class='notice'>You attempt to unbuckle yourself... (This will take around [displaytime] seconds and you need to stay still.)</span>")
-		if(do_after(src, breakouttime, 0, target = src))
-			if(!buckled)
-				return
-			buckled.user_unbuckle_mob(src,src)
-		else
-			if(src && buckled)
-				to_chat(src, "<span class='warning'>You fail to unbuckle yourself!</span>")
+	INVOKE_ASYNC(src, .proc/resist_muzzle)
+	var/obj/item/I = get_restraining_item()
+	if(!I) // If there is nothing to restrain him then he is not restrained
+		buckled.user_unbuckle_mob(src, src)
+		return
+
+	var/time = I.breakouttime
+	visible_message("<span class='warning'>[src] attempts to unbuckle [p_them()]self!</span>",
+				"<span class='notice'>You attempt to unbuckle yourself... (This will take around [time / 10] seconds and you need to stay still.)</span>")
+	if(!do_after(src, time, FALSE, src, extra_checks = list(CALLBACK(src, .proc/buckle_check))))
+		if(src && buckled)
+			to_chat(src, "<span class='warning'>You fail to unbuckle yourself!</span>")
 	else
-		buckled.user_unbuckle_mob(src,src)
+		if(!buckled)
+			return
+		buckled.user_unbuckle_mob(src, src)
+
+/mob/living/carbon/proc/buckle_check()
+	if(!buckled) // No longer buckled
+		return TRUE
+	return FALSE
 
 /mob/living/carbon/resist_fire()
 	fire_stacks -= 5
-	Weaken(3, 1, 1) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
+	Weaken(3, TRUE, 1) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
 	update_canmove()
-	spin(32,2)
-	visible_message("<span class='danger'>[src] rolls on the floor, trying to put [p_them()]self out!</span>", \
+	spin(32, 2)
+	visible_message("<span class='danger'>[src] rolls on the floor, trying to put [p_them()]self out!</span>",
 		"<span class='notice'>You stop, drop, and roll!</span>")
-	sleep(30)
+	sleep(3 SECONDS)
 	if(fire_stacks <= 0)
-		visible_message("<span class='danger'>[src] has successfully extinguished [p_them()]self!</span>", \
+		visible_message("<span class='danger'>[src] has successfully extinguished [p_them()]self!</span>",
 			"<span class='notice'>You extinguish yourself.</span>")
 		ExtinguishMob()
 
 
 /mob/living/carbon/resist_restraints()
-	spawn(0)
-		resist_muzzle()
+	INVOKE_ASYNC(src, .proc/resist_muzzle)
 	var/obj/item/I = null
 	if(handcuffed)
 		I = handcuffed
@@ -1203,14 +1225,14 @@ so that different stomachs can handle things in different ways VB*/
 		I.extinguish() //extinguishes our clothes
 	..()
 
-/mob/living/carbon/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
+/mob/living/carbon/clean_blood(radiation_clean = FALSE, clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
 	if(head)
-		if(head.clean_blood())
+		if(head.clean_blood(radiation_clean))
 			update_inv_head()
 		if(head.flags_inv & HIDEMASK)
 			clean_mask = FALSE
 	if(wear_suit)
-		if(wear_suit.clean_blood())
+		if(wear_suit.clean_blood(radiation_clean))
 			update_inv_wear_suit()
 		if(wear_suit.flags_inv & HIDESHOES)
 			clean_feet = FALSE

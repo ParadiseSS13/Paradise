@@ -43,7 +43,7 @@
 	add_fingerprint(user)
 	if(stat & (BROKEN|NOPOWER))
 		return
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/computer/operating/attack_hand(mob/user)
 	if(..(user))
@@ -53,16 +53,16 @@
 		return
 
 	add_fingerprint(user)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/computer/operating/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/computer/operating/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "OperatingComputer", "Patient Monitor", 650, 455, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/operating/tgui_data(mob/user)
-	var/data[0]
+/obj/machinery/computer/operating/ui_data(mob/user)
+	var/list/data = list()
 	var/mob/living/carbon/human/occupant
 	if(table)
 		occupant = table.patient
@@ -136,7 +136,7 @@
 	return data
 
 
-/obj/machinery/computer/operating/tgui_act(action, params)
+/obj/machinery/computer/operating/ui_act(action, params)
 	if(..())
 		return
 	if(stat & (NOPOWER|BROKEN))

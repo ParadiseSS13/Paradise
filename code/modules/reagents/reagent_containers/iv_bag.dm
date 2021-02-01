@@ -149,39 +149,34 @@
 			if(IV_INJECT)
 				overlays += "inject"
 
-/obj/item/reagent_containers/iv_bag/proc/set_label(new_label)
-	name = "[initial(name)] ([new_label])"
-
 /obj/item/reagent_containers/iv_bag/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pen) || istype(I, /obj/item/flashlight/pen))
-		var/tmp_label = sanitize(input(user, "Enter a label for [name]","Label",label_text))
-		if(length(tmp_label) > MAX_NAME_LEN)
-			to_chat(user, "<span class='warning'>The label can be at most [MAX_NAME_LEN] characters long.</span>")
-		else
-			to_chat(user, "<span class='notice'>You set the label to \"[tmp_label]\".</span>")
-			set_label(tmp_label)
+		rename_interactive(user, I)
 
 // PRE-FILLED IV BAGS BELOW
 
 /obj/item/reagent_containers/iv_bag/salglu
-	name = "\improper IV Bag (Saline Glucose)"
 	list_reagents = list("salglu_solution" = 200)
+
+/obj/item/reagent_containers/iv_bag/salglu/Initialize(mapload)
+	. = ..()
+	name = "[initial(name)] - Saline Glucose"
 
 /obj/item/reagent_containers/iv_bag/blood // Don't use this - just an abstract type to allow blood bags to have a common blood_type var for ease of creation.
 	var/blood_type
 	amount_per_transfer_from_this = 5 // Bloodbags are set to transfer 5 units by default.
 
-/obj/item/reagent_containers/iv_bag/blood/New()
-	..()
+/obj/item/reagent_containers/iv_bag/blood/Initialize(mapload)
+	. = ..()
 	if(blood_type != null)
-		set_label(blood_type)
+		name = "[initial(name)] - [blood_type]"
 		reagents.add_reagent("blood", 200, list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=blood_type,"resistances"=null,"trace_chem"=null))
 		update_icon()
 
 
-/obj/item/reagent_containers/iv_bag/blood/random/New()
+/obj/item/reagent_containers/iv_bag/blood/random/Initialize()
 	blood_type = pick("A+", "A-", "B+", "B-", "O+", "O-")
-	..()
+	return ..()
 
 /obj/item/reagent_containers/iv_bag/blood/APlus
 	blood_type = "A+"
@@ -202,5 +197,8 @@
 	blood_type = "O-"
 
 /obj/item/reagent_containers/iv_bag/slime
-	name = "\improper IV Bag (Slime Jelly)"
 	list_reagents = list("slimejelly" = 200)
+
+/obj/item/reagent_containers/iv_bag/slime/Initialize(mapload)
+	. = ..()
+	name = "[initial(name)] - Slime Jelly"

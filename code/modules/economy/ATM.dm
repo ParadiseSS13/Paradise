@@ -51,7 +51,7 @@ log transactions
 		linked_db = null
 		authenticated_account = null
 		visible_message("[bicon(src)]<span class='warning'>[src] buzzes rudely, \"Connection to remote database lost.\"</span>")
-		SSnanoui.update_uis(src)
+		SStgui.update_uis(src)
 
 	if(ticks_left_timeout > 0)
 		ticks_left_timeout--
@@ -91,7 +91,7 @@ log transactions
 			held_card = I
 			if(authenticated_account && held_card.associated_account_number != authenticated_account.account_number)
 				authenticated_account = null
-			SSnanoui.update_uis(src)
+			SStgui.update_uis(src)
 	else if(authenticated_account)
 		if(istype(I, /obj/item/stack/spacecash))
 			//consume the money
@@ -103,7 +103,7 @@ log transactions
 			authenticated_account.credit(C.amount, "Credit deposit", machine_id, authenticated_account.owner_name)
 
 			to_chat(user, "<span class='info'>You insert [C] into [src].</span>")
-			SSnanoui.update_uis(src)
+			SStgui.update_uis(src)
 			C.use(C.amount)
 	else
 		return ..()
@@ -116,18 +116,18 @@ log transactions
 		return
 	if(!linked_db)
 		reconnect_database()
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/atm/attack_ghost(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/atm/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/atm/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if (!ui)
 		ui = new(user, src, ui_key, "ATM", name, 550, 650)
 		ui.open()
 
-/obj/machinery/atm/tgui_data(mob/user)
+/obj/machinery/atm/ui_data(mob/user)
 	var/list/data = list()
 	data["view_screen"] = view_screen
 	data["machine_id"] = machine_id
@@ -154,7 +154,7 @@ log transactions
 
 	return data
 
-/obj/machinery/atm/tgui_act(action, params)
+/obj/machinery/atm/ui_act(action, params)
 	if(..())
 		return
 

@@ -1391,3 +1391,42 @@
 	drink_name = "Bacchus' Blessing"
 	drink_desc = "You didn't think it was possible for a liquid to be so utterly revolting. Are you sure about this...?"
 	taste_description = "a wall of bricks"
+
+/datum/reagent/consumable/ethanol/fernet
+	name = "Fernet"
+	id = "fernet"
+	description = "An incredibly bitter herbal liqueur used as a digestif."
+	color = "#1B2E24" // rgb: 27, 46, 36
+	alcohol_perc = 0.5
+	drink_icon = "fernetpuro"
+	drink_name = "glass of pure fernet"
+	drink_desc = "Why are you drinking this pure?"
+	taste_description = "utter bitterness"
+	var/remove_nutrition = 2
+
+/datum/reagent/consumable/ethanol/fernet/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(!M.nutrition)
+		switch(rand(1, 3))
+			if(1)
+				to_chat(M, "<span class='warning'>You feel hungry...</span>")
+			if(2)
+				update_flags |= M.adjustToxLoss(1, FALSE)
+				to_chat(M, "<span class='warning'>Your stomach grumbles painfully!</span>")
+	else
+		if(prob(60))
+			M.adjust_nutrition(-remove_nutrition)
+			M.overeatduration = 0
+	return ..() | update_flags
+
+/datum/reagent/consumable/ethanol/fernet/fernet_cola
+	name = "Fernet Cola"
+	id = "fernet_cola"
+	description = "A very popular and bittersweet digestif, ideal after a heavy meal. Best served on a sawed-off cola bottle as per tradition."
+	color = "#390600" // rgb: 57, 6, 0
+	alcohol_perc = 0.2
+	drink_icon = "fernetcola"
+	drink_name = "glass of fernet cola"
+	drink_desc = "A sawed-off cola bottle filled with Fernet Cola. You can hear cuarteto music coming from the inside."
+	taste_description = "low class heaven"
+	remove_nutrition = 1

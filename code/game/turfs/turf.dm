@@ -174,7 +174,7 @@
 
 /turf/proc/levelupdate()
 	for(var/obj/O in src)
-		if(O.level == 1)
+		if(O.level == 1 && O.initialized) // Only do this if the object has initialized
 			O.hide(src.intact)
 
 // override for space turfs, since they should never hide anything
@@ -560,6 +560,3 @@
 
 /turf/AllowDrop()
 	return TRUE
-
-/turf/proc/water_act(volume, temperature, source)
- 	return FALSE
