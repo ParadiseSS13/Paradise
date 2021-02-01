@@ -1532,6 +1532,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/vacantoffice2
 	name = "\improper Vacant Office"
 	icon_state = "security"
+	
+/area/security/permasolitary
+	name = "\improper Solitary Confinement"
+	icon_state = "solitary"
 
 /area/quartermaster
 	name = "\improper Quartermasters"
