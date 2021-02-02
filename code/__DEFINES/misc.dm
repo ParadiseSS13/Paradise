@@ -139,12 +139,6 @@
 #define FACING_EACHOTHER										2
 #define FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR	3 //Do I win the most informative but also most stupid define award?
 
-//unmagic-strings for types of polls
-#define POLLTYPE_OPTION		"OPTION"
-#define POLLTYPE_TEXT		"TEXT"
-#define POLLTYPE_RATING		"NUMVAL"
-#define POLLTYPE_MULTI		"MULTICHOICE"
-
 #define MIDNIGHT_ROLLOVER	864000 //number of deciseconds in a day
 
 #define MANIFEST_ERROR_NAME		1
@@ -369,7 +363,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 14
+#define SQL_VERSION 20
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -434,6 +428,9 @@
 
 //Explosive wall groups
 #define EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE "syndicate_base"
+
+/// Prepares a text to be used for maptext. Use this so it doesn't look hideous.
+#define MAPTEXT(text) {"<span class='maptext'>[##text]</span>"}
 
 // Filters
 #define FILTER_AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, color="#04080FAA")

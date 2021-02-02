@@ -86,7 +86,10 @@ GLOBAL_DATUM(error_cache, /datum/ErrorViewer/ErrorCache)
 		var/datum/ErrorViewer/ErrorSource/error_source
 		for(var/erroruid in error_sources)
 			error_source = error_sources[erroruid]
-			html += "<p class='runtime_list'>[error_source.makeLink(null, src)]<br></p>"
+			var/e_count_text = length(error_source.errors)
+			if(e_count_text >= ERROR_LIMIT)
+				e_count_text = "[e_count_text]+"
+			html += "<p class='runtime_list'>([e_count_text]) [error_source.makeLink(null, src)]<br></p>"
 	else
 		html += "[makeLink("organized", null)] | linear<hr>"
 		for(var/datum/ErrorViewer/ErrorEntry/error_entry in errors)

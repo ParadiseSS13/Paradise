@@ -912,8 +912,6 @@
 	x_offset = 0
 	y_offset = 0
 	resistance_flags = INDESTRUCTIBLE
-	access_tcomms = TRUE
-	access_construction = TRUE
 	access_mining = TRUE
 
 /obj/machinery/computer/shuttle/trade

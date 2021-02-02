@@ -266,7 +266,7 @@
 "aT" = (
 /obj/item/scalpel,
 /obj/structure/closet/crate,
-/obj/item/tank/anesthetic,
+/obj/item/tank/internals/anesthetic,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Gate)
 "aU" = (

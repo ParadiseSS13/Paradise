@@ -1,3 +1,7 @@
+#define CRYO_DESTROY 0
+#define CRYO_PRESERVE 1
+#define CRYO_OBJECTIVE 2
+
 /*
  * Cryogenic refrigeration unit. Basically a despawner.
  * Stealing a lot of concepts/code from sleepers due to massive laziness.
@@ -137,12 +141,22 @@
 	updateUsrDialog()
 	return
 
+/obj/machinery/computer/cryopod/proc/freeze_item(obj/item/I, preserve_status)
+	frozen_items += I
+	if(preserve_status == CRYO_OBJECTIVE)
+		objective_items += I
+	I.forceMove(src)
+	RegisterSignal(I, COMSIG_MOVABLE_MOVED, .proc/item_got_removed)
+
+/obj/machinery/computer/cryopod/proc/item_got_removed(obj/item/I)
+	objective_items -= I
+	frozen_items -= I
+	UnregisterSignal(I, COMSIG_MOVABLE_MOVED)
+
 /obj/machinery/computer/cryopod/proc/dispense_item(obj/item/I)
 	if(!(I in frozen_items))
 		return
-	I.forceMove(get_turf(src))
-	objective_items -= I
-	frozen_items -= I
+	I.forceMove(get_turf(src)) // Will call item_got_removed due to the signal being registered to COMSIG_MOVABLE_MOVED
 
 /obj/machinery/computer/cryopod/emag_act(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -179,13 +193,12 @@
 	orient_right = 1
 	icon_state = "cryo_rear-r"
 
-/obj/structure/cryofeed/New()
-
+/obj/structure/cryofeed/Initialize(mapload)
+	. = ..()
 	if(orient_right)
 		icon_state = "cryo_rear-r"
 	else
 		icon_state = "cryo_rear"
-	..()
 
 //Cryopods themselves.
 /obj/machinery/cryopod
@@ -263,7 +276,7 @@
 	find_control_computer()
 
 /obj/machinery/cryopod/proc/find_control_computer(urgent=0)
-	for(var/obj/machinery/computer/cryopod/C in areaMaster.contents) //locate() is shit, this actually works, and there's a decent chance it's faster than locate()
+	for(var/obj/machinery/computer/cryopod/C in get_area(src).contents)
 		control_computer = C
 		break
 
@@ -315,10 +328,6 @@
 
 			despawn_occupant()
 
-#define CRYO_DESTROY 0
-#define CRYO_PRESERVE 1
-#define CRYO_OBJECTIVE 2
-
 /obj/machinery/cryopod/proc/should_preserve_item(obj/item/I)
 	for(var/datum/theft_objective/T in control_computer.theft_cache)
 		if(istype(I, T.typepath) && T.check_special_completion(I))
@@ -365,10 +374,7 @@
 		if(preserve == CRYO_DESTROY)
 			qdel(I)
 		else if(control_computer && control_computer.allow_items)
-			control_computer.frozen_items += I
-			if(preserve == CRYO_OBJECTIVE)
-				control_computer.objective_items += I
-			I.loc = null
+			control_computer.freeze_item(I, preserve)
 		else
 			I.forceMove(loc)
 
@@ -378,25 +384,11 @@
 			SSticker.mode.cult_objs.ready_to_summon()
 
 	//Update any existing objectives involving this mob.
-	for(var/datum/objective/O in GLOB.all_objectives)
-		// We don't want revs to get objectives that aren't for heads of staff. Letting
-		// them win or lose based on cryo is silly so we remove the objective.
-		if(istype(O,/datum/objective/mutiny) && O.target == occupant.mind)
-			qdel(O)
-		else if(O.target && istype(O.target,/datum/mind))
-			if(O.target == occupant.mind)
-				if(O.owner && O.owner.current)
-					to_chat(O.owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
-					O.owner.current << 'sound/ambience/alarm4.ogg'
-				O.target = null
-				spawn(1) //This should ideally fire after the occupant is deleted.
-					if(!O) return
-					O.find_target()
-					if(!(O.target))
-						GLOB.all_objectives -= O
-						O.owner.objectives -= O
-						qdel(O)
-					O.owner.announce_objectives()
+	if(occupant.mind)
+		for(var/datum/objective/O in GLOB.all_objectives)
+			if(O.target != occupant.mind)
+				continue
+			O.on_target_cryo()
 	if(occupant.mind && occupant.mind.assigned_role)
 		//Handle job slot/tater cleanup.
 		var/job = occupant.mind.assigned_role
@@ -460,9 +452,6 @@
 	QDEL_NULL(occupant)
 	name = initial(name)
 
-#undef CRYO_DESTROY
-#undef CRYO_PRESERVE
-#undef CRYO_OBJECTIVE
 
 /obj/machinery/cryopod/attackby(obj/item/I, mob/user, params)
 
@@ -790,3 +779,7 @@
 	if(istype(person_to_cryo.loc, /obj/machinery/cryopod))
 		var/obj/machinery/cryopod/P = person_to_cryo.loc
 		P.despawn_occupant()
+
+#undef CRYO_DESTROY
+#undef CRYO_PRESERVE
+#undef CRYO_OBJECTIVE

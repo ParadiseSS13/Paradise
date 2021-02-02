@@ -8,21 +8,21 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "c" = (
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "d" = (
 /turf/simulated/wall/cult,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "e" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "f" = (
 /obj/structure/cult/pylon,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "g" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/engine/cult{
@@ -30,11 +30,11 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "h" = (
 /obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/wall/cult,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "i" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/blood/old,
@@ -43,7 +43,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "k" = (
 /obj/effect/decal/remains/human,
 /obj/item/melee/cultblade,
@@ -52,7 +52,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "l" = (
 /obj/effect/decal/remains/human,
 /obj/item/clothing/shoes/cult,
@@ -62,7 +62,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "m" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/engine/cult{
@@ -70,7 +70,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "o" = (
 /obj/effect/rune/narsie{
 	color = "#ff0000";
@@ -94,7 +94,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "q" = (
 /obj/effect/decal/remains/human,
 /obj/item/clothing/shoes/cult,
@@ -105,10 +105,10 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "s" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 
 (1,1,1) = {"
 a

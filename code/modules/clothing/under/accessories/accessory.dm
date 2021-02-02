@@ -270,7 +270,6 @@
 	item_color = "holobadge"
 	slot_flags = SLOT_BELT | SLOT_TIE
 
-	var/emagged = FALSE //Emagging removes Sec check.
 	var/stored_name = null
 
 /obj/item/clothing/accessory/holobadge/cord

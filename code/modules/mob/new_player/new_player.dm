@@ -3,7 +3,6 @@
 	var/spawning = 0	//Referenced when you want to delete the new_player later on in the code.
 	var/totalPlayers = 0		 //Player counts for the Lobby tab
 	var/totalPlayersReady = 0
-	var/tos_consent = FALSE
 	universal_speak = 1
 
 	invisibility = 101
@@ -23,27 +22,11 @@
 /mob/new_player/verb/new_player_panel()
 	set src = usr
 
-	if(handle_tos_consent())
+	if(client.tos_consent)
 		new_player_panel_proc()
+	else
+		privacy_consent()
 
-/mob/new_player/proc/handle_tos_consent()
-	if(!GLOB.join_tos)
-		tos_consent = TRUE
-		return TRUE
-
-	establish_db_connection()
-	if(!GLOB.dbcon.IsConnected())
-		tos_consent = TRUE
-		return TRUE
-
-	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT * FROM [format_table_name("privacy")] WHERE ckey='[src.ckey]' AND consent=1")
-	query.Execute()
-	while(query.NextRow())
-		tos_consent = TRUE
-		return TRUE
-
-	privacy_consent()
-	return FALSE
 
 /mob/new_player/proc/privacy_consent()
 	src << browse(null, "window=playersetup")
@@ -84,25 +67,6 @@
 
 	if(GLOB.join_tos)
 		output += "<p><a href='byond://?src=[UID()];tos=1'>Terms of Service</A></p>"
-
-	if(!IsGuestKey(src.key))
-		establish_db_connection()
-
-		if(GLOB.dbcon.IsConnected() && client.can_vote())
-			var/isadmin = 0
-			if(src.client && src.client.holder)
-				isadmin = 1
-			var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT id FROM [format_table_name("poll_question")] WHERE [(isadmin ? "" : "adminonly = false AND")] Now() BETWEEN starttime AND endtime AND id NOT IN (SELECT pollid FROM [format_table_name("poll_vote")] WHERE ckey = \"[ckey]\") AND id NOT IN (SELECT pollid FROM [format_table_name("poll_textreply")] WHERE ckey = \"[ckey]\")")
-			query.Execute()
-			var/newpoll = 0
-			while(query.NextRow())
-				newpoll = 1
-				break
-
-			if(newpoll)
-				output += "<p><b><a href='byond://?showpoll=1'>Show Player Polls</A> (NEW!)</b></p>"
-			else
-				output += "<p><a href='byond://?showpoll=1'>Show Player Polls</A></p>"
 
 	output += "</center>"
 
@@ -151,26 +115,37 @@
 		return FALSE
 
 	if(href_list["consent_signed"])
-		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
-		var/DBQuery/query = GLOB.dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 1)")
-		query.Execute()
+		var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES (:ckey, Now(), 1)", list(
+			"ckey" = ckey
+		))
+		// If the query fails we dont want them permenantly stuck on being unable to accept TOS
+		query.warn_execute()
+		qdel(query)
 		src << browse(null, "window=privacy_consent")
-		tos_consent = 1
+		client.tos_consent = TRUE
+		// Now they have accepted TOS, we can log data
+		client.chatOutput.sendClientData()
 		new_player_panel_proc()
 	if(href_list["consent_rejected"])
-		tos_consent = 0
+		client.tos_consent = FALSE
 		to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
-		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
-		var/DBQuery/query = GLOB.dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 0)")
-		query.Execute()
+		var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES (:ckey, Now(), 0)", list(
+			"ckey" = ckey
+		))
+		// If the query fails we dont want them permenantly stuck on being unable to accept TOS
+		query.warn_execute()
+		qdel(query)
 
 	if(href_list["show_preferences"])
 		client.prefs.ShowChoices(src)
 		return TRUE
 
 	if(href_list["ready"])
-		if(!tos_consent)
+		if(!client.tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
+			return FALSE
+		if(client.version_blocked)
+			client.show_update_notice()
 			return FALSE
 		ready = !ready
 		new_player_panel_proc()
@@ -184,10 +159,12 @@
 		new_player_panel_proc()
 
 	if(href_list["observe"])
-		if(!tos_consent)
+		if(!client.tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 			return FALSE
-
+		if(client.version_blocked)
+			client.show_update_notice()
+			return FALSE
 		if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
 			to_chat(usr, "<span class='warning'>You must wait for the server to finish starting before you can join!</span>")
 			return FALSE
@@ -227,8 +204,11 @@
 		return FALSE
 
 	if(href_list["late_join"])
-		if(!tos_consent)
+		if(!client.tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
+			return FALSE
+		if(client.version_blocked)
+			client.show_update_notice()
 			return FALSE
 		if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
@@ -407,7 +387,8 @@
 	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
 		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
-			ailist += A
+			if(A.announce_arrivals)
+				ailist += A
 		if(ailist.len)
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)

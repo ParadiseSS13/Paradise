@@ -137,6 +137,9 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/Web()
 	if(!web_type)
 		return
+	if(!isturf(loc))
+		to_chat(src, "<span class='danger'>Webs can only be spun while standing on a floor.</span>")
+		return
 	var/turf/mylocation = loc
 	visible_message("<span class='notice'>[src] begins to secrete a sticky substance.</span>")
 	if(do_after(src, delay_web, target = loc))
@@ -162,8 +165,8 @@
 	icon_state = "stickyweb1"
 	var/creator_ckey = null
 
-/obj/structure/spider/terrorweb/New()
-	..()
+/obj/structure/spider/terrorweb/Initialize(mapload)
+	. = ..()
 	if(prob(50))
 		icon_state = "stickyweb2"
 

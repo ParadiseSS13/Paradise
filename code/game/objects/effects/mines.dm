@@ -57,7 +57,7 @@
 	name = "sentry mine"
 
 /obj/effect/mine/depot/mineEffect(mob/living/victim)
-	var/area/syndicate_depot/core/depotarea = areaMaster
+	var/area/syndicate_depot/core/depotarea = get_area(src)
 	if(istype(depotarea))
 		if(depotarea.mine_triggered(victim))
 			explosion(loc, 1, 0, 0, 1) // devastate the tile you are on, but leave everything else untouched
@@ -67,7 +67,7 @@
 	var/radiation_amount
 
 /obj/effect/mine/dnascramble/mineEffect(mob/living/victim)
-	victim.apply_effect(radiation_amount, IRRADIATE, 0)
+	victim.rad_act(radiation_amount)
 	if(ishuman(victim))
 		var/mob/living/carbon/human/V = victim
 		if(NO_DNA in V.dna.species.species_traits)

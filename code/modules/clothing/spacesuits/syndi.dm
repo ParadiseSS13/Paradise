@@ -20,7 +20,7 @@
 	item_state = "space_suit_syndicate"
 	desc = "Has a tag on it: Totally not property of a hostile corporation, honest!"
 	w_class = WEIGHT_CLASS_NORMAL
-	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs,/obj/item/tank)
+	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs,/obj/item/tank/internals)
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 80, "acid" = 85)
 	sprite_sheets = list(
 		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
@@ -186,3 +186,18 @@
 	name = "Black Engineering Space Suit"
 	icon_state = "syndicate-black-engie"
 	item_state = "syndicate-black"
+
+/obj/item/clothing/head/helmet/space/syndicate/contractor
+	name = "contractor helmet"
+	desc = "A specialised black and gold helmet that's more compact than its standard Syndicate counterpart. Can be ultra-compressed into even the tightest of spaces."
+	w_class = WEIGHT_CLASS_SMALL
+	icon_state = "syndicate-helm-contractor"
+	item_state = "syndicate-helm-contractor"
+
+/obj/item/clothing/suit/space/syndicate/contractor
+	name = "contractor space suit"
+	desc = "A specialised black and gold space suit that's quicker, and more compact than its standard Syndicate counterpart. Can be ultra-compressed into even the tightest of spaces."
+	slowdown = 1
+	w_class = WEIGHT_CLASS_SMALL
+	icon_state = "syndicate-contractor"
+	item_state = "syndicate-contractor"

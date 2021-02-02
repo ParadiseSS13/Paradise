@@ -143,6 +143,10 @@ GLOBAL_PROTECT(log_end)
 /proc/log_tgui(text)
 	rustg_log_write(GLOB.tgui_log, "[text][GLOB.log_end]")
 
+/proc/log_sql(text)
+	rustg_log_write(GLOB.sql_log, "[text][GLOB.log_end]")
+	SEND_TEXT(world.log, text) // Redirect it to DD too
+
 /**
  * Standardized method for tracking startup times.
  */
@@ -159,7 +163,7 @@ GLOBAL_PROTECT(log_end)
 
 /* For logging round startup. */
 /proc/start_log(log)
-	rustg_log_write(log, "Starting up.\n-------------------------[GLOB.log_end]")
+	rustg_log_write(log, "Starting up. Round ID is [GLOB.round_id ? GLOB.round_id : "NULL"]\n-------------------------[GLOB.log_end]")
 
 // Helper procs for building detailed log lines
 
@@ -185,3 +189,16 @@ GLOBAL_PROTECT(log_end)
 
 /client/proc/simple_info_line()
 	return "[key_name(src)] ([mob.x],[mob.y],[mob.z])"
+
+/proc/loc_name(atom/A)
+	if(!istype(A))
+		return "(INVALID LOCATION)"
+
+	var/turf/T = A
+	if(!istype(T))
+		T = get_turf(A)
+
+	if(istype(T))
+		return "([AREACOORD(T)])"
+	else if(A.loc)
+		return "(UNKNOWN (?, ?, ?))"

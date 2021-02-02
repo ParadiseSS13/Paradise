@@ -100,10 +100,9 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 /obj/machinery/clonepod/Destroy()
 	if(connected)
 		connected.pods -= src
-	for(var/s in sharedSoulhooks)
-		var/datum/soullink/S = s
-		S.removeSoulsharer(src) //If a sharer is destroy()'d, they are simply removed
-	sharedSoulhooks = null
+	if(clonemind)
+		UnregisterSignal(clonemind.current, COMSIG_LIVING_REVIVE)
+		UnregisterSignal(clonemind, COMSIG_MIND_TRANSER_TO)
 	QDEL_NULL(Radio)
 	QDEL_NULL(countdown)
 	QDEL_LIST(missing_organs)
@@ -306,7 +305,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	else if(grab_ghost_when == CLONER_MATURE_CLONE)
 		to_chat(clonemind.current, "<span class='notice'>Your body is beginning to regenerate in a cloning pod. You will become conscious when it is complete.</span>")
 		// Set up a soul link with the dead body to catch a revival
-		soullink(/datum/soullink/soulhook, clonemind.current, src)
+		RegisterSignal(clonemind.current, COMSIG_LIVING_REVIVE, .proc/occupant_got_revived)
+		RegisterSignal(clonemind, COMSIG_MIND_TRANSER_TO, .proc/occupant_got_revived)
 
 	update_icon()
 
@@ -439,9 +439,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		anchored = TRUE
 
 /obj/machinery/clonepod/emag_act(user)
-	if(isnull(occupant))
-		return
-	go_out()
+	malfunction()
 
 /obj/machinery/clonepod/proc/update_clone_antag(var/mob/living/carbon/human/H)
 	// Check to see if the clone's mind is an antagonist of any kind and handle them accordingly to make sure they get their spells, HUD/whatever else back.
@@ -494,6 +492,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		return
 
 	if(grab_ghost_when == CLONER_MATURE_CLONE)
+		UnregisterSignal(clonemind.current, COMSIG_LIVING_REVIVE)
+		UnregisterSignal(clonemind, COMSIG_MIND_TRANSER_TO)
 		clonemind.transfer_to(occupant)
 		occupant.grab_ghost()
 		update_clone_antag(occupant)
@@ -501,10 +501,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		to_chat(occupant, "<span class='notice'><b>There is a bright flash!</b><br>\
 			<i>You feel like a new being.</i></span>")
 		occupant.flash_eyes(visual = 1)
-		for(var/s in sharedSoulhooks)
-			var/datum/soullink/S = s
-			S.removeSoulsharer(src) //If a sharer is destroy()'d, they are simply removed
-		sharedSoulhooks = null
+		clonemind = null
 
 
 	for(var/i in missing_organs)
@@ -525,10 +522,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(occupant)
 		connected_message("Critical Error!")
 		announce_radio_message("Critical error! Please contact a Thinktronic Systems technician, as your warranty may be affected.")
-		for(var/s in sharedSoulhooks)
-			var/datum/soullink/S = s
-			S.removeSoulsharer(src) //If a sharer is destroy()'d, they are simply removed
-		sharedSoulhooks = null
+		UnregisterSignal(clonemind.current, COMSIG_LIVING_REVIVE)
+		UnregisterSignal(clonemind, COMSIG_MIND_TRANSER_TO)
 		if(!go_easy)
 			if(occupant.mind != clonemind)
 				clonemind.transfer_to(occupant)
@@ -541,6 +536,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		for(var/i in missing_organs)
 			qdel(i)
 		missing_organs.Cut()
+		clonemind = null
 		spawn(40)
 			qdel(occupant)
 
@@ -586,10 +582,9 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		go_out()
 	..()
 
-/obj/machinery/clonepod/onSoullinkRevive(mob/living/L)
-	if(occupant && L == clonemind.current)
-		// The old body's back in shape, time to ditch the cloning one
-		malfunction(go_easy = TRUE)
+/obj/machinery/clonepod/proc/occupant_got_revived()
+	// The old body's back in shape, time to ditch the cloning one
+	malfunction(go_easy = TRUE)
 
 /obj/machinery/clonepod/proc/maim_clone(mob/living/carbon/human/H)
 	LAZYINITLIST(missing_organs)

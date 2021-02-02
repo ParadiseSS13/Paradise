@@ -25,42 +25,15 @@
 	icon_state = "box"
 	item_state = "syringe_kit"
 	resistance_flags = FLAMMABLE
-	var/foldable = /obj/item/stack/sheet/cardboard
-	var/amt = 1
-
-/obj/item/storage/box/attack_self(mob/user)
-	..()
-
-	if(!foldable)
-		return
-	if(contents.len)
-		to_chat(user, "<span class='warning'>You can't fold this box with items still inside!</span>")
-		return
-	if(!ispath(foldable))
-		return
-
-	// Close any open UI windows first
-	var/found = 0
-	for(var/mob/M in range(1))
-		if(M.s_active == src)
-			close(M)
-		if(M == user)
-			found = 1
-	if(!found)	// User is too far away
-		return
-
-	to_chat(user, "<span class='notice'>You fold [src] flat.</span>")
-	var/obj/item/stack/I = new foldable(get_turf(src), amt)
-	user.put_in_hands(I)
-	qdel(src)
+	foldable = /obj/item/stack/sheet/cardboard
+	foldable_amt = 1
 
 /obj/item/storage/box/large
 	name = "large box"
 	desc = "You could build a fort with this."
 	icon_state = "largebox"
 	w_class = 4 // Big, bulky.
-	foldable = /obj/item/stack/sheet/cardboard
-	amt = 4
+	foldable_amt = 4
 	storage_slots = 21
 	max_combined_w_class = 42 // 21*2
 
@@ -71,7 +44,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/breath( src )
-	new /obj/item/tank/emergency_oxygen( src )
+	new /obj/item/tank/internals/emergency_oxygen( src )
 	new /obj/item/reagent_containers/hypospray/autoinjector( src )
 	new /obj/item/flashlight/flare/glowstick/emergency( src )
 	return
@@ -83,7 +56,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/breath/vox(src)
-	new /obj/item/tank/emergency_oxygen/nitrogen(src)
+	new /obj/item/tank/internals/emergency_oxygen/nitrogen(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
@@ -94,7 +67,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/emergency_oxygen/plasma(src)
+	new /obj/item/tank/internals/emergency_oxygen/plasma(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
@@ -105,7 +78,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/breath( src )
-	new /obj/item/tank/emergency_oxygen/engi( src )
+	new /obj/item/tank/internals/emergency_oxygen/engi( src )
 	new /obj/item/reagent_containers/hypospray/autoinjector( src )
 	new /obj/item/flashlight/flare/glowstick/emergency( src )
 	return
@@ -117,7 +90,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/gas/explorer(src)
-	new /obj/item/tank/emergency_oxygen/engi(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
@@ -129,7 +102,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/gas/syndicate(src)
-	new /obj/item/tank/emergency_oxygen/syndi(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/reagent_containers/food/pill/initropidril(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
@@ -897,7 +870,6 @@
 	icon_state = "light"
 	desc = "This box is shaped on the inside so that only light tubes and bulbs fit."
 	item_state = "syringe_kit"
-	foldable = /obj/item/stack/sheet/cardboard
 	storage_slots=21
 	can_hold = list(/obj/item/light/tube, /obj/item/light/bulb)
 	max_combined_w_class = 21
@@ -1034,7 +1006,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/emergency_oxygen/double/full(src)
+	new /obj/item/tank/internals/emergency_oxygen/double(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/kitchen/knife/combat(src)
 
@@ -1053,8 +1025,9 @@
 /obj/item/storage/box/responseteam/New()
 	..()
 	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/emergency_oxygen/engi/full(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/flashlight/flare(src)
+	new /obj/item/crowbar/red(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/radio/centcom(src)
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)

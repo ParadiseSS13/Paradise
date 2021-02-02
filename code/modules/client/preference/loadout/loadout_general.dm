@@ -138,6 +138,10 @@
 	path = /obj/item/cartridge/mob_hunt_game
 	cost = 2
 
+/datum/gear/piano_synth
+	display_name ="synthesizer"
+	path = /obj/item/instrument/piano_synth
+	cost = 2
 //////////////////////
 //		Mugs		//
 //////////////////////

@@ -20,7 +20,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	/mob/living/silicon/ai/proc/toggle_acceleration,
 	/mob/living/silicon/ai/proc/toggle_camera_light,
 	/mob/living/silicon/ai/proc/botcall,
-	/mob/living/silicon/ai/proc/change_arrival_message
+	/mob/living/silicon/ai/proc/change_arrival_message,
+	/mob/living/silicon/ai/proc/arrivals_announcement
 ))
 
 //Not sure why this is necessary...
@@ -103,14 +104,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	var/obj/structure/AIcore/deactivated/linked_core //For exosuit control
 
+	/// If our AI doesn't want to be the arrivals announcer, this gets set to FALSE.
+	var/announce_arrivals = TRUE
 	var/arrivalmsg = "$name, $rank, has arrived on the station."
 
-	var/multicam_allowed = FALSE
-	var/multicam_on = FALSE
-	var/obj/screen/movable/pic_in_pic/ai/master_multicam
-	var/list/multicam_screens = list()
 	var/list/all_eyes = list()
-	var/max_multicams = 6
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	verbs |= GLOB.ai_verbs_default
@@ -763,13 +761,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		light_cameras()
 	if(istype(A, /obj/machinery/camera))
 		current = A
-	if(A != GLOB.ai_camera_room_landmark)
-		end_multicam()
 
 	. = ..()
 	if(.)
 		if(!A && isturf(loc) && eyeobj)
-			end_multicam()
 			client.eye = eyeobj
 			client.perspective = MOB_PERSPECTIVE
 			eyeobj.get_remote_view_fullscreens(src)
@@ -1134,6 +1129,13 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = "AI Commands"
 	toggle_sensor_mode()
 
+/mob/living/silicon/ai/proc/arrivals_announcement()
+	set name = "Toggle Arrivals Announcer"
+	set desc = "Change whether or not you wish to announce arrivals."
+	set category = "AI Commands"
+	announce_arrivals = !announce_arrivals
+	to_chat(usr, "Arrivals announcement system [announce_arrivals ? "enabled" : "disabled"]")
+
 /mob/living/silicon/ai/proc/change_arrival_message()
 	set name = "Set Arrival Message"
 	set desc = "Change the message that's transmitted when a new crew member arrives on station."
@@ -1349,11 +1351,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/proc/camera_visibility(mob/camera/aiEye/moved_eye)
 	GLOB.cameranet.visibility(moved_eye, client, all_eyes)
-
-/mob/living/silicon/ai/forceMove(atom/destination)
-	. = ..()
-	if(.)
-		end_multicam()
 
 /mob/living/silicon/ai/handle_fire()
 	return

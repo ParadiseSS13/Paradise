@@ -4,6 +4,7 @@
 	voice_name = "unknown"
 	icon = 'icons/mob/human.dmi'
 	icon_state = "body_m_s"
+	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 	deathgasp_on_death = TRUE
 
 /mob/living/carbon/human/New(loc)
@@ -294,15 +295,6 @@
 	var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
 	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, "melee"))
-
-/mob/living/carbon/human/bullet_act()
-	if(mind && mind.martial_art && mind.martial_art.deflection_chance) //Some martial arts users can deflect projectiles!
-		if(!prob(mind.martial_art.deflection_chance))
-			return ..()
-		if(!src.lying && !(HULK in mutations)) //But only if they're not lying down, and hulks can't do it
-			visible_message("<span class='danger'>[src] deflects the projectile; [p_they()] can't be hit with ranged weapons!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
-			return 0
-	..()
 
 /mob/living/carbon/human/get_restraining_item()
 	. = ..()
@@ -911,7 +903,7 @@
 
 	if(href_list["employment_more"])
 		if(hasHUD(usr, EXAMINE_HUD_SKILLS))
-			if(usr.incapacitated())
+			if(usr.incapacitated() && !isobserver(usr))
 				return
 
 			var/skills
@@ -1224,6 +1216,22 @@
 		to_chat(usr, "You moved while counting. Try again.")
 	else
 		to_chat(usr, "<span class='notice'>[self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)].</span>")
+
+
+/mob/living/carbon/human/proc/change_dna(datum/dna/new_dna, include_species_change = FALSE, keep_flavor_text = FALSE)
+	if(include_species_change)
+		set_species(new_dna.species.type, retain_damage = TRUE)
+	dna = new_dna.Clone()
+	real_name = new_dna.real_name
+	domutcheck(src, null, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
+	if(!keep_flavor_text)
+		flavor_text = ""
+	dna.UpdateSE()
+	dna.UpdateUI()
+	sync_organ_dna(TRUE)
+	UpdateAppearance()
+	sec_hud_set_ID()
+
 
 /mob/living/carbon/human/proc/set_species(datum/species/new_species, default_colour, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE)
 	if(!skip_same_check)
@@ -1594,12 +1602,17 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)	&& unEquip(hand))
 				step_towards(hand, src)
 				to_chat(src, "<span class='warning'>\The [S] pulls \the [hand] from your grip!</span>")
-	apply_effect(current_size * 3, IRRADIATE)
+	rad_act(current_size * 3)
 
 /mob/living/carbon/human/narsie_act()
 	if(iswizard(src) && iscultist(src)) //Wizard cultists are immune to narsie because it would prematurely end the wiz round that's about to end by the automated shuttle call anyway
 		return
 	..()
+
+/mob/living/carbon/human/rad_act(amount)
+	if(RADIMMUNE in dna.species.species_traits)
+		return SEND_SIGNAL(src, COMSIG_ATOM_RAD_ACT, amount)
+	. = ..()
 
 /mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
 	if(H == src)

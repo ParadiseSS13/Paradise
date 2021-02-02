@@ -16,8 +16,9 @@
 
 # Useful Documents
 
-- [Autodocumentation Guide](.github/AUTODOC_GUIDE.md)
+- [Installation Guide](.github/DOWNLOADING.md)
 - [Contribution Guide](.github/CONTRIBUTING.md)
+- [Autodocumentation Guide](.github/AUTODOC_GUIDE.md)
 
 ---
 

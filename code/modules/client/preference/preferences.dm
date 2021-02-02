@@ -867,7 +867,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_BLIND, "Blind")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_DEAF, "Deaf")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_MUTE, "Mute")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_FAT, "Obese")
+	if(!(NO_OBESITY in S.species_traits))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_FAT, "Obese")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_NERVOUS, "Stutter")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_SWEDISH, "Swedish accent")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_CHAV, "Chav accent")
@@ -2113,11 +2114,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("ambientocclusion")
 					toggles ^= PREFTOGGLE_AMBIENT_OCCLUSION
-					if(parent && parent.screen && parent.screen.len)
+					if(length(parent?.screen))
 						var/obj/screen/plane_master/game_world/PM = locate(/obj/screen/plane_master/game_world) in parent.screen
-						PM.filters -= FILTER_AMBIENT_OCCLUSION
-						if(toggles & PREFTOGGLE_AMBIENT_OCCLUSION)
-							PM.filters += FILTER_AMBIENT_OCCLUSION
+						PM.backdrop(parent.mob)
 
 				if("parallax")
 					var/parallax_styles = list(
@@ -2305,16 +2304,18 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 /datum/preferences/proc/open_load_dialog(mob/user)
 
-	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT slot,real_name FROM [format_table_name("characters")] WHERE ckey='[user.ckey]' ORDER BY slot")
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT slot, real_name FROM [format_table_name("characters")] WHERE ckey=:ckey ORDER BY slot", list(
+		"ckey" = user.ckey
+	))
 	var/list/slotnames[max_save_slots]
 
-	if(!query.Execute())
-		var/err = query.ErrorMsg()
-		log_game("SQL ERROR during character slot loading. Error : \[[err]\]\n")
-		message_admins("SQL ERROR during character slot loading. Error : \[[err]\]\n")
+	if(!query.warn_execute())
+		qdel(query)
 		return
+
 	while(query.NextRow())
 		slotnames[text2num(query.item[1])] = query.item[2]
+	qdel(query)
 
 	var/dat = "<body>"
 	dat += "<tt><center>"
