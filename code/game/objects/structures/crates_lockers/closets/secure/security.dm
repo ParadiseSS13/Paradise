@@ -274,6 +274,7 @@
 	new /obj/item/paicard(src)
 	new /obj/item/flash(src)
 	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
+	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/gloves/color/white(src)
 	new /obj/item/clothing/shoes/centcom(src)
 	new /obj/item/clothing/under/lawyer/oldman(src)
