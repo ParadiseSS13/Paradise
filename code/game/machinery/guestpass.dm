@@ -169,9 +169,6 @@
 				if(A)
 					var/area = get_access_desc(A)
 					entry += "[i > 1 ? ", [area]" : "[area]"]"
-			entry += ". Expires at [station_time(world.time + duration*10*60)]."
-			internal_log.Add(entry)
-
 			var/obj/item/card/id/guest/pass = new(get_turf(src))
 			pass.temp_access = accesses.Copy()
 			pass.registered_name = giv_name
@@ -179,6 +176,8 @@
 			pass.reason = reason
 			pass.name = "guest pass #[number]"
 			print_cooldown = world.time + 10 SECONDS
+			entry += ". Expires at [station_time_timestamp("hh:mm:ss", pass.expiration_time)]."
+			internal_log.Add(entry)
 		if("access")
 			var/A = text2num(params["access"])
 			if(A in accesses)
