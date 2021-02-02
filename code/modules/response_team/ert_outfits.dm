@@ -231,7 +231,7 @@
 	shoes = /obj/item/clothing/shoes/magboots
 	gloves = /obj/item/clothing/gloves/color/yellow
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer
-	suit_store = /obj/item/tank/emergency_oxygen/engi
+	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
 	glasses = /obj/item/clothing/glasses/meson/engine
 	mask = /obj/item/clothing/mask/gas
 
@@ -251,7 +251,7 @@
 	gloves = /obj/item/clothing/gloves/color/yellow
 	belt = /obj/item/storage/belt/utility/chief/full
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer/gamma
-	suit_store = /obj/item/tank/emergency_oxygen/engi
+	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
 	glasses = /obj/item/clothing/glasses/meson/engine
 	mask = /obj/item/clothing/mask/gas
 	cybernetic_implants = list(

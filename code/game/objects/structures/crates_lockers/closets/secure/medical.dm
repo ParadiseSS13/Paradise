@@ -37,9 +37,9 @@
 	req_access = list(ACCESS_SURGERY)
 
 /obj/structure/closet/secure_closet/medical2/populate_contents()
-	new /obj/item/tank/anesthetic(src)
-	new /obj/item/tank/anesthetic(src)
-	new /obj/item/tank/anesthetic(src)
+	new /obj/item/tank/internals/anesthetic(src)
+	new /obj/item/tank/internals/anesthetic(src)
+	new /obj/item/tank/internals/anesthetic(src)
 	new /obj/item/clothing/mask/breath/medical(src)
 	new /obj/item/clothing/mask/breath/medical(src)
 	new /obj/item/clothing/mask/breath/medical(src)
