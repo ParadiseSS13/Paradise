@@ -43,6 +43,8 @@ BONUS
 						addtimer(CALLBACK(src, .proc/change_hair, H, head_organ, "Shaved", "Bald"), 5 SECONDS)
 
 /datum/symptom/shedding/proc/change_hair(mob/living/carbon/human/H, obj/item/organ/external/head/head_organ, f_style, h_style)
+	if(!H || !head_organ)
+		return
 	if(f_style)
 		head_organ.f_style = f_style
 		H.update_fhair()
