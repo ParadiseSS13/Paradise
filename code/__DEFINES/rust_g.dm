@@ -1,5 +1,7 @@
-/// Locator for the RUSTG DLL or SO depending on system type
+#ifndef RUST_G
+/// Locator for the RUSTG DLL or SO depending on system type. Override if needed.
 #define RUST_G (world.system_type == UNIX ? "./librust_g.so" : "./rust_g.dll")
+#endif
 
 // Gets the version of RUSTG
 /proc/rustg_get_version() return call(RUST_G, "get_version")()
