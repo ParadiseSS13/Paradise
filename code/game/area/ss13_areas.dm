@@ -1534,7 +1534,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "security"
 	
 /area/security/permasolitary
-	name = "\improper Solitary Confinement"
+	name = "Solitary Confinement"
 	icon_state = "solitary"
 
 /area/quartermaster
