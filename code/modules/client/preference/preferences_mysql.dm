@@ -297,7 +297,7 @@
 	for(var/marking_location in m_styles)
 		m_styles[marking_location] = sanitize_inlist(m_styles[marking_location], GLOB.marking_styles_list, DEFAULT_MARKING_STYLES[marking_location])
 	ha_style		= sanitize_inlist(ha_style, GLOB.head_accessory_styles_list, initial(ha_style))
-	alt_head		= sanitize_inlist(alt_head, GLOB.alt_heads_list, initial(alt_head)) || ""
+	alt_head		= sanitize_inlist(alt_head, GLOB.alt_heads_list, initial(alt_head))
 	e_colour		= sanitize_hexcolor(e_colour)
 	underwear		= sanitize_text(underwear, initial(underwear))
 	undershirt		= sanitize_text(undershirt, initial(undershirt))
@@ -436,7 +436,7 @@
 													"f_style" = f_style,
 													"markingstyleslist" = markingstyleslist,
 													"ha_style" = ha_style,
-													"alt_head" = alt_head,
+													"alt_head" = alt_head || "",
 													"e_colour" = e_colour,
 													"underwear" = underwear,
 													"undershirt" = undershirt,
