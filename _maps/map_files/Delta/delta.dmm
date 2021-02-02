@@ -13242,9 +13242,13 @@
 /area/security/permabrig)
 "aGV" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
+/obj/structure/cable,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors";
+	opacity = 0
 	},
 /turf/simulated/floor/plating,
 /area/security/permabrig)
@@ -14687,13 +14691,17 @@
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
 "aJw" = (
-/obj/effect/spawner/window/reinforced,
+/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/turf/simulated/floor/plating,
-/area/security/permabrig)
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "red"
+	},
+/area/security/brig)
 "aJx" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -25746,6 +25754,13 @@
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors";
+	opacity = 0
 	},
 /turf/simulated/floor/plating,
 /area/security/permabrig)
@@ -38810,6 +38825,12 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -38825,6 +38846,12 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8";
+	tag = ""
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -47403,6 +47430,11 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -53116,31 +53148,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "redcorner"
-	},
-/area/security/brig)
-"bZb" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -109265,11 +109272,6 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /obj/structure/table/reinforced,
 /obj/item/folder/red,
 /obj/item/pen,
@@ -109539,6 +109541,10 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -109667,6 +109673,12 @@
 	icon_state = "tube1"
 	},
 /obj/machinery/vending/security,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -109726,6 +109738,12 @@
 /obj/item/flashlight/seclite,
 /obj/item/flashlight/seclite,
 /obj/item/flashlight/seclite,
+/obj/machinery/power/apc{
+	dir = 2;
+	name = "south bump";
+	pixel_y = -24
+	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -109888,6 +109906,11 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -109931,13 +109954,13 @@
 	},
 /area/security/permasolitary)
 "iCF" = (
+/obj/effect/decal/warning_stripes/east,
 /obj/structure/cable{
-	d1 = 2;
+	d1 = 4;
 	d2 = 8;
-	icon_state = "2-8";
+	icon_state = "4-8";
 	tag = ""
 	},
-/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/security/securearmoury)
 "iGL" = (
@@ -109989,6 +110012,13 @@
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Prison Gate";
+	name = "Prison Lockdown Blast Doors";
+	opacity = 0
 	},
 /turf/simulated/floor/plating,
 /area/security/permasolitary)
@@ -111096,6 +111126,12 @@
 /obj/structure/rack,
 /obj/item/gun/energy/ionrifle,
 /obj/item/clothing/suit/armor/laserproof,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8";
+	tag = ""
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -111924,16 +111960,6 @@
 	icon_state = "vault"
 	},
 /area/security/securearmoury)
-"viJ" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel,
-/area/security/securearmoury)
 "vjh" = (
 /obj/machinery/door_control{
 	id = "magistrate";
@@ -112302,12 +112328,6 @@
 	},
 /area/security/seceqstorage)
 "xIS" = (
-/obj/structure/cable,
-/obj/machinery/power/apc{
-	dir = 2;
-	name = "south bump";
-	pixel_y = -24
-	},
 /obj/machinery/camera{
 	c_tag = "Security Armory";
 	dir = 1;
@@ -112435,6 +112455,11 @@
 /area/security/brig)
 "ygM" = (
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -164477,7 +164502,7 @@ aTG
 aYl
 aZI
 bbs
-aGV
+bFZ
 beA
 bfW
 bLB
@@ -165534,7 +165559,7 @@ bRl
 iGL
 csM
 bXX
-bZb
+bZd
 uMA
 ccM
 ceC
@@ -166048,7 +166073,7 @@ bRl
 irR
 bXb
 bXX
-bZb
+bZd
 uMA
 cgg
 ceE
@@ -166277,7 +166302,7 @@ aYn
 aZO
 bbx
 bdc
-beD
+aGV
 abj
 bhh
 biB
@@ -167069,7 +167094,7 @@ mdd
 mdd
 qPs
 ygM
-ygM
+aJw
 bPA
 ikT
 xkd
@@ -167305,7 +167330,7 @@ aYn
 aZR
 bbs
 bdc
-beD
+aGV
 abj
 bhh
 biF
@@ -168075,7 +168100,7 @@ aMv
 aMv
 aZK
 bbu
-aJw
+diu
 aaa
 abj
 aaa
@@ -168589,7 +168614,7 @@ aWT
 aYr
 aZP
 bbv
-aJC
+taM
 aaa
 abj
 aaa
@@ -169381,7 +169406,7 @@ mBj
 mBj
 mBj
 iCF
-viJ
+mBj
 xIS
 fEk
 pSQ
