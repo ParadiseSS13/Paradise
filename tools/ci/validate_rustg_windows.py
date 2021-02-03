@@ -13,7 +13,7 @@ ci_testing_text = "This is a test message"
 
 # Helpers
 def success(msg):
-    print("[✓] {}".format(msg))
+    print("[Y] {}".format(msg))
 
 def fail(msg):
     print("[X] {}".format(msg))
