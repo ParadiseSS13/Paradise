@@ -1,6 +1,16 @@
 #define SURGERY_FAILED			0
 #define SURGERY_SUCCESS			1
-#define SURGERY_CONTINUE		2 	// Return value where a surgery step will be repeated after it's done
+#define SURGERY_CONTINUE		2	// Return value where a surgery step will be repeated after it's done
+
+#define SURGERY_CUT_LEVEL_CLOSED	0
+#define SURGERY_CUT_LEVEL_SHALLOW	1
+#define SURGERY_CUT_LEVEL_OPEN		2
+#define SURGERY_CUT_LEVEL_SAWN		2.5
+#define SURGERY_CUT_LEVEL_DEEP		3
+
+#define SURGERY_BLOOD_LEVEL_NONE	0
+#define SURGERY_BLOOD_LEVEL_HANDS	1
+#define SURGERY_BLOOD_LEVEL_BODY	2
 
 // Start of all surgeries
 #define SURGERY_STAGE_START					"start"

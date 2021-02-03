@@ -3,10 +3,10 @@
 //						LIMB SURGERY							//
 //////////////////////////////////////////////////////////////////
 /datum/surgery_step/limb/
-	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot")
+	possible_locs = list("head", "l_arm", "l_hand", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot")
 
 /datum/surgery_step/limb/is_valid_target(mob/living/carbon/human/target)
-	return ishuman(target)
+	return istype(target)
 
 /datum/surgery_step/limb/amputate
 	name = "amputate limb"
@@ -14,7 +14,7 @@
 	next_surgery_stage = SURGERY_STAGE_START
 	allowed_surgery_tools = SURGERY_TOOLS_AMPUTATE
 
-	time = 100
+	time = 10 SECONDS
 
 /datum/surgery_step/limb/amputate/is_zone_valid(mob/living/carbon/target, target_zone, current_stage)
 	if(!..())
@@ -25,27 +25,27 @@
 
 /datum/surgery_step/limb/amputate/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='danger'>[user] is beginning to amputate [target]'s [affected.name] with \the [tool].</span>" , \
-	"<span class='notice'>You are beginning to cut through [target]'s [affected.amputation_point] with \the [tool].</span>")
+	user.visible_message("<span class='danger'>[user] begins amputating [target]'s [affected.name] with [tool].</span>", \
+	"<span class='notice'>You begins cutting through [target]'s [affected.amputation_point] with [tool].</span>")
 	target.custom_pain("Your [affected.amputation_point] is being ripped apart!")
 	return ..()
 
 /datum/surgery_step/limb/amputate/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='notice'> [user] amputates [target]'s [affected.name] at the [affected.amputation_point] with \the [tool].</span>", \
-	"<span class='notice'> You amputate [target]'s [affected.name] with \the [tool].</span>")
+	user.visible_message("<span class='notice'>[user] amputates [target]'s [affected.name] at the [affected.amputation_point] with [tool].</span>", \
+	"<span class='notice'>You amputate [target]'s [affected.name] with [tool].</span>")
 
 	add_attack_logs(user, target, "Surgically removed [affected.name]. INTENT: [uppertext(user.a_intent)]")//log it
 
-	var/atom/movable/thing = affected.droplimb(1,DROPLIMB_SHARP)
-	if(istype(thing,/obj/item))
+	var/atom/movable/thing = affected.droplimb(TRUE, DROPLIMB_SHARP)
+	if(isitem(thing))
 		user.put_in_hands(thing)
 	return SURGERY_SUCCESS
 
 /datum/surgery_step/limb/amputate/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='warning'> [user]'s hand slips, sawing through the bone in [target]'s [affected.name] with \the [tool]!</span>", \
-	"<span class='warning'> Your hand slips, sawing through the bone in [target]'s [affected.name] with \the [tool]!</span>")
+	user.visible_message("<span class='warning'>[user]'s hand slips, sawing through the bone in [target]'s [affected.name] with [tool]!</span>", \
+	"<span class='warning'>Your hand slips, sawing through the bone in [target]'s [affected.name] with [tool]!</span>")
 	affected.receive_damage(30)
 	affected.fracture()
 	return SURGERY_FAILED
@@ -58,7 +58,7 @@
 	var/robo_man_allowed = FALSE		// If IPCs are allowed
 	var/robotic_limb = FALSE 			// If it should be a robotic limb. If false then it should be organic
 	affected_organ_available = FALSE 	// Can't put on another limb when another is already there
-	time = 32
+	time = 3.2 SECONDS
 
 /datum/surgery_step/limb/attach/is_valid_target(mob/living/carbon/human/target)
 	return ..() && (robo_man_allowed || !ismachineperson(target))
@@ -71,8 +71,7 @@
 		return FALSE
 
 	var/obj/item/organ/external/E = tool
-	var/is_robo_limb = E.is_robotic()
-	if((robotic_limb && !is_robo_limb) || (!robotic_limb && is_robo_limb))
+	if(robotic_limb != E.is_robotic())
 		return FALSE
 	if(target.get_organ(E.limb_name))
 		// This catches attaching an arm to a missing hand while the arm is still there
@@ -101,7 +100,7 @@
 	var/obj/item/organ/external/E = tool
 	user.visible_message("<span class='alert'>[user]'s hand slips, damaging [target]'s [E.amputation_point]!</span>", \
 	"<span class='alert'>Your hand slips, damaging [target]'s [E.amputation_point]!</span>")
-	target.apply_damage(10, BRUTE, null, sharp = 1)
+	target.apply_damage(10, BRUTE, null, sharp = TRUE)
 	return SURGERY_FAILED
 
 
@@ -153,7 +152,7 @@
 	allowed_surgery_tools = SURGERY_TOOLS_CONNECT_LIMB
 	can_infect = TRUE
 
-	time = 32
+	time = 3.2 SECONDS
 
 /datum/surgery_step/limb/connect/is_valid_target(mob/living/carbon/human/target)
 	return ..() && !ismachineperson(target)
@@ -161,13 +160,13 @@
 /datum/surgery_step/limb/connect/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/E = target.get_organ(target_zone)
 	user.visible_message("<span class='notice'>[user] starts connecting tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>", \
-	"<span class='notice'>You start connecting tendons and muscle in [target]'s [E.amputation_point].</span>")
+		"<span class='notice'>You start connecting tendons and muscle in [target]'s [E.amputation_point] with [tool].</span>")
 	return ..()
 
 /datum/surgery_step/limb/connect/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/E = target.get_organ(target_zone)
-	user.visible_message("<span class='notice'>[user] has connected tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>",	\
-	"<span class='notice'>You have connected tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>")
+	user.visible_message("<span class='notice'>[user] connects the tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>",	\
+	"<span class='notice'>You connect the tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>")
 	target.update_body()
 	target.updatehealth()
 	target.UpdateDamageIcon()
@@ -177,7 +176,7 @@
 	var/obj/item/organ/external/E = target.get_organ(target_zone)
 	user.visible_message("<span class='alert'>[user]'s hand slips, damaging [target]'s [E.amputation_point]!</span>", \
 	"<span class='alert'>Your hand slips, damaging [target]'s [E.amputation_point]!</span>")
-	target.apply_damage(10, BRUTE, null, sharp = 1)
+	target.apply_damage(10, BRUTE, null, sharp = TRUE)
 	return SURGERY_FAILED
 
 // Difference between this and attach robo limb is that this one uses obj/item/robot_parts
@@ -187,7 +186,7 @@
 	next_surgery_stage = SURGERY_STAGE_START
 	accept_any_item = TRUE
 	affected_organ_available = FALSE // Can't place if it's still there!
-	time = 32
+	time = 3.2 SECONDS
 
 /datum/surgery_step/limb/mechanize/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!..())
@@ -200,15 +199,16 @@
 /datum/surgery_step/limb/mechanize/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/robot_parts/p = tool
 	if(!p.part || !(target_zone in p.part))
-		to_chat(user, "<span class='warning'>\The [tool] does not go there!</span>")
+		to_chat(user, "<span class='warning'>[tool] does not go there!</span>")
 		return SURGERY_FAILED
-	user.visible_message("<span class='notice'>[user] starts attaching \the [tool] to [target].", "You start attaching \the [tool] to [target].</span>")
+	user.visible_message("<span class='notice'>[user] starts attaching [tool] to [target].</span>", \
+	"<span class='notice'>You start attaching [tool] to [target].</span>")
 	return ..()
 
 /datum/surgery_step/limb/mechanize/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/robot_parts/L = tool
-	user.visible_message("<span class='notice'>[user] has attached \the [tool] to [target].</span>",	\
-	"<span class='notice'>You have attached \the [tool] to [target].</span>")
+	user.visible_message("<span class='notice'>[user] attaches [tool] to [target].</span>",	\
+	"<span class='notice'>You attach [tool] to [target].</span>")
 
 	if(L.part) // Safeguard against admemes. Shouldn't happen normally
 		for(var/part_name in L.part)
@@ -225,7 +225,7 @@
 			var/obj/item/organ/external/new_limb = new new_limb_type(target)
 			new_limb.robotize(L.model_info)
 			if(L.sabotaged)
-				new_limb.sabotaged = 1
+				new_limb.sabotaged = TRUE
 	target.update_body()
 	target.updatehealth()
 	target.UpdateDamageIcon()
@@ -237,5 +237,5 @@
 /datum/surgery_step/limb/mechanize/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("<span class='alert'>[user]'s hand slips, damaging [target]'s flesh!</span>", \
 	"<span class='alert'>Your hand slips, damaging [target]'s flesh!</span>")
-	target.apply_damage(10, BRUTE, null, sharp = 1)
+	target.apply_damage(10, BRUTE, null, sharp = TRUE)
 	return SURGERY_FAILED

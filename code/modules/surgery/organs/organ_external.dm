@@ -50,7 +50,8 @@
 	var/damage_msg = "<span class='warning'>You feel an intense pain</span>"
 	var/broken_description
 
-	var/open = 0  // If the body part has an open incision from surgery
+	/// How deep is the open incision?
+	var/cut_level = SURGERY_CUT_LEVEL_CLOSED
 	var/sabotaged = 0 //If a prosthetic limb is emagged, it will detonate when it fails.
 	var/encased       // Needs to be opened with a saw to access the organs.
 
@@ -299,7 +300,7 @@ This function completely restores a damaged organ to perfect condition.
 	perma_injury = 0
 	brute_dam = 0
 	burn_dam = 0
-	open = 0 //Closing all wounds.
+	cut_level = SURGERY_CUT_LEVEL_CLOSED //Closing all wounds.
 	internal_bleeding = FALSE
 	disfigured = FALSE
 
@@ -612,7 +613,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	if(owner && !quiet)
 		owner.visible_message(\
-			"<span class='warning'>You hear a loud cracking sound coming from \the [owner].</span>",\
+			"<span class='warning'>You hear a loud cracking sound coming from [owner].</span>",\
 			"<span class='danger'>Something feels like it shattered in your [name]!</span>",\
 			"You hear a sickening crack.")
 		playsound(owner, "bonebreak", 150, 1)
@@ -716,8 +717,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if(owner.surgeries[limb_name])
 		owner.remove_surgery(owner.surgeries[limb_name]) // Surgery can't continue on something that is not there
-	open = 0	// All surgerical wounds magically close
-	
+	cut_level = SURGERY_CUT_LEVEL_CLOSED	// All surgerical wounds magically close
+
 	. = ..()
 
 	// Attached organs also fly off.

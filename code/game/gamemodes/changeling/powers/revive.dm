@@ -41,7 +41,7 @@
 			O.damage_state = "00"
 			O.germ_level = 0
 			QDEL_NULL(O.hidden)
-			O.open = 0
+			O.cut_level = SURGERY_CUT_LEVEL_CLOSED
 			O.internal_bleeding = FALSE
 			O.perma_injury = 0
 			O.status = 0

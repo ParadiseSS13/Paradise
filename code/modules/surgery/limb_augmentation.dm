@@ -4,10 +4,10 @@
 	next_surgery_stage = SURGERY_STAGE_START
 	accept_any_item = TRUE
 	possible_locs = list("head", "chest","l_arm","r_arm","r_leg","l_leg")
-	time = 32
+	time = 3.2 SECONDS
 
 /datum/surgery_step/augment/is_valid_target(mob/living/carbon/human/target)
-	return ishuman(target)
+	return istype(target)
 
 /datum/surgery_step/augment/is_zone_valid(mob/living/carbon/target, target_zone, current_stage)
 	if(!..())
@@ -31,16 +31,17 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	var/obj/item/robot_parts/p = tool
 	if(!p.part || !(target_zone in p.part))
-		to_chat(user, "<span class='warning'>\The [tool] does not go there!</span>")
+		to_chat(user, "<span class='warning'>[tool] does not go there!</span>")
 		return SURGERY_FAILED
-	user.visible_message("[user] starts augmenting [affected] with [tool].", "You start augmenting [affected] with [tool].")
+	user.visible_message("<span class='notice'>[user] starts augmenting [target]'s [affected] with [tool].</span>", \
+	"<span class='notice'>You start augmenting [target]'s [affected] with [tool].</span>")
 	return ..()
 
 /datum/surgery_step/augment/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/robot_parts/L = tool
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='notice'>[user] has finished augmenting [affected] with [tool].</span>",	\
-	"<span class='notice'>You augment [affected] with [tool].</span>")
+	user.visible_message("<span class='notice'>[user] augments [target]'s [affected] with [tool].</span>", \
+	"<span class='notice'>You augment [target]'s [affected] with [tool].</span>")
 
 	if(L.part) // Safeguard against admemes. Shouldn't happen normally
 		for(var/part_name in L.part)

@@ -1,15 +1,15 @@
 /datum/surgery_step/remove_object
 	name = "Remove Embedded Objects"
-	time = 32
+	time = 3.2 SECONDS
 	accept_hand = TRUE
 	surgery_start_stage = list(SURGERY_STAGE_SKIN_RETRACTED, SURGERY_STAGE_ROBOTIC_HATCH_OPEN)
 	next_surgery_stage = SURGERY_STAGE_SAME
-	possible_locs = list("head", "chest", "l_arm", "l_hand", "r_arm", "r_hand","r_leg", "r_foot", "l_leg", "l_foot", "groin")
+	possible_locs = list("head", "chest", "l_arm", "l_hand", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "groin")
 	requires_organic_bodypart = FALSE
 	var/obj/item/organ/external/L = null
 
 /datum/surgery_step/remove_object/is_valid_target(mob/living/carbon/human/target)
-	return ishuman(target)
+	return istype(target)
 
 /datum/surgery_step/remove_object/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	L = target.get_organ(target_zone)

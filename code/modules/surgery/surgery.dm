@@ -1,10 +1,13 @@
 ///Datum Surgery Helpers//
 /datum/surgery
+	/// What stage the surgery is at
 	var/current_stage = SURGERY_STAGE_START
+	/// If a step is already in progress
 	var/step_in_progress = FALSE
 	/// Location where the surgery is located at. Uses the data from mob.zone_selected
 	var/location = "chest"
-	var/list/surgery_steps_history = list()		// For debugging and maybe later expansions that require previous surgeries
+	/// For debugging and maybe later expansions that require previous surgeries
+	var/list/surgery_steps_history = list()
 
 /datum/surgery/Destroy(force, ...)
 	QDEL_LIST(surgery_steps_history)
@@ -26,7 +29,7 @@
 		S = steps[steps[1]]
 	else
 		var/P = input(user, "Begin which procedure?", "Surgery", null) as null|anything in steps
-		if(P && user && user.Adjacent(target) && tool == user.get_active_hand() && can_operate(target))
+		if(P && user && user.Adjacent(target) && tool == user.get_active_hand() && target.can_be_operated_on())
 			S = steps[P]
 	if(!S)
 		return TRUE
@@ -94,10 +97,10 @@
 	/// If the surgery step actually needs an organ to be on the selected spot
 	var/affected_organ_available = TRUE
 	/// Duration of the step
-	var/time = 10
+	var/time = 1 SECONDS
 
-
-	var/allowed_surgery_tools = null		// The tools allowed for the surgery step
+	/// The tools allowed for the surgery step
+	var/allowed_surgery_tools = null
 
 	/// Does the surgery step require an open hand? If true, ignores implements. Compatible with accept_any_item
 	var/accept_hand = FALSE
@@ -109,8 +112,8 @@
 	var/pain = TRUE
 	/// If the surgery step can affect the targeted limb and surrounding organs
 	var/can_infect = FALSE
-	/// How much blood this step can get on surgeon. 1 - hands, 2 - full body.
-	var/blood_level = 0
+	/// How much blood this step can get on surgeon
+	var/blood_level = SURGERY_BLOOD_LEVEL_NONE
 
 /proc/compare_surgery_steps(datum/surgery_step/A, datum/surgery_step/B)
 	return A.priority < B.priority
@@ -130,7 +133,7 @@
 	if(!(SURGERY_STAGE_ALWAYS in surgery_start_stage) && !(surgery.current_stage in surgery_start_stage))
 		return SURGERY_FAILED
 
-	if(!can_operate(target)) // No distance check. Not needed
+	if(!target.can_be_operated_on()) // No distance check. Not needed
 		return SURGERY_FAILED
 
 	var/tool_path_key = null
@@ -150,7 +153,7 @@
 		return SURGERY_FAILED
 
 	if(tool && !tool.tool_enabled)
-		to_chat(user, "<span class='warning'>[tool] is not turned on. Turn it on first</span>")
+		to_chat(user, "<span class='warning'>[tool] is not turned on. Turn it on first.</span>")
 		return SURGERY_FAILED
 
 	var/speed_mod = 1
@@ -177,8 +180,7 @@
 
 	if(pain)
 		if(ishuman(target))
-			var/mob/living/carbon/human/H = target //typecast to human
-			prob_chance *= get_pain_modifier(H)//operating on conscious people is hard.
+			prob_chance *= get_pain_modifier(target) //operating on conscious people is hard.
 
 	if(prob(prob_chance) || isrobot(user))
 		return end_step(user, target, target_zone, tool, surgery)
@@ -210,7 +212,7 @@
 	else
 		return !affected // No more checks needed
 
-	if((requires_organic_bodypart && affected.is_robotic()))
+	if(requires_organic_bodypart && affected.is_robotic())
 		return FALSE
 	return TRUE
 
@@ -228,11 +230,11 @@
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		if(can_infect && affected)
 			spread_germs_to_organ(affected, user, tool)
-	if(blood_level && ishuman(user) && !(istype(target,/mob/living/carbon/alien)) && prob(60))
+	if(blood_level && ishuman(user) && !isalien(target) && prob(60))
 		var/mob/living/carbon/human/H = user
 		if(blood_level)
 			H.bloody_hands(target, 0)
-		if(blood_level > 1)
+		if(blood_level > SURGERY_BLOOD_LEVEL_HANDS)
 			H.bloody_body(target, 0)
 	return SURGERY_SUCCESS
 
@@ -271,12 +273,13 @@
 		if(AStar(E.loc, M.loc, /turf/proc/Distance, 2, simulated_only = 0))
 			germs++
 
-	if(tool && tool.blood_DNA && length(tool.blood_DNA)) //germs from blood-stained tools
+	if(length(tool?.blood_DNA)) //germs from blood-stained tools
 		germs += 30
 	var/internal_organ_length = length(E.internal_organs)
 	if(internal_organ_length)
 		germs = germs / (internal_organ_length + 1) // +1 for the external limb this eventually applies to; let's not multiply germs now.
-		for(var/obj/item/organ/internal/O in E.internal_organs)
+		for(var/thing in E.internal_organs)
+			var/obj/item/organ/internal/O = thing
 			if(!O.is_robotic())
 				O.germ_level += germs
 

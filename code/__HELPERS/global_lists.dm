@@ -21,16 +21,16 @@
 	//alt heads
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/alt_heads, GLOB.alt_heads_list)
 
-	for(var/path in (subtypesof(/datum/surgery_step)))
-		var/datum/surgery_step/S = new path()
+	for(var/path in subtypesof(/datum/surgery_step))
+		var/datum/surgery_step/S = path
+		if(!initial(S.name)) // skip abstract subtype
+			continue
+		S = new path()
 		for(var/start_step in S.surgery_start_stage)
-			if(!S.name) // abstract subtype
-				continue
 			if(!GLOB.surgery_steps[start_step])
 				GLOB.surgery_steps[start_step] = list(S)
 			else
-				var/list/SS = GLOB.surgery_steps[start_step]
-				SS.Add(S)
+				GLOB.surgery_steps[start_step] += S
 
 	// Different bodies
 	__init_body_accessory(/datum/body_accessory/body)

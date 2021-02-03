@@ -525,7 +525,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 
 		if(!S)
 			return
-		if(!S.is_robotic() || user.a_intent != INTENT_HELP || S.open == 2)
+		if(!S.is_robotic() || user.a_intent != INTENT_HELP || S.cut_level >= SURGERY_CUT_LEVEL_OPEN)
 			return ..()
 
 		if(S.burn_dam > ROBOLIMB_SELF_REPAIR_CAP)

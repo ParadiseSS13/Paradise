@@ -4,12 +4,12 @@
 /datum/surgery_step/internal
 	priority = 20 // Usually what you want to do
 	can_infect = TRUE
-	blood_level = 1
+	blood_level = SURGERY_BLOOD_LEVEL_HANDS
 
 /datum/surgery_step/internal/manipulate_organs
 	surgery_start_stage = list(SURGERY_STAGE_SKIN_RETRACTED, SURGERY_STAGE_BONES_RETRACTED, SURGERY_STAGE_CARAPACE_OPEN)
 	next_surgery_stage = SURGERY_STAGE_SAME
-	time = 64
+	time = 6.4 SECONDS
 
 /datum/surgery_step/internal/manipulate_organs/is_valid_target(mob/living/carbon/target)
 	return ishuman(target) || isalienadult(target)
@@ -402,7 +402,7 @@
 	next_surgery_stage = SURGERY_STAGE_CARAPACE_SAWN
 	possible_locs = list("chest", "head", "groin", "eyes", "mouth")
 
-	time = 54
+	time = 5.4 SECONDS
 
 /datum/surgery_step/alien/saw_carapace/begin_step(mob/living/user, mob/living/carbon/alien/humanoid/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("<span class='warning'>[user] begins to cut through [target]'s [target_zone] with [tool].</span>", \
@@ -425,7 +425,7 @@
 	surgery_start_stage = SURGERY_STAGE_CARAPACE_SAWN
 	next_surgery_stage = SURGERY_STAGE_CARAPACE_CUT
 	possible_locs = list("chest", "head", "groin", "eyes", "mouth")
-	time = 16
+	time = 1.6 SECONDS
 
 /datum/surgery_step/alien/cut_carapace/begin_step(mob/living/user, mob/living/carbon/alien/humanoid/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("<span class='notice'>[user] starts the incision on [target]'s [target_zone] with [tool].</span>", \
@@ -448,7 +448,7 @@
 	surgery_start_stage = SURGERY_STAGE_CARAPACE_CUT
 	next_surgery_stage = SURGERY_STAGE_CARAPACE_OPEN
 	possible_locs = list("chest", "head", "groin", "eyes", "mouth")
-	time = 24
+	time = 2.4 SECONDS
 
 /datum/surgery_step/retract_carapace/begin_step(mob/living/user, mob/living/carbon/alien/humanoid/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/msg = "[user] starts to pry open the incision on [target]'s [target_zone] with [tool]."

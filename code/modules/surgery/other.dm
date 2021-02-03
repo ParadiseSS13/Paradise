@@ -8,8 +8,8 @@
 	surgery_start_stage = SURGERY_STAGE_SKIN_RETRACTED
 	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION_CUT
 	allowed_surgery_tools = SURGERY_TOOLS_INCISION
-	blood_level = 1
-	time = 16
+	blood_level = SURGERY_BLOOD_LEVEL_HANDS
+	time = 1.6 SECONDS
 
 /datum/surgery_step/generic/cut_tissue/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -24,7 +24,7 @@
 	var/dead_flesh = (affected.status & ORGAN_DEAD)
 	user.visible_message("<span class='notice'> [user] has cut away [dead_flesh ? "necrotic" : ""] tissue in [target]'s [affected.name] with \the [tool].</span>", \
 		"<span class='notice'> You have cut away [dead_flesh ? "necrotic" : ""] tissue in [target]'s [affected.name] with \the [tool].</span>")
-	affected.open = 3
+	affected.cut_level = SURGERY_CUT_LEVEL_DEEP
 
 	return SURGERY_SUCCESS
 
@@ -42,9 +42,9 @@
 	next_surgery_stage = SURGERY_STAGE_SAME
 	allowed_surgery_tools = SURGERY_TOOLS_MEND_INTERNAL_BLEEDING
 	can_infect = TRUE
-	blood_level = 1
+	blood_level = SURGERY_BLOOD_LEVEL_HANDS
 
-	time = 32
+	time = 3.2 SECONDS
 
 /datum/surgery_step/fix_vein/is_valid_target(mob/living/carbon/human/target)
 	return ishuman(target)
@@ -89,7 +89,7 @@
 	next_surgery_stage = SURGERY_STAGE_SKIN_RETRACTED
 	allowed_surgery_tools = SURGERY_TOOLS_CLEAN_ORGAN
 
-	time = 24
+	time = 2.4 SECONDS
 
 /datum/surgery_step/treat_necrosis/is_valid_target(mob/living/carbon/human/target)
 	return ishuman(target)
@@ -173,9 +173,9 @@
 	next_surgery_stage = SURGERY_STAGE_SAME
 	possible_locs = list("head", "chest", "groin")
 	allowed_surgery_tools = SURGERY_TOOLS_DETHRALL
-	blood_level = 0
+	blood_level = SURGERY_BLOOD_LEVEL_NONE
 	requires_organic_bodypart = FALSE
-	time = 30
+	time = 3 SECONDS
 
 /datum/surgery_step/internal/dethrall/is_valid_target(mob/living/carbon/human/target)
 	return ishuman(target) && is_thrall(target)

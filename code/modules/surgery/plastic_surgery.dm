@@ -4,10 +4,10 @@
 	surgery_start_stage = SURGERY_STAGE_SKIN_RETRACTED
 	next_surgery_stage = SURGERY_STAGE_SAME
 	possible_locs = list("head")
-	time = 64
+	time = 6.4 SECONDS
 
 /datum/surgery_step/reshape_face/is_valid_target(mob/living/carbon/human/target)
-	return ishuman(target)
+	return istype(target)
 
 /datum/surgery_step/reshape_face/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("<span class='notice'>[user] begins to alter [target]'s appearance.</span>", "<span class='notice'>You begin to alter [target]'s appearance...</span>")

@@ -59,7 +59,7 @@
 /obj/machinery/computer/operating/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "OperatingComputer", "Patient Monitor", 650, 485, master_ui, state)
+		ui = new(user, src, ui_key, "OperatingComputer", "Patient Monitor", 650, 495, master_ui, state)
 		ui.open()
 
 /obj/machinery/computer/operating/ui_data(mob/user)
@@ -123,12 +123,14 @@
 			if(!occupant.surgeries[selected_surgery_loc])
 				selected_surgery_loc = occupant.surgeries[1] // Default to the first surgery
 			var/datum/surgery/selected_surgery = occupant.surgeries[selected_surgery_loc]
+
 			var/list/possible_steps = selected_surgery.get_all_possible_steps_on_stage(user, occupant)
-			var/surgery_steps_string = ""
+			var/step_strings = list()
 			for(var/thing in possible_steps)
 				var/datum/surgery_step/S = thing
-				surgery_steps_string += "[capitalize(S.name)], "
-			surgery_steps_string = copytext(surgery_steps_string, 1, length(surgery_steps_string) - 1) // Remove the ", " from the end
+				step_strings += capitalize(S.name)
+			var/surgery_steps_string = english_list(step_strings, and_text = " or ")
+
 			occupantData["selected_surgery"] = list("location" = "[capitalize(parse_zone(selected_surgery_loc))]", \
 				"stage" = "[capitalize(selected_surgery.current_stage)]", "possible_steps" = surgery_steps_string)
 			var/list/surgeries = list()

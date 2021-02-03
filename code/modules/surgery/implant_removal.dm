@@ -8,15 +8,15 @@
 	allowed_surgery_tools = SURGERY_TOOLS_EXTRACT_IMPLANT
 	possible_locs = list("chest")
 	requires_organic_bodypart = FALSE
-	time = 64
+	time = 6.4 SECONDS
 
 /datum/surgery_step/extract_implant/is_valid_target(mob/living/carbon/human/target)
-	return ishuman(target)
+	return istype(target)
 
 /datum/surgery_step/extract_implant/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("[user] starts poking around inside [target]'s [affected.name] with \the [tool].", \
-	"You start poking around inside [target]'s [affected.name] with \the [tool]." )
+	user.visible_message("<span class='notice'>[user] starts poking around inside [target]'s [affected.name] with [tool].</span>", \
+	"<span class='notice'>You start poking around inside [target]'s [affected.name] with [tool].</span>")
 	target.custom_pain("The pain in your [affected.name] is living hell!")
 	return ..()
 
@@ -24,8 +24,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	var/obj/item/implant/I = locate(/obj/item/implant) in target
 	if(I) //implant removal only works on the chest.
-		user.visible_message("<span class='notice'>[user] takes something out of [target]'s [affected.name] with \the [tool].</span>", \
-		"<span class='notice'>You take [I] out of [target]'s [affected.name]s with \the [tool].</span>" )
+		user.visible_message("<span class='notice'>[user] takes something out of [target]'s [affected.name] with [tool].</span>", \
+		"<span class='notice'>You take [I] out of [target]'s [affected.name] with [tool].</span>")
 
 		I.removed(target)
 
@@ -42,10 +42,10 @@
 			case.imp = I
 			I.forceMove(case)
 			case.update_icon()
-			user.visible_message("[user] places [I] into [case]!", "<span class='notice'>You place [I] into [case].</span>")
+			user.visible_message("<span class='warning'>[user] places [I] into [case]!</span>", "<span class='notice'>You place [I] into [case].</span>")
 		else
 			qdel(I)
 	else
-		user.visible_message("<span class='notice'> [user] could not find anything inside [target]'s [affected.name], and pulls \the [tool] out.</span>", \
+		user.visible_message("<span class='notice'>[user] could not find anything inside [target]'s [affected.name], and pulls [tool] out.</span>", \
 		"<span class='notice'>You could not find anything inside [target]'s [affected.name].</span>")
 	return SURGERY_SUCCESS

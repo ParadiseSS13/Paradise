@@ -64,7 +64,7 @@
 			if(brutedamage >= 20)
 				temp_bleed += (brutedamage * 0.013)
 
-			if(BP.open)
+			if(BP.cut_level)
 				temp_bleed += 0.5
 
 			if(BP.internal_bleeding)

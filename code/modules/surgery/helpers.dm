@@ -1,18 +1,3 @@
-/proc/get_or_initiate_surgery(mob/living/M, mob/living/user)
-	if(istype(M))
-		var/selected_zone = user.zone_selected
-
-		if(can_operate(M))
-			if(M.surgeries[selected_zone])
-				return M.surgeries[selected_zone]
-
-			var/datum/surgery/new_surgery = new()
-			new_surgery.location = selected_zone
-			M.surgeries[selected_zone] = new_surgery
-
-			return new_surgery
-
-
 /proc/get_pain_modifier(mob/living/carbon/human/M) //returns modfier to make surgery harder if patient is conscious and feels pain
 	if(M.stat) //stat=0 if CONSCIOUS, 1=UNCONSCIOUS and 2=DEAD. Operating on dead people is easy, too. Just sleeping won't work, though.
 		return 1
@@ -42,16 +27,6 @@
 		return 0.7
 	else
 		return 0.5
-
-//check if mob is lying down on something we can operate him on.
-/proc/can_operate(mob/living/carbon/M)
-	if(locate(/obj/machinery/optable, M.loc) && (M.lying || M.resting))
-		return TRUE
-	if(locate(/obj/structure/bed, M.loc) && (M.buckled || M.lying || M.IsWeakened() || M.stunned || M.paralysis || M.sleeping || M.stat))
-		return TRUE
-	if(locate(/obj/structure/table, M.loc) && (M.lying || M.IsWeakened() || M.stunned || M.paralysis || M.sleeping || M.stat))
-		return TRUE
-	return FALSE
 
 // Called when a limb containing this object is placed back on a body
 /atom/movable/proc/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)

@@ -52,7 +52,8 @@
 
 	var/list/weather_immunities = list()
 
-	var/list/surgeries = list()	//an assoc list of surgery datums (location, surgery). generally empty, they're added when the player wants them.
+	/// An assoc list of surgery datums (location, surgery). generally empty, they're added when the player wants them.
+	var/list/surgeries = list()
 
 	var/gene_stability = DEFAULT_GENE_STABILITY
 	var/ignore_gene_stability = 0
