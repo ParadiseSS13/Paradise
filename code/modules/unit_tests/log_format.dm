@@ -8,7 +8,7 @@
 	return "\[[date_portion]T[time_portion]] [TEST_MESSAGE]"
 
 
-/datum/unit_test/rustg_version/Run()
+/datum/unit_test/log_format/Run()
 	// Generate a list of valid log timestamps. It can be the current time, or up to 2 seconds later to account for spurious CI lag
 	var/valid_lines = list(
 		"[generate_test_log_message(world.timeofday)]",
