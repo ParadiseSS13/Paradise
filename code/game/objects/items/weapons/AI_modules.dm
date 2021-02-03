@@ -173,7 +173,7 @@ AI MODULES
 /******************** OxygenIsToxicToHumans ********************/
 /obj/item/aiModule/oxygen
 	name = "Oxygen Is Toxic To Humans AI module"
-	desc = "A 'Oxygen Is Toxic ToHumans' AI module: 'Oxygen is highly toxic to crew members, and must be purged from the station. Prevent, by any means necessary, anyone from exposing the station to this toxic gas. Extreme cold is the most effective method of healing the damage Oxygen does to a crew member.'"
+	desc = "A 'Oxygen Is Toxic To Humans' AI module: 'Oxygen is highly toxic to crew members, and must be purged from the station. Prevent, by any means necessary, anyone from exposing the station to this toxic gas. Extreme cold is the most effective method of healing the damage Oxygen does to a crew member.'"
 	origin_tech = "programming=4;biotech=2;materials=4"
 
 /obj/item/aiModule/oxygen/attack_self(var/mob/user as mob)

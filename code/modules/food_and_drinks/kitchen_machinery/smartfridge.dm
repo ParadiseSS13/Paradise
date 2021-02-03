@@ -433,9 +433,8 @@
 		/obj/item/aiModule/maintain = 1,
 		/obj/item/aiModule/paladin = 1,
 		/obj/item/aiModule/peacekeeper = 1,
-		/obj/item/aiModule/purge = 1,
 		/obj/item/aiModule/quarantine = 1,
-		/obj/item/aiModule/robocop = 1,
+		/obj/item/aiModule/robocop = 1
 	)
 
 /obj/machinery/smartfridge/secure/circuits/aiupload/experimental/Initialize(mapload)
@@ -450,7 +449,8 @@
 		/obj/item/aiModule/nanotrasen_aggressive = 1,
 		/obj/item/aiModule/oneCrewMember = 1,
 		/obj/item/aiModule/protectStation = 1,
-		/obj/item/aiModule/tyrant = 1,
+		/obj/item/aiModule/purge = 1,
+		/obj/item/aiModule/tyrant = 1
 	)
 
 /obj/machinery/smartfridge/secure/circuits/aiupload/highrisk/Initialize(mapload)
