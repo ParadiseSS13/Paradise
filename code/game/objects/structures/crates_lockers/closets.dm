@@ -34,10 +34,6 @@
 	update_icon() // Set it to the right icon if needed
 	populate_contents() // Spawn all its stuff
 
-// Override this to spawn your things in. This lets you use probabilities, and also doesnt cause init overrides
-/obj/structure/closet/proc/populate_contents()
-	return
-
 // This is called on Initialize to add contents on the tile
 /obj/structure/closet/proc/take_contents()
 	var/itemcount = 0

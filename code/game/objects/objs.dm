@@ -368,3 +368,8 @@ a {
 	// In the event that the object doesn't have an overriden version of this proc to do it, log a runtime so one can be added.
 	CRASH("Proc force_eject_occupant() is not overriden on a machine containing a mob.")
 
+/**
+ * Contains code which spawns all desired items inside the source object. Base proc, override as needed.
+ */
+/obj/proc/populate_contents()
+	return
