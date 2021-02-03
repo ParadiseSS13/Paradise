@@ -1347,6 +1347,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/spin(spintime, speed)
 	set waitfor = 0
+	if(!spintime || !speed || spintime > 100)
+		stack_trace("Aborted attempted call of /mob/proc/spin with invalid args ([spintime],[speed]) which could have frozen the server.")
+		return
 	var/D = dir
 	while(spintime >= speed)
 		sleep(speed)
