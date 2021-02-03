@@ -366,7 +366,7 @@
 	},
 /area/awaymission/DSBSSigma/hangar)
 "aZ" = (
-/obj/structure/window/plastitanium,
+/obj/structure/window/full/plastitanium,
 /obj/structure/grille,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
@@ -462,7 +462,7 @@
 	},
 /area/awaymission/DSBSSigma/hangar)
 "bj" = (
-/obj/structure/window/plastitanium,
+/obj/structure/window/full/plastitanium,
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/hangar)
@@ -1435,7 +1435,7 @@
 	},
 /area/awaymission/DSBSSigma/surgery)
 "dn" = (
-/obj/structure/window/plastitanium,
+/obj/structure/window/full/plastitanium,
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/surgery)
@@ -2359,7 +2359,7 @@
 	},
 /area/awaymission/DSBSSigma/medical_center)
 "eu" = (
-/obj/structure/window/plastitanium,
+/obj/structure/window/full/plastitanium,
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/cloning)
@@ -3171,7 +3171,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/medical_center)
 "ge" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine{
 	dir = 8;
 	icon_state = "freezer_0";
 	tag = ""
@@ -3292,7 +3292,7 @@
 	},
 /area/awaymission/DSBSSigma/holding_cells)
 "gq" = (
-/obj/structure/window/plastitanium,
+/obj/structure/window/full/plastitanium,
 /obj/structure/grille,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
@@ -4525,9 +4525,9 @@
 	},
 /area/awaymission/DSBSSigma/cave_junction_north)
 "ip" = (
-/obj/structure/window/plastitanium,
+/obj/structure/window/full/plastitanium,
 /obj/structure/grille,
-/obj/structure/sign/redcross{
+/obj/structure/sign/lifestar{
 	pixel_y = 0
 	},
 /obj/machinery/door/firedoor,
@@ -4556,7 +4556,7 @@
 	},
 /area/awaymission/DSBSSigma/medical_center)
 "is" = (
-/obj/structure/window/plastitanium,
+/obj/structure/window/full/plastitanium,
 /obj/structure/grille,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
@@ -5336,7 +5336,7 @@
 	},
 /area/awaymission/DSBSSigma/mission_control)
 "jw" = (
-/obj/structure/window/plastitanium,
+/obj/structure/window/full/plastitanium,
 /obj/structure/grille,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
@@ -6190,7 +6190,7 @@
 	},
 /area/awaymission/DSBSSigma/chemistry_lab)
 "kR" = (
-/obj/structure/window/plastitanium,
+/obj/structure/window/full/plastitanium,
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/chemistry_lab)
@@ -8511,7 +8511,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/DSBSSigma/science_lab)
 "oA" = (
-/obj/structure/window/plastitanium,
+/obj/structure/window/full/plastitanium,
 /obj/structure/grille,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
@@ -8786,7 +8786,7 @@
 	},
 /area/awaymission/DSBSSigma/virology_lab)
 "pa" = (
-/obj/structure/window/plastitanium,
+/obj/structure/window/full/plastitanium,
 /obj/structure/grille,
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
@@ -9624,12 +9624,12 @@
 /turf/simulated/floor/engine/n2,
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "qF" = (
-/obj/structure/window/plastitanium,
+/obj/structure/window/full/plastitanium,
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "qG" = (
-/obj/structure/window/plastitanium,
+/obj/structure/window/full/plastitanium,
 /obj/structure/grille,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/plating,
@@ -9882,7 +9882,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_west)
 "rd" = (
-/obj/structure/window/plastitanium,
+/obj/structure/window/full/plastitanium,
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/janitorial)
@@ -10447,7 +10447,7 @@
 	},
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "rX" = (
-/obj/structure/window/plastitanium,
+/obj/structure/window/full/plastitanium,
 /obj/structure/grille,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/simulated/floor/plating,
@@ -10614,7 +10614,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/hydroponics)
 "si" = (
-/obj/structure/window/plastitanium,
+/obj/structure/window/full/plastitanium,
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/hydroponics)
@@ -10646,7 +10646,7 @@
 	},
 /area/awaymission/DSBSSigma/janitorial)
 "sl" = (
-/obj/structure/window/plastitanium,
+/obj/structure/window/full/plastitanium,
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/virology_lab)
@@ -12208,7 +12208,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_west)
 "ux" = (
-/obj/structure/window/plastitanium,
+/obj/structure/window/full/plastitanium,
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/disposal)
@@ -14680,6 +14680,16 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_east)
+"yI" = (
+/obj/structure/alien/weeds,
+/obj/structure/bed/nest,
+/obj/effect/landmark/away/dsbssigma{
+	color = "#1ad600";
+	name = "dsbssigma_organ"
+	},
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/dead_monkey_50pc,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
 "yJ" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -15131,12 +15141,12 @@
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/mess_hall)
 "zE" = (
-/obj/structure/window/plastitanium,
+/obj/structure/window/full/plastitanium,
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/dormitories)
 "zF" = (
-/obj/structure/window/plastitanium,
+/obj/structure/window/full/plastitanium,
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/mess_hall)
@@ -16317,7 +16327,7 @@
 	},
 /area/awaymission/DSBSSigma/cave_junction_west)
 "BV" = (
-/obj/structure/window/plastitanium,
+/obj/structure/window/full/plastitanium,
 /obj/structure/grille,
 /obj/structure/barricade/wooden/crude{
 	layer = 3.5
@@ -17334,10 +17344,7 @@
 	dir = 8;
 	pixel_x = -24
 	},
-/obj/item/tank/emergency_oxygen/double/full{
-	pixel_x = -2;
-	pixel_y = 6
-	},
+/obj/item/tank/internals/emergency_oxygen/double,
 /obj/item/clothing/mask/gas/syndicate,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -17979,6 +17986,12 @@
 "Ez" = (
 /turf/unsimulated/wall/fakeglass/reinforced,
 /area/awaymission/DSBSSigma/lockdown)
+"EA" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/gibs,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
 "ED" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10;
@@ -19862,6 +19875,12 @@
 /obj/structure/alien/egg/burst,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
+"LU" = (
+/obj/structure/alien/weeds,
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_50pc,
+/obj/structure/flora/rock/pile,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
 "Mb" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds,
@@ -19960,24 +19979,12 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
-"PW" = (
-/obj/effect/spawner/random_spawners/away/dsbssigma/randomizer,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/awaymission/DSBSSigma/mission_control)
 "Qg" = (
 /obj/structure/flora/rock,
 /obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/DSBSSigma/exterior)
-"Qu" = (
-/obj/structure/alien/weeds,
-/obj/structure/alien/weeds,
-/obj/effect/decal/cleanable/blood/gibs,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
 "QT" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/fluff/utility/broken/smooth{
@@ -19993,6 +20000,11 @@
 /obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_30pc,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
+"Ru" = (
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/gibs,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
 "RH" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds,
@@ -20003,12 +20015,6 @@
 	icon = 'icons/effects/blood.dmi';
 	icon_state = "tracks"
 	},
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"RO" = (
-/obj/structure/alien/weeds,
-/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_50pc,
-/obj/structure/flora/rock/pile,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
 "Sk" = (
@@ -20045,6 +20051,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/space,
 /area/awaymission/DSBSSigma/exterior)
+"Ur" = (
+/obj/structure/alien/weeds,
+/obj/structure/bed/nest,
+/obj/effect/landmark/away/dsbssigma{
+	color = "#ffc800";
+	name = "dsbssigma_miner"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
 "Us" = (
 /obj/item/stack/rods,
 /obj/structure/fluff/utility/broken/smooth{
@@ -20054,11 +20069,6 @@
 	},
 /turf/space,
 /area/awaymission/DSBSSigma/exterior)
-"Va" = (
-/obj/structure/alien/weeds,
-/obj/effect/decal/cleanable/blood/gibs,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
 "Vd" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds,
@@ -20070,6 +20080,12 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
+"Vl" = (
+/obj/effect/spawner/random_spawners/away/dsbssigma/randomizer,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/awaymission/DSBSSigma/mission_control)
 "Vv" = (
 /obj/structure/flora/rock/pile,
 /turf/space,
@@ -20093,16 +20109,6 @@
 "Wp" = (
 /obj/structure/alien/weeds,
 /obj/structure/flora/rock/pile,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"Wy" = (
-/obj/structure/alien/weeds,
-/obj/structure/bed/nest,
-/obj/effect/landmark/away/dsbssigma{
-	color = "#1ad600";
-	name = "dsbssigma_organ"
-	},
-/obj/effect/spawner/random_spawners/away/dsbssigma/mob/dead_monkey_50pc,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
 "WA" = (
@@ -20155,15 +20161,6 @@
 /obj/effect/landmark/away/dsbssigma{
 	color = "#ff0000";
 	name = "dsbssigma_queen"
-	},
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"Zi" = (
-/obj/structure/alien/weeds,
-/obj/structure/bed/nest,
-/obj/effect/landmark/away/dsbssigma{
-	color = "#ffc800";
-	name = "dsbssigma_miner"
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
@@ -22975,7 +22972,7 @@ ZJ
 ZJ
 ZJ
 ZJ
-Wy
+yI
 Zb
 Zb
 ai
@@ -23132,7 +23129,7 @@ ZJ
 Wp
 Pr
 ZJ
-Qu
+EA
 Ln
 Zb
 Zb
@@ -23414,7 +23411,7 @@ Zb
 Zb
 Zb
 Ln
-Wy
+yI
 Zb
 Zb
 Zb
@@ -23428,7 +23425,7 @@ Zb
 Zb
 Zb
 Zb
-Wy
+yI
 TK
 ZJ
 ZJ
@@ -23571,7 +23568,7 @@ YX
 ZJ
 Wp
 WA
-Va
+Ru
 ZJ
 ZJ
 Zb
@@ -23607,7 +23604,7 @@ Nj
 Zc
 ZJ
 TK
-Wy
+yI
 Zb
 ai
 ai
@@ -23714,7 +23711,7 @@ ai
 ai
 Zb
 Zb
-Wy
+yI
 Zb
 Zb
 ai
@@ -23871,7 +23868,7 @@ ai
 Zb
 Zb
 Pp
-Va
+Ru
 Ln
 Zb
 ai
@@ -23919,7 +23916,7 @@ Zb
 Zb
 Ln
 JS
-Va
+Ru
 IQ
 Ln
 Zb
@@ -24076,7 +24073,7 @@ ai
 Zb
 Zb
 Zb
-Zi
+Ur
 Ln
 Zb
 Zb
@@ -24217,7 +24214,7 @@ ZJ
 ZJ
 Zb
 Zb
-Wy
+yI
 ZJ
 ZJ
 Zb
@@ -24338,8 +24335,8 @@ ai
 ai
 ai
 Zb
-Zi
-Va
+Ur
+Ru
 Wp
 ZJ
 ZJ
@@ -24676,8 +24673,8 @@ Zb
 ai
 Zb
 Zb
-Zi
-Va
+Ur
+Ru
 ZJ
 ZJ
 YX
@@ -25280,7 +25277,7 @@ ai
 ai
 Zb
 Zb
-Wy
+yI
 ZJ
 ZJ
 ZJ
@@ -25649,8 +25646,8 @@ Ln
 ZJ
 Zc
 Kc
-Va
-Wy
+Ru
+yI
 Zb
 ai
 ai
@@ -25793,8 +25790,8 @@ ai
 ai
 ai
 Zb
-Zi
-Va
+Ur
+Ru
 ZJ
 ZJ
 ZJ
@@ -25807,7 +25804,7 @@ ZJ
 ZJ
 ZJ
 ZJ
-Zi
+Ur
 Zb
 ai
 ai
@@ -25923,7 +25920,7 @@ ZJ
 Kc
 ZJ
 Zb
-RO
+LU
 ZJ
 ZJ
 YX
@@ -26080,8 +26077,8 @@ ST
 ZJ
 Zb
 Zb
-Wy
-Va
+yI
+Ru
 Ln
 Zb
 Zb
@@ -26238,7 +26235,7 @@ ZJ
 Zb
 Zb
 Zb
-Zi
+Ur
 Zb
 Zb
 ai
@@ -26889,7 +26886,7 @@ ai
 Zb
 Zb
 ZJ
-Wy
+yI
 Zb
 Zb
 ZJ
@@ -29374,7 +29371,7 @@ ai
 ai
 pu
 Zb
-Wy
+yI
 rN
 VI
 qx
@@ -37991,7 +37988,7 @@ hZ
 iy
 gi
 jR
-PW
+Vl
 kz
 lg
 lC
