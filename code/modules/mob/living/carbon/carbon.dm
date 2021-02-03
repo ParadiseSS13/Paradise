@@ -832,11 +832,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(!buckled)
 			return
 		buckled.user_unbuckle_mob(src, src)
-		if(istype(I, /obj/item/restraints/handcuffs/cable))
-				playsound(loc, 'sound/effects/snap.ogg', 50, 1, -1)
-				visible_message("<span class='danger'>As [src] manages to unbuckle... It destroys [I] as well!</span>")
-				handcuffed = null
-				update_handcuffed()
 
 /mob/living/carbon/proc/buckle_check()
 	if(!buckled) // No longer buckled
