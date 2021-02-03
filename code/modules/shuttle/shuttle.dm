@@ -229,7 +229,7 @@
 	var/obj/docking_port/stationary/destination
 	var/obj/docking_port/stationary/previous
 
-/obj/docking_port/mobile/Initialize()
+/obj/docking_port/mobile/Initialize(mapload)
 	. = ..()
 	var/area/A = get_area(src)
 	if(istype(A, /area/shuttle))
