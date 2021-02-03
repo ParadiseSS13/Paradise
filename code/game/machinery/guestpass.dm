@@ -89,9 +89,9 @@
 	data["canprint"] = FALSE
 	if(!scan)
 		data["printmsg"] = "No card inserted."
-	else if(!scan.access.len)
+	else if(!length(scan.access))
 		data["printmsg"] = "Card has no access."
-	else if(!accesses.len)
+	else if(!length(accesses))
 		data["printmsg"] = "No access types selected."
 	else if(print_cooldown > world.time)
 		data["printmsg"] = "Busy for [(round((print_cooldown - world.time) / 10))]s.."
@@ -153,18 +153,18 @@
 			var/dat = "<h3>Activity log of guest pass terminal #[uid]</h3><br>"
 			for(var/entry in internal_log)
 				dat += "[entry]<br><hr>"
-			var/obj/item/paper/P = new/obj/item/paper( loc )
-			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
+			var/obj/item/paper/P = new/obj/item/paper(loc)
+			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 			P.name = "activity log"
 			P.info = dat
 		if("issue")
-			if(!accesses.len)
+			if(!length(accesses))
 				return
 			if(print_cooldown > world.time)
 				return
-			var/number = add_zero("[rand(0,9999)]", 4)
+			var/number = add_zero("[rand(0, 9999)]", 4)
 			var/entry = "\[[station_time()]\] Pass #[number] issued by [scan.registered_name] ([scan.assignment]) to [giv_name]. Reason: [reason]. Grants access to following areas: "
-			for(var/i=1 to accesses.len)
+			for(var/i in 1 to length(accesses))
 				var/A = accesses[i]
 				if(A)
 					var/area = get_access_desc(A)
@@ -172,20 +172,20 @@
 			var/obj/item/card/id/guest/pass = new(get_turf(src))
 			pass.temp_access = accesses.Copy()
 			pass.registered_name = giv_name
-			pass.expiration_time = world.time + duration*10*60
+			pass.expiration_time = world.time + duration MINUTES
 			pass.reason = reason
 			pass.name = "guest pass #[number]"
 			print_cooldown = world.time + 10 SECONDS
 			entry += ". Expires at [station_time_timestamp("hh:mm:ss", pass.expiration_time)]."
-			internal_log.Add(entry)
+			internal_log += entry
 		if("access")
 			var/A = text2num(params["access"])
 			if(A in accesses)
 				accesses.Remove(A)
 			else if(ACCESS_CHANGE_IDS in scan.access)
-				accesses.Add(A)
+				accesses += A
 			else if(A in get_changeable_accesses())
-				accesses.Add(A)
+				accesses += A
 		if("grant_region")
 			var/region = text2num(params["region"])
 			if(isnull(region))
@@ -216,7 +216,7 @@
 				var/list/new_accesses = get_all_accesses()
 				for(var/A in new_accesses)
 					if(A in scan.access)
-						accesses.Add(A)
+						accesses += A
 				to_chat(usr, "<span class='warning'>Granting all access requires that you have ID change access.</span>")
 	if(.)
 		add_fingerprint(usr)
