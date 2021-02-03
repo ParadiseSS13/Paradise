@@ -793,7 +793,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/clean_blood(radiation_clean = FALSE)
 	germ_level = 0
 	if(radiation_clean)
-		clean_radiation(clean_factor = 2)
+		clean_radiation()
 	if(islist(blood_DNA))
 		blood_DNA = null
 		return TRUE
