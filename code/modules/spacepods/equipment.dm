@@ -252,8 +252,8 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 	icon_state = "lock_tumbler"
 	var/static/id_source = 0
 
-/obj/item/spacepod_equipment/lock/keyed/New()
-	..()
+/obj/item/spacepod_equipment/lock/keyed/Initialize(mapload)
+	. = ..()
 	id = ++id_source
 
 // The key

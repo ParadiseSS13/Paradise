@@ -7822,10 +7822,8 @@
 	},
 /area/awaymission/UO71/science)
 "qC" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	current_temperature = 80;
-	dir = 2;
-	on = 1
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on/server{
+	dir = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -8401,11 +8399,11 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/tank/emergency_oxygen{
+/obj/item/tank/internals/emergency_oxygen{
 	pixel_x = -8;
 	pixel_y = 0
 	},
-/obj/item/tank/emergency_oxygen{
+/obj/item/tank/internals/emergency_oxygen{
 	pixel_x = -8;
 	pixel_y = 0
 	},
@@ -10936,7 +10934,7 @@
 /turf/simulated/wall,
 /area/awaymission/UO71/mining)
 "ww" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{

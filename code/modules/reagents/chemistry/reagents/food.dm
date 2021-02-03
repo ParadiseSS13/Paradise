@@ -983,3 +983,11 @@
 		update_flags |= M.adjustBruteLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustFireLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
+
+/datum/reagent/consumable/mint
+	name = "Mint"
+	id = "mint"
+	description = "A light green liquid extracted from mint leaves."
+	reagent_state = LIQUID
+	color = "#A7EE9F"
+	taste_description = "mint"

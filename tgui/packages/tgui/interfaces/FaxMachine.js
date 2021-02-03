@@ -21,8 +21,8 @@ export const FaxMachine = (props, context) => {
               <Button
                 icon={data.authenticated ? 'sign-out-alt' : 'id-card'}
                 selected={data.authenticated}
-                disabled={!data.scan_name && !data.authenticated}
-                content={data.authenticated ? 'Log Out' : 'Log In'}
+                disabled={data.nologin}
+                content={data.realauth ? 'Log Out' : 'Log In'}
                 onClick={() => act("auth")} />
             </LabeledList.Item>
           </LabeledList>

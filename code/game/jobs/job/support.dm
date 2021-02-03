@@ -211,7 +211,7 @@
 	suit = /obj/item/clothing/suit/hooded/explorer
 	mask = /obj/item/clothing/mask/gas/explorer
 	glasses = /obj/item/clothing/glasses/meson
-	suit_store = /obj/item/tank/emergency_oxygen
+	suit_store = /obj/item/tank/internals/emergency_oxygen
 	internals_slot = slot_s_store
 	backpack_contents = list(
 		/obj/item/flashlight/seclite=1,\

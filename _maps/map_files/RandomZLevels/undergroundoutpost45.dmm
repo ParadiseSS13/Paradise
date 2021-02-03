@@ -5908,7 +5908,7 @@
 	name = "scientist's locker";
 	req_access_txt = "201"
 	},
-/obj/item/tank/air,
+/obj/item/tank/internals/air,
 /obj/item/clothing/mask/gas,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -10849,10 +10849,8 @@
 	name = "UO45 Engineering"
 	})
 "qg" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	current_temperature = 80;
-	dir = 2;
-	on = 1
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on/server{
+	dir = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -11684,11 +11682,11 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/tank/emergency_oxygen{
+/obj/item/tank/internals/emergency_oxygen{
 	pixel_x = -8;
 	pixel_y = 0
 	},
-/obj/item/tank/emergency_oxygen{
+/obj/item/tank/internals/emergency_oxygen{
 	pixel_x = -8;
 	pixel_y = 0
 	},

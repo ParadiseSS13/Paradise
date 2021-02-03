@@ -16,13 +16,13 @@
 	var/atmosblock = FALSE //if the blob blocks atmos and heat spread
 	var/mob/camera/blob/overmind
 
-/obj/structure/blob/New(loc)
-	..()
+/obj/structure/blob/Initialize(mapload)
+	. = ..()
 	GLOB.blobs += src
 	setDir(pick(GLOB.cardinal))
 	update_icon()
 	if(atmosblock)
-		air_update_turf(1)
+		air_update_turf(TRUE)
 	ConsumeTile()
 
 /obj/structure/blob/Destroy()
