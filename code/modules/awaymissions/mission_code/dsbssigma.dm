@@ -26,7 +26,6 @@
 /area/awaymission/DSBSSigma/overseer
 	name = "DSBS:Sigma - Overseers Office"
 	icon_state = "bridge"
-	requires_power = FALSE
 
 /area/awaymission/DSBSSigma/cave_junction_east
 	name = "DSBS:Sigma - Eastern Caves"
@@ -319,7 +318,7 @@
 /obj/machinery/computer/id_upgrader/dsbssigma
 	icon_keyboard = "laptop_key"
 	access_to_give = list(ACCESS_AWAY01)
-	door_to_open = null
+	door_to_open = "dsbss_lockdown_blast"
 
 /obj/machinery/computer/id_upgrader/dsbssigma/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id))
@@ -335,6 +334,17 @@
 				did_upgrade = TRUE
 		if(did_upgrade)
 			to_chat(user, "<span class='notice'>An access type was added to your ID card. You think you will be able to lift the lockdown with this.</span>")
+			if(beenused)
+				return
+			spawn(1)
+				beenused = TRUE
+				var/unlocked_something = FALSE
+				for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
+					if(P.density && P.id_tag == door_to_open && P.z == z)
+						P.open()
+						unlocked_something = TRUE
+				if(unlocked_something)
+					to_chat(user, "<span class='danger'>WARNING: New user registration during emergency lockdown. Limited lockdown lift in progress.</span>")
 		else
 			to_chat(user, "<span class='notice'>Your ID card already has all the access this machine can give.</span>")
 		return
@@ -356,6 +366,20 @@
 /obj/machinery/autolathe/hacked/Initialize()
     ..()
     adjust_hacked(TRUE)
+
+/obj/machinery/door_control/away/dsbssigma_lockdown_random
+	name = "Emergency Lockdown Control"
+	req_access = list(ACCESS_AWAY01)
+
+/obj/machinery/door_control/away/dsbssigma_lockdown_random/Initialize()
+	..()
+	switch(rand(1,3))
+		if(1)
+			id = "dsbss_lockdown_blast_medical"
+		if(2)
+			id = "dsbss_lockdown_blast_botany"
+		if(3)
+			id = "dsbss_lockdown_blast_research"
 
 //////// MECHA ////////
 
@@ -701,7 +725,7 @@
 /mob/living/simple_animal/hostile/alien/queen/large/dsbssigma/death()
 	if(can_die() && !hasdied)
 		hasdied = TRUE
-		UnlockBlastDoors("dsbss_officerquarters_blast")
+		UnlockBlastDoors("dsbss_overseersquarters_blast")
 		for(var/mob/M in GLOB.player_list)
 			if(M.z == z)
 				to_chat(M, "<span class='notice'>You hear a distant sound of a blast door opening.</span>")
