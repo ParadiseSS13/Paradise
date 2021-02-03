@@ -1,4 +1,3 @@
-
 /turf/unsimulated/floor
 	name = "floor"
 	icon = 'icons/turf/floors.dmi'
@@ -9,17 +8,6 @@
 	name = "plating"
 	nitrogen = 100
 	oxygen = 0
-
-/turf/unsimulated/floor/plating/airless
-	icon_state = "plating"
-	name = "airless plating"
-	oxygen = 0
-	nitrogen = 0
-	temperature = TCMB
-
-/turf/unsimulated/floor/plating/airless/Initialize(mapload)
-	. = ..()
-	name = "plating"
 
 /turf/unsimulated/floor/grass
 	name = "grass patch"
