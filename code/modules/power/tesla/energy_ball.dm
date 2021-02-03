@@ -18,9 +18,8 @@
 	pixel_x = -32
 	pixel_y = -32
 	current_size = STAGE_TWO
-	move_self = 1
+	move_self = TRUE
 	grav_pull = 0
-	contained = 0
 	density = TRUE
 	energy = 0
 	dissipate = FALSE
