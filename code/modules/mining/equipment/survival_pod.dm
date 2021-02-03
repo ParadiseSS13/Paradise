@@ -75,6 +75,7 @@
 	icon = 'icons/obj/smooth_structures/pod_window.dmi'
 	icon_state = "smooth"
 	smooth = SMOOTH_MORE
+	glass_type = /obj/item/stack/sheet/titaniumglass
 	canSmoothWith = list(/turf/simulated/wall/mineral/titanium/survival, /obj/machinery/door/airlock/survival_pod, /obj/structure/window/full/shuttle/survival_pod)
 
 /obj/structure/window/reinforced/survival_pod
