@@ -1348,8 +1348,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/spin(spintime, speed)
 	set waitfor = 0
 	if(!spintime || !speed || spintime > 100)
-		stack_trace("Aborted attempted call of /mob/proc/spin with invalid args ([spintime],[speed]) which could have frozen the server.")
-		return
+		CRASH("Aborted attempted call of /mob/proc/spin with invalid args ([spintime],[speed]) which could have frozen the server.")
 	var/D = dir
 	while(spintime >= speed)
 		sleep(speed)
@@ -1453,4 +1452,3 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		blood_state = BLOOD_STATE_NOT_BLOODY
 		update_inv_shoes()
 	update_icons()	//apply the now updated overlays to the mob
-
