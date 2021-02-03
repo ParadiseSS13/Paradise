@@ -85,7 +85,8 @@
 	data["giv_name"] = giv_name
 	data["reason"] = reason
 	data["duration"] = duration
-
+	if(scan && !(ACCESS_CHANGE_IDS in scan.access))
+		data["grantableList"] = scan ? scan.access : list()
 	data["canprint"] = FALSE
 	if(!scan)
 		data["printmsg"] = "No card inserted."
@@ -194,14 +195,9 @@
 				accesses |= get_region_accesses(region)
 			else
 				var/list/new_accesses = get_region_accesses(region)
-				var/partial_alert = FALSE
 				for(var/A in new_accesses)
 					if(A in scan.access)
 						accesses.Add(A)
-					else
-						partial_alert = TRUE
-				if(partial_alert)
-					to_chat(usr, "<span class='warning'>Granting complete access to a category requires that you have every access in that category.</span>")
 		if("deny_region")
 			var/region = text2num(params["region"])
 			if(isnull(region))
@@ -217,7 +213,6 @@
 				for(var/A in new_accesses)
 					if(A in scan.access)
 						accesses += A
-				to_chat(usr, "<span class='warning'>Granting all access requires that you have ID change access.</span>")
 	if(.)
 		add_fingerprint(usr)
 

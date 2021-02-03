@@ -63,6 +63,7 @@ export const GuestPass = (props, context) => {
             {!!data.scan_name && (
               <Fragment>
                 <AccessList
+                  grantableList={data.grantableList}
                   accesses={data.regions}
                   selectedList={data.selectedAccess}
                   accessMod={ref => act('access', {
