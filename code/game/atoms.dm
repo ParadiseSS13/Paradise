@@ -793,14 +793,25 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/clean_blood(radiation_clean = FALSE)
 	germ_level = 0
 	if(radiation_clean)
-		var/datum/component/radioactive/healthy_green_glow = GetComponent(/datum/component/radioactive)
-		if(!QDELETED(healthy_green_glow))
-			healthy_green_glow.strength = max(0, (healthy_green_glow.strength - (RAD_BACKGROUND_RADIATION * 2)))
-			if(healthy_green_glow.strength <= RAD_BACKGROUND_RADIATION)
-				qdel(healthy_green_glow)
+		clean_radiation()
 	if(islist(blood_DNA))
 		blood_DNA = null
 		return TRUE
+
+/**
+  * Removes some radiation from an atom
+  *
+  * Removes a configurable amount of radiation from an atom
+  * and stops green glow if radiation gets low enough through it.
+  * Arguments:
+  * * clean_factor - How much radiation to remove, as a multiple of RAD_BACKGROUND_RADIATION (currently 9)
+  */
+/atom/proc/clean_radiation(clean_factor = 2)
+	var/datum/component/radioactive/healthy_green_glow = GetComponent(/datum/component/radioactive)
+	if(!QDELETED(healthy_green_glow))
+		healthy_green_glow.strength = max(0, (healthy_green_glow.strength - (RAD_BACKGROUND_RADIATION * clean_factor)))
+		if(healthy_green_glow.strength <= RAD_BACKGROUND_RADIATION)
+			qdel(healthy_green_glow)
 
 /obj/effect/decal/cleanable/blood/clean_blood(radiation_clean = FALSE)
 	return // While this seems nonsensical, clean_blood isn't supposed to be used like this on a blood decal.

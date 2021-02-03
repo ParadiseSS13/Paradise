@@ -1700,6 +1700,38 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 18 // normally 23
 	gamemodes = list(/datum/game_mode/nuclear)
 
+/datum/uplink_item/bundles_TC/contractor
+	name = "Syndicate Contractor Kit"
+	desc = "A bundle granting you the privilege of taking on kidnapping contracts for credit and TC payouts that can add up to more than its initial cost."
+	reference = "SCOK"
+	cost = 20
+	item = /obj/item/storage/box/syndie_kit/contractor
+	excludefrom = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/bundles_TC/contractor/spawn_item(turf/loc, obj/item/uplink/U)
+	var/datum/mind/mind = usr.mind
+	var/datum/antagonist/traitor/AT = mind.has_antag_datum(/datum/antagonist/traitor)
+	if(LAZYACCESS(GLOB.contractors, mind))
+		to_chat(usr, "<span class='warning'>Error: Contractor credentials detected for the current user. Unable to provide another Contractor kit.</span>")
+		return
+	else if(!AT)
+		to_chat(usr, "<span class='warning'>Error: Embedded Syndicate credentials not found.</span>")
+		return
+	else if(mind.changeling || mind.vampire)
+		to_chat(usr, "<span class='warning'>Error: Embedded Syndicate credentials contain an abnormal signature. Aborting.</span>")
+		return
+
+	var/obj/item/I = ..()
+	// Init the hub
+	var/obj/item/contractor_uplink/CU = locate(/obj/item/contractor_uplink) in I
+	CU.hub = new(mind, CU)
+	// Update their mind stuff
+	LAZYSET(GLOB.contractors, mind, CU.hub)
+	AT.update_traitor_icons_added(mind)
+
+	log_game("[key_name(usr)] became a Contractor")
+	return I
+
 /datum/uplink_item/bundles_TC/badass
 	name = "Syndicate Bundle"
 	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 20 telecrystals, but you do not know which specialisation you will receive."

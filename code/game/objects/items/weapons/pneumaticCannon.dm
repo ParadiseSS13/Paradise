@@ -12,7 +12,7 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 50)
 	var/maxWeightClass = 20 //The max weight of items that can fit into the cannon
 	var/loadedWeightClass = 0 //The weight of items currently in the cannon
-	var/obj/item/tank/tank = null //The gas tank that is drawn from to fire things
+	var/obj/item/tank/internals/tank = null //The gas tank that is drawn from to fire things
 	var/gasPerThrow = 3 //How much gas is drawn from a tank's pressure to fire
 	var/list/loadedItems = list() //The items loaded into the cannon that will be fired out
 	var/pressureSetting = 1 //How powerful the cannon is - higher pressure = more gas but more powerful throws
@@ -34,8 +34,8 @@
 
 /obj/item/pneumatic_cannon/attackby(obj/item/W, mob/user, params)
 	..()
-	if(istype(W, /obj/item/tank/) && !tank)
-		if(istype(W, /obj/item/tank/emergency_oxygen))
+	if(istype(W, /obj/item/tank/internals/) && !tank)
+		if(istype(W, /obj/item/tank/internals/emergency_oxygen))
 			to_chat(user, "<span class='warning'>\The [W] is too small for \the [src].</span>")
 			return
 		updateTank(W, 0, user)

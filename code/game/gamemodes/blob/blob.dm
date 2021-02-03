@@ -140,7 +140,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 			else if(blob_client && location)
 				burst++
 				C.gib()
-				var/obj/structure/blob/core/core = new(location, 200, blob_client, blob_point_rate)
+				var/obj/structure/blob/core/core = new(location, blob_client, blob_point_rate)
 				if(core.overmind && core.overmind.mind)
 					core.overmind.mind.name = blob.name
 					infected_crew -= blob

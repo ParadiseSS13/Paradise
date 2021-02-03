@@ -1,6 +1,6 @@
 // tgstation-server DMAPI
 
-#define TGS_DMAPI_VERSION "6.0.1"
+#define TGS_DMAPI_VERSION "6.0.2"
 
 // All functions and datums outside this document are subject to change with any version and should not be relied on.
 
@@ -101,7 +101,7 @@
 // #define TGS_EVENT_WORLD_END_PROCESS 19
 // #define TGS_EVENT_WORLD_REBOOT 20
 /// Watchdog event when TgsInitializationComplete() is called. No parameters.
- #define TGS_EVENT_WORLD_PRIME 21
+#define TGS_EVENT_WORLD_PRIME 21
 
 // OTHER ENUMS
 
