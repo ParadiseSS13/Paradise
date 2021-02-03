@@ -369,6 +369,14 @@
 		return FALSE
 	return ..()
 
+/datum/action/item_action/toggle_geiger_counter
+	name = "Toggle Geiger Counter"
+
+/datum/action/item_action/toggle_geiger_counter/Trigger()
+	var/obj/item/clothing/head/helmet/space/hardsuit/H = target
+	if(istype(H))
+		H.toggle_geiger_counter()
+
 /datum/action/item_action/hands_free
 	check_flags = AB_CHECK_CONSCIOUS
 

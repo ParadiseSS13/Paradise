@@ -163,6 +163,7 @@ SUBSYSTEM_DEF(changelog)
 
 // This proc is the star of the show
 /datum/controller/subsystem/changelog/proc/GenerateChangelogHTML()
+	. = FALSE
 	// Modify the code below to modify the header of the changelog
 	var/changelog_header = {"
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" rel="stylesheet">
@@ -188,51 +189,63 @@ SUBSYSTEM_DEF(changelog)
 	// Load in the header
 	changelogHTML += changelog_header
 
-	// Make blocks for all the PRs
+	// We put all these queries into a list so we can batch-execute them to avoid excess delays
+	// We index these based on PR numbers. MAKE SURE YOU USE STRING INDICIES IN THIS IF YOU EVER TWEAK IT -aa
+	var/list/datum/db_query/meta_queries = list()
+	var/list/datum/db_query/entry_queries = list()
+
+	// Create some queries for each PR
+	for(var/pr_number in prs_to_process)
+		var/datum/db_query/pr_meta = SSdbcore.NewQuery(
+			"SELECT author, DATE_FORMAT(date_merged, '%Y-%m-%d at %T') AS date FROM changelog WHERE pr_number = :prnum LIMIT 1",
+			list("prnum" = pr_number)
+		)
+
+		// MAKE SURE YOU CAST TO STRINGS HERE!
+		meta_queries["[pr_number]"] = pr_meta
+
+		var/datum/db_query/pr_cl_entries = SSdbcore.NewQuery(
+			"SELECT cl_type, cl_entry FROM changelog WHERE pr_number = :prnum",
+			list("prnum" = pr_number)
+		)
+
+		// And here
+		entry_queries["[pr_number]"] = pr_cl_entries
+
+	ASSERT(length(meta_queries) == length(entry_queries)) // If these dont add up, something went very wrong
+
+	// Explanation for parameters:
+	// TRUE: We want warnings if these fail
+	// FALSE: Do NOT qdel() queries here, otherwise they wont be read. At all.
+	// TRUE: This is an assoc list, so it needs to prepare for that
+	SSdbcore.MassExecute(meta_queries, TRUE, FALSE, TRUE)
+	SSdbcore.MassExecute(entry_queries, TRUE, FALSE, TRUE)
+
 	for(var/pr_number in prs_to_process)
 		// Initial declarations
 		var/pr_block = "" // HTML for the changelog section
 		var/author = "" // Author of the PR
 		var/merge_date = "" // Timestamp of when the PR was merged
 
-		// Now we gather the data from the DB
-		var/datum/db_query/pr_meta = SSdbcore.NewQuery(
-			"SELECT author, DATE_FORMAT(date_merged, '%Y-%m-%d at %T') AS date FROM changelog WHERE pr_number = :prnum LIMIT 1",
-			list("prnum" = pr_number)
-		)
-
-		if(!pr_meta.warn_execute())
-			qdel(pr_meta)
-			return FALSE
-
-		while(pr_meta.NextRow())
-			author = pr_meta.item[1]
-			merge_date = pr_meta.item[2]
-
-		qdel(pr_meta)
+		// Assemble metadata
+		while(meta_queries["[pr_number]"].NextRow())
+			author = meta_queries["[pr_number]"].item[1]
+			merge_date = meta_queries["[pr_number]"].item[2]
 
 		// Now for each actual entry
-		var/datum/db_query/pr_cl_entries = SSdbcore.NewQuery(
-			"SELECT cl_type, cl_entry FROM changelog WHERE pr_number = :prnum",
-			list("prnum" = pr_number)
-		)
-
-		if(!pr_cl_entries.warn_execute())
-			qdel(pr_cl_entries)
-			return FALSE
-
-		// Now we make a changelog block
 		pr_block += "<div class='statusDisplay'>"
-		// If the github URL in the config has a trailing slash, it doesnt matter here, thankfully github accepts having a double slash: https://github.com/org/repo//pull/1
 		pr_block += "<p class='white'><a href='?src=[UID()];openPR=[pr_number]'>#[pr_number]</a> by <b>[author]</b> (Merged on [merge_date])</span>"
 
-		while(pr_cl_entries.NextRow())
-			pr_block += "<p>[Text2Icon(pr_cl_entries.item[1])] [pr_cl_entries.item[2]]</p>"
+		while(entry_queries["[pr_number]"].NextRow())
+			pr_block += "<p>[Text2Icon(entry_queries["[pr_number]"].item[1])] [entry_queries["[pr_number]"].item[2]]</p>"
 
-		qdel(pr_cl_entries)
 		pr_block += "</div><br>"
 
 		changelogHTML += pr_block
+
+	// Cleanup queries
+	QDEL_LIST_ASSOC_VAL(meta_queries)
+	QDEL_LIST_ASSOC_VAL(entry_queries)
 
 	// Make sure we return TRUE so we know it worked
 	return TRUE
@@ -248,14 +261,7 @@ SUBSYSTEM_DEF(changelog)
 			if("forum")
 				usr.client.forum()
 			if("wiki")
-				// Wiki needs snowflake because it has no cancel button
-				if(config.wikiurl)
-					if(alert("This will open the wiki in your browser. Are you sure?",,"Yes","No")=="No")
-						return
-					usr.client.wiki()
-				else
-					to_chat(usr, "<span class='danger'>The Wiki URL is not set in the server configuration. Please inform the server host.</span>")
-
+				usr.client.wiki()
 			if("github")
 				usr.client.github()
 	// Takes a PR number as argument
@@ -263,6 +269,7 @@ SUBSYSTEM_DEF(changelog)
 		if(config.githuburl)
 			if(alert("This will open PR #[href_list["openPR"]] in your browser. Are you sure?",,"Yes","No")=="No")
 				return
+			// If the github URL in the config has a trailing slash, it doesnt matter here, thankfully github accepts having a double slash: https://github.com/org/repo//pull/1
 			var/url = "[config.githuburl]/pull/[href_list["openPR"]]"
 			usr << link(url)
 		else

@@ -10,7 +10,6 @@
 	var/icon_base = "defib"
 	var/cooldown = FALSE
 	var/charge_time = 100
-	var/emagged = FALSE
 
 /obj/item/handheld_defibrillator/emag_act(mob/user)
 	if(!emagged)

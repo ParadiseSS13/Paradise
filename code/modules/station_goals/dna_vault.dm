@@ -164,7 +164,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	var/list/dna = list()
 
 	var/completed = FALSE
-	var/list/power_lottery = list()
+	var/static/list/power_lottery = list()
 
 	var/list/obj/structure/fillers = list()
 
@@ -254,6 +254,8 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 			data["used"] = FALSE
 			data["choiceA"] = L[1]
 			data["choiceB"] = L[2]
+		else if(L)
+			data["used"] = TRUE
 	return data
 
 /obj/machinery/dna_vault/ui_act(action, params)
@@ -304,7 +306,8 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 			to_chat(H, "<span class='notice'>You feel resistant to airborne toxins.</span>")
 			var/obj/item/organ/internal/lungs/L = H.get_int_organ(/obj/item/organ/internal/lungs)
 			if(L)
-				L.tox_breath_dam_multiplier = 0
+				L.tox_breath_dam_min = 0
+				L.tox_breath_dam_max = 0
 			S.species_traits |= VIRUSIMMUNE
 		if(VAULT_NOBREATH)
 			to_chat(H, "<span class='notice'>Your lungs feel great.</span>")

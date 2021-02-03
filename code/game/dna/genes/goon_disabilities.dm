@@ -49,13 +49,7 @@
 	return TRUE
 
 /datum/dna/gene/disability/radioactive/OnMobLife(mob/living/carbon/human/H)
-	var/radiation_amount = abs(min(H.radiation - 20,0))
-	H.apply_effect(radiation_amount, IRRADIATE)
-	for(var/mob/living/L in range(1, H))
-		if(L == H)
-			continue
-		to_chat(L, "<span class='danger'>You are enveloped by a soft green glow emanating from [H].</span>")
-		L.apply_effect(5, IRRADIATE)
+	radiation_pulse(H, 20)
 
 /datum/dna/gene/disability/radioactive/OnDrawUnderlays(mob/M, g)
 	return "rads_s"
@@ -152,14 +146,14 @@
 /datum/dna/gene/disability/speech/chav/New()
 	..()
 	block = GLOB.chavblock
-	
+
 /datum/dna/gene/disability/speech/chav/OnSay(mob/M, message)
 	var/static/regex/R = regex("\\b([chavlinks.Join("|")])\\b", "g")
 	message = R.Replace(message, /datum/dna/gene/disability/speech/chav/proc/replace_speech)
 	return message
 /datum/dna/gene/disability/speech/chav/proc/replace_speech(matched)
 	return chavlinks[matched]
-	
+
 // WAS: /datum/bioEffect/swedish
 /datum/dna/gene/disability/speech/swedish
 	name = "Swedish"

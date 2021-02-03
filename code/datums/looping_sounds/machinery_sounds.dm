@@ -5,3 +5,11 @@
 	mid_length = 10
 	end_sound = 'sound/machines/shower/shower_end.ogg'
 	volume = 20
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/datum/looping_sound/supermatter
+	mid_sounds = list('sound/machines/sm/loops/calm.ogg' = 1)
+	mid_length = 60
+	volume = 40
+	extra_range = 10

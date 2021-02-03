@@ -256,8 +256,12 @@
 	var/applying_meds = FALSE //To Prevent spam clicking and generating runtimes from apply a deleting pill multiple times.
 	var/rapid_intake_message = "unscrews the cap on the pill bottle and begins dumping the entire contents down their throat!"
 	var/rapid_post_instake_message = "downs the entire bottle of pills in one go!"
+	/// Whether to render a coloured wrapper overlay on the icon.
 	var/allow_wrap = TRUE
+	/// The color of the wrapper overlay.
 	var/wrapper_color = null
+	/// The icon state of the wrapper overlay.
+	var/wrapper_state = "pillbottle_wrap"
 
 /obj/item/storage/pill_bottle/New()
 	..()
@@ -268,7 +272,7 @@
 /obj/item/storage/pill_bottle/proc/apply_wrap()
 	if(wrapper_color)
 		overlays.Cut()
-		var/image/I = image(icon, "pillbottle_wrap")
+		var/image/I = image(icon, wrapper_state)
 		I.color = wrapper_color
 		overlays += I
 
@@ -322,14 +326,14 @@
 		return ..()
 
 /obj/item/storage/pill_bottle/patch_pack
-	name = "Patch Pack"
+	name = "patch pack"
 	desc = "It's a container for storing medical patches."
 	icon_state = "patch_pack"
 	can_hold = list(/obj/item/reagent_containers/food/pill/patch)
 	cant_hold = list()
-	rapid_intake_message = "flips the lid of the Patch Pack open and begins rapidly stamping patches on themselves!"
-	rapid_post_instake_message = "stamps the entire contents of the Patch Pack all over their entire body!"
-	allow_wrap = FALSE
+	rapid_intake_message = "flips the lid of the patch pack open and begins rapidly stamping patches on themselves!"
+	rapid_post_instake_message = "stamps the entire contents of the patch pack all over their entire body!"
+	wrapper_state = "patch_pack_wrap"
 
 /obj/item/storage/pill_bottle/charcoal
 	name = "Pill bottle (Charcoal)"

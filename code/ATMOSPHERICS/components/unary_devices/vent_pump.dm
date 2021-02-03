@@ -236,86 +236,58 @@
 /obj/machinery/atmospherics/unary/vent_pump/receive_signal(datum/signal/signal)
 	if(stat & (NOPOWER|BROKEN))
 		return
-	//log_admin("DEBUG \[[world.timeofday]\]: /obj/machinery/atmospherics/unary/vent_pump/receive_signal([signal.debug_print()])")
-	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))
-		return 0
 
-	if(signal.data["purge"] != null)
+	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))
+		return FALSE
+
+	if("purge" in signal.data)
 		pressure_checks &= ~1
 		pump_direction = 0
 
-	if(signal.data["stabilize"] != null)
+	if("stabalize" in signal.data)
 		pressure_checks |= 1
 		pump_direction = 1
 
-	if(signal.data["power"] != null)
+	if("power" in signal.data)
 		on = text2num(signal.data["power"])
 
-	if(signal.data["power_toggle"] != null)
+	if("power_toggle" in signal.data)
 		on = !on
 
-	if(signal.data["checks"] != null)
-		if(signal.data["checks"] == "default")
-			pressure_checks = pressure_checks_default
-		else
-			pressure_checks = text2num(signal.data["checks"])
+	if("checks" in signal.data)
+		pressure_checks = text2num(signal.data["checks"])
 
-	if(signal.data["checks_toggle"] != null)
-		pressure_checks = (pressure_checks?0:3)
+	if("checks_toggle" in signal.data)
+		pressure_checks = (pressure_checks ? 0 : 3)
 
-	if(signal.data["direction"] != null)
+	if("direction" in signal.data)
 		pump_direction = text2num(signal.data["direction"])
 
-	if(signal.data["set_internal_pressure"] != null)
-		if(signal.data["set_internal_pressure"] == "default")
-			internal_pressure_bound = internal_pressure_bound_default
-		else
-			internal_pressure_bound = between(
-				0,
-				text2num(signal.data["set_internal_pressure"]),
-				ONE_ATMOSPHERE*50
-			)
+	if("set_internal_pressure" in signal.data)
+		internal_pressure_bound = clamp(text2num(signal.data["set_internal_pressure"]), 0, ONE_ATMOSPHERE * 50)
 
-	if(signal.data["set_external_pressure"] != null)
-		if(signal.data["set_external_pressure"] == "default")
-			external_pressure_bound = external_pressure_bound_default
-		else
-			external_pressure_bound = between(
-				0,
-				text2num(signal.data["set_external_pressure"]),
-				ONE_ATMOSPHERE*50
-			)
+	if("set_external_pressure" in signal.data)
+		external_pressure_bound = clamp(text2num(signal.data["set_external_pressure"]), 0, ONE_ATMOSPHERE * 50)
 
-	if(signal.data["adjust_internal_pressure"] != null)
-		internal_pressure_bound = between(
-			0,
-			internal_pressure_bound + text2num(signal.data["adjust_internal_pressure"]),
-			ONE_ATMOSPHERE*50
-		)
+	if("reset_external_pressure" in signal.data)
+		external_pressure_bound = ONE_ATMOSPHERE
 
-	if(signal.data["adjust_external_pressure"] != null)
+	if("adjust_internal_pressure" in signal.data)
+		internal_pressure_bound = clamp(internal_pressure_bound + text2num(signal.data["adjust_internal_pressure"]), 0, ONE_ATMOSPHERE * 50)
 
+	if("adjust_external_pressure" in signal.data)
+		external_pressure_bound = clamp(external_pressure_bound + text2num(signal.data["adjust_external_pressure"]), 0, ONE_ATMOSPHERE * 50)
 
-		external_pressure_bound = between(
-			0,
-			external_pressure_bound + text2num(signal.data["adjust_external_pressure"]),
-			ONE_ATMOSPHERE*50
-		)
-
-	if(signal.data["init"] != null)
+	if("init" in signal.data)
 		name = signal.data["init"]
 		return
 
-	if(signal.data["status"] != null)
-		spawn(2)
-			broadcast_status()
+	if("status" in signal.data)
+		broadcast_status()
 		return //do not update_icon
 
-		//log_admin("DEBUG \[[world.timeofday]\]: vent_pump/receive_signal: unknown command \"[signal.data["command"]]\"\n[signal.debug_print()]")
-	spawn(2)
-		broadcast_status()
+	broadcast_status()
 	update_icon()
-	return
 
 /obj/machinery/atmospherics/unary/vent_pump/can_crawl_through()
 	return !welded

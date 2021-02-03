@@ -179,6 +179,9 @@
 	if(on_fire && fire_stacks <= 0)
 		ExtinguishMob()
 
+/**
+ * Burns a mob and slowly puts the fires out. Returns TRUE if the mob is on fire
+ */
 /mob/living/proc/handle_fire()
 	if(fire_stacks < 0) //If we've doused ourselves in water to avoid fire, dry off slowly
 		fire_stacks = min(0, fire_stacks + 1)//So we dry ourselves back to default, nonflammable.

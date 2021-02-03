@@ -401,7 +401,7 @@
 
 /mob/living/simple_animal/handle_fire()
 	if(!can_be_on_fire)
-		return TRUE
+		return FALSE
 	. = ..()
 	if(!.)
 		return

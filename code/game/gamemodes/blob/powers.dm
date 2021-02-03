@@ -389,7 +389,7 @@
 		return
 
 	split_used = TRUE
-	new /obj/structure/blob/core/ (get_turf(N), 200, null, blob_core.point_rate, offspring = TRUE)
+	new /obj/structure/blob/core(get_turf(N), null, blob_core.point_rate, TRUE)
 	qdel(N)
 
 	if(SSticker && SSticker.mode.name == "blob")
