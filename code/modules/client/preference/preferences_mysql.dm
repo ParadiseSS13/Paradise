@@ -418,7 +418,7 @@
 												body_accessory=:body_accessory,
 												gear=:gearlist,
 												autohiss=:autohiss_mode,
-												all_quirks=:all_quirks,
+												all_quirks=:quirklist,
 												WHERE ckey=:ckey
 												AND slot=:slot"}, list(
 													// OH GOD SO MANY PARAMETERS
@@ -474,6 +474,7 @@
 													"body_accessory" = (body_accessory ? body_accessory : ""),
 													"gearlist" = (gearlist ? gearlist : ""),
 													"autohiss_mode" = autohiss_mode,
+													"all_quirks" = (quirklist ? quirklist : ""),
 													"ckey" = C.ckey,
 													"slot" = default_slot
 												)
@@ -600,7 +601,8 @@
 		"socks" = socks,
 		"body_accessory" = (body_accessory ? body_accessory : ""),
 		"gearlist" = (gearlist ? gearlist : ""),
-		"autohiss_mode" = autohiss_mode
+		"autohiss_mode" = autohiss_mode,
+		"all_quirks" = (quirklist ? quirklist : "")
 	))
 
 	if(!query.warn_execute())
