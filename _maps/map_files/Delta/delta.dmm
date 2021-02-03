@@ -32082,7 +32082,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Head of Security";
-	req_access_txt = "58"
+	req_one_access_txt = "58;67"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -44781,7 +44781,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command/glass{
 	name = "Chief Engineer";
-	req_access_txt = "56"
+	req_one_access_txt = "56;67"
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/chief)
@@ -49703,8 +49703,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel";
-	req_access = null;
-	req_access_txt = "57"
+	req_one_access_txt = "57;67"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
@@ -62155,8 +62154,7 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel";
-	req_access = null;
-	req_access_txt = "57"
+	req_one_access_txt = "57;67"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
@@ -88099,8 +88097,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Research Director's Office";
-	req_access = null;
-	req_access_txt = "30"
+	req_one_access_txt = "30;67"
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
@@ -88713,8 +88710,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Research Director's Office";
-	req_access = null;
-	req_access_txt = "30"
+	req_one_access_txt = "30;67"
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
@@ -91240,7 +91236,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Chief Medical Officer";
-	req_access_txt = "40"
+	req_one_access_txt = "40;67"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4;
@@ -91755,7 +91751,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Chief Medical Officer";
-	req_access_txt = "40"
+	req_one_access_txt = "40;67"
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/cmo)

@@ -5270,8 +5270,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/command{
 	name = "Head of Security's Office";
-	req_access = null;
-	req_access_txt = "58"
+	req_one_access_txt = "58;67"
 	},
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -28498,8 +28497,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/command{
 	name = "Chief Engineer's Office";
-	req_access_txt = "56";
-	req_one_access_txt = "0"
+	req_one_access_txt = "56;67"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -41776,8 +41774,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel";
-	req_access = null;
-	req_access_txt = "57"
+	req_one_access_txt = "57;67"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -41890,8 +41887,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel";
-	req_access = null;
-	req_access_txt = "57"
+	req_one_access_txt = "57;67"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -71523,8 +71519,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Chief Medical Officer's Office";
-	req_access_txt = "40";
-	req_one_access_txt = "0"
+	req_one_access_txt = "40;67"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -71842,8 +71837,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Research Director's Office";
-	req_access_txt = "30";
-	req_one_access_txt = "0"
+	req_one_access_txt = "30;67"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -78301,8 +78295,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Chief Medical Officer's Office";
-	req_access_txt = "40";
-	req_one_access_txt = "0"
+	req_one_access_txt = "40;67"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4

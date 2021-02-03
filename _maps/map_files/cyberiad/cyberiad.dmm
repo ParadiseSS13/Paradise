@@ -21,10 +21,6 @@
 	},
 /turf/space,
 /area/space)
-"abG" = (
-/turf/space,
-/turf/space,
-/area/space)
 "abM" = (
 /obj/structure/lattice,
 /turf/simulated/floor/plating/airless,
@@ -5200,7 +5196,7 @@
 /obj/machinery/door/airlock/command/glass{
 	id_tag = "hosofficedoor";
 	name = "Head of Security";
-	req_access_txt = "58"
+	req_one_access_txt = "58;67"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -7228,7 +7224,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Head of Security";
-	req_access_txt = "58"
+	req_one_access_txt = "58;67"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -46574,8 +46570,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel";
-	req_access = null;
-	req_access_txt = "57"
+	req_one_access_txt = "57;67"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -54225,8 +54220,7 @@
 /obj/machinery/door/airlock/command{
 	id_tag = "hopofficedoor";
 	name = "Head of Personnel";
-	req_access = null;
-	req_access_txt = "57"
+	req_one_access_txt = "57;67"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -56819,7 +56813,7 @@
 /obj/machinery/door/airlock/command/glass{
 	id_tag = "rdofficedoor";
 	name = "Research Director";
-	req_access_txt = "30"
+	req_one_access_txt = "30;67"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -72072,7 +72066,7 @@
 /obj/machinery/door/airlock/command{
 	id_tag = "cmoofficedoor";
 	name = "CMO's Office";
-	req_access_txt = "40"
+	req_one_access_txt = "40;67"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -77709,7 +77703,7 @@
 /obj/machinery/door/airlock/command/glass{
 	id_tag = "ceofficedoor";
 	name = "Chief Engineer";
-	req_access_txt = "56"
+	req_one_access_txt = "56;67"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -79126,7 +79120,7 @@
 /obj/machinery/door/airlock/command/glass{
 	id_tag = "ceofficedoor";
 	name = "Chief Engineer";
-	req_access_txt = "56"
+	req_one_access_txt = "56;67"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -89120,15 +89114,6 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/maintenance/fsmaint)
-"dHM" = (
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
-/area/shuttle/escape)
 "dLF" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
@@ -89917,12 +89902,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
-"ksF" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/turf/simulated/shuttle/floor4,
-/area/shuttle/escape)
 "kwt" = (
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -89945,43 +89924,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/bridge)
-"kyW" = (
-/obj/structure/table,
-/obj/item/weldingtool/largetank{
-	pixel_x = 4;
-	pixel_y = -4
-	},
-/obj/item/clothing/glasses/welding{
-	pixel_y = 10
-	},
-/obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bot";
-	dir = 1
-	},
-/area/shuttle/escape)
-"kCR" = (
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
-/obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/plasteel{
-	icon_state = "bot";
-	dir = 1
-	},
-/area/shuttle/escape)
-"kHU" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/toolbox/mechanical,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
-	},
-/area/shuttle/escape)
 "kIR" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow,
@@ -97109,7 +97051,6 @@ aaa
 aaa
 aaa
 aaa
-abG
 aaa
 aaa
 aaa
@@ -97117,7 +97058,8 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -99679,7 +99621,7 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
 aaa
 aaa
 aaa
@@ -99687,7 +99629,7 @@ aQX
 aaa
 aaa
 aaa
-abG
+aaa
 aaa
 aVV
 aXp
@@ -99719,15 +99661,15 @@ aaa
 aaa
 aaa
 aaa
-abG
 aaa
 aaa
-abG
-aaa
-abG
 aaa
 aaa
-abG
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -99959,9 +99901,6 @@ aaa
 aaa
 aaa
 aaa
-abG
-aaa
-abG
 aaa
 aaa
 aaa
@@ -99975,7 +99914,6 @@ aaa
 aaa
 aaa
 aaa
-abG
 aaa
 aaa
 aaa
@@ -99985,7 +99923,11 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -100215,11 +100157,6 @@ aab
 aaa
 aaa
 aaa
-abG
-abG
-aaa
-abG
-abG
 aaa
 aaa
 aaa
@@ -100231,7 +100168,6 @@ aaa
 aaa
 aaa
 aaa
-abG
 aaa
 aaa
 aaa
@@ -100243,7 +100179,13 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -100487,7 +100429,6 @@ bjQ
 aaa
 aaa
 aaa
-abG
 aaa
 aaa
 aaa
@@ -100501,7 +100442,8 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -101431,7 +101373,6 @@ aaa
 aaa
 aaa
 aaa
-abG
 aaa
 aaa
 aaa
@@ -101439,7 +101380,8 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -101682,7 +101624,7 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
 aaa
 aaa
 aaa
@@ -102233,7 +102175,7 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
 aaa
 aaa
 aaa
@@ -102242,7 +102184,7 @@ aaa
 aaa
 aCB
 aaa
-abG
+aaa
 aaa
 aaa
 aaa
@@ -102446,28 +102388,6 @@ aaa
 aaa
 aaa
 aaa
-abG
-aaa
-aaa
-aaa
-abG
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-abG
 aaa
 aaa
 aaa
@@ -102500,7 +102420,29 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aab
 aab
 aab
@@ -102534,11 +102476,11 @@ aaa
 aaa
 aaa
 aMs
-abG
 aaa
 aaa
 aaa
-abG
+aaa
+aaa
 aSd
 aMd
 bLZ
@@ -102785,16 +102727,16 @@ bgy
 aSf
 bsj
 aSd
-abG
+aaa
 aaa
 bvf
 aaa
-abG
+aaa
 aMs
 aaa
-abG
+aaa
 bCi
-abG
+aaa
 aaa
 aSd
 aMd
@@ -102980,7 +102922,6 @@ aaa
 aaa
 aaa
 aaa
-abG
 aaa
 aaa
 aaa
@@ -103014,7 +102955,8 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
+aaa
 aaa
 doE
 aII
@@ -103261,7 +103203,6 @@ aaa
 aaa
 aaa
 aaa
-abG
 aaa
 aaa
 aaa
@@ -103270,7 +103211,8 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
+aaa
 aaa
 aaa
 aEM
@@ -103314,7 +103256,6 @@ aSd
 aMd
 bMa
 bjQ
-abG
 aaa
 aaa
 aaa
@@ -103328,7 +103269,8 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -103829,7 +103771,6 @@ aSf
 bLZ
 aSd
 aaa
-abG
 aaa
 aaa
 aaa
@@ -103841,7 +103782,8 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -104008,7 +103950,7 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
 aaa
 aaa
 aaa
@@ -104087,17 +104029,17 @@ bMc
 aSd
 aaa
 aaa
-abG
-aaa
-aaa
-abG
 aaa
 aaa
 aaa
-abG
 aaa
 aaa
-abG
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -104502,11 +104444,11 @@ aaa
 aaa
 aaa
 aaa
-abG
 aaa
 aaa
 aaa
-abG
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -104523,7 +104465,7 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
 aaa
 aaa
 aaa
@@ -105025,7 +104967,7 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
 aaa
 aaa
 aaa
@@ -105543,7 +105485,6 @@ aaa
 aaa
 aaa
 aaa
-abG
 aaa
 aaa
 aaa
@@ -105551,7 +105492,8 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -107167,7 +107109,6 @@ bET
 bGV
 bMf
 bKw
-abG
 aaa
 aaa
 aaa
@@ -107177,7 +107118,8 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -107433,7 +107375,7 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
 aaa
 aaa
 aaa
@@ -107883,7 +107825,6 @@ aaa
 aaa
 aaa
 aaa
-abG
 aaa
 aaa
 aaa
@@ -107893,7 +107834,8 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
+aaa
 aII
 aDB
 aEJ
@@ -108461,7 +108403,7 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
 aaa
 aaa
 aaa
@@ -108709,7 +108651,7 @@ bKq
 bGW
 bDQ
 bKw
-abG
+aaa
 aaa
 aaa
 aaa
@@ -108719,7 +108661,7 @@ bWP
 aaa
 aaa
 aaa
-abG
+aaa
 aaa
 aaa
 aaa
@@ -108911,7 +108853,7 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
 aaa
 aaa
 aaa
@@ -108921,7 +108863,7 @@ aaa
 ays
 aaa
 aaa
-abG
+aaa
 aGn
 aGn
 aGn
@@ -110519,13 +110461,13 @@ dcY
 bKB
 aaa
 aaa
-abG
 aaa
 aaa
 aaa
 aaa
 aaa
-abG
+aaa
+aaa
 aab
 cng
 coL
@@ -111547,13 +111489,13 @@ bUC
 bxb
 cbG
 aaa
-abG
+aaa
 aaa
 aaa
 ckk
 aaa
 aaa
-abG
+aaa
 aab
 cgQ
 ctV
@@ -112753,7 +112695,6 @@ aaa
 aaa
 aaa
 aaa
-abG
 aaa
 aaa
 aaa
@@ -112761,7 +112702,8 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
+aaa
 aaa
 aab
 abN
@@ -113781,7 +113723,7 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
 aaa
 aaa
 aaa
@@ -113789,7 +113731,7 @@ aaa
 aaa
 ayh
 aaa
-abG
+aaa
 aaa
 aab
 aab
@@ -144673,7 +144615,7 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
 aaa
 aaa
 aaa
@@ -144695,7 +144637,7 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
 aaa
 aaa
 aaa
@@ -145380,18 +145322,6 @@ aaa
 aaa
 aaa
 aaa
-abG
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-abG
 aaa
 aaa
 aaa
@@ -145443,7 +145373,19 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -145696,7 +145638,7 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
 aaa
 aaa
 aaa
@@ -146151,10 +146093,6 @@ aaa
 aaa
 aaa
 aaa
-abG
-aaa
-aaa
-abG
 aaa
 aaa
 aaa
@@ -146162,7 +146100,11 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -146667,7 +146609,7 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
 aaa
 aaa
 aaa
@@ -146923,7 +146865,6 @@ aaa
 aaa
 aaa
 aaa
-abG
 aaa
 aaa
 aaa
@@ -146938,7 +146879,8 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -147179,7 +147121,6 @@ aaa
 aaa
 aaa
 aaa
-abG
 aaa
 aaa
 aaa
@@ -147196,7 +147137,8 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -148009,7 +147951,7 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
 aaa
 aaa
 aaa
@@ -148207,24 +148149,6 @@ aaa
 aaa
 aaa
 aaa
-abG
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-abG
 aaa
 aaa
 aaa
@@ -148270,7 +148194,25 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -148465,7 +148407,6 @@ aaa
 aaa
 aaa
 aaa
-abG
 aaa
 aaa
 aaa
@@ -148480,7 +148421,8 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -148723,7 +148665,7 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
 aaa
 aaa
 aaa
@@ -149042,7 +148984,6 @@ aaa
 aaa
 aaa
 aaa
-abG
 aaa
 aaa
 aaa
@@ -149064,7 +149005,8 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -149235,10 +149177,6 @@ aaa
 aaa
 aaa
 aaa
-abG
-aaa
-aaa
-abG
 aaa
 aaa
 aaa
@@ -149246,7 +149184,11 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -150006,7 +149948,6 @@ aaa
 aaa
 aaa
 aaa
-abG
 aaa
 aaa
 aaa
@@ -150017,7 +149958,8 @@ aaa
 aaa
 aaa
 aaa
-abG
+aaa
+aaa
 aaa
 aaa
 aaa
