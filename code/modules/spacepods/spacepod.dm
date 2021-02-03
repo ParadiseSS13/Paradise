@@ -91,33 +91,40 @@
 /obj/spacepod/get_cell()
 	return battery
 
-/obj/spacepod/New()
+/obj/spacepod/Initialize(mapload)
 	. = ..()
 	if(!pod_overlays)
 		pod_overlays = new/list(2)
 		pod_overlays[DAMAGE] = image(icon, icon_state="pod_damage")
 		pod_overlays[FIRE] = image(icon, icon_state="pod_fire")
+
 	if(!pod_paint_effect)
 		pod_paint_effect = new/list(4)
 		pod_paint_effect[POD_LIGHT] = image(icon,icon_state = "LIGHTS")
 		pod_paint_effect[WINDOW] = image(icon,icon_state = "Windows")
 		pod_paint_effect[RIM] = image(icon,icon_state = "RIM")
 		pod_paint_effect[PAINT] = image(icon,icon_state = "PAINT")
+
 	bound_width = 64
 	bound_height = 64
 	dir = EAST
 	battery = new battery_type(src)
+
 	add_cabin()
 	add_airtank()
-	src.use_internal_tank = 1
+
+	use_internal_tank = TRUE
 	equipment_system = new(src)
 	equipment_system.installed_modules += battery
+
 	GLOB.spacepods_list += src
+
 	cargo_hold = new/obj/item/storage/internal(src)
 	cargo_hold.w_class = 5	//so you can put bags in
 	cargo_hold.storage_slots = 0	//You need to install cargo modules to use it.
 	cargo_hold.max_w_class = 5		//fit almost anything
 	cargo_hold.max_combined_w_class = 0 //you can optimize your stash with larger items
+
 	START_PROCESSING(SSobj, src)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/create_trail)
 
@@ -603,24 +610,27 @@
 /obj/spacepod/syndi/unlocked
 	unlocked = TRUE
 
-/obj/spacepod/sec/New()
-	..()
+/obj/spacepod/sec/Initialize(mapload)
+	. = ..()
 	var/obj/item/spacepod_equipment/weaponry/burst_taser/T = new /obj/item/spacepod_equipment/weaponry/taser
 	T.loc = equipment_system
 	equipment_system.weapon_system = T
 	equipment_system.weapon_system.my_atom = src
 	equipment_system.installed_modules += T
+
 	var/obj/item/spacepod_equipment/misc/tracker/L = new /obj/item/spacepod_equipment/misc/tracker
 	L.loc = equipment_system
 	equipment_system.misc_system = L
 	equipment_system.misc_system.my_atom = src
 	equipment_system.installed_modules += L
+
 	var/obj/item/spacepod_equipment/sec_cargo/chair/C = new /obj/item/spacepod_equipment/sec_cargo/chair
 	C.loc = equipment_system
 	equipment_system.sec_cargo_system = C
 	equipment_system.sec_cargo_system.my_atom = src
 	equipment_system.installed_modules += C
 	max_passengers = 1
+
 	var/obj/item/spacepod_equipment/lock/keyed/K = new /obj/item/spacepod_equipment/lock/keyed
 	K.loc = equipment_system
 	equipment_system.lock_system = K
@@ -628,8 +638,8 @@
 	equipment_system.lock_system.id = 100000
 	equipment_system.installed_modules += K
 
-/obj/spacepod/random/New()
-	..()
+/obj/spacepod/random/Initialize(mapload)
+	. = ..()
 	icon_state = pick("pod_civ", "pod_black", "pod_mil", "pod_synd", "pod_gold", "pod_industrial")
 	switch(icon_state)
 		if("pod_civ")

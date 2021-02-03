@@ -12,6 +12,8 @@
 	anchored = TRUE
 	icon = 'icons/turf/walls/wall.dmi'
 	icon_state = "wall"
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	rad_insulation = RAD_MEDIUM_INSULATION
 
 	var/mineral = /obj/item/stack/sheet/metal
 	var/mineral_amount = 2
@@ -191,16 +193,13 @@
 
 /obj/structure/falsewall/uranium/proc/radiate()
 	if(!active)
-		if(world.time > last_event+15)
+		if(world.time > last_event + 15)
 			active = 1
-			for(var/mob/living/L in range(3,src))
-				L.apply_effect(12,IRRADIATE,0)
-			for(var/turf/simulated/wall/mineral/uranium/T in range(3,src))
+			radiation_pulse(src, 150)
+			for(var/turf/simulated/wall/mineral/uranium/T in orange(1, src))
 				T.radiate()
 			last_event = world.time
 			active = null
-			return
-	return
 /*
  * Other misc falsewall types
  */

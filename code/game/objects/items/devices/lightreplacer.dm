@@ -52,7 +52,6 @@
 	origin_tech = "magnets=3;engineering=4"
 	force = 8
 
-	var/emagged = FALSE
 	var/max_uses = 20
 	var/uses = 10
 	// How much to increase per each glass?

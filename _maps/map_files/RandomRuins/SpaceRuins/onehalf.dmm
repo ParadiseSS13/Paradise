@@ -1126,7 +1126,7 @@
 /area/ruin/onehalf/bridge)
 "cM" = (
 /obj/structure/safe/floor,
-/obj/item/tank/oxygen/red,
+/obj/item/tank/internals/oxygen/red,
 /obj/item/clothing/mask/gas/syndicate,
 /obj/item/clothing/suit/space/hardsuit/syndi,
 /obj/item/reagent_containers/food/drinks/bottle/rum,

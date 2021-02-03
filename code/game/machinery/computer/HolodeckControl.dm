@@ -332,10 +332,9 @@
 	icon_state = "grass1"
 	floor_tile = /obj/item/stack/tile/grass
 
-/turf/simulated/floor/holofloor/grass/New()
-	..()
-	spawn(1)
-		update_icon()
+/turf/simulated/floor/holofloor/grass/Initialize(mapload)
+	. = ..()
+	update_icon()
 
 /turf/simulated/floor/holofloor/grass/update_icon()
 	..()

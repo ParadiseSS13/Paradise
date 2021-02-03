@@ -58,6 +58,11 @@
 
 #define CHECK_RICOCHET_2		8192
 
+/// should the contents of this atom be acted upon
+#define RAD_PROTECT_CONTENTS_2	16384
+/// should this object be allowed to be contaminated
+#define RAD_NO_CONTAMINATE_2	32768
+
 //Reagent flags
 #define REAGENT_NOREACT			1
 

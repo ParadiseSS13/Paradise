@@ -120,6 +120,12 @@
 /obj/machinery/alarm/monitor
 	report_danger_level = FALSE
 
+/obj/machinery/alarm/engine
+	name = "engine air alarm"
+	locked = FALSE
+	req_access = null
+	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
+
 /obj/machinery/alarm/syndicate //general syndicate access
 	report_danger_level = FALSE
 	remote_control = FALSE
@@ -418,110 +424,109 @@
 		if(AALARM_MODE_SCRUBBING)
 			for(var/device_id in alarm_area.air_scrub_names)
 				send_signal(device_id, list(
-					"power"= 1,
-					"o2_scrub" = (preset==AALARM_PRESET_VOX),
-					"n2_scrub" = 0,
-					"co2_scrub"= 1,
-					"scrubbing"= 1,
-					"widenet"= 0,
+					"power" = TRUE,
+					"o2_scrub" = (preset == AALARM_PRESET_VOX),
+					"n2_scrub" = FALSE,
+					"co2_scrub" = TRUE,
+					"tox_scrub" = FALSE,
+					"n2o_scrub" = FALSE,
+					"scrubbing" = TRUE,
+					"widenet" = FALSE,
 				))
 			for(var/device_id in alarm_area.air_vent_names)
 				send_signal(device_id, list(
-					"power"= 1,
-					"checks"= 1,
-					"set_external_pressure"= ONE_ATMOSPHERE
+					"power" = TRUE,
+					"checks" = TRUE,
+					"set_external_pressure" = ONE_ATMOSPHERE
 				))
 		if(AALARM_MODE_CONTAMINATED)
 			for(var/device_id in alarm_area.air_scrub_names)
 				send_signal(device_id, list(
-					"power"= 1,
-					"co2_scrub"= 1,
-					"tox_scrub"= 1,
-					"n2o_scrub"= 1,
-					"scrubbing"= 1,
-					"widenet"= 1,
+					"power" = TRUE,
+					"co2_scrub" = TRUE,
+					"tox_scrub" = TRUE,
+					"n2o_scrub" = TRUE,
+					"scrubbing" = TRUE,
+					"widenet" = TRUE,
 				))
 			for(var/device_id in alarm_area.air_vent_names)
 				send_signal(device_id, list(
-					"power"= 1,
-					"checks"= 1,
-					"set_external_pressure"= ONE_ATMOSPHERE
+					"power" = TRUE,
+					"checks" = TRUE,
+					"set_external_pressure" = ONE_ATMOSPHERE
 				))
 		if(AALARM_MODE_VENTING)
 			for(var/device_id in alarm_area.air_scrub_names)
 				send_signal(device_id, list(
-					"power"= 1,
-					"widenet"= 0,
-					"scrubbing"= 0
+					"power" = TRUE,
+					"widenet" = FALSE,
+					"scrubbing" = FALSE
 				))
 			for(var/device_id in alarm_area.air_vent_names)
 				send_signal(device_id, list(
-					"power"= 1,
-					"checks"= 1,
-					"set_external_pressure" = ONE_ATMOSPHERE*2
+					"power" = TRUE,
+					"checks" = TRUE,
+					"set_external_pressure" = ONE_ATMOSPHERE * 2
 				))
 		if(AALARM_MODE_REFILL)
 			for(var/device_id in alarm_area.air_scrub_names)
 				send_signal(device_id, list(
-					"power"= 1,
-					"co2_scrub"= 1,
-					"tox_scrub"= 0,
-					"n2o_scrub"= 0,
-					"scrubbing"= 1,
-					"widenet"= 0,
+					"power" = TRUE,
+					"co2_scrub" = TRUE,
+					"tox_scrub" = FALSE,
+					"n2o_scrub" = FALSE,
+					"scrubbing" = TRUE,
+					"widenet" = FALSE,
 				))
 			for(var/device_id in alarm_area.air_vent_names)
 				send_signal(device_id, list(
-					"power"= 1,
-					"checks"= 1,
-					"set_external_pressure" = ONE_ATMOSPHERE*3
+					"power" = TRUE,
+					"checks" = TRUE,
+					"set_external_pressure" = ONE_ATMOSPHERE * 3
 				))
-		if(
-			AALARM_MODE_PANIC,
-			AALARM_MODE_REPLACEMENT
-		)
+		if(AALARM_MODE_PANIC,
+			AALARM_MODE_REPLACEMENT)
 			for(var/device_id in alarm_area.air_scrub_names)
 				send_signal(device_id, list(
-					"power"= 1,
-					"widenet"= 1,
-					"scrubbing"= 0
+					"power" = TRUE,
+					"widenet" = TRUE,
+					"scrubbing" = FALSE
 				))
 			for(var/device_id in alarm_area.air_vent_names)
 				send_signal(device_id, list(
-					"power"= 0
+					"power" = FALSE
 				))
-		if(
-			AALARM_MODE_SIPHON
-		)
+		if(AALARM_MODE_SIPHON)
 			for(var/device_id in alarm_area.air_scrub_names)
 				send_signal(device_id, list(
-					"power"= 1,
-					"widenet"= 0,
-					"scrubbing"= 0
+					"power" = TRUE,
+					"widenet" = FALSE,
+					"scrubbing" = FALSE
 				))
 			for(var/device_id in alarm_area.air_vent_names)
 				send_signal(device_id, list(
-					"power"= 0
+					"power" = FALSE
 				))
 
 		if(AALARM_MODE_OFF)
 			for(var/device_id in alarm_area.air_scrub_names)
 				send_signal(device_id, list(
-					"power"= 0
+					"power" = FALSE
 				))
 			for(var/device_id in alarm_area.air_vent_names)
 				send_signal(device_id, list(
-					"power"= 0
+					"power" = FALSE
 				))
 		if(AALARM_MODE_FLOOD)
 			for(var/device_id in alarm_area.air_scrub_names)
 				send_signal(device_id, list(
-					"power"=0
+					"power" = FALSE
 				))
 			for(var/device_id in alarm_area.air_vent_names)
 				send_signal(device_id, list(
-					"power"= 1,
-					"checks"= 0,
+					"power" = TRUE,
+					"checks" = 2,
+					"set_internal_pressure" = FALSE
 				))
 
 /obj/machinery/alarm/proc/apply_danger_level()

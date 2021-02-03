@@ -75,9 +75,7 @@
 	},
 /area/shuttle/administration)
 "ah" = (
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
+/obj/structure/sign/lifestar{
 	name = "NHV Asclepius"
 	},
 /turf/simulated/shuttle/wall{
@@ -125,9 +123,7 @@
 	},
 /area/shuttle/administration)
 "ak" = (
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
+/obj/structure/sign/lifestar{
 	name = "NHV Asclepius"
 	},
 /turf/simulated/shuttle/wall{
@@ -575,7 +571,7 @@
 	},
 /area/shuttle/administration)
 "bi" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -1101,7 +1097,7 @@
 	},
 /area/shuttle/administration)
 "cj" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer,
+/obj/machinery/atmospherics/unary/thermomachine/freezer,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
