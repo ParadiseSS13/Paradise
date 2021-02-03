@@ -68,6 +68,7 @@ rustg_dll.log_write.argtypes = [c_int, c_char_p * 2]
 
 timestamp = datetime.now()
 
+# Generate valid results for the time now and the next 2 seconds. This is so we can account for spurious CI lag.
 valid_results = []
 for count in range(3):
     timestamp_text = timestamp.strftime('[%Y-%m-%dT%H:%M:%S]') # 8601 is king
