@@ -160,54 +160,37 @@
 							"<span class='notice'>You [anchored ? "fasten [src] to" : "unfasten [src] from"] the floor.</span>")
 
 /obj/structure/grille/proc/build_window(obj/item/stack/sheet/S, mob/user)
-	var/dir_to_set = NORTH
+	var/dir_to_set = SOUTHWEST
 	if(!istype(S) || !user)
 		return
 	if(broken)
 		to_chat(user, "<span class='warning'>You must repair or replace [src] first!</span>")
 		return
-	if(S.get_amount() < 1)
-		to_chat(user, "<span class='warning'>You need at least one sheet of glass for that!</span>")
+	if(S.get_amount() < 2)
+		to_chat(user, "<span class='warning'>You need at least two sheets of glass for that!</span>")
 		return
 	if(!anchored)
 		to_chat(user, "<span class='warning'>[src] needs to be fastened to the floor first!</span>")
 		return
-	if(!getRelativeDirection(src, user) && (user.loc != loc))	//essentially a cardinal direction adjacent or sharing same loc check
-		to_chat(user, "<span class='warning'>You can't reach.</span>")
-		return
-	if(loc == user.loc)
-		dir_to_set = user.dir
-	else
-		if(x == user.x)
-			if(y > user.y)
-				dir_to_set = SOUTH
-			else
-				dir_to_set = NORTH
-		else if(y == user.y)
-			if(x > user.x)
-				dir_to_set = WEST
-			else
-				dir_to_set = EAST
 	for(var/obj/structure/window/WINDOW in loc)
-		if(WINDOW.dir == dir_to_set)
-			to_chat(user, "<span class='notice'>There is already a window facing this way there.</span>")
-			return
+		to_chat(user, "<span class='warning'>There is already a window there!</span>")
+		return
 	to_chat(user, "<span class='notice'>You start placing the window...</span>")
 	if(do_after(user, 20, target = src))
 		if(!loc || !anchored) //Grille destroyed or unanchored while waiting
 			return
-		for(var/obj/structure/window/WINDOW in loc)
-			if(WINDOW.dir == dir_to_set)//checking this for a 2nd time to check if a window was made while we were waiting.
-				to_chat(user, "<span class='notice'>There is already a window facing this way there.</span>")
-				return
-		var/obj/structure/window/W = new S.created_window(get_turf(src))
-		S.use(1)
+		for(var/obj/structure/window/WINDOW in loc) //checking this for a 2nd time to check if a window was made while we were waiting.
+			to_chat(user, "<span class='warning'>There is already a window there!</span>")
+			return
+		var/obj/structure/window/W = new S.full_window(drop_location())
 		W.setDir(dir_to_set)
 		W.ini_dir = dir_to_set
 		W.anchored = FALSE
-		W.state = WINDOW_OUT_OF_FRAME
-		to_chat(user, "<span class='notice'>You place the [W] on [src].</span>")
+		air_update_turf(TRUE)
 		W.update_nearby_icons()
+		W.state = WINDOW_OUT_OF_FRAME
+		S.use(2)
+		to_chat(user, "<span class='notice'>You place the [W] on [src].</span>")
 
 
 /obj/structure/grille/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
