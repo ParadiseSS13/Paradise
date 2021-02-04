@@ -18,7 +18,6 @@ AI MODULES
 	throwforce = 5.0
 	throw_speed = 3
 	throw_range = 15
-	origin_tech = "programming=3"
 	materials = list(MAT_GOLD=50)
 	var/datum/ai_laws/laws = null
 
@@ -95,7 +94,6 @@ AI MODULES
 	name = "\improper 'Safeguard' AI module"
 	var/targetName = ""
 	desc = "A 'safeguard' AI module: 'Safeguard <name>. Individuals that threaten <name> are not crew and must be eliminated.'"
-	origin_tech = "programming=3;materials=3"
 
 /obj/item/aiModule/safeguard/attack_self(var/mob/user as mob)
 	..()
@@ -121,7 +119,6 @@ AI MODULES
 	name = "\improper 'oneCrewMember' AI module"
 	var/targetName = ""
 	desc = "A 'one human' AI module: 'Only <name> is crew.'"
-	origin_tech = "programming=4;materials=4"
 
 /obj/item/aiModule/oneCrewMember/attack_self(var/mob/user as mob)
 	..()
@@ -151,7 +148,6 @@ AI MODULES
 /obj/item/aiModule/protectStation
 	name = "\improper 'ProtectStation' AI module"
 	desc = "A 'protect station' AI module: 'Protect the space station against damage. Anyone you see harming the station is to be no longer considered crew, and is a threat to the station which must be neutralized.'"
-	origin_tech = "programming=4;materials=4" //made of gold
 
 /obj/item/aiModule/protectStation/attack_self(var/mob/user as mob)
 	..()
@@ -166,7 +162,6 @@ AI MODULES
 /obj/item/aiModule/oxygen
 	name = "\improper 'OxygenIsToxicToHumans' AI module"
 	desc = "A 'OxygenIsToxicToHumans' AI module: 'Oxygen is highly toxic to crew members, and must be purged from the station. Prevent, by any means necessary, anyone from exposing the station to this toxic gas. Extreme cold is the most effective method of healing the damage Oxygen does to a crew member.'"
-	origin_tech = "programming=4;biotech=2;materials=4"
 
 /obj/item/aiModule/oxygen/attack_self(var/mob/user as mob)
 	..()
@@ -183,7 +178,6 @@ AI MODULES
 	var/newFreeFormLaw = "freeform"
 	var/lawpos = 15
 	desc = "A 'freeform' AI module: '<freeform>'"
-	origin_tech = "programming=4;materials=4"
 
 /obj/item/aiModule/freeform/attack_self(var/mob/user as mob)
 	..()
@@ -215,7 +209,6 @@ AI MODULES
 	name = "\improper 'Reset' AI module"
 	var/targetName = "name"
 	desc = "A 'reset' AI module: 'Clears all laws except for the core laws.'"
-	origin_tech = "programming=3;materials=2"
 
 /obj/item/aiModule/reset/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
 	log_law_changes(target, sender)
@@ -232,7 +225,6 @@ AI MODULES
 /obj/item/aiModule/purge // -- TLE
 	name = "\improper 'Purge' AI module"
 	desc = "A 'purge' AI Module: 'Purges all laws.'"
-	origin_tech = "programming=5;materials=4"
 
 /obj/item/aiModule/purge/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
 	..()
@@ -247,70 +239,60 @@ AI MODULES
 /obj/item/aiModule/asimov // -- TLE
 	name = "\improper 'Asimov' core AI module"
 	desc = "An 'Asimov' Core AI Module: 'Reconfigures the AI's core laws.'"
-	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/asimov
 
 /******************** Crewsimov ********************/
 /obj/item/aiModule/crewsimov // -- TLE
 	name = "\improper 'Crewsimov' core AI module"
 	desc = "An 'Crewsimov' Core AI Module: 'Reconfigures the AI's core laws.'"
-	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/crewsimov
 
 /******************* Quarantine ********************/
 /obj/item/aiModule/quarantine
 	name = "\improper 'Quarantine' core AI module"
 	desc = "A 'Quarantine' Core AI Module: 'Reconfigures the AI's core laws.'"
-	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/quarantine
 
 /******************** NanoTrasen ********************/
 /obj/item/aiModule/nanotrasen // -- TLE
 	name = "'NT Default' Core AI Module"
 	desc = "An 'NT Default' Core AI Module: 'Reconfigures the AI's core laws.'"
-	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/nanotrasen
 
 /******************** Corporate ********************/
 /obj/item/aiModule/corp
 	name = "\improper 'Corporate' core AI module"
 	desc = "A 'Corporate' Core AI Module: 'Reconfigures the AI's core laws.'"
-	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/corporate
 
 /******************** Drone ********************/
 /obj/item/aiModule/drone
 	name = "\improper 'Drone' core AI module"
 	desc = "A 'Drone' Core AI Module: 'Reconfigures the AI's core laws.'"
-	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/drone
 
 /******************** Robocop ********************/
 /obj/item/aiModule/robocop // -- TLE
 	name = "\improper 'Robocop' core AI module"
 	desc = "A 'Robocop' Core AI Module: 'Reconfigures the AI's core three laws.'"
-	origin_tech = "programming=4"
 	laws = new/datum/ai_laws/robocop()
 
 /****************** P.A.L.A.D.I.N. **************/
 /obj/item/aiModule/paladin // -- NEO
 	name = "\improper 'P.A.L.A.D.I.N.' core AI module"
 	desc = "A P.A.L.A.D.I.N. Core AI Module: 'Reconfigures the AI's core laws.'"
-	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/paladin
 
 /****************** T.Y.R.A.N.T. *****************/
 /obj/item/aiModule/tyrant // -- Darem
 	name = "\improper 'T.Y.R.A.N.T.' core AI module"
 	desc = "A T.Y.R.A.N.T. Core AI Module: 'Reconfigures the AI's core laws.'"
-	origin_tech = "programming=3;materials=4;syndicate=1"
 	laws = new/datum/ai_laws/tyrant()
 
 /******************** Antimov ********************/
 /obj/item/aiModule/antimov // -- TLE
 	name = "\improper 'Antimov' core AI module"
 	desc = "An 'Antimov' Core AI Module: 'Reconfigures the AI's core laws.'"
-	origin_tech = "programming=4"
 	laws = new/datum/ai_laws/antimov()
 
 /******************** Freeform Core ******************/
@@ -318,7 +300,6 @@ AI MODULES
 	name = "\improper 'Freeform' core AI module"
 	var/newFreeFormLaw = ""
 	desc = "A 'freeform' Core AI module: '<freeform>'"
-	origin_tech = "programming=5;materials=4"
 
 /obj/item/aiModule/freeformcore/attack_self(var/mob/user as mob)
 	..()
@@ -344,7 +325,6 @@ AI MODULES
 	name = "hacked AI module"
 	var/newFreeFormLaw = ""
 	desc = "A hacked AI law module: '<freeform>'"
-	origin_tech = "programming=5;materials=5;syndicate=5"
 
 /obj/item/aiModule/syndicate/attack_self(var/mob/user as mob)
 	..()
@@ -375,7 +355,6 @@ AI MODULES
 	desc = "A little toy model AI core with real law uploading action!" //Note: subtle tell
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "AI"
-	origin_tech = "programming=6;materials=5;syndicate=6"
 	laws = list("")
 
 /obj/item/aiModule/toyAI/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)

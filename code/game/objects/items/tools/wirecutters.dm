@@ -10,7 +10,6 @@
 	throw_range = 7
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=80)
-	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("pinched", "nipped")
 	hitsound = 'sound/items/wirecutter.ogg'
 	usesound = 'sound/items/wirecutter.ogg'
@@ -57,7 +56,6 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "cutters"
 	toolspeed = 0.1
-	origin_tech = "materials=5;engineering=4;abductor=3"
 	random_color = FALSE
 
 /obj/item/wirecutters/cyborg
@@ -70,7 +68,6 @@
 	desc = "A set of jaws of life, the magic of science has managed to fit it down into a device small enough to fit in a tool belt. It's fitted with a cutting head."
 	icon_state = "jaws_cutter"
 	item_state = "jawsoflife"
-	origin_tech = "materials=2;engineering=2"
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	usesound = 'sound/items/jaws_cut.ogg'
 	toolspeed = 0.25

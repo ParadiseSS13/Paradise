@@ -12,7 +12,6 @@
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 6
-	origin_tech = "biotech=3"
 	var/Uses = 1 // uses before it goes inert
 
 /obj/item/slime_extract/attackby(obj/item/O, mob/user)
@@ -123,7 +122,6 @@
 	name = "slime potion"
 	desc = "A hard yet gelatinous capsule excreted by a slime, containing mysterious substances."
 	w_class = WEIGHT_CLASS_TINY
-	origin_tech = "biotech=4"
 
 /obj/item/slimepotion/afterattack(obj/item/reagent_containers/target, mob/user, proximity_flag)
 	if(!proximity_flag)
@@ -173,7 +171,6 @@
 	desc = "A miraculous chemical mix that can raise the intelligence of creatures to human levels."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle19"
-	origin_tech = "biotech=6"
 	var/list/not_interested = list()
 	var/being_used = 0
 	var/sentience_type = SENTIENCE_ORGANIC
@@ -231,7 +228,6 @@
 	desc = "A strange slime-based chemical that, when used, allows the user to transfer their consciousness to a lesser being."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle19"
-	origin_tech = "biotech=6"
 	var/prompted = FALSE
 	var/animal_type = SENTIENCE_ORGANIC
 
@@ -352,7 +348,6 @@
 	desc = "A potent chemical mix that will remove the slowdown from any item."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle3"
-	origin_tech = "biotech=5"
 
 /obj/item/slimepotion/speed/afterattack(obj/O, mob/user, proximity_flag)
 	if(!proximity_flag)
@@ -392,7 +387,6 @@
 	desc = "A potent chemical mix that will fireproof any article of clothing. Has three uses."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle17"
-	origin_tech = "biotech=5"
 	resistance_flags = FIRE_PROOF
 	var/uses = 3
 

@@ -5,7 +5,6 @@
 	icon_state = "bottle19"
 	desc = "Inject a hivelord core with this stabilizer to preserve its healing powers indefinitely."
 	w_class = WEIGHT_CLASS_TINY
-	origin_tech = "biotech=3"
 
 /obj/item/hivelordstabilizer/afterattack(obj/item/organ/internal/M, mob/user)
 	. = ..()

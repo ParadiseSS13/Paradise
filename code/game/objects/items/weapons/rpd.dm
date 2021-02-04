@@ -25,7 +25,6 @@
 	materials = list(MAT_METAL = 75000, MAT_GLASS = 37500)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
 	resistance_flags = FIRE_PROOF
-	origin_tech = "engineering=4;materials=2"
 	var/datum/effect_system/spark_spread/spark_system
 	var/lastused
 	var/iconrotation = 0 //Used to orient icons and pipes
@@ -69,7 +68,6 @@
 	desc = "This device can rapidly dispense atmospherics and disposals piping, manipulate loose piping, and recycle any detached pipes it is applied to, at any range."
 	icon_state = "brpd"
 	materials = list(MAT_METAL = 75000, MAT_GLASS = 37500, MAT_SILVER = 3000)
-	origin_tech = "engineering=4;materials=2;bluespace=3"
 	ranged = TRUE
 	primary_sound = 'sound/items/PSHOOM.ogg'
 	alt_sound = 'sound/items/PSHOOM_2.ogg'

@@ -5,7 +5,6 @@
 	icon_state = "kit"
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_SMALL
-	origin_tech = "combat=2"
 	var/open = 0
 
 /obj/item/conversion_kit/New()

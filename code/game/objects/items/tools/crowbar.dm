@@ -12,7 +12,6 @@
 	item_state = "crowbar"
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50)
-	origin_tech = "engineering=1;combat=1"
 	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
 	toolspeed = 1
 
@@ -39,7 +38,6 @@
 	usesound = 'sound/weapons/sonic_jackhammer.ogg'
 	icon_state = "crowbar"
 	toolspeed = 0.1
-	origin_tech = "combat=4;engineering=4;abductor=3"
 
 /obj/item/crowbar/large
 	name = "crowbar"
@@ -66,7 +64,6 @@
 	icon_state = "jaws_pry"
 	item_state = "jawsoflife"
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
-	origin_tech = "materials=2;engineering=2"
 	usesound = 'sound/items/jaws_pry.ogg'
 	force = 15
 	toolspeed = 0.25

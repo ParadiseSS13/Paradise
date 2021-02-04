@@ -50,7 +50,6 @@
 	desc = "Used for seeing walls, floors, and stuff through anything."
 	icon_state = "meson"
 	item_state = "meson"
-	origin_tech = "magnets=1;engineering=2"
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	prescription_upgradable = 1
@@ -66,7 +65,6 @@
 	name = "Night Vision Optical Meson Scanner"
 	desc = "An Optical Meson Scanner fitted with an amplified visible light spectrum overlay, providing greater visual clarity in darkness."
 	icon_state = "nvgmeson"
-	origin_tech = "magnets=4;engineering=5;plasmatech=4"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	prescription_upgradable = 0
@@ -100,7 +98,6 @@
 	desc = "A pair of snazzy goggles used to protect against chemical spills. Fitted with an analyzer for scanning items and reagents."
 	icon_state = "purple"
 	item_state = "glasses"
-	origin_tech = "magnets=2;engineering=1"
 	prescription_upgradable = 0
 	scan_reagents = 1 //You can see reagents while wearing science goggles
 	resistance_flags = ACID_PROOF
@@ -139,7 +136,6 @@
 	desc = "You can totally see in the dark now!"
 	icon_state = "night"
 	item_state = "glasses"
-	origin_tech = "materials=4;magnets=4;plasmatech=4;engineering=4"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
@@ -179,7 +175,6 @@
 	desc = "Very confusing glasses."
 	icon_state = "material"
 	item_state = "glasses"
-	origin_tech = "magnets=3;engineering=3"
 	vision_flags = SEE_OBJS
 
 	sprite_sheets = list(
@@ -199,7 +194,6 @@
 /obj/item/clothing/glasses/material/lighting
 	name = "Neutron Goggles"
 	desc = "These odd glasses use a form of neutron-based imaging to completely negate the effects of light and darkness."
-	origin_tech = null
 	vision_flags = 0
 
 	flags = NODROP
@@ -392,7 +386,6 @@
 	desc = "Thermals in the shape of glasses."
 	icon_state = "thermal"
 	item_state = "glasses"
-	origin_tech = "magnets=3"
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	flash_protect = -1

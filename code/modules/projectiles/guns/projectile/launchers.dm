@@ -35,7 +35,6 @@
 	desc = "A prototype pistol designed to fire self propelled rockets."
 	icon_state = "gyropistol"
 	fire_sound = 'sound/effects/explosion1.ogg'
-	origin_tech = "combat=5"
 	mag_type = /obj/item/ammo_box/magazine/m75
 	can_holster = TRUE // Override default automatic setting since it is a handgun sized gun
 	burst_size = 1
@@ -57,7 +56,6 @@
 	icon_state = "speargun"
 	item_state = "speargun"
 	w_class = WEIGHT_CLASS_BULKY
-	origin_tech = "combat=4;engineering=4"
 	force = 10
 	can_suppress = 0
 	mag_type = /obj/item/ammo_box/magazine/internal/speargun

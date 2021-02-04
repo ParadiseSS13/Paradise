@@ -176,7 +176,6 @@
 	name = "arm-mounted laser implant"
 	desc = "A variant of the arm cannon implant that fires lethal laser beams. The cannon emerges from the subject's arm and remains inside when not in use."
 	icon_state = "arm_laser"
-	origin_tech = "materials=4;combat=4;biotech=4;powerstorage=4;syndicate=3"
 	contents = newlist(/obj/item/gun/energy/laser/mounted)
 
 /obj/item/organ/internal/cyberimp/arm/gun/laser/l
@@ -186,7 +185,6 @@
 	name = "arm-mounted taser implant"
 	desc = "A variant of the arm cannon implant that fires electrodes and disabler shots. The cannon emerges from the subject's arm and remains inside when not in use."
 	icon_state = "arm_taser"
-	origin_tech = "materials=5;combat=5;biotech=4;powerstorage=4"
 	contents = newlist(/obj/item/gun/energy/gun/advtaser/mounted)
 
 /obj/item/organ/internal/cyberimp/arm/gun/taser/l
@@ -196,7 +194,6 @@
 /obj/item/organ/internal/cyberimp/arm/toolset
 	name = "integrated toolset implant"
 	desc = "A stripped-down version of engineering cyborg toolset, designed to be installed on subject's arm. Contains all neccessary tools."
-	origin_tech = "materials=3;engineering=4;biotech=3;powerstorage=4"
 	contents = newlist(/obj/item/screwdriver/cyborg, /obj/item/wrench/cyborg, /obj/item/weldingtool/largetank/cyborg,
 		/obj/item/crowbar/cyborg, /obj/item/wirecutters/cyborg, /obj/item/multitool/cyborg)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/clothing/belts.dmi')
@@ -215,7 +212,6 @@
 /obj/item/organ/internal/cyberimp/arm/hacking
 	name = "hacking arm implant"
 	desc = "A small arm implant containing an advanced screwdriver, wirecutters, and multitool designed for engineers and on-the-field machine modification. Actually legal, despite what the name may make you think."
-	origin_tech = "materials=3;engineering=4;biotech=3;powerstorage=4;abductor=3"
 	contents = newlist(/obj/item/screwdriver/cyborg, /obj/item/wirecutters/cyborg, /obj/item/multitool/abductor)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/device.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "hacktool")
@@ -227,13 +223,11 @@
 	name = "arm-mounted energy blade"
 	desc = "An illegal, and highly dangerous cybernetic implant that can project a deadly blade of concentrated enregy."
 	contents = newlist(/obj/item/melee/energy/blade/hardlight)
-	origin_tech = "materials=4;combat=5;biotech=3;powerstorage=2;syndicate=5"
 
 /obj/item/organ/internal/cyberimp/arm/medibeam
 	name = "integrated medical beamgun"
 	desc = "A cybernetic implant that allows the user to project a healing beam from their hand."
 	contents = newlist(/obj/item/gun/medbeam)
-	origin_tech = "materials=5;combat=2;biotech=5;powerstorage=4;syndicate=1"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/chronos.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "chronogun")
 
@@ -241,7 +235,6 @@
 	name = "integrated high-intensity photon projector" //Why not
 	desc = "An integrated projector mounted onto a user's arm, that is able to be used as a powerful flash."
 	contents = newlist(/obj/item/flash/armimplant)
-	origin_tech = "materials=4;combat=3;biotech=4;magnets=4;powerstorage=3"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/device.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "flash")
 
@@ -255,13 +248,11 @@
 	name = "arm electrification implant"
 	desc = "An illegal combat implant that allows the user to administer disabling shocks from their arm."
 	contents = newlist(/obj/item/borg/stun)
-	origin_tech = "materials=3;combat=5;biotech=4;powerstorage=4;syndicate=3"
 
 /obj/item/organ/internal/cyberimp/arm/combat
 	name = "combat cybernetics implant"
 	desc = "A powerful cybernetic implant that contains combat modules built into the user's arm"
 	contents = newlist(/obj/item/melee/energy/blade/hardlight, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/flash/armimplant)
-	origin_tech = "materials=5;combat=7;biotech=5;powerstorage=5;syndicate=6;programming=5"
 
 /obj/item/organ/internal/cyberimp/arm/combat/New()
 	..()
@@ -281,7 +272,6 @@
 	name = "surgical toolset implant"
 	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm"
 	contents = newlist(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/bonesetter/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/bonegel/augment, /obj/item/FixOVein/augment, /obj/item/surgicaldrill/augment)
-	origin_tech = "materials=3;engineering=3;biotech=3;programming=2;magnets=3"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/storage.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "duffel-med")
 
@@ -293,7 +283,6 @@
 	name = "janitorial toolset implant"
 	desc = "A set of janitorial tools hidden behind a concealed panel on the user's arm"
 	contents = newlist(/obj/item/mop/advanced, /obj/item/soap, /obj/item/lightreplacer, /obj/item/holosign_creator, /obj/item/melee/flyswatter, /obj/item/reagent_containers/spray/cleaner/safety)
-	origin_tech = "materials=3;engineering=4;biotech=3"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/clothing/belts.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "janibelt")
 
@@ -305,7 +294,6 @@
 	name = "botanical toolset implant"
 	desc = "A set of botanical tools hidden behind a concealed panel on the user's arm"
 	contents = newlist(/obj/item/plant_analyzer, /obj/item/cultivator, /obj/item/hatchet, /obj/item/shovel/spade, /obj/item/wirecutters, /obj/item/wrench)
-	origin_tech = "materials=3;engineering=4;biotech=3"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/clothing/belts.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "botanybelt")
 
@@ -317,7 +305,6 @@
 /obj/item/organ/internal/cyberimp/arm/power_cord
 	name = "APC-compatible power adapter implant"
 	desc = "An implant commonly installed inside IPCs in order to allow them to easily collect energy from their environment"
-	origin_tech = "materials=3;biotech=2;powerstorage=3"
 	contents = newlist(/obj/item/apc_powercord)
 
 /obj/item/organ/internal/cyberimp/arm/power_cord/emp_act(severity)

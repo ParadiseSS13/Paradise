@@ -4,7 +4,6 @@
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "delivery"
 	item_state = "flashbang"
-	origin_tech = "materials=3;magnets=4"
 	var/spawner_type = null // must be an object path
 	var/deliveryamt = 1 // amount of type to deliver
 	spawner_type = /mob/living/simple_animal/hostile/viscerator
@@ -35,20 +34,17 @@
 	name = "manhack delivery grenade"
 	spawner_type = /mob/living/simple_animal/hostile/viscerator
 	deliveryamt = 5
-	origin_tech = "materials=3;magnets=4;syndicate=3"
 
 /obj/item/grenade/spawnergrenade/spesscarp
 	name = "carp delivery grenade"
 	spawner_type = /mob/living/simple_animal/hostile/carp
 	deliveryamt = 5
-	origin_tech = "materials=3;magnets=4;syndicate=3"
 
 /obj/item/grenade/spawnergrenade/feral_cats
 	name = "feral cat delivery grenade"
 	desc = "This grenade contains 5 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
 	spawner_type = /mob/living/simple_animal/hostile/feral_cat
 	deliveryamt = 5
-	origin_tech = "materials=3;magnets=4;syndicate=3"
 
 /obj/item/grenade/spawnergrenade/feral_cats/prime()			//Own proc for this because the regular one would flash people which was dumb.
 	update_mob()

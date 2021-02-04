@@ -33,8 +33,6 @@ SUBSYSTEM_DEF(shuttle)
 	var/points_per_design = 25			//points gained per research design returned
 	var/centcom_message = null			//Remarks from Centcom on how well you checked the last order.
 	var/list/discoveredPlants = list()	//Typepaths for unusual plants we've already sent CentComm, associated with their potencies
-	var/list/techLevels = list()
-	var/list/researchDesigns = list()
 	var/list/shoppinglist = list()
 	var/list/requestlist = list()
 	var/list/supply_packs = list()

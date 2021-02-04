@@ -10,7 +10,6 @@
 	var/mob/living/attacher = null
 	var/valve_open = 0
 	var/toggle = 1
-	origin_tech = "materials=1;engineering=1"
 
 /obj/item/transfer_valve/Destroy()
 	QDEL_NULL(tank_one)

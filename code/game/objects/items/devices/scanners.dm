@@ -17,7 +17,6 @@ REAGENT SCANNER
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
 	materials = list(MAT_METAL=150)
-	origin_tech = "magnets=1;engineering=1"
 
 /obj/item/t_scanner/Destroy()
 	if(on)
@@ -93,7 +92,6 @@ REAGENT SCANNER
 	throw_speed = 3
 	throw_range = 7
 	materials = list(MAT_METAL=200)
-	origin_tech = "magnets=1;biotech=1"
 	var/mode = 1
 	var/advanced = FALSE
 
@@ -296,7 +294,6 @@ REAGENT SCANNER
 	icon_state = "healthupgrade"
 	desc = "An upgrade unit that can be installed on a health analyzer for expanded functionality."
 	w_class = WEIGHT_CLASS_TINY
-	origin_tech = "magnets=2;biotech=2"
 	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/analyzer
@@ -312,7 +309,6 @@ REAGENT SCANNER
 	throw_speed = 3
 	throw_range = 7
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
-	origin_tech = "magnets=1;engineering=1"
 	var/cooldown = FALSE
 	var/cooldown_time = 250
 	var/accuracy // 0 is the best accuracy.
@@ -448,7 +444,6 @@ REAGENT SCANNER
 	throw_speed = 4
 	throw_range = 20
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
-	origin_tech = "magnets=2;biotech=1;plasmatech=2"
 	var/details = FALSE
 	var/datatoprint = ""
 	var/scanning = TRUE
@@ -488,7 +483,6 @@ REAGENT SCANNER
 	name = "advanced reagent scanner"
 	icon_state = "adv_spectrometer"
 	details = TRUE
-	origin_tech = "magnets=4;biotech=3;plasmatech=3"
 
 /obj/item/reagent_scanner/proc/print_report()
 	if(!scanning)
@@ -517,7 +511,6 @@ REAGENT SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "adv_spectrometer_s"
 	item_state = "analyzer"
-	origin_tech = "biotech=2"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	throwforce = 0
@@ -577,7 +570,6 @@ REAGENT SCANNER
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 5
 	throw_range = 10
-	origin_tech = "magnets=6;biotech=6"
 	var/obj/item/stock_parts/cell/cell
 	var/cell_type = /obj/item/stock_parts/cell/upgraded
 	var/ready = TRUE // Ready to scan

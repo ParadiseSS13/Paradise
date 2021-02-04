@@ -250,7 +250,6 @@
 	materials = list(MAT_METAL=3000)
 	volume = 50
 	amount_per_transfer_from_this = 10
-	origin_tech = "materials=2;engineering=3;plasmatech=3"
 	container_type = OPENCONTAINER
 
 /obj/item/reagent_containers/glass/beaker/noreact/New()
@@ -266,7 +265,6 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,50,100,300)
 	container_type = OPENCONTAINER
-	origin_tech = "bluespace=5;materials=4;plasmatech=4"
 
 /obj/item/reagent_containers/glass/beaker/cryoxadone
 	list_reagents = list("cryoxadone" = 30)

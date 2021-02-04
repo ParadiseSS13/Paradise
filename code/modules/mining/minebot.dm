@@ -321,7 +321,6 @@
 	icon_state = "door_electronics"
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	sentience_type = SENTIENCE_MINEBOT
-	origin_tech = "programming=6"
 	var/base_health_add = 5 //sentient minebots are penalized for beign sentient; they have their stats reset to normal plus these values
 	var/base_damage_add = 1 //this thus disables other minebot upgrades
 	var/base_speed_add = 1

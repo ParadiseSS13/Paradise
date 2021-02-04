@@ -95,7 +95,6 @@
 	desc = "Nutritious!"
 	icon_state = "glowberrypile"
 	filling_color = "#7CFC00"
-	origin_tech = "plasmatech=6"
 	light_color = "#006622"
 	distill_reagent = null
 	wine_power = 0.6

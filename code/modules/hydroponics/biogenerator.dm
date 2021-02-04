@@ -14,13 +14,12 @@
 	var/efficiency = 0
 	var/productivity = 0
 	var/max_items = 40
-	var/datum/research/files
+	var/datum/techweb/specialized/autounlocking/biogenerator/stored_research
 	var/list/show_categories = list("Food", "Botany Chemicals", "Organic Materials", "Leather and Cloth")
 	var/list/timesFiveCategories = list("Food", "Botany Chemicals", "Organic Materials")
 
 /obj/machinery/biogenerator/New()
 	..()
-	files = new /datum/research/biogenerator(src)
 	create_reagents(1000)
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/biogenerator(null)
@@ -30,9 +29,13 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
+/obj/machinery/biogenerator/Initialize(mapload)
+	. = ..()
+	stored_research = new
+
 /obj/machinery/biogenerator/Destroy()
 	QDEL_NULL(beaker)
-	QDEL_NULL(files)
+	QDEL_NULL(stored_research)
 	return ..()
 
 /obj/machinery/biogenerator/ex_act(severity)
@@ -152,7 +155,7 @@
 		processing = 1
 		var/obj/item/disk/design_disk/D = O
 		if(do_after(user, 10, target = src))
-			files.AddDesign2Known(D.blueprint)
+			stored_research.add_design(D.blueprint)
 		processing = 0
 		return 1
 	else
@@ -184,8 +187,8 @@
 			var/categories = show_categories.Copy()
 			for(var/V in categories)
 				categories[V] = list()
-			for(var/V in files.known_designs)
-				var/datum/design/D = files.known_designs[V]
+			for(var/V in stored_research.researched_designs)
+				var/datum/design/D = stored_research.researched_designs[V]
 				for(var/C in categories)
 					if(C in D.category)
 						categories[C] += D

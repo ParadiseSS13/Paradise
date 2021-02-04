@@ -10,7 +10,6 @@
 	throw_range = 7
 	flags = CONDUCT
 	materials = list(MAT_METAL = 300, MAT_GLASS = 300)
-	origin_tech = "magnets=2;combat=1"
 
 	var/times_used = 0 //Number of times it's been used.
 	var/broken = 0     //Is the flash burnt out?
@@ -168,10 +167,6 @@
 					to_chat(user, "<span class='warning'>They must be conscious before you can convert [M.p_them()]!</span>")
 			else
 				to_chat(user, "<span class='warning'>This mind is so vacant that it is not susceptible to influence!</span>")
-
-
-/obj/item/flash/cyborg
-	origin_tech = null
 
 /obj/item/flash/cyborg/attack(mob/living/M, mob/user)
 	..()

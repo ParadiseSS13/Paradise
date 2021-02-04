@@ -331,7 +331,6 @@
 	bomb_state = "largebomb"
 	allowed_containers = list(/obj/item/reagent_containers/glass,/obj/item/reagent_containers/food/condiment,
 								/obj/item/reagent_containers/food/drinks)
-	origin_tech = "combat=3;engineering=3"
 	affected_area = 5
 	ignition_temp = 25 // Large grenades are slightly more effective at setting off heat-sensitive mixtures than smaller grenades.
 	threatscale = 1.1	// 10% more effective.
@@ -382,7 +381,6 @@
 	name = "pyro grenade"
 	desc = "A custom made pyrotechnical grenade. It heats up and ignites its contents upon detonation."
 	icon_state = "pyrog"
-	origin_tech = "combat=4;engineering=4"
 	affected_area = 3
 	ignition_temp = 500 // This is enough to expose a hotspot.
 
@@ -390,7 +388,6 @@
 	name = "advanced release grenade"
 	desc = "A custom made advanced release grenade. It is able to be detonated more than once. Can be configured using a multitool."
 	icon_state = "timeg"
-	origin_tech = "combat=3;engineering=4"
 	var/unit_spread = 10 // Amount of units per repeat. Can be altered with a multitool.
 
 /obj/item/grenade/chem_grenade/adv_release/multitool_act(mob/user, obj/item/I)

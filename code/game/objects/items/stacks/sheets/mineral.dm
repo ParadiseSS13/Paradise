@@ -129,7 +129,6 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 	singular_name = "sandstone brick"
 	icon_state = "sheet-sandstone"
 	throw_range = 5
-	origin_tech = "materials=1"
 	sheettype = "sandstone"
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 
@@ -179,7 +178,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	name = "diamond"
 	icon_state = "sheet-diamond"
 	singular_name = "diamond"
-	origin_tech = "materials=6"
 	sheettype = "diamond"
 	merge_type = /obj/item/stack/sheet/mineral/diamond
 	materials = list(MAT_DIAMOND=MINERAL_MATERIAL_AMOUNT)
@@ -196,7 +194,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	name = "uranium"
 	icon_state = "sheet-uranium"
 	singular_name = "uranium sheet"
-	origin_tech = "materials=5"
 	sheettype = "uranium"
 	merge_type = /obj/item/stack/sheet/mineral/uranium
 	materials = list(MAT_URANIUM=MINERAL_MATERIAL_AMOUNT)
@@ -210,7 +207,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	name = "solid plasma"
 	icon_state = "sheet-plasma"
 	singular_name = "plasma sheet"
-	origin_tech = "plasmatech=2;materials=2"
 	sheettype = "plasma"
 	merge_type = /obj/item/stack/sheet/mineral/plasma
 	materials = list(MAT_PLASMA=MINERAL_MATERIAL_AMOUNT)
@@ -253,7 +249,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	name = "gold"
 	icon_state = "sheet-gold"
 	singular_name = "gold bar"
-	origin_tech = "materials=4"
 	sheettype = "gold"
 	merge_type = /obj/item/stack/sheet/mineral/gold
 	materials = list(MAT_GOLD=MINERAL_MATERIAL_AMOUNT)
@@ -267,7 +262,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	name = "silver"
 	icon_state = "sheet-silver"
 	singular_name = "silver bar"
-	origin_tech = "materials=4"
 	sheettype = "silver"
 	merge_type = /obj/item/stack/sheet/mineral/silver
 	materials = list(MAT_SILVER=MINERAL_MATERIAL_AMOUNT)
@@ -281,7 +275,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	name = "bananium"
 	icon_state = "sheet-clown"
 	singular_name = "bananium sheet"
-	origin_tech = "materials=4"
 	sheettype = "bananium"
 	merge_type = /obj/item/stack/sheet/mineral/bananium
 	materials = list(MAT_BANANIUM=MINERAL_MATERIAL_AMOUNT)
@@ -298,7 +291,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	name = "tranquillite"
 	icon_state = "sheet-mime"
 	singular_name = "beret"
-	origin_tech = "materials=4"
 	sheettype = "tranquillite"
 	merge_type = /obj/item/stack/sheet/mineral/tranquillite
 	materials = list(MAT_TRANQUILLITE=MINERAL_MATERIAL_AMOUNT)
@@ -372,7 +364,6 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 /obj/item/stack/sheet/mineral/enruranium
 	name = "enriched uranium"
 	icon_state = "sheet-enruranium"
-	origin_tech = "materials=6"
 	materials = list(MAT_URANIUM=3000)
 
 //Alien Alloy
@@ -385,7 +376,6 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 1
-	origin_tech = "materials=6;abductor=1"
 	sheettype = "abductor"
 
 /obj/item/stack/sheet/mineral/abductor/fifty
@@ -400,7 +390,6 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	desc = "A strange mineral used in the construction of sentient golems."
 	icon_state = "sheet-adamantine"
 	singular_name = "adamantine sheet"
-	origin_tech = "materials=5"
 	merge_type = /obj/item/stack/sheet/mineral/adamantine
 	wall_allowed = FALSE
 

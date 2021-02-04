@@ -44,7 +44,6 @@
 	var/obj/item/r_hand_obj = null
 	implant_color = "#DE7E00"
 	slot = "brain_antidrop"
-	origin_tech = "materials=4;programming=5;biotech=4"
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/ui_action_click()
@@ -124,7 +123,6 @@
 	desc = "This implant will automatically give you back control over your central nervous system, reducing downtime when stunned. Incompatible with the Neural Jumpstarter."
 	implant_color = "#FFFF00"
 	slot = "brain_antistun"
-	origin_tech = "materials=5;programming=4;biotech=5"
 	var/stun_max_amount = 2
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
@@ -157,7 +155,6 @@
 /obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
 	name = "Hardened CNS Rebooter implant"
 	desc = "A military-grade version of the standard implant, for NT's more elite forces."
-	origin_tech = "materials=6;programming=5;biotech=5"
 	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep
@@ -165,7 +162,6 @@
 	desc = "This implant will automatically attempt to jolt you awake when it detects you have fallen unconscious. Has a short cooldown, incompatible with the CNS Rebooter."
 	implant_color = "#0356fc"
 	slot = "brain_antistun" //one or the other not both.
-	origin_tech = "materials=5;programming=4;biotech=5"
 	var/cooldown = FALSE
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/on_life()
@@ -199,7 +195,6 @@
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened
 	name = "Hardened Neural Jumpstarter implant"
 	desc = "A military-grade version of the standard implant, for NT's more elite forces."
-	origin_tech = "materials=6;programming=5;biotech=5"
 	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened/compatible
@@ -213,7 +208,6 @@
 	desc = "<span class='sans'>Uh oh.</span>"
 	implant_color = "#DEDE00"
 	slot = "brain_clownvoice"
-	origin_tech = "materials=2;biotech=2"
 
 /obj/item/organ/internal/cyberimp/brain/speech_translator //actual translating done in human/handle_speech_problems
 	name = "Speech translator implant"
@@ -221,7 +215,6 @@
 	implant_color = "#C0C0C0"
 	slot = "brain_speechtranslator"
 	w_class = WEIGHT_CLASS_TINY
-	origin_tech = "materials=4;biotech=6"
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 	var/active = TRUE
 	var/speech_span = ""
@@ -267,7 +260,6 @@
 	icon_state = "implant_mask"
 	slot = "breathing_tube"
 	w_class = WEIGHT_CLASS_TINY
-	origin_tech = "materials=2;biotech=3"
 
 /obj/item/organ/internal/cyberimp/mouth/breathing_tube/emp_act(severity)
 	if(emp_proof)
@@ -293,7 +285,6 @@
 	var/synthesizing = 0
 	var/poison_amount = 5
 	slot = "stomach"
-	origin_tech = "materials=2;powerstorage=2;biotech=2"
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/on_life()
 	if(!owner)
@@ -324,14 +315,12 @@
 	implant_color = "#006607"
 	hunger_threshold = NUTRITION_LEVEL_HUNGRY
 	poison_amount = 10
-	origin_tech = "materials=4;powerstorage=3;biotech=3"
 
 /obj/item/organ/internal/cyberimp/chest/reviver
 	name = "Reviver implant"
 	desc = "This implant will attempt to revive you if you lose consciousness. For the faint of heart!"
 	icon_state = "chest_implant"
 	implant_color = "#AD0000"
-	origin_tech = "materials=5;programming=4;biotech=4"
 	slot = "heartdrive"
 	var/revive_cost = 0
 	var/reviving = FALSE

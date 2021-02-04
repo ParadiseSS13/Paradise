@@ -3,7 +3,6 @@
 	singular_name = "plasma floor tile"
 	desc = "A tile made out of highly flammable plasma. This can only end well."
 	icon_state = "tile_plasma"
-	origin_tech = "plasmatech=1"
 	turf_type = /turf/simulated/floor/mineral/plasma
 	mineralType = "plasma"
 	materials = list(MAT_PLASMA=500)
@@ -90,7 +89,6 @@ GLOBAL_LIST_INIT(silverfancy_tile_recipes, list ( \
 	singular_name = "diamond floor tile"
 	desc = "A tile made out of diamond. Wow, just, wow."
 	icon_state = "tile_diamond"
-	origin_tech = "materials=2"
 	turf_type = /turf/simulated/floor/mineral/diamond
 	mineralType = "diamond"
 	materials = list(MAT_DIAMOND=500)
@@ -119,7 +117,6 @@ GLOBAL_LIST_INIT(silverfancy_tile_recipes, list ( \
 	desc = "A tile made out of alien alloy."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "tile_abductor"
-	origin_tech = "materials=6;abductor=1"
 	turf_type = /turf/simulated/floor/mineral/abductor
 	mineralType = "abductor"
 

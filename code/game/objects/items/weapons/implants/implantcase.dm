@@ -7,7 +7,6 @@
 	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
-	origin_tech = "materials=1;biotech=2"
 	container_type = OPENCONTAINER | INJECTABLE | DRAWABLE
 	materials = list(MAT_GLASS=500)
 	var/obj/item/implant/imp = null
@@ -16,12 +15,11 @@
 /obj/item/implantcase/update_icon()
 	if(imp)
 		icon_state = "implantcase-[imp.item_color]"
-		origin_tech = imp.origin_tech
+		// why the fuck are these updates in upate_icon()
 		flags = imp.flags & ~DROPDEL
 		reagents = imp.reagents
 	else
 		icon_state = "implantcase-0"
-		origin_tech = initial(origin_tech)
 		flags = initial(flags)
 		reagents = null
 

@@ -18,7 +18,6 @@
 	throw_range = 7
 	throw_speed = 3
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
-	origin_tech = "magnets=1;engineering=2"
 	toolspeed = 1
 	tool_behaviour = TOOL_MULTITOOL
 	hitsound = 'sound/weapons/tap.ogg'
@@ -52,7 +51,6 @@
 	var/detect_state = PROXIMITY_NONE
 	var/rangealert = 8	//Glows red when inside
 	var/rangewarning = 20 //Glows yellow when inside
-	origin_tech = "magnets=1;engineering=2;syndicate=1"
 
 /obj/item/multitool/ai_detect/New()
 	..()
@@ -116,5 +114,4 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "multitool"
 	toolspeed = 0.1
-	origin_tech = "magnets=5;engineering=5;abductor=3"
 	shows_wire_information = TRUE

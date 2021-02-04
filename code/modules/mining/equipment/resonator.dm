@@ -4,7 +4,6 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "resonator"
 	item_state = "resonator"
-	origin_tech = "magnets=3;engineering=3"
 	desc = "A handheld device that creates small fields of energy that resonate until they detonate, crushing rock. It can also be activated without a target to create a field at the user's location, to act as a delayed time trap. It's more effective in a vaccuum."
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 15
@@ -18,7 +17,6 @@
 	name = "upgraded resonator"
 	desc = "An upgraded version of the resonator that can produce more fields at once."
 	icon_state = "resonator_u"
-	origin_tech = "materials=4;powerstorage=3;engineering=3;magnets=3"
 	fieldlimit = 6
 	quick_burst_mod = 1
 

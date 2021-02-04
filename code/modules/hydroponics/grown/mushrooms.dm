@@ -79,7 +79,6 @@
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
 	reagents_add = list("psilocybin" = 0.04, "nutriment" = 0, "amanitin" = 0.3)
 	rarity = 30
-	origin_tech = "biotech=5"
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/angel
 	seed = /obj/item/seeds/angel
@@ -170,7 +169,6 @@
 	desc = "<I>Plumus Locomotus</I>: The beginning of the great walk."
 	icon_state = "walkingmushroom"
 	filling_color = "#9370DB"
-	origin_tech = "biotech=4;programming=5"
 	tastes = list("walking mushroom" = 1, "motion" = 1)
 	can_distill = FALSE
 
@@ -243,7 +241,6 @@
 	icon_state = "glowshroom"
 	filling_color = "#00FA9A"
 	var/effect_path = /obj/structure/glowshroom
-	origin_tech = "biotech=4;plasmatech=6"
 	light_color = "#006622"
 	tastes = list("warmth" = 1, "light" = 1, "glowshroom" = 1)
 	wine_power = 0.5
@@ -292,7 +289,6 @@
 	icon_state = "glowcap"
 	filling_color = "#00FA9A"
 	effect_path = /obj/structure/glowshroom/glowcap
-	origin_tech = "biotech=4;powerstorage=6;plasmatech=4"
 	light_color = "#8E0300"
 	tastes = list("warmth" = 1, "light" = 1, "glowscap" = 1)
 	wine_power = 0.6
@@ -343,7 +339,6 @@
 	desc = "<I>Mycena Umbra</I>: This species of mushroom emits shadow instead of light."
 	icon_state = "shadowshroom"
 	effect_path = /obj/structure/glowshroom/shadowshroom
-	origin_tech = "biotech=4;plasmatech=4;magnets=4"
 	tastes = list("strange coldness" = 1, "shadowshroom" = 1)
 	wine_power = 0.6
 	wine_flavor = "strange coldness"

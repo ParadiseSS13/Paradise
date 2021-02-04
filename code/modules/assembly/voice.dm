@@ -3,7 +3,6 @@
 	desc = "A small electronic device able to record a voice sample, and send a signal when that sample is repeated."
 	icon_state = "voice"
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
-	origin_tech = "magnets=1;engineering=1"
 	var/listening = 0
 	var/recorded = null	//the activation message
 	var/recorded_type = 0 // 0 for say, 1 for emote
@@ -59,7 +58,6 @@
 	desc = "A simple noise sensor that triggers on vocalizations other than speech."
 	icon_state = "voice"
 	materials = list(MAT_METAL=100, MAT_GLASS=10)
-	origin_tech = "magnets=1;engineering=1"
 	bomb_name = "noise-activated bomb"
 
 /obj/item/assembly/voice/noise/attack_self(mob/user)

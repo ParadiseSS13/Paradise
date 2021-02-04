@@ -23,7 +23,6 @@
 	throw_range = 20
 	materials = list(MAT_METAL=400)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
-	origin_tech = "magnets=3;bluespace=2"
 
 /obj/item/locator/attack_self(mob/user as mob)
 	add_fingerprint(usr)
@@ -104,7 +103,6 @@ Frequency:
 	throw_speed = 3
 	throw_range = 5
 	materials = list(MAT_METAL=10000)
-	origin_tech = "magnets=3;bluespace=4"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/active_portals = 0

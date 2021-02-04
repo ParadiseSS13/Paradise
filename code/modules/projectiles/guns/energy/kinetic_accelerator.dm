@@ -7,7 +7,6 @@
 	cell_type = /obj/item/stock_parts/cell/emproof
 	needs_permit = 0
 	unique_rename = 1
-	origin_tech = "combat=3;powerstorage=3;engineering=3"
 	weapon_weight = WEAPON_LIGHT
 	can_flashlight = 1
 	flight_x_offset = 15
@@ -167,7 +166,6 @@
 	desc = "A modified version of the proto-kinetic accelerator, with twice the modkit space of the standard version."
 	icon_state = "kineticgun_h"
 	item_state = "kineticgun_h"
-	origin_tech = "combat=5;powerstorage=3;engineering=5"
 	max_mod_capacity = 200
 
 //Casing
@@ -253,7 +251,6 @@
 	desc = "An upgrade for kinetic accelerators."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "modkit"
-	origin_tech = "programming=2;materials=2;magnets=4"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/miner
 	usesound = 'sound/items/screwdriver.ogg'

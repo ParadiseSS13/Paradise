@@ -52,7 +52,7 @@
 	/// List of ore yet to process.
 	var/list/obj/item/stack/ore/ore_buffer = null
 	/// Locally known R&D designs.
-	var/datum/research/files
+	var/datum/techweb/specialized/autounlocking/smelter/stored_research
 	/// The currently inserted design disk.
 	var/obj/item/disk/design_disk/inserted_disk
 
@@ -61,7 +61,7 @@
 	ore_buffer = list()
 	// Components
 	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), INFINITY, FALSE, /obj/item/stack, null, CALLBACK(src, .proc/on_material_insert))
-	files = new /datum/research/smelter(src)
+	stored_research = new
 	// Stock parts
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/ore_redemption(null)
@@ -125,14 +125,13 @@
 	RefreshParts()
 
 /obj/machinery/mineral/ore_redemption/Destroy()
+	QDEL_NULL(stored_research)
 	// Move any stuff inside us out
 	var/turf/T = get_turf(src)
 	inserted_id?.forceMove(T)
 	inserted_disk?.forceMove(T)
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.retrieve_all()
-	// Clean up
-	QDEL_NULL(files)
 	return ..()
 
 /obj/machinery/mineral/ore_redemption/RefreshParts()
@@ -281,8 +280,8 @@
 
 	// Alloys
 	var/list/alloys = list()
-	for(var/v in files.known_designs)
-		var/datum/design/D = files.known_designs[v]
+	for(var/v in stored_research.researched_designs)
+		var/datum/design/D = SSresearch.get_techweb_design_by_id(v)
 		alloys += list(list(
 			"id" = D.id,
 			"name" = D.name,
@@ -325,7 +324,7 @@
 				var/desired = min(amount, stored, MAX_STACK_SIZE)
 				materials.retrieve_sheets(desired, id, out_loc)
 			else
-				var/datum/design/D = files.FindDesignByID(id)
+				var/datum/design/D = SSresearch.get_techweb_design_by_id(id)
 				if(!D)
 					return FALSE
 				var/stored = get_num_smeltable_alloy(D)
@@ -363,7 +362,7 @@
 			inserted_disk = null
 		if("download")
 			if(inserted_disk?.blueprint?.build_type & SMELTER)
-				files.AddDesign2Known(inserted_disk.blueprint)
+				stored_research.add_design(inserted_disk.blueprint)
 				atom_say("Design \"[inserted_disk.blueprint.name]\" downloaded successfully.")
 		else
 			return FALSE

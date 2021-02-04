@@ -92,7 +92,6 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	flags = CONDUCT
 	armour_penetration = 100
-	origin_tech = "combat=4;magnets=3"
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	attack_verb_on = list()
 	sharp = 1
@@ -114,7 +113,6 @@
 	embed_chance = 75
 	embedded_impact_pain_multiplier = 10
 	armour_penetration = 35
-	origin_tech = "combat=3;magnets=4;syndicate=4"
 	block_chance = 50
 	sharp = 1
 	var/hacked = 0

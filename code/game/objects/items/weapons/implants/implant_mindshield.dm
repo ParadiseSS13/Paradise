@@ -1,7 +1,6 @@
 /obj/item/implant/mindshield
 	name = "mindshield implant"
 	desc = "Stops people messing with your mind."
-	origin_tech = "materials=2;biotech=4;programming=4"
 	activated = 0
 
 /obj/item/implant/mindshield/get_data()

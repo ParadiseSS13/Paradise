@@ -171,15 +171,6 @@
 			dat += "<h4><img src=sos_4.png> Research Stored:</h4>"
 			if(t_disk)
 				dat += "<a href='byond://?src=[UID()];choice=Eject Disk'>Eject Disk</a><br>"
-			dat += "<ul>"
-			if(istype(stored_research,/list))//If there is stored research. Should be but just in case.
-				for(var/datum/tech/current_data in stored_research)
-					dat += "<li>"
-					dat += "[current_data.name]: [current_data.level]"
-					if(t_disk)//If there is a disk inserted. We can either write or overwrite.
-						dat += " <a href='byond://?src=[UID()];choice=Copy to Disk;target=\ref[current_data]'><i>*Copy to Disk</i></a><br>"
-					dat += "</li>"
-			dat += "</ul>"
 	dat += "</body></html>"
 
 	//Setting the can>resize etc to 0 remove them from the drag bar but still allows the window to be draggable.
@@ -220,7 +211,7 @@
 				to_chat(display_to, "<span class='danger'>Error: unable to deliver message.</span>")
 				display_spideros()
 				return
-			
+
 			var/datum/data/pda/app/messenger/M = P.find_program(/datum/data/pda/app/messenger)
 			M.notify("<b>Message from unknown source: </b>\"[t]\" (Unable to Reply)", 0)
 
@@ -266,12 +257,6 @@
 					t_disk = null
 				else
 					to_chat(U, "<span class='userdanger'>ERROR</span>: Could not eject disk.")
-
-		if("Copy to Disk")
-			var/datum/tech/current_data = locate(href_list["target"])
-			to_chat(U, "[current_data.name] successfully [(!t_disk.stored) ? "copied" : "overwritten"] to disk.")
-			t_disk.stored = current_data
-
 
 	display_spideros()//Refreshes the screen by calling it again (which replaces current screen with new screen).
 	return

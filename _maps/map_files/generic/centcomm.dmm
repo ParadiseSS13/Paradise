@@ -10399,10 +10399,7 @@
 	},
 /area/admin)
 "xW" = (
-/obj/machinery/computer/rdservercontrol{
-	badmin = 1;
-	name = "Master R&amp;D Server Controller"
-	},
+/obj/machinery/computer/rdservercontrol,
 /turf/unsimulated/floor{
 	icon_state = "floor";
 	tag = "icon-floor"
@@ -10440,7 +10437,6 @@
 	},
 /area/centcom/evac)
 "ya" = (
-/obj/machinery/r_n_d/server/centcom,
 /turf/unsimulated/floor{
 	icon_state = "floor";
 	tag = "icon-floor"
@@ -72839,7 +72835,7 @@ uT
 uT
 uT
 uA
-ya
+uT
 uT
 uT
 uT

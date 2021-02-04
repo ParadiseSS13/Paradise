@@ -8,7 +8,6 @@
 	desc = "Allows Skrell to hide tiny objects within their head tentacles."
 	icon = 'icons/obj/species_organs/skrell.dmi'
 	icon_state = "skrell_headpocket"
-	origin_tech = "biotech=2"
 	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "head"
 	slot = "headpocket"

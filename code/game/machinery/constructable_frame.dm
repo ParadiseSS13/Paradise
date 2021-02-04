@@ -225,7 +225,6 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/vendor
 	name = "circuit board (Booze-O-Mat Vendor)"
 	board_type = "machine"
-	origin_tech = "programming=1"
 	build_path = /obj/machinery/vending/boozeomat
 	req_components = list(/obj/item/vending_refill/boozeomat = 1)
 
@@ -280,7 +279,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (SMES)"
 	build_path = /obj/machinery/power/smes
 	board_type = "machine"
-	origin_tech = "programming=3;powerstorage=3;engineering=3"
 	req_components = list(
 							/obj/item/stack/cable_coil = 5,
 							/obj/item/stock_parts/cell = 5,
@@ -290,7 +288,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Emitter)"
 	build_path = /obj/machinery/power/emitter
 	board_type = "machine"
-	origin_tech = "programming=3;powerstorage=4;engineering=4"
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stock_parts/manipulator = 1)
@@ -299,7 +296,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Power Compressor)"
 	build_path = /obj/machinery/power/compressor
 	board_type = "machine"
-	origin_tech = "programming=4;powerstorage=4;engineering=4"
 	req_components = list(
 							/obj/item/stack/cable_coil = 5,
 							/obj/item/stock_parts/manipulator = 6)
@@ -308,7 +304,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Power Turbine)"
 	build_path = /obj/machinery/power/turbine
 	board_type = "machine"
-	origin_tech = "programming=4;powerstorage=4;engineering=4"
 	req_components = list(
 							/obj/item/stack/cable_coil = 5,
 							/obj/item/stock_parts/capacitor = 6)
@@ -317,7 +312,6 @@ to destroy them and players will be able to make replacements.
 	name = "Thermomachine (Machine Board)"
 	build_path = /obj/machinery/atmospherics/unary/thermomachine
 	board_type = "machine"
-	origin_tech = "programming=3;plasmatech=3"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/micro_laser = 2,
@@ -328,14 +322,12 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Recharger)"
 	build_path = /obj/machinery/recharger
 	board_type = "machine"
-	origin_tech = "powerstorage=3;materials=2"
 	req_components = list(/obj/item/stock_parts/capacitor = 1)
 
 /obj/item/circuitboard/snow_machine
 	name = "circuit board (snow machine)"
 	build_path = /obj/machinery/snow_machine
 	board_type = "machine"
-	origin_tech = "programming=2;materials=2"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/micro_laser = 1)
@@ -344,7 +336,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Biogenerator)"
 	build_path = /obj/machinery/biogenerator
 	board_type = "machine"
-	origin_tech = "programming=2;biotech=3;materials=3"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1,
@@ -355,7 +346,6 @@ to destroy them and players will be able to make replacements.
 	name = "Plant DNA Manipulator (Machine Board)"
 	build_path = /obj/machinery/plantgenes
 	board_type = "machine"
-	origin_tech = "programming=3;biotech=3"
 	req_components = list(
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stock_parts/micro_laser = 1,
@@ -368,7 +358,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Seed Extractor)"
 	build_path = /obj/machinery/seed_extractor
 	board_type = "machine"
-	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1)
@@ -377,7 +366,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Hydroponics Tray)"
 	build_path = /obj/machinery/hydroponics/constructable
 	board_type = "machine"
-	origin_tech = "programming=1;biotech=2"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/manipulator = 1,
@@ -387,7 +375,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Microwave)"
 	build_path = /obj/machinery/kitchen_machine/microwave
 	board_type = "machine"
-	origin_tech = "programming=2;magnets=2"
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stack/cable_coil = 2,
@@ -397,7 +384,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Oven)"
 	build_path = /obj/machinery/kitchen_machine/oven
 	board_type = "machine"
-	origin_tech = "programming=2;magnets=2"
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 2,
 							/obj/item/stack/cable_coil = 5,
@@ -407,7 +393,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Grill)"
 	build_path = /obj/machinery/kitchen_machine/grill
 	board_type = "machine"
-	origin_tech = "programming=2;magnets=2"
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 2,
 							/obj/item/stack/cable_coil = 5,
@@ -417,7 +402,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Candy Maker)"
 	build_path = /obj/machinery/kitchen_machine/candy_maker
 	board_type = "machine"
-	origin_tech = "programming=2;magnets=2"
 	req_components = list(
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stack/cable_coil = 5,
@@ -427,7 +411,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Deep Fryer)"
 	build_path = /obj/machinery/cooker/deepfryer
 	board_type = "machine"
-	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 2,
 							/obj/item/stack/cable_coil = 5)
@@ -436,7 +419,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Gibber)"
 	build_path = /obj/machinery/gibber
 	board_type = "machine"
-	origin_tech = "programming=2;engineering=2"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1)
@@ -445,7 +427,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Tesla Coil)"
 	build_path = /obj/machinery/power/tesla_coil
 	board_type = "machine"
-	origin_tech = "programming=3;magnets=3;powerstorage=3"
 	req_components = list(
 							/obj/item/stock_parts/capacitor = 1)
 
@@ -453,7 +434,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Grounding Rod)"
 	build_path = /obj/machinery/power/grounding_rod
 	board_type = "machine"
-	origin_tech = "programming=3;powerstorage=3;magnets=3;plasmatech=2"
 	req_components = list(
 							/obj/item/stock_parts/capacitor = 1)
 
@@ -461,7 +441,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Food processor)"
 	build_path = /obj/machinery/processor
 	board_type = "machine"
-	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1)
@@ -470,7 +449,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Recycler)"
 	build_path = /obj/machinery/recycler
 	board_type = "machine"
-	origin_tech = "programming=2;engineering=2"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1)
@@ -479,7 +457,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Smartfridge)"
 	build_path = /obj/machinery/smartfridge
 	board_type = "machine"
-	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1)
 	var/list/fridge_names_paths = list(
@@ -522,7 +499,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Monkey Recycler)"
 	build_path = /obj/machinery/monkey_recycler
 	board_type = "machine"
-	origin_tech = "programming=1;biotech=2"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1)
@@ -531,7 +507,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (AI Holopad)"
 	build_path = /obj/machinery/hologram/holopad
 	board_type = "machine"
-	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/stock_parts/capacitor = 1)
 
@@ -539,7 +514,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Chem Dispenser)"
 	build_path = /obj/machinery/chem_dispenser
 	board_type = "machine"
-	origin_tech = "materials=4;programming=4;plasmatech=4;biotech=3"
 	req_components = list(	/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/capacitor = 1,
 							/obj/item/stock_parts/manipulator = 1,
@@ -550,7 +524,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (ChemMaster 3000)"
 	build_path = /obj/machinery/chem_master
 	board_type = "machine"
-	origin_tech = "materials=3;programming=2;biotech=3"
 	req_components = list(
 							/obj/item/reagent_containers/glass/beaker = 2,
 							/obj/item/stock_parts/manipulator = 1,
@@ -579,7 +552,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Chemical Heater)"
 	build_path = /obj/machinery/chem_heater
 	board_type = "machine"
-	origin_tech = "programming=2;engineering=2;biotech=2"
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stack/sheet/glass = 1)
@@ -588,7 +560,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (All-In-One Grinder)"
 	build_path = /obj/machinery/reagentgrinder/empty
 	board_type = "machine"
-	origin_tech = "materials=2;engineering=2;biotech=2"
 	req_components = list(
 							/obj/item/stock_parts/manipulator = 2,
 							/obj/item/stock_parts/matter_bin = 1)
@@ -598,7 +569,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (E.X.P.E.R.I-MENTOR)"
 	build_path = /obj/machinery/r_n_d/experimentor
 	board_type = "machine"
-	origin_tech = "magnets=1;engineering=1;programming=1;biotech=1;bluespace=2"
 	req_components = list(
 							/obj/item/stock_parts/scanning_module = 1,
 							/obj/item/stock_parts/manipulator = 2,
@@ -608,7 +578,6 @@ to destroy them and players will be able to make replacements.
 	name = "Circuit board (Destructive Analyzer)"
 	build_path = /obj/machinery/r_n_d/destructive_analyzer
 	board_type = "machine"
-	origin_tech = "magnets=2;engineering=2;programming=2"
 	req_components = list(
 							/obj/item/stock_parts/scanning_module = 1,
 							/obj/item/stock_parts/manipulator = 1,
@@ -618,7 +587,6 @@ to destroy them and players will be able to make replacements.
 	name = "Circuit board (Autolathe)"
 	build_path = /obj/machinery/autolathe
 	board_type = "machine"
-	origin_tech = "engineering=2;programming=2"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 3,
 							/obj/item/stock_parts/manipulator = 1,
@@ -628,7 +596,6 @@ to destroy them and players will be able to make replacements.
 	name = "Circuit board (Protolathe)"
 	build_path = /obj/machinery/r_n_d/protolathe
 	board_type = "machine"
-	origin_tech = "engineering=2;programming=2"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/manipulator = 2,
@@ -646,7 +613,6 @@ to destroy them and players will be able to make replacements.
 	name = "Circuit board (Circuit Imprinter)"
 	build_path = /obj/machinery/r_n_d/circuit_imprinter
 	board_type = "machine"
-	origin_tech = "engineering=2;programming=2"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1,
@@ -656,7 +622,6 @@ to destroy them and players will be able to make replacements.
 	name = "Circuit Board (PACMAN-type Generator)"
 	build_path = /obj/machinery/power/port_gen/pacman
 	board_type = "machine"
-	origin_tech = "programming=2;powerstorage=3;plasmatech=3;engineering=3"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/micro_laser = 1,
@@ -666,18 +631,15 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/pacman/super
 	name = "Circuit Board (SUPERPACMAN-type Generator)"
 	build_path = /obj/machinery/power/port_gen/pacman/super
-	origin_tech = "programming=3;powerstorage=4;engineering=4"
 
 /obj/item/circuitboard/pacman/mrs
 	name = "Circuit Board (MRSPACMAN-type Generator)"
 	build_path = /obj/machinery/power/port_gen/pacman/mrs
-	origin_tech = "programming=3;powerstorage=4;engineering=4;plasmatech=4"
 
 /obj/item/circuitboard/rdserver
 	name = "Circuit Board (R&D Server)"
 	build_path = /obj/machinery/r_n_d/server
 	board_type = "machine"
-	origin_tech = "programming=3"
 	req_components = list(
 							/obj/item/stack/cable_coil = 2,
 							/obj/item/stock_parts/scanning_module = 1)
@@ -686,7 +648,6 @@ to destroy them and players will be able to make replacements.
 	name = "Circuit board (Exosuit Fabricator)"
 	build_path = /obj/machinery/mecha_part_fabricator
 	board_type = "machine"
-	origin_tech = "programming=2;engineering=2"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/manipulator = 1,
@@ -697,7 +658,6 @@ to destroy them and players will be able to make replacements.
 	name = "Circuit board (Spacepod Fabricator)"
 	build_path = /obj/machinery/mecha_part_fabricator/spacepod
 	board_type = "machine"
-	origin_tech = "programming=2;engineering=2"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/manipulator = 1,
@@ -709,7 +669,6 @@ to destroy them and players will be able to make replacements.
 	name = "Circuit board (Clone Pod)"
 	build_path = /obj/machinery/clonepod
 	board_type = "machine"
-	origin_tech = "programming=2;biotech=2"
 	req_components = list(
 							/obj/item/stack/cable_coil = 2,
 							/obj/item/stock_parts/scanning_module = 2,
@@ -720,7 +679,6 @@ to destroy them and players will be able to make replacements.
 	name = "Circuit board (Cloning Scanner)"
 	build_path = /obj/machinery/dna_scannernew
 	board_type = "machine"
-	origin_tech = "programming=2;biotech=2"
 	req_components = list(
 							/obj/item/stock_parts/scanning_module = 1,
 							/obj/item/stock_parts/manipulator = 1,
@@ -732,7 +690,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Mech Bay Recharger)"
 	build_path = /obj/machinery/mech_bay_recharge_port
 	board_type = "machine"
-	origin_tech = "programming=3;powerstorage=3;engineering=3"
 	req_components = list(
 							/obj/item/stack/cable_coil = 1,
 							/obj/item/stock_parts/capacitor = 5)
@@ -741,7 +698,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Teleporter Hub)"
 	build_path = /obj/machinery/teleport/hub
 	board_type = "machine"
-	origin_tech = "programming=3;engineering=4;bluespace=4;materials=4"
 	req_components = list(
 							/obj/item/stack/ore/bluespace_crystal = 3,
 							/obj/item/stock_parts/matter_bin = 1)
@@ -750,7 +706,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Teleporter Station)"
 	build_path = /obj/machinery/teleport/station
 	board_type = "machine"
-	origin_tech = "programming=4;engineering=4;bluespace=4;plasmatech=3"
 	req_components = list(
 							/obj/item/stack/ore/bluespace_crystal = 2,
 							/obj/item/stock_parts/capacitor = 2,
@@ -760,7 +715,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Permanent Teleporter)"
 	build_path = /obj/machinery/teleport/perma
 	board_type = "machine"
-	origin_tech = "programming=3;engineering=4;bluespace=4;materials=4"
 	req_components = list(
 							/obj/item/stack/ore/bluespace_crystal = 3,
 							/obj/item/stock_parts/matter_bin = 1)
@@ -779,7 +733,6 @@ to destroy them and players will be able to make replacements.
 	name = "Circuit board (Telepad)"
 	build_path = /obj/machinery/telepad
 	board_type = "machine"
-	origin_tech = "programming=4;engineering=3;plasmatech=4;bluespace=4"
 	req_components = list(
 							/obj/item/stack/ore/bluespace_crystal = 2,
 							/obj/item/stock_parts/capacitor = 1,
@@ -790,7 +743,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Quantum Pad)"
 	build_path = /obj/machinery/quantumpad
 	board_type = "machine"
-	origin_tech = "programming=3;engineering=3;plasmatech=3;bluespace=4"
 	req_components = list(
 							/obj/item/stack/ore/bluespace_crystal = 1,
 							/obj/item/stock_parts/capacitor = 1,
@@ -801,7 +753,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Sleeper)"
 	build_path = /obj/machinery/sleeper
 	board_type = "machine"
-	origin_tech = "programming=3;biotech=2;engineering=3"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1,
@@ -821,7 +772,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Body Scanner)"
 	build_path = /obj/machinery/bodyscanner
 	board_type = "machine"
-	origin_tech = "programming=3;biotech=2;engineering=3"
 	req_components = list(
 							/obj/item/stock_parts/scanning_module = 1,
 							/obj/item/stack/cable_coil = 2,
@@ -831,7 +781,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Cryotube)"
 	build_path = /obj/machinery/atmospherics/unary/cryo_cell
 	board_type = "machine"
-	origin_tech = "programming=4;biotech=3;engineering=4;plasmatech=3"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stack/cable_coil = 1,
@@ -841,7 +790,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Cyborg Recharger)"
 	build_path = /obj/machinery/recharge_station
 	board_type = "machine"
-	origin_tech = "powerstorage=3;engineering=3"
 	req_components = list(
 							/obj/item/stock_parts/capacitor = 2,
 							/obj/item/stock_parts/cell = 1,
@@ -852,21 +800,18 @@ to destroy them and players will be able to make replacements.
 	name = "Circuit Board (Telecommunications Relay)"
 	build_path = /obj/machinery/tcomms/relay
 	board_type = "machine"
-	origin_tech = "programming=2;engineering=2;bluespace=2"
 	req_components = list(/obj/item/stock_parts/manipulator = 2, /obj/item/stack/cable_coil = 2)
 
 /obj/item/circuitboard/tcomms/core
 	name = "Circuit Board (Telecommunications Core)"
 	build_path = /obj/machinery/tcomms/core
 	board_type = "machine"
-	origin_tech = "programming=2;engineering=2"
 	req_components = list(/obj/item/stock_parts/manipulator = 2, /obj/item/stack/cable_coil = 2)
 // End telecomms circuit boards
 /obj/item/circuitboard/ore_redemption
 	name = "circuit board (Ore Redemption)"
 	build_path = /obj/machinery/mineral/ore_redemption
 	board_type = "machine"
-	origin_tech = "programming=1;engineering=2"
 	req_components = list(
 							/obj/item/stack/sheet/glass = 1,
 							/obj/item/stock_parts/matter_bin = 1,
@@ -886,7 +831,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Mining Equipment Vendor)"
 	build_path = /obj/machinery/mineral/equipment_vendor
 	board_type = "machine"
-	origin_tech = "programming=1;engineering=3"
 	req_components = list(
 							/obj/item/stack/sheet/glass = 1,
 							/obj/item/stock_parts/matter_bin = 3)
@@ -903,7 +847,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Claw Game)"
 	build_path = /obj/machinery/arcade/claw
 	board_type = "machine"
-	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1,
@@ -914,7 +857,6 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Prize Counter)"
 	build_path = /obj/machinery/prize_counter
 	board_type = "machine"
-	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1,
@@ -925,8 +867,13 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Virtual Gameboard)"
 	build_path = /obj/machinery/gameboard
 	board_type = "machine"
-	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stack/cable_coil = 3,
 							/obj/item/stack/sheet/glass = 1)
+
+/obj/item/circuitboard/research_chem_consumer
+	name = "circuit board (Research Chem Consumer)"
+	board_type = "machine"
+	build_path = /obj/machinery/research_chem_consumer
+	req_components = list() // No components

@@ -136,7 +136,6 @@
 	icon = 'icons/obj/module.dmi'
 	icon_state = "power_mod"
 	w_class = WEIGHT_CLASS_SMALL
-	origin_tech = "engineering=2;programming=1"
 	item_state = "electronic"
 	flags = CONDUCT
 	usesound = 'sound/items/deconstruct.ogg'

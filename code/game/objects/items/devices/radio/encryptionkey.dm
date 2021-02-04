@@ -6,7 +6,6 @@
 	icon_state = "cypherkey"
 	item_state = ""
 	w_class = WEIGHT_CLASS_TINY
-	origin_tech = "engineering=2;bluespace=1"
 	var/translate_binary = FALSE
 	var/translate_hive = FALSE
 	var/syndie = FALSE
@@ -20,7 +19,6 @@
 	name = "syndicate encryption key"
 	icon_state = "syn_cypherkey"
 	channels = list("Syndicate" = 1)
-	origin_tech = "syndicate=1;engineering=3;bluespace=2"
 	syndie = TRUE //Signifies that it de-crypts Syndicate transmissions
 	change_voice = TRUE
 	var/fake_name = "Agent ALERT_A_CODER"
@@ -40,7 +38,6 @@
 	name = "syndicate encryption key"
 	icon_state = "syn_cypherkey"
 	channels = list("SyndTeam" = 1, "Syndicate" = 1)
-	origin_tech = "syndicate=4"
 	syndie = TRUE //Signifies that it de-crypts Syndicate transmissions
 
 /obj/item/encryptionkey/binary
@@ -48,7 +45,6 @@
 	desc = "An encryption key for a radio headset. To access the binary channel, use :+."
 	icon_state = "bin_cypherkey"
 	translate_binary = TRUE
-	origin_tech = "syndicate=3;engineering=4;bluespace=3"
 
 /obj/item/encryptionkey/headset_sec
 	name = "Security Radio Encryption Key"

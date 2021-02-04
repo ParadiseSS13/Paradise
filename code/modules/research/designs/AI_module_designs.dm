@@ -6,37 +6,36 @@
 	name = "AI Module (Freeform)"
 	desc = "Allows for the construction of a Freeform AI Module."
 	id = "freeform_module"
-	req_tech = list("programming" = 5, "materials" = 4)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_GOLD = 100)
 	build_path = /obj/item/aiModule/freeform
 	category = list("AI Modules")
+	warn_on_construct = TRUE
 
 /datum/design/onecrewmember_module
 	name = "AI Module (oneCrewMember)"
 	desc = "Allows for the construction of a oneCrewMember AI Module."
 	id = "onecrewmember_module"
-	req_tech = list("programming" = 6, "materials" = 4)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	build_path = /obj/item/aiModule/oneCrewMember
 	category = list("AI Modules")
+	warn_on_construct = TRUE
 
 /datum/design/oxygen_module
 	name = "AI Module (OxygenIsToxicToHumans)"
 	desc = "Allows for the construction of a Safeguard AI Module."
 	id = "oxygen_module"
-	req_tech = list("programming" = 4, "biotech" = 2, "materials" = 4)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_GOLD = 100)
 	build_path = /obj/item/aiModule/oxygen
 	category = list("AI Modules")
+	warn_on_construct = TRUE
 
 /datum/design/protectstation_module
 	name = "AI Module (ProtectStation)"
 	desc = "Allows for the construction of a ProtectStation AI Module."
 	id = "protectstation_module"
-	req_tech = list("programming" = 5, "materials" = 4)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_GOLD = 100)
 	build_path = /obj/item/aiModule/protectStation
@@ -46,17 +45,16 @@
 	name = "AI Module (Purge)"
 	desc = "Allows for the construction of a Purge AI Module."
 	id = "purge_module"
-	req_tech = list("programming" = 5, "materials" = 6)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	build_path = /obj/item/aiModule/purge
 	category = list("AI Modules")
+	warn_on_construct = TRUE
 
 /datum/design/quarantine_module
 	name = "AI Module (Quarantine)"
 	desc = "Allows for the construction of a Quarantine AI Module."
 	id = "quarantine_module"
-	req_tech = list("programming" = 3, "biotech" = 2, "materials" = 4)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_GOLD = 100)
 	build_path = /obj/item/aiModule/quarantine
@@ -66,7 +64,6 @@
 	name = "AI Module (Reset)"
 	desc = "Allows for the construction of a Reset AI Module."
 	id = "reset_module"
-	req_tech = list("programming" = 4, "materials" = 6)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_GOLD = 100)
 	build_path = /obj/item/aiModule/reset
@@ -76,7 +73,6 @@
 	name = "AI Module (Safeguard)"
 	desc = "Allows for the construction of a Safeguard AI Module."
 	id = "safeguard_module"
-	req_tech = list("programming" = 3, "materials" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_GOLD = 100)
 	build_path = /obj/item/aiModule/safeguard
@@ -86,17 +82,16 @@
 	name = "Core AI Module (Antimov)"
 	desc = "Allows for the construction of a Antimov AI Core Module."
 	id = "antimov_module"
-	req_tech = list("programming" = 5, "syndicate" = 2, "materials" = 5)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	build_path = /obj/item/aiModule/antimov
 	category = list("AI Modules")
+	warn_on_construct = TRUE
 
 /datum/design/asimov
 	name = "Core AI Module (Asimov)"
 	desc = "Allows for the construction of a Asimov AI Core Module."
 	id = "asimov_module"
-	req_tech = list("programming" = 3, "materials" = 5)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	build_path = /obj/item/aiModule/asimov
@@ -106,7 +101,6 @@
 	name = "Core AI Module (Corporate)"
 	desc = "Allows for the construction of a Corporate AI Core Module."
 	id = "corporate_module"
-	req_tech = list("programming" = 5, "materials" = 5)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	build_path = /obj/item/aiModule/corp
@@ -116,7 +110,6 @@
 	name = "Core AI Module (Crewsimov)"
 	desc = "Allows for the construction of a Crewsimov AI Core Module."
 	id = "crewsimov_module"
-	req_tech = list("programming" = 3, "materials" = 5)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	build_path = /obj/item/aiModule/crewsimov
@@ -126,17 +119,16 @@
 	name = "Core AI Module (Freeform)"
 	desc = "Allows for the construction of a Freeform AI Core Module."
 	id = "freeformcore_module"
-	req_tech = list("programming" = 6, "materials" = 6)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	build_path = /obj/item/aiModule/freeformcore
 	category = list("AI Modules")
+	warn_on_construct = TRUE
 
 /datum/design/paladin_module
 	name = "Core AI Module (P.A.L.A.D.I.N.)"
 	desc = "Allows for the construction of a P.A.L.A.D.I.N. AI Core Module."
 	id = "paladin_module"
-	req_tech = list("programming" = 5, "materials" = 5)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	build_path = /obj/item/aiModule/paladin
@@ -146,8 +138,8 @@
 	name = "Core AI Module (T.Y.R.A.N.T.)"
 	desc = "Allows for the construction of a T.Y.R.A.N.T. AI Module."
 	id = "tyrant_module"
-	req_tech = list("programming" = 5, "syndicate" = 2, "materials" = 5)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	build_path = /obj/item/aiModule/tyrant
 	category = list("AI Modules")
+	warn_on_construct = TRUE

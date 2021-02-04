@@ -4,7 +4,6 @@
 	icon_state = "beacon"
 	item_state = "signaler"
 	var/code = "Beacon"
-	origin_tech = "bluespace=1"
 	var/syndicate = 0
 	var/area_bypass = FALSE
 	var/cc_beacon = FALSE //set if allowed to teleport to even if on zlevel2
@@ -54,7 +53,6 @@
 /obj/item/radio/beacon/syndicate
 	name = "suspicious beacon"
 	desc = "A label on it reads: <i>Activate to have a singularity beacon teleported to your location</i>."
-	origin_tech = "bluespace=6;syndicate=5"
 	syndicate = TRUE
 	var/obj/machinery/computer/syndicate_depot/teleporter/mycomputer
 
@@ -74,7 +72,6 @@
 /obj/item/radio/beacon/syndicate/bomb
 	name = "suspicious beacon"
 	desc = "A label on it reads: <i>Warning: Activating this device will send a high-ordinance explosive to your location</i>."
-	origin_tech = "bluespace=5;syndicate=5"
 	var/bomb = /obj/machinery/syndicatebomb
 
 /obj/item/radio/beacon/syndicate/bomb/attack_self(mob/user)

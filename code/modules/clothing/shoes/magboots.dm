@@ -2,7 +2,6 @@
 	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle."
 	name = "magboots"
 	icon_state = "magboots0"
-	origin_tech = "materials=3;magnets=4;engineering=4"
 	var/magboot_state = "magboots"
 	var/magpulse = 0
 	var/slowdown_active = 2
@@ -52,7 +51,6 @@
 	magboot_state = "advmag"
 	gustprotection = TRUE
 	slowdown_active = SHOES_SLOWDOWN
-	origin_tech = null
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/shoes/magboots/syndie
@@ -60,7 +58,6 @@
 	name = "blood-red magboots"
 	icon_state = "syndiemag0"
 	magboot_state = "syndiemag"
-	origin_tech = "magnets=4;syndicate=2"
 
 /obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
 	desc = "Reverse-engineered magboots that appear to be based on an advanced model, as they have a lighter magnetic pull. Property of Gorlex Marauders."
@@ -80,7 +77,6 @@
 	item_color = "clown"
 	silence_steps = 1
 	shoe_sound = "clownstep"
-	origin_tech = "magnets=4;syndicate=2"
 	var/enabled_waddle = TRUE
 
 /obj/item/clothing/shoes/magboots/clown/equipped(mob/user, slot)

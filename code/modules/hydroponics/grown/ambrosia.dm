@@ -30,7 +30,6 @@
 	seed = /obj/item/seeds/ambrosia
 	name = "ambrosia vulgaris branch"
 	desc = "This is a plant containing various healing chemicals."
-	origin_tech = "biotech=2"
 	wine_power = 0.2
 
 // Ambrosia Deus
@@ -51,7 +50,6 @@
 	desc = "Eating this makes you feel immortal!"
 	icon_state = "ambrosiadeus"
 	filling_color = "#008B8B"
-	origin_tech = "biotech=4;materials=3"
 	wine_power = 0.5
 	tastes = list("ambrosia deus" = 1)
 
@@ -75,7 +73,6 @@
 	desc = "Eating this <i>makes</i> you immortal."
 	icon_state = "ambrosia_gaia"
 	filling_color = rgb(255, 175, 0)
-	origin_tech = "biotech=6;materials=5"
 	light_range = 3
 	seed = /obj/item/seeds/ambrosia/gaia
 	wine_power = 0.7

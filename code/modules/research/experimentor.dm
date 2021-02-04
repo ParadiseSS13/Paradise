@@ -140,20 +140,6 @@
 	if(loaded_item)
 		to_chat(user, "<span class='warning'>The [src] is already loaded.</span>")
 		return
-	if(istype(O, /obj/item))
-		if(!O.origin_tech)
-			to_chat(user, "<span class='warning'>This doesn't seem to have a tech origin!</span>")
-			return
-		var/list/temp_tech = ConvertReqString2List(O.origin_tech)
-		if(temp_tech.len == 0)
-			to_chat(user, "<span class='warning'>You cannot experiment on this item!</span>")
-			return
-		if(!user.drop_item())
-			return
-		loaded_item = O
-		O.loc = src
-		to_chat(user, "<span class='notice'>You add the [O.name] to the machine.</span>")
-		flick("h_lathe_load", src)
 
 	return
 
@@ -168,10 +154,6 @@
 		dat += "<b><a href='byond://?src=[UID()];function=search'>Scan for R&D Console</A></b><br>"
 	if(loaded_item)
 		dat += "<b>Loaded Item:</b> [loaded_item]<br>"
-		dat += "<b>Technology</b>:<br>"
-		var/list/D = ConvertReqString2List(loaded_item.origin_tech)
-		for(var/T in D)
-			dat += "[T]<br>"
 		dat += "<br><br>Available tests:"
 		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_POKE]'>Poke</A></b>"
 		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_IRRADIATE];'>Irradiate</A></b>"
@@ -569,11 +551,6 @@
 			dotype = matchReaction(process,scantype)
 		experiment(dotype,process)
 		use_power(750)
-		if(dotype != FAIL)
-			if(process && process.origin_tech)
-				var/list/temp_tech = ConvertReqString2List(process.origin_tech)
-				for(var/T in temp_tech)
-					linked_console.files.UpdateTech(T, temp_tech[T])
 	src.updateUsrDialog()
 	return
 
@@ -606,7 +583,6 @@
 	name = "strange object"
 	desc = "What mysteries could this hold?"
 	icon = 'icons/obj/assemblies.dmi'
-	origin_tech = "combat=1;plasmatech=1;powerstorage=1;materials=1"
 	var/realName = "defined object"
 	var/revealed = FALSE
 	var/realProc
@@ -628,7 +604,6 @@
 	name = realName
 	cooldownMax = rand(60,300)
 	realProc = pick("teleport","explode","rapidDupe","petSpray","flash","clean","floofcannon")
-	origin_tech = pick("engineering=[rand(2,5)]","magnets=[rand(2,5)]","plasmatech=[rand(2,5)]","programming=[rand(2,5)]","powerstorage=[rand(2,5)]")
 
 /obj/item/relic/attack_self(mob/user)
 	if(revealed)

@@ -12,7 +12,6 @@
 	allow_quick_empty = TRUE
 	display_contents_with_number = TRUE
 	use_to_pickup = TRUE
-	origin_tech = "engineering=1"
 
 /obj/item/storage/conveyor/bluespace
 	name = "bluespace conveyor belt placer"
@@ -22,7 +21,6 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 50
 	max_combined_w_class = 200 //50 belts
-	origin_tech = "engineering=2;bluespace=1"
 
 /obj/item/storage/conveyor/attackby(obj/item/I, mob/user, params) //So we can link belts en masse
 	if(istype(I, /obj/item/conveyor_switch_construct))

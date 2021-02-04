@@ -81,6 +81,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/refundable = FALSE
 	var/refund_path = null // Alternative path for refunds, in case the item purchased isn't what is actually refunded (ie: holoparasites).
 	var/refund_amount // specified refund amount in case there needs to be a TC penalty for refunds.
+	var/illegal_tech = TRUE // Can this item be deconstructed to unlock certain techweb research nodes?
 
 /datum/uplink_item/proc/spawn_item(var/turf/loc, var/obj/item/uplink/U)
 
@@ -172,6 +173,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/grenade/clown_grenade
 	cost = 5
 	job = list("Clown")
+	illegal_tech = FALSE
 
 /datum/uplink_item/jobspecific/clownmagboots
 	name = "Clown Magboots"
@@ -180,6 +182,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/shoes/magboots/clown
 	cost = 3
 	job = list("Clown")
+	illegal_tech = FALSE
 
 /datum/uplink_item/jobspecific/trick_revolver
 	name = "Trick Revolver"
@@ -212,6 +215,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/borg/upgrade/modkit/indoors
 	cost = 5 //you need two for full damage, so total of 10 for maximum damage
 	job = list("Shaft Miner")
+	illegal_tech = FALSE
 
 //Chef
 /datum/uplink_item/jobspecific/specialsauce
@@ -659,6 +663,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/ammo
 	category = "Ammunition"
 	surplus = 40
+	illegal_tech = FALSE // Ammo is not enough to give you illegal research
 
 /datum/uplink_item/ammo/pistol
 	name = "Stechkin - 10mm Magazine"
@@ -919,6 +924,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/soap/syndie
 	cost = 1
 	surplus = 50
+	illegal_tech = FALSE // If anyone declares a bar of soap illegal-research worthy, I will cane you
 
 /datum/uplink_item/stealthy_weapons/dart_pistol
 	name = "Dart Pistol Kit"
@@ -1279,6 +1285,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "FLTB"
 	item = /obj/item/storage/toolbox/syndicate
 	cost = 1
+	illegal_tech = FALSE // A toolbox is not illegal research you plonker
 
 /datum/uplink_item/device_tools/surgerybag
 	name = "Syndicate Surgery Duffelbag"
@@ -1617,6 +1624,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 	excludefrom = list(/datum/game_mode/nuclear)
 	surplus = 40
+	illegal_tech = FALSE
 
 /datum/uplink_item/badass/syndiecash
 	name = "Syndicate Briefcase Full of Cash"
@@ -1625,6 +1633,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CASH"
 	item = /obj/item/storage/secure/briefcase/syndie
 	cost = 1
+	illegal_tech = FALSE
 
 /datum/uplink_item/badass/plasticbag
 	name = "Plastic Bag"
@@ -1633,6 +1642,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/bag/plasticbag
 	cost = 1
 	excludefrom = list(/datum/game_mode/nuclear)
+	illegal_tech = FALSE
 
 /datum/uplink_item/badass/balloon
 	name = "For showing that you are The Boss"

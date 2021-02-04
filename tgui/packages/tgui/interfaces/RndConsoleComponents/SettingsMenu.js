@@ -8,7 +8,6 @@ export const SettingsMenu = (properties, context) => {
 
   const {
     sync,
-    admin,
     linked_destroy,
     linked_lathe,
     linked_imprinter,
@@ -50,12 +49,6 @@ export const SettingsMenu = (properties, context) => {
               menu={MENU.SETTINGS} submenu={SUBMENU.SETTINGS_DEVICES}
             />
 
-            {admin === 1 ? (
-              <Button
-                icon="exclamation"
-                content="[ADMIN] Maximize Research Levels"
-                onClick={() => act('maxresearch')} />
-            ) : null}
           </Flex>
         </Section>
       )} />

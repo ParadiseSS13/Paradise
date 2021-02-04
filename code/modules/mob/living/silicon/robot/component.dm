@@ -226,7 +226,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 5
 	throw_range = 10
-	origin_tech = "magnets=1;biotech=1"
 	var/mode = 1
 
 /obj/item/robotanalyzer/attack(mob/living/M as mob, mob/living/user as mob)

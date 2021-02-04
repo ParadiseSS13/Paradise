@@ -5,7 +5,6 @@
 	icon = 'icons/obj/hypo.dmi'
 	icon_state = "lazarus_hypo"
 	item_state = "hypo"
-	origin_tech = "biotech=4;magnets=6"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3

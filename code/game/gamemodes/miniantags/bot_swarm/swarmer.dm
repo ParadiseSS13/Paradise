@@ -4,7 +4,6 @@
 	desc = "A shell of swarmer that was completely powered down. It can no longer activate itself."
 	icon = 'icons/mob/swarmer.dmi'
 	icon_state = "swarmer_unactivated"
-	origin_tech = "bluespace=4;materials=4;programming=7"
 	materials = list(MAT_METAL=10000, MAT_GLASS=4000)
 
 /obj/effect/mob_spawn/swarmer
