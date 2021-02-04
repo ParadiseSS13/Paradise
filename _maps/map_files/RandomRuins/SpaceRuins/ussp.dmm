@@ -248,9 +248,7 @@
 	info = "<i>To my darling Sergei,<br><br>I will never forget those nights we spent on Cygni, or all the times you took me around in your 2452 Vincent. The way you looked at me that one night, that was the night I knew that you and I were of the same soul.<br><br>I know they made you sell your Vincent when you were reassigned, but I could not let such a beautiful thing go to rust. I have made arrangements and it is here, waiting for you.<br><br>I have enclosed the keys. Please, let them serve as a reminder always of our love and a reason to return. I beg of you, do not let our love go softly into the night.</i>"
 	},
 /obj/item/key{
-	name = "Vincent '52 Key";
-	pixel_x = 0;
-	pixel_y = 0
+	name = "Vincent '52 Key"
 	},
 /obj/item/trash/tapetrash{
 	desc = "A bundle of severely yellowed and highly pretentious looking documents. Unfortunately they appear to be written in cyrillic and encrypted with a cypher.";
@@ -1733,8 +1731,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 0
+	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 1;

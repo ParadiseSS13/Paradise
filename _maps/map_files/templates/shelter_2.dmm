@@ -79,9 +79,7 @@
 /obj/machinery/shower{
 	pixel_y = 20
 	},
-/turf/simulated/floor/pod{
-	pixel_y = 0
-	},
+/turf/simulated/floor/pod,
 /area/survivalpod)
 "o" = (
 /obj/structure/window/reinforced/survival_pod{

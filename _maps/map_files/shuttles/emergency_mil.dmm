@@ -264,7 +264,6 @@
 	layer = 3.3;
 	name = "Emergency NanoMed";
 	pixel_x = 28;
-	pixel_y = 0;
 	req_access_txt = "0"
 	},
 /obj/machinery/sleeper,
@@ -340,10 +339,7 @@
 	pixel_x = 2;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 0;
-	pixel_y = 0
-	},
+/obj/item/reagent_containers/glass/beaker/cryoxadone,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "whiteblue";

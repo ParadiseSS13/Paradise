@@ -170,8 +170,7 @@
 /obj/structure/sink{
 	dir = 4;
 	icon_state = "sink";
-	pixel_x = 11;
-	pixel_y = 0
+	pixel_x = 11
 	},
 /turf/unsimulated/beach/water/deep/wood_floor,
 /area/awaymission/undersea)

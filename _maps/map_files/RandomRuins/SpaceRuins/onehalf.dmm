@@ -257,7 +257,6 @@
 /obj/machinery/power/apc/noalarm{
 	keep_preset_name = 1;
 	name = "Hallway APC";
-	pixel_x = 0;
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -1190,7 +1189,6 @@
 /obj/machinery/door_control{
 	id = "onehalf bridge";
 	name = "Bridge Lockdown";
-	pixel_x = 0;
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel,

@@ -242,7 +242,6 @@
 /obj/item/flashlight/seclite,
 /obj/item/clothing/mask/gas,
 /obj/structure/sign/vacuum{
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
@@ -541,7 +540,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/vacuum{
-	pixel_x = 0;
 	pixel_y = -32
 	},
 /turf/simulated/floor/plating,
@@ -697,7 +695,6 @@
 	master_tag = "syndicate_base_incinerator";
 	name = "interior access button";
 	pixel_x = -25;
-	pixel_y = 0;
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/engine/insulated,
@@ -743,7 +740,6 @@
 	master_tag = "syndicate_base_incinerator";
 	name = "exterior access button";
 	pixel_x = -25;
-	pixel_y = 0;
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/engine/insulated,
@@ -810,7 +806,6 @@
 /obj/machinery/embedded_controller/radio/airlock/access_controller{
 	frequency = 1449;
 	id_tag = "syndicate_base_east";
-	pixel_x = 0;
 	pixel_y = 25;
 	req_access_txt = "150";
 	tag_exterior_door = "syndicate_base_east_exterior";

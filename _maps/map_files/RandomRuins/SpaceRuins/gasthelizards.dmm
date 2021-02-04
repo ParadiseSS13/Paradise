@@ -22,8 +22,7 @@
 /area/ruin/unpowered)
 "e" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	pixel_x = 0
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "warndark";
@@ -71,8 +70,7 @@
 /area/ruin/unpowered)
 "j" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	pixel_x = 0
+	dir = 4
 	},
 /obj/machinery/atmospherics/unary/outlet_injector,
 /turf/simulated/floor/plasteel{
@@ -125,7 +123,6 @@
 /obj/machinery/power/apc/worn_out{
 	dir = 8;
 	pixel_x = -24;
-	pixel_y = 0;
 	cell_type = 2500;
 	operating = 1
 	},
@@ -263,8 +260,7 @@
 /area/ruin/unpowered)
 "I" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	pixel_x = 0
+	dir = 4
 	},
 /obj/machinery/light,
 /obj/structure/table,

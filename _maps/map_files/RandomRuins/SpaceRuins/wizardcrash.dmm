@@ -503,8 +503,7 @@
 /area/ruin/unpowered)
 "bJ" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	pixel_x = 0
+	dir = 4
 	},
 /turf/simulated/floor/mineral/plasma,
 /area/ruin/unpowered)

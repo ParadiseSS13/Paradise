@@ -360,8 +360,7 @@
 	id = "miningdorm1";
 	name = "Door Bolt Control";
 	normaldoorcontrol = 1;
-	pixel_x = 24;
-	pixel_y = 0;
+	pixel_x = 24
 	specialfunctions = 4
 	},
 /turf/simulated/floor/carpet,
@@ -372,15 +371,12 @@
 	},
 /obj/machinery/door_control{
 	id = "Labor";
-	name = "Labor Camp Lockdown";
-	pixel_x = 0;
+	name = "Labor Camp Lockdown"
 	pixel_y = 25;
 	req_access_txt = "2"
 	},
 /obj/machinery/flasher_button{
-	id = "labor";
-	pixel_w = 0;
-	pixel_x = 0;
+	id = "labor"
 	pixel_y = 34
 	},
 /turf/simulated/floor/plasteel,
@@ -447,8 +443,7 @@
 	id = "miningdorm2";
 	name = "Door Bolt Control";
 	normaldoorcontrol = 1;
-	pixel_x = 24;
-	pixel_y = 0;
+	pixel_x = 24
 	specialfunctions = 4
 	},
 /turf/simulated/floor/carpet,
@@ -541,8 +536,7 @@
 	id = "miningdorm3";
 	name = "Door Bolt Control";
 	normaldoorcontrol = 1;
-	pixel_x = 24;
-	pixel_y = 0;
+	pixel_x = 24
 	specialfunctions = 4
 	},
 /turf/simulated/floor/carpet,
@@ -1193,8 +1187,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0;
+	icon_state = "4-8"
 	tag = ""
 	},
 /turf/simulated/floor/plating,
@@ -3275,8 +3268,7 @@
 "hf" = (
 /obj/machinery/flasher_button{
 	id = "gulagshuttleflasher";
-	name = "Flash Control";
-	pixel_x = 0;
+	name = "Flash Control"
 	pixel_y = -26;
 	req_access_txt = "1"
 	},
@@ -5147,8 +5139,7 @@
 "KR" = (
 /obj/machinery/mineral/labor_claim_console{
 	machinedir = 1;
-	pixel_x = 30;
-	pixel_y = 0
+	pixel_x = 30
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/siberia)

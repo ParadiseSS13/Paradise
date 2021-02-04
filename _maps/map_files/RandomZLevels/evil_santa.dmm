@@ -693,8 +693,7 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 4;
 	name = "Worn-out APC";
-	pixel_x = 24;
-	pixel_y = 0
+	pixel_x = 24
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/challenge/main)
@@ -766,8 +765,7 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 4;
 	name = "Worn-out APC";
-	pixel_x = 24;
-	pixel_y = 0
+	pixel_x = 24
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/challenge/start)

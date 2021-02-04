@@ -13721,9 +13721,7 @@
 "aCA" = (
 /obj/structure/table,
 /obj/item/folder/red,
-/obj/item/taperecorder{
-	pixel_y = 0
-	},
+/obj/item/taperecorder,
 /obj/item/radio/intercom{
 	broadcasting = 1;
 	frequency = 1424;
@@ -13741,7 +13739,6 @@
 "aCB" = (
 /obj/structure/table/reinforced,
 /obj/structure/closet/fireaxecabinet{
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -15991,8 +15988,7 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9;
-	pixel_y = 0
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -17451,8 +17447,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9;
-	pixel_y = 0
+	dir = 9
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/fore)
@@ -19112,8 +19107,7 @@
 /obj/structure/table,
 /obj/machinery/recharger,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9;
-	pixel_y = 0
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -21960,8 +21954,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9;
-	pixel_y = 0
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -23868,9 +23861,7 @@
 	name = "Port Maintenance"
 	})
 "aVr" = (
-/obj/machinery/disposal{
-	pixel_y = 0
-	},
+/obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/camera{
 	c_tag = "Locker Room Starboard";
@@ -24017,8 +24008,7 @@
 	network = list("SS13","RD","AIUpload")
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9;
-	pixel_y = 0
+	dir = 9
 	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
@@ -25078,9 +25068,7 @@
 "aXB" = (
 /obj/structure/table,
 /obj/item/clipboard,
-/obj/item/stamp/qm{
-	pixel_y = 0
-	},
+/obj/item/stamp/qm,
 /obj/machinery/status_display{
 	density = 0;
 	pixel_x = 32
@@ -28395,9 +28383,7 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/circuitboard/cloning{
-	pixel_x = 0
-	},
+/obj/item/circuitboard/cloning,
 /obj/item/circuitboard/med_data{
 	pixel_x = 3;
 	pixel_y = -3
@@ -29140,9 +29126,7 @@
 /obj/item/folder/red,
 /obj/item/folder/red,
 /obj/item/folder/red,
-/obj/item/taperecorder{
-	pixel_y = 0
-	},
+/obj/item/taperecorder,
 /obj/item/clothing/glasses/sunglasses/big,
 /turf/simulated/floor/wood,
 /area/lawoffice)
@@ -31910,9 +31894,7 @@
 /area/storage/tech)
 "bjC" = (
 /obj/structure/table,
-/obj/machinery/cell_charger{
-	pixel_y = 0
-	},
+/obj/machinery/cell_charger,
 /obj/machinery/alarm{
 	dir = 8;
 	icon_state = "alarm0";
@@ -35581,8 +35563,7 @@
 	})
 "bpM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9;
-	pixel_y = 0
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -37960,9 +37941,7 @@
 	name = "Station Intercom (General)";
 	pixel_x = -29
 	},
-/obj/item/storage/firstaid/regular{
-	pixel_y = 0
-	},
+/obj/item/storage/firstaid/regular,
 /obj/machinery/power/apc{
 	dir = 2;
 	name = "Cargo Office APC";
@@ -42499,9 +42478,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_y = 0
-	},
+/obj/item/storage/toolbox/mechanical,
 /obj/item/multitool,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -42858,9 +42835,7 @@
 	pixel_x = -2;
 	pixel_y = 4
 	},
-/obj/item/storage/lockbox/medal{
-	pixel_y = 0
-	},
+/obj/item/storage/lockbox/medal,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
 	name = "\improper Captain's Quarters"
@@ -52008,9 +51983,7 @@
 	pixel_x = -4;
 	pixel_y = 3
 	},
-/obj/item/clothing/shoes/magboots{
-	pixel_y = 0
-	},
+/obj/item/clothing/shoes/magboots,
 /obj/item/clothing/shoes/magboots{
 	pixel_x = 4;
 	pixel_y = -3
@@ -52663,9 +52636,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/theatre)
 "bTR" = (
-/obj/structure/closet/secure_closet/medical1{
-	pixel_x = 0
-	},
+/obj/structure/closet/secure_closet/medical1,
 /obj/machinery/alarm{
 	dir = 4;
 	icon_state = "alarm0";
@@ -53793,9 +53764,7 @@
 	pixel_x = 4;
 	pixel_y = -1
 	},
-/obj/item/tank/jetpack/carbondioxide{
-	pixel_y = 0
-	},
+/obj/item/tank/jetpack/carbondioxide,
 /obj/item/tank/jetpack/carbondioxide{
 	pixel_x = -4;
 	pixel_y = 1
@@ -54756,9 +54725,7 @@
 	},
 /area/crew_quarters/locker)
 "bXR" = (
-/obj/item/taperecorder{
-	pixel_y = 0
-	},
+/obj/item/taperecorder,
 /obj/item/camera,
 /obj/item/radio/intercom{
 	pixel_y = -25
@@ -62991,9 +62958,7 @@
 	},
 /area/medical/reception)
 "cmt" = (
-/obj/machinery/ai_status_display{
-	pixel_y = 0
-	},
+/obj/machinery/ai_status_display,
 /turf/simulated/wall,
 /area/medical/reception)
 "cmu" = (
@@ -66926,9 +66891,7 @@
 /obj/item/stack/packageWrap,
 /obj/item/stack/packageWrap,
 /obj/item/stack/packageWrap,
-/obj/item/taperecorder{
-	pixel_y = 0
-	},
+/obj/item/taperecorder,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
 /area/toxins/explab)
@@ -67364,12 +67327,8 @@
 /obj/structure/table,
 /obj/structure/disposalpipe/segment,
 /obj/item/folder/white,
-/obj/item/disk/tech_disk{
-	pixel_y = 0
-	},
-/obj/item/disk/tech_disk{
-	pixel_y = 0
-	},
+/obj/item/disk/tech_disk,
+/obj/item/disk/tech_disk,
 /obj/item/disk/design_disk,
 /obj/item/disk/design_disk,
 /turf/simulated/floor/plasteel{
@@ -68753,9 +68712,7 @@
 "cwI" = (
 /obj/effect/decal/cleanable/blood/gibs/limb,
 /obj/structure/rack,
-/obj/item/storage/firstaid/regular{
-	pixel_y = 0
-	},
+/obj/item/storage/firstaid/regular,
 /obj/item/stack/medical/bruise_pack,
 /obj/item/stack/medical/bruise_pack,
 /obj/item/stack/medical/ointment,
@@ -69220,9 +69177,7 @@
 	},
 /area/medical/chemistry)
 "cxB" = (
-/obj/machinery/disposal{
-	pixel_x = 0
-	},
+/obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -69723,9 +69678,7 @@
 	},
 /area/medical/medbay3)
 "cyu" = (
-/obj/structure/sign/fire{
-	pixel_y = 0
-	},
+/obj/structure/sign/fire,
 /turf/simulated/wall/r_wall/coated,
 /area/maintenance/incinerator)
 "cyv" = (
@@ -70487,9 +70440,7 @@
 	},
 /area/hallway/primary/aft)
 "czI" = (
-/obj/structure/sign/directions/evac{
-	pixel_y = 0
-	},
+/obj/structure/sign/directions/evac,
 /turf/simulated/wall,
 /area/maintenance/aft{
 	name = "Aft Maintenance"
@@ -74143,9 +74094,7 @@
 "cFT" = (
 /obj/structure/rack,
 /obj/item/clothing/glasses/sunglasses,
-/obj/item/flashlight/pen{
-	pixel_x = 0
-	},
+/obj/item/flashlight/pen,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/aft{
@@ -75113,9 +75062,7 @@
 	},
 /area/medical/cryo)
 "cHn" = (
-/obj/structure/sign/directions/evac{
-	pixel_y = 0
-	},
+/obj/structure/sign/directions/evac,
 /turf/simulated/wall,
 /area/assembly/chargebay)
 "cHo" = (
@@ -76330,12 +76277,8 @@
 	pixel_x = 8;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/iv_bag{
-	pixel_y = 0
-	},
-/obj/item/reagent_containers/iv_bag{
-	pixel_y = 0
-	},
+/obj/item/reagent_containers/iv_bag,
+/obj/item/reagent_containers/iv_bag,
 /obj/item/reagent_containers/syringe,
 /obj/item/reagent_containers/dropper,
 /obj/structure/sign/biohazard{
@@ -77481,9 +77424,7 @@
 	pixel_x = 6;
 	pixel_y = -4
 	},
-/obj/item/assembly/timer{
-	pixel_y = 0
-	},
+/obj/item/assembly/timer,
 /obj/structure/table/reinforced,
 /obj/effect/decal/warning_stripes/northeastcorner,
 /turf/simulated/floor/plasteel,
@@ -77570,12 +77511,8 @@
 /obj/item/transfer_valve{
 	pixel_x = -5
 	},
-/obj/item/transfer_valve{
-	pixel_x = 0
-	},
-/obj/item/transfer_valve{
-	pixel_x = 0
-	},
+/obj/item/transfer_valve,
+/obj/item/transfer_valve,
 /obj/item/transfer_valve{
 	pixel_x = 5
 	},
@@ -81399,9 +81336,7 @@
 	pixel_x = 3;
 	pixel_y = 4
 	},
-/obj/item/storage/box/masks{
-	pixel_y = 0
-	},
+/obj/item/storage/box/masks,
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -84328,9 +84263,7 @@
 	},
 /area/medical/medbay3)
 "cXs" = (
-/obj/machinery/ai_status_display{
-	pixel_y = 0
-	},
+/obj/machinery/ai_status_display,
 /turf/simulated/wall,
 /area/hallway/secondary/exit{
 	name = "\improper Departure Lounge"
@@ -89171,8 +89104,7 @@
 	},
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
 	frequency = 1379;
-	id_tag = "sol_airlock";
-	pixel_x = 0;
+	id_tag = "sol_airlock"
 	pixel_y = -25;
 	req_access_txt = "0";
 	tag_airpump = "sol_pump";
@@ -89485,8 +89417,7 @@
 	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
 	icon_state = "space";
 	layer = 4;
-	name = "EXTERNAL AIRLOCK";
-	pixel_x = 0;
+	name = "EXTERNAL AIRLOCK"
 	pixel_y = -32
 	},
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -91486,8 +91417,7 @@
 /area/construction)
 "tvn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9;
-	pixel_y = 0
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -91922,8 +91852,7 @@
 /obj/effect/spawner/window/reinforced,
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
-	name = "KEEP CLEAR: DOCKING AREA";
-	pixel_y = 0
+	name = "KEEP CLEAR: DOCKING AREA"
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)

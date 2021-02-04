@@ -474,15 +474,9 @@
 	dir = 1;
 	layer = 2.9
 	},
-/obj/item/clothing/suit/armor/bulletproof{
-	pixel_x = 0;
-	pixel_y = 0
-	},
+/obj/item/clothing/suit/armor/bulletproof,
 /obj/item/clothing/head/helmet/alt,
-/obj/item/clothing/suit/armor/bulletproof{
-	pixel_x = 0;
-	pixel_y = 0
-	},
+/obj/item/clothing/suit/armor/bulletproof,
 /obj/item/clothing/head/helmet/alt,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -908,16 +902,10 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/clothing/suit/armor/bulletproof{
-	pixel_x = 0;
-	pixel_y = 0
-	},
+/obj/item/clothing/suit/armor/bulletproof,
 /obj/structure/rack,
 /obj/item/clothing/head/helmet/alt,
-/obj/item/clothing/suit/armor/bulletproof{
-	pixel_x = 0;
-	pixel_y = 0
-	},
+/obj/item/clothing/suit/armor/bulletproof,
 /obj/item/clothing/head/helmet/alt,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -979,15 +967,9 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/clothing/suit/armor/bulletproof{
-	pixel_x = 0;
-	pixel_y = 0
-	},
+/obj/item/clothing/suit/armor/bulletproof,
 /obj/item/clothing/head/helmet/alt,
-/obj/item/clothing/suit/armor/bulletproof{
-	pixel_x = 0;
-	pixel_y = 0
-	},
+/obj/item/clothing/suit/armor/bulletproof,
 /obj/item/clothing/head/helmet/alt,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -1262,10 +1244,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/gun/energy/gun/advtaser{
-	pixel_x = 0;
-	pixel_y = 0
-	},
+/obj/item/gun/energy/gun/advtaser,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},

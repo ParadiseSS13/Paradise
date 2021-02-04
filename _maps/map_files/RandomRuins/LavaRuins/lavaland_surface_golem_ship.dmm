@@ -163,8 +163,7 @@
 	name = "statue of the Liberator"
 	},
 /obj/structure/window/reinforced{
-	dir = 4;
-	pixel_x = 0
+	dir = 4
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor5"
@@ -224,8 +223,7 @@
 /area/shuttle/freegolem)
 "aI" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	pixel_x = 0
+	dir = 4
 	},
 /obj/structure/table/wood,
 /obj/item/bedsheet/rd/royal_cape{

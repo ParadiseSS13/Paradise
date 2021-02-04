@@ -176,7 +176,6 @@
 /obj/machinery/door_control{
 	name = "Strange Ship Door Control";
 	pixel_x = 6;
-	pixel_y = 0;
 	id = "strange ship"
 	},
 /turf/simulated/shuttle/wall{

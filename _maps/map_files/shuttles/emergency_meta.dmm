@@ -157,7 +157,6 @@
 /obj/item/radio/intercom{
 	dir = 4;
 	name = "Station Intercom (General)";
-	pixel_x = 0;
 	pixel_y = 27
 	},
 /obj/structure/chair/comfy/shuttle,
@@ -392,8 +391,6 @@
 "aS" = (
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_x = 0;
-	pixel_y = 0;
 	req_access_txt = "0";
 	use_power = 0
 	},
@@ -433,8 +430,7 @@
 /obj/machinery/status_display{
 	dir = 4;
 	layer = 4;
-	pixel_x = 32;
-	pixel_y = 0
+	pixel_x = 32
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
@@ -476,7 +472,6 @@
 /obj/structure/table,
 /obj/item/folder/blue,
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 0;
 	pixel_y = -30
 	},
 /turf/simulated/shuttle/floor,
@@ -706,8 +701,7 @@
 "bF" = (
 /obj/structure/table,
 /obj/item/reagent_containers/glass/bottle/epinephrine{
-	pixel_x = 6;
-	pixel_y = 0
+	pixel_x = 6
 	},
 /obj/item/reagent_containers/glass/bottle/charcoal{
 	pixel_x = -3
@@ -749,7 +743,6 @@
 	pixel_y = 1
 	},
 /obj/item/storage/toolbox/mechanical{
-	pixel_x = 0;
 	pixel_y = -1
 	},
 /obj/item/storage/toolbox/emergency{
@@ -892,7 +885,6 @@
 /obj/item/radio/intercom{
 	dir = 4;
 	name = "Station Intercom (General)";
-	pixel_x = 0;
 	pixel_y = -27
 	},
 /turf/simulated/shuttle/floor,
@@ -942,7 +934,6 @@
 /area/shuttle/escape)
 "ca" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 0;
 	pixel_y = -30
 	},
 /obj/machinery/space_heater,

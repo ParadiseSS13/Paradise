@@ -378,8 +378,7 @@
 /area/shuttle/escape)
 "bd" = (
 /obj/machinery/status_display{
-	pixel_x = -30;
-	pixel_y = 0
+	pixel_x = -30
 	},
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (WEST)";
@@ -520,7 +519,6 @@
 	layer = 3.3;
 	name = "Emergency NanoMed";
 	pixel_x = 28;
-	pixel_y = 0;
 	req_access_txt = "0"
 	},
 /obj/structure/bed/roller,
