@@ -239,7 +239,8 @@
 			ND.sample_object.plane = ABOVE_HUD_PLANE
 			cx++
 			if(cx > (4 + cols))
-				cx = 3
+				cx = 4
+				cy--
 	else
 		for(var/obj/O in contents)
 			O.mouse_opacity = MOUSE_OPACITY_OPAQUE //This is here so storage items that spawn with contents correctly have the "click around item to equip"
@@ -249,7 +250,8 @@
 			O.plane = ABOVE_HUD_PLANE
 			cx++
 			if(cx > (4 + cols))
-				cx = 3
+				cx = 4
+				cy--
 	closer.screen_loc = "[4 + cols + 1]:16,2:16"
 
 /datum/numbered_display

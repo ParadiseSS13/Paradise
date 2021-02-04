@@ -142,9 +142,10 @@
 	for(var/obj/item/toy/crayon/crayon in contents)
 		overlays += image('icons/obj/crayons.dmi',crayon.colourName)
 
-/obj/item/storage/fancy/crayons/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/toy/crayon))
-		switch(W:colourName)
+/obj/item/storage/fancy/crayons/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/toy/crayon))
+		var/obj/item/toy/crayon/C = I
+		switch(C.colourName)
 			if("mime")
 				to_chat(usr, "This crayon is too sad to be contained in this box.")
 				return
@@ -217,7 +218,7 @@
 				to_chat(usr, "<span class='notice'>Putting [W] in [src] while lit probably isn't a good idea.</span>")
 			return 0
 	//if we get this far, handle the insertion checks as normal
-	.=..()
+	. = ..()
 
 /obj/item/storage/fancy/cigarettes/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!length(contents))
@@ -240,7 +241,7 @@
 	item_state = "robustpacket"
 
 /obj/item/storage/fancy/cigarettes/syndicate/Initialize(mapload)
-	..()
+	. = ..()
 	var/new_name = pick("evil", "suspicious", "ominous", "donk-flavored", "robust", "sneaky")
 	name = "[new_name] cigarette packet"
 
@@ -356,7 +357,7 @@
 	req_access = list(ACCESS_VIROLOGY)
 
 /obj/item/storage/lockbox/vials/Initialize(mapload)
-	..()
+	. = ..()
 	update_icon()
 
 /obj/item/storage/lockbox/vials/update_icon()

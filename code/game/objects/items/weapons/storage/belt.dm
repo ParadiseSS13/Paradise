@@ -9,7 +9,7 @@
 	slot_flags = SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined")
 	max_integrity = 300
-	var/use_item_overlays = 0 // Do we have overlays for items held inside the belt?
+	var/use_item_overlays = FALSE // Do we have overlays for items held inside the belt?
 
 /obj/item/storage/belt/update_icon()
 	if(use_item_overlays)
@@ -21,11 +21,11 @@
 /obj/item/storage/belt/proc/can_use()
 	return is_equipped()
 
-/obj/item/storage/belt/MouseDrop(obj/over_object as obj, src_location, over_location)
+/obj/item/storage/belt/MouseDrop(obj/over_object, src_location, over_location)
 	var/mob/M = usr
 	if(!istype(over_object, /obj/screen))
 		return ..()
-	playsound(loc, "rustle", 50, 1, -5)
+	playsound(loc, "rustle", 50, TRUE, -5)
 	if(!M.restrained() && !M.stat && can_use())
 		switch(over_object.name)
 			if("r_hand")
@@ -46,7 +46,7 @@
 	desc = "Can hold various tools."
 	icon_state = "utilitybelt"
 	item_state = "utility"
-	use_item_overlays = 1
+	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/crowbar,
 		/obj/item/screwdriver,
@@ -104,12 +104,12 @@
 	//much roomier now that we've managed to remove two tools
 
 /obj/item/storage/belt/medical
-	use_to_pickup = 1 //Allow medical belt to pick up medicine
 	name = "medical belt"
 	desc = "Can hold various medical equipment."
 	icon_state = "medicalbelt"
 	item_state = "medical"
-	use_item_overlays = 1
+	use_to_pickup = TRUE //Allow medical belt to pick up medicine
+	use_item_overlays = TRUE
 	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(
 		/obj/item/healthanalyzer,
@@ -140,11 +140,11 @@
 /obj/item/storage/belt/medical/surgery
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 17
-	use_to_pickup = 1
+	use_to_pickup = TRUE
 	name = "surgical belt"
 	desc = "Can hold various surgical tools."
 	storage_slots = 9
-	use_item_overlays = 1
+	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/scalpel,
 		/obj/item/hemostat,
@@ -183,7 +183,7 @@
 	desc = "Can hold various botanical supplies."
 	icon_state = "botanybelt"
 	item_state = "botany"
-	use_item_overlays = 1
+	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/plant_analyzer,
 		/obj/item/cultivator,
@@ -209,7 +209,7 @@
 	item_state = "security"//Could likely use a better one.
 	storage_slots = 5
 	max_w_class = WEIGHT_CLASS_NORMAL
-	use_item_overlays = 1
+	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/grenade/flashbang,
 		/obj/item/grenade/chem_grenade/teargas,
@@ -262,7 +262,7 @@
 	icon_state = "soulstonebelt"
 	item_state = "soulstonebelt"
 	storage_slots = 6
-	use_item_overlays = 1
+	use_item_overlays = TRUE
 	can_hold = list(
 		"/obj/item/soulstone"
 		)
@@ -283,7 +283,7 @@
 	icon_state = "championbelt"
 	item_state = "champion"
 	materials = list(MAT_GOLD=400)
-	storage_slots = 1
+	storage_slots = TRUE
 	can_hold = list(
 		"/obj/item/clothing/mask/luchador"
 		)
@@ -305,7 +305,7 @@
 	desc = "Can hold various tools. This model seems to have additional compartments."
 	icon_state = "utilitybelt"
 	item_state = "utility"
-	use_item_overlays = 1 // So it will still show tools in it in case sec get lazy and just glance at it.
+	use_item_overlays = TRUE // So it will still show tools in it in case sec get lazy and just glance at it.
 
 /obj/item/storage/belt/military/traitor/hacker/populate_contents()
 	new /obj/item/screwdriver(src, "red")
@@ -323,7 +323,7 @@
 	item_state = "assault"
 	storage_slots = 30
 	max_combined_w_class = 60
-	display_contents_with_number = 1
+	display_contents_with_number = TRUE
 	can_hold = list(
 		/obj/item/grenade,
 		/obj/item/lighter,
@@ -388,7 +388,7 @@
 	item_state = "janibelt"
 	storage_slots = 6
 	max_w_class = WEIGHT_CLASS_BULKY // Set to this so the  light replacer can fit.
-	use_item_overlays = 1
+	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/grenade/chem_grenade/cleaner,
 		/obj/item/lightreplacer,
@@ -421,21 +421,20 @@
 	can_hold = list(/obj/item/mobcapsule)
 
 /obj/item/storage/belt/lazarus/Initialize(mapload)
-	..()
+	. = ..()
 	update_icon()
-
 
 /obj/item/storage/belt/lazarus/update_icon()
 	..()
-	icon_state = "[initial(icon_state)]_[contents.len]"
+	icon_state = "[initial(icon_state)]_[length(contents)]"
 
-/obj/item/storage/belt/lazarus/attackby(obj/item/W, mob/user)
-	var/amount = contents.len
+/obj/item/storage/belt/lazarus/attackby(obj/item/I, mob/user)
+	var/amount = length(contents)
 	. = ..()
-	if(amount != contents.len)
+	if(amount != length(contents))
 		update_icon()
 
-/obj/item/storage/belt/lazarus/remove_from_storage(obj/item/W as obj, atom/new_location)
+/obj/item/storage/belt/lazarus/remove_from_storage(obj/item/I, atom/new_location)
 	..()
 	update_icon()
 
@@ -449,7 +448,7 @@
 	can_hold = list(/obj/item/ammo_casing/shotgun)
 
 /obj/item/storage/belt/bandolier/Initialize(mapload)
-	..()
+	. = ..()
 	update_icon()
 
 /obj/item/storage/belt/bandolier/full/populate_contents()
@@ -490,7 +489,7 @@
 	icon_state = "soulstonebelt"
 	item_state = "soulstonebelt"
 	storage_slots = 6
-	use_item_overlays = 1
+	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/gun/magic/wand
 		)
@@ -644,7 +643,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 18
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
-	allow_quick_empty = 1
+	allow_quick_empty = TRUE
 	can_hold = list(
 		/obj/item/grenade/smokebomb,
 		/obj/item/restraints/legcuffs/bola
@@ -656,7 +655,7 @@
 	var/cooldown = 0
 
 /obj/item/storage/belt/bluespace/owlman/Initialize(mapload)
-	..()
+	. = ..()
 	START_PROCESSING(SSobj, src)
 	cooldown = world.time
 
@@ -698,7 +697,7 @@
 				if(H.s_active && H.s_active == src)
 					H.s_active.show_to(H)
 
-/obj/item/storage/belt/bluespace/attack(mob/M as mob, mob/user as mob, def_zone)
+/obj/item/storage/belt/bluespace/attack(mob/M, mob/user, def_zone)
 	return
 
 /obj/item/storage/belt/bluespace/admin
@@ -760,7 +759,7 @@
 	storage_slots = 6
 	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 20
-	use_item_overlays = 0
+	use_item_overlays = FALSE
 	can_hold = list(
 		/obj/item/crowbar,
 		/obj/item/screwdriver,

@@ -248,7 +248,7 @@
 	var/wrapper_state = "pillbottle_wrap"
 
 /obj/item/storage/pill_bottle/Initialize(mapload)
-	..()
+	. = ..()
 	base_name = name
 	if(allow_wrap)
 		apply_wrap()

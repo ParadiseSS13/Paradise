@@ -99,7 +99,7 @@
 	storage_slots = 5		//smaller storage than normal wallets
 
 /obj/item/storage/wallet/color/Initialize(mapload)
-	..()
+	. = ..()
 	if(!item_color)
 		var/color_wallet = pick(subtypesof(/obj/item/storage/wallet/color))
 		new color_wallet(loc)
