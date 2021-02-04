@@ -588,3 +588,9 @@
 					to_chat(src, "<span class='boldwarning'>[priority_absorb_key["self_message"]]</span>")
 			priority_absorb_key["stuns_absorbed"] += amount
 		return TRUE
+
+/mob/living/proc/set_shocked()
+	flags_2 |= SHOCKED_2
+
+/mob/living/proc/reset_shocked()
+	flags_2 &= ~ SHOCKED_2
