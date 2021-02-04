@@ -180,4 +180,4 @@
   * * M - The mob.
   */
 /datum/contractor_hub/proc/is_user_authorized(mob/living/carbon/M)
-	return M.mind.has_antag_datum(/datum/antagonist/traitor/contractor)
+	return LAZYACCESS(GLOB.contractors, M.mind) && M.mind == owner
