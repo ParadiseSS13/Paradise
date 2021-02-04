@@ -3671,7 +3671,7 @@
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "RM" = (
 /obj/structure/grille,
-/obj/structure/window/plastitanium,
+/obj/structure/window/full/plastitanium,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
