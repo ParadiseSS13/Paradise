@@ -370,7 +370,7 @@
 /datum/species/proc/spec_stun(mob/living/carbon/human/H,amount)
 	return
 
-/datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+/datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, source, siemens_coeff = 1, flags = NONE)
 	return
 
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)

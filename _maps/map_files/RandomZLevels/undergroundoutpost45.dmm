@@ -1,9 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/turf/unsimulated/wall{
-	icon_state = "rock";
-	name = "rock"
-	},
+/turf/simulated/wall/indestructible/rock,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;

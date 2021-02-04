@@ -1,4 +1,7 @@
 /turf/simulated/wall/indestructible
+	name = "wall"
+	desc = "Effectively impervious to conventional methods of destruction."
+	explosion_block = 50
 
 /turf/simulated/wall/indestructible/dismantle_wall(devastated = 0, explode = 0)
 	return
@@ -50,7 +53,6 @@
 	desc = "A seemingly impenetrable wall."
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "necro"
-	explosion_block = 50
 	baseturf = /turf/simulated/wall/indestructible/necropolis
 
 /turf/simulated/wall/indestructible/boss
@@ -59,7 +61,6 @@
 	icon = 'icons/turf/walls/boss_wall.dmi'
 	icon_state = "wall"
 	canSmoothWith = list(/turf/simulated/wall/indestructible/boss, /turf/simulated/wall/indestructible/boss/see_through)
-	explosion_block = 50
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt
 	smooth = SMOOTH_TRUE
 
@@ -76,3 +77,13 @@
 /turf/simulated/wall/indestructible/uranium
 	icon = 'icons/turf/walls/uranium_wall.dmi'
 	icon_state = "uranium"
+
+/turf/simulated/wall/indestructible/rock
+	name = "dense rock"
+	desc = "An extremely densely-packed rock, most mining tools or explosives would never get through this."
+	icon = 'icons/turf/walls.dmi'
+	icon_state = "rock"
+
+/turf/simulated/wall/indestructible/riveted
+	icon = 'icons/turf/walls.dmi'
+	icon_state = "riveted"
