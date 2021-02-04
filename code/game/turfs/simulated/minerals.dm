@@ -406,7 +406,7 @@
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "rock"
 	smooth_icon = 'icons/turf/smoothrocks_a.dmi'
-	canSmoothWith = list(/turf/unsimulated/wall/asteroid,
+	canSmoothWith = list(/turf/simulated/wall/indestructible/rock/asteroid,
 						/turf/simulated/mineral/asteroid)
 
 /turf/simulated/mineral/asteroid/loose

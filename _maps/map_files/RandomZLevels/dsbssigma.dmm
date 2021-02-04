@@ -6,7 +6,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/DSBSSigma/exterior)
 "ac" = (
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/exterior)
 "ad" = (
 /obj/structure/lattice,
@@ -30,7 +30,7 @@
 /turf/simulated/mineral/asteroid/loose,
 /area/awaymission/DSBSSigma/caverns)
 "ai" = (
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/caverns)
 "aj" = (
 /obj/effect/decal/cleanable/dirt,
@@ -56,7 +56,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/DSBSSigma/hangar)
 "an" = (
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/hangar)
 "ao" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -141,7 +141,7 @@
 /area/awaymission/DSBSSigma/exterior)
 "az" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/exterior)
 "aA" = (
 /obj/effect/decal/cleanable/dirt,
@@ -878,7 +878,7 @@
 	},
 /area/awaymission/DSBSSigma/medical_center)
 "cg" = (
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/hangar_eva)
 "ch" = (
 /obj/structure/flora/rock/pile,
@@ -1304,7 +1304,7 @@
 "cZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/hangar)
 "da" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -1385,7 +1385,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/hangar)
 "dk" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -1470,7 +1470,7 @@
 	},
 /area/awaymission/DSBSSigma/cloning)
 "dr" = (
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/surgery)
 "ds" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -1559,7 +1559,7 @@
 	dir = 5;
 	level = 1
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/hangar)
 "dy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -1677,6 +1677,9 @@
 	icon_state = "asteroidplating";
 	name = "compacted asteroid sand"
 	},
+/area/awaymission/DSBSSigma/cave_junction_north)
+"dI" = (
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_north)
 "dJ" = (
 /obj/structure/closet/secure_closet/medical2{
@@ -2225,7 +2228,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/hangar)
 "eo" = (
 /obj/machinery/computer{
@@ -2710,7 +2713,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/awaymission/DSBSSigma/cloning)
 "ft" = (
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cloning)
 "fu" = (
 /obj/machinery/door/firedoor,
@@ -2881,11 +2884,18 @@
 	icon_state = "darkbluecorners"
 	},
 /area/awaymission/DSBSSigma/medical_center)
+"fN" = (
+/turf/simulated/wall/indestructible/pt_wall,
+/area/awaymission/DSBSSigma/holding_cells)
 "fO" = (
-/turf/unsimulated/wall/asteroid,
-/area/awaymission/DSBSSigma/cave_junction_north)
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "dsbss_lockdown_blast_medical";
+	name = "Emergency Lockdown"
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/DSBSSigma/lockdown)
 "fR" = (
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/mineral/asteroid/loose/cave,
 /area/awaymission/DSBSSigma/holding_cells)
 "fS" = (
 /obj/machinery/constructable_frame,
@@ -3190,7 +3200,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/medical_center)
 "gB" = (
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/medical_center)
 "gC" = (
 /obj/structure/cable{
@@ -3301,7 +3311,7 @@
 	},
 /area/awaymission/DSBSSigma/gateway)
 "gK" = (
-/turf/unsimulated/wall/fakeglass/reinforced,
+/turf/simulated/wall/indestructible/pt_window,
 /area/awaymission/DSBSSigma/holding_cells)
 "gL" = (
 /turf/simulated/floor/plasteel{
@@ -3339,7 +3349,7 @@
 	},
 /area/awaymission/DSBSSigma/cave_junction_north)
 "gN" = (
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/mission_control)
 "gO" = (
 /obj/structure/closet/crate/freezer{
@@ -3493,7 +3503,7 @@
 	},
 /area/awaymission/DSBSSigma/mission_control)
 "gZ" = (
-/turf/unsimulated/wall/metal/reinforced,
+/turf/simulated/wall/indestructible/pt_wall,
 /area/awaymission/DSBSSigma/hangar)
 "ha" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -3507,7 +3517,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_north)
 "hb" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3662,7 +3672,7 @@
 	dir = 4;
 	level = 1
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_north)
 "ho" = (
 /obj/structure/disposalpipe/segment{
@@ -3674,7 +3684,7 @@
 	},
 /area/awaymission/DSBSSigma/medical_center)
 "hp" = (
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/command)
 "hq" = (
 /obj/structure/disposalpipe/segment{
@@ -3839,7 +3849,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_north)
 "hF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -4214,7 +4224,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/holding_cells)
 "ij" = (
 /obj/structure/cable{
@@ -4524,7 +4534,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/turf/unsimulated/wall/metal/reinforced,
+/turf/simulated/wall/indestructible/pt_wall,
 /area/awaymission/DSBSSigma/holding_cells)
 "iH" = (
 /obj/structure/fluff/utility,
@@ -5096,7 +5106,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_north)
 "jC" = (
 /obj/structure/toilet{
@@ -5746,9 +5756,6 @@
 	tag = "icon-wood-broken2"
 	},
 /area/awaymission/DSBSSigma/command)
-"kH" = (
-/turf/unsimulated/wall/metal/reinforced,
-/area/awaymission/DSBSSigma/holding_cells)
 "kK" = (
 /obj/structure/flora/rock/pile,
 /obj/effect/decal/cleanable/dirt,
@@ -5764,10 +5771,10 @@
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/chemistry_lab)
 "kM" = (
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/chemistry_lab)
 "kN" = (
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/communications)
 "kO" = (
 /obj/structure/cable{
@@ -5831,7 +5838,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/chemistry_lab)
 "kS" = (
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/storage)
 "kT" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -5886,7 +5893,7 @@
 	},
 /area/awaymission/DSBSSigma/chemistry_lab)
 "kX" = (
-/turf/unsimulated/wall/metal/reinforced,
+/turf/simulated/wall/indestructible/pt_wall,
 /area/awaymission/DSBSSigma/command)
 "kY" = (
 /obj/structure/cable{
@@ -6067,7 +6074,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_north)
 "ln" = (
 /obj/item/kitchen/utensil/spoon,
@@ -6442,7 +6449,7 @@
 	dir = 4;
 	level = 1
 	},
-/turf/unsimulated/wall/metal/reinforced,
+/turf/simulated/wall/indestructible/pt_wall,
 /area/awaymission/DSBSSigma/lockdown)
 "lP" = (
 /obj/structure/cable{
@@ -6669,7 +6676,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_north)
 "mn" = (
 /obj/machinery/light{
@@ -6944,7 +6951,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_north)
 "mO" = (
 /obj/structure/cable{
@@ -7235,7 +7242,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/chemistry_lab)
 "nj" = (
 /obj/effect/decal/cleanable/dirt,
@@ -7375,7 +7382,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/storage)
 "nv" = (
 /obj/structure/cable{
@@ -7976,9 +7983,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/janitorial)
-"os" = (
-/turf/unsimulated/wall/metal/reinforced,
-/area/awaymission/DSBSSigma/lockdown)
 "ot" = (
 /obj/machinery/access_button{
 	command = "cycle_exterior";
@@ -8303,7 +8307,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/DSBSSigma/science_lab)
 "oU" = (
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/hydroponics)
 "oV" = (
 /obj/structure/fluff/utility,
@@ -8420,7 +8424,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/unsimulated/wall/metal/reinforced,
+/turf/simulated/wall/indestructible/pt_wall,
 /area/awaymission/DSBSSigma/lockdown)
 "pg" = (
 /obj/structure/flora/ausbushes/genericbush,
@@ -8434,7 +8438,7 @@
 /turf/simulated/floor/grass,
 /area/awaymission/DSBSSigma/hydroponics)
 "pi" = (
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/virology_lab)
 "pj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -8551,7 +8555,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/caverns)
 "pv" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -8893,17 +8897,17 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/unsimulated/wall/metal/reinforced,
+/turf/simulated/wall/indestructible/pt_wall,
 /area/awaymission/DSBSSigma/virology_lab)
 "pZ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/caverns)
 "qa" = (
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/janitorial)
 "qb" = (
 /obj/structure/disposalpipe/segment,
@@ -9000,7 +9004,7 @@
 /turf/simulated/floor/engine/plasma,
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "ql" = (
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "qm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -9095,7 +9099,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/virology_lab)
 "qv" = (
 /obj/effect/decal/cleanable/dirt,
@@ -9114,10 +9118,10 @@
 /area/awaymission/DSBSSigma/hive)
 "qy" = (
 /obj/structure/disposalpipe/segment,
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/caverns)
 "qA" = (
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_west)
 "qB" = (
 /obj/machinery/disposal,
@@ -9421,7 +9425,7 @@
 /turf/simulated/floor/engine/n2,
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "ri" = (
-/turf/unsimulated/wall/fakeglass/reinforced,
+/turf/simulated/wall/indestructible/pt_window,
 /area/awaymission/DSBSSigma/virology_lab)
 "rj" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
@@ -9557,7 +9561,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_west)
 "ru" = (
 /obj/structure/table,
@@ -10824,7 +10828,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_west)
 "tk" = (
 /obj/effect/decal/cleanable/dirt,
@@ -11176,7 +11180,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/unsimulated/wall/metal/reinforced,
+/turf/simulated/wall/indestructible/pt_wall,
 /area/awaymission/DSBSSigma/lockdown)
 "tF" = (
 /obj/effect/decal/cleanable/dirt,
@@ -11322,10 +11326,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_west)
 "tS" = (
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/disposal)
 "tT" = (
 /obj/structure/cable{
@@ -11335,7 +11339,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/visible/supply,
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "tU" = (
 /obj/machinery/light/small{
@@ -11519,7 +11523,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/turf/unsimulated/wall/metal/reinforced,
+/turf/simulated/wall/indestructible/pt_wall,
 /area/awaymission/DSBSSigma/lockdown)
 "uj" = (
 /obj/machinery/constructable_frame,
@@ -11621,7 +11625,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/hydroponics)
 "ur" = (
 /obj/machinery/power/apc/noalarm{
@@ -11702,7 +11706,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_west)
 "uw" = (
 /obj/structure/flora/rock/pile,
@@ -11782,7 +11786,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_west)
 "uC" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
@@ -12005,7 +12009,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_east)
 "uR" = (
-/turf/unsimulated/wall/metal/reinforced,
+/turf/simulated/wall/indestructible/pt_wall,
 /area/awaymission/DSBSSigma/virology_lab)
 "uS" = (
 /turf/simulated/floor/plasteel{
@@ -12201,7 +12205,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/supply{
 	dir = 4
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "vc" = (
 /obj/structure/closet/walllocker/emerglocker/west,
@@ -12247,7 +12251,7 @@
 	},
 /area/awaymission/DSBSSigma/cave_junction_east)
 "vg" = (
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/mining)
 "vh" = (
 /obj/machinery/light/small{
@@ -12345,7 +12349,7 @@
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "vp" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/mining)
 "vq" = (
 /obj/structure/cable/yellow{
@@ -12422,7 +12426,7 @@
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "vv" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "vw" = (
 /obj/effect/decal/cleanable/dirt,
@@ -12522,7 +12526,7 @@
 	},
 /area/awaymission/DSBSSigma/mining)
 "vD" = (
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/kitchen)
 "vE" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
@@ -12653,7 +12657,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "vM" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -12662,7 +12666,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/awaymission/DSBSSigma/cave_junction_west)
 "vO" = (
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_east)
 "vP" = (
 /obj/structure/disposaloutlet,
@@ -12838,7 +12842,7 @@
 /area/awaymission/DSBSSigma/cave_junction_west)
 "we" = (
 /obj/structure/disposalpipe/segment,
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_west)
 "wf" = (
 /obj/structure/target_stake,
@@ -12883,6 +12887,12 @@
 	icon_state = "dark"
 	},
 /area/awaymission/DSBSSigma/dormitories)
+"wk" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-22"
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
 "wl" = (
 /obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -12993,7 +13003,7 @@
 	dir = 4;
 	icon_state = "pipe-c"
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_east)
 "wu" = (
 /obj/machinery/atmospherics/binary/pump{
@@ -13126,7 +13136,7 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_east)
 "wG" = (
 /obj/machinery/atmospherics/binary/pump{
@@ -13265,7 +13275,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_east)
 "wT" = (
 /obj/effect/decal/cleanable/dirt,
@@ -13348,7 +13358,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/mining)
 "wZ" = (
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/mech_bay)
 "xa" = (
 /turf/simulated/floor/plating/asteroid,
@@ -13598,14 +13608,13 @@
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_east)
 "xC" = (
-/obj/structure/alien/weeds,
-/obj/structure/bed/nest,
-/obj/effect/landmark/away/dsbssigma{
-	color = "#ffc800";
-	name = "dsbssigma_miner"
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "dsbss_lockdown_blast_research";
+	name = "Emergency Lockdown"
 	},
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
+/turf/simulated/floor/plating,
+/area/awaymission/DSBSSigma/lockdown)
 "xD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/mecha_wreckage/ripley,
@@ -13737,7 +13746,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/armory)
 "xP" = (
 /obj/machinery/floodlight,
@@ -13833,6 +13842,14 @@
 	icon_state = "tranquillite"
 	},
 /area/awaymission/DSBSSigma/kitchen)
+"xY" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "rampbottom";
+	tag = "icon-stage_stairs"
+	},
+/area/awaymission/DSBSSigma/cave_junction_north)
 "xZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/drip{
@@ -13886,7 +13903,7 @@
 	dir = 4;
 	icon_state = "pipe-c"
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_west)
 "ye" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -13904,7 +13921,7 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_west)
 "yf" = (
 /obj/effect/decal/cleanable/dirt,
@@ -13992,7 +14009,7 @@
 /turf/simulated/mineral/asteroid/loose/cave,
 /area/awaymission/DSBSSigma/caverns)
 "yq" = (
-/turf/unsimulated/wall/metal/reinforced,
+/turf/simulated/wall/indestructible/pt_wall,
 /area/awaymission/DSBSSigma/mech_bay)
 "yr" = (
 /obj/item/ammo_casing/c10mm/spent,
@@ -14435,18 +14452,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/caverns)
-"zl" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/table/wood,
-/obj/item/paper_bin,
-/obj/item/pen/multi,
-/turf/simulated/floor/carpet/black,
-/area/awaymission/DSBSSigma/overseer)
 "zm" = (
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
@@ -15126,7 +15131,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/caverns)
 "Ay" = (
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/mess_hall)
 "Az" = (
 /obj/structure/flora/rock/pile,
@@ -15229,7 +15234,7 @@
 /obj/machinery/light_switch{
 	pixel_x = -24
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/kitchen)
 "AK" = (
 /obj/structure/fluff/utility/lattice,
@@ -15387,7 +15392,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/mess_hall)
 "AX" = (
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/dormitories)
 "AZ" = (
 /obj/item/chair/wood,
@@ -15589,10 +15594,10 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/DSBSSigma/exterior)
 "Bu" = (
-/turf/unsimulated/wall/metal/reinforced,
+/turf/simulated/wall/indestructible/pt_wall,
 /area/awaymission/DSBSSigma/armory)
 "Bv" = (
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/armory)
 "Bw" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -15619,9 +15624,6 @@
 	name = "compacted asteroid sand"
 	},
 /area/awaymission/DSBSSigma/cave_junction_west)
-"Bz" = (
-/turf/unsimulated/wall/metal/reinforced,
-/area/awaymission/DSBSSigma/dormitories)
 "BA" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -15634,7 +15636,7 @@
 	dir = 4;
 	icon_state = "pipe-c"
 	},
-/turf/unsimulated/wall/metal/reinforced,
+/turf/simulated/wall/indestructible/pt_wall,
 /area/awaymission/DSBSSigma/dormitories)
 "BC" = (
 /obj/structure/closet/walllocker/emerglocker/north,
@@ -15686,7 +15688,7 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/turf/unsimulated/wall/metal/reinforced,
+/turf/simulated/wall/indestructible/pt_wall,
 /area/awaymission/DSBSSigma/dormitories)
 "BI" = (
 /obj/structure/table/wood,
@@ -16254,7 +16256,7 @@
 /area/awaymission/DSBSSigma/armory)
 "CL" = (
 /obj/structure/disposalpipe/junction,
-/turf/unsimulated/wall/metal/reinforced,
+/turf/simulated/wall/indestructible/pt_wall,
 /area/awaymission/DSBSSigma/dormitories)
 "CM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -16344,7 +16346,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/dormitories)
 "CV" = (
 /obj/item/ammo_casing/c10mm/spent,
@@ -17448,16 +17450,14 @@
 	},
 /area/awaymission/DSBSSigma/cave_junction_west)
 "Ez" = (
-/turf/unsimulated/wall/fakeglass/reinforced,
+/turf/simulated/wall/indestructible/pt_window,
 /area/awaymission/DSBSSigma/lockdown)
 "EA" = (
-/obj/structure/chair/comfy/black,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/flora/rock/pile,
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
-/area/awaymission/DSBSSigma/overseer)
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/cave_junction_north)
 "ED" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10;
@@ -18365,10 +18365,6 @@
 	icon_state = "tranquillite"
 	},
 /area/awaymission/DSBSSigma/kitchen)
-"Gv" = (
-/obj/structure/flora/rock/pile,
-/turf/unsimulated/wall/asteroid,
-/area/awaymission/DSBSSigma/cave_junction_north)
 "Gw" = (
 /obj/structure/flora/rock/pile,
 /obj/effect/decal/cleanable/dirt,
@@ -18590,7 +18586,7 @@
 	dir = 4;
 	icon_state = "pipe-c"
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/dormitories)
 "GT" = (
 /obj/effect/decal/cleanable/cobweb,
@@ -18816,17 +18812,6 @@
 	icon_state = "barber"
 	},
 /area/awaymission/DSBSSigma/dormitories)
-"Hs" = (
-/obj/machinery/door/airlock/hatch/syndicate{
-	name = "Overseers Quarters";
-	req_access_txt = "271"
-	},
-/obj/machinery/door/poddoor/impassable{
-	id_tag = "dsbss_overseersquarters_blast";
-	name = "Overseers Quarters Lockdown"
-	},
-/turf/simulated/floor/wood,
-/area/awaymission/DSBSSigma/lockdown)
 "Ht" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -19194,7 +19179,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/unsimulated/wall/metal/reinforced,
+/turf/simulated/wall/indestructible/pt_wall,
 /area/awaymission/DSBSSigma/dormitories)
 "Iq" = (
 /obj/structure/lattice/catwalk,
@@ -19304,14 +19289,14 @@
 /area/awaymission/DSBSSigma/armory)
 "ID" = (
 /obj/structure/disposalpipe/segment,
-/turf/unsimulated/wall/metal/reinforced,
+/turf/simulated/wall/indestructible/pt_wall,
 /area/awaymission/DSBSSigma/dormitories)
 "IE" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/turf/unsimulated/wall/asteroid,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/caverns)
 "IF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -19343,27 +19328,36 @@
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/DSBSSigma/mess_hall)
-"IM" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
+"IL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
+	dir = 9
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/structure/table/wood,
+/obj/machinery/door_control{
+	id = "dsbss_armory_delta_blast";
+	name = "Delta Armory Door Control";
+	pixel_x = 5;
+	pixel_y = 8;
+	req_access_txt = "271"
 	},
-/area/awaymission/DSBSSigma/cave_junction_north)
+/obj/machinery/light,
+/obj/machinery/door_control/away/dsbssigma_lockdown_random{
+	pixel_x = 5;
+	pixel_y = -2
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
+"IO" = (
+/obj/structure/alien/weeds,
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_50pc,
+/obj/structure/flora/rock/pile,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
 "IP" = (
 /obj/structure/spacevine,
 /turf/simulated/mineral/asteroid/loose/cave/cracked,
@@ -19373,6 +19367,30 @@
 /obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_50pc,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
+"IR" = (
+/obj/structure/fluff/utility,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4;
+	level = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/flora/rock/pile,
+/turf/simulated/floor/plating{
+	icon_plating = "asteroidplating";
+	icon_state = "asteroidplating";
+	name = "compacted asteroid sand"
+	},
+/area/awaymission/DSBSSigma/cave_junction_north)
 "IS" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/mineral/asteroid/loose/cave/cracked,
@@ -19380,27 +19398,25 @@
 "IT" = (
 /turf/simulated/mineral/asteroid/loose/cave/cracked,
 /area/awaymission/DSBSSigma/cave_junction_west)
-"IW" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/carpet/black,
-/area/awaymission/DSBSSigma/overseer)
-"Jc" = (
-/obj/structure/dresser,
+"IX" = (
+/obj/structure/flora/rock/pile,
 /turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
+	icon_state = "wood-broken3";
+	tag = "icon-wood-broken3"
 	},
 /area/awaymission/DSBSSigma/overseer)
-"Jt" = (
-/obj/machinery/computer/security{
-	network = list("Sigma")
+"Ja" = (
+/turf/simulated/mineral/asteroid/loose/cave/cracked,
+/area/awaymission/DSBSSigma/holding_cells)
+"Jp" = (
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "dsbss_lockdown_blast_dorms";
+	name = "Emergency Lockdown"
 	},
-/obj/effect/decal/cleanable/cobweb2,
-/turf/simulated/floor/wood,
-/area/awaymission/DSBSSigma/overseer)
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/awaymission/DSBSSigma/lockdown)
 "JD" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds,
@@ -19409,35 +19425,21 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
-"JE" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/fluff/utility,
-/turf/simulated/floor/plating{
-	icon_plating = "asteroidplating";
-	icon_state = "asteroidplating";
-	name = "compacted asteroid sand"
-	},
-/area/awaymission/DSBSSigma/caverns)
 "JS" = (
 /obj/structure/alien/weeds,
 /obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_guard,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
-"Ka" = (
+"JT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/away/dsbssigma{
-	color = "#ffc800";
-	name = "dsbssigma_fireaxe"
+/turf/simulated/floor/wood{
+	broken = 1;
+	icon_state = "wood-broken"
 	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaymission/DSBSSigma/exterior)
+/area/awaymission/DSBSSigma/overseer)
+"JZ" = (
+/turf/simulated/wall/indestructible/rock/asteroid,
+/area/awaymission/DSBSSigma/overseer)
 "Kc" = (
 /obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood/drip{
@@ -19446,39 +19448,93 @@
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
 "Kf" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
-/obj/structure/flora/rock/pile,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken2";
-	tag = "icon-wood-broken2"
-	},
-/area/awaymission/DSBSSigma/overseer)
-"Kp" = (
-/turf/simulated/mineral/asteroid/loose/cave/cracked,
-/area/awaymission/DSBSSigma/holding_cells)
-"KO" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/item/paper/dsbssigma/note1,
-/obj/structure/fluff/utility/lattice{
-	icon_state = "1-nw"
-	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table_frame/wood,
-/obj/item/stack/sheet/wood,
+/turf/simulated/wall/indestructible/rock/asteroid,
+/area/awaymission/DSBSSigma/cave_junction_north)
+"Kl" = (
+/obj/structure/safe/floor,
+/obj/effect/spawner/random_spawners/away/dsbssigma/loot/safe_loot_high,
+/obj/effect/spawner/random_spawners/away/dsbssigma/loot/safe_loot_low,
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
+"KE" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
 /turf/simulated/floor/carpet/black,
 /area/awaymission/DSBSSigma/overseer)
-"KY" = (
+"KP" = (
+/obj/structure/flora/rock/pile,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/surgery)
+"KQ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/wall/indestructible/rock/asteroid,
+/area/awaymission/DSBSSigma/overseer)
+"KT" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "Overseers Quarters";
+	req_access_txt = "271"
+	},
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "dsbss_overseersquarters_blast";
+	name = "Overseers Quarters Lockdown"
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/lockdown)
+"KW" = (
+/obj/structure/filingcabinet,
+/obj/machinery/alarm{
+	dir = 8;
+	icon_state = "alarm0";
+	pixel_x = 24
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
+"La" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/awaymission/DSBSSigma/cave_junction_north)
+"Lk" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/carpet/black,
+/area/awaymission/DSBSSigma/overseer)
+"Ln" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/egg/burst,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"LF" = (
+/obj/structure/grille,
+/obj/machinery/door/firedoor,
+/obj/item/shard,
+/obj/item/shard{
+	icon_state = "small";
+	pixel_x = 4;
+	pixel_y = -4
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/DSBSSigma/overseer)
+"LJ" = (
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
 	name = "DSBSS Overseers Office";
@@ -19497,112 +19553,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
 /area/awaymission/DSBSSigma/overseer)
-"Le" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4;
-	level = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood,
-/area/awaymission/DSBSSigma/overseer)
-"Lf" = (
-/obj/structure/fluff/utility,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4;
-	level = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/flora/rock/pile,
-/turf/simulated/floor/plating{
-	icon_plating = "asteroidplating";
-	icon_state = "asteroidplating";
-	name = "compacted asteroid sand"
-	},
-/area/awaymission/DSBSSigma/cave_junction_north)
-"Ln" = (
-/obj/structure/alien/weeds,
-/obj/structure/alien/egg/burst,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"Ly" = (
-/obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-22"
-	},
-/turf/simulated/floor/wood,
-/area/awaymission/DSBSSigma/overseer)
 "LN" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
-/turf/unsimulated/wall/asteroid,
-/area/awaymission/DSBSSigma/cave_junction_north)
-"LR" = (
-/obj/structure/flora/rock/pile,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
-	},
-/area/awaymission/DSBSSigma/overseer)
-"LX" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/ammo_casing/c10mm/spent,
-/obj/item/ammo_casing/c10mm/spent,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4;
-	level = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/fluff/utility,
-/turf/simulated/floor/plating{
-	icon_plating = "asteroidplating";
-	icon_state = "asteroidplating";
-	name = "compacted asteroid sand"
-	},
-/area/awaymission/DSBSSigma/cave_junction_north)
+/turf/simulated/wall/indestructible/pt_wall,
+/area/awaymission/DSBSSigma/lockdown)
 "Mb" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds,
@@ -19623,18 +19583,26 @@
 	},
 /turf/space,
 /area/awaymission/DSBSSigma/exterior)
-"Mf" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
-/obj/structure/flora/rock/pile,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/cave_junction_north)
 "Mg" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/egg/burst,
 /obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_50pc,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
+"Mj" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10;
+	initialize_directions = 10;
+	level = 1
+	},
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/obj/structure/fluff/utility/lattice,
+/obj/item/stack/tile,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/carpet/black,
+/area/awaymission/DSBSSigma/overseer)
 "Mp" = (
 /obj/structure/fluff/utility/broken/smooth{
 	desc = "A broken section of catwalk.";
@@ -19642,7 +19610,161 @@
 	},
 /turf/space,
 /area/awaymission/DSBSSigma/exterior)
-"MB" = (
+"Mu" = (
+/obj/structure/dresser,
+/turf/simulated/floor/wood{
+	broken = 1;
+	icon_state = "wood-broken"
+	},
+/area/awaymission/DSBSSigma/overseer)
+"MW" = (
+/mob/living/simple_animal/hostile/asteroid/basilisk,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/caverns)
+"MZ" = (
+/obj/structure/flora/rock/pile,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken7";
+	tag = "icon-wood-broken7"
+	},
+/area/awaymission/DSBSSigma/overseer)
+"Nd" = (
+/obj/item/stack/rods,
+/obj/structure/fluff/utility/broken/smooth{
+	desc = "A broken section of catwalk.";
+	dir = 1;
+	name = "broken catwalk"
+	},
+/turf/space,
+/area/awaymission/DSBSSigma/exterior)
+"Ng" = (
+/obj/structure/flora/rock,
+/turf/space,
+/area/awaymission/DSBSSigma/exterior)
+"Nj" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Nk" = (
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/tracks{
+	color = "red";
+	desc = "Bloody tracks of someone hobbling away.";
+	dir = 9;
+	icon = 'icons/effects/blood.dmi';
+	icon_state = "tracks"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"NG" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/flora/rock/pile,
+/obj/effect/decal/cleanable/dirt,
+/turf/space,
+/area/awaymission/DSBSSigma/exterior)
+"NI" = (
+/obj/item/stack/rods,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/awaymission/DSBSSigma/exterior)
+"On" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
+"Oo" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4;
+	level = 1
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "vault"
+	},
+/area/awaymission/DSBSSigma/dormitories)
+"OU" = (
+/turf/simulated/wall/indestructible/pt_wall,
+/area/awaymission/DSBSSigma/overseer)
+"Pp" = (
+/obj/structure/alien/weeds,
+/obj/structure/bed/nest,
+/obj/effect/mob_spawn/human/corpse/away/dsbssigma/operative,
+/obj/effect/decal/cleanable/blood{
+	color = "red"
+	},
+/obj/item/clothing/mask/facehugger{
+	icon_state = "facehugger_impregnated";
+	item_state = "facehugger_impregnated";
+	stat = 2
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Pr" = (
+/obj/structure/alien/weeds/node,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Pz" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/surgery)
+"PU" = (
+/obj/structure/alien/weeds/node,
+/obj/effect/landmark/away/dsbssigma{
+	color = "#ff0000";
+	name = "dsbssigma_queen"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Qg" = (
+/obj/structure/flora/rock,
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/awaymission/DSBSSigma/exterior)
+"Qv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "dsbss_lockdown_blast";
+	name = "Emergency Lockdown"
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/DSBSSigma/lockdown)
+"Qz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/flora/rock/pile,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken6";
+	tag = "icon-wood-broken6"
+	},
+/area/awaymission/DSBSSigma/overseer)
+"QE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/away/dsbssigma{
+	color = "#ffc800";
+	name = "dsbssigma_fireaxe"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/awaymission/DSBSSigma/exterior)
+"QN" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
+"QQ" = (
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "Overseers Office";
 	req_access_txt = "271"
@@ -19665,13 +19787,112 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/wood,
 /area/awaymission/DSBSSigma/overseer)
-"ME" = (
+"QT" = (
+/obj/structure/flora/rock/pile,
+/obj/structure/fluff/utility/broken/smooth{
+	desc = "A broken section of catwalk.";
+	dir = 4;
+	name = "broken catwalk"
+	},
+/turf/space,
+/area/awaymission/DSBSSigma/exterior)
+"Rb" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/table/wood,
+/obj/item/paper_bin,
+/obj/item/pen/multi,
+/turf/simulated/floor/carpet/black,
+/area/awaymission/DSBSSigma/overseer)
+"Ri" = (
+/obj/structure/alien/weeds,
+/obj/structure/flora/rock/pile,
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_30pc,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"RE" = (
+/obj/structure/alien/weeds,
+/obj/structure/bed/nest,
+/obj/effect/landmark/away/dsbssigma{
+	color = "#1ad600";
+	name = "dsbssigma_organ"
+	},
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/dead_monkey_50pc,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"RF" = (
+/obj/structure/flora/rock,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/surgery)
+"RH" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/tracks{
+	color = "red";
+	desc = "Tracks left by something being dragged.";
+	dir = 10;
+	icon = 'icons/effects/blood.dmi';
+	icon_state = "tracks"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Sa" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/fluff/utility,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/camera{
+	c_tag = "Research Lockdown";
+	network = list("Sigma");
+	pixel_x = 19
+	},
+/obj/machinery/light/small{
+	dir = 1;
+	pixel_x = -8
+	},
+/turf/simulated/floor/plating{
+	icon_plating = "asteroidplating";
+	icon_state = "asteroidplating";
+	name = "compacted asteroid sand"
+	},
+/area/awaymission/DSBSSigma/cave_junction_west)
+"Se" = (
 /obj/structure/window/full/plastitanium,
 /obj/structure/grille,
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
-/area/awaymission/DSBSSigma/overseer)
-"MG" = (
+/area/awaymission/DSBSSigma/chemistry_lab)
+"Sf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/awaymission/DSBSSigma/cave_junction_north)
+"Sh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/ammo_casing/c45/spent,
 /obj/item/ammo_casing/c45/spent,
@@ -19698,37 +19919,12 @@
 	name = "compacted asteroid sand"
 	},
 /area/awaymission/DSBSSigma/cave_junction_north)
-"MP" = (
-/obj/structure/safe/floor,
-/obj/effect/spawner/random_spawners/away/dsbssigma/loot/safe_loot_high,
-/obj/effect/spawner/random_spawners/away/dsbssigma/loot/safe_loot_low,
-/turf/simulated/floor/wood,
-/area/awaymission/DSBSSigma/overseer)
-"MU" = (
-/obj/machinery/door/poddoor/impassable{
-	id_tag = "dsbss_lockdown_blast_dorms";
-	name = "Emergency Lockdown"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/awaymission/DSBSSigma/lockdown)
-"MZ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10;
-	initialize_directions = 10;
-	level = 1
-	},
-/obj/structure/chair/office/dark{
-	dir = 4
-	},
-/obj/structure/fluff/utility/lattice,
-/obj/item/stack/tile,
+"Sk" = (
+/obj/structure/lattice,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/carpet/black,
-/area/awaymission/DSBSSigma/overseer)
-"Nd" = (
-/obj/item/stack/rods,
+/turf/space,
+/area/awaymission/DSBSSigma/exterior)
+"Ss" = (
 /obj/structure/fluff/utility/broken/smooth{
 	desc = "A broken section of catwalk.";
 	dir = 1;
@@ -19736,57 +19932,480 @@
 	},
 /turf/space,
 /area/awaymission/DSBSSigma/exterior)
-"Ng" = (
-/obj/structure/flora/rock,
-/turf/space,
-/area/awaymission/DSBSSigma/exterior)
-"Nh" = (
+"SQ" = (
+/obj/effect/decal/cleanable/cobweb,
+/mob/living/simple_animal/hostile/asteroid/basilisk,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/surgery)
-"Ni" = (
-/obj/structure/flora/rock/pile,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/surgery)
-"Nj" = (
+"ST" = (
 /obj/structure/alien/weeds,
-/obj/structure/alien/weeds,
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
-"Nk" = (
+"Tf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4;
+	level = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
+"Ti" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4;
+	level = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/wall/indestructible/rock/asteroid,
+/area/awaymission/DSBSSigma/overseer)
+"Tj" = (
+/obj/structure/window/full/plastitanium,
+/obj/structure/grille,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/DSBSSigma/chemistry_lab)
+"Tp" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
+"Tt" = (
+/obj/structure/flora/rock/pile,
+/obj/item/stack/rods,
+/turf/space,
+/area/space)
+"TK" = (
+/obj/structure/alien/weeds,
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_30pc,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"TL" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4;
+	level = 1
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/flora/rock/pile,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "vault"
+	},
+/area/awaymission/DSBSSigma/dormitories)
+"TN" = (
+/obj/structure/lattice,
+/obj/structure/flora/rock/pile,
+/obj/effect/decal/cleanable/dirt,
+/turf/space,
+/area/awaymission/DSBSSigma/exterior)
+"TW" = (
+/obj/structure/flora/rock/pile,
+/turf/simulated/wall/indestructible/rock/asteroid,
+/area/awaymission/DSBSSigma/cave_junction_north)
+"TZ" = (
+/obj/structure/chair/comfy/black,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood{
+	broken = 1;
+	icon_state = "wood-broken"
+	},
+/area/awaymission/DSBSSigma/overseer)
+"Uf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/item/paper/dsbssigma/note1,
+/obj/structure/fluff/utility/lattice{
+	icon_state = "1-nw"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table_frame/wood,
+/obj/item/stack/sheet/wood,
+/turf/simulated/floor/carpet/black,
+/area/awaymission/DSBSSigma/overseer)
+"Ui" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk,
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
+"Um" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/ammo_casing/c10mm/spent,
+/obj/item/ammo_casing/c10mm/spent,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4;
+	level = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/fluff/utility,
+/turf/simulated/floor/plating{
+	icon_plating = "asteroidplating";
+	icon_state = "asteroidplating";
+	name = "compacted asteroid sand"
+	},
+/area/awaymission/DSBSSigma/cave_junction_north)
+"Us" = (
+/obj/item/stack/rods,
+/obj/structure/fluff/utility/broken/smooth{
+	desc = "A broken section of catwalk.";
+	dir = 4;
+	name = "broken catwalk"
+	},
+/turf/space,
+/area/awaymission/DSBSSigma/exterior)
+"Uz" = (
+/obj/structure/chair/comfy/black{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/awaymission/DSBSSigma/overseer)
+"UF" = (
+/obj/structure/displaycase/telecrystal/dsbssigma,
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
+"UI" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/wall/indestructible/rock/asteroid,
+/area/awaymission/DSBSSigma/cave_junction_north)
+"UQ" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/carpet/black,
+/area/awaymission/DSBSSigma/overseer)
+"UT" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/fluff/utility,
+/turf/simulated/floor/plating{
+	icon_plating = "asteroidplating";
+	icon_state = "asteroidplating";
+	name = "compacted asteroid sand"
+	},
+/area/awaymission/DSBSSigma/caverns)
+"Vd" = (
+/obj/structure/alien/weeds,
 /obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
-	desc = "Bloody tracks of someone hobbling away.";
-	dir = 9;
+	desc = "Tracks left by something being dragged.";
 	icon = 'icons/effects/blood.dmi';
 	icon_state = "tracks"
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
-"NA" = (
+"Vf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/wall/indestructible/rock/asteroid,
+/area/awaymission/DSBSSigma/cave_junction_north)
+"Vv" = (
+/obj/structure/flora/rock/pile,
+/turf/space,
+/area/awaymission/DSBSSigma/exterior)
+"Vy" = (
+/turf/simulated/wall/indestructible/rock/asteroid,
+/area/awaymission/DSBSSigma/holding_cells)
+"VG" = (
+/obj/item/bedsheet/syndie,
+/obj/structure/bed,
 /obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
+"VI" = (
+/obj/structure/alien/weeds,
+/obj/structure/bed/nest,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"VT" = (
+/turf/simulated/wall/indestructible/pt_wall,
+/area/awaymission/DSBSSigma/dormitories)
+"VY" = (
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/tracks{
+	color = "red";
+	desc = "Tracks left by something being dragged.";
+	dir = 5;
+	icon = 'icons/effects/blood.dmi';
+	icon_state = "tracks"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Wa" = (
+/turf/simulated/wall/indestructible/rock/asteroid,
+/area/awaymission/DSBSSigma/surgery)
+"Wp" = (
+/obj/structure/alien/weeds,
+/obj/structure/flora/rock/pile,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Wx" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/fluff/utility,
+/turf/simulated/floor/plating{
+	icon_plating = "asteroidplating";
+	icon_state = "asteroidplating";
+	name = "compacted asteroid sand"
+	},
+/area/awaymission/DSBSSigma/caverns)
+"WA" = (
+/obj/structure/alien/weeds,
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_stationary_50pc,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"WF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/structure/flora/rock,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/cave_junction_north)
+"WP" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_30pc,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Xa" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/tracks{
+	color = "red";
+	desc = "Tracks left by something being dragged.";
+	dir = 5;
+	icon = 'icons/effects/blood.dmi';
+	icon_state = "tracks"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Xc" = (
+/turf/simulated/floor/carpet/black,
+/area/awaymission/DSBSSigma/overseer)
+"Xf" = (
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "dsbss_lockdown_blast";
 	name = "Emergency Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/lockdown)
-"ND" = (
+"Xm" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = -24
+	},
+/obj/structure/flora/rock/pile,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken2";
+	tag = "icon-wood-broken2"
+	},
+/area/awaymission/DSBSSigma/overseer)
+"Xs" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/flora/rock/pile,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/awaymission/DSBSSigma/cave_junction_north)
+"Yb" = (
 /obj/structure/flora/rock,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/surgery)
-"NG" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/flora/rock/pile,
+/area/awaymission/DSBSSigma/cave_junction_north)
+"Yq" = (
+/turf/simulated/mineral/asteroid/loose/cave,
+/area/awaymission/DSBSSigma/cave_junction_east)
+"Yu" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/wall/indestructible/pt_wall,
+/area/awaymission/DSBSSigma/lockdown)
+"YE" = (
+/turf/simulated/wall/indestructible/pt_wall,
+/area/awaymission/DSBSSigma/lockdown)
+"YI" = (
+/obj/structure/bookcase/random/reference,
+/obj/effect/decal/cleanable/cobweb2,
+/obj/machinery/camera{
+	c_tag = "Overseers Quarters";
+	network = list("Sigma");
+	pixel_x = 23
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
+"YM" = (
+/obj/structure/fluff/utility/lattice{
+	icon_state = "4-se"
+	},
 /obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
+"YN" = (
+/obj/structure/flora/rock/pile,
+/obj/structure/fluff/utility/broken/smooth{
+	desc = "A broken section of catwalk.";
+	dir = 8;
+	name = "broken catwalk"
+	},
 /turf/space,
 /area/awaymission/DSBSSigma/exterior)
-"NI" = (
-/obj/item/stack/rods,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaymission/DSBSSigma/exterior)
-"NU" = (
+"YU" = (
+/obj/structure/alien/weeds,
+/obj/structure/bed/nest,
+/obj/effect/landmark/away/dsbssigma{
+	color = "#ffc800";
+	name = "dsbssigma_miner"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"YX" = (
+/obj/structure/alien/weeds,
+/obj/structure/flora/rock,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"YY" = (
+/obj/structure/window/full/plastitanium,
+/obj/structure/grille,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plating,
+/area/awaymission/DSBSSigma/overseer)
+"Zb" = (
+/obj/structure/alien/resin,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Zc" = (
+/obj/structure/alien/weeds,
+/obj/effect/landmark/away/dsbssigma{
+	color = "#ff0000";
+	name = "dsbssigma_queen"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Zl" = (
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/gibs,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Zs" = (
+/obj/effect/spawner/random_spawners/away/dsbssigma/randomizer,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/awaymission/DSBSSigma/mission_control)
+"Zt" = (
 /obj/structure/fluff/utility,
 /obj/structure/cable{
 	d1 = 2;
@@ -19818,651 +20437,34 @@
 	name = "compacted asteroid sand"
 	},
 /area/awaymission/DSBSSigma/cave_junction_north)
-"NY" = (
-/turf/simulated/mineral/asteroid/loose/cave,
-/area/awaymission/DSBSSigma/holding_cells)
-"Oj" = (
-/obj/structure/filingcabinet,
-/obj/machinery/alarm{
-	dir = 8;
-	icon_state = "alarm0";
-	pixel_x = 24
-	},
-/turf/simulated/floor/wood,
-/area/awaymission/DSBSSigma/overseer)
-"Oz" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/surgery)
-"OV" = (
-/turf/unsimulated/wall/metal/reinforced,
-/area/awaymission/DSBSSigma/overseer)
-"OW" = (
-/obj/effect/spawner/random_spawners/away/dsbssigma/randomizer,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/awaymission/DSBSSigma/mission_control)
-"OZ" = (
-/obj/structure/alien/weeds,
-/obj/structure/bed/nest,
-/obj/effect/landmark/away/dsbssigma{
-	color = "#1ad600";
-	name = "dsbssigma_organ"
-	},
-/obj/effect/spawner/random_spawners/away/dsbssigma/mob/dead_monkey_50pc,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"Pa" = (
-/turf/simulated/floor/carpet/black,
-/area/awaymission/DSBSSigma/overseer)
-"Pj" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/unsimulated/wall/asteroid,
-/area/awaymission/DSBSSigma/cave_junction_north)
-"Pp" = (
-/obj/structure/alien/weeds,
-/obj/structure/bed/nest,
-/obj/effect/mob_spawn/human/corpse/away/dsbssigma/operative,
-/obj/effect/decal/cleanable/blood{
-	color = "red"
-	},
-/obj/item/clothing/mask/facehugger{
-	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
-	},
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"Pr" = (
-/obj/structure/alien/weeds/node,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"PU" = (
-/obj/structure/alien/weeds/node,
-/obj/effect/landmark/away/dsbssigma{
-	color = "#ff0000";
-	name = "dsbssigma_queen"
-	},
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"PV" = (
-/obj/structure/window/full/plastitanium,
-/obj/structure/grille,
-/turf/simulated/floor/plating,
-/area/awaymission/DSBSSigma/chemistry_lab)
-"Qb" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood,
-/area/awaymission/DSBSSigma/overseer)
-"Qd" = (
-/mob/living/simple_animal/hostile/asteroid/basilisk,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/caverns)
-"Qg" = (
-/obj/structure/flora/rock,
-/obj/effect/landmark/damageturf,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaymission/DSBSSigma/exterior)
-"Qs" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/flora/rock/pile,
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/cave_junction_north)
-"QB" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4;
-	level = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/unsimulated/wall/asteroid,
-/area/awaymission/DSBSSigma/overseer)
-"QT" = (
-/obj/structure/flora/rock/pile,
-/obj/structure/fluff/utility/broken/smooth{
-	desc = "A broken section of catwalk.";
-	dir = 4;
-	name = "broken catwalk"
-	},
-/turf/space,
-/area/awaymission/DSBSSigma/exterior)
-"Ri" = (
-/obj/structure/alien/weeds,
-/obj/structure/flora/rock/pile,
-/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_30pc,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"RB" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
-/obj/structure/flora/rock,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/cave_junction_north)
-"RH" = (
-/obj/structure/alien/weeds,
-/obj/structure/alien/weeds,
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Tracks left by something being dragged.";
-	dir = 10;
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks"
-	},
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"RL" = (
-/obj/item/bedsheet/syndie,
-/obj/structure/bed,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood,
-/area/awaymission/DSBSSigma/overseer)
-"RM" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
-/turf/unsimulated/wall/asteroid,
-/area/awaymission/DSBSSigma/cave_junction_north)
-"RS" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/flora/rock/pile,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/awaymission/DSBSSigma/cave_junction_north)
-"Sk" = (
-/obj/structure/lattice,
-/obj/effect/decal/cleanable/dirt,
-/turf/space,
-/area/awaymission/DSBSSigma/exterior)
-"Ss" = (
-/obj/structure/fluff/utility/broken/smooth{
-	desc = "A broken section of catwalk.";
-	dir = 1;
-	name = "broken catwalk"
-	},
-/turf/space,
-/area/awaymission/DSBSSigma/exterior)
-"Sx" = (
-/obj/structure/grille,
-/obj/machinery/door/firedoor,
-/obj/item/shard,
-/obj/item/shard{
-	icon_state = "small";
-	pixel_x = 4;
-	pixel_y = -4
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/DSBSSigma/overseer)
-"SC" = (
-/obj/structure/bookcase/random/reference,
-/obj/effect/decal/cleanable/cobweb2,
-/obj/machinery/camera{
-	c_tag = "Overseers Quarters";
-	network = list("Sigma");
-	pixel_x = 23
-	},
-/turf/simulated/floor/wood,
-/area/awaymission/DSBSSigma/overseer)
-"SD" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood,
-/area/awaymission/DSBSSigma/overseer)
-"SE" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/poddoor/impassable{
-	id_tag = "dsbss_lockdown_blast_research";
-	name = "Emergency Lockdown"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/DSBSSigma/lockdown)
-"SJ" = (
-/obj/structure/alien/weeds,
-/obj/effect/decal/cleanable/blood/gibs,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"SM" = (
-/obj/structure/flora/rock/pile,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
-	},
-/area/awaymission/DSBSSigma/overseer)
-"ST" = (
-/obj/structure/alien/weeds,
-/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"SZ" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/fluff/utility,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/camera{
-	c_tag = "Research Lockdown";
-	network = list("Sigma");
-	pixel_x = 19
-	},
-/obj/machinery/light/small{
-	dir = 1;
-	pixel_x = -8
-	},
-/turf/simulated/floor/plating{
-	icon_plating = "asteroidplating";
-	icon_state = "asteroidplating";
-	name = "compacted asteroid sand"
-	},
-/area/awaymission/DSBSSigma/cave_junction_west)
-"Tl" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4;
-	level = 1
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/flora/rock/pile,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "vault"
-	},
-/area/awaymission/DSBSSigma/dormitories)
-"To" = (
-/obj/machinery/door/poddoor/impassable{
-	id_tag = "dsbss_lockdown_blast_medical";
-	name = "Emergency Lockdown"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/DSBSSigma/lockdown)
-"Tt" = (
-/obj/structure/flora/rock/pile,
-/obj/item/stack/rods,
-/turf/space,
-/area/space)
-"TK" = (
-/obj/structure/alien/weeds,
-/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_30pc,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"TN" = (
-/obj/structure/lattice,
-/obj/structure/flora/rock/pile,
-/obj/effect/decal/cleanable/dirt,
-/turf/space,
-/area/awaymission/DSBSSigma/exterior)
-"TZ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/awaymission/DSBSSigma/cave_junction_north)
-"Uo" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/chair/office/dark{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/carpet/black,
-/area/awaymission/DSBSSigma/overseer)
-"Uq" = (
-/turf/unsimulated/wall/asteroid,
-/area/awaymission/DSBSSigma/overseer)
-"Us" = (
-/obj/item/stack/rods,
-/obj/structure/fluff/utility/broken/smooth{
-	desc = "A broken section of catwalk.";
-	dir = 4;
-	name = "broken catwalk"
-	},
-/turf/space,
-/area/awaymission/DSBSSigma/exterior)
-"Ut" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
-/area/awaymission/DSBSSigma/overseer)
-"UE" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk,
-/obj/effect/decal/cleanable/cobweb,
-/turf/simulated/floor/wood,
-/area/awaymission/DSBSSigma/overseer)
-"Va" = (
-/obj/structure/chair/comfy/black{
-	dir = 8
-	},
-/turf/simulated/floor/carpet/black,
-/area/awaymission/DSBSSigma/overseer)
-"Vd" = (
-/obj/structure/alien/weeds,
-/obj/structure/alien/weeds,
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Tracks left by something being dragged.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks"
-	},
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"Vv" = (
-/obj/structure/flora/rock/pile,
-/turf/space,
-/area/awaymission/DSBSSigma/exterior)
-"VI" = (
-/obj/structure/alien/weeds,
-/obj/structure/bed/nest,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"VY" = (
-/obj/structure/alien/weeds,
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Tracks left by something being dragged.";
-	dir = 5;
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks"
-	},
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"Wn" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/unsimulated/wall/metal/reinforced,
-/area/awaymission/DSBSSigma/lockdown)
-"Wo" = (
-/obj/structure/displaycase/telecrystal/dsbssigma,
-/turf/simulated/floor/wood,
-/area/awaymission/DSBSSigma/overseer)
-"Wp" = (
-/obj/structure/alien/weeds,
-/obj/structure/flora/rock/pile,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"Ww" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/flora/rock/pile,
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
-	},
-/area/awaymission/DSBSSigma/overseer)
-"WA" = (
-/obj/structure/alien/weeds,
-/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_stationary_50pc,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"WG" = (
-/obj/structure/alien/weeds,
-/obj/structure/alien/weeds,
-/obj/effect/decal/cleanable/blood/gibs,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"WM" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/fluff/utility,
-/turf/simulated/floor/plating{
-	icon_plating = "asteroidplating";
-	icon_state = "asteroidplating";
-	name = "compacted asteroid sand"
-	},
-/area/awaymission/DSBSSigma/caverns)
-"WP" = (
-/obj/structure/alien/weeds,
-/obj/structure/alien/weeds,
-/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_30pc,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"Xa" = (
-/obj/structure/alien/weeds,
-/obj/structure/alien/weeds,
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Tracks left by something being dragged.";
-	dir = 5;
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks"
-	},
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"Xi" = (
-/obj/structure/alien/weeds,
-/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_50pc,
-/obj/structure/flora/rock/pile,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"XD" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
-	},
-/turf/simulated/floor/carpet/black,
-/area/awaymission/DSBSSigma/overseer)
-"XF" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
-	},
-/area/awaymission/DSBSSigma/cave_junction_north)
-"XJ" = (
-/obj/structure/window/full/plastitanium,
-/obj/structure/grille,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/DSBSSigma/chemistry_lab)
-"XO" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4;
-	level = 1
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "vault"
-	},
-/area/awaymission/DSBSSigma/dormitories)
-"XR" = (
-/obj/effect/decal/cleanable/cobweb,
-/mob/living/simple_animal/hostile/asteroid/basilisk,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/surgery)
-"XU" = (
-/obj/structure/flora/rock,
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/cave_junction_north)
-"Yf" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/table/wood,
-/obj/machinery/door_control{
-	id = "dsbss_armory_delta_blast";
-	name = "Delta Armory Door Control";
-	pixel_x = 5;
-	pixel_y = 8;
-	req_access_txt = "271"
-	},
-/obj/machinery/light,
-/obj/machinery/door_control/away/dsbssigma_lockdown_random{
-	pixel_x = 5;
-	pixel_y = -2
-	},
-/turf/simulated/floor/wood,
-/area/awaymission/DSBSSigma/overseer)
-"Yq" = (
-/turf/simulated/mineral/asteroid/loose/cave,
-/area/awaymission/DSBSSigma/cave_junction_east)
-"YA" = (
-/obj/machinery/door/poddoor/impassable{
-	id_tag = "dsbss_lockdown_blast_research";
-	name = "Emergency Lockdown"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/DSBSSigma/lockdown)
-"YB" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/wood,
-/area/awaymission/DSBSSigma/overseer)
-"YN" = (
-/obj/structure/flora/rock/pile,
-/obj/structure/fluff/utility/broken/smooth{
-	desc = "A broken section of catwalk.";
-	dir = 8;
-	name = "broken catwalk"
-	},
-/turf/space,
-/area/awaymission/DSBSSigma/exterior)
-"YO" = (
-/obj/machinery/door/poddoor/impassable{
-	id_tag = "dsbss_lockdown_blast";
-	name = "Emergency Lockdown"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/DSBSSigma/lockdown)
-"YS" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/unsimulated/wall/asteroid,
-/area/awaymission/DSBSSigma/overseer)
-"YX" = (
-/obj/structure/alien/weeds,
-/obj/structure/flora/rock,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"Zb" = (
-/obj/structure/alien/resin,
-/obj/structure/alien/weeds,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"Zc" = (
-/obj/structure/alien/weeds,
-/obj/effect/landmark/away/dsbssigma{
-	color = "#ff0000";
-	name = "dsbssigma_queen"
-	},
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
 "Zu" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds,
 /obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_50pc,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
-"ZC" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/unsimulated/wall/metal/reinforced,
-/area/awaymission/DSBSSigma/lockdown)
+"ZA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/structure/flora/rock/pile,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/cave_junction_north)
 "ZG" = (
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "dsbss_lockdown_blast_research";
+	name = "Emergency Lockdown"
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/DSBSSigma/lockdown)
+"ZJ" = (
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"ZL" = (
+/obj/item/stack/rods,
+/turf/space,
+/area/awaymission/DSBSSigma/exterior)
+"ZP" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green{
 	on = 0
@@ -20473,26 +20475,24 @@
 	tag = "icon-wood-broken2"
 	},
 /area/awaymission/DSBSSigma/overseer)
-"ZJ" = (
-/obj/structure/alien/weeds,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"ZL" = (
-/obj/item/stack/rods,
-/turf/space,
-/area/awaymission/DSBSSigma/exterior)
+"ZR" = (
+/obj/machinery/computer/security{
+	network = list("Sigma")
+	},
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
 "ZS" = (
 /obj/structure/flora/rock,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/DSBSSigma/exterior)
-"ZZ" = (
-/obj/structure/fluff/utility/lattice{
-	icon_state = "4-se"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood,
-/area/awaymission/DSBSSigma/overseer)
+"ZT" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/gibs,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
 
 (1,1,1) = {"
 aa
@@ -23282,7 +23282,7 @@ ZJ
 ZJ
 ZJ
 ZJ
-OZ
+RE
 Zb
 Zb
 ai
@@ -23439,7 +23439,7 @@ ZJ
 Wp
 Pr
 ZJ
-WG
+ZT
 Ln
 Zb
 Zb
@@ -23721,7 +23721,7 @@ Zb
 Zb
 Zb
 Ln
-OZ
+RE
 Zb
 Zb
 Zb
@@ -23735,7 +23735,7 @@ Zb
 Zb
 Zb
 Zb
-OZ
+RE
 TK
 ZJ
 ZJ
@@ -23878,7 +23878,7 @@ YX
 ZJ
 Wp
 WA
-SJ
+Zl
 ZJ
 ZJ
 Zb
@@ -23914,7 +23914,7 @@ Nj
 Zc
 ZJ
 TK
-OZ
+RE
 Zb
 ai
 ai
@@ -24021,7 +24021,7 @@ ai
 ai
 Zb
 Zb
-OZ
+RE
 Zb
 Zb
 ai
@@ -24178,7 +24178,7 @@ ai
 Zb
 Zb
 Pp
-SJ
+Zl
 Ln
 Zb
 ai
@@ -24226,7 +24226,7 @@ Zb
 Zb
 Ln
 JS
-SJ
+Zl
 IQ
 Ln
 Zb
@@ -24383,7 +24383,7 @@ ai
 Zb
 Zb
 Zb
-xC
+YU
 Ln
 Zb
 Zb
@@ -24524,7 +24524,7 @@ ZJ
 ZJ
 Zb
 Zb
-OZ
+RE
 ZJ
 ZJ
 Zb
@@ -24645,8 +24645,8 @@ ai
 ai
 ai
 Zb
-xC
-SJ
+YU
+Zl
 Wp
 ZJ
 ZJ
@@ -24983,8 +24983,8 @@ Zb
 ai
 Zb
 Zb
-xC
-SJ
+YU
+Zl
 ZJ
 ZJ
 YX
@@ -25587,7 +25587,7 @@ ai
 ai
 Zb
 Zb
-OZ
+RE
 ZJ
 ZJ
 ZJ
@@ -25956,8 +25956,8 @@ Ln
 ZJ
 Zc
 Kc
-SJ
-OZ
+Zl
+RE
 Zb
 ai
 ai
@@ -26100,8 +26100,8 @@ ai
 ai
 ai
 Zb
-xC
-SJ
+YU
+Zl
 ZJ
 ZJ
 ZJ
@@ -26114,7 +26114,7 @@ ZJ
 ZJ
 ZJ
 ZJ
-xC
+YU
 Zb
 ai
 ai
@@ -26202,15 +26202,15 @@ ai
 ai
 ai
 ai
-kH
-kH
-kH
-kH
-kH
-kH
-kH
-kH
-kH
+fN
+fN
+fN
+fN
+fN
+fN
+fN
+fN
+fN
 kK
 kf
 ai
@@ -26230,7 +26230,7 @@ ZJ
 Kc
 ZJ
 Zb
-Xi
+IO
 ZJ
 ZJ
 YX
@@ -26359,7 +26359,7 @@ ai
 ai
 ai
 ai
-kH
+fN
 gk
 hb
 iE
@@ -26387,8 +26387,8 @@ ST
 ZJ
 Zb
 Zb
-OZ
-SJ
+RE
+Zl
 Ln
 Zb
 Zb
@@ -26516,15 +26516,15 @@ ai
 ai
 ai
 ai
-NY
-Kp
+fR
+Ja
 hc
 gK
 ig
 gK
 jd
 gm
-kH
+fN
 ai
 ai
 kf
@@ -26545,7 +26545,7 @@ ZJ
 Zb
 Zb
 Zb
-xC
+YU
 Zb
 Zb
 ai
@@ -26673,15 +26673,15 @@ ai
 ai
 ai
 aU
-NY
 fR
-fR
-kH
+Vy
+Vy
+fN
 iq
-kH
+fN
 je
-kH
-kH
+fN
+fN
 ai
 ai
 kf
@@ -26825,20 +26825,20 @@ ae
 ai
 ai
 ai
-fO
+dI
 ai
 ai
 eY
 aU
-fR
+Vy
 gl
-fR
-fR
+Vy
+Vy
 ii
-fR
+Vy
 jf
 gl
-kH
+fN
 ai
 ke
 kf
@@ -26982,20 +26982,20 @@ ai
 ai
 ai
 ai
-fO
-fO
+dI
+dI
 ai
 yD
 eY
-kH
+fN
 gm
 hc
-fR
+Vy
 ij
 iF
 hb
 jD
-fR
+Vy
 kf
 kf
 ai
@@ -27144,15 +27144,15 @@ em
 eY
 yC
 ai
-kH
-kH
+fN
+fN
 gK
-kH
+fN
 ik
-kH
+fN
 gK
-fR
-fR
+Vy
+Vy
 kf
 ai
 kM
@@ -27196,7 +27196,7 @@ ai
 Zb
 Zb
 ZJ
-OZ
+RE
 Zb
 Zb
 ZJ
@@ -27296,20 +27296,20 @@ ai
 ai
 ai
 ai
-os
-To
-os
+YE
+fO
+YE
 za
 ai
-kH
+fN
 gl
 hb
 iF
 ig
 jZ
-fR
-fR
-fR
+Vy
+Vy
+Vy
 kf
 kM
 kM
@@ -27458,15 +27458,15 @@ em
 ai
 ai
 ai
-kH
+fN
 gm
 hb
 gK
 ig
 gK
 hc
-fR
-fR
+Vy
+Vy
 kf
 kM
 kM
@@ -27611,19 +27611,19 @@ ai
 ai
 aU
 ai
-fO
-fO
+dI
+dI
 ai
 ai
-kH
-kH
-kH
-kH
+fN
+fN
+fN
+fN
 ig
-kH
-fR
-fR
-fR
+fN
+Vy
+Vy
+Vy
 kf
 kM
 lI
@@ -27772,12 +27772,12 @@ ai
 em
 ai
 ai
-fR
+Vy
 gn
 he
 hI
 ig
-kH
+fN
 ai
 ai
 ke
@@ -27929,12 +27929,12 @@ ai
 di
 di
 ai
-fR
-fR
+Vy
+Vy
 hf
 hK
 il
-kH
+fN
 ai
 ai
 kf
@@ -28086,12 +28086,12 @@ ai
 ai
 di
 ai
-fR
+Vy
 go
 hg
 iu
 im
-kH
+fN
 ai
 ai
 kf
@@ -28243,12 +28243,12 @@ ai
 ai
 di
 ai
-kH
+fN
 gp
 hh
 hM
 in
-kH
+fN
 ai
 ai
 kf
@@ -28400,10 +28400,10 @@ ai
 ai
 di
 ai
-kH
-kH
+fN
+fN
 gK
-kH
+fN
 hG
 iG
 ai
@@ -28730,7 +28730,7 @@ mi
 mH
 kZ
 nn
-PV
+Se
 nf
 ot
 oG
@@ -29044,7 +29044,7 @@ mo
 mM
 nd
 kt
-PV
+Se
 nU
 ov
 oI
@@ -29507,11 +29507,11 @@ fd
 hT
 iJ
 iJ
-ZC
+LN
 kR
-XJ
+Tj
 lJ
-PV
+Se
 jE
 jE
 mB
@@ -29669,7 +29669,7 @@ fd
 mv
 iJ
 mt
-fO
+dI
 nc
 nt
 nG
@@ -29681,7 +29681,7 @@ ai
 ai
 pu
 Zb
-OZ
+RE
 rN
 VI
 qx
@@ -29821,7 +29821,7 @@ fd
 fd
 fd
 fd
-SE
+xC
 fd
 fd
 fd
@@ -29966,7 +29966,7 @@ ai
 ai
 ai
 yC
-Qd
+MW
 yC
 ai
 ai
@@ -29978,7 +29978,7 @@ ai
 fd
 fw
 fd
-YA
+ZG
 fd
 fd
 fd
@@ -30135,7 +30135,7 @@ ai
 ai
 ai
 ai
-os
+YE
 gr
 fd
 fd
@@ -30461,8 +30461,8 @@ fd
 fd
 gr
 oV
-Wn
-SZ
+Yu
+Sa
 pI
 ai
 ai
@@ -30618,7 +30618,7 @@ fd
 fd
 gr
 fd
-YA
+ZG
 po
 pO
 pI
@@ -30775,7 +30775,7 @@ fd
 fd
 fd
 fd
-SE
+xC
 po
 po
 pO
@@ -30805,11 +30805,11 @@ yd
 tR
 yF
 qA
-Bz
-os
-MU
+VT
+YE
+Jp
 Fk
-os
+YE
 AX
 AX
 zB
@@ -30924,7 +30924,7 @@ ai
 ai
 ai
 ai
-RM
+Vf
 gX
 fd
 fd
@@ -30932,7 +30932,7 @@ fd
 fd
 fd
 fd
-SE
+xC
 po
 po
 po
@@ -30965,7 +30965,7 @@ qA
 AX
 AX
 AX
-Tl
+TL
 AX
 AX
 FZ
@@ -31081,15 +31081,15 @@ ai
 ai
 mm
 mN
-LN
-Qs
+UI
+EA
 fd
 fd
 fd
 fd
 gr
 oO
-os
+YE
 ai
 ai
 qc
@@ -31122,7 +31122,7 @@ AX
 AX
 AX
 Bi
-XO
+Oo
 AX
 Fw
 Ga
@@ -31235,11 +31235,11 @@ ai
 cQ
 cQ
 cQ
-RM
-LN
-fO
-Pj
-Pj
+Vf
+UI
+dI
+Kf
+Kf
 fd
 fd
 fd
@@ -31392,12 +31392,12 @@ ai
 cQ
 kp
 kk
-Lf
-fO
-fO
-fO
-Pj
-XU
+IR
+dI
+dI
+dI
+Kf
+Yb
 ji
 ji
 gr
@@ -31533,13 +31533,13 @@ ai
 ai
 ai
 eY
-XR
-Nh
-ND
+SQ
+dr
+RF
 cy
-dr
-dr
-dr
+Wa
+Wa
+Wa
 gB
 gB
 bt
@@ -31550,11 +31550,11 @@ cQ
 jh
 jH
 iU
-fO
-fO
-fO
-Pj
-fO
+dI
+dI
+dI
+Kf
+dI
 jj
 nH
 fw
@@ -31689,14 +31689,14 @@ ai
 ai
 ai
 ai
-Ni
-Oz
-Oz
+KP
+Pz
+Pz
 dJ
 eo
 eG
-dr
-dr
+Wa
+Wa
 fS
 gw
 bt
@@ -31706,10 +31706,10 @@ ai
 ie
 iU
 fd
-Mf
-fO
-Pj
-fO
+ZA
+dI
+Kf
+dI
 kS
 kS
 kS
@@ -31864,9 +31864,9 @@ iU
 fd
 fd
 fd
-RB
-fO
-fO
+WF
+dI
+dI
 kS
 kS
 lT
@@ -32022,8 +32022,8 @@ fd
 fd
 gr
 fw
-fO
-fO
+dI
+dI
 kS
 pv
 mP
@@ -32705,8 +32705,8 @@ HL
 GS
 ID
 BH
-Bz
-Bz
+VT
+VT
 ai
 ai
 ab
@@ -32863,11 +32863,11 @@ Ip
 HS
 HV
 HY
-Bz
+VT
 ai
 Ie
 aj
-Ka
+QE
 aj
 aa
 aa
@@ -33180,7 +33180,7 @@ Ia
 BH
 ai
 ab
-Ka
+QE
 aj
 aa
 aa
@@ -33330,11 +33330,11 @@ Ba
 Hz
 Ba
 Ba
-Bz
-Bz
-Bz
-Bz
-Bz
+VT
+VT
+VT
+VT
+VT
 ai
 ai
 dg
@@ -34221,7 +34221,7 @@ ai
 lO
 lx
 lx
-os
+YE
 ai
 ai
 ai
@@ -34533,7 +34533,7 @@ ai
 ai
 ai
 hn
-fO
+dI
 fd
 iH
 mp
@@ -34690,8 +34690,8 @@ ai
 ai
 ie
 lM
-fO
-fO
+dI
+dI
 fd
 fd
 iH
@@ -34847,9 +34847,9 @@ ai
 ai
 io
 fd
-fO
-fO
-fO
+dI
+dI
+dI
 fd
 fd
 iH
@@ -35005,9 +35005,9 @@ ie
 iU
 fd
 fw
-fO
-fO
-fO
+dI
+dI
+dI
 fd
 fw
 fe
@@ -35162,7 +35162,7 @@ io
 fd
 fd
 fe
-fO
+dI
 fd
 fd
 fd
@@ -35326,7 +35326,7 @@ fd
 fd
 fd
 oi
-NU
+Zt
 pn
 pf
 pH
@@ -35478,14 +35478,14 @@ fd
 fw
 fd
 fd
-fO
-fO
-fO
+dI
+dI
+dI
 fd
 oj
-MG
+Sh
 oQ
-YO
+Xf
 pr
 pr
 no
@@ -35632,17 +35632,17 @@ iU
 fd
 fd
 fe
-fO
+dI
 fd
 fd
 fw
-Gv
-fO
-fO
+TW
+dI
+dI
 iQ
-LX
+Um
 oQ
-NA
+Qv
 pr
 pr
 no
@@ -35788,18 +35788,18 @@ iT
 fd
 fd
 gr
-fO
-fO
+dI
+dI
 fd
-XF
+xY
 jj
-TZ
-IM
-RS
-JE
-WM
+La
+Sf
+Xs
+Wx
+UT
 ai
-os
+YE
 ai
 ai
 pd
@@ -35944,14 +35944,14 @@ jy
 iQ
 fd
 gr
-fO
-fO
-fO
+dI
+dI
+dI
 eE
-ME
-ME
+YY
+YY
 eE
-MB
+QQ
 eE
 ai
 ai
@@ -36096,20 +36096,20 @@ ai
 ai
 ai
 hn
-fO
-fO
+dI
+dI
 fd
 jm
-fO
-fO
-fO
-fO
+dI
+dI
+dI
+dI
 eE
-UE
-YB
-Kf
-Le
-Uq
+Ui
+Tp
+Xm
+Tf
+JZ
 ai
 ai
 ai
@@ -36253,20 +36253,20 @@ ai
 ai
 fJ
 hL
-fO
-fO
-fO
+dI
+dI
+dI
 fd
 fe
-fO
-fO
-fO
-Uq
-LR
-IW
-Pa
-QB
-Uq
+dI
+dI
+dI
+JZ
+IX
+UQ
+Xc
+Ti
+JZ
 ai
 ai
 ai
@@ -36409,25 +36409,25 @@ gZ
 fJ
 py
 gX
-fO
-fO
-fO
+dI
+dI
+dI
 jo
 fd
 iQ
-fO
-fO
-fO
-Uq
-ZZ
-MZ
-Uo
-YS
-Uq
-Uq
-OV
-OV
-OV
+dI
+dI
+dI
+JZ
+YM
+Mj
+Lk
+KQ
+JZ
+JZ
+OU
+OU
+OU
 ai
 ai
 ai
@@ -36567,24 +36567,24 @@ fK
 gg
 gL
 fd
-fO
-fO
+dI
+dI
 fw
 jn
 iR
 gr
-fO
-fO
+dI
+dI
 eE
-KY
-KO
-zl
-Yf
-OV
-ZG
-SM
-Jc
-OV
+LJ
+Uf
+Rb
+IL
+OU
+ZP
+MZ
+Mu
+OU
 ai
 ai
 ai
@@ -36725,23 +36725,23 @@ gg
 gL
 fd
 fe
-fO
-fO
+dI
+dI
 fd
 fd
 gr
 fw
 gr
-ME
-Ww
-XD
-Va
-Ut
-Hs
+YY
+Qz
+KE
+Uz
+JT
+KT
 fi
 fi
-Wo
-OV
+UF
+OU
 ai
 ai
 ai
@@ -36881,24 +36881,24 @@ gM
 py
 hd
 fd
-fO
-fO
+dI
+dI
 fd
 jL
 fd
 gr
 gr
 gr
-Sx
-Oj
-Ly
-Uq
-Jt
-OV
-EA
-MP
-Qb
-OV
+LF
+KW
+wk
+JZ
+ZR
+OU
+TZ
+Kl
+On
+OU
 ai
 ai
 ai
@@ -37046,16 +37046,16 @@ jK
 kr
 kr
 gr
-Uq
+JZ
 eE
-Uq
-Uq
-Uq
-OV
-SC
-SD
-RL
-OV
+JZ
+JZ
+JZ
+OU
+YI
+QN
+VG
+OU
 ai
 ai
 ai
@@ -37208,11 +37208,11 @@ ai
 ai
 ai
 ai
-Uq
-Uq
-OV
-OV
-Uq
+JZ
+JZ
+OU
+OU
+JZ
 ai
 ai
 ai
@@ -38298,7 +38298,7 @@ hZ
 iy
 gi
 jR
-OW
+Zs
 kz
 lg
 lC
