@@ -212,7 +212,7 @@
 	},
 /area/ruin/powered)
 "M" = (
-/turf/unsimulated/floor/plating/airless,
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "N" = (
 /turf/simulated/shuttle/wall{
