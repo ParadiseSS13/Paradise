@@ -519,41 +519,40 @@ What are the archived variables for?
 				reacting = TRUE
 
 	fuel_burnt = 0
+	//Handle plasma burning
 	if((toxins > MINIMUM_MOLE_COUNT) && (oxygen > MINIMUM_MOLE_COUNT) && temperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
 		var/energy_released = 0
 		var/old_heat_capacity = heat_capacity()
+		var/plasma_burn_rate = 0
+		var/oxygen_burn_rate = 0
+		//more plasma released at higher temperatures
+		var/temperature_scale = 0
 
-		//Handle plasma burning
-		if(toxins > MINIMUM_HEAT_CAPACITY)
-			var/plasma_burn_rate = 0
-			var/oxygen_burn_rate = 0
-			//more plasma released at higher temperatures
-			var/temperature_scale = 0
-
-			if(temperature > PLASMA_UPPER_TEMPERATURE)
-				temperature_scale = 1
+		if(temperature > PLASMA_UPPER_TEMPERATURE)
+			temperature_scale = 1
+		else
+			temperature_scale = (temperature - PLASMA_MINIMUM_BURN_TEMPERATURE) / (PLASMA_UPPER_TEMPERATURE - PLASMA_MINIMUM_BURN_TEMPERATURE)
+		if(temperature_scale > 0)
+			oxygen_burn_rate = OXYGEN_BURN_RATE_BASE - temperature_scale
+			if(oxygen > toxins * PLASMA_OXYGEN_FULLBURN)
+				plasma_burn_rate = (toxins * temperature_scale) / PLASMA_BURN_RATE_DELTA
 			else
-				temperature_scale = (temperature - PLASMA_MINIMUM_BURN_TEMPERATURE) / (PLASMA_UPPER_TEMPERATURE - PLASMA_MINIMUM_BURN_TEMPERATURE)
-			if(temperature_scale > 0)
-				oxygen_burn_rate = OXYGEN_BURN_RATE_BASE - temperature_scale
-				if(oxygen > toxins * PLASMA_OXYGEN_FULLBURN)
-					plasma_burn_rate = (toxins * temperature_scale) / PLASMA_BURN_RATE_DELTA
-				else
-					plasma_burn_rate = (temperature_scale * (oxygen / PLASMA_OXYGEN_FULLBURN)) / PLASMA_BURN_RATE_DELTA
-				if(plasma_burn_rate > MINIMUM_HEAT_CAPACITY)
-					plasma_burn_rate = min(plasma_burn_rate, toxins, oxygen / oxygen_burn_rate) //Ensures matter is conserved properly
-					toxins = QUANTIZE(toxins - plasma_burn_rate)
-					oxygen = QUANTIZE(oxygen - (plasma_burn_rate * oxygen_burn_rate))
-					carbon_dioxide += plasma_burn_rate
+				plasma_burn_rate = (temperature_scale * (oxygen / PLASMA_OXYGEN_FULLBURN)) / PLASMA_BURN_RATE_DELTA
+			if(plasma_burn_rate > MINIMUM_HEAT_CAPACITY)
+				plasma_burn_rate = min(plasma_burn_rate, toxins, oxygen / oxygen_burn_rate) //Ensures matter is conserved properly
+				toxins = QUANTIZE(toxins - plasma_burn_rate)
+				oxygen = QUANTIZE(oxygen - (plasma_burn_rate * oxygen_burn_rate))
+				carbon_dioxide += plasma_burn_rate
 
-					energy_released += FIRE_PLASMA_ENERGY_RELEASED * (plasma_burn_rate)
+				energy_released += FIRE_PLASMA_ENERGY_RELEASED * (plasma_burn_rate)
 
-					fuel_burnt += (plasma_burn_rate) * (1 + oxygen_burn_rate)
+				fuel_burnt += (plasma_burn_rate) * (1 + oxygen_burn_rate)
 
 		if(energy_released > 0)
 			var/new_heat_capacity = heat_capacity()
 			if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
 				temperature = (temperature * old_heat_capacity + energy_released) / new_heat_capacity
+
 		if(fuel_burnt)
 			reacting = TRUE
 
