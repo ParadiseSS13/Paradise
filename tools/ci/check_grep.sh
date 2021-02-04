@@ -11,7 +11,7 @@ if grep -El '^\".+\" = \(.+\)' _maps/**/*.dmm;	then
     st=1
 fi;
 if grep -P 'pixel_[^xy]' _maps/**/*.dmm;	then
-	echo "ERROR: incorrect pixel offset variables detected in maps, please remove them."
+	echo "ERROR: Incorrect pixel offset variables detected in maps, please remove them."
 	st=1
 fi;
 if grep -P 'step_[xy]' _maps/**/*.dmm;	then

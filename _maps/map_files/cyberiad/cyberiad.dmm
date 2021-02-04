@@ -4938,7 +4938,6 @@
 	},
 /obj/item/assembly/timer{
 	pixel_y = -6;
-	pixel_z = 3
 	},
 /obj/item/flash,
 /turf/simulated/floor/plasteel{
