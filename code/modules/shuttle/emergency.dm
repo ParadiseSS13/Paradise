@@ -309,8 +309,8 @@
 	width = 3
 	height = 4
 
-/obj/docking_port/mobile/pod/New()
-	..()
+/obj/docking_port/mobile/pod/Initialize(mapload)
+	. = ..()
 	if(id == "pod")
 		WARNING("[type] id has not been changed from the default. Use the id convention \"pod1\" \"pod2\" etc.")
 
