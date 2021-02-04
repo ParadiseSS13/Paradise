@@ -32,7 +32,7 @@
 	attacktext = "slashes"
 	attack_sound = 'sound/weapons/bite.ogg'
 
-	layer = 3.1		//so they can stay hidde under the /obj/structure/bush
+	layer = 3.1
 	var/stalk_tick_delay = 3
 	gold_core_spawnable = HOSTILE_SPAWN
 

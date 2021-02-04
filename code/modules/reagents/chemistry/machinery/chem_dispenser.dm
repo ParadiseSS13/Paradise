@@ -347,14 +347,17 @@
 	component_parts += new cell_type(null)
 	RefreshParts()
 
+/obj/machinery/chem_dispenser/soda/upgraded
+	cell_type = /obj/item/stock_parts/cell/bluespace
+
 /obj/machinery/chem_dispenser/soda/upgraded/New()
 	..()
 	QDEL_LIST(component_parts)
 	component_parts += new /obj/item/circuitboard/chem_dispenser/soda(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new cell_type(null)
 	RefreshParts()
@@ -383,14 +386,17 @@
 	component_parts += new cell_type(null)
 	RefreshParts()
 
+/obj/machinery/chem_dispenser/beer/upgraded
+	cell_type = /obj/item/stock_parts/cell/bluespace
+
 /obj/machinery/chem_dispenser/beer/upgraded/New()
 	..()
 	QDEL_LIST(component_parts)
 	component_parts += new /obj/item/circuitboard/chem_dispenser/beer(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/capacitor/super(null)
-	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new cell_type(null)
 	RefreshParts()

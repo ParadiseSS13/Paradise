@@ -1872,6 +1872,8 @@
 					/obj/item/clothing/under/blacktango = 1,
 					/obj/item/clothing/suit/jacket = 3,
 					/obj/item/clothing/suit/jacket/motojacket = 3,
+		            /obj/item/clothing/suit/jacket/letterman = 2,
+		            /obj/item/clothing/suit/jacket/letterman_red = 2,
 					/obj/item/clothing/glasses/regular = 2,
 					/obj/item/clothing/glasses/sunglasses_fake = 2,
 					/obj/item/clothing/head/sombrero = 1,
@@ -1892,13 +1894,16 @@
 					  /obj/item/clothing/mask/balaclava = 1,
 					  /obj/item/clothing/head/ushanka = 1,
 					  /obj/item/clothing/under/soviet = 1,
-					  /obj/item/storage/belt/fannypack/black = 1)
+					  /obj/item/storage/belt/fannypack/black = 1,
+					  /obj/item/clothing/suit/jacket/letterman_syndie = 1)
 
 	premium = list(/obj/item/clothing/under/suit_jacket/checkered = 1,
 				   /obj/item/clothing/head/mailman = 1,
 				   /obj/item/clothing/under/rank/mailman = 1,
 				   /obj/item/clothing/suit/jacket/leather = 1,
-				   /obj/item/clothing/under/pants/mustangjeans = 1)
+				   /obj/item/clothing/under/pants/mustangjeans = 1,
+				   /obj/item/clothing/accessory/necklace/dope = 3,
+				   /obj/item/clothing/suit/jacket/letterman_nanotrasen = 1)
 
 	refill_canister = /obj/item/vending_refill/clothing
 

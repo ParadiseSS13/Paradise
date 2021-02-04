@@ -7,9 +7,10 @@ LINEN BINS
 /obj/item/bedsheet
 	name = "bedsheet"
 	desc = "A surprisingly soft linen bedsheet."
-	icon = 'icons/obj/items.dmi'
-	icon_state = "sheet"
-	item_state = "bedsheet"
+	icon = 'icons/obj/bedsheets.dmi'
+	icon_state = "sheetwhite"
+	lefthand_file = 'icons/mob/inhands/misc/bedsheet_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/misc/bedsheet_righthand.dmi'
 	layer = 4.0
 	throwforce = 1
 	throw_speed = 1
@@ -57,6 +58,12 @@ LINEN BINS
 	dream_messages = list("green")
 	nightmare_messages = list("unathi flesh")
 
+/obj/item/bedsheet/grey
+	icon_state = "sheetgrey"
+	item_color = "grey"
+	dream_messages = list("grey")
+	nightmare_messages = list("grey flesh")
+
 /obj/item/bedsheet/orange
 	icon_state = "sheetorange"
 	item_color = "orange"
@@ -79,7 +86,7 @@ LINEN BINS
 
 /obj/item/bedsheet/rainbow
 	name = "rainbow bedsheet"
-	desc = "A multi_colored blanket.  It's actually several different sheets cut up and sewn together."
+	desc = "A multicolored blanket. It's actually several different sheets cut up and sewn together."
 	icon_state = "sheetrainbow"
 	item_color = "rainbow"
 	dream_messages = list("red", "orange", "yellow", "green", "blue", "purple", "a rainbow")
@@ -96,6 +103,12 @@ LINEN BINS
 	item_color = "yellow"
 	dream_messages = list("yellow")
 	nightmare_messages = list("locker full of banana peels")
+
+/obj/item/bedsheet/brown
+	icon_state = "sheetbrown"
+	item_color = "cargo"
+	dream_messages = list("brown")
+	nightmare_messages = list("dead monkey")
 
 /obj/item/bedsheet/black
 	icon_state = "sheetblack"
@@ -115,6 +128,7 @@ LINEN BINS
 	name = "clown's blanket"
 	desc = "A rainbow blanket with a clown mask woven in.  It smells faintly of bananas."
 	icon_state = "sheetclown"
+	item_state = "sheetrainbow"
 	item_color = "clown"
 	dream_messages = list("honk", "laughter", "a prank", "a joke", "a smiling face", "the clown")
 	nightmare_messages = list("silence", "gestures", "a pale face", "a gaping mouth", "the mime")
@@ -189,11 +203,12 @@ LINEN BINS
 	dream_messages = list("a grey ID", "a shuttle", "a crate", "a sloth", "the quartermaster")
 	nightmare_messages = list("a bald person", "no points", "wheres the ore", "space carp")
 
-/obj/item/bedsheet/brown
-	icon_state = "sheetbrown"
-	item_color = "cargo"
-	dream_messages = list("brown")
-	nightmare_messages = list("dead monkey")
+/obj/item/bedsheet/chaplain
+	name = "chaplain's blanket"
+	desc = "A blanket woven with the hearts of gods themselves... Wait, that's just linen."
+	icon_state = "sheetchap"
+	dream_messages = list("a grey ID", "the gods", "a fulfilled prayer", "a cult", "the chaplain")
+	nightmare_messages = list("blood runes", "unholy water", "vampires", "bible farts")
 
 /obj/item/bedsheet/centcom
 	name = "centcom bedsheet"
@@ -228,7 +243,68 @@ LINEN BINS
 	dream_messages = list("a book", "an explosion", "lightning", "a staff", "a skeleton", "a robe", "magic")
 	nightmare_messages = list("a toolbox", "solars")
 
+/obj/item/bedsheet/nanotrasen
+	name = "\improper Nanotrasen bedsheet"
+	desc = "It has the Nanotrasen logo on it and has an aura of duty."
+	icon_state = "sheetNT"
+	dream_messages = list("authority", "an ending")
+	nightmare_messages = list("syndicate", "a beginning")
 
+/obj/item/bedsheet/ian
+	icon_state = "sheetian"
+	dream_messages = list("a dog", "a corgi", "woof", "bark", "arf")
+	nightmare_messages = list("a cat", "a calico", "meow", "mew", "hiss")
+
+/obj/item/bedsheet/cosmos
+	name = "cosmic space bedsheet"
+	desc = "Made from the dreams of those who wonder at the stars."
+	icon_state = "sheetcosmos"
+	dream_messages = list("the infinite cosmos", "Hans Zimmer music", "a flight through space", "the galaxy", "being fabulous", "shooting stars")
+	dream_messages = list("the unending void", "deafening white noise", "a flight into darkness", "oblivion", "supernovas")
+	light_power = 2
+	light_range = 1.4
+
+/obj/item/bedsheet/random
+	icon_state = "random_bedsheet"
+	name = "random bedsheet"
+	desc = "If you're reading this description ingame, something has gone wrong! Honk!"
+	slot_flags = null
+
+/obj/item/bedsheet/random/Initialize(mapload)
+	..()
+	var/type = pick(typesof(/obj/item/bedsheet) - /obj/item/bedsheet/random)
+	new type(loc)
+	return INITIALIZE_HINT_QDEL
+
+/obj/item/bedsheet/dorms
+	icon_state = "random_bedsheet"
+	name = "random dorms bedsheet"
+	desc = "If you're reading this description ingame, something has gone wrong! Honk!"
+	slot_flags = null
+
+/obj/item/bedsheet/dorms/Initialize(mapload)
+	..()
+	var/type = pickweight(list("Colors" = 80, "Special" = 20))
+	switch(type)
+		if("Colors")
+			type = pick(list(/obj/item/bedsheet,
+				/obj/item/bedsheet/blue,
+				/obj/item/bedsheet/green,
+				/obj/item/bedsheet/grey,
+				/obj/item/bedsheet/orange,
+				/obj/item/bedsheet/purple,
+				/obj/item/bedsheet/red,
+				/obj/item/bedsheet/yellow,
+				/obj/item/bedsheet/brown,
+				/obj/item/bedsheet/black))
+		if("Special")
+			type = pick(list(/obj/item/bedsheet/patriot,
+				/obj/item/bedsheet/rainbow,
+				/obj/item/bedsheet/ian,
+				/obj/item/bedsheet/cosmos,
+				/obj/item/bedsheet/nanotrasen))
+	new type(loc)
+	return INITIALIZE_HINT_QDEL
 
 /obj/structure/bedsheetbin
 	name = "linen bin"

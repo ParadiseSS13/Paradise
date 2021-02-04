@@ -30,3 +30,9 @@
 	autolink_id = "STATION-CORE"
 	hidden_link = TRUE
 
+
+// AWAY RELAY //
+/obj/machinery/tcomms/relay/away
+	network_id = "AWAY-RELAY"
+	autolink_id = "STATION-CORE"
+	hidden_link = TRUE

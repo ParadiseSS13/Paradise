@@ -1,12 +1,12 @@
 /obj/structure/flora
 	resistance_flags = FLAMMABLE
 	max_integrity = 150
+	anchored = TRUE
 
 //trees
 /obj/structure/flora/tree
 	name = "tree"
-	anchored = 1
-	density = 1
+	density = TRUE
 	pixel_x = -16
 	layer = 9
 
@@ -45,7 +45,6 @@
 /obj/structure/flora/grass
 	name = "grass"
 	icon = 'icons/obj/flora/snowflora.dmi'
-	anchored = 1
 	max_integrity = 15
 
 /obj/structure/flora/grass/brown
@@ -76,7 +75,6 @@
 	name = "bush"
 	icon = 'icons/obj/flora/snowflora.dmi'
 	icon_state = "snowbush1"
-	anchored = 1
 	max_integrity = 15
 
 /obj/structure/flora/bush/Initialize(mapload)
@@ -89,7 +87,6 @@
 	name = "bush"
 	icon = 'icons/obj/flora/ausflora.dmi'
 	icon_state = "firstbush_1"
-	anchored = 1
 	max_integrity = 15
 
 /obj/structure/flora/ausbushes/Initialize(mapload)
@@ -206,7 +203,7 @@
 	name = "potted plant"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "plant-1"
-	anchored = 0
+	anchored = FALSE
 	layer = 5
 	w_class = WEIGHT_CLASS_HUGE
 	force = 10
@@ -215,9 +212,9 @@
 	throw_speed = 2
 	throw_range = 4
 
-/obj/item/twohanded/required/kirbyplants/New()
-	..()
-	icon_state = "plant-[rand(1,35)]"
+/obj/item/twohanded/required/kirbyplants/Initialize(mapload)
+	. = ..()
+	icon_state = "plant-[rand(1, 35)]"
 	if(prob(1))
 		icon_state = "plant-36"
 
@@ -238,40 +235,37 @@
 
 //a rock is flora according to where the icon file is
 //and now these defines
+
 /obj/structure/flora/rock
 	name = "rock"
-	desc = "a rock"
-	icon_state = "rock1"
+	icon_state = "basalt"
+	desc = "A volcanic rock. Pioneers used to ride these babies for miles."
 	icon = 'icons/obj/flora/rocks.dmi'
 	resistance_flags = FIRE_PROOF
-	anchored = 1
+	density = TRUE
 
 /obj/structure/flora/rock/Initialize(mapload)
 	. = ..()
-	icon_state = "rock[rand(1,5)]"
+	icon_state = "[icon_state][rand(1, 3)]"
 
 /obj/structure/flora/rock/pile
 	name = "rocks"
-	desc = "some rocks"
-	icon_state = "rockpile1"
-
-/obj/structure/flora/rock/pile/Initialize(mapload)
-	. = ..()
-	icon_state = "rockpile[rand(1,5)]"
+	icon_state = "lavarocks"
+	desc = "A pile of rocks."
 
 /obj/structure/flora/rock/icy
 	name = "icy rock"
-	color = "#cce9eb"
+	color = rgb(204, 233, 235)
 
 /obj/structure/flora/rock/pile/icy
-	name = "icy rocks"
-	color = "#cce9eb"
+	name = "icey rocks"
+	color = rgb(204, 233, 235)
 
 /obj/structure/flora/corn_stalk
 	name = "corn stalk"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "cornstalk1"
-	anchored = 0
+	anchored = FALSE
 	layer = 5
 
 /obj/structure/flora/corn_stalk/alt_1
@@ -284,63 +278,12 @@
 	name = "straw bail"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "strawbail1"
-	density = 1
-	climbable = 1 // you can climb all over them.
+	anchored = FALSE
+	density = TRUE
+	climbable = TRUE // you can climb all over them.
 
 /obj/structure/flora/straw_bail/alt_1
 	icon_state = "strawbail2"
 
 /obj/structure/flora/straw_bail/alt_2
 	icon_state = "strawbail3"
-
-/obj/structure/bush
-	name = "foliage"
-	desc = "Pretty thick scrub, it'll take something sharp and a lot of determination to clear away."
-	icon = 'icons/obj/flora/plants.dmi'
-	icon_state = "bush1"
-	density = 1
-	anchored = 1
-	layer = 3.2
-	var/indestructable = 0
-	var/stump = 0
-
-/obj/structure/bush/Initialize(mapload)
-	. = ..()
-	if(prob(20))
-		opacity = 1
-
-/*
-/obj/structure/bush/Bumped(M as mob)
-	if(istype(M, /mob/living/simple_animal))
-		var/mob/living/simple_animal/A = M
-		A.loc = get_turf(src)
-	else if(istype(M, /mob/living/carbon/monkey))
-		var/mob/living/carbon/monkey/A = M
-		A.loc = get_turf(src)
-*/
-
-/obj/structure/bush/attackby(var/obj/I as obj, var/mob/user as mob, params)
-	//hatchets can clear away undergrowth
-	if(istype(I, /obj/item/hatchet) && !stump)
-		if(indestructable)
-			//this bush marks the edge of the map, you can't destroy it
-			to_chat(user, "<span class='warning'>You flail away at the undergrowth, but it's too thick here.</span>")
-		else
-			user.visible_message("<span class='danger'>[user] begins clearing away [src].</b>","<span class='warning'><b>You begin clearing away [src].</span></span>")
-			spawn(rand(15,30))
-				if(get_dist(user,src) < 2)
-					to_chat(user, "<span class='notice'>You clear away [src].</span>")
-					var/obj/item/stack/sheet/wood/W = new(src.loc)
-					W.amount = rand(3,15)
-					if(prob(50))
-						icon_state = "stump[rand(1,2)]"
-						name = "cleared foliage"
-						desc = "There used to be dense undergrowth here."
-						density = 0
-						stump = 1
-						pixel_x = rand(-6,6)
-						pixel_y = rand(-6,6)
-					else
-						qdel(src)
-	else
-		return ..()

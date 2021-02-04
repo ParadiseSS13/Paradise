@@ -199,6 +199,48 @@
 		playsound(src.loc, 'sound/creatures/hoot.ogg', 50, 1)
 		cooldown = world.time
 
+/obj/item/clothing/mask/gas/tiki_mask
+	name = "tiki mask"
+	desc = "A creepy wooden mask. Surprisingly expressive for a poorly carved bit of wood."
+	icon_state = "tiki_eyebrow"
+	resistance_flags = FLAMMABLE
+	max_integrity = 100
+	actions_types = list(/datum/action/item_action/adjust)
+	dog_fashion = null
+	species_exception = list(/datum/species/golem/wood)
+	sprite_sheets = list()
+	var/list/tikimask_designs = list()
+
+/obj/item/clothing/mask/gas/tiki_mask/Initialize(mapload)
+	.=..()
+	tikimask_designs = list(
+		"Original Tiki" = image(icon = src.icon, icon_state = "tiki_eyebrow"),
+		"Happy Tiki" = image(icon = src.icon, icon_state = "tiki_happy"),
+		"Confused Tiki" = image(icon = src.icon, icon_state = "tiki_confused"),
+		"Angry Tiki" = image(icon = src.icon, icon_state = "tiki_angry")
+		)
+
+/obj/item/clothing/mask/gas/tiki_mask/ui_action_click(mob/user)
+	var/mob/M = usr
+	var/list/options = list()
+	options["Original Tiki"] = "tiki_eyebrow"
+	options["Happy Tiki"] = "tiki_happy"
+	options["Confused Tiki"] = "tiki_confused"
+	options["Angry Tiki"] ="tiki_angry"
+
+	var/choice = show_radial_menu(user,src, tikimask_designs, custom_check = FALSE, radius = 36, require_near = TRUE)
+	if(!choice)
+		return FALSE
+
+	if(src && choice && !M.stat && in_range(M,src))
+		icon_state = options[choice]
+		user.update_inv_wear_mask()
+		for(var/X in actions)
+			var/datum/action/A = X
+			A.UpdateButtonIcon()
+		to_chat(M, "<span class='notice'>The Tiki Mask has now changed into the [choice] Mask!</span>")
+		return TRUE
+
 // ********************************************************************
 
 // **** Security gas mask ****

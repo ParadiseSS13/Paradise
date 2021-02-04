@@ -116,6 +116,10 @@
 /obj/structure/bonfire/dense
 	density = TRUE
 
+/obj/structure/bonfire/prelit/Initialize(mapload)
+	. = ..()
+	StartBurning()
+
 /obj/structure/bonfire/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/rods) && !can_buckle)
 		var/obj/item/stack/rods/R = W

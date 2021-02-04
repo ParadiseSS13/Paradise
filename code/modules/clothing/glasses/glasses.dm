@@ -474,6 +474,11 @@
 		qdel(src)
 	..()
 
+/obj/item/clothing/glasses/heat
+	name = "heat goggles"
+	desc = "A pair of goggles meant for high temperatures."
+	icon_state = "heat"
+
 /obj/item/clothing/glasses/tajblind
 	name = "embroidered veil"
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes."

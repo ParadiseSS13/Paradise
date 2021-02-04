@@ -46,35 +46,56 @@
 /turf/simulated/floor/beach/pry_tile(obj/item/C, mob/user, silent = FALSE)
 	return
 
+/turf/simulated/floor/beach/ex_act(severity)
+	return
+
 /turf/simulated/floor/beach/sand
 	name = "sand"
 	icon_state = "sand"
+	desc = "Surf's up."
+	baseturf = /turf/simulated/floor/beach/sand
+
+/turf/simulated/floor/beach/sand/planetary
+	planetary_atmos = TRUE
 
 /turf/simulated/floor/beach/coastline
 	name = "coastline"
 	icon = 'icons/misc/beach2.dmi'
 	icon_state = "sandwater"
+	baseturf = /turf/simulated/floor/beach/coastline
+
+/turf/simulated/floor/beach/coastline/planetary
+	planetary_atmos = TRUE
 
 /turf/simulated/floor/beach/coastline_t
 	name = "coastline"
 	desc = "Tide's high tonight. Charge your batons."
 	icon_state = "sandwater_t"
+	baseturf = /turf/simulated/floor/beach/coastline_t
+
+/turf/simulated/floor/beach/coastline_t/planetary
+	planetary_atmos = TRUE
+
+/turf/simulated/floor/beach/coastline_t/sandwater_inner
+	icon_state = "sandwater_inner"
+	baseturf = /turf/simulated/floor/beach/coastline_t/sandwater_inner
+
+/turf/simulated/floor/beach/coastline_t/sandwater_inner/planetary
+	planetary_atmos = TRUE
 
 /turf/simulated/floor/beach/coastline_b
 	name = "coastline"
 	icon_state = "sandwater_b"
+	baseturf = /turf/simulated/floor/beach/coastline_b
+
+/turf/simulated/floor/beach/coastline_b/planetary
+	planetary_atmos = TRUE
 
 /turf/simulated/floor/beach/water // TODO - Refactor water so they share the same parent type - Or alternatively component something like that
 	name = "water"
 	icon_state = "water"
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	baseturf = /turf/simulated/floor/beach/water
 	var/obj/machinery/poolcontroller/linkedcontroller = null
-
-/turf/simulated/floor/beach/water/Initialize(mapload)
-	. = ..()
-	var/image/overlay_image = image('icons/misc/beach.dmi', icon_state = "water5", layer = ABOVE_MOB_LAYER)
-	overlay_image.plane = GAME_PLANE
-	overlays += overlay_image
 
 /turf/simulated/floor/beach/water/Entered(atom/movable/AM, atom/OldLoc)
 	. = ..()
@@ -95,6 +116,17 @@
 		return
 	if(istype(A, /obj/effect/decal/cleanable)) // Better a typecheck than looping through thousands of turfs everyday
 		linkedcontroller.decalinpool += A
+
+/turf/simulated/floor/beach/water/planetary
+	planetary_atmos = TRUE
+
+/turf/simulated/floor/beach/water/deep
+	name = "deep ocean water"
+	desc = "I can't move through this."
+	density = TRUE
+
+/turf/simulated/floor/beach/water/deep/planetary
+	planetary_atmos = TRUE
 
 /turf/simulated/floor/noslip
 	name = "high-traction floor"

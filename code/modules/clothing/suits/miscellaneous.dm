@@ -707,6 +707,30 @@
 	desc = "A canvas jacket styled after classical American military garb. Feels sturdy, yet comfortable. This one comes in snow white."
 	icon_state = "white_jacket"
 
+/obj/item/clothing/suit/jacket/letterman
+	name = "letterman jacket"
+	desc = "A classic brown letterman jacket. Looks pretty hot and heavy."
+	icon_state = "letterman"
+	species_exception = list(/datum/species/golem)
+
+/obj/item/clothing/suit/jacket/letterman_red
+	name = "red letterman jacket"
+	desc = "A letterman jacket in a sick red color. Radical."
+	icon_state = "letterman_red"
+	species_exception = list(/datum/species/golem)
+
+/obj/item/clothing/suit/jacket/letterman_syndie
+	name = "blood-red letterman jacket"
+	desc = "Oddly, this jacket seems to have a large S on the back..."
+	icon_state = "letterman_s"
+	species_exception = list(/datum/species/golem)
+
+/obj/item/clothing/suit/jacket/letterman_nanotrasen
+	name = "blue letterman jacket"
+	desc = "A blue letterman jacket with a proud Nanotrasen N on the back. The tag says that it was made in Space China."
+	icon_state = "letterman_n"
+	species_exception = list(/datum/species/golem)
+
 /obj/item/clothing/suit/xenos
 	name = "xenos suit"
 	desc = "A suit made out of chitinous alien hide."

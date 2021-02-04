@@ -45,6 +45,14 @@
 /turf/simulated/wall/indestructible/mech_melee_attack(obj/mecha/M)
 	return
 
+/turf/simulated/wall/indestructible/sandstone
+	name = "sandstone wall"
+	desc = "A wall with sandstone plating."
+	icon = 'icons/turf/walls/sandstone_wall.dmi'
+	icon_state = "sandstone"
+	baseturf = /turf/simulated/wall/indestructible/sandstone
+	smooth = SMOOTH_TRUE
+
 /turf/simulated/wall/indestructible/necropolis
 	name = "necropolis wall"
 	desc = "A seemingly impenetrable wall."

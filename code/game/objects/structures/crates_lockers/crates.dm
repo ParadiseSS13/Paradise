@@ -558,3 +558,10 @@
 	new /obj/item/clothing/glasses/meson(src)
 	new /obj/item/card/id/golem(src)
 	new /obj/item/flashlight/lantern(src)
+
+/obj/structure/closet/crate/wooden
+	name = "wooden crate"
+	desc = "Works just as well as a metal one."
+	material_drop = /obj/item/stack/sheet/wood
+	material_drop_amount = 6
+	icon_state = "wooden"
