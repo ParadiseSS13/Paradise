@@ -1,9 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/turf/unsimulated/wall{
-	icon_state = "rock";
-	name = "rock"
-	},
+/turf/simulated/wall/indestructible/rock,
 /area/awaymission/UO71/outside)
 "ab" = (
 /turf/simulated/mineral/random/labormineral,
@@ -12245,17 +12242,11 @@
 	},
 /area/awaymission/UO71/outside)
 "zd" = (
-/turf/unsimulated/wall{
-	icon_state = "rock";
-	name = "rock"
-	},
+/turf/simulated/wall/indestructible/rock,
 /area/awaymission/UO71/queen)
 "ze" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/unsimulated/wall{
-	icon_state = "rock";
-	name = "rock"
-	},
+/turf/simulated/wall/indestructible/rock,
 /area/awaymission/UO71/queen)
 "zf" = (
 /turf/simulated/floor/plasteel,
@@ -12625,10 +12616,7 @@
 /turf/simulated/floor/vault,
 /area/awaymission/UO71/prince)
 "Lf" = (
-/turf/unsimulated/wall{
-	icon_state = "rock";
-	name = "rock"
-	},
+/turf/simulated/wall/indestructible/rock,
 /area/awaymission/UO71/loot)
 "Lw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
