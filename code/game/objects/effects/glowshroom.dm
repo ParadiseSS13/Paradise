@@ -34,11 +34,8 @@
 
 /obj/structure/glowshroom/New(loc, obj/item/seeds/newseed)
 	..()
-	/*if(newseed)*/
 	myseed = newseed.Copy()
 	myseed.forceMove(src)
-	/*else
-		myseed = new myseed(src)*/
 	obj_integrity = myseed.endurance
 	max_integrity = myseed.endurance
 	if(myseed.get_gene(/datum/plant_gene/trait/glow))
