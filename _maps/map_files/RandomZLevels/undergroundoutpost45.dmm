@@ -4243,7 +4243,7 @@
 	name = "UO45 Research"
 	})
 "he" = (
-/obj/structure/glowshroom/single,
+/obj/structure/glowshroom,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
@@ -16622,7 +16622,7 @@
 	tag = "icon-weeds2";
 	icon_state = "weeds2"
 	},
-/obj/structure/glowshroom/single,
+/obj/structure/glowshroom,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;
@@ -16703,7 +16703,7 @@
 	tag = "icon-weeds1";
 	icon_state = "weeds1"
 	},
-/obj/structure/glowshroom/single,
+/obj/structure/glowshroom,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaycontent/a7{
 	always_unpowered = 1;

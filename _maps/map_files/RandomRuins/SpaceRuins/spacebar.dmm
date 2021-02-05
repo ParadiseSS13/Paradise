@@ -429,7 +429,7 @@
 	name = "Space Bar"
 	})
 "bm" = (
-/obj/structure/glowshroom/single,
+/obj/structure/glowshroom,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered{
 	name = "Space Bar"
