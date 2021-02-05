@@ -189,14 +189,14 @@
 
 /datum/crafting_recipe/oar
 	name = "goliath bone oar"
-	result = /obj/item/oar
+	result = list(/obj/item/oar)
 	reqs = list(/obj/item/stack/sheet/bone = 2)
 	time = 15
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/boat
 	name = "goliath hide boat"
-	result = /obj/vehicle/lavaboat
+	result = list(/obj/vehicle/lavaboat)
 	reqs = list(/obj/item/stack/sheet/animalhide/goliath_hide = 3)
 	time = 50
 	category = CAT_PRIMAL
