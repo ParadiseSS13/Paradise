@@ -338,21 +338,25 @@
     ..()
     adjust_hacked(TRUE)
 
-/obj/machinery/door_control/away/dsbssigma_lockdown_random
-	name = "Emergency Lockdown Control"
-	req_access = list(ACCESS_AWAY01)
+/obj/machinery/door_control/away/button_single_use
 	var/beenused = FALSE
+	var/activation_msg = "<span class='notice'>The button briefly activates, then sparks and breaks.</span>"
 
-/obj/machinery/door_control/away/dsbssigma_lockdown_random/attack_hand(mob/user as mob)
+/obj/machinery/door_control/away/button_single_use/attack_hand(mob/user as mob)
 	..()
 	if(allowed(user) && (wires & 1) && !beenused)
 		beenused = TRUE
 		stat = BROKEN
 		playsound(loc, "sparks", 100, 1)
 		do_sparks(3, 1, src)
-		to_chat(user, "<span class='notice'>The button sparks and breaks. It seems only some sections of the base have been unlocked.</span>")
+		to_chat(user, activation_msg)
 
-/obj/machinery/door_control/away/dsbssigma_lockdown_random/Initialize()
+/obj/machinery/door_control/away/button_single_use/dsbssigma_lockdown_random
+	name = "Emergency Lockdown Control"
+	req_access = list(ACCESS_AWAY01)
+	activation_msg = "<span class='notice'>The button briefly activates, then sparks and breaks. It seems only some sections of the base have been unlocked.</span>"
+
+/obj/machinery/door_control/away/button_single_use/dsbssigma_lockdown_random/Initialize()
 	..()
 	switch(rand(1,3))
 		if(1)
