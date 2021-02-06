@@ -47,6 +47,8 @@
 
 	var/name_override //For temporary visible name changes
 
+	var/datum/physiology/physiology
+
 	var/xylophone = 0 //For the spoooooooky xylophone cooldown
 
 	var/mob/remoteview_target = null

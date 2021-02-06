@@ -151,7 +151,7 @@ emp_act
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & def_zone.body_part)
 				protection += C.armor.getRating(type)
-
+	protection += physiology.armor.getRating(type)
 	return protection
 
 //this proc returns the Siemens coefficient of electrical resistivity for a particular external organ.

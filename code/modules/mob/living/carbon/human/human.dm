@@ -38,6 +38,8 @@
 		dna.real_name = real_name
 		sync_organ_dna(1)
 
+	physiology = new()
+
 	UpdateAppearance()
 	GLOB.human_list += src
 
@@ -59,6 +61,7 @@
 	SSmobs.cubemonkeys -= src
 	QDEL_LIST(bodyparts)
 	splinted_limbs.Cut()
+	QDEL_NULL(physiology)
 	GLOB.human_list -= src
 
 /mob/living/carbon/human/dummy
@@ -596,6 +599,7 @@
 	else if(!(flags & SHOCK_NOGLOVES)) //This gets the siemens_coeff for all non tesla shocks
 		if(gloves)
 			siemens_coeff *= gloves.siemens_coefficient
+	siemens_coeff *= physiology.siemens_coeff
 	siemens_coeff *= dna.species.siemens_coeff
 	. = ..()
 	//Don't go further if the shock was blocked/too weak.
