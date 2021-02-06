@@ -193,6 +193,39 @@
 	new /obj/item/clothing/suit/armor/secjacket(src)
 
 
+/obj/structure/closet/secure_closet/constable
+	name = "constable's locker"
+	req_access = list(ACCESS_SECURITY_EQUIPMENT)
+	icon_state = "sec1"
+	icon_closed = "sec"
+	icon_locked = "sec1"
+	icon_opened = "secopen"
+	icon_broken = "secbroken"
+	icon_off = "secoff"
+
+/obj/structure/closet/secure_closet/constable/New()
+	..()
+	if(prob(50))
+		new /obj/item/storage/backpack/security(src)
+	else
+		new /obj/item/storage/backpack/satchel_constable(src)
+	new /obj/item/storage/backpack/duffel/constable(src)
+	new /obj/item/radio/headset/headset_sec(src)
+	new /obj/item/clothing/suit/armor/vest/security/constable(src)
+	new /obj/item/clothing/suit/armor/constable_sweater(src)
+	new /obj/item/clothing/under/rank/constable(src)
+	new /obj/item/clothing/head/soft/constable(src)
+	new /obj/item/clothing/head/beret/constable(src)
+	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/flash(src)
+	new /obj/item/restraints/legcuffs/bola/energy(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/storage/belt/security/sec(src)
+	new /obj/item/holosign_creator/security(src)
+	new /obj/item/clothing/glasses/hud/security(src)
+	new /obj/item/melee/classic_baton(src)
+
+
 /obj/structure/closet/secure_closet/brigdoc
 	name = "brig physician's locker"
 	req_access = list(ACCESS_SECURITY)

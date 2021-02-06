@@ -13,7 +13,7 @@
 	display_name = "sleek veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. This one has an in-built security HUD."
 	path = /obj/item/clothing/glasses/hud/security/tajblind
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot", "Internal Affairs Agent", "Magistrate")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Constable", "Security Pod Pilot", "Internal Affairs Agent", "Magistrate")
 	cost = 2
 
 /datum/gear/racial/taj/med
@@ -34,13 +34,13 @@
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races."
 	path = /obj/item/clothing/glasses/tajblind/eng
 	cost = 2
-	
+
 /datum/gear/racial/taj/cargo
 	display_name = "khaki veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. It is light and comfy!"
 	path = /obj/item/clothing/glasses/tajblind/cargo
 	cost = 2
-	
+
 /datum/gear/racial/footwraps
 	display_name = "cloth footwraps"
 	path = /obj/item/clothing/shoes/footwraps
