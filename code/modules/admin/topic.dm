@@ -1784,6 +1784,9 @@
 	else if(href_list["check_antagonist"])
 		check_antagonists()
 
+	else if(href_list["check_antagonist_teams"])
+		check_antagonist_teams()
+
 	else if(href_list["take_question"])
 		var/index = text2num(href_list["take_question"])
 
@@ -1873,6 +1876,10 @@
 		gamemode.cult_objs.ready_to_summon()
 		message_admins("Admin [key_name_admin(usr)] has unlocked the Cult's ability to summon Nar'Sie.")
 		log_admin("Admin [key_name_admin(usr)] has unlocked the Cult's ability to summon Nar'Sie.")
+
+	else if(href_list["edit_team"])
+		var/datum/team/T = locateUID(href_list["edit_team"])
+		T?.edit_team()
 
 	else if(href_list["adminplayerobservecoodjump"])
 		if(!check_rights(R_ADMIN))	return

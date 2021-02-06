@@ -391,6 +391,16 @@
 	else
 		. += "mindslave|<b>NO</b>"
 
+/datum/mind/proc/memory_edit_brother()
+	. = _memory_edit_header("brother")
+	if(has_antag_datum(/datum/antagonist/brother))
+		. += "<b><font color='red'>BROTHER</font></b>|<a href='?src=[UID()];brother=clear'>no</a>"
+		if(!length(objectives))
+			. += "<br>Objectives are empty! Check Antagonist teams."
+	else
+		. += "<a href='?src=[UID()];brother=brother'>brother</a>|<b>NO</b>"
+	. += _memory_edit_role_enabled(ROLE_BROTHER)
+
 /datum/mind/proc/memory_edit_silicon()
 	. = "<i><b>Silicon</b></i>: "
 	var/mob/living/silicon/robot/robot = current
@@ -442,6 +452,7 @@
 		"vampire", // "traitorvamp",
 		"nuclear",
 		"traitor", // "traitorchan",
+		"brother"
 	)
 	var/mob/living/carbon/human/H = current
 	if(ishuman(current))
@@ -474,6 +485,8 @@
 	/** SILICON ***/
 	if(issilicon(current))
 		sections["silicon"] = memory_edit_silicon()
+	/** BLOOD BROTHERS **/
+	sections["brother"] = memory_edit_brother()
 	/*
 		This prioritizes antags relevant to the current round to make them appear at the top of the panel.
 		Traitorchan and traitorvamp are snowflaked in because they have multiple sections.
@@ -1200,6 +1213,47 @@
 				to_chat(usr, "<span class='notice'>The objectives for traitor [key] have been generated. You can edit them and announce manually.</span>")
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
+
+	else if(href_list["brother"])
+		switch(href_list["brother"])
+			if("clear")
+				if(has_antag_datum(/datum/antagonist/brother))
+					to_chat(src, "<span class='warning'><font size=3><b>You have been brainwashed! You are no longer a blood brother!</b></font></span>")
+					remove_antag_datum(/datum/antagonist/brother)
+					log_admin("[key_name(usr)] has de-brothered [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has de-brothered [key_name_admin(current)]")
+
+			if("brother")
+				if(!has_antag_datum(/datum/antagonist/brother))
+					var/list/candidates = list()
+					for(var/mob/living/L in GLOB.player_list)
+						if(!L.mind || L.mind == current || L.mind.has_antag_datum(/datum/antagonist/brother))
+							continue
+						
+						candidates[L.mind.name] = L.mind
+					// We pick from the list we just generated who will be the associate antag.
+					var/choice = input(usr, "Choose the blood brother.", "Brother") as null|anything in candidates
+					if(!choice)
+						message_admins("[key_name_admin(usr)] tried to create blood brother team with no suitable candidates")
+						return
+					// We're asking here, otherwise go set up objectives in the teams edit_team
+					var/choice2 = alert(usr, "Randomise blood bother objectives?", "Randomise Objectives", "Yes", "No")					
+					var/datum/mind/bro = candidates[choice]
+					var/datum/team/brother_team/T = new
+					T.add_member(src)
+					T.add_member(bro)
+					if(choice2 == "Yes")
+						T.forge_brother_objectives()
+						message_admins("[key_name_admin(usr)] created blood brother team with randomised objectives")
+					else
+						message_admins("[key_name_admin(usr)] created blood brother team with no objectives")
+					T.pick_meeting_area()
+					add_antag_datum(/datum/antagonist/brother, T)
+					bro.add_antag_datum(/datum/antagonist/brother, T)
+					T.update_name()
+					GLOB.brother_teams += T
+					message_admins("[key_name_admin(usr)] made [key_name_admin(current)] and [key_name_admin(bro)] into blood brothers.")
+					log_admin("[key_name(usr)] made [key_name(current)] and [key_name(bro)] into blood brothers.")
 
 	else if(href_list["contractor"])
 		var/datum/contractor_hub/H = LAZYACCESS(GLOB.contractors, src)

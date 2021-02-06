@@ -4,6 +4,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective
 	var/datum/mind/owner = null			//Who owns the objective.
+	/// What team owns the objective
+	var/datum/team/team = null			
 	var/explanation_text = "Nothing"	//What that person is supposed to do.
 	var/datum/mind/target = null		//If they are focused on a particular person.
 	var/target_amount = 0				//If they are focused on a particular number. Steal objectives have their own counter.
@@ -17,16 +19,34 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/Destroy()
 	GLOB.all_objectives -= src
+	if(owner)
+		for(var/a in owner.antag_datums)
+			var/datum/antagonist/A = a
+			A.objectives -= src
+		owner.objectives -= src
+		owner = null
+	if(team)
+		team.objectives -= src
 	return ..()
 
 /datum/objective/proc/check_completion()
 	return completed
+	
+/** 
+  *Combine owner and team into a single list. 	
+  */
+/datum/objective/proc/get_owners() 
+	. = (team && team.members) ? team.members.Copy() : list()
+	if(owner)
+		. += owner
 
+/**
+  *Called when you want to know if objective target is valid or not.
+  */
 /datum/objective/proc/is_invalid_target(datum/mind/possible_target)
-	if(possible_target == owner)
+	var/list/datum/mind/owners = get_owners()
+	if(possible_target in owners)
 		return TARGET_INVALID_IS_OWNER
-	if(possible_target in owner.targets)
-		return TARGET_INVALID_IS_TARGET
 	if(!ishuman(possible_target.current))
 		return TARGET_INVALID_NOT_HUMAN
 	if(possible_target.current.stat == DEAD)
@@ -53,6 +73,52 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 	if(possible_targets.len > 0)
 		target = pick(possible_targets)
+
+/**
+  *Called when you want to know if owner has escaped or not.
+  */
+/datum/objective/proc/considered_escape(datum/mind/M) //find out if the owner escaped
+	if(!M.current || M.current.stat == DEAD)
+		return FALSE
+	if(issilicon(M.current))
+		return FALSE
+	if(isbrain(M.current))
+		return FALSE
+	if(SSticker.force_ending) //This one isn't their fault, so lets just assume good faith
+		return TRUE
+	if(SSticker.mode.station_was_nuked) //If they escaped the blast somehow, let them win
+		return TRUE
+	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
+		return FALSE
+
+	var/turf/location = get_turf(M.current)
+	if(!location)
+		return FALSE
+
+	if(istype(location, /turf/simulated/shuttle/floor4) || istype(location, /turf/simulated/floor/mineral/plastitanium/red/brig)) // Fails traitors if they are in the shuttle brig -- Polymorph
+		return FALSE
+
+	if(location.onCentcom() || location.onSyndieBase())
+		return TRUE
+
+	return FALSE
+
+/**
+  *Called when you need members of an antag team's objective to be updated.
+  */
+/datum/objective/proc/team_update()
+	var/list/datum/mind/owners = get_owners()
+	if(owner)
+		owner.objectives -= src
+	if(team)
+		find_target()
+		if(!target)
+			qdel(src)
+			return
+		for(var/m in owners)
+			var/datum/mind/M = m
+			M.objectives += src
+			M.announce_objectives()
 
 /**
   * Called when the objective's target goes to cryo.
@@ -87,7 +153,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return target
 
 /datum/objective/assassinate/check_completion()
-	if(target && target.current)
+	if(target?.current)
 		if(target.current.stat == DEAD)
 			return 1
 		if(issilicon(target.current) || isbrain(target.current)) //Borgs/brains/AIs count as dead for traitor objectives. --NeoFite
@@ -97,6 +163,39 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return 0
 	return 1
 
+/datum/objective/assassinate/shared // team version
+
+/datum/objective/assassinate/shared/post_target_cryo()
+	team_update()
+
+/datum/objective/assassinate/once
+	var/won = FALSE
+
+/datum/objective/assassinate/once/find_target()
+	..()
+	if(target && target.current)
+		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]. You only need to kill them once. If they come back you still succeed."
+		RegisterSignal(target, COMSIG_MOB_DEATH, .proc/check_midround_completion)
+	else
+		explanation_text = "Free Objective"
+	
+/datum/objective/assassinate/once/check_completion()
+	return won || ..()
+
+/datum/objective/assassinate/once/proc/check_midround_completion()
+	won = TRUE
+	UnregisterSignal(target, COMSIG_MOB_DEATH)
+	
+/datum/objective/assassinate/once/on_target_cryo()
+	if(won)
+		return
+	return ..()
+	
+/datum/objective/assassinate/once/shared
+
+/datum/objective/assassinate/once/shared/post_target_cryo()
+	team_update()
+	
 
 /datum/objective/mutiny
 	martyr_compatible = 1
@@ -151,6 +250,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return 1
 	return 1
 
+/datum/objective/maroon/shared //team version
+
+/datum/objective/maroon/shared/post_target_cryo()
+	team_update()
+	
 
 /datum/objective/debrain //I want braaaainssss
 	martyr_compatible = 0
@@ -203,6 +307,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return 1
 	return 0
 
+/datum/objective/protect/shared
+
+/datum/objective/protect/shared/post_target_cryo()
+	team_update()
+	
 /datum/objective/protect/mindslave //subytpe for mindslave implants
 
 
@@ -212,16 +321,19 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	Syndicate agents, other enemies of Nanotrasen, cyborgs, pets, and cuffed/restrained hostages may be allowed on the shuttle alive."
 
 /datum/objective/hijack/check_completion()
-	if(!owner.current || owner.current.stat)
-		return 0
 	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
-		return 0
-	if(issilicon(owner.current))
-		return 0
+		return FALSE
+	var/list/datum/mind/owners = get_owners()
+	for(var/m in owners) //require all owners to pass
+		var/datum/mind/M = m
+		if(!M.current || M.current.stat)
+			return FALSE
+		if(issilicon(M.current))
+			return FALSE
 
-	var/area/A = get_area(owner.current)
-	if(SSshuttle.emergency.areaInstance != A)
-		return 0
+		var/area/A = get_area(M.current)
+		if(SSshuttle.emergency.areaInstance != A)
+			return FALSE
 
 	return SSshuttle.emergency.is_hijacked()
 
@@ -283,30 +395,13 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/escape
 	explanation_text = "Escape on the shuttle or an escape pod alive and free."
 
-/datum/objective/escape/check_completion()
-	if(issilicon(owner.current))
-		return 0
-	if(isbrain(owner.current))
-		return 0
-	if(!owner.current || owner.current.stat == DEAD)
-		return 0
-	if(SSticker.force_ending) //This one isn't their fault, so lets just assume good faith
-		return 1
-	if(SSticker.mode.station_was_nuked) //If they escaped the blast somehow, let them win
-		return 1
-	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
-		return 0
-	var/turf/location = get_turf(owner.current)
-	if(!location)
-		return 0
-
-	if(istype(location, /turf/simulated/shuttle/floor4) || istype(location, /turf/simulated/floor/mineral/plastitanium/red/brig)) // Fails traitors if they are in the shuttle brig -- Polymorph
-		return 0
-
-	if(location.onCentcom() || location.onSyndieBase())
-		return 1
-
-	return 0
+/datum/objective/escape/check_completion() //require all owners to escape alive
+	var/list/datum/mind/owners = get_owners()
+	for(var/m in owners) 
+		var/datum/mind/M = m
+		if(!considered_escape(M))
+			return FALSE
+	return TRUE
 
 
 /datum/objective/escape/escape_with_identity
@@ -374,14 +469,15 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return steal_target.location_override || "an unknown area"
 
 /datum/objective/steal/find_target()
+	var/list/datum/mind/owners = get_owners()
 	var/potential = GLOB.potential_theft_objectives.Copy()
 	while(!steal_target && length(potential))
 		var/thefttype = pick_n_take(potential)
 		var/datum/theft_objective/O = new thefttype
-		if(owner.assigned_role in O.protected_jobs)
-			continue
-		if(O in owner.targets)
-			continue
+		for(var/m in owners)
+			var/datum/mind/M = m
+			if(M.assigned_role in O.protected_jobs)
+				continue
 		if(O.flags & 2) // THEFT_FLAG_UNIQUE
 			continue
 
@@ -413,19 +509,23 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return steal_target
 
 /datum/objective/steal/check_completion()
+	var/list/datum/mind/owners = get_owners()
 	if(!steal_target)
-		return 1 // Free Objective
+		return TRUE // Free Objective
 
-	if(!owner.current)
-		return FALSE
+	for(var/m in owners)
+		var/datum/mind/M = m
+		if(!isliving(M.current))
+			continue
+		
+		var/list/all_items = M.current.GetAllContents()
 
-	var/list/all_items = owner.current.GetAllContents()
-
-	for(var/obj/I in all_items)
-		if(istype(I, steal_target.typepath))
-			return steal_target.check_special_completion(I)
-		if(I.type in steal_target.altitems)
-			return steal_target.check_special_completion(I)
+		for(var/obj/I in all_items)
+			if(istype(I, steal_target.typepath))
+				return steal_target.check_special_completion(I)
+			if(I.type in steal_target.altitems)
+				return steal_target.check_special_completion(I)
+	return FALSE
 
 
 /datum/objective/steal/exchange

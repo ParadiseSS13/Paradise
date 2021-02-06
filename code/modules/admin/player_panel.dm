@@ -363,6 +363,8 @@
 				dat += "ETA: <a href='?_src_=holder;edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><BR>"
 
 		dat += "<a href='?src=[UID()];delay_round_end=1'>[SSticker.delay_end ? "End Round Normally" : "Delay Round End"]</a><br>"
+		dat += "<a href='?src=[UID()];check_antagonist_teams=1'>Check Antagonist Teams</a><br>"
+
 		if(SSticker.mode.syndicates.len)
 			dat += "<br><table cellspacing=5><tr><td><B>Syndicates</B></td><td></td></tr>"
 			for(var/datum/mind/N in SSticker.mode.syndicates)
@@ -569,3 +571,30 @@
 
 	txt += "</tr>"
 	return txt
+/*
+	*This window is for datum/team antags. 
+	*/
+/datum/admins/proc/check_antagonist_teams() // stick any proper antagonist teams in here please.
+	if(!check_rights(R_ADMIN))
+		return
+	if(SSticker.current_state >= GAME_STATE_PLAYING)
+		var/dat = "<html><head><title>Antagonist Teams</title></head><body><h1><b>Antagonist Teams</b></h1>"
+
+		if(length(GLOB.brother_teams))
+			dat += "<br><table><tr><td><b>Brother Teams</b></td><td></td></tr>"
+			for(var/T in GLOB.brother_teams)
+				var/datum/team/brother_team/team = T
+				dat += "<tr><td><a href='?src=[UID()];edit_team=[team.UID()]'><b>[team.name]</b></a></td></tr>"
+				for(var/B in team.members)
+					var/datum/mind/brother = B
+					dat += check_antagonists_line(brother.current, close = TRUE)
+				var/objective_count = 1
+				for(var/O in team.objectives)
+					var/datum/objective/objective = O
+					dat += "<tr><td><B>Objective #[objective_count]</B>: [objective.explanation_text]</td></tr>"
+					objective_count++
+			dat += "</table>"
+		dat += "</body></html>"
+		usr << browse(dat, "window=antagonistteams;size=600x480")
+	else
+		alert("The game hasn't started yet!")
