@@ -700,13 +700,13 @@
 	pixel_y = 0;
 	req_access_txt = "150"
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bg" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bh" = (
 /obj/structure/cable{
@@ -714,7 +714,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bi" = (
 /obj/machinery/light/small{
@@ -723,7 +723,7 @@
 /obj/machinery/atmospherics/binary/pump{
 	name = "Incinerator Input"
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bj" = (
 /obj/structure/cable{
@@ -746,7 +746,7 @@
 	pixel_y = 0;
 	req_access_txt = "150"
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bk" = (
 /obj/structure/rack,
@@ -1083,7 +1083,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bQ" = (
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bR" = (
 /obj/machinery/optable,
@@ -1289,7 +1289,7 @@
 /obj/machinery/igniter{
 	id = "syndicate_base_incinerator"
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cq" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
@@ -1299,13 +1299,13 @@
 /obj/structure/sign/vacuum/external{
 	pixel_y = -32
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cr" = (
 /obj/machinery/door/poddoor{
 	id_tag = "lavalandsyndi_incineratorinput"
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cs" = (
 /obj/structure/cable,
@@ -1318,7 +1318,7 @@
 	dir = 1;
 	luminosity = 2
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "ct" = (
 /obj/structure/cable,
@@ -1326,13 +1326,13 @@
 	dir = 2;
 	luminosity = 2
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cu" = (
 /obj/machinery/door/poddoor{
 	id_tag = "lavalandsyndi_incineratoroutput"
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cA" = (
 /obj/structure/table/reinforced,
@@ -5969,7 +5969,7 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "nf" = (
 /obj/structure/sign/fire,
-/turf/simulated/wall/mineral/plastitanium/coated,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "ng" = (
 /obj/structure/table,
@@ -6679,7 +6679,7 @@
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "yd" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/turf/simulated/wall/mineral/plastitanium/coated,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "yU" = (
 /turf/simulated/wall/mineral/plastitanium/explosive,
@@ -6734,7 +6734,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "RI" = (
-/turf/simulated/wall/mineral/plastitanium/coated,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "RV" = (
 /obj/structure/sign/fire,

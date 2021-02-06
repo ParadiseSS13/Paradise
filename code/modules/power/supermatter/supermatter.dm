@@ -415,7 +415,7 @@
 				if(!isspaceturf(t))
 					continue
 				var/turf/turf_to_check = t
-				if(turf_to_check.atmos_adjacent_turfs)
+				if(length(turf_to_check.atmos_adjacent_turfs))
 					var/integrity = get_integrity()
 					if(integrity < 10)
 						damage += clamp((power * 0.0005) * DAMAGE_INCREASE_MULTIPLIER, 0, MAX_SPACE_EXPOSURE_DAMAGE)
