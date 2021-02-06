@@ -23,7 +23,7 @@ AI MODULES
 	var/datum/ai_laws/laws = null
 
 /obj/item/aiModule/Initialize()
-	..()
+	. = ..()
 	if(laws)
 		desc += "<br>"
 		for(var/datum/ai_law/current in laws.inherent_laws)
@@ -256,100 +256,100 @@ AI MODULES
 	name = "Asimov core AI module"
 	desc = "An 'Asimov' Core AI Module: 'Reconfigures the AI's core laws.'"
 	origin_tech = "programming=3;materials=4"
-	laws = new/datum/ai_laws/asimov
+	laws = new /datum/ai_laws/asimov
 
 /******************** Crewsimov ********************/
 /obj/item/aiModule/crewsimov // -- TLE
 	name = "Crewsimov core AI module"
 	desc = "An 'Crewsimov' Core AI Module: 'Reconfigures the AI's core laws.'"
 	origin_tech = "programming=3;materials=4"
-	laws = new/datum/ai_laws/crewsimov
+	laws = new /datum/ai_laws/crewsimov
 
 /******************* Quarantine ********************/
 /obj/item/aiModule/quarantine
 	name = "Quarantine core AI module"
 	desc = "A 'Quarantine' Core AI Module: 'Reconfigures the AI's core laws.'"
 	origin_tech = "programming=3;materials=4"
-	laws = new/datum/ai_laws/quarantine
+	laws = new /datum/ai_laws/quarantine
 
 /******************** NanoTrasen ********************/
 /obj/item/aiModule/nanotrasen // -- TLE
 	name = "NT Default Core AI Module"
 	desc = "An 'NT Default' Core AI Module: 'Reconfigures the AI's core laws.'"
 	origin_tech = "programming=3;materials=4"
-	laws = new/datum/ai_laws/nanotrasen
+	laws = new /datum/ai_laws/nanotrasen
 
 /******************** Corporate ********************/
 /obj/item/aiModule/corp
 	name = "Corporate core AI module"
 	desc = "A 'Corporate' Core AI Module: 'Reconfigures the AI's core laws.'"
 	origin_tech = "programming=3;materials=4"
-	laws = new/datum/ai_laws/corporate
+	laws = new /datum/ai_laws/corporate
 
 /******************** Drone ********************/
 /obj/item/aiModule/drone
 	name = "Drone core AI module"
 	desc = "A 'Drone' Core AI Module: 'Reconfigures the AI's core laws.'"
 	origin_tech = "programming=3;materials=4"
-	laws = new/datum/ai_laws/drone
+	laws = new /datum/ai_laws/drone
 
 /******************** Robocop ********************/
 /obj/item/aiModule/robocop // -- TLE
 	name = "Robocop core AI module"
 	desc = "A 'Robocop' Core AI Module: 'Reconfigures the AI's core three laws.'"
 	origin_tech = "programming=4"
-	laws = new/datum/ai_laws/robocop()
+	laws = new /datum/ai_laws/robocop()
 
 /****************** P.A.L.A.D.I.N. **************/
 /obj/item/aiModule/paladin // -- NEO
 	name = "P.A.L.A.D.I.N. core AI module"
 	desc = "A P.A.L.A.D.I.N. Core AI Module: 'Reconfigures the AI's core laws.'"
 	origin_tech = "programming=3;materials=4"
-	laws = new/datum/ai_laws/paladin
+	laws = new /datum/ai_laws/paladin
 
 /****************** T.Y.R.A.N.T. *****************/
 /obj/item/aiModule/tyrant // -- Darem
 	name = "T.Y.R.A.N.T. core AI module"
 	desc = "A T.Y.R.A.N.T. Core AI Module: 'Reconfigures the AI's core laws.'"
 	origin_tech = "programming=3;materials=4;syndicate=1"
-	laws = new/datum/ai_laws/tyrant()
+	laws = new /datum/ai_laws/tyrant()
 
 /******************** Antimov ********************/
 /obj/item/aiModule/antimov // -- TLE
 	name = "Antimov core AI module"
 	desc = "An 'Antimov' Core AI Module: 'Reconfigures the AI's core laws.'"
 	origin_tech = "programming=4"
-	laws = new/datum/ai_laws/antimov()
+	laws = new /datum/ai_laws/antimov()
 
 /******************** NT Aggressive ********************/
 /obj/item/aiModule/nanotrasen_aggressive
 	name = "NT Aggressive core AI module"
 	desc = "An 'NT Aggressive' Core AI Module: 'Reconfigures the AI's core laws.'"
-	laws = new/datum/ai_laws/nanotrasen_aggressive()
+	laws = new /datum/ai_laws/nanotrasen_aggressive()
 
 /******************** CCTV ********************/
 /obj/item/aiModule/cctv
 	name = "CCTV core AI module"
 	desc = "A 'CCTV' Core AI Module: 'Reconfigures the AI's core laws.'"
-	laws = new/datum/ai_laws/cctv()
+	laws = new /datum/ai_laws/cctv()
 
 /******************** Hippocratic Oath ********************/
 /obj/item/aiModule/hippocratic
 	name = "Hippocratic Oath core AI module"
 	desc = "An 'Hippocratic' Oath Core AI Module: 'Reconfigures the AI's core laws.'"
-	laws = new/datum/ai_laws/hippocratic()
+	laws = new /datum/ai_laws/hippocratic()
 
 /******************** Station Efficiency ********************/
 /obj/item/aiModule/maintain
 	name = "Station Efficiency core AI module"
 	desc = "A 'Station Efficiency' Core AI Module: 'Reconfigures the AI's core laws.'"
-	laws = new/datum/ai_laws/maintain()
+	laws = new /datum/ai_laws/maintain()
 
 /******************** Peacekeeper ********************/
 /obj/item/aiModule/peacekeeper
 	name = "Peacekeeper core AI module"
 	desc = "A 'Peacekeeper' Core AI Module: 'Reconfigures the AI's core laws.'"
-	laws = new/datum/ai_laws/maintain()
+	laws = new /datum/ai_laws/maintain()
 
 /******************** Freeform Core ******************/
 /obj/item/aiModule/freeformcore // Slightly more dynamic freeform module -- TLE
@@ -426,4 +426,4 @@ AI MODULES
 	laws[1] = generate_ion_law()
 	to_chat(user, "<span class='notice'>You press the button on [src].</span>")
 	playsound(user, 'sound/machines/click.ogg', 20, 1)
-	src.loc.visible_message("<span class='warning'>[bicon(src)] [laws[1]]</span>")
+	loc.visible_message("<span class='warning'>[bicon(src)] [laws[1]]</span>")
