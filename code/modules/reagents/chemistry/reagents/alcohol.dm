@@ -383,7 +383,7 @@
 	reagent_state = LIQUID
 	color = "#61d961" // rgb: 38, 85, 38
 	alcohol_perc = 0.4
-	drink_icon = "margaritaglass"
+	drink_icon = "daiquiriglass"
 	drink_name = "Daiquiri"
 	drink_desc = "When Botany gives you limes, make daiquiris."
 	taste_description = "sweetened lime juice and rum"
