@@ -88,33 +88,8 @@
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "riveted"
 
-/turf/simulated/wall/indestructible/pt_wall
-	name = "reinforced wall"
-	desc = "An evil wall of plasma and titanium. This one looks heavily reinforced."
+/turf/simulated/wall/indestructible/syndicate
 	icon = 'icons/turf/walls/plastitanium_wall.dmi'
-	icon_state = "map-shuttle_nd"
-	smooth = SMOOTH_MORE
-	canSmoothWith = list(/turf/simulated/wall/indestructible/pt_wall,
-						/obj/machinery/door/airlock)
-
-/turf/simulated/wall/indestructible/pt_window
-	name = "reinforced plastitanium window"
-	desc = "An evil looking window of plasma and titanium. This one looks heavily reinforced."
-	icon = 'icons/turf/walls.dmi'
-	icon_state = "fakewindows_p"
-	opacity = 0
-	layer = ABOVE_OBJ_LAYER
-	level = 3
-
-/turf/simulated/wall/indestructible/rock/asteroid
-	smooth = SMOOTH_MORE | SMOOTH_BORDER
-	canSmoothWith = list(/turf/simulated/wall/indestructible/rock/asteroid,
-						/turf/simulated/mineral/asteroid)
-	layer = EDGED_TURF_LAYER
-
-/turf/simulated/wall/indestructible/rock/asteroid/Initialize(mapload)
-	. = ..()
-	var/matrix/M = new
-	M.Translate(-4, -4)
-	transform = M
-	icon = 'icons/turf/smoothrocks_a.dmi'
+	icon_state = "map-shuttle"
+	smooth = SMOOTH_MORE | SMOOTH_DIAGONAL
+	canSmoothWith = list(/turf/simulated/wall/mineral/plastitanium, /turf/simulated/wall/indestructible/syndicate, /obj/machinery/door/airlock/titanium, /obj/machinery/door/airlock, /obj/structure/shuttle/engine, /obj/structure/falsewall/plastitanium)

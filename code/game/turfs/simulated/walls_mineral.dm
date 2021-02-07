@@ -195,7 +195,7 @@
 	flags_2 = CHECK_RICOCHET_2
 	sheet_type = /obj/item/stack/sheet/mineral/titanium
 	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
-	canSmoothWith = list(/turf/simulated/wall/mineral/titanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater, /obj/structure/falsewall/titanium)
+	canSmoothWith = list(/turf/simulated/wall/mineral/titanium, /obj/machinery/door/airlock/titanium, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater, /obj/structure/falsewall/titanium)
 
 /turf/simulated/wall/mineral/titanium/nodiagonal
 	smooth = SMOOTH_MORE
@@ -221,10 +221,11 @@
 		T.icon_state = icon_state
 	if(T.icon != icon)
 		T.icon = icon
-	if(T.color != color)
-		T.color = color
+	if(color)
+		T.atom_colours = atom_colours.Copy()
+		T.update_atom_colour()
 	if(T.dir != dir)
-		T.dir = dir
+		T.setDir(dir)
 	T.transform = transform
 	return T
 
@@ -287,7 +288,7 @@
 	explosion_block = 4
 	sheet_type = /obj/item/stack/sheet/mineral/plastitanium
 	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
-	canSmoothWith = list(/turf/simulated/wall/mineral/plastitanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/shuttle/engine, /obj/structure/falsewall/plastitanium)
+	canSmoothWith = list(/turf/simulated/wall/mineral/plastitanium, /turf/simulated/wall/indestructible/syndicate, /obj/machinery/door/airlock/titanium, /obj/machinery/door/airlock, /obj/structure/shuttle/engine, /obj/structure/falsewall/plastitanium)
 
 /turf/simulated/wall/mineral/plastitanium/nodiagonal
 	smooth = SMOOTH_MORE
@@ -332,10 +333,11 @@
 		T.icon_state = icon_state
 	if(T.icon != icon)
 		T.icon = icon
-	if(T.color != color)
-		T.color = color
+	if(color)
+		T.atom_colours = atom_colours.Copy()
+		T.update_atom_colour()
 	if(T.dir != dir)
-		T.dir = dir
+		T.setDir(dir)
 	T.transform = transform
 	return T
 
