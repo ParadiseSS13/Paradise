@@ -387,7 +387,7 @@
 	id = "pod1";
 	name = "escape pod 1"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock";
 	name = "Escape Pod Hatch"
 	},
@@ -414,7 +414,7 @@
 	id = "pod2";
 	name = "escape pod 2"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock";
 	name = "Escape Pod Hatch"
 	},
@@ -1293,7 +1293,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "ahB" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock"
 	},
 /obj/effect/decal/warning_stripes/east,
@@ -1309,7 +1309,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "ahE" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock"
 	},
 /obj/effect/decal/warning_stripes/west,
@@ -2221,7 +2221,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
 "akZ" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
@@ -24889,7 +24889,7 @@
 	id = "pod3";
 	name = "escape pod 3"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock";
 	name = "Escape Pod Hatch"
 	},

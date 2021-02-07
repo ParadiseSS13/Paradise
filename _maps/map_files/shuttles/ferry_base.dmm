@@ -46,7 +46,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "l" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock"
 	},
 /turf/simulated/floor/plating,
@@ -55,7 +55,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "n" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock"
 	},
 /obj/docking_port/mobile{

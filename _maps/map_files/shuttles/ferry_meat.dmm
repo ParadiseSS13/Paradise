@@ -91,7 +91,7 @@
 	},
 /area/shuttle/transport)
 "p" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock"
 	},
 /turf/simulated/floor/plating,
@@ -108,7 +108,7 @@
 	},
 /area/shuttle/transport)
 "r" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock"
 	},
 /obj/docking_port/mobile{

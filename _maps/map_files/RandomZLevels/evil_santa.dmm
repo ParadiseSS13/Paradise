@@ -272,7 +272,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/awaymission/challenge/main)
 "aS" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /obj/structure/fans/tiny,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -467,7 +467,7 @@
 /turf/simulated/wall/indestructible/syndicate,
 /area/awaymission/challenge/start)
 "bE" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /obj/structure/fans/tiny,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -485,7 +485,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/challenge/start)
 "bG" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/challenge/start)

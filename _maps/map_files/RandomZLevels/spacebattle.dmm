@@ -76,7 +76,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate2)
 "ar" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate2)
 "as" = (
@@ -264,7 +264,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/syndicate2)
 "bf" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate3)
 "bg" = (
@@ -302,7 +302,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/syndicate2)
 "bn" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate1)
 "bo" = (
@@ -448,7 +448,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "ca" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "cc" = (
@@ -607,7 +607,7 @@
 	},
 /area/awaymission/spacebattle/cruiser)
 "cG" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/cruiser)
 "cH" = (
@@ -650,7 +650,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "cQ" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria";
 	dir = 2
@@ -1681,7 +1681,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/cruiser)
 "hu" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1781,7 +1781,7 @@
 	},
 /area/awaymission/spacebattle/cruiser)
 "hU" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},

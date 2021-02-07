@@ -717,7 +717,7 @@
 	},
 /area/security/hos)
 "adh" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Escape Pod Airlock"
 	},
 /obj/docking_port/mobile/pod{
@@ -2065,7 +2065,7 @@
 	name = "\improper Recreation Area"
 	})
 "agh" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Escape Pod Airlock"
 	},
 /obj/docking_port/mobile/pod{
@@ -24537,7 +24537,7 @@
 	name = "\improper Captain's Quarters"
 	})
 "aWF" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Escape Pod Airlock"
 	},
 /obj/docking_port/mobile/pod{
@@ -31049,7 +31049,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
 "bip" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Arrivals Shuttle Airlock"
 	},
 /turf/simulated/floor/plating,
@@ -34185,7 +34185,7 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/arrival/station)
 "bnG" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Escape Pod Airlock"
 	},
 /obj/docking_port/mobile/pod{
@@ -90936,7 +90936,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "rJJ" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Arrivals Shuttle Airlock"
 	},
 /turf/simulated/floor/mineral/titanium,

@@ -339,7 +339,7 @@
 	},
 /area/shuttle/escape)
 "be" = (
-/obj/machinery/door/airlock/shuttle/glass{
+/obj/machinery/door/airlock/titanium/glass{
 	name = "Emergency Airlock Access";
 	req_one_access_txt = "2;19"
 	},
@@ -397,7 +397,7 @@
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/shuttle/escape)
 "bo" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	aiControlDisabled = 1;
 	hackProof = 1;
 	id_tag = "s_docking_airlock";
@@ -486,7 +486,7 @@
 	},
 /area/shuttle/escape)
 "bD" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	aiControlDisabled = 1;
 	hackProof = 1;
 	id_tag = "s_docking_airlock";
@@ -613,7 +613,7 @@
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bS" = (
-/obj/machinery/door/airlock/shuttle/glass{
+/obj/machinery/door/airlock/titanium/glass{
 	name = "Shuttle Cargo Hatch"
 	},
 /turf/simulated/floor/plasteel,

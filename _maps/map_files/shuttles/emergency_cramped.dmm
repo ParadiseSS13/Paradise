@@ -30,7 +30,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "l" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	aiControlDisabled = 1;
 	hackProof = 1;
 	id_tag = "s_docking_airlock";
@@ -63,7 +63,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "q" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	aiControlDisabled = 1;
 	hackProof = 1;
 	id_tag = "s_docking_airlock";

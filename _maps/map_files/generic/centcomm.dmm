@@ -186,7 +186,7 @@
 	},
 /area/holodeck/source_burntest)
 "aB" = (
-/obj/machinery/door/airlock/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plating,
 /area/centcom/evac)
 "aC" = (
@@ -1918,7 +1918,7 @@
 	roundstart_move = null;
 	width = 9
 	},
-/obj/machinery/door/airlock/shuttle/glass{
+/obj/machinery/door/airlock/titanium/glass{
 	id_tag = "s_docking_airlock";
 	req_one_access_txt = "0"
 	},
@@ -5535,7 +5535,7 @@
 	},
 /area/centcom/control)
 "oY" = (
-/obj/machinery/door/airlock/shuttle,
+/obj/machinery/door/airlock/titanium,
 /obj/docking_port/mobile/emergency/backup{
 	dwidth = 9;
 	roundstart_move = null
@@ -5658,7 +5658,7 @@
 	},
 /area/centcom/specops)
 "pn" = (
-/obj/machinery/door/airlock/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plating,
 /area/shuttle/gamma/space)
 "po" = (
@@ -5695,7 +5695,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
 "pt" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	req_access_txt = "0"
 	},
 /turf/simulated/floor/plating,
@@ -6774,7 +6774,7 @@
 	height = 18;
 	width = 29
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	aiControlDisabled = 1;
 	hackProof = 1;
 	id_tag = "s_docking_airlock";
@@ -7196,7 +7196,7 @@
 	},
 /area/tdome/tdomeobserve)
 "tb" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock"
 	},
 /obj/docking_port/mobile{
@@ -12214,7 +12214,7 @@
 	name = "Security Doors";
 	opacity = 0
 	},
-/obj/machinery/door/airlock/shuttle/glass{
+/obj/machinery/door/airlock/titanium/glass{
 	id_tag = "soltrader_south";
 	name = "trader shuttle airlock";
 	req_access_txt = "160";
@@ -12314,7 +12314,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "Fp" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	aiControlDisabled = 1;
 	hackProof = 1;
 	id_tag = "s_docking_airlock";
@@ -13380,7 +13380,7 @@
 /turf/simulated/floor/plating/nitrogen,
 /area/shuttle/vox)
 "Ln" = (
-/obj/machinery/door/airlock/shuttle/glass{
+/obj/machinery/door/airlock/titanium/glass{
 	name = "trader shuttle airlock";
 	req_access_txt = "160";
 	security_level = 6
@@ -13632,7 +13632,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/vox)
 "MP" = (
-/obj/machinery/door/airlock/shuttle/glass{
+/obj/machinery/door/airlock/titanium/glass{
 	name = "Shuttle Cargo Hatch"
 	},
 /turf/simulated/floor/plasteel,
@@ -13859,7 +13859,7 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "Of" = (
-/obj/machinery/door/airlock/shuttle/glass{
+/obj/machinery/door/airlock/titanium/glass{
 	name = "Emergency Airlock Access";
 	req_one_access_txt = "2;19"
 	},
@@ -15645,7 +15645,7 @@
 	name = "Security Doors";
 	opacity = 0
 	},
-/obj/machinery/door/airlock/shuttle/glass{
+/obj/machinery/door/airlock/titanium/glass{
 	id_tag = "soltrader_north";
 	name = "trader shuttle airlock";
 	req_access_txt = "160";

@@ -778,7 +778,7 @@
 /turf/simulated/floor/plating,
 /area/mine/production)
 "bO" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock";
 	name = "Labor Shuttle Airlock";
 	req_access_txt = "0"
@@ -2703,7 +2703,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "fJ" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock";
 	req_access_txt = "48"
 	},
@@ -4899,7 +4899,7 @@
 	},
 /area/mine/laborcamp)
 "FW" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock";
 	name = "Labor Shuttle Airlock";
 	req_access_txt = "2"

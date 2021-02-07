@@ -71,7 +71,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "aF" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "aG" = (
@@ -381,7 +381,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Gate)
 "cb" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -409,7 +409,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "cg" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plasteel{
 	tag = "icon-carpetside (NORTH)";
 	icon_state = "carpetside";
@@ -837,7 +837,7 @@
 	},
 /area/awaymission/BMPship/Midship)
 "dx" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -1336,7 +1336,7 @@
 	},
 /area/awaymission/BMPship/Fore)
 "ey" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Aft)
 "ez" = (
@@ -2083,7 +2083,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Aft)
 "gh" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plasteel{
 	tag = "icon-carpetside";
 	icon_state = "carpetside"
@@ -2097,7 +2097,7 @@
 	pixel_y = 0;
 	tag = ""
 	},
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plasteel{
 	tag = "icon-carpetside";
 	icon_state = "carpetside"
@@ -2427,7 +2427,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Aft)
 "hf" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -2647,7 +2647,7 @@
 	},
 /area/awaymission/BMPship/Midship)
 "hW" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated,
 /area/awaymission/BMPship/Fore)
 "hX" = (
@@ -2723,7 +2723,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission)
 "ik" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -2783,7 +2783,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Aft)
 "iu" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria";
 	dir = 2

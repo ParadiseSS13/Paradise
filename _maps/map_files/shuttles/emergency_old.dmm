@@ -37,7 +37,7 @@
 	timid = 1;
 	width = 24
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	aiControlDisabled = 1;
 	hackProof = 1;
 	id_tag = "s_docking_airlock";
@@ -202,7 +202,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aT" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	aiControlDisabled = 1;
 	hackProof = 1;
 	id_tag = null;
@@ -219,7 +219,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aW" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	aiControlDisabled = 1;
 	hackProof = 1;
 	id_tag = "s_docking_airlock";

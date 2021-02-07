@@ -451,7 +451,7 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "bo" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	aiControlDisabled = 1;
 	hackProof = 1;
 	id_tag = "s_docking_airlock";
@@ -520,7 +520,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
 "bD" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	aiControlDisabled = 1;
 	hackProof = 1;
 	id_tag = "s_docking_airlock";

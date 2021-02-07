@@ -15,7 +15,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/ruin/unpowered)
 "f" = (
-/obj/machinery/door/airlock/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "g" = (

@@ -15,7 +15,7 @@
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "e" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plasteel/airless,
 /area/space/nearstation)
 "f" = (

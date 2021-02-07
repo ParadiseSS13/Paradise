@@ -1206,7 +1206,7 @@
 	},
 /area/derelict/bridge)
 "cI" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Bathroom"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1665,7 +1665,7 @@
 /turf/simulated/floor/plating,
 /area/derelict/crew_quarters)
 "dI" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Dormitories"
 	},
 /turf/simulated/floor/plasteel,
@@ -1927,7 +1927,7 @@
 	name = "Derelict Annex"
 	})
 "ek" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Dormitories"
 	},
 /turf/simulated/floor/plasteel{
@@ -4853,7 +4853,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Central Annex"
 	},
 /turf/simulated/floor/plasteel,
@@ -4913,7 +4913,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Central Annex"
 	},
 /obj/effect/decal/cleanable/blood/tracks{
@@ -5157,7 +5157,7 @@
 	layer = 3;
 	name = "Central Annex Lockdown"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Central Annex"
 	},
 /turf/simulated/floor/plasteel,
@@ -5181,7 +5181,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Central Annex"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7447,7 +7447,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Central Annex"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7965,7 +7965,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Central Annex"
 	},
 /turf/simulated/floor/plasteel,

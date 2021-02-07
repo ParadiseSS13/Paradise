@@ -8669,7 +8669,7 @@
 	name = "MO19 Arrivals"
 	})
 "mI" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Shuttle Cockpit"
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -8702,7 +8702,7 @@
 	name = "MO19 Arrivals"
 	})
 "mL" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Shuttle Airlock"
 	},
 /turf/simulated/floor/plating,

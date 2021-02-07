@@ -6,7 +6,7 @@
 /turf/space,
 /area/ruin/powered)
 "d" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/powered)
 "g" = (
@@ -83,7 +83,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/powered)
 "D" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plating,
 /area/ruin/powered)
 

@@ -10243,7 +10243,7 @@
 	id = "pod3";
 	name = "escape pod 3"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock";
 	name = "Escape Pod Hatch"
 	},
@@ -18894,7 +18894,7 @@
 	id = "pod1";
 	name = "escape pod 1"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock";
 	name = "Escape Pod Hatch"
 	},
@@ -18921,7 +18921,7 @@
 	id = "pod2";
 	name = "escape pod 2"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock";
 	name = "Escape Pod Hatch"
 	},
@@ -87656,7 +87656,7 @@
 	id = "pod4";
 	name = "escape pod 4"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock";
 	name = "Escape Pod Hatch"
 	},

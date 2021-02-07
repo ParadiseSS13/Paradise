@@ -108,7 +108,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "aH" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "aJ" = (
@@ -120,7 +120,7 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/abandoned)
 "aK" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /obj/docking_port/mobile{
 	dir = 8;
 	dwidth = 10;
@@ -215,7 +215,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "be" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "bf" = (

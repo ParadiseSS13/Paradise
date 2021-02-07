@@ -128,7 +128,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/ruin/powered)
 "aB" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Escape Pod Airlock"
 	},
 /turf/simulated/floor/mineral/titanium/blue/airless,

@@ -256,14 +256,14 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "aT" = (
-/obj/machinery/door/airlock/shuttle/glass{
+/obj/machinery/door/airlock/titanium/glass{
 	name = "Chemistry";
 	req_access_txt = "33"
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "aU" = (
-/obj/machinery/door/airlock/shuttle/glass,
+/obj/machinery/door/airlock/titanium/glass,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "aV" = (
@@ -518,7 +518,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bI" = (
-/obj/machinery/door/airlock/shuttle/glass{
+/obj/machinery/door/airlock/titanium/glass{
 	name = "Operating Room";
 	req_access = null;
 	req_access_txt = "45"

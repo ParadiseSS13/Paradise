@@ -2419,7 +2419,7 @@
 	},
 /area/awaymission/midblock)
 "gR" = (
-/obj/machinery/door/unpowered/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Shuttle Airlock"
 	},
 /turf/simulated/floor/plating,

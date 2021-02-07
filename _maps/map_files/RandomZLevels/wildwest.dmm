@@ -2568,7 +2568,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/awaymission/wwrefine)
 "hj" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
 "hk" = (

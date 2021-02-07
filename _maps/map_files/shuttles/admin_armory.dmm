@@ -123,7 +123,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "gd" = (
-/obj/machinery/door/airlock/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/administration)
 "gh" = (
@@ -384,7 +384,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "xH" = (
-/obj/machinery/door/airlock/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "xQ" = (
@@ -529,7 +529,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "EQ" = (
-/obj/machinery/door/airlock/shuttle/glass,
+/obj/machinery/door/airlock/titanium/glass,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/administration)
 "Fd" = (
@@ -909,7 +909,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
 "VC" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Shuttle Armory";
 	req_access_txt = "3"
 	},
