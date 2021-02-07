@@ -17,80 +17,25 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
-"af" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall12";
-	icon_state = "swall12"
-	},
-/area/awaymission/BMPship/Aft)
-"ag" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall4";
-	icon_state = "swall4"
-	},
-/area/awaymission/BMPship/Aft)
-"ah" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall14";
-	icon_state = "swall14"
-	},
-/area/awaymission/BMPship/Aft)
 "ai" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f10";
-	icon_state = "swall_f10";
-	dir = 2
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/awaymission/BMPship/Aft)
 "aj" = (
 /mob/living/simple_animal/hostile/carp,
 /turf/space,
 /area/space/nearstation)
-"ak" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall12";
-	icon_state = "swall12"
-	},
-/area/awaymission/BMPship/Gate)
 "al" = (
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Fore)
 "am" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall4";
-	icon_state = "swall4"
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/awaymission/BMPship/Gate)
-"an" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall3";
-	icon_state = "swall3";
-	dir = 2
-	},
-/area/awaymission/BMPship/Aft)
 "ao" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Aft)
-"ap" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/grille,
-/turf/simulated/floor/engine,
-/area/awaymission/BMPship/Aft)
-"aq" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall14";
-	icon_state = "swall14"
-	},
-/area/awaymission/BMPship/Gate)
 "ar" = (
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Fore)
@@ -98,14 +43,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
-"at" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f10";
-	icon_state = "swall_f10";
-	dir = 2
-	},
-/area/awaymission/BMPship/Gate)
 "au" = (
 /obj/machinery/porta_turret{
 	lethal = 1;
@@ -120,54 +57,12 @@
 	icon_state = "bar"
 	},
 /area/awaymission/BMPship/Midship)
-"aw" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall7";
-	icon_state = "swall7"
-	},
-/area/awaymission/BMPship/Aft)
 "ax" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/grille,
+/obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Gate)
-"ay" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall13";
-	icon_state = "swall13"
-	},
-/area/awaymission/BMPship/Aft)
-"az" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall3";
-	icon_state = "swall3";
-	dir = 2
-	},
-/area/awaymission/BMPship/Gate)
-"aA" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall8";
-	icon_state = "swall8"
-	},
-/area/awaymission/BMPship/Aft)
 "aB" = (
 /turf/simulated/floor/engine,
-/area/awaymission/BMPship/Gate)
-"aC" = (
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f5";
-	icon_state = "swall_f5";
-	dir = 2
-	},
 /area/awaymission/BMPship/Gate)
 "aD" = (
 /obj/machinery/light/small{
@@ -175,63 +70,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
-"aE" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/grille,
-/turf/simulated/floor/engine,
-/area/awaymission/BMPship/Gate)
 "aF" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "aG" = (
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
-"aH" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/grille,
-/turf/simulated/floor/engine,
-/area/awaymission/BMPship/Gate)
 "aI" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/engine,
-/area/awaymission/BMPship/Gate)
-"aJ" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall7";
-	icon_state = "swall7"
-	},
-/area/awaymission/BMPship/Gate)
-"aK" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f6";
-	icon_state = "swall_f6";
-	dir = 2
-	},
-/area/awaymission/BMPship/Gate)
-"aL" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall3";
-	icon_state = "swall3"
-	},
-/area/awaymission/BMPship/Aft)
-"aM" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall13";
-	icon_state = "swall13"
-	},
 /area/awaymission/BMPship/Gate)
 "aN" = (
 /obj/machinery/door/airlock/silver{
@@ -239,22 +87,6 @@
 	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating/airless,
-/area/awaymission/BMPship/Gate)
-"aO" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall8";
-	icon_state = "swall8"
-	},
-/area/awaymission/BMPship/Gate)
-"aP" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall12";
-	icon_state = "swall12";
-	dir = 2
-	},
-/area/awaymission/BMPship/Gate)
-"aQ" = (
-/turf/simulated/shuttle/wall,
 /area/awaymission/BMPship/Gate)
 "aR" = (
 /turf/simulated/floor/plating/airless,
@@ -270,29 +102,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Gate)
 "aU" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall4";
-	icon_state = "swall4"
-	},
-/area/awaymission/BMPship/Fore)
-"aV" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall12";
-	icon_state = "swall12"
-	},
-/area/awaymission/BMPship/Fore)
-"aW" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall14";
-	icon_state = "swall14"
-	},
-/area/awaymission/BMPship/Fore)
-"aX" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_s10";
-	icon_state = "swall_s10";
-	dir = 2
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/awaymission/BMPship/Fore)
 "aY" = (
 /obj/item/restraints/handcuffs,
@@ -316,12 +126,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Gate)
-"bc" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall1";
-	icon_state = "swall1"
-	},
-/area/awaymission/BMPship/Aft)
 "bd" = (
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Aft)
@@ -333,12 +137,6 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/BMPship/Gate)
-"bf" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall3";
-	icon_state = "swall3"
-	},
 /area/awaymission/BMPship/Gate)
 "bg" = (
 /obj/machinery/computer/operating,
@@ -366,16 +164,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "bk" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/grille,
+/obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "bl" = (
@@ -402,12 +191,6 @@
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
-"bp" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall3";
-	icon_state = "swall3"
-	},
-/area/awaymission/BMPship/Fore)
 "bq" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
@@ -436,10 +219,7 @@
 /area/awaymission/BMPship/Gate)
 "bt" = (
 /obj/structure/sign/vacuum,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall1";
-	icon_state = "swall1"
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/awaymission/BMPship/Fore)
 "bu" = (
 /obj/structure/largecrate,
@@ -480,25 +260,9 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Gate)
-"bC" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall1";
-	icon_state = "swall1"
-	},
-/area/awaymission/BMPship/Gate)
 "bD" = (
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plating,
-/area/awaymission/BMPship/Fore)
-"bE" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/grille,
-/turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "bF" = (
 /turf/simulated/floor/wood,
@@ -527,12 +291,6 @@
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
-"bK" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall2";
-	icon_state = "swall2"
-	},
-/area/awaymission/BMPship/Aft)
 "bL" = (
 /obj/machinery/gateway{
 	dir = 1
@@ -560,17 +318,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Aft)
-"bP" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/grille,
-/turf/simulated/floor/plating/airless,
-/area/awaymission/BMPship/Fore)
 "bQ" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
@@ -596,12 +343,6 @@
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Fore)
-"bV" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall2";
-	icon_state = "swall2"
-	},
-/area/awaymission/BMPship/Fore)
 "bW" = (
 /obj/item/hand_labeler,
 /obj/structure/cable{
@@ -612,12 +353,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
-"bX" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall11";
-	icon_state = "swall11"
-	},
-/area/awaymission/BMPship/Aft)
 "bY" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -644,7 +379,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Gate)
 "cb" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -670,24 +405,12 @@
 /obj/structure/closet/crate/freezer,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
-"cf" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swallc2";
-	icon_state = "swallc2"
-	},
-/area/awaymission/BMPship/Fore)
 "cg" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plasteel{
 	tag = "icon-carpetside (NORTH)";
 	icon_state = "carpetside";
 	dir = 1
-	},
-/area/awaymission/BMPship/Fore)
-"ch" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall8";
-	icon_state = "swall8"
 	},
 /area/awaymission/BMPship/Fore)
 "ci" = (
@@ -698,36 +421,9 @@
 	dir = 1
 	},
 /area/awaymission/BMPship/Fore)
-"cj" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall1";
-	icon_state = "swall1"
-	},
-/area/awaymission/BMPship/Fore)
-"ck" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall12";
-	icon_state = "swall12"
-	},
-/area/awaymission/BMPship/Midship)
 "cl" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swallc2";
-	icon_state = "swallc2"
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/awaymission/BMPship/Midship)
-"cm" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall13";
-	icon_state = "swall13"
-	},
-/area/awaymission/BMPship/Midship)
-"cn" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall15";
-	icon_state = "swall15"
-	},
-/area/awaymission/BMPship/Aft)
 "co" = (
 /obj/machinery/gateway/centeraway{
 	calibrated = 0
@@ -772,12 +468,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
-"ct" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall2";
-	icon_state = "swall2"
-	},
-/area/awaymission/BMPship/Gate)
 "cu" = (
 /obj/machinery/gateway,
 /turf/simulated/floor/plating,
@@ -798,31 +488,6 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
-"cy" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall11";
-	icon_state = "swall11"
-	},
-/area/awaymission/BMPship/Gate)
-"cz" = (
-/turf/simulated/floor/plasteel{
-	tag = "icon-carpet";
-	icon_state = "carpet"
-	},
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f9";
-	icon_state = "swall_f9";
-	dir = 2
-	},
-/area/awaymission/BMPship/Fore)
-"cA" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f6";
-	icon_state = "swall_f6";
-	dir = 2
-	},
-/area/awaymission/BMPship/Fore)
 "cB" = (
 /turf/simulated/floor/plasteel{
 	tag = "icon-carpet";
@@ -859,13 +524,6 @@
 /obj/item/screwdriver,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
-	},
-/area/awaymission/BMPship/Midship)
-"cE" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall3";
-	icon_state = "swall3";
-	dir = 2
 	},
 /area/awaymission/BMPship/Midship)
 "cF" = (
@@ -913,12 +571,6 @@
 	tag = "icon-green (EAST)";
 	icon_state = "green";
 	dir = 4
-	},
-/area/awaymission/BMPship/Midship)
-"cL" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall3";
-	icon_state = "swall3"
 	},
 /area/awaymission/BMPship/Midship)
 "cM" = (
@@ -1030,12 +682,6 @@
 	icon_state = "bar"
 	},
 /area/awaymission/BMPship/Midship)
-"da" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall1";
-	icon_state = "swall1"
-	},
-/area/awaymission/BMPship/Midship)
 "db" = (
 /turf/simulated/floor/plasteel{
 	tag = "icon-barber";
@@ -1062,12 +708,6 @@
 	tag = ""
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/BMPship/Aft)
-"df" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swallc3";
-	icon_state = "swallc3"
-	},
 /area/awaymission/BMPship/Aft)
 "dg" = (
 /obj/structure/chair/stool,
@@ -1192,7 +832,7 @@
 	},
 /area/awaymission/BMPship/Midship)
 "dx" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -1347,12 +987,6 @@
 	dir = 6
 	},
 /area/awaymission/BMPship/Midship)
-"dQ" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall2";
-	icon_state = "swall2"
-	},
-/area/awaymission/BMPship/Midship)
 "dR" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -1489,7 +1123,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Aft)
 "ec" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -1497,7 +1131,7 @@
 	icon_state = "propulsion";
 	tag = "icon-propulsion (WEST)"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Aft)
 "ed" = (
 /obj/item/multitool,
@@ -1689,23 +1323,14 @@
 	},
 /area/awaymission/BMPship/Fore)
 "ey" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Aft)
 "ez" = (
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Aft)
 "eA" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/grille,
+/obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Fore)
 "eB" = (
@@ -1778,7 +1403,7 @@
 	dir = 4;
 	id = "meatConvey1"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating,
 /area/awaymission/BMPship/Midship)
 "eH" = (
 /obj/structure/closet/crate,
@@ -1793,7 +1418,7 @@
 	id = "meatConvey1"
 	},
 /obj/structure/plasticflaps,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating,
 /area/awaymission/BMPship/Midship)
 "eJ" = (
 /obj/structure/disposalpipe/segment{
@@ -1832,7 +1457,7 @@
 /obj/machinery/disposal/deliveryChute{
 	dir = 8
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating,
 /area/awaymission/BMPship/Midship)
 "eN" = (
 /obj/structure/disposalpipe/segment{
@@ -1946,16 +1571,6 @@
 	dir = 4
 	},
 /area/awaymission/BMPship/Fore)
-"eY" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/grille,
-/turf/simulated/floor/plating,
-/area/awaymission/BMPship/Fore)
 "eZ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2058,20 +1673,9 @@
 	icon_state = "showroomfloor"
 	},
 /area/awaymission/BMPship/Aft)
-"fm" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f9";
-	icon_state = "swall_f9";
-	dir = 2
-	},
-/area/awaymission/BMPship/Aft)
 "fn" = (
 /obj/effect/gibspawner/human,
 /turf/simulated/floor/plating,
-/area/awaymission/BMPship/Aft)
-"fo" = (
-/turf/simulated/shuttle/plating,
 /area/awaymission/BMPship/Aft)
 "fp" = (
 /obj/structure/window/reinforced{
@@ -2246,17 +1850,6 @@
 	icon_state = "showroomfloor"
 	},
 /area/awaymission/BMPship/Aft)
-"fH" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced,
-/obj/structure/grille,
-/turf/simulated/floor/plating,
-/area/awaymission/BMPship/Fore)
 "fI" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2467,16 +2060,8 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Aft)
-"gg" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f5";
-	icon_state = "swall_f5";
-	dir = 2
-	},
-/area/awaymission/BMPship/Fore)
 "gh" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plasteel{
 	tag = "icon-carpetside";
 	icon_state = "carpetside"
@@ -2489,19 +2074,12 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plasteel{
 	tag = "icon-carpetside";
 	icon_state = "carpetside"
 	},
 /area/awaymission/BMPship/Fore)
-"gj" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall11";
-	icon_state = "swall11";
-	dir = 2
-	},
-/area/awaymission/BMPship/Midship)
 "gk" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -2515,7 +2093,7 @@
 	id = "meatConvey2"
 	},
 /obj/item/kitchen/knife,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating,
 /area/awaymission/BMPship/Midship)
 "gm" = (
 /obj/structure/kitchenspike,
@@ -2538,7 +2116,7 @@
 	dir = 4;
 	id = "meatConvey2"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating,
 /area/awaymission/BMPship/Midship)
 "gp" = (
 /obj/machinery/conveyor{
@@ -2546,7 +2124,7 @@
 	id = "meatConvey2"
 	},
 /obj/structure/plasticflaps,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating,
 /area/awaymission/BMPship/Midship)
 "gq" = (
 /obj/structure/disposalpipe/segment{
@@ -2771,12 +2349,6 @@
 	icon_state = "showroomfloor"
 	},
 /area/awaymission/BMPship/Aft)
-"gW" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swallc2";
-	icon_state = "swallc2"
-	},
-/area/awaymission/BMPship/Aft)
 "gX" = (
 /obj/structure/reagent_dispensers,
 /turf/simulated/floor/plasteel{
@@ -2828,7 +2400,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Aft)
 "hf" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -2847,12 +2419,6 @@
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Aft)
-"hi" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swallc3";
-	icon_state = "swallc3"
-	},
-/area/awaymission/BMPship/Fore)
 "hj" = (
 /turf/simulated/mineral/random,
 /area/awaymission)
@@ -2866,33 +2432,6 @@
 /obj/machinery/door/airlock/silver,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
-"hl" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swallc1";
-	icon_state = "swallc1"
-	},
-/area/awaymission/BMPship/Fore)
-"hm" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swallc3";
-	icon_state = "swallc3"
-	},
-/area/awaymission/BMPship/Midship)
-"hn" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall15";
-	icon_state = "swall15"
-	},
-/area/awaymission/BMPship/Midship)
-"ho" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall4";
-	icon_state = "swall4"
-	},
-/area/awaymission/BMPship/Midship)
-"hp" = (
-/turf/simulated/shuttle/wall,
-/area/awaymission/BMPship/Midship)
 "hq" = (
 /turf/simulated/mineral/random,
 /area/awaymission/BMPship/Midship)
@@ -2936,31 +2475,12 @@
 /obj/item/clothing/under/overalls,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Aft)
-"hy" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/grille,
-/turf/simulated/floor/plating/airless,
-/area/awaymission/BMPship/Fore)
 "hz" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Fore)
-"hA" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall1";
-	icon_state = "swall1"
-	},
-/area/awaymission)
 "hB" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -2981,7 +2501,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/BMPship/Fore)
 "hF" = (
-/turf/simulated/shuttle/wall,
+/turf/simulated/wall/mineral/titanium,
 /area/awaymission)
 "hG" = (
 /obj/structure/cable{
@@ -3080,16 +2600,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Aft)
-"hT" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/grille,
-/obj/item/shard{
-	icon_state = "small"
-	},
-/turf/simulated/floor/plating/airless,
-/area/awaymission/BMPship/Fore)
 "hU" = (
 /obj/effect/decal/remains/human,
 /obj/item/clothing/head/helmet/space/syndicate/green/dark,
@@ -3108,7 +2618,7 @@
 	},
 /area/awaymission/BMPship/Midship)
 "hW" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated,
 /area/awaymission/BMPship/Fore)
 "hX" = (
@@ -3176,14 +2686,6 @@
 /obj/item/clothing/suit/space/syndicate/green/dark,
 /turf/space,
 /area/awaymission)
-"ii" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced,
-/obj/structure/grille,
-/turf/simulated/floor/plating/airless,
-/area/awaymission/BMPship/Fore)
 "ij" = (
 /obj/structure/cable{
 	icon_state = "0-4";
@@ -3192,7 +2694,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission)
 "ik" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -3234,20 +2736,11 @@
 	},
 /turf/space,
 /area/space/nearstation)
-"ip" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall13";
-	icon_state = "swall13"
-	},
-/area/awaymission/BMPship/Fore)
 "iq" = (
 /obj/structure/rack,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Aft)
-"ir" = (
-/turf/simulated/shuttle/wall,
-/area/awaymission/BMPship/Fore)
 "is" = (
 /obj/structure/bed,
 /obj/item/bedsheet,
@@ -3258,7 +2751,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Aft)
 "iu" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria";
 	dir = 2
@@ -3289,17 +2782,6 @@
 /obj/item/caution,
 /turf/simulated/floor/plating/airless,
 /area/awaymission)
-"iy" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	dir = 2
-	},
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f6";
-	icon_state = "swall_f6";
-	dir = 2
-	},
-/area/awaymission/BMPship/Aft)
 "iz" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plating/airless,
@@ -3318,21 +2800,9 @@
 	dir = 2
 	},
 /area/awaymission/BMPship/Aft)
-"iC" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall4";
-	icon_state = "swall4"
-	},
-/area/awaymission)
 "iD" = (
 /obj/item/clothing/gloves/color/yellow,
 /turf/space,
-/area/awaymission)
-"iE" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall12";
-	icon_state = "swall12"
-	},
 /area/awaymission)
 "iF" = (
 /obj/machinery/porta_turret{
@@ -3343,16 +2813,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Aft)
 "iG" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/grille,
+/obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Aft)
 "iH" = (
@@ -3414,14 +2875,6 @@
 /mob/living/simple_animal/hostile/carp,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
-"iT" = (
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f6";
-	icon_state = "swall_f6";
-	dir = 2
-	},
-/area/awaymission/BMPship/Aft)
 "iU" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/syndicate,
@@ -3433,17 +2886,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission)
-"iW" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced,
-/obj/structure/grille,
-/turf/simulated/floor/engine,
-/area/awaymission/BMPship/Aft)
 "iX" = (
 /obj/structure/table,
 /obj/item/reagent_containers/glass/beaker/drugs/meth,
@@ -3553,12 +2995,6 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/BMPship/Gate)
-"jp" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall15";
-	icon_state = "swall15"
-	},
 /area/awaymission/BMPship/Gate)
 "jq" = (
 /obj/machinery/door/poddoor/shutters{
@@ -9633,14 +9069,14 @@ aa
 aa
 aa
 aa
-cA
-cj
+aU
+aU
 eA
-eY
-eY
-fH
-bV
-gg
+eA
+eA
+eA
+aU
+aU
 aa
 aj
 aa
@@ -9762,16 +9198,16 @@ aa
 aa
 aa
 aa
-cA
-cz
+aU
+aU
 ee
 ew
 eW
 eW
 fF
 ee
-aW
-gg
+aU
+aU
 aa
 aa
 gP
@@ -9891,8 +9327,8 @@ aa
 aa
 aa
 aa
-cA
-cz
+aU
+aU
 cB
 ee
 ev
@@ -9900,7 +9336,7 @@ eV
 eV
 fE
 ee
-aV
+aU
 gs
 as
 aa
@@ -10020,8 +9456,8 @@ aa
 aa
 aa
 aa
-cA
-cz
+aU
+aU
 cB
 cB
 ee
@@ -10030,7 +9466,7 @@ ee
 ee
 ee
 ee
-aV
+aU
 gA
 gs
 aa
@@ -10147,10 +9583,10 @@ aa
 aa
 aU
 bk
-bE
-bP
-cf
-cz
+bk
+bk
+aU
+aU
 cW
 dh
 dH
@@ -10164,10 +9600,10 @@ gh
 gs
 gz
 gs
-hi
-hy
-hT
-ii
+aU
+bk
+bk
+bk
 aU
 ac
 ac
@@ -10275,11 +9711,11 @@ aa
 aa
 aa
 aa
-aV
+aU
 bl
 bF
 bR
-ch
+aU
 cB
 cX
 dp
@@ -10294,11 +9730,11 @@ gi
 gC
 gA
 gN
-aV
+aU
 hv
 al
 hv
-aV
+aU
 hj
 hj
 hj
@@ -10405,7 +9841,7 @@ aa
 aa
 aa
 aa
-aV
+aU
 bn
 bG
 bF
@@ -10420,15 +9856,15 @@ dh
 fr
 dh
 ee
-aV
+aU
 gB
 gD
 gE
-aV
+aU
 hz
 al
 al
-aV
+aU
 hj
 hj
 hj
@@ -10535,11 +9971,11 @@ aa
 aa
 aa
 aa
-aW
-bp
-bp
-bp
-cj
+aU
+aU
+aU
+aU
+aU
 cC
 cY
 ds
@@ -10550,15 +9986,15 @@ dp
 fv
 dp
 fZ
-aV
+aU
 gu
 gR
 gs
-hl
-cj
+aU
+aU
 hW
-bV
-ip
+aU
+aU
 hj
 hj
 hj
@@ -10665,7 +10101,7 @@ aa
 aa
 aa
 aa
-aV
+aU
 bv
 bQ
 ar
@@ -10680,7 +10116,7 @@ eZ
 fu
 cB
 fY
-aV
+aU
 gt
 gQ
 gQ
@@ -10688,7 +10124,7 @@ hk
 gS
 hX
 gs
-aV
+aU
 hj
 hj
 hj
@@ -10795,30 +10231,30 @@ aa
 aa
 aa
 aa
-aV
+aU
 bw
 ar
 bT
 cl
-cE
-cE
-cE
-cE
-da
+cl
+cl
+cl
+cl
+cl
 eB
-dQ
-da
+cl
+cl
 fJ
-dQ
-gj
-cE
-cE
-cE
-hm
+cl
+cl
+cl
+cl
+cl
+cl
 hB
 gs
 gs
-ir
+aU
 hj
 hj
 hj
@@ -10925,11 +10361,11 @@ aa
 aa
 aa
 aa
-aV
+aU
 bx
 ar
 bT
-ck
+cl
 cD
 cM
 cM
@@ -10944,7 +10380,7 @@ cM
 cM
 cM
 cM
-ck
+cl
 hC
 hX
 hC
@@ -11055,11 +10491,11 @@ aa
 aa
 aa
 aa
-aV
+aU
 bw
 ar
 bU
-ck
+cl
 cG
 cZ
 cM
@@ -11074,7 +10510,7 @@ cM
 cM
 cM
 hd
-ck
+cl
 hD
 hC
 gs
@@ -11185,11 +10621,11 @@ aa
 aa
 aa
 aa
-aV
+aU
 bx
 ar
 bT
-ck
+cl
 cF
 cF
 cF
@@ -11204,7 +10640,7 @@ er
 er
 cM
 cM
-ck
+cl
 gs
 hY
 hC
@@ -11315,11 +10751,11 @@ aa
 aa
 aa
 aa
-aV
+aU
 bw
 ar
 bT
-ck
+cl
 cI
 dc
 dc
@@ -11334,7 +10770,7 @@ fg
 er
 cM
 cM
-ck
+cl
 hE
 hX
 gs
@@ -11445,11 +10881,11 @@ aa
 aa
 aa
 aa
-aV
+aU
 bD
 ar
 cd
-ck
+cl
 cH
 dc
 dt
@@ -11464,7 +10900,7 @@ fg
 er
 cM
 cM
-ck
+cl
 gs
 hC
 hC
@@ -11575,11 +11011,11 @@ aa
 aa
 aa
 aa
-aX
+aU
 bt
 bI
-bV
-cm
+aU
+cl
 cJ
 dc
 dc
@@ -11594,7 +11030,7 @@ fg
 er
 cM
 cM
-ck
+cl
 hF
 hj
 hF
@@ -11709,7 +11145,7 @@ aa
 aa
 aa
 aa
-ck
+cl
 cI
 dc
 dc
@@ -11724,7 +11160,7 @@ gd
 er
 cM
 gO
-ck
+cl
 hj
 hj
 hj
@@ -11839,7 +11275,7 @@ aa
 aa
 aa
 aa
-ck
+cl
 cK
 cK
 cK
@@ -11854,7 +11290,7 @@ fg
 eE
 cM
 cM
-hp
+cl
 hj
 hj
 hj
@@ -11969,7 +11405,7 @@ aa
 aa
 aa
 aa
-ck
+cl
 cG
 cM
 cM
@@ -12098,8 +11534,8 @@ aa
 aa
 aa
 as
-aK
-cm
+am
+cl
 cM
 cM
 cM
@@ -12114,7 +11550,7 @@ gm
 cM
 cM
 gO
-ho
+cl
 hj
 hj
 hF
@@ -12227,25 +11663,25 @@ aa
 aa
 aa
 aa
-aK
-cy
-jp
-cL
-da
+am
+am
+am
+cl
+cl
 dx
-dQ
-da
+cl
+cl
 eF
 en
 fx
 fO
-dQ
-da
+cl
+cl
 dx
-dQ
-cL
-hn
-hA
+cl
+cl
+cl
+hF
 hj
 hj
 hj
@@ -12357,9 +11793,9 @@ aa
 as
 aa
 as
-aQ
+am
 by
-ak
+am
 cO
 db
 dv
@@ -12374,7 +11810,7 @@ cM
 cM
 cM
 cM
-ck
+cl
 ac
 hF
 hj
@@ -12489,7 +11925,7 @@ as
 by
 aR
 bz
-ak
+am
 cN
 db
 du
@@ -12504,7 +11940,7 @@ en
 en
 gT
 hd
-ck
+cl
 ac
 ac
 hj
@@ -12619,7 +12055,7 @@ by
 by
 bz
 aR
-ak
+am
 cQ
 db
 dy
@@ -12634,7 +12070,7 @@ hV
 cM
 ek
 cM
-ck
+cl
 hH
 gY
 ac
@@ -12743,13 +12179,13 @@ aa
 aa
 aa
 aa
-aK
-aQ
+am
+am
 by
 aR
 by
 cT
-ak
+am
 cP
 dd
 dw
@@ -12764,7 +12200,7 @@ gl
 gH
 ek
 cM
-ck
+cl
 gY
 ia
 ha
@@ -12873,13 +12309,13 @@ aa
 aa
 aa
 aa
-ak
+am
 aS
 aR
 bz
 aR
 jh
-aO
+am
 cM
 cM
 cM
@@ -12894,7 +12330,7 @@ gp
 er
 ek
 cM
-ck
+cl
 ac
 hH
 ac
@@ -13003,7 +12439,7 @@ aa
 aa
 aa
 aa
-ak
+am
 aR
 aR
 aR
@@ -13024,13 +12460,13 @@ go
 er
 ek
 hd
-ck
+cl
 hJ
 ib
 id
 id
 gY
-iC
+hF
 hj
 iQ
 hj
@@ -13133,7 +12569,7 @@ aa
 aa
 aa
 aa
-ak
+am
 aY
 bA
 aR
@@ -13154,13 +12590,13 @@ go
 er
 ek
 cM
-ck
+cl
 hH
 gZ
 id
 id
 hH
-iE
+hF
 hj
 iK
 hj
@@ -13263,7 +12699,7 @@ aa
 aa
 aj
 aa
-ak
+am
 aT
 aR
 aR
@@ -13284,13 +12720,13 @@ go
 er
 ek
 cM
-ck
+cl
 ac
 id
 id
 ib
 hH
-iE
+hF
 hj
 iK
 hj
@@ -13393,7 +12829,7 @@ aa
 aa
 aa
 aa
-ak
+am
 ba
 aR
 aS
@@ -13414,13 +12850,13 @@ go
 er
 dS
 cM
-ck
+cl
 gY
 id
 id
 id
 gY
-iE
+hF
 hj
 iR
 hj
@@ -13523,13 +12959,13 @@ aa
 aa
 aa
 aa
-ak
+am
 aZ
 aR
 aR
 bA
 aR
-ak
+am
 cR
 dg
 cM
@@ -13544,13 +12980,13 @@ eM
 er
 dS
 cM
-ck
+cl
 hL
 hH
 hH
 hH
 ix
-iE
+hF
 ac
 ac
 ac
@@ -13653,13 +13089,13 @@ aa
 aa
 aj
 aa
-ak
+am
 be
 bB
 ca
 aR
 cT
-ak
+am
 cU
 cM
 cM
@@ -13674,13 +13110,13 @@ eN
 er
 dS
 hd
-ck
+cl
 hM
 hH
 hH
 hb
 ix
-iE
+hF
 ac
 iS
 ac
@@ -13783,13 +13219,13 @@ aa
 aa
 aa
 aa
-ak
+am
 bb
 aR
 bb
 aR
 ji
-ak
+am
 av
 dg
 cM
@@ -13804,13 +13240,13 @@ eJ
 en
 eC
 cM
-ck
+cl
 hN
 hH
 ij
 hH
 ix
-iE
+hF
 aa
 aa
 aa
@@ -13913,13 +13349,13 @@ aj
 aa
 aa
 aa
-ak
+am
 bg
 aR
 bb
 aR
 aR
-ak
+am
 cV
 cM
 cM
@@ -13934,13 +13370,13 @@ gq
 cM
 cM
 cM
-ck
+cl
 hO
 hH
 il
 hH
 iz
-iE
+hF
 aa
 aa
 aa
@@ -14043,34 +13479,34 @@ aa
 aa
 aa
 aa
-aq
-bf
-bC
+am
+am
+am
 cb
-ct
-bf
-cy
-aJ
-an
-aL
-an
-aL
-bc
+am
+am
+am
+am
+ai
+ai
+ai
+ai
+ai
 fk
 fC
 fN
 ge
-bK
-aL
-an
-aw
-bX
-aL
-bc
+ai
+ai
+ai
+ai
+ai
+ai
+ai
 ik
-bK
-aL
-ay
+ai
+ai
+ai
 aa
 aa
 aa
@@ -14171,16 +13607,16 @@ aa
 aa
 am
 ax
-aE
-aH
-ak
+ax
+ax
+am
 bh
 bs
 bJ
 bs
 bs
 dC
-ak
+am
 di
 dj
 dj
@@ -14193,18 +13629,18 @@ fl
 dj
 dj
 gU
-af
+ai
 dq
 hP
 hu
 im
 dq
 iA
-af
+ai
 iG
-ap
-iW
-ag
+iG
+iG
+ai
 aa
 aa
 aa
@@ -14299,18 +13735,18 @@ aa
 aa
 aa
 aa
-ak
+am
 au
 aB
 au
-ak
+am
 bi
 aG
 cc
 cs
 jj
 dG
-ak
+am
 di
 dz
 dU
@@ -14323,18 +13759,18 @@ fc
 eo
 gG
 dj
-aA
+ai
 dq
 dq
 dq
 im
 dq
 iA
-af
+ai
 iF
 ez
 iF
-af
+ai
 aa
 aa
 aa
@@ -14429,18 +13865,18 @@ aa
 aa
 aa
 aa
-ak
+am
 aB
 aB
 aI
-ak
+am
 bj
 aG
 aG
 aG
 jl
 dV
-ak
+am
 dj
 dj
 dj
@@ -14460,11 +13896,11 @@ dq
 im
 it
 dq
-af
+ai
 iH
 ez
 ez
-af
+ai
 aa
 aa
 aa
@@ -14559,21 +13995,21 @@ aa
 aa
 aa
 aa
-aq
-az
+am
+am
 aF
-az
-aM
+am
+am
 bm
 bH
 ce
 aG
 jk
 ep
-ak
+am
 dk
-bK
-df
+ai
+ai
 dj
 bY
 bd
@@ -14583,18 +14019,18 @@ fD
 gf
 gI
 dj
-ag
+ai
 dq
 dq
 ie
 im
 is
 bd
-ah
-bc
+ai
+ai
 ey
-bK
-ay
+ai
+ai
 aa
 aa
 aa
@@ -14689,21 +14125,21 @@ aa
 aa
 aa
 aa
-ak
+am
 aD
 aG
 aG
-aO
+am
 bo
 aG
 aG
 aG
 jk
 dG
-ak
+am
 dl
 dD
-af
+ai
 dj
 bY
 fn
@@ -14713,18 +14149,18 @@ bd
 gf
 gI
 fG
-aA
+ai
 ht
 dq
 dq
 im
 dq
 dq
-aA
+ai
 iI
 bd
 ao
-af
+ai
 aa
 aa
 aa
@@ -14819,8 +14255,8 @@ aa
 aa
 aa
 aa
-at
-aC
+am
+am
 aG
 aG
 aN
@@ -14830,10 +14266,10 @@ aG
 aG
 jm
 dG
-ak
+am
 dm
 dA
-af
+ai
 dj
 eQ
 eS
@@ -14853,8 +14289,8 @@ dq
 hg
 bd
 bd
-iT
-fm
+ai
+ai
 aa
 aa
 aa
@@ -14950,8 +14386,8 @@ aa
 aa
 aa
 aa
-at
-aC
+am
+am
 aG
 am
 bq
@@ -14960,10 +14396,10 @@ cp
 cv
 jk
 eH
-ak
+am
 dl
 dF
-af
+ai
 dj
 dj
 dj
@@ -14973,17 +14409,17 @@ dj
 dj
 dj
 gV
-ag
+ai
 hu
 hQ
 dq
 dq
 dq
 dq
-ag
+ai
 iJ
-iT
-fm
+ai
+ai
 aa
 aa
 aa
@@ -15081,19 +14517,19 @@ aa
 aa
 aa
 aa
-at
-aJ
-aM
+am
+am
+am
 bq
 bL
 co
 cu
 jk
 eL
-ak
+am
 dn
 dB
-af
+ai
 et
 dj
 dj
@@ -15103,16 +14539,16 @@ et
 dj
 gK
 gX
-af
+ai
 hr
 hQ
 ie
 dq
 ie
 dq
-ah
-aw
-fm
+ai
+ai
+ai
 aa
 aa
 aa
@@ -15212,36 +14648,36 @@ aa
 aa
 aa
 aa
-at
-aM
+am
+am
 bq
 bN
 cr
 cw
 jk
 fh
-aq
-aL
-aL
-bX
-aL
-aL
-aL
-aL
-aL
-aL
-aL
-aL
-aL
-ay
+am
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
 hs
 hQ
 dq
 dq
 dq
 dq
-ah
-fm
+ai
+ai
 aa
 aa
 aa
@@ -15343,14 +14779,14 @@ aa
 aa
 aa
 aa
-ak
+am
 bq
 aG
 cq
 aG
 jk
 fA
-aO
+am
 hc
 hh
 hG
@@ -15363,14 +14799,14 @@ hI
 jn
 hh
 js
-aA
+ai
 ht
 hQ
 dq
-ag
+ai
 iu
-bK
-ay
+ai
+ai
 aa
 aa
 aa
@@ -15473,7 +14909,7 @@ aa
 aa
 aa
 aa
-aP
+am
 br
 bW
 cs
@@ -15497,10 +14933,10 @@ hf
 es
 hS
 dq
-af
+ai
 iw
 iB
-af
+ai
 aa
 aa
 aa
@@ -15603,8 +15039,8 @@ aa
 aa
 aa
 aa
-at
-aC
+am
+am
 bu
 bu
 bS
@@ -15617,20 +15053,20 @@ dW
 bd
 bd
 bd
-fo
-fo
-fo
+bd
+bd
+bd
 bd
 dq
-fo
-ag
+bd
+ai
 hx
 hR
 ig
-af
+ai
 iv
-iy
-fm
+ai
+ai
 aa
 aa
 aa
@@ -15734,14 +15170,14 @@ aa
 aa
 aa
 aa
-at
-bf
-bf
-bf
-bf
-bf
-jp
-df
+am
+am
+am
+am
+am
+am
+am
+ai
 do
 dZ
 eu
@@ -15752,14 +15188,14 @@ fS
 bd
 gv
 do
-gW
-cn
-aL
-aL
-aL
-bX
-aL
-fm
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+ai
 aa
 aa
 aa
@@ -15871,7 +15307,7 @@ aa
 aa
 aa
 ai
-ay
+ai
 dE
 dY
 bd
@@ -15882,8 +15318,8 @@ eP
 bd
 bd
 gM
-ah
-fm
+ai
+ai
 aa
 aa
 aa
@@ -16001,7 +15437,7 @@ aa
 aa
 aa
 aa
-af
+ai
 hw
 ea
 bO
@@ -16012,7 +15448,7 @@ fT
 bd
 fs
 jr
-af
+ai
 aa
 aa
 aa
@@ -16131,18 +15567,18 @@ aa
 aa
 aa
 aa
-ah
-aw
-bc
+ai
+ai
+ai
 ey
-bK
-aw
-aw
-bc
+ai
+ai
+ai
+ai
 ey
-bK
-aw
-ay
+ai
+ai
+ai
 aa
 aa
 aa
@@ -16262,17 +15698,17 @@ aa
 aa
 aa
 ai
-ay
+ai
 ed
 ez
 ez
-ah
-ay
+ai
+ai
 fX
 ez
 gx
-ah
-fm
+ai
+ai
 aa
 aa
 aa
@@ -16392,16 +15828,16 @@ aa
 aa
 aa
 aa
-af
+ai
 eb
 eb
 eb
-af
-af
+ai
+ai
 eb
 eb
 eb
-af
+ai
 aa
 aa
 aa
@@ -16526,12 +15962,12 @@ ai
 ec
 ec
 ec
-fm
+ai
 ai
 ec
 ec
 ec
-fm
+ai
 aa
 aa
 aa

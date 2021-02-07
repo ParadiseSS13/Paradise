@@ -227,42 +227,18 @@
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
 "add" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall_f6"
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_1)
 "ade" = (
-/obj/structure/window/full/shuttle,
-/obj/structure/grille,
-/turf/simulated/shuttle/plating,
-/area/shuttle/pod_1)
-"adf" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall_f10"
-	},
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
 /area/shuttle/pod_1)
 "adg" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall_f6"
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_2)
 "adh" = (
-/obj/structure/window/full/shuttle,
-/obj/structure/grille,
-/turf/simulated/shuttle/plating,
-/area/shuttle/pod_2)
-"adi" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall_f10"
-	},
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
 /area/shuttle/pod_2)
 "adt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -291,12 +267,6 @@
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
-"adw" = (
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall3"
-	},
-/area/shuttle/pod_1)
 "adx" = (
 /obj/machinery/status_display{
 	density = 0;
@@ -310,14 +280,8 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
-"ady" = (
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall3"
-	},
-/area/shuttle/pod_2)
 "adz" = (
 /obj/machinery/status_display{
 	density = 0;
@@ -331,7 +295,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_2)
 "adK" = (
 /obj/machinery/light/small{
@@ -342,19 +306,7 @@
 /area/hallway/secondary/entry)
 "adL" = (
 /obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall_f5"
-	},
-/area/shuttle/pod_1)
-"adM" = (
-/obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall_f9"
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_1)
 "adN" = (
 /turf/simulated/wall/r_wall,
@@ -368,7 +320,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "adP" = (
 /obj/item/radio/intercom{
@@ -379,23 +331,11 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_2)
 "adQ" = (
 /obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall_f5"
-	},
-/area/shuttle/pod_2)
-"adR" = (
-/obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall_f9"
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_2)
 "adT" = (
 /obj/docking_port/stationary{
@@ -440,11 +380,11 @@
 	id = "pod1";
 	name = "escape pod 1"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock";
 	name = "Escape Pod Hatch"
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "aee" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -452,7 +392,7 @@
 	icon_state = "propulsion";
 	tag = "icon-propulsion (NORTH)"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating/airless,
 /area/shuttle/arrival/station)
 "aef" = (
 /obj/machinery/door/airlock/external{
@@ -467,11 +407,11 @@
 	id = "pod2";
 	name = "escape pod 2"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock";
 	name = "Escape Pod Hatch"
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_2)
 "aey" = (
 /obj/machinery/light/small{
@@ -858,9 +798,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "afM" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "wall3"
-	},
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/arrival/station)
 "afN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -980,19 +918,6 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
-"agi" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall_f6"
-	},
-/area/shuttle/arrival/station)
-"agj" = (
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall12"
-	},
-/area/shuttle/arrival/station)
 "agk" = (
 /obj/structure/window/reinforced,
 /obj/structure/shuttle/engine/heater{
@@ -1001,14 +926,7 @@
 	tag = "icon-heater (NORTH)"
 	},
 /obj/effect/decal/warning_stripes/north,
-/turf/simulated/shuttle/plating,
-/area/shuttle/arrival/station)
-"agl" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall_f10"
-	},
+/turf/simulated/floor/plating/airless,
 /area/shuttle/arrival/station)
 "agm" = (
 /obj/machinery/light{
@@ -1091,28 +1009,14 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "agD" = (
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall7"
-	},
+/turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/shuttle/arrival/station)
 "agE" = (
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall12";
-	tag = "icon-swall12"
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
 "agF" = (
-/obj/structure/shuttle/window,
-/obj/structure/grille,
+/obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
-/area/shuttle/arrival/station)
-"agG" = (
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall11"
-	},
 /area/shuttle/arrival/station)
 "agH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1142,12 +1046,6 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/engine/mechanic_workshop/hanger)
-"agS" = (
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall3"
-	},
-/area/shuttle/arrival/station)
 "agT" = (
 /obj/item/clothing/suit/storage/hazardvest,
 /obj/item/clothing/suit/storage/hazardvest,
@@ -1158,26 +1056,26 @@
 /obj/item/clothing/head/hardhat/orange,
 /obj/item/clothing/head/hardhat/orange,
 /obj/structure/closet/crate/internals,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "agU" = (
 /obj/structure/closet/wardrobe/mixed,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "agV" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/emergency,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "agW" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "agX" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "agY" = (
 /obj/structure/table/reinforced,
@@ -1374,23 +1272,23 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "ahB" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock"
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/shuttle/arrival/station)
 "ahC" = (
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "ahD" = (
 /obj/effect/landmark{
 	name = "HONKsquad"
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "ahE" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock"
 	},
 /obj/effect/decal/warning_stripes/west,
@@ -1487,12 +1385,12 @@
 /area/hallway/secondary/entry)
 "ahV" = (
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "ahW" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/light,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "ahX" = (
 /obj/structure/closet/secure_closet/security,
@@ -1577,7 +1475,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "aim" = (
 /obj/effect/landmark{
@@ -1586,14 +1484,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/shuttle/floor,
-/area/shuttle/arrival/station)
-"ain" = (
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall2";
-	tag = "icon-swall2"
-	},
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "aio" = (
 /obj/machinery/light{
@@ -1757,8 +1648,8 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/stalkybush,
-/obj/structure/shuttle/window,
-/turf/simulated/floor/plating,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor/grass,
 /area/shuttle/arrival/station)
 "aiH" = (
 /obj/structure/chair{
@@ -1836,7 +1727,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "aiV" = (
 /obj/effect/landmark{
@@ -1845,7 +1736,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "aiW" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -1974,19 +1865,13 @@
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
 /obj/item/toy/figure/assistant,
-/turf/simulated/shuttle/floor,
-/area/shuttle/arrival/station)
-"ajE" = (
-/turf/simulated/shuttle/wall{
-	dir = 3;
-	icon_state = "swall1"
-	},
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "ajF" = (
 /obj/structure/table/reinforced,
 /obj/item/folder,
 /obj/item/storage/pill_bottle/dice,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "ajG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -2058,7 +1943,7 @@
 	dir = 1;
 	in_use = 1
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "akb" = (
 /obj/machinery/status_display{
@@ -2182,24 +2067,24 @@
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /obj/item/pen,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "akx" = (
 /obj/structure/closet/wardrobe/black,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "aky" = (
 /obj/structure/closet/wardrobe/grey,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "akz" = (
 /obj/structure/closet/wardrobe/yellow,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "akA" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/secure/briefcase,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "akB" = (
 /turf/simulated/wall,
@@ -2303,47 +2188,19 @@
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
 /area/engine/mechanic_workshop)
-"akW" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall_f5"
-	},
-/area/shuttle/arrival/station)
-"akX" = (
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall14"
-	},
-/area/shuttle/arrival/station)
 "akY" = (
 /obj/machinery/status_display,
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall12";
-	tag = "icon-swall12"
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
 "akZ" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock"
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "ala" = (
 /obj/machinery/ai_status_display,
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall12";
-	tag = "icon-swall12"
-	},
-/area/shuttle/arrival/station)
-"alb" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall_f9"
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
 "alc" = (
 /obj/machinery/door/firedoor,
@@ -2507,11 +2364,11 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "alw" = (
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "alx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -2591,7 +2448,7 @@
 /area/hallway/secondary/entry)
 "alH" = (
 /obj/structure/computerframe,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "alI" = (
 /turf/simulated/wall,
@@ -8871,9 +8728,6 @@
 "ayM" = (
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
-"ayN" = (
-/turf/simulated/wall/r_wall/coated,
-/area/engine/supermatter)
 "ayO" = (
 /obj/structure/grille,
 /obj/structure/window/plasmareinforced,
@@ -10969,14 +10823,14 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "aCY" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
 /obj/machinery/meter,
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "aCZ" = (
 /obj/machinery/door/airlock/atmos/glass{
@@ -10992,13 +10846,13 @@
 	level = 1
 	},
 /obj/machinery/meter,
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "aDb" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "aDc" = (
 /obj/machinery/atmospherics/unary/portables_connector,
@@ -16251,12 +16105,9 @@
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
-"aMy" = (
-/turf/simulated/wall/r_wall/coated,
-/area/maintenance/incinerator)
 "aMz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/maintenance/incinerator)
 "aMA" = (
 /obj/machinery/atmospherics/unary/portables_connector,
@@ -16989,7 +16840,7 @@
 /area/security/execution)
 "aNT" = (
 /obj/structure/sign/fire,
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/maintenance/incinerator)
 "aNU" = (
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -17002,7 +16853,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/maintenance/incinerator)
 "aNW" = (
 /obj/machinery/atmospherics/binary/pump{
@@ -17034,7 +16885,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/maintenance/incinerator)
 "aNY" = (
 /obj/machinery/atmospherics/pipe/manifold/visible,
@@ -18461,7 +18312,7 @@
 	dir = 4
 	},
 /obj/structure/sign/fire,
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/maintenance/incinerator)
 "aQO" = (
 /obj/machinery/atmospherics/binary/pump{
@@ -24018,18 +23869,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/prison)
 "bae" = (
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall12";
-	tag = "icon-swall12"
-	},
-/area/shuttle/pod_3)
-"baf" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall_f10"
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_3)
 "bag" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
@@ -24896,11 +24736,11 @@
 	id = "pod3";
 	name = "escape pod 3"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock";
 	name = "Escape Pod Hatch"
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_3)
 "bbJ" = (
 /obj/item/radio/intercom{
@@ -24912,7 +24752,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_3)
 "bbK" = (
 /obj/machinery/status_display{
@@ -24924,12 +24764,11 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_3)
 "bbL" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
-/turf/simulated/shuttle/plating,
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
 /area/shuttle/pod_3)
 "bbM" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
@@ -25617,13 +25456,6 @@
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
 /area/security/prison)
-"bdj" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall_f9"
-	},
-/area/shuttle/pod_3)
 "bdk" = (
 /turf/simulated/floor/engine/plasma,
 /area/atmos)
@@ -32141,12 +31973,7 @@
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall_f6";
-	tag = "icon-swall_f6"
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_3)
 "bps" = (
 /obj/structure/window/reinforced,
@@ -32175,14 +32002,14 @@
 /turf/space,
 /area/space/nearstation)
 "bpv" = (
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/atmos)
 "bpw" = (
 /obj/machinery/camera{
 	c_tag = "Atmospherics Gas Mix Tank";
 	network = list("SS13","Engineering")
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/atmos)
 "bpx" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
@@ -32190,7 +32017,7 @@
 	frequency = 1441;
 	id = "mix_in"
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/atmos)
 "bpy" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
@@ -33351,14 +33178,14 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/atmos)
 "bry" = (
 /obj/machinery/air_sensor{
 	frequency = 1441;
 	id_tag = "mix_sensor"
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/atmos)
 "brz" = (
 /obj/structure/cable{
@@ -34366,7 +34193,7 @@
 	pressure_checks_default = 2;
 	pump_direction = 0
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/atmos)
 "btg" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
@@ -36407,17 +36234,6 @@
 "bwN" = (
 /turf/simulated/wall/r_wall,
 /area/engine/gravitygenerator)
-"bwO" = (
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall_f5";
-	tag = "icon-swall_f5"
-	},
-/area/shuttle/pod_3)
 "bwP" = (
 /turf/simulated/wall/r_wall,
 /area/engine/break_room)
@@ -98017,9 +97833,7 @@
 /turf/simulated/floor/plating/airless,
 /area/engine/engineering)
 "dCy" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "wall3"
-	},
+/turf/simulated/wall/indestructible/riveted,
 /area/toxins/test_area)
 "dCz" = (
 /obj/machinery/camera{
@@ -130097,9 +129911,9 @@ aGX
 aJL
 aGX
 acF
-aMy
+aGZ
 aPl
-aMy
+aGZ
 aSx
 aTS
 aaa
@@ -130353,11 +130167,11 @@ aGX
 aGX
 aKo
 aGX
-aMy
-aMy
+aGZ
+aGZ
 aPm
-aMy
-aMy
+aGZ
+aGZ
 aZY
 abi
 abi
@@ -130610,7 +130424,7 @@ aGY
 aIq
 aLl
 aKY
-aMy
+aGZ
 aNU
 aPn
 aQM
@@ -130867,11 +130681,11 @@ aGY
 aIr
 aJI
 aKZ
-aMy
+aGZ
 aNV
 aPo
 aQN
-aMy
+aGZ
 aZY
 aSN
 aSN
@@ -131124,11 +130938,11 @@ aGY
 aIs
 aJM
 aLc
-aMy
+aGZ
 aNW
 aPp
 aQO
-aMy
+aGZ
 aTU
 aSN
 aXa
@@ -131385,7 +131199,7 @@ aMz
 aNX
 aPq
 aQN
-aMy
+aGZ
 aZY
 aSN
 aXb
@@ -135481,7 +135295,7 @@ auH
 avD
 awH
 axO
-ayN
+ayM
 azY
 aBi
 aCg
@@ -135738,7 +135552,7 @@ auI
 avE
 awN
 axP
-ayN
+ayM
 azZ
 azZ
 azZ
@@ -136252,7 +136066,7 @@ auI
 avG
 awP
 axR
-ayN
+ayM
 aAb
 aAb
 aAb
@@ -136509,7 +136323,7 @@ auJ
 avH
 awQ
 axS
-ayN
+ayM
 aAc
 aBk
 aCh
@@ -146492,8 +146306,8 @@ aaa
 aaa
 aaa
 add
-adw
-adw
+add
+add
 adL
 aey
 acC
@@ -147005,10 +146819,10 @@ aaa
 aaa
 aaa
 aaa
-adf
-adw
-adw
-adM
+add
+add
+add
+adL
 aeA
 acC
 afj
@@ -148042,19 +147856,19 @@ aaa
 abj
 aaa
 aaa
-agi
+afM
 agD
-agS
+agE
 ahB
-agS
+agE
 agF
 agF
 agF
 agF
-agS
+agE
 ahB
-agS
-akW
+agE
+agE
 aaa
 aaa
 aaa
@@ -148299,7 +148113,7 @@ aaa
 abj
 aaa
 aee
-agj
+afM
 agE
 agT
 ahC
@@ -148568,10 +148382,10 @@ ahC
 ahC
 ahD
 akx
-akX
-agS
+agE
+agE
 agF
-akW
+agE
 aaa
 acC
 anm
@@ -149071,15 +148885,15 @@ abj
 aaa
 afM
 afM
-agE
+agD
 agW
 ahC
 ahW
-ain
+agD
 aiG
 aiG
 aiG
-ajE
+agD
 aka
 ahC
 akZ
@@ -149596,10 +149410,10 @@ ahC
 ahC
 ahD
 akz
-akX
-agS
+agE
+agE
 agF
-alb
+agE
 aaa
 acC
 anl
@@ -149841,7 +149655,7 @@ aaa
 abj
 aaa
 aee
-agj
+afM
 agE
 agT
 ahC
@@ -150098,19 +149912,19 @@ aaa
 abj
 aaa
 aaa
-agl
-agG
-agS
+afM
+agD
+agE
 ahE
-agS
+agE
 agF
 agF
 agF
 agF
-agS
+agE
 ahE
-agS
-alb
+agE
+agE
 aaa
 aaa
 aaa
@@ -151118,8 +150932,8 @@ aaa
 aaa
 aaa
 adg
-ady
-ady
+adg
+adg
 adQ
 aey
 acC
@@ -151631,10 +151445,10 @@ aaa
 aaa
 aaa
 aaa
-adi
-ady
-ady
-adR
+adg
+adg
+adg
+adQ
 aeA
 acC
 afj
@@ -168399,7 +168213,7 @@ abj
 aMq
 bpr
 bbI
-bwO
+bpr
 aMq
 abj
 abj
@@ -169168,9 +168982,9 @@ aaa
 aaa
 aaa
 aaa
-baf
+bae
 bbL
-bdj
+bae
 aaa
 aaa
 aaa
