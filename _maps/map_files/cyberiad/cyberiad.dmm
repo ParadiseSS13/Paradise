@@ -26079,15 +26079,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
-"bbW" = (
-/obj/structure/disposalpipe/sortjunction{
-	dir = 4;
-	icon_state = "pipe-j2s";
-	name = "Chapel";
-	sortType = 17
-	},
-/turf/simulated/wall,
-/area/crew_quarters/kitchen)
 "bbX" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
@@ -40486,21 +40477,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "asteroid";
-	tag = "icon-asteroid (NORTH)"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "siding2";
-	tag = "icon-siding2 (NORTH)"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "siding1";
-	tag = "icon-siding1 (NORTH)"
-	},
+/turf/simulated/floor/grass,
 /area/hydroponics)
 "bFK" = (
 /obj/machinery/computer/communications,
@@ -43422,21 +43399,7 @@
 	dir = 4
 	},
 /mob/living/simple_animal/pig,
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "asteroid";
-	tag = "icon-asteroid (NORTH)"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "siding1";
-	tag = "icon-siding1 (NORTH)"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "siding2";
-	tag = "icon-siding2 (NORTH)"
-	},
+/turf/simulated/floor/grass,
 /area/hydroponics)
 "bLo" = (
 /obj/structure/disposalpipe/segment,
@@ -43823,21 +43786,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "asteroid";
-	tag = "icon-asteroid (NORTH)"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "siding1";
-	tag = "icon-siding1 (NORTH)"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "siding2";
-	tag = "icon-siding2 (NORTH)"
-	},
+/turf/simulated/floor/grass,
 /area/hydroponics)
 "bLV" = (
 /obj/item/storage/firstaid/o2{
@@ -129228,7 +129177,7 @@ djt
 bjd
 boV
 bpG
-bbW
+bdT
 boj
 btJ
 bus
