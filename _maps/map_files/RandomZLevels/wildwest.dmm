@@ -2569,10 +2569,7 @@
 /area/awaymission/wwrefine)
 "hj" = (
 /obj/machinery/door/unpowered/shuttle,
-/turf/simulated/shuttle{
-	tag = "icon-floor2";
-	icon_state = "floor2"
-	},
+/turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
 "hk" = (
 /obj/effect/decal/cleanable/blood/splatter,
