@@ -29,7 +29,7 @@
 
 	if(possible_vampires.len > 0)
 		for(var/I in possible_vampires)
-			if(vampires.len >= secondary_enemies)
+			if(length(vampires) >= secondary_enemies)
 				break
 			var/datum/mind/vampire = pick(possible_vampires)
 			vampires += vampire
@@ -38,7 +38,7 @@
 			var/datum/mindslaves/slaved = new()
 			slaved.masters += vampire
 			vampire.som = slaved //we MIGHT want to mindslave someone
-			vampire.restricted_roles = (restricted_jobs += secondary_restricted_jobs)
+			vampire.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
 			vampire.special_role = SPECIAL_ROLE_VAMPIRE
 
 		..()

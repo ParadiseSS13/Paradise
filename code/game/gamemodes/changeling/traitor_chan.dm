@@ -28,13 +28,13 @@
 
 	if(possible_changelings.len > 0)
 		for(var/I in possible_changelings)
-			if(changelings.len >= secondary_enemies)
+			if(length(changelings) >= secondary_enemies)
 				break
 			var/datum/mind/changeling = pick(possible_changelings)
 			changelings += changeling
 			modePlayer += changelings
 			possible_changelings -= changeling
-			changeling.restricted_roles = (restricted_jobs += secondary_restricted_jobs)
+			changeling.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
 			changeling.special_role = SPECIAL_ROLE_CHANGELING
 
 		return ..()
