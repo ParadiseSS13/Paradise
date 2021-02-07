@@ -813,15 +813,8 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/ruin/onehalf/hallway)
-"bW" = (
-/obj/structure/girder/reinforced,
-/turf/simulated/floor/plating/airless,
-/area/ruin/onehalf/hallway)
 "bX" = (
 /turf/simulated/wall/r_wall,
-/area/ruin/onehalf/hallway)
-"bY" = (
-/turf/simulated/floor/plating/airless,
 /area/ruin/onehalf/hallway)
 "bZ" = (
 /obj/structure/disposalpipe/junction{
@@ -1572,7 +1565,7 @@ ag
 bh
 bv
 bL
-bW
+bP
 ck
 cw
 aa
@@ -1616,7 +1609,7 @@ ag
 bf
 bw
 bO
-bY
+aj
 aa
 aa
 cE
@@ -1662,9 +1655,9 @@ aL
 bX
 bX
 ax
-bY
+aj
 cF
-bY
+aj
 ax
 bX
 bP

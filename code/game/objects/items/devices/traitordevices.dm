@@ -267,7 +267,7 @@ effective or pretty fucking useless.
 		to_chat(C, "<span class='danger'>The [src] will not work here!</span>")
 
 /obj/item/teleporter/proc/tile_check(turf/T)
-	if(istype(T, /turf/simulated/floor) || istype(T, /turf/space) || istype(T, /turf/simulated/shuttle/floor) || istype(T, /turf/simulated/shuttle/floor4) || istype(T, /turf/simulated/shuttle/plating))
+	if(istype(T, /turf/simulated/floor) || istype(T, /turf/space))
 		return TRUE
 
 /obj/item/teleporter/proc/dir_correction(mob/user) //Direction movement, screws with teleport distance and saving throw, and thus must be removed first

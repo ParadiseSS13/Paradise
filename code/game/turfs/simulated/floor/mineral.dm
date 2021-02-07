@@ -144,6 +144,11 @@
 /turf/simulated/floor/mineral/plastitanium/red/brig
 	name = "brig floor"
 
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen
+	oxygen = 0
+	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
+
+
 //BANANIUM
 /turf/simulated/floor/mineral/bananium
 	name = "bananium floor"
