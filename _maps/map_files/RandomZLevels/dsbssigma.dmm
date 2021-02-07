@@ -356,9 +356,8 @@
 	},
 /area/awaymission/DSBSSigma/hangar)
 "aZ" = (
-/obj/structure/window/full/plastitanium,
-/obj/structure/grille,
 /obj/machinery/door/firedoor,
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/hangar_eva)
 "ba" = (
@@ -381,7 +380,6 @@
 /area/awaymission/DSBSSigma/hangar_eva)
 "bc" = (
 /obj/structure/sign/vacuum/external{
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/corner{
@@ -417,7 +415,6 @@
 	pixel_x = -7
 	},
 /obj/structure/sign/vacuum/external{
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating{
@@ -452,8 +449,7 @@
 	},
 /area/awaymission/DSBSSigma/hangar)
 "bj" = (
-/obj/structure/window/full/plastitanium,
-/obj/structure/grille,
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/hangar)
 "bk" = (
@@ -573,16 +569,12 @@
 /obj/structure/flora/rock/pile,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
-/turf/simulated/floor/mineral/plastitanium/red{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/DSBSSigma/hangar)
 "by" = (
 /obj/structure/flora/rock/pile,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/mineral/plastitanium/red{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/DSBSSigma/hangar)
 "bz" = (
 /obj/effect/turf_decal/stripes/line{
@@ -694,8 +686,7 @@
 /obj/structure/rack,
 /obj/machinery/alarm{
 	dir = 8;
-	pixel_x = 25;
-	pixel_y = 0
+	pixel_x = 25
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -766,20 +757,15 @@
 	id = "dsbss_away_shuttle";
 	name = "Blast Doors";
 	pixel_x = -25;
-	pixel_y = 0;
 	req_access_txt = "271"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/mineral/plastitanium/red{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/DSBSSigma/hangar)
 "bU" = (
 /obj/structure/chair/comfy/shuttle,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/mineral/plastitanium/red{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/DSBSSigma/hangar)
 "bV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -996,9 +982,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -1015,9 +999,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1030,9 +1012,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1047,7 +1027,6 @@
 	dir = 4;
 	name = "DSBSS Hangar EVA";
 	pixel_x = 24;
-	pixel_y = 0;
 	req_access = null;
 	req_access_txt = "271";
 	start_charge = 0
@@ -1183,7 +1162,6 @@
 /obj/item/reagent_containers/iv_bag/blood/AMinus,
 /obj/machinery/iv_drip,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "darkbluecorners"
@@ -1209,10 +1187,10 @@
 /obj/machinery/light_switch{
 	dir = 2;
 	name = "light switch ";
-	pixel_x = 22;
-	pixel_y = 0
+	pixel_x = 22
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluecorners"
@@ -1355,8 +1333,6 @@
 	},
 /area/awaymission/DSBSSigma/cave_junction_north)
 "dj" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -1401,8 +1377,7 @@
 	},
 /area/awaymission/DSBSSigma/surgery)
 "dn" = (
-/obj/structure/window/full/plastitanium,
-/obj/structure/grille,
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/surgery)
 "do" = (
@@ -1427,8 +1402,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -1441,8 +1415,7 @@
 /obj/machinery/light_switch{
 	dir = 2;
 	name = "light switch ";
-	pixel_x = -22;
-	pixel_y = 0
+	pixel_x = -22
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -1450,7 +1423,7 @@
 	},
 /area/awaymission/DSBSSigma/cloning)
 "dr" = (
-/turf/simulated/wall/indestructible/rock/asteroid,
+/turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/surgery)
 "ds" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -1459,9 +1432,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1661,13 +1632,7 @@
 	},
 /area/awaymission/DSBSSigma/cave_junction_north)
 "dI" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/flora/rock/pile,
-/turf/simulated/floor/plating{
-	icon_plating = "asteroidplating";
-	icon_state = "asteroidplating";
-	name = "compacted asteroid sand"
-	},
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_north)
 "dJ" = (
 /obj/structure/closet/secure_closet/medical2{
@@ -1683,6 +1648,7 @@
 "dK" = (
 /obj/structure/flora/rock/pile,
 /obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/asteroid/basilisk,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluefull"
@@ -1692,8 +1658,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -1711,9 +1676,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1739,9 +1702,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1760,9 +1721,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1814,9 +1773,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1931,9 +1888,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1960,8 +1915,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1980,9 +1934,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -2005,9 +1957,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -2030,9 +1980,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/structure/flora/rock/pile,
 /obj/effect/decal/cleanable/dirt,
@@ -2056,9 +2004,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -2081,9 +2027,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2105,9 +2049,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2129,9 +2071,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/generic,
@@ -2156,9 +2096,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2180,9 +2118,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -2203,9 +2139,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2221,11 +2155,9 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 0;
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -2308,9 +2240,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -2325,8 +2255,7 @@
 	},
 /area/awaymission/DSBSSigma/medical_center)
 "eu" = (
-/obj/structure/window/full/plastitanium,
-/obj/structure/grille,
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/cloning)
 "ev" = (
@@ -2402,16 +2331,6 @@
 	icon_state = "dark"
 	},
 /area/awaymission/DSBSSigma/hangar)
-"eD" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/flora/rock,
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating{
-	icon_plating = "asteroidplating";
-	icon_state = "asteroidplating";
-	name = "compacted asteroid sand"
-	},
-/area/awaymission/DSBSSigma/cave_junction_north)
 "eE" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/awaymission/DSBSSigma/overseer)
@@ -2423,9 +2342,7 @@
 	name = "Broken Console"
 	},
 /obj/item/shard,
-/turf/simulated/floor/mineral/plastitanium/red{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/DSBSSigma/hangar)
 "eG" = (
 /obj/structure/table/tray,
@@ -2454,8 +2371,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 8;
-	pixel_x = 25;
-	pixel_y = 0
+	pixel_x = 25
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -2465,8 +2381,7 @@
 /area/awaymission/DSBSSigma/surgery)
 "eJ" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -32;
-	pixel_y = 0
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2476,9 +2391,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -2503,6 +2416,9 @@
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/coffee{
 	pixel_y = 5
+	},
+/obj/structure/sign/nosmoking_1{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2626,15 +2542,6 @@
 	icon_state = "vault"
 	},
 /area/awaymission/DSBSSigma/hangar)
-"fc" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/hatch/syndicate{
-	name = "External Access";
-	req_access_txt = "271"
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
-/area/awaymission/DSBSSigma/cave_junction_north)
 "fd" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/asteroid,
@@ -2678,15 +2585,12 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -2700,9 +2604,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/structure/flora/rock/pile,
 /obj/effect/decal/cleanable/dirt,
@@ -2714,9 +2616,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/generic,
 /turf/simulated/floor/plasteel{
@@ -2799,44 +2699,6 @@
 /obj/structure/flora/rock/pile,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_north)
-"fy" = (
-/obj/structure/curtain/black,
-/obj/structure/fans/tiny,
-/turf/simulated/floor/wood,
-/area/awaymission/DSBSSigma/overseer)
-"fA" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 1
-	},
-/obj/structure/bed/dogbed,
-/turf/simulated/floor/carpet,
-/area/awaymission/DSBSSigma/overseer)
-"fB" = (
-/turf/simulated/floor/carpet,
-/area/awaymission/DSBSSigma/overseer)
-"fC" = (
-/obj/machinery/computer/security/wooden_tv{
-	network = list("Sigma")
-	},
-/obj/structure/window/reinforced/tinted{
-	dir = 1
-	},
-/turf/simulated/floor/carpet,
-/area/awaymission/DSBSSigma/overseer)
-"fD" = (
-/obj/structure/chair/sofa/right{
-	dir = 8
-	},
-/obj/structure/window/reinforced/tinted{
-	dir = 1
-	},
-/obj/item/toy/plushie/snakeplushie{
-	desc = "This is Sssigma the sssnake, the sssecret overssseer of Sssite Sssigma. Very sssinissster!";
-	name = "Sssigma";
-	pixel_y = -8
-	},
-/turf/simulated/floor/carpet,
-/area/awaymission/DSBSSigma/overseer)
 "fE" = (
 /obj/machinery/constructable_frame,
 /obj/effect/landmark/damageturf,
@@ -2857,9 +2719,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -2885,8 +2745,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 8;
-	pixel_x = 25;
-	pixel_y = 0
+	pixel_x = 25
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2928,9 +2787,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -2942,9 +2799,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -2980,26 +2835,17 @@
 	},
 /area/awaymission/DSBSSigma/medical_center)
 "fN" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/indestructible/pt_wall,
 /area/awaymission/DSBSSigma/holding_cells)
 "fO" = (
-/turf/simulated/wall/indestructible/rock/asteroid,
-/area/awaymission/DSBSSigma/cave_junction_north)
-"fP" = (
-/obj/item/toy/cattoy,
-/turf/simulated/floor/carpet,
-/area/awaymission/DSBSSigma/overseer)
-"fQ" = (
-/obj/structure/chair/sofa/left{
-	dir = 8
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "dsbss_lockdown_blast_medical";
+	name = "Emergency Lockdown"
 	},
-/obj/item/reagent_containers/food/snacks/chips{
-	pixel_y = 8
-	},
-/turf/simulated/floor/carpet,
-/area/awaymission/DSBSSigma/overseer)
+/turf/simulated/floor/plating,
+/area/awaymission/DSBSSigma/lockdown)
 "fR" = (
-/turf/simulated/wall/indestructible/rock/asteroid,
+/turf/simulated/mineral/asteroid/loose/cave,
 /area/awaymission/DSBSSigma/holding_cells)
 "fS" = (
 /obj/machinery/constructable_frame,
@@ -3045,9 +2891,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
@@ -3139,8 +2983,7 @@
 "ge" = (
 /obj/machinery/atmospherics/unary/thermomachine{
 	dir = 8;
-	icon_state = "freezer_0";
-	tag = ""
+	icon_state = "freezer_0"
 	},
 /obj/structure/flora/rock/pile,
 /obj/effect/decal/cleanable/dirt,
@@ -3152,9 +2995,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3187,7 +3028,6 @@
 	dir = 4;
 	name = "DSBSS Medical Center";
 	pixel_x = 24;
-	pixel_y = 0;
 	req_access = null;
 	req_access_txt = "271";
 	start_charge = 0
@@ -3257,36 +3097,9 @@
 	icon_state = "dark"
 	},
 /area/awaymission/DSBSSigma/holding_cells)
-"gq" = (
-/obj/structure/window/full/plastitanium,
-/obj/structure/grille,
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plating,
-/area/awaymission/DSBSSigma/holding_cells)
 "gr" = (
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_north)
-"gs" = (
-/obj/structure/table/wood,
-/obj/item/flashlight/lamp/green,
-/turf/simulated/floor/carpet,
-/area/awaymission/DSBSSigma/overseer)
-"gt" = (
-/obj/structure/bookcase/random/adult,
-/turf/simulated/floor/carpet,
-/area/awaymission/DSBSSigma/overseer)
-"gu" = (
-/obj/structure/filingcabinet,
-/turf/simulated/floor/carpet,
-/area/awaymission/DSBSSigma/overseer)
-"gv" = (
-/obj/structure/table/wood,
-/obj/machinery/light/small{
-	dir = 4;
-	pixel_y = -8
-	},
-/turf/simulated/floor/carpet,
-/area/awaymission/DSBSSigma/overseer)
 "gw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/sleeper{
@@ -3565,9 +3378,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -3584,9 +3395,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -3603,8 +3412,7 @@
 /area/awaymission/DSBSSigma/mission_control)
 "gX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9;
-	pixel_y = 0
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -3629,9 +3437,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -3700,8 +3506,7 @@
 /area/awaymission/DSBSSigma/cave_junction_north)
 "he" = (
 /obj/machinery/light_switch{
-	pixel_x = -22;
-	pixel_y = 0
+	pixel_x = -22
 	},
 /obj/item/restraints/handcuffs{
 	pixel_x = -3;
@@ -3786,9 +3591,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3966,9 +3769,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3980,8 +3781,7 @@
 /area/awaymission/DSBSSigma/mission_control)
 "hC" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 32;
-	pixel_y = 0
+	pixel_x = 32
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -3995,8 +3795,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -4026,6 +3825,10 @@
 	initialize_directions = 10;
 	level = 1
 	},
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "dsbss_lockdown_blast_research";
+	name = "Emergency Lockdown"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4038,9 +3841,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -4065,8 +3866,7 @@
 /area/awaymission/DSBSSigma/holding_cells)
 "hJ" = (
 /obj/structure/sign/fire{
-	pixel_x = 32;
-	pixel_y = 0
+	pixel_x = 32
 	},
 /turf/space,
 /area/space)
@@ -4089,8 +3889,7 @@
 /area/awaymission/DSBSSigma/holding_cells)
 "hL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9;
-	pixel_y = 0
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -4133,7 +3932,6 @@
 /area/awaymission/DSBSSigma/cave_junction_north)
 "hO" = (
 /obj/structure/sign/fire{
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /turf/space,
@@ -4142,7 +3940,6 @@
 /obj/machinery/light_switch{
 	dir = 2;
 	name = "light switch ";
-	pixel_x = 0;
 	pixel_y = -22
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4154,9 +3951,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -4177,8 +3972,7 @@
 /area/awaymission/DSBSSigma/medical_center)
 "hS" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 32;
-	pixel_y = 0
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -4231,8 +4025,7 @@
 /obj/machinery/gateway,
 /obj/structure/cable{
 	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 0
+	icon_state = "0-2"
 	},
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
@@ -4305,8 +4098,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
@@ -4341,7 +4133,6 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
 	name = "DSBSS Command";
-	pixel_x = 0;
 	pixel_y = 24;
 	req_access = null;
 	req_access_txt = "271";
@@ -4357,8 +4148,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -4382,8 +4172,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/holding_cells)
@@ -4391,8 +4180,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/rock/pile,
@@ -4403,8 +4191,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/generic,
@@ -4416,9 +4203,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -4431,9 +4216,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -4452,9 +4235,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -4491,12 +4272,9 @@
 	},
 /area/awaymission/DSBSSigma/cave_junction_north)
 "ip" = (
-/obj/structure/window/full/plastitanium,
-/obj/structure/grille,
-/obj/structure/sign/lifestar{
-	pixel_y = 0
-	},
+/obj/structure/sign/lifestar,
 /obj/machinery/door/firedoor,
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/medical_center)
 "iq" = (
@@ -4507,8 +4285,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -4522,9 +4299,8 @@
 	},
 /area/awaymission/DSBSSigma/medical_center)
 "is" = (
-/obj/structure/window/full/plastitanium,
-/obj/structure/grille,
 /obj/machinery/door/firedoor,
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/medical_center)
 "it" = (
@@ -4532,9 +4308,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -4570,8 +4344,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -4616,10 +4389,10 @@
 	id = "dsbss_gateway_shutters";
 	name = "Gateway Shutter Control";
 	normaldoorcontrol = 0;
-	pixel_x = 0;
 	pixel_y = -26;
 	req_access_txt = "0"
 	},
+/obj/item/clothing/accessory/stethoscope,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4641,13 +4414,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/generic,
-/obj/machinery/door_control{
-	id = "dsbss_lockdown_blast";
-	name = "Emergency Lockdown Control";
-	pixel_x = -24;
-	pixel_y = 0;
-	req_access_txt = "271"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5;
 	level = 2
@@ -4716,7 +4482,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/indestructible/pt_wall,
 /area/awaymission/DSBSSigma/holding_cells)
 "iH" = (
 /obj/structure/fluff/utility,
@@ -4743,24 +4509,15 @@
 	name = "compacted asteroid sand"
 	},
 /area/awaymission/DSBSSigma/cave_junction_north)
-"iI" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood,
-/area/awaymission/DSBSSigma/command)
 "iJ" = (
-/obj/structure/fluff/utility,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5;
-	level = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
 /obj/structure/cable{
 	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
+	d2 = 2;
+	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/fluff/utility,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
@@ -4780,9 +4537,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/light/small{
 	dir = 1;
@@ -4822,9 +4577,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -4840,9 +4593,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -4883,11 +4634,9 @@
 /obj/structure/table/wood,
 /obj/machinery/alarm{
 	dir = 8;
-	pixel_x = 25;
-	pixel_y = 0
+	pixel_x = 25
 	},
 /obj/effect/decal/cleanable/cobweb2,
-/obj/item/paper/dsbssigma/note1,
 /turf/simulated/floor/wood,
 /area/awaymission/DSBSSigma/command)
 "iQ" = (
@@ -4913,8 +4662,7 @@
 /area/awaymission/DSBSSigma/command)
 "iT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9;
-	pixel_y = 0
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -4943,8 +4691,7 @@
 "iU" = (
 /obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9;
-	pixel_y = 0
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -4988,7 +4735,6 @@
 /area/awaymission/DSBSSigma/command)
 "iW" = (
 /obj/structure/grille,
-/obj/machinery/door/firedoor,
 /obj/item/shard,
 /obj/item/shard{
 	icon_state = "small";
@@ -5020,18 +4766,16 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plating{
-	icon_plating = "asteroidplating";
-	icon_state = "asteroidplating";
-	name = "compacted asteroid sand"
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "dsbss_lockdown_blast_research";
+	name = "Emergency Lockdown"
 	},
-/area/awaymission/DSBSSigma/cave_junction_north)
+/turf/simulated/floor/plating,
+/area/awaymission/DSBSSigma/lockdown)
 "ja" = (
 /obj/machinery/door/airlock/medical{
 	autoclose = 0;
@@ -5056,25 +4800,6 @@
 	icon_state = "white"
 	},
 /area/awaymission/DSBSSigma/virology_lab)
-"jb" = (
-/obj/structure/chair/comfy/black,
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
-/area/awaymission/DSBSSigma/command)
-"jc" = (
-/obj/structure/bookcase/random/reference,
-/obj/effect/decal/cleanable/cobweb2,
-/obj/machinery/camera{
-	c_tag = "Officers Quarters";
-	dir = 2;
-	network = list("Sigma");
-	pixel_x = 23
-	},
-/turf/simulated/floor/wood,
-/area/awaymission/DSBSSigma/command)
 "jd" = (
 /obj/item/storage/backpack/satchel_flat,
 /turf/simulated/floor/plasteel{
@@ -5101,15 +4826,12 @@
 /area/awaymission/DSBSSigma/holding_cells)
 "jg" = (
 /obj/machinery/firealarm{
-	pixel_x = 0;
 	pixel_y = 24
 	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5172,9 +4894,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -5222,9 +4942,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -5258,8 +4976,7 @@
 /obj/structure/table,
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -23;
-	pixel_y = 0
+	pixel_x = -23
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -5302,9 +5019,7 @@
 	},
 /area/awaymission/DSBSSigma/mission_control)
 "jw" = (
-/obj/structure/window/full/plastitanium,
-/obj/structure/grille,
-/obj/machinery/door/firedoor,
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/command)
 "jx" = (
@@ -5312,8 +5027,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/fluff/utility,
@@ -5327,8 +5041,7 @@
 /area/awaymission/DSBSSigma/cave_junction_north)
 "jy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9;
-	pixel_y = 0
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -5340,21 +5053,6 @@
 	},
 /turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_north)
-"jz" = (
-/obj/structure/flora/rock/pile,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
-	},
-/area/awaymission/DSBSSigma/command)
-"jA" = (
-/turf/simulated/floor/wood,
-/area/awaymission/DSBSSigma/command)
-"jB" = (
-/obj/structure/displaycase/telecrystal/dsbssigma,
-/turf/simulated/floor/wood,
-/area/awaymission/DSBSSigma/command)
 "jC" = (
 /obj/structure/toilet{
 	dir = 4
@@ -5397,8 +5095,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/fluff/utility,
@@ -5478,9 +5175,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -5519,9 +5214,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5578,30 +5271,6 @@
 	icon_state = "dark"
 	},
 /area/awaymission/DSBSSigma/holding_cells)
-"ka" = (
-/obj/structure/table/wood,
-/obj/item/flashlight/lamp/green{
-	on = 0
-	},
-/obj/effect/decal/cleanable/cobweb,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken2";
-	tag = "icon-wood-broken2"
-	},
-/area/awaymission/DSBSSigma/command)
-"kb" = (
-/obj/structure/safe/floor,
-/obj/effect/spawner/random_spawners/away/dsbssigma/loot/safe_loot_high,
-/obj/effect/spawner/random_spawners/away/dsbssigma/loot/safe_loot_low,
-/turf/simulated/floor/wood,
-/area/awaymission/DSBSSigma/command)
-"kc" = (
-/obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 0
-	},
-/turf/simulated/floor/wood,
-/area/awaymission/DSBSSigma/command)
 "kd" = (
 /obj/structure/flora/rock/pile,
 /obj/effect/decal/cleanable/dirt,
@@ -5623,8 +5292,7 @@
 	},
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -23;
-	pixel_y = 0
+	pixel_x = -23
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -5694,8 +5362,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5727,7 +5394,6 @@
 	dir = 8;
 	name = "DSBSS North Cave Junction";
 	pixel_x = -24;
-	pixel_y = 0;
 	req_access = null;
 	req_access_txt = "271";
 	start_charge = 0
@@ -5797,9 +5463,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -5818,9 +5482,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5863,9 +5525,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5891,9 +5551,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -5914,9 +5572,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5939,9 +5595,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -5964,9 +5618,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5984,9 +5636,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -6028,9 +5678,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -6039,26 +5687,11 @@
 	icon_state = "dark"
 	},
 /area/awaymission/DSBSSigma/medical_center)
-"kF" = (
-/obj/machinery/door/airlock/hatch/syndicate{
-	damage_deflection = 21;
-	icon_state = "closed";
-	id_tag = null;
-	locked = 0;
-	name = "Officer Quarters";
-	req_access_txt = "271"
-	},
-/obj/machinery/door/poddoor/impassable{
-	id_tag = "dsbss_officerquarters_blast";
-	name = "Officer Quarters Lockdown"
-	},
-/turf/simulated/floor/wood,
-/area/awaymission/DSBSSigma/lockdown)
 "kG" = (
 /obj/structure/table/wood,
-/obj/machinery/door_control{
-	id = "dsbss_armory_delta_blast";
-	name = "Delta Armory Door Control";
+/obj/machinery/door_control/away/button_single_use{
+	id = "dsbss_lockdown_blast_dorms";
+	name = "Dorms Lockdown Control";
 	pixel_x = 6;
 	pixel_y = 4;
 	req_access_txt = "271"
@@ -6067,24 +5700,6 @@
 	icon_state = "wood-broken2";
 	tag = "icon-wood-broken2"
 	},
-/area/awaymission/DSBSSigma/command)
-"kH" = (
-/turf/simulated/wall/indestructible/pt_wall,
-/area/awaymission/DSBSSigma/holding_cells)
-"kI" = (
-/obj/structure/dresser,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1
-	},
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
-/area/awaymission/DSBSSigma/command)
-"kJ" = (
-/obj/item/bedsheet/syndie,
-/obj/structure/bed,
-/turf/simulated/floor/wood,
 /area/awaymission/DSBSSigma/command)
 "kK" = (
 /obj/structure/flora/rock/pile,
@@ -6156,8 +5771,14 @@
 	},
 /area/awaymission/DSBSSigma/chemistry_lab)
 "kR" = (
-/obj/structure/window/full/plastitanium,
-/obj/structure/grille,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/chemistry_lab)
 "kS" = (
@@ -6176,9 +5797,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -6356,9 +5975,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -6485,6 +6102,11 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/cobweb,
+/obj/structure/closet/crate,
+/obj/item/pickaxe/mini,
+/obj/item/pickaxe/mini,
+/obj/item/pickaxe/mini,
+/obj/item/pickaxe/mini,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6493,9 +6115,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -6531,8 +6151,8 @@
 /area/awaymission/DSBSSigma/storage)
 "lx" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/poddoor{
-	id_tag = "dsbss_lockdown_blast";
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "dsbss_lockdown_blast_medical";
 	name = "Emergency Lockdown"
 	},
 /turf/simulated/floor/plating,
@@ -6639,7 +6259,6 @@
 	dir = 8;
 	name = "DSBSS Chemistry Lab";
 	pixel_x = -24;
-	pixel_y = 0;
 	req_access = null;
 	req_access_txt = "271";
 	start_charge = 0
@@ -6727,8 +6346,7 @@
 /area/awaymission/DSBSSigma/mission_control)
 "lM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9;
-	pixel_y = 0
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -6781,8 +6399,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -6798,14 +6415,6 @@
 	icon_state = "asteroidplating";
 	name = "compacted asteroid sand"
 	},
-/area/awaymission/DSBSSigma/cave_junction_north)
-"lQ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/poddoor{
-	id_tag = null;
-	name = "Emergency Lockdown"
-	},
-/turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/cave_junction_north)
 "lR" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -6828,9 +6437,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -6846,21 +6453,13 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/storage)
-"lU" = (
-/obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
-	},
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/cave_junction_north)
 "lV" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-22"
 	},
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -23;
-	pixel_y = 0
+	pixel_x = -23
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -7021,12 +6620,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/structure/fluff/utility,
-/turf/simulated/floor/plating{
-	icon_plating = "asteroidplating";
-	icon_state = "asteroidplating";
-	name = "compacted asteroid sand"
-	},
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_north)
 "mn" = (
 /obj/machinery/light{
@@ -7053,8 +6647,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/fluff/utility,
@@ -7076,13 +6669,6 @@
 	icon_state = "dark"
 	},
 /area/awaymission/DSBSSigma/chemistry_lab)
-"mr" = (
-/obj/machinery/door/poddoor{
-	id_tag = null;
-	name = "Emergency Lockdown"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/DSBSSigma/cave_junction_north)
 "ms" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/cardboard,
@@ -7116,9 +6702,6 @@
 	name = "compacted asteroid sand"
 	},
 /area/awaymission/DSBSSigma/cave_junction_north)
-"mu" = (
-/turf/simulated/wall/indestructible/pt_wall,
-/area/awaymission/DSBSSigma/cave_junction_north)
 "mv" = (
 /obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -7145,7 +6728,6 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 0;
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -7195,16 +6777,12 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/engine,
 /area/awaymission/DSBSSigma/chemistry_lab)
-"mE" = (
-/turf/simulated/wall/mineral/plastitanium,
-/area/awaymission/DSBSSigma/chemistry_lab)
 "mF" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door_control{
 	id = "dsbss_lab_blast";
 	name = "Experimentation Lockdown Control";
 	pixel_x = -26;
-	pixel_y = 0;
 	req_access_txt = "271"
 	},
 /obj/item/paper_bin{
@@ -7280,7 +6858,6 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 2;
 	name = "DSBSS Communications";
-	pixel_x = 0;
 	pixel_y = -24;
 	req_access = null;
 	req_access_txt = "271";
@@ -7311,20 +6888,17 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/wall/indestructible/pt_wall,
+/turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_north)
 "mO" = (
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -7406,8 +6980,7 @@
 /obj/machinery/light_switch{
 	dir = 2;
 	name = "light switch ";
-	pixel_x = 22;
-	pixel_y = 0
+	pixel_x = 22
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 8;
@@ -7439,12 +7012,10 @@
 /obj/machinery/light_switch{
 	dir = 2;
 	name = "light switch ";
-	pixel_x = 0;
 	pixel_y = 22
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -32;
-	pixel_y = 0
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -7455,9 +7026,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -7501,8 +7070,7 @@
 /area/awaymission/DSBSSigma/chemistry_lab)
 "nb" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 32;
-	pixel_y = 0
+	pixel_x = 32
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -7594,6 +7162,12 @@
 /obj/machinery/light/small{
 	dir = 8;
 	pixel_y = -8
+	},
+/obj/machinery/camera{
+	c_tag = "Medical Lockdown";
+	dir = 5;
+	network = list("Sigma");
+	pixel_y = 15
 	},
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
@@ -7745,9 +7319,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -7757,9 +7329,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -7807,8 +7377,7 @@
 /area/awaymission/DSBSSigma/chemistry_lab)
 "nA" = (
 /obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 0
+	dir = 4
 	},
 /turf/simulated/floor/engine,
 /area/awaymission/DSBSSigma/chemistry_lab)
@@ -7961,9 +7530,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -7994,9 +7561,6 @@
 /obj/structure/spacevine,
 /turf/simulated/floor/grass,
 /area/awaymission/DSBSSigma/hydroponics)
-"nQ" = (
-/turf/simulated/wall/mineral/plastitanium,
-/area/awaymission/DSBSSigma/virology_lab)
 "nR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -8004,17 +7568,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/turf/simulated/wall/mineral/plastitanium,
-/area/awaymission/DSBSSigma/virology_lab)
-"nS" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/wall/mineral/plastitanium,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/awaymission/DSBSSigma/virology_lab)
 "nT" = (
 /obj/structure/closet/l3closet,
@@ -8173,8 +7727,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -8229,8 +7782,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/rock/pile,
@@ -8333,7 +7885,6 @@
 /obj/machinery/embedded_controller/radio/airlock/access_controller{
 	frequency = 1449;
 	id_tag = "dsbss_virology";
-	pixel_x = 0;
 	pixel_y = -25;
 	req_access_txt = "271";
 	tag_exterior_door = "dsbss_virology_exterior";
@@ -8360,9 +7911,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/janitorial)
-"os" = (
-/turf/simulated/wall/indestructible/pt_wall,
-/area/awaymission/DSBSSigma/lockdown)
 "ot" = (
 /obj/machinery/access_button{
 	command = "cycle_exterior";
@@ -8477,9 +8025,8 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/DSBSSigma/science_lab)
 "oA" = (
-/obj/structure/window/full/plastitanium,
-/obj/structure/grille,
 /obj/machinery/door/firedoor,
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/science_lab)
 "oB" = (
@@ -8583,9 +8130,7 @@
 	},
 /area/awaymission/DSBSSigma/science_lab)
 "oJ" = (
-/obj/structure/reagent_dispensers/water_cooler{
-	pixel_x = 0
-	},
+/obj/structure/reagent_dispensers/water_cooler,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
@@ -8693,20 +8238,22 @@
 /area/awaymission/DSBSSigma/hydroponics)
 "oV" = (
 /obj/structure/fluff/utility,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4;
+	dir = 10;
+	initialize_directions = 10;
 	level = 1
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 2;
+	icon_state = "pipe-c"
 	},
 /obj/machinery/light,
 /turf/simulated/floor/plating{
@@ -8752,8 +8299,6 @@
 	},
 /area/awaymission/DSBSSigma/virology_lab)
 "pa" = (
-/obj/structure/window/full/plastitanium,
-/obj/structure/grille,
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 4;
@@ -8762,11 +8307,11 @@
 	name = "Virology Privacy Shutters";
 	opacity = 0
 	},
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/virology_lab)
 "pb" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 0;
 	pixel_y = -32
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -8780,7 +8325,6 @@
 	dir = 4;
 	name = "DSBSS Science Lab";
 	pixel_x = 24;
-	pixel_y = 0;
 	req_access = null;
 	req_access_txt = "271";
 	start_charge = 0
@@ -8802,8 +8346,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -8834,7 +8377,6 @@
 	dir = 8;
 	name = "DSBSS Virology Lab";
 	pixel_x = -24;
-	pixel_y = 0;
 	req_access = null;
 	req_access_txt = "271";
 	start_charge = 0
@@ -8863,7 +8405,6 @@
 	id = "dsbss_virology_shutters";
 	name = "Virology Shutter Control";
 	normaldoorcontrol = 0;
-	pixel_x = 0;
 	pixel_y = 26;
 	req_access_txt = "271"
 	},
@@ -8879,8 +8420,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -8907,23 +8447,6 @@
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/engine/o2,
 /area/awaymission/DSBSSigma/engineering_lifesupport)
-"pq" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/fluff/utility,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plating{
-	icon_plating = "asteroidplating";
-	icon_state = "asteroidplating";
-	name = "compacted asteroid sand"
-	},
-/area/awaymission/DSBSSigma/cave_junction_west)
 "pr" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/asteroid,
@@ -9001,8 +8524,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -9114,8 +8636,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -9319,8 +8840,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/fluff/utility,
@@ -9526,24 +9046,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/caverns)
-"qz" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/fluff/utility,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/flora/rock,
-/turf/simulated/floor/plating{
-	icon_plating = "asteroidplating";
-	icon_state = "asteroidplating";
-	name = "compacted asteroid sand"
-	},
-/area/awaymission/DSBSSigma/cave_junction_west)
 "qA" = (
 /turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_west)
@@ -9570,8 +9072,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -9590,14 +9091,12 @@
 /turf/simulated/floor/engine/n2,
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "qF" = (
-/obj/structure/window/full/plastitanium,
-/obj/structure/grille,
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "qG" = (
-/obj/structure/window/full/plastitanium,
-/obj/structure/grille,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "qH" = (
@@ -9616,9 +9115,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -9633,24 +9130,6 @@
 	icon_state = "vault"
 	},
 /area/awaymission/DSBSSigma/mission_control)
-"qK" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
-/turf/simulated/wall/indestructible/rock/asteroid,
-/area/awaymission/DSBSSigma/cave_junction_west)
 "qL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4;
@@ -9812,35 +9291,13 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/wall/indestructible/rock/asteroid,
-/area/awaymission/DSBSSigma/cave_junction_west)
-"rb" = (
 /obj/structure/fluff/utility,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9;
-	pixel_y = 0
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
-/obj/machinery/light{
-	dir = 1
-	},
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
 	icon_state = "asteroidplating";
 	name = "compacted asteroid sand"
 	},
-/area/awaymission/DSBSSigma/cave_junction_north)
+/area/awaymission/DSBSSigma/cave_junction_west)
 "rc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/rock,
@@ -9848,8 +9305,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_west)
 "rd" = (
-/obj/structure/window/full/plastitanium,
-/obj/structure/grille,
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/janitorial)
 "re" = (
@@ -9939,8 +9395,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/fluff/utility,
@@ -9976,8 +9431,7 @@
 /obj/machinery/alarm{
 	dir = 4;
 	icon_state = "alarm0";
-	pixel_x = -22;
-	pixel_y = 0
+	pixel_x = -22
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -10038,12 +9492,15 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/item/storage/toolbox/syndicate,
 /obj/item/stock_parts/cell/hyper{
 	pixel_x = 17;
 	pixel_y = 5
 	},
 /obj/item/paper/dsbssigma/note4,
+/obj/effect/landmark/away/dsbssigma{
+	color = "#ffc800";
+	name = "dsbssigma_toolbox"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -10090,21 +9547,24 @@
 	initialize_directions = 11;
 	level = 1
 	},
-/turf/simulated/wall/indestructible/rock/asteroid,
+/obj/structure/fluff/utility,
+/turf/simulated/floor/plating{
+	icon_plating = "asteroidplating";
+	icon_state = "asteroidplating";
+	name = "compacted asteroid sand"
+	},
 /area/awaymission/DSBSSigma/cave_junction_west)
 "rx" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 0
+	dir = 4
 	},
 /obj/structure/fluff/utility,
 /turf/simulated/floor/plating{
@@ -10248,8 +9708,7 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 32;
-	pixel_y = 0
+	pixel_x = 32
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -10300,7 +9759,15 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/wall/indestructible/rock/asteroid,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "Utilities";
+	req_access_txt = "271"
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/awaymission/DSBSSigma/janitorial)
 "rP" = (
 /obj/machinery/embedded_controller/radio/airlock/access_controller{
@@ -10335,7 +9802,6 @@
 /obj/machinery/light_switch{
 	dir = 2;
 	name = "light switch ";
-	pixel_x = 0;
 	pixel_y = -22
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -10413,9 +9879,8 @@
 	},
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "rX" = (
-/obj/structure/window/full/plastitanium,
-/obj/structure/grille,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "rY" = (
@@ -10452,8 +9917,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -10467,8 +9931,7 @@
 	desc = "A warning sign which reads 'HIGH VOLTAGE'";
 	icon_state = "shock";
 	name = "HIGH VOLTAGE";
-	pixel_x = 32;
-	pixel_y = 0
+	pixel_x = 32
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -10536,7 +9999,6 @@
 	master_tag = "dsbss_incinerator2";
 	name = "interior access button";
 	pixel_x = 25;
-	pixel_y = 0;
 	req_access_txt = "0"
 	},
 /obj/structure/cable/yellow{
@@ -10580,8 +10042,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/hydroponics)
 "si" = (
-/obj/structure/window/full/plastitanium,
-/obj/structure/grille,
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/hydroponics)
 "sj" = (
@@ -10596,8 +10057,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -10612,8 +10072,7 @@
 	},
 /area/awaymission/DSBSSigma/janitorial)
 "sl" = (
-/obj/structure/window/full/plastitanium,
-/obj/structure/grille,
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/virology_lab)
 "sm" = (
@@ -10691,8 +10150,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/fluff/utility,
@@ -10761,14 +10219,11 @@
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "sy" = (
 /obj/machinery/atmospherics/trinary/mixer{
-	dir = 2;
 	name = "Gas mixer (N2/O2)";
 	node1_concentration = 0.8;
 	node2_concentration = 0.2;
 	on = 1;
-	pixel_x = 0;
-	pixel_y = 0;
-	target_pressure = 4500
+	target_pressure = 2000
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -10836,6 +10291,10 @@
 	initialize_directions = 3;
 	level = 2
 	},
+/obj/effect/landmark/away/dsbssigma{
+	color = "#ffc800";
+	name = "dsbssigma_toolbox"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -10844,7 +10303,6 @@
 /obj/machinery/light_switch{
 	dir = 2;
 	name = "light switch";
-	pixel_x = 0;
 	pixel_y = 22
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -10974,8 +10432,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -11036,6 +10493,16 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/camera{
+	c_tag = "Botany Lockdown";
+	dir = 8;
+	network = list("Sigma");
+	pixel_y = -16
+	},
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
 	},
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
@@ -11159,7 +10626,6 @@
 	master_tag = "dsbss_incinerator2";
 	name = "exterior access button";
 	pixel_x = 25;
-	pixel_y = 0;
 	req_access_txt = "0"
 	},
 /turf/simulated/floor/engine,
@@ -11175,8 +10641,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -11236,7 +10701,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/wall/indestructible/rock/asteroid,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "rampbottom";
+	tag = "icon-stage_stairs"
+	},
 /area/awaymission/DSBSSigma/cave_junction_west)
 "th" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -11354,8 +10824,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -11432,8 +10901,7 @@
 "tt" = (
 /obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9;
-	pixel_y = 0
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -11564,7 +11032,6 @@
 /obj/machinery/light_switch{
 	dir = 2;
 	name = "light switch ";
-	pixel_x = 0;
 	pixel_y = -22
 	},
 /obj/machinery/disposal,
@@ -11638,19 +11105,18 @@
 "tF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor{
-	id_tag = "dsbss_lockdown_blast";
-	name = "Emergency Lockdown"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "dsbss_lockdown_blast_botany";
+	name = "Emergency Lockdown"
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/lockdown)
 "tG" = (
@@ -11776,8 +11242,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -11798,12 +11263,10 @@
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "tU" = (
 /obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 0
+	dir = 4
 	},
 /obj/structure/sign/fire{
-	pixel_x = 32;
-	pixel_y = 0
+	pixel_x = 32
 	},
 /turf/simulated/floor/engine,
 /area/awaymission/DSBSSigma/engineering_lifesupport)
@@ -11879,13 +11342,16 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/plating{
+	icon_plating = "asteroidplating";
+	icon_state = "asteroidplating";
+	name = "compacted asteroid sand"
+	},
 /area/awaymission/DSBSSigma/cave_junction_west)
 "ud" = (
 /obj/structure/disposalpipe/segment{
@@ -11947,19 +11413,18 @@
 	name = "Garden"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor{
-	id_tag = "dsbss_lockdown_blast";
-	name = "Emergency Lockdown"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "dsbss_lockdown_blast_botany";
+	name = "Emergency Lockdown"
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/lockdown)
 "ui" = (
@@ -12028,8 +11493,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -12043,8 +11507,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -12080,8 +11543,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/hydroponics)
@@ -12096,7 +11558,6 @@
 	name = "DSBSS Holding Cells";
 	operating = 1;
 	pixel_x = -24;
-	pixel_y = 0;
 	req_access = null;
 	req_access_txt = "0";
 	start_charge = 0
@@ -12174,16 +11635,14 @@
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_west)
 "ux" = (
-/obj/structure/window/full/plastitanium,
-/obj/structure/grille,
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/disposal)
 "uy" = (
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -12221,8 +11680,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers{
 	dir = 5
@@ -12401,8 +11859,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -12448,7 +11905,6 @@
 /obj/machinery/light_switch{
 	dir = 2;
 	name = "light switch ";
-	pixel_x = 0;
 	pixel_y = 22
 	},
 /obj/structure/reagent_dispensers/fueltank,
@@ -12484,8 +11940,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/rock/pile,
@@ -12530,7 +11985,6 @@
 	dir = 4;
 	name = "DSBSS Hydroponics";
 	pixel_x = 24;
-	pixel_y = 0;
 	req_access = null;
 	req_access_txt = "271";
 	start_charge = 0
@@ -12546,8 +12000,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4;
@@ -12575,8 +12028,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4;
@@ -12608,8 +12060,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9;
@@ -12653,7 +12104,6 @@
 	opened = 1;
 	operating = 0;
 	pixel_x = 24;
-	pixel_y = 0;
 	req_access = null;
 	req_access_txt = "0";
 	start_charge = 0
@@ -12883,8 +12333,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/flora/rock/pile,
@@ -12930,14 +12379,12 @@
 /obj/machinery/light_switch{
 	dir = 2;
 	name = "light switch ";
-	pixel_x = 0;
 	pixel_y = 22
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 4;
 	name = "DSBSS Disposal";
 	pixel_x = 24;
-	pixel_y = 0;
 	req_access = null;
 	req_access_txt = "271";
 	start_charge = 0
@@ -13062,8 +12509,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -13084,8 +12530,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
@@ -13129,8 +12574,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/engineering_lifesupport)
@@ -13201,10 +12645,7 @@
 /area/awaymission/DSBSSigma/mech_bay)
 "vU" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/turf/simulated/wall/mineral/plastitanium,
-/area/awaymission/DSBSSigma/engineering_lifesupport)
-"vV" = (
-/turf/simulated/wall/mineral/plastitanium,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "vW" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
@@ -13527,6 +12968,10 @@
 	icon_state = "0-8"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/away/dsbssigma{
+	color = "#ffc800";
+	name = "dsbssigma_toolbox"
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/engineering_lifesupport)
 "wz" = (
@@ -13574,6 +13019,13 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/cave_junction_east)
+"wD" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/carpet/black,
+/area/awaymission/DSBSSigma/overseer)
 "wE" = (
 /obj/structure/plasticflaps,
 /obj/machinery/conveyor/south{
@@ -13587,8 +13039,7 @@
 /area/awaymission/DSBSSigma/mining)
 "wF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9;
-	pixel_y = 0
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -13737,8 +13188,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -13913,7 +13363,6 @@
 	id = "dsbss_inc_in2"
 	},
 /obj/structure/sign/vacuum/external{
-	pixel_x = 0;
 	pixel_y = -32
 	},
 /turf/simulated/floor/engine,
@@ -13965,8 +13414,7 @@
 	dir = 1
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -32;
-	pixel_y = 0
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -14008,8 +13456,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/fluff/utility,
@@ -14146,8 +13593,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
@@ -14230,8 +13676,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -14306,6 +13751,24 @@
 	icon_state = "tranquillite"
 	},
 /area/awaymission/DSBSSigma/kitchen)
+"xY" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/wall/indestructible/rock/asteroid,
+/area/awaymission/DSBSSigma/cave_junction_north)
 "xZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/drip{
@@ -14329,7 +13792,6 @@
 	dir = 4;
 	name = "DSBSS East Cave Junction";
 	pixel_x = 24;
-	pixel_y = 0;
 	req_access = null;
 	req_access_txt = "271";
 	start_charge = 0
@@ -14364,8 +13826,7 @@
 /area/awaymission/DSBSSigma/cave_junction_west)
 "ye" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9;
-	pixel_y = 0
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -14403,8 +13864,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/fluff/utility,
@@ -14511,8 +13971,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -14542,8 +14001,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -14557,8 +14015,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 0
+	icon_state = "0-2"
 	},
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
@@ -14575,8 +14032,7 @@
 "yB" = (
 /obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9;
-	pixel_y = 0
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -14591,8 +14047,7 @@
 	icon_state = "pipe-c"
 	},
 /obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
+	dir = 4
 	},
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
@@ -14614,8 +14069,7 @@
 "yF" = (
 /obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9;
-	pixel_y = 0
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -14664,8 +14118,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/fluff/utility,
@@ -14696,8 +14149,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -14963,7 +14415,6 @@
 	dir = 4;
 	name = "DSBSS West Cave Junction";
 	pixel_x = 24;
-	pixel_y = 0;
 	req_access = null;
 	req_access_txt = "271";
 	start_charge = 0
@@ -15004,6 +14455,10 @@
 /area/awaymission/DSBSSigma/mech_bay)
 "zu" = (
 /obj/machinery/atmospherics/pipe/simple/visible/supply,
+/obj/effect/landmark/away/dsbssigma{
+	color = "#ffc800";
+	name = "dsbssigma_toolbox"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -15097,20 +14552,17 @@
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/mess_hall)
 "zE" = (
-/obj/structure/window/full/plastitanium,
-/obj/structure/grille,
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/dormitories)
 "zF" = (
-/obj/structure/window/full/plastitanium,
-/obj/structure/grille,
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/mess_hall)
 "zG" = (
 /obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9;
-	pixel_y = 0
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -15169,14 +14621,13 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor{
+/obj/machinery/door/poddoor/impassable{
 	id_tag = "dsbss_lockdown_blast";
 	name = "Emergency Lockdown"
 	},
@@ -15199,7 +14650,6 @@
 	dir = 4;
 	name = "DSBSS Kitchen";
 	pixel_x = 24;
-	pixel_y = 0;
 	req_access = null;
 	req_access_txt = "271";
 	start_charge = 0
@@ -15301,14 +14751,6 @@
 	},
 /area/awaymission/DSBSSigma/mess_hall)
 "Aa" = (
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4;
-	level = 1
-	},
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
 	name = "DSBSS Restroom";
@@ -15318,6 +14760,15 @@
 	start_charge = 0
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4;
+	level = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -15490,8 +14941,7 @@
 "Ao" = (
 /obj/structure/fluff/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9;
-	pixel_y = 0
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -15520,8 +14970,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -15610,8 +15059,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -15672,8 +15120,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -15693,8 +15140,7 @@
 	dir = 1
 	},
 /obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = 0
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -15703,8 +15149,7 @@
 /area/awaymission/DSBSSigma/mess_hall)
 "AJ" = (
 /obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 0
+	pixel_x = -24
 	},
 /turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/kitchen)
@@ -15752,8 +15197,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/barricade/sandbags,
 /obj/effect/decal/cleanable/dirt,
@@ -15825,8 +15269,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating{
 	icon_plating = "asteroidplating";
@@ -15999,8 +15442,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
@@ -16022,8 +15464,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -16069,14 +15510,11 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/DSBSSigma/exterior)
-"Bu" = (
-/turf/simulated/wall/indestructible/pt_wall,
-/area/awaymission/DSBSSigma/armory)
 "Bv" = (
 /turf/simulated/wall/indestructible/rock/asteroid,
 /area/awaymission/DSBSSigma/armory)
 "Bw" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/indestructible/pt_wall,
 /area/awaymission/DSBSSigma/armory)
 "Bx" = (
 /obj/structure/table/wood,
@@ -16100,9 +15538,6 @@
 	name = "compacted asteroid sand"
 	},
 /area/awaymission/DSBSSigma/cave_junction_west)
-"Bz" = (
-/turf/simulated/wall/indestructible/pt_wall,
-/area/awaymission/DSBSSigma/dormitories)
 "BA" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -16283,16 +15718,15 @@
 	},
 /area/awaymission/DSBSSigma/cave_junction_west)
 "BV" = (
-/obj/structure/window/full/plastitanium,
-/obj/structure/grille,
 /obj/structure/barricade/wooden/crude{
 	layer = 3.5
 	},
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/armory)
 "BW" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor{
+/obj/machinery/door/poddoor/impassable{
 	id_tag = "dsbss_lockdown_blast";
 	name = "Emergency Lockdown"
 	},
@@ -16337,8 +15771,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -16635,8 +16068,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -16726,8 +16158,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -16807,8 +16238,7 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9;
-	pixel_y = 0
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -17230,8 +16660,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -17249,8 +16678,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -17501,14 +16929,12 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -17674,8 +17100,7 @@
 /area/awaymission/DSBSSigma/dormitories)
 "Ee" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -32;
-	pixel_y = 0
+	pixel_x = -32
 	},
 /obj/effect/decal/cleanable/generic,
 /obj/structure/fluff/utility/lattice,
@@ -17822,8 +17247,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
@@ -17837,8 +17261,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/item/ammo_casing/c10mm/spent,
 /obj/structure/disposalpipe/segment{
@@ -17957,6 +17380,26 @@
 	icon_state = "vault"
 	},
 /area/awaymission/DSBSSigma/dormitories)
+"EE" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4;
+	level = 1
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "vault"
+	},
+/area/awaymission/DSBSSigma/dormitories)
 "EF" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4;
@@ -18044,8 +17487,7 @@
 /area/awaymission/DSBSSigma/hydroponics)
 "EL" = (
 /obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = 0
+	pixel_x = 24
 	},
 /obj/effect/decal/cleanable/blood/xeno/splatter{
 	color = "green"
@@ -18078,6 +17520,26 @@
 	icon_state = "dark"
 	},
 /area/awaymission/DSBSSigma/cave_junction_west)
+"EP" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4;
+	level = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
 "EQ" = (
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "Living Quarters";
@@ -18100,8 +17562,7 @@
 "ES" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = 0
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -18112,8 +17573,7 @@
 	icon_state = "plant-22"
 	},
 /obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 0
+	pixel_x = -24
 	},
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -32
@@ -18231,6 +17691,16 @@
 	icon_state = "tranquillite"
 	},
 /area/awaymission/DSBSSigma/kitchen)
+"Fj" = (
+/obj/structure/bookcase/random/reference,
+/obj/effect/decal/cleanable/cobweb2,
+/obj/machinery/camera{
+	c_tag = "Overseers Quarters";
+	network = list("Sigma");
+	pixel_x = 23
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
 "Fk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4;
@@ -18244,8 +17714,14 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/wall/indestructible/rock/asteroid,
-/area/awaymission/DSBSSigma/dormitories)
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "dsbss_lockdown_blast_dorms";
+	name = "Emergency Lockdown"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/awaymission/DSBSSigma/lockdown)
 "Fm" = (
 /obj/structure/sign/poster/contraband/syndicate_recruitment{
 	pixel_y = -32
@@ -18281,7 +17757,7 @@
 	id = "dsbss_armory_hardsuit_blast";
 	name = "Hardsuit Storage Door Control";
 	pixel_x = -6;
-	pixel_y = -28;
+	pixel_y = -24;
 	req_access_txt = "271"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -18344,8 +17820,7 @@
 /area/awaymission/DSBSSigma/armory)
 "Fs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9;
-	pixel_y = 0
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -18471,6 +17946,14 @@
 	icon_state = "dark"
 	},
 /area/awaymission/DSBSSigma/dormitories)
+"FH" = (
+/obj/structure/chair/comfy/black,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood{
+	broken = 1;
+	icon_state = "wood-broken"
+	},
+/area/awaymission/DSBSSigma/overseer)
 "FI" = (
 /obj/machinery/light/small{
 	dir = 1;
@@ -18499,8 +17982,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -18554,6 +18036,14 @@
 	icon_state = "tranquillite"
 	},
 /area/awaymission/DSBSSigma/kitchen)
+"FT" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/carpet/black,
+/area/awaymission/DSBSSigma/overseer)
 "FU" = (
 /obj/structure/lattice,
 /obj/structure/flora/rock/pile,
@@ -18698,8 +18188,7 @@
 /obj/structure/sink{
 	dir = 8;
 	icon_state = "sink";
-	pixel_x = -12;
-	pixel_y = 0
+	pixel_x = -12
 	},
 /obj/structure/mirror{
 	pixel_x = -28
@@ -18746,6 +18235,11 @@
 	level = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -18756,6 +18250,11 @@
 	level = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -18763,6 +18262,11 @@
 "Gp" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -18772,6 +18276,18 @@
 /obj/machinery/light/small{
 	dir = 4;
 	pixel_y = 8
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/noalarm{
+	dir = 1;
+	name = "DSBSS Restroom";
+	pixel_y = 24;
+	req_access = null;
+	req_access_txt = "271";
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -18822,6 +18338,12 @@
 	icon_state = "tranquillite"
 	},
 /area/awaymission/DSBSSigma/kitchen)
+"Gv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/structure/flora/rock/pile,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/cave_junction_north)
 "Gw" = (
 /obj/structure/flora/rock/pile,
 /obj/effect/decal/cleanable/dirt,
@@ -18858,6 +18380,13 @@
 /obj/item/trash/syndi_cakes,
 /obj/item/trash/syndi_cakes,
 /obj/item/trash/tastybread,
+/obj/machinery/door_control{
+	id = "dsbss_armory_hardsuit_blast";
+	name = "Hardsuit Storage Door Control";
+	pixel_x = -6;
+	pixel_y = 24;
+	req_access_txt = "271"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -19187,7 +18716,6 @@
 	name = "Door Bolt Control";
 	normaldoorcontrol = 1;
 	pixel_x = -25;
-	pixel_y = 0;
 	req_access_txt = "0";
 	specialfunctions = 4
 	},
@@ -19252,7 +18780,6 @@
 	name = "Door Bolt Control";
 	normaldoorcontrol = 1;
 	pixel_x = 25;
-	pixel_y = 0;
 	req_access_txt = "0";
 	specialfunctions = 4
 	},
@@ -19491,8 +19018,11 @@
 	pixel_y = 6;
 	req_access_txt = "0"
 	},
-/obj/item/twohanded/fireaxe,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/away/dsbssigma{
+	color = "#ffc800";
+	name = "dsbssigma_fireaxe"
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/DSBSSigma/dormitories)
 "HV" = (
@@ -19800,6 +19330,36 @@
 "IT" = (
 /turf/simulated/mineral/asteroid/loose/cave/cracked,
 /area/awaymission/DSBSSigma/cave_junction_west)
+"Jz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/ammo_casing/c45/spent,
+/obj/item/ammo_casing/c45/spent,
+/obj/item/ammo_casing/c45/spent,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4;
+	level = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/fluff/utility,
+/turf/simulated/floor/plating{
+	icon_plating = "asteroidplating";
+	icon_state = "asteroidplating";
+	name = "compacted asteroid sand"
+	},
+/area/awaymission/DSBSSigma/cave_junction_north)
+"JC" = (
+/turf/simulated/wall/indestructible/pt_wall,
+/area/awaymission/DSBSSigma/dormitories)
 "JD" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds,
@@ -19808,6 +19368,13 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
+"JE" = (
+/obj/structure/flora/rock/pile,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken3";
+	tag = "icon-wood-broken3"
+	},
+/area/awaymission/DSBSSigma/overseer)
 "JS" = (
 /obj/structure/alien/weeds,
 /obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_guard,
@@ -19820,17 +19387,110 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
-"KG" = (
-/obj/structure/alien/weeds,
-/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_50pc,
-/obj/structure/flora/rock/pile,
+"Kk" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "Overseers Office";
+	req_access_txt = "271"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4;
+	level = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
+"Kv" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/table/wood,
+/obj/item/paper_bin,
+/obj/item/pen/multi,
+/turf/simulated/floor/carpet/black,
+/area/awaymission/DSBSSigma/overseer)
+"KK" = (
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
+/area/awaymission/DSBSSigma/surgery)
+"Ld" = (
+/obj/structure/grille,
+/obj/machinery/door/firedoor,
+/obj/item/shard,
+/obj/item/shard{
+	icon_state = "small";
+	pixel_x = 4;
+	pixel_y = -4
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/DSBSSigma/overseer)
+"Lf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/table/wood,
+/obj/machinery/door_control{
+	id = "dsbss_armory_delta_blast";
+	name = "Delta Armory Door Control";
+	pixel_x = 5;
+	pixel_y = 8;
+	req_access_txt = "271"
+	},
+/obj/machinery/light,
+/obj/machinery/door_control/away/button_single_use/dsbssigma_lockdown_random{
+	pixel_x = 5;
+	pixel_y = -2
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
 "Ln" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/egg/burst,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
+"Lx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/flora/rock/pile,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/cave_junction_north)
+"LG" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/wall/indestructible/pt_wall,
+/area/awaymission/DSBSSigma/lockdown)
+"LR" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "rampbottom";
+	tag = "icon-stage_stairs"
+	},
+/area/awaymission/DSBSSigma/cave_junction_north)
 "Mb" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds,
@@ -19841,6 +19501,12 @@
 	icon = 'icons/effects/blood.dmi';
 	icon_state = "tracks"
 	},
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Md" = (
+/obj/structure/alien/weeds,
+/obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_50pc,
+/obj/structure/flora/rock/pile,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
 "Me" = (
@@ -19864,6 +19530,45 @@
 	},
 /turf/space,
 /area/awaymission/DSBSSigma/exterior)
+"MB" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "Overseers Quarters";
+	req_access_txt = "271"
+	},
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "dsbss_overseersquarters_blast";
+	name = "Overseers Quarters Lockdown"
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/lockdown)
+"MC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/flora/rock/pile,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken6";
+	tag = "icon-wood-broken6"
+	},
+/area/awaymission/DSBSSigma/overseer)
+"MS" = (
+/obj/machinery/power/apc/noalarm{
+	dir = 1;
+	name = "DSBSS Overseers Office";
+	pixel_y = 24;
+	req_access = null;
+	req_access_txt = "271";
+	start_charge = 0
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/structure/fluff/utility/lattice{
+	icon_state = "3-sw"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
 "Nd" = (
 /obj/item/stack/rods,
 /obj/structure/fluff/utility/broken/smooth{
@@ -19893,6 +19598,19 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
+"Nl" = (
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "dsbss_lockdown_blast_dorms";
+	name = "Emergency Lockdown"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/awaymission/DSBSSigma/lockdown)
+"Nr" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall/indestructible/rock/asteroid,
+/area/awaymission/DSBSSigma/cave_junction_north)
 "NG" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/flora/rock/pile,
@@ -19903,6 +19621,55 @@
 /obj/item/stack/rods,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/DSBSSigma/exterior)
+"NQ" = (
+/obj/structure/fluff/utility/lattice{
+	icon_state = "4-se"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
+"NW" = (
+/turf/simulated/floor/carpet/black,
+/area/awaymission/DSBSSigma/overseer)
+"Od" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/fluff/utility,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/camera{
+	c_tag = "Research Lockdown";
+	network = list("Sigma");
+	pixel_x = 19
+	},
+/obj/machinery/light/small{
+	dir = 1;
+	pixel_x = -8
+	},
+/turf/simulated/floor/plating{
+	icon_plating = "asteroidplating";
+	icon_state = "asteroidplating";
+	name = "compacted asteroid sand"
+	},
+/area/awaymission/DSBSSigma/cave_junction_west)
+"OH" = (
+/obj/structure/safe/floor,
+/obj/effect/spawner/random_spawners/away/dsbssigma/loot/safe_loot_high,
+/obj/effect/spawner/random_spawners/away/dsbssigma/loot/safe_loot_low,
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
+"OI" = (
+/turf/simulated/wall/indestructible/rock/asteroid,
+/area/awaymission/DSBSSigma/holding_cells)
+"Pl" = (
+/obj/structure/flora/rock,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/surgery)
 "Pp" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
@@ -19921,6 +19688,50 @@
 /obj/structure/alien/weeds/node,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
+"Pz" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/item/paper/dsbssigma/note1,
+/obj/structure/fluff/utility/lattice{
+	icon_state = "1-nw"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table_frame/wood,
+/obj/item/stack/sheet/wood,
+/turf/simulated/floor/carpet/black,
+/area/awaymission/DSBSSigma/overseer)
+"PF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "dsbss_lockdown_blast";
+	name = "Emergency Lockdown"
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/DSBSSigma/lockdown)
+"PI" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/wall/indestructible/rock/asteroid,
+/area/awaymission/DSBSSigma/cave_junction_north)
 "PU" = (
 /obj/structure/alien/weeds/node,
 /obj/effect/landmark/away/dsbssigma{
@@ -19929,10 +19740,45 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
+"PX" = (
+/obj/machinery/computer/security{
+	network = list("Sigma")
+	},
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
 "Qg" = (
 /obj/structure/flora/rock,
 /obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/awaymission/DSBSSigma/exterior)
+"Qq" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/gibs,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Qx" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/wall/indestructible/rock/asteroid,
+/area/awaymission/DSBSSigma/overseer)
+"QD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/away/dsbssigma{
+	color = "#ffc800";
+	name = "dsbssigma_fireaxe"
+	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/DSBSSigma/exterior)
 "QT" = (
@@ -19944,17 +19790,55 @@
 	},
 /turf/space,
 /area/awaymission/DSBSSigma/exterior)
-"Rg" = (
-/obj/structure/alien/weeds,
-/obj/effect/decal/cleanable/blood/gibs,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
+"Rh" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4;
+	level = 1
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/flora/rock/pile,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "vault"
+	},
+/area/awaymission/DSBSSigma/dormitories)
 "Ri" = (
 /obj/structure/alien/weeds,
 /obj/structure/flora/rock/pile,
 /obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_30pc,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
+"Rs" = (
+/obj/structure/dresser,
+/turf/simulated/floor/wood{
+	broken = 1;
+	icon_state = "wood-broken"
+	},
+/area/awaymission/DSBSSigma/overseer)
+"Rv" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = -24
+	},
+/obj/structure/flora/rock/pile,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken2";
+	tag = "icon-wood-broken2"
+	},
+/area/awaymission/DSBSSigma/overseer)
+"Rz" = (
+/turf/simulated/wall/indestructible/rock/asteroid,
+/area/awaymission/DSBSSigma/overseer)
 "RH" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds,
@@ -19967,11 +19851,64 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
+"RI" = (
+/turf/simulated/wall/indestructible/pt_wall,
+/area/awaymission/DSBSSigma/lockdown)
+"RJ" = (
+/obj/structure/flora/rock/pile,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken7";
+	tag = "icon-wood-broken7"
+	},
+/area/awaymission/DSBSSigma/overseer)
+"RZ" = (
+/obj/effect/decal/cleanable/cobweb,
+/mob/living/simple_animal/hostile/asteroid/basilisk,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/surgery)
+"Sb" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/awaymission/DSBSSigma/chemistry_lab)
 "Sk" = (
 /obj/structure/lattice,
 /obj/effect/decal/cleanable/dirt,
 /turf/space,
 /area/awaymission/DSBSSigma/exterior)
+"Sl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/awaymission/DSBSSigma/cave_junction_north)
 "Ss" = (
 /obj/structure/fluff/utility/broken/smooth{
 	desc = "A broken section of catwalk.";
@@ -19980,16 +19917,75 @@
 	},
 /turf/space,
 /area/awaymission/DSBSSigma/exterior)
+"SM" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/flora/rock/pile,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/awaymission/DSBSSigma/cave_junction_north)
 "ST" = (
 /obj/structure/alien/weeds,
 /obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
+"Tj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/ammo_casing/c10mm/spent,
+/obj/item/ammo_casing/c10mm/spent,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4;
+	level = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/fluff/utility,
+/turf/simulated/floor/plating{
+	icon_plating = "asteroidplating";
+	icon_state = "asteroidplating";
+	name = "compacted asteroid sand"
+	},
+/area/awaymission/DSBSSigma/cave_junction_north)
+"Tq" = (
+/obj/structure/displaycase/telecrystal/dsbssigma,
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
+"Ts" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
 "Tt" = (
 /obj/structure/flora/rock/pile,
 /obj/item/stack/rods,
 /turf/space,
 /area/space)
+"Tv" = (
+/obj/structure/flora/rock/pile,
+/turf/simulated/wall/indestructible/rock/asteroid,
+/area/awaymission/DSBSSigma/cave_junction_north)
+"TB" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood{
+	broken = 1;
+	icon_state = "wood-broken"
+	},
+/area/awaymission/DSBSSigma/overseer)
 "TK" = (
 /obj/structure/alien/weeds,
 /obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_30pc,
@@ -20001,6 +19997,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/space,
 /area/awaymission/DSBSSigma/exterior)
+"Uh" = (
+/obj/effect/spawner/random_spawners/away/dsbssigma/randomizer,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/awaymission/DSBSSigma/mission_control)
 "Us" = (
 /obj/item/stack/rods,
 /obj/structure/fluff/utility/broken/smooth{
@@ -20010,6 +20012,38 @@
 	},
 /turf/space,
 /area/awaymission/DSBSSigma/exterior)
+"Ut" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/fluff/utility,
+/turf/simulated/floor/plating{
+	icon_plating = "asteroidplating";
+	icon_state = "asteroidplating";
+	name = "compacted asteroid sand"
+	},
+/area/awaymission/DSBSSigma/caverns)
+"Va" = (
+/obj/structure/filingcabinet,
+/obj/machinery/alarm{
+	dir = 8;
+	icon_state = "alarm0";
+	pixel_x = 24
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
 "Vd" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds,
@@ -20021,12 +20055,6 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
-"Vq" = (
-/obj/structure/alien/weeds,
-/obj/structure/alien/weeds,
-/obj/effect/decal/cleanable/blood/gibs,
-/turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
 "Vv" = (
 /obj/structure/flora/rock/pile,
 /turf/space,
@@ -20036,6 +20064,19 @@
 /obj/structure/bed/nest,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
+"VO" = (
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "dsbss_lockdown_blast_research";
+	name = "Emergency Lockdown"
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/DSBSSigma/lockdown)
+"VX" = (
+/obj/item/bedsheet/syndie,
+/obj/structure/bed,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
 "VY" = (
 /obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood/tracks{
@@ -20047,9 +20088,32 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
+"Wd" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
 "Wp" = (
 /obj/structure/alien/weeds,
 /obj/structure/flora/rock/pile,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Wr" = (
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "dsbss_lockdown_blast";
+	name = "Emergency Lockdown"
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/DSBSSigma/lockdown)
+"Wv" = (
+/obj/structure/alien/weeds,
+/obj/structure/bed/nest,
+/obj/effect/landmark/away/dsbssigma{
+	color = "#ffc800";
+	name = "dsbssigma_miner"
+	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
 "WA" = (
@@ -20075,19 +20139,66 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
-"XE" = (
-/obj/structure/alien/weeds,
-/obj/structure/bed/nest,
-/obj/effect/landmark/away/dsbssigma{
-	color = "#ffc800";
-	name = "dsbssigma_miner"
-	},
+"Xb" = (
+/obj/structure/flora/rock,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/asteroid,
-/area/awaymission/DSBSSigma/hive)
-"Yq" = (
-/turf/simulated/mineral/asteroid/loose/cave,
-/area/awaymission/DSBSSigma/cave_junction_east)
-"Yr" = (
+/area/awaymission/DSBSSigma/cave_junction_north)
+"Xd" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4;
+	level = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/wall/indestructible/rock/asteroid,
+/area/awaymission/DSBSSigma/overseer)
+"Xf" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp/green{
+	on = 0
+	},
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken2";
+	tag = "icon-wood-broken2"
+	},
+/area/awaymission/DSBSSigma/overseer)
+"Xj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/structure/flora/rock,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/cave_junction_north)
+"XF" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/awaymission/DSBSSigma/overseer)
+"XK" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-22"
+	},
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
+"XM" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/wall/indestructible/pt_wall,
+/area/awaymission/DSBSSigma/lockdown)
+"XP" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
 /obj/effect/landmark/away/dsbssigma{
@@ -20097,6 +20208,53 @@
 /obj/effect/spawner/random_spawners/away/dsbssigma/mob/dead_monkey_50pc,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
+"XS" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
+"Yh" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10;
+	initialize_directions = 10;
+	level = 1
+	},
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/obj/structure/fluff/utility/lattice,
+/obj/item/stack/tile,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/carpet/black,
+/area/awaymission/DSBSSigma/overseer)
+"Yi" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/awaymission/DSBSSigma/cave_junction_north)
+"Yq" = (
+/turf/simulated/mineral/asteroid/loose/cave,
+/area/awaymission/DSBSSigma/cave_junction_east)
+"Yu" = (
+/mob/living/simple_animal/hostile/asteroid/basilisk,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/caverns)
+"Yw" = (
+/obj/structure/flora/rock/pile,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/surgery)
+"YD" = (
+/obj/structure/chair/comfy/black{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/awaymission/DSBSSigma/overseer)
+"YG" = (
+/turf/simulated/wall/indestructible/pt_wall,
+/area/awaymission/DSBSSigma/overseer)
 "YN" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/fluff/utility/broken/smooth{
@@ -20106,11 +20264,31 @@
 	},
 /turf/space,
 /area/awaymission/DSBSSigma/exterior)
+"YQ" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/fluff/utility,
+/turf/simulated/floor/plating{
+	icon_plating = "asteroidplating";
+	icon_state = "asteroidplating";
+	name = "compacted asteroid sand"
+	},
+/area/awaymission/DSBSSigma/caverns)
 "YX" = (
 /obj/structure/alien/weeds,
 /obj/structure/flora/rock,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
+"Za" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/awaymission/DSBSSigma/hangar_eva)
 "Zb" = (
 /obj/structure/alien/resin,
 /obj/structure/alien/weeds,
@@ -20124,22 +20302,45 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
+"Zh" = (
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/gibs,
+/turf/simulated/floor/plating/asteroid,
+/area/awaymission/DSBSSigma/hive)
+"Zi" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/awaymission/DSBSSigma/chemistry_lab)
+"Zk" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk,
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/wood,
+/area/awaymission/DSBSSigma/overseer)
 "Zn" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/indestructible/rock/asteroid,
-/area/awaymission/DSBSSigma/hangar)
-"Zr" = (
-/obj/effect/spawner/random_spawners/away/dsbssigma/randomizer,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/awaymission/DSBSSigma/mission_control)
+/turf/simulated/mineral/asteroid/loose/cave/cracked,
+/area/awaymission/DSBSSigma/holding_cells)
 "Zu" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds,
 /obj/effect/spawner/random_spawners/away/dsbssigma/mob/alien_50pc,
 /turf/simulated/floor/plating/asteroid,
 /area/awaymission/DSBSSigma/hive)
+"Zv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "dsbss_lockdown_blast_research";
+	name = "Emergency Lockdown"
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/DSBSSigma/lockdown)
+"Zz" = (
+/turf/simulated/wall/indestructible/rock/asteroid,
+/area/awaymission/DSBSSigma/surgery)
+"ZB" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/awaymission/DSBSSigma/overseer)
 "ZJ" = (
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plating/asteroid,
@@ -20148,11 +20349,67 @@
 /obj/item/stack/rods,
 /turf/space,
 /area/awaymission/DSBSSigma/exterior)
+"ZO" = (
+/obj/structure/fluff/utility,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4;
+	level = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/flora/rock/pile,
+/turf/simulated/floor/plating{
+	icon_plating = "asteroidplating";
+	icon_state = "asteroidplating";
+	name = "compacted asteroid sand"
+	},
+/area/awaymission/DSBSSigma/cave_junction_north)
 "ZS" = (
 /obj/structure/flora/rock,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/DSBSSigma/exterior)
+"ZU" = (
+/obj/structure/fluff/utility,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/disposalpipe/junction{
+	dir = 8;
+	icon_state = "pipe-j2";
+	tag = "icon-pipe-j1 (WEST)"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1;
+	level = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1;
+	initialize_directions = 14;
+	tag = "icon-manifold-r-f (NORTH)"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plating{
+	icon_plating = "asteroidplating";
+	icon_state = "asteroidplating";
+	name = "compacted asteroid sand"
+	},
+/area/awaymission/DSBSSigma/cave_junction_north)
 
 (1,1,1) = {"
 aa
@@ -22942,7 +23199,7 @@ ZJ
 ZJ
 ZJ
 ZJ
-Yr
+XP
 Zb
 Zb
 ai
@@ -23099,7 +23356,7 @@ ZJ
 Wp
 Pr
 ZJ
-Vq
+Qq
 Ln
 Zb
 Zb
@@ -23381,7 +23638,7 @@ Zb
 Zb
 Zb
 Ln
-Yr
+XP
 Zb
 Zb
 Zb
@@ -23395,7 +23652,7 @@ Zb
 Zb
 Zb
 Zb
-Yr
+XP
 TK
 ZJ
 ZJ
@@ -23538,7 +23795,7 @@ YX
 ZJ
 Wp
 WA
-Rg
+Zh
 ZJ
 ZJ
 Zb
@@ -23574,7 +23831,7 @@ Nj
 Zc
 ZJ
 TK
-Yr
+XP
 Zb
 ai
 ai
@@ -23681,7 +23938,7 @@ ai
 ai
 Zb
 Zb
-Yr
+XP
 Zb
 Zb
 ai
@@ -23838,7 +24095,7 @@ ai
 Zb
 Zb
 Pp
-Rg
+Zh
 Ln
 Zb
 ai
@@ -23886,7 +24143,7 @@ Zb
 Zb
 Ln
 JS
-Rg
+Zh
 IQ
 Ln
 Zb
@@ -24043,7 +24300,7 @@ ai
 Zb
 Zb
 Zb
-XE
+Wv
 Ln
 Zb
 Zb
@@ -24184,7 +24441,7 @@ ZJ
 ZJ
 Zb
 Zb
-Yr
+XP
 ZJ
 ZJ
 Zb
@@ -24305,8 +24562,8 @@ ai
 ai
 ai
 Zb
-XE
-Rg
+Wv
+Zh
 Wp
 ZJ
 ZJ
@@ -24643,8 +24900,8 @@ Zb
 ai
 Zb
 Zb
-XE
-Rg
+Wv
+Zh
 ZJ
 ZJ
 YX
@@ -25247,7 +25504,7 @@ ai
 ai
 Zb
 Zb
-Yr
+XP
 ZJ
 ZJ
 ZJ
@@ -25616,8 +25873,8 @@ Ln
 ZJ
 Zc
 Kc
-Rg
-Yr
+Zh
+XP
 Zb
 ai
 ai
@@ -25760,8 +26017,8 @@ ai
 ai
 ai
 Zb
-XE
-Rg
+Wv
+Zh
 ZJ
 ZJ
 ZJ
@@ -25774,7 +26031,7 @@ ZJ
 ZJ
 ZJ
 ZJ
-XE
+Wv
 Zb
 ai
 ai
@@ -25890,7 +26147,7 @@ ZJ
 Kc
 ZJ
 Zb
-KG
+Md
 ZJ
 ZJ
 YX
@@ -26022,7 +26279,7 @@ ai
 fN
 gk
 hb
-iF
+iE
 ur
 iE
 hb
@@ -26047,8 +26304,8 @@ ST
 ZJ
 Zb
 Zb
-Yr
-Rg
+XP
+Zh
 Ln
 Zb
 Zb
@@ -26177,7 +26434,7 @@ ai
 ai
 ai
 fR
-fR
+Zn
 hc
 gK
 ig
@@ -26205,7 +26462,7 @@ ZJ
 Zb
 Zb
 Zb
-XE
+Wv
 Zb
 Zb
 ai
@@ -26325,20 +26582,20 @@ aa
 aa
 ad
 ae
-ah
-ai
-ai
-di
 ai
 ai
 ai
+em
 ai
+ai
+ai
+aU
 fR
-fR
-fR
-kH
+OI
+OI
+fN
 iq
-kH
+fN
 je
 fN
 fN
@@ -26482,20 +26739,20 @@ aa
 ad
 ae
 ae
-ah
+ai
 ai
 ai
 dI
 ai
 ai
-ai
-ai
-fR
+eY
+aU
+OI
 gl
-fR
-fR
+OI
+OI
 ii
-fR
+OI
 jf
 gl
 fN
@@ -26638,24 +26895,24 @@ aa
 aa
 ad
 ae
-ah
-ah
-ai
-ai
-di
-em
 ai
 ai
 ai
+ai
+dI
+dI
+ai
+yD
+eY
 fN
 gm
 hc
-fR
+OI
 ij
 iF
 hb
 jD
-fR
+OI
 kf
 kf
 ai
@@ -26795,32 +27052,32 @@ aa
 ad
 ae
 ae
-ah
-ah
 ai
 ai
 ai
-fO
 ai
 ai
+em
+eY
+yC
 ai
 fN
 fN
 gK
-kH
+fN
 ik
-kH
+fN
 gK
-fR
-fR
+OI
+OI
 kf
 ai
 kM
 kM
 kM
 kM
-mE
-mE
+jE
+jE
 ai
 ai
 ai
@@ -26856,7 +27113,7 @@ ai
 Zb
 Zb
 ZJ
-Yr
+XP
 Zb
 Zb
 ZJ
@@ -26951,15 +27208,15 @@ aa
 aa
 ad
 ae
-ah
-ah
 ai
 ai
 ai
 ai
+ai
+RI
 fO
-ai
-ai
+RI
+za
 ai
 fN
 gl
@@ -26967,9 +27224,9 @@ hb
 iF
 ig
 jZ
-fR
-fR
-fR
+OI
+OI
+OI
 kf
 kM
 kM
@@ -26977,8 +27234,8 @@ kM
 kM
 mg
 mf
-mE
-mE
+jE
+jE
 ai
 ai
 ai
@@ -27108,13 +27365,13 @@ aa
 aa
 ad
 qY
-ah
-ah
 ai
 ai
 ai
 ai
-fO
+eY
+eY
+em
 ai
 ai
 ai
@@ -27125,8 +27382,8 @@ gK
 ig
 gK
 hc
-fR
-fR
+OI
+OI
 kf
 kM
 kM
@@ -27135,7 +27392,7 @@ mD
 mQ
 nk
 ny
-mE
+jE
 ai
 ai
 ai
@@ -27265,14 +27522,14 @@ aa
 aa
 ad
 hU
-ah
-ah
 ai
 ai
 ai
 ai
-fO
-eD
+aU
+ai
+dI
+dI
 ai
 ai
 fN
@@ -27281,9 +27538,9 @@ fN
 fN
 ig
 fN
-fR
-fR
-fR
+OI
+OI
+OI
 kf
 kM
 lI
@@ -27292,7 +27549,7 @@ kM
 ni
 me
 nz
-mE
+jE
 ai
 ai
 ai
@@ -27422,17 +27679,17 @@ aa
 aa
 ad
 hV
-ah
-ah
 ai
 ai
 ai
+aU
+aU
 ai
 ai
-dI
+em
 ai
 ai
-fR
+OI
 gn
 he
 hI
@@ -27449,7 +27706,7 @@ kM
 lH
 mf
 mf
-nQ
+on
 on
 on
 on
@@ -27580,17 +27837,17 @@ aa
 FU
 Me
 ag
-ah
-ah
 ai
+ai
+aU
 ai
 ai
 ai
 di
 di
 ai
-fR
-fR
+OI
+OI
 hf
 hK
 il
@@ -27642,8 +27899,8 @@ qA
 Bv
 Bv
 Bv
-Bu
-Bu
+Bw
+Bw
 Bv
 Bv
 Bv
@@ -27737,16 +27994,16 @@ aa
 ag
 ZL
 Vv
-ah
-ah
-ah
+ai
+ai
+aU
 ai
 ai
 ai
 ai
 di
 ai
-fR
+OI
 go
 hg
 iu
@@ -27762,8 +28019,8 @@ mg
 me
 mc
 mf
-mE
-nS
+jE
+lD
 ja
 on
 pm
@@ -27800,7 +28057,7 @@ Bv
 Bv
 El
 DG
-Bu
+Bw
 Bv
 Bv
 Bv
@@ -27894,9 +28151,9 @@ aa
 ag
 Ng
 ag
-ah
-ah
-ah
+ai
+ai
+eY
 ai
 ai
 ai
@@ -27916,10 +28173,10 @@ jE
 jE
 kM
 kM
-mE
+jE
 lE
-mE
-mE
+jE
+jE
 nT
 oq
 on
@@ -28051,18 +28308,18 @@ ZL
 YN
 ag
 ag
-ah
-ah
-ah
+ai
+ai
+za
+eY
 ai
 ai
 ai
-cQ
-fc
-cQ
+di
+ai
 fN
-gq
-gq
+fN
+gK
 fN
 hG
 iG
@@ -28208,10 +28465,10 @@ ag
 hU
 Vv
 ag
-ah
-ah
-ah
 ai
+ai
+yC
+yD
 ai
 ai
 ai
@@ -28271,9 +28528,9 @@ Bv
 CI
 EI
 As
-Bu
+Bw
 IC
-Bu
+Bw
 AS
 Hn
 Bv
@@ -28363,12 +28620,12 @@ aa
 aa
 zJ
 hU
-ah
-ah
-ah
-ah
-ah
 ai
+ai
+ai
+ai
+yC
+yC
 ai
 ai
 ai
@@ -28390,7 +28647,7 @@ mi
 mH
 kZ
 nn
-kR
+Zi
 nf
 ot
 oG
@@ -28427,13 +28684,13 @@ qA
 Bv
 Bv
 Bv
-Bu
-Bu
+Bw
+Bw
 Fm
-Bu
-Bu
-Bu
-Bu
+Bw
+Bw
+Bw
+Bw
 Bv
 ai
 ai
@@ -28520,12 +28777,12 @@ aa
 aa
 ad
 qY
-ah
-ah
-ah
-ah
-ah
 ai
+ai
+ai
+ai
+yC
+za
 ai
 ai
 ai
@@ -28677,12 +28934,12 @@ aa
 aa
 ad
 ae
-ah
-ah
-ah
-ah
 ai
 ai
+ai
+ai
+ai
+eY
 ai
 ai
 ai
@@ -28704,7 +28961,7 @@ mo
 mM
 nd
 kt
-kR
+Zi
 nU
 ov
 oI
@@ -28834,13 +29091,13 @@ aa
 aa
 ad
 ae
-ah
-ah
-ah
 ai
 ai
 ai
 ai
+ai
+aU
+aU
 ai
 ai
 ai
@@ -28991,13 +29248,13 @@ aa
 aa
 ad
 ae
-ah
-ah
 ai
 ai
 ai
 ai
 ai
+ai
+aU
 ai
 ai
 ai
@@ -29148,15 +29405,14 @@ aa
 aa
 ad
 ae
-ah
 ai
 ai
 ai
 ai
 ai
 ai
-ai
-ai
+eY
+aU
 ai
 ai
 ai
@@ -29164,14 +29420,15 @@ ai
 ai
 ai
 fd
+fd
 hT
 iJ
-kM
-jE
+iJ
+XM
 kR
-kR
+Sb
 lJ
-kR
+Zi
 jE
 jE
 mB
@@ -29305,14 +29562,14 @@ aa
 aa
 ad
 ae
-ah
 ai
 ai
 ai
 ai
 ai
 ai
-ai
+yC
+eY
 ai
 ai
 ai
@@ -29322,14 +29579,14 @@ ai
 ai
 fd
 fd
-hT
+fd
+fd
 iZ
-iZ
-iZ
-iZ
-iZ
+fd
+mv
+iJ
 mt
-fO
+dI
 nc
 nt
 nG
@@ -29341,7 +29598,7 @@ ai
 ai
 pu
 Zb
-Yr
+XP
 rN
 VI
 qx
@@ -29468,10 +29725,9 @@ ai
 ai
 ai
 ai
-ai
-ai
-ai
-ai
+yC
+yC
+za
 ai
 ai
 ai
@@ -29482,9 +29738,10 @@ fd
 fd
 fd
 fd
+Zv
 fd
 fd
-gr
+fd
 mv
 mt
 nc
@@ -29625,6 +29882,9 @@ ai
 ai
 ai
 ai
+yC
+Yu
+yC
 ai
 ai
 ai
@@ -29632,17 +29892,14 @@ ai
 ai
 ai
 ai
-ai
-ai
-ai
-ai
+fd
 fw
-gr
-gr
-gr
+fd
+VO
 fd
 fd
-gr
+fd
+fd
 oy
 mp
 nB
@@ -29782,6 +30039,10 @@ ai
 ai
 ai
 ai
+eY
+yD
+yC
+yC
 ai
 ai
 ai
@@ -29791,13 +30052,9 @@ ai
 ai
 ai
 ai
-ai
-ai
-ai
-ai
-ai
+RI
 gr
-gr
+fd
 fd
 fd
 io
@@ -29940,13 +30197,13 @@ ai
 ai
 ai
 ai
+aU
+eY
+yC
 ai
-eE
-eE
-eE
-eE
-eE
-eE
+ai
+ai
+ai
 ai
 ai
 ai
@@ -30098,12 +30355,12 @@ ai
 ai
 ai
 ai
-eE
-fi
-fA
-fP
-gs
-eE
+aU
+aU
+ai
+ai
+ai
+ai
 ai
 ai
 ai
@@ -30121,9 +30378,9 @@ fd
 fd
 gr
 oV
-cQ
-ai
-ai
+LG
+Od
+pI
 ai
 ai
 ai
@@ -30255,12 +30512,12 @@ ai
 ai
 ai
 ai
-eE
-fi
-fB
-fB
-gt
-eE
+aU
+ai
+ai
+ai
+ai
+ai
 ai
 ai
 ai
@@ -30277,11 +30534,11 @@ fd
 fd
 fd
 gr
-iH
-mp
-pq
+fd
+VO
+po
+pO
 pI
-ai
 ai
 ai
 ai
@@ -30307,8 +30564,8 @@ IS
 xh
 zR
 yt
-pq
-pq
+uc
+uc
 zv
 zv
 DU
@@ -30411,13 +30668,13 @@ ai
 ai
 ai
 ai
+eY
+aU
 ai
-eE
-fi
-fC
-fB
-gu
-eE
+ai
+ai
+ai
+ai
 ai
 ai
 ai
@@ -30435,10 +30692,10 @@ fd
 fd
 fd
 fd
-fd
+Zv
+po
 po
 pO
-qz
 rI
 ai
 ai
@@ -30465,11 +30722,11 @@ yd
 tR
 yF
 qA
-AX
-AX
-AX
+JC
+RI
+Nl
 Fk
-AX
+RI
 AX
 AX
 zB
@@ -30563,18 +30820,12 @@ ad
 ai
 ai
 ai
-aU
-aU
-aU
 ai
-aU
-eY
-fy
-fi
-fD
-fQ
-gv
-eE
+ai
+ai
+ai
+ai
+yC
 ai
 ai
 ai
@@ -30584,20 +30835,26 @@ ai
 ai
 ai
 ai
-ie
-iU
+ai
+ai
+ai
+ai
+ai
+ai
+PI
+gX
 fd
 fd
 fd
 fd
 fd
 fd
-fd
+Zv
 po
 po
 po
 pO
-qK
+pI
 ai
 ai
 ai
@@ -30625,7 +30882,7 @@ qA
 AX
 AX
 AX
-Fk
+Rh
 AX
 AX
 FZ
@@ -30719,19 +30976,19 @@ rm
 ai
 ai
 ai
-aU
-aU
 ai
-aU
 ai
-aU
 ai
-eE
-eE
-eE
-eE
-eE
-eE
+ai
+ai
+yC
+yD
+ai
+ai
+ai
+ai
+ai
+ai
 ai
 ai
 ai
@@ -30741,21 +30998,21 @@ ai
 ai
 mm
 mN
-rb
-fd
+xY
+Lx
 fd
 fd
 fd
 fd
 gr
 oO
-cQ
+RI
 ai
 ai
 qc
-qA
+po
 ra
-qK
+pI
 ai
 ai
 ai
@@ -30782,7 +31039,7 @@ AX
 AX
 AX
 Bi
-Fk
+EE
 AX
 Fw
 Ga
@@ -30875,14 +31132,14 @@ ag
 Vv
 ai
 ai
-aU
-aU
 ai
 ai
-aU
-aU
-aU
 ai
+ai
+ai
+ai
+eY
+aU
 ai
 ai
 ai
@@ -30895,11 +31152,11 @@ ai
 cQ
 cQ
 cQ
-ie
-iU
-mr
-fd
-fd
+PI
+xY
+dI
+Nr
+Nr
 fd
 fd
 fd
@@ -30911,7 +31168,7 @@ ai
 ai
 ai
 ai
-qA
+po
 pO
 ss
 to
@@ -31032,13 +31289,13 @@ ag
 ai
 ai
 ai
-aU
 ai
 ai
 ai
 ai
 ai
-ai
+yD
+eY
 ai
 ai
 ai
@@ -31052,12 +31309,12 @@ ai
 cQ
 kp
 kk
-io
-fd
-lQ
-lQ
-fd
-fe
+ZO
+dI
+dI
+dI
+Nr
+Xb
 ji
 ji
 gr
@@ -31085,7 +31342,7 @@ po
 po
 po
 yt
-pq
+uc
 zG
 vN
 ai
@@ -31189,17 +31446,17 @@ Ib
 ai
 ai
 ai
-aU
-aU
 ai
 ai
 ai
+eY
+RZ
 dr
-dr
+Pl
 cy
-dr
-dr
-dr
+Zz
+Zz
+Zz
 gB
 gB
 bt
@@ -31210,11 +31467,11 @@ cQ
 jh
 jH
 iU
-fd
-fd
-mr
-fd
-fO
+dI
+dI
+dI
+Nr
+dI
 jj
 nH
 fw
@@ -31227,7 +31484,7 @@ ai
 ai
 po
 po
-qA
+xa
 rw
 tR
 tR
@@ -31342,21 +31599,21 @@ ad
 hV
 ad
 ai
-eY
 ai
 ai
 ai
 ai
-aU
 ai
 ai
 ai
-dr
+Yw
+KK
+KK
 dJ
 eo
 eG
-dr
-dr
+Zz
+Zz
 fS
 gw
 bt
@@ -31366,10 +31623,10 @@ ai
 ie
 iU
 fd
-fd
-fd
-fd
-mu
+Gv
+dI
+Nr
+dI
 kS
 kS
 kS
@@ -31384,7 +31641,7 @@ qd
 qd
 rd
 rd
-qa
+qd
 tg
 xG
 uw
@@ -31499,12 +31756,12 @@ ae
 qY
 ai
 ai
-aU
-aU
 ai
-aU
-aU
-aU
+ai
+ai
+ai
+ai
+ai
 ai
 cy
 cR
@@ -31524,9 +31781,9 @@ iU
 fd
 fd
 fd
-fd
-fO
-fO
+Xj
+dI
+dI
 kS
 kS
 lT
@@ -31543,7 +31800,7 @@ rr
 qM
 qd
 rO
-tS
+tV
 ux
 tV
 vP
@@ -31657,9 +31914,9 @@ ad
 ai
 ai
 ai
-aU
-aU
-aU
+ai
+ai
+ai
 ai
 ai
 ai
@@ -31682,8 +31939,8 @@ fd
 fd
 gr
 fw
-fO
-fO
+dI
+dI
 kS
 pv
 mP
@@ -32333,8 +32590,8 @@ ql
 ql
 ql
 ql
-vV
-vV
+pd
+pd
 ai
 ai
 ai
@@ -32365,8 +32622,8 @@ HL
 GS
 ID
 BH
-Bz
-Bz
+JC
+JC
 ai
 ai
 ab
@@ -32493,7 +32750,7 @@ ql
 ql
 ql
 ql
-vV
+pd
 ql
 ai
 ai
@@ -32523,11 +32780,11 @@ Ip
 HS
 HV
 HY
-Bz
+JC
 ai
 Ie
 aj
-aj
+QD
 aj
 aa
 aa
@@ -32808,7 +33065,7 @@ vv
 xj
 ql
 ql
-vV
+pd
 hO
 yk
 ai
@@ -32840,7 +33097,7 @@ Ia
 BH
 ai
 ab
-aj
+QD
 aj
 aa
 aa
@@ -32959,9 +33216,9 @@ rT
 tY
 uD
 yT
-vV
-vV
-vV
+pd
+pd
+pd
 xk
 ql
 xI
@@ -32990,11 +33247,11 @@ Ba
 Hz
 Ba
 Ba
-Bz
-Bz
-Bz
-Bz
-Bz
+JC
+JC
+JC
+JC
+JC
 ai
 ai
 dg
@@ -33273,11 +33530,11 @@ tr
 ua
 uF
 vo
-vV
-vV
-vV
+pd
+pd
+pd
 xl
-vV
+pd
 aa
 aa
 aa
@@ -33434,9 +33691,9 @@ vU
 wu
 vU
 xm
-vV
-vV
-vV
+pd
+pd
+pd
 aa
 ai
 ai
@@ -33744,13 +34001,13 @@ sY
 tL
 uI
 vJ
-vV
+pd
 tU
-vV
+pd
 xo
-vV
-vV
-vV
+pd
+pd
+pd
 ai
 ai
 ai
@@ -33881,7 +34138,7 @@ ai
 lO
 lx
 lx
-os
+RI
 ai
 ai
 ai
@@ -33901,11 +34158,11 @@ ue
 zu
 uJ
 vs
-vV
-vV
-vV
-vV
-vV
+pd
+pd
+pd
+pd
+pd
 ai
 ai
 ai
@@ -34193,7 +34450,7 @@ ai
 ai
 ai
 hn
-fO
+dI
 fd
 iH
 mp
@@ -34350,8 +34607,8 @@ ai
 ai
 ie
 lM
-fO
-fO
+dI
+dI
 fd
 fd
 iH
@@ -34507,9 +34764,9 @@ ai
 ai
 io
 fd
-fO
-fO
-fO
+dI
+dI
+dI
 fd
 fd
 iH
@@ -34665,9 +34922,9 @@ ie
 iU
 fd
 fw
-fO
-fO
-fO
+dI
+dI
+dI
 fd
 fw
 fe
@@ -34822,7 +35079,7 @@ io
 fd
 fd
 fe
-fO
+dI
 fd
 fd
 fd
@@ -34986,7 +35243,7 @@ fd
 fd
 fd
 oi
-iH
+ZU
 pn
 pf
 pH
@@ -35136,16 +35393,16 @@ iU
 jL
 fd
 fw
-lU
-fw
-ai
-ai
-ai
+fd
+fd
+dI
+dI
+dI
 fd
 oj
-oj
+Jz
 oQ
-lx
+Wr
 pr
 pr
 no
@@ -35292,17 +35549,17 @@ iU
 fd
 fd
 fe
-ai
-cQ
-ai
-ai
-ai
-ai
-ai
+dI
+fd
+fd
+fw
+Tv
+dI
+dI
 iQ
-jo
+Tj
 oQ
-lx
+PF
 pr
 pr
 no
@@ -35432,7 +35689,7 @@ bw
 aE
 aE
 an
-aq
+an
 en
 an
 an
@@ -35448,18 +35705,18 @@ iT
 fd
 fd
 gr
+dI
+dI
+fd
+LR
+jj
+Yi
+Sl
+SM
+YQ
+Ut
 ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-os
+RI
 ai
 ai
 pd
@@ -35604,15 +35861,15 @@ jy
 iQ
 fd
 gr
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
+dI
+dI
+dI
+eE
+ZB
+ZB
+eE
+Kk
+eE
 ai
 ai
 ai
@@ -35756,20 +36013,20 @@ ai
 ai
 ai
 hn
-fO
-fO
+dI
+dI
 fd
 jm
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
+dI
+dI
+dI
+dI
+eE
+Zk
+XS
+Rv
+EP
+Rz
 ai
 ai
 ai
@@ -35913,20 +36170,20 @@ ai
 ai
 fJ
 hL
-fO
-fO
-fO
+dI
+dI
+dI
 fd
 fe
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
+dI
+dI
+dI
+Rz
+JE
+wD
+NW
+Xd
+Rz
 ai
 ai
 ai
@@ -36060,7 +36317,7 @@ bw
 aE
 aE
 an
-Zn
+bD
 dA
 dZ
 gZ
@@ -36069,25 +36326,25 @@ gZ
 fJ
 py
 gX
-fO
-fO
-fO
+dI
+dI
+dI
 jo
 fd
 iQ
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
+dI
+dI
+dI
+Rz
+NQ
+Yh
+FT
+Qx
+Rz
+Rz
+YG
+YG
+YG
 ai
 ai
 ai
@@ -36227,24 +36484,24 @@ fK
 gg
 gL
 fd
-fO
-fO
+dI
+dI
 fw
 jn
 iR
 gr
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
+dI
+dI
+eE
+MS
+Pz
+Kv
+Lf
+YG
+Xf
+RJ
+Rs
+YG
 ai
 ai
 ai
@@ -36385,23 +36642,23 @@ gg
 gL
 fd
 fe
-fO
-fO
+dI
+dI
 fd
 fd
 gr
 fw
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
+gr
+ZB
+MC
+XF
+YD
+TB
+MB
+fi
+fi
+Tq
+YG
 ai
 ai
 ai
@@ -36541,24 +36798,24 @@ gM
 py
 hd
 fd
-fO
-fO
+dI
+dI
 fd
 jL
 fd
 gr
 gr
 gr
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
+Ld
+Va
+XK
+Rz
+PX
+YG
+FH
+OH
+Ts
+YG
 ai
 ai
 ai
@@ -36706,16 +36963,16 @@ jK
 kr
 kr
 gr
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
+Rz
+eE
+Rz
+Rz
+Rz
+YG
+Fj
+Wd
+VX
+YG
 ai
 ai
 ai
@@ -36863,16 +37120,16 @@ ks
 la
 lb
 gr
-gr
 ai
 ai
 ai
 ai
 ai
-ai
-ai
-ai
-ai
+Rz
+Rz
+YG
+YG
+Rz
 ai
 ai
 ai
@@ -37958,7 +38215,7 @@ hZ
 iy
 gi
 jR
-Zr
+Uh
 kz
 lg
 lC
@@ -38412,9 +38669,9 @@ ap
 ap
 aS
 aS
-aZ
+Za
 cg
-aZ
+Za
 aS
 dF
 ek
@@ -39685,15 +39942,15 @@ hD
 hp
 hp
 hp
-kF
+hp
 kX
 kX
 aU
 aU
-aU
-aU
-ai
-aU
+eY
+yD
+yC
+eY
 yp
 IP
 nC
@@ -39839,18 +40096,18 @@ ai
 ai
 ai
 ai
-hp
-ka
-jz
-iI
-kI
-hp
 ai
 ai
 ai
-aU
-aU
-aU
+ai
+ai
+ai
+ai
+ai
+ai
+yC
+yC
+eY
 ai
 ai
 ai
@@ -39996,17 +40253,17 @@ ai
 ai
 ai
 ai
-hD
-jb
-jA
-kb
-jA
-hD
 ai
 ai
 ai
 ai
-aU
+ai
+ai
+ai
+ai
+ai
+ai
+za
 ai
 ai
 ai
@@ -40153,12 +40410,12 @@ ai
 ai
 ai
 ai
-hD
-jc
-jB
-kc
-kJ
-hD
+ai
+ai
+ai
+ai
+ai
+ai
 ai
 ai
 ai
@@ -40310,12 +40567,12 @@ ai
 ai
 ai
 ai
-hD
-hD
-hD
-hD
-hD
-hD
+ai
+ai
+ai
+ai
+ai
+ai
 ai
 ai
 ai

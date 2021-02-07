@@ -115,12 +115,14 @@
 
 	desiredstate = !desiredstate
 	spawn(15)
-		if(!(stat & NOPOWER))
+		if(!(stat & (NOPOWER|BROKEN)))
 			icon_state = "doorctrl0"
+		else
+			icon_state = "doorctrl-p"
 
 /obj/machinery/door_control/power_change()
 	..()
-	if(stat & NOPOWER)
+	if(stat & (NOPOWER|BROKEN))
 		icon_state = "doorctrl-p"
 	else
 		icon_state = "doorctrl0"

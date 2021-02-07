@@ -26,7 +26,6 @@
 /area/awaymission/DSBSSigma/overseer
 	name = "DSBS:Sigma - Overseers Office"
 	icon_state = "bridge"
-	requires_power = FALSE
 
 /area/awaymission/DSBSSigma/cave_junction_east
 	name = "DSBS:Sigma - Eastern Caves"
@@ -318,27 +317,9 @@
 
 /obj/machinery/computer/id_upgrader/dsbssigma
 	icon_keyboard = "laptop_key"
-	access_to_give = list(ACCESS_AWAY01)
-	door_to_open = null
-
-/obj/machinery/computer/id_upgrader/dsbssigma/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/id))
-		var/obj/item/card/id/D = I
-		if(!length(access_to_give))
-			to_chat(user, "<span class='notice'>This machine appears to be configured incorrectly.</span>")
-			return
-		var/did_upgrade = FALSE
-		var/list/id_access = D.GetAccess()
-		for(var/this_access in access_to_give)
-			if(!(this_access in id_access))
-				D.access |= this_access
-				did_upgrade = TRUE
-		if(did_upgrade)
-			to_chat(user, "<span class='notice'>An access type was added to your ID card. You think you will be able to lift the lockdown with this.</span>")
-		else
-			to_chat(user, "<span class='notice'>Your ID card already has all the access this machine can give.</span>")
-		return
-	return ..()
+	door_to_open = "dsbss_lockdown_blast"
+	upgrade_msg = "<span class='notice'>An access type was added to your ID card. You should be able to lift the lockdown with this.</span>"
+	unlock_msg = "<span class='danger'>WARNING: New user registration during emergency lockdown. Limited lockdown lift in progress.</span>"
 
 /obj/machinery/vending/medical/syndicate_access/dsbssigma
 	req_access = list(ACCESS_AWAY01)
@@ -356,6 +337,34 @@
 /obj/machinery/autolathe/hacked/Initialize()
     ..()
     adjust_hacked(TRUE)
+
+/obj/machinery/door_control/away/button_single_use
+	var/beenused = FALSE
+	var/activation_msg = "<span class='notice'>The button briefly activates, then sparks and breaks.</span>"
+
+/obj/machinery/door_control/away/button_single_use/attack_hand(mob/user as mob)
+	..()
+	if(allowed(user) && (wires & 1) && !beenused)
+		beenused = TRUE
+		stat = BROKEN
+		playsound(loc, "sparks", 100, 1)
+		do_sparks(3, 1, src)
+		to_chat(user, activation_msg)
+
+/obj/machinery/door_control/away/button_single_use/dsbssigma_lockdown_random
+	name = "Emergency Lockdown Control"
+	req_access = list(ACCESS_AWAY01)
+	activation_msg = "<span class='notice'>The button briefly activates, then sparks and breaks. It seems only some sections of the base have been unlocked.</span>"
+
+/obj/machinery/door_control/away/button_single_use/dsbssigma_lockdown_random/Initialize()
+	..()
+	switch(rand(1,3))
+		if(1)
+			id = "dsbss_lockdown_blast_medical"
+		if(2)
+			id = "dsbss_lockdown_blast_botany"
+		if(3)
+			id = "dsbss_lockdown_blast_research"
 
 //////// MECHA ////////
 
@@ -575,15 +584,27 @@
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/effect/spawner/random_spawners/away/dsbssigma/randomizer/LateInitialize()
+
 	r_location = "dsbssigma_queen"
 	r_object = /mob/living/simple_animal/hostile/alien/queen/large/dsbssigma
 	randomize(r_location, r_object)
+
 	r_location = "dsbssigma_miner"
 	r_object = /obj/effect/mob_spawn/human/corpse/away/dsbssigma/operative/miner
 	randomize(r_location, r_object)
+
 	r_location = "dsbssigma_organ"
 	r_object = /obj/item/organ/internal/heart/gland/heals/weak
 	randomize(r_location, r_object)
+
+	r_location = "dsbssigma_fireaxe"
+	r_object = /obj/item/twohanded/fireaxe
+	randomize(r_location, r_object)
+
+	r_location = "dsbssigma_toolbox"
+	r_object = /obj/item/storage/toolbox/syndicate
+	randomize(r_location, r_object)
+
 	qdel(src)
 
 ////////////////////////// MOBS //////////////////////////
@@ -701,7 +722,7 @@
 /mob/living/simple_animal/hostile/alien/queen/large/dsbssigma/death()
 	if(can_die() && !hasdied)
 		hasdied = TRUE
-		UnlockBlastDoors("dsbss_officerquarters_blast")
+		UnlockBlastDoors("dsbss_overseersquarters_blast")
 		for(var/mob/M in GLOB.player_list)
 			if(M.z == z)
 				to_chat(M, "<span class='notice'>You hear a distant sound of a blast door opening.</span>")
