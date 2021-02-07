@@ -251,7 +251,8 @@
 		/obj/item/nullrod,
 		/obj/item/key,
 		/obj/item/door_remote,
-		/obj/item/autopsy_scanner
+		/obj/item/autopsy_scanner,
+		/obj/item/holosign_creator/atmos
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
