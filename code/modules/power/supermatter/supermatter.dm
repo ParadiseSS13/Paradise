@@ -300,6 +300,7 @@
 	explode()
 
 /obj/machinery/power/supermatter_crystal/proc/explode()
+	SSblackbox.record_feedback("amount", "supermatter_delaminations", 1)
 	for(var/mob in GLOB.alive_mob_list)
 		var/mob/living/L = mob
 		if(istype(L) && atoms_share_level(L, src))
