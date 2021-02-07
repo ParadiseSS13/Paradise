@@ -363,3 +363,7 @@
 	icon_state = "smooth"
 	smooth = SMOOTH_MORE | SMOOTH_BORDER
 	canSmoothWith = list(/turf/simulated/floor/plating/ice/smooth, /turf/simulated/floor/plating/ice)
+
+/turf/simulated/floor/plating/nitrogen
+	oxygen = 0
+	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD

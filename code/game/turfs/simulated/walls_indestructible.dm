@@ -87,3 +87,9 @@
 /turf/simulated/wall/indestructible/riveted
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "riveted"
+
+/turf/simulated/wall/indestructible/syndicate
+	icon = 'icons/turf/walls/plastitanium_wall.dmi'
+	icon_state = "map-shuttle"
+	smooth = SMOOTH_MORE | SMOOTH_DIAGONAL
+	canSmoothWith = list(/turf/simulated/wall/mineral/plastitanium, /turf/simulated/wall/indestructible/syndicate, /obj/machinery/door/airlock/titanium, /obj/machinery/door/airlock, /obj/structure/shuttle/engine, /obj/structure/falsewall/plastitanium)
