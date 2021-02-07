@@ -8935,7 +8935,7 @@
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "ayN" = (
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "ayO" = (
 /obj/structure/grille,
@@ -11040,14 +11040,14 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "aCY" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
 /obj/machinery/meter,
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "aCZ" = (
 /obj/machinery/door/airlock/atmos/glass{
@@ -11063,13 +11063,13 @@
 	level = 1
 	},
 /obj/machinery/meter,
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "aDb" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "aDc" = (
 /obj/machinery/atmospherics/unary/portables_connector,
@@ -16357,11 +16357,11 @@
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "aMy" = (
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/maintenance/incinerator)
 "aMz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/maintenance/incinerator)
 "aMA" = (
 /obj/machinery/atmospherics/unary/portables_connector,
@@ -17104,7 +17104,7 @@
 /area/security/execution)
 "aNT" = (
 /obj/structure/sign/fire,
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/maintenance/incinerator)
 "aNU" = (
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -17117,7 +17117,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/maintenance/incinerator)
 "aNW" = (
 /obj/machinery/atmospherics/binary/pump{
@@ -17149,7 +17149,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/maintenance/incinerator)
 "aNY" = (
 /obj/machinery/atmospherics/pipe/manifold/visible,
@@ -18587,7 +18587,7 @@
 	dir = 4
 	},
 /obj/structure/sign/fire,
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/maintenance/incinerator)
 "aQO" = (
 /obj/machinery/atmospherics/binary/pump{
@@ -32346,14 +32346,14 @@
 /turf/space,
 /area/space/nearstation)
 "bpv" = (
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/atmos)
 "bpw" = (
 /obj/machinery/camera{
 	c_tag = "Atmospherics Gas Mix Tank";
 	network = list("SS13","Engineering")
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/atmos)
 "bpx" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
@@ -32361,7 +32361,7 @@
 	frequency = 1441;
 	id = "mix_in"
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/atmos)
 "bpy" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
@@ -33524,14 +33524,14 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/atmos)
 "bry" = (
 /obj/machinery/air_sensor{
 	frequency = 1441;
 	id_tag = "mix_sensor"
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/atmos)
 "brz" = (
 /obj/structure/cable{
@@ -34542,7 +34542,7 @@
 	pressure_checks_default = 2;
 	pump_direction = 0
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/atmos)
 "btg" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
