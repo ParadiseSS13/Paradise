@@ -31335,8 +31335,8 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /obj/machinery/status_display{
 	density = 0;
@@ -31386,8 +31386,8 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -73773,7 +73773,9 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint)
 "cLY" = (
-/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken5";
 	tag = "icon-wood-broken5"
@@ -76196,6 +76198,12 @@
 /obj/item/stack/sheet/glass{
 	amount = 50
 	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "cQP" = (
@@ -76856,16 +76864,25 @@
 /obj/item/stack/sheet/plasteel{
 	amount = 10
 	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
 /obj/machinery/alarm{
 	dir = 8;
 	icon_state = "alarm0";
 	pixel_x = 24
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
 	},
 /obj/item/stack/rods{
 	amount = 50
@@ -81010,13 +81027,7 @@
 /area/maintenance/genetics)
 "daK" = (
 /obj/structure/closet/crate,
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
 /obj/item/stack/rods{
-	amount = 50
-	},
-/obj/item/stack/sheet/glass{
 	amount = 50
 	},
 /obj/item/airlock_electronics,
@@ -81033,6 +81044,33 @@
 	amount = 30
 	},
 /obj/effect/decal/warning_stripes/north,
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
 /turf/simulated/floor/plating,
 /area/storage/secure)
 "daM" = (
@@ -88945,6 +88983,11 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"etX" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/floodlight,
+/turf/simulated/floor/plating,
+/area/storage/secure)
 "euu" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
@@ -89657,8 +89700,8 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -89725,6 +89768,9 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"kSG" = (
+/turf/simulated/floor/plasteel/dark,
+/area/storage/secure)
 "kUA" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
@@ -89792,6 +89838,11 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
+"lsK" = (
+/obj/effect/decal/warning_stripes/west,
+/obj/machinery/suit_storage_unit/engine,
+/turf/simulated/floor/plating,
+/area/storage/secure)
 "lzm" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -89860,6 +89911,10 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"mep" = (
+/obj/machinery/floodlight,
+/turf/simulated/floor/plating,
+/area/storage/secure)
 "mkE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -115627,8 +115682,8 @@ dar
 dar
 dar
 dar
-aaa
-aaa
+dar
+dar
 aaa
 aab
 aaa
@@ -115883,9 +115938,9 @@ ddG
 dcN
 djs
 diK
+mep
+mep
 dar
-aab
-aab
 dhf
 rlX
 dhf
@@ -116140,9 +116195,9 @@ cPk
 cQj
 cQJ
 cQJ
+etX
+etX
 dar
-aaa
-aaa
 djb
 djb
 djb
@@ -116397,9 +116452,9 @@ cYq
 pUZ
 dcP
 dcP
+kSG
+kSG
 dar
-aaa
-aaa
 djb
 djb
 djb
@@ -116654,9 +116709,9 @@ cYs
 cZG
 dcr
 dcP
+kSG
+kSG
 dar
-aab
-aab
 djb
 djb
 djb
@@ -116911,9 +116966,9 @@ cYr
 dcP
 daK
 dtw
+lsK
+lsK
 dar
-aaa
-aaa
 djb
 djb
 djb
