@@ -185,7 +185,7 @@
 		return
 
 	if(state == EMITTER_NEEDS_WRENCH)
-		for(var/obj/machinery/power/emitter/E in loc)
+		for(var/obj/machinery/power/emitter/E in get_turf(src))
 			if(E.anchored)
 				to_chat(user, "<span class='warning'>There is already an emitter here!</span>")
 				return
