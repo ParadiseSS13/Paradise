@@ -249,7 +249,9 @@
 		/obj/item/clothing/gloves/color/black/krav_maga/sec,
 		/obj/item/spacepod_key,
 		/obj/item/nullrod,
-		/obj/item/key
+		/obj/item/key,
+		/obj/item/door_remote,
+		/obj/item/autopsy_scanner
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
