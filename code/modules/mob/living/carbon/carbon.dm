@@ -144,54 +144,44 @@
 		M.forceMove(drop_location())
 		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
 
-/mob/living/carbon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
-	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage)
-	if(status_flags & GODMODE)	//godmode
-		return FALSE
-	if(NO_SHOCK in mutations) //shockproof
-		return FALSE
-	if(tesla_shock && tesla_ignore)
-		return FALSE
-	shock_damage *= siemens_coeff
-	if(dna && dna.species)
-		shock_damage *= dna.species.siemens_coeff
-	if(shock_damage < 1 && !override)
-		return FALSE
-	if(reagents.has_reagent("teslium"))
-		shock_damage *= 1.5 //If the mob has teslium in their body, shocks are 50% more damaging!
-	if(illusion)
-		adjustStaminaLoss(shock_damage)
-	else
-		take_overall_damage(0, shock_damage, TRUE, used_weapon = "Electrocution")
-		shock_internal_organs(shock_damage)
-	visible_message(
-		"<span class='danger'>[src] was shocked by \the [source]!</span>",
-		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>",
-		"<span class='italics'>You hear a heavy electrical crack.</span>")
-	AdjustJitter(1000) //High numbers for violent convulsions
+///Adds to the parent by also adding functionality to propagate shocks through pulling and doing some fluff effects.
+/mob/living/carbon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
+	. = ..()
+	if(!.)
+		return
+	//Propagation through pulling
+	if(!(flags & SHOCK_ILLUSION))
+		var/list/shocking_queue = list()
+		if(iscarbon(pulling) && source != pulling)
+			shocking_queue += pulling
+		if(iscarbon(pulledby) && source != pulledby)
+			shocking_queue += pulledby
+		if(iscarbon(buckled) && source != buckled)
+			shocking_queue += buckled
+		for(var/mob/living/carbon/carried in buckled_mobs)
+			if(source != carried)
+				shocking_queue += carried
+		//Found our victims, now lets shock them all
+		for(var/victim in shocking_queue)
+			var/mob/living/carbon/C = victim
+			C.electrocute_act(shock_damage * 0.75, src, 1, flags)
+	//Stun
+	var/should_stun = (!(flags & SHOCK_TESLA) || siemens_coeff > 0.5) && !(flags & SHOCK_NOSTUN)
+	if(should_stun)
+		Stun(2)
+	//Jitter and other fluff.
+	AdjustJitter(1000)
 	do_jitter_animation(jitteriness)
 	AdjustStuttering(2)
-	if((!tesla_shock || (tesla_shock && siemens_coeff > 0.5)) && stun)
-		Stun(2)
-	spawn(20)
-		AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
-		if((!tesla_shock || (tesla_shock && siemens_coeff > 0.5)) && stun)
-			Stun(3)
-			Weaken(3)
-	if(shock_damage > 200)
-		src.visible_message(
-			"<span class='danger'>[src] was arc flashed by the [source]!</span>",
-			"<span class='userdanger'>The [source] arc flashes and electrocutes you!</span>",
-			"<span class='italics'>You hear a lightning-like crack!</span>")
-		playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
-		explosion(loc, -1, 0, 2, 2)
+	shock_internal_organs(shock_damage)
+	addtimer(CALLBACK(src, .proc/secondary_shock, should_stun), 20)
+	return shock_damage
 
-	if(override)
-		return override
-	else
-		return shock_damage
-
-
+///Called slightly after electrocute act to reduce jittering and apply a secondary stun.
+/mob/living/carbon/proc/secondary_shock(should_stun)
+	AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
+	if(should_stun)
+		Weaken(3)
 
 /mob/living/carbon/swap_hand()
 	var/obj/item/item_in_hand = src.get_active_hand()

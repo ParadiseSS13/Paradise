@@ -1,4 +1,4 @@
-/turf/unsimulated
+/turf/unsimulated // Sometimes....sometimes I have dreams of you dieing. Of you gasping for your last unsimulated breath, of you passing away and being a dirty memory of a bygone era. - Fox
 	intact = 1
 	name = "command"
 	oxygen = MOLES_O2STANDARD
@@ -12,34 +12,3 @@
 
 /turf/unsimulated/acid_act(acidpwr, acid_volume, acid_id)
 	return 0
-
-/turf/unsimulated/floor/plating/vox
-	icon_state = "plating"
-	name = "plating"
-	nitrogen = 100
-	oxygen = 0
-
-/turf/unsimulated/floor/plating/snow
-	name = "snow"
-	icon = 'icons/turf/snow.dmi'
-	icon_state = "snow"
-	temperature = T0C
-
-/turf/unsimulated/floor/plating/snow/concrete
-	name = "concrete"
-	icon = 'icons/turf/floors.dmi'
-	icon_state = "concrete"
-
-/turf/unsimulated/floor/plating/snow/ex_act(severity)
-	return
-
-/turf/unsimulated/floor/plating/airless
-	icon_state = "plating"
-	name = "airless plating"
-	oxygen = 0
-	nitrogen = 0
-	temperature = TCMB
-
-/turf/unsimulated/floor/plating/airless/Initialize(mapload)
-	. = ..()
-	name = "plating"

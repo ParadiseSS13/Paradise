@@ -3,20 +3,19 @@
 	desc = "A gravitational singularity."
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "singularity_s1"
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	layer = MASSIVE_OBJ_LAYER
 	light_range = 6
-	appearance_flags = 0
+	appearance_flags = LONG_GLIDE
 	var/current_size = 1
 	var/allowed_size = 1
-	var/contained = 1 //Are we going to move around?
 	var/energy = 100 //How strong are we?
 	var/dissipate = 1 //Do we lose energy over time?
 	var/dissipate_delay = 10
 	var/dissipate_track = 0
 	var/dissipate_strength = 1 //How much energy do we lose?
-	var/move_self = 1 //Do we move on our own?
+	var/move_self = TRUE //Do we move on our own?
 	var/grav_pull = 4 //How many tiles out do we pull?
 	move_resist = INFINITY	//no, you don't get to push the singulo. Not even you OP wizard gateway statues
 	var/consume_range = 0 //How many tiles out do we eat
@@ -28,12 +27,13 @@
 	allow_spin = 0
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
-/obj/singularity/New(loc, var/starting_energy = 50, var/temp = 0)
+/obj/singularity/Initialize(mapload, starting_energy = 50)
+	. = ..()
 	//CARN: admin-alert for chuckle-fuckery.
 	admin_investigate_setup()
 
-	src.energy = starting_energy
-	..()
+	energy = starting_energy
+
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 	GLOB.singularities += src

@@ -414,6 +414,9 @@
 		uv_cycles = initial(uv_cycles)
 		uv = FALSE
 		locked = FALSE
+		for(var/atom/A in contents)
+			A.clean_blood(radiation_clean = FALSE)	// we invoke the radiation cleaning proc directly
+			A.clean_radiation(12)	// instead of letting clean_blood do it
 		if(uv_super)
 			visible_message("<span class='warning'>[src]'s door creaks open with a loud whining noise. A cloud of foul black smoke escapes from its chamber.</span>")
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 50, 1)

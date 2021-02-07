@@ -669,15 +669,12 @@
 /obj/structure/window/full/shuttle/tinted
 	opacity = TRUE
 
-/obj/structure/window/plastitanium
+/obj/structure/window/full/plastitanium
 	name = "plastitanium window"
 	desc = "An evil looking window of plasma and titanium."
 	icon = 'icons/obj/smooth_structures/plastitanium_window.dmi'
 	icon_state = "plastitanium_window"
-	dir = FULLTILE_WINDOW_DIR
 	max_integrity = 100
-	fulltile = TRUE
-	flags = PREVENT_CLICK_UNDER
 	reinf = TRUE
 	heat_resistance = 1600
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
@@ -685,9 +682,7 @@
 	smooth = SMOOTH_TRUE
 	canSmoothWith = null
 	explosion_block = 3
-	level = 3
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
-	glass_amount = 2
 
 /obj/structure/window/reinforced/clockwork
 	name = "brass window"
