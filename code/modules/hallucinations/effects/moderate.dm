@@ -355,9 +355,9 @@
 
 	if(prob(50))
 		var/snd = pick('sound/goonstation/voice/female_scream.ogg', 'sound/goonstation/voice/male_scream.ogg')
-		addtimer(CALLBACK(target, /mob/.proc/playsound_local, T, snd, 50, TRUE, rand(9, 11) / 10), rand(13, 20))
+		play_sound_in(rand(13, 20), T, snd, 50, TRUE, rand(9, 11) / 10)
 
-	addtimer(CALLBACK(target, /mob/.proc/playsound_local, T, 'sound/weapons/cablecuff.ogg', 15, TRUE), rand(17, 20))
+	play_sound_in(rand(17, 20), T, 'sound/weapons/cablecuff.ogg', 15, TRUE)
 
 /**
   * # Hallucination - Energy Sword
@@ -381,13 +381,15 @@
 	var/scream_sound = pick('sound/goonstation/voice/female_scream.ogg', 'sound/goonstation/voice/male_scream.ogg')
 	var/scream_pitch = rand(9, 11) / 10
 	var/num_hits = rand(5, 6)
+	var/scream_cd = 0
 	for(var/i in 1 to num_hits)
 		var/time = i * CLICK_CD_MELEE + rand(3, 7)
-		addtimer(CALLBACK(target, /mob/.proc/playsound_local, T, 'sound/weapons/blade1.ogg', 15, TRUE), time)
+		play_sound_in(time, T, 'sound/weapons/blade1.ogg', 15, TRUE)
 		if(i == num_hits)
-			addtimer(CALLBACK(target, /mob/.proc/playsound_local, T, pick('sound/goonstation/voice/deathgasp_1.ogg', 'sound/goonstation/voice/deathgasp_2.ogg'), 50, TRUE, scream_pitch), time)
-		else if(scream_sound && prob(20))
-			addtimer(CALLBACK(target, /mob/.proc/playsound_local, T, scream_sound, 50, TRUE, scream_pitch), time)
+			play_sound_in(time, T, pick('sound/goonstation/voice/deathgasp_1.ogg', 'sound/goonstation/voice/deathgasp_2.ogg'), 50, TRUE, scream_pitch)
+		else if(scream_sound && scream_cd-- <= 0 && prob(20))
+			scream_cd = 2
+			play_sound_in(time, T, scream_sound, 50, TRUE, scream_pitch)
 
 /obj/effect/hallucination/energy_sword/Destroy()
 	target.playsound_local(loc, 'sound/weapons/saberoff.ogg', 20, TRUE)
@@ -415,13 +417,15 @@
 	var/scream_sound = pick('sound/goonstation/voice/female_scream.ogg', 'sound/goonstation/voice/male_scream.ogg')
 	var/scream_pitch = rand(9, 11) / 10
 	var/num_hits = rand(7, 8)
+	var/scream_cd = 0
 	for(var/i in 1 to num_hits)
 		var/time = i * CLICK_CD_RANGE + rand(2, 4)
-		addtimer(CALLBACK(target, /mob/.proc/playsound_local, T, gun_sound, 25, TRUE), time)
+		play_sound_in(time, T, gun_sound, 25, TRUE)
 		if(i == num_hits)
-			addtimer(CALLBACK(target, /mob/.proc/playsound_local, T, pick('sound/goonstation/voice/deathgasp_1.ogg', 'sound/goonstation/voice/deathgasp_2.ogg'), 50, TRUE, scream_pitch), time)
-		else if(scream_sound && prob(20))
-			addtimer(CALLBACK(target, /mob/.proc/playsound_local, T, scream_sound, 50, TRUE, scream_pitch), time)
+			play_sound_in(time, T, pick('sound/goonstation/voice/deathgasp_1.ogg', 'sound/goonstation/voice/deathgasp_2.ogg'), 50, TRUE, scream_pitch)
+		else if(scream_sound && scream_cd-- <= 0 && prob(20))
+			scream_cd = 2
+			play_sound_in(time, T, scream_sound, 50, TRUE, scream_pitch)
 
 /**
   * # Hallucination - Self Delusion
@@ -446,3 +450,29 @@
   */
 /obj/effect/hallucination/self_delusion/proc/get_image()
 	return image('icons/mob/animal.dmi', target, pick("bear", "brownbear", "corgi", "cow", "deer", "goat", "goose", "pig", "blank-body"))
+
+/**
+  * # Hallucination - Delusion
+  *
+  * Changes the appearance of all humans around the target.
+  */
+/obj/effect/hallucination/delusion
+	duration = 15 SECONDS
+
+/obj/effect/hallucination/delusion/Initialize(mapload, mob/living/carbon/target, override_icon, override_icon_state)
+	. = ..()
+
+	for(var/mob/living/carbon/human/H in orange(world.view, target))
+		var/image/I
+		if(override_icon && override_icon_state)
+			I = image(override_icon, H, override_icon_state)
+		else
+			I = get_image(H)
+		I.override = TRUE
+		add_icon(I)
+
+/**
+  * Returns the image to use as override to the target's appearance.
+  */
+/obj/effect/hallucination/delusion/proc/get_image(mob/living/carbon/human/H)
+	return image('icons/mob/animal.dmi', H, pick("bear", "brownbear", "corgi", "cow", "deer", "goat", "goose", "pig", "blank-body"))

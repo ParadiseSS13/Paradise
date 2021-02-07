@@ -161,13 +161,16 @@
 		shock_damage *= 1.5 //If the mob has teslium in their body, shocks are 50% more damaging!
 	if(illusion)
 		adjustStaminaLoss(shock_damage)
+		visible_message(
+			"<span class='danger'>[src] suddenly spasms, as if shocked by electricity!</span>",
+			"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>")
 	else
 		take_overall_damage(0, shock_damage, TRUE, used_weapon = "Electrocution")
 		shock_internal_organs(shock_damage)
-	visible_message(
-		"<span class='danger'>[src] was shocked by \the [source]!</span>",
-		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>",
-		"<span class='italics'>You hear a heavy electrical crack.</span>")
+		visible_message(
+			"<span class='danger'>[src] was shocked by \the [source]!</span>",
+			"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>",
+			"<span class='italics'>You hear a heavy electrical crack.</span>")
 	AdjustJitter(1000) //High numbers for violent convulsions
 	do_jitter_animation(jitteriness)
 	AdjustStuttering(2)

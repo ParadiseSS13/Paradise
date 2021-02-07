@@ -19,6 +19,7 @@ GLOBAL_LIST_INIT(hallucinations, list(
 		/obj/effect/hallucination/audio/localized = 25,
 	),
 	HALLUCINATE_MODERATE = list(
+		/obj/effect/hallucination/delusion = 5,
 		/obj/effect/hallucination/self_delusion = 5,
 		/obj/effect/hallucination/bolts/moderate = 10,
 		/obj/effect/hallucination/chasms = 10,
@@ -33,18 +34,15 @@ GLOBAL_LIST_INIT(hallucinations, list(
 	),
 	HALLUCINATE_MAJOR = list(
 		/obj/effect/hallucination/abduction = 10,
+		/obj/effect/hallucination/assault = 10,
 		/obj/effect/hallucination/terror_infestation = 10,
+		/obj/effect/hallucination/loose_energy_ball = 10,
 	)
 ))
 
 /mob/living/carbon
 	/// The world.time after which the mob can hallucinate again.
 	var/next_hallucination = 0
-	#warn TODO: remove
-	var/image/halimage
-	var/image/halbody
-	var/obj/halitem
-	var/handling_hal = FALSE
 
 /**
   * Called as part of [/mob/living/proc/handle_status_effects] to handle hallucinations.
@@ -175,6 +173,24 @@ GLOBAL_LIST_INIT(hallucinations, list(
 		return
 	target?.client?.images -= images
 	QDEL_LIST(images)
+
+/**
+  * Plays a sound to the target only.
+  *
+  * Arguments:
+  * * time - Deciseconds before the sound plays.
+  * * source - The turf to play the sound from. Optional.
+  * * snd - The sound file to play.
+  * * volume - The sound volume.
+  * * vary - Whether to randomize the sound's pitch.
+  * * frequency - The sound's pitch.
+  */
+/obj/effect/hallucination/proc/play_sound_in(time, turf/source = null, snd, volume, vary, frequency)
+	ASSERT(time >= 0)
+	if(time == 0) // whatever
+		target?.playsound_local(source, snd, volume, vary, frequency)
+		return
+	addtimer(CALLBACK(target, /mob/.proc/playsound_local, source, snd, volume, vary, frequency), time)
 
 #undef HALLUCINATE_COOLDOWN_MIN
 #undef HALLUCINATE_COOLDOWN_MAX
