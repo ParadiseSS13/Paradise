@@ -419,7 +419,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "ge" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -639,7 +639,7 @@
 /area/template_noop)
 "id" = (
 /obj/machinery/atmospherics/unary/passive_vent,
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "ii" = (
 /obj/machinery/hydroponics/constructable,
@@ -1771,7 +1771,7 @@
 	},
 /obj/structure/window/plasmareinforced,
 /obj/structure/grille,
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "vJ" = (
 /obj/structure/closet/l3closet,
@@ -2597,7 +2597,7 @@
 	},
 /obj/structure/grille,
 /obj/machinery/atmospherics/pipe/simple/insulated,
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "EX" = (
 /turf/simulated/floor/plasteel{
@@ -2887,7 +2887,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 4
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Ih" = (
 /obj/machinery/alarm/syndicate{
@@ -3295,7 +3295,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "LX" = (
 /obj/machinery/door/poddoor{
@@ -3303,7 +3303,7 @@
 	name = "Venting Bay Door";
 	use_power = 0
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "LY" = (
 /obj/structure/sink{
@@ -3438,7 +3438,7 @@
 	id = "air_in";
 	on = 1
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "NN" = (
 /obj/structure/bookcase/random,
@@ -3635,7 +3635,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "QQ" = (
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Rk" = (
 /obj/machinery/cryopod/offstation,
@@ -3799,7 +3799,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Tg" = (
 /obj/machinery/door/firedoor,
@@ -3852,7 +3852,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "Tv" = (
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Tw" = (
 /turf/simulated/floor/plasteel{
@@ -4104,7 +4104,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Xb" = (
 /turf/simulated/floor/plasteel{
@@ -4145,7 +4145,7 @@
 	},
 /obj/structure/grille,
 /obj/machinery/atmospherics/pipe/simple/insulated,
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "XS" = (
 /obj/structure/table/glass,
