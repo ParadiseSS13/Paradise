@@ -465,8 +465,8 @@
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
-	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA)
+	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA)
 	outfit = /datum/outfit/job/explorer
 	hidden_from_job_prefs = TRUE
 
