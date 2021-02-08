@@ -83,11 +83,11 @@
 	. = ..()
 	if(ismob(target))
 		if(target.mob_biotypes & MOB_UNDEAD) //positive energy harms the undead
-			target.death(0)
+			target.death(FALSE)
 			target.visible_message("<span class='danger'>[target] topples backwards as the death bolt impacts [target.p_them()]!</span>")
 		else
 			var/old_stat = target.stat
-			target.suiciding = 0
+			target.suiciding = FALSE
 			target.revive()
 			if(!target.ckey)
 				for(var/mob/dead/observer/ghost in GLOB.player_list)
