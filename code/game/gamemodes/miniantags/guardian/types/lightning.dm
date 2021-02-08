@@ -25,7 +25,7 @@
 	if(!(NO_SHOCK in summoner.mutations))
 		summoner.mutations.Add(NO_SHOCK)
 
-/mob/living/simple_animal/hostile/guardian/beam/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+/mob/living/simple_animal/hostile/guardian/beam/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
 	return FALSE //You are lightning, you should not be hurt by such things.
 
 /mob/living/simple_animal/hostile/guardian/beam/AttackingTarget()
