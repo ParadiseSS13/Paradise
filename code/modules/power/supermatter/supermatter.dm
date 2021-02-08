@@ -300,6 +300,7 @@
 	explode()
 
 /obj/machinery/power/supermatter_crystal/proc/explode()
+	SSblackbox.record_feedback("amount", "supermatter_delaminations", 1)
 	for(var/mob in GLOB.alive_mob_list)
 		var/mob/living/L = mob
 		if(istype(L) && atoms_share_level(L, src))
@@ -415,7 +416,7 @@
 				if(!isspaceturf(t))
 					continue
 				var/turf/turf_to_check = t
-				if(turf_to_check.atmos_adjacent_turfs)
+				if(length(turf_to_check.atmos_adjacent_turfs))
 					var/integrity = get_integrity()
 					if(integrity < 10)
 						damage += clamp((power * 0.0005) * DAMAGE_INCREASE_MULTIPLIER, 0, MAX_SPACE_EXPOSURE_DAMAGE)
