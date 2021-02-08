@@ -23,6 +23,7 @@
 	density = 0
 	ventcrawler = 2
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	mob_size = MOB_SIZE_TINY
 	var/mouse_color //brown, gray and white, leave blank for random
 	layer = MOB_LAYER

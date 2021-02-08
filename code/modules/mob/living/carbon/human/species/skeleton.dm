@@ -11,6 +11,7 @@
 	flesh_color = "#E6E6C6"
 
 	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE, NO_HUNGER, PIERCEIMMUNE)
+	inherent_biotypes = MOB_UNDEAD | MOB_HUMANOID
 	dies_at_threshold = TRUE
 	skinned_type = /obj/item/stack/sheet/bone
 

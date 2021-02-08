@@ -1081,15 +1081,17 @@
 		O.visible_message("<span class='warning'>The ants die.</span>")
 		qdel(O)
 
-/datum/reagent/pestkiller/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(iscarbon(M))
-		var/mob/living/carbon/C = M
-		if(!C.wear_mask) // If not wearing a mask
-			C.adjustToxLoss(2)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(iskidan(H)) //RIP
-				H.adjustToxLoss(20)
+/datum/reagent/pestkiller/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
+	if(isliving(M))
+		if(M.mob_biotypes & MOB_BUG)
+			var/damage = min(round(0.4 * volume, 0.1), 10)
+			M.adjustToxLoss(damage)
+		if(iscarbon(M))
+			var/mob/living/carbon/C = M
+			if(!C.wear_mask) // If not wearing a mask
+				C.adjustToxLoss(2)
+			if(iskidan(C)) //RIP
+				C.adjustToxLoss(18)
 
 /datum/reagent/capulettium
 	name = "Capulettium"
