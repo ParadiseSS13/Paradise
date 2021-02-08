@@ -105,7 +105,7 @@
 	//Set species_restricted list
 	switch(target_species)
 		if("Human", "Skrell")	//humanoid bodytypes
-			species_restricted = list("exclude","Unathi","Tajaran","Diona","Vox","Wryn","Drask")
+			species_restricted = list("exclude","Unathi","Tajaran","Diona","Vox","Drask")
 		else
 			species_restricted = list(target_species)
 
@@ -608,7 +608,6 @@ BLIND     // can't see anything
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
-	species_restricted = list("exclude","Wryn")
 	flash_protect = 2
 	strip_delay = 50
 	put_on_delay = 50
@@ -638,7 +637,6 @@ BLIND     // can't see anything
 	put_on_delay = 80
 	resistance_flags = NONE
 	hide_tail_by_species = null
-	species_restricted = list("exclude","Wryn")
 
 
 //Under clothing
