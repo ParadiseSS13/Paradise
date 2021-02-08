@@ -280,12 +280,8 @@ SUBSYSTEM_DEF(air)
 		if(blockchanges && T.excited_group)
 			T.excited_group.garbage_collect()
 	else
-		for(var/direction in GLOB.cardinal)
-			if(!(T.atmos_adjacent_turfs & direction))
-				continue
-			var/turf/simulated/S = get_step(T, direction)
-			if(istype(S))
-				add_to_active(S)
+		for(var/turf/simulated/S in T.atmos_adjacent_turfs)
+			add_to_active(S)
 
 /datum/controller/subsystem/air/proc/setup_allturfs(var/list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz)))
 	var/list/active_turfs = src.active_turfs

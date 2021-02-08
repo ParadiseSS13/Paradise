@@ -770,15 +770,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/djstation)
-"bK" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/turf/simulated/wall/mineral/titanium/nodecon/tileblend{
-	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "dark");
-	icon_state = "4-i"
-	},
-/area/djstation)
 "bL" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel{
@@ -1258,7 +1249,7 @@ bd
 aV
 bv
 bF
-bK
+ao
 ao
 ao
 aa

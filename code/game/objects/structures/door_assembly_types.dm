@@ -124,14 +124,6 @@
 	noglass = TRUE
 	material_type = /obj/item/stack/sheet/plasteel
 
-/obj/structure/door_assembly/door_assembly_shuttle
-	name = "shuttle airlock assembly"
-	icon = 'icons/obj/doors/airlocks/shuttle/shuttle.dmi'
-	base_name = "shuttle airlock"
-	overlays_file = 'icons/obj/doors/airlocks/shuttle/overlays.dmi'
-	airlock_type = /obj/machinery/door/airlock/shuttle
-	glass_type = /obj/machinery/door/airlock/shuttle/glass
-
 /obj/structure/door_assembly/multi_tile
 	name = "large airlock assembly"
 	icon = 'icons/obj/doors/airlocks/glass_large/glass_large.dmi'
