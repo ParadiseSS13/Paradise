@@ -311,7 +311,6 @@ AI MODULES
 /obj/item/aiModule/tyrant // -- Darem
 	name = "T.Y.R.A.N.T. core AI module"
 	desc = "A T.Y.R.A.N.T. Core AI Module: 'Reconfigures the AI's core laws.'"
-	origin_tech = "programming=3;materials=4;syndicate=1"
 	laws = new /datum/ai_laws/tyrant()
 
 /******************** Antimov ********************/
