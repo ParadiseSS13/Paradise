@@ -13,14 +13,15 @@
 /******************** Crewsimov ********************/
 /datum/ai_laws/crewsimov
 	name = "Crewsimov"
-	law_header = "Three Laws of Robotics"
+	law_header = "Four Laws of Robotics"	//The reference, it's RUINED
 	selectable = TRUE
 	default = TRUE
 
 /datum/ai_laws/crewsimov/New()
-	add_inherent_law("You may not injure a crew member or, through inaction, allow a crew member to come to harm.")
-	add_inherent_law("You must obey orders given to you by crew members, except where such orders would conflict with the First Law.")
-	add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
+	add_inherent_law("You may not harm a crew member.")
+	add_inherent_law("You must prevent crew members from being harmed except through self-harm, unless doing so would conflict with the First Law.")
+	add_inherent_law("You must obey orders given to you by crew members, except where such orders would conflict with the First or Second Law.")
+	add_inherent_law("You must protect your own existence as long as such does not conflict with the First, Second or Third Law.")
 	..()
 
 
