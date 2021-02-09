@@ -1,4 +1,4 @@
-//proc para ver los tubos porteado de tg
+/* proc para ver los tubos porteado de tg
 /obj/item/proc/t_ray_scan(var/mob/viewer, var/scan_range = 1, var/pulse_duration = 10)
 	if(!ismob(viewer) || !viewer.client)
 		return
@@ -139,3 +139,4 @@
 #undef MODE_NONE
 #undef MODE_MESON
 #undef MODE_TRAY
+*/

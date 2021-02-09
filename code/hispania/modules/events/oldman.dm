@@ -12,12 +12,12 @@
 		var/list/candidates = pollCandidatesWithVeto("Do you want to play as the old man?", ROLE_DEMON, 1)
 		if(!candidates.len)
 			key_of_oldman = null
-			return kill()
+			kill()
 		var/mob/C = pick(candidates)
 		key_of_oldman = C.key
 
 		if(!key_of_oldman)
-			return kill()
+			kill()
 		var/datum/mind/player_mind = new /datum/mind(key_of_oldman)
 		player_mind.active = 1
 		var/list/spawn_locs = list()
@@ -35,14 +35,13 @@
 		if(!spawn_locs) //If we can't find either, just spawn the oldman at the player's location
 			spawn_locs += get_turf(player_mind.current)
 		if(!spawn_locs) //If we can't find THAT, then just retry
-			return kill()
+			kill()
 		var /mob/living/simple_animal/hostile/oldman/SCP = new /mob/living/simple_animal/hostile/oldman/(pick(spawn_locs))
 		player_mind.transfer_to(SCP)
 		player_mind.assigned_role = SPECIAL_ROLE_OLD_MAN
 		player_mind.special_role = SPECIAL_ROLE_OLD_MAN
 		message_admins("[key_name_admin(SCP)] has been made into the Old Man by an event.")
 		log_game("[key_name_admin(SCP)] was spawned as the Old Man by an event.")
-		return TRUE
 
 /datum/event/spawn_oldman/start()
 	get_oldman()

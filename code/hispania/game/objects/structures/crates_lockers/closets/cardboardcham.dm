@@ -6,7 +6,7 @@
 	icon_opened = "cardboard_open"
 	icon_closed = "cardboard"
 	opened = FALSE
-	var/emagged = 0
+	emagged = 0
 
 /obj/structure/closet/cardboard/chameleon/relaymove(mob/user, direction)
 	alpha = 250
