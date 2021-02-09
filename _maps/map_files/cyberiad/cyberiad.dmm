@@ -29761,8 +29761,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	desc = "";
@@ -31976,8 +31975,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	desc = "";
@@ -33084,8 +33082,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -90518,9 +90515,7 @@
 /area/crew_quarters/dorms)
 "sVH" = (
 /obj/machinery/status_display{
-	density = 0;
 	layer = 4;
-	pixel_x = 0;
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel,
