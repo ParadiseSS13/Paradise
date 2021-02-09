@@ -38,43 +38,23 @@
 #define WINGDINGS		"wingdings"			// Ayy lmao
 #define SKELETON 		"skeleton"
 #define BREATHLESS		"breathless"		// no breathing
-#define REMOTE_VIEW		"remove_view" 		// remote viewing
-#define REGEN			"regeneration"		// health regen
-#define RUN				"increased_run" 	// no slowdown
+
 #define REMOTE_TALK		"remote_talk" 		// remote talking
-#define MORPH			"morph" 			// changing appearance
+#define REMOTE_VIEW		"remote_view"
+
 #define HEATRES			"heat_resistance" 	// heat resistance
-#define HALLUCINATE		"hallucinate" 		// hallucinations
 #define FINGERPRINTS	"no_prints" 		// no fingerprints
 #define NO_SHOCK		"no_shock" 			// insulated hands
 #define DWARF			"dwarf"				// table climbing
 #define OBESITY       	"obesity"			// Decreased metabolism
-#define STRONG        	"strong"			// (Nothing)
 #define SOBER         	"sober"				// Increased alcohol metabolism
 #define PSY_RESIST    	"psy_resist"		// Block remoteview
 #define EMPATH			"empathy"			//Read minds
 #define COMIC			"comic_sans"		//Comic Sans
-#define LOUD			"loudness"			// CAUSES INTENSE YELLING
-#define DIZZY			"dizzy"				// Trippy.
-#define LISP			"lisp"
-#define RADIOACTIVE 	"radioactive"
-#define CHAV			"chav"
-#define SWEDISH			"swedish"
-#define SCRAMBLED		"scrambled"
-#define HORNS			"horns"
-#define IMMOLATE		"immolate"
-#define CLOAK			"cloak"
-#define CHAMELEON		"chameleon"
-#define CRYO			"cryokinesis"
-#define EATER			"matter_eater"
-#define JUMPY			"jumpy"
-#define POLYMORPH		"polymorph"
+
+
 //disabilities
 #define NEARSIGHTED		"nearsighted"
-#define EPILEPSY		"epilepsy"
-#define COUGHING		"coughing"
-#define TOURETTES		"tourettes"
-#define NERVOUS			"nervous"
 #define BLINDNESS		"blind"
 #define COLOURBLIND		"colorblind"
 #define MUTE			"mute"

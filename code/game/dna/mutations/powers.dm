@@ -7,7 +7,7 @@
 	activation_messages = list("You feel no need to breathe.")
 	deactivation_messages = list("You feel the need to breathe, once more.")
 	instability = GENE_INSTABILITY_MODERATE
-	mutation = BREATHLESS
+	trait_to_add = BREATHLESS
 	activation_prob = 25
 
 /datum/mutation/nobreath/New()
@@ -20,7 +20,6 @@
 	activation_messages = list("Your wounds start healing.")
 	deactivation_messages = list("Your regenerative powers feel like they've vanished.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation = REGEN
 
 /datum/mutation/regenerate/New()
 	..()
@@ -35,7 +34,7 @@
 	activation_messages = list("You feel swift and unencumbered.")
 	deactivation_messages = list("You feel slow.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation = RUN
+	trait_to_add = TRAIT_IGNORESLOWDOWN
 
 /datum/mutation/increaserun/New()
 	..()
@@ -55,7 +54,7 @@
 	activation_messages = list("Your skin is icy to the touch.")
 	deactivation_messages = list("Your skin no longer feels icy to the touch.")
 	instability = GENE_INSTABILITY_MODERATE
-	mutation = HEATRES
+	trait_to_add = HEATRES
 
 /datum/mutation/heat_resist/New()
 	..()
@@ -69,7 +68,7 @@
 	activation_messages = list("Your body is filled with warmth.")
 	deactivation_messages = list("Your body is no longer filled with warmth.")
 	instability = GENE_INSTABILITY_MODERATE
-	mutation = COLDRES
+	trait_to_add = COLDRES
 
 /datum/mutation/cold_resist/New()
 	..()
@@ -83,7 +82,7 @@
 	activation_messages = list("Your fingers feel numb.")
 	deactivation_messages = list("your fingers no longer feel numb.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation = FINGERPRINTS
+	trait_to_add = FINGERPRINTS
 
 /datum/mutation/noprints/New()
 	..()
@@ -94,7 +93,7 @@
 	activation_messages = list("Your skin feels dry and unreactive.")
 	deactivation_messages = list("Your skin no longer feels dry and unreactive.")
 	instability = GENE_INSTABILITY_MODERATE
-	mutation = NO_SHOCK
+	trait_to_add = NO_SHOCK
 
 /datum/mutation/noshock/New()
 	..()
@@ -105,7 +104,7 @@
 	activation_messages = list("Everything around you seems bigger now...")
 	deactivation_messages = list("Everything around you seems to shrink...")
 	instability = GENE_INSTABILITY_MINOR
-	mutation = DWARF
+	trait_to_add = DWARF
 
 /datum/mutation/midget/New()
 	..()
@@ -129,7 +128,7 @@
 	activation_messages = list("Your muscles hurt.")
 	deactivation_messages = list("Your muscles shrink.")
 	instability = GENE_INSTABILITY_MAJOR
-	mutation = HULK
+	trait_to_add = HULK
 	activation_prob = 15
 
 /datum/mutation/hulk/New()
@@ -167,7 +166,7 @@
 	activation_messages = list("The walls suddenly disappear.")
 	deactivation_messages = list("the walls around you re-appear.")
 	instability = GENE_INSTABILITY_MAJOR
-	mutation = XRAY
+	trait_to_add = XRAY
 	activation_prob = 15
 
 /datum/mutation/xray/New()
@@ -189,7 +188,7 @@
 	activation_messages = list("You feel smarter.")
 	deactivation_messages = list("You feel dumber.")
 	instability = GENE_INSTABILITY_MAJOR
-	mutation = TK
+	trait_to_add = TK
 	activation_prob = 15
 
 /datum/mutation/tk/New()
@@ -207,7 +206,7 @@
 	activation_messages = list("You feel unusually sober.")
 	deactivation_messages = list("You feel like you could use a stiff drink.")
 
-	mutation = SOBER
+	trait_to_add = SOBER
 
 /datum/mutation/sober/New()
 	..()
@@ -220,7 +219,7 @@
 	activation_messages = list("Your mind feels closed.")
 	deactivation_messages = list("You feel oddly exposed.")
 
-	mutation = PSY_RESIST
+	trait_to_add = PSY_RESIST
 
 /datum/mutation/psychic_resist/New()
 	..()
@@ -251,7 +250,6 @@
 	activation_messages = list("You begin to fade into the shadows.")
 	deactivation_messages = list("You become fully visible.")
 	activation_prob = 25
-	mutation = CLOAK
 
 /datum/mutation/stealth/darkcloak/New()
 	..()
@@ -274,7 +272,6 @@
 	activation_messages = list("You feel one with your surroundings.")
 	deactivation_messages = list("You feel oddly visible.")
 	activation_prob = 25
-	mutation = CHAMELEON
 
 /datum/mutation/stealth/chameleon/New()
 	..()
@@ -310,8 +307,6 @@
 	activation_messages = list("You notice a strange cold tingle in your fingertips.")
 	deactivation_messages = list("Your fingers feel warmer.")
 	instability = GENE_INSTABILITY_MODERATE
-	mutation = CRYO
-
 	spelltype = /obj/effect/proc_holder/spell/targeted/click/cryokinesis
 
 /datum/mutation/grant_spell/cryo/New()
@@ -399,7 +394,6 @@
 	activation_messages = list("You feel hungry.")
 	deactivation_messages = list("You don't feel quite so hungry anymore.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation = EATER
 
 	spelltype=/obj/effect/proc_holder/spell/targeted/eat
 
@@ -551,7 +545,6 @@
 	activation_messages = list("Your leg muscles feel taut and strong.")
 	deactivation_messages = list("Your leg muscles shrink back to normal.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation = JUMPY
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/leap
 
@@ -648,7 +641,6 @@
 	activation_messages = list("You don't feel entirely like yourself somehow.")
 	deactivation_messages = list("You feel secure in your identity.")
 	instability = GENE_INSTABILITY_MODERATE
-	mutation = POLYMORPH
 
 /datum/mutation/grant_spell/polymorph/New()
 	..()
@@ -699,7 +691,7 @@
 	activation_messages = list("You suddenly notice more about others than you did before.")
 	deactivation_messages = list("You no longer feel able to sense intentions.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation = EMPATH
+	trait_to_add = EMPATH
 
 /datum/mutation/grant_spell/empath/New()
 	..()
@@ -817,7 +809,6 @@
 	activation_messages = list("Your body feels if can alter its appearance.")
 	deactivation_messages = list("Your body doesn't feel capable of altering its appearance.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation = MORPH
 
 /datum/mutation/grant_spell/morph/New()
 	..()
@@ -991,7 +982,7 @@
 	activation_messages = list("You feel you can project your thoughts.")
 	deactivation_messages = list("You no longer feel you can project your thoughts.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation = REMOTE_TALK
+	trait_to_add = REMOTE_TALK
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/remotetalk
 
@@ -1144,7 +1135,6 @@
 	activation_messages = list("Your mind can see things from afar.")
 	deactivation_messages = list("Your mind can no longer can see things from afar.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation = REMOTE_VIEW
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/remoteview
 

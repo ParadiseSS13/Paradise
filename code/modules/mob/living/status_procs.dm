@@ -472,11 +472,7 @@
 
 // Coughing
 
-/mob/living/proc/BecomeCoughing()
-	mutations |= COUGHING
-
 /mob/living/proc/CureCoughing()
-	mutations -= COUGHING
 	CureIfHasDisability(GLOB.coughblock)
 
 // Deaf
@@ -490,11 +486,7 @@
 
 // Epilepsy
 
-/mob/living/proc/BecomeEpilepsy()
-	mutations |= EPILEPSY
-
 /mob/living/proc/CureEpilepsy()
-	mutations -= EPILEPSY
 	CureIfHasDisability(GLOB.epilepsyblock)
 
 // Mute
@@ -524,21 +516,12 @@
 		update_nearsighted_effects()
 
 // Nervous
-
-/mob/living/proc/BecomeNervous()
-	mutations |= NERVOUS
-
 /mob/living/proc/CureNervous()
-	mutations -= NERVOUS
 	CureIfHasDisability(GLOB.nervousblock)
 
 // Tourettes
 
-/mob/living/proc/BecomeTourettes()
-	mutations |= TOURETTES
-
 /mob/living/proc/CureTourettes()
-	mutations -= TOURETTES
 	CureIfHasDisability(GLOB.twitchblock)
 
 /mob/living/proc/CureIfHasDisability(block)

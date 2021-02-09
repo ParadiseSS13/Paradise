@@ -17,7 +17,6 @@
 	activation_messages = list("Your mind says 'Hello'.")
 	deactivation_messages = list("Sanity returns. Or does it?")
 	instability = -GENE_INSTABILITY_MODERATE
-	mutation = HALLUCINATE
 
 /datum/mutation/disability/hallucinate/New()
 	..()
@@ -32,7 +31,6 @@
 	activation_messages = list("You get a headache.")
 	deactivation_messages = list("Your headache is gone, at last.")
 	instability = -GENE_INSTABILITY_MODERATE
-	mutation = EPILEPSY
 
 /datum/mutation/disability/epilepsy/New()
 	..()
@@ -49,7 +47,6 @@
 	activation_messages = list("You start coughing.")
 	deactivation_messages = list("Your throat stops aching.")
 	instability = -GENE_INSTABILITY_MINOR
-	mutation = COUGHING
 
 /datum/mutation/disability/cough/New()
 	..()
@@ -65,7 +62,7 @@
 	activation_messages = list("You feel lightheaded.")
 	deactivation_messages = list("You regain some control of your movements")
 	instability = -GENE_INSTABILITY_MINOR
-	mutation = CLUMSY
+	trait_to_add = CLUMSY
 
 /datum/mutation/disability/clumsy/New()
 	..()
@@ -76,7 +73,6 @@
 	activation_messages = list("You twitch.")
 	deactivation_messages = list("Your mouth tastes like soap.")
 	instability = -GENE_INSTABILITY_MODERATE
-	mutation = TOURETTES
 
 /datum/mutation/disability/tourettes/New()
 	..()
@@ -101,7 +97,6 @@
 	name = "Nervousness"
 	activation_messages = list("You feel nervous.")
 	deactivation_messages = list("You feel much calmer.")
-	mutation = NERVOUS
 
 /datum/mutation/disability/nervousness/New()
 	..()
@@ -116,7 +111,7 @@
 	activation_messages = list("You can't seem to see anything.")
 	deactivation_messages = list("You can see now, in case you didn't notice...")
 	instability = -GENE_INSTABILITY_MAJOR
-	mutation = BLINDNESS
+	trait_to_add = BLINDNESS
 
 /datum/mutation/disability/blindness/New()
 	..()
@@ -136,7 +131,7 @@
 	activation_messages = list("You feel a peculiar prickling in your eyes while your perception of colour changes.")
 	deactivation_messages = list("Your eyes tingle unsettlingly, though everything seems to become alot more colourful.")
 	instability = -GENE_INSTABILITY_MODERATE
-	mutation = COLOURBLIND
+	trait_to_add = COLOURBLIND
 
 /datum/mutation/disability/colourblindness/New()
 	..()
@@ -157,7 +152,7 @@
 	activation_messages = list("It's kinda quiet.")
 	deactivation_messages = list("You can hear again!")
 	instability = -GENE_INSTABILITY_MAJOR
-	mutation = DEAF
+	trait_to_add = DEAF
 
 /datum/mutation/disability/deaf/New()
 	..()
@@ -172,7 +167,7 @@
 	activation_messages = list("Your eyes feel weird...")
 	deactivation_messages = list("You can see clearly now")
 	instability = -GENE_INSTABILITY_MODERATE
-	mutation = NEARSIGHTED
+	trait_to_add = NEARSIGHTED
 
 /datum/mutation/disability/nearsighted/New()
 	..()
@@ -191,7 +186,6 @@
 	desc = "I wonder wath thith doeth."
 	activation_messages = list("Thomething doethn't feel right.")
 	deactivation_messages = list("You now feel able to pronounce consonants.")
-	mutation = LISP
 
 /datum/mutation/disability/lisp/New()
 	..()
@@ -205,7 +199,7 @@
 	desc = "This will only bring death and destruction."
 	activation_messages = list("<span class='sans'>Uh oh!</span>")
 	deactivation_messages = list("Well thank god that's over with.")
-	mutation = COMIC
+	trait_to_add = COMIC
 
 /datum/mutation/disability/comic/New()
 	..()
@@ -217,7 +211,7 @@
 	activation_messages = list("<span class='wingdings'>Your vocal cords feel alien.</span>")
 	deactivation_messages = list("Your vocal cords no longer feel alien.")
 	instability = -GENE_INSTABILITY_MINOR
-	mutation = WINGDINGS
+	trait_to_add = WINGDINGS
 
 /datum/mutation/disability/wingdings/New()
 	..()
@@ -250,7 +244,7 @@
 	activation_messages = list("You feel unable to express yourself at all.")
 	deactivation_messages = list("You feel able to speak freely again.")
 	instability = -GENE_INSTABILITY_MODERATE
-	mutation = MUTE
+	trait_to_add = MUTE
 
 /datum/mutation/disability/mute/New()
 	..()
@@ -269,7 +263,6 @@
 	activation_messages = list("You feel a strange sickness permeate your whole body.")
 	deactivation_messages = list("You no longer feel awful and sick all over.")
 	instability = -GENE_INSTABILITY_MAJOR
-	mutation = RADIOACTIVE
 
 /datum/mutation/disability/radioactive/New()
 	..()
@@ -302,7 +295,7 @@
 	activation_messages = list("You feel blubbery and lethargic!")
 	deactivation_messages = list("You feel fit!")
 	instability = -GENE_INSTABILITY_MINOR
-	mutation = OBESITY
+	trait_to_add = OBESITY
 
 /datum/mutation/disability/fat/New()
 	..()
@@ -314,7 +307,6 @@
 	desc = "Forces the language center of the subject's brain to construct sentences in a more rudimentary manner."
 	activation_messages = list("Ye feel like a rite prat like, innit?")
 	deactivation_messages = list("You no longer feel like being rude and sassy.")
-	mutation = CHAV
 	//List of swappable words. Normal word first, chav word second.
 	var/static/list/chavlinks = list(
 	"arrest" = "nick",
@@ -398,7 +390,6 @@
 	desc = "Forces the language center of the subject's brain to construct sentences in a vaguely norse manner."
 	activation_messages = list("You feel Swedish, however that works.")
 	deactivation_messages = list("The feeling of Swedishness passes.")
-	mutation = SWEDISH
 
 /datum/mutation/disability/speech/swedish/New()
 	..()
@@ -428,7 +419,6 @@
 	activation_messages = list("You can't seem to form any coherent thoughts!")
 	deactivation_messages = list("Your mind feels more clear.")
 	instability = -GENE_INSTABILITY_MINOR
-	mutation = SCRAMBLED
 
 /datum/mutation/disability/unintelligable/New()
 	..()
@@ -468,7 +458,6 @@
 	desc = "Enhances the subject's ability to build and retain heavy muscles."
 	activation_messages = list("You feel buff!")
 	deactivation_messages = list("You feel wimpy and weak.")
-	mutation = STRONG
 
 /datum/mutation/disability/strong/New()
 	..()
@@ -480,7 +469,6 @@
 	desc = "Enables the growth of a compacted keratin formation on the subject's head."
 	activation_messages = list("A pair of horns erupt from your head.")
 	deactivation_messages = list("Your horns crumble away into nothing.")
-	mutation = HORNS
 
 /datum/mutation/disability/horns/New()
 	..()
@@ -494,7 +482,6 @@
 	desc = "The subject becomes able to convert excess cellular energy into thermal energy."
 	activation_messages = list("You suddenly feel rather hot.")
 	deactivation_messages = list("You no longer feel uncomfortably hot.")
-	mutation = IMMOLATE
 	spelltype = /obj/effect/proc_holder/spell/targeted/immolate
 
 /datum/mutation/grant_spell/immolate/New()
@@ -531,7 +518,6 @@
 	desc = "Forces the speaking centre of the subjects brain to yell every sentence."
 	activation_messages = list("YOU FEEL LIKE YELLING!")
 	deactivation_messages = list("You feel like being quiet..")
-	mutation = LOUD
 
 /datum/mutation/disability/speech/loud/New()
 	..()
@@ -551,7 +537,6 @@
 	activation_messages = list("You feel very dizzy...")
 	deactivation_messages = list("You regain your balance.")
 	instability = -GENE_INSTABILITY_MINOR
-	mutation = DIZZY
 
 /datum/mutation/disability/dizzy/New()
 	..()
@@ -561,8 +546,7 @@
 /datum/mutation/disability/dizzy/on_life(mob/living/carbon/human/M)
 	if(!istype(M))
 		return
-	if(DIZZY in M.mutations)
-		M.Dizzy(300)
+	M.Dizzy(300)
 
 /datum/mutation/disability/dizzy/deactivate(mob/living/M)
 	..()
