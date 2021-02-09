@@ -26827,17 +26827,18 @@
 	},
 /area/hallway/primary/central/north)
 "bdw" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
-	},
 /obj/item/flag/nt,
-/obj/machinery/power/apc{
+/obj/structure/sign/directions/medical{
+	dir = 4;
+	pixel_y = 25
+	},
+/obj/structure/sign/directions/science{
+	dir = 4;
+	pixel_y = 32
+	},
+/obj/structure/sign/directions/security{
 	dir = 1;
-	name = "north bump";
-	pixel_x = 0;
-	pixel_y = 24
+	pixel_y = 39
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -28469,17 +28470,17 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/sign/directions/evac{
+/obj/structure/sign/directions/cargo{
 	dir = 4;
-	icon_state = "direction_evac";
-	pixel_y = 24;
-	tag = "icon-direction_evac (EAST)"
+	pixel_y = 25
 	},
-/obj/structure/sign/directions/medical{
+/obj/structure/sign/directions/bridge{
 	dir = 4;
-	icon_state = "direction_med";
-	pixel_y = 32;
-	tag = "icon-direction_med (EAST)"
+	pixel_y = 32
+	},
+/obj/structure/sign/directions/security{
+	dir = 4;
+	pixel_y = 39
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -28794,12 +28795,6 @@
 	},
 /area/hallway/primary/central/nw)
 "bgW" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "L11"
 	},
@@ -29763,6 +29758,12 @@
 	},
 /area/ai_monitored/storage/eva)
 "biO" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
 /turf/simulated/floor/plasteel{
 	desc = "";
 	icon_state = "L13";
@@ -30512,6 +30513,17 @@
 	pixel_x = 0;
 	tag = ""
 	},
+/obj/structure/sign/directions/cargo{
+	pixel_y = -39
+	},
+/obj/structure/sign/directions/bridge{
+	dir = 4;
+	pixel_y = -32
+	},
+/obj/structure/sign/directions/security{
+	dir = 4;
+	pixel_y = -25
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/nw)
 "bkr" = (
@@ -30642,25 +30654,6 @@
 	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
-	tag = ""
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
-	},
-/area/hallway/primary/central/north)
-"bkC" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8";
 	tag = ""
 	},
 /turf/simulated/floor/plasteel{
@@ -31335,8 +31328,8 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /obj/machinery/status_display{
 	density = 0;
@@ -31386,8 +31379,8 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -31948,12 +31941,6 @@
 	},
 /area/hallway/primary/central/north)
 "bni" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -31985,6 +31972,12 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
 	},
 /turf/simulated/floor/plasteel{
 	desc = "";
@@ -33087,6 +33080,12 @@
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8";
+	tag = ""
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -37654,19 +37653,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/ne)
-"bzc" = (
-/obj/structure/sign/directions/evac{
-	dir = 4
-	},
-/obj/structure/sign/directions/medical{
-	dir = 4;
-	pixel_y = 7
-	},
-/obj/structure/sign/directions/science{
-	dir = 4
-	},
-/turf/simulated/wall,
-/area/crew_quarters/bar)
 "bzd" = (
 /turf/simulated/floor/plasteel{
 	desc = "\"This is a plaque in honour of those who died in the great space lube airlock incident.\" Scratched in beneath that is a crude image of a clown and a spaceman. The spaceman is slipping. The clown is laughing.";
@@ -38155,6 +38141,18 @@
 /area/hallway/primary/central/east)
 "bAg" = (
 /obj/machinery/door/firedoor,
+/obj/structure/sign/directions/evac{
+	dir = 4;
+	pixel_y = 25
+	},
+/obj/structure/sign/directions/bridge{
+	dir = 1;
+	pixel_y = 32
+	},
+/obj/structure/sign/directions/security{
+	dir = 1;
+	pixel_y = 39
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/east)
 "bAh" = (
@@ -40233,11 +40231,6 @@
 /turf/simulated/wall,
 /area/quartermaster/storage)
 "bFn" = (
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_x = 0;
-	pixel_y = 32
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -40247,6 +40240,17 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/sign/directions/science{
+	pixel_y = 25
+	},
+/obj/structure/sign/directions/medical{
+	dir = 8;
+	pixel_y = 32
+	},
+/obj/structure/sign/directions/evac{
+	dir = 4;
+	pixel_y = 39
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
@@ -56093,19 +56097,6 @@
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"che" = (
-/obj/structure/sign/directions/engineering,
-/obj/structure/sign/directions/science{
-	dir = 4;
-	pixel_x = 0;
-	pixel_y = -7
-	},
-/obj/structure/sign/directions/medical{
-	dir = 4;
-	pixel_y = 7
-	},
-/turf/simulated/wall,
-/area/janitor)
 "chf" = (
 /turf/simulated/wall,
 /area/maintenance/asmaint)
@@ -81672,13 +81663,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/storage)
-"dco" = (
-/obj/structure/sign/directions/security{
-	dir = 1;
-	pixel_y = 7
-	},
-/turf/simulated/wall,
-/area/crew_quarters/mrchangs)
 "dcp" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -84584,6 +84568,17 @@
 /area/space/nearstation)
 "dje" = (
 /obj/item/twohanded/required/kirbyplants,
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "north bump";
+	pixel_x = 0;
+	pixel_y = 24
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2";
+	pixel_y = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "blue"
@@ -89168,6 +89163,23 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
+"gll" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/sign/directions/engineering{
+	pixel_y = -39
+	},
+/obj/structure/sign/directions/cargo{
+	dir = 8;
+	pixel_y = -32
+	},
+/obj/structure/sign/directions/medical{
+	dir = 4;
+	pixel_y = -25
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/central/south)
 "gmW" = (
 /obj/machinery/power/emitter{
 	anchored = 1;
@@ -89657,8 +89669,8 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -90504,6 +90516,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
+"sVH" = (
+/obj/machinery/status_display{
+	density = 0;
+	layer = 4;
+	pixel_x = 0;
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/starboard/east)
 "sZP" = (
 /obj/machinery/power/emitter{
 	anchored = 1;
@@ -90779,6 +90800,21 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"vUo" = (
+/obj/machinery/door/firedoor,
+/obj/structure/sign/directions/engineering{
+	pixel_y = -39
+	},
+/obj/structure/sign/directions/science{
+	dir = 4;
+	pixel_y = -32
+	},
+/obj/structure/sign/directions/medical{
+	dir = 4;
+	pixel_y = -25
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/central/east)
 "vUG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -120434,11 +120470,11 @@ aDN
 aDN
 aDN
 aDN
-dco
+aDN
 bdw
 bgW
 bni
-bkC
+bkz
 kwt
 aYf
 aYg
@@ -120467,8 +120503,8 @@ bFC
 bFC
 cex
 cgj
-cfv
-che
+gll
+chc
 chc
 chc
 chc
@@ -124559,10 +124595,10 @@ bsN
 aUS
 bsN
 aUS
-bzc
+aUS
 bAg
 bHr
-bAg
+vUo
 bEp
 bEp
 bEp
@@ -134585,7 +134621,7 @@ bau
 bau
 bFn
 bHI
-bwv
+sVH
 bEA
 bEA
 bIa
