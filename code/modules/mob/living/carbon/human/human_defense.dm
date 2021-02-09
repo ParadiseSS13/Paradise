@@ -532,6 +532,12 @@ emp_act
 		dna.species.spec_hitby(AM, src)
 	return ..()
 
+/mob/living/carbon/human/grabbedby(mob/living/carbon/user, supress_message = FALSE)
+	if(user == src && pulling && !pulling.anchored && grab_state >= GRAB_AGGRESSIVE && is_type_in_list(pulling,  user.dna.species.allowed_consumed_mobs))
+		devour_mob(pulling)
+	else
+		..()
+
 /mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)
 
 	if(gloves)

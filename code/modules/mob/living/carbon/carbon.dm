@@ -85,6 +85,18 @@
 				if(prob(getBruteLoss() - 50))
 					gib()
 
+/mob/living/carbon/proc/devour_mob(mob/living/L, devour_time = 30)
+	L.visible_message("<span class='danger'>[src] is attempting to devour [L]!</span>", \
+					"<span class='userdanger'>[src] is attempting to devour you!</span>")
+	if(!do_mob(src, L, devour_time))
+		return
+	if(pulling && pulling == L && grab_state >= GRAB_AGGRESSIVE && a_intent == INTENT_GRAB)
+		L.visible_message("<span class='danger'>[src] devours [L]!</span>", \
+						"<span class='userdanger'>[src] devours you!</span>")
+		L.forceMove(src)
+		LAZYADD(stomach_contents, L)
+		add_attack_logs(src, L, "Devoured")
+
 #undef STOMACH_ATTACK_DELAY
 
 /mob/living/carbon/proc/has_mutated_organs()
@@ -579,18 +591,12 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return
 
 /mob/living/carbon/throw_item(atom/target)
-	if(!target || !isturf(loc) || istype(target, /obj/screen))
-		throw_mode_off()
-		return
-
-	var/obj/item/I = src.get_active_hand()
-
-	if(!I || I.override_throw(src, target) || (I.flags & NODROP))
-		throw_mode_off()
-		return
-
 	throw_mode_off()
+	if(!target || !isturf(loc) || istype(target, /obj/screen))
+		return
+
 	var/atom/movable/thrown_thing
+	var/obj/item/I = get_active_hand()
 
 	if(!I)
 		if(pulling && isliving(pulling) && grab_state >= GRAB_AGGRESSIVE)
@@ -601,6 +607,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				if(HAS_TRAIT(src, TRAIT_PACIFISM))
 					to_chat(src, "<span class='notice'>You gently let go of [throwable_mob].</span>")
 					return
+
+	else if(I.override_throw(src, target) || (I.flags & NODROP))
+		return
+
 
 	else if(!(I.flags & ABSTRACT)) //can't throw abstract items
 		thrown_thing = I

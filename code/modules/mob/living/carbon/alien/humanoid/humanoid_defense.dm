@@ -1,3 +1,9 @@
+/mob/living/carbon/alien/humanoid/grabbedby(mob/living/carbon/user, supress_message = FALSE)
+	if(user == src && pulling && grab_state >= GRAB_AGGRESSIVE && !pulling.anchored && iscarbon(pulling))
+		devour_mob(pulling, devour_time = 60)
+	else
+		..()
+
 /mob/living/carbon/alien/humanoid/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(user.a_intent == INTENT_HARM)
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
