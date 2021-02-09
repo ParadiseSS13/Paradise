@@ -534,6 +534,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	rename_character(real_name, get_default_name("Default"))
 	languages = list()
 	speech_synthesizer_langs = list()
+	radio.recalculateChannels()
 
 	update_icons()
 	update_headlamp()
@@ -542,7 +543,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	ionpulse = FALSE
 	magpulse = FALSE
 	revert_shell()
-	add_language("Robot Talk", 1)
+	add_language("Robot Talk", TRUE)
 	if("lava" in weather_immunities) // Remove the lava-immunity effect given by a printable upgrade
 		weather_immunities -= "lava"
 

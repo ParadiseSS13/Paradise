@@ -297,7 +297,7 @@
 	addtimer(CALLBACK(src, .proc/zap), rand(30, 100))
 
 /obj/item/organ/internal/heart/gland/electric/proc/zap()
-	tesla_zap(owner, 4, 8000)
+	tesla_zap(owner, 4, 8000, ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN)
 	playsound(get_turf(owner), 'sound/magic/lightningshock.ogg', 50, 1)
 
 /obj/item/organ/internal/heart/gland/chem
