@@ -656,7 +656,7 @@
 *///////////////////////
 
 /mob/living/can_resist()
-	return !((next_move > world.time) || incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE))
+	return !((next_move > world.time) || incapacitated(ignore_restraints = TRUE, ignore_grab = TRUE, ignore_lying = TRUE))
 
 /mob/living/verb/resist()
 	set name = "Resist"

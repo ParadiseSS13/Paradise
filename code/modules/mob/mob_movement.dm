@@ -172,7 +172,7 @@
 		return FALSE
 	if(mob.pulledby == mob.pulling && mob.pulledby.grab_state == GRAB_PASSIVE) //Don't autoresist passive grabs if we're grabbing them too.
 		return FALSE
-	if(mob.incapacitated(ignore_restraints = TRUE))
+	if(mob.incapacitated(ignore_restraints = TRUE, ignore_grab = TRUE, ignore_lying = TRUE))
 		move_delay = world.time + 1 SECONDS
 		return TRUE
 	else if(mob.restrained())
