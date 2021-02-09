@@ -76,7 +76,7 @@
 	visible_message("<span class='warning'><B>\The [src] emerges out of \the [T]!</B>")
 
 /mob/living/simple_animal/hostile/oldman/proc/rust(turf/simulated/wall/T)
-	if(!istype(T, /turf/simulated/shuttle) && !istype(T, /turf/simulated/wall/rust) && !istype(T, /turf/simulated/wall/r_wall) && istype(T, /turf/simulated/wall))
+	if(!istype(T, /turf/simulated/wall/mineral/titanium) && !istype(T, /turf/simulated/wall/rust) && !istype(T, /turf/simulated/wall/r_wall) && istype(T, /turf/simulated/wall))
 		T.ChangeTurf(/turf/simulated/wall/rust)
 	if(!istype(T, /turf/simulated/wall/r_wall/rust) && istype(T, /turf/simulated/wall/r_wall))
 		T.ChangeTurf(/turf/simulated/wall/r_wall/rust)
