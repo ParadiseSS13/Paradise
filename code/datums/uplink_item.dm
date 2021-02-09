@@ -1402,7 +1402,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "When used with an upload console, this module allows you to upload priority laws to an artificial intelligence. Be careful with their wording, as artificial intelligences may look for loopholes to exploit."
 	reference = "HAI"
 	item = /obj/item/aiModule/syndicate
-	cost = 12
+	cost = 10
 
 /datum/uplink_item/device_tools/magboots
 	name = "Blood-Red Magboots"
