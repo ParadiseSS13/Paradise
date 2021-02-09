@@ -17,6 +17,8 @@
 	dog_fashion = /datum/dog_fashion/back
 	resistance_flags = FIRE_PROOF
 	var/max_water = 50
+	/// Does it start with no water?
+	var/empty = FALSE
 	var/last_use = 1.0
 	var/safety = 1
 	var/refilling = FALSE
@@ -24,6 +26,9 @@
 	var/power = 5 //Maximum distance launched water will travel
 	var/precision = 0 //By default, turfs picked from a spray are random, set to 1 to make it always have at least one water effect per row
 	var/cooling_power = 2 //Sets the cooling_temperature of the water reagent datum inside of the extinguisher when it is refilled
+
+/obj/item/extinguisher/empty
+	empty = TRUE
 
 /obj/item/extinguisher/mini
 	name = "pocket fire extinguisher"
@@ -40,20 +45,20 @@
 	sprite_name = "miniFE"
 	dog_fashion = null
 
+/obj/item/extinguisher/Initialize(mapload)
+	. = ..()
+	create_reagents(max_water)
+	if(!empty)
+		reagents.add_reagent("water", max_water)
+
 /obj/item/extinguisher/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>The safety is [safety ? "on" : "off"].</span>"
 
-
-/obj/item/extinguisher/New()
-	..()
-	create_reagents(max_water)
-	reagents.add_reagent("water", max_water)
-
-/obj/item/extinguisher/attack_self(mob/user as mob)
+/obj/item/extinguisher/attack_self(mob/user)
 	safety = !safety
-	src.icon_state = "[sprite_name][!safety]"
-	src.desc = "The safety is [safety ? "on" : "off"]."
+	icon_state = "[sprite_name][!safety]"
+	desc = "The safety is [safety ? "on" : "off"]."
 	to_chat(user, "The safety is [safety ? "on" : "off"].")
 	return
 

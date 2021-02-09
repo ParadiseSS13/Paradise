@@ -25,6 +25,8 @@
 	var/maximum_fuel = 20
 	var/requires_fuel = TRUE //Set to FALSE if it doesn't need fuel, but serves equally well as a cost modifier
 	var/refills_over_time = FALSE //Do we regenerate fuel?
+	/// Does it start with no fuel?
+	var/empty = FALSE
 	var/activation_sound = 'sound/items/welderactivate.ogg'
 	var/deactivation_sound = 'sound/items/welderdeactivate.ogg'
 	var/light_intensity = 2
@@ -32,9 +34,10 @@
 	var/progress_flash_divisor = 10 //Length of time between each "eye flash"
 
 /obj/item/weldingtool/Initialize(mapload)
-	..()
+	. = ..()
 	create_reagents(maximum_fuel)
-	reagents.add_reagent("fuel", maximum_fuel)
+	if(!empty)
+		reagents.add_reagent("fuel", maximum_fuel)
 	update_icon()
 
 /obj/item/weldingtool/Destroy()
@@ -175,6 +178,8 @@
 	update_torch()
 	..()
 
+/obj/item/weldingtool/empty
+	empty = TRUE
 
 /obj/item/weldingtool/largetank
 	name = "industrial welding tool"
@@ -183,6 +188,9 @@
 	maximum_fuel = 40
 	materials = list(MAT_METAL=70, MAT_GLASS=60)
 	origin_tech = "engineering=2;plasmatech=2"
+
+/obj/item/weldingtool/largetank/empty
+	empty = TRUE
 
 /obj/item/weldingtool/largetank/cyborg
 	name = "integrated welding tool"
@@ -197,6 +205,9 @@
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(MAT_METAL=30, MAT_GLASS=10)
 	low_fuel_changes_icon = FALSE
+
+/obj/item/weldingtool/mini/empty
+	empty = TRUE
 
 /obj/item/weldingtool/abductor
 	name = "alien welding tool"
@@ -218,6 +229,9 @@
 	maximum_fuel = 80
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
 	origin_tech = "engineering=3;plasmatech=2"
+
+/obj/item/weldingtool/hugetank/empty
+	empty = TRUE
 
 /obj/item/weldingtool/experimental
 	name = "experimental welding tool"
