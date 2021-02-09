@@ -334,6 +334,7 @@
 	// Check if the current body accessory exists
 	if(!GLOB.body_accessory_by_name[body_accessory])
 		body_accessory = null
+
 	return 1
 
 /datum/preferences/proc/save_character(client/C)
@@ -418,7 +419,7 @@
 												body_accessory=:body_accessory,
 												gear=:gearlist,
 												autohiss=:autohiss_mode,
-												all_quirks=:quirklist,
+												all_quirks=:quirklist
 												WHERE ckey=:ckey
 												AND slot=:slot"}, list(
 													// OH GOD SO MANY PARAMETERS
@@ -441,7 +442,7 @@
 													"f_style" = f_style,
 													"markingstyleslist" = markingstyleslist,
 													"ha_style" = ha_style,
-													"alt_head" = alt_head,
+													"alt_head" = alt_head || "",
 													"e_colour" = e_colour,
 													"underwear" = underwear,
 													"undershirt" = undershirt,
