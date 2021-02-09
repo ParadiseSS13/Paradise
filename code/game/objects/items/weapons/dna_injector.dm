@@ -103,7 +103,7 @@
 					M.dna.UpdateSE()
 				else
 					M.dna.SetSEValue(block,src.GetValue())
-				domutcheck(M, null, forcedmutation ? MUTCHK_FORCED : 0)
+				domutcheck(M, forcedmutation ? MUTCHK_FORCED : FALSE)
 				M.update_mutations()
 			if(H)
 				H.sync_organ_dna(assimilate = 0, old_ue = prev_ue)

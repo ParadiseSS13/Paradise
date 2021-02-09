@@ -19,7 +19,7 @@
 
 	brute_mod = 1.25 //greys are fragile
 
-	default_genes = list(REMOTE_TALK)
+	default_mutations = list(REMOTE_TALK)
 
 	species_traits = list(LIPS, IS_WHITELISTED, CAN_WINGDINGS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
@@ -33,7 +33,7 @@
 /datum/species/grey/handle_dna(mob/living/carbon/human/H, remove)
 	..()
 	H.dna.SetSEState(GLOB.remotetalkblock, !remove, 1)
-	genemutcheck(H, GLOB.remotetalkblock, null, MUTCHK_FORCED)
+	singlemutcheck(H, GLOB.remotetalkblock, MUTCHK_FORCED)
 	H.dna.default_blocks.Add(GLOB.remotetalkblock)
 
 /datum/species/grey/water_act(mob/living/carbon/human/H, volume, temperature, source, method = REAGENT_TOUCH)

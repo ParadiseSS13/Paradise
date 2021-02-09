@@ -15,7 +15,7 @@
 	if(.) //not dead
 
 		if(check_mutations)
-			domutcheck(src,null)
+			domutcheck(src)
 			update_mutations()
 			check_mutations = FALSE
 
@@ -170,11 +170,11 @@
 					emote("drool")
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
-	for(var/datum/dna/gene/gene in GLOB.dna_genes)
-		if(!gene.block)
+	for(var/datum/mutation/mutation in GLOB.dna_mutations)
+		if(!mutation.block)
 			continue
-		if(gene.is_active(src))
-			gene.OnMobLife(src)
+		if(mutation.is_active(src))
+			mutation.on_life(src)
 	if(!ignore_gene_stability && gene_stability < GENETIC_DAMAGE_STAGE_1)
 		var/instability = DEFAULT_GENE_STABILITY - gene_stability
 		if(prob(instability * 0.1))

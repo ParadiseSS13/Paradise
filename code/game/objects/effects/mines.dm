@@ -73,7 +73,7 @@
 		if(NO_DNA in V.dna.species.species_traits)
 			return
 	randmutb(victim)
-	domutcheck(victim ,null)
+	domutcheck(victim)
 
 /obj/effect/mine/gas
 	name = "oxygen mine"

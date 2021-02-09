@@ -266,7 +266,7 @@
 	if(!user.dna)
 		return -1
 	user.dna.SetSEState(GLOB.hulkblock,1)
-	genemutcheck(user, GLOB.hulkblock,null,MUTCHK_FORCED)
+	singlemutcheck(user, GLOB.hulkblock, MUTCHK_FORCED)
 	// Demonic power gives you consequenceless hulk
 	user.gene_stability += GENE_INSTABILITY_MAJOR
 	if(ishuman(user))

@@ -330,7 +330,7 @@
 	. = ..()
 	H.dna.SetSEState(GLOB.smallsizeblock, 1, 1)
 	H.mutations.Add(DWARF)
-	genemutcheck(H, GLOB.smallsizeblock, null, MUTCHK_FORCED)
+	singlemutcheck(H, GLOB.smallsizeblock, MUTCHK_FORCED)
 	H.update_mutations()
 
 /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/Initialize(mapload)

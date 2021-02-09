@@ -145,10 +145,10 @@
 				H.visible_message("<span class='warning'>[H] writhes in pain as [M.p_their()] vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
 				if(prob(80))
 					randmutb(H)
-					domutcheck(H, null)
+					domutcheck(H)
 				else
 					randmutg(H)
-					domutcheck(H, null)
+					domutcheck(H)
 			else
 				H.adjustFireLoss(rand(5, 15))
 				H.show_message("<span class='warning'>The radiation beam singes you!</span>")

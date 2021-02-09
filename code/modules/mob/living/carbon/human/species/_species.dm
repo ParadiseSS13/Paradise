@@ -57,7 +57,7 @@
 	var/punchdamagelow = 0       //lowest possible punch damage
 	var/punchdamagehigh = 9      //highest possible punch damage
 	var/punchstunthreshold = 9	 //damage at which punches from this race will stun //yes it should be to the attacked race but it's not useful that way even if it's logical
-	var/list/default_genes = list()
+	var/list/default_mutations = list()
 
 	var/ventcrawler = VENTCRAWLER_NONE //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.
@@ -771,7 +771,7 @@
 			to_chat(H, "<span class='danger'>You mutate!</span>")
 			randmutb(H)
 			H.emote("gasp")
-			domutcheck(H, null)
+			domutcheck(H)
 
 	if(radiation > RAD_MOB_HAIRLOSS)
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")

@@ -59,7 +59,7 @@
 	..()
 	if(!remove)
 		H.dna.SetSEState(GLOB.monkeyblock, TRUE)
-		genemutcheck(H, GLOB.monkeyblock, null, MUTCHK_FORCED)
+		singlemutcheck(H, GLOB.monkeyblock, MUTCHK_FORCED)
 
 /datum/species/monkey/tajaran
 	name = "Farwa"

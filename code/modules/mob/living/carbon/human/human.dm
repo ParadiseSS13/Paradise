@@ -1221,7 +1221,7 @@
 		set_species(new_dna.species.type, retain_damage = TRUE)
 	dna = new_dna.Clone()
 	real_name = new_dna.real_name
-	domutcheck(src, null, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
+	domutcheck(src, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
 	if(!keep_flavor_text)
 		flavor_text = ""
 	dna.UpdateSE()
@@ -1247,8 +1247,8 @@
 		if(gender == PLURAL && oldspecies.has_gender)
 			change_gender(pick(MALE, FEMALE))
 
-		if(oldspecies.default_genes.len)
-			oldspecies.handle_dna(src, TRUE) // Remove any genes that belong to the old species
+		if(length(oldspecies.default_mutations))
+			oldspecies.handle_dna(src, TRUE) // Remove any mutations that belong to the old species
 
 		oldspecies.on_species_loss(src)
 
@@ -1961,7 +1961,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/cleanSE()	//remove all disabilities/powers
 	for(var/block = 1; block <= DNA_SE_LENGTH; block++)
 		dna.SetSEState(block, FALSE, TRUE)
-		genemutcheck(src, block, null, MUTCHK_FORCED)
+		singlemutcheck(src, block, MUTCHK_FORCED)
 	dna.UpdateSE()
 
 /mob/living/carbon/human/get_spooked()

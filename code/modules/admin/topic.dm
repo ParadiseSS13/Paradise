@@ -2085,15 +2085,15 @@
 				logmsg = "a heal over time."
 			if("Permanent Regeneration")
 				H.dna.SetSEState(GLOB.regenerateblock, 1)
-				genemutcheck(H, GLOB.regenerateblock,  null, MUTCHK_FORCED)
+				singlemutcheck(H, GLOB.regenerateblock, MUTCHK_FORCED)
 				H.update_mutations()
 				H.gene_stability = 100
 				logmsg = "permanent regeneration."
 			if("Super Powers")
-				var/list/default_genes = list(GLOB.regenerateblock, GLOB.breathlessblock, GLOB.coldblock)
-				for(var/gene in default_genes)
-					H.dna.SetSEState(gene, 1)
-					genemutcheck(H, gene,  null, MUTCHK_FORCED)
+				var/list/default_mutations = list(GLOB.regenerateblock, GLOB.breathlessblock, GLOB.coldblock)
+				for(var/mutation in default_mutations)
+					H.dna.SetSEState(mutation, 1)
+					singlemutcheck(H, mutation, MUTCHK_FORCED)
 					H.update_mutations()
 				H.gene_stability = 100
 				logmsg = "superpowers."

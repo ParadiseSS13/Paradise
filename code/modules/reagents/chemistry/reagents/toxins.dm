@@ -184,7 +184,7 @@
 		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	if((method==REAGENT_TOUCH && prob(33)) || method==REAGENT_INGEST)
 		randmutb(M)
-		domutcheck(M, null)
+		domutcheck(M)
 		M.UpdateAppearance()
 
 /datum/reagent/mutagen/on_mob_life(mob/living/M)
@@ -1178,7 +1178,7 @@
 		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	if((method==REAGENT_TOUCH && prob(50)) || method==REAGENT_INGEST)
 		randmutb(M)
-		domutcheck(M, null)
+		domutcheck(M)
 		M.UpdateAppearance()
 
 /datum/reagent/glowing_slurry/on_mob_life(mob/living/M)
@@ -1193,7 +1193,7 @@
 		randmutg(M)
 		did_mutation = TRUE
 	if(did_mutation)
-		domutcheck(M, null)
+		domutcheck(M)
 		M.UpdateAppearance()
 	return ..()
 

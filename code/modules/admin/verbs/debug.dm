@@ -854,7 +854,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 	if(istype(M, /mob/living/carbon))
 		M.dna.SetSEState(block,!M.dna.GetSEState(block))
-		genemutcheck(M,block,null,MUTCHK_FORCED)
+		singlemutcheck(M, block, MUTCHK_FORCED)
 		M.update_mutations()
 		var/state="[M.dna.GetSEState(block)?"on":"off"]"
 		var/blockname=GLOB.assigned_blocks[block]

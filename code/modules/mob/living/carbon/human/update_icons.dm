@@ -450,11 +450,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(gender == FEMALE)
 		g = "f"
 	// DNA2 - Drawing underlays.
-	for(var/datum/dna/gene/gene in GLOB.dna_genes)
-		if(!gene.block)
+	for(var/datum/mutation/mutation in GLOB.dna_mutations)
+		if(!mutation.block)
 			continue
-		if(gene.is_active(src))
-			var/underlay = gene.OnDrawUnderlays(src, g)
+		if(mutation.is_active(src))
+			var/underlay = mutation.on_draw_underlays(src, g)
 			if(underlay)
 				standing.underlays += underlay
 				add_image = 1

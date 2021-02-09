@@ -44,7 +44,7 @@
 							randmutb(H)
 						else
 							randmutg(H)
-					domutcheck(H, null, 1)
+					domutcheck(H, MUTCHK_FORCED)
 
 		L.rad_act(20)
 
