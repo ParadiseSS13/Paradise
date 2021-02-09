@@ -101,7 +101,7 @@
 		CtrlClickOn(A)
 		return
 
-	if(incapacitated(ignore_restraints = 1, ignore_grab = 1, ignore_lying = 1))
+	if(incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE))
 		return
 
 	face_atom(A)
@@ -312,9 +312,20 @@
 
 /atom/proc/CtrlClick(mob/user)
 	SEND_SIGNAL(src, COMSIG_CLICK_CTRL, user)
+	SEND_SIGNAL(user, COMSIG_MOB_CTRL_CLICKED, src)
 	var/mob/living/ML = user
 	if(istype(ML))
 		ML.pulled(src)
+
+/mob/living/carbon/human/CtrlClick(mob/user)
+	if(ishuman(user) && Adjacent(user) && !user.incapacitated())
+		if(world.time < user.next_move)
+			return FALSE
+		var/mob/living/carbon/human/H = user
+		H.dna.species.grab(H, src, H.mind.martial_art)
+		H.changeNext_move(CLICK_CD_MELEE)
+	else
+		..()
 
 /*
 	Alt click

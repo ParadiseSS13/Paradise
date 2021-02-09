@@ -62,7 +62,8 @@
 
 // Whether the mob is capable of standing or not
 /mob/living/proc/can_stand()
-	return !(IsWeakened() || paralysis || stat || (status_flags & FAKEDEATH))
+	var/chokehold = pulledby && pulledby.grab_state >= GRAB_NECK
+	return !(IsWeakened() || paralysis || stat || chokehold || (status_flags & FAKEDEATH))
 
 // Whether the mob is capable of actions or not
 /mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE, list/extra_checks = list(), use_default_checks = TRUE)
@@ -72,7 +73,7 @@
 		extra_checks += CALLBACK(src, /mob.proc/IsWeakened)
 		extra_checks += CALLBACK(src, /mob.proc/IsStunned)
 
-	if(stat || paralysis || (!ignore_restraints && restrained()) || (!ignore_lying && lying) || check_for_true_callbacks(extra_checks))
+	if(stat || paralysis || (!ignore_restraints && (restrained() || (!ignore_grab && pulledby && pulledby.grab_state >= GRAB_AGGRESSIVE))) || (!ignore_lying && lying) || check_for_true_callbacks(extra_checks))
 		return TRUE
 
 // wonderful proc names, I know - used to check whether the blur overlay

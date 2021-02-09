@@ -75,6 +75,7 @@
 	update_health_hud()
 	med_hud_set_health()
 	med_hud_set_status()
+	stop_pulling()
 	if(!gibbed && !QDELETED(src))
 		addtimer(CALLBACK(src, .proc/med_hud_set_status), DEFIB_TIME_LIMIT + 1)
 

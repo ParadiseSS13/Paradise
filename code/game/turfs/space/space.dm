@@ -107,18 +107,45 @@
 	if((!(A) || !(src in A.locs)))
 		return
 
-	if(destination_z && destination_x && destination_y)
-		A.forceMove(locate(destination_x, destination_y, destination_z))
+	if(destination_z && destination_x && destination_y && !(A.pulledby || !A.can_be_z_moved))
+		var/tx = destination_x
+		var/ty = destination_y
+		var/turf/DT = locate(tx, ty, destination_z)
+		var/itercount = 0
+		while(DT.density || istype(DT.loc,/area/shuttle)) // Extend towards the center of the map, trying to look for a better place to arrive
+			if (itercount++ >= 100)
+				log_game("SPACE Z-TRANSIT ERROR: Could not find a safe place to land [A] within 100 iterations.")
+				break
+			if (tx < 128)
+				tx++
+			else
+				tx--
+			if (ty < 128)
+				ty++
+			else
+				ty--
+			DT = locate(tx, ty, destination_z)
 
-		if(isliving(A))
-			var/mob/living/L = A
-			if(L.pulling)
-				var/turf/T = get_step(L.loc,turn(A.dir, 180))
-				L.pulling.forceMove(T)
+		var/atom/movable/pulling = A.pulling
+		var/atom/movable/puller = A
+		A.forceMove(DT)
+
+		while(pulling != null)
+			var/next_pulling = pulling.pulling
+
+			var/turf/T = get_step(puller.loc, turn(puller.dir, 180))
+			pulling.can_be_z_moved = FALSE
+			pulling.forceMove(T)
+			puller.start_pulling(pulling)
+			pulling.can_be_z_moved = TRUE
+
+			puller = pulling
+			pulling = next_pulling
 
 		//now we're on the new z_level, proceed the space drifting
-		sleep(0)//Let a diagonal move finish, if necessary
+		stoplag()//Let a diagonal move finish, if necessary
 		A.newtonian_move(A.inertia_dir)
+		A.inertia_moving = TRUE
 
 /turf/space/proc/Sandbox_Spacemove(atom/movable/A as mob|obj)
 	var/cur_x

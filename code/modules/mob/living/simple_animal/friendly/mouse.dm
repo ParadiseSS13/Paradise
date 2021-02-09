@@ -85,10 +85,10 @@
 		get_scooped(M)
 	..()
 
-/mob/living/simple_animal/mouse/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)//Prevents mouse from pulling things
+/mob/living/simple_animal/mouse/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE) //Prevents mouse from pulling things
 	if(istype(AM, /obj/item/reagent_containers/food/snacks/cheesewedge))
 		return ..() // Get dem
-	if(show_message)
+	if(!supress_message)
 		to_chat(src, "<span class='warning'>You are too small to pull anything except cheese.</span>")
 	return
 

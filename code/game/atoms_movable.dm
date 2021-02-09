@@ -18,7 +18,10 @@
 	var/moved_recently = 0
 	var/mob/pulledby = null
 	var/atom/movable/pulling
+	var/atom/movable/moving_from_pull		//attempt to resume grab after moving instead of before.
+	var/grab_state = 0
 	var/throwforce = 0
+	var/can_be_z_moved = TRUE
 	var/canmove = 1
 
 	var/inertia_dir = 0
@@ -56,7 +59,7 @@
 /atom/movable/proc/get_cell()
 	return
 
-/atom/movable/proc/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
+/atom/movable/proc/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
 	if(QDELETED(AM))
 		return FALSE
 	if(!(AM.can_be_pulled(src, state, force)))
@@ -69,32 +72,67 @@
 			return FALSE
 		// Are we trying to pull something we are already pulling? Then enter grab cycle and end.
 		if(AM == pulling)
+			setGrabState(state)
 			if(isliving(AM))
 				var/mob/living/AMob = AM
 				AMob.grabbedby(src)
 			return TRUE
 		stop_pulling()
+
+	SEND_SIGNAL(src, COMSIG_ATOM_START_PULL, AM, state, force)
+
 	if(AM.pulledby)
 		add_attack_logs(AM, AM.pulledby, "pulled from", ATKLOG_ALMOSTALL)
 		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
 	pulling = AM
-	AM.pulledby = src
+	AM.set_pulledby(src)
+	setGrabState(state)
 	if(ismob(AM))
 		var/mob/M = AM
 		add_attack_logs(src, M, "passively grabbed", ATKLOG_ALMOSTALL)
-		if(show_message)
-			visible_message("<span class='warning'>[src] has grabbed [M] passively!</span>")
+		if(!supress_message)
+			M.visible_message("<span class='warning'>[src] grabs [M] passively.</span>", "<span class='danger'>[src] grabs you passively.</span>")
 	return TRUE
 
 /atom/movable/proc/stop_pulling()
 	if(pulling)
-		pulling.pulledby = null
-		var/mob/living/ex_pulled = pulling
+		pulling.set_pulledby(null)
+		setGrabState(GRAB_PASSIVE)
 		pulling = null
-		pulledby = null
-		if(isliving(ex_pulled))
-			var/mob/living/L = ex_pulled
-			L.update_canmove()// mob gets up if it was lyng down in a chokehold
+
+
+///Reports the event of the change in value of the pulledby variable.
+/atom/movable/proc/set_pulledby(new_pulledby)
+	if(new_pulledby == pulledby)
+		return FALSE //null signals there was a change, be sure to return FALSE if none happened here.
+	. = pulledby
+	pulledby = new_pulledby
+
+/atom/movable/proc/Move_Pulled(atom/A)
+	if(!pulling)
+		return FALSE
+	if(pulling.anchored || pulling.move_resist > move_force || !pulling.Adjacent(src))
+		stop_pulling()
+		return FALSE
+	if(isliving(pulling))
+		var/mob/living/L = pulling
+		if(L.buckled && L.buckled.buckle_prevents_pull) //if they're buckled to something that disallows pulling, prevent it
+			stop_pulling()
+			return FALSE
+	if(A == loc && pulling.density)
+		return FALSE
+	var/move_dir = get_dir(pulling.loc, A)
+	if(!Process_Spacemove(move_dir))
+		return FALSE
+	step(pulling, move_dir)
+	return TRUE
+
+/mob/living/Move_Pulled(atom/A)
+	. = ..()
+	if(!. || !isliving(A))
+		return
+	var/mob/living/L = A
+	set_pull_offsets(L, grab_state)
 
 /atom/movable/proc/check_pulling()
 	if(pulling)
@@ -115,20 +153,29 @@
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1)		//separated from our puller and not in the middle of a diagonal move.
 		pulledby.stop_pulling()
 
-/atom/movable/proc/can_be_pulled(user, grab_state, force, show_message = FALSE)
+/atom/movable/proc/can_be_pulled(user, grab_state, force)
 	if(src == user || !isturf(loc))
 		return FALSE
-	if(anchored || move_resist == INFINITY)
-		if(show_message)
-			to_chat(user, "<span class='warning'>[src] appears to be anchored to the ground!</span>")
-		return FALSE
-	if(throwing)
+	if(anchored || throwing)
 		return FALSE
 	if(force < (move_resist * MOVE_FORCE_PULL_RATIO))
-		if(show_message)
-			to_chat(user, "<span class='warning'>[src] is too heavy to pull!</span>")
 		return FALSE
 	return TRUE
+
+/**
+ * Updates the grab state of the movable
+ *
+ * This exists to act as a hook for behaviour
+ */
+/atom/movable/proc/setGrabState(newstate)
+	if(newstate == grab_state)
+		return
+	SEND_SIGNAL(src, COMSIG_MOVABLE_SET_GRAB_STATE, newstate)
+	. = grab_state
+	grab_state = newstate
+	if(isliving(pulling))
+		var/mob/living/L = pulling
+		L.update_canmove()
 
 // Used in shuttle movement and AI eye stuff.
 // Primarily used to notify objects being moved by a shuttle/bluespace fuckup.
@@ -136,7 +183,12 @@
 	loc = T
 
 /atom/movable/Move(atom/newloc, direct = 0, movetime)
-	if(!loc || !newloc) return 0
+	var/atom/movable/pullee = pulling
+	var/turf/T = loc
+	if(!moving_from_pull)
+		check_pulling()
+	if(!loc || !newloc)
+		return FALSE
 	var/atom/oldloc = loc
 
 	if(loc != newloc)
@@ -203,6 +255,18 @@
 
 	if(.)
 		Moved(oldloc, direct)
+	if(. && pulling && pulling == pullee && pulling != moving_from_pull) //we were pulling a thing and didn't lose it during our move.
+		if(pulling.anchored)
+			stop_pulling()
+		else
+			var/pull_dir = get_dir(src, pulling)
+			//puller and pullee more than one tile away or in diagonal position
+			if(get_dist(src, pulling) > 1 || (moving_diagonally != SECOND_DIAG_STEP && ((pull_dir - 1) & pull_dir)))
+				pulling.moving_from_pull = src
+				pulling.Move(T, get_dir(pulling, T), movetime) //the pullee tries to reach our previous position
+				pulling.moving_from_pull = null
+			check_pulling()
+
 
 	last_move = direct
 	src.move_speed = world.time - src.l_move_time
@@ -266,6 +330,8 @@
 			AM.Uncrossed(src)
 
 	if(destination)
+		if(pulledby)
+			pulledby.stop_pulling()
 		destination.Entered(src)
 		for(var/atom/movable/AM in destination)
 			if(AM == src)
@@ -288,14 +354,13 @@
 		AM.onTransitZ(old_z,new_z)
 
 /mob/living/forceMove(atom/destination)
+	stop_pulling()
 	if(buckled)
 		addtimer(CALLBACK(src, .proc/check_buckled), 1, TIMER_UNIQUE)
 	if(has_buckled_mobs())
 		for(var/m in buckled_mobs)
 			var/mob/living/buckled_mob = m
 			addtimer(CALLBACK(buckled_mob, .proc/check_buckled), 1, TIMER_UNIQUE)
-	if(pulling)
-		addtimer(CALLBACK(src, .proc/check_pull), 1, TIMER_UNIQUE)
 	. = ..()
 	if(client)
 		reset_perspective(destination)
@@ -311,8 +376,8 @@
 	if(has_gravity(src))
 		return 1
 
-	if(pulledby && !pulledby.pulling)
-		return 1
+	if(pulledby && (pulledby.pulledby != src || moving_from_pull))
+		return TRUE
 
 	if(throwing)
 		return 1

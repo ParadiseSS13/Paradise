@@ -49,8 +49,8 @@
 		W.layer = ABOVE_HUD_LAYER	//TODO: move to equipped?
 		W.plane = ABOVE_HUD_PLANE	//TODO: move to equipped?
 		W.equipped(src,slot_l_hand)
-		if(pulling == W)
-			stop_pulling()
+		if(W.pulledby)
+			W.pulledby.stop_pulling()
 		update_inv_l_hand()
 		return 1
 	return 0
@@ -65,8 +65,8 @@
 		W.layer = ABOVE_HUD_LAYER
 		W.plane = ABOVE_HUD_PLANE
 		W.equipped(src,slot_r_hand)
-		if(pulling == W)
-			stop_pulling()
+		if(W.pulledby)
+			W.pulledby.stop_pulling()
 		update_inv_r_hand()
 		return 1
 	return 0

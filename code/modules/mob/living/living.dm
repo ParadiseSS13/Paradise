@@ -80,13 +80,13 @@
 	//Even if we don't push/swap places, we "touched" them, so spread fire
 	spreadFire(M)
 
-	// No pushing if we're already pushing past something, or if the mob we're pushing into is anchored.
-	if(now_pushing || M.anchored)
+	if(now_pushing)
 		return TRUE
 
-	//Should stop you pushing a restrained person out of the way
+	var/they_can_move = TRUE
 	if(isliving(M))
 		var/mob/living/L = M
+		they_can_move = L.canmove
 		if(L.pulledby && L.pulledby != src && L.restrained())
 			if(!(world.time % 5))
 				to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
@@ -97,7 +97,7 @@
 				var/mob/P = L.pulling
 				if(P.restrained())
 					if(!(world.time % 5))
-						to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
+						to_chat(src, "<span class='warning'>[L] is restraining [P], you cannot push past.</span>")
 					return TRUE
 
 	if(moving_diagonally) //no mob swap during diagonal moves.
@@ -108,13 +108,17 @@
 			return TRUE
 
 	if(!M.buckled && !M.has_buckled_mobs())
-		var/mob_swap
-		//the puller can always swap with it's victim if on grab intent
-		if(M.pulledby == src && a_intent == INTENT_GRAB)
-			mob_swap = TRUE
-		//restrained people act if they were on 'help' intent to prevent a person being pulled from being seperated from their puller
-		else if((M.restrained() || M.a_intent == INTENT_HELP) && (restrained() || a_intent == INTENT_HELP))
-			mob_swap = TRUE
+		var/mob_swap = FALSE
+		var/too_strong = (M.move_resist > move_force) //can't swap with immovable objects unless they help us
+		if(!they_can_move) //we have to physically move them
+			if(!too_strong)
+				mob_swap = TRUE
+		else
+			//You can swap with the person you are dragging on grab intent, and restrained people in most cases
+			if(M.pulledby == src && a_intent == INTENT_GRAB && !too_strong)
+				mob_swap = TRUE
+			else if((M.restrained() || M.a_intent == INTENT_HELP) && (restrained() || a_intent == INTENT_HELP))
+				mob_swap = TRUE
 		if(mob_swap)
 			//switch our position with M
 			if(loc && !loc.Adjacent(M.loc))
@@ -224,14 +228,15 @@
 	set category = "Object"
 
 	if(istype(AM) && Adjacent(AM))
-		start_pulling(AM, show_message = TRUE)
+		start_pulling(AM)
 	else
 		stop_pulling()
 
 /mob/living/stop_pulling()
+	if(ismob(pulling))
+		reset_pull_offsets(pulling)
 	..()
-	if(pullin)
-		pullin.update_icon(src)
+	update_pull_hud_icon()
 
 /mob/living/verb/stop_pulling1()
 	set name = "Stop Pulling"
@@ -542,41 +547,26 @@
 		else
 			return 0
 
-	var/atom/movable/pullee = pulling
-	if(pullee && get_dist(src, pullee) > 1)
-		stop_pulling()
-	if(pullee && !isturf(pullee.loc) && pullee.loc != loc)
-		log_game("DEBUG: [src]'s pull on [pullee] was broken despite [pullee] being in [pullee.loc]. Pull stopped manually.")
-		stop_pulling()
-	if(restrained())
-		stop_pulling()
-
 	var/turf/T = loc
+
 	. = ..()
+
+	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1 && (pulledby != moving_from_pull))//separated from our puller and not in the middle of a diagonal move.
+		pulledby.stop_pulling()
+	else
+		if(isliving(pulledby))
+			var/mob/living/L = pulledby
+			L.set_pull_offsets(src, pulledby.grab_state)
+
 	if(.)
 		handle_footstep(loc)
 		step_count++
 
-		if(pulling && pulling == pullee) // we were pulling a thing and didn't lose it during our move.
-			if(pulling.anchored)
-				stop_pulling()
-				return
-
-			var/pull_dir = get_dir(src, pulling)
-			if(get_dist(src, pulling) > 1 || (moving_diagonally != SECOND_DIAG_STEP && ((pull_dir - 1) & pull_dir))) // puller and pullee more than one tile away or in diagonal position
-				if(isliving(pulling))
-					var/mob/living/M = pulling
-					if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
-						M.makeTrail(T)
-				pulling.Move(T, get_dir(pulling, T), movetime) // the pullee tries to reach our previous position
-				if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
-					stop_pulling()
-
-	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1) //seperated from our puller and not in the middle of a diagonal move
-		pulledby.stop_pulling()
-
 	if(s_active && !(s_active in contents) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents ) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
+
+	if(lying && !buckled && prob(getBruteLoss() * 200 / maxHealth))
+		makeTrail(T)
 
 
 /mob/living/proc/handle_footstep(turf/T)
@@ -678,9 +668,9 @@
 
 	SEND_SIGNAL(src, COMSIG_LIVING_RESIST, src)
 
-	if(!restrained())
-		if(resist_grab())
-			return
+	if(!restrained() && pulledby)
+		resist_grab()
+		return
 
 	//unbuckling yourself
 	if(buckled && last_special <= world.time)
@@ -700,28 +690,32 @@
 /*////////////////////
 	RESIST SUBPROCS
 */////////////////////
-/mob/living/proc/resist_grab()
-	var/resisting = 0
-	for(var/X in grabbed_by)
-		var/obj/item/grab/G = X
-		resisting++
-		switch(G.state)
-			if(GRAB_PASSIVE)
-				qdel(G)
+/mob/proc/resist_grab(moving_resist)
+	return TRUE //returning FALSE means we successfully broke free
 
-			if(GRAB_AGGRESSIVE)
-				if(prob(60))
-					visible_message("<span class='danger'>[src] has broken free of [G.assailant]'s grip!</span>")
-					qdel(G)
-
-			if(GRAB_NECK)
-				if(prob(5))
-					visible_message("<span class='danger'>[src] has broken free of [G.assailant]'s headlock!</span>")
-					qdel(G)
-
-	if(resisting)
-		visible_message("<span class='danger'>[src] resists!</span>")
-		return 1
+/mob/living/resist_grab(moving_resist)
+	. = TRUE
+	if(pulledby.grab_state || resting)
+		var/altered_grab_state = pulledby.grab_state
+		if((resting) && pulledby.grab_state < GRAB_KILL) //If resting, resisting out of a grab is equivalent to 1 grab state higher. won't make the grab state exceed the normal max, however
+			altered_grab_state++
+		var/resist_chance = BASE_GRAB_RESIST_CHANCE /// see defines/combat.dm, this should be baseline 60%
+		resist_chance = (resist_chance / altered_grab_state) ///Resist chance divided by the value imparted by your grab state. It isn't until you reach neckgrab that you gain a penalty to escaping a grab.
+		if(prob(resist_chance))
+			visible_message("<span class='danger'>[src] breaks free of [pulledby]'s grip!</span>", "<span class='danger'>You break free of [pulledby]'s grip!</span>")
+			to_chat(pulledby, "<span class='warning'>[src] breaks free of your grip!</span>")
+//			log_combat(pulledby, src, "broke grab")
+			pulledby.stop_pulling()
+			return FALSE
+		else
+			adjustStaminaLoss(rand(15, 20)) //failure to escape still imparts a pretty serious penalty
+			visible_message("<span class='danger'>[src] struggles as they fail to break free of [pulledby]'s grip!</span>", "<span class='warning'>You struggle as you fail to break free of [pulledby]'s grip!</span>")
+			to_chat(pulledby, "<span class='danger'>[src] struggles as they fail to break free of your grip!</span>")
+		if(moving_resist && client) //we resisted by trying to move
+			client.move_delay = world.time + 40
+	else
+		pulledby.stop_pulling()
+		return FALSE
 
 /mob/living/proc/resist_buckle()
 	spawn(0)
@@ -927,6 +921,7 @@
 
 /mob/living/movement_delay(ignorewalk = 0)
 	. = ..()
+	. += grab_state * 3 //can't go fast while grabbing something.
 	if(isturf(loc))
 		var/turf/T = loc
 		. += T.slowdown
@@ -952,36 +947,93 @@
 		return 0
 	return 1
 
-/mob/living/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
+/mob/living/start_pulling(atom/movable/AM, state, force = pull_force, supress_message = FALSE)
 	if(!AM || !src)
 		return FALSE
-	if(!(AM.can_be_pulled(src, state, force, show_message)))
+	if(!(AM.can_be_pulled(src, state, force)))
 		return FALSE
-	if(incapacitated())
-		return
-	// If we're pulling something then drop what we're currently pulling and pull this instead.
+	if(throwing || incapacitated())
+		return FALSE
+
 	AM.add_fingerprint(src)
+
+	// If we're pulling something then drop what we're currently pulling and pull this instead.
 	if(pulling)
-		if(AM == pulling)// Are we trying to pull something we are already pulling? Then just stop here, no need to continue.
+		// Are we trying to pull something we are already pulling? Then just stop here, no need to continue.
+		if(AM == pulling)
 			return
 		stop_pulling()
-		if(AM.pulledby)
-			visible_message("<span class='danger'>[src] has pulled [AM] from [AM.pulledby]'s grip.</span>")
-			AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
+
+	changeNext_move(CLICK_CD_GRABBING)
+
+	if(AM.pulledby)
+		if(!supress_message)
+			AM.visible_message("<span class='danger'>[src] pulls [AM] from [AM.pulledby]'s grip.</span>", "<span class='danger'>[src] pulls you from [AM.pulledby]'s grip.</span>")
+			to_chat(src, "<span class='notice'>You pull [AM] from [AM.pulledby]'s grip!</span>")
+//		log_combat(AM, AM.pulledby, "pulled from", src)
+		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
+
 	pulling = AM
-	AM.pulledby = src
-	if(pullin)
-		pullin.update_icon(src)
+	AM.set_pulledby(src)
+
+	SEND_SIGNAL(src, COMSIG_LIVING_START_PULL, AM, state, force)
+
+	if(!supress_message)
+		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+	update_pull_hud_icon()
+
 	if(ismob(AM))
 		var/mob/M = AM
+
+//		log_combat(src, M, "grabbed", addition="passive grab")
+		if(!supress_message)
+			M.visible_message("<span class='warning'>[src] grabs [M] [(zone_selected == "l_arm" || zone_selected == "r_arm" && ishuman(M))? "by their hands":"passively"]!</span>", "<span class='warning'>[src] grabs you [(zone_selected == "l_arm" || zone_selected == "r_arm" && ishuman(M))? "by your hands":"passively"]!</span>")
+			to_chat(src, "<span class='notice'>You grab [M] [(zone_selected == "l_arm" || zone_selected == "r_arm" && ishuman(M))? "by their hands":"passively"]!</span>")
 		if(!iscarbon(src))
 			M.LAssailant = null
 		else
 			M.LAssailant = usr
+		if(isliving(M))
+			SEND_SIGNAL(M, COMSIG_LIVING_GET_PULLED, src)
 
-/mob/living/proc/check_pull()
-	if(pulling && !(pulling in orange(1)))
-		stop_pulling()
+		set_pull_offsets(M, state)
+
+/mob/living/proc/set_pull_offsets(mob/living/M, grab_state = GRAB_PASSIVE)
+	if(M.buckled)
+		return //don't make them change direction or offset them if they're buckled into something.
+	var/offset = 0
+	switch(grab_state)
+		if(GRAB_PASSIVE)
+			offset = GRAB_PIXEL_SHIFT_PASSIVE
+		if(GRAB_AGGRESSIVE)
+			offset = GRAB_PIXEL_SHIFT_AGGRESSIVE
+		if(GRAB_NECK)
+			offset = GRAB_PIXEL_SHIFT_NECK
+		if(GRAB_KILL)
+			offset = GRAB_PIXEL_SHIFT_NECK
+	M.setDir(get_dir(M, src))
+	switch(M.dir)
+		if(NORTH)
+			animate(M, pixel_x = 0, pixel_y = 0 + offset, 3)
+		if(SOUTH)
+			animate(M, pixel_x = 0, pixel_y = 0 - offset, 3)
+		if(EAST)
+			if(M.lying == 270) //update the dragged dude's direction if we've turned
+				M.lying = 90
+				M.update_transform() //force a transformation update, otherwise it'll take a few ticks for update_mobility() to do so
+				M.lying_prev = M.lying
+			animate(M, pixel_x = 0 + offset, pixel_y = 0, 3)
+		if(WEST)
+			if(M.lying == 90)
+				M.lying = 270
+				M.update_transform()
+				M.lying_prev = M.lying
+			animate(M, pixel_x = 0 - offset, pixel_y = 0, 3)
+
+/mob/living/proc/reset_pull_offsets(mob/living/M, override)
+	if(!override && M.buckled)
+		return
+	animate(M, pixel_x = 0, pixel_y = 0, 1)
 
 /mob/living/proc/update_z(new_z) // 1+ to register, null to unregister
 	if(registered_z != new_z)
@@ -1084,3 +1136,7 @@
 			update_transform()
 		if("lighting_alpha")
 			sync_lighting_plane_alpha()
+
+/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
+	stop_pulling()
+	. = ..()

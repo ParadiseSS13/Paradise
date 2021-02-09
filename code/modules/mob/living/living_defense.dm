@@ -238,8 +238,8 @@
 		fire_stacks += L.fire_stacks
 		IgniteMob()
 
-/mob/living/can_be_pulled(user, grab_state, force, show_message = FALSE)
-	return ..() && !(buckled && buckled.buckle_prevents_pull)
+/mob/living/can_be_pulled()
+	return ..() && !(buckled?.buckle_prevents_pull)
 
 /mob/living/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
@@ -266,36 +266,74 @@
 // End BS12 momentum-transfer code.
 
 /mob/living/proc/grabbedby(mob/living/carbon/user, supress_message = FALSE)
-	if(user == src || anchored)
-		return 0
+	if(user == src || anchored || !isturf(user.loc))
+		return FALSE
+	if(!user.pulling || user.pulling != src)
+		user.start_pulling(src, supress_message = supress_message)
+		return
+
 	if(!(status_flags & CANPUSH))
-		return 0
+		to_chat(user, "<span class='warning'>[src] can't be grabbed more aggressively!</span>")
+		return FALSE
 
-	for(var/obj/item/grab/G in grabbed_by)
-		if(G.assailant == user)
-			to_chat(user, "<span class='notice'>You already grabbed [src].</span>")
-			return
+	if(user.grab_state >= GRAB_AGGRESSIVE && HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='warning'>You don't want to risk hurting [src]!</span>")
+		return FALSE
+	grippedby(user)
 
-	add_attack_logs(user, src, "Grabbed passively", ATKLOG_ALL)
+//proc to upgrade a simple pull into a more aggressive grab.
+/mob/living/proc/grippedby(mob/living/carbon/user, instant = FALSE)
+	if(user.grab_state < GRAB_KILL)
+		user.changeNext_move(CLICK_CD_GRABBING)
+		playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
-	var/obj/item/grab/G = new /obj/item/grab(user, src)
-	if(!G)	//the grab will delete itself in New if src is anchored
-		return 0
-	user.put_in_active_hand(G)
-	G.synch()
-	LAssailant = user
+		if(user.grab_state) //only the first upgrade is instantaneous
+			var/old_grab_state = user.grab_state
+			var/grab_upgrade_time = instant ? 0 : 30
+			visible_message("<span class='danger'>[user] starts to tighten [user.p_their()] grip on [src]!</span>", "<span class='userdanger'>[user] starts to tighten [user.p_their()] grip on you!</span>", "<span class='hear'>You hear aggressive shuffling!</span>")
+			to_chat(user, "<span class='danger'>You start to tighten your grip on [src]!</span>")
+//			switch(user.grab_state)
+//				if(GRAB_AGGRESSIVE)
+//					log_combat(user, src, "attempted to neck grab", addition="neck grab")
+//				if(GRAB_NECK)
+//					log_combat(user, src, "attempted to strangle", addition="kill grab")
+			if(!do_mob(user, src, grab_upgrade_time))
+				return FALSE
+			if(!user.pulling || user.pulling != src || user.grab_state != old_grab_state)
+				return FALSE
+			if(user.a_intent != INTENT_GRAB)
+				to_chat(user, "<span class='warning'>You must be on grab intent to upgrade your grab further!</span>")
+				return FALSE
+		user.setGrabState(user.grab_state + 1)
+		switch(user.grab_state)
+			if(GRAB_AGGRESSIVE)
+//				var/add_log = ""
+				if(HAS_TRAIT(user, TRAIT_PACIFISM))
+					visible_message("<span class='danger'>[user] firmly grips [src]!</span>", "<span class='danger'>[user] firmly grips you!</span>", "<span class='hear'>You hear aggressive shuffling!</span>")
+					to_chat(user, "<span class='danger'>You firmly grip [src]!</span>")
+//					add_log = " (pacifist)"
+				else
+					visible_message("<span class='danger'>[user] grabs [src] aggressively!</span>", "<span class='userdanger'>[user] grabs you aggressively!</span>", "<span class='hear'>You hear aggressive shuffling!</span>")
+					to_chat(user, "<span class='danger'>You grab [src] aggressively!</span>")
+				drop_l_hand()
+				drop_r_hand()
+				stop_pulling()
+//				log_combat(user, src, "grabbed", addition="aggressive grab[add_log]")
+			if(GRAB_NECK)
+//				log_combat(user, src, "grabbed", addition="neck grab")
+				visible_message("<span class='danger'>[user] grabs [src] by the neck!</span>", "<span class='userdanger'>[user] grabs you by the neck!</span>", "<span class='hear'>You hear aggressive shuffling!</span>")
+				to_chat(user, "<span class='danger'>You grab [src] by the neck!</span>")
+				if(!buckled && !density)
+					Move(user.loc)
+			if(GRAB_KILL)
+//				log_combat(user, src, "strangled", addition="kill grab")
+				visible_message("<span class='danger'>[user] is strangling [src]!</span>", "<span class='userdanger'>[user] is strangling you!</span>", "<span class='hear'>You hear aggressive shuffling!</span>")
+				to_chat(user, "<span class='danger'>You're strangling [src]!</span>")
+				if(!buckled && !density)
+					Move(user.loc)
+		user.set_pull_offsets(src, grab_state)
+		return TRUE
 
-	playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-	/*if(user.dir == src.dir)
-		G.state = GRAB_AGGRESSIVE
-		G.last_upgrade = world.time
-		if(!supress_message)
-			visible_message("<span class='warning'>[user] has grabbed [src] from behind!</span>")
-	else*///This is an example of how you can make special types of grabs simply based on direction.
-	if(!supress_message)
-		visible_message("<span class='warning'>[user] has grabbed [src] passively!</span>")
-
-	return G
 
 /mob/living/attack_slime(mob/living/simple_animal/slime/M)
 	if(!SSticker)

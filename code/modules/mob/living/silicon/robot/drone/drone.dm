@@ -334,7 +334,7 @@
 /mob/living/silicon/robot/drone/Bumped(atom/movable/AM)
 	return
 
-/mob/living/silicon/robot/drone/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
+/mob/living/silicon/robot/drone/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
 
 	if(is_type_in_list(AM, pullable_drone_items))
 		..(AM, force = INFINITY) // Drone power! Makes them able to drag pipes and such
@@ -342,13 +342,13 @@
 	else if(istype(AM,/obj/item))
 		var/obj/item/O = AM
 		if(O.w_class > WEIGHT_CLASS_SMALL)
-			if(show_message)
+			if(!supress_message)
 				to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
 			return
 		else
 			..()
 	else
-		if(show_message)
+		if(!supress_message)
 			to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
 
 /mob/living/silicon/robot/drone/add_robot_verbs()
