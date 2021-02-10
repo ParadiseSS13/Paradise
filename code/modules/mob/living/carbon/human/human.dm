@@ -206,6 +206,9 @@
 	var/brute_loss = 0
 	var/burn_loss = 0
 	var/bomb_armor = getarmor(null, "bomb")
+	var/list/valid_limbs = list("l_arm", "l_leg", "r_arm", "r_leg")
+	var/limbs_amount = 1
+	var/limb_loss_chance = 50
 
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
@@ -217,6 +220,7 @@
 				burn_loss = 200
 				var/atom/target = get_edge_target_turf(src, get_dir(src, get_step_away(src, src)))
 				throw_at(target, 200, 4)
+				limbs_amount = 4
 
 		if(EXPLODE_HEAVY)
 			brute_loss = 50
@@ -235,19 +239,21 @@
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
 				AdjustEarDamage(15, 60)
 			Weaken(16 SECONDS_TO_LIFE_CYCLES - (bomb_armor * 1.6 / 10) SECONDS_TO_LIFE_CYCLES) //Between no knockdown to ~16 seconds depending on bomb armor
+			valid_limbs = list("l_hand", "l_foot", "r_hand", "r_foot")
+			limb_loss_chance = 25
 
 	take_overall_damage(brute_loss, burn_loss, TRUE, used_weapon = "Explosive Blast")
 
 	//attempt to dismember bodyparts
-	if(severity <= EXPLODE_HEAVY || !bomb_armor)
-		var/max_limb_loss = round(4 / severity) //so you don't lose four limbs at severity 3.
-		for(var/X in bodyparts)
-			var/obj/item/organ/external/BP = X
-			if(prob(50 / severity) && !prob(getarmor(BP, "bomb")) && BP.limb_name != "head" && BP.limb_name != "chest" && BP.limb_name != "groin")
-				BP.droplimb(TRUE, DROPLIMB_SHARP, FALSE, TRUE)
-				max_limb_loss--
-				if(!max_limb_loss)
-					break
+	for(var/X in valid_limbs)
+		var/obj/item/organ/external/BP = get_organ(X)
+		if(!BP) //limb already blown off, move to the next one without counting it
+			continue
+		if(prob(limb_loss_chance) && !prob(getarmor(BP, "bomb")))
+			BP.droplimb(TRUE, DROPLIMB_SHARP, FALSE, TRUE)
+		limbs_amount--
+		if(!limbs_amount)
+			break
 
 	..()
 
