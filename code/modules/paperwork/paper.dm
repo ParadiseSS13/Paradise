@@ -746,7 +746,7 @@
 	name = "paper - 'Research Notes'"
 	info = "<b>The notes appear gibberish to you. Perhaps a destructive analyzer in R&D could make sense of them.</b>"
 	origin_tech = "combat=4;materials=4;engineering=4;biotech=4"
-	var/randomized = TRUE
+	var/randomized = TRUE  // Set to FALSE in a child object if you want a static origin_tech value.
 
 /obj/item/paper/researchnotes/New()
 	..()

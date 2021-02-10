@@ -14,10 +14,10 @@
 	damage_deflection = 70
 	var/id_tag = 1.0
 	var/protected = 1
-	var/anim_opening = "opening"
+	var/anim_opening = "opening"  		// Animated icon that is used when the shutter is being opened / closed.
 	var/anim_closing = "closing"
-	var/icon_opened = "open"
-	var/icon_closed = "closed"
+	var/icon_state_opened = "open" 		// Icon that is used when the shutter is in an opened / closed state.
+	var/icon_state_closed = "closed"
 
 /obj/machinery/door/poddoor/preopen
 	icon_state = "open"
@@ -56,9 +56,9 @@
 
 /obj/machinery/door/poddoor/update_icon()
 	if(density)
-		icon_state = icon_closed
+		icon_state = icon_state_closed
 	else
-		icon_state = icon_opened
+		icon_state = icon_state_opened
 
 /obj/machinery/door/poddoor/try_to_activate_door(mob/user)
  	return

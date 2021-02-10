@@ -108,7 +108,7 @@
 	desc = "An evil looking window of plasma and titanium. This one looks heavily reinforced."
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "fakewindows_p"
-	opacity = 0
+	opacity = FALSE
 	layer = ABOVE_OBJ_LAYER
 	level = 3
 

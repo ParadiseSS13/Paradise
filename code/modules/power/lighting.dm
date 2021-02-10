@@ -244,12 +244,12 @@
 /obj/machinery/light/broken
 	active_power_usage = 0
 	icon_state = "tube-broken"
-	status = 2
+	status = LIGHT_BROKEN
 
 /obj/machinery/light/small/broken
 	active_power_usage = 0
 	icon_state = "bulb-broken"
-	status = 2
+	status = LIGHT_BROKEN
 
 /obj/machinery/light/built/Initialize(mapload)
 	status = LIGHT_EMPTY

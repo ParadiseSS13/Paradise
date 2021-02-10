@@ -24,7 +24,7 @@
 	requires_power = FALSE
 
 /area/awaymission/DSBSSigma/overseer
-	name = "DSBS:Sigma - Overseers Office"
+	name = "DSBS:Sigma - Overseer's Office"
 	icon_state = "bridge"
 
 /area/awaymission/DSBSSigma/cave_junction_east
@@ -294,7 +294,6 @@
 	origin_tech = "syndicate=3"
 	randomized = FALSE
 
-
 /obj/item/organ/internal/heart/gland/heals/weak
 	name = "fleshy growth"
 	desc = "A nausea-inducing growth of flesh."
@@ -321,7 +320,7 @@
 	upgrade_msg = "<span class='notice'>An access type was added to your ID card. You should be able to lift the lockdown with this.</span>"
 	unlock_msg = "<span class='danger'>WARNING: New user registration during emergency lockdown. Limited lockdown lift in progress.</span>"
 
-/obj/machinery/vending/medical/syndicate_access/dsbssigma
+/obj/machinery/vending/medical/away/dsbssigma
 	req_access = list(ACCESS_AWAY01)
 	products = list(/obj/item/reagent_containers/syringe = 4, /obj/item/reagent_containers/food/pill/patch/styptic = 2, /obj/item/reagent_containers/food/pill/patch/silver_sulf = 2, /obj/item/reagent_containers/applicator/brute = 1, /obj/item/reagent_containers/applicator/burn = 1,
 					/obj/item/reagent_containers/glass/bottle/charcoal = 1, /obj/item/reagent_containers/glass/bottle/salicylic = 1, /obj/item/reagent_containers/glass/bottle/saline = 1, /obj/item/reagent_containers/glass/bottle/ether = 1,
@@ -334,8 +333,8 @@
 /obj/machinery/autolathe/hacked
 	hacked = TRUE
 
-/obj/machinery/autolathe/hacked/Initialize()
-    ..()
+/obj/machinery/autolathe/hacked/Initialize(mapload)
+    . = ..()
     adjust_hacked(TRUE)
 
 /obj/machinery/door_control/away/button_single_use
@@ -343,11 +342,11 @@
 	var/activation_msg = "<span class='notice'>The button briefly activates, then sparks and breaks.</span>"
 
 /obj/machinery/door_control/away/button_single_use/attack_hand(mob/user as mob)
-	..()
 	if(allowed(user) && (wires & 1) && !beenused)
+		..()
 		beenused = TRUE
 		stat = BROKEN
-		playsound(loc, "sparks", 100, 1)
+		playsound(get_turf(src), "sparks", 100, TRUE)
 		do_sparks(3, 1, src)
 		to_chat(user, activation_msg)
 
@@ -358,19 +357,13 @@
 
 /obj/machinery/door_control/away/button_single_use/dsbssigma_lockdown_random/Initialize()
 	..()
-	switch(rand(1,3))
-		if(1)
-			id = "dsbss_lockdown_blast_medical"
-		if(2)
-			id = "dsbss_lockdown_blast_botany"
-		if(3)
-			id = "dsbss_lockdown_blast_research"
+	id = pick("dsbss_lockdown_blast_medical", "dsbss_lockdown_blast_botany", "dsbss_lockdown_blast_research")
 
 //////// MECHA ////////
 
 /obj/mecha/combat/gygax/dark/rusted
 	desc = "This once lightweight exosuit, painted in a dark scheme, has not been spared by the elements. Exterior armor is heavily rusted and most equipment sockets have decayed beyond repair."
-	name = "Rusted Dark Gygax"
+	name = "rusted Dark Gygax"
 	max_integrity = 200
 	deflect_chance = 10
 	armor = list(melee = 20, bullet = 20, laser = 25, energy = 20, bomb = 10, bio = 0, rad = 10, fire = 50, acid = 50)
@@ -566,18 +559,6 @@
 	icon_state = "x"
 	color = "#800080"
 	early_del = FALSE
-	var/r_location = null
-	var/r_object = null
-
-/obj/effect/spawner/random_spawners/away/dsbssigma/randomizer/proc/randomize(r_location, r_object)
-	var/list/possible_locations = list()
-	for(var/thing in GLOB.landmarks_list)
-		var/obj/effect/landmark/away/L = thing
-		if(L.name == r_location)
-			possible_locations |= L
-	if(length(possible_locations))
-		var/obj/effect/landmark/S = pick(possible_locations)
-		new r_object(get_turf(S))
 
 /obj/effect/spawner/random_spawners/away/dsbssigma/randomizer/Initialize()
 	..()
@@ -585,25 +566,29 @@
 
 /obj/effect/spawner/random_spawners/away/dsbssigma/randomizer/LateInitialize()
 
-	r_location = "dsbssigma_queen"
-	r_object = /mob/living/simple_animal/hostile/alien/queen/large/dsbssigma
-	randomize(r_location, r_object)
+#define DBSSIGMA_LANDMARK_QUEEN "dsbssigma_queen"
+#define DBSSIGMA_LANDMARK_MINER "dsbssigma_miner"
+#define DBSSIGMA_LANDMARK_ORGAN "dsbssigma_organ"
+#define DBSSIGMA_LANDMARK_FIREAXE "dsbssigma_fireaxe"
+#define DBSSIGMA_LANDMARK_TOOLBOX "dsbssigma_toolbox"
 
-	r_location = "dsbssigma_miner"
-	r_object = /obj/effect/mob_spawn/human/corpse/away/dsbssigma/operative/miner
-	randomize(r_location, r_object)
+	var/list/spawn_locations = list()
+	for(var/thing in GLOB.landmarks_list)
+		var/obj/effect/landmark/L = thing
+		if(L.name == DBSSIGMA_LANDMARK_QUEEN || L.name == DBSSIGMA_LANDMARK_MINER || L.name == DBSSIGMA_LANDMARK_ORGAN || L.name == DBSSIGMA_LANDMARK_FIREAXE || L.name == DBSSIGMA_LANDMARK_TOOLBOX)
+			spawn_locations[L.name] += list(get_turf(L))
 
-	r_location = "dsbssigma_organ"
-	r_object = /obj/item/organ/internal/heart/gland/heals/weak
-	randomize(r_location, r_object)
+	new /mob/living/simple_animal/hostile/alien/queen/large/dsbssigma(pick(spawn_locations[DBSSIGMA_LANDMARK_QUEEN]))
+	new /obj/effect/mob_spawn/human/corpse/away/dsbssigma/operative/miner(pick(spawn_locations[DBSSIGMA_LANDMARK_MINER]))
+	new /obj/item/organ/internal/heart/gland/heals/weak(pick(spawn_locations[DBSSIGMA_LANDMARK_ORGAN]))
+	new /obj/item/twohanded/fireaxe(pick(spawn_locations[DBSSIGMA_LANDMARK_FIREAXE]))
+	new /obj/item/storage/toolbox/syndicate(pick(spawn_locations[DBSSIGMA_LANDMARK_TOOLBOX]))
 
-	r_location = "dsbssigma_fireaxe"
-	r_object = /obj/item/twohanded/fireaxe
-	randomize(r_location, r_object)
-
-	r_location = "dsbssigma_toolbox"
-	r_object = /obj/item/storage/toolbox/syndicate
-	randomize(r_location, r_object)
+#undef DBSSIGMA_LANDMARK_QUEEN
+#undef DBSSIGMA_LANDMARK_MINER
+#undef DBSSIGMA_LANDMARK_ORGAN
+#undef DBSSIGMA_LANDMARK_FIREAXE
+#undef DBSSIGMA_LANDMARK_TOOLBOX
 
 	qdel(src)
 
@@ -722,14 +707,9 @@
 /mob/living/simple_animal/hostile/alien/queen/large/dsbssigma/death()
 	if(can_die() && !hasdied)
 		hasdied = TRUE
-		UnlockBlastDoors("dsbss_overseersquarters_blast")
+		UnlockBlastDoors("dsbss_overseersquarters_blast", z)
 		for(var/mob/M in GLOB.player_list)
 			if(M.z == z)
 				to_chat(M, "<span class='notice'>You hear a distant sound of a blast door opening.</span>")
-				M.playsound_local(null, 'sound/machines/blastdoor.ogg', 10, 1)
+				M.playsound_local(null, 'sound/machines/blastdoor.ogg', 10, TRUE)
 	return ..()
-
-/mob/living/simple_animal/hostile/alien/queen/large/dsbssigma/proc/UnlockBlastDoors(target_id_tag)
-	for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
-		if(P.density && P.id_tag == target_id_tag && P.z == z && !P.operating)
-			P.open()

@@ -2081,3 +2081,13 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	))
 	query_accesslog.warn_execute()
 	qdel(query_accesslog)
+
+/**
+ * Proc which opens all poddoors on a Z level with matching ID tag.
+ *
+ * Similar to a button press but can be called in other procs.
+ */
+/proc/UnlockBlastDoors(target_id_tag, z)
+	for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
+		if(P.density && P.id_tag == target_id_tag && P.z == z && !P.operating)
+			P.open()

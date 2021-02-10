@@ -421,7 +421,7 @@
 
 /turf/simulated/mineral/asteroid/loose/cave
 	baseturf = /turf/simulated/floor/plating/asteroid
-	turf_type  = /turf/simulated/floor/plating/asteroid
+	turf_type = /turf/simulated/floor/plating/asteroid
 
 /turf/simulated/mineral/asteroid/loose/cave/cracked
 	name = "cracked loose rock"

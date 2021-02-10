@@ -34,7 +34,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/death(gibbed)
 	if(can_die() && !hasdied && spider_uo71)
-		UnlockBlastDoors("UO71_SciStorage")
+		UnlockBlastDoors("UO71_SciStorage", z)
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/spider_specialattack(mob/living/carbon/human/L)
