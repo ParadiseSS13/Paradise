@@ -102,7 +102,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //mob traits
 #define TRAIT_FAT				"fat"
 #define TRAIT_HUSK				"husk"
-#define TRAIT_BADDNA			"baddna"
+#define	TRAIT_BADDNA			"baddna"
 #define	TRAIT_SKELETONIZED		"skeletonized"
 #define TRAIT_CLUMSY			"clumsy"
 #define TRAIT_CHUNKYFINGERS		"chunkyfingers" //means that you can't use weapons with normal trigger guards.
