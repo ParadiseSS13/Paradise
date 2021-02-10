@@ -411,7 +411,7 @@
 
 /datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/M)
 	if(prob(80))
-		M.radiation = max(0, M.radiation-1)
+		M.radiation = max(0, M.radiation-10)
 	return ..()
 
 /datum/reagent/medicine/pen_acid
@@ -428,7 +428,7 @@
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
 			M.reagents.remove_reagent(R.id,4)
-	M.radiation = max(0, M.radiation-7)
+	M.radiation = max(0, M.radiation-70)
 	if(prob(75))
 		update_flags |= M.adjustToxLoss(-4*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(prob(33))
