@@ -248,3 +248,38 @@
 	allow_duplicates = FALSE // I dont even want to think about what happens if you have 2 shuttles with the same ID. Likely scary stuff.
 	always_place = TRUE // Its designed to make exploring other space ruins more accessible
 	cost = 0 // Force spawned so shouldnt have a cost
+
+/datum/map_template/ruin/space/golem_destination
+	id = "golemtarget"
+	suffix = "golemtarget.dmm"
+	name = "Golem Shuttle Destination"
+	description = "Just a handful of rocks floating in space. Guaranteed space destination for the Golem shuttle in case other destinations don't spawn."
+	allow_duplicates = FALSE
+	always_place = TRUE
+	cost = 0
+
+/datum/map_template/ruin/space/syndiecakesfactory
+	id = "Syndiecakes Factory"
+	suffix = "syndiecakesfactory.dmm"
+	name = "Syndicakes Factory"
+	description = "Syndicate used to get funds selling corgi cakes produced here. Was it hit by meteors or by a Nanotrasen comando?"
+	allow_duplicates = FALSE
+	cost = 2 //telecomms + multiple mobs
+
+/datum/map_template/ruin/space/debris1
+	id = "debris1"
+	suffix = "debris1.dmm"
+	name = "Debris field 1"
+	description = "A bunch of metal chunks, wires and space waste"
+
+/datum/map_template/ruin/space/debris2
+	id = "debris2"
+	suffix = "debris2.dmm"
+	name = "Debris field 2"
+	description = "A bunch of metal chunks, wires and space waste that used to be some kind of secure storage facility"
+
+/datum/map_template/ruin/space/debris3
+	id = "debris3"
+	suffix = "debris3.dmm"
+	name = "Debris field 3"
+	description = "A bunch of metal chunks, wires and space waste. It used to be an arcade."

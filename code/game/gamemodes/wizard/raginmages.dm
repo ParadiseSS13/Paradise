@@ -118,7 +118,8 @@
 		return FALSE
 	making_mage = TRUE
 
-	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as a raging Space Wizard?", ROLE_WIZARD, TRUE, poll_time = 20 SECONDS)
+	var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a raging Space Wizard?", ROLE_WIZARD, TRUE, poll_time = 20 SECONDS, source = source)
 	var/mob/dead/observer/harry = null
 	message_admins("SWF is still pissed, sending another wizard - [max_mages - mages_made] left.")
 
@@ -152,6 +153,6 @@
 
 /datum/game_mode/wizard/raginmages/declare_completion()
 	if(finished)
-		feedback_set_details("round_end_result", "raging wizard loss - wizard killed")
+		SSticker.mode_result = "raging wizard loss - wizard killed"
 		to_chat(world, "<span class='warning'><FONT size = 3><B> The crew has managed to hold off the Wizard attack! The Space Wizard Federation has been taught a lesson they will not soon forget!</B></FONT></span>")
 	..(1)

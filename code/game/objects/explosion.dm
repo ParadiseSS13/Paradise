@@ -122,13 +122,13 @@
 							affecting_level = S.is_shielded() ? 2 : (S.intact ? 2 : 1)
 						for(var/atom in S.contents)	//bypass type checking since only atom can be contained by turfs anyway
 							var/atom/AM = atom
-							if(AM && AM.simulated)
+							if(!QDELETED(AM) && AM.simulated)
 								if(AM.level >= affecting_level)
 									AM.ex_act(dist)
 					else
 						for(var/atom in T.contents)	//see above
 							var/atom/AM = atom
-							if(AM && AM.simulated)
+							if(!QDELETED(AM) && AM.simulated)
 								AM.ex_act(dist)
 							CHECK_TICK
 					if(breach)
@@ -137,19 +137,7 @@
 						T.ex_act(3)
 
 			CHECK_TICK
-			//--- THROW ITEMS AROUND ---
-/*
-			if(throw_dist > 0)
-				var/throw_dir = get_dir(epicenter,T)
-				for(var/obj/item/I in T)
-					spawn(0) //Simultaneously not one at a time
-						if(I && !I.anchored)
-							var/throw_mult = 0.5 + (0.5 * rand()) // Between 0.5 and 1.0
-							var/throw_range = round((throw_dist + 1) * throw_mult) // Roughly 50% to 100% of throw_dist
-							if(throw_range > 0)
-								var/turf/throw_at = get_ranged_target_turf(I, throw_dir, throw_range)
-								I.throw_at(throw_at, throw_range, 2, no_spin = 1) //Throw it at 2 speed, this is purely visual anyway; don't spin the thrown items, it's very costly.
-*/
+
 		var/took = stop_watch(watch)
 		//You need to press the DebugGame verb to see these now....they were getting annoying and we've collected a fair bit of data. Just -test- changes  to explosion code using this please so we can compare
 		if(GLOB.debug2)

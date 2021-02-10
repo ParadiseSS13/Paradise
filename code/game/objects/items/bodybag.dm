@@ -7,10 +7,10 @@
 	icon_state = "bodybag_folded"
 	w_class = WEIGHT_CLASS_SMALL
 
-	attack_self(mob/user)
-		var/obj/structure/closet/body_bag/R = new /obj/structure/closet/body_bag(user.loc)
-		R.add_fingerprint(user)
-		qdel(src)
+/obj/item/bodybag/attack_self(mob/user)
+	var/obj/structure/closet/body_bag/R = new /obj/structure/closet/body_bag(user.loc)
+	R.add_fingerprint(user)
+	qdel(src)
 
 /obj/structure/closet/body_bag
 	name = "body bag"
@@ -27,23 +27,17 @@
 
 /obj/structure/closet/body_bag/attackby(W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/pen))
-		var/t = input(user, "What would you like the label to be?", text("[]", src.name), null)  as text
-		if(user.get_active_hand() != W)
+		var/t = rename_interactive(user, W)
+		if(isnull(t))
 			return
-		if(!in_range(src, user) && src.loc != user)
-			return
-		t = sanitize(copytext(t,1,MAX_MESSAGE_LEN))
+		cut_overlays()
 		if(t)
-			src.name = "body bag - "
-			src.name += t
-			src.overlays += image(src.icon, "bodybag_label")
-		else
-			src.name = "body bag"
+			add_overlay(image(icon, "bodybag_label"))
 		return
 	if(istype(W, /obj/item/wirecutters))
 		to_chat(user, "You cut the tag off the bodybag")
-		src.name = "body bag"
-		src.overlays.Cut()
+		name = "body bag"
+		cut_overlays()
 		return
 	return ..()
 
@@ -56,16 +50,13 @@
 
 
 /obj/structure/closet/body_bag/MouseDrop(over_object, src_location, over_location)
-	..()
+	. = ..()
 	if((over_object == usr && (in_range(src, usr) || usr.contents.Find(src))))
-		if(!ishuman(usr))	return
-		if(opened)	return 0
-		if(contents.len)	return 0
-		visible_message("[usr] folds up the [src.name]")
+		if(!ishuman(usr) || opened || length(contents))
+			return FALSE
+		visible_message("[usr] folds up the [name]")
 		new item_path(get_turf(src))
-		spawn(0)
-			qdel(src)
-		return
+		qdel(src)
 
 /obj/structure/closet/body_bag/relaymove(mob/user as mob)
 	if(user.stat)

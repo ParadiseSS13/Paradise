@@ -81,7 +81,7 @@
 /mob/living/carbon/alien/larva/show_inv(mob/user as mob)
 	return
 
-/mob/living/carbon/alien/larva/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
+/mob/living/carbon/alien/larva/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	return FALSE
 
 /* Commented out because it's duplicated in life.dm

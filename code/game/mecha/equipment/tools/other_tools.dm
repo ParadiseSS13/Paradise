@@ -87,10 +87,14 @@
 	energy_drain = 100
 	range = MECHA_MELEE | MECHA_RANGED
 	var/atom/movable/locked
+	var/cooldown_timer = 0
 	var/mode = 1 //1 - gravsling 2 - gravpush
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/action(atom/movable/target)
 	if(!action_checks(target))
+		return
+	if(cooldown_timer > world.time)
+		occupant_message("<span class='warning'>[src] is still recharging.</span>")
 		return
 	switch(mode)
 		if(1)
@@ -106,6 +110,7 @@
 					locked.throw_at(target, 14, 1.5)
 					locked = null
 					send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
+					cooldown_timer = world.time + 3 SECONDS
 					return 1
 				else
 					locked = null
@@ -125,6 +130,7 @@
 						step_away(A,target)
 						sleep(2)
 			var/turf/T = get_turf(target)
+			cooldown_timer = world.time + 3 SECONDS
 			log_game("[key_name(chassis.occupant)] used a Gravitational Catapult in ([T.x],[T.y],[T.z])")
 			return 1
 
@@ -483,12 +489,11 @@
 	fuel_per_cycle_idle = 10
 	fuel_per_cycle_active = 30
 	power_per_cycle = 50
-	var/rad_per_cycle = 0.3
+	var/rad_per_cycle = 30
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/critfail()
 	return
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/process()
 	if(..())
-		for(var/mob/living/carbon/M in view(chassis))
-			M.apply_effect((rad_per_cycle * 3),IRRADIATE,0)
+		radiation_pulse(get_turf(src), rad_per_cycle)

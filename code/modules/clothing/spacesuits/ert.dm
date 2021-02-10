@@ -16,15 +16,27 @@
 		"Vox" = 'icons/mob/species/vox/helmet.dmi'
 		)
 
+/obj/item/clothing/head/helmet/space/hardsuit/ert/Initialize()
+	if(loc)
+		var/mob/living/carbon/human/wearer = loc.loc	//loc is the hardsuit, so its loc is the wearer
+		if(ishuman(wearer))
+			register_camera(wearer)
+	..()
+
 /obj/item/clothing/head/helmet/space/hardsuit/ert/attack_self(mob/user)
 	if(camera || !has_camera)
 		..(user)
 	else
-		camera = new /obj/machinery/camera(src)
-		camera.network = list("ERT")
-		GLOB.cameranet.removeCamera(camera)
-		camera.c_tag = user.name
-		to_chat(user, "<span class='notice'>User scanned as [camera.c_tag]. Camera activated.</span>")
+		register_camera(user)
+
+/obj/item/clothing/head/helmet/space/hardsuit/ert/proc/register_camera(mob/wearer)
+	if(camera || !has_camera)
+		return
+	camera = new /obj/machinery/camera(src)
+	camera.network = list("ERT")
+	GLOB.cameranet.removeCamera(camera)
+	camera.c_tag = wearer.name
+	to_chat(wearer, "<span class='notice'>User scanned as [camera.c_tag]. Camera activated.</span>")
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/examine(mob/user)
 	. = ..()
@@ -37,12 +49,12 @@
 	icon_state = "ert_commander"
 	item_state = "suit-command"
 	w_class = WEIGHT_CLASS_NORMAL
-	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs,/obj/item/tank)
+	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs,/obj/item/tank/internals)
 	armor = list(melee = 45, bullet = 25, laser = 30, energy = 10, bomb = 25, bio = 100, rad = 50, fire = 80, acid = 80)
-	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/t_scanner, /obj/item/rcd, /obj/item/crowbar, \
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner, /obj/item/rcd, /obj/item/crowbar, \
 	/obj/item/screwdriver, /obj/item/weldingtool, /obj/item/wirecutters, /obj/item/wrench, /obj/item/multitool, \
-	/obj/item/radio, /obj/item/analyzer, /obj/item/gun/energy/laser, /obj/item/gun/energy/pulse, \
-	/obj/item/gun/energy/gun/advtaser, /obj/item/melee/baton, /obj/item/gun/energy/gun, /obj/item/gun/projectile/automatic/lasercarbine, /obj/item/gun/energy/gun/blueshield, /obj/item/gun/energy/immolator/multi)
+	/obj/item/radio, /obj/item/analyzer, /obj/item/gun, /obj/item/melee/baton, /obj/item/reagent_containers/spray/pepper, \
+	/obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/restraints/handcuffs)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert
 	strip_delay = 130
 	resistance_flags = FIRE_PROOF

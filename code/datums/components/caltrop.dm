@@ -42,7 +42,7 @@
 		if(!(flags & CALTROP_BYPASS_SHOES) && (H.shoes || feetCover))
 			return
 
-		if((H.flying) || H.buckled)
+		if(H.flying || H.floating || H.buckled)
 			return
 
 		var/damage = rand(min_damage, max_damage)

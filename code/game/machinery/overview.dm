@@ -73,7 +73,7 @@
 					if("/turf/unsimulated/floor")
 						colour  = rgb(240,240,240)
 
-					if("/turf/unsimulated/wall", "/turf/unsimulated/wall/other")
+					if("/turf/unsimulated/wall")
 						colour  = rgb(140,140,140)
 
 					else
@@ -229,7 +229,7 @@
 					if("/turf/unsimulated/floor")
 						colour  = rgb(240,240,240)
 
-					if("/turf/unsimulated/wall", "/turf/unsimulated/wall/other")
+					if("/turf/unsimulated/wall")
 						colour  = rgb(140,140,140)
 
 					else
@@ -342,13 +342,13 @@
 
 		return
 
-proc/getr(col)
+/proc/getr(col)
 	return hex2num( copytext(col, 2,4))
 
-proc/getg(col)
+/proc/getg(col)
 	return hex2num( copytext(col, 4,6))
 
-proc/getb(col)
+/proc/getb(col)
 	return hex2num( copytext(col, 6))
 
 

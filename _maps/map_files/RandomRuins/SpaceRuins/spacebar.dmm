@@ -33,41 +33,22 @@
 /turf/simulated/mineral,
 /area/ruin/powered)
 "aj" = (
-/turf/simulated/floor/plating/asteroid/airless,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f6";
-	dir = 2
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/ruin/powered)
 "ak" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
+/obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
-/area/ruin/powered)
-"al" = (
-/turf/simulated/floor/plating/asteroid/airless,
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall_f10";
-	layer = 2
-	},
 /area/ruin/powered)
 "am" = (
 /turf/simulated/wall,
 /area/ruin/powered{
 	name = "Space Bar"
 	})
-"an" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall3";
-	dir = 2
-	},
-/area/ruin/powered)
 "ao" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/powered)
 "ap" = (
 /obj/structure/table,
@@ -124,7 +105,7 @@
 	name = "Space Bar"
 	})
 "ax" = (
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/powered)
 "ay" = (
 /obj/machinery/door/airlock{
@@ -144,25 +125,13 @@
 	})
 "aA" = (
 /obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f5";
-	dir = 2
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/ruin/powered)
 "aB" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Escape Pod Airlock"
 	},
-/turf/simulated/shuttle/floor,
-/area/ruin/powered)
-"aC" = (
-/obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f9";
-	dir = 2
-	},
+/turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/powered)
 "aD" = (
 /obj/machinery/door_control{
@@ -189,7 +158,7 @@
 "aG" = (
 /obj/machinery/light/small,
 /obj/structure/table,
-/obj/machinery/microwave,
+/obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/wood,
 /area/ruin/powered{
 	name = "Space Bar"
@@ -441,14 +410,6 @@
 "bo" = (
 /turf/simulated/floor/plating,
 /area/ruin/powered)
-"bp" = (
-/obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/floor/plating/asteroid/airless,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f5";
-	dir = 2
-	},
-/area/ruin/powered)
 "bq" = (
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "pod cycle";
@@ -462,14 +423,6 @@
 	name = "airlock dock"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/powered)
-"bs" = (
-/obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/floor/plating/asteroid/airless,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f9";
-	dir = 2
-	},
 /area/ruin/powered)
 "bt" = (
 /obj/effect/decal/warning_stripes/south,
@@ -951,8 +904,8 @@ ac
 af
 ag
 aj
-an
-an
+aj
+aj
 aA
 ag
 ag
@@ -1034,10 +987,10 @@ ac
 af
 ag
 ag
-al
-an
-an
-aC
+aj
+aj
+aj
+aA
 ag
 ag
 ag
@@ -1131,9 +1084,9 @@ ag
 ag
 ag
 aj
-an
-an
-bp
+aj
+aj
+aA
 ag
 ag
 ag
@@ -1214,10 +1167,10 @@ aQ
 ag
 ag
 ag
-al
-an
-an
-bs
+aj
+aj
+aj
+aA
 ag
 ag
 ag

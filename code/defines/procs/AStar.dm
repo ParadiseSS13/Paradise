@@ -29,15 +29,15 @@ Actual Adjacent procs :
 //////////////////////
 
 //A* nodes variables
-/datum/PathNode
+/datum/pathnode
 	var/turf/source //turf associated with the PathNode
-	var/datum/PathNode/prevNode //link to the parent PathNode
+	var/datum/pathnode/prevNode //link to the parent PathNode
 	var/f		//A* Node weight (f = g + h)
 	var/g		//A* movement cost variable
 	var/h		//A* heuristic variable
 	var/nt		//count the number of Nodes traversed
 
-/datum/PathNode/New(s, p, pg, ph, pnt)
+/datum/pathnode/New(s,p,pg,ph,pnt)
 	source = s
 	prevNode = p
 	g = pg
@@ -46,7 +46,7 @@ Actual Adjacent procs :
 	source.PNode = src
 	nt = pnt
 
-/datum/PathNode/proc/calc_f()
+/datum/pathnode/proc/calc_f()
 	f = g + h
 
 //////////////////////
@@ -54,11 +54,11 @@ Actual Adjacent procs :
 //////////////////////
 
 //the weighting function, used in the A* algorithm
-/proc/PathWeightCompare(datum/PathNode/a, datum/PathNode/b)
+/proc/PathWeightCompare(datum/pathnode/a, datum/pathnode/b)
 	return a.f - b.f
 
 //reversed so that the Heap is a MinHeap rather than a MaxHeap
-/proc/HeapPathWeightCompare(datum/PathNode/a, datum/PathNode/b)
+/proc/HeapPathWeightCompare(datum/pathnode/a, datum/pathnode/b)
 	return b.f - a.f
 
 //wrapper that returns an empty list if A* failed to find a path
@@ -81,13 +81,13 @@ Actual Adjacent procs :
 			return null
 		maxnodedepth = maxnodes //no need to consider path longer than maxnodes
 
-	var/datum/Heap/open = new /datum/Heap(/proc/HeapPathWeightCompare) //the open list
-	var/list/closed = list() //the closed list
+	var/datum/heap/open = new /datum/heap(/proc/HeapPathWeightCompare) //the open list
+	var/list/closed = new() //the closed list
 	var/list/path = null //the returned path, if any
-	var/datum/PathNode/cur //current processed turf
+	var/datum/pathnode/cur //current processed turf
 
 	//initialization
-	open.Insert(new /datum/PathNode(start, null, 0, call(start, dist)(end), 0))
+	open.Insert(new /datum/pathnode(start,null,0,call(start,dist)(end),0))
 
 	//then run the main loop
 	while(!open.IsEmpty() && !path)
@@ -124,7 +124,7 @@ Actual Adjacent procs :
 
 			var/newg = cur.g + call(cur.source, dist)(T)
 			if(!T.PNode) //is not already in open list, so add it
-				open.Insert(new /datum/PathNode(T, cur, newg, call(T, dist)(end), cur.nt + 1))
+				open.Insert(new /datum/pathnode(T,cur,newg,call(T,dist)(end),cur.nt+1))
 			else //is already in open list, check if it's a better way from the current turf
 				if(newg < T.PNode.g)
 					T.PNode.prevNode = cur
@@ -134,8 +134,7 @@ Actual Adjacent procs :
 					open.ReSort(T.PNode)//reorder the changed element in the list
 
 	//cleaning after us
-	for(var/pn in open.L)
-		var/datum/PathNode/PN = pn
+	for(var/datum/pathnode/PN in open.L)
 		PN.source.PNode = null
 	for(var/t in closed)
 		var/turf/T = t

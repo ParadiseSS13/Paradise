@@ -106,11 +106,7 @@
 		dna.species.handle_death(gibbed, src)
 
 	if(SSticker && SSticker.mode)
-//		log_world("k")
-		sql_report_death(src)
-
-	if(wearing_rig)
-		wearing_rig.notify_ai("<span class='danger'>Warning: user death event. Mobility control passed to integrated intelligence system.</span>")
+		SSblackbox.ReportDeath(src)
 
 /mob/living/carbon/human/update_revive()
 	. = ..()

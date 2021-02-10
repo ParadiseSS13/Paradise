@@ -86,6 +86,7 @@
 
 	//Parrots are kleptomaniacs. This variable ... stores the item a parrot is holding.
 	var/obj/item/held_item = null
+	flying = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
 
 /mob/living/simple_animal/parrot/New()
@@ -714,17 +715,17 @@
 	desc = "Poly the Parrot. An expert on quantum cracker theory."
 	clean_speak = list(
 		"Poly wanna cracker!",
-		"Check the singlo, you chucklefucks!",
+		"Check the crystal, you chucklefucks!",
 		"Check the tesla, you shits!",
 		"STOP HOT-WIRING THE ENGINE, FUCKING CHRIST!",
 		"Wire the solars, you lazy bums!",
 		"WHO TOOK THE DAMN HARDSUITS?",
-		"OH GOD ITS FREE CALL THE SHUTTLE",
+		"OH GOD ITS ABOUT TO DELAMINATE CALL THE SHUTTLE",
 		"Why are there so many atmos alerts?",
-		"OH GOD WHY WOULD YOU TURN ON THE PA BEFORE CONTAINMENT IS UP?",
+		"OH GOD WHY WOULD YOU PUT CARBON-DIOXIDE IN THE SM?",
 		"Remember to lock the emitters!",
 		"Stop goofing off and repair the goddam station!",
-		"The singularity is not your friend!",
+		"The supermatter is not your friend!",
 		"What were the wires again?",
 		"Goddam emaggers!"
 		)
@@ -741,7 +742,7 @@
 		ears.talk_into(src, message_pieces, message_mode, verb)
 		used_radios += ears
 
-/mob/living/simple_animal/parrot/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency)
+/mob/living/simple_animal/parrot/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE)
 	if(speaker != src && prob(50))
 		parrot_hear(html_decode(multilingual_to_message(message_pieces)))
 	..()

@@ -2,6 +2,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 /obj/item
 	name = "item"
 	icon = 'icons/obj/items.dmi'
+
+	move_resist = null // Set in the Initialise depending on the item size. Unless it's overriden by a specific item
 	var/discrete = 0 // used in item_attack.dm to make an item not show an attack message to viewers
 	var/image/blood_overlay = null //this saves our blood splatter overlay, which will be processed not to go over the edges of the sprite
 	var/blood_overlay_color = null
@@ -114,6 +116,23 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 		if(damtype == "brute")
 			hitsound = "swing_hit"
 	LAZYINITLIST(attack_verb)
+	if(!move_resist)
+		determine_move_resist()
+
+/obj/item/proc/determine_move_resist()
+	switch(w_class)
+		if(WEIGHT_CLASS_TINY)
+			move_resist = MOVE_FORCE_EXTREMELY_WEAK
+		if(WEIGHT_CLASS_SMALL)
+			move_resist = MOVE_FORCE_VERY_WEAK
+		if(WEIGHT_CLASS_NORMAL)
+			move_resist = MOVE_FORCE_WEAK
+		if(WEIGHT_CLASS_BULKY)
+			move_resist = MOVE_FORCE_NORMAL
+		if(WEIGHT_CLASS_HUGE)
+			move_resist = MOVE_FORCE_NORMAL
+		if(WEIGHT_CLASS_GIGANTIC)
+			move_resist = MOVE_FORCE_NORMAL
 
 /obj/item/Destroy()
 	flags &= ~DROPDEL	//prevent reqdels
@@ -292,7 +311,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if(istype(I, /obj/item/storage))
 		var/obj/item/storage/S = I
 		if(S.use_to_pickup)
-			if(S.collection_mode) //Mode is set to collect all items on a tile and we clicked on a valid one.
+			if(S.pickup_all_on_tile) //Mode is set to collect all items on a tile and we clicked on a valid one.
 				if(isturf(loc))
 					var/list/rejections = list()
 					var/success = 0
@@ -507,7 +526,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 			"<span class='userdanger'>You stab yourself in the eyes with [src]!</span>" \
 		)
 
-	add_attack_logs(user, M, "Eye-stabbed with [src] (INTENT: [uppertext(user.a_intent)])")
+	add_attack_logs(user, M, "Eye-stabbed with [src] ([uppertext(user.a_intent)])")
 
 	if(istype(H))
 		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
@@ -625,6 +644,14 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 /obj/item/MouseExited()
 	deltimer(tip_timer) //delete any in-progress timer if the mouse is moved off the item before it finishes
 	closeToolTip(usr)
+
+/obj/item/MouseDrop_T(obj/item/I, mob/user)
+	if(!user || user.incapacitated(ignore_lying = TRUE) || src == I)
+		return
+
+	if(loc && I.loc == loc && istype(loc, /obj/item/storage) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?
+		var/obj/item/storage/S = loc
+		S.swap_items(src, I, user)
 
 // Returns a numeric value for sorting items used as parts in machines, so they can be replaced by the rped
 /obj/item/proc/get_part_rating()

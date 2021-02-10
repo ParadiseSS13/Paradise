@@ -3,7 +3,6 @@
 /mob/proc/combine_message(var/list/message_pieces, var/verb, var/mob/speaker, always_stars = FALSE)
 	var/iteration_count = 0
 	var/msg = "" // This is to make sure that the pieces have actually added something
-	. = "[verb], \""
 	for(var/datum/multilingual_say_piece/SP in message_pieces)
 		iteration_count++
 		var/piece = SP.message
@@ -44,14 +43,16 @@
 		// There is literally no content left in this message, we need to shut this shit down
 		. = "" // hear_say will suppress it
 	else
-		. = trim(. + trim(msg))
-		. += "\""
+		if(verb)
+			. = "[verb], \"[trim(msg)]\""
+		else
+			. = trim(msg)
 
-/mob/proc/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency)
+/mob/proc/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE)
 	if(!client)
 		return 0
 
-	if(isobserver(src) && client.prefs.toggles & CHAT_GHOSTEARS)
+	if(isobserver(src) && client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTEARS)
 		if(speaker && !speaker.client && !(speaker in view(src)))
 			//Does the speaker have a client?  It's either random stuff that observers won't care about (Experiment 97B says, 'EHEHEHEHEHEHEHE')
 			//Or someone snoring.  So we make it where they won't hear it.
@@ -74,14 +75,15 @@
 		return 0
 
 	var/speaker_name = speaker.name
-	if(ishuman(speaker))
+	if(use_voice && ishuman(speaker))
 		var/mob/living/carbon/human/H = speaker
 		speaker_name = H.GetVoice()
 
-	var/message = combine_message(message_pieces, verb, speaker)
+	var/message = combine_message(message_pieces, null, speaker)
 	if(message == "")
 		return
 
+	var/message_clean = message
 	if(italics)
 		message = "<i>[message]</i>"
 
@@ -90,7 +92,7 @@
 		if(speaker_name != speaker.real_name && speaker.real_name)
 			speaker_name = "[speaker.real_name] ([speaker_name])"
 		track = "([ghost_follow_link(speaker, ghost=src)]) "
-		if(client.prefs.toggles & CHAT_GHOSTEARS && (speaker in view(src)))
+		if(client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTEARS && (speaker in view(src)))
 			message = "<b>[message]</b>"
 
 	if(!can_hear())
@@ -99,15 +101,20 @@
 		if(speaker == src)
 			to_chat(src, "<span class='warning'>You cannot hear yourself speak!</span>")
 		else
-			to_chat(src, "<span class='name'>[speaker_name]</span>[speaker.GetAltName()] talks but you cannot hear [speaker.p_them()].")
+			to_chat(src, "<span class='name'>[speaker.name]</span> talks but you cannot hear [speaker.p_them()].")
 	else
-		to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[speaker.GetAltName()] [track][message]</span>")
+		to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[speaker.GetAltName()] [track][verb], \"[message]\"</span>")
+
+		// Create map text message
+		if (client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) // can_hear is checked up there on L99
+			create_chat_message(speaker, message_clean, italics)
+
 		if(speech_sound && (get_dist(speaker, src) <= world.view && src.z == speaker.z))
 			var/turf/source = speaker? get_turf(speaker) : get_turf(src)
 			playsound_local(source, speech_sound, sound_vol, 1, sound_frequency)
 
 
-/mob/proc/hear_radio(list/message_pieces, verb = "says", part_a, part_b, mob/speaker = null, hard_to_hear = 0, vname = "", atom/follow_target)
+/mob/proc/hear_radio(list/message_pieces, verb = "says", part_a, part_b, mob/speaker = null, hard_to_hear = 0, vname = "", atom/follow_target, radio_freq)
 	if(!client)
 		return
 
@@ -171,12 +178,23 @@
 
 	to_chat(src, heard)
 
-/mob/proc/hear_holopad_talk(list/message_pieces, var/verb = "says", var/mob/speaker = null)
+/mob/proc/hear_holopad_talk(list/message_pieces, verb = "says", mob/speaker = null, obj/effect/overlay/holo_pad_hologram/H)
+	if(sleeping || stat == UNCONSCIOUS)
+		hear_sleep(multilingual_to_message(message_pieces))
+		return
+
+	if(!can_hear())
+		return
+
 	var/message = combine_message(message_pieces, verb, speaker)
+	var/message_unverbed = combine_message(message_pieces, null, speaker)
 
 	var/name = speaker.name
 	if(!say_understands(speaker))
 		name = speaker.voice_name
+
+	if((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
+		create_chat_message(H, message_unverbed)
 
 	var/rendered = "<span class='game say'><span class='name'>[name]</span> [message]</span>"
 	to_chat(src, rendered)

@@ -1,10 +1,17 @@
 /proc/EquipCustomItems(mob/living/carbon/human/M)
-	if(!establish_db_connection())
+	if(!SSdbcore.IsConnected())
 		return
 
 	// Grab the info we want.
-	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT cuiPath, cuiPropAdjust, cuiJobMask, cuiDescription, cuiItemName FROM [format_table_name("customuseritems")] WHERE cuiCKey='[M.ckey]' AND (cuiRealName='[sanitizeSQL(M.real_name)]' OR cuiRealName='*')")
-	query.Execute()
+	var/datum/db_query/query = SSdbcore.NewQuery({"
+		SELECT cuiPath, cuiPropAdjust, cuiJobMask, cuiDescription, cuiItemName FROM [format_table_name("customuseritems")]
+		WHERE cuiCKey=:ckey AND (cuiRealName=:realname OR cuiRealName='*')"}, list(
+			"ckey" = M.ckey,
+			"realname" = M.real_name
+		))
+	if(!query.warn_execute(async = FALSE)) // Dont make this async. Youll make roundstart slow. Trust me.
+		qdel(query)
+		return
 
 	while(query.NextRow())
 		var/path = text2path(query.item[1])
@@ -12,7 +19,7 @@
 		var/jobmask = query.item[3]
 		var/ok = 0
 		if(!path || !ispath(path))
-			log_debug("Incorrect database entry found in table 'customuseritems' path value = [path], cuiPath is null. cuiCKey='[M.ckey]' AND (cuiRealName='[sanitizeSQL(M.real_name)]' OR cuiRealName='*'")
+			log_debug("Incorrect database entry found in table 'customuseritems' path value = [path], cuiPath is null. cuiCKey='[M.ckey]' AND (cuiRealName='[M.real_name]' OR cuiRealName='*'")
 			continue
 		if(jobmask != "*")
 			var/list/allowed_jobs = splittext(jobmask,",")
@@ -66,6 +73,7 @@
 
 		HackProperties(Item,propadjust)
 		M.regenerate_icons()
+	qdel(query)
 
 // This is hacky, but since it's difficult as fuck to make a proper parser in BYOND without killing the server, here it is. - N3X
 /proc/HackProperties(var/mob/living/carbon/human/M,var/obj/item/I,var/script)

@@ -32,6 +32,7 @@
 	var/cooldown = 0
 	var/species_disguise = null
 	var/magical = FALSE
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
 	if(!can_use(user))
@@ -119,6 +120,12 @@
 	else
 		icon = initial(icon)
 
+/**
+  * Used for any clothing interactions when the user is on fire. (e.g. Cigarettes getting lit.)
+  */
+/obj/item/clothing/proc/catch_fire() //Called in handle_fire()
+	return
+
 //Ears: currently only used for headsets and earmuffs
 /obj/item/clothing/ears
 	name = "ears"
@@ -175,6 +182,7 @@
 	slot_flags = SLOT_EARS | SLOT_TWOEARS
 
 /obj/item/clothing/ears/offear/New(var/obj/O)
+	. = ..()
 	name = O.name
 	desc = O.desc
 	icon = O.icon
@@ -196,7 +204,6 @@
 	var/invis_override = 0
 	var/lighting_alpha
 
-	var/emagged = 0
 	var/list/color_view = null//overrides client.color while worn
 	var/prescription = 0
 	var/prescription_upgradable = 0
@@ -204,7 +211,7 @@
 	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
 	put_on_delay = 25
 	resistance_flags = NONE
-	species_restricted = list("exclude","Kidan")
+
 /*
 SEE_SELF  // can see self, no matter what
 SEE_MOBS  // can see all mobs, no matter what
@@ -505,7 +512,7 @@ BLIND     // can't see anything
 	icon = 'icons/obj/clothing/suits.dmi'
 	name = "suit"
 	var/fire_resist = T0C+100
-	allowed = list(/obj/item/tank/emergency_oxygen)
+	allowed = list(/obj/item/tank/internals/emergency_oxygen)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	slot_flags = SLOT_OCLOTHING
 	var/blood_overlay_type = "suit"
@@ -590,6 +597,7 @@ BLIND     // can't see anything
 	name = "Space helmet"
 	icon_state = "space"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
+	w_class = WEIGHT_CLASS_NORMAL
 	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | THICKMATERIAL
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	item_state = "s_helmet"
@@ -618,7 +626,7 @@ BLIND     // can't see anything
 	permeability_coefficient = 0.02
 	flags = STOPSPRESSUREDMAGE | THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	allowed = list(/obj/item/flashlight,/obj/item/tank)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
 	slowdown = 1
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 70)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL

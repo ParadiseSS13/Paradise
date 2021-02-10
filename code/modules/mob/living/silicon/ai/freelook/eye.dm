@@ -29,12 +29,10 @@
 		loc = T
 		if(use_static)
 			ai.camera_visibility(src)
-		if(ai.client && !ai.multicam_on)
+		if(ai.client)
 			ai.client.eye = src
 		update_parallax_contents()
 		//Holopad
-		if(ai.master_multicam)
-			ai.master_multicam.refresh_view()
 		if(istype(ai.current, /obj/machinery/hologram/holopad))
 			var/obj/machinery/hologram/holopad/H = ai.current
 			H.move_hologram(ai, T)
@@ -66,7 +64,7 @@
 /atom/proc/move_camera_by_click()
 	if(istype(usr, /mob/living/silicon/ai))
 		var/mob/living/silicon/ai/AI = usr
-		if(AI.eyeobj && (AI.multicam_on || (AI.client.eye == AI.eyeobj)) && (AI.eyeobj.z == z))
+		if(AI.eyeobj && (AI.client.eye == AI.eyeobj) && (AI.eyeobj.z == z))
 			AI.cameraFollow = null
 			if(isturf(loc) || isturf(src))
 				AI.eyeobj.setLoc(src)
@@ -142,7 +140,7 @@
 	acceleration = !acceleration
 	to_chat(usr, "Camera acceleration has been toggled [acceleration ? "on" : "off"].")
 
-/mob/camera/aiEye/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency)
+/mob/camera/aiEye/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE)
 	if(relay_speech)
 		if(istype(ai))
 			ai.relay_speech(speaker, message_pieces, verb)

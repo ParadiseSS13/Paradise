@@ -78,6 +78,8 @@
 	desc = "A .50 bullet casing."
 	caliber = ".50"
 	projectile_type = /obj/item/projectile/bullet/sniper
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 	icon_state = ".50"
 
 /obj/item/projectile/bullet/sniper
@@ -192,6 +194,8 @@
 	desc = "A .50 caliber compact round casing."
 	caliber = ".50"
 	projectile_type = /obj/item/projectile/bullet/sniper/compact
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	icon_state = ".50"
 
 /obj/item/projectile/bullet/sniper/compact //Can't dismember, and can't break things; just deals massive damage.

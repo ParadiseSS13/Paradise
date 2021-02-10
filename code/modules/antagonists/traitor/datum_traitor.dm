@@ -13,7 +13,6 @@
 	var/traitor_kind = TRAITOR_HUMAN
 	var/list/assigned_targets = list() // This includes assassinate as well as steal objectives. prevents duplicate objectives
 
-
 /datum/antagonist/traitor/on_gain()
 	if(owner.current && isAI(owner.current))
 		traitor_kind = TRAITOR_AI
@@ -250,9 +249,15 @@
 
 
 /datum/antagonist/traitor/proc/update_traitor_icons_added(datum/mind/traitor_mind)
-	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
-	traitorhud.join_hud(owner.current, null)
-	set_antag_hud(owner.current, "hudsyndicate")
+	var/is_contractor = LAZYACCESS(GLOB.contractors, traitor_mind)
+	if(locate(/datum/objective/hijack) in owner.objectives)
+		var/datum/atom_hud/antag/hijackhud = GLOB.huds[ANTAG_HUD_TRAITOR]
+		hijackhud.join_hud(owner.current, null)
+		set_antag_hud(owner.current, is_contractor ? "hudhijackcontractor" : "hudhijack")
+	else
+		var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
+		traitorhud.join_hud(owner.current, null)
+		set_antag_hud(owner.current, is_contractor ? "hudcontractor" : "hudsyndicate")
 
 
 /datum/antagonist/traitor/proc/update_traitor_icons_removed(datum/mind/traitor_mind)
@@ -283,14 +288,16 @@
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
 	to_chat(traitor_mob, "<U><B>The Syndicate have provided you with the following codewords to identify fellow agents:</B></U>")
-	to_chat(traitor_mob, "<B>Code Phrase: <span class='danger'>[phrases]</span></B>")
-	to_chat(traitor_mob, "<B>Code Response: <span class='danger'>[responses]</span></B>")
+	to_chat(traitor_mob, "<span class='bold body'>Code Phrase: <span class='codephrases'>[phrases]</span></span>")
+	to_chat(traitor_mob, "<span class='bold body'>Code Response: <span class='coderesponses'>[responses]</span></span>")
 
 	antag_memory += "<b>Code Phrase</b>: <span class='red'>[phrases]</span><br>"
 	antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
 
 	to_chat(traitor_mob, "Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
+	to_chat(traitor_mob, "<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
 
+	traitor_mob.client.chatOutput?.notify_syndicate_codes()
 
 /datum/antagonist/traitor/proc/add_law_zero()
 	var/mob/living/silicon/ai/killer = owner.current

@@ -165,69 +165,63 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/atmospherics/trinary/mixer/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = GLOB.default_state)
-	user.set_machine(src)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/atmospherics/trinary/mixer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "atmos_mixer.tmpl", name, 370, 165, state = state)
+		ui = new(user, src, ui_key, "AtmosMixer", name, 330, 165, master_ui, state)
 		ui.open()
 
 /obj/machinery/atmospherics/trinary/mixer/ui_data(mob/user)
-	var/list/data = list()
-	data["on"] = on
-	data["pressure"] = round(target_pressure)
-	data["max_pressure"] = round(MAX_OUTPUT_PRESSURE)
-	data["node1_concentration"] = round(node1_concentration*100)
-	data["node2_concentration"] = round(node2_concentration*100)
+	var/list/data = list(
+		"on" = on,
+		"pressure" = round(target_pressure, 0.01),
+		"max_pressure" = MAX_OUTPUT_PRESSURE,
+		"node1_concentration" = round(node1_concentration * 100),
+		"node2_concentration" = round(node2_concentration * 100)
+	)
 	return data
 
-/obj/machinery/atmospherics/trinary/mixer/Topic(href,href_list)
+
+
+/obj/machinery/atmospherics/trinary/mixer/ui_act(action, list/params)
 	if(..())
-		return 1
+		return
 
-	if(href_list["power"])
-		on = !on
-		investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
-		. = TRUE
-	if(href_list["pressure"])
-		var/pressure = href_list["pressure"]
-		if(pressure == "max")
-			pressure = MAX_OUTPUT_PRESSURE
-			. = TRUE
-		else if(pressure == "input")
-			pressure = input("New output pressure (0-[MAX_OUTPUT_PRESSURE] kPa):", name, target_pressure) as num|null
-			if(!isnull(pressure) && !..())
-				. = TRUE
-		else if(text2num(pressure) != null)
-			pressure = text2num(pressure)
-			. = TRUE
-		if(.)
-			target_pressure = clamp(pressure, 0, MAX_OUTPUT_PRESSURE)
-			investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
-	if(href_list["node1"])
-		var/value = text2num(href_list["node1"])
-		node1_concentration = max(0, min(1, node1_concentration + value))
-		node2_concentration = max(0, min(1, node2_concentration - value))
-		investigate_log("was set to [node1_concentration] % on node 1 by [key_name(usr)]", "atmos")
-		. = TRUE
-	if(href_list["node2"])
-		var/value = text2num(href_list["node2"])
-		node2_concentration = max(0, min(1, node2_concentration + value))
-		node1_concentration = max(0, min(1, node1_concentration - value))
-		investigate_log("was set to [node2_concentration] % on node 2 by [key_name(usr)]", "atmos")
-		. = TRUE
+	switch(action)
+		if("power")
+			toggle()
+			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
+			return TRUE
 
-	update_icon()
-	SSnanoui.update_uis(src)
+		if("set_node")
+			if(params["node_name"] == "Node 1")
+				node1_concentration = clamp(round(text2num(params["concentration"]), 0.01), 0, 1)
+				node2_concentration = round(1 - node1_concentration, 0.01)
+				investigate_log("was set to [node1_concentration] % on node 1 by [key_name(usr)]", "atmos")
+				return TRUE
+			else
+				node2_concentration = clamp(round(text2num(params["concentration"]), 0.01), 0, 1)
+				node1_concentration = round(1 - node2_concentration, 0.01)
+				investigate_log("was set to [node2_concentration] % on node 2 by [key_name(usr)]", "atmos")
+				return TRUE
+
+		if("max_pressure")
+			target_pressure = MAX_OUTPUT_PRESSURE
+			. = TRUE
+
+		if("min_pressure")
+			target_pressure = 0
+			. = TRUE
+
+		if("custom_pressure")
+			target_pressure = clamp(text2num(params["pressure"]), 0, MAX_OUTPUT_PRESSURE)
+			. = TRUE
+	if(.)
+		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
 
 /obj/machinery/atmospherics/trinary/mixer/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
-		var/t = copytext(stripped_input(user, "Enter the name for the mixer.", "Rename", name), 1, MAX_NAME_LEN)
-		if(!t)
-			return
-		if(!in_range(src, usr) && loc != usr)
-			return
-		name = t
+		rename_interactive(user, W)
 		return
 	else
 		return ..()

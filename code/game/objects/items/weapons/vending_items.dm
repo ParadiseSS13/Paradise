@@ -126,10 +126,6 @@
 	machine_name = "NanoMed"
 	icon_state = "refill_medical"
 
-/obj/item/vending_refill/modularpc
-	machine_name = "Deluxe Silicate Selections"
-	icon_state = "refill_engi"
-
 /obj/item/vending_refill/hydronutrients
 	machine_name = "NutriMax"
 	icon_state = "refill_plant"

@@ -9,27 +9,27 @@
 	var/deliveryamt = 1 // amount of type to deliver
 	spawner_type = /mob/living/simple_animal/hostile/viscerator
 
-	prime()													// Prime now just handles the two loops that query for people in lockers and people who can see it.
+/obj/item/grenade/spawnergrenade/prime() // Prime now just handles the two loops that query for people in lockers and people who can see it.
 
-		if(spawner_type && deliveryamt)
-			// Make a quick flash
-			var/turf/T = get_turf(src)
-			playsound(T, 'sound/effects/phasein.ogg', 100, 1)
-			for(var/mob/living/carbon/C in viewers(T, null))
-				C.flash_eyes()
+	if(spawner_type && deliveryamt)
+		// Make a quick flash
+		var/turf/T = get_turf(src)
+		playsound(T, 'sound/effects/phasein.ogg', 100, 1)
+		for(var/mob/living/carbon/C in viewers(T, null))
+			C.flash_eyes()
 
-			for(var/i=1, i<=deliveryamt, i++)
-				var/atom/movable/x = new spawner_type
-				x.admin_spawned = admin_spawned
-				x.loc = T
-				if(prob(50))
-					for(var/j = 1, j <= rand(1, 3), j++)
-						step(x, pick(NORTH,SOUTH,EAST,WEST))
+		for(var/i=1, i<=deliveryamt, i++)
+			var/atom/movable/x = new spawner_type
+			x.admin_spawned = admin_spawned
+			x.loc = T
+			if(prob(50))
+				for(var/j = 1, j <= rand(1, 3), j++)
+					step(x, pick(NORTH,SOUTH,EAST,WEST))
 
-				// Spawn some hostile syndicate critters
+			// Spawn some hostile syndicate critters
 
-		qdel(src)
-		return
+	qdel(src)
+	return
 
 /obj/item/grenade/spawnergrenade/manhacks
 	name = "manhack delivery grenade"

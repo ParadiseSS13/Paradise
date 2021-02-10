@@ -221,6 +221,7 @@
 	projectile_type = /obj/item/projectile/tentacle
 	caliber = "tentacle"
 	icon_state = "tentacle_end"
+	muzzle_flash_effect = null
 	var/obj/item/gun/magic/tentacle/gun //the item that shot it
 
 /obj/item/ammo_casing/magic/tentacle/New(obj/item/gun/magic/tentacle/tentacle_gun)
@@ -421,7 +422,7 @@
 	icon_state = "lingspacesuit"
 	desc = "A huge, bulky mass of pressure and temperature-resistant organic tissue, evolved to facilitate space travel."
 	flags = STOPSPRESSUREDMAGE | NODROP | DROPDEL
-	allowed = list(/obj/item/flashlight, /obj/item/tank/emergency_oxygen, /obj/item/tank/oxygen)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90) //No armor at all
 
 /obj/item/clothing/suit/space/changeling/New()

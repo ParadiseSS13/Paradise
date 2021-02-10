@@ -20,10 +20,13 @@ export const LabeledListItem = props => {
     labelColor = 'label',
     color,
     textAlign,
+    verticalAlign,
     buttons,
     content,
     children,
+    noColon = false,
   } = props;
+  const colon = noColon ? '' : ':';
   return (
     <tr
       className={classes([
@@ -33,16 +36,18 @@ export const LabeledListItem = props => {
       <Box
         as="td"
         color={labelColor}
+        verticalAlign={verticalAlign}
         className={classes([
           'LabeledList__cell',
           'LabeledList__label',
         ])}>
-        {label ? label + ':' : null}
+        {label ? label + colon : null}
       </Box>
       <Box
         as="td"
         color={color}
         textAlign={textAlign}
+        verticalAlign={verticalAlign}
         className={classes([
           'LabeledList__cell',
           'LabeledList__content',

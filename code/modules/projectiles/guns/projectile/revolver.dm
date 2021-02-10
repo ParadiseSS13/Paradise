@@ -89,7 +89,7 @@
 
 /obj/item/gun/projectile/revolver/detective
 	desc = "A cheap Martian knock-off of a classic law enforcement firearm. Uses .38-special rounds."
-	name = "\improper .38 Mars Special"
+	name = ".38 Mars Special"
 	icon_state = "detective"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38
 	unique_rename = 1
@@ -330,12 +330,14 @@
 	icon_state = "dshotgun"
 	item_state = "shotgun"
 	w_class = WEIGHT_CLASS_BULKY
+	weapon_weight = WEAPON_HEAVY
 	force = 10
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/dual
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	sawn_desc = "Omar's coming!"
+	can_holster = FALSE
 	unique_rename = 1
 	unique_reskin = 1
 
@@ -361,6 +363,10 @@
 	else
 		return ..()
 
+/obj/item/gun/projectile/revolver/doublebarrel/sawoff(mob/user)
+    . = ..()
+    weapon_weight = WEAPON_MEDIUM
+
 /obj/item/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user)
 	var/num_unloaded = 0
 	while(get_ammo() > 0)
@@ -376,9 +382,6 @@
 		to_chat(user, "<span class = 'notice'>You break open \the [src] and unload [num_unloaded] shell\s.</span>")
 	else
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
-
-/obj/item/gun/projectile/revolver/doublebarrel/isHandgun() //contrary to popular opinion, double barrels are not, shockingly, handguns
-	return 0
 
 // IMPROVISED SHOTGUN //
 

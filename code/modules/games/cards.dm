@@ -283,10 +283,9 @@
 		if(P.name != "Blank Card")
 			to_chat(user,"<span class='notice'>You cannot write on that card.</span>")
 			return
-		var/cardtext = sanitize(input(user, "What do you wish to write on the card?", "Card Editing") as text|null, MAX_PAPER_MESSAGE_LEN)
-		if(!cardtext)
-			return
-		P.name = cardtext
+		var/t = rename_interactive(user, P, use_prefix = FALSE, actually_rename = FALSE)
+		if(t && P.name == "Blank Card")
+			P.name = t
 		// SNOWFLAKE FOR CAG, REMOVE IF OTHER CARDS ARE ADDED THAT USE THIS.
 		P.card_icon = "cag_white_card"
 		update_icon()

@@ -1,0 +1,15 @@
+
+
+.BrigCells__list {
+  .Table__row--header {
+    text-align: center;
+  }
+
+  .Table__cell {
+    text-align: center;
+  }
+
+  .BrigCells__listRow--active .Table__cell {
+    background-color: #890E26;
+  }
+}

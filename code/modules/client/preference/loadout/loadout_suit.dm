@@ -71,6 +71,10 @@
 	display_name = "leather jacket"
 	path = /obj/item/clothing/suit/jacket/leather
 
+/datum/gear/suit/motojacket
+	display_name = "leather motorcycle jacket"
+	path = /obj/item/clothing/suit/jacket/motojacket
+
 /datum/gear/suit/br_tcoat
 	display_name = "trenchcoat, brown"
 	path = /obj/item/clothing/suit/browntrenchcoat
@@ -208,3 +212,11 @@
 	display_name = "mantle, research director"
 	path = /obj/item/clothing/suit/mantle/labcoat
 	allowed_roles = list("Research Director")
+
+//Robes!
+
+/datum/gear/suit/witch
+	display_name = "witch robes"
+	path = /obj/item/clothing/suit/wizrobe/marisa/fake
+
+

@@ -40,7 +40,7 @@
 					aiPlayer.set_zeroth_law(law)
 					to_chat(aiPlayer, "Laws Updated: [law]")
 
-	print_command_report(intercepttext, interceptname)
+	print_command_report(intercepttext, interceptname, FALSE)
 	GLOB.event_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg', from = "[command_name()] Update")
 
 /datum/station_state

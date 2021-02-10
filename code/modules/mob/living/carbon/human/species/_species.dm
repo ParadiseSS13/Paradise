@@ -78,7 +78,7 @@
 	var/bodyflags = 0
 	var/dietflags  = 0	// Make sure you set this, otherwise it won't be able to digest a lot of foods
 
-	var/blood_color = "#A10808" //Red.
+	var/blood_color = COLOR_BLOOD_BASE //Red.
 	var/flesh_color = "#d1aa2e" //Gold.
 	var/single_gib_type = /obj/effect/decal/cleanable/blood/gibs
 	var/remains_type = /obj/effect/decal/remains/human //What sort of remains is left behind when the species dusts
@@ -218,37 +218,40 @@
 ////////////////
 // MOVE SPEED //
 ////////////////
+#define ADD_SLOWDOWN(__value) if(!ignoreslow || __value < 0) . += __value
 
 /datum/species/proc/movement_delay(mob/living/carbon/human/H)
 	. = 0	//We start at 0.
-	var/flight = 0	//Check for flight and flying items
-	var/ignoreslow = 0
-	var/gravity = 0
-
-	if(H.flying)
-		flight = 1
-
-	if((H.status_flags & IGNORESLOWDOWN) || (RUN in H.mutations))
-		ignoreslow = 1
+	if(H.status_flags & IGNORE_SPEED_CHANGES)
+		return .
 
 	if(has_gravity(H))
-		gravity = 1
+		if(H.status_flags & GOTTAGOFAST)
+			. -= 1
+		else if(H.status_flags & GOTTAGONOTSOFAST)
+			. -= 0.5
 
-	if(!ignoreslow && gravity)
-		if(speed_mod)
-			. = speed_mod
+		var/ignoreslow = FALSE
+		if((H.status_flags & IGNORESLOWDOWN) || (RUN in H.mutations))
+			ignoreslow = TRUE
+
+		var/flight = H.flying	//Check for flight and flying items
+
+		ADD_SLOWDOWN(speed_mod)
 
 		if(H.wear_suit)
-			. += H.wear_suit.slowdown
-		if(!H.buckled)
-			if(H.shoes)
-				. += H.shoes.slowdown
+			ADD_SLOWDOWN(H.wear_suit.slowdown)
+		if(!H.buckled && H.shoes)
+			ADD_SLOWDOWN(H.shoes.slowdown)
 		if(H.back)
-			. += H.back.slowdown
+			ADD_SLOWDOWN(H.back.slowdown)
 		if(H.l_hand && (H.l_hand.flags & HANDSLOW))
-			. += H.l_hand.slowdown
+			ADD_SLOWDOWN(H.l_hand.slowdown)
 		if(H.r_hand && (H.r_hand.flags & HANDSLOW))
-			. += H.r_hand.slowdown
+			ADD_SLOWDOWN(H.r_hand.slowdown)
+
+		if(ignoreslow)
+			return . // Only malusses after here
 
 		var/health_deficiency = max(H.maxHealth - H.health, H.staminaloss)
 		var/hungry = (500 - H.nutrition)/5 // So overeat would be 100 and default level would be 80
@@ -270,9 +273,9 @@
 		if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
 			. += (BODYTEMP_COLD_DAMAGE_LIMIT - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
 
-		if(H.status_flags & GOTTAGOFAST)
-			. -= 1
 	return .
+
+#undef ADD_SLOWDOWN
 
 /datum/species/proc/on_species_gain(mob/living/carbon/human/H) //Handles anything not already covered by basic species assignment.
 	for(var/slot_id in no_equip)
@@ -367,11 +370,11 @@
 /datum/species/proc/spec_stun(mob/living/carbon/human/H,amount)
 	return
 
-/datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+/datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, source, siemens_coeff = 1, flags = NONE)
 	return
 
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(attacker_style && attacker_style.help_act(user, target))//adminfu only...
+	if(attacker_style && attacker_style.help_act(user, target) == TRUE)//adminfu only...
 		return TRUE
 	if(target.health >= HEALTH_THRESHOLD_CRIT && !(target.status_flags & FAKEDEATH))
 		target.help_shake_act(user)
@@ -383,7 +386,7 @@
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>")
 		return FALSE
-	if(attacker_style && attacker_style.grab_act(user, target))
+	if(attacker_style && attacker_style.grab_act(user, target) == TRUE)
 		return TRUE
 	else
 		target.grabbedby(user)
@@ -412,7 +415,7 @@
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
 		return FALSE
-	if(attacker_style && attacker_style.harm_act(user, target))
+	if(attacker_style && attacker_style.harm_act(user, target) == TRUE)
 		return TRUE
 	else
 		var/datum/unarmed_attack/attack = user.dna.species.unarmed
@@ -460,7 +463,7 @@
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
 		return FALSE
-	if(attacker_style && attacker_style.disarm_act(user, target))
+	if(attacker_style && attacker_style.disarm_act(user, target) == TRUE)
 		return TRUE
 	else
 		add_attack_logs(user, target, "Disarmed", ATKLOG_ALL)
@@ -516,11 +519,8 @@
 	playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 	target.visible_message("<span class='danger'>[user] attempted to disarm [target]!</span>")
 
-/datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style = M.martial_art) //Handles any species-specific attackhand events.
+/datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style) //Handles any species-specific attackhand events.
 	if(!istype(M))
-		return
-	if(H.frozen)
-		to_chat(M, "<span class='warning'>Do not touch Admin-Frozen people.</span>")
 		return
 
 	if(istype(M))
@@ -530,6 +530,9 @@
 		if(!temp || !temp.is_usable())
 			to_chat(M, "<span class='warning'>You can't use your hand.</span>")
 			return
+
+	if(M.mind)
+		attacker_style = M.mind.martial_art
 
 	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
 		add_attack_logs(M, H, "Melee attacked with fists (miss/block)")
@@ -625,9 +628,9 @@
 				return FALSE
 			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_CHEST)
 
-			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
+			if(!H.w_uniform && !nojumpsuit && !(O?.status & ORGAN_ROBOT))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
+					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
 			if(!(I.slot_flags & SLOT_BELT))
 				return
@@ -647,9 +650,9 @@
 				return FALSE
 			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_CHEST)
 
-			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
+			if(!H.w_uniform && !nojumpsuit && !(O?.status & ORGAN_ROBOT))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
+					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
 			if(!(I.slot_flags & SLOT_ID))
 				return FALSE
@@ -659,9 +662,9 @@
 				return FALSE
 			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_CHEST)
 
-			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
+			if(!H.w_uniform && !nojumpsuit && !(O?.status & ORGAN_ROBOT))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
+					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
 			if(!(I.slot_flags & SLOT_PDA))
 				return FALSE
@@ -673,9 +676,9 @@
 				return FALSE
 			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_L_LEG)
 
-			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
+			if(!H.w_uniform && !nojumpsuit && !(O?.status & ORGAN_ROBOT))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
+					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
 			if(I.slot_flags & SLOT_DENYPOCKET)
 				return
@@ -688,9 +691,9 @@
 				return FALSE
 			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_R_LEG)
 
-			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
+			if(!H.w_uniform && !nojumpsuit && !(O?.status & ORGAN_ROBOT))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
+					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
 			if(I.slot_flags & SLOT_DENYPOCKET)
 				return FALSE
@@ -704,7 +707,7 @@
 				return FALSE
 			if(!H.wear_suit)
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a suit before you can attach this [name].</span>")
+					to_chat(H, "<span class='alert'>You need a suit before you can attach this [I.name].</span>")
 				return FALSE
 			if(!H.wear_suit.allowed)
 				if(!disable_warning)
@@ -712,7 +715,7 @@
 				return FALSE
 			if(I.w_class > WEIGHT_CLASS_BULKY)
 				if(!disable_warning)
-					to_chat(H, "The [name] is too big to attach.")
+					to_chat(H, "<span class='warning'>[I] is too big to attach.</span>")
 				return FALSE
 			if(istype(I, /obj/item/pda) || istype(I, /obj/item/pen) || is_type_in_list(I, H.wear_suit.allowed))
 				return TRUE
@@ -730,7 +733,7 @@
 		if(slot_tie)
 			if(!H.w_uniform)
 				if(!disable_warning)
-					to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
+					to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
 			var/obj/item/clothing/under/uniform = H.w_uniform
 			if(uniform.accessories.len && !uniform.can_attach_accessory(H))
@@ -745,6 +748,49 @@
 
 /datum/species/proc/update_health_hud(mob/living/carbon/human/H)
 	return FALSE
+
+/datum/species/proc/handle_mutations_and_radiation(mob/living/carbon/human/H)
+	if(RADIMMUNE in species_traits)
+		H.radiation = 0
+		return TRUE
+
+	. = FALSE
+	var/radiation = H.radiation
+
+	if(radiation > RAD_MOB_KNOCKDOWN && prob(RAD_MOB_KNOCKDOWN_PROB))
+		if(!H.IsWeakened())
+			H.emote("collapse")
+		H.Weaken(RAD_MOB_KNOCKDOWN_AMOUNT)
+		to_chat(H, "<span class='danger'>You feel weak.</span>")
+
+	if(radiation > RAD_MOB_VOMIT && prob(RAD_MOB_VOMIT_PROB))
+		H.vomit(10, TRUE)
+
+	if(radiation > RAD_MOB_MUTATE)
+		if(prob(1))
+			to_chat(H, "<span class='danger'>You mutate!</span>")
+			randmutb(H)
+			H.emote("gasp")
+			domutcheck(H, null)
+
+	if(radiation > RAD_MOB_HAIRLOSS)
+		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		if(!head_organ)
+			return
+		if(prob(15) && head_organ.h_style != "Bald")
+			to_chat(H, "<span class='danger'>Your hair starts to fall out in clumps...</span>")
+			addtimer(CALLBACK(src, .proc/go_bald, H), 5 SECONDS)
+
+/datum/species/proc/go_bald(mob/living/carbon/human/H)
+	if(QDELETED(H))	//may be called from a timer
+		return
+	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+	if(!head_organ)
+		return
+	head_organ.f_style = "Shaved"
+	head_organ.h_style = "Bald"
+	H.update_hair()
+	H.update_fhair()
 
 /*
 Returns the path corresponding to the corresponding organ
@@ -817,20 +863,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			if(!isnull(hat.lighting_alpha))
 				H.lighting_alpha = min(hat.lighting_alpha, H.lighting_alpha)
 
-	if(istype(H.back, /obj/item/rig)) ///aghhh so snowflakey
-		var/obj/item/rig/rig = H.back
-		if(rig.visor)
-			if(!rig.helmet || (H.head && rig.helmet == H.head))
-				if(rig.visor && rig.visor.vision && rig.visor.active && rig.visor.vision.glasses)
-					var/obj/item/clothing/glasses/G = rig.visor.vision.glasses
-					if(istype(G))
-						H.sight |= G.vision_flags
-						H.see_in_dark = max(G.see_in_dark, H.see_in_dark)
-						H.see_invisible = min(G.invis_view, H.see_invisible)
-
-						if(!isnull(G.lighting_alpha))
-							H.lighting_alpha = min(G.lighting_alpha, H.lighting_alpha)
-
 	if(H.vision_type)
 		H.sight |= H.vision_type.sight_flags
 		H.see_in_dark = max(H.see_in_dark, H.vision_type.see_in_dark)
@@ -843,6 +875,9 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	if(XRAY in H.mutations)
 		H.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
+
+	if(H.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
+		H.see_invisible = SEE_INVISIBLE_OBSERVER
 
 	H.sync_lighting_plane_alpha()
 
@@ -873,3 +908,18 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
 	if(istype(ears) && !ears.deaf)
 		. = TRUE
+
+/**
+  * Species-specific runechat colour handler
+  *
+  * Checks the species datum flags and returns the appropriate colour
+  * Can be overridden on subtypes to short-circuit these checks (Example: Grey colour is eye colour)
+  * Arguments:
+  * * H - The human who this DNA belongs to
+  */
+/datum/species/proc/get_species_runechat_color(mob/living/carbon/human/H)
+	if(bodyflags & HAS_SKIN_COLOR)
+		return H.skin_colour
+	else
+		var/obj/item/organ/external/head/HD = H.get_organ("head")
+		return HD.hair_colour

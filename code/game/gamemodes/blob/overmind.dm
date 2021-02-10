@@ -53,13 +53,13 @@
 
 /mob/camera/blob/update_health_hud()
 	if(blob_core && hud_used)
-		hud_used.blobhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#e36600'>[round(blob_core.obj_integrity)]</font></div>"
+		hud_used.blobhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#e36600'>[round(blob_core.obj_integrity)]</font></div>"
 
 /mob/camera/blob/proc/add_points(var/points)
 	if(points != 0)
 		blob_points = clamp(blob_points + points, 0, max_blob_points)
 		if(hud_used)
-			hud_used.blobpwrdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#82ed00'>[round(src.blob_points)]</font></div>"
+			hud_used.blobpwrdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#82ed00'>[round(src.blob_points)]</font></div>"
 
 /mob/camera/blob/say(var/message)
 	if(!message)

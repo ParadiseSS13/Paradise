@@ -12,6 +12,8 @@
 	anchored = TRUE
 	icon = 'icons/turf/walls/wall.dmi'
 	icon_state = "wall"
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	rad_insulation = RAD_MEDIUM_INSULATION
 
 	var/mineral = /obj/item/stack/sheet/metal
 	var/mineral_amount = 2
@@ -33,9 +35,21 @@
 	/turf/simulated/wall/r_wall/rust)
 	smooth = SMOOTH_TRUE
 
-/obj/structure/falsewall/New(loc)
-	..()
+/obj/structure/falsewall/Initialize(mapload)
+	. = ..()
 	air_update_turf(1)
+
+/obj/structure/falsewall/examine_status(mob/user)
+	var/healthpercent = (obj_integrity/max_integrity) * 100
+	switch(healthpercent)
+		if(100)
+			return "<span class='notice'>It looks fully intact.</span>"
+		if(70 to 99)
+			return  "<span class='warning'>It looks slightly damaged.</span>"
+		if(40 to 70)
+			return  "<span class='warning'>It looks moderately damaged.</span>"
+		if(0 to 40)
+			return "<span class='danger'>It looks heavily damaged.</span>"
 
 /obj/structure/falsewall/ratvar_act()
 	new /obj/structure/falsewall/brass(loc)
@@ -159,6 +173,10 @@
 	walltype = /turf/simulated/wall/r_wall
 	mineral = /obj/item/stack/sheet/plasteel
 
+/obj/structure/falsewall/reinforced/examine_status(mob/user)
+	. = ..()
+	. += "<br><span class='notice'>The outer <b>grille</b> is fully intact.</span>"	//not going to fake other states of disassembly
+
 /obj/structure/falsewall/reinforced/ChangeToWall(delete = 1)
 	var/turf/T = get_turf(src)
 	T.ChangeTurf(/turf/simulated/wall/r_wall)
@@ -191,16 +209,13 @@
 
 /obj/structure/falsewall/uranium/proc/radiate()
 	if(!active)
-		if(world.time > last_event+15)
+		if(world.time > last_event + 15)
 			active = 1
-			for(var/mob/living/L in range(3,src))
-				L.apply_effect(12,IRRADIATE,0)
-			for(var/turf/simulated/wall/mineral/uranium/T in range(3,src))
+			radiation_pulse(src, 150)
+			for(var/turf/simulated/wall/mineral/uranium/T in orange(1, src))
 				T.radiate()
 			last_event = world.time
 			active = null
-			return
-	return
 /*
  * Other misc falsewall types
  */
@@ -326,7 +341,7 @@
 	mineral = /obj/item/stack/sheet/mineral/titanium
 	walltype = /turf/simulated/wall/mineral/titanium
 	smooth = SMOOTH_MORE
-	canSmoothWith = list(/turf/simulated/wall/mineral/titanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater)
+	canSmoothWith = list(/turf/simulated/wall/mineral/titanium, /obj/machinery/door/airlock/titanium, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater)
 
 /obj/structure/falsewall/plastitanium
 	desc = "An evil wall of plasma and titanium."
@@ -335,7 +350,7 @@
 	mineral = /obj/item/stack/sheet/mineral/plastitanium
 	walltype = /turf/simulated/wall/mineral/plastitanium
 	smooth = SMOOTH_MORE
-	canSmoothWith = list(/turf/simulated/wall/mineral/plastitanium, /turf/simulated/wall/mineral/plastitanium/nodiagonal, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater)
+	canSmoothWith = list(/turf/simulated/wall/mineral/plastitanium, /turf/simulated/wall/indestructible/syndicate, /turf/simulated/wall/mineral/plastitanium/nodiagonal, /obj/machinery/door/airlock/titanium, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater)
 
 /obj/structure/falsewall/brass
 	name = "clockwork wall"
@@ -349,8 +364,8 @@
 	walltype = /turf/simulated/wall/clockwork
 	mineral = /obj/item/stack/tile/brass
 
-/obj/structure/falsewall/brass/New(loc)
-	..()
+/obj/structure/falsewall/brass/Initialize(mapload)
+	. = ..()
 	var/turf/T = get_turf(src)
 	new /obj/effect/temp_visual/ratvar/wall/false(T)
 	new /obj/effect/temp_visual/ratvar/beam/falsewall(T)

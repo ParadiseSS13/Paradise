@@ -66,12 +66,12 @@
 /datum/gear/accessory/holobadge
 	display_name = "holobadge, pin"
 	path = /obj/item/clothing/accessory/holobadge
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
 
 /datum/gear/accessory/holobadge_n
 	display_name = "holobadge, cord"
 	path = /obj/item/clothing/accessory/holobadge/cord
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
 
 /datum/gear/accessory/tieblue
 	display_name = "tie, blue"
@@ -154,9 +154,6 @@
 	display_name = "corset, blue"
 	path = /obj/item/clothing/accessory/corset/blue
 
-/datum/gear/accessory/armband/job
-	subtype_path = /datum/gear/accessory/armband/job
-	subtype_cost_overlap = FALSE
 
 /datum/gear/accessory/armband_red
 	display_name = "armband"
@@ -166,41 +163,41 @@
 	display_name = "armband, blue-yellow"
 	path = /obj/item/clothing/accessory/armband/yb
 
-/datum/gear/accessory/armband/job/sec
+/datum/gear/accessory/armband_job
+	subtype_path = /datum/gear/accessory/armband_job
+	subtype_cost_overlap = FALSE
+
+/datum/gear/accessory/armband_job/sec
 	display_name = " armband, security"
 	path = /obj/item/clothing/accessory/armband/sec
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Brig Physician", "Security Pod Pilot")
 
-/datum/gear/accessory/armband/job/cargo
+/datum/gear/accessory/armband_job/cargo
 	display_name = "cargo armband"
 	path = /obj/item/clothing/accessory/armband/cargo
 	allowed_roles = list("Quartermaster","Cargo Technician", "Shaft Miner")
 
-/datum/gear/accessory/armband/job/medical
+/datum/gear/accessory/armband_job/medical
 	display_name = "armband, medical"
 	path = /obj/item/clothing/accessory/armband/med
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Paramedic", "Brig Physician")
 
-/datum/gear/accessory/armband/job/emt
+/datum/gear/accessory/armband_job/emt
 	display_name = "armband, EMT"
 	path = /obj/item/clothing/accessory/armband/medgreen
 	allowed_roles = list("Paramedic", "Brig Physician")
 
-/datum/gear/accessory/armband/job/engineering
+/datum/gear/accessory/armband_job/engineering
 	display_name = "armband, engineering"
 	path = /obj/item/clothing/accessory/armband/engine
 	allowed_roles = list("Chief Engineer","Station Engineer", "Life Support Specialist")
 
-/datum/gear/accessory/armband/job/hydro
+/datum/gear/accessory/armband_job/hydro
 	display_name = "armband, hydroponics"
 	path = /obj/item/clothing/accessory/armband/hydro
 	allowed_roles = list("Botanist")
 
-/datum/gear/accessory/armband/job/sci
+/datum/gear/accessory/armband_job/sci
 	display_name = "armband, science"
 	path = /obj/item/clothing/accessory/armband/science
 	allowed_roles = list("Research Director","Scientist", "Roboticist")
-
-
-
-

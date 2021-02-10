@@ -2,10 +2,20 @@ GLOBAL_LIST_INIT(open_logging_views, list())
 
 /client/proc/cmd_admin_open_logging_view()
 	set category = "Admin"
-	set name = "Open Logging View"
+	set name = "Logging View"
 	set desc = "Opens the detailed logging viewer"
+	open_logging_view()
 
-	if(!GLOB.open_logging_views[usr.client.ckey])
-		GLOB.open_logging_views[usr.client.ckey] = new /datum/log_viewer()
-	var/datum/log_viewer/LV = GLOB.open_logging_views[usr.client.ckey]
-	LV.show_ui(usr)
+/client/proc/open_logging_view(list/mob/mobs_to_add = null, clear_view = FALSE)
+	var/datum/log_viewer/cur_view = GLOB.open_logging_views[usr.client.ckey]
+	if(!cur_view)
+		cur_view = new /datum/log_viewer()
+		GLOB.open_logging_views[usr.client.ckey] = cur_view
+	else if(clear_view)
+		cur_view.clear_all()
+
+	if(mobs_to_add?.len)
+		cur_view.add_mobs(mobs_to_add)
+
+	cur_view.show_ui(usr)
+	

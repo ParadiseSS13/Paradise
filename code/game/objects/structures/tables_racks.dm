@@ -35,8 +35,8 @@
 	var/deconstruction_ready = TRUE
 	var/flipped = 0
 
-/obj/structure/table/New()
-	..()
+/obj/structure/table/Initialize(mapload)
+	. = ..()
 	if(flipped)
 		update_icon()
 
@@ -69,6 +69,12 @@
 			base = "wood"
 		if(istype(src, /obj/structure/table/reinforced))
 			base = "rtable"
+		if(istype(src, /obj/structure/table/wood/poker))
+			base = "poker"
+		if(istype(src, /obj/structure/table/wood/fancy))
+			base = "fancy"
+		if(istype(src, /obj/structure/table/wood/fancy/black))
+			base = "fancyblack"
 
 		icon_state = "[base]flip[type][type == 1 ? subtype : ""]"
 
@@ -90,7 +96,7 @@
 	..()
 	if(climber)
 		climber.Weaken(2)
-		climber.visible_message("<span class='warning'>[climber.name] has been knocked off the table", "You've been knocked off the table", "You see [climber.name] get knocked off the table</span>")
+		climber.visible_message("<span class='warning'>[climber.name] has been knocked off the table", "You've been knocked off the table", "You hear [climber.name] get knocked off the table</span>")
 	else if(Adjacent(user) && user.pulling && user.pulling.pass_flags & PASSTABLE)
 		user.Move_Pulled(src)
 		if(user.pulling.loc == loc)
@@ -388,7 +394,7 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
 	var/list/debris = list()
 
-/obj/structure/table/glass/New()
+/obj/structure/table/glass/Initialize(mapload)
 	. = ..()
 	debris += new frame
 	debris += new /obj/item/shard
@@ -497,16 +503,16 @@
 	buildstack = /obj/item/stack/tile/carpet
 	canSmoothWith = list(/obj/structure/table/wood/fancy, /obj/structure/table/wood/fancy/black)
 
-/obj/structure/table/wood/fancy/New()
+/obj/structure/table/wood/fancy/Initialize(mapload)
+	. = ..()
 	icon = 'icons/obj/smooth_structures/fancy_table.dmi' //so that the tables place correctly in the map editor
-	..()
 
 /obj/structure/table/wood/fancy/black
 	icon_state = "fancy_table_black"
 	buildstack = /obj/item/stack/tile/carpet/black
 
-/obj/structure/table/wood/fancy/black/New()
-	..()
+/obj/structure/table/wood/fancy/black/Initialize(mapload)
+	. = ..()
 	icon = 'icons/obj/smooth_structures/fancy_table_black.dmi' //so that the tables place correctly in the map editor
 
 /*

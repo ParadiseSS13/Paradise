@@ -94,7 +94,7 @@
 /obj/item/mecha_parts/mecha_equipment/drill/proc/drill_mob(mob/living/target, mob/user)
 	target.visible_message("<span class='danger'>[chassis] is drilling [target] with [src]!</span>",
 						"<span class='userdanger'>[chassis] is drilling you with [src]!</span>")
-	add_attack_logs(user, target, "DRILLED with [src] (INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
+	add_attack_logs(user, target, "DRILLED with [src] ([uppertext(user.a_intent)]) ([uppertext(damtype)])")
 	if(target.stat == DEAD && target.getBruteLoss() >= 200)
 		add_attack_logs(user, target, "gibbed")
 		if(LAZYLEN(target.butcher_results))

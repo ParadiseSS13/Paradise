@@ -21,8 +21,6 @@
 #define PIPE_TVALVE					18
 #define PIPE_MANIFOLD4W				19
 #define PIPE_CAP					20
-#define PIPE_OMNI_MIXER				21
-#define PIPE_OMNI_FILTER			22
 #define PIPE_UNIVERSAL				23
 #define PIPE_SUPPLY_STRAIGHT		24
 #define PIPE_SUPPLY_BENT			25

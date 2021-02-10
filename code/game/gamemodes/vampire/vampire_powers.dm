@@ -15,7 +15,7 @@
 	if(!gain_desc)
 		gain_desc = "You have gained \the [src] ability."
 
-/obj/effect/proc_holder/spell/vampire/cast_check(skipcharge = 0, mob/living/user = usr)
+/obj/effect/proc_holder/spell/vampire/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
 	if(!user.mind)
 		return 0
 	if(!ishuman(user))
@@ -45,7 +45,7 @@
 		return 0
 	return ..()
 
-/obj/effect/proc_holder/spell/vampire/can_cast(mob/user = usr)
+/obj/effect/proc_holder/spell/vampire/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(!user.mind)
 		return 0
 	if(!ishuman(user))
@@ -145,7 +145,7 @@
 
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate
 	name = "Rejuvenate"
-	desc= "Flush your system with spare blood to remove any incapacitating effects."
+	desc= "Use reserve blood to enliven your body, removing any incapacitating effects."
 	action_icon_state = "vampire_rejuvinate"
 	charge_max = 200
 	stat_allowed = 1
@@ -158,7 +158,7 @@
 	user.SetParalysis(0)
 	user.SetSleeping(0)
 	U.adjustStaminaLoss(-75)
-	to_chat(user, "<span class='notice'>You flush your system with clean blood and remove any incapacitating effects.</span>")
+	to_chat(user, "<span class='notice'>You instill your body with clean blood and remove any incapacitating effects.</span>")
 	spawn(1)
 		if(usr.mind.vampire.get_ability(/datum/vampire_passive/regen))
 			for(var/i = 1 to 5)
@@ -264,7 +264,7 @@
 			continue
 		if(ishuman(C))
 			var/mob/living/carbon/human/H = C
-			if(istype(H.l_ear, /obj/item/clothing/ears/earmuffs) || istype(H.r_ear, /obj/item/clothing/ears/earmuffs))
+			if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
 				continue
 		if(!affects(C))
 			continue

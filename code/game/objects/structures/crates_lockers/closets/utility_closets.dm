@@ -22,28 +22,26 @@
 /obj/structure/closet/emcloset/anchored
 	anchored = TRUE
 
-/obj/structure/closet/emcloset/New()
-	..()
-
+/obj/structure/closet/emcloset/populate_contents()
 	switch(pickweight(list("small" = 55, "aid" = 25, "tank" = 10, "both" = 10, "nothing" = 0, "delete" = 0)))
 		if("small")
-			new /obj/item/tank/emergency_oxygen(src)
-			new /obj/item/tank/emergency_oxygen(src)
+			new /obj/item/tank/internals/emergency_oxygen(src)
+			new /obj/item/tank/internals/emergency_oxygen(src)
 			new /obj/item/clothing/mask/breath(src)
 			new /obj/item/clothing/mask/breath(src)
 		if("aid")
-			new /obj/item/tank/emergency_oxygen(src)
+			new /obj/item/tank/internals/emergency_oxygen(src)
 			new /obj/item/storage/toolbox/emergency(src)
 			new /obj/item/clothing/mask/breath(src)
 			new /obj/item/storage/firstaid/o2(src)
 		if("tank")
-			new /obj/item/tank/emergency_oxygen/engi(src)
+			new /obj/item/tank/internals/emergency_oxygen/engi(src)
 			new /obj/item/clothing/mask/breath(src)
-			new /obj/item/tank/emergency_oxygen/engi(src)
+			new /obj/item/tank/internals/emergency_oxygen/engi(src)
 			new /obj/item/clothing/mask/breath(src)
 		if("both")
 			new /obj/item/storage/toolbox/emergency(src)
-			new /obj/item/tank/emergency_oxygen/engi(src)
+			new /obj/item/tank/internals/emergency_oxygen/engi(src)
 			new /obj/item/clothing/mask/breath(src)
 			new /obj/item/storage/firstaid/o2(src)
 		if("nothing")
@@ -58,8 +56,8 @@
 			new /obj/structure/closet/firecloset(src.loc)
 			qdel(src)*/
 
-/obj/structure/closet/emcloset/legacy/New()
-	new /obj/item/tank/oxygen(src)
+/obj/structure/closet/emcloset/legacy/populate_contents()
+	new /obj/item/tank/internals/oxygen(src)
 	new /obj/item/clothing/mask/gas(src)
 
 /*
@@ -72,23 +70,18 @@
 	icon_closed = "firecloset"
 	icon_opened = "fireclosetopen"
 
-/obj/structure/closet/firecloset/New()
-	..()
-
+/obj/structure/closet/firecloset/populate_contents()
 	new /obj/item/clothing/suit/fire/firefighter(src)
 	new /obj/item/clothing/mask/gas(src)
-	new /obj/item/tank/oxygen/red(src)
+	new /obj/item/tank/internals/oxygen/red(src)
 	new /obj/item/extinguisher(src)
 	new /obj/item/clothing/head/hardhat/red(src)
 
-/obj/structure/closet/firecloset/full/New()
-	..()
-	contents.Cut()
-
+/obj/structure/closet/firecloset/full/populate_contents()
 	new /obj/item/clothing/suit/fire/firefighter(src)
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/flashlight(src)
-	new /obj/item/tank/oxygen/red(src)
+	new /obj/item/tank/internals/oxygen/red(src)
 	new /obj/item/extinguisher(src)
 	new /obj/item/clothing/head/hardhat/red(src)
 
@@ -103,8 +96,7 @@
 	icon_closed = "toolcloset"
 	icon_opened = "toolclosetopen"
 
-/obj/structure/closet/toolcloset/New()
-	..()
+/obj/structure/closet/toolcloset/populate_contents()
 	if(prob(40))
 		new /obj/item/clothing/suit/storage/hazardvest(src)
 	if(prob(70))
@@ -147,8 +139,8 @@
 	icon_opened = "toolclosetopen"
 	icon_closed = "radsuitcloset"
 
-/obj/structure/closet/radiation/New()
-	..()
+/obj/structure/closet/radiation/populate_contents()
+	new /obj/item/geiger_counter(src)
 	new /obj/item/clothing/suit/radiation(src)
 	new /obj/item/clothing/head/radiation(src)
 
@@ -162,8 +154,7 @@
 	icon_closed = "bombsuit"
 	icon_opened = "bombsuitopen"
 
-/obj/structure/closet/bombcloset/New()
-	..()
+/obj/structure/closet/bombcloset/populate_contents()
 	new /obj/item/clothing/suit/bomb_suit( src )
 	new /obj/item/clothing/under/color/black( src )
 	new /obj/item/clothing/shoes/black( src )
@@ -177,8 +168,7 @@
 	icon_closed = "bombsuitsec"
 	icon_opened = "bombsuitsecopen"
 
-/obj/structure/closet/bombclosetsecurity/New()
-	..()
+/obj/structure/closet/bombclosetsecurity/populate_contents()
 	new /obj/item/clothing/suit/bomb_suit/security( src )
 	new /obj/item/clothing/under/rank/security( src )
 	new /obj/item/clothing/shoes/brown( src )
@@ -197,12 +187,11 @@
 	density = 0
 	wall_mounted = 1
 
-/obj/structure/closet/hydrant/New()
-	..()
+/obj/structure/closet/hydrant/populate_contents()
 	new /obj/item/clothing/suit/fire/firefighter(src)
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/flashlight(src)
-	new /obj/item/tank/oxygen/red(src)
+	new /obj/item/tank/internals/oxygen/red(src)
 	new /obj/item/extinguisher(src)
 	new /obj/item/clothing/head/hardhat/red(src)
 

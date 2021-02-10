@@ -32,6 +32,12 @@
 /obj/machinery/atmospherics/pipe/simple/visible/purple
 	color = PIPE_COLOR_PURPLE
 
+/obj/machinery/atmospherics/pipe/simple/visible/red
+	color = PIPE_COLOR_RED
+
+/obj/machinery/atmospherics/pipe/simple/visible/blue
+	color = PIPE_COLOR_BLUE
+
 /obj/machinery/atmospherics/pipe/simple/visible/universal
 	name="Universal pipe adapter"
 	desc = "An adapter for regular, supply and scrubbers pipes"
@@ -40,14 +46,14 @@
 
 /obj/machinery/atmospherics/pipe/simple/visible/universal/update_icon(var/safety = 0)
 	..()
-	
+
 	if(!check_icon_cache())
 		return
 
 	alpha = 255
 
 	overlays.Cut()
-	overlays += GLOB.pipe_icon_manager.get_atmos_icon("pipe", , pipe_color, "universal")
+	overlays += SSair.icon_manager.get_atmos_icon("pipe", , pipe_color, "universal")
 	underlays.Cut()
 
 	if(node1)

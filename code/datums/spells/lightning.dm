@@ -25,10 +25,10 @@
 
 /obj/effect/proc_holder/spell/targeted/lightning/Click()
 	if(!ready && start_time == 0)
-		if(cast_check())
+		if(cast_check(TRUE, FALSE, usr))
 			StartChargeup()
 	else
-		if(ready && cast_check(skipcharge=1))
+		if(ready && cast_check(TRUE, TRUE, usr))
 			choose_targets()
 	return 1
 
@@ -44,7 +44,7 @@
 		if(ready)
 			Discharge()
 
-obj/effect/proc_holder/spell/targeted/lightning/proc/Reset(mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/lightning/proc/Reset(mob/user = usr)
 	ready = 0
 	start_time = 0
 	if(halo)
@@ -88,7 +88,7 @@ obj/effect/proc_holder/spell/targeted/lightning/proc/Reset(mob/user = usr)
 	var/mob/living/current = target
 	if(bounces < 1)
 		if(damaging)
-			current.electrocute_act(bolt_energy, "Lightning Bolt", safety = TRUE)
+			current.electrocute_act(bolt_energy, "Lightning Bolt", flags = SHOCK_NOGLOVES)
 		else
 			current.AdjustJitter(1000) //High numbers for violent convulsions
 			current.do_jitter_animation(current.jitteriness)
@@ -99,7 +99,7 @@ obj/effect/proc_holder/spell/targeted/lightning/proc/Reset(mob/user = usr)
 		playsound(get_turf(current), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 	else
 		if(damaging)
-			current.electrocute_act(bolt_energy, "Lightning Bolt", safety = TRUE)
+			current.electrocute_act(bolt_energy, "Lightning Bolt", flags = SHOCK_NOGLOVES)
 		else
 			current.AdjustJitter(1000) //High numbers for violent convulsions
 			current.do_jitter_animation(current.jitteriness)

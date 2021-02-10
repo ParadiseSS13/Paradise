@@ -60,7 +60,7 @@
 
 /obj/machinery/atmospherics/pipe/manifold/hide(var/i)
 	if(level == 1 && istype(loc, /turf/simulated))
-		invisibility = i ? 101 : 0
+		invisibility = i ? INVISIBILITY_MAXIMUM : 0
 
 /obj/machinery/atmospherics/pipe/manifold/pipeline_expansion()
 	return list(node1, node2, node3)
@@ -123,8 +123,8 @@
 	alpha = 255
 
 	overlays.Cut()
-	overlays += GLOB.pipe_icon_manager.get_atmos_icon("manifold", , pipe_color, "core" + icon_connect_type)
-	overlays += GLOB.pipe_icon_manager.get_atmos_icon("manifold", , , "clamps" + icon_connect_type)
+	overlays += SSair.icon_manager.get_atmos_icon("manifold", , pipe_color, "core" + icon_connect_type)
+	overlays += SSair.icon_manager.get_atmos_icon("manifold", , , "clamps" + icon_connect_type)
 	underlays.Cut()
 
 	var/turf/T = get_turf(src)
@@ -189,6 +189,12 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/purple
 	color = PIPE_COLOR_PURPLE
 
+/obj/machinery/atmospherics/pipe/manifold/visible/red
+	color = PIPE_COLOR_RED
+
+/obj/machinery/atmospherics/pipe/manifold/visible/blue
+	color = PIPE_COLOR_BLUE
+
 /obj/machinery/atmospherics/pipe/manifold/hidden
 	icon_state = "map"
 	level = 1
@@ -223,3 +229,9 @@
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/purple
 	color = PIPE_COLOR_PURPLE
+
+/obj/machinery/atmospherics/pipe/manifold/hidden/red
+	color = PIPE_COLOR_RED
+
+/obj/machinery/atmospherics/pipe/manifold/hidden/blue
+	color = PIPE_COLOR_BLUE
