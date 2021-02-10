@@ -45,8 +45,8 @@
 // those restrictions.
 #define OMNITONGUE_2			256
 
-// TESLA_IGNORE grants immunity from being targeted by tesla-style electricity
-#define TESLA_IGNORE_2			512
+/// Prevents mobs from getting chainshocked by teslas and the supermatter
+#define SHOCKED_2 				512
 
 // Stops you from putting things like an RCD or other items into an ORM or protolathe for materials.
 #define NO_MAT_REDEMPTION_2		1024
@@ -145,5 +145,17 @@
 #define ACID_PROOF		(1<<5) //acid stuck on it doesn't melt it.
 #define INDESTRUCTIBLE	(1<<6) //doesn't take damage
 #define FREEZE_PROOF	(1<<7) //can't be frozen
+
+//tesla_zap
+#define ZAP_MACHINE_EXPLOSIVE		(1<<0)
+#define ZAP_ALLOW_DUPLICATES		(1<<1)
+#define ZAP_OBJ_DAMAGE				(1<<2)
+#define ZAP_MOB_DAMAGE				(1<<3)
+#define ZAP_MOB_STUN				(1<<4)
+#define ZAP_GENERATES_POWER			(1<<5)
+
+#define ZAP_DEFAULT_FLAGS ZAP_MOB_STUN | ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
+#define ZAP_FUSION_FLAGS ZAP_OBJ_DAMAGE | ZAP_MOB_DAMAGE | ZAP_MOB_STUN
+#define ZAP_SUPERMATTER_FLAGS ZAP_GENERATES_POWER
 
 GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768))

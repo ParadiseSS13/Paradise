@@ -836,25 +836,8 @@
 	icon_state = "wood"
 	},
 /area/awaymission/beach)
-"cP" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall8";
-	icon_state = "swall8"
-	},
-/area/awaymission/beach)
 "cQ" = (
-/turf/unsimulated/beach/sand,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f6";
-	icon_state = "swall_f6"
-	},
-/area/awaymission/beach)
-"cR" = (
-/turf/unsimulated/beach/sand,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f10";
-	icon_state = "swall_f10"
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/awaymission/beach)
 "cS" = (
 /obj/structure/closet/gmcloset{
@@ -996,12 +979,6 @@
 	},
 /obj/structure/flora/ausbushes/sunnybush,
 /turf/unsimulated/beach/sand,
-/area/awaymission/beach)
-"dp" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall3";
-	icon_state = "swall3"
-	},
 /area/awaymission/beach)
 "dq" = (
 /turf/unsimulated/floor{
@@ -1167,7 +1144,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/awaymission/beach)
 "dS" = (
 /obj/machinery/light{
@@ -1177,7 +1154,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/awaymission/beach)
 "dT" = (
 /obj/effect/overlay/palmtree_l,
@@ -1190,9 +1167,8 @@
 /turf/unsimulated/beach/sand,
 /area/awaymission/beach)
 "dU" = (
-/obj/structure/grille,
-/obj/structure/shuttle/window,
-/turf/simulated/floor/plating/airless,
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
 /area/awaymission/beach)
 "dV" = (
 /obj/structure/flora/rock,
@@ -1209,35 +1185,21 @@
 /obj/item/paper,
 /turf/unsimulated/beach/sand,
 /area/awaymission/beach)
-"dY" = (
-/turf/unsimulated/beach/sand,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f5";
-	icon_state = "swall_f5"
-	},
-/area/awaymission/beach)
 "dZ" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor,
-/area/awaymission/beach)
-"ea" = (
-/turf/unsimulated/beach/sand,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f9";
-	icon_state = "swall_f9"
-	},
+/turf/simulated/floor/mineral/titanium/blue,
 /area/awaymission/beach)
 "eb" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/awaymission/beach)
 "ec" = (
 /obj/machinery/computer,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/awaymission/beach)
 "ed" = (
 /obj/structure/closet/crate,
@@ -1259,16 +1221,16 @@
 /mob/living/simple_animal/hostile/pirate{
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate)
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/awaymission/beach)
 "eh" = (
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/awaymission/beach)
 "ei" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/awaymission/beach)
 "ej" = (
 /obj/structure/table/wood,
@@ -1283,8 +1245,8 @@
 /turf/unsimulated/beach/sand,
 /area/awaymission/beach)
 "el" = (
-/obj/machinery/door/unpowered/shuttle,
-/turf/simulated/shuttle/floor,
+/obj/machinery/door/airlock/titanium,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/awaymission/beach)
 "em" = (
 /obj/item/beach_ball,
@@ -1327,7 +1289,7 @@
 /area/awaymission/beach)
 "et" = (
 /obj/structure/shuttle/engine/heater,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/awaymission/beach)
 "eu" = (
 /obj/structure/table/wood,
@@ -1349,7 +1311,7 @@
 /obj/structure/shuttle/engine/propulsion{
 	icon_state = "propulsion_l"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/awaymission/beach)
 "ey" = (
 /obj/effect/waterfall{
@@ -1362,11 +1324,11 @@
 /obj/structure/shuttle/engine/propulsion{
 	icon_state = "propulsion_r"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/awaymission/beach)
 "eA" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/awaymission/beach)
 "eB" = (
 /obj/effect/waterfall{
@@ -15747,13 +15709,13 @@ bj
 bj
 bj
 cQ
-dp
-dp
+cQ
+cQ
 el
 el
-dp
-dp
-dY
+cQ
+cQ
+cQ
 bj
 bj
 cb
@@ -16003,7 +15965,7 @@ bV
 bj
 bj
 bj
-cP
+cQ
 dZ
 eg
 eh
@@ -16517,7 +16479,7 @@ bX
 bj
 bj
 bj
-cP
+cQ
 eb
 eh
 eh
@@ -16774,14 +16736,14 @@ bW
 bj
 bj
 bj
-cR
-dp
-dp
+cQ
+cQ
+cQ
 el
 el
-dp
-dp
-ea
+cQ
+cQ
+cQ
 bj
 bj
 bW

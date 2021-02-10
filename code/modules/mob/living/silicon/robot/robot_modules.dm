@@ -474,7 +474,7 @@
 
 /obj/item/reagent_containers/food/drinks/cans/beer/sleepy_beer/cyborg_recharge(coeff, emagged)
 	if(emagged)
-		reagents.check_and_add("beer2", volume, 2 * coeff)
+		reagents.check_and_add("beer2", volume, 5)
 
 /obj/item/robot_module/butler/add_languages(mob/living/silicon/robot/R)
 	//full set of languages

@@ -39,6 +39,18 @@
 	. = ..()
 	air_update_turf(1)
 
+/obj/structure/falsewall/examine_status(mob/user)
+	var/healthpercent = (obj_integrity/max_integrity) * 100
+	switch(healthpercent)
+		if(100)
+			return "<span class='notice'>It looks fully intact.</span>"
+		if(70 to 99)
+			return  "<span class='warning'>It looks slightly damaged.</span>"
+		if(40 to 70)
+			return  "<span class='warning'>It looks moderately damaged.</span>"
+		if(0 to 40)
+			return "<span class='danger'>It looks heavily damaged.</span>"
+
 /obj/structure/falsewall/ratvar_act()
 	new /obj/structure/falsewall/brass(loc)
 	qdel(src)
@@ -160,6 +172,10 @@
 	icon_state = "r_wall"
 	walltype = /turf/simulated/wall/r_wall
 	mineral = /obj/item/stack/sheet/plasteel
+
+/obj/structure/falsewall/reinforced/examine_status(mob/user)
+	. = ..()
+	. += "<br><span class='notice'>The outer <b>grille</b> is fully intact.</span>"	//not going to fake other states of disassembly
 
 /obj/structure/falsewall/reinforced/ChangeToWall(delete = 1)
 	var/turf/T = get_turf(src)
@@ -325,7 +341,7 @@
 	mineral = /obj/item/stack/sheet/mineral/titanium
 	walltype = /turf/simulated/wall/mineral/titanium
 	smooth = SMOOTH_MORE
-	canSmoothWith = list(/turf/simulated/wall/mineral/titanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater)
+	canSmoothWith = list(/turf/simulated/wall/mineral/titanium, /obj/machinery/door/airlock/titanium, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater)
 
 /obj/structure/falsewall/plastitanium
 	desc = "An evil wall of plasma and titanium."
@@ -334,7 +350,7 @@
 	mineral = /obj/item/stack/sheet/mineral/plastitanium
 	walltype = /turf/simulated/wall/mineral/plastitanium
 	smooth = SMOOTH_MORE
-	canSmoothWith = list(/turf/simulated/wall/mineral/plastitanium, /turf/simulated/wall/mineral/plastitanium/nodiagonal, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater)
+	canSmoothWith = list(/turf/simulated/wall/mineral/plastitanium, /turf/simulated/wall/indestructible/syndicate, /turf/simulated/wall/mineral/plastitanium/nodiagonal, /obj/machinery/door/airlock/titanium, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater)
 
 /obj/structure/falsewall/brass
 	name = "clockwork wall"

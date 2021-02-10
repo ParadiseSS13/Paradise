@@ -8,41 +8,14 @@
 	icon_state = "propulsion";
 	tag = "icon-propulsion (EAST)"
 	},
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f6";
-	dir = 2
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/transport)
 "c" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall12";
-	dir = 2
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/transport)
 "d" = (
-/obj/structure/shuttle/window,
-/obj/structure/grille,
-/turf/simulated/shuttle/plating,
-/area/shuttle/transport)
-"e" = (
-/obj/structure/grille,
-/obj/structure/shuttle/window,
-/turf/simulated/shuttle/plating,
-/area/shuttle/transport)
-"f" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f10";
-	dir = 2
-	},
-/area/shuttle/transport)
-"g" = (
-/turf/simulated/shuttle/floor,
-/turf/simulated/shuttle/wall/interior{
-	tag = "icon-swall_f9";
-	icon_state = "swall_f9"
-	},
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
 /area/shuttle/transport)
 "h" = (
 /obj/machinery/light/spot{
@@ -53,15 +26,15 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "i" = (
 /obj/machinery/computer/shuttle/ferry/request,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "j" = (
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "k" = (
 /obj/machinery/light/spot{
@@ -70,19 +43,19 @@
 	dir = 1
 	},
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "l" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock"
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/plating,
 /area/shuttle/transport)
 "m" = (
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "n" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock"
 	},
 /obj/docking_port/mobile{
@@ -95,70 +68,44 @@
 	timid = 1;
 	width = 5
 	},
-/turf/simulated/shuttle/floor,
-/area/shuttle/transport)
-"o" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	icon_state = "propulsion";
-	tag = "icon-propulsion (EAST)"
-	},
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f5";
-	dir = 2
-	},
-/area/shuttle/transport)
-"p" = (
-/turf/simulated/shuttle/floor,
-/turf/simulated/shuttle/wall/interior{
-	tag = "icon-swall_f10";
-	icon_state = "swall_f10"
-	},
+/turf/simulated/floor/plating,
 /area/shuttle/transport)
 "q" = (
 /obj/structure/closet/crate,
 /obj/machinery/light/spot,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "r" = (
 /obj/structure/closet/crate,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "s" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "t" = (
 /obj/machinery/light/spot,
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/shuttle/floor,
-/area/shuttle/transport)
-"u" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f9";
-	dir = 2
-	},
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 
 (1,1,1) = {"
 a
 b
 l
-o
+b
 a
 "}
 (2,1,1) = {"
 b
-g
+c
 m
-p
-o
+c
+b
 "}
 (3,1,1) = {"
 c
@@ -203,11 +150,11 @@ s
 c
 "}
 (9,1,1) = {"
-e
+d
 j
 m
 s
-e
+d
 "}
 (10,1,1) = {"
 c
@@ -224,9 +171,9 @@ t
 c
 "}
 (12,1,1) = {"
-f
+c
 d
 n
 d
-u
+c
 "}
