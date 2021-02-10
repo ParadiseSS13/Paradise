@@ -290,7 +290,7 @@
 				H.visible_message("<span class='warning'>[M]'s skin is rotting away!</span>")
 				update_flags |= H.adjustBruteLoss(25, FALSE)
 				H.emote("scream")
-				H.ChangeToHusk()
+				H.become_husk("krokodil_overdose")
 				H.emote("faint")
 		else if(effect <= 7)
 			M.emote("shiver")

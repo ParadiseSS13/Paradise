@@ -65,6 +65,8 @@
 	var/list/allowed_consumed_mobs = list() //If a species can consume mobs, put the type of mobs it can consume here.
 
 	var/list/species_traits = list()
+	///Generic traits tied to having the species.
+	var/list/inherent_traits = list()
 
 	var/breathid = "o2"
 
@@ -212,7 +214,7 @@
 		ears = new mutantears(H)
 
 /datum/species/proc/breathe(mob/living/carbon/human/H)
-	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
+	if(HAS_TRAIT(H, TRAIT_NOBREATH))
 		return TRUE
 
 ////////////////
@@ -267,7 +269,7 @@
 
 		if((hungry >= 70) && !flight)
 			. += hungry/50
-		if(FAT in H.mutations)
+		if(HAS_TRAIT(H, TRAIT_FAT))
 			. += (1.5 - flight)
 		if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
 			. += (BODYTEMP_COLD_DAMAGE_LIMIT - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
@@ -285,11 +287,17 @@
 		H.hud_used.update_locked_slots()
 	H.ventcrawler = ventcrawler
 
+	for(var/X in inherent_traits)
+		ADD_TRAIT(H, X, SPECIES_TRAIT)
+
 	if(inherent_factions)
 		for(var/i in inherent_factions)
 			H.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
 
 /datum/species/proc/on_species_loss(mob/living/carbon/human/H)
+	for(var/X in inherent_traits)
+		REMOVE_TRAIT(H, X, SPECIES_TRAIT)
+
 	if(H.butcher_results) //clear it out so we don't butcher a actual human.
 		H.butcher_results = null
 	H.ventcrawler = initial(H.ventcrawler)
@@ -316,7 +324,7 @@
 // For special snowflake species effects
 // (Slime People changing color based on the reagents they consume)
 /datum/species/proc/handle_life(mob/living/carbon/human/H)
-	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
+	if(HAS_TRAIT(H, TRAIT_NOBREATH))
 		var/takes_crit_damage = (!(NOCRITDAMAGE in species_traits))
 		if((H.health <= HEALTH_THRESHOLD_CRIT) && takes_crit_damage)
 			H.adjustBruteLoss(1)
@@ -403,7 +411,7 @@
 		if(target.mind && target.mind.vampire && (target.mind in SSticker.mode.vampires))
 			to_chat(user, "<span class='warning'>Your fangs fail to pierce [target.name]'s cold flesh</span>")
 			return
-		if(SKELETON in target.mutations)
+		if(HAS_TRAIT(target, TRAIT_SKELETONIZED))
 			to_chat(user, "<span class='warning'>There is no blood in a skeleton!</span>")
 			return
 		//we're good to suck the blood, blaah
@@ -872,7 +880,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		if(H.vision_type.light_sensitive)
 			H.weakeyes = TRUE
 
-	if(XRAY in H.mutations)
+	if(HAS_TRAIT(H, TRAIT_XRAY_VISION))
 		H.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 
 	if(H.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))

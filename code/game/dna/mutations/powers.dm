@@ -7,7 +7,7 @@
 	activation_messages = list("You feel no need to breathe.")
 	deactivation_messages = list("You feel the need to breathe, once more.")
 	instability = GENE_INSTABILITY_MODERATE
-	trait_to_add = BREATHLESS
+	traits_to_add = list(TRAIT_NOBREATH)
 	activation_prob = 25
 
 /datum/mutation/nobreath/New()
@@ -34,7 +34,7 @@
 	activation_messages = list("You feel swift and unencumbered.")
 	deactivation_messages = list("You feel slow.")
 	instability = GENE_INSTABILITY_MINOR
-	trait_to_add = TRAIT_IGNORESLOWDOWN
+	traits_to_add = list(TRAIT_IGNORESLOWDOWN)
 
 /datum/mutation/increaserun/New()
 	..()
@@ -54,7 +54,7 @@
 	activation_messages = list("Your skin is icy to the touch.")
 	deactivation_messages = list("Your skin no longer feels icy to the touch.")
 	instability = GENE_INSTABILITY_MODERATE
-	trait_to_add = HEATRES
+	traits_to_add = list(TRAIT_RESISTHEAT, TRAIT_RESISTHIGHPRESSURE)
 
 /datum/mutation/heat_resist/New()
 	..()
@@ -68,7 +68,7 @@
 	activation_messages = list("Your body is filled with warmth.")
 	deactivation_messages = list("Your body is no longer filled with warmth.")
 	instability = GENE_INSTABILITY_MODERATE
-	trait_to_add = COLDRES
+	traits_to_add = list(TRAIT_RESISTCOLD, TRAIT_RESISTLOWPRESSURE)
 
 /datum/mutation/cold_resist/New()
 	..()
@@ -82,7 +82,7 @@
 	activation_messages = list("Your fingers feel numb.")
 	deactivation_messages = list("your fingers no longer feel numb.")
 	instability = GENE_INSTABILITY_MINOR
-	trait_to_add = FINGERPRINTS
+	traits_to_add = list(TRAIT_NOFINGERPRINTS)
 
 /datum/mutation/noprints/New()
 	..()
@@ -93,7 +93,7 @@
 	activation_messages = list("Your skin feels dry and unreactive.")
 	deactivation_messages = list("Your skin no longer feels dry and unreactive.")
 	instability = GENE_INSTABILITY_MODERATE
-	trait_to_add = NO_SHOCK
+	traits_to_add = list(TRAIT_SHOCKIMMUNE)
 
 /datum/mutation/noshock/New()
 	..()
@@ -104,7 +104,7 @@
 	activation_messages = list("Everything around you seems bigger now...")
 	deactivation_messages = list("Everything around you seems to shrink...")
 	instability = GENE_INSTABILITY_MINOR
-	trait_to_add = DWARF
+	traits_to_add = list(TRAIT_DWARF)
 
 /datum/mutation/midget/New()
 	..()
@@ -128,7 +128,7 @@
 	activation_messages = list("Your muscles hurt.")
 	deactivation_messages = list("Your muscles shrink.")
 	instability = GENE_INSTABILITY_MAJOR
-	trait_to_add = HULK
+	traits_to_add = list(TRAIT_HULK, TRAIT_CHUNKYFINGERS)
 	activation_prob = 15
 
 /datum/mutation/hulk/New()
@@ -145,16 +145,13 @@
 	M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH
 
 /datum/mutation/hulk/on_draw_underlays(mob/M, g)
-	if(HULK in M.mutations)
-		return "hulk_[g]_s"
-	return FALSE
+	return "hulk_[g]_s"
 
 /datum/mutation/hulk/on_life(mob/living/carbon/human/M)
 	if(!istype(M))
 		return
-	if((HULK in M.mutations) && M.health <= 0)
-		M.mutations.Remove(HULK)
-		M.dna.SetSEState(GLOB.hulkblock,0)
+	if(M.health <= 0)
+		M.dna.SetSEState(GLOB.hulkblock, 0)
 		singlemutcheck(M, GLOB.hulkblock, MUTCHK_FORCED)
 		M.update_mutations()		//update our mutation overlays
 		M.update_body()
@@ -166,7 +163,7 @@
 	activation_messages = list("The walls suddenly disappear.")
 	deactivation_messages = list("the walls around you re-appear.")
 	instability = GENE_INSTABILITY_MAJOR
-	trait_to_add = XRAY
+	traits_to_add = list(TRAIT_XRAY_VISION)
 	activation_prob = 15
 
 /datum/mutation/xray/New()
@@ -188,7 +185,6 @@
 	activation_messages = list("You feel smarter.")
 	deactivation_messages = list("You feel dumber.")
 	instability = GENE_INSTABILITY_MAJOR
-	trait_to_add = TK
 	activation_prob = 15
 
 /datum/mutation/tk/New()
@@ -206,7 +202,7 @@
 	activation_messages = list("You feel unusually sober.")
 	deactivation_messages = list("You feel like you could use a stiff drink.")
 
-	trait_to_add = SOBER
+	traits_to_add = list(TRAIT_ALCOHOL_TOLERANCE)
 
 /datum/mutation/sober/New()
 	..()
@@ -218,8 +214,6 @@
 	desc = "Boosts efficiency in sectors of the brain commonly associated with meta-mental energies."
 	activation_messages = list("Your mind feels closed.")
 	deactivation_messages = list("You feel oddly exposed.")
-
-	trait_to_add = PSY_RESIST
 
 /datum/mutation/psychic_resist/New()
 	..()
@@ -341,7 +335,7 @@
 
 	var/mob/living/carbon/C = targets[1]
 
-	if(COLDRES in C.mutations)
+	if(HAS_TRAIT(C, TRAIT_RESISTCOLD))
 		C.visible_message("<span class='warning'>A cloud of fine ice crystals engulfs [C.name], but disappears almost instantly!</span>")
 		return
 	var/handle_suit = FALSE
@@ -604,7 +598,7 @@
 			sleep(1)
 		user.flying = prevFlying
 
-		if(FAT in user.mutations && prob(66))
+		if(HAS_TRAIT(user, TRAIT_FAT) && prob(66))
 			user.visible_message("<span class='danger'>[user.name]</b> crashes due to [user.p_their()] heavy weight!</span>")
 			//playsound(user.loc, 'zhit.wav', 50, 1)
 			user.AdjustWeakened(10)
@@ -691,7 +685,6 @@
 	activation_messages = list("You suddenly notice more about others than you did before.")
 	deactivation_messages = list("You no longer feel able to sense intentions.")
 	instability = GENE_INSTABILITY_MINOR
-	trait_to_add = EMPATH
 
 /datum/mutation/grant_spell/empath/New()
 	..()
@@ -728,7 +721,7 @@
 			to_chat(user, "<span class='warning'>You may only use this on other organic beings.</span>")
 			return
 
-		if(PSY_RESIST in M.mutations)
+		if(M.dna.GetSEState(GLOB.psyresistblock))
 			to_chat(user, "<span class='warning'>You can't see into [M.name]'s mind at all!</span>")
 			return
 
@@ -795,7 +788,7 @@
 				to_chat(user, "<span class='notice'><b>Numbers</b>: You sense the number[numbers.len>1?"s":""] [english_list(numbers)] [numbers.len>1?"are":"is"] important to [M.name].</span>")
 		to_chat(user, "<span class='notice'><b>Thoughts</b>: [M.name] is currently [thoughts].</span>")
 
-		if(EMPATH in M.mutations)
+		if(M.dna.GetSEState(GLOB.empathblock))
 			to_chat(M, "<span class='warning'>You sense [user.name] reading your mind.</span>")
 		else if(prob(5) || M.mind.assigned_role=="Chaplain")
 			to_chat(M, "<span class='warning'>You sense someone intruding upon your thoughts...</span>")
@@ -982,7 +975,7 @@
 	activation_messages = list("You feel you can project your thoughts.")
 	deactivation_messages = list("You no longer feel you can project your thoughts.")
 	instability = GENE_INSTABILITY_MINOR
-	trait_to_add = REMOTE_TALK
+	traits_to_add = list(REMOTE_TALK)
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/remotetalk
 
@@ -1162,9 +1155,9 @@
 	for(var/mob/M in GLOB.alive_mob_list)
 		if(M == user)
 			continue
-		if(PSY_RESIST in M.mutations)
+		if(M.dna.GetSEState(GLOB.psyresistblock))
 			continue
-		if(REMOTE_VIEW in M.mutations)
+		if(M.dna.GetSEState(GLOB.remoteviewblock))
 			remoteviewers += M
 	if(!LAZYLEN(remoteviewers))
 		to_chat(user, "<span class='warning'>No valid targets with remote view were found!</span>")

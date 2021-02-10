@@ -62,7 +62,7 @@
 	activation_messages = list("You feel lightheaded.")
 	deactivation_messages = list("You regain some control of your movements")
 	instability = -GENE_INSTABILITY_MINOR
-	trait_to_add = CLUMSY
+	traits_to_add = list(CLUMSY)
 
 /datum/mutation/disability/clumsy/New()
 	..()
@@ -111,7 +111,7 @@
 	activation_messages = list("You can't seem to see anything.")
 	deactivation_messages = list("You can see now, in case you didn't notice...")
 	instability = -GENE_INSTABILITY_MAJOR
-	trait_to_add = BLINDNESS
+	traits_to_add = list(BLINDNESS)
 
 /datum/mutation/disability/blindness/New()
 	..()
@@ -131,7 +131,7 @@
 	activation_messages = list("You feel a peculiar prickling in your eyes while your perception of colour changes.")
 	deactivation_messages = list("Your eyes tingle unsettlingly, though everything seems to become alot more colourful.")
 	instability = -GENE_INSTABILITY_MODERATE
-	trait_to_add = COLOURBLIND
+	traits_to_add = list(COLOURBLIND)
 
 /datum/mutation/disability/colourblindness/New()
 	..()
@@ -152,7 +152,7 @@
 	activation_messages = list("It's kinda quiet.")
 	deactivation_messages = list("You can hear again!")
 	instability = -GENE_INSTABILITY_MAJOR
-	trait_to_add = DEAF
+	traits_to_add = list(DEAF)
 
 /datum/mutation/disability/deaf/New()
 	..()
@@ -167,7 +167,7 @@
 	activation_messages = list("Your eyes feel weird...")
 	deactivation_messages = list("You can see clearly now")
 	instability = -GENE_INSTABILITY_MODERATE
-	trait_to_add = NEARSIGHTED
+	traits_to_add = list(NEARSIGHTED)
 
 /datum/mutation/disability/nearsighted/New()
 	..()
@@ -199,7 +199,7 @@
 	desc = "This will only bring death and destruction."
 	activation_messages = list("<span class='sans'>Uh oh!</span>")
 	deactivation_messages = list("Well thank god that's over with.")
-	trait_to_add = COMIC
+	traits_to_add = list(TRAIT_COMIC_SANS)
 
 /datum/mutation/disability/comic/New()
 	..()
@@ -211,7 +211,7 @@
 	activation_messages = list("<span class='wingdings'>Your vocal cords feel alien.</span>")
 	deactivation_messages = list("Your vocal cords no longer feel alien.")
 	instability = -GENE_INSTABILITY_MINOR
-	trait_to_add = WINGDINGS
+	traits_to_add = list(WINGDINGS)
 
 /datum/mutation/disability/wingdings/New()
 	..()
@@ -244,7 +244,7 @@
 	activation_messages = list("You feel unable to express yourself at all.")
 	deactivation_messages = list("You feel able to speak freely again.")
 	instability = -GENE_INSTABILITY_MODERATE
-	trait_to_add = MUTE
+	traits_to_add = list(MUTE)
 
 /datum/mutation/disability/mute/New()
 	..()
@@ -295,7 +295,7 @@
 	activation_messages = list("You feel blubbery and lethargic!")
 	deactivation_messages = list("You feel fit!")
 	instability = -GENE_INSTABILITY_MINOR
-	trait_to_add = OBESITY
+	traits_to_add = list(TRAIT_SLOWDIGESTION)
 
 /datum/mutation/disability/fat/New()
 	..()

@@ -686,7 +686,7 @@
 				target.adjustFireLoss(150) // hard crit, the burning takes care of the rest.
 			else if(myeffect == "Total Brain Death")
 				to_chat(target,"<span class='userdanger'>You see a message appear in front of you in bright red letters: <b>YHWH-3 ACTIVATED. TERMINATION IN 3 SECONDS</b></span>")
-				target.mutations.Add(NOCLONE)
+				ADD_TRAIT(target, TRAIT_BADDNA, "evil_fax")
 				target.adjustBrainLoss(125)
 			else if(myeffect == "Honk Tumor")
 				if(!target.get_int_organ(/obj/item/organ/internal/honktumor))

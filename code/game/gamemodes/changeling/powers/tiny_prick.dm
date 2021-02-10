@@ -94,7 +94,7 @@
 /datum/action/changeling/sting/transformation/can_sting(var/mob/user, var/mob/target)
 	if(!..())
 		return
-	if((HUSK in target.mutations) || (!ishuman(target)))
+	if(HAS_TRAIT(target, TRAIT_HUSK) || (!ishuman(target)))
 		to_chat(user, "<span class='warning'>Our sting appears ineffective against its DNA.</span>")
 		return FALSE
 	if(ishuman(target))

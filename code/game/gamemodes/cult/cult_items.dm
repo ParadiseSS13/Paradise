@@ -53,7 +53,7 @@
 		user.Confused(10)
 		user.Jitter(6)
 
-	if(HULK in user.mutations)
+	if(HAS_TRAIT(user, TRAIT_HULK))
 		to_chat(user, "<span class='danger'>You can't seem to hold the blade properly!</span>")
 		return FALSE
 

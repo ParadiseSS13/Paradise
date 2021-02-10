@@ -115,9 +115,9 @@
 	if(drownee && ((drownee.lying && !drownee.player_logged) || deep_water)) //Mob lying down and not SSD or water is deep (determined by controller)
 		if(drownee.internal)
 			return //Has internals, no drowning
-		if((NO_BREATHE in drownee.dna.species.species_traits) || (BREATHLESS in drownee.mutations))
+		if(HAS_TRAIT(drownee, TRAIT_NOBREATH))
 			return //doesn't breathe, no drowning
-		if(HAS_TRAIT(drownee,TRAIT_WATERBREATH))
+		if(HAS_TRAIT(drownee, TRAIT_WATERBREATH))
 			return //fish things don't drown
 
 		if(drownee.stat == DEAD)	//Dead spacemen don't drown more

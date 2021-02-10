@@ -329,7 +329,7 @@
 	if(status_flags & GODMODE)	return 1	//godmode
 
 	if(adjusted_pressure >= dna.species.hazard_high_pressure)
-		if(!(HEATRES in mutations))
+		if(!HAS_TRAIT(src, TRAIT_RESISTHIGHPRESSURE))
 			var/pressure_damage = min( ( (adjusted_pressure / dna.species.hazard_high_pressure) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE)
 			take_overall_damage(brute=pressure_damage, updating_health = TRUE, used_weapon = "High Pressure")
 			throw_alert("pressure", /obj/screen/alert/highpressure, 2)
@@ -342,7 +342,7 @@
 	else if(adjusted_pressure >= dna.species.hazard_low_pressure)
 		throw_alert("pressure", /obj/screen/alert/lowpressure, 1)
 	else
-		if(COLDRES in mutations)
+		if(HAS_TRAIT(src, TRAIT_RESISTLOWPRESSURE))
 			clear_alert("pressure")
 		else
 			take_overall_damage(brute=LOW_PRESSURE_DAMAGE, updating_health = TRUE, used_weapon = "Low Pressure")
@@ -354,7 +354,7 @@
 	. = ..()
 	if(!.)
 		return
-	if(HEATRES in mutations)
+	if(HAS_TRAIT(src, TRAIT_RESISTHEAT))
 		return
 	var/thermal_protection = get_thermal_protection()
 
@@ -417,7 +417,7 @@
 
 /mob/living/carbon/human/proc/get_heat_protection(temperature) //Temperature is the temperature you're being exposed to.
 
-	if(HEATRES in mutations)
+	if(HAS_TRAIT(src, TRAIT_RESISTHEAT))
 		return 1
 
 	var/thermal_protection_flags = get_heat_protection_flags(temperature)
@@ -478,7 +478,7 @@
 
 /mob/living/carbon/human/proc/get_cold_protection(temperature)
 
-	if(COLDRES in mutations)
+	if(HAS_TRAIT(src, TRAIT_RESISTCOLD))
 		return 1 //Fully protected from the cold.
 
 	temperature = max(temperature, TCMB) //There is an occasional bug where the temperature is miscalculated in areas with a small amount of gas on them, so this is necessary to ensure that that bug does not affect this calculation. Space's temperature is 2.7K and most suits that are intended to protect against any cold, protect down to 2.0K.
@@ -537,7 +537,7 @@
 		return 0	//godmode
 
 	if(!(NO_HUNGER in dna.species.species_traits))
-		if(FAT in mutations)
+		if(HAS_TRAIT_FROM(src, TRAIT_FAT, OBESITY))
 			if(overeatduration < 100)
 				becomeSlim()
 		else
@@ -564,8 +564,8 @@
 
 		else
 			if(overeatduration > 1)
-				if(OBESITY in mutations)
-					overeatduration -= 1 // Those with obesity gene take twice as long to unfat
+				if(HAS_TRAIT(src, TRAIT_SLOWDIGESTION))
+					overeatduration -= 1 // Those with slow digestion trait, it takes longer to lose weight
 				else
 					overeatduration -= 2
 
@@ -626,7 +626,7 @@
 	var/collapse_start = 75
 	var/braindamage_start = 120
 	var/alcohol_strength = drunk
-	var/sober_str =! (SOBER in mutations) ? 1 : 2
+	var/sober_str = !HAS_TRAIT(src, TRAIT_ALCOHOL_TOLERANCE) ? 1 : 2
 
 	alcohol_strength /= sober_str
 
@@ -943,7 +943,7 @@
 			var/obj/item/clothing/mask/M = H.wear_mask
 			if(M && (M.flags_cover & MASKCOVERSMOUTH))
 				continue
-			if(NO_BREATHE in H.dna.species.species_traits)
+			if(HAS_TRAIT(H, TRAIT_NOBREATH))
 				continue //no puking if you can't smell!
 			// Humans can lack a mind datum, y'know
 			if(H.mind && (H.mind.assigned_role == "Detective" || H.mind.assigned_role == "Coroner"))

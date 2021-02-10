@@ -178,7 +178,7 @@
 
 /datum/reagent/consumable/drink/banana/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if((ishuman(M) && (COMIC in M.mutations)) || issmall(M))
+	if(HAS_TRAIT(M, TRAIT_COMIC_SANS) || issmall(M))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
@@ -409,7 +409,7 @@
 
 /datum/reagent/consumable/drink/bananahonk/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if((ishuman(M) && (COMIC in M.mutations)) || issmall(M))
+	if(HAS_TRAIT(M, TRAIT_COMIC_SANS) || issmall(M))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
@@ -517,7 +517,7 @@
 	description = "Beloved of children and teetotalers."
 	color = "#E6CDFF"
 	taste_description = "grape soda"
-	
+
 /datum/reagent/consumable/drink/coco/icecoco
 	name = "Iced Cocoa"
 	id = "icecoco"

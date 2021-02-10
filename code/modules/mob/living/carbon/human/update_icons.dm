@@ -172,9 +172,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/husk_color_mod = rgb(96, 88, 80)
 	var/hulk_color_mod = rgb(48, 224, 40)
 
-	var/husk = (HUSK in mutations)
-	var/hulk = (HULK in mutations)
-	var/skeleton = (SKELETON in mutations)
+	var/husk = HAS_TRAIT(src, TRAIT_HUSK)
+	var/hulk = HAS_TRAIT(src, TRAIT_HULK)
+	var/skeleton = HAS_TRAIT(src, TRAIT_SKELETONIZED)
 
 	if(dna.species && dna.species.bodyflags & HAS_ICON_SKIN_TONE)
 		dna.species.updatespeciescolor(src)
@@ -458,12 +458,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			if(underlay)
 				standing.underlays += underlay
 				add_image = 1
-	for(var/mut in mutations)
-		switch(mut)
-			if(LASER)
-				standing.overlays += "lasereyes_s"
-				add_image = 1
-	if((COLDRES in mutations) && (HEATRES in mutations))
+	if(HAS_TRAIT(src, TRAIT_LASEREYES))
+		standing.overlays += "lasereyes_s"
+		add_image = 1
+	if(dna.GetSEState(GLOB.fireblock) && dna.GetSEState(GLOB.coldblock))
 		standing.underlays -= "cold_s"
 		standing.underlays -= "fire_s"
 		standing.underlays += "coldfire_s"
@@ -475,7 +473,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/proc/update_mutantrace()
 //BS12 EDIT
-	var/skel = (SKELETON in mutations)
+	var/skel = HAS_TRAIT(src, TRAIT_SKELETONIZED)
 	if(skel)
 		skeleton = 'icons/mob/human_races/r_skeleton.dmi'
 	else
@@ -1300,9 +1298,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	return out
 
 /mob/living/carbon/human/proc/generate_icon_render_key()
-	var/husk = (HUSK in mutations)
-	var/hulk = (HULK in mutations)
-	var/skeleton = (SKELETON in mutations)
+	var/husk = HAS_TRAIT(src, TRAIT_HUSK)
+	var/hulk = HAS_TRAIT(src, TRAIT_HULK)
+	var/skeleton = HAS_TRAIT(src, TRAIT_SKELETONIZED)
 	var/g = dna.GetUITriState(DNA_UI_GENDER)
 	if(g == DNA_GENDER_PLURAL)
 		g = DNA_GENDER_FEMALE

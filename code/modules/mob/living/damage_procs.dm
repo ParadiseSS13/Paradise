@@ -148,7 +148,7 @@
 	if(status_flags & GODMODE)
 		oxyloss = 0
 		return FALSE	//godmode
-	if(BREATHLESS in mutations)
+	if(HAS_TRAIT(src, TRAIT_NOBREATH))
 		oxyloss = 0
 		return FALSE
 	var/old_oxyloss = oxyloss
@@ -165,7 +165,7 @@
 	if(status_flags & GODMODE)
 		oxyloss = 0
 		return FALSE	//godmode
-	if(BREATHLESS in mutations)
+	if(HAS_TRAIT(src, TRAIT_NOBREATH))
 		oxyloss = 0
 		return FALSE
 	var/old_oxyloss = oxyloss

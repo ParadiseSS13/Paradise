@@ -10,7 +10,8 @@
 	blood_color = "#FFFFFF"
 	flesh_color = "#E6E6C6"
 
-	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE, NO_HUNGER, PIERCEIMMUNE)
+	species_traits = list(NO_BLOOD, RADIMMUNE, VIRUSIMMUNE, NO_HUNGER, PIERCEIMMUNE)
+	inherent_traits = list(TRAIT_NOBREATH)
 	dies_at_threshold = TRUE
 	skinned_type = /obj/item/stack/sheet/bone
 

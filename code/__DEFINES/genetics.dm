@@ -26,32 +26,10 @@
 ///////////////////////////////////////
 
 // Generic mutations:
-#define	TK				"telekenesis"
-#define COLDRES			"cold_resistance"
-#define XRAY			"xray"
-#define HULK			"hulk"
 #define CLUMSY			"clumsy"
-#define FAT				"fat"
-#define HUSK			"husk"
-#define NOCLONE			"noclone"
-#define LASER			"eyelaser" 			// harm intent - click anywhere to shoot lasers from eyes
+
 #define WINGDINGS		"wingdings"			// Ayy lmao
-#define SKELETON 		"skeleton"
-#define BREATHLESS		"breathless"		// no breathing
-
 #define REMOTE_TALK		"remote_talk" 		// remote talking
-#define REMOTE_VIEW		"remote_view"
-
-#define HEATRES			"heat_resistance" 	// heat resistance
-#define FINGERPRINTS	"no_prints" 		// no fingerprints
-#define NO_SHOCK		"no_shock" 			// insulated hands
-#define DWARF			"dwarf"				// table climbing
-#define OBESITY       	"obesity"			// Decreased metabolism
-#define SOBER         	"sober"				// Increased alcohol metabolism
-#define PSY_RESIST    	"psy_resist"		// Block remoteview
-#define EMPATH			"empathy"			//Read minds
-#define COMIC			"comic_sans"		//Comic Sans
-
 
 //disabilities
 #define NEARSIGHTED		"nearsighted"
@@ -110,19 +88,15 @@
 #define IS_WHITELISTED 	"whitelisted"
 #define LIPS			"lips"
 #define NO_BLOOD		"no_blood"
-#define NO_BREATHE 		"no_breathe"
 #define NO_DNA			"no_dna"
 #define NO_SCAN 		"no_scan"
 #define NO_PAIN 		"no_pain"
 #define IS_PLANT 		"is_plant"
 #define NO_INTORGANS	"no_internal_organs"
 #define RADIMMUNE		"rad_immunity"
-#define NOGUNS			"no_guns"
 #define NOTRANSSTING	"no_trans_sting"
 #define VIRUSIMMUNE		"virus_immunity"
 #define NOCRITDAMAGE	"no_crit"
-#define RESISTHOT		"resist_heat"
-#define RESISTCOLD		"resist_cold"
 #define NO_EXAMINE		"no_examine"
 #define CAN_WINGDINGS	"can_wingdings"
 #define NO_GERMS		"no_germs"

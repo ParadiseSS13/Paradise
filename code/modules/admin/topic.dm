@@ -2232,7 +2232,7 @@
 				logmsg = "starvation."
 			if("Cluwne")
 				H.makeCluwne()
-				H.mutations |= NOCLONE
+				ADD_TRAIT(H, TRAIT_BADDNA, "smiting")
 				logmsg = "cluwned."
 			if("Mutagen Cookie")
 				var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
@@ -2253,7 +2253,7 @@
 				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
 				logmsg = "a hellwater cookie."
 			if("Hunter")
-				H.mutations |= NOCLONE
+				ADD_TRAIT(H, TRAIT_BADDNA, "smiting")
 				usr.client.create_eventmob_for(H, 1)
 				logmsg = "hunter."
 			if("Crew Traitor")

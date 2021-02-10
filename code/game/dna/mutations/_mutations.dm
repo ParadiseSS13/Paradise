@@ -8,7 +8,7 @@
 	/// Chance of the gene to cause adverse effects when active
 	var/instability = 0
 	/// Trait to give, if any
-	var/trait_to_add = null
+	var/traits_to_add = list()
 	/// Activation probability
 	var/activation_prob = 100
 	/// Possible activation messages
@@ -32,8 +32,8 @@
 // Called when the gene activates.  Do your magic here.
 /datum/mutation/proc/activate(mob/living/M)
 	M.gene_stability -= instability
-	if(trait_to_add)
-		ADD_TRAIT(M, trait_to_add, GENETIC_MUTATION)
+	for(var/thing in traits_to_add)
+		ADD_TRAIT(M, thing, GENETIC_MUTATION)
 	if(length(activation_messages))
 		var/msg = pick(activation_messages)
 		to_chat(M, "<span class='notice'>[msg]</span>")
@@ -43,8 +43,8 @@
 // Only called when the block is deactivated.
 /datum/mutation/proc/deactivate(mob/living/M)
 	M.gene_stability += instability
-	if(trait_to_add)
-		REMOVE_TRAIT(M, trait_to_add, GENETIC_MUTATION)
+	for(var/thing in traits_to_add)
+		REMOVE_TRAIT(M, thing, GENETIC_MUTATION)
 	if(length(deactivation_messages))
 		var/msg = pick(deactivation_messages)
 		to_chat(M, "<span class='warning'>[msg]</span>")

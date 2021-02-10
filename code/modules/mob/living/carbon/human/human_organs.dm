@@ -119,11 +119,11 @@
 
 /mob/living/carbon/human/proc/becomeSlim()
 	to_chat(src, "<span class='notice'>You feel fit again!</span>")
-	mutations.Remove(FAT)
+	ADD_TRAIT(src, TRAIT_FAT, OBESITY)
 
 /mob/living/carbon/human/proc/becomeFat()
 	to_chat(src, "<span class='alert'>You suddenly feel blubbery!</span>")
-	mutations.Add(FAT)
+	REMOVE_TRAIT(src, TRAIT_FAT, OBESITY)
 
 //Handles chem traces
 /mob/living/carbon/human/proc/handle_trace_chems()

@@ -281,7 +281,7 @@
 	SetLoseBreath(max(losebreath, amount))
 
 /mob/living/SetLoseBreath(amount)
-	if(BREATHLESS in mutations)
+	if(HAS_TRAIT(src, TRAIT_NOBREATH))
 		losebreath = 0
 		return FALSE
 	losebreath = max(amount, 0)

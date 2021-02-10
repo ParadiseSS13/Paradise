@@ -300,7 +300,7 @@
 	..()
 
 /obj/item/twohanded/dualsaber/attack(mob/target, mob/living/user)
-	if(HULK in user.mutations)
+	if(HAS_TRAIT(user, TRAIT_HULK))
 		to_chat(user, "<span class='warning'>You grip the blade too hard and accidentally close it!</span>")
 		unwield()
 		return
@@ -353,7 +353,7 @@
 		return TRUE
 
 /obj/item/twohanded/dualsaber/wield(mob/living/carbon/M) //Specific wield () hulk checks due to reflection chance for balance issues and switches hitsounds.
-	if(HULK in M.mutations)
+	if(HAS_TRAIT(M, TRAIT_HULK))
 		to_chat(M, "<span class='warning'>You lack the grace to wield this!</span>")
 		return
 	. = ..()

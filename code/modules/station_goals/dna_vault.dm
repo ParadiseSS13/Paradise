@@ -311,11 +311,11 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 			S.species_traits |= VIRUSIMMUNE
 		if(VAULT_NOBREATH)
 			to_chat(H, "<span class='notice'>Your lungs feel great.</span>")
-			S.species_traits |= NO_BREATHE
+			ADD_TRAIT(H, TRAIT_NOBREATH, "dna_vault")
 		if(VAULT_FIREPROOF)
 			to_chat(H, "<span class='notice'>You feel fireproof.</span>")
 			S.burn_mod *= 0.5
-			S.species_traits |= RESISTHOT
+			ADD_TRAIT(H, TRAIT_RESISTHEAT, "dna_vault")
 		if(VAULT_STUNTIME)
 			to_chat(H, "<span class='notice'>Nothing can keep you down for long.</span>")
 			S.stun_mod *= 0.5

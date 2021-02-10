@@ -473,7 +473,7 @@
 		occupantData["name"] = connected.occupant.dna.real_name
 		occupantData["stat"] = connected.occupant.stat
 		occupantData["isViableSubject"] = 1
-		if((NOCLONE in connected.occupant.mutations && connected.scan_level < 3) || !connected.occupant.dna || (NO_DNA in connected.occupant.dna.species.species_traits))
+		if((HAS_TRAIT(connected.occupant, TRAIT_BADDNA) && connected.scan_level < 3) || !connected.occupant.dna || (NO_DNA in connected.occupant.dna.species.species_traits))
 			occupantData["isViableSubject"] = 0
 		occupantData["health"] = connected.occupant.health
 		occupantData["maxHealth"] = connected.occupant.maxHealth
@@ -723,7 +723,7 @@
 				if("changeLabel")
 					ui_modal_input(src, "changeBufferLabel", "Please enter the new buffer label:", null, list("id" = bufferId), buffer.name, UI_MODAL_INPUT_MAX_LENGTH_NAME)
 				if("transfer")
-					if(!connected.occupant || (NOCLONE in connected.occupant.mutations && connected.scan_level < 3) || !connected.occupant.dna)
+					if(!connected.occupant || (HAS_TRAIT(connected.occupant, TRAIT_BADDNA) && connected.scan_level < 3) || !connected.occupant.dna)
 						return
 
 					irradiating = 2

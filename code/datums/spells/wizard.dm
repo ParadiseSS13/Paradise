@@ -88,7 +88,6 @@
 	include_user = 1
 	centcom_cancast = 0
 
-	mutations = list(LASER, HULK)
 	duration = 300
 	cooldown_min = 300 //25 deciseconds reduction per rank
 
@@ -97,11 +96,13 @@
 
 /obj/effect/proc_holder/spell/targeted/genetic/mutate/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
-		target.dna.SetSEState(GLOB.hulkblock, 1)
+		ADD_TRAIT(target, TRAIT_LASEREYES, "mutate_spell")
+		target.dna.SetSEState(GLOB.hulkblock, TRUE)
 		singlemutcheck(target, GLOB.hulkblock, MUTCHK_FORCED)
 		spawn(duration)
-			target.dna.SetSEState(GLOB.hulkblock, 0)
+			target.dna.SetSEState(GLOB.hulkblock, FALSE)
 			singlemutcheck(target, GLOB.hulkblock, MUTCHK_FORCED)
+			REMOVE_TRAIT(target, TRAIT_LASEREYES, "mutate_spell")
 	..()
 
 /obj/effect/proc_holder/spell/targeted/smoke

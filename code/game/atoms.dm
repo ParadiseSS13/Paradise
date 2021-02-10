@@ -575,7 +575,7 @@
 		add_fibers(M)
 
 		//He has no prints!
-		if(FINGERPRINTS in M.mutations)
+		if(HAS_TRAIT(M, TRAIT_NOFINGERPRINTS))
 			if(fingerprintslast != M.key)
 				fingerprintshidden += "(Has no fingerprints) Real name: [M.real_name], Key: [M.key]"
 				fingerprintslast = M.key

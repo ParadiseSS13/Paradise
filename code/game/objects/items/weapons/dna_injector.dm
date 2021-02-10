@@ -80,7 +80,7 @@
 		return
 
 	spawn(0) //Some mutations have sleeps in them, like monkey
-		if(!(NOCLONE in M.mutations) && !(H && (NO_DNA in H.dna.species.species_traits))) // prevents drained people from having their DNA changed
+		if(!HAS_TRAIT(M, TRAIT_BADDNA) && !(H && (NO_DNA in H.dna.species.species_traits))) // prevents drained people from having their DNA changed
 			var/prev_ue = M.dna.unique_enzymes
 			// UI in syringe.
 			if(buf.types & DNA2_BUF_UI)

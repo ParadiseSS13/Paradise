@@ -16,7 +16,8 @@
 		"eyes" = /obj/item/organ/internal/eyes/shadow //8 darksight.
 		)
 
-	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE)
+	species_traits = list(NO_BLOOD, RADIMMUNE, VIRUSIMMUNE)
+	inherent_traits = list(TRAIT_NOBREATH)
 	dies_at_threshold = TRUE
 
 	dietflags = DIET_OMNI		//the mutation process allowed you to now digest all foods regardless of initial race

@@ -67,7 +67,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		if(S.speaking && S.speaking.flags & NO_STUTTER)
 			continue
 
-		if((HULK in mutations) && health >= 25)
+		if(HAS_TRAIT(src, TRAIT_HULK) && health >= 25)
 			S.message = "[uppertext(S.message)]!!!"
 			verb = pick("yells", "roars", "hollers")
 

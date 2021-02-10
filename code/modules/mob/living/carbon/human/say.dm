@@ -96,7 +96,7 @@
 	if(translator && translator.active)
 		return TRUE
 	// how do species that don't breathe talk? magic, that's what.
-	var/breathes = (!(NO_BREATHE in dna.species.species_traits))
+	var/breathes = (!HAS_TRAIT(src, TRAIT_NOBREATH))
 	var/obj/item/organ/internal/L = get_organ_slot("lungs")
 	if((breathes && !L) || breathes && L && (L.status & ORGAN_DEAD))
 		return FALSE
@@ -129,9 +129,7 @@
 				S.message = "<span class='[span]'>[S.message]</span>"
 			verb = translator.speech_verb
 			return list("verb" = verb)
-	if((COMIC in mutations) \
-		|| (locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in internal_organs) \
-		|| HAS_TRAIT(src, TRAIT_JESTER))
+	if(HAS_TRAIT(src, TRAIT_COMIC_SANS))
 		span = "sans"
 
 	if(WINGDINGS in mutations)

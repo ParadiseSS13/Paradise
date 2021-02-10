@@ -15,7 +15,7 @@
 		to_chat(user, "<span class='warning'>We must have an aggressive grab on creature in our active hand to do this!</span>")
 		return
 	var/mob/living/carbon/human/target = G.affecting
-	if((NOCLONE || SKELETON || HUSK) in target.mutations)
+	if(HAS_TRAIT(target, TRAIT_BADDNA) || HAS_TRAIT(target, TRAIT_HUSK) || HAS_TRAIT(target, TRAIT_SKELETONIZED))
 		to_chat(user, "<span class='warning'>DNA of [target] is ruined beyond usability!</span>")
 		return
 	if(!istype(target) || !target.mind || issmall(target) || (NO_DNA in target.dna.species.species_traits))
