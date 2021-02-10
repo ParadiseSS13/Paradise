@@ -242,8 +242,6 @@
 			valid_limbs = list("l_hand", "l_foot", "r_hand", "r_foot")
 			limb_loss_chance = 25
 
-	take_overall_damage(brute_loss, burn_loss, TRUE, used_weapon = "Explosive Blast")
-
 	//attempt to dismember bodyparts
 	for(var/X in valid_limbs)
 		var/obj/item/organ/external/BP = get_organ(X)
@@ -254,6 +252,8 @@
 		limbs_amount--
 		if(!limbs_amount)
 			break
+
+	take_overall_damage(brute_loss, burn_loss, TRUE, used_weapon = "Explosive Blast")
 
 	..()
 
