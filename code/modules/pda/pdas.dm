@@ -147,8 +147,8 @@
 
 /obj/item/pda/librarian
 	icon_state = "pda-library"
-	desc = "A portable microcomputer by Thinktronic Systems, LTD. This is model is a WGW-11 series e-reader."
-	model_name = "Thinktronic 5290 WGW-11 Series E-reader and Personal Data Assistant"
+	desc = "A portable microcomputer by Thinktronic Systems, LTD. This is model is a NTOS series e-reader."
+	model_name = "Thinktronic 5290 NTOS Series E-reader and Personal Data Assistant"
 
 /obj/item/pda/librarian/New()
 	..()
