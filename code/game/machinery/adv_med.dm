@@ -322,7 +322,7 @@
 		occupantData["intOrgan"] = intOrganData
 
 		occupantData["blind"] = (BLINDNESS in occupant.mutations)
-		occupantData["colourblind"] = (COLOURBLIND in occupant.mutations)
+		occupantData["colourblind"] = HAS_TRAIT(occupant, TRAIT_COLORBLIND)
 		occupantData["nearsighted"] = (NEARSIGHTED in occupant.mutations)
 
 	data["occupant"] = occupantData
@@ -513,7 +513,7 @@
 		dat += "</table>"
 		if(BLINDNESS in occupant.mutations)
 			dat += "<font color='red'>Cataracts detected.</font><BR>"
-		if(COLOURBLIND in occupant.mutations)
+		if(HAS_TRAIT(occupant, TRAIT_COLORBLIND))
 			dat += "<font color='red'>Photoreceptor abnormalities detected.</font><BR>"
 		if(NEARSIGHTED in occupant.mutations)
 			dat += "<font color='red'>Retinal misalignment detected.</font><BR>"

@@ -100,6 +100,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 */
 
 //mob traits
+#define TRAIT_BLIND 			"blind"
+#define TRAIT_MUTE				"mute"
+#define TRAIT_DEAF				"deaf"
+#define TRAIT_NEARSIGHT			"nearsighted"
 #define TRAIT_FAT				"fat"
 #define TRAIT_HUSK				"husk"
 #define	TRAIT_BADDNA			"baddna"
@@ -130,21 +134,26 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_LASEREYES 		"laser_eyes"
 #define TRAIT_NOBREATH			"no_breath"
 #define TRAIT_SLOWDIGESTION		"slow_digestion"
+#define TRAIT_COLORBLIND		"colorblind"
 
 //
 // common trait sources
 #define TRAIT_GENERIC "generic"
+#define EAR_DAMAGE "ear_damage"
 #define GENETIC_MUTATION "genetic"
 #define OBESITY "obesity"
 #define MAGIC_TRAIT "magic"
 #define SPECIES_TRAIT "species"
 #define ROUNDSTART_TRAIT "roundstart" //cannot be removed without admin intervention
+#define CLOTHING_TRAIT "clothing"
 #define CULT_TRAIT "cult"
 #define INNATE_TRAIT "innate"
 
 // unique trait sources
+#define STATUE_MUTE "statue"
 #define CHANGELING_DRAIN "drain"
 #define TRAIT_HULK "hulk"
+#define STASIS_MUTE "stasis"
 #define SCRYING_ORB "scrying-orb"
 #define CULT_EYES "cult_eyes"
 

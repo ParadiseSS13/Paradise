@@ -41,7 +41,7 @@
 
 // Whether the mob can hear things
 /mob/living/can_hear()
-	. = !(DEAF in mutations)
+	. = !HAS_TRAIT(src, TRAIT_DEAF)
 
 // Whether the mob is able to see
 // `information_only` is for stuff that's purely informational - like blindness overlays
@@ -51,7 +51,7 @@
 
 // Whether the mob is capable of talking
 /mob/living/can_speak()
-	if(!(silent || (MUTE in mutations)))
+	if(!(silent || HAS_TRAIT(src, TRAIT_MUTE)))
 		if(is_muzzled())
 			var/obj/item/clothing/mask/muzzle/M = wear_mask
 			if(M.mute >= MUZZLE_MUTE_MUFFLE)

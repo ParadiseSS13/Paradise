@@ -131,7 +131,7 @@
 	activation_messages = list("You feel a peculiar prickling in your eyes while your perception of colour changes.")
 	deactivation_messages = list("Your eyes tingle unsettlingly, though everything seems to become alot more colourful.")
 	instability = -GENE_INSTABILITY_MODERATE
-	traits_to_add = list(COLOURBLIND)
+	traits_to_add = list(TRAIT_COLORBLIND)
 
 /datum/mutation/disability/colourblindness/New()
 	..()
@@ -152,15 +152,11 @@
 	activation_messages = list("It's kinda quiet.")
 	deactivation_messages = list("You can hear again!")
 	instability = -GENE_INSTABILITY_MAJOR
-	traits_to_add = list(DEAF)
+	traits_to_add = list(TRAIT_DEAF)
 
 /datum/mutation/disability/deaf/New()
 	..()
 	block = GLOB.deafblock
-
-/datum/mutation/disability/deaf/activate(mob/M)
-	..()
-	M.MinimumDeafTicks(1)
 
 /datum/mutation/disability/nearsighted
 	name = "Nearsightedness"
@@ -244,7 +240,7 @@
 	activation_messages = list("You feel unable to express yourself at all.")
 	deactivation_messages = list("You feel able to speak freely again.")
 	instability = -GENE_INSTABILITY_MODERATE
-	traits_to_add = list(MUTE)
+	traits_to_add = list(TRAIT_MUTE)
 
 /datum/mutation/disability/mute/New()
 	..()

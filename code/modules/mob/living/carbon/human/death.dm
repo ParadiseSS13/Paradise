@@ -119,9 +119,9 @@
 		dna.species.update_sight(src)
 
 /mob/living/carbon/human/proc/makeSkeleton()
-	var/obj/item/organ/external/head/H = get_organ("head")
 	if(HAS_TRAIT(src, TRAIT_SKELETONIZED))
 		return
+	var/obj/item/organ/external/head/H = get_organ("head")
 
 	if(istype(H))
 		H.disfigured = TRUE

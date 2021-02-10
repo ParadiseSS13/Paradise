@@ -29,5 +29,5 @@
 /mob/living/carbon/can_hear()
 	. = FALSE
 	var/obj/item/organ/internal/ears/ears = get_int_organ(/obj/item/organ/internal/ears)
-	if(istype(ears) && !ears.deaf)
+	if(istype(ears) && !HAS_TRAIT(src, TRAIT_DEAF))
 		. = TRUE

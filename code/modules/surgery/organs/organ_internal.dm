@@ -268,7 +268,7 @@
 		to_chat(owner, "<font color='red' size='7'>HONK</font>")
 		owner.SetSleeping(0)
 		owner.Stuttering(20)
-		owner.MinimumDeafTicks(30)
+		owner.AdjustEarDamage(0, 30)
 		owner.Weaken(3)
 		owner << 'sound/items/airhorn.ogg'
 		if(prob(30))

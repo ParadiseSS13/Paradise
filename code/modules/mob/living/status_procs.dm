@@ -79,20 +79,8 @@
 /*
 	*	Blind	(32)
 			Can't see. EyeBlind does not heal when this is active.
-	*	Coughing	(4)
-			Cough occasionally, causing you to drop your items
-	*	Deaf	(128)
-			Can't hear. EarDeaf does not heal when this is active
-	*	Epilepsy	(2)
-			Occasionally go "Epileptic", causing you to become very twitchy, drop all items, and fall to the floor
-	*	Mute	(64)
-			Cannot talk.
 	*	Nearsighted	(1)
 			My glasses! I can't see without my glasses! (Nearsighted overlay when not wearing prescription eyewear)
-	*	Nervous	(16)
-			Occasionally begin to stutter.
-	*	Tourettes	(8)
-			SHIT (say bad words, and drop stuff occasionally)
 */
 
 /mob/living
@@ -471,35 +459,22 @@
 		update_blind_effects()
 
 // Coughing
-
 /mob/living/proc/CureCoughing()
 	CureIfHasDisability(GLOB.coughblock)
 
 // Deaf
-
-/mob/living/proc/BecomeDeaf()
-	mutations |= DEAF
-
 /mob/living/proc/CureDeaf()
-	mutations -= DEAF
 	CureIfHasDisability(GLOB.deafblock)
 
 // Epilepsy
-
 /mob/living/proc/CureEpilepsy()
 	CureIfHasDisability(GLOB.epilepsyblock)
 
 // Mute
-
-/mob/living/proc/BecomeMute()
-	mutations |= MUTE
-
 /mob/living/proc/CureMute()
-	mutations -= MUTE
 	CureIfHasDisability(GLOB.muteblock)
 
 // Nearsighted
-
 /mob/living/proc/BecomeNearsighted(updating = TRUE)
 	var/val_change = !(NEARSIGHTED in mutations)
 	. = val_change ? STATUS_UPDATE_NEARSIGHTED : STATUS_UPDATE_NONE
@@ -520,7 +495,6 @@
 	CureIfHasDisability(GLOB.nervousblock)
 
 // Tourettes
-
 /mob/living/proc/CureTourettes()
 	CureIfHasDisability(GLOB.twitchblock)
 

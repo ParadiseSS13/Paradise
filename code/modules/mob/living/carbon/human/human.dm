@@ -1127,8 +1127,8 @@
 	check_and_regenerate_organs(src) //Regenerate limbs and organs only if they're really missing.
 	surgeries.Cut() //End all surgeries.
 
-	if(!isskeleton(src) && HAS_TRAIT(src, TRAIT_SKELETONIZED))
-		REMOVE_TRAIT(src, TRAIT_SKELETONIZED, "skeletonized")
+	REMOVE_TRAIT(src, TRAIT_SKELETONIZED, null)
+	REMOVE_TRAIT(src, TRAIT_BADDNA, null)
 	cure_husk()
 
 	if(!client || !key) //Don't boot out anyone already in the mob.
