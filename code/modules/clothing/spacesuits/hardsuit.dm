@@ -479,7 +479,6 @@
 	item_color = "medical"
 	flash_protect = 0
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 5, "bomb" = 10, "bio" = 100, "rad" = 60, "fire" = 60, "acid" = 75)
-	flags = STOPSPRESSUREDMAGE | THICKMATERIAL
 	scan_reagents = 1 //Generally worn by the CMO, so they'd get utility off of seeing reagents
 
 /obj/item/clothing/suit/space/hardsuit/medical
