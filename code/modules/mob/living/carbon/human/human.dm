@@ -209,7 +209,7 @@
 
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
-			if(bomb_armor < EXPLODE_GIB_THRESHOLD)
+			if(!bomb_armor)
 				gib()
 				return
 			else
