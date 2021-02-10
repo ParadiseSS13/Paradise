@@ -59,12 +59,6 @@
 
 	update_gravity(mob_has_gravity())
 
-	if(pulling)
-		update_pulling()
-
-	for(var/obj/item/grab/G in src)
-		G.process()
-
 	if(stat != DEAD)
 		handle_critical_condition()
 
@@ -112,10 +106,6 @@
 
 /mob/living/proc/handle_environment(datum/gas_mixture/environment)
 	return
-
-/mob/living/proc/update_pulling()
-	if(incapacitated())
-		stop_pulling()
 
 //this updates all special effects: stunned, sleeping, weakened, druggy, stuttering, etc..
 /mob/living/proc/handle_status_effects() // We check for the status effect in this proc as opposed to the procs below to avoid excessive proc call overhead

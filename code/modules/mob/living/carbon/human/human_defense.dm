@@ -385,11 +385,6 @@ emp_act
 		affecting.sabotaged = 1
 	return 1
 
-/mob/living/carbon/human/grabbedby(mob/living/user)
-	if(w_uniform)
-		w_uniform.add_fingerprint(user)
-	return ..()
-
 //Returns 1 if the attack hit, 0 if it missed.
 /mob/living/carbon/human/attacked_by(obj/item/I, mob/living/user, def_zone)
 	if(!I || !user)
@@ -531,6 +526,11 @@ emp_act
 	if(!blocked)
 		dna.species.spec_hitby(AM, src)
 	return ..()
+
+/mob/living/carbon/human/grippedby(mob/living/user, instant = FALSE)
+	if(w_uniform)
+		w_uniform.add_fingerprint(user)
+	..()
 
 /mob/living/carbon/human/grabbedby(mob/living/carbon/user, supress_message = FALSE)
 	if(user == src && pulling && !pulling.anchored && grab_state >= GRAB_AGGRESSIVE && is_type_in_list(pulling,  user.dna.species.allowed_consumed_mobs))
