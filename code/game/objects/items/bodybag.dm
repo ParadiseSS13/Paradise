@@ -19,46 +19,48 @@
 	icon_state = "bodybag_closed"
 	icon_closed = "bodybag_closed"
 	icon_opened = "bodybag_open"
+	density = FALSE
+	integrity_failure = 0
 	sound = 'sound/items/zip.ogg'
 	var/item_path = /obj/item/bodybag
-	density = 0
-	integrity_failure = 0
 
 
-/obj/structure/closet/body_bag/attackby(W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/pen))
-		var/t = rename_interactive(user, W)
+/obj/structure/closet/body_bag/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/pen))
+		var/t = rename_interactive(user, I)
 		if(isnull(t))
 			return
 		cut_overlays()
 		if(t)
 			add_overlay(image(icon, "bodybag_label"))
 		return
-	if(istype(W, /obj/item/wirecutters))
-		to_chat(user, "You cut the tag off the bodybag")
-		name = "body bag"
+	if(istype(I, /obj/item/wirecutters))
+		to_chat(user, "<span class='notice'>You cut the tag off the bodybag.</span>")
+		name = initial(name)
 		cut_overlays()
 		return
 	return ..()
 
+/obj/structure/closet/body_bag/welder_act(mob/user, obj/item/I)
+	return // Can't weld a body bag shut
 
 /obj/structure/closet/body_bag/close()
 	if(..())
 		density = 0
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 /obj/structure/closet/body_bag/MouseDrop(over_object, src_location, over_location)
 	. = ..()
-	if((over_object == usr && (in_range(src, usr) || usr.contents.Find(src))))
+	if(over_object == usr && (in_range(src, usr) || usr.contents.Find(src)))
 		if(!ishuman(usr) || opened || length(contents))
 			return FALSE
 		visible_message("[usr] folds up the [name]")
 		new item_path(get_turf(src))
 		qdel(src)
 
-/obj/structure/closet/body_bag/relaymove(mob/user as mob)
+/obj/structure/closet/body_bag/relaymove(mob/user)
 	if(user.stat)
 		return
 
