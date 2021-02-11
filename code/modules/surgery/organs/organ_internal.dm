@@ -239,10 +239,8 @@
 
 /obj/item/organ/internal/honktumor/insert(mob/living/carbon/M, special = 0)
 	..()
-	M.mutations.Add(CLUMSY)
-	M.mutations.Add(GLOB.comicblock)
-	M.dna.SetSEState(GLOB.clumsyblock,1,1)
-	M.dna.SetSEState(GLOB.comicblock,1,1)
+	M.dna.SetSEState(GLOB.clumsyblock, TRUE, TRUE)
+	M.dna.SetSEState(GLOB.comicblock, TRUE, TRUE)
 	singlemutcheck(M, GLOB.clumsyblock, MUTCHK_FORCED)
 	singlemutcheck(M, GLOB.comicblock, MUTCHK_FORCED)
 	organhonked = world.time
@@ -251,11 +249,8 @@
 
 /obj/item/organ/internal/honktumor/remove(mob/living/carbon/M, special = 0)
 	. = ..()
-
-	M.mutations.Remove(CLUMSY)
-	M.mutations.Remove(GLOB.comicblock)
-	M.dna.SetSEState(GLOB.clumsyblock,0)
-	M.dna.SetSEState(GLOB.comicblock,0)
+	M.dna.SetSEState(GLOB.clumsyblock, FALSE)
+	M.dna.SetSEState(GLOB.comicblock, FALSE)
 	singlemutcheck(M, GLOB.clumsyblock, MUTCHK_FORCED)
 	singlemutcheck(M, GLOB.comicblock, MUTCHK_FORCED)
 	M.RemoveElement(/datum/element/waddling)

@@ -105,9 +105,6 @@
 	var/datum/dna/dna = null //Carbon
 	var/radiation = 0 //Carbon
 
-	var/list/mutations = list() //Carbon -- Doohl
-	//see: setup.dm for list of mutations
-
 	var/voice_name = "unidentifiable voice"
 
 	var/list/faction = list("neutral") //Used for checking whether hostile simple animals will attack you, possibly more stuff later

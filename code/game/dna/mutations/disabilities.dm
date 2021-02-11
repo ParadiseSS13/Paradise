@@ -62,7 +62,7 @@
 	activation_messages = list("You feel lightheaded.")
 	deactivation_messages = list("You regain some control of your movements")
 	instability = -GENE_INSTABILITY_MINOR
-	traits_to_add = list(CLUMSY)
+	traits_to_add = list(TRAIT_CLUMSY)
 
 /datum/mutation/disability/clumsy/New()
 	..()

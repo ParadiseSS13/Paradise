@@ -617,7 +617,7 @@
 	prefix = "Bananium"
 	special_names = null
 	unarmed_type = /datum/unarmed_attack/golem/bananium
-	inherent_traits = list(TRAIT_NOBREATH, TRAIT_CHUNKYFINGERS, TRAIT_COMIC_SANS)
+	inherent_traits = list(TRAIT_NOBREATH, TRAIT_CHUNKYFINGERS, TRAIT_CLUMSY, TRAIT_COMIC_SANS)
 
 	var/last_honk = 0
 	var/honkooldown = 0

@@ -825,7 +825,7 @@
 		..()
 		return
 	M.SetJitter(0)
-	var/needs_update = M.mutations.len > 0
+	var/needs_update = length(M.active_mutations)
 
 	if(needs_update)
 		for(var/block = 1; block<=DNA_SE_LENGTH; block++)

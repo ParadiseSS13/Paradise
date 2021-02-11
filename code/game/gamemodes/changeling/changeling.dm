@@ -139,7 +139,8 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	if(changeling.current.mind)
 		if(changeling.current.mind.assigned_role == "Clown")
 			to_chat(changeling.current, "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself.")
-			changeling.current.mutations.Remove(CLUMSY)
+			changeling.current.dna.SetSEState(GLOB.clumsyblock, FALSE)
+			singlemutcheck(changeling.current, GLOB.clumsyblock, MUTCHK_FORCED)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(changeling.current)
 	var/obj_count = 1

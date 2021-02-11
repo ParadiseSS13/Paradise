@@ -308,7 +308,8 @@
 
 /datum/action/innate/toggle_clumsy/Activate()
 	var/mob/living/carbon/human/H = owner
-	H.mutations.Add(CLUMSY)
+	H.dna.SetSEState(GLOB.clumsyblock, TRUE)
+	singlemutcheck(H, GLOB.clumsyblock, MUTCHK_FORCED)
 	active = TRUE
 	background_icon_state = "bg_spell"
 	UpdateButtonIcon()
@@ -316,7 +317,8 @@
 
 /datum/action/innate/toggle_clumsy/Deactivate()
 	var/mob/living/carbon/human/H = owner
-	H.mutations.Remove(CLUMSY)
+	H.dna.SetSEState(GLOB.clumsyblock, FALSE)
+	singlemutcheck(H, GLOB.clumsyblock, MUTCHK_FORCED)
 	active = FALSE
 	background_icon_state = "bg_default"
 	UpdateButtonIcon()
