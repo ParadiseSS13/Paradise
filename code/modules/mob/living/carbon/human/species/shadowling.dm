@@ -43,7 +43,7 @@
 			H.adjustToxLoss(-5)
 			H.adjustBrainLoss(-25) //Shad O. Ling gibbers, "CAN U BE MY THRALL?!!"
 			H.AdjustEyeBlurry(-1)
-			H.CureNearsighted()
+			H.cure_nearsighted()
 			H.CureBlind()
 			H.adjustCloneLoss(-1)
 			H.SetWeakened(0)

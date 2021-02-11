@@ -21,7 +21,7 @@
 	user.heal_overall_damage(user.getBruteLoss(), user.getFireLoss(), updating_health = FALSE)
 	user.CureBlind(FALSE)
 	user.CureDeaf()
-	user.CureNearsighted(FALSE)
+	user.cure_nearsighted()
 	user.reagents.clear_reagents()
 	user.germ_level = 0
 	user.timeofdeath = 0

@@ -25,7 +25,7 @@
 			E.mend_fracture()
 			E.internal_bleeding = FALSE
 	M.SetEyeBlind(0, FALSE)
-	M.CureNearsighted(FALSE)
+	M.cure_nearsighted()
 	M.CureBlind(FALSE)
 	M.CureMute()
 	M.CureDeaf()

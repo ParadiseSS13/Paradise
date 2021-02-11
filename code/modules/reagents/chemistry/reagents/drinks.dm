@@ -74,8 +74,8 @@
 		if(1 to 20)
 			//nothing
 		if(21 to INFINITY)
-			if(prob(current_cycle-10))
-				update_flags |= M.CureNearsighted(FALSE)
+			if(prob(current_cycle - 10))
+				update_flags |= M.cure_nearsighted(EYE_DAMAGE, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/doctor_delight

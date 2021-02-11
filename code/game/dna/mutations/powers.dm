@@ -721,7 +721,7 @@
 			to_chat(user, "<span class='warning'>You may only use this on other organic beings.</span>")
 			return
 
-		if(M.dna.GetSEState(GLOB.psyresistblock))
+		if(M.dna?.GetSEState(GLOB.psyresistblock))
 			to_chat(user, "<span class='warning'>You can't see into [M.name]'s mind at all!</span>")
 			return
 
@@ -788,7 +788,7 @@
 				to_chat(user, "<span class='notice'><b>Numbers</b>: You sense the number[numbers.len>1?"s":""] [english_list(numbers)] [numbers.len>1?"are":"is"] important to [M.name].</span>")
 		to_chat(user, "<span class='notice'><b>Thoughts</b>: [M.name] is currently [thoughts].</span>")
 
-		if(M.dna.GetSEState(GLOB.empathblock))
+		if(M.dna?.GetSEState(GLOB.empathblock))
 			to_chat(M, "<span class='warning'>You sense [user.name] reading your mind.</span>")
 		else if(prob(5) || M.mind.assigned_role=="Chaplain")
 			to_chat(M, "<span class='warning'>You sense someone intruding upon your thoughts...</span>")
@@ -975,7 +975,6 @@
 	activation_messages = list("You feel you can project your thoughts.")
 	deactivation_messages = list("You no longer feel you can project your thoughts.")
 	instability = GENE_INSTABILITY_MINOR
-	traits_to_add = list(REMOTE_TALK)
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/remotetalk
 
@@ -1036,7 +1035,7 @@
 	for(var/mob/living/target in targets)
 		log_say("(TPATH to [key_name(target)]) [say]", user)
 		user.create_log(SAY_LOG, "Telepathically said '[say]' using [src]", target)
-		if(REMOTE_TALK in target.mutations)
+		if(target.dna?.GetSEState(GLOB.remotetalkblock))
 			target.show_message("<span class='abductor'>You hear [user.real_name]'s voice: [say]</span>")
 		else
 			target.show_message("<span class='abductor'>You hear a voice that seems to echo around the room: [say]</span>")
@@ -1080,7 +1079,7 @@
 		return
 	for(var/mob/living/target in targets)
 		var/message = "You feel your mind expand briefly... (Click to send a message.)"
-		if(REMOTE_TALK in target.mutations)
+		if(target.dna?.GetSEState(GLOB.remotetalkblock))
 			message = "You feel [user.real_name] request a response from you... (Click here to project mind.)"
 		user.show_message("<span class='abductor'>You offer your mind to [(target in user.get_visible_mobs()) ? target.name : "the unknown entity"].</span>")
 		target.show_message("<span class='abductor'><A href='?src=[UID()];target=[target.UID()];user=[user.UID()]'>[message]</a></span>")
@@ -1111,7 +1110,7 @@
 		say = pencode_to_html(say, target, format = 0, fields = 0)
 		user.create_log(SAY_LOG, "Telepathically responded '[say]' using [src]", target)
 		log_say("(TPATH to [key_name(target)]) [say]", user)
-		if(REMOTE_TALK in target.mutations)
+		if(target.dna?.GetSEState(GLOB.remotetalkblock))
 			target.show_message("<span class='abductor'>You project your mind into [user.name]: [say]</span>")
 		else
 			target.show_message("<span class='abductor'>You fill the space in your thoughts: [say]</span>")
@@ -1155,9 +1154,9 @@
 	for(var/mob/M in GLOB.alive_mob_list)
 		if(M == user)
 			continue
-		if(M.dna.GetSEState(GLOB.psyresistblock))
+		if(M.dna?.GetSEState(GLOB.psyresistblock))
 			continue
-		if(M.dna.GetSEState(GLOB.remoteviewblock))
+		if(M.dna?.GetSEState(GLOB.remoteviewblock))
 			remoteviewers += M
 	if(!LAZYLEN(remoteviewers))
 		to_chat(user, "<span class='warning'>No valid targets with remote view were found!</span>")

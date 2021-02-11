@@ -62,7 +62,7 @@
 /obj/item/organ/internal/eyes/surgeryize()
 	if(!owner)
 		return
-	owner.CureNearsighted()
+	owner.cure_nearsighted(EYE_DAMAGE)
 	owner.CureBlind()
 	owner.SetEyeBlurry(0)
 	owner.SetEyeBlind(0)

@@ -27,12 +27,6 @@
 
 // Generic mutations:
 #define CLUMSY			"clumsy"
-
-#define WINGDINGS		"wingdings"			// Ayy lmao
-#define REMOTE_TALK		"remote_talk" 		// remote talking
-
-//disabilities
-#define NEARSIGHTED		"nearsighted"
 #define BLINDNESS		"blind"
 
 //Nutrition levels for humans. No idea where else to put it

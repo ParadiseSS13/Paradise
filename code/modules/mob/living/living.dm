@@ -457,7 +457,7 @@
 	set_nutrition(NUTRITION_LEVEL_FED + 50)
 	bodytemperature = 310
 	CureBlind()
-	CureNearsighted()
+	cure_nearsighted()
 	CureMute()
 	CureDeaf()
 	CureTourettes()

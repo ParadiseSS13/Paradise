@@ -644,7 +644,7 @@
 		update_flags |= M.AdjustEyeBlurry(-1, FALSE)
 		update_flags |= M.AdjustEarDamage(-1)
 	if(prob(50))
-		update_flags |= M.CureNearsighted(FALSE)
+		update_flags |= M.cure_nearsighted(EYE_DAMAGE, FALSE)
 	if(prob(30))
 		update_flags |= M.CureBlind(FALSE)
 		update_flags |= M.SetEyeBlind(0, FALSE)

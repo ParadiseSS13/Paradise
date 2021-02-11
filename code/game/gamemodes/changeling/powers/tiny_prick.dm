@@ -167,7 +167,7 @@
 /datum/action/changeling/sting/blind/sting_action(var/mob/living/user, var/mob/living/target)
 	add_attack_logs(user, target, "Blind sting (changeling)")
 	to_chat(target, "<span class='danger'>Your eyes burn horrifically!</span>")
-	target.BecomeNearsighted()
+	target.become_nearsighted(EYE_DAMAGE)
 	target.EyeBlind(20)
 	target.EyeBlurry(40)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))

@@ -25,7 +25,7 @@
 		clear_alert("high")
 
 /mob/living/update_nearsighted_effects()
-	if(NEARSIGHTED in mutations)
+	if(HAS_TRAIT(src, TRAIT_NEARSIGHT))
 		overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
 	else
 		clear_fullscreen("nearsighted")

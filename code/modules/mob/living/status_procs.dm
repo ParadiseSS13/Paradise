@@ -475,19 +475,20 @@
 	CureIfHasDisability(GLOB.muteblock)
 
 // Nearsighted
-/mob/living/proc/BecomeNearsighted(updating = TRUE)
-	var/val_change = !(NEARSIGHTED in mutations)
+/mob/living/proc/become_nearsighted(source, updating = TRUE)
+	var/val_change = !HAS_TRAIT(src, TRAIT_NEARSIGHT)
 	. = val_change ? STATUS_UPDATE_NEARSIGHTED : STATUS_UPDATE_NONE
-	mutations |= NEARSIGHTED
+	ADD_TRAIT(src, TRAIT_NEARSIGHT, source)
 	if(val_change && updating)
 		update_nearsighted_effects()
 
-/mob/living/proc/CureNearsighted(updating = TRUE)
-	var/val_change = !!(NEARSIGHTED in mutations)
+/mob/living/proc/cure_nearsighted(source, updating = TRUE)
+	var/val_change = !!HAS_TRAIT(src, TRAIT_NEARSIGHT)
 	. = val_change ? STATUS_UPDATE_NEARSIGHTED : STATUS_UPDATE_NONE
-	mutations -= NEARSIGHTED
+	REMOVE_TRAIT(src, TRAIT_NEARSIGHT, source)
 	if(val_change && updating)
-		CureIfHasDisability(GLOB.glassesblock)
+		if(source == GENETIC_MUTATION)
+			CureIfHasDisability(GLOB.glassesblock)
 		update_nearsighted_effects()
 
 // Nervous

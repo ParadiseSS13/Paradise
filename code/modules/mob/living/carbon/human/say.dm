@@ -132,7 +132,7 @@
 	if(HAS_TRAIT(src, TRAIT_COMIC_SANS))
 		span = "sans"
 
-	if(WINGDINGS in mutations)
+	if(HAS_TRAIT(src, TRAIT_WINGDINGS))
 		span = "wingdings"
 
 	var/list/parent = ..()

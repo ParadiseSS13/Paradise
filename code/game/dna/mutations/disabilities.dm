@@ -163,7 +163,7 @@
 	activation_messages = list("Your eyes feel weird...")
 	deactivation_messages = list("You can see clearly now")
 	instability = -GENE_INSTABILITY_MODERATE
-	traits_to_add = list(NEARSIGHTED)
+	traits_to_add = list(TRAIT_NEARSIGHT)
 
 /datum/mutation/disability/nearsighted/New()
 	..()
@@ -207,7 +207,7 @@
 	activation_messages = list("<span class='wingdings'>Your vocal cords feel alien.</span>")
 	deactivation_messages = list("Your vocal cords no longer feel alien.")
 	instability = -GENE_INSTABILITY_MINOR
-	traits_to_add = list(WINGDINGS)
+	traits_to_add = list(TRAIT_WINGDINGS)
 
 /datum/mutation/disability/wingdings/New()
 	..()

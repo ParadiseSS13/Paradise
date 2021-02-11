@@ -135,10 +135,12 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOBREATH			"no_breath"
 #define TRAIT_SLOWDIGESTION		"slow_digestion"
 #define TRAIT_COLORBLIND		"colorblind"
+#define TRAIT_WINGDINGS			"wingdings"
 
 //
 // common trait sources
 #define TRAIT_GENERIC "generic"
+#define EYE_DAMAGE "eye_damage"
 #define EAR_DAMAGE "ear_damage"
 #define GENETIC_MUTATION "genetic"
 #define OBESITY "obesity"

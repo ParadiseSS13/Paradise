@@ -841,7 +841,7 @@ REAGENT SCANNER
 		dat += "<font color='red'>Cataracts detected.</font><BR>"
 	if(HAS_TRAIT(target, TRAIT_COLORBLIND))
 		dat += "<font color='red'>Photoreceptor abnormalities detected.</font><BR>"
-	if(NEARSIGHTED in target.mutations)
+	if(HAS_TRAIT(target, TRAIT_NEARSIGHT))
 		dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
 
 	return dat
