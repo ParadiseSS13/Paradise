@@ -33,6 +33,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 		if(M.client.prefs.sound & SOUND_MIDI)
 			if(isnewplayer(M) && (M.client.prefs.sound & SOUND_LOBBY))
 				M.stop_sound_channel(CHANNEL_LOBBYMUSIC)
+			uploaded_sound.volume = 100 * M.client.prefs.get_channel_volume(CHANNEL_ADMIN)
 			SEND_SOUND(M, uploaded_sound)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Global Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
