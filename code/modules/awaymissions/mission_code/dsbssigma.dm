@@ -565,30 +565,17 @@
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/effect/spawner/random_spawners/away/dsbssigma/randomizer/LateInitialize()
-
-#define DBSSIGMA_LANDMARK_QUEEN "dsbssigma_queen"
-#define DBSSIGMA_LANDMARK_MINER "dsbssigma_miner"
-#define DBSSIGMA_LANDMARK_ORGAN "dsbssigma_organ"
-#define DBSSIGMA_LANDMARK_FIREAXE "dsbssigma_fireaxe"
-#define DBSSIGMA_LANDMARK_TOOLBOX "dsbssigma_toolbox"
-
 	var/list/spawn_locations = list()
 	for(var/thing in GLOB.landmarks_list)
 		var/obj/effect/landmark/L = thing
-		if(L.name == DBSSIGMA_LANDMARK_QUEEN || L.name == DBSSIGMA_LANDMARK_MINER || L.name == DBSSIGMA_LANDMARK_ORGAN || L.name == DBSSIGMA_LANDMARK_FIREAXE || L.name == DBSSIGMA_LANDMARK_TOOLBOX)
+		if(L.name == "dsbssigma_queen" || L.name == "dsbssigma_miner" || L.name == "dsbssigma_organ" || L.name == "dsbssigma_fireaxe" || L.name == "dsbssigma_toolbox")
 			spawn_locations[L.name] += list(get_turf(L))
 
-	new /mob/living/simple_animal/hostile/alien/queen/large/dsbssigma(pick(spawn_locations[DBSSIGMA_LANDMARK_QUEEN]))
-	new /obj/effect/mob_spawn/human/corpse/away/dsbssigma/operative/miner(pick(spawn_locations[DBSSIGMA_LANDMARK_MINER]))
-	new /obj/item/organ/internal/heart/gland/heals/weak(pick(spawn_locations[DBSSIGMA_LANDMARK_ORGAN]))
-	new /obj/item/twohanded/fireaxe(pick(spawn_locations[DBSSIGMA_LANDMARK_FIREAXE]))
-	new /obj/item/storage/toolbox/syndicate(pick(spawn_locations[DBSSIGMA_LANDMARK_TOOLBOX]))
-
-#undef DBSSIGMA_LANDMARK_QUEEN
-#undef DBSSIGMA_LANDMARK_MINER
-#undef DBSSIGMA_LANDMARK_ORGAN
-#undef DBSSIGMA_LANDMARK_FIREAXE
-#undef DBSSIGMA_LANDMARK_TOOLBOX
+	new /mob/living/simple_animal/hostile/alien/queen/large/dsbssigma(pick(spawn_locations["dsbssigma_queen"]))
+	new /obj/effect/mob_spawn/human/corpse/away/dsbssigma/operative/miner(pick(spawn_locations["dsbssigma_miner"]))
+	new /obj/item/organ/internal/heart/gland/heals/weak(pick(spawn_locations["dsbssigma_organ"]))
+	new /obj/item/twohanded/fireaxe(pick(spawn_locations["dsbssigma_fireaxe"]))
+	new /obj/item/storage/toolbox/syndicate(pick(spawn_locations["dsbssigma_toolbox"]))
 
 	qdel(src)
 

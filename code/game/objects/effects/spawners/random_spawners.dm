@@ -9,7 +9,8 @@
 	/obj/effect/decal/cleanable/blood/oil = 1,
 	/obj/effect/decal/cleanable/fungus = 1)
 	var/spawn_inside = null
-	var/early_del = TRUE // Set to false if it needs to reach Initialize().
+	/// Defines whether the spawner is deleted during its New() proc. Set to FALSE if it needs to reach Initialize().
+	var/early_del = TRUE
 
 // This needs to use New() instead of Initialize() because the thing it creates might need to be initialized too
 /obj/effect/spawner/random_spawners/New()
