@@ -63,7 +63,7 @@
 	if(!owner)
 		return
 	owner.cure_nearsighted(EYE_DAMAGE)
-	owner.CureBlind()
+	owner.cure_blind(EYE_DAMAGE)
 	owner.SetEyeBlurry(0)
 	owner.SetEyeBlind(0)
 

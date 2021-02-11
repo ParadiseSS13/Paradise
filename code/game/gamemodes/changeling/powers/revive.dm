@@ -19,9 +19,9 @@
 	user.SetEyeBlurry(0, FALSE)
 	user.RestoreEars()
 	user.heal_overall_damage(user.getBruteLoss(), user.getFireLoss(), updating_health = FALSE)
-	user.CureBlind(FALSE)
+	user.cure_blind(null, FALSE)
 	user.CureDeaf()
-	user.cure_nearsighted()
+	user.cure_nearsighted(null, FALSE)
 	user.reagents.clear_reagents()
 	user.germ_level = 0
 	user.timeofdeath = 0

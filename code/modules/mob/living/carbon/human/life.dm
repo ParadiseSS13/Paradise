@@ -101,7 +101,7 @@
 
 	else
 		//blindness
-		if(BLINDNESS in mutations) // Disabled-blind, doesn't get better on its own
+		if(HAS_TRAIT(src, TRAIT_BLIND)) // Disabled-blind, doesn't get better on its own
 
 		else if(eye_blind)		       // Blindness, heals slowly over time
 			AdjustEyeBlind(-1)

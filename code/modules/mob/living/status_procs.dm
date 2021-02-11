@@ -443,19 +443,18 @@
 
 // Blind
 
-/mob/living/proc/BecomeBlind(updating = TRUE)
-	var/val_change = !(BLINDNESS in mutations)
+/mob/living/proc/become_blind(source, updating = TRUE)
+	var/val_change = !HAS_TRAIT(src, TRAIT_BLIND)
 	. = val_change ? STATUS_UPDATE_BLIND : STATUS_UPDATE_NONE
-	mutations |= BLINDNESS
+	ADD_TRAIT(src, TRAIT_BLIND, source)
 	if(val_change && updating)
 		update_blind_effects()
 
-/mob/living/proc/CureBlind(updating = TRUE)
-	var/val_change = !!(BLINDNESS in mutations)
+/mob/living/proc/cure_blind(source, updating = TRUE)
+	var/val_change = !!HAS_TRAIT(src, TRAIT_BLIND)
 	. = val_change ? STATUS_UPDATE_BLIND : STATUS_UPDATE_NONE
-	mutations -= BLINDNESS
+	REMOVE_TRAIT(src, TRAIT_BLIND, source)
 	if(val_change && updating)
-		CureIfHasDisability(GLOB.blindblock)
 		update_blind_effects()
 
 // Coughing
@@ -487,8 +486,6 @@
 	. = val_change ? STATUS_UPDATE_NEARSIGHTED : STATUS_UPDATE_NONE
 	REMOVE_TRAIT(src, TRAIT_NEARSIGHT, source)
 	if(val_change && updating)
-		if(source == GENETIC_MUTATION)
-			CureIfHasDisability(GLOB.glassesblock)
 		update_nearsighted_effects()
 
 // Nervous

@@ -1244,8 +1244,7 @@
 		if(gender == PLURAL && oldspecies.has_gender)
 			change_gender(pick(MALE, FEMALE))
 
-		if(length(oldspecies.default_mutations))
-			oldspecies.handle_dna(src, TRUE) // Remove any mutations that belong to the old species
+		oldspecies.handle_dna(src, TRUE) // Remove any mutations that belong to the old species
 
 		oldspecies.on_species_loss(src)
 

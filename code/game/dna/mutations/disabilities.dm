@@ -111,7 +111,7 @@
 	activation_messages = list("You can't seem to see anything.")
 	deactivation_messages = list("You can see now, in case you didn't notice...")
 	instability = -GENE_INSTABILITY_MAJOR
-	traits_to_add = list(BLINDNESS)
+	traits_to_add = list(TRAIT_BLIND)
 
 /datum/mutation/disability/blindness/New()
 	..()

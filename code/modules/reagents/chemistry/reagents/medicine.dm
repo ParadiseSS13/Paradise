@@ -646,7 +646,7 @@
 	if(prob(50))
 		update_flags |= M.cure_nearsighted(EYE_DAMAGE, FALSE)
 	if(prob(30))
-		update_flags |= M.CureBlind(FALSE)
+		update_flags |= M.cure_blind(EYE_DAMAGE, FALSE)
 		update_flags |= M.SetEyeBlind(0, FALSE)
 	return ..() | update_flags
 

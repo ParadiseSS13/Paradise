@@ -837,7 +837,7 @@ REAGENT SCANNER
 		dat += "<td>[i.name]</td><td>N/A</td><td>[i.damage]</td><td>[infection]:[mech]</td><td></td>"
 		dat += "</tr>"
 	dat += "</table>"
-	if(BLINDNESS in target.mutations)
+	if(HAS_TRAIT(target, TRAIT_BLIND))
 		dat += "<font color='red'>Cataracts detected.</font><BR>"
 	if(HAS_TRAIT(target, TRAIT_COLORBLIND))
 		dat += "<font color='red'>Photoreceptor abnormalities detected.</font><BR>"

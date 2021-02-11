@@ -88,22 +88,16 @@
 	include_user = 1
 	centcom_cancast = 0
 
+	traits = list(TRAIT_LASEREYES)
 	duration = 300
 	cooldown_min = 300 //25 deciseconds reduction per rank
 
 	action_icon_state = "mutate"
 	sound = 'sound/magic/mutate.ogg'
 
-/obj/effect/proc_holder/spell/targeted/genetic/mutate/cast(list/targets, mob/user = usr)
-	for(var/mob/living/target in targets)
-		ADD_TRAIT(target, TRAIT_LASEREYES, "mutate_spell")
-		target.dna.SetSEState(GLOB.hulkblock, TRUE)
-		singlemutcheck(target, GLOB.hulkblock, MUTCHK_FORCED)
-		spawn(duration)
-			target.dna.SetSEState(GLOB.hulkblock, FALSE)
-			singlemutcheck(target, GLOB.hulkblock, MUTCHK_FORCED)
-			REMOVE_TRAIT(target, TRAIT_LASEREYES, "mutate_spell")
-	..()
+/obj/effect/proc_holder/spell/targeted/genetic/mutate/Initialize(mapload)
+	. = ..()
+	mutations = list(GLOB.hulkblock)
 
 /obj/effect/proc_holder/spell/targeted/smoke
 	name = "Smoke"
@@ -305,7 +299,7 @@
 	sound = 'sound/magic/blind.ogg'
 
 /obj/effect/proc_holder/spell/targeted/genetic/blind
-	mutations = list(BLINDNESS)
+	traits = list(TRAIT_BLIND)
 	duration = 300
 	sound = 'sound/magic/blind.ogg'
 

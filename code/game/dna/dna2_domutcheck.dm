@@ -38,14 +38,6 @@
 		//testing("[M] - Failed to activate [gene.name] (can_activate fail).")
 		return FALSE
 
-	var/defaultmutations // Do not mutate inherent species abilities
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		defaultmutations = H.dna.species.default_mutations
-
-		if((mutation in defaultmutations) && mutation_active)
-			return
-
 	// Prior state
 	var/mutation_prior_status = (mutation.type in M.active_mutations)
 	var/changed = mutation_active != mutation_prior_status

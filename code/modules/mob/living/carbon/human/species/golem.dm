@@ -617,6 +617,7 @@
 	prefix = "Bananium"
 	special_names = null
 	unarmed_type = /datum/unarmed_attack/golem/bananium
+	inherent_traits = list(TRAIT_NOBREATH, TRAIT_CHUNKYFINGERS, TRAIT_COMIC_SANS)
 
 	var/last_honk = 0
 	var/honkooldown = 0
@@ -628,7 +629,6 @@
 	..()
 	last_banana = world.time
 	last_honk = world.time
-	ADD_TRAIT(H, TRAIT_COMIC_SANS, "species") // species trait conversion
 	H.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(H), slot_r_store)
 	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), slot_l_store)
 	H.AddElement(/datum/element/waddling)
