@@ -14,10 +14,10 @@
 	damage_deflection = 70
 	var/id_tag = 1.0
 	var/protected = 1
-	/// Animated icon that is used when the shutter is being opened / closed.
+	// Animated icon that is used when the shutter is being opened / closed.
 	var/anim_opening = "opening"
 	var/anim_closing = "closing"
-	/// Icon that is used when the shutter is in an opened / closed state.
+	// Icon that is used when the shutter is in an opened / closed state.
 	var/icon_state_opened = "open"
 	var/icon_state_closed = "closed"
 

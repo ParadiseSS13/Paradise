@@ -2089,5 +2089,5 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
  */
 /proc/UnlockBlastDoors(target_id_tag, z)
 	for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
-		if(P.density && P.id_tag == target_id_tag && P.z == z && !P.operating)
+		if(P.density && (P.id_tag == target_id_tag) && (P.z == z) && !P.operating)
 			P.open()

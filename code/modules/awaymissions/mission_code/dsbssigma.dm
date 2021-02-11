@@ -341,7 +341,7 @@
 	var/beenused = FALSE
 	var/activation_msg = "<span class='notice'>The button briefly activates, then sparks and breaks.</span>"
 
-/obj/machinery/door_control/away/button_single_use/attack_hand(mob/user as mob)
+/obj/machinery/door_control/away/button_single_use/attack_hand(mob/user)
 	if(allowed(user) && (wires & 1) && !beenused)
 		..()
 		beenused = TRUE
@@ -356,13 +356,13 @@
 	activation_msg = "<span class='notice'>The button briefly activates, then sparks and breaks. It seems only some sections of the base have been unlocked.</span>"
 
 /obj/machinery/door_control/away/button_single_use/dsbssigma_lockdown_random/Initialize()
-	..()
+	. = ..()
 	id = pick("dsbss_lockdown_blast_medical", "dsbss_lockdown_blast_botany", "dsbss_lockdown_blast_research")
 
 //////// MECHA ////////
 
 /obj/mecha/combat/gygax/dark/rusted
-	desc = "This once lightweight exosuit, painted in a dark scheme, has not been spared by the elements. Exterior armor is heavily rusted and most equipment sockets have decayed beyond repair."
+	desc = "This once lightweight exosuit, painted in a dark scheme, has not been spared by the elements. Exterior armor is heavily rusted and most equipment sockets have decayed beyond repair. Given its state, any transportation involving heavy bluespace activity would result in complete collapse of this aged machine."
 	name = "rusted Dark Gygax"
 	max_integrity = 200
 	deflect_chance = 10
@@ -560,8 +560,8 @@
 	color = "#800080"
 	early_del = FALSE
 
-/obj/effect/spawner/random_spawners/away/dsbssigma/randomizer/Initialize()
-	..()
+/obj/effect/spawner/random_spawners/away/dsbssigma/randomizer/Initialize(mapload)
+	. = ..()
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/effect/spawner/random_spawners/away/dsbssigma/randomizer/LateInitialize()
@@ -581,7 +581,7 @@
 
 ////////////////////////// MOBS //////////////////////////
 
-/obj/effect/mob_spawn/human/corpse/away/dsbssigma/simmons
+/obj/effect/mob_spawn/human/corpse/away/dsbssigma/private
 	brute_damage = 1000
 	name = "William Simmons"
 	mob_name = "William Simmons"
@@ -593,7 +593,7 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	l_pocket = /obj/item/radio
 
-/obj/effect/mob_spawn/human/corpse/away/dsbssigma/yao
+/obj/effect/mob_spawn/human/corpse/away/dsbssigma/commander
 	brute_damage = 1000
 	name = "Xiu Yao"
 	mob_name = "Xiu Yao"
