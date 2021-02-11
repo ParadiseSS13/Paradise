@@ -8,7 +8,7 @@ SUBSYSTEM_DEF(mapping)
 	preloadTemplates()
 	// Pick a random away mission.
 	if(!config.disable_away_missions)
-		createRandomZlevel()
+		load_away_mission()
 	// Seed space ruins
 	if(!config.disable_space_ruins)
 		// load in extra levels of space ruins
@@ -161,6 +161,36 @@ SUBSYSTEM_DEF(mapping)
 				ruins_availible -= R
 
 	log_world("Ruin loader finished with [budget] left to spend.")
+
+/datum/controller/subsystem/mapping/proc/load_away_mission()
+	if(length(GLOB.awaydestinations))
+		return
+
+	if(GLOB.potentialRandomZlevels && length(GLOB.potentialRandomZlevels))
+		var/watch = start_watch()
+		log_startup_progress("Loading away mission...")
+
+		var/map = pick(GLOB.potentialRandomZlevels)
+		var/file = file(map)
+		if(isfile(file))
+			var/zlev = GLOB.space_manager.add_new_zlevel(AWAY_MISSION, linkage = UNAFFECTED, traits = list(AWAY_LEVEL,BLOCK_TELEPORT))
+			GLOB.space_manager.add_dirt(zlev)
+			GLOB.maploader.load_map(file, z_offset = zlev)
+			late_setup_level(block(locate(1, 1, zlev), locate(world.maxx, world.maxy, zlev)))
+			GLOB.space_manager.remove_dirt(zlev)
+			log_world("Away mission loaded: [map]")
+
+		for(var/thing in GLOB.landmarks_list)
+			var/obj/effect/landmark/L = thing
+			if(L.name != "awaystart")
+				continue
+			GLOB.awaydestinations.Add(L)
+
+		log_startup_progress("Away mission loaded in [stop_watch(watch)]s.")
+
+	else
+		log_startup_progress("No away missions found.")
+		return
 
 /datum/controller/subsystem/mapping/Recover()
 	flags |= SS_NO_INIT
