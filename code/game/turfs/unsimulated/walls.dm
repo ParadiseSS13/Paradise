@@ -24,14 +24,6 @@
 	icon_state = ""
 	layer = FLY_LAYER
 
-/turf/unsimulated/wall/other
-	icon_state = "r_wall"
-
-/turf/unsimulated/wall/metal
-	icon = 'icons/turf/walls/wall.dmi'
-	icon_state = "wall"
-	smooth = SMOOTH_TRUE
-
 /turf/unsimulated/wall/abductor
 	icon_state = "alien1"
 	explosion_block = 50

@@ -15,8 +15,6 @@
 	var/damage_overlay
 	var/global/damage_overlays[8]
 
-	var/max_temperature = 1800 //K, walls will take damage if they're next to a fire hotter than this
-
 	opacity = 1
 	density = 1
 	blocks_air = 1
@@ -44,8 +42,7 @@
 	/obj/structure/falsewall,
 	/obj/structure/falsewall/reinforced,
 	/turf/simulated/wall/rust,
-	/turf/simulated/wall/r_wall/rust,
-	/turf/simulated/wall/r_wall/coated)
+	/turf/simulated/wall/r_wall/rust)
 	smooth = SMOOTH_TRUE
 
 /turf/simulated/wall/BeforeChange()
@@ -54,7 +51,7 @@
 	. = ..()
 
 //Appearance
-/turf/simulated/wall/examine(mob/user)
+/turf/simulated/wall/examine(mob/user)	//If you change this, consider changing the examine_status proc of false walls to match
 	. = ..()
 
 	if(!damage)
@@ -119,12 +116,6 @@
 		dismantle_wall()
 	else
 		update_icon()
-
-	return
-
-/turf/simulated/wall/proc/adjacent_fire_act(turf/simulated/wall, radiated_temperature)
-	if(radiated_temperature > max_temperature)
-		take_damage(rand(10, 20) * (radiated_temperature / max_temperature))
 
 /turf/simulated/wall/handle_ricochet(obj/item/projectile/P)			//A huge pile of shitcode!
 	var/turf/p_turf = get_turf(P)
