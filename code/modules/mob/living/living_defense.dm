@@ -296,11 +296,7 @@
 
 //check if mob is lying down on something we can operate him on.
 /mob/living/proc/can_be_operated_on()
-	if(locate(/obj/machinery/optable, loc) && (lying || resting))
-		return TRUE
-	if(locate(/obj/structure/bed, loc) && (buckled || lying || IsWeakened() || stunned || paralysis || sleeping || stat))
-		return TRUE
-	if(locate(/obj/structure/table, loc) && (lying || IsWeakened() || stunned || paralysis || sleeping || stat))
+	if(lying && (locate(/obj/machinery/optable, loc) || locate(/obj/structure/bed, loc) || locate(/obj/structure/table, loc)))
 		return TRUE
 	return FALSE
 
