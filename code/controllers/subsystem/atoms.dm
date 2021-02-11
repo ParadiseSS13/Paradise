@@ -71,9 +71,9 @@ SUBSYSTEM_DEF(atoms)
 			var/atom/A = I
 			A.LateInitialize()
 		if(noisy)
-			log_startup_progress("Late initialized [late_loaders.len] atoms in [stop_watch(watch)]s")
+			log_startup_progress("Late initialized [length(late_loaders)] atoms in [stop_watch(watch)]s")
 		else
-			log_debug("	Late initialized [late_loaders.len] atoms in [stop_watch(watch)]s")
+			log_debug("	Late initialized [length(late_loaders)] atoms in [stop_watch(watch)]s")
 		late_loaders.Cut()
 
 /datum/controller/subsystem/atoms/proc/InitAtom(atom/A, list/arguments)
