@@ -1007,7 +1007,7 @@
 		else
 			target_zone = user.zone_selected
 
-	if(PIERCEIMMUNE in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
 		. = FALSE
 
 	var/obj/item/organ/external/affecting = get_organ(target_zone)
@@ -1603,11 +1603,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 	..()
 
-/mob/living/carbon/human/rad_act(amount)
-	if(RADIMMUNE in dna.species.species_traits)
-		return SEND_SIGNAL(src, COMSIG_ATOM_RAD_ACT, amount)
-	. = ..()
-
 /mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
 	if(H == src)
 		to_chat(src, "<span class='warning'>You cannot perform CPR on yourself!</span>")
@@ -1894,12 +1889,12 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. += "---"
 
 /mob/living/carbon/human/adjust_nutrition(change)
-	if(NO_HUNGER in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return FALSE
 	return ..()
 
 /mob/living/carbon/human/set_nutrition(change)
-	if(NO_HUNGER in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return FALSE
 	return ..()
 

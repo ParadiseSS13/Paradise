@@ -112,7 +112,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 			if(identity_theft.target && identity_theft.target.current)
 				identity_theft.target_real_name = kill_objective.target.current.real_name //Whoops, forgot this.
 				var/mob/living/carbon/human/H = identity_theft.target.current
-				if(can_absorb_species(H.dna.species)) // For species that can't be absorbed - should default to an escape objective
+				if(!HAS_TRAIT(H, TRAIT_GENELESS)) // For species that can't be absorbed - should default to an escape objective
 					identity_theft.explanation_text = "Escape on the shuttle or an escape pod with the identity of [identity_theft.target_real_name], the [identity_theft.target.assigned_role] while wearing [identity_theft.target.p_their()] identification card."
 					changeling.objectives += identity_theft
 				else
@@ -320,7 +320,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		to_chat(user, "<span class='warning'>DNA of [target] is ruined beyond usability!</span>")
 		return
 
-	if(NO_DNA in T.dna.species.species_traits)
+	if(HAS_TRAIT(T, TRAIT_GENELESS))
 		to_chat(user, "<span class='warning'>This creature does not have DNA!</span>")
 		return
 
@@ -328,6 +328,3 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		to_chat(user, "<span class='warning'>We already have this DNA in storage!</span>")
 
 	return 1
-
-/proc/can_absorb_species(datum/species/S)
-	return !(NO_DNA in S.species_traits)

@@ -37,7 +37,7 @@
 		if(C == src.head || C == src.wear_suit || C == src.wear_mask || C == src.w_uniform || C == src.belt || C == src.back)
 			if(C.species_disguise)
 				displayed_species = C.species_disguise
-	if(skipjumpsuit && skipface || (NO_EXAMINE in dna.species.species_traits)) //either obscured or on the nospecies list
+	if(skipjumpsuit && skipface || HAS_TRAIT(src, TRAIT_NOEXAMINE)) //either obscured or on the nospecies list
 		msg += "!\n"    //omit the species when examining
 	else if(displayed_species == "Slime People") //snowflakey because Slime People are defined as a plural
 		msg += ", a<b><font color='[examine_color]'> slime person</font></b>!\n"

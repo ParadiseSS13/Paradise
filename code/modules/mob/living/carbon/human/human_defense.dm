@@ -518,7 +518,7 @@ emp_act
 	else if(I)
 		if(((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedded_ignore_throwspeed_threshold)
 			if(can_embed(I))
-				if(prob(I.embed_chance) && !(PIERCEIMMUNE in dna.species.species_traits))
+				if(prob(I.embed_chance) && !HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
 					throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
 					var/obj/item/organ/external/L = pick(bodyparts)
 					L.embedded_objects |= I

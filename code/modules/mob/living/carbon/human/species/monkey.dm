@@ -10,7 +10,7 @@
 	blood_mask = 'icons/mob/human_races/masks/blood_monkey.dmi'
 	language = null
 	default_language = "Chimpanzee"
-	species_traits = list(NO_EXAMINE)
+	inherent_traits = list(TRAIT_NOEXAMINE)
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	greater_form = /datum/species/human
 	no_equip = list(slot_belt, slot_wear_id, slot_l_ear, slot_r_ear, slot_glasses, slot_gloves, slot_shoes, slot_wear_suit, slot_w_uniform, slot_l_store, slot_r_store, slot_s_store, slot_wear_pda)
@@ -123,7 +123,7 @@
 	reagent_tag = PROCESS_ORG
 	tail = null
 
-	inherent_traits = list(TRAIT_WATERBREATH)
+	inherent_traits = list(TRAIT_NOEXAMINE, TRAIT_NOFAT, TRAIT_WATERBREATH)
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/skrell,

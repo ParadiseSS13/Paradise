@@ -68,10 +68,8 @@
 
 /obj/effect/mine/dnascramble/mineEffect(mob/living/victim)
 	victim.rad_act(radiation_amount)
-	if(ishuman(victim))
-		var/mob/living/carbon/human/V = victim
-		if(NO_DNA in V.dna.species.species_traits)
-			return
+	if(!victim.dna || HAS_TRAIT(victim, TRAIT_GENELESS))
+		return
 	randmutb(victim)
 	domutcheck(victim)
 

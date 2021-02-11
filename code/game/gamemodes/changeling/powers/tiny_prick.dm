@@ -99,7 +99,7 @@
 		return FALSE
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(NO_DNA in H.dna.species.species_traits)
+		if(HAS_TRAIT(H, TRAIT_GENELESS))
 			to_chat(user, "<span class='warning'>This won't work on a creature without DNA.</span>")
 			return FALSE
 	return TRUE

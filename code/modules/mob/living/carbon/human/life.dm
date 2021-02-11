@@ -207,7 +207,7 @@
 	if(!L || L && (L.status & ORGAN_DEAD))
 		if(health >= HEALTH_THRESHOLD_CRIT)
 			adjustOxyLoss(HUMAN_MAX_OXYLOSS + 1)
-		else if(!(NOCRITDAMAGE in dna.species.species_traits))
+		else if(!HAS_TRAIT(src, TRAIT_NOCRITDAMAGE))
 			adjustOxyLoss(HUMAN_MAX_OXYLOSS)
 
 		if(dna.species)
@@ -536,12 +536,12 @@
 	if(status_flags & GODMODE)
 		return 0	//godmode
 
-	if(!(NO_HUNGER in dna.species.species_traits))
+	if(!HAS_TRAIT(src, TRAIT_NOHUNGER))
 		if(HAS_TRAIT_FROM(src, TRAIT_FAT, OBESITY))
 			if(overeatduration < 100)
 				becomeSlim()
 		else
-			if(overeatduration > 500 && !(NO_OBESITY in dna.species.species_traits))
+			if(overeatduration > 500 && !HAS_TRAIT(src, TRAIT_NOFAT))
 				becomeFat()
 
 		// nutrition decrease
@@ -800,7 +800,7 @@
 				healthdoll.cached_healthdoll_overlays = new_overlays
 
 /mob/living/carbon/human/proc/handle_nutrition_alerts() //This is a terrible abuse of the alert system; something like this should be a HUD element
-	if(NO_HUNGER in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return
 	if(mind?.vampire && (mind in SSticker.mode.vampires)) //Vampires
 		switch(nutrition)
@@ -912,7 +912,7 @@
 /mob/living/carbon/human/proc/handle_decay()
 	var/decaytime = world.time - timeofdeath
 
-	if(NO_DECAY in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_NODECAY))
 		return
 
 	if(reagents.has_reagent("formaldehyde")) //embalming fluid stops decay

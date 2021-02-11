@@ -270,7 +270,7 @@
 		return FALSE
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if((RADIMMUNE in H.dna.species.species_traits) && !(flags & MUTCHK_FORCED))
+		if(HAS_TRAIT(H, TRAIT_RADIMMUNE) && !(flags & MUTCHK_FORCED))
 			return FALSE
 	return TRUE
 

@@ -289,6 +289,11 @@
 	for(var/X in inherent_traits)
 		ADD_TRAIT(H, X, SPECIES_TRAIT)
 
+	if(TRAIT_VIRUSIMMUNE in inherent_traits)
+		for(var/datum/disease/A in H.viruses)
+			if(!A.bypasses_immunity)
+				A.cure(FALSE)
+
 	if(inherent_factions)
 		for(var/i in inherent_factions)
 			H.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
@@ -324,7 +329,7 @@
 // (Slime People changing color based on the reagents they consume)
 /datum/species/proc/handle_life(mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
-		var/takes_crit_damage = (!(NOCRITDAMAGE in species_traits))
+		var/takes_crit_damage = (!HAS_TRAIT(H, TRAIT_NOCRITDAMAGE))
 		if((H.health <= HEALTH_THRESHOLD_CRIT) && takes_crit_damage)
 			H.adjustBruteLoss(1)
 	return
@@ -756,7 +761,7 @@
 	return FALSE
 
 /datum/species/proc/handle_mutations_and_radiation(mob/living/carbon/human/H)
-	if(RADIMMUNE in species_traits)
+	if(HAS_TRAIT(H, TRAIT_RADIMMUNE))
 		H.radiation = 0
 		return TRUE
 

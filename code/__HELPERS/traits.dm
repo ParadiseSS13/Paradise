@@ -106,8 +106,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NEARSIGHT			"nearsighted"
 #define TRAIT_FAT				"fat"
 #define TRAIT_HUSK				"husk"
-#define	TRAIT_BADDNA			"baddna"
-#define	TRAIT_SKELETONIZED		"skeletonized"
+#define TRAIT_BADDNA			"baddna"
+#define TRAIT_SKELETONIZED		"skeletonized"
 #define TRAIT_CLUMSY			"clumsy"
 #define TRAIT_CHUNKYFINGERS		"chunkyfingers" //means that you can't use weapons with normal trigger guards.
 #define TRAIT_PACIFISM			"pacifism"
@@ -117,10 +117,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_GOTTAGONOTSOFAST	"gottagonotsofast"
 #define TRAIT_FAKEDEATH			"fakedeath" //Makes the owner appear as dead to most forms of medical examination
 #define TRAIT_XENO_HOST			"xeno_host"	//Tracks whether we're gonna be a baby alien's mummy.
-#define TRAIT_WATERBREATH		"waterbreathing"
-#define TRAIT_BLOODCRAWL		"bloodcrawl"
-#define TRAIT_BLOODCRAWL_EAT	"bloodcrawl_eat"
-#define TRAIT_DWARF				"dwarf"
 #define TRAIT_SHOCKIMMUNE		"shock_immunity"
 #define TRAIT_TESLA_SHOCKIMMUNE	"tesla_shock_immunity"
 #define TRAIT_RESISTHEAT		"resist_heat"
@@ -128,14 +124,30 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RESISTCOLD		"resist_cold"
 #define TRAIT_RESISTHIGHPRESSURE	"resist_high_pressure"
 #define TRAIT_RESISTLOWPRESSURE	"resist_low_pressure"
+#define TRAIT_RADIMMUNE			"rad_immunity"
+#define TRAIT_GENELESS  		"geneless"
+#define TRAIT_VIRUSIMMUNE		"virus_immunity"
+#define TRAIT_PIERCEIMMUNE		"pierce_immunity"
+#define TRAIT_NOHUNGER			"no_hunger"
+#define TRAIT_NOBREATH			"no_breath"
+#define TRAIT_NOCRITDAMAGE		"no_crit"
 #define TRAIT_XRAY_VISION       "xray_vision"
+#define TRAIT_THERMAL_VISION    "thermal_vision"
+#define TRAIT_BLOODCRAWL		"bloodcrawl"
+#define TRAIT_BLOODCRAWL_EAT	"bloodcrawl_eat"
+#define TRAIT_DWARF				"dwarf"
+
 #define TRAIT_COMIC_SANS		"comic_sans"
 #define TRAIT_NOFINGERPRINTS	"no_fingerprints"
-#define TRAIT_LASEREYES 		"laser_eyes"
-#define TRAIT_NOBREATH			"no_breath"
 #define TRAIT_SLOWDIGESTION		"slow_digestion"
 #define TRAIT_COLORBLIND		"colorblind"
 #define TRAIT_WINGDINGS			"wingdings"
+#define TRAIT_WATERBREATH		"waterbreathing"
+#define TRAIT_NOFAT				"no_fatness"
+#define TRAIT_NOGERMS			"no_germs"
+#define TRAIT_NODECAY			"no_decay"
+#define TRAIT_NOEXAMINE			"no_examine"
+#define TRAIT_NOPAIN			"no_pain"
 
 //
 // common trait sources
@@ -162,5 +174,5 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
 
-
-#define TRAIT_LASER_EYES "laser_eyes"
+//traits that should be properly converted to genetic mutations one day
+#define TRAIT_LASEREYES 		"laser_eyes"

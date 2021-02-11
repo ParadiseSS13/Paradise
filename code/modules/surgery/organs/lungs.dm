@@ -87,6 +87,9 @@
 	if((H.status_flags & GODMODE))
 		return
 
+	if(HAS_TRAIT(H, TRAIT_NOBREATH))
+		return
+
 	if(!breath || (breath.total_moles() == 0))
 		if(isspaceturf(loc))
 			H.adjustOxyLoss(10)

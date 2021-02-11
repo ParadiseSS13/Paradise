@@ -9,8 +9,8 @@
 	blood_color = "#555555"
 	flesh_color = "#222222"
 
-	species_traits = list(NO_BLOOD, RADIMMUNE, NO_HUNGER, NO_EXAMINE) //Can't use guns due to muzzle flash
-	inherent_traits = list(TRAIT_CHUNKYFINGERS, TRAIT_NOBREATH)
+	species_traits = list(NO_BLOOD) //Can't use guns due to muzzle flash
+	inherent_traits = list(TRAIT_CHUNKYFINGERS, TRAIT_NOHUNGER, TRAIT_NOBREATH, TRAIT_RADIMMUNE, TRAIT_NOEXAMINE)
 	burn_mod = 1.5 //1.5x burn damage, 2x is excessive
 	heatmod = 1.5
 
@@ -60,8 +60,8 @@
 	blood_color = "#CCCCCC"
 	flesh_color = "#AAAAAA"
 
-	species_traits = list(NO_BLOOD, RADIMMUNE, NO_HUNGER, NO_EXAMINE)
-	inherent_traits = list(TRAIT_NOBREATH)
+	species_traits = list(NO_BLOOD)
+	inherent_traits = list(TRAIT_NOBREATH, TRAIT_RADIMMUNE, TRAIT_NOHUNGER, TRAIT_NOEXAMINE)
 	burn_mod = 1.1
 	heatmod = 1.1
 

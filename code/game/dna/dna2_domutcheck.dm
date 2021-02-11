@@ -13,11 +13,9 @@
 
 // Use this to force a mut check on a single mutation!
 /proc/singlemutcheck(mob/living/M, block, flags = 0)
-	if(ishuman(M)) // Would've done this via species instead of type, but the basic mob doesn't have a species, go figure.
-		var/mob/living/carbon/human/H = M
-		if(NO_DNA in H.dna.species.species_traits)
-			return
 	if(!M)
+		return
+	if(HAS_TRAIT(M, TRAIT_GENELESS))
 		return
 	if(block < 0)
 		return

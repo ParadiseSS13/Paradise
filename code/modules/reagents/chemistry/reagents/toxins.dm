@@ -180,7 +180,7 @@
 /datum/reagent/mutagen/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(!..())
 		return
-	if(!M.dna || HAS_TRAIT(M, TRAIT_BADDNA))
+	if(!M.dna || HAS_TRAIT(M, TRAIT_BADDNA) || HAS_TRAIT(M, TRAIT_GENELESS))
 		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	if((method==REAGENT_TOUCH && prob(33)) || method==REAGENT_INGEST)
 		randmutb(M)
@@ -213,7 +213,7 @@
 	return ..()
 
 /datum/reagent/stable_mutagen/on_mob_life(mob/living/M)
-	if(!ishuman(M) || !M.dna || HAS_TRAIT(M, TRAIT_BADDNA))
+	if(!ishuman(M) || !M.dna || HAS_TRAIT(M, TRAIT_BADDNA) || HAS_TRAIT(M, TRAIT_GENELESS))
 		return
 	M.apply_effect(2 * REAGENTS_EFFECT_MULTIPLIER, IRRADIATE)
 	if(current_cycle == 10 && islist(data))

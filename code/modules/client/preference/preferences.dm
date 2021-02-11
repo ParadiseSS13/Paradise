@@ -867,7 +867,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_BLIND, "Blind")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_DEAF, "Deaf")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_MUTE, "Mute")
-	if(!(NO_OBESITY in S.species_traits))
+	if(!(TRAIT_NOFAT in S.inherent_traits))
 		HTML += ShowDisabilityState(user, DISABILITY_FLAG_FAT, "Obese")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_NERVOUS, "Stutter")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_SWEDISH, "Swedish accent")

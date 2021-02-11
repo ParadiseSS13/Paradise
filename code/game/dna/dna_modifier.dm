@@ -312,10 +312,8 @@
 	if(!occupant)
 		return TRUE
 
-	if(ishuman(occupant))
-		var/mob/living/carbon/human/H = occupant
-		if(NO_DNA in H.dna.species.species_traits)
-			return TRUE
+	if(HAS_TRAIT(occupant, TRAIT_GENELESS))
+		return TRUE
 
 	var/radiation_protection = occupant.run_armor_check(null, "rad")
 	if(radiation_protection > NEGATE_MUTATION_THRESHOLD)
@@ -473,7 +471,7 @@
 		occupantData["name"] = connected.occupant.dna.real_name
 		occupantData["stat"] = connected.occupant.stat
 		occupantData["isViableSubject"] = 1
-		if((HAS_TRAIT(connected.occupant, TRAIT_BADDNA) && connected.scan_level < 3) || !connected.occupant.dna || (NO_DNA in connected.occupant.dna.species.species_traits))
+		if((HAS_TRAIT(connected.occupant, TRAIT_BADDNA) && connected.scan_level < 3) || !connected.occupant.dna || HAS_TRAIT(connected.occupant, TRAIT_GENELESS))
 			occupantData["isViableSubject"] = 0
 		occupantData["health"] = connected.occupant.health
 		occupantData["maxHealth"] = connected.occupant.maxHealth
