@@ -354,7 +354,7 @@
 	. = ..()
 	if(!.)
 		return
-	if(HAS_TRAIT(src, TRAIT_RESISTHEAT))
+	if(HAS_TRAIT(src, TRAIT_NOFIRE))
 		return
 	var/thermal_protection = get_thermal_protection()
 

@@ -151,24 +151,13 @@
 	unarmed_type = /datum/unarmed_attack/claws/armalis
 	blacklisted = TRUE
 
-	warning_low_pressure = 50
-	hazard_low_pressure = 0
-
-	cold_level_1 = 80
-	cold_level_2 = 50
-	cold_level_3 = 0
-
-	heat_level_1 = 2000
-	heat_level_2 = 3000
-	heat_level_3 = 4000
-
 	brute_mod = 0.2
 	burn_mod = 0.2
 
 	eyes = "blank_eyes"
 
 	species_traits = list(NO_CLONESCAN, NO_BLOOD, IS_WHITELISTED)
-	inherent_traits = list(TRAIT_NOPAIN, TRAIT_NOGERMS, TRAIT_NODECAY)
+	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_NOFIRE, TRAIT_NOPAIN, TRAIT_NOGERMS, TRAIT_NODECAY)
 	clothing_flags = 0 //IDK if you've ever seen underwear on an Armalis, but it ain't pretty.
 	bodyflags = HAS_TAIL
 	dies_at_threshold = TRUE
