@@ -70,27 +70,3 @@
 	'sound/hallucinations/growl3.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg', 'sound/hallucinations/i_see_you1.ogg', 'sound/hallucinations/i_see_you2.ogg',\
 	'sound/hallucinations/look_up1.ogg', 'sound/hallucinations/look_up2.ogg', 'sound/hallucinations/over_here1.ogg', 'sound/hallucinations/over_here2.ogg', 'sound/hallucinations/over_here3.ogg',\
 	'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/turn_around2.ogg', 'sound/hallucinations/veryfar_noise.ogg', 'sound/hallucinations/wail.ogg')
-
-/**
-  * Returns the clean name of an audio channel.
-  *
-  * Arguments:
-  * * channel - The channel number.
-  */
-/proc/get_channel_name(channel)
-	. = null
-	switch(channel)
-		if(CHANNEL_LOBBYMUSIC)
-			return "Lobby Music"
-		if(CHANNEL_ADMIN)
-			return "Admin MIDIs"
-		if(CHANNEL_VOX)
-			return "AI Announcements"
-		if(CHANNEL_JUKEBOX)
-			return "Dance Machines"
-		if(CHANNEL_HEARTBEAT)
-			return "Heartbeat"
-		if(CHANNEL_BUZZ)
-			return "White Noise"
-		if(CHANNEL_AMBIENCE)
-			return "Ambience"

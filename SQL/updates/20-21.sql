@@ -1,5 +1,5 @@
 # Updating DB from 20-21
-# Replaces volume (number) column by volume_mixer (text)
+# Replaces volume (number) column by volume_mixer (text) ~dearmochi
 
 # Add column to player
 ALTER TABLE `player` ADD COLUMN `volume_mixer` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL AFTER `volume`;

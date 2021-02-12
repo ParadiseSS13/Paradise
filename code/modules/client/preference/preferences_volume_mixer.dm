@@ -12,7 +12,6 @@
 		temp["[channel]"] = vm[channel]
 	return json_encode(temp)
 
-
 /**
   * Returns a volume mixer list from text, usually from the DB.
   *
