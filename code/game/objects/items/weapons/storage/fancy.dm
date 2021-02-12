@@ -13,12 +13,10 @@
  *		Cigarette Box
  */
 
-/obj/item/storage/fancy/
+/obj/item/storage/fancy
 	icon = 'icons/obj/food/containers.dmi'
-	icon_state = "donutbox6"
-	name = "donut box"
 	resistance_flags = FLAMMABLE
-	var/icon_type = "donut"
+	var/icon_type
 
 /obj/item/storage/fancy/update_icon(var/itemremoved = 0)
 	var/total_contents = src.contents.len - itemremoved
@@ -36,24 +34,40 @@
 		else
 			. += "There are [src.contents.len] [src.icon_type]s in the box."
 
-
-
 /*
  * Donut Box
  */
 
 /obj/item/storage/fancy/donut_box
-	icon_state = "donutbox6"
-	icon_type = "donut"
 	name = "donut box"
+	icon_type = "donut"
+	icon_state = "donutbox_back"
 	storage_slots = 6
 	can_hold = list(/obj/item/reagent_containers/food/snacks/donut)
+	icon_type = "donut"
+	foldable = /obj/item/stack/sheet/cardboard
+	foldable_amt = 1
 
+/obj/item/storage/fancy/donut_box/update_icon()
+	overlays.Cut()
+
+	for(var/i = 1 to length(contents))
+		var/obj/item/reagent_containers/food/snacks/donut/donut = contents[i]
+		var/icon/new_donut_icon = icon('icons/obj/food/containers.dmi', "donut_[donut.donut_sprite_type]")
+		new_donut_icon.Shift(EAST, 3 * (i-1))
+		overlays += new_donut_icon
+
+	overlays += icon('icons/obj/food/containers.dmi', "donutbox_front")
 
 /obj/item/storage/fancy/donut_box/New()
 	..()
-	for(var/i = 1 to storage_slots)
-		new /obj/item/reagent_containers/food/snacks/donut(src)
+	if(!empty)
+		for(var/i = 1 to storage_slots)
+			new /obj/item/reagent_containers/food/snacks/donut(src)
+	update_icon()
+
+/obj/item/storage/fancy/donut_box/empty
+	empty = TRUE
 
 /*
  * Egg Box
@@ -215,18 +229,25 @@
 	//if we get this far, handle the insertion checks as normal
 	.=..()
 
+/obj/item/storage/fancy/cigarettes/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(!length(contents))
+		C.stored_comms["wood"] += 1
+		qdel(src)
+		return TRUE
+	return ..()
+
 /obj/item/storage/fancy/cigarettes/dromedaryco
 	name = "\improper DromedaryCo packet"
 	desc = "A packet of six imported DromedaryCo cancer sticks. A label on the packaging reads, \"Wouldn't a slow death make a change?\""
 	icon_state = "Dpacket"
-	item_state = "cigpacket"
+	item_state = "Dpacket"
 
 
 /obj/item/storage/fancy/cigarettes/syndicate
 	name = "\improper Syndicate Cigarettes"
 	desc = "A packet of six evil-looking cigarettes, A label on the packaging reads, \"Donk Co\""
 	icon_state = "robustpacket"
-	item_state = "cigpacket"
+	item_state = "robustpacket"
 
 /obj/item/storage/fancy/cigarettes/syndicate/New()
 	..()
@@ -237,14 +258,14 @@
 	name = "cigarette packet"
 	desc = "An obscure brand of cigarettes."
 	icon_state = "syndiepacket"
-	item_state = "cigpacket"
+	item_state = "syndiepacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/syndicate
 
 /obj/item/storage/fancy/cigarettes/cigpack_med
 	name = "Medical Marijuana Packet"
 	desc = "A prescription packet containing six marijuana cigarettes."
 	icon_state = "medpacket"
-	item_state = "cigpacket"
+	item_state = "medpacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/medical_marijuana
 
 
@@ -252,46 +273,46 @@
 	name = "\improper Uplift Smooth packet"
 	desc = "Your favorite brand, now menthol flavored."
 	icon_state = "upliftpacket"
-	item_state = "cigpacket"
+	item_state = "upliftpacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/menthol
 
 /obj/item/storage/fancy/cigarettes/cigpack_robust
 	name = "\improper Robust packet"
 	desc = "Smoked by the robust."
 	icon_state = "robustpacket"
-	item_state = "cigpacket"
+	item_state = "robustpacket"
 
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold
 	name = "\improper Robust Gold packet"
 	desc = "Smoked by the truly robust."
 	icon_state = "robustgpacket"
-	item_state = "cigpacket"
+	item_state = "robustgpacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/robustgold
 
 /obj/item/storage/fancy/cigarettes/cigpack_carp
 	name = "\improper Carp Classic packet"
 	desc = "Since 2313."
 	icon_state = "carppacket"
-	item_state = "cigpacket"
+	item_state = "carppacket"
 
 /obj/item/storage/fancy/cigarettes/cigpack_midori
 	name = "\improper Midori Tabako packet"
 	desc = "You can't understand the runes, but the packet smells funny."
 	icon_state = "midoripacket"
-	item_state = "cigpacket"
+	item_state = "midoripacket"
 
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims
 	name ="\improper Shady Jim's Super Slims"
 	desc = "Is your weight slowing you down? Having trouble running away from gravitational singularities? Can't stop stuffing your mouth? Smoke Shady Jim's Super Slims and watch all that fat burn away. Guaranteed results!"
 	icon_state = "shadyjimpacket"
-	item_state = "cigpacket"
+	item_state = "shadyjimpacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/shadyjims
 
 /obj/item/storage/fancy/cigarettes/cigpack_random
 	name ="\improper Embellished Enigma packet"
 	desc = "For the true connoisseur of exotic flavors."
 	icon_state = "shadyjimpacket"
-	item_state = "cigpacket"
+	item_state = "shadyjimpacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/random
 
 /obj/item/storage/fancy/rollingpapers
@@ -300,6 +321,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "cig_paper_pack"
+	item_state = "cig_paper_pack"
 	storage_slots = 10
 	icon_type = "rolling paper"
 	can_hold = list(/obj/item/rollingpaper)
@@ -378,7 +400,7 @@
 	med_bot_skin = "fish"
 
 /obj/item/storage/firstaid/aquatic_kit/full
-	desc = "It's a starter kit for an acquarium; includes 1 tank brush, 1 egg scoop, 1 fish net, and 1 container of fish food."
+	desc = "It's a starter kit for an aquarium; includes 1 tank brush, 1 egg scoop, 1 fish net, 1 container of fish food and 1 fish bag."
 
 /obj/item/storage/firstaid/aquatic_kit/full/New()
 	..()
@@ -386,3 +408,4 @@
 	new /obj/item/fish_net(src)
 	new /obj/item/tank_brush(src)
 	new /obj/item/fishfood(src)
+	new /obj/item/storage/bag/fish(src)

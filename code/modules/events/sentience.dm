@@ -1,16 +1,16 @@
 /datum/event/sentience
 
 /datum/event/sentience/start()
-	processing = FALSE //so it won't fire again in next tick
+	INVOKE_ASYNC(src, .proc/make_sentient_mob)
 
-	var/ghostmsg = "Do you want to awaken as a sentient being?"
-	var/list/candidates = pollCandidates(ghostmsg, ROLE_SENTIENT, 1)
+/datum/event/sentience/proc/make_sentient_mob()
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to awaken as a sentient being?", ROLE_SENTIENT, TRUE)
 	var/list/potential = list()
 	var/sentience_type = SENTIENCE_ORGANIC
 
 	for(var/mob/living/simple_animal/L in GLOB.alive_mob_list)
 		var/turf/T = get_turf(L)
-		if (T.z != 1)
+		if (!is_station_level(T.z))
 			continue
 		if(!(L in GLOB.player_list) && !L.mind && (L.sentience_type == sentience_type))
 			potential += L
@@ -40,8 +40,7 @@
 	SA.health = SA.maxHealth
 	SA.del_on_death = FALSE
 	greet_sentient(SA)
-	print_command_report(sentience_report, "[command_name()] Update")
-	processing = TRUE // Let it naturally end, if it runs successfully
+	print_command_report(sentience_report, "[command_name()] Update", FALSE)
 
 /datum/event/sentience/proc/greet_sentient(var/mob/living/carbon/human/M)
 	to_chat(M, "<span class='userdanger'>Hello world!</span>")

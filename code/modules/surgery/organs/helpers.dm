@@ -66,6 +66,13 @@
 		return TRUE
 	return FALSE
 
+/mob/proc/has_both_hands()
+	return TRUE
+
+/mob/living/carbon/human/has_both_hands()
+	if(has_left_hand() && has_right_hand())
+		return TRUE
+	return FALSE
 
 //Limb numbers
 /mob/proc/get_num_arms()
@@ -104,7 +111,7 @@
 
 /mob/living/carbon/human/get_leg_ignore()
 
-	if(flying == 1)
+	if(flying || floating)
 		return TRUE
 
 	var/obj/item/tank/jetpack/J

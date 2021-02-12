@@ -1,3 +1,5 @@
+#define OCCUPANT_LOGGING occupant ? occupant : "empty mech"
+
 /obj/mecha
 	name = "Mecha"
 	desc = "Exosuit"
@@ -35,8 +37,8 @@
 	var/datum/effect_system/spark_spread/spark_system = new
 	var/lights = 0
 	var/lights_power = 6
-	var/emagged = FALSE
 	var/frozen = FALSE
+	var/repairing = FALSE
 
 	//inner atmos
 	var/use_internal_tank = 0
@@ -60,7 +62,6 @@
 	var/list/equipment = new
 	var/obj/item/mecha_parts/mecha_equipment/selected
 	var/max_equip = 3
-	var/datum/events/events
 	var/turf/crashing = null
 	var/occupant_sight_flags = 0
 
@@ -99,7 +100,6 @@
 
 /obj/mecha/Initialize()
 	. = ..()
-	events = new
 	icon_state += "-open"
 	add_radio()
 	add_cabin()
@@ -156,7 +156,6 @@
 	radio.name = "[src] radio"
 	radio.icon = icon
 	radio.icon_state = icon_state
-	radio.subspace_transmission = 1
 
 /obj/mecha/examine(mob/user)
 	. = ..()
@@ -243,12 +242,6 @@
 //////////////////////////////////
 ////////  Movement procs  ////////
 //////////////////////////////////
-
-/obj/mecha/Move(atom/newLoc, direct)
-	. = ..()
-	if(.)
-		events.fireEvent("onMove",get_turf(src))
-
 /obj/mecha/Process_Spacemove(var/movement_dir = 0)
 	. = ..()
 	if(.)
@@ -328,6 +321,8 @@
 		else
 			occupant.clear_alert("mechaport")
 	if(leg_overload_mode)
+		log_message("Leg Overload damage.")
+		take_damage(1, BRUTE, FALSE, FALSE)
 		if(obj_integrity < max_integrity - max_integrity / 3)
 			leg_overload_mode = FALSE
 			step_in = initial(step_in)
@@ -420,12 +415,7 @@
 				return
 			if(isobj(obstacle))
 				var/obj/O = obstacle
-				if(istype(O, /obj/effect/portal)) //derpfix
-					anchored = 0
-					O.Bumped(src)
-					spawn(0) //countering portal teleport spawn(0), hurr
-						anchored = 1
-				else if(!O.anchored)
+				if(!O.anchored)
 					step(obstacle, dir)
 			else if(ismob(obstacle))
 				step(obstacle, dir)
@@ -499,7 +489,7 @@
 				check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
 			else
 				check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT))
-		if(. >= 5 || prob(33))
+		if((. >= 5 || prob(33)) && !(. == 1 && leg_overload_mode)) //If it takes 1 damage and leg_overload_mode is true, do not say TAKING DAMAGE! to the user several times a second.
 			occupant_message("<span class='userdanger'>Taking damage!</span>")
 		log_message("Took [damage_amount] points of damage. Damage type: [damage_type]")
 
@@ -537,12 +527,13 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 	playsound(loc, 'sound/weapons/tap.ogg', 40, 1, -1)
-	user.visible_message("<span class='danger'>[user] hits [name]. Nothing happens</span>", "<span class='danger'>You hit [name] with no visible effect.</span>")
+	user.visible_message("<span class='notice'>[user] hits [name]. Nothing happens</span>", "<span class='notice'>You hit [name] with no visible effect.</span>")
 	log_message("Attack by hand/paw. Attacker - [user].")
 
 
 /obj/mecha/attack_alien(mob/living/user)
 	log_message("Attack by alien. Attacker - [user].", TRUE)
+	add_attack_logs(user, OCCUPANT_LOGGING, "Alien attacked mech [src]")
 	playsound(src.loc, 'sound/weapons/slash.ogg', 100, TRUE)
 	attack_generic(user, 15, BRUTE, "melee", 0)
 
@@ -560,8 +551,8 @@
 		if(user.obj_damage)
 			animal_damage = user.obj_damage
 		animal_damage = min(animal_damage, 20*user.environment_smash)
-		user.create_attack_log("<font color='red'>attacked [name]</font>")
-		add_attack_logs(user, src, "Attacked")
+		if(animal_damage)
+			add_attack_logs(user, OCCUPANT_LOGGING, "Animal attacked mech [src]")
 		attack_generic(user, animal_damage, user.melee_damage_type, "melee", play_soundeffect)
 		return TRUE
 
@@ -572,7 +563,7 @@
 	. = ..()
 	if(.)
 		log_message("Attack by hulk. Attacker - [user].", 1)
-		add_attack_logs(user, src, "Punched with hulk powers")
+		add_attack_logs(user, OCCUPANT_LOGGING, "Hulk punched mech [src]")
 
 /obj/mecha/blob_act(obj/structure/blob/B)
 	log_message("Attack by blob. Attacker - [B].")
@@ -583,10 +574,14 @@
 
 /obj/mecha/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum) //wrapper
 	log_message("Hit by [AM].")
+	if(isitem(AM))
+		var/obj/item/I = AM
+		add_attack_logs(I.thrownby, OCCUPANT_LOGGING, "threw [AM] at mech [src]")
 	. = ..()
 
 /obj/mecha/bullet_act(obj/item/projectile/Proj) //wrapper
 	log_message("Hit by projectile. Type: [Proj.name]([Proj.flag]).")
+	add_attack_logs(Proj.firer, OCCUPANT_LOGGING, "shot [Proj.name]([Proj.flag]) at mech [src]")
 	..()
 
 /obj/mecha/ex_act(severity, target)
@@ -773,6 +768,8 @@
 			to_chat(user, "<span class='notice'>You stop installing [M].</span>")
 
 	else
+		if(W.force)
+			add_attack_logs(user, OCCUPANT_LOGGING, "attacked mech '[src]' using [W]")
 		return ..()
 
 
@@ -839,7 +836,14 @@
 	if((obj_integrity >= max_integrity) && !internal_damage)
 		to_chat(user, "<span class='notice'>[src] is at full integrity!</span>")
 		return
+	if(repairing)
+		to_chat(user, "<span class='notice'>[src] is currently being repaired!</span>")
+		return
+	if(state == 0) // If maint protocols are not active, the state is zero
+		to_chat(user, "<span class='warning'>[src] can not be repaired without maintenance protocols active!</span>")
+		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
+	repairing = TRUE
 	if(I.use_tool(src, user, 15, volume = I.tool_volume))
 		if(internal_damage & MECHA_INT_TANK_BREACH)
 			clearInternalDamage(MECHA_INT_TANK_BREACH)
@@ -849,13 +853,14 @@
 			obj_integrity += min(10, max_integrity - obj_integrity)
 		else
 			to_chat(user, "<span class='notice'>[src] is at full integrity!</span>")
+	repairing = FALSE
 
 /obj/mecha/mech_melee_attack(obj/mecha/M)
 	if(!has_charge(melee_energy_drain))
 		return 0
 	use_power(melee_energy_drain)
 	if(M.damtype == BRUTE || M.damtype == BURN)
-		add_attack_logs(M.occupant, src, "Mecha-attacked with [M] (INTENT: [uppertext(M.occupant.a_intent)]) (DAMTYPE: [uppertext(M.damtype)])")
+		add_attack_logs(M.occupant, src, "Mecha-attacked with [M] ([uppertext(M.occupant.a_intent)]) ([uppertext(M.damtype)])")
 		. = ..()
 
 /obj/mecha/emag_act(mob/user)
@@ -1119,23 +1124,26 @@
 			occupant << sound(nominalsound, volume = 50)
 		if(state)
 			H.throw_alert("locked", /obj/screen/alert/mech_maintenance)
-		return 1
+		return TRUE
 	else
-		return 0
+		return FALSE
 
 /obj/mecha/proc/mmi_move_inside(var/obj/item/mmi/mmi_as_oc as obj,mob/user as mob)
 	if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
 		to_chat(user, "<span class='warning'>Consciousness matrix not detected!</span>")
-		return 0
+		return FALSE
 	else if(mmi_as_oc.brainmob.stat)
 		to_chat(user, "<span class='warning'>Beta-rhythm below acceptable level!</span>")
-		return 0
+		return FALSE
 	else if(occupant)
 		to_chat(user, "<span class='warning'>Occupant detected!</span>")
-		return 0
+		return FALSE
 	else if(dna && dna != mmi_as_oc.brainmob.dna.unique_enzymes)
 		to_chat(user, "<span class='warning'>Access denied. [name] is secured with a DNA lock.</span>")
-		return 0
+		return FALSE
+	else if(!operation_allowed(user))
+		to_chat(user, "<span class='warning'>Access denied. [name] is secured with an ID lock.</span>")
+		return FALSE
 
 	if(do_after(user, 40, target = src))
 		if(!occupant)
@@ -1144,24 +1152,24 @@
 			to_chat(user, "<span class='warning'>Occupant detected!</span>")
 	else
 		to_chat(user, "<span class='notice'>You stop inserting the MMI.</span>")
-	return 0
+	return FALSE
 
 /obj/mecha/proc/mmi_moved_inside(obj/item/mmi/mmi_as_oc,mob/user)
 	if(mmi_as_oc && (user in range(1)))
 		if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
 			to_chat(user, "Consciousness matrix not detected.")
-			return 0
+			return FALSE
 		else if(mmi_as_oc.brainmob.stat)
 			to_chat(user, "Beta-rhythm below acceptable level.")
-			return 0
+			return FALSE
 		if(!user.unEquip(mmi_as_oc))
 			to_chat(user, "<span class='notice'>\the [mmi_as_oc] is stuck to your hand, you cannot put it in \the [src]</span>")
-			return 0
+			return FALSE
 		var/mob/brainmob = mmi_as_oc.brainmob
 		brainmob.reset_perspective(src)
 		occupant = brainmob
 		brainmob.forceMove(src) //should allow relaymove
-		brainmob.canmove = 1
+		brainmob.canmove = TRUE
 		if(istype(mmi_as_oc, /obj/item/mmi/robotic_brain))
 			var/obj/item/mmi/robotic_brain/R = mmi_as_oc
 			if(R.imprinted_master)
@@ -1176,9 +1184,9 @@
 		if(!hasInternalDamage())
 			to_chat(occupant, sound(nominalsound, volume=50))
 		GrantActions(brainmob)
-		return 1
+		return TRUE
 	else
-		return 0
+		return FALSE
 
 /obj/mecha/proc/pilot_is_mmi()
 	var/atom/movable/mob_container
@@ -1257,6 +1265,13 @@
 	if(L && L.client)
 		L.client.RemoveViewMod("mecha")
 		zoom_mode = FALSE
+
+	if(ishuman(L))
+		var/mob/living/carbon/human/H = L
+		H.regenerate_icons() // workaround for 14457
+
+/obj/mecha/force_eject_occupant(mob/target)
+	go_out()
 
 /////////////////////////
 ////// Access stuff /////
@@ -1528,3 +1543,5 @@
 	if(L.incapacitated())
 		return FALSE
 	return TRUE
+
+#undef OCCUPANT_LOGGING

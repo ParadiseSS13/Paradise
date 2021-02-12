@@ -1,10 +1,10 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "b" = (
 /obj/structure/lattice,
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "c" = (
 /obj/structure/grille,

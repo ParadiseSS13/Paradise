@@ -1,4 +1,4 @@
-proc/GetOppositeDir(var/dir)
+/proc/GetOppositeDir(var/dir)
 	switch(dir)
 		if(NORTH)     return SOUTH
 		if(SOUTH)     return NORTH
@@ -10,7 +10,7 @@ proc/GetOppositeDir(var/dir)
 		if(SOUTHEAST) return NORTHWEST
 	return 0
 
-proc/random_underwear(gender, species = "Human")
+/proc/random_underwear(gender, species = "Human")
 	var/list/pick_list = list()
 	switch(gender)
 		if(MALE)	pick_list = GLOB.underwear_m
@@ -18,7 +18,7 @@ proc/random_underwear(gender, species = "Human")
 		else		pick_list = GLOB.underwear_list
 	return pick_species_allowed_underwear(pick_list, species)
 
-proc/random_undershirt(gender, species = "Human")
+/proc/random_undershirt(gender, species = "Human")
 	var/list/pick_list = list()
 	switch(gender)
 		if(MALE)	pick_list = GLOB.undershirt_m
@@ -26,7 +26,7 @@ proc/random_undershirt(gender, species = "Human")
 		else		pick_list = GLOB.undershirt_list
 	return pick_species_allowed_underwear(pick_list, species)
 
-proc/random_socks(gender, species = "Human")
+/proc/random_socks(gender, species = "Human")
 	var/list/pick_list = list()
 	switch(gender)
 		if(MALE)	pick_list = GLOB.socks_m
@@ -34,7 +34,7 @@ proc/random_socks(gender, species = "Human")
 		else		pick_list = GLOB.socks_list
 	return pick_species_allowed_underwear(pick_list, species)
 
-proc/pick_species_allowed_underwear(list/all_picks, species)
+/proc/pick_species_allowed_underwear(list/all_picks, species)
 	var/list/valid_picks = list()
 	for(var/test in all_picks)
 		var/datum/sprite_accessory/S = all_picks[test]
@@ -46,7 +46,7 @@ proc/pick_species_allowed_underwear(list/all_picks, species)
 
 	return pick(valid_picks)
 
-proc/random_hair_style(var/gender, species = "Human", var/datum/robolimb/robohead)
+/proc/random_hair_style(var/gender, species = "Human", var/datum/robolimb/robohead)
 	var/h_style = "Bald"
 	var/list/valid_hairstyles = list()
 	for(var/hairstyle in GLOB.hair_styles_public_list)
@@ -75,7 +75,7 @@ proc/random_hair_style(var/gender, species = "Human", var/datum/robolimb/robohea
 
 	return h_style
 
-proc/random_facial_hair_style(var/gender, species = "Human", var/datum/robolimb/robohead)
+/proc/random_facial_hair_style(var/gender, species = "Human", var/datum/robolimb/robohead)
 	var/f_style = "Shaved"
 	var/list/valid_facial_hairstyles = list()
 	for(var/facialhairstyle in GLOB.facial_hair_styles_list)
@@ -104,7 +104,7 @@ proc/random_facial_hair_style(var/gender, species = "Human", var/datum/robolimb/
 
 	return f_style
 
-proc/random_head_accessory(species = "Human")
+/proc/random_head_accessory(species = "Human")
 	var/ha_style = "None"
 	var/list/valid_head_accessories = list()
 	for(var/head_accessory in GLOB.head_accessory_styles_list)
@@ -119,7 +119,7 @@ proc/random_head_accessory(species = "Human")
 
 	return ha_style
 
-proc/random_marking_style(var/location = "body", species = "Human", var/datum/robolimb/robohead, var/body_accessory, var/alt_head)
+/proc/random_marking_style(var/location = "body", species = "Human", var/datum/robolimb/robohead, var/body_accessory, var/alt_head)
 	var/m_style = "None"
 	var/list/valid_markings = list()
 	for(var/marking in GLOB.marking_styles_list)
@@ -158,7 +158,7 @@ proc/random_marking_style(var/location = "body", species = "Human", var/datum/ro
 
 	return m_style
 
-proc/random_body_accessory(species = "Vulpkanin")
+/proc/random_body_accessory(species = "Vulpkanin")
 	var/body_accessory = null
 	var/list/valid_body_accessories = list()
 	for(var/B in GLOB.body_accessory_by_name)
@@ -174,7 +174,7 @@ proc/random_body_accessory(species = "Vulpkanin")
 
 	return body_accessory
 
-proc/random_name(gender, species = "Human")
+/proc/random_name(gender, species = "Human")
 
 	var/datum/species/current_species
 	if(species)
@@ -188,7 +188,7 @@ proc/random_name(gender, species = "Human")
 	else
 		return current_species.get_random_name(gender)
 
-proc/random_skin_tone(species = "Human")
+/proc/random_skin_tone(species = "Human")
 	if(species == "Human" || species == "Drask")
 		switch(pick(60;"caucasian", 15;"afroamerican", 10;"african", 10;"latino", 5;"albino"))
 			if("caucasian")		. = -10
@@ -202,7 +202,7 @@ proc/random_skin_tone(species = "Human")
 		. = rand(1, 6)
 		return .
 
-proc/skintone2racedescription(tone, species = "Human")
+/proc/skintone2racedescription(tone, species = "Human")
 	if(species == "Human")
 		switch(tone)
 			if(30 to INFINITY)		return "albino"
@@ -225,7 +225,7 @@ proc/skintone2racedescription(tone, species = "Human")
 	else
 		return "unknown"
 
-proc/age2agedescription(age)
+/proc/age2agedescription(age)
 	switch(age)
 		if(0 to 1)			return "infant"
 		if(1 to 3)			return "toddler"
@@ -238,36 +238,37 @@ proc/age2agedescription(age)
 		if(70 to INFINITY)	return "elderly"
 		else				return "unknown"
 
-/proc/set_criminal_status(mob/living/user, datum/data/record/target_records , criminal_status, comment, user_rank, list/authcard_access = list())
+/proc/set_criminal_status(mob/living/user, datum/data/record/target_records , criminal_status, comment, user_rank, list/authcard_access = list(), user_name)
 	var/status = criminal_status
 	var/their_name = target_records.fields["name"]
 	var/their_rank = target_records.fields["rank"]
 	switch(criminal_status)
-		if("arrest")
+		if("arrest", SEC_RECORD_STATUS_ARREST)
 			status = SEC_RECORD_STATUS_ARREST
-		if("none")
+		if("none", SEC_RECORD_STATUS_NONE)
 			status = SEC_RECORD_STATUS_NONE
-		if("execute")
+		if("execute", SEC_RECORD_STATUS_EXECUTE)
 			if((ACCESS_MAGISTRATE in authcard_access) || (ACCESS_ARMORY in authcard_access))
 				status = SEC_RECORD_STATUS_EXECUTE
 				message_admins("[ADMIN_FULLMONTY(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]")
 			else
 				return 0
-		if("search")
+		if("search", SEC_RECORD_STATUS_SEARCH)
 			status = SEC_RECORD_STATUS_SEARCH
-		if("monitor")
+		if("monitor", SEC_RECORD_STATUS_MONITOR)
 			status = SEC_RECORD_STATUS_MONITOR
-		if ("demote")
+		if("demote", SEC_RECORD_STATUS_DEMOTE)
+			message_admins("[ADMIN_FULLMONTY(usr)] set criminal status to <span class='warning'>DEMOTE</span> for [their_rank] [their_name], with comment: [comment]")
 			status = SEC_RECORD_STATUS_DEMOTE
-		if("incarcerated")
+		if("incarcerated", SEC_RECORD_STATUS_INCARCERATED)
 			status = SEC_RECORD_STATUS_INCARCERATED
-		if("parolled")
+		if("parolled", SEC_RECORD_STATUS_PAROLLED)
 			status = SEC_RECORD_STATUS_PAROLLED
-		if("released")
+		if("released", SEC_RECORD_STATUS_RELEASED)
 			status = SEC_RECORD_STATUS_RELEASED
 	target_records.fields["criminal"] = status
 	log_admin("[key_name_admin(user)] set secstatus of [their_rank] [their_name] to [status], comment: [comment]")
-	target_records.fields["comments"] += "Set to [status] by [user.name] ([user_rank]) on [GLOB.current_date_string] [station_time_timestamp()], comment: [comment]"
+	target_records.fields["comments"] += "Set to [status] by [user_name || user.name] ([user_rank]) on [GLOB.current_date_string] [station_time_timestamp()], comment: [comment]"
 	update_all_mob_security_hud()
 	return 1
 
@@ -289,11 +290,14 @@ This is always put in the attack log.
 
 	var/user_str = key_name_log(user) + COORD(user)
 	var/target_str
+	var/target_info
 	if(isatom(target))
 		var/atom/AT = target
 		target_str = key_name_log(AT) + COORD(AT)
+		target_info = key_name_admin(target)
 	else
 		target_str = target
+		target_info = target
 	var/mob/MU = user
 	var/mob/MT = target
 	if(istype(MU))
@@ -317,10 +321,13 @@ This is always put in the attack log.
 			var/area/A = get_area(MT)
 			if(A && A.hide_attacklogs)
 				loglevel = ATKLOG_ALMOSTALL
+	else
+		loglevel = ATKLOG_ALL // Hitting an object. Not a mob
 	if(isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE. Overrides custom level
 		loglevel = ATKLOG_FEW
 
-	msg_admin_attack("[key_name_admin(user)] vs [key_name_admin(target)]: [what_done]", loglevel)
+
+	msg_admin_attack("[key_name_admin(user)] vs [target_info]: [what_done]", loglevel)
 
 /proc/do_mob(mob/user, mob/target, time = 30, uninterruptible = 0, progress = 1, list/extra_checks = list())
 	if(!user || !target)
@@ -535,7 +542,7 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 	to_chat(user, "Name = <b>[M.name]</b>; Real_name = [M.real_name]; Mind_name = [M.mind?"[M.mind.name]":""]; Key = <b>[M.key]</b>;")
 	to_chat(user, "Location = [location_description];")
 	to_chat(user, "[special_role_description]")
-	to_chat(user, "(<a href='?src=[usr.UID()];priv_msg=[M.client ? M.client.UID(): null]'>PM</a>) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([ADMIN_FLW(M,"FLW")])")
+	to_chat(user, "(<a href='?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</a>) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([ADMIN_FLW(M,"FLW")])")
 
 // Gets the first mob contained in an atom, and warns the user if there's not exactly one
 /proc/get_mob_in_atom_with_warning(atom/A, mob/user = usr)
@@ -579,7 +586,8 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 	LogMouseMacro(".mouse", params)
 
 /proc/update_all_mob_security_hud()
-	for(var/mob/living/carbon/human/H in GLOB.mob_list)
+	for(var/thing in GLOB.human_list)
+		var/mob/living/carbon/human/H = thing
 		H.sec_hud_set_security_status()
 
 /proc/getviewsize(view)
@@ -616,3 +624,34 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 		chosen = pick(mob_spawn_meancritters)
 	var/mob/living/simple_animal/C = new chosen(spawn_location)
 	return C
+
+//determines the job of a mob, taking into account job transfers
+/proc/determine_role(mob/living/P)
+	var/datum/mind/M = P.mind
+	if(!M)
+		return
+	return M.playtime_role ? M.playtime_role : M.assigned_role	//returns current role
+
+/**	checks the security force on station and returns a list of numbers, of the form:
+ * 	total, active, dead, antag
+ * 	where active is defined as conscious (STAT = 0) and not an antag
+*/
+/proc/check_active_security_force()
+	var/sec_positions = GLOB.security_positions - "Magistrate" - "Brig Physician"
+	var/total = 0
+	var/active = 0
+	var/dead = 0
+	var/antag = 0
+	for(var/p in GLOB.human_list)	//contains only human mobs, so no type check needed
+		var/mob/living/carbon/human/player = p	//need to tell it what type it is or we can't access stat without the dreaded :
+		if(determine_role(player) in sec_positions)
+			total++
+			if(player.stat == DEAD)
+				dead++
+				continue
+			if(isAntag(player))
+				antag++
+				continue
+			if(player.stat == CONSCIOUS)
+				active++
+	return list(total, active, dead, antag)

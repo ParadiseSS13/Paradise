@@ -8,14 +8,15 @@ export const UI_CLOSE = -1;
 export const COLORS = {
   // Department colors
   department: {
-    captain: '#c06616',
-    security: '#e74c3c',
-    medbay: '#3498db',
-    science: '#9b59b6',
-    engineering: '#f1c40f',
-    cargo: '#f39c12',
-    centcom: '#00c100',
-    other: '#c38312',
+    command: '#526aff',
+    security: '#CF0000',
+    medical: '#009190',
+    science: '#993399',
+    engineering: '#A66300',
+    supply: '#9F8545',
+    service: '#80A000',
+    centcom: '#78789B',
+    other: '#C38312',
   },
   // Damage type colors
   damageType: {
@@ -55,6 +56,11 @@ export const RADIO_CHANNELS = [
     color: '#a52a2a',
   },
   {
+    name: 'SyndTeam',
+    freq: 1244,
+    color: '#a52a2a',
+  },
+  {
     name: 'Red Team',
     freq: 1215,
     color: '#ff4444',
@@ -65,8 +71,13 @@ export const RADIO_CHANNELS = [
     color: '#3434fd',
   },
   {
-    name: 'CentCom',
-    freq: 1337,
+    name: 'Response Team',
+    freq: 1345,
+    color: '#2681a5',
+  },
+  {
+    name: 'Special Ops',
+    freq: 1341,
     color: '#2681a5',
   },
   {
@@ -90,8 +101,18 @@ export const RADIO_CHANNELS = [
     color: '#5177ff',
   },
   {
+    name: 'Procedure',
+    freq: 1339,
+    color: '#F70285',
+  },
+  {
     name: 'Medical',
     freq: 1355,
+    color: '#57b8f0',
+  },
+  {
+    name: 'Medical(I)',
+    freq: 1485,
     color: '#57b8f0',
   },
   {
@@ -105,8 +126,13 @@ export const RADIO_CHANNELS = [
     color: '#dd3535',
   },
   {
+    name: 'Security(I)',
+    freq: 1475,
+    color: '#dd3535',
+  },
+  {
     name: 'AI Private',
-    freq: 1447,
+    freq: 1343,
     color: '#d65d95',
   },
   {
@@ -201,6 +227,12 @@ const GASES = [
     'label': 'H₂',
     'color': 'white',
   },
+  {
+    'id': 'ab',
+    'name': 'Agent B',
+    'label': 'Agent B',
+    'color': 'purple',
+  },  
 ];
 
 export const getGasLabel = (gasId, fallbackValue) => {
@@ -217,4 +249,28 @@ export const getGasColor = gasId => {
   const gas = GASES.find(gas => gas.id === gasSearchString
     || gas.name.toLowerCase() === gasSearchString);
   return gas && gas.color;
+};
+
+export const timeAgo = (ref_time, now_time) => {
+  if (ref_time > now_time) {
+    return "in the future";
+  }
+
+  // deciseconds -> seconds
+  ref_time = ref_time / 10;
+  now_time = now_time / 10;
+
+  const diff = now_time - ref_time;
+  if (diff > 3600) {
+    const hours = Math.round(diff / 3600);
+    return hours + " hour" + (hours === 1 ? "" : "s") + " ago";
+  } else if (diff > 60) {
+    const mins = Math.round(diff / 60);
+    return mins + " minute" + (mins === 1 ? "" : "s") + " ago";
+  } else {
+    const secs = Math.round(diff);
+    return secs + " second" + (secs === 1 ? "" : "s") + " ago";
+  }
+
+  return "just now";
 };

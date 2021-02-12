@@ -3,6 +3,7 @@
 
 #ifdef UNIT_TESTS
 #include "component_tests.dm"
+#include "map_templates.dm"
 #include "reagent_id_typos.dm"
 #include "spawn_humans.dm"
 #include "sql.dm"

@@ -14,21 +14,26 @@
 	damage_deflection = 10
 	var/closingLayer = CLOSED_DOOR_LAYER
 	var/visible = 1
+	/// Is it currently in the process of opening or closing.
 	var/operating = FALSE
 	var/autoclose = 0
-	var/safe = TRUE //whether the door detects things and mobs in its way and reopen or crushes them.
-	var/locked = FALSE //whether the door is bolted or not.
+	/// Whether the door detects things and mobs in its way and reopen or crushes them.
+	var/safe = TRUE
+	// Whether the door is bolted or not.
+	var/locked = FALSE
 	var/glass = FALSE
 	var/welded = FALSE
-	var/normalspeed = 1
+	var/normalspeed = TRUE
 	var/auto_close_time = 150
 	var/auto_close_time_dangerous = 15
-	var/assemblytype //the type of door frame to drop during deconstruction
+	/// The type of door frame to drop during deconstruction
+	var/assemblytype
 	var/datum/effect_system/spark_spread/spark_system
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/heat_proof = FALSE // For rglass-windowed airlocks and firedoors
 	var/emergency = FALSE
-	var/unres_sides = 0 //Unrestricted sides. A bitflag for which direction (if any) can open the door with no access
+	/// Unrestricted sides. A bitflag for which direction (if any) can open the door with no access.
+	var/unres_sides = 0
 	//Multi-tile doors
 	var/width = 1
 
@@ -234,12 +239,6 @@
 		emagged = 1
 		return 1
 
-/obj/machinery/door/emp_act(severity)
-	if(prob(20/severity) && (istype(src,/obj/machinery/door/airlock) || istype(src,/obj/machinery/door/window)) )
-		spawn(0)
-			open()
-	..()
-
 /obj/machinery/door/update_icon()
 	if(density)
 		icon_state = "door1"
@@ -306,7 +305,7 @@
 	update_icon()
 	if(visible && !glass)
 		set_opacity(1)
-	operating = 0
+	operating = FALSE
 	air_update_turf(1)
 	update_freelook_sight()
 	if(safe)
@@ -384,3 +383,7 @@
 
 /obj/machinery/door/GetExplosionBlock()
 	return density ? real_explosion_block : 0
+
+/obj/machinery/door/zap_act(power, zap_flags)
+	zap_flags &= ~ZAP_OBJ_DAMAGE
+	. = ..()

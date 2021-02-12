@@ -47,6 +47,7 @@
 	name = "Safecode hint spawner"
 
 /obj/effect/landmark/sc_bible_spawner/New()
+	. = ..()
 	var/obj/item/storage/bible/B = new /obj/item/storage/bible/booze(src.loc)
 	B.name = "The Holy book of the Geometer"
 	B.deity_name = "Narsie"
@@ -60,7 +61,7 @@
  * Guns - I'm making these specifically so that I dont spawn a pile of fully loaded weapons on the map.
  */
 //Captain's retro laser - Fires practice laser shots instead.
-obj/item/gun/energy/laser/retro/sc_retro
+/obj/item/gun/energy/laser/retro/sc_retro
 	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's security or military forces."
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/practice)
 	clumsy_check = 0 //No sense in having a harmless gun blow up in the clowns face

@@ -149,10 +149,12 @@ Gunshots/explosions/opening doors/less rare audio (done)
 /obj/effect/hallucination/fake_flood/process()
 	if(!target)
 		qdel(src)
+		return
 	if(next_expand <= world.time)
 		radius++
 		if(radius > FAKE_FLOOD_MAX_RADIUS)
 			qdel(src)
+			return
 		Expand()
 		if((get_turf(target) in flood_turfs) && !target.internal)
 			target.hallucinate("fake_alert", "too_much_tox")
@@ -198,6 +200,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	var/obj/effect/hallucination/simple/xeno/xeno = null
 
 /obj/effect/hallucination/xeno_attack/New(loc, mob/living/carbon/T)
+	. = ..()
 	target = T
 	for(var/obj/machinery/atmospherics/unary/vent_pump/U in orange(7,target))
 		if(!U.welded)
@@ -338,6 +341,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	var/obj/effect/hallucination/simple/singularity/s = null
 
 /obj/effect/hallucination/singularity_scare/New(loc, mob/living/carbon/T)
+	. = ..()
 	target = T
 	var/turf/start = get_turf(T)
 	var/screen_border = pick(GLOB.cardinal)
@@ -368,6 +372,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 /obj/effect/hallucination/battle
 
 /obj/effect/hallucination/battle/New(loc, mob/living/carbon/T)
+	. = ..()
 	target = T
 	var/hits = rand(2,5)
 	switch(rand(1,5))
@@ -457,11 +462,13 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	var/list/image/delusions = list()
 
 /obj/effect/hallucination/delusion/New(loc, mob/living/carbon/T, force_kind = null, duration = 300,skip_nearby = 1, custom_icon = null, custom_icon_file = null)
+	. = ..()
 	target = T
 	var/image/A = null
 	var/kind = force_kind ? force_kind : pick("clown", "corgi", "carp", "skeleton", "demon","zombie")
-	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
-		if(H == target)
+	for(var/thing in GLOB.human_list)
+		var/mob/living/carbon/human/H = thing
+		if(H.stat == DEAD || H == target)
 			continue
 		if(skip_nearby && (H in view(target)))
 			continue
@@ -539,7 +546,8 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	var/mob/living/carbon/human/clone = null
 	var/clone_weapon = null
 
-	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
+	for(var/thing in GLOB.human_list)
+		var/mob/living/carbon/human/H = thing
 		if(H.stat || H.lying)
 			continue
 		clone = H
@@ -697,12 +705,13 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 	/obj/item/hand_tele, /obj/item/rcd, /obj/item/tank/jetpack,\
 	/obj/item/clothing/under/rank/captain, /obj/item/aicard,\
 	/obj/item/clothing/shoes/magboots, /obj/item/areaeditor/blueprints, /obj/item/disk/nuclear,\
-	/obj/item/clothing/suit/space/nasavoid, /obj/item/tank))
+	/obj/item/clothing/suit/space/nasavoid, /obj/item/tank/internals))
 
 /obj/effect/hallucination/bolts
 	var/list/doors = list()
 
 /obj/effect/hallucination/bolts/New(loc, mob/living/carbon/T, door_number = -1) //-1 for sever 1-2 for subtle
+	. = ..()
 	target = T
 	var/image/I = null
 	var/count = 0
@@ -727,6 +736,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 /obj/effect/hallucination/whispers
 
 /obj/effect/hallucination/whispers/New(loc,var/mob/living/carbon/T)
+	. = ..()
 	target = T
 	var/speak_messages = list("I'm watching you...","[target.name]!","Get out!","Kchck-Chkck? Kchchck!","Did you hear that?","What did you do ?","Why?","Give me that!","Honk!","HELP!!", "EI NATH!!", "RUN!!", "Kill me!","O bidai nabora se'sma!")
 	var/radio_messages = list("Xenos!","Singularity loose!","Comms down!","They are arming the nuke!","They butchered Ian!","H-help!","[pick("Cult", "Wizard", "Ling", "Ops", "Revenant", "Murderer", "Harm", "I hear flashing", "Help")] in [pick(GLOB.teleportlocs)][prob(50)?"!":"!!"]","Where's [target.name]?","Call the shuttle!","AI rogue!!")
@@ -751,8 +761,10 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 			target.client.images.Remove(speech_overlay)
 	else // Radio talk
 		var/list/humans = list()
-		for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
-			humans += H
+		for(var/thing in GLOB.human_list)
+			var/mob/living/carbon/human/H = thing
+			if(H.stat != DEAD)
+				humans += H
 		person = pick(humans)
 		target.hear_radio(message_to_multilingual(pick(radio_messages), pick(person.languages)), speaker = person, part_a = "<span class='[SSradio.frequency_span_class(PUB_FREQ)]'><b>\[[get_frequency_name(PUB_FREQ)]\]</b> <span class='name'>", part_b = "</span> <span class='message'>")
 	qdel(src)
@@ -760,6 +772,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 /obj/effect/hallucination/message
 
 /obj/effect/hallucination/message/New(loc,var/mob/living/carbon/T)
+	. = ..()
 	target = T
 	var/chosen = pick("<span class='userdanger'>The light burns you!</span>",
 		"<span class='danger'>You don't feel like yourself.</span>",

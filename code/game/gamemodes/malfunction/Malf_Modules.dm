@@ -83,6 +83,36 @@
 	else
 		add_ranged_ability(user, enable_text)
 
+/datum/action/innate/ai/choose_modules
+	name = "Choose Modules"
+	desc = "Spend your processing time to gain a variety of different abilities."
+	button_icon_state = "choose_module"
+	auto_use_uses = FALSE // This is an infinite ability.
+
+/datum/action/innate/ai/choose_modules/Grant(mob/living/L)
+	. = ..()
+	owner_AI.malf_picker = new /datum/module_picker
+
+/datum/action/innate/ai/choose_modules/Trigger()
+	. = ..()
+	owner_AI.malf_picker.use(owner_AI)
+
+/datum/action/innate/ai/return_to_core
+	name = "Return to Main Core"
+	desc = "Leave the APC you are shunted to, and return to your core."
+	icon_icon = 'icons/obj/power.dmi'
+	button_icon_state = "apcemag"
+	auto_use_uses = FALSE // Here just to prevent the "You have X uses remaining" from popping up.
+
+/datum/action/innate/ai/return_to_core/Trigger()
+	. = ..()
+	var/obj/machinery/power/apc/apc = owner_AI.loc
+	if(!istype(apc)) // This shouldn't happen but here for safety.
+		to_chat(src, "<span class='notice'>You are already in your Main Core.</span>")
+		return
+	apc.malfvacate()
+	qdel(src)
+
 //The datum and interface for the malf unlock menu, which lets them choose actions to unlock.
 /datum/module_picker
 	var/temp
@@ -96,13 +126,7 @@
 		if((AM.power_type && AM.power_type != /datum/action/innate/ai) || AM.upgrade)
 			possible_modules += AM
 
-/datum/module_picker/proc/remove_malf_verbs(mob/living/silicon/ai/AI) //Removes all malfunction-related abilities from the target AI.
-	for(var/datum/AI_Module/AM in possible_modules)
-		for(var/datum/action/A in AI.actions)
-			if(istype(A, initial(AM.power_type)))
-				qdel(A)
-
-/datum/module_picker/proc/use(user as mob)
+/datum/module_picker/proc/use(mob/user)
 	var/dat
 	dat += {"<B>Select use of processing time: (currently #[processing_time] left.)</B><BR>
 			<HR>
@@ -344,18 +368,8 @@
 	uses = 1
 
 /datum/action/innate/ai/lockdown/Activate()
-	for(var/obj/machinery/door/D in GLOB.airlocks)
-		if(!is_station_level(D.z))
-			continue
-		INVOKE_ASYNC(D, /obj/machinery/door.proc/hostile_lockdown, owner)
-		addtimer(CALLBACK(D, /obj/machinery/door.proc/disable_lockdown), 900)
-
-	post_status("alert", "lockdown")
-
-	GLOB.minor_announcement.Announce("Hostile runtime detected in door controllers. Isolation lockdown protocols are now in effect. Please remain calm.", "Network Alert")
 	to_chat(owner, "<span class='warning'>Lockdown Initiated. Network reset in 90 seconds.</span>")
-	spawn(900)
-		GLOB.minor_announcement.Announce("Automatic system reboot complete. Have a secure day.","Network reset:")
+	new /datum/event/door_runtime()
 
 //Destroy RCDs: Detonates all non-cyborg RCDs on the station.
 /datum/AI_Module/large/destroy_rcd
@@ -592,7 +606,7 @@
 		active = FALSE
 		return
 	var/turf/T = get_turf(owner_AI.eyeobj)
-	new /obj/machinery/transformer/conveyor(T)
+	new /obj/machinery/transformer(T, owner_AI)
 	playsound(T, 'sound/effects/phasein.ogg', 100, 1)
 	owner_AI.can_shunt = FALSE
 	to_chat(owner, "<span class='warning'>You are no longer able to shunt your core to APCs.</span>")
@@ -653,9 +667,9 @@
 
 /datum/action/innate/ai/blackout/Activate()
 	for(var/thing in GLOB.apcs)
-		var/obj/machinery/power/apc/apc
+		var/obj/machinery/power/apc/apc = thing
 		if(prob(30 * apc.overload))
-			apc.overload_lighting()
+			INVOKE_ASYNC(apc, /obj/machinery/power/apc.proc/overload_lighting)
 		else
 			apc.overload++
 	to_chat(owner, "<span class='notice'>Overcurrent applied to the powernet.</span>")
@@ -756,4 +770,18 @@
 /datum/AI_Module/large/eavesdrop/upgrade(mob/living/silicon/ai/AI)
 	if(AI.eyeobj)
 		AI.eyeobj.relay_speech = TRUE
+
+/datum/AI_Module/large/cameracrack
+	module_name = "Core Camera Cracker"
+	mod_pick_name = "cameracrack"
+	description = "By shortcirucuting the camera network chip, it overheats, preventing the camera console from using your internal camera."
+	cost = 10
+	one_purchase = TRUE
+	upgrade = TRUE
+	unlock_text = "<span class='notice'>Network chip short circuited. Internal camera disconected from network. Minimal damage to other internal components.</span>"
+	unlock_sound = 'sound/items/wirecutter.ogg'
+
+/datum/AI_Module/large/cameracrack/upgrade(mob/living/silicon/ai/AI)
+	if(AI.builtInCamera)
+		QDEL_NULL(AI.builtInCamera)
 

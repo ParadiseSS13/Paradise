@@ -180,7 +180,7 @@ SUBSYSTEM_DEF(vote)
 
 
 	if(restart)
-		world.Reboot("Restart vote successful.", "end_error", "restart vote")
+		SSticker.reboot_helper("Restart vote successful.", "restart vote")
 
 	return .
 
@@ -367,7 +367,7 @@ SUBSYSTEM_DEF(vote)
 				var/votedesc = capitalize(mode)
 				if(mode == "custom")
 					votedesc += " ([question])"
-				admin_log_and_message_admins("cancelled the running [votedesc] vote.")
+				log_and_message_admins("cancelled the running [votedesc] vote.")
 				reset()
 		if("toggle_restart")
 			if(admin)

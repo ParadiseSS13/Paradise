@@ -69,7 +69,8 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 // Randomly pick a symptom to activate.
 /datum/disease/advance/stage_act()
-	..()
+	if(!..())
+		return FALSE
 	if(symptoms && symptoms.len)
 
 		if(!processing)
@@ -81,6 +82,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 			S.Activate(src)
 	else
 		CRASH("We do not have any symptoms during stage_act()!")
+	return TRUE
 
 // Compares type then ID.
 /datum/disease/advance/IsSame(datum/disease/advance/D)
@@ -395,8 +397,9 @@ GLOBAL_LIST_INIT(advance_cures, list(
 		for(var/datum/disease/advance/AD in GLOB.active_diseases)
 			AD.Refresh()
 
-		for(var/mob/living/carbon/human/H in shuffle(GLOB.alive_mob_list))
-			if(!is_station_level(H.z))
+		for(var/thing in shuffle(GLOB.human_list))
+			var/mob/living/carbon/human/H = thing
+			if(H.stat == DEAD || !is_station_level(H.z))
 				continue
 			if(!H.HasDisease(D))
 				H.ForceContractDisease(D)

@@ -1,19 +1,15 @@
 /datum/spellbook_entry
 	var/name = "Entry Name"
-
+	var/is_ragin_restricted = FALSE // FALSE if this is buyable on ragin mages, TRUE if it's not.
 	var/spell_type = null
 	var/desc = ""
 	var/category = "Offensive"
 	var/log_name = "XX" //What it shows up as in logs
 	var/cost = 2
 	var/refundable = TRUE
-	var/surplus = -1 // -1 for infinite, not used by anything atm
 	var/obj/effect/proc_holder/spell/S = null //Since spellbooks can be used by only one person anyway we can track the actual spell
 	var/buy_word = "Learn"
 	var/limit //used to prevent a spellbook_entry from being bought more than X times with one wizard spellbook
-
-/datum/spellbook_entry/proc/IsSpellAvailable() // For config prefs / gamemode restrictions - these are round applied
-	return TRUE
 
 /datum/spellbook_entry/proc/CanBuy(mob/living/carbon/human/user, obj/item/spellbook/book) // Specific circumstances
 	if(book.uses < cost || limit == 0)
@@ -55,7 +51,7 @@
 					to_chat(user, "<span class='notice'>This spell cannot be strengthened any further.</span>")
 				return TRUE
 	//No same spell found - just learn it
-	feedback_add_details("wizard_spell_learned", log_name)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, log_name)
 	user.mind.AddSpell(newspell)
 	to_chat(user, "<span class='notice'>You have learned [newspell.name].</span>")
 	return TRUE
@@ -84,7 +80,7 @@
 			user.mind.spell_list.Remove(aspell)
 			qdel(aspell)
 			if(S) //If we created a temporary spell above, delete it now.
-				qdel(S)
+				QDEL_NULL(S)
 			return cost * (spell_levels + 1)
 	return -1
 
@@ -136,7 +132,7 @@
 
 /datum/spellbook_entry/horseman
 	name = "Curse of the Horseman"
-	spell_type = /obj/effect/proc_holder/spell/targeted/horsemask
+	spell_type = /obj/effect/proc_holder/spell/targeted/click/horsemask
 	log_name = "HH"
 	category = "Offensive"
 
@@ -148,7 +144,7 @@
 
 /datum/spellbook_entry/fireball
 	name = "Fireball"
-	spell_type = /obj/effect/proc_holder/spell/fireball
+	spell_type = /obj/effect/proc_holder/spell/targeted/click/fireball
 	log_name = "FB"
 	category = "Offensive"
 
@@ -175,7 +171,6 @@
 	spell_type = /obj/effect/proc_holder/spell/targeted/infinite_guns
 	log_name = "IG"
 	category = "Offensive"
-	cost = 4
 
 //Defensive
 /datum/spellbook_entry/disabletech
@@ -218,12 +213,7 @@
 	spell_type = /obj/effect/proc_holder/spell/targeted/lichdom
 	log_name = "LD"
 	category = "Defensive"
-
-/datum/spellbook_entry/lichdom/IsSpellAvailable()
-	if(SSticker.mode.name == "ragin' mages")
-		return FALSE
-	else
-		return TRUE
+	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/magicm
 	name = "Magic Missile"
@@ -266,7 +256,7 @@
 
 /datum/spellbook_entry/mindswap
 	name = "Mindswap"
-	spell_type = /obj/effect/proc_holder/spell/targeted/mind_transfer
+	spell_type = /obj/effect/proc_holder/spell/targeted/click/mind_transfer
 	log_name = "MT"
 	category = "Mobility"
 
@@ -325,14 +315,7 @@
 	desc = "Spook the crew out by making them see dead people. Be warned, ghosts are capricious and occasionally vindicative, and some will use their incredibly minor abilities to frustrate you."
 	cost = 0
 	log_name = "SGH"
-
-/datum/spellbook_entry/summon/ghosts/IsSpellAvailable()
-	if(!SSticker.mode) // In case spellbook is placed on map
-		return FALSE
-	if(SSticker.mode.name == "ragin' mages")
-		return FALSE
-	else
-		return TRUE
+	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/summon/ghosts/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	new /datum/event/wizard/ghost()
@@ -345,17 +328,10 @@
 	name = "Summon Guns"
 	desc = "Nothing could possibly go wrong with arming a crew of lunatics just itching for an excuse to kill you. There is a good chance that they will shoot each other first."
 	log_name = "SG"
-
-/datum/spellbook_entry/summon/guns/IsSpellAvailable()
-	if(!SSticker.mode) // In case spellbook is placed on map
-		return FALSE
-	if(SSticker.mode.name == "ragin' mages")
-		return FALSE
-	else
-		return TRUE
+	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/summon/guns/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
-	feedback_add_details("wizard_spell_learned", log_name)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, log_name)
 	rightandwrong(SUMMON_GUNS, user, 10)
 	active = TRUE
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
@@ -366,17 +342,10 @@
 	name = "Summon Magic"
 	desc = "Share the wonders of magic with the crew and show them why they aren't to be trusted with it at the same time."
 	log_name = "SU"
-
-/datum/spellbook_entry/summon/magic/IsSpellAvailable()
-	if(!SSticker.mode) // In case spellbook is placed on map
-		return FALSE
-	if(SSticker.mode.name == "ragin' mages")
-		return FALSE
-	else
-		return TRUE
+	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/summon/magic/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
-	feedback_add_details("wizard_spell_learned", log_name)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, log_name)
 	rightandwrong(SUMMON_MAGIC, user, 10)
 	active = TRUE
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
@@ -392,7 +361,7 @@
 
 /datum/spellbook_entry/item/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	user.put_in_hands(new item_path)
-	feedback_add_details("wizard_spell_learned", log_name)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, log_name)
 	return 1
 
 /datum/spellbook_entry/item/GetInfo()
@@ -400,8 +369,6 @@
 	dat += "<b>[name]</b>"
 	dat += " Cost:[cost]<br>"
 	dat += "<i>[desc]</i><br>"
-	if(surplus>=0)
-		dat += "[surplus] left.<br>"
 	return dat
 
 //Artefacts
@@ -518,6 +485,7 @@
 	item_path = /obj/item/gun/magic/staff/change
 	log_name = "ST"
 	category = "Staves"
+	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/item/staffchaos
 	name = "Staff of Chaos"
@@ -642,11 +610,12 @@
 	var/entry_types = subtypesof(/datum/spellbook_entry) - /datum/spellbook_entry/item - /datum/spellbook_entry/summon - /datum/spellbook_entry/loadout
 	for(var/T in entry_types)
 		var/datum/spellbook_entry/E = new T
-		if(E.IsSpellAvailable())
-			entries |= E
-			categories |= E.category
-		else
+		if(GAMEMODE_IS_RAGIN_MAGES && E.is_ragin_restricted)
 			qdel(E)
+			continue
+		entries |= E
+		categories |= E.category
+
 	main_tab = main_categories[1]
 	tab = categories[1]
 
@@ -908,7 +877,7 @@
 	return
 
 /obj/item/spellbook/oneuse/fireball
-	spell = /obj/effect/proc_holder/spell/fireball
+	spell = /obj/effect/proc_holder/spell/targeted/click/fireball
 	spellname = "fireball"
 	icon_state = "bookfireball"
 	desc = "This book feels warm to the touch."
@@ -941,7 +910,7 @@
 	user.EyeBlind(10)
 
 /obj/item/spellbook/oneuse/mindswap
-	spell = /obj/effect/proc_holder/spell/targeted/mind_transfer
+	spell = /obj/effect/proc_holder/spell/targeted/click/mind_transfer
 	spellname = "mindswap"
 	icon_state = "bookmindswap"
 	desc = "This book's cover is pristine, though its pages look ragged and torn."
@@ -965,8 +934,8 @@
 		to_chat(user, "<span class='notice'>You stare at the book some more, but there doesn't seem to be anything else to learn...</span>")
 		return
 
-	var/obj/effect/proc_holder/spell/targeted/mind_transfer/swapper = new
-	swapper.cast(user, stored_swap, 1)
+	var/obj/effect/proc_holder/spell/targeted/click/mind_transfer/swapper = new
+	swapper.cast(user, stored_swap)
 
 	to_chat(stored_swap, "<span class='warning'>You're suddenly somewhere else... and someone else?!</span>")
 	to_chat(user, "<span class='warning'>Suddenly you're staring at [src] again... where are you, who are you?!</span>")
@@ -997,7 +966,7 @@
 	user.Weaken(20)
 
 /obj/item/spellbook/oneuse/horsemask
-	spell = /obj/effect/proc_holder/spell/targeted/horsemask
+	spell = /obj/effect/proc_holder/spell/targeted/click/horsemask
 	spellname = "horses"
 	icon_state = "bookhorses"
 	desc = "This book is more horse than your mind has room for."

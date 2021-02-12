@@ -13,16 +13,12 @@
 /datum/event/borer_infestation/announce()
 	if(successSpawn)
 		GLOB.command_announcement.Announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", new_sound = 'sound/AI/aliens.ogg')
+	else
+		log_and_message_admins("Warning: Could not spawn any mobs for event Borer Infestation")
 
 /datum/event/borer_infestation/start()
-	var/list/vents = list()
-	for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in SSair.atmos_machinery)
-		if(is_station_level(temp_vent.loc.z) && !temp_vent.welded)
-			//Stops cortical borers getting stuck in small networks. See: Security, Virology
-			if(temp_vent.parent.other_atmosmch.len > 50)
-				vents += temp_vent
-
-	while(spawncount >= 1 && vents.len)
+	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
+	while(spawncount && length(vents))
 		var/obj/vent = pick_n_take(vents)
 		new /mob/living/simple_animal/borer(vent.loc)
 		successSpawn = TRUE

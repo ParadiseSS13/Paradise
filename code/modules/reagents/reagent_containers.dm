@@ -19,7 +19,7 @@
 	set category = "Object"
 	set src in range(0)
 
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.incapacitated())
 		return
 	var/default = null
 	if(amount_per_transfer_from_this in possible_transfer_amounts)
@@ -29,17 +29,17 @@
 		amount_per_transfer_from_this = N
 
 /obj/item/reagent_containers/New()
+	create_reagents(volume, temperature_min, temperature_max)
 	..()
 	if(!possible_transfer_amounts)
 		verbs -= /obj/item/reagent_containers/verb/set_APTFT
-	create_reagents(volume, temperature_min, temperature_max)
 	if(spawned_disease)
 		var/datum/disease/F = new spawned_disease(0)
 		var/list/data = list("viruses" = list(F), "blood_color" = "#A10808")
 		reagents.add_reagent("blood", disease_amount, data)
 	add_initial_reagents()
 
-obj/item/reagent_containers/proc/add_initial_reagents()
+/obj/item/reagent_containers/proc/add_initial_reagents()
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
 
@@ -50,16 +50,25 @@ obj/item/reagent_containers/proc/add_initial_reagents()
 	if(!QDELETED(src))
 		..()
 
+
+/obj/item/reagent_containers/proc/add_lid()
+	if(has_lid)
+		container_type ^= REFILLABLE | DRAINABLE
+		update_icon()
+
+/obj/item/reagent_containers/proc/remove_lid()
+	if(has_lid)
+		container_type |= REFILLABLE | DRAINABLE
+		update_icon()
+
 /obj/item/reagent_containers/attack_self(mob/user)
 	if(has_lid)
 		if(is_open_container())
 			to_chat(usr, "<span class='notice'>You put the lid on [src].</span>")
-			container_type ^= REFILLABLE | DRAINABLE
+			add_lid()
 		else
 			to_chat(usr, "<span class='notice'>You take the lid off [src].</span>")
-			container_type |= REFILLABLE | DRAINABLE
-		update_icon()
-	return
+			remove_lid()
 
 /obj/item/reagent_containers/attack(mob/M, mob/user, def_zone)
 	if(user.a_intent == INTENT_HARM)

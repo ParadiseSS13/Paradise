@@ -66,9 +66,7 @@
 		if(!is_station_level(T.z))
 			return
 		var/area/A = get_area(src)
-		if(cryo_ssd(src))
-			var/obj/effect/portal/P = new /obj/effect/portal(T, null, null, 40)
-			P.name = "NT SSD Teleportation Portal"
+		cryo_ssd(src)
 		if(A.fast_despawn)
 			force_cryo_human(src)
 
@@ -195,64 +193,8 @@
 					if(gene_stability < GENETIC_DAMAGE_STAGE_3)
 						gib()
 
-	if(!(RADIMMUNE in dna.species.species_traits))
-		if(radiation)
-			radiation = clamp(radiation, 0, 200)
-
-			var/autopsy_damage = 0
-			switch(radiation)
-				if(1 to 49)
-					radiation = max(radiation-1, 0)
-					if(prob(25))
-						adjustToxLoss(1)
-						adjustFireLoss(1)
-						autopsy_damage = 2
-
-				if(50 to 74)
-					radiation = max(radiation-2, 0)
-					adjustToxLoss(1)
-					adjustFireLoss(1)
-					autopsy_damage = 2
-					if(prob(5))
-						radiation = max(radiation-5, 0)
-						Weaken(3)
-						to_chat(src, "<span class='danger'>You feel weak.</span>")
-						emote("collapse")
-
-				if(75 to 100)
-					radiation = max(radiation-2, 0)
-					adjustToxLoss(2)
-					adjustFireLoss(2)
-					autopsy_damage = 4
-					if(prob(2))
-						to_chat(src, "<span class='danger'>You mutate!</span>")
-						randmutb(src)
-						domutcheck(src, null)
-
-				if(101 to 150)
-					radiation = max(radiation-3, 0)
-					adjustToxLoss(2)
-					adjustFireLoss(3)
-					autopsy_damage = 5
-					if(prob(4))
-						to_chat(src, "<span class='danger'>You mutate!</span>")
-						randmutb(src)
-						domutcheck(src, null)
-
-				if(151 to INFINITY)
-					radiation = max(radiation-3, 0)
-					adjustToxLoss(2)
-					adjustFireLoss(3)
-					autopsy_damage = 5
-					if(prob(6))
-						to_chat(src, "<span class='danger'>You mutate!</span>")
-						randmutb(src)
-						domutcheck(src, null)
-
-			if(autopsy_damage)
-				var/obj/item/organ/external/chest/chest = get_organ("chest")
-				if(chest)
-					chest.add_autopsy_data("Radiation Poisoning", autopsy_damage)
+	if(!dna || !dna.species.handle_mutations_and_radiation(src))
+		..()
 
 /mob/living/carbon/human/breathe()
 	if(!dna.species.breathe(src))
@@ -301,14 +243,6 @@
 			if(!(wear_mask && wear_mask.flags & AIRTIGHT)) //if NOT (wear_mask AND wear_mask.flags CONTAIN AIRTIGHT)
 				if(!(head && head.flags & AIRTIGHT)) //if NOT (head AND head.flags CONTAIN AIRTIGHT)
 					null_internals = 1 //not wearing a mask or suitable helmet
-
-		if(istype(back, /obj/item/rig)) //wearing a rigsuit
-			var/obj/item/rig/rig = back //needs to be typecasted because this doesn't use get_rig() for some reason
-			if(rig.offline && (rig.air_supply && internal == rig.air_supply)) //if rig IS offline AND (rig HAS air_supply AND internal IS air_supply)
-				null_internals = 1 //offline suits do not breath
-
-			else if(rig.air_supply && internal == rig.air_supply) //if rig HAS air_supply AND internal IS rig air_supply
-				skip_contents_check = 1 //skip contents.Find() check, the oxygen is valid even being outside of the mob
 
 		if(!contents.Find(internal) && (!skip_contents_check)) //if internal NOT IN contents AND skip_contents_check IS false
 			null_internals = 1 //not a rigsuit and your oxygen is gone
@@ -417,19 +351,19 @@
 
 ///FIRE CODE
 /mob/living/carbon/human/handle_fire()
-	if(..())
+	. = ..()
+	if(!.)
 		return
 	if(HEATRES in mutations)
 		return
-	if(on_fire)
-		var/thermal_protection = get_thermal_protection()
+	var/thermal_protection = get_thermal_protection()
 
-		if(thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
-			return
-		if(thermal_protection >= FIRE_SUIT_MAX_TEMP_PROTECT)
-			bodytemperature += 11
-		else
-			bodytemperature += (BODYTEMP_HEATING_MAX + (fire_stacks * 12))
+	if(thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
+		return
+	if(thermal_protection >= FIRE_SUIT_MAX_TEMP_PROTECT)
+		bodytemperature += 11
+	else
+		bodytemperature += (BODYTEMP_HEATING_MAX + (fire_stacks * 12))
 
 /mob/living/carbon/human/proc/get_thermal_protection()
 	var/thermal_protection = 0 //Simple check to estimate how protected we are against multiple temperatures
@@ -607,7 +541,7 @@
 			if(overeatduration < 100)
 				becomeSlim()
 		else
-			if(overeatduration > 500)
+			if(overeatduration > 500 && !(NO_OBESITY in dna.species.species_traits))
 				becomeFat()
 
 		// nutrition decrease
@@ -635,7 +569,7 @@
 				else
 					overeatduration -= 2
 
-		if(!ismachineperson(src) && nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA) //Gosh damn snowflakey IPCs
+		if(!ismachineperson(src) && !isLivingSSD(src) && nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA) //Gosh damn snowflakey IPCs
 			var/datum/disease/D = new /datum/disease/critical/hypoglycemia
 			ForceContractDisease(D)
 
@@ -706,13 +640,14 @@
 
 	if(alcohol_strength >= slur_start) //slurring
 		Slur(drunk)
-	if(alcohol_strength >= brawl_start) //the drunken martial art
-		if(!istype(martial_art, /datum/martial_art/drunk_brawling))
-			var/datum/martial_art/drunk_brawling/F = new
-			F.teach(src, 1)
-	if(alcohol_strength < brawl_start) //removing the art
-		if(istype(martial_art, /datum/martial_art/drunk_brawling))
-			martial_art.remove(src)
+	if(mind)
+		if(alcohol_strength >= brawl_start) //the drunken martial art
+			if(!istype(mind.martial_art, /datum/martial_art/drunk_brawling))
+				var/datum/martial_art/drunk_brawling/F = new
+				F.teach(src, TRUE)
+		else if(alcohol_strength < brawl_start) //removing the art
+			if(istype(mind.martial_art, /datum/martial_art/drunk_brawling))
+				mind.martial_art.remove(src)
 	if(alcohol_strength >= confused_start && prob(33)) //confused walking
 		if(!confused)
 			Confused(1)
@@ -928,7 +863,7 @@
 		mind.changeling.regenerate(src)
 		if(hud_used)
 			hud_used.lingchemdisplay.invisibility = 0
-			hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(mind.changeling.chem_charges)]</font></div>"
+			hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#dd66dd'>[round(mind.changeling.chem_charges)]</font></div>"
 	else
 		if(hud_used)
 			hud_used.lingchemdisplay.invisibility = 101

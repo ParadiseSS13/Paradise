@@ -6,9 +6,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	canhear_range = 2
 	flags = CONDUCT
-	var/number = 0
 	var/circuitry_installed = 1
-	var/last_tick //used to delay the powercheck
 	var/buildstage = 0
 	dog_fashion = null
 
@@ -50,7 +48,7 @@
 	. = ..()
 	buildstage = building
 	if(buildstage)
-		START_PROCESSING(SSobj, src)
+		update_operating_status()
 	else
 		if(direction)
 			setDir(direction)
@@ -75,7 +73,6 @@
 	name = "illicit intercom"
 	desc = "Talk through this. Evilly"
 	frequency = SYND_FREQ
-	subspace_transmission = TRUE
 	syndiekey = new /obj/item/encryptionkey/syndicate/nukeops
 
 /obj/item/radio/intercom/syndicate/New()
@@ -85,7 +82,6 @@
 /obj/item/radio/intercom/pirate
 	name = "pirate radio intercom"
 	desc = "You wouldn't steal a space shuttle. Piracy. It's a crime!"
-	subspace_transmission = 1
 
 /obj/item/radio/intercom/pirate/New()
 	..()
@@ -105,20 +101,17 @@
 	)
 
 /obj/item/radio/intercom/Destroy()
-	STOP_PROCESSING(SSobj, src)
 	GLOB.global_intercoms.Remove(src)
 	return ..()
 
-/obj/item/radio/intercom/attack_ai(mob/user as mob)
+/obj/item/radio/intercom/attack_ai(mob/user)
 	add_hiddenprint(user)
 	add_fingerprint(user)
-	spawn(0)
-		attack_self(user)
+	attack_self(user)
 
-/obj/item/radio/intercom/attack_hand(mob/user as mob)
+/obj/item/radio/intercom/attack_hand(mob/user)
 	add_fingerprint(user)
-	spawn(0)
-		attack_self(user)
+	attack_self(user)
 
 /obj/item/radio/intercom/receive_range(freq, level)
 	if(!is_listening())
@@ -134,7 +127,7 @@
 
 	return canhear_range
 
-/obj/item/radio/intercom/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/radio/intercom/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/stack/tape_roll)) //eww
 		return
 	else if(iscoil(W) && buildstage == 1)
@@ -184,12 +177,12 @@
 	buildstage = 3
 	to_chat(user, "<span class='notice'>You secure the electronics!</span>")
 	update_icon()
-	START_PROCESSING(SSobj, src)
+	update_operating_status()
 	for(var/i, i<= 5, i++)
-		wires.UpdateCut(i,1)
+		wires.on_cut(i, 1)
 
 /obj/item/radio/intercom/wirecutter_act(mob/user, obj/item/I)
-	if(!(buildstage == 3 && b_stat && wires.IsAllCut()))
+	if(!(buildstage == 3 && b_stat && wires.is_all_cut()))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -200,7 +193,7 @@
 	b_stat = 1
 	buildstage = 1
 	update_icon()
-	STOP_PROCESSING(SSobj, src)
+	update_operating_status(FALSE)
 
 /obj/item/radio/intercom/welder_act(mob/user, obj/item/I)
 	if(buildstage != 0)
@@ -220,20 +213,30 @@
 		return
 	icon_state = "intercom[!on?"-p":""][b_stat ? "-open":""]"
 
-/obj/item/radio/intercom/process()
-	if(((world.timeofday - last_tick) > 30) || ((world.timeofday - last_tick) < 0))
-		last_tick = world.timeofday
+/obj/item/radio/intercom/proc/update_operating_status(on = TRUE)
+	var/area/current_area = get_area(src)
+	if(!current_area)
+		return
+	if(on)
+		RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, .proc/AreaPowerCheck)
+	else
+		UnregisterSignal(current_area, COMSIG_AREA_POWER_CHANGE)
 
-
-		if(!src.loc)
-			on = 0
-		else
-			var/area/A = get_area(src)
-			if(!A)
-				on = 0
-			else
-				on = A.powered(EQUIP) // set "on" to the power status
-		update_icon()
+/**
+  * Proc called whenever the intercom's area loses or gains power. Responsible for setting the `on` variable and calling `update_icon()`.
+  *
+  * Normally called after the intercom's area recieves the `COMSIG_AREA_POWER_CHANGE` signal, but it can also be called directly.
+  * Arguments:
+  *
+  * source - the area that just had a power change.
+  */
+/obj/item/radio/intercom/proc/AreaPowerCheck(datum/source)
+	var/area/current_area = get_area(src)
+	if(!current_area)
+		on = FALSE
+	else
+		on = current_area.powered(EQUIP) // set "on" to the equipment power status of our area.
+	update_icon()
 
 /obj/item/intercom_electronics
 	name = "intercom electronics"
@@ -247,14 +250,7 @@
 	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/radio/intercom/locked
-    var/locked_frequency
-
-/obj/item/radio/intercom/locked/set_frequency(var/frequency)
-	if(frequency == locked_frequency)
-		..(locked_frequency)
-
-/obj/item/radio/intercom/locked/list_channels()
-	return ""
+	freqlock = TRUE
 
 /obj/item/radio/intercom/locked/ai_private
 	name = "\improper AI intercom"
@@ -270,4 +266,4 @@
 
 /obj/item/radio/intercom/locked/prison/New()
 	..()
-	wires.CutWireIndex(RADIO_WIRE_TRANSMIT)
+	wires.cut(WIRE_RADIO_TRANSMIT)

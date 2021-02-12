@@ -6,6 +6,7 @@
 /obj/item/clothing/shoes/combat //basic syndicate combat boots for nuke ops and mob corpses
 	name = "combat boots"
 	desc = "High speed, low drag combat boots."
+	w_class = WEIGHT_CLASS_NORMAL
 	can_cut_open = 1
 	icon_state = "jackboots"
 	item_state = "jackboots"
@@ -146,7 +147,7 @@
 
 /obj/item/clothing/shoes/cult
 	name = "boots"
-	desc = "A pair of boots worn by the followers of Nar-Sie."
+	desc = "A pair of boots usually worn by cultists."
 	icon_state = "cult"
 	item_state = "cult"
 	item_color = "cult"
@@ -155,6 +156,7 @@
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	heat_protection = FEET
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
+	magical = TRUE
 
 /obj/item/clothing/shoes/cyborg
 	name = "cyborg boots"
@@ -343,3 +345,10 @@
 		recharging_time = world.time + recharging_rate
 	else
 		to_chat(user, "<span class='warning'>Something prevents you from dashing forward!</span>")
+
+/obj/item/clothing/shoes/ducky
+	name = "rubber ducky shoes"
+	desc = "These shoes are made for quacking, and thats just what they'll do."
+	icon_state = "ducky"
+	item_state = "ducky"
+	shoe_sound = "sound/items/squeaktoy.ogg"

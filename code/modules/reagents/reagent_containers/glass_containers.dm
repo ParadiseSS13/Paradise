@@ -47,6 +47,9 @@
 			reagents.reaction(M, REAGENT_TOUCH)
 			reagents.clear_reagents()
 		else
+			if(!iscarbon(M)) // Non-carbons can't process reagents
+				to_chat(user, "<span class='warning'>You cannot find a way to feed [M].</span>")
+				return
 			if(M != user)
 				M.visible_message("<span class='danger'>[user] attempts to feed something to [M].</span>", \
 							"<span class='userdanger'>[user] attempts to feed something to you.</span>")
@@ -104,21 +107,11 @@
 
 /obj/item/reagent_containers/glass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pen) || istype(I, /obj/item/flashlight/pen))
-		var/tmp_label = sanitize(input(user, "Enter a label for [name]","Label",label_text))
-		if(length(tmp_label) > MAX_NAME_LEN)
-			to_chat(user, "<span class='warning'>The label can be at most [MAX_NAME_LEN] characters long.</span>")
-		else
-			to_chat(user, "<span class='notice'>You set the label to \"[tmp_label]\".</span>")
-			label_text = tmp_label
-			update_name_label()
+		var/t = rename_interactive(user, I)
+		if(!isnull(t))
+			label_text = t
 	else
 		return ..()
-
-/obj/item/reagent_containers/glass/proc/update_name_label()
-	if(label_text == "")
-		name = base_name
-	else
-		name = "[base_name] ([label_text])"
 
 /obj/item/reagent_containers/glass/beaker
 	name = "beaker"
@@ -176,6 +169,7 @@
 		to_chat(usr, "<span class='notice'>You detach [assembly] from [src]</span>")
 		usr.put_in_hands(assembly)
 		assembly = null
+		qdel(GetComponent(/datum/component/proximity_monitor))
 		update_icon()
 	else
 		to_chat(usr, "<span class='notice'>There is no assembly to remove.</span>")
@@ -191,7 +185,9 @@
 			return ..()
 		assembly = W
 		user.drop_item()
-		W.loc = src
+		W.forceMove(src)
+		if(assembly.has_prox_sensors())
+			AddComponent(/datum/component/proximity_monitor)
 		overlays += "assembly"
 	else
 		..()

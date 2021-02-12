@@ -169,7 +169,6 @@
 /obj/structure/stone_tile/cracked{
 	dir = 8
 	},
-/obj/item/malf_upgrade,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "aB" = (
@@ -1205,9 +1204,9 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "dg" = (
-/obj/structure/bonfire/dense,
 /obj/structure/stone_tile/center,
 /obj/effect/mapping_helpers/no_lava,
+/obj/structure/bonfire,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "di" = (

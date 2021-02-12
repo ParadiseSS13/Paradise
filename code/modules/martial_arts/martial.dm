@@ -1,42 +1,87 @@
+#define HAS_COMBOS LAZYLEN(combos)
+#define COMBO_ALIVE_TIME 5 SECONDS // How long the combo stays alive when no new attack is done
+
 /datum/martial_art
 	var/name = "Martial Art"
 	var/streak = ""
 	var/max_streak_length = 6
-	var/current_target = null
-	var/temporary = 0
+	var/temporary = FALSE
 	var/datum/martial_art/base = null // The permanent style
 	var/deflection_chance = 0 //Chance to deflect projectiles
 	var/block_chance = 0 //Chance to block melee attacks using items while on throw mode.
-	var/restraining = 0 //used in cqc's disarm_act to check if the disarmed is being restrained and so whether they should be put in a chokehold or not
 	var/help_verb = null
 	var/no_guns = FALSE	//set to TRUE to prevent users of this style from using guns (sleeping carp, highlander). They can still pick them up, but not fire them.
 	var/no_guns_message = ""	//message to tell the style user if they try and use a gun while no_guns = TRUE (DISHONORABRU!)
 
-/datum/martial_art/proc/disarm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	return 0
+	var/has_explaination_verb = FALSE	// If the martial art has it's own explaination verb
 
-/datum/martial_art/proc/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	return 0
+	var/list/combos = list()							// What combos can the user do? List of combo types
+	var/list/datum/martial_art/current_combos = list()	// What combos are currently (possibly) being performed
+	var/last_hit = 0									// When the last hit happened
 
-/datum/martial_art/proc/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	return 0
+/datum/martial_art/New()
+	. = ..()
+	reset_combos()
 
-/datum/martial_art/proc/help_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	return 0
+/datum/martial_art/proc/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	return act(MARTIAL_COMBO_STEP_DISARM, A, D)
+
+/datum/martial_art/proc/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	return act(MARTIAL_COMBO_STEP_HARM, A, D)
+
+/datum/martial_art/proc/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	return act(MARTIAL_COMBO_STEP_GRAB, A, D)
+
+/datum/martial_art/proc/help_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	return act(MARTIAL_COMBO_STEP_HELP, A, D)
 
 /datum/martial_art/proc/can_use(mob/living/carbon/human/H)
 	return TRUE
 
-/datum/martial_art/proc/add_to_streak(var/element,var/mob/living/carbon/human/D)
-	if(D != current_target)
-		current_target = D
-		streak = ""
-	streak = streak+element
-	if(length(streak) > max_streak_length)
-		streak = copytext(streak,2)
-	return
+/datum/martial_art/proc/act(step, mob/living/carbon/human/user, mob/living/carbon/human/target)
+	if(!can_use(user))
+		return MARTIAL_ARTS_CANNOT_USE
+	if(last_hit + COMBO_ALIVE_TIME < world.time)
+		reset_combos()
+	last_hit = world.time
 
-/datum/martial_art/proc/basic_hit(var/mob/living/carbon/human/A,var/mob/living/carbon/human/D)
+	if(HAS_COMBOS)
+		return check_combos(step, user, target)
+	return FALSE
+
+/datum/martial_art/proc/reset_combos()
+	current_combos.Cut()
+	for(var/combo_type in combos)
+		current_combos.Add(new combo_type())
+
+/datum/martial_art/proc/check_combos(step, mob/living/carbon/human/user, mob/living/carbon/human/target)
+	. = FALSE
+	for(var/thing in current_combos)
+		var/datum/martial_combo/MC = thing
+		if(!MC.check_combo(step, target))
+			current_combos -= MC	// It failed so remove it
+		else
+			switch(MC.progress_combo(user, target, src))
+				if(MARTIAL_COMBO_FAIL)
+					current_combos -= MC
+				if(MARTIAL_COMBO_DONE_NO_CLEAR)
+					. = TRUE
+					current_combos -= MC
+				if(MARTIAL_COMBO_DONE)
+					reset_combos()
+					return TRUE
+				if(MARTIAL_COMBO_DONE_BASIC_HIT)
+					basic_hit(user, target)
+					reset_combos()
+					return TRUE
+				if(MARTIAL_COMBO_DONE_CLEAR_COMBOS)
+					combos.Cut()
+					reset_combos()
+					return TRUE
+	if(!LAZYLEN(current_combos))
+		reset_combos()
+
+/datum/martial_art/proc/basic_hit(mob/living/carbon/human/A, mob/living/carbon/human/D)
 
 	var/damage = rand(A.dna.species.punchdamagelow, A.dna.species.punchdamagehigh)
 	var/datum/unarmed_attack/attack = A.dna.species.unarmed
@@ -54,7 +99,7 @@
 	if(!damage)
 		playsound(D.loc, attack.miss_sound, 25, 1, -1)
 		D.visible_message("<span class='warning'>[A] has attempted to [atk_verb] [D]!</span>")
-		return 0
+		return FALSE
 
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
 	var/armor_block = D.run_armor_check(affecting, "melee")
@@ -74,26 +119,61 @@
 		D.forcesay(GLOB.hit_appends)
 	else if(D.lying)
 		D.forcesay(GLOB.hit_appends)
-	return 1
+	return TRUE
 
-/datum/martial_art/proc/teach(var/mob/living/carbon/human/H,var/make_temporary=0)
-	if(help_verb)
-		H.verbs += help_verb
+/datum/martial_art/proc/teach(mob/living/carbon/human/H, make_temporary = FALSE)
+	if(!H.mind)
+		return
+	if(has_explaination_verb)
+		H.verbs |= /mob/living/carbon/human/proc/martial_arts_help
 	if(make_temporary)
-		temporary = 1
+		temporary = TRUE
 	if(temporary)
-		if(H.martial_art)
-			base = H.martial_art.base
+		if(H.mind.martial_art)
+			base = H.mind.martial_art.base
 	else
 		base = src
-	H.martial_art = src
+	H.mind.martial_art = src
 
 /datum/martial_art/proc/remove(var/mob/living/carbon/human/H)
-	if(H.martial_art != src)
+	if(!H.mind)
 		return
-	H.martial_art = base
-	if(help_verb)
-		H.verbs -= help_verb
+	if(H.mind.martial_art != src)
+		return
+	H.mind.martial_art = null // Remove reference
+	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
+	if(base)
+		base.teach(H)
+
+/mob/living/carbon/human/proc/martial_arts_help()
+	set name = "Show Info"
+	set desc = "Gives information about the martial arts you know."
+	set category = "Martial Arts"
+	var/mob/living/carbon/human/H = usr
+	if(!istype(H))
+		to_chat(usr, "<span class='warning'>You shouldn't have access to this verb. Report this as a bug to the github please.</span>")
+		return
+	H.mind.martial_art.give_explaination(H)
+
+/datum/martial_art/proc/give_explaination(user = usr)
+	explaination_header(user)
+	explaination_combos(user)
+	explaination_footer(user)
+
+// Put after the header and before the footer in the explaination text
+/datum/martial_art/proc/explaination_combos(user)
+	if(HAS_COMBOS)
+		for(var/combo_type in combos)
+			var/datum/martial_combo/MC = new combo_type()
+			MC.give_explaination(user)
+
+// Put on top of the explaination text
+/datum/martial_art/proc/explaination_header(user)
+	return
+
+// Put below the combos in the explaination text
+/datum/martial_art/proc/explaination_footer(user)
+	return
 
 //ITEMS
 
@@ -195,9 +275,6 @@
 	icon = 'icons/obj/library.dmi'
 	icon_state = "cqcmanual"
 
-/obj/item/CQC_manual/chef
-	desc = "A small, black manual. Written on the back it says: Bringing the home advantage with you."
-
 /obj/item/CQC_manual/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
 		return
@@ -283,3 +360,6 @@
 	if(wielded)
 		return ..()
 	return 0
+
+#undef HAS_COMBOS
+#undef COMBO_ALIVE_TIME

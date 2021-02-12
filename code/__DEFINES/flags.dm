@@ -1,9 +1,6 @@
 #define ALL ~0 //For convenience.
 #define NONE 0
 
-// for /datum/var/datum_flags
-#define DF_USE_TAG		(1<<0)
-
 //FLAGS BITMASK
 #define STOPSPRESSUREDMAGE 		1		//This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & SLOT_BACK) if you see it anywhere To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
 #define NODROP					2		// This flag makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
@@ -48,8 +45,8 @@
 // those restrictions.
 #define OMNITONGUE_2			256
 
-// TESLA_IGNORE grants immunity from being targeted by tesla-style electricity
-#define TESLA_IGNORE_2			512
+/// Prevents mobs from getting chainshocked by teslas and the supermatter
+#define SHOCKED_2 				512
 
 // Stops you from putting things like an RCD or other items into an ORM or protolathe for materials.
 #define NO_MAT_REDEMPTION_2		1024
@@ -60,6 +57,11 @@
 #define OVERLAY_QUEUED_2		4096
 
 #define CHECK_RICOCHET_2		8192
+
+/// should the contents of this atom be acted upon
+#define RAD_PROTECT_CONTENTS_2	16384
+/// should this object be allowed to be contaminated
+#define RAD_NO_CONTAMINATE_2	32768
 
 //Reagent flags
 #define REAGENT_NOREACT			1
@@ -143,5 +145,17 @@
 #define ACID_PROOF		(1<<5) //acid stuck on it doesn't melt it.
 #define INDESTRUCTIBLE	(1<<6) //doesn't take damage
 #define FREEZE_PROOF	(1<<7) //can't be frozen
+
+//tesla_zap
+#define ZAP_MACHINE_EXPLOSIVE		(1<<0)
+#define ZAP_ALLOW_DUPLICATES		(1<<1)
+#define ZAP_OBJ_DAMAGE				(1<<2)
+#define ZAP_MOB_DAMAGE				(1<<3)
+#define ZAP_MOB_STUN				(1<<4)
+#define ZAP_GENERATES_POWER			(1<<5)
+
+#define ZAP_DEFAULT_FLAGS ZAP_MOB_STUN | ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
+#define ZAP_FUSION_FLAGS ZAP_OBJ_DAMAGE | ZAP_MOB_DAMAGE | ZAP_MOB_STUN
+#define ZAP_SUPERMATTER_FLAGS ZAP_GENERATES_POWER
 
 GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768))

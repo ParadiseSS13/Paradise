@@ -221,6 +221,12 @@
 		A.contents += thing
 		thing.change_area(old_area, A)
 
+	var/area/oldA = get_area(get_turf(usr))
+	var/list/firedoors = oldA.firedoors
+	for(var/door in firedoors)
+		var/obj/machinery/door/firedoor/FD = door
+		FD.CalculateAffectingAreas()
+
 	interact()
 	area_created = TRUE
 	return area_created
@@ -236,6 +242,10 @@
 		return
 	set_area_machinery_title(A,str,prevname)
 	A.name = str
+	if(A.firedoors)
+		for(var/D in A.firedoors)
+			var/obj/machinery/door/firedoor/FD = D
+			FD.CalculateAffectingAreas()
 	to_chat(usr, "<span class='notice'>You rename the '[prevname]' to '[str]'.</span>")
 	interact()
 	return 1
@@ -259,8 +269,6 @@
 /obj/item/areaeditor/proc/check_tile_is_border(var/turf/T2,var/dir)
 	if(istype(T2, /turf/space))
 		return BORDER_SPACE //omg hull breach we all going to die here
-	if(istype(T2, /turf/simulated/shuttle))
-		return BORDER_SPACE
 	if(get_area_type(T2.loc)!=AREA_SPACE)
 		return BORDER_BETWEEN
 	if(istype(T2, /turf/simulated/wall))

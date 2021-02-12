@@ -12,6 +12,7 @@
 	var/water_timer = 0
 
 /obj/effect/waterfall/New()
+	. = ..()
 	water_timer = addtimer(CALLBACK(src, .proc/drip), water_frequency, TIMER_STOPPABLE)
 
 /obj/effect/waterfall/Destroy()

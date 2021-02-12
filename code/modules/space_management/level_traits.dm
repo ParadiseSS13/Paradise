@@ -61,3 +61,16 @@ GLOBAL_LIST_INIT(default_map_traits, MAP_TRANSITION_CONFIG)
 /proc/level_name_to_num(name)
 	var/datum/space_level/S = GLOB.space_manager.get_zlev_by_name(name)
 	return S.zpos
+
+/**
+  * Proc to get a list of all the linked-together Z-Levels
+  *
+  * Returns a list of zlevel numbers which can be accessed from travelling space naturally
+  */
+/proc/get_all_linked_levels_zpos()
+	var/list/znums = list()
+	for(var/i in GLOB.space_manager.z_list)
+		var/datum/space_level/SL = GLOB.space_manager.z_list[i]
+		if(SL.linkage == CROSSLINKED)
+			znums |= SL.zpos
+	return znums

@@ -54,7 +54,8 @@
 	R.name = heldname
 	R.custom_name = heldname
 	R.real_name = heldname
-
+	if(R.mmi && R.mmi.brainmob)
+		R.mmi.brainmob.name = R.name
 	return TRUE
 
 /obj/item/borg/upgrade/restart
@@ -183,22 +184,96 @@
 
 	return TRUE
 
+/obj/item/borg/upgrade/abductor_engi
+	name = "engineering cyborg abductor upgrade"
+	desc = "An experimental upgrade that replaces an engineering cyborgs tools with the abductor version."
+	icon_state = "abductor_mod"
+	origin_tech = "engineering=6;materials=6;abductor=3"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/engineering
+
+/obj/item/borg/upgrade/abductor_engi/action(mob/living/silicon/robot/R)
+	if(..())
+		return
+
+	for(var/obj/item/weldingtool/largetank/cyborg/W in R.module.modules)
+		qdel(W)
+	for(var/obj/item/screwdriver/cyborg/S in R.module.modules)
+		qdel(S)
+	for(var/obj/item/wrench/cyborg/E in R.module.modules)
+		qdel(E)
+	for(var/obj/item/crowbar/cyborg/C in R.module.modules)
+		qdel(C)
+	for(var/obj/item/wirecutters/cyborg/I in R.module.modules)
+		qdel(I)
+	for(var/obj/item/multitool/cyborg/M in R.module.modules)
+		qdel(M)
+
+	R.module.modules += new /obj/item/weldingtool/abductor(R.module)
+	R.module.modules += new /obj/item/wrench/abductor(R.module)
+	R.module.modules += new /obj/item/screwdriver/abductor(R.module)
+	R.module.modules += new /obj/item/crowbar/abductor(R.module)
+	R.module.modules += new /obj/item/wirecutters/abductor(R.module)
+	R.module.modules += new /obj/item/multitool/abductor(R.module)
+	R.module.rebuild()
+
+	return TRUE
+
+/obj/item/borg/upgrade/abductor_medi
+	name = "medical cyborg abductor upgrade"
+	desc = "An experimental upgrade that replaces a medical cyborgs tools with the abductor version."
+	icon_state = "abductor_mod"
+	origin_tech = "biotech=6;materials=6;abductor=3"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/medical
+
+/obj/item/borg/upgrade/abductor_medi/action(mob/living/silicon/robot/R)
+	if(..())
+		return
+
+	for(var/obj/item/scalpel/laser/laser1/L in R.module.modules)
+		qdel(L)
+	for(var/obj/item/hemostat/H in R.module.modules)
+		qdel(H)
+	for(var/obj/item/retractor/E in R.module.modules)
+		qdel(E)
+	for(var/obj/item/bonegel/B in R.module.modules)
+		qdel(B)
+	for(var/obj/item/FixOVein/F in R.module.modules)
+		qdel(F)
+	for(var/obj/item/bonesetter/S in R.module.modules)
+		qdel(S)
+	for(var/obj/item/circular_saw/C in R.module.modules)
+		qdel(C)
+	for(var/obj/item/surgicaldrill/D in R.module.modules)
+		qdel(D)
+
+	R.module.modules += new /obj/item/scalpel/laser/laser3(R.module) //no abductor laser scalpel, so next best thing.
+	R.module.modules += new /obj/item/hemostat/alien(R.module)
+	R.module.modules += new /obj/item/retractor/alien(R.module)
+	R.module.modules += new /obj/item/bonegel/alien(R.module)
+	R.module.modules += new /obj/item/FixOVein/alien(R.module)
+	R.module.modules += new /obj/item/bonesetter/alien(R.module)
+	R.module.modules += new /obj/item/circular_saw/alien(R.module)
+	R.module.modules += new /obj/item/surgicaldrill/alien(R.module)
+	R.module.rebuild()
+
+	return TRUE
+
 /obj/item/borg/upgrade/syndicate
 	name = "safety override module"
-	desc = "Unlocks the hidden, deadlier functions of a cyborg. Also prevents emag subversion."
+	desc = "Unlocks the hidden, deadlier functions of a cyborg."
 	icon_state = "cyborg_upgrade3"
-	origin_tech = "combat=4;syndicate=1"
+	origin_tech = "combat=6;materials=6"
 	require_module = TRUE
 
 /obj/item/borg/upgrade/syndicate/action(mob/living/silicon/robot/R)
 	if(..())
 		return
-	if(R.emagged)
-		return
 	if(R.weapons_unlock)
-		to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>")
+		to_chat(R, "<span class='warning'>Warning: Safety Overide Protocols have be disabled.</span>")
 		return
-	R.emagged = 1
+	R.weapons_unlock = 1
 	return TRUE
 
 /obj/item/borg/upgrade/lavaproof

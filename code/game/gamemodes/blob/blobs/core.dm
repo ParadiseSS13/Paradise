@@ -12,19 +12,19 @@
 	var/is_offspring = null
 	var/selecting = 0
 
-/obj/structure/blob/core/New(loc, var/h = 200, var/client/new_overmind = null, var/new_rate = 2, offspring)
+/obj/structure/blob/core/Initialize(mapload, client/new_overmind = null, new_rate = 2, offspring)
+	. = ..()
 	GLOB.blob_cores += src
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 	adjustcolors(color) //so it atleast appears
-	if(!overmind)
-		create_overmind(new_overmind)
+	if(offspring)
+		is_offspring = TRUE
 	if(overmind)
 		adjustcolors(overmind.blob_reagent_datum.color)
-	if(offspring)
-		is_offspring = 1
+	if(!overmind)
+		create_overmind(new_overmind)
 	point_rate = new_rate
-	..(loc, h)
 
 
 /obj/structure/blob/core/adjustcolors(var/a_color)
@@ -104,10 +104,11 @@
 	var/mob/C = null
 	var/list/candidates = list()
 	if(!new_overmind)
+		// sendit
 		if(is_offspring)
-			candidates = pollCandidates("Do you want to play as a blob offspring?", ROLE_BLOB, 1)
+			candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob offspring?", ROLE_BLOB, TRUE, source = src)
 		else
-			candidates = pollCandidates("Do you want to play as a blob?", ROLE_BLOB, 1)
+			candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob?", ROLE_BLOB, TRUE, source = src)
 
 		if(length(candidates))
 			C = pick(candidates)

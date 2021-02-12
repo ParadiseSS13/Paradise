@@ -34,15 +34,15 @@
 /obj/structure/spider/stickyweb
 	icon_state = "stickyweb1"
 
-/obj/structure/spider/stickyweb/New()
-	..()
+/obj/structure/spider/stickyweb/Initialize(mapload)
+	. = ..()
 	if(prob(50))
 		icon_state = "stickyweb2"
 
 /obj/structure/spider/stickyweb/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height == 0)
 		return TRUE
-	if(istype(mover, /mob/living/simple_animal/hostile/poison/giant_spider))
+	if(istype(mover, /mob/living/simple_animal/hostile/poison/giant_spider) || isterrorspider(mover))
 		return TRUE
 	else if(istype(mover, /mob/living))
 		if(prob(50))
@@ -58,10 +58,10 @@
 	icon_state = "eggs"
 	var/amount_grown = 0
 	var/player_spiders = 0
-	var/list/faction = list()
+	var/list/faction = list("spiders")
 
-/obj/structure/spider/eggcluster/New()
-	..()
+/obj/structure/spider/eggcluster/Initialize(mapload)
+	. = ..()
 	pixel_x = rand(3,-3)
 	pixel_y = rand(3,-3)
 	START_PROCESSING(SSobj, src)
@@ -90,11 +90,11 @@
 	var/obj/machinery/atmospherics/unary/vent_pump/entry_vent
 	var/travelling_in_vent = 0
 	var/player_spiders = 0
-	var/list/faction = list()
+	var/list/faction = list("spiders")
 	var/selecting_player = 0
 
-/obj/structure/spider/spiderling/New()
-	..()
+/obj/structure/spider/spiderling/Initialize(mapload)
+	. = ..()
 	pixel_x = rand(6,-6)
 	pixel_y = rand(6,-6)
 	START_PROCESSING(SSobj, src)
@@ -156,12 +156,8 @@
 	//=================
 
 	else if(prob(33))
-		var/list/nearby = oview(10, src)
-		if(nearby.len)
-			var/target_atom = pick(nearby)
-			walk_to(src, target_atom)
-			if(prob(40))
-				visible_message("<span class='notice'>[src] skitters[pick(" away"," around","")].</span>")
+		if(random_skitter() && prob(40))
+			visible_message("<span class='notice'>[src] skitters[pick(" away"," around","")].</span>")
 	else if(prob(10))
 		//ventcrawl!
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
@@ -180,7 +176,7 @@
 			if(player_spiders && !selecting_player)
 				selecting_player = 1
 				spawn()
-					var/list/candidates = pollCandidates("Do you want to play as a spider?", ROLE_GSPIDER, 1)
+					var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a giant spider?", ROLE_GSPIDER, TRUE, source = S)
 
 					if(candidates.len)
 						var/mob/C = pick(candidates)
@@ -189,6 +185,28 @@
 							if(S.master_commander)
 								to_chat(S, "<span class='biggerdanger'>You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost.</span>")
 			qdel(src)
+
+/obj/structure/spider/spiderling/proc/random_skitter()
+	var/list/available_turfs = list()
+	for(var/turf/simulated/S in oview(10, src))
+		// no !isspaceturf check needed since /turf/simulated is not a subtype of /turf/space
+		if(S.density)
+			continue
+		available_turfs += S
+	if(!length(available_turfs))
+		return FALSE
+	walk_to(src, pick(available_turfs))
+	return TRUE
+
+/obj/structure/spider/spiderling/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(!istype(user, /mob/living/silicon/robot/drone))
+		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
+		"<span class='warning'>It's a bit of a struggle, but you manage to suck [user] into your decompiler. It makes a series of visceral crunching noises.</span>")
+		C.stored_comms["wood"] += 2
+		C.stored_comms["glass"] += 2
+		qdel(src)
+		return TRUE
+	return ..()
 
 /obj/effect/decal/cleanable/spiderling_remains
 	name = "spiderling remains"
@@ -203,8 +221,8 @@
 	icon_state = "cocoon1"
 	max_integrity = 60
 
-/obj/structure/spider/cocoon/New()
-	..()
+/obj/structure/spider/cocoon/Initialize(mapload)
+	. = ..()
 	icon_state = pick("cocoon1","cocoon2","cocoon3")
 
 /obj/structure/spider/cocoon/Destroy()

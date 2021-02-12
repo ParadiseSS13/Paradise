@@ -3,7 +3,7 @@
 //PUBLIC -  call these wherever you want
 
 
-/mob/proc/throw_alert(category, type, severity, obj/new_master, override = FALSE)
+/mob/proc/throw_alert(category, type, severity, obj/new_master, override = FALSE, timeout_override, no_anim)
 
 /*
  Proc to create or update an alert. Returns the alert if the alert is new or updated, 0 if it was thrown already
@@ -59,14 +59,16 @@
 	LAZYSET(alerts, category, alert) // This also creates the list if it doesn't exist
 	if(client && hud_used)
 		hud_used.reorganize_alerts()
-	alert.transform = matrix(32, 6, MATRIX_TRANSLATE)
-	animate(alert, transform = matrix(), time = 2.5, easing = CUBIC_EASING)
 
-	if(alert.timeout)
-		spawn(alert.timeout)
-			if(alert.timeout && alerts[category] == alert && world.time >= alert.timeout)
-				clear_alert(category)
-		alert.timeout = world.time + alert.timeout - world.tick_lag
+	if(!no_anim)
+		alert.transform = matrix(32, 6, MATRIX_TRANSLATE)
+		animate(alert, transform = matrix(), time = 2.5, easing = CUBIC_EASING)
+
+	var/timeout = timeout_override || alert.timeout
+	if(timeout)
+		addtimer(CALLBACK(alert, /obj/screen/alert/.proc/do_timeout, src, category), timeout)
+		alert.timeout = world.time + timeout - world.tick_lag
+
 	return alert
 
 // Proc to clear an existing alert.
@@ -94,7 +96,6 @@
 	var/alerttooltipstyle = ""
 	var/override_alerts = FALSE //If it is overriding other alerts of the same type
 
-
 /obj/screen/alert/MouseEntered(location,control,params)
 	openToolTip(usr, src, params, title = name, content = desc, theme = alerttooltipstyle)
 
@@ -102,6 +103,12 @@
 /obj/screen/alert/MouseExited()
 	closeToolTip(usr)
 
+/obj/screen/alert/proc/do_timeout(mob/M, category)
+	if(!M || !M.alerts)
+		return
+
+	if(timeout && M.alerts[category] == src && world.time >= timeout)
+		M.clear_alert(category)
 
 //Gas alerts
 /obj/screen/alert/not_enough_oxy
@@ -262,9 +269,9 @@ or something covering your eyes."
 	desc = "Whoa man, you're tripping balls! Careful you don't get addicted... if you aren't already."
 	icon_state = "high"
 
-/obj/screen/alert/drunk //Not implemented
+/obj/screen/alert/drunk
 	name = "Drunk"
-	desc = "All that alcohol you've been drinking is impairing your speech, motor skills, and mental cognition. Make sure to act like it."
+	desc = "All that alcohol you've been drinking is impairing your speech, motor skills, and mental cognition."
 	icon_state = "drunk"
 
 /obj/screen/alert/embeddedobject
@@ -507,6 +514,34 @@ so as to remain in compliance with the most up-to-date laws."
 	timeout = 300
 	var/atom/target = null
 	var/action = NOTIFY_JUMP
+	var/show_time_left = FALSE // If true you need to call START_PROCESSING manually
+	var/image/time_left_overlay // The last image showing the time left
+	var/datum/candidate_poll/poll // If set, on Click() it'll register the player as a candidate
+
+/obj/screen/alert/notify_action/process()
+	if(show_time_left)
+		var/timeleft = timeout - world.time
+		if(timeleft <= 0)
+			return PROCESS_KILL
+
+		if(time_left_overlay)
+			overlays -= time_left_overlay
+
+		var/obj/O = new
+		O.maptext = "<span style='font-family: \"Small Fonts\"; font-weight: bold; font-size: 32px; color: [(timeleft <= 10 SECONDS) ? "red" : "white"];'>[CEILING(timeleft / 10, 1)]</span>"
+		O.maptext_width = O.maptext_height = 128
+		var/matrix/M = new
+		M.Translate(4, 16)
+		O.transform = M
+
+		var/image/I = image(O)
+		I.layer = FLOAT_LAYER
+		I.plane = FLOAT_PLANE + 1
+		overlays += I
+
+		time_left_overlay = I
+		qdel(O)
+	..()
 
 /obj/screen/alert/notify_action/Destroy()
 	target = null
@@ -515,20 +550,52 @@ so as to remain in compliance with the most up-to-date laws."
 /obj/screen/alert/notify_action/Click()
 	if(!usr || !usr.client)
 		return
-	if(!target)
-		return
 	var/mob/dead/observer/G = usr
 	if(!istype(G))
 		return
-	switch(action)
-		if(NOTIFY_ATTACK)
-			target.attack_ghost(G)
-		if(NOTIFY_JUMP)
-			var/turf/T = get_turf(target)
-			if(T && isturf(T))
-				G.loc = T
-		if(NOTIFY_FOLLOW)
-			G.ManualFollow(target)
+
+	if(poll)
+		if(poll.sign_up(G))
+			// Add a small overlay to indicate we've signed up
+			display_signed_up()
+	else if(target)
+		switch(action)
+			if(NOTIFY_ATTACK)
+				target.attack_ghost(G)
+			if(NOTIFY_JUMP)
+				var/turf/T = get_turf(target)
+				if(T && isturf(T))
+					G.loc = T
+			if(NOTIFY_FOLLOW)
+				G.ManualFollow(target)
+
+/obj/screen/alert/notify_action/Topic(href, href_list)
+	if(href_list["signup"] && poll?.sign_up(usr))
+		display_signed_up()
+
+/obj/screen/alert/notify_action/proc/display_signed_up()
+	var/image/I = image('icons/mob/screen_gen.dmi', icon_state = "selector")
+	I.layer = FLOAT_LAYER
+	I.plane = FLOAT_PLANE + 2
+	overlays += I
+
+/obj/screen/alert/notify_action/proc/display_stacks(stacks = 1)
+	if(stacks <= 1)
+		return
+
+	var/obj/O = new
+	O.maptext = "<span style='font-family: \"Small Fonts\"; font-size: 32px; color: yellow;'>[stacks]x</span>"
+	O.maptext_width = O.maptext_height = 128
+	var/matrix/M = new
+	M.Translate(4, 2)
+	O.transform = M
+
+	var/image/I = image(O)
+	I.layer = FLOAT_LAYER
+	I.plane = FLOAT_PLANE + 1
+	overlays += I
+
+	qdel(O)
 
 /obj/screen/alert/notify_soulstone
 	name = "Soul Stone"

@@ -74,7 +74,7 @@
 				L.Weaken(3)
 			else
 				if(P.unlimited_power)
-					L.electrocute_act(1000, P, safety = TRUE, override = TRUE) //Just kill them
+					L.electrocute_act(1000, P, flags = SHOCK_NOGLOVES) //Just kill them
 				else
 					electrocute_mob(L, C, P)
 			break
@@ -90,3 +90,19 @@
 		next_shocked.Cut()
 
 	P.last_shocked = world.time
+
+/**
+ * # Callback invoker middle click override datum
+ *
+ * Middle click override which accepts a callback as an arugment in the `New()` proc.
+ * When the living mob that has this datum middle-clicks or alt-clicks on something, the callback will be invoked.
+ */
+/datum/middleClickOverride/callback_invoker
+	var/datum/callback/callback
+
+/datum/middleClickOverride/callback_invoker/New(datum/callback/_callback)
+	. = ..()
+	callback = _callback
+
+/datum/middleClickOverride/callback_invoker/onClick(atom/A, mob/living/user)
+	callback.Invoke(user, A)

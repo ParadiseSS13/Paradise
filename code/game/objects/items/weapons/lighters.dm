@@ -244,11 +244,17 @@
 	else
 		..()
 
+/obj/item/match/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(burnt)
+		C.stored_comms["wood"] += 1
+		qdel(src)
+		return TRUE
+	return ..()
+
 /obj/item/proc/help_light_cig(mob/living/M)
 	var/mask_item = M.get_item_by_slot(slot_wear_mask)
 	if(istype(mask_item, /obj/item/clothing/mask/cigarette))
 		return mask_item
-
 
 /obj/item/match/firebrand
 	name = "firebrand"

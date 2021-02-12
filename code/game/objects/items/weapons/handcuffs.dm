@@ -54,10 +54,7 @@
 		if(do_mob(user, C, 30))
 			apply_cuffs(C, user, remove_src)
 			to_chat(user, "<span class='notice'>You handcuff [C].</span>")
-			if(istype(src, /obj/item/restraints/handcuffs/cable))
-				feedback_add_details("handcuffs", "C")
-			else
-				feedback_add_details("handcuffs", "H")
+			SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 
 			add_attack_logs(user, C, "Handcuffed ([src])")
 		else
@@ -126,13 +123,15 @@
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
 	..()
 
-/obj/item/restraints/handcuffs/cable/proc/cable_color(var/colorC)
-	if(colorC)
-		if(colorC == "rainbow")
-			colorC = color_rainbow()
-		color = colorC
-	else
+/obj/item/restraints/handcuffs/cable/proc/cable_color(colorC)
+	if(!colorC)
 		color = COLOR_RED
+	else if(colorC == "rainbow")
+		color = color_rainbow()
+	else if(colorC == "orange") //byond only knows 16 colors by name, and orange isn't one of them
+		color = COLOR_ORANGE
+	else
+		color = colorC
 
 /obj/item/restraints/handcuffs/cable/proc/color_rainbow()
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)

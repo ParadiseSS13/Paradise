@@ -139,6 +139,17 @@
 #define ENVIRONMENT_SMASH_WALLS 2   //walls
 #define ENVIRONMENT_SMASH_RWALLS 4  //rwalls
 
+///Flags used by the flags parameter of electrocute act.
+
+///Makes it so that the shock doesn't take gloves into account.
+#define SHOCK_NOGLOVES (1 << 0)
+///Used when the shock is from a tesla bolt.
+#define SHOCK_TESLA (1 << 1)
+///Used when an illusion shocks something. Makes the shock deal stamina damage and not trigger certain secondary effects.
+#define SHOCK_ILLUSION (1 << 2)
+///The shock doesn't stun.
+#define SHOCK_NOSTUN (1 << 3)
+
 #define POCKET_STRIP_DELAY			40	//time taken (in deciseconds) to search somebody's pockets
 
 #define DEFAULT_ITEM_STRIP_DELAY		40  //time taken (in deciseconds) to strip somebody
@@ -198,6 +209,7 @@
 #define isdiona(A) (is_species(A, /datum/species/diona))
 #define ismachineperson(A) (is_species(A, /datum/species/machine))
 #define isdrask(A) (is_species(A, /datum/species/drask))
+#define iswryn(A) (is_species(A, /datum/species/wryn))
 
 #define isanimal(A)		(istype((A), /mob/living/simple_animal))
 #define isdog(A)		(istype((A), /mob/living/simple_animal/pet/dog))
@@ -208,10 +220,12 @@
 #define isguardian(A)	(istype((A), /mob/living/simple_animal/hostile/guardian))
 #define isnymph(A)      (istype((A), /mob/living/simple_animal/diona))
 #define ishostile(A) 	(istype(A, /mob/living/simple_animal/hostile))
+#define isterrorspider(A) (istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
 #define isAI(A)			(istype((A), /mob/living/silicon/ai))
 #define isrobot(A)		(istype((A), /mob/living/silicon/robot))
+#define isdrone(A)		(istype((A), /mob/living/silicon/robot/drone))
 #define ispAI(A)		(istype((A), /mob/living/silicon/pai))
 
 // For the tcomms monitor
@@ -240,3 +254,12 @@
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
 
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
+
+// Locations
+#define is_ventcrawling(A)  (istype(A.loc, /obj/machinery/atmospherics))
+
+// Hearing protection
+#define HEARING_PROTECTION_NONE	0
+#define HEARING_PROTECTION_MINOR	1
+#define HEARING_PROTECTION_MAJOR	2
+#define HEARING_PROTECTION_TOTAL	3

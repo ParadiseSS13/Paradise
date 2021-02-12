@@ -1,5 +1,4 @@
 /mob/Logout()
-	SSnanoui.user_logout(src) // this is used to clean up (remove) this user's Nano UIs
 	SStgui.on_logout(src) // Cleanup any TGUIs the user has open
 	unset_machine()
 	GLOB.player_list -= src
@@ -15,7 +14,7 @@
 			message_admins("Admin logout: [key_name_admin(src)]")
 			var/list/admincounter = staff_countup(R_BAN)
 			if(admincounter[1] == 0) // No active admins
-				send2irc(config.admin_notify_irc, "[key_name(src)] logged out - No active admins, [admincounter[2]] non-admin staff, [admincounter[3]] inactive staff.")
+				SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "[key_name(src)] logged out - No active admins, [admincounter[2]] non-admin staff, [admincounter[3]] inactive staff.")
 
 	..()
 	update_morgue()

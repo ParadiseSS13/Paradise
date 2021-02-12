@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "ab" = (
 /turf/simulated/mineral/random/low_chance,
 /area/ruin/unpowered)
@@ -648,7 +648,7 @@
 /area/ruin/unpowered)
 "bA" = (
 /obj/structure/table,
-/obj/machinery/microwave,
+/obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/plasteel{
 	tag = "icon-bar";
 	icon_state = "bar"

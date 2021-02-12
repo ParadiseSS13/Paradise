@@ -232,6 +232,7 @@
 	var/nanofrost_cooldown = 0
 
 /obj/item/extinguisher/mini/nozzle/New(parent_tank)
+	. = ..()
 	if(check_tank_exists(parent_tank, src))
 		tank = parent_tank
 		reagents = tank.reagents

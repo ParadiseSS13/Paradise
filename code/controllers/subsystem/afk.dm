@@ -21,14 +21,15 @@ SUBSYSTEM_DEF(afk)
 
 /datum/controller/subsystem/afk/fire()
 	var/list/toRemove = list()
-	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
+	for(var/thing in GLOB.human_list)
+		var/mob/living/carbon/human/H = thing
 		if(!H?.ckey) // Useless non ckey creatures
 			continue
 
 		var/turf/T
 		// Only players and players with the AFK watch enabled
 		// No dead, unconcious, restrained, people without jobs or people on other Z levels than the station
-		if(!H.client || !H.client.prefs.afk_watch || !H.mind || \
+		if(!H.client || !(H.client.prefs.toggles2 & PREFTOGGLE_2_AFKWATCH) || !H.mind || \
 			H.stat || H.restrained() || !H.job || !is_station_level((T = get_turf(H)).z)) // Assign the turf as last. Small optimization
 			if(afk_players[H.ckey])
 				toRemove += H.ckey

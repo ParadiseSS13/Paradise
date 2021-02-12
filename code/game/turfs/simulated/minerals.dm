@@ -11,6 +11,8 @@
 	opacity = 1
 	density = TRUE
 	blocks_air = TRUE
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	rad_insulation = RAD_MEDIUM_INSULATION
 	layer = EDGED_TURF_LAYER
 	temperature = TCMB
 	var/environment_type = "asteroid"
@@ -73,14 +75,14 @@
 			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
 				to_chat(user, "<span class='notice'>You finish cutting into the rock.</span>")
 				gets_drilled(user)
-				feedback_add_details("pick_used_mining","[P.name]")
+				SSblackbox.record_feedback("tally", "pick_used_mining", 1, P.name)
 	else
 		return attack_hand(user)
 
 /turf/simulated/mineral/proc/gets_drilled()
 	if(mineralType && (mineralAmt > 0))
 		new mineralType(src, mineralAmt)
-		feedback_add_details("ore_mined","[mineralType]|[mineralAmt]")
+		SSblackbox.record_feedback("tally", "ore_mined", mineralAmt, mineralType)
 	for(var/obj/effect/temp_visual/mining_overlay/M in src)
 		qdel(M)
 	ChangeTurf(turf_type, defer_change)
@@ -439,7 +441,7 @@
 		var/area/A = get_area(bombturf)
 
 		var/notify_admins = 0
-		if(z != 5)
+		if(!is_mining_level(z))
 			notify_admins = 1
 			if(!triggered_by_explosion)
 				message_admins("[key_name_admin(user)] has triggered a gibtonite deposit reaction at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.")

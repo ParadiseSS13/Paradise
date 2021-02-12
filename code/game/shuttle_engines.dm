@@ -11,21 +11,6 @@
 	M.Turn(rotation)
 	transform = M
 
-/obj/structure/shuttle/window
-	name = "shuttle window"
-	icon = 'icons/obj/podwindows.dmi'
-	icon_state = "1"
-	density = 1
-	opacity = 0
-	anchored = 1
-
-	CanPass(atom/movable/mover, turf/target, height)
-		if(!height) return 0
-		else return ..()
-
-	CanAtmosPass(turf/T)
-		return !density
-
 /obj/structure/shuttle/engine
 	name = "engine"
 	density = 1

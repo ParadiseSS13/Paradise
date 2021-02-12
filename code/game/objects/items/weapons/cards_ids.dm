@@ -102,6 +102,7 @@
 	var/rank = null			//actual job
 	var/owner_uid
 	var/owner_ckey
+	var/lastlog
 	var/dorm = 0			// determines if this ID has claimed a dorm already
 
 	var/sex
@@ -211,6 +212,11 @@
 				owner_uid = M.UID()
 				return M
 		owner_ckey = null
+
+/obj/item/card/id/proc/getPlayerCkey()
+	var/mob/living/carbon/human/H = getPlayer()
+	if(istype(H))
+		return H.ckey
 
 /obj/item/card/id/proc/is_untrackable()
 	return untrackable
@@ -356,13 +362,13 @@
 
 /obj/item/card/id/syndicate/attack_self(mob/user as mob)
 	if(!src.registered_name)
-		var t = reject_bad_name(input(user, "What name would you like to use on this card?", "Agent Card name", ishuman(user) ? user.real_name : user.name))
+		var/t = reject_bad_name(input(user, "What name would you like to use on this card?", "Agent Card name", ishuman(user) ? user.real_name : user.name))
 		if(!t)
 			to_chat(user, "<span class='warning'>Invalid name.</span>")
 			return
 		src.registered_name = t
 
-		var u = sanitize(stripped_input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than maintenance.", "Agent Card Job Assignment", "Agent", MAX_MESSAGE_LEN))
+		var/u = sanitize(stripped_input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than maintenance.", "Agent Card Job Assignment", "Agent", MAX_MESSAGE_LEN))
 		if(!u)
 			to_chat(user, "<span class='warning'>Invalid assignment.</span>")
 			src.registered_name = ""

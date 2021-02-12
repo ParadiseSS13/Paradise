@@ -9,11 +9,8 @@
 	pass_flags = PASSTABLE
 	density = 0
 	holder_type = /obj/item/holder/pai
-	var/network = "SS13"
-	var/obj/machinery/camera/current = null
 
 	var/ram = 100	// Used as currency to purchase different abilities
-	var/list/software = list()
 	var/userDNA		// The DNA string of our assigned user
 	var/obj/item/paicard/card	// The card we inhabit
 	var/obj/item/radio/radio		// Our primary radio
@@ -42,9 +39,6 @@
 		)
 
 
-
-	var/obj/item/pai_cable/cable		// The cable we produce and use when door or camera jacking
-
 	var/master				// Name of the one who commands us
 	var/master_dna			// DNA string for owner verification
 							// Keeping this separate from the laws var, it should be much more difficult to modify
@@ -64,17 +58,11 @@
 	var/secHUD = 0			// Toggles whether the Security HUD is active or not
 	var/medHUD = 0			// Toggles whether the Medical  HUD is active or not
 
-	var/medical_cannotfind = 0
-	var/datum/data/record/medicalActive1		// Datacore record declarations for record software
-	var/datum/data/record/medicalActive2
+	/// Currently active software
+	var/datum/pai_software/active_software
 
-	var/security_cannotfind = 0
-	var/datum/data/record/securityActive1		// Could probably just combine all these into one
-	var/datum/data/record/securityActive2
-
-	var/obj/machinery/door/hackdoor		// The airlock being hacked
-	var/hackprogress = 0				// Possible values: 0 - 100, >= 100 means the hack is complete and will be reset upon next check
-	var/hack_aborted = 0
+	/// List of all installed software
+	var/list/datum/pai_software/installed_software = list()
 
 	var/obj/item/integrated_radio/signal/sradio // AI's signaller
 
@@ -109,20 +97,20 @@
 
 	//PDA
 	pda = new(src)
-	spawn(5)
-		pda.ownjob = "Personal Assistant"
-		pda.owner = text("[]", src)
-		pda.name = pda.owner + " (" + pda.ownjob + ")"
-		var/datum/data/pda/app/messenger/M = pda.find_program(/datum/data/pda/app/messenger)
-		M.toff = 1
-	..()
+	pda.ownjob = "Personal Assistant"
+	pda.owner = "[src]"
+	pda.name = "[pda.owner] ([pda.ownjob])"
+	var/datum/data/pda/app/messenger/M = pda.find_program(/datum/data/pda/app/messenger)
+	M.toff = TRUE
 
-/mob/living/silicon/pai/Destroy()
-	medicalActive1 = null
-	medicalActive2 = null
-	securityActive1 = null
-	securityActive2 = null
-	return ..()
+	// Software modules. No these var names have nothing to do with photoshop
+	for(var/PS in subtypesof(/datum/pai_software))
+		var/datum/pai_software/PSD = new PS(src)
+		if(PSD.default)
+			installed_software[PSD.id] = PSD
+
+	active_software = installed_software["mainmenu"] // Default us to the main menu
+	..()
 
 /mob/living/silicon/pai/can_unbuckle()
 	return FALSE
@@ -158,12 +146,6 @@
 	if(proc_holder_list.len)//Generic list for proc_holder objects.
 		for(var/obj/effect/proc_holder/P in proc_holder_list)
 			statpanel("[P.panel]","",P)
-
-/mob/living/silicon/pai/check_eye(var/mob/user as mob)
-	if(!current)
-		return null
-	user.reset_perspective(current)
-	return 1
 
 /mob/living/silicon/pai/blob_act()
 	if(stat != DEAD)
@@ -229,7 +211,7 @@
 	return
 
 
-// See software.dm for Topic()
+// See software.dm for ui_act()
 
 /mob/living/silicon/pai/attack_animal(mob/living/simple_animal/M)
 	. = ..()
@@ -237,78 +219,6 @@
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		add_attack_logs(M, src, "Animal attacked for [damage] damage")
 		adjustBruteLoss(damage)
-
-/mob/living/silicon/pai/proc/switchCamera(var/obj/machinery/camera/C)
-	usr:cameraFollow = null
-	if(!C)
-		unset_machine()
-		reset_perspective(null)
-		return 0
-	if(stat == 2 || !C.status || !(network in C.network)) return 0
-
-	// ok, we're alive, camera is good and in our network...
-
-	set_machine(src)
-	src:current = C
-	reset_perspective(C)
-	return 1
-
-/mob/living/silicon/pai/verb/reset_record_view()
-	set category = "pAI Commands"
-	set name = "Reset Records Software"
-
-	securityActive1 = null
-	securityActive2 = null
-	security_cannotfind = 0
-	medicalActive1 = null
-	medicalActive2 = null
-	medical_cannotfind = 0
-	SSnanoui.update_uis(src)
-	to_chat(usr, "<span class='notice'>You reset your record-viewing software.</span>")
-
-/mob/living/silicon/pai/cancel_camera()
-	set category = "pAI Commands"
-	set name = "Cancel Camera View"
-	reset_perspective(null)
-	unset_machine()
-	src:cameraFollow = null
-
-//Addition by Mord_Sith to define AI's network change ability
-/*
-/mob/living/silicon/pai/proc/pai_network_change()
-	set category = "pAI Commands"
-	set name = "Change Camera Network"
-	reset_perspective(null)
-	unset_machine()
-	src:cameraFollow = null
-	var/cameralist[0]
-
-	if(usr.stat == 2)
-		to_chat(usr, "You can't change your camera network because you are dead!")
-		return
-
-	for(var/obj/machinery/camera/C in Cameras)
-		if(!C.status)
-			continue
-		else
-			if(C.network != "CREED" && C.network != "thunder" && C.network != "RD" && C.network != "toxins" && C.network != "Prison") COMPILE ERROR! This will have to be updated as camera.network is no longer a string, but a list instead
-				cameralist[C.network] = C.network
-
-	network = input(usr, "Which network would you like to view?") as null|anything in cameralist
-	to_chat(src, "<span class='notice'>Switched to [network] camera network.</span>")
-//End of code by Mord_Sith
-*/
-
-
-/*
-// Debug command - Maybe should be added to admin verbs later
-/mob/verb/makePAI(var/turf/t in view())
-	var/obj/item/paicard/card = new(t)
-	var/mob/living/silicon/pai/pai = new(card)
-	pai.key = key
-	card.setPersonality(pai)
-
-*/
 
 // Procs/code after this point is used to convert the stationary pai item into a
 // mobile pai mob. This also includes handling some of the general shit that can occur
@@ -435,9 +345,6 @@
 	// Pass lying down or getting up to our pet human, if we're in a rig.
 	if(stat == CONSCIOUS && istype(loc,/obj/item/paicard))
 		resting = 0
-		var/obj/item/rig/rig = get_rig()
-		if(istype(rig))
-			rig.force_rest(src)
 	else
 		resting = !resting
 		to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"]</span>")
@@ -520,7 +427,7 @@
 /mob/living/silicon/pai/Bumped()
 	return
 
-/mob/living/silicon/pai/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
+/mob/living/silicon/pai/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	return FALSE
 
 /mob/living/silicon/pai/update_canmove(delay_action_updates = 0)
@@ -534,11 +441,15 @@
 
 	switch(stat)
 		if(CONSCIOUS)
-			if(!client)	msg += "\nIt appears to be in stand-by mode." //afk
-		if(UNCONSCIOUS)		msg += "\n<span class='warning'>It doesn't seem to be responding.</span>"
-		if(DEAD)			msg += "\n<span class='deadsay'>It looks completely unsalvageable.</span>"
+			if(!client)
+				msg += "\nIt appears to be in stand-by mode." //afk
+		if(UNCONSCIOUS)
+			msg += "\n<span class='warning'>It doesn't seem to be responding.</span>"
+		if(DEAD)
+			msg += "\n<span class='deadsay'>It looks completely unsalvageable.</span>"
 
-	if(print_flavor_text()) msg += "\n[print_flavor_text()]"
+	if(print_flavor_text())
+		msg += "\n[print_flavor_text()]"
 
 	if(pose)
 		if( findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0 )
@@ -565,6 +476,10 @@
 /mob/living/silicon/pai/get_scooped(mob/living/carbon/grabber)
 	var/obj/item/holder/H = ..()
 	if(!istype(H))
+		return
+	if(stat == DEAD)
+		H.icon = 'icons/mob/pai.dmi'
+		H.icon_state = "[chassis]_dead"
 		return
 	if(resting)
 		icon_state = "[chassis]"

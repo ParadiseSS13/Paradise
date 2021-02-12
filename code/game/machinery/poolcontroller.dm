@@ -15,7 +15,6 @@
 	var/decalinpool = list() // List containing all of the cleanable decals in pool
 	var/linked_area = null
 	var/temperature = NORMAL //The temperature of the pool, starts off on normal, which has no effects.
-	var/temperaturecolor = "" //used for nanoUI fancyness
 	var/srange = 5 //The range of the search for pool turfs, change this for bigger or smaller pools.
 	var/list/linkedmist = list() //Used to keep track of created mist
 	var/deep_water = FALSE		//set to 1 to drown even standing people
@@ -67,7 +66,7 @@
 	else
 		to_chat(user, "<span class='warning'>Nothing happens.</span>")//If not emagged, don't do anything, and don't tell the user that it can be emagged.
 
-/obj/machinery/poolcontroller/attack_hand(mob/user as mob)
+/obj/machinery/poolcontroller/attack_hand(mob/user)
 	ui_interact(user)
 
 /obj/machinery/poolcontroller/process()
@@ -151,64 +150,74 @@
 	linkedmist.Cut()
 
 
-/obj/machinery/poolcontroller/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/poolcontroller/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "poolcontroller.tmpl", "Pool Controller Interface", 520, 410)
+		ui = new(user, src, ui_key, "PoolController", "Pool Controller Interface", 520, 410)
 		ui.open()
 
-/obj/machinery/poolcontroller/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
-	var/currenttemp
-	switch(temperature) //So we can output nice things like "Cool" to nanoUI
+/obj/machinery/poolcontroller/proc/temp_to_str(temp)
+	switch(temp) //So we can output nice things like "Cool" to tgUI
 		if(FRIGID)
-			currenttemp = "frigid"
+			return "frigid"
 		if(COOL)
-			currenttemp = "cool"
+			return "cool"
 		if(NORMAL)
-			currenttemp = "normal"
+			return "normal"
 		if(WARM)
-			currenttemp = "warm"
+			return "warm"
 		if(SCALDING)
-			currenttemp = "scalding"
-	data["currentTemp"] = currenttemp
+			return "scalding"
+
+/obj/machinery/poolcontroller/proc/set_temp(val)
+	if (val != WARM && val != NORMAL && val != COOL && !(emagged && (val == SCALDING || val == FRIGID)))
+		return
+
+	if(val == SCALDING)
+		miston()
+	else
+		mistoff()
+
+	temperature = val
+
+
+/obj/machinery/poolcontroller/proc/str_to_temp(str)
+	switch(str)
+		if("frigid")
+			return FRIGID
+		if("cool")
+			return COOL
+		if("normal")
+			return NORMAL
+		if("warm")
+			return WARM
+		if("scalding")
+			return SCALDING
+
+/obj/machinery/poolcontroller/proc/set_temp_str(target)
+	var/temp = str_to_temp(target)
+	if(temp)
+		set_temp(temp)
+
+
+/obj/machinery/poolcontroller/ui_data(mob/user)
+	var/list/data = list()
+	data["currentTemp"] = temp_to_str(temperature)
 	data["emagged"] = emagged
-	data["TempColor"] = temperaturecolor
 
 	return data
 
 
-/obj/machinery/poolcontroller/Topic(href, href_list)
+/obj/machinery/poolcontroller/ui_act(action, list/params)
 	if(..())
-		return 1
+		return
 
-	switch(href_list["temp"])
-		if("Scalding")
-			if(!emagged)
-				return 0
-			temperature = SCALDING
-			temperaturecolor = "#FF0000"
-			miston()
-		if("Frigid")
-			if(!emagged)
-				return 0
-			temperature = FRIGID
-			temperaturecolor = "#00CCCC"
-			mistoff()
-		if("Warm")
-			temperature = WARM
-			temperaturecolor = "#990000"
-			mistoff()
-		if("Cool")
-			temperature = COOL
-			temperaturecolor = "#009999"
-			mistoff()
-		if("Normal")
-			temperature = NORMAL
-			temperaturecolor = ""
-			mistoff()
+	switch(action)
+		if("setTemp")
+			set_temp_str(params["temp"])
+			return TRUE
 
-	return 1
+	return FALSE
 
 #undef FRIGID
 #undef COOL

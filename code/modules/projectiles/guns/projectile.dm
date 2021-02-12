@@ -95,6 +95,7 @@
 				if(!user.unEquip(A))
 					return
 				to_chat(user, "<span class='notice'>You screw [S] onto [src].</span>")
+				playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 				suppressed = A
 				S.oldsound = fire_sound
 				S.initial_w_class = w_class
@@ -120,6 +121,7 @@
 				..()
 				return
 			to_chat(user, "<span class='notice'>You unscrew [suppressed] from [src].</span>")
+			playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 			user.put_in_hands(suppressed)
 			fire_sound = S.oldsound
 			w_class = S.initial_w_class

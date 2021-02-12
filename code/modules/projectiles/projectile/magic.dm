@@ -196,7 +196,7 @@
 				var/mob/living/silicon/robot/Robot = new_mob
 				Robot.mmi = new /obj/item/mmi(new_mob)
 				Robot.lawupdate = FALSE
-				Robot.connected_ai = null
+				Robot.disconnect_from_ai()
 				Robot.clear_inherent_laws()
 				Robot.clear_zeroth_law()
 				if(ishuman(M))
@@ -270,7 +270,6 @@
 			M.mind.transfer_to(new_mob)
 		else
 			new_mob.attack_log_old = M.attack_log_old.Copy()
-			new_mob.logs = M.logs.Copy()
 			new_mob.key = M.key
 
 		to_chat(new_mob, "<B>Your form morphs into that of a [randomize].</B>")
@@ -316,6 +315,7 @@
 	damage = 15
 	damage_type = BURN
 	flag = "magic"
+	sharp = TRUE
 	dismemberment = 50
 	nodamage = 0
 
@@ -347,3 +347,13 @@
 			M.Weaken(slip_weaken)
 			M.Stun(slip_stun)
 	. = ..()
+
+/obj/item/projectile/magic/arcane_barrage
+	name = "arcane bolt"
+	icon_state = "arcane_barrage"
+	damage = 20
+	damage_type = BURN
+	nodamage = FALSE
+	armour_penetration = 0
+	flag = "magic"
+	hitsound = 'sound/weapons/barragespellhit.ogg'

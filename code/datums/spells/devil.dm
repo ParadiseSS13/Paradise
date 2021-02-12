@@ -21,13 +21,18 @@
 	action_background_icon_state = "bg_demon"
 
 
-/obj/effect/proc_holder/spell/targeted/summon_contract
+/obj/effect/proc_holder/spell/targeted/click/summon_contract
 	name = "Summon infernal contract"
 	desc = "Skip making a contract by hand, just do it by magic."
 	invocation_type = "whisper"
 	invocation = "Just sign on the dotted line."
-	include_user = 0
+	selection_activated_message = "<span class='notice'>You prepare a detailed contract. Click on a target to summon the contract in his hands.</span>"
+	selection_deactivated_message = "<span class='notice'>You archive the contract for later use.</span>"
+	include_user = FALSE
 	range = 5
+	auto_target_single = FALSE	// Prevent an accidental contract from summoning
+	click_radius = -1 // Precision clicking required
+	allowed_type = /mob/living/carbon
 	clothes_req = FALSE
 	school = "conjuration"
 	charge_max = 150
@@ -35,8 +40,9 @@
 	action_icon_state = "spell_default"
 	action_background_icon_state = "bg_demon"
 
-/obj/effect/proc_holder/spell/targeted/summon_contract/cast(list/targets, mob/user = usr)
-	for(var/mob/living/carbon/C in targets)
+/obj/effect/proc_holder/spell/targeted/click/summon_contract/cast(list/targets, mob/user = usr)
+	for(var/target in targets)
+		var/mob/living/carbon/C = target
 		if(C.mind && user.mind)
 			if(C.stat == DEAD)
 				if(user.drop_item())
@@ -63,7 +69,7 @@
 			to_chat(user,"<span class='notice'>[C] seems to not be sentient. You are unable to summon a contract for them.</span>")
 
 
-/obj/effect/proc_holder/spell/fireball/hellish
+/obj/effect/proc_holder/spell/targeted/click/fireball/hellish
 	name = "Hellfire"
 	desc = "This spell launches hellfire at the target."
 	school = "evocation"
@@ -74,8 +80,8 @@
 	fireball_type = /obj/item/projectile/magic/fireball/infernal
 	action_background_icon_state = "bg_demon"
 
-/obj/effect/proc_holder/spell/fireball/hellish/cast(list/targets, mob/living/user = usr)
-	msg_admin_attack("[key_name_admin(usr)] has fired a fireball.", ATKLOG_FEW)
+/obj/effect/proc_holder/spell/targeted/click/fireball/hellish/cast(list/targets, mob/living/user = usr)
+	add_attack_logs(user, targets, "has fired a Hellfire ball", ATKLOG_FEW)
 	.=..()
 
 

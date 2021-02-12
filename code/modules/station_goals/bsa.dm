@@ -91,7 +91,7 @@
 
 /obj/machinery/bsa/middle/proc/check_completion()
 	if(!front || !back)
-		return "No linked parts detected!"
+		return "No multitool-linked parts detected!"
 	if(!front.anchored || !back.anchored || !anchored)
 		return "Linked parts unwrenched!"
 	if(front.y != y || back.y != y || !(front.x > x && back.x < x || front.x < x && back.x > x) || front.z != z || back.z != z)
@@ -307,49 +307,43 @@
 		return 1
 	ui_interact(user)
 
-/obj/machinery/computer/bsa_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/bsa_control/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "bsa.tmpl", name, 400, 305)
+		ui = new(user, src, ui_key, "BlueSpaceArtilleryControl", name, 400, 155, master_ui, state)
 		ui.open()
-		ui.set_auto_update(1)
 
-/obj/machinery/computer/bsa_control/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+/obj/machinery/computer/bsa_control/ui_data(mob/user)
 	var/list/data = list()
 	data["connected"] = cannon
 	data["notice"] = notice
 	if(target)
 		data["target"] = get_target_name()
-
 	if(cannon)
 		var/reload_cooldown = cannon.reload_cooldown
 		var/last_fire_time = cannon.last_fire_time
 		var/time_to_wait = max(0, round(reload_cooldown - ((world.time / 10) - last_fire_time)))
 		var/minutes = max(0, round(time_to_wait / 60))
 		var/seconds = max(0, time_to_wait - (60 * minutes))
-
-		data["reloadtime_mins"] = minutes
-		data["reloadtime_secs"] = (seconds < 10) ? "0[seconds]" : seconds
+		var/seconds2 = (seconds < 10) ? "0[seconds]" : seconds
+		data["reloadtime_text"] = "[minutes]:[seconds2]"
 		data["ready"] = minutes == 0 && seconds == 0
 	else
 		data["ready"] = FALSE
-
 	return data
 
-/obj/machinery/computer/bsa_control/Topic(href, href_list)
+/obj/machinery/computer/bsa_control/ui_act(action, params)
 	if(..())
-		return 1
-
-	if(href_list["build"])
-		cannon = deploy()
-		. = TRUE
-	else if(href_list["fire"])
-		fire(usr)
-		. = TRUE
-	else if(href_list["recalibrate"])
-		calibrate(usr)
-		. = TRUE
+		return
+	switch(action)
+		if("build")
+			cannon = deploy()
+		if("fire")
+			fire(usr)
+		if("recalibrate")
+			calibrate(usr)
 	update_icon()
+	return TRUE
 
 /obj/machinery/computer/bsa_control/proc/calibrate(mob/user)
 	var/list/gps_locators = list()

@@ -99,6 +99,11 @@
 		H.visible_message("<span class='warning'>[src] takes a big chomp out of [H]!</span>", "<span class='userdanger'>[src] takes a big chomp out of your [NB.name]!</span>")
 		NB.droplimb()
 
+/mob/living/simple_animal/hostile/retaliate/goat/chef
+	name = "Pete"
+	desc = "Pete, the Chef's pet goat from the Caribbean. Not known for their pleasant disposition."
+	unique_pet = TRUE
+
 //cow
 /mob/living/simple_animal/cow
 	name = "cow"
@@ -126,6 +131,7 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
 	var/obj/item/udder/udder = null
+	gender = FEMALE
 
 /mob/living/simple_animal/cow/Initialize()
 	udder = new()

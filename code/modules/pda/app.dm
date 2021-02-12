@@ -33,9 +33,9 @@
 		else
 			L = get(pda, /mob/living/silicon)
 
-		if(L)
+		if(L && L.stat != UNCONSCIOUS) // Awake or dead people can see their messages
 			to_chat(L, "[bicon(pda)] [message]")
-			SSnanoui.update_user_uis(L, pda) // Update the receiving user's PDA UI so that they can see the new message
+			SStgui.update_user_uis(L, pda) // Update the receiving user's PDA UI so that they can see the new message
 
 	if(!notify_silent)
 		pda.play_ringtone()
@@ -69,7 +69,8 @@
 	pda.current_app = src
 	return 1
 
-/datum/data/pda/app/proc/update_ui(mob/user as mob, list/data)
+/datum/data/pda/app/proc/update_ui(mob/user, list/data)
+	return
 
 
 // Utilities just have a button on the home screen, but custom code when clicked
@@ -99,8 +100,10 @@
 		name = "Disable [base_name]"
 
 	pda.update_shortcuts()
-	return 1
+	return TRUE
 
-/datum/data/pda/utility/scanmode/proc/scan_mob(mob/living/C as mob, mob/living/user as mob)
+/datum/data/pda/utility/scanmode/proc/scan_mob(mob/living/C, mob/living/user)
+	return
 
-/datum/data/pda/utility/scanmode/proc/scan_atom(atom/A as mob|obj|turf|area, mob/user as mob)
+/datum/data/pda/utility/scanmode/proc/scan_atom(atom/A, mob/user)
+	return

@@ -7,6 +7,7 @@
 	icon_state = "ticketmachine"
 	desc = "A marvel of bureaucratic engineering encased in an efficient plastic shell. It can be refilled with a hand labeler refill roll and linked to buttons with a multitool."
 	density = FALSE
+	anchored = TRUE
 	maptext_height = 26
 	maptext_width = 32
 	maptext_x = 7
@@ -20,6 +21,8 @@
 	var/list/ticket_holders = list()
 	var/list/tickets = list()
 	var/id = 1
+	/// If FALSE, the ticket machine will not dispense tickets. Toggled by swiping  aHoP ID
+	var/dispense_enabled = TRUE
 
 /obj/machinery/ticket_machine/Destroy()
 	for(var/obj/item/ticket_machine_ticket/ticket in tickets)
@@ -101,6 +104,10 @@
 	handle_maptext()
 
 /obj/machinery/ticket_machine/proc/handle_maptext()
+	if(!dispense_enabled)
+		maptext_x = 6
+		maptext = "<font face='Small Fonts' color='#960b0b'>OFF</font>"
+		return
 	switch(ticket_number) //This is here to handle maptext offsets so that the numbers align.
 		if(0 to 9)
 			maptext_x = 13
@@ -108,7 +115,7 @@
 			maptext_x = 10
 		if(100)
 			maptext_x = 8
-	maptext = "[current_number]" //Finally, apply the maptext
+	maptext = "<font face='Small Fonts'>[ticket_number]</font>"
 
 /obj/machinery/ticket_machine/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/hand_labeler_refill))
@@ -129,8 +136,16 @@
 			max_number = initial(max_number)
 			update_icon()
 			return
-	else
-		return ..()
+	else if(istype(I, /obj/item/card/id))
+		var/obj/item/card/id/heldID = I
+		if(ACCESS_HOP in heldID.access)
+			dispense_enabled = !dispense_enabled
+			to_chat(user, "<span class='notice'>You [dispense_enabled ? "enable" : "disable"] [src], it will [dispense_enabled ? "now" : "no longer"] dispense tickets!</span>")
+			handle_maptext()
+			return
+		to_chat(user, "<span class='warning'>You do not have the required access to [dispense_enabled ? "disable" : "enable"] the ticket machine.</span>")
+		return
+	return ..()
 
 /obj/machinery/ticket_machine/proc/reset_cooldown()
 	ready = TRUE
@@ -139,6 +154,9 @@
 	. = ..()
 	if(!ready)
 		to_chat(user,"<span class='warning'>You press the button, but nothing happens...</span>")
+		return
+	if(!dispense_enabled)
+		to_chat(user, "<span class='warning'>[src] is disabled.</span>")
 		return
 	if(ticket_number >= max_number)
 		to_chat(user,"<span class='warning'>Ticket supply depleted, please refill this unit with a hand labeller refill cartridge!</span>")
@@ -151,8 +169,8 @@
 	to_chat(user, "<span class='notice'>You take a ticket from [src], looks like you're ticket number #[ticket_number]...</span>")
 	var/obj/item/ticket_machine_ticket/theirticket = new /obj/item/ticket_machine_ticket(get_turf(src))
 	theirticket.name = "Ticket #[ticket_number]"
-	theirticket.maptext = "<font color='#000000'>[ticket_number]</font>"
-	theirticket.saved_maptext = "<font color='#000000'>[ticket_number]</font>"
+	theirticket.maptext = "<font color='#000000' face='Small Fonts'>[ticket_number]</font>"
+	theirticket.saved_maptext = "<font color='#000000' face='Small Fonts'>[ticket_number]</font>"
 	theirticket.ticket_number = ticket_number
 	theirticket.source = src
 	theirticket.owner = user.UID()
@@ -167,9 +185,17 @@
 		user.adjust_fire_stacks(1)
 		user.IgniteMob()
 
+// Stop AI penetrating the bureaucracy
+/obj/machinery/ticket_machine/attack_ai(mob/user)
+	return
+
+/obj/machinery/ticket_machine/examine(mob/user)
+	. = ..()
+	. += "<span class='info'>Use an ID card with <b>Head of Personnel</b> access on this machine to [dispense_enabled ? "disable" : "enable"] ticket dispensing.</span>"
+
 /obj/item/ticket_machine_ticket
 	name = "Ticket"
-	desc = "A ticket which shows your place in the Head of Personnel's line. Made from Nanotrasen patented NanoPaper®. Though solid, its form seems to shimmer slightly. Feels (and burns) just like the real thing."
+	desc = "A ticket which shows your place in the Head of Personnel's line. Made from Nanotrasen patented NanoPaper. Though solid, its form seems to shimmer slightly. Feels (and burns) just like the real thing."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "ticket"
 	maptext_x = 7

@@ -61,10 +61,15 @@
 
 	uniform = /obj/item/clothing/under/rank/chef
 	suit = /obj/item/clothing/suit/chef
+	belt = /obj/item/storage/belt/chef
 	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/chefhat
 	l_ear = /obj/item/radio/headset/headset_service
 	pda = /obj/item/pda/chef
+	backpack_contents = list(
+		/obj/item/eftpos=1,\
+		/obj/item/paper/chef=1,\
+		/obj/item/book/manual/chef_recipes=1)
 
 /datum/outfit/job/chef/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -206,7 +211,7 @@
 	suit = /obj/item/clothing/suit/hooded/explorer
 	mask = /obj/item/clothing/mask/gas/explorer
 	glasses = /obj/item/clothing/glasses/meson
-	suit_store = /obj/item/tank/emergency_oxygen
+	suit_store = /obj/item/tank/internals/emergency_oxygen
 	internals_slot = slot_s_store
 	backpack_contents = list(
 		/obj/item/flashlight/seclite=1,\
@@ -458,6 +463,7 @@
 	total_positions = 0
 	spawn_positions = 0
 	supervisors = "the head of personnel"
+	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)

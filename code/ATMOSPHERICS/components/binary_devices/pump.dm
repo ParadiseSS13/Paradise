@@ -24,9 +24,7 @@ Thus, the two variables affect pump operation are set in New():
 	var/on = 0
 	var/target_pressure = ONE_ATMOSPHERE
 
-	var/frequency = 0
 	var/id = null
-	var/datum/radio_frequency/radio_connection
 
 /obj/machinery/atmospherics/binary/pump/CtrlClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
@@ -120,13 +118,6 @@ Thus, the two variables affect pump operation are set in New():
 		parent2.update = 1
 	return 1
 
-//Radio remote control
-/obj/machinery/atmospherics/binary/pump/proc/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	if(frequency)
-		radio_connection = SSradio.add_object(src, frequency, filter = RADIO_ATMOSIA)
-
 /obj/machinery/atmospherics/binary/pump/proc/broadcast_status()
 	if(!radio_connection)
 		return 0
@@ -197,46 +188,45 @@ Thus, the two variables affect pump operation are set in New():
 /obj/machinery/atmospherics/binary/pump/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/atmospherics/binary/pump/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = GLOB.default_state)
-	user.set_machine(src)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/atmospherics/binary/pump/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "atmos_pump.tmpl", name, 385, 115, state = state)
+		ui = new(user, src, ui_key, "AtmosPump", name, 310, 110, master_ui, state)
 		ui.open()
 
 /obj/machinery/atmospherics/binary/pump/ui_data(mob/user)
-	var/list/data = list()
-	data["on"] = on
-	data["pressure"] = round(target_pressure)
-	data["max_pressure"] = round(MAX_OUTPUT_PRESSURE)
+	var/list/data = list(
+		"on" = on,
+		"rate" = round(target_pressure),
+		"max_rate" = MAX_OUTPUT_PRESSURE,
+		"gas_unit" = "kPa",
+		"step" = 10 // This is for the TGUI <NumberInput> step. It's here since multiple pumps share the same UI, but need different values.
+	)
 	return data
 
-/obj/machinery/atmospherics/binary/pump/Topic(href,href_list)
+/obj/machinery/atmospherics/binary/pump/ui_act(action, list/params)
 	if(..())
-		return 1
+		return
 
-	if(href_list["power"])
-		on = !on
-		investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
-		. = TRUE
-	if(href_list["pressure"])
-		var/pressure = href_list["pressure"]
-		if(pressure == "max")
-			pressure = MAX_OUTPUT_PRESSURE
-			. = TRUE
-		else if(pressure == "input")
-			pressure = input("New output pressure (0-[MAX_OUTPUT_PRESSURE] kPa):", name, target_pressure) as num|null
-			if(!isnull(pressure))
-				. = TRUE
-		else if(text2num(pressure) != null)
-			pressure = text2num(pressure)
-			. = TRUE
-		if(.)
-			target_pressure = clamp(pressure, 0, MAX_OUTPUT_PRESSURE)
-			investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
+	switch(action)
+		if("power")
+			toggle()
+			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
+			return TRUE
 
-	update_icon()
-	SSnanoui.update_uis(src)
+		if("max_rate")
+			target_pressure = MAX_OUTPUT_PRESSURE
+			. = TRUE
+
+		if("min_rate")
+			target_pressure = 0
+			. = TRUE
+
+		if("custom_rate")
+			target_pressure = clamp(text2num(params["rate"]), 0 , MAX_OUTPUT_PRESSURE)
+			. = TRUE
+	if(.)
+		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
 
 /obj/machinery/atmospherics/binary/pump/power_change()
 	var/old_stat = stat
@@ -246,12 +236,7 @@ Thus, the two variables affect pump operation are set in New():
 
 /obj/machinery/atmospherics/binary/pump/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
-		var/t = copytext(stripped_input(user, "Enter the name for the pump.", "Rename", name), 1, MAX_NAME_LEN)
-		if(!t)
-			return
-		if(!in_range(src, usr) && loc != usr)
-			return
-		name = t
+		rename_interactive(user, W)
 		return
 	else if(!istype(W, /obj/item/wrench))
 		return ..()

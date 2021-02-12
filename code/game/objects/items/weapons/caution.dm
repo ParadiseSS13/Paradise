@@ -15,6 +15,10 @@
 	var/armed = 0
 	var/timepassed = 0
 
+/obj/item/caution/proximity_sign/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/proximity_monitor)
+
 /obj/item/caution/proximity_sign/attack_self(mob/user as mob)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -40,7 +44,7 @@
 		armed = 1
 		timing = 0
 
-/obj/item/caution/proximity_sign/HasProximity(atom/movable/AM as mob|obj)
+/obj/item/caution/proximity_sign/HasProximity(atom/movable/AM)
 	if(armed)
 		if(istype(AM, /mob/living/carbon) && !istype(AM, /mob/living/carbon/brain))
 			var/mob/living/carbon/C = AM

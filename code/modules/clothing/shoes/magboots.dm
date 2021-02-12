@@ -8,10 +8,18 @@
 	var/slowdown_active = 2
 	var/slowdown_passive = SHOES_SLOWDOWN
 	var/magpulse_name = "mag-pulse traction system"
+	var/gustprotection = FALSE									//this is for unsafe_unwrenching protection
 	actions_types = list(/datum/action/item_action/toggle)
 	strip_delay = 70
 	put_on_delay = 70
 	resistance_flags = FIRE_PROOF
+
+/obj/item/clothing/shoes/magboots/atmos
+	desc = "Magnetic boots, made to withstand gusts of space wind over 500kmph."
+	name = "atmospheric magboots"
+	icon_state = "atmosmagboots0"
+	magboot_state = "atmosmagboots"
+	gustprotection = TRUE
 
 /obj/item/clothing/shoes/magboots/attack_self(mob/user)
 	if(magpulse)
@@ -42,6 +50,7 @@
 	name = "advanced magboots"
 	icon_state = "advmag0"
 	magboot_state = "advmag"
+	gustprotection = TRUE
 	slowdown_active = SHOES_SLOWDOWN
 	origin_tech = null
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
@@ -53,7 +62,7 @@
 	magboot_state = "syndiemag"
 	origin_tech = "magnets=4;syndicate=2"
 
-obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
+/obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
 	desc = "Reverse-engineered magboots that appear to be based on an advanced model, as they have a lighter magnetic pull. Property of Gorlex Marauders."
 	name = "advanced blood-red magboots"
 	slowdown_active = SHOES_SLOWDOWN

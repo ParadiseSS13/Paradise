@@ -56,12 +56,7 @@
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 
 	else if(istype(W, /obj/item/pen))
-		var/str = copytext(sanitize(input(user,"Label text?","Set label","")),1,MAX_NAME_LEN)
-		if(!str || !length(str))
-			to_chat(user, "<span class='notice'>Invalid text.</span>")
-			return
-		user.visible_message("<span class='notice'>[user] labels [src] as [str].</span>")
-		name = "[name] ([str])"
+		rename_interactive(user, W)
 
 	else if(istype(W, /obj/item/stack/wrapping_paper) && !giftwrapped)
 		var/obj/item/stack/wrapping_paper/WP = W
@@ -132,12 +127,7 @@
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 
 	else if(istype(W, /obj/item/pen))
-		var/str = copytext(sanitize(input(user,"Label text?","Set label","")),1,MAX_NAME_LEN)
-		if(!str || !length(str))
-			to_chat(user, "<span class='notice'>Invalid text.</span>")
-			return
-		user.visible_message("<span class='notice'>[user] labels [src] as [str].</span>")
-		name = "[name] ([str])"
+		rename_interactive(user, W)
 
 	else if(istype(W, /obj/item/stack/wrapping_paper) && !giftwrapped)
 		var/obj/item/stack/wrapping_paper/WP = W
@@ -161,13 +151,13 @@
 	amount = 25
 	max_amount = 25
 	resistance_flags = FLAMMABLE
+	var/static/list/no_wrap = list(/obj/item/smallDelivery, /obj/structure/bigDelivery, /obj/item/evidencebag, /obj/structure/closet/body_bag, /obj/item/twohanded/required)
 
 /obj/item/stack/packageWrap/afterattack(var/obj/target as obj, mob/user as mob, proximity)
 	if(!proximity) return
 	if(!istype(target))	//this really shouldn't be necessary (but it is).	-Pete
 		return
-	if(istype(target, /obj/item/smallDelivery) || istype(target,/obj/structure/bigDelivery) \
-	|| istype(target, /obj/item/evidencebag) || istype(target, /obj/structure/closet/body_bag))
+	if(is_type_in_list(target, no_wrap))
 		return
 	if(target.anchored)
 		return

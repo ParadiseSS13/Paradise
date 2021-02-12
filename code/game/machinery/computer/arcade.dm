@@ -180,7 +180,7 @@
 			playsound(src.loc, 'sound/arcade/win.ogg', 20, 1, extrarange = -6, falloff = 10)
 
 			if(emagged)
-				feedback_inc("arcade_win_emagged")
+				SSblackbox.record_feedback("tally", "arcade_status", 1, "win_emagged")
 				new /obj/effect/spawner/newbomb/timer/syndicate(get_turf(src))
 				new /obj/item/clothing/head/collectable/petehat(get_turf(src))
 				message_admins("[key_name_admin(usr)] has outbombed Cuban Pete and been awarded a bomb.")
@@ -188,7 +188,7 @@
 				Reset()
 				emagged = 0
 			else
-				feedback_inc("arcade_win_normal")
+				SSblackbox.record_feedback("tally", "arcade_status", 1, "win_normal")
 				var/score = player_hp + player_mp + 5
 				prizevend(score)
 
@@ -211,10 +211,10 @@
 			temp = "You have been drained! GAME OVER"
 			playsound(src.loc, 'sound/arcade/lose.ogg', 20, 1, extrarange = -6, falloff = 10)
 			if(emagged)
-				feedback_inc("arcade_loss_mana_emagged")
+				SSblackbox.record_feedback("tally", "arcade_status", 1, "loss_mana_emagged")
 				usr.gib()
 			else
-				feedback_inc("arcade_loss_mana_normal")
+				SSblackbox.record_feedback("tally", "arcade_status", 1, "loss_mana_normal")
 
 	else if((enemy_hp <= 10) && (enemy_mp > 4))
 		temp = "[enemy_name] heals for 4 health!"
@@ -233,10 +233,10 @@
 		temp = "You have been crushed! GAME OVER"
 		playsound(src.loc, 'sound/arcade/lose.ogg', 20, 1, extrarange = -6, falloff = 10)
 		if(emagged)
-			feedback_inc("arcade_loss_hp_emagged")
+			SSblackbox.record_feedback("tally", "arcade_status", 1, "loss_hp_emagged")
 			usr.gib()
 		else
-			feedback_inc("arcade_loss_hp_normal")
+			SSblackbox.record_feedback("tally", "arcade_status", 1, "loss_hp_normal")
 
 	blocked = 0
 	return
@@ -571,20 +571,22 @@
 		event = null
 
 	else if(href_list["killcrew"]) //shoot a crewmember
+		if(length(settlers) <= 0 || alive <= 0)
+			return
 		var/sheriff = remove_crewmember() //I shot the sheriff
-		playsound(loc,'sound/weapons/gunshots/gunshot.ogg', 100, 1)
+		playsound(loc, 'sound/weapons/gunshots/gunshot.ogg', 100, 1)
 
-		if(settlers.len == 0 || alive == 0)
+		if(length(settlers) == 0 || alive == 0)
 			atom_say("The last crewmember [sheriff], shot themselves, GAME OVER!")
 			if(emagged)
-				usr.death(0)
-				emagged = 0
-			gameover = 1
+				usr.death(FALSE)
+				emagged = FALSE
+			gameover = TRUE
 			event = null
 		else if(emagged)
 			if(usr.name == sheriff)
 				atom_say("The crew of the ship chose to kill [usr.name]!")
-				usr.death(0)
+				usr.death(FALSE)
 
 		if(event == ORION_TRAIL_LING) //only ends the ORION_TRAIL_LING event, since you can do this action in multiple places
 			event = null
