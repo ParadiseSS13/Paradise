@@ -104,7 +104,7 @@
 	name = "cyborg rapid disabler cooling module"
 	desc = "Used to cool a mounted disabler, increasing the potential current in it and thus its recharge rate."
 	icon_state = "cyborg_upgrade3"
-	origin_tech = "engineering=4;powerstorage=4;combat=4"
+	origin_tech = "engineering=7;powerstorage=7;combat=7"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/security
 
