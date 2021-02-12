@@ -34,6 +34,12 @@
 				H.color = "#000000"
 		adjustHealth(-maxHealth * 0.0125)
 
+/mob/living/simple_animal/hostile/blob/get_spacemove_backup()
+	. = ..()
+	// If we don't find any normal thing to use, attempt to use any nearby blob structure instead.
+	if(!.)
+		for(var/obj/structure/blob/B in range(1, get_turf(src)))
+			return B
 
 ////////////////
 // BLOB SPORE //
