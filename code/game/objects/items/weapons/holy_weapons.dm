@@ -56,7 +56,7 @@
 
 
 /obj/item/nullrod/attack_self(mob/user)
-	if(user.mind?.isholy && !reskinned)
+	if(user.mind?.isholy && !reskinned && reskin_selectable)
 		reskin_holy_weapon(user)
 
 /obj/item/nullrod/examine(mob/living/user)
