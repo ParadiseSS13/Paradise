@@ -131,6 +131,7 @@
 				H.show_message("<span class='warning'>The radiation beam singes you!</span>")
 		if(/obj/item/projectile/energy/florayield)
 			H.set_nutrition(min(H.nutrition + 30, NUTRITION_LEVEL_FULL))
+	return TRUE
 
 /datum/species/diona/pod //Same name and everything; we want the same limitations on them; we just want their regeneration to kick in at all times and them to have special factions
 	pod = TRUE
