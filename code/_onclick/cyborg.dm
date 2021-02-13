@@ -16,7 +16,7 @@
 	changeNext_click(1)
 
 	if(!cell || cell.charge <= 0 || lockcharge) // Disable UIs if the Borg is unpowered or locked.
-		to_chat(user, "<span class='notice'>You failed to connect to the device, due to being offline.</span>")
+		to_chat(src, "<span class='notice'>You failed to connect to the device, due to being offline.</span>")
 		return
 	if(is_ventcrawling(src)) // To stop drones interacting with anything while ventcrawling
 		return
