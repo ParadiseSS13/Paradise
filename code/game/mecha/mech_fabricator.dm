@@ -18,6 +18,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
 	active_power_usage = 5000
+	req_access = list(ACCESS_ROBOTICS)
 	// Settings
 	/// Bitflags of design types that can be produced.
 	var/allowed_design_types = MECHFAB
@@ -441,6 +442,13 @@
 		else
 			return FALSE
 	add_fingerprint(usr)
+
+/obj/machinery/mecha_part_fabricator/emag_act(user as mob)
+	if(!emagged)
+		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
+		req_access = list()
+		emagged = TRUE
+		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
 
 /**
   * # Exosuit Fabricator (upgraded)
