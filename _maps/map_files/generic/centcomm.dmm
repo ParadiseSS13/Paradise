@@ -12451,6 +12451,14 @@
 "Ge" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high{
+	pixel_x = 0;
+	pixel_y = 0
+	},
+/obj/item/stock_parts/cell/high{
+	pixel_x = -3;
+	pixel_y = 3
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "Gf" = (
@@ -14152,11 +14160,7 @@
 /area/shuttle/administration)
 "PO" = (
 /obj/structure/table,
-/obj/item/stock_parts/cell/high{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/stock_parts/cell/high,
+/obj/item/thermal_drill/diamond_drill,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "PS" = (
@@ -14273,6 +14277,7 @@
 /obj/item/storage/firstaid/regular,
 /obj/item/storage/firstaid/adv,
 /obj/item/storage/box/syndie_kit/bonerepair,
+/obj/item/clothing/accessory/stethoscope,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "Qy" = (
