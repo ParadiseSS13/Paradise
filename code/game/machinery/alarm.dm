@@ -120,6 +120,12 @@
 /obj/machinery/alarm/monitor
 	report_danger_level = FALSE
 
+/obj/machinery/alarm/engine
+	name = "engine air alarm"
+	locked = FALSE
+	req_access = null
+	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
+
 /obj/machinery/alarm/syndicate //general syndicate access
 	report_danger_level = FALSE
 	remote_control = FALSE
@@ -244,7 +250,7 @@
 	if(!alarm_area)
 		alarm_area = get_area(src)
 	if(!alarm_area)
-		log_runtime(EXCEPTION("Air alarm /obj/machinery/alarm lacks alarm_area and areaMaster vars during proc/master_is_operating()"), src)
+		log_runtime(EXCEPTION("Air alarm /obj/machinery/alarm lacks alarm_area vars during proc/master_is_operating()"), src)
 		return FALSE
 	return alarm_area.master_air_alarm && !(alarm_area.master_air_alarm.stat & (NOPOWER|BROKEN))
 
@@ -418,110 +424,109 @@
 		if(AALARM_MODE_SCRUBBING)
 			for(var/device_id in alarm_area.air_scrub_names)
 				send_signal(device_id, list(
-					"power"= 1,
-					"o2_scrub" = (preset==AALARM_PRESET_VOX),
-					"n2_scrub" = 0,
-					"co2_scrub"= 1,
-					"scrubbing"= 1,
-					"widenet"= 0,
+					"power" = TRUE,
+					"o2_scrub" = (preset == AALARM_PRESET_VOX),
+					"n2_scrub" = FALSE,
+					"co2_scrub" = TRUE,
+					"tox_scrub" = FALSE,
+					"n2o_scrub" = FALSE,
+					"scrubbing" = TRUE,
+					"widenet" = FALSE,
 				))
 			for(var/device_id in alarm_area.air_vent_names)
 				send_signal(device_id, list(
-					"power"= 1,
-					"checks"= 1,
-					"set_external_pressure"= ONE_ATMOSPHERE
+					"power" = TRUE,
+					"checks" = TRUE,
+					"set_external_pressure" = ONE_ATMOSPHERE
 				))
 		if(AALARM_MODE_CONTAMINATED)
 			for(var/device_id in alarm_area.air_scrub_names)
 				send_signal(device_id, list(
-					"power"= 1,
-					"co2_scrub"= 1,
-					"tox_scrub"= 1,
-					"n2o_scrub"= 1,
-					"scrubbing"= 1,
-					"widenet"= 1,
+					"power" = TRUE,
+					"co2_scrub" = TRUE,
+					"tox_scrub" = TRUE,
+					"n2o_scrub" = TRUE,
+					"scrubbing" = TRUE,
+					"widenet" = TRUE,
 				))
 			for(var/device_id in alarm_area.air_vent_names)
 				send_signal(device_id, list(
-					"power"= 1,
-					"checks"= 1,
-					"set_external_pressure"= ONE_ATMOSPHERE
+					"power" = TRUE,
+					"checks" = TRUE,
+					"set_external_pressure" = ONE_ATMOSPHERE
 				))
 		if(AALARM_MODE_VENTING)
 			for(var/device_id in alarm_area.air_scrub_names)
 				send_signal(device_id, list(
-					"power"= 1,
-					"widenet"= 0,
-					"scrubbing"= 0
+					"power" = TRUE,
+					"widenet" = FALSE,
+					"scrubbing" = FALSE
 				))
 			for(var/device_id in alarm_area.air_vent_names)
 				send_signal(device_id, list(
-					"power"= 1,
-					"checks"= 1,
-					"set_external_pressure" = ONE_ATMOSPHERE*2
+					"power" = TRUE,
+					"checks" = TRUE,
+					"set_external_pressure" = ONE_ATMOSPHERE * 2
 				))
 		if(AALARM_MODE_REFILL)
 			for(var/device_id in alarm_area.air_scrub_names)
 				send_signal(device_id, list(
-					"power"= 1,
-					"co2_scrub"= 1,
-					"tox_scrub"= 0,
-					"n2o_scrub"= 0,
-					"scrubbing"= 1,
-					"widenet"= 0,
+					"power" = TRUE,
+					"co2_scrub" = TRUE,
+					"tox_scrub" = FALSE,
+					"n2o_scrub" = FALSE,
+					"scrubbing" = TRUE,
+					"widenet" = FALSE,
 				))
 			for(var/device_id in alarm_area.air_vent_names)
 				send_signal(device_id, list(
-					"power"= 1,
-					"checks"= 1,
-					"set_external_pressure" = ONE_ATMOSPHERE*3
+					"power" = TRUE,
+					"checks" = TRUE,
+					"set_external_pressure" = ONE_ATMOSPHERE * 3
 				))
-		if(
-			AALARM_MODE_PANIC,
-			AALARM_MODE_REPLACEMENT
-		)
+		if(AALARM_MODE_PANIC,
+			AALARM_MODE_REPLACEMENT)
 			for(var/device_id in alarm_area.air_scrub_names)
 				send_signal(device_id, list(
-					"power"= 1,
-					"widenet"= 1,
-					"scrubbing"= 0
+					"power" = TRUE,
+					"widenet" = TRUE,
+					"scrubbing" = FALSE
 				))
 			for(var/device_id in alarm_area.air_vent_names)
 				send_signal(device_id, list(
-					"power"= 0
+					"power" = FALSE
 				))
-		if(
-			AALARM_MODE_SIPHON
-		)
+		if(AALARM_MODE_SIPHON)
 			for(var/device_id in alarm_area.air_scrub_names)
 				send_signal(device_id, list(
-					"power"= 1,
-					"widenet"= 0,
-					"scrubbing"= 0
+					"power" = TRUE,
+					"widenet" = FALSE,
+					"scrubbing" = FALSE
 				))
 			for(var/device_id in alarm_area.air_vent_names)
 				send_signal(device_id, list(
-					"power"= 0
+					"power" = FALSE
 				))
 
 		if(AALARM_MODE_OFF)
 			for(var/device_id in alarm_area.air_scrub_names)
 				send_signal(device_id, list(
-					"power"= 0
+					"power" = FALSE
 				))
 			for(var/device_id in alarm_area.air_vent_names)
 				send_signal(device_id, list(
-					"power"= 0
+					"power" = FALSE
 				))
 		if(AALARM_MODE_FLOOD)
 			for(var/device_id in alarm_area.air_scrub_names)
 				send_signal(device_id, list(
-					"power"=0
+					"power" = FALSE
 				))
 			for(var/device_id in alarm_area.air_vent_names)
 				send_signal(device_id, list(
-					"power"= 1,
-					"checks"= 0,
+					"power" = TRUE,
+					"checks" = 2,
+					"set_internal_pressure" = FALSE
 				))
 
 /obj/machinery/alarm/proc/apply_danger_level()
@@ -566,7 +571,7 @@
 		return
 
 	add_hiddenprint(user)
-	return tgui_interact(user)
+	return ui_interact(user)
 
 /obj/machinery/alarm/attack_ghost(mob/user)
 	return interact(user)
@@ -585,7 +590,7 @@
 		wires.Interact(user)
 
 	if(!shorted)
-		tgui_interact(user)
+		ui_interact(user)
 
 /obj/machinery/alarm/proc/ui_air_status()
 	var/turf/location = get_turf(src)
@@ -656,7 +661,7 @@
 	return user && (isAI(user) || allowed(user) || emagged || rcon_setting == RCON_YES)
 
 // Intentional nulls here
-/obj/machinery/alarm/tgui_data(mob/user)
+/obj/machinery/alarm/ui_data(mob/user)
 	var/list/data = list()
 
 	data["name"] = sanitize(name)
@@ -767,7 +772,7 @@
 
 	return thresholds
 
-/obj/machinery/alarm/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/alarm/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "AirAlarm", name, 570, 410, master_ui, state)
@@ -776,7 +781,7 @@
 /obj/machinery/alarm/proc/is_authenticated(mob/user, datum/tgui/ui=null)
 	// Return true if they are connecting with a remote console
 	// DO NOT CHANGE THIS TO USE ISTYPE, IT WILL NOT WORK
-	if(ui?.master_ui?.src_object.type == /datum/tgui_module/atmos_control)
+	if(ui?.master_ui?.src_object.type == /datum/ui_module/atmos_control)
 		return TRUE
 	if(user.can_admin_interact())
 		return TRUE
@@ -785,7 +790,7 @@
 	else
 		return !locked
 
-/obj/machinery/alarm/tgui_status(mob/user, datum/tgui_state/state)
+/obj/machinery/alarm/ui_status(mob/user, datum/ui_state/state)
 	if(buildstage != 2)
 		return STATUS_CLOSE
 
@@ -798,7 +803,7 @@
 	return min(..(), .)
 
 // TODO: Refactor these utter pieces of garbage
-/obj/machinery/alarm/tgui_act(action, list/params)
+/obj/machinery/alarm/ui_act(action, list/params)
 	if(..())
 		return
 

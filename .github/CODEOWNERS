@@ -1,0 +1,28 @@
+# This list auto requests reviews from the specified maintainer when a PR that modifies the file in question is opened
+# This list is alphabetized by User -> Filename KEEP IT THAT WAY
+# In the event that multiple org members are to be informed of changes to the same file or dir, add them to the end under Multiple Owners
+# This is ONLY for taking ownership of server-critical code which must be written in a very specific way for the server to operate at all.
+
+### AffectedArc07
+# Actual Code
+/code/controllers/subsystem/mapping.dm @AffectedArc07
+/code/controllers/subsystem/ticker.dm @AffectedArc07
+/tgui/ @AffectedArc07
+
+# CI + Tooling
+/.github/workflows/ @AffectedArc07
+/code/modules/unit_tests/ @AffectedArc07
+/tools/ci/ @AffectedArc07
+
+# Executables that need to be security-cleared
+dreamchecker.exe @AffectedArc07
+rust_g.dll @AffectedArc07
+
+
+
+### Fox-McCloud
+/code/ATMOSPHERICS/ @Fox-McCloud
+/code/controllers/subsystem/air.dm @Fox-McCloud
+/code/controllers/subsystem/garbage.dm @Fox-McCloud
+/code/modules/reagents/chemistry/holder.dm @Fox-McCloud
+/code/modules/reagents/chemistry/reagents.dm @Fox-McCloud

@@ -133,21 +133,21 @@
 		return
 
 /obj/machinery/turretid/attack_ai(mob/user as mob)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/turretid/attack_ghost(mob/user as mob)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/turretid/attack_hand(mob/user as mob)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/turretid/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/turretid/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "PortableTurret", name, 500, 400)
 		ui.open()
 
-/obj/machinery/turretid/tgui_data(mob/user)
+/obj/machinery/turretid/ui_data(mob/user)
 	var/list/data = list(
 		"locked" = isLocked(user), // does the current user have access?
 		"on" = enabled,
@@ -167,7 +167,7 @@
 	)
 	return data
 
-/obj/machinery/turretid/tgui_act(action, params)
+/obj/machinery/turretid/ui_act(action, params)
 	if (..())
 		return
 	if(isLocked(usr))

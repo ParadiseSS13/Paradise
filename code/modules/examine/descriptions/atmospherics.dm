@@ -105,15 +105,9 @@
 /obj/machinery/atmospherics/unary/vent_pump
 	description_info = "This pumps the contents of the attached pipe out into the atmosphere, if needed.  It can be controlled from an Air Alarm."
 
-//Freezers
-/obj/machinery/atmospherics/unary/cold_sink/freezer
-	description_info = "Cools down the gas of the pipe it is connected to.  It uses massive amounts of electricity while on. \
-	It can be upgraded by replacing the capacitors, manipulators, and matter bins.  It can be deconstructed by screwing the maintenance panel open with a \
-	screwdriver, and then using a crowbar."
-
-//Heaters
-/obj/machinery/atmospherics/unary/heat_reservoir/heater
-	description_info = "Heats up the gas of the pipe it is connected to.  It uses massive amounts of electricity while on. \
+//Freezer and Heater
+/obj/machinery/atmospherics/unary/thermomachine
+	description_info = "Cools or heats the gas of the pipe it is connected to.  It uses massive amounts of electricity while on. \
 	It can be upgraded by replacing the capacitors, manipulators, and matter bins.  It can be deconstructed by screwing the maintenance panel open with a \
 	screwdriver, and then using a crowbar."
 

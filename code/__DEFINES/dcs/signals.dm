@@ -266,6 +266,12 @@
 ///called when the movable is added to a disposal holder object for disposal movement: (obj/structure/disposalholder/holder, obj/machinery/disposal/source)
 #define COMSIG_MOVABLE_DISPOSING "movable_disposing"
 
+
+// /datum/mind signals
+
+///from base of /datum/mind/proc/transfer_to(mob/living/new_character)
+#define COMSIG_MIND_TRANSER_TO "mind_transfer_to"
+
 // /mob signals
 
 ///from base of /mob/Login(): ()
@@ -574,6 +580,8 @@
 #define COMSIG_HUMAN_DISARM_HIT	"human_disarm_hit"
 ///Whenever EquipRanked is called, called after job is set
 #define COMSIG_JOB_RECEIVED "job_received"
+// called after DNA is updated
+#define COMSIG_HUMAN_UPDATE_DNA "human_update_dna"
 
 // /datum/species signals
 

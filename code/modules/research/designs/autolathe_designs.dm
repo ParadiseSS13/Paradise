@@ -187,6 +187,14 @@
 	build_path = /obj/item/pipe_painter
 	category = list("initial", "Miscellaneous")
 
+/datum/design/window_painter
+	name = "Window Painter"
+	id = "window_painter"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 2000)
+	build_path = /obj/item/pipe_painter/window_painter
+	category = list("initial", "Miscellaneous")
+
 /datum/design/floorpainter
 	name = "Floor painter"
 	id = "floor_painter"
@@ -830,6 +838,14 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	build_path = /obj/item/toy/crayon/spraycan
+	category = list("initial", "Tools")
+
+/datum/design/geiger
+	name = "Geiger Counter"
+	id = "geigercounter"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 150, MAT_GLASS = 150)
+	build_path = /obj/item/geiger_counter
 	category = list("initial", "Tools")
 
 /datum/design/desttagger

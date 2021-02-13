@@ -43,7 +43,7 @@
 	id = "slimejelly"
 	description = "A gooey semi-liquid produced from one of the deadliest lifeforms in existence. SO REAL."
 	reagent_state = LIQUID
-	color = "#801E28" // rgb: 128, 30, 40
+	color = "#0b8f70" // rgb: 11, 143, 112
 	taste_description = "slimes"
 	taste_mult = 1.3
 
@@ -51,10 +51,22 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(10))
 		to_chat(M, "<span class='danger'>Your insides are burning!</span>")
-		update_flags |= M.adjustToxLoss(rand(20,60)*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustToxLoss(rand(2, 6) * REAGENTS_EFFECT_MULTIPLIER, FALSE) // avg 0.4 toxin per cycle, not unreasonable
 	else if(prob(40))
-		update_flags |= M.adjustBruteLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(-0.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
+
+/datum/reagent/slimejelly/on_merge(list/mix_data)
+	if(data && mix_data)
+		if(mix_data["colour"])
+			color = mix_data["colour"]
+
+/datum/reagent/slimejelly/reaction_turf(turf/T, volume, color)
+	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/slime) in T)
+		var/obj/effect/decal/cleanable/blood/slime/B = new(T)
+		B.basecolor = color
+		B.update_icon()
+
 
 /datum/reagent/slimetoxin
 	name = "Mutation Toxin"
@@ -148,7 +160,7 @@
 
 /datum/reagent/radium/on_mob_life(mob/living/M)
 	if(M.radiation < 80)
-		M.apply_effect(4, IRRADIATE, negate_armor = 1)
+		M.apply_effect(4, IRRADIATE)
 	return ..()
 
 /datum/reagent/radium/reaction_turf(turf/T, volume)
@@ -178,7 +190,7 @@
 /datum/reagent/mutagen/on_mob_life(mob/living/M)
 	if(!M.dna)
 		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
-	M.apply_effect(2*REAGENTS_EFFECT_MULTIPLIER, IRRADIATE, negate_armor = 1)
+	M.apply_effect(2 * REAGENTS_EFFECT_MULTIPLIER, IRRADIATE)
 	if(prob(4))
 		randmutb(M)
 	return ..()
@@ -203,20 +215,13 @@
 /datum/reagent/stable_mutagen/on_mob_life(mob/living/M)
 	if(!ishuman(M) || !M.dna)
 		return
-	M.apply_effect(2*REAGENTS_EFFECT_MULTIPLIER, IRRADIATE, negate_armor = 1)
+	M.apply_effect(2 * REAGENTS_EFFECT_MULTIPLIER, IRRADIATE)
 	if(current_cycle == 10 && islist(data))
 		if(istype(data["dna"], /datum/dna))
 			var/mob/living/carbon/human/H = M
 			var/datum/dna/D = data["dna"]
 			if(!D.species.is_small)
-				H.set_species(D.species.type, retain_damage = TRUE)
-				H.dna = D.Clone()
-				H.real_name = D.real_name
-				domutcheck(H, null, MUTCHK_FORCED)
-				H.dna.UpdateSE()
-				H.dna.UpdateUI()
-				H.sync_organ_dna(TRUE)
-				H.UpdateAppearance()
+				H.change_dna(D, TRUE, TRUE)
 
 	return ..()
 
@@ -236,7 +241,7 @@
 	taste_description = "the inside of a reactor"
 
 /datum/reagent/uranium/on_mob_life(mob/living/M)
-	M.apply_effect(2, IRRADIATE, negate_armor = 1)
+	M.apply_effect(2, IRRADIATE)
 	return ..()
 
 /datum/reagent/uranium/reaction_turf(turf/T, volume)
@@ -467,7 +472,7 @@
 	taste_mult = 0
 
 /datum/reagent/polonium/on_mob_life(mob/living/M)
-	M.apply_effect(8, IRRADIATE, negate_armor = 1)
+	M.apply_effect(8, IRRADIATE)
 	return ..()
 
 /datum/reagent/histamine
@@ -1177,7 +1182,7 @@
 		M.UpdateAppearance()
 
 /datum/reagent/glowing_slurry/on_mob_life(mob/living/M)
-	M.apply_effect(2, IRRADIATE, 0, negate_armor = 1)
+	M.apply_effect(2, IRRADIATE)
 	if(!M.dna)
 		return
 	var/did_mutation = FALSE
@@ -1228,9 +1233,21 @@
 	shock_timer++
 	if(shock_timer >= rand(5,30)) //Random shocks are wildly unpredictable
 		shock_timer = 0
-		M.electrocute_act(rand(5, 20), "Teslium in their body", 1, TRUE) //Override because it's caused from INSIDE of you
+		M.electrocute_act(rand(5, 20), "Teslium in their body", 1, SHOCK_NOGLOVES) //Override because it's caused from INSIDE of you
 		playsound(M, "sparks", 50, 1)
 	return ..()
+
+/datum/reagent/teslium/on_mob_add(mob/living/M)
+	..()
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.dna.species.siemens_coeff *= 2
+
+/datum/reagent/teslium/on_mob_delete(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.dna.species.siemens_coeff *= 0.5
+	..()
 
 /datum/reagent/gluttonytoxin
 	name = "Gluttony's Blessing"

@@ -21,19 +21,18 @@ SUBSYSTEM_DEF(changelog)
 
 /datum/controller/subsystem/changelog/Initialize()
 	// This entire subsystem relies on SQL being here.
-	if(!GLOB.dbcon.IsConnected())
+	if(!SSdbcore.IsConnected())
 		return ..()
 
-	var/DBQuery/latest_cl_date = GLOB.dbcon.NewQuery("SELECT UNIX_TIMESTAMP(date_merged) AS ut FROM [format_table_name("changelog")] ORDER BY date_merged DESC LIMIT 1")
-	if(!latest_cl_date.Execute())
-		var/err = latest_cl_date.ErrorMsg()
-		log_game("SQL ERROR during SSchangelog initialization L24. Error: \[[err]\]\n")
-		message_admins("SQL ERROR during SSchangelog initialization L24. Error: \[[err]\]\n")
+	var/datum/db_query/latest_cl_date = SSdbcore.NewQuery("SELECT CAST(UNIX_TIMESTAMP(date_merged) AS CHAR) AS ut FROM [format_table_name("changelog")] ORDER BY date_merged DESC LIMIT 1")
+	if(!latest_cl_date.warn_execute())
+		qdel(latest_cl_date)
 		// Abort if we cant do this
 		return ..()
 
 	while(latest_cl_date.NextRow())
 		current_cl_timestamp = latest_cl_date.item[1]
+	qdel(latest_cl_date)
 
 	if(!GenerateChangelogHTML()) // if this failed to generate
 		to_chat(world, "<span class='alert'>WARNING: Changelog failed to generate. Please inform a coder/server dev</span>")
@@ -62,18 +61,22 @@ SUBSYSTEM_DEF(changelog)
 	else
 		winset(C, "rpane.changelog", "background-color=none;font-style=none")
 	C.prefs.lastchangelog = current_cl_timestamp
-	var/DBQuery/updatePlayerCLTime = GLOB.dbcon.NewQuery("UPDATE [format_table_name("player")] SET lastchangelog='[sanitizeSQL(current_cl_timestamp)]' WHERE ckey='[C.ckey]'")
-	if(!updatePlayerCLTime.Execute())
-		var/err = updatePlayerCLTime.ErrorMsg()
-		log_game("SQL ERROR during lastchangelog updating. Error: \[[err]\]\n")
-		message_admins("SQL ERROR during lastchangelog updating. Error: \[[err]\]\n")
-		to_chat(C, "Couldn't update your last seen changelog, please try again later.")
-		return FALSE
-	return TRUE
+
+	var/datum/db_query/updatePlayerCLTime = SSdbcore.NewQuery(
+		"UPDATE [format_table_name("player")] SET lastchangelog=:lastchangelog WHERE ckey=:ckey",
+		list(
+			"lastchangelog" = current_cl_timestamp,
+			"ckey" = C.ckey
+		)
+	)
+	// We dont do anything with this query so we dont care about errors too much
+	updatePlayerCLTime.warn_execute()
+	qdel(updatePlayerCLTime)
+
 
 /datum/controller/subsystem/changelog/proc/UpdatePlayerChangelogButton(client/C)
 	// If SQL aint even enabled, just set the button to default style
-	if(!GLOB.dbcon.IsConnected())
+	if(!SSdbcore.IsConnected())
 		if(C.prefs.toggles & PREFTOGGLE_UI_DARKMODE)
 			winset(C, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
 		else
@@ -104,7 +107,7 @@ SUBSYSTEM_DEF(changelog)
 
 /datum/controller/subsystem/changelog/proc/OpenChangelog(client/C)
 	// If SQL isnt enabled, dont even queue them, just tell them it wont work
-	if(!GLOB.dbcon.IsConnected())
+	if(!SSdbcore.IsConnected())
 		to_chat(C, "<span class='notice'>This server is not running with an SQL backend. Changelog is unavailable.</span>")
 		return
 
@@ -160,6 +163,7 @@ SUBSYSTEM_DEF(changelog)
 
 // This proc is the star of the show
 /datum/controller/subsystem/changelog/proc/GenerateChangelogHTML()
+	. = FALSE
 	// Modify the code below to modify the header of the changelog
 	var/changelog_header = {"
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" rel="stylesheet">
@@ -173,59 +177,75 @@ SUBSYSTEM_DEF(changelog)
 
 	var/list/prs_to_process = list()
 	// Grab all from last 30 days
-	var/DBQuery/pr_list_query = GLOB.dbcon.NewQuery("SELECT DISTINCT pr_number FROM changelog WHERE date_merged BETWEEN NOW() - INTERVAL 30 DAY AND NOW() ORDER BY date_merged DESC")
-	if(!pr_list_query.Execute())
-		var/err = pr_list_query.ErrorMsg()
-		log_game("SQL ERROR during CL generation L143. Error: \[[err]\]\n")
-		message_admins("SQL ERROR during CL generation L143. Error: \[[err]\]\n")
+	var/datum/db_query/pr_list_query = SSdbcore.NewQuery("SELECT DISTINCT pr_number FROM changelog WHERE date_merged BETWEEN NOW() - INTERVAL 30 DAY AND NOW() ORDER BY date_merged DESC")
+	if(!pr_list_query.warn_execute())
+		qdel(pr_list_query)
 		return FALSE
 
 	while(pr_list_query.NextRow())
 		prs_to_process += text2num(pr_list_query.item[1])
+	qdel(pr_list_query)
 
 	// Load in the header
 	changelogHTML += changelog_header
 
-	// Make blocks for all the PRs
+	// We put all these queries into a list so we can batch-execute them to avoid excess delays
+	// We index these based on PR numbers. MAKE SURE YOU USE STRING INDICIES IN THIS IF YOU EVER TWEAK IT -aa
+	var/list/datum/db_query/meta_queries = list()
+	var/list/datum/db_query/entry_queries = list()
+
+	// Create some queries for each PR
+	for(var/pr_number in prs_to_process)
+		var/datum/db_query/pr_meta = SSdbcore.NewQuery(
+			"SELECT author, DATE_FORMAT(date_merged, '%Y-%m-%d at %T') AS date FROM changelog WHERE pr_number = :prnum LIMIT 1",
+			list("prnum" = pr_number)
+		)
+
+		// MAKE SURE YOU CAST TO STRINGS HERE!
+		meta_queries["[pr_number]"] = pr_meta
+
+		var/datum/db_query/pr_cl_entries = SSdbcore.NewQuery(
+			"SELECT cl_type, cl_entry FROM changelog WHERE pr_number = :prnum",
+			list("prnum" = pr_number)
+		)
+
+		// And here
+		entry_queries["[pr_number]"] = pr_cl_entries
+
+	ASSERT(length(meta_queries) == length(entry_queries)) // If these dont add up, something went very wrong
+
+	// Explanation for parameters:
+	// TRUE: We want warnings if these fail
+	// FALSE: Do NOT qdel() queries here, otherwise they wont be read. At all.
+	// TRUE: This is an assoc list, so it needs to prepare for that
+	SSdbcore.MassExecute(meta_queries, TRUE, FALSE, TRUE)
+	SSdbcore.MassExecute(entry_queries, TRUE, FALSE, TRUE)
+
 	for(var/pr_number in prs_to_process)
 		// Initial declarations
 		var/pr_block = "" // HTML for the changelog section
 		var/author = "" // Author of the PR
 		var/merge_date = "" // Timestamp of when the PR was merged
 
-		// Now we gather the data from the DB
-		// Also we probably dont need to sanitize the PR number but you never know
-		var/DBQuery/pr_meta = GLOB.dbcon.NewQuery("SELECT author,DATE(date_merged) AS date FROM changelog WHERE pr_number = [sanitizeSQL(pr_number)] LIMIT 1")
-		if(!pr_meta.Execute())
-			var/err = pr_meta.ErrorMsg()
-			log_game("SQL ERROR during CL generation L190. Error: \[[err]\]\n")
-			message_admins("SQL ERROR during CL generation L190. Error: \[[err]\]\n")
-			return FALSE
-
-		while(pr_meta.NextRow())
-			author = pr_meta.item[1]
-			merge_date = pr_meta.item[2]
+		// Assemble metadata
+		while(meta_queries["[pr_number]"].NextRow())
+			author = meta_queries["[pr_number]"].item[1]
+			merge_date = meta_queries["[pr_number]"].item[2]
 
 		// Now for each actual entry
-		var/DBQuery/db_entries = GLOB.dbcon.NewQuery("SELECT cl_type, cl_entry FROM changelog WHERE pr_number = [sanitizeSQL(pr_number)]")
-		if(!db_entries.Execute())
-			var/err = db_entries.ErrorMsg()
-			log_game("SQL ERROR during CL generation L204. Error: \[[err]\]\n")
-			message_admins("SQL ERROR during CL generation L204. Error: \[[err]\]\n")
-			return FALSE
-
-
-		// Now we make a changelog block
 		pr_block += "<div class='statusDisplay'>"
-		// If the github URL in the config has a trailing slash, it doesnt matter here, thankfully github accepts having a double slash: https://github.com/org/repo//pull/1
 		pr_block += "<p class='white'><a href='?src=[UID()];openPR=[pr_number]'>#[pr_number]</a> by <b>[author]</b> (Merged on [merge_date])</span>"
 
-		while(db_entries.NextRow())
-			pr_block += "<p>[Text2Icon(db_entries.item[1])] [db_entries.item[2]]</p>"
+		while(entry_queries["[pr_number]"].NextRow())
+			pr_block += "<p>[Text2Icon(entry_queries["[pr_number]"].item[1])] [entry_queries["[pr_number]"].item[2]]</p>"
 
 		pr_block += "</div><br>"
 
 		changelogHTML += pr_block
+
+	// Cleanup queries
+	QDEL_LIST_ASSOC_VAL(meta_queries)
+	QDEL_LIST_ASSOC_VAL(entry_queries)
 
 	// Make sure we return TRUE so we know it worked
 	return TRUE
@@ -241,14 +261,7 @@ SUBSYSTEM_DEF(changelog)
 			if("forum")
 				usr.client.forum()
 			if("wiki")
-				// Wiki needs snowflake because it has no cancel button
-				if(config.wikiurl)
-					if(alert("This will open the wiki in your browser. Are you sure?",,"Yes","No")=="No")
-						return
-					usr.client.wiki()
-				else
-					to_chat(usr, "<span class='danger'>The Wiki URL is not set in the server configuration. Please inform the server host.</span>")
-
+				usr.client.wiki()
 			if("github")
 				usr.client.github()
 	// Takes a PR number as argument
@@ -256,6 +269,7 @@ SUBSYSTEM_DEF(changelog)
 		if(config.githuburl)
 			if(alert("This will open PR #[href_list["openPR"]] in your browser. Are you sure?",,"Yes","No")=="No")
 				return
+			// If the github URL in the config has a trailing slash, it doesnt matter here, thankfully github accepts having a double slash: https://github.com/org/repo//pull/1
 			var/url = "[config.githuburl]/pull/[href_list["openPR"]]"
 			usr << link(url)
 		else

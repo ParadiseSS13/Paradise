@@ -62,7 +62,7 @@
 	return ..()
 
 /obj/machinery/computer/med_data/attackby(obj/item/O, mob/user, params)
-	if(tgui_login_attackby(O, user))
+	if(ui_login_attackby(O, user))
 		return
 	return ..()
 
@@ -73,22 +73,22 @@
 		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
 		return
 	add_fingerprint(user)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/computer/med_data/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/computer/med_data/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "MedicalRecords", "Medical Records", 800, 380, master_ui, state)
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
-/obj/machinery/computer/med_data/tgui_data(mob/user)
-	var/data[0]
+/obj/machinery/computer/med_data/ui_data(mob/user)
+	var/list/data = list()
 	data["temp"] = temp
 	data["screen"] = screen
 	data["printing"] = printing
 	// This proc appends login state to data.
-	tgui_login_data(data, user)
+	ui_login_data(data, user)
 	if(data["loginState"]["logged_in"])
 		switch(screen)
 			if(MED_DATA_R_LIST)
@@ -172,10 +172,10 @@
 							medbot["use_beaker"] = 0
 						data["medbots"] += list(medbot)
 
-	data["modal"] = tgui_modal_data(src)
+	data["modal"] = ui_modal_data(src)
 	return data
 
-/obj/machinery/computer/med_data/tgui_act(action, params)
+/obj/machinery/computer/med_data/ui_act(action, params)
 	if(..())
 		return
 	if(stat & (NOPOWER|BROKEN))
@@ -187,9 +187,9 @@
 		active2 = null
 
 	. = TRUE
-	if(tgui_act_modal(action, params))
+	if(ui_act_modal(action, params))
 		return
-	if(tgui_login_act(action, params))
+	if(ui_login_act(action, params))
 		return
 
 	switch(action)
@@ -201,7 +201,7 @@
 	if(.)
 		return
 
-	if(tgui_login_get().logged_in)
+	if(ui_login_get().logged_in)
 		. = TRUE
 		switch(action)
 			if("screen")
@@ -221,8 +221,8 @@
 					cure = D.cure_text || "None",
 					desc = D.desc,
 					severity = D.severity
-				);
-				tgui_modal_message(src, "virus", "", null, payload)
+				)
+				ui_modal_message(src, "virus", "", null, payload)
 				qdel(D)
 			if("del_all")
 				for(var/datum/data/record/R in GLOB.data_core.medical)
@@ -306,18 +306,18 @@
 				return FALSE
 
 /**
-  * Called in tgui_act() to process modal actions
+  * Called in ui_act() to process modal actions
   *
   * Arguments:
   * * action - The action passed by tgui
   * * params - The params passed by tgui
   */
-/obj/machinery/computer/med_data/proc/tgui_act_modal(action, params)
+/obj/machinery/computer/med_data/proc/ui_act_modal(action, params)
 	. = TRUE
 	var/id = params["id"] // The modal's ID
 	var/list/arguments = istext(params["arguments"]) ? json_decode(params["arguments"]) : params["arguments"]
-	switch(tgui_modal_act(src, action, params))
-		if(TGUI_MODAL_OPEN)
+	switch(ui_modal_act(src, action, params))
+		if(UI_MODAL_OPEN)
 			switch(id)
 				if("edit")
 					var/field = arguments["field"]
@@ -326,14 +326,14 @@
 					var/question = field_edit_questions[field]
 					var/choices = field_edit_choices[field]
 					if(length(choices))
-						tgui_modal_choice(src, id, question, arguments = arguments, value = arguments["value"], choices = choices)
+						ui_modal_choice(src, id, question, arguments = arguments, value = arguments["value"], choices = choices)
 					else
-						tgui_modal_input(src, id, question, arguments = arguments, value = arguments["value"])
+						ui_modal_input(src, id, question, arguments = arguments, value = arguments["value"])
 				if("add_c")
-					tgui_modal_input(src, id, "Please enter your message:")
+					ui_modal_input(src, id, "Please enter your message:")
 				else
 					return FALSE
-		if(TGUI_MODAL_ANSWER)
+		if(UI_MODAL_ANSWER)
 			var/answer = params["answer"]
 			switch(id)
 				if("edit")
@@ -356,7 +356,7 @@
 					else if(istype(active1) && (field in active1.fields))
 						active1.fields[field] = answer
 				if("add_c")
-					var/datum/tgui_login/state = tgui_login_get()
+					var/datum/ui_login/state = ui_login_get()
 					if(!length(answer) || !istype(active2) || !length(state.name))
 						return
 					active2.fields["comments"] += list(list(
@@ -447,7 +447,7 @@
 
 	..(severity)
 
-/obj/machinery/computer/med_data/tgui_login_on_login(datum/tgui_login/state)
+/obj/machinery/computer/med_data/ui_login_on_login(datum/ui_login/state)
 	active1 = null
 	active2 = null
 	screen = MED_DATA_R_LIST

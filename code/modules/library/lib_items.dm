@@ -33,13 +33,13 @@
 
 /obj/structure/bookcase/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(busy) //So that you can't mess with it while deconstructing
-		return 1
+		return TRUE
 	if(is_type_in_list(O, allowed_books))
 		if(!user.drop_item())
 			return
 		O.forceMove(src)
 		update_icon()
-		return 1
+		return TRUE
 	else if(istype(O, /obj/item/storage/bag/books))
 		var/obj/item/storage/bag/books/B = O
 		for(var/obj/item/T in B.contents)
@@ -47,28 +47,26 @@
 				B.remove_from_storage(T, src)
 		to_chat(user, "<span class='notice'>You empty [O] into [src].</span>")
 		update_icon()
-		return 1
+		return TRUE
 	else if(istype(O, /obj/item/wrench))
 		user.visible_message("<span class='warning'>[user] starts disassembling \the [src].</span>", \
 		"<span class='notice'>You start disassembling \the [src].</span>")
 		playsound(get_turf(src), O.usesound, 50, 1)
-		busy = 1
+		busy = TRUE
 
 		if(do_after(user, 50 * O.toolspeed, target = src))
 			playsound(get_turf(src), O.usesound, 75, 1)
 			user.visible_message("<span class='warning'>[user] disassembles \the [src].</span>", \
 			"<span class='notice'>You disassemble \the [src].</span>")
-			busy = 0
+			busy = FALSE
 			density = 0
 			deconstruct(TRUE)
 		else
-			busy = 0
-		return 1
+			busy = FALSE
+		return TRUE
 	else if(istype(O, /obj/item/pen))
-		var/newname = stripped_input(user, "What would you like to title this [name]?")
-		if(newname)
-			name = ("bookcase ([sanitize(newname)])")
-		return 1
+		rename_interactive(user, O)
+		return TRUE
 	else
 		return ..()
 
@@ -101,8 +99,8 @@
 /obj/structure/bookcase/manuals/medical
 	name = "Medical Manuals bookcase"
 
-/obj/structure/bookcase/manuals/medical/New()
-	..()
+/obj/structure/bookcase/manuals/medical/Initialize()
+	. = ..()
 	new /obj/item/book/manual/medical_cloning(src)
 	update_icon()
 
@@ -110,8 +108,8 @@
 /obj/structure/bookcase/manuals/engineering
 	name = "Engineering Manuals bookcase"
 
-/obj/structure/bookcase/manuals/engineering/New()
-	..()
+/obj/structure/bookcase/manuals/engineering/Initialize()
+	. = ..()
 	new /obj/item/book/manual/engineering_construction(src)
 	new /obj/item/book/manual/engineering_particle_accelerator(src)
 	new /obj/item/book/manual/engineering_hacking(src)
@@ -123,8 +121,8 @@
 /obj/structure/bookcase/manuals/research_and_development
 	name = "R&D Manuals bookcase"
 
-/obj/structure/bookcase/manuals/research_and_development/New()
-	..()
+/obj/structure/bookcase/manuals/research_and_development/Initialize()
+	. = ..()
 	new /obj/item/book/manual/research_and_development(src)
 	update_icon()
 

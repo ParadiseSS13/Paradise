@@ -315,6 +315,7 @@
 	damage = 15
 	damage_type = BURN
 	flag = "magic"
+	sharp = TRUE
 	dismemberment = 50
 	nodamage = 0
 
@@ -346,3 +347,13 @@
 			M.Weaken(slip_weaken)
 			M.Stun(slip_stun)
 	. = ..()
+
+/obj/item/projectile/magic/arcane_barrage
+	name = "arcane bolt"
+	icon_state = "arcane_barrage"
+	damage = 20
+	damage_type = BURN
+	nodamage = FALSE
+	armour_penetration = 0
+	flag = "magic"
+	hitsound = 'sound/weapons/barragespellhit.ogg'

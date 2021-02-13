@@ -55,22 +55,35 @@
 /mob/living/proc/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
 	return 0
 
-/mob/living/proc/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
-	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage)
+///As the name suggests, this should be called to apply electric shocks.
+/mob/living/proc/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
+	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage, source, siemens_coeff, flags)
 	if(status_flags & GODMODE)	//godmode
+		return FALSE
+	if((flags & SHOCK_TESLA) && HAS_TRAIT(src, TRAIT_TESLA_SHOCKIMMUNE))
 		return FALSE
 	if(NO_SHOCK in mutations) //shockproof
 		return FALSE
-	if(tesla_shock && tesla_ignore)
+	shock_damage *= siemens_coeff
+	if(shock_damage < 1)
 		return FALSE
-	if(shock_damage > 0)
-		if(!illusion)
-			adjustFireLoss(shock_damage)
-		visible_message(
-			"<span class='danger'>[src] was shocked by \the [source]!</span>",
-			"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>",
-			"<span class='italics'>You hear a heavy electrical crack.</span>")
-		return shock_damage
+	if(!(flags & SHOCK_ILLUSION))
+		take_overall_damage(0, shock_damage, TRUE, used_weapon = "Electrocution")
+		if(shock_damage > 200)
+			visible_message(
+				"<span class='danger'>[src] was arc flashed by the [source]!</span>",
+				"<span class='userdanger'>The [source] arc flashes and electrocutes you!</span>",
+				"<span class='italics'>You hear a lightning-like crack!</span>")
+			playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
+			explosion(loc, -1, 0, 2, 2)
+	else
+		adjustStaminaLoss(shock_damage)
+	visible_message(
+		"<span class='danger'>[src] was shocked by \the [source]!</span>", \
+		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
+		"<span class='hear'>You hear a heavy electrical crack.</span>" \
+	)
+	return shock_damage
 
 /mob/living/emp_act(severity)
 	..()
@@ -179,24 +192,28 @@
 	if(on_fire && fire_stacks <= 0)
 		ExtinguishMob()
 
+/**
+ * Burns a mob and slowly puts the fires out. Returns TRUE if the mob is on fire
+ */
 /mob/living/proc/handle_fire()
 	if(fire_stacks < 0) //If we've doused ourselves in water to avoid fire, dry off slowly
 		fire_stacks = min(0, fire_stacks + 1)//So we dry ourselves back to default, nonflammable.
 	if(!on_fire)
-		return 1
+		return FALSE
 	if(fire_stacks > 0)
 		adjust_fire_stacks(-0.1) //the fire is slowly consumed
 		for(var/obj/item/clothing/C in contents)
 			C.catch_fire()
 	else
 		ExtinguishMob()
-		return
+		return FALSE
 	var/datum/gas_mixture/G = loc.return_air() // Check if we're standing in an oxygenless environment
 	if(G.oxygen < 1)
 		ExtinguishMob() //If there's no oxygen in the tile we're on, put out the fire
-		return
+		return FALSE
 	var/turf/location = get_turf(src)
 	location.hotspot_expose(700, 50, 1)
+	return TRUE
 
 /mob/living/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
@@ -357,3 +374,6 @@
 		if(INTENT_DISARM)
 			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 			return TRUE
+
+/mob/living/proc/cult_self_harm(damage)
+	return FALSE

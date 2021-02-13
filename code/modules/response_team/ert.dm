@@ -33,8 +33,8 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		to_chat(usr, "<span class='warning'>Central Command has already dispatched an emergency response team!</span>")
 		return
 
-	var/datum/tgui_module/ert_manager/E = new()
-	E.tgui_interact(usr)
+	var/datum/ui_module/ert_manager/E = new()
+	E.ui_interact(usr)
 
 
 /mob/dead/observer/proc/JoinResponseTeam()
@@ -177,6 +177,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	M.mind.original = M
 	M.mind.assigned_role = SPECIAL_ROLE_ERT
 	M.mind.special_role = SPECIAL_ROLE_ERT
+	M.mind.offstation_role = TRUE
 	if(!(M.mind in SSticker.minds))
 		SSticker.minds += M.mind //Adds them to regular mind list.
 	SSticker.mode.ert += M.mind

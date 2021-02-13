@@ -123,9 +123,9 @@
 		return
 
 	updatemodules()
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/computer/cloning/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/computer/cloning/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	if(stat & (NOPOWER|BROKEN))
 		return
 
@@ -137,7 +137,7 @@
 		ui = new(user, src, ui_key, "CloningConsole", "Cloning Console", 640, 520)
 		ui.open()
 
-/obj/machinery/computer/cloning/tgui_data(mob/user)
+/obj/machinery/computer/cloning/ui_data(mob/user)
 	var/data[0]
 	data["menu"] = src.menu
 	data["scanner"] = sanitize("[src.scanner]")
@@ -192,19 +192,19 @@
 	else
 		data["podready"] = 0
 
-	data["modal"] = tgui_modal_data(src)
+	data["modal"] = ui_modal_data(src)
 
 	return data
 
-/obj/machinery/computer/cloning/tgui_act(action, params)
+/obj/machinery/computer/cloning/ui_act(action, params)
 	if(..())
 		return
 	if(stat & (NOPOWER|BROKEN))
 		return
 
 	. = TRUE
-	switch(tgui_modal_act(src, action, params))
-		if(TGUI_MODAL_ANSWER)
+	switch(ui_modal_act(src, action, params))
+		if(UI_MODAL_ANSWER)
 			if(params["id"] == "del_rec" && active_record)
 				var/obj/item/card/id/C = usr.get_active_hand()
 				if(!istype(C) && !istype(C, /obj/item/pda))
@@ -259,14 +259,14 @@
 						unidentity = active_record.dna.uni_identity,
 						strucenzymes = active_record.dna.struc_enzymes,
 					)
-					tgui_modal_message(src, action, "", null, payload)
+					ui_modal_message(src, action, "", null, payload)
 			else
 				active_record = null
 				set_temp("Error: Record missing.", "danger")
 		if("del_rec")
 			if(!active_record)
 				return
-			tgui_modal_boolean(src, action, "Please confirm that you want to delete the record by holding your ID and pressing Delete:", yes_text = "Delete", no_text = "Cancel")
+			ui_modal_boolean(src, action, "Please confirm that you want to delete the record by holding your ID and pressing Delete:", yes_text = "Delete", no_text = "Cancel")
 		if("disk") // Disk management.
 			if(!length(params["option"]))
 				return
@@ -323,7 +323,7 @@
 			var/datum/dna2/record/C = locate(ref)
 			//Look for that player! They better be dead!
 			if(istype(C))
-				tgui_modal_clear(src)
+				ui_modal_clear(src)
 				//Can't clone without someone to clone.  Or a pod.  Or if the pod is busy. Or full of gibs.
 				if(!length(pods))
 					set_temp("Error: No cloning pod detected.", "danger")

@@ -37,7 +37,6 @@
 	var/datum/effect_system/spark_spread/spark_system = new
 	var/lights = 0
 	var/lights_power = 6
-	var/emagged = FALSE
 	var/frozen = FALSE
 	var/repairing = FALSE
 
@@ -63,7 +62,6 @@
 	var/list/equipment = new
 	var/obj/item/mecha_parts/mecha_equipment/selected
 	var/max_equip = 3
-	var/datum/events/events
 	var/turf/crashing = null
 	var/occupant_sight_flags = 0
 
@@ -102,7 +100,6 @@
 
 /obj/mecha/Initialize()
 	. = ..()
-	events = new
 	icon_state += "-open"
 	add_radio()
 	add_cabin()
@@ -245,12 +242,6 @@
 //////////////////////////////////
 ////////  Movement procs  ////////
 //////////////////////////////////
-
-/obj/mecha/Move(atom/newLoc, direct)
-	. = ..()
-	if(.)
-		events.fireEvent("onMove",get_turf(src))
-
 /obj/mecha/Process_Spacemove(var/movement_dir = 0)
 	. = ..()
 	if(.)
@@ -848,6 +839,9 @@
 	if(repairing)
 		to_chat(user, "<span class='notice'>[src] is currently being repaired!</span>")
 		return
+	if(state == 0) // If maint protocols are not active, the state is zero
+		to_chat(user, "<span class='warning'>[src] can not be repaired without maintenance protocols active!</span>")
+		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
 	repairing = TRUE
 	if(I.use_tool(src, user, 15, volume = I.tool_volume))
@@ -1276,7 +1270,7 @@
 		var/mob/living/carbon/human/H = L
 		H.regenerate_icons() // workaround for 14457
 
-/obj/mecha/force_eject_occupant()
+/obj/mecha/force_eject_occupant(mob/target)
 	go_out()
 
 /////////////////////////

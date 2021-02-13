@@ -112,11 +112,17 @@ var/list/chatResources = list(
 	owner << output(null, "browseroutput:rebootFinished")
 	if(owner.holder)
 		loadAdmin()
+	if(owner.mob?.mind?.has_antag_datum(/datum/antagonist/traitor))
+		notify_syndicate_codes() // Send them the current round's codewords
+	else
+		clear_syndicate_codes() // Flush any codewords they may have in chat
 	for(var/message in messageQueue)
 		to_chat(owner, message)
 
 	messageQueue = null
-	src.sendClientData()
+	// We can only store a cookie on the client if they actually accept TOS because GDPR is GDPR
+	if(owner.tos_consent)
+		sendClientData()
 
 	pingLoop()
 
@@ -186,8 +192,9 @@ var/list/chatResources = list(
 			//Add autoban using the DB_ban_record function
 			//Uh oh this fucker has a history of playing on a banned account!!
 			if (found.len > 0)
-				message_admins("[key_name(src.owner)] has a cookie from a banned account! (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
+				message_admins("[key_name(src.owner)] <span class='boldannounce'>has a cookie from a banned account!</span> (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
 				log_admin("[key_name(src.owner)] has a cookie from a banned account! (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
+				new /datum/cookie_record(owner, found["ckey"], found["ip"], found["compid"])
 
 	cookieSent = 1
 
@@ -197,6 +204,24 @@ var/list/chatResources = list(
 /datum/chatOutput/proc/debug(error)
 	error = "\[[time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")]\] Client : [owner.key ? owner.key : owner] triggered JS error: [error]"
 	chatDebug << error
+
+/**
+  * Sends the lists of code phrases and responses to Goonchat for clientside highlighting
+  *
+  * Arguments:
+  * * phrases - List of code phrases
+  * * responses - List of code responses
+  */
+/datum/chatOutput/proc/notify_syndicate_codes(phrases = GLOB.syndicate_code_phrase, responses = GLOB.syndicate_code_response)
+	var/urlphrases = url_encode(copytext(phrases, 1, length(phrases)))
+	var/urlresponses = url_encode(copytext(responses, 1, length(responses)))
+	owner << output("[urlphrases]&[urlresponses]", "browseroutput:codewords")
+
+/**
+  * Clears any locally stored code phrases to highlight
+  */
+/datum/chatOutput/proc/clear_syndicate_codes()
+	owner << output(null, "browseroutput:codewordsClear")
 
 /client/verb/debug_chat()
 	set hidden = 1
@@ -272,13 +297,11 @@ var/to_chat_src
 			targetstring += ", [D.type]"
 
 		// The final output
-		log_runtime(new/exception("DEBUG: to_chat called with invalid message/target.", to_chat_filename, to_chat_line), to_chat_src, list("Message: '[message]'", "Target: [targetstring]"))
-		return
+		CRASH("DEBUG: to_chat called with invalid message/target. Message: '[message]'. Target: [targetstring].")
 
 	else if(is_valid_tochat_message(message))
 		if(istext(target))
-			log_runtime(EXCEPTION("Somehow, to_chat got a text as a target"))
-			return
+			CRASH("Somehow, to_chat got a text as a target, message: '[message]', target: '[target]'")
 
 		message = replacetext(message, "\n", "<br>")
 

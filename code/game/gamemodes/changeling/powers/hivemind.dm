@@ -62,7 +62,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 
 	GLOB.hivemind_bank += chosen_dna
 	to_chat(user, "<span class='notice'>We channel the DNA of [chosen_name] to the air.</span>")
-	feedback_add_details("changeling_powers","HU")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1
 
 /datum/action/changeling/proc/dna_absorb(mob/user)
@@ -84,5 +84,5 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 
 	changeling.store_dna(chosen_dna, user)
 	to_chat(user, "<span class='notice'>We absorb the DNA of [S] from the air.</span>")
-	feedback_add_details("changeling_powers","HD")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1

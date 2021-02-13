@@ -2,7 +2,6 @@
 	var/fire = null
 	var/atmosalm = ATMOS_ALARM_NONE
 	var/poweralm = TRUE
-	var/party = null
 	var/report_alerts = TRUE // Should atmos alerts notify the AI/computers
 	level = null
 	name = "Space"
@@ -16,8 +15,6 @@
 	var/valid_territory = TRUE //used for cult summoning areas on station zlevel
 	var/map_name // Set in New(); preserves the name set by the map maker, even if renamed by the Blueprints.
 	var/lightswitch = TRUE
-
-	var/eject = null
 
 	var/debug = FALSE
 	var/requires_power = TRUE
@@ -303,28 +300,6 @@
 	if(DOOR.density)
 		DOOR.lock()
 
-/area/proc/readyalert()
-	if(!eject)
-		eject = 1
-		updateicon()
-
-/area/proc/readyreset()
-	if(eject)
-		eject = 0
-		updateicon()
-
-/area/proc/partyalert()
-	if(!party)
-		party = 1
-		updateicon()
-		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
-/area/proc/partyreset()
-	if(party)
-		party = 0
-		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-		updateicon()
-
 /**
   * Raise a burglar alert for this area
   *
@@ -375,24 +350,14 @@
 		L.update()
 
 /area/proc/updateicon()
-	if((eject || party) && (!requires_power||power_environ))//If it doesn't require power, can still activate this proc.
-		if(!eject && !party)
-			icon_state = "red"
-		else if(eject && !party)
-			icon_state = "red"
-		else if(party && !eject)
-			icon_state = "party"
-		else
-			icon_state = "blue-red"
-	else
-		var/weather_icon
-		for(var/V in SSweather.processing)
-			var/datum/weather/W = V
-			if(W.stage != END_STAGE && (src in W.impacted_areas))
-				W.update_areas()
-				weather_icon = TRUE
-		if(!weather_icon)
-			icon_state = null
+	var/weather_icon
+	for(var/V in SSweather.processing)
+		var/datum/weather/W = V
+		if(W.stage != END_STAGE && (src in W.impacted_areas))
+			W.update_areas()
+			weather_icon = TRUE
+	if(!weather_icon)
+		icon_state = null
 
 /area/space/updateicon()
 	icon_state = null
@@ -578,9 +543,9 @@
 	for(var/obj/machinery/power/apc/temp_apc in src)
 		INVOKE_ASYNC(temp_apc, /obj/machinery/power/apc.proc/overload_lighting, 70)
 	for(var/obj/machinery/door/airlock/temp_airlock in src)
-		temp_airlock.prison_open()
+		INVOKE_ASYNC(temp_airlock, /obj/machinery/door/airlock.proc/prison_open)
 	for(var/obj/machinery/door/window/temp_windoor in src)
-		temp_windoor.open()
+		INVOKE_ASYNC(temp_windoor, /obj/machinery/door.proc/open)
 
 /area/AllowDrop()
 	CRASH("Bad op: area/AllowDrop() called")

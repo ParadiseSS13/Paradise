@@ -681,7 +681,7 @@ proc/dd_sortedObjectList(list/incoming)
 #define LAZYREMOVE(L, I) if(L) { L -= I; if(!L.len) { L = null; } }
 #define LAZYADD(L, I) if(!L) { L = list(); } L += I;
 #define LAZYACCESS(L, I) (L ? (isnum(I) ? (I > 0 && I <= L.len ? L[I] : null) : L[I]) : null)
-#define LAZYLEN(L) length(L)
+#define LAZYLEN(L) length(L) // Despite how pointless this looks, it's still needed in order to convey that the list is specificially a 'Lazy' list.
 #define LAZYCLEARLIST(L) if(L) L.Cut()
 
 // LAZYING PT 2: THE LAZENING
@@ -825,3 +825,18 @@ proc/dd_sortedObjectList(list/incoming)
 			L1[key] += other_value
 		else
 			L1[key] = other_value
+
+/**
+  * A proc for turning a list into an associative list.
+  *
+  * A simple proc for turning all things in a list into an associative list, instead
+  * Each item in the list will have an associative value of TRUE
+
+  * Arguments:
+  * * flat_list - the list that it passes to make associative
+  */
+
+/proc/make_associative(list/flat_list)
+	. = list()
+	for(var/thing in flat_list)
+		.[thing] = TRUE

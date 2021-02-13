@@ -63,7 +63,7 @@
 
 /obj/item/key/ambulance
 	name = "ambulance key"
-	desc = "A keyring with a small steel key, and tag with a red cross on it."
+	desc = "A keyring with a small steel key, and tag with a green cross on it."
 	icon_state = "keydoc"
 
 

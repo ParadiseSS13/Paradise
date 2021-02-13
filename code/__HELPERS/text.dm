@@ -9,19 +9,6 @@
  */
 
 
-/*
- * SQL sanitization
- */
-
-// Run all strings to be used in an SQL query through this proc first to properly escape out injection attempts.
-/proc/sanitizeSQL(var/t as text)
-	if(isnull(t))
-		return null
-	if(!istext(t))
-		t = "[t]" // Just quietly assume any non-texts are supposed to be text
-	var/sqltext = GLOB.dbcon.Quote(t);
-	return copytext(sqltext, 2, length(sqltext));//Quote() adds quotes around input, we already do that
-
 /proc/format_table_name(table as text)
 	return sqlfdbktableprefix + table
 
@@ -49,15 +36,6 @@
 /proc/sanitize_simple(var/t,var/list/repl_chars = list("\n"="#","\t"="#"))
 	for(var/char in repl_chars)
 		t = replacetext(t, char, repl_chars[char])
-	return t
-
-/proc/readd_quotes(var/t)
-	var/list/repl_chars = list("&#34;" = "\"")
-	for(var/char in repl_chars)
-		var/index = findtext(t, char)
-		while(index)
-			t = copytext(t, 1, index) + repl_chars[char] + copytext(t, index+5)
-			index = findtext(t, char)
 	return t
 
 //Runs byond's sanitization proc along-side sanitize_simple

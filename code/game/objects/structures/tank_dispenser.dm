@@ -18,8 +18,8 @@
 /obj/structure/dispenser/plasma
 	starting_oxygen_tanks = 0
 
-/obj/structure/dispenser/New()
-	..()
+/obj/structure/dispenser/Initialize(mapload)
+	. = ..()
 	initialize_tanks()
 	update_icon()
 
@@ -30,11 +30,11 @@
 
 /obj/structure/dispenser/proc/initialize_tanks()
 	for(var/I in 1 to starting_plasma_tanks)
-		var/obj/item/tank/plasma/P = new(src)
+		var/obj/item/tank/internals/plasma/P = new(src)
 		stored_plasma_tanks.Add(P)
 
 	for(var/I in 1 to starting_oxygen_tanks)
-		var/obj/item/tank/oxygen/O = new(src)
+		var/obj/item/tank/internals/oxygen/O = new(src)
 		stored_oxygen_tanks.Add(O)
 
 /obj/structure/dispenser/update_icon()
@@ -57,24 +57,24 @@
 	if(..())
 		return 1
 	add_fingerprint(user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/structure/dispenser/attack_ghost(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/structure/dispenser/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/structure/dispenser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "TankDispenser", name, 275, 100, master_ui, state)
 		ui.open()
 
-/obj/structure/dispenser/tgui_data(user)
+/obj/structure/dispenser/ui_data(user)
 	var/list/data = list()
 	data["o_tanks"] = LAZYLEN(stored_oxygen_tanks)
 	data["p_tanks"] = LAZYLEN(stored_plasma_tanks)
 	return data
 
-/obj/structure/dispenser/tgui_act(action, list/params)
+/obj/structure/dispenser/ui_act(action, list/params)
 	if(..())
 		return
 
@@ -89,11 +89,11 @@
 	return TRUE
 
 /obj/structure/dispenser/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/tank/oxygen) || istype(I, /obj/item/tank/air) || istype(I, /obj/item/tank/anesthetic))
+	if(istype(I, /obj/item/tank/internals/oxygen) || istype(I, /obj/item/tank/internals/air) || istype(I, /obj/item/tank/internals/anesthetic))
 		try_insert_tank(user, stored_oxygen_tanks, I)
 		return
 
-	if(istype(I, /obj/item/tank/plasma))
+	if(istype(I, /obj/item/tank/internals/plasma))
 		try_insert_tank(user, stored_plasma_tanks, I)
 		return
 
@@ -112,7 +112,7 @@
 	if(!LAZYLEN(tank_list))
 		return // There are no tanks left to withdraw.
 
-	var/obj/item/tank/T = tank_list[1]
+	var/obj/item/tank/internals/T = tank_list[1]
 	tank_list.Remove(T)
 
 	if(!user.put_in_hands(T))
