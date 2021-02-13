@@ -1139,6 +1139,10 @@ so that different stomachs can handle things in different ways VB*/
 	if(wear_mask)
 		. += wear_mask.tint
 
+	var/obj/item/organ/internal/eyes/E = get_organ_slot("eyes")
+	if(E)
+		. += E.tint
+
 /mob/living/carbon/human/get_total_tint()
 	. = ..()
 	if(glasses)
