@@ -3,7 +3,7 @@
 	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Guaranteed 100% jam proof."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "hardened_drill"
-	w_class = WEIGHT_CLASS_GIGANTIC
+	w_class = WEIGHT_CLASS_BULKY
 	force = 15.0
 	var/time_multiplier = 1
 	var/datum/looping_sound/thermal_drill/soundloop
