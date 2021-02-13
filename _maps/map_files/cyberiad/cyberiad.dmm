@@ -83736,11 +83736,6 @@
 /obj/item/caution,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"dhc" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "dhf" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 6;
@@ -141263,7 +141258,7 @@ cbb
 dbH
 aYS
 aaa
-dbX
+dbP
 cgy
 cia
 cke
@@ -143621,15 +143616,15 @@ aaa
 aaa
 aab
 aaa
-dhc
 aab
 aab
 aab
-djT
 aab
 aab
 aab
-djT
+aab
+aab
+aab
 aab
 aab
 aab
