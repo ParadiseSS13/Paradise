@@ -38,6 +38,7 @@
 
 // why is this a global proc
 /proc/create_random_books(amount = 2, location, fail_loud = FALSE, category = null)
+	set waitfor = FALSE // This is called on Initialize(), which isnt allowed to sleep
 	. = list()
 	if(!isnum(amount) || amount<1)
 		return
