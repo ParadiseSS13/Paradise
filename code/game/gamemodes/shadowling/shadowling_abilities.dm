@@ -146,9 +146,9 @@
 
 
 /obj/effect/proc_holder/spell/targeted/shadow_vision
-	name = "Shadowling Darksight"
-	desc = "Gives you night and thermal vision."
-	panel = "Shadowling Abilities"
+	name = "Thrall Darksight"
+	desc = "Gives you night vision."
+	panel = "Thrall Abilities"
 	charge_max = 0
 	range = -1
 	include_user = 1
@@ -166,11 +166,6 @@
 		else
 			to_chat(H, "<span class='notice'>You return your vision to normal.</span>")
 			H.set_sight(null)
-
-/obj/effect/proc_holder/spell/targeted/shadow_vision/thrall
-	desc = "Thrall Darksight"
-	desc = "Gives you night vision."
-	panel = "Thrall Abilities"
 
 /obj/effect/proc_holder/spell/aoe_turf/flashfreeze
 	name = "Icy Veins"

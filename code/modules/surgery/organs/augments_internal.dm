@@ -9,9 +9,9 @@
 /obj/item/organ/internal/cyberimp/New(var/mob/M = null)
 	. = ..()
 	if(implant_overlay)
-		var/image/overlay = new /image(icon, implant_overlay)
+		var/mutable_appearance/overlay = mutable_appearance(icon, implant_overlay)
 		overlay.color = implant_color
-		overlays |= overlay
+		add_overlay(overlay)
 
 /obj/item/organ/internal/cyberimp/emp_act()
 	return // These shouldn't be hurt by EMPs in the standard way
@@ -409,7 +409,7 @@
 
 /obj/item/storage/box/cyber_implants/bundle
 	name = "boxed cybernetic implants"
-	var/list/boxed = list(/obj/item/organ/internal/cyberimp/eyes/xray,/obj/item/organ/internal/cyberimp/eyes/thermals,
+	var/list/boxed = list(/obj/item/organ/internal/eyes/cybernetic/xray, /obj/item/organ/internal/eyes/cybernetic/thermals,
 						/obj/item/organ/internal/cyberimp/brain/anti_stun, /obj/item/organ/internal/cyberimp/chest/reviver/hardened)
 	var/amount = 5
 

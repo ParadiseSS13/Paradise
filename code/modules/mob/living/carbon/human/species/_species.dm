@@ -830,15 +830,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			H.sight |= SEE_MOBS
 			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
-	for(var/obj/item/organ/internal/cyberimp/eyes/E in H.internal_organs)
-		H.sight |= E.vision_flags
-		if(E.see_in_dark)
-			H.see_in_dark = max(H.see_in_dark, E.see_in_dark)
-		if(E.see_invisible)
-			H.see_invisible = min(H.see_invisible, E.see_invisible)
-		if(E.lighting_alpha)
-			H.lighting_alpha = min(H.lighting_alpha, E.lighting_alpha)
-
 	// my glasses, I can't see without my glasses
 	if(H.glasses)
 		var/obj/item/clothing/glasses/G = H.glasses
@@ -869,9 +860,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 		if(!isnull(H.vision_type.lighting_alpha))
 			H.lighting_alpha = min(H.vision_type.lighting_alpha, H.lighting_alpha)
-
-		if(H.vision_type.light_sensitive)
-			H.weakeyes = TRUE
 
 	if(XRAY in H.mutations)
 		H.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)

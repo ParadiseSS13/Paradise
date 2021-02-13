@@ -99,7 +99,6 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				sleep(10)
 				to_chat(H, "<span class='shadowling'><b><i>Your powers are awoken. You may now live to your fullest extent. Remember your goal. Cooperate with your thralls and allies.</b></i></span>")
 				H.ExtinguishMob()
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_vision(null))
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/enthrall(null))
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/glare(null))
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/veil(null))

@@ -406,7 +406,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		var/icon/eyes_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = H.dna.species ? H.dna.species.eyes : "eyes_s")
 		if(!eyes_organ)
 			return
-		eyes_s.Blend(eyes_organ.eye_colour, ICON_ADD)
+		eyes_s.Blend(eyes_organ.eye_color, ICON_ADD)
 		face_s.Blend(eyes_s, ICON_OVERLAY)
 
 	var/datum/sprite_accessory/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
