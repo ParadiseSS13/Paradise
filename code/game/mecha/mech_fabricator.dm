@@ -18,7 +18,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
 	active_power_usage = 5000
-	req_access = list(ACCESS_ROBOTICS)
+	req_access = list(ACCESS_ROBOTICS, ACCESS_FREE_GOLEMS)
 	// Settings
 	/// Bitflags of design types that can be produced.
 	var/allowed_design_types = MECHFAB
