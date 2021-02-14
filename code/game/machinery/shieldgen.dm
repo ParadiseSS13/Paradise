@@ -13,7 +13,7 @@
 	dir = pick(NORTH, SOUTH, EAST, WEST)
 	..()
 
-/obj/machinery/shield/Initialize()
+/obj/machinery/shield/Initialize(mapload)
 	air_update_turf(1)
 	..()
 
@@ -85,7 +85,7 @@
 	/// The rune that created the shield itself. Used to delete the rune when the shield is destroyed.
 	var/obj/effect/rune/parent_rune
 
-/obj/machinery/shield/cult/barrier/Initialize()
+/obj/machinery/shield/cult/barrier/Initialize(mapload)
 	. = ..()
 	invisibility = INVISIBILITY_MAXIMUM
 

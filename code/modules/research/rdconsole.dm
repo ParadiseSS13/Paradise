@@ -171,7 +171,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			S.initialize_serv()
 			break
 
-/obj/machinery/computer/rdconsole/Initialize()
+/obj/machinery/computer/rdconsole/Initialize(mapload)
 	. = ..()
 	SyncRDevices()
 

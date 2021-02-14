@@ -210,7 +210,7 @@
 	storage_type = /obj/item/geiger_counter
 
 //copied from /obj/effect/nasavoidsuitspawner
-/obj/machinery/suit_storage_unit/telecoms/Initialize()
+/obj/machinery/suit_storage_unit/telecoms/Initialize(mapload)
 	switch(pick(list("red", "green", "ntblue", "purple", "yellow", "ltblue")))
 		if("red")
 			helmet_type = /obj/item/clothing/head/helmet/space/nasavoid
@@ -237,7 +237,7 @@
 	..()
 	wires = new(src)
 
-/obj/machinery/suit_storage_unit/Initialize()
+/obj/machinery/suit_storage_unit/Initialize(mapload)
 	. = ..()
 	if(suit_type)
 		suit = new suit_type(src)

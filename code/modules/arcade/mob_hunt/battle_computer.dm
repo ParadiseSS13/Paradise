@@ -24,11 +24,11 @@
 	dir = NORTH
 	team = "Blue"
 
-/obj/machinery/computer/mob_battle_terminal/red/Initialize()
+/obj/machinery/computer/mob_battle_terminal/red/Initialize(mapload)
 	. = ..()
 	check_connection()
 
-/obj/machinery/computer/mob_battle_terminal/blue/Initialize()
+/obj/machinery/computer/mob_battle_terminal/blue/Initialize(mapload)
 	. = ..()
 	check_connection()
 

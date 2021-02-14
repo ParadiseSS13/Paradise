@@ -126,7 +126,7 @@
 			L.adjustBruteLoss(30)
 	falling_atoms -= AM
 
-/turf/simulated/floor/chasm/straight_down/Initialize()
+/turf/simulated/floor/chasm/straight_down/Initialize(mapload)
 	. = ..()
 	drop_x = x
 	drop_y = y

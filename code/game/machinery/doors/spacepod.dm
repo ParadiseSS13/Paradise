@@ -7,7 +7,7 @@
 	anchored = 1
 	var/id = 1.0
 
-/obj/structure/spacepoddoor/Initialize()
+/obj/structure/spacepoddoor/Initialize(mapload)
 	. = ..()
 	air_update_turf(1)
 

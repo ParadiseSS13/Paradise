@@ -505,7 +505,7 @@
 	/// Inner airlock material (Glass, plasteel)
 	var/stealth_airlock_material = null
 
-/obj/machinery/door/airlock/cult/Initialize()
+/obj/machinery/door/airlock/cult/Initialize(mapload)
 	. = ..()
 	icon = SSticker.cultdat?.airlock_runed_icon_file
 	overlays_file = SSticker.cultdat?.airlock_runed_overlays_file
@@ -564,7 +564,7 @@
 	glass = TRUE
 	opacity = 0
 
-/obj/machinery/door/airlock/cult/glass/Initialize()
+/obj/machinery/door/airlock/cult/glass/Initialize(mapload)
 	. = ..()
 	update_icon()
 
@@ -577,7 +577,7 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_cult/unruned
 	openingoverlaytype = /obj/effect/temp_visual/cult/door/unruned
 
-/obj/machinery/door/airlock/cult/unruned/Initialize()
+/obj/machinery/door/airlock/cult/unruned/Initialize(mapload)
 	. = ..()
 	icon = SSticker.cultdat?.airlock_unruned_icon_file
 	overlays_file = SSticker.cultdat?.airlock_unruned_overlays_file
@@ -590,7 +590,7 @@
 	glass = TRUE
 	opacity = 0
 
-/obj/machinery/door/airlock/cult/unruned/glass/Initialize()
+/obj/machinery/door/airlock/cult/unruned/glass/Initialize(mapload)
 	. = ..()
 	update_icon()
 

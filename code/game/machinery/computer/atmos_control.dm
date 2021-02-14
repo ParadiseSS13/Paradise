@@ -8,7 +8,7 @@
 	req_access = list(ACCESS_ATMOSPHERICS)
 	var/datum/ui_module/atmos_control/atmos_control
 
-/obj/machinery/computer/atmoscontrol/Initialize()
+/obj/machinery/computer/atmoscontrol/Initialize(mapload)
 	. = ..()
 	atmos_control = new(src)
 

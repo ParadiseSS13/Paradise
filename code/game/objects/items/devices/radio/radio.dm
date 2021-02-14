@@ -105,7 +105,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	return ..()
 
 
-/obj/item/radio/Initialize()
+/obj/item/radio/Initialize(mapload)
 	. = ..()
 	if(frequency < RADIO_LOW_FREQ || frequency > RADIO_HIGH_FREQ)
 		frequency = sanitize_frequency(frequency, RADIO_LOW_FREQ, RADIO_HIGH_FREQ)

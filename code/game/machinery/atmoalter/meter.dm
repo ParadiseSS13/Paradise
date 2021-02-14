@@ -34,7 +34,7 @@
 	target = null
 	return ..()
 
-/obj/machinery/meter/Initialize()
+/obj/machinery/meter/Initialize(mapload)
 	. = ..()
 	if(!target)
 		target = locate(/obj/machinery/atmospherics/pipe) in loc
@@ -157,7 +157,7 @@
 	return 1
 
 
-/obj/machinery/meter/turf/Initialize()
+/obj/machinery/meter/turf/Initialize(mapload)
 	if(!target)
 		target = loc
 	..()

@@ -287,7 +287,7 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/mineral/equipment_vendor/golem/Initialize()
+/obj/machinery/mineral/equipment_vendor/golem/Initialize(mapload)
 	. = ..()
 	desc += "\nIt seems a few selections have been added."
 	prize_list["Extra"] += list(
@@ -318,7 +318,7 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/mineral/equipment_vendor/labor/Initialize()
+/obj/machinery/mineral/equipment_vendor/labor/Initialize(mapload)
 	. = ..()
 	prize_list = list()
 	prize_list["Scum"] += list(

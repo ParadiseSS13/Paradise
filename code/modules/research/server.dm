@@ -163,7 +163,7 @@
 	name = "CentComm. Central R&D Database"
 	server_id = -1
 
-/obj/machinery/r_n_d/server/centcom/Initialize()
+/obj/machinery/r_n_d/server/centcom/Initialize(mapload)
 	. = ..()
 	var/list/no_id_servers = list()
 	var/list/server_ids = list()

@@ -51,7 +51,7 @@
 	smooth = SMOOTH_TRUE
 	var/resintype = null
 
-/obj/structure/alien/resin/Initialize()
+/obj/structure/alien/resin/Initialize(mapload)
 	air_update_turf(1)
 	. = ..()
 

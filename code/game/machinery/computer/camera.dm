@@ -27,7 +27,7 @@
 /obj/machinery/computer/security/ui_host()
 	return parent ? parent : src
 
-/obj/machinery/computer/security/Initialize()
+/obj/machinery/computer/security/Initialize(mapload)
 	. = ..()
 	// Initialize map objects
 	map_name = "camera_console_[UID()]_map"

@@ -50,7 +50,7 @@
 	var/radio_filter = null
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-/obj/machinery/embedded_controller/radio/Initialize()
+/obj/machinery/embedded_controller/radio/Initialize(mapload)
 	. = ..()
 	set_frequency(frequency)
 

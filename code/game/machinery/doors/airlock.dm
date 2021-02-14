@@ -134,7 +134,7 @@ About the new airlock wires panel:
 		return TRUE
 	return FALSE
 
-/obj/machinery/door/airlock/Initialize()
+/obj/machinery/door/airlock/Initialize(mapload)
 	. = ..()
 	if(closeOtherId != null)
 		addtimer(CALLBACK(src, .proc/update_other_id), 5)

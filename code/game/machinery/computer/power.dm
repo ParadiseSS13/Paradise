@@ -33,7 +33,7 @@
 	GLOB.power_monitors = sortAtom(GLOB.power_monitors)
 	power_monitor = new(src)
 
-/obj/machinery/computer/monitor/Initialize()
+/obj/machinery/computer/monitor/Initialize(mapload)
 	. = ..()
 	GLOB.powermonitor_repository.update_cache()
 	powernet = find_powernet()

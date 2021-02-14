@@ -177,7 +177,7 @@
 	max_integrity = 20
 	var/metal = MFOAM_ALUMINUM
 
-/obj/structure/foamedmetal/Initialize()
+/obj/structure/foamedmetal/Initialize(mapload)
 	..()
 	air_update_turf(1)
 

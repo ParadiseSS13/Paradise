@@ -343,7 +343,7 @@
 
 
 
-/obj/machinery/computer/turbine_computer/Initialize()
+/obj/machinery/computer/turbine_computer/Initialize(mapload)
 	. = ..()
 	spawn(10)
 		locate_machinery()

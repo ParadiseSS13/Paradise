@@ -26,7 +26,7 @@
 	overlay_layer = layer
 	..()
 
-/obj/machinery/computer/Initialize()
+/obj/machinery/computer/Initialize(mapload)
 	. = ..()
 	power_change()
 	update_icon()

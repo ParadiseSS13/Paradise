@@ -14,7 +14,7 @@
 	var/obj/item/radio/intercom/announcer
 	var/static/list/sheet_values
 
-/obj/machinery/mineral/labor_claim_console/Initialize()
+/obj/machinery/mineral/labor_claim_console/Initialize(mapload)
 	. = ..()
 	announcer = new /obj/item/radio/intercom(null)
 	announcer.config(list("Security" = 0))

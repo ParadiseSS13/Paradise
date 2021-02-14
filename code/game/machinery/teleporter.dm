@@ -26,7 +26,7 @@
 	var/area_bypass = FALSE
 	var/cc_beacon = FALSE
 
-/obj/machinery/computer/teleporter/Initialize()
+/obj/machinery/computer/teleporter/Initialize(mapload)
 	. = ..()
 	link_power_station()
 	update_icon()
@@ -338,7 +338,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	RefreshParts()
 
-/obj/machinery/teleport/hub/Initialize()
+/obj/machinery/teleport/hub/Initialize(mapload)
 	. = ..()
 	link_power_station()
 
@@ -521,7 +521,7 @@
 	RefreshParts()
 	link_console_and_hub()
 
-/obj/machinery/teleport/station/Initialize()
+/obj/machinery/teleport/station/Initialize(mapload)
 	. = ..()
 	link_console_and_hub()
 

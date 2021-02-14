@@ -13,7 +13,7 @@
 	var/tag_shuttle_mech_sensor
 	var/tag_secure = 0
 
-/obj/machinery/embedded_controller/radio/airlock/Initialize()
+/obj/machinery/embedded_controller/radio/airlock/Initialize(mapload)
 	. = ..()
 	program = new/datum/computer/file/embedded_program/airlock(src)
 

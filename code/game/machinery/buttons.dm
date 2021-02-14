@@ -38,7 +38,7 @@
 	if(SSradio)
 		set_frequency(frequency)
 
-/obj/machinery/driver_button/Initialize()
+/obj/machinery/driver_button/Initialize(mapload)
 	. = ..()
 	set_frequency(frequency)
 

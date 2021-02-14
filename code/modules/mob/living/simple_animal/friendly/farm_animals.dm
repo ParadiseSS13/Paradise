@@ -133,7 +133,7 @@
 	var/obj/item/udder/udder = null
 	gender = FEMALE
 
-/mob/living/simple_animal/cow/Initialize()
+/mob/living/simple_animal/cow/Initialize(mapload)
 	udder = new()
 	. = ..()
 

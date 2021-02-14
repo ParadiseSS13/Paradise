@@ -19,7 +19,7 @@
 	if(template_name)
 		template = GLOB.map_templates[template_name]
 
-/obj/effect/landmark/map_loader/Initialize()
+/obj/effect/landmark/map_loader/Initialize(mapload)
 	. = ..()
 	if(template)
 		load(template)
@@ -43,7 +43,7 @@
 /obj/effect/landmark/map_loader/random
 	var/template_list = ""
 
-/obj/effect/landmark/map_loader/random/Initialize()
+/obj/effect/landmark/map_loader/random/Initialize(mapload)
 	. = ..()
 	if(template_list)
 		template_name = safepick(splittext(template_list, ";"))

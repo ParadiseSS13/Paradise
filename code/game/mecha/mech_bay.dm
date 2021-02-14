@@ -190,7 +190,7 @@
 				)
 	return data
 
-/obj/machinery/computer/mech_bay_power_console/Initialize()
+/obj/machinery/computer/mech_bay_power_console/Initialize(mapload)
 	reconnect()
 	update_icon()
 	return ..()

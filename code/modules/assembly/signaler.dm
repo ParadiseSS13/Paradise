@@ -23,7 +23,7 @@
 	if(SSradio)
 		set_frequency(frequency)
 
-/obj/item/assembly/signaler/Initialize()
+/obj/item/assembly/signaler/Initialize(mapload)
 	. = ..()
 	if(SSradio)
 		set_frequency(frequency)
