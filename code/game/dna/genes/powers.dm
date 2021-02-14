@@ -162,27 +162,27 @@
 		M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH //temporary fix until the problem can be solved.
 		to_chat(M, "<span class='danger'>You suddenly feel very weak.</span>")
 
-/datum/dna/gene/basic/xray
-	name = "X-Ray Vision"
-	activation_messages = list("The walls suddenly disappear.")
-	deactivation_messages = list("the walls around you re-appear.")
-	instability = GENE_INSTABILITY_MAJOR
-	mutation = XRAY
-	activation_prob = 15
+///datum/dna/gene/basic/xray
+//	name = "X-Ray Vision"
+//	activation_messages = list("The walls suddenly disappear.")
+//	deactivation_messages = list("the walls around you re-appear.")
+//	instability = GENE_INSTABILITY_MAJOR
+//	mutation = XRAY
+//	activation_prob = 15
 
-/datum/dna/gene/basic/xray/New()
-	..()
-	block = GLOB.xrayblock
+///datum/dna/gene/basic/xray/New()
+//	..()
+//	block = GLOB.xrayblock
 
-/datum/dna/gene/basic/xray/activate(mob/living/M, connected, flags)
-	..()
-	M.update_sight()
-	M.update_icons() //Apply eyeshine as needed.
+///datum/dna/gene/basic/xray/activate(mob/living/M, connected, flags)
+//	..()
+//	M.update_sight()
+//	M.update_icons() //Apply eyeshine as needed.
 
-/datum/dna/gene/basic/xray/deactivate(mob/living/M, connected, flags)
-	..()
-	M.update_sight()
-	M.update_icons() //Remove eyeshine as needed.
+///datum/dna/gene/basic/xray/deactivate(mob/living/M, connected, flags)
+//	..()
+//	M.update_sight()
+//	M.update_icons() //Remove eyeshine as needed.
 
 /datum/dna/gene/basic/tk
 	name = "Telekenesis"

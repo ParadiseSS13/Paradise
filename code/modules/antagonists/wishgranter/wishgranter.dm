@@ -25,8 +25,8 @@
 	H.dna.SetSEState(GLOB.hulkblock, TRUE)
 	genemutcheck(H, GLOB.hulkblock, null, MUTCHK_FORCED)
 
-	H.dna.SetSEState(GLOB.xrayblock, TRUE)
-	genemutcheck(H, GLOB.xrayblock, null, MUTCHK_FORCED)
+//	H.dna.SetSEState(GLOB.xrayblock, TRUE)
+//	genemutcheck(H, GLOB.xrayblock, null, MUTCHK_FORCED)
 
 	H.dna.SetSEState(GLOB.fireblock, TRUE)
 	genemutcheck(H, GLOB.fireblock, null, MUTCHK_FORCED)
