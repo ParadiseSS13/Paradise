@@ -5,7 +5,7 @@ GLOBAL_VAR_INIT(deafblock, 0)
 GLOBAL_VAR_INIT(hulkblock, 0)
 GLOBAL_VAR_INIT(teleblock, 0)
 GLOBAL_VAR_INIT(fireblock, 0)
-// GLOBAL_VAR_INIT(xrayblock, 0) Removes Xray from Genetics
+GLOBAL_VAR_INIT(xrayblock, 0)
 GLOBAL_VAR_INIT(clumsyblock, 0)
 GLOBAL_VAR_INIT(fakeblock, 0)
 GLOBAL_VAR_INIT(coughblock, 0)

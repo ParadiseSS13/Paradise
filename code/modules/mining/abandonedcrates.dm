@@ -116,9 +116,9 @@
 			new /obj/item/soulstone/anybody(src)
 		if(92)
 			new /obj/item/katana(src)
-//		if(93)
-//			new /obj/item/dnainjector/xraymut(src)
-		if(93 to 94) //added Xray chance here
+		if(93)
+			new /obj/item/dnainjector/xraymut(src)
+		if(94)
 			new /obj/item/storage/backpack/clown(src)
 			new /obj/item/clothing/under/rank/clown(src)
 			new /obj/item/clothing/shoes/clown_shoes(src)
