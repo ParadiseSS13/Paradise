@@ -30,8 +30,9 @@
 /obj/item/borg/upgrade/reset/action(mob/living/silicon/robot/R)
 	if(..())
 		return
-
 	R.reset_module()
+	R.shown_robot_modules = 0
+	R.client.screen -= R.robot_modules_background
 	return TRUE
 
 /obj/item/borg/upgrade/rename
