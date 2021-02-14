@@ -730,6 +730,8 @@
 	var/admin_controlled
 	var/max_connect_range = 7
 	var/moved = FALSE	//workaround for nukie shuttle, hope I find a better way to do this...
+	/// Do we want to connect on LateInitialize() only?
+	var/late_connect = FALSE
 
 /obj/machinery/computer/shuttle/New(location, obj/item/circuitboard/shuttle/C)
 	..()
@@ -739,6 +741,12 @@
 
 /obj/machinery/computer/shuttle/Initialize(mapload)
 	. = ..()
+	if(late_connect)
+		return INITIALIZE_HINT_LATELOAD
+
+	connect()
+
+/obj/machinery/computer/shuttle/LateInitialize()
 	connect()
 
 /obj/machinery/computer/shuttle/proc/connect()
@@ -868,18 +876,7 @@
 	circuit = /obj/item/circuitboard/white_ship
 	shuttleId = "whiteship"
 	possible_destinations = null // Set at runtime
-
-/obj/machinery/computer/shuttle/white_ship/Initialize(mapload)
-	initialized = TRUE // DO NOT EVER EVER EVER DO THIS ANYWHERE ELSE I SWEAR TO GOD
-
-	if(mapload)
-		return INITIALIZE_HINT_LATELOAD
-	else
-		. = ..()
-
-// Yes. This is disgusting, but the console needs to be loaded AFTER the docking ports load.
-/obj/machinery/computer/shuttle/white_ship/LateInitialize()
-	connect()
+	late_connect = TRUE // Needs to late connect to avoid null docking ports
 
 /obj/machinery/computer/shuttle/engineering
 	name = "Engineering Shuttle Console"
