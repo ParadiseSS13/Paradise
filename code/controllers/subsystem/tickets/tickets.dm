@@ -41,7 +41,7 @@ SUBSYSTEM_DEF(tickets)
 
 	var/ticketCounter = 1
 
-/datum/controller/subsystem/tickets/Initialize()
+/datum/controller/subsystem/tickets/Initialize(start_timeofday)
 	if(!close_messages)
 		close_messages = list("<font color='red' size='4'><b>- [ticket_name] Rejected! -</b></font>",
 				"<span class='boldmessage'>Please try to be calm, clear, and descriptive in admin helps, do not assume the staff member has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>",

@@ -3,7 +3,7 @@ SUBSYSTEM_DEF(medals)
 	flags = SS_NO_FIRE
 	var/hub_enabled = FALSE
 
-/datum/controller/subsystem/medals/Initialize(timeofday)
+/datum/controller/subsystem/medals/Initialize(start_timeofday)
 	if(config.medal_hub_address && config.medal_hub_password)
 		hub_enabled = TRUE
 	..()

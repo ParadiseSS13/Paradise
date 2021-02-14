@@ -28,7 +28,7 @@ SUBSYSTEM_DEF(dbcore)
 	..("A: [length(active_queries)]")
 
 // This is in Initialize() so that its actually seen in chat
-/datum/controller/subsystem/dbcore/Initialize()
+/datum/controller/subsystem/dbcore/Initialize(start_timeofday)
 	if(!schema_valid)
 		to_chat(world, "<span class='boldannounce'>Database schema ([sql_version]) doesn't match the latest schema version ([SQL_VERSION]). Roundstart has been delayed.</span>")
 

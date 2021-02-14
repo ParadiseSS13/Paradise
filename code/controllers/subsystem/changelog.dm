@@ -19,7 +19,7 @@ SUBSYSTEM_DEF(changelog)
 	var/list/startup_clients_open = list() // Clients who connected before initialization who need the CL opening
 	var/changelogHTML = "" // HTML that the changelog will use to display
 
-/datum/controller/subsystem/changelog/Initialize()
+/datum/controller/subsystem/changelog/Initialize(start_timeofday)
 	// This entire subsystem relies on SQL being here.
 	if(!SSdbcore.IsConnected())
 		return ..()

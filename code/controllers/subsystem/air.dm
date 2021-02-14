@@ -67,7 +67,7 @@ SUBSYSTEM_DEF(air)
 	..(msg)
 
 
-/datum/controller/subsystem/air/Initialize(timeofday)
+/datum/controller/subsystem/air/Initialize(start_timeofday)
 	setup_overlays() // Assign icons and such for gas-turf-overlays
 	icon_manager = new() // Sets up icon manager for pipes
 	setup_allturfs()

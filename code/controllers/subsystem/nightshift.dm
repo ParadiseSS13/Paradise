@@ -13,7 +13,7 @@ SUBSYSTEM_DEF(nightshift)
 
 	var/high_security_mode = FALSE
 
-/datum/controller/subsystem/nightshift/Initialize()
+/datum/controller/subsystem/nightshift/Initialize(start_timeofday)
 	if(!config.enable_night_shifts)
 		can_fire = FALSE
 	if(config.randomize_shift_time)

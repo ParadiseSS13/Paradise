@@ -3,7 +3,7 @@ SUBSYSTEM_DEF(mapping)
    	init_order = INIT_ORDER_MAPPING // 9
    	flags = SS_NO_FIRE
 
-/datum/controller/subsystem/mapping/Initialize(timeofday)
+/datum/controller/subsystem/mapping/Initialize(start_timeofday)
 	// Load all Z level templates
 	preloadTemplates()
 	// Pick a random away mission.

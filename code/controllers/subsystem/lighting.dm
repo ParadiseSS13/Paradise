@@ -11,7 +11,7 @@ SUBSYSTEM_DEF(lighting)
 /datum/controller/subsystem/lighting/stat_entry()
 	..("L:[length(sources_queue)]|C:[length(corners_queue)]|O:[length(objects_queue)]")
 
-/datum/controller/subsystem/lighting/Initialize(timeofday)
+/datum/controller/subsystem/lighting/Initialize(start_timeofday)
 	if(!initialized)
 		if(config.starlight)
 			for(var/I in GLOB.all_areas)

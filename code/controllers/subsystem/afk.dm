@@ -11,7 +11,7 @@ SUBSYSTEM_DEF(afk)
 	var/list/non_cryo_antags
 
 
-/datum/controller/subsystem/afk/Initialize()
+/datum/controller/subsystem/afk/Initialize(start_timeofday)
 	if(config.warn_afk_minimum <= 0 || config.auto_cryo_afk <= 0 || config.auto_despawn_afk <= 0)
 		flags |= SS_NO_FIRE
 	else

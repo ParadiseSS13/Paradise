@@ -15,7 +15,7 @@ SUBSYSTEM_DEF(machines)
 
 	var/currentpart = SSMACHINES_DEFERREDPOWERNETS
 
-/datum/controller/subsystem/machines/Initialize()
+/datum/controller/subsystem/machines/Initialize(start_timeofday)
 	makepowernets()
 	fire()
 	return ..()

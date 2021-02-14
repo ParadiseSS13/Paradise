@@ -3,7 +3,7 @@ SUBSYSTEM_DEF(title)
 	flags = SS_NO_FIRE
 	init_order = INIT_ORDER_TITLE
 
-/datum/controller/subsystem/title/Initialize()
+/datum/controller/subsystem/title/Initialize(start_timeofday)
 	var/list/provisional_title_screens = flist("config/title_screens/images/")
 	var/list/title_screens = list()
 	var/use_rare_screens = prob(1)

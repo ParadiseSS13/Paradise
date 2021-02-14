@@ -22,7 +22,7 @@ PROCESSING_SUBSYSTEM_DEF(instruments)
 	/// Single cached list for synthesizer instrument ids, so you don't have to have a new list with every synthesizer.
 	var/list/synthesizer_instrument_ids
 
-/datum/controller/subsystem/processing/instruments/Initialize()
+/datum/controller/subsystem/processing/instruments/Initialize(start_timeofday)
 	initialize_instrument_data()
 	synthesizer_instrument_ids = get_allowed_instrument_ids()
 	return ..()

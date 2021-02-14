@@ -11,15 +11,10 @@ SUBSYSTEM_DEF(input)
 	var/list/movement_keys
 	var/list/alt_movement_keys
 
-/datum/controller/subsystem/input/Initialize()
+/datum/controller/subsystem/input/Initialize(start_timeofday)
 	setup_default_macro_sets()
-
 	setup_default_movement_keys()
-
-	initialized = TRUE
-
 	refresh_client_macro_sets()
-
 	return ..()
 
 // This is for when macro sets are eventualy datumized

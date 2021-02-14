@@ -62,7 +62,7 @@ SUBSYSTEM_DEF(ticker)
 	/// Time the real reboot kicks in
 	var/real_reboot_time = 0
 
-/datum/controller/subsystem/ticker/Initialize()
+/datum/controller/subsystem/ticker/Initialize(start_timeofday)
 	login_music = pick(\
 	'sound/music/thunderdome.ogg',\
 	'sound/music/space.ogg',\

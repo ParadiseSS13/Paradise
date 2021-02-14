@@ -12,7 +12,7 @@ SUBSYSTEM_DEF(profiler)
 /datum/controller/subsystem/profiler/stat_entry()
 	..("F:[round(fetch_cost, 1)]ms | W:[round(write_cost, 1)]ms")
 
-/datum/controller/subsystem/profiler/Initialize()
+/datum/controller/subsystem/profiler/Initialize(start_timeofday)
 	if(!config.auto_profile)
 		StopProfiling() //Stop the early start profiler if we dont want it on in the config
 		flags |= SS_NO_FIRE

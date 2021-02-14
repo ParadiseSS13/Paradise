@@ -14,7 +14,7 @@ SUBSYSTEM_DEF(persistent_data)
 	/// List of atoms registered into the subsystem for persistent data storage. Can be anything at all
 	var/list/registered_atoms = list()
 
-/datum/controller/subsystem/persistent_data/Initialize()
+/datum/controller/subsystem/persistent_data/Initialize(start_timeofday)
 	// Load all the data of registered atoms
 	for(var/atom/A in registered_atoms)
 		A.persistent_load()

@@ -9,7 +9,7 @@ SUBSYSTEM_DEF(parallax)
 	var/planet_x_offset = 128
 	var/planet_y_offset = 128
 
-/datum/controller/subsystem/parallax/Initialize(timeofday)
+/datum/controller/subsystem/parallax/Initialize(start_timeofday)
 	. = ..()
 	planet_y_offset = rand(100, 160)
 	planet_x_offset = rand(100, 160)
