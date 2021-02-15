@@ -389,13 +389,7 @@
 	special_names = list("Oxide", "Rod", "Meltdown")
 
 /datum/species/golem/uranium/handle_life(mob/living/carbon/human/H)
-	for(var/mob/living/L in range(2, H))
-		if(ishuman(L))
-			var/mob/living/carbon/human/I = L
-			if(!(RADIMMUNE in I.dna.species.species_traits))
-				L.apply_effect(10, IRRADIATE)
-				if(prob(25)) //reduce spam
-					to_chat(L, "<span class='danger'>You are enveloped by a soft green glow emanating from [H].</span>")
+	radiation_pulse(H, 20)
 	..()
 
 //Ventcrawler

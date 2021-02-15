@@ -7,7 +7,7 @@
 	cost = 3
 	// Settings
 	/// How long a contractor must wait before calling another blackout, in deciseconds.
-	var/static/cooldown = 15 MINUTES
+	var/static/cooldown = 45 MINUTES
 	// Variables
 	/// Static cooldown variable for blackouts.
 	var/static/next_blackout = -1

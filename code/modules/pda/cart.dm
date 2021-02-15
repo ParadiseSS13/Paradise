@@ -299,7 +299,6 @@
 	desc = "The hit new PDA game that lets you track down and capture your favorite Nano-Mobs living in your world!"
 	icon_state = "cart-eye"
 	programs = list(new/datum/data/pda/app/mob_hunter_game)
-	var/emagged = 0
 
 /obj/item/cartridge/mob_hunt_game/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/nanomob_card))

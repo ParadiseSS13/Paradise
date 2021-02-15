@@ -58,6 +58,7 @@
 		/obj/item/stack/cable_coil,
 		/obj/item/t_scanner,
 		/obj/item/analyzer,
+		/obj/item/geiger_counter,
 		/obj/item/extinguisher/mini,
 		/obj/item/holosign_creator)
 
@@ -135,7 +136,8 @@
 		/obj/item/sensor_device,
 		/obj/item/wrench/medical,
 		/obj/item/handheld_defibrillator,
-		/obj/item/reagent_containers/applicator
+		/obj/item/reagent_containers/applicator,
+		/obj/item/geiger_counter
 	)
 
 /obj/item/storage/belt/medical/surgery

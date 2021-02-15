@@ -165,7 +165,7 @@
 /obj/machinery/suit_storage_unit/ert/command
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/ert/commander
 	mask_type    = /obj/item/clothing/mask/breath
-	storage_type = /obj/item/tank/emergency_oxygen/double
+	storage_type = /obj/item/tank/internals/emergency_oxygen/double
 
 /obj/machinery/suit_storage_unit/ert/command/secure
 	secure = TRUE
@@ -173,7 +173,7 @@
 /obj/machinery/suit_storage_unit/ert/security
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/ert/security
 	mask_type    = /obj/item/clothing/mask/breath
-	storage_type = /obj/item/tank/emergency_oxygen/double
+	storage_type = /obj/item/tank/internals/emergency_oxygen/double
 
 /obj/machinery/suit_storage_unit/ert/security/secure
 	secure = TRUE
@@ -181,7 +181,7 @@
 /obj/machinery/suit_storage_unit/ert/engineer
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/ert/engineer
 	mask_type    = /obj/item/clothing/mask/breath
-	storage_type = /obj/item/tank/emergency_oxygen/double
+	storage_type = /obj/item/tank/internals/emergency_oxygen/double
 
 /obj/machinery/suit_storage_unit/ert/engineer/secure
 	secure = TRUE
@@ -189,7 +189,7 @@
 /obj/machinery/suit_storage_unit/ert/medical
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/ert/medical
 	mask_type    = /obj/item/clothing/mask/breath
-	storage_type = /obj/item/tank/emergency_oxygen/double
+	storage_type = /obj/item/tank/internals/emergency_oxygen/double
 
 /obj/machinery/suit_storage_unit/ert/medical/secure
 	secure = TRUE
@@ -207,6 +207,7 @@
 	name = "radiation suit storage unit"
 	suit_type = /obj/item/clothing/suit/radiation
 	helmet_type = /obj/item/clothing/head/radiation
+	storage_type = /obj/item/geiger_counter
 
 //copied from /obj/effect/nasavoidsuitspawner
 /obj/machinery/suit_storage_unit/telecoms/Initialize()
@@ -413,6 +414,9 @@
 		uv_cycles = initial(uv_cycles)
 		uv = FALSE
 		locked = FALSE
+		for(var/atom/A in contents)
+			A.clean_blood(radiation_clean = FALSE)	// we invoke the radiation cleaning proc directly
+			A.clean_radiation(12)	// instead of letting clean_blood do it
 		if(uv_super)
 			visible_message("<span class='warning'>[src]'s door creaks open with a loud whining noise. A cloud of foul black smoke escapes from its chamber.</span>")
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 50, 1)

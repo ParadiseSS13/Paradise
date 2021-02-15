@@ -102,7 +102,7 @@ effective or pretty fucking useless.
 			if(M)
 				if(intensity >= 5)
 					M.apply_effect(round(intensity/1.5), PARALYZE)
-				M.apply_effect(intensity*10, IRRADIATE)
+				M.rad_act(intensity * 10)
 	else
 		to_chat(user, "<span class='warning'>The radioactive microlaser is still recharging.</span>")
 
@@ -267,7 +267,7 @@ effective or pretty fucking useless.
 		to_chat(C, "<span class='danger'>The [src] will not work here!</span>")
 
 /obj/item/teleporter/proc/tile_check(turf/T)
-	if(istype(T, /turf/simulated/floor) || istype(T, /turf/space) || istype(T, /turf/simulated/shuttle/floor) || istype(T, /turf/simulated/shuttle/floor4) || istype(T, /turf/simulated/shuttle/plating))
+	if(istype(T, /turf/simulated/floor) || istype(T, /turf/space))
 		return TRUE
 
 /obj/item/teleporter/proc/dir_correction(mob/user) //Direction movement, screws with teleport distance and saving throw, and thus must be removed first

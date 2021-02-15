@@ -217,7 +217,7 @@
 							if(M == user)
 								return
 							M.Beam(L,icon_state="purple_lightning",icon='icons/effects/effects.dmi',time=5)
-							M.electrocute_act(shock_damage, L, safety = TRUE)
+							M.electrocute_act(shock_damage, L, flags = SHOCK_NOGLOVES)
 							do_sparks(4, 0, M)
 							playsound(M, 'sound/machines/defib_zap.ogg', 50, 1, -1)
 
@@ -250,7 +250,7 @@
 					human.adjustToxLoss(toxdamage)
 					human.AdjustConfused(confusion, bound_lower = 0, bound_upper = maxconfusion)
 					new/obj/effect/temp_visual/revenant(human.loc)
-				if(!istype(T, /turf/simulated/shuttle) && !istype(T, /turf/simulated/wall/rust) && !istype(T, /turf/simulated/wall/r_wall) && istype(T, /turf/simulated/wall) && prob(15))
+				if(!istype(T, /turf/simulated/wall/rust) && !istype(T, /turf/simulated/wall/r_wall) && istype(T, /turf/simulated/wall) && prob(15))
 					new/obj/effect/temp_visual/revenant(T)
 					T.ChangeTurf(/turf/simulated/wall/rust)
 				if(!istype(T, /turf/simulated/wall/r_wall/rust) && istype(T, /turf/simulated/wall/r_wall) && prob(15))

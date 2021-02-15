@@ -4,6 +4,8 @@
 	icon_state = "riveted"
 	opacity = 1
 	density = 1
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	rad_insulation = RAD_MEDIUM_INSULATION
 	explosion_block = 2
 
 /turf/unsimulated/wall/fakeglass
@@ -21,14 +23,6 @@
 	icon = 'config/title_screens/images/blank.png'
 	icon_state = ""
 	layer = FLY_LAYER
-
-/turf/unsimulated/wall/other
-	icon_state = "r_wall"
-
-/turf/unsimulated/wall/metal
-	icon = 'icons/turf/walls/wall.dmi'
-	icon_state = "wall"
-	smooth = SMOOTH_TRUE
 
 /turf/unsimulated/wall/abductor
 	icon_state = "alien1"
