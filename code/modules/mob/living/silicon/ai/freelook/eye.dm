@@ -16,7 +16,8 @@
 	var/relay_speech = FALSE
 	var/use_static = TRUE
 	var/static_visibility_range = 16
-	var/AiDetector = TRUE // Decides if it is shown by AI Detector or not
+	// Decides if it is shown by AI Detector or not
+	var/show_on_multitool = TRUE
 
 
 // Use this when setting the aiEye's location.

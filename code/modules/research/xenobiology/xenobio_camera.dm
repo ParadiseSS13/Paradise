@@ -4,7 +4,8 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "camera_target"
 	var/allowed_area = null
-	AiDetector = FALSE // The Xenobio Console does not trigger the AI Detector
+	// The Xenobio Console does not trigger the AI Detector
+	show_on_multitool = FALSE
 
 /mob/camera/aiEye/remote/xenobio/New(loc)
 	var/area/A = get_area(loc)
