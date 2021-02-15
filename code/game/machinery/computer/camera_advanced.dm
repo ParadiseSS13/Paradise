@@ -101,7 +101,7 @@
 
 /mob/camera/aiEye/remote
 	name = "Inactive Camera Eye"
-	AiDetector = FALSE
+	AiDetector = FALSE // Abductors dont trigger the Ai Detector
 	var/sprint = 10
 	var/cooldown = 0
 	var/acceleration = 1
