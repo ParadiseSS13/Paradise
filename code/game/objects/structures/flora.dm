@@ -16,7 +16,7 @@
 	icon_state = "pine_1"
 
 /obj/structure/flora/tree/pine/Initialize(mapload)
-	. = ..()
+	..()
 	icon_state = "pine_[rand(1, 3)]"
 
 /obj/structure/flora/tree/pine/xmas
@@ -29,7 +29,7 @@
 	icon_state = "tree_1"
 
 /obj/structure/flora/tree/dead/Initialize(mapload)
-	. = ..()
+	..()
 	icon_state = "tree_[rand(1, 6)]"
 
 /obj/structure/flora/tree/palm
@@ -37,7 +37,7 @@
 	icon_state = "palm1"
 
 /obj/structure/flora/tree/palm/Initialize(mapload)
-	. = ..()
+	..()
 	icon_state = pick("palm1","palm2")
 	pixel_x = 0
 
@@ -52,7 +52,7 @@
 	icon_state = "snowgrass1bb"
 
 /obj/structure/flora/grass/brown/Initialize(mapload)
-	. = ..()
+	..()
 	icon_state = "snowgrass[rand(1, 3)]bb"
 
 
@@ -60,14 +60,14 @@
 	icon_state = "snowgrass1gb"
 
 /obj/structure/flora/grass/green/Initialize(mapload)
-	. = ..()
+	..()
 	icon_state = "snowgrass[rand(1, 3)]gb"
 
 /obj/structure/flora/grass/both
 	icon_state = "snowgrassall1"
 
 /obj/structure/flora/grass/both/Initialize(mapload)
-	. = ..()
+	..()
 	icon_state = "snowgrassall[rand(1, 3)]"
 
 
@@ -80,7 +80,7 @@
 	max_integrity = 15
 
 /obj/structure/flora/bush/Initialize(mapload)
-	. = ..()
+	..()
 	icon_state = "snowbush[rand(1, 6)]"
 
 //newbushes
@@ -93,112 +93,112 @@
 	max_integrity = 15
 
 /obj/structure/flora/ausbushes/Initialize(mapload)
-	. = ..()
+	..()
 	icon_state = "firstbush_[rand(1, 4)]"
 
 /obj/structure/flora/ausbushes/reedbush
 	icon_state = "reedbush_1"
 
 /obj/structure/flora/ausbushes/reedbush/Initialize(mapload)
-	. = ..()
+	..()
 	icon_state = "reedbush_[rand(1, 4)]"
 
 /obj/structure/flora/ausbushes/leafybush
 	icon_state = "leafybush_1"
 
 /obj/structure/flora/ausbushes/leafybush/Initialize(mapload)
-	. = ..()
+	..()
 	icon_state = "leafybush_[rand(1, 3)]"
 
 /obj/structure/flora/ausbushes/palebush
 	icon_state = "palebush_1"
 
 /obj/structure/flora/ausbushes/palebush/Initialize(mapload)
-	. = ..()
+	..()
 	icon_state = "palebush_[rand(1, 4)]"
 
 /obj/structure/flora/ausbushes/stalkybush
 	icon_state = "stalkybush_1"
 
 /obj/structure/flora/ausbushes/stalkybush/Initialize(mapload)
-	. = ..()
+	..()
 	icon_state = "stalkybush_[rand(1, 3)]"
 
 /obj/structure/flora/ausbushes/grassybush
 	icon_state = "grassybush_1"
 
 /obj/structure/flora/ausbushes/grassybush/Initialize(mapload)
-	. = ..()
+	..()
 	icon_state = "grassybush_[rand(1, 4)]"
 
 /obj/structure/flora/ausbushes/fernybush
 	icon_state = "fernybush_1"
 
 /obj/structure/flora/ausbushes/fernybush/Initialize(mapload)
-	. = ..()
+	..()
 	icon_state = "fernybush_[rand(1, 3)]"
 
 /obj/structure/flora/ausbushes/sunnybush
 	icon_state = "sunnybush_1"
 
 /obj/structure/flora/ausbushes/sunnybush/Initialize(mapload)
-	. = ..()
+	..()
 	icon_state = "sunnybush_[rand(1, 3)]"
 
 /obj/structure/flora/ausbushes/genericbush
 	icon_state = "genericbush_1"
 
 /obj/structure/flora/ausbushes/genericbush/Initialize(mapload)
-	. = ..()
+	..()
 	icon_state = "genericbush_[rand(1, 4)]"
 
 /obj/structure/flora/ausbushes/pointybush
 	icon_state = "pointybush_1"
 
 /obj/structure/flora/ausbushes/pointybush/Initialize(mapload)
-	. = ..()
+	..()
 	icon_state = "pointybush_[rand(1, 4)]"
 
 /obj/structure/flora/ausbushes/lavendergrass
 	icon_state = "lavendergrass_1"
 
 /obj/structure/flora/ausbushes/lavendergrass/Initialize(mapload)
-	. = ..()
+	..()
 	icon_state = "lavendergrass_[rand(1, 4)]"
 
 /obj/structure/flora/ausbushes/ywflowers
 	icon_state = "ywflowers_1"
 
 /obj/structure/flora/ausbushes/ywflowers/Initialize(mapload)
-	. = ..()
+	..()
 	icon_state = "ywflowers_[rand(1, 3)]"
 
 /obj/structure/flora/ausbushes/brflowers
 	icon_state = "brflowers_1"
 
 /obj/structure/flora/ausbushes/brflowers/Initialize(mapload)
-	. = ..()
+	..()
 	icon_state = "brflowers_[rand(1, 3)]"
 
 /obj/structure/flora/ausbushes/ppflowers
 	icon_state = "ppflowers_1"
 
 /obj/structure/flora/ausbushes/ppflowers/Initialize(mapload)
-	. = ..()
+	..()
 	icon_state = "ppflowers_[rand(1, 4)]"
 
 /obj/structure/flora/ausbushes/sparsegrass
 	icon_state = "sparsegrass_1"
 
 /obj/structure/flora/ausbushes/sparsegrass/Initialize(mapload)
-	. = ..()
+	..()
 	icon_state = "sparsegrass_[rand(1, 3)]"
 
 /obj/structure/flora/ausbushes/fullgrass
 	icon_state = "fullgrass_1"
 
 /obj/structure/flora/ausbushes/fullgrass/Initialize(mapload)
-	. = ..()
+	..()
 	icon_state = "fullgrass_[rand(1, 3)]"
 
 
@@ -222,10 +222,13 @@
 		icon_state = "plant-36"
 
 /obj/item/twohanded/required/kirbyplants/equipped(mob/living/user)
-	. = ..()
-	var/image/I = image(icon = 'icons/obj/flora/plants.dmi' , icon_state = src.icon_state, loc = user)
-	I.override = 1
-	user.add_alt_appearance("sneaking_mission", I, GLOB.player_list)
+	..()
+	//Override appearance only if the other hand is NOT empty, because you should hold offhand. If your hand is missing, get_inactive_hand() will return null.
+	//Cases where you hold one-handed item are handled in parents and this should never be called, so it shouldn't be a problem.
+	if(user.get_inactive_hand() != null)
+		var/image/I = image(icon = 'icons/obj/flora/plants.dmi' , icon_state = src.icon_state, loc = user)
+		I.override = 1
+		user.add_alt_appearance("sneaking_mission", I, GLOB.player_list)
 
 /obj/item/twohanded/required/kirbyplants/dropped(mob/living/user)
 	..()
@@ -247,7 +250,7 @@
 	anchored = 1
 
 /obj/structure/flora/rock/Initialize(mapload)
-	. = ..()
+	..()
 	icon_state = "rock[rand(1,5)]"
 
 /obj/structure/flora/rock/pile
@@ -256,7 +259,7 @@
 	icon_state = "rockpile1"
 
 /obj/structure/flora/rock/pile/Initialize(mapload)
-	. = ..()
+	..()
 	icon_state = "rockpile[rand(1,5)]"
 
 /obj/structure/flora/rock/icy
@@ -305,7 +308,7 @@
 	var/stump = 0
 
 /obj/structure/bush/Initialize(mapload)
-	. = ..()
+	..()
 	if(prob(20))
 		opacity = 1
 
