@@ -4,6 +4,7 @@
 	icon_screen = "navigation"
 	icon_keyboard = "med_key"
 	jump_action = null
+	AiDetector = FALSE
 	var/datum/action/innate/shuttledocker_rotate/rotate_action = new
 	var/datum/action/innate/shuttledocker_place/place_action = new
 	var/shuttleId = ""
