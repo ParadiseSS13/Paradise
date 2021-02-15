@@ -216,7 +216,7 @@
 	throw_range = 4
 
 /obj/item/twohanded/required/kirbyplants/New()
-	. = ..()
+	..()
 	icon_state = "plant-[rand(1,35)]"
 	if(prob(1))
 		icon_state = "plant-36"
@@ -231,7 +231,7 @@
 		user.add_alt_appearance("sneaking_mission", I, GLOB.player_list)
 
 /obj/item/twohanded/required/kirbyplants/dropped(mob/living/user)
-	. = ..()
+	..()
 	user.remove_alt_appearance("sneaking_mission")
 
 /obj/item/twohanded/required/kirbyplants/dead
