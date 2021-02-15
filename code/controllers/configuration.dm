@@ -247,6 +247,9 @@
 	/// Role ID to be pinged for administrative events
 	var/discord_admin_role_id = null // Intentional null usage
 
+	/// Role ID to be pinged for mentorhelps
+	var/discord_mentor_role_id = null
+
 	/// Webhook URLs for the main public webhook
 	var/list/discord_main_webhook_urls = list()
 
@@ -755,6 +758,8 @@
 					discord_webhooks_enabled = TRUE
 				if("discord_webhooks_admin_role_id")
 					discord_admin_role_id = "[value]" // This MUST be a string because BYOND doesnt like massive integers
+				if("discord_webhooks_mentor_role_id")
+					discord_mentor_role_id = "[value]"
 				if("discord_webhooks_main_url")
 					discord_main_webhook_urls = splittext(value, "|")
 				if("discord_webhooks_admin_url")

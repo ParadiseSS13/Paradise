@@ -5,6 +5,8 @@ SUBSYSTEM_DEF(discord)
 	var/enabled = FALSE
 	/// Last time the administrator ping was dropped. This ensures administrators cannot be mass pinged if a large chunk of ahelps go off at once (IE: tesloose)
 	var/last_administration_ping = 0
+	/// Last time the mentor ping was dropped. This ensures mentors cannot be mass pinged if a large chunk of mhelps go off at once.
+	var/last_mentor_ping = 0
 
 /datum/controller/subsystem/discord/Initialize(start_timeofday)
 	if(config.discord_webhooks_enabled)
@@ -80,5 +82,15 @@ SUBSYSTEM_DEF(discord)
 
 		last_administration_ping = world.time + 60 SECONDS
 		return "<@&[config.discord_admin_role_id]>"
+
+	return ""
+
+/datum/controller/subsystem/discord/proc/handle_mentor_ping()
+	if(config.discord_mentor_role_id)
+		if(last_mentor_ping > world.time)
+			return "*(Role pinged recently)*"
+
+		last_mentor_ping = world.time + 60 SECONDS
+		return "<@&[config.discord_mentor_role_id]>"
 
 	return ""
