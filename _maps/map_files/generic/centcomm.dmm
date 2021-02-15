@@ -1082,7 +1082,7 @@
 	icon_state = "tube1";
 	tag = "icon-tube1 (NORTH)"
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/beach/away/sand,
 /area/ninja/holding)
 "dj" = (
 /turf/simulated/floor/holofloor{
@@ -2010,12 +2010,12 @@
 	},
 /area/tdome/arena_source)
 "fH" = (
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/beach/away/sand,
 /area/ninja/holding)
 "fI" = (
 /obj/effect/overlay/palmtree_r,
 /obj/effect/overlay/coconut,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/beach/away/sand,
 /area/ninja/holding)
 "fJ" = (
 /obj/structure/chair/comfy/purp,
@@ -2026,7 +2026,7 @@
 /area/wizard_station)
 "fK" = (
 /obj/effect/overlay/palmtree_l,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/beach/away/sand,
 /area/ninja/holding)
 "fL" = (
 /obj/machinery/computer/cryopod{
@@ -2202,7 +2202,7 @@
 /area/wizard_station)
 "gf" = (
 /obj/item/camera,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/beach/away/sand,
 /area/ninja/holding)
 "gg" = (
 /obj/machinery/light/spot{
@@ -2453,7 +2453,7 @@
 /area/tdome/arena_source)
 "gS" = (
 /obj/item/beach_ball,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/beach/away/sand,
 /area/ninja/holding)
 "gT" = (
 /obj/structure/rack,
@@ -2556,11 +2556,11 @@
 /turf/space/transit,
 /area/space)
 "he" = (
-/turf/unsimulated/beach/coastline,
+/turf/simulated/floor/beach/away/coastline,
 /area/ninja/holding)
 "hf" = (
 /obj/item/clothing/head/collectable/paper,
-/turf/unsimulated/beach/coastline,
+/turf/simulated/floor/beach/away/coastline,
 /area/ninja/holding)
 "hg" = (
 /obj/effect/decal/warning_stripes/south,
@@ -2665,11 +2665,11 @@
 	},
 /area/syndicate_mothership)
 "hv" = (
-/turf/unsimulated/beach/water,
+/turf/simulated/floor/beach/away/water,
 /area/ninja/holding)
 "hw" = (
 /obj/machinery/light/spot,
-/turf/unsimulated/beach/water,
+/turf/simulated/floor/beach/away/water,
 /area/ninja/holding)
 "hx" = (
 /obj/effect/decal/warning_stripes/southwestcorner,
@@ -13088,11 +13088,11 @@
 	pixel_y = -10
 	},
 /obj/item/clothing/glasses/sunglasses,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/beach/away/sand,
 /area/ninja/holding)
 "JD" = (
 /obj/structure/chair/stool,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/beach/away/sand,
 /area/ninja/holding)
 "JE" = (
 /obj/machinery/sleeper/upgraded{
@@ -14246,7 +14246,7 @@
 /area/shuttle/administration)
 "Qt" = (
 /obj/machinery/poolcontroller/invisible,
-/turf/unsimulated/beach/water,
+/turf/simulated/floor/beach/away/water,
 /area/ninja/holding)
 "Qu" = (
 /obj/effect/decal/cleanable/blood,

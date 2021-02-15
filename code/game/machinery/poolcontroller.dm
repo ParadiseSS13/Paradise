@@ -39,8 +39,8 @@
 			var/turf/simulated/floor/beach/water/W = T
 			W.linkedcontroller = src
 			linkedturfs += T
-		else if(istype(T, /turf/unsimulated/beach/water))
-			var/turf/unsimulated/beach/water/W = T
+		else if(istype(T, /turf/simulated/floor/beach/away/water))
+			var/turf/simulated/floor/beach/away/water/W = T
 			W.linkedcontroller = src
 			linkedturfs += T
 
@@ -76,7 +76,7 @@
 /obj/machinery/poolcontroller/proc/processMob()
 	for(var/M in mobinpool) //They're already typecasted when entering the turf
 		// Following two are sanity check. If the mob is no longer in the pool for whatever reason (Looking at you teleport), remove them
-		if(!istype(get_turf(M), /turf/simulated/floor/beach/water) && !istype(get_turf(M), /turf/unsimulated/beach/water)) // Water component when?
+		if(!istype(get_turf(M), /turf/simulated/floor/beach/water) && !istype(get_turf(M), /turf/simulated/floor/beach/away/water)) // Water component when?
 			mobinpool -= M
 			continue
 		handleTemp(M)	//handles pool temp effects on the swimmers
