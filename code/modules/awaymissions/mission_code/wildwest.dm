@@ -78,7 +78,9 @@
 				to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
 				ADD_TRAIT(user, TRAIT_LASEREYES, "ww_wishgranter")
 				user.dna.SetSEState(GLOB.fireblock, TRUE)
+				singlemutcheck(user, GLOB.fireblock, MUTCHK_FORCED)
 				user.dna.SetSEState(GLOB.xrayblock, TRUE)
+				singlemutcheck(user, GLOB.xrayblock, MUTCHK_FORCED)
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
 					if(!isshadowperson(human))

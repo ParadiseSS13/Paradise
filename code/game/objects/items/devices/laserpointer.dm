@@ -80,7 +80,7 @@
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
 	if(HAS_TRAIT(user, TRAIT_CHUNKYFINGERS))
-		user << "<span class='warning'>Your fingers can't press the button!</span>"
+		to_chat(user, "<span class='warning'>Your fingers can't press the button!</span>")
 		return
 
 	add_fingerprint(user)

@@ -537,7 +537,7 @@
 		return 0	//godmode
 
 	if(!HAS_TRAIT(src, TRAIT_NOHUNGER))
-		if(HAS_TRAIT_FROM(src, TRAIT_FAT, OBESITY))
+		if(HAS_TRAIT(src, TRAIT_FAT))
 			if(overeatduration < 100)
 				becomeSlim()
 		else

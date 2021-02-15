@@ -18,10 +18,6 @@
 // BOOLEAN STATES
 
 /*
-	* EyesBlocked
-		Your eyes are covered somehow
-	* EarsBlocked
-		Your ears are covered somehow
 	* Resting
 		You are lying down of your own volition
 	* Flying
@@ -33,54 +29,44 @@
 // All of these decrement over time - at a rate of 1 per life cycle unless otherwise noted
 // Status effects sorted alphabetically:
 /*
-	*	Confused				*
+	* Confused				*
 			Movement is scrambled
-	*	Dizzy						*
+	* Dizzy					*
 			The screen goes all warped
-	*	Drowsy
+	* Drowsy
 			You begin to yawn, and have a chance of incrementing "Paralysis"
-	*	Druggy					*
+	* Druggy				*
 			A trippy overlay appears.
-	*	Drunk						*
+	* Drunk					*
 			Essentially what your "BAC" is - the higher it is, the more alcohol you have in you
-	*	EyeBlind				*
+	* EyeBlind				*
 			You cannot see. Prevents EyeBlurry from healing naturally.
-	*	EyeBlurry				*
+	* EyeBlurry				*
 			A hazy overlay appears on your screen.
-	*	Hallucination		*
+	* Hallucination			*
 			Your character will imagine various effects happening to them, vividly.
-	*	Jitter					*
+	* Jitter				*
 			Your character will visibly twitch. Higher values amplify the effect.
 	* LoseBreath			*
 			Your character is unable to breathe.
-	*	Paralysis				*
+	* Paralysis				*
 			Your character is knocked out.
-	* Silent					*
+	* Silent				*
 			Your character is unable to speak.
-	*	Sleeping				*
+	* Sleeping				*
 			Your character is asleep.
-	*	Slowed					*
+	* Slowed				*
 			Your character moves slower.
-	*	Slurring				*
+	* Slurring				*
 			Your character cannot enunciate clearly.
-	*	CultSlurring			*
+	* CultSlurring			*
 			Your character cannot enunciate clearly while mumbling about elder codes.
-	*	Stunned					*
+	* Stunned				*
 			Your character is unable to move, and drops stuff in their hands. They keep standing, though.
 	* Stuttering			*
 			Your character stutters parts of their messages.
-	*	Weakened				*
+	* Weakened				*
 			Your character collapses, but is still conscious.
-*/
-
-// DISABILITIES
-// These are more permanent than the above.
-// Disabilities sorted alphabetically
-/*
-	*	Blind	(32)
-			Can't see. EyeBlind does not heal when this is active.
-	*	Nearsighted	(1)
-			My glasses! I can't see without my glasses! (Nearsighted overlay when not wearing prescription eyewear)
 */
 
 /mob/living
