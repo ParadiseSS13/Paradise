@@ -82,6 +82,8 @@
 		if(chunk)
 			if(chunk.seenby.len)
 				for(var/mob/camera/aiEye/A in chunk.seenby)
+					if(!A.AiDetector)
+						continue
 					var/turf/detect_turf = get_turf(A)
 					if(get_dist(our_turf, detect_turf) < rangealert)
 						detect_state = PROXIMITY_ON_SCREEN
