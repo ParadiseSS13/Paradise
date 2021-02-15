@@ -4,6 +4,7 @@
 	. = ..()
 	var/obj/machinery/hologram/holopad/H = origin
 	H.move_hologram(eye_user, loc)
+	AiDetector = FALSE
 
 //this datum manages it's own references
 

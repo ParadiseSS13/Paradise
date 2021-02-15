@@ -101,6 +101,7 @@
 
 /mob/camera/aiEye/remote
 	name = "Inactive Camera Eye"
+	AiDetector = FALSE
 	var/sprint = 10
 	var/cooldown = 0
 	var/acceleration = 1
