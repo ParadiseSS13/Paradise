@@ -67017,6 +67017,9 @@
 /obj/structure/closet/wardrobe/chemistry_white,
 /obj/item/storage/backpack/satchel_chem,
 /obj/effect/decal/warning_stripes/south,
+/obj/structure/disaster_counter/chemistry{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

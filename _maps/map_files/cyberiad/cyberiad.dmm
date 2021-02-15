@@ -43596,6 +43596,9 @@
 /area/hallway/secondary/entry)
 "bLD" = (
 /obj/structure/closet/secure_closet/reagents,
+/obj/structure/disaster_counter/chemistry{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteyellow"
@@ -44752,12 +44755,6 @@
 /area/medical/reception)
 "bNA" = (
 /obj/effect/decal/warning_stripes/northeast,
-/obj/item/radio/intercom{
-	frequency = 1459;
-	name = "station intercom (General)";
-	pixel_x = -28;
-	pixel_y = 22
-	},
 /turf/simulated/floor/plasteel,
 /area/medical/chemistry)
 "bNB" = (
@@ -78694,6 +78691,9 @@
 	},
 /obj/machinery/meter,
 /obj/machinery/light,
+/obj/structure/disaster_counter/supermatter{
+	pixel_y = -32
+	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "cVB" = (
