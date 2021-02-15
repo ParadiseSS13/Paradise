@@ -7,7 +7,7 @@
 /obj/effect/mazegen/generator/blockwise
 	name = "blockwise maze generator"
 	/// Material to make the walls out of
-	var/turf/wall_material = /turf/unsimulated/wall
+	var/turf/wall_material = /turf/simulated/wall/indestructible/riveted
 	/// Material to make the floor out of
 	var/turf/floor_material = /turf/simulated/floor/engine
 	/// List of open spots (speeds up calculations)
