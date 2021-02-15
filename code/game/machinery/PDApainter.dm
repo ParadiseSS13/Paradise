@@ -102,7 +102,6 @@
 
 		storedpda.icon_state = P
 		storedpda.desc = colorlist[P]
-		ejectpda()
 
 	else
 		to_chat(user, "<span class='notice'>The [src] is empty.</span>")
