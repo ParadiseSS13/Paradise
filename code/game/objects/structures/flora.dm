@@ -216,13 +216,13 @@
 	throw_range = 4
 
 /obj/item/twohanded/required/kirbyplants/New()
-	..()
+	. = ..()
 	icon_state = "plant-[rand(1,35)]"
 	if(prob(1))
 		icon_state = "plant-36"
 
 /obj/item/twohanded/required/kirbyplants/equipped(mob/living/user)
-	..()
+	. = ..()
 	//Override appearance only if the other hand is NOT empty, because you should hold offhand. If your hand is missing, get_inactive_hand() will return null.
 	//Cases where you hold one-handed item are handled in parents and this should never be called, so it shouldn't be a problem.
 	if(user.get_inactive_hand() != null)
