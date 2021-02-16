@@ -37,7 +37,7 @@
 				on_CD = handle_emote_CD()
 				emote("gasp")
 				return
-				
+
 	switch(act)		//This switch adds cooldowns to some emotes
 		if("ping", "pings", "buzz", "buzzes", "beep", "beeps", "yes", "no", "buzz2")
 			var/found_machine_head = FALSE
@@ -133,6 +133,8 @@
 			on_CD = handle_emote_CD()
 		if("clap", "claps")
 			on_CD = handle_emote_CD()
+		if("kiss", "kisses")
+			on_CD = handle_emote_CD(CLICK_CD_MELEE)
 		//Everything else, including typos of the above emotes
 		else
 			on_CD = FALSE	//If it doesn't induce the cooldown, we won't check for the cooldown
@@ -502,6 +504,19 @@
 			message = "<B>[src]</B> nods[M ? " at [M]" : ""]."
 			m_type = 1
 
+		if("kiss", "kisses")
+			var/kiss_type = /obj/item/kisser
+
+			if(HAS_TRAIT(src, TRAIT_KISS_OF_DEATH))
+				kiss_type = /obj/item/kisser/death
+
+			var/obj/item/kiss_blower = new kiss_type(src)
+			if(put_in_hands(kiss_blower))
+				to_chat(src, "<span class='notice'>You ready your kiss-blowing hand.</span>")
+			else
+				qdel(kiss_blower)
+				to_chat(src, "<span class='warning'>You're incapable of blowing a kiss in your current state.</span>")
+
 		if("blush", "blushes")
 			message = "<B>[src]</B> blushes."
 			m_type = 1
@@ -841,16 +856,12 @@
 					message = "<B>[src]</B> sadly can't find anybody to give daps to, and daps [p_them()]self. Shameful."
 
 		if("slap", "slaps")
-			m_type = 1
-			if(!restrained())
-				var/M = handle_emote_param(param, null, 1)
-
-				if(M)
-					message = "<span class='danger'>[src] slaps [M] across the face. Ouch!</span>"
-				else
-					message = "<span class='danger'>[src] slaps [p_them()]self!</span>"
-					adjustFireLoss(4)
-				playsound(loc, 'sound/effects/snap.ogg', 50, 1)
+			var/obj/item/slapper/N = new(src)
+			if(put_in_hands(N))
+				to_chat(src, "<span class='notice'>You ready your slapping hand.</span>")
+			else
+				qdel(N)
+				to_chat(src, "<span class='warning'>You're incapable of slapping in your current state.</span>")
 
 		if("scream", "screams")
 			var/M = handle_emote_param(param)
