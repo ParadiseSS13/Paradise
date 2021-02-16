@@ -95264,6 +95264,9 @@
 	network = list("Research Outpost")
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/disaster_counter/toxins{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing)
 "dxe" = (

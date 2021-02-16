@@ -5,18 +5,20 @@
   */
 /obj/structure/disaster_counter
 	name = "disaster counter"
-	desc = "This magical device will count up how many shifts it has been since a major disaster in this area."
+	desc = "This device will counts how many shifts it has been since a major disaster in this area. A safe workplace is a productive workplace."
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "frame"
 	maptext_y = 10 // Offset by 10 so it renders properly
-	/// ID of the counter. Must be overriden
+	/// ID of the counter. Must be overriden. Use alphanumerics with no spaces only, as this is used in the filesystem.
 	var/counter_id
 	/// Current count number
 	var/current_count = 0
+	/// Record count
+	var/record_count = 0
 
 /obj/structure/disaster_counter/examine(mob/user)
 	. = ..()
-	. += "The display reads 'Currently [current_count] shifts without an accident!'"
+	. += "The display reads 'Currently [current_count] shifts without an accident, with a record of [record_count] shifts!'"
 
 /obj/structure/disaster_counter/Initialize(mapload)
 	. = ..()
@@ -47,13 +49,21 @@
 
 	var/savefile/S = new /savefile("data/disaster_counters/[counter_id].sav")
 	S["count"] >> current_count
+	S["record"] >> record_count
 
 	if(isnull(current_count))
 		current_count = 0
 	else
 		current_count++ // Increase by 1 since this is the next shift without a disaster (yet)
-	log_debug("Persistent data for [src] loaded (current_count: [current_count])")
-	maptext = "<span class='maptext' style='text-align: center'>[current_count]</span>"
+
+	if(isnull(record_count))
+		record_count = current_count
+	else
+		// NEW RECORD
+		if(current_count > record_count)
+			record_count = current_count
+	log_debug("Persistent data for [src] loaded (current_count: [current_count] | record_count: [record_count])")
+	maptext = "<span class='maptext' style='text-align: center'>[current_count]/[record_count]</span>"
 
 /obj/structure/disaster_counter/persistent_save()
 	if(counter_id != paranoid_sanitize(counter_id))
@@ -63,7 +73,8 @@
 	var/savefile/S = new /savefile("data/disaster_counters/[counter_id].sav")
 
 	S["count"] << current_count
-	log_debug("Persistent data for [src] saved (current_count: [current_count])")
+	S["record"] << record_count
+	log_debug("Persistent data for [src] saved (current_count: [current_count] | record_count: [record_count])")
 
 // Prefab definitions to make mapping easier
 /obj/structure/disaster_counter/supermatter
@@ -73,3 +84,11 @@
 /obj/structure/disaster_counter/chemistry
 	name = "chemistry disaster counter"
 	counter_id = "chemistry"
+
+/obj/structure/disaster_counter/scichem
+	name = "science chemistry disaster counter"
+	counter_id = "scichem"
+
+/obj/structure/disaster_counter/toxins
+	name = "toxins launch room disaster counter"
+	counter_id = "toxinslaunch"
