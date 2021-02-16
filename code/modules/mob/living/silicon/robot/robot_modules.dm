@@ -338,7 +338,7 @@
 /obj/item/robot_module/butler/respawn_consumable(var/mob/living/silicon/robot/R)
 	if(emag)
 		var/obj/item/reagent_containers/food/drinks/cans/beer/B = emag
-		B.reagents.add_reagent("beer2", 2)
+		B.reagents.add_reagent("beer2", 5)
 	..()
 
 /obj/item/robot_module/butler/add_languages(var/mob/living/silicon/robot/R)

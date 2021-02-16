@@ -39,6 +39,18 @@
 	. = ..()
 	air_update_turf(1)
 
+/obj/structure/falsewall/examine_status(mob/user)
+	var/healthpercent = (obj_integrity/max_integrity) * 100
+	switch(healthpercent)
+		if(100)
+			return "<span class='notice'>It looks fully intact.</span>"
+		if(70 to 99)
+			return  "<span class='warning'>It looks slightly damaged.</span>"
+		if(40 to 70)
+			return  "<span class='warning'>It looks moderately damaged.</span>"
+		if(0 to 40)
+			return "<span class='danger'>It looks heavily damaged.</span>"
+
 /obj/structure/falsewall/ratvar_act()
 	new /obj/structure/falsewall/brass(loc)
 	qdel(src)
@@ -160,6 +172,10 @@
 	icon_state = "r_wall"
 	walltype = /turf/simulated/wall/r_wall
 	mineral = /obj/item/stack/sheet/plasteel
+
+/obj/structure/falsewall/reinforced/examine_status(mob/user)
+	. = ..()
+	. += "<br><span class='notice'>The outer <b>grille</b> is fully intact.</span>"	//not going to fake other states of disassembly
 
 /obj/structure/falsewall/reinforced/ChangeToWall(delete = 1)
 	var/turf/T = get_turf(src)
@@ -288,7 +304,7 @@
 	icon_state = "sandstone"
 	mineral = /obj/item/stack/sheet/mineral/sandstone
 	walltype = /turf/simulated/wall/mineral/sandstone
-	canSmoothWith = list(/obj/structure/falsewall/sandstone, /turf/simulated/wall/mineral/sandstone)
+	canSmoothWith = list(/turf/simulated/wall/mineral/sandstone, /turf/simulated/wall/indestructible/sandstone, /obj/structure/falsewall/sandstone)
 
 /obj/structure/falsewall/wood
 	name = "wooden wall"
