@@ -13,7 +13,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
  * WORKING :
  *
  * 1) Makes an associative mapping of model_keys with model
- *		e.g aa = /turf/unsimulated/wall{icon_state = "rock"}
+ *		e.g aa = /turf/simulated/wall{icon_state = "rock"}
  * 2) Read the map line by line, parsing the result (using parse_grid)
  *
  * If `measureOnly` is set, then no atoms will be created, and all this will do
@@ -174,7 +174,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 
 /**
  * Fill a given tile with its area/turf/objects/mobs
- * Variable model is one full map line (e.g /turf/unsimulated/wall{icon_state = "rock"},/area/mine/dangerous/explored)
+ * Variable model is one full map line (e.g /turf/simulated/wall{icon_state = "rock"},/area/mine/dangerous/explored)
  *
  * WORKING :
  *
@@ -195,7 +195,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		same construction as those contained in a .dmm file, and instantiates them.
 	*/
 
-	var/list/members // will contain all members (paths) in model (in our example : /turf/unsimulated/wall and /area/mine/dangerous/explored)
+	var/list/members // will contain all members (paths) in model (in our example : /turf/simulated/wall and /area/mine/dangerous/explored)
 	var/list/members_attributes // will contain lists filled with corresponding variables, if any (in our example : list(icon_state = "rock") and list())
 	var/list/cached = modelCache[model]
 	var/index
@@ -216,7 +216,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		var/dpos
 
 		do
-			// finding next member (e.g /turf/unsimulated/wall{icon_state = "rock"} or /area/mine/dangerous/explored)
+			// finding next member (e.g /turf/simulated/wall{icon_state = "rock"} or /area/mine/dangerous/explored)
 			dpos = find_next_delimiter_position(model, old_position, ",", "{", "}") // find next delimiter (comma here) that's not within {...}
 
 			var/full_def = trim_text(copytext(model, old_position, dpos)) // full definition, e.g : /obj/foo/bar{variables=derp}
