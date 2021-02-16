@@ -154,6 +154,19 @@
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "snowrock"
 
+/turf/simulated/wall/indestructible/rock/asteroid
+	smooth = SMOOTH_MORE | SMOOTH_BORDER
+	canSmoothWith = list(/turf/simulated/wall/indestructible/rock/asteroid,
+						/turf/simulated/mineral/asteroid)
+	layer = EDGED_TURF_LAYER
+
+/turf/simulated/wall/indestructible/rock/asteroid/Initialize(mapload)
+	. = ..()
+	var/matrix/M = new
+	M.Translate(-4, -4)
+	transform = M
+	icon = 'icons/turf/smoothrocks_a.dmi'
+
 /turf/simulated/wall/indestructible/riveted
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "riveted"
@@ -163,3 +176,9 @@
 	icon_state = "map-shuttle"
 	smooth = SMOOTH_MORE | SMOOTH_DIAGONAL
 	canSmoothWith = list(/turf/simulated/wall/mineral/plastitanium, /turf/simulated/wall/indestructible/syndicate, /obj/machinery/door/airlock/titanium, /obj/machinery/door/airlock, /obj/structure/shuttle/engine, /obj/structure/falsewall/plastitanium, /turf/simulated/wall/indestructible/opsglass, /obj/structure/window/full/plastitanium)
+
+/turf/simulated/wall/indestructible/syndicate/nondiagonal
+	name = "reinforced wall"
+	desc = "An evil wall of plasma and titanium. This one looks heavily reinforced."
+	icon_state = "map-shuttle_nd"
+	smooth = SMOOTH_MORE
