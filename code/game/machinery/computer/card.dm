@@ -97,12 +97,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 	return formatted
 
-/obj/machinery/computer/card/proc/format_job_slots()
+/obj/machinery/computer/card/proc/format_job_slots(check_department, is_admin)
 	var/list/formatted = list()
 	for(var/datum/job/job in SSjobs.occupations)
 		if(job_blacklisted_full(job))
 			continue
-		if(!job_in_department(job))
+		if(check_department && !job_in_department(job))
 			continue
 		formatted.Add(list(list(
 			"title" = job.title,
@@ -110,7 +110,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			"total_positions" = job.total_positions,
 			"can_open" = can_open_job(job),
 			"can_close" = can_close_job(job),
-			"can_prioritize" = can_prioritize_job(job)
+			"can_prioritize" = can_prioritize_job(job, is_admin),
+			"is_priority" = (job in SSjobs.prioritized_jobs)
 			)))
 
 	return formatted
@@ -212,11 +213,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			return TRUE
 	return FALSE
 
-/obj/machinery/computer/card/proc/can_prioritize_job(datum/job/job)
+/obj/machinery/computer/card/proc/can_prioritize_job(datum/job/job, is_admin)
 	if(job)
 		if(job_blacklisted_full(job))
 			return FALSE
-		if(!job_in_department(job, FALSE))
+		if(!is_admin && !job_in_department(job, FALSE))
 			return FALSE
 		if(job in SSjobs.prioritized_jobs)
 			return TRUE // because this also lets us un-prioritize the job
@@ -319,8 +320,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	data["scan_rank"] = scan ? scan.rank : FALSE
 
 	data["authenticated"] = is_authenticated(user) ? TRUE : FALSE
+	data["auth_or_ghost"] = data["authenticated"] || isobserver(user)
 	data["target_dept"] = target_dept
 	data["iscentcom"] = is_centcom() ? TRUE : FALSE
+	data["isadmin"] = user.can_admin_interact()
 
 	switch(mode)
 		if(IDCOMPUTER_SCREEN_TRANSFER) // JOB TRANSFER
@@ -348,7 +351,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					data["all_centcom_skins"] = is_centcom() ? format_card_skins(get_centcom_card_skins()) : FALSE
 
 		if(IDCOMPUTER_SCREEN_SLOTS) // JOB SLOTS
-			data["job_slots"] = format_job_slots()
+			data["job_slots"] = format_job_slots(!isobserver(user), data["isadmin"])
 			data["priority_jobs"] = list()
 			for(var/datum/job/a in SSjobs.prioritized_jobs)
 				data["priority_jobs"] += a.title
@@ -690,17 +693,15 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			var/datum/job/j = SSjobs.GetJob(priority_target)
 			if(!j)
 				return FALSE
-			if(!job_in_department(j))
+			if(!can_prioritize_job(j, usr.can_admin_interact()))
 				return FALSE
 			var/priority = TRUE
 			if(j in SSjobs.prioritized_jobs)
 				SSjobs.prioritized_jobs -= j
 				priority = FALSE
-			else if(SSjobs.prioritized_jobs.len < 3)
-				SSjobs.prioritized_jobs += j
 			else
-				return FALSE
-			log_game("[key_name(usr)] ([scan.assignment]) [priority ?  "prioritized" : "unprioritized"] the job \"[j.title]\".")
+				SSjobs.prioritized_jobs += j
+			log_game("[key_name(usr)] ([scan ? scan.assignment : "ADMIN"]) [priority ?  "prioritized" : "unprioritized"] the job \"[j.title]\".")
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 			return
 

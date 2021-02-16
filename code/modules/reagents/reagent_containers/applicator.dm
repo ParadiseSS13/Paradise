@@ -11,7 +11,6 @@
 	temperature_min = 270
 	temperature_max = 350
 	var/ignore_flags = FALSE
-	var/emagged = FALSE
 	var/applied_amount = 8 // How much it applies
 	var/applying = FALSE // So it can't be spammed.
 	var/measured_health = 0 // Used for measuring health; we don't want this to stop applying once the person's health isn't changing.

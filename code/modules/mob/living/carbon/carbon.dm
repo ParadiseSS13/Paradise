@@ -144,54 +144,44 @@
 		M.forceMove(drop_location())
 		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
 
-/mob/living/carbon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
-	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage)
-	if(status_flags & GODMODE)	//godmode
-		return FALSE
-	if(NO_SHOCK in mutations) //shockproof
-		return FALSE
-	if(tesla_shock && tesla_ignore)
-		return FALSE
-	shock_damage *= siemens_coeff
-	if(dna && dna.species)
-		shock_damage *= dna.species.siemens_coeff
-	if(shock_damage < 1 && !override)
-		return FALSE
-	if(reagents.has_reagent("teslium"))
-		shock_damage *= 1.5 //If the mob has teslium in their body, shocks are 50% more damaging!
-	if(illusion)
-		adjustStaminaLoss(shock_damage)
-	else
-		take_overall_damage(0, shock_damage, TRUE, used_weapon = "Electrocution")
-		shock_internal_organs(shock_damage)
-	visible_message(
-		"<span class='danger'>[src] was shocked by \the [source]!</span>",
-		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>",
-		"<span class='italics'>You hear a heavy electrical crack.</span>")
-	AdjustJitter(1000) //High numbers for violent convulsions
+///Adds to the parent by also adding functionality to propagate shocks through pulling and doing some fluff effects.
+/mob/living/carbon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
+	. = ..()
+	if(!.)
+		return
+	//Propagation through pulling
+	if(!(flags & SHOCK_ILLUSION))
+		var/list/shocking_queue = list()
+		if(iscarbon(pulling) && source != pulling)
+			shocking_queue += pulling
+		if(iscarbon(pulledby) && source != pulledby)
+			shocking_queue += pulledby
+		if(iscarbon(buckled) && source != buckled)
+			shocking_queue += buckled
+		for(var/mob/living/carbon/carried in buckled_mobs)
+			if(source != carried)
+				shocking_queue += carried
+		//Found our victims, now lets shock them all
+		for(var/victim in shocking_queue)
+			var/mob/living/carbon/C = victim
+			C.electrocute_act(shock_damage * 0.75, src, 1, flags)
+	//Stun
+	var/should_stun = (!(flags & SHOCK_TESLA) || siemens_coeff > 0.5) && !(flags & SHOCK_NOSTUN)
+	if(should_stun)
+		Stun(2)
+	//Jitter and other fluff.
+	AdjustJitter(1000)
 	do_jitter_animation(jitteriness)
 	AdjustStuttering(2)
-	if((!tesla_shock || (tesla_shock && siemens_coeff > 0.5)) && stun)
-		Stun(2)
-	spawn(20)
-		AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
-		if((!tesla_shock || (tesla_shock && siemens_coeff > 0.5)) && stun)
-			Stun(3)
-			Weaken(3)
-	if(shock_damage > 200)
-		src.visible_message(
-			"<span class='danger'>[src] was arc flashed by the [source]!</span>",
-			"<span class='userdanger'>The [source] arc flashes and electrocutes you!</span>",
-			"<span class='italics'>You hear a lightning-like crack!</span>")
-		playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
-		explosion(loc, -1, 0, 2, 2)
+	shock_internal_organs(shock_damage)
+	addtimer(CALLBACK(src, .proc/secondary_shock, should_stun), 20)
+	return shock_damage
 
-	if(override)
-		return override
-	else
-		return shock_damage
-
-
+///Called slightly after electrocute act to reduce jittering and apply a secondary stun.
+/mob/living/carbon/proc/secondary_shock(should_stun)
+	AdjustJitter(-1000, bound_lower = 10) //Still jittery, but vastly less
+	if(should_stun)
+		Weaken(3)
 
 /mob/living/carbon/swap_hand()
 	var/obj/item/item_in_hand = src.get_active_hand()
@@ -791,50 +781,53 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 
 /mob/living/carbon/proc/canBeHandcuffed()
-	return 0
+	return FALSE
 
 /mob/living/carbon/fall(forced)
-    loc.handle_fall(src, forced)//it's loc so it doesn't call the mob's handle_fall which does nothing
+	loc.handle_fall(src, forced)//it's loc so it doesn't call the mob's handle_fall which does nothing
 
 /mob/living/carbon/is_muzzled()
-	return(istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
+	return(istype(wear_mask, /obj/item/clothing/mask/muzzle))
 
 /mob/living/carbon/resist_buckle()
-	spawn(0)
-		resist_muzzle()
-	var/obj/item/I
-	if((I = get_restraining_item())) // If there is nothing to restrain him then he is not restrained
-		var/breakouttime = I.breakouttime
-		var/displaytime = breakouttime / 10
-		visible_message("<span class='warning'>[src] attempts to unbuckle [p_them()]self!</span>", \
-					"<span class='notice'>You attempt to unbuckle yourself... (This will take around [displaytime] seconds and you need to stay still.)</span>")
-		if(do_after(src, breakouttime, 0, target = src))
-			if(!buckled)
-				return
-			buckled.user_unbuckle_mob(src,src)
-		else
-			if(src && buckled)
-				to_chat(src, "<span class='warning'>You fail to unbuckle yourself!</span>")
+	INVOKE_ASYNC(src, .proc/resist_muzzle)
+	var/obj/item/I = get_restraining_item()
+	if(!I) // If there is nothing to restrain him then he is not restrained
+		buckled.user_unbuckle_mob(src, src)
+		return
+
+	var/time = I.breakouttime
+	visible_message("<span class='warning'>[src] attempts to unbuckle [p_them()]self!</span>",
+				"<span class='notice'>You attempt to unbuckle yourself... (This will take around [time / 10] seconds and you need to stay still.)</span>")
+	if(!do_after(src, time, FALSE, src, extra_checks = list(CALLBACK(src, .proc/buckle_check))))
+		if(src && buckled)
+			to_chat(src, "<span class='warning'>You fail to unbuckle yourself!</span>")
 	else
-		buckled.user_unbuckle_mob(src,src)
+		if(!buckled)
+			return
+		buckled.user_unbuckle_mob(src, src)
+
+/mob/living/carbon/proc/buckle_check()
+	if(!buckled) // No longer buckled
+		return TRUE
+	return FALSE
 
 /mob/living/carbon/resist_fire()
 	fire_stacks -= 5
-	Weaken(3, 1, 1) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
+	Weaken(3, TRUE, 1) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
 	update_canmove()
-	spin(32,2)
-	visible_message("<span class='danger'>[src] rolls on the floor, trying to put [p_them()]self out!</span>", \
+	spin(32, 2)
+	visible_message("<span class='danger'>[src] rolls on the floor, trying to put [p_them()]self out!</span>",
 		"<span class='notice'>You stop, drop, and roll!</span>")
-	sleep(30)
+	sleep(3 SECONDS)
 	if(fire_stacks <= 0)
-		visible_message("<span class='danger'>[src] has successfully extinguished [p_them()]self!</span>", \
+		visible_message("<span class='danger'>[src] has successfully extinguished [p_them()]self!</span>",
 			"<span class='notice'>You extinguish yourself.</span>")
 		ExtinguishMob()
 
 
 /mob/living/carbon/resist_restraints()
-	spawn(0)
-		resist_muzzle()
+	INVOKE_ASYNC(src, .proc/resist_muzzle)
 	var/obj/item/I = null
 	if(handcuffed)
 		I = handcuffed
@@ -1222,14 +1215,14 @@ so that different stomachs can handle things in different ways VB*/
 		I.extinguish() //extinguishes our clothes
 	..()
 
-/mob/living/carbon/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
+/mob/living/carbon/clean_blood(radiation_clean = FALSE, clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
 	if(head)
-		if(head.clean_blood())
+		if(head.clean_blood(radiation_clean))
 			update_inv_head()
 		if(head.flags_inv & HIDEMASK)
 			clean_mask = FALSE
 	if(wear_suit)
-		if(wear_suit.clean_blood())
+		if(wear_suit.clean_blood(radiation_clean))
 			update_inv_wear_suit()
 		if(wear_suit.flags_inv & HIDESHOES)
 			clean_feet = FALSE

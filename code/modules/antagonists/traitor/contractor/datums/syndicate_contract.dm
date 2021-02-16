@@ -10,7 +10,7 @@
 /**
   * # Syndicate Contract
   *
-  * Describes a contract that can be completed by a [/datum/antagonist/traitor/contractor].
+  * Describes a contract that can be completed by a Contractor.
   */
 /datum/syndicate_contract
 	// Settings
@@ -320,6 +320,7 @@
   */
 /datum/syndicate_contract/proc/target_received(mob/living/M, obj/effect/portal/redspace/contractor/P)
 	INVOKE_ASYNC(src, .proc/clean_up)
+	add_attack_logs(owning_hub.owner.current, M, "extracted to Syndicate Jail")
 	complete(M.stat == DEAD)
 	handle_target_experience(M, P)
 
@@ -408,13 +409,13 @@
 
 	// Give some species the necessary to survive. Courtesy of the Syndicate.
 	if(istype(H))
-		var/obj/item/tank/emergency_oxygen/tank
+		var/obj/item/tank/internals/emergency_oxygen/tank
 		var/obj/item/clothing/mask/breath/mask
 		if(isvox(H))
-			tank = new /obj/item/tank/emergency_oxygen/nitrogen(H)
+			tank = new /obj/item/tank/internals/emergency_oxygen/nitrogen(H)
 			mask = new /obj/item/clothing/mask/breath/vox(H)
 		else if(isplasmaman(H))
-			tank = new /obj/item/tank/emergency_oxygen/plasma(H)
+			tank = new /obj/item/tank/internals/emergency_oxygen/plasma(H)
 			mask = new /obj/item/clothing/mask/breath(H)
 
 		if(tank)
@@ -464,6 +465,8 @@
 		to_chat(M, "<span class='specialnotice'>A million voices echo in your head... <i>\"Your mind held many valuable secrets - \
 					we thank you for providing them. Your value is expended, and you will be ransomed back to your station. We always get paid, \
 					so it's only a matter of time before we send you back...\"</i></span>")
+
+		to_chat(M, "<span class='danger'><font size=3>You have been kidnapped and interrogated for valuable information! You will be sent back to the station in a few minutes...</font></span>")
 
 /**
   * Handles the target's return to station.

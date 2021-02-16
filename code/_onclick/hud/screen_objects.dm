@@ -95,7 +95,7 @@
 	screen_loc = ui_borg_intents
 
 /obj/screen/act_intent/robot/AI
-	screen_loc = "EAST-1:32,SOUTH:70"
+	screen_loc = "SOUTH+1:6,EAST-1:32"
 
 /obj/screen/mov_intent
 	name = "run/walk toggle"

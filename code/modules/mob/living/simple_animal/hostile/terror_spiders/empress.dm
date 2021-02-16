@@ -24,6 +24,7 @@
 	projectiletype = /obj/item/projectile/terrorqueenspit/empress
 	icon = 'icons/mob/terrorspider64.dmi'
 	pixel_x = -16
+	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 	mob_size = MOB_SIZE_LARGE
 	icon_state = "terror_empress"
 	icon_living = "terror_empress"
