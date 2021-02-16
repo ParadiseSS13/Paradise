@@ -119,7 +119,7 @@ menu "menu"
 		command = ""
 		saved-params = "is-checked"
 	elem
-		name = "&Open volume mixer"
+		name = "&Open Volume Mixer"
 		command = "Open-Volume-Mixer"
 		category = "&Volume"
 		saved-params = "is-checked"
