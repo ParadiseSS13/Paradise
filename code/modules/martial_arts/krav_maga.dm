@@ -3,6 +3,17 @@
 	var/datum/action/neck_chop/neckchop = new/datum/action/neck_chop()
 	var/datum/action/leg_sweep/legsweep = new/datum/action/leg_sweep()
 	var/datum/action/lung_punch/lungpunch = new/datum/action/lung_punch()
+	var/datum/action/neutral_stance/neutral = new/datum/action/neutral_stance()
+
+/datum/action/neutral_stance
+	name = "Neutral Stance - You relax, cancelling your last Krav Maga stance attack."
+	button_icon_state = "neutralstance"
+
+/datum/action/neutral_stance/Trigger()
+	to_chat(owner, "<b><i>You cancel your prepared attack.</i></b>")
+	owner.visible_message("<span class='danger'> [owner] relaxes his stance.")
+	var/mob/living/carbon/human/H = owner
+	H.mind.martial_art.combos.Cut()
 
 /datum/action/neck_chop
 	name = "Neck Chop - Injures the neck, stopping the victim from speaking for a while."
@@ -53,6 +64,7 @@
 	..()
 	to_chat(H, "<span class = 'userdanger'>You know the arts of Krav Maga!</span>")
 	to_chat(H, "<span class = 'danger'>Place your cursor over a move at the top of the screen to see what it does.</span>")
+	neutral.Grant(H)
 	neckchop.Grant(H)
 	legsweep.Grant(H)
 	lungpunch.Grant(H)
@@ -60,6 +72,7 @@
 /datum/martial_art/krav_maga/remove(var/mob/living/carbon/human/H)
 	..()
 	to_chat(H, "<span class = 'userdanger'>You suddenly forget the arts of Krav Maga...</span>")
+	neutral.Remove(H)
 	neckchop.Remove(H)
 	legsweep.Remove(H)
 	lungpunch.Remove(H)
