@@ -147,13 +147,6 @@ GLOBAL_PROTECT(log_end)
 	rustg_log_write(GLOB.sql_log, "[text][GLOB.log_end]")
 	SEND_TEXT(world.log, text) // Redirect it to DD too
 
-/**
- * Standardized method for tracking startup times.
- */
-/proc/log_startup_progress(var/message)
-	to_chat(world, "<span class='danger'>[message]</span>")
-	log_world(message)
-
 // A logging proc that only outputs after setup is done, to
 // help devs test initialization stuff that happens a lot
 /proc/log_after_setup(var/message)

@@ -198,8 +198,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	/turf/simulated/floor/plating/lava,
 	/turf/simulated/floor/chasm,
 	/turf/simulated/wall/cult,
-	/turf/simulated/wall/cult/artificer,
-	/turf/unsimulated/wall
+	/turf/simulated/wall/cult/artificer
 	)))
 
 /obj/structure/cult/functional/pylon
