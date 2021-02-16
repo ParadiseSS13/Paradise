@@ -11,13 +11,13 @@
 	var/obj/item/clothing/suit/suit = null
 	var/obj/item/clothing/head/helmet = null
 	var/obj/item/clothing/mask/mask = null
-	var/obj/item/clothing/shoes/magboots = null
+	var/obj/item/clothing/shoes/boots = null
 	var/obj/item/storage = null
 
 	var/helmet_type = null
 	var/suit_type = null
 	var/mask_type = null
-	var/magboots_type = null
+	var/boots_type = null
 	var/storage_type = null
 
 	var/locked = FALSE
@@ -73,7 +73,7 @@
 	name = "engineering suit storage unit"
 	suit_type	= /obj/item/clothing/suit/space/hardsuit/engine
 	mask_type	= /obj/item/clothing/mask/breath
-	magboots_type = /obj/item/clothing/shoes/magboots
+	boots_type = /obj/item/clothing/shoes/magboots
 	req_access	= list(ACCESS_ENGINE_EQUIP)
 
 /obj/machinery/suit_storage_unit/engine/secure
@@ -83,7 +83,7 @@
 	name = "chief engineer's suit storage unit"
 	suit_type	= /obj/item/clothing/suit/space/hardsuit/engine/elite
 	mask_type	= /obj/item/clothing/mask/gas
-	magboots_type = /obj/item/clothing/shoes/magboots/advance
+	boots_type = /obj/item/clothing/shoes/magboots/advance
 	req_access	= list(ACCESS_CE)
 
 /obj/machinery/suit_storage_unit/ce/secure
@@ -105,7 +105,7 @@
 	name = "atmospherics suit storage unit"
 	suit_type	= /obj/item/clothing/suit/space/hardsuit/engine/atmos
 	mask_type	= /obj/item/clothing/mask/gas
-	magboots_type = /obj/item/clothing/shoes/magboots/atmos
+	boots_type = /obj/item/clothing/shoes/magboots/atmos
 	req_access	= list(ACCESS_ATMOSPHERICS)
 
 /obj/machinery/suit_storage_unit/atmos/secure
@@ -254,8 +254,8 @@
 		helmet = new helmet_type(src)
 	if(mask_type)
 		mask = new mask_type(src)
-	if(magboots_type)
-		magboots = new magboots_type(src)
+	if(boots_type)
+		boots = new boots_type(src)
 	if(storage_type)
 		storage = new storage_type(src)
 	update_icon()
@@ -269,7 +269,7 @@
 	QDEL_NULL(suit)
 	QDEL_NULL(helmet)
 	QDEL_NULL(mask)
-	QDEL_NULL(magboots)
+	QDEL_NULL(boots)
 	QDEL_NULL(storage)
 	QDEL_NULL(wires)
 	return ..()
@@ -342,10 +342,10 @@
 	if(istype(I, /obj/item/clothing/mask) && !mask)
 		mask = I
 		. = TRUE
-	if(istype(I, /obj/item/clothing/shoes) && !magboots)
-		magboots = I
+	if(istype(I, /obj/item/clothing/shoes) && !boots)
+		boots = I
 		. = TRUE
-	if(((istype(I, /obj/item/tank)) || I.w_class <= WEIGHT_CLASS_SMALL) && !storage && !.)
+	if((istype(I, /obj/item/tank) || I.w_class <= WEIGHT_CLASS_SMALL) && !storage && !.)
 		storage = I
 		. = TRUE
 	if(.)
@@ -438,9 +438,9 @@
 			if(mask && !(mask.resistance_flags & LAVA_PROOF))
 				qdel(mask)
 				mask = null
-			if(magboots && !(magboots.resistance_flags & LAVA_PROOF))
-				qdel(magboots)
-				magboots = null
+			if(boots && !(boots.resistance_flags & LAVA_PROOF))
+				qdel(boots)
+				boots = null
 			if(storage && !(storage.resistance_flags & LAVA_PROOF))
 				qdel(storage)
 				storage = null
@@ -564,8 +564,8 @@
 			dat+= text("Breathmask storage compartment: <B>[]</B><BR>",(mask ? mask.name : "</font><font color ='grey'>No breathmask detected.") )
 			if(mask && state_open)
 				dat+="<A href='?src=[UID()];dispense_mask=1'>Dispense mask</A><BR>"
-			dat+= text("Magboots storage compartment: <B>[]</B><BR>",(magboots ? magboots.name : "</font><font color ='grey'>No magboots detected.") )
-			if(magboots && state_open)
+			dat+= text("Magboots storage compartment: <B>[]</B><BR>",(boots ? boots.name : "</font><font color ='grey'>No magboots detected.") )
+			if(boots && state_open)
 				dat+="<A href='?src=[UID()];dispense_magboots=1'>Dispense magboots</A><BR>"
 			dat+= text("Tank storage compartment: <B>[]</B><BR>",(storage ? storage.name : "</font><font color ='grey'>No storage item detected.") )
 			if(storage && state_open)
@@ -608,31 +608,31 @@
 	if((usr.contents.Find(src) || ((get_dist(src, usr) <= 1) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon/ai)))
 		usr.set_machine(src)
 		if(href_list["toggleUV"])
-			toggleUV(usr)
+			toggleUV()
 			updateUsrDialog()
 			update_icon()
 		if(href_list["togglesafeties"])
-			togglesafeties(usr)
+			togglesafeties()
 			updateUsrDialog()
 			update_icon()
 		if(href_list["dispense_helmet"])
-			dispense_helmet(usr)
+			dispense_helmet()
 			updateUsrDialog()
 			update_icon()
 		if(href_list["dispense_suit"])
-			dispense_suit(usr)
+			dispense_suit()
 			updateUsrDialog()
 			update_icon()
 		if(href_list["dispense_mask"])
-			dispense_mask(usr)
+			dispense_mask()
 			updateUsrDialog()
 			update_icon()
 		if(href_list["dispense_magboots"])
-			dispense_magboots(usr)
+			dispense_magboots()
 			updateUsrDialog()
 			update_icon()
 		if(href_list["dispense_storage"])
-			dispense_storage(usr)
+			dispense_storage()
 			updateUsrDialog()
 			update_icon()
 		if(href_list["toggle_open"])
@@ -648,7 +648,7 @@
 			updateUsrDialog()
 			update_icon()
 		if(href_list["cook"])
-			cook(usr)
+			cook()
 			updateUsrDialog()
 			update_icon()
 		if(href_list["eject_guy"])
@@ -659,47 +659,47 @@
 	return
 
 
-/obj/machinery/suit_storage_unit/proc/toggleUV(mob/user)
+/obj/machinery/suit_storage_unit/proc/toggleUV()
 	if(!panel_open)
 		return
 	else
 		uv_super = !uv_super
 
-/obj/machinery/suit_storage_unit/proc/togglesafeties(mob/user)
+/obj/machinery/suit_storage_unit/proc/togglesafeties()
 	if(!panel_open)
 		return
 	else
 		safeties = !safeties
 
-/obj/machinery/suit_storage_unit/proc/dispense_helmet(mob/user as mob)
+/obj/machinery/suit_storage_unit/proc/dispense_helmet()
 	if(!helmet)
 		return
 	else
 		helmet.forceMove(loc)
 		helmet = null
 
-/obj/machinery/suit_storage_unit/proc/dispense_suit(mob/user as mob)
+/obj/machinery/suit_storage_unit/proc/dispense_suit()
 	if(!suit)
 		return
 	else
 		suit.forceMove(loc)
 		suit = null
 
-/obj/machinery/suit_storage_unit/proc/dispense_mask(mob/user as mob)
+/obj/machinery/suit_storage_unit/proc/dispense_mask()
 	if(!mask)
 		return
 	else
 		mask.forceMove(loc)
 		mask = null
 
-/obj/machinery/suit_storage_unit/proc/dispense_magboots(mob/user as mob)
-	if(!magboots)
+/obj/machinery/suit_storage_unit/proc/dispense_magboots()
+	if(!boots)
 		return
 	else
-		magboots.forceMove(loc)
-		magboots = null
+		boots.forceMove(loc)
+		boots = null
 
-/obj/machinery/suit_storage_unit/proc/dispense_storage(mob/user as mob)
+/obj/machinery/suit_storage_unit/proc/dispense_storage()
 	if(!storage)
 		return
 	else
