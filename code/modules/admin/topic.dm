@@ -2965,9 +2965,6 @@
 					if(!security)
 						//strip their stuff before they teleport into a cell :downs:
 						for(var/obj/item/W in H)
-							if(istype(W, /obj/item/organ/external))
-								continue
-								//don't strip organs
 							H.unEquip(W)
 							if(H.client)
 								H.client.screen -= W

@@ -117,7 +117,7 @@
 
 /obj/item/organ/external/replaced(var/mob/living/carbon/human/target)
 	owner = target
-	forceMove(owner)
+	loc = null
 	if(istype(owner))
 		if(!isnull(owner.bodyparts_by_name[limb_name]))
 			log_debug("Duplicate organ in slot \"[limb_name]\", mob '[target]'")
@@ -229,7 +229,7 @@
 	check_fracture(brute)
 	var/mob/living/carbon/owner_old = owner //Need to update health, but need a reference in case the below check cuts off a limb.
 	//If limb took enough damage, try to cut or tear it off
-	if(owner && loc == owner)
+	if(owner)
 		if(!cannot_amputate && (brute_dam) >= (max_damage))
 			if(prob(brute / 2))
 				if(sharp)
