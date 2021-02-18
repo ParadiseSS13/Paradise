@@ -9,7 +9,6 @@
 	var/amount = 0
 	///How many we can store at maximum
 	var/max_amount = 0
-	var/price = 0  // Price to buy one
 
 /obj/machinery/vending
 	name = "\improper Vendomat"
@@ -46,7 +45,6 @@
 	var/list/products	= list()	// For each, use the following pattern:
 	var/list/contraband	= list()	// list(/type/path = amount,/type/path2 = amount2)
 	var/list/premium 	= list()	// No specified amount = only one in stock
-	var/list/prices     = list()	// Prices for each item, list(/type/path = price), items not in the list don't have a price.
 
 	// List of vending_product items available.
 	var/list/product_records = list()
@@ -110,10 +108,12 @@
 		build_inventory(products, product_records)
 		build_inventory(contraband, hidden_records)
 		build_inventory(premium, coin_records)
+
 	for (var/datum/data/vending_product/R in (product_records + coin_records + hidden_records))
 		var/obj/item/I = R.product_path
 		var/pp = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-")
 		imagelist[pp] = "[icon2base64(icon(initial(I.icon), initial(I.icon_state)))]"
+
 	if(LAZYLEN(slogan_list))
 		// So not all machines speak at the exact same time.
 		// The first time this machine says something will be at slogantime + this random value,
@@ -207,7 +207,6 @@
 		if(!start_empty)
 			R.amount = amount
 		R.max_amount = amount
-		R.price = (typepath in prices) ? prices[typepath] : 0
 		recordlist += R
 /**
   * Refill a vending machine from a refill canister
@@ -424,56 +423,6 @@
 	emagged = TRUE
 	to_chat(user, "You short out the product lock on [src]")
 
-
-/obj/machinery/vending/proc/pay_with_cash(obj/item/stack/spacecash/cashmoney, mob/user)
-	if(currently_vending.price > cashmoney.amount)
-		// This is not a status display message, since it's something the character
-		// themselves is meant to see BEFORE putting the money in
-		to_chat(usr, "[bicon(cashmoney)] <span class='warning'>That is not enough money.</span>")
-		return FALSE
-
-	// Bills (banknotes) cannot really have worth different than face value,
-	// so we have to eat the bill and spit out change in a bundle
-	// This is really dirty, but there's no superclass for all bills, so we
-	// just assume that all spacecash that's not something else is a bill
-
-	visible_message("<span class='info'>[usr] inserts a credit chip into [src].</span>")
-	cashmoney.use(currently_vending.price)
-
-	// Vending machines have no idea who paid with cash
-	GLOB.vendor_account.credit(currently_vending.price, "Sale of [currently_vending.name]",	name, "(cash)")
-	return TRUE
-
-
-/obj/machinery/vending/proc/pay_with_card(obj/item/card/id/I, mob/M)
-	visible_message("<span class='info'>[M] swipes a card through [src].</span>")
-	return pay_with_account(get_card_account(I), M)
-
-/obj/machinery/vending/proc/pay_with_account(datum/money_account/customer_account, mob/M)
-	if(!customer_account)
-		to_chat(M, "<span class='warning'>Error: Unable to access account. Please contact technical support if problem persists.</span>")
-		return FALSE
-	if(customer_account.suspended)
-		to_chat(M, "<span class='warning'>Unable to access account: account suspended.</span>")
-		return FALSE
-	// Have the customer punch in the PIN before checking if there's enough money.
-	// Prevents people from figuring out acct is empty at high security levels
-	if(customer_account.security_level != 0)
-		// If card requires pin authentication (ie seclevel 1 or 2)
-		var/attempt_pin = input("Enter pin code", "Vendor transaction") as num
-		if(!attempt_account_access(customer_account.account_number, attempt_pin, 2))
-			to_chat(M, "<span class='warning'>Unable to access account: incorrect credentials.</span>")
-			return FALSE
-	if(currently_vending.price > customer_account.money)
-		to_chat(M, "<span class='warning'>Your bank account has insufficient money to purchase this.</span>")
-		return FALSE
-	// Okay to move the money at this point
-	customer_account.charge(currently_vending.price, GLOB.vendor_account,
-		"Purchase of [currently_vending.name]", name, GLOB.vendor_account.owner_name,
-		"Sale of [currently_vending.name]", customer_account.owner_name)
-	return TRUE
-
-
 /obj/machinery/vending/attack_ai(mob/user)
 	return attack_hand(user)
 
@@ -495,38 +444,14 @@
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		var/estimated_height = 100 + min(length(product_records) * 34, 500)
-		if(length(prices) > 0)
-			estimated_height += 100 // to account for the "current user" interface
 		ui = new(user, src, ui_key, "Vending",  name, 470, estimated_height, master_ui, state)
 		ui.open()
 
 /obj/machinery/vending/ui_data(mob/user)
 	var/list/data = list()
-	var/mob/living/carbon/human/H
-	var/obj/item/card/id/C
 	data["guestNotice"] = "No valid ID card detected. Wear your ID, or present cash.";
 	data["userMoney"] = 0
 	data["user"] = null
-	if(ishuman(user))
-		H = user
-		C = H.get_idcard(TRUE)
-		if(!C && istype(H.wear_pda, /obj/item/pda))
-			var/obj/item/pda/P = H.wear_pda
-			if(istype(P.id, /obj/item/card/id))
-				C = P.id
-		var/obj/item/stack/spacecash/S = H.get_active_hand()
-		if(istype(S))
-			data["userMoney"] = S.amount
-			data["guestNotice"] = "Accepting Cash. You have: [S.amount] credits."
-		else if(istype(C))
-			var/datum/money_account/A = get_card_account(C)
-			if(istype(A))
-				data["user"] = list()
-				data["user"]["name"] = A.owner_name
-				data["userMoney"] = A.money
-				data["user"]["job"] = (istype(C) && C.rank) ? C.rank : "No Job"
-			else
-				data["guestNotice"] = "Unlinked ID detected. Present cash to pay.";
 	data["stock"] = list()
 	for (var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
 		data["stock"][R.name] = R.amount
@@ -542,14 +467,12 @@
 
 /obj/machinery/vending/ui_static_data(mob/user)
 	var/list/data = list()
-	data["chargesMoney"] = length(prices) > 0 ? TRUE : FALSE
 	data["product_records"] = list()
 	var/i = 1
 	for (var/datum/data/vending_product/R in product_records)
 		var/list/data_pr = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
 			name = R.name,
-			price = (R.product_path in prices) ? prices[R.product_path] : 0,
 			max_amount = R.max_amount,
 			req_coin = FALSE,
 			is_hidden = FALSE,
@@ -562,7 +485,6 @@
 		var/list/data_cr = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
 			name = R.name,
-			price = (R.product_path in prices) ? prices[R.product_path] : 0,
 			max_amount = R.max_amount,
 			req_coin = TRUE,
 			is_hidden = FALSE,
@@ -576,7 +498,6 @@
 		var/list/data_hr = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
 			name = R.name,
-			price = (R.product_path in prices) ? prices[R.product_path] : 0,
 			max_amount = R.max_amount,
 			req_coin = FALSE,
 			is_hidden = TRUE,
@@ -654,7 +575,7 @@
 
 			vend_ready = FALSE // From this point onwards, vendor is locked to performing this transaction only, until it is resolved.
 
-			if(!ishuman(usr) || R.price <= 0)
+			if(!ishuman(usr))
 				// Either the purchaser is not human, or the item is free.
 				// Skip all payment logic.
 				vend(R, usr)
@@ -663,43 +584,9 @@
 				. = TRUE
 				return
 
-			// --- THE REST OF THIS PROC IS JUST PAYMENT LOGIC ---
-
-			var/mob/living/carbon/human/H = usr
-			var/obj/item/card/id/C = H.get_idcard(TRUE)
-
-			if(!GLOB.vendor_account || GLOB.vendor_account.suspended)
-				to_chat(usr, "Vendor account offline. Unable to process transaction.")
-				flick(icon_deny, src)
-				vend_ready = TRUE
-				return
-
 			currently_vending = R
-			var/paid = FALSE
-
-			if(istype(usr.get_active_hand(), /obj/item/stack/spacecash))
-				var/obj/item/stack/spacecash/S = usr.get_active_hand()
-				paid = pay_with_cash(S)
-			else if(istype(C, /obj/item/card))
-				// Because this uses H.get_idcard(TRUE), it will attempt to use:
-				// active hand, inactive hand, pda.id, and then wear_id ID in that order
-				// this is important because it lets people buy stuff with someone else's ID by holding it while using the vendor
-				paid = pay_with_card(C, usr)
-			else if(usr.can_advanced_admin_interact())
-				to_chat(usr, "<span class='notice'>Vending object due to admin interaction.</span>")
-				paid = TRUE
-			else
-				to_chat(usr, "<span class='warning'>Payment failure: you have no ID or other method of payment.")
-				vend_ready = TRUE
-				flick(icon_deny, src)
-				. = TRUE // we set this because they shouldn't even be able to get this far, and we want the UI to update.
-				return
-			if(paid)
-				vend(currently_vending, usr)
-				. = TRUE
-			else
-				to_chat(usr, "<span class='warning'>Payment failure: unable to process payment.")
-				vend_ready = TRUE
+			vend(currently_vending, usr)
+			. = TRUE
 	if(.)
 		add_fingerprint(usr)
 
@@ -959,12 +846,7 @@
 					/obj/item/reagent_containers/food/drinks/mug = 15)
 	contraband = list(/obj/item/reagent_containers/food/drinks/ice = 10)
 	premium = list(/obj/item/reagent_containers/food/drinks/mug/novelty = 5)
-	prices = list(/obj/item/reagent_containers/food/drinks/coffee = 25, /obj/item/reagent_containers/food/drinks/tea = 25, /obj/item/reagent_containers/food/drinks/h_chocolate = 25, /obj/item/reagent_containers/food/drinks/chocolate = 25,
-				  /obj/item/reagent_containers/food/drinks/chicken_soup = 30,/obj/item/reagent_containers/food/drinks/weightloss = 50, /obj/item/reagent_containers/food/drinks/mug = 50)
 	refill_canister = /obj/item/vending_refill/coffee
-
-/obj/machinery/vending/coffee/free
-	prices = list()
 
 /obj/machinery/vending/coffee/Initialize(mapload)
 	component_parts = list()
@@ -1023,13 +905,7 @@
 					/obj/item/reagent_containers/food/snacks/sosjerky = 6,/obj/item/reagent_containers/food/snacks/no_raisin = 6,/obj/item/reagent_containers/food/snacks/pistachios =6,
 					/obj/item/reagent_containers/food/snacks/spacetwinkie = 6,/obj/item/reagent_containers/food/snacks/cheesiehonkers = 6,/obj/item/reagent_containers/food/snacks/tastybread = 6)
 	contraband = list(/obj/item/reagent_containers/food/snacks/syndicake = 6)
-	prices = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 20,/obj/item/reagent_containers/food/drinks/dry_ramen = 30,
-					/obj/item/reagent_containers/food/snacks/chips =25,/obj/item/reagent_containers/food/snacks/sosjerky = 30,/obj/item/reagent_containers/food/snacks/no_raisin = 20,
-					/obj/item/reagent_containers/food/snacks/pistachios = 35, /obj/item/reagent_containers/food/snacks/spacetwinkie = 30,/obj/item/reagent_containers/food/snacks/cheesiehonkers = 25,/obj/item/reagent_containers/food/snacks/tastybread = 30)
 	refill_canister = /obj/item/vending_refill/snack
-
-/obj/machinery/vending/snack/free
-	prices = list()
 
 /obj/machinery/vending/snack/Initialize(mapload)
 	component_parts = list()
@@ -1047,12 +923,7 @@
 	icon_state = "chang"
 	products = list(/obj/item/reagent_containers/food/snacks/chinese/chowmein = 6, /obj/item/reagent_containers/food/snacks/chinese/tao = 6, /obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball = 6, /obj/item/reagent_containers/food/snacks/chinese/newdles = 6,
 					/obj/item/reagent_containers/food/snacks/chinese/rice = 6, /obj/item/reagent_containers/food/snacks/fortunecookie = 6)
-	prices = list(/obj/item/reagent_containers/food/snacks/chinese/chowmein = 50, /obj/item/reagent_containers/food/snacks/chinese/tao = 50, /obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball = 50, /obj/item/reagent_containers/food/snacks/chinese/newdles = 50,
-					/obj/item/reagent_containers/food/snacks/chinese/rice = 50, /obj/item/reagent_containers/food/snacks/fortunecookie = 50)
 	refill_canister = /obj/item/vending_refill/chinese
-
-/obj/machinery/vending/chinese/free
-	prices = list()
 
 /obj/machinery/vending/chinese/Initialize(mapload)
 	component_parts = list()
@@ -1073,13 +944,7 @@
 					/obj/item/reagent_containers/food/drinks/cans/dr_gibb = 10,/obj/item/reagent_containers/food/drinks/cans/starkist = 10,
 					/obj/item/reagent_containers/food/drinks/cans/space_up = 10,/obj/item/reagent_containers/food/drinks/cans/grape_juice = 10)
 	contraband = list(/obj/item/reagent_containers/food/drinks/cans/thirteenloko = 5)
-	prices = list(/obj/item/reagent_containers/food/drinks/cans/cola = 20,/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 20,
-					/obj/item/reagent_containers/food/drinks/cans/dr_gibb = 20,/obj/item/reagent_containers/food/drinks/cans/starkist = 20,
-					/obj/item/reagent_containers/food/drinks/cans/space_up = 20,/obj/item/reagent_containers/food/drinks/cans/grape_juice = 20)
 	refill_canister = /obj/item/vending_refill/cola
-
-/obj/machinery/vending/cola/free
-	prices = list()
 
 /obj/machinery/vending/cola/Initialize(mapload)
 	component_parts = list()
@@ -1101,13 +966,7 @@
 					/obj/item/cartridge/engineering = 10,/obj/item/cartridge/atmos = 10,/obj/item/cartridge/janitor = 10,
 					/obj/item/cartridge/signal/toxins = 10,/obj/item/cartridge/signal = 10)
 	contraband = list(/obj/item/cartridge/clown = 1,/obj/item/cartridge/mime = 1)
-	prices = list(/obj/item/pda =300,/obj/item/cartridge/mob_hunt_game = 50,/obj/item/cartridge/medical = 200,/obj/item/cartridge/chemistry = 150,/obj/item/cartridge/engineering = 100,
-					/obj/item/cartridge/atmos = 75,/obj/item/cartridge/janitor = 100,/obj/item/cartridge/signal/toxins = 150,
-					/obj/item/cartridge/signal = 75)
 	refill_canister = /obj/item/vending_refill/cart
-
-/obj/machinery/vending/cart/free
-	prices = list()
 
 /obj/machinery/vending/cart/Initialize(mapload)
 	component_parts = list()
@@ -1172,12 +1031,8 @@
 	icon_state = "cigs"
 	products = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 12, /obj/item/storage/fancy/cigarettes/cigpack_uplift = 6, /obj/item/storage/fancy/cigarettes/cigpack_random = 6, /obj/item/reagent_containers/food/pill/patch/nicotine = 10, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 4,/obj/item/storage/fancy/rollingpapers = 5)
 	contraband = list(/obj/item/lighter/zippo = 4)
-	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2, /obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1)
-	prices = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 60, /obj/item/storage/fancy/cigarettes/cigpack_uplift = 80, /obj/item/storage/fancy/cigarettes/cigpack_random = 120, /obj/item/reagent_containers/food/pill/patch/nicotine = 70, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 60, /obj/item/storage/fancy/rollingpapers = 20)
+	premium = list(/obj/item/clothing/mask/cigarette/pipe = 2, /obj/item/clothing/mask/cigarette/cigar/havana = 2, /obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1)
 	refill_canister = /obj/item/vending_refill/cigarette
-
-/obj/machinery/vending/cigarette/free
-	prices = list()
 
 /obj/machinery/vending/cigarette/syndicate
 	products = list(/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 7,
@@ -1188,9 +1043,6 @@
 					/obj/item/storage/box/matches = 10,
 					/obj/item/lighter/zippo = 4,
 					/obj/item/storage/fancy/rollingpapers = 5)
-
-/obj/machinery/vending/cigarette/syndicate/free
-	prices = list()
 
 /obj/machinery/vending/cigarette/beach //Used in the lavaland_biodome_beach.dmm ruin
 	name = "\improper ShadyCigs Ultra"
@@ -1208,7 +1060,6 @@
 	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2,
 				   /obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
 				   /obj/item/lighter/zippo = 3)
-	prices = list()
 
 /obj/machinery/vending/cigarette/Initialize(mapload)
 	component_parts = list()
@@ -1942,19 +1793,10 @@
 	products = list(/obj/item/clothing/accessory/petcollar = 5, /obj/item/storage/firstaid/aquatic_kit/full =5, /obj/item/fish_eggs/goldfish = 5,
 					/obj/item/fish_eggs/clownfish = 5, /obj/item/fish_eggs/shark = 5, /obj/item/fish_eggs/feederfish = 10,
 					/obj/item/fish_eggs/salmon = 5, /obj/item/fish_eggs/catfish = 5, /obj/item/fish_eggs/glofish = 5,
-					/obj/item/fish_eggs/electric_eel = 5, /obj/item/fish_eggs/shrimp = 10, /obj/item/toy/pet_rock = 5,
-					)
-	prices = list(/obj/item/clothing/accessory/petcollar = 50, /obj/item/storage/firstaid/aquatic_kit/full = 60, /obj/item/fish_eggs/goldfish = 10,
-					/obj/item/fish_eggs/clownfish = 10, /obj/item/fish_eggs/shark = 10, /obj/item/fish_eggs/feederfish = 5,
-					/obj/item/fish_eggs/salmon = 10, /obj/item/fish_eggs/catfish = 10, /obj/item/fish_eggs/glofish = 10,
-					/obj/item/fish_eggs/electric_eel = 10, /obj/item/fish_eggs/shrimp = 5, /obj/item/toy/pet_rock = 100,
-					)
+					/obj/item/fish_eggs/electric_eel = 5, /obj/item/fish_eggs/shrimp = 10, /obj/item/toy/pet_rock = 5)
 	contraband = list(/obj/item/fish_eggs/babycarp = 5)
 	premium = list(/obj/item/toy/pet_rock/fred = 1, /obj/item/toy/pet_rock/roxie = 1)
 	refill_canister = /obj/item/vending_refill/crittercare
-
-/obj/machinery/vending/crittercare/free
-	prices = list()
 
 /obj/machinery/vending/crittercare/Initialize(mapload)
 	component_parts = list()

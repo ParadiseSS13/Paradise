@@ -195,7 +195,7 @@
 /area/ruin/powered/beach)
 "aN" = (
 /obj/effect/turf_decal/sand,
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "aQ" = (

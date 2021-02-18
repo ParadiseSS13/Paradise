@@ -66,9 +66,6 @@
 
 	var/suicided = FALSE
 
-	//put this here for easier tracking ingame
-	var/datum/money_account/initial_account
-
 	//zealot_master is a reference to the mob that converted them into a zealot (for ease of investigation and such)
 	var/mob/living/carbon/human/zealot_master = null
 
@@ -143,14 +140,6 @@
 		output += "<HR><B>Objectives:</B><BR>"
 		output += gen_objective_text()
 
-	if(LAZYLEN(job_objectives))
-		output += "<HR><B>Job Objectives:</B><UL>"
-
-		var/obj_count = 1
-		for(var/datum/job_objective/objective in job_objectives)
-			output += "<LI><B>Task #[obj_count]</B>: [objective.get_description()]</LI>"
-			obj_count++
-		output += "</UL>"
 	if(window)
 		recipient << browse(output, "window=memory")
 	else

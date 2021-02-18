@@ -4969,7 +4969,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "Il" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp)
 "Iv" = (

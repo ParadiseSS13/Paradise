@@ -7,7 +7,6 @@
 	density = 1
 	var/plays = 0
 	var/working = 0
-	var/datum/money_account/account = null
 	var/result = null
 	var/resultlvl = null
 
@@ -22,18 +21,8 @@
 
 /obj/machinery/slot_machine/ui_data(mob/user)
 	var/list/data = list()
-	// Get account
-	account = user.get_worn_id_account()
-	if(!account)
-		if(istype(user.get_active_hand(), /obj/item/card/id))
-			account = get_card_account(user.get_active_hand())
-		else
-			account = null
-
-
 	// Send data
 	data["working"] = working
-	data["money"] = account ? account.money : null
 	data["plays"] = plays
 	data["result"] = result
 	data["resultlvl"] = resultlvl
@@ -46,10 +35,6 @@
 
 	if(action == "spin")
 		if(working)
-			return
-		if(!account || account.money < 50)
-			return
-		if(!account.charge(50, null, "Bet", "Slot Machine", "Slot Machine"))
 			return
 		plays++
 		working = TRUE
@@ -95,9 +80,7 @@
 /obj/machinery/slot_machine/proc/win_money(amt, sound='sound/machines/ping.ogg')
 	if(sound)
 		playsound(loc, sound, 55, 1)
-	if(!account)
-		return
-	account.credit(amt, "Slot Winnings", "Slot Machine", account.owner_name)
+	new /obj/item/stack/spacecash(loc, amt)
 
 /obj/machinery/slot_machine/wrench_act(mob/user, obj/item/I)
 	. = TRUE

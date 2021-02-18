@@ -12216,9 +12216,6 @@
 	},
 /area/security/brig)
 "azH" = (
-/obj/machinery/atm{
-	pixel_x = 32
-	},
 /obj/machinery/firealarm{
 	pixel_y = 28
 	},
@@ -21025,9 +21022,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/machinery/atm{
-	pixel_y = -32
-	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/mrchangs)
 "aPX" = (
@@ -22571,9 +22565,6 @@
 "aTi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
-	},
-/obj/machinery/atm{
-	pixel_y = -32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -33565,9 +33556,6 @@
 /area/storage/primary)
 "bmL" = (
 /obj/machinery/light,
-/obj/machinery/atm{
-	pixel_y = -32
-	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "neutralcorner"
@@ -35308,9 +35296,6 @@
 	},
 /area/hallway/primary/port)
 "bpI" = (
-/obj/machinery/atm{
-	pixel_x = 32
-	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "neutralcorner"
@@ -36781,7 +36766,6 @@
 	},
 /area/bridge)
 "bsi" = (
-/obj/machinery/computer/merch,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -39348,7 +39332,6 @@
 	dir = 2;
 	network = list("SS13")
 	},
-/obj/item/eftpos,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bwq" = (
@@ -42703,7 +42686,6 @@
 	pixel_x = 28
 	},
 /obj/item/razor,
-/obj/item/eftpos,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "barber"
@@ -42718,7 +42700,6 @@
 	icon_state = "1-2"
 	},
 /obj/structure/table/wood,
-/obj/item/eftpos,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads)
 "bCm" = (
@@ -44345,9 +44326,6 @@
 	dir = 1;
 	network = list("SS13")
 	},
-/obj/machinery/atm{
-	pixel_y = -32
-	},
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -45239,9 +45217,6 @@
 /turf/simulated/floor/plating,
 /area/bridge)
 "bGv" = (
-/obj/machinery/atm{
-	pixel_x = 32
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "caution"
@@ -51591,9 +51566,6 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/light,
-/obj/machinery/atm{
-	pixel_y = -32
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -52067,7 +52039,6 @@
 	},
 /area/security/podbay)
 "bTh" = (
-/obj/machinery/computer/account_database,
 /turf/simulated/floor/bluegrid,
 /area/bridge)
 "bTi" = (
@@ -52504,9 +52475,6 @@
 /area/maintenance/portsolar)
 "bTZ" = (
 /obj/machinery/light,
-/obj/machinery/atm{
-	pixel_y = -32
-	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bUa" = (
@@ -54832,7 +54800,6 @@
 "bYt" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
-/obj/item/eftpos,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria";
@@ -64934,9 +64901,6 @@
 	name = "\improper Secure Lab"
 	})
 "cqk" = (
-/obj/machinery/atm{
-	pixel_x = 32
-	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "neutralcorner"
@@ -80763,9 +80727,6 @@
 "cRq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
-	},
-/obj/machinery/atm{
-	pixel_y = 32
 	},
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{

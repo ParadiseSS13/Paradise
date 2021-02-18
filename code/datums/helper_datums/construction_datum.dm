@@ -7,7 +7,6 @@
 	var/atom/holder
 	var/result
 	var/list/steps_desc
-	var/taskpath = null // Path of job objective completed.
 
 /datum/construction/New(atom)
 	..()
@@ -81,15 +80,9 @@
 
 /datum/construction/proc/spawn_result(mob/user as mob)
 	if(result)
-		if(taskpath)
-			var/datum/job_objective/task = user.mind.findJobTask(taskpath)
-			if(istype(task))
-				task.unit_completed()
-
 		new result(get_turf(holder))
 		spawn()
 			qdel(holder)
-	return
 
 /datum/construction/proc/set_desc(index as num)
 	var/list/step = steps[index]

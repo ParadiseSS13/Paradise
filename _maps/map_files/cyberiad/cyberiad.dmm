@@ -12001,7 +12001,7 @@
 	pixel_x = -25;
 	pixel_y = 0
 	},
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "cult";
@@ -13645,7 +13645,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "aBK" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "aBL" = (
@@ -15744,7 +15744,7 @@
 /turf/simulated/floor/carpet,
 /area/maintenance/fpmaint)
 "aGp" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6";
 	tag = "icon-wood-broken6"
@@ -16181,7 +16181,7 @@
 /turf/simulated/wall/r_wall,
 /area/maintenance/fpmaint2)
 "aHj" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/wood,
 /area/maintenance/fpmaint2)
 "aHk" = (
@@ -17048,7 +17048,7 @@
 	},
 /area/security/detectives_office)
 "aJl" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /obj/machinery/light_switch{
 	pixel_y = -25
 	},
@@ -19223,9 +19223,6 @@
 	},
 /area/civilian/barber)
 "aNZ" = (
-/obj/machinery/atm{
-	pixel_y = -32
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -28056,9 +28053,6 @@
 	dir = 4
 	},
 /obj/machinery/light,
-/obj/machinery/atm{
-	pixel_y = -32
-	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "neutralcorner"
@@ -28374,7 +28368,6 @@
 /obj/item/flashlight/lamp{
 	pixel_y = 10
 	},
-/obj/item/eftpos,
 /turf/simulated/floor/carpet/black,
 /area/chapel/office)
 "bgb" = (
@@ -32081,9 +32074,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/ne)
 "bnu" = (
-/obj/machinery/atm{
-	pixel_x = 24
-	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "bnv" = (
@@ -33443,9 +33433,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
-	},
-/obj/machinery/atm{
-	pixel_x = 24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -36787,10 +36774,6 @@
 	},
 /area/bridge)
 "bxE" = (
-/obj/machinery/atm{
-	pixel_x = 32;
-	pixel_y = 0
-	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
@@ -38218,9 +38201,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bAn" = (
-/obj/machinery/atm{
-	pixel_y = 32
-	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/west)
 "bAo" = (
@@ -38649,9 +38629,6 @@
 	},
 /area/quartermaster/office)
 "bBq" = (
-/obj/machinery/atm{
-	pixel_x = -32
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "browncorner"
@@ -40251,9 +40228,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
 "bFo" = (
-/obj/machinery/atm{
-	pixel_y = 32
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -44060,9 +44034,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "bMD" = (
-/obj/machinery/computer/account_database{
-	anchored = 1
-	},
 /turf/simulated/floor/plasteel,
 /area/bridge/meeting_room)
 "bME" = (
@@ -49201,7 +49172,6 @@
 	pixel_x = -24
 	},
 /obj/item/folder/yellow,
-/obj/item/eftpos,
 /obj/item/book/manual/sop_supply,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
@@ -50097,7 +50067,6 @@
 /area/engine/break_room)
 "bWU" = (
 /obj/machinery/light,
-/obj/machinery/computer/merch,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bWV" = (
@@ -50147,7 +50116,6 @@
 /obj/structure/table,
 /obj/item/folder/blue,
 /obj/item/stamp/hop,
-/obj/item/eftpos,
 /obj/item/book/manual/sop_service,
 /obj/item/book/manual/sop_supply,
 /obj/item/book/manual/sop_command,
@@ -51192,9 +51160,6 @@
 	c_tag = "Cargo Bay Entrance";
 	dir = 4;
 	network = list("SS13")
-	},
-/obj/machinery/atm{
-	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -53503,9 +53468,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "ccn" = (
-/obj/machinery/atm{
-	pixel_y = 32
-	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "cco" = (
@@ -86817,10 +86779,6 @@
 	},
 /area/turret_protected/ai)
 "dnk" = (
-/obj/machinery/atm{
-	pixel_x = 32;
-	pixel_y = 0
-	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/ne)
 "dnl" = (

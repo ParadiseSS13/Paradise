@@ -183,8 +183,6 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	SSticker.mode.ert += M.mind
 	M.forceMove(spawn_location)
 
-	SSjobs.CreateMoneyAccount(M, role, null)
-
 	GLOB.active_team.equip_officer(role, M)
 
 	return M

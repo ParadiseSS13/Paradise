@@ -4904,7 +4904,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "kr" = (
@@ -5108,7 +5108,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/cigarette/syndicate/free,
+/obj/machinery/vending/cigarette/syndicate,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "kN" = (

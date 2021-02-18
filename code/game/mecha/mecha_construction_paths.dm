@@ -79,7 +79,6 @@
 
 /datum/construction/reversible/mecha/ripley
 	result = "/obj/mecha/working/ripley"
-	taskpath = /datum/job_objective/make_ripley
 	steps = list(
 					//1
 					list("key"=TOOL_WELDER,
@@ -558,7 +557,6 @@
 
 /datum/construction/reversible/mecha/firefighter
 	result = "/obj/mecha/working/ripley/firefighter"
-	taskpath = /datum/job_objective/make_ripley
 	steps = list(
 					//1
 					list("key"=TOOL_WELDER,

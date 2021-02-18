@@ -1704,6 +1704,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/misc/bigband
 	name = "Big band instrument collection"
 	contains = list(/obj/item/instrument/violin,
+					/obj/item/instrument/banjo,
 					/obj/item/instrument/guitar,
 					/obj/item/instrument/eguitar,
 					/obj/item/instrument/glockenspiel,
@@ -1713,9 +1714,38 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/instrument/recorder,
 					/obj/item/instrument/harmonica,
 					/obj/item/instrument/xylophone,
+					/obj/item/instrument/piano_synth,
 					/obj/structure/piano)
 	cost = 50
 	containername = "Big band musical instruments collection"
+
+/datum/supply_packs/misc/flags
+	name = "Flag Assortment Crate"
+	contains = list(/obj/item/flag/ian,
+					/obj/item/flag/species/machine,
+					/obj/item/flag/species/vox,
+					/obj/item/flag/species/slime,
+					/obj/item/flag/species/skrell,
+					/obj/item/flag/species/drask,
+					/obj/item/flag/species/kidan,
+					/obj/item/flag/species/greys,
+					/obj/item/flag/species/diona,
+					/obj/item/flag/species/human,
+					/obj/item/flag/species/plasma,
+					/obj/item/flag/species/taj,
+					/obj/item/flag/species/unathi,
+					/obj/item/flag/species/vulp)
+	cost = 50
+	containername = "flag assortment Crate"
+
+/datum/supply_packs/misc/dnd
+	name = "DND Crate"
+	contains = list(/obj/item/storage/box/characters,
+					/obj/item/storage/box/characters,
+					/obj/item/storage/box/dice,
+					/obj/item/storage/box/dice)
+	cost = 5
+	containername = "flag assortment Crate"
 
 /datum/supply_packs/misc/randomised/contraband
 	num_contained = 5

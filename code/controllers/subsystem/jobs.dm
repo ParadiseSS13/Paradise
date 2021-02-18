@@ -93,16 +93,6 @@ SUBSYSTEM_DEF(jobs)
 			player.mind.assigned_role = rank
 			player.mind.role_alt_title = GetPlayerAltTitle(player, rank)
 
-			// JOB OBJECTIVES OH SHIT
-			player.mind.job_objectives.Cut()
-			for(var/objectiveType in job.required_objectives)
-				new objectiveType(player.mind)
-
-			// 50/50 chance of getting optional objectives.
-			for(var/objectiveType in job.optional_objectives)
-				if(prob(50))
-					new objectiveType(player.mind)
-
 			unassigned -= player
 			job.current_positions++
 			return 1
@@ -422,8 +412,6 @@ SUBSYSTEM_DEF(jobs)
 		H.mind.assigned_role = rank
 		alt_title = H.mind.role_alt_title
 
-		CreateMoneyAccount(H, rank, job)
-
 	to_chat(H, "<B>You are the [alt_title ? alt_title : rank].</B>")
 	to_chat(H, "<b>As the [alt_title ? alt_title : rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b>")
 	to_chat(H, "<b>For more information on how the station works, see <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure\">Standard Operating Procedure (SOP)</a></b>")
@@ -589,37 +577,6 @@ SUBSYSTEM_DEF(jobs)
 		SSblackbox.record_feedback("nested tally", "job_preferences", banned, list("[job.title]", "banned"))
 		SSblackbox.record_feedback("nested tally", "job_preferences", young, list("[job.title]", "young"))
 		SSblackbox.record_feedback("nested tally", "job_preferences", disabled, list("[job.title]", "disabled"))
-
-
-/datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
-	var/datum/money_account/M = create_account(H.real_name, rand(50,500)*10, null)
-	var/remembered_info = ""
-
-	remembered_info += "<b>Your account number is:</b> #[M.account_number]<br>"
-	remembered_info += "<b>Your account pin is:</b> [M.remote_access_pin]<br>"
-	remembered_info += "<b>Your account funds are:</b> $[M.money]<br>"
-
-	if(M.transaction_log.len)
-		var/datum/transaction/T = M.transaction_log[1]
-		remembered_info += "<b>Your account was created:</b> [T.time], [T.date] at [T.source_terminal]<br>"
-	H.mind.store_memory(remembered_info)
-
-	// If they're head, give them the account info for their department
-	if(job && job.head_position)
-		remembered_info = ""
-		var/datum/money_account/department_account = GLOB.department_accounts[job.department]
-
-		if(department_account)
-			remembered_info += "<b>Your department's account number is:</b> #[department_account.account_number]<br>"
-			remembered_info += "<b>Your department's account pin is:</b> [department_account.remote_access_pin]<br>"
-			remembered_info += "<b>Your department's account funds are:</b> $[department_account.money]<br>"
-
-		H.mind.store_memory(remembered_info)
-
-	H.mind.initial_account = M
-
-	spawn(0)
-		to_chat(H, "<span class='boldnotice'>Your account number is: [M.account_number], your account pin is: [M.remote_access_pin]</span>")
 
 /datum/controller/subsystem/jobs/proc/format_jobs_for_id_computer(obj/item/card/id/tgtcard)
 	var/list/jobs_to_formats = list()
