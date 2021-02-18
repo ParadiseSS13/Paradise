@@ -8,7 +8,6 @@
 	var/state = 0
 	var/datum/ai_laws/laws = null
 	var/obj/item/circuitboard/circuit = null
-	circuit = /obj/item/circuitboard/aicore
 	var/obj/item/mmi/brain = null
 
 /obj/structure/AIcore/Destroy()
@@ -242,6 +241,7 @@
 	icon_state = "ai-empty"
 	anchored = TRUE
 	state = AI_READY_CORE
+	circuit = /obj/item/circuitboard/aicore
 
 /obj/structure/AIcore/deactivated/Initialize(mapload)
 	. = ..()
