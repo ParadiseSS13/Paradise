@@ -1396,7 +1396,7 @@ About the new airlock wires panel:
 		var/obj/item/airlock_electronics/ae
 		if(emagged)
 			electronics = new /obj/item/airlock_electronics/destroyed()
-			operating = 0
+			operating = FALSE
 
 		if(!electronics)
 			ae = new/obj/item/airlock_electronics(loc)
