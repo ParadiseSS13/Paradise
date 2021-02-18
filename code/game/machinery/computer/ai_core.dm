@@ -8,6 +8,7 @@
 	var/state = 0
 	var/datum/ai_laws/laws = null
 	var/obj/item/circuitboard/circuit = null
+	circuit = /obj/item/circuitboard/aicore
 	var/obj/item/mmi/brain = null
 
 /obj/structure/AIcore/Destroy()
