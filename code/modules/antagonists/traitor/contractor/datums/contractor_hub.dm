@@ -17,7 +17,7 @@
 		EXTRACTION_DIFFICULTY_HARD = 40,
 	)
 	/// Maximum variation a single contract's TC reward can have upon generation.
-	/// In other words: final_reward = CEILING((tc_threshold / num_contracts) * (1 + (rand(-100, 100) / 100) * tc_variation), 1)
+	/// In other words: final_reward = CEILING((tc_threshold / num_contracts) * (1 - (rand(0, 100) / 100) * tc_variation), 1)
 	var/tc_variation = 0.25
 	/// TC reward multiplier if the target was extracted DEAD. Should be a penalty so between 0 and 1.
 	/// The final amount is rounded up.
@@ -98,9 +98,6 @@
 		C.reward_tc = list(null, null, null)
 		for(var/difficulty in EXTRACTION_DIFFICULTY_EASY to EXTRACTION_DIFFICULTY_HARD)
 			var/amount_tc = calculate_tc_reward(num_to_generate, difficulty)
-			// Bump up the TC reward a little if it's too close to the lower difficulty's reward
-			if(difficulty > EXTRACTION_DIFFICULTY_EASY)
-				amount_tc = max(amount_tc, C.reward_tc[difficulty - 1] + (difficulty - 1))
 			C.reward_tc[difficulty] = amount_tc
 			total_earnable_tc[difficulty] += amount_tc
 		// Add to lists
@@ -111,11 +108,10 @@
 	for(var/difficulty in EXTRACTION_DIFFICULTY_EASY to EXTRACTION_DIFFICULTY_HARD)
 		var/total = total_earnable_tc[difficulty]
 		var/missing = difficulty_tc_thresholds[difficulty] - total
-		if(missing <= 0)
-			continue
-		// Just add the missing TC to a random contract
-		var/datum/syndicate_contract/C = pick(contracts)
-		C.reward_tc[difficulty] += missing
+		// Increment the TC payout of a random contract till we're even
+		while(missing-- > 0)
+			var/datum/syndicate_contract/C = pick(contracts)
+			C.reward_tc[difficulty]++
 
 /**
   * Generates an amount of TC to be used as a contract reward for the given difficulty.
@@ -126,7 +122,7 @@
   */
 /datum/contractor_hub/proc/calculate_tc_reward(total_contracts, difficulty = EXTRACTION_DIFFICULTY_EASY)
 	ASSERT(total_contracts > 0)
-	return CEILING((difficulty_tc_thresholds[difficulty] / total_contracts) * (1 + (rand(-100, 100) / 100) * tc_variation), 1)
+	return FLOOR((difficulty_tc_thresholds[difficulty] / total_contracts) * (1 - (rand(0, 100) / 100) * tc_variation), 1)
 
 /**
   * Called when a [/datum/syndicate_contract] has been completed.
@@ -180,4 +176,4 @@
   * * M - The mob.
   */
 /datum/contractor_hub/proc/is_user_authorized(mob/living/carbon/M)
-	return M.mind.has_antag_datum(/datum/antagonist/traitor/contractor)
+	return LAZYACCESS(GLOB.contractors, M.mind) && M.mind == owner

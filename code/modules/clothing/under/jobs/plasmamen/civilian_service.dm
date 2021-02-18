@@ -70,6 +70,13 @@
 	item_state = "clown_envirosuit"
 	item_color = "clown_envirosuit"
 
+/obj/item/clothing/under/plasmaman/assistant
+	name = "Assistant envirosuit"
+	desc = "The finest from the bottom of the plasmamen clothing barrel."
+	icon_state = "assistant_envirosuit"
+	item_state = "assistant_envirosuit"
+	item_color = "assistant_envirosuit"
+
 /obj/item/clothing/under/plasmaman/clown/Extinguish(mob/living/carbon/human/H)
 	if(!istype(H))
 		return

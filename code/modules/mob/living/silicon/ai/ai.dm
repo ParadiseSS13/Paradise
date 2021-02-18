@@ -1142,6 +1142,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = "AI Commands"
 
 	var/newmsg = clean_input("What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg)
+	if(!newmsg)
+		return
+	newmsg = html_decode(newmsg) // This feels a bit redundant, but sanitisation is (probably) important.
 	if(newmsg != arrivalmsg)
 		arrivalmsg = newmsg
 		to_chat(usr, "The arrival message has been successfully changed.")

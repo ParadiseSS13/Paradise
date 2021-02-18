@@ -2,6 +2,15 @@
 //Please do not bother them with bugs from this port, however, as it has been modified quite a bit.
 //Modifications include removing the world-ending full supermatter variation, and leaving only the shard.
 
+//Zap constants, speeds up targeting
+
+#define COIL (ROD + 1)
+#define ROD (LIVING + 1)
+#define LIVING (MACHINERY + 1)
+#define MACHINERY (OBJECT + 1)
+#define OBJECT (LOWEST + 1)
+#define LOWEST (1)
+
 #define PLASMA_HEAT_PENALTY 15     // Higher == Bigger heat and waste penalty from having the crystal surrounded by this gas. Negative numbers reduce penalty.
 #define OXYGEN_HEAT_PENALTY 1
 #define CO2_HEAT_PENALTY 0.1
@@ -76,10 +85,15 @@
 	icon_state = "darkmatter"
 	density = TRUE
 	anchored = TRUE
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	light_range = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	var/base_icon_state = "darkmatter"
 
+	///The id of our supermatter
+	var/supermatter_id = 1
+	///The amount of supermatters that have been created this round
+	var/static/global_supermatter_id = 1
 	///Tracks the bolt color we are using
 	var/zap_icon = DEFAULT_ZAP_ICON_STATE
 	///The portion of the gasmix we're on that we should remove
@@ -140,6 +154,8 @@
 	var/mole_heat_penalty = 0
 	///Takes the energy throwing things into the sm generates and slowly turns it into actual power
 	var/matter_power = 0
+	///The cutoff for a bolt jumping, grows with heat, lowers with higher mol count,
+	var/zap_cutoff = 1500
 	///How much the bullets damage should be multiplied by when it is added to the internal variables
 	var/bullet_energy = 2
 	///How much hallucination should we produce per unit of power?
@@ -178,6 +194,7 @@
 
 /obj/machinery/power/supermatter_crystal/Initialize(mapload)
 	. = ..()
+	supermatter_id = global_supermatter_id++
 	SSair.atmos_machinery += src
 	countdown = new(src)
 	countdown.start()
@@ -283,6 +300,7 @@
 	explode()
 
 /obj/machinery/power/supermatter_crystal/proc/explode()
+	SSblackbox.record_feedback("amount", "supermatter_delaminations", 1)
 	for(var/mob in GLOB.alive_mob_list)
 		var/mob/living/L = mob
 		if(istype(L) && atoms_share_level(L, src))
@@ -291,7 +309,7 @@
 				var/mob/living/carbon/human/H = mob
 				H.hallucination += max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1))))
 			var/rads = DETONATION_RADS * sqrt(1 / (get_dist(L, src) + 1))
-			L.apply_effect(rads, IRRADIATE)
+			L.rad_act(rads)
 
 	var/turf/T = get_turf(src)
 	for(var/mob/M in GLOB.player_list)
@@ -315,7 +333,7 @@
 		investigate_log("has spawned additional energy balls.", "supermatter")
 		if(T)
 			var/obj/singularity/energy_ball/E = new(T)
-			E.energy = power
+			E.energy = 200 //Gets us about 9 balls
 //	else if(power > EVENT_POWER_PENALTY_THRESHOLD && prob(power/50) && !istype(src, /obj/machinery/power/supermatter_crystal/shard))
 //		var/datum/round_event_control/crystal_invasion/crystals = new/datum/round_event_control/crystal_invasion
 //		crystals.runEvent()
@@ -398,7 +416,7 @@
 				if(!isspaceturf(t))
 					continue
 				var/turf/turf_to_check = t
-				if(turf_to_check.atmos_adjacent_turfs)
+				if(length(turf_to_check.atmos_adjacent_turfs))
 					var/integrity = get_integrity()
 					if(integrity < 10)
 						damage += clamp((power * 0.0005) * DAMAGE_INCREASE_MULTIPLIER, 0, MAX_SPACE_EXPOSURE_DAMAGE)
@@ -438,13 +456,15 @@
 			powerloss_dynamic_scaling = clamp(powerloss_dynamic_scaling + clamp(co2comp - powerloss_dynamic_scaling, -0.02, 0.02), 0, 1)
 		else
 			powerloss_dynamic_scaling = clamp(powerloss_dynamic_scaling - 0.05, 0, 1)
+		//Ranges from 0 to 1(1-(value between 0 and 1 * ranges from 1 to 1.5(mol / 500)))
+		//We take the mol count, and scale it to be our inhibitor
 		powerloss_inhibitor = clamp(1 - (powerloss_dynamic_scaling * clamp(combined_gas / POWERLOSS_INHIBITION_MOLE_BOOST_THRESHOLD, 1 , 1.5)), 0 , 1)
 
 		//Releases stored power into the general pool
 		//We get this by consuming shit or being scalpeled
 		if(matter_power && power_changes)
 			//We base our removed power off one 10th of the matter_power.
-			var/removed_matter = max(matter_power/MATTER_POWER_CONVERSION, 40)
+			var/removed_matter = max(matter_power / MATTER_POWER_CONVERSION, 40)
 			//Adds at least 40 power
 			power = max(power + removed_matter, 0)
 			//Removes at least 40 matter power
@@ -452,20 +472,20 @@
 
 		var/temp_factor = 50
 		if(gasmix_power_ratio > 0.8)
-			// with a perfect gas mix, make the power less based on heat
+			//with a perfect gas mix, make the power less based on heat
 			icon_state = "[base_icon_state]_glow"
 		else
-			// in normal mode, base the produced energy around the heat
+			//in normal mode, base the produced energy around the heat
 			temp_factor = 30
 			icon_state = base_icon_state
+
 
 		if(power_changes)
 			power = max((removed.temperature * temp_factor / T0C) * gasmix_power_ratio + power, 0)
 
 		if(prob(50))
-			for(var/obj/machinery/power/rad_collector/R in GLOB.rad_collectors)
-				if(atoms_share_level(R, src) && get_dist(R, src) <= 15) //Better than using orange() every process
-					R.receive_pulse(power * (1 + power_transmission_bonus / 10))
+
+			radiation_pulse(src, power * max(0, (1 + (power_transmission_bonus / 10))))
 
 		//Power * 0.55 * a value between 1 and 0.8
 		var/device_energy = power * REACTION_POWER_MODIFIER
@@ -500,7 +520,7 @@
 			l.hallucination = clamp(l.hallucination, 0, 200)
 	for(var/mob/living/l in range(src, round((power / 100) ** 0.25)))
 		var/rads = (power / 10) * sqrt( 1 / max(get_dist(l, src), 1) )
-		l.apply_effect(rads, IRRADIATE)
+		l.rad_act(rads)
 
 	//Transitions between one function and another, one we use for the fast inital startup, the other is used to prevent errors with fusion temperatures.
 	//Use of the second function improves the power gain imparted by using co2
@@ -511,21 +531,40 @@
 	//Handle high power zaps/anomaly generation
 	if(power > POWER_PENALTY_THRESHOLD || damage > damage_penalty_point) //If the power is above 5000 or if the damage is above 550
 		var/range = 4
+		zap_cutoff = 1500
 		if(removed && removed.return_pressure() > 0 && removed.return_temperature() > 0)
+			//You may be able to freeze the zapstate of the engine with good planning, we'll see
+			zap_cutoff = clamp(3000 - (power * (removed.total_moles()) / 10) / removed.return_temperature(), 350, 3000)//If the core is cold, it's easier to jump, ditto if there are a lot of mols
 			//We should always be able to zap our way out of the default enclosure
 			//See supermatter_zap() for more details
-			range = clamp(power / env.return_pressure() * 10, 2, 7)
-		if(power > POWER_PENALTY_THRESHOLD)
-			playsound(loc, 'sound/weapons/emitter2.ogg', 100, TRUE, extrarange = 10)
-			supermatter_zap(src, range, min(power * 2, 20000))
-			supermatter_zap(src, range, min(power * 2, 20000))
-			if(power > SEVERE_POWER_PENALTY_THRESHOLD)
-				supermatter_zap(src, range, min(power * 2, 20000))
-				if(power > CRITICAL_POWER_PENALTY_THRESHOLD)
-					supermatter_zap(src, range, min(power * 2, 20000))
-		else if (damage > damage_penalty_point && prob(20))
-			playsound(loc, 'sound/weapons/emitter2.ogg', 100, TRUE, extrarange = 10)
-			supermatter_zap(src, range, clamp(power * 2, 4000, 20000))
+			range = clamp(power / removed.return_pressure() * 10, 2, 7)
+		var/flags = ZAP_SUPERMATTER_FLAGS
+		var/zap_count = 0
+		//Deal with power zaps
+		switch(power)
+			if(POWER_PENALTY_THRESHOLD to SEVERE_POWER_PENALTY_THRESHOLD)
+				zap_icon = DEFAULT_ZAP_ICON_STATE
+				zap_count = 2
+			if(SEVERE_POWER_PENALTY_THRESHOLD to CRITICAL_POWER_PENALTY_THRESHOLD)
+				zap_icon = SLIGHTLY_CHARGED_ZAP_ICON_STATE
+				//Uncaps the zap damage, it's maxed by the input power
+				//Objects take damage now
+				flags |= (ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE)
+				zap_count = 3
+			if(CRITICAL_POWER_PENALTY_THRESHOLD to INFINITY)
+				zap_icon = OVER_9000_ZAP_ICON_STATE
+				//It'll stun more now, and damage will hit harder, gloves are no garentee.
+				//Machines go boom
+				flags |= (ZAP_MOB_STUN | ZAP_MACHINE_EXPLOSIVE | ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE)
+				zap_count = 4
+		//Now we deal with damage shit
+		if(damage > damage_penalty_point && prob(20))
+			zap_count += 1
+
+		if(zap_count >= 1)
+			playsound(src.loc, 'sound/weapons/emitter2.ogg', 100, TRUE, extrarange = 10)
+			for(var/i in 1 to zap_count)
+				supermatter_zap(src, range, clamp(power*2, 4000, 20000), flags)
 
 		if(prob(5))
 			supermatter_anomaly_gen(src, FLUX_ANOMALY, rand(5, 10))
@@ -676,7 +715,7 @@
 		Consume(I)
 		playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, TRUE)
 
-		user.apply_effect(150, IRRADIATE)
+		radiation_pulse(src, 150, 4)
 
 /obj/machinery/power/supermatter_crystal/Bumped(atom/movable/AM)
 	if(isliving(AM))
@@ -716,9 +755,8 @@
 		matter_power += 200
 
 	//Some poor sod got eaten, go ahead and irradiate people nearby.
+	radiation_pulse(src, 3000, 2, TRUE)
 	for(var/mob/living/L in range(10))
-		var/rads = 500 * sqrt( 1 / (get_dist(L, src) + 1))
-		L.apply_effect(rads, IRRADIATE)
 		investigate_log("has irradiated [key_name(L)] after consuming [AM].", "supermatter")
 		if(L in view())
 			L.show_message("<span class='danger'>As [src] slowly stops resonating, you find your skin covered in new radiation burns.</span>", 1,
@@ -788,89 +826,142 @@
 			if(PYRO_ANOMALY)
 				new /obj/effect/anomaly/pyro(L, 200, FALSE)
 
-
-
-/obj/machinery/power/supermatter_crystal/proc/supermatter_zap(atom/zapstart, range = 3, power)
+/obj/machinery/power/supermatter_crystal/proc/supermatter_zap(atom/zapstart = src, range = 5, zap_str = 4000, zap_flags = ZAP_SUPERMATTER_FLAGS, list/targets_hit = list())
 	if(QDELETED(zapstart))
 		return
 	. = zapstart.dir
-	if(power < 1000)
+	//If the strength of the zap decays past the cutoff, we stop
+	if(zap_str < zap_cutoff)
 		return
+	var/atom/target
+	var/target_type = LOWEST
+	var/list/arctargets = list()
+	//Making a new copy so additons further down the recursion do not mess with other arcs
+	//Lets put this ourself into the do not hit list, so we don't curve back to hit the same thing twice with one arc
+	for(var/test in oview(zapstart, range))
+		if(!(zap_flags & ZAP_ALLOW_DUPLICATES) && LAZYACCESS(targets_hit, test))
+			continue
 
-	var/target_atom
-	var/mob/living/target_mob
-	var/obj/machinery/target_machine
-	var/obj/structure/target_structure
-	var/list/arctargetsmob = list()
-	var/list/arctargetsmachine = list()
-	var/list/arctargetsstructure = list()
+		if(target_type > COIL)
+			continue
 
-	if(prob(20)) //let's not hit all the engineers with every beam and/or segment of the arc
-		for(var/mob/living/Z in oview(zapstart, range+2))
-			arctargetsmob += Z
-	if(arctargetsmob.len)
-		var/mob/living/H = pick(arctargetsmob)
-		var/atom/A = H
-		target_mob = H
-		target_atom = A
+		if(istype(test, /obj/machinery/power/tesla_coil))
+			var/obj/machinery/power/tesla_coil/coil = test
+			if(coil.anchored && !coil.being_shocked && !coil.panel_open && prob(70)) //Diversity of death
+				if(target_type != COIL)
+					arctargets = list()
+				arctargets += test
+				target_type = COIL
 
-	else
-		for(var/obj/machinery/X in oview(zapstart, range + 2))
-			arctargetsmachine += X
-		if(arctargetsmachine.len)
-			var/obj/machinery/M = pick(arctargetsmachine)
-			var/atom/A = M
-			target_machine = M
-			target_atom = A
+		if(target_type > ROD)
+			continue
 
-		else
-			for(var/obj/structure/Y in oview(zapstart, range + 2))
-				arctargetsstructure += Y
-			if(arctargetsstructure.len)
-				var/obj/structure/O = pick(arctargetsstructure)
-				var/atom/A = O
-				target_structure = O
-				target_atom = A
+		if(istype(test, /obj/machinery/power/grounding_rod))
+			var/obj/machinery/power/grounding_rod/rod = test
+			//We're adding machine damaging effects, rods need to be surefire
+			if(rod.anchored && !rod.panel_open)
+				if(target_type != ROD)
+					arctargets = list()
+				arctargets += test
+				target_type = ROD
 
-	if(target_atom)
-		switch(power)
-			if(POWER_PENALTY_THRESHOLD to SEVERE_POWER_PENALTY_THRESHOLD)
-				zap_icon = DEFAULT_ZAP_ICON_STATE
-			if(SEVERE_POWER_PENALTY_THRESHOLD to CRITICAL_POWER_PENALTY_THRESHOLD)
-				zap_icon = SLIGHTLY_CHARGED_ZAP_ICON_STATE
-			if(CRITICAL_POWER_PENALTY_THRESHOLD to INFINITY)
-				zap_icon = OVER_9000_ZAP_ICON_STATE
-		zapstart.Beam(target_atom, icon_state = zap_icon, time = 5)
-		var/zapdir = get_dir(zapstart, target_atom)
+		if(target_type > LIVING)
+			continue
+
+		if(isliving(test))
+			var/mob/living/alive = test
+			if(!(HAS_TRAIT(alive, TRAIT_TESLA_SHOCKIMMUNE)) && !(alive.flags_2 & SHOCKED_2) && alive.stat != DEAD && prob(20)) //let's not hit all the engineers with every beam and/or segment of the arc
+				if(target_type != LIVING)
+					arctargets = list()
+				arctargets += test
+				target_type = LIVING
+
+		if(target_type > MACHINERY)
+			continue
+
+		if(ismachinery(test))
+			var/obj/machinery/machine = test
+			if(!machine.being_shocked && prob(40))
+				if(target_type != MACHINERY)
+					arctargets = list()
+				arctargets += test
+				target_type = MACHINERY
+
+		if(target_type > OBJECT)
+			continue
+
+		if(isobj(test))
+			var/obj/object = test
+			if(!object.being_shocked)
+				if(target_type != OBJECT)
+					arctargets = list()
+				arctargets += test
+				target_type = OBJECT
+
+	if(length(arctargets)) //Pick from our pool
+		target = pick(arctargets)
+
+	if(!QDELETED(target)) //If we found something
+		//Do the animation to zap to it from here
+		if(!(zap_flags & ZAP_ALLOW_DUPLICATES))
+			LAZYSET(targets_hit, target, TRUE)
+		zapstart.Beam(target, icon_state = zap_icon, time = 5)
+		var/zapdir = get_dir(zapstart, target)
 		if(zapdir)
 			. = zapdir
 
-	if(target_mob)
-		target_mob.electrocute_act(rand(5, 10), "Supermatter Discharge Bolt", 1, stun = FALSE)
-		if(prob(15))
-			for(var/i in 1 to 2)
-				supermatter_zap(target_mob, 5, power / 2)
-				supermatter_zap(target_mob, 5, power / 2)
-		else
-			supermatter_zap(target_mob, 5, power / 1.5)
+		//Going boom should be rareish
+		if(prob(80))
+			zap_flags &= ~ZAP_MACHINE_EXPLOSIVE
+		if(target_type == COIL)
+			//In the best situation we can expect this to grow up to 2120kw before a delam/IT'S GONE TOO FAR FRED SHUT IT DOWN
+			//The formula for power gen is zap_str * zap_mod / 2 * capacitor rating, between 1 and 4
+			var/multi = 10
+			switch(power)//Between 7k and 9k it's 20, above that it's 40
+				if(SEVERE_POWER_PENALTY_THRESHOLD to CRITICAL_POWER_PENALTY_THRESHOLD)
+					multi = 20
+				if(CRITICAL_POWER_PENALTY_THRESHOLD to INFINITY)
+					multi = 40
+			target.zap_act(zap_str * multi, zap_flags)
+			zap_str /= 3 //Coils should take a lot out of the power of the zap
 
-	else if(target_machine)
-		if(prob(15))
-			for(var/i in 1 to 2)
-				supermatter_zap(target_machine, 5, power / 2)
-				supermatter_zap(target_machine, 5, power / 2)
-		else
-			supermatter_zap(target_machine, 5, power / 1.5)
+		else if(isliving(target))//If we got a fleshbag on our hands
+			var/mob/living/creature = target
+			creature.set_shocked()
+			addtimer(CALLBACK(creature, /mob/living/proc/reset_shocked), 10)
+			//3 shots a human with no resistance. 2 to crit, one to death. This is at at least 10000 power.
+			//There's no increase after that because the input power is effectivly capped at 10k
+			//Does 1.5 damage at the least
+			var/shock_damage = ((zap_flags & ZAP_MOB_DAMAGE) ? (power / 200) - 10 : rand(5, 10))
+			creature.electrocute_act(shock_damage, "Supermatter Discharge Bolt", 1, ((zap_flags & ZAP_MOB_STUN) ? SHOCK_TESLA : SHOCK_NOSTUN))
+			zap_str /= 1.5 //Meatsacks are conductive, makes working in pairs more destructive
 
-	else if(target_structure)
-		if(prob(15))
-			for(var/i in 1 to 2)
-				supermatter_zap(target_structure, 5, power / 2)
-				supermatter_zap(target_structure, 5, power / 2)
 		else
-			supermatter_zap(target_structure, 5, power / 1.5)
+			zap_str = target.zap_act(zap_str, zap_flags)
+		//This gotdamn variable is a boomer and keeps giving me problems
+		var/turf/T = get_turf(target)
+		var/pressure = 1
+		if(T?.return_air())
+			var/datum/gas_mixture/G = T.return_air()
+			pressure = max(1, G.return_pressure())
+		//We get our range with the strength of the zap and the pressure, the higher the former and the lower the latter the better
+		var/new_range = clamp(zap_str / pressure * 10, 2, 7)
+		var/zap_count = 1
+		if(prob(5))
+			zap_str -= (zap_str / 10)
+			zap_count += 1
+		for(var/j in 1 to zap_count)
+			if(zap_count > 1)
+				targets_hit = targets_hit.Copy() //Pass by ref begone
+			supermatter_zap(target, new_range, zap_str, zap_flags, targets_hit)
 
 #undef HALLUCINATION_RANGE
 #undef GRAVITATIONAL_ANOMALY
 #undef FLUX_ANOMALY
 #undef PYRO_ANOMALY
+#undef COIL
+#undef ROD
+#undef LIVING
+#undef MACHINERY
+#undef OBJECT
+#undef LOWEST

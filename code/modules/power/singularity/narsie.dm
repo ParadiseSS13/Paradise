@@ -5,7 +5,6 @@
 	pixel_x = -89
 	pixel_y = -85
 	current_size = 9 //It moves/eats like a max-size singulo, aside from range. --NEO
-	contained = FALSE
 	dissipate = FALSE
 	move_self = TRUE
 	grav_pull = 5
@@ -26,8 +25,8 @@
 	grav_pull = 10
 	consume_range = 12 //How many tiles out do we eat
 
-/obj/singularity/narsie/large/New()
-	..()
+/obj/singularity/narsie/large/Initialize(mapload, starting_energy)
+	. = ..()
 	icon_state = SSticker.cultdat?.entity_icon_state
 	name = SSticker.cultdat?.entity_name
 	to_chat(world, "<font size='15' color='red'><b> [uppertext(name)] HAS RISEN</b></font>")
@@ -42,9 +41,10 @@
 		var/image/alert_overlay = image('icons/effects/cult_effects.dmi', "ghostalertsie")
 		notify_ghosts("[name] has risen in \the [A.name]. Reach out to the Geometer to be given a new shell for your soul.", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
 
-	narsie_spawn_animation()
+	INVOKE_ASYNC(src, .proc/narsie_spawn_animation)
+	addtimer(CALLBACK(src, .proc/call_shuttle), 7 SECONDS)
 
-	sleep(7 SECONDS)
+/obj/singularity/narsie/large/proc/call_shuttle()
 	SSshuttle.emergency.request(null, 0.3)
 	SSshuttle.emergency.canRecall = FALSE // Cannot recall
 
