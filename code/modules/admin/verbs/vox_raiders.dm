@@ -49,7 +49,7 @@ GLOBAL_VAR_INIT(vox_tick, 1)
 			equip_to_slot_or_del(new /obj/item/gun/dartgun/vox/medical, slot_r_hand)
 
 	equip_to_slot_or_del(new /obj/item/clothing/mask/breath/vox(src), slot_wear_mask)
-	equip_to_slot_or_del(new /obj/item/tank/nitrogen(src), slot_back)
+	equip_to_slot_or_del(new /obj/item/tank/internals/nitrogen(src), slot_back)
 	equip_to_slot_or_del(new /obj/item/flashlight(src), slot_r_store)
 
 	var/obj/item/card/id/syndicate/vox/W = new(src)

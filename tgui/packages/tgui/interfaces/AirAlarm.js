@@ -303,7 +303,7 @@ const AirAlarmScrubbersView = (props, context) => {
           </LabeledList.Item>
           <LabeledList.Item label="Filtering">
             <Button
-              content="Cargon Dioxide"
+              content="Carbon Dioxide"
               selected={s.filter_co2}
               onClick={
                 () => act('command', { cmd: 'co2_scrub', val: (s.filter_co2 === 0 ? 1 : 0), id_tag: s.id_tag })

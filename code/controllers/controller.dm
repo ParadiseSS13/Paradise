@@ -17,3 +17,11 @@
 /datum/controller/proc/Recover()
 
 /datum/controller/proc/stat_entry()
+
+/**
+ * Standardized method for tracking startup times.
+ */
+/datum/controller/proc/log_startup_progress(message)
+	Master.current_init_stage = "([name]): [message]"
+	to_chat(world, "<span class='danger'><small>\[[name]]</small> [message]</span>")
+	log_world("\[[name]] [message]")

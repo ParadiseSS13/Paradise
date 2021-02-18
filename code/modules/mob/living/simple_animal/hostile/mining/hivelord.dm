@@ -344,7 +344,7 @@
 			else if(prob(10))
 				belt = pickweight(list(/obj/item/pickaxe = 8, /obj/item/pickaxe/mini = 4, /obj/item/pickaxe/silver = 2, /obj/item/pickaxe/diamond = 1))
 			else
-				belt = /obj/item/tank/emergency_oxygen/engi
+				belt = /obj/item/tank/internals/emergency_oxygen/engi
 			if(mob_species != /datum/species/unathi)
 				shoes = /obj/item/clothing/shoes/workboots/mining
 			gloves = /obj/item/clothing/gloves/color/black
@@ -402,7 +402,7 @@
 			suit = /obj/item/clothing/suit/armor/riot/knight
 			back = /obj/item/shield/riot/buckler
 			belt = /obj/item/nullrod/claymore
-			r_pocket = /obj/item/tank/emergency_oxygen
+			r_pocket = /obj/item/tank/internals/emergency_oxygen
 			mask = /obj/item/clothing/mask/breath
 		if("Operative")
 			id_job = "Operative"
@@ -413,7 +413,7 @@
 			shoes = /obj/item/clothing/shoes/black
 			suit = /obj/item/clothing/suit/storage/labcoat
 			glasses = /obj/item/clothing/glasses/sunglasses/blindfold
-			back = /obj/item/tank/oxygen
+			back = /obj/item/tank/internals/oxygen
 			mask = /obj/item/clothing/mask/breath
 		if("Cultist")
 			uniform = /obj/item/clothing/under/roman

@@ -32,7 +32,7 @@
 	new /obj/item/gun/energy/gun(src)
 	new /obj/item/door_remote/captain(src)
 	new /obj/item/reagent_containers/food/drinks/mug/cap(src)
-	new /obj/item/tank/emergency_oxygen/double(src)
+	new /obj/item/tank/internals/emergency_oxygen/double(src)
 
 
 /obj/structure/closet/secure_closet/hop
@@ -218,7 +218,7 @@
 	new /obj/item/clothing/suit/storage/brigdoc(src)
 	new /obj/item/clothing/under/rank/security/brigphys(src)
 	new /obj/item/clothing/shoes/white(src)
-	new /obj/item/radio/headset/headset_sec/alt(src)
+	new /obj/item/radio/headset/headset_sec/alt/brig_phys(src)
 	new /obj/item/clothing/shoes/sandal/white(src)
 
 
