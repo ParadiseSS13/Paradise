@@ -107,7 +107,7 @@
 	name = "burned-out airlock electronics"
 	icon_state = "door_electronics_smoked"
 
-/obj/item/airlock_electronics/attack_self(mob/user)
+/obj/item/airlock_electronics/destroyed/attack_self(mob/user)
 	return
 
 /obj/item/airlock_electronics/destroyed/decompile_act(obj/item/matter_decompiler/C, mob/user)
