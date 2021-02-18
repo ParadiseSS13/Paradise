@@ -219,7 +219,7 @@
 	if(!operating && density && !emagged)
 		emagged = TRUE
 		operating = TRUE
-		electronics = new/obj/item/airlock_electronics/destroyed()
+		electronics = new /obj/item/airlock_electronics/destroyed()
 		flick("[base_state]spark", src)
 		playsound(src, "sparks", 75, 1)
 		sleep(6)
