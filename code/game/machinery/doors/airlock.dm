@@ -1394,6 +1394,10 @@ About the new airlock wires panel:
 		if(user)
 			to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 		var/obj/item/airlock_electronics/ae
+		if(emagged)
+			electronics = new/obj/item/airlock_electronics/destroyed()
+			operating = 0
+
 		if(!electronics)
 			ae = new/obj/item/airlock_electronics(loc)
 			check_access()
@@ -1406,9 +1410,6 @@ About the new airlock wires panel:
 			ae = electronics
 			electronics = null
 			ae.forceMove(loc)
-		if(emagged)
-			ae.icon_state = "door_electronics_smoked"
-			operating = 0
 	qdel(src)
 
 /obj/machinery/door/airlock/proc/note_type() //Returns a string representing the type of note pinned to this airlock
