@@ -120,7 +120,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/smoke_amt = 0 //cropped at 10
 
 	var/critfailchance = 0
-	var/centcom_cancast = 1 //Whether or not the spell should be allowed on z2
+	var/centcom_cancast = TRUE //Whether or not the spell should be allowed on the admin zlevel
 
 	var/datum/action/spell_action/action = null
 	var/action_icon = 'icons/mob/actions/actions.dmi'

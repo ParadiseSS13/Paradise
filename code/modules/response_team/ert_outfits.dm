@@ -231,8 +231,8 @@
 	shoes = /obj/item/clothing/shoes/magboots
 	gloves = /obj/item/clothing/gloves/color/yellow
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer
-	suit_store = /obj/item/tank/emergency_oxygen/engi
-	glasses = /obj/item/clothing/glasses/meson
+	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
+	glasses = /obj/item/clothing/glasses/meson/engine
 	mask = /obj/item/clothing/mask/gas
 
 	l_pocket = /obj/item/gun/energy/gun/mini
@@ -251,14 +251,14 @@
 	gloves = /obj/item/clothing/gloves/color/yellow
 	belt = /obj/item/storage/belt/utility/chief/full
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer/gamma
-	suit_store = /obj/item/tank/emergency_oxygen/engi
-	glasses = /obj/item/clothing/glasses/meson
+	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
+	glasses = /obj/item/clothing/glasses/meson/engine
 	mask = /obj/item/clothing/mask/gas
 	cybernetic_implants = list(
 	 /obj/item/organ/internal/cyberimp/eyes/shield,
 	 /obj/item/organ/internal/cyberimp/chest/nutriment
 	)
-	l_pocket = /obj/item/t_scanner/extended_range
+	l_pocket = /obj/item/t_scanner
 	r_pocket = /obj/item/melee/classic_baton/telescopic
 
 	backpack_contents = list(
@@ -281,7 +281,7 @@
 	glasses = /obj/item/clothing/glasses/meson/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 
-	l_pocket = /obj/item/t_scanner/extended_range
+	l_pocket = /obj/item/t_scanner
 	r_pocket = /obj/item/melee/classic_baton/telescopic
 
 	backpack_contents = list(

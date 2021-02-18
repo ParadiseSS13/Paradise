@@ -487,7 +487,7 @@
 							return
 						FC = new
 						GLOB.news_network.channels += FC
-						feedback_inc("newscaster_channels", 1)
+						SSblackbox.record_feedback("amount", "newscaster_channels", 1)
 						// Redirect
 						screen = NEWSCASTER_CHANNEL
 						viewing_channel = FC
@@ -524,7 +524,7 @@
 					FM.admin_locked = usr.can_admin_interact() && admin_locked
 					// Register it
 					FC.add_message(FM)
-					feedback_inc("newscaster_stories", 1)
+					SSblackbox.record_feedback("amount", "newscaster_stories", 1)
 					var/announcement = FC.get_announce_text(title)
 					// Announce it
 					for(var/nc in GLOB.allNewscasters)
@@ -646,7 +646,7 @@
 	if(paper_remaining <= 0 || is_printing)
 		return
 	paper_remaining--
-	feedback_inc("newscaster_newspapers_printed", 1)
+	SSblackbox.record_feedback("amount", "newscaster_newspapers_printed",1)
 	// Print it
 	is_printing = TRUE
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
@@ -676,6 +676,8 @@
   * * wanted_notice - Whether the alert is a wanted notice notification (overrides announcement)
   */
 /obj/machinery/newscaster/proc/alert_news(announcement, wanted_notice = FALSE)
+	if(!is_operational())
+		return
 	if(wanted_notice)
 		atom_say("Attention! Wanted issue distributed!")
 		playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)

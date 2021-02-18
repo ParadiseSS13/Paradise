@@ -38,7 +38,7 @@ SUBSYSTEM_DEF(dbcore)
 	for(var/I in active_queries)
 		var/datum/db_query/Q = I
 		if(world.time - Q.last_activity_time > 5 MINUTES)
-			message_admins("Found undeleted query, please check the server logs and notify coders.")
+			log_debug("Found undeleted query, please check the server logs and notify coders.")
 			log_sql("Undeleted query: \"[Q.sql]\" LA: [Q.last_activity] LAT: [Q.last_activity_time]")
 			qdel(Q)
 		if(MC_TICK_CHECK)
@@ -109,16 +109,16 @@ SUBSYSTEM_DEF(dbcore)
 			config.sql_enabled = FALSE
 			schema_valid = FALSE
 			SSticker.ticker_going = FALSE
-			log_world("Database connection failed: Invalid SQL Versions")
+			SEND_TEXT(world.log, "Database connection failed: Invalid SQL Versions")
 			return FALSE
 		#endif
 		if(Connect())
-			log_world("Database connection established")
+			SEND_TEXT(world.log, "Database connection established")
 		else
 			// log_sql() because then an error will be logged in the same place
 			log_sql("Your server failed to establish a connection with the database")
 	else
-		log_sql("Database is not enabled in configuration")
+		SEND_TEXT(world.log, "Database is not enabled in configuration")
 
 /**
   * Disconnection Handler
@@ -131,6 +131,73 @@ SUBSYSTEM_DEF(dbcore)
 	if(connection)
 		rustg_sql_disconnect_pool(connection)
 	connection = null
+
+/**
+  * Shutdown Handler
+  *
+  * Called during world/Reboot() as part of the MC shutdown
+  * Finalises a round in the DB before disconnecting.
+  */
+/datum/controller/subsystem/dbcore/Shutdown()
+	//This is as close as we can get to the true round end before Disconnect() without changing where it's called, defeating the reason this is a subsystem
+	if(SSdbcore.Connect())
+		var/datum/db_query/query_round_shutdown = SSdbcore.NewQuery(
+			"UPDATE [format_table_name("round")] SET shutdown_datetime = Now(), end_state = :end_state WHERE id = :round_id",
+			list("end_state" = SSticker.end_state, "round_id" = GLOB.round_id)
+		)
+		query_round_shutdown.Execute()
+		qdel(query_round_shutdown)
+	if(IsConnected())
+		Disconnect()
+
+/**
+  * Round ID Setter
+  *
+  * Called during world/New() at the earliest point
+  * Declares a round ID in the database and assigns it to a global. Also ensures that server address and ports are set
+  */
+/datum/controller/subsystem/dbcore/proc/SetRoundID()
+	if(!IsConnected())
+		return
+	var/datum/db_query/query_round_initialize = SSdbcore.NewQuery(
+		"INSERT INTO [format_table_name("round")] (initialize_datetime, server_ip, server_port) VALUES (Now(), INET_ATON(:internet_address), :port)",
+		list("internet_address" = world.internet_address || "0", "port" = "[world.port]")
+	)
+	query_round_initialize.Execute(async = FALSE)
+	GLOB.round_id = "[query_round_initialize.last_insert_id]"
+	qdel(query_round_initialize)
+
+/**
+  * Round End Time Setter
+  *
+  * Called during SSticker.setup()
+  * Sets the time that the round started in the DB
+  */
+/datum/controller/subsystem/dbcore/proc/SetRoundStart()
+	if(!IsConnected())
+		return
+	var/datum/db_query/query_round_start = SSdbcore.NewQuery(
+		"UPDATE [format_table_name("round")] SET start_datetime=NOW(), commit_hash=:hash WHERE id=:round_id",
+		list("hash" = GLOB.revision_info.commit_hash, "round_id" = GLOB.round_id)
+	)
+	query_round_start.Execute(async = FALSE) // This happens during a time of intense server lag, so should be non-async
+	qdel(query_round_start)
+
+/**
+  * Round End Time Setter
+  *
+  * Called during SSticker.declare_completion()
+  * Sets the time that the round ended in the DB, as well as some other params
+  */
+/datum/controller/subsystem/dbcore/proc/SetRoundEnd()
+	if(!IsConnected())
+		return
+	var/datum/db_query/query_round_end = SSdbcore.NewQuery(
+		"UPDATE [format_table_name("round")] SET end_datetime = Now(), game_mode_result = :game_mode_result, station_name = :station_name WHERE id = :round_id",
+		list("game_mode_result" = SSticker.mode_result, "station_name" = station_name(), "round_id" = GLOB.round_id)
+	)
+	query_round_end.Execute()
+	qdel(query_round_end)
 
 /**
   * IsConnected Helper
@@ -197,26 +264,42 @@ SUBSYSTEM_DEF(dbcore)
   * * querys - List of queries to execute
   * * warn - Boolean to warn on query failure
   * * qdel - Boolean to enable auto qdel of queries
+  * * assoc - Boolean to enable support for an associative list of queries
+  * * log - Do we want to generate logs for these queries
   */
-/datum/controller/subsystem/dbcore/proc/MassExecute(list/querys, warn = FALSE, qdel = FALSE)
+/datum/controller/subsystem/dbcore/proc/MassExecute(list/querys, warn = FALSE, qdel = FALSE, assoc = FALSE, log = TRUE)
 	if(!islist(querys))
 		if(!istype(querys, /datum/db_query))
 			CRASH("Invalid query passed to MassExecute: [querys]")
 		querys = list(querys)
 
+	var/start_time = start_watch()
+	if(log)
+		log_debug("Mass executing [length(querys)] queries...")
+
 	for(var/thing in querys)
-		var/datum/db_query/query = thing
+		var/datum/db_query/query
+		if(assoc)
+			query = querys[thing]
+		else
+			query = thing
 		if(warn)
 			INVOKE_ASYNC(query, /datum/db_query.proc/warn_execute)
 		else
 			INVOKE_ASYNC(query, /datum/db_query.proc/Execute)
 
 	for(var/thing in querys)
-		var/datum/db_query/query = thing
+		var/datum/db_query/query
+		if(assoc)
+			query = querys[thing]
+		else
+			query = thing
 		UNTIL(!query.in_progress)
 		if(qdel)
 			qdel(query)
 
+	if(log)
+		log_debug("Executed [length(querys)] queries in [stop_watch(start_time)]s")
 
 /**
   * # db_query
@@ -428,7 +511,7 @@ SUBSYSTEM_DEF(dbcore)
 
 	log_admin("[key_name(usr)] is attempting to re-establish the DB Connection")
 	message_admins("[key_name_admin(usr)] is attempting to re-establish the DB Connection")
-	feedback_add_details("admin_verb", "FRDBC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Force Reconnect DB") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 	SSdbcore.failed_connections = 0 // Reset this
 	if(!SSdbcore.Connect())

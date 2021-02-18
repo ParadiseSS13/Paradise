@@ -16,11 +16,9 @@
 	var/obj/item/airlock_electronics/electronics
 	var/base_state = "left"
 	var/reinf = 0
-	var/cancolor = TRUE
 	var/shards = 2
 	var/rods = 2
 	var/cable = 1
-	var/list/debris = list()
 
 /obj/machinery/door/window/New(loc, set_dir)
 	..()
@@ -29,18 +27,9 @@
 	if(req_access && req_access.len)
 		icon_state = "[icon_state]"
 		base_state = icon_state
-	if(!color && cancolor)
-		color = color_windows(src)
-	for(var/i in 1 to shards)
-		debris += new /obj/item/shard(src)
-	if(rods)
-		debris += new /obj/item/stack/rods(src, rods)
-	if(cable)
-		debris += new /obj/item/stack/cable_coil(src, cable)
 
 /obj/machinery/door/window/Destroy()
 	density = FALSE
-	QDEL_LIST(debris)
 	if(obj_integrity == 0)
 		playsound(src, "shatter", 70, 1)
 	QDEL_NULL(electronics)
@@ -190,11 +179,18 @@
 
 /obj/machinery/door/window/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT) && !disassembled)
-		for(var/obj/fragment in debris)
-			fragment.forceMove(get_turf(src))
-			transfer_fingerprints_to(fragment)
-			debris -= fragment
+		for(var/obj/item/shard/debris in spawnDebris(drop_location()))
+			transfer_fingerprints_to(debris) // transfer fingerprints to shards only
 	qdel(src)
+
+/obj/machinery/door/window/proc/spawnDebris(location)
+	. = list()
+	for(var/i in 1 to shards)
+		. += new /obj/item/shard(location)
+	if(rods)
+		. += new /obj/item/stack/rods(location, rods)
+	if(cable)
+		. += new /obj/item/stack/cable_coil(location, cable)
 
 /obj/machinery/door/window/narsie_act()
 	color = NARSIE_WINDOW_COLOUR
@@ -349,12 +345,11 @@
 	shards = 0
 	rods = 0
 	resistance_flags = ACID_PROOF | FIRE_PROOF
-	cancolor = FALSE
 	var/made_glow = FALSE
 
-/obj/machinery/door/window/clockwork/New(loc, set_dir)
-	..()
-	debris += new/obj/item/stack/tile/brass(src, 2)
+/obj/machinery/door/window/clockwork/spawnDebris(location)
+	. = ..()
+	. = new /obj/item/stack/tile/brass(location, 2)
 
 /obj/machinery/door/window/clockwork/setDir(direct)
 	if(!made_glow)

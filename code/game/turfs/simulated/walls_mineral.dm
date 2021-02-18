@@ -48,7 +48,7 @@
 	icon_state = "sandstone"
 	sheet_type = /obj/item/stack/sheet/mineral/sandstone
 	explosion_block = 0
-	canSmoothWith = list(/turf/simulated/wall/mineral/sandstone, /obj/structure/falsewall/sandstone)
+	canSmoothWith = list(/turf/simulated/wall/mineral/sandstone, /turf/simulated/wall/indestructible/sandstone, /obj/structure/falsewall/sandstone)
 
 /turf/simulated/wall/mineral/uranium
 	name = "uranium wall"
@@ -56,20 +56,17 @@
 	icon = 'icons/turf/walls/uranium_wall.dmi'
 	icon_state = "uranium"
 	sheet_type = /obj/item/stack/sheet/mineral/uranium
-	canSmoothWith = list(/turf/simulated/wall/mineral/uranium, /obj/structure/falsewall/uranium)
+	canSmoothWith = list(/turf/simulated/wall/mineral/uranium, /obj/structure/falsewall/uranium, /turf/simulated/wall/indestructible/uranium)
 
 /turf/simulated/wall/mineral/uranium/proc/radiate()
 	if(!active)
-		if(world.time > last_event+15)
+		if(world.time > last_event + 15)
 			active = 1
-			for(var/mob/living/L in range(3,src))
-				L.apply_effect(12,IRRADIATE,0)
-			for(var/turf/simulated/wall/mineral/uranium/T in range(3,src))
+			radiation_pulse(src, 40)
+			for(var/turf/simulated/wall/mineral/uranium/T in orange(1, src))
 				T.radiate()
 			last_event = world.time
 			active = null
-			return
-	return
 
 /turf/simulated/wall/mineral/uranium/attack_hand(mob/user as mob)
 	radiate()
@@ -150,7 +147,7 @@
 	sheet_type = /obj/item/stack/sheet/wood
 	hardness = 70
 	explosion_block = 0
-	canSmoothWith = list(/turf/simulated/wall/mineral/wood, /obj/structure/falsewall/wood, /turf/simulated/wall/mineral/wood/nonmetal)
+	canSmoothWith = list(/turf/simulated/wall/mineral/wood, /obj/structure/falsewall/wood, /turf/simulated/wall/mineral/wood/nonmetal, /turf/simulated/wall/indestructible/wood)
 
 /turf/simulated/wall/mineral/wood/attackby(obj/item/W, mob/user)
 	if(W.sharp && W.force)
@@ -166,7 +163,7 @@
 	desc = "A solidly wooden wall. It's a bit weaker than a wall made with metal."
 	girder_type = /obj/structure/barricade/wooden
 	hardness = 50
-	canSmoothWith = list(/turf/simulated/wall/mineral/wood, /obj/structure/falsewall/wood, /turf/simulated/wall/mineral/wood/nonmetal)
+	canSmoothWith = list(/turf/simulated/wall/mineral/wood, /obj/structure/falsewall/wood, /turf/simulated/wall/mineral/wood/nonmetal, /turf/simulated/wall/indestructible/wood)
 
 /turf/simulated/wall/mineral/iron
 	name = "rough metal wall"
@@ -185,7 +182,7 @@
 	smooth = SMOOTH_TRUE|SMOOTH_DIAGONAL
 	sheet_type = /obj/item/stack/sheet/mineral/abductor
 	explosion_block = 3
-	canSmoothWith = list(/turf/simulated/wall/mineral/abductor, /obj/structure/falsewall/abductor)
+	canSmoothWith = list(/turf/simulated/wall/mineral/abductor, /obj/structure/falsewall/abductor, /turf/simulated/wall/indestructible/alien)
 
 /////////////////////Titanium walls/////////////////////
 
@@ -198,7 +195,7 @@
 	flags_2 = CHECK_RICOCHET_2
 	sheet_type = /obj/item/stack/sheet/mineral/titanium
 	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
-	canSmoothWith = list(/turf/simulated/wall/mineral/titanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater, /obj/structure/falsewall/titanium)
+	canSmoothWith = list(/turf/simulated/wall/mineral/titanium, /obj/machinery/door/airlock/titanium, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater, /obj/structure/falsewall/titanium)
 
 /turf/simulated/wall/mineral/titanium/nodiagonal
 	smooth = SMOOTH_MORE
@@ -224,10 +221,11 @@
 		T.icon_state = icon_state
 	if(T.icon != icon)
 		T.icon = icon
-	if(T.color != color)
-		T.color = color
+	if(color)
+		T.atom_colours = atom_colours.Copy()
+		T.update_atom_colour()
 	if(T.dir != dir)
-		T.dir = dir
+		T.setDir(dir)
 	T.transform = transform
 	return T
 
@@ -290,7 +288,7 @@
 	explosion_block = 4
 	sheet_type = /obj/item/stack/sheet/mineral/plastitanium
 	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
-	canSmoothWith = list(/turf/simulated/wall/mineral/plastitanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/shuttle/engine, /obj/structure/falsewall/plastitanium)
+	canSmoothWith = list(/turf/simulated/wall/mineral/plastitanium, /turf/simulated/wall/indestructible/syndicate, /obj/machinery/door/airlock/titanium, /obj/machinery/door/airlock, /obj/structure/shuttle/engine, /obj/structure/falsewall/plastitanium, /turf/simulated/wall/indestructible/opsglass, /obj/structure/window/full/plastitanium)
 
 /turf/simulated/wall/mineral/plastitanium/nodiagonal
 	smooth = SMOOTH_MORE
@@ -304,16 +302,6 @@
 /turf/simulated/wall/mineral/plastitanium/overspace
 	icon_state = "map-overspace"
 	fixed_underlay = list("space"=1)
-
-/turf/simulated/wall/mineral/plastitanium/coated
-	name = "coated wall"
-	max_temperature = INFINITY
-	icon_state = "map-shuttle_nd"
-	smooth = SMOOTH_MORE
-
-/turf/simulated/wall/mineral/plastitanium/coated/Initialize(mapload)
-	. = ..()
-	desc += " It seems to have additional plating to protect against heat."
 
 /turf/simulated/wall/mineral/plastitanium/explosive
 	var/explosive_wall_group = EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE
@@ -345,10 +333,11 @@
 		T.icon_state = icon_state
 	if(T.icon != icon)
 		T.icon = icon
-	if(T.color != color)
-		T.color = color
+	if(color)
+		T.atom_colours = atom_colours.Copy()
+		T.update_atom_colour()
 	if(T.dir != dir)
-		T.dir = dir
+		T.setDir(dir)
 	T.transform = transform
 	return T
 

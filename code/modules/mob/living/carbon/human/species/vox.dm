@@ -86,9 +86,9 @@
 	var/tank_pref = H.client && H.client.prefs ? H.client.prefs.speciesprefs : null
 	var/obj/item/tank/internal_tank
 	if(tank_pref)//Diseasel, here you go
-		internal_tank = new /obj/item/tank/nitrogen(H)
+		internal_tank = new /obj/item/tank/internals/nitrogen(H)
 	else
-		internal_tank = new /obj/item/tank/emergency_oxygen/vox(H)
+		internal_tank = new /obj/item/tank/internals/emergency_oxygen/double/vox(H)
 	if(!H.equip_to_appropriate_slot(internal_tank))
 		if(!H.put_in_any_hand_if_possible(internal_tank))
 			H.unEquip(H.l_hand)

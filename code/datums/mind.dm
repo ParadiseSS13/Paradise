@@ -31,7 +31,7 @@
 	var/assigned_role //assigned role is what job you're assigned to when you join the station.
 	var/playtime_role //if set, overrides your assigned_role for the purpose of playtime awards. Set by IDcomputer when your ID is changed.
 	var/special_role //special roles are typically reserved for antags or roles like ERT. If you want to avoid a character being automatically announced by the AI, on arrival (becuase they're an off station character or something); ensure that special_role and assigned_role are equal.
-	var/offstation_role = FALSE //set to true for ERT, deathsquad, abductors, etc, that can go from and to z2 at will and shouldn't be antag targets
+	var/offstation_role = FALSE //set to true for ERT, deathsquad, abductors, etc, that can go from and to CC at will and shouldn't be antag targets
 	var/list/restricted_roles = list()
 
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
@@ -349,55 +349,41 @@
 	. += _memory_edit_role_enabled(ROLE_TRAITOR)
 	// Contractor
 	. += "<br><b><i>contractor</i></b>: "
-	var/datum/antagonist/traitor/contractor/C = has_antag_datum(/datum/antagonist/traitor/contractor)
-	if(C)
-		var/status
-		if(C.contractor_uplink) // Offer accepted
-			status = "<b><font color='red'>CONTRACTOR</font></b>"
-		else if(world.time >= C.offer_deadline)
-			status = "<b><font color='darkorange'>CONTRACTOR (EXPIRED)</font></b>"
-		else
-			status = "<b><font color='orange'>CONTRACTOR (PENDING)</font></b>"
-		. += "[status]|<a href='?src=[UID()];contractor=clear'>no</a>"
+	var/datum/contractor_hub/H = LAZYACCESS(GLOB.contractors, src)
+	if(H)
+		. += "<b><font color='red'>CONTRACTOR</font></b>"
 		// List all their contracts
-		if(C.contractor_uplink)
-			. += "<br><b>Contracts:</b>"
-			if(C.contractor_uplink.hub.contracts)
-				var/count = 1
-				for(var/co in C.contractor_uplink.hub.contracts)
-					var/datum/syndicate_contract/CO = co
-					. += "<br><B>Contract #[count++]</B>: "
-					. += "<a href='?src=[UID()];cuid=[CO.UID()];contractor=target'><b>[CO.contract.target?.name || "Invalid target!"]</b></a>|"
-					. += "<a href='?src=[UID()];cuid=[CO.UID()];contractor=locations'>locations</a>|"
-					. += "<a href='?src=[UID()];cuid=[CO.UID()];contractor=other'>more</a>|"
-					switch(CO.status)
-						if(CONTRACT_STATUS_INVALID)
-							. += "<b>INVALID</b>"
-						if(CONTRACT_STATUS_INACTIVE)
-							. += "inactive"
-						if(CONTRACT_STATUS_ACTIVE)
-							. += "<b><font color='orange'>ACTIVE</font></b>|"
-							. += "<a href='?src=[UID()];cuid=[CO.UID()];contractor=interrupt'>interrupt</a>|"
-							. += "<a href='?src=[UID()];cuid=[CO.UID()];contractor=fail'>fail</a>"
-						if(CONTRACT_STATUS_COMPLETED)
-							. += "<font color='green'>COMPLETED</font>"
-						if(CONTRACT_STATUS_FAILED)
-							. += "<font color='red'>FAILED</font>"
-				. += "<br>"
-				. += "<a href='?src=[UID()];contractor=add'>Add Contract</a><br>"
-				. += "Claimable TC: <a href='?src=[UID()];contractor=tc'>[C.contractor_uplink.hub.reward_tc_available]</a><br>"
-				. += "Available Rep: <a href='?src=[UID()];contractor=rep'>[C.contractor_uplink.hub.rep]</a><br>"
-			else
-				. += "<br>"
-				. += "<i>Has not logged in to contractor uplink</i>"
-	else
-		if(has_antag_datum(/datum/antagonist/traitor))
-			if(find_syndicate_uplink())
-				. += "<a href='?src=[UID()];contractor=contractor'>contractor</a>|<b>NO</b>"
-			else
-				. += "contractor|<b>NO</b>|No Uplink"
+		. += "<br><b>Contracts:</b>"
+		if(H.contracts)
+			var/count = 1
+			for(var/co in H.contracts)
+				var/datum/syndicate_contract/CO = co
+				. += "<br><B>Contract #[count++]</B>: "
+				. += "<a href='?src=[UID()];cuid=[CO.UID()];contractor=target'><b>[CO.contract.target?.name || "Invalid target!"]</b></a>|"
+				. += "<a href='?src=[UID()];cuid=[CO.UID()];contractor=locations'>locations</a>|"
+				. += "<a href='?src=[UID()];cuid=[CO.UID()];contractor=other'>more</a>|"
+				switch(CO.status)
+					if(CONTRACT_STATUS_INVALID)
+						. += "<b>INVALID</b>"
+					if(CONTRACT_STATUS_INACTIVE)
+						. += "inactive"
+					if(CONTRACT_STATUS_ACTIVE)
+						. += "<b><font color='orange'>ACTIVE</font></b>|"
+						. += "<a href='?src=[UID()];cuid=[CO.UID()];contractor=interrupt'>interrupt</a>|"
+						. += "<a href='?src=[UID()];cuid=[CO.UID()];contractor=fail'>fail</a>"
+					if(CONTRACT_STATUS_COMPLETED)
+						. += "<font color='green'>COMPLETED</font>"
+					if(CONTRACT_STATUS_FAILED)
+						. += "<font color='red'>FAILED</font>"
+			. += "<br>"
+			. += "<a href='?src=[UID()];contractor=add'>Add Contract</a><br>"
+			. += "Claimable TC: <a href='?src=[UID()];contractor=tc'>[H.reward_tc_available]</a><br>"
+			. += "Available Rep: <a href='?src=[UID()];contractor=rep'>[H.rep]</a><br>"
 		else
-			. += "contractor|<b>NO</b>"
+			. += "<br>"
+			. += "<i>Has not logged in to contractor uplink</i>"
+	else
+		. += "<b>NO</b>"
 	// Mindslave
 	. += "<br><b><i>mindslaved</i></b>: "
 	if(has_antag_datum(/datum/antagonist/mindslave))
@@ -1216,50 +1202,10 @@
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 
 	else if(href_list["contractor"])
-		var/datum/antagonist/traitor/contractor/C = has_antag_datum(/datum/antagonist/traitor/contractor)
-		var/datum/contractor_hub/H = C && C.contractor_uplink?.hub
+		var/datum/contractor_hub/H = LAZYACCESS(GLOB.contractors, src)
 		switch(href_list["contractor"])
-			if("clear")
-				if(!C)
-					return
-				var/memory = C.antag_memory // Need to preserve the codewords and such
-				// Clean up contractor stuff
-				var/obj/item/uplink/hidden/U = find_syndicate_uplink()
-				U?.contractor = null
-				C.silent = TRUE
-				remove_antag_datum(/datum/antagonist/traitor/contractor)
-				// Traitor them again
-				if(!has_antag_datum(/datum/antagonist/traitor, FALSE))
-					var/datum/antagonist/traitor/T = new()
-					T.give_objectives = FALSE
-					T.should_equip = FALSE
-					T.silent = TRUE
-					T.antag_memory += memory
-					add_antag_datum(T)
-				// Notify
-				to_chat(current, "<span class='warning'><font size=3><b>You are no longer a Contractor!</b></font></span>")
-				log_admin("[key_name(usr)] has de-contractored [key_name(current)]")
-				message_admins("[key_name_admin(usr)] has de-contractored [key_name_admin(current)]")
-
-			if("contractor")
-				if(has_antag_datum(/datum/antagonist/traitor/contractor))
-					return
-				var/datum/antagonist/traitor/T = has_antag_datum(/datum/antagonist/traitor)
-				var/memory = T?.antag_memory // Need to preserve the codewords and such
-				// Replace the traitor datum by a contractor one
-				remove_antag_datum(/datum/antagonist/traitor)
-				C = new()
-				C.give_objectives = FALSE
-				C.should_equip = FALSE
-				C.silent = TRUE
-				C.antag_memory += memory
-				add_antag_datum(C)
-				// Notify
-				log_admin("[key_name(usr)] has contractored [key_name(current)]")
-				message_admins("[key_name_admin(usr)] has contractored [key_name_admin(current)]")
-
 			if("add")
-				if(!C)
+				if(!H)
 					return
 				var/list/possible_targets = list()
 				for(var/foo in SSticker.minds)
@@ -1275,37 +1221,37 @@
 				var/datum/syndicate_contract/new_contract = new(H, src, list(), target)
 				new_contract.reward_tc = list(0, 0, 0)
 				H.contracts += new_contract
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(H)
 				log_admin("[key_name(usr)] has given a new contract to [key_name(current)] with [target.current] as the target")
 				message_admins("[key_name_admin(usr)] has given a new contract to [key_name_admin(current)] with [target.current] as the target")
 
 			if("tc")
-				if(!C)
+				if(!H)
 					return
 				var/new_tc = input(usr, "Enter the new amount of TC:", "Set Claimable TC", H.reward_tc_available) as num|null
 				new_tc = text2num(new_tc)
 				if(isnull(new_tc) || new_tc < 0)
 					return
 				H.reward_tc_available = new_tc
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(H)
 				log_admin("[key_name(usr)] has set [key_name(current)]'s claimable TC to [new_tc]")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s claimable TC to [new_tc]")
 
 			if("rep")
-				if(!C)
+				if(!H)
 					return
 				var/new_rep = input(usr, "Enter the new amount of Rep:", "Set Available Rep", H.rep) as num|null
 				new_rep = text2num(new_rep)
 				if(isnull(new_rep) || new_rep < 0)
 					return
 				H.rep = new_rep
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(H)
 				log_admin("[key_name(usr)] has set [key_name(current)]'s contractor Rep to [new_rep]")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s contractor Rep to [new_rep]")
 
 			// Contract specific actions
 			if("target")
-				if(!C)
+				if(!H)
 					return
 				var/datum/syndicate_contract/CO = locateUID(href_list["cuid"])
 				if(!istype(CO))
@@ -1333,12 +1279,12 @@
 					temp.Blend(R.fields["photo"], ICON_OVERLAY)
 					CO.target_photo = temp
 				// Notify
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(H)
 				log_admin("[key_name(usr)] has set [key_name(current)]'s contract target to [target.current]")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s contract target to [target.current]")
 
 			if("locations")
-				if(!C)
+				if(!H)
 					return
 				var/datum/syndicate_contract/CO = locateUID(href_list["cuid"])
 				if(!istype(CO))
@@ -1371,12 +1317,12 @@
 					return
 				CO.contract.candidate_zones[difficulty] = new_area
 				CO.reward_tc[difficulty] = new_reward
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(H)
 				log_admin("[key_name(usr)] has set [key_name(current)]'s contract location to [new_area] with [new_reward] TC as reward")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s contract location to [new_area] with [new_reward] TC as reward")
 
 			if("other")
-				if(!C)
+				if(!H)
 					return
 				var/datum/syndicate_contract/CO = locateUID(href_list["cuid"])
 				if(!istype(CO))
@@ -1416,10 +1362,10 @@
 						message_admins("[key_name_admin(usr)] has deleted [key_name_admin(current)]'s contract")
 					else
 						return
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(H)
 
 			if("interrupt")
-				if(!C)
+				if(!H)
 					return
 				var/datum/syndicate_contract/CO = locateUID(href_list["cuid"])
 				if(!istype(CO) || CO.status != CONTRACT_STATUS_ACTIVE)
@@ -1432,7 +1378,7 @@
 				message_admins("[key_name_admin(usr)] has interrupted [key_name_admin(current)]'s contract")
 
 			if("fail")
-				if(!C)
+				if(!H)
 					return
 				var/datum/syndicate_contract/CO = locateUID(href_list["cuid"])
 				if(!istype(CO) || CO.status != CONTRACT_STATUS_ACTIVE)
@@ -1441,7 +1387,7 @@
 				if(!fail_reason || CO.status != CONTRACT_STATUS_ACTIVE)
 					return
 				CO.fail(fail_reason)
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(H)
 				log_admin("[key_name(usr)] has failed [key_name(current)]'s contract with reason: [fail_reason]")
 				message_admins("[key_name_admin(usr)] has failed [key_name_admin(current)]'s contract with reason: [fail_reason]")
 

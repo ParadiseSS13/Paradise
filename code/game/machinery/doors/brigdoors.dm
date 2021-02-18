@@ -86,7 +86,7 @@
 	var/timetext = seconds_to_time(timetoset / 10)
 	var/announcetext = "Detainee [occupant] ([prisoner_drank]) has been incarcerated for [timetext] for the crime of: '[crimes]'. \
 	Arresting Officer: [usr.name].[R ? "" : " Detainee record not found, manual record update required."]"
-	Radio.autosay(announcetext, name, "Security", list(z))
+	Radio.autosay(announcetext, name, "Security")
 
 	// Notify the actual criminal being brigged. This is a QOL thing to ensure they always know the charges against them.
 	// Announcing it on radio isn't enough, as they're unlikely to have sec radio.
