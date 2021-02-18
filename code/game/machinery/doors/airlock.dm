@@ -1395,7 +1395,7 @@ About the new airlock wires panel:
 			to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 		var/obj/item/airlock_electronics/ae
 		if(emagged)
-			electronics = new/obj/item/airlock_electronics/destroyed()
+			electronics = new /obj/item/airlock_electronics/destroyed()
 			operating = 0
 
 		if(!electronics)
