@@ -1745,7 +1745,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/storage/box/dice,
 					/obj/item/storage/box/dice)
 	cost = 5
-	containername = "flag assortment Crate"
+	containername = "DND crate"
 
 /datum/supply_packs/misc/randomised/contraband
 	num_contained = 5
