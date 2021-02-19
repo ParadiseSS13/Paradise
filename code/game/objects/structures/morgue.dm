@@ -480,6 +480,7 @@
 						use_power = ACTIVE_POWER_USE
 						C.cremate(user)
 						addtimer(20)
+						use_power = IDLE_POWER_USE
 		else
 			to_chat(usr, "<span class='warning'>Access denied.</span>")
 
