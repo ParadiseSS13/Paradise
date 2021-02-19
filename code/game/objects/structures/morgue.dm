@@ -457,8 +457,9 @@
 	name = "crematorium igniter"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "crema_switch"
+	power_channel = EQUIP
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
+	idle_power_usage = 100
 	active_power_usage = 5000
 	anchored = 1.0
 	req_access = list(ACCESS_CREMATORIUM)
@@ -480,6 +481,7 @@
 /obj/machinery/crema_switch/attack_hand(mob/user)
 	if(powered(power_channel)) // Do we have power?
 		if(allowed(usr) || user.can_advanced_admin_interact())
+			new_use_power = ACTIVE_POWER_USE
 			set_power_use()
 			addtimer(CALLBACK(src, set_power_use()), 10 SECONDS)
 			for(var/obj/structure/crematorium/C in world)
