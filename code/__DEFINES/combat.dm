@@ -32,12 +32,12 @@
 #define OBLITERATION 32
 
 //Bitflags defining which status effects could be or are inflicted on a mob
-#define CANSTUN					1
-#define CANWEAKEN				2
-#define CANPARALYSE				4
-#define CANPUSH					8
-#define PASSEMOTES				16      //Mob has a cortical borer or holders inside of it that need to see emotes.
-#define GODMODE					32
+#define CANSTUN			1
+#define CANWEAKEN		2
+#define CANPARALYSE		4
+#define CANPUSH			8
+#define PASSEMOTES		16 //Mob has a cortical borer or holders inside of it that need to see emotes.
+#define GODMODE			32
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0

@@ -123,7 +123,7 @@
 			//testing("DNA2: Gene [G.name] assigned to block [G.block].")
 
 	// I WILL HAVE A LIST OF MUTATIONS THAT MATCHES THE RANDOMIZED BLOCKS GODDAMNIT!
-	for(var/block=1;block<=DNA_SE_LENGTH;block++)
+	for(var/block in 1 to DNA_SE_LENGTH)
 		var/name = GLOB.assigned_blocks[block]
 		for(var/datum/mutation/mutation in GLOB.dna_mutations)
 			if(mutation.name == name || mutation.block == block)

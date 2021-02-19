@@ -22,9 +22,9 @@
 			addtimer(CALLBACK(src, .proc/remove, target), duration, TIMER_OVERRIDE|TIMER_UNIQUE)
 
 /obj/effect/proc_holder/spell/targeted/genetic/Destroy()
-	. = ..()
 	for(var/V in active_on)
 		remove(V)
+	return ..()
 
 /obj/effect/proc_holder/spell/targeted/genetic/proc/remove(mob/living/carbon/target)
 	active_on -= target

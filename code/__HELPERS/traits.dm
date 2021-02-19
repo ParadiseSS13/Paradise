@@ -172,6 +172,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define STASIS_MUTE "stasis"
 #define SCRYING_ORB "scrying-orb"
 #define CULT_EYES "cult_eyes"
+#define DOGGO_SPACESUIT "doggo_spacesuit"
+#define FLOORCLUWNE "floorcluwne"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"

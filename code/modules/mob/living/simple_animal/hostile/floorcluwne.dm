@@ -346,7 +346,7 @@
 		visible_message("<span class='danger'>[src] begins dragging [H] under the floor!</span>")
 
 		if(do_after(src, 50, target = H) && eating)
-			H.become_blind("floorcluwne")
+			H.become_blind(FLOORCLUWNE)
 			H.layer = GAME_PLANE
 			H.invisibility = INVISIBILITY_MAXIMUM
 			H.mouse_opacity = 0
@@ -388,7 +388,7 @@
 			O.droplimb()
 
 	Reset_View(FALSE, old_color, H)
-	H.cure_blind("floorcluwne")
+	H.cure_blind(FLOORCLUWNE)
 	H.layer = initial(H.layer)
 	H.invisibility = initial(H.invisibility)
 	H.mouse_opacity = initial(H.mouse_opacity)

@@ -360,25 +360,6 @@
 		C.visible_message("<span class='warning'>[user] sprays a cloud of fine ice crystals, engulfing [C]!</span>")
 		add_attack_logs(user, C, "Cryokinesis- NO SUIT/INTERNALS")
 
-	//playsound(user.loc, 'bamf.ogg', 50, 0)
-
-	new/obj/effect/self_deleting(C.loc, icon('icons/effects/genetics.dmi', "cryokinesis"))
-
-/obj/effect/self_deleting
-	density = 0
-	opacity = 0
-	anchored = 1
-	icon = null
-	desc = ""
-	//layer = 15
-
-/obj/effect/self_deleting/New(atom/location, icon/I, duration = 20, oname = "something")
-	. = ..()
-	name = oname
-	loc=location
-	icon = I
-	QDEL_IN(src, duration)
-
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 // WAS: /datum/bioEffect/mattereater
