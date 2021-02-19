@@ -476,10 +476,11 @@
 		if(allowed(usr) || user.can_advanced_admin_interact())
 			for(var/obj/structure/crematorium/C in world)
 				if(C.id == id)
+					use_power = ACTIVE_POWER_USE
 					if(!C.cremating)
-						use_power = ACTIVE_POWER_USE
 						C.cremate(user)
-						addtimer(20)
+
+					addtimer(20)
 						use_power = IDLE_POWER_USE
 		else
 			to_chat(usr, "<span class='warning'>Access denied.</span>")
