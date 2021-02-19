@@ -46,6 +46,7 @@
 	if(counter_id != paranoid_sanitize(counter_id))
 		stack_trace("Counter ID did not pass sanitization for disaster counter at [x],[y],[z]. Potential attempt at filesystem manipulation.")
 		qdel(src)
+		return
 
 	var/savefile/S = new /savefile("data/disaster_counters/[counter_id].sav")
 	S["count"] >> current_count
@@ -69,6 +70,7 @@
 	if(counter_id != paranoid_sanitize(counter_id))
 		stack_trace("Counter ID did not pass sanitization for disaster counter at [x],[y],[z]. Potential attempt at filesystem manipulation.")
 		qdel(src)
+		return
 
 	var/savefile/S = new /savefile("data/disaster_counters/[counter_id].sav")
 
