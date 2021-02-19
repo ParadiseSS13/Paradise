@@ -459,7 +459,7 @@
 	icon_state = "crema_switch"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
-	active_power_usage = 1500 // Not used, uses 1500 total
+	active_power_usage = 5000
 	anchored = 1.0
 	req_access = list(ACCESS_CREMATORIUM)
 	var/on = 0
@@ -477,8 +477,9 @@
 			for(var/obj/structure/crematorium/C in world)
 				if(C.id == id)
 					if(!C.cremating)
-						use_power(15000) // Power is consumed
+						use_power = ACTIVE_POWER_USE
 						C.cremate(user)
+						addtimer(20)
 		else
 			to_chat(usr, "<span class='warning'>Access denied.</span>")
 
