@@ -5,7 +5,7 @@
   */
 /obj/structure/disaster_counter
 	name = "disaster counter"
-	desc = "This device will counts how many shifts it has been since a major disaster in this area. A safe workplace is a productive workplace."
+	desc = "This device will count how many shifts it has been since a major disaster in this area. A safe workplace is a productive workplace."
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "frame"
 	maptext_y = 10 // Offset by 10 so it renders properly
