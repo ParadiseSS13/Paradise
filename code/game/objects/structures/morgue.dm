@@ -477,7 +477,7 @@
 			for(var/obj/structure/crematorium/C in world)
 				if(C.id == id)
 					if(!C.cremating)
-						use_power(1500) // Power is consumed
+						use_power(15000) // Power is consumed
 						C.cremate(user)
 		else
 			to_chat(usr, "<span class='warning'>Access denied.</span>")
