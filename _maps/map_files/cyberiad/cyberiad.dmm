@@ -41848,7 +41848,7 @@
 	dir = 2;
 	network = list("Research","SS13")
 	},
-/obj/structure/reagent_dispensers/oil,
+/obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteredcorner"
@@ -47749,7 +47749,7 @@
 	},
 /area/medical/genetics)
 "bSI" = (
-/obj/structure/reagent_dispensers/fueltank,
+/obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
 "bSJ" = (
