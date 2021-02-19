@@ -457,10 +457,9 @@
 	name = "crematorium igniter"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "crema_switch"
-	power_channel = EQUIP
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
-	active_power_usage = 1000
+	active_power_usage = 1500 // Not used, uses 1500 total
 	anchored = 1.0
 	req_access = list(ACCESS_CREMATORIUM)
 	var/on = 0
@@ -473,15 +472,13 @@
 		return attack_hand(user)
 
 /obj/machinery/crema_switch/attack_hand(mob/user)
-	if(powered(power_channel))
+	if(powered(power_channel)) // Do we have power?
 		if(allowed(usr) || user.can_advanced_admin_interact())
 			for(var/obj/structure/crematorium/C in world)
 				if(C.id == id)
 					if(!C.cremating)
-						use_power = ACTIVE_POWER_USE
+						use_power(1500) // Power is consumed
 						C.cremate(user)
-						addtimer(10)
-						use_power = IDLE_POWER_USE
 		else
 			to_chat(usr, "<span class='warning'>Access denied.</span>")
 
