@@ -457,6 +457,7 @@
 	name = "crematorium igniter"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "crema_switch"
+	power_channel = ENVIRON
 	anchored = 1.0
 	req_access = list(ACCESS_CREMATORIUM)
 	var/on = 0
