@@ -83,7 +83,7 @@
 			if(chunk.seenby.len)
 				for(var/mob/camera/aiEye/A in chunk.seenby)
 					//Checks if the A is to be detected or not
-					if(!A.show_on_multitool)
+					if(!A.ai_detector_visible)
 						continue
 					var/turf/detect_turf = get_turf(A)
 					if(get_dist(our_turf, detect_turf) < rangealert)
