@@ -467,6 +467,12 @@
 	var/otherarea = null
 	var/id = 1
 
+/obj/machinery/crema_switch/proc/set_power_use()
+	if(use_power == IDLE_POWER_USE)
+		use_power = ACTIVE_POWER_USE
+	else
+		use_power = IDLE_POWER_USE
+
 /obj/machinery/crema_switch/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
@@ -474,14 +480,14 @@
 /obj/machinery/crema_switch/attack_hand(mob/user)
 	if(powered(power_channel)) // Do we have power?
 		if(allowed(usr) || user.can_advanced_admin_interact())
+			update_use_power(ACTIVE_POWER_USE)
+			addtimer(CALLBACK(src, update_use_power(IDLE_POWER_USE)) 10 SECONDS)
 			for(var/obj/structure/crematorium/C in world)
 				if(C.id == id)
-					use_power = ACTIVE_POWER_USE
 					if(!C.cremating)
 						C.cremate(user)
 
-					addtimer(20)
-						use_power = IDLE_POWER_USE
+
 		else
 			to_chat(usr, "<span class='warning'>Access denied.</span>")
 
