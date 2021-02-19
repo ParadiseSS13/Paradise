@@ -480,8 +480,8 @@
 /obj/machinery/crema_switch/attack_hand(mob/user)
 	if(powered(power_channel)) // Do we have power?
 		if(allowed(usr) || user.can_advanced_admin_interact())
-			update_use_power(ACTIVE_POWER_USE)
-			addtimer(CALLBACK(src, update_use_power(IDLE_POWER_USE)), 10 SECONDS)
+			set_power_use()
+			addtimer(CALLBACK(src, set_power_use()), 10 SECONDS)
 			for(var/obj/structure/crematorium/C in world)
 				if(C.id == id)
 					if(!C.cremating)
