@@ -475,7 +475,7 @@
 /obj/machinery/crema_switch/attack_hand(mob/user)
 	if(powered(power_channel)) // Do we have power?
 		if(allowed(usr) || user.can_advanced_admin_interact())
-			use_power(200000)
+			use_power(400000)
 			for(var/obj/structure/crematorium/C in world)
 				if(C.id == id)
 					if(!C.cremating)
