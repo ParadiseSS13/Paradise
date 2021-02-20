@@ -1,4 +1,4 @@
-/client/verb/jump_to()
+/client/proc/jump_to()
 	set name = "Jump to..."
 	set desc = "Area, Mob, Key or Coordinate"
 	set category = "Admin"
