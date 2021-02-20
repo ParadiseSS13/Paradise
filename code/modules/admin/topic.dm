@@ -1875,14 +1875,16 @@
 		log_admin("Admin [key_name_admin(usr)] has unlocked the Cult's ability to summon Nar'Sie.")
 
 	else if(href_list["adminplayerobservecoodjump"])
-		if(!check_rights(R_ADMIN))	return
+		var/client/C = usr.client
+		if(!isobserver(usr))
+			if(!check_rights(R_ADMIN)) // Need to be admin to aghost
+				return
+			C.admin_ghost()
 
 		var/x = text2num(href_list["X"])
 		var/y = text2num(href_list["Y"])
 		var/z = text2num(href_list["Z"])
 
-		var/client/C = usr.client
-		if(!isobserver(usr))	C.admin_ghost()
 		sleep(2)
 		C.jumptocoord(x,y,z)
 
