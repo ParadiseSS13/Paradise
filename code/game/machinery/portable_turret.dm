@@ -107,6 +107,7 @@
 /obj/machinery/porta_turret/proc/weapon_setup(var/guntype)
 	switch(guntype)
 		if(/obj/item/gun/energy/laser/practice)
+			lethal_is_configurable = FALSE
 			iconholder = 1
 			eprojectile = /obj/item/projectile/beam
 
@@ -120,6 +121,7 @@
 			iconholder = 1
 
 		if(/obj/item/gun/energy/taser)
+			lethal_is_configurable = FALSE
 			eprojectile = /obj/item/projectile/beam
 			eshot_sound = 'sound/weapons/laser.ogg'
 
