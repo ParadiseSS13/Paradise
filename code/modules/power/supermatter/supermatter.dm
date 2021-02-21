@@ -819,12 +819,12 @@
 	if(L)
 		switch(type)
 			if(FLUX_ANOMALY)
-				var/obj/effect/anomaly/flux/A = new(L, 300, FALSE)
+				var/obj/effect/anomaly/flux/A = new(L, 300)
 				A.explosive = FALSE
 			if(GRAVITATIONAL_ANOMALY)
-				new /obj/effect/anomaly/grav(L, 250, FALSE)
+				new /obj/effect/anomaly/grav(L, 250)
 			if(PYRO_ANOMALY)
-				new /obj/effect/anomaly/pyro(L, 200, FALSE)
+				new /obj/effect/anomaly/pyro(L, 200)
 
 /obj/machinery/power/supermatter_crystal/proc/supermatter_zap(atom/zapstart = src, range = 5, zap_str = 4000, zap_flags = ZAP_SUPERMATTER_FLAGS, list/targets_hit = list())
 	if(QDELETED(zapstart))
