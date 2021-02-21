@@ -47,7 +47,7 @@
 	for(var/turf/T in view(freeze_range, loc))
 		if(isfloorturf(T))
 			var/turf/simulated/F = T
-			F.MakeSlippery(TURF_WET_PERMAFROST)
+			F.MakeSlippery(TURF_WET_ICE)
 			for(var/mob/living/carbon/L in T)
 				L.adjustStaminaLoss(stamina_damage)
 				L.adjust_bodytemperature(-230)
