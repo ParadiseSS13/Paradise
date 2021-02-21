@@ -5,7 +5,8 @@
 	icobase = 'icons/mob/human_races/r_golem.dmi'
 	deform = 'icons/mob/human_races/r_golem.dmi'
 
-	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, NOGUNS, PIERCEIMMUNE)
+	species_traits = list(NO_BLOOD)
+	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_NOFIRE, TRAIT_CHUNKYFINGERS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN)
 	dies_at_threshold = TRUE
 	speed_mod = 2
 	brute_mod = 0.45 //55% damage reduction
@@ -23,19 +24,6 @@
 
 	dietflags = DIET_OMNI		//golems can eat anything because they are magic or something
 	reagent_tag = PROCESS_ORG
-
-	warning_low_pressure = -INFINITY
-	hazard_low_pressure = -INFINITY
-	hazard_high_pressure = INFINITY
-	warning_high_pressure = INFINITY
-
-	cold_level_1 = -INFINITY
-	cold_level_2 = -INFINITY
-	cold_level_3 = -INFINITY
-
-	heat_level_1 = INFINITY
-	heat_level_2 = INFINITY
-	heat_level_3 = INFINITY
 
 	blood_color = "#515573"
 	flesh_color = "#137E8F"
@@ -138,10 +126,9 @@
 /datum/species/golem/plasma
 	name = "Plasma Golem"
 	skinned_type = /obj/item/stack/ore/plasma
+	//Can burn and takes damage from heat
+	inherent_traits = list(TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_CHUNKYFINGERS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN) //no RESISTHEAT, NOFIRE
 	golem_colour = rgb(170, 51, 221)
-	heat_level_1 = 360
-	heat_level_2 = 400
-	heat_level_3 = 460
 	info_text = "As a <span class='danger'>Plasma Golem</span>, you burn easily. Be careful, if you get hot enough while burning, you'll blow up!"
 	heatmod = 0 //fine until they blow up
 	prefix = "Plasma"
@@ -327,8 +314,9 @@
 	name = "Wood Golem"
 	golem_colour = rgb(158, 112, 75)
 	skinned_type = /obj/item/stack/sheet/wood
-	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, NOGUNS, PIERCEIMMUNE, IS_PLANT)
+	species_traits = list(NO_BLOOD, IS_PLANT) // Refactor into biotype
 	//Can burn and take damage from heat
+	inherent_traits = list(TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_CHUNKYFINGERS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN)
 	brute_mod = 0.7 //30% damage reduction down from 55%
 	burn_mod = 0.875
 	tox_mod = 0.7
@@ -336,11 +324,6 @@
 	brain_mod = 0.7
 	stamina_mod = 0.7
 	heatmod = 1.5
-
-	heat_level_1 = 300
-	heat_level_2 = 340
-	heat_level_3 = 400
-
 	dietflags = DIET_HERB		// Plants eat...plants?
 
 	info_text = "As a <span class='danger'>Wooden Golem</span>, you have plant-like traits: you take damage from extreme temperatures, can be set on fire, and have lower armor than a normal golem. You regenerate when in the light and wither in the darkness."
@@ -616,7 +599,7 @@
 	prefix = "Bananium"
 	special_names = null
 	unarmed_type = /datum/unarmed_attack/golem/bananium
-
+	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_NOFIRE, TRAIT_CHUNKYFINGERS, TRAIT_CLUMSY, TRAIT_COMIC_SANS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN)
 	var/last_honk = 0
 	var/honkooldown = 0
 	var/last_banana = 0
@@ -627,7 +610,6 @@
 	..()
 	last_banana = world.time
 	last_honk = world.time
-	H.mutations.Add(COMIC)
 	H.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(H), slot_r_store)
 	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), slot_l_store)
 	H.AddElement(/datum/element/waddling)

@@ -21,7 +21,8 @@
 	even the simplest concepts of other minds. Their alien physiology allows them survive happily off a diet of nothing but light, \
 	water and other radiation."
 
-	species_traits = list(IS_PLANT, NO_GERMS, NO_DECAY)
+	species_traits = list(IS_PLANT)
+	inherent_traits = list(TRAIT_NOGERMS, TRAIT_NODECAY)
 	clothing_flags = HAS_SOCKS
 	default_hair_colour = "#000000"
 	has_gender = FALSE
@@ -111,6 +112,26 @@
 	if(!is_vamp && H.nutrition < NUTRITION_LEVEL_STARVING + 50)
 		H.adjustBruteLoss(2)
 	..()
+
+/datum/species/diona/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
+	switch(P.type)
+		if(/obj/item/projectile/energy/floramut)
+			if(prob(15))
+				H.rad_act(rand(30, 80))
+				H.Weaken(5)
+				H.visible_message("<span class='warning'>[H] writhes in pain as [H.p_their()] vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
+				if(prob(80))
+					randmutb(H)
+					domutcheck(H)
+				else
+					randmutg(H)
+					domutcheck(H)
+			else
+				H.adjustFireLoss(rand(5, 15))
+				H.show_message("<span class='warning'>The radiation beam singes you!</span>")
+		if(/obj/item/projectile/energy/florayield)
+			H.set_nutrition(min(H.nutrition + 30, NUTRITION_LEVEL_FULL))
+	return TRUE
 
 /datum/species/diona/pod //Same name and everything; we want the same limitations on them; we just want their regeneration to kick in at all times and them to have special factions
 	pod = TRUE
