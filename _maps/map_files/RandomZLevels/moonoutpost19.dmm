@@ -10087,6 +10087,13 @@
 	has_gravity = 1;
 	name = "MO19 Arrivals"
 	})
+"xB" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/awaycontent/a1{
+	has_gravity = 1;
+	name = "MO19 Arrivals"
+	})
 
 (1,1,1) = {"
 aa
@@ -13468,9 +13475,9 @@ aZ
 aZ
 aZ
 ld
-is
-is
-is
+xB
+xB
+xB
 ld
 aZ
 aZ
@@ -14264,13 +14271,13 @@ kh
 km
 hJ
 aZ
-is
+xB
 mc
 mt
 mJ
 mt
 mc
-is
+xB
 aZ
 aZ
 dA
@@ -14606,13 +14613,13 @@ kl
 kw
 is
 aZ
-is
+xB
 md
 md
 ms
 md
 md
-is
+xB
 aZ
 aZ
 dA

@@ -374,6 +374,9 @@
 "DZ" = (
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
+"Jw" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/shuttle/escape)
 
 (1,1,1) = {"
 aa
@@ -394,7 +397,7 @@ ac
 ac
 ab
 aW
-ab
+Jw
 aW
 ac
 ab
