@@ -347,7 +347,7 @@
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_VOX, ACCESS_EXTERNAL_AIRLOCKS)
 
 /obj/item/card/id/syndicate/command
-	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND, ACCESS_EXTERNAL_AIRLOCKS)
+	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_SYNDICATE_ELITE, ACCESS_SYNDICATE_COMMAND, ACCESS_EXTERNAL_AIRLOCKS)
 	icon_state = "commander"
 
 /obj/item/card/id/syndicate/afterattack(var/obj/item/O as obj, mob/user as mob, proximity)
@@ -602,7 +602,7 @@
 	icon_state = "syndie"
 	assignment = "Syndicate Overlord"
 	untrackable = 1
-	access = list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND, ACCESS_EXTERNAL_AIRLOCKS)
+	access = list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_ELITE, ACCESS_SYNDICATE_COMMAND, ACCESS_EXTERNAL_AIRLOCKS)
 
 /obj/item/card/id/captains_spare
 	name = "captain's spare ID"

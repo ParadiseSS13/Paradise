@@ -222,7 +222,7 @@
 /obj/machinery/computer/syndicate_depot/shieldcontrol
 	name = "shield control computer"
 	icon_screen = "accelerator"
-	req_access = list(ACCESS_SYNDICATE_LEADER)
+	req_access = list(ACCESS_SYNDICATE_ELITE)
 	alerts_when_broken = TRUE
 	window_height = 280
 	var/area/syndicate_depot/perimeter/perimeterarea

@@ -62,7 +62,7 @@
 
 	syndicate = TRUE
 	faction = "syndicate"
-	req_access = list(ACCESS_SYNDICATE_LEADER)
+	req_access = list(ACCESS_SYNDICATE_ELITE)
 
 /obj/machinery/turretid/Destroy()
 	if(control_area)

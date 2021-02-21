@@ -227,7 +227,7 @@
 			ID.name = "[synd_mind.current.real_name] ID card"
 			ID.registered_name = synd_mind.current.real_name
 			if(is_leader)
-				ID.access += ACCESS_SYNDICATE_LEADER
+				ID.access += ACCESS_SYNDICATE_ELITE
 	else
 		message_admins("Warning: Operative [key_name_admin(synd_mind.current)] spawned without an ID card!")
 
