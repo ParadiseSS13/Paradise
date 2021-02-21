@@ -483,7 +483,6 @@
 	charge_max = 600
 	clothes_req = FALSE
 	range = 1 //Adjacent to user
-	var/enthralling = FALSE
 	action_icon_state = "mindshield_melt"
 
 	click_radius = -1 // Precision baby
@@ -492,7 +491,7 @@
 	allowed_type = /mob/living/carbon/human
 
 /obj/effect/proc_holder/spell/targeted/click/mindshield_melt/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(enthralling || !shadowling_check(user))
+	if(!shadowling_check(user))
 		return FALSE
 	return ..()
 
@@ -507,7 +506,6 @@
 		return
 	var/mob/living/carbon/human/target = targets[1]
 	if(ismindshielded(target))
-		enthralling = TRUE
 		to_chat(user, "<span class='danger'>This target is mindshielded. You begin the destroying the implant.</span>")
 		to_chat(target, "<span class='userdanger'>[user] stares at you. You feel your head begin to pulse.</span>")
 
@@ -527,17 +525,14 @@
 					for(var/obj/item/implant/mindshield/L in target)
 						if(L && L.implanted)
 							qdel(L)
-					to_chat(target, "<span class='boldannounce'>Your mental protection implant unexpectedly falters, dims, dies.</span>")
+					to_chat(target, "<span class='boldannounce'>Your mental protection implant unexpectedly falters, dims, and dies.</span>")
 			if(!do_mob(user, target, 10 SECONDS))
 				to_chat(user, "<span class='warning'>The mindshield removal has been interrupted - the nanobots of your target's mindshields returns to its previous state.</span>")
 				to_chat(target, "<span class='userdanger'>You wrest yourself away from [user]'s hands and compose yourself</span>")
-				enthralling = FALSE
 				return
 
-		enthralling = FALSE
 		to_chat(user, "<span class='shadowling'>You have destroyed the mindshield <b>[target]</b>!</span>")
 		target.visible_message("<span class='big'>[target] looks to have experienced a sense of liberation!</span>")
-		target.setOxyLoss(0) //In case the shadowling was choking them out
 
 /obj/effect/proc_holder/spell/aoe_turf/null_charge
 	name = "Null Charge"
