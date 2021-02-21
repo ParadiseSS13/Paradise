@@ -19,8 +19,6 @@
 
 	brute_mod = 1.25 //greys are fragile
 
-	default_genes = list(REMOTE_TALK)
-
 	species_traits = list(LIPS, IS_WHITELISTED, CAN_WINGDINGS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags =  HAS_BODY_MARKINGS
@@ -32,9 +30,12 @@
 
 /datum/species/grey/handle_dna(mob/living/carbon/human/H, remove)
 	..()
-	H.dna.SetSEState(GLOB.remotetalkblock, !remove, 1)
-	genemutcheck(H, GLOB.remotetalkblock, null, MUTCHK_FORCED)
-	H.dna.default_blocks.Add(GLOB.remotetalkblock)
+	H.dna.SetSEState(GLOB.remotetalkblock, !remove, TRUE)
+	singlemutcheck(H, GLOB.remotetalkblock, MUTCHK_FORCED)
+	if(!remove)
+		H.dna.default_blocks.Add(GLOB.remotetalkblock)
+	else
+		H.dna.default_blocks.Remove(GLOB.remotetalkblock)
 
 /datum/species/grey/water_act(mob/living/carbon/human/H, volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
@@ -68,7 +69,7 @@
 
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/translator_pref = H.client.prefs.speciesprefs
-	if(translator_pref || ((ismindshielded(H) || J.is_command || J.supervisors == "the captain") && (WINGDINGS in H.mutations)))
+	if(translator_pref || ((ismindshielded(H) || J.is_command || J.supervisors == "the captain") && HAS_TRAIT(H, TRAIT_WINGDINGS)))
 		if(J.title == "Mime")
 			return
 		if(J.title == "Clown")

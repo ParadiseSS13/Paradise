@@ -16,7 +16,7 @@
 				if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
 					continue
 			if(!M.mind || !M.mind.changeling)
-				M.MinimumDeafTicks(30)
+				M.AdjustEarDamage(0, 30)
 				M.AdjustConfused(20)
 				M.Jitter(50)
 			else

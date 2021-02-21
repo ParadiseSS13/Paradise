@@ -62,7 +62,7 @@
 		return FALSE
 	if((flags & SHOCK_TESLA) && HAS_TRAIT(src, TRAIT_TESLA_SHOCKIMMUNE))
 		return FALSE
-	if(NO_SHOCK in mutations) //shockproof
+	if(HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
 		return FALSE
 	shock_damage *= siemens_coeff
 	if(shock_damage < 1)
@@ -166,15 +166,14 @@
 
 //Mobs on Fire
 /mob/living/proc/IgniteMob()
-	if(fire_stacks > 0 && !on_fire)
-		on_fire = 1
-		visible_message("<span class='warning'>[src] catches fire!</span>", \
-						"<span class='userdanger'>You're set on fire!</span>")
+	if(fire_stacks > 0 && !on_fire && !HAS_TRAIT(src, TRAIT_NOFIRE))
+		on_fire = TRUE
+		visible_message("<span class='warning'>[src] catches fire!</span>", "<span class='userdanger'>You're set on fire!</span>")
 		set_light(light_range + 3,l_color = "#ED9200")
 		throw_alert("fire", /obj/screen/alert/fire)
 		update_fire()
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /mob/living/proc/ExtinguishMob()
 	if(on_fire)

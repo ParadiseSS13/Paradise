@@ -105,9 +105,6 @@
 	var/datum/dna/dna = null //Carbon
 	var/radiation = 0 //Carbon
 
-	var/list/mutations = list() //Carbon -- Doohl
-	//see: setup.dm for list of mutations
-
 	var/voice_name = "unidentifiable voice"
 
 	var/list/faction = list("neutral") //Used for checking whether hostile simple animals will attack you, possibly more stuff later
@@ -179,7 +176,7 @@
 
 	var/stance_damage = 0 //Whether this mob's ability to stand has been affected
 
-	var/list/active_genes = list()
+	var/list/active_mutations = list()
 
 	var/last_movement = -100 // Last world.time the mob actually moved of its own accord.
 
