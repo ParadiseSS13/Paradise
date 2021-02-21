@@ -31,7 +31,7 @@
 	spawn_amount = 500
 
 /obj/item/grenade/gluon
-	desc = "An advanced grenade that releases a harmful stream of gluons inducing radiation in those nearby. These gluon streams will also make victims feel exhausted, and induce shivering. This extreme coldness will also wet any nearby floors."
+	desc = "An advanced grenade that releases a harmful stream of gluons inducing radiation in those nearby. These gluon streams will also make victims feel exhausted, and induce shivering."
 	name = "gluon grenade"
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "gluon"
@@ -45,10 +45,7 @@
 	playsound(loc, 'sound/effects/empulse.ogg', 50, 1)
 	radiation_pulse(src, rad_damage)
 	for(var/turf/T in view(freeze_range, loc))
-		if(isfloorturf(T))
-			var/turf/simulated/F = T
-			F.MakeSlippery(TURF_WET_PERMAFROST)
-			for(var/mob/living/carbon/L in T)
-				L.adjustStaminaLoss(stamina_damage)
-				L.adjust_bodytemperature(-230)
+		for(var/mob/living/carbon/L in T)
+			L.adjustStaminaLoss(stamina_damage)
+			L.adjust_bodytemperature(-230)
 	qdel(src)
