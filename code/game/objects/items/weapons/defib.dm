@@ -291,7 +291,8 @@
 	playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 	return OXYLOSS
 
-/obj/item/twohanded/shockpaddles/dropped(mob/user as mob)
+/obj/item/twohanded/shockpaddles/dropped(mob/user)
+	..()
 	if(user)
 		var/obj/item/twohanded/offhand/O = user.get_inactive_hand()
 		if(istype(O))
@@ -301,7 +302,7 @@
 		loc = defib
 		defib.update_icon()
 		update_icon()
-	return unwield(user)
+	unwield(user)
 
 /obj/item/twohanded/shockpaddles/on_mob_move(dir, mob/user)
 	if(defib)
