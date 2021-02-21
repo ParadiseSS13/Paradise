@@ -69,8 +69,7 @@
 	..()
 	charges--
 	if(isliving(user))
-		var/mob/living/L = user
-		if(L.mob_biotypes & MOB_UNDEAD) //negative energy heals the undead
+		if(user.mob_biotypes & MOB_UNDEAD) //negative energy heals the undead
 			user.revive()
 			to_chat(user, "<span class='notice'>You feel great!</span>")
 			return
@@ -95,8 +94,7 @@
 	..()
 	charges--
 	if(isliving(user))
-		var/mob/living/L = user
-		if(L.mob_biotypes & MOB_UNDEAD) //positive energy harms the undead
+		if(user.mob_biotypes & MOB_UNDEAD) //positive energy harms the undead
 			to_chat(user, "<span class='warning'>You irradiate yourself with pure positive energy! [pick("Do not pass go. Do not collect 200 zorkmids.", "You feel more confident in your spell casting skills.", "You Die...", "Do you want your possessions identified?")]</span>")
 			user.death(FALSE)
 			return

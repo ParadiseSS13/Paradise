@@ -24,6 +24,7 @@
 #define MOB_EPIC		(1 << 7) //megafauna
 #define MOB_REPTILE		(1 << 8)
 #define MOB_SPIRIT		(1 << 9)
+#define MOB_PLANT		(1 << 10)
 
 #define AGE_MIN 17			//youngest a character can be
 #define AGE_MAX 85			//oldest a character can be
