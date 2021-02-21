@@ -85,6 +85,18 @@
 				if(prob(getBruteLoss() - 50))
 					gib()
 
+/mob/living/carbon/proc/devour_mob(mob/living/L, devour_time = 30)
+	L.visible_message("<span class='danger'>[src] is attempting to devour [L]!</span>", \
+					"<span class='userdanger'>[src] is attempting to devour you!</span>")
+	if(!do_mob(src, L, devour_time))
+		return
+	if(pulling && pulling == L && grab_state >= GRAB_AGGRESSIVE && a_intent == INTENT_GRAB)
+		L.visible_message("<span class='danger'>[src] devours [L]!</span>", \
+						"<span class='userdanger'>[src] devours you!</span>")
+		L.forceMove(src)
+		LAZYADD(stomach_contents, L)
+		add_attack_logs(src, L, "Devoured")
+
 #undef STOMACH_ATTACK_DELAY
 
 /mob/living/carbon/proc/has_mutated_organs()
@@ -579,36 +591,26 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return
 
 /mob/living/carbon/throw_item(atom/target)
-	if(!target || !isturf(loc) || istype(target, /obj/screen))
-		throw_mode_off()
-		return
-
-	var/obj/item/I = src.get_active_hand()
-
-	if(!I || I.override_throw(src, target) || (I.flags & NODROP))
-		throw_mode_off()
-		return
-
 	throw_mode_off()
+	if(!target || !isturf(loc) || istype(target, /obj/screen))
+		return
+
 	var/atom/movable/thrown_thing
+	var/obj/item/I = get_active_hand()
 
-	if(istype(I, /obj/item/grab))
-		var/obj/item/grab/G = I
-		var/mob/throwable_mob = G.get_mob_if_throwable() //throw the person instead of the grab
-		qdel(G)	//We delete the grab.
-		if(throwable_mob)
-			thrown_thing = throwable_mob
-			if(HAS_TRAIT(src, TRAIT_PACIFISM))
-				to_chat(src, "<span class='notice'>You gently let go of [throwable_mob].</span>")
-				return
-			var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
-			var/turf/end_T = get_turf(target)
-			throwable_mob.forceMove(start_T)
-			if(start_T && end_T)
-				var/start_T_descriptor = "<font color='#6b5d00'>tile at [start_T.x], [start_T.y], [start_T.z] in area [get_area(start_T)]</font>"
-				var/end_T_descriptor = "<font color='#6b4400'>tile at [end_T.x], [end_T.y], [end_T.z] in area [get_area(end_T)]</font>"
+	if(!I)
+		if(pulling && isliving(pulling) && grab_state >= GRAB_AGGRESSIVE)
+			var/mob/living/throwable_mob = pulling
+			if(!throwable_mob.buckled)
+				thrown_thing = throwable_mob
+				stop_pulling()
+				if(HAS_TRAIT(src, TRAIT_PACIFISM))
+					to_chat(src, "<span class='notice'>You gently let go of [throwable_mob].</span>")
+					return
 
-				add_attack_logs(src, throwable_mob, "Thrown from [start_T_descriptor] with the target [end_T_descriptor]")
+	else if(I.override_throw(src, target) || (I.flags & NODROP))
+		return
+
 
 	else if(!(I.flags & ABSTRACT)) //can't throw abstract items
 		thrown_thing = I

@@ -1,5 +1,5 @@
-/mob/living/silicon/grabbedby(mob/living/user)
-	return
+/mob/living/silicon/grippedby(mob/living/user, instant = FALSE)
+	return //can't upgrade a simple pull into a more aggressive grab.
 
 /mob/living/silicon/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(..()) //if harm or disarm intent

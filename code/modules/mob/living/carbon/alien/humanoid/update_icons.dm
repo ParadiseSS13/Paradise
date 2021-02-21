@@ -105,6 +105,7 @@
 			standing.overlays	+= image("icon" = 'icons/effects/blood.dmi', "icon_state" = "[t_suit]blood")
 
 		if(wear_suit.breakouttime)
+			stop_pulling() //can't pull if restrained
 			drop_r_hand()
 			drop_l_hand()
 

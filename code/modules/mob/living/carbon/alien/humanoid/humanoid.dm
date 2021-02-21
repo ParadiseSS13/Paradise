@@ -102,6 +102,12 @@
 	playsound(src, 'sound/voice/hiss5.ogg', 40, 1, 1)  //Alien roars when starting to break free
 	..(I, cuff_break = 1)
 
+/mob/living/carbon/alien/humanoid/resist_grab(moving_resist)
+	if(pulledby.grab_state)
+		visible_message("<span class='danger'>[src] breaks free of [pulledby]'s grip!</span>", "<span class='danger'>You break free of [pulledby]'s grip!</span>")
+	pulledby.stop_pulling()
+	. = 0
+
 /mob/living/carbon/alien/humanoid/get_standard_pixel_y_offset(lying = 0)
 	if(leaping)
 		return -32

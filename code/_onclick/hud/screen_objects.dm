@@ -117,6 +117,8 @@
 	icon_state = "pull"
 
 /obj/screen/pull/Click()
+	if(isobserver(usr))
+		return
 	usr.stop_pulling()
 
 /obj/screen/pull/update_icon(mob/mymob)

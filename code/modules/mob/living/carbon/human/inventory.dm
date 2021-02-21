@@ -193,6 +193,9 @@
 		src.r_hand = null
 		update_inv_r_hand()
 
+	if(I.pulledby)
+		I.pulledby.stop_pulling()
+
 	I.screen_loc = null
 	I.forceMove(src)
 	I.equipped(src, slot)

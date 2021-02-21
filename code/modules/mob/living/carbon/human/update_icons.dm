@@ -863,6 +863,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			standing = mutable_appearance('icons/mob/suit.dmi', "[wear_suit.icon_state]", layer = -SUIT_LAYER)
 
 		if(wear_suit.breakouttime)
+			stop_pulling() //can't pull if restrained
 			drop_l_hand()
 			drop_r_hand()
 

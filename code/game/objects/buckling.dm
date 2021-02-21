@@ -65,9 +65,9 @@
 	if(M.pulledby)
 		if(buckle_prevents_pull)
 			M.pulledby.stop_pulling()
-
-	for(var/obj/item/grab/G in M.grabbed_by)
-		qdel(G)
+		else if(isliving(M.pulledby))
+			var/mob/living/L = M.pulledby
+			L.reset_pull_offsets(M, TRUE)
 
 	if(!check_loc && M.loc != loc)
 		M.forceMove(loc)
@@ -146,6 +146,9 @@
 				"<span class='notice'>You unbuckle yourself from [src].</span>",\
 				"<span class='italics'>You hear metal clanking.</span>")
 		add_fingerprint(user)
+		if(isliving(M.pulledby))
+			var/mob/living/L = M.pulledby
+			L.set_pull_offsets(M, L.grab_state)
 	return M
 
 /mob/living/proc/check_buckled()

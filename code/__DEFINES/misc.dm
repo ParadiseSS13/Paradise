@@ -28,6 +28,7 @@
 #define CLICK_CD_RESIST 20
 #define CLICK_CD_CLICK_ABILITY 6
 #define CLICK_CD_RAPID 2
+#define CLICK_CD_GRABBING 10
 
 ///
 #define ROUNDSTART_LOGOUT_REPORT_TIME 6000 //Amount of time (in deciseconds) after the rounds starts, that the player disconnect report is issued.

@@ -1364,6 +1364,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		setDir(D)
 		spintime -= speed
 
+///Update the pulling hud icon
+/mob/proc/update_pull_hud_icon()
+	pullin?.update_icon(src)
+
+
 /mob/proc/is_literate()
 	return FALSE
 
