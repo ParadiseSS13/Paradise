@@ -392,6 +392,36 @@
 	if(loc == usr && loc.Adjacent(over_object))
 		afterattack(over_object, usr, TRUE)
 
+/obj/item/slimepotion/radproof
+	name = "slime rad-proofing potion"
+	desc = "A potent chemical mix that will radproof any article of clothing. Has three uses."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle16"
+	origin_tech = "biotech=5"
+	resistance_flags = FIRE_PROOF
+	var/uses = 3
+
+/obj/item/slimepotion/radproof/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
+	..()
+	if(!proximity_flag)
+		return
+	if(!uses)
+		qdel(src)
+		return
+	if(!istype(C))
+		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
+		return
+	if(C.armor.rad == 100)
+		to_chat(user, "<span class='warning'>[C] is already radproof!</span>")
+		return
+	to_chat(user, "<span class='notice'>You spread the green paste over [C], rad-proofing it.</span>")
+	C.name = "radproofed [C.name]"
+	C.armor.rad = 100
+	C.color = "#00FF00"
+	uses --
+	if(!uses)
+		qdel(src)
+
 /obj/item/slimepotion/fireproof
 	name = "slime chill potion"
 	desc = "A potent chemical mix that will fireproof any article of clothing. Has three uses."
