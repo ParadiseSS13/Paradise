@@ -54,8 +54,8 @@
 /datum/status_effect/blooddrunk/on_apply()
 	. = ..()
 	if(.)
+		ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk")
 		if(ishuman(owner))
-			owner.status_flags |= IGNORESLOWDOWN
 			var/mob/living/carbon/human/H = owner
 			for(var/X in H.bodyparts)
 				var/obj/item/organ/external/BP = X
@@ -81,7 +81,7 @@
 		H.dna.species.clone_mod *= 10
 		H.dna.species.stamina_mod *= 10
 	add_attack_logs(owner, owner, "lost blood-drunk stun immunity", ATKLOG_ALL)
-	owner.status_flags &= ~IGNORESLOWDOWN
+	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk")
 	if(islist(owner.stun_absorption) && owner.stun_absorption["blooddrunk"])
 		owner.stun_absorption -= "blooddrunk"
 
@@ -215,7 +215,7 @@
 	alert_type = /obj/screen/alert/status_effect/regenerative_core
 
 /datum/status_effect/regenerative_core/on_apply()
-	owner.status_flags |= IGNORE_SPEED_CHANGES
+	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)
 	owner.adjustBruteLoss(-25)
 	owner.adjustFireLoss(-25)
 	owner.remove_CC()
@@ -231,4 +231,4 @@
 	return TRUE
 
 /datum/status_effect/regenerative_core/on_remove()
-	owner.status_flags &= ~IGNORE_SPEED_CHANGES
+	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)

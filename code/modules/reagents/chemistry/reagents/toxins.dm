@@ -34,7 +34,7 @@
 	taste_description = "mint"
 
 /datum/reagent/minttoxin/on_mob_life(mob/living/M)
-	if(FAT in M.mutations)
+	if(HAS_TRAIT(M, TRAIT_FAT))
 		M.gib()
 	return ..()
 
@@ -180,11 +180,11 @@
 /datum/reagent/mutagen/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(!..())
 		return
-	if(!M.dna)
+	if(!M.dna || HAS_TRAIT(M, TRAIT_BADDNA) || HAS_TRAIT(M, TRAIT_GENELESS))
 		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	if((method==REAGENT_TOUCH && prob(33)) || method==REAGENT_INGEST)
 		randmutb(M)
-		domutcheck(M, null)
+		domutcheck(M)
 		M.UpdateAppearance()
 
 /datum/reagent/mutagen/on_mob_life(mob/living/M)
@@ -213,7 +213,7 @@
 	return ..()
 
 /datum/reagent/stable_mutagen/on_mob_life(mob/living/M)
-	if(!ishuman(M) || !M.dna)
+	if(!ishuman(M) || !M.dna || HAS_TRAIT(M, TRAIT_BADDNA) || HAS_TRAIT(M, TRAIT_GENELESS))
 		return
 	M.apply_effect(2 * REAGENTS_EFFECT_MULTIPLIER, IRRADIATE)
 	if(current_cycle == 10 && islist(data))
@@ -1113,12 +1113,12 @@
 			update_flags |= M.AdjustEyeBlurry(10, FALSE)
 		if(70 to INFINITY)
 			update_flags |= M.AdjustEyeBlurry(10, FALSE)
-			if(M.status_flags & FAKEDEATH)
+			if(HAS_TRAIT(M, TRAIT_FAKEDEATH))
 				fakerevive(M)
 	return ..() | update_flags
 
 /datum/reagent/capulettium/on_mob_delete(mob/living/M)
-	if(M.status_flags & FAKEDEATH)
+	if(HAS_TRAIT(M, TRAIT_FAKEDEATH))
 		fakerevive(M)
 	..()
 
@@ -1133,14 +1133,14 @@
 
 /datum/reagent/capulettium_plus/on_mob_life(mob/living/M)
 	M.Silence(2)
-	if((M.status_flags & FAKEDEATH) && !M.resting)
+	if((HAS_TRAIT(M, TRAIT_FAKEDEATH)) && !M.resting)
 		fakerevive(M)
-	else if(!(M.status_flags & FAKEDEATH) && M.resting)
+	else if(!HAS_TRAIT(M, TRAIT_FAKEDEATH) && M.resting)
 		fakedeath(M)
 	return ..()
 
 /datum/reagent/capulettium_plus/on_mob_delete(mob/living/M)
-	if(M.status_flags & FAKEDEATH)
+	if(HAS_TRAIT(M, TRAIT_FAKEDEATH))
 		fakerevive(M)
 	..()
 
@@ -1178,7 +1178,7 @@
 		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	if((method==REAGENT_TOUCH && prob(50)) || method==REAGENT_INGEST)
 		randmutb(M)
-		domutcheck(M, null)
+		domutcheck(M)
 		M.UpdateAppearance()
 
 /datum/reagent/glowing_slurry/on_mob_life(mob/living/M)
@@ -1193,7 +1193,7 @@
 		randmutg(M)
 		did_mutation = TRUE
 	if(did_mutation)
-		domutcheck(M, null)
+		domutcheck(M)
 		M.UpdateAppearance()
 	return ..()
 
