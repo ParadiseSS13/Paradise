@@ -197,7 +197,7 @@
 	walltype = /turf/simulated/wall/mineral/uranium
 	var/active = null
 	var/last_event = 0
-	canSmoothWith = list(/obj/structure/falsewall/uranium, /turf/simulated/wall/mineral/uranium)
+	canSmoothWith = list(/turf/simulated/wall/mineral/uranium, /obj/structure/falsewall/uranium, /turf/simulated/wall/indestructible/uranium)
 
 /obj/structure/falsewall/uranium/attackby(obj/item/W as obj, mob/user as mob, params)
 	radiate()
@@ -286,7 +286,7 @@
 	icon_state = "plasma"
 	mineral = /obj/item/stack/sheet/mineral/abductor
 	walltype = /turf/simulated/wall/mineral/abductor
-	canSmoothWith = list(/obj/structure/falsewall/alien, /turf/simulated/wall/mineral/alien)
+	canSmoothWith = list(/turf/simulated/wall/mineral/abductor, /obj/structure/falsewall/abductor, /turf/simulated/wall/indestructible/alien)
 
 
 /obj/structure/falsewall/bananium
@@ -304,7 +304,7 @@
 	icon_state = "sandstone"
 	mineral = /obj/item/stack/sheet/mineral/sandstone
 	walltype = /turf/simulated/wall/mineral/sandstone
-	canSmoothWith = list(/obj/structure/falsewall/sandstone, /turf/simulated/wall/mineral/sandstone)
+	canSmoothWith = list(/turf/simulated/wall/mineral/sandstone, /turf/simulated/wall/indestructible/sandstone, /obj/structure/falsewall/sandstone)
 
 /obj/structure/falsewall/wood
 	name = "wooden wall"
@@ -350,7 +350,7 @@
 	mineral = /obj/item/stack/sheet/mineral/plastitanium
 	walltype = /turf/simulated/wall/mineral/plastitanium
 	smooth = SMOOTH_MORE
-	canSmoothWith = list(/turf/simulated/wall/mineral/plastitanium, /turf/simulated/wall/indestructible/syndicate, /turf/simulated/wall/mineral/plastitanium/nodiagonal, /obj/machinery/door/airlock/titanium, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater)
+	canSmoothWith = list(/turf/simulated/wall/mineral/plastitanium, /turf/simulated/wall/indestructible/syndicate, /turf/simulated/wall/mineral/plastitanium/nodiagonal, /obj/machinery/door/airlock/titanium, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater, /turf/simulated/wall/indestructible/opsglass, /obj/structure/window/full/plastitanium)
 
 /obj/structure/falsewall/brass
 	name = "clockwork wall"

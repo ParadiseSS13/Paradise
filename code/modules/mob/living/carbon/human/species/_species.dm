@@ -57,7 +57,6 @@
 	var/punchdamagelow = 0       //lowest possible punch damage
 	var/punchdamagehigh = 9      //highest possible punch damage
 	var/punchstunthreshold = 9	 //damage at which punches from this race will stun //yes it should be to the attacked race but it's not useful that way even if it's logical
-	var/list/default_genes = list()
 
 	var/ventcrawler = VENTCRAWLER_NONE //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.
@@ -65,6 +64,8 @@
 	var/list/allowed_consumed_mobs = list() //If a species can consume mobs, put the type of mobs it can consume here.
 
 	var/list/species_traits = list()
+	///Generic traits tied to having the species.
+	var/list/inherent_traits = list()
 
 	var/breathid = "o2"
 
@@ -212,7 +213,7 @@
 		ears = new mutantears(H)
 
 /datum/species/proc/breathe(mob/living/carbon/human/H)
-	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
+	if(HAS_TRAIT(H, TRAIT_NOBREATH))
 		return TRUE
 
 ////////////////
@@ -222,17 +223,15 @@
 
 /datum/species/proc/movement_delay(mob/living/carbon/human/H)
 	. = 0	//We start at 0.
-	if(H.status_flags & IGNORE_SPEED_CHANGES)
-		return .
 
 	if(has_gravity(H))
-		if(H.status_flags & GOTTAGOFAST)
+		if(HAS_TRAIT(H, TRAIT_GOTTAGOFAST))
 			. -= 1
-		else if(H.status_flags & GOTTAGONOTSOFAST)
+		else if(HAS_TRAIT(H, TRAIT_GOTTAGONOTSOFAST))
 			. -= 0.5
 
 		var/ignoreslow = FALSE
-		if((H.status_flags & IGNORESLOWDOWN) || (RUN in H.mutations))
+		if(HAS_TRAIT(H, TRAIT_IGNORESLOWDOWN))
 			ignoreslow = TRUE
 
 		var/flight = H.flying	//Check for flight and flying items
@@ -259,16 +258,17 @@
 			for(var/datum/reagent/R in H.reagents.reagent_list)
 				if(R.shock_reduction)
 					health_deficiency -= R.shock_reduction
-		if(health_deficiency >= 40)
-			if(flight)
-				. += (health_deficiency / 75)
-			else
-				. += (health_deficiency / 25)
+		if(!HAS_TRAIT(H, TRAIT_IGNOREDAMAGESLOWDOWN))
+			if(health_deficiency >= 40)
+				if(flight)
+					. += (health_deficiency / 75)
+				else
+					. += (health_deficiency / 25)
 		. += 2 * H.stance_damage //damaged/missing feet or legs is slow
 
 		if((hungry >= 70) && !flight)
 			. += hungry/50
-		if(FAT in H.mutations)
+		if(HAS_TRAIT(H, TRAIT_FAT))
 			. += (1.5 - flight)
 		if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
 			. += (BODYTEMP_COLD_DAMAGE_LIMIT - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
@@ -286,11 +286,22 @@
 		H.hud_used.update_locked_slots()
 	H.ventcrawler = ventcrawler
 
+	for(var/X in inherent_traits)
+		ADD_TRAIT(H, X, SPECIES_TRAIT)
+
+	if(TRAIT_VIRUSIMMUNE in inherent_traits)
+		for(var/datum/disease/A in H.viruses)
+			if(!A.bypasses_immunity)
+				A.cure(FALSE)
+
 	if(inherent_factions)
 		for(var/i in inherent_factions)
 			H.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
 
 /datum/species/proc/on_species_loss(mob/living/carbon/human/H)
+	for(var/X in inherent_traits)
+		REMOVE_TRAIT(H, X, SPECIES_TRAIT)
+
 	if(H.butcher_results) //clear it out so we don't butcher a actual human.
 		H.butcher_results = null
 	H.ventcrawler = initial(H.ventcrawler)
@@ -317,8 +328,8 @@
 // For special snowflake species effects
 // (Slime People changing color based on the reagents they consume)
 /datum/species/proc/handle_life(mob/living/carbon/human/H)
-	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
-		var/takes_crit_damage = (!(NOCRITDAMAGE in species_traits))
+	if(HAS_TRAIT(H, TRAIT_NOBREATH))
+		var/takes_crit_damage = (!HAS_TRAIT(H, TRAIT_NOCRITDAMAGE))
 		if((H.health <= HEALTH_THRESHOLD_CRIT) && takes_crit_damage)
 			H.adjustBruteLoss(1)
 	return
@@ -376,7 +387,7 @@
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.help_act(user, target) == TRUE)//adminfu only...
 		return TRUE
-	if(target.health >= HEALTH_THRESHOLD_CRIT && !(target.status_flags & FAKEDEATH))
+	if(target.health >= HEALTH_THRESHOLD_CRIT && !HAS_TRAIT(target, TRAIT_FAKEDEATH))
 		target.help_shake_act(user)
 		return TRUE
 	else
@@ -404,7 +415,7 @@
 		if(target.mind && target.mind.vampire && (target.mind in SSticker.mode.vampires))
 			to_chat(user, "<span class='warning'>Your fangs fail to pierce [target.name]'s cold flesh</span>")
 			return
-		if(SKELETON in target.mutations)
+		if(HAS_TRAIT(target, TRAIT_SKELETONIZED))
 			to_chat(user, "<span class='warning'>There is no blood in a skeleton!</span>")
 			return
 		//we're good to suck the blood, blaah
@@ -750,7 +761,7 @@
 	return FALSE
 
 /datum/species/proc/handle_mutations_and_radiation(mob/living/carbon/human/H)
-	if(RADIMMUNE in species_traits)
+	if(HAS_TRAIT(H, TRAIT_RADIMMUNE))
 		H.radiation = 0
 		return TRUE
 
@@ -771,7 +782,7 @@
 			to_chat(H, "<span class='danger'>You mutate!</span>")
 			randmutb(H)
 			H.emote("gasp")
-			domutcheck(H, null)
+			domutcheck(H)
 
 	if(radiation > RAD_MOB_HAIRLOSS)
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
@@ -873,7 +884,11 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		if(H.vision_type.light_sensitive)
 			H.weakeyes = TRUE
 
-	if(XRAY in H.mutations)
+	if(HAS_TRAIT(src, TRAIT_THERMAL_VISION))
+		H.sight |= (SEE_MOBS)
+		H.lighting_alpha = min(H.lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+
+	if(HAS_TRAIT(H, TRAIT_XRAY_VISION))
 		H.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 
 	if(H.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
@@ -906,7 +921,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/can_hear(mob/living/carbon/human/H)
 	. = FALSE
 	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
-	if(istype(ears) && !ears.deaf)
+	if(istype(ears) && !HAS_TRAIT(H, TRAIT_DEAF))
 		. = TRUE
 
 /**

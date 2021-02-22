@@ -117,4 +117,4 @@
 	default_language = "Sinta'unathi"
 
 	speed_mod = -0.80
-	species_traits = list(NO_BREATHE, NOGUNS)
+	inherent_traits = list(TRAIT_CHUNKYFINGERS, TRAIT_NOBREATH)

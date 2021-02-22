@@ -68,7 +68,8 @@
 		var/mob/living/carbon/human/traitor_mob = owner.current
 		if(traitor_mob && istype(traitor_mob))
 			to_chat(traitor_mob, "<span class='warning'>Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.</span>")
-			traitor_mob.mutations.Remove(CLUMSY)
+			traitor_mob.dna.SetSEState(GLOB.clumsyblock, FALSE)
+			singlemutcheck(traitor_mob, GLOB.clumsyblock, MUTCHK_FORCED)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(traitor_mob)
 
@@ -79,7 +80,8 @@
 		var/mob/living/carbon/human/traitor_mob = owner.current
 		if(traitor_mob && istype(traitor_mob))
 			to_chat(traitor_mob, "<span class='warning'>You lose your syndicate training and return to your own clumsy, clownish self.</span>")
-			traitor_mob.mutations.Add(CLUMSY)
+			traitor_mob.dna.SetSEState(GLOB.clumsyblock, TRUE)
+			singlemutcheck(traitor_mob, GLOB.clumsyblock, MUTCHK_FORCED)
 			for(var/datum/action/innate/A in traitor_mob.actions)
 				if(istype(A, /datum/action/innate/toggle_clumsy))
 					A.Remove(traitor_mob)

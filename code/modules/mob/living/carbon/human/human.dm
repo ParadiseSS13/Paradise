@@ -504,7 +504,7 @@
 //Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when polyacided or when updating a human's name variable
 /mob/living/carbon/human/proc/get_face_name()
 	var/obj/item/organ/external/head = get_organ("head")
-	if(!head || head.disfigured || cloneloss > 50 || !real_name || (HUSK in mutations))	//disfigured. use id-name if possible
+	if(!head || head.disfigured || cloneloss > 50 || !real_name || HAS_TRAIT(src, TRAIT_HUSK))	//disfigured. use id-name if possible
 		return "Unknown"
 	return real_name
 
@@ -1007,7 +1007,7 @@
 		else
 			target_zone = user.zone_selected
 
-	if(PIERCEIMMUNE in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
 		. = FALSE
 
 	var/obj/item/organ/external/affecting = get_organ(target_zone)
@@ -1127,12 +1127,9 @@
 	check_and_regenerate_organs(src) //Regenerate limbs and organs only if they're really missing.
 	surgeries.Cut() //End all surgeries.
 
-	if(!isskeleton(src) && (SKELETON in mutations))
-		mutations.Remove(SKELETON)
-	if(NOCLONE in mutations)
-		mutations.Remove(NOCLONE)
-	if(HUSK in mutations)
-		mutations.Remove(HUSK)
+	REMOVE_TRAIT(src, TRAIT_SKELETONIZED, null)
+	REMOVE_TRAIT(src, TRAIT_BADDNA, null)
+	cure_husk()
 
 	if(!client || !key) //Don't boot out anyone already in the mob.
 		for(var/obj/item/organ/internal/brain/H in world)
@@ -1161,7 +1158,7 @@
 		L.damage = L.min_bruised_damage
 
 /mob/living/carbon/human/cuff_resist(obj/item/I)
-	if(HULK in mutations)
+	if(HAS_TRAIT(src, TRAIT_HULK))
 		say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		if(..(I, cuff_break = 1))
 			unEquip(I)
@@ -1221,7 +1218,7 @@
 		set_species(new_dna.species.type, retain_damage = TRUE)
 	dna = new_dna.Clone()
 	real_name = new_dna.real_name
-	domutcheck(src, null, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
+	domutcheck(src, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
 	if(!keep_flavor_text)
 		flavor_text = ""
 	dna.UpdateSE()
@@ -1247,8 +1244,7 @@
 		if(gender == PLURAL && oldspecies.has_gender)
 			change_gender(pick(MALE, FEMALE))
 
-		if(oldspecies.default_genes.len)
-			oldspecies.handle_dna(src, TRUE) // Remove any genes that belong to the old species
+		oldspecies.handle_dna(src, TRUE) // Remove any mutations that belong to the old species
 
 		oldspecies.on_species_loss(src)
 
@@ -1504,7 +1500,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(!get_location_accessible(src, "eyes"))
 		return FALSE
 	// Natural eyeshine, any implants, and XRAY - all give shiny appearance.
-	if((istype(eyes) && eyes.shine()) || istype(eye_implant) || (XRAY in mutations))
+	if((istype(eyes) && eyes.shine()) || istype(eye_implant) || HAS_TRAIT(src, TRAIT_XRAY_VISION))
 		return TRUE
 
 	return FALSE
@@ -1607,16 +1603,11 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 	..()
 
-/mob/living/carbon/human/rad_act(amount)
-	if(RADIMMUNE in dna.species.species_traits)
-		return SEND_SIGNAL(src, COMSIG_ATOM_RAD_ACT, amount)
-	. = ..()
-
 /mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
 	if(H == src)
 		to_chat(src, "<span class='warning'>You cannot perform CPR on yourself!</span>")
 		return
-	if(H.stat == DEAD || (H.status_flags & FAKEDEATH))
+	if(H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH))
 		to_chat(src, "<span class='warning'>[H.name] is dead!</span>")
 		return
 	if(!check_has_mouth())
@@ -1771,11 +1762,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. = ..()
 
 	if(G.trigger_guard == TRIGGER_GUARD_NORMAL)
-		if(HULK in mutations)
+		if(HAS_TRAIT(src, TRAIT_CHUNKYFINGERS))
 			to_chat(src, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
-			return FALSE
-		if(NOGUNS in dna.species.species_traits)
-			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
 			return FALSE
 
 	if(mind && mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
@@ -1901,12 +1889,12 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. += "---"
 
 /mob/living/carbon/human/adjust_nutrition(change)
-	if(NO_HUNGER in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return FALSE
 	return ..()
 
 /mob/living/carbon/human/set_nutrition(change)
-	if(NO_HUNGER in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return FALSE
 	return ..()
 
@@ -1961,7 +1949,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/cleanSE()	//remove all disabilities/powers
 	for(var/block = 1; block <= DNA_SE_LENGTH; block++)
 		dna.SetSEState(block, FALSE, TRUE)
-		genemutcheck(src, block, null, MUTCHK_FORCED)
+		singlemutcheck(src, block, MUTCHK_FORCED)
 	dna.UpdateSE()
 
 /mob/living/carbon/human/get_spooked()
