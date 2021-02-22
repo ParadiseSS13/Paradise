@@ -215,6 +215,14 @@
 	slot = "brain_clownvoice"
 	origin_tech = "materials=2;biotech=2"
 
+/obj/item/organ/internal/cyberimp/brain/clown_voice/insert(mob/living/carbon/M, special = FALSE)
+	..()
+	ADD_TRAIT(M, TRAIT_COMIC_SANS, "augment")
+
+/obj/item/organ/internal/cyberimp/brain/clown_voice/remove(mob/living/carbon/M, special = FALSE)
+	REMOVE_TRAIT(M, TRAIT_COMIC_SANS, "augment")
+	return ..()
+
 /obj/item/organ/internal/cyberimp/brain/speech_translator //actual translating done in human/handle_speech_problems
 	name = "Speech translator implant"
 	desc = "While known as a translator, this implant actually generates speech based on the user's thoughts when activated, completely bypassing the need to speak."
@@ -235,12 +243,22 @@
 /obj/item/organ/internal/cyberimp/brain/speech_translator/emp_act(severity)
 	if(emp_proof)
 		return
-	if(owner && active)
-		to_chat(owner, "<span class='notice'>Your translator's safeties trigger, it is now turned off.</span>")
+	if(owner && active && !crit_fail)
+		to_chat(owner, "<span class='danger'>Your translator implant shuts down with a harsh buzz.</span>")
+		addtimer(CALLBACK(src, .proc/reboot), 60 SECONDS)
+		crit_fail = TRUE
 		active = FALSE
 
+/obj/item/organ/internal/cyberimp/brain/speech_translator/proc/reboot()
+	crit_fail = FALSE
+	if(owner)
+		to_chat(owner, "<span class='notice'>Your translator implant beeps.</span>")
+		SEND_SOUND(owner, 'sound/machines/twobeep.ogg')
+
 /obj/item/organ/internal/cyberimp/brain/speech_translator/ui_action_click()
-	if(owner && !active)
+	if(owner && crit_fail)
+		to_chat(owner, "<span class='warning'>The implant is still rebooting.</span>")
+	else if(owner && !active)
 		to_chat(owner, "<span class='notice'>You turn on your translator implant.</span>")
 		active = TRUE
 	else if(owner && active)

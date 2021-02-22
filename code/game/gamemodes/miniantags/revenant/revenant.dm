@@ -87,7 +87,7 @@
 	return //most humans will now be either bones or harvesters, but we're still un-alive.
 
 
-/mob/living/simple_animal/revenant/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+/mob/living/simple_animal/revenant/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
 	return FALSE //You are a ghost, atmos and grill makes sparks, and you make your own shocks with lights.
 
 /mob/living/simple_animal/revenant/adjustHealth(amount, updating_health = TRUE)
@@ -118,7 +118,7 @@
 
 /mob/living/simple_animal/revenant/New()
 	..()
-
+	flags_2 |= RAD_NO_CONTAMINATE_2
 	remove_from_all_data_huds()
 	random_revenant_name()
 

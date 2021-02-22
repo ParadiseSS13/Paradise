@@ -10,7 +10,7 @@
 	..()
 	if(!turned_on)
 		return
-	if((CLUMSY in user.mutations) && prob(50))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		user.visible_message("<span class='danger'>[user] accidentally hits [user.p_them()]self with [src]!</span>",
 			"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
 		user.Weaken(stunforce * 3)

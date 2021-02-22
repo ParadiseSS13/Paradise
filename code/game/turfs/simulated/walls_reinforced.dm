@@ -6,8 +6,8 @@
 	opacity = 1
 	density = 1
 	explosion_block = 2
+	rad_insulation = RAD_HEAVY_INSULATION
 	damage_cap = 600
-	max_temperature = 6000
 	hardness = 10
 	sheet_type = /obj/item/stack/sheet/plasteel
 	sheet_amount = 1
@@ -72,23 +72,6 @@
 				queue_smooth_neighbors(src)
 				to_chat(user, "<span class='notice'>You repair the last of the damage.</span>")
 			return
-
-	else if(istype(I, /obj/item/stack/sheet/plasteel))
-		var/obj/item/stack/sheet/plasteel/PS = I
-		if(!can_be_reinforced)
-			to_chat(user, "<span class='notice'>The wall is already coated!</span>")
-			return
-		to_chat(user, "<span class='notice'>You begin adding an additional layer of coating to the wall with [PS]...</span>")
-		if(do_after(user, 40 * PS.toolspeed, target = src) && !d_state)
-			if(!PS.use(2))
-				to_chat(user, "<span class='warning'>You don't have enough [PS.name] for that!</span>")
-				return
-			to_chat(user, "<span class='notice'>You add an additional layer of coating to the wall.</span>")
-			ChangeTurf(/turf/simulated/wall/r_wall/coated)
-			update_icon()
-			queue_smooth_neighbors(src)
-			can_be_reinforced = FALSE
-		return
 	else
 		return ..()
 

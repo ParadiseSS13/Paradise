@@ -55,22 +55,35 @@
 /mob/living/proc/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
 	return 0
 
-/mob/living/proc/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
-	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage)
+///As the name suggests, this should be called to apply electric shocks.
+/mob/living/proc/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
+	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage, source, siemens_coeff, flags)
 	if(status_flags & GODMODE)	//godmode
 		return FALSE
-	if(NO_SHOCK in mutations) //shockproof
+	if((flags & SHOCK_TESLA) && HAS_TRAIT(src, TRAIT_TESLA_SHOCKIMMUNE))
 		return FALSE
-	if(tesla_shock && tesla_ignore)
+	if(HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
 		return FALSE
-	if(shock_damage > 0)
-		if(!illusion)
-			adjustFireLoss(shock_damage)
-		visible_message(
-			"<span class='danger'>[src] was shocked by \the [source]!</span>",
-			"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>",
-			"<span class='italics'>You hear a heavy electrical crack.</span>")
-		return shock_damage
+	shock_damage *= siemens_coeff
+	if(shock_damage < 1)
+		return FALSE
+	if(!(flags & SHOCK_ILLUSION))
+		take_overall_damage(0, shock_damage, TRUE, used_weapon = "Electrocution")
+		if(shock_damage > 200)
+			visible_message(
+				"<span class='danger'>[src] was arc flashed by the [source]!</span>",
+				"<span class='userdanger'>The [source] arc flashes and electrocutes you!</span>",
+				"<span class='italics'>You hear a lightning-like crack!</span>")
+			playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
+			explosion(loc, -1, 0, 2, 2)
+	else
+		adjustStaminaLoss(shock_damage)
+	visible_message(
+		"<span class='danger'>[src] was shocked by \the [source]!</span>", \
+		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
+		"<span class='hear'>You hear a heavy electrical crack.</span>" \
+	)
+	return shock_damage
 
 /mob/living/emp_act(severity)
 	..()
@@ -153,15 +166,14 @@
 
 //Mobs on Fire
 /mob/living/proc/IgniteMob()
-	if(fire_stacks > 0 && !on_fire)
-		on_fire = 1
-		visible_message("<span class='warning'>[src] catches fire!</span>", \
-						"<span class='userdanger'>You're set on fire!</span>")
+	if(fire_stacks > 0 && !on_fire && !HAS_TRAIT(src, TRAIT_NOFIRE))
+		on_fire = TRUE
+		visible_message("<span class='warning'>[src] catches fire!</span>", "<span class='userdanger'>You're set on fire!</span>")
 		set_light(light_range + 3,l_color = "#ED9200")
 		throw_alert("fire", /obj/screen/alert/fire)
 		update_fire()
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /mob/living/proc/ExtinguishMob()
 	if(on_fire)

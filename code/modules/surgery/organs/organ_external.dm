@@ -7,7 +7,7 @@
 	max_damage = 0
 	dir = SOUTH
 	organ_tag = "limb"
-
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2 // On Para, external organs have a loc, ergo they need this.
 	var/brute_mod = 1
 	var/burn_mod = 1
 
@@ -616,7 +616,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"<span class='danger'>Something feels like it shattered in your [name]!</span>",\
 			"You hear a sickening crack.")
 		playsound(owner, "bonebreak", 150, 1)
-		if(owner.dna.species && !(NO_PAIN in owner.dna.species.species_traits))
+		if(!HAS_TRAIT(owner, TRAIT_NOPAIN))
 			owner.emote("scream")
 
 	status |= ORGAN_BROKEN
