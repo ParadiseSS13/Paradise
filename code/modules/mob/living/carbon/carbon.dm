@@ -262,8 +262,8 @@
 				if(M.zone_selected == "head")
 					if(isvox(src)) // Vox quills are sharp
 						M.visible_message(\
-						"<span class='warning'>[M] stabs [p_them()]self trying to pat [src] on the head!</span>",\
-						"<span class='warning'>You stab yourself trying to pat [src] on the head!</span>",\
+						"<span class='danger'>[M] stabs [p_them()]self trying to pat [src] on the head!</span>",\
+						"<span class='userdanger'>You stab yourself trying to pat [src] on the head!</span>",\
 						)
 						playsound(get_turf(src), 'sound/weapons/bladeslice.ogg', 50, 1, -1)
 						var/mob/living/carbon/human/H = M
