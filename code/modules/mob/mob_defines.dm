@@ -70,7 +70,6 @@
 
 	var/overeatduration = 0		// How long this guy is overeating //Carbon
 	var/intent = null //Living
-	var/shakecamera = 0
 	var/a_intent = INTENT_HELP //Living
 	var/m_intent = MOVE_INTENT_RUN //Living
 	var/lastKnownIP = null
@@ -133,9 +132,6 @@
 	var/mob/living/carbon/LAssailant = null
 
 	var/list/mob_spell_list = list() //construct spells and mime spells. Spells that do not transfer from one mob to another and can not be lost in mindswap.
-
-//Changlings, but can be used in other modes
-//	var/obj/effect/proc_holder/changpower/list/power_list = list()
 
 //List of active diseases
 
