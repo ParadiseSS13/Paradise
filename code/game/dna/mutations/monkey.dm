@@ -88,7 +88,8 @@
 
 /datum/mutation/monkey/proc/simple_transformation(mob/living/carbon/human/user, mob/living/simple_animal/new_species)
 	var/mob/living/simple_animal/S = new new_species(get_turf(user))
-	user.mind.transfer_to(S)
+	if(user.mind)
+		user.mind.transfer_to(S)
 	QDEL_NULL(user.internal_organs_slot[BRAIN])
 	user.gib()
 	return S
