@@ -3,7 +3,6 @@
 	name = "Shadowling"
 
 	icobase = 'icons/mob/human_races/r_shadowling.dmi'
-	deform = 'icons/mob/human_races/r_shadowling.dmi'
 	blacklisted = TRUE
 
 	blood_color = "#555555"
@@ -55,7 +54,6 @@
 	name = "Lesser Shadowling"
 
 	icobase = 'icons/mob/human_races/r_lshadowling.dmi'
-	deform = 'icons/mob/human_races/r_lshadowling.dmi'
 
 	blood_color = "#CCCCCC"
 	flesh_color = "#AAAAAA"
