@@ -543,9 +543,9 @@
 	for(var/obj/machinery/power/apc/temp_apc in src)
 		INVOKE_ASYNC(temp_apc, /obj/machinery/power/apc.proc/overload_lighting, 70)
 	for(var/obj/machinery/door/airlock/temp_airlock in src)
-		temp_airlock.prison_open()
+		INVOKE_ASYNC(temp_airlock, /obj/machinery/door/airlock.proc/prison_open)
 	for(var/obj/machinery/door/window/temp_windoor in src)
-		temp_windoor.open()
+		INVOKE_ASYNC(temp_windoor, /obj/machinery/door.proc/open)
 
 /area/AllowDrop()
 	CRASH("Bad op: area/AllowDrop() called")

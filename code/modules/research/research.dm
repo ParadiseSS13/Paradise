@@ -134,6 +134,7 @@ research holder datum.
 			// after that it'll bump it up by 1 until it's greater
 			// than the source tech
 			KT.level = max((KT.level + 1), level)
+			SSblackbox.log_research(KT.name, KT.level)
 
 //Checks if the origin level can raise current tech levels
 //Input: Tech's ID and Level; Output: TRUE for yes, FALSE for no

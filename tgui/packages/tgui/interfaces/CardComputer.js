@@ -3,10 +3,12 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, Box, Section, Table, Tabs } from '../components';
 import { Window } from '../layouts';
 import { AccessList } from './common/AccessList';
+import { COLORS } from '../constants';
+
+const deptCols = COLORS.department;
 
 export const CardComputer = (props, context) => {
   const { act, data } = useBackend(context);
-
 
   let menuBlock = (
     <Tabs>
@@ -174,7 +176,7 @@ export const CardComputer = (props, context) => {
                       onClick={() => act("assign", { assign_target: v })} />
                   ))}
                 </LabeledList.Item>
-                <LabeledList.Item label="Engineering">
+                <LabeledList.Item label="Engineering" labelColor={deptCols.engineering}>
                   {data.jobs_engineering.map(v => (
                     <Button
                       key={v} content={v}
@@ -182,7 +184,7 @@ export const CardComputer = (props, context) => {
                       onClick={() => act("assign", { assign_target: v })} />
                   ))}
                 </LabeledList.Item>
-                <LabeledList.Item label="Medical">
+                <LabeledList.Item label="Medical" labelColor={deptCols.medical}>
                   {data.jobs_medical.map(v => (
                     <Button
                       key={v} content={v}
@@ -190,7 +192,7 @@ export const CardComputer = (props, context) => {
                       onClick={() => act("assign", { assign_target: v })} />
                   ))}
                 </LabeledList.Item>
-                <LabeledList.Item label="Science">
+                <LabeledList.Item label="Science" labelColor={deptCols.science}>
                   {data.jobs_science.map(v => (
                     <Button
                       key={v} content={v}
@@ -198,7 +200,7 @@ export const CardComputer = (props, context) => {
                       onClick={() => act("assign", { assign_target: v })} />
                   ))}
                 </LabeledList.Item>
-                <LabeledList.Item label="Security">
+                <LabeledList.Item label="Security" labelColor={deptCols.security}>
                   {data.jobs_security.map(v => (
                     <Button
                       selected={v === data.modify_rank}
@@ -207,7 +209,7 @@ export const CardComputer = (props, context) => {
                       onClick={() => act("assign", { assign_target: v })} />
                   ))}
                 </LabeledList.Item>
-                <LabeledList.Item label="Service">
+                <LabeledList.Item label="Service" labelColor={deptCols.service}>
                   {data.jobs_service.map(v => (
                     <Button
                       selected={v === data.modify_rank}
@@ -216,7 +218,7 @@ export const CardComputer = (props, context) => {
                       onClick={() => act("assign", { assign_target: v })} />
                   ))}
                 </LabeledList.Item>
-                <LabeledList.Item label="Supply">
+                <LabeledList.Item label="Supply" labelColor={deptCols.supply}>
                   {data.jobs_supply.map(v => (
                     <Button
                       selected={v === data.modify_rank}
@@ -244,7 +246,7 @@ export const CardComputer = (props, context) => {
                   ))}
                 </LabeledList.Item>
                 {!!data.iscentcom && (
-                  <LabeledList.Item label="CentCom">
+                  <LabeledList.Item label="CentCom" labelColor={deptCols.centcom}>
                     {data.jobs_centcom.map(v => (
                       <Button
                         selected={v === data.modify_rank}
@@ -299,7 +301,7 @@ export const CardComputer = (props, context) => {
       }
       break;
     case 1: // job slot management
-      if (!data.authenticated || !data.scan_name) {
+      if (!data.auth_or_ghost) {
         bodyBlock = (
           <Section title="Warning" color="red">
             Not logged in.
@@ -313,8 +315,6 @@ export const CardComputer = (props, context) => {
               {data.cooldown_time ? data.cooldown_time : "Now"}
             </Section>
             <Section title="Job Slots">
-
-
               <Table>
                 <Table.Row>
                   <Table.Cell bold textAlign="center">Title</Table.Cell>
@@ -328,7 +328,11 @@ export const CardComputer = (props, context) => {
                 {data.job_slots.map(slotData => (
                   <Table.Row key={slotData.title}>
                     <Table.Cell textAlign="center">
-                      {slotData.title}
+                      <Box color={slotData.is_priority
+                        ? "green"
+                        : ""}>
+                        {slotData.title}
+                      </Box>
                     </Table.Cell>
                     <Table.Cell textAlign="center">
                       {slotData.current_positions}
@@ -372,10 +376,10 @@ export const CardComputer = (props, context) => {
                         </Box>
                       ) || (
                         <Button
-                          content="Priority"
-                          selected={
-                            data.priority_jobs.indexOf(slotData.title) > -1
-                          }
+                          content={slotData.is_priority
+                            ? "Yes"
+                            : "No"}
+                          selected={slotData.is_priority}
                           disabled={
                             data.cooldown_time || !slotData.can_prioritize
                           }

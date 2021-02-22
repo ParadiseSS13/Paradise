@@ -88,7 +88,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 		if(cult_mind.assigned_role == "Clown")
 			to_chat(cult_mind.current, "<span class='cultitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
-			cult_mind.current.mutations.Remove(CLUMSY)
+			cult_mind.current.dna.SetSEState(GLOB.clumsyblock, FALSE)
+			singlemutcheck(cult_mind.current, GLOB.clumsyblock, MUTCHK_FORCED)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(cult_mind.current)
 
@@ -182,7 +183,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 		if(cult_mind.assigned_role == "Clown")
 			to_chat(cult_mind.current, "<span class='cultitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
-			cult_mind.current.mutations.Remove(CLUMSY)
+			cult_mind.current.dna.SetSEState(GLOB.clumsyblock, FALSE)
+			singlemutcheck(cult_mind.current, GLOB.clumsyblock, MUTCHK_FORCED)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(cult_mind.current)
 		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
@@ -298,13 +300,13 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 /datum/game_mode/cult/declare_completion()
 	if(cult_objs.cult_status == NARSIE_HAS_RISEN)
-		feedback_set_details("round_end_result","cult win - cult win")
+		SSticker.mode_result = "cult win - cult win"
 		to_chat(world, "<span class='danger'> <FONT size = 3>The cult wins! It has succeeded in summoning [SSticker.cultdat.entity_name]!</FONT></span>")
 	else if(cult_objs.cult_status == NARSIE_HAS_FALLEN)
-		feedback_set_details("round_end_result","cult draw - narsie died, nobody wins")
+		SSticker.mode_result = "cult draw - narsie died, nobody wins"
 		to_chat(world, "<span class='danger'> <FONT size = 3>Nobody wins! [SSticker.cultdat.entity_name] was summoned, but banished!</FONT></span>")
 	else
-		feedback_set_details("round_end_result","cult loss - staff stopped the cult")
+		SSticker.mode_result = "cult loss - staff stopped the cult"
 		to_chat(world, "<span class='warning'> <FONT size = 3>The staff managed to stop the cult!</FONT></span>")
 
 	var/endtext

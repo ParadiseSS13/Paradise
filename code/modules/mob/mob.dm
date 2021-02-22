@@ -964,6 +964,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	show_stat_turf_contents()
 
 	statpanel("Status") // We only want alt-clicked turfs to come before Status
+	stat(null, "Round ID: [GLOB.round_id ? GLOB.round_id : "NULL"]")
 
 	if(mob_spell_list && mob_spell_list.len)
 		for(var/obj/effect/proc_holder/spell/S in mob_spell_list)
@@ -997,8 +998,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	statpanel("Status") // Switch to the Status panel again, for the sake of the lazy Stat procs
 
-	if(client && client.statpanel == "Status" && SSticker)
-		show_stat_station_time()
+	if(client?.statpanel == "Status")
+		if(SSticker)
+			show_stat_station_time()
+		stat(null, "Players Connected: [length(GLOB.clients)]")
 
 // this function displays the station time in the status panel
 /mob/proc/show_stat_station_time()
@@ -1344,6 +1347,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/spin(spintime, speed)
 	set waitfor = 0
+	if(!spintime || !speed || spintime > 100)
+		CRASH("Aborted attempted call of /mob/proc/spin with invalid args ([spintime],[speed]) which could have frozen the server.")
 	var/D = dir
 	while(spintime >= speed)
 		sleep(speed)
@@ -1423,22 +1428,22 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/set_nutrition(change)
 	nutrition = max(0, change)
 
-/mob/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
+/mob/clean_blood(radiation_clean = FALSE, clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
 	. = ..()
 	if(bloody_hands && clean_hands)
 		bloody_hands = 0
 		update_inv_gloves()
 	if(l_hand)
-		if(l_hand.clean_blood())
+		if(l_hand.clean_blood(radiation_clean))
 			update_inv_l_hand()
 	if(r_hand)
-		if(r_hand.clean_blood())
+		if(r_hand.clean_blood(radiation_clean))
 			update_inv_r_hand()
 	if(back)
-		if(back.clean_blood())
+		if(back.clean_blood(radiation_clean))
 			update_inv_back()
 	if(wear_mask && clean_mask)
-		if(wear_mask.clean_blood())
+		if(wear_mask.clean_blood(radiation_clean))
 			update_inv_wear_mask()
 	if(clean_feet)
 		feet_blood_color = null
@@ -1447,4 +1452,3 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		blood_state = BLOOD_STATE_NOT_BLOODY
 		update_inv_shoes()
 	update_icons()	//apply the now updated overlays to the mob
-

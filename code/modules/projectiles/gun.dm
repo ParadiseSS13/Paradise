@@ -172,7 +172,7 @@
 	//Exclude lasertag guns from the CLUMSY check.
 	if(clumsy_check)
 		if(istype(user))
-			if((CLUMSY in user.mutations) && prob(40))
+			if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
 				to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>")
 				var/shot_leg = pick("l_foot", "r_foot")
 				process_fire(user, user, 0, params, zone_override = shot_leg)
@@ -282,7 +282,7 @@
 			user.update_inv_l_hand()
 		else
 			user.update_inv_r_hand()
-	feedback_add_details("gun_fired","[type]")
+	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 
 /obj/item/gun/attack(mob/M, mob/user)
 	if(user.a_intent == INTENT_HARM) //Flogging

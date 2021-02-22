@@ -2,8 +2,7 @@
 /obj/structure/closet/crate/necropolis/colossus
 	name = "colossus chest"
 
-/obj/structure/closet/crate/necropolis/colossus/New()
-	..()
+/obj/structure/closet/crate/necropolis/colossus/populate_contents()
 	var/list/choices = subtypesof(/obj/machinery/anomalous_crystal)
 	var/random_crystal = pick(choices)
 	new random_crystal(src)
@@ -12,8 +11,8 @@
 /obj/structure/closet/crate/necropolis/colossus/crusher
 	name = "angelic colossus chest"
 
-/obj/structure/closet/crate/necropolis/colossus/crusher/New()
-	..()
+/obj/structure/closet/crate/necropolis/colossus/crusher/populate_contents()
+	. = ..()
 	new /obj/item/crusher_trophy/blaster_tubes(src)
 
 ///Anomolous Crystal///
@@ -218,7 +217,7 @@
 				if(H.stat == DEAD)
 					H.set_species(/datum/species/shadow)
 					H.revive()
-					H.mutations |= NOCLONE //Free revives, but significantly limits your options for reviving except via the crystal
+					ADD_TRAIT(H, TRAIT_BADDNA, MAGIC_TRAIT) //Free revives, but significantly limits your options for reviving except via the crystal
 					H.grab_ghost(force = TRUE)
 
 /obj/machinery/anomalous_crystal/helpers //Lets ghost spawn as helpful creatures that can only heal people slightly. Incredibly fragile and they can't converse with humans
@@ -336,14 +335,14 @@
 		if(ishuman(user))
 			var/mobcheck = 0
 			for(var/mob/living/simple_animal/A in range(1, src))
-				if(A.melee_damage_upper > 5 || A.mob_size >= MOB_SIZE_LARGE || A.ckey || A.stat)
+				if(A.melee_damage_upper > 5 || A.mob_size >= MOB_SIZE_LARGE || A.ckey || A.stat || isbot(A))
 					break
 				var/obj/structure/closet/stasis/S = new /obj/structure/closet/stasis(A)
 				user.forceMove(S)
 				mobcheck = 1
 				break
 			if(!mobcheck)
-				new /mob/living/simple_animal/cockroach(get_step(src,dir)) //Just in case there aren't any animals on the station, this will leave you with a terrible option to possess if you feel like it
+				new /mob/living/simple_animal/mouse(get_step(src,dir)) //Just in case there aren't any animals on the station, this will leave you with a terrible option to possess if you feel like it
 
 /obj/structure/closet/stasis
 	name = "quantum entanglement stasis warp field"
@@ -361,8 +360,8 @@
 			holder_animal.gib()
 			return
 
-/obj/structure/closet/stasis/New()
-	..()
+/obj/structure/closet/stasis/Initialize(mapload)
+	. = ..()
 	if(isanimal(loc))
 		holder_animal = loc
 	START_PROCESSING(SSobj, src)
@@ -371,7 +370,7 @@
 	if(isliving(A) && holder_animal)
 		var/mob/living/L = A
 		L.notransform = 1
-		L.mutations |= MUTE
+		ADD_TRAIT(L, TRAIT_MUTE, STASIS_MUTE)
 		L.status_flags |= GODMODE
 		L.mind.transfer_to(holder_animal)
 		var/obj/effect/proc_holder/spell/targeted/exit_possession/P = new /obj/effect/proc_holder/spell/targeted/exit_possession
@@ -381,7 +380,7 @@
 /obj/structure/closet/stasis/dump_contents(var/kill = 1)
 	STOP_PROCESSING(SSobj, src)
 	for(var/mob/living/L in src)
-		L.mutations -=MUTE
+		REMOVE_TRAIT(L, TRAIT_MUTE, STASIS_MUTE)
 		L.status_flags &= ~GODMODE
 		L.notransform = 0
 		if(holder_animal && !QDELETED(holder_animal))

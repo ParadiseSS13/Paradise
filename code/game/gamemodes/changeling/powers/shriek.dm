@@ -16,7 +16,7 @@
 				if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
 					continue
 			if(!M.mind || !M.mind.changeling)
-				M.MinimumDeafTicks(30)
+				M.AdjustEarDamage(0, 30)
 				M.AdjustConfused(20)
 				M.Jitter(50)
 			else
@@ -30,7 +30,7 @@
 		L.on = 1
 		L.break_light_tube()
 
-	feedback_add_details("changeling_powers","RS")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1
 
 /datum/action/changeling/dissonant_shriek

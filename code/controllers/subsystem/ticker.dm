@@ -18,7 +18,7 @@ SUBSYSTEM_DEF(ticker)
 	/// Do we want to force-end as soon as we can
 	var/force_ending = FALSE
 	/// Leave here at FALSE ! setup() will take care of it when needed for Secret mode -walter0o
-	var/hide_mode = FALSE 
+	var/hide_mode = FALSE
 	/// Our current game mode
 	var/datum/game_mode/mode = null
 	/// The current pick of lobby music played in the lobby
@@ -36,7 +36,7 @@ SUBSYSTEM_DEF(ticker)
 	/// Cult data. Here instead of cult for adminbus purposes
 	var/datum/cult_info/cultdat = null
 	/// If set to nonzero, ALL players who latejoin or declare-ready join will have random appearances/genders
-	var/random_players = FALSE 
+	var/random_players = FALSE
 	/// Did we broadcast the tip of the round yet?
 	var/tipped = FALSE
 	/// What will be the tip of the round?
@@ -50,11 +50,17 @@ SUBSYSTEM_DEF(ticker)
 	/// Holder for inital autotransfer vote timer
 	var/next_autotransfer = 0
 	/// Used for station explosion cinematic
-	var/obj/screen/cinematic = null	
+	var/obj/screen/cinematic = null
 	/// Spam Prevention. Announce round end only once.
 	var/round_end_announced = FALSE
 	/// Is the ticker currently processing? If FALSE, roundstart is delayed
 	var/ticker_going = TRUE
+	/// Gamemode result (For things like shadowlings or nukies which can end multiple ways)
+	var/mode_result = "undefined"
+	/// Server end state (Did we end properly or reboot or nuke or what)
+	var/end_state = "undefined"
+	/// Time the real reboot kicks in
+	var/real_reboot_time = 0
 
 /datum/controller/subsystem/ticker/Initialize()
 	login_music = pick(\
@@ -124,9 +130,9 @@ SUBSYSTEM_DEF(ticker)
 
 			spawn(50)
 				if(mode.station_was_nuked)
-					world.Reboot("Station destroyed by Nuclear Device.", "end_proper", "nuke")
+					reboot_helper("Station destroyed by Nuclear Device.", "nuke")
 				else
-					world.Reboot("Round ended.", "end_proper", "proper completion")
+					reboot_helper("Round ended.", "proper completion")
 
 /datum/controller/subsystem/ticker/proc/setup()
 	cultdat = setupcult()
@@ -243,6 +249,7 @@ SUBSYSTEM_DEF(ticker)
 		if(S.name != "AI")
 			qdel(S)
 
+	SSdbcore.SetRoundStart()
 	to_chat(world, "<span class='darkmblue'><B>Enjoy the game!</B></span>")
 	world << sound('sound/AI/welcome.ogg')
 
@@ -251,7 +258,7 @@ SUBSYSTEM_DEF(ticker)
 		for(var/holidayname in SSholiday.holidays)
 			var/datum/holiday/holiday = SSholiday.holidays[holidayname]
 			to_chat(world, "<h4>[holiday.greet()]</h4>")
-	
+
 	SSdiscord.send2discord_simple_noadmins("**\[Info]** Round has started")
 	auto_toggle_ooc(FALSE) // Turn it off
 	round_start_time = world.time
@@ -416,9 +423,9 @@ SUBSYSTEM_DEF(ticker)
 /datum/controller/subsystem/ticker/proc/declare_completion()
 	GLOB.nologevent = TRUE //end of round murder and shenanigans are legal; there's no need to jam up attack logs past this point.
 	//Round statistics report
-	var/datum/station_state/end_state = new /datum/station_state()
-	end_state.count()
-	var/station_integrity = min(round( 100.0 *  GLOB.start_state.score(end_state), 0.1), 100.0)
+	var/datum/station_state/ending_station_state = new /datum/station_state()
+	ending_station_state.count()
+	var/station_integrity = min(round( 100.0 *  GLOB.start_state.score(ending_station_state), 0.1), 100.0)
 
 	to_chat(world, "<BR>[TAB]Shift Duration: <B>[round(ROUND_TIME / 36000)]:[add_zero("[ROUND_TIME / 600 % 60]", 2)]:[ROUND_TIME / 100 % 6][ROUND_TIME / 100 % 10]</B>")
 	to_chat(world, "<BR>[TAB]Station Integrity: <B>[mode.station_was_nuked ? "<font color='red'>Destroyed</font>" : "[station_integrity]%"]</B>")
@@ -494,6 +501,10 @@ SUBSYSTEM_DEF(ticker)
 			var/mob/M = m
 			H.add_hud_to(M)
 
+	// Seal the blackbox, stop collecting info
+	SSblackbox.Seal()
+	SSdbcore.SetRoundEnd()
+
 	return TRUE
 
 /datum/controller/subsystem/ticker/proc/HasRoundStarted()
@@ -532,3 +543,38 @@ SUBSYSTEM_DEF(ticker)
 		var/datum/trade_destination/D = new loc_type
 		GLOB.weighted_randomevent_locations[D] = D.viable_random_events.len
 		GLOB.weighted_mundaneevent_locations[D] = D.viable_mundane_events.len
+
+// Easy handler to make rebooting the world not a massive sleep in world/Reboot()
+/datum/controller/subsystem/ticker/proc/reboot_helper(reason, end_string, delay)
+	// Admins delayed round end. Just alert and dont bother with anything else.
+	if(delay_end)
+		to_chat(world, "<span class='boldannounce'>An admin has delayed the round end.</span>")
+		return
+
+	if(!isnull(delay))
+		// Delay time was present. Use that.
+		delay = max(0, delay)
+	else
+		// Use default restart timeout
+		delay = restart_timeout
+
+	to_chat(world, "<span class='boldannounce'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>")
+
+	real_reboot_time = world.time + delay
+	UNTIL(world.time > real_reboot_time) // Hold it here
+
+	// And if we re-delayed, bail again
+	if(delay_end)
+		to_chat(world, "<span class='boldannounce'>Reboot was cancelled by an admin.</span>")
+		return
+
+	if(end_string)
+		end_state = end_string
+
+	// Play a haha funny noise
+	var/round_end_sound = pick(GLOB.round_end_sounds)
+	var/sound_length = GLOB.round_end_sounds[round_end_sound]
+	world << round_end_sound
+	sleep(sound_length)
+
+	world.Reboot()

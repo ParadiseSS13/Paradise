@@ -56,7 +56,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 	testing(msg)
 	#endif
 
-/proc/load_admins()
+/proc/load_admins(run_async = FALSE)
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='boldannounce'>Admin reload blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to reload admins via advanced proc-call")
@@ -118,7 +118,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 			return
 
 		var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey, rank, level, flags FROM [format_table_name("admin")]")
-		if(!query.warn_execute())
+		if(!query.warn_execute(async=run_async))
 			qdel(query)
 			return
 

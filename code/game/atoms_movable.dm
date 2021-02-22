@@ -29,11 +29,6 @@
 
 	var/moving_diagonally = 0 //0: not doing a diagonal move. 1 and 2: doing the first/second step of the diagonal move
 	var/list/client_mobs_in_contents
-	var/area/areaMaster
-
-/atom/movable/New()
-	. = ..()
-	areaMaster = get_area(src)
 
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
@@ -445,9 +440,6 @@
 /atom/movable/overlay/attack_hand(a, b, c)
 	if(master)
 		return master.attack_hand(a, b, c)
-
-/atom/movable/proc/water_act(volume, temperature, source, method = REAGENT_TOUCH) //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
-	return TRUE
 
 /atom/movable/proc/handle_buckled_mob_movement(newloc,direct,movetime)
 	for(var/m in buckled_mobs)

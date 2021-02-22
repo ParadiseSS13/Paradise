@@ -42,6 +42,19 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 	else
 		return 0
 
+/proc/jobban_isbanned_ckey(ckey, rank)
+	if(!ckey || !rank)
+		return null
+
+	if(config.guest_jobban && guest_jobbans(rank))
+		if(IsGuestKey(ckey))
+			return "Guest Job-ban"
+
+	if(GLOB.jobban_assoclist[ckey])
+		return GLOB.jobban_assoclist[ckey][rank]
+
+	return null
+
 /proc/jobban_loadbanfile()
 	if(config.ban_legacy_system)
 		var/savefile/S=new("data/job_full.ban")
@@ -68,7 +81,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 		//Job permabans
 		var/datum/db_query/permabans = SSdbcore.NewQuery("SELECT ckey, job FROM [format_table_name("ban")] WHERE bantype = 'JOB_PERMABAN' AND isnull(unbanned)")
 
-		if(!permabans.warn_execute())
+		if(!permabans.warn_execute(async=FALSE))
 			qdel(permabans)
 			return FALSE
 
@@ -83,7 +96,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 		// Job tempbans
 		var/datum/db_query/tempbans = SSdbcore.NewQuery("SELECT ckey, job FROM [format_table_name("ban")] WHERE bantype = 'JOB_TEMPBAN' AND isnull(unbanned) AND expiration_time > Now()")
 
-		if(!tempbans.warn_execute())
+		if(!tempbans.warn_execute(async=FALSE))
 			qdel(tempbans)
 			return FALSE
 

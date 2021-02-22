@@ -220,6 +220,37 @@
 	damtype = BURN
 	force = 15
 	hitsound = 'sound/items/welder2.ogg'
+	var/mob/current_owner
+
+/obj/item/scrying/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+/obj/item/scrying/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	current_owner = null
+	return ..()
+
+/obj/item/scrying/process()
+	var/mob/holder = get(loc, /mob)
+	if(current_owner && current_owner != holder)
+
+		to_chat(current_owner, "<span class='notice'>Your otherworldly vision fades...</span>")
+
+		REMOVE_TRAIT(current_owner, TRAIT_XRAY_VISION, SCRYING_ORB)
+		current_owner.update_sight()
+		current_owner.update_icons()
+
+		current_owner = null
+
+	if(!current_owner && holder)
+		current_owner = holder
+
+		to_chat(current_owner, "<span class='notice'>You can see...everything!</span>")
+
+		ADD_TRAIT(current_owner, TRAIT_XRAY_VISION, SCRYING_ORB)
+		current_owner.update_sight()
+		current_owner.update_icons()
 
 /obj/item/scrying/attack_self(mob/user as mob)
 	to_chat(user, "<span class='notice'> You can see...everything!</span>")
@@ -342,7 +373,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	if(duplicate_self)
 		M.dna = user.dna.Clone()
 		M.UpdateAppearance()
-		domutcheck(M, null)
+		domutcheck(M)
 	M.update_body()
 	M.update_hair()
 	M.update_fhair()
@@ -796,7 +827,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		else if(istype(I,/obj/item/bikehorn))
 			to_chat(target, "<span class='userdanger'>HONK</span>")
 			target << 'sound/items/airhorn.ogg'
-			target.MinimumDeafTicks(3)
+			target.AdjustEarDamage(0, 3)
 			GiveHint(target)
 		cooldown = world.time +cooldown_time
 		return

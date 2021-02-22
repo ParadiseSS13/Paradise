@@ -57,6 +57,8 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	explosion_block = 1
 	assemblytype = /obj/structure/door_assembly
 	siemens_strength = 1
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	rad_insulation = RAD_MEDIUM_INSULATION
 	var/security_level = 0 //How much are wires secured
 	var/aiControlDisabled = AICONTROLDISABLED_OFF
 	var/hackProof = FALSE // if TRUE, this door can't be hacked by the AI
@@ -190,7 +192,7 @@ About the new airlock wires panel:
 			else
 				return
 		else if(user.hallucination > 50 && prob(10) && !operating)
-			if(user.electrocute_act(50, src, 1, illusion = TRUE)) // We'll just go with a flat 50 damage, instead of doing powernet checks
+			if(user.electrocute_act(50, src, flags = SHOCK_ILLUSION)) // We'll just go with a flat 50 damage, instead of doing powernet checks
 				return
 	..(user)
 

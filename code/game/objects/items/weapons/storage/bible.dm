@@ -82,7 +82,7 @@
 		user.take_organ_damage(0, 10)
 		return
 
-	if((CLUMSY in user.mutations) && prob(50))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class='warning'>The [src] slips out of your hand and hits your head.</span>")
 		user.take_organ_damage(10)
 		user.Paralyse(20)
@@ -169,7 +169,7 @@
 				if(T.icon_state == "carpetsymbol")
 					T.dir = carpet_dir*/
 
-	feedback_set_details("religion_book", "[choice]")
+	SSblackbox.record_feedback("text", "religion_book", 1, "[choice]", 1)
 
 	if(SSticker)
 		SSticker.Bible_name = name
