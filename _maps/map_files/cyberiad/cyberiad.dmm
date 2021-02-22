@@ -24183,9 +24183,6 @@
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
 "aYk" = (
-/obj/structure/table,
-/obj/item/scalpel,
-/obj/item/autopsy_scanner,
 /obj/machinery/light_switch{
 	pixel_x = -23;
 	pixel_y = 0
@@ -24195,6 +24192,7 @@
 	pixel_x = 0;
 	pixel_y = 32
 	},
+/obj/structure/closet/secure_closet/coroner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -24290,6 +24288,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -31335,8 +31334,8 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /obj/machinery/status_display{
 	density = 0;
@@ -31386,8 +31385,8 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -39904,7 +39903,10 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
 "bEt" = (
-/obj/machinery/optable,
+/obj/structure/table,
+/obj/item/autopsy_scanner,
+/obj/item/hemostat,
+/obj/item/scalpel,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -41538,6 +41540,7 @@
 	dir = 1;
 	pixel_y = -24
 	},
+/obj/machinery/optable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -41565,7 +41568,12 @@
 	dir = 4;
 	pixel_x = 0
 	},
-/obj/machinery/photocopier,
+/obj/structure/table,
+/obj/machinery/photocopier/faxmachine{
+	department = "Coroner's Office";
+	req_access = list(6);
+	req_one_access = null
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -89657,8 +89665,8 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /obj/structure/cable{
 	d1 = 4;
