@@ -1680,6 +1680,7 @@
 #include "code\modules\library\computers\checkout.dm"
 #include "code\modules\library\computers\public.dm"
 #include "code\modules\lighting\__lighting_docs.dm"
+#include "code\modules\lighting\emissive_blocker.dm"
 #include "code\modules\lighting\lighting_area.dm"
 #include "code\modules\lighting\lighting_atom.dm"
 #include "code\modules\lighting\lighting_corner.dm"
