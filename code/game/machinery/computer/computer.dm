@@ -17,6 +17,7 @@
 	var/light_range_on = MINIMUM_USEFUL_LIGHT_RANGE
 	var/light_power_on = 0.7
 	var/overlay_layer
+	var/emissive_alpha = 128
 	/// Are we in the middle of a flicker event?
 	var/flickering = FALSE
 	/// Are we forcing the icon to be represented in a no-power state?
@@ -73,7 +74,6 @@
 	flickering = FALSE
 
 /obj/machinery/computer/update_icon()
-	. = ..()
 	if(stat & NOPOWER)
 		. += "[icon_keyboard]_off"
 		return
@@ -84,7 +84,7 @@
 	if(stat & BROKEN)
 		overlay_state = "[icon_state]_broken"
 	SSvis_overlays.add_vis_overlay(src, icon, overlay_state, layer, plane, dir)
-	SSvis_overlays.add_vis_overlay(src, icon, overlay_state, layer, EMISSIVE_PLANE, dir)
+	SSvis_overlays.add_vis_overlay(src, icon, overlay_state, layer, EMISSIVE_PLANE, dir, emissive_alpha)
 
 
 /obj/machinery/computer/power_change()

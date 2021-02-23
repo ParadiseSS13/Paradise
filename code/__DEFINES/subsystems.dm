@@ -46,7 +46,6 @@
 // The numbers just define the ordering, they are meaningless otherwise.
 #define INIT_ORDER_PROFILER	101
 #define INIT_ORDER_TITLE 100 // Load this quickly so people dont see a blank lobby screen
-#define INIT_ORDER_VIS 22
 #define INIT_ORDER_GARBAGE 21
 #define INIT_ORDER_DBCORE 20
 #define INIT_ORDER_BLACKBOX 19
@@ -78,6 +77,7 @@
 #define INIT_ORDER_XKEYSCORE -10
 #define INIT_ORDER_STICKY_BAN -10
 #define INIT_ORDER_TICKETS -10
+#define INIT_ORDER_VIS -15
 #define INIT_ORDER_LIGHTING -20
 #define INIT_ORDER_SHUTTLE -21
 #define INIT_ORDER_NIGHTSHIFT -22
