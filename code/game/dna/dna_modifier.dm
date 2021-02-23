@@ -200,9 +200,9 @@
 		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
 		return
 	if(L == user)
-		visible_message("[user] climbs into [src].")
+		visible_message("<span class='notice'>[user] climbs into [src].</span>")
 	else
-		visible_message("[user] puts [L.name] into [src].")
+		visible_message("<span class='notice'>[user] puts [L.name] into [src].</span>")
 	put_in(L)
 	if(user.pulling == L)
 		user.stop_pulling()
@@ -235,7 +235,7 @@
 			to_chat(user, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
 			return
 		if(G.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, "<span class='warning'>will not fit into [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
+			to_chat(user, "<span class='warning'>[G] will not fit into [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
 			return
 		if(panel_open)
 			to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")

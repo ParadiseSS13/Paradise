@@ -75,7 +75,7 @@
 		var/turf/location = get_turf(src)
 		var/obj/effect/decal/cleanable/liquid_fuel/oil = new(location)
 		oil.name = "fat"
-		oil.desc = "uh oh, looks like some fat from [src]"
+		oil.desc = "Uh oh, looks like some fat from [src]!"
 		oil.loc = location
 		location.hotspot_expose(700, 50, 1)
 		//TODO have a chance of setting the tile on fire

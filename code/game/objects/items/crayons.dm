@@ -247,8 +247,8 @@
 	var/choice = input(user,"Spraycan options") in list("Toggle Cap","Change Drawing","Change Color")
 	switch(choice)
 		if("Toggle Cap")
-			to_chat(user, "<span class='notice'>You [capped ? "Remove" : "Replace"] the cap of [src]</span>")
-			capped = capped ? 0 : 1
+			to_chat(user, "<span class='notice'>You [capped ? "remove" : "replace"] the cap of [src].</span>")
+			capped = !capped
 			icon_state = "spraycan[capped ? "_cap" : ""]"
 			update_icon()
 		if("Change Drawing")

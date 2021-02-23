@@ -110,18 +110,19 @@
 
 
 /obj/machinery/implantchair/proc/implant(mob/M)
-	if(!istype(M, /mob/living/carbon))
+	if(!iscarbon(M))
 		return
-	if(!implant_list.len)	return
+	if(!length(implant_list))
+		return
 	for(var/obj/item/implant/mindshield/imp in implant_list)
-		if(!imp)	continue
+		if(!imp)
+			continue
 		if(istype(imp, /obj/item/implant/mindshield))
-			M.visible_message("<span class='warning'>[M] has been implanted by [src].</span>")
+			visible_message("<span class='warning'>[src] implants [M].</span>")
 
 			if(imp.implant(M))
 				implant_list -= imp
 			break
-	return
 
 
 /obj/machinery/implantchair/proc/add_implants()

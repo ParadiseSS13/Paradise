@@ -282,7 +282,7 @@
 	if(ruined)
 		return
 
-	to_chat(usr, "You erase the data from [src]")
+	to_chat(usr, "<span class='notice'>You erase the data from [src].</span>")
 	clear()
 
 /obj/item/tape/proc/clear()

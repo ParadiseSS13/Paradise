@@ -213,9 +213,8 @@
 			return
 		var/mob/living/carbon/human/H = user
 		if(H.shoes != src)
-			to_chat(user, "You will have to put on [src] before you can do that.")
+			to_chat(user, "<span class='warning>You will have to put on [src] before you can do that.</span>")
 			return
-
 
 		flags |= NOSLIP
 		magpulse = 1

@@ -105,7 +105,7 @@
 
 /obj/item/reagent_containers/food/snacks/grown/firelemon
 	seed = /obj/item/seeds/firelemon
-	name = "combustible Lemon"
+	name = "combustible lemon"
 	desc = "Made for burning houses down."
 	icon_state = "firelemon"
 	bitesize_mod = 2

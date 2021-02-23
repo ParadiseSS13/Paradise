@@ -215,7 +215,7 @@
 				boxes.Add(boxestoadd)
 				box.update_icon()
 				update_icon()
-				to_chat(user, "<span class='warning'>You put [box] ontop of [src]!</span>")
+				to_chat(user, "<span class='warning'>You put [box] on top of [src]!</span>")
 			else
 				to_chat(user, "<span class='warning'>The stack is too high!</span>")
 		else
