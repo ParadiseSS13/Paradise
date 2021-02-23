@@ -73,7 +73,7 @@ const StoredItems = (props, context) => {
           <ItemRow object={suit} label="Suit" missingText="suit" eject="dispense_suit" />
           <ItemRow object={magboots} label="Boots" missingText="boots" eject="dispense_boots" />
           <ItemRow object={mask} label="Breathmask" missingText="mask" eject="dispense_mask" />
-          <ItemRow object={storage} label="Tank" missingText="tank" eject="dispense_storage" />
+          <ItemRow object={storage} label="Storage" missingText="storage item" eject="dispense_storage" />
         </LabeledList>
       ) : (
         <Flex height="100%">
