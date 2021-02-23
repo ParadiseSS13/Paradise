@@ -128,11 +128,11 @@
 
 /obj/machinery/gibber/proc/move_into_gibber(mob/user, mob/living/victim)
 	if(occupant)
-		to_chat(user, "<span class='danger'>The [src] is full, empty it first!</span>")
+		to_chat(user, "<span class='danger'>[src] is full, empty it first!</span>")
 		return
 
 	if(operating)
-		to_chat(user, "<span class='danger'>The [src] is locked and running, wait for it to finish.</span>")
+		to_chat(user, "<span class='danger'>[src] is locked and running, wait for it to finish.</span>")
 		return
 
 	if(!ishuman(victim))

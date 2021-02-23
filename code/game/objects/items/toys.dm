@@ -71,7 +71,7 @@
 	if(istype(O, /obj/item/reagent_containers/glass) || istype(O, /obj/item/reagent_containers/food/drinks/drinkingglass))
 		if(O.reagents)
 			if(O.reagents.total_volume < 1)
-				to_chat(user, "The [O] is empty.")
+				to_chat(user, "[O] is empty.")
 			else if(O.reagents.total_volume >= 1)
 				if(O.reagents.has_reagent("facid", 1))
 					to_chat(user, "The acid chews through the balloon!")
@@ -86,7 +86,7 @@
 
 /obj/item/toy/balloon/throw_impact(atom/hit_atom)
 	if(reagents.total_volume >= 1)
-		visible_message("<span class='warning'>The [src] bursts!</span>","You hear a pop and a splash.")
+		visible_message("<span class='warning'>[src] bursts!</span>","You hear a pop and a splash.")
 		reagents.reaction(get_turf(hit_atom))
 		for(var/atom/A in get_turf(hit_atom))
 			reagents.reaction(A)
@@ -256,7 +256,7 @@
 	..()
 	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/ash(src.loc)
-	visible_message("<span class='warning'>The [name] explodes!</span>","<span class='warning'>You hear a bang!</span>")
+	visible_message("<span class='warning'>[src] explodes!</span>","<span class='warning'>You hear a bang!</span>")
 	playsound(src, 'sound/effects/snap.ogg', 50, 1)
 	qdel(src)
 

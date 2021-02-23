@@ -257,7 +257,7 @@
 	deal_damage(15)
 	playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
 	to_chat(user, "<span class='warning'>You slash at [src]!</span>")
-	visible_message("<span class='warning'>The [user] slashes at [src.name]'s armor!</span>")
+	visible_message("<span class='warning'>[user] slashes at [src]'s armor!</span>")
 
 /obj/spacepod/proc/deal_damage(var/damage)
 	var/oldhealth = health

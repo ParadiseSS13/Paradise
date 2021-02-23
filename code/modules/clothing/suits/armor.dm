@@ -342,7 +342,7 @@
 	if(!active)
 		return 0
 	if(prob(hit_reaction_chance))
-		owner.visible_message("<span class='danger'>The [src] blocks [attack_text], sending out jets of flame!</span>")
+		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out jets of flame!</span>")
 		for(var/mob/living/carbon/C in range(6, owner))
 			if(C != owner)
 				C.fire_stacks += 8
@@ -376,7 +376,7 @@
 	if(!active)
 		return 0
 	if(prob(hit_reaction_chance))
-		owner.visible_message("<span class='danger'>The [src] blocks [attack_text], sending out arcs of lightning!</span>")
+		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out arcs of lightning!</span>")
 		for(var/mob/living/M in view(6, owner))
 			if(M == owner)
 				continue

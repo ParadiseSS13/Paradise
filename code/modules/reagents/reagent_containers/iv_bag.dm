@@ -60,7 +60,7 @@
 		return
 
 	if(get_dist(get_turf(src), get_turf(injection_target)) > 1)
-		to_chat(injection_target, "<span class='userdanger'>The [src]'s' needle is ripped out of you!</span>")
+		to_chat(injection_target, "<span class='userdanger'>[src]'s needle is ripped out of you!</span>")
 		injection_target.apply_damage(3, BRUTE, pick("r_arm", "l_arm"))
 		end_processing()
 		return

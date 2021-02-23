@@ -187,7 +187,7 @@
 		if(isabductor(grabbed.affecting))
 			return
 		if(occupant)
-			to_chat(user, "<span class='notice'>The [src] is already occupied!</span>")
+			to_chat(user, "<span class='notice'>[src] is already occupied!</span>")
 			return
 		if(grabbed.affecting.has_buckled_mobs()) //mob attached to us
 			to_chat(user, "<span class='warning'>[grabbed.affecting] will not fit into [src] because [grabbed.affecting.p_they()] [grabbed.affecting.p_have()] a slime latched onto [grabbed.affecting.p_their()] head.</span>")

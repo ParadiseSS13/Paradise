@@ -71,7 +71,7 @@
 		return 1
 	if(istype(W, /obj/item/wrench))
 		if(bolts)
-			to_chat(usr, "The [src] is bolted to the floor! You can't detach it like this.")
+			to_chat(usr, "[src] is bolted to the floor! You can't detach it like this.")
 			return 1
 		playsound(loc, W.usesound, 50, 1)
 		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")

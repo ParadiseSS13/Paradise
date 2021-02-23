@@ -37,7 +37,7 @@ GLOBAL_LIST_INIT(whiteness, list(
 						return GLOB.whiteness[U.type] + 1
 		if(BANE_TOOLBOX)
 			if(istype(weapon,/obj/item/storage/toolbox))
-				src.visible_message("<span class='warning'>The [weapon] seems unusually robust this time.</span>", "<span class='notice'>The [weapon] is your unmaking!</span>")
+				src.visible_message("<span class='warning'>[weapon] seems unusually robust this time.</span>", "<span class='notice'>[weapon] is your unmaking!</span>")
 				return 2.5 // Will take four hits with a normal toolbox.
 		if(BANE_HARVEST)
 			if(istype(weapon,/obj/item/reagent_containers/food/snacks/grown/) || istype(weapon,/obj/item/grown))

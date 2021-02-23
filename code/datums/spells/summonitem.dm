@@ -80,7 +80,7 @@
 							var/obj/item/organ/external/part = X
 							if(item_to_retrieve in part.embedded_objects)
 								part.embedded_objects -= item_to_retrieve
-								to_chat(C, "<span class='warning'>The [item_to_retrieve] that was embedded in your [part] has mysteriously vanished. How fortunate!</span>")
+								to_chat(C, "<span class='warning'>\The [item_to_retrieve] that was embedded in your [part] has mysteriously vanished. How fortunate!</span>")
 								if(!C.has_embedded_objects())
 									C.clear_alert("embeddedobject")
 								break
@@ -99,7 +99,7 @@
 			if(!item_to_retrieve)
 				return
 
-			item_to_retrieve.loc.visible_message("<span class='warning'>The [item_to_retrieve.name] suddenly disappears!</span>")
+			item_to_retrieve.loc.visible_message("<span class='warning'>\The [item_to_retrieve] suddenly disappears!</span>")
 
 
 			if(target.hand) //left active hand
@@ -112,10 +112,10 @@
 						butterfingers = 1
 			if(butterfingers)
 				item_to_retrieve.loc = target.loc
-				item_to_retrieve.loc.visible_message("<span class='caution'>The [item_to_retrieve.name] suddenly appears!</span>")
+				item_to_retrieve.loc.visible_message("<span class='caution'>\The [item_to_retrieve] suddenly appears!</span>")
 				playsound(get_turf(target),'sound/magic/summonitems_generic.ogg',50,1)
 			else
-				item_to_retrieve.loc.visible_message("<span class='caution'>The [item_to_retrieve.name] suddenly appears in [target]'s hand!</span>")
+				item_to_retrieve.loc.visible_message("<span class='caution'>\The [item_to_retrieve] suddenly appears in [target]'s hand!</span>")
 				playsound(get_turf(target),'sound/magic/summonitems_generic.ogg',50,1)
 
 		if(message)

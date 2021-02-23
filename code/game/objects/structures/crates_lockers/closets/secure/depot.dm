@@ -32,7 +32,7 @@
 
 /obj/structure/closet/secure_closet/syndicate/depot/attack_animal(mob/M)
 	if(isanimal(M) && ("syndicate" in M.faction))
-		to_chat(M, "<span class='warning'>The [src] resists your attack!</span>")
+		to_chat(M, "<span class='warning'>[src] resists your attack!</span>")
 		return
 	return ..()
 

@@ -33,7 +33,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/Destroy()//missiles detonating, teleporter creating singularity?
 	if(chassis)
-		chassis.occupant_message("<span class='danger'>The [src] is destroyed!</span>")
+		chassis.occupant_message("<span class='danger'>[src] is destroyed!</span>")
 		chassis.log_append_to_last("[src] is destroyed.",1)
 		if(istype(src, /obj/item/mecha_parts/mecha_equipment/weapon))
 			chassis.occupant << sound(chassis.weapdestrsound, volume = 50)

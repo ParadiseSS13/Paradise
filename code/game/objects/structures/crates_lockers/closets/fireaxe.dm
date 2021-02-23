@@ -160,9 +160,9 @@
 			to_chat(usr, "<span class='notice'>You take \the [fireaxe] from the [src].</span>")
 			fireaxe = null
 		else
-			to_chat(usr, "<span class='notice'>The [src] is empty.</span>")
+			to_chat(usr, "<span class='notice'>[src] is empty.</span>")
 	else
-		to_chat(usr, "<span class='notice'>The [src] is closed.</span>")
+		to_chat(usr, "<span class='notice'>[src] is closed.</span>")
 	update_icon()
 
 /obj/structure/closet/fireaxecabinet/attack_ai(mob/user as mob)

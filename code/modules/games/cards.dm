@@ -410,8 +410,8 @@
 		if(cards.len)
 			update_icon()
 		if(H.cards.len)
-			usr.visible_message("<span class='notice'>The [usr] plays the [discarding].</span>", "<span class='notice'>You play the [discarding].</span>")
-		H.loc = get_step(usr,usr.dir)
+			user.visible_message("<span class='notice'>[user] plays the [discarding].</span>", "<span class='notice'>You play the [discarding].</span>")
+		H.loc = get_step(user, user.dir)
 
 	if(!cards.len)
 		qdel(src)

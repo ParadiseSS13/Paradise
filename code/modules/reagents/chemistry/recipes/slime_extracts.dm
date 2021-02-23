@@ -432,7 +432,7 @@
 			slime.update_name()
 			continue
 		slime.rabid = 1
-		slime.visible_message("<span class='danger'>The [slime] is driven into a frenzy!</span>")
+		slime.visible_message("<span class='danger'>[slime] is driven into a frenzy!</span>")
 
 
 /datum/chemical_reaction/slimespeed
@@ -563,7 +563,7 @@
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	if(holder.my_atom)
 		var/obj/item/stack/ore/bluespace_crystal/BC = new(get_turf(holder.my_atom))
-		BC.visible_message("<span class='notice'>The [BC.name] appears out of thin air!</span>")
+		BC.visible_message("<span class='notice'>[BC] appears out of thin air!</span>")
 
 //Cerulean
 /datum/chemical_reaction/slimepsteroid2

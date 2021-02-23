@@ -1,5 +1,5 @@
 /obj/machinery/power/emitter
-	name = "Emitter"
+	name = "emitter"
 	desc = "A heavy duty industrial laser"
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "emitter"
@@ -112,7 +112,7 @@
 		else
 			to_chat(user, "<span class='warning'>The controls are locked!</span>")
 	else
-		to_chat(user, "<span class='warning'>The [src] needs to be firmly secured to the floor first.</span>")
+		to_chat(user, "<span class='warning'>[src] needs to be firmly secured to the floor first.</span>")
 		return 1
 
 
@@ -221,19 +221,19 @@
 			if(0)
 				state = 1
 				playsound(src.loc, W.usesound, 75, 1)
-				user.visible_message("[user.name] secures [src.name] to the floor.", \
+				user.visible_message("[user.name] secures [src] to the floor.", \
 					"You secure the external reinforcing bolts to the floor.", \
 					"You hear a ratchet")
 				src.anchored = 1
 			if(1)
 				state = 0
 				playsound(src.loc,W.usesound, 75, 1)
-				user.visible_message("[user.name] unsecures [src.name] reinforcing bolts from the floor.", \
+				user.visible_message("[user.name] unsecures [src]'s reinforcing bolts from the floor.", \
 					"You undo the external reinforcing bolts.", \
 					"You hear a ratchet")
 				src.anchored = 0
 			if(2)
-				to_chat(user, "<span class='warning'>The [src.name] needs to be unwelded from the floor.</span>")
+				to_chat(user, "<span class='warning'>[src] needs to be unwelded from the floor.</span>")
 		return
 
 	if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))

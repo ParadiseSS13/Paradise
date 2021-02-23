@@ -51,7 +51,7 @@
 /obj/item/flash/proc/burn_out() //Made so you can override it if you want to have an invincible flash from R&D or something.
 	broken = 1
 	icon_state = "[initial(icon_state)]burnt"
-	visible_message("<span class='notice'>The [src.name] burns out!</span>")
+	visible_message("<span class='notice'>[src] burns out!</span>")
 
 
 /obj/item/flash/proc/flash_recharge(var/mob/user)

@@ -100,7 +100,7 @@ field_generator power level display
 					"<span class='italics'>You hear ratchet.</span>")
 				anchored = 0
 			if(FG_WELDED)
-				to_chat(user, "<span class='warning'>The [name] needs to be unwelded from the floor!</span>")
+				to_chat(user, "<span class='warning'>[src] needs to be unwelded from the floor!</span>")
 	else
 		return ..()
 
@@ -188,7 +188,7 @@ field_generator power level display
 		check_power_level()
 		return 1
 	else
-		visible_message("<span class='danger'>The [name] shuts down!</span>", "<span class='italics'>You hear something shutting down.</span>")
+		visible_message("<span class='danger'>[src] shuts down!</span>", "<span class='italics'>You hear something shutting down.</span>")
 		turn_off()
 		investigate_log("ran out of power and <font color='red'>deactivated</font>","singulo")
 		power = 0

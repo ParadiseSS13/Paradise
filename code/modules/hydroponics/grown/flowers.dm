@@ -210,5 +210,5 @@
 /obj/item/grown/novaflower/pickup(mob/living/carbon/human/user)
 	. = ..()
 	if(!user.gloves)
-		to_chat(user, "<span class='danger'>The [name] burns your bare hand!</span>")
+		to_chat(user, "<span class='danger'>[src] burns your bare hand!</span>")
 		user.adjustFireLoss(rand(1, 5))

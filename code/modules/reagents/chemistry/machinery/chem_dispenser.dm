@@ -454,7 +454,7 @@
 	if(cell)
 		ui_interact(user)
 	else
-		to_chat(user, "<span class='warning'>The [src] lacks a power cell!</span>")
+		to_chat(user, "<span class='warning'>[src] lacks a power cell!</span>")
 
 
 /obj/item/handheld_chem_dispenser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)

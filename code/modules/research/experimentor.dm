@@ -16,7 +16,7 @@
 
 #define FAIL 8
 /obj/machinery/r_n_d/experimentor
-	name = "E.X.P.E.R.I-MENTOR"
+	name = "\improper E.X.P.E.R.I-MENTOR"
 	icon = 'icons/obj/machines/heavy_lathe.dmi'
 	icon_state = "h_lathe"
 	density = 1
@@ -129,16 +129,16 @@
 		return
 
 	if(!checkCircumstances(O))
-		to_chat(user, "<span class='warning'>The [O] is not yet valid for [src] and must be completed!</span>")
+		to_chat(user, "<span class='warning'>[O] is not yet valid for [src] and must be completed!</span>")
 		return
 
 	if(disabled)
 		return
 	if(!linked_console)
-		to_chat(user, "<span class='warning'>The [src] must be linked to an R&D console first!</span>")
+		to_chat(user, "<span class='warning'>[src] must be linked to an R&D console first!</span>")
 		return
 	if(loaded_item)
-		to_chat(user, "<span class='warning'>The [src] is already loaded.</span>")
+		to_chat(user, "<span class='warning'>[src] is already loaded.</span>")
 		return
 	if(istype(O, /obj/item))
 		if(!O.origin_tech)
@@ -710,17 +710,17 @@
 	to_chat(user, "<span class='danger'>[src] begins to heat up!</span>")
 	spawn(rand(35,100))
 		if(src.loc == user)
-			visible_message("<span class='notice'>The [src]'s top opens, releasing a powerful blast!</span>")
+			visible_message("<span class='notice'>[src]'s top opens, releasing a powerful blast!</span>")
 			explosion(user.loc, -1, rand(1,5), rand(1,5), rand(1,5), rand(1,5), flame_range = 2)
 			warn_admins(user, "Explosion")
 			qdel(src) //Comment this line to produce a light grenade (the bomb that keeps on exploding when used)!!
 
 /obj/item/relic/proc/teleport(mob/user)
-	to_chat(user, "<span class='notice'>The [src] begins to vibrate!</span>")
+	to_chat(user, "<span class='notice'>[src] begins to vibrate!</span>")
 	spawn(rand(10,30))
 		var/turf/userturf = get_turf(user)
 		if(src.loc == user && is_teleport_allowed(userturf.z)) //Because Nuke Ops bringing this back on their shuttle, then looting the ERT area is 2fun4you!
-			visible_message("<span class='notice'>The [src] twists and bends, relocating itself!</span>")
+			visible_message("<span class='notice'>[src] twists and bends, relocating itself!</span>")
 			throwSmoke(userturf)
 			do_teleport(user, userturf, 8, asoundin = 'sound/effects/phasein.ogg')
 			throwSmoke(get_turf(user))

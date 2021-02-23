@@ -174,7 +174,7 @@
 			queen_bee = qb.queen
 			qb.queen = null
 		else
-			visible_message("<span class='notice'>The [qb] refuses to settle down. Maybe it's something to do with its reagent?</span>")
+			visible_message("<span class='notice'>[qb] refuses to settle down. Maybe it's something to do with its reagent?</span>")
 			return
 
 		if(queen_bee)

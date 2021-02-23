@@ -234,7 +234,7 @@
 
 	if(!silent)
 		var/obj/oldobj = obj
-		visible_message("The [oldobj.name] fades away!")
+		visible_message("[oldobj] fades away!")
 	qdel(obj)
 
 /obj/machinery/computer/HolodeckControl/proc/checkInteg(var/area/A)

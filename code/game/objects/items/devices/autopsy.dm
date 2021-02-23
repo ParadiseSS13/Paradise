@@ -169,7 +169,7 @@
 	if(!S)
 		to_chat(user, "<span class='warning'>You can't scan this body part.</span>")
 		return
-	M.visible_message("<span class='warning'>[user] scans the wounds on [M]'s [S] with [src]</span>")
+	M.visible_message("<span class='warning'>[user] scans the wounds on [M]'s [S.name] with [src]</span>")
 
 	add_data(S)
 	return 1

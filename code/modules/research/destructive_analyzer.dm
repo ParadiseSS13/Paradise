@@ -62,10 +62,10 @@ Note: Must be placed within 3 tiles of the R&D Console
 	if(disabled)
 		return
 	if(!linked_console)
-		to_chat(user, "<span class='warning'>The [src.name] must be linked to an R&D console first!</span>")
+		to_chat(user, "<span class='warning'>[src] must be linked to an R&D console first!</span>")
 		return
 	if(busy)
-		to_chat(user, "<span class='warning'>The [src.name] is busy right now.</span>")
+		to_chat(user, "<span class='warning'>[src] is busy right now.</span>")
 		return
 	if(istype(O, /obj/item) && !loaded_item)
 		if(!O.origin_tech)

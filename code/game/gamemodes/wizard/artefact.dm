@@ -293,7 +293,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 /obj/item/multisword/attack(mob/living/M as mob, mob/living/user as mob)  //to prevent accidental friendly fire or out and out grief.
 	if(M.real_name == user.real_name)
-		to_chat(user, "<span class='warning'>The [src] detects benevolent energies in your target and redirects your attack!</span>")
+		to_chat(user, "<span class='warning'>[src] detects benevolent energies in your target and redirects your attack!</span>")
 		return
 	..()
 

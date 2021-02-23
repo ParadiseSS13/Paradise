@@ -31,7 +31,7 @@
 		desc = "A strange autoinjector made of a black metal.<br>It appears to be used up and empty."
 		return 0
 	else
-		to_chat(user, "<span class='warning'>The [src] has been used already!</span>")
+		to_chat(user, "<span class='warning'>[src] has been used already!</span>")
 		return 1
 
 // Ninja martial art datum

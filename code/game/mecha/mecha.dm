@@ -1067,7 +1067,7 @@
 		return
 	log_message("[user] tries to move in.")
 	if(occupant)
-		to_chat(user, "<span class='warning'>The [src] is already occupied!</span>")
+		to_chat(user, "<span class='warning'>[src] is already occupied!</span>")
 		log_append_to_last("Permission denied.")
 		return
 	var/passed

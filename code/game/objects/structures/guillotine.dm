@@ -216,7 +216,7 @@
 
 /obj/structure/guillotine/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	if(!anchored)
-		to_chat(usr, "<span class='warning'>The [src] needs to be wrenched to the floor!</span>")
+		to_chat(usr, "<span class='warning'>[src] needs to be wrenched to the floor!</span>")
 		return FALSE
 
 	if(!ishuman(M))
