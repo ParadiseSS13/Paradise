@@ -25,6 +25,7 @@
 		do_sparks(1, 1, src)
 	else if(iscarbon(target))
 		var/mob/living/carbon/C = target
+		SEND_SIGNAL(C, COMSIG_LIVING_MINOR_SHOCK, 33)
 		if(HAS_TRAIT(C, TRAIT_HULK))
 			C.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		else if(C.status_flags & CANWEAKEN)
