@@ -102,7 +102,6 @@ Class Procs:
 	max_integrity = 200
 	layer = BELOW_OBJ_LAYER
 	var/stat = 0
-	var/emagged = 0
 	var/use_power = IDLE_POWER_USE
 		//0 = dont run the auto
 		//1 = run auto, use idle
@@ -637,14 +636,15 @@ Class Procs:
 /obj/machinery/proc/can_be_overridden()
 	. = 1
 
-/obj/machinery/tesla_act(power, explosive = FALSE)
-	..()
-	if(prob(85) && explosive)
-		explosion(loc, 1, 2, 4, flame_range = 2, adminlog = 0, smoke = 0)
-	else if(prob(50))
-		emp_act(EMP_LIGHT)
-	else
-		ex_act(EXPLODE_HEAVY)
+/obj/machinery/zap_act(power, zap_flags)
+	if(prob(85) && (zap_flags & ZAP_MACHINE_EXPLOSIVE) && !(resistance_flags & INDESTRUCTIBLE))
+		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE, smoke = FALSE)
+	else if(zap_flags & ZAP_OBJ_DAMAGE)
+		take_damage(power * 0.0005, BURN, "energy")
+		if(prob(40))
+			emp_act(EMP_LIGHT)
+		power -= power * 0.0005
+	return ..()
 
 /obj/machinery/proc/adjust_item_drop_location(atom/movable/AM)	// Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8
 	var/md5 = md5(AM.name)										// Oh, and it's deterministic too. A specific item will always drop from the same slot.

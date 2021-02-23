@@ -21,9 +21,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	can_be_hit = FALSE
 	suicidal_hands = TRUE
 
-	var/list/attack_verb //Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
 	var/hitsound = null
 	var/usesound = null
+	var/list/attack_verb //Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
 	var/throwhitsound
 	var/w_class = WEIGHT_CLASS_NORMAL
 	var/slot_flags = 0		//This is used to determine on which slots an item can fit.
@@ -115,6 +115,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 			hitsound = 'sound/items/welder.ogg'
 		if(damtype == "brute")
 			hitsound = "swing_hit"
+	LAZYINITLIST(attack_verb)
 	if(!move_resist)
 		determine_move_resist()
 
@@ -645,10 +646,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	closeToolTip(usr)
 
 /obj/item/MouseDrop_T(obj/item/I, mob/user)
-	if(!user || src == I)
+	if(!user || user.incapacitated(ignore_lying = TRUE) || src == I)
 		return
 
-	if(loc && I.loc == loc && istype(loc, /obj/item/storage)) // Are we trying to swap two items in the storage?
+	if(loc && I.loc == loc && istype(loc, /obj/item/storage) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?
 		var/obj/item/storage/S = loc
 		S.swap_items(src, I, user)
 

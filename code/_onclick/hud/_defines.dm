@@ -153,8 +153,6 @@
 #define ui_ai_take_picture "SOUTH:6,WEST+12"
 #define ui_ai_view_images "SOUTH:6,WEST+13"
 #define ui_ai_sensor "SOUTH:6,WEST+14"
-#define ui_ai_multicam "SOUTH+1:6,WEST+13"
-#define ui_ai_add_multicam "SOUTH+1:6,WEST+14"
 
 // Bots
 #define ui_bot_radio "EAST-1:28,SOUTH:7"

@@ -809,7 +809,7 @@
 			H.Weaken(2, FALSE)
 			H.update_canmove()
 			to_chat(H, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
-		if(NO_HUNGER in H.dna.species.species_traits) //If you don't eat, then you can't get food poisoning
+		if(HAS_TRAIT(H, TRAIT_NOHUNGER)) //If you don't eat, then you can't get food poisoning
 			return
 		H.ForceContractDisease(new /datum/disease/food_poisoning(0))
 
@@ -983,3 +983,11 @@
 		update_flags |= M.adjustBruteLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustFireLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
+
+/datum/reagent/consumable/mint
+	name = "Mint"
+	id = "mint"
+	description = "A light green liquid extracted from mint leaves."
+	reagent_state = LIQUID
+	color = "#A7EE9F"
+	taste_description = "mint"

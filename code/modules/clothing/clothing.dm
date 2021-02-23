@@ -204,7 +204,6 @@
 	var/invis_override = 0
 	var/lighting_alpha
 
-	var/emagged = 0
 	var/list/color_view = null//overrides client.color while worn
 	var/prescription = 0
 	var/prescription_upgradable = 0
@@ -513,7 +512,7 @@ BLIND     // can't see anything
 	icon = 'icons/obj/clothing/suits.dmi'
 	name = "suit"
 	var/fire_resist = T0C+100
-	allowed = list(/obj/item/tank/emergency_oxygen)
+	allowed = list(/obj/item/tank/internals/emergency_oxygen)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	slot_flags = SLOT_OCLOTHING
 	var/blood_overlay_type = "suit"
@@ -527,7 +526,7 @@ BLIND     // can't see anything
 /obj/item/clothing/suit/proc/adjustsuit(var/mob/user)
 	if(!ignore_suitadjust)
 		if(!user.incapacitated())
-			if(!(HULK in user.mutations))
+			if(!HAS_TRAIT(user, TRAIT_HULK))
 				if(suit_adjusted)
 					var/flavour = "close"
 					icon_state = copytext(icon_state, 1, findtext(icon_state, "_open")) /*Trims the '_open' off the end of the icon state, thus avoiding a case where jackets that start open will
@@ -627,7 +626,7 @@ BLIND     // can't see anything
 	permeability_coefficient = 0.02
 	flags = STOPSPRESSUREDMAGE | THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	allowed = list(/obj/item/flashlight,/obj/item/tank)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
 	slowdown = 1
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 70)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
@@ -666,18 +665,9 @@ BLIND     // can't see anything
 		3 = Report location
 		*/
 	var/list/accessories = list()
-
-	/// List of blacklisted accessory types
-	var/list/blacklisted_accessory_typecache
 	var/displays_id = 1
 	var/rolled_down = 0
 	var/basecolor
-
-/obj/item/clothing/under/Initialize(mapload)
-	. = ..()
-	blacklisted_accessory_typecache = typecacheof(list(
-		/obj/item/clothing/accessory/petcollar // No collars on jumpsuits
-	))
 
 /obj/item/clothing/under/rank/New()
 	if(random_sensor)
@@ -694,17 +684,11 @@ BLIND     // can't see anything
 	else
 		return FALSE
 
-	if(is_type_in_typecache(A, blacklisted_accessory_typecache))
-		to_chat(usr, "<span class='notice'>[A] doesn't fit on [src].</span>")
-		return FALSE
-
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/AC in accessories)
 			if((A.slot in list(ACCESSORY_SLOT_UTILITY, ACCESSORY_SLOT_ARMBAND)) && AC.slot == A.slot)
-				to_chat(usr, "<span class='notice'>[A] doesn't fit on [src].</span>")
 				return FALSE
 			if(!A.allow_duplicates && AC.type == A.type)
-				to_chat(usr, "<span class='notice'>You cannot attach more accessories of this type to [src].</span>")
 				return FALSE
 
 /obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
@@ -731,6 +715,8 @@ BLIND     // can't see anything
 			H.update_inv_w_uniform()
 
 		return TRUE
+	else
+		to_chat(user, "<span class='notice'>You cannot attach more accessories of this type to [src].</span>")
 
 	return FALSE
 

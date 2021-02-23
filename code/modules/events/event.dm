@@ -51,7 +51,8 @@
 	return 0*/
 
 /datum/event	//NOTE: Times are measured in master controller ticks!
-	var/processing = 1
+	/// The human-readable name of the event
+	var/name
 	/// When in the lifetime to call start().
 	var/startWhen		= 0
 	/// When in the lifetime to call announce().
@@ -91,6 +92,7 @@
   *
   * Allows you to start before announcing or vice versa.
   * Only called once.
+  * Ensure no sleep is called. Use INVOKE_ASYNC to call procs which do.
   */
 /datum/event/proc/start()
 	return
@@ -100,6 +102,7 @@
   *
   * Allows you to announce before starting or vice versa.
   * Only called once.
+  * Ensure no sleep is called. Use INVOKE_ASYNC to call procs which do.
   */
 /datum/event/proc/announce()
 	return
@@ -110,6 +113,7 @@
   * You can include code related to your event or add your own
   * time stamped events.
   * Called more than once.
+  * Ensure no sleep is called. Use INVOKE_ASYNC to call procs which do.
   */
 /datum/event/proc/tick()
 	return
@@ -122,6 +126,7 @@
   * the activeFor variable.
   * For example: if(activeFor == myOwnVariable + 30) doStuff()
   * Only called once.
+  * Ensure no sleep is called. Use INVOKE_ASYNC to call procs which do.
   */
 /datum/event/proc/end()
 	return
@@ -136,11 +141,9 @@
   * Do not override this proc, instead use the appropiate procs.
   *
   * This proc will handle the calls to the appropiate procs.
+  * Ensure none of the code paths have a sleep in them. Use INVOKE_ASYNC to call procs which do.
   */
 /datum/event/process()
-	if(!processing)
-		return
-
 	if(activeFor > startWhen && activeFor < endWhen || noAutoEnd)
 		tick()
 
@@ -190,3 +193,10 @@
 
 	setup()
 	..()
+
+//Called after something followable has been spawned by an event
+//Provides ghosts a follow link to an atom if possible
+//Only called once.
+/datum/event/proc/announce_to_ghosts(atom/atom_of_interest)
+	if(atom_of_interest)
+		notify_ghosts("[name] has an object of interest: [atom_of_interest]!", title = "Something's Interesting!", source = atom_of_interest, action = NOTIFY_FOLLOW)

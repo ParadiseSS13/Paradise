@@ -1,6 +1,6 @@
 /mob/living/carbon/human/emote(act, m_type = 1, message = null, force)
 
-	if((stat == DEAD) || (status_flags & FAKEDEATH))
+	if((stat == DEAD) || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		return // No screaming bodies
 
 	var/param = null
@@ -37,7 +37,7 @@
 				on_CD = handle_emote_CD()
 				emote("gasp")
 				return
-				
+
 	switch(act)		//This switch adds cooldowns to some emotes
 		if("ping", "pings", "buzz", "buzzes", "beep", "beeps", "yes", "no", "buzz2")
 			var/found_machine_head = FALSE

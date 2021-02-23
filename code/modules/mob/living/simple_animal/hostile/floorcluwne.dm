@@ -144,7 +144,7 @@
 	return
 
 
-/mob/living/simple_animal/hostile/floor_cluwne/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE) //prevents runtimes with machine fuckery
+/mob/living/simple_animal/hostile/floor_cluwne/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE) //prevents runtimes with machine fuckery
 	return FALSE
 
 
@@ -346,7 +346,7 @@
 		visible_message("<span class='danger'>[src] begins dragging [H] under the floor!</span>")
 
 		if(do_after(src, 50, target = H) && eating)
-			H.BecomeBlind()
+			H.become_blind(FLOORCLUWNE)
 			H.layer = GAME_PLANE
 			H.invisibility = INVISIBILITY_MAXIMUM
 			H.mouse_opacity = 0
@@ -388,7 +388,7 @@
 			O.droplimb()
 
 	Reset_View(FALSE, old_color, H)
-	H.CureBlind()
+	H.cure_blind(FLOORCLUWNE)
 	H.layer = initial(H.layer)
 	H.invisibility = initial(H.invisibility)
 	H.mouse_opacity = initial(H.mouse_opacity)
