@@ -14,7 +14,7 @@
 	var/processing = 0
 	var/icon_keyboard = "generic_key"
 	var/icon_screen = "generic"
-	var/light_range_on = MINIMUM_USEFUL_LIGHT_RANGE
+	var/light_range_on = 1
 	var/light_power_on = 0.7
 	var/overlay_layer
 	var/emissive_alpha = 128
