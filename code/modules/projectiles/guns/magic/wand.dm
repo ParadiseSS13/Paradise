@@ -163,3 +163,19 @@
 	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
 	charges--
 	..()
+
+/////////////////////////////////////
+//WAND OF SLIPPING
+/////////////////////////////////////
+/obj/item/gun/magic/wand/slipping
+	name = "wand of slipping"
+	desc = "This wand shoots... banana peels?"
+	fire_sound = 'sound/items/bikehorn.ogg'
+	ammo_type = /obj/item/ammo_casing/magic/slipping
+	icon_state = "staffofslipping"
+	max_charges = 5 //5, 4, 3, 2
+
+/obj/item/gun/magic/wand/slipping/zap_self(mob/living/user)
+	to_chat(user, "<span class='notice'>You feel rather silly!.</span>")
+	charges--
+	..()

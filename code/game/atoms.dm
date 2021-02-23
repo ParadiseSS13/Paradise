@@ -575,7 +575,7 @@
 		add_fibers(M)
 
 		//He has no prints!
-		if(FINGERPRINTS in M.mutations)
+		if(HAS_TRAIT(M, TRAIT_NOFINGERPRINTS))
 			if(fingerprintslast != M.key)
 				fingerprintshidden += "(Has no fingerprints) Real name: [M.real_name], Key: [M.key]"
 				fingerprintslast = M.key
@@ -1066,6 +1066,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			color = C
 			return
 
+/*
+	Checks whether this atom can traverse the destination object when used as source for AStar.
+	This should only be used as an override to /obj/proc/CanAStarPass. Aka don't use this unless you can't change the object's proc.
+	Returning TRUE here will override the above proc's result.
+*/
+/atom/proc/CanAStarPassTo(ID, dir, obj/destination)
+	return TRUE
 
 /** Call this when you want to present a renaming prompt to the user.
 

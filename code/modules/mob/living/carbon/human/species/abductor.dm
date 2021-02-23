@@ -14,7 +14,8 @@
 		"eyes" =     /obj/item/organ/internal/eyes/abductor //3 darksight.
 		)
 
-	species_traits = list(NO_BLOOD, NO_BREATHE, VIRUSIMMUNE, NOGUNS, NO_HUNGER, NO_EXAMINE)
+	species_traits = list(NO_BLOOD)
+	inherent_traits = list(TRAIT_VIRUSIMMUNE, TRAIT_CHUNKYFINGERS, TRAIT_NOHUNGER, TRAIT_NOBREATH, TRAIT_NOEXAMINE)
 	dies_at_threshold = TRUE
 
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
