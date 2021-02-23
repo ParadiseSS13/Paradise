@@ -8,7 +8,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 
 /obj/item/pda
-	name = "PDA"
+	name = "\improper PDA"
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. Functionality determined by a preprogrammed ROM cartridge."
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "pda"
@@ -176,7 +176,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		if(ismob(loc))
 			var/mob/M = loc
 			M.put_in_hands(id)
-			to_chat(user, "<span class='notice'>You remove the ID from the [name].</span>")
+			to_chat(user, "<span class='notice'>You remove the ID from [src].</span>")
 			SStgui.update_uis(src)
 		else
 			id.forceMove(get_turf(src))
@@ -213,7 +213,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if( can_use(user) )
 		var/obj/item/pen/O = locate() in src
 		if(O)
-			to_chat(user, "<span class='notice'>You remove the [O] from [src].</span>")
+			to_chat(user, "<span class='notice'>You remove [O] from [src].</span>")
 			if(istype(loc, /mob))
 				var/mob/M = loc
 				if(M.get_active_hand() == null)

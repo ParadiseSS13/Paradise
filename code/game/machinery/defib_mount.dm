@@ -52,7 +52,7 @@
 		else
 			. += "<span class='notice'>Its locking clamps can be [clamps_locked ? "dis" : ""]engaged by swiping an ID with access.</span>"
 	else
-		. += "<span class='notice'>There are a pair of <b>bolts</b> in the defib unit housing securing the [src] to the wall.<span>"
+		. += "<span class='notice'>There are a pair of <b>bolts</b> in the defib unit housing, securing [src] to the wall.<span>"
 
 /obj/machinery/defibrillator_mount/process()
 	if(defib && defib.cell && defib.cell.charge < defib.cell.maxcharge && is_operational())

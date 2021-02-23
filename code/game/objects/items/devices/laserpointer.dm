@@ -52,13 +52,13 @@
 			user.drop_item()
 			W.loc = src
 			diode = W
-			to_chat(user, "<span class='notice'>You install a [diode.name] in [src].</span>")
+			to_chat(user, "<span class='notice'>You install [diode] in [src].</span>")
 		else
 			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
 
 	else if(istype(W, /obj/item/screwdriver))
 		if(diode)
-			to_chat(user, "<span class='notice'>You remove the [diode.name] from the [src].</span>")
+			to_chat(user, "<span class='notice'>You remove [diode] from [src].</span>")
 			diode.loc = get_turf(src.loc)
 			diode = null
 			return

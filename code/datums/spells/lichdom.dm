@@ -95,7 +95,7 @@
 				if((ABSTRACT in item.flags) || (NODROP in item.flags))
 					continue
 				marked_item = item
-				to_chat(M, "<span class='warning'>You begin to focus your very being into the [item.name]...</span>")
+				to_chat(M, "<span class='warning'>You begin to focus your very being into [item]...</span>")
 				break
 
 			if(!marked_item)
@@ -104,7 +104,7 @@
 
 			spawn(50)
 				if(marked_item.loc != M) //I changed my mind I don't want to put my soul in a cheeseburger!
-					to_chat(M, "<span class='warning'>Your soul snaps back to your body as you drop the [marked_item.name]!</span>")
+					to_chat(M, "<span class='warning'>Your soul snaps back to your body as you drop [marked_item]!</span>")
 					marked_item = null
 					return
 				name = "RISE!"

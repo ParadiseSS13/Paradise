@@ -40,32 +40,32 @@
 
 	var/obj/item/gun/W = I
 	if(!can_holster(W))
-		to_chat(user, "<span class='warning'>This [W] won't fit in the [src]!</span>")
+		to_chat(user, "<span class='warning'>This [W.name] won't fit in [src]!</span>")
 		return
 
 	if(!user.canUnEquip(W, 0))
-		to_chat(user, "<span class='warning'>You can't let go of the [W]!</span>")
+		to_chat(user, "<span class='warning'>You can't let go of [W]!</span>")
 		return
 
 	holstered = W
 	user.unEquip(holstered)
 	holstered.loc = src
 	holstered.add_fingerprint(user)
-	user.visible_message("<span class='notice'>[user] holsters the [holstered].</span>", "<span class='notice'>You holster the [holstered].</span>")
+	user.visible_message("<span class='notice'>[user] holsters [holstered].</span>", "<span class='notice'>You holster [holstered].</span>")
 
 /obj/item/clothing/accessory/holster/proc/unholster(mob/user as mob)
 	if(!holstered)
 		return
 
 	if(istype(user.get_active_hand(),/obj) && istype(user.get_inactive_hand(),/obj))
-		to_chat(user, "<span class='warning'>You need an empty hand to draw the [holstered]!</span>")
+		to_chat(user, "<span class='warning'>You need an empty hand to draw [holstered]!</span>")
 	else
 		if(user.a_intent == INTENT_HARM)
-			usr.visible_message("<span class='warning'>[user] draws the [holstered], ready to shoot!</span></span>", \
-			"<span class='warning'>You draw the [holstered], ready to shoot!</span>")
+			usr.visible_message("<span class='warning'>[user] draws [holstered], ready to shoot!</span></span>", \
+			"<span class='warning'>You draw [holstered], ready to shoot!</span>")
 		else
-			user.visible_message("<span class='notice'>[user] draws the [holstered], pointing it at the ground.</span>", \
-			"<span class='notice'>You draw the [holstered], pointing it at the ground.</span>")
+			user.visible_message("<span class='notice'>[user] draws [holstered], pointing it at the ground.</span>", \
+			"<span class='notice'>You draw [holstered], pointing it at the ground.</span>")
 		user.put_in_hands(holstered)
 		holstered.add_fingerprint(user)
 		holstered = null

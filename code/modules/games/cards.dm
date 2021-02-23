@@ -238,7 +238,7 @@
 		usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
 
 /obj/item/pack
-	name = "Card Pack"
+	name = "card Pack"
 	desc = "For those with disposable income."
 
 	icon_state = "card_pack"
@@ -249,7 +249,7 @@
 
 
 /obj/item/pack/attack_self(mob/user as mob)
-	user.visible_message("<span class='notice'>[name] rips open the [src]!</span>", "<span class='notice'>You rips open the [src]!</span>")
+	user.visible_message("<span class='notice'>[name] rips open [src]!</span>", "<span class='notice'>You rips open [src]!</span>")
 	var/obj/item/cardhand/H = new(get_turf(user))
 
 	H.cards += cards

@@ -213,7 +213,7 @@
 			return
 		var/mob/living/carbon/human/H = user
 		if(H.shoes != src)
-			to_chat(user, "You will have to put on the [src] before you can do that.")
+			to_chat(user, "You will have to put on [src] before you can do that.")
 			return
 
 
@@ -221,7 +221,7 @@
 		magpulse = 1
 		flags &= ~NODROP	//kinda hard to take off magclaws when you are gripping them tightly.
 		to_chat(user, "You dig your claws deeply into the flooring, bracing yourself.")
-		to_chat(user, "It would be hard to take off the [src] without relaxing your grip first.")
+		to_chat(user, "It would be hard to take off [src] without relaxing your grip first.")
 
 //In case they somehow come off while enabled.
 /obj/item/clothing/shoes/magboots/vox/dropped(mob/user as mob)

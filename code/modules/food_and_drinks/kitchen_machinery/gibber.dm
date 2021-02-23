@@ -136,17 +136,17 @@
 		return
 
 	if(!ishuman(victim))
-		to_chat(user, "<span class='danger'>This is not suitable for the [src]!</span>")
+		to_chat(user, "<span class='danger'>This is not suitable for [src]!</span>")
 		return
 
 	if(victim.abiotic(1))
 		to_chat(user, "<span class='danger'>Subject may not have abiotic items on.</span>")
 		return
 
-	user.visible_message("<span class='danger'>[user] starts to put [victim] into the [src]!</span>")
+	user.visible_message("<span class='danger'>[user] starts to put [victim] into [src]!</span>")
 	add_fingerprint(user)
 	if(do_after(user, 30, target = victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
-		user.visible_message("<span class='danger'>[user] stuffs [victim] into the [src]!</span>")
+		user.visible_message("<span class='danger'>[user] stuffs [victim] into [src]!</span>")
 
 		victim.forceMove(src)
 		occupant = victim

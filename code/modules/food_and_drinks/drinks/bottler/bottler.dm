@@ -206,7 +206,7 @@
 		containers[con_type] = min(containers[con_type], max_define)
 		S.use(sheets_to_use)
 	else
-		visible_message("<span class='warning'>[src] rejects the [S] because it already is fully stocked with [con_type]s.</span>")
+		visible_message("<span class='warning'>[src] rejects [S] because it already is fully stocked with [con_type]s.</span>")
 
 /obj/machinery/bottler/proc/select_recipe()
 	for(var/datum/bottler_recipe/recipe in available_recipes)

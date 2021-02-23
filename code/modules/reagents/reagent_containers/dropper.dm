@@ -115,7 +115,7 @@
 
 /obj/item/reagent_containers/dropper/precision/viral_injector/attack(mob/living/M, mob/living/user, def_zone)
 	if(M.can_inject(user, TRUE))
-		to_chat(user, "<span class='warning'>You stab [M] with the [src].</span>")
+		to_chat(user, "<span class='warning'>You stealthily stab [M] with [src].</span>")
 		if(reagents.total_volume && M.reagents)
 			var/list/injected = list()
 			for(var/datum/reagent/R in reagents.reagent_list)

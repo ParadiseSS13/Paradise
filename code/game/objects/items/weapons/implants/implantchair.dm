@@ -116,7 +116,7 @@
 	for(var/obj/item/implant/mindshield/imp in implant_list)
 		if(!imp)	continue
 		if(istype(imp, /obj/item/implant/mindshield))
-			M.visible_message("<span class='warning'>[M] has been implanted by the [src.name].</span>")
+			M.visible_message("<span class='warning'>[M] has been implanted by [src].</span>")
 
 			if(imp.implant(M))
 				implant_list -= imp

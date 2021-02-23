@@ -154,7 +154,7 @@
 			return
 
 		if(user.loc == loc)
-			to_chat(user, "<span class='warning'>You must not be on the same tile as the [src].</span>")
+			to_chat(user, "<span class='warning'>You must not be on the same tile as [src].</span>")
 			return
 
 		//Direction the terminal will face to
@@ -173,7 +173,7 @@
 				to_chat(user, "<span class='warning'>You must remove the floor plating first.</span>")
 				return
 
-		to_chat(user, "<span class='notice'>You start adding cable to the [src].</span>")
+		to_chat(user, "<span class='notice'>You start adding cable to [src].</span>")
 		playsound(loc, C.usesound, 50, 1)
 
 		if(do_after(user, 50, target = src))

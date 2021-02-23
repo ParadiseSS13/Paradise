@@ -78,7 +78,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 		else
 			var/obj/item/multitool/M = O
 			M.buffer = src
-			to_chat(user, "<span class='notice'>You log [src] in the [M]'s buffer.</span>")
+			to_chat(user, "<span class='notice'>You log [src] in [M]'s buffer.</span>")
 		return
 	if(stat != 0) //NOPOWER etc
 		return

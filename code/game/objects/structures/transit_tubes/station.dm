@@ -79,7 +79,7 @@
 		if(ismob(G.affecting) && G.state >= GRAB_AGGRESSIVE)
 			var/mob/GM = G.affecting
 			for(var/obj/structure/transit_tube_pod/pod in loc)
-				pod.visible_message("<span class='warning'>[user] starts putting [GM] into the [pod]!</span>")
+				pod.visible_message("<span class='warning'>[user] starts putting [GM] into [pod]!</span>")
 				if(do_after(user, 30, target = GM) && GM && G && G.affecting == GM)
 					GM.Weaken(5)
 					Bumped(GM)

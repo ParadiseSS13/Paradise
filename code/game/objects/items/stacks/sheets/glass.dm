@@ -54,7 +54,7 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 			to_chat(user, "<b>There is not enough wire in this coil. You need 5 lengths.</b>")
 			return
 		CC.use(5)
-		to_chat(user, "<span class='notice'>You attach wire to the [name].</span>")
+		to_chat(user, "<span class='notice'>You attach wire to [src].</span>")
 		new /obj/item/stack/light_w(user.loc)
 		src.use(1)
 	else if( istype(W, /obj/item/stack/rods) )

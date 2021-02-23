@@ -77,7 +77,7 @@
 			emergency_mode = FALSE
 			update_icon()
 		playsound(loc, "sparks", 75, 1, -1)
-		to_chat(user, "<span class='notice'>You use the cryptographic sequencer on the [name].</span>")
+		to_chat(user, "<span class='notice'>You use the cryptographic sequencer on [src].</span>")
 
 /obj/machinery/recycler/update_icon()
 	..()

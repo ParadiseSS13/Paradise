@@ -56,7 +56,7 @@
 				return
 			L.forceMove(src)
 			locked = L
-			to_chat(user, "<span class='caution'>You insert the GPS device into the [src]'s slot.</span>")
+			to_chat(user, "<span class='caution'>You insert the GPS device into [src]'s slot.</span>")
 	else
 		return ..()
 

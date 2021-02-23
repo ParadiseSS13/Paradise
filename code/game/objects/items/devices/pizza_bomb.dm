@@ -50,7 +50,7 @@
 
 /obj/item/pizza_bomb/proc/go_boom()
 	if(disarmed)
-		visible_message("<span class='danger'>[bicon(src)] Sparks briefly jump out of the [correct_wire] wire on \the [src], but it's disarmed!")
+		visible_message("<span class='danger'>[bicon(src)] Sparks briefly jump out of the [correct_wire] wire on [src], but it's disarmed!")
 		return
 	atom_say("Enjoy the pizza!")
 	src.visible_message("<span class='userdanger'>\The [src] violently explodes!</span>")

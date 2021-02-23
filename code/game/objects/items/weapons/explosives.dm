@@ -31,7 +31,7 @@
 		A.master = src
 		A.loc = src
 		assemblyattacher = user.ckey
-		to_chat(user, "<span class='notice'>You add [A] to the [name].</span>")
+		to_chat(user, "<span class='notice'>You add [A] to [src].</span>")
 		playsound(src, 'sound/weapons/tap.ogg', 20, 1)
 		update_icon()
 		return
@@ -71,7 +71,7 @@
 		return
 	if (istype(AM, /mob/living/carbon))
 		return
-	to_chat(user, "<span class='notice'>You start planting the [src]. The timer is set to [det_time]...</span>")
+	to_chat(user, "<span class='notice'>You start planting [src]. The timer is set to [det_time]...</span>")
 
 	if(do_after(user, 50 * toolspeed, target = AM))
 		if(!user.unEquip(src))
@@ -90,7 +90,7 @@
 /obj/item/grenade/plastic/suicide_act(mob/user)
 	message_admins("[key_name_admin(user)]([ADMIN_QUE(user,"?")]) ([ADMIN_FLW(user,"FLW")]) suicided with [src.name] at ([user.x],[user.y],[user.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)",0,1)
 	log_game("[key_name(user)] suicided with [name] at ([user.x],[user.y],[user.z])")
-	user.visible_message("<span class='suicide'>[user] activates the [name] and holds it above [user.p_their()] head! It looks like [user.p_theyre()] going out with a bang!</span>")
+	user.visible_message("<span class='suicide'>[user] activates [src] and holds it above [user.p_their()] head! It looks like [user.p_theyre()] going out with a bang!</span>")
 	var/message_say = "FOR NO RAISIN!"
 	if(user.mind)
 		if(user.mind.special_role)

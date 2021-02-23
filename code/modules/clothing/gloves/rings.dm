@@ -35,7 +35,7 @@
 				D.use(1)
 				stud = 1
 				update_icon()
-				to_chat(usr, "<span class='notice'>You socket the diamond into the [src].</span>")
+				to_chat(usr, "<span class='notice'>You socket the diamond into [src].</span>")
 
 // s'pensive
 /obj/item/clothing/gloves/ring/silver

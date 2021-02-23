@@ -17,7 +17,7 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/banhammer/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='suicide'>[user] is hitting [user.p_them()]self with the [src.name]! It looks like [user.p_theyre()] trying to ban [user.p_them()]self from life.</span>")
+	visible_message("<span class='suicide'>[user] is hitting [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to ban [user.p_them()]self from life.</span>")
 	return BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS
 
 /obj/item/banhammer/attack(mob/M, mob/user)
@@ -61,7 +61,7 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/claymore/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is falling on the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return BRUTELOSS
 
 /obj/item/claymore/ceremonial
@@ -203,7 +203,7 @@
 	if(I.w_class <= WEIGHT_CLASS_NORMAL || istype(I, /obj/item/beach_ball)) // baseball bat deflecting
 		if(deflectmode)
 			if(prob(10))
-				visible_message("<span class='boldwarning'>[owner] Deflects [I] directly back at the thrower! It's a home run!</span>", "<span class='boldwarning'>You deflect the [I] directly back at the thrower! It's a home run!</span>")
+				visible_message("<span class='boldwarning'>[owner] Deflects [I] directly back at the thrower! It's a home run!</span>", "<span class='boldwarning'>You deflect [I] directly back at the thrower! It's a home run!</span>")
 				playsound(get_turf(owner), 'sound/weapons/homerun.ogg', 100, 1)
 				do_attack_animation(I, ATTACK_EFFECT_DISARM)
 				I.throw_at(I.thrownby, 20, 20, owner)
@@ -220,7 +220,7 @@
 					lastdeflect = world.time + 3000
 				return FALSE
 			else
-				visible_message("<span class='warning'>[owner] swings and deflects [I]!</span>", "<span class='warning'>You swing and deflect the [I]!</span>")
+				visible_message("<span class='warning'>[owner] swings and deflects [I]!</span>", "<span class='warning'>You swing and deflect [I]!</span>")
 				playsound(get_turf(owner), 'sound/weapons/baseball_hit.ogg', 50, 1, -1)
 				do_attack_animation(I, ATTACK_EFFECT_DISARM)
 				I.throw_at(get_edge_target_turf(owner, pick(GLOB.cardinal)), rand(8,10), 14, owner)

@@ -120,11 +120,11 @@
 		if(ismob(G.affecting))
 			var/mob/GM = G.affecting
 			for(var/mob/V in viewers(usr))
-				V.show_message("[usr] starts putting [GM.name] into the disposal.", 3)
+				V.show_message("[usr] starts putting [GM] into the disposal.", 3)
 			if(do_after(usr, 20, target = GM))
 				GM.forceMove(src)
 				for(var/mob/C in viewers(src))
-					C.show_message("<span class='warning'>[GM.name] has been placed in the [src] by [user].</span>", 3)
+					C.show_message("<span class='warning'>[GM] has been placed in [src] by [user].</span>", 3)
 				qdel(G)
 				add_attack_logs(usr, GM, "Disposal'ed", !!GM.ckey ? null : ATKLOG_ALL)
 		return
@@ -137,11 +137,11 @@
 	if(I)
 		I.forceMove(src)
 
-	to_chat(user, "You place \the [I] into the [src].")
+	to_chat(user, "You place [I] into [src].")
 	for(var/mob/M in viewers(src))
 		if(M == user)
 			continue
-		M.show_message("[user.name] places \the [I] into the [src].", 3)
+		M.show_message("[user.name] places [I] into [src].", 3)
 
 	update()
 
@@ -203,11 +203,11 @@
 		return
 	if(target == user && !user.stat && !user.IsWeakened() && !user.stunned && !user.paralysis)	// if drop self, then climbed in
 											// must be awake, not stunned or whatever
-		msg = "[user.name] climbs into the [src]."
-		to_chat(user, "You climb into the [src].")
+		msg = "[user.name] climbs into [src]."
+		to_chat(user, "You climb into [src].")
 	else if(target != user && !user.restrained() && !user.stat && !user.IsWeakened() && !user.stunned && !user.paralysis)
-		msg = "[user.name] stuffs [target.name] into the [src]!"
-		to_chat(user, "You stuff [target.name] into the [src]!")
+		msg = "[user.name] stuffs [target.name] into [src]!"
+		to_chat(user, "You stuff [target.name] into [src]!")
 		if(!iscarbon(user))
 			target.LAssailant = null
 		else

@@ -62,7 +62,7 @@
 		stored_item = I
 		max_w_class = WEIGHT_CLASS_NORMAL - stored_item.w_class
 		I.forceMove(null) //null space here we go - to stop it showing up in the briefcase
-		to_chat(user, "You place the [I] into the false bottom of the briefcase.")
+		to_chat(user, "You place [I] into the false bottom of the briefcase.")
 	else
 		return ..()
 
@@ -73,7 +73,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!bottom_open)
-		to_chat(user, "You begin to hunt around the rim of the [src]...")
+		to_chat(user, "You begin to hunt around the rim of [src]...")
 		busy_hunting = TRUE
 		if(do_after(user, 20, target = src))
 			if(user)
@@ -81,13 +81,13 @@
 			bottom_open = TRUE
 		busy_hunting = FALSE
 	else
-		to_chat(user, "You push the false bottom down and close it with a click[stored_item ? ", with the [stored_item] snugly inside." : "."]")
+		to_chat(user, "You push the false bottom down and close it with a click[stored_item ? ", with [stored_item] snugly inside." : "."]")
 		bottom_open = FALSE
 
 /obj/item/storage/briefcase/false_bottomed/attack_hand(mob/user)
 	if(bottom_open && stored_item)
 		user.put_in_hands(stored_item)
-		to_chat(user, "You pull out the [stored_item] from the [src]'s false bottom.")
+		to_chat(user, "You pull out [stored_item] from [src]'s false bottom.")
 		stored_item = null
 		max_w_class = initial(max_w_class)
 	else

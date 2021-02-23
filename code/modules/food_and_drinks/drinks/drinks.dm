@@ -45,12 +45,12 @@
 		to_chat(chugger, "<span class='notice'>You need to open [src] first!</span>")
 		return
 	if(istype(chugger) && loc == chugger && src == chugger.get_active_hand() && reagents.total_volume)
-		chugger.visible_message("<span class='notice'>[chugger] raises the [src] to [chugger.p_their()] mouth and starts [pick("chugging","gulping")] it down like [pick("a savage","a mad beast","it's going out of style","there's no tomorrow")]!</span>", "<span class='notice'>You start chugging [src].</span>", "<span class='notice'>You hear what sounds like gulping.</span>")
+		chugger.visible_message("<span class='notice'>[chugger] raises [src] to [chugger.p_their()] mouth and starts [pick("chugging","gulping")] it down like [pick("a savage","a mad beast","it's going out of style","there's no tomorrow")]!</span>", "<span class='notice'>You start chugging [src].</span>", "<span class='notice'>You hear what sounds like gulping.</span>")
 		while(do_mob(chugger, chugger, 40)) //Between the default time for do_mob and the time it takes for a vampire to suck blood.
 			chugger.eat(src, chugger, 25) //Half of a glass, quarter of a bottle.
 			if(!reagents.total_volume) //Finish in style.
 				chugger.emote("gasp")
-				chugger.visible_message("<span class='notice'>[chugger] [pick("finishes","downs","polishes off","slams")] the entire [src], what a [pick("savage","monster","champ","beast")]!</span>", "<span class='notice'>You finish off the [src]![prob(50) ? " Maybe that wasn't such a good idea..." : ""]</span>", "<span class='notice'>You hear a gasp and a clink.</span>")
+				chugger.visible_message("<span class='notice'>[chugger] [pick("finishes","downs","polishes off","slams")] the entire [src], what a [pick("savage","monster","champ","beast")]!</span>", "<span class='notice'>You finish off [src]![prob(50) ? " Maybe that wasn't such a good idea..." : ""]</span>", "<span class='notice'>You hear a gasp and a clink.</span>")
 				break
 
 /obj/item/reagent_containers/food/drinks/afterattack(obj/target, mob/user, proximity)

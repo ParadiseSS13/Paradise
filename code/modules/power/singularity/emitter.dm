@@ -96,13 +96,13 @@
 		if(!src.locked)
 			if(src.active==1)
 				src.active = 0
-				to_chat(user, "You turn off the [src].")
+				to_chat(user, "You turn off [src].")
 				message_admins("Emitter turned off by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 				log_game("Emitter turned off by [key_name(user)] in [x], [y], [z]")
 				investigate_log("turned <font color='red'>off</font> by [key_name(usr)]","singulo")
 			else
 				src.active = 1
-				to_chat(user, "You turn on the [src].")
+				to_chat(user, "You turn on [src].")
 				src.shot_number = 0
 				src.fire_delay = maximum_fire_delay
 				message_admins("Emitter turned on by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
@@ -215,7 +215,7 @@
 
 	if(istype(W, /obj/item/wrench))
 		if(active)
-			to_chat(user, "Turn off the [src] first.")
+			to_chat(user, "Turn off [src] first.")
 			return
 		switch(state)
 			if(0)
@@ -246,7 +246,7 @@
 				to_chat(user, "The controls are now [src.locked ? "locked." : "unlocked."]")
 			else
 				src.locked = 0 //just in case it somehow gets locked
-				to_chat(user, "<span class='warning'>The controls can only be locked when the [src] is online</span>")
+				to_chat(user, "<span class='warning'>The controls can only be locked when [src] is online</span>")
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
@@ -267,7 +267,7 @@
 		locked = 0
 		emagged = 1
 		if(user)
-			user.visible_message("[user.name] emags the [src.name].","<span class='warning'>You short out the lock.</span>")
+			user.visible_message("[user.name] emags [src].", "<span class='warning'>You short out the lock.</span>")
 
 
 /obj/machinery/power/emitter/welder_act(mob/user, obj/item/I)

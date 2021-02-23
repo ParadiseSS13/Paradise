@@ -38,7 +38,7 @@
 
 /obj/structure/closet/secure_closet/syndicate/depot/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/rcs))
-		to_chat(user, "<span class='warning'>Bluespace interference prevents the [W] from locking onto [src]!</span>")
+		to_chat(user, "<span class='warning'>Bluespace interference prevents [W] from locking onto [src]!</span>")
 		return
 	return ..()
 

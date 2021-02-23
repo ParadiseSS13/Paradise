@@ -37,6 +37,6 @@
 	if(istype(A) && (src in user))
 		user.visible_message("[user] starts to wipe down [A] with [src]!")
 		if(do_after(user, wipespeed, target = A))
-			user.visible_message("[user] finishes wiping off the [A]!")
+			user.visible_message("[user] finishes wiping off [A]!")
 			A.clean_blood()
 	return

@@ -499,8 +499,8 @@
 			P.on_construction(dir, pipe_dir, color)
 
 	user.visible_message( \
-		"[user] fastens the [src].", \
-		"<span class='notice'>You have fastened the [src].</span>", \
+		"[user] fastens [src].", \
+		"<span class='notice'>You have fastened [src].</span>", \
 		"You hear ratchet.")
 	qdel(src)	// remove the pipe item
 

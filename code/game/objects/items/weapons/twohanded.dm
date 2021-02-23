@@ -81,14 +81,14 @@
 		user.update_inv_r_hand()
 		user.update_inv_l_hand()
 	if(isrobot(user))
-		to_chat(user, "<span class='notice'>You dedicate your module to [name].</span>")
+		to_chat(user, "<span class='notice'>You dedicate your module to [src].</span>")
 	else
-		to_chat(user, "<span class='notice'>You grab the [name] with both hands.</span>")
+		to_chat(user, "<span class='notice'>You grab [src] with both hands.</span>")
 	if(wieldsound)
 		playsound(loc, wieldsound, 50, 1)
 	var/obj/item/twohanded/offhand/O = new(user) ////Let's reserve his other hand~
 	O.name = "[name] - offhand"
-	O.desc = "Your second grip on the [name]"
+	O.desc = "Your second grip on [src]"
 	user.put_in_inactive_hand(O)
 	return TRUE
 
@@ -306,7 +306,7 @@
 		return
 	..()
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && (wielded) && prob(40))
-		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on the [src].</span>")
+		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on [src].</span>")
 		user.take_organ_damage(20, 25)
 		return
 	if((wielded) && prob(50))
@@ -717,7 +717,7 @@
 
 /obj/item/twohanded/mjollnir/proc/shock(mob/living/target)
 	do_sparks(5, 1, target.loc)
-	target.visible_message("<span class='danger'>[target.name] was shocked by the [name]!</span>", \
+	target.visible_message("<span class='danger'>[target.name] was shocked by [src]!</span>", \
 		"<span class='userdanger'>You feel a powerful shock course through your body sending you flying!</span>", \
 		"<span class='italics'>You hear a heavy electrical crack!</span>")
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
@@ -783,14 +783,14 @@
 		if(isliving(A))
 			var/mob/living/Z = A
 			if(Z.health >= 1)
-				Z.visible_message("<span class='danger'>[Z.name] was sent flying by a blow from the [name]!</span>", \
+				Z.visible_message("<span class='danger'>[Z.name] was sent flying by a blow from [src]!</span>", \
 					"<span class='userdanger'>You feel a powerful blow connect with your body and send you flying!</span>", \
 					"<span class='danger'>You hear something heavy impact flesh!.</span>")
 				var/atom/throw_target = get_edge_target_turf(Z, get_dir(src, get_step_away(Z, src)))
 				Z.throw_at(throw_target, 200, 4)
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 			else if(wielded && Z.health < 1)
-				Z.visible_message("<span class='danger'>[Z.name] was blown to pieces by the power of [name]!</span>", \
+				Z.visible_message("<span class='danger'>[Z.name] was blown to pieces by the power of [src]!</span>", \
 					"<span class='userdanger'>You feel a powerful blow rip you apart!</span>", \
 					"<span class='danger'>You hear a heavy impact and the sound of ripping flesh!.</span>")
 				Z.gib()
@@ -855,7 +855,7 @@
 		var/mob/living/U = user
 		if(U.mind && !U.mind.devilinfo && (U.mind.soulOwner == U.mind)) //Burn hands unless they are a devil or have sold their soul
 			U.visible_message("<span class='warning'>As [U] picks [src] up, [U]'s arms briefly catch fire.</span>", \
-				"<span class='warning'>\"As you pick up the [src] your arms ignite, reminding you of all your past sins.\"</span>")
+				"<span class='warning'>\"As you pick up [src] your arms ignite, reminding you of all your past sins.\"</span>")
 			if(ishuman(U))
 				var/mob/living/carbon/human/H = U
 				H.apply_damage(rand(force/2, force), BURN, pick("l_arm", "r_arm"))

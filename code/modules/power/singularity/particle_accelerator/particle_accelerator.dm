@@ -201,7 +201,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		var/obj/item/stack/cable_coil/C = W
 		if(C.use(1))
 			playsound(loc, C.usesound, 50, 1)
-			user.visible_message("[user.name] adds wires to the [name].", \
+			user.visible_message("[user] adds wires to [src].", \
 				"You add some wires.")
 			construction_state = ACCELERATOR_WIRED
 	update_icon()
@@ -302,7 +302,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		var/obj/item/stack/cable_coil/C = W
 		if(C.use(1))
 			playsound(loc, C.usesound, 50, 1)
-			user.visible_message("[user.name] adds wires to the [name].", \
+			user.visible_message("[user] adds wires to [src].", \
 				"You add some wires.")
 			construction_state = ACCELERATOR_WIRED
 	update_icon()

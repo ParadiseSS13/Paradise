@@ -15,9 +15,9 @@
 // *************************************
 
 /obj/item/reagent_containers/spray/weedspray // -- Skie
+	name = "weed spray"
 	desc = "It's a toxic mixture, in spray form, to kill small weeds."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
-	name = "weed spray"
 	icon_state = "weedspray"
 	item_state = "plantbgone"
 	volume = 100
@@ -30,13 +30,13 @@
 	list_reagents = list("atrazine" = 100)
 
 /obj/item/reagent_containers/spray/weedspray/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is huffing the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is huffing [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return TOXLOSS
 
 /obj/item/reagent_containers/spray/pestspray // -- Skie
+	name = "pest spray"
 	desc = "It's some pest eliminator spray! <I>Do not inhale!</I>"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
-	name = "pest spray"
 	icon_state = "pestspray"
 	item_state = "plantbgone"
 	volume = 100
@@ -49,7 +49,7 @@
 	list_reagents = list("pestkiller" = 100)
 
 /obj/item/reagent_containers/spray/pestspray/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is huffing the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is huffing [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return TOXLOSS
 
 /obj/item/cultivator
@@ -94,7 +94,7 @@
 	sharp = 1
 
 /obj/item/hatchet/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is chopping at [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is chopping at [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
 	return BRUTELOSS
 
@@ -130,7 +130,7 @@
 	var/swiping = FALSE
 
 /obj/item/scythe/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is beheading [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is beheading [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/affecting = H.get_organ("head")

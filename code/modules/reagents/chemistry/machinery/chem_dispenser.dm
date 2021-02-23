@@ -441,14 +441,14 @@
 			target.reagents.add_reagent(current_reagent, actual)
 			cell.charge -= actual / efficiency
 			if(actual)
-				to_chat(user, "<span class='notice'>You dispense [amount] units of [current_reagent] into the [target].</span>")
+				to_chat(user, "<span class='notice'>You dispense [amount] units of [current_reagent] into [target].</span>")
 			update_icon()
 		if("remove")
 			if(!target.reagents.remove_reagent(current_reagent, amount))
-				to_chat(user, "<span class='notice'>You remove [amount] units of [current_reagent] from the [target].</span>")
+				to_chat(user, "<span class='notice'>You remove [amount] units of [current_reagent] from [target].</span>")
 		if("isolate")
 			if(!target.reagents.isolate_reagent(current_reagent))
-				to_chat(user, "<span class='notice'>You remove all but the [current_reagent] from the [target].</span>")
+				to_chat(user, "<span class='notice'>You remove all but [current_reagent] from [target].</span>")
 
 /obj/item/handheld_chem_dispenser/attack_self(mob/user)
 	if(cell)
@@ -570,7 +570,7 @@
 		cell.update_icon()
 		cell.loc = get_turf(src)
 		cell = null
-		to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
+		to_chat(user, "<span class='notice'>You remove the cell from [src].</span>")
 		update_icon()
 		return
 	..()

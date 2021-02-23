@@ -315,7 +315,7 @@
 		if(store_item(I, user))
 			update_icon()
 			updateUsrDialog()
-			to_chat(user, "<span class='notice'>You load the [I] into the storage compartment.</span>")
+			to_chat(user, "<span class='notice'>You load [I] into the storage compartment.</span>")
 		else
 			to_chat(user, "<span class='warning'>You can't fit [I] into [src]!</span>")
 		return

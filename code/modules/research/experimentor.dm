@@ -129,7 +129,7 @@
 		return
 
 	if(!checkCircumstances(O))
-		to_chat(user, "<span class='warning'>The [O] is not yet valid for the [src] and must be completed!</span>")
+		to_chat(user, "<span class='warning'>The [O] is not yet valid for [src] and must be completed!</span>")
 		return
 
 	if(disabled)
@@ -152,7 +152,7 @@
 			return
 		loaded_item = O
 		O.loc = src
-		to_chat(user, "<span class='notice'>You add the [O.name] to the machine.</span>")
+		to_chat(user, "<span class='notice'>You add [O] to the machine.</span>")
 		flick("h_lathe_load", src)
 
 	return
@@ -263,7 +263,7 @@
 			visible_message("<span class='warning'>[src] malfunctions!</span>")
 			exp = SCANTYPE_OBLITERATE
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
-			visible_message("<span class='danger'>[src] malfunctions, throwing the [exp_on]!</span>")
+			visible_message("<span class='danger'>[src] malfunctions, throwing [exp_on]!</span>")
 			var/mob/living/target = locate(/mob/living) in oview(7,src)
 			if(target)
 				var/obj/item/throwing = loaded_item
@@ -443,7 +443,7 @@
 	if(exp == SCANTYPE_OBLITERATE)
 		visible_message("<span class='warning'>[exp_on] activates the crushing mechanism, [exp_on] is destroyed!</span>")
 		if(prob(EFFECT_PROB_LOW) && criticalReaction)
-			visible_message("<span class='warning'>[src]'s crushing mechanism slowly and smoothly descends, flattening the [exp_on]!</span>")
+			visible_message("<span class='warning'>[src]'s crushing mechanism slowly and smoothly descends, flattening [exp_on]!</span>")
 			new /obj/item/stack/sheet/plasteel(get_turf(pick(oview(1,src))))
 		if(linked_console.linked_lathe)
 			var/datum/component/material_container/linked_materials = linked_console.linked_lathe.GetComponent(/datum/component/material_container)
@@ -478,7 +478,7 @@
 		visible_message("<span class='warning'>[exp_on] [a], and [b], the experiment was a failure.</span>")
 
 	if(exp == SCANTYPE_DISCOVER)
-		visible_message("[src] scans the [exp_on], revealing its true nature!")
+		visible_message("[src] scans [exp_on], revealing its true nature!")
 		playsound(src.loc, 'sound/effects/supermatter.ogg', 50, 3, -1)
 		var/obj/item/relic/R = loaded_item
 		R.reveal()

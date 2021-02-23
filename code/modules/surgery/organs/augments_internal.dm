@@ -99,12 +99,12 @@
 	if(L_item)
 		A = pick(oview(range))
 		L_item.throw_at(A, range, 2)
-		to_chat(owner, "<span class='notice'>Your left arm spasms and throws the [L_item.name]!</span>")
+		to_chat(owner, "<span class='notice'>Your left arm spasms and throws [L_item]!</span>")
 		l_hand_obj = null
 	if(R_item)
 		A = pick(oview(range))
 		R_item.throw_at(A, range, 2)
-		to_chat(owner, "<span class='notice'>Your right arm spasms and throws the [R_item.name]!</span>")
+		to_chat(owner, "<span class='notice'>Your right arm spasms and throws [R_item]!</span>")
 		r_hand_obj = null
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/proc/release_items()

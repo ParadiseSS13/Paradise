@@ -70,7 +70,7 @@
 		if(M.buffer && istype(M.buffer, /obj/machinery/telepad))
 			telepad = M.buffer
 			M.buffer = null
-			to_chat(user, "<span class = 'caution'>You upload the data from the [W.name]'s buffer.</span>")
+			to_chat(user, "<span class='notice'>You upload the data from [M]'s buffer.</span>")
 			updateUsrDialog()
 	else
 		return ..()
