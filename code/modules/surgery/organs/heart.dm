@@ -245,7 +245,7 @@
 		return
 	necrotize()
 
-/obj/item/organ/internal/heart/cybernetic/upgraded/proc/shock_heart(datum/source, intensity)
+/obj/item/organ/internal/heart/cybernetic/upgraded/proc/shock_heart(mob/living/carbon/human/source, intensity)
 	SIGNAL_HANDLER
 
 	if(!ishuman(owner))
