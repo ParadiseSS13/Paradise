@@ -51059,7 +51059,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 1;
+	icon_state = "blue"
 	},
 /area/medical/morgue)
 "bRu" = (
@@ -51744,7 +51745,8 @@
 	},
 /obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 5;
+	icon_state = "blue"
 	},
 /area/medical/morgue)
 "bSF" = (
@@ -51958,7 +51960,7 @@
 	name = "Morgue"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "whitebluefull"
 	},
 /area/medical/morgue)
 "bSZ" = (
@@ -51977,12 +51979,10 @@
 	},
 /area/medical/morgue)
 "bTa" = (
-/obj/structure/table,
-/obj/item/storage/box/gloves{
-	pixel_y = 8
-	},
+/obj/machinery/optable,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 9;
+	icon_state = "blue"
 	},
 /area/medical/morgue)
 "bTb" = (
@@ -62432,9 +62432,13 @@
 	name = "station intercom (General)";
 	pixel_x = -28
 	},
-/obj/machinery/optable,
+/obj/structure/table,
+/obj/item/hemostat,
+/obj/item/scalpel,
+/obj/item/autopsy_scanner,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "blue"
 	},
 /area/medical/morgue)
 "clJ" = (
@@ -62493,16 +62497,11 @@
 	name = "Aft Maintenance"
 	})
 "clQ" = (
-/obj/effect/landmark/start{
-	name = "Coroner"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel,
 /area/medical/morgue)
 "clR" = (
 /obj/structure/reagent_dispensers/watertank,
@@ -62552,9 +62551,18 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/closet/wardrobe/coroner,
+/obj/structure/table,
+/obj/item/camera{
+	name = "Autopsy Camera";
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/obj/item/storage/box/gloves{
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "blue"
 	},
 /area/medical/morgue)
 "clW" = (
@@ -62621,15 +62629,11 @@
 	},
 /area/medical/reception)
 "cmc" = (
-/obj/structure/table,
-/obj/item/autopsy_scanner,
-/obj/item/camera{
-	name = "Autopsy Camera";
-	pixel_x = -2;
-	pixel_y = -2
-	},
+/obj/structure/window/reinforced,
+/obj/structure/closet/secure_closet/coroner,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "blue"
 	},
 /area/medical/morgue)
 "cmd" = (
@@ -62637,9 +62641,12 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced,
-/obj/structure/filingcabinet/chestdrawer/autopsy,
+/obj/structure/closet/wardrobe/coroner,
+/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
+/obj/item/reagent_containers/dropper,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 6;
+	icon_state = "blue"
 	},
 /area/medical/morgue)
 "cmf" = (
@@ -62766,7 +62773,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "blue"
 	},
 /area/medical/morgue)
 "cmv" = (
@@ -63160,9 +63168,7 @@
 	name = "Coroner"
 	},
 /obj/structure/chair/office/dark,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel,
 /area/medical/morgue)
 "cnd" = (
 /obj/machinery/alarm{
@@ -63463,7 +63469,8 @@
 /obj/item/storage/box/bodybags,
 /obj/item/storage/box/bodybags,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 10;
+	icon_state = "blue"
 	},
 /area/medical/morgue)
 "cnF" = (
@@ -63823,9 +63830,15 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/photocopier,
+/obj/structure/table,
+/obj/machinery/photocopier/faxmachine{
+	department = "Coroner's Office";
+	req_access = list(6);
+	req_one_access = null
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 6;
+	icon_state = "blue"
 	},
 /area/medical/morgue)
 "com" = (
@@ -64626,7 +64639,7 @@
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "blue"
 	},
 /area/medical/morgue)
 "cpK" = (
@@ -77524,7 +77537,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 1;
+	icon_state = "blue"
 	},
 /area/medical/morgue)
 "cMh" = (
@@ -82959,7 +82973,8 @@
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "blue"
 	},
 /area/medical/morgue)
 "cVc" = (
@@ -83069,8 +83084,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/filingcabinet/chestdrawer/autopsy,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "blue"
 	},
 /area/medical/morgue)
 "cVn" = (
@@ -89309,6 +89326,13 @@
 /area/crew_quarters/fitness{
 	name = "\improper Recreation Area"
 	})
+"hrj" = (
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "bluecorner"
+	},
+/area/medical/morgue)
 "hxv" = (
 /obj/machinery/camera{
 	c_tag = "Telecoms - Server Room - Aft";
@@ -89621,8 +89645,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "blue"
 	},
 /area/medical/morgue)
 "jeY" = (
@@ -90958,9 +90984,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel,
 /area/medical/morgue)
 "rOZ" = (
 /obj/structure/lattice/catwalk,
@@ -91598,6 +91622,16 @@
 "vZo" = (
 /turf/simulated/floor/plating,
 /area/space/nearstation)
+"wfQ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/window/eastright{
+	dir = 2;
+	name = "Coroner Office";
+	req_access_txt = "5"
+	},
+/turf/simulated/floor/plasteel,
+/area/medical/morgue)
 "wgm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -91636,9 +91670,7 @@
 	initialize_directions = 11
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel,
 /area/medical/morgue)
 "wyX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -116744,7 +116776,7 @@ cKn
 bRn
 cMd
 clQ
-cMd
+wfQ
 wxw
 cnc
 cpJ
@@ -117001,7 +117033,7 @@ cGh
 cDg
 bRt
 rOw
-cIo
+hrj
 cmu
 cVm
 col
