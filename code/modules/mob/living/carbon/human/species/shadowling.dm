@@ -9,7 +9,8 @@
 	blood_color = "#555555"
 	flesh_color = "#222222"
 
-	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NOGUNS, NO_HUNGER, NO_EXAMINE) //Can't use guns due to muzzle flash
+	species_traits = list(NO_BLOOD) //Can't use guns due to muzzle flash
+	inherent_traits = list(TRAIT_CHUNKYFINGERS, TRAIT_NOHUNGER, TRAIT_NOBREATH, TRAIT_RADIMMUNE, TRAIT_NOEXAMINE)
 	burn_mod = 1.5 //1.5x burn damage, 2x is excessive
 	heatmod = 1.5
 
@@ -42,8 +43,8 @@
 			H.adjustToxLoss(-5)
 			H.adjustBrainLoss(-25) //Shad O. Ling gibbers, "CAN U BE MY THRALL?!!"
 			H.AdjustEyeBlurry(-1)
-			H.CureNearsighted()
-			H.CureBlind()
+			H.cure_nearsighted()
+			H.cure_blind()
 			H.adjustCloneLoss(-1)
 			H.SetWeakened(0)
 			H.SetStunned(0)
@@ -59,7 +60,8 @@
 	blood_color = "#CCCCCC"
 	flesh_color = "#AAAAAA"
 
-	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NO_HUNGER, NO_EXAMINE)
+	species_traits = list(NO_BLOOD)
+	inherent_traits = list(TRAIT_NOBREATH, TRAIT_RADIMMUNE, TRAIT_NOHUNGER, TRAIT_NOEXAMINE)
 	burn_mod = 1.1
 	heatmod = 1.1
 

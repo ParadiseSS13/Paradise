@@ -1,7 +1,7 @@
 /obj/machinery/atmospherics/unary/passive_vent
 	icon = 'icons/atmos/vent_pump.dmi'
 	icon_state = "map_vent"
-
+	plane = FLOOR_PLANE
 	name = "passive vent"
 	desc = "A large air vent"
 

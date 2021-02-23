@@ -172,7 +172,7 @@
 	//Exclude lasertag guns from the CLUMSY check.
 	if(clumsy_check)
 		if(istype(user))
-			if((CLUMSY in user.mutations) && prob(40))
+			if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
 				to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>")
 				var/shot_leg = pick("l_foot", "r_foot")
 				process_fire(user, user, 0, params, zone_override = shot_leg)
