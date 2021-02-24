@@ -213,6 +213,7 @@
 		swap_hand()
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
+<<<<<<< HEAD
 	if(stat == DEAD)
 		if(!player_logged)
 			M.visible_message( \
@@ -223,67 +224,72 @@
 		if(health >= HEALTH_THRESHOLD_CRIT)
 			if(src == M && ishuman(src))
 				check_self_for_injuries()
+=======
+	if(health >= HEALTH_THRESHOLD_CRIT)
+		if(src == M && ishuman(src))
+			check_self_for_injuries()
+		else
+			if(player_logged)
+				M.visible_message("<span class='notice'>[M] shakes [src], but [p_they()] [p_do()] not respond. Probably suffering from SSD.", \
+				"<span class='notice'>You shake [src], but [p_theyre()] unresponsive. Probably suffering from SSD.</span>")
+			if(lying) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
+				add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
+				if(ishuman(src))
+					var/mob/living/carbon/human/H = src
+					if(H.w_uniform)
+						H.w_uniform.add_fingerprint(M)
+				AdjustSleeping(-5)
+				if(sleeping == 0)
+					StopResting()
+				AdjustParalysis(-3)
+				AdjustStunned(-3)
+				AdjustWeakened(-3)
+				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				if(!player_logged)
+					M.visible_message( \
+						"<span class='notice'>[M] shakes [src] trying to wake [p_them()] up!</span>",\
+						"<span class='notice'>You shake [src] trying to wake [p_them()] up!</span>",\
+						)
+
+			else if(on_fire)
+				var/self_message = "<span class='warning'>You try to extinguish [src]!</span>"
+				if(prob(30) && ishuman(M)) // 30% chance of burning your hands
+					var/mob/living/carbon/human/H = M
+					var/protected = FALSE // Protected from the fire
+					if((H.gloves?.max_heat_protection_temperature > 360) || (HEATRES in H.mutations))
+						protected = TRUE
+
+					var/obj/item/organ/external/active_hand = H.get_organ("[H.hand ? "l" : "r"]_hand")
+					if(active_hand && !protected) // Wouldn't really work without a hand
+						active_hand.receive_damage(0, 5)
+						self_message = "<span class='danger'>You burn your hand trying to extinguish [src]!</span>"
+						H.update_icons()
+
+				M.visible_message("<span class='warning'>[M] tries to extinguish [src]!</span>", self_message)
+				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				adjust_fire_stacks(-0.5)
+
+			// BEGIN HUGCODE - N3X
+>>>>>>> parent of b6ee2b9baf (Shaking the dead now gives a message indicating the person is dead)
 			else
-				if(player_logged)
-					M.visible_message("<span class='notice'>[M] shakes [src], but [p_they()] [p_do()] not respond. Probably suffering from SSD.", \
-					"<span class='notice'>You shake [src], but [p_theyre()] unresponsive. Probably suffering from SSD.</span>")
-				if(lying) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
-					add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
+				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				if(M.zone_selected == "head")
+					M.visible_message(\
+					"<span class='notice'>[M] pats [src] on the head.</span>",\
+					"<span class='notice'>You pat [src] on the head.</span>",\
+					)
+				else
+
+					M.visible_message(\
+					"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
+					"<span class='notice'>You hug [src].</span>",\
+					)
 					if(ishuman(src))
 						var/mob/living/carbon/human/H = src
-						if(H.w_uniform)
+						if(H.wear_suit)
+							H.wear_suit.add_fingerprint(M)
+						else if(H.w_uniform)
 							H.w_uniform.add_fingerprint(M)
-					AdjustSleeping(-5)
-					if(sleeping == 0)
-						StopResting()
-					AdjustParalysis(-3)
-					AdjustStunned(-3)
-					AdjustWeakened(-3)
-					playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-					if(!player_logged)
-						M.visible_message( \
-							"<span class='notice'>[M] shakes [src] trying to wake [p_them()] up!</span>",\
-							"<span class='notice'>You shake [src] trying to wake [p_them()] up!</span>",\
-							)
-
-				else if(on_fire)
-					var/self_message = "<span class='warning'>You try to extinguish [src]!</span>"
-					if(prob(30) && ishuman(M)) // 30% chance of burning your hands
-						var/mob/living/carbon/human/H = M
-						var/protected = FALSE // Protected from the fire
-						if((H.gloves?.max_heat_protection_temperature > 360) || (HEATRES in H.mutations))
-							protected = TRUE
-
-						var/obj/item/organ/external/active_hand = H.get_organ("[H.hand ? "l" : "r"]_hand")
-						if(active_hand && !protected) // Wouldn't really work without a hand
-							active_hand.receive_damage(0, 5)
-							self_message = "<span class='danger'>You burn your hand trying to extinguish [src]!</span>"
-							H.update_icons()
-
-					M.visible_message("<span class='warning'>[M] tries to extinguish [src]!</span>", self_message)
-					playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-					adjust_fire_stacks(-0.5)
-
-				// BEGIN HUGCODE - N3X
-				else
-					playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-					if(M.zone_selected == "head")
-						M.visible_message(\
-						"<span class='notice'>[M] pats [src] on the head.</span>",\
-						"<span class='notice'>You pat [src] on the head.</span>",\
-						)
-					else
-
-						M.visible_message(\
-						"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
-						"<span class='notice'>You hug [src].</span>",\
-						)
-						if(ishuman(src))
-							var/mob/living/carbon/human/H = src
-							if(H.wear_suit)
-								H.wear_suit.add_fingerprint(M)
-							else if(H.w_uniform)
-								H.w_uniform.add_fingerprint(M)
 
 /mob/living/carbon/proc/check_self_for_injuries()
 	var/mob/living/carbon/human/H = src
