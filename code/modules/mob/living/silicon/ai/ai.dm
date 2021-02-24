@@ -1275,7 +1275,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [message]</span></i>"
 	if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 		var/message_clean = combine_message(message_pieces, null, M)
-		create_chat_message(M, message_clean)
+		create_chat_message(M.runechat_msg_location, message_clean)
 	show_message(rendered, 2)
 
 /mob/living/silicon/ai/proc/malfhacked(obj/machinery/power/apc/apc)

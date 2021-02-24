@@ -297,7 +297,7 @@
 				if(length(contents))
 					to_chat(user, "<span class='danger'>Capture failed!</span>: The soul stone is full! Use or free an existing soul to make room.")
 				else
-					T.loc = src //put shade in stone
+					T.forceMove(src) // Put the shade into the stone.
 					T.canmove = 0
 					T.health = T.maxHealth
 					icon_state = icon_state_full

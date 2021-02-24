@@ -193,10 +193,6 @@
 	// Display visual above source
 	new /datum/chatmessage(raw_message, speaker, src, italics, size)
 
-// Set the speaker to `container` here so the runechat messsage appears above the MMI/robotic brain that we're inside of.
-/mob/living/carbon/brain/create_chat_message(atom/movable/speaker, raw_message, italics, size)
-	speaker = container
-	return ..()
 
 // Tweak these defines to change the available color ranges
 #define CM_COLOR_SAT_MIN	0.6
