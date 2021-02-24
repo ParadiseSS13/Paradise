@@ -126,7 +126,6 @@
 				H.tail = "voxtail" //Ensures they get an appropriately coloured tail depending on the skin-tone.
 
 		H.change_icobase(new_icobase, owner_sensitive) //Update the icobase of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
-		H.update_dna()
 
 /datum/species/vox/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "oxygen") //Armalis are above such petty things.

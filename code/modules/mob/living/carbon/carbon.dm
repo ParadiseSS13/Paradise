@@ -238,25 +238,6 @@
 						"<span class='notice'>[M] shakes [src] trying to wake [p_them()] up!</span>",\
 						"<span class='notice'>You shake [src] trying to wake [p_them()] up!</span>",\
 						)
-
-			else if(on_fire)
-				var/self_message = "<span class='warning'>You try to extinguish [src]!</span>"
-				if(prob(30) && ishuman(M)) // 30% chance of burning your hands
-					var/mob/living/carbon/human/H = M
-					var/protected = FALSE // Protected from the fire
-					if((H.gloves?.max_heat_protection_temperature > 360) || HAS_TRAIT(H, TRAIT_RESISTHEAT) || HAS_TRAIT(H, TRAIT_RESISTHEATHANDS))
-						protected = TRUE
-
-					var/obj/item/organ/external/active_hand = H.get_organ("[H.hand ? "l" : "r"]_hand")
-					if(active_hand && !protected) // Wouldn't really work without a hand
-						active_hand.receive_damage(0, 5)
-						self_message = "<span class='danger'>You burn your hand trying to extinguish [src]!</span>"
-						H.update_icons()
-
-				M.visible_message("<span class='warning'>[M] tries to extinguish [src]!</span>", self_message)
-				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-				adjust_fire_stacks(-0.5)
-
 			// BEGIN HUGCODE - N3X
 			else
 				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
@@ -277,6 +258,32 @@
 							H.wear_suit.add_fingerprint(M)
 						else if(H.w_uniform)
 							H.w_uniform.add_fingerprint(M)
+
+/**
+  * Handles patting out a fire on someone.
+  *
+  * Removes 0.5 fire stacks per pat, with a 30% chance of the user burning their hand if they don't have adequate heat resistance.
+  * Arguments:
+  * * src - The mob doing the patting
+  * * target - The mob who is currently on fire
+  */
+/mob/living/carbon/proc/pat_out(mob/living/target)
+	var/self_message = "<span class='warning'>You try to extinguish [target]!</span>"
+	if(prob(30) && ishuman(src)) // 30% chance of burning your hands
+		var/mob/living/carbon/human/H = src
+		var/protected = FALSE // Protected from the fire
+		if((H.gloves?.max_heat_protection_temperature > 360) || HAS_TRAIT(H, TRAIT_RESISTHEAT) || HAS_TRAIT(H, TRAIT_RESISTHEATHANDS))
+			protected = TRUE
+
+		var/obj/item/organ/external/active_hand = H.get_active_hand()
+		if(active_hand && !protected) // Wouldn't really work without a hand
+			active_hand.receive_damage(0, 5)
+			self_message = "<span class='danger'>You burn your hand trying to extinguish [target]!</span>"
+			H.update_icons()
+
+	target.visible_message("<span class='warning'>[src] tries to extinguish [target]!</span>", self_message)
+	playsound(target, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+	target.adjust_fire_stacks(-0.5)
 
 /mob/living/carbon/proc/check_self_for_injuries()
 	var/mob/living/carbon/human/H = src
