@@ -313,7 +313,8 @@
 
 	var/turf/T = get_turf(src)
 	var/super_matter_charge_sound = sound('sound/magic/charge.ogg')
-	for(var/mob/M in GLOB.player_list)
+	for(var/player in GLOB.player_list)
+		var/mob/M = player
 		var/turf/mob_turf = get_turf(M)
 		if(atoms_share_level(T, mob_turf))
 			SEND_SOUND(M, super_matter_charge_sound)
@@ -634,7 +635,7 @@
 	message_admins("Singularity has consumed a supermatter shard and can now become stage six.")
 	visible_message("<span class='userdanger'>[src] is consumed by the singularity!</span>")
 	var/supermatter_sound = sound('sound/effects/supermatter.ogg')
-	for(var/mob/M in GLOB.player_list)
+	for(var/M in GLOB.player_list)
 		if(atoms_share_level(M, src))
 			SEND_SOUND(M, supermatter_sound) //everyone goan know bout this
 			to_chat(M, "<span class='boldannounce'>A horrible screeching fills your ears, and a wave of dread washes over you...</span>")

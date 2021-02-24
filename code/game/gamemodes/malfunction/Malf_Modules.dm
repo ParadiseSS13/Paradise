@@ -319,8 +319,8 @@
 
 /obj/machinery/doomsday_device/proc/detonate(z_level = 1)
 	var/doomsday_alarm = sound('sound/machines/alarm.ogg')
-	for(var/mob/M in GLOB.player_list)
-		SEND_SOUND(M, doomsday_alarm)
+	for(var/explodee in GLOB.player_list)
+		SEND_SOUND(explodee, doomsday_alarm)
 	sleep(100)
 	for(var/mob/living/L in GLOB.mob_list)
 		var/turf/T = get_turf(L)
