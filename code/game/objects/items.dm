@@ -21,10 +21,20 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	can_be_hit = FALSE
 	suicidal_hands = TRUE
 
+	///Sound played when you hit something with the item
+	var/hitsound
+	///Played when the item is used, for example tools
+	var/usesound
+	///Used when yate into a mob
+	var/mob_throw_hit_sound
+	///Sound used when equipping the item into a valid slot
+	var/equip_sound
+	///Sound uses when picking the item up (into your hands)
+	var/pickup_sound
+	///Sound uses when dropping the item, or when its thrown.
+	var/drop_sound
+
 	var/list/attack_verb //Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
-	var/hitsound = null
-	var/usesound = null
-	var/throwhitsound
 	var/w_class = WEIGHT_CLASS_NORMAL
 	var/slot_flags = 0		//This is used to determine on which slots an item can fit.
 	pass_flags = PASSTABLE
@@ -115,6 +125,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 			hitsound = 'sound/items/welder.ogg'
 		if(damtype == "brute")
 			hitsound = "swing_hit"
+	LAZYINITLIST(attack_verb)
 	if(!move_resist)
 		determine_move_resist()
 
@@ -272,7 +283,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if(throwing)
 		throwing.finalize(FALSE)
 	if(loc == user)
-		if(!user.unEquip(src))
+		if(!user.unEquip(src, silent = TRUE))
 			return 0
 
 	else
@@ -376,7 +387,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 /obj/item/proc/talk_into(mob/M, var/text, var/channel=null)
 	return
 
-/obj/item/proc/dropped(mob/user)
+/obj/item/proc/dropped(mob/user, silent = FALSE)
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Remove(user)
@@ -386,6 +397,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 		flags &= ~NODROP
 	in_inventory = FALSE
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
+	if(!silent)
+		playsound(src, drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
@@ -413,14 +426,19 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 // user is mob that equipped it
 // slot uses the slot_X defines found in setup.dm
 // for items that can be placed in multiple slots
-// note this isn't called during the initial dressing of a player
-/obj/item/proc/equipped(var/mob/user, var/slot)
+// Initial is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
+/obj/item/proc/equipped(mob/user, slot, initial = FALSE)
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
 	for(var/X in actions)
 		var/datum/action/A = X
 		if(item_action_slot_check(slot, user)) //some items only give their actions buttons when in a specific slot.
 			A.Grant(user)
 	in_inventory = TRUE
+	if(!initial)
+		if(equip_sound && slot == slot_bitfield_to_slot(slot_flags))
+			playsound(src, equip_sound, EQUIP_SOUND_VOLUME, TRUE, ignore_walls = FALSE)
+		else if(slot == slot_l_hand || slot == slot_r_hand)
+			playsound(src, pickup_sound, PICKUP_SOUND_VOLUME, ignore_walls = FALSE)
 
 /obj/item/proc/item_action_slot_check(slot, mob/user)
 	return 1
@@ -563,13 +581,30 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	else
 		return
 
-/obj/item/throw_impact(atom/A)
-	if(A && !QDELETED(A))
-		SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, A)
-		var/itempush = 1
+/obj/item/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	if(hit_atom && !QDELETED(hit_atom))
+		SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
+		var/itempush = TRUE
 		if(w_class < WEIGHT_CLASS_BULKY)
-			itempush = 0 // too light to push anything
-		return A.hitby(src, 0, itempush)
+			itempush = FALSE //too light to push anything
+		if(isliving(hit_atom)) //Living mobs handle hit sounds differently.
+			if(is_hot(src))
+				var/mob/living/L = hit_atom
+				L.IgniteMob()
+			var/volume = get_volume_by_throwforce_and_or_w_class()
+			if(throwforce > 0)
+				if(mob_throw_hit_sound)
+					playsound(hit_atom, mob_throw_hit_sound, volume, TRUE, -1)
+				else if(hitsound)
+					playsound(hit_atom, hitsound, volume, TRUE, -1)
+				else
+					playsound(hit_atom, 'sound/weapons/genhit.ogg', volume, TRUE, -1)
+			else
+				playsound(hit_atom, 'sound/weapons/throwtap.ogg', volume, TRUE, -1)
+
+		else
+			playsound(src, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
+		return hit_atom.hitby(src, 0, itempush, throwingdatum = throwingdatum)
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
 	thrownby = thrower
@@ -618,7 +653,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	return I == src
 
 /obj/item/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	return
+	return SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 
 /obj/item/attack_hulk(mob/living/carbon/human/user)
 	return FALSE
@@ -645,10 +680,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	closeToolTip(usr)
 
 /obj/item/MouseDrop_T(obj/item/I, mob/user)
-	if(!user || src == I)
+	if(!user || user.incapacitated(ignore_lying = TRUE) || src == I)
 		return
 
-	if(loc && I.loc == loc && istype(loc, /obj/item/storage)) // Are we trying to swap two items in the storage?
+	if(loc && I.loc == loc && istype(loc, /obj/item/storage) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?
 		var/obj/item/storage/S = loc
 		S.swap_items(src, I, user)
 

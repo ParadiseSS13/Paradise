@@ -204,7 +204,6 @@
 	var/invis_override = 0
 	var/lighting_alpha
 
-	var/emagged = 0
 	var/list/color_view = null//overrides client.color while worn
 	var/prescription = 0
 	var/prescription_upgradable = 0
@@ -522,8 +521,10 @@ BLIND     // can't see anything
 	icon = 'icons/obj/clothing/suits.dmi'
 	name = "suit"
 	var/fire_resist = T0C+100
-	allowed = list(/obj/item/tank/emergency_oxygen)
+	allowed = list(/obj/item/tank/internals/emergency_oxygen)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	drop_sound = 'sound/items/handling/cloth_drop.ogg'
+	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 	slot_flags = SLOT_OCLOTHING
 	var/blood_overlay_type = "suit"
 	var/suittoggled = FALSE
@@ -536,7 +537,7 @@ BLIND     // can't see anything
 /obj/item/clothing/suit/proc/adjustsuit(var/mob/user)
 	if(!ignore_suitadjust)
 		if(!user.incapacitated())
-			if(!(HULK in user.mutations))
+			if(!HAS_TRAIT(user, TRAIT_HULK))
 				if(suit_adjusted)
 					var/flavour = "close"
 					icon_state = copytext(icon_state, 1, findtext(icon_state, "_open")) /*Trims the '_open' off the end of the icon state, thus avoiding a case where jackets that start open will
@@ -636,7 +637,7 @@ BLIND     // can't see anything
 	permeability_coefficient = 0.02
 	flags = STOPSPRESSUREDMAGE | THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	allowed = list(/obj/item/flashlight,/obj/item/tank)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
 	slowdown = 1
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 70)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
@@ -659,6 +660,9 @@ BLIND     // can't see anything
 	permeability_coefficient = 0.90
 	slot_flags = SLOT_ICLOTHING
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	equip_sound = 'sound/items/equip/jumpsuit_equip.ogg'
+	drop_sound = 'sound/items/handling/cloth_drop.ogg'
+	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi',

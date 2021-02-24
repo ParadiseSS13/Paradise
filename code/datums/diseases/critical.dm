@@ -157,7 +157,7 @@
 /datum/disease/critical/hypoglycemia/has_cure()
 	if(ishuman(affected_mob))
 		var/mob/living/carbon/human/H = affected_mob
-		if(NO_HUNGER in H.dna.species.species_traits)
+		if(HAS_TRAIT(H, TRAIT_NOHUNGER))
 			return TRUE
 		if(ismachineperson(H))
 			return TRUE
@@ -165,6 +165,8 @@
 
 /datum/disease/critical/hypoglycemia/stage_act()
 	if(..())
+		if(isLivingSSD(affected_mob)) // We don't want AFK people dying from this.
+			return
 		if(affected_mob.nutrition > NUTRITION_LEVEL_HYPOGLYCEMIA)
 			to_chat(affected_mob, "<span class='notice'>You feel a lot better!</span>")
 			cure()

@@ -298,7 +298,7 @@ GLOBAL_LIST_INIT(lawlorify, list (
 	if(!D)
 		return
 	to_chat(world, "<font size=5><span class='danger'>SLOTH, WRATH, GLUTTONY, ACEDIA, ENVY, GREED, PRIDE! FIRES OF HELL AWAKEN!!</span></font>")
-	world << 'sound/hallucinations/veryfar_noise.ogg'
+	SEND_SOUND(world, sound('sound/hallucinations/veryfar_noise.ogg'))
 	sleep(50)
 	if(!SSticker.mode.devil_ascended)
 		SSshuttle.emergency.request(null, 0.3)

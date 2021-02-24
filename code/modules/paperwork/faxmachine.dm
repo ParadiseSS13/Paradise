@@ -104,7 +104,9 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine/ui_data(mob/user)
 	var/list/data = list()
 	data["authenticated"] = is_authenticated(user)
+	data["realauth"] = authenticated
 	data["scan_name"] = scan ? scan.name : FALSE
+	data["nologin"] = !data["scan_name"] && !data["realauth"]
 	if(!data["authenticated"])
 		data["network"] = "Disconnected"
 	else if(!emagged)
@@ -344,11 +346,12 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/proc/message_admins(var/mob/sender, var/faxname, var/faxtype, var/obj/item/sent, font_colour="#9A04D1")
 	var/msg = "<span class='boldnotice'><font color='[font_colour]'>[faxname]: </font> [key_name_admin(sender)] | REPLY: (<A HREF='?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : "CentcommReply"]=[sender.UID()]'>RADIO</A>) (<a href='?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<A HREF='?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=\ref[src]'>TEMPLATE</A>) ([ADMIN_BSA(sender,"BSA")]) (<A HREF='?_src_=holder;EvilFax=[sender.UID()];originfax=\ref[src]'>EVILFAX</A>) </span>: Receiving '[sent.name]' via secure connection... <a href='?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
+	var/fax_sound = sound('sound/effects/adminhelp.ogg')
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_EVENT, 0, C.mob))
 			to_chat(C, msg)
 			if(C.prefs.sound & SOUND_ADMINHELP)
-				C << 'sound/effects/adminhelp.ogg'
+				SEND_SOUND(C, fax_sound)
 
 /obj/machinery/photocopier/faxmachine/proc/become_mimic()
 	if(scan)

@@ -317,7 +317,7 @@
 		procreate.completed = TRUE
 		mind.objectives += procreate
 		mind.announce_objectives()
-		playsound_local(get_turf(src), 'sound/magic/mutate.ogg', 100, FALSE, pressure_affected = FALSE)
+		playsound_local(get_turf(src), 'sound/magic/mutate.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
 #undef MORPHED_SPEED
 #undef ITEM_EAT_COST

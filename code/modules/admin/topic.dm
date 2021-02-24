@@ -17,7 +17,7 @@
 		if(!isclient(C))
 			return
 
-		C << 'sound/effects/adminhelp.ogg'
+		SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
 
 		to_chat(C, "<font color='red' size='4'><b>- AdminHelp Rejected! -</b></font>")
 		to_chat(C, "<font color='red'><b>Your admin help was rejected.</b></font>")
@@ -108,6 +108,10 @@
 		var/banjob = href_list["dbbanaddjob"]
 		var/banreason = href_list["dbbanreason"]
 
+		var/job_ban = FALSE
+		var/multi_job = FALSE
+		var/list/jobs_to_ban = list()
+
 		banckey = ckey(banckey)
 
 		switch(bantype)
@@ -127,10 +131,12 @@
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey, reason and job)</span>")
 					return
 				banduration = null
+				job_ban = TRUE
 			if(BANTYPE_JOB_TEMP)
 				if(!banckey || !banreason || !banjob || !banduration)
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey, reason and job)</span>")
 					return
+				job_ban = TRUE
 			if(BANTYPE_APPEARANCE)
 				if(!banckey || !banreason)
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey and reason)</span>")
@@ -151,11 +157,11 @@
 
 		var/mob/playermob
 
-		for(var/mob/M in GLOB.player_list)
-			if(M.ckey == banckey)
-				playermob = M
-				break
-
+		if("autopopulate" in href_list)
+			for(var/mob/M in GLOB.player_list)
+				if(M.ckey == banckey)
+					playermob = M
+					break
 
 		banreason = "(MANUAL BAN) "+banreason
 
@@ -167,7 +173,68 @@
 		else
 			message_admins("Ban process: A mob matching [playermob.ckey] was found at location [playermob.x], [playermob.y], [playermob.z]. Custom IP and computer id fields replaced with the IP and computer id from the located mob")
 
-		DB_ban_record(bantype, playermob, banduration, banreason, banjob, null, banckey, banip, bancid )
+		if(job_ban)
+			if(banjob in list("commanddept","securitydept","engineeringdept","medicaldept","sciencedept","supportdept","nonhumandept"))
+				multi_job = TRUE
+				switch(banjob)
+					if("commanddept")
+						for(var/jobPos in GLOB.command_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("securitydept")
+						for(var/jobPos in GLOB.security_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("engineeringdept")
+						for(var/jobPos in GLOB.engineering_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("medicaldept")
+						for(var/jobPos in GLOB.medical_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("sciencedept")
+						for(var/jobPos in GLOB.science_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("supportdept")
+						for(var/jobPos in GLOB.support_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("nonhumandept")
+						jobs_to_ban += "pAI"
+						for(var/jobPos in GLOB.nonhuman_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+
+		// If the job ban is for multiple jobs in one group (IE: Command), iterate through jobs and ban each individually
+		if(multi_job)
+			//Create a list of unbanned jobs within joblist
+			var/list/notbannedlist = list()
+			for(var/job in jobs_to_ban)
+				if(!jobban_isbanned_ckey(banckey, job))
+					notbannedlist += job
+
+			for(var/job in notbannedlist)
+				DB_ban_record(bantype, playermob, banduration, banreason, job, null, banckey, banip, bancid)
+
+		// Otherwise, do it normally
+		else
+			DB_ban_record(bantype, playermob, banduration, banreason, banjob, null, banckey, banip, bancid)
 
 
 	else if(href_list["editrights"])
@@ -317,6 +384,8 @@
 		SSticker.delay_end = !SSticker.delay_end
 		log_admin("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
 		message_admins("<span class='notice'>[key_name_admin(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].</span>", 1)
+		if(SSticker.delay_end)
+			SSticker.real_reboot_time = 0 // If they set this at round end, show the "Reboot was cancelled by an admin" message instantly
 		href_list["secretsadmin"] = "check_antagonist"
 
 	else if(href_list["simplemake"])
@@ -1806,14 +1875,16 @@
 		log_admin("Admin [key_name_admin(usr)] has unlocked the Cult's ability to summon Nar'Sie.")
 
 	else if(href_list["adminplayerobservecoodjump"])
-		if(!check_rights(R_ADMIN))	return
+		var/client/C = usr.client
+		if(!isobserver(usr))
+			if(!check_rights(R_ADMIN)) // Need to be admin to aghost
+				return
+			C.admin_ghost()
 
 		var/x = text2num(href_list["X"])
 		var/y = text2num(href_list["Y"])
 		var/z = text2num(href_list["Z"])
 
-		var/client/C = usr.client
-		if(!isobserver(usr))	C.admin_ghost()
 		sleep(2)
 		C.jumptocoord(x,y,z)
 
@@ -2016,15 +2087,15 @@
 				logmsg = "a heal over time."
 			if("Permanent Regeneration")
 				H.dna.SetSEState(GLOB.regenerateblock, 1)
-				genemutcheck(H, GLOB.regenerateblock,  null, MUTCHK_FORCED)
+				singlemutcheck(H, GLOB.regenerateblock, MUTCHK_FORCED)
 				H.update_mutations()
 				H.gene_stability = 100
 				logmsg = "permanent regeneration."
 			if("Super Powers")
-				var/list/default_genes = list(GLOB.regenerateblock, GLOB.breathlessblock, GLOB.coldblock)
-				for(var/gene in default_genes)
-					H.dna.SetSEState(gene, 1)
-					genemutcheck(H, gene,  null, MUTCHK_FORCED)
+				var/list/default_mutations = list(GLOB.regenerateblock, GLOB.breathlessblock, GLOB.coldblock)
+				for(var/mutation in default_mutations)
+					H.dna.SetSEState(mutation, 1)
+					singlemutcheck(H, mutation, MUTCHK_FORCED)
 					H.update_mutations()
 				H.gene_stability = 100
 				logmsg = "superpowers."
@@ -2125,7 +2196,7 @@
 		switch(punishment)
 			// These smiting types are valid for all living mobs
 			if("Lightning bolt")
-				M.electrocute_act(5, "Lightning Bolt", safety = TRUE, override = TRUE)
+				M.electrocute_act(5, "Lightning Bolt", flags = SHOCK_NOGLOVES)
 				playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 				M.adjustFireLoss(75)
 				M.Weaken(5)
@@ -2163,7 +2234,7 @@
 				logmsg = "starvation."
 			if("Cluwne")
 				H.makeCluwne()
-				H.mutations |= NOCLONE
+				ADD_TRAIT(H, TRAIT_BADDNA, "smiting")
 				logmsg = "cluwned."
 			if("Mutagen Cookie")
 				var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
@@ -2184,7 +2255,7 @@
 				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
 				logmsg = "a hellwater cookie."
 			if("Hunter")
-				H.mutations |= NOCLONE
+				ADD_TRAIT(H, TRAIT_BADDNA, "smiting")
 				usr.client.create_eventmob_for(H, 1)
 				logmsg = "hunter."
 			if("Crew Traitor")
@@ -2255,7 +2326,7 @@
 			message_admins("[key_name_admin(usr)] sent [H.job] [H] to cryo.")
 			if(href_list["cryoafk"]) // Warn them if they are send to storage and are AFK
 				to_chat(H, "<span class='danger'>The admins have moved you to cryo storage for being AFK. Please eject yourself (right click, eject) out of the cryostorage if you want to avoid being despawned.</span>")
-				SEND_SOUND(H, 'sound/effects/adminhelp.ogg')
+				SEND_SOUND(H, sound('sound/effects/adminhelp.ogg'))
 				if(H.client)
 					window_flash(H.client)
 	else if(href_list["FaxReplyTemplate"])
@@ -3421,7 +3492,61 @@
 					log_sql("[usr.key] | [response]")
 		else if(answer == "no")
 			log_sql("[usr.key] | Reported no server hang. Please investigate")
+	else if(href_list["suppresscidwarning"])
+		if(!check_rights(R_ADMIN))
+			return
+		add_note(href_list["suppresscidwarning"], CIDWARNING_SUPPRESSED_NOTETEXT, show_after = FALSE)
+	else if(href_list["viewkarma"])
+		if(!check_rights(R_ADMIN))
+			return
 
+		var/target_ckey = href_list["viewkarma"]
+
+		var/total_karma = 0
+		var/spent_karma = 0
+		var/unlocked_jobs = ""
+		var/unlocked_species = ""
+		// Get their totals
+		var/datum/db_query/query_get_totals = SSdbcore.NewQuery("SELECT karma, karmaspent FROM [format_table_name("karmatotals")] WHERE byondkey=:ckey", list(
+			"ckey" = target_ckey
+		))
+		if(!query_get_totals.warn_execute())
+			qdel(query_get_totals)
+			return
+		// Even if there aint a row, we can still assume the defaults of 0 above
+		if(query_get_totals.NextRow())
+			total_karma = query_get_totals.item[1]
+			spent_karma = query_get_totals.item[2]
+
+		qdel(query_get_totals)
+
+		// Now get their unlocks
+		var/datum/db_query/query_get_unlocks = SSdbcore.NewQuery("SELECT job, species FROM [format_table_name("whitelist")] WHERE ckey=:ckey", list(
+			"ckey" = target_ckey
+		))
+		if(!query_get_unlocks.warn_execute())
+			qdel(query_get_unlocks)
+			return
+		if(query_get_unlocks.NextRow())
+			unlocked_jobs = query_get_unlocks.item[1]
+			unlocked_species = query_get_unlocks.item[2]
+
+		qdel(query_get_unlocks)
+
+		// Pack it into a dat
+		var/dat = {"
+		<ul>
+		<li>Total Karma: [total_karma]</li>
+		<li>Spent Karma: [spent_karma]</li>
+		<li>Available Karma: [total_karma - spent_karma]</li>
+		<li>Unlocked Jobs: [unlocked_jobs]</li>
+		<li>Unlocked Species: [unlocked_species]</li>
+		</ul>
+		"}
+
+		var/datum/browser/popup = new(usr, "view_karma", "Karma stats for [target_ckey]", 600, 300)
+		popup.set_content(dat)
+		popup.open(FALSE)
 
 /client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)
 	if(!check_rights(R_EVENT))

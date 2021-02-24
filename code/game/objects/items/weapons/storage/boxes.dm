@@ -25,6 +25,8 @@
 	icon_state = "box"
 	item_state = "syringe_kit"
 	resistance_flags = FLAMMABLE
+	drop_sound = 'sound/items/handling/cardboardbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/cardboardbox_pickup.ogg'
 	foldable = /obj/item/stack/sheet/cardboard
 	foldable_amt = 1
 
@@ -44,7 +46,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/breath( src )
-	new /obj/item/tank/emergency_oxygen( src )
+	new /obj/item/tank/internals/emergency_oxygen( src )
 	new /obj/item/reagent_containers/hypospray/autoinjector( src )
 	new /obj/item/flashlight/flare/glowstick/emergency( src )
 	return
@@ -56,7 +58,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/breath/vox(src)
-	new /obj/item/tank/emergency_oxygen/nitrogen(src)
+	new /obj/item/tank/internals/emergency_oxygen/nitrogen(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
@@ -67,7 +69,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/emergency_oxygen/plasma(src)
+	new /obj/item/tank/internals/emergency_oxygen/plasma(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
@@ -78,7 +80,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/breath( src )
-	new /obj/item/tank/emergency_oxygen/engi( src )
+	new /obj/item/tank/internals/emergency_oxygen/engi( src )
 	new /obj/item/reagent_containers/hypospray/autoinjector( src )
 	new /obj/item/flashlight/flare/glowstick/emergency( src )
 	return
@@ -90,7 +92,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/gas/explorer(src)
-	new /obj/item/tank/emergency_oxygen/engi(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
@@ -102,7 +104,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/gas/syndicate(src)
-	new /obj/item/tank/emergency_oxygen/syndi(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/reagent_containers/food/pill/initropidril(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
@@ -828,6 +830,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	max_w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_BELT
+	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/matchbox_pickup.ogg'
 	can_hold = list(/obj/item/match)
 
 /obj/item/storage/box/matches/New()
@@ -1006,7 +1010,7 @@
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/emergency_oxygen/double/full(src)
+	new /obj/item/tank/internals/emergency_oxygen/double(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/kitchen/knife/combat(src)
 
@@ -1025,7 +1029,7 @@
 /obj/item/storage/box/responseteam/New()
 	..()
 	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/emergency_oxygen/engi/full(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/kitchen/knife/combat(src)

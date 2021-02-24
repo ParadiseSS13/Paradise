@@ -21,6 +21,8 @@
 	max_integrity = 50
 	attack_verb = list("bapped")
 	dog_fashion = /datum/dog_fashion/head
+	drop_sound = 'sound/items/handling/paper_drop.ogg'
+	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
 	var/header //Above the main body, displayed at the top
 	var/info		//What's actually written on the paper.
 	var/footer 	//The bottom stuff before the stamp but after the body
@@ -97,7 +99,7 @@
 	set category = "Object"
 	set src in usr
 
-	if((CLUMSY in usr.mutations) && prob(50))
+	if(HAS_TRAIT(usr, TRAIT_CLUMSY) && prob(50))
 		to_chat(usr, "<span class='warning'>You cut yourself on the paper.</span>")
 		return
 	if(!usr.is_literate())
@@ -135,31 +137,31 @@
 		show_content(user, forcestars = 1)
 	return
 
-/obj/item/paper/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+/obj/item/paper/attack(mob/living/carbon/M, mob/living/carbon/user, def_zone)
+	if(!ishuman(M))
+		return ..()
+	var/mob/living/carbon/human/H = M
 	if(user.zone_selected == "eyes")
-		user.visible_message("<span class='notice'>You show the paper to [M]. </span>", \
-			"<span class='notice'> [user] holds up a paper and shows it to [M]. </span>")
-		M.examinate(src)
+		user.visible_message("<span class='notice'>[user] holds up a paper and shows it to [H].</span>",
+			"<span class='notice'>You show the paper to [H].</span>")
+		H.examinate(src)
 
 	else if(user.zone_selected == "mouth")
-		if(!istype(M, /mob))	return
+		if(H == user)
+			to_chat(user, "<span class='notice'>You wipe off your face with [src].</span>")
+		else
+			user.visible_message("<span class='warning'>[user] begins to wipe [H]'s face clean with \the [src].</span>",
+							 	 "<span class='notice'>You begin to wipe off [H]'s face.</span>")
+			if(!do_after(user, 1 SECONDS, target = H) || !do_after(H, 1 SECONDS, FALSE)) // user needs to keep their active hand, H does not.
+				return
+			user.visible_message("<span class='notice'>[user] wipes [H]'s face clean with \the [src].</span>",
+				"<span class='notice'>You wipe off [H]'s face.</span>")
 
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(H == user)
-				to_chat(user, "<span class='notice'>You wipe off your face with [src].</span>")
-				H.lip_style = null
-				H.update_body()
-			else
-				user.visible_message("<span class='warning'>[user] begins to wipe [H]'s face clean with \the [src].</span>", \
-								 	 "<span class='notice'>You begin to wipe off [H]'s face.</span>")
-				if(do_after(user, 10, target = H) && do_after(H, 10, 0))	//user needs to keep their active hand, H does not.
-					user.visible_message("<span class='notice'>[user] wipes [H]'s face clean with \the [src].</span>", \
-										 "<span class='notice'>You wipe off [H]'s face.</span>")
-					H.lip_style = null
-					H.update_body()
+		H.lip_style = null
+		H.lip_color = null
+		H.update_body()
 	else
-		..()
+		return ..()
 
 /obj/item/paper/proc/addtofield(var/id, var/text, var/links = 0)
 	if(id > MAX_PAPER_FIELDS)
@@ -390,7 +392,7 @@
 		to_chat(user, "<span class='notice'>You stamp the paper with your rubber stamp.</span>")
 
 	if(is_hot(P))
-		if((CLUMSY in user.mutations) && prob(10))
+		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
 								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
 			user.unEquip(P)
@@ -686,7 +688,7 @@
 				target.adjustFireLoss(150) // hard crit, the burning takes care of the rest.
 			else if(myeffect == "Total Brain Death")
 				to_chat(target,"<span class='userdanger'>You see a message appear in front of you in bright red letters: <b>YHWH-3 ACTIVATED. TERMINATION IN 3 SECONDS</b></span>")
-				target.mutations.Add(NOCLONE)
+				ADD_TRAIT(target, TRAIT_BADDNA, "evil_fax")
 				target.adjustBrainLoss(125)
 			else if(myeffect == "Honk Tumor")
 				if(!target.get_int_organ(/obj/item/organ/internal/honktumor))

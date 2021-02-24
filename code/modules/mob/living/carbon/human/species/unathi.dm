@@ -2,7 +2,6 @@
 	name = "Unathi"
 	name_plural = "Unathi"
 	icobase = 'icons/mob/human_races/r_lizard.dmi'
-	deform = 'icons/mob/human_races/r_def_lizard.dmi'
 	language = "Sinta'unathi"
 	tail = "sogtail"
 	skinned_type = /obj/item/stack/sheet/animalhide/lizard
@@ -117,4 +116,4 @@
 	default_language = "Sinta'unathi"
 
 	speed_mod = -0.80
-	species_traits = list(NO_BREATHE, NOGUNS)
+	inherent_traits = list(TRAIT_CHUNKYFINGERS, TRAIT_NOBREATH)

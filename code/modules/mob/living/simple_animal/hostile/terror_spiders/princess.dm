@@ -19,6 +19,7 @@
 	maxHealth = 150
 	health = 150
 	spider_tier = TS_TIER_3
+	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 
 	// Unlike queens, no ranged attack.
 	ranged = 0

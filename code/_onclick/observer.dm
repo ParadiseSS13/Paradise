@@ -41,6 +41,9 @@
 			if(M)
 				admin_mob_info(M)
 			return
+	if(modifiers["middle"])
+		MiddleClickOn(A)
+		return
 	if(modifiers["shift"])
 		ShiftClickOn(A)
 		return

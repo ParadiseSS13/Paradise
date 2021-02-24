@@ -166,11 +166,6 @@
 
 	var/default_laws = 0 //Controls what laws the AI spawns with.
 
-	var/list/station_levels = list(1)				// Defines which Z-levels the station exists on.
-	var/list/admin_levels= list(2)					// Defines which Z-levels which are for admin functionality, for example including such areas as Central Command and the Syndicate Shuttle
-	var/list/contact_levels = list(1, 5)			// Defines which Z-levels which, for example, a Code Red announcement may affect
-	var/list/player_levels = list(1, 3, 4, 5, 6, 7)	// Defines all Z-levels a character can typically reach
-
 	var/const/minutes_to_ticks = 60 * 10
 	// Event settings
 	var/expected_round_length = 60 * 2 * minutes_to_ticks // 2 hours
@@ -273,6 +268,12 @@
 
 	/// Limit of how many SQL threads can run at once
 	var/rust_sql_thread_limit = 50
+
+	/// Max amount of CIDs that one ckey can have attached to them before they trip a warning
+	var/max_client_cid_history = 3
+
+	/// Enable auto profiler of rounds
+	var/auto_profile = FALSE
 
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
@@ -765,6 +766,10 @@
 				// End discord stuff
 				if("centcom_ban_db_url")
 					centcom_ban_db_url = value
+				if("max_client_cid_history")
+					max_client_cid_history = text2num(value)
+				if("enable_auto_profiler")
+					auto_profile = TRUE
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
