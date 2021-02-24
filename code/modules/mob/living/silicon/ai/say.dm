@@ -153,12 +153,13 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 	formatted_message += "<br><span class='alert'>[words_string]</span>"
 	formatted_message += "<br><span class='alert'> -[src]</span>"
 
+	var/announce_sound = sound('sound/misc/notice2.ogg')
 	for(var/player in GLOB.player_list)
 		var/mob/M = player
 		if(M.client && !(M.client.prefs.sound & SOUND_AI_VOICE))
 			var/turf/T = get_turf(M)
 			if(T && T.z == z && M.can_hear())
-				SEND_SOUND(M, 'sound/misc/notice2.ogg')
+				SEND_SOUND(M, announce_sound)
 				to_chat(M, formatted_message)
 
 /proc/play_vox_word(word, z_level, mob/only_listener)

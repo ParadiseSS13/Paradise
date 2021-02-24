@@ -112,7 +112,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 			if(identity_theft.target && identity_theft.target.current)
 				identity_theft.target_real_name = kill_objective.target.current.real_name //Whoops, forgot this.
 				var/mob/living/carbon/human/H = identity_theft.target.current
-				if(can_absorb_species(H.dna.species)) // For species that can't be absorbed - should default to an escape objective
+				if(!HAS_TRAIT(H, TRAIT_GENELESS)) // For species that can't be absorbed - should default to an escape objective
 					identity_theft.explanation_text = "Escape on the shuttle or an escape pod with the identity of [identity_theft.target_real_name], the [identity_theft.target.assigned_role] while wearing [identity_theft.target.p_their()] identification card."
 					changeling.objectives += identity_theft
 				else
@@ -131,7 +131,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	return
 
 /datum/game_mode/proc/greet_changeling(datum/mind/changeling, you_are=1)
-	SEND_SOUND(changeling.current, 'sound/ambience/antag/ling_aler.ogg')
+	SEND_SOUND(changeling.current, sound('sound/ambience/antag/ling_aler.ogg'))
 	if(you_are)
 		to_chat(changeling.current, "<span class='danger'>You are a changeling!</span>")
 	to_chat(changeling.current, "<span class='danger'>Use say \":g message\" to communicate with your fellow changelings. Remember: you get all of their absorbed DNA if you absorb them.</span>")
@@ -139,7 +139,8 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	if(changeling.current.mind)
 		if(changeling.current.mind.assigned_role == "Clown")
 			to_chat(changeling.current, "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself.")
-			changeling.current.mutations.Remove(CLUMSY)
+			changeling.current.dna.SetSEState(GLOB.clumsyblock, FALSE)
+			singlemutcheck(changeling.current, GLOB.clumsyblock, MUTCHK_FORCED)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(changeling.current)
 	var/obj_count = 1
@@ -315,11 +316,11 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		to_chat(user, "<span class='warning'>[T] is not compatible with our biology.</span>")
 		return
 
-	if((NOCLONE || SKELETON || HUSK) in T.mutations)
+	if(HAS_TRAIT(T, TRAIT_BADDNA) || HAS_TRAIT(T, TRAIT_HUSK) || HAS_TRAIT(T, TRAIT_SKELETONIZED))
 		to_chat(user, "<span class='warning'>DNA of [target] is ruined beyond usability!</span>")
 		return
 
-	if(NO_DNA in T.dna.species.species_traits)
+	if(HAS_TRAIT(T, TRAIT_GENELESS))
 		to_chat(user, "<span class='warning'>This creature does not have DNA!</span>")
 		return
 
@@ -327,6 +328,3 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		to_chat(user, "<span class='warning'>We already have this DNA in storage!</span>")
 
 	return 1
-
-/proc/can_absorb_species(datum/species/S)
-	return !(NO_DNA in S.species_traits)

@@ -79,7 +79,7 @@
 	if(mind)
 		to_chat(src, src.playstyle_string)
 		to_chat(src, "<B><span class ='notice'>You are not currently in the same plane of existence as the station. Use the blood crawl action at a blood pool to manifest.</span></B>")
-		src << 'sound/misc/demon_dies.ogg'
+		SEND_SOUND(src, sound('sound/misc/demon_dies.ogg'))
 		if(!(vialspawned))
 			var/datum/objective/slaughter/objective = new
 			var/datum/objective/demonFluff/fluffObjective = new

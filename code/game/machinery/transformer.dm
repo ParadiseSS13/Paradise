@@ -205,10 +205,10 @@
 	if(prob(5))
 		if(prob(75))
 			randmutb(H) // Applies bad mutation
-			domutcheck(H,null,1)
+			domutcheck(H, MUTCHK_FORCED)
 		else
 			randmutg(H) // Applies good mutation
-			domutcheck(H,null,1)
+			domutcheck(H, MUTCHK_FORCED)
 
 
 /obj/machinery/transformer/xray/proc/scan(obj/item/I)
@@ -309,7 +309,7 @@
 	H.real_name = template.real_name
 	H.sync_organ_dna(assimilate = 0, old_ue = prev_ue)
 	H.UpdateAppearance()
-	domutcheck(H, null, MUTCHK_FORCED)
+	domutcheck(H, MUTCHK_FORCED)
 	H.update_mutations()
 
 /obj/machinery/transformer/gene_applier/attackby(obj/item/I, mob/living/user, params)
