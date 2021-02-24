@@ -88,7 +88,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 		if(cult_mind.assigned_role == "Clown")
 			to_chat(cult_mind.current, "<span class='cultitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
-			cult_mind.current.mutations.Remove(CLUMSY)
+			cult_mind.current.dna.SetSEState(GLOB.clumsyblock, FALSE)
+			singlemutcheck(cult_mind.current, GLOB.clumsyblock, MUTCHK_FORCED)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(cult_mind.current)
 
@@ -182,7 +183,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 		if(cult_mind.assigned_role == "Clown")
 			to_chat(cult_mind.current, "<span class='cultitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
-			cult_mind.current.mutations.Remove(CLUMSY)
+			cult_mind.current.dna.SetSEState(GLOB.clumsyblock, FALSE)
+			singlemutcheck(cult_mind.current, GLOB.clumsyblock, MUTCHK_FORCED)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(cult_mind.current)
 		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')

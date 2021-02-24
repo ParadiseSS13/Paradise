@@ -34,7 +34,7 @@
 		return
 
 	H.dna.SetSEState(GLOB.soberblock,1)
-	genemutcheck(H, GLOB.soberblock, null, MUTCHK_FORCED)
+	singlemutcheck(H, GLOB.soberblock, MUTCHK_FORCED)
 	H.dna.default_blocks.Add(GLOB.soberblock)
 	H.check_mutations = 1
 
@@ -291,11 +291,11 @@
 		implant.insert(H)
 
 	H.dna.SetSEState(GLOB.clumsyblock, TRUE)
-	genemutcheck(H, GLOB.clumsyblock, null, MUTCHK_FORCED)
+	singlemutcheck(H, GLOB.clumsyblock, MUTCHK_FORCED)
 	H.dna.default_blocks.Add(GLOB.clumsyblock)
 	if(!ismachineperson(H))
 		H.dna.SetSEState(GLOB.comicblock, TRUE)
-		genemutcheck(H, GLOB.comicblock, null, MUTCHK_FORCED)
+		singlemutcheck(H, GLOB.comicblock, MUTCHK_FORCED)
 		H.dna.default_blocks.Add(GLOB.comicblock)
 	H.check_mutations = TRUE
 	H.add_language("Clownish")
@@ -307,7 +307,8 @@
 
 /datum/action/innate/toggle_clumsy/Activate()
 	var/mob/living/carbon/human/H = owner
-	H.mutations.Add(CLUMSY)
+	H.dna.SetSEState(GLOB.clumsyblock, TRUE)
+	singlemutcheck(H, GLOB.clumsyblock, MUTCHK_FORCED)
 	active = TRUE
 	background_icon_state = "bg_spell"
 	UpdateButtonIcon()
@@ -315,7 +316,8 @@
 
 /datum/action/innate/toggle_clumsy/Deactivate()
 	var/mob/living/carbon/human/H = owner
-	H.mutations.Remove(CLUMSY)
+	H.dna.SetSEState(GLOB.clumsyblock, FALSE)
+	singlemutcheck(H, GLOB.clumsyblock, MUTCHK_FORCED)
 	active = FALSE
 	background_icon_state = "bg_default"
 	UpdateButtonIcon()

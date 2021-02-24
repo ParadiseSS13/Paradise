@@ -56,7 +56,7 @@
 			to_chat(user, "<span class='warning'>The [I] is too big to fit in the false bottom!</span>")
 			return
 		if(!user.drop_item(I))
-			user << "<span class='warning'>The [I] is stuck to your hands!</span>"
+			to_chat(user, "<span class='warning'>The [I] is stuck to your hands!</span>")
 			return
 
 		stored_item = I

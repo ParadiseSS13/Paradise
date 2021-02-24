@@ -10,7 +10,7 @@
 	blood_mask = 'icons/mob/human_races/masks/blood_monkey.dmi'
 	language = null
 	default_language = "Chimpanzee"
-	species_traits = list(NO_EXAMINE)
+	inherent_traits = list(TRAIT_NOEXAMINE)
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	greater_form = /datum/species/human
 	no_equip = list(slot_belt, slot_wear_id, slot_l_ear, slot_r_ear, slot_glasses, slot_gloves, slot_shoes, slot_wear_suit, slot_w_uniform, slot_l_store, slot_r_store, slot_s_store, slot_wear_pda)
@@ -59,7 +59,7 @@
 	..()
 	if(!remove)
 		H.dna.SetSEState(GLOB.monkeyblock, TRUE)
-		genemutcheck(H, GLOB.monkeyblock, null, MUTCHK_FORCED)
+		singlemutcheck(H, GLOB.monkeyblock, MUTCHK_FORCED)
 
 /datum/species/monkey/tajaran
 	name = "Farwa"
@@ -123,6 +123,8 @@
 	reagent_tag = PROCESS_ORG
 	tail = null
 
+	inherent_traits = list(TRAIT_NOEXAMINE, TRAIT_NOFAT, TRAIT_WATERBREATH)
+
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/skrell,
 		"lungs" =    /obj/item/organ/internal/lungs/skrell,
@@ -132,13 +134,6 @@
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/skrell //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
 		)
-/datum/species/monkey/skrell/on_species_gain(mob/living/carbon/human/H)
-	..()
-	ADD_TRAIT(H, TRAIT_WATERBREATH, "species")
-
-/datum/species/monkey/skrell/on_species_loss(mob/living/carbon/human/H)
-	..()
-	REMOVE_TRAIT(H, TRAIT_WATERBREATH, "species")
 
 /datum/species/monkey/unathi
 	name = "Stok"

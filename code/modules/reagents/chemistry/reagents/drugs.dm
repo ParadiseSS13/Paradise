@@ -290,7 +290,7 @@
 				H.visible_message("<span class='warning'>[M]'s skin is rotting away!</span>")
 				update_flags |= H.adjustBruteLoss(25, FALSE)
 				H.emote("scream")
-				H.ChangeToHusk()
+				H.become_husk("krokodil_overdose")
 				H.emote("faint")
 		else if(effect <= 7)
 			M.emote("shiver")
@@ -322,13 +322,13 @@
 	update_flags |= M.AdjustWeakened(-2.5, FALSE)
 	update_flags |= M.adjustStaminaLoss(-2, FALSE)
 	update_flags |= M.SetSleeping(0, FALSE)
-	M.status_flags |= GOTTAGOFAST
+	ADD_TRAIT(M, TRAIT_GOTTAGOFAST, id)
 	if(prob(50))
 		update_flags |= M.adjustBrainLoss(1, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/methamphetamine/on_mob_delete(mob/living/M)
-	M.status_flags &= ~GOTTAGOFAST
+	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)
 	..()
 
 /datum/reagent/methamphetamine/overdose_process(mob/living/M, severity)
@@ -684,7 +684,7 @@
 	update_flags |= M.AdjustStunned(-2, FALSE)
 	update_flags |= M.AdjustWeakened(-2, FALSE)
 	update_flags |= M.adjustStaminaLoss(-2, FALSE)
-	M.status_flags |= GOTTAGOFAST
+	ADD_TRAIT(M, TRAIT_GOTTAGOFAST, id)
 	M.Jitter(3)
 	update_flags |= M.adjustBrainLoss(0.5, FALSE)
 	if(prob(5))
@@ -692,7 +692,7 @@
 	return ..() | update_flags
 
 /datum/reagent/lube/ultra/on_mob_delete(mob/living/M)
-	M.status_flags &= ~GOTTAGOFAST
+	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)
 	..()
 
 /datum/reagent/lube/ultra/overdose_process(mob/living/M, severity)

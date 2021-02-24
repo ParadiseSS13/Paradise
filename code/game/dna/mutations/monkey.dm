@@ -1,14 +1,14 @@
-/datum/dna/gene/monkey
+/datum/mutation/monkey
 	name = "Monkey"
 
-/datum/dna/gene/monkey/New()
+/datum/mutation/monkey/New()
 	..()
 	block = GLOB.monkeyblock
 
-/datum/dna/gene/monkey/can_activate(mob/M, flags)
+/datum/mutation/monkey/can_activate(mob/M, flags)
 	return ishuman(M)
 
-/datum/dna/gene/monkey/activate(mob/living/carbon/human/H, connected, flags)
+/datum/mutation/monkey/activate(mob/living/carbon/human/H)
 	if(!istype(H))
 		return
 	if(issmall(H))
@@ -43,7 +43,7 @@
 
 	return H
 
-/datum/dna/gene/monkey/deactivate(mob/living/carbon/human/H, connected, flags)
+/datum/mutation/monkey/deactivate(mob/living/carbon/human/H)
 	if(!istype(H))
 		return
 	if(!issmall(H))

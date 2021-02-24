@@ -1986,13 +1986,27 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	return shift
 
-//Return a list of atoms in a location of a given type. Can be refined to look for pixel-shift.
-/proc/get_atoms_of_type(var/atom/here, var/type, var/check_shift, var/shift_x = 0, var/shift_y = 0)
+/**
+  * Returns a list of atoms in a location of a given type. Can be refined to look for pixel-shift.
+  *
+  * Arguments:
+  * * loc - The atom to look in.
+  * * type - The type to look for.
+  * * check_shift - If true, will exclude atoms whose pixel_x/pixel_y do not match shift_x/shift_y.
+  * * shift_x - If check_shift is true, atoms whose pixel_x is different to this will be excluded.
+  * * shift_y - If check_shift is true, atoms whose pixel_y is different to this will be excluded.
+  */
+/proc/get_atoms_of_type(atom/loc, type, check_shift = FALSE, shift_x = 0, shift_y = 0)
 	. = list()
-	if(here)
-		for(var/atom/thing in here)
-			if(istype(thing, type) && (check_shift && thing.pixel_x == shift_x && thing.pixel_y == shift_y))
-				. += thing
+	if(!loc)
+		return
+	for(var/a in loc)
+		var/atom/A = a
+		if(!istype(A, type))
+			continue
+		if(check_shift && !(A.pixel_x == shift_x && A.pixel_y == shift_y))
+			continue
+		. += A
 
 //gives us the stack trace from CRASH() without ending the current proc.
 /proc/stack_trace(msg)
