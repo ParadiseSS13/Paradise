@@ -55,7 +55,7 @@
 	new /obj/item/clothing/suit/armor/vest(src)
 	new /obj/item/gun/energy/gun/mini(src)
 	new /obj/item/flash(src)
-	new /obj/item/clothing/accessory/petcollar(src)
+	new /obj/item/petcollar(src)
 	new /obj/item/door_remote/civillian(src)
 	new /obj/item/reagent_containers/food/drinks/mug/hop(src)
 	new /obj/item/clothing/accessory/medal/service(src)
