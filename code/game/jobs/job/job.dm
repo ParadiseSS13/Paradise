@@ -140,7 +140,7 @@
 	var/satchel = /obj/item/storage/backpack/satchel_norm
 	var/dufflebag = /obj/item/storage/backpack/duffel
 	box = /obj/item/storage/box/survival
-
+	var/paycheck = 500
 	var/tmp/list/gear_leftovers = list()
 
 /datum/outfit/job/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -200,6 +200,9 @@
 	H.sec_hud_set_ID()
 
 	imprint_pda(H)
+
+	if(paycheck)
+		H.equip_or_collect(new /obj/item/stack/spacecash(H, paycheck), slot_in_backpack)
 
 	if(gear_leftovers.len)
 		for(var/datum/gear/G in gear_leftovers)
