@@ -462,7 +462,7 @@
 			else if(issilicon(target))
 				var/mob/living/silicon/S = target
 				to_chat(S, "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>")
-				S << 'sound/misc/interference.ogg'
+				SEND_SOUND(S, sound('sound/misc/interference.ogg'))
 				playsound(S, 'sound/machines/warning-buzzer.ogg', 50, 1)
 				do_sparks(5, 1, S)
 				S.Weaken(6)
