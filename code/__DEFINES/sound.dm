@@ -17,6 +17,11 @@
 #define SOUND_MINIMUM_PRESSURE 10
 #define FALLOFF_SOUNDS 0.5
 
+#define EQUIP_SOUND_VOLUME 30
+#define PICKUP_SOUND_VOLUME 15
+#define DROP_SOUND_VOLUME 20
+#define YEET_SOUND_VOLUME 90
+
 //Ambience types
 
 #define GENERIC_SOUNDS list('sound/ambience/ambigen1.ogg', 'sound/ambience/ambigen3.ogg',\

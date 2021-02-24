@@ -2093,3 +2093,30 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	))
 	query_accesslog.warn_execute()
 	qdel(query_accesslog)
+
+/proc/slot_bitfield_to_slot(input_slot_flags) // Kill off this garbage ASAP; slot flags and clothing flags should be IDENTICAL. GOSH DARN IT. Doesn't work with ears or pockets, either.
+	switch(input_slot_flags)
+		if(SLOT_OCLOTHING)
+			return slot_wear_suit
+		if(SLOT_ICLOTHING)
+			return slot_w_uniform
+		if(SLOT_GLOVES)
+			return slot_gloves
+		if(SLOT_EYES)
+			return slot_glasses
+		if(SLOT_MASK)
+			return slot_wear_mask
+		if(SLOT_HEAD)
+			return slot_head
+		if(SLOT_FEET)
+			return slot_shoes
+		if(SLOT_ID)
+			return slot_wear_id
+		if(SLOT_BELT)
+			return slot_belt
+		if(SLOT_BACK)
+			return slot_back
+		if(SLOT_PDA)
+			return slot_wear_pda
+		if(SLOT_TIE)
+			return slot_tie
