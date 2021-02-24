@@ -113,4 +113,4 @@ I'm using this for Stat to give it a more nifty interface to work with
 	if(container)
 		runechat_msg_location = container
 	else
-		return ..()
+		runechat_msg_location = src

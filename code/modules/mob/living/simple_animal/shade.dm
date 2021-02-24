@@ -67,4 +67,4 @@
 	if(istype(loc, /obj/item/soulstone))
 		runechat_msg_location = loc
 	else
-		return ..()
+		runechat_msg_location = src
