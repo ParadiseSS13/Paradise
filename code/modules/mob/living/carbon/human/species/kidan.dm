@@ -2,7 +2,6 @@
 	name = "Kidan"
 	name_plural = "Kidan"
 	icobase = 'icons/mob/human_races/r_kidan.dmi'
-	deform = 'icons/mob/human_races/r_def_kidan.dmi'
 	language = "Chittin"
 	unarmed_type = /datum/unarmed_attack/claws
 

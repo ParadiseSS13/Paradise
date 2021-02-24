@@ -852,12 +852,12 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!SSticker)
 		alert("Wait until the game starts")
 		return
-	if(istype(M, /mob/living/carbon))
+	if(ishuman(M))
 		M.dna.SetSEState(block,!M.dna.GetSEState(block))
-		genemutcheck(M,block,null,MUTCHK_FORCED)
+		singlemutcheck(M, block, MUTCHK_FORCED)
 		M.update_mutations()
-		var/state="[M.dna.GetSEState(block)?"on":"off"]"
-		var/blockname=GLOB.assigned_blocks[block]
+		var/state = "[M.dna.GetSEState(block) ? "on" : "off"]"
+		var/blockname = GLOB.assigned_blocks[block]
 		message_admins("[key_name_admin(src)] has toggled [M.key]'s [blockname] block [state]!")
 		log_admin("[key_name(src)] has toggled [M.key]'s [blockname] block [state]!")
 	else

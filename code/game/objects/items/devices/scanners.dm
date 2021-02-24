@@ -98,7 +98,7 @@ REAGENT SCANNER
 	var/advanced = FALSE
 
 /obj/item/healthanalyzer/attack(mob/living/M, mob/living/user)
-	if(((CLUMSY in user.mutations) || user.getBrainLoss() >= 60) && prob(50))
+	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		user.visible_message("<span class='warning'>[user] analyzes the floor's vitals!</span>", "<span class='notice'>You stupidly try to analyze the floor's vitals!</span>")
 		to_chat(user, "<span class='info'>Analyzing results for The floor:\n\tOverall status: <b>Healthy</b></span>")
 		to_chat(user, "<span class='info'>Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FF8000'>Burn</font>/<font color='red'>Brute</font></span>")
@@ -130,7 +130,7 @@ REAGENT SCANNER
 	var/TX = H.getToxLoss() > 50 	? 	"<b>[H.getToxLoss()]</b>" 		: H.getToxLoss()
 	var/BU = H.getFireLoss() > 50 	? 	"<b>[H.getFireLoss()]</b>" 		: H.getFireLoss()
 	var/BR = H.getBruteLoss() > 50 	? 	"<b>[H.getBruteLoss()]</b>" 	: H.getBruteLoss()
-	if(H.status_flags & FAKEDEATH)
+	if(HAS_TRAIT(H, TRAIT_FAKEDEATH))
 		OX = fake_oxy > 50 			? 	"<b>[fake_oxy]</b>" 			: fake_oxy
 		to_chat(user, "<span class='notice'>Analyzing Results for [H]:\n\t Overall Status: dead</span>")
 	else
@@ -138,7 +138,7 @@ REAGENT SCANNER
 	to_chat(user, "\t Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>")
 	to_chat(user, "\t Damage Specifics: <font color='blue'>[OX]</font> - <font color='green'>[TX]</font> - <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>")
 	to_chat(user, "<span class='notice'>Body Temperature: [H.bodytemperature-T0C]&deg;C ([H.bodytemperature*1.8-459.67]&deg;F)</span>")
-	if(H.timeofdeath && (H.stat == DEAD || (H.status_flags & FAKEDEATH)))
+	if(H.timeofdeath && (H.stat == DEAD || (HAS_TRAIT(H, TRAIT_FAKEDEATH))))
 		to_chat(user, "<span class='notice'>Time of Death: [station_time_timestamp("hh:mm:ss", H.timeofdeath)]</span>")
 		var/tdelta = round(world.time - H.timeofdeath)
 		if(tdelta < DEFIB_TIME_LIMIT)
@@ -155,7 +155,7 @@ REAGENT SCANNER
 	TX = H.getToxLoss() > 50 ? 	"<font color='green'><b>Dangerous amount of toxins detected</b></font>" 	: 	"Subject bloodstream toxin level minimal"
 	BU = H.getFireLoss() > 50 ? 	"<font color='#FFA500'><b>Severe burn damage detected</b></font>" 			:	"Subject burn injury status O.K"
 	BR = H.getBruteLoss() > 50 ? "<font color='red'><b>Severe anatomical damage detected</b></font>" 		: 	"Subject brute-force injury status O.K"
-	if(H.status_flags & FAKEDEATH)
+	if(HAS_TRAIT(H, TRAIT_FAKEDEATH))
 		OX = fake_oxy > 50 ? 		"<span class='danger'>Severe oxygen deprivation detected</span>" 	: 	"<span class='notice'>Subject bloodstream oxygen level normal</span>"
 	to_chat(user, "[OX] | [TX] | [BU] | [BR]")
 
@@ -837,11 +837,11 @@ REAGENT SCANNER
 		dat += "<td>[i.name]</td><td>N/A</td><td>[i.damage]</td><td>[infection]:[mech]</td><td></td>"
 		dat += "</tr>"
 	dat += "</table>"
-	if(BLINDNESS in target.mutations)
+	if(HAS_TRAIT(target, TRAIT_BLIND))
 		dat += "<font color='red'>Cataracts detected.</font><BR>"
-	if(COLOURBLIND in target.mutations)
+	if(HAS_TRAIT(target, TRAIT_COLORBLIND))
 		dat += "<font color='red'>Photoreceptor abnormalities detected.</font><BR>"
-	if(NEARSIGHTED in target.mutations)
+	if(HAS_TRAIT(target, TRAIT_NEARSIGHT))
 		dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
 
 	return dat

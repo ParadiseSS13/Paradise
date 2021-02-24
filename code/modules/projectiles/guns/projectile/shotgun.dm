@@ -57,7 +57,7 @@
 	if(chambered)//We have a shell in the chamber
 		chambered.loc = get_turf(src)//Eject casing
 		chambered.SpinAnimation(5, 1)
-		playsound(src, chambered.drop_sound, 60, 1)
+		playsound(src, chambered.casing_drop_sound, 60, 1)
 		chambered = null
 
 /obj/item/gun/projectile/shotgun/proc/pump_reload(mob/M)

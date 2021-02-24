@@ -65,7 +65,7 @@
 	// standing is poor
 	if(stance_damage >= 8)
 		if(!(lying || resting))
-			if(!(NO_PAIN in dna.species.species_traits))
+			if(!HAS_TRAIT(src, TRAIT_NOPAIN))
 				emote("scream")
 			custom_emote(1, "collapses!")
 		Weaken(5) //can't emote while weakened, apparently.
@@ -93,7 +93,7 @@
 					continue
 
 			var/emote_scream = pick("screams in pain and ", "lets out a sharp cry and ", "cries out and ")
-			custom_emote(1, "[(NO_PAIN in dna.species.species_traits) ? "" : emote_scream ]drops what [p_they()] [p_were()] holding in [p_their()] [E.name]!")
+			custom_emote(1, "[HAS_TRAIT(src, TRAIT_NOPAIN) ? "" : emote_scream ]drops what [p_they()] [p_were()] holding in [p_their()] [E.name]!")
 
 		else if(E.is_malfunctioning())
 
@@ -119,11 +119,11 @@
 
 /mob/living/carbon/human/proc/becomeSlim()
 	to_chat(src, "<span class='notice'>You feel fit again!</span>")
-	mutations.Remove(FAT)
+	ADD_TRAIT(src, TRAIT_FAT, OBESITY)
 
 /mob/living/carbon/human/proc/becomeFat()
 	to_chat(src, "<span class='alert'>You suddenly feel blubbery!</span>")
-	mutations.Add(FAT)
+	REMOVE_TRAIT(src, TRAIT_FAT, OBESITY)
 
 //Handles chem traces
 /mob/living/carbon/human/proc/handle_trace_chems()
