@@ -265,7 +265,7 @@
 		owner.Stuttering(20)
 		owner.AdjustEarDamage(0, 30)
 		owner.Weaken(3)
-		owner << 'sound/items/airhorn.ogg'
+		SEND_SOUND(owner, sound('sound/items/airhorn.ogg'))
 		if(prob(30))
 			owner.Stun(10)
 			owner.Paralyse(4)

@@ -169,7 +169,7 @@
 	//play the recieving admin the adminhelp sound (if they have them enabled)
 	//non-admins always hear the sound, as they cannot toggle it
 	if((!C.holder) || (C.prefs.sound & SOUND_ADMINHELP))
-		C << 'sound/effects/adminhelp.ogg'
+		SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
 
 	log_admin("PM: [key_name(src)]->[key_name(C)]: [msg]")
 	//we don't use message_admins here because the sender/receiver might get it too

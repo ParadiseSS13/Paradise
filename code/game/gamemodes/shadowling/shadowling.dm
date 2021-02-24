@@ -226,7 +226,7 @@ Made by Xhuis
 							var/shadow_nag_messages = list("You can barely hold yourself in this lesser form!", "The urge to become something greater is overwhelming!", "You feel a burning passion to hatch free of this shell and assume godhood!")
 							H.take_overall_damage(0, 3)
 							to_chat(H, "<span class='userdanger'>[pick(shadow_nag_messages)]</span>")
-							H << 'sound/weapons/sear.ogg'
+							SEND_SOUND(H, sound('sound/weapons/sear.ogg'))
 
 	if(shadows_alive)
 		return ..()
