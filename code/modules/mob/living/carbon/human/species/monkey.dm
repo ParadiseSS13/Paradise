@@ -4,7 +4,6 @@
 	blurb = "Ook."
 
 	icobase = 'icons/mob/human_races/monkeys/r_monkey.dmi'
-	deform = 'icons/mob/human_races/monkeys/r_monkey.dmi'
 	damage_overlays = 'icons/mob/human_races/masks/dam_monkey.dmi'
 	damage_mask = 'icons/mob/human_races/masks/dam_mask_monkey.dmi'
 	blood_mask = 'icons/mob/human_races/masks/blood_monkey.dmi'
@@ -66,7 +65,6 @@
 	name_plural = "Farwa"
 
 	icobase = 'icons/mob/human_races/monkeys/r_farwa.dmi'
-	deform = 'icons/mob/human_races/monkeys/r_farwa.dmi'
 
 	greater_form = /datum/species/tajaran
 	default_language = "Farwa"
@@ -90,7 +88,6 @@
 	name_plural = "Wolpin"
 
 	icobase = 'icons/mob/human_races/monkeys/r_wolpin.dmi'
-	deform = 'icons/mob/human_races/monkeys/r_wolpin.dmi'
 
 	greater_form = /datum/species/vulpkanin
 	default_language = "Wolpin"
@@ -114,7 +111,6 @@
 	name_plural = "Neara"
 
 	icobase = 'icons/mob/human_races/monkeys/r_neara.dmi'
-	deform = 'icons/mob/human_races/monkeys/r_neara.dmi'
 
 	greater_form = /datum/species/skrell
 	default_language = "Neara"
@@ -140,7 +136,6 @@
 	name_plural = "Stok"
 
 	icobase = 'icons/mob/human_races/monkeys/r_stok.dmi'
-	deform = 'icons/mob/human_races/monkeys/r_stok.dmi'
 
 	tail = "stoktail"
 	greater_form = /datum/species/unathi

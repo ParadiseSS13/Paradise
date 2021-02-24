@@ -2,7 +2,6 @@
 	name = "Vox"
 	name_plural = "Vox"
 	icobase = 'icons/mob/human_races/vox/r_vox.dmi'
-	deform = 'icons/mob/human_races/vox/r_def_vox.dmi'
 	dangerous_existence = TRUE
 	language = "Vox-pidgin"
 	tail = "voxtail"
@@ -107,32 +106,26 @@
 /datum/species/vox/updatespeciescolor(mob/living/carbon/human/H, owner_sensitive = 1) //Handling species-specific skin-tones for the Vox race.
 	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE) //Making sure we don't break Armalis.
 		var/new_icobase = 'icons/mob/human_races/vox/r_vox.dmi' //Default Green Vox.
-		var/new_deform = 'icons/mob/human_races/vox/r_def_vox.dmi' //Default Green Vox.
 		switch(H.s_tone)
 			if(6) //Azure Vox.
 				new_icobase = 'icons/mob/human_races/vox/r_voxazu.dmi'
-				new_deform = 'icons/mob/human_races/vox/r_def_voxazu.dmi'
 				H.tail = "voxtail_azu"
 			if(5) //Emerald Vox.
 				new_icobase = 'icons/mob/human_races/vox/r_voxemrl.dmi'
-				new_deform = 'icons/mob/human_races/vox/r_def_voxemrl.dmi'
 				H.tail = "voxtail_emrl"
 			if(4) //Grey Vox.
 				new_icobase = 'icons/mob/human_races/vox/r_voxgry.dmi'
-				new_deform = 'icons/mob/human_races/vox/r_def_voxgry.dmi'
 				H.tail = "voxtail_gry"
 			if(3) //Brown Vox.
 				new_icobase = 'icons/mob/human_races/vox/r_voxbrn.dmi'
-				new_deform = 'icons/mob/human_races/vox/r_def_voxbrn.dmi'
 				H.tail = "voxtail_brn"
 			if(2) //Dark Green Vox.
 				new_icobase = 'icons/mob/human_races/vox/r_voxdgrn.dmi'
-				new_deform = 'icons/mob/human_races/vox/r_def_voxdgrn.dmi'
 				H.tail = "voxtail_dgrn"
 			else  //Default Green Vox.
 				H.tail = "voxtail" //Ensures they get an appropriately coloured tail depending on the skin-tone.
 
-		H.change_icobase(new_icobase, new_deform, owner_sensitive) //Update the icobase/deform of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
+		H.change_icobase(new_icobase, owner_sensitive) //Update the icobase of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
 
 /datum/species/vox/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "oxygen") //Armalis are above such petty things.
@@ -146,7 +139,6 @@
 	name = "Vox Armalis"
 	name_plural = "Vox Armalis"
 	icobase = 'icons/mob/human_races/r_armalis.dmi'
-	deform = 'icons/mob/human_races/r_armalis.dmi'
 	unarmed_type = /datum/unarmed_attack/claws/armalis
 	blacklisted = TRUE
 
