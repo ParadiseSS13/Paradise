@@ -4,8 +4,10 @@
 #ifdef UNIT_TESTS
 #include "component_tests.dm"
 #include "initialize_sanity.dm"
+#include "log_format.dm"
 #include "map_templates.dm"
 #include "reagent_id_typos.dm"
+#include "rustg_version.dm"
 #include "spawn_humans.dm"
 #include "sql.dm"
 #include "subsystem_init.dm"

@@ -325,7 +325,7 @@ SUBSYSTEM_DEF(air)
 	var/watch = start_watch()
 	log_startup_progress("Initializing atmospherics machinery...")
 	var/count = _setup_atmos_machinery(machines_to_init)
-	log_startup_progress("	Initialized [count] atmospherics machines in [stop_watch(watch)]s.")
+	log_startup_progress("Initialized [count] atmospherics machines in [stop_watch(watch)]s.")
 
 // this underscored variant is so that we can have a means of late initing
 // atmos machinery without a loud announcement to the world
@@ -349,7 +349,7 @@ SUBSYSTEM_DEF(air)
 	var/watch = start_watch()
 	log_startup_progress("Initializing pipe networks...")
 	var/count = _setup_pipenets(pipes)
-	log_startup_progress("	Initialized [count] pipenets in [stop_watch(watch)]s.")
+	log_startup_progress("Initialized [count] pipenets in [stop_watch(watch)]s.")
 
 // An underscored wrapper that exists for the same reason
 // the machine init wrapper does

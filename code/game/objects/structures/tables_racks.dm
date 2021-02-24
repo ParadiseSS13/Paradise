@@ -123,7 +123,7 @@
 		return 1
 	if(mover.throwing)
 		return 1
-	if(locate(/obj/structure/table) in get_turf(mover))
+	if(length(get_atoms_of_type(get_turf(mover), /obj/structure/table) - mover))
 		return 1
 	if(flipped)
 		if(get_dir(loc, target) == dir)
