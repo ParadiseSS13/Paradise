@@ -67,13 +67,11 @@
 	var/radiation_amount
 
 /obj/effect/mine/dnascramble/mineEffect(mob/living/victim)
-	victim.apply_effect(radiation_amount, IRRADIATE, 0)
-	if(ishuman(victim))
-		var/mob/living/carbon/human/V = victim
-		if(NO_DNA in V.dna.species.species_traits)
-			return
+	victim.rad_act(radiation_amount)
+	if(!victim.dna || HAS_TRAIT(victim, TRAIT_GENELESS))
+		return
 	randmutb(victim)
-	domutcheck(victim ,null)
+	domutcheck(victim)
 
 /obj/effect/mine/gas
 	name = "oxygen mine"
@@ -179,7 +177,7 @@
 	if(!victim.client || !istype(victim))
 		return
 	to_chat(victim, "<span class='notice'>You feel fast!</span>")
-	victim.status_flags |= GOTTAGOFAST
+	ADD_TRAIT(victim, TRAIT_GOTTAGOFAST, "mine")
 	spawn(duration)
-		victim.status_flags &= ~GOTTAGOFAST
+		REMOVE_TRAIT(victim, TRAIT_GOTTAGOFAST, "mine")
 		to_chat(victim, "<span class='notice'>You slow down.</span>")

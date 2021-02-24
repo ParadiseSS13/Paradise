@@ -8,7 +8,6 @@
 	flags = CONDUCT
 
 	var/spamcheck = 0
-	var/emagged = 0
 
 /obj/item/hailer/attack_self(mob/living/carbon/user as mob)
 	if(spamcheck)

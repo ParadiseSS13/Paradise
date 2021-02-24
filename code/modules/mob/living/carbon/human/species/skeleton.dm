@@ -10,7 +10,10 @@
 	blood_color = "#FFFFFF"
 	flesh_color = "#E6E6C6"
 
-	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE, NO_HUNGER, PIERCEIMMUNE)
+	species_traits = list(NO_BLOOD)
+	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOHUNGER, TRAIT_XENO_IMMUNE)
+	tox_mod = 0
+	clone_mod = 0
 	dies_at_threshold = TRUE
 	skinned_type = /obj/item/stack/sheet/bone
 
@@ -18,19 +21,6 @@
 
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
-
-	warning_low_pressure = -INFINITY
-	hazard_low_pressure = -INFINITY
-	hazard_high_pressure = INFINITY
-	warning_high_pressure = INFINITY
-
-	cold_level_1 = -INFINITY
-	cold_level_2 = -INFINITY
-	cold_level_3 = -INFINITY
-
-	heat_level_1 = INFINITY
-	heat_level_2 = INFINITY
-	heat_level_3 = INFINITY
 
 	suicide_messages = list(
 		"is snapping their own bones!",

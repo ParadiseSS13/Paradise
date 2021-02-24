@@ -26,7 +26,8 @@
 	male_cough_sounds = list('sound/effects/slime_squish.ogg')
 	female_cough_sounds = list('sound/effects/slime_squish.ogg')
 
-	species_traits = list(LIPS, IS_WHITELISTED, NO_SCAN, EXOTIC_COLOR)
+	species_traits = list(LIPS, IS_WHITELISTED, NO_CLONESCAN, EXOTIC_COLOR)
+	inherent_traits = list(TRAIT_WATERBREATH)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
 	dietflags = DIET_CARN
@@ -73,7 +74,6 @@
 	grow.Grant(H)
 	recolor = new()
 	recolor.Grant(H)
-	ADD_TRAIT(H, TRAIT_WATERBREATH, "species")
 	RegisterSignal(H, COMSIG_HUMAN_UPDATE_DNA, /datum/species/slime/./proc/blend)
 	blend(H)
 
@@ -84,7 +84,6 @@
 		grow.Remove(H)
 	if(recolor)
 		recolor.Remove(H)
-	REMOVE_TRAIT(H, TRAIT_WATERBREATH, "species")
 	UnregisterSignal(H, COMSIG_HUMAN_UPDATE_DNA)
 
 /datum/species/slime/proc/blend(mob/living/carbon/human/H)
@@ -112,8 +111,10 @@
 
 
 
-/datum/species/slime/can_hear() // fucking snowflakes
-	. = TRUE
+/datum/species/slime/can_hear(mob/living/carbon/human/H) // fucking snowflakes
+	. = FALSE
+	if(!HAS_TRAIT(H, TRAIT_DEAF))
+		. = TRUE
 
 /datum/action/innate/slimecolor
 	name = "Toggle Recolor"
