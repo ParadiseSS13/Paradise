@@ -70,7 +70,7 @@
 			if(telegraph_message)
 				to_chat(M, telegraph_message)
 			if(telegraph_sound)
-				SEND_SOUND(M, sound(telegraph_sound))
+				SEND_SOUND_NO_ECHO(M, sound(telegraph_sound))
 	addtimer(CALLBACK(src, .proc/start), telegraph_duration)
 
 /datum/weather/proc/start()
@@ -84,7 +84,7 @@
 			if(weather_message)
 				to_chat(M, weather_message)
 			if(weather_sound)
-				SEND_SOUND(M, sound(weather_sound))
+				SEND_SOUND_NO_ECHO(M, sound(weather_sound))
 	addtimer(CALLBACK(src, .proc/wind_down), weather_duration)
 
 /datum/weather/proc/wind_down()
@@ -98,7 +98,7 @@
 			if(end_message)
 				to_chat(M, end_message)
 			if(end_sound)
-				SEND_SOUND(M, sound(end_sound))
+				SEND_SOUND_NO_ECHO(M, sound(end_sound))
 	addtimer(CALLBACK(src, .proc/end), end_duration)
 
 /datum/weather/proc/end()

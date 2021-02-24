@@ -34,7 +34,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 				to_chat(C, msg)
 			if(important)
 				if(C.prefs?.sound & SOUND_ADMINHELP)
-					SEND_SOUND(C, 'sound/effects/adminhelp.ogg')
+					SEND_SOUND_NO_ECHO(C, 'sound/effects/adminhelp.ogg')
 				window_flash(C)
 
 /**
@@ -51,7 +51,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 				to_chat(C, msg)
 			if(important)
 				if(C.prefs?.sound & SOUND_MENTORHELP)
-					SEND_SOUND(C, 'sound/effects/adminhelp.ogg')
+					SEND_SOUND_NO_ECHO(C, 'sound/effects/adminhelp.ogg')
 				window_flash(C)
 
 /proc/admin_ban_mobsearch(var/mob/M, var/ckey_to_find, var/mob/admin_to_notify)

@@ -574,7 +574,7 @@ SUBSYSTEM_DEF(ticker)
 	// Play a haha funny noise
 	var/round_end_sound = pick(GLOB.round_end_sounds)
 	var/sound_length = GLOB.round_end_sounds[round_end_sound]
-	world << round_end_sound
+	SEND_SOUND_NO_ECHO(world, round_end_sound)
 	sleep(sound_length)
 
 	world.Reboot()

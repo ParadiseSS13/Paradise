@@ -81,7 +81,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	cult_objs.setup()
 
 	for(var/datum/mind/cult_mind in cult)
-		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
+		SEND_SOUND_NO_ECHO(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
 		to_chat(cult_mind.current, CULT_GREETING)
 		equip_cultist(cult_mind.current)
 		cult_mind.current.faction |= "cult"
@@ -187,7 +187,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			singlemutcheck(cult_mind.current, GLOB.clumsyblock, MUTCHK_FORCED)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(cult_mind.current)
-		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
+		SEND_SOUND_NO_ECHO(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
 		cult_mind.current.create_attack_log("<span class='danger'>Has been converted to the cult!</span>")
 		cult_mind.current.create_log(CONVERSION_LOG, "converted to the cult")
 

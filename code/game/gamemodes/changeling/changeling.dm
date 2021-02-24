@@ -131,7 +131,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	return
 
 /datum/game_mode/proc/greet_changeling(datum/mind/changeling, you_are=1)
-	SEND_SOUND(changeling.current, 'sound/ambience/antag/ling_aler.ogg')
+	SEND_SOUND_NO_ECHO(changeling.current, 'sound/ambience/antag/ling_aler.ogg')
 	if(you_are)
 		to_chat(changeling.current, "<span class='danger'>You are a changeling!</span>")
 	to_chat(changeling.current, "<span class='danger'>Use say \":g message\" to communicate with your fellow changelings. Remember: you get all of their absorbed DNA if you absorb them.</span>")

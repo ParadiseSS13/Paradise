@@ -1,5 +1,4 @@
-
-///Default override for echo
+// Default override for echo
 /sound
 	echo = list(
 		0, // Direct
@@ -150,7 +149,7 @@
 	if(!SSticker || !SSticker.login_music || config.disable_lobby_music)
 		return
 	if(prefs.sound & SOUND_LOBBY)
-		SEND_SOUND(src, sound(SSticker.login_music, repeat = 0, wait = 0, volume = 85, channel = CHANNEL_LOBBYMUSIC)) // MAD JAMS
+		SEND_SOUND_NO_ECHO(src, sound(SSticker.login_music, channel = CHANNEL_LOBBYMUSIC, volume = 85)) // MAD JAMS
 
 /proc/get_rand_frequency()
 	return rand(32000, 55000) //Frequency stuff only works with 45kbps oggs.

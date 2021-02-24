@@ -912,7 +912,7 @@
 					special_role = SPECIAL_ROLE_WIZARD
 					//ticker.mode.learn_basic_spells(current)
 					SSticker.mode.update_wiz_icons_added(src)
-					SEND_SOUND(current, 'sound/ambience/antag/ragesmages.ogg')
+					SEND_SOUND_NO_ECHO(current, 'sound/ambience/antag/ragesmages.ogg')
 					to_chat(current, "<span class='danger'>You are a Space Wizard!</span>")
 					current.faction = list("wizard")
 					log_admin("[key_name(usr)] has wizarded [key_name(current)]")
@@ -958,7 +958,7 @@
 					SSticker.mode.grant_changeling_powers(current)
 					SSticker.mode.update_change_icons_added(src)
 					special_role = SPECIAL_ROLE_CHANGELING
-					SEND_SOUND(current, 'sound/ambience/antag/ling_aler.ogg')
+					SEND_SOUND_NO_ECHO(current, 'sound/ambience/antag/ling_aler.ogg')
 					to_chat(current, "<B><font color='red'>Your powers have awoken. A flash of memory returns to us... we are a changeling!</font></B>")
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has changelinged [key_name_admin(current)]")
@@ -1003,7 +1003,7 @@
 					slaved.masters += src
 					som = slaved //we MIGT want to mindslave someone
 					special_role = SPECIAL_ROLE_VAMPIRE
-					SEND_SOUND(current, 'sound/ambience/antag/vampalert.ogg')
+					SEND_SOUND_NO_ECHO(current, 'sound/ambience/antag/vampalert.ogg')
 					to_chat(current, "<B><font color='red'>Your powers have awoken. Your lust for blood grows... You are a Vampire!</font></B>")
 					log_admin("[key_name(usr)] has vampired [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has vampired [key_name_admin(current)]")
@@ -1555,7 +1555,7 @@
 
 	else if(href_list["obj_announce"])
 		announce_objectives()
-		SEND_SOUND(current, sound('sound/ambience/alarm4.ogg'))
+		SEND_SOUND_NO_ECHO(current, sound('sound/ambience/alarm4.ogg'))
 		log_admin("[key_name(usr)] has announced [key_name(current)]'s objectives")
 		message_admins("[key_name_admin(usr)] has announced [key_name_admin(current)]'s objectives")
 

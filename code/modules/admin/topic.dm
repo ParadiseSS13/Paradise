@@ -17,7 +17,7 @@
 		if(!isclient(C))
 			return
 
-		C << 'sound/effects/adminhelp.ogg'
+		SEND_SOUND_NO_ECHO(C, 'sound/effects/adminhelp.ogg')
 
 		to_chat(C, "<font color='red' size='4'><b>- AdminHelp Rejected! -</b></font>")
 		to_chat(C, "<font color='red'><b>Your admin help was rejected.</b></font>")
@@ -2326,7 +2326,7 @@
 			message_admins("[key_name_admin(usr)] sent [H.job] [H] to cryo.")
 			if(href_list["cryoafk"]) // Warn them if they are send to storage and are AFK
 				to_chat(H, "<span class='danger'>The admins have moved you to cryo storage for being AFK. Please eject yourself (right click, eject) out of the cryostorage if you want to avoid being despawned.</span>")
-				SEND_SOUND(H, 'sound/effects/adminhelp.ogg')
+				SEND_SOUND_NO_ECHO(H, 'sound/effects/adminhelp.ogg')
 				if(H.client)
 					window_flash(H.client)
 	else if(href_list["FaxReplyTemplate"])

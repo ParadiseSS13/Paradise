@@ -33,7 +33,7 @@
 		deaf = max(deaf - 1, 0)
 		if((ear_damage > 10) && prob(ear_damage / 30))
 			AdjustEarDamage(0, 4)
-			SEND_SOUND(owner, sound('sound/weapons/flash_ring.ogg'))
+			SEND_SOUND_NO_ECHO(owner, sound('sound/weapons/flash_ring.ogg'))
 
 	if(deaf)
 		ADD_TRAIT(owner, TRAIT_DEAF, EAR_DAMAGE)

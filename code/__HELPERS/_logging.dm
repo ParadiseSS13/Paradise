@@ -5,11 +5,20 @@
 GLOBAL_VAR_INIT(log_end, (world.system_type == UNIX ? ascii2text(13) : ""))
 GLOBAL_PROTECT(log_end)
 
+// why are these all in _logging.dm
 #define DIRECT_OUTPUT(A, B) A << B
 #define SEND_IMAGE(target, image) DIRECT_OUTPUT(target, image)
 #define SEND_SOUND(target, sound) DIRECT_OUTPUT(target, sound)
 #define SEND_TEXT(target, text) DIRECT_OUTPUT(target, text)
 #define WRITE_FILE(file, text) DIRECT_OUTPUT(file, text)
+
+/// Removes the echo/reverb from a sound input.
+#define SEND_SOUND_NO_ECHO(target, input) \
+	var/sound/output = input; \
+	if (!istype(output)) { \
+		output = sound(input) } \
+	output.echo = null; \
+	DIRECT_OUTPUT(target, output) \
 
 /proc/error(msg)
 	log_world("## ERROR: [msg]")

@@ -350,7 +350,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		if(check_rights(R_EVENT, 0, C.mob))
 			to_chat(C, msg)
 			if(C.prefs.sound & SOUND_ADMINHELP)
-				C << 'sound/effects/adminhelp.ogg'
+				SEND_SOUND_NO_ECHO(C, 'sound/effects/adminhelp.ogg')
 
 /obj/machinery/photocopier/faxmachine/proc/become_mimic()
 	if(scan)
