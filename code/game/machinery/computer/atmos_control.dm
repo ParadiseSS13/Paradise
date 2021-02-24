@@ -124,7 +124,7 @@
 	radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
 
 /obj/machinery/air_sensor/Initialize()
-	..()
+	. = ..()
 	SSair.atmos_machinery += src
 	set_frequency(frequency)
 
@@ -270,7 +270,7 @@
 	radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
 
 /obj/machinery/computer/general_air_control/Initialize()
-	..()
+	. = ..()
 	set_frequency(frequency)
 
 /obj/machinery/computer/general_air_control/multitool_menu(mob/user, obj/item/multitool/P)
