@@ -223,11 +223,9 @@
 
 /obj/item/twohanded/required/kirbyplants/equipped(mob/living/user)
 	. = ..()
-	//Override appearance only if the other hand is NOT empty, because you should hold offhand. If your hand is missing, get_inactive_hand() will return null.
-	//Cases where you hold one-handed item are handled in parents and this should never be called, so it shouldn't be a problem.
-	if(user.get_inactive_hand() != null)
-		var/image/I = image(icon = 'icons/obj/flora/plants.dmi' , icon_state = src.icon_state, loc = user)
-		I.override = 1
+	if(wielded)
+		var/image/I = image(icon, user, icon_state)
+		I.override = TRUE
 		user.add_alt_appearance("sneaking_mission", I, GLOB.player_list)
 
 /obj/item/twohanded/required/kirbyplants/dropped(mob/living/user)
