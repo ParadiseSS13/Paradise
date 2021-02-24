@@ -289,11 +289,14 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	else
 		if(isliving(loc))
 			return 0
-	add_fingerprint(user)
-	if(pickup(user)) // Pickup succeeded
-		user.put_in_active_hand(src)
 
-	return 1
+	pickup(user)
+	add_fingerprint(user)
+	if(!user.put_in_active_hand(src))
+		dropped(user, TRUE)
+		return FALSE
+
+	return TRUE
 
 /obj/item/attack_alien(mob/user)
 	var/mob/living/carbon/alien/A = user
@@ -387,7 +390,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 /obj/item/proc/talk_into(mob/M, var/text, var/channel=null)
 	return
 
+/// Called when a mob drops an item.
 /obj/item/proc/dropped(mob/user, silent = FALSE)
+	SHOULD_CALL_PARENT(TRUE)
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Remove(user)
@@ -402,9 +407,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
+	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
 	in_inventory = TRUE
-	return TRUE
 
 // called when this item is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.
 /obj/item/proc/on_exit_storage(obj/item/storage/S as obj)
