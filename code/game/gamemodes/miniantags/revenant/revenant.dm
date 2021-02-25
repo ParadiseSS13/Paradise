@@ -87,7 +87,7 @@
 	return //most humans will now be either bones or harvesters, but we're still un-alive.
 
 
-/mob/living/simple_animal/revenant/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+/mob/living/simple_animal/revenant/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
 	return FALSE //You are a ghost, atmos and grill makes sparks, and you make your own shocks with lights.
 
 /mob/living/simple_animal/revenant/adjustHealth(amount, updating_health = TRUE)
@@ -159,7 +159,7 @@
 
 /mob/living/simple_animal/revenant/proc/giveObjectivesandGoals()
 			mind.wipe_memory()
-			SEND_SOUND(src, 'sound/effects/ghost.ogg')
+			SEND_SOUND(src, sound('sound/effects/ghost.ogg'))
 			to_chat(src, "<br>")
 			to_chat(src, "<span class='deadsay'><font size=3><b>You are a revenant.</b></font></span>")
 			to_chat(src, "<b>Your formerly mundane spirit has been infused with alien energies and empowered into a revenant.</b>")

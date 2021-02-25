@@ -9,7 +9,9 @@
 	slot_flags = SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined")
 	max_integrity = 300
-	var/use_item_overlays = FALSE // Do we have overlays for items held inside the belt?
+	equip_sound = 'sound/items/equip/toolbelt_equip.ogg'
+	/// Do we have overlays for items held inside the belt?
+	var/use_item_overlays = FALSE
 
 /obj/item/storage/belt/update_icon()
 	if(use_item_overlays)
@@ -29,10 +31,10 @@
 	if(!M.restrained() && !M.stat && can_use())
 		switch(over_object.name)
 			if("r_hand")
-				M.unEquip(src)
+				M.unEquip(src, silent = TRUE)
 				M.put_in_r_hand(src)
 			if("l_hand")
-				M.unEquip(src)
+				M.unEquip(src, silent = TRUE)
 				M.put_in_l_hand(src)
 		add_fingerprint(usr)
 		return
@@ -47,6 +49,8 @@
 	icon_state = "utilitybelt"
 	item_state = "utility"
 	use_item_overlays = TRUE
+	drop_sound = 'sound/items/handling/toolbelt_drop.ogg'
+	pickup_sound = 'sound/items/handling/toolbelt_pickup.ogg'
 	can_hold = list(
 		/obj/item/crowbar,
 		/obj/item/screwdriver,

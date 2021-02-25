@@ -13,7 +13,7 @@
 
 	// 100 attempts
 	for(var/i in 0 to 100)
-		var/turf/candidate = locate(rand(1, world.maxx), rand(1, world.maxy), 1)
+		var/turf/candidate = locate(rand(1, world.maxx), rand(1, world.maxy), level_name_to_num(MAIN_STATION))
 		if(istype(candidate, /turf/simulated/wall))
 			center = candidate
 			break
