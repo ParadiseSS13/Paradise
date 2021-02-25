@@ -110,7 +110,9 @@ I'm using this for Stat to give it a more nifty interface to work with
 	. = TRUE
 
 /mob/living/carbon/brain/update_runechat_msg_location()
-	if(container)
+	if(ismecha(loc))
+		runechat_msg_location = loc
+	else if(container)
 		runechat_msg_location = container
 	else
 		runechat_msg_location = src
