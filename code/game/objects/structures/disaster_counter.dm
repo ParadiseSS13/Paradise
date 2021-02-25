@@ -30,10 +30,10 @@
 	SSpersistent_data.register(src)
 
 /obj/structure/disaster_counter/ex_act(severity)
-	. = ..()
 	current_count = -1
 	persistent_save()
 	update_maptext()
+	. = ..()
 
 /obj/structure/disaster_counter/Destroy()
 	if(counter_id)
