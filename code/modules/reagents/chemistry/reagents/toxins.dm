@@ -1242,12 +1242,12 @@
 	..()
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.dna.species.siemens_coeff *= 2
+		H.physiology.siemens_coeff *= 2
 
 /datum/reagent/teslium/on_mob_delete(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.dna.species.siemens_coeff *= 0.5
+		H.physiology.siemens_coeff *= 0.5
 	..()
 
 /datum/reagent/gluttonytoxin
