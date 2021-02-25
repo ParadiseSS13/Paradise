@@ -153,7 +153,7 @@
 	if(!istype(M))
 		return
 
-	if(!can_operate(M))
+	if(!M.can_be_operated_on())
 		return
 
 	if(target_name != M.name)

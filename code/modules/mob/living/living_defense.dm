@@ -290,6 +290,51 @@
 
 	return G
 
+/mob/living/proc/surgery_attack_chain(mob/living/user, obj/item/I)
+	if(user == src || user.a_intent != INTENT_HELP)
+		return FALSE
+	if(can_be_operated_on())
+		var/datum/surgery/S = get_or_initiate_surgery(user)
+		if(S)
+			return surgery_act(user, I, S)
+	return FALSE
+
+
+//check if mob is lying down on something we can operate him on.
+/mob/living/proc/can_be_operated_on()
+	if(lying && (locate(/obj/machinery/optable, loc) || locate(/obj/structure/bed, loc) || locate(/obj/structure/table, loc)))
+		return TRUE
+	return FALSE
+
+/mob/living/proc/get_or_initiate_surgery(mob/living/user)
+	if(!can_be_operated_on())
+		return null
+
+	var/selected_zone = user.zone_selected
+	if(surgeries[selected_zone])
+		return surgeries[selected_zone]
+
+	var/datum/surgery/new_surgery = new()
+	new_surgery.location = selected_zone
+	surgeries[selected_zone] = new_surgery
+
+	return new_surgery
+
+/mob/living/proc/surgery_act(mob/living/user, obj/item/I, datum/surgery/S)
+	if(S.step_in_progress)
+		to_chat(user, "<span class='warning'>This body part is already under surgery!</span>")
+		return TRUE
+	var/obj/item/organ/external/E = get_organ(S.location)
+	. = S.next_step(user, src, I)
+	if(!QDELETED(S) && S.current_stage == SURGERY_STAGE_START) // Remove surgeries that haven't started yet. Amputate will qdel the surgery itself
+		if(E)
+			E.cut_level = SURGERY_CUT_LEVEL_CLOSED
+		remove_surgery(S)
+
+/mob/living/proc/remove_surgery(datum/surgery/S)
+	surgeries -= S.location
+	qdel(S)
+
 /mob/living/attack_slime(mob/living/simple_animal/slime/M)
 	if(!SSticker)
 		to_chat(M, "You cannot attack people before the game has started.")

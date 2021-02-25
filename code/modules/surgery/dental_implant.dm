@@ -1,46 +1,59 @@
-/datum/surgery/dental_implant
-	name = "dental implant"
-	steps = list(/datum/surgery_step/generic/drill, /datum/surgery_step/insert_pill)
+#define MAX_TEETH_PILL_IMPLANTS 4
+
+/datum/surgery_step/dental
 	possible_locs = list("mouth")
+	can_infect = TRUE
 
-/datum/surgery/dental_implant/can_start(mob/user, mob/living/carbon/target)
-	if(istype(target,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = target
-		if(!H.check_has_mouth())
-			return 0
-		return 1
+/datum/surgery_step/dental/is_valid_target(mob/living/carbon/human/target)
+	return ishuman(target) && target.check_has_mouth()
 
-/datum/surgery_step/insert_pill
+/datum/surgery_step/dental/drill
+	name = "drill bone"
+	surgery_start_stage = SURGERY_STAGE_START
+	next_surgery_stage = SURGERY_STAGE_DENTAL
+	allowed_surgery_tools = SURGERY_TOOLS_DRILL
+	time = 3 SECONDS
+
+/datum/surgery_step/dental/drill/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	user.visible_message("<span class='notice'>[user] begins to drill into [target]'s [parse_zone(target_zone)].</span>", "<span class='notice'>You begin to drill into [target]'s [parse_zone(target_zone)]...</span>")
+	return ..()
+
+/datum/surgery_step/dental/drill/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	user.visible_message("<span class='notice'>[user] drills into [target]'s [parse_zone(target_zone)]!</span>", "<span class='notice'>You drill into [target]'s [parse_zone(target_zone)].</span>")
+	return SURGERY_SUCCESS
+
+/datum/surgery_step/dental/insert_pill
 	name = "insert pill"
-	allowed_tools = list(/obj/item/reagent_containers/food/pill = 100)
-	time = 16
+	surgery_start_stage = SURGERY_STAGE_DENTAL
+	next_surgery_stage = SURGERY_STAGE_START
+	accept_any_item = TRUE // can_use will check if it's a pill or not
+	time = 1.6 SECONDS
 
-/datum/surgery_step/insert_pill/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	user.visible_message("[user] begins to wedge \the [tool] in [target]'s [parse_zone(target_zone)].", "<span class='notice'>You begin to wedge [tool] in [target]'s [parse_zone(target_zone)]...</span>")
-	..()
+/datum/surgery_step/dental/insert_pill/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/reagent_containers/food/pill/tool, datum/surgery/surgery)
+	return ..() && istype(tool)
 
-/datum/surgery_step/insert_pill/end_step(mob/living/user, mob/living/carbon/target, target_zone, var/obj/item/reagent_containers/food/pill/tool, datum/surgery/surgery)
-	if(!istype(tool))
-		return 0
+/datum/surgery_step/dental/insert_pill/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/reagent_containers/food/pill/tool, datum/surgery/surgery)
+	user.visible_message("<span class='notice'>[user] begins to wedge [tool] in [target]'s [parse_zone(target_zone)].</span>", "<span class='notice'>You begin to wedge [tool] in [target]'s [parse_zone(target_zone)]...</span>")
+	return ..()
 
+/datum/surgery_step/dental/insert_pill/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/reagent_containers/food/pill/tool, datum/surgery/surgery)
 	var/dental_implants = 0
-	for(var/obj/item/reagent_containers/food/pill in target.contents) // Can't give them more than 4 dental implants.
+	for(var/obj/item/reagent_containers/food/pill in (target.contents - target.l_store - target.r_store)) // Can't give them more than 4 dental implants.
 		dental_implants++
-	if(dental_implants >= 4)
-		user.visible_message("[user] pulls \the [tool] back out of [target]'s [parse_zone(target_zone)]!", "<span class='notice'>You pull \the [tool] back out of [target]'s [parse_zone(target_zone)], there wans't enough room...</span>")
-		return 0
+	if(dental_implants >= MAX_TEETH_PILL_IMPLANTS)
+		user.visible_message("<span class='notice'>[user] pulls [tool] back out of [target]'s [parse_zone(target_zone)]!</span>", "<span class='notice'>You pull [tool] back out of [target]'s [parse_zone(target_zone)], there wasn't enough room...</span>")
+		return SURGERY_FAILED
 
 	user.drop_item()
 	tool.forceMove(target)
 
-	var/datum/action/item_action/hands_free/activate_pill/P = new
+	var/datum/action/item_action/hands_free/activate_pill/P = new(tool)
 	P.button_icon_state = tool.icon_state
-	P.target = tool
 	P.name = "Activate Pill ([tool.name])"
 	P.Grant(target)
 
-	user.visible_message("[user] wedges \the [tool] into [target]'s [parse_zone(target_zone)]!", "<span class='notice'>You wedge [tool] into [target]'s [parse_zone(target_zone)].</span>")
-	return 1
+	user.visible_message("<span class='notice'>[user] wedges [tool] into [target]'s [parse_zone(target_zone)]!</span>", "<span class='notice'>You wedge [tool] into [target]'s [parse_zone(target_zone)].</span>")
+	return SURGERY_SUCCESS
 
 /datum/action/item_action/hands_free/activate_pill
 	name = "Activate Pill"
@@ -55,4 +68,6 @@
 		target.reagents.trans_to(owner, target.reagents.total_volume)
 	Remove(owner)
 	qdel(target)
-	return 1
+	return TRUE
+
+#undef MAX_TEETH_PILL_IMPLANTS

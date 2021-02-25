@@ -334,11 +334,6 @@
 
 				discipline_slime(M)
 	else
-		if(stat == DEAD && surgeries.len)
-			if(M.a_intent == INTENT_HELP || M.a_intent == INTENT_DISARM)
-				for(var/datum/surgery/S in surgeries)
-					if(S.next_step(M, src))
-						return 1
 		if(..()) //successful attack
 			attacked += 10
 
@@ -349,11 +344,6 @@
 
 
 /mob/living/simple_animal/slime/attackby(obj/item/I, mob/living/user, params)
-	if(stat == DEAD && surgeries.len)
-		if(user.a_intent == INTENT_HELP || user.a_intent == INTENT_DISARM)
-			for(var/datum/surgery/S in surgeries)
-				if(S.next_step(user, src))
-					return 1
 	if(istype(I, /obj/item/stack/sheet/mineral/plasma) && !stat) //Let's you feed slimes plasma.
 		if(user in Friends)
 			++Friends[user]

@@ -49,7 +49,8 @@
 	var/damage_msg = "<span class='warning'>You feel an intense pain</span>"
 	var/broken_description
 
-	var/open = 0  // If the body part has an open incision from surgery
+	/// How deep is the open incision?
+	var/cut_level = SURGERY_CUT_LEVEL_CLOSED
 	var/sabotaged = 0 //If a prosthetic limb is emagged, it will detonate when it fails.
 	var/encased       // Needs to be opened with a saw to access the organs.
 
@@ -297,7 +298,7 @@ This function completely restores a damaged organ to perfect condition.
 	perma_injury = 0
 	brute_dam = 0
 	burn_dam = 0
-	open = 0 //Closing all wounds.
+	cut_level = SURGERY_CUT_LEVEL_CLOSED //Closing all wounds.
 	internal_bleeding = FALSE
 	disfigured = FALSE
 
@@ -602,15 +603,15 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"\The [holder.legcuffed.name] falls off you.")
 		holder.unEquip(holder.legcuffed)
 
-/obj/item/organ/external/proc/fracture()
+/obj/item/organ/external/proc/fracture(quiet = FALSE, description = null)
 	if(is_robotic())
 		return	//ORGAN_BROKEN doesn't have the same meaning for robot limbs
 
 	if((status & ORGAN_BROKEN) || cannot_break)
 		return
-	if(owner)
+	if(owner && !quiet)
 		owner.visible_message(\
-			"<span class='warning'>You hear a loud cracking sound coming from \the [owner].</span>",\
+			"<span class='warning'>You hear a loud cracking sound coming from [owner].</span>",\
 			"<span class='danger'>Something feels like it shattered in your [name]!</span>",\
 			"You hear a sickening crack.")
 		playsound(owner, "bonebreak", 150, 1)
@@ -618,7 +619,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			owner.emote("scream")
 
 	status |= ORGAN_BROKEN
-	broken_description = pick("broken","fracture","hairline fracture")
+	broken_description = description ? description : pick("broken","fracture","hairline fracture")
 	perma_injury = brute_dam
 
 	// Fractures have a chance of getting you out of restraints
@@ -707,6 +708,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 		I.forceMove(src)
 	if(!owner.has_embedded_objects())
 		owner.clear_alert("embeddedobject")
+
+	if(owner.surgeries[limb_name])
+		owner.remove_surgery(owner.surgeries[limb_name]) // Surgery can't continue on something that is not there
+	cut_level = SURGERY_CUT_LEVEL_CLOSED	// All surgerical wounds magically close
 
 	. = ..()
 

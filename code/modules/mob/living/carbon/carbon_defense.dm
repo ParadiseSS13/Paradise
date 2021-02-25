@@ -19,14 +19,6 @@
 	if(volume > 10) // Anything over 10 volume will make the mob wetter.
 		wetlevel = min(wetlevel + 1,5)
 
-/mob/living/carbon/attackby(obj/item/I, mob/user, params)
-	if(lying && surgeries.len)
-		if(user != src && user.a_intent == INTENT_HELP)
-			for(var/datum/surgery/S in surgeries)
-				if(S.next_step(user, src))
-					return 1
-	return ..()
-
 /mob/living/carbon/attack_hand(mob/living/carbon/human/user)
 	if(!iscarbon(user))
 		return
@@ -41,12 +33,7 @@
 		if(D.IsSpreadByTouch())
 			ContractDisease(D)
 
-	if(lying && surgeries.len)
-		if(user.a_intent == INTENT_HELP)
-			for(var/datum/surgery/S in surgeries)
-				if(S.next_step(user, src))
-					return 1
-	return 0
+	. = surgery_attack_chain(user, null)
 
 /mob/living/carbon/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack

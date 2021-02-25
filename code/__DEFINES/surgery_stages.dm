@@ -1,0 +1,42 @@
+#define SURGERY_FAILED			0
+#define SURGERY_SUCCESS			1
+#define SURGERY_CONTINUE		2	// Return value where a surgery step will be repeated after it's done
+
+#define SURGERY_CUT_LEVEL_CLOSED	0
+#define SURGERY_CUT_LEVEL_SHALLOW	1
+#define SURGERY_CUT_LEVEL_OPEN		2
+#define SURGERY_CUT_LEVEL_SAWN		2.5
+#define SURGERY_CUT_LEVEL_DEEP		3
+
+#define SURGERY_BLOOD_LEVEL_NONE	0
+#define SURGERY_BLOOD_LEVEL_HANDS	1
+#define SURGERY_BLOOD_LEVEL_BODY	2
+
+// Start of all surgeries
+#define SURGERY_STAGE_START					"start"
+#define SURGERY_STAGE_ALWAYS				"always" 	// Can always be used
+#define SURGERY_STAGE_SAME					"same" 		// If the next step will be the same
+// Common used
+#define SURGERY_STAGE_INCISION				"incision made"
+#define SURGERY_STAGE_CLAMPED				"bleeding clamped"
+#define SURGERY_STAGE_SKIN_RETRACTED		"skin retracted"
+#define SURGERY_STAGE_SAWN_BONES			"bones sawn"
+#define SURGERY_STAGE_BONES_RETRACTED		"bones retracted"
+
+#define SURGERY_STAGE_DENTAL				"teeth drilled"
+#define SURGERY_STAGE_ATTACH_LIMB			"limb attached"
+#define SURGERY_STAGE_OPEN_INCISION_CUT		"tissue cut"
+
+// Cavity surgery
+#define SURGERY_STAGE_CAVITY_OPEN			"open cavity"
+#define SURGERY_STAGE_CAVITY_CLOSING		"cavity filled"
+
+#define SURGERY_STAGE_BONES_GELLED			"bones gelled"
+#define SURGERY_STAGE_BONES_SET				"bones set"
+
+#define SURGERY_STAGE_ROBOTIC_HATCH_UNLOCKED	"hatch unlocked"
+#define SURGERY_STAGE_ROBOTIC_HATCH_OPEN		"hatch open"
+
+#define SURGERY_STAGE_CARAPACE_SAWN				"carapace sawn open"
+#define SURGERY_STAGE_CARAPACE_CUT				"carapace cut"
+#define SURGERY_STAGE_CARAPACE_OPEN				"carapace open"

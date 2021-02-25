@@ -57,8 +57,10 @@
 			RefreshInfectionImage()
 
 	if(stage == 5 && prob(50))
-		for(var/datum/surgery/S in owner.surgeries)
-			if(S.location == "chest" && istype(S.get_surgery_step(), /datum/surgery_step/internal/manipulate_organs))
+		if(owner.surgeries[parent_organ])
+			var/datum/surgery/S = owner.surgeries[parent_organ]
+			var/obj/item/organ/external/affected = owner.get_organ(parent_organ)
+			if(affected && ((!affected.encased && S.current_stage == SURGERY_STAGE_SKIN_RETRACTED) || S.current_stage == SURGERY_STAGE_BONES_RETRACTED))
 				AttemptGrow(0)
 				return
 		AttemptGrow()

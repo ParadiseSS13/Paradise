@@ -22,6 +22,7 @@
 	/// about the mob - use `table.patient` instead.
 	var/mob/living/carbon/currentPatient
 	var/patientStatusHolder //Hold the last instance of table.patient.status. When table.patient.status no longer matches this variable, the computer should tell the doctor
+	var/selected_surgery_loc
 
 /obj/machinery/computer/operating/New()
 	..()
@@ -58,7 +59,7 @@
 /obj/machinery/computer/operating/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "OperatingComputer", "Patient Monitor", 650, 455, master_ui, state)
+		ui = new(user, src, ui_key, "OperatingComputer", "Patient Monitor", 650, 495, master_ui, state)
 		ui.open()
 
 /obj/machinery/computer/operating/ui_data(mob/user)
@@ -117,12 +118,25 @@
 			occupantData["bloodPercent"] = round(100*(occupant.blood_volume/occupant.max_blood), 0.01) //copy pasta ends here
 
 			occupantData["bloodType"] = occupant.dna.blood_type
-		if(occupant.surgeries.len)
+		if(length(occupant.surgeries))
 			occupantData["inSurgery"] = 1
-			for(var/datum/surgery/procedure in occupant.surgeries)
-				occupantData["surgeryName"] = "[capitalize(procedure.name)]"
-				var/datum/surgery_step/surgery_step = procedure.get_surgery_step()
-				occupantData["stepName"] = "[capitalize(surgery_step.name)]"
+			if(!occupant.surgeries[selected_surgery_loc])
+				selected_surgery_loc = occupant.surgeries[1] // Default to the first surgery
+			var/datum/surgery/selected_surgery = occupant.surgeries[selected_surgery_loc]
+
+			var/list/possible_steps = selected_surgery.get_all_possible_steps_on_stage(user, occupant)
+			var/step_strings = list()
+			for(var/thing in possible_steps)
+				var/datum/surgery_step/S = thing
+				step_strings += capitalize(S.name)
+			var/surgery_steps_string = english_list(step_strings, and_text = " or ")
+
+			occupantData["selected_surgery"] = list("location" = "[capitalize(parse_zone(selected_surgery_loc))]", \
+				"stage" = "[capitalize(selected_surgery.current_stage)]", "possible_steps" = surgery_steps_string)
+			var/list/surgeries = list()
+			occupantData["surgeries"] = surgeries
+			for(var/key in occupant.surgeries)
+				surgeries[++surgeries.len] = list("location" = capitalize(parse_zone(key)), "ref" = "[key]")
 
 	data["occupant"] = occupantData
 	data["verbose"]=verbose
@@ -171,6 +185,8 @@
 			choice = FALSE
 		if("health_adj")
 			healthAlarm = clamp(text2num(params["new"]), -100, 100)
+		if("change_surgery")
+			selected_surgery_loc = params["new"]
 		else
 			return FALSE
 
