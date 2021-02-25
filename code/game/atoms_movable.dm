@@ -569,11 +569,12 @@
 		if(M.client && M.client.prefs.toggles2 & PREFTOGGLE_2_ITEMATTACK)
 			viewing |= M.client
 
+	I.appearance_flags |= RESET_TRANSFORM | KEEP_APART
 	flick_overlay(I, viewing, 7) // 7 ticks/half a second
 
 	// And animate the attack!
 	var/t_color = "#ffffff"
-	if(ismob(src) &&  ismob(A) && (!used_item))
+	if(ismob(src) && ismob(A) && !used_item)
 		var/mob/M = src
 		t_color = M.a_intent == INTENT_HARM ? "#ff0000" : "#ffffff"
 	animate(I, alpha = 175, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 0.3 SECONDS, color = t_color)
