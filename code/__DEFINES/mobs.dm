@@ -20,7 +20,7 @@
 #define MOB_UNDEAD		(1 << 3)
 #define MOB_HUMANOID 	(1 << 4)
 #define MOB_BUG 		(1 << 5)
-#define MOB_BEAST		(1 << 6)
+#define MOB_BEAST		(1 << 6)  // Not meant for human species, generally
 #define MOB_EPIC		(1 << 7) //megafauna
 #define MOB_REPTILE		(1 << 8)
 #define MOB_SPIRIT		(1 << 9)
