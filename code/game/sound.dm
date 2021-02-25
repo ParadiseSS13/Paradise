@@ -70,6 +70,9 @@
 	S.channel = channel || SSsounds.random_available_channel()
 	S.volume = vol
 
+	if(channel)
+		S.volume *= client.prefs.get_channel_volume(channel)
+
 	if(vary)
 		if(frequency)
 			S.frequency = frequency
@@ -150,7 +153,7 @@
 	if(!SSticker || !SSticker.login_music || config.disable_lobby_music)
 		return
 	if(prefs.sound & SOUND_LOBBY)
-		SEND_SOUND(src, sound(SSticker.login_music, repeat = 0, wait = 0, volume = 85, channel = CHANNEL_LOBBYMUSIC)) // MAD JAMS
+		SEND_SOUND(src, sound(SSticker.login_music, repeat = 0, wait = 0, volume = 85 * prefs.get_channel_volume(CHANNEL_LOBBYMUSIC), channel = CHANNEL_LOBBYMUSIC)) // MAD JAMS
 
 /proc/get_rand_frequency()
 	return rand(32000, 55000) //Frequency stuff only works with 45kbps oggs.
