@@ -814,6 +814,10 @@
 			var/mob/M = P
 			if(M.mob_negates_gravity())
 				continue //You can't pull someone nailed to the deck
+			else if(M.buckled)
+				var/atom/movable/buckler = M.buckled
+				if(buckler.unbuckle_mob(M, TRUE))
+					visible_message("<span class='danger'>[src]'s sheer force rips [M] away from [buckler]!</span>")
 		step_towards(P,center)
 
 /obj/machinery/power/supermatter_crystal/proc/supermatter_anomaly_gen(turf/anomalycenter, type = FLUX_ANOMALY, anomalyrange = 5)

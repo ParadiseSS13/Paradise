@@ -6,6 +6,7 @@
 	icon_state = "shade"
 	icon_living = "shade"
 	icon_dead = "shade_dead"
+	mob_biotypes = MOB_SPIRIT
 	maxHealth = 50
 	health = 50
 	speak_emote = list("hisses")
