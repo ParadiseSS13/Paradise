@@ -288,8 +288,8 @@
 		telefail()
 		temp_msg = "ERROR!<BR>Elevation is less than 1 or greater than 90."
 		return
-	if(z_co == 2 || z_co > 9)//segun veo los niveles del 3 al 9 estan poblados
-	/*if(z_co == 2 || z_co < 1 || z_co > 6)
+	if(z_co == 1 || z_co > 9)//segun veo los niveles del 3 al 9 estan poblados //el z1 es centcom
+	/*if(z_co == 1 || z_co < 1 || z_co > 6)
 		if(z_co == 7 & emagged == 1)
 		// This should be empty, allows for it to continue if the z-level is 7 and the machine is emagged.
 		else*/
