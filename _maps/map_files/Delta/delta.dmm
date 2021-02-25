@@ -81119,10 +81119,10 @@
 /turf/simulated/wall/r_wall,
 /area/medical/chemistry)
 "cXf" = (
-/obj/machinery/status_display{
+/obj/structure/closet/secure_closet/reagents,
+/obj/structure/disaster_counter/chemistry{
 	pixel_x = -32
 	},
-/obj/structure/closet/secure_closet/reagents,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitegreen";
@@ -95264,6 +95264,9 @@
 	network = list("Research Outpost")
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/disaster_counter/toxins{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing)
 "dxe" = (

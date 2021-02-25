@@ -55,7 +55,7 @@
 
 	if(HAS_TRAIT(user, TRAIT_HULK))
 		to_chat(user, "<span class='danger'>You can't seem to hold the blade properly!</span>")
-		return FALSE
+		user.unEquip(src, TRUE)
 
 /obj/item/restraints/legcuffs/bola/cult
 	name = "runed bola"
