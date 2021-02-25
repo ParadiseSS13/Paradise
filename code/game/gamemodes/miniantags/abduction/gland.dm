@@ -113,6 +113,8 @@
 	mind_control_duration = 3000
 
 /obj/item/organ/internal/heart/gland/heals/activate()
+	if(!(owner.mob_biotypes & MOB_ORGANIC))
+		return
 	to_chat(owner, "<span class='notice'>You feel curiously revitalized.</span>")
 	owner.adjustToxLoss(-20)
 	owner.adjustBruteLoss(-20)
@@ -281,13 +283,13 @@
 	if(ishuman(owner))
 		owner.gene_stability += GENE_INSTABILITY_MODERATE // give them this gene for free
 		owner.dna.SetSEState(GLOB.shockimmunityblock, TRUE)
-		genemutcheck(owner, GLOB.shockimmunityblock,  null, MUTCHK_FORCED)
+		singlemutcheck(owner, GLOB.shockimmunityblock, MUTCHK_FORCED)
 
 /obj/item/organ/internal/heart/gland/electric/remove(mob/living/carbon/M, special = 0)
 	if(ishuman(owner))
 		owner.gene_stability -= GENE_INSTABILITY_MODERATE // but return it to normal once it's removed
 		owner.dna.SetSEState(GLOB.shockimmunityblock, FALSE)
-		genemutcheck(owner, GLOB.shockimmunityblock,  null, MUTCHK_FORCED)
+		singlemutcheck(owner, GLOB.shockimmunityblock, MUTCHK_FORCED)
 	return ..()
 
 /obj/item/organ/internal/heart/gland/electric/activate()

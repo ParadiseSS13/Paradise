@@ -11,6 +11,7 @@
 	icon_state = "cursedclown"
 	icon_living = "cursedclown"
 	icon_gib = "clown_gib"
+	mob_biotypes = NONE
 	maxHealth = 200
 	health = 200
 	speed = -1
@@ -346,7 +347,7 @@
 		visible_message("<span class='danger'>[src] begins dragging [H] under the floor!</span>")
 
 		if(do_after(src, 50, target = H) && eating)
-			H.BecomeBlind()
+			H.become_blind(FLOORCLUWNE)
 			H.layer = GAME_PLANE
 			H.invisibility = INVISIBILITY_MAXIMUM
 			H.mouse_opacity = 0
@@ -388,7 +389,7 @@
 			O.droplimb()
 
 	Reset_View(FALSE, old_color, H)
-	H.CureBlind()
+	H.cure_blind(FLOORCLUWNE)
 	H.layer = initial(H.layer)
 	H.invisibility = initial(H.invisibility)
 	H.mouse_opacity = initial(H.mouse_opacity)

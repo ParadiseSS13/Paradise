@@ -12,6 +12,7 @@
 	var/butcher_state = 8 // Icon state for dead spider icons
 	icon_living = "guard"
 	icon_dead = "guard_dead"
+	mob_biotypes = MOB_ORGANIC | MOB_BUG
 	speak_emote = list("chitters")
 	emote_hear = list("chitters")
 	speak_chance = 5

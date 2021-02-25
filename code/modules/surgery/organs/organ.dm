@@ -100,7 +100,7 @@
 		return
 
 	//Process infections
-	if(is_robotic() || sterile || (owner && (NO_GERMS in owner.dna.species.species_traits)))
+	if(is_robotic() || sterile || (owner && HAS_TRAIT(owner, TRAIT_NOGERMS)))
 		germ_level = 0
 		return
 

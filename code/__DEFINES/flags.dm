@@ -35,10 +35,6 @@
 #define INFORM_ADMINS_ON_RELOCATE_2	32
 #define BANG_PROTECT_2			64
 
-// An item worn in the ear slot with HEALS_EARS will heal your ears each
-// Life() tick, even if normally your ears would be too damaged to heal.
-#define HEALS_EARS_2			128
-
 // A mob with OMNITONGUE has no restriction in the ability to speak
 // languages that they know. So even if they wouldn't normally be able to
 // through mob or tongue restrictions, this flag allows them to ignore
@@ -114,22 +110,21 @@
 #define NO_RUINS 	4
 
 //ITEM INVENTORY SLOT BITMASKS
-#define SLOT_OCLOTHING 1
-#define SLOT_ICLOTHING 2
-#define SLOT_GLOVES 4
-#define SLOT_EYES 8
-#define SLOT_EARS 16
-#define SLOT_MASK 32
-#define SLOT_HEAD 64
-#define SLOT_FEET 128
-#define SLOT_ID 256
-#define SLOT_BELT 512
-#define SLOT_BACK 1024
-#define SLOT_POCKET 2048		//this is to allow items with a w_class of 3 or 4 to fit in pockets.
-#define SLOT_DENYPOCKET 4096	//this is to deny items with a w_class of 2 or 1 to fit in pockets.
-#define SLOT_TWOEARS 8192
-#define SLOT_PDA 16384
-#define SLOT_TIE 32768
+#define SLOT_OCLOTHING	(1<<0)
+#define SLOT_ICLOTHING	(1<<1)
+#define SLOT_GLOVES		(1<<2)
+#define SLOT_EYES		(1<<3)
+#define SLOT_EARS		(1<<4)
+#define SLOT_MASK		(1<<5)
+#define SLOT_HEAD		(1<<6)
+#define SLOT_FEET		(1<<7)
+#define SLOT_ID			(1<<8)
+#define SLOT_BELT		(1<<9)
+#define SLOT_BACK		(1<<10)
+#define SLOT_POCKET 	(1<<11)	//this is to allow items with a w_class of 3 or 4 to fit in pockets.
+#define SLOT_TWOEARS	(1<<12)
+#define SLOT_PDA		(1<<13)
+#define SLOT_TIE		(1<<14)
 
 //ORGAN TYPE FLAGS
 #define AFFECT_ROBOTIC_ORGAN	1

@@ -239,7 +239,7 @@
 
 	var/areatemp = get_temperature(environment)
 
-	if(abs(areatemp - bodytemperature) > 5 && !(BREATHLESS in mutations))
+	if(abs(areatemp - bodytemperature) > 5 && !HAS_TRAIT(src, TRAIT_NOBREATH))
 		var/diff = areatemp - bodytemperature
 		diff = diff / 5
 		bodytemperature += diff
@@ -495,7 +495,7 @@
 				return FALSE
 			return TRUE
 
-/mob/living/simple_animal/equip_to_slot(obj/item/W, slot)
+/mob/living/simple_animal/equip_to_slot(obj/item/W, slot, initial = FALSE)
 	if(!istype(W))
 		return FALSE
 
@@ -509,7 +509,7 @@
 		if(slot_collar)
 			add_collar(W)
 
-/mob/living/simple_animal/unEquip(obj/item/I, force)
+/mob/living/simple_animal/unEquip(obj/item/I, force, silent = FALSE)
 	. = ..()
 	if(!. || !I)
 		return

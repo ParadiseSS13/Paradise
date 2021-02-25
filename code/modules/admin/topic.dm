@@ -17,7 +17,7 @@
 		if(!isclient(C))
 			return
 
-		C << 'sound/effects/adminhelp.ogg'
+		SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
 
 		to_chat(C, "<font color='red' size='4'><b>- AdminHelp Rejected! -</b></font>")
 		to_chat(C, "<font color='red'><b>Your admin help was rejected.</b></font>")
@@ -1875,14 +1875,16 @@
 		log_admin("Admin [key_name_admin(usr)] has unlocked the Cult's ability to summon Nar'Sie.")
 
 	else if(href_list["adminplayerobservecoodjump"])
-		if(!check_rights(R_ADMIN))	return
+		var/client/C = usr.client
+		if(!isobserver(usr))
+			if(!check_rights(R_ADMIN)) // Need to be admin to aghost
+				return
+			C.admin_ghost()
 
 		var/x = text2num(href_list["X"])
 		var/y = text2num(href_list["Y"])
 		var/z = text2num(href_list["Z"])
 
-		var/client/C = usr.client
-		if(!isobserver(usr))	C.admin_ghost()
 		sleep(2)
 		C.jumptocoord(x,y,z)
 
@@ -2085,15 +2087,15 @@
 				logmsg = "a heal over time."
 			if("Permanent Regeneration")
 				H.dna.SetSEState(GLOB.regenerateblock, 1)
-				genemutcheck(H, GLOB.regenerateblock,  null, MUTCHK_FORCED)
+				singlemutcheck(H, GLOB.regenerateblock, MUTCHK_FORCED)
 				H.update_mutations()
 				H.gene_stability = 100
 				logmsg = "permanent regeneration."
 			if("Super Powers")
-				var/list/default_genes = list(GLOB.regenerateblock, GLOB.breathlessblock, GLOB.coldblock)
-				for(var/gene in default_genes)
-					H.dna.SetSEState(gene, 1)
-					genemutcheck(H, gene,  null, MUTCHK_FORCED)
+				var/list/default_mutations = list(GLOB.regenerateblock, GLOB.breathlessblock, GLOB.coldblock)
+				for(var/mutation in default_mutations)
+					H.dna.SetSEState(mutation, 1)
+					singlemutcheck(H, mutation, MUTCHK_FORCED)
 					H.update_mutations()
 				H.gene_stability = 100
 				logmsg = "superpowers."
@@ -2232,7 +2234,7 @@
 				logmsg = "starvation."
 			if("Cluwne")
 				H.makeCluwne()
-				H.mutations |= NOCLONE
+				ADD_TRAIT(H, TRAIT_BADDNA, "smiting")
 				logmsg = "cluwned."
 			if("Mutagen Cookie")
 				var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
@@ -2253,7 +2255,7 @@
 				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
 				logmsg = "a hellwater cookie."
 			if("Hunter")
-				H.mutations |= NOCLONE
+				ADD_TRAIT(H, TRAIT_BADDNA, "smiting")
 				usr.client.create_eventmob_for(H, 1)
 				logmsg = "hunter."
 			if("Crew Traitor")
@@ -2324,7 +2326,7 @@
 			message_admins("[key_name_admin(usr)] sent [H.job] [H] to cryo.")
 			if(href_list["cryoafk"]) // Warn them if they are send to storage and are AFK
 				to_chat(H, "<span class='danger'>The admins have moved you to cryo storage for being AFK. Please eject yourself (right click, eject) out of the cryostorage if you want to avoid being despawned.</span>")
-				SEND_SOUND(H, 'sound/effects/adminhelp.ogg')
+				SEND_SOUND(H, sound('sound/effects/adminhelp.ogg'))
 				if(H.client)
 					window_flash(H.client)
 	else if(href_list["FaxReplyTemplate"])
