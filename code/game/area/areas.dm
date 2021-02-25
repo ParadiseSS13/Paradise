@@ -484,7 +484,7 @@
 	//Ship ambience just loops if turned on.
 	if(L && L.client && !L.client.ambience_playing && (L.client.prefs.sound & SOUND_BUZZ))
 		L.client.ambience_playing = TRUE
-		SEND_SOUND(L, sound('sound/ambience/shipambience.ogg', repeat = TRUE, wait = FALSE, volume = 35, channel = CHANNEL_BUZZ))
+		SEND_SOUND(L, sound('sound/ambience/shipambience.ogg', repeat = TRUE, wait = FALSE, volume = 35 * L.client.prefs.get_channel_volume(CHANNEL_BUZZ), channel = CHANNEL_BUZZ))
 	else if(L && L.client && !(L.client.prefs.sound & SOUND_BUZZ))
 		L.client.ambience_playing = FALSE
 
