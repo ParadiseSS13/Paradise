@@ -10,7 +10,7 @@
 /**
   * # Syndicate Contract
   *
-  * Describes a contract that can be completed by a [/datum/antagonist/traitor/contractor].
+  * Describes a contract that can be completed by a Contractor.
   */
 /datum/syndicate_contract
 	// Settings
@@ -320,6 +320,7 @@
   */
 /datum/syndicate_contract/proc/target_received(mob/living/M, obj/effect/portal/redspace/contractor/P)
 	INVOKE_ASYNC(src, .proc/clean_up)
+	add_attack_logs(owning_hub.owner.current, M, "extracted to Syndicate Jail")
 	complete(M.stat == DEAD)
 	handle_target_experience(M, P)
 
@@ -476,7 +477,7 @@
 /datum/syndicate_contract/proc/handle_target_return(mob/living/M)
 	var/list/turf/possible_turfs = list()
 	for(var/turf/T in contract.extraction_zone.contents)
-		if(!isspaceturf(T) && !isunsimulatedturf(T) && !is_blocked_turf(T))
+		if(!isspaceturf(T) && !is_blocked_turf(T))
 			possible_turfs += T
 
 	var/turf/destination = length(possible_turfs) ? pick(possible_turfs) : pick(GLOB.latejoin)

@@ -274,7 +274,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	for(var/datum/language/L in R.languages)
 		H.add_language(L.name)
 
-	domutcheck(H, null, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
+	domutcheck(H, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
 
 	if(efficiency > 2 && efficiency < 5 && prob(25))
 		randmutb(H)

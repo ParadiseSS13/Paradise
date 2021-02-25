@@ -213,7 +213,6 @@
 	icon_resting = "Syndicat_rest"
 	meow_sound = null	//Need robo-meow.
 	gender = FEMALE
-	mutations = list(BREATHLESS)
 	faction = list("syndicate")
 	gold_core_spawnable = NO_SPAWN
 	eats_mice = 0
@@ -221,6 +220,10 @@
 	minbodytemp = 0
 	melee_damage_lower = 5
 	melee_damage_upper = 15
+
+/mob/living/simple_animal/pet/cat/Syndi/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NOBREATH, SPECIES_TRAIT)
 
 /mob/living/simple_animal/pet/cat/cak
 	name = "Keeki"

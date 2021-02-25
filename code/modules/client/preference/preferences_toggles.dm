@@ -277,15 +277,15 @@
 	return
 
 /client/verb/numpad_target()
-	set name = "Toggle Numpad targetting"
+	set name = "Toggle Numpad Targeting"
 	set category = "Preferences"
-	set desc = "This button will allow you to enable or disable Numpad Targetting"
+	set desc = "This button will allow you to enable or disable Numpad Targeting"
 	prefs.toggles ^= PREFTOGGLE_NUMPAD_TARGET
 	prefs.save_preferences(src)
 	if (prefs.toggles & PREFTOGGLE_NUMPAD_TARGET)
-		to_chat(usr, "<span class='notice'>You have enabled Numpad Targetting.")
+		to_chat(usr, "<span class='notice'>You have enabled Numpad Targeting.")
 	else
-		to_chat(usr, "<span class='notice'>You have disabled Numpad Targetting.")
+		to_chat(usr, "<span class='notice'>You have disabled Numpad Targeting.")
 	return
 
 /client/verb/azerty_toggle()
