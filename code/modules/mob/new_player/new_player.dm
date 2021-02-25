@@ -400,7 +400,14 @@
 					arrivalmessage = replacetext(arrivalmessage,"$rank",rank ? "[rank]" : "visitor")
 					arrivalmessage = replacetext(arrivalmessage,"$species",character.dna.species.name)
 					arrivalmessage = replacetext(arrivalmessage,"$age",num2text(character.age))
-					arrivalmessage = replacetext(arrivalmessage,"$gender",character.gender == FEMALE ? "Female" : "Male")
+					// Account for genderless mobs
+					var/target_gender = "genderless"
+					switch(character.gender)
+  						if(MALE)
+        					target_gender = "male"
+    					if(FEMALE)
+        					target_gender = "female"
+					arrivalmessage = replacetext(arrivalmessage,"$gender",target_gender)
 					announcer.say(";[arrivalmessage]")
 		else
 			if(character.mind)
