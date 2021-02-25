@@ -108,7 +108,6 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_PLAYING)
 			delay_end = FALSE // reset this in case round start was delayed
 			mode.process()
-			mode.process_job_tasks()
 
 			if(world.time > next_autotransfer)
 				SSvote.autotransfer()
@@ -538,11 +537,6 @@ SUBSYSTEM_DEF(ticker)
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE
 	GLOB.news_network.channels += newChannel
-
-	for(var/loc_type in subtypesof(/datum/trade_destination))
-		var/datum/trade_destination/D = new loc_type
-		GLOB.weighted_randomevent_locations[D] = D.viable_random_events.len
-		GLOB.weighted_mundaneevent_locations[D] = D.viable_mundane_events.len
 
 // Easy handler to make rebooting the world not a massive sleep in world/Reboot()
 /datum/controller/subsystem/ticker/proc/reboot_helper(reason, end_string, delay)

@@ -143,10 +143,22 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/toy/prizeball/therapy
 	cost = 60
 
+/datum/prize_item/baby
+	name = "Toddler"
+	desc = "This baby looks almost real. Wait, did it just burp?"
+	typepath = /obj/item/toddler
+	cost = 60
+
 /datum/prize_item/minigibber
 	name = "Minigibber Toy"
 	desc = "A model of the station gibber. Probably shouldn't stick your fingers in it."
 	typepath = /obj/item/toy/minigibber
+	cost = 60
+
+/datum/prize_item/katana
+	name = "Replica Katana"
+	desc = "Woefully underpowered in D20."
+	typepath = /obj/item/toy/katana
 	cost = 60
 
 /datum/prize_item/confetti
@@ -214,6 +226,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	desc = "A cool-looking turtleneck."
 	typepath = /obj/item/clothing/under/syndicate/tacticool
 	cost = 90
+
+/datum/prize_item/banhammer
+	name = "Banhammer"
+	desc = "A Banhammer."
+	typepath = /obj/item/banhammer
+	cost = 100
 
 /datum/prize_item/nanomob_booster
 	name = "Nano-Mob Hunter Trading Card Booster Pack"

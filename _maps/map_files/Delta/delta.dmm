@@ -30031,7 +30031,6 @@
 	},
 /area/hallway/primary/fore)
 "blA" = (
-/obj/machinery/computer/merch,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -47085,7 +47084,6 @@
 	},
 /area/bridge/meeting_room)
 "bOM" = (
-/obj/machinery/computer/account_database,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},

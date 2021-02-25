@@ -172,10 +172,6 @@
 					if(cost)
 						SSshuttle.techLevels[tech.id] = tech.level
 						SSshuttle.points += cost
-						for(var/mob/M in GLOB.player_list)
-							if(M.mind)
-								for(var/datum/job_objective/further_research/objective in M.mind.job_objectives)
-									objective.unit_completed(cost)
 						msg += "<span class='good'>+[cost]</span>: [tech.name] - new data.<br>"
 
 				// Sell designs

@@ -67,8 +67,7 @@
 	l_ear = /obj/item/radio/headset/headset_service
 	pda = /obj/item/pda/chef
 	backpack_contents = list(
-		/obj/item/eftpos=1,\
-		/obj/item/paper/chef=1,\
+		/obj/item/paper/chef=1,
 		/obj/item/book/manual/chef_recipes=1)
 
 /datum/outfit/job/chef/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

@@ -1505,7 +1505,7 @@
 /turf/simulated/floor/engine/cult,
 /area/wizard_station)
 "fp" = (
-/obj/machinery/vending/snack/free,
+/obj/machinery/vending/snack,
 /turf/simulated/floor/engine/cult,
 /area/wizard_station)
 "fq" = (
@@ -3076,9 +3076,6 @@
 	},
 /area/centcom/control)
 "ld" = (
-/obj/machinery/atm{
-	pixel_y = 24
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -7682,9 +7679,6 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "yS" = (
-/obj/machinery/computer/account_database{
-	name = "Admin Accounts Database"
-	},
 /turf/simulated/floor/plasteel,
 /area/admin)
 "yT" = (
@@ -8319,7 +8313,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/centcom/evac)
 "Bd" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "Be" = (
@@ -12382,10 +12376,6 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/vox)
 "Ya" = (
-/obj/machinery/atm{
-	pixel_x = 0;
-	pixel_y = 32
-	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},

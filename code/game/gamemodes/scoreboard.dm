@@ -188,8 +188,6 @@
 		else
 			dat += "No-one escaped!<br>"
 
-	dat += mode.declare_job_completion()
-
 	dat += {"
 	<hr><br>
 	<b><u>FINAL SCORE: [GLOB.score_crewscore]</u></b><br>
@@ -227,11 +225,6 @@
 		return 0
 	else
 		. = 0
-		for(var/obj/item/card/id/id in C.contents)
-			var/datum/money_account/A = get_money_account(id.associated_account_number)
-			// has an account?
-			if(A)
-				. += A.money
 		for(var/obj/item/stack/spacecash/cash in C.contents)
 			. += cash.amount
 		for(var/obj/item/storage/S in C.contents)

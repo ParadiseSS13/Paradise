@@ -203,11 +203,11 @@
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "J" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "K" = (
-/obj/machinery/vending/snack/free,
+/obj/machinery/vending/snack,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "L" = (

@@ -492,7 +492,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/machinery/vending/crittercare/free,
+/obj/machinery/vending/crittercare,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bn" = (
