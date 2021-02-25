@@ -480,6 +480,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	ambientsounds = MINING_SOUNDS
 	sound_environment = SOUND_AREA_ASTEROID
+	min_ambience_cooldown = 70 SECONDS
+	max_ambience_cooldown = 220 SECONDS
 
 /area/asteroid/cave				// -- TLE
 	name = "\improper Asteroid - Underground"
@@ -1239,6 +1241,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/medical
 	ambientsounds = MEDICAL_SOUNDS
 	sound_environment = SOUND_AREA_STANDARD_STATION
+	min_ambience_cooldown = 90 SECONDS
+	max_ambience_cooldown = 180 SECONDS
 
 /area/medical/medbay
 	name = "\improper Medbay"
