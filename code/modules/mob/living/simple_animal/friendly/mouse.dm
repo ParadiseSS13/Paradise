@@ -23,6 +23,7 @@
 	density = 0
 	ventcrawler = 2
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	mob_size = MOB_SIZE_TINY
 	var/mouse_color //brown, gray and white, leave blank for random
 	layer = MOB_LAYER
@@ -46,7 +47,7 @@
 		if(istype(F) && !F.intact)
 			var/obj/structure/cable/C = locate() in F
 			if(C && prob(15))
-				if(C.avail())
+				if(C.avail() && !HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
 					visible_message("<span class='warning'>[src] chews through [C]. It's toast!</span>")
 					playsound(src, 'sound/effects/sparks2.ogg', 100, 1)
 					toast() // mmmm toasty.
@@ -169,6 +170,10 @@
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 
+/mob/living/simple_animal/mouse/brown/Tom/Initialize(mapload)
+	. = ..()
+	// Tom fears no cable.
+	ADD_TRAIT(src, TRAIT_SHOCKIMMUNE, SPECIES_TRAIT)
 
 /mob/living/simple_animal/mouse/blobinfected
 	maxHealth = 100

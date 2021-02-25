@@ -81,11 +81,8 @@
 			qdel(A)
 		return
 	// Adds the adjacent turfs to the current atmos processing
-	for(var/direction in GLOB.cardinal)
-		if(atmos_adjacent_turfs & direction)
-			var/turf/simulated/T = get_step(src, direction)
-			if(istype(T))
-				SSair.add_to_active(T)
+	for(var/turf/simulated/T in atmos_adjacent_turfs)
+		SSair.add_to_active(T)
 	SSair.remove_from_active(src)
 	visibilityChanged()
 	QDEL_LIST(blueprint_data)
@@ -410,7 +407,7 @@
 				L.Add(T)
 	return L
 
-// check for all turfs, including unsimulated ones
+// check for all turfs, including space ones
 /turf/proc/AdjacentTurfsSpace(obj/item/card/id/ID = null, list/closed)//check access if one is passed
 	var/list/L = new()
 	var/turf/T

@@ -71,11 +71,11 @@
 		if(!(M.restrained()) && !(M.stat))
 			switch(over_object.name)
 				if("r_hand")
-					if(!M.unEquip(src))
+					if(!M.unEquip(src, silent = TRUE))
 						return
 					M.put_in_r_hand(src)
 				if("l_hand")
-					if(!M.unEquip(src))
+					if(!M.unEquip(src, silent = TRUE))
 						return
 					M.put_in_l_hand(src)
 			add_fingerprint(usr)
@@ -297,7 +297,7 @@
 	if(!istype(W))
 		return FALSE
 	if(usr)
-		if(!usr.unEquip(W))
+		if(!usr.unEquip(W, silent = TRUE))
 			return FALSE
 		usr.update_icons()	//update our overlays
 	if(silent)
@@ -307,7 +307,7 @@
 	if(usr)
 		if(usr.client && usr.s_active != src)
 			usr.client.screen -= W
-		W.dropped(usr)
+		W.dropped(usr, TRUE)
 		add_fingerprint(usr)
 
 		if(!prevent_warning && !istype(W, /obj/item/gun/energy/kinetic_accelerator/crossbow))
@@ -343,7 +343,7 @@
 
 	if(new_location)
 		if(ismob(loc))
-			W.dropped(usr)
+			W.dropped(usr, TRUE)
 		if(ismob(new_location))
 			W.layer = ABOVE_HUD_LAYER
 			W.plane = ABOVE_HUD_PLANE

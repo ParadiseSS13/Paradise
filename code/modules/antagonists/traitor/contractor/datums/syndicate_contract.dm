@@ -477,7 +477,7 @@
 /datum/syndicate_contract/proc/handle_target_return(mob/living/M)
 	var/list/turf/possible_turfs = list()
 	for(var/turf/T in contract.extraction_zone.contents)
-		if(!isspaceturf(T) && !isunsimulatedturf(T) && !is_blocked_turf(T))
+		if(!isspaceturf(T) && !is_blocked_turf(T))
 			possible_turfs += T
 
 	var/turf/destination = length(possible_turfs) ? pick(possible_turfs) : pick(GLOB.latejoin)

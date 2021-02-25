@@ -6,6 +6,7 @@
 	icon_living = "russianmelee"
 	icon_dead = "russianmelee_dead" // Does not actually exist. del_on_death.
 	icon_gib = "russianmelee_gib" // Does not actually exist. del_on_death.
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	speak_chance = 0
 	turns_per_move = 5
 	response_help = "pokes the"

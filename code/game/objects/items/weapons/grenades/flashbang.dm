@@ -74,7 +74,7 @@
 			if(!ear_safety)
 				M.Stun(stun_amount)
 				M.Weaken(stun_amount)
-				M.AdjustEarDamage(rand(0, 5), 15)
+				M.AdjustEarDamage(5, 15)
 				if(iscarbon(M))
 					var/mob/living/carbon/C = M
 					var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
@@ -83,6 +83,5 @@
 							to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
 							if(prob(ears.ear_damage - 5))
 								to_chat(M, "<span class='warning'>You can't hear anything!</span>")
-								M.BecomeDeaf()
 						else if(ears.ear_damage >= 5)
 							to_chat(M, "<span class='warning'>Your ears start to ring!</span>")

@@ -86,7 +86,8 @@
 		if(PARALYZE)
 			Paralyse(effect * blocked)
 		if(IRRADIATE)
-			radiation += max(effect * blocked, 0)
+			if(!HAS_TRAIT(src, TRAIT_RADIMMUNE))
+				radiation += max(effect * blocked, 0)
 		if(SLUR)
 			Slur(effect * blocked)
 		if(STUTTER)
@@ -150,7 +151,7 @@
 	if(status_flags & GODMODE)
 		oxyloss = 0
 		return FALSE	//godmode
-	if(BREATHLESS in mutations)
+	if(HAS_TRAIT(src, TRAIT_NOBREATH))
 		oxyloss = 0
 		return FALSE
 	var/old_oxyloss = oxyloss
@@ -167,7 +168,7 @@
 	if(status_flags & GODMODE)
 		oxyloss = 0
 		return FALSE	//godmode
-	if(BREATHLESS in mutations)
+	if(HAS_TRAIT(src, TRAIT_NOBREATH))
 		oxyloss = 0
 		return FALSE
 	var/old_oxyloss = oxyloss

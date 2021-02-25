@@ -54,8 +54,8 @@
 /datum/status_effect/blooddrunk/on_apply()
 	. = ..()
 	if(.)
+		ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk")
 		if(ishuman(owner))
-			owner.status_flags |= IGNORESLOWDOWN
 			var/mob/living/carbon/human/H = owner
 			H.physiology.brute_mod *= 0.1
 			H.physiology.burn_mod *= 0.1
@@ -65,7 +65,7 @@
 			H.physiology.stamina_mod *= 0.1
 		add_attack_logs(owner, owner, "gained blood-drunk stun immunity", ATKLOG_ALL)
 		owner.add_stun_absorption("blooddrunk", INFINITY, 4)
-		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, 1)
+		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, TRUE, use_reverb = FALSE)
 
 /datum/status_effect/blooddrunk/on_remove()
 	if(ishuman(owner))
@@ -77,7 +77,7 @@
 		H.physiology.clone_mod *= 10
 		H.physiology.stamina_mod *= 10
 	add_attack_logs(owner, owner, "lost blood-drunk stun immunity", ATKLOG_ALL)
-	owner.status_flags &= ~IGNORESLOWDOWN
+	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk")
 	if(islist(owner.stun_absorption) && owner.stun_absorption["blooddrunk"])
 		owner.stun_absorption -= "blooddrunk"
 
@@ -211,7 +211,7 @@
 	alert_type = /obj/screen/alert/status_effect/regenerative_core
 
 /datum/status_effect/regenerative_core/on_apply()
-	owner.status_flags |= IGNORE_SPEED_CHANGES
+	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)
 	owner.adjustBruteLoss(-25)
 	owner.adjustFireLoss(-25)
 	owner.remove_CC()
@@ -227,4 +227,4 @@
 	return TRUE
 
 /datum/status_effect/regenerative_core/on_remove()
-	owner.status_flags &= ~IGNORE_SPEED_CHANGES
+	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)
