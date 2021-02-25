@@ -1,3 +1,99 @@
+///////////////////////////////////////
+///////////    GALLETAS     //////////
+/////////////////////////////////////
+/datum/status_effect/peacecookie
+	id = "peacecookie"
+	status_type = STATUS_EFFECT_REPLACE
+	alert_type = null
+	duration = 100
+
+/datum/status_effect/peacecookie/tick()
+	for(var/mob/living/L in range(get_turf(owner),1))
+		L.apply_status_effect(/datum/status_effect/plur)
+
+/datum/status_effect/plur
+	id = "plur"
+	status_type = STATUS_EFFECT_REPLACE
+	alert_type = null
+	duration = 30
+
+/datum/status_effect/plur/on_apply()
+	ADD_TRAIT(owner, TRAIT_PACIFISM, "peacecookie")
+	return ..()
+
+/datum/status_effect/plur/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "peacecookie")
+
+/datum/status_effect/watercookie
+	id = "watercookie"
+	status_type = STATUS_EFFECT_REPLACE
+	alert_type = null
+	duration = 110
+
+/datum/status_effect/watercookie/on_apply()
+	ADD_TRAIT(owner, TRAIT_NOSLIPWATER, "watercookie")
+	return ..()
+
+/datum/status_effect/watercookie/tick()
+	for(var/turf/simulated/T in range(get_turf(owner),1))
+		T.MakeSlippery(TURF_WET_WATER, 10)
+
+/datum/status_effect/watercookie/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_NOSLIPWATER, "watercookie")
+
+/datum/status_effect/metalcookie
+	id = "metalcookie"
+	status_type = STATUS_EFFECT_REPLACE
+	alert_type = null
+	duration = 100
+
+/datum/status_effect/metalcookie/on_apply()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		H.dna.species.brute_mod *= 0.9
+	return ..()
+
+/datum/status_effect/metalcookie/on_remove()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		H.dna.species.brute_mod /= 0.9
+
+/datum/status_effect/sparkcookie
+	id = "sparkcookie"
+	status_type = STATUS_EFFECT_REPLACE
+	alert_type = null
+	duration = 300
+	var/original_coeff
+
+/datum/status_effect/sparkcookie/on_apply()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		original_coeff = H.dna.species.siemens_coeff
+		H.dna.species.siemens_coeff = 0
+	return ..()
+
+/datum/status_effect/sparkcookie/on_remove()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		H.dna.species.siemens_coeff = original_coeff
+
+/datum/status_effect/adamantinecookie
+	id = "adamantinecookie"
+	status_type = STATUS_EFFECT_REPLACE
+	alert_type = null
+	duration = 300
+
+/datum/status_effect/adamantinecookie/on_apply()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		H.dna.species.burn_mod *= 0.9
+	return ..()
+
+/datum/status_effect/adamantinecookie/on_remove()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		H.dna.species.burn_mod /= 0.9
+
 ///////////////////////////////////////////////////////
 //////////////////STABILIZED EXTRACTS//////////////////
 ///////////////////////////////////////////////////////
@@ -97,28 +193,16 @@
 		examine_text = null
 	..()
 
-/datum/status_effect/peacecookie
-	id = "peacecookie"
-	status_type = STATUS_EFFECT_REPLACE
-	alert_type = null
-	duration = 100
+/datum/status_effect/stabilized/blue
+	id = "stabilizedblue"
+	colour = "blue"
 
-/datum/status_effect/peacecookie/tick()
-	for(var/mob/living/L in range(get_turf(owner),1))
-		L.apply_status_effect(/datum/status_effect/plur)
-
-/datum/status_effect/plur
-	id = "plur"
-	status_type = STATUS_EFFECT_REPLACE
-	alert_type = null
-	duration = 30
-
-/datum/status_effect/plur/on_apply()
-	ADD_TRAIT(owner, TRAIT_PACIFISM, "peacecookie")
+/datum/status_effect/stabilized/blue/on_apply()
+	ADD_TRAIT(owner, TRAIT_NOSLIPWATER, "slimestatus")
 	return ..()
 
-/datum/status_effect/plur/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "peacecookie")
+/datum/status_effect/stabilized/blue/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_NOSLIPWATER, "slimestatus")
 
 /datum/status_effect/stabilized/metal
 	id = "stabilizedmetal"
@@ -145,27 +229,44 @@
 /datum/status_effect/stabilized/yellow
 	id = "stabilizedyellow"
 	colour = "yellow"
+	examine_text = "<span class='warning'>Nearby electronics seem just a little more charged wherever SUBJECTPRONOUN goes.</span>"
+	duration = 600 //dura 1 minuto, recarga 60 veces 150 de carga, osea en un minuto recarga 9kW
+	var/energy = 150
 	var/cooldown = 10
 	var/max_cooldown = 10
-	examine_text = "<span class='warning'>Nearby electronics seem just a little more charged wherever SUBJECTPRONOUN goes.</span>"
 
 /datum/status_effect/stabilized/yellow/tick()
-    if(cooldown > 0)
-        cooldown--
-        return ..()
-    cooldown = max_cooldown
-    var/list/batteries = list()
-    for(var/obj/item/stock_parts/cell/C in owner.GetAllContents())
-        if(C.charge < C.maxcharge)
-            batteries += C
-    if(batteries.len)
-        var/obj/item/stock_parts/cell/ToCharge = pick(batteries)
-        ToCharge.charge += min(ToCharge.maxcharge - ToCharge.charge, ToCharge.maxcharge/10) //10% of the cell, or to maximum.
-        for(var/obj/item/gun/energy/G in owner.GetAllContents())
-            G.on_recharge()
-            G.update_icon()
-        to_chat(owner, "<span class='notice'>[linked_extract] discharges some energy into a device you have.</span>")
-    return ..()
+	if(cooldown > 0)
+		cooldown--
+		return ..()
+	cooldown = max_cooldown
+	var/list/batteries = list()
+	for(var/obj/item/stock_parts/cell/C in owner.GetAllContents())
+		if(C.charge < C.maxcharge)
+			batteries += C
+	if(batteries.len)
+		var/obj/item/stock_parts/cell/ToCharge = pick(batteries)
+		ToCharge.give(energy)
+		for(var/obj/item/gun/energy/G in owner.GetAllContents())
+			G.on_recharge()
+			G.update_icon()
+		to_chat(owner, "<span class='notice'>[linked_extract] discharges some energy into a device you have.</span>")
+	return ..()
+
+/datum/status_effect/stabilized/silver
+	id = "stabilizedsilver"
+	colour = "silver"
+
+/datum/status_effect/stabilized/silver/on_apply()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		H.hunger_drain *= 0.8 //20% buff
+	return ..()
+
+/datum/status_effect/stabilized/silver/on_remove()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		H.hunger_drain /= 0.8
 
 /datum/status_effect/stabilized/pyrite
 	id = "stabilizedpyrite"

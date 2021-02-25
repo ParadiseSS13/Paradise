@@ -63,13 +63,10 @@
 	switch(percent())
 		if(90 to 100)
 			overlays += "cell-o2"
-			return
 		if(20 to 90)
 			overlays += "cell-o1"
-			return
 		if(0.01 to 20)
 			overlays += image('icons/hispania/obj/power.dmi', "cell-o0")
-			return
 
 /obj/item/stock_parts/cell/proc/percent()		// return % charge of cell
 	return 100 * charge / maxcharge
@@ -79,10 +76,12 @@
 	if(rigged && amount > 0)
 		explode()
 		return 0
-	if(charge < amount)
-		return 0
-	charge = (charge - amount)
-	return 1
+	/*if(charge < amount) PARADISE NO SABE NADA DE BATERIAS, ARRIBA ERIS
+		return 0*/
+	var/used = min(charge, amount)
+	charge -= used
+	update_icon()//cada vez que se gana o pierde carga se updatea el icono
+	return used //BY Evan
 
 // recharge the cell
 /obj/item/stock_parts/cell/proc/give(amount)
@@ -93,6 +92,7 @@
 		amount = maxcharge
 	var/power_used = min(maxcharge - charge, amount)
 	charge += power_used
+	update_icon()//cada vez que se gana o pierde carga se updatea el icono
 	return power_used
 
 /obj/item/stock_parts/cell/examine(mob/user)

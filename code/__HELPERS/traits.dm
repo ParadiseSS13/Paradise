@@ -68,6 +68,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_JESTER			"jester"
 //hispatraits
 #define TRAIT_AGEUSIA			"ageusia"
+#define TRAIT_NOSLIPWATER		"noslip_water"
 //finhispatraits
 
 #define TRAIT_TESLA_SHOCKIMMUNE	"tesla_shock_immunity"
