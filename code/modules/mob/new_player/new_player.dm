@@ -403,10 +403,10 @@
 					// Account for genderless mobs
 					var/target_gender = "genderless"
 					switch(character.gender)
-  						if(MALE)
-        					target_gender = "male"
-    					if(FEMALE)
-        					target_gender = "female"
+						if(MALE)
+							target_gender = "male"
+						if(FEMALE)
+							target_gender = "female"
 					arrivalmessage = replacetext(arrivalmessage,"$gender",target_gender)
 					announcer.say(";[arrivalmessage]")
 		else
