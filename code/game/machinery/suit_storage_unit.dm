@@ -332,6 +332,8 @@
 		I.play_tool_sound(user, I.tool_volume)
 
 /obj/machinery/suit_storage_unit/proc/store_item(obj/item/I, mob/user)
+	if(I.flags & NODROP)
+		return
 	. = FALSE
 	if(istype(I, /obj/item/clothing/suit) && !suit)
 		suit = I
