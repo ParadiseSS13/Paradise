@@ -201,7 +201,7 @@
 
 /datum/dog_fashion/back/hardsuit/apply(mob/living/simple_animal/pet/dog/D)
 	..()
-	D.mutations.Add(BREATHLESS)
+	ADD_TRAIT(D, TRAIT_NOBREATH, DOGGO_SPACESUIT)
 	D.atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	D.minbodytemp = 0
 

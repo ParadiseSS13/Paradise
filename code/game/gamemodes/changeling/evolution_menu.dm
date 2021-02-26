@@ -112,7 +112,7 @@
 		to_chat(user, "We have reached our capacity for abilities.")
 		return FALSE
 
-	if(user.status_flags & FAKEDEATH)//To avoid potential exploits by buying new powers while in stasis, which clears your verblist.
+	if(HAS_TRAIT(user, TRAIT_FAKEDEATH)) //To avoid potential exploits by buying new powers while in stasis, which clears your verblist.
 		to_chat(user, "We lack the energy to evolve new abilities right now.")
 		return FALSE
 
