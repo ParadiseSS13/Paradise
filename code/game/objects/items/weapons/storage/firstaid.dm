@@ -87,12 +87,9 @@
 	icon_state = pick("antitoxin", "antitoxfirstaid", "antitoxfirstaid2", "antitoxfirstaid3")
 
 /obj/item/storage/firstaid/toxin/populate_contents()
-	new /obj/item/reagent_containers/syringe/charcoal(src)
-	new /obj/item/reagent_containers/syringe/charcoal(src)
-	new /obj/item/reagent_containers/syringe/charcoal(src)
-	new /obj/item/reagent_containers/food/pill/charcoal(src)
-	new /obj/item/reagent_containers/food/pill/charcoal(src)
-	new /obj/item/reagent_containers/food/pill/charcoal(src)
+	for(var/I in 1 to 3)
+		new /obj/item/reagent_containers/syringe/charcoal(src)
+		new /obj/item/reagent_containers/food/pill/charcoal(src)
 	new /obj/item/healthanalyzer(src)
 
 /obj/item/storage/firstaid/toxin/empty/populate_contents()
@@ -171,7 +168,6 @@
 
 /obj/item/storage/firstaid/machine/empty/populate_contents()
 	return
-
 
 /obj/item/storage/firstaid/tactical
 	name = "first-aid kit"
@@ -279,14 +275,11 @@
 	wrapper_color = COLOR_MAROON
 
 /obj/item/storage/pill_bottle/ert/populate_contents()
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
-	new /obj/item/reagent_containers/food/pill/charcoal(src)
-	new /obj/item/reagent_containers/food/pill/charcoal(src)
-	new /obj/item/reagent_containers/food/pill/charcoal(src)
+	for(var/I in 1 to 3)
+		new /obj/item/reagent_containers/food/pill/salicylic(src)
+		new /obj/item/reagent_containers/food/pill/charcoal(src)
 
-/obj/item/storage/pill_bottle/MouseDrop(obj/over_object as obj) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
+/obj/item/storage/pill_bottle/MouseDrop(obj/over_object) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
 	if(iscarbon(over_object))
 		var/mob/living/carbon/C = over_object
 		if(loc == C && src == C.get_active_hand())
@@ -324,13 +317,8 @@
 	wrapper_color = COLOR_GREEN
 
 /obj/item/storage/pill_bottle/charcoal/populate_contents()
-	new /obj/item/reagent_containers/food/pill/charcoal(src)
-	new /obj/item/reagent_containers/food/pill/charcoal(src)
-	new /obj/item/reagent_containers/food/pill/charcoal(src)
-	new /obj/item/reagent_containers/food/pill/charcoal(src)
-	new /obj/item/reagent_containers/food/pill/charcoal(src)
-	new /obj/item/reagent_containers/food/pill/charcoal(src)
-	new /obj/item/reagent_containers/food/pill/charcoal(src)
+	for(var/I in 1 to 7)
+		new /obj/item/reagent_containers/food/pill/charcoal(src)
 
 /obj/item/storage/pill_bottle/painkillers
 	name = "Pill Bottle (Salicylic Acid)"
@@ -338,14 +326,8 @@
 	wrapper_color = COLOR_RED
 
 /obj/item/storage/pill_bottle/painkillers/populate_contents()
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
+	for(var/I in 1 to 8)
+		new /obj/item/reagent_containers/food/pill/salicylic(src)
 
 /obj/item/storage/pill_bottle/fakedeath
 	allow_wrap = FALSE

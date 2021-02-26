@@ -150,12 +150,8 @@
 	name = "Shotgun shells"
 
 /obj/item/storage/box/syndie_kit/boolets/populate_contents()
-	new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
-	new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
-	new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
-	new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
-	new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
-	new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
+	for(var/I in 1 to 6)
+		new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
 
 /obj/item/storage/box/syndie_kit/emp
 	name = "boxed EMP kit"
@@ -169,11 +165,8 @@
 	name = "Pack of C-4 Explosives"
 
 /obj/item/storage/box/syndie_kit/c4/populate_contents()
-	new /obj/item/grenade/plastic/c4(src)
-	new /obj/item/grenade/plastic/c4(src)
-	new /obj/item/grenade/plastic/c4(src)
-	new /obj/item/grenade/plastic/c4(src)
-	new /obj/item/grenade/plastic/c4(src)
+	for(var/I in 1 to 5)
+		new /obj/item/grenade/plastic/c4(src)
 
 /obj/item/storage/box/syndie_kit/throwing_weapons
 	name = "boxed throwing kit"
@@ -182,11 +175,8 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/box/syndie_kit/throwing_weapons/populate_contents()
-	new /obj/item/throwing_star(src)
-	new /obj/item/throwing_star(src)
-	new /obj/item/throwing_star(src)
-	new /obj/item/throwing_star(src)
-	new /obj/item/throwing_star(src)
+	for(var/I in 1 to 5)
+		new /obj/item/throwing_star(src)
 	new /obj/item/restraints/legcuffs/bola/tactical(src)
 	new /obj/item/restraints/legcuffs/bola/tactical(src)
 
@@ -203,25 +193,16 @@
 	name = "bioterror syringe box"
 
 /obj/item/storage/box/syndie_kit/bioterror/populate_contents()
-	new /obj/item/reagent_containers/syringe/bioterror(src)
-	new /obj/item/reagent_containers/syringe/bioterror(src)
-	new /obj/item/reagent_containers/syringe/bioterror(src)
-	new /obj/item/reagent_containers/syringe/bioterror(src)
-	new /obj/item/reagent_containers/syringe/bioterror(src)
-	new /obj/item/reagent_containers/syringe/bioterror(src)
-	new /obj/item/reagent_containers/syringe/bioterror(src)
+	for(var/I in 1 to 7)
+		new /obj/item/reagent_containers/syringe/bioterror(src)
 
 /obj/item/storage/box/syndie_kit/caneshotgun
 	name = "cane gun kit"
 
 
 /obj/item/storage/box/syndie_kit/caneshotgun/populate_contents()
-	new /obj/item/ammo_casing/shotgun/assassination(src)
-	new /obj/item/ammo_casing/shotgun/assassination(src)
-	new /obj/item/ammo_casing/shotgun/assassination(src)
-	new /obj/item/ammo_casing/shotgun/assassination(src)
-	new /obj/item/ammo_casing/shotgun/assassination(src)
-	new /obj/item/ammo_casing/shotgun/assassination(src)
+	for(var/I in 1 to 6)
+		new /obj/item/ammo_casing/shotgun/assassination(src)
 	new /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane(src)
 
 /obj/item/storage/box/syndie_kit/fake_revolver
@@ -328,4 +309,3 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/reagent_containers/syringe/capulettium_plus(src)
 	new /obj/item/reagent_containers/syringe/sarin(src)
 	new /obj/item/reagent_containers/syringe/pancuronium(src)
-

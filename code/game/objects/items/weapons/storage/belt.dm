@@ -272,12 +272,8 @@
 		)
 
 /obj/item/storage/belt/soulstone/full/populate_contents()
-	new /obj/item/soulstone(src)
-	new /obj/item/soulstone(src)
-	new /obj/item/soulstone(src)
-	new /obj/item/soulstone(src)
-	new /obj/item/soulstone(src)
-	new /obj/item/soulstone(src)
+	for(var/I in 1 to 6)
+		new /obj/item/soulstone(src)
 	update_icon()
 
 
@@ -335,32 +331,17 @@
 		)
 
 /obj/item/storage/belt/grenade/full/populate_contents()
-	new /obj/item/grenade/smokebomb(src) //4
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/empgrenade(src) //2
-	new /obj/item/grenade/empgrenade(src)
-	new /obj/item/grenade/gluon(src) //4
-	new /obj/item/grenade/gluon(src)
-	new /obj/item/grenade/gluon(src)
-	new /obj/item/grenade/gluon(src)
+	for(var/I in 1 to 4)
+		new /obj/item/grenade/smokebomb(src) // Four of each
+		new /obj/item/grenade/gluon(src)
+	for(var/I in 1 to 10)
+		new /obj/item/grenade/frag(src)
+	for(var/I in 1 to 2)
+		new /obj/item/grenade/gas/plasma(src)
+		new /obj/item/grenade/empgrenade(src)
+		new /obj/item/grenade/syndieminibomb(src)
 	new /obj/item/grenade/chem_grenade/facid(src) //1
 	new /obj/item/grenade/chem_grenade/saringas(src) //1
-	new /obj/item/grenade/gas/plasma(src) //2
-	new /obj/item/grenade/gas/plasma(src)
-	new /obj/item/grenade/frag(src) //10
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/syndieminibomb(src) //2
-	new /obj/item/grenade/syndieminibomb(src)
 
 /obj/item/storage/belt/military/abductor
 	name = "agent belt"
@@ -456,14 +437,8 @@
 	update_icon()
 
 /obj/item/storage/belt/bandolier/full/populate_contents()
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
+	for(var/I in 1 to 8)
+		new /obj/item/ammo_casing/shotgun/beanbag(src)
 
 /obj/item/storage/belt/bandolier/update_icon()
 	..()
@@ -664,10 +639,8 @@
 	cooldown = world.time
 
 /obj/item/storage/belt/bluespace/owlman/populate_contents()
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
+	for(var/I in 1 to 4)
+		new /obj/item/grenade/smokebomb(src)
 	new /obj/item/restraints/legcuffs/bola(src)
 	new /obj/item/restraints/legcuffs/bola(src)
 
