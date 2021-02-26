@@ -10,9 +10,12 @@
 	button_icon_state = "neutralstance"
 
 /datum/action/neutral_stance/Trigger()
-	to_chat(owner, "<b><i>You cancel your prepared attack.</i></b>")
-	owner.visible_message("<span class='danger'> [owner] relaxes his stance.")
 	var/mob/living/carbon/human/H = owner
+	if(!H.mind.martial_art.in_stance)
+		to_chat(owner, "<b><i>You cannot cancel an attack you haven't prepared!</i></b>")
+		return
+	to_chat(owner, "<b><i>You cancel your prepared attack.</i></b>")
+	owner.visible_message("<span class='danger'> [owner] relaxes his stance.</span>")
 	H.mind.martial_art.combos.Cut()
 
 /datum/action/neck_chop
@@ -29,7 +32,7 @@
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/neck_chop)
 	H.mind.martial_art.reset_combos()
-
+	H.mind.martial_art.in_stance = TRUE
 /datum/action/leg_sweep
 	name = "Leg Sweep - Trips the victim, rendering them prone and unable to move for a short time."
 	button_icon_state = "legsweep"
@@ -44,6 +47,7 @@
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/leg_sweep)
 	H.mind.martial_art.reset_combos()
+	H.mind.martial_art.in_stance = TRUE
 
 /datum/action/lung_punch//referred to internally as 'quick choke'
 	name = "Lung Punch - Delivers a strong punch just above the victim's abdomen, constraining the lungs. The victim will be unable to breathe for a short time."
@@ -59,6 +63,7 @@
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/lung_punch)
 	H.mind.martial_art.reset_combos()
+	H.mind.martial_art.in_stance = TRUE
 
 /datum/martial_art/krav_maga/teach(var/mob/living/carbon/human/H,var/make_temporary=0)
 	..()
