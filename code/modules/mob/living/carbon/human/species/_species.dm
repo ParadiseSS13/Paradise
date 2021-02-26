@@ -83,6 +83,8 @@
 	var/single_gib_type = /obj/effect/decal/cleanable/blood/gibs
 	var/remains_type = /obj/effect/decal/remains/human //What sort of remains is left behind when the species dusts
 	var/base_color      //Used when setting species.
+	/// bitfield of biotypes the mob belongs to.
+	var/inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	var/list/inherent_factions
 
 	//Used in icon caching.
@@ -284,6 +286,8 @@
 	if(H.hud_used)
 		H.hud_used.update_locked_slots()
 	H.ventcrawler = ventcrawler
+
+	H.mob_biotypes = inherent_biotypes
 
 	for(var/X in inherent_traits)
 		ADD_TRAIT(H, X, SPECIES_TRAIT)

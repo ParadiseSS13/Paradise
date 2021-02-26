@@ -53,6 +53,7 @@
 	response_harm = "swats"
 	stop_automated_movement = TRUE
 	universal_speak = TRUE
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	mob_size = MOB_SIZE_SMALL
 
 	var/parrot_state = PARROT_WANDER //Hunt for a perch when created
