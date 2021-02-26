@@ -388,11 +388,11 @@
 	lootcount = 3
 	lootdoubles = FALSE
 	var/soups = list(
-			/obj/item/reagent_containers/food/snacks/beetsoup,
-			/obj/item/reagent_containers/food/snacks/stew,
-			/obj/item/reagent_containers/food/snacks/hotchili,
-			/obj/item/reagent_containers/food/snacks/nettlesoup,
-			/obj/item/reagent_containers/food/snacks/meatballsoup)
+			/obj/item/reagent_containers/food/snacks/soup/beetsoup,
+			/obj/item/reagent_containers/food/snacks/soup/stew,
+			/obj/item/reagent_containers/food/snacks/soup/hotchili,
+			/obj/item/reagent_containers/food/snacks/soup/nettlesoup,
+			/obj/item/reagent_containers/food/snacks/soup/meatballsoup)
 	var/salads = list(
 			/obj/item/reagent_containers/food/snacks/herbsalad,
 			/obj/item/reagent_containers/food/snacks/validsalad,
