@@ -1,4 +1,8 @@
 /turf/simulated/floor/indestructible
+	footstep = FOOTSTEP_FLOOR
+	barefootstep = FOOTSTEP_HARD_BAREFOOT
+	clawfootstep = FOOTSTEP_HARD_CLAW
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/indestructible/ex_act(severity)
 	return
@@ -46,6 +50,10 @@
 	nitrogen = 23
 	temperature = 300
 	planetary_atmos = TRUE
+	footstep = FOOTSTEP_LAVA
+	barefootstep = FOOTSTEP_LAVA
+	clawfootstep = FOOTSTEP_LAVA
+	heavyfootstep = FOOTSTEP_LAVA
 
 /turf/simulated/floor/indestructible/necropolis/Initialize(mapload)
 	. = ..()
