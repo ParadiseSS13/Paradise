@@ -242,7 +242,7 @@
 /mob/living/pointed(atom/A as mob|obj|turf in view())
 	if(incapacitated(ignore_lying = TRUE))
 		return FALSE
-	if(status_flags & FAKEDEATH)
+	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		return FALSE
 	if(!..())
 		return FALSE
@@ -253,7 +253,7 @@
 			return TRUE
 		A.visible_message("<span class='danger'>[src] points [hand_item] at [A]!</span>",
 											"<span class='userdanger'>[src] points [hand_item] at you!</span>")
-		playsound(src, 'sound/weapons/targeton.ogg', 75, 1, -1)
+		SEND_SOUND(A, sound('sound/weapons/targeton.ogg'))
 		return TRUE
 	visible_message("<b>[src]</b> points to [A]")
 	return TRUE
@@ -456,8 +456,8 @@
 	SetHallucinate(0)
 	set_nutrition(NUTRITION_LEVEL_FED + 50)
 	bodytemperature = 310
-	CureBlind()
-	CureNearsighted()
+	cure_blind()
+	cure_nearsighted()
 	CureMute()
 	CureDeaf()
 	CureTourettes()
@@ -780,7 +780,7 @@
 
 //called when the mob receives a bright flash
 /mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
-	if(check_eye_prot() < intensity && (override_blindness_check || !(BLINDNESS in mutations)))
+	if(check_eye_prot() < intensity && (override_blindness_check || !HAS_TRAIT(src, TRAIT_BLIND)))
 		overlay_fullscreen("flash", type)
 		addtimer(CALLBACK(src, .proc/clear_fullscreen, "flash", 25), 25)
 		return 1
@@ -1036,7 +1036,7 @@
 /mob/living/rad_act(amount)
 	. = ..()
 
-	if(!amount || (amount < RAD_MOB_SKIN_PROTECTION))
+	if(!amount || (amount < RAD_MOB_SKIN_PROTECTION) || HAS_TRAIT(src, TRAIT_RADIMMUNE))
 		return
 
 	amount -= RAD_BACKGROUND_RADIATION // This will always be at least 1 because of how skin protection is calculated

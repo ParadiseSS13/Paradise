@@ -9,6 +9,7 @@
 	icon_resting = "hellhound_rest"
 	mutations = list(BREATHLESS)
 	gold_core_spawnable = HOSTILE_SPAWN
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
@@ -40,6 +41,7 @@
 	. = ..()
 	whisper_action = new()
 	whisper_action.Grant(src)
+	ADD_TRAIT(src, TRAIT_NOBREATH, SPECIES_TRAIT)
 
 /mob/living/simple_animal/hostile/hellhound/handle_automated_action()
 	if(!..())

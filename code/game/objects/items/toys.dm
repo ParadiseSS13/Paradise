@@ -1525,7 +1525,7 @@
 
 /obj/item/toy/russian_revolver/trick_revolver/post_shot(user)
 	to_chat(user, "<span class='danger'>[src] did look pretty dodgey!</span>")
-	SEND_SOUND(user, 'sound/misc/sadtrombone.ogg') //HONK
+	SEND_SOUND(user, sound('sound/misc/sadtrombone.ogg')) //HONK
 /*
  * Rubber Chainsaw
  */

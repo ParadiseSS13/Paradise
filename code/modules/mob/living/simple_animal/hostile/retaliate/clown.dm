@@ -7,6 +7,7 @@
 	icon_dead = "clown_dead"
 	icon_gib = "clown_gib"
 	speak_chance = 0
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	turns_per_move = 5
 	response_help = "pokes the"
 	response_disarm = "gently pushes aside the"
@@ -39,6 +40,7 @@
 	icon_state = "clowngoblin"
 	icon_living = "clowngoblin"
 	icon_dead = null
+	mob_biotypes = MOB_ORGANIC
 	response_help = "honks the"
 	speak = list("Honk!")
 	speak_emote = list("sqeaks")

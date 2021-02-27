@@ -13,16 +13,14 @@
 	throw_speed = 3
 	throw_range = 6
 	origin_tech = "biotech=3"
-	var/Uses = 1 // uses before it goes inert
+	/// Uses before it goes inert
+	var/Uses = 1
 	var/effectmod
 	var/color_slime
 	var/list/activate_reagents = list() //Reagents required for activation
 	var/recurring = FALSE
-
-/obj/item/slime_extract/examine(mob/user)
-	. = ..()
-	if(Uses > 1)
-		. += "It has [Uses] uses remaining."
+	/// The mob who last injected the extract with plasma, water or blood. Used for logging.
+	var/mob/living/injector_mob
 
 /obj/item/slime_extract/attackby(obj/item/O, mob/user)
 	if(istype(O, /obj/item/slimepotion/enhancer))
@@ -36,6 +34,8 @@
 			to_chat(user, "<span class='notice'>You dump the maximizer on the slime extract. It can now be used a total of 5 times!</span>")
 			Uses = max(Uses,5)
 		qdel(O)
+	if(istype(O, /obj/item/reagent_containers/syringe))
+		injector_mob = user
 	..()
 
 //Core-crossing: Feeding adult slimes extracts to obtain a much more powerful, single extract.

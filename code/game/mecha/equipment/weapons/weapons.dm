@@ -212,7 +212,7 @@
 		to_chat(M, "<font color='red' size='7'>HONK</font>")
 		M.SetSleeping(0)
 		M.Stuttering(20)
-		M.MinimumDeafTicks(30)
+		M.AdjustEarDamage(0, 30)
 		M.Weaken(3)
 		if(prob(30))
 			M.Stun(10)

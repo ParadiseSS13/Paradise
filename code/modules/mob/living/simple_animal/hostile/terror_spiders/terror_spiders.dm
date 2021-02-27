@@ -25,6 +25,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	icon_living = "terror_red"
 	icon_dead = "terror_red_dead"
 
+	mob_biotypes = MOB_ORGANIC | MOB_BUG
+
 	// Health
 	maxHealth = 120
 	health = 120

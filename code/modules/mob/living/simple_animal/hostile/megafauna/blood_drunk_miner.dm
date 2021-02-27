@@ -28,6 +28,7 @@ Difficulty: Medium
 	icon_state = "miner"
 	icon_living = "miner"
 	icon = 'icons/mob/lavaland/blood_drunk.dmi'
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	light_color = "#E4C7C5"
 	flying = FALSE
 	speak_emote = list("roars")

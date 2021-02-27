@@ -67017,6 +67017,9 @@
 /obj/structure/closet/wardrobe/chemistry_white,
 /obj/item/storage/backpack/satchel_chem,
 /obj/effect/decal/warning_stripes/south,
+/obj/structure/disaster_counter/chemistry{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -73773,6 +73776,9 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/disaster_counter/toxins{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
@@ -84089,6 +84095,9 @@
 	},
 /obj/structure/noticeboard{
 	pixel_y = 30
+	},
+/obj/structure/disaster_counter/scichem{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
