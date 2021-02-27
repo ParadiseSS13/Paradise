@@ -332,3 +332,11 @@
 	prefs.toggles2 ^= PREFTOGGLE_2_DEATHMESSAGE
 	prefs.save_preferences(src)
 	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_DEATHMESSAGE) ? "now" : "no longer"] see a notification in deadchat when a player dies.")
+
+/client/verb/toggle_reverb()
+	set name = "Enable/Disable Reverb"
+	set category = "Preferences"
+	set desc = "Toggle ingame reverb effects"
+	prefs.toggles2 ^= PREFTOGGLE_2_REVERB_DISABLE
+	prefs.save_preferences(src)
+	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_REVERB_DISABLE) ? "no longer" : "now"] get reverb on ingame sounds.")
