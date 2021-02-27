@@ -8,6 +8,7 @@
 	desc = "This device will count how many shifts it has been since a major disaster in this area. A safe workplace is a productive workplace."
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "frame"
+	anchored = TRUE
 	maptext_y = 10 // Offset by 10 so it renders properly
 	/// ID of the counter. Must be overriden. Use alphanumerics with no spaces only, as this is used in the filesystem.
 	var/counter_id
