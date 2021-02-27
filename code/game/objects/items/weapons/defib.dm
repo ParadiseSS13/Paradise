@@ -349,7 +349,7 @@
 			H.emote("gasp")
 			if(!H.undergoing_cardiac_arrest() && (prob(10) || defib.combat)) // Your heart explodes.
 				H.set_heartattack(TRUE)
-			H.shock_internal_organs(100)
+			SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
 			add_attack_logs(user, M, "Stunned with [src]")
 			defib.deductcharge(revivecost)
 			cooldown = TRUE
@@ -400,7 +400,7 @@
 							update_icon()
 							return
 						H.set_heartattack(FALSE)
-						H.shock_internal_organs(100)
+						SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
 						user.visible_message("<span class='boldnotice'>[defib] pings: Cardiac arrhythmia corrected.</span>")
 						M.visible_message("<span class='warning'>[M]'s body convulses a bit.")
 						playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
@@ -435,7 +435,7 @@
 						H.emote("gasp")
 						if(tplus > tloss)
 							H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
-						H.shock_internal_organs(100)
+						SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
 						H.med_hud_set_health()
 						H.med_hud_set_status()
 						defib.deductcharge(revivecost)
@@ -498,7 +498,7 @@
 			H.Weaken(5)
 			if(!H.undergoing_cardiac_arrest() && prob(10)) // Your heart explodes.
 				H.set_heartattack(TRUE)
-			H.shock_internal_organs(100)
+			SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
 			playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 			H.emote("gasp")
 			add_attack_logs(user, M, "Stunned with [src]")
@@ -554,7 +554,7 @@
 						H.emote("gasp")
 						if(tplus > tloss)
 							H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
-						H.shock_internal_organs(100)
+						SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
 						if(isrobot(user))
 							var/mob/living/silicon/robot/R = user
 							R.cell.use(revivecost)
