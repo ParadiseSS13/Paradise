@@ -1235,19 +1235,19 @@
 	if(shock_timer >= rand(5,30)) //Random shocks are wildly unpredictable
 		shock_timer = 0
 		M.electrocute_act(rand(5, 20), "Teslium in their body", 1, SHOCK_NOGLOVES) //Override because it's caused from INSIDE of you
-		playsound(M, "sparks", 50, 1)
+		playsound(M, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	return ..()
 
 /datum/reagent/teslium/on_mob_add(mob/living/M)
 	..()
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.dna.species.siemens_coeff *= 2
+		H.physiology.siemens_coeff *= 2
 
 /datum/reagent/teslium/on_mob_delete(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.dna.species.siemens_coeff *= 0.5
+		H.physiology.siemens_coeff *= 0.5
 	..()
 
 /datum/reagent/gluttonytoxin

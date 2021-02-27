@@ -51,6 +51,8 @@
 	var/stamina_mod = 1
 	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
 	var/speed_mod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
+	///Percentage modifier for overall defense of the race, or less defense, if it's negative.
+	var/armor = 0
 	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
 	var/total_health = 100
 	var/punchdamagelow = 0       //lowest possible punch damage
@@ -343,46 +345,66 @@
 /datum/species/proc/handle_death(gibbed, mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
 	return
 
-/datum/species/proc/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, mob/living/carbon/human/H, sharp = 0, obj/used_weapon = null)
-	blocked = (100 - blocked) / 100
-	if(blocked <= 0)
-		return 0
+/datum/species/proc/apply_damage(damage = 0, damagetype = BRUTE, def_zone, blocked = 0, mob/living/carbon/human/H, sharp = FALSE, obj/used_weapon, spread_damage = FALSE)
+	var/hit_percent = (100 - (blocked + armor)) / 100
+	hit_percent = (hit_percent * (100 - H.physiology.damage_resistance)) / 100
+	if(!damage || (hit_percent <= 0))
+		return FALSE
 
 	var/obj/item/organ/external/organ = null
-	if(isorgan(def_zone))
-		organ = def_zone
-	else
-		if(!def_zone)
-			def_zone = ran_zone(def_zone)
-		organ = H.get_organ(check_zone(def_zone))
-	if(!organ)
-		return 0
-
-	damage = damage * blocked
+	if(!spread_damage)
+		if(isorgan(def_zone))
+			organ = def_zone
+		else
+			if(!def_zone)
+				def_zone = ran_zone(def_zone)
+			organ = H.get_organ(check_zone(def_zone))
+			if(!organ)
+				organ = H.bodyparts[1]
 
 	switch(damagetype)
 		if(BRUTE)
-			damage = damage * brute_mod
-			if(damage)
+			var/damage_amount = damage * hit_percent * brute_mod * H.physiology.brute_mod
+			if(damage_amount)
 				H.damageoverlaytemp = 20
 
-			if(organ.receive_damage(damage, 0, sharp, used_weapon))
-				H.UpdateDamageIcon()
-
+			if(organ)
+				if(organ.receive_damage(damage_amount, 0, sharp, used_weapon))
+					H.UpdateDamageIcon()
+			else //no bodypart, we deal damage with a more general method.
+				H.adjustBruteLoss(damage_amount)
 		if(BURN)
-			damage = damage * burn_mod
-			if(damage)
+			var/damage_amount = damage * hit_percent * burn_mod * H.physiology.burn_mod
+			if(damage_amount)
 				H.damageoverlaytemp = 20
 
-			if(organ.receive_damage(0, damage, sharp, used_weapon))
-				H.UpdateDamageIcon()
+			if(organ)
+				if(organ.receive_damage(0, damage_amount, sharp, used_weapon))
+					H.UpdateDamageIcon()
+			else
+				H.adjustFireLoss(damage_amount)
+		if(TOX)
+			var/damage_amount = damage * hit_percent * H.physiology.tox_mod
+			H.adjustToxLoss(damage_amount)
+		if(OXY)
+			var/damage_amount = damage * hit_percent * H.physiology.oxy_mod
+			H.adjustOxyLoss(damage_amount)
+		if(CLONE)
+			var/damage_amount = damage * hit_percent * H.physiology.clone_mod
+			H.adjustCloneLoss(damage_amount)
+		if(STAMINA)
+			var/damage_amount = damage * hit_percent * H.physiology.stamina_mod
+			H.adjustStaminaLoss(damage_amount)
+		if(BRAIN)
+			var/damage_amount = damage * hit_percent * H.physiology.brain_mod
+			H.adjustBrainLoss(damage_amount)
 
 	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().
 	H.updatehealth("apply damage")
-	return 1
+	return TRUE
 
-/datum/species/proc/spec_stun(mob/living/carbon/human/H,amount)
-	return
+/datum/species/proc/spec_stun(mob/living/carbon/human/H, amount)
+	. = stun_mod * H.physiology.stun_mod * amount
 
 /datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, source, siemens_coeff = 1, flags = NONE)
 	return
