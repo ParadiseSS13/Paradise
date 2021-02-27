@@ -400,7 +400,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		to_chat(src, "<span class='warning'>Your type of spider is not strong enough to force open doors.</span>")
 	else
 		visible_message("<span class='danger'>[src] forces the door!</span>")
-		playsound(src.loc, "sparks", 100, 1)
+		playsound(src.loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		if(D.density)
 			D.open(TRUE)
 		else

@@ -39,7 +39,7 @@
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, list('sound/creatures/mousesqueak.ogg' = 1), 100)
+	AddComponent(/datum/component/squeak, list('sound/creatures/mousesqueak.ogg' = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
 
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability) && isturf(loc))
