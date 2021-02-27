@@ -179,6 +179,7 @@
 	else
 		to_chat(src, "You will no longer hear ambient sounds.")
 		usr.stop_sound_channel(CHANNEL_AMBIENCE)
+	update_ambience_pref()
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Ambience") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/Toggle_Buzz() //No more headaches because headphones bump up shipambience.ogg to insanity levels.
