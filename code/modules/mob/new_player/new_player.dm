@@ -408,7 +408,7 @@
 						if(FEMALE)
 							target_gender = "female"
 					arrivalmessage = replacetext(arrivalmessage,"$gender",target_gender)
-					announcer.say(";[arrivalmessage]")
+					announcer.say(";[arrivalmessage]", ignore_languages = TRUE)
 		else
 			if(character.mind)
 				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
@@ -433,7 +433,7 @@
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)
 					var/arrivalmessage = "A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"]."
-					announcer.say(";[arrivalmessage]")
+					announcer.say(";[arrivalmessage]", ignore_languages = TRUE)
 		else
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)

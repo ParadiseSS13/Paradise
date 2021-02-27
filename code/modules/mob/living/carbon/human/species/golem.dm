@@ -9,12 +9,7 @@
 	inherent_biotypes = MOB_HUMANOID | MOB_MINERAL
 	dies_at_threshold = TRUE
 	speed_mod = 2
-	brute_mod = 0.45 //55% damage reduction
-	burn_mod = 0.45
-	tox_mod = 0.45
-	clone_mod = 0.45
-	brain_mod = 0.45
-	stamina_mod = 0.45
+	armor = 55
 	siemens_coeff = 0
 	punchdamagelow = 5
 	punchdamagehigh = 14
@@ -186,12 +181,7 @@
 /datum/species/golem/diamond
 	name = "Diamond Golem"
 	golem_colour = rgb(0, 255, 255)
-	brute_mod = 0.3 //70% damage reduction up from 55%
-	burn_mod = 0.3
-	tox_mod = 0.3
-	clone_mod = 0.3
-	brain_mod = 0.3
-	stamina_mod = 0.3
+	armor = 70 //up from 55
 	skinned_type = /obj/item/stack/ore/diamond
 	info_text = "As a <span class='danger'>Diamond Golem</span>, you are more resistant than the average golem."
 	prefix = "Diamond"
@@ -202,12 +192,7 @@
 	name = "Gold Golem"
 	golem_colour = rgb(204, 204, 0)
 	speed_mod = 1
-	brute_mod = 0.75 //25% damage reduction down from 55%
-	burn_mod = 0.75
-	tox_mod = 0.75
-	clone_mod = 0.75
-	brain_mod = 0.75
-	stamina_mod = 0.75
+	armor = 25 //down from 55
 	skinned_type = /obj/item/stack/ore/gold
 	info_text = "As a <span class='danger'>Gold Golem</span>, you are faster but less resistant than the average golem."
 	prefix = "Golden"
@@ -248,7 +233,7 @@
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/ore/titanium
 	info_text = "As a <span class='danger'>Titanium Golem</span>, you are resistant to burn damage and immune to ash storms."
-	burn_mod = 0.405
+	burn_mod = 0.9
 	prefix = "Titanium"
 	special_names = list("Dioxide")
 
@@ -266,7 +251,7 @@
 	golem_colour = rgb(136, 136, 136)
 	skinned_type = /obj/item/stack/ore/titanium
 	info_text = "As a <span class='danger'>Plastitanium Golem</span>, you are very resistant to burn damage and immune to both ash storms and lava."
-	burn_mod = 0.36
+	burn_mod = 0.8
 	prefix = "Plastitanium"
 	special_names = null
 
@@ -317,12 +302,8 @@
 	//Can burn and take damage from heat
 	inherent_traits = list(TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_CHUNKYFINGERS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_PLANT
-	brute_mod = 0.7 //30% damage reduction down from 55%
-	burn_mod = 0.875
-	tox_mod = 0.7
-	clone_mod = 0.7
-	brain_mod = 0.7
-	stamina_mod = 0.7
+	armor = 30
+	burn_mod = 1.25
 	heatmod = 1.5
 	dietflags = DIET_HERB		// Plants eat...plants?
 
@@ -390,12 +371,9 @@
 	name = "Sand Golem"
 	golem_colour = rgb(255, 220, 143)
 	skinned_type = /obj/item/stack/ore/glass //this is sand
-	brute_mod = 0.25
+	armor = 0
 	burn_mod = 3 //melts easily
-	tox_mod = 1
-	clone_mod = 1
-	brain_mod = 1
-	stamina_mod = 1
+	brute_mod = 0.25
 	info_text = "As a <span class='danger'>Sand Golem</span>, you are immune to physical bullets and take very little brute damage, but are extremely vulnerable to burn damage and energy weapons. You will also turn to sand when dying, preventing any form of recovery."
 	unarmed_type = /datum/unarmed_attack/golem/sand
 	prefix = "Sand"
@@ -426,12 +404,9 @@
 	name = "Glass Golem"
 	golem_colour = rgb(90, 150, 180)
 	skinned_type = /obj/item/shard
+	armor = 0
 	brute_mod = 3 //very fragile
 	burn_mod = 0.25
-	tox_mod = 1
-	clone_mod = 1
-	brain_mod = 1
-	stamina_mod = 1
 	info_text = "As a <span class='danger'>Glass Golem</span>, you reflect lasers and energy weapons, and are very resistant to burn damage. However, you are extremely vulnerable to brute damage. On death, you'll shatter beyond any hope of recovery."
 	unarmed_type = /datum/unarmed_attack/golem/glass
 	prefix = "Glass"
