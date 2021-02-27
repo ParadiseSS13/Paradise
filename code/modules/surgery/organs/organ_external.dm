@@ -19,7 +19,6 @@
 	var/force_icon
 
 	var/icobase = 'icons/mob/human_races/r_human.dmi'		// Normal icon set.
-	var/deform = 'icons/mob/human_races/r_def_human.dmi'	// Mutated icon set.
 
 	var/damage_state = "00"
 	var/brute_dam = 0
@@ -109,7 +108,6 @@
 	..()
 	var/mob/living/carbon/human/H = holder
 	icobase = dna.species.icobase
-	deform = dna.species.deform
 	if(istype(H))
 		replaced(H)
 		sync_colour_to_human(H)
@@ -674,14 +672,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 		desc = "[R.desc]"
 
 /obj/item/organ/external/proc/mutate()
-	src.status |= ORGAN_MUTATED
-	if(owner)
-		owner.update_body(TRUE) //Forces all bodyparts to update in order to correctly render the deformed sprite.
+	status |= ORGAN_MUTATED
 
 /obj/item/organ/external/proc/unmutate()
-	src.status &= ~ORGAN_MUTATED
-	if(owner)
-		owner.update_body(TRUE) //Forces all bodyparts to update in order to correctly return them to normal.
+	status &= ~ORGAN_MUTATED
 
 /obj/item/organ/external/proc/get_damage()	//returns total damage
 	return max(brute_dam + burn_dam - perma_injury, perma_injury)	//could use health?

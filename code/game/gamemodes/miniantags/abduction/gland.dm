@@ -113,6 +113,8 @@
 	mind_control_duration = 3000
 
 /obj/item/organ/internal/heart/gland/heals/activate()
+	if(!(owner.mob_biotypes & MOB_ORGANIC))
+		return
 	to_chat(owner, "<span class='notice'>You feel curiously revitalized.</span>")
 	owner.adjustToxLoss(-20)
 	owner.adjustBruteLoss(-20)
@@ -293,7 +295,7 @@
 /obj/item/organ/internal/heart/gland/electric/activate()
 	owner.visible_message("<span class='danger'>[owner]'s skin starts emitting electric arcs!</span>",\
 	"<span class='warning'>You feel electric energy building up inside you!</span>")
-	playsound(get_turf(owner), "sparks", 100, 1, -1)
+	playsound(get_turf(owner), "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	addtimer(CALLBACK(src, .proc/zap), rand(30, 100))
 
 /obj/item/organ/internal/heart/gland/electric/proc/zap()

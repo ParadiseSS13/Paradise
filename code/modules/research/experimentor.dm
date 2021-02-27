@@ -651,20 +651,20 @@
 	smoke.start()
 
 /obj/item/relic/proc/floofcannon(mob/user)
-	playsound(src.loc, "sparks", rand(25,50), 1)
+	playsound(src.loc, "sparks", rand(25, 50), TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	var/mob/living/C = new floof(get_turf(user))
 	C.throw_at(pick(oview(10,user)),10,rand(3,8))
 	throwSmoke(get_turf(C))
 	warn_admins(user, "Floof Cannon", 0)
 
 /obj/item/relic/proc/clean(mob/user)
-	playsound(src.loc, "sparks", rand(25,50), 1)
+	playsound(src.loc, "sparks", rand(25,50), TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	var/obj/item/grenade/chem_grenade/cleaner/CL = new/obj/item/grenade/chem_grenade/cleaner(get_turf(user))
 	CL.prime()
 	warn_admins(user, "Smoke", 0)
 
 /obj/item/relic/proc/flash(mob/user)
-	playsound(src.loc, "sparks", rand(25,50), 1)
+	playsound(src.loc, "sparks", rand(25,50), TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	var/obj/item/grenade/flashbang/CB = new/obj/item/grenade/flashbang(get_turf(user))
 	CB.prime()
 	warn_admins(user, "Flash")

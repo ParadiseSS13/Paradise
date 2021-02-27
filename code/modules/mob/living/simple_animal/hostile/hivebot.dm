@@ -9,6 +9,7 @@
 	icon_state = "basic"
 	icon_living = "basic"
 	icon_dead = "basic"
+	mob_biotypes = MOB_ROBOTIC
 	health = 15
 	maxHealth = 15
 	melee_damage_lower = 2

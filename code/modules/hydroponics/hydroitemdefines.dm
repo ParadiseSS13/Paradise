@@ -227,7 +227,7 @@
 	container_type = OPENCONTAINER
 	volume = 80
 	hitsound = 'sound/weapons/jug_empty_impact.ogg'
-	throwhitsound = 'sound/weapons/jug_empty_impact.ogg'
+	mob_throw_hit_sound = 'sound/weapons/jug_empty_impact.ogg'
 	force = 0.2
 	throwforce = 0.2
 
@@ -242,10 +242,10 @@
 	update_icon()
 	if(reagents.total_volume)
 		hitsound = 'sound/weapons/jug_filled_impact.ogg'
-		throwhitsound = 'sound/weapons/jug_filled_impact.ogg'
+		mob_throw_hit_sound = 'sound/weapons/jug_filled_impact.ogg'
 	else
 		hitsound = 'sound/weapons/jug_empty_impact.ogg'
-		throwhitsound = 'sound/weapons/jug_empty_impact.ogg'
+		mob_throw_hit_sound = 'sound/weapons/jug_empty_impact.ogg'
 
 /obj/item/reagent_containers/glass/bottle/nutrient/update_icon()
 	cut_overlays()

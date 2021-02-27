@@ -6,6 +6,7 @@
 	icon_living = "syndicate"
 	icon_dead = "syndicate_dead" // Does not actually exist. del_on_death.
 	icon_gib = "syndicate_gib" // Does not actually exist. del_on_death.
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	speak_chance = 0
 	turns_per_move = 5
 	response_help = "pokes the"
@@ -350,6 +351,7 @@
 	icon_living = "viscerator_attack"
 	pass_flags = PASSTABLE | PASSMOB
 	a_intent = INTENT_HARM
+	mob_biotypes = MOB_ROBOTIC
 	health = 15
 	maxHealth = 15
 	obj_damage = 0

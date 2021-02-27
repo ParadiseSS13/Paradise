@@ -253,7 +253,7 @@
 	crit_fail = FALSE
 	if(owner)
 		to_chat(owner, "<span class='notice'>Your translator implant beeps.</span>")
-		SEND_SOUND(owner, 'sound/machines/twobeep.ogg')
+		SEND_SOUND(owner, sound('sound/machines/twobeep.ogg'))
 
 /obj/item/organ/internal/cyberimp/brain/speech_translator/ui_action_click()
 	if(owner && crit_fail)

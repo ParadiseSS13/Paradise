@@ -311,26 +311,22 @@
 		S.message = muffledspeech(S.message)
 
 
-/proc/shake_camera(mob/M, duration, strength=1)
-	if(!M || !M.client || M.shakecamera)
+///Shake the camera of the person viewing the mob SO REAL!
+/proc/shake_camera(mob/M, duration, strength = 1)
+	if(!M || !M.client || duration < 1)
 		return
-	M.shakecamera = 1
-	spawn(1)
+	var/client/C = M.client
+	var/oldx = C.pixel_x
+	var/oldy = C.pixel_y
+	var/max = strength * world.icon_size
+	var/min = -(strength * world.icon_size)
 
-		var/atom/oldeye=M.client.eye
-		var/aiEyeFlag = 0
-		if(istype(oldeye, /mob/camera/aiEye))
-			aiEyeFlag = 1
-
-		var/x
-		for(x=0; x<duration, x++)
-			if(aiEyeFlag)
-				M.client.eye = locate(dd_range(1,oldeye.loc.x+rand(-strength,strength),world.maxx),dd_range(1,oldeye.loc.y+rand(-strength,strength),world.maxy),oldeye.loc.z)
-			else
-				M.client.eye = locate(dd_range(1,M.loc.x+rand(-strength,strength),world.maxx),dd_range(1,M.loc.y+rand(-strength,strength),world.maxy),M.loc.z)
-			sleep(1)
-		M.client.eye=oldeye
-		M.shakecamera = 0
+	for(var/i in 0 to duration - 1)
+		if(i == 0)
+			animate(C, pixel_x = rand(min, max), pixel_y = rand(min, max), time = 1)
+		else
+			animate(pixel_x = rand(min, max), pixel_y = rand(min, max), time = 1)
+	animate(pixel_x = oldx, pixel_y = oldy, time = 1)
 
 
 /proc/findname(msg)

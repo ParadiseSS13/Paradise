@@ -2,7 +2,6 @@
 	name = "Grey"
 	name_plural = "Greys"
 	icobase = 'icons/mob/human_races/r_grey.dmi'
-	deform = 'icons/mob/human_races/r_def_grey.dmi'
 	language = "Psionic Communication"
 	eyes = "grey_eyes_s"
 	butt_sprite = "grey"
