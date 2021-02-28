@@ -138,10 +138,6 @@
 	path = /obj/item/cartridge/mob_hunt_game
 	cost = 2
 
-/datum/gear/piano_synth
-	display_name ="synthesizer"
-	path = /obj/item/instrument/piano_synth
-	cost = 2
 //////////////////////
 //		Mugs		//
 //////////////////////
@@ -197,3 +193,62 @@
 	display_name = "crewmember coffee mug"
 	description = "A crewmember's coffee mug, emblazoned in the colors of the Service department."
 	path = /obj/item/reagent_containers/food/drinks/mug/serv
+
+
+//////////////////////
+//	  Instruments	//
+//////////////////////
+
+/datum/gear/instrument
+	display_name = "Synthesizer"
+	path = /obj/item/instrument/piano_synth
+	sort_category = "Instruments"
+	cost = 2
+
+/datum/gear/instrument/accordion
+	display_name = "Accordion"
+	path = /obj/item/instrument/accordion
+
+/datum/gear/instrument/banjo
+	display_name = "Banjo"
+	path = /obj/item/instrument/banjo
+
+/datum/gear/instrument/eguitar
+	display_name = "Electric guitar"
+	path = /obj/item/instrument/eguitar
+
+/datum/gear/instrument/glock
+	display_name = "Glockenspiel"
+	path = /obj/item/instrument/glockenspiel
+
+/datum/gear/instrument/guitar
+	display_name = "Guitar"
+	path = /obj/item/instrument/guitar
+
+/datum/gear/instrument/harmonica
+	display_name = "Harmonica"
+	path = /obj/item/instrument/harmonica
+
+/datum/gear/instrument/recorder
+	display_name = "Recorder"
+	path = /obj/item/instrument/recorder
+
+/datum/gear/instrument/sax
+	display_name = "Saxophone"
+	path = /obj/item/instrument/saxophone
+
+/datum/gear/instrument/trumpet
+	display_name = "Trumpet"
+	path = /obj/item/instrument/trumpet
+
+/datum/gear/instrument/trombone
+	display_name = "Trombone"
+	path = /obj/item/instrument/trombone
+
+/datum/gear/instrument/violin
+	display_name = "Violin"
+	path = /obj/item/instrument/violin
+
+/datum/gear/instrument/xylo
+	display_name = "Xylophone"
+	path = /obj/item/instrument/xylophone
