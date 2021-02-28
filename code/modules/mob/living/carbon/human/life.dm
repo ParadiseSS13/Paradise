@@ -284,7 +284,7 @@
 	if(bodytemperature > dna.species.heat_level_1)
 		//Body temperature is too hot.
 		if(status_flags & GODMODE)	return 1	//godmode
-		var/mult = dna.species.heatmod
+		var/mult = dna.species.heatmod * physiology.heat_mod
 
 		if(bodytemperature >= dna.species.heat_level_1 && bodytemperature <= dna.species.heat_level_2)
 			throw_alert("temp", /obj/screen/alert/hot, 1)
@@ -306,7 +306,7 @@
 			return 1
 
 		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
-			var/mult = dna.species.coldmod
+			var/mult = dna.species.coldmod * physiology.cold_mod
 			if(bodytemperature >= dna.species.cold_level_2 && bodytemperature <= dna.species.cold_level_1)
 				throw_alert("temp", /obj/screen/alert/cold, 1)
 				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_1, updating_health = TRUE, used_weapon = "Low Body Temperature")
@@ -330,7 +330,7 @@
 
 	if(adjusted_pressure >= dna.species.hazard_high_pressure)
 		if(!HAS_TRAIT(src, TRAIT_RESISTHIGHPRESSURE))
-			var/pressure_damage = min( ( (adjusted_pressure / dna.species.hazard_high_pressure) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE)
+			var/pressure_damage = min(((adjusted_pressure / dna.species.hazard_high_pressure) - 1) * PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE) * physiology.pressure_mod
 			take_overall_damage(brute=pressure_damage, updating_health = TRUE, used_weapon = "High Pressure")
 			throw_alert("pressure", /obj/screen/alert/highpressure, 2)
 		else
@@ -345,7 +345,7 @@
 		if(HAS_TRAIT(src, TRAIT_RESISTLOWPRESSURE))
 			clear_alert("pressure")
 		else
-			take_overall_damage(brute=LOW_PRESSURE_DAMAGE, updating_health = TRUE, used_weapon = "Low Pressure")
+			take_overall_damage(brute = LOW_PRESSURE_DAMAGE * physiology.pressure_mod, updating_health = TRUE, used_weapon = "Low Pressure")
 			throw_alert("pressure", /obj/screen/alert/lowpressure, 2)
 
 
@@ -556,6 +556,7 @@
 				if(prob(round(-satiety/40)))
 					Jitter(5)
 				hunger_rate = 3 * hunger_drain
+			hunger_rate *= physiology.hunger_mod
 			adjust_nutrition(-hunger_rate)
 
 		if(nutrition > NUTRITION_LEVEL_FULL)
