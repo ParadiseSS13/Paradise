@@ -29,6 +29,13 @@
 	else
 		turn_off_lighter(user)
 
+/obj/item/lighter/can_enter_storage(obj/item/storage/S, mob/user)
+	if(lit)
+		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		return FALSE
+	else
+		return TRUE
+
 /obj/item/lighter/proc/turn_on_lighter(mob/living/user)
 	lit = TRUE
 	w_class = WEIGHT_CLASS_BULKY
@@ -226,6 +233,13 @@
 /obj/item/match/dropped(mob/user)
 	matchburnout()
 	. = ..()
+
+/obj/item/match/can_enter_storage(obj/item/storage/S, mob/user)
+	if(lit)
+		to_chat(user, "<span class='warning'>[S] can't hold [initial(name)] while it's lit!</span>") // initial(name) so it doesn't say "lit" twice in a row
+		return FALSE
+	else
+		return TRUE
 
 /obj/item/match/attack(mob/living/carbon/M, mob/living/carbon/user)
 	if(!isliving(M))
