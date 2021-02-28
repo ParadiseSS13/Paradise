@@ -954,7 +954,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_weapons/combat_plus
 	name = "Combat Gloves Plus"
-	desc = "Combat gloves but with installed nanochips that teach you krav maga when worn, great as a cheap backup weapon"
+	desc = "Combat gloves but with installed nanochips that teach you krav maga when worn, great as a cheap backup weapon. Warning, the nanochips will override any other fighting styles such as CQC"
 	reference = "CGP"
 	item = /obj/item/clothing/gloves/color/black/krav_maga/combat
 	cost = 5
