@@ -30,8 +30,8 @@
 		///////////////
 		//SOUND STUFF//
 		///////////////
-	var/ambience_playing = 0
-	var/played			= 0
+
+	var/ambience_playing = FALSE
 
 		////////////
 		//SECURITY//
