@@ -46,8 +46,8 @@
 
 /obj/screen/plane_master/lighting/Initialize()
 	. = ..()
-	filters += filter(type="alpha", render_source=EMISSIVE_RENDER_TARGET, flags=MASK_INVERSE)
-	filters += filter(type="alpha", render_source=EMISSIVE_UNBLOCKABLE_RENDER_TARGET, flags=MASK_INVERSE)
+	filters += filter(type = "alpha", render_source = EMISSIVE_RENDER_TARGET, flags = MASK_INVERSE)
+	filters += filter(type = "alpha", render_source = EMISSIVE_UNBLOCKABLE_RENDER_TARGET, flags = MASK_INVERSE)
 
 /**
   * Things placed on this mask the lighting plane. Doesn't render directly.
@@ -63,7 +63,7 @@
 
 /obj/screen/plane_master/emissive/Initialize()
 	. = ..()
-	filters += filter(type="alpha", render_source=EMISSIVE_BLOCKER_RENDER_TARGET, flags=MASK_INVERSE)
+	filters += filter(type = "alpha", render_source = EMISSIVE_BLOCKER_RENDER_TARGET, flags = MASK_INVERSE)
 
 /**
   * Things placed on this always mask the lighting plane. Doesn't render directly.
