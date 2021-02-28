@@ -48881,23 +48881,11 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "bUM" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/tank/internals/emergency_oxygen/engi/empty,
-/obj/item/tank/internals/emergency_oxygen/engi/empty,
-/obj/item/reagent_containers/iv_bag/blood/AMinus,
-/obj/item/reagent_containers/iv_bag/blood/APlus,
-/obj/item/reagent_containers/iv_bag/blood/BMinus,
-/obj/item/reagent_containers/iv_bag/blood/BPlus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/blood/OPlus,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
 /obj/machinery/iv_drip,
 /obj/machinery/ai_status_display{
 	pixel_y = -32
 	},
-/obj/item/reagent_containers/iv_bag/salglu,
+/obj/structure/closet/crate/freezer/iv_storage,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue";
 	tag = "icon-whiteblue"
@@ -53254,20 +53242,8 @@
 	},
 /area/medical/genetics_cloning)
 "cca" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/tank/internals/emergency_oxygen/engi/empty,
-/obj/item/tank/internals/emergency_oxygen/engi/empty,
-/obj/item/reagent_containers/iv_bag/blood/AMinus,
-/obj/item/reagent_containers/iv_bag/blood/APlus,
-/obj/item/reagent_containers/iv_bag/blood/BMinus,
-/obj/item/reagent_containers/iv_bag/blood/BPlus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/blood/OPlus,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
 /obj/machinery/iv_drip,
-/obj/item/reagent_containers/iv_bag/salglu,
+/obj/structure/closet/crate/freezer/iv_storage,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue";
 	tag = "icon-whiteblue"
@@ -55322,15 +55298,8 @@
 	},
 /area/medical/ward)
 "cfJ" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/blood/AMinus,
-/obj/item/reagent_containers/iv_bag/blood/APlus,
-/obj/item/reagent_containers/iv_bag/blood/BMinus,
-/obj/item/reagent_containers/iv_bag/blood/BPlus,
-/obj/item/reagent_containers/iv_bag/blood/OPlus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
 /obj/structure/disposalpipe/segment,
-/obj/item/reagent_containers/iv_bag/salglu,
+/obj/structure/closet/crate/freezer/iv_storage,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -56263,14 +56232,7 @@
 	},
 /area/medical/surgery2)
 "chu" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/blood/AMinus,
-/obj/item/reagent_containers/iv_bag/blood/APlus,
-/obj/item/reagent_containers/iv_bag/blood/BMinus,
-/obj/item/reagent_containers/iv_bag/blood/BPlus,
-/obj/item/reagent_containers/iv_bag/blood/OPlus,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/iv_bag/salglu,
+/obj/structure/closet/crate/freezer/iv_storage,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
