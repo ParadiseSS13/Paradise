@@ -38,6 +38,8 @@
 		dna.real_name = real_name
 		sync_organ_dna(1)
 
+	physiology = new()
+
 	UpdateAppearance()
 	GLOB.human_list += src
 
@@ -59,6 +61,7 @@
 	SSmobs.cubemonkeys -= src
 	QDEL_LIST(bodyparts)
 	splinted_limbs.Cut()
+	QDEL_NULL(physiology)
 	GLOB.human_list -= src
 
 /mob/living/carbon/human/dummy
@@ -596,6 +599,7 @@
 	else if(!(flags & SHOCK_NOGLOVES)) //This gets the siemens_coeff for all non tesla shocks
 		if(gloves)
 			siemens_coeff *= gloves.siemens_coefficient
+	siemens_coeff *= physiology.siemens_coeff
 	siemens_coeff *= dna.species.siemens_coeff
 	. = ..()
 	//Don't go further if the shock was blocked/too weak.
@@ -1770,9 +1774,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		to_chat(src, "<span class='warning'>[mind.martial_art.no_guns_message]</span>")
 		return FALSE
 
-/mob/living/carbon/human/proc/change_icobase(var/new_icobase, var/new_deform, var/owner_sensitive)
+/mob/living/carbon/human/proc/change_icobase(new_icobase, owner_sensitive)
 	for(var/obj/item/organ/external/O in bodyparts)
-		O.change_organ_icobase(new_icobase, new_deform, owner_sensitive) //Change the icobase/deform of all our organs. If owner_sensitive is set, that means the proc won't mess with frankenstein limbs.
+		O.change_organ_icobase(new_icobase, owner_sensitive) //Change the icobase of all our organs. If owner_sensitive is set, that means the proc won't mess with frankenstein limbs.
 
 /mob/living/carbon/human/serialize()
 	// Currently: Limbs/organs only
@@ -1975,3 +1979,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
   */
 /mob/living/carbon/human/get_runechat_color()
    return dna.species.get_species_runechat_color(src)
+
+/mob/living/carbon/human/update_runechat_msg_location()
+	if(ismecha(loc))
+		runechat_msg_location = loc
+	else
+		runechat_msg_location = src

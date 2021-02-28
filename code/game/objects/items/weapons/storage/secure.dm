@@ -76,7 +76,7 @@
 		if(istype(weapon, /obj/item/melee/energy/blade))
 			do_sparks(5, 0, loc)
 			playsound(loc, 'sound/weapons/blade1.ogg', 50, 1)
-			playsound(loc, "sparks", 50, 1)
+			playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			to_chat(user, "You slice through the lock on [src].")
 		else
 			to_chat(user, "You short out the lock on [src].")

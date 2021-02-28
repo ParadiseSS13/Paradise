@@ -2,7 +2,6 @@
 	var/name                     // Species name.
 	var/name_plural 			// Pluralized name (since "[name]s" is not always valid)
 	var/icobase = 'icons/mob/human_races/r_human.dmi'    // Normal icon set.
-	var/deform = 'icons/mob/human_races/r_def_human.dmi' // Mutated icon set.
 
 	// Damage overlay and masks.
 	var/damage_overlays = 'icons/mob/human_races/masks/dam_human.dmi'
@@ -52,6 +51,8 @@
 	var/stamina_mod = 1
 	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
 	var/speed_mod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
+	///Percentage modifier for overall defense of the race, or less defense, if it's negative.
+	var/armor = 0
 	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
 	var/total_health = 100
 	var/punchdamagelow = 0       //lowest possible punch damage
@@ -84,6 +85,8 @@
 	var/single_gib_type = /obj/effect/decal/cleanable/blood/gibs
 	var/remains_type = /obj/effect/decal/remains/human //What sort of remains is left behind when the species dusts
 	var/base_color      //Used when setting species.
+	/// bitfield of biotypes the mob belongs to.
+	var/inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	var/list/inherent_factions
 
 	//Used in icon caching.
@@ -286,6 +289,8 @@
 		H.hud_used.update_locked_slots()
 	H.ventcrawler = ventcrawler
 
+	H.mob_biotypes = inherent_biotypes
+
 	for(var/X in inherent_traits)
 		ADD_TRAIT(H, X, SPECIES_TRAIT)
 
@@ -340,46 +345,66 @@
 /datum/species/proc/handle_death(gibbed, mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
 	return
 
-/datum/species/proc/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, mob/living/carbon/human/H, sharp = 0, obj/used_weapon = null)
-	blocked = (100 - blocked) / 100
-	if(blocked <= 0)
-		return 0
+/datum/species/proc/apply_damage(damage = 0, damagetype = BRUTE, def_zone, blocked = 0, mob/living/carbon/human/H, sharp = FALSE, obj/used_weapon, spread_damage = FALSE)
+	var/hit_percent = (100 - (blocked + armor)) / 100
+	hit_percent = (hit_percent * (100 - H.physiology.damage_resistance)) / 100
+	if(!damage || (hit_percent <= 0))
+		return FALSE
 
 	var/obj/item/organ/external/organ = null
-	if(isorgan(def_zone))
-		organ = def_zone
-	else
-		if(!def_zone)
-			def_zone = ran_zone(def_zone)
-		organ = H.get_organ(check_zone(def_zone))
-	if(!organ)
-		return 0
-
-	damage = damage * blocked
+	if(!spread_damage)
+		if(isorgan(def_zone))
+			organ = def_zone
+		else
+			if(!def_zone)
+				def_zone = ran_zone(def_zone)
+			organ = H.get_organ(check_zone(def_zone))
+			if(!organ)
+				organ = H.bodyparts[1]
 
 	switch(damagetype)
 		if(BRUTE)
-			damage = damage * brute_mod
-			if(damage)
+			var/damage_amount = damage * hit_percent * brute_mod * H.physiology.brute_mod
+			if(damage_amount)
 				H.damageoverlaytemp = 20
 
-			if(organ.receive_damage(damage, 0, sharp, used_weapon))
-				H.UpdateDamageIcon()
-
+			if(organ)
+				if(organ.receive_damage(damage_amount, 0, sharp, used_weapon))
+					H.UpdateDamageIcon()
+			else //no bodypart, we deal damage with a more general method.
+				H.adjustBruteLoss(damage_amount)
 		if(BURN)
-			damage = damage * burn_mod
-			if(damage)
+			var/damage_amount = damage * hit_percent * burn_mod * H.physiology.burn_mod
+			if(damage_amount)
 				H.damageoverlaytemp = 20
 
-			if(organ.receive_damage(0, damage, sharp, used_weapon))
-				H.UpdateDamageIcon()
+			if(organ)
+				if(organ.receive_damage(0, damage_amount, sharp, used_weapon))
+					H.UpdateDamageIcon()
+			else
+				H.adjustFireLoss(damage_amount)
+		if(TOX)
+			var/damage_amount = damage * hit_percent * H.physiology.tox_mod
+			H.adjustToxLoss(damage_amount)
+		if(OXY)
+			var/damage_amount = damage * hit_percent * H.physiology.oxy_mod
+			H.adjustOxyLoss(damage_amount)
+		if(CLONE)
+			var/damage_amount = damage * hit_percent * H.physiology.clone_mod
+			H.adjustCloneLoss(damage_amount)
+		if(STAMINA)
+			var/damage_amount = damage * hit_percent * H.physiology.stamina_mod
+			H.adjustStaminaLoss(damage_amount)
+		if(BRAIN)
+			var/damage_amount = damage * hit_percent * H.physiology.brain_mod
+			H.adjustBrainLoss(damage_amount)
 
 	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().
 	H.updatehealth("apply damage")
-	return 1
+	return TRUE
 
-/datum/species/proc/spec_stun(mob/living/carbon/human/H,amount)
-	return
+/datum/species/proc/spec_stun(mob/living/carbon/human/H, amount)
+	. = stun_mod * H.physiology.stun_mod * amount
 
 /datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, source, siemens_coeff = 1, flags = NONE)
 	return
@@ -693,8 +718,6 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
-			if(I.slot_flags & SLOT_DENYPOCKET)
-				return
 			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_POCKET))
 				return TRUE
 		if(slot_r_store)
@@ -707,8 +730,6 @@
 			if(!H.w_uniform && !nojumpsuit && !(O?.status & ORGAN_ROBOT))
 				if(!disable_warning)
 					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
-				return FALSE
-			if(I.slot_flags & SLOT_DENYPOCKET)
 				return FALSE
 			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_POCKET))
 				return TRUE
@@ -906,6 +927,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	return TRUE
 
 /datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
+	return
 
 /datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
 

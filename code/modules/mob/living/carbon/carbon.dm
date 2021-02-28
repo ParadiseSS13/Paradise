@@ -173,7 +173,6 @@
 	AdjustJitter(1000)
 	do_jitter_animation(jitteriness)
 	AdjustStuttering(2)
-	shock_internal_organs(shock_damage)
 	addtimer(CALLBACK(src, .proc/secondary_shock, should_stun), 20)
 	return shock_damage
 
@@ -619,7 +618,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	else if(!(I.flags & ABSTRACT)) //can't throw abstract items
 		thrown_thing = I
-		unEquip(I)
+		unEquip(I, silent = TRUE)
 
 		if(HAS_TRAIT(src, TRAIT_PACIFISM) && I.throwforce)
 			to_chat(src, "<span class='notice'>You set [I] down gently on the ground.</span>")
@@ -645,7 +644,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/get_restraining_item()
 	return handcuffed
 
-/mob/living/carbon/unEquip(obj/item/I, force) //THIS PROC DID NOT CALL ..()
+/mob/living/carbon/unEquip(obj/item/I, force, silent = FALSE) //THIS PROC DID NOT CALL ..()
 	. = ..() //Sets the default return value to what the parent returns.
 	if(!. || !I) //We don't want to set anything to null if the parent returned 0.
 		return
@@ -1175,10 +1174,6 @@ so that different stomachs can handle things in different ways VB*/
 	if(I.flags_inv & HIDEMASK || forced)
 		update_inv_wear_mask()
 	update_inv_head()
-
-/mob/living/carbon/proc/shock_internal_organs(intensity)
-	for(var/obj/item/organ/O in internal_organs)
-		O.shock_organ(intensity)
 
 /mob/living/carbon/update_sight()
 	if(!client)

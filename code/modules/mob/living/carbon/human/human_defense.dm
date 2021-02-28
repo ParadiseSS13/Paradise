@@ -151,7 +151,7 @@ emp_act
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & def_zone.body_part)
 				protection += C.armor.getRating(type)
-
+	protection += physiology.armor.getRating(type)
 	return protection
 
 //this proc returns the Siemens coefficient of electrical resistivity for a particular external organ.
@@ -504,6 +504,9 @@ emp_act
 
 //this proc handles being hit by a thrown atom
 /mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
+	var/spec_return = dna.species.spec_hitby(AM, src)
+	if(spec_return)
+		return spec_return
 	var/obj/item/I
 	var/throwpower = 30
 	if(istype(AM, /obj/item))
@@ -528,8 +531,6 @@ emp_act
 					visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
 					hitpush = FALSE
 					skipcatch = TRUE //can't catch the now embedded item
-	if(!blocked)
-		dna.species.spec_hitby(AM, src)
 	return ..()
 
 /mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)

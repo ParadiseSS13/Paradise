@@ -2093,3 +2093,53 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	))
 	query_accesslog.warn_execute()
 	qdel(query_accesslog)
+
+/**
+  * Returns the clean name of an audio channel.
+  *
+  * Arguments:
+  * * channel - The channel number.
+  */
+/proc/get_channel_name(channel)
+	switch(channel)
+		if(CHANNEL_LOBBYMUSIC)
+			return "Lobby Music"
+		if(CHANNEL_ADMIN)
+			return "Admin MIDIs"
+		if(CHANNEL_VOX)
+			return "AI Announcements"
+		if(CHANNEL_JUKEBOX)
+			return "Dance Machines"
+		if(CHANNEL_HEARTBEAT)
+			return "Heartbeat"
+		if(CHANNEL_BUZZ)
+			return "White Noise"
+		if(CHANNEL_AMBIENCE)
+			return "Ambience"
+      
+/proc/slot_bitfield_to_slot(input_slot_flags) // Kill off this garbage ASAP; slot flags and clothing flags should be IDENTICAL. GOSH DARN IT. Doesn't work with ears or pockets, either.
+	switch(input_slot_flags)
+		if(SLOT_OCLOTHING)
+			return slot_wear_suit
+		if(SLOT_ICLOTHING)
+			return slot_w_uniform
+		if(SLOT_GLOVES)
+			return slot_gloves
+		if(SLOT_EYES)
+			return slot_glasses
+		if(SLOT_MASK)
+			return slot_wear_mask
+		if(SLOT_HEAD)
+			return slot_head
+		if(SLOT_FEET)
+			return slot_shoes
+		if(SLOT_ID)
+			return slot_wear_id
+		if(SLOT_BELT)
+			return slot_belt
+		if(SLOT_BACK)
+			return slot_back
+		if(SLOT_PDA)
+			return slot_wear_pda
+		if(SLOT_TIE)
+			return slot_tie

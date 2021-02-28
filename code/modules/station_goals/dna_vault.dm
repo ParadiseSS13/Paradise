@@ -321,13 +321,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 			S.stun_mod *= 0.5
 		if(VAULT_ARMOUR)
 			to_chat(H, "<span class='notice'>You feel tough.</span>")
-			S.brute_mod *= 0.7
-			S.burn_mod *= 0.7
-			S.tox_mod *= 0.7
-			S.oxy_mod *= 0.7
-			S.clone_mod *= 0.7
-			S.brain_mod *= 0.7
-			S.stamina_mod *= 0.7
+			S.armor = 30
 			ADD_TRAIT(H, TRAIT_PIERCEIMMUNE, "dna_vault")
 		if(VAULT_SPEED)
 			to_chat(H, "<span class='notice'>You feel very fast and agile.</span>")
