@@ -5,7 +5,7 @@
 	icon_state = "minimoog"
 	anchored = TRUE
 	density = TRUE
-	allowed_instrument_ids = "piano"
+	allowed_instrument_ids = list("piano", "r3grand", "crgrand1", "crbright1")
 
 /obj/structure/piano/unanchored
 	anchored = FALSE
