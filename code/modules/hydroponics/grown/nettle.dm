@@ -50,12 +50,12 @@
 /obj/item/grown/nettle/pickup(mob/living/user)
 	..()
 	if(!ishuman(user))
-		return TRUE
+		return FALSE
 	var/mob/living/carbon/human/H = user
 	if(H.gloves)
-		return TRUE
+		return FALSE
 	if(HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))
-		return TRUE
+		return FALSE
 	var/organ = ((H.hand ? "l_":"r_") + "arm")
 	var/obj/item/organ/external/affecting = H.get_organ(organ)
 	if(affecting)
