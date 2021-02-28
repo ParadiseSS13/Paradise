@@ -126,9 +126,9 @@
 			else
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/card/id))
-					usr.drop_item()
-					I.forceMove(src)
-					scan = I
+					if(usr.drop_item())
+						I.forceMove(src)
+						scan = I
 		if("mode")
 			mode = !mode
 	if(!scan || !scan.access)
