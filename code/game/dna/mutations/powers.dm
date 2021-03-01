@@ -164,7 +164,7 @@
 	deactivation_messages = list("the walls around you re-appear.")
 	instability = GENE_INSTABILITY_MAJOR
 	traits_to_add = list(TRAIT_XRAY_VISION)
-	activation_prob = 15
+	activation_prob = 0
 
 /datum/mutation/xray/New()
 	..()
