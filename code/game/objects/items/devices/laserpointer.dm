@@ -79,11 +79,9 @@
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if((HULK in H.mutations) || (NOGUNS in H.dna.species.species_traits))
-			user << "<span class='warning'>Your fingers can't press the button!</span>"
-			return
+	if(HAS_TRAIT(user, TRAIT_CHUNKYFINGERS))
+		to_chat(user, "<span class='warning'>Your fingers can't press the button!</span>")
+		return
 
 	add_fingerprint(user)
 

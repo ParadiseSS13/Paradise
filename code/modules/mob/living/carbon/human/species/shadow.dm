@@ -3,7 +3,6 @@
 	name_plural = "Shadows"
 
 	icobase = 'icons/mob/human_races/r_shadow.dmi'
-	deform = 'icons/mob/human_races/r_shadow.dmi'
 	dangerous_existence = TRUE
 	inherent_factions = list("faithless")
 
@@ -16,7 +15,8 @@
 		"eyes" = /obj/item/organ/internal/eyes/night_vision/nightmare //8 darksight.
 		)
 
-	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE)
+	species_traits = list(NO_BLOOD)
+	inherent_traits = list(TRAIT_VIRUSIMMUNE, TRAIT_NOBREATH, TRAIT_RADIMMUNE)
 	dies_at_threshold = TRUE
 
 	dietflags = DIET_OMNI		//the mutation process allowed you to now digest all foods regardless of initial race

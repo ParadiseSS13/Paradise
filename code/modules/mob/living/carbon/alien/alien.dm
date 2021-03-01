@@ -193,7 +193,7 @@ Des: Gives the client of the alien an image on each infected mob.
 /mob/living/carbon/alien/proc/AddInfectionImages()
 	if(client)
 		for(var/mob/living/C in GLOB.mob_list)
-			if(C.status_flags & XENO_HOST)
+			if(HAS_TRAIT(C, TRAIT_XENO_HOST))
 				var/obj/item/organ/internal/body_egg/alien_embryo/A = C.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo)
 				if(A)
 					var/I = image('icons/mob/alien.dmi', loc = C, icon_state = "infected[A.stage]")

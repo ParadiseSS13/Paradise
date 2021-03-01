@@ -44,9 +44,9 @@
 /datum/outfit/proc/equip_item(mob/living/carbon/human/H, path, slot)
 	var/obj/item/I = new path(H)
 	if(collect_not_del)
-		H.equip_or_collect(I, slot)
+		H.equip_or_collect(I, slot, TRUE)
 	else
-		H.equip_to_slot_or_del(I, slot)
+		H.equip_to_slot_or_del(I, slot, TRUE)
 
 /datum/outfit/proc/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	//to be overriden for toggling internals, id binding, access etc

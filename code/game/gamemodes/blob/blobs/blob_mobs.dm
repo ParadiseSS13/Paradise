@@ -34,6 +34,11 @@
 				H.color = "#000000"
 		adjustHealth(-maxHealth * 0.0125)
 
+/mob/living/simple_animal/hostile/blob/Process_Spacemove(movement_dir = 0)
+	// Use any nearby blob structures to allow space moves.
+	for(var/obj/structure/blob/B in range(1, src))
+		return TRUE
+	return ..()
 
 ////////////////
 // BLOB SPORE //
@@ -92,6 +97,7 @@
 	health = maxHealth
 	name = "blob zombie"
 	desc = "A shambling corpse animated by the blob."
+	mob_biotypes |= MOB_HUMANOID
 	melee_damage_lower = 10
 	melee_damage_upper = 15
 	icon = H.icon
@@ -180,6 +186,7 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	move_resist = MOVE_FORCE_OVERPOWERING
+	a_intent = INTENT_HARM
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Life(seconds, times_fired)
 	if(stat != DEAD && (getBruteLoss() || getFireLoss())) // Heal on blob structures

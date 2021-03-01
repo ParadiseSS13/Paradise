@@ -17,7 +17,7 @@
 	var/tint = 0
 	var/flash_protect = FLASH_PROTECTION_NONE
 	var/see_invisible = SEE_INVISIBLE_LIVING
-	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
+	var/lighting_alpha
 
 /obj/item/organ/internal/eyes/proc/update_colour()
 	dna.write_eyes_attributes(src)
@@ -32,7 +32,7 @@
 	return eyes_icon
 
 /obj/item/organ/internal/eyes/proc/get_colourmatrix() //Returns a special colour matrix if the eyes are organic and the mob is colourblind, otherwise it uses the current one.
-	if(!is_robotic() && (COLOURBLIND in owner.mutations))
+	if(!is_robotic() && HAS_TRAIT(owner, TRAIT_COLORBLIND))
 		return colourblind_matrix
 	else
 		return colourmatrix
@@ -49,19 +49,19 @@
 	M.update_tint()
 	M.update_sight()
 
-	if(!(COLOURBLIND in M.mutations) && (COLOURBLIND in dependent_disabilities)) //If the eyes are colourblind and we're not, carry over the gene.
-		dependent_disabilities -= COLOURBLIND
-		M.dna.SetSEState(GLOB.colourblindblock,1)
-		genemutcheck(M,GLOB.colourblindblock,null,MUTCHK_FORCED)
+	if(!HAS_TRAIT(M, TRAIT_COLORBLIND) && (TRAIT_COLORBLIND in dependent_disabilities)) //If the eyes are colourblind and we're not, carry over the gene.
+		dependent_disabilities -= TRAIT_COLORBLIND
+		M.dna.SetSEState(GLOB.colourblindblock, TRUE)
+		singlemutcheck(M, GLOB.colourblindblock, MUTCHK_FORCED)
 	else
 		M.update_client_colour() //If we're here, that means the mob acquired the colourblindness gene while they didn't have eyes. Better handle it.
 
 /obj/item/organ/internal/eyes/remove(mob/living/carbon/human/M, special = 0)
-	if(!special && (COLOURBLIND in M.mutations)) //If special is set, that means these eyes are getting deleted (i.e. during set_species())
-		if(!(COLOURBLIND in dependent_disabilities)) //We only want to change COLOURBLINDBLOCK and such it the eyes are being surgically removed.
-			dependent_disabilities |= COLOURBLIND
-		M.dna.SetSEState(GLOB.colourblindblock,0)
-		genemutcheck(M,GLOB.colourblindblock,null,MUTCHK_FORCED)
+	if(!special && HAS_TRAIT(M, TRAIT_COLORBLIND)) //If special is set, that means these eyes are getting deleted (i.e. during set_species())
+		if(!(TRAIT_COLORBLIND in dependent_disabilities)) //We only want to change COLOURBLINDBLOCK and such it the eyes are being surgically removed.
+			dependent_disabilities |= TRAIT_COLORBLIND
+		M.dna.SetSEState(GLOB.colourblindblock, FALSE)
+		singlemutcheck(M, GLOB.colourblindblock, MUTCHK_FORCED)
 	M.update_tint()
 	M.update_sight()
 	. = ..()
@@ -69,8 +69,8 @@
 /obj/item/organ/internal/eyes/surgeryize()
 	if(!owner)
 		return
-	owner.CureNearsighted()
-	owner.CureBlind()
+	owner.cure_nearsighted(EYE_DAMAGE)
+	owner.cure_blind(EYE_DAMAGE)
 	owner.SetEyeBlurry(0)
 	owner.SetEyeBlind(0)
 
@@ -167,14 +167,15 @@
 	eye.on = TRUE
 	eye.forceMove(M)
 	eye.update_brightness(M)
-	M.BecomeBlind()
+	M.become_blind("flashlight_eyes")
 
 
 /obj/item/organ/internal/eyes/cybernetic/flashlight/remove(mob/living/carbon/M, special = FALSE)
-	eye.on = FALSE
-	eye.update_brightness(M)
-	eye.forceMove(src)
-	M.CureBlind()
+	if(eye)
+		eye.on = FALSE
+		eye.update_brightness(M)
+		eye.forceMove(src)
+	M.cure_blind("flashlight_eyes")
 	. = ..()
 
 // Welding shield implant
