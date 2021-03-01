@@ -42993,6 +42993,7 @@
 	dir = 4;
 	id = "coroner"
 	},
+/obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
 /area/medical/morgue)
 "bTZ" = (
@@ -54343,6 +54344,12 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8";
+	tag = ""
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "cHQ" = (
@@ -54661,6 +54668,12 @@
 /obj/item/storage/belt/utility,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "cIU" = (
@@ -54851,6 +54864,12 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "cJp" = (
@@ -55917,12 +55936,6 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
@@ -56460,12 +56473,6 @@
 /turf/simulated/wall/r_wall,
 /area/atmos/distribution)
 "cOY" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
 /obj/machinery/alarm{
 	dir = 4;
 	pixel_x = -23
@@ -58341,6 +58348,12 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
@@ -67956,7 +67969,9 @@
 /area/toxins/robolab)
 "dPb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/floodlight,
+/obj/machinery/floodlight{
+	light_power = 5
+	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6";
 	tag = "icon-wood-broken6"
@@ -71758,6 +71773,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull";
 	tag = "icon-whitebluefull"
@@ -82452,15 +82473,6 @@
 	name = "reinforced stairs"
 	},
 /area/toxins/test_chamber)
-"oAU" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/turf/simulated/wall,
-/area/engine/break_room)
 "oBU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -90671,6 +90683,9 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
+/obj/structure/disaster_counter/scichem{
+	pixel_y = 32
+	},
 /turf/simulated/floor/engine,
 /area/toxins/misc_lab)
 "uAt" = (
@@ -92744,6 +92759,7 @@
 /obj/structure/window/reinforced/polarized{
 	id = "coroner"
 	},
+/obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
 /area/medical/morgue)
 "wjg" = (
@@ -94482,7 +94498,7 @@
 /turf/simulated/floor/plating,
 /area/medical/morgue)
 "xBi" = (
-/obj/structure/sign/explosives/alt,
+/obj/structure/disaster_counter/toxins,
 /turf/simulated/wall/r_wall,
 /area/toxins/launch)
 "xCr" = (
@@ -124984,7 +125000,7 @@ cHM
 cLT
 cML
 cHQ
-oAU
+cHQ
 cNU
 cFa
 cRR
