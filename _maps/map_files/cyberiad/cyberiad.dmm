@@ -69793,6 +69793,7 @@
 	c_tag = "Research Director's Office";
 	network = list("Research","SS13")
 	},
+/obj/item/reagent_containers/food/drinks/mug/rd,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkpurple"
@@ -70178,6 +70179,11 @@
 	icon_state = "whitehall"
 	},
 /area/hallway/primary/starboard/east)
+"fFV" = (
+/obj/structure/table,
+/obj/item/newspaper,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "fGM" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -79964,6 +79970,14 @@
 /obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"mMh" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 2;
+	name = "2maintenance loot spawner"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "mMr" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor{
@@ -83035,6 +83049,18 @@
 "oTw" = (
 /turf/simulated/floor/carpet,
 /area/medical/psych)
+"oTF" = (
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/paper_bin,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "oUJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -83574,6 +83600,11 @@
 	icon_state = "blackcorner"
 	},
 /area/maintenance/genetics)
+"pmp" = (
+/obj/item/taperecorder,
+/obj/structure/table,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "pmD" = (
 /obj/structure/table,
 /obj/item/trash/chips,
@@ -84160,8 +84191,10 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "pLA" = (
-/obj/structure/rack,
-/obj/item/reagent_containers/food/drinks/mug/rd,
+/obj/machinery/suit_storage_unit/standard_unit/secure{
+	name = "Research Director's EVA Suit Storage";
+	req_access = list(30)
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple";
@@ -88205,6 +88238,13 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/hallway)
+"sVI" = (
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 2;
+	name = "2maintenance loot spawner"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "sWc" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
@@ -89748,6 +89788,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 4
 	},
+/obj/structure/closet,
+/obj/item/book/random,
+/obj/item/book/random,
+/obj/item/book/random,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "tTL" = (
@@ -91683,6 +91727,7 @@
 /obj/structure/window/reinforced/polarized{
 	id = "med2"
 	},
+/obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
 /area/medical/biostorage)
 "vuQ" = (
@@ -95027,6 +95072,7 @@
 /obj/structure/window/reinforced/polarized{
 	id = "med2"
 	},
+/obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
 /area/medical/biostorage)
 "xXv" = (
@@ -145511,7 +145557,7 @@ qIB
 vjz
 nJt
 cuQ
-bGG
+dfc
 fPY
 bGG
 cuQ
@@ -145768,7 +145814,7 @@ cuQ
 jJf
 cmE
 cuQ
-bGG
+mMh
 fPY
 bGG
 cuQ
@@ -146025,7 +146071,7 @@ cuQ
 tIX
 cuQ
 cuQ
-bGG
+cKv
 fPY
 bGG
 dgf
@@ -146280,7 +146326,7 @@ loO
 cuQ
 cuQ
 tTu
-bGG
+pmp
 cuQ
 bGG
 fPY
@@ -147049,11 +147095,11 @@ loO
 bGG
 wDF
 cuQ
-bGG
-bGG
+oTF
+ttV
 bGG
 cuQ
-bGG
+cAU
 rCW
 piK
 bGG
@@ -147306,9 +147352,9 @@ lPw
 pHQ
 wDF
 cuQ
+fFV
 bGG
-bGG
-bGG
+cAU
 cuQ
 cuQ
 rwp
@@ -148845,8 +148891,8 @@ bGG
 veB
 cLh
 cuQ
-bGG
-bGG
+sVI
+mks
 cuQ
 ezD
 ezD
@@ -149103,7 +149149,7 @@ wOa
 bPA
 cuQ
 cuQ
-cuQ
+bZZ
 cuQ
 ezD
 ezD
