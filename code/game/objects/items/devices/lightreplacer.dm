@@ -222,7 +222,7 @@
 
 /obj/item/lightreplacer/proc/Emag()
 	emagged = !emagged
-	playsound(loc, "sparks", 100, TRUE)
+	playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	if(emagged)
 		name = "shortcircuited [initial(name)]"
 	else

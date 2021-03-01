@@ -165,7 +165,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	if(!message_sound)
 		return
 	for(var/mob/M in receivers)
-		M << message_sound
+		SEND_SOUND(M, message_sound)
 
 /datum/announcement/proc/Log(message as text, message_title as text)
 	if(log)

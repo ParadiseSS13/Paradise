@@ -16,7 +16,7 @@
 			if(R_ADMIN & C.holder.rights)
 				// Lets see if this admin was pinged in the asay message
 				if(findtext(msg, "@[C.ckey]") || findtext(msg, "@[C.key]")) // Check ckey and key, so you can type @AffectedArc07 or @affectedarc07
-					SEND_SOUND(C, 'sound/misc/ping.ogg')
+					SEND_SOUND(C, sound('sound/misc/ping.ogg'))
 					msg = replacetext(msg, "@[C.ckey]", "<font color='red'>@[C.ckey]</font>")
 					msg = replacetext(msg, "@[C.key]", "<font color='red'>@[C.key]</font>") // Same applies here. key and ckey.
 

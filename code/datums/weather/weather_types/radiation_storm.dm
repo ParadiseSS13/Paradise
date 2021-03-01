@@ -36,7 +36,7 @@
 	if(prob(40))
 		if(ishuman(L))
 			var/mob/living/carbon/human/H = L
-			if(!(RADIMMUNE in H.dna.species.species_traits))
+			if(!HAS_TRAIT(H, TRAIT_RADIMMUNE))
 				if(prob(max(0, 100 - resist)))
 					randmuti(H) // Applies bad mutation
 					if(prob(50))
@@ -44,7 +44,7 @@
 							randmutb(H)
 						else
 							randmutg(H)
-					domutcheck(H, null, 1)
+					domutcheck(H, MUTCHK_FORCED)
 
 		L.rad_act(20)
 

@@ -30,7 +30,7 @@
 		if(!contains_sample)
 			for(var/datum/reagent/blood/bloodSample in W.reagents.reagent_list)
 				var/datum/dna/dna = bloodSample.data["dna"]
-				if(bloodSample.data["mind"] && bloodSample.data["cloneable"] && !(NO_SCAN in dna.species.species_traits))
+				if(bloodSample.data["mind"] && bloodSample.data["cloneable"] && !(NO_CLONESCAN in dna.species.species_traits))
 					var/datum/mind/tempmind = bloodSample.data["mind"]
 					if(tempmind.is_revivable())
 						mind = bloodSample.data["mind"]
