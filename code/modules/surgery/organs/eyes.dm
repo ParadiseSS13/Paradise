@@ -62,9 +62,9 @@
 			dependent_disabilities |= TRAIT_COLORBLIND
 		M.dna.SetSEState(GLOB.colourblindblock, FALSE)
 		singlemutcheck(M, GLOB.colourblindblock, MUTCHK_FORCED)
+	. = ..()
 	M.update_tint()
 	M.update_sight()
-	. = ..()
 
 /obj/item/organ/internal/eyes/surgeryize()
 	if(!owner)
