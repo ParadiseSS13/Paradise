@@ -70,12 +70,6 @@
 					if("/turf/simulated/wall/r_wall")
 						colour = rgb(128,96,96)
 
-					if("/turf/unsimulated/floor")
-						colour  = rgb(240,240,240)
-
-					if("/turf/unsimulated/wall")
-						colour  = rgb(140,140,140)
-
 					else
 						colour = rgb(0,40,0)
 
@@ -225,12 +219,6 @@
 
 					if("/turf/simulated/wall/r_wall")
 						colour = rgb(128,96,96)
-
-					if("/turf/unsimulated/floor")
-						colour  = rgb(240,240,240)
-
-					if("/turf/unsimulated/wall")
-						colour  = rgb(140,140,140)
 
 					else
 						colour = rgb(0,40,0)

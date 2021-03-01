@@ -235,7 +235,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 					radiochannel = "AI Private"
 				else if(recipient == "Cargo Bay")
 					radiochannel = "Supply"
-				message_log += "Message sent to [recipient] at [station_time_timestamp()] - [message]"
+				message_log.Add(list(list("Message sent to [recipient] at [station_time_timestamp()]", "[message]")))
 				Radio.autosay("Alert; a new requests console message received for [recipient] from [department]", null, "[radiochannel]")
 			else
 				atom_say("No server detected!")
