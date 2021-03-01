@@ -21,7 +21,7 @@ SUBSYSTEM_DEF(ambience)
 
 		var/area/current_area = get_area(client_iterator.mob)
 
-		var/ambience = pick(current_area.ambientsounds)
+		var/ambience = safepick(current_area.ambientsounds)
 		if(!ambience)
 			continue
 
