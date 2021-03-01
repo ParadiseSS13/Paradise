@@ -108,12 +108,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/announce_arrivals = TRUE
 	var/arrivalmsg = "$name, $rank, has arrived on the station."
 
-	var/multicam_allowed = FALSE
-	var/multicam_on = FALSE
-	var/obj/screen/movable/pic_in_pic/ai/master_multicam
-	var/list/multicam_screens = list()
 	var/list/all_eyes = list()
-	var/max_multicams = 6
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	verbs |= GLOB.ai_verbs_default
@@ -766,13 +761,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		light_cameras()
 	if(istype(A, /obj/machinery/camera))
 		current = A
-	if(A != GLOB.ai_camera_room_landmark)
-		end_multicam()
 
 	. = ..()
 	if(.)
 		if(!A && isturf(loc) && eyeobj)
-			end_multicam()
 			client.eye = eyeobj
 			client.perspective = MOB_PERSPECTIVE
 			eyeobj.get_remote_view_fullscreens(src)
@@ -1150,6 +1142,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = "AI Commands"
 
 	var/newmsg = clean_input("What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg)
+	if(!newmsg)
+		return
+	newmsg = html_decode(newmsg) // This feels a bit redundant, but sanitisation is (probably) important.
 	if(newmsg != arrivalmsg)
 		arrivalmsg = newmsg
 		to_chat(usr, "The arrival message has been successfully changed.")
@@ -1246,7 +1241,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		aiRestorePowerRoutine = 0//So the AI initially has power.
 		control_disabled = 1//Can't control things remotely if you're stuck in a card!
 		aiRadio.disabledAi = 1 	//No talking on the built-in radio for you either!
-		loc = card//Throw AI into the card.
+		forceMove(card) //Throw AI into the card.
 		to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
 
@@ -1280,7 +1275,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [message]</span></i>"
 	if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 		var/message_clean = combine_message(message_pieces, null, M)
-		create_chat_message(M, message_clean)
+		create_chat_message(M.runechat_msg_location, message_clean)
 	show_message(rendered, 2)
 
 /mob/living/silicon/ai/proc/malfhacked(obj/machinery/power/apc/apc)
@@ -1360,11 +1355,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/camera_visibility(mob/camera/aiEye/moved_eye)
 	GLOB.cameranet.visibility(moved_eye, client, all_eyes)
 
-/mob/living/silicon/ai/forceMove(atom/destination)
-	. = ..()
-	if(.)
-		end_multicam()
-
 /mob/living/silicon/ai/handle_fire()
 	return
 
@@ -1399,3 +1389,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
+
+/mob/living/silicon/ai/update_runechat_msg_location()
+	if(istype(loc, /obj/item/aicard) || ismecha(loc))
+		runechat_msg_location = loc
+	else
+		runechat_msg_location = src

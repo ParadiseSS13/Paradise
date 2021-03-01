@@ -102,7 +102,6 @@ Class Procs:
 	max_integrity = 200
 	layer = BELOW_OBJ_LAYER
 	var/stat = 0
-	var/emagged = 0
 	var/use_power = IDLE_POWER_USE
 		//0 = dont run the auto
 		//1 = run auto, use idle
@@ -112,13 +111,10 @@ Class Procs:
 	var/power_channel = EQUIP //EQUIP,ENVIRON or LIGHT
 	var/list/component_parts = null //list of all the parts used to build it, if made from certain kinds of frames.
 	var/uid
-	var/manual = 0
 	var/global/gl_uid = 1
-	var/custom_aghost_alerts=0
 	var/panel_open = 0
 	var/area/myArea
 	var/interact_offline = 0 // Can the machine be interacted with while de-powered.
-	var/list/use_log // Init this list if you wish to add logging to your machine - currently only viewable in VV
 	var/list/settagwhitelist // (Init this list if needed) WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
 	atom_say_verb = "beeps"
 	var/siemens_strength = 0.7 // how badly will it shock you?
@@ -637,14 +633,15 @@ Class Procs:
 /obj/machinery/proc/can_be_overridden()
 	. = 1
 
-/obj/machinery/tesla_act(power, explosive = FALSE)
-	..()
-	if(prob(85) && explosive)
-		explosion(loc, 1, 2, 4, flame_range = 2, adminlog = 0, smoke = 0)
-	else if(prob(50))
-		emp_act(EMP_LIGHT)
-	else
-		ex_act(EXPLODE_HEAVY)
+/obj/machinery/zap_act(power, zap_flags)
+	if(prob(85) && (zap_flags & ZAP_MACHINE_EXPLOSIVE) && !(resistance_flags & INDESTRUCTIBLE))
+		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE, smoke = FALSE)
+	else if(zap_flags & ZAP_OBJ_DAMAGE)
+		take_damage(power * 0.0005, BURN, "energy")
+		if(prob(40))
+			emp_act(EMP_LIGHT)
+		power -= power * 0.0005
+	return ..()
 
 /obj/machinery/proc/adjust_item_drop_location(atom/movable/AM)	// Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8
 	var/md5 = md5(AM.name)										// Oh, and it's deterministic too. A specific item will always drop from the same slot.

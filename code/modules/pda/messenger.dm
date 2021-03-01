@@ -18,7 +18,7 @@
 	unnotify()
 
 /datum/data/pda/app/messenger/update_ui(mob/user as mob, list/data)
-	data["silent"] = notify_silent						// does the pda make noise when it receives a message?
+	data["silent"] = pda.silent						// does the pda make noise when it receives a message?
 	data["toff"] = toff									// is the messenger function turned off?
 	// Yes I know convo is awful, but it lets me stay inside the 80 char TGUI line limit
 	data["active_convo"] = active_conversation	// Which conversation are we following right now?
@@ -28,8 +28,8 @@
 		data["messages"] = tnote
 		for(var/c in tnote)
 			if(c["target"] == active_conversation)
-				data["convo_name"] = sanitize(c["owner"])
-				data["convo_job"] = sanitize(c["job"])
+				data["convo_name"] = c["owner"]
+				data["convo_job"] = c["job"]
 				break
 	else
 		var/list/convopdas = list()
@@ -64,12 +64,16 @@
 
 	unnotify()
 
+	var/play_beep = TRUE
+
 	. = TRUE
+
+
 	switch(action)
 		if("Toggle Messenger")
 			toff = !toff
 		if("Toggle Ringer")//If viewing texts then erase them, if not then toggle silent status
-			notify_silent = !notify_silent
+			pda.silent = !pda.silent
 		if("Clear")//Clears messages
 			if(params["option"] == "All")
 				tnote.Cut()
@@ -84,6 +88,7 @@
 
 			active_conversation = null
 		if("Message")
+			play_beep = FALSE
 			var/obj/item/pda/P = locateUID(params["target"])
 			create_message(usr, P)
 			if(params["target"] in conversations)            // Need to make sure the message went through, if not welp.
@@ -108,12 +113,15 @@
 		if("Back")
 			active_conversation = null
 
+	if(play_beep && !pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
+
+
 /datum/data/pda/app/messenger/proc/create_message(var/mob/living/U, var/obj/item/pda/P)
 	var/t = input(U, "Please enter message", name, null) as text|null
 	if(!t)
 		return
 	t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
-	t = readd_quotes(t)
 	if(!t || !istype(P))
 		return
 	if(!in_range(pda, U) && pda.loc != U)
@@ -161,18 +169,22 @@
 
 	if(!sendable) // Are we in the range of a reciever?
 		to_chat(U, "<span class='warning'>ERROR: No connection to server.</span>")
+		if(!pda.silent)
+			playsound(pda, 'sound/machines/terminal_error.ogg', 15, TRUE)
 		return
 
 	if(!receivable) // Is our recipient in the range of a reciever?
 		to_chat(U, "<span class='warning'>ERROR: No connection to recipient.</span>")
+		if(!pda.silent)
+			playsound(pda, 'sound/machines/terminal_error.ogg', 15, TRUE)
 		return
 
 	if(useMS && sendable && receivable) // only send the message if its going to work
 
 
 		useMS.send_pda_message("[P.owner]","[pda.owner]","[t]")
-		tnote.Add(list(list("sent" = 1, "owner" = "[P.owner]", "job" = "[P.ownjob]", "message" = "[t]", "target" = "[P.UID()]")))
-		PM.tnote.Add(list(list("sent" = 0, "owner" = "[pda.owner]", "job" = "[pda.ownjob]", "message" = "[t]", "target" = "[pda.UID()]")))
+		tnote.Add(list(list("sent" = 1, "owner" = "[P.owner]", "job" = "[P.ownjob]", "message" = "[html_decode(t)]", "target" = "[P.UID()]")))
+		PM.tnote.Add(list(list("sent" = 0, "owner" = "[pda.owner]", "job" = "[pda.ownjob]", "message" = "[html_decode(t)]", "target" = "[pda.UID()]")))
 		pda.investigate_log("<span class='game say'>PDA Message - <span class='name'>[U.key] - [pda.owner]</span> -> <span class='name'>[P.owner]</span>: <span class='message'>[t]</span></span>", "pda")
 
 		// Show it to ghosts
@@ -188,9 +200,22 @@
 
 		SStgui.update_uis(src)
 		PM.notify("<b>Message from [pda.owner] ([pda.ownjob]), </b>\"[t]\" (<a href='?src=[PM.UID()];choice=Message;target=[pda.UID()]'>Reply</a>)")
-		log_pda("(PDA: [src.name]) sent \"[t]\" to [P.name]", usr)
+		log_pda("(PDA: [src.name]) sent \"[t]\" to [P.name]", U)
+		var/log_message = "sent PDA message \"[t]\" using [pda]"
+		var/receiver
+		if(ishuman(P.loc))
+			receiver = P.loc
+			log_message = "[log_message] to [P]"
+		else
+			receiver = P
+			log_message = "[log_message] (no holder)"
+		U.create_log(MISC_LOG, log_message, receiver)
+		if(!pda.silent)
+			playsound(pda, 'sound/machines/terminal_success.ogg', 15, TRUE)
 	else
 		to_chat(U, "<span class='notice'>ERROR: Messaging server is not responding.</span>")
+		if(!pda.silent)
+			playsound(pda, 'sound/machines/terminal_error.ogg', 15, TRUE)
 
 /datum/data/pda/app/messenger/proc/available_pdas()
 	var/list/names = list()

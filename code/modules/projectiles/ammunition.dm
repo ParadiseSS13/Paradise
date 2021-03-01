@@ -8,7 +8,7 @@
 	throwforce = 1
 	w_class = WEIGHT_CLASS_TINY
 	var/fire_sound = null						//What sound should play when this ammo is fired
-	var/drop_sound = "casingdrop"               //What sound should play when this ammo hits the ground
+	var/casing_drop_sound = "casingdrop"               //What sound should play when this ammo hits the ground
 	var/caliber = null							//Which kind of guns it can be loaded into
 	var/projectile_type = null					//The bullet type to create when New() is called
 	var/obj/item/projectile/BB = null 			//The loaded bullet

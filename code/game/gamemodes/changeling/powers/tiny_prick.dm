@@ -94,12 +94,12 @@
 /datum/action/changeling/sting/transformation/can_sting(var/mob/user, var/mob/target)
 	if(!..())
 		return
-	if((HUSK in target.mutations) || (!ishuman(target)))
+	if(HAS_TRAIT(target, TRAIT_HUSK) || (!ishuman(target)))
 		to_chat(user, "<span class='warning'>Our sting appears ineffective against its DNA.</span>")
 		return FALSE
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(NO_DNA in H.dna.species.species_traits)
+		if(HAS_TRAIT(H, TRAIT_GENELESS))
 			to_chat(user, "<span class='warning'>This won't work on a creature without DNA.</span>")
 			return FALSE
 	return TRUE
@@ -117,7 +117,7 @@
 
 	spawn(10)
 		transform_dna(target,selected_dna)//target is always human so no problem here
-	feedback_add_details("changeling_powers","TS")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
 /datum/action/changeling/sting/extract_dna
@@ -137,7 +137,7 @@
 	add_attack_logs(user, target, "Extraction sting (changeling)")
 	if(!(user.mind.changeling.has_dna(target.dna)))
 		user.mind.changeling.absorb_dna(target, user)
-	feedback_add_details("changeling_powers","ED")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1
 
 /datum/action/changeling/sting/mute
@@ -152,7 +152,7 @@
 /datum/action/changeling/sting/mute/sting_action(var/mob/user, var/mob/living/carbon/target)
 	add_attack_logs(user, target, "Mute sting (changeling)")
 	target.AdjustSilence(30)
-	feedback_add_details("changeling_powers","MS")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1
 
 /datum/action/changeling/sting/blind
@@ -167,10 +167,10 @@
 /datum/action/changeling/sting/blind/sting_action(var/mob/living/user, var/mob/living/target)
 	add_attack_logs(user, target, "Blind sting (changeling)")
 	to_chat(target, "<span class='danger'>Your eyes burn horrifically!</span>")
-	target.BecomeNearsighted()
+	target.become_nearsighted(EYE_DAMAGE)
 	target.EyeBlind(20)
 	target.EyeBlurry(40)
-	feedback_add_details("changeling_powers","BS")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1
 
 /datum/action/changeling/sting/LSD
@@ -187,7 +187,7 @@
 	spawn(rand(300,600))
 		if(target)
 			target.Hallucinate(400)
-	feedback_add_details("changeling_powers","HS")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1
 
 /datum/action/changeling/sting/cryo //Enable when mob cooling is fixed so that frostoil actually makes you cold, instead of mostly just hungry.
@@ -204,5 +204,5 @@
 	if(target.reagents)
 		target.reagents.add_reagent("frostoil", 30)
 		target.reagents.add_reagent("ice", 30)
-	feedback_add_details("changeling_powers","CS")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1

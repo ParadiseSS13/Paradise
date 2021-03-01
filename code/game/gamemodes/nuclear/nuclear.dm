@@ -238,7 +238,7 @@
 
 
 /datum/game_mode/proc/greet_syndicate(var/datum/mind/syndicate, var/you_are=1)
-	SEND_SOUND(syndicate.current, 'sound/ambience/antag/ops.ogg')
+	SEND_SOUND(syndicate.current, sound('sound/ambience/antag/ops.ogg'))
 	if(you_are)
 		to_chat(syndicate.current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
 	var/obj_count = 1
@@ -286,13 +286,13 @@
 		switch(race)
 			if("Vox" || "Vox Armalis")
 				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), slot_wear_mask)
-				synd_mob.equip_to_slot_or_del(new /obj/item/tank/emergency_oxygen/vox(synd_mob), slot_l_hand)
+				synd_mob.equip_to_slot_or_del(new /obj/item/tank/internals/emergency_oxygen/double/vox(synd_mob), slot_l_hand)
 				synd_mob.internal = synd_mob.l_hand
 				synd_mob.update_action_buttons_icon()
 
 			if("Plasmaman")
 				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), slot_wear_mask)
-				synd_mob.equip_or_collect(new /obj/item/tank/plasma/plasmaman(synd_mob), slot_s_store)
+				synd_mob.equip_or_collect(new /obj/item/tank/internals/plasmaman(synd_mob), slot_s_store)
 				synd_mob.equip_or_collect(new /obj/item/extinguisher_refill(synd_mob), slot_in_backpack)
 				synd_mob.equip_or_collect(new /obj/item/extinguisher_refill(synd_mob), slot_in_backpack)
 				synd_mob.internal = synd_mob.get_item_by_slot(slot_s_store)
@@ -336,47 +336,47 @@
 	//herp //Used for tracking if the syndies got the shuttle off of the z-level	//NO, DON'T FUCKING NAME VARS LIKE THIS
 
 	if(!disk_rescued && station_was_nuked && !syndies_didnt_escape)
-		feedback_set_details("round_end_result","nuclear win - syndicate nuke")
+		SSticker.mode_result = "nuclear win - syndicate nuke"
 		to_chat(world, "<FONT size = 3><B>Syndicate Major Victory!</B></FONT>")
 		to_chat(world, "<B>[syndicate_name()] operatives have destroyed [station_name()]!</B>")
 
 	else if(!disk_rescued && station_was_nuked && syndies_didnt_escape)
-		feedback_set_details("round_end_result","nuclear halfwin - syndicate nuke - did not evacuate in time")
+		SSticker.mode_result = "nuclear halfwin - syndicate nuke - did not evacuate in time"
 		to_chat(world, "<FONT size = 3><B>Total Annihilation</B></FONT>")
 		to_chat(world, "<B>[syndicate_name()] operatives destroyed [station_name()] but did not leave the area in time and got caught in the explosion.</B> Next time, don't lose the disk!")
 
 	else if(!disk_rescued && !station_was_nuked && nuke_off_station && !syndies_didnt_escape)
-		feedback_set_details("round_end_result","nuclear halfwin - blew wrong station")
+		SSticker.mode_result = "nuclear halfwin - blew wrong station"
 		to_chat(world, "<FONT size = 3><B>Crew Minor Victory</B></FONT>")
 		to_chat(world, "<B>[syndicate_name()] operatives secured the authentication disk but blew up something that wasn't [station_name()].</B> Next time, don't lose the disk!")
 
 	else if(!disk_rescued && !station_was_nuked && nuke_off_station && syndies_didnt_escape)
-		feedback_set_details("round_end_result","nuclear halfwin - blew wrong station - did not evacuate in time")
+		SSticker.mode_result = "nuclear halfwin - blew wrong station - did not evacuate in time"
 		to_chat(world, "<FONT size = 3><B>[syndicate_name()] operatives have earned Darwin Award!</B></FONT>")
 		to_chat(world, "<B>[syndicate_name()] operatives blew up something that wasn't [station_name()] and got caught in the explosion.</B> Next time, don't lose the disk!")
 
 	else if(disk_rescued && is_operatives_are_dead())
-		feedback_set_details("round_end_result","nuclear loss - evacuation - disk secured - syndi team dead")
+		SSticker.mode_result = "nuclear loss - evacuation - disk secured - syndi team dead"
 		to_chat(world, "<FONT size = 3><B>Crew Major Victory!</B></FONT>")
 		to_chat(world, "<B>The Research Staff has saved the disc and killed the [syndicate_name()] Operatives</B>")
 
 	else if(disk_rescued)
-		feedback_set_details("round_end_result","nuclear loss - evacuation - disk secured")
+		SSticker.mode_result = "nuclear loss - evacuation - disk secured"
 		to_chat(world, "<FONT size = 3><B>Crew Major Victory</B></FONT>")
 		to_chat(world, "<B>The Research Staff has saved the disc and stopped the [syndicate_name()] Operatives!</B>")
 
 	else if(!disk_rescued && is_operatives_are_dead())
-		feedback_set_details("round_end_result","nuclear loss - evacuation - disk not secured")
+		SSticker.mode_result = "nuclear loss - evacuation - disk not secured"
 		to_chat(world, "<FONT size = 3><B>Syndicate Minor Victory!</B></FONT>")
 		to_chat(world, "<B>The Research Staff failed to secure the authentication disk but did manage to kill most of the [syndicate_name()] Operatives!</B>")
 
 	else if(!disk_rescued && crew_evacuated)
-		feedback_set_details("round_end_result","nuclear halfwin - detonation averted")
+		SSticker.mode_result = "nuclear halfwin - detonation averted"
 		to_chat(world, "<FONT size = 3><B>Syndicate Minor Victory!</B></FONT>")
 		to_chat(world, "<B>[syndicate_name()] operatives recovered the abandoned authentication disk but detonation of [station_name()] was averted.</B> Next time, don't lose the disk!")
 
 	else if(!disk_rescued && !crew_evacuated)
-		feedback_set_details("round_end_result","nuclear halfwin - interrupted")
+		SSticker.mode_result = "nuclear halfwin - interrupted"
 		to_chat(world, "<FONT size = 3><B>Neutral Victory</B></FONT>")
 		to_chat(world, "<B>Round was mysteriously interrupted!</B>")
 	..()

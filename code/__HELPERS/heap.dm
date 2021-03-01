@@ -24,7 +24,7 @@
 //(i.e the max or the min dependant on the comparison function)
 /datum/heap/proc/Pop()
 	if(!L.len)
-		return 0
+		return null
 	. = L[1]
 
 	L[1] = L[L.len]
@@ -36,8 +36,8 @@
 /datum/heap/proc/Swim(var/index)
 	var/parent = round(index * 0.5)
 
-	while(parent > 0 && (call(cmp)(L[index],L[parent]) > 0))
-		L.Swap(index,parent)
+	while(parent > 0 && (call(cmp)(L[index], L[parent]) > 0))
+		L.Swap(index, parent)
 		index = parent
 		parent = round(index * 0.5)
 
@@ -45,8 +45,8 @@
 /datum/heap/proc/Sink(var/index)
 	var/g_child = GetGreaterChild(index)
 
-	while(g_child > 0 && (call(cmp)(L[index],L[g_child]) < 0))
-		L.Swap(index,g_child)
+	while(g_child > 0 && (call(cmp)(L[index], L[g_child]) < 0))
+		L.Swap(index, g_child)
 		index = g_child
 		g_child = GetGreaterChild(index)
 
@@ -59,7 +59,7 @@
 	if(index * 2 + 1 > L.len)
 		return index * 2
 
-	if(call(cmp)(L[index * 2],L[index * 2 + 1]) < 0)
+	if(call(cmp)(L[index * 2], L[index * 2 + 1]) < 0)
 		return index * 2 + 1
 	else
 		return index * 2

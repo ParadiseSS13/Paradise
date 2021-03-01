@@ -1,5 +1,10 @@
-/// Locator for the RUSTG DLL or SO depending on system type
+#ifndef RUST_G
+/// Locator for the RUSTG DLL or SO depending on system type. Override if needed.
 #define RUST_G (world.system_type == UNIX ? "./librust_g.so" : "./rust_g.dll")
+#endif
+
+// Gets the version of RUSTG
+/proc/rustg_get_version() return call(RUST_G, "get_version")()
 
 // Defines for internal job subsystem //
 #define RUSTG_JOB_NO_RESULTS_YET "NO RESULTS YET"
@@ -10,6 +15,7 @@
 #define rustg_dmi_strip_metadata(fname) call(RUST_G, "dmi_strip_metadata")(fname)
 #define rustg_dmi_create_png(path, width, height, data) call(RUST_G, "dmi_create_png")(path, width, height, data)
 
+// Noise related operations //
 #define rustg_noise_get_at_coordinates(seed, x, y) call(RUST_G, "noise_get_at_coordinates")(seed, x, y)
 
 // Git related operations //
@@ -36,10 +42,13 @@
 /proc/rustg_create_async_http_client() return call(RUST_G, "start_http_client")()
 /proc/rustg_close_async_http_client() return call(RUST_G, "shutdown_http_client")()
 
-// SQL stuff // - AA TODO: Async SQL + SSdbcore
+// SQL stuff //
 #define rustg_sql_connect_pool(options) call(RUST_G, "sql_connect_pool")(options)
 #define rustg_sql_query_async(handle, query, params) call(RUST_G, "sql_query_async")(handle, query, params)
 #define rustg_sql_query_blocking(handle, query, params) call(RUST_G, "sql_query_blocking")(handle, query, params)
 #define rustg_sql_connected(handle) call(RUST_G, "sql_connected")(handle)
 #define rustg_sql_disconnect_pool(handle) call(RUST_G, "sql_disconnect_pool")(handle)
 #define rustg_sql_check_query(job_id) call(RUST_G, "sql_check_query")("[job_id]")
+
+// RUSTG Version //
+#define RUST_G_VERSION "0.4.5-P2"

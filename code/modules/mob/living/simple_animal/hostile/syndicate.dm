@@ -6,6 +6,7 @@
 	icon_living = "syndicate"
 	icon_dead = "syndicate_dead" // Does not actually exist. del_on_death.
 	icon_gib = "syndicate_gib" // Does not actually exist. del_on_death.
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	speak_chance = 0
 	turns_per_move = 5
 	response_help = "pokes the"
@@ -102,11 +103,10 @@
 	var/shield_key = FALSE
 	var/turf/spawn_turf
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/New()
-	..()
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/Initialize(mapload)
+	. = ..()
 	name = "[name] [pick(GLOB.last_names)]"
-	// Do not attempt to move this code to Initialize() or LateInitialize(). Doing so with other objects has caused bugs in the past, because assigning "depotarea" may not work there.
-	depotarea = areaMaster
+	depotarea = get_area(src)
 	spawn_turf = get_turf(src)
 
 
@@ -351,6 +351,7 @@
 	icon_living = "viscerator_attack"
 	pass_flags = PASSTABLE | PASSMOB
 	a_intent = INTENT_HARM
+	mob_biotypes = MOB_ROBOTIC
 	health = 15
 	maxHealth = 15
 	obj_damage = 0

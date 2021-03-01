@@ -92,7 +92,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	if(item)
 		U.uses -= max(cost, 0)
 		U.used_TC += cost
-		feedback_add_details("traitor_uplink_items_bought", name)
+		SSblackbox.record_feedback("nested tally", "traitor_uplink_items_bought", 1, list("[initial(name)]", "[cost]"))
 		return new item(loc)
 
 
@@ -1294,6 +1294,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/bonerepair
 	cost = 4
 
+/datum/uplink_item/device_tools/syndicate_teleporter
+	name = "Experimental Syndicate Teleporter"
+	desc = "The Syndicate teleporter is a handheld device that teleports the user 4-8 meters forward. \
+			Beware, teleporting into a wall will make the teleporter do a parallel emergency teleport, \
+			but if that emergency teleport fails, it will kill you. \
+			Has 4 charges, recharges, warrenty voided if exposed to EMP."
+	reference = "TELE"
+	item = /obj/item/storage/box/syndie_kit/teleporter
+	cost = 8
+
 /datum/uplink_item/device_tools/thermal_drill
 	name = "Thermal Safe Drill"
 	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Guaranteed 100% jam proof."
@@ -1551,7 +1561,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		if(findtext(item, /obj/item/organ/internal/cyberimp))
 			U.uses -= max(cost, 0)
 			U.used_TC += cost
-			feedback_add_details("traitor_uplink_items_bought", name) //this one and the line before copypasted because snowflaek code
+			SSblackbox.record_feedback("nested tally", "traitor_uplink_items_bought", 1, list("[initial(name)]", "[cost]")) //this one and the line before copypasted because snowflaek code
 			return new /obj/item/storage/box/cyber_implants(loc, item)
 		else
 			return ..()
@@ -1689,6 +1699,38 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/briefcase/sniperbundle
 	cost = 18 // normally 23
 	gamemodes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/bundles_TC/contractor
+	name = "Syndicate Contractor Kit"
+	desc = "A bundle granting you the privilege of taking on kidnapping contracts for credit and TC payouts that can add up to more than its initial cost."
+	reference = "SCOK"
+	cost = 20
+	item = /obj/item/storage/box/syndie_kit/contractor
+	excludefrom = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/bundles_TC/contractor/spawn_item(turf/loc, obj/item/uplink/U)
+	var/datum/mind/mind = usr.mind
+	var/datum/antagonist/traitor/AT = mind.has_antag_datum(/datum/antagonist/traitor)
+	if(LAZYACCESS(GLOB.contractors, mind))
+		to_chat(usr, "<span class='warning'>Error: Contractor credentials detected for the current user. Unable to provide another Contractor kit.</span>")
+		return
+	else if(!AT)
+		to_chat(usr, "<span class='warning'>Error: Embedded Syndicate credentials not found.</span>")
+		return
+	else if(mind.changeling || mind.vampire)
+		to_chat(usr, "<span class='warning'>Error: Embedded Syndicate credentials contain an abnormal signature. Aborting.</span>")
+		return
+
+	var/obj/item/I = ..()
+	// Init the hub
+	var/obj/item/contractor_uplink/CU = locate(/obj/item/contractor_uplink) in I
+	CU.hub = new(mind, CU)
+	// Update their mind stuff
+	LAZYSET(GLOB.contractors, mind, CU.hub)
+	AT.update_traitor_icons_added(mind)
+
+	log_game("[key_name(usr)] became a Contractor")
+	return I
 
 /datum/uplink_item/bundles_TC/badass
 	name = "Syndicate Bundle"

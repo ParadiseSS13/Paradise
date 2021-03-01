@@ -10,12 +10,14 @@
 	if(!isbn)
 		return
 
-	var/DBQuery/query_delbook = GLOB.dbcon.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=[isbn]")
-	if(!query_delbook.Execute())
-		var/err = query_delbook.ErrorMsg()
-		log_game("SQL ERROR deleting book. Error : \[[err]\]\n")
+	var/datum/db_query/query_delbook = SSdbcore.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=:isbn", list(
+		"isbn" = text2num(isbn) // just to be sure
+	))
+	if(!query_delbook.warn_execute())
+		qdel(query_delbook)
 		return
 
+	qdel(query_delbook)
 	log_admin("[key_name(usr)] has deleted the book [isbn].")
 	message_admins("[key_name_admin(usr)] has deleted the book [isbn].")
 
@@ -35,10 +37,9 @@
 
 	var/dat = "<table><tr><th>ISBN</th><th>Title</th><th>Total Flags</th><th>Options</th></tr>"
 
-	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT id, title, flagged FROM [format_table_name("library")] WHERE flagged > 0 ORDER BY flagged DESC")
-	if(!query.Execute())
-		var/err = query.ErrorMsg()
-		log_game("SQL ERROR getting flagged books. Error : \[[err]\]\n")
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id, title, flagged FROM [format_table_name("library")] WHERE flagged > 0 ORDER BY flagged DESC")
+	if(!query.warn_execute())
+		qdel(query)
 		return
 
 	var/books = 0
@@ -52,6 +53,7 @@
 		dat += "</td>"
 
 	dat += "</table>"
+	qdel(query)
 
 	if(!books)
 		dat = "<h1>No flagged books! :)</h1>"

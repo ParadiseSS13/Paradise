@@ -35,7 +35,7 @@
 		return ..()
 
 	add_fingerprint(user)
-	if((CLUMSY in user.mutations) && prob(50))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		user.visible_message("<span class='danger'>[user] accidentally clubs [user.p_them()]self with [src]!</span>", \
 							 "<span class='userdanger'>You accidentally club yourself with [src]!</span>")
 		user.Weaken(force * 3)
@@ -98,6 +98,7 @@
   */
 /obj/item/melee/classic_baton/proc/on_silicon_stun(mob/living/silicon/target, mob/living/user)
 	target.flash_eyes(affect_silicon = TRUE)
+	target.Weaken(stun_time_silicon)
 
 /**
   * Called when a non-silicon has been stunned.

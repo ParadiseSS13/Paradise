@@ -95,10 +95,10 @@
 				for(var/datum/objective/objective in vampire.objectives)
 					if(objective.check_completion())
 						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
-						feedback_add_details("traitor_objective","[objective.type]|SUCCESS")
+						SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "SUCCESS"))
 					else
 						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
-						feedback_add_details("traitor_objective","[objective.type]|FAIL")
+						SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "FAIL"))
 						traitorwin = 0
 					count++
 
@@ -110,10 +110,10 @@
 
 			if(traitorwin)
 				text += "<br><font color='green'><B>The [special_role_text] was successful!</B></font>"
-				feedback_add_details("traitor_success","SUCCESS")
+				SSblackbox.record_feedback("tally", "traitor_success", 1, "SUCCESS")
 			else
 				text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font>"
-				feedback_add_details("traitor_success","FAIL")
+				SSblackbox.record_feedback("tally", "traitor_success", 1, "FAIL")
 		to_chat(world, text)
 	return 1
 
@@ -175,7 +175,7 @@
 /datum/game_mode/proc/greet_vampire(var/datum/mind/vampire, var/you_are=1)
 	var/dat
 	if(you_are)
-		SEND_SOUND(vampire.current, 'sound/ambience/antag/vampalert.ogg')
+		SEND_SOUND(vampire.current, sound('sound/ambience/antag/vampalert.ogg'))
 		dat = "<span class='danger'>You are a Vampire!</span><br>"
 	dat += {"To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers.
 You are weak to holy things and starlight. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."}
@@ -185,7 +185,8 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	if(vampire.current.mind)
 		if(vampire.current.mind.assigned_role == "Clown")
 			to_chat(vampire.current, "Your lust for blood has allowed you to overcome your clumsy nature allowing you to wield weapons without harming yourself.")
-			vampire.current.mutations.Remove(CLUMSY)
+			vampire.current.dna.SetSEState(GLOB.clumsyblock, FALSE)
+			singlemutcheck(vampire.current, GLOB.clumsyblock, MUTCHK_FORCED)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(vampire.current)
 	var/obj_count = 1
@@ -433,7 +434,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"
 			hud.static_inventory += hud.vampire_blood_display
 			hud.show_hud(hud.hud_version)
-		hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#ce0202'>[bloodusable]</font></div>"
+		hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ce0202'>[bloodusable]</font></div>"
 	handle_vampire_cloak()
 	if(istype(owner.loc, /turf/space))
 		check_sun()

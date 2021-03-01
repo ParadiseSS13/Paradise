@@ -156,6 +156,9 @@
 #define COMSIG_ATOM_ORBIT_BEGIN "atom_orbit_begin"
 ///called when an atom stops orbiting another atom: (atom)
 #define COMSIG_ATOM_ORBIT_STOP "atom_orbit_stop"
+///from base of atom/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+#define COMSIG_ATOM_HITBY "atom_hitby"
+
 /////////////////
 ///from base of atom/attack_ghost(): (mob/dead/observer/ghost)
 #define COMSIG_ATOM_ATTACK_GHOST "atom_attack_ghost"
@@ -265,6 +268,12 @@
 
 ///called when the movable is added to a disposal holder object for disposal movement: (obj/structure/disposalholder/holder, obj/machinery/disposal/source)
 #define COMSIG_MOVABLE_DISPOSING "movable_disposing"
+
+
+// /datum/mind signals
+
+///from base of /datum/mind/proc/transfer_to(mob/living/new_character)
+#define COMSIG_MIND_TRANSER_TO "mind_transfer_to"
 
 // /mob signals
 

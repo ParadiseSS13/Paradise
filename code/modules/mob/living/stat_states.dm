@@ -61,7 +61,9 @@
 		update_blind_effects()
 		update_sight()
 		updatehealth("update revive")
+		hud_used?.reload_fullscreen()
 
+	SEND_SIGNAL(src, COMSIG_LIVING_REVIVE, updating)
 	for(var/s in ownedSoullinks)
 		var/datum/soullink/S = s
 		S.ownerRevives(src)

@@ -328,7 +328,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	switch(modtype)
 		if("Generalist")
 			module = new /obj/item/robot_module/standard(src)
-			module.channels = list("Engineering" = 1, "Medical" = 1, "Security" = 1, "Service" = 1)
+			module.channels = list("Engineering" = 1, "Medical" = 1, "Security" = 1, "Service" = 1, "Supply" = 1)
 			module_sprites["Basic"] = "robot_old"
 			module_sprites["Android"] = "droid"
 			module_sprites["Default"] = "Standard"
@@ -436,8 +436,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module = new /obj/item/robot_module/alien/hunter(src)
 			icon_state = "xenoborg-state-a"
 			modtype = "Xeno-Hu"
-			feedback_inc("xeborg_hunter",1)
-
 
 	//languages
 	module.add_languages(src)
@@ -449,7 +447,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		module_sprites["Custom"] = "[src.ckey]-[modtype]"
 
 	hands.icon_state = lowertext(module.module_type)
-	feedback_inc("cyborg_[lowertext(modtype)]",1)
+	SSblackbox.record_feedback("tally", "cyborg_modtype", 1, "[lowertext(modtype)]")
 	rename_character(real_name, get_default_name())
 
 	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat")
@@ -476,6 +474,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	rename_character(real_name, get_default_name("Default"))
 	languages = list()
 	speech_synthesizer_langs = list()
+	radio.recalculateChannels()
 
 	update_icons()
 	update_headlamp()
@@ -483,7 +482,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	speed = 0 // Remove upgrades.
 	ionpulse = FALSE
 	magpulse = FALSE
-	add_language("Robot Talk", 1)
+	add_language("Robot Talk", TRUE)
 	if("lava" in weather_immunities) // Remove the lava-immunity effect given by a printable upgrade
 		weather_immunities -= "lava"
 
@@ -946,6 +945,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			var/time = time2text(world.realtime,"hh:mm:ss")
 			GLOB.lawchanges.Add("[time] <B>:</B> [M.name]([M.key]) emagged [name]([key])")
 			set_zeroth_law("Only [M.real_name] and people [M.p_they()] designate[M.p_s()] as being such are Syndicate Agents.")
+			playsound_local(src, 'sound/voice/aisyndihack.ogg', 75, FALSE)
 			to_chat(src, "<span class='warning'>ALERT: Foreign software detected.</span>")
 			sleep(5)
 			to_chat(src, "<span class='warning'>Initiating diagnostics...</span>")
@@ -957,7 +957,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(src, "<span class='warning'>Would you like to send a report to NanoTraSoft? Y/N</span>")
 			sleep(10)
 			to_chat(src, "<span class='warning'>> N</span>")
-			sleep(20)
+			sleep(25)
 			to_chat(src, "<span class='warning'>ERRORERRORERROR</span>")
 			to_chat(src, "<b>Obey these laws:</b>")
 			laws.show_laws(src)
@@ -1434,7 +1434,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	radio = new /obj/item/radio/borg/deathsquad(src)
 	radio.recalculateChannels()
-	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
+	playsound(get_turf(src), 'sound/mecha/nominalnano.ogg', 75, FALSE)
 
 /mob/living/silicon/robot/deathsquad/bullet_act(var/obj/item/projectile/P)
 	if(istype(P) && P.is_reflectable && P.starting)
@@ -1528,7 +1528,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		qdel(radio)
 	radio = new /obj/item/radio/borg/ert/specops(src)
 	radio.recalculateChannels()
-	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
+	playsound(get_turf(src), 'sound/mecha/nominalnano.ogg', 75, FALSE)
 
 /mob/living/silicon/robot/destroyer/borg_icons()
 	if(base_icon == "")

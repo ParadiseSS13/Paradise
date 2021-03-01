@@ -7,6 +7,7 @@
 	icon_living = "kangaroo"
 	icon_dead = "kangaroo_dead"
 	icon_gib = "kangaroo_dead"
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	turns_per_move = 8
 	response_help = "pets"
 	emote_hear = list("bark")

@@ -125,18 +125,12 @@
 
 /obj/structure/morgue/attackby(P as obj, mob/user as mob, params)
 	if(istype(P, /obj/item/pen))
-		var/t = input(user, "What would you like the label to be?", text("[]", name), null)  as text
-		if(user.get_active_hand() != P)
+		var/t = rename_interactive(user, P)
+		if(isnull(t))
 			return
-		if((!in_range(src, usr) && loc != user))
-			return
-		t = sanitize(copytext(t,1,MAX_MESSAGE_LEN))
+		cut_overlays()
 		if(t)
-			name = text("Morgue- '[]'", t)
-			overlays += image(icon, "morgue_label")
-		else
-			name = "Morgue"
-			overlays.Cut()
+			add_overlay(image(icon, "morgue_label"))
 		add_fingerprint(user)
 		return
 	return ..()
@@ -325,16 +319,7 @@
 
 /obj/structure/crematorium/attackby(P as obj, mob/user as mob, params)
 	if(istype(P, /obj/item/pen))
-		var/t = input(user, "What would you like the label to be?", text("[]", name), null)  as text
-		if(user.get_active_hand() != P)
-			return
-		if((!in_range(src, usr) > 1 && loc != user))
-			return
-		t = sanitize(copytext(t,1,MAX_MESSAGE_LEN))
-		if(t)
-			name = text("Crematorium- '[]'", t)
-		else
-			name = "Crematorium"
+		rename_interactive(user, P)
 		add_fingerprint(user)
 		return
 	return ..()
@@ -472,6 +457,10 @@
 	name = "crematorium igniter"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "crema_switch"
+	power_channel = EQUIP
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 100
+	active_power_usage = 5000
 	anchored = 1.0
 	req_access = list(ACCESS_CREMATORIUM)
 	var/on = 0
@@ -484,13 +473,17 @@
 		return attack_hand(user)
 
 /obj/machinery/crema_switch/attack_hand(mob/user)
-	if(allowed(usr) || user.can_advanced_admin_interact())
-		for(var/obj/structure/crematorium/C in world)
-			if(C.id == id)
-				if(!C.cremating)
-					C.cremate(user)
-	else
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+	if(powered(power_channel)) // Do we have power?
+		if(allowed(usr) || user.can_advanced_admin_interact())
+			use_power(400000)
+			for(var/obj/structure/crematorium/C in world)
+				if(C.id == id)
+					if(!C.cremating)
+						C.cremate(user)
+
+
+		else
+			to_chat(usr, "<span class='warning'>Access denied.</span>")
 
 /mob/proc/update_morgue()
 	if(stat == DEAD)
