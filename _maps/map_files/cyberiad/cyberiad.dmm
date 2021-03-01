@@ -84191,10 +84191,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "pLA" = (
-/obj/machinery/suit_storage_unit/standard_unit/secure{
-	name = "Research Director's EVA Suit Storage";
-	req_access = list(30)
-	},
+/obj/machinery/suit_storage_unit/rd/secure,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple";
