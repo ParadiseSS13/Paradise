@@ -42982,18 +42982,9 @@
 	opacity = 0
 	},
 /obj/structure/grille,
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
+/obj/structure/window/full/reinforced/polarized{
 	id = "coroner"
 	},
-/obj/structure/window/reinforced/polarized{
-	id = "coroner"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "coroner"
-	},
-/obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
 /area/medical/morgue)
 "bTZ" = (
@@ -47573,20 +47564,11 @@
 	},
 /area/medical/cmostore)
 "cjw" = (
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "med1"
-	},
 /obj/structure/grille,
-/obj/structure/window/reinforced/polarized{
-	id = "med1"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
+/obj/structure/window/full/reinforced/polarized{
 	id = "med1"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
 /area/medical/cryo)
 "cjA" = (
@@ -47938,23 +47920,10 @@
 	},
 /area/medical/medbay2)
 "ckW" = (
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "med1"
-	},
 /obj/structure/grille,
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
+/obj/structure/window/full/reinforced/polarized{
 	id = "med1"
 	},
-/obj/structure/window/reinforced/polarized{
-	id = "med1"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "med1"
-	},
-/obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
 /area/medical/medbay2)
 "clb" = (
@@ -67970,7 +67939,7 @@
 "dPb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/floodlight{
-	light_power = 5
+	light_power = 1
 	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6";
@@ -68073,19 +68042,10 @@
 	name = "Biohazard Shutter";
 	opacity = 0
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "rnd"
-	},
-/obj/structure/window/reinforced/polarized{
-	id = "rnd"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
+/obj/structure/window/full/reinforced/polarized{
 	id = "rnd"
 	},
 /obj/structure/grille,
-/obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
 /area/toxins/lab)
 "dVs" = (
@@ -68600,10 +68560,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
-"eqX" = (
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space)
 "esq" = (
 /obj/machinery/atmospherics/unary/passive_vent,
 /turf/simulated/floor/engine,
@@ -69424,16 +69380,10 @@
 	icon_state = "2-8";
 	tag = ""
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "rd"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
+/obj/structure/window/full/reinforced/polarized{
 	id = "rd"
 	},
 /obj/structure/grille,
-/obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
 /area/crew_quarters/hor{
 	icon_state = "scird"
@@ -69880,18 +69830,9 @@
 	opacity = 0
 	},
 /obj/structure/grille,
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
+/obj/structure/window/full/reinforced/polarized{
 	id = "robo"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "robo"
-	},
-/obj/structure/window/reinforced/polarized{
-	id = "robo"
-	},
-/obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
 /area/toxins/robolab)
 "frV" = (
@@ -70558,9 +70499,7 @@
 /area/medical/virology)
 "fOC" = (
 /obj/machinery/power/port_gen/pacman,
-/turf/simulated/floor/plasteel{
-	icon_state = "black"
-	},
+/turf/simulated/floor/plasteel,
 /area/maintenance/genetics)
 "fOD" = (
 /obj/structure/lattice,
@@ -72894,18 +72833,9 @@
 /area/maintenance/abandonedrobotics)
 "hKT" = (
 /obj/structure/grille,
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
+/obj/structure/window/full/reinforced/polarized{
 	id = "med1"
 	},
-/obj/structure/window/reinforced/polarized{
-	id = "med1"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "med1"
-	},
-/obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
 /area/medical/cryo)
 "hKW" = (
@@ -73151,16 +73081,10 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "rd"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
+/obj/structure/window/full/reinforced/polarized{
 	id = "rd"
 	},
 /obj/structure/grille,
-/obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
 /area/crew_quarters/hor{
 	icon_state = "scird"
@@ -74847,33 +74771,6 @@
 	icon_state = "cautioncorner"
 	},
 /area/maintenance/genetics)
-"jcM" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "rdlab2";
-	name = "Research and Development Lab Shutters";
-	opacity = 0
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Biohazard";
-	name = "Biohazard Shutter";
-	opacity = 0
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "rnd"
-	},
-/obj/structure/window/reinforced/polarized{
-	id = "rnd"
-	},
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
-/turf/simulated/floor/plating,
-/area/toxins/lab)
 "jdz" = (
 /obj/structure/closet/secure_closet/scientist,
 /obj/item/radio/intercom{
@@ -75217,22 +75114,9 @@
 /area/maintenance/asmaint)
 "jvi" = (
 /obj/structure/grille,
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
+/obj/structure/window/full/reinforced/polarized{
 	id = "med2"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "med2"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "med2"
-	},
-/obj/structure/window/reinforced/polarized{
-	id = "med2"
-	},
-/obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
 /area/medical/medbay2)
 "jvm" = (
@@ -77961,18 +77845,9 @@
 	opacity = 0
 	},
 /obj/structure/grille,
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
+/obj/structure/window/full/reinforced/polarized{
 	id = "rnd"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "rnd"
-	},
-/obj/structure/window/reinforced/polarized{
-	id = "rnd"
-	},
-/obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
 /area/toxins/lab)
 "lop" = (
@@ -83744,19 +83619,10 @@
 /area/medical/medbay2)
 "prX" = (
 /obj/structure/cable,
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "rd"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
-	id = "rd"
-	},
-/obj/structure/window/reinforced/polarized{
+/obj/structure/window/full/reinforced/polarized{
 	id = "rd"
 	},
 /obj/structure/grille,
-/obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
 /area/crew_quarters/hor{
 	icon_state = "scird"
@@ -86312,15 +86178,10 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "rd"
-	},
-/obj/structure/window/reinforced/polarized{
+/obj/structure/window/full/reinforced/polarized{
 	id = "rd"
 	},
 /obj/structure/grille,
-/obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
 /area/crew_quarters/hor{
 	icon_state = "scird"
@@ -90368,10 +90229,7 @@
 	pixel_y = 3
 	},
 /obj/item/storage/toolbox,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "black"
-	},
+/turf/simulated/floor/plasteel,
 /area/maintenance/genetics)
 "upU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -91726,22 +91584,6 @@
 	icon_state = "dark"
 	},
 /area/medical/morgue)
-"vuG" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "med2"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "med2"
-	},
-/obj/structure/window/reinforced/polarized{
-	id = "med2"
-	},
-/obj/structure/window/full/reinforced,
-/turf/simulated/floor/plating,
-/area/medical/biostorage)
 "vuQ" = (
 /obj/machinery/portable_atmospherics/pump,
 /turf/simulated/floor/plasteel,
@@ -92429,19 +92271,10 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/structure/window/reinforced/polarized{
-	id = "rd"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "rd"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
+/obj/structure/window/full/reinforced/polarized{
 	id = "rd"
 	},
 /obj/structure/grille,
-/obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
 /area/crew_quarters/hor{
 	icon_state = "scird"
@@ -92505,7 +92338,7 @@
 "vYO" = (
 /obj/machinery/door_control{
 	id = "mechbay_outer";
-	name = "Robotics Lab Shutters Control";
+	name = "Outer Mech Bay Shutters Control";
 	pixel_y = -25;
 	req_access_txt = "29"
 	},
@@ -92748,18 +92581,9 @@
 	opacity = 0
 	},
 /obj/structure/grille,
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
+/obj/structure/window/full/reinforced/polarized{
 	id = "coroner"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "coroner"
-	},
-/obj/structure/window/reinforced/polarized{
-	id = "coroner"
-	},
-/obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
 /area/medical/morgue)
 "wjg" = (
@@ -93340,37 +93164,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"wGy" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "robotics";
-	name = "Robotics Lab Shutters";
-	opacity = 0
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Biohazard";
-	name = "Biohazard Shutter";
-	opacity = 0
-	},
-/obj/structure/grille,
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "robo"
-	},
-/obj/structure/window/reinforced/polarized{
-	dir = 4;
-	id = "robo"
-	},
-/obj/structure/window/reinforced/polarized{
-	id = "robo"
-	},
-/obj/structure/window/full/reinforced,
-/turf/simulated/floor/plating,
-/area/toxins/robolab)
 "wHO" = (
 /obj/structure/chair{
 	dir = 8
@@ -95074,18 +94867,9 @@
 /area/toxins/hallway)
 "xXm" = (
 /obj/structure/grille,
-/obj/structure/window/reinforced/polarized{
-	dir = 8;
+/obj/structure/window/full/reinforced/polarized{
 	id = "med2"
 	},
-/obj/structure/window/reinforced/polarized{
-	dir = 1;
-	id = "med2"
-	},
-/obj/structure/window/reinforced/polarized{
-	id = "med2"
-	},
-/obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
 /area/medical/biostorage)
 "xXv" = (
@@ -133467,7 +133251,7 @@ cbu
 iOw
 lcX
 cpc
-vuG
+xXm
 iUi
 cry
 qzR
@@ -140893,7 +140677,7 @@ bau
 bvh
 bHI
 kiF
-wGy
+frL
 sWJ
 imr
 lGr
@@ -140970,7 +140754,7 @@ aaa
 aaa
 aaa
 aaa
-qUv
+aaa
 aaa
 aaa
 aaa
@@ -141227,7 +141011,7 @@ aaa
 aaa
 aaa
 aaa
-qUv
+aaa
 aab
 aaa
 aaa
@@ -141484,7 +141268,7 @@ aaa
 aaa
 aaa
 aaa
-qUv
+aaa
 aab
 aaa
 aaa
@@ -141921,7 +141705,7 @@ aYP
 bFw
 bHI
 kiF
-wGy
+frL
 lBc
 xYz
 mFr
@@ -145005,7 +144789,7 @@ dat
 bvh
 bHI
 cXh
-jcM
+dTK
 uoH
 pQH
 pQH
@@ -151710,7 +151494,7 @@ aaa
 aaa
 aaa
 eQi
-hAT
+aab
 aaa
 doE
 aaa
@@ -153246,9 +153030,9 @@ aaa
 aaa
 aaa
 aaa
-eqX
-eqX
-eqX
+doE
+doE
+doE
 aaa
 aaa
 aab
