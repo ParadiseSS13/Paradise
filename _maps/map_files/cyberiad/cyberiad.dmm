@@ -80057,7 +80057,6 @@
 /area/hallway/primary/starboard/east)
 "mOh" = (
 /obj/machinery/atmospherics/unary/thermomachine/freezer{
-	current_temperature = null;
 	min_temperature = 0;
 	on = 1;
 	target_temperature = 80
