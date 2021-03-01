@@ -42,7 +42,7 @@
 	return ..()
 
 /obj/structure/disaster_counter/proc/update_maptext()
-	maptext = "<span class='maptext' style='text-align: center'>[max(current_count, 0)] / [record_count]</span>"
+	maptext = "<span class='maptext' style='text-align: center'>[max(current_count, 0)]/[record_count]</span>"
 
 /obj/structure/disaster_counter/persistent_load()
 	// Just incase some bad actor sets the counter ID to "../../../../Windows/System32"
