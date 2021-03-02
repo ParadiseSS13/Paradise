@@ -128,7 +128,15 @@
 	can_cut_open = 0
 	icon_state = "jacksandal"
 	item_color = "jacksandal"
-
+	
+/obj/item/clothing/shoes/jackboots/noisy
+	name = "Heavy jackboots"
+	desc = "Old, heavy versions of the standard Nanotrasen-issue Security combat boots. Pickup that can."
+	
+/obj/item/clothing/shoes/jackboots/noisy/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/squeak, list('sound/effects/jackboot1.ogg' = 1, 'sound/effects/jackboot2.ogg' = 1), 50, falloff_exponent = 20)
+    
 /obj/item/clothing/shoes/workboots
 	name = "work boots"
 	desc = "Thick-soled boots for industrial work environments."

@@ -116,6 +116,7 @@
 		/obj/item/bedsheet/wiz = 2,
 		/obj/item/stack/sheet/mineral/tranquillite/fifty = 3,
 		/obj/item/clothing/gloves/combat = 5
+		/obj/item/clothing/shoes/jackboots/noisy = 1
 	)
 
 /obj/effect/spawner/lootdrop/bluespace_tap/organic
