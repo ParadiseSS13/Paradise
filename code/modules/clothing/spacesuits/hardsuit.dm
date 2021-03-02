@@ -524,8 +524,8 @@
 		var/datum/atom_hud/H = GLOB.huds[DATA_HUD_DIAGNOSTIC]
 		H.remove_hud_from(user)
 
-/obj/item/clothing/head/helmet/space/hardsuit/rd/proc/sense_explosion(var/x0,var/y0,var/z0, var/devastation_range, var/heavy_impact_range,
-		var/light_impact_range, var/took, var/orig_dev_range, var/orig_heavy_range, var/orig_light_range)
+/obj/item/clothing/head/helmet/space/hardsuit/rd/proc/sense_explosion(x0, y0, z0, devastation_range, heavy_impact_range,
+		light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
 	var/turf/T = get_turf(src)
 	var/dx = abs(x0 - T.x)
 	var/dy = abs(y0 - T.y)
