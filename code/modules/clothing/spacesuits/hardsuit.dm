@@ -499,7 +499,7 @@
 	item_state = "rd"
 	item_color = "rd"
 	flash_protect = 0
-	scan_reagents = 1
+	scan_reagents = TRUE
 	armor = list("melee" = 30,"bullet" = 5, "laser" = 10, "energy" = 5, "bomb" = 100, "bio" = 100, "rad" = 60, "fire" = 60, "acid" = 80)
 	var/hud_active = FALSE
 	var/explosion_detection_dist = 21
@@ -527,8 +527,8 @@
 /obj/item/clothing/head/helmet/space/hardsuit/rd/proc/sense_explosion(var/x0,var/y0,var/z0, var/devastation_range, var/heavy_impact_range,
 		var/light_impact_range, var/took, var/orig_dev_range, var/orig_heavy_range, var/orig_light_range)
 	var/turf/T = get_turf(src)
-	var/dx = abs(x0-T.x)
-	var/dy = abs(y0-T.y)
+	var/dx = abs(x0 - T.x)
+	var/dy = abs(y0 - T.y)
 	var/distance
 	if(T.z != z0)
 		return
