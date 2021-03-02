@@ -40,6 +40,8 @@
 
 	physiology = new()
 
+	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
+
 	UpdateAppearance()
 	GLOB.human_list += src
 

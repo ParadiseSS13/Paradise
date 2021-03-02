@@ -554,7 +554,6 @@
 	var/turf/T = loc
 	. = ..()
 	if(.)
-		handle_footstep(loc)
 		step_count++
 
 		if(pulling && pulling == pullee) // we were pulling a thing and didn't lose it during our move.
@@ -577,12 +576,6 @@
 
 	if(s_active && !(s_active in contents) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents ) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
-
-
-/mob/living/proc/handle_footstep(turf/T)
-	if(istype(T))
-		return 1
-	return 0
 
 /mob/living/proc/makeTrail(turf/T)
 	if(!has_gravity(src))
