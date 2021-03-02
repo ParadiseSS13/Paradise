@@ -9,7 +9,7 @@
 
 /datum/surgery/implant_removal/synth
 	name = "Implant Removal"
-	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/extract_implant,/datum/surgery_step/robotics/external/close_hatch)
+	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/extract_implant/synth,/datum/surgery_step/robotics/external/close_hatch)
 	possible_locs = list("chest")
 	requires_organic_bodypart = 0
 
@@ -39,6 +39,15 @@
 	allowed_tools = list(/obj/item/hemostat = 100, /obj/item/crowbar = 65)
 	time = 64
 	var/obj/item/implant/I = null
+
+/datum/surgery_step/extract_implant/synth
+	allowed_tools = list(/obj/item/multitool = 100, /obj/item/hemostat = 65, /obj/item/crowbar = 50)
+
+/datum/surgery_step/implant_removal/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
+	user.visible_message("<span class='warning'> [user]'s hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!</span>", \
+	"<span class='warning'> Your hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!</span>")
+	affected.receive_damage(20)
 
 /datum/surgery_step/extract_implant/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
