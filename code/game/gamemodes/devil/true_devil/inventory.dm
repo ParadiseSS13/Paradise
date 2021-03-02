@@ -1,5 +1,5 @@
-/mob/living/carbon/true_devil/unEquip(obj/item/I, force)
-	if(..(I,force))
+/mob/living/carbon/true_devil/unEquip(obj/item/I, force, silent = FALSE)
+	if(..())
 		update_inv_r_hand()
 		update_inv_l_hand()
 		return 1

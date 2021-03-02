@@ -28,14 +28,16 @@
 		var/mob/living/carbon/human/slave_mob = owner.current
 		if(slave_mob && istype(slave_mob))
 			to_chat(slave_mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
-			slave_mob.mutations.Remove(CLUMSY)
+			slave_mob.dna.SetSEState(GLOB.clumsyblock, FALSE)
+			singlemutcheck(slave_mob, GLOB.clumsyblock, MUTCHK_FORCED)
 
 /datum/antagonist/mindslave/remove_innate_effects()
 	. = ..()
 	if(owner.assigned_role == "Clown")
 		var/mob/living/carbon/human/slave_mob = owner.current
 		if(slave_mob && istype(slave_mob))
-			slave_mob.mutations.Add(CLUMSY)
+			slave_mob.dna.SetSEState(GLOB.clumsyblock, TRUE)
+			singlemutcheck(slave_mob, GLOB.clumsyblock, MUTCHK_FORCED)
 
 /datum/antagonist/mindslave/proc/add_objective(datum/objective/O)
 	owner.objectives += O

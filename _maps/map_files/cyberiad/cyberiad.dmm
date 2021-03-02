@@ -43596,6 +43596,9 @@
 /area/hallway/secondary/entry)
 "bLD" = (
 /obj/structure/closet/secure_closet/reagents,
+/obj/structure/disaster_counter/chemistry{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteyellow"
@@ -44752,12 +44755,6 @@
 /area/medical/reception)
 "bNA" = (
 /obj/effect/decal/warning_stripes/northeast,
-/obj/item/radio/intercom{
-	frequency = 1459;
-	name = "station intercom (General)";
-	pixel_x = -28;
-	pixel_y = 22
-	},
 /turf/simulated/floor/plasteel,
 /area/medical/chemistry)
 "bNB" = (
@@ -46980,16 +46977,13 @@
 /area/assembly/robotics)
 "bRm" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/regular{
-	empty = 1;
+/obj/item/storage/firstaid/regular/empty{
 	name = "First-Aid (empty)"
 	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
+/obj/item/storage/firstaid/regular/empty{
 	name = "First-Aid (empty)"
 	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
+/obj/item/storage/firstaid/regular/empty{
 	name = "First-Aid (empty)"
 	},
 /obj/item/healthanalyzer,
@@ -60290,7 +60284,13 @@
 	pixel_y = 0
 	},
 /obj/machinery/alarm{
-	pixel_y = 25
+	pixel_y = 31
+	},
+/obj/machinery/driver_button{
+	dir = 2;
+	id_tag = "toxinsdriver";
+	pixel_y = 22;
+	range = 18
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/launch{
@@ -61438,14 +61438,11 @@
 	name = "Toxins Launch Room"
 	})
 "cqq" = (
-/obj/machinery/driver_button{
-	dir = 2;
-	id_tag = "toxinsdriver";
-	pixel_y = 24;
-	range = 18
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
+	},
+/obj/structure/disaster_counter/toxins{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/launch{
@@ -68306,12 +68303,12 @@
 	},
 /area/toxins/misc_lab)
 "cCl" = (
-/obj/machinery/newscaster{
-	pixel_y = 34
-	},
 /obj/machinery/light{
 	dir = 1;
 	on = 1
+	},
+/obj/structure/disaster_counter/scichem{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -68334,6 +68331,9 @@
 /area/toxins/misc_lab)
 "cCn" = (
 /obj/machinery/chem_heater,
+/obj/machinery/newscaster{
+	pixel_y = 34
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault";
@@ -78694,6 +78694,9 @@
 	},
 /obj/machinery/meter,
 /obj/machinery/light,
+/obj/structure/disaster_counter/supermatter{
+	pixel_y = -32
+	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "cVB" = (

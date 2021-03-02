@@ -193,7 +193,7 @@ Des: Gives the client of the alien an image on each infected mob.
 /mob/living/carbon/alien/proc/AddInfectionImages()
 	if(client)
 		for(var/mob/living/C in GLOB.mob_list)
-			if(C.status_flags & XENO_HOST)
+			if(HAS_TRAIT(C, TRAIT_XENO_HOST))
 				var/obj/item/organ/internal/body_egg/alien_embryo/A = C.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo)
 				if(A)
 					var/I = image('icons/mob/alien.dmi', loc = C, icon_state = "infected[A.stage]")
@@ -225,33 +225,6 @@ Des: Removes all infected images from the alien.
 
 /mob/living/carbon/alien/can_use_vents()
 	return
-
-/mob/living/carbon/alien/handle_footstep(turf/T)
-	if(..())
-		if(T.footstep_sounds && T.footstep_sounds["xeno"])
-			var/S = pick(T.footstep_sounds["xeno"])
-			if(S)
-				if(m_intent == MOVE_INTENT_RUN)
-					if(!(step_count % 2)) //every other turf makes a sound
-						return 0
-
-				var/range = -(world.view - 2)
-				range -= 0.666 //-(7 - 2) = (-5) = -5 | -5 - (0.666) = -5.666 | (7 + -5.666) = 1.334 | 1.334 * 3 = 4.002 | range(4.002) = range(4)
-				var/volume = 5
-
-				if(m_intent == MOVE_INTENT_WALK)
-					return 0 //silent when walking
-
-				if(buckled || lying || throwing)
-					return 0 //people flying, lying down or sitting do not step
-
-				if(!has_gravity(src))
-					if(step_count % 3) //this basically says, every three moves make a noise
-						return 0       //1st - none, 1%3==1, 2nd - none, 2%3==2, 3rd - noise, 3%3==0
-
-				playsound(T, S, volume, 1, range)
-				return 1
-	return 0
 
 /mob/living/carbon/alien/getTrail()
 	if(getBruteLoss() < 200)
