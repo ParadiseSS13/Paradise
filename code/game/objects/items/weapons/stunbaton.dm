@@ -168,9 +168,7 @@
 			return
 		H.forcesay(GLOB.hit_appends)
 
-	if(iscarbon(L))
-		var/mob/living/carbon/C = L
-		C.shock_internal_organs(33)
+	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
 
 	L.Stun(stunforce)
 	L.Weaken(stunforce)

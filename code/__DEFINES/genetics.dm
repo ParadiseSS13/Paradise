@@ -81,4 +81,3 @@
 #define NO_INTORGANS	"no_internal_organs"
 #define CAN_WINGDINGS	"can_wingdings"
 #define NO_CLONESCAN 	"no_clone_scan"
-#define IS_PLANT 		"is_plant" // Convert this to a biotype TODO
