@@ -117,7 +117,7 @@
 	desc = "Stop right there criminal scum!"
 
 /datum/dog_fashion/head/blue_wizard
-	name = "Grandwizard REAL_NAME"
+	name = "Archmage REAL_NAME"
 	speak = list("YAP", "Woof!", "Bark!", "AUUUUUU", "EI  NATH!")
 
 /datum/dog_fashion/head/red_wizard
