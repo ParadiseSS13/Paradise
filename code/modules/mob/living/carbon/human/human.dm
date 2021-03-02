@@ -223,11 +223,11 @@
 				limbs_amount = 4
 
 		if(EXPLODE_HEAVY)
-			brute_loss = 50
-			burn_loss = 50
+			brute_loss = 60
+			burn_loss = 60
 			if(bomb_armor)
-				brute_loss = 25 * (2 - round(bomb_armor * 0.01, 0.05))
-				burn_loss = brute_loss				//Damage gets reduced from 100 to up to 50 combined brute+burn
+				brute_loss = 30 * (2 - round(bomb_armor * 0.01, 0.05))
+				burn_loss = brute_loss				//Damage gets reduced from 120 to up to 60 combined brute+burn
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
 				AdjustEarDamage(30, 120)
 			Weaken(20 SECONDS_TO_LIFE_CYCLES - (bomb_armor * 1.6 / 10) SECONDS_TO_LIFE_CYCLES) 	//Between ~4 and ~20 seconds of knockdown depending on bomb armor
