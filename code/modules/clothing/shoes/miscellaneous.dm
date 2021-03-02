@@ -131,7 +131,7 @@
 	
 /obj/item/clothing/shoes/jackboots/noisy
 	name = "Heavy jackboots"
-	desc = "Old, heavy versions of the standard Nanotrasen-issue Security combat boots. Pickup that can."
+	desc = "Old, heavy versions of the standard Nanotrasen-issue Security combat boots. Pick up that can."
 	
 /obj/item/clothing/shoes/jackboots/noisy/Initialize(mapload)
 	. = ..()
