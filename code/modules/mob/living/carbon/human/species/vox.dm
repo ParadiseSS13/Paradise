@@ -23,7 +23,7 @@
 	eyes = "vox_eyes_s"
 
 	species_traits = list(NO_CLONESCAN, IS_WHITELISTED, NOTRANSSTING)
-	inherent_traits = list(TRAIT_NOGERMS, TRAIT_NODECAY)
+	inherent_traits = list(TRAIT_NOGERMS, TRAIT_NODECAY, TRAIT_SILENT_FOOTSTEPS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS //Species-fitted 'em all.
 	dietflags = DIET_OMNI
 	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS
