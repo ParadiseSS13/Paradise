@@ -591,6 +591,7 @@
 	reagent_state = LIQUID
 	color = "#21170E"
 	taste_description = "tea"
+	harmless = TRUE
 
 /datum/reagent/consumable/mugwort/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -600,7 +601,7 @@
 		update_flags |= M.adjustBruteLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustFireLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		for(var/datum/reagent/R in M.reagents.reagent_list)
-			if(R != src && !R.harmless)
+			if(!R.harmless)
 				M.reagents.remove_reagent(R.id, 5) // purge those meme chems
 	return ..() | update_flags
 
