@@ -527,10 +527,20 @@
 	name = "Chemical Implant Case"
 	desc = "A glass case containing an implant."
 	id = "implant_chem"
-	req_tech = list("materials" = 3, "biotech" = 5,)
+	req_tech = list("materials" = 3, "biotech" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 700)
 	build_path = /obj/item/implantcase/chem
+	category = list("Medical")
+
+/datum/design/implant_sadtrombone
+	name = "Sad Trombone Implant Case"
+	desc = "Makes death amusing."
+	id = "implant_trombone"
+	req_tech = list("materials" = 3, "biotech" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_GLASS = 500, MAT_BANANIUM = 500)
+	build_path = /obj/item/implantcase/sad_trombone
 	category = list("Medical")
 
 /datum/design/implant_tracking
