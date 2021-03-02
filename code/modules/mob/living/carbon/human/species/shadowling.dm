@@ -13,8 +13,6 @@
 	burn_mod = 1.5 //1.5x burn damage, 2x is excessive
 	heatmod = 1.5
 
-	silent_steps = 1
-
 	has_organ = list(
 		"brain" =    /obj/item/organ/internal/brain,
 		"eyes" =     /obj/item/organ/internal/eyes/night_vision/nightmare)
