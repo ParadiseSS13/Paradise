@@ -49,7 +49,7 @@
 			break
 		force += 4
 		throwforce += 4
-		SEND_SOUND(user, 'sound/goonstation/effects/screech.ogg')
+		SEND_SOUND(user, sound('sound/goonstation/effects/screech.ogg'))
 		shake_camera(user, 20, 1)
 		var/acount = 0
 		var/amax = rand(10, 15)

@@ -4,13 +4,12 @@
 	blurb = "Ook."
 
 	icobase = 'icons/mob/human_races/monkeys/r_monkey.dmi'
-	deform = 'icons/mob/human_races/monkeys/r_monkey.dmi'
 	damage_overlays = 'icons/mob/human_races/masks/dam_monkey.dmi'
 	damage_mask = 'icons/mob/human_races/masks/dam_mask_monkey.dmi'
 	blood_mask = 'icons/mob/human_races/masks/blood_monkey.dmi'
 	language = null
 	default_language = "Chimpanzee"
-	species_traits = list(NO_EXAMINE)
+	inherent_traits = list(TRAIT_NOEXAMINE)
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	greater_form = /datum/species/human
 	no_equip = list(slot_belt, slot_wear_id, slot_l_ear, slot_r_ear, slot_glasses, slot_gloves, slot_shoes, slot_wear_suit, slot_w_uniform, slot_l_store, slot_r_store, slot_s_store, slot_wear_pda)
@@ -59,14 +58,13 @@
 	..()
 	if(!remove)
 		H.dna.SetSEState(GLOB.monkeyblock, TRUE)
-		genemutcheck(H, GLOB.monkeyblock, null, MUTCHK_FORCED)
+		singlemutcheck(H, GLOB.monkeyblock, MUTCHK_FORCED)
 
 /datum/species/monkey/tajaran
 	name = "Farwa"
 	name_plural = "Farwa"
 
 	icobase = 'icons/mob/human_races/monkeys/r_farwa.dmi'
-	deform = 'icons/mob/human_races/monkeys/r_farwa.dmi'
 
 	greater_form = /datum/species/tajaran
 	default_language = "Farwa"
@@ -90,7 +88,6 @@
 	name_plural = "Wolpin"
 
 	icobase = 'icons/mob/human_races/monkeys/r_wolpin.dmi'
-	deform = 'icons/mob/human_races/monkeys/r_wolpin.dmi'
 
 	greater_form = /datum/species/vulpkanin
 	default_language = "Wolpin"
@@ -114,7 +111,6 @@
 	name_plural = "Neara"
 
 	icobase = 'icons/mob/human_races/monkeys/r_neara.dmi'
-	deform = 'icons/mob/human_races/monkeys/r_neara.dmi'
 
 	greater_form = /datum/species/skrell
 	default_language = "Neara"
@@ -122,6 +118,8 @@
 	blood_color = "#1D2CBF"
 	reagent_tag = PROCESS_ORG
 	tail = null
+
+	inherent_traits = list(TRAIT_NOEXAMINE, TRAIT_NOFAT, TRAIT_WATERBREATH)
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/skrell,
@@ -132,20 +130,12 @@
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/skrell //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
 		)
-/datum/species/monkey/skrell/on_species_gain(mob/living/carbon/human/H)
-	..()
-	ADD_TRAIT(H, TRAIT_WATERBREATH, "species")
-
-/datum/species/monkey/skrell/on_species_loss(mob/living/carbon/human/H)
-	..()
-	REMOVE_TRAIT(H, TRAIT_WATERBREATH, "species")
 
 /datum/species/monkey/unathi
 	name = "Stok"
 	name_plural = "Stok"
 
 	icobase = 'icons/mob/human_races/monkeys/r_stok.dmi'
-	deform = 'icons/mob/human_races/monkeys/r_stok.dmi'
 
 	tail = "stoktail"
 	greater_form = /datum/species/unathi

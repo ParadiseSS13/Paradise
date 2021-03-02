@@ -7,12 +7,11 @@
 	var/name
 	var/desc
 	var/class
-	var/list/default_genes = list(REGEN, BREATHLESS, COLDRES)
 	var/list/default_spells = list()
 	var/activated = FALSE //for wishgranters to not give an option if someone already has it.
 
 /datum/superheroes/proc/create(var/mob/living/carbon/human/H)
-	assign_genes(H)
+	assign_mutations(H)
 	assign_spells(H)
 	equip(H)
 	fixflags(H)
@@ -29,11 +28,11 @@
 	for(var/obj/item/W in H.get_all_slots())
 		W.flags |= NODROP
 
-/datum/superheroes/proc/assign_genes(var/mob/living/carbon/human/H)
-	if(default_genes.len)
-		for(var/gene in default_genes)
-			H.mutations |= gene
-		H.update_mutations()
+/datum/superheroes/proc/assign_mutations(var/mob/living/carbon/human/H)
+	var/list/default_mutations = list(GLOB.regenerateblock, GLOB.breathlessblock, GLOB.coldblock)
+	for(var/mutation in default_mutations)
+		H.dna.SetSEState(mutation, 1)
+		singlemutcheck(H, mutation, MUTCHK_FORCED)
 
 /datum/superheroes/proc/assign_spells(var/mob/living/carbon/human/H)
 	if(default_spells.len)

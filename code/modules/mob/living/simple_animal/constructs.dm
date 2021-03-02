@@ -1,6 +1,7 @@
 /mob/living/simple_animal/hostile/construct
 	name = "Construct"
 	real_name = "Construct"
+	mob_biotypes = NONE
 	speak_emote = list("hisses")
 	emote_hear = list("wails","screeches")
 	response_help  = "thinks better of touching"

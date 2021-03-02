@@ -576,9 +576,9 @@
 		else
 			prot = 1
 
-		if(prot > 0 || (HEATRES in user.mutations))
+		if(prot > 0 ||  HAS_TRAIT(user, TRAIT_RESISTHEAT) || HAS_TRAIT(user, TRAIT_RESISTHEATHANDS))
 			to_chat(user, "<span class='notice'>You remove the light [fitting]</span>")
-		else if(TK in user.mutations)
+		else if(user.dna?.GetSEState(GLOB.teleblock))
 			to_chat(user, "<span class='notice'>You telekinetically remove the light [fitting].</span>")
 		else
 			if(user.a_intent == INTENT_DISARM || user.a_intent == INTENT_GRAB)

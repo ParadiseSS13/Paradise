@@ -38,7 +38,8 @@
 	devil_mind.devilinfo.link_with_mob(devil_mind.current)
 	if(devil_mind.assigned_role == "Clown")
 		to_chat(devil_mind.current, "Your infernal nature allows you to wield weapons without harming yourself.")
-		devil_mind.current.mutations.Remove(CLUMSY)
+		devil_mind.current.dna.SetSEState(GLOB.clumsyblock, FALSE)
+		singlemutcheck(devil_mind.current, GLOB.clumsyblock, MUTCHK_FORCED)
 		var/datum/action/innate/toggle_clumsy/A = new
 		A.Grant(devil_mind.current)
 	spawn(10)
