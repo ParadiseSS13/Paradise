@@ -34,6 +34,7 @@
 
 	faction = list("russian")
 	gold_core_spawnable = HOSTILE_SPAWN
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 //SPACE BEARS! SQUEEEEEEEE~     OW! FUCK! IT BIT MY HAND OFF!!
 /mob/living/simple_animal/hostile/bear/Hudson
