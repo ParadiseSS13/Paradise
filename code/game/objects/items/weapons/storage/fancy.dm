@@ -240,8 +240,8 @@
 	icon_state = "robustpacket"
 	item_state = "robustpacket"
 
-/obj/item/storage/fancy/cigarettes/syndicate/New()
-	..()
+/obj/item/storage/fancy/cigarettes/syndicate/Initialize(mapload)
+	. = ..()
 	var/new_name = pick("evil", "suspicious", "ominous", "donk-flavored", "robust", "sneaky")
 	name = "[new_name] cigarette packet"
 
@@ -253,7 +253,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/syndicate
 
 /obj/item/storage/fancy/cigarettes/cigpack_med
-	name = "Medical Marijuana packet"
+	name = "\improper Medical Marijuana Packet"
 	desc = "A prescription packet containing six marijuana cigarettes."
 	icon_state = "medpacket"
 	item_state = "medpacket"

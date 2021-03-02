@@ -100,7 +100,7 @@
 		return
 
 	//Process infections
-	if(is_robotic() || sterile || (owner && (NO_GERMS in owner.dna.species.species_traits)))
+	if(is_robotic() || sterile || (owner && HAS_TRAIT(owner, TRAIT_NOGERMS)))
 		germ_level = 0
 		return
 
@@ -229,9 +229,6 @@
 	status &= ~ORGAN_BROKEN
 	status &= ~ORGAN_SPLINTED
 	status |= ORGAN_ROBOT
-
-/obj/item/organ/proc/shock_organ(intensity)
-	return
 
 /obj/item/organ/proc/remove(var/mob/living/user,special = 0)
 	if(!istype(owner))

@@ -27,7 +27,7 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(src.loc, "swing_hit", 25, 1)
 		swirlie.visible_message("<span class='danger'>[user] slams the toilet seat onto [swirlie]'s head!</span>", "<span class='userdanger'>[user] slams the toilet seat onto [swirlie]'s head!</span>", "<span class='italics'>You hear reverberating porcelain.</span>")
-		swirlie.adjustBruteLoss(5)
+		swirlie.apply_damage(5, BRUTE, BODY_ZONE_HEAD)
 		return
 
 	if(cistern && !open)
@@ -101,8 +101,8 @@
 						swirlie = null
 					else
 						playsound(src.loc, 'sound/effects/bang.ogg', 25, 1)
-						GM.visible_message("<span class='danger'>[user] slams [GM.name] into [src]!</span>", "<span class='userdanger'>[user] slams [GM.name] into [src]!</span>")
-						GM.adjustBruteLoss(5)
+						GM.visible_message("<span class='danger'>[user] slams [GM.name]'s head into [src]!</span>", "<span class='userdanger'>[user] slams [GM.name]'s head into [src]!</span>")
+						GM.apply_damage(5, BRUTE, BODY_ZONE_HEAD)
 			else
 				to_chat(user, "<span class='warning'>You need a tighter grip!</span>")
 
@@ -212,8 +212,8 @@
 					return
 				user.changeNext_move(CLICK_CD_MELEE)
 				playsound(src.loc, 'sound/effects/bang.ogg', 25, 1)
-				user.visible_message("<span class='danger'>[user] slams [GM] into [src]!</span>", "<span class='notice'>You slam [GM] into [src]!</span>")
-				GM.adjustBruteLoss(8)
+				user.visible_message("<span class='danger'>[user] slams [GM]'s head into [src]!</span>", "<span class='danger'>You slam [GM]'s head into [src]!</span>")
+				GM.apply_damage(8, BRUTE, BODY_ZONE_HEAD)
 			else
 				to_chat(user, "<span class='warning'>You need a tighter grip!</span>")
 

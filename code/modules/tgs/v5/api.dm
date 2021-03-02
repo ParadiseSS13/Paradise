@@ -66,10 +66,13 @@
 			if(revInfo)
 				tm.commit = revisionData[DMAPI5_REVISION_INFORMATION_COMMIT_SHA]
 				tm.origin_commit = revisionData[DMAPI5_REVISION_INFORMATION_ORIGIN_COMMIT_SHA]
+				tm.timestamp = entry[DMAPI5_REVISION_INFORMATION_TIMESTAMP]
 			else
 				TGS_WARNING_LOG("Failed to decode [DMAPI5_TEST_MERGE_REVISION] from test merge #[tm.number]!")
 
-			tm.timestamp = entry[DMAPI5_TEST_MERGE_TIME_MERGED]
+			if(!tm.timestamp)
+				tm.timestamp = entry[DMAPI5_TEST_MERGE_TIME_MERGED]
+
 			tm.title = entry[DMAPI5_TEST_MERGE_TITLE_AT_MERGE]
 			tm.body = entry[DMAPI5_TEST_MERGE_BODY_AT_MERGE]
 			tm.url = entry[DMAPI5_TEST_MERGE_URL]
@@ -112,7 +115,7 @@
 
 	if(!initialized)
 		TGS_WARNING_LOG("Missed topic due to not being initialized: [T]")
-		return TRUE	// too early to handle, but it's still our responsibility
+		return TRUE // too early to handle, but it's still our responsibility
 
 	var/their_sCK = topic_parameters[DMAPI5_PARAMETER_ACCESS_IDENTIFIER]
 	if(their_sCK != access_identifier)
@@ -270,7 +273,7 @@
 
 	var/port = result[DMAPI5_BRIDGE_RESPONSE_NEW_PORT]
 	if(!isnum(port))
-		return	//this is valid, server may just want use to reboot
+		return //this is valid, server may just want use to reboot
 
 	if(port == 0)
 		//to byond 0 means any port and "none" means close vOv
