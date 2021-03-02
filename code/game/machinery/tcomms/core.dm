@@ -307,7 +307,7 @@
 
 		if("add_filter")
 			// This is a stripped input because I did NOT come this far for this system to be abused by HTML injection
-			var/name_to_add = stripped_input(usr, "Enter a name to add to the filtering list", "Name Entry")
+			var/name_to_add = html_decode(stripped_input(usr, "Enter a name to add to the filtering list", "Name Entry"))
 			if(name_to_add == "")
 				return
 			if(name_to_add in nttc.filtering)
