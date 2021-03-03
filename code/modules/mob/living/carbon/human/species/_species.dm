@@ -846,7 +846,8 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		H.sight |= eyes.vision_flags
 		H.see_in_dark = eyes.see_in_dark
 		H.see_invisible = eyes.see_invisible
-		H.lighting_alpha = eyes.lighting_alpha
+		if(!isnull(eyes.lighting_alpha))
+			H.lighting_alpha = eyes.lighting_alpha
 	else
 		H.see_in_dark = initial(H.see_in_dark)
 		H.see_invisible = initial(H.see_invisible)
@@ -865,15 +866,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		else if(H.mind.vampire.get_ability(/datum/vampire_passive/vision))
 			H.sight |= SEE_MOBS
 			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-
-	for(var/obj/item/organ/internal/cyberimp/eyes/E in H.internal_organs)
-		H.sight |= E.vision_flags
-		if(E.see_in_dark)
-			H.see_in_dark = max(H.see_in_dark, E.see_in_dark)
-		if(E.see_invisible)
-			H.see_invisible = min(H.see_invisible, E.see_invisible)
-		if(E.lighting_alpha)
-			H.lighting_alpha = min(H.lighting_alpha, E.lighting_alpha)
 
 	// my glasses, I can't see without my glasses
 	if(H.glasses)
@@ -905,9 +897,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 		if(!isnull(H.vision_type.lighting_alpha))
 			H.lighting_alpha = min(H.vision_type.lighting_alpha, H.lighting_alpha)
-
-		if(H.vision_type.light_sensitive)
-			H.weakeyes = TRUE
 
 	if(HAS_TRAIT(src, TRAIT_THERMAL_VISION))
 		H.sight |= (SEE_MOBS)
