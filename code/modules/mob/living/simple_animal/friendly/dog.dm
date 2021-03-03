@@ -20,6 +20,7 @@
 	var/bark_sound = list('sound/creatures/dog_bark1.ogg','sound/creatures/dog_bark2.ogg') //Used in emote.
 	var/yelp_sound = 'sound/creatures/dog_yelp.ogg' //Used on death.
 	var/last_eaten = 0
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/pet/dog/verb/chasetail()
 	set name = "Chase your tail"
@@ -353,7 +354,7 @@
 	desc = initial(desc)
 	set_light(0)
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
-	mutations.Remove(BREATHLESS)
+	REMOVE_TRAIT(src, TRAIT_NOBREATH, DOGGO_SPACESUIT)
 	minbodytemp = initial(minbodytemp)
 
 	if(inventory_head && inventory_head.dog_fashion)

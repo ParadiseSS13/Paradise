@@ -249,6 +249,12 @@
 			if(prob(5))
 				M.AdjustCultSlur(5)//5 seems like a good number...
 				M.say(pick("Av'te Nar'sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","Egkau'haom'nai en Chaous","Ho Diak'nos tou Ap'iron","R'ge Na'sie","Diabo us Vo'iscum","Si gn'um Co'nu"))
+		if(isvampirethrall(M))
+			if(prob(10))
+				M.say(pick("*gasp", "*cough", "*sneeze"))
+			if(prob(5)) //Same as cult, for the real big tell
+				M.visible_message("<span class='warning'>A fog lifts from [M]'s eyes for a moment, but soon returns.</span>")
+
 	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
 		M.AdjustConfused(3)
 		if(isvampirethrall(M))

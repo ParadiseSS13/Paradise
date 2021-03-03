@@ -206,10 +206,10 @@
 	// Update the main DNA datum, then sync the change across the organs
 	var/obj/item/organ/internal/eyes/eyes_organ = get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes_organ)
-		if(colour == eyes_organ.eye_colour)
+		if(colour == eyes_organ.eye_color)
 			return
 
-		eyes_organ.eye_colour = colour
+		eyes_organ.eye_color = colour
 		dna.eye_color_to_dna(eyes_organ)
 		eyes_organ.set_dna(dna)
 

@@ -7,7 +7,6 @@
 	max_damage = 0
 	dir = SOUTH
 	organ_tag = "limb"
-
 	var/brute_mod = 1
 	var/burn_mod = 1
 
@@ -19,7 +18,6 @@
 	var/force_icon
 
 	var/icobase = 'icons/mob/human_races/r_human.dmi'		// Normal icon set.
-	var/deform = 'icons/mob/human_races/r_def_human.dmi'	// Mutated icon set.
 
 	var/damage_state = "00"
 	var/brute_dam = 0
@@ -109,7 +107,6 @@
 	..()
 	var/mob/living/carbon/human/H = holder
 	icobase = dna.species.icobase
-	deform = dna.species.deform
 	if(istype(H))
 		replaced(H)
 		sync_colour_to_human(H)
@@ -117,7 +114,7 @@
 
 /obj/item/organ/external/replaced(var/mob/living/carbon/human/target)
 	owner = target
-	forceMove(owner)
+	loc = null
 	if(istype(owner))
 		if(!isnull(owner.bodyparts_by_name[limb_name]))
 			log_debug("Duplicate organ in slot \"[limb_name]\", mob '[target]'")
@@ -229,7 +226,7 @@
 	check_fracture(brute)
 	var/mob/living/carbon/owner_old = owner //Need to update health, but need a reference in case the below check cuts off a limb.
 	//If limb took enough damage, try to cut or tear it off
-	if(owner && loc == owner)
+	if(owner)
 		if(!cannot_amputate && (brute_dam) >= (max_damage))
 			if(prob(brute / 2))
 				if(sharp)
@@ -616,7 +613,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"<span class='danger'>Something feels like it shattered in your [name]!</span>",\
 			"You hear a sickening crack.")
 		playsound(owner, "bonebreak", 150, 1)
-		if(owner.dna.species && !(NO_PAIN in owner.dna.species.species_traits))
+		if(!HAS_TRAIT(owner, TRAIT_NOPAIN))
 			owner.emote("scream")
 
 	status |= ORGAN_BROKEN
@@ -674,14 +671,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 		desc = "[R.desc]"
 
 /obj/item/organ/external/proc/mutate()
-	src.status |= ORGAN_MUTATED
-	if(owner)
-		owner.update_body(TRUE) //Forces all bodyparts to update in order to correctly render the deformed sprite.
+	status |= ORGAN_MUTATED
 
 /obj/item/organ/external/proc/unmutate()
-	src.status &= ~ORGAN_MUTATED
-	if(owner)
-		owner.update_body(TRUE) //Forces all bodyparts to update in order to correctly return them to normal.
+	status &= ~ORGAN_MUTATED
 
 /obj/item/organ/external/proc/get_damage()	//returns total damage
 	return max(brute_dam + burn_dam - perma_injury, perma_injury)	//could use health?

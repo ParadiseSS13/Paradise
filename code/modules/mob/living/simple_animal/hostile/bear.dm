@@ -6,6 +6,7 @@
 	icon_living = "bear"
 	icon_dead = "bear_dead"
 	icon_gib = "bear_gib"
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	speak = list("RAWR!","Rawr!","GRR!","Growl!")
 	speak_emote = list("growls", "roars")
 	emote_hear = list("rawrs","grumbles","grawls")
@@ -33,6 +34,7 @@
 
 	faction = list("russian")
 	gold_core_spawnable = HOSTILE_SPAWN
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 //SPACE BEARS! SQUEEEEEEEE~     OW! FUCK! IT BIT MY HAND OFF!!
 /mob/living/simple_animal/hostile/bear/Hudson

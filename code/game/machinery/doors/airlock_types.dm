@@ -150,18 +150,17 @@
 	icon = 'icons/obj/doors/airlocks/station/uranium.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_uranium
 	paintable = FALSE
-	var/event_step = 20
+	var/last_event = 0
 
-/obj/machinery/door/airlock/uranium/New()
+/obj/machinery/door/airlock/uranium/process()
+	if(world.time > last_event + 20)
+		if(prob(50))
+			radiate()
+		last_event = world.time
 	..()
-	addtimer(CALLBACK(src, .proc/radiate), event_step)
-
 
 /obj/machinery/door/airlock/uranium/proc/radiate()
-	if(prob(50))
-		for(var/mob/living/L in range (3,src))
-			L.apply_effect(15,IRRADIATE,0)
-	addtimer(CALLBACK(src, .proc/radiate), event_step)
+	radiation_pulse(get_turf(src), 150)
 
 
 /obj/machinery/door/airlock/uranium/glass
@@ -459,23 +458,6 @@
 					"<span class='notice'>You [welded ? null : "un"]weld [src]!</span>",\
 					"<span class='warning'>You hear welding.</span>")
 	update_icon()
-
-
-//////////////////////////////////
-/*
-	Shuttle Airlocks
-*/
-
-/obj/machinery/door/airlock/shuttle
-	name = "shuttle airlock"
-	icon = 'icons/obj/doors/airlocks/shuttle/shuttle.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/shuttle/overlays.dmi'
-	assemblytype = /obj/structure/door_assembly/door_assembly_shuttle
-	paintable = FALSE
-
-/obj/machinery/door/airlock/shuttle/glass
-	opacity = 0
-	glass = TRUE
 
 /obj/machinery/door/airlock/abductor
 	name = "alien airlock"

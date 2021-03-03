@@ -492,17 +492,6 @@
 		QDEL_NULL(A)
 		for(var/obj/structure/window/W in T1.contents)
 			qdel(W)
-		for(var/cdir in GLOB.cardinal)
-			var/turf/T2 = get_step(T1, cdir)
-			if(locate(/obj/structure/window/full/shuttle) in T2)
-				continue // Shuttle windows? Nah. We don't need extra windows there.
-			if(!(locate(/obj/structure/grille) in T2))
-				continue
-			for(var/obj/structure/window/W in T2)
-				if(W.dir == turn(cdir, 180))
-					qdel(W)
-			var/obj/structure/window/reinforced/W = new(T2)
-			W.dir = turn(cdir, 180)
 		return TRUE
 	return FALSE
 
@@ -535,15 +524,7 @@
 		new /obj/structure/grille(A)
 		for(var/obj/structure/window/W in A)
 			qdel(W)
-		for(var/cdir in GLOB.cardinal)
-			var/turf/T = get_step(A, cdir)
-			if(locate(/obj/structure/grille) in T)
-				for(var/obj/structure/window/W in T)
-					if(W.dir == turn(cdir, 180))
-						qdel(W)
-			else // Build a window!
-				var/obj/structure/window/reinforced/W = new(A)
-				W.dir = cdir
+		new /obj/structure/window/full/reinforced(A)
 		var/turf/AT = A
 		AT.ChangeTurf(/turf/simulated/floor/plating) // Platings go under windows.
 		return TRUE

@@ -107,7 +107,7 @@
 
 		// Create map text message
 		if (client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) // can_hear is checked up there on L99
-			create_chat_message(speaker, message_clean, italics)
+			create_chat_message(speaker.runechat_msg_location, message_clean, italics)
 
 		if(speech_sound && (get_dist(speaker, src) <= world.view && src.z == speaker.z))
 			var/turf/source = speaker? get_turf(speaker) : get_turf(src)

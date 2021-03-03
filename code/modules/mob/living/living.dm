@@ -242,7 +242,7 @@
 /mob/living/pointed(atom/A as mob|obj|turf in view())
 	if(incapacitated(ignore_lying = TRUE))
 		return FALSE
-	if(status_flags & FAKEDEATH)
+	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		return FALSE
 	if(!..())
 		return FALSE
@@ -253,7 +253,7 @@
 			return TRUE
 		A.visible_message("<span class='danger'>[src] points [hand_item] at [A]!</span>",
 											"<span class='userdanger'>[src] points [hand_item] at you!</span>")
-		A << 'sound/weapons/targeton.ogg'
+		SEND_SOUND(A, sound('sound/weapons/targeton.ogg'))
 		return TRUE
 	visible_message("<b>[src]</b> points to [A]")
 	return TRUE
@@ -456,8 +456,8 @@
 	SetHallucinate(0)
 	set_nutrition(NUTRITION_LEVEL_FED + 50)
 	bodytemperature = 310
-	CureBlind()
-	CureNearsighted()
+	cure_blind()
+	cure_nearsighted()
 	CureMute()
 	CureDeaf()
 	CureTourettes()
@@ -554,7 +554,6 @@
 	var/turf/T = loc
 	. = ..()
 	if(.)
-		handle_footstep(loc)
 		step_count++
 
 		if(pulling && pulling == pullee) // we were pulling a thing and didn't lose it during our move.
@@ -577,12 +576,6 @@
 
 	if(s_active && !(s_active in contents) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents ) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
-
-
-/mob/living/proc/handle_footstep(turf/T)
-	if(istype(T))
-		return 1
-	return 0
 
 /mob/living/proc/makeTrail(turf/T)
 	if(!has_gravity(src))
@@ -780,7 +773,7 @@
 
 //called when the mob receives a bright flash
 /mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
-	if(check_eye_prot() < intensity && (override_blindness_check || !(BLINDNESS in mutations)))
+	if(check_eye_prot() < intensity && (override_blindness_check || !HAS_TRAIT(src, TRAIT_BLIND)))
 		overlay_fullscreen("flash", type)
 		addtimer(CALLBACK(src, .proc/clear_fullscreen, "flash", 25), 25)
 		return 1
@@ -1032,6 +1025,21 @@
 		for(var/datum/objective/sintouched/acedia/A in src.mind.objectives)
 			return 1
 	return 0
+
+/mob/living/rad_act(amount)
+	. = ..()
+
+	if(!amount || (amount < RAD_MOB_SKIN_PROTECTION) || HAS_TRAIT(src, TRAIT_RADIMMUNE))
+		return
+
+	amount -= RAD_BACKGROUND_RADIATION // This will always be at least 1 because of how skin protection is calculated
+
+	var/blocked = getarmor(null, "rad")
+
+	if(amount > RAD_BURN_THRESHOLD)
+		apply_damage(RAD_BURN_CURVE(amount), BURN, null, blocked)
+
+	apply_effect((amount * RAD_MOB_COEFFICIENT) / max(1, (radiation ** 2) * RAD_OVERDOSE_REDUCTION), IRRADIATE, blocked)
 
 /mob/living/proc/fakefireextinguish()
 	return

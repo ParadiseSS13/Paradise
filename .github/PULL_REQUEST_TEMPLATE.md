@@ -14,15 +14,15 @@
 :cl:
 add: Added new things
 del: Removed old things
-tweak: tweaked a few things
-fix: fixed a few things
-wip: added a few works in progress
-soundadd: added a new sound thingy
-sounddel: removed an old sound thingy
-imageadd: added some icons and images
-imagedel: deleted some icons and images
-spellcheck: fixed a few typos
-experiment: added an experimental thingy
+tweak: Tweaked a few things
+fix: Fixed a few things
+wip: Added a few works in progress
+soundadd: Added a new sound thingy
+sounddel: Removed an old sound thingy
+imageadd: Added some icons and images
+imagedel: Deleted some icons and images
+spellcheck: Fixed a few typos
+experiment: Added an experimental thingy
 /:cl:
 
 <!-- Both :cl:'s are required for the changelog to work! You can put your name to the right of the first :cl: if you want to overwrite your GitHub username as author ingame. -->

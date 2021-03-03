@@ -274,7 +274,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	for(var/datum/language/L in R.languages)
 		H.add_language(L.name)
 
-	domutcheck(H, null, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
+	domutcheck(H, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
 
 	if(efficiency > 2 && efficiency < 5 && prob(25))
 		randmutb(H)
@@ -532,7 +532,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			message += "<b>Agony blazes across your consciousness as your body is torn apart.</b><br>"
 			message += "<i>Is this what dying is like? Yes it is.</i>"
 			to_chat(occupant, "<span class='warning'>[message]</span>")
-			occupant << sound('sound/hallucinations/veryfar_noise.ogg',0,1,50)
+			SEND_SOUND(occupant, sound('sound/hallucinations/veryfar_noise.ogg', 0, 1, 50))
 		for(var/i in missing_organs)
 			qdel(i)
 		missing_organs.Cut()

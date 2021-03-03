@@ -69,13 +69,14 @@
 // hide called by levelupdate if turf intact status changes
 // change visibility status and force update of icon
 /obj/structure/disposalconstruct/hide(var/intact)
-	invisibility = (intact && level==1) ? 101: 0	// hide if floor is intact
+	invisibility = (intact && level == 1) ? INVISIBILITY_MAXIMUM : 0	// hide if floor is intact
 	update()
 
 
 // flip and rotate verbs
 /obj/structure/disposalconstruct/verb/rotate()
 	set name = "Rotate Pipe"
+	set category = "Object"
 	set src in view(1)
 
 	if(usr.stat)
@@ -98,6 +99,7 @@
 
 /obj/structure/disposalconstruct/verb/flip()
 	set name = "Flip Pipe"
+	set category = "Object"
 	set src in view(1)
 	if(usr.stat)
 		return

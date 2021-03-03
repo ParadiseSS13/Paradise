@@ -9,9 +9,9 @@
 /obj/item/organ/internal/cyberimp/New(var/mob/M = null)
 	. = ..()
 	if(implant_overlay)
-		var/image/overlay = new /image(icon, implant_overlay)
+		var/mutable_appearance/overlay = mutable_appearance(icon, implant_overlay)
 		overlay.color = implant_color
-		overlays |= overlay
+		add_overlay(overlay)
 
 /obj/item/organ/internal/cyberimp/emp_act()
 	return // These shouldn't be hurt by EMPs in the standard way
@@ -215,6 +215,14 @@
 	slot = "brain_clownvoice"
 	origin_tech = "materials=2;biotech=2"
 
+/obj/item/organ/internal/cyberimp/brain/clown_voice/insert(mob/living/carbon/M, special = FALSE)
+	..()
+	ADD_TRAIT(M, TRAIT_COMIC_SANS, "augment")
+
+/obj/item/organ/internal/cyberimp/brain/clown_voice/remove(mob/living/carbon/M, special = FALSE)
+	REMOVE_TRAIT(M, TRAIT_COMIC_SANS, "augment")
+	return ..()
+
 /obj/item/organ/internal/cyberimp/brain/speech_translator //actual translating done in human/handle_speech_problems
 	name = "Speech translator implant"
 	desc = "While known as a translator, this implant actually generates speech based on the user's thoughts when activated, completely bypassing the need to speak."
@@ -235,12 +243,22 @@
 /obj/item/organ/internal/cyberimp/brain/speech_translator/emp_act(severity)
 	if(emp_proof)
 		return
-	if(owner && active)
-		to_chat(owner, "<span class='notice'>Your translator's safeties trigger, it is now turned off.</span>")
+	if(owner && active && !crit_fail)
+		to_chat(owner, "<span class='danger'>Your translator implant shuts down with a harsh buzz.</span>")
+		addtimer(CALLBACK(src, .proc/reboot), 60 SECONDS)
+		crit_fail = TRUE
 		active = FALSE
 
+/obj/item/organ/internal/cyberimp/brain/speech_translator/proc/reboot()
+	crit_fail = FALSE
+	if(owner)
+		to_chat(owner, "<span class='notice'>Your translator implant beeps.</span>")
+		SEND_SOUND(owner, sound('sound/machines/twobeep.ogg'))
+
 /obj/item/organ/internal/cyberimp/brain/speech_translator/ui_action_click()
-	if(owner && !active)
+	if(owner && crit_fail)
+		to_chat(owner, "<span class='warning'>The implant is still rebooting.</span>")
+	else if(owner && !active)
 		to_chat(owner, "<span class='notice'>You turn on your translator implant.</span>")
 		active = TRUE
 	else if(owner && active)
@@ -387,26 +405,18 @@
 //BOX O' IMPLANTS
 
 /obj/item/storage/box/cyber_implants
-	name = "boxed cybernetic implant"
+	name = "boxed cybernetic implants"
 	desc = "A sleek, sturdy box."
 	icon_state = "cyber_implants"
-
-/obj/item/storage/box/cyber_implants/New(loc, implant)
-	..()
-	new /obj/item/autoimplanter(src)
-	if(ispath(implant))
-		new implant(src)
-
-/obj/item/storage/box/cyber_implants/bundle
-	name = "boxed cybernetic implants"
-	var/list/boxed = list(/obj/item/organ/internal/cyberimp/eyes/xray,/obj/item/organ/internal/cyberimp/eyes/thermals,
-						/obj/item/organ/internal/cyberimp/brain/anti_stun, /obj/item/organ/internal/cyberimp/chest/reviver/hardened)
+	var/list/boxed = list(
+		/obj/item/autosurgeon/organ/syndicate/thermal_eyes,
+		/obj/item/autosurgeon/organ/syndicate/xray_eyes,
+		/obj/item/autosurgeon/organ/syndicate/anti_stun,
+		/obj/item/autosurgeon/organ/syndicate/reviver)
 	var/amount = 5
 
-/obj/item/storage/box/cyber_implants/bundle/New()
-	..()
+/obj/item/storage/box/cyber_implants/populate_contents()
 	var/implant
-	while(amount > 0)
+	while(length(contents) <= amount)
 		implant = pick(boxed)
 		new implant(src)
-		amount--
