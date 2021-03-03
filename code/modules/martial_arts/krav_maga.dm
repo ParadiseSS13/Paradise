@@ -135,12 +135,12 @@
 
 /obj/item/clothing/gloves/color/black/krav_maga/combat // for nukies
 	name = "combat gloves plus"
-	desc = "These combat gloves have been upgraded with nanochips that teach the wearer Krav Maga"
+	desc = "These combat gloves have been upgraded with nanochips that teach the wearer Krav Maga."
 	icon_state = "combat"
 	item_state = "swat_gl"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
-	strip_delay = 80
+	strip_delay = 8 SECONDS
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
