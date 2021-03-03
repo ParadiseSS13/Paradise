@@ -389,6 +389,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		explanation_text = "Steal [steal_target]. One was last seen in [get_location()]. "
 		if(length(O.protected_jobs))
 			explanation_text += "It may also be in the possession of the [english_list(O.protected_jobs, and_text = " or ")]."
+		if(istype(O, /datum/theft_objective/supermatter_sliver))
+			give_supermatter_kit()
 		return
 	explanation_text = "Free Objective."
 
@@ -410,6 +412,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	else
 		steal_target = new new_target
 		explanation_text = "Steal [steal_target.name]."
+		if(istype(steal_target, /datum/theft_objective/supermatter_sliver))
+			give_supermatter_kit()
 	return steal_target
 
 /datum/objective/steal/check_completion()
@@ -427,6 +431,22 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		if(I.type in steal_target.altitems)
 			return steal_target.check_special_completion(I)
 
+/datum/objective/steal/proc/give_supermatter_kit()
+	var/mob/living/carbon/human/mob = owner.current
+	var/T = new /obj/item/storage/box/syndie_kit/supermatter
+	var/list/slots = list (
+		"backpack" = slot_in_backpack,
+		"left pocket" = slot_l_store,
+		"right pocket" = slot_r_store,
+		"left hand" = slot_l_hand,
+		"right hand" = slot_r_hand,
+	)
+	var/where = mob.equip_in_one_of_slots(T, slots)
+	if(where)
+		to_chat(mob, "<BR><BR><span class='info'>[where] is a box containing <b>items and instructions</b> to help you obtain a sliver of the supermatter.</span><BR>")
+	else
+		to_chat(mob, "<span class='userdanger'>Unfortunately, you weren't able to get a supermatter sliver stealing kit. This is very bad and you should adminhelp immediately (press F1).</span>")
+	mob.update_icons()
 
 /datum/objective/steal/exchange
 	martyr_compatible = 0

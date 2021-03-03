@@ -138,6 +138,12 @@
 	protected_jobs = list("Head Of Security", "Warden")
 	location_override = "the Warden's Office"
 
+/datum/theft_objective/supermatter_sliver
+	name = "a supermatter shard"
+	typepath = /obj/item/nuke_core/supermatter_sliver
+	protected_jobs = list("Chief Engineer", "Engineer", "Atmospheric Technician") //Unlike other steal objectives, all jobs in the department have easy access, and would not be noticed at all stealing this
+	location_override = "Engineering. You can use the box and instructions provided to harvest the sliver."
+
 /datum/theft_objective/number
 	var/min=0
 	var/max=0
