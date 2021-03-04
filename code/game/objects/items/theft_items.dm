@@ -132,18 +132,18 @@
 /obj/item/nuke_core/supermatter_sliver/attackby(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/hemostat/supermatter))
 		var/obj/item/hemostat/supermatter/tongs = W
-		if (tongs.sliver)
-			to_chat(user, "<span class='warning'>\The [tongs] is already holding a supermatter sliver!</span>")
+		if(tongs.sliver)
+			to_chat(user, "<span class='warning'>[tongs] is already holding a supermatter sliver!</span>")
 			return FALSE
 		forceMove(tongs)
 		tongs.sliver = src
 		tongs.icon_state = "supermatter_tongs_loaded"
 		tongs.item_state = "supermatter_tongs_loaded"
 		to_chat(user, "<span class='notice'>You carefully pick up [src] with [tongs].</span>")
-	else if(istype(W, /obj/item/scalpel/supermatter) || istype(W, /obj/item/nuke_core_container/supermatter/)) // we don't want it to dust
+	else if(istype(W, /obj/item/scalpel/supermatter) || istype(W, /obj/item/nuke_core_container/supermatter)) // we don't want it to dust
 		return
 	else
-		to_chat(user, "<span class='notice'>As it touches \the [src], both \the [src] and \the [W] burst into dust!</span>")
+		to_chat(user, "<span class='notice'>As it touches [src], both [src] and [W] burst into dust!</span>")
 		radiation_pulse(user, 100)
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 		qdel(W)
@@ -201,11 +201,11 @@
 	T.item_state = "supermatter_tongs"
 	icon_state = "supermatter_container_loaded"
 	to_chat(user, "<span class='warning'>Container is sealing...</span>")
-	addtimer(CALLBACK(src, .proc/seal), 50)
+	addtimer(CALLBACK(src, .proc/seal), 5 SECONDS)
 	return TRUE
 
 /obj/item/nuke_core_container/supermatter/seal()
-	if(istype(sliver))
+	if(!QDELETED(sliver))
 		STOP_PROCESSING(SSobj, sliver)
 		icon_state = "supermatter_container_sealed"
 		playsound(src, 'sound/items/Deconstruct.ogg', 60, TRUE)
@@ -259,7 +259,7 @@
 /obj/item/hemostat/supermatter/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // no instakill supermatter javelins
 	if(sliver)
 		sliver.forceMove(loc)
-		visible_message("<span class='notice'>\The [sliver] falls out of \the [src] as it hits the ground.</span>")
+		visible_message("<span class='notice'>[sliver] falls out of [src] as it hits the ground.</span>")
 		sliver = null
 		icon_state = "supermatter_tongs"
 		item_state = "supermatter_tongs"
@@ -282,7 +282,7 @@
 		qdel(AM)
 	if (user)
 		add_attack_logs(user, AM, "[AM] and [user] consumed by melee attack with [src] by [user]")
-		user.visible_message("<span class='danger'>As [user] touches [AM] with \the [src], both flash into dust and silence fills the room...</span>",\
+		user.visible_message("<span class='danger'>As [user] touches [AM] with [src], both flash into dust and silence fills the room...</span>",\
 			"<span class='userdanger'>You touch [AM] with [src], and everything suddenly goes silent.\n[AM] and [sliver] flash into dust, and soon as you can register this, you do as well.</span>",\
 			"<span class='hear'>Everything suddenly goes silent.</span>")
 		user.dust()

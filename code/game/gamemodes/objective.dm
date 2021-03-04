@@ -434,7 +434,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/steal/proc/give_supermatter_kit()
 	var/mob/living/carbon/human/mob = owner.current
 	var/T = new /obj/item/storage/box/syndie_kit/supermatter
-	var/list/slots = list (
+	var/list/slots = list(
 		"backpack" = slot_in_backpack,
 		"left pocket" = slot_l_store,
 		"right pocket" = slot_r_store,
@@ -443,7 +443,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	)
 	var/where = mob.equip_in_one_of_slots(T, slots)
 	if(where)
-		to_chat(mob, "<BR><BR><span class='info'>[where] is a box containing <b>items and instructions</b> to help you obtain a sliver of the supermatter.</span><BR>")
+		to_chat(mob, "<br><br><span class='info'>In your [where] is a box containing <b>items and instructions</b> to help you obtain a sliver of the supermatter.</span><br>")
 	else
 		to_chat(mob, "<span class='userdanger'>Unfortunately, you weren't able to get a supermatter sliver stealing kit. This is very bad and you should adminhelp immediately (press F1).</span>")
 	mob.update_icons()

@@ -711,17 +711,17 @@
 		return
 	if(istype(I, /obj/item/scalpel/supermatter))
 		var/obj/item/scalpel/supermatter/scalpel = I
-		to_chat(user, "<span class='notice'>You carefully begin to scrape \the [src] with \the [I]...</span>")
-		if(I.use_tool(src, user, 100, volume=100))
-			if (scalpel.usesLeft)
-				to_chat(user, "<span class='danger'>You extract a sliver from \the [src]. \The [src] begins to react violently!</span>")
+		to_chat(user, "<span class='notice'>You carefully begin to scrape [src] with [I]...</span>")
+		if(I.use_tool(src, user, 10 SECONDS, volume = 100))
+			if(scalpel.usesLeft)
+				to_chat(user, "<span class='danger'>You extract a sliver from [src]. [src] begins to react violently!</span>")
 				new /obj/item/nuke_core/supermatter_sliver(drop_location())
 				matter_power += 800
 				scalpel.usesLeft--
-				if (!scalpel.usesLeft)
-					to_chat(user, "<span class='notice'>A tiny piece of \the [I] falls off, rendering it useless!</span>")
+				if(!scalpel.usesLeft)
+					to_chat(user, "<span class='notice'>A tiny piece of [I] falls off, rendering it useless!</span>")
 			else
-				to_chat(user, "<span class='warning'>You fail to extract a sliver from \The [src]! \the [I] isn't sharp enough anymore.</span>")
+				to_chat(user, "<span class='warning'>You fail to extract a sliver from [src]! [I] isn't sharp enough anymore.</span>")
 	else if(user.drop_item())
 		user.visible_message("<span class='danger'>As [user] touches [src] with \a [I], silence fills the room...</span>",\
 			"<span class='userdanger'>You touch [src] with [I], and everything suddenly goes silent.</span>\n<span class='notice'>[I] flashes into dust as you flinch away from [src].</span>",\
