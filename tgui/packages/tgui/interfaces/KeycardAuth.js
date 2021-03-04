@@ -93,7 +93,7 @@ export const KeycardAuth = (props, context) => {
       && data.event === "Gamma Alert") {
       swipeInfo = (
         <Box color="red">
-          Fill out the reason for requesting Gamma Alert.
+          Fill out the reason for requesting Gamma Alert. This is to be requested in extreme emergencies only.
         </Box>
       );
     } else if (data.hasConfirm) {

@@ -83,7 +83,7 @@
 /obj/machinery/keycard_auth/ui_data()
 	var/list/data = list()
 	data["redAvailable"] = GLOB.security_level == SEC_LEVEL_RED ? FALSE : TRUE
-	data["gammaAvailable"] = GLOB.security_level == SEC_LEVEL_GAMMA ? FALSE : TRUE
+	data["gammaAvailable"] = GLOB.security_level == SEC_LEVEL_RED ? TRUE : FALSE
 	data["swiping"] = swiping
 	data["busy"] = busy
 	data["event"] = active && event_source && event_source.event ? event_source.event : event
@@ -197,15 +197,9 @@
 			atom_say("Gamma Alert request transmitted!")
 			GLOB.command_announcer.autosay("Gamma Alert request transmitted. Reason: [gamma_reason]", name)
 			print_centcom_report(gamma_reason, station_time_timestamp() + " Gamma Alert Request")
-
-			var/fullmin_count = 0
-			for(var/client/C in GLOB.admins)
-				if(check_rights(R_EVENT, 0, C.mob))
-					fullmin_count++
-			if(fullmin_count)
-				GAMMA_Announce(gamma_reason , event_triggered_by, 0)
-				gamma_reason = null
-				SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("gamma", "called"))
+			GAMMA_Announce(gamma_reason , event_triggered_by, 0)
+			gamma_reason = null
+			SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("gamma", "called"))
 
 /obj/machinery/keycard_auth/proc/is_ert_blocked()
 	return SSticker.mode && SSticker.mode.ert_disabled
