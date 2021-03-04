@@ -1,3 +1,5 @@
+GLOBAL_VAR_INIT(gamma_request_answered, FALSE)
+
 /obj/machinery/keycard_auth
 	name = "Keycard Authentication Device"
 	desc = "This device is used to trigger station functions, which require more than one ID card to authenticate."
@@ -15,6 +17,7 @@
 	var/mob/event_triggered_by
 	var/mob/event_confirmed_by
 	var/ert_reason
+	var/gamma_reason
 
 	anchored = 1
 	use_power = IDLE_POWER_USE
@@ -46,6 +49,9 @@
 				if(event == "Emergency Response Team" && !ert_reason)
 					to_chat(user, "<span class='warning'>Supply a reason for calling the ERT first!</span>")
 					return
+				if(event == "Gamma Alert" && !gamma_reason)
+					to_chat(user, "<span class='warning'>Supply a reason for requesting Gamma Alert first!</span>")
+					return
 				event_triggered_by = usr
 				SStgui.update_uis(src)
 				broadcast_request() //This is the device making the initial event request. It needs to broadcast to other devices
@@ -72,17 +78,19 @@
 /obj/machinery/keycard_auth/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "KeycardAuth", name, 540, 300, master_ui, state)
+		ui = new(user, src, ui_key, "KeycardAuth", name, 540, 350, master_ui, state)
 		ui.open()
 
 
 /obj/machinery/keycard_auth/ui_data()
 	var/list/data = list()
 	data["redAvailable"] = GLOB.security_level == SEC_LEVEL_RED ? FALSE : TRUE
+	data["gammaAvailable"] = GLOB.security_level == SEC_LEVEL_GAMMA ? FALSE : TRUE
 	data["swiping"] = swiping
 	data["busy"] = busy
 	data["event"] = active && event_source && event_source.event ? event_source.event : event
 	data["ertreason"] = active && event_source && event_source.ert_reason ? event_source.ert_reason : ert_reason
+	data["gammareason"] = active && event_source && event_source.gamma_reason ? event_source.gamma_reason : gamma_reason
 	data["isRemote"] = active ? TRUE : FALSE
 	data["hasSwiped"] = event_triggered_by ? TRUE : FALSE
 	data["hasConfirm"] = event_confirmed_by || (active && event_source && event_source.event_confirmed_by) ? TRUE : FALSE
@@ -101,6 +109,8 @@
 	switch(action)
 		if("ert")
 			ert_reason = stripped_input(usr, "Reason for ERT Call:", "", "")
+		if("gamma")
+			gamma_reason = stripped_input(usr, "Reason for requesting Gamma Alert:", "", "")
 		if("reset")
 			reset()
 		if("triggerevent")
@@ -185,6 +195,25 @@
 						ERT_Announce(ert_reason , event_triggered_by, 1)
 			else
 				trigger_armed_response_team(new /datum/response_team/amber) // No admins? No problem. Automatically send a code amber ERT.
+		if("Gamma Alert")
+			atom_say("Gamma Alert request transmitted!")
+			GLOB.command_announcer.autosay("Gamma Alert request transmitted. Reason: [gamma_reason]", name)
+			print_centcom_report(gamma_reason, station_time_timestamp() + " Gamma Alert Request")
+
+			var/fullmin_count = 0
+			for(var/client/C in GLOB.admins)
+				if(check_rights(R_EVENT, 0, C.mob))
+					fullmin_count++
+			if(fullmin_count)
+				GLOB.gamma_request_answered = TRUE
+				GAMMA_Announce(gamma_reason , event_triggered_by, 0)
+				gamma_reason = null
+				SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("gamma", "called"))
+				spawn(3000)
+					if(!GLOB.gamma_request_answered)
+						GAMMA_Announce(gamma_reason , event_triggered_by, 1)
+			else
+				set_security_level(SEC_LEVEL_GAMMA) // No admins? No problem. Automatically approve Gamma Alert.
 
 /obj/machinery/keycard_auth/proc/is_ert_blocked()
 	return SSticker.mode && SSticker.mode.ert_disabled

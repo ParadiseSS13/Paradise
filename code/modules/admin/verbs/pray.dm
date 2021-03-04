@@ -78,6 +78,17 @@
 			to_chat(X, msg)
 			if(X.prefs.sound & SOUND_ADMINHELP)
 				SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))
+				
+/proc/GAMMA_Announce(var/text , var/mob/Sender, var/repeat_warning)
+	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
+	msg = "<span class='adminnotice'><b><font color=orange>GAMMA ALERT REQUEST: </font>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) (<A HREF='?_src_=holder;GammaReply=[Sender.UID()]'>RESPOND</A>):</b> [msg]</span>"
+	if(repeat_warning)
+		msg += "<BR><span class='adminnotice'><b>WARNING: Gamma Alert request has gone 5 minutes with no reply!</b></span>"
+	for(var/client/X in GLOB.admins)
+		if(check_rights(R_EVENT,0,X.mob))
+			to_chat(X, msg)
+			if(X.prefs.sound & SOUND_ADMINHELP)
+				SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))
 
 /proc/Nuke_request(text , mob/Sender)
 	var/nuke_code = get_nuke_code()

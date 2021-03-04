@@ -20,16 +20,23 @@ export const KeycardAuth = (props, context) => {
           {infoBox}
           <Section title="Choose Action">
             <LabeledList>
-              <LabeledList.Item
-                label="Red Alert">
+              <LabeledList.Item label="Red Alert">
                 <Button
-                  icon="exclamation-triangle"
+                  icon="exclamation-circle"
                   disabled={!data.redAvailable}
                   onClick={() => act('triggerevent',
                     { 'triggerevent': 'Red Alert' })}
                   content="Red Alert" />
               </LabeledList.Item>
-              <LabeledList.Item label="ERT">
+              <LabeledList.Item label="Request Gamma Alert">
+                <Button
+                  icon="exclamation-triangle"
+                  disabled={!data.gammaAvailable}
+                  onClick={() => act('triggerevent',
+                    { 'triggerevent': 'Gamma Alert' })}
+                  content="Gamma Alert" />
+              </LabeledList.Item>
+              <LabeledList.Item label="Emergency Response Team">
                 <Button
                   icon="broadcast-tower"
                   onClick={() => act('triggerevent',
@@ -82,6 +89,13 @@ export const KeycardAuth = (props, context) => {
           Fill out the reason for your ERT request.
         </Box>
       );
+    } else if (!data.hasSwiped && !data.gammareason
+      && data.event === "Gamma Alert") {
+      swipeInfo = (
+        <Box color="red">
+          Fill out the reason for requesting Gamma Alert.
+        </Box>
+      );
     } else if (data.hasConfirm) {
       swipeInfo = (
         <Box color="green">
@@ -120,6 +134,25 @@ export const KeycardAuth = (props, context) => {
                     : "-----"}
                   disabled={data.busy}
                   onClick={() => act('ert')}
+                />
+              </Box>
+            </Section>
+          )}
+          {data.event === 'Gamma Alert' && (
+            <Section title="Reason for requesting Gamma Alert">
+              <Box>
+                <Button
+                  color={data.gammareason
+                    ? ""
+                    : "red"}
+                  icon={data.gammareason
+                    ? "check"
+                    : "pencil-alt"}
+                  content={data.gammareason
+                    ? data.gammareason
+                    : "-----"}
+                  disabled={data.busy}
+                  onClick={() => act('gamma')}
                 />
               </Box>
             </Section>
