@@ -212,8 +212,6 @@ GLOBAL_VAR_INIT(gamma_request_answered, FALSE)
 				spawn(3000)
 					if(!GLOB.gamma_request_answered)
 						GAMMA_Announce(gamma_reason , event_triggered_by, 1)
-			else
-				set_security_level(SEC_LEVEL_GAMMA) // No admins? No problem. Automatically approve Gamma Alert.
 
 /obj/machinery/keycard_auth/proc/is_ert_blocked()
 	return SSticker.mode && SSticker.mode.ert_disabled
