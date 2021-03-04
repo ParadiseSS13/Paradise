@@ -75,6 +75,7 @@
 	var/locked = 1
 	var/coverlocked = 1
 	var/aidisabled = 0
+	var/tdir = null
 	var/obj/machinery/power/terminal/terminal = null
 	var/lastused_light = 0
 	var/lastused_equip = 0
@@ -130,6 +131,22 @@
 	req_access = list(ACCESS_SYNDICATE)
 	report_power_alarm = FALSE
 
+/obj/machinery/power/apc/north //Pixel offsets get overwritten on New()
+	dir = NORTH
+	pixel_y = 23
+
+/obj/machinery/power/apc/south
+	dir = SOUTH
+	pixel_y = -23
+
+/obj/machinery/power/apc/east
+	dir = EAST
+	pixel_x = 24
+
+/obj/machinery/power/apc/west
+	dir = WEST
+	pixel_x = -25
+
 /obj/item/apc_electronics
 	name = "power control module"
 	desc = "Heavy-duty switching circuits for power control."
@@ -151,7 +168,7 @@
 	if(terminal)
 		terminal.connect_to_network()
 
-/obj/machinery/power/apc/New(turf/loc, direction, building = 0)
+/obj/machinery/power/apc/New(turf/loc, ndir, building = 0)
 	if(!armor)
 		armor = list("melee" = 20, "bullet" = 20, "laser" = 10, "energy" = 100, "bomb" = 30, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 50)
 	..()
@@ -159,12 +176,23 @@
 	GLOB.apcs = sortAtom(GLOB.apcs)
 
 	wires = new(src)
-
+	// offset 24 pixels in direction of dir
+	// this allows the APC to be embedded in a wall, yet still inside an area
 	if(building)
-		// Offset 24 pixels in direction of dir. This allows the APC to be embedded in a wall, yet still inside an area
-		setDir(direction) // This is only used for pixel offsets, and later terminal placement. APC dir doesn't affect its sprite since it only has one orientation.
-		set_pixel_offsets_from_dir(24, -24, 24, -24)
+		setDir(ndir)
+	tdir = dir // to fix Vars bug
+	setDir(SOUTH)
 
+	switch(tdir)
+		if(NORTH)
+			pixel_y = 23
+		if(SOUTH)
+			pixel_y = -23
+		if(EAST)
+			pixel_x = 24
+		if(WEST)
+			pixel_x = -25
+	if(building)
 		area = get_area(src)
 		area.apc |= src
 		opened = 1
@@ -196,7 +224,7 @@
 	// create a terminal object at the same position as original turf loc
 	// wires will attach to this
 	terminal = new/obj/machinery/power/terminal(get_turf(src))
-	terminal.setDir(dir)
+	terminal.setDir(tdir)
 	terminal.master = src
 
 /obj/machinery/power/apc/Initialize(mapload)
