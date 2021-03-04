@@ -2430,12 +2430,12 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		if(alert(src.owner, "Accept or Deny Gamma Alert request?", "CentComm Response", "Accept", "Deny") == "Deny")
+		if(alert(owner, "Accept or Deny Gamma Alert request?", "CentComm Response", "Accept", "Deny") == "Deny")
 			var/mob/living/carbon/human/H = locateUID(href_list["GammaReply"])
 			if(!istype(H))
 				to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 				return
-			if(H.stat != 0)
+			if(H.stat != CONSCIOUS)
 				to_chat(usr, "<span class='warning'>The person you are trying to contact is not conscious.</span>")
 				return
 			if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
@@ -2443,7 +2443,8 @@
 				return
 
 			var/input = input(src.owner, "Please enter a reason for denying [key_name(H)]'s Gamma Alert request.","Outgoing message from CentComm", "")
-			if(!input)	return
+			if(!input)
+				return
 			GLOB.gamma_request_answered = TRUE
 			to_chat(src.owner, "You sent [input] to [H] via a secure channel.")
 			log_admin("[src.owner] denied [key_name(H)]'s Gamma Alert request with the message [input].")
