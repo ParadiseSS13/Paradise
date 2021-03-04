@@ -26,6 +26,9 @@
 	deathmessage = "collapses in a shattered heap."
 	var/construct_type = "shade"
 	var/list/construct_spells = list()
+	/// Is this a holy/purified construct?
+	var/holy = FALSE
+	/// Message to send to the construct when they are created, containing information about their role.
 	var/playstyle_string = "<b>You are a generic construct! Your job is to not exist, and you should probably adminhelp this.</b>"
 
 /mob/living/simple_animal/hostile/construct/New()
@@ -315,6 +318,17 @@
 /mob/living/simple_animal/hostile/construct/harvester/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
+
+
+/mob/living/simple_animal/hostile/construct/proc/make_holy()
+	if(holy) // Already holy-fied
+		return
+	holy = TRUE
+	set_light(3, 5, LIGHT_COLOR_DARK_BLUE)
+	name = "Holy [name]"
+	real_name = "Holy [real_name]"
+	faction.Remove("cult")
+
 
 ///ui stuff
 

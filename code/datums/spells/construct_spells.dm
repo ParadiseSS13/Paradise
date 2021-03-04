@@ -118,7 +118,12 @@
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/do_jaunt(mob/living/target)
 	target.set_light(0)
 	..()
-	target.set_light(2, 3, l_color = SSticker.cultdat ? SSticker.cultdat.construct_glow : LIGHT_COLOR_BLOOD_MAGIC)
+	if(isconstruct(target))
+		var/mob/living/simple_animal/hostile/construct/C = target
+		if(C.holy)
+			C.set_light(3, 5, LIGHT_COLOR_DARK_BLUE)
+		else
+			C.set_light(2, 3, l_color = SSticker.cultdat ? SSticker.cultdat.construct_glow : LIGHT_COLOR_BLOOD_MAGIC)
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/jaunt_steam(mobloc)
 	return

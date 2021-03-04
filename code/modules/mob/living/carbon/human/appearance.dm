@@ -223,7 +223,7 @@
 /mob/living/carbon/human/proc/get_eye_color()
 	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 	if(E)
-		return E.eye_colour
+		return E.eye_color
 	return FALSE
 
 /mob/living/carbon/human/proc/change_hair_color(var/colour = "#000000", var/secondary)
