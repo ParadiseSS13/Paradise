@@ -10,6 +10,7 @@
 	tox_mod = 1.7
 
 	species_traits = list(IS_WHITELISTED)
+	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS
 	eyes = "kidan_eyes_s"
@@ -45,4 +46,4 @@
 
 /datum/species/kidan/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
-	return E.eye_colour
+	return E.eye_color

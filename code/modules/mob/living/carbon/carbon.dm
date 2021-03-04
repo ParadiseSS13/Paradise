@@ -173,7 +173,6 @@
 	AdjustJitter(1000)
 	do_jitter_animation(jitteriness)
 	AdjustStuttering(2)
-	shock_internal_organs(shock_damage)
 	addtimer(CALLBACK(src, .proc/secondary_shock, should_stun), 20)
 	return shock_damage
 
@@ -344,9 +343,6 @@
 	if(.)
 		if(visual)
 			return
-		if(weakeyes)
-			Stun(2)
-
 		var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 		if(!E || (E && E.weld_proof))
 			return
@@ -485,8 +481,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				for(var/obj/item/I in contents)
 					var/failed = 0
 					if(istype(I, /obj/item/implant))
-						continue
-					if(istype(I, /obj/item/organ))
 						continue
 					if(I.flags & ABSTRACT)
 						continue
@@ -1149,6 +1143,10 @@ so that different stomachs can handle things in different ways VB*/
 	if(wear_mask)
 		. += wear_mask.tint
 
+	var/obj/item/organ/internal/eyes/E = get_organ_slot("eyes")
+	if(E)
+		. += E.tint
+
 /mob/living/carbon/human/get_total_tint()
 	. = ..()
 	if(glasses)
@@ -1176,10 +1174,6 @@ so that different stomachs can handle things in different ways VB*/
 		update_inv_wear_mask()
 	update_inv_head()
 
-/mob/living/carbon/proc/shock_internal_organs(intensity)
-	for(var/obj/item/organ/O in internal_organs)
-		O.shock_organ(intensity)
-
 /mob/living/carbon/update_sight()
 	if(!client)
 		return
@@ -1193,15 +1187,6 @@ so that different stomachs can handle things in different ways VB*/
 	sight = initial(sight)
 	lighting_alpha = initial(lighting_alpha)
 
-	for(var/obj/item/organ/internal/cyberimp/eyes/E in internal_organs)
-		sight |= E.vision_flags
-		if(E.see_in_dark)
-			see_in_dark = max(see_in_dark, E.see_in_dark)
-		if(E.see_invisible)
-			see_invisible = min(see_invisible, E.see_invisible)
-		if(!isnull(E.lighting_alpha))
-			lighting_alpha = min(lighting_alpha, E.lighting_alpha)
-
 	if(client.eye != src)
 		var/atom/A = client.eye
 		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
@@ -1214,7 +1199,6 @@ so that different stomachs can handle things in different ways VB*/
 	if(HAS_TRAIT(src, TRAIT_XRAY_VISION))
 		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		see_in_dark = max(see_in_dark, 8)
-		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE)
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
