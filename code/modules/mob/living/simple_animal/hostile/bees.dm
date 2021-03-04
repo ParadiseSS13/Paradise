@@ -35,6 +35,7 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	density = FALSE
 	mob_size = MOB_SIZE_TINY
+	mob_biotypes = MOB_ORGANIC | MOB_BUG
 	flying = TRUE
 	gold_core_spawnable = HOSTILE_SPAWN
 	search_objects = TRUE //have to find those plant trays!

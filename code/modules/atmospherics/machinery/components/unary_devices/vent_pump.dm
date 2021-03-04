@@ -9,7 +9,7 @@
 	name = "air vent"
 	desc = "Has a valve and pump attached to it"
 	use_power = IDLE_POWER_USE
-
+	plane = FLOOR_PLANE
 	layer = GAS_SCRUBBER_LAYER
 
 	can_unwrench = 1
@@ -79,7 +79,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/update_icon(safety = 0)
 	..()
 
-	plane = GAME_PLANE
+	plane = FLOOR_PLANE
 
 	if(!check_icon_cache())
 		return
