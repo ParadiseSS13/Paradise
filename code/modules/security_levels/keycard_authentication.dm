@@ -1,5 +1,3 @@
-GLOBAL_VAR_INIT(gamma_request_answered, FALSE)
-
 /obj/machinery/keycard_auth
 	name = "Keycard Authentication Device"
 	desc = "This device is used to trigger station functions, which require more than one ID card to authenticate."
@@ -205,13 +203,9 @@ GLOBAL_VAR_INIT(gamma_request_answered, FALSE)
 				if(check_rights(R_EVENT, 0, C.mob))
 					fullmin_count++
 			if(fullmin_count)
-				GLOB.gamma_request_answered = TRUE
 				GAMMA_Announce(gamma_reason , event_triggered_by, 0)
 				gamma_reason = null
 				SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("gamma", "called"))
-				spawn(3000)
-					if(!GLOB.gamma_request_answered)
-						GAMMA_Announce(gamma_reason , event_triggered_by, 1)
 
 /obj/machinery/keycard_auth/proc/is_ert_blocked()
 	return SSticker.mode && SSticker.mode.ert_disabled

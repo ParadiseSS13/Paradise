@@ -2445,7 +2445,6 @@
 			var/input = input(src.owner, "Please enter a reason for denying [key_name(H)]'s Gamma Alert request.","Outgoing message from CentComm", "")
 			if(!input)
 				return
-			GLOB.gamma_request_answered = TRUE
 			to_chat(src.owner, "You sent [input] to [H] via a secure channel.")
 			log_admin("[src.owner] denied [key_name(H)]'s Gamma Alert request with the message [input].")
 			to_chat(H, "<span class='specialnoticebold'>Incoming priority transmission from Central Command. Message as follows,</span><span class='specialnotice'> Your Gamma Alert request has been denied for the following reasons: [input].</span>")
