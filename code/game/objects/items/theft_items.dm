@@ -1,9 +1,9 @@
 //Items for nuke theft, supermatter theft traitor objective
 
 
-// STEALING THE NUKE, this is disabled currently, as I don't think we need an objective to steal the nuclear device. The items work fine, just you wont be able to screw the nuke, get the core, nor does it have a core in it
+// STEALING THE NUKE
 
-//the nuke core - objective item
+//the nuke core, base item
 /obj/item/nuke_core
 	name = "plutonium core"
 	desc = "Extremely radioactive. Wear goggles."
@@ -39,6 +39,8 @@
 	user.visible_message("<span class='suicide'>[user] is rubbing [src] against [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return TOXLOSS
 
+/obj/item/nuke_core/plutonium //The steal objective, so it doesnt mess with the SM sliver on pinpointers and objectives
+
 //nuke core box, for carrying the core
 /obj/item/nuke_core_container
 	name = "nuke core container"
@@ -46,20 +48,20 @@
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "core_container_empty"
 	item_state = "metal"
-	var/obj/item/nuke_core/core
+	var/obj/item/nuke_core/plutonium/core
 
 /obj/item/nuke_core_container/Destroy()
 	QDEL_NULL(core)
 	return ..()
 
-/obj/item/nuke_core_container/proc/load(obj/item/nuke_core/ncore, mob/user)
+/obj/item/nuke_core_container/proc/load(obj/item/nuke_core/plutonium/ncore, mob/user)
 	if(core || !istype(ncore))
 		return FALSE
 	ncore.forceMove(src)
 	core = ncore
 	icon_state = "core_container_loaded"
 	to_chat(user, "<span class='warning'>Container is sealing...</span>")
-	addtimer(CALLBACK(src, .proc/seal), 50)
+	addtimer(CALLBACK(src, .proc/seal), 10 SECONDS)
 	return TRUE
 
 /obj/item/nuke_core_container/proc/seal()
@@ -70,7 +72,7 @@
 		if(ismob(loc))
 			to_chat(loc, "<span class='warning'>[src] is permanently sealed, [core]'s radiation is contained.</span>")
 
-/obj/item/nuke_core_container/attackby(obj/item/nuke_core/core, mob/user)
+/obj/item/nuke_core_container/attackby(obj/item/nuke_core/plutonium/core, mob/user)
 	if(istype(core))
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>The [core] is stuck to your hand!</span>")
@@ -91,17 +93,18 @@
 	random_color = FALSE
 
 /obj/item/paper/guides/antag/nuke_instructions
-	info = "How to break into a Nanotrasen self-destruct terminal and remove its plutonium core:<br>\
+	info = "How to break into a Nanotrasen nuclear device and remove its plutonium core:<br>\
 	<ul>\
-	<li>Use a screwdriver with a very thin tip (provided) to unscrew the terminal's front panel</li>\
-	<li>Dislodge and remove the front panel with a crowbar</li>\
-	<li>Cut the inner metal plate with a welding tool</li>\
-	<li>Pry off the inner plate with a crowbar to expose the radioactive core</li>\
-	<li>Use the core container to remove the plutonium core; the container will take some time to seal</li>\
+	<li>Use a screwdriver with a very thin tip (provided) to unscrew the terminal's front panel.</li>\
+	<li>Dislodge and remove the front panel with a crowbar.</li>\
+	<li>Cut the inner metal plate with a welding tool.</li>\
+	<li>Pry off the inner plate with a crowbar to expose the radioactive core.</li>\
+	<li>Pull the core out of the nuclear device. </li>\
+	<li>Put the core in the provided container, which will take some time to seal. </li>\
 	<li>???</li>\
 	</ul>"
 
-// STEALING SUPERMATTER. This works, and is active
+// STEALING SUPERMATTER.
 
 /obj/item/paper/guides/antag/supermatter_sliver
 	info = "How to safely extract a supermatter sliver:<br>\
@@ -130,8 +133,8 @@
 	return FALSE
 
 /obj/item/nuke_core/supermatter_sliver/attackby(obj/item/W, mob/living/user, params)
-	if(istype(W, /obj/item/hemostat/supermatter))
-		var/obj/item/hemostat/supermatter/tongs = W
+	if(istype(W, /obj/item/retractor/supermatter))
+		var/obj/item/retractor/supermatter/tongs = W
 		if(tongs.sliver)
 			to_chat(user, "<span class='warning'>[tongs] is already holding a supermatter sliver!</span>")
 			return FALSE
@@ -191,7 +194,7 @@
 	QDEL_NULL(sliver)
 	return ..()
 
-/obj/item/nuke_core_container/supermatter/load(obj/item/hemostat/supermatter/T, mob/user)
+/obj/item/nuke_core_container/supermatter/load(obj/item/retractor/supermatter/T, mob/user)
 	if(!istype(T) || !T.sliver)
 		return FALSE
 	T.sliver.forceMove(src)
@@ -201,7 +204,7 @@
 	T.item_state = "supermatter_tongs"
 	icon_state = "supermatter_container_loaded"
 	to_chat(user, "<span class='warning'>Container is sealing...</span>")
-	addtimer(CALLBACK(src, .proc/seal), 5 SECONDS)
+	addtimer(CALLBACK(src, .proc/seal), 10 SECONDS)
 	return TRUE
 
 /obj/item/nuke_core_container/supermatter/seal()
@@ -212,7 +215,7 @@
 		if(ismob(loc))
 			to_chat(loc, "<span class='warning'>[src] is permanently sealed, [sliver] is safely contained.</span>")
 
-/obj/item/nuke_core_container/supermatter/attackby(obj/item/hemostat/supermatter/tongs, mob/user)
+/obj/item/nuke_core_container/supermatter/attackby(obj/item/retractor/supermatter/tongs, mob/user)
 	if(istype(tongs))
 		//try to load shard into core
 		load(tongs, user)
@@ -233,7 +236,7 @@
 	. = ..()
 	usesLeft = rand(2, 4)
 
-/obj/item/hemostat/supermatter
+/obj/item/retractor/supermatter
 	name = "supermatter extraction tongs"
 	desc = "A pair of tongs made from condensed hyper-noblium gas, searingly cold to the touch, that can safely grip a supermatter sliver."
 	icon = 'icons/obj/nuke_tools.dmi'
@@ -245,18 +248,18 @@
 	damtype = BURN
 	var/obj/item/nuke_core/supermatter_sliver/sliver
 
-/obj/item/hemostat/supermatter/Destroy()
+/obj/item/retractor/supermatter/Destroy()
 	QDEL_NULL(sliver)
 	return ..()
 
-/obj/item/hemostat/supermatter/afterattack(atom/O, mob/user, proximity)
+/obj/item/retractor/supermatter/afterattack(atom/O, mob/user, proximity)
 	. = ..()
 	if(!sliver)
 		return
 	if(proximity && ismovable(O) && O != sliver)
 		Consume(O, user)
 
-/obj/item/hemostat/supermatter/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // no instakill supermatter javelins
+/obj/item/retractor/supermatter/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // no instakill supermatter javelins
 	if(sliver)
 		sliver.forceMove(loc)
 		visible_message("<span class='notice'>[sliver] falls out of [src] as it hits the ground.</span>")
@@ -265,7 +268,7 @@
 		item_state = "supermatter_tongs"
 	return ..()
 
-/obj/item/hemostat/supermatter/proc/Consume(atom/movable/AM, mob/living/user)
+/obj/item/retractor/supermatter/proc/Consume(atom/movable/AM, mob/living/user)
 	if(ismob(AM))
 		if(!isliving(AM))
 			return

@@ -327,6 +327,6 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/supermatter/populate_contents()
 	new /obj/item/scalpel/supermatter(src)
-	new /obj/item/hemostat/supermatter(src)
+	new /obj/item/retractor/supermatter(src)
 	new /obj/item/nuke_core_container/supermatter(src)
 	new /obj/item/paper/guides/antag/supermatter_sliver(src)
