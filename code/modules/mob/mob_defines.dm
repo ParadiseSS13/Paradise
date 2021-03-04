@@ -82,6 +82,7 @@
 	var/obj/item/r_hand = null //Living
 	var/obj/item/back = null //Human
 	var/obj/item/tank/internal = null //Human
+	/// Active storage container
 	var/obj/item/storage/s_active = null //Carbon
 	var/obj/item/clothing/mask/wear_mask = null //Carbon
 
@@ -147,7 +148,6 @@
 	var/area/lastarea = null
 
 	var/digitalcamo = 0 // Can they be tracked by the AI?
-	var/weakeyes = 0 //Are they vulnerable to flashes?
 
 	var/has_unlimited_silicon_privilege = 0 // Can they interact with station electronics
 

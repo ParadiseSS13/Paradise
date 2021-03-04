@@ -16,14 +16,24 @@
 	var/obj/item/storage/internal/pocket
 
 /obj/item/organ/internal/headpocket/New()
-	..()
 	pocket = new /obj/item/storage/internal(src)
 	pocket.storage_slots = 1
-	// Allow adjacency calculation to work properly
-	loc = owner
 	// Fit only pocket sized items
 	pocket.max_w_class = WEIGHT_CLASS_SMALL
 	pocket.max_combined_w_class = 2
+	..()
+
+/obj/item/organ/internal/headpocket/Destroy()
+	QDEL_NULL(pocket)
+	return ..()
+
+/obj/item/organ/internal/headpocket/insert(mob/living/carbon/M, special = FALSE, dont_remove_slot = 0)
+	. = ..()
+	pocket.master_item = M // So headpockets work with adjacency checks
+
+/obj/item/organ/internal/headpocket/remove(mob/living/carbon/M, special = 0)
+	pocket.master_item = src
+	return ..()
 
 /obj/item/organ/internal/headpocket/on_life()
 	..()
@@ -34,8 +44,6 @@
 		empty_contents()
 
 /obj/item/organ/internal/headpocket/ui_action_click()
-	if(!loc)
-		loc = owner
 	pocket.MouseDrop(owner)
 
 /obj/item/organ/internal/headpocket/on_owner_death()

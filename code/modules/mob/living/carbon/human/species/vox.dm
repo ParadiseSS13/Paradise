@@ -28,8 +28,6 @@
 	dietflags = DIET_OMNI
 	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS
 
-	silent_steps = TRUE
-
 	blood_color = "#2299FC"
 	flesh_color = "#808D11"
 	//Default styles for created mobs.

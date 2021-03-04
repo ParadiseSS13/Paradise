@@ -46977,16 +46977,13 @@
 /area/assembly/robotics)
 "bRm" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/regular{
-	empty = 1;
+/obj/item/storage/firstaid/regular/empty{
 	name = "First-Aid (empty)"
 	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
+/obj/item/storage/firstaid/regular/empty{
 	name = "First-Aid (empty)"
 	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
+/obj/item/storage/firstaid/regular/empty{
 	name = "First-Aid (empty)"
 	},
 /obj/item/healthanalyzer,

@@ -29,6 +29,7 @@
 	can_collar = 1
 	blood_volume = BLOOD_VOLUME_NORMAL
 	var/obj/item/udder/udder = null
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/hostile/retaliate/goat/New()
 	udder = new()
@@ -134,6 +135,7 @@
 	var/obj/item/udder/udder = null
 	gender = FEMALE
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/cow/Initialize()
 	udder = new()
@@ -202,6 +204,7 @@
 	can_hide = 1
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/chick/New()
 	..()
@@ -258,6 +261,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	var/list/layMessage = EGG_LAYING_MESSAGES
 	var/list/validColors = list("brown","black","white")
 	gold_core_spawnable = FRIENDLY_SPAWN
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/chicken/New()
 	..()
@@ -340,6 +344,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/turkey
 	name = "turkey"
@@ -364,6 +369,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	can_collar = 1
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	gold_core_spawnable = FRIENDLY_SPAWN
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/goose
 	name = "goose"
@@ -388,6 +394,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	can_collar = 1
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	gold_core_spawnable = FRIENDLY_SPAWN
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/seal
 	name = "seal"

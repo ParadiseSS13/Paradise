@@ -89,8 +89,6 @@
 	if(user)
 		add_attack_logs(user, M, "Flashed with [src]")
 		if(targeted)
-			if(M.weakeyes)
-				M.Weaken(3) //quick weaken bypasses eye protection but has no eye flash
 			if(M.flash_eyes(1, 1))
 				M.AdjustConfused(power)
 				terrible_conversion_proc(M, user)
@@ -98,9 +96,6 @@
 				visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
 				to_chat(user, "<span class='danger'>You blind [M] with the flash!</span>")
 				to_chat(M, "<span class='userdanger'>[user] blinds you with the flash!</span>")
-				if(M.weakeyes)
-					M.Stun(2)
-					M.visible_message("<span class='disarm'>[M] gasps and shields [M.p_their()] eyes!</span>", "<span class='userdanger'>You gasp and shield your eyes!</span>")
 			else
 				visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
 				to_chat(user, "<span class='warning'>You fail to blind [M] with the flash!</span>")
