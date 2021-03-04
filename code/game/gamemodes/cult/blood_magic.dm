@@ -249,7 +249,7 @@
 /datum/action/innate/cult/blood_spell/horror/Destroy()
 	var/obj/effect/proc_holder/horror/destroy = PH
 	. = ..()
-	if(destroy && !QDELETED(destroy))
+	if(!QDELETED(destroy))
 		QDEL_NULL(destroy)
 
 /datum/action/innate/cult/blood_spell/horror/Activate()
@@ -264,7 +264,7 @@
 /obj/effect/proc_holder/horror/Destroy()
 	var/datum/action/innate/cult/blood_spell/AA = attached_action
 	. = ..()
-	if(AA && !QDELETED(AA))
+	if(!QDELETED(AA))
 		QDEL_NULL(AA)
 
 /obj/effect/proc_holder/horror/proc/toggle(mob/user)
