@@ -39,6 +39,7 @@
 	butt_sprite = "slime"
 	//Has default darksight of 2.
 
+	vision_organ = null
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/slime,
 		"heart" = /obj/item/organ/internal/heart/slime,
