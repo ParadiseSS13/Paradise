@@ -39,7 +39,7 @@
 			adjust_nutrition(-(hunger_drain * 0.1))
 			if(m_intent == MOVE_INTENT_RUN)
 				adjust_nutrition(-(hunger_drain * 0.1))
-		if((FAT in mutations) && m_intent == MOVE_INTENT_RUN && bodytemperature <= 360)
+		if(HAS_TRAIT(src, TRAIT_FAT) && m_intent == MOVE_INTENT_RUN && bodytemperature <= 360)
 			bodytemperature += 2
 
 		// Moving around increases germ_level faster
@@ -173,7 +173,6 @@
 	AdjustJitter(1000)
 	do_jitter_animation(jitteriness)
 	AdjustStuttering(2)
-	shock_internal_organs(shock_damage)
 	addtimer(CALLBACK(src, .proc/secondary_shock, should_stun), 20)
 	return shock_damage
 
@@ -238,25 +237,6 @@
 						"<span class='notice'>[M] shakes [src] trying to wake [p_them()] up!</span>",\
 						"<span class='notice'>You shake [src] trying to wake [p_them()] up!</span>",\
 						)
-
-			else if(on_fire)
-				var/self_message = "<span class='warning'>You try to extinguish [src]!</span>"
-				if(prob(30) && ishuman(M)) // 30% chance of burning your hands
-					var/mob/living/carbon/human/H = M
-					var/protected = FALSE // Protected from the fire
-					if((H.gloves?.max_heat_protection_temperature > 360) || (HEATRES in H.mutations))
-						protected = TRUE
-
-					var/obj/item/organ/external/active_hand = H.get_organ("[H.hand ? "l" : "r"]_hand")
-					if(active_hand && !protected) // Wouldn't really work without a hand
-						active_hand.receive_damage(0, 5)
-						self_message = "<span class='danger'>You burn your hand trying to extinguish [src]!</span>"
-						H.update_icons()
-
-				M.visible_message("<span class='warning'>[M] tries to extinguish [src]!</span>", self_message)
-				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-				adjust_fire_stacks(-0.5)
-
 			// BEGIN HUGCODE - N3X
 			else
 				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
@@ -277,6 +257,32 @@
 							H.wear_suit.add_fingerprint(M)
 						else if(H.w_uniform)
 							H.w_uniform.add_fingerprint(M)
+
+/**
+  * Handles patting out a fire on someone.
+  *
+  * Removes 0.5 fire stacks per pat, with a 30% chance of the user burning their hand if they don't have adequate heat resistance.
+  * Arguments:
+  * * src - The mob doing the patting
+  * * target - The mob who is currently on fire
+  */
+/mob/living/carbon/proc/pat_out(mob/living/target)
+	var/self_message = "<span class='warning'>You try to extinguish [target]!</span>"
+	if(prob(30) && ishuman(src)) // 30% chance of burning your hands
+		var/mob/living/carbon/human/H = src
+		var/protected = FALSE // Protected from the fire
+		if((H.gloves?.max_heat_protection_temperature > 360) || HAS_TRAIT(H, TRAIT_RESISTHEAT) || HAS_TRAIT(H, TRAIT_RESISTHEATHANDS))
+			protected = TRUE
+
+		var/obj/item/organ/external/active_hand = H.get_active_hand()
+		if(active_hand && !protected) // Wouldn't really work without a hand
+			active_hand.receive_damage(0, 5)
+			self_message = "<span class='danger'>You burn your hand trying to extinguish [target]!</span>"
+			H.update_icons()
+
+	target.visible_message("<span class='warning'>[src] tries to extinguish [target]!</span>", self_message)
+	playsound(target, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+	target.adjust_fire_stacks(-0.5)
 
 /mob/living/carbon/proc/check_self_for_injuries()
 	var/mob/living/carbon/human/H = src
@@ -327,7 +333,7 @@
 			to_chat(src, "<span class='info'>You're completely exhausted.</span>")
 		else
 			to_chat(src, "<span class='info'>You feel fatigued.</span>")
-	if((SKELETON in H.mutations) && (!H.w_uniform) && (!H.wear_suit))
+	if(HAS_TRAIT(H, TRAIT_SKELETONIZED) && (!H.w_uniform) && (!H.wear_suit))
 		H.play_xylophone()
 
 /mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
@@ -337,9 +343,6 @@
 	if(.)
 		if(visual)
 			return
-		if(weakeyes)
-			Stun(2)
-
 		var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 		if(!E || (E && E.weld_proof))
 			return
@@ -479,8 +482,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 					var/failed = 0
 					if(istype(I, /obj/item/implant))
 						continue
-					if(istype(I, /obj/item/organ))
-						continue
 					if(I.flags & ABSTRACT)
 						continue
 					else
@@ -612,7 +613,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	else if(!(I.flags & ABSTRACT)) //can't throw abstract items
 		thrown_thing = I
-		unEquip(I)
+		unEquip(I, silent = TRUE)
 
 		if(HAS_TRAIT(src, TRAIT_PACIFISM) && I.throwforce)
 			to_chat(src, "<span class='notice'>You set [I] down gently on the ground.</span>")
@@ -638,7 +639,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/get_restraining_item()
 	return handcuffed
 
-/mob/living/carbon/unEquip(obj/item/I, force) //THIS PROC DID NOT CALL ..()
+/mob/living/carbon/unEquip(obj/item/I, force, silent = FALSE) //THIS PROC DID NOT CALL ..()
 	. = ..() //Sets the default return value to what the parent returns.
 	if(!. || !I) //We don't want to set anything to null if the parent returned 0.
 		return
@@ -1142,6 +1143,10 @@ so that different stomachs can handle things in different ways VB*/
 	if(wear_mask)
 		. += wear_mask.tint
 
+	var/obj/item/organ/internal/eyes/E = get_organ_slot("eyes")
+	if(E)
+		. += E.tint
+
 /mob/living/carbon/human/get_total_tint()
 	. = ..()
 	if(glasses)
@@ -1169,10 +1174,6 @@ so that different stomachs can handle things in different ways VB*/
 		update_inv_wear_mask()
 	update_inv_head()
 
-/mob/living/carbon/proc/shock_internal_organs(intensity)
-	for(var/obj/item/organ/O in internal_organs)
-		O.shock_organ(intensity)
-
 /mob/living/carbon/update_sight()
 	if(!client)
 		return
@@ -1186,24 +1187,18 @@ so that different stomachs can handle things in different ways VB*/
 	sight = initial(sight)
 	lighting_alpha = initial(lighting_alpha)
 
-	for(var/obj/item/organ/internal/cyberimp/eyes/E in internal_organs)
-		sight |= E.vision_flags
-		if(E.see_in_dark)
-			see_in_dark = max(see_in_dark, E.see_in_dark)
-		if(E.see_invisible)
-			see_invisible = min(see_invisible, E.see_invisible)
-		if(!isnull(E.lighting_alpha))
-			lighting_alpha = min(lighting_alpha, E.lighting_alpha)
-
 	if(client.eye != src)
 		var/atom/A = client.eye
 		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
 			return
 
-	if(XRAY in mutations)
+	if(HAS_TRAIT(src, TRAIT_THERMAL_VISION))
+		sight |= (SEE_MOBS)
+		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+
+	if(HAS_TRAIT(src, TRAIT_XRAY_VISION))
 		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		see_in_dark = 8
-		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+		see_in_dark = max(see_in_dark, 8)
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()

@@ -570,7 +570,7 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 		log_admin("[key_name(usr)] attempted to use a mouse macro: [verbused] [params]")
 		message_admins("[key_name_admin(usr)] attempted to use a mouse macro: [verbused] [html_encode(params)]")
 	if(client.next_mouse_macro_warning < world.time) // Warn occasionally
-		usr << 'sound/misc/sadtrombone.ogg'
+		SEND_SOUND(usr, sound('sound/misc/sadtrombone.ogg'))
 		client.next_mouse_macro_warning = world.time + 600
 /mob/verb/ClickSubstitute(params as command_text)
 	set hidden = 1

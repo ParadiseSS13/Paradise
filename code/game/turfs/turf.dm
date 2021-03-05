@@ -35,10 +35,6 @@
 
 	var/list/blueprint_data //for the station blueprints, images of objects eg: pipes
 
-	var/list/footstep_sounds
-	var/shoe_running_volume = 50
-	var/shoe_walking_volume = 20
-
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 	if(initialized)
@@ -407,7 +403,7 @@
 				L.Add(T)
 	return L
 
-// check for all turfs, including unsimulated ones
+// check for all turfs, including space ones
 /turf/proc/AdjacentTurfsSpace(obj/item/card/id/ID = null, list/closed)//check access if one is passed
 	var/list/L = new()
 	var/turf/T

@@ -100,7 +100,7 @@
 		return
 
 	//Process infections
-	if(is_robotic() || sterile || (owner && (NO_GERMS in owner.dna.species.species_traits)))
+	if(is_robotic() || sterile || (owner && HAS_TRAIT(owner, TRAIT_NOGERMS)))
 		germ_level = 0
 		return
 
@@ -230,9 +230,6 @@
 	status &= ~ORGAN_SPLINTED
 	status |= ORGAN_ROBOT
 
-/obj/item/organ/proc/shock_organ(intensity)
-	return
-
 /obj/item/organ/proc/remove(var/mob/living/user,special = 0)
 	if(!istype(owner))
 		return
@@ -242,7 +239,7 @@
 	var/obj/item/organ/external/affected = owner.get_organ(parent_organ)
 	if(affected) affected.internal_organs -= src
 
-	loc = get_turf(owner)
+	forceMove(get_turf(owner))
 	START_PROCESSING(SSobj, src)
 
 	if(owner && vital && is_primary_organ()) // I'd do another check for species or whatever so that you couldn't "kill" an IPC by removing a human head from them, but it doesn't matter since they'll come right back from the dead

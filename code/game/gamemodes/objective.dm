@@ -60,7 +60,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/proc/on_target_cryo()
 	if(owner?.current)
 		to_chat(owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
-		SEND_SOUND(owner.current, 'sound/ambience/alarm4.ogg')
+		SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
 	target = null
 	INVOKE_ASYNC(src, .proc/post_target_cryo)
 
@@ -317,7 +317,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && possible_target.current.client)
 			var/mob/living/carbon/human/H = possible_target.current
-			if(!(NO_DNA in H.dna.species.species_traits))
+			if(!HAS_TRAIT(H, TRAIT_GENELESS))
 				possible_targets += possible_target
 	if(possible_targets.len > 0)
 		target = pick(possible_targets)
@@ -489,7 +489,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 					n_p++
 		else if(SSticker.current_state == GAME_STATE_PLAYING)
 			for(var/mob/living/carbon/human/P in GLOB.player_list)
-				if(NO_DNA in P.dna.species.species_traits)
+				if(HAS_TRAIT(P, TRAIT_GENELESS))
 					continue
 				if(P.client && !(P.mind in SSticker.mode.changelings) && P.mind!=owner)
 					n_p++
