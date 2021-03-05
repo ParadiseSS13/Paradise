@@ -226,6 +226,12 @@ emp_act
 	if(mind && mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
 		return TRUE
 
+/mob/living/carbon/human/emp_act(severity)
+	..()
+	for(var/X in bodyparts)
+		var/obj/item/organ/external/L = X
+		L.emp_act(severity)
+
 /mob/living/carbon/human/acid_act(acidpwr, acid_volume, bodyzone_hit) //todo: update this to utilize check_obscured_slots() //and make sure it's check_obscured_slots(TRUE) to stop aciding through visors etc
 	var/list/damaged = list()
 	var/list/inventory_items_to_kill = list()
