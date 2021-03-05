@@ -332,8 +332,7 @@
 		if(slot_wear_mask in obscured)
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Headpocket:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
-			var/list/items = C.get_contents()
-			if(items.len)
+			if(C.held_item)
 				dat += "<tr><td>&nbsp;&#8627;<B>Headpocket:</B></td><td><A href='?src=[UID()];dislodge_headpocket=1'>Dislodge Items</A></td></tr>"
 			else
 				dat += "<tr><td>&nbsp;&#8627;<B>Headpocket:</B></td><td><font color=grey>Empty</font></td></tr>"
