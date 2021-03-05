@@ -228,8 +228,8 @@
 		FD.CalculateAffectingAreas()
 
 	interact()
-	message_admins("A new room was made by [ADMIN_LOOKUPFLW(usr)] at [ADMIN_VERBOSEJMP(src)] with the name [str]")
-	log_game("A new room was made by [key_name(usr)] at [AREACOORD(src)] with the name [str]")
+	message_admins("A new room was made by [ADMIN_LOOKUPFLW(usr)] at [ADMIN_VERBOSEJMP(usr)] with the name [str]")
+	log_game("A new room was made by [key_name(usr)] at [AREACOORD(usr)] with the name [str]")
 	area_created = TRUE
 	return area_created
 
