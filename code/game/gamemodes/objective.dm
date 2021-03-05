@@ -389,10 +389,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		explanation_text = "Steal [steal_target]. One was last seen in [get_location()]. "
 		if(length(O.protected_jobs))
 			explanation_text += "It may also be in the possession of the [english_list(O.protected_jobs, and_text = " or ")]."
-		if(istype(O, /datum/theft_objective/supermatter_sliver))
-			give_kit(/obj/item/storage/box/syndie_kit/supermatter)
-		if(istype(O, /datum/theft_objective/plutonium_core))
-			give_kit(/obj/item/storage/box/syndie_kit/nuke)
+		if(steal_target.special_equipment)
+			give_kit(steal_target.special_equipment)
 		return
 	explanation_text = "Free Objective."
 
@@ -414,10 +412,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	else
 		steal_target = new new_target
 		explanation_text = "Steal [steal_target.name]."
-		if(istype(steal_target, /datum/theft_objective/supermatter_sliver))
-			give_kit(/obj/item/storage/box/syndie_kit/supermatter)
-		if(istype(steal_target, /datum/theft_objective/plutonium_core))
-			give_kit(/obj/item/storage/box/syndie_kit/nuke)
+		if(steal_target.special_equipment)
+			give_kit(steal_target.special_equipment)
 	return steal_target
 
 /datum/objective/steal/check_completion()
