@@ -1156,6 +1156,49 @@
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
 
+/obj/item/toy/windup_toolbox
+	name = "windup toolbox"
+	desc = "A replica toolbox that rumbles when you turn the key."
+	icon = 'icons/obj/items.dmi'
+	icon_state = "his_grace"
+	item_state = "artistic_toolbox"
+	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
+	hitsound = 'sound/weapons/smash.ogg'
+	attack_verb = list("robusted")
+	var/active = FALSE
+
+/obj/item/toy/windup_toolbox/attack_self(mob/user)
+	if(!active)
+		to_chat(user, "<span class='notice'>You wind up [src], it begins to rumble.</span>")
+		active = TRUE
+		playsound(src, 'sound/effects/pope_entry.ogg', 100)
+		Rumble()
+		addtimer(CALLBACK(src, .proc/stopRumble), 600)
+	else
+		to_chat(user, "<span class='warning'>[src] is already active!</span>")
+
+/obj/item/toy/windup_toolbox/proc/Rumble()
+	var/static/list/transforms
+	if(!transforms)
+		var/matrix/M1 = matrix()
+		var/matrix/M2 = matrix()
+		var/matrix/M3 = matrix()
+		var/matrix/M4 = matrix()
+		M1.Translate(-1, 0)
+		M2.Translate(0, 1)
+		M3.Translate(1, 0)
+		M4.Translate(0, -1)
+		transforms = list(M1, M2, M3, M4)
+	animate(src, transform = transforms[1], time = 0.2, loop = -1)
+	animate(transform = transforms[2], time = 0.1)
+	animate(transform = transforms[3], time = 0.2)
+	animate(transform = transforms[4], time = 0.3)
+
+/obj/item/toy/windup_toolbox/proc/stopRumble()
+	active = FALSE
+	animate(src, transform = matrix())
+
 /*
  * Toy/fake flash
  */

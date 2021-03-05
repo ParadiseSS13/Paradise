@@ -251,6 +251,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/toy/foamblade
 	cost = 100
 
+/datum/prize_item/wind_up_toolbox
+	name = "Wind Up Toolbox"
+	desc = "A replica toolbox that rumbles when you turn the key."
+	typepath = /obj/item/toy/windup_toolbox
+	cost = 100
+
 /datum/prize_item/redbutton
 	name = "Shiny Red Button"
 	desc = "PRESS IT!"
