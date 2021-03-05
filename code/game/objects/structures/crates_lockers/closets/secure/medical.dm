@@ -285,3 +285,17 @@
 	new /obj/item/reagent_containers/glass/bottle/reagent/acetone(src)
 	new /obj/item/reagent_containers/glass/bottle/reagent/acid(src)
 	new /obj/item/reagent_containers/glass/bottle/reagent/diethylamine(src)
+
+/obj/structure/closet/secure_closet/coroner
+	name = "coroners locker"
+	desc = "A locker intended to store deceased crew members' sensitive items."
+	icon_state = "medical1"
+	icon_closed = "medical"
+	icon_locked = "medical1"
+	icon_opened = "medicalopen"
+	icon_broken = "medicalbroken"
+	icon_off = "medicaloff"
+	req_access = list(ACCESS_MORGUE)
+
+/obj/structure/closet/secure_closet/coroner/populate_contents()
+	return
