@@ -59,11 +59,12 @@ SUBSYSTEM_DEF(ghost_spawns)
 
 	var/category = "[P.hash]_notify_action"
 
+	var/notice_sound = sound('sound/misc/notice2.ogg')
 	for(var/mob/dead/observer/M in (ignore_respawnability ? GLOB.player_list : GLOB.respawnable_list))
 		if(!is_eligible(M, role, antag_age_check, role, min_hours, check_antaghud))
 			continue
 
-		SEND_SOUND(M, 'sound/misc/notice2.ogg')
+		SEND_SOUND(M, notice_sound)
 		if(flash_window)
 			window_flash(M.client)
 
@@ -245,7 +246,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 	if(time_left() <= 0)
 		if(!silent)
 			to_chat(M, "<span class='danger'>Sorry, you were too late for the consideration!</span>")
-			SEND_SOUND(M, 'sound/machines/buzz-sigh.ogg')
+			SEND_SOUND(M, sound('sound/machines/buzz-sigh.ogg'))
 		return
 
 	signed_up += M

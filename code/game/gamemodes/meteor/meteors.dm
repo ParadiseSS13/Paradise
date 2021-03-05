@@ -28,8 +28,8 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	var/max_i = 10//number of tries to spawn meteor.
 	while(!istype(pickedstart, /turf/space))
 		var/startSide = pick(GLOB.cardinal)
-		pickedstart = spaceDebrisStartLoc(startSide, 1)
-		pickedgoal = spaceDebrisFinishLoc(startSide, 1)
+		pickedstart = spaceDebrisStartLoc(startSide, level_name_to_num(MAIN_STATION))
+		pickedgoal = spaceDebrisFinishLoc(startSide, level_name_to_num(MAIN_STATION))
 		max_i--
 		if(max_i<=0)
 			return

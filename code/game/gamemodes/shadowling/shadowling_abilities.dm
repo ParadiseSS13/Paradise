@@ -146,9 +146,9 @@
 
 
 /obj/effect/proc_holder/spell/targeted/shadow_vision
-	name = "Shadowling Darksight"
-	desc = "Gives you night and thermal vision."
-	panel = "Shadowling Abilities"
+	name = "Thrall Darksight"
+	desc = "Gives you night vision."
+	panel = "Thrall Abilities"
 	charge_max = 0
 	range = -1
 	include_user = 1
@@ -166,11 +166,6 @@
 		else
 			to_chat(H, "<span class='notice'>You return your vision to normal.</span>")
 			H.set_sight(null)
-
-/obj/effect/proc_holder/spell/targeted/shadow_vision/thrall
-	desc = "Thrall Darksight"
-	desc = "Gives you night vision."
-	panel = "Thrall Abilities"
 
 /obj/effect/proc_holder/spell/aoe_turf/flashfreeze
 	name = "Icy Veins"
@@ -462,7 +457,7 @@
 			else if(issilicon(target))
 				var/mob/living/silicon/S = target
 				to_chat(S, "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>")
-				S << 'sound/misc/interference.ogg'
+				SEND_SOUND(S, sound('sound/misc/interference.ogg'))
 				playsound(S, 'sound/machines/warning-buzzer.ogg', 50, 1)
 				do_sparks(5, 1, S)
 				S.Weaken(6)

@@ -1,10 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
 /obj/effect/landmark/burnturf,
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "cautionfull"
-	},
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
 	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "cautionfull");
 	icon_state = "4-i"
@@ -718,9 +714,6 @@
 	},
 /area/derelict/bridge)
 "bE" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
 	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "dark");
 	icon_state = "4-i"
@@ -1206,7 +1199,7 @@
 	},
 /area/derelict/bridge)
 "cI" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Bathroom"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1665,7 +1658,7 @@
 /turf/simulated/floor/plating,
 /area/derelict/crew_quarters)
 "dI" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Dormitories"
 	},
 /turf/simulated/floor/plasteel,
@@ -1716,10 +1709,6 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/crew_quarters)
 "dO" = (
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "darkredfull"
-	},
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
 	icon_state = "4-i"
 	},
@@ -1927,7 +1916,7 @@
 	name = "Derelict Annex"
 	})
 "ek" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Dormitories"
 	},
 /turf/simulated/floor/plasteel{
@@ -2224,10 +2213,6 @@
 	name = "Derelict Annex"
 	})
 "eM" = (
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "purplefull"
-	},
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
 	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "purplefull");
 	icon_state = "4-i"
@@ -2368,10 +2353,6 @@
 	name = "Derelict Annex"
 	})
 "eZ" = (
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "cautionfull"
-	},
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
 	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "cautionfull");
 	icon_state = "4-i"
@@ -3501,10 +3482,6 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteredfull"
-	},
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
 	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "whiteredfull");
 	icon_state = "4-i"
@@ -3744,17 +3721,7 @@
 /area/derelict/crew_quarters)
 "hF" = (
 /obj/structure/sign/barsign,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall4";
-	dir = 2
-	},
-/area/derelict/crew_quarters)
-"hG" = (
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall8";
-	tag = "icon-swall12"
-	},
+/turf/simulated/wall/mineral/titanium/nodecon,
 /area/derelict/crew_quarters)
 "hH" = (
 /obj/machinery/door/airlock/public/glass{
@@ -4083,41 +4050,11 @@
 /turf/template_noop,
 /area/space/nearstation)
 "ir" = (
-/obj/structure/grille,
-/obj/structure/shuttle/window{
-	tag = "icon-window5_end";
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "window5_end";
-	dir = 2
-	},
-/turf/simulated/floor/plating,
-/area/derelict/arrival)
-"is" = (
-/obj/structure/grille,
-/obj/structure/shuttle/window{
-	tag = "icon-window5_mid";
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "window5_mid";
-	dir = 2
-	},
-/turf/simulated/floor/plating,
-/area/derelict/arrival)
-"it" = (
-/obj/structure/grille,
-/obj/structure/shuttle/window{
-	tag = "icon-window5_end (NORTH)";
-	icon = 'icons/turf/shuttle.dmi';
-	icon_state = "window5_end";
-	dir = 1
-	},
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/derelict/arrival)
 "iu" = (
-/turf/template_noop,
-/turf/simulated/shuttle/wall{
-	dir = 8;
-	icon_state = "diagonalWall3"
-	},
+/turf/simulated/wall/mineral/plastitanium,
 /area/derelict/arrival)
 "iv" = (
 /turf/simulated/floor/plasteel{
@@ -4203,11 +4140,6 @@
 	name = "Derelict Annex"
 	})
 "iD" = (
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
 	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "engine");
 	icon_state = "4-i"
@@ -4224,13 +4156,6 @@
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
-"iF" = (
-/turf/template_noop,
-/turf/simulated/shuttle/wall{
-	dir = 1;
-	icon_state = "diagonalWall3"
-	},
-/area/derelict/arrival)
 "iG" = (
 /obj/item/shard{
 	icon_state = "medium"
@@ -4295,17 +4220,9 @@
 	icon_state = "chapel"
 	},
 /area/derelict/crew_quarters)
-"iO" = (
-/turf/simulated/shuttle/wall{
-	dir = 4;
-	icon_state = "wall3"
-	},
-/area/derelict/arrival)
 "iP" = (
 /obj/structure/computerframe,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/derelict/arrival)
 "iQ" = (
 /obj/effect/decal/remains/human{
@@ -4316,9 +4233,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/derelict/arrival)
 "iR" = (
 /obj/structure/table,
@@ -4326,9 +4241,7 @@
 	dir = 4
 	},
 /obj/item/clothing/head/soft/solgov,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/derelict/arrival)
 "iS" = (
 /obj/structure/closet/crate,
@@ -4490,10 +4403,7 @@
 	},
 /area/derelict/crew_quarters)
 "jh" = (
-/turf/template_noop,
-/turf/simulated/wall/mineral/titanium/nodecon/nosmooth{
-	icon_state = "swall_f10"
-	},
+/turf/simulated/wall/mineral/titanium/nodecon/nosmooth,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -4501,23 +4411,17 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/derelict/arrival)
 "jj" = (
 /obj/item/paper/djstation{
 	info = "Fuck. Fuckfuckfuck. I knew this mission was a mistake, that idiot Thomas got himself killed by some angry Russian security bot in the armoury, and the Lt. ran into the annex like a moron and got himself trapped. Now I'm just sitting on my god damn hands because this shuttle won't bloody move. Stupid USSP piece of shit docking arm must be jammed and I don't have the kit to go out and fix it.<br><br>Who the hell attacks a space station without EVA gear anyways? It's not like you can just bloody well waltz out into space with a hot coffee and shrug it off.";
 	name = "unknown report"
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/derelict/arrival)
 "jk" = (
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/derelict/arrival)
 "jl" = (
 /obj/machinery/door/airlock/external{
@@ -4526,9 +4430,7 @@
 	name = "Shuttle Airlock";
 	req_access_txt = "150"
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/plating,
 /area/derelict/arrival)
 "jm" = (
 /obj/machinery/door/airlock/external{
@@ -4654,18 +4556,6 @@
 	})
 "jA" = (
 /turf/simulated/floor/plating/airless,
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
-"jB" = (
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
-/turf/simulated/wall/mineral/titanium/nodecon/nosmooth{
-	icon_state = "swall_f5"
-	},
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
@@ -4839,17 +4729,13 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/derelict/arrival)
 "jR" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/derelict/arrival)
 "jS" = (
 /turf/simulated/floor/plasteel{
@@ -4924,7 +4810,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Central Annex"
 	},
 /turf/simulated/floor/plasteel,
@@ -4984,7 +4870,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Central Annex"
 	},
 /obj/effect/decal/cleanable/blood/tracks{
@@ -5228,7 +5114,7 @@
 	layer = 3;
 	name = "Central Annex Lockdown"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Central Annex"
 	},
 /turf/simulated/floor/plasteel,
@@ -5252,7 +5138,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Central Annex"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5739,9 +5625,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/derelict/arrival)
 "lu" = (
 /obj/machinery/door/airlock/external{
@@ -5889,18 +5773,14 @@
 /area/derelict/solar_control)
 "lI" = (
 /obj/structure/window/reinforced/tinted,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/derelict/arrival)
 "lJ" = (
 /obj/structure/window/reinforced/tinted,
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/derelict/arrival)
 "lK" = (
 /obj/structure/dispenser/oxygen,
@@ -6086,13 +5966,7 @@
 	dir = 1
 	},
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/shuttle/plating,
-/area/derelict/arrival)
-"md" = (
-/turf/template_noop,
-/turf/simulated/shuttle/wall{
-	icon_state = "diagonalWall3"
-	},
+/turf/simulated/floor/plating/airless,
 /area/derelict/arrival)
 "me" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6154,13 +6028,6 @@
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
-"mm" = (
-/turf/template_noop,
-/turf/simulated/shuttle/wall{
-	dir = 4;
-	icon_state = "diagonalWall3"
-	},
-/area/derelict/arrival)
 "mn" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -6321,7 +6188,7 @@
 /area/derelict/arrival)
 "mI" = (
 /obj/structure/sign/greencross,
-/turf/simulated/shuttle/wall,
+/turf/simulated/wall/mineral/titanium/nodecon,
 /area/derelict/arrival)
 "mJ" = (
 /obj/structure/cable{
@@ -6700,10 +6567,6 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteredfull"
-	},
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
 	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "whiteredfull");
 	icon_state = "4-i"
@@ -6811,12 +6674,6 @@
 	icon_state = "floorscorched2"
 	},
 /area/derelict/arrival)
-"nL" = (
-/turf/template_noop,
-/turf/simulated/wall/mineral/titanium/nodecon/nosmooth{
-	icon_state = "swall_f10"
-	},
-/area/space/nearstation)
 "nM" = (
 /obj/item/stack/tile,
 /turf/simulated/floor/plating/airless,
@@ -6912,9 +6769,6 @@
 	name = "Derelict Annex"
 	})
 "nU" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
 	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "hydrofloor");
 	icon_state = "4-i"
@@ -7066,17 +6920,6 @@
 /obj/item/stack/tile,
 /turf/template_noop,
 /area/derelict/arrival)
-"oo" = (
-/turf/simulated/floor/plasteel/airless{
-	dir = 5;
-	icon_state = "green"
-	},
-/turf/simulated/wall/mineral/titanium/nodecon/nosmooth{
-	icon_state = "swall_f10"
-	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
 "op" = (
 /obj/item/stack/ore/iron,
 /turf/simulated/floor/plasteel/airless{
@@ -7255,12 +7098,6 @@
 	icon_state = "floorscorched2"
 	},
 /area/derelict/arrival)
-"oG" = (
-/turf/template_noop,
-/turf/simulated/wall/mineral/titanium/nodecon/nosmooth{
-	icon_state = "swall_f5"
-	},
-/area/derelict/arrival)
 "oH" = (
 /obj/structure/lattice,
 /obj/item/retractor,
@@ -7336,14 +7173,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
-	},
-/area/derelict/eva{
-	name = "Derelict Annex"
-	})
-"oQ" = (
-/turf/template_noop,
-/turf/simulated/wall/mineral/titanium/nodecon/nosmooth{
-	icon_state = "swall_f5"
 	},
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -7519,10 +7348,6 @@
 	},
 /area/derelict/crew_quarters)
 "pj" = (
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "orangefull"
-	},
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
 	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "orangefull");
 	icon_state = "4-i"
@@ -7537,7 +7362,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Central Annex"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7702,12 +7527,6 @@
 	name = "floor"
 	},
 /area/derelict/crew_quarters)
-"pG" = (
-/turf/template_noop,
-/turf/simulated/wall/mineral/titanium/nodecon/nosmooth{
-	icon_state = "swall_f10"
-	},
-/area/derelict/arrival)
 "pH" = (
 /obj/effect/landmark/damageturf,
 /obj/item/hemostat,
@@ -7950,11 +7769,6 @@
 	},
 /area/derelict/arrival)
 "qk" = (
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
-	},
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
 	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "redfull");
 	icon_state = "4-i"
@@ -8055,7 +7869,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Central Annex"
 	},
 /turf/simulated/floor/plasteel,
@@ -9133,6 +8947,9 @@
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/arrival)
+"QN" = (
+/turf/simulated/wall/mineral/titanium/nodecon/nosmooth,
+/area/derelict/arrival)
 
 (1,1,1) = {"
 ac
@@ -9177,13 +8994,13 @@ ac
 ac
 ac
 iu
-iO
-iO
-iO
-iO
-iO
-iO
-md
+iu
+iu
+iu
+iu
+iu
+iu
+iu
 ac
 ac
 ac
@@ -9360,7 +9177,7 @@ ac
 ac
 ac
 ac
-is
+ir
 iQ
 jj
 jk
@@ -9452,7 +9269,7 @@ ac
 ac
 ac
 ac
-it
+ir
 iR
 jk
 jR
@@ -9544,14 +9361,14 @@ ac
 ac
 ac
 ac
-iF
-iO
+iu
+iu
 jl
-iO
-iO
+iu
+iu
 jl
-iO
-mm
+iu
+iu
 ac
 ac
 ac
@@ -9636,14 +9453,14 @@ ac
 ac
 ac
 ac
-aW
+QN
 bn
 jm
 bn
 bn
 lu
 bn
-aW
+QN
 ac
 ac
 ac
@@ -10020,7 +9837,7 @@ nw
 mG
 bn
 mG
-oG
+aW
 ac
 ai
 ac
@@ -10752,7 +10569,7 @@ ac
 ac
 ac
 ac
-nL
+pk
 oc
 on
 oc
@@ -10766,7 +10583,7 @@ oc
 oc
 oc
 qf
-oG
+aW
 ac
 ac
 iq
@@ -11220,7 +11037,7 @@ ac
 ac
 ai
 ac
-pG
+aW
 aW
 pI
 mS
@@ -11859,8 +11676,8 @@ ii
 ii
 ja
 jA
-oo
-oQ
+dW
+dW
 ac
 ac
 ac
@@ -12950,7 +12767,7 @@ ac
 iq
 iY
 iZ
-jB
+jh
 kq
 iD
 eg
@@ -15153,7 +14970,7 @@ go
 go
 gV
 hn
-hG
+aV
 hU
 hU
 hT

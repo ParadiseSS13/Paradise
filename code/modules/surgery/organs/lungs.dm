@@ -87,8 +87,11 @@
 	if((H.status_flags & GODMODE))
 		return
 
+	if(HAS_TRAIT(H, TRAIT_NOBREATH))
+		return
+
 	if(!breath || (breath.total_moles() == 0))
-		if(isspaceturf(loc))
+		if(isspaceturf(H.loc))
 			H.adjustOxyLoss(10)
 		else
 			H.adjustOxyLoss(5)
@@ -267,11 +270,7 @@
 /obj/item/organ/internal/lungs/proc/handle_breath_temperature(datum/gas_mixture/breath, mob/living/carbon/human/H) // called by human/life, handles temperatures
 	var/breath_temperature = breath.temperature
 
-	var/species_traits = list()
-	if(H && H.dna.species && H.dna.species.species_traits)
-		species_traits = H.dna.species.species_traits
-
-	if(!(COLDRES in H.mutations) && !(RESISTCOLD in species_traits)) // COLD DAMAGE
+	if(!HAS_TRAIT(H, TRAIT_RESISTCOLD)) // COLD DAMAGE
 		var/CM = abs(H.dna.species.coldmod)
 		var/TC = 0
 		if(breath_temperature < cold_level_3_threshold)
@@ -287,7 +286,7 @@
 			if(prob(20))
 				to_chat(H, "<span class='warning'>You feel [cold_message] in your [name]!</span>")
 
-	if(!(HEATRES in H.mutations) && !(RESISTHOT in species_traits)) // HEAT DAMAGE
+	if(!HAS_TRAIT(H, TRAIT_RESISTHEAT)) // HEAT DAMAGE
 		var/HM = abs(H.dna.species.heatmod)
 		var/TH = 0
 		if(breath_temperature > heat_level_1_threshold && breath_temperature < heat_level_2_threshold)

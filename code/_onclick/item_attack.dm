@@ -73,7 +73,7 @@
 	else
 		SEND_SIGNAL(M, COMSIG_ITEM_ATTACK)
 		if(hitsound)
-			playsound(loc, hitsound, get_clamped_volume(), 1, -1)
+			playsound(loc, hitsound, get_clamped_volume(), TRUE, extrarange = stealthy_audio ? SILENCED_SOUND_EXTRARANGE : -1, falloff_distance = 0)
 
 	M.lastattacker = user.real_name
 	M.lastattackerckey = user.ckey

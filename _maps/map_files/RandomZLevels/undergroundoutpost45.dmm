@@ -1,9 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/turf/unsimulated/wall{
-	icon_state = "rock";
-	name = "rock"
-	},
+/turf/simulated/wall/indestructible/rock,
 /area/awaycontent/a7{
 	always_unpowered = 1;
 	has_gravity = 1;
@@ -31,39 +28,7 @@
 	name = "UO45 Central Hall"
 	})
 "ae" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swallc2";
-	icon_state = "swallc2";
-	dir = 2
-	},
-/area/awaycontent/a1{
-	has_gravity = 1;
-	name = "UO45 Central Hall"
-	})
-"af" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall12";
-	dir = 2
-	},
-/area/awaycontent/a1{
-	has_gravity = 1;
-	name = "UO45 Central Hall"
-	})
-"ag" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swallc1";
-	icon_state = "swallc1";
-	dir = 2
-	},
-/area/awaycontent/a1{
-	has_gravity = 1;
-	name = "UO45 Central Hall"
-	})
-"ah" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall3";
-	dir = 2
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/awaycontent/a1{
 	has_gravity = 1;
 	name = "UO45 Central Hall"
@@ -218,25 +183,6 @@
 	has_gravity = 1;
 	name = "UO45 Central Hall"
 	})
-"av" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swallc3";
-	icon_state = "swallc3";
-	dir = 2
-	},
-/area/awaycontent/a1{
-	has_gravity = 1;
-	name = "UO45 Central Hall"
-	})
-"aw" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall8";
-	dir = 2
-	},
-/area/awaycontent/a1{
-	has_gravity = 1;
-	name = "UO45 Central Hall"
-	})
 "ax" = (
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
@@ -248,25 +194,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaycontent/a1{
-	has_gravity = 1;
-	name = "UO45 Central Hall"
-	})
-"az" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall4";
-	dir = 2
-	},
-/area/awaycontent/a1{
-	has_gravity = 1;
-	name = "UO45 Central Hall"
-	})
-"aA" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swallc4";
-	icon_state = "swallc4";
-	dir = 2
-	},
 /area/awaycontent/a1{
 	has_gravity = 1;
 	name = "UO45 Central Hall"
@@ -25534,10 +25461,10 @@ ac
 ac
 ad
 ae
-ah
-ah
-ah
-av
+ae
+ae
+ae
+ae
 am
 aG
 aH
@@ -25683,11 +25610,11 @@ ac
 ac
 ac
 ad
-af
+ae
 ai
 aj
 al
-aw
+ae
 am
 aF
 aH
@@ -25833,7 +25760,7 @@ ac
 ac
 ac
 ad
-af
+ae
 ai
 ap
 ao
@@ -25983,7 +25910,7 @@ ac
 ac
 ac
 ad
-af
+ae
 at
 ak
 as
@@ -26133,11 +26060,11 @@ ac
 ac
 ac
 ad
-af
+ae
 at
 aq
 au
-az
+ae
 ad
 aH
 aM
@@ -26283,11 +26210,11 @@ ac
 ac
 ac
 ad
-ag
-ah
-ah
-ah
-aA
+ae
+ae
+ae
+ae
+ae
 am
 aI
 aH

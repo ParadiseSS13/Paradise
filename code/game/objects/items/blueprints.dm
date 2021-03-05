@@ -228,6 +228,8 @@
 		FD.CalculateAffectingAreas()
 
 	interact()
+	message_admins("A new room was made by [ADMIN_LOOKUPFLW(usr)] at [ADMIN_VERBOSEJMP(src)] with the name [str]")
+	log_game("A new room was made by [key_name(usr)] at [AREACOORD(src)] with the name [str]")
 	area_created = TRUE
 	return area_created
 
@@ -248,6 +250,8 @@
 			FD.CalculateAffectingAreas()
 	to_chat(usr, "<span class='notice'>You rename the '[prevname]' to '[str]'.</span>")
 	interact()
+	message_admins("A room was renamed by [ADMIN_LOOKUPFLW(usr)] at [ADMIN_VERBOSEJMP(usr)] changing the name from [prevname] to [str]")
+	log_game("A room was renamed by [key_name(usr)] at [AREACOORD(usr)] changing the name from [prevname] to [str] ")
 	return 1
 
 
@@ -269,8 +273,6 @@
 /obj/item/areaeditor/proc/check_tile_is_border(var/turf/T2,var/dir)
 	if(istype(T2, /turf/space))
 		return BORDER_SPACE //omg hull breach we all going to die here
-	if(istype(T2, /turf/simulated/shuttle))
-		return BORDER_SPACE
 	if(get_area_type(T2.loc)!=AREA_SPACE)
 		return BORDER_BETWEEN
 	if(istype(T2, /turf/simulated/wall))
