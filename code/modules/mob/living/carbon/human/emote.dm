@@ -133,8 +133,8 @@
 			on_CD = handle_emote_CD()
 		if("clap", "claps")
 			on_CD = handle_emote_CD()
-		if("kiss", "kisses")
-			on_CD = handle_emote_CD(CLICK_CD_MELEE)
+		if("kiss", "kisses", "slap", "slaps")
+			on_CD = handle_emote_CD(3 SECONDS)
 		//Everything else, including typos of the above emotes
 		else
 			on_CD = FALSE	//If it doesn't induce the cooldown, we won't check for the cooldown
