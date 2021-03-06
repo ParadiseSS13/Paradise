@@ -142,7 +142,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_AGEUSIA			"ageusia"
 //finhispatraits
 
-#define TRAIT_TESLA_SHOCKIMMUNE	"tesla_shock_immunity"
 #define TRAIT_DWARF				"dwarf"
 
 #define TRAIT_COMIC_SANS		"comic_sans"

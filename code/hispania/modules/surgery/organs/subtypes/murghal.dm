@@ -108,14 +108,14 @@
 	if(!sprint)
 		if(chaser_timer <= world.time || footstep <= 0)
 			chaser_timer = world.time + chaser_cooldown
-			owner.status_flags |= GOTTAGOFAST
+			ADD_TRAIT(owner, TRAIT_GOTTAGOFAST, "species")
 			sprint = TRUE
 			return TRUE
 		else
 			to_chat(owner, "<span class='warning'>You are still exhausted from the last sprint, you will need to wait a bit longer!</span>")
 			return FALSE
 	else
-		owner.status_flags &= ~GOTTAGOFAST
+		REMOVE_TRAIT(owner, TRAIT_GOTTAGOFAST, "species")
 		sprint = FALSE
 		return TRUE
 

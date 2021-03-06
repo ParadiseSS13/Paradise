@@ -3,7 +3,6 @@
 	name_plural = "Murghal"
 	language = "Yakar"
 	icobase = 'icons/hispania/mob/human_races/r_murghal.dmi'
-	deform = 'icons/hispania/mob/human_races/r_def_murghal.dmi'
 	unarmed_type = /datum/unarmed_attack/claws
 
 	dietflags = DIET_OMNI
