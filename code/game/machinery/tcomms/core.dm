@@ -13,7 +13,7 @@
 /obj/machinery/tcomms/core
 	name = "Telecommunications Core"
 	desc = "A large rack full of communications equipment. Looks important."
-	icon_state = "hub"
+	icon_state = "core"
 	// This starts as off so you cant make cores as hot spares
 	active = FALSE
 	/// The NTTC config for this device
