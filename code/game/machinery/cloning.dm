@@ -29,8 +29,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	icon = 'icons/obj/cloning.dmi'
 	icon_state = "pod_idle"
 	req_access = list(ACCESS_MEDICAL) //For premature unlocking.
+	occupy_whitelist = list(/mob/living/carbon/human)
 
-	var/mob/living/carbon/human/occupant
 	var/heal_level //The clone is released once its health reaches this level.
 	var/obj/machinery/computer/cloning/connected = null //So we remember the connected clone machine.
 	var/mess = FALSE //Need to clean out it if it's full of exploded clone.
@@ -327,13 +327,13 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 	if(stat & NOPOWER) //Autoeject if power is lost
 		if(occupant)
-			go_out()
+			unoccupy(force = TRUE)
 			connected_message("Clone Ejected: Loss of power.")
 
 	else if((occupant) && (occupant.loc == src))
 		if((occupant.stat == DEAD) || (occupant.suiciding) || (occupant.mind && !occupant.mind.is_revivable()))  //Autoeject corpses and suiciding dudes.
 			announce_radio_message("The cloning of <b>[occupant]</b> has been aborted due to unrecoverable tissue failure.")
-			go_out()
+			unoccupy(force = TRUE)
 			connected_message("Clone Rejected: Deceased.")
 
 		else if(occupant.cloneloss > (100 - heal_level))
@@ -369,7 +369,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		else if((occupant.cloneloss <= (100 - heal_level)))
 			connected_message("Cloning Process Complete.")
 			announce_radio_message("The cloning cycle of <b>[occupant]</b> is complete.")
-			go_out()
+			unoccupy(force = TRUE)
 
 	else if((!occupant) || (occupant.loc != src))
 		occupant = null
@@ -392,7 +392,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			connected_message("Authorized Ejection")
 			announce_radio_message("An authorized ejection of [(occupant) ? occupant.real_name : "the malfunctioning pod"] has occured")
 			to_chat(user, "<span class='notice'>You force an emergency ejection.</span>")
-			go_out()
+			unoccupy(user, force = TRUE)
 
 // A user can feed in biomass sources manually.
 	else if(is_type_in_list(I, GLOB.cloner_biomass_items))
@@ -474,7 +474,13 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	connected.updateUsrDialog()
 	return TRUE
 
-/obj/machinery/clonepod/proc/go_out()
+/obj/machinery/clonepod/unoccupy(mob/user, force)
+	. = ..()
+	if(!.)
+		return
+
+	var/mob/living/carbon/human/H = .
+
 	countdown.stop()
 	var/turf/T = get_turf(src)
 	if(mess) //Clean that mess and dump those gibs!
@@ -483,39 +489,39 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			I.forceMove(T)
 		missing_organs.Cut()
 		mess = FALSE
-		new /obj/effect/gibspawner/generic(get_turf(src), occupant)
+		new /obj/effect/gibspawner/generic(get_turf(src), H)
 		playsound(loc, 'sound/effects/splat.ogg', 50, 1)
 		update_icon()
 		return
 
-	if(!occupant)
+	if(!H)
 		return
 
 	if(grab_ghost_when == CLONER_MATURE_CLONE)
 		UnregisterSignal(clonemind.current, COMSIG_LIVING_REVIVE)
 		UnregisterSignal(clonemind, COMSIG_MIND_TRANSER_TO)
-		clonemind.transfer_to(occupant)
-		occupant.grab_ghost()
-		update_clone_antag(occupant)
-		to_chat(occupant, "<span class='userdanger'>You remember nothing from the time that you were dead!</span>")
-		to_chat(occupant, "<span class='notice'><b>There is a bright flash!</b><br>\
+		clonemind.transfer_to(H)
+		H.grab_ghost()
+		update_clone_antag(H)
+		to_chat(H, "<span class='userdanger'>You remember nothing from the time that you were dead!</span>")
+		to_chat(H, "<span class='notice'><b>There is a bright flash!</b><br>\
 			<i>You feel like a new being.</i></span>")
-		occupant.flash_eyes(visual = 1)
+		H.flash_eyes(visual = 1)
 		clonemind = null
 
 
 	for(var/i in missing_organs)
 		qdel(i)
 	missing_organs.Cut()
-	occupant.SetLoseBreath(0) // Stop friggin' dying, gosh damn
-	occupant.setOxyLoss(0)
-	for(var/datum/disease/critical/crit in occupant.viruses)
+	H.SetLoseBreath(0) // Stop friggin' dying, gosh damn
+	H.setOxyLoss(0)
+	for(var/datum/disease/critical/crit in H.viruses)
 		crit.cure()
-	occupant.forceMove(T)
-	occupant.update_body()
-	domutcheck(occupant) //Waiting until they're out before possible notransform.
-	occupant.special_post_clone_handling()
-	occupant = null
+	H.forceMove(T)
+	H.update_body()
+	domutcheck(H) //Waiting until they're out before possible notransform.
+	H.special_post_clone_handling()
+	H = null
 	update_icon()
 
 /obj/machinery/clonepod/proc/malfunction(go_easy = FALSE)
@@ -559,27 +565,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	else
 		icon_state = "pod_idle"
 
-/obj/machinery/clonepod/relaymove(mob/user)
-	if(user.stat == CONSCIOUS)
-		go_out()
-
 /obj/machinery/clonepod/emp_act(severity)
 	if(prob(100/(severity*efficiency))) malfunction()
-	..()
-
-/obj/machinery/clonepod/ex_act(severity)
-	..()
-	if(!QDELETED(src) && occupant)
-		go_out()
-
-/obj/machinery/clonepod/handle_atom_del(atom/A)
-	if(A == occupant)
-		occupant = null
-		countdown.stop()
-
-/obj/machinery/clonepod/deconstruct(disassembled = TRUE)
-	if(occupant)
-		go_out()
 	..()
 
 /obj/machinery/clonepod/proc/occupant_got_revived()

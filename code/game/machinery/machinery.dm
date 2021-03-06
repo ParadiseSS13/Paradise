@@ -128,6 +128,22 @@ Class Procs:
 	/// This is if the machinery is being repaired
 	var/being_repaired = FALSE
 
+	// OCCUPANCY
+	/// List of mob types allowed to occupy the machinery. Initialized into a typecache at runtime.
+	var/occupy_whitelist = null
+	/// List of mob types not allowed to occupy the machinery. Initialized into a typecache at runtime.
+	var/occupy_blacklist = null
+	/// Whether a living mob can be drag and dropped in to occupy the machinery.
+	var/occupy_drag_and_drop = TRUE
+	/// Whether a living mob can be grabbed in to occupy the machinery.
+	var/occupy_grab = TRUE
+	/// The grab level required to make a mob occupy the machinery.
+	var/occupy_grab_level = GRAB_PASSIVE
+	/// The time it takes for a living mob to occupy the machinery. In deciseconds.
+	var/occupy_delay = 2 SECONDS
+	/// The living mob within the machinery.
+	var/mob/living/occupant = null
+
 /*
  * reimp, attempts to flicker this machinery if the behavior is supported.
  */
@@ -156,6 +172,9 @@ Class Procs:
 
 	power_change()
 
+	if(occupy_whitelist) occupy_whitelist = typecacheof(occupy_whitelist)
+	if(occupy_blacklist) occupy_blacklist = typecacheof(occupy_blacklist)
+
 // gotta go fast
 /obj/machinery/makeSpeedProcess()
 	if(speed_process)
@@ -180,6 +199,7 @@ Class Procs:
 		STOP_PROCESSING(SSmachines, src)
 	else
 		STOP_PROCESSING(SSfastprocess, src)
+	unoccupy(force = TRUE)
 	return ..()
 
 /obj/machinery/proc/locate_machinery()
@@ -198,6 +218,13 @@ Class Procs:
 	if(use_power && !stat)
 		use_power(7500/severity)
 		. = TRUE
+	if(occupant)
+		unoccupy(force = TRUE)
+	..()
+
+/obj/machinery/ex_act(severity)
+	if(occupant)
+		occupant.ex_act(severity)
 	..()
 
 /obj/machinery/default_welder_repair(mob/user, obj/item/I)
@@ -503,8 +530,16 @@ Class Procs:
 		obj_integrity = min(obj_integrity + 50, max_integrity)
 		user.visible_message("<span class='notice'>[user] applied some [O] at [src]'s damaged areas.</span>",\
 			"<span class='notice'>You apply some [O] at [src]'s damaged areas.</span>")
+	else if(istype(O, /obj/item/grab) && occupy_grab)
+		var/obj/item/grab/G = O
+		if(G.state < occupy_grab_level)
+			to_chat(user, "<span class='danger'>You need a better grip to do that!</span>")
+			return
+		if(occupy(G.affecting, user))
+			qdel(G)
 	else
 		return ..()
+
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	var/shouldplaysound = 0
 	if((flags & NODECONSTRUCT))
@@ -653,3 +688,119 @@ Class Procs:
 	. = . % 9
 	AM.pixel_x = -8 + ((.%3)*8)
 	AM.pixel_y = -8 + (round( . / 3)*8)
+
+/obj/machinery/MouseDrop_T(atom/movable/O, mob/user)
+	if(occupy_drag_and_drop && can_occupy(O, user))
+		occupy(O, user)
+	else
+		return ..()
+
+/obj/machinery/handle_atom_del(atom/A)
+	if(occupant == A)
+		unoccupy(force = TRUE)
+	return ..()
+
+/obj/machinery/force_eject_occupant(mob/target)
+	unoccupy(force = TRUE)
+
+/obj/machinery/relaymove(mob/user)
+	if(user.incapacitated())
+		return FALSE
+	unoccupy(user)
+
+/**
+  * Returns whether a given living mob (motivated by an user) can occupy the machinery.
+  *
+  * Arguments:
+  * * M - The living mob attempting to occupy the machinery.
+  * * user - The mob responsible for the attempt.
+  */
+/obj/machinery/proc/can_occupy(mob/living/M, mob/user)
+	. = FALSE
+	if(!occupy_whitelist)
+		return
+	// Already occupied?
+	if(!QDELETED(occupant))
+		to_chat(user, "<span class='warning'>[src] is already occupied.</span>")
+		return
+	if(panel_open)
+		to_chat(user, "<span class='warning'>[src] cannot be occupied while the maintenance panel is open.</span>")
+		return
+	// Stuck?
+	if(M.anchored || M.buckled || !isturf(M.loc))
+		to_chat(user, "<span class='warning'>Subject cannot reach [src].</span>")
+		return
+	// Mob type check
+	if(is_type_in_typecache(M, occupy_whitelist) && !is_type_in_typecache(M, occupy_blacklist))
+		to_chat(user, "<span class='warning'>Subject incompatible with [src].</span>")
+		return
+	if(M.has_buckled_mobs())
+		to_chat(user, "<span class='warning'>Subject incompatible with [src] - external lifeform detected.</span>")
+		return
+	if(M.abiotic())
+		to_chat(user, "<span class='warning'>Subject cannot have abiotic items on - ensure both hands are free.</span>")
+		return
+	// Specific checks if someone is putting the mob in
+	if(!QDELETED(user))
+		if(user.incapacitated())
+			to_chat(user, "<span class='warning'>You cannot do that right now.</span>")
+			return
+		if(get_dist(user, src) > 1 || get_dist(user, M) > 1 || !isturf(user.loc))
+			to_chat(user, "<span class='warning'>You cannot reach [src].</span>")
+			return
+		if(!ishuman(user) && !isrobot(user))
+			return
+	return TRUE
+
+/**
+  * Attempts to occupy the machinery.
+  *
+  * Arguments:
+  * * M - The living mob attempting to occupy the machinery.
+  * * user - The mob responsible for the attempt.
+  * * instant - Whether the attempt should be instant.
+  */
+/obj/machinery/proc/occupy(mob/living/M, mob/user, instant = FALSE)
+	. = FALSE
+	if(!can_occupy(M, user))
+		return
+
+	if(occupy_delay && !instant)
+		if(user && user != M)
+			visible_message("<span class='notice'>[user] starts putting [M] into [src]...</span>", "<span class='notice'>You start putting [M] into [src]...</span>")
+		else
+			user = M
+			visible_message("<span class='notice'>[user] starts climbing into [src]...</span>", "<span class='notice'>You start climbing into [src]...</span>")
+
+	if(!occupy_delay || instant || do_after(user, occupy_delay, target = src))
+		if(!can_occupy(M, user))
+			return
+
+		if(user && user != M)
+			visible_message("<span class='notice'>[user] puts [M] into [src].</span>", "<span class='notice'>You put [M] into [src].</span>")
+		else
+			visible_message("<span class='notice'>[user] climbs into [src].</span>", "<span class='notice'>You climb into [src].</span>")
+
+		occupant = M
+		M.forceMove(src)
+		add_fingerprint(user)
+		if(user?.pulling == M)
+			user.stop_pulling()
+		return TRUE
+
+/**
+  * Ejects the current occupant from the machinery if any.
+  *
+  * Arguments:
+  * * M - The mob attempting to unoccupy the machinery. Optional.
+  * * force - Whether the occupant should be forced out no matter what.
+  */
+/obj/machinery/proc/unoccupy(mob/user, force = FALSE)
+	if(QDELETED(occupant))
+		return
+
+	var/mob/ejectee = occupant
+	occupant = null
+	ejectee.forceMove(get_turf(src))
+	add_fingerprint(user)
+	return ejectee

@@ -743,3 +743,8 @@
 ///SSalarm signals
 #define COMSIG_TRIGGERED_ALARM "ssalarm_triggered"
 #define COMSIG_CANCELLED_ALARM "ssalarm_cancelled"
+
+// /datum/component/occupant signals
+
+/// (...) - Calls the occupant_act(mob/occupant, ...) callback passed to the component on initialization.
+#define COMSIG_OCCUPANT_ACT "occupant_act"

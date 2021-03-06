@@ -363,7 +363,7 @@
 		if("eject")
 			if(usr.incapacitated() || !scanner || loading)
 				return
-			scanner.eject_occupant(usr)
+			scanner.unoccupy(usr)
 			scanner.add_fingerprint(usr)
 		if("cleartemp")
 			temp = null

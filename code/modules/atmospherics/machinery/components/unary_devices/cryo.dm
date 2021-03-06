@@ -13,9 +13,9 @@
 	interact_offline = 1
 	max_integrity = 350
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 30, "acid" = 30)
+	occupy_whitelist = list(/mob/living/carbon/human)
 	var/on = FALSE
 	var/temperature_archived
-	var/mob/living/carbon/occupant = null
 	var/obj/item/reagent_containers/glass/beaker = null
 	/// Holds two bitflags, AUTO_EJECT_DEAD and AUTO_EJECT_HEALTHY. Used to determine if the cryo cell will auto-eject dead and/or completely health patients.
 	var/auto_eject_prefs = NONE
@@ -83,8 +83,6 @@
 	return ..()
 
 /obj/machinery/atmospherics/unary/cryo_cell/ex_act(severity)
-	if(occupant)
-		occupant.ex_act(severity)
 	if(beaker)
 		beaker.ex_act(severity)
 	..()
@@ -94,54 +92,11 @@
 	if(A == beaker)
 		beaker = null
 		updateUsrDialog()
-	if(A == occupant)
-		occupant = null
-		updateUsrDialog()
-		update_icon()
 
 /obj/machinery/atmospherics/unary/cryo_cell/on_deconstruction()
 	if(beaker)
 		beaker.forceMove(drop_location())
 		beaker = null
-
-/obj/machinery/atmospherics/unary/cryo_cell/MouseDrop_T(atom/movable/O, mob/living/user)
-	if(O.loc == user) //no you can't pull things out of your ass
-		return
-	if(user.incapacitated()) //are you cuffed, dying, lying, stunned or other
-		return
-	if(get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
-		return
-	if(!ismob(O)) //humans only
-		return
-	if(istype(O, /mob/living/simple_animal) || istype(O, /mob/living/silicon)) //animals and robutts dont fit
-		return
-	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
-		return
-	if(user.loc==null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
-		return
-	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
-		return
-	if(occupant)
-		to_chat(user, "<span class='boldnotice'>The cryo cell is already occupied!</span>")
-		return
-	var/mob/living/L = O
-	if(!istype(L) || L.buckled)
-		return
-	if(L.abiotic())
-		to_chat(user, "<span class='danger'>Subject cannot have abiotic items on.</span>")
-		return
-	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
-		return
-	if(put_mob(L))
-		if(L == user)
-			visible_message("[user] climbs into the cryo cell.")
-		else
-			visible_message("[user] puts [L.name] into the cryo cell.")
-			add_attack_logs(user, L, "put into a cryo cell at [COORD(src)].", ATKLOG_ALL)
-			if(user.pulling == L)
-				user.stop_pulling()
-		SStgui.update_uis(src)
 
 /obj/machinery/atmospherics/unary/cryo_cell/process()
 	..()
@@ -151,7 +106,8 @@
 	if((auto_eject_prefs & AUTO_EJECT_DEAD) && occupant.stat == DEAD)
 		auto_eject(AUTO_EJECT_DEAD)
 		return
-	if((auto_eject_prefs & AUTO_EJECT_HEALTHY) && !occupant.has_organic_damage() && !occupant.has_mutated_organs())
+	var/mob/living/carbon/H = occupant
+	if((auto_eject_prefs & AUTO_EJECT_HEALTHY) && !occupant.has_organic_damage() && !H.has_mutated_organs())
 		auto_eject(AUTO_EJECT_HEALTHY)
 		return
 
@@ -177,13 +133,6 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/AllowDrop()
 	return FALSE
-
-
-/obj/machinery/atmospherics/unary/cryo_cell/relaymove(mob/user)
-	if(user.stat)
-		return
-	go_out()
-	return
 
 /obj/machinery/atmospherics/unary/cryo_cell/attack_ghost(mob/user)
 	ui_interact(user)
@@ -274,7 +223,7 @@
 			if(!occupant || isslime(usr) || ispAI(usr))
 				return
 			add_attack_logs(usr, occupant, "ejected from cryo cell at [COORD(src)]", ATKLOG_ALL)
-			go_out()
+			unoccupy(usr)
 		else
 			return FALSE
 
@@ -299,20 +248,6 @@
 	if(exchange_parts(user, G))
 		return
 
-	if(istype(G, /obj/item/grab))
-		var/obj/item/grab/GG = G
-		if(panel_open)
-			to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
-			return
-		if(!ismob(GG.affecting))
-			return
-		if(GG.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, "<span class='warning'>[GG.affecting] will not fit into [src] because [GG.affecting.p_they()] [GG.affecting.p_have()] a slime latched onto [GG.affecting.p_their()] head.</span>")
-			return
-		var/mob/M = GG.affecting
-		if(put_mob(M))
-			qdel(GG)
-		return
 	return ..()
 
 /obj/machinery/atmospherics/unary/cryo_cell/crowbar_act(mob/user, obj/item/I)
@@ -380,7 +315,8 @@
 	if(air_contents.total_moles() < 10)
 		return
 	if(occupant)
-		if(occupant.stat == 2 || (occupant.health >= 100 && !occupant.has_mutated_organs()))  //Why waste energy on dead or healthy people
+		var/mob/living/carbon/H = occupant
+		if(occupant.stat == 2 || (occupant.health >= 100 && !H.has_mutated_organs()))  //Why waste energy on dead or healthy people
 			occupant.bodytemperature = T0C
 			return
 		occupant.bodytemperature += 2*(air_contents.temperature - occupant.bodytemperature)*current_heat_capacity/(current_heat_capacity + air_contents.heat_capacity())
@@ -412,55 +348,16 @@
 		var/combined_energy = T20C*current_heat_capacity + air_heat_capacity*air_contents.temperature
 		air_contents.temperature = combined_energy/combined_heat_capacity
 
-/obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
-	if(!occupant)
-		return
-	occupant.forceMove(get_step(loc, SOUTH))	//this doesn't account for walls or anything, but i don't forsee that being a problem.
-	if(occupant.bodytemperature < 261 && occupant.bodytemperature >= 70) //Patch by Aranclanos to stop people from taking burn damage after being ejected
-		occupant.bodytemperature = 261
-	occupant = null
-	update_icon()
-	// eject trash the occupant dropped
-	for(var/atom/movable/A in contents - component_parts - list(beaker))
-		A.forceMove(get_step(loc, SOUTH))
-
-/obj/machinery/atmospherics/unary/cryo_cell/force_eject_occupant(mob/target)
-	go_out()
-
 /// Called when either the occupant is dead and the AUTO_EJECT_DEAD flag is present, OR the occupant is alive, has no external damage, and the AUTO_EJECT_HEALTHY flag is present.
 /obj/machinery/atmospherics/unary/cryo_cell/proc/auto_eject(eject_flag)
 	on = FALSE
-	go_out()
+	unoccupy(force = TRUE)
 	switch(eject_flag)
 		if(AUTO_EJECT_HEALTHY)
 			playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 		if(AUTO_EJECT_DEAD)
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 40)
 	SStgui.update_uis(src)
-
-/obj/machinery/atmospherics/unary/cryo_cell/proc/put_mob(mob/living/carbon/M)
-	if(!istype(M))
-		to_chat(usr, "<span class='danger'>The cryo cell cannot handle such a lifeform!</span>")
-		return
-	if(occupant)
-		to_chat(usr, "<span class='danger'>The cryo cell is already occupied!</span>")
-		return
-	if(M.abiotic())
-		to_chat(usr, "<span class='warning'>Subject may not have abiotic items on.</span>")
-		return
-	if(!node)
-		to_chat(usr, "<span class='warning'>The cell is not correctly connected to its pipe network!</span>")
-		return
-	M.stop_pulling()
-	M.forceMove(src)
-	if(M.health > -100 && (M.health < 0 || M.sleeping))
-		to_chat(M, "<span class='boldnotice'>You feel a cold liquid surround you. Your skin starts to freeze up.</span>")
-	occupant = M
-//	M.metabslow = 1
-	add_fingerprint(usr)
-	update_icon()
-	M.ExtinguishMob()
-	return 1
 
 /obj/machinery/atmospherics/unary/cryo_cell/verb/move_eject()
 	set name = "Eject occupant"
@@ -474,17 +371,17 @@
 		sleep(600)
 		if(!src || !usr || !occupant || (occupant != usr)) //Check if someone's released/replaced/bombed him already
 			return
-		go_out()//and release him from the eternal prison.
+		unoccupy(usr)//and release him from the eternal prison.
 	else
 		if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 			return
 		add_attack_logs(usr, occupant, "Ejected from cryo cell at [COORD(src)]")
-		go_out()
+		unoccupy(usr)
 	add_fingerprint(usr)
 	return
 
 /obj/machinery/atmospherics/unary/cryo_cell/narsie_act()
-	go_out()
+	unoccupy(force = TRUE)
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	color = "red"//force the icon to red
 	light_color = LIGHT_COLOR_RED
@@ -494,20 +391,42 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, "<span class='warning'>[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
-		return
-
 	if(stat & (NOPOWER|BROKEN))
 		return
 
 	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
 		return
 
-	put_mob(usr)
+	occupy(usr, usr)
 	return
 
+/obj/machinery/atmospherics/unary/cryo_cell/can_occupy(mob/living/M, mob/user)
+	if(!node)
+		to_chat(user, "<span class='warning'>[src] is not correctly connected to its pipe network!</span>")
+		return
+	return ..()
 
+/obj/machinery/atmospherics/unary/cryo_cell/occupy(mob/living/M, mob/user)
+	. = ..()
+	if(.)
+		if(M.health > -100 && (M.health < 0 || M.sleeping))
+			to_chat(M, "<span class='boldnotice'>You feel a cold liquid surround you. Your skin starts to freeze up.</span>")
+		if(M != user)
+			add_attack_logs(user, M, "put into a cryo cell at [COORD(src)].", ATKLOG_ALL)
+		update_icon()
+		M.ExtinguishMob()
+
+/obj/machinery/atmospherics/unary/cryo_cell/unoccupy(mob/user, force)
+	. = ..()
+	if(.)
+		var/mob/living/carbon/M = .
+		M.forceMove(get_step(get_turf(src), SOUTH))	//this doesn't account for walls or anything, but i don't forsee that being a problem.
+		if(M.bodytemperature < 261 && M.bodytemperature >= 70) //Patch by Aranclanos to stop people from taking burn damage after being ejected
+			M.bodytemperature = 261
+		update_icon()
+		// eject trash the occupant dropped
+		for(var/atom/movable/A in contents - component_parts - beaker)
+			A.forceMove(get_step(get_turf(src), SOUTH))
 
 /datum/data/function/proc/reset()
 	return

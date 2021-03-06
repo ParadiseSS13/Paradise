@@ -6,9 +6,11 @@
 	icon_state = "grinder"
 	density = 1
 	anchored = 1
+	occupy_whitelist = list(/mob/living/carbon/human)
+	occupy_grab_level = GRAB_AGGRESSIVE
+	occupy_delay = 3 SECONDS
 	var/operating = 0 //Is it on?
 	var/dirty = 0 // Does it need cleaning?
-	var/mob/living/occupant // Mob who has been put inside
 	var/locked = 0 //Used to prevent mobs from breaking the feedin anim
 
 	var/gib_throw_dir = WEST // Direction to spit meat and gibs in. Defaults to west.
@@ -40,8 +42,6 @@
 	if(contents.len)
 		for(var/atom/movable/A in contents)
 			A.loc = get_turf(src)
-	if(occupant)
-		occupant = null
 	return ..()
 
 /obj/machinery/gibber/RefreshParts() //If you want to make the machine upgradable, this is where you would change any vars basd on its stock parts.
@@ -69,12 +69,6 @@
 	else
 		overlays += image('icons/obj/kitchen.dmi', "gridle")
 
-/obj/machinery/gibber/relaymove(mob/user)
-	if(locked)
-		return
-
-	go_out()
-
 /obj/machinery/gibber/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN))
 		return
@@ -90,15 +84,6 @@
 	startgibbing(user)
 
 /obj/machinery/gibber/attackby(obj/item/P, mob/user, params)
-	if(istype(P, /obj/item/grab))
-		var/obj/item/grab/G = P
-		if(G.state < 2)
-			to_chat(user, "<span class='danger'>You need a better grip to do that!</span>")
-			return
-		move_into_gibber(user,G.affecting)
-		qdel(G)
-		return
-
 	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", P))
 		return
 
@@ -112,48 +97,6 @@
 		return
 	return ..()
 
-/obj/machinery/gibber/MouseDrop_T(mob/target, mob/user)
-	if(user.incapacitated() || !ishuman(user))
-		return
-
-	if(!isliving(target))
-		return
-
-	var/mob/living/targetl = target
-
-	if(targetl.buckled)
-		return
-
-	move_into_gibber(user,target)
-
-/obj/machinery/gibber/proc/move_into_gibber(mob/user, mob/living/victim)
-	if(occupant)
-		to_chat(user, "<span class='danger'>The [src] is full, empty it first!</span>")
-		return
-
-	if(operating)
-		to_chat(user, "<span class='danger'>The [src] is locked and running, wait for it to finish.</span>")
-		return
-
-	if(!ishuman(victim))
-		to_chat(user, "<span class='danger'>This is not suitable for the [src]!</span>")
-		return
-
-	if(victim.abiotic(1))
-		to_chat(user, "<span class='danger'>Subject may not have abiotic items on.</span>")
-		return
-
-	user.visible_message("<span class='danger'>[user] starts to put [victim] into the [src]!</span>")
-	add_fingerprint(user)
-	if(do_after(user, 30, target = victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
-		user.visible_message("<span class='danger'>[user] stuffs [victim] into the [src]!</span>")
-
-		victim.forceMove(src)
-		occupant = victim
-
-		update_icon()
-		feedinTopanim()
-
 /obj/machinery/gibber/verb/eject()
 	set category = "Object"
 	set name = "Empty Gibber"
@@ -161,26 +104,7 @@
 
 	if(usr.incapacitated())
 		return
-
-	go_out()
-	add_fingerprint(usr)
-
-/obj/machinery/gibber/proc/go_out()
-	if(operating || !occupant) //no going out if operating, just in case they manage to trigger go_out before being dead
-		return
-
-	if(locked)
-		return
-
-	for(var/obj/O in src)
-		O.loc = loc
-
-	occupant.forceMove(get_turf(src))
-	occupant = null
-
-	update_icon()
-
-	return
+	unoccupy(usr)
 
 /obj/machinery/gibber/proc/feedinTopanim()
 	if(!occupant)
@@ -312,7 +236,32 @@
 		operating = 0
 		update_icon()
 
+/obj/machinery/gibber/can_occupy(mob/living/M, mob/user)
+	if(operating)
+		to_chat(user, "<span class='danger'>[src] is locked and running, wait for it to finish.</span>")
+		return FALSE
+	if(locked)
+		return FALSE
+	var/mob/living/carbon/human/H = M
+	if(istype(H) && H.abiotic(TRUE))
+		to_chat(user, "<span class='danger'>Subject may not have abiotic items on.</span>")
+		return FALSE
+	return ..()
 
+/obj/machinery/gibber/occupy(mob/living/M, mob/user, instant)
+	. = ..()
+	if(.)
+		update_icon()
+		feedinTopanim()
+
+/obj/machinery/gibber/unoccupy(mob/user, force)
+	if(operating || locked)
+		return
+	. = ..()
+	if(.)
+		for(var/obj/O in contents)
+			O.forceMove(get_turf(src))
+		update_icon()
 
 /* AUTOGIBBER */
 

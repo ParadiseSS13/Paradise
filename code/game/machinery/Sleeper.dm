@@ -13,7 +13,6 @@
 	anchored = 1
 	dir = WEST
 	var/orient = "LEFT" // "RIGHT" changes the dir suffix to "-r"
-	var/mob/living/carbon/human/occupant = null
 	var/possible_chems = list("ephedrine", "salglu_solution", "salbutamol", "charcoal")
 	var/emergency_chems = list("ephedrine") // Desnowflaking
 	var/amounts = list(5, 10)
@@ -30,6 +29,7 @@
 	active_power_usage = 2500
 
 	light_color = LIGHT_COLOR_CYAN
+	occupy_whitelist = list(/mob/living/carbon/human)
 
 /obj/machinery/sleeper/power_change()
 	..()
@@ -78,48 +78,43 @@
 		M.forceMove(get_turf(src))
 	return ..()
 
-/obj/machinery/sleeper/relaymove(mob/user as mob)
-	if(user.incapacitated())
-		return 0 //maybe they should be able to get out with cuffs, but whatever
-	go_out()
-
 /obj/machinery/sleeper/process()
-	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
+	if(!QDELETED(occupant))
+		return
+
+	for(var/mob/M in contents) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
 		if(M == occupant)
 			continue
-		else
-			M.forceMove(loc)
+		M.forceMove(get_turf(src))
 
-	if(occupant)
-		if(auto_eject_dead && occupant.stat == DEAD)
-			playsound(loc, 'sound/machines/buzz-sigh.ogg', 40)
-			go_out()
+	if(auto_eject_dead && occupant.stat == DEAD)
+		playsound(loc, 'sound/machines/buzz-sigh.ogg', 40)
+		unoccupy(force = TRUE)
+		return
+
+	if(filtering > 0 && beaker)
+		// To prevent runtimes from drawing blood from runtime, and to prevent getting IPC blood.
+		if(!istype(occupant) || !occupant.dna || (NO_BLOOD in occupant.dna.species.species_traits))
+			filtering = 0
 			return
 
-		if(filtering > 0 && beaker)
-			// To prevent runtimes from drawing blood from runtime, and to prevent getting IPC blood.
-			if(!istype(occupant) || !occupant.dna || (NO_BLOOD in occupant.dna.species.species_traits))
-				filtering = 0
-				return
-
-			if(beaker.reagents.total_volume < beaker.reagents.maximum_volume)
+		if(beaker.reagents.total_volume < beaker.reagents.maximum_volume)
+			occupant.transfer_blood_to(beaker, 1)
+			for(var/datum/reagent/x in occupant.reagents.reagent_list)
+				occupant.reagents.trans_to(beaker, 3)
 				occupant.transfer_blood_to(beaker, 1)
-				for(var/datum/reagent/x in occupant.reagents.reagent_list)
-					occupant.reagents.trans_to(beaker, 3)
-					occupant.transfer_blood_to(beaker, 1)
 
-		for(var/A in occupant.reagents.addiction_list)
-			var/datum/reagent/R = A
+	for(var/A in occupant.reagents.addiction_list)
+		var/datum/reagent/R = A
 
-			var/addiction_removal_chance = 5
-			if(world.timeofday > (R.last_addiction_dose + ADDICTION_SPEEDUP_TIME)) // 2.5 minutes
-				addiction_removal_chance = 10
-			if(prob(addiction_removal_chance))
-				to_chat(occupant, "<span class='boldnotice'>You no longer feel reliant on [R.name]!</span>")
-				occupant.reagents.addiction_list.Remove(R)
-				qdel(R)
+		var/addiction_removal_chance = 5
+		if(world.timeofday > (R.last_addiction_dose + ADDICTION_SPEEDUP_TIME)) // 2.5 minutes
+			addiction_removal_chance = 10
+		if(prob(addiction_removal_chance))
+			to_chat(occupant, "<span class='boldnotice'>You no longer feel reliant on [R.name]!</span>")
+			occupant.reagents.addiction_list.Remove(R)
+			qdel(R)
 
-	updateDialog()
 	return
 
 
@@ -148,61 +143,62 @@
 /obj/machinery/sleeper/ui_data(mob/user)
 	var/list/data = list()
 	data["amounts"] = amounts
-	data["hasOccupant"] = occupant ? 1 : 0
+	var/mob/living/carbon/human/H = occupant
+	data["hasOccupant"] = H ? 1 : 0
 	var/occupantData[0]
 	var/crisis = 0
-	if(occupant)
-		occupantData["name"] = occupant.name
-		occupantData["stat"] = occupant.stat
-		occupantData["health"] = occupant.health
-		occupantData["maxHealth"] = occupant.maxHealth
+	if(H)
+		occupantData["name"] = H.name
+		occupantData["stat"] = H.stat
+		occupantData["health"] = H.health
+		occupantData["maxHealth"] = H.maxHealth
 		occupantData["minHealth"] = HEALTH_THRESHOLD_DEAD
-		occupantData["bruteLoss"] = occupant.getBruteLoss()
-		occupantData["oxyLoss"] = occupant.getOxyLoss()
-		occupantData["toxLoss"] = occupant.getToxLoss()
-		occupantData["fireLoss"] = occupant.getFireLoss()
-		occupantData["paralysis"] = occupant.paralysis
+		occupantData["bruteLoss"] = H.getBruteLoss()
+		occupantData["oxyLoss"] = H.getOxyLoss()
+		occupantData["toxLoss"] = H.getToxLoss()
+		occupantData["fireLoss"] = H.getFireLoss()
+		occupantData["paralysis"] = H.paralysis
 		occupantData["hasBlood"] = 0
-		occupantData["bodyTemperature"] = occupant.bodytemperature
+		occupantData["bodyTemperature"] = H.bodytemperature
 		occupantData["maxTemp"] = 1000 // If you get a burning vox armalis into the sleeper, congratulations
 		// Because we can put simple_animals in here, we need to do something tricky to get things working nice
 		occupantData["temperatureSuitability"] = 0 // 0 is the baseline
-		if(ishuman(occupant) && occupant.dna.species)
+		if(ishuman(H) && H.dna.species)
 			// I wanna do something where the bar gets bluer as the temperature gets lower
 			// For now, I'll just use the standard format for the temperature status
-			var/datum/species/sp = occupant.dna.species
-			if(occupant.bodytemperature < sp.cold_level_3)
+			var/datum/species/sp = H.dna.species
+			if(H.bodytemperature < sp.cold_level_3)
 				occupantData["temperatureSuitability"] = -3
-			else if(occupant.bodytemperature < sp.cold_level_2)
+			else if(H.bodytemperature < sp.cold_level_2)
 				occupantData["temperatureSuitability"] = -2
-			else if(occupant.bodytemperature < sp.cold_level_1)
+			else if(H.bodytemperature < sp.cold_level_1)
 				occupantData["temperatureSuitability"] = -1
-			else if(occupant.bodytemperature > sp.heat_level_3)
+			else if(H.bodytemperature > sp.heat_level_3)
 				occupantData["temperatureSuitability"] = 3
-			else if(occupant.bodytemperature > sp.heat_level_2)
+			else if(H.bodytemperature > sp.heat_level_2)
 				occupantData["temperatureSuitability"] = 2
-			else if(occupant.bodytemperature > sp.heat_level_1)
+			else if(H.bodytemperature > sp.heat_level_1)
 				occupantData["temperatureSuitability"] = 1
-		else if(istype(occupant, /mob/living/simple_animal))
-			var/mob/living/simple_animal/silly = occupant
+		else if(istype(H, /mob/living/simple_animal))
+			var/mob/living/simple_animal/silly = H
 			if(silly.bodytemperature < silly.minbodytemp)
 				occupantData["temperatureSuitability"] = -3
 			else if(silly.bodytemperature > silly.maxbodytemp)
 				occupantData["temperatureSuitability"] = 3
 		// Blast you, imperial measurement system
-		occupantData["btCelsius"] = occupant.bodytemperature - T0C
-		occupantData["btFaren"] = ((occupant.bodytemperature - T0C) * (9.0/5.0))+ 32
+		occupantData["btCelsius"] = H.bodytemperature - T0C
+		occupantData["btFaren"] = ((H.bodytemperature - T0C) * (9.0/5.0))+ 32
 
 
-		crisis = (occupant.health < min_health)
+		crisis = (H.health < min_health)
 		// I'm not sure WHY you'd want to put a simple_animal in a sleeper, but precedent is precedent
 		// Runtime is aptly named, isn't she?
-		if(ishuman(occupant) && !(NO_BLOOD in occupant.dna.species.species_traits))
-			occupantData["pulse"] = occupant.get_pulse(GETPULSE_TOOL)
+		if(ishuman(H) && !(NO_BLOOD in H.dna.species.species_traits))
+			occupantData["pulse"] = H.get_pulse(GETPULSE_TOOL)
 			occupantData["hasBlood"] = 1
-			occupantData["bloodLevel"] = round(occupant.blood_volume)
-			occupantData["bloodMax"] = occupant.max_blood
-			occupantData["bloodPercent"] = round(100*(occupant.blood_volume/occupant.max_blood), 0.01)
+			occupantData["bloodLevel"] = round(H.blood_volume)
+			occupantData["bloodMax"] = H.max_blood
+			occupantData["bloodPercent"] = round(100*(H.blood_volume/H.max_blood), 0.01)
 
 	data["occupant"] = occupantData
 	data["maxchem"] = max_chem
@@ -226,18 +222,18 @@
 		if(temp)
 			var/reagent_amount = 0
 			var/pretty_amount
-			var/injectable = occupant ? 1 : 0
+			var/injectable = H ? 1 : 0
 			var/overdosing = 0
 			var/caution = 0 // To make things clear that you're coming close to an overdose
 			if(crisis && !(temp.id in emergency_chems))
 				injectable = 0
 
-			if(occupant && occupant.reagents)
-				reagent_amount = occupant.reagents.get_reagent_amount(temp.id)
+			if(H && H.reagents)
+				reagent_amount = H.reagents.get_reagent_amount(temp.id)
 				// If they're mashing the highest concentration, they get one warning
 				if(temp.overdose_threshold && reagent_amount + 10 > temp.overdose_threshold)
 					caution = 1
-				if(temp.id in occupant.reagents.overdose_list())
+				if(temp.id in H.reagents.overdose_list())
 					overdosing = 1
 
 			pretty_amount = round(reagent_amount, 0.05)
@@ -307,38 +303,6 @@
 	if(exchange_parts(user, I))
 		return
 
-	if(istype(I, /obj/item/grab))
-		var/obj/item/grab/G = I
-		if(panel_open)
-			to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
-			return
-		if(!ismob(G.affecting))
-			return
-		if(occupant)
-			to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
-			return
-		if(G.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, "<span class='warning'>[G.affecting] will not fit into [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
-			return
-
-		visible_message("[user] starts putting [G.affecting.name] into the sleeper.")
-
-		if(do_after(user, 20, target = G.affecting))
-			if(occupant)
-				to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
-				return
-			if(!G || !G.affecting)
-				return
-			var/mob/M = G.affecting
-			M.forceMove(src)
-			occupant = M
-			icon_state = "[base_icon]"
-			to_chat(M, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
-			add_fingerprint(user)
-			qdel(G)
-			SStgui.update_uis(src)
-			return
-
 	return ..()
 
 
@@ -373,17 +337,10 @@
 /obj/machinery/sleeper/ex_act(severity)
 	if(filtering)
 		toggle_filter()
-	if(occupant)
-		occupant.ex_act(severity)
 	..()
 
 /obj/machinery/sleeper/handle_atom_del(atom/A)
 	..()
-	if(A == occupant)
-		occupant = null
-		updateUsrDialog()
-		update_icon()
-		SStgui.update_uis(src)
 	if(A == beaker)
 		beaker = null
 		updateUsrDialog()
@@ -395,12 +352,10 @@
 	if(stat & (BROKEN|NOPOWER))
 		..(severity)
 		return
-	if(occupant)
-		go_out()
 	..(severity)
 
 /obj/machinery/sleeper/narsie_act()
-	go_out()
+	unoccupy(force = TRUE)
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	qdel(src)
 
@@ -409,22 +364,6 @@
 		filtering = FALSE
 	else
 		filtering = TRUE
-
-/obj/machinery/sleeper/proc/go_out()
-	if(filtering)
-		toggle_filter()
-	if(!occupant)
-		return
-	occupant.forceMove(loc)
-	occupant = null
-	icon_state = "[base_icon]-open"
-	// eject trash the occupant dropped
-	for(var/atom/movable/A in contents - component_parts - list(beaker))
-		A.forceMove(loc)
-	SStgui.update_uis(src)
-
-/obj/machinery/sleeper/force_eject_occupant(mob/target)
-	go_out()
 
 /obj/machinery/sleeper/proc/inject_chemical(mob/living/user, chemical, amount)
 	if(!(chemical in possible_chems))
@@ -453,7 +392,7 @@
 		return
 
 	icon_state = "[base_icon]-open"
-	go_out()
+	unoccupy(usr)
 	add_fingerprint(usr)
 	return
 
@@ -473,95 +412,32 @@
 	add_fingerprint(usr)
 	return
 
-/obj/machinery/sleeper/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
-	if(O.loc == user) //no you can't pull things out of your ass
-		return
-	if(user.incapacitated()) //are you cuffed, dying, lying, stunned or other
-		return
-	if(get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
-		return
-	if(!ismob(O)) //humans only
-		return
-	if(istype(O, /mob/living/simple_animal) || istype(O, /mob/living/silicon)) //animals and robots dont fit
-		return
-	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
-		return
-	if(user.loc==null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
-		return
-	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
-		return
-	if(panel_open)
-		to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
-		return
-	if(occupant)
-		to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
-		return
-	var/mob/living/L = O
-	if(!istype(L) || L.buckled)
-		return
-	if(L.abiotic())
-		to_chat(user, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
-		return
-	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
-		return
-	if(L == user)
-		visible_message("[user] starts climbing into the sleeper.")
-	else
-		visible_message("[user] starts putting [L.name] into the sleeper.")
-
-	if(do_after(user, 20, target = L))
-		if(occupant)
-			to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
-			return
-		if(!L) return
-		L.forceMove(src)
-		occupant = L
-		icon_state = "[base_icon]"
-		to_chat(L, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
-		add_fingerprint(user)
-		if(user.pulling == L)
-			user.stop_pulling()
-		SStgui.update_uis(src)
-		return
-	return
-
 /obj/machinery/sleeper/AllowDrop()
 	return FALSE
+
+/obj/machinery/sleeper/occupy(mob/living/M, mob/user)
+	. = ..()
+	if(.)
+		icon_state = "[base_icon]"
+		to_chat(M, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
+		SStgui.update_uis(src)
+
+/obj/machinery/sleeper/unoccupy(mob/user, force)
+	. = ..()
+	if(.)
+		icon_state = "[base_icon]-open"
+		for(var/atom/movable/A in (contents - component_parts - beaker))
+			A.forceMove(get_turf(src))
+		SStgui.update_uis(src)
 
 /obj/machinery/sleeper/verb/move_inside()
 	set name = "Enter Sleeper"
 	set category = "Object"
 	set src in oview(1)
-	if(usr.stat != 0 || !(ishuman(usr)))
-		return
-	if(occupant)
-		to_chat(usr, "<span class='boldnotice'>The sleeper is already occupied!</span>")
-		return
-	if(panel_open)
-		to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
-		return
-	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
-		return
-	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, "<span class='warning'>[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
-		return
-	visible_message("[usr] starts climbing into the sleeper.")
-	if(do_after(usr, 20, target = usr))
-		if(occupant)
-			to_chat(usr, "<span class='boldnotice'>The sleeper is already occupied!</span>")
-			return
-		usr.stop_pulling()
-		usr.forceMove(src)
-		occupant = usr
-		icon_state = "[base_icon]"
 
-		for(var/obj/O in src)
-			qdel(O)
-		add_fingerprint(usr)
-		SStgui.update_uis(src)
+	if(usr.incapacitated())
 		return
-	return
+	occupy(usr, usr)
 
 /obj/machinery/sleeper/syndie
 	icon_state = "sleeper_s-open"

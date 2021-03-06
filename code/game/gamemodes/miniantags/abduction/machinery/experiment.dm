@@ -5,37 +5,13 @@
 	icon_state = "experiment-open"
 	anchored = TRUE
 	density = TRUE
+	occupy_whitelist = list(/mob/living/carbon/human)
 	var/points = 0
 	var/credits = 0
 	var/list/history = list()
 	var/list/abductee_minds = list()
 	var/flash = " - || - "
 	var/obj/machinery/abductor/console/console
-	var/mob/living/carbon/human/occupant
-
-/obj/machinery/abductor/experiment/Destroy()
-	eject_abductee()
-	return ..()
-
-/obj/machinery/abductor/experiment/MouseDrop_T(mob/living/carbon/human/target, mob/user)
-	if(user.stat || user.lying || !Adjacent(user) || !target.Adjacent(user) || !ishuman(target))
-		return
-	if(isabductor(target))
-		return
-	if(occupant)
-		to_chat(user, "<span class='notice'>[src] is already occupied.</span>")
-		return //occupied
-	if(target.buckled)
-		return
-	if(target.has_buckled_mobs()) //mob attached to us
-		to_chat(user, "<span class='warning'>[target] will not fit into [src] because [target.p_they()] [target.p_have()] a slime latched onto [target.p_their()] head.</span>")
-		return
-	visible_message("[user] puts [target] into the [src].")
-
-	target.forceMove(src)
-	occupant = target
-	icon_state = "experiment"
-	add_fingerprint(user)
 
 /obj/machinery/abductor/experiment/attack_hand(mob/user)
 	if(..())
@@ -102,7 +78,7 @@
 		updateUsrDialog()
 		return
 	if(href_list["eject"])
-		eject_abductee()
+		unoccupy(usr)
 		return
 	if(occupant && occupant.stat != DEAD)
 		if(href_list["experiment"])
@@ -152,7 +128,7 @@
 			G.Start()
 			point_reward++
 		if(point_reward > 0)
-			eject_abductee()
+			unoccupy(force = TRUE)
 			SendBack(H)
 			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
 			points += point_reward
@@ -163,7 +139,7 @@
 			return "<span class='bad'>Experiment failed! No replacement organ detected.</span>"
 	else
 		atom_say("Brain activity nonexistant - disposing sample...")
-		eject_abductee()
+		unoccupy(force = TRUE)
 		SendBack(H)
 		return "<span class='bad'>Specimen braindead - disposed.</span>"
 
@@ -179,44 +155,17 @@
 	H.uncuff()
 	return
 
-/obj/machinery/abductor/experiment/attackby(obj/item/G, mob/user)
-	if(istype(G, /obj/item/grab))
-		var/obj/item/grab/grabbed = G
-		if(!ishuman(grabbed.affecting))
-			return
-		if(isabductor(grabbed.affecting))
-			return
-		if(occupant)
-			to_chat(user, "<span class='notice'>The [src] is already occupied!</span>")
-			return
-		if(grabbed.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, "<span class='warning'>[grabbed.affecting] will not fit into [src] because [grabbed.affecting.p_they()] [grabbed.affecting.p_have()] a slime latched onto [grabbed.affecting.p_their()] head.</span>")
-			return
-		visible_message("[user] puts [grabbed.affecting] into the [src].")
-		var/mob/living/carbon/human/H = grabbed.affecting
-		H.forceMove(src)
-		occupant = H
-		icon_state = "experiment"
-		add_fingerprint(user)
-		qdel(G)
-		return
+/obj/machinery/abductor/experiment/can_occupy(mob/living/M, mob/user)
+	if(isabductor(M))
+		return FALSE
 	return ..()
 
-/obj/machinery/abductor/experiment/ex_act(severity)
-	if(occupant)
-		occupant.ex_act(severity)
-	..()
+/obj/machinery/abductor/experiment/occupy(mob/living/M, mob/user)
+	. = ..()
+	if(.)
+		icon_state = "experiment"
 
-/obj/machinery/abductor/experiment/handle_atom_del(atom/A)
-	..()
-	if(A == occupant)
-		occupant = null
-		updateUsrDialog()
-		update_icon()
-
-/obj/machinery/abductor/experiment/proc/eject_abductee()
-	if(!occupant)
-		return
-	occupant.forceMove(get_turf(src))
-	occupant = null
-	icon_state = "experiment-open"
+/obj/machinery/abductor/experiment/unoccupy(mob/user, force)
+	. = ..()
+	if(.)
+		icon_state = "experiment-open"

@@ -65,8 +65,8 @@
 	idle_power_usage = 50
 	active_power_usage = 300
 	interact_offline = 1
+	occupy_whitelist = list(/mob/living/carbon/human)
 	var/locked = FALSE
-	var/mob/living/carbon/occupant = null
 	var/obj/item/reagent_containers/glass/beaker = null
 	var/opened = 0
 	var/damage_coeff
@@ -111,11 +111,6 @@
 /obj/machinery/dna_scannernew/AllowDrop()
 	return FALSE
 
-/obj/machinery/dna_scannernew/relaymove(mob/user)
-	if(user.stat)
-		return
-	go_out()
-
 /obj/machinery/dna_scannernew/verb/eject()
 	set src in oview(1)
 	set category = null
@@ -123,24 +118,7 @@
 
 	if(usr.incapacitated())
 		return
-	eject_occupant(usr)
-	add_fingerprint(usr)
-
-/obj/machinery/dna_scannernew/Destroy()
-	eject_occupant(null, TRUE)
-	return ..()
-
-/obj/machinery/dna_scannernew/proc/eject_occupant(user, force)
-	go_out(user, force)
-	for(var/obj/O in src)
-		if(!istype(O,/obj/item/circuitboard/clonescanner) && \
-		   !istype(O,/obj/item/stock_parts) && \
-		   !istype(O,/obj/item/stack/cable_coil) && \
-		   O != beaker)
-			O.forceMove(get_turf(src))//Ejects items that manage to get in there (exluding the components and beaker)
-	if(!occupant)
-		for(var/mob/M in src)//Failsafe so you can get mobs out
-			M.forceMove(get_turf(src))
+	unoccupy(usr)
 
 /obj/machinery/dna_scannernew/verb/move_inside()
 	set src in oview(1)
@@ -149,63 +127,7 @@
 
 	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
 		return
-	if(!ishuman(usr)) //Make sure they're a mob that has dna
-		to_chat(usr, "<span class='notice'>Try as you might, you can not climb up into the [src].</span>")
-		return
-	if(occupant)
-		to_chat(usr, "<span class='boldnotice'>The [src] is already occupied!</span>")
-		return
-	if(usr.abiotic())
-		to_chat(usr, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
-		return
-	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, "<span class='warning'>[usr] will not fit into the [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
-		return
-	usr.stop_pulling()
-	usr.forceMove(src)
-	occupant = usr
-	icon_state = "scanner_occupied"
-	add_fingerprint(usr)
-	SStgui.update_uis(src)
-
-/obj/machinery/dna_scannernew/MouseDrop_T(atom/movable/O, mob/user)
-	if(!istype(O))
-		return
-	if(O.loc == user) //no you can't pull things out of your ass
-		return
-	if(user.incapacitated()) //are you cuffed, dying, lying, stunned or other
-		return
-	if(O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
-		return
-	if(!ismob(O)) //humans only
-		return
-	if(istype(O, /mob/living/simple_animal) || istype(O, /mob/living/silicon)) //animals and robutts dont fit
-		return
-	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
-		return
-	if(user.loc==null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
-		return
-	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
-		return
-	if(occupant)
-		to_chat(user, "<span class='boldnotice'>The [src] is already occupied!</span>")
-		return
-	var/mob/living/L = O
-	if(!istype(L) || L.buckled)
-		return
-	if(L.abiotic())
-		to_chat(user, "<span class='danger'>Subject cannot have abiotic items on.</span>")
-		return
-	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
-		return
-	if(L == user)
-		visible_message("[user] climbs into the [src].")
-	else
-		visible_message("[user] puts [L.name] into the [src].")
-	put_in(L)
-	if(user.pulling == L)
-		user.stop_pulling()
+	occupy(usr)
 
 /obj/machinery/dna_scannernew/attackby(obj/item/I, mob/user, params)
 	if(exchange_parts(user, I))
@@ -224,26 +146,6 @@
 		I.forceMove(src)
 		user.visible_message("[user] adds \a [I] to \the [src]!", "You add \a [I] to \the [src]!")
 		return
-	if(istype(I, /obj/item/grab))
-		var/obj/item/grab/G = I
-		if(!ismob(G.affecting))
-			return
-		if(occupant)
-			to_chat(user, "<span class='boldnotice'>The scanner is already occupied!</span>")
-			return
-		if(G.affecting.abiotic())
-			to_chat(user, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
-			return
-		if(G.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, "<span class='warning'>will not fit into the [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
-			return
-		if(panel_open)
-			to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
-			return
-		put_in(G.affecting)
-		add_fingerprint(user)
-		qdel(G)
-		return
 	return ..()
 
 /obj/machinery/dna_scannernew/crowbar_act(mob/user, obj/item/I)
@@ -258,53 +160,29 @@
 	if(default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", I))
 		return TRUE
 
-/obj/machinery/dna_scannernew/relaymove(mob/user)
-	if(user.incapacitated())
-		return FALSE //maybe they should be able to get out with cuffs, but whatever
-	go_out()
+/obj/machinery/dna_scannernew/occupy(mob/living/M, mob/user)
+	. = ..()
+	if(.)
+		icon_state = "scanner_occupied"
+		SStgui.update_uis(src)
 
-/obj/machinery/dna_scannernew/proc/put_in(mob/M)
-	M.forceMove(src)
-	occupant = M
-	icon_state = "scanner_occupied"
-	SStgui.update_uis(src)
-
-	// search for ghosts, if the corpse is empty and the scanner is connected to a cloner
-	if(locate(/obj/machinery/computer/cloning, get_step(src, NORTH)) \
+		// search for ghosts, if the corpse is empty and the scanner is connected to a cloner
+		if(locate(/obj/machinery/computer/cloning, get_step(src, NORTH)) \
 		|| locate(/obj/machinery/computer/cloning, get_step(src, SOUTH)) \
 		|| locate(/obj/machinery/computer/cloning, get_step(src, EAST)) \
 		|| locate(/obj/machinery/computer/cloning, get_step(src, WEST)))
+			occupant.notify_ghost_cloning(source = src)
 
-		occupant.notify_ghost_cloning(source = src)
-
-/obj/machinery/dna_scannernew/proc/go_out(mob/user, force)
-	if(!occupant)
-		if(user)
-			to_chat(user, "<span class='warning'>The scanner is empty!</span>")
-		return
+/obj/machinery/dna_scannernew/unoccupy(mob/user, force)
 	if(locked && !force)
-		if(user)
-			to_chat(user, "<span class='warning'>The scanner is locked!</span>")
+		to_chat(user, "<span class='warning'>[src] is locked!</span>")
 		return
-	occupant.forceMove(loc)
-	occupant = null
-	icon_state = "scanner_open"
-	SStgui.update_uis(src)
 
-/obj/machinery/dna_scannernew/force_eject_occupant(mob/target)
-	go_out(null, TRUE)
-
-/obj/machinery/dna_scannernew/ex_act(severity)
-	if(occupant)
-		occupant.ex_act(severity)
-	..()
-
-/obj/machinery/dna_scannernew/handle_atom_del(atom/A)
-	..()
-	if(A == occupant)
-		occupant = null
-		updateUsrDialog()
-		update_icon()
+	. = ..()
+	if(.)
+		icon_state = "scanner_open"
+		for(var/atom/movable/A in (contents - component_parts - beaker))
+			A.forceMove(get_turf(src))
 		SStgui.update_uis(src)
 
 // Checks if occupants can be irradiated/mutated - prevents exploits where wearing full rad protection would still let you gain mutations
@@ -679,7 +557,7 @@
 				B.forceMove(connected.loc)
 				connected.beaker = null
 		if("ejectOccupant")
-			connected.eject_occupant()
+			connected.unoccupy(usr)
 		// Transfer Buffer Management
 		if("bufferOption")
 			var/bufferOption = params["option"]

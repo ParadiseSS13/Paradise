@@ -7,7 +7,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 1000
-	var/mob/occupant = null
+	var/mob/occupying_borg = null
 	var/circuitboard = /obj/item/circuitboard/cyborgrecharger
 	var/recharge_speed
 	var/recharge_speed_nutrition
@@ -56,25 +56,25 @@
 	if(!(NOPOWER|BROKEN))
 		return
 
-	if(src.occupant)
+	if(src.occupying_borg)
 		process_occupant()
 
-	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
-		if(M == occupant)
+	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupying_borg's grasp
+		if(M == occupying_borg)
 			continue
 		else
 			M.forceMove(src.loc)
 	return 1
 
 /obj/machinery/recharge_station/ex_act(severity)
-	if(occupant)
-		occupant.ex_act(severity)
+	if(occupying_borg)
+		occupying_borg.ex_act(severity)
 	..()
 
 /obj/machinery/recharge_station/handle_atom_del(atom/A)
 	..()
-	if(A == occupant)
-		occupant = null
+	if(A == occupying_borg)
+		occupying_borg = null
 		updateUsrDialog()
 		update_icon()
 
@@ -100,14 +100,14 @@
 	if(stat & (BROKEN|NOPOWER))
 		..(severity)
 		return
-	if(occupant)
-		occupant.emp_act(severity)
+	if(occupying_borg)
+		occupying_borg.emp_act(severity)
 		go_out()
 	..(severity)
 
 /obj/machinery/recharge_station/proc/build_icon()
 	if(NOPOWER|BROKEN)
-		if(src.occupant)
+		if(src.occupying_borg)
 			icon_state = "borgcharger1"
 		else
 			icon_state = "borgcharger0"
@@ -126,41 +126,41 @@
 		return TRUE
 
 /obj/machinery/recharge_station/screwdriver_act(mob/user, obj/item/I)
-	if(occupant)
+	if(occupying_borg)
 		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 		return TRUE
 	if(default_deconstruction_screwdriver(user, "borgdecon2", "borgcharger0", I))
 		return TRUE
 
 /obj/machinery/recharge_station/proc/process_occupant()
-	if(src.occupant)
-		if(istype(occupant, /mob/living/silicon/robot))
-			var/mob/living/silicon/robot/R = occupant
+	if(src.occupying_borg)
+		if(istype(occupying_borg, /mob/living/silicon/robot))
+			var/mob/living/silicon/robot/R = occupying_borg
 			restock_modules()
 			if(repairs)
 				R.heal_overall_damage(repairs, repairs)
 			if(R.cell)
 				R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
-		else if(istype(occupant, /mob/living/carbon/human))
-			var/mob/living/carbon/human/H = occupant
+		else if(istype(occupying_borg, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = occupying_borg
 			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
 				H.set_nutrition(min(H.nutrition + recharge_speed_nutrition, 450))
 			if(repairs)
 				H.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
 
 /obj/machinery/recharge_station/proc/go_out()
-	if(!occupant)
+	if(!occupying_borg)
 		return
-	occupant.forceMove(loc)
-	occupant = null
+	occupying_borg.forceMove(loc)
+	occupying_borg = null
 	build_icon()
 	use_power = IDLE_POWER_USE
 	return
 
 /obj/machinery/recharge_station/proc/restock_modules()
-	if(src.occupant)
-		if(istype(occupant, /mob/living/silicon/robot))
-			var/mob/living/silicon/robot/R = occupant
+	if(src.occupying_borg)
+		if(istype(occupying_borg, /mob/living/silicon/robot))
+			var/mob/living/silicon/robot/R = occupying_borg
 			var/coeff = recharge_speed / 200
 			if(R.module && R.module.modules)
 				var/list/um = R.contents|R.module.modules
@@ -200,7 +200,7 @@
 						var/obj/item/lightreplacer/LR = O
 						var/i = 1
 						for(1, i <= coeff, i++)
-							LR.Charge(occupant)
+							LR.Charge(occupying_borg)
 					//Fire extinguisher
 					if(istype(O, /obj/item/extinguisher))
 						var/obj/item/extinguisher/ext = O
@@ -258,7 +258,7 @@
 		if(R.stat == DEAD)
 			//Whoever had it so that a borg with a dead cell can't enter this thing should be shot. --NEO
 			return
-		if(occupant)
+		if(occupying_borg)
 			to_chat(R, "<span class='warning'>The cell is already occupied!</span>")
 			return
 		if(!R.cell)
@@ -272,7 +272,7 @@
 
 		if(H.stat == DEAD)
 			return
-		if(occupant)
+		if(occupying_borg)
 			to_chat(H, "<span class='warning'>The cell is already occupied!</span>")
 			return
 		if(!H.get_int_organ(/obj/item/organ/internal/cell))
@@ -285,7 +285,7 @@
 
 	user.stop_pulling()
 	user.forceMove(src)
-	occupant = user
+	occupying_borg = user
 
 	add_fingerprint(user)
 	build_icon()
