@@ -1345,9 +1345,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	. = "[.][!!husk][!!hulk][!!skeleton]"
 
 /mob/living/carbon/human/proc/hispania_icon(var/obj/item/A, var/icon_hispania, var/icon_paradise, var/i_state, var/layer)
-	var/obj/item/I = new A.type
-	var/result
-	return mutable_appearance((length(result) > 0 ? result : (I.hispania_icon ? icon_hispania : icon_paradise)), i_state, layer = layer)
+	return mutable_appearance((A.hispania_icon ? icon_hispania : icon_paradise), i_state, layer = layer)
+
 	/*	Si result NO es un string vacio entonces retornara un uniforme o traje, para gordos o para gente normal
 		Si esta vacio entonces hay otra condicion que pregunta si la ropa es un hispania_icon, si lo es usara icons/hispania/mob
 		y si no lo es usara icons/mob

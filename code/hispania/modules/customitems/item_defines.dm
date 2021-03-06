@@ -51,6 +51,38 @@
 
 //////////// Suits ////////////
 
+//KANS WINTERCOAT//
+
+/obj/item/fluff/kans_winter_coat_kit //PLAYER: Kans / CKEY: Magmabros
+	name = "Winter-Coat Conversion Kit(Kans)"
+	desc = "Flaps of white fabric, probably used to somehow modify a winter coat. Won't help with protection, though."
+	icon_state = "modkit"
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/fluff/kans_winter_coat_kit/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || !ishuman(user) || user.incapacitated())
+		return
+
+	if(!istype(target, /obj/item/clothing/suit/hooded/wintercoat))
+		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+		return
+
+	to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
+	var/obj/item/clothing/suit/hooded/wintercoat = target
+	wintercoat.desc = "A custom winter coat made with synthethic materials, it is lighter and softer than normal winter coats, it has a nametag that says: (Kans Windinds)"
+	wintercoat.hispania_icon = TRUE
+	wintercoat.item_state = "wintercoatkans"
+	wintercoat.icon_state = "wintercoatkans"
+	wintercoat.icon = 'icons/hispania/obj/custom_items.dmi'
+	wintercoat.base_icon = "wintercoatkans"
+	wintercoat.hood.hispania_icon = TRUE
+	wintercoat.hood.icon_state = "winterhoodkans"
+	wintercoat.hood.item_state = "winterhoodkans"
+	wintercoat.hood.icon = 'icons/hispania/obj/custom_items.dmi'
+	qdel(src)
+
+//Kans wintercoat ENDS HERE
+
 //////////// Uniforms ////////////
 
 //////////// Masks ////////////
