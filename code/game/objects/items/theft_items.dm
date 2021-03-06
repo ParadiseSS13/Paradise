@@ -11,6 +11,7 @@
 	icon_state = "plutonium_core"
 	item_state = "plutoniumcore"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	flags_2 = RAD_NO_CONTAMINATE_2 //Don't have the item itself become irradiated when it makes radiation.
 	var/pulse = 0
 	var/cooldown = 0
 	var/pulseicon = "plutonium_core_pulse"
