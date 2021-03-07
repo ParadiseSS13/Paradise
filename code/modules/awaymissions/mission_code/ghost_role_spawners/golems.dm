@@ -49,7 +49,6 @@
 		else
 			to_chat(user, "You can't build a golem out of this kind of material.")
 
-
 /obj/effect/mob_spawn/human/golem
 	name = "inert free golem shell"
 	desc = "A humanoid shape, empty, lifeless, and full of potential."
@@ -121,15 +120,13 @@
 
 /obj/effect/mob_spawn/human/golem/attack_hand(mob/user)
 	. = ..()
-	if(.)
-		return
 	if(isgolem(user) && can_transfer)
 		var/transfer_choice = alert("Transfer your soul to [src]? (Warning, your old body will die!)",,"Yes","No")
 		if(transfer_choice != "Yes")
 			return
 		if(QDELETED(src) || uses <= 0)
 			return
-		log_game("[key_name(user)] used [I] to transfer their mind into [src]")
+		log_game("[key_name(user)] golem-swapped into [src]")
 		user.visible_message("<span class='notice'>A faint light leaves [user], moving to [src] and animating it!</span>","<span class='notice'>You leave your old body behind, and transfer into [src]!</span>")
 		create(ckey = user.ckey, name = user.real_name)
 		user.death()
@@ -137,14 +134,17 @@
 
 /obj/effect/mob_spawn/human/golem/attackby(obj/item/slimepotion/transference/I, mob/user, params)
 	. = ..()
+	if(istype(src, /obj/effect/mob_spawn/human/golem/servant))
+		src.has_owner = FALSE
+		src.flavour_text = "You are an independent golem, formerly another sentient being that willingly transferred your consciousness to one."
 	if(iscarbon(user) && can_transfer)
 		var/human_transfer_choice = alert("Transfer your soul to [src]? (Warning, your old body will die!)",,"Yes","No")
 		if(human_transfer_choice != "Yes")
 			return
 		if(QDELETED(src) || uses <= 0)
 			return
-		log_game("[key_name(user)] golem-swapped into [src]")
-		user.visible_message("<span class='notice'>As [user] applies the potion on the golem shell, a faint light leaves them, moving to [src] and animating it!</span>","<span class='notice'>You leave your old body behind, and transfer into [src]!</span>")
+		log_game("[key_name(user)] used [I] to transfer their mind into [src]")
+		user.visible_message("<span class='notice'>As [user] applies the potion on the golem shell, a faint light leaves them, moving to [src] and animating it!</span>","<span class='notice'>You apply the potion to [src], feeling your mind leave your body!</span>")
 		create(ckey = user.ckey, name = user.real_name)
 		user.death()
 		qdel(I)
