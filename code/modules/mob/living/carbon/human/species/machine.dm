@@ -48,11 +48,9 @@
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
 		"cell" = /obj/item/organ/internal/cell,
-		"optics" = /obj/item/organ/internal/eyes/optical_sensor, //Default darksight of 2.
+		"eyes" = /obj/item/organ/internal/eyes/optical_sensor, //Default darksight of 2.
 		"charger" = /obj/item/organ/internal/cyberimp/arm/power_cord
 		)
-
-	vision_organ = /obj/item/organ/internal/eyes/optical_sensor
 	mutantears = /obj/item/organ/internal/ears/microphone
 	has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest/ipc),
