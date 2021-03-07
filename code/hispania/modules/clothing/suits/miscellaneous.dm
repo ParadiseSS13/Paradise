@@ -35,17 +35,3 @@
 		return FALSE
 	if (prob(hit_reflect_chance))
 		return TRUE
-
-/obj/item/clothing/suit/hooded/wintercoat/security/kans//item custom
-	name = "Kans Winter Coat"
-	desc = "Un Abrigo hecho con un material sintetico similaral kevlar pero mas ligero, es suabe al tacto, tiene una etiqueta que dice (propiedad de kans)"
-	icon = 'icons/hispania/obj/clothing/suits.dmi'
-	icon_state = "wintercoatkans_sec"
-	item_state = "wintercoatsecuritykans"
-	hispania_icon = TRUE
-	hoodtype = /obj/item/clothing/head/hooded/winterhood/security/kans
-
-/obj/item/clothing/head/hooded/winterhood/security/kans//item custom
-	icon_state = "winterhoodkans_sec"
-	icon = 'icons/hispania/obj/clothing/hats.dmi'
-	hispania_icon = TRUE

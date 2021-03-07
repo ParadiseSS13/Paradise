@@ -65,14 +65,15 @@ Chilling extracts:
 
 /obj/item/slimecross/chilling/yellow
 	colour = "yellow"
-	effect_desc = "Recharges the room's APC by 20%."
+	effect_desc = "Recharges the room's APC by 500W."
+	var/energy = 500 //los apc tienen una bateria de 2.5k por defecto, 500 es el 20% de eso (mejores baterias en los apc no tendran bonus)
 
 /obj/item/slimecross/chilling/yellow/do_effect(mob/user)
 	var/area/A = get_area(get_turf(user))
 	user.visible_message("<span class='notice'>[src] shatters, and a the air suddenly feels charged for a moment.</span>")
 	for(var/obj/machinery/power/apc/C in A)
 		if(C.cell)
-			C.cell.charge = min(C.cell.charge + C.cell.maxcharge/5, C.cell.maxcharge)
+			C.cell.give(energy)
 	..()
 
 /obj/item/slimecross/chilling/red

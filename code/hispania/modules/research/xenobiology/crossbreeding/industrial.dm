@@ -31,11 +31,7 @@ Industrial extracts:
 
 /obj/item/slimecross/industrial/process()
 	var/IsWorking = FALSE
-	if(reagents.has_reagent("plasma_dust",  2) && plasmarequired > 1) //Can absorb as much as 2
-		IsWorking = TRUE
-		reagents.remove_reagent("plasma_dust",  2)
-		plasmaabsorbed += 2
-	else if(reagents.has_reagent("plasma_dust",  1)) //Can absorb as little as 1
+	if(reagents.has_reagent("plasma_dust",  1) && plasmarequired >= 1) //absorbe 1 de plasmadust por proceso, puto tg
 		IsWorking = TRUE
 		reagents.remove_reagent("plasma_dust",  1)
 		plasmaabsorbed += 1
@@ -85,7 +81,7 @@ Industrial extracts:
 /obj/item/slimecross/industrial/yellow/do_after_spawn(obj/item/spawned)
 	var/obj/item/stock_parts/cell/high/C = spawned
 	if(istype(C))
-		C.charge = rand(0,C.maxcharge/2)
+		C.use(rand(0,C.charge/2))
 
 /obj/item/slimecross/industrial/darkpurple
 	colour = "dark purple"

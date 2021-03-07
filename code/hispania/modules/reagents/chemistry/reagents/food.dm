@@ -26,6 +26,19 @@
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	taste_description = "avocado"
 
+/datum/reagent/consumable/nutriment/stabilized
+	id = "nutriestable"
+	name = "Stabilized Nutriment"
+	description = "A bioengineered protien-nutrient structure designed to decompose in high saturation. In layman's terms, it won't get you fat."
+	reagent_state = SOLID
+	nutriment_factor = 15 * REAGENTS_METABOLISM
+	color = "#664330" // rgb: 102, 67, 48
+
+/datum/reagent/consumable/nutriment/stabilized/on_mob_life(mob/living/carbon/M)
+	if(M.nutrition > NUTRITION_LEVEL_FULL - 25)
+		M.adjust_nutrition(-3*nutriment_factor)
+	..()
+
 /datum/reagent/consumable/discount_sauce
 	name = "discount sauce"
 	id = "discount_sauce"

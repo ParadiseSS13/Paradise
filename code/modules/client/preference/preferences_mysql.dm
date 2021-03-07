@@ -191,8 +191,7 @@
 					socks,
 					body_accessory,
 					gear,
-					autohiss,
-					all_quirks
+					autohiss
 				 	FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot"}, list(
 						 "ckey" = C.ckey,
 						 "slot" = slot
@@ -272,7 +271,7 @@
 		body_accessory = query.item[50]
 		loadout_gear = params2list(query.item[51])
 		autohiss_mode = text2num(query.item[52])
-		all_quirks = params2list(query.item[53])
+
 		saved = TRUE
 
 	qdel(query)
@@ -333,7 +332,6 @@
 	if(!organ_data) src.organ_data = list()
 	if(!rlimb_data) src.rlimb_data = list()
 	if(!loadout_gear) loadout_gear = list()
-	if(!all_quirks) all_quirks = list()
 
 	// Check if the current body accessory exists
 	if(!GLOB.body_accessory_by_name[body_accessory])
@@ -346,7 +344,6 @@
 	var/rlimblist
 	var/playertitlelist
 	var/gearlist
-	var/quirklist
 
 	var/markingcolourslist = list2params(m_colours)
 	var/markingstyleslist = list2params(m_styles)
@@ -358,8 +355,6 @@
 		playertitlelist = list2params(player_alt_titles)
 	if(!isemptylist(loadout_gear))
 		gearlist = list2params(loadout_gear)
-	if(!isemptylist(all_quirks))
-		quirklist = list2params(all_quirks)
 
 	var/datum/db_query/firstquery = SSdbcore.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey=:ckey ORDER BY slot", list(
 		"ckey" = C.ckey
@@ -422,8 +417,7 @@
 												socks=:socks,
 												body_accessory=:body_accessory,
 												gear=:gearlist,
-												autohiss=:autohiss_mode,
-												all_quirks=:quirklist
+												autohiss=:autohiss_mode
 												WHERE ckey=:ckey
 												AND slot=:slot"}, list(
 													// OH GOD SO MANY PARAMETERS
@@ -479,7 +473,6 @@
 													"body_accessory" = (body_accessory ? body_accessory : ""),
 													"gearlist" = (gearlist ? gearlist : ""),
 													"autohiss_mode" = autohiss_mode,
-													"all_quirks" = (quirklist ? quirklist : ""),
 													"ckey" = C.ckey,
 													"slot" = default_slot
 												)
@@ -521,7 +514,7 @@
 											gen_record,
 											player_alt_titles,
 											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
-											socks, body_accessory, gear, autohiss, all_quirks)
+											socks, body_accessory, gear, autohiss)
 
 					VALUES
 											(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
@@ -549,7 +542,7 @@
 											:gen_record,
 											:playertitlelist,
 											:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :speciesprefs,
-											:socks, :body_accessory, :gearlist, :autohiss_mode, :all_quirks)
+											:socks, :body_accessory, :gearlist, :autohiss_mode)
 
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
@@ -606,8 +599,7 @@
 		"socks" = socks,
 		"body_accessory" = (body_accessory ? body_accessory : ""),
 		"gearlist" = (gearlist ? gearlist : ""),
-		"autohiss_mode" = autohiss_mode,
-		"all_quirks" = (quirklist ? quirklist : "")
+		"autohiss_mode" = autohiss_mode
 	))
 
 	if(!query.warn_execute())
