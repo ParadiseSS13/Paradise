@@ -323,6 +323,8 @@
 	icon_off = "cabinetdetective_broken"
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
+	open_sound = 'sound/machines/wooden_closet_open.ogg'
+	close_sound = 'sound/machines/wooden_closet_close.ogg'
 
 /obj/structure/closet/secure_closet/detective/populate_contents()
 	new /obj/item/clothing/under/det(src)

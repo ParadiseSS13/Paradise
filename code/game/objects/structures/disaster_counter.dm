@@ -8,6 +8,7 @@
 	desc = "This device will count how many shifts it has been since a major disaster in this area. A safe workplace is a productive workplace."
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "frame"
+	anchored = TRUE
 	maptext_y = 10 // Offset by 10 so it renders properly
 	/// ID of the counter. Must be overriden. Use alphanumerics with no spaces only, as this is used in the filesystem.
 	var/counter_id
@@ -18,7 +19,7 @@
 
 /obj/structure/disaster_counter/examine(mob/user)
 	. = ..()
-	. += "The display reads 'Currently [current_count] shifts without an accident, with a record of [record_count] shifts!'"
+	. += "The display reads 'Currently [max(current_count, 0)] shifts without an accident, with a record of [record_count] shifts!'"
 
 /obj/structure/disaster_counter/Initialize(mapload)
 	. = ..()
@@ -30,15 +31,18 @@
 	SSpersistent_data.register(src)
 
 /obj/structure/disaster_counter/ex_act(severity)
-	if(severity < 2)
-		current_count = -1
-		persistent_save()
+	current_count = -1
+	persistent_save()
+	update_maptext()
 	. = ..()
 
 /obj/structure/disaster_counter/Destroy()
 	if(counter_id)
 		SSpersistent_data.registered_atoms -= src // Take us out the list
 	return ..()
+
+/obj/structure/disaster_counter/proc/update_maptext()
+	maptext = "<span class='maptext' style='text-align: center'>[max(current_count, 0)]/[record_count]</span>"
 
 /obj/structure/disaster_counter/persistent_load()
 	// Just incase some bad actor sets the counter ID to "../../../../Windows/System32"
@@ -64,7 +68,7 @@
 		if(current_count > record_count)
 			record_count = current_count
 	log_debug("Persistent data for [src] loaded (current_count: [current_count] | record_count: [record_count])")
-	maptext = "<span class='maptext' style='text-align: center'>[current_count]/[record_count]</span>"
+	update_maptext()
 
 /obj/structure/disaster_counter/persistent_save()
 	if(counter_id != paranoid_sanitize(counter_id))
