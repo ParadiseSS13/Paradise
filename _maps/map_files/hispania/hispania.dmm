@@ -47733,18 +47733,9 @@
 /area/assembly/robotics)
 "bRm" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)"
-	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)"
-	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)"
-	},
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/regular,
 /obj/machinery/newscaster{
 	pixel_x = 26;
 	pixel_y = 1
@@ -89939,7 +89930,7 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/item/autoimplanter,
+/obj/item/autosurgeon,
 /obj/structure/spider/terrorweb/red{
 	icon_state = "floor4"
 	},
