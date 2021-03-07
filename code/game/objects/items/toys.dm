@@ -1226,6 +1226,7 @@
 	icon = 'icons/obj/library.dmi'
 	icon_state = "demonomicon"
 	w_class = WEIGHT_CLASS_SMALL
+	var/list/messages = list("You must challenge the devil to a dance-off!", "The devils true name is Ian", "The devil hates salt!", "Would you like infinite power?", "Would you like infinite wisdom?", " Would you like infinite healing?")
 	var/cooldown = FALSE
 
 /obj/item/toy/codex_gigas/attack_self(mob/user)
@@ -1234,21 +1235,12 @@
 			"<span class='notice'>[user] presses the button on \the [src].</span>",
 			"<span class='notice'>You press the button on \the [src].</span>",
 			"<span class='notice'>You hear a soft click.</span>")
-		var/list/messages = list()
-		var/datum/devilinfo/devil = randomDevilInfo()
-		messages += "Some fun facts about: [devil.truename]"
-		messages += "[GLOB.lawlorify[LORE][devil.bane]]"
-		messages += "[GLOB.lawlorify[LORE][devil.obligation]]"
-		messages += "[GLOB.lawlorify[LORE][devil.ban]]"
-		messages += "[GLOB.lawlorify[LORE][devil.banish]]"
-		playsound(loc, 'sound/machines/click.ogg', 20, 1)
+		playsound(loc, 'sound/machines/click.ogg', 20, TRUE)
 		cooldown = TRUE
-		for(var/message in messages)
+		addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 60)
+		for(var/message in pick(messages))
 			user.loc.visible_message("<span class='danger'>[bicon(src)] [message]</span>")
 			sleep(10)
-		spawn(20)
-			cooldown = FALSE
-		return
 
 /obj/item/toy/owl
 	name = "owl action figure"

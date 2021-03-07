@@ -255,7 +255,7 @@
 	glasses = /obj/item/clothing/glasses/meson/engine
 	mask = /obj/item/clothing/mask/gas
 	cybernetic_implants = list(
-	 /obj/item/organ/internal/cyberimp/eyes/shield,
+	 /obj/item/organ/internal/eyes/cybernetic/shield,
 	 /obj/item/organ/internal/cyberimp/chest/nutriment
 	)
 	l_pocket = /obj/item/t_scanner
@@ -293,7 +293,7 @@
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
-		/obj/item/organ/internal/cyberimp/eyes/shield,
+		/obj/item/organ/internal/eyes/cybernetic/shield,
 		/obj/item/organ/internal/cyberimp/arm/toolset
 	)
 

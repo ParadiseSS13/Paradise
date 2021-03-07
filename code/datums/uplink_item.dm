@@ -1556,43 +1556,32 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 0
 	gamemodes = list(/datum/game_mode/nuclear)
 
-/datum/uplink_item/cyber_implants/spawn_item(turf/loc, obj/item/uplink/U)
-	if(item)
-		if(findtext(item, /obj/item/organ/internal/cyberimp))
-			U.uses -= max(cost, 0)
-			U.used_TC += cost
-			SSblackbox.record_feedback("nested tally", "traitor_uplink_items_bought", 1, list("[initial(name)]", "[cost]")) //this one and the line before copypasted because snowflaek code
-			return new /obj/item/storage/box/cyber_implants(loc, item)
-		else
-			return ..()
-
 /datum/uplink_item/cyber_implants/thermals
 	name = "Thermal Vision Implant"
-	desc = "These cybernetic eyes will give you thermal vision. Comes with an automated implanting tool."
+	desc = "These cybernetic eyes will give you thermal vision. Comes with an autosurgeon."
 	reference = "CIT"
-	item = /obj/item/organ/internal/cyberimp/eyes/thermals
+	item = /obj/item/autosurgeon/organ/syndicate/thermal_eyes
 	cost = 8
 
 /datum/uplink_item/cyber_implants/xray
 	name = "X-Ray Vision Implant"
-	desc = "These cybernetic eyes will give you X-ray vision. Comes with an automated implanting tool."
+	desc = "These cybernetic eyes will give you X-ray vision. Comes with an autosurgeon."
 	reference = "CIX"
-	item = /obj/item/organ/internal/cyberimp/eyes/xray
+	item = /obj/item/autosurgeon/organ/syndicate/xray_eyes
 	cost = 10
 
 /datum/uplink_item/cyber_implants/antistun
 	name = "Hardened CNS Rebooter Implant"
-	desc = "This implant will help you get back up on your feet faster after being stunned. It is invulnerable to EMPs. \
-			Comes with an automated implanting tool."
+	desc = "This implant will help you get back up on your feet faster after being stunned. It is immune to EMP attacks. Comes with an autosurgeon."
 	reference = "CIAS"
-	item = /obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
+	item = /obj/item/autosurgeon/organ/syndicate/anti_stun
 	cost = 12
 
 /datum/uplink_item/cyber_implants/reviver
 	name = "Hardened Reviver Implant"
-	desc = "This implant will attempt to revive you if you lose consciousness. It is invulnerable to EMPs. Comes with an automated implanting tool."
+	desc = "This implant will attempt to revive and heal you if you lose consciousness. It is immune to EMP attacks. Comes with an autosurgeon."
 	reference = "CIR"
-	item = /obj/item/organ/internal/cyberimp/chest/reviver/hardened
+	item = /obj/item/autosurgeon/organ/syndicate/reviver
 	cost = 8
 
 // POINTLESS BADASSERY
@@ -1674,10 +1663,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/bundles_TC/cyber_implants
 	name = "Cybernetic Implants Bundle"
-	desc = "A random selection of cybernetic implants. Guaranteed 5 high quality implants. \
-			Comes with an automated implanting tool."
+	desc = "A random selection of cybernetic implants. Guaranteed 5 high quality implants. Comes with an autosurgeon."
 	reference = "CIB"
-	item = /obj/item/storage/box/cyber_implants/bundle
+	item = /obj/item/storage/box/cyber_implants
 	cost = 40
 	gamemodes = list(/datum/game_mode/nuclear)
 

@@ -160,7 +160,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	// DEBUG OPTIONS & COMMANDS
 	var/spider_growinstantly = FALSE // DEBUG OPTION, DO NOT ENABLE THIS ON LIVE. IT IS USED TO TEST NEST GROWTH/SETUP AI.
 	var/spider_debug = FALSE
-
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: SHARED ATTACK CODE -----------------------

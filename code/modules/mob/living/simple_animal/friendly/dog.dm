@@ -20,6 +20,7 @@
 	var/bark_sound = list('sound/creatures/dog_bark1.ogg','sound/creatures/dog_bark2.ogg') //Used in emote.
 	var/yelp_sound = 'sound/creatures/dog_yelp.ogg' //Used on death.
 	var/last_eaten = 0
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/pet/dog/verb/chasetail()
 	set name = "Chase your tail"
@@ -579,11 +580,6 @@
 			"<span class='cult big bold'>DELICIOUS SOULS</span>")
 			playsound(src, 'sound/misc/demon_attack1.ogg', 75, TRUE)
 			narsie_act()
-			if(P.mind)
-				if(P.mind.hasSoul)
-					P.mind.hasSoul = FALSE //Nars-Ian ate your soul; you don't have one anymore
-				else
-					visible_message("<span class='cult big bold'>... Aw, someone beat me to this one.</span>")
 			P.gib()
 
 /mob/living/simple_animal/pet/dog/corgi/narsie/update_corgi_fluff()

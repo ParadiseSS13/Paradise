@@ -88,7 +88,7 @@
 		return
 
 	if((istype(over_object, /obj/structure/table) || isfloorturf(over_object)) && length(contents) \
-		&& loc == M && !M.stat && !M.restrained() && M.canmove && over_object.Adjacent(M) && !istype(M, /obj/item/storage/lockbox)) // Worlds longest `if()`
+		&& loc == M && !M.stat && !M.restrained() && M.canmove && over_object.Adjacent(M) && !istype(src, /obj/item/storage/lockbox)) // Worlds longest `if()`
 		var/turf/T = get_turf(over_object)
 		if(isfloorturf(over_object))
 			if(get_turf(M) != T)

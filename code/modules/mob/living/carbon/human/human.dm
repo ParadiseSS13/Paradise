@@ -40,6 +40,8 @@
 
 	physiology = new()
 
+	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
+
 	UpdateAppearance()
 	GLOB.human_list += src
 
@@ -330,8 +332,7 @@
 		if(slot_wear_mask in obscured)
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Headpocket:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
-			var/list/items = C.get_contents()
-			if(items.len)
+			if(C.held_item)
 				dat += "<tr><td>&nbsp;&#8627;<B>Headpocket:</B></td><td><A href='?src=[UID()];dislodge_headpocket=1'>Dislodge Items</A></td></tr>"
 			else
 				dat += "<tr><td>&nbsp;&#8627;<B>Headpocket:</B></td><td><font color=grey>Empty</font></td></tr>"
@@ -941,9 +942,9 @@
 	if(istype(wear_mask, /obj/item/clothing/mask))		//mask
 		var/obj/item/clothing/mask/MFP = wear_mask
 		number += MFP.flash_protect
-	for(var/obj/item/organ/internal/cyberimp/eyes/EFP in internal_organs)
-		number += EFP.flash_protect
-
+	var/obj/item/organ/internal/eyes/E = get_organ_slot("eyes")
+	if(E)
+		number += E.flash_protect
 	return number
 
 /mob/living/carbon/human/check_ear_prot()
@@ -1475,12 +1476,9 @@
 
 /mob/living/carbon/human/proc/get_eyecon()
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
-	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
 	if(istype(dna.species) && dna.species.eyes)
 		var/icon/eyes_icon
-		if(eye_implant) //Eye implants override native DNA eye colo(u)r
-			eyes_icon = eye_implant.generate_icon()
-		else if(eyes)
+		if(eyes)
 			eyes_icon = eyes.generate_icon()
 		else //Error 404: Eyes not found!
 			eyes_icon = new('icons/mob/human_face.dmi', dna.species.eyes)
@@ -1906,38 +1904,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(mind && mind.assigned_role == "Cluwne") //HUNKE your suffering never stops
 		makeCluwne()
 
-/mob/living/carbon/human/proc/influenceSin()
-	var/datum/objective/sintouched/O
-	switch(rand(1,7))//traditional seven deadly sins... except lust.
-		if(1) // acedia
-			log_game("[src] was influenced by the sin of Acedia.")
-			O = new /datum/objective/sintouched/acedia
-		if(2) // Gluttony
-			log_game("[src] was influenced by the sin of gluttony.")
-			O = new /datum/objective/sintouched/gluttony
-		if(3) // Greed
-			log_game("[src] was influenced by the sin of greed.")
-			O = new /datum/objective/sintouched/greed
-		if(4) // sloth
-			log_game("[src] was influenced by the sin of sloth.")
-			O = new /datum/objective/sintouched/sloth
-		if(5) // Wrath
-			log_game("[src] was influenced by the sin of wrath.")
-			O = new /datum/objective/sintouched/wrath
-		if(6) // Envy
-			log_game("[src] was influenced by the sin of envy.")
-			O = new /datum/objective/sintouched/envy
-		if(7) // Pride
-			log_game("[src] was influenced by the sin of pride.")
-			O = new /datum/objective/sintouched/pride
-	SSticker.mode.sintouched += src.mind
-	src.mind.objectives += O
-	var/obj_count = 1
-	to_chat(src, "<span class='notice> Your current objectives:")
-	for(var/datum/objective/objective in src.mind.objectives)
-		to_chat(src, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		obj_count++
-
 /mob/living/carbon/human/is_literate()
 	return getBrainLoss() < 100
 
@@ -1950,6 +1916,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/fakefireextinguish()
 	overlays_standing[FIRE_LAYER] = null
 	update_icons()
+
 /mob/living/carbon/human/proc/cleanSE()	//remove all disabilities/powers
 	for(var/block = 1; block <= DNA_SE_LENGTH; block++)
 		dna.SetSEState(block, FALSE, TRUE)
