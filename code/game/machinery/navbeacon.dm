@@ -10,14 +10,15 @@
 	level = 1		// underfloor
 	layer = 2.5
 	anchored = 1
-	armor = list(melee = 70, bullet = 70, laser = 70, energy = 70, bomb = 0, bio = 0, rad = 0)
+	max_integrity = 500
+	armor = list(melee = 70, bullet = 70, laser = 70, energy = 70, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 80)
 	var/open = 0		// true if cover is open
 	var/locked = 1		// true if controls are locked
 	var/location = ""	// location response text
 	var/list/codes		// assoc. list of transponder codes
 	var/codes_txt = ""	// codes as set on map: "tag1;tag2" or "tag1=value;tag2=value"
 
-	req_access = list(access_engine, access_robotics)
+	req_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
 
 /obj/machinery/navbeacon/New()
 	..()
@@ -112,9 +113,6 @@
 
 /obj/machinery/navbeacon/attack_ai(mob/user)
 	interact(user, 1)
-
-/obj/machinery/navbeacon/attack_animal()
-	return
 
 /obj/machinery/navbeacon/attack_hand(mob/user)
 	interact(user, 0)

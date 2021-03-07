@@ -1,8 +1,0 @@
-author: "Couls"
-delete-after: True
-changes: 
-  - rscadd: "Diagonal movement"
-  - rscadd: "Input subsystem(numpad targetting, press numpad 8 multiple times to target eyes and mouth, numpad 6 or 4 to target arms and press them again to target hands and numpad 1 or 3 to target legs and press them again to target feet) taken from https://github.com/tgstation/tgstation/pull/32751"
-  - rscadd: "change confused status to have you move diagonally randomly in the direction you're headed if not too confused(now you can drunkenly walk down the hall)"
-  - rscadd: "clients are now children of datums like everything else in BYOND taken from https://github.com/tgstation/tgstation/pull/20394"
-  - rscadd: "AZERTY and numpad targetting preferences"

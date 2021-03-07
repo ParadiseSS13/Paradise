@@ -32,7 +32,7 @@
 	bodytemperature = 73.0		//it's made of snow and hatred, so it's pretty cold.
 	maxbodytemp = 280.15		//at roughly 7 C, these will start melting (dying) from the warmth. Mind over matter or something.
 	heat_damage_per_tick = 10	//Now With Rapid Thawing Action!
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	gold_core_spawnable = HOSTILE_SPAWN
 
 
 /mob/living/simple_animal/hostile/winter/snowman/death(gibbed)
@@ -64,7 +64,7 @@
 	health = 80
 	melee_damage_lower = 5
 	melee_damage_upper = 10
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	gold_core_spawnable = HOSTILE_SPAWN
 
 /mob/living/simple_animal/hostile/winter/santa
 	maxHealth = 150		//if this seems low for a "boss", it's because you have to fight him multiple times, with him fully healing between stages
@@ -117,7 +117,7 @@
 	maxHealth = 250
 	health = 250
 	ranged = 1
-	rapid = 1
+	rapid = 3
 	speed = 0	//he's lost some weight from the fighting
 	projectiletype = /obj/item/projectile/ornament
 	retreat_distance = 3

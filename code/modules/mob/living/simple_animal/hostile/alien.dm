@@ -4,45 +4,43 @@
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "alienh_running"
 	icon_living = "alienh_running"
-	icon_dead = "alien_l"
+	icon_dead = "alienh_dead"
 	icon_gib = "syndicate_gib"
-	response_help = "pokes the"
-	response_disarm = "shoves the"
-	response_harm = "hits the"
+	gender = FEMALE
+	response_help = "pokes"
+	response_disarm = "shoves"
+	response_harm = "hits"
 	speed = 0
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/xenomeat = 3)
-	maxHealth = 100
-	health = 100
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat= 3, /obj/item/stack/sheet/animalhide/xeno = 1)
+	maxHealth = 125
+	health = 125
 	harm_intent_damage = 5
 	obj_damage = 60
 	melee_damage_lower = 25
 	melee_damage_upper = 25
 	attacktext = "slashes"
 	speak_emote = list("hisses")
+	bubble_icon = "alien"
 	a_intent = INTENT_HARM
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 15
 	heat_damage_per_tick = 20
-	pressure_resistance = 100    //100 kPa difference required to push
-	throw_pressure_limit = 120   //120 kPa difference required to throw
 	faction = list("alien")
 	status_flags = CANPUSH
 	minbodytemp = 0
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	gold_core_spawnable = HOSTILE_SPAWN
 	death_sound = 'sound/voice/hiss6.ogg'
 	deathmessage = "lets out a waning guttural screech, green blood bubbling from its maw..."
-
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/hostile/alien/drone
 	name = "alien drone"
 	icon_state = "aliend_running"
 	icon_living = "aliend_running"
-	icon_dead = "aliend_l"
-	health = 60
-	maxHealth = 60
+	icon_dead = "aliend_dead"
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	var/plant_cooldown = 30
@@ -61,9 +59,9 @@
 	name = "alien sentinel"
 	icon_state = "aliens_running"
 	icon_living = "aliens_running"
-	icon_dead = "aliens_l"
-	health = 120
-	maxHealth = 120
+	icon_dead = "aliens_dead"
+	health = 150
+	maxHealth = 150
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	ranged = 1
@@ -77,7 +75,7 @@
 	name = "alien queen"
 	icon_state = "alienq_running"
 	icon_living = "alienq_running"
-	icon_dead = "alienq_l"
+	icon_dead = "alienq_d"
 	health = 250
 	maxHealth = 250
 	melee_damage_lower = 15
@@ -86,6 +84,7 @@
 	retreat_distance = 5
 	minimum_distance = 5
 	move_to_delay = 4
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat= 4, /obj/item/stack/sheet/animalhide/xeno = 1)
 	projectiletype = /obj/item/projectile/neurotox
 	projectilesound = 'sound/weapons/pierce.ogg'
 	status_flags = 0
@@ -108,7 +107,7 @@
 			LayEggs()
 
 /mob/living/simple_animal/hostile/alien/proc/SpreadPlants()
-	if(!isturf(loc) || istype(loc, /turf/space))
+	if(!isturf(loc) || isspaceturf(loc))
 		return
 	if(locate(/obj/structure/alien/weeds/node) in get_turf(src))
 		return
@@ -116,7 +115,7 @@
 	new /obj/structure/alien/weeds/node(loc)
 
 /mob/living/simple_animal/hostile/alien/proc/LayEggs()
-	if(!isturf(loc) || istype(loc, /turf/space))
+	if(!isturf(loc) || isspaceturf(loc))
 		return
 	if(locate(/obj/structure/alien/egg) in get_turf(src))
 		return
@@ -129,11 +128,13 @@
 	icon_state = "queen_s"
 	icon_living = "queen_s"
 	icon_dead = "queen_dead"
+	bubble_icon = "alienroyal"
 	move_to_delay = 4
 	maxHealth = 400
 	health = 400
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat= 10, /obj/item/stack/sheet/animalhide/xeno = 2)
 	mob_size = MOB_SIZE_LARGE
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = NO_SPAWN
 
 /obj/item/projectile/neurotox
 	name = "neurotoxin"
@@ -147,18 +148,19 @@
 	a_intent = INTENT_HELP
 	friendly = "caresses"
 	obj_damage = 0
-	environment_smash = 0
+	environment_smash = ENVIRONMENT_SMASH_NONE
+	gold_core_spawnable = HOSTILE_SPAWN
 	icon_state = "maid"
 	icon_living = "maid"
 	icon_dead = "maid_dead"
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID //no fun allowed
 
 /mob/living/simple_animal/hostile/alien/maid/AttackingTarget()
-	if(istype(target, /atom/movable))
+	if(ismovable(target))
 		if(istype(target, /obj/effect/decal/cleanable))
 			visible_message("<span class='notice'>\The [src] cleans up \the [target].</span>")
 			qdel(target)
-			return
+			return TRUE
 		var/atom/movable/M = target
 		M.clean_blood()
 		visible_message("<span class='notice'>\The [src] polishes \the [target].</span>")
+		return TRUE

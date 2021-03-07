@@ -32,6 +32,7 @@
 	var/detected_pod = FALSE
 	var/detected_double_agent = FALSE
 	var/mine_trigger_count = 0
+	var/perimeter_shield_status = FALSE
 	var/obj/machinery/computer/syndicate_depot/syndiecomms/comms_computer = null
 	var/obj/structure/fusionreactor/reactor
 
@@ -114,9 +115,13 @@
 	updateicon()
 
 /area/syndicate_depot/core/proc/locker_looted()
-	something_looted = TRUE
-	if(on_peaceful)
-		increase_alert("Thieves!")
+	if(!something_looted)
+		something_looted = TRUE
+		if(on_peaceful)
+			increase_alert("Thieves!")
+		if(perimeter_shield_status)
+			increase_alert("Perimeter shield breach!")
+
 
 /area/syndicate_depot/core/proc/armory_locker_looted()
 	if(!run_finished && !used_self_destruct)
@@ -146,7 +151,8 @@
 	if(detected_pod)
 		return
 	detected_pod = TRUE
-	increase_alert("Hostile spacepod detected: [P]")
+	if(!called_backup)
+		increase_alert("Hostile spacepod detected: [P]")
 
 /area/syndicate_depot/core/proc/saw_double_agent(mob/living/M)
 	if(detected_double_agent)
@@ -168,18 +174,15 @@
 				L.close()
 			if(!L.locked)
 				L.locked = !L.locked
-			L.req_access = list(access_syndicate_leader)
+			L.req_access = list(ACCESS_SYNDICATE_LEADER)
 			L.update_icon()
-		for(var/obj/machinery/computer/syndicate_depot/teleporter/P in src)
-			if(!P.portal_enabled)
-				P.toggle_portal()
 	else
 		log_game("Depot visit: ended")
 		alert_log += "Visitor mode ended."
 		for(var/mob/living/simple_animal/hostile/syndicate/N in src)
 			N.a_intent = INTENT_HARM
 		for(var/obj/machinery/door/airlock/A in src)
-			A.req_access_txt = "[access_syndicate_leader]"
+			A.req_access_txt = "[ACCESS_SYNDICATE_LEADER]"
 		for(var/obj/structure/closet/secure_closet/syndicate/depot/L in src)
 			if(L.locked)
 				L.locked = !L.locked
@@ -213,7 +216,8 @@
 	if(!silent)
 		announce_here("Depot Code BLUE", reason)
 		var/list/possible_bot_spawns = list()
-		for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+		for(var/thing in GLOB.landmarks_list)
+			var/obj/effect/landmark/L = thing
 			if(L.name == "syndi_depot_bot")
 				possible_bot_spawns |= L
 		if(possible_bot_spawns.len)
@@ -245,7 +249,8 @@
 			comms_online = TRUE
 	if(comms_online)
 		spawn(0)
-			for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+			for(var/thing in GLOB.landmarks_list)
+				var/obj/effect/landmark/L = thing
 				if(prob(50))
 					if(L.name == "syndi_depot_backup")
 						var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/S = new /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space(get_turf(L))
@@ -287,7 +292,7 @@
 		if(!reactor.has_overloaded)
 			reactor.overload(containment_failure)
 	else
-		log_debug("Depot: [src] called activate_self_destruct with no reactor.");
+		log_debug("Depot: [src] called activate_self_destruct with no reactor.")
 		message_admins("<span class='adminnotice'>Syndicate Depot lacks reactor to initiate self-destruct. Must be destroyed manually.</span>")
 	updateicon()
 
@@ -317,7 +322,7 @@
 		A.update_icon()
 
 /area/syndicate_depot/core/proc/toggle_falsewalls()
-	for(var/obj/structure/falsewall/reinforced/F in src)
+	for(var/obj/structure/falsewall/plastitanium/F in src)
 		spawn(0)
 			F.toggle()
 
@@ -336,12 +341,13 @@
 			receivers |= M
 	for(var/mob/R in receivers)
 		to_chat(R, msg_text)
-		R << sound('sound/misc/notice1.ogg')
+		SEND_SOUND(R, sound('sound/misc/notice1.ogg'))
 
 /area/syndicate_depot/core/proc/shields_up()
 	if(shield_list.len)
 		return
-	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+	for(var/thing in GLOB.landmarks_list)
+		var/obj/effect/landmark/L = thing
 		if(L.name == "syndi_depot_shield")
 			var/obj/machinery/shieldwall/syndicate/S = new /obj/machinery/shieldwall/syndicate(L.loc)
 			shield_list += S.UID()
@@ -418,18 +424,47 @@
 		return TRUE
 	return FALSE
 
+/**
+  * Returns a STRING, containing the NAMES of the mobs in the provided list, JOINED together with ", "
+  *
+  * E.g. list_show(depotarea.guard_list) returns a string like:
+  * "Syndicate Backup (123), Syndicate Backup(456), Syndicate Backup(789)", etc.
+  * Arguments:
+  * * list/L, the list of UIDs from which to draw members
+  * * show_ckeys, bool, if true will display ckeys in addition to names
+  */
 /area/syndicate_depot/core/proc/list_show(list/L, show_ckeys = FALSE)
-	var/list/formatted = list()
+	var/list/formatted = list_shownames(L, show_ckeys)
+	return formatted.Join(", ")
+
+/**
+  * Returns a LIST of the NAMES of the mobs in the provided list.
+  *
+  * E.g. list_shownames(depotarea.guard_list) returns a list of the names of extra guard mobs in depot.
+  * Arguments:
+  * * list/L, the list of UIDs from which to draw members
+  * * show_ckeys, bool, if true will display ckeys in addition to names
+  */
+/area/syndicate_depot/core/proc/list_shownames(list/L, show_ckeys = FALSE)
+	var/list/names = list()
 	for(var/uid in L)
 		var/mob/M = locateUID(uid)
 		if(!istype(M))
 			continue
 		if(show_ckeys)
-			formatted += "[M.ckey]([M])"
+			names += "[M.ckey]([M])"
 		else
-			formatted += "[M]"
-	return formatted.Join(", ")
+			names += "[M]"
+	return names
 
+/**
+  * Returns a LIST of the MOBS in one of the depot area's lists.
+  *
+  * E.g. list_getmobs(depotarea.guard_list) returns a list of the extra guard mobs in the depot.
+  * Arguments:
+  * * list/L, the list of UIDs from which to draw members
+  * * show_ckeys, bool, if true will display ckeys in addition to names
+  */
 /area/syndicate_depot/core/proc/list_getmobs(list/L, show_ckeys = FALSE)
 	var/list/moblist = list()
 	for(var/uid in L)
@@ -438,19 +473,6 @@
 			continue
 		moblist += M
 	return moblist
-
-/area/syndicate_depot/core/proc/list_gethtmlmobs(list/L)
-	var/returntext = ""
-	var/list/moblist = list_getmobs(L)
-	if(moblist.len)
-		returntext += "<UL>"
-		for(var/mob/thismob in moblist)
-			returntext += "<LI>[thismob]</LI>"
-		returntext += "</UL>"
-	else
-		returntext += "<BR>NONE"
-	return returntext
-
 /area/syndicate_depot/outer
 	name = "Suspicious Asteroid"
 	icon_state = "green"

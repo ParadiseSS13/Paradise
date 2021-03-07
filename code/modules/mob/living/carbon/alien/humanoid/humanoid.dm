@@ -2,7 +2,7 @@
 	name = "alien"
 	icon_state = "alien_s"
 
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/xenomeat = 5, /obj/item/stack/sheet/animalhide/xeno = 1)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat= 5, /obj/item/stack/sheet/animalhide/xeno = 1)
 	var/obj/item/r_store = null
 	var/obj/item/l_store = null
 	var/caste = ""
@@ -14,18 +14,16 @@
 	var/custom_pixel_x_offset = 0 //for admin fuckery.
 	var/custom_pixel_y_offset = 0
 	pass_flags = PASSTABLE
-	pressure_resistance = 100    //100 kPa difference required to push
-	throw_pressure_limit = 120  //120 kPa difference required to throw
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/humanoid/New()
-	create_reagents(1000)
 	if(name == "alien")
 		name = text("alien ([rand(1, 1000)])")
 	real_name = name
 	add_language("Xenomorph")
 	add_language("Hivemind")
 	..()
+	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
 
 /mob/living/carbon/alien/humanoid/Process_Spacemove(var/check_drift = 0)
 	if(..())
@@ -66,15 +64,6 @@
 			AdjustEarDamage(15, 60)
 
 	take_overall_damage(b_loss, f_loss)
-
-/mob/living/carbon/alien/humanoid/attack_slime(mob/living/carbon/slime/M)
-	..()
-	var/damage = rand(5, 35)
-	if(M.is_adult)
-		damage = rand(10, 40)
-	adjustBruteLoss(damage)
-	add_attack_logs(src, M, "Slime'd for [damage] damage")
-	return
 
 /mob/living/carbon/alien/humanoid/restrained()
 	if(handcuffed)

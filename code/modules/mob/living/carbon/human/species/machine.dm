@@ -9,7 +9,6 @@
 	inhuman in outlook and perspective."
 
 	icobase = 'icons/mob/human_races/r_machine.dmi'
-	deform = 'icons/mob/human_races/r_machine.dmi'
 	language = "Trinary"
 	remains_type = /obj/effect/decal/remains/robot
 	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
@@ -19,19 +18,18 @@
 	burn_mod = 2.28  // So they take 50% extra damage from brute/burn overall
 	tox_mod = 0
 	clone_mod = 0
-	death_message = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off..."
+	death_message = "gives a short series of shrill beeps, their chassis shuddering before falling limp, nonfunctional."
+	death_sounds = list('sound/voice/borg_deathsound.ogg') //I've made this a list in the event we add more sounds for dead robots.
 
-	species_traits = list(IS_WHITELISTED, NO_BREATHE, NO_SCAN, NO_INTORGANS, NO_PAIN, NO_DNA, RADIMMUNE, VIRUSIMMUNE, NOTRANSSTING)
+	species_traits = list(IS_WHITELISTED, NO_BLOOD, NO_CLONESCAN, NO_INTORGANS, NOTRANSSTING)
+	inherent_traits = list(TRAIT_VIRUSIMMUNE, TRAIT_NOBREATH, TRAIT_RADIMMUNE, TRAIT_NOGERMS, TRAIT_NODECAY, TRAIT_NOPAIN, TRAIT_GENELESS) //Computers that don't decay? What a lie!
+	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS
 	dietflags = 0		//IPCs can't eat, so no diet
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
-	blood_color = "#1F181F"
+	blood_color = COLOR_BLOOD_MACHINE
 	flesh_color = "#AAAAAA"
-
-	blood_color = "#3C3C3C"
-	exotic_blood = "oil"
-	blood_damage_type = STAMINA
 
 	//Default styles for created mobs.
 	default_hair = "Blue IPC Screen"
@@ -50,11 +48,9 @@
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
 		"cell" = /obj/item/organ/internal/cell,
-		"optics" = /obj/item/organ/internal/eyes/optical_sensor, //Default darksight of 2.
+		"eyes" = /obj/item/organ/internal/eyes/optical_sensor, //Default darksight of 2.
 		"charger" = /obj/item/organ/internal/cyberimp/arm/power_cord
 		)
-
-	vision_organ = /obj/item/organ/internal/eyes/optical_sensor
 	mutantears = /obj/item/organ/internal/ears/microphone
 	has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest/ipc),
@@ -90,7 +86,7 @@
 	if(monitor)
 		monitor.Remove(H)
 
-/datum/species/machine/handle_death(mob/living/carbon/human/H)
+/datum/species/machine/handle_death(gibbed, mob/living/carbon/human/H)
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 	if(!head_organ)
 		return
@@ -115,12 +111,12 @@
 		to_chat(H, "<span class='warning'>Where's your head at? Can't change your monitor/display without one.</span>")
 		return
 
-	var/datum/robolimb/robohead = all_robolimbs[head_organ.model]
+	var/datum/robolimb/robohead = GLOB.all_robolimbs[head_organ.model]
 	if(!head_organ)
 		return
 	if(!robohead.is_monitor) //If they've got a prosthetic head and it isn't a monitor, they've no screen to adjust. Instead, let them change the colour of their optics!
 		var/optic_colour = input(H, "Select optic colour", H.m_colours["head"]) as color|null
-		if(H.incapacitated())
+		if(H.incapacitated(TRUE, TRUE, TRUE))
 			to_chat(H, "<span class='warning'>You were interrupted while changing the colour of your optics.</span>")
 			return
 		if(optic_colour)
@@ -148,7 +144,7 @@
 		var/new_style = input(H, "Select a monitor display", "Monitor Display", head_organ.h_style) as null|anything in hair
 		var/new_color = input("Please select hair color.", "Monitor Color", head_organ.hair_colour) as null|color
 
-		if(H.incapacitated())
+		if(H.incapacitated(TRUE, TRUE, TRUE))
 			to_chat(H, "<span class='warning'>You were interrupted while changing your monitor display.</span>")
 			return
 

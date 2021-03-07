@@ -5,6 +5,7 @@
 	reagent_state = LIQUID
 	color = "#FFAF00"
 	process_flags = ORGANIC | SYNTHETIC
+	taste_description = "burning"
 	var/temp_fire = 4000
 	var/temp_deviance = 1000
 	var/size_divisor = 40
@@ -15,13 +16,14 @@
 		return
 	var/radius = min(max(0, volume / size_divisor), 8)
 	fireflash_sm(T, radius, rand(temp_fire - temp_deviance, temp_fire + temp_deviance), 500)
+	fire_flash_log(holder, id)
 
-/datum/reagent/phlogiston/reaction_mob(mob/living/M, method = TOUCH, volume)
+/datum/reagent/phlogiston/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(holder.chem_temp <= T0C - 50)
 		return
 	M.adjust_fire_stacks(mob_burning)
 	M.IgniteMob()
-	if(method == INGEST)
+	if(method == REAGENT_INGEST)
 		M.adjustFireLoss(min(max(10, volume * 2), 45))
 		to_chat(M, "<span class='warning'>It burns!</span>")
 		M.emote("scream")
@@ -49,11 +51,13 @@
 	reagent_state = LIQUID
 	process_flags = ORGANIC | SYNTHETIC
 	color = "#C86432"
+	taste_description = "burning"
 
 /datum/reagent/napalm/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature > T0C + 100)
 		var/radius = min(max(0, volume * 0.15), 8)
 		fireflash_sm(get_turf(holder.my_atom), radius, rand(3000, 6000), 500)
+		fire_flash_log(holder, id)
 		if(holder)
 			holder.del_reagent(id)
 
@@ -64,8 +68,8 @@
 		T.create_reagents(volume)
 	T.reagents.add_reagent("napalm", volume)
 
-/datum/reagent/napalm/reaction_mob(mob/living/M, method = TOUCH, volume)
-	if(method == TOUCH)
+/datum/reagent/napalm/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
+	if(method == REAGENT_TOUCH)
 		if(M.on_fire)
 			M.adjust_fire_stacks(14)
 			M.emote("scream")
@@ -84,7 +88,7 @@
 	drink_icon = "dr_gibb_glass"
 	drink_name = "Glass of welder fuel"
 	drink_desc = "Unless you are an industrial tool, this is probably not safe for consumption."
-	taste_message = "mistakes"
+	taste_description = "mistakes"
 	process_flags = ORGANIC | SYNTHETIC
 	var/max_radius = 7
 	var/min_radius = 0
@@ -129,8 +133,8 @@
 		T.create_reagents(50)
 	T.reagents.add_reagent("fuel", volume)
 
-/datum/reagent/fuel/reaction_mob(mob/living/M, method=TOUCH, volume)//Splashing people with welding fuel to make them easy to ignite!
-	if(method == TOUCH)
+/datum/reagent/fuel/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)//Splashing people with welding fuel to make them easy to ignite!
+	if(method == REAGENT_TOUCH)
 		if(M.on_fire)
 			M.adjust_fire_stacks(6)
 
@@ -140,11 +144,13 @@
 	description = "The liquid phase of an unusual extraterrestrial compound."
 	reagent_state = LIQUID
 	color = "#7A2B94"
-	taste_message = "corporate assets going to waste"
+	taste_description = "corporate assets going to waste"
+	taste_mult = 1.5
 
 /datum/reagent/plasma/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature >= T0C + 100)
 		fireflash(get_turf(holder.my_atom), min(max(0, volume / 10), 8))
+		fire_flash_log(holder, id)
 		if(holder)
 			holder.del_reagent(id)
 
@@ -158,8 +164,8 @@
 		C.adjustPlasma(10)
 	return ..() | update_flags
 
-/datum/reagent/plasma/reaction_mob(mob/living/M, method = TOUCH, volume)//Splashing people with plasma is stronger than fuel!
-	if(method == TOUCH)
+/datum/reagent/plasma/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)//Splashing people with plasma is stronger than fuel!
+	if(method == REAGENT_TOUCH)
 		if(M.on_fire)
 			M.adjust_fire_stacks(6)
 
@@ -171,10 +177,10 @@
 	reagent_state = SOLID
 	color = "#673910" // rgb: 103, 57, 16
 	process_flags = ORGANIC | SYNTHETIC
-	taste_message = "rust"
+	taste_description = "rust"
 
-/datum/reagent/thermite/reaction_mob(mob/living/M, method= TOUCH, volume)
-	if(method == TOUCH)
+/datum/reagent/thermite/reaction_mob(mob/living/M, method= REAGENT_TOUCH, volume)
+	if(method == REAGENT_TOUCH)
 		if(M.on_fire)
 			M.adjust_fire_stacks(20)
 
@@ -187,6 +193,7 @@
 		var/datum/reagents/Holder = holder
 		var/Id = id
 		var/Volume = volume
+		fire_flash_log(holder, id)
 		Holder.del_reagent(Id)
 		fireflash_sm(S, 0, rand(20000, 25000) + Volume * 2500, 0, 0, 1)
 
@@ -195,8 +202,7 @@
 		if(!S.reagents)
 			S.create_reagents(volume)
 		S.reagents.add_reagent("thermite", volume)
-		S.overlays.Cut()
-		S.overlays = image('icons/effects/effects.dmi', icon_state = "thermite")
+		S.thermite = TRUE
 		if(S.active_hotspot)
 			S.reagents.temperature_reagents(S.active_hotspot.temperature, 10, 300)
 
@@ -206,7 +212,7 @@
 	description = "Glycerol is a simple polyol compound. Glycerol is sweet-tasting and of low toxicity."
 	reagent_state = LIQUID
 	color = "#808080" // rgb: 128, 128, 128
-	taste_message = "sweetness"
+	taste_description = "sweetness"
 
 /datum/reagent/stabilizing_agent
 	name = "Stabilizing Agent"
@@ -214,7 +220,7 @@
 	description = "A chemical that stabilises normally volatile compounds, preventing them from reacting immediately."
 	reagent_state = LIQUID
 	color = "#FFFF00"
-	taste_message = "long-term stability"
+	taste_description = "long-term stability"
 
 /datum/reagent/clf3
 	name = "Chlorine Trifluoride"
@@ -224,7 +230,7 @@
 	color = "#FF0000"
 	metabolization_rate = 4
 	process_flags = ORGANIC | SYNTHETIC
-	taste_message = null
+	taste_mult = 0
 
 /datum/reagent/clf3/on_mob_life(mob/living/M)
 	if(M.on_fire)
@@ -236,12 +242,13 @@
 		return
 	var/radius = min((volume - 3) * 0.15, 3)
 	fireflash_sm(T, radius, 4500 + volume * 500, 350)
+	fire_flash_log(holder, id)
 
-/datum/reagent/clf3/reaction_mob(mob/living/M, method = TOUCH, volume)
-	if(method == TOUCH || method == INGEST)
+/datum/reagent/clf3/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
+	if(method == REAGENT_TOUCH || method == REAGENT_INGEST)
 		M.adjust_fire_stacks(10)
 		M.IgniteMob()
-	if(method == INGEST)
+	if(method == REAGENT_INGEST)
 		M.adjustFireLoss(min(max(15, volume * 2.5), 90))
 		to_chat(M, "<span class='warning'>It burns!</span>")
 		M.emote("scream")
@@ -252,6 +259,7 @@
 	description = "Sends everything flying from the detonation point."
 	reagent_state = LIQUID
 	color = "#FFA500"
+	taste_description = "air and bitterness"
 
 /datum/reagent/sorium/reaction_turf(turf/T, volume) // oh no
 	if(prob(75))
@@ -268,7 +276,7 @@
 	description = "Sucks everything into the detonation point."
 	reagent_state = LIQUID
 	color = "#800080"
-	taste_message = "the end of the world"
+	taste_description = "compressed bitterness"
 
 /datum/reagent/liquid_dark_matter/reaction_turf(turf/T, volume) //Oh gosh, why
 	if(prob(75))
@@ -287,7 +295,7 @@
 	color = "#000000"
 	metabolization_rate = 0.05
 	penetrates_skin = TRUE
-	taste_message = "explosions"
+	taste_description = "explosions"
 
 /datum/reagent/blackpowder/reaction_turf(turf/T, volume) //oh shit
 	if(volume >= 5 && !isspaceturf(T))
@@ -301,6 +309,7 @@
 	reagent_state = LIQUID
 	color = "#FFFF00"
 	penetrates_skin = TRUE
+	taste_description = "salt"
 
 /datum/reagent/smoke_powder
 	name = "Smoke Powder"
@@ -308,6 +317,7 @@
 	description = "Makes a large cloud of smoke that can carry reagents."
 	reagent_state = LIQUID
 	color = "#808080"
+	taste_description = "smoke"
 
 /datum/reagent/sonic_powder
 	name = "Sonic Powder"
@@ -316,6 +326,7 @@
 	reagent_state = LIQUID
 	color = "#0000FF"
 	penetrates_skin = TRUE
+	taste_description = "loud noises"
 
 /datum/reagent/cryostylane
 	name = "Cryostylane"
@@ -323,6 +334,15 @@
 	description = "Comes into existence at 20K. As long as there is sufficient oxygen for it to react with, Cryostylane slowly cools all other reagents in the mob down to 0K."
 	color = "#B2B2FF" // rgb: 139, 166, 233
 	process_flags = ORGANIC | SYNTHETIC
+	taste_description = "bitterness"
+
+/datum/reagent/cryostylane/on_new(data)
+	..()
+	START_PROCESSING(SSprocessing, src)
+
+/datum/reagent/cryostylane/Destroy()
+	STOP_PROCESSING(SSprocessing, src)
+	return ..()
 
 /datum/reagent/cryostylane/on_mob_life(mob/living/M) //TODO: code freezing into an ice cube
 	if(M.reagents.has_reagent("oxygen"))
@@ -330,16 +350,15 @@
 		M.bodytemperature -= 30
 	return ..()
 
-/datum/reagent/cryostylane/on_tick()
-	if(holder.has_reagent("oxygen"))
-		holder.remove_reagent("oxygen", 2)
-		holder.remove_reagent("cryostylane", 2)
-		holder.temperature_reagents(holder.chem_temp - 200)
-		holder.temperature_reagents(holder.chem_temp - 200)
-	..()
+/datum/reagent/cryostylane/process()
+	if(..())
+		if(holder.has_reagent("oxygen"))
+			holder.remove_reagent("oxygen", 2)
+			holder.remove_reagent("cryostylane", 2)
+			holder.temperature_reagents(holder.chem_temp - 200)
 
-/datum/reagent/cryostylane/reaction_mob(mob/living/M, method = TOUCH, volume)
-	if(method == TOUCH)
+/datum/reagent/cryostylane/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
+	if(method == REAGENT_TOUCH)
 		M.ExtinguishMob()
 
 /datum/reagent/cryostylane/reaction_turf(turf/simulated/T, volume)
@@ -348,7 +367,7 @@
 	if(volume >= 3)
 		T.MakeSlippery(TURF_WET_ICE)
 	if(volume >= 5)
-		for(var/mob/living/carbon/slime/M in T)
+		for(var/mob/living/simple_animal/slime/M in T)
 			M.adjustToxLoss(rand(15,30))
 
 /datum/reagent/pyrosium
@@ -357,6 +376,15 @@
 	description = "Comes into existence at 20K. As long as there is sufficient oxygen for it to react with, Pyrosium slowly heats all other reagents."
 	color = "#B20000" // rgb: 139, 166, 233
 	process_flags = ORGANIC | SYNTHETIC
+	taste_description = "bitterness"
+
+/datum/reagent/pyrosium/on_new(data)
+	..()
+	START_PROCESSING(SSprocessing, src)
+
+/datum/reagent/pyrosium/Destroy()
+	STOP_PROCESSING(SSprocessing, src)
+	return ..()
 
 /datum/reagent/pyrosium/on_mob_life(mob/living/M)
 	if(M.reagents.has_reagent("oxygen"))
@@ -364,13 +392,12 @@
 		M.bodytemperature += 30
 	return ..()
 
-/datum/reagent/pyrosium/on_tick()
-	if(holder.has_reagent("oxygen"))
-		holder.remove_reagent("oxygen", 2)
-		holder.remove_reagent("pyrosium", 2)
-		holder.temperature_reagents(holder.chem_temp + 200)
-		holder.temperature_reagents(holder.chem_temp + 200)
-	..()
+/datum/reagent/pyrosium/process()
+	if(..())
+		if(holder.has_reagent("oxygen"))
+			holder.remove_reagent("oxygen", 2)
+			holder.remove_reagent("pyrosium", 2)
+			holder.temperature_reagents(holder.chem_temp + 200)
 
 /datum/reagent/firefighting_foam
 	name = "Firefighting foam"
@@ -379,10 +406,11 @@
 	reagent_state = LIQUID
 	color = "#A0A090"
 	var/cooling_temperature = 3 // more effective than water
+	taste_description = "the inside of a fire extinguisher"
 
-/datum/reagent/firefighting_foam/reaction_mob(mob/living/M, method=TOUCH, volume)
+/datum/reagent/firefighting_foam/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 // Put out fire
-	if(method == TOUCH)
+	if(method == REAGENT_TOUCH)
 		M.adjust_fire_stacks(-10) // more effective than water
 
 /datum/reagent/firefighting_foam/reaction_obj(obj/O, volume)
@@ -406,11 +434,13 @@
 	id = "plasma_dust"
 	description = "A fine dust of plasma. This chemical has unusual mutagenic properties for viruses and slimes alike."
 	color = "#500064" // rgb: 80, 0, 100
-	taste_message = "corporate assets going to waste"
+	taste_description = "corporate assets going to waste"
+	taste_mult = 1.5
 
 /datum/reagent/plasma_dust/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature >= T0C + 100)
 		fireflash(get_turf(holder.my_atom), min(max(0, volume / 10), 8))
+		fire_flash_log(holder, id)
 		if(holder)
 			holder.del_reagent(id)
 
@@ -422,8 +452,8 @@
 		C.adjustPlasma(20)
 	return ..() | update_flags
 
-/datum/reagent/plasma_dust/reaction_mob(mob/living/M, method=TOUCH, volume)//Splashing people with plasma dust is stronger than fuel!
-	if(method == TOUCH)
+/datum/reagent/plasma_dust/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)//Splashing people with plasma dust is stronger than fuel!
+	if(method == REAGENT_TOUCH)
 		M.adjust_fire_stacks(volume / 5)
 		return
 	..()

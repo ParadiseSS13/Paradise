@@ -26,12 +26,16 @@
 /datum/weather/floor_is_lava/weather_act(mob/living/L)
 	if(issilicon(L))
 		return
+	if(istype(L.buckled, /obj/structure/bed))
+		return
 	for(var/obj/structure/O in L.loc)
-		if(O.density || O.buckled_mob && istype(O, /obj/structure/bed))
+		if(O.density)
 			return
 	if(L.loc.density)
 		return
 	if(!L.client) //Only sentient people are going along with it!
+		return
+	if(L.flying)
 		return
 	L.adjustFireLoss(3)
 

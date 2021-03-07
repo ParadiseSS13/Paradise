@@ -41,7 +41,7 @@
 			for(var/turf/T in (orange(i, epicenter) - orange(i-1, epicenter)))
 				turflist |= T
 			for(var/turf/T in turflist)
-				if( !(get_dir(T,epicenter) in cardinal) && (abs(T.x - epicenter.x) == abs(T.y - epicenter.y) ))
+				if( !(get_dir(T,epicenter) in GLOB.cardinal) && (abs(T.x - epicenter.x) == abs(T.y - epicenter.y) ))
 					turflist.Remove(T)
 					turflist.Add(T) // we move the purely diagonal turfs to the end of the list.
 			for(var/turf/T in turflist)
@@ -51,7 +51,7 @@
 					var/turf/NT = thing
 					if(!(NT in accessible))
 						continue
-					if(!(get_dir(T,NT) in cardinal))
+					if(!(get_dir(T,NT) in GLOB.cardinal))
 						continue
 					accessible[T] = 1
 					break
@@ -69,7 +69,7 @@
 			var/atom/A = thing
 			var/distance = max(1,get_dist(A, epicenter))
 			var/fraction = 0.5/(2 ** distance) //50/25/12/6... for a 200u splash, 25/12/6/3... for a 100u, 12/6/3/1 for a 50u
-			splash_holder.reaction(A, TOUCH, fraction)
+			splash_holder.reaction(A, REAGENT_TOUCH, fraction)
 
 	qdel(splash_holder)
 	return 1

@@ -53,14 +53,14 @@
 				continue
 			if(reagents.total_volume)
 				var/fraction = 5 / reagents.total_volume
-				reagents.reaction(A, TOUCH, fraction)
+				reagents.reaction(A, REAGENT_TOUCH, fraction)
 	return ..()
 
 /obj/effect/particle_effect/foam/process()
 	if(--amount < 0)
 		return
 
-	for(var/direction in cardinal)
+	for(var/direction in GLOB.cardinal)
 
 		var/turf/T = get_step(src,direction)
 		if(!T)
@@ -94,7 +94,7 @@
 		spawn(5)
 			qdel(src)
 
-/obj/effect/particle_effect/foam/Crossed(atom/movable/AM)
+/obj/effect/particle_effect/foam/Crossed(atom/movable/AM, oldloc)
 	if(metal)
 		return
 
@@ -108,7 +108,7 @@
 						M.reagents.add_reagent(reagent_id, min(round(amount / 2), 15))
 				if(reagents.total_volume)
 					var/fraction = 5 / reagents.total_volume
-					reagents.reaction(M, TOUCH, fraction)
+					reagents.reaction(M, REAGENT_TOUCH, fraction)
 
 /datum/effect_system/foam_spread
 	effect_type = /obj/effect/particle_effect/foam
@@ -170,6 +170,7 @@
 	desc = "A lightweight foamed metal wall."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "metalfoam"
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	density = TRUE
 	opacity = TRUE	// changed in New()
 	anchored = TRUE
@@ -191,7 +192,7 @@
 	move_update_air(T)
 
 /obj/structure/foamedmetal/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
-	playsound(loc, 'sound/weapons/tap.ogg', 100, 1)
+	playsound(src.loc, 'sound/weapons/tap.ogg', 100, TRUE)
 
 /obj/structure/foamedmetal/proc/updateicon()
 	if(metal == MFOAM_ALUMINUM)

@@ -8,7 +8,20 @@
 	canSmoothWith = list(/turf/simulated/floor/chasm)
 	density = TRUE //This will prevent hostile mobs from pathing into chasms, while the canpass override will still let it function like an open turf
 	var/static/list/falling_atoms = list() //Atoms currently falling into the chasm
-	var/static/list/forbidden_types = typecacheof(list(/obj/effect/portal, /obj/singularity, /obj/structure/stone_tile, /obj/item/projectile, /obj/effect/temp_visual, /obj/effect/collapse, /obj/effect/collapse))
+	var/static/list/forbidden_types = typecacheof(list(
+		/obj/singularity,
+		/obj/docking_port,
+		/obj/structure/lattice,
+		/obj/structure/stone_tile,
+		/obj/item/projectile,
+		/obj/effect/portal,
+		/obj/effect/hotspot,
+		/obj/effect/landmark,
+		/obj/effect/temp_visual,
+		/obj/effect/light_emitter/tendril,
+		/obj/effect/collapse,
+		/obj/effect/particle_effect/ion_trails
+		))
 	var/drop_x = 1
 	var/drop_y = 1
 	var/drop_z = 1
@@ -21,6 +34,11 @@
 /turf/simulated/floor/chasm/process()
 	if(!drop_stuff())
 		STOP_PROCESSING(SSprocessing, src)
+
+/turf/simulated/floor/chasm/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+	underlay_appearance.icon = 'icons/turf/floors.dmi'
+	underlay_appearance.icon_state = "basalt"
+	return TRUE
 
 /turf/simulated/floor/chasm/attackby(obj/item/C, mob/user, params, area/area_restriction)
 	..()
@@ -79,8 +97,8 @@
 		return FALSE
 	//Flies right over the chasm
 	if(isliving(AM))
-		var/mob/M = AM
-		if(M.flying)
+		var/mob/living/M = AM
+		if(M.flying || M.floating)
 			return FALSE
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
@@ -113,10 +131,6 @@
 	drop_x = x
 	drop_y = y
 	drop_z = z - 1
-	var/turf/T = locate(drop_x, drop_y, drop_z)
-	if(T)
-		T.visible_message("<span class='boldwarning'>The ceiling gives way!</span>")
-		playsound(T, 'sound/effects/break_stone.ogg', 50, 1)
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface
 	oxygen = 14
@@ -168,7 +182,7 @@
 		AM.alpha = oldalpha
 		AM.color = oldcolor
 		AM.transform = oldtransform
-		AM.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1, 10),rand(1, 10))
+		AM.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1, 10),rand(1, 10))
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air
 	oxygen = MOLES_O2STANDARD

@@ -63,7 +63,7 @@
 				if(affected_mob.nutrition > 10)
 					affected_mob.visible_message("<span class='danger'>[affected_mob] vomits on the floor profusely!</span>")
 					affected_mob.fakevomit(no_text = 1)
-					affected_mob.nutrition -= rand(3,5)
+					affected_mob.adjust_nutrition(-rand(3,5))
 				else
 					to_chat(affected_mob, "<span class='danger'>Your stomach lurches painfully!</span>")
 					affected_mob.visible_message("<span class='danger'>[affected_mob] gags and retches!</span>")

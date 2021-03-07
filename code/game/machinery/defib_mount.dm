@@ -11,9 +11,12 @@
 	anchored = TRUE
 	idle_power_usage = 1
 	power_channel = EQUIP
-	req_one_access = list(access_medical, access_heads) //used to control clamps
+	req_one_access = list(ACCESS_MEDICAL, ACCESS_HEADS) //used to control clamps
 	var/obj/item/defibrillator/defib //this mount's defibrillator
 	var/clamps_locked = FALSE //if true, and a defib is loaded, it can't be removed without unlocking the clamps
+
+/obj/machinery/defibrillator_mount/attack_ai()
+	return
 
 /obj/machinery/defibrillator_mount/get_cell()
 	if(defib)
@@ -26,11 +29,10 @@
 		loc = location
 
 	if(direction)
-		dir = direction
+		setDir(direction)
 
 	if(building)
-		pixel_x = (dir & 3)? 0 : (dir == 4 ? -30 : 30)
-		pixel_y = (dir & 3)? (dir == 1 ? -30 : 30) : 0
+		set_pixel_offsets_from_dir(30, -30, 30, -30)
 
 /obj/machinery/defibrillator_mount/loaded/New() //loaded subtype for mapping use
 	..()
@@ -42,20 +44,20 @@
 	return ..()
 
 /obj/machinery/defibrillator_mount/examine(mob/user)
-	..()
+	. = ..()
 	if(defib)
-		to_chat(user, "<span class='notice'>There is a defib unit hooked up. Alt-click to remove it.<span>")
-		if(security_level >= SEC_LEVEL_RED)
-			to_chat(user, "<span class='notice'>Due to a security situation, its locking clamps can be toggled by swiping any ID.</span>")
+		. += "<span class='notice'>There is a defib unit hooked up. Alt-click to remove it.<span>"
+		if(GLOB.security_level >= SEC_LEVEL_RED)
+			. += "<span class='notice'>Due to a security situation, its locking clamps can be toggled by swiping any ID.</span>"
 		else
-			to_chat(user, "<span class='notice'>Its locking clamps can be [clamps_locked ? "dis" : ""]engaged by swiping an ID with access.</span>")
+			. += "<span class='notice'>Its locking clamps can be [clamps_locked ? "dis" : ""]engaged by swiping an ID with access.</span>"
 	else
-		to_chat(user, "<span class='notice'>There are a pair of <b>bolts</b> in the defib unit housing securing the [src] to the wall.<span>")
+		. += "<span class='notice'>There are a pair of <b>bolts</b> in the defib unit housing securing the [src] to the wall.<span>"
 
 /obj/machinery/defibrillator_mount/process()
-	if(defib && defib.bcell && defib.bcell.charge < defib.bcell.maxcharge && is_operational())
+	if(defib && defib.cell && defib.cell.charge < defib.cell.maxcharge && is_operational())
 		use_power(200)
-		defib.bcell.give(180) //90% efficiency, slightly better than the cell charger's 87.5%
+		defib.cell.give(180) //90% efficiency, slightly better than the cell charger's 87.5%
 		update_icon()
 
 /obj/machinery/defibrillator_mount/update_icon()
@@ -64,7 +66,7 @@
 		add_overlay("defib")
 		if(defib.powered)
 			add_overlay(defib.safety ? "online" : "emagged")
-			var/ratio = defib.bcell.charge / defib.bcell.maxcharge
+			var/ratio = defib.cell.charge / defib.cell.maxcharge
 			ratio = CEILING(ratio * 4, 1) * 25
 			add_overlay("charge[ratio]")
 		if(clamps_locked)
@@ -98,19 +100,9 @@
 	else if(defib && I == defib.paddles)
 		user.drop_item()
 		return
-	else if(iswrench(I))
-		if(!defib)
-			user.visible_message("<span class='notice'>[user] unwrenches [src] from the wall!</span>", \
-			"<span class='notice'>You unwrench [src]!</span>")
-			new /obj/item/mounted/frame/defib_mount(get_turf(user))
-			playsound(get_turf(src), I.usesound, 50, 1)
-			qdel(src)
-			return
-		to_chat(user, "<span class='warning'>The [defib] is blocking access to the bolts!</span>")
-		return
 	var/obj/item/card/id = I.GetID()
 	if(id)
-		if(check_access(id) || security_level >= SEC_LEVEL_RED) //anyone can toggle the clamps in red alert!
+		if(check_access(id) || GLOB.security_level >= SEC_LEVEL_RED) //anyone can toggle the clamps in red alert!
 			if(!defib)
 				to_chat(user, "<span class='warning'>You can't engage the clamps on a defibrillator that isn't there.</span>")
 				return
@@ -121,6 +113,17 @@
 			to_chat(user, "<span class='warning'>Insufficient access.</span>")
 		return
 	return ..()
+
+/obj/machinery/defibrillator_mount/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(defib)
+		to_chat(user, "<span class='warning'>The [defib] is blocking access to the bolts!</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	WRENCH_UNANCHOR_WALL_MESSAGE
+	new /obj/item/mounted/frame/defib_mount(get_turf(user))
+	qdel(src)
 
 /obj/machinery/defibrillator_mount/AltClick(mob/living/carbon/user)
 	if(!istype(user))
@@ -153,6 +156,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/mounted/frame/defib_mount/do_build(turf/on_wall, mob/user)
-	new /obj/machinery/defibrillator_mount(get_turf(src), get_dir(on_wall, user), 1)
+	new /obj/machinery/defibrillator_mount(get_turf(src), get_dir(user, on_wall), 1)
 	playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 	qdel(src)

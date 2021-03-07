@@ -42,29 +42,34 @@
 	teleport_cooldown -= (E * 100)
 
 /obj/machinery/quantumpad/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "pad-idle-o", "qpad-idle", I))
-		return
-
-	if(panel_open)
-		if(ismultitool(I))
-			var/obj/item/multitool/M = I
-			M.buffer = src
-			to_chat(user, "<span class='notice'>You save the data in the [I.name]'s buffer.</span>")
-			return 1
-	else if(ismultitool(I))
-		var/obj/item/multitool/M = I
-		if(istype(M.buffer, /obj/machinery/quantumpad))
-			linked_pad = M.buffer
-			to_chat(user, "<span class='notice'>You link the [src] to the one in the [I.name]'s buffer.</span>")
-			return 1
-
 	if(exchange_parts(user, I))
 		return
-
-	if(default_deconstruction_crowbar(I))
-		return
-
 	return ..()
+
+/obj/machinery/quantumpad/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/quantumpad/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!I.multitool_check_buffer(user))
+		return
+	var/obj/item/multitool/M = I
+	if(panel_open)
+		M.set_multitool_buffer(user, src)
+	else
+		linked_pad = M.buffer
+		to_chat(user, "<span class='notice'>You link the [src] to the one in the [I.name]'s buffer.</span>")
+
+/obj/machinery/quantumpad/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	default_deconstruction_screwdriver(user, "pad-idle-o", "qpad-idle", I)
 
 /obj/machinery/quantumpad/attack_hand(mob/user)
 	if(panel_open)
@@ -127,9 +132,9 @@
 			linked_pad.sparks()
 
 			flick("qpad-beam", src)
-			playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25, 1, extrarange = 3, falloff = 5)
+			playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25, TRUE)
 			flick("qpad-beam", linked_pad)
-			playsound(get_turf(linked_pad), 'sound/weapons/emitter2.ogg', 25, 1, extrarange = 3, falloff = 5)
+			playsound(get_turf(linked_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
 			var/tele_success = TRUE
 			for(var/atom/movable/ROI in get_turf(src))
 				// if is anchored, don't let through

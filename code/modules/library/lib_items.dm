@@ -18,9 +18,9 @@
 	anchored = 1
 	density = 1
 	opacity = 1
-	burn_state = FLAMMABLE
-	burntime = 30
-	var/health = 50
+	resistance_flags = FLAMMABLE
+	max_integrity = 200
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0)
 	var/tmp/busy = 0
 	var/list/allowed_books = list(/obj/item/book, /obj/item/spellbook, /obj/item/storage/bible, /obj/item/tome) //Things allowed in the bookcase
 
@@ -33,13 +33,13 @@
 
 /obj/structure/bookcase/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(busy) //So that you can't mess with it while deconstructing
-		return 1
+		return TRUE
 	if(is_type_in_list(O, allowed_books))
 		if(!user.drop_item())
 			return
 		O.forceMove(src)
 		update_icon()
-		return 1
+		return TRUE
 	else if(istype(O, /obj/item/storage/bag/books))
 		var/obj/item/storage/bag/books/B = O
 		for(var/obj/item/T in B.contents)
@@ -47,38 +47,27 @@
 				B.remove_from_storage(T, src)
 		to_chat(user, "<span class='notice'>You empty [O] into [src].</span>")
 		update_icon()
-		return 1
+		return TRUE
 	else if(istype(O, /obj/item/wrench))
 		user.visible_message("<span class='warning'>[user] starts disassembling \the [src].</span>", \
 		"<span class='notice'>You start disassembling \the [src].</span>")
 		playsound(get_turf(src), O.usesound, 50, 1)
-		busy = 1
+		busy = TRUE
 
 		if(do_after(user, 50 * O.toolspeed, target = src))
 			playsound(get_turf(src), O.usesound, 75, 1)
 			user.visible_message("<span class='warning'>[user] disassembles \the [src].</span>", \
 			"<span class='notice'>You disassemble \the [src].</span>")
-			busy = 0
+			busy = FALSE
 			density = 0
-			qdel(src)
+			deconstruct(TRUE)
 		else
-			busy = 0
-		return 1
+			busy = FALSE
+		return TRUE
 	else if(istype(O, /obj/item/pen))
-		var/newname = stripped_input(user, "What would you like to title this [name]?")
-		if(newname)
-			name = ("bookcase ([sanitize(newname)])")
-		return 1
+		rename_interactive(user, O)
+		return TRUE
 	else
-		switch(O.damtype)
-			if("fire")
-				health -= O.force * 1
-			if("brute")
-				health -= O.force * 0.75
-			else
-		if(health <= 0)
-			visible_message("<span class='warning'>The bookcase is smashed apart!</span>")
-			qdel(src)
 		return ..()
 
 /obj/structure/bookcase/attack_hand(var/mob/user as mob)
@@ -93,32 +82,12 @@
 				choice.forceMove(get_turf(src))
 			update_icon()
 
-/obj/structure/bookcase/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			for(var/obj/item/I in contents)
-				qdel(I)
-			qdel(src)
-			return
-		if(2.0)
-			for(var/obj/item/I in contents)
-				if(prob(50))
-					qdel(I)
-			qdel(src)
-			return
-		if(3.0)
-			if(prob(50))
-				qdel(src)
-			return
-	return
-
-/obj/structure/bookcase/Destroy()
-	for(var/i in 1 to 5)
-		new /obj/item/stack/sheet/wood(get_turf(src))
+/obj/structure/bookcase/deconstruct(disassembled = TRUE)
+	new /obj/item/stack/sheet/wood(loc, 5)
 	for(var/obj/item/I in contents)
 		if(is_type_in_list(I, allowed_books))
 			I.forceMove(get_turf(src))
-	return ..()
+	qdel(src)
 
 /obj/structure/bookcase/update_icon()
 	if(contents.len < 5)
@@ -130,32 +99,32 @@
 /obj/structure/bookcase/manuals/medical
 	name = "Medical Manuals bookcase"
 
-	New()
-		..()
-		new /obj/item/book/manual/medical_cloning(src)
-		update_icon()
+/obj/structure/bookcase/manuals/medical/Initialize()
+	. = ..()
+	new /obj/item/book/manual/medical_cloning(src)
+	update_icon()
 
 
 /obj/structure/bookcase/manuals/engineering
 	name = "Engineering Manuals bookcase"
 
-	New()
-		..()
-		new /obj/item/book/manual/engineering_construction(src)
-		new /obj/item/book/manual/engineering_particle_accelerator(src)
-		new /obj/item/book/manual/engineering_hacking(src)
-		new /obj/item/book/manual/engineering_guide(src)
-		new /obj/item/book/manual/engineering_singularity_safety(src)
-		new /obj/item/book/manual/robotics_cyborgs(src)
-		update_icon()
+/obj/structure/bookcase/manuals/engineering/Initialize()
+	. = ..()
+	new /obj/item/book/manual/engineering_construction(src)
+	new /obj/item/book/manual/engineering_particle_accelerator(src)
+	new /obj/item/book/manual/engineering_hacking(src)
+	new /obj/item/book/manual/engineering_guide(src)
+	new /obj/item/book/manual/engineering_singularity_safety(src)
+	new /obj/item/book/manual/robotics_cyborgs(src)
+	update_icon()
 
 /obj/structure/bookcase/manuals/research_and_development
 	name = "R&D Manuals bookcase"
 
-	New()
-		..()
-		new /obj/item/book/manual/research_and_development(src)
-		update_icon()
+/obj/structure/bookcase/manuals/research_and_development/Initialize()
+	. = ..()
+	new /obj/item/book/manual/research_and_development(src)
+	update_icon()
 
 
 /*
@@ -170,8 +139,9 @@
 	force = 2
 	w_class = WEIGHT_CLASS_NORMAL		 //upped to three because books are, y'know, pretty big. (and you could hide them inside eachother recursively forever)
 	attack_verb = list("bashed", "whacked")
-	burn_state = FLAMMABLE
-
+	resistance_flags = FLAMMABLE
+	drop_sound = 'sound/items/handling/book_drop.ogg'
+	pickup_sound =  'sound/items/handling/book_pickup.ogg'
 	var/dat			 // Actual page content
 	var/due_date = 0 // Game time in 1/10th seconds
 	var/author		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
@@ -180,6 +150,8 @@
 	var/carved = 0	 // Has the book been hollowed out for use as a secret storage item?
 	var/forbidden = 0     // Prevent ordering of this book. (0=no, 1=yes, 2=emag only)
 	var/obj/item/store	// What's in the book?
+	/// Book DRM. If this var is TRUE, it cannot be scanned and re-uploaded
+	var/has_drm = FALSE
 
 /obj/item/book/attack_self(var/mob/user as mob)
 	if(carved)
@@ -273,16 +245,13 @@
 					scanner.computer.inventory.Add(src)
 					to_chat(user, "[W]'s screen flashes: 'Book stored in buffer. Title added to general inventory.'")
 		return 1
-	else if(istype(W, /obj/item/kitchen/knife) || iswirecutter(W))
-		if(carved)
-			return 1
-		to_chat(user, "<span class='notice'>You begin to carve out [title].</span>")
-		if(do_after(user, 30 * W.toolspeed, target = src))
-			to_chat(user, "<span class='notice'>You carve out the pages from [title]! You didn't want to read it anyway.</span>")
-			carved = 1
-			return 1
+	else if(istype(W, /obj/item/kitchen/knife) && !carved)
+		carve_book(user, W)
 	else
 		return ..()
+
+/obj/item/book/wirecutter_act(mob/user, obj/item/I)
+	return carve_book(user, I)
 
 /obj/item/book/attack(mob/M, mob/living/user)
 	if(user.a_intent == INTENT_HELP)
@@ -293,6 +262,17 @@
 		attack_verb = list("bashed", "whacked")
 	..()
 
+/obj/item/book/proc/carve_book(mob/user, obj/item/I)
+	if(!I.sharp && I.tool_behaviour != TOOL_WIRECUTTER) //Only sharp and wirecutter things can carve books
+		to_chat(user, "<span class='warning>You can't carve [title] using that!</span>")
+		return
+	if(carved)
+		return
+	to_chat(user, "<span class='notice'>You begin to carve out [title].</span>")
+	if(I.use_tool(src, user, 30, volume = I.tool_volume))
+		to_chat(user, "<span class='notice'>You carve out the pages from [title]! You didn't want to read it anyway.</span>")
+		carved = TRUE
+		return TRUE
 /*
  * Barcode Scanner
  */
@@ -307,26 +287,26 @@
 	var/obj/item/book/book	 //  Currently scanned book
 	var/mode = 0 					// 0 - Scan only, 1 - Scan and Set Buffer, 2 - Scan and Attempt to Check In, 3 - Scan and Attempt to Add to Inventory
 
-	attack_self(mob/user as mob)
-		mode += 1
-		if(mode > 3)
-			mode = 0
-		to_chat(user, "[src] Status Display:")
-		var/modedesc
-		switch(mode)
-			if(0)
-				modedesc = "Scan book to local buffer."
-			if(1)
-				modedesc = "Scan book to local buffer and set associated computer buffer to match."
-			if(2)
-				modedesc = "Scan book to local buffer, attempt to check in scanned book."
-			if(3)
-				modedesc = "Scan book to local buffer, attempt to add book to general inventory."
-			else
-				modedesc = "ERROR"
-		to_chat(user, " - Mode [mode] : [modedesc]")
-		if(src.computer)
-			to_chat(user, "<font color=green>Computer has been associated with this unit.</font>")
+/obj/item/barcodescanner/attack_self(mob/user as mob)
+	mode += 1
+	if(mode > 3)
+		mode = 0
+	to_chat(user, "[src] Status Display:")
+	var/modedesc
+	switch(mode)
+		if(0)
+			modedesc = "Scan book to local buffer."
+		if(1)
+			modedesc = "Scan book to local buffer and set associated computer buffer to match."
+		if(2)
+			modedesc = "Scan book to local buffer, attempt to check in scanned book."
+		if(3)
+			modedesc = "Scan book to local buffer, attempt to add book to general inventory."
 		else
-			to_chat(user, "<font color=red>No associated computer found. Only local scans will function properly.</font>")
-		to_chat(user, "\n")
+			modedesc = "ERROR"
+	to_chat(user, " - Mode [mode] : [modedesc]")
+	if(src.computer)
+		to_chat(user, "<font color=green>Computer has been associated with this unit.</font>")
+	else
+		to_chat(user, "<font color=red>No associated computer found. Only local scans will function properly.</font>")
+	to_chat(user, "\n")

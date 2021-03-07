@@ -5,6 +5,7 @@
 	damage_type = BRUTE
 	flag = "bullet"
 	hitsound_wall = "ricochet"
+	impact_effect_type = /obj/effect/temp_visual/impact_effect
 
 /obj/item/projectile/bullet/weakbullet //beanbag, heavy stamina damage
 	name = "beanbag slug"
@@ -30,16 +31,17 @@
 			M.AdjustDrowsy(10)
 			A.volume += 5 //Because we can
 
-/obj/item/projectile/bullet/weakbullet2  //detective revolver instastuns, but multiple shots are better for keeping punks down
+/obj/item/projectile/bullet/weakbullet2  //detective revolver
 	name = "rubber bullet"
 	damage = 5
-	weaken = 3
-	stamina = 60
+	stamina = 35
 	icon_state = "bullet-r"
 
 /obj/item/projectile/bullet/weakbullet2/invisible //finger gun bullets
 	name = "invisible bullet"
 	damage = 0
+	weaken = 3
+	stamina = 60
 	icon_state = null
 	hitsound_wall = null
 
@@ -83,6 +85,7 @@
 	damage = 12.5
 	tile_dropoff = 0.75
 	tile_dropoff_s = 1.25
+	armour_penetration = -30
 
 /obj/item/projectile/bullet/pellet/rubber
 	name = "rubber pellet"
@@ -232,7 +235,7 @@
 	name = "dart"
 	icon_state = "cbbolt"
 	damage = 6
-	var/piercing = 0
+	var/piercing = FALSE
 
 /obj/item/projectile/bullet/dart/New()
 	..()
@@ -243,7 +246,7 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		if(blocked != 100)
-			if(M.can_inject(null,0,hit_zone)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
+			if(M.can_inject(null, FALSE, hit_zone, piercing)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
 				..()
 				reagents.trans_to(M, reagents.total_volume)
 				return 1

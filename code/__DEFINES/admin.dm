@@ -40,10 +40,11 @@
 #define R_MOD			8192
 #define R_MENTOR		16384
 #define R_PROCCALL		32768
+#define R_VIEWRUNTIMES	65536
 
-#define R_MAXPERMISSION 32768 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
+#define R_MAXPERMISSION 65536 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
 
-#define R_HOST			65535
+#define R_HOST			131071 // Sum of all permissions to allow easy setting
 
 #define ADMIN_QUE(user,display) "<a href='?_src_=holder;adminmoreinfo=[user.UID()]'>[display]</a>"
 #define ADMIN_FLW(user,display) "<a href='?_src_=holder;adminplayerobservefollow=[user.UID()]'>[display]</a>"
@@ -64,3 +65,26 @@
 #define ADMIN_COORDJMP(src) "[src ? "[COORD(src)] [ADMIN_JMP(src)]" : "nonexistent location"]"
 #define ADMIN_VERBOSEJMP(src) "[src ? "[AREACOORD(src)] [ADMIN_JMP(src)]" : "nonexistent location"]"
 #define ADMIN_SHOWDETAILS(mask, content) "<a href='?_src_=holder;showdetails=[html_encode(content)]'>[mask]</a>"
+
+///Max length of a keypress command before it's considered to be a forged packet/bogus command
+#define MAX_KEYPRESS_COMMANDLENGTH 16
+///Max amount of keypress messages per second over two seconds before client is autokicked
+#define MAX_KEYPRESS_AUTOKICK 50
+///Length of held key rolling buffer
+#define HELD_KEY_BUFFER_LENGTH 15
+
+/// Note text for suppressed CID warning
+#define CIDWARNING_SUPPRESSED_NOTETEXT "CID COUNT WARNING DISABLED - Delete this note to re-enable"
+
+/// Note "ckey" for CID info tracking. Do not EVER update this.
+#define CIDTRACKING_PSUEDO_CKEY "ALICE-CIDTRACKING"
+
+// Connection types. These match enums in the SQL DB. Dont change them
+/// Client was let into the server
+#define CONNECTION_TYPE_ESTABLISHED "ESTABLISHED"
+/// Client was disallowed due to IPIntel
+#define CONNECTION_TYPE_DROPPED_IPINTEL "DROPPED - IPINTEL"
+/// Client was disallowed due to being banned
+#define CONNECTION_TYPE_DROPPED_BANNED "DROPPED - BANNED"
+/// Client was disallowed due to invalid data
+#define CONNECTION_TYPE_DROPPED_INVALID "DROPPED - INVALID"

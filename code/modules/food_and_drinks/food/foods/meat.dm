@@ -7,10 +7,10 @@
 	name = "meat"
 	desc = "A slab of meat"
 	icon_state = "meat"
-	health = 180
 	filling_color = "#FF1C1C"
 	bitesize = 3
 	list_reagents = list("protein" = 3)
+	tastes = list("meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/meat/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/kitchen/knife) || istype(W, /obj/item/scalpel))
@@ -30,6 +30,7 @@
 	name = "-meat"
 	var/subjectname = ""
 	var/subjectjob = null
+	tastes = list("salty meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/meat/slab/meatproduct
 	name = "meat product"
@@ -76,63 +77,86 @@
 		new /obj/item/reagent_containers/food/snacks/raw_bacon(loc)
 		qdel(src)
 
-/obj/item/reagent_containers/food/snacks/bearmeat
+//////////////////////////
+//		Monster Meat	//
+//////////////////////////
+
+// Cannot be used in the usual meat-based food recipies but can be used as cloning pod biomass.
+
+/obj/item/reagent_containers/food/snacks/monstermeat
+	// Abstract object used for inheritance. I don't see why you would want one.
+	// It's just a convenience to set all monstermeats as biomass-able at once,
+	// in the GLOB.cloner_biomass_items list.
+	// DOES NOT SPAWN NATURALLY!
+	name = "abstract monster meat"
+	desc = "A slab of abstract monster meat. This shouldn't exist, contact a coder about this if you are seeing it in-game."
+	icon_state = "bearmeat"
+
+/obj/item/reagent_containers/food/snacks/monstermeat/bearmeat
 	name = "bear meat"
 	desc = "A very manly slab of meat."
 	icon_state = "bearmeat"
 	filling_color = "#DB0000"
 	bitesize = 3
 	list_reagents = list("protein" = 12, "morphine" = 5, "vitamin" = 2)
+	tastes = list("meat" = 1, "salmon" = 1)
 
-/obj/item/reagent_containers/food/snacks/xenomeat
+/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat
 	name = "meat"
 	desc = "A slab of meat. It's green!"
 	icon_state = "xenomeat"
 	filling_color = "#43DE18"
 	bitesize = 6
 	list_reagents = list("protein" = 3, "vitamin" = 1)
+	tastes = list("meat" = 1, "acid" = 1)
 
-/obj/item/reagent_containers/food/snacks/spidermeat
+/obj/item/reagent_containers/food/snacks/monstermeat/spidermeat
 	name = "spider meat"
 	desc = "A slab of spider meat. Not very appetizing."
 	icon_state = "spidermeat"
 	bitesize = 3
 	list_reagents = list("protein" = 3, "toxin" = 3, "vitamin" = 1)
+	tastes = list("cobwebs" = 1)
 
-/obj/item/reagent_containers/food/snacks/lizardmeat
+/obj/item/reagent_containers/food/snacks/monstermeat/lizardmeat
 	name = "mutant lizard meat"
 	desc = "A peculiar slab of meat. It looks scaly and radioactive."
 	icon_state = "xenomeat"
 	filling_color = "#43DE18"
 	bitesize = 3
 	list_reagents = list("protein" = 3, "toxin" = 3)
+	tastes = list("tough meat" = 1)
 
-/obj/item/reagent_containers/food/snacks/spiderleg
+/obj/item/reagent_containers/food/snacks/monstermeat/spiderleg
 	name = "spider leg"
 	desc = "A still twitching leg of a giant spider. You don't really want to eat this, do you?"
 	icon_state = "spiderleg"
 	list_reagents = list("protein" = 2, "toxin" = 2)
+	tastes = list("cobwebs" = 1, "creepy motion" = 1)
 
 /obj/item/reagent_containers/food/snacks/raw_bacon
 	name = "raw bacon"
 	desc = "God's gift to man in uncooked form."
 	icon_state = "raw_bacon"
 	list_reagents = list("nutriment" = 1, "porktonium" = 10)
+	tastes = list("bacon" = 1)
 
-/obj/item/reagent_containers/food/snacks/spidereggs
+/obj/item/reagent_containers/food/snacks/monstermeat/spidereggs
 	name = "spider eggs"
 	desc = "A cluster of juicy spider eggs. A great side dish for when you don't care about your health."
 	icon_state = "spidereggs"
 	list_reagents = list("protein" = 2, "toxin" = 2)
+	tastes = list("cobwebs" = 1, "spider juice" = 1)
 
-/obj/item/reagent_containers/food/snacks/goliath
+/obj/item/reagent_containers/food/snacks/monstermeat/goliath
 	name = "goliath meat"
 	desc = "A slab of goliath meat. It's not very edible now, but it cooks great in lava."
 	icon_state = "goliathmeat"
 	list_reagents = list("protein" = 3, "toxin" = 5)
+	tastes = list("tough meat" = 1)
 
-/obj/item/reagent_containers/food/snacks/goliath/burn()
-	visible_message("[src] finishes cooking!")
+/obj/item/reagent_containers/food/snacks/monstermeat/goliath/burn()
+	visible_message("<span class='notice'>[src] finishes cooking!</span>")
 	new /obj/item/reagent_containers/food/snacks/goliath_steak(loc)
 	qdel(src)
 
@@ -148,12 +172,14 @@
 	filling_color = "#7A3D11"
 	bitesize = 3
 	list_reagents = list("nutriment" = 5)
+	tastes = list("meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/bacon
 	name = "bacon"
 	desc = "It looks crispy and tastes amazing! Mmm... Bacon."
-	icon_state = "bacon2"
+	icon_state = "bacon"
 	list_reagents = list("nutriment" = 4, "porktonium" = 10, "msg" = 4)
+	tastes = list("bacon" = 1)
 
 /obj/item/reagent_containers/food/snacks/telebacon
 	name = "tele bacon"
@@ -161,6 +187,7 @@
 	icon_state = "bacon"
 	var/obj/item/radio/beacon/bacon/baconbeacon
 	list_reagents = list("nutriment" = 4, "porktonium" = 10)
+	tastes = list("bacon" = 1)
 
 /obj/item/reagent_containers/food/snacks/telebacon/New()
 	..()
@@ -168,8 +195,9 @@
 
 /obj/item/reagent_containers/food/snacks/telebacon/On_Consume(mob/M, mob/user)
 	if(!reagents.total_volume)
-		baconbeacon.loc = user
+		baconbeacon.forceMove(user)
 		baconbeacon.digest_delay()
+		baconbeacon = null
 
 /obj/item/reagent_containers/food/snacks/meatball
 	name = "meatball"
@@ -177,6 +205,7 @@
 	icon_state = "meatball"
 	filling_color = "#DB0000"
 	list_reagents = list("protein" = 4, "vitamin" = 1)
+	tastes = list("meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/sausage
 	name = "sausage"
@@ -184,6 +213,7 @@
 	icon_state = "sausage"
 	filling_color = "#DB0000"
 	list_reagents = list("protein" = 6, "vitamin" = 1, "porktonium" = 10)
+	tastes = list("meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/cutlet
 	name = "cutlet"
@@ -191,6 +221,7 @@
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "cutlet"
 	list_reagents = list("protein" = 2)
+	tastes = list("meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/spidereggsham
 	name = "green eggs and ham"
@@ -199,6 +230,7 @@
 	trash = /obj/item/trash/plate
 	bitesize = 4
 	list_reagents = list("nutriment" = 6)
+	tastes = list("cobwebs" = 1, "the colour green" = 1)
 
 /obj/item/reagent_containers/food/snacks/boiledspiderleg
 	name = "boiled spider leg"
@@ -207,6 +239,7 @@
 	trash = /obj/item/trash/plate
 	bitesize = 3
 	list_reagents = list("nutriment" = 3, "capsaicin" = 2)
+	tastes = list("cobwebs" = 1, "hot peppers" = 1)
 
 /obj/item/reagent_containers/food/snacks/wingfangchu
 	name = "wing fang chu"
@@ -215,6 +248,7 @@
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#43DE18"
 	list_reagents = list("nutriment" = 6, "soysauce" = 5, "vitamin" = 2)
+	tastes = list("soy" = 1)
 
 /obj/item/reagent_containers/food/snacks/goliath_steak
 	name = "goliath steak"
@@ -223,6 +257,15 @@
 	icon_state = "goliathsteak"
 	trash = null
 	list_reagents = list("protein" = 6, "vitamin" = 2)
+	tastes = list("meat" = 1)
+
+/obj/item/reagent_containers/food/snacks/fried_vox
+	name = "Kentucky Fried Vox"
+	desc = "Bucket of voxxy, yaya!"
+	icon_state = "fried_vox"
+	trash = /obj/item/trash/fried_vox
+	list_reagents = list("nutriment" = 3, "protein" = 5)
+	tastes = list("quills" = 1, "the shoal" = 1)
 
 //////////////////////
 //		Cubes		//
@@ -237,8 +280,9 @@
 	var/faction
 	var/datum/species/monkey_type = /datum/species/monkey
 	list_reagents = list("nutriment" = 2)
+	tastes = list("the jungle" = 1, "bananas" = 1)
 
-/obj/item/reagent_containers/food/snacks/monkeycube/water_act(volume, temperature, source, method = TOUCH)
+/obj/item/reagent_containers/food/snacks/monkeycube/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	if(volume >= 1)
 		return Expand()
@@ -249,6 +293,12 @@
 	return 1
 
 /obj/item/reagent_containers/food/snacks/monkeycube/proc/Expand()
+	if(LAZYLEN(SSmobs.cubemonkeys) >= config.cubemonkeycap)
+		if(fingerprintslast)
+			to_chat(get_mob_by_ckey(fingerprintslast), "<span class='warning'>Bluespace harmonics prevent the spawning of more than [config.cubemonkeycap] monkeys on the station at one time!</span>")
+		else
+			visible_message("<span class='notice'>[src] fails to expand!</span>")
+		return
 	if(!QDELETED(src))
 		visible_message("<span class='notice'>[src] expands!</span>")
 		if(fingerprintslast)
@@ -259,8 +309,9 @@
 		if(faction)
 			creature.faction = faction
 		if(LAZYLEN(fingerprintshidden))
-			creature.fingerprintshidden = fingerprintshidden.Copy()
+			creature.fingerprintshidden = fingerprintshidden
 		creature.set_species(monkey_type)
+		SSmobs.cubemonkeys += creature
 		qdel(src)
 
 /obj/item/reagent_containers/food/snacks/monkeycube/syndicate
@@ -293,13 +344,15 @@
 	icon_state = "egg"
 	filling_color = "#FDFFD1"
 	list_reagents = list("protein" = 1, "egg" = 5)
+	tastes = list("egg" = 1)
+
 
 /obj/item/reagent_containers/food/snacks/egg/throw_impact(atom/hit_atom)
 	..()
 	var/turf/T = get_turf(hit_atom)
 	new/obj/effect/decal/cleanable/egg_smudge(T)
 	if(reagents)
-		reagents.reaction(hit_atom, TOUCH)
+		reagents.reaction(hit_atom, REAGENT_TOUCH)
 	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/egg/attackby(obj/item/W, mob/user, params)
@@ -366,6 +419,7 @@
 	filling_color = "#FFDF78"
 	bitesize = 1
 	list_reagents = list("nutriment" = 3, "egg" = 5)
+	tastes = list("egg" = 1, "salt" = 1, "pepper" = 1)
 
 /obj/item/reagent_containers/food/snacks/boiledegg
 	name = "boiled egg"
@@ -389,6 +443,7 @@
 	filling_color = "#FFF9A8"
 	list_reagents = list("nutriment" = 8, "vitamin" = 1)
 	bitesize = 1
+	tastes = list("egg" = 1, "cheese" = 1)
 
 /obj/item/reagent_containers/food/snacks/benedict
 	name = "eggs benedict"
@@ -396,6 +451,7 @@
 	icon_state = "benedict"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "egg" = 3, "vitamin" = 4)
+	tastes = list("egg" = 1, "bacon" = 1, "bun" = 1)
 
 
 //////////////////////
@@ -408,6 +464,7 @@
 	icon_state = "hotdog"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "ketchup" = 3, "vitamin" = 3)
+	tastes = list("bun" = 3, "meat" = 2)
 
 /obj/item/reagent_containers/food/snacks/meatbun
 	name = "meat bun"
@@ -415,6 +472,7 @@
 	icon_state = "meatbun"
 	bitesize = 6
 	list_reagents = list("nutriment" = 6, "vitamin" = 2)
+	tastes = list("bun" = 3, "meat" = 2)
 
 /obj/item/reagent_containers/food/snacks/sliceable/turkey
 	name = "turkey"
@@ -423,6 +481,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/turkeyslice
 	slices_num = 6
 	list_reagents = list("protein" = 24, "nutriment" = 18, "vitamin" = 5)
+	tastes = list("turkey" = 2, "stuffing" = 2)
 
 /obj/item/reagent_containers/food/snacks/turkeyslice
 	name = "turkey serving"
@@ -430,6 +489,7 @@
 	icon_state = "turkeyslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#B97A57"
+	tastes = list("turkey" = 1)
 
 /obj/item/reagent_containers/food/snacks/organ
 	name = "organ"

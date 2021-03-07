@@ -47,4 +47,5 @@
 	hitsound = 'sound/weapons/pierce.ogg'
 
 /obj/item/embedded/shrapnel/New()
+	..()
 	icon_state = pick("shrapnel1", "shrapnel2", "shrapnel3")

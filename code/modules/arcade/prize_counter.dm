@@ -17,7 +17,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
 /obj/machinery/prize_counter/update_icon()
@@ -52,7 +52,9 @@
 		if(component_parts && istype(O, /obj/item/crowbar))
 			if(tickets)		//save the tickets!
 				print_tickets()
-			default_deconstruction_crowbar(O)
+			default_deconstruction_crowbar(user, O)
+		return
+	return ..()
 
 /obj/machinery/prize_counter/attack_hand(mob/user as mob)
 	if(..())
@@ -138,11 +140,11 @@ th.cost.toomuch {background:maroon;}
 		<tbody>
 	"}
 
-	for(var/datum/prize_item/item in global_prizes.prizes)
+	for(var/datum/prize_item/item in GLOB.global_prizes.prizes)
 		var/cost_class="affordable"
 		if(item.cost>tickets)
 			cost_class="toomuch"
-		var/itemID = global_prizes.prizes.Find(item)
+		var/itemID = GLOB.global_prizes.prizes.Find(item)
 		var/row_color="light"
 		if(itemID%2 == 0)
 			row_color="dark"
@@ -183,12 +185,12 @@ th.cost.toomuch {background:maroon;}
 
 	if(href_list["buy"])
 		var/itemID = text2num(href_list["buy"])
-		var/datum/prize_item/item = global_prizes.prizes[itemID]
+		var/datum/prize_item/item = GLOB.global_prizes.prizes[itemID]
 		var/sure = alert(usr,"Are you sure you wish to purchase [item.name] for [item.cost] tickets?","You sure?","Yes","No") in list("Yes","No")
 		if(sure=="No")
 			updateUsrDialog()
 			return
-		if(!global_prizes.PlaceOrder(src, itemID))
+		if(!GLOB.global_prizes.PlaceOrder(src, itemID))
 			to_chat(usr, "<span class='warning'>Unable to complete the exchange.</span>")
 		else
 			to_chat(usr, "<span class='notice'>You've successfully purchased the item.</span>")

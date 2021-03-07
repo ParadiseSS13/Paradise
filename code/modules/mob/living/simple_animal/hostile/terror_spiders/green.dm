@@ -6,7 +6,7 @@
 // -------------: AI: after it kills you, it webs you and lays new terror eggs on your body
 // -------------: SPECIAL: can also create webs, web normal objects, etc
 // -------------: TO FIGHT IT: kill it however you like - just don't die to it!
-// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+// -------------: SPRITES FROM: FoS, https://www.paradisestation.org/forum/profile/335-fos
 
 /mob/living/simple_animal/hostile/poison/terror_spider/green
 	name = "Green Terror spider"
@@ -39,11 +39,10 @@
 		to_chat(src, "<span class='warning'>You must wrap more humanoid prey before you can do this!</span>")
 		return
 	var/list/eggtypes = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN)
-	var/num_brown = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/brown)
-	if(num_brown < 2)
+	var/list/spider_array = CountSpidersDetailed(FALSE)
+	if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/brown] < 2)
 		eggtypes += TS_DESC_BROWN
-	var/num_black = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/black)
-	if(num_black < 2)
+	if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/black] < 2)
 		eggtypes += TS_DESC_BLACK
 	var/eggtype = pick(eggtypes)
 	if(client)
@@ -51,6 +50,14 @@
 		if(!(eggtype in eggtypes))
 			to_chat(src, "<span class='danger'>Unrecognized egg type.</span>")
 			return 0
+	if(!isturf(loc))
+		// This has to be checked after we ask the user what egg type. Otherwise they could trigger prompt THEN move into a vent.
+		to_chat(src, "<span class='danger'>Eggs can only be laid while standing on a floor.</span>")
+		return
+	if(fed < feedings_to_lay)
+		// We have to check this again after the popup, to account for people spam-clicking the button, then doing all the popups at once.
+		to_chat(src, "<span class='warning'>You must wrap more humanoid prey before you can do this!</span>")
+		return
 	visible_message("<span class='notice'>[src] lays a cluster of eggs.</span>")
 	if(eggtype == TS_DESC_RED)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red, 1)
@@ -80,7 +87,7 @@
 		..()
 		return
 	var/inject_target = pick("chest","head")
-	if(L.stunned || L.can_inject(null,0,inject_target,0))
+	if(L.stunned || L.can_inject(null, FALSE, inject_target, FALSE))
 		if(L.eye_blurry < 60)
 			L.AdjustEyeBlurry(10)
 		// instead of having a venom that only lasts seconds, we just add the eyeblur directly.

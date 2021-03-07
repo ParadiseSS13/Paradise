@@ -7,6 +7,7 @@
 	slot_flags = SLOT_HEAD
 	filling_color = "#008000"
 	bitesize_mod = 2
+	tastes = list("ambrosia" = 1)
 
 // Ambrosia Vulgaris
 /obj/item/seeds/ambrosia
@@ -52,6 +53,7 @@
 	filling_color = "#008B8B"
 	origin_tech = "biotech=4;materials=3"
 	wine_power = 0.5
+	tastes = list("ambrosia deus" = 1)
 
 //Ambrosia Gaia
 /obj/item/seeds/ambrosia/gaia
@@ -78,6 +80,7 @@
 	seed = /obj/item/seeds/ambrosia/gaia
 	wine_power = 0.7
 	wine_flavor = "the earthmother's blessing"
+	tastes = list("ambrosia gaia" = 1)
 
 // Ambrosia Cruciatus
 /obj/item/seeds/ambrosia/cruciatus
@@ -89,3 +92,4 @@
 /obj/item/reagent_containers/food/snacks/grown/ambrosia/cruciatus
 	seed = /obj/item/seeds/ambrosia/cruciatus
 	wine_power = 0.7
+	tastes = list("ambrosia cruciatus" = 1)

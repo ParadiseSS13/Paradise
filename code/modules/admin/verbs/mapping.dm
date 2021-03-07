@@ -19,16 +19,8 @@
 //- Identify how hard it is to break into the area and where the weak points are
 //- Check if the area has too much empty space. If so, make it smaller and replace the rest with maintenance tunnels.
 
-var/camera_range_display_status = 0
-var/intercom_range_display_status = 0
-
-/obj/effect/debugging/camera_range
-	icon = 'icons/480x480.dmi'
-	icon_state = "25percent"
-
-	New()
-		src.pixel_x = -224
-		src.pixel_y = -224
+GLOBAL_VAR_INIT(camera_range_display_status, 0)
+GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 
 /obj/effect/debugging/mapfix_marker
 	name = "map fix marker"
@@ -50,18 +42,22 @@ var/intercom_range_display_status = 0
 	if(!check_rights(R_DEBUG))
 		return
 
-	if(camera_range_display_status)
-		camera_range_display_status = 0
+	if(GLOB.camera_range_display_status)
+		GLOB.camera_range_display_status = 0
 	else
-		camera_range_display_status = 1
+		GLOB.camera_range_display_status = 1
 
-	for(var/obj/effect/debugging/camera_range/C in world)
-		qdel(C)
+	for(var/obj/effect/debugging/marker/M in world)
+		qdel(M)
 
-	if(camera_range_display_status)
-		for(var/obj/machinery/camera/C in cameranet.cameras)
-			new/obj/effect/debugging/camera_range(C.loc)
-	feedback_add_details("admin_verb","mCRD") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	if(GLOB.camera_range_display_status)
+		for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
+			for(var/turf/T in orange(7, C))
+				var/obj/effect/debugging/marker/F = new/obj/effect/debugging/marker(T)
+				if(!(F in view(7, C.loc)))
+					qdel(F)
+
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Camera Range Display") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/sec_camera_report()
 	set category = "Mapping"
@@ -72,7 +68,7 @@ var/intercom_range_display_status = 0
 
 	var/list/obj/machinery/camera/CL = list()
 
-	for(var/obj/machinery/camera/C in cameranet.cameras)
+	for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 		CL += C
 
 	var/output = {"<B>CAMERA ANOMALIES REPORT</B><HR>
@@ -100,7 +96,7 @@ var/intercom_range_display_status = 0
 
 	output += "</ul>"
 	usr << browse(output,"window=airreport;size=1000x500")
-	feedback_add_details("admin_verb","mCRP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Camera Report") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/intercom_view()
 	set category = "Mapping"
@@ -109,21 +105,21 @@ var/intercom_range_display_status = 0
 	if(!check_rights(R_DEBUG))
 		return
 
-	if(intercom_range_display_status)
-		intercom_range_display_status = 0
+	if(GLOB.intercom_range_display_status)
+		GLOB.intercom_range_display_status = 0
 	else
-		intercom_range_display_status = 1
+		GLOB.intercom_range_display_status = 1
 
 	for(var/obj/effect/debugging/marker/M in world)
 		qdel(M)
 
-	if(intercom_range_display_status)
-		for(var/obj/item/radio/intercom/I in world)
+	if(GLOB.intercom_range_display_status)
+		for(var/obj/item/radio/intercom/I in GLOB.global_radios)
 			for(var/turf/T in orange(7,I))
 				var/obj/effect/debugging/marker/F = new/obj/effect/debugging/marker(T)
 				if(!(F in view(7,I.loc)))
 					qdel(F)
-	feedback_add_details("admin_verb","mIRD") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Intercom Range Display") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/count_objects_on_z_level()
 	set category = "Mapping"
@@ -132,13 +128,13 @@ var/intercom_range_display_status = 0
 	if(!check_rights(R_DEBUG))
 		return
 
-	var/level = input("Which z-level?","Level?") as text
+	var/level = clean_input("Which z-level?","Level?")
 	if(!level) return
 	var/num_level = text2num(level)
 	if(!num_level) return
 	if(!isnum(num_level)) return
 
-	var/type_text = input("Which type path?","Path?") as text
+	var/type_text = clean_input("Which type path?","Path?")
 	if(!type_text) return
 	var/type_path = text2path(type_text)
 	if(!type_path) return
@@ -161,7 +157,7 @@ var/intercom_range_display_status = 0
 					atom_list += A
 
 	to_chat(world, "There are [count] objects of type [type_path] on z-level [num_level].")
-	feedback_add_details("admin_verb","mOBJZ") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Count Objects (On Level)") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/count_objects_all()
 	set category = "Mapping"
@@ -170,7 +166,7 @@ var/intercom_range_display_status = 0
 	if(!check_rights(R_DEBUG))
 		return
 
-	var/type_text = input("Which type path?","") as text
+	var/type_text = clean_input("Which type path?","")
 	if(!type_text) return
 	var/type_path = text2path(type_text)
 	if(!type_path) return
@@ -182,4 +178,4 @@ var/intercom_range_display_status = 0
 			count++
 
 	to_chat(world, "There are [count] objects of type [type_path] in the game world.")
-	feedback_add_details("admin_verb","mOBJ") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Count Objects (Global)") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

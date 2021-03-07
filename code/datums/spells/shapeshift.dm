@@ -15,7 +15,7 @@
 	var/list/current_shapes = list()
 	var/list/current_casters = list()
 	var/list/possible_shapes = list(/mob/living/simple_animal/mouse,
-		/mob/living/simple_animal/pet/corgi,
+		/mob/living/simple_animal/pet/dog/corgi,
 		/mob/living/simple_animal/bot/ed209,
 		/mob/living/simple_animal/hostile/construct/armoured)
 

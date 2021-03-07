@@ -17,6 +17,7 @@
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
 	faction = list("neutral")
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	attack_same = 1
 	attacktext = "kicks"
 	attack_sound = 'sound/weapons/punch1.ogg'
@@ -28,18 +29,18 @@
 	can_collar = 1
 	blood_volume = BLOOD_VOLUME_NORMAL
 	var/obj/item/udder/udder = null
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/hostile/retaliate/goat/New()
 	udder = new()
 	. = ..()
 
 /mob/living/simple_animal/hostile/retaliate/goat/Destroy()
-	qdel(udder)
-	udder = null
+	QDEL_NULL(udder)
 	return ..()
 
 /mob/living/simple_animal/hostile/retaliate/goat/handle_automated_movement()
-	..()
+	. = ..()
 	//chance to go crazy and start wacking stuff
 	if(!enemies.len && prob(1))
 		Retaliate()
@@ -49,14 +50,13 @@
 		LoseTarget()
 		visible_message("<span class='notice'>[src] calms down.</span>")
 
-	if(stat == CONSCIOUS)
-		eat_plants()
-		if(!pulledby)
-			for(var/direction in shuffle(list(1,2,4,8,5,6,9,10)))
-				var/step = get_step(src, direction)
-				if(step)
-					if(locate(/obj/structure/spacevine) in step || locate(/obj/structure/glowshroom) in step)
-						Move(step, get_dir(src, step))
+	eat_plants()
+	if(!pulledby)
+		for(var/direction in shuffle(list(1, 2, 4, 8, 5, 6, 9, 10)))
+			var/step = get_step(src, direction)
+			if(step)
+				if(locate(/obj/structure/spacevine) in step || locate(/obj/structure/glowshroom) in step)
+					Move(step, get_dir(src, step))
 
 /mob/living/simple_animal/hostile/retaliate/goat/Life(seconds, times_fired)
 	. = ..()
@@ -94,12 +94,17 @@
 		say("Nom")
 
 /mob/living/simple_animal/hostile/retaliate/goat/AttackingTarget()
-	..()
-	if(isdiona(target))
+	. = ..()
+	if(. && isdiona(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/NB = pick(H.bodyparts)
 		H.visible_message("<span class='warning'>[src] takes a big chomp out of [H]!</span>", "<span class='userdanger'>[src] takes a big chomp out of your [NB.name]!</span>")
 		NB.droplimb()
+
+/mob/living/simple_animal/hostile/retaliate/goat/chef
+	name = "Pete"
+	desc = "Pete, the Chef's pet goat from the Caribbean. Not known for their pleasant disposition."
+	unique_pet = TRUE
 
 //cow
 /mob/living/simple_animal/cow
@@ -125,9 +130,12 @@
 	health = 50
 	maxHealth = 50
 	can_collar = 1
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
 	var/obj/item/udder/udder = null
+	gender = FEMALE
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/cow/Initialize()
 	udder = new()
@@ -174,6 +182,7 @@
 	icon_dead = "chick_dead"
 	icon_gib = "chick_gib"
 	gender = FEMALE
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	speak = list("Cherp.","Cherp?","Chirrup.","Cheep!")
 	speak_emote = list("cheeps")
 	emote_hear = list("cheeps")
@@ -194,7 +203,8 @@
 	mob_size = MOB_SIZE_TINY
 	can_hide = 1
 	can_collar = 1
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	gold_core_spawnable = FRIENDLY_SPAWN
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/chick/New()
 	..()
@@ -211,13 +221,14 @@
 				mind.transfer_to(C)
 			qdel(src)
 
-var/const/MAX_CHICKENS = 50
-var/global/chicken_count = 0
+#define MAX_CHICKENS 50
+GLOBAL_VAR_INIT(chicken_count, 0)
 
 /mob/living/simple_animal/chicken
 	name = "\improper chicken"
 	desc = "Hopefully the eggs are good this season."
 	gender = FEMALE
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	icon_state = "chicken_brown"
 	icon_living = "chicken_brown"
 	icon_dead = "chicken_brown_dead"
@@ -249,7 +260,8 @@ var/global/chicken_count = 0
 	var/list/feedMessages = list("It clucks happily.","It clucks happily.")
 	var/list/layMessage = EGG_LAYING_MESSAGES
 	var/list/validColors = list("brown","black","white")
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	gold_core_spawnable = FRIENDLY_SPAWN
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/chicken/New()
 	..()
@@ -260,14 +272,14 @@ var/global/chicken_count = 0
 	icon_dead = "[icon_prefix]_[body_color]_dead"
 	pixel_x = rand(-6, 6)
 	pixel_y = rand(0, 10)
-	chicken_count += 1
+	GLOB.chicken_count += 1
 
 /mob/living/simple_animal/chicken/death(gibbed)
 	// Only execute the below if we successfully died
 	. = ..(gibbed)
 	if(!.)
 		return
-	chicken_count -= 1
+	GLOB.chicken_count -= 1
 
 /mob/living/simple_animal/chicken/attackby(obj/item/O, mob/user, params)
 	if(istype(O, food_type)) //feedin' dem chickens
@@ -292,7 +304,7 @@ var/global/chicken_count = 0
 		E.pixel_x = rand(-6,6)
 		E.pixel_y = rand(-6,6)
 		if(eggsFertile)
-			if(chicken_count < MAX_CHICKENS && prob(25))
+			if(GLOB.chicken_count < MAX_CHICKENS && prob(25))
 				START_PROCESSING(SSobj, E)
 
 /obj/item/reagent_containers/food/snacks/egg/var/amount_grown = 0
@@ -329,8 +341,10 @@ var/global/chicken_count = 0
 	health = 50
 	maxHealth = 50
 	can_collar = 1
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
+	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/turkey
 	name = "turkey"
@@ -353,7 +367,9 @@ var/global/chicken_count = 0
 	health = 50
 	maxHealth = 50
 	can_collar = 1
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
+	gold_core_spawnable = FRIENDLY_SPAWN
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/goose
 	name = "goose"
@@ -376,7 +392,9 @@ var/global/chicken_count = 0
 	health = 50
 	maxHealth = 50
 	can_collar = 1
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
+	gold_core_spawnable = FRIENDLY_SPAWN
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/seal
 	name = "seal"
@@ -399,7 +417,8 @@ var/global/chicken_count = 0
 	health = 50
 	maxHealth = 50
 	can_collar = 1
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
+	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
 
 /mob/living/simple_animal/walrus
@@ -423,7 +442,8 @@ var/global/chicken_count = 0
 	health = 50
 	maxHealth = 50
 	can_collar = 1
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
+	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
 
 /obj/item/udder

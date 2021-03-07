@@ -5,7 +5,8 @@
 	icon_state = "sheater0"
 	name = "space heater"
 	desc = "Made by Space Amish using traditional space techniques, this heater is guaranteed not to set the station on fire."
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 100)
+	max_integrity = 250
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 10)
 	var/obj/item/stock_parts/cell/cell
 	var/on = 0
 	var/open = 0
@@ -17,9 +18,7 @@
 
 /obj/machinery/space_heater/New()
 	..()
-	cell = new(src)
-	cell.charge = 1000
-	cell.maxcharge = 1000
+	cell = new /obj/item/stock_parts/cell(src)
 	update_icon()
 	return
 
@@ -35,12 +34,12 @@
 	return
 
 /obj/machinery/space_heater/examine(mob/user)
-	..(user)
-	to_chat(user, "The heater is [on ? "on" : "off"] and the hatch is [open ? "open" : "closed"].")
+	. = ..()
+	. += "The heater is [on ? "on" : "off"] and the hatch is [open ? "open" : "closed"]."
 	if(open)
-		to_chat(user, "The power cell is [cell ? "installed" : "missing"].")
+		. += "The power cell is [cell ? "installed" : "missing"]."
 	else
-		to_chat(user, "The charge meter reads [cell ? round(cell.percent(),1) : 0]%")
+		. += "The charge meter reads [cell ? round(cell.percent(),1) : 0]%"
 
 /obj/machinery/space_heater/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
@@ -69,15 +68,23 @@
 		else
 			to_chat(user, "The hatch must be open to insert a power cell.")
 			return
-	else if(isscrewdriver(I))
-		open = !open
-		user.visible_message("<span class='notice'>[user] [open ? "opens" : "closes"] the hatch on [src].</span>", "<span class='notice'>You [open ? "open" : "close"] the hatch on [src].</span>")
-		update_icon()
-		if(!open && user.machine == src)
-			user << browse(null, "window=spaceheater")
-			user.unset_machine()
+
 	else
 		return ..()
+
+/obj/machinery/space_heater/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	open = !open
+	if(open)
+		SCREWDRIVER_OPEN_PANEL_MESSAGE
+	else
+		SCREWDRIVER_CLOSE_PANEL_MESSAGE
+	update_icon()
+	if(!open && user.machine == src)
+		user << browse(null, "window=spaceheater")
+		user.unset_machine()
 
 /obj/machinery/space_heater/attack_hand(mob/user as mob)
 	src.add_fingerprint(user)

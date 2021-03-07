@@ -5,14 +5,14 @@
 	icon_state = "spirit_board"
 	density = 1
 	anchored = 0
-	var/virgin = 1
+	var/used = FALSE
 	var/cooldown = 0
 	var/planchette = "A"
 	var/lastuser = null
 
 /obj/structure/spirit_board/examine(mob/user)
-	..(user)
-	to_chat(user, "[initial(desc)] The planchette is sitting at \"[planchette]\".")
+	. = ..()
+	. += "[initial(desc)] The planchette is sitting at \"[planchette]\"."
 
 /obj/structure/spirit_board/attack_hand(mob/user as mob)
 	if(..())
@@ -28,8 +28,8 @@
 	if(!spirit_board_checks(M))
 		return 0
 
-	if(virgin)
-		virgin = 0
+	if(!used)
+		used = TRUE
 		notify_ghosts("Someone has begun playing with a [src.name] in [get_area(src)]!", source = src)
 
 	planchette = input("Choose the letter.", "Seance!") in list("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")

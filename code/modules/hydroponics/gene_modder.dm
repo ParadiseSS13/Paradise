@@ -2,6 +2,7 @@
 	name = "plant DNA manipulator"
 	desc = "An advanced device designed to manipulate plant genetic makeup."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
+	pass_flags = PASSTABLE
 	icon_state = "dnamod"
 	density = 1
 	anchored = 1
@@ -26,20 +27,20 @@
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/plantgenes(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	RefreshParts()
 
-/obj/machinery/plantgenes/upgraded/New()
+/obj/machinery/plantgenes/seedvault/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/plantgenes(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
-	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
-	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
-	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/circuitboard/plantgenes/vault(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/stock_parts/scanning_module(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
 	RefreshParts()
 
 /obj/machinery/plantgenes/Destroy()
@@ -70,8 +71,16 @@
 
 	for(var/obj/item/stock_parts/micro_laser/ML in component_parts)
 		var/wratemod = ML.rating * 2.5
-		min_wrate = Floor(10-wratemod) // 7,5,2,0	Clamps at 0 and 10	You want this low
+		min_wrate = FLOOR(10-wratemod, 1) // 7,5,2,0	Clamps at 0 and 10	You want this low
 		min_wchance = 67-(ML.rating*16) // 48,35,19,3 	Clamps at 0 and 67	You want this low
+	for(var/obj/item/circuitboard/plantgenes/vaultcheck in component_parts)
+		if(istype(vaultcheck, /obj/item/circuitboard/plantgenes/vault)) // TRAIT_DUMB BOTANY TUTS
+			max_potency = 100
+			max_yield = 10
+			min_production = 1
+			max_endurance = 100
+			min_wchance = 0
+			min_wrate = 0
 
 /obj/machinery/plantgenes/update_icon()
 	..()
@@ -91,7 +100,7 @@
 		return
 	if(exchange_parts(user, I))
 		return
-	if(default_deconstruction_crowbar(I))
+	if(default_deconstruction_crowbar(user, I))
 		return
 	if(isrobot(user))
 		return
@@ -117,7 +126,7 @@
 			to_chat(user, "<span class='notice'>You add [I] to the machine.</span>")
 			interact(user)
 	else
-		..()
+		return ..()
 
 
 /obj/machinery/plantgenes/attack_hand(mob/user)
@@ -373,6 +382,7 @@
 						seed.genes += disk.gene.Copy()
 						if(istype(disk.gene, /datum/plant_gene/reagent))
 							seed.reagents_from_genes()
+						disk.gene.apply_vars(seed)
 						repaint_seed()
 
 			update_genes()
@@ -448,15 +458,7 @@
 /obj/item/disk/plantgene/attackby(obj/item/W, mob/user, params)
 	..()
 	if(istype(W, /obj/item/pen))
-		var/t = stripped_input(user, "What would you like the label to be?", name, null)
-		if(user.get_active_hand() != W)
-			return
-		if(!in_range(src, user) && loc != user)
-			return
-		if(t)
-			name = "plant data disk - '[t]'"
-		else
-			name = "plant data disk"
+		rename_interactive(user, W)
 
 /obj/item/disk/plantgene/proc/update_name()
 	if(gene)
@@ -469,8 +471,8 @@
 	to_chat(user, "<span class='notice'>You flip the write-protect tab to [read_only ? "protected" : "unprotected"].</span>")
 
 /obj/item/disk/plantgene/examine(mob/user)
-	..()
-	to_chat(user, "The write-protect tab is set to [read_only ? "protected" : "unprotected"].")
+	. = ..()
+	. += "The write-protect tab is set to [read_only ? "protected" : "unprotected"]."
 
 
 /*

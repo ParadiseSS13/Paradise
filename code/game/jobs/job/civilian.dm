@@ -1,7 +1,7 @@
 /datum/job/civilian
 	title = "Civilian"
-	flag = CIVILIAN
-	department_flag = SUPPORT
+	flag = JOB_CIVILIAN
+	department_flag = JOBCAT_SUPPORT
 	total_positions = -1
 	spawn_positions = -1
 	supervisors = "the head of personnel"
@@ -14,7 +14,7 @@
 
 /datum/job/civilian/get_access()
 	if(config.assistant_maint)
-		return list(access_maint_tunnels)
+		return list(ACCESS_MAINT_TUNNELS)
 	else
 		return list()
 

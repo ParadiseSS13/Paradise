@@ -2,26 +2,15 @@
 	name = "Diona"
 	name_plural = "Dionaea"
 	icobase = 'icons/mob/human_races/r_diona.dmi'
-	deform = 'icons/mob/human_races/r_def_plant.dmi'
 	language = "Rootspeak"
 	speech_sounds = list('sound/voice/dionatalk1.ogg') //Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
 	speech_chance = 20
 	unarmed_type = /datum/unarmed_attack/diona
-	//primitive_form = "Nymph"
-	slowdown = 5
 	remains_type = /obj/effect/decal/cleanable/ash
 
-
-	warning_low_pressure = 50
-	hazard_low_pressure = -1
-
-	cold_level_1 = 50
-	cold_level_2 = -1
-	cold_level_3 = -1
-
-	heat_level_1 = 300
-	heat_level_2 = 340
-	heat_level_3 = 400
+	burn_mod = 1.25
+	heatmod = 1.5
+	var/pod = FALSE //did they come from a pod? If so, they're stronger than normal Diona.
 
 	blurb = "Commonly referred to (erroneously) as 'plant people', the Dionaea are a strange space-dwelling collective \
 	species hailing from Epsilon Ursae Minoris. Each 'diona' is a cluster of numerous cat-sized organisms called nymphs; \
@@ -31,16 +20,15 @@
 	even the simplest concepts of other minds. Their alien physiology allows them survive happily off a diet of nothing but light, \
 	water and other radiation."
 
-	species_traits = list(NO_BREATHE, RADIMMUNE, IS_PLANT, NO_BLOOD, NO_PAIN)
-	dies_at_threshold = TRUE
+	inherent_traits = list(TRAIT_NOGERMS, TRAIT_NODECAY)
+	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_PLANT
 	clothing_flags = HAS_SOCKS
 	default_hair_colour = "#000000"
 	has_gender = FALSE
-	dietflags = 0		//Diona regenerate nutrition in light and water, no diet necessary
-	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
+	dietflags = DIET_HERB		//Diona regenerate nutrition in light and water, no diet necessary, but if they must, they eat other plants *scream
+	taste_sensitivity = TASTE_SENSITIVITY_DULL
 	skinned_type = /obj/item/stack/sheet/wood
 
-	body_temperature = T0C + 15		//make the plant people have a bit lower body temperature, why not
 	blood_color = "#004400"
 	flesh_color = "#907E4A"
 	butt_sprite = "diona"
@@ -49,14 +37,13 @@
 
 	has_organ = list(
 		"nutrient channel" =   /obj/item/organ/internal/liver/diona,
+		"respiratory vacuoles" =   /obj/item/organ/internal/lungs/diona,
 		"neural strata" =      /obj/item/organ/internal/heart/diona,
-		"receptor node" =      /obj/item/organ/internal/eyes/diona, //Default darksight of 2.
+		"eyes"			 =      /obj/item/organ/internal/eyes/diona, //Default darksight of 2.
 		"gas bladder" =        /obj/item/organ/internal/brain/diona,
 		"polyp segment" =      /obj/item/organ/internal/kidneys/diona,
 		"anchoring ligament" = /obj/item/organ/internal/appendix/diona
 		)
-
-	vision_organ = /obj/item/organ/internal/eyes/diona
 	has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest/diona),
 		"groin" =  list("path" = /obj/item/organ/external/groin/diona),
@@ -85,29 +72,64 @@
 	..()
 	H.gender = NEUTER
 
-/datum/species/diona/handle_life(mob/living/carbon/human/H)
-	H.radiation = Clamp(H.radiation, 0, 100) //We have to clamp this first, then decrease it, or there's a few edge cases of massive heals if we clamp and decrease at the same time.
-	var/rads = H.radiation / 25
-	H.radiation = max(H.radiation-rads, 0)
-	H.nutrition = min(H.nutrition+rads, NUTRITION_LEVEL_WELL_FED+10)
-	H.adjustBruteLoss(-(rads))
-	H.adjustToxLoss(-(rads))
+/datum/species/diona/on_species_loss(mob/living/carbon/human/H)
+	. = ..()
+	H.clear_alert("nolight")
 
+/datum/species/diona/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	if(R.id == "glyphosate" || R.id == "atrazine")
+		H.adjustToxLoss(3) //Deal aditional damage
+		return TRUE
+	return ..()
+
+/datum/species/diona/handle_life(mob/living/carbon/human/H)
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
+	var/is_vamp = H.mind?.vampire != null
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
-		light_amount = min(T.get_lumcount() * 10, 5)  //hardcapped so it's not abused by having a ton of flashlights
-	H.nutrition = min(H.nutrition+light_amount, NUTRITION_LEVEL_WELL_FED+10)
+		light_amount = min(1, T.get_lumcount()) - 0.5
+		if(light_amount > 0)
+			H.clear_alert("nolight")
+		else
+			H.throw_alert("nolight", /obj/screen/alert/nolight)
 
-	if(light_amount > 0)
-		H.clear_alert("nolight")
-	else
-		H.throw_alert("nolight", /obj/screen/alert/nolight)
+		if(!is_vamp)
+			H.adjust_nutrition(light_amount * 10)
+			if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
+				H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 
-	if((light_amount >= 5) && !H.suiciding) //if there's enough light, heal
+		if(light_amount > 0.2 && !H.suiciding) //if there's enough light, heal
+			if(!pod && H.health <= 0)
+				return
+			H.adjustBruteLoss(-1)
+			H.adjustFireLoss(-1)
+			H.adjustToxLoss(-1)
+			H.adjustOxyLoss(-1)
 
-		H.adjustBruteLoss(-(light_amount/2))
-		H.adjustFireLoss(-(light_amount/4))
-	if(H.nutrition < NUTRITION_LEVEL_STARVING+50)
-		H.take_overall_damage(10,0)
+	if(!is_vamp && H.nutrition < NUTRITION_LEVEL_STARVING + 50)
+		H.adjustBruteLoss(2)
 	..()
+
+/datum/species/diona/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
+	switch(P.type)
+		if(/obj/item/projectile/energy/floramut)
+			if(prob(15))
+				H.rad_act(rand(30, 80))
+				H.Weaken(5)
+				H.visible_message("<span class='warning'>[H] writhes in pain as [H.p_their()] vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
+				if(prob(80))
+					randmutb(H)
+					domutcheck(H)
+				else
+					randmutg(H)
+					domutcheck(H)
+			else
+				H.adjustFireLoss(rand(5, 15))
+				H.show_message("<span class='warning'>The radiation beam singes you!</span>")
+		if(/obj/item/projectile/energy/florayield)
+			H.set_nutrition(min(H.nutrition + 30, NUTRITION_LEVEL_FULL))
+	return TRUE
+
+/datum/species/diona/pod //Same name and everything; we want the same limitations on them; we just want their regeneration to kick in at all times and them to have special factions
+	pod = TRUE
+	inherent_factions = list("plants", "vines")

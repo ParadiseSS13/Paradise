@@ -25,8 +25,8 @@
 	RefreshParts()
 
 /obj/machinery/snow_machine/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>The internal reservoir indicates it is [infinite_snow ? "100" : round(reagents.total_volume / reagents.maximum_volume * 100)]% full.</span>")
+	. = ..()
+	. += "<span class='notice'>The internal reservoir indicates it is [infinite_snow ? "100" : round(reagents.total_volume / reagents.maximum_volume * 100)]% full.</span>"
 
 /obj/machinery/snow_machine/RefreshParts()
 	power_efficiency = 0
@@ -43,20 +43,22 @@
 		to_chat(user, "<span class='notice'>You [active ? "turn on" : "turn off"] [src].</span>")
 	return ..()
 
-/obj/machinery/snow_machine/attackby(obj/item/I, mob/user)
-	if(isscrewdriver(I))
-		if(default_deconstruction_screwdriver(user, "snow_machine_openpanel", "snow_machine_off", I))
-			turn_on_or_off(FALSE)
-	else if(iscrowbar(I))
-		default_deconstruction_crowbar(I)
-	else if(iswrench(I))
-		var/obj/item/wrench/W = I
-		anchored = !anchored
-		to_chat(user, "<span class='notice'>You [anchored ? "tighten" : "loosen"] [src]'s wheels.</span>")
-		playsound(loc, W.usesound, 50, TRUE)
+/obj/machinery/snow_machine/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
+
+/obj/machinery/snow_machine/screwdriver_act(mob/user, obj/item/I)
+	if(default_deconstruction_screwdriver(user, "snow_machine_openpanel", "snow_machine_off", I))
 		turn_on_or_off(FALSE)
-	else
-		return ..()
+		return TRUE
+
+/obj/machinery/snow_machine/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	anchored = !anchored
+	to_chat(user, "<span class='notice'>You [anchored ? "tighten" : "loosen"] [src]'s wheels.</span>")
+	turn_on_or_off(FALSE)
 
 /obj/machinery/snow_machine/process()
 	if(power_used_this_cycle)

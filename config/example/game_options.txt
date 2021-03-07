@@ -73,3 +73,7 @@ ENABLE_NIGHT_SHIFTS
 # spawn, while the converse is true. Alter this number to affect the amount
 # of ruins.
 LAVALAND_BUDGET 60
+
+## Cube monkey limit
+# Amount of cube monkeys that can be spawned before the game limits them
+CUBEMONKEY_CAP 32

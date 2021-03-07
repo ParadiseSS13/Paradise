@@ -6,14 +6,14 @@
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE
 	max_integrity = 1
-	armor = list("melee" = 0, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 0, "bio" = 0, "rad" = 0)
+	armor = list("melee" = 0, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 20)
 	var/obj/item/holosign_creator/projector
 
-/obj/structure/holosign/New(loc, source_projector)
+/obj/structure/holosign/Initialize(mapload, source_projector)
+	. = ..()
 	if(source_projector)
 		projector = source_projector
 		projector.signs += src
-	..()
 
 /obj/structure/holosign/Destroy()
 	if(projector)
@@ -32,9 +32,9 @@
 /obj/structure/holosign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
-			playsound(loc, 'sound/weapons/egloves.ogg', 80, 1)
+			playsound(loc, 'sound/weapons/egloves.ogg', 80, TRUE)
 		if(BURN)
-			playsound(loc, 'sound/weapons/egloves.ogg', 80, 1)
+			playsound(loc, 'sound/weapons/egloves.ogg', 80, TRUE)
 
 /obj/structure/holosign/wetsign
 	name = "wet floor sign"
@@ -57,11 +57,13 @@
 		return TRUE
 	if(iscarbon(mover))
 		var/mob/living/carbon/C = mover
-		if(allow_walk && C.m_intent == MOVE_INTENT_WALK)
+		if(allow_walk && (C.m_intent == MOVE_INTENT_WALK || (C.pulledby && C.pulledby.m_intent == MOVE_INTENT_WALK)))
 			return TRUE
 
 /obj/structure/holosign/barrier/engineering
 	icon_state = "holosign_engi"
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	rad_insulation = RAD_LIGHT_INSULATION
 
 /obj/structure/holosign/barrier/atmos
 	name = "holo firelock"
@@ -72,9 +74,11 @@
 	anchored = TRUE
 	layer = ABOVE_MOB_LAYER
 	alpha = 150
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	rad_insulation = RAD_LIGHT_INSULATION
 
-/obj/structure/holosign/barrier/atmos/New()
-	..()
+/obj/structure/holosign/barrier/atmos/Initialize(mapload)
+	. = ..()
 	air_update_turf(TRUE)
 
 /obj/structure/holosign/barrier/atmos/CanAtmosPass(turf/T)
@@ -118,7 +122,7 @@
 	if(!shockcd)
 		if(isliving(user))
 			var/mob/living/M = user
-			M.electrocute_act(15, "Energy Barrier", safety = TRUE)
+			M.electrocute_act(15, "Energy Barrier")
 			shockcd = TRUE
 			addtimer(CALLBACK(src, .proc/cooldown), 5)
 
@@ -130,6 +134,6 @@
 		return
 
 	var/mob/living/M = AM
-	M.electrocute_act(15, "Energy Barrier", safety = TRUE)
+	M.electrocute_act(15, "Energy Barrier")
 	shockcd = TRUE
 	addtimer(CALLBACK(src, .proc/cooldown), 5)

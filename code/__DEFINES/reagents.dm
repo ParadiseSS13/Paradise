@@ -16,3 +16,11 @@
 
 // Is an open container for all intents and purposes.
 #define OPENCONTAINER 	(REFILLABLE | DRAINABLE | TRANSPARENT)
+
+#define REAGENT_TOUCH 1
+#define REAGENT_INGEST 2
+
+///Health threshold for synthflesh and rezadone to unhusk someone
+#define UNHUSK_DAMAGE_THRESHOLD 50
+///Amount of synthflesh required to unhusk someone
+#define SYNTHFLESH_UNHUSK_AMOUNT 100

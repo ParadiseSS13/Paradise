@@ -8,6 +8,7 @@
 	circuit = /obj/item/circuitboard/pandemic
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
+	resistance_flags = ACID_PROOF
 	var/temp_html = ""
 	var/printing = null
 	var/wait = null
@@ -83,8 +84,8 @@
 				var/vaccine_name = "Unknown"
 
 				if(!ispath(vaccine_type))
-					if(archive_diseases[path])
-						var/datum/disease/D = archive_diseases[path]
+					if(GLOB.archive_diseases[path])
+						var/datum/disease/D = GLOB.archive_diseases[path]
 						if(D)
 							vaccine_name = D.name
 							vaccine_type = path
@@ -108,11 +109,11 @@
 			var/datum/disease/D = null
 			if(!ispath(type))
 				D = GetVirusByIndex(text2num(href_list["create_virus_culture"]))
-				var/datum/disease/advance/A = archive_diseases[D.GetDiseaseID()]
+				var/datum/disease/advance/A = GLOB.archive_diseases[D.GetDiseaseID()]
 				if(A)
 					D = new A.type(0, A)
 			else if(type)
-				if(type in diseases) // Make sure this is a disease
+				if(type in GLOB.diseases) // Make sure this is a disease
 					D = new type(0, null)
 			if(!D)
 				return
@@ -135,12 +136,11 @@
 		return
 	else if(href_list["empty_beaker"])
 		beaker.reagents.clear_reagents()
+		eject_beaker()
 		updateUsrDialog()
 		return
 	else if(href_list["eject"])
-		beaker:loc = loc
-		beaker = null
-		icon_state = "mixer0"
+		eject_beaker()
 		updateUsrDialog()
 		return
 	else if(href_list["clear"])
@@ -154,15 +154,15 @@
 		if(..())
 			return
 		var/id = GetVirusTypeByIndex(text2num(href_list["name_disease"]))
-		if(archive_diseases[id])
-			var/datum/disease/advance/A = archive_diseases[id]
+		if(GLOB.archive_diseases[id])
+			var/datum/disease/advance/A = GLOB.archive_diseases[id]
 			A.AssignName(new_name)
 			for(var/datum/disease/advance/AD in GLOB.active_diseases)
 				AD.Refresh()
 		updateUsrDialog()
 	else if(href_list["print_form"])
 		var/datum/disease/D = GetVirusByIndex(text2num(href_list["print_form"]))
-		D = archive_diseases[D.GetDiseaseID()]//We know it's advanced no need to check
+		D = GLOB.archive_diseases[D.GetDiseaseID()]//We know it's advanced no need to check
 		print_form(D, usr)
 
 
@@ -173,9 +173,14 @@
 
 	add_fingerprint(usr)
 
+/obj/machinery/computer/pandemic/proc/eject_beaker()
+	beaker.forceMove(loc)
+	beaker = null
+	icon_state = "mixer0"
+
 //Prints a nice virus release form. Props to Urbanliner for the layout
 /obj/machinery/computer/pandemic/proc/print_form(var/datum/disease/advance/D, mob/living/user)
-	D = archive_diseases[D.GetDiseaseID()]
+	D = GLOB.archive_diseases[D.GetDiseaseID()]
 	if(!(printing) && D)
 		var/reason = input(user,"Enter a reason for the release", "Write", null) as message
 		reason += "<span class=\"paper_field\"></span>"
@@ -255,7 +260,7 @@
 							if(istype(D, /datum/disease/advance))
 
 								var/datum/disease/advance/A = D
-								D = archive_diseases[A.GetDiseaseID()]
+								D = GLOB.archive_diseases[A.GetDiseaseID()]
 								if(D)
 									if(D.name == "Unknown")
 										dat += "<b><a href='?src=[UID()];name_disease=[i]'>Name Disease</a></b><BR>"
@@ -295,7 +300,7 @@
 						var/disease_name = "Unknown"
 
 						if(!ispath(type))
-							var/datum/disease/advance/A = archive_diseases[type]
+							var/datum/disease/advance/A = GLOB.archive_diseases[type]
 							if(A)
 								disease_name = A.name
 						else
@@ -308,7 +313,7 @@
 					dat += "nothing<BR>"
 			else
 				dat += "nothing<BR>"
-		dat += "<BR><A href='?src=[UID()];eject=1'>Eject beaker</A>[((R.total_volume&&R.reagent_list.len) ? "-- <A href='?src=[UID()];empty_beaker=1'>Empty beaker</A>":"")]<BR>"
+		dat += "<BR><A href='?src=[UID()];eject=1'>Eject beaker</A>[((R.total_volume&&R.reagent_list.len) ? "-- <A href='?src=[UID()];empty_beaker=1'>Empty and eject beaker</A>":"")]<BR>"
 		dat += "<A href='?src=[user.UID()];mach_close=pandemic'>Close</A>"
 
 	var/datum/browser/popup = new(user, "pandemic", name, 575, 400)
@@ -338,8 +343,6 @@
 
 	else if(istype(I, /obj/item/screwdriver))
 		if(beaker)
-			beaker.loc = get_turf(src)
-		..()
-		return
+			beaker.forceMove(get_turf(src))
 	else
-		..()
+		return ..()

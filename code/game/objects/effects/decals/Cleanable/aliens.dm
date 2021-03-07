@@ -3,7 +3,7 @@
 	desc = "It's green and acidic. It looks like... <i>blood?</i>"
 	icon = 'icons/effects/blood.dmi'
 	basecolor = "#05EE05"
-	bloodiness = MAX_SHOE_BLOODINESS
+	bloodiness = BLOOD_AMOUNT_PER_DECAL
 	blood_state = BLOOD_STATE_XENO
 
 /obj/effect/decal/cleanable/blood/xeno/splatter
@@ -37,3 +37,19 @@
 
 /obj/effect/decal/cleanable/blood/xtracks
 	basecolor = "#05EE05"
+
+/obj/effect/decal/cleanable/blood/slime // this is the alien blood file, slimes are aliens.
+	name = "slime jelly"
+	desc = "It's a transparent semi-liquid from a slime or slime person. Don't lick it."
+	basecolor = "#0b8f70"
+	bloodiness = MAX_SHOE_BLOODINESS
+
+/obj/effect/decal/cleanable/blood/slime/can_bloodcrawl_in()
+	return FALSE
+
+/obj/effect/decal/cleanable/blood/slime/dry()
+	return
+
+/obj/effect/decal/cleanable/blood/slime/streak
+	random_icon_states = list("mgibbl1", "mgibbl2", "mgibbl3", "mgibbl4", "mgibbl5")
+	amount = 2

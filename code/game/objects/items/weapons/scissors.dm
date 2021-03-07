@@ -27,57 +27,11 @@
 		return
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		//see code/modules/mob/new_player/preferences.dm at approx line 545 for comments!
-		//this is largely copypasted from there.
-		//handle facial hair (if necessary)
-		var/list/species_facial_hair = list()
 		var/obj/item/organ/external/head/C = H.get_organ("head")
-		var/datum/robolimb/robohead = all_robolimbs[C.model]
-		if(H.gender == MALE || isvulpkanin(H))
-			if(C.dna.species)
-				for(var/i in GLOB.facial_hair_styles_list)
-					var/datum/sprite_accessory/facial_hair/tmp_facial = GLOB.facial_hair_styles_list[i]
-					if(C.dna.species.name in tmp_facial.species_allowed)  //If the species is allowed to have the style, add the style to the list. Or, if the character has a prosthetic head, give them the human hair styles.
-						if(C.dna.species.bodyflags & ALL_RPARTS) //If the character is of a species that can have full body prosthetics and their head doesn't suport human hair 'wigs', don't add the style to the list.
-							if(robohead.is_monitor)
-								to_chat(user, "<span class='warning'>You are unable to find anything on [H]'s face worth cutting. How disappointing.</span>")
-								return
-							continue //If the head DOES support human hair wigs, make sure they don't get monitor-oriented styles.
-						species_facial_hair += i
-					else
-						if(C.dna.species.bodyflags & ALL_RPARTS) //If the target is of a species that can have prosthetic heads, and the head supports human hair 'wigs' AND the hair-style is human-suitable, add it to the list.
-							if(!robohead.is_monitor)
-								if("Human" in tmp_facial.species_allowed)
-									species_facial_hair += i
-							else //Otherwise, they won't be getting any hairstyles.
-								to_chat(user, "<span class='warning'>You are unable to find anything on [H]'s face worth cutting. How disappointing.</span>")
-								return
-			else
-				species_facial_hair = GLOB.facial_hair_styles_list
-		var/f_new_style = input(user, "Select a facial hair style", "Grooming")  as null|anything in species_facial_hair
+		//facial hair
+		var/f_new_style = input(user, "Select a facial hair style", "Grooming")  as null|anything in H.generate_valid_facial_hairstyles()
 		//handle normal hair
-		var/list/species_hair = list()
-		if(C.dna.species)
-			for(var/i in GLOB.hair_styles_public_list)
-				var/datum/sprite_accessory/hair/tmp_hair = GLOB.hair_styles_public_list[i]
-				if(C.dna.species.name in tmp_hair.species_allowed) //If the species is allowed to have the style, add the style to the list. Or, if the character has a prosthetic head, give them the human facial hair styles.
-					if(C.dna.species.bodyflags & ALL_RPARTS) //If the character is of a species that can have full body prosthetics and their head doesn't suport human hair 'wigs', don't add the style to the list.
-						if(robohead.is_monitor)
-							to_chat(user, "<span class='warning'>You are unable to find anything on [H]'s head worth cutting. How disappointing.</span>")
-							return
-						continue //If the head DOES support human hair wigs, make sure they don't get monitor-oriented styles.
-					species_hair += i
-				else
-					if(C.dna.species.bodyflags & ALL_RPARTS) //If the target is of a species that can have prosthetic heads, and the head supports human hair 'wigs' AND the hair-style is human-suitable, add it to the list.
-						if(!robohead.is_monitor)
-							if("Human" in tmp_hair.species_allowed)
-								species_hair += i
-						else //Otherwise, they won't be getting any hairstyles.
-							to_chat(user, "<span class='warning'>You are unable to find anything on [H]'s head worth cutting. How disappointing.</span>")
-							return
-		else
-			species_hair = GLOB.hair_styles_public_list
-		var/h_new_style = input(user, "Select a hair style", "Grooming")  as null|anything in species_hair
+		var/h_new_style = input(user, "Select a hair style", "Grooming")  as null|anything in H.generate_valid_hairstyles()
 		user.visible_message("<span class='notice'>[user] starts cutting [M]'s hair!</span>", "<span class='notice'>You start cutting [M]'s hair!</span>") //arguments for this are: 1. what others see 2. what the user sees. --Fixed grammar, (TGameCo)
 		playsound(loc, 'sound/goonstation/misc/scissor.ogg', 100, 1)
 		if(do_after(user, 50 * toolspeed, target = H)) //this is the part that adds a delay. delay is in deciseconds. --Made it 5 seconds, because hair isn't cut in one second in real life, and I want at least a little bit longer time, (TGameCo)

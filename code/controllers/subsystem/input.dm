@@ -5,6 +5,7 @@ SUBSYSTEM_DEF(input)
 	flags = SS_TICKER
 	priority = FIRE_PRIORITY_INPUT
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
+	offline_implications = "Player input will no longer be recognised. Immediate server restart recommended."
 
 	var/list/macro_sets
 	var/list/movement_keys
@@ -24,7 +25,7 @@ SUBSYSTEM_DEF(input)
 // This is for when macro sets are eventualy datumized
 /datum/controller/subsystem/input/proc/setup_default_macro_sets()
 	var/list/static/default_macro_sets
-	
+
 	if(default_macro_sets)
 		macro_sets = default_macro_sets
 		return
@@ -33,25 +34,22 @@ SUBSYSTEM_DEF(input)
 		"default" = list(
 			"Tab" = "\".winset \\\"input.focus=true?map.focus=true input.background-color=[COLOR_INPUT_DISABLED]:input.focus=true input.background-color=[COLOR_INPUT_ENABLED]\\\"\"",
 			"O" = "ooc",
-			"T" = "say",
-			"M" = "me",
-			"F3" = "say",
+			"T" = ".say",
+			"M" = ".me",
 			"Back" = "\".winset \\\"input.focus=true input.text=\\\"\\\"\\\"\"", // This makes it so backspace can remove default inputs
 			"Any" = "\"KeyDown \[\[*\]\]\"",
 			"Any+UP" = "\"KeyUp \[\[*\]\]\"",
 			),
 		"old_default" = list(
 			"Tab" = "\".winset \\\"mainwindow.macro=old_hotkeys map.focus=true input.background-color=[COLOR_INPUT_DISABLED]\\\"\"",
-			"Ctrl+T" = "say",
+			"Ctrl+T" = ".say",
 			"Ctrl+O" = "ooc",
-			"F3" = "say",
 			),
 		"old_hotkeys" = list(
 			"Tab" = "\".winset \\\"mainwindow.macro=old_default input.focus=true input.background-color=[COLOR_INPUT_ENABLED]\\\"\"",
 			"O" = "ooc",
-			"T" = "say",
-			"M" = "me",
-			"F3" = "say",
+			"T" = ".say",
+			"M" = ".me",
 			"Back" = "\".winset \\\"input.focus=true input.text=\\\"\\\"\\\"\"", // This makes it so backspace can remove default inputs
 			"Any" = "\"KeyDown \[\[*\]\]\"",
 			"Any+UP" = "\"KeyUp \[\[*\]\]\"",
@@ -123,3 +121,8 @@ SUBSYSTEM_DEF(input)
 	for(var/i in 1 to clients.len)
 		var/client/C = clients[i]
 		C.keyLoop()
+
+/datum/controller/subsystem/input/Recover()
+	macro_sets = SSinput.macro_sets
+	movement_keys = SSinput.movement_keys
+	alt_movement_keys = SSinput.alt_movement_keys

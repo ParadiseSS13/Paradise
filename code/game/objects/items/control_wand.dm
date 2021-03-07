@@ -1,6 +1,7 @@
 #define WAND_OPEN "Open Door"
 #define WAND_BOLT "Toggle Bolts"
 #define WAND_EMERGENCY "Toggle Emergency Access"
+#define WAND_SPEED "Change Closing Speed"
 
 /obj/item/door_remote
 	icon_state = "gangtool-white"
@@ -21,7 +22,7 @@
 	for(var/region in region_access)
 		ID.access += get_region_accesses(region)
 	ID.access += additional_access
-	ID.access = uniquelist(ID.access)	//remove duplicates
+	ID.access = uniquelist(ID.access)
 
 /obj/item/door_remote/Destroy()
 	QDEL_NULL(ID)
@@ -34,8 +35,11 @@
 		if(WAND_BOLT)
 			mode = WAND_EMERGENCY
 		if(WAND_EMERGENCY)
+			mode = WAND_SPEED
+		if(WAND_SPEED)
 			mode = WAND_OPEN
-	to_chat(user, "Now in mode: [mode].")
+
+	to_chat(user, "<span class='notice'>Now in mode: [mode].</span>")
 
 /obj/item/door_remote/afterattack(obj/machinery/door/airlock/D, mob/user)
 	if(!istype(D))
@@ -50,6 +54,7 @@
 		to_chat(user, "<span class='danger'>[D]'s ID scan is disabled!</span>")
 		return
 	if(D.check_access(src.ID))
+		D.add_hiddenprint(user)
 		switch(mode)
 			if(WAND_OPEN)
 				if(D.density)
@@ -63,10 +68,13 @@
 					D.lock()
 			if(WAND_EMERGENCY)
 				if(D.emergency)
-					D.emergency = 0
+					D.emergency = FALSE
 				else
-					D.emergency = 1
+					D.emergency = TRUE
 				D.update_icon()
+			if(WAND_SPEED)
+				D.normalspeed = !D.normalspeed
+				to_chat(user, "<span class='notice'>[D] is now in [D.normalspeed ? "normal" : "fast"] mode.</span>")
 	else
 		to_chat(user, "<span class='danger'>[src] does not have access to this door.</span>")
 
@@ -110,7 +118,7 @@
 	name = "civillian door remote"
 	icon_state = "gangtool-white"
 	region_access = list(REGION_GENERAL, REGION_SUPPLY)
-	additional_access = list(access_hop)
+	additional_access = list(ACCESS_HOP)
 
 /obj/item/door_remote/centcomm
 	name = "centcomm door remote"
@@ -143,3 +151,4 @@
 #undef WAND_OPEN
 #undef WAND_BOLT
 #undef WAND_EMERGENCY
+#undef WAND_SPEED

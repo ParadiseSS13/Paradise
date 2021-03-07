@@ -1,10 +1,9 @@
 /turf/simulated/floor/indestructible
-	unacidable = TRUE
 
 /turf/simulated/floor/indestructible/ex_act(severity)
 	return
 
-/turf/simulated/floor/indestructible/blob_act()
+/turf/simulated/floor/indestructible/blob_act(obj/structure/blob/B)
 	return
 
 /turf/simulated/floor/indestructible/singularity_act()
@@ -23,17 +22,17 @@
 	return
 
 /turf/simulated/floor/indestructible/attackby(obj/item/I, mob/user, params)
-	return 
+	return
 
 /turf/simulated/floor/indestructible/attack_hand(mob/user)
-	return 
+	return
 
 /turf/simulated/floor/indestructible/attack_hulk(mob/user, does_attack_animation = FALSE)
 	return
 
 /turf/simulated/floor/indestructible/attack_animal(mob/living/simple_animal/M)
 	return
-	
+
 /turf/simulated/floor/indestructible/mech_melee_attack(obj/mecha/M)
 	return
 
@@ -47,15 +46,19 @@
 	nitrogen = 23
 	temperature = 300
 	planetary_atmos = TRUE
+	footstep = FOOTSTEP_LAVA
+	barefootstep = FOOTSTEP_LAVA
+	clawfootstep = FOOTSTEP_LAVA
+	heavyfootstep = FOOTSTEP_LAVA
 
-/turf/simulated/floor/indestructible/necropolis/Initialize()
+/turf/simulated/floor/indestructible/necropolis/Initialize(mapload)
 	. = ..()
 	if(prob(12))
 		icon_state = "necro[rand(2,3)]"
 
 /turf/simulated/floor/indestructible/necropolis/air
-	oxygen = 0
-	nitrogen = 0
+	oxygen = MOLES_O2STANDARD
+	nitrogen = MOLES_N2STANDARD
 	temperature = T20C
 
 /turf/simulated/floor/indestructible/boss //you put stone tiles on this and use it as a base
@@ -74,12 +77,16 @@
 	temperature = T20C
 
 /turf/simulated/floor/indestructible/hierophant
-	icon_state = "hierophant1"
+	name = "floor"
+	icon = 'icons/turf/floors/hierophant_floor.dmi'
+	icon_state = "floor"
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
 	planetary_atmos = TRUE
-	desc = "A floor with a square pattern. It's faintly cool to the touch."
+	smooth = SMOOTH_TRUE
+
+/turf/simulated/floor/indestructible/hierophant/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+	return FALSE
 
 /turf/simulated/floor/indestructible/hierophant/two
-	icon_state = "hierophant2"

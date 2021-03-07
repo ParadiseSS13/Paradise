@@ -30,20 +30,21 @@
 		transform = matrix(-1, 0, 0, 0, 1, 0)
 
 /obj/item/organ/internal/cyberimp/arm/examine(mob/user)
-	..()
-	to_chat(user, "<span class='info'>[src] is assembled in the [parent_organ == "r_arm" ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.</span>")
+	. = ..()
+	. += "<span class='info'>[src] is assembled in the [parent_organ == "r_arm" ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.</span>"
 
-/obj/item/organ/internal/cyberimp/arm/attackby(obj/item/I, mob/user, params)
-	if(isscrewdriver(I))
-		if(parent_organ == "r_arm")
-			parent_organ = "l_arm"
-		else
-			parent_organ = "r_arm"
-		slot = parent_organ + "_device"
-		to_chat(user, "<span class='notice'>You modify [src] to be installed on the [parent_organ == "r_arm" ? "right" : "left"] arm.</span>")
-		update_icon()
+/obj/item/organ/internal/cyberimp/arm/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(parent_organ == "r_arm")
+		parent_organ = "l_arm"
 	else
-		return ..()
+		parent_organ = "r_arm"
+	slot = parent_organ + "_device"
+	to_chat(user, "<span class='notice'>You modify [src] to be installed on the [parent_organ == "r_arm" ? "right" : "left"] arm.</span>")
+	update_icon()
+
 
 /obj/item/organ/internal/cyberimp/arm/remove(mob/living/carbon/M, special = 0)
 	Retract()
@@ -86,7 +87,7 @@
 	holder = item
 
 	holder.flags |= NODROP
-	holder.unacidable = 1
+	holder.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	holder.slot_flags = null
 	holder.w_class = WEIGHT_CLASS_HUGE
 	holder.materials = null
@@ -211,6 +212,17 @@
 		return TRUE
 	return FALSE
 
+/obj/item/organ/internal/cyberimp/arm/hacking
+	name = "hacking arm implant"
+	desc = "A small arm implant containing an advanced screwdriver, wirecutters, and multitool designed for engineers and on-the-field machine modification. Actually legal, despite what the name may make you think."
+	origin_tech = "materials=3;engineering=4;biotech=3;powerstorage=4;abductor=3"
+	contents = newlist(/obj/item/screwdriver/cyborg, /obj/item/wirecutters/cyborg, /obj/item/multitool/abductor)
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/device.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "hacktool")
+
+/obj/item/organ/internal/cyberimp/arm/hacking/l
+	parent_organ = "l_arm"
+
 /obj/item/organ/internal/cyberimp/arm/esword
 	name = "arm-mounted energy blade"
 	desc = "An illegal, and highly dangerous cybernetic implant that can project a deadly blade of concentrated enregy."
@@ -277,6 +289,30 @@
 	parent_organ = "l_arm"
 	slot = "l_arm_device"
 
+/obj/item/organ/internal/cyberimp/arm/janitorial
+	name = "janitorial toolset implant"
+	desc = "A set of janitorial tools hidden behind a concealed panel on the user's arm"
+	contents = newlist(/obj/item/mop/advanced, /obj/item/soap, /obj/item/lightreplacer, /obj/item/holosign_creator, /obj/item/melee/flyswatter, /obj/item/reagent_containers/spray/cleaner/safety)
+	origin_tech = "materials=3;engineering=4;biotech=3"
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/clothing/belts.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "janibelt")
+
+/obj/item/organ/internal/cyberimp/arm/janitorial/l
+	parent_organ = "l_arm"
+	slot = "l_arm_device"
+
+/obj/item/organ/internal/cyberimp/arm/botanical
+	name = "botanical toolset implant"
+	desc = "A set of botanical tools hidden behind a concealed panel on the user's arm"
+	contents = newlist(/obj/item/plant_analyzer, /obj/item/cultivator, /obj/item/hatchet, /obj/item/shovel/spade, /obj/item/wirecutters, /obj/item/wrench)
+	origin_tech = "materials=3;engineering=4;biotech=3"
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/clothing/belts.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "botanybelt")
+
+/obj/item/organ/internal/cyberimp/arm/botanical/l
+	parent_organ = "l_arm"
+	slot = "l_arm_device"
+
 // lets make IPCs even *more* vulnerable to EMPs!
 /obj/item/organ/internal/cyberimp/arm/power_cord
 	name = "APC-compatible power adapter implant"
@@ -304,10 +340,14 @@
 	icon = 'icons/obj/power.dmi'
 	icon_state = "wire1"
 	flags = NOBLUDGEON
+	var/drawing_power = FALSE
 
 /obj/item/apc_powercord/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!istype(target, /obj/machinery/power/apc) || !ishuman(user) || !proximity_flag)
 		return ..()
+	if(drawing_power)
+		to_chat(user, "<span class='warning'>You're already charging.</span>")
+		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	var/obj/machinery/power/apc/A = target
 	var/mob/living/carbon/human/H = user
@@ -328,6 +368,7 @@
 
 /obj/item/apc_powercord/proc/powerdraw_loop(obj/machinery/power/apc/A, mob/living/carbon/human/H)
 	H.visible_message("<span class='notice'>[H] inserts a power connector into \the [A].</span>", "<span class='notice'>You begin to draw power from \the [A].</span>")
+	drawing_power = TRUE
 	while(do_after(H, 10, target = A))
 		if(loc != H)
 			to_chat(H, "<span class='warning'>You must keep your connector out while charging!</span>")
@@ -337,11 +378,11 @@
 			break
 		A.charging = 1
 		if(A.cell.charge >= 500)
-			H.nutrition += 50
+			H.adjust_nutrition(50)
 			A.cell.charge -= 500
 			to_chat(H, "<span class='notice'>You siphon off some of the stored charge for your own use.</span>")
 		else
-			H.nutrition += A.cell.charge/10
+			H.adjust_nutrition(A.cell.charge * 0.1)
 			A.cell.charge = 0
 			to_chat(H, "<span class='notice'>You siphon off the last of \the [A]'s charge.</span>")
 			break
@@ -349,6 +390,7 @@
 			to_chat(H, "<span class='notice'>You are now fully charged.</span>")
 			break
 	H.visible_message("<span class='notice'>[H] unplugs from \the [A].</span>", "<span class='notice'>You unplug from \the [A].</span>")
+	drawing_power = FALSE
 
 /obj/item/organ/internal/cyberimp/arm/telebaton
 	name = "telebaton implant"

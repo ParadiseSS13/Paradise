@@ -14,16 +14,24 @@
 	mutatelist = list(/obj/item/seeds/watermelon/holy)
 	reagents_add = list("water" = 0.2, "vitamin" = 0.04, "plantmatter" = 0.2)
 
+/obj/item/seeds/watermelon/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] is swallowing [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.gib()
+	new product(drop_location())
+	qdel(src)
+	return OBLITERATION
+
 /obj/item/reagent_containers/food/snacks/grown/watermelon
 	seed = /obj/item/seeds/watermelon
 	name = "watermelon"
 	desc = "It's full of watery goodness."
-	icon_state = "watermelon"
+	icon_state = "watermelon" // Sprite created by https://github.com/binarysudoku for Goonstation, They have relicensed it for our use.
 	slice_path = /obj/item/reagent_containers/food/snacks/watermelonslice
 	slices_num = 5
 	dried_type = null
 	w_class = WEIGHT_CLASS_NORMAL
 	filling_color = "#008000"
+	tastes = list("watermelon" = 1)
 	bitesize_mod = 3
 	wine_power = 0.4
 
@@ -43,8 +51,9 @@
 	seed = /obj/item/seeds/watermelon/holy
 	name = "holymelon"
 	desc = "The water within this melon has been blessed by some deity that's particularly fond of watermelon."
-	icon_state = "holymelon"
+	icon_state = "holymelon" // Sprite created by https://github.com/binarysudoku for Goonstation, They have relicensed it for our use.
 	filling_color = "#FFD700"
 	dried_type = null
 	wine_power = 0.7 //Water to wine, baby.
+	tastes = list("melon" = 1, "divinity" = 1)
 	wine_flavor = "divinity"

@@ -60,7 +60,7 @@
 	* item/afterattack(atom,user,adjacent,params) - used both ranged and adjacent
 	* mob/RangedAttack(atom,params) - used only ranged, only used for tk and laser eyes but could be changed
 */
-/mob/proc/ClickOn( var/atom/A, var/params )
+/mob/proc/ClickOn(atom/A, params)
 	if(client.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return
@@ -73,7 +73,9 @@
 	var/dragged = modifiers["drag"]
 	if(dragged && !modifiers[dragged])
 		return
-
+	if(IsFrozen(A) && !is_admin(usr))
+		to_chat(usr, "<span class='boldannounce'>Interacting with admin-frozen players is not permitted.</span>")
+		return
 	if(modifiers["middle"] && modifiers["shift"] && modifiers["ctrl"])
 		MiddleShiftControlClickOn(A)
 		return
@@ -107,6 +109,9 @@
 	if(next_move > world.time) // in the year 2000...
 		return
 
+	if(!modifiers["catcher"] && A.IsObscured())
+		return
+
 	if(istype(loc,/obj/mecha))
 		if(!locate(/turf) in list(A,A.loc)) // Prevents inventory from being drilled
 			return
@@ -131,9 +136,9 @@
 	if(W == A)
 		W.attack_self(src)
 		if(hand)
-			update_inv_l_hand(0)
+			update_inv_l_hand()
 		else
-			update_inv_r_hand(0)
+			update_inv_r_hand()
 		return
 
 	// operate three levels deep here (item in backpack in src; item in box in backpack in src, not any deeper)
@@ -172,6 +177,24 @@
 
 	return
 
+//Is the atom obscured by a PREVENT_CLICK_UNDER_1 object above it
+/atom/proc/IsObscured()
+	if(!isturf(loc)) //This only makes sense for things directly on turfs for now
+		return FALSE
+	var/turf/T = get_turf_pixel(src)
+	if(!T)
+		return FALSE
+	for(var/atom/movable/AM in T)
+		if(AM.flags & PREVENT_CLICK_UNDER && AM.density && AM.layer > layer)
+			return TRUE
+	return FALSE
+
+/turf/IsObscured()
+	for(var/atom/movable/AM in src)
+		if(AM.flags & PREVENT_CLICK_UNDER && AM.density)
+			return TRUE
+	return FALSE
+
 // Default behavior: ignore double clicks, consider them normal clicks instead
 /mob/proc/DblClickOn(var/atom/A, var/params)
 	return
@@ -199,15 +222,8 @@
 	for things like ranged glove touches, spitting alien acid/neurotoxin,
 	animals lunging, etc.
 */
-/mob/proc/RangedAttack(var/atom/A, var/params)
-	if(!mutations.len)
-		return
-	if((LASER in mutations) && a_intent == INTENT_HARM)
-		LaserEyes(A) // moved into a proc below
-		return
-	else
-		if(TK in mutations)
-			A.attack_tk(src)
+/mob/proc/RangedAttack(atom/A, params)
+	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, params)
 /*
 	Restrained ClickOn
 
@@ -226,46 +242,46 @@
 	return
 
 // See click_override.dm
-/mob/living/MiddleClickOn(var/atom/A)
- if(src.middleClickOverride)
- 	middleClickOverride.onClick(A, src)
- else
- 	..()
-
-/mob/living/carbon/MiddleClickOn(var/atom/A)
-	if(!src.stat && src.mind && src.mind.changeling && src.mind.changeling.chosen_sting && (istype(A, /mob/living/carbon)) && (A != src))
-		changeNext_click(5)
-		mind.changeling.chosen_sting.try_to_sting(src, A)
+/mob/living/MiddleClickOn(atom/A)
+	if(middleClickOverride)
+		middleClickOverride.onClick(A, src)
 	else
 		..()
+
 
 /*
 	Middle shift-click
 	Makes the mob face the direction of the clicked thing
 */
 /mob/proc/MiddleShiftClickOn(atom/A)
+	return
+
+/mob/living/MiddleShiftClickOn(atom/A)
 	if(incapacitated())
 		return
 	var/face_dir = get_cardinal_dir(src, A)
-	if(forced_look == face_dir)
+	if(!face_dir || forced_look == face_dir || A == src)
 		forced_look = null
-		to_chat(src, "<span class='notice'>You are no longer facing any direction.</span>")
+		to_chat(src, "<span class='notice'>Cancelled direction lock.</span>")
 		return
 	forced_look = face_dir
-	to_chat(src, "<span class='notice'>You are now facing [dir2text(forced_look)].</span>")
+	to_chat(src, "<span class='userdanger'>You are now facing [dir2text(forced_look)]. To cancel this, shift-middleclick yourself.</span>")
 
 /*
 	Middle shift-control-click
 	Makes the mob constantly face the object (until it's out of sight)
 */
 /mob/proc/MiddleShiftControlClickOn(atom/A)
+	return
+
+/mob/living/MiddleShiftControlClickOn(atom/A)
 	var/face_uid = A.UID()
-	if(forced_look == face_uid)
+	if(forced_look == face_uid || A == src)
 		forced_look = null
-		to_chat(src, "<span class='notice'>You are no longer facing [A].</span>")
+		to_chat(src, "<span class='notice'>Cancelled direction lock.</span>")
 		return
 	forced_look = face_uid
-	to_chat(src, "<span class='notice'>You are now facing [A].</span>")
+	to_chat(src, "<span class='userdanger'>You are now facing [A]. To cancel this, shift-middleclick yourself.</span>")
 
 // In case of use break glass
 /*
@@ -309,16 +325,9 @@
 	return
 
 // See click_override.dm
-/mob/living/AltClickOn(var/atom/A)
- if(src.middleClickOverride)
- 	middleClickOverride.onClick(A, src)
- else
- 	..()
-
-/mob/living/carbon/AltClickOn(var/atom/A)
-	if(!src.stat && src.mind && src.mind.changeling && src.mind.changeling.chosen_sting && (istype(A, /mob/living/carbon)) && (A != src))
-		changeNext_click(5)
-		mind.changeling.chosen_sting.try_to_sting(src, A)
+/mob/living/AltClickOn(atom/A)
+	if(middleClickOverride)
+		middleClickOverride.onClick(A, src)
 	else
 		..()
 
@@ -375,7 +384,7 @@
 	playsound(usr.loc, 'sound/weapons/taser2.ogg', 75, 1)
 
 	LE.firer = src
-	LE.def_zone = get_organ_target()
+	LE.def_zone = ran_zone(zone_selected)
 	LE.original = A
 	LE.current = T
 	LE.yo = U.y - T.y
@@ -399,8 +408,8 @@
 	dir = direction
 
 /obj/screen/click_catcher
-	icon = 'icons/mob/screen_full.dmi'
-	icon_state = "passage0"
+	icon = 'icons/mob/screen_gen.dmi'
+	icon_state = "catcher"
 	plane = CLICKCATCHER_PLANE
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	screen_loc = "CENTER"
@@ -430,5 +439,7 @@
 		C.swap_hand()
 	else
 		var/turf/T = params2turf(modifiers["screen-loc"], get_turf(usr))
-		T.Click(location, control, params)
-	return 1
+		params += "&catcher=1"
+		if(T)
+			T.Click(location, control, params)
+	. = 1

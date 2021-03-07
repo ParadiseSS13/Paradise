@@ -13,7 +13,10 @@
 	throw_speed = 3
 	throw_range = 6
 	origin_tech = "biotech=3"
-	var/Uses = 1 // uses before it goes inert
+	/// Uses before it goes inert
+	var/Uses = 1
+	/// The mob who last injected the extract with plasma, water or blood. Used for logging.
+	var/mob/living/injector_mob
 
 /obj/item/slime_extract/attackby(obj/item/O, mob/user)
 	if(istype(O, /obj/item/slimepotion/enhancer))
@@ -23,6 +26,8 @@
 		to_chat(user, "<span class='notice'>You apply the enhancer to the slime extract. It may now be reused one more time.</span>")
 		Uses++
 		qdel(O)
+	if(istype(O, /obj/item/reagent_containers/syringe))
+		injector_mob = user
 	..()
 
 /obj/item/slime_extract/New()
@@ -139,7 +144,7 @@
 	icon_state = "bottle19"
 	var/being_used = 0
 
-/obj/item/slimepotion/slime/docility/attack(mob/living/carbon/slime/M, mob/user)
+/obj/item/slimepotion/slime/docility/attack(mob/living/simple_animal/slime/M, mob/user)
 	if(!isslime(M))
 		to_chat(user, "<span class='warning'>The potion only works on slimes!</span>")
 		return
@@ -149,9 +154,14 @@
 	if(being_used)
 		to_chat(user, "<span class='warning'>You're already using this on another slime!</span>")
 		return
-
+	if(M.rabid) //Stops being rabid, but doesn't become truly docile.
+		to_chat(M, "<span class='warning'>You absorb the potion, and your rabid hunger finally settles to a normal desire to feed.</span>")
+		to_chat(user, "<span class='notice'>You feed the slime the potion, calming its rabid rage.</span>")
+		M.rabid = FALSE
+		qdel(src)
+		return
 	M.docile = 1
-	M.nutrition = 700
+	M.set_nutrition(700)
 	to_chat(M, "<span class='warning'>You absorb the potion and feel your intense desire to feed melt away.</span>")
 	to_chat(user, "<span class='notice'>You feed the slime the potion, removing its hunger and calming it.</span>")
 	being_used = 1
@@ -193,7 +203,7 @@
 	being_used = 1
 
 	var/ghostmsg = "Play as [SM.name], pet of [user.name]?"
-	var/list/candidates = pollCandidates(ghostmsg, ROLE_SENTIENT, 0, 100)
+	var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = M)
 
 	if(!src)
 		return
@@ -211,11 +221,15 @@
 		if(SM.flags_2 & HOLOGRAM_2) //Check to see if it's a holodeck creature
 			to_chat(SM, "<span class='userdanger'>You also become depressingly aware that you are not a real creature, but instead a holoform. Your existence is limited to the parameters of the holodeck.</span>")
 		to_chat(user, "<span class='notice'>[M] accepts the potion and suddenly becomes attentive and aware. It worked!</span>")
+		after_success(user, SM)
 		qdel(src)
 	else
 		to_chat(user, "<span class='notice'>[M] looks interested for a moment, but then looks back down. Maybe you should try again later.</span>")
 		being_used = 0
 		..()
+
+/obj/item/slimepotion/sentience/proc/after_success(mob/living/user, mob/living/simple_animal/SM)
+	return
 
 /obj/item/slimepotion/transference
 	name = "consciousness transference potion"
@@ -268,7 +282,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle16"
 
-/obj/item/slimepotion/slime/steroid/attack(mob/living/carbon/slime/M, mob/user)
+/obj/item/slimepotion/slime/steroid/attack(mob/living/simple_animal/slime/M, mob/user)
 	if(!isslime(M))//If target is not a slime.
 		to_chat(user, "<span class='warning'>The steroid only works on baby slimes!</span>")
 		return ..()
@@ -298,7 +312,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle15"
 
-/obj/item/slimepotion/slime/stabilizer/attack(mob/living/carbon/slime/M, mob/user)
+/obj/item/slimepotion/slime/stabilizer/attack(mob/living/simple_animal/slime/M, mob/user)
 	if(!isslime(M))
 		to_chat(user, "<span class='warning'>The stabilizer only works on slimes!</span>")
 		return ..()
@@ -310,7 +324,7 @@
 		return ..()
 
 	to_chat(user, "<span class='notice'>You feed the slime the stabilizer. It is now less likely to mutate.</span>")
-	M.mutation_chance = Clamp(M.mutation_chance-15,0,100)
+	M.mutation_chance = clamp(M.mutation_chance-15,0,100)
 	qdel(src)
 
 /obj/item/slimepotion/slime/mutator
@@ -319,7 +333,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle3"
 
-/obj/item/slimepotion/slime/mutator/attack(mob/living/carbon/slime/M, mob/user)
+/obj/item/slimepotion/slime/mutator/attack(mob/living/simple_animal/slime/M, mob/user)
 	if(!isslime(M))
 		to_chat(user, "<span class='warning'>The mutator only works on slimes!</span>")
 		return ..()
@@ -334,7 +348,7 @@
 		return ..()
 
 	to_chat(user, "<span class='notice'>You feed the slime the mutator. It is now more likely to mutate.</span>")
-	M.mutation_chance = Clamp(M.mutation_chance+12,0,100)
+	M.mutation_chance = clamp(M.mutation_chance+12,0,100)
 	M.mutator_used = TRUE
 	qdel(src)
 
@@ -345,19 +359,31 @@
 	icon_state = "bottle3"
 	origin_tech = "biotech=5"
 
-/obj/item/slimepotion/speed/afterattack(obj/item/C, mob/user, proximity_flag)
+/obj/item/slimepotion/speed/afterattack(obj/O, mob/user, proximity_flag)
 	if(!proximity_flag)
 		return
 	..()
-	if(!istype(C))
-		to_chat(user, "<span class='warning'>The potion can only be used on items!</span>")
+	if(!istype(O))
+		to_chat(user, "<span class='warning'>The potion can only be used on items or vehicles!</span>")
 		return
-	if(C.slowdown <= 0)
-		to_chat(user, "<span class='warning'>[C] can't be made any faster!</span>")
-		return..()
-	to_chat(user, "<span class='notice'>You slather the red gunk over [C], making it faster.</span>")
-	C.color = "#FF0000"
-	C.slowdown = 0
+	if(isitem(O))
+		var/obj/item/I = O
+		if(I.slowdown <= 0)
+			to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
+			return ..()
+		I.slowdown = 0
+
+	if(istype(O, /obj/vehicle))
+		var/obj/vehicle/V = O
+		var/vehicle_speed_mod = config.run_speed
+		if(V.vehicle_move_delay <= vehicle_speed_mod)
+			to_chat(user, "<span class='warning'>[V] can't be made any faster!</span>")
+			return ..()
+		V.vehicle_move_delay = vehicle_speed_mod
+
+	to_chat(user, "<span class='notice'>You slather the red gunk over [O], making it faster.</span>")
+	O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+	O.add_atom_colour("#FF0000", FIXED_COLOUR_PRIORITY)
 	qdel(src)
 
 /obj/item/slimepotion/speed/MouseDrop(obj/over_object)
@@ -372,6 +398,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle17"
 	origin_tech = "biotech=5"
+	resistance_flags = FIRE_PROOF
 	var/uses = 3
 
 /obj/item/slimepotion/fireproof/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
@@ -392,7 +419,7 @@
 	C.color = "#000080"
 	C.max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	C.heat_protection = C.body_parts_covered
-	C.burn_state = FIRE_PROOF
+	C.resistance_flags |= FIRE_PROOF
 	uses --
 	if(!uses)
 		qdel(src)
@@ -412,7 +439,7 @@
 	layer = FLY_LAYER
 	pixel_x = -64
 	pixel_y = -64
-	unacidable = 1
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/mob/living/immune = list() // the one who creates the timestop is immune
 	var/list/stopped_atoms = list()

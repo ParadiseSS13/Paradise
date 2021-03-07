@@ -13,26 +13,30 @@
 		return
 
 	spawn()
-		var/list/candidates = pollCandidates("Do you want to play as a revenant?", ROLE_REVENANT, 1)
+		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a revenant?", ROLE_REVENANT, TRUE, source = /mob/living/simple_animal/revenant)
 		if(!candidates.len)
 			key_of_revenant = null
-			return kill()
+			kill()
+			return
 		var/mob/C = pick(candidates)
 		key_of_revenant = C.key
 
 		if(!key_of_revenant)
-			return kill()
+			kill()
+			return
 
 		var/datum/mind/player_mind = new /datum/mind(key_of_revenant)
 		player_mind.active = 1
 		var/list/spawn_locs = list()
-		for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+		for(var/thing in GLOB.landmarks_list)
+			var/obj/effect/landmark/L = thing
 			if(isturf(L.loc))
 				switch(L.name)
 					if("revenantspawn")
 						spawn_locs += L.loc
 		if(!spawn_locs) //If we can't find any revenant spawns, try the carp spawns
-			for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+			for(var/thing in GLOB.landmarks_list)
+				var/obj/effect/landmark/L = thing
 				if(isturf(L.loc))
 					switch(L.name)
 						if("carpspawn")
@@ -40,7 +44,8 @@
 		if(!spawn_locs) //If we can't find either, just spawn the revenant at the player's location
 			spawn_locs += get_turf(player_mind.current)
 		if(!spawn_locs) //If we can't find THAT, then just retry
-			return kill()
+			kill()
+			return
 		var/mob/living/simple_animal/revenant/revvie = new /mob/living/simple_animal/revenant/(pick(spawn_locs))
 		player_mind.transfer_to(revvie)
 		player_mind.assigned_role = SPECIAL_ROLE_REVENANT
@@ -48,8 +53,6 @@
 		SSticker.mode.traitors |= player_mind
 		message_admins("[key_of_revenant] has been made into a revenant by an event.")
 		log_game("[key_of_revenant] was spawned as a revenant by an event.")
-		return 1
-
 
 /datum/event/revenant/start()
 	get_revenant()

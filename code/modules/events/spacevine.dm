@@ -137,7 +137,7 @@
 		if(prob(50))
 			ChangeTurf(baseturf)
 
-/turf/simulated/floor/vines/ChangeTurf(turf/open/floor/T)
+/turf/simulated/floor/vines/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
 	. = ..()
 	//Do this *after* the turf has changed as qdel in spacevines will call changeturf again if it hasn't
 	for(var/obj/structure/spacevine/SV in src)
@@ -230,9 +230,8 @@
 	if(explosion_severity < 3)
 		qdel(holder)
 	else
-		. = 1
-		spawn(5)
-			holder.wither()
+		addtimer(CALLBACK(holder, /obj/structure/spacevine.proc/wither), 5)
+		return TRUE
 
 /datum/spacevine_mutation/explosive/on_death(obj/structure/spacevine/holder, mob/hitter, obj/item/I)
 	explosion(holder.loc, 0, 0, severity, 0, 0)
@@ -418,12 +417,12 @@
 	var/obj/structure/spacevine_controller/master = null
 	var/list/mutations = list()
 
-/obj/structure/spacevine/New()
-	..()
+/obj/structure/spacevine/Initialize(mapload)
+	. = ..()
 	color = "#ffffff"
 
 /obj/structure/spacevine/examine(mob/user)
-	..()
+	. = ..()
 	var/text = "This one is a"
 	if(mutations.len)
 		for(var/A in mutations)
@@ -432,7 +431,7 @@
 	else
 		text += " normal"
 	text += " vine."
-	to_chat(user, text)
+	. += text
 
 /obj/structure/spacevine/proc/wither()
 	for(var/datum/spacevine_mutation/SM in mutations)
@@ -455,8 +454,8 @@
 	master = null
 	mutations.Cut()
 	set_opacity(0)
-	if(buckled_mob)
-		unbuckle_mob()
+	if(has_buckled_mobs())
+		unbuckle_all_mobs(force = TRUE)
 	return ..()
 
 /obj/structure/spacevine/proc/add_mutation(datum/spacevine_mutation/mutation)
@@ -505,16 +504,16 @@
 	switch(damage_type)
 		if(BRUTE)
 			if(damage_amount)
-				playsound(src, 'sound/weapons/slash.ogg', 50, 1)
+				playsound(src, 'sound/weapons/slash.ogg', 50, TRUE)
 			else
-				playsound(src, 'sound/weapons/tap.ogg', 50, 1)
+				playsound(src, 'sound/weapons/tap.ogg', 50, TRUE)
 		if(BURN)
-			playsound(src, 'sound/items/welder.ogg', 100, 1)
+			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/structure/spacevine/obj_destruction()
 	wither()
 
-/obj/structure/spacevine/Crossed(mob/crosser)
+/obj/structure/spacevine/Crossed(mob/crosser, oldloc)
 	if(isliving(crosser))
 		for(var/datum/spacevine_mutation/SM in mutations)
 			SM.on_cross(src, crosser)
@@ -639,7 +638,7 @@
 		SM.on_grow(src)
 
 /obj/structure/spacevine/proc/entangle_mob()
-	if(!buckled_mob && prob(25))
+	if(!has_buckled_mobs() && prob(25))
 		for(var/mob/living/V in loc)
 			entangle(V)
 			if(has_buckled_mobs())
@@ -656,7 +655,7 @@
 		buckle_mob(V, 1)
 
 /obj/structure/spacevine/proc/spread()
-	var/list/dir_list = cardinal.Copy()
+	var/list/dir_list = GLOB.cardinal.Copy()
 	var/spread_search = FALSE // Whether to exhaustive search all 4 cardinal dirs for an open direction
 	for(var/datum/spacevine_mutation/SM in mutations)
 		spread_search |= SM.on_search(src)

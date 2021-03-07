@@ -14,17 +14,20 @@
 	layer = SHOWER_OPEN_LAYER
 	opacity = 0
 
-/obj/structure/curtain/bullet_act(obj/item/projectile/P, def_zone)
-	if(!P.nodamage)
-		visible_message("<span class='warning'>[P] tears [src] down!</span>")
-		qdel(src)
-	else
-		..(P, def_zone)
-
 /obj/structure/curtain/attack_hand(mob/user)
 	playsound(get_turf(loc), "rustle", 15, 1, -5)
 	toggle()
 	..()
+
+/obj/structure/curtain/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			if(damage_amount)
+				playsound(src.loc, 'sound/weapons/slash.ogg', 80, TRUE)
+			else
+				playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE)
+		if(BURN)
+			playsound(loc, 'sound/items/welder.ogg', 80, TRUE)
 
 /obj/structure/curtain/proc/toggle()
 	set_opacity(!opacity)
@@ -38,34 +41,36 @@
 /obj/structure/curtain/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/toy/crayon))
 		color = input(user, "Choose Color") as color
-	else if(isscrewdriver(W))
-		if(anchored)
-			playsound(loc, W.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] unscrews [src] from the floor.</span>", "<span class='notice'>You start to unscrew [src] from the floor...</span>", "You hear rustling noises.")
-			if(do_after(user, 50 * W.toolspeed, target = src))
-				if(!anchored)
-					return
-				anchored = FALSE
-				to_chat(user, "<span class='notice'>You unscrew [src] from the floor.</span>")
-		else
-			playsound(loc, W.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] screws [src] to the floor.</span>", "<span class='notice'>You start to screw [src] to the floor...</span>", "You hear rustling noises.")
-			if(do_after(user, 50 * W.toolspeed, target = src))
-				if(anchored)
-					return
-				anchored = TRUE
-				to_chat(user, "<span class='notice'>You screw [src] to the floor.</span>")
-	else if(istype(W, /obj/item/wirecutters))
-		if(!anchored)
-			playsound(loc, W.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] cuts apart [src].</span>", "<span class='notice'>You start to cut apart [src].</span>", "You hear cutting.")
-			if(do_after(user, 50 * W.toolspeed, target = src))
-				if(anchored)
-					return
-				to_chat(user, "<span class='notice'>You cut apart [src].</span>")
-				deconstruct()
+		return
+	return ..()
+
+/obj/structure/curtain/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_start_check(src, user, 0))
+		return
+	if(anchored)
+		user.visible_message("<span class='warning'>[user] unscrews [src] from the floor.</span>", "<span class='notice'>You start to unscrew [src] from the floor...</span>", "You hear rustling noises.")
+		if(I.use_tool(src, user, 50, volume = I.tool_volume) && anchored)
+			anchored = FALSE
+			to_chat(user, "<span class='notice'>You unscrew [src] from the floor.</span>")
 	else
-		. = ..()
+		user.visible_message("<span class='warning'>[user] screws [src] to the floor.</span>", "<span class='notice'>You start to screw [src] to the floor...</span>", "You hear rustling noises.")
+		if(I.use_tool(src, user, 50, volume = I.tool_volume) && !anchored)
+			anchored = TRUE
+			to_chat(user, "<span class='notice'>You screw [src] to the floor.</span>")
+
+
+
+/obj/structure/curtain/wirecutter_act(mob/user, obj/item/I)
+	if(anchored)
+		return
+	. = TRUE
+	if(!I.tool_start_check(src, user, 0))
+		return
+	WIRECUTTER_ATTEMPT_DISMANTLE_MESSAGE
+	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+		WIRECUTTER_DISMANTLE_SUCCESS_MESSAGE
+		deconstruct()
 
 /obj/structure/curtain/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/cloth(loc, 2)

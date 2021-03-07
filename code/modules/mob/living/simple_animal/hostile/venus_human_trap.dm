@@ -36,7 +36,7 @@
 	desc = "A thick vine, painful to the touch."
 
 
-/obj/effect/ebeam/vine/Crossed(atom/movable/AM)
+/obj/effect/ebeam/vine/Crossed(atom/movable/AM, oldloc)
 	if(isliving(AM))
 		var/mob/living/L = AM
 		if(!("vines" in L.faction))
@@ -49,6 +49,7 @@
 	name = "venus human trap"
 	desc = "Now you know how the fly feels."
 	icon_state = "venus_human_trap"
+	mob_biotypes = MOB_ORGANIC | MOB_PLANT
 	layer = MOB_LAYER + 0.9
 	health = 50
 	maxHealth = 50
@@ -90,7 +91,7 @@
 		if(grasping.len < max_grasps)
 			grasping:
 				for(var/mob/living/L in view(grasp_range, src))
-					if(L == src || faction_check(L) || (L in grasping) || L == target)
+					if(L == src || faction_check_mob(L) || (L in grasping) || L == target)
 						continue
 					for(var/t in getline(src,L))
 						for(var/a in t)
@@ -105,6 +106,12 @@
 
 
 /mob/living/simple_animal/hostile/venus_human_trap/OpenFire(atom/the_target)
+	for(var/turf/T in getline(src,target))
+		if (T.density)
+			return
+		for(var/obj/O in T)
+			if(O.density)
+				return
 	var/dist = get_dist(src,the_target)
 	Beam(the_target, "vine", time=dist*2, maxdistance=dist+2, beam_type=/obj/effect/ebeam/vine)
 	the_target.attack_animal(src)

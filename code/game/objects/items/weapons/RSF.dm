@@ -13,10 +13,12 @@ RSF
 	anchored = 0.0
 	var/matter = 0
 	var/mode = 1
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	w_class = WEIGHT_CLASS_NORMAL
 	var/list/configured_items = list()
 
 /obj/item/rsf/New()
+	..()
 	desc = "A RSF. It currently holds [matter]/30 fabrication-units."
 	// configured_items[ID_NUMBER] = list("Human-readable name", price in energy, /type/path)
 	configured_items[++configured_items.len] = list("Dosh", 50, /obj/item/stack/spacecash/c10)
@@ -28,8 +30,7 @@ RSF
 	configured_items[++configured_items.len] = list("Snack - Newdles", 4000, /obj/item/reagent_containers/food/snacks/chinese/newdles)
 	configured_items[++configured_items.len] = list("Snack - Donut", 4000, /obj/item/reagent_containers/food/snacks/donut)
 	configured_items[++configured_items.len] = list("Snack - Chicken Soup", 4000, /obj/item/reagent_containers/food/drinks/chicken_soup)
-	configured_items[++configured_items.len] = list("Snack - Turkey Burger", 4000, /obj/item/reagent_containers/food/snacks/tofuburger)
-	return
+	configured_items[++configured_items.len] = list("Snack - Tofu Burger", 4000, /obj/item/reagent_containers/food/snacks/tofuburger)
 
 /obj/item/rsf/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
@@ -57,7 +58,7 @@ RSF
 	if(!proximity) return
 	if(!(istype(A, /obj/structure/table) || istype(A, /turf/simulated/floor)))
 		return
-	var spawn_location
+	var/spawn_location
 	var/turf/T = get_turf(A)
 	if(istype(T) && !T.density)
 		spawn_location = T

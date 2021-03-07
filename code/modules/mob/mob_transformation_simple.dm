@@ -4,12 +4,12 @@
 //Note that this proc does NOT do MMI related stuff!
 /mob/proc/change_mob_type(var/new_type = null, var/turf/location = null, var/new_name = null as text, var/delete_old_mob = 0 as num, var/forcekey = 0)
 
-	if(istype(src,/mob/new_player))
+	if(isnewplayer(src))
 		to_chat(usr, "<span class='warning'>cannot convert players who have not entered yet.</span>")
 		return
 
 	if(!new_type)
-		new_type = input("Mob type path:", "Mob type") as text|null
+		new_type = clean_input("Mob type path:", "Mob type")
 
 	if(istext(new_type))
 		new_type = text2path(new_type)

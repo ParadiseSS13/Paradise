@@ -1,6 +1,7 @@
 /mob/living/simple_animal/hostile/deathsquid
 	name = "death squid"
 	desc = "A large, floating eldritch horror. Its body glows with an evil red light, and its tentacles look to have been dipped in alien blood."
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 
 	speed = 1
 	speak_emote = list("telepathically thunders", "telepathically booms")
@@ -29,7 +30,7 @@
 	see_in_dark = 8
 	mob_size = MOB_SIZE_LARGE
 	ventcrawler = 0
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = NO_SPAWN
 
 
 

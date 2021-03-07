@@ -17,35 +17,48 @@
 
 /datum/gear/shoes/fancysandals
 	display_name = "sandals, fancy"
-	cost = 2
 	path = /obj/item/clothing/shoes/sandal/fancy
 
 /datum/gear/shoes/dressshoes
 	display_name = "dress shoes"
-	cost = 2
 	path = /obj/item/clothing/shoes/centcom
 
 /datum/gear/shoes/cowboyboots
 	display_name = "cowboy boots, brown"
-	cost = 1
-	path = /obj/item/clothing/shoes/cowboyboots
+	path = /obj/item/clothing/shoes/cowboy
 
 /datum/gear/shoes/cowboyboots_black
 	display_name = "cowboy boots, black"
-	cost = 1
-	path = /obj/item/clothing/shoes/cowboyboots/black
+	path = /obj/item/clothing/shoes/cowboy/black
 
 /datum/gear/shoes/cowboyboots/white
 	display_name = "cowboy boots, white"
-	cost = 1
-	path = /obj/item/clothing/shoes/cowboyboots/white
+	path = /obj/item/clothing/shoes/cowboy/white
 
 /datum/gear/shoes/cowboyboots/pink
 	display_name = "cowboy boots, pink"
-	cost = 1
-	path = /obj/item/clothing/shoes/cowboyboots/pink
-	
+	path = /obj/item/clothing/shoes/cowboy/pink
+
+/datum/gear/shoes/jackboots
+	display_name = "jackboots"
+	path = /obj/item/clothing/shoes/jackboots
+
+/datum/gear/shoes/jacksandals
+	display_name = "jacksandals"
+	path = /obj/item/clothing/shoes/jackboots/jacksandals
+
 /datum/gear/shoes/laceup
 	display_name = "laceup shoes"
-	cost = 1
 	path = /obj/item/clothing/shoes/laceup
+
+/datum/gear/shoes/blackshoes
+	display_name = "Black shoes"
+	path = /obj/item/clothing/shoes/black
+
+/datum/gear/shoes/brownshoes
+	display_name = "Brown shoes"
+	path = /obj/item/clothing/shoes/brown
+
+/datum/gear/shoes/whiteshoes
+	display_name = "White shoes"
+	path = /obj/item/clothing/shoes/white

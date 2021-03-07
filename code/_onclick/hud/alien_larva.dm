@@ -34,6 +34,6 @@
 	using.screen_loc = ui_alienlarva_language_menu
 	static_inventory += using
 
-	mymob.zone_sel = new /obj/screen/zone_sel/alien()
-	mymob.zone_sel.update_icon(mymob)
-	static_inventory += mymob.zone_sel
+	zone_select = new /obj/screen/zone_sel/alien()
+	zone_select.update_icon(mymob)
+	static_inventory += zone_select

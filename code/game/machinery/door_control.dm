@@ -37,30 +37,16 @@
 		to_chat(user, "Error, no route to host.")
 
 /obj/machinery/door_control/attackby(obj/item/W, mob/user as mob, params)
-	/* For later implementation
-	if(istype(W, /obj/item/screwdriver))
-	{
-		if(wiresexposed)
-			icon_state = "doorctrl0"
-			wiresexposed = 0
-
-		else
-			icon_state = "doorctrl-open"
-			wiresexposed = 1
-
-		return
-	}
-	*/
 	if(istype(W, /obj/item/detective_scanner))
 		return
-	return attack_hand(user)
+	return ..()
 
 /obj/machinery/door_control/emag_act(user as mob)
 	if(!emagged)
 		emagged = 1
 		req_access = list()
 		req_one_access = list()
-		playsound(loc, "sparks", 100, 1)
+		playsound(src, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 /obj/machinery/door_control/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())

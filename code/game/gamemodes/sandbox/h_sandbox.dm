@@ -1,8 +1,8 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 
-var/hsboxspawn = 1
-var/list
-		hrefs = list(
+// Someone needs to properly path this file, or just delete it since its unticked and was last properly touched >4 years ago
+GLOBAL_VAR_INIT(hsboxspawn, 1)
+GLOBAL_LIST_INIT(sandbox_hrefs, list(
 					"hsbsuit" = "Suit Up (Space Travel Gear)",
 					"hsbmetal" = "Spawn 50 Metal",
 					"hsbglass" = "Spawn 50 Glass",
@@ -13,7 +13,7 @@ var/list
 					"hsbfueltank" = "Spawn Welding Fuel Tank",
 					"hsbwater	tank" = "Spawn Water Tank",
 					"hsbtoolbox" = "Spawn Toolbox",
-					"hsbmedkit" = "Spawn Medical Kit")
+					"hsbmedkit" = "Spawn Medical Kit"))
 
 mob
 	var/datum/hSB/sandbox = null
@@ -39,8 +39,8 @@ datum/hSB
 				hsbpanel += "<b>Administration Tools:</b><br>"
 				hsbpanel += "- <a href=\"?src=[UID()];hsb=hsbtobj\">Toggle Object Spawning</a><br><br>"
 			hsbpanel += "<b>Regular Tools:</b><br>"
-			for(var/T in hrefs)
-				hsbpanel += "- <a href=\"?src=[UID()];hsb=[T]\">[hrefs[T]]</a><br>"
+			for(var/T in GLOB.sandbox_hrefs)
+				hsbpanel += "- <a href=\"?src=[UID()];hsb=[T]\">[GLOB.sandbox_hrefs[T]]</a><br>"
 			if(hsboxspawn)
 				hsbpanel += "- <a href=\"?src=[UID()];hsb=hsbobj\">Spawn Object</a><br><br>"
 			usr << browse(hsbpanel, "window=hsbpanel")

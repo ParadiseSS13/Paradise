@@ -1,6 +1,6 @@
 /mob/living/carbon/human/emote(act, m_type = 1, message = null, force)
 
-	if((stat == DEAD) || (status_flags & FAKEDEATH))
+	if((stat == DEAD) || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		return // No screaming bodies
 
 	var/param = null
@@ -30,11 +30,18 @@
 	//handle_emote_CD() located in [code\modules\mob\emote.dm]
 	var/on_CD = FALSE
 	act = lowertext(act)
-	switch(act)
-		//Cooldown-inducing emotes
+
+	switch(act)		//This switch makes sure you have air in your lungs before you scream
+		if("growl", "growls", "howl", "howls", "hiss", "hisses", "scream", "screams", "sneeze", "sneezes")
+			if(getOxyLoss() > 35)		//no screaming if you don't have enough breath to scream
+				on_CD = handle_emote_CD()
+				emote("gasp")
+				return
+
+	switch(act)		//This switch adds cooldowns to some emotes
 		if("ping", "pings", "buzz", "buzzes", "beep", "beeps", "yes", "no", "buzz2")
 			var/found_machine_head = FALSE
-			if(ismachine(src))		//Only Machines can beep, ping, and buzz, yes, no, and make a silly sad trombone noise.
+			if(ismachineperson(src))		//Only Machines can beep, ping, and buzz, yes, no, and make a silly sad trombone noise.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 				found_machine_head = TRUE
 			else
@@ -44,7 +51,7 @@
 					found_machine_head = TRUE
 
 			if(!found_machine_head)								//Everyone else fails, skip the emote attempt
-				return								//Everyone else fails, skip the emote attempt
+				return											//Everyone else fails, skip the emote attempt
 		if("drone","drones","hum","hums","rumble","rumbles")
 			if(isdrask(src))		//Only Drask can make whale noises
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
@@ -78,13 +85,13 @@
 
 		if("clack", "clacks")
 			if(iskidan(src))	//Only Kidan can clack and rightfully so.
-				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+				on_CD = handle_emote_CD(30)			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
 
 		if("click", "clicks")
 			if(iskidan(src))	//Only Kidan can click and rightfully so.
-				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+				on_CD = handle_emote_CD(30)			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
 
@@ -118,6 +125,10 @@
 			on_CD = handle_emote_CD()				//proc located in code\modules\mob\emote.dm
 		if("cough", "coughs", "slap", "slaps", "highfive")
 			on_CD = handle_emote_CD()
+		if("gasp", "gasps")
+			on_CD = handle_emote_CD()
+		if("deathgasp", "deathgasps")
+			on_CD = handle_emote_CD(50)
 		if("sneeze", "sneezes")
 			on_CD = handle_emote_CD()
 		if("clap", "claps")
@@ -129,84 +140,92 @@
 	if(!force && on_CD == 1)		// Check if we need to suppress the emote attempt.
 		return			// Suppress emote, you're still cooling off.
 
-	switch(act)
+	switch(act)		//This is for actually making the emotes happen
 		if("me")									//OKAY SO RANT TIME, THIS FUCKING HAS TO BE HERE OR A SHITLOAD OF THINGS BREAK
 			return custom_emote(m_type, message)	//DO YOU KNOW WHY SHIT BREAKS? BECAUSE SO MUCH OLDCODE CALLS mob.emote("me",1,"whatever_the_fuck_it_wants_to_emote")
 													//WHO THE FUCK THOUGHT THAT WAS A GOOD FUCKING IDEA!?!?
 
 		if("howl", "howls")
-			var/M = handle_emote_param(param) //Check to see if the param is valid (mob with the param name is in view).
-			message = "<B>[src]</B> howls[M ? " at [M]" : ""]!"
-			playsound(loc, 'sound/goonstation/voice/howl.ogg', 100, 0, 10)
-			m_type = 2
+			var/M = handle_emote_param(param)
+			if(miming)
+				message = "<B>[src]</B> acts out a howl[M ? " at [M]" : ""]!"
+				m_type = 1
+			else
+				if(!muzzled)
+					message = "<B>[src]</B> howls[M ? " at [M]" : ""]!"
+					playsound(loc, 'sound/goonstation/voice/howl.ogg', 100, 1, 10, frequency = get_age_pitch())
+					m_type = 2
+				else
+					message = "<B>[src]</B> makes a very loud noise[M ? " at [M]" : ""]."
+					m_type = 2
 
 		if("growl", "growls")
 			var/M = handle_emote_param(param)
 			message = "<B>[src]</B> growls[M ? " at [M]" : ""]."
-			playsound(loc, "growls", 80, 0)
+			playsound(loc, "growls", 80, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("ping", "pings")
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> pings[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/machines/ping.ogg', 50, 0)
+			playsound(loc, 'sound/machines/ping.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("buzz2")
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> emits an irritated buzzing sound[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
+			playsound(loc, 'sound/machines/buzz-two.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("buzz", "buzzes")
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> buzzes[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("beep", "beeps")
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> beeps[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/machines/twobeep.ogg', 50, 0)
+			playsound(loc, 'sound/machines/twobeep.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("drone", "drones", "hum", "hums", "rumble", "rumbles")
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> [M ? "drones at [M]" : "rumbles"]."
-			playsound(loc, 'sound/voice/drasktalk.ogg', 50, 0)
+			playsound(loc, 'sound/voice/drasktalk.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("squish", "squishes")
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> squishes[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/effects/slime_squish.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
+			playsound(loc, 'sound/effects/slime_squish.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
 
 		if("clack", "clacks")
 			var/M = handle_emote_param(param)
-
+			mineral_scan_pulse(get_turf(src), range = world.view)
 			message = "<B>[src]</B> clacks [p_their()] mandibles[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/effects/Kidanclack.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
+			playsound(loc, 'sound/effects/Kidanclack.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
 
 		if("click", "clicks")
 			var/M = handle_emote_param(param)
-
+			mineral_scan_pulse(get_turf(src), range = world.view)
 			message = "<B>[src]</B> clicks [p_their()] mandibles[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/effects/Kidanclack2.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
+			playsound(loc, 'sound/effects/Kidanclack2.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
 
 		if("creaks", "creak")
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> creaks[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/voice/dionatalk1.ogg', 50, 0) //Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
+			playsound(loc, 'sound/voice/dionatalk1.ogg', 50, 1, frequency = get_age_pitch()) //Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
 			m_type = 2
 
 		if("hiss", "hisses")
@@ -214,7 +233,7 @@
 
 			if(!muzzled)
 				message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
-				playsound(loc, 'sound/effects/unathihiss.ogg', 50, 0) //Credit to Jamius (freesound.org) for the sound.
+				playsound(loc, 'sound/effects/unathihiss.ogg', 50, 1, frequency = get_age_pitch()) //Credit to Jamius (freesound.org) for the sound.
 				m_type = 2
 			else
 				message = "<B>[src]</B> makes a weak hissing noise."
@@ -224,40 +243,40 @@
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> rustles [p_their()] quills[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/effects/voxrustle.ogg', 50, 0) //Credit to sound-ideas (freesfx.co.uk) for the sound.
+			playsound(loc, 'sound/effects/voxrustle.ogg', 50, 1, frequency = get_age_pitch()) //Credit to sound-ideas (freesfx.co.uk) for the sound.
 			m_type = 2
 
 		if("warble", "warbles")
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> warbles[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/effects/warble.ogg', 50, 0) // Copyright CC BY 3.0 alienistcog (freesound.org) for the sound.
+			playsound(loc, 'sound/effects/warble.ogg', 50, 1, frequency = get_age_pitch()) // Copyright CC BY 3.0 alienistcog (freesound.org) for the sound.
 			m_type = 2
 
 		if("yes")
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> emits an affirmative blip[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/machines/synth_yes.ogg', 50, 0)
+			playsound(loc, 'sound/machines/synth_yes.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("no")
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> emits a negative blip[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/machines/synth_no.ogg', 50, 0)
+			playsound(loc, 'sound/machines/synth_no.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("wag", "wags")
 			if(body_accessory)
 				if(body_accessory.try_restrictions(src))
 					message = "<B>[src]</B> starts wagging [p_their()] tail."
-					start_tail_wagging(1)
+					start_tail_wagging()
 
 			else if(dna.species.bodyflags & TAIL_WAGGING)
 				if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL))
 					message = "<B>[src]</B> starts wagging [p_their()] tail."
-					start_tail_wagging(1)
+					start_tail_wagging()
 				else
 					return
 			else
@@ -267,7 +286,7 @@
 		if("swag", "swags")
 			if(dna.species.bodyflags & TAIL_WAGGING || body_accessory)
 				message = "<B>[src]</B> stops wagging [p_their()] tail."
-				stop_tail_wagging(1)
+				stop_tail_wagging()
 			else
 				return
 			m_type = 1
@@ -296,14 +315,14 @@
 			m_type = 1
 
 		if("bow", "bows")
-			if(!buckled)
+			if(!restrained())
 				var/M = handle_emote_param(param)
 
 				message = "<B>[src]</B> bows[M ? " to [M]" : ""]."
 			m_type = 1
 
 		if("salute", "salutes")
-			if(!buckled)
+			if(!restrained())
 				var/M = handle_emote_param(param)
 
 				message = "<B>[src]</B> salutes[M ? " to [M]" : ""]."
@@ -383,7 +402,7 @@
 						message = "<B>[src]</B> flips in [M]'s general direction."
 						SpinAnimation(5,1)
 				else
-					if(lying || weakened)
+					if(lying || IsWeakened())
 						message = "<B>[src]</B> flops and flails around on the floor."
 					else
 						var/obj/item/grab/G
@@ -396,7 +415,9 @@
 							var/turf/newloc = G.affecting.loc
 							if(isturf(oldloc) && isturf(newloc))
 								SpinAnimation(5,1)
+								glide_for(6) // This and the glide_for below are purely arbitrary. Pick something that looks aesthetically pleasing.
 								forceMove(newloc)
+								G.glide_for(6)
 								G.affecting.forceMove(oldloc)
 								message = "<B>[src]</B> flips over [G.affecting]!"
 						else
@@ -461,10 +482,10 @@
 					m_type = 2
 					if(gender == FEMALE)
 						if(dna.species.female_cough_sounds)
-							playsound(src, pick(dna.species.female_cough_sounds), 120)
+							playsound(src, pick(dna.species.female_cough_sounds), 120, 1, frequency = get_age_pitch())
 					else
 						if(dna.species.male_cough_sounds)
-							playsound(src, pick(dna.species.male_cough_sounds), 120)
+							playsound(src, pick(dna.species.male_cough_sounds), 120, 1, frequency = get_age_pitch())
 				else
 					message = "<B>[src]</B> makes a strong noise."
 					m_type = 2
@@ -502,6 +523,14 @@
 			else
 				if(!muzzled)
 					message = "<B>[src]</B> gasps!"
+					if(health <= 0)
+						if(gender == FEMALE)
+							playsound(loc, pick(dna.species.female_dying_gasp_sounds), 100, 1, frequency = get_age_pitch())
+						else
+							playsound(loc, pick(dna.species.male_dying_gasp_sounds), 100, 1, frequency = get_age_pitch())
+
+					else
+						playsound(loc, dna.species.gasp_sound, 15, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
 					message = "<B>[src]</B> makes a weak noise."
@@ -509,6 +538,7 @@
 
 		if("deathgasp", "deathgasps")
 			message = "<B>[src]</B> [replacetext(dna.species.death_message, "their", p_their())]"
+			playsound(loc, pick(dna.species.death_sounds), 40, 1, frequency = get_age_pitch())
 			m_type = 1
 
 		if("giggle", "giggles")
@@ -569,8 +599,16 @@
 					message = "<B>[src]</B> sighs[M ? " at [M]" : ""]."
 					m_type = 2
 				else
-					message = "<B>[src]</B> makes a weak noise"
+					message = "<B>[src]</B> makes a weak noise."
 					m_type = 2
+
+		if("hsigh", "hsighs")
+			if(!muzzled)
+				message = "<B>[src]</B> sighs contentedly."
+				m_type = 2
+			else
+				message = "<B>[src]</B> makes a [pick("chill", "relaxed")] noise."
+				m_type = 2
 
 		if("laugh", "laughs")
 			var/M = handle_emote_param(param)
@@ -671,9 +709,9 @@
 			if(!restrained())
 				var/t1 = round(text2num(param))
 				if(isnum(t1))
-					if(t1 <= 5 && (!r_hand || !l_hand))
+					if(t1 <= 5 && t1 >= 1 && (!r_hand || !l_hand))
 						message = "<B>[src]</B> raises [t1] finger\s."
-					else if(t1 <= 10 && (!r_hand && !l_hand))
+					else if(t1 <= 10 && t1 >= 1 && (!r_hand && !l_hand))
 						message = "<B>[src]</B> raises [t1] finger\s."
 			m_type = 1
 
@@ -713,9 +751,9 @@
 				if(!muzzled)
 					message = "<B>[src]</B> sneezes."
 					if(gender == FEMALE)
-						playsound(src, dna.species.female_sneeze_sound, 70)
+						playsound(src, dna.species.female_sneeze_sound, 70, 1, frequency = get_age_pitch())
 					else
-						playsound(src, dna.species.male_sneeze_sound, 70)
+						playsound(src, dna.species.male_sneeze_sound, 70, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
 					message = "<B>[src]</B> makes a strange noise."
@@ -824,9 +862,9 @@
 					message = "<B>[src]</B> [dna.species.scream_verb][M ? " at [M]" : ""]!"
 					m_type = 2
 					if(gender == FEMALE)
-						playsound(loc, "[dna.species.female_scream_sound]", 80, 1, frequency = get_age_pitch())
+						playsound(loc, dna.species.female_scream_sound, 80, 1, frequency = get_age_pitch())
 					else
-						playsound(loc, "[dna.species.male_scream_sound]", 80, 1, frequency = get_age_pitch()) //default to male screams if no gender is present.
+						playsound(loc, dna.species.male_scream_sound, 80, 1, frequency = get_age_pitch()) //default to male screams if no gender is present.
 
 				else
 					message = "<B>[src]</B> makes a very loud noise[M ? " at [M]" : ""]."
@@ -858,14 +896,10 @@
 				playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 
 		if("fart", "farts")
-			if(locate(/obj/item/storage/bible) in get_turf(src))
-				to_chat(viewers(src), "<span class='danger'>[src] farts on the Bible!</span>")
-				var/image/cross = image('icons/obj/storage.dmi', "bible")
-				var/adminbfmessage = "[bicon(cross)] <span class='danger'>Bible Fart:</span> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b>"
-				for(var/client/X in GLOB.admins)
-					if(check_rights(R_EVENT, 0, X.mob))
-						to_chat(X, adminbfmessage)
-			else
+			var/farted_on_thing = FALSE
+			for(var/atom/A in get_turf(src))
+				farted_on_thing += A.fart_act(src)
+			if(!farted_on_thing)
 				message = "<b>[src]</b> [pick("passes wind", "farts")]."
 			m_type = 2
 
@@ -898,41 +932,43 @@
 					return
 
 		if("help")
-			var/emotelist = "aflap(s), airguitar, blink(s), blink(s)_r, blush(es), bow(s)-(none)/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s),cry, cries, custom, dance, dap(s)(none)/mob," \
-			+ " deathgasp(s), drool(s), eyebrow, fart(s), faint(s), flap(s), flip(s), frown(s), gasp(s), giggle(s), glare(s)-(none)/mob, grin(s), groan(s), grumble(s), grin(s)," \
-			+ " handshake-mob, hug(s)-(none)/mob, hem, highfive, johnny, jump, laugh(s), look(s)-(none)/mob, moan(s), mumble(s), nod(s), pale(s), point(s)-atom, quiver(s), raise(s), salute(s)-(none)/mob, scream(s), shake(s)," \
-			+ " shiver(s), shrug(s), sigh(s), signal(s)-#1-10,slap(s)-(none)/mob, smile(s),snap(s), sneeze(s), sniff(s), snore(s), stare(s)-(none)/mob, swag(s), tremble(s), twitch(es), twitch(es)_s," \
-			+ " wag(s), wave(s),  whimper(s), wink(s), yawn(s), quill(s)"
+			var/emotelist = "aflap(s), airguitar, blink(s), blink(s)_r, blush(es), bow(s)-none/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s), cry, cries, custom, dance, dap(s)-none/mob," \
+			+ " deathgasp(s), drool(s), eyebrow, fart(s), faint(s), flap(s), flip(s), frown(s), gasp(s), giggle(s), glare(s)-none/mob, grin(s), groan(s), grumble(s), grin(s)," \
+			+ " handshake-mob, hug(s)-none/mob, hem, highfive, johnny, jump, laugh(s), look(s)-none/mob, moan(s), mumble(s), nod(s), pale(s), point(s)-atom, quiver(s), raise(s), salute(s)-none/mob, scream(s), shake(s)," \
+			+ " shiver(s), shrug(s), sigh(s), signal(s)-#1-10,slap(s)-none/mob, smile(s),snap(s), sneeze(s), sniff(s), snore(s), stare(s)-none/mob, tremble(s), twitch(es), twitch(es)_s," \
+			+ " wave(s), whimper(s), wink(s), yawn(s)"
 
 			switch(dna.species.name)
-				if("Drask")
-					emotelist += "\nDrask specific emotes :- drone(s)-(none)/mob, hum(s)-(none)/mob, rumble(s)-(none)/mob"
-				if("Kidan")
-					emotelist += "\nKidan specific emotes :- click(s), clack(s)"
-				if("Unathi")
-					emotelist += "\nUnathi specific emotes :- hiss(es)"
-				if("Vulpkanin")
-					emotelist += "\nVulpkanin specific emotes :- growl(s)-none/mob, howl(s)-none/mob"
-				if("Vox")
-					emotelist += "\nVox specific emotes :- quill(s)"
 				if("Diona")
-					emotelist += "\nDiona specific emotes :- creak(s)"
+					emotelist += "\n<u>Diona specific emotes</u> :- creak(s)"
+				if("Drask")
+					emotelist += "\n<u>Drask specific emotes</u> :- drone(s)-none/mob, hum(s)-none/mob, rumble(s)-none/mob"
+				if("Kidan")
+					emotelist += "\n<u>Kidan specific emotes</u> :- click(s), clack(s)"
 				if("Skrell")
-					emotelist += "\nSkrell specific emotes :- warble(s)"
+					emotelist += "\n<u>Skrell specific emotes</u> :- warble(s)"
+				if("Tajaran")
+					emotelist += "\n<u>Tajaran specifc emotes</u> :- wag(s), swag(s)"
+				if("Unathi")
+					emotelist += "\n<u>Unathi specific emotes</u> :- wag(s), swag(s), hiss(es)"
+				if("Vox")
+					emotelist += "\n<u>Vox specific emotes</u> :- wag(s), swag(s), quill(s)"
+				if("Vulpkanin")
+					emotelist += "\n<u>Vulpkanin specific emotes</u> :- wag(s), swag(s), growl(s)-none/mob, howl(s)-none/mob"
 
-			if(ismachine(src))
-				emotelist += "\nMachine specific emotes :- beep(s)-(none)/mob, buzz(es)-none/mob, no-(none)/mob, ping(s)-(none)/mob, yes-(none)/mob, buzz2-(none)/mob"
+			if(ismachineperson(src))
+				emotelist += "\n<u>Machine specific emotes</u> :- beep(s)-none/mob, buzz(es)-none/mob, no-none/mob, ping(s)-none/mob, yes-none/mob, buzz2-none/mob"
 			else
 				var/obj/item/organ/external/head/H = get_organ("head") // If you have a robotic head, you can make beep-boop noises
 				if(H && H.is_robotic())
-					emotelist += "\nRobotic head specific emotes :- beep(s)-(none)/mob, buzz(es)-none/mob, no-(none)/mob, ping(s)-(none)/mob, yes-(none)/mob, buzz2-(none)/mob"
+					emotelist += "\n<u>Robotic head specific emotes</u> :- beep(s)-none/mob, buzz(es)-none/mob, no-none/mob, ping(s)-none/mob, yes-none/mob, buzz2-none/mob"
 
 			if(isslimeperson(src))
-				emotelist += "\nSlime people specific emotes :- squish(es)-(none)/mob"
+				emotelist += "\n<u>Slime people specific emotes</u> :- squish(es)-none/mob"
 			else
 				for(var/obj/item/organ/external/L in bodyparts) // if your limbs are squishy you can squish too!
 					if(istype(L.dna.species, /datum/species/slime))
-						emotelist += "\nSlime people body part specific emotes :- squish(es)-(none)/mob"
+						emotelist += "\n<u>Slime people body part specific emotes</u> :- squish(es)-none/mob"
 						break
 
 			to_chat(src, emotelist)
@@ -946,9 +982,13 @@
  // Maybe some people are okay with that.
 
 		for(var/mob/M in GLOB.dead_mob_list)
-			if(!M.client || istype(M, /mob/new_player))
-				continue //skip monkeys, leavers and new players
-			if(M.stat == DEAD && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))
+			if(!M.client)
+				continue
+
+			if(isnewplayer(M))
+				continue
+
+			if(isobserver(M) && M.get_preference(PREFTOGGLE_CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
 				M.show_message(message)
 
 		switch(m_type)

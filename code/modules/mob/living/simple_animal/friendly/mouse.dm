@@ -23,6 +23,7 @@
 	density = 0
 	ventcrawler = 2
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	mob_size = MOB_SIZE_TINY
 	var/mouse_color //brown, gray and white, leave blank for random
 	layer = MOB_LAYER
@@ -33,35 +34,42 @@
 	can_hide = 1
 	holder_type = /obj/item/holder/mouse
 	can_collar = 1
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	gold_core_spawnable = FRIENDLY_SPAWN
+	var/chew_probability = 1
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, list('sound/creatures/mousesqueak.ogg' = 1), 100)
+	AddComponent(/datum/component/squeak, list('sound/creatures/mousesqueak.ogg' = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
+
+/mob/living/simple_animal/mouse/handle_automated_action()
+	if(prob(chew_probability) && isturf(loc))
+		var/turf/simulated/floor/F = get_turf(src)
+		if(istype(F) && !F.intact)
+			var/obj/structure/cable/C = locate() in F
+			if(C && prob(15))
+				if(C.avail() && !HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
+					visible_message("<span class='warning'>[src] chews through [C]. It's toast!</span>")
+					playsound(src, 'sound/effects/sparks2.ogg', 100, 1)
+					toast() // mmmm toasty.
+				else
+					visible_message("<span class='warning'>[src] chews through [C].</span>")
+				investigate_log("was chewed through by a mouse in [get_area(F)]([F.x], [F.y], [F.z] - [ADMIN_JMP(F)])","wires")
+				C.deconstruct()
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
 	..()
-	if(prob(speak_chance))
-		for(var/mob/M in view())
-			M << squeak_sound
+	if(prob(speak_chance) && !incapacitated())
+		playsound(src, squeak_sound, 100, 1)
 
-/mob/living/simple_animal/mouse/Life(seconds, times_fired)
+/mob/living/simple_animal/mouse/handle_automated_movement()
 	. = ..()
-	if(stat == UNCONSCIOUS)
-		if(ckey || prob(1))
-			stat = CONSCIOUS
-			icon_state = "mouse_[mouse_color]"
-			wander = 1
+	if(resting)
+		if(prob(1))
+			StopResting()
 		else if(prob(5))
-			emote("snuffles")
-
-/mob/living/simple_animal/mouse/Life()
-	..()
-	if(prob(0.5) && !ckey)
-		stat = UNCONSCIOUS
-		icon_state = "mouse_[mouse_color]_sleep"
-		wander = 0
-		speak_chance = 0
+			custom_emote(2, "snuffles")
+	else if(prob(0.5))
+		StartResting()
 
 /mob/living/simple_animal/mouse/New()
 	..()
@@ -73,30 +81,33 @@
 	icon_resting = "mouse_[mouse_color]_sleep"
 	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
-/mob/living/simple_animal/mouse/proc/splat()
-	src.health = 0
-	src.stat = DEAD
-	src.icon_dead = "mouse_[mouse_color]_splat"
-	src.icon_state = "mouse_[mouse_color]_splat"
-	layer = MOB_LAYER
-	if(client)
-		client.time_died_as_mouse = world.time
-
 /mob/living/simple_animal/mouse/attack_hand(mob/living/carbon/human/M as mob)
 	if(M.a_intent == INTENT_HELP)
 		get_scooped(M)
 	..()
 
-/mob/living/simple_animal/mouse/start_pulling(var/atom/movable/AM)//Prevents mouse from pulling things
-	to_chat(src, "<span class='warning'>You are too small to pull anything.</span>")
+/mob/living/simple_animal/mouse/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)//Prevents mouse from pulling things
+	if(istype(AM, /obj/item/reagent_containers/food/snacks/cheesewedge))
+		return ..() // Get dem
+	if(show_message)
+		to_chat(src, "<span class='warning'>You are too small to pull anything except cheese.</span>")
 	return
 
-/mob/living/simple_animal/mouse/Crossed(AM as mob|obj)
+/mob/living/simple_animal/mouse/Crossed(AM as mob|obj, oldloc)
 	if(ishuman(AM))
 		if(!stat)
 			var/mob/M = AM
 			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
 	..()
+
+/mob/living/simple_animal/mouse/proc/toast()
+	add_atom_colour("#3A3A3A", FIXED_COLOUR_PRIORITY)
+	desc = "It's toast."
+	death()
+
+/mob/living/simple_animal/mouse/proc/splat()
+	icon_dead = "mouse_[mouse_color]_splat"
+	icon_state = "mouse_[mouse_color]_splat"
 
 /mob/living/simple_animal/mouse/death(gibbed)
 	// Only execute the below if we successfully died
@@ -156,17 +167,22 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "splats"
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	unique_pet = TRUE
+	gold_core_spawnable = NO_SPAWN
 
+/mob/living/simple_animal/mouse/brown/Tom/Initialize(mapload)
+	. = ..()
+	// Tom fears no cable.
+	ADD_TRAIT(src, TRAIT_SHOCKIMMUNE, SPECIES_TRAIT)
 
 /mob/living/simple_animal/mouse/blobinfected
 	maxHealth = 100
 	health = 100
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = NO_SPAWN
 	var/cycles_alive = 0
-	var/cycles_limit = 30
+	var/cycles_limit = 60
 	var/has_burst = FALSE
 
 /mob/living/simple_animal/mouse/blobinfected/Life()
@@ -196,7 +212,7 @@
 	var/client/C = client
 	if(istype(blobmind) && istype(C))
 		blobmind.special_role = SPECIAL_ROLE_BLOB
-		var/obj/structure/blob/core/core = new(T, 200, C, 3)
+		var/obj/structure/blob/core/core = new(T, C, 3)
 		core.lateblobtimer()
 	else
 		new /obj/structure/blob/core(T) // Ghosts will be prompted to control it.
@@ -218,6 +234,17 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stamps on"
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = NO_SPAWN
 	can_collar = 0
 	butcher_results = list(/obj/item/stack/sheet/metal = 1)
+
+/mob/living/simple_animal/mouse/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(!(istype(user, /mob/living/silicon/robot/drone)))
+		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
+		"<span class='warning'>It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises.</span>")
+		new/obj/effect/decal/cleanable/blood/splatter(get_turf(src))
+		C.stored_comms["wood"] += 2
+		C.stored_comms["glass"] += 2
+		qdel(src)
+		return TRUE
+	return ..()

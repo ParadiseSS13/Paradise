@@ -56,13 +56,14 @@
 	update_icon()
 
 /obj/item/gun/dartgun/examine(mob/user)
-	if(..(user, 2))
+	. = ..()
+	if(get_dist(user, src) <= 2)
 		if(beakers.len)
-			to_chat(user, "<span class='notice'>[src] contains:</span>")
+			. += "<span class='notice'>[src] contains:</span>"
 			for(var/obj/item/reagent_containers/glass/beaker/B in beakers)
 				if(B.reagents && B.reagents.reagent_list.len)
 					for(var/datum/reagent/R in B.reagents.reagent_list)
-						to_chat(user, "<span class='notice'>[R.volume] units of [R.name]</span>")
+						. += "<span class='notice'>[R.volume] units of [R.name]</span>"
 
 /obj/item/gun/dartgun/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/dart_cartridge))
@@ -101,6 +102,8 @@
 		beakers += B
 		to_chat(user, "<span class='notice'>You slot [B] into [src].</span>")
 		src.updateUsrDialog()
+	else
+		return ..()
 
 /obj/item/gun/dartgun/can_shoot()
 	if(!cartridge)
@@ -172,11 +175,6 @@
 						for(var/datum/reagent/A in D.reagents.reagent_list)
 							R += A.id + " ("
 							R += num2text(A.volume) + "),"
-					if(istype(M, /mob))
-						if(!iscarbon(user))
-							M.LAssailant = null
-						else
-							M.LAssailant = user
 
 					add_attack_logs(user, M, "Shot with dartgun containing [R]")
 
@@ -296,4 +294,5 @@
 	density = 0
 
 /obj/effect/syringe_gun_dummy/New()
+	. = ..()
 	create_reagents(15)

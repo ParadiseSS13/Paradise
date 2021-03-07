@@ -1,9 +1,0 @@
-author: "Couls"
-delete-after: True
-changes: 
-  - tweak: "Borgs can now cycle modules with X again"
-  - tweak: "Ahelp message is less confusing"
-  - tweak: "F2 (say) F3(ooc) F4(me) buttons have been restored
-tweak:when numpad targetting is off you can use numpad 1-4 to change intents
-tweak:pressing shift before any of the intent buttons doesn't change intents(for people with shift+1-4 macros)
-tweak:backspace now sets the focus to the chat bar"

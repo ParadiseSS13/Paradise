@@ -35,7 +35,9 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	density = FALSE
 	mob_size = MOB_SIZE_TINY
+	mob_biotypes = MOB_ORGANIC | MOB_BUG
 	flying = TRUE
+	gold_core_spawnable = HOSTILE_SPAWN
 	search_objects = TRUE //have to find those plant trays!
 
 	//Spaceborn beings don't get hurt by space
@@ -59,6 +61,7 @@
 /mob/living/simple_animal/hostile/poison/bees/New()
 	..()
 	generate_bee_visuals()
+	AddComponent(/datum/component/swarming)
 
 /mob/living/simple_animal/hostile/poison/bees/Destroy()
 	beegent = null
@@ -78,9 +81,24 @@
 		beehome = null
 
 /mob/living/simple_animal/hostile/poison/bees/examine(mob/user)
-	..()
+	. = ..()
 	if(!bee_syndicate && !beehome)
-		to_chat(user, "<span class='warning'>This bee is homeless!</span>")
+		. += "<span class='warning'>This bee is homeless!</span>"
+
+/mob/living/simple_animal/hostile/poison/bees/ListTargets() // Bee processing is expessive, so we override them finding targets here.
+	if(!search_objects) //In case we want to have purely hostile bees
+		return ..()
+	else
+		. = list() // The following code is only very slightly slower than just returning oview(vision_range, targets_from), but it saves us much more work down the line
+		var/list/searched_for = oview(vision_range, targets_from)
+		for(var/obj/A in searched_for)
+			. += A
+		for(var/mob/A in searched_for)
+			. += A
+
+// All bee sprites are made up of overlays. They do not have any special sprite overlays for items placed on them, such as collars, so this proc is unneeded.
+/mob/living/simple_animal/hostile/poison/bees/regenerate_icons()
+	return
 
 /mob/living/simple_animal/hostile/poison/bees/proc/generate_bee_visuals()
 	overlays.Cut()
@@ -137,16 +155,17 @@
 		if(target == beehome)
 			var/obj/structure/beebox/BB = target
 			forceMove(BB)
+			toggle_ai(AI_IDLE)
 			target = null
 			wanted_objects -= beehometypecache //so we don't attack beeboxes when not going home
 		return //no don't attack the goddamm box
 	else
-		..()
-		if(isliving(target))
+		. = ..()
+		if(. && isliving(target) && (!client || a_intent == INTENT_HARM))
 			var/mob/living/L = target
 			if(L.reagents)
 				if(beegent)
-					beegent.reaction_mob(L, INGEST)
+					beegent.reaction_mob(L, REAGENT_INGEST)
 					L.reagents.add_reagent(beegent.id, rand(1, 5))
 				else
 					L.reagents.add_reagent("spidertoxin", 5)
@@ -222,10 +241,10 @@
 
 //leave pollination for the peasent bees
 /mob/living/simple_animal/hostile/poison/bees/queen/AttackingTarget()
-	..()
-	if(beegent && isliving(target))
+	. = ..()
+	if(. && beegent && isliving(target))
 		var/mob/living/L = target
-		beegent.reaction_mob(L, TOUCH)
+		beegent.reaction_mob(L, REAGENT_TOUCH)
 		L.reagents.add_reagent(beegent.id, rand(1, 5))
 
 //PEASENT BEES
@@ -283,6 +302,14 @@
 	QDEL_NULL(queen)
 	return ..()
 
+/mob/living/simple_animal/hostile/poison/bees/consider_wakeup()
+	if(beehome && loc == beehome) // If bees are chilling in their nest, they're not actively looking for targets
+		idle = min(100, ++idle)
+		if(idle >= BEE_IDLE_ROAMING && prob(BEE_PROB_GOROAM))
+			toggle_ai(AI_ON)
+			forceMove(beehome.drop_location())
+	else
+		..()
 
 //Syndicate Bees
 /mob/living/simple_animal/hostile/poison/bees/syndi
@@ -327,8 +354,8 @@
 		return TRUE
 
 /mob/living/simple_animal/hostile/poison/bees/syndi/AttackingTarget()
-	..()
-	if(target && isliving(target))
+	. = ..()
+	if(. && target && isliving(target))
 		var/mob/living/L = target
 		if(L.stat)
 			LoseTarget()

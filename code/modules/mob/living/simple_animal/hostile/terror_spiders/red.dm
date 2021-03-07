@@ -7,7 +7,7 @@
 // -------------: AI: uses very powerful fangs to wreck people in melee
 // -------------: SPECIAL: the more you hurt it, the harder it bites you
 // -------------: TO FIGHT IT: shoot it from range. Kite it.
-// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+// -------------: SPRITES FROM: FoS, https://www.paradisestation.org/forum/profile/335-fos
 
 /mob/living/simple_animal/hostile/poison/terror_spider/red
 	name = "Red Terror spider"
@@ -24,6 +24,7 @@
 	move_to_delay = 10 // at 20ticks/sec, this is 2 tile/sec movespeed
 	speed = 2 // movement_delay() gives 4.5, or 0.45s between steps, which = about 2.2 tiles/second. Player is slightly faster than AI, but cannot move on diagonals.
 	spider_opens_doors = 2
+	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 	web_type = /obj/structure/spider/terrorweb/red
 	var/enrage = 0
 	var/melee_damage_lower_rage0 = 15
@@ -58,10 +59,10 @@
 			visible_message("<span class='notice'>[src] retracts its fangs a little.</span>")
 			melee_damage_lower = melee_damage_lower_rage1
 			melee_damage_upper = melee_damage_upper_rage1
-	..()
+	return ..()
 
 
 /obj/structure/spider/terrorweb/red
-	health = 30
+	max_integrity = 30
 	name = "reinforced web"
 	desc = "This web is reinforced with extra strands, for added strength."

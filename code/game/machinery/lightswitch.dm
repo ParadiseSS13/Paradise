@@ -13,8 +13,6 @@
 	//	luminosity = 1
 	settagwhitelist = list("logic_id_tag")
 	var/light_connect = 1							//Allows the switch to control lights in its associated areas. When set to 0, using the switch won't affect the lights.
-	var/datum/radio_frequency/radio_connection
-	var/frequency = 0
 	var/logic_id_tag = "default"					//Defines the ID tag to send logic signals to.
 	var/logic_connect = 0							//Set this to allow the switch to send out logic signals.
 
@@ -48,7 +46,7 @@
 	..()
 	set_frequency(frequency)
 
-/obj/machinery/light_switch/proc/set_frequency(new_frequency)
+/obj/machinery/light_switch/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_LOGIC)
@@ -70,8 +68,8 @@
 			icon_state = "light0"
 
 /obj/machinery/light_switch/examine(mob/user)
-	if(..(user, 1))
-		to_chat(user, "A light switch. It is [on? "on" : "off"].")
+	. = ..()
+	. += "A light switch. It is [on? "on" : "off"]."
 
 /obj/machinery/light_switch/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
@@ -147,20 +145,25 @@
 /obj/machinery/light_switch/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/detective_scanner))
 		return
+	return ..()
 
-	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
+/obj/machinery/light_switch/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	update_multitool_menu(user)
 
-	if(istype(W, /obj/item/wrench))
-		playsound(get_turf(src), W.usesound, 50, 1)
-		if(do_after(user, 30 * W.toolspeed, target = src))
-			to_chat(user, "<span class='notice'>You detach \the [src] from the wall.</span>")
-			new/obj/item/mounted/frame/light_switch(get_turf(src))
-			qdel(src)
-		return 1
-
-	return src.attack_hand(user)
+/obj/machinery/light_switch/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	user.visible_message("<span class='notice'>[user] starts unwrenching [src] from the wall...</span>", "<span class='notice'>You are unwrenching [src] from the wall...</span>", "<span class='warning'>You hear ratcheting.</span>")
+	. = TRUE
+	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
+		return
+	WRENCH_UNANCHOR_WALL_MESSAGE
+	new/obj/item/mounted/frame/light_switch(get_turf(src))
+	qdel(src)
 
 /obj/machinery/light_switch/multitool_menu(var/mob/user, var/obj/item/multitool/P)
 	return {"

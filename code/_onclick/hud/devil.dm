@@ -49,9 +49,9 @@
 	using.screen_loc = ui_swaphand2
 	static_inventory += using
 
-	mymob.zone_sel = new /obj/screen/zone_sel()
-	mymob.zone_sel.icon = ui_style
-	mymob.zone_sel.update_icon(mymob)
+	zone_select = new /obj/screen/zone_sel()
+	zone_select.icon = ui_style
+	zone_select.update_icon(mymob)
 
 	lingchemdisplay = new /obj/screen/ling/chems()
 	devilsouldisplay = new /obj/screen/devil/soul_counter

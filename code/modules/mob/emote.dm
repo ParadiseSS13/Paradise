@@ -12,7 +12,7 @@
 	emote_cd = TRUE	// Starting cooldown
 	spawn(cooldown)
 		if(emote_cd == 2)
-			return TRUE // Don't reset if cooldown emotes were disabled by an admin during the cooldown
+			return // Don't reset if cooldown emotes were disabled by an admin during the cooldown
 		emote_cd = FALSE // Cooldown complete, ready for more!
 	return FALSE // Proceed with emote
 
@@ -30,12 +30,10 @@
 
 // All mobs should have custom emote, really..
 /mob/proc/custom_emote(var/m_type=EMOTE_VISUAL,var/message = null)
-
 	if(stat || !use_me && usr == src)
 		if(usr)
 			to_chat(usr, "You are unable to emote.")
 		return
-
 	var/muzzled = is_muzzled()
 	if(muzzled)
 		var/obj/item/clothing/mask/muzzle/M = wear_mask
@@ -57,20 +55,25 @@
 
 	if(message)
 		log_emote(message, src)
-
- //Hearing gasp and such every five seconds is not good emotes were not global for a reason.
- // Maybe some people are okay with that.
-
+		if(isliving(src)) //isliving because these are defined on the mob/living level not mob
+			var/mob/living/L = src
+			L.say_log += "EMOTE: [input]" //say log too so it is easier on admins instead of having to merge the two with timestamps etc
+			L.emote_log += input //emote only log if an admin wants to search just for emotes they don't have to sift through the say
+			create_log(EMOTE_LOG, input) // TODO after #13047: Include the channel
+		// Hearing gasp and such every five seconds is not good emotes were not global for a reason.
+		// Maybe some people are okay with that.
 		for(var/mob/M in GLOB.player_list)
 			if(!M.client)
 				continue //skip monkeys and leavers
-			if(istype(M, /mob/new_player))
-				continue
-			if(findtext(message," snores.")) //Because we have so many sleeping people.
-				break
-			if(M.stat == DEAD && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))
-				M.show_message(message)
 
+			if(isnewplayer(M))
+				continue
+
+			if(findtext(message, " snores.")) //Because we have so many sleeping people.
+				break
+
+			if(isobserver(M) && M.get_preference(PREFTOGGLE_CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
+				M.show_message(message)
 
 		// Type 1 (Visual) emotes are sent to anyone in view of the item
 		if(m_type & EMOTE_VISUAL)
@@ -108,7 +111,7 @@
 		to_chat(src, "<span class='warning'>You cannot send deadchat emotes (muted).</span>")
 		return
 
-	if(!(client.prefs.toggles & CHAT_DEAD))
+	if(!(client.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
 		to_chat(src, "<span class='warning'>You have deadchat muted.</span>")
 		return
 
@@ -132,11 +135,11 @@
 
 	if(message)
 		for(var/mob/M in GLOB.player_list)
-			if(istype(M, /mob/new_player))
+			if(isnewplayer(M))
 				continue
 
-			if(check_rights(R_ADMIN|R_MOD, 0, M) && M.get_preference(CHAT_DEAD)) // Show the emote to admins/mods
+			if(check_rights(R_ADMIN|R_MOD, 0, M) && M.get_preference(PREFTOGGLE_CHAT_DEAD)) // Show the emote to admins/mods
 				to_chat(M, message)
 
-			else if(M.stat == DEAD && M.get_preference(CHAT_DEAD)) // Show the emote to regular ghosts with deadchat toggled on
+			else if(M.stat == DEAD && M.get_preference(PREFTOGGLE_CHAT_DEAD)) // Show the emote to regular ghosts with deadchat toggled on
 				M.show_message(message, 2)

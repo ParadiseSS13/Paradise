@@ -2,24 +2,22 @@
 	if(M.a_intent == INTENT_DISARM)
 		if(!lying)
 			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
-			if(prob(85))
-				Stun(7)
-				step(src, get_dir(M,src))
-				spawn(5)
-					step(src, get_dir(M,src))
-				add_attack_logs(M, src, "Alien pushed over")
-				playsound(loc, 'sound/weapons/pierce.ogg', 50, 1, -1)
-				visible_message("<span class='danger'>[M] has forced back [src]!</span>",\
-								"<span class='userdanger'>[M] has forced back [src]!</span>")
+			var/obj/item/I = get_active_hand()
+			if(I)
+				uneq_active()
+				visible_message("<span class='danger'>[M] disarmed [src]!</span>", "<span class='userdanger'>[M] has disabled [src]'s active module!</span>")
+				add_attack_logs(M, src, "alien disarmed")
 			else
-				playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
-				visible_message("<span class='danger'>[M] took a swipe at [src]!</span>",\
-								"<span class='userdanger'>[M] took a swipe at [src]!</span>")
+				Stun(2)
+				step(src, get_dir(M,src))
+				add_attack_logs(M, src, "Alien pushed over")
+				visible_message("<span class='danger'>[M] forces back [src]!</span>", "<span class='userdanger'>[M] forces back [src]!</span>")
+			playsound(loc, 'sound/weapons/pierce.ogg', 50, TRUE, -1)
 	else
 		..()
 	return
 
-/mob/living/silicon/robot/attack_slime(mob/living/carbon/slime/M)
+/mob/living/silicon/robot/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime shock
 		flash_eyes(affect_silicon = 1)
 		var/stunprob = M.powerlevel * 7 + 10

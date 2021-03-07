@@ -16,22 +16,33 @@
 	var/cooktype[0]
 	var/cooked_type = null  //for microwave cooking. path of the resulting item after microwaving
 	var/total_w_class = 0 //for the total weight an item of food can carry
+	var/list/tastes  // for example list("crisps" = 2, "salt" = 1)
 
+/obj/item/reagent_containers/food/snacks/add_initial_reagents()
+	if(tastes && tastes.len)
+		if(list_reagents)
+			for(var/rid in list_reagents)
+				var/amount = list_reagents[rid]
+				if(rid == "nutriment" || rid == "vitamin" || rid == "protein" || rid == "plantmatter")
+					reagents.add_reagent(rid, amount, tastes.Copy())
+				else
+					reagents.add_reagent(rid, amount)
+	else
+		..()
 
-	//Placeholder for effect that trigger on eating that aren't tied to reagents.
+//Placeholder for effect that trigger on eating that aren't tied to reagents.
 /obj/item/reagent_containers/food/snacks/proc/On_Consume(mob/M, mob/user)
 	if(!user)
 		return
-	spawn(0)
-		if(!reagents.total_volume)
-			if(M == user)
-				to_chat(user, "<span class='notice'>You finish eating \the [src].</span>")
-			user.visible_message("<span class='notice'>[M] finishes eating \the [src].</span>")
-			user.unEquip(src)	//so icons update :[
-			Post_Consume(M)
-			var/obj/item/trash_item = generate_trash(usr)
-			usr.put_in_hands(trash_item)
-			qdel(src)
+	if(!reagents.total_volume)
+		if(M == user)
+			to_chat(user, "<span class='notice'>You finish eating \the [src].</span>")
+		user.visible_message("<span class='notice'>[M] finishes eating \the [src].</span>")
+		user.unEquip(src)	//so icons update :[
+		Post_Consume(M)
+		var/obj/item/trash_item = generate_trash(usr)
+		usr.put_in_hands(trash_item)
+		qdel(src)
 	return
 
 /obj/item/reagent_containers/food/snacks/proc/Post_Consume(mob/living/M)
@@ -59,22 +70,20 @@
 	return
 
 /obj/item/reagent_containers/food/snacks/examine(mob/user)
-	if(..(user, 0))
-		if(bitecount==0)
-			return
-		else if(bitecount==1)
-			to_chat(user, "<span class='notice'>[src] was bitten by someone!</span>")
-		else if(bitecount<=3)
-			to_chat(user, "<span class='notice'>[src] was bitten [bitecount] times!</span>")
-		else
-			to_chat(user, "<span class='notice'>[src] was bitten multiple times!</span>")
+	. = ..()
+	if(in_range(user, src))
+		if(bitecount > 0)
+			if(bitecount==1)
+				. += "<span class='notice'>[src] was bitten by someone!</span>"
+			else if(bitecount<=3)
+				. += "<span class='notice'>[src] was bitten [bitecount] times!</span>"
+			else
+				. += "<span class='notice'>[src] was bitten multiple times!</span>"
 
 
 /obj/item/reagent_containers/food/snacks/attackby(obj/item/W, mob/user, params)
 	if(istype(W,/obj/item/pen))
-		var/n_name = sanitize(copytext(input(usr, "What would you like to name this dish?", "Food Renaming", null)  as text, 1, MAX_NAME_LEN))
-		if((loc == usr && usr.stat == 0))
-			name = "[n_name]"
+		rename_interactive(user, W, use_prefix = FALSE, prompt = "What would you like to name this dish?")
 		return
 	if(istype(W,/obj/item/storage))
 		..() // -> item/attackby(, params)
@@ -141,35 +150,34 @@
 /obj/item/reagent_containers/food/snacks/attack_animal(mob/M)
 	if(isanimal(M))
 		M.changeNext_move(CLICK_CD_MELEE)
-		if(iscorgi(M))
-			var/mob/living/simple_animal/pet/corgi/G = M
-			if(world.time < (G.last_eaten + 300))
-				to_chat(G, "<span class='notice'>You are too full to try eating [src] right now.</span>")
+		if(isdog(M))
+			var/mob/living/simple_animal/pet/dog/D = M
+			if(world.time < (D.last_eaten + 300))
+				to_chat(D, "<span class='notice'>You are too full to try eating [src] right now.</span>")
 			else if(bitecount >= 4)
-				M.visible_message("[M] [pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where [src] was")].","<span class='notice'>You swallow up the last part of [src].</span>")
+				D.visible_message("[D] [pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where [src] was")].","<span class='notice'>You swallow up the last part of [src].</span>")
 				playsound(loc,'sound/items/eatfood.ogg', rand(10,50), 1)
-				var/mob/living/simple_animal/pet/corgi/C = M
-				C.adjustBruteLoss(-5)
-				C.adjustFireLoss(-5)
+				D.adjustHealth(-10)
+				D.last_eaten = world.time
+				D.taste(reagents)
 				qdel(src)
-				G.last_eaten = world.time
 			else
-				M.visible_message("[M] takes a bite of [src].","<span class='notice'>You take a bite of [src].</span>")
+				D.visible_message("[D] takes a bite of [src].","<span class='notice'>You take a bite of [src].</span>")
 				playsound(loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 				bitecount++
-				G.last_eaten = world.time
+				D.last_eaten = world.time
+				D.taste(reagents)
 		else if(ismouse(M))
 			var/mob/living/simple_animal/mouse/N = M
 			to_chat(N, text("<span class='notice'>You nibble away at [src].</span>"))
 			if(prob(50))
 				N.visible_message("[N] nibbles away at [src].", "")
-			//N.emote("nibbles away at the [src]")
-			N.adjustBruteLoss(-1)
-			N.adjustFireLoss(-1)
+			N.adjustHealth(-2)
+			N.taste(reagents)
 
 /obj/item/reagent_containers/food/snacks/sliceable/examine(mob/user)
 	. = ..()
-	to_chat(user, "<span class='notice'>Alt-click to put something small inside.</span>")
+	. += "<span class='notice'>Alt-click to put something small inside.</span>"
 
 /obj/item/reagent_containers/food/snacks/sliceable/AltClick(mob/user)
 	var/obj/item/I = user.get_active_hand()
@@ -261,7 +269,6 @@
 //		reagents.add_reagent("xenomicrobes", 10)						//This is what is in the food item. you may copy/paste
 //		reagents.add_reagent("nutriment", 2)							//	this line of code for all the contents.
 //		bitesize = 3													//This is the amount each bite consumes.
-
 
 /obj/item/reagent_containers/food/snacks/badrecipe
 	name = "burned mess"

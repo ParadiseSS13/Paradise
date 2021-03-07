@@ -12,12 +12,16 @@
 	maxHealth = 250
 	health = 250
 
+	mob_biotypes = NONE
+
 	harm_intent_damage = 5
 	melee_damage_lower = 8
 	melee_damage_upper = 12
 	attacktext = "attacks"
 	attack_sound = 'sound/weapons/bite.ogg'
+	emote_taunt = list("growls")
 	speak_emote = list("creaks")
+	taunt_chance = 30
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -26,13 +30,8 @@
 	move_to_delay = 9
 
 	var/is_electronic = 0
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	gold_core_spawnable = HOSTILE_SPAWN
 	del_on_death = 1
-
-/mob/living/simple_animal/hostile/mimic/FindTarget()
-	. = ..()
-	if(.)
-		custom_emote(1, "growls at [.]")
 
 /mob/living/simple_animal/hostile/mimic/emp_act(severity)
 	if(is_electronic)
@@ -51,12 +50,12 @@
 	var/attempt_open = 0
 
 // Pickup loot
-/mob/living/simple_animal/hostile/mimic/crate/Initialize()
-	..()
+/mob/living/simple_animal/hostile/mimic/crate/Initialize(mapload)
+	. = ..()
 	for(var/obj/item/I in loc)
 		I.loc = src
 
-/mob/living/simple_animal/hostile/mimic/crate/DestroySurroundings()
+/mob/living/simple_animal/hostile/mimic/crate/DestroyPathToTarget()
 	..()
 	if(prob(90))
 		icon_state = "[initial(icon_state)]open"
@@ -77,15 +76,19 @@
 	. = ..()
 	if(.)
 		icon_state = initial(icon_state)
+		if(prob(15) && iscarbon(target))
+			var/mob/living/carbon/C = target
+			C.Weaken(2)
+			C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", "<span class='userdanger'>\The [src] knocks you down!</span>")
 
 /mob/living/simple_animal/hostile/mimic/crate/proc/trigger()
 	if(!attempt_open)
 		visible_message("<b>[src]</b> starts to move!")
 		attempt_open = 1
 
-/mob/living/simple_animal/hostile/mimic/crate/adjustHealth(damage)
+/mob/living/simple_animal/hostile/mimic/crate/adjustHealth(amount, updating_health = TRUE)
 	trigger()
-	..(damage)
+	. = ..()
 
 /mob/living/simple_animal/hostile/mimic/crate/LoseTarget()
 	..()
@@ -96,19 +99,11 @@
 		var/obj/structure/closet/crate/C = new(get_turf(src))
 		// Put loot in crate
 		for(var/obj/O in src)
-			O.loc = C
+			O.forceMove(C)
 	// due to `del_on_death`
 	return ..()
 
-/mob/living/simple_animal/hostile/mimic/crate/AttackingTarget()
-	. =..()
-	var/mob/living/L = .
-	if(istype(L))
-		if(prob(15))
-			L.Weaken(2)
-			L.visible_message("<span class='danger'>\the [src] knocks down \the [L]!</span>")
-
-var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/cable, /obj/structure/window)
+GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/cable, /obj/structure/window))
 
 /mob/living/simple_animal/hostile/mimic/copy
 	health = 100
@@ -117,7 +112,7 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 	var/destroy_objects = 0
 	var/knockdown_people = 0
 	var/image/googly_eyes = null
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/hostile/mimic/copy/New(loc, obj/copy, mob/living/creator, destroy_original = 0)
 	..(loc)
@@ -148,7 +143,7 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 		faction |= "\ref[owner]"
 
 /mob/living/simple_animal/hostile/mimic/copy/proc/CheckObject(var/obj/O)
-	if((istype(O, /obj/item) || istype(O, /obj/structure)) && !is_type_in_list(O, protected_objects))
+	if((istype(O, /obj/item) || istype(O, /obj/structure)) && !is_type_in_list(O, GLOB.protected_objects))
 		return 1
 	return 0
 
@@ -191,14 +186,11 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 		..()
 
 /mob/living/simple_animal/hostile/mimic/copy/AttackingTarget()
-	..()
-	if(knockdown_people)
-		if(iscarbon(target))
-			var/mob/living/carbon/C = target
-			if(prob(15))
-				C.Weaken(2)
-				C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", \
-						"<span class='userdanger'>\The [src] knocks you down!</span>")
+	. = ..()
+	if(knockdown_people && . && prob(15) && iscarbon(target))
+		var/mob/living/carbon/C = target
+		C.Weaken(2)
+		C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", "<span class='userdanger'>\The [src] knocks you down!</span>")
 
 /mob/living/simple_animal/hostile/mimic/copy/Aggro()
 	..()
@@ -254,10 +246,10 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 
 /mob/living/simple_animal/hostile/mimic/copy/ranged/OpenFire(the_target)
 	if(Zapgun)
-		if(Zapgun.power_supply)
+		if(Zapgun.cell)
 			var/obj/item/ammo_casing/energy/shot = Zapgun.ammo_type[Zapgun.select]
-			if(Zapgun.power_supply.charge >= shot.e_cost)
-				Zapgun.power_supply.use(shot.e_cost)
+			if(Zapgun.cell.charge >= shot.e_cost)
+				Zapgun.cell.use(shot.e_cost)
 				Zapgun.update_icon()
 				..()
 	else if(Zapstick)

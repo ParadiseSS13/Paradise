@@ -15,7 +15,7 @@
 
 //subtypes can override this to specify what can be holstered
 /obj/item/clothing/accessory/holster/proc/can_holster(obj/item/gun/W)
-	if(!W.isHandgun())
+	if(!W.can_holster)
 		return 0
 	else if(!istype(W,holster_allow))
 		return 0
@@ -87,11 +87,11 @@
 	..()
 
 /obj/item/clothing/accessory/holster/examine(mob/user)
-	..(user)
+	. = ..()
 	if(holstered)
-		to_chat(user, "A [holstered] is holstered here.")
+		. += "A [holstered] is holstered here."
 	else
-		to_chat(user, "It is empty.")
+		. += "It is empty."
 
 /obj/item/clothing/accessory/holster/on_attached(obj/item/clothing/under/S, mob/user as mob)
 	..()

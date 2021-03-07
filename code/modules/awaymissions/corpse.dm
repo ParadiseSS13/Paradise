@@ -16,7 +16,9 @@
 	var/death = TRUE //Kill the mob
 	var/roundstart = TRUE //fires on initialize
 	var/instant = FALSE	//fires on New
-	var/flavour_text = "The mapper forgot to set this!"
+	var/flavour_text = ""	//flavour/fluff about the role, optional.
+	var/description = "A description for this has not been set. This is either an oversight or an admin-spawned spawner not in normal use."	//intended as OOC info about the role
+	var/important_info = ""	//important info such as rules that apply to you, etc. Optional.
 	var/faction = null
 	var/permanent = FALSE	//If true, the spawner will not disappear upon running out of uses.
 	var/random = FALSE		//Don't set a name or gender, just go random
@@ -48,10 +50,13 @@
 	if(!O.can_reenter_corpse)
 		to_chat(user, "<span class='warning'>You have forfeited the right to respawn.</span>")
 		return
-	if(QDELETED(src) || QDELETED(user))
-		return
 	var/ghost_role = alert("Become [mob_name]? (Warning, You can no longer be cloned!)",,"Yes","No")
-	if(ghost_role == "No" || !loc)
+	if(ghost_role == "No")
+		return
+	if(!species_prompt())
+		return
+	if(!loc || !uses || QDELETED(src) || QDELETED(user))
+		to_chat(user, "<span class='warning'>The [name] is no longer usable!</span>")
 		return
 	log_game("[user.ckey] became [mob_name]")
 	create(ckey = user.ckey)
@@ -71,6 +76,9 @@
 	if(!LAZYLEN(spawners))
 		GLOB.mob_spawners -= name
 	return ..()
+
+/obj/effect/mob_spawn/proc/species_prompt()
+	return TRUE
 
 /obj/effect/mob_spawn/proc/special(mob/M)
 	return
@@ -124,6 +132,8 @@
 	mob_type = /mob/living/carbon/human
 	//Human specific stuff.
 	var/mob_species = null		//Set species
+	var/allow_species_pick = FALSE
+	var/list/pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona")
 	var/datum/outfit/outfit = /datum/outfit	//If this is a path, it will be instanced in Initialize()
 	var/disable_pda = TRUE
 	var/disable_sensors = TRUE
@@ -155,11 +165,11 @@
 	var/pda = -1
 	var/backpack_contents = -1
 	var/suit_store = -1
-
 	var/hair_style
 	var/facial_hair_style
 	var/skin_tone
 
+	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
 
 /obj/effect/mob_spawn/human/Initialize()
 	if(ispath(outfit))
@@ -170,14 +180,23 @@
 		mob_name = id_job
 	return ..()
 
+/obj/effect/mob_spawn/human/species_prompt()
+	if(allow_species_pick)
+		var/selected_species = input("Select a species", "Species Selection") as null|anything in pickable_species
+		if(!selected_species)
+			return	TRUE	// You didn't pick, so just continue on with the spawning process as a human
+		var/datum/species/S = GLOB.all_species[selected_species]
+		mob_species = S.type
+	return TRUE
+
 /obj/effect/mob_spawn/human/equip(mob/living/carbon/human/H)
 	if(mob_species)
-		if(H.set_species(mob_species))
-			H.regenerate_icons()
+		H.set_species(mob_species)
+
 	if(husk)
-		H.ChangeToHusk()
+		H.Drain()
 	else //Because for some reason I can't track down, things are getting turned into husks even if husk = false. It's in some damage proc somewhere.
-		H.mutations.Remove(HUSK)
+		H.cure_husk()
 	H.underwear = "Nude"
 	H.undershirt = "Nude"
 	H.socks = "Nude"
@@ -186,19 +205,23 @@
 		if(hair_style)
 			D.h_style = hair_style
 		else
-			D.h_style = random_hair_style(gender)
+			D.h_style = random_hair_style(gender, D.dna.species.name)
 		D.hair_colour = rand_hex_color()
 		if(facial_hair_style)
 			D.f_style = facial_hair_style
 		else
-			D.f_style = random_facial_hair_style(gender)
+			D.f_style = random_facial_hair_style(gender, D.dna.species.name)
 		D.facial_colour = rand_hex_color()
 	if(skin_tone)
-		H.s_tone = skin_tone
+		H.change_skin_tone(skin_tone)
 	else
-		H.s_tone = random_skin_tone()
+		H.change_skin_tone(random_skin_tone())
+		H.change_skin_color(rand_hex_color())
 	H.update_hair()
+	H.update_fhair()
 	H.update_body()
+	H.update_dna()
+	H.regenerate_icons()
 	if(outfit)
 		var/static/list/slots = list("uniform", "r_hand", "l_hand", "suit", "shoes", "gloves", "ears", "glasses", "mask", "head", "belt", "r_pocket", "l_pocket", "back", "id", "neck", "backpack_contents", "suit_store")
 		for(var/slot in slots)
@@ -206,7 +229,6 @@
 			if(!isnum(T))
 				outfit.vars[slot] = T
 		H.equipOutfit(outfit)
-		var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
 		for(var/del_type in del_types)
 			var/obj/item/I = locate(del_type) in H
 			qdel(I)
@@ -316,7 +338,7 @@
 	name = "sleeper"
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
-	flavour_text = "<span class='big bold'>You are a space doctor!</span>"
+	flavour_text = "You are a space doctor!"
 	assignedrole = "Space Doctor"
 
 /obj/effect/mob_spawn/human/doctor/alive/equip(mob/living/carbon/human/H)
@@ -341,9 +363,8 @@
 
 	uniform = /obj/item/clothing/under/rank/engineer
 	belt = /obj/item/storage/belt/utility/full
-	suit = /obj/item/clothing/suit/space/hardsuit
+	suit = /obj/item/clothing/suit/space/hardsuit/engine
 	shoes = /obj/item/clothing/shoes/workboots
-	head = /obj/item/clothing/head/helmet/space/hardsuit
 	mask = /obj/item/clothing/mask/breath
 	id = /obj/item/card/id/engineering
 	l_pocket = /obj/item/t_scanner
@@ -379,24 +400,26 @@
 
 
 /datum/outfit/clownsoldier
-		uniform = /obj/item/clothing/under/soldieruniform
-		suit = /obj/item/clothing/suit/soldiercoat
-		shoes = /obj/item/clothing/shoes/clown_shoes
-		l_ear = /obj/item/radio/headset
-		mask = /obj/item/clothing/mask/gas/clown_hat
-		l_pocket = /obj/item/bikehorn
-		back = /obj/item/storage/backpack/clown
-		head = /obj/item/clothing/head/stalhelm
+	name = "Clown Soldier"
+	uniform = /obj/item/clothing/under/soldieruniform
+	suit = /obj/item/clothing/suit/soldiercoat
+	shoes = /obj/item/clothing/shoes/clown_shoes
+	l_ear = /obj/item/radio/headset
+	mask = /obj/item/clothing/mask/gas/clown_hat
+	l_pocket = /obj/item/bikehorn
+	back = /obj/item/storage/backpack/clown
+	head = /obj/item/clothing/head/stalhelm
 
 /datum/outfit/clownofficer
-		uniform = /obj/item/clothing/under/officeruniform
-		suit = /obj/item/clothing/suit/officercoat
-		shoes = /obj/item/clothing/shoes/clown_shoes
-		l_ear = /obj/item/radio/headset
-		mask = /obj/item/clothing/mask/gas/clown_hat
-		l_pocket = /obj/item/bikehorn
-		back = /obj/item/storage/backpack/clown
-		head = /obj/item/clothing/head/naziofficer
+	name = "Clown Officer"
+	uniform = /obj/item/clothing/under/officeruniform
+	suit = /obj/item/clothing/suit/officercoat
+	shoes = /obj/item/clothing/shoes/clown_shoes
+	l_ear = /obj/item/radio/headset
+	mask = /obj/item/clothing/mask/gas/clown_hat
+	l_pocket = /obj/item/bikehorn
+	back = /obj/item/storage/backpack/clown
+	head = /obj/item/clothing/head/naziofficer
 
 /obj/effect/mob_spawn/human/mime
 	name = "Mime"
@@ -423,7 +446,6 @@
 /datum/outfit/job/mining/suit
 	name = "Shaft Miner"
 	suit = /obj/item/clothing/suit/space/hardsuit/mining
-	head = /obj/item/clothing/head/helmet/space/hardsuit/mining
 	uniform = /obj/item/clothing/under/rank/miner
 	gloves = /obj/item/clothing/gloves/fingerless
 	shoes = /obj/item/clothing/shoes/workboots
@@ -432,26 +454,32 @@
 	l_pocket = /obj/item/reagent_containers/food/pill/patch/styptic
 	r_pocket = /obj/item/flashlight/seclite
 
+/obj/effect/mob_spawn/human/miner/explorer
+	outfit = /datum/outfit/job/mining/equipped
 
 /obj/effect/mob_spawn/human/bartender
 	name = "Space Bartender"
 	mob_name = "Bartender"
 	id_job = "Bartender"
-	id_access_list = list(access_bar)
+	id_access_list = list(ACCESS_BAR)
 	outfit = /datum/outfit/spacebartender
 
 /obj/effect/mob_spawn/human/bartender/alive
 	death = FALSE
 	roundstart = FALSE
 	random = TRUE
+	allow_species_pick = TRUE
 	name = "bartender sleeper"
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
-	flavour_text = "<span class='big bold'>You are a space bartender!</span><b> Time to mix drinks and change lives.</b>"
+	description = "Stuck on Lavaland, you could try getting back to civilisation...or serve drinks to those that wander by."
+	flavour_text = "You are a space bartender! Time to mix drinks and change lives. Wait, where did your bar just get transported to?"
 	assignedrole = "Space Bartender"
 
 /obj/effect/mob_spawn/human/beach/alive/lifeguard
-	flavour_text = "<span class='big bold'>You're a spunky lifeguard!</span><b> It's up to you to make sure nobody drowns or gets eaten by sharks and stuff.</b>"
+	flavour_text = "You're a spunky lifeguard! It's up to you to make sure nobody drowns or gets eaten by sharks and stuff. Then suddenly your entire beach was transported to this strange hell.\
+	 You aren't trained for this, but you'll still keep your guests alive!"
+	description = "Try to survive on lavaland with the pitiful equipment of a lifeguard. Or hide in your biodome."
 	mob_gender = "female"
 	name = "lifeguard sleeper"
 	id_job = "Lifeguard"
@@ -474,11 +502,13 @@
 	death = FALSE
 	roundstart = FALSE
 	random = TRUE
+	allow_species_pick = TRUE
 	mob_name = "Beach Bum"
 	name = "beach bum sleeper"
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
-	flavour_text = "You are a beach bum!"
+	flavour_text = "You are a beach bum! You think something just happened to the beach but you don't really pay too much attention."
+	description = "Try to survive on lavaland or just enjoy the beach, waiting for visitors."
 	assignedrole = "Beach Bum"
 
 /datum/outfit/beachbum
@@ -499,6 +529,7 @@
 	roundstart = FALSE
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
+	description = "Be a spooky scary skeleton."	//not mapped in anywhere so admin spawner, who knows what they'll use this for.
 	flavour_text = "By unknown powers, your skeletal remains have been reanimated! Walk this mortal plain and terrorize all living adventurers who dare cross your path."
 	assignedrole = "Skeleton"
 

@@ -4,45 +4,43 @@
 	opacity = 0
 	density = 0
 	layer = 3.5
-	armor = list(melee = 50, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	max_integrity = 100
+	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 
-/obj/structure/sign/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-			return
-		if(2.0)
-			qdel(src)
-			return
-		if(3.0)
-			qdel(src)
-			return
-		else
-	return
+/obj/structure/sign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			if(damage_amount)
+				playsound(src.loc, 'sound/weapons/slash.ogg', 80, TRUE)
+			else
+				playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE)
+		if(BURN)
+			playsound(loc, 'sound/items/welder.ogg', 80, TRUE)
 
-/obj/structure/sign/blob_act()
+/obj/structure/sign/screwdriver_act(mob/user, obj/item/I)
+	if(istype(src, /obj/structure/sign/double))
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "You unfasten the sign with [I].")
+	var/obj/item/sign/S = new(src.loc)
+	S.name = name
+	S.desc = desc
+	S.icon_state = icon_state
+	//var/icon/I = icon('icons/obj/decals.dmi', icon_state)
+	//S.icon = I.Scale(24, 24)
+	S.sign_state = icon_state
 	qdel(src)
-	return
 
-/obj/structure/sign/attackby(obj/item/tool as obj, mob/user as mob)	//deconstruction
-	if(istype(tool, /obj/item/screwdriver) && !istype(src, /obj/structure/sign/double))
-		to_chat(user, "You unfasten the sign with your [tool].")
-		var/obj/item/sign/S = new(src.loc)
-		S.name = name
-		S.desc = desc
-		S.icon_state = icon_state
-		//var/icon/I = icon('icons/obj/decals.dmi', icon_state)
-		//S.icon = I.Scale(24, 24)
-		S.sign_state = icon_state
-		qdel(src)
-	else ..()
 
 /obj/item/sign
 	name = "sign"
 	desc = ""
 	icon = 'icons/obj/decals.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	var/sign_state = ""
 
 /obj/item/sign/attackby(obj/item/tool as obj, mob/user as mob)	//construction
@@ -69,11 +67,13 @@
 		S.icon_state = sign_state
 		to_chat(user, "You fasten \the [S] with your [tool].")
 		qdel(src)
-	else ..()
+	else
+		return ..()
 
 /obj/structure/sign/double/map
 	name = "station map"
 	desc = "A framed picture of the station."
+	max_integrity = 500
 
 /obj/structure/sign/double/map/left
 	icon_state = "map-left"
@@ -125,11 +125,13 @@
 	name = "\improper DANGER: FIRE"
 	desc = "A warning sign which reads 'DANGER: FIRE'"
 	icon_state = "fire"
+	resistance_flags = FIRE_PROOF
 
 /obj/structure/sign/nosmoking_1
 	name = "\improper NO SMOKING"
 	desc = "A warning sign which reads 'NO SMOKING'"
 	icon_state = "nosmoking"
+	resistance_flags = FLAMMABLE
 
 /obj/structure/sign/nosmoking_2
 	name = "\improper NO SMOKING"
@@ -145,10 +147,16 @@
 	name = "\improper RADIOACTIVE AREA"
 	desc = "A warning sign which reads 'RADIOACTIVE AREA'."
 
-/obj/structure/sign/redcross
+/obj/structure/sign/xeno_warning_mining
+	name = "DANGEROUS ALIEN LIFE"
+	desc = "A sign that warns would be travellers of hostile alien life in the vicinity."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "xeno_warning"
+
+/obj/structure/sign/lifestar
 	name = "medbay"
-	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here.'"
-	icon_state = "redcross"
+	desc = "The Star of Life, a symbol of Medical Aid."
+	icon_state = "lifestar"
 
 /obj/structure/sign/greencross
 	name = "medbay"
@@ -162,7 +170,7 @@
 
 /obj/structure/sign/kiddieplaque
 	name = "AI developers plaque"
-	desc = "Next to the extremely long list of names and job titles, there is a drawing of a little child. The child appears to be retarded. Beneath the image, someone has scratched the word \"PACKETS\"."
+	desc = "Next to the extremely long list of names and job titles, there is a drawing of a little child. The child's eyes are crossed, and is drooling. Beneath the image, someone has scratched the word \"PACKETS\"."
 	icon_state = "kiddieplaque"
 
 /obj/structure/sign/atmosplaque
@@ -210,7 +218,7 @@
 	desc = "A glowing dragon invites you in."
 	icon_state = "chinese"
 
-/obj/structure/sign/science	
+/obj/structure/sign/science
 	name = "\improper SCIENCE!"
 	desc = "A warning sign which reads 'SCIENCE!'"
 	icon_state = "science1"
@@ -285,12 +293,12 @@
 
 /obj/structure/sign/directions/engineering
 	name = "\improper Engineering Department"
-	desc = "A direction sign, pointing out which way the Engineering department is."
+	desc = "A direction sign, pointing out which way the Engineering Department is."
 	icon_state = "direction_eng"
 
 /obj/structure/sign/directions/security
 	name = "\improper Security Department"
-	desc = "A direction sign, pointing out which way the Security department is."
+	desc = "A direction sign, pointing out which way the Security Department is."
 	icon_state = "direction_sec"
 
 /obj/structure/sign/directions/medical
@@ -300,12 +308,12 @@
 
 /obj/structure/sign/directions/evac
 	name = "\improper Escape Arm"
-	desc = "A direction sign, pointing out which way escape shuttle dock is."
+	desc = "A direction sign, pointing out which way Escape Shuttle Dock is."
 	icon_state = "direction_evac"
 
 /obj/structure/sign/directions/cargo
 	name = "\improper Cargo Department"
-	desc = "A direction sign, pointing out which way the Cargo department is."
+	desc = "A direction sign, pointing out which way the Cargo Department is."
 	icon_state = "direction_supply"
 
 /obj/structure/sign/explosives

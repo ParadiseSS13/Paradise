@@ -26,8 +26,8 @@
 /datum/weather/rad_storm/telegraph()
 	..()
 	status_alarm(TRUE)
-	pre_maint_all_access = maint_all_access
-	if(!maint_all_access)
+	pre_maint_all_access = GLOB.maint_all_access
+	if(!GLOB.maint_all_access)
 		make_maint_all_access()
 
 
@@ -36,7 +36,7 @@
 	if(prob(40))
 		if(ishuman(L))
 			var/mob/living/carbon/human/H = L
-			if(!(RADIMMUNE in H.dna.species.species_traits))
+			if(!HAS_TRAIT(H, TRAIT_RADIMMUNE))
 				if(prob(max(0, 100 - resist)))
 					randmuti(H) // Applies bad mutation
 					if(prob(50))
@@ -44,14 +44,14 @@
 							randmutb(H)
 						else
 							randmutg(H)
-					domutcheck(H, null, 1)
+					domutcheck(H, MUTCHK_FORCED)
 
-		L.apply_effect(20, IRRADIATE, resist)
+		L.rad_act(20)
 
 /datum/weather/rad_storm/end()
 	if(..())
 		return
-	priority_announcement.Announce("The radiation threat has passed. Please return to your workplaces.", "Anomaly Alert")
+	GLOB.priority_announcement.Announce("The radiation threat has passed. Please return to your workplaces.", "Anomaly Alert")
 	status_alarm(FALSE)
 	if(!pre_maint_all_access)
 		revoke_maint_all_access()

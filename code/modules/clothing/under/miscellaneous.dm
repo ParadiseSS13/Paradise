@@ -66,7 +66,7 @@
 	icon_state = "solgov"
 	item_state = "ro_suit"
 	item_color = "solgov"
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	displays_id = 0
 
 /obj/item/clothing/under/solgov/command
@@ -74,6 +74,7 @@
 	desc = "A comfortable and durable combat uniform worn by Sol Federation Marine Forces. This one has additional insignia on its shoulders."
 	icon_state = "solgovc"
 	item_color = "solgovc"
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 
 /obj/item/clothing/under/solgov/rep
 	name = "Sol Federation representative's uniform"
@@ -88,6 +89,10 @@
 	item_state = "g_suit"
 	item_color = "officer"
 
+/obj/item/clothing/under/rank/centcom_officer/sensor
+	sensor_mode = SENSOR_COORDS
+	random_sensor = FALSE
+
 /obj/item/clothing/under/rank/centcom_commander
 	desc = "It's a jumpsuit worn by CentComm's highest-tier Commanders."
 	name = "\improper CentComm officer's jumpsuit"
@@ -96,56 +101,51 @@
 	item_color = "centcom"
 
 /obj/item/clothing/under/rank/centcom/officer
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant-Commander\" and bears \"N.C.V. Fearless CV-286\" on the left shoulder."
-	name = "\improper Nanotrasen Officers Uniform"
-	icon_state = "officer"
-	item_state = "g_suit"
-	item_color = "officer"
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant-Commander\" and bears \"N.A.S. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
+	name = "\improper Nanotrasen Naval Officer Uniform"
+	icon_state = "navy_gold"
+	item_state = "navy_gold"
+	item_color = "navy_gold"
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	displays_id = 0
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/captain
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.C.V. Fearless CV-286\" on the left shoulder."
-	name = "\improper Nanotrasen Captains Uniform"
-	icon_state = "centcom"
-	item_state = "dg_suit"
-	item_color = "centcom"
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.A.S. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
+	name = "\improper Nanotrasen Naval Captain Uniform"
+	icon_state = "navy_gold"
+	item_state = "navy_gold"
+	item_color = "navy_gold"
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	displays_id = 0
 
 /obj/item/clothing/under/rank/centcom/blueshield
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant\" and bears \"N.S.S. Cyberiad\" on the left shoulder."
-	name = "\improper Nanotrasen Navy Uniform"
+	desc = "Gold trim on space-black cloth, this uniform bears \"Close Protection\" on the left shoulder. It's got exotic materials for protection."
+	name = "\improper Formal Blueshield's Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	displays_id = 0
-	flags_size = ONESIZEFITSALL
-
-/obj/item/clothing/under/rank/centcom/blueshield/New()
-	..()
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant\" and bears [station_name()] on the left shoulder."
 
 /obj/item/clothing/under/rank/centcom/representative
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Ensign\" and bears \"N.S.S. Cyberiad\" on the left shoulder."
-	name = "\improper Nanotrasen Navy Uniform"
+	desc = "Gold trim on space-black cloth, this uniform bears \"N.S.S. Cyberiad\" on the left shoulder."
+	name = "\improper Formal Nanotrasen Representative's Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
 	displays_id = 0
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/representative/New()
 	..()
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Ensign\" and bears [station_name()] on the left shoulder."
+	desc = "Gold trim on space-black cloth, this uniform bears [station_name()] on the left shoulder."
 
 /obj/item/clothing/under/rank/centcom/magistrate
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears \"N.S.S. Cyberiad\" on the left shoulder."
-	name = "\improper Nanotrasen Navy Uniform"
+	name = "\improper Formal Magistrate's Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
 	displays_id = 0
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/magistrate/New()
 	..()
@@ -160,20 +160,19 @@
 	displays_id = 0
 
 /obj/item/clothing/under/rank/blueshield
-	name = "blueshield uniform"
-	desc = "A short-sleeved black uniform, paired with grey digital-camo cargo pants. Standard issue to Blueshield officers."
+	name = "blueshield's uniform"
+	desc = "A short-sleeved black uniform, paired with grey digital-camo cargo pants, all made out of a sturdy material. Blueshield standard issue."
 	icon_state = "ert_uniform"
 	item_state = "bl_suit"
 	item_color = "ert_uniform"
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 
 /obj/item/clothing/under/rank/blueshield/skirt
-	name = "blueshield skirt"
-	desc = "A short, black and grey with blue markings skirted uniform. For the feminine Blueshield officers."
+	name = "blueshield's skirt"
+	desc = "A short, black and grey with blue markings skirted uniform. For the feminine Blueshield."
 	icon_state = "blueshieldf"
 	item_state = "blueshieldf"
 	item_color = "blueshieldf"
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 
 /obj/item/clothing/under/space
 	name = "\improper NASA jumpsuit"
@@ -189,7 +188,7 @@
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO | LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
 
 /obj/item/clothing/under/acj
 	name = "administrative cybernetic jumpsuit"
@@ -200,14 +199,14 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|HEAD
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 100, bio = 100, rad = 100)
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 100,"energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | HEAD
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO | LOWER_TORSO|LEGS|FEET|ARMS|HANDS | HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	slowdown = -10
 	siemens_coefficient = 0
-	burn_state = LAVA_PROOF
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF | FREEZE_PROOF
 
 /obj/item/clothing/under/johnny
 	name = "johnny~~ jumpsuit"
@@ -276,7 +275,6 @@
 	icon_state = "red_suit"
 	item_state = "r_suit"
 	item_color = "red_suit"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/suit_jacket/navy
 	name = "navy suit"
@@ -379,7 +377,7 @@
 	item_state = "gladiator"
 	item_color = "gladiator"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
 
 /obj/item/clothing/under/gladiator/ash_walker
 	desc = "This gladiator uniform appears to be covered in ash and fairly dated."
@@ -496,7 +494,7 @@
 	flags_inv = HIDESHOES
 
 /obj/item/clothing/under/wedding/bride_white
-	name = "orange wedding dress"
+	name = "white wedding dress"
 	desc = "A white wedding gown made from the finest silk."
 	icon_state = "bride_white"
 	item_color = "bride_white"
@@ -524,7 +522,7 @@
 	item_color = "roman"
 	item_state = "armor"
 	strip_delay = 100
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
 
 /obj/item/clothing/under/maid
 	name = "maid costume"
@@ -619,58 +617,6 @@
 	icon_state = "vgrey"
 	item_state = "vgrey"
 	item_color = "vgrey"
-
-/obj/item/clothing/under/vox/grey
-	name = "Grey Vox Jumpsuit"
-	desc = "An assistant's jumpsuit ripped to better fit a vox."
-	icon_state = "vgrey"
-	item_state = "vgrey"
-	item_color = "vgrey"
-
-/obj/item/clothing/under/vox/robotics
-	name = "Vox Robotics Jumpsuit"
-	desc = "A roboticist's jumpsuit ripped to better fit a vox."
-	icon_state = "vrobotics"
-	item_state = "vrobotics"
-	item_color = "vrobotics"
-
-/obj/item/clothing/under/vox/toxins
-	name = "Vox Toxins Jumpsuit"
-	desc = "A Toxin Researcher's jumpsuit ripped to better fit a vox."
-	icon_state = "vtoxinswhite"
-	item_state = "vtoxinswhite"
-	item_color = "vtoxinswhite"
-
-/obj/item/clothing/under/vox/atmos
-	name = "Vox Atmos Jumpsuit"
-	desc = "An Atmos Tech's jumpsuit ripped to better fit a vox."
-	icon_state = "vatmos"
-	item_state = "vatmos"
-	item_color = "vatmos"
-
-/obj/item/clothing/under/vox/engi
-	name = "Vox Engineer Jumpsuit"
-	desc = "An Engineer's jumpsuit ripped to better fit a vox."
-	icon_state = "vengine"
-	item_state = "vengine"
-	item_color = "vengine"
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 10)
-
-/obj/item/clothing/under/vox/sec
-	name = "Vox Security Jumpsuit"
-	desc = "A Security officer's jumpsuit ripped to better fit a vox."
-	icon_state = "vred"
-	item_state = "vred"
-	item_color = "vred"
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
-
-/obj/item/clothing/under/vox/chem
-	name = "Vox Chemist Jumpsuit"
-	desc = "A Chemist's jumpsuit ripped to better fit a vox."
-	icon_state = "vchem"
-	item_state = "vchem"
-	item_color = "vchem"
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 
 /obj/item/clothing/under/psyjump
 	name = "Psychic Amp Jumpsuit"
@@ -774,7 +720,7 @@
 	icon_state = "atmos"
 	item_state = "atmos_suit"
 	item_color = "atmos"
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/under/contortionist/equipped(mob/living/carbon/human/user, slot)
 	if(!user.ventcrawler)
@@ -806,7 +752,7 @@
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
 	flags = NODROP
-	flags_size = ONESIZEFITSALL
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	has_sensor = 0 // HUNKE
 
 /obj/item/clothing/under/victdress
@@ -864,7 +810,6 @@
 	icon_state = "hawaiianred"
 	item_state = "hawaiianred"
 	item_color = "hawaiianred"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/pinkhawaiianshirt
 	name = "pink hawaiian shirt"
@@ -872,7 +817,6 @@
 	icon_state = "hawaiianpink"
 	item_state = "hawaiianpink"
 	item_color = "hawaiianpink"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/orangehawaiianshirt
 	name = "orange hawaiian shirt"
@@ -880,7 +824,6 @@
 	icon_state = "hawaiianorange"
 	item_state = "hawaiianorange"
 	item_color = "hawaiianorange"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/bluehawaiianshirt
 	name = "blue hawaiian shirt"
@@ -888,5 +831,25 @@
 	icon_state = "hawaiianblue"
 	item_state = "hawaiianblue"
 	item_color = "hawaiianblue"
-	flags_size = ONESIZEFITSALL
 
+/obj/item/clothing/under/misc/durathread
+	name = "durathread jumpsuit"
+	desc = "A jumpsuit made from durathread, its resilient fibres provide some protection to the wearer."
+	icon_state = "durathread"
+	item_state = "durathread"
+	item_color = "durathread"
+	armor = list(melee = 10, bullet = 0, laser = 10, energy = 0, bomb = 5, bio = 0, rad = 0, fire = 0, acid = 0)
+
+/obj/item/clothing/under/cuban_suit
+	name = "rhumba outfit"
+	desc = "A satin shirt and high-waisted pants, worn by dancers in the Rhumba style. It smells oddly like... sulfur?"
+	icon_state = "cuban_suit"
+	item_state = "cuban_suit"
+	item_color = "cuban_suit"
+
+/obj/item/clothing/under/tourist_suit
+	name = "tourist outfit"
+	desc = "A light blue shirt with brown shorts. Feels oddly spooky."
+	icon_state = "tourist"
+	icon_state = "tourist"
+	item_color = "tourist"

@@ -13,8 +13,6 @@
 			continue
 		if(H.stat == UNCONSCIOUS && !stat_attack)
 			continue
-		if(ai_type == TS_AI_DEFENSIVE && !(H in enemies))
-			continue
 		if(isterrorspider(H))
 			if(H in enemies)
 				targets3 += H
@@ -44,7 +42,7 @@
 					else
 						targets3 += C
 				else if(ai_target_method == TS_DAMAGE_POISON)
-					if(C.can_inject(null,0,"chest",0))
+					if(C.can_inject(null, FALSE, "chest", FALSE))
 						targets1 += C
 					else if(C in enemies)
 						targets2 += C
@@ -92,13 +90,21 @@
 // --------------------- TERROR SPIDERS: AI BEHAVIOR CODE -------------------------
 // --------------------------------------------------------------------------------
 
+
 /mob/living/simple_animal/hostile/poison/terror_spider/handle_automated_action()
-	if (stat || ckey)
-		return ..()
-	if(AIStatus != AI_OFF && !target)
+	if(target)
+		CreatePath(target)
+	return ..()
+
+/mob/living/simple_animal/hostile/poison/terror_spider/handle_automated_movement()
+	// Putting the main terror spider AI code in handle_automated_movement() rather than handle_automated_action() ensures it will still run when the spider AIStatus == AI_IDLE
+	// This is necessary for the terror spiders in the away mission to work properly.
+	if(AIStatus != AI_IDLE)
+		return
+	if(!target)
 		var/my_ventcrawl_freq = freq_ventcrawl_idle
-		if(ts_count_dead > 0)
-			if(world.time < (ts_death_last + ts_death_window))
+		if(GLOB.ts_count_dead > 0)
+			if(world.time < (GLOB.ts_death_last + GLOB.ts_death_window))
 				my_ventcrawl_freq = freq_ventcrawl_combat
 		// First, check for general actions that any spider could take.
 		if(path_to_vent)
@@ -120,7 +126,7 @@
 					spider_steps_taken++
 					CreatePath(entry_vent)
 					step_to(src,entry_vent)
-					if(spider_debug > 0)
+					if(spider_debug)
 						visible_message("<span class='notice'>[src] moves towards the vent [entry_vent].</span>")
 			else
 				path_to_vent = 0
@@ -130,11 +136,11 @@
 				if(!L.status)
 					step_to(src,L)
 					L.on = 1
-					L.broken()
-					L.do_attack_animation(src)
+					L.break_light_tube()
+					do_attack_animation(L)
 					visible_message("<span class='danger'>[src] smashes the [L.name].</span>")
-					break
-		else if(web_type && ai_spins_webs && world.time > (last_spins_webs + freq_spins_webs))
+					return
+		else if(ai_spins_webs && web_type && world.time > (last_spins_webs + freq_spins_webs))
 			last_spins_webs = world.time
 			var/obj/structure/spider/terrorweb/T = locate() in get_turf(src)
 			if(!T)
@@ -154,9 +160,7 @@
 		else
 			// If none of the general actions apply, check for class-specific actions.
 			spider_special_action()
-	else if(AIStatus != AI_OFF && target)
-		CreatePath(target)
-	..()
+		..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/adjustBruteLoss(damage)
 	. = ..(damage)
@@ -263,7 +267,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/ClearObstacle(turf/target_turf)
 	var/list/valid_obstacles = list(/obj/structure/window, /obj/structure/closet, /obj/structure/table, /obj/structure/grille, /obj/structure/rack, /obj/machinery/door/window)
-	for(var/dir in cardinal) // North, South, East, West
+	for(var/dir in GLOB.cardinal) // North, South, East, West
 		var/obj/structure/obstacle = locate(/obj/structure, get_step(src, dir))
 		if(is_type_in_list(obstacle, valid_obstacles))
 			obstacle.attack_animal(src)
@@ -343,6 +347,11 @@
 		if(T.density == 0)
 			vturfs += T
 	return vturfs
+
+/mob/living/simple_animal/hostile/poison/terror_spider/DestroySurroundings()
+	if(!target)
+		return
+	. = ..()
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: MISC AI CODE -----------------------------

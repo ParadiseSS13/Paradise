@@ -28,7 +28,7 @@
 /datum/surgery/organ_manipulation/can_start(mob/user, mob/living/carbon/target)
 	if(istype(target,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 		if(!affected)
 			// I'd like to see you do surgery on LITERALLY NOTHING
 			return 0
@@ -41,7 +41,7 @@
 /datum/surgery/organ_manipulation_boneless/can_start(mob/user, mob/living/carbon/target)
 	if(istype(target,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 
 		if(affected && affected.is_robotic())
 			return 0//no operating on robotic limbs in an organic surgery
@@ -291,11 +291,11 @@
 			add_attack_logs(user, target, "Surgically removed [I.name]. INTENT: [uppertext(user.a_intent)]")
 			spread_germs_to_organ(I, user, tool)
 			var/obj/item/thing = I.remove(target)
-			if(!istype(thing))
-				thing.forceMove(get_turf(target))
-			else
-				user.put_in_hands(thing)
-
+			if(thing) // some "organs", like egg infections, can have I.remove(target) return null, and so we can't use "thing" in that case
+				if(istype(thing))
+					user.put_in_hands(thing)
+				else
+					thing.forceMove(get_turf(target))
 			target.update_icons()
 		else
 			user.visible_message("<span class='notice'>[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!</span>",
@@ -340,7 +340,7 @@
 						user.visible_message("<span class='notice'> [user] has poured some of [tool] over [target]'s [I.name].</span>",
 					"<span class='notice'> You have poured some of [tool] over [target]'s [I.name].</span>")
 					R.trans_to(target, GHETTO_DISINFECT_AMOUNT)
-					R.reaction(target, INGEST)
+					R.reaction(target, REAGENT_INGEST)
 
 	else if(current_type == "finish")
 		if(affected && affected.encased)
@@ -410,7 +410,7 @@
 			I.receive_damage(rand(4,8),0)
 
 		R.trans_to(target, GHETTO_DISINFECT_AMOUNT * 10)
-		R.reaction(target, INGEST)
+		R.reaction(target, REAGENT_INGEST)
 
 		user.visible_message("<span class='warning'> [user]'s hand slips, splashing the contents of [tool] all over [target]'s [affected.name] incision!</span>", \
 		"<span class='warning'> Your hand slips, splashing the contents of [tool] all over [target]'s [affected.name] incision!</span>")

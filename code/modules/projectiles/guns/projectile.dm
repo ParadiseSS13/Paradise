@@ -24,6 +24,8 @@
 		icon_state = "[current_skin][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""]"
 	else
 		icon_state = "[initial(icon_state)][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""]"
+	if(bayonet && can_bayonet)
+		overlays += knife_overlay
 
 /obj/item/gun/projectile/process_chamber(eject_casing = 1, empty_chamber = 1)
 	var/obj/item/ammo_casing/AC = chambered //Find chambered round
@@ -33,7 +35,7 @@
 	if(eject_casing)
 		AC.loc = get_turf(src) //Eject casing onto ground.
 		AC.SpinAnimation(10, 1) //next gen special effects
-		playsound(src, chambered.drop_sound, 100, 1)
+		playsound(src, chambered.casing_drop_sound, 100, 1)
 	if(empty_chamber)
 		chambered = null
 	chamber_round()
@@ -66,7 +68,6 @@
 		return
 
 /obj/item/gun/projectile/attackby(var/obj/item/A as obj, mob/user as mob, params)
-	..()
 	if(istype(A, /obj/item/ammo_box/magazine))
 		var/obj/item/ammo_box/magazine/AM = A
 		if(istype(AM, mag_type))
@@ -94,6 +95,7 @@
 				if(!user.unEquip(A))
 					return
 				to_chat(user, "<span class='notice'>You screw [S] onto [src].</span>")
+				playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 				suppressed = A
 				S.oldsound = fire_sound
 				S.initial_w_class = w_class
@@ -108,7 +110,8 @@
 		else
 			to_chat(user, "<span class='warning'>You can't seem to figure out how to fit [S] on [src].</span>")
 			return
-	return 0
+	else
+		return ..()
 
 /obj/item/gun/projectile/attack_hand(mob/user)
 	if(loc == user)
@@ -118,6 +121,7 @@
 				..()
 				return
 			to_chat(user, "<span class='notice'>You unscrew [suppressed] from [src].</span>")
+			playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 			user.put_in_hands(suppressed)
 			fire_sound = S.oldsound
 			w_class = S.initial_w_class
@@ -147,8 +151,8 @@
 	return
 
 /obj/item/gun/projectile/examine(mob/user)
-	..()
-	to_chat(user, "Has [get_ammo()] round\s remaining.")
+	. = ..()
+	. += "Has [get_ammo()] round\s remaining."
 
 /obj/item/gun/projectile/proc/get_ammo(countchambered = 1)
 	var/boolets = 0 //mature var names for mature people
@@ -177,6 +181,9 @@
 /obj/item/gun/projectile/proc/sawoff(mob/user)
 	if(sawn_state == SAWN_OFF)
 		to_chat(user, "<span class='warning'>\The [src] is already shortened!</span>")
+		return
+	if(bayonet)
+		to_chat(user, "<span class='warning'>You cannot saw-off [src] with [bayonet] attached!</span>")
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message("[user] begins to shorten \the [src].", "<span class='notice'>You begin to shorten \the [src]...</span>")

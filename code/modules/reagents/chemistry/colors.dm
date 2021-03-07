@@ -2,7 +2,7 @@
  * Returns:
  * 	#RRGGBB(AA) on success, null on failure
  */
-var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d11141","#00b159","#00aedb","#f37735","#ffc425","#008744","#0057e7","#d62d20","#ffa700")
+GLOBAL_LIST_INIT(random_color_list, list("#00aedb","#a200ff","#f47835","#d41243","#d11141","#00b159","#00aedb","#f37735","#ffc425","#008744","#0057e7","#d62d20","#ffa700"))
 
 /proc/mix_color_from_reagents(const/list/reagent_list)
 	if(!istype(reagent_list))
@@ -16,6 +16,8 @@ var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d111
 	for(var/datum/reagent/reagent in reagent_list)
 		if(reagent.id == "blood" && reagent.data && reagent.data["blood_color"])
 			reagent_color = reagent.data["blood_color"]
+		else if(reagent.id == "slimejelly" && reagent.data && reagent.data["colour"])
+			reagent_color = reagent.data["colour"]
 		else
 			reagent_color = reagent.color
 
@@ -23,7 +25,7 @@ var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d111
 		vol_counter += vol_temp
 
 		if(isnull(color))
-			color = reagent.color
+			color = reagent_color
 		else if(length(color) >= length(reagent_color))
 			color = BlendRGB(color, reagent_color, vol_temp/vol_counter)
 		else

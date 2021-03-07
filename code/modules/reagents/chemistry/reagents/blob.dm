@@ -7,8 +7,11 @@
 	var/message_living = null //extension to first mob sent to only living mobs i.e. silicons have no skin to be burnt
 	can_synth = FALSE
 
-/datum/reagent/blob/reaction_mob(mob/living/M, method=TOUCH, volume, show_message, touch_protection)
+/datum/reagent/blob/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume, show_message, touch_protection)
 	return round(volume * min(1.5 - touch_protection, 1), 0.1) //full touch protection means 50% volume, any prot below 0.5 means 100% volume.
+
+/datum/reagent/blob/proc/damage_reaction(obj/structure/blob/B, damage, damage_type, damage_flag) //when the blob takes damage, do this
+	return damage
 
 /datum/reagent/blob/ripping_tendrils //does brute and a little stamina damage
 	name = "Ripping Tendrils"
@@ -18,11 +21,11 @@
 	complementary_color = "#a15656"
 	message_living = ", and you feel your skin ripping and tearing off"
 
-/datum/reagent/blob/ripping_tendrils/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == TOUCH)
+/datum/reagent/blob/ripping_tendrils/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_TOUCH)
 		volume = ..()
 		M.apply_damage(0.6*volume, BRUTE)
-		M.adjustStaminaLoss(0.4*volume)
+		M.adjustStaminaLoss(volume)
 		if(iscarbon(M))
 			M.emote("scream")
 
@@ -35,8 +38,8 @@
 	message = "The blob splashes you with burning oil"
 	message_living = ", and you feel your skin char and melt"
 
-/datum/reagent/blob/boiling_oil/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == TOUCH)
+/datum/reagent/blob/boiling_oil/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_TOUCH)
 		M.adjust_fire_stacks(round(volume/10))
 		volume = ..()
 		M.apply_damage(0.6*volume, BURN)
@@ -51,8 +54,8 @@
 	complementary_color = "#b0cd73"
 	message_living = ", and you feel sick and nauseated"
 
-/datum/reagent/blob/envenomed_filaments/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == TOUCH)
+/datum/reagent/blob/envenomed_filaments/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_TOUCH)
 		volume = ..()
 		M.apply_damage(0.6*volume, TOX)
 		M.hallucination += 0.6*volume
@@ -67,8 +70,8 @@
 	complementary_color = "#56ebc9"
 	message_living = ", and your lungs feel heavy and weak"
 
-/datum/reagent/blob/lexorin_jelly/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == TOUCH)
+/datum/reagent/blob/lexorin_jelly/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_TOUCH)
 		volume = ..()
 		M.apply_damage(0.4*volume, BRUTE)
 		M.apply_damage(1*volume, OXY)
@@ -83,8 +86,8 @@
 	complementary_color = "#ebb756"
 	message = "The blob pummels you"
 
-/datum/reagent/blob/kinetic/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == TOUCH)
+/datum/reagent/blob/kinetic/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_TOUCH)
 		volume = ..()
 		var/damage = rand(5, 35)/25
 		M.apply_damage(damage*volume, BRUTE)
@@ -98,11 +101,11 @@
 	message = "The blob splashes you with an icy liquid"
 	message_living = ", and you feel cold and tired"
 
-/datum/reagent/blob/cryogenic_liquid/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == TOUCH)
+/datum/reagent/blob/cryogenic_liquid/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_TOUCH)
 		volume = ..()
 		M.apply_damage(0.4*volume, BURN)
-		M.adjustStaminaLoss(0.4*volume)
+		M.adjustStaminaLoss(volume)
 		if(M.reagents)
 			M.reagents.add_reagent("frostoil", 0.4*volume)
 
@@ -114,15 +117,15 @@
 	complementary_color = "#a2a256"
 	message = "The blob slams into you, and sends you flying"
 
-/datum/reagent/blob/b_sorium/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == TOUCH)
+/datum/reagent/blob/b_sorium/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_TOUCH)
 		reagent_vortex(M, 1, volume)
 		volume = ..()
 		M.apply_damage(0.6*volume, BRUTE)
 
 /datum/reagent/blob/proc/reagent_vortex(mob/living/M, setting_type, volume)
 	var/turf/pull = get_turf(M)
-	var/range_power = Clamp(round(volume/5, 1), 1, 5)
+	var/range_power = clamp(round(volume/5, 1), 1, 5)
 	for(var/atom/movable/X in range(range_power,pull))
 		if(istype(X, /obj/effect))
 			continue
@@ -148,6 +151,41 @@
 							sleep(2)
 							if(!step_towards(X, pull))
 								break
+
+/datum/reagent/blob/radioactive_gel
+	name = "Radioactive gel"
+	description = "Deals medium toxin damage and a little brute damage, but irradiates those struck."
+	id = "radioactive_gel"
+	color = "#2476f0"
+	complementary_color = "#24f0f0"
+	message_living = ", and you feel a strange warmth from within"
+
+/datum/reagent/blob/radioactive_gel/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
+	if(method == REAGENT_TOUCH)
+		volume = ..()
+		M.apply_damage(0.3 * volume, TOX)
+		M.apply_damage(0.2 * volume, BRUTE) // lets not have IPC / plasmaman only take 7.5 damage from this
+		if(M.reagents)
+			M.reagents.add_reagent("uranium", 0.3 * volume)
+
+/datum/reagent/blob/teslium_paste
+	name = "Teslium paste"
+	description = "Deals medium burn damage, and shocks those struck over time"
+	id = "teslium_paste"
+	color = "#20324D"
+	complementary_color = "#412968"
+	message_living = ", and you feel a static shock"
+
+/datum/reagent/blob/teslium_paste/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_TOUCH)
+		volume = ..()
+		M.apply_damage(0.4 * volume, BURN)
+		if(M.reagents)
+			if(M.reagents.has_reagent("teslium") && prob(0.6 * volume))
+				M.electrocute_act((0.5 * volume), "the blob's electrical discharge", 1, SHOCK_NOGLOVES)
+				M.reagents.del_reagent("teslium")
+				return //don't add more teslium after you shock it out of someone.
+			M.reagents.add_reagent("teslium", 0.125 * volume)  // a little goes a long way
 
 /datum/reagent/blob/proc/send_message(mob/living/M)
 	var/totalmessage = message

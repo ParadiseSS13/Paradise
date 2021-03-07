@@ -6,6 +6,7 @@
 	icon_living = "bat"
 	icon_dead = "bat_dead"
 	icon_gib = "bat_dead"
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	speak_chance = 0
 	turns_per_move = 3
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
@@ -16,11 +17,15 @@
 	maxHealth = 20
 	health = 20
 	mob_size = MOB_SIZE_TINY
+	flying = TRUE
 	harm_intent_damage = 8
 	melee_damage_lower = 10
 	melee_damage_upper = 10
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
+
+	emote_taunt = list("flutters")
+	taunt_chance = 20
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -29,7 +34,7 @@
 
 	faction = list("scarybat")
 	var/mob/living/owner
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	gold_core_spawnable = HOSTILE_SPAWN
 
 /mob/living/simple_animal/hostile/scarybat/New(loc, mob/living/L as mob)
 	..()
@@ -38,11 +43,6 @@
 
 /mob/living/simple_animal/hostile/scarybat/Process_Spacemove(var/check_drift = 0)
 	return ..()	//No drifting in space for space carp!	//original comments do not steal
-
-/mob/living/simple_animal/hostile/scarybat/FindTarget()
-	. = ..()
-	if(.)
-		custom_emote(1, "flutters towards [.]")
 
 /mob/living/simple_animal/hostile/scarybat/Found(var/atom/A)//This is here as a potential override to pick a specific target if available
 	if(istype(A) && A == owner)
@@ -75,4 +75,4 @@
 	pass_flags = PASSTABLE
 	universal_speak = 1
 	universal_understand = 1
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID //badmin only
+	gold_core_spawnable = NO_SPAWN //badmin only

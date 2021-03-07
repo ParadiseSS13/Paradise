@@ -2,7 +2,6 @@
 	name = "Abductor"
 	name_plural = "Abductors"
 	icobase = 'icons/mob/human_races/r_abductor.dmi'
-	deform = 'icons/mob/human_races/r_abductor.dmi'
 	language = "Abductor Mindlink"
 	default_language = "Abductor Mindlink"
 	eyes = "blank_eyes"
@@ -11,12 +10,14 @@
 		"liver" =    /obj/item/organ/internal/liver,
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain/abductor,
-		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/abductor //3 darksight.
 		)
 
-	species_traits = list(NO_BLOOD, NO_BREATHE, VIRUSIMMUNE, NOGUNS, NO_EXAMINE)
+	species_traits = list(NO_BLOOD)
+	inherent_traits = list(TRAIT_VIRUSIMMUNE, TRAIT_CHUNKYFINGERS, TRAIT_NOHUNGER, TRAIT_NOBREATH, TRAIT_NOEXAMINE)
 	dies_at_threshold = TRUE
+
+	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
 
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	dietflags = DIET_OMNI
@@ -36,10 +37,10 @@
 	H.gender = NEUTER
 	H.languages.Cut() //Under no condition should you be able to speak any language
 	H.add_language("Abductor Mindlink") //other than over the abductor's own mindlink
-	var/datum/atom_hud/abductor_hud = huds[DATA_HUD_ABDUCTOR]
+	var/datum/atom_hud/abductor_hud = GLOB.huds[DATA_HUD_ABDUCTOR]
 	abductor_hud.add_hud_to(H)
 
 /datum/species/abductor/on_species_loss(mob/living/carbon/human/H)
 	..()
-	var/datum/atom_hud/abductor_hud = huds[DATA_HUD_ABDUCTOR]
+	var/datum/atom_hud/abductor_hud = GLOB.huds[DATA_HUD_ABDUCTOR]
 	abductor_hud.remove_hud_from(H)

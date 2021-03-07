@@ -6,6 +6,10 @@
 
 #define SEE_INVISIBLE_LIVING 25
 
+// Hidden cult runes
+#define INVISIBILITY_HIDDEN_RUNES  30
+#define SEE_INVISIBLE_HIDDEN_RUNES 30
+
 #define SEE_INVISIBLE_LEVEL_ONE 35	//Used by some stuff in code. It's really poorly organized.
 
 #define SEE_INVISIBLE_LEVEL_TWO 45	//Used by some other stuff in code. It's really poorly organized.
@@ -32,3 +36,10 @@
 #define SECHUD 1
 #define MEDHUD 2
 #define ANTAGHUD 3
+
+//for clothing visor toggles, these determine which vars to toggle
+#define VISOR_FLASHPROTECT	(1<<0)
+#define VISOR_TINT			(1<<1)
+#define VISOR_VISIONFLAGS	(1<<2) //all following flags only matter for glasses
+#define VISOR_DARKNESSVIEW	(1<<3)
+#define VISOR_INVISVIEW		(1<<4)

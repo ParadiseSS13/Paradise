@@ -4,6 +4,7 @@
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "dicebag"
 	can_hold = list(/obj/item/dice)
+	allow_wrap = FALSE
 
 /obj/item/storage/pill_bottle/dice/New()
 	..()
@@ -25,19 +26,33 @@
 	if(special_die == "100")
 		new /obj/item/dice/d100(src)
 
+/obj/item/storage/pill_bottle/dice/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] is gambling with death! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	return (OXYLOSS)
+
 /obj/item/dice //depreciated d6, use /obj/item/dice/d6 if you actually want a d6
 	name = "die"
 	desc = "A die with six sides. Basic and servicable."
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "d6"
 	w_class = WEIGHT_CLASS_TINY
+
 	var/sides = 6
 	var/result = null
 	var/list/special_faces = list() //entries should match up to sides var if used
 
-/obj/item/dice/New()
-	result = rand(1, sides)
+	var/rigged = DICE_NOT_RIGGED
+	var/rigged_value
+
+/obj/item/dice/Initialize(mapload)
+	. = ..()
+	if(!result)
+		result = roll(sides)
 	update_icon()
+
+/obj/item/dice/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] is gambling with death! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	return (OXYLOSS)
 
 /obj/item/dice/d1
 	name = "d1"
@@ -56,6 +71,10 @@
 	desc = "A die with four sides. The nerd's caltrop."
 	icon_state = "d4"
 	sides = 4
+
+/obj/item/dice/d4/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/caltrop, 1, 4) //1d4 damage
 
 /obj/item/dice/d6
 	name = "d6"
@@ -107,9 +126,9 @@
 	return
 
 /obj/item/dice/d20/e20
-	var/triggered = 0
+	var/triggered = FALSE
 
-/obj/item/dice/attack_self(mob/user as mob)
+/obj/item/dice/attack_self(mob/user)
 	diceroll(user)
 
 /obj/item/dice/throw_impact(atom/target)
@@ -117,56 +136,67 @@
 	. = ..()
 
 /obj/item/dice/proc/diceroll(mob/user)
-	result = rand(1, sides)
-	var/fake_result = rand(1, sides)//Daredevil isn't as good as he used to be
+	result = roll(sides)
+	if(rigged != DICE_NOT_RIGGED && result != rigged_value)
+		if(rigged == DICE_BASICALLY_RIGGED && prob(clamp(1 / (sides - 1) * 100, 25, 80)))
+			result = rigged_value
+		else if(rigged == DICE_TOTALLY_RIGGED)
+			result = rigged_value
+
+	. = result
+
+	var/fake_result = roll(sides)//Daredevil isn't as good as he used to be
 	var/comment = ""
 	if(sides == 20 && result == 20)
-		comment = "Nat 20!"
+		comment = "NAT 20!"
 	else if(sides == 20 && result == 1)
 		comment = "Ouch, bad luck."
 	update_icon()
 	if(initial(icon_state) == "d00")
-		result = (result - 1)*10
-	if(special_faces.len == sides)
+		result = (result - 1) * 10
+	if(length(special_faces) == sides)
 		result = special_faces[result]
 	if(user != null) //Dice was rolled in someone's hand
-		user.visible_message("<span class='notice'>[user] has thrown [src]. It lands on [result]. [comment]</span>", \
-							 "<span class='notice'>You throw [src]. It lands on [result]. [comment]</span>", \
+		user.visible_message("[user] has thrown [src]. It lands on [result]. [comment]",
+							 "<span class='notice'>You throw [src]. It lands on [result]. [comment]</span>",
 							 "<span class='italics'>You hear [src] rolling, it sounds like a [fake_result].</span>")
 	else if(!throwing) //Dice was thrown and is coming to rest
 		visible_message("<span class='notice'>[src] rolls to a stop, landing on [result]. [comment]</span>")
 
-/obj/item/dice/d20/e20/diceroll(mob/user as mob, thrown)
+/obj/item/dice/d20/e20/diceroll(mob/user, thrown)
 	if(triggered)
 		return
-	..()
+
+	. = ..()
+
 	if(result == 1)
 		to_chat(user, "<span class='danger'>Rocks fall, you die.</span>")
 		user.gib()
+		add_attack_logs(src, user, "detonated with a roll of [result], gibbing them!", ATKLOG_FEW)
 	else
-		triggered = 1
+		triggered = TRUE
 		visible_message("<span class='notice'>You hear a quiet click.</span>")
-		spawn(40)
+		addtimer(CALLBACK(src, .proc/boom, user, result), 4 SECONDS)
 
-			var/cap = 0
-			if(result > MAX_EX_LIGHT_RANGE && result != 20)
-				cap = 1
-				result = min(result, MAX_EX_LIGHT_RANGE) //Apply the bombcap
-			else if(result == 20) //Roll a nat 20, screw the bombcap
-				result = 24
-			var/turf/epicenter = get_turf(src)
-			explosion(epicenter, round(result*0.25), round(result*0.5), round(result), round(result*1.5), 1, cap)
+/obj/item/dice/d20/e20/proc/boom(mob/user, result)
+	var/capped = FALSE
+	var/actual_result = result
+	if(result != 20)
+		capped = TRUE
+		result = min(result, GLOB.max_ex_light_range) // Apply the bombcap
+	else // Rolled a nat 20, screw the bombcap
+		result = 24
 
-			var/turf/bombturf = get_turf(src)
-			var/area/A = get_area(bombturf)
-			investigate_log("E20 detonated at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with a roll of [result]. Triggered by: [key_name(user)]", INVESTIGATE_BOMB)
-			message_admins("E20 detonated at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> with a roll of [result]. Triggered by: [key_name_admin(user)]")
-			log_game("E20 detonated at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with a roll of [result]. Triggered by: [key_name(user)]")
-
+	var/turf/epicenter = get_turf(src)
+	var/area/A = get_area(epicenter)
+	explosion(epicenter, round(result * 0.25), round(result * 0.5), round(result), round(result * 1.5), TRUE, capped)
+	investigate_log("E20 detonated at [A.name] ([epicenter.x],[epicenter.y],[epicenter.z]) with a roll of [actual_result]. Triggered by: [key_name(user)]", INVESTIGATE_BOMB)
+	log_game("E20 detonated at [A.name] ([epicenter.x],[epicenter.y],[epicenter.z]) with a roll of [actual_result]. Triggered by: [key_name(user)]")
+	add_attack_logs(user, src, "detonated with a roll of [actual_result]", ATKLOG_FEW)
 
 /obj/item/dice/update_icon()
 	overlays.Cut()
-	overlays += "[src.icon_state][src.result]"
+	overlays += "[icon_state][result]"
 
 /obj/item/storage/box/dice
 	name = "Box of dice"

@@ -140,8 +140,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
 "at" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
+/obj/effect/spawner/window/plastitanium,
 /obj/machinery/door/poddoor{
 	id_tag = "lavalandsyndi_chemistry"
 	},
@@ -239,7 +238,7 @@
 	pixel_x = 32
 	},
 /obj/structure/closet/emcloset/anchored,
-/obj/item/tank/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/flashlight/seclite,
 /obj/item/clothing/mask/gas,
 /obj/structure/sign/vacuum{
@@ -536,7 +535,7 @@
 	pixel_x = 32
 	},
 /obj/structure/closet/emcloset/anchored,
-/obj/item/tank/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/flashlight/seclite,
 /obj/item/clothing/mask/gas,
 /obj/effect/decal/cleanable/dirt,
@@ -701,13 +700,13 @@
 	pixel_y = 0;
 	req_access_txt = "150"
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bg" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bh" = (
 /obj/structure/cable{
@@ -715,7 +714,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bi" = (
 /obj/machinery/light/small{
@@ -724,7 +723,7 @@
 /obj/machinery/atmospherics/binary/pump{
 	name = "Incinerator Input"
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bj" = (
 /obj/structure/cable{
@@ -747,7 +746,7 @@
 	pixel_y = 0;
 	req_access_txt = "150"
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bk" = (
 /obj/structure/rack,
@@ -857,21 +856,13 @@
 	frequency = 1442;
 	id_tag = "syndie_lavaland_n2_sensor"
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bt" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bu" = (
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
@@ -880,11 +871,7 @@
 	id_tag = "syndie_lavaland_n2_out";
 	name = "nitrogen out"
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bv" = (
 /obj/effect/turf_decal/stripes/line{
@@ -971,8 +958,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bB" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
+/obj/effect/spawner/window/plastitanium,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4;
 	level = 2
@@ -1092,13 +1078,12 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bP" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
+/obj/effect/spawner/window/plastitanium,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bQ" = (
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bR" = (
 /obj/machinery/optable,
@@ -1241,49 +1226,22 @@
 /obj/structure/sign/securearea,
 /turf/simulated/wall/mineral/plastitanium/explosive,
 /area/ruin/unpowered/syndicate_lava_base/main)
-"cf" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/item/radio/intercom/syndicate,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/unpowered/syndicate_lava_base/telecomms)
 "cg" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "ch" = (
 /obj/machinery/air_sensor{
 	frequency = 1442;
 	id_tag = "syndie_lavaland_o2_sensor"
 	},
-/turf/simulated/floor/engine{
-	name = "o2 floor";
-	nitrogen = 0;
-	oxygen = 100000
-	},
+/turf/simulated/floor/engine/o2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "ci" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	name = "o2 floor";
-	nitrogen = 0;
-	oxygen = 100000
-	},
+/turf/simulated/floor/engine/o2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cj" = (
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
@@ -1292,19 +1250,11 @@
 	id_tag = "syndie_lavaland_o2_out";
 	name = "oxygen out"
 	},
-/turf/simulated/floor/engine{
-	name = "o2 floor";
-	nitrogen = 0;
-	oxygen = 100000
-	},
+/turf/simulated/floor/engine/o2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "ck" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/simulated/floor/engine{
-	name = "o2 floor";
-	nitrogen = 0;
-	oxygen = 100000
-	},
+/turf/simulated/floor/engine/o2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cl" = (
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
@@ -1313,46 +1263,22 @@
 	id_tag = "syndie_lavaland_tox_out";
 	name = "toxin out"
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cm" = (
 /obj/machinery/air_sensor{
 	frequency = 1442;
 	id_tag = "syndie_lavaland_tox_sensor"
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cn" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "co" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cp" = (
 /obj/structure/cable{
@@ -1363,7 +1289,7 @@
 /obj/machinery/igniter{
 	id = "syndicate_base_incinerator"
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cq" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
@@ -1373,13 +1299,13 @@
 /obj/structure/sign/vacuum/external{
 	pixel_y = -32
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cr" = (
 /obj/machinery/door/poddoor{
 	id_tag = "lavalandsyndi_incineratorinput"
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cs" = (
 /obj/structure/cable,
@@ -1392,7 +1318,7 @@
 	dir = 1;
 	luminosity = 2
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "ct" = (
 /obj/structure/cable,
@@ -1400,13 +1326,13 @@
 	dir = 2;
 	luminosity = 2
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cu" = (
 /obj/machinery/door/poddoor{
 	id_tag = "lavalandsyndi_incineratoroutput"
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cA" = (
 /obj/structure/table/reinforced,
@@ -1611,15 +1537,6 @@
 	pixel_x = 1;
 	pixel_y = -1
 	},
-/obj/item/radio/headset/syndicate/alt{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/radio/headset/syndicate/alt,
-/obj/item/radio/headset/syndicate/alt{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
@@ -1673,8 +1590,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "dS" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
+/obj/effect/spawner/window/plastitanium,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "lavalandsyndi";
@@ -1798,7 +1714,6 @@
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "ed" = (
 /obj/structure/table,
-/obj/item/paper_bin,
 /obj/item/pen,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1812,6 +1727,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/paper_bin/syndicate,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "ef" = (
@@ -1863,8 +1779,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "ek" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "el" = (
@@ -1907,7 +1822,6 @@
 "ep" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/paper_bin,
 /obj/item/pen,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1921,6 +1835,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/paper_bin/syndicate,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "eq" = (
@@ -2148,8 +2063,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "eF" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
+/obj/effect/spawner/window/plastitanium,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor{
 	id_tag = "lavalandsyndi_cargo"
@@ -2174,8 +2088,7 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "eI" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "eJ" = (
@@ -2365,12 +2278,12 @@
 	dir = 1
 	},
 /obj/structure/closet/crate/internals,
-/obj/item/tank/oxygen/yellow,
-/obj/item/tank/oxygen/yellow,
-/obj/item/tank/oxygen/yellow,
-/obj/item/tank/emergency_oxygen/double,
-/obj/item/tank/emergency_oxygen/double,
-/obj/item/tank/emergency_oxygen/double,
+/obj/item/tank/internals/oxygen/yellow,
+/obj/item/tank/internals/oxygen/yellow,
+/obj/item/tank/internals/oxygen/yellow,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
 /obj/item/clothing/mask/gas,
 /obj/item/clothing/mask/gas,
 /obj/item/clothing/mask/gas,
@@ -2419,8 +2332,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "fa" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
+/obj/effect/spawner/window/plastitanium,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
@@ -2583,8 +2495,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
 "fn" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
+/obj/effect/spawner/window/plastitanium,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
@@ -3501,8 +3412,7 @@
 /turf/simulated/floor/plasteel/white/side,
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "hH" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
+/obj/effect/spawner/window/plastitanium,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "lavalandsyndi_virology"
 	},
@@ -4458,8 +4368,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "jx" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
+/obj/effect/spawner/window/plastitanium,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "lavalandsyndi_bar"
@@ -5041,7 +4950,7 @@
 /obj/item/clothing/gloves/combat{
 	pixel_y = -6
 	},
-/obj/item/tank/emergency_oxygen{
+/obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 4;
 	pixel_y = 4
 	},
@@ -5124,8 +5033,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "kD" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "kG" = (
@@ -5249,7 +5157,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "kT" = (
-/obj/structure/sign/redcross,
+/obj/structure/sign/lifestar,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "kV" = (
@@ -5365,6 +5273,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/defibrillator,
 /turf/simulated/floor/plasteel/white/side{
 	dir = 9
 	},
@@ -5513,6 +5422,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/gun/syringe/syndicate,
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_x = -30
+	},
 /turf/simulated/floor/plasteel/white/side{
 	dir = 9
 	},
@@ -5800,8 +5712,7 @@
 /turf/simulated/wall/mineral/plastitanium/explosive,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "mp" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
+/obj/effect/spawner/window/plastitanium,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "lavalandsyndi_telecomms"
@@ -5842,7 +5753,7 @@
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "mx" = (
 /obj/structure/table/wood,
-/obj/machinery/microwave,
+/obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "my" = (
@@ -5945,9 +5856,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
-"mM" = (
-/turf/simulated/floor/greengrid,
-/area/ruin/unpowered/syndicate_lava_base/telecomms)
 "mN" = (
 /obj/structure/sign/securearea,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -5975,8 +5883,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "mU" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
+/obj/effect/spawner/window/plastitanium,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/bar)
@@ -6062,54 +5969,12 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "nf" = (
 /obj/structure/sign/fire,
-/turf/simulated/wall/mineral/plastitanium/coated,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
-"nh" = (
-/obj/machinery/telecomms/relay/preset/ruskie{
-	use_power = 0
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/unpowered/syndicate_lava_base/telecomms)
-"ni" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/unpowered/syndicate_lava_base/telecomms)
-"nj" = (
-/obj/machinery/door/airlock/hatch{
-	name = "Telecommunications Control";
-	req_access_txt = "150"
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
+"ng" = (
+/obj/structure/table,
+/obj/machinery/photocopier/faxmachine/longrange/syndie{
+	department = "Syndicate Bioweapon Research Outpost"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
@@ -6771,18 +6636,16 @@
 /obj/machinery/computer/message_monitor{
 	dir = 1
 	},
-/obj/item/paper/monitorkey,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "ov" = (
 /obj/structure/table/reinforced,
-/obj/item/paper_bin,
 /obj/item/pen,
+/obj/item/paper_bin/syndicate,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "ox" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
+/obj/effect/spawner/window/plastitanium,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor{
 	id_tag = "lavalandsyndi_arrivals"
@@ -6816,7 +6679,7 @@
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "yd" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/turf/simulated/wall/mineral/plastitanium/coated,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "yU" = (
 /turf/simulated/wall/mineral/plastitanium/explosive,
@@ -6825,8 +6688,7 @@
 /turf/simulated/wall/mineral/plastitanium/explosive,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "BF" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
+/obj/effect/spawner/window/plastitanium,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "lavalandsyndi";
@@ -6872,7 +6734,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "RI" = (
-/turf/simulated/wall/mineral/plastitanium/coated,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "RV" = (
 /obj/structure/sign/fire,
@@ -6940,7 +6802,7 @@ ab
 ab
 ab
 ab
-aa
+ab
 aa
 aa
 aa
@@ -7082,11 +6944,11 @@ ab
 ab
 ab
 ab
-mn
-mn
-mn
-mn
-mn
+ab
+ab
+ab
+ab
+ab
 ab
 ab
 ab
@@ -7131,13 +6993,13 @@ ab
 ab
 ab
 ab
-mn
-mo
-mM
-nh
-mM
-mn
-mn
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 ab
 ab
 ab
@@ -7181,13 +7043,13 @@ ab
 ab
 ab
 ab
-mn
-mM
-mM
-ni
-mM
-mM
-mn
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 ab
 ab
 ab
@@ -7231,10 +7093,10 @@ ab
 ab
 ab
 ab
-mn
+ab
 mn
 mN
-nj
+mn
 mn
 mn
 mn
@@ -7333,7 +7195,7 @@ ab
 ab
 ab
 mp
-mP
+ng
 nk
 nI
 oi
@@ -7386,7 +7248,7 @@ mp
 mQ
 nl
 nJ
-cf
+nJ
 ov
 mn
 ab

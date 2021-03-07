@@ -12,6 +12,7 @@
 
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "camera"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/machinery/computer/camera_advanced/abductor/New()
 	GLOB.abductor_equipment.Add(src)
@@ -72,7 +73,7 @@
 	var/mob/camera/aiEye/remote/remote_eye = C.remote_control
 	var/obj/machinery/abductor/pad/P = target
 
-	if(cameranet.checkTurfVis(remote_eye.loc))
+	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		P.PadToLoc(remote_eye.loc)
 
 /datum/action/innate/teleport_out
@@ -97,7 +98,7 @@
 	var/mob/camera/aiEye/remote/remote_eye = C.remote_control
 	var/obj/machinery/abductor/pad/P = target
 
-	if(cameranet.checkTurfVis(remote_eye.loc))
+	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		P.MobToLoc(remote_eye.loc,C)
 
 /datum/action/innate/vest_mode_swap

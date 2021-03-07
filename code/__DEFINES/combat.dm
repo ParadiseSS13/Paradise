@@ -20,6 +20,9 @@
 #define DROWSY		"drowsy"
 #define JITTER		"jitter"
 
+/// Jitter decays at a rate of 3 per life cycle, 15 if resting.
+#define SECONDS_TO_JITTER SECONDS_TO_LIFE_CYCLES*3
+
 //I hate adding defines like this but I'd much rather deal with bitflags than lists and string searches
 #define BRUTELOSS 1
 #define FIRELOSS 2
@@ -29,17 +32,12 @@
 #define OBLITERATION 32
 
 //Bitflags defining which status effects could be or are inflicted on a mob
-#define CANSTUN		1
-#define CANWEAKEN	2
-#define CANPARALYSE	4
-#define CANPUSH		8
-#define PASSEMOTES	16      //Mob has a cortical borer or holders inside of it that need to see emotes.
-#define GOTTAGOFAST	32
-#define GOTTAGOFAST_METH	64
-#define IGNORESLOWDOWN	128
-#define GODMODE		4096
-#define FAKEDEATH	8192	//Replaces stuff like changeling.changeling_fakedeath
-#define XENO_HOST	16384	//Tracks whether we're gonna be a baby alien's mummy.
+#define CANSTUN			1
+#define CANWEAKEN		2
+#define CANPARALYSE		4
+#define CANPUSH			8
+#define PASSEMOTES		16 //Mob has a cortical borer or holders inside of it that need to see emotes.
+#define GODMODE			32
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0
@@ -102,13 +100,17 @@
 #define BODY_ZONE_PRECISE_L_FOOT	"l_foot"
 #define BODY_ZONE_PRECISE_R_FOOT	"r_foot"
 
+//We will round to this value in damage calculations.
+#define DAMAGE_PRECISION 0.1
+
 //Gun Stuff
 #define SAWN_INTACT  0
 #define SAWN_OFF     1
 
-#define WEAPON_LIGHT 0
-#define WEAPON_MEDIUM 1
-#define WEAPON_HEAVY 2
+#define WEAPON_DUAL_WIELD 0
+#define WEAPON_LIGHT 1
+#define WEAPON_MEDIUM 2
+#define WEAPON_HEAVY 3
 
 #define EXPLODE_NONE 0				//Don't even ask me why we need this.
 #define EXPLODE_DEVASTATE 1

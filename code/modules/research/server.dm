@@ -12,7 +12,7 @@
 	var/heat_gen = 100
 	var/heating_power = 40000
 	var/delay = 10
-	req_access = list(access_rd) //Only the R&D can change server settings.
+	req_access = list(ACCESS_RD) //Only the R&D can change server settings.
 	var/plays_sound = 0
 
 /obj/machinery/r_n_d/server/New()
@@ -68,7 +68,7 @@
 		if(0 to T0C)
 			health = min(100, health + 1)
 		if(T0C to (T20C + 20))
-			health = Clamp(health, 0, 100)
+			health = clamp(health, 0, 100)
 		if((T20C + 20) to (T0C + 70))
 			health = max(0, health - 1)
 	if(health <= 0)
@@ -97,12 +97,11 @@
 
 /obj/machinery/r_n_d/server/ex_act(severity)
 	griefProtection()
-	..()
+	return ..()
 
-
-/obj/machinery/r_n_d/server/blob_act()
+/obj/machinery/r_n_d/server/blob_act(obj/structure/blob/B)
 	griefProtection()
-	..()
+	return ..()
 
 // Backup files to CentComm to help admins recover data after griefer attacks
 /obj/machinery/r_n_d/server/proc/griefProtection()
@@ -147,8 +146,10 @@
 	if(panel_open)
 		if(istype(O, /obj/item/crowbar))
 			griefProtection()
-			default_deconstruction_crowbar(O)
+			default_deconstruction_crowbar(user, O)
 			return 1
+	else
+		return ..()
 
 /obj/machinery/r_n_d/server/attack_hand(mob/user as mob)
 	if(disabled)

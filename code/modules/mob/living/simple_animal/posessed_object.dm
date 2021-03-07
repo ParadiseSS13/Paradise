@@ -1,6 +1,7 @@
 /mob/living/simple_animal/possessed_object
 	name = "possessed doodad"
 	var/spirit_name = "mysterious force" // What we call ourselves in attack messages.
+	mob_biotypes = MOB_SPIRIT
 	health = 50
 	maxHealth = 50
 
@@ -20,20 +21,21 @@
 	var/obj/item/possessed_item
 
 /mob/living/simple_animal/possessed_object/examine(mob/user)
-	possessed_item.examine(user)
+	. = possessed_item.examine(user)
 	if(health > (maxHealth / 30))
-		to_chat(usr, "<span class='warning'>[src] appears to be floating without any support!</span>")
+		. += "<span class='warning'>[src] appears to be floating without any support!</span>"
 	else
-		to_chat(usr, "<span class='warning'>[src] appears to be having trouble staying afloat!</span>")
+		. += "<span class='warning'>[src] appears to be having trouble staying afloat!</span>"
 
 
-/mob/living/simple_animal/possessed_object/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect, end_pixel_y)
+/mob/living/simple_animal/possessed_object/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect)
 	..()
 	animate_ghostly_presence(src, -1, 20, 1) // Restart the floating animation after the attack animation, as it will be cancelled.
 
 
-/mob/living/simple_animal/possessed_object/start_pulling(var/atom/movable/AM) // Silly motherfuckers think they can pull things.
-	to_chat(src, "<span class='warning'>You are unable to pull [AM]!</span>")
+/mob/living/simple_animal/possessed_object/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE) // Silly motherfuckers think they can pull things.
+	if(show_message)
+		to_chat(src, "<span class='warning'>You are unable to pull [AM]!</span>")
 
 
 /mob/living/simple_animal/possessed_object/ghost() // Ghosting will return the object to normal, and will not disqualify the ghoster from various mid-round antag positions.
@@ -94,8 +96,6 @@
 	possessed_item = loc
 	forceMove( possessed_loc )
 	possessed_item.forceMove(src) // We'll keep the actual item inside of us until we die.
-
-	zone_sel = new /obj/screen/zone_sel(src) // Create a new zone selection item so the human attacks have something to reference. Horrifying and ugly hack, do not look directly at this.
 
 	update_icon(1)
 

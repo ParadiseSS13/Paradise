@@ -18,10 +18,6 @@
 // BOOLEAN STATES
 
 /*
-	* EyesBlocked
-		Your eyes are covered somehow
-	* EarsBlocked
-		Your ears are covered somehow
 	* Resting
 		You are lying down of your own volition
 	* Flying
@@ -33,66 +29,44 @@
 // All of these decrement over time - at a rate of 1 per life cycle unless otherwise noted
 // Status effects sorted alphabetically:
 /*
-	*	Confused				*
+	* Confused				*
 			Movement is scrambled
-	*	Dizzy						*
+	* Dizzy					*
 			The screen goes all warped
-	*	Drowsy
+	* Drowsy
 			You begin to yawn, and have a chance of incrementing "Paralysis"
-	*	Druggy					*
+	* Druggy				*
 			A trippy overlay appears.
-	*	Drunk						*
+	* Drunk					*
 			Essentially what your "BAC" is - the higher it is, the more alcohol you have in you
-	*	EyeBlind				*
+	* EyeBlind				*
 			You cannot see. Prevents EyeBlurry from healing naturally.
-	*	EyeBlurry				*
+	* EyeBlurry				*
 			A hazy overlay appears on your screen.
-	*	Hallucination		*
+	* Hallucination			*
 			Your character will imagine various effects happening to them, vividly.
-	*	Jitter					*
+	* Jitter				*
 			Your character will visibly twitch. Higher values amplify the effect.
 	* LoseBreath			*
 			Your character is unable to breathe.
-	*	Paralysis				*
+	* Paralysis				*
 			Your character is knocked out.
-	* Silent					*
+	* Silent				*
 			Your character is unable to speak.
-	*	Sleeping				*
+	* Sleeping				*
 			Your character is asleep.
-	*	Slowed					*
+	* Slowed				*
 			Your character moves slower.
-	*	Slurring				*
+	* Slurring				*
 			Your character cannot enunciate clearly.
-	*	CultSlurring			*
+	* CultSlurring			*
 			Your character cannot enunciate clearly while mumbling about elder codes.
-	*	Stunned					*
+	* Stunned				*
 			Your character is unable to move, and drops stuff in their hands. They keep standing, though.
 	* Stuttering			*
 			Your character stutters parts of their messages.
-	*	Weakened				*
+	* Weakened				*
 			Your character collapses, but is still conscious.
-*/
-
-// DISABILITIES
-// These are more permanent than the above.
-// Disabilities sorted alphabetically
-/*
-	*	Blind	(32)
-			Can't see. EyeBlind does not heal when this is active.
-	*	Coughing	(4)
-			Cough occasionally, causing you to drop your items
-	*	Deaf	(128)
-			Can't hear. EarDeaf does not heal when this is active
-	*	Epilepsy	(2)
-			Occasionally go "Epileptic", causing you to become very twitchy, drop all items, and fall to the floor
-	*	Mute	(64)
-			Cannot talk.
-	*	Nearsighted	(1)
-			My glasses! I can't see without my glasses! (Nearsighted overlay when not wearing prescription eyewear)
-	*	Nervous	(16)
-			Occasionally begin to stutter.
-	*	Tourettes	(8)
-			SHIT (say bad words, and drop stuff occasionally)
 */
 
 /mob/living
@@ -125,10 +99,6 @@
 	var/stuttering = 0
 	var/weakened = 0
 
-/mob/living
-	// Bitfields
-	var/disabilities = 0
-
 // RESTING
 
 /mob/living/proc/StartResting(updating = 1)
@@ -144,18 +114,6 @@
 
 	if(updating && val_change)
 		update_canmove()
-
-/mob/living/proc/StartFlying()
-	var/val_change = !flying
-	flying = TRUE
-	if(val_change)
-		update_animations()
-
-/mob/living/proc/StopFlying()
-	var/val_change = !!flying
-	flying = FALSE
-	if(val_change)
-		update_animations()
 
 
 // SCALAR STATUS EFFECTS
@@ -297,7 +255,7 @@
 	SetLoseBreath(max(losebreath, amount))
 
 /mob/living/SetLoseBreath(amount)
-	if(BREATHLESS in mutations)
+	if(HAS_TRAIT(src, TRAIT_NOBREATH))
 		losebreath = 0
 		return FALSE
 	losebreath = max(amount, 0)
@@ -344,6 +302,8 @@
 	return SetSleeping(max(sleeping, amount), updating, no_alert)
 
 /mob/living/SetSleeping(amount, updating = 1, no_alert = FALSE)
+	if(frozen) // If the mob has been admin frozen, sleeping should not be changeable
+		return
 	. = STATUS_UPDATE_STAT
 	if((!!amount) == (!!sleeping)) // We're not changing from + to 0 or vice versa
 		updating = FALSE
@@ -378,6 +338,13 @@
 /mob/living/SetSlur(amount)
 	slurring = max(amount, 0)
 
+	if(slurring && drunk)
+		throw_alert("drunk", /obj/screen/alert/drunk)
+		sound_environment_override = SOUND_ENVIRONMENT_PSYCHOTIC
+	else
+		clear_alert("drunk")
+		sound_environment_override = SOUND_ENVIRONMENT_NONE
+
 /mob/living/AdjustSlur(amount, bound_lower = 0, bound_upper = INFINITY)
 	var/new_value = directional_bounded_sum(slurring, amount, bound_lower, bound_upper)
 	SetSlur(new_value)
@@ -385,10 +352,10 @@
 // CULTSLURRING
 
 /mob/living/CultSlur(amount)
-	SetSlur(max(slurring, amount))
+	SetCultSlur(max(cultslurring, amount))
 
 /mob/living/SetCultSlur(amount)
-	slurring = max(amount, 0)
+	cultslurring = max(amount, 0)
 
 /mob/living/AdjustCultSlur(amount, bound_lower = 0, bound_upper = INFINITY)
 	var/new_value = directional_bounded_sum(cultslurring, amount, bound_lower, bound_upper)
@@ -397,6 +364,9 @@
 // STUN
 
 /mob/living/Stun(amount, updating = 1, force = 0)
+	if(status_flags & CANSTUN || force)
+		if(absorb_stun(amount, force))
+			return FALSE
 	return SetStunned(max(stunned, amount), updating, force)
 
 /mob/living/SetStunned(amount, updating = 1, force = 0) //if you REALLY need to set stun to a set amount without the whole "can't go below current stunned"
@@ -434,6 +404,9 @@
 // WEAKEN
 
 /mob/living/Weaken(amount, updating = 1, force = 0)
+	if(status_flags & CANWEAKEN || force)
+		if(absorb_stun(amount, force))
+			return FALSE
 	return SetWeakened(max(weakened, amount), updating, force)
 
 /mob/living/SetWeakened(amount, updating = 1, force = 0)
@@ -458,97 +431,69 @@
 
 // Blind
 
-/mob/living/proc/BecomeBlind(updating = TRUE)
-	var/val_change = !(disabilities & BLIND)
+/mob/living/proc/become_blind(source, updating = TRUE)
+	var/val_change = !HAS_TRAIT(src, TRAIT_BLIND)
 	. = val_change ? STATUS_UPDATE_BLIND : STATUS_UPDATE_NONE
-	disabilities |= BLIND
+	ADD_TRAIT(src, TRAIT_BLIND, source)
 	if(val_change && updating)
 		update_blind_effects()
 
-/mob/living/proc/CureBlind(updating = TRUE)
-	var/val_change = !!(disabilities & BLIND)
+/mob/living/proc/cure_blind(source, updating = TRUE)
+	var/val_change = !!HAS_TRAIT(src, TRAIT_BLIND)
 	. = val_change ? STATUS_UPDATE_BLIND : STATUS_UPDATE_NONE
-	disabilities &= ~BLIND
+	REMOVE_TRAIT(src, TRAIT_BLIND, source)
 	if(val_change && updating)
-		CureIfHasDisability(BLINDBLOCK)
 		update_blind_effects()
 
 // Coughing
-
-/mob/living/proc/BecomeCoughing()
-	disabilities |= COUGHING
-
 /mob/living/proc/CureCoughing()
-	disabilities &= ~COUGHING
-	CureIfHasDisability(COUGHBLOCK)
+	CureIfHasDisability(GLOB.coughblock)
 
 // Deaf
-
-/mob/living/proc/BecomeDeaf()
-	disabilities |= DEAF
-
 /mob/living/proc/CureDeaf()
-	disabilities &= ~DEAF
-	CureIfHasDisability(DEAFBLOCK)
+	CureIfHasDisability(GLOB.deafblock)
 
 // Epilepsy
-
-/mob/living/proc/BecomeEpilepsy()
-	disabilities |= EPILEPSY
-
 /mob/living/proc/CureEpilepsy()
-	disabilities &= ~EPILEPSY
-	CureIfHasDisability(EPILEPSYBLOCK)
+	CureIfHasDisability(GLOB.epilepsyblock)
 
 // Mute
-
-/mob/living/proc/BecomeMute()
-	disabilities |= MUTE
-
 /mob/living/proc/CureMute()
-	disabilities &= ~MUTE
-	CureIfHasDisability(MUTEBLOCK)
+	CureIfHasDisability(GLOB.muteblock)
 
 // Nearsighted
-
-/mob/living/proc/BecomeNearsighted(updating = TRUE)
-	var/val_change = !(disabilities & NEARSIGHTED)
+/mob/living/proc/become_nearsighted(source, updating = TRUE)
+	var/val_change = !HAS_TRAIT(src, TRAIT_NEARSIGHT)
 	. = val_change ? STATUS_UPDATE_NEARSIGHTED : STATUS_UPDATE_NONE
-	disabilities |= NEARSIGHTED
+	ADD_TRAIT(src, TRAIT_NEARSIGHT, source)
 	if(val_change && updating)
 		update_nearsighted_effects()
 
-/mob/living/proc/CureNearsighted(updating = TRUE)
-	var/val_change = !!(disabilities & NEARSIGHTED)
+/mob/living/proc/cure_nearsighted(source, updating = TRUE)
+	var/val_change = !!HAS_TRAIT(src, TRAIT_NEARSIGHT)
 	. = val_change ? STATUS_UPDATE_NEARSIGHTED : STATUS_UPDATE_NONE
-	disabilities &= ~NEARSIGHTED
+	REMOVE_TRAIT(src, TRAIT_NEARSIGHT, source)
 	if(val_change && updating)
-		CureIfHasDisability(GLASSESBLOCK)
 		update_nearsighted_effects()
 
 // Nervous
-
-/mob/living/proc/BecomeNervous()
-	disabilities |= NERVOUS
-
 /mob/living/proc/CureNervous()
-	disabilities &= ~NERVOUS
-	CureIfHasDisability(NERVOUSBLOCK)
+	CureIfHasDisability(GLOB.nervousblock)
 
 // Tourettes
-
-/mob/living/proc/BecomeTourettes()
-	disabilities |= TOURETTES
-
 /mob/living/proc/CureTourettes()
-	disabilities &= ~TOURETTES
-	CureIfHasDisability(TWITCHBLOCK)
+	CureIfHasDisability(GLOB.twitchblock)
 
 /mob/living/proc/CureIfHasDisability(block)
 	if(dna && dna.GetSEState(block))
 		dna.SetSEState(block, 0, 1) //Fix the gene
-		genemutcheck(src, block,null, MUTCHK_FORCED)
+		singlemutcheck(src, block, MUTCHK_FORCED)
 		dna.UpdateSE()
+
+///////////////////////////////// FROZEN /////////////////////////////////////
+
+/mob/living/proc/IsFrozen()
+	return has_status_effect(/datum/status_effect/freon)
 
 ///////////////////////////////////// STUN ABSORPTION /////////////////////////////////////
 
@@ -565,8 +510,10 @@
 		"visible_message" = message, "self_message" = self_message, "examine_message" = examine_message)
 
 /mob/living/proc/absorb_stun(amount, ignoring_flag_presence)
-	if(!amount || amount <= 0 || stat || ignoring_flag_presence || !islist(stun_absorption))
+	if(amount < 0 || stat || ignoring_flag_presence || !islist(stun_absorption))
 		return FALSE
+	if(!amount)
+		amount = 0
 	var/priority_absorb_key
 	var/highest_priority
 	for(var/i in stun_absorption)
@@ -574,12 +521,19 @@
 			priority_absorb_key = stun_absorption[i]
 			highest_priority = priority_absorb_key["priority"]
 	if(priority_absorb_key)
-		if(priority_absorb_key["visible_message"] || priority_absorb_key["self_message"])
-			if(priority_absorb_key["visible_message"] && priority_absorb_key["self_message"])
-				visible_message("<span class='warning'>[src][priority_absorb_key["visible_message"]]</span>", "<span class='boldwarning'>[priority_absorb_key["self_message"]]</span>")
-			else if(priority_absorb_key["visible_message"])
-				visible_message("<span class='warning'>[src][priority_absorb_key["visible_message"]]</span>")
-			else if(priority_absorb_key["self_message"])
-				to_chat(src, "<span class='boldwarning'>[priority_absorb_key["self_message"]]</span>")
-		priority_absorb_key["stuns_absorbed"] += amount
+		if(amount) //don't spam up the chat for continuous stuns
+			if(priority_absorb_key["visible_message"] || priority_absorb_key["self_message"])
+				if(priority_absorb_key["visible_message"] && priority_absorb_key["self_message"])
+					visible_message("<span class='warning'>[src][priority_absorb_key["visible_message"]]</span>", "<span class='boldwarning'>[priority_absorb_key["self_message"]]</span>")
+				else if(priority_absorb_key["visible_message"])
+					visible_message("<span class='warning'>[src][priority_absorb_key["visible_message"]]</span>")
+				else if(priority_absorb_key["self_message"])
+					to_chat(src, "<span class='boldwarning'>[priority_absorb_key["self_message"]]</span>")
+			priority_absorb_key["stuns_absorbed"] += amount
 		return TRUE
+
+/mob/living/proc/set_shocked()
+	flags_2 |= SHOCKED_2
+
+/mob/living/proc/reset_shocked()
+	flags_2 &= ~ SHOCKED_2

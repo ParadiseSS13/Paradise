@@ -23,12 +23,13 @@
 						<A href='?src=[UID()];secretsadmin=showgm'>Show Game Mode</A>&nbsp;&nbsp;
 						<A href='?src=[UID()];secretsadmin=manifest'>Show Crew Manifest</A><br>
 						<A href='?src=[UID()];secretsadmin=check_antagonist'>Show current traitors and objectives</A><BR>
+						<A href='?src=[UID()];secretsadmin=view_codewords'>Show code phrases and responses</A><BR>
 						<a href='?src=[UID()];secretsadmin=night_shift_set'>Set Night Shift Mode</a><br>
 						<B>Bombs</b><br>
 						[check_rights(R_SERVER, 0) ? "&nbsp;&nbsp;<A href='?src=[UID()];secretsfun=togglebombcap'>Toggle bomb cap</A><br>" : "<br>"]
 						<B>Lists</b><br>
-						<A href='?src=[UID()];secretsadmin=list_signalers'>Show last [length(lastsignalers)] signalers</A>&nbsp;&nbsp;
-						<A href='?src=[UID()];secretsadmin=list_lawchanges'>Show last [length(lawchanges)] law changes</A><BR>
+						<A href='?src=[UID()];secretsadmin=list_signalers'>Show last [length(GLOB.lastsignalers)] signalers</A>&nbsp;&nbsp;
+						<A href='?src=[UID()];secretsadmin=list_lawchanges'>Show last [length(GLOB.lawchanges)] law changes</A><BR>
 						<A href='?src=[UID()];secretsadmin=DNA'>List DNA (Blood)</A>&nbsp;&nbsp;
 						<A href='?src=[UID()];secretsadmin=fingerprints'>List Fingerprints</A><BR>
 						<B>Power</b><br>
@@ -49,7 +50,7 @@
 					<B>Security Level Elevated</B><BR>
 					<BR>
 					<A href='?src=[UID()];secretscoder=maint_access_engiebrig'>Change all maintenance doors to engie/brig access only</A><BR>
-					<A href='?src=[UID()];secretscoder=maint_access_brig'>Change all maintenance doors to brig access only</A><BR>
+					<A href='?src=[UID()];secretscoder=maint_ACCESS_BRIG'>Change all maintenance doors to brig access only</A><BR>
 					<A href='?src=[UID()];secretscoder=infinite_sec'>Remove cap on security officers</A>&nbsp;&nbsp;
 					<BR>
 					<B>Coder Secrets</B><BR>
@@ -105,7 +106,7 @@
 					<A href='?src=[UID()];secretsfun=monkey'>Turn all humans into monkeys</A><BR>
 					<A href='?src=[UID()];secretsfun=fakeguns'>Make all items look like guns</A><BR>
 					<A href='?src=[UID()];secretsfun=prisonwarp'>Warp all Players to Prison</A><BR>
-					<A href='?src=[UID()];secretsfun=retardify'>Make all players retarded</A><BR>
+					<A href='?src=[UID()];secretsfun=stupify'>Make all players stupid</A><BR>
 					<b>Misc</b><br>
 					<A href='?src=[UID()];secretsfun=sec_classic1'>Remove firesuits, grilles, and pods</A>&nbsp;&nbsp;
 					<A href='?src=[UID()];secretsfun=tripleAI'>Triple AI mode (needs to be used in the lobby)</A><BR>
@@ -113,9 +114,7 @@
 					<A href='?src=[UID()];secretsfun=schoolgirl'>Japanese Animes Mode</A>&nbsp;&nbsp;
 					<A href='?src=[UID()];secretsfun=eagles'>Egalitarian Station Mode</A><BR>
 					<A href='?src=[UID()];secretsfun=guns'>Summon Guns</A>&nbsp;&nbsp;
-					<A href='?src=[UID()];secretsfun=magic'>Summon Magic</A>&nbsp;&nbsp;
-					<A href='?src=[UID()];secretsfun=revolver'>Summon Revolver Duel</A>&nbsp;&nbsp;
-					<A href='?src=[UID()];secretsfun=fakerevolver'>Summon Suicidal Revolver Duel</A>
+					<A href='?src=[UID()];secretsfun=magic'>Summon Magic</A>
 					<BR>
 					<A href='?src=[UID()];secretsfun=rolldice'>Roll the Dice</A><BR>
 					<BR>

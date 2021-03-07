@@ -6,7 +6,7 @@
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	process_flags = ORGANIC | SYNTHETIC	//Adminbuse knows no bounds!
 	can_synth = FALSE
-	taste_message = "admin abuse"
+	taste_description = "admin abuse"
 
 /datum/reagent/medicine/adminordrazine/on_mob_life(mob/living/carbon/M)
 	M.setCloneLoss(0, FALSE)
@@ -22,11 +22,11 @@
 			var/obj/item/organ/internal/I = thing
 			I.receive_damage(-5, FALSE)
 		for(var/obj/item/organ/external/E in H.bodyparts)
-			if(E.mend_fracture())
-				E.perma_injury = 0
+			E.mend_fracture()
+			E.internal_bleeding = FALSE
 	M.SetEyeBlind(0, FALSE)
-	M.CureNearsighted(FALSE)
-	M.CureBlind(FALSE)
+	M.cure_nearsighted(null, FALSE)
+	M.cure_blind(null, FALSE)
 	M.CureMute()
 	M.CureDeaf()
 	M.CureEpilepsy()
@@ -39,6 +39,7 @@
 	M.SetParalysis(0, FALSE)
 	M.SetSilence(0, FALSE)
 	M.SetHallucinate(0)
+	REMOVE_TRAITS_NOT_IN(M, list(ROUNDSTART_TRAIT))
 	M.SetDizzy(0)
 	M.SetDrowsy(0)
 	M.SetStuttering(0)
@@ -58,4 +59,4 @@
 	name = "Nanites"
 	id = "nanites"
 	description = "Nanomachines that aid in rapid cellular regeneration."
-	taste_message = "nanomachines, son"
+	taste_description = "nanomachines, son"

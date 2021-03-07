@@ -20,7 +20,7 @@
 					return
 
 	src.massmodify_variables(A, var_name, method)
-	feedback_add_details("admin_verb","MEV") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Mass Edit Variables") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/massmodify_variables(datum/O, var_name = "", method = 0)
 	if(!check_rights(R_VAREDIT))
@@ -45,16 +45,16 @@
 	var/default
 	var/var_value = O.vars[variable]
 
-	if(variable in VVckey_edit)
+	if(variable in GLOB.VVckey_edit)
 		to_chat(src, "It's forbidden to mass-modify ckeys. It'll crash everyone's client you dummy.")
 		return
-	if(variable in VVlocked)
+	if(variable in GLOB.VVlocked)
 		if(!check_rights(R_DEBUG))
 			return
-	if(variable in VVicon_edit_lock)
+	if(variable in GLOB.VVicon_edit_lock)
 		if(!check_rights(R_EVENT | R_DEBUG))
 			return
-	if(variable in VVpixelmovement)
+	if(variable in GLOB.VVpixelmovement)
 		if(!check_rights(R_DEBUG))
 			return
 		var/prompt = alert(src, "Editing this var may irreparably break tile gliding for the rest of the round. THIS CAN'T BE UNDONE", "DANGER", "ABORT ", "Continue", " ABORT")

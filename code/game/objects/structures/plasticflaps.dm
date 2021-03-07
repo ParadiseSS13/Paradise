@@ -6,117 +6,91 @@
 	density = 0
 	anchored = 1
 	layer = 4
-	armor = list(melee = 100, bullet = 80, laser = 80, energy = 100, bomb = 50, bio = 100, rad = 100)
-	var/list/mobs_can_pass = list(
-		/mob/living/carbon/slime,
-		/mob/living/simple_animal/mouse,
-		/mob/living/silicon/robot/drone,
-		/mob/living/simple_animal/bot/mulebot
-		)
+	armor = list(melee = 100, bullet = 80, laser = 80, energy = 100, bomb = 50, bio = 100, rad = 100, fire = 50, acid = 50)
 	var/state = PLASTIC_FLAPS_NORMAL
 
 /obj/structure/plasticflaps/examine(mob/user)
 	. = ..()
 	switch(state)
 		if(PLASTIC_FLAPS_NORMAL)
-			to_chat(user, "<span class='notice'>[src] are <b>screwed</b> to the floor.</span>")
+			. += "<span class='notice'>[src] are <b>screwed</b> to the floor.</span>"
 		if(PLASTIC_FLAPS_DETACHED)
-			to_chat(user, "<span class='notice'>[src] are no longer <i>screwed</i> to the floor, and the flaps can be <b>sliced</b> apart.</span>")
+			. += "<span class='notice'>[src] are no longer <i>screwed</i> to the floor, and the flaps can be <b>sliced</b> apart.</span>"
 
-/obj/structure/plasticflaps/attackby(obj/item/W, mob/user, params)
-	add_fingerprint(user)
-	if(isscrewdriver(W))
-		if(state == PLASTIC_FLAPS_NORMAL)
-			playsound(loc, W.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] unscrews [src] from the floor.</span>", "<span class='notice'>You start to unscrew [src] from the floor...</span>", "You hear rustling noises.")
-			if(do_after(user, 180*W.toolspeed, target = src))
-				if(state != PLASTIC_FLAPS_NORMAL)
-					return
-				state = PLASTIC_FLAPS_DETACHED
-				anchored = FALSE
-				to_chat(user, "<span class='notice'>You unscrew [src] from the floor.</span>")
-		else if(state == PLASTIC_FLAPS_DETACHED)
-			playsound(loc, W.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] screws [src] to the floor.</span>", "<span class='notice'>You start to screw [src] to the floor...</span>", "You hear rustling noises.")
-			if(do_after(user, 40*W.toolspeed, target = src))
-				if(state != PLASTIC_FLAPS_DETACHED)
-					return
-				state = PLASTIC_FLAPS_NORMAL
-				anchored = TRUE
-				to_chat(user, "<span class='notice'>You screw [src] to the floor.</span>")
-	else if(iswelder(W))
-		if(state == PLASTIC_FLAPS_DETACHED)
-			var/obj/item/weldingtool/WT = W
-			if(!WT.remove_fuel(0, user))
-				return
-			playsound(loc, WT.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] slices apart [src].</span>", "<span class='notice'>You start to slice apart [src].</span>", "You hear welding.")
-			if(do_after(user, 120*WT.toolspeed, target = src))
-				if(state != PLASTIC_FLAPS_DETACHED)
-					return
-				to_chat(user, "<span class='notice'>You slice apart [src].</span>")
-				var/obj/item/stack/sheet/plastic/five/P = new(loc)
-				P.add_fingerprint(user)
-				qdel(src)
-	else
-		. = ..()
+/obj/structure/plasticflaps/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(state == PLASTIC_FLAPS_NORMAL)
+		user.visible_message("<span class='warning'>[user] starts unscrewing [src] from the floor...</span>", "<span class='notice'>You start to unscrew [src] from the floor...</span>", "You hear rustling noises.")
+		if(!I.use_tool(src, user, 180, volume = I.tool_volume) || state != PLASTIC_FLAPS_NORMAL)
+			return
+		state = PLASTIC_FLAPS_DETACHED
+		anchored = FALSE
+		to_chat(user, "<span class='notice'>You unscrew [src] from the floor.</span>")
+	else if(state == PLASTIC_FLAPS_DETACHED)
+		user.visible_message("<span class='warning'>[user] starts screwing [src] to the floor.</span>", "<span class='notice'>You start to screw [src] to the floor...</span>", "You hear rustling noises.")
+		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != PLASTIC_FLAPS_DETACHED)
+			return
+		state = PLASTIC_FLAPS_NORMAL
+		anchored = TRUE
+		to_chat(user, "<span class='notice'>You screw [src] to the floor.</span>")
+
+/obj/structure/plasticflaps/welder_act(mob/user, obj/item/I)
+	if(state != PLASTIC_FLAPS_DETACHED)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_ATTEMPT_SLICING_MESSAGE
+	if(I.use_tool(src, user, 120, volume = I.tool_volume))
+		WELDER_SLICING_SUCCESS_MESSAGE
+		var/obj/item/stack/sheet/plastic/five/P = new(drop_location())
+		P.add_fingerprint(user)
+		qdel(src)
 
 /obj/structure/plasticflaps/CanPass(atom/A, turf/T)
 	if(istype(A) && A.checkpass(PASSGLASS))
 		return prob(60)
 
 	var/obj/structure/bed/B = A
-	if(istype(A, /obj/structure/bed) && B.buckled_mob)//if it's a bed/chair and someone is buckled, it will not pass
-		return 0
+	if(istype(A, /obj/structure/bed) && (B.has_buckled_mobs() || B.density))//if it's a bed/chair and is dense or someone is buckled, it will not pass
+		return FALSE
 
 	if(istype(A, /obj/structure/closet/cardboard))
 		var/obj/structure/closet/cardboard/C = A
 		if(C.move_delay)
-			return 0
+			return FALSE
 
-	if(istype(A, /obj/vehicle))	//no vehicles
-		return 0
+	if(ismecha(A))
+		return FALSE
 
-	var/mob/living/M = A
-	if(istype(M))
-		if(M.lying)
-			return ..()
-		for(var/mob_type in mobs_can_pass)
-			if(istype(A, mob_type))
-				return ..()
-		if(istype(A, /mob/living/carbon/human))
-			var/mob/living/carbon/human/H = M
-			if(H.dna.species.is_small)
-				return ..()
-		return 0
-
+	else if(isliving(A)) // You Shall Not Pass!
+		var/mob/living/M = A
+		if(isbot(A)) //Bots understand the secrets
+			return TRUE
+		if(M.buckled && istype(M.buckled, /mob/living/simple_animal/bot/mulebot)) // mulebot passenger gets a free pass.
+			return TRUE
+		if(!M.lying && !M.ventcrawler && M.mob_size != MOB_SIZE_TINY)	//If your not laying down, or a ventcrawler or a small creature, no pass.
+			return FALSE
 	return ..()
 
 
 /obj/structure/plasticflaps/CanAStarPass(ID, to_dir, caller)
-	if(istype(caller, /mob/living))
-		for(var/mob_type in mobs_can_pass)
-			if(istype(caller, mob_type))
-				return 1
+	if(isliving(caller))
+		if(isbot(caller))
+			return TRUE
 
 		var/mob/living/M = caller
-		if(!M.ventcrawler && M.mob_size > MOB_SIZE_SMALL)
-			return 0
-	return 1
-
-/obj/structure/plasticflaps/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src)
-		if(2)
-			if(prob(50))
-				qdel(src)
-		if(3)
-			if(prob(5))
-				qdel(src)
+		if(!M.ventcrawler && M.mob_size != MOB_SIZE_TINY)
+			return FALSE
+	var/atom/movable/M = caller
+	if(M && M.pulling)
+		return CanAStarPass(ID, to_dir, M.pulling)
+	return TRUE //diseases, stings, etc can pass
 
 /obj/structure/plasticflaps/deconstruct(disassembled = TRUE)
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/plastic/five(loc)
 	qdel(src)
 

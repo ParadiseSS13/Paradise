@@ -31,9 +31,9 @@
 	var/arrest_type = FALSE
 
 /obj/machinery/bot_core/honkbot
-	req_one_access = list(access_clown, access_robotics, access_mime)
+	req_one_access = list(ACCESS_CLOWN, ACCESS_ROBOTICS, ACCESS_MIME)
 
-/mob/living/simple_animal/bot/honkbot/Initialize()
+/mob/living/simple_animal/bot/honkbot/Initialize(mapload)
 	. = ..()
 	update_icon()
 	auto_patrol = TRUE
@@ -91,11 +91,9 @@
 	return	dat
 
 /mob/living/simple_animal/bot/honkbot/proc/retaliate(mob/living/carbon/human/H)
-	threatlevel = H.assess_threat(src)
-	threatlevel += 6
-	if(threatlevel >= 4)
-		target = H
-		mode = BOT_HUNT
+	threatlevel = 6
+	target = H
+	mode = BOT_HUNT
 
 /mob/living/simple_animal/bot/honkbot/attack_hand(mob/living/carbon/human/H)
 	if(H.a_intent == INTENT_HARM)
@@ -170,7 +168,7 @@
 	if(!spam_flag)
 		if(ishuman(C))
 			C.stuttering = 20 //stammer
-			C.MinimumDeafTicks(0, 5) //far less damage than the H.O.N.K.
+			C.AdjustEarDamage(0, 5) //far less damage than the H.O.N.K.
 			C.Jitter(50)
 			C.Weaken(5)
 			C.Stun(5)      // Paralysis from tg ported as stun
@@ -298,7 +296,7 @@
 		target = user
 		mode = BOT_HUNT
 
-/mob/living/simple_animal/bot/honkbot/Crossed(atom/movable/AM)
+/mob/living/simple_animal/bot/honkbot/Crossed(atom/movable/AM, oldloc)
 	if(ismob(AM) && on) //only if its online
 		if(prob(30)) //you're far more likely to trip on a honkbot
 			var/mob/living/carbon/C = AM

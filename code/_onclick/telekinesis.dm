@@ -3,7 +3,7 @@
 
 	This needs more thinking out, but I might as well.
 */
-var/const/tk_maxrange = 15
+#define TK_MAXRANGE 15
 
 /*
 	Telekinetic attack:
@@ -39,11 +39,11 @@ var/const/tk_maxrange = 15
 /obj/item/attack_tk(mob/user)
 	if(user.stat || !isturf(loc))
 		return
-	if((TK in user.mutations) && !user.get_active_hand()) // both should already be true to get here
+	if(user.dna?.GetSEState(GLOB.teleblock) && !user.get_active_hand()) // both should already be true to get here
 		var/obj/item/tk_grab/O = new(src)
 		O.form_grab(user, src)
 	else
-		warning("Strange attack_tk(): TK([TK in user.mutations]) empty hand([!user.get_active_hand()])")
+		warning("Strange attack_tk(): TK([user.dna?.GetSEState(GLOB.teleblock)]) empty hand([!user.get_active_hand()])")
 
 
 /mob/attack_tk(mob/user)
@@ -109,7 +109,7 @@ var/const/tk_maxrange = 15
 	if(!host || host != user)
 		qdel(src)
 		return
-	if(!(TK in host.mutations))
+	if(!host.dna?.GetSEState(GLOB.teleblock))
 		qdel(src)
 		return
 	if(isobj(target) && !isturf(target.loc))
@@ -118,7 +118,7 @@ var/const/tk_maxrange = 15
 	var/d = get_dist(user, target)
 	if(focus)
 		d = max(d,get_dist(user,focus)) // whichever is further
-	if(d > tk_maxrange)
+	if(d > TK_MAXRANGE)
 		to_chat(user, "<span class='warning'>Your mind won't reach that far.</span>")
 		return
 

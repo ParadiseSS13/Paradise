@@ -3,7 +3,7 @@
 // Or we can have NPC's send actual keypresses and detect that by seeing no client
 
 /mob/key_down(_key, client/user)
-	if(user.prefs.toggles & AZERTY)
+	if(user.prefs.toggles & PREFTOGGLE_AZERTY)
 		switch(_key)
 			if("Delete")
 				if(!pulling)
@@ -33,7 +33,7 @@
 			if("E")
 				quick_equip()
 				return
-			if("Alt")
+			if("C")
 				toggle_move_intent()
 				return
 	else
@@ -66,11 +66,11 @@
 			if("E")
 				quick_equip()
 				return
-			if("Alt")
+			if("C")
 				toggle_move_intent()
 				return
 		//Bodypart selections
-	if(client.prefs.toggles & NUMPAD_TARGET)
+	if(client.prefs.toggles & PREFTOGGLE_NUMPAD_TARGET)
 		switch(_key)
 			if("Numpad8")
 				user.body_toggle_head()
@@ -107,7 +107,7 @@
 			if("Numpad4")
 				a_intent_change("harm")
 				return
-	if(client.keys_held["Ctrl"] && client.prefs.toggles & AZERTY)
+	if(client.keys_held["Ctrl"] && client.prefs.toggles & PREFTOGGLE_AZERTY)
 		switch(SSinput.alt_movement_keys[_key])
 			if(NORTH)
 				northface()
@@ -139,7 +139,7 @@
 
 /mob/key_up(_key, client/user)
 	switch(_key)
-		if("Alt")
+		if("C")
 			toggle_move_intent()
 			return
 	return ..()

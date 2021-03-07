@@ -1,18 +1,18 @@
 //Meteors probability of spawning during a given wave
-/var/list/meteors_normal = list(/obj/effect/meteor/dust=3, /obj/effect/meteor/medium=8, /obj/effect/meteor/big=3, \
-						  /obj/effect/meteor/flaming=1, /obj/effect/meteor/irradiated=3) //for normal meteor event
+GLOBAL_LIST_INIT(meteors_normal, list(/obj/effect/meteor/dust=3, /obj/effect/meteor/medium=8, /obj/effect/meteor/big=3, \
+						  /obj/effect/meteor/flaming=1, /obj/effect/meteor/irradiated=3)) //for normal meteor event
 
-/var/list/meteors_threatening = list(/obj/effect/meteor/medium=4, /obj/effect/meteor/big=8, \
-						  /obj/effect/meteor/flaming=3, /obj/effect/meteor/irradiated=3) //for threatening meteor event
+GLOBAL_LIST_INIT(meteors_threatening, list(/obj/effect/meteor/medium=4, /obj/effect/meteor/big=8, \
+						  /obj/effect/meteor/flaming=3, /obj/effect/meteor/irradiated=3)) //for threatening meteor event
 
-/var/list/meteors_catastrophic = list(/obj/effect/meteor/medium=5, /obj/effect/meteor/big=75, \
-						  /obj/effect/meteor/flaming=10, /obj/effect/meteor/irradiated=10, /obj/effect/meteor/tunguska = 1) //for catastrophic meteor event
+GLOBAL_LIST_INIT(meteors_catastrophic, list(/obj/effect/meteor/medium=5, /obj/effect/meteor/big=75, \
+						  /obj/effect/meteor/flaming=10, /obj/effect/meteor/irradiated=10, /obj/effect/meteor/tunguska = 1)) //for catastrophic meteor event
 
-/var/list/meteors_dust = list(/obj/effect/meteor/dust) //for space dust event
+GLOBAL_LIST_INIT(meteors_dust, list(/obj/effect/meteor/dust)) //for space dust event
 
-/var/list/meteors_gore = list(/obj/effect/meteor/gore) //Meaty Gore
+GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/gore)) //Meaty Gore
 
-/var/list/meteors_ops = list(/obj/effect/meteor/goreops) //Meaty Ops
+GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 
 
 ///////////////////////////////
@@ -27,9 +27,9 @@
 	var/turf/pickedgoal
 	var/max_i = 10//number of tries to spawn meteor.
 	while(!istype(pickedstart, /turf/space))
-		var/startSide = pick(cardinal)
-		pickedstart = spaceDebrisStartLoc(startSide, 1)
-		pickedgoal = spaceDebrisFinishLoc(startSide, 1)
+		var/startSide = pick(GLOB.cardinal)
+		pickedstart = spaceDebrisStartLoc(startSide, level_name_to_num(MAIN_STATION))
+		pickedgoal = spaceDebrisFinishLoc(startSide, level_name_to_num(MAIN_STATION))
 		max_i--
 		if(max_i<=0)
 			return
@@ -160,9 +160,10 @@
 
 /obj/effect/meteor/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/pickaxe))
+		make_debris()
 		qdel(src)
 		return
-	..()
+	return ..()
 
 /obj/effect/meteor/proc/make_debris()
 	for(var/throws = dropamt, throws > 0, throws--)
@@ -244,8 +245,7 @@
 	..(heavy)
 	explosion(src.loc, 0, 0, 4, 3, 0)
 	new /obj/effect/decal/cleanable/greenglow(get_turf(src))
-	for(var/mob/living/L in view(5, src))
-		L.apply_effect(40, IRRADIATE)
+	radiation_pulse(src, 500)
 
 //Station buster Tunguska
 /obj/effect/meteor/tunguska

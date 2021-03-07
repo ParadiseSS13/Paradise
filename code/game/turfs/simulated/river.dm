@@ -4,7 +4,7 @@
 #define RANDOM_LOWER_X 50
 #define RANDOM_LOWER_Y 50
 
-/proc/spawn_rivers(target_z, nodes = 4, turf_type = /turf/simulated/floor/plating/lava/smooth/lava_land_surface, whitelist_area = /area/lavaland/surface/outdoors/unexplored, min_x = RANDOM_LOWER_X, min_y = RANDOM_LOWER_Y, max_x = RANDOM_UPPER_X, max_y = RANDOM_UPPER_Y)
+/proc/spawn_rivers(target_z, nodes = 4, turf_type = /turf/simulated/floor/plating/lava/smooth/lava_land_surface, whitelist_area = /area/lavaland/surface/outdoors, min_x = RANDOM_LOWER_X, min_y = RANDOM_LOWER_Y, max_x = RANDOM_UPPER_X, max_y = RANDOM_UPPER_Y)
 	var/list/river_nodes = list()
 	var/num_spawned = 0
 	var/list/possible_locs = block(locate(min_x, min_y, target_z), locate(max_x, max_y, target_z))
@@ -75,14 +75,14 @@
 	for(var/F in RANGE_TURFS(1, src) - src)
 		var/turf/T = F
 		var/area/new_area = get_area(T)
-		if(!T || (T.density && !ismineralturf(T)) || istype(T, /turf/unsimulated) || (whitelisted_area && !istype(new_area, whitelisted_area)) || (T.flags & NO_LAVA_GEN) )
+		if(!T || (T.density && !ismineralturf(T)) || istype(T, /turf/simulated/floor/indestructible) || (whitelisted_area && !istype(new_area, whitelisted_area)) || (T.flags & NO_LAVA_GEN) )
 			continue
 
 		if(!logged_turf_type && ismineralturf(T))
 			var/turf/simulated/mineral/M = T
 			logged_turf_type = M.turf_type
 
-		if(get_dir(src, F) in cardinal)
+		if(get_dir(src, F) in GLOB.cardinal)
 			cardinal_turfs += F
 		else
 			diagonal_turfs += F

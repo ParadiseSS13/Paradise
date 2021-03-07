@@ -12,14 +12,14 @@
 /obj/item/gun/magic/wand/New()
 	if(prob(75) && variable_charges) //25% chance of listed max charges, 50% chance of 1/2 max charges, 25% chance of 1/3 max charges
 		if(prob(33))
-			max_charges = Ceiling(max_charges / 3)
+			max_charges = CEILING(max_charges / 3, 1)
 		else
-			max_charges = Ceiling(max_charges / 2)
+			max_charges = CEILING(max_charges / 2, 1)
 	..()
 
 /obj/item/gun/magic/wand/examine(mob/user)
-	..()
-	to_chat(user, "Has [charges] charge\s remaining.")
+	. = ..()
+	. += "Has [charges] charge\s remaining."
 
 /obj/item/gun/magic/wand/update_icon()
 	icon_state = "[initial(icon_state)][charges ? "" : "-drained"]"
@@ -41,7 +41,7 @@
 				to_chat(user, "<span class='warning'>You know better than to violate the security of The Den, best wait until you leave to use [src].</span>")
 				return
 			else
-				no_den_usage = 0
+				no_den_usage = FALSE
 		zap_self(user)
 	else
 		..()
@@ -51,6 +51,7 @@
 	user.visible_message("<span class='danger'>[user] zaps [user.p_them()]self with [src].</span>")
 	playsound(user, fire_sound, 50, 1)
 	user.create_attack_log("<b>[key_name(user)]</b> zapped [user.p_them()]self with a <b>[src]</b>")
+	add_attack_logs(null, user, "zapped [user.p_them()]self with a [src]", ATKLOG_ALL)
 
 /////////////////////////////////////
 //WAND OF DEATH
@@ -65,12 +66,17 @@
 	max_charges = 3 //3, 2, 2, 1
 
 /obj/item/gun/magic/wand/death/zap_self(mob/living/user)
-	var/message ="<span class='warning'>You irradiate yourself with pure energy! "
-	message += pick("Do not pass go. Do not collect 200 zorkmids.</span>","You feel more confident in your spell casting skills.</span>","You Die...</span>","Do you want your possessions identified?</span>")
-	to_chat(user, message)
-	user.adjustFireLoss(3000)
-	charges--
 	..()
+	charges--
+	if(isliving(user))
+		if(user.mob_biotypes & MOB_UNDEAD) //negative energy heals the undead
+			user.revive()
+			to_chat(user, "<span class='notice'>You feel great!</span>")
+			return
+	to_chat(user, "<span class='warning'>You irradiate yourself with pure negative energy! [pick("Do not pass go. Do not collect 200 zorkmids.", "You feel more confident in your spell casting skills.", "You Die...", "Do you want your possessions identified?")]</span>")
+	if(ismachineperson(user)) //speshul snowfleks deserv speshul treetment
+		user.adjustFireLoss(6969)
+	user.death(FALSE)
 
 /////////////////////////////////////
 //WAND OF HEALING
@@ -85,10 +91,15 @@
 	max_charges = 3 //3, 2, 2, 1
 
 /obj/item/gun/magic/wand/resurrection/zap_self(mob/living/user)
+	..()
+	charges--
+	if(isliving(user))
+		if(user.mob_biotypes & MOB_UNDEAD) //positive energy harms the undead
+			to_chat(user, "<span class='warning'>You irradiate yourself with pure positive energy! [pick("Do not pass go. Do not collect 200 zorkmids.", "You feel more confident in your spell casting skills.", "You Die...", "Do you want your possessions identified?")]</span>")
+			user.death(FALSE)
+			return
 	user.revive()
 	to_chat(user, "<span class='notice'>You feel great!</span>")
-	charges--
-	..()
 
 /////////////////////////////////////
 //WAND OF POLYMORPH
@@ -117,7 +128,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/teleport
 	icon_state = "telewand"
 	max_charges = 10 //10, 5, 5, 4
-	no_den_usage = 1
+	no_den_usage = TRUE
 	fire_sound = 'sound/magic/wand_teleport.ogg'
 
 /obj/item/gun/magic/wand/teleport/zap_self(mob/living/user)
@@ -139,6 +150,7 @@
 	fire_sound = 'sound/magic/staff_door.ogg'
 	icon_state = "doorwand"
 	max_charges = 20 //20, 10, 10, 7
+	no_den_usage = TRUE
 
 /obj/item/gun/magic/wand/door/zap_self(mob/living/user)
 	to_chat(user, "<span class='notice'>You feel vaguely more open with your feelings.</span>")
@@ -159,5 +171,21 @@
 
 /obj/item/gun/magic/wand/fireball/zap_self(mob/living/user)
 	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
+	charges--
+	..()
+
+/////////////////////////////////////
+//WAND OF SLIPPING
+/////////////////////////////////////
+/obj/item/gun/magic/wand/slipping
+	name = "wand of slipping"
+	desc = "This wand shoots... banana peels?"
+	fire_sound = 'sound/items/bikehorn.ogg'
+	ammo_type = /obj/item/ammo_casing/magic/slipping
+	icon_state = "staffofslipping"
+	max_charges = 5 //5, 4, 3, 2
+
+/obj/item/gun/magic/wand/slipping/zap_self(mob/living/user)
+	to_chat(user, "<span class='notice'>You feel rather silly!.</span>")
 	charges--
 	..()

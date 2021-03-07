@@ -154,7 +154,7 @@
 	result_amount = 3
 	mix_message = "The substance turns neon green and bubbles unnervingly."
 
-/datum/chemical_reaction/stable_mustagen
+/datum/chemical_reaction/stable_mutagen
 	name = "Stable mutagen"
 	id = "stable_mutagen"
 	result = "stable_mutagen"
@@ -162,19 +162,10 @@
 	result_amount = 3
 	mix_message = "The substance turns a drab green and begins to bubble."
 
-/datum/chemical_reaction/stable_mustagen/stable_mustagen2
+/datum/chemical_reaction/stable_mutagen/stable_mutagen2
 	id = "stable_mutagen2"
 	required_reagents = list("mutadone" = 3, "lithium" = 1)
 	result_amount = 4
-
-/datum/chemical_reaction/heparin
-	name = "Heparin"
-	id = "Heparin"
-	result = "heparin"
-	required_reagents = list("formaldehyde" = 1, "sodium" = 1, "chlorine" = 1, "lithium" = 1)
-	result_amount = 4
-	mix_message = "The mixture thins and loses all color."
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/rotatium
 	name = "Rotatium"

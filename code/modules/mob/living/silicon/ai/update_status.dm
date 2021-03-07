@@ -9,7 +9,7 @@
 		else if(stat == UNCONSCIOUS)
 			WakeUp()
 			create_debug_log("woke up, trigger reason: [reason]")
-	//diag_hud_set_status()
+	diag_hud_set_status()
 
 /mob/living/silicon/ai/has_vision(information_only = FALSE)
 	return ..() && !lacks_power()

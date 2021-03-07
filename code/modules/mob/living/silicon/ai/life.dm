@@ -37,7 +37,8 @@
 	else
 		adjustOxyLoss(-1)
 
-	handle_stunned()
+	if(stunned)
+		AdjustStunned(-1, updating = 1, force = 1)
 
 	var/area/my_area = get_area(src)
 
@@ -59,7 +60,6 @@
 
 				spawn(20)
 					to_chat(src, "Backup battery online. Scanners, camera, and radio interface offline. Beginning fault-detection.")
-					end_multicam()
 					sleep(50)
 					my_area = get_area(src)
 					T = get_turf(src)
@@ -107,6 +107,8 @@
 							aiRestorePowerRoutine = 0
 							update_blind_effects()
 							update_sight()
+							to_chat(src, "Here are your current laws:")
+							show_laws()
 							return
 
 						switch(PRP)
@@ -126,12 +128,8 @@
 								theAPC.attack_ai(src)
 								apc_override = 0
 								aiRestorePowerRoutine = 3
-								to_chat(src, "Here are your current laws:")
-								src.show_laws() //WHY THE FUCK IS THIS HERE
 						sleep(50)
 						theAPC = null
-
-	process_queued_alarms()
 
 /mob/living/silicon/ai/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
@@ -140,7 +138,6 @@
 	else
 		health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
 		update_stat("updatehealth([reason])")
-		diag_hud_set_status()
 		diag_hud_set_health()
 
 

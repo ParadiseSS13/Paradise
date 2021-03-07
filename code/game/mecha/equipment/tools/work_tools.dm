@@ -8,6 +8,7 @@
 	energy_drain = 10
 	var/dam_force = 20
 	var/obj/mecha/working/ripley/cargo_holder
+	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/can_attach(obj/mecha/working/ripley/M)
 	if(..())
@@ -59,7 +60,7 @@
 			target.visible_message("<span class='danger'>[chassis] squeezes [target].</span>", \
 								"<span class='userdanger'>[chassis] squeezes [target].</span>",\
 								"<span class='italics'>You hear something crack.</span>")
-			add_attack_logs(chassis.occupant, M, "Squeezed with [src] (INTENT: [uppertext(chassis.occupant.a_intent)]) (DAMTYE: [uppertext(damtype)])")
+			add_attack_logs(chassis.occupant, M, "Squeezed with [src] ([uppertext(chassis.occupant.a_intent)]) ([uppertext(damtype)])")
 			start_cooldown()
 		else
 			step_away(M,chassis)
@@ -119,7 +120,7 @@
 	icon_state = "mecha_exting"
 	equip_cooldown = 5
 	energy_drain = 0
-	range = MELEE|RANGED
+	range = MECHA_MELEE | MECHA_RANGED
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/New()
 	create_reagents(1000)
@@ -190,7 +191,7 @@
 	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4;engineering=4"
 	equip_cooldown = 10
 	energy_drain = 250
-	range = MELEE|RANGED
+	range = MECHA_MELEE | MECHA_RANGED
 	flags_2 = NO_MAT_REDEMPTION_2
 	var/mode = 0 //0 - deconstruct, 1 - wall or floor, 2 - airlock.
 	var/canRwall = 0
@@ -290,7 +291,7 @@
 	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4;engineering=4"
 	equip_cooldown = 10
 	energy_drain = 250
-	range = MELEE|RANGED
+	range = MECHA_MELEE | MECHA_RANGED
 
 /obj/item/mecha_parts/mecha_equipment/mimercd/can_attach(obj/mecha/combat/reticence/M)
 	if(..())
@@ -337,15 +338,11 @@
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/attach()
 	..()
-	event = chassis.events.addEvent("onMove",src,"layCable")
+	RegisterSignal(chassis, COMSIG_MOVABLE_MOVED, .proc/layCable)
 	return
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/detach()
-	chassis.events.clearEvent("onMove",event)
-	return ..()
-
-/obj/item/mecha_parts/mecha_equipment/cable_layer/Destroy()
-	chassis.events.clearEvent("onMove",event)
+	UnregisterSignal(chassis, COMSIG_MOVABLE_MOVED)
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/action(var/obj/item/stack/cable_coil/target)
@@ -419,10 +416,11 @@
 			T.make_plating()
 	return !new_turf.intact
 
-/obj/item/mecha_parts/mecha_equipment/cable_layer/proc/layCable(var/turf/new_turf)
+/obj/item/mecha_parts/mecha_equipment/cable_layer/proc/layCable(obj/mecha/M, atom/OldLoc, Dir, Forced = FALSE)
+	var/turf/new_turf = get_turf(M)
 	if(equip_ready || !istype(new_turf) || !dismantleFloor(new_turf))
 		return reset()
-	var/fdirn = turn(chassis.dir,180)
+	var/fdirn = turn(Dir, 180)
 	for(var/obj/structure/cable/LC in new_turf)		// check to make sure there's not a cable there already
 		if(LC.d1 == fdirn || LC.d2 == fdirn)
 			return reset()
@@ -435,9 +433,9 @@
 	NC.updateicon()
 
 	var/datum/powernet/PN
-	if(last_piece && last_piece.d2 != chassis.dir)
-		last_piece.d1 = min(last_piece.d2, chassis.dir)
-		last_piece.d2 = max(last_piece.d2, chassis.dir)
+	if(last_piece && last_piece.d2 != Dir)
+		last_piece.d1 = min(last_piece.d2, Dir)
+		last_piece.d2 = max(last_piece.d2, Dir)
 		last_piece.updateicon()
 		PN = last_piece.powernet
 
@@ -449,4 +447,4 @@
 
 	//NC.mergeConnectedNetworksOnTurf()
 	last_piece = NC
-	return 1
+	return TRUE

@@ -64,7 +64,7 @@
 	return 100 * charge / maxcharge
 
 // use power from a cell
-/obj/item/stock_parts/cell/proc/use(amount)
+/obj/item/stock_parts/cell/use(amount)
 	if(rigged && amount > 0)
 		explode()
 		return 0
@@ -85,11 +85,11 @@
 	return power_used
 
 /obj/item/stock_parts/cell/examine(mob/user)
-	..()
+	. = ..()
 	if(rigged)
-		to_chat(user, "<span class='danger'>This power cell seems to be faulty!</span>")
+		. += "<span class='danger'>This power cell seems to be faulty!</span>"
 	else
-		to_chat(user, "The charge meter reads [round(percent() )]%.")
+		. += "The charge meter reads [round(percent() )]%."
 
 /obj/item/stock_parts/cell/suicide_act(mob/user)
 	to_chat(viewers(user), "<span class='suicide'>[user] is licking the electrodes of the [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -145,28 +145,22 @@
 	..()
 
 /obj/item/stock_parts/cell/ex_act(severity)
-	switch(severity)
-		if(EXPLODE_DEVASTATE)
-			qdel(src)
-		if(EXPLODE_HEAVY)
-			if(prob(50))
-				qdel(src)
-				return
-			if(prob(50))
-				corrupt()
-		if(EXPLODE_LIGHT)
-			if(prob(25))
-				qdel(src)
-				return
-			if(prob(25))
-				corrupt()
+	..()
+	if(!QDELETED(src))
+		switch(severity)
+			if(2)
+				if(prob(50))
+					corrupt()
+			if(3)
+				if(prob(25))
+					corrupt()
 
-/obj/item/stock_parts/cell/blob_act()
+/obj/item/stock_parts/cell/blob_act(obj/structure/blob/B)
 	ex_act(EXPLODE_DEVASTATE)
 
 /obj/item/stock_parts/cell/proc/get_electrocute_damage()
 	if(charge >= 1000)
-		return Clamp(20 + round(charge / 25000), 20, 195) + rand(-5, 5)
+		return clamp(20 + round(charge / 25000), 20, 195) + rand(-5, 5)
 	else
 		return 0
 

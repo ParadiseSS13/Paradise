@@ -1,8 +1,9 @@
 SUBSYSTEM_DEF(jobs)
 	name = "Jobs"
 	init_order = INIT_ORDER_JOBS // 12
-	wait = 3000 // 5 minutes (Deciseconds)
+	wait = 5 MINUTES // Dont ever make this a super low value since EXP updates are calculated from this value
 	runlevels = RUNLEVEL_GAME
+	offline_implications = "Job playtime hours will no longer be logged. No immediate action is needed."
 
 	//List of all jobs
 	var/list/occupations = list()
@@ -10,7 +11,7 @@ SUBSYSTEM_DEF(jobs)
 	var/list/type_occupations = list()	//Dict of all jobs, keys are types
 	var/list/prioritized_jobs = list() // List of jobs set to priority by HoP/Captain
 	var/list/id_change_records = list() // List of all job transfer records
-	var/list/id_change_counter = 1
+	var/id_change_counter = 1
 	//Players who need jobs
 	var/list/unassigned = list()
 	//Debug info
@@ -24,9 +25,9 @@ SUBSYSTEM_DEF(jobs)
 
 // Only fires every 5 minutes
 /datum/controller/subsystem/jobs/fire()
-	if(!config.sql_enabled || !config.use_exp_tracking)
+	if(!SSdbcore.IsConnected() || !config.use_exp_tracking)
 		return
-	update_exp(5,0)
+	batch_update_player_exp(announce = FALSE) // Set this to true if you ever want to inform players about their EXP gains
 
 /datum/controller/subsystem/jobs/proc/SetupOccupations(var/list/faction = list("Station"))
 	occupations = list()
@@ -39,8 +40,6 @@ SUBSYSTEM_DEF(jobs)
 		var/datum/job/job = new J()
 		if(!job)
 			continue
-		if(!job.faction in faction)
-			continue
 		occupations += job
 		name_occupations[job.title] = job
 		type_occupations[J] = job
@@ -49,7 +48,7 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/Debug(var/text)
-	if(!Debug2)
+	if(!GLOB.debug2)
 		return 0
 	job_debug.Add(text)
 	return 1
@@ -138,7 +137,7 @@ SUBSYSTEM_DEF(jobs)
 		if(flag && !(flag in player.client.prefs.be_special))
 			Debug("FOC flag failed, Player: [player], Flag: [flag], ")
 			continue
-		if(player.mind && job.title in player.mind.restricted_roles)
+		if(player.mind && (job.title in player.mind.restricted_roles))
 			Debug("FOC incompatbile with antagonist role, Player: [player]")
 			continue
 		if(player.client.prefs.GetJobDepartment(job, level) & job.flag)
@@ -155,10 +154,10 @@ SUBSYSTEM_DEF(jobs)
 		if(istype(job, GetJob("Civilian"))) // We don't want to give him assistant, that's boring!
 			continue
 
-		if(job.title in command_positions) //If you want a command position, select it!
+		if(job.title in GLOB.command_positions) //If you want a command position, select it!
 			continue
 
-		if(job.title in whitelisted_positions) // No random whitelisted job, sorry!
+		if(job.title in GLOB.whitelisted_positions) // No random whitelisted job, sorry!
 			continue
 
 		if(job.admin_only) // No admin positions either.
@@ -180,7 +179,7 @@ SUBSYSTEM_DEF(jobs)
 			Debug("GRJ player has disability rendering them ineligible for job, Player: [player]")
 			continue
 
-		if(player.mind && job.title in player.mind.restricted_roles)
+		if(player.mind && (job.title in player.mind.restricted_roles))
 			Debug("GRJ incompatible with antagonist role, Player: [player], Job: [job.title]")
 			continue
 
@@ -203,7 +202,7 @@ SUBSYSTEM_DEF(jobs)
 ///This proc is called before the level loop of DivideOccupations() and will try to select a head, ignoring ALL non-head preferences for every level until it locates a head or runs out of levels to check
 /datum/controller/subsystem/jobs/proc/FillHeadPosition()
 	for(var/level = 1 to 3)
-		for(var/command_position in command_positions)
+		for(var/command_position in GLOB.command_positions)
 			var/datum/job/job = GetJob(command_position)
 			if(!job)
 				continue
@@ -231,7 +230,7 @@ SUBSYSTEM_DEF(jobs)
 
 ///This proc is called at the start of the level loop of DivideOccupations() and will cause head jobs to be checked before any other jobs of the same level
 /datum/controller/subsystem/jobs/proc/CheckHeadPositions(var/level)
-	for(var/command_position in command_positions)
+	for(var/command_position in GLOB.command_positions)
 		var/datum/job/job = GetJob(command_position)
 		if(!job)
 			continue
@@ -272,6 +271,8 @@ SUBSYSTEM_DEF(jobs)
 *  This proc must not have any side effect besides of modifying "assigned_role".
 **/
 /datum/controller/subsystem/jobs/proc/DivideOccupations()
+	// Lets roughly time this
+	var/watch = start_watch()
 	//Setup new player list and get the jobs list
 	Debug("Running DO")
 	SetupOccupations()
@@ -286,7 +287,7 @@ SUBSYSTEM_DEF(jobs)
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(player.ready && player.has_valid_preferences() && player.mind && !player.mind.assigned_role)
 			unassigned += player
-			if(player.client.prefs.randomslot)
+			if(player.client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
 				player.client.prefs.load_random_character_slot(player.client)
 
 	Debug("DO, Len: [unassigned.len]")
@@ -357,7 +358,7 @@ SUBSYSTEM_DEF(jobs)
 					Debug("DO player has disability rendering them ineligible for job, Player: [player], Job:[job.title]")
 					continue
 
-				if(player.mind && job.title in player.mind.restricted_roles)
+				if(player.mind && (job.title in player.mind.restricted_roles))
 					Debug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
 					continue
 
@@ -389,8 +390,11 @@ SUBSYSTEM_DEF(jobs)
 	// Antags, who have to get in, come first
 	for(var/mob/new_player/player in unassigned)
 		if(player.mind.special_role)
-			GiveRandomJob(player)
-			if(player in unassigned)
+			if(player.client.prefs.alternate_option != BE_ASSISTANT)
+				GiveRandomJob(player)
+				if(player in unassigned)
+					AssignRole(player, "Civilian")
+			else
 				AssignRole(player, "Civilian")
 
 	// Then we assign what we can to everyone else.
@@ -402,6 +406,7 @@ SUBSYSTEM_DEF(jobs)
 			player.ready = 0
 			unassigned -= player
 
+	log_debug("Dividing Occupations took [stop_watch(watch)]s")
 	return 1
 
 /datum/controller/subsystem/jobs/proc/AssignRank(var/mob/living/carbon/human/H, var/rank, var/joined_late = 0)
@@ -421,25 +426,25 @@ SUBSYSTEM_DEF(jobs)
 
 	to_chat(H, "<B>You are the [alt_title ? alt_title : rank].</B>")
 	to_chat(H, "<b>As the [alt_title ? alt_title : rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b>")
-	to_chat(H, "<b>For more information on how the station works, see <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure\">Standard Operating Procedure (SOP)</a></b>")
+	to_chat(H, "<b>For more information on how the station works, see <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure\">Standard Operating Procedure (SOP)</a></b>")
 	if(job.is_service)
-		to_chat(H, "<b>As a member of Service, make sure to read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Service&#41\">Department SOP</a></b>")
+		to_chat(H, "<b>As a member of Service, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Service&#41\">Department SOP</a></b>")
 	if(job.is_supply)
-		to_chat(H, "<b>As a member of Supply, make sure to read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Supply&#41\">Department SOP</a></b>")
+		to_chat(H, "<b>As a member of Supply, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Supply&#41\">Department SOP</a></b>")
 	if(job.is_command)
-		to_chat(H, "<b>As an important member of Command, read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Command&#41\">Department SOP</a></b>")
+		to_chat(H, "<b>As an important member of Command, read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Command&#41\">Department SOP</a></b>")
 	if(job.is_legal)
-		to_chat(H, "<b>Your job requires complete knowledge of <a href=\"https://nanotrasen.se/wiki/index.php/Space_law\">Space Law</a> and <a href=\"https://nanotrasen.se/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a></b>")
+		to_chat(H, "<b>Your job requires complete knowledge of <a href=\"https://www.paradisestation.org/wiki/index.php/Space_law\">Space Law</a> and <a href=\"https://www.paradisestation.org/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a></b>")
 	if(job.is_engineering)
-		to_chat(H, "<b>As a member of Engineering, make sure to read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Engineering&#41\">Department SOP</a></b>")
+		to_chat(H, "<b>As a member of Engineering, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Engineering&#41\">Department SOP</a></b>")
 	if(job.is_medical)
-		to_chat(H, "<b>As a member of Medbay, make sure to read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Medical&#41\">Department SOP</a></b>")
+		to_chat(H, "<b>As a member of Medbay, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Medical&#41\">Department SOP</a></b>")
 	if(job.is_science)
-		to_chat(H, "<b>As a member of Science, make sure to read up on your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Science&#41\">Department SOP</a></b>")
+		to_chat(H, "<b>As a member of Science, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Science&#41\">Department SOP</a></b>")
 	if(job.is_security)
-		to_chat(H, "<b>As a member of Security, you are to know <a href=\"https://nanotrasen.se/wiki/index.php/Space_law\">Space Law</a>, <a href=\"https://nanotrasen.se/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a>, as well as your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">Department SOP</a></b>")
+		to_chat(H, "<b>As a member of Security, you are to know <a href=\"https://www.paradisestation.org/wiki/index.php/Space_law\">Space Law</a>, <a href=\"https://www.paradisestation.org/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a>, as well as your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">Department SOP</a></b>")
 	if(job.req_admin_notify)
-		to_chat(H, "<b>You are playing a job that is important for the game progression. If you have to disconnect, please notify the admins via adminhelp.</b>")
+		to_chat(H, "<b>You are playing a job that is important for the game progression. If you have to disconnect, please go to cryo and inform command. If you are unable to do so, please notify the admins via adminhelp.</b>")
 
 	return H
 /datum/controller/subsystem/jobs/proc/EquipRank(mob/living/carbon/human/H, rank, joined_late = 0) // Equip and put them in an area
@@ -495,13 +500,14 @@ SUBSYSTEM_DEF(jobs)
 		job.after_spawn(H)
 
 		//Gives glasses to the vision impaired
-		if(H.disabilities & DISABILITY_FLAG_NEARSIGHTED)
+		if(HAS_TRAIT(H, TRAIT_NEARSIGHT))
 			var/equipped = H.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(H), slot_glasses)
 			if(equipped != 1)
 				var/obj/item/clothing/glasses/G = H.glasses
 				if(istype(G) && !G.prescription)
-					G.prescription = 1
+					G.prescription = TRUE
 					G.name = "prescription [G.name]"
+					H.update_nearsighted_effects()
 	return H
 
 
@@ -545,40 +551,44 @@ SUBSYSTEM_DEF(jobs)
 
 /datum/controller/subsystem/jobs/proc/HandleFeedbackGathering()
 	for(var/datum/job/job in occupations)
-		var/tmp_str = "|[job.title]|"
 
-		var/level1 = 0 //high
-		var/level2 = 0 //medium
-		var/level3 = 0 //low
-		var/level4 = 0 //never
-		var/level5 = 0 //banned
-		var/level6 = 0 //account too young
-		var/level7 = 0 //has disability rendering them ineligible
+		var/high = 0 //high
+		var/medium = 0 //medium
+		var/low = 0 //low
+		var/never = 0 //never
+		var/banned = 0 //banned
+		var/young = 0 //account too young
+		var/disabled = 0 //has disability rendering them ineligible
 		for(var/mob/new_player/player in GLOB.player_list)
 			if(!(player.ready && player.mind && !player.mind.assigned_role))
 				continue //This player is not ready
 			if(jobban_isbanned(player, job.title))
-				level5++
+				banned++
 				continue
 			if(!job.player_old_enough(player.client))
-				level6++
+				young++
 				continue
 			if(job.available_in_playtime(player.client))
-				level6++
+				young++
 				continue
 			if(job.barred_by_disability(player.client))
-				level7++
+				disabled++
 				continue
 			if(player.client.prefs.GetJobDepartment(job, 1) & job.flag)
-				level1++
+				high++
 			else if(player.client.prefs.GetJobDepartment(job, 2) & job.flag)
-				level2++
+				medium++
 			else if(player.client.prefs.GetJobDepartment(job, 3) & job.flag)
-				level3++
-			else level4++ //not selected
+				low++
+			else never++ //not selected
 
-		tmp_str += "HIGH=[level1]|MEDIUM=[level2]|LOW=[level3]|NEVER=[level4]|BANNED=[level5]|YOUNG=[level6]|DISABILITY=[level7]|-"
-		feedback_add_details("job_preferences",tmp_str)
+		SSblackbox.record_feedback("nested tally", "job_preferences", high, list("[job.title]", "high"))
+		SSblackbox.record_feedback("nested tally", "job_preferences", medium, list("[job.title]", "medium"))
+		SSblackbox.record_feedback("nested tally", "job_preferences", low, list("[job.title]", "low"))
+		SSblackbox.record_feedback("nested tally", "job_preferences", never, list("[job.title]", "never"))
+		SSblackbox.record_feedback("nested tally", "job_preferences", banned, list("[job.title]", "banned"))
+		SSblackbox.record_feedback("nested tally", "job_preferences", young, list("[job.title]", "young"))
+		SSblackbox.record_feedback("nested tally", "job_preferences", disabled, list("[job.title]", "disabled"))
 
 
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
@@ -597,7 +607,7 @@ SUBSYSTEM_DEF(jobs)
 	// If they're head, give them the account info for their department
 	if(job && job.head_position)
 		remembered_info = ""
-		var/datum/money_account/department_account = department_accounts[job.department]
+		var/datum/money_account/department_account = GLOB.department_accounts[job.department]
 
 		if(department_account)
 			remembered_info += "<b>Your department's account number is:</b> #[department_account.account_number]<br>"
@@ -617,65 +627,90 @@ SUBSYSTEM_DEF(jobs)
 		var/mob/M = tgtcard.getPlayer()
 		for(var/datum/job/job in occupations)
 			if(tgtcard.assignment && tgtcard.assignment == job.title)
-				jobs_to_formats[job.title] = "disabled" // the job they already have is pre-selected
+				jobs_to_formats[job.title] = "green" // the job they already have is pre-selected
+			else if(tgtcard.assignment == "Demoted" || tgtcard.assignment == "Terminated")
+				jobs_to_formats[job.title] = "grey"
 			else if(!job.would_accept_job_transfer_from_player(M))
-				jobs_to_formats[job.title] = "linkDiscourage" // karma jobs they don't have available are discouraged
+				jobs_to_formats[job.title] = "grey" // jobs which are karma-locked and not unlocked for this player are discouraged
+			else if((job.title in GLOB.command_positions) && istype(M) && M.client && job.available_in_playtime(M.client))
+				jobs_to_formats[job.title] = "grey" // command jobs which are playtime-locked and not unlocked for this player are discouraged
 			else if(job.total_positions && !job.current_positions && job.title != "Civilian")
-				jobs_to_formats[job.title] = "linkEncourage" // jobs with nobody doing them at all are encouraged
+				jobs_to_formats[job.title] = "teal" // jobs with nobody doing them at all are encouraged
 			else if(job.total_positions >= 0 && job.current_positions >= job.total_positions)
-				jobs_to_formats[job.title] = "linkDiscourage" // jobs that are full (no free positions) are discouraged
+				jobs_to_formats[job.title] = "grey" // jobs that are full (no free positions) are discouraged
+		if(tgtcard.assignment == "Demoted" || tgtcard.assignment == "Terminated")
+			jobs_to_formats["Custom"] = "grey"
 	return jobs_to_formats
 
 
-/datum/controller/subsystem/jobs/proc/log_job_transfer(transferee, oldvalue, newvalue, whodidit)
-	id_change_records["[id_change_counter]"] = list("transferee" = transferee, "oldvalue" = oldvalue, "newvalue" = newvalue, "whodidit" = whodidit, "timestamp" = station_time_timestamp())
+
+/datum/controller/subsystem/jobs/proc/log_job_transfer(transferee, oldvalue, newvalue, whodidit, reason)
+	id_change_records["[id_change_counter]"] = list(
+		"transferee" = transferee,
+		"oldvalue" = oldvalue,
+		"newvalue" = newvalue,
+		"whodidit" = whodidit,
+		"timestamp" = station_time_timestamp(),
+		"reason" = reason
+	)
 	id_change_counter++
 
 /datum/controller/subsystem/jobs/proc/slot_job_transfer(oldtitle, newtitle)
 	var/datum/job/oldjobdatum = SSjobs.GetJob(oldtitle)
 	var/datum/job/newjobdatum = SSjobs.GetJob(newtitle)
 	if(istype(oldjobdatum) && oldjobdatum.current_positions > 0 && istype(newjobdatum))
-		if(!(oldjobdatum.title in command_positions) && !(newjobdatum.title in command_positions))
+		if(!(oldjobdatum.title in GLOB.command_positions) && !(newjobdatum.title in GLOB.command_positions))
 			oldjobdatum.current_positions--
 			newjobdatum.current_positions++
 
+/datum/controller/subsystem/jobs/proc/notify_dept_head(jobtitle, antext)
+	// Used to notify the department head of jobtitle X that their employee was brigged, demoted or terminated
+	if(!jobtitle || !antext)
+		return
+	var/datum/job/tgt_job = GetJob(jobtitle)
+	if(!tgt_job)
+		return
+	if(!tgt_job.department_head[1])
+		return
+	var/boss_title = tgt_job.department_head[1]
+	var/obj/item/pda/target_pda
+	for(var/obj/item/pda/check_pda in GLOB.PDAs)
+		if(check_pda.ownrank == boss_title)
+			target_pda = check_pda
+			break
+	if(!target_pda)
+		return
+	var/datum/data/pda/app/messenger/PM = target_pda.find_program(/datum/data/pda/app/messenger)
+	if(PM && PM.can_receive())
+		PM.notify("<b>Automated Notification: </b>\"[antext]\" (Unable to Reply)", 0) // the 0 means don't make the PDA flash
 
-/datum/controller/subsystem/jobs/proc/fetch_transfer_record_html(var/centcom)
-	var/record_html = "<TABLE border=\"1\">"
+/datum/controller/subsystem/jobs/proc/notify_by_name(target_name, antext)
+	// Used to notify a specific crew member based on their real_name
+	if(!target_name || !antext)
+		return
+	var/obj/item/pda/target_pda
+	for(var/obj/item/pda/check_pda in GLOB.PDAs)
+		if(check_pda.owner == target_name)
+			target_pda = check_pda
+			break
+	if(!target_pda)
+		return
+	var/datum/data/pda/app/messenger/PM = target_pda.find_program(/datum/data/pda/app/messenger)
+	if(PM && PM.can_receive())
+		PM.notify("<b>Automated Notification: </b>\"[antext]\" (Unable to Reply)", 0) // the 0 means don't make the PDA flash
 
-	var/table_headers = list("Crewman", "Old Rank", "New Rank", "Authorized By", "Time")
-	var/hidden_fields = list("deletedby")
-	if(centcom)
-		table_headers += "<span class='bad'>Deleted By</span>"
-	record_html += "<TR>"
-	for(var/thisheader in table_headers)
-		record_html += "<TD><B>[thisheader]</B></TD>"
-	record_html += "</TR>"
-
-	var/visible_record_count = 0
+/datum/controller/subsystem/jobs/proc/format_job_change_records(centcom)
+	var/list/formatted = list()
 	for(var/thisid in id_change_records)
 		var/thisrecord = id_change_records[thisid]
-
 		if(thisrecord["deletedby"] && !centcom)
 			continue
-
-		record_html += "<TR>"
+		var/list/newlist = list()
 		for(var/lkey in thisrecord)
-			if(lkey in hidden_fields)
-				if(centcom)
-					record_html += "<TD><span class='bad'>[thisrecord[lkey]]<span></TD>"
-				else
-					continue
-			else
-				record_html += "<TD>[thisrecord[lkey]]</TD>"
-		record_html += "</TR>"
-		visible_record_count++
+			newlist[lkey] = thisrecord[lkey]
+		formatted.Add(list(newlist))
+	return formatted
 
-	record_html += "</TABLE>"
-
-	if(!visible_record_count)
-		return "No records on file yet."
-	return record_html
 
 /datum/controller/subsystem/jobs/proc/delete_log_records(sourceuser, delete_all)
 	. = 0
@@ -691,3 +726,139 @@ SUBSYSTEM_DEF(jobs)
 		new_id_change_records["[id_change_counter]"] = thisrecord
 		id_change_counter++
 	id_change_records = new_id_change_records
+
+// This proc will update all players EXP at once. It will calculate amount of time to add dynamically based on the SS fire time.
+/datum/controller/subsystem/jobs/proc/batch_update_player_exp(announce = FALSE)
+	// Right off the bat
+	var/start_time = start_watch()
+	// First calculate minutes
+	var/divider = 10 // By default, 10 deciseconds in 1 second
+	if(flags & SS_TICKER)
+		divider = 20 // If this SS ever gets made into a ticker SS, account for that
+
+	var/minutes = (wait / divider) / 60 // Calculate minutes based on the SS wait time (How often this proc fires)
+
+	// Step 1: Get us a list of clients to process
+	var/list/client/clients_to_process = GLOB.clients.Copy() // This is copied so that clients joining in the middle of this dont break things
+	Debug("Starting EXP update for [length(clients_to_process)] clients. (Adding [minutes] minutes)")
+
+	var/list/datum/db_query/select_queries = list() // List of SELECT queries to mass grab EXP.
+
+	for(var/i in clients_to_process)
+		var/client/C = i
+		if(!C)
+			continue // If a client logs out in the middle of this
+
+		var/datum/db_query/exp_read = SSdbcore.NewQuery(
+			"SELECT exp FROM [format_table_name("player")] WHERE ckey=:ckey",
+			list("ckey" = C.ckey)
+		)
+
+		select_queries[C.ckey] = exp_read
+
+	var/list/read_records = list()
+	// Explanation for parameters:
+	// TRUE: We want warnings if these fail
+	// FALSE: Do NOT qdel() queries here, otherwise they wont be read. At all.
+	// TRUE: This is an assoc list, so it needs to prepare for that
+	// FALSE: We dont want to logspam
+	SSdbcore.MassExecute(select_queries, TRUE, FALSE, TRUE, FALSE) // Batch execute so we can take advantage of async magic
+
+	for(var/i in clients_to_process)
+		var/client/C = i
+		if(!C)
+			continue // If a client logs out in the middle of this
+
+		if(select_queries[C.ckey]) // This check should not be necessary, but I am paranoid
+			while(select_queries[C.ckey].NextRow())
+				read_records[C.ckey] = params2list(select_queries[C.ckey].item[1])
+
+	QDEL_LIST_ASSOC_VAL(select_queries) // Clean stuff up
+
+	var/list/play_records = list()
+
+	var/list/datum/db_query/player_update_queries = list() // List of queries to update player EXP
+	var/list/datum/db_query/playtime_history_update_queries = list() // List of queries to update the playtime history table
+
+	for(var/i in clients_to_process)
+		var/client/C = i
+		if(!C)
+			continue // If a client logs out in the middle of this
+		// Get us a container
+		play_records[C.ckey] = list()
+		for(var/rtype in GLOB.exp_jobsmap)
+			if(text2num(read_records[C.ckey][rtype]))
+				play_records[C.ckey][rtype] = text2num(read_records[C.ckey][rtype])
+			else
+				play_records[C.ckey][rtype] = 0
+
+
+		var/myrole
+		if(C.mob.mind)
+			if(C.mob.mind.playtime_role)
+				myrole = C.mob.mind.playtime_role
+			else if(C.mob.mind.assigned_role)
+				myrole = C.mob.mind.assigned_role
+
+		var/added_living = 0
+		var/added_ghost = 0
+		if(C.mob.stat == CONSCIOUS && myrole)
+			play_records[C.ckey][EXP_TYPE_LIVING] += minutes
+			added_living += minutes
+
+			if(announce)
+				to_chat(C.mob, "<span class='notice'>You got: [minutes] Living EXP!</span>")
+
+			for(var/category in GLOB.exp_jobsmap)
+				if(GLOB.exp_jobsmap[category]["titles"])
+					if(myrole in GLOB.exp_jobsmap[category]["titles"])
+						play_records[C.ckey][category] += minutes
+						if(announce)
+							to_chat(C.mob, "<span class='notice'>You got: [minutes] [category] EXP!</span>")
+
+			if(C.mob.mind.special_role)
+				play_records[C.ckey][EXP_TYPE_SPECIAL] += minutes
+				if(announce)
+					to_chat(C.mob, "<span class='notice'>You got: [minutes] Special EXP!</span>")
+
+		else if(isobserver(C.mob))
+			play_records[C.ckey][EXP_TYPE_GHOST] += minutes
+			added_ghost += minutes
+			if(announce)
+				to_chat(C.mob, "<span class='notice'>You got: [minutes] Ghost EXP!</span>")
+		else
+			continue
+
+		var/new_exp = list2params(play_records[C.ckey])
+
+		C.prefs.exp = new_exp
+
+		var/datum/db_query/update_query = SSdbcore.NewQuery(
+			"UPDATE [format_table_name("player")] SET exp =:newexp, lastseen=NOW() WHERE ckey=:ckey",
+			list(
+				"newexp" = new_exp,
+				"ckey" = C.ckey
+			)
+		)
+
+		player_update_queries += update_query
+
+		var/datum/db_query/update_query_history = SSdbcore.NewQuery({"
+			INSERT INTO [format_table_name("playtime_history")] (ckey, date, time_living, time_ghost)
+			VALUES (:ckey, CURDATE(), :addedliving, :addedghost)
+			ON DUPLICATE KEY UPDATE time_living=time_living + VALUES(time_living), time_ghost=time_ghost + VALUES(time_ghost)"},
+			list(
+				"ckey" = C.ckey,
+				"addedliving" = added_living,
+				"addedghost" = added_ghost
+			)
+		)
+
+		playtime_history_update_queries += update_query_history
+
+
+	// warn=TRUE, qdel=TRUE, assoc=FALSE, log=FALSE
+	SSdbcore.MassExecute(player_update_queries, TRUE, TRUE, FALSE, FALSE) // Batch execute so we can take advantage of async magic
+	SSdbcore.MassExecute(playtime_history_update_queries, TRUE, TRUE, FALSE, FALSE)
+
+	Debug("Successfully updated all EXP data in [stop_watch(start_time)]s")

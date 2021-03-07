@@ -14,15 +14,12 @@
 
 	health = maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute
 
-	//TODO: fix husking
-	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD) && stat == DEAD)
-		ChangeToHusk()
+	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD * 2) && stat == DEAD)
+		become_husk(BURN)
 	update_stat("updatehealth([reason])")
 	med_hud_set_health()
-	med_hud_set_status()
-	handle_hud_icons_health()
 
-/mob/living/carbon/human/adjustBrainLoss(amount, updating = TRUE)
+/mob/living/carbon/human/adjustBrainLoss(amount, updating = TRUE, use_brain_mod = TRUE)
 	if(status_flags & GODMODE)
 		return STATUS_UPDATE_NONE	//godmode
 
@@ -30,8 +27,9 @@
 		var/obj/item/organ/internal/brain/sponge = get_int_organ(/obj/item/organ/internal/brain)
 		if(sponge)
 			if(dna.species && amount > 0)
-				amount = amount * dna.species.brain_mod
-			sponge.damage = Clamp(sponge.damage + amount, 0, 120)
+				if(use_brain_mod)
+					amount = amount * dna.species.brain_mod
+			sponge.damage = clamp(sponge.damage + amount, 0, 120)
 			if(sponge.damage >= 120)
 				visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
 				death()
@@ -39,7 +37,7 @@
 		update_stat("adjustBrainLoss")
 	return STATUS_UPDATE_STAT
 
-/mob/living/carbon/human/setBrainLoss(amount, updating = TRUE)
+/mob/living/carbon/human/setBrainLoss(amount, updating = TRUE, use_brain_mod = TRUE)
 	if(status_flags & GODMODE)
 		return STATUS_UPDATE_NONE	//godmode
 
@@ -47,8 +45,9 @@
 		var/obj/item/organ/internal/brain/sponge = get_int_organ(/obj/item/organ/internal/brain)
 		if(sponge)
 			if(dna.species && amount > 0)
-				amount = amount * dna.species.brain_mod
-			sponge.damage = Clamp(amount, 0, 120)
+				if(use_brain_mod)
+					amount = amount * dna.species.brain_mod
+			sponge.damage = clamp(amount, 0, 120)
 			if(sponge.damage >= 120)
 				visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
 				death()
@@ -109,7 +108,7 @@
 		var/obj/item/organ/external/O = get_organ(organ_name)
 
 		if(amount > 0)
-			O.receive_damage(amount, 0, sharp=is_sharp(damage_source), used_weapon=damage_source, list(), FALSE, updating_health)
+			O.receive_damage(amount, 0, sharp=is_sharp(damage_source), used_weapon=damage_source, forbidden_limbs = list(), ignore_resists=FALSE, updating_health=updating_health)
 		else
 			//if you don't want to heal robot organs, they you will have to check that yourself before using this proc.
 			O.heal_damage(-amount, 0, internal = 0, robo_repair = O.is_robotic(), updating_health = updating_health)
@@ -128,13 +127,6 @@
 			//if you don't want to heal robot organs, they you will have to check that yourself before using this proc.
 			O.heal_damage(0, -amount, internal = 0, robo_repair = O.is_robotic(), updating_health = updating_health)
 	return STATUS_UPDATE_HEALTH
-
-
-/mob/living/carbon/human/Paralyse(amount)
-	// Notify our AI if they can now control the suit.
-	if(wearing_rig && !stat && paralysis < amount) //We are passing out right this second.
-		wearing_rig.notify_ai("<span class='danger'>Warning: user consciousness failure. Mobility control passed to integrated intelligence system.</span>")
-	return ..()
 
 /mob/living/carbon/human/adjustCloneLoss(amount)
 	if(dna.species && amount > 0)
@@ -177,17 +169,11 @@
 
 // Defined here solely to take species flags into account without having to recast at mob/living level.
 /mob/living/carbon/human/adjustOxyLoss(amount)
-	if(NO_BREATHE in dna.species.species_traits)
-		oxyloss = 0
-		return FALSE
 	if(dna.species && amount > 0)
 		amount = amount * dna.species.oxy_mod
 	. = ..()
 
 /mob/living/carbon/human/setOxyLoss(amount)
-	if(NO_BREATHE in dna.species.species_traits)
-		oxyloss = 0
-		return FALSE
 	if(dna.species && amount > 0)
 		amount = amount * dna.species.oxy_mod
 	. = ..()
@@ -200,6 +186,16 @@
 /mob/living/carbon/human/setToxLoss(amount)
 	if(dna.species && amount > 0)
 		amount = amount * dna.species.tox_mod
+	. = ..()
+
+/mob/living/carbon/human/adjustStaminaLoss(amount, updating = TRUE)
+	if(dna.species && amount > 0)
+		amount = amount * dna.species.stamina_mod
+	. = ..()
+
+/mob/living/carbon/human/setStaminaLoss(amount, updating = TRUE)
+	if(dna.species && amount > 0)
+		amount = amount * dna.species.stamina_mod
 	. = ..()
 
 ////////////////////////////////////////////
@@ -318,7 +314,7 @@ This function restores all organs.
 		return 0
 
 
-/mob/living/carbon/human/proc/get_organ(zone)
+/mob/living/carbon/human/get_organ(zone)
 	if(!zone)
 		zone = "chest"
 	if(zone in list("eyes", "mouth"))
@@ -326,64 +322,5 @@ This function restores all organs.
 
 	return bodyparts_by_name[zone]
 
-/mob/living/carbon/human/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, sharp = 0, obj/used_weapon = null)
-	//Handle other types of damage
-	if((damagetype != BRUTE) && (damagetype != BURN))
-		..(damage, damagetype, def_zone, blocked)
-		return 1
-
-	//Handle BRUTE and BURN damage
-	handle_suit_punctures(damagetype, damage)
-
-	blocked = (100 - blocked) / 100
-	if(blocked <= 0)
-		return 0
-
-	var/obj/item/organ/external/organ = null
-	if(isorgan(def_zone))
-		organ = def_zone
-	else
-		if(!def_zone)
-			def_zone = ran_zone(def_zone)
-		organ = get_organ(check_zone(def_zone))
-	if(!organ)
-		return 0
-
-	damage = damage * blocked
-
-	switch(damagetype)
-		if(BRUTE)
-			damageoverlaytemp = 20
-			if(dna.species)
-				damage = damage * dna.species.brute_mod
-
-			if(organ.receive_damage(damage, 0, sharp, used_weapon))
-				UpdateDamageIcon()
-
-			if(LAssailant && ishuman(LAssailant)) //superheros still get the comical hit markers
-				var/mob/living/carbon/human/H = LAssailant
-				if(H.mind && H.mind in (SSticker.mode.superheroes || SSticker.mode.supervillains || SSticker.mode.greyshirts))
-					var/list/attack_bubble_recipients = list()
-					var/mob/living/user
-					for(var/mob/O in viewers(user, src))
-						if(O.client && O.has_vision(information_only=TRUE))
-							attack_bubble_recipients.Add(O.client)
-					spawn(0)
-						var/image/dmgIcon = image('icons/effects/hit_blips.dmi', src, "dmg[rand(1,2)]",MOB_LAYER+1)
-						dmgIcon.pixel_x = (!lying) ? rand(-3,3) : rand(-11,12)
-						dmgIcon.pixel_y = (!lying) ? rand(-11,9) : rand(-10,1)
-						flick_overlay(dmgIcon, attack_bubble_recipients, 9)
-
-
-		if(BURN)
-			damageoverlaytemp = 20
-
-			if(dna.species)
-				damage = damage * dna.species.burn_mod
-
-			if(organ.receive_damage(0, damage, sharp, used_weapon))
-				UpdateDamageIcon()
-
-	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().
-	updatehealth("apply damage")
-	return 1
+/mob/living/carbon/human/apply_damage(damage = 0, damagetype = BRUTE, def_zone, blocked = 0, sharp = FALSE, obj/used_weapon, spread_damage = FALSE)
+	return dna.species.apply_damage(damage, damagetype, def_zone, blocked, src, sharp, used_weapon, spread_damage)

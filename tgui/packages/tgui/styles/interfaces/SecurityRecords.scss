@@ -1,0 +1,52 @@
+@use '../base.scss';
+@use '../colors.scss';
+@use '../functions.scss' as *;
+
+.SecurityRecords__list {
+  tr > td {
+    text-align: center;
+  }
+
+  tr:not(:first-child) {
+    height: 24px;
+    line-height: 24px;
+    cursor: pointer;
+
+    transition: background-color 50ms;
+    &:hover, &:focus {
+      background-color: rgba(base.$color-bg, 1);
+    }
+  }
+}
+
+.SecurityRecords__listRow--arrest {
+  background-color: colors.bg(#890e26);
+}
+
+.SecurityRecords__listRow--execute {
+  background-color: colors.bg(#7a49a5);
+}
+
+.SecurityRecords__listRow--incarcerated {
+  background-color: colors.bg(#743b03);
+}
+
+.SecurityRecords__listRow--parolled {
+  background-color: colors.bg(#008091);
+}
+
+.SecurityRecords__listRow--released {
+  background-color: colors.bg(#216489);
+}
+
+.SecurityRecords__listRow--demote {
+  background-color: colors.bg(#196400);
+}
+
+.SecurityRecords__listRow--search {
+  background-color: colors.bg(#b38f00);
+}
+
+.SecurityRecords__listRow--monitor {
+  background-color: colors.bg(#251496);
+}

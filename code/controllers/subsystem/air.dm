@@ -14,6 +14,7 @@ SUBSYSTEM_DEF(air)
 	wait = 5
 	flags = SS_BACKGROUND
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
+	offline_implications = "Turfs will no longer process atmos, and all atmospheric machines (including cryotubes) will no longer function. Shuttle call recommended."
 	var/cost_turfs = 0
 	var/cost_groups = 0
 	var/cost_highpressure = 0
@@ -30,12 +31,16 @@ SUBSYSTEM_DEF(air)
 	var/list/networks = list()
 	var/list/atmos_machinery = list()
 	var/list/pipe_init_dirs_cache = list()
+	var/list/machinery_to_construct = list()
 
 
 
 	//Special functions lists
 	var/list/active_super_conductivity = list()
 	var/list/high_pressure_delta = list()
+
+	/// Pipe overlay/underlay icon manager
+	var/datum/pipe_icon_manager/icon_manager
 
 
 	var/list/currentrun = list()
@@ -64,11 +69,13 @@ SUBSYSTEM_DEF(air)
 
 /datum/controller/subsystem/air/Initialize(timeofday)
 	setup_overlays() // Assign icons and such for gas-turf-overlays
+	icon_manager = new() // Sets up icon manager for pipes
 	setup_allturfs()
 	setup_atmos_machinery(GLOB.machines)
 	setup_pipenets(GLOB.machines)
+	for(var/obj/machinery/atmospherics/A in machinery_to_construct)
+		A.initialize_atmos_network()
 	return ..()
-
 
 /datum/controller/subsystem/air/fire(resumed = 0)
 	var/timer = TICK_USAGE_REAL
@@ -273,12 +280,8 @@ SUBSYSTEM_DEF(air)
 		if(blockchanges && T.excited_group)
 			T.excited_group.garbage_collect()
 	else
-		for(var/direction in cardinal)
-			if(!(T.atmos_adjacent_turfs & direction))
-				continue
-			var/turf/simulated/S = get_step(T, direction)
-			if(istype(S))
-				add_to_active(S)
+		for(var/turf/simulated/S in T.atmos_adjacent_turfs)
+			add_to_active(S)
 
 /datum/controller/subsystem/air/proc/setup_allturfs(var/list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz)))
 	var/list/active_turfs = src.active_turfs
@@ -322,7 +325,7 @@ SUBSYSTEM_DEF(air)
 	var/watch = start_watch()
 	log_startup_progress("Initializing atmospherics machinery...")
 	var/count = _setup_atmos_machinery(machines_to_init)
-	log_startup_progress("	Initialized [count] atmospherics machines in [stop_watch(watch)]s.")
+	log_startup_progress("Initialized [count] atmospherics machines in [stop_watch(watch)]s.")
 
 // this underscored variant is so that we can have a means of late initing
 // atmos machinery without a loud announcement to the world
@@ -346,7 +349,7 @@ SUBSYSTEM_DEF(air)
 	var/watch = start_watch()
 	log_startup_progress("Initializing pipe networks...")
 	var/count = _setup_pipenets(pipes)
-	log_startup_progress("	Initialized [count] pipenets in [stop_watch(watch)]s.")
+	log_startup_progress("Initialized [count] pipenets in [stop_watch(watch)]s.")
 
 // An underscored wrapper that exists for the same reason
 // the machine init wrapper does
@@ -358,21 +361,21 @@ SUBSYSTEM_DEF(air)
 	return count
 
 /datum/controller/subsystem/air/proc/setup_overlays()
-	plmaster = new /obj/effect/overlay()
-	plmaster.icon = 'icons/effects/tile_effects.dmi'
-	plmaster.icon_state = "plasma"
-	plmaster.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	plmaster.anchored = TRUE  // should only appear in vis_contents, but to be safe
-	plmaster.layer = FLY_LAYER
-	plmaster.appearance_flags = TILE_BOUND
+	GLOB.plmaster = new /obj/effect/overlay()
+	GLOB.plmaster.icon = 'icons/effects/tile_effects.dmi'
+	GLOB.plmaster.icon_state = "plasma"
+	GLOB.plmaster.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	GLOB.plmaster.anchored = TRUE  // should only appear in vis_contents, but to be safe
+	GLOB.plmaster.layer = FLY_LAYER
+	GLOB.plmaster.appearance_flags = TILE_BOUND
 
-	slmaster = new /obj/effect/overlay()
-	slmaster.icon = 'icons/effects/tile_effects.dmi'
-	slmaster.icon_state = "sleeping_agent"
-	slmaster.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	slmaster.anchored = TRUE  // should only appear in vis_contents, but to be safe
-	slmaster.layer = FLY_LAYER
-	slmaster.appearance_flags = TILE_BOUND
+	GLOB.slmaster = new /obj/effect/overlay()
+	GLOB.slmaster.icon = 'icons/effects/tile_effects.dmi'
+	GLOB.slmaster.icon_state = "sleeping_agent"
+	GLOB.slmaster.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	GLOB.slmaster.anchored = TRUE  // should only appear in vis_contents, but to be safe
+	GLOB.slmaster.layer = FLY_LAYER
+	GLOB.slmaster.appearance_flags = TILE_BOUND
 
 #undef SSAIR_PIPENETS
 #undef SSAIR_ATMOSMACHINERY

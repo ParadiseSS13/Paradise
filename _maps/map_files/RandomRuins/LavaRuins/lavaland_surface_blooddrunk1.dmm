@@ -151,10 +151,6 @@
 /obj/structure/stone_tile/cracked,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"z" = (
-/obj/effect/baseturf_helper/lava_land/surface,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 
 (1,1,1) = {"
 a
@@ -291,7 +287,7 @@ f
 j
 c
 r
-z
+c
 o
 c
 c

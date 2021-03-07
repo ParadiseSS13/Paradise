@@ -29,6 +29,10 @@
 /obj/item/reagent_containers/food/condiment/attack_self(mob/user)
 	return
 
+/obj/item/reagent_containers/food/condiment/set_APTFT()
+	set hidden = FALSE
+	..()
+
 /obj/item/reagent_containers/food/condiment/attack(mob/M, mob/user, def_zone)
 
 	if(!reagents || !reagents.total_volume)
@@ -44,10 +48,10 @@
 		if(!reagents || !reagents.total_volume)
 			return // The condiment might be empty after the delay.
 		user.visible_message("<span class='warning'>[user] feeds [M] from [src].</span>")
-		add_attack_logs(user, M, "Fed [src] containing [reagents.log_list()]")
+		add_attack_logs(user, M, "Fed [src] containing [reagents.log_list()]", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
 	var/fraction = min(10/reagents.total_volume, 1)
-	reagents.reaction(M, INGEST, fraction)
+	reagents.reaction(M, REAGENT_INGEST, fraction)
 	reagents.trans_to(M, 10)
 	playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 	return 1
@@ -131,7 +135,7 @@
 	user.name = newname
 	user.real_name = newname
 	desc = "Salt. From dead crew, presumably."
-	return TOXLOSS
+	return BRUTELOSS
 
 /obj/item/reagent_containers/food/condiment/peppermill
 	name = "pepper mill"

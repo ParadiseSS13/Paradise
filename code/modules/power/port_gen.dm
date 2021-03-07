@@ -1,3 +1,5 @@
+#define SHEET_VOLUME 1000 //cm3
+
 //Baseline portable generator. Has all the default handling. Not intended to be used on it's own (since it generates unlimited power).
 /obj/machinery/power/port_gen
 	name = "Placeholder Generator"	//seriously, don't use this. It can't be anchored without VV magic.
@@ -52,12 +54,12 @@
 		return
 
 /obj/machinery/power/port_gen/examine(mob/user)
-	if(!..(user,1 ))
-		return
-	if(active)
-		to_chat(usr, "<span class='notice'>The generator is on.</span>")
-	else
-		to_chat(usr, "<span class='notice'>The generator is off.</span>")
+	. = ..()
+	if(!in_range(user, src))
+		if(active)
+			. += "<span class='notice'>The generator is on.</span>"
+		else
+			. += "<span class='notice'>The generator is off.</span>"
 
 /obj/machinery/power/port_gen/emp_act(severity)
 	var/duration = 6000 //ten minutes
@@ -154,13 +156,13 @@
 	power_gen = round(initial(power_gen) * (max(2, temp_rating) / 2))
 
 /obj/machinery/power/port_gen/pacman/examine(mob/user)
-	..(user)
-	to_chat(user, "\The [src] appears to be producing [power_gen*power_output] W.")
-	to_chat(user, "There [sheets == 1 ? "is" : "are"] [sheets] sheet\s left in the hopper.")
+	. = ..()
+	. += "\The [src] appears to be producing [power_gen*power_output] W."
+	. += "There [sheets == 1 ? "is" : "are"] [sheets] sheet\s left in the hopper."
 	if(IsBroken())
-		to_chat(user, "<span class='warning'>\The [src] seems to have broken down.</span>")
+		. += "<span class='warning'>\The [src] seems to have broken down.</span>"
 	if(overheating)
-		to_chat(user, "<span class='danger'>\The [src] is overheating!</span>")
+		. += "<span class='danger'>\The [src] is overheating!</span>"
 
 /obj/machinery/power/port_gen/pacman/HasFuel()
 	var/needed_sheets = power_output / time_per_sheet
@@ -239,7 +241,7 @@
 		var/temp_loss = (temperature - cooling_temperature)/TEMPERATURE_DIVISOR
 		temp_loss = between(2, round(temp_loss, 1), TEMPERATURE_CHANGE_MAX)
 		temperature = max(temperature - temp_loss, cooling_temperature)
-		SSnanoui.update_uis(src)
+		SStgui.update_uis(src)
 
 	if(overheating)
 		overheating--
@@ -280,7 +282,7 @@
 		to_chat(user, "<span class='notice'>You add [amount] sheet\s to the [src.name].</span>")
 		sheets += amount
 		addstack.use(amount)
-		SSnanoui.update_uis(src)
+		SStgui.update_uis(src)
 		return
 	else if(!active)
 		if(istype(O, /obj/item/wrench))
@@ -306,82 +308,75 @@
 			exchange_parts(user, O)
 			return
 		else if(istype(O, /obj/item/crowbar) && panel_open)
-			default_deconstruction_crowbar(O)
+			default_deconstruction_crowbar(user, O)
+	else
+		return ..()
 
 /obj/machinery/power/port_gen/pacman/attack_hand(mob/user as mob)
 	..()
-	if(!anchored)
-		return
 	ui_interact(user)
 
 /obj/machinery/power/port_gen/pacman/attack_ai(var/mob/user as mob)
-	src.add_hiddenprint(user)
-	return src.attack_hand(user)
+	add_hiddenprint(user)
+	return attack_hand(user)
 
 /obj/machinery/power/port_gen/pacman/attack_ghost(var/mob/user)
-	return src.attack_hand(user)
+	return attack_hand(user)
 
-/obj/machinery/power/port_gen/pacman/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	if(IsBroken())
-		return
-
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/power/port_gen/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "pacman.tmpl", src.name, 500, 560)
+		ui = new(user, src, ui_key, "Pacman", name, 500, 260)
 		ui.open()
-		ui.set_auto_update(1)
 
-/obj/machinery/power/port_gen/pacman/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
-	var/data[0]
+/obj/machinery/power/port_gen/pacman/ui_data(mob/user)
+	var/list/data = list()
 
 	data["active"] = active
 	if(istype(user, /mob/living/silicon/ai))
-		data["is_ai"] = 1
+		data["is_ai"] = TRUE
 	else if(istype(user, /mob/living/silicon/robot) && !Adjacent(user))
-		data["is_ai"] = 1
+		data["is_ai"] = TRUE
 	else
-		data["is_ai"] = 0
+		data["is_ai"] = FALSE
 
+	data["anchored"] = anchored
+	data["broken"] = IsBroken()
 	data["output_set"] = power_output
 	data["output_max"] = max_power_output
 	data["output_safe"] = max_safe_output
-	data["output_watts"] = power_output * power_gen
-	data["temperature_current"] = src.temperature
-	data["temperature_max"] = src.max_temperature
-	data["temperature_overheat"] = overheating
-	// 1 sheet = 1000cm3?
-	data["fuel_stored"] = round((sheets * 1000) + (sheet_left * 1000))
-	data["fuel_capacity"] = round(max_sheets * 1000, 0.1)
-	data["fuel_usage"] = active ? round((power_output / time_per_sheet) * 1000) : 0
+	data["power_gen"] = power_gen
+	data["tmp_current"] = temperature
+	data["tmp_max"] = max_temperature
+	data["tmp_overheat"] = overheating
+	data["fuel_stored"] = round((sheets * SHEET_VOLUME) + (sheet_left * SHEET_VOLUME))
+	data["fuel_cap"] = round(max_sheets * SHEET_VOLUME, 0.1)
+	data["fuel_usage"] = active ? round((power_output / time_per_sheet) * SHEET_VOLUME) : 0
 	data["fuel_type"] = sheet_name
+	data["has_fuel"] = HasFuel()
 
 	return data
 
-/obj/machinery/power/port_gen/pacman/Topic(href, href_list)
+/obj/machinery/power/port_gen/pacman/ui_act(action, params)
 	if(..())
 		return
 
-	src.add_fingerprint(usr)
-	if(href_list["action"])
-		if(href_list["action"] == "enable")
-			if(!active && HasFuel() && !IsBroken())
-				active = 1
-				update_icon()
-		if(href_list["action"] == "disable")
-			if(active)
-				active = 0
-				update_icon()
-		if(href_list["action"] == "eject")
-			if(!active)
-				DropFuel()
-		if(href_list["action"] == "lower_power")
-			if(power_output > 1)
-				power_output--
-		if(href_list["action"] == "higher_power")
-			if(power_output < max_power_output || (emagged && power_output < round(max_power_output*2.5)))
-				power_output++
+	add_fingerprint(usr)
 
-	SSnanoui.update_uis(src)
+	. = TRUE
+
+	switch(action)
+		if("toggle_power")
+			if(!powernet) //only a warning, process will disable
+				atom_say("Not connected to powernet.")
+			active = !active
+			update_icon()
+		if("eject_fuel")
+			DropFuel()
+		if("change_power")
+			var/newPower = text2num(params["change_power"])
+			if(newPower)
+				power_output = clamp(newPower, 1, max_power_output)
 
 /obj/machinery/power/port_gen/pacman/super
 	name = "S.U.P.E.R.P.A.C.M.A.N.-type Portable Generator"
@@ -406,19 +401,13 @@
 
 /obj/machinery/power/port_gen/pacman/super/UseFuel()
 	//produces a tiny amount of radiation when in use
-	if(prob(2*power_output))
-		for(var/mob/living/L in range(src, 5))
-			L.apply_effect(1, IRRADIATE) //should amount to ~5 rads per minute at max safe power
+	if(prob(2 * power_output))
+		radiation_pulse(get_turf(src), 50)
 	..()
 
 /obj/machinery/power/port_gen/pacman/super/explode()
 	//a nice burst of radiation
-	var/rads = 50 + (sheets + sheet_left)*1.5
-	for(var/mob/living/L in range(src, 10))
-		//should really fall with the square of the distance, but that makes the rads value drop too fast
-		//I dunno, maybe physics works different when you live in 2D -- SM radiation also works like this, apparently
-		L.apply_effect(max(20, round(rads/get_dist(L,src))), IRRADIATE)
-
+	radiation_pulse(get_turf(src), 500, 2)
 	explosion(src.loc, 3, 3, 5, 3)
 	qdel(src)
 

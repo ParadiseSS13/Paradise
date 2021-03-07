@@ -29,15 +29,15 @@ Actual Adjacent procs :
 //////////////////////
 
 //A* nodes variables
-/PathNode
+/datum/pathnode
 	var/turf/source //turf associated with the PathNode
-	var/PathNode/prevNode //link to the parent PathNode
+	var/datum/pathnode/prevNode //link to the parent PathNode
 	var/f		//A* Node weight (f = g + h)
 	var/g		//A* movement cost variable
 	var/h		//A* heuristic variable
 	var/nt		//count the number of Nodes traversed
 
-/PathNode/New(s,p,pg,ph,pnt)
+/datum/pathnode/New(s,p,pg,ph,pnt)
 	source = s
 	prevNode = p
 	g = pg
@@ -46,7 +46,7 @@ Actual Adjacent procs :
 	source.PNode = src
 	nt = pnt
 
-/PathNode/proc/calc_f()
+/datum/pathnode/proc/calc_f()
 	f = g + h
 
 //////////////////////
@@ -54,45 +54,43 @@ Actual Adjacent procs :
 //////////////////////
 
 //the weighting function, used in the A* algorithm
-/proc/PathWeightCompare(PathNode/a, PathNode/b)
+/proc/PathWeightCompare(datum/pathnode/a, datum/pathnode/b)
 	return a.f - b.f
 
 //reversed so that the Heap is a MinHeap rather than a MaxHeap
-/proc/HeapPathWeightCompare(PathNode/a, PathNode/b)
+/proc/HeapPathWeightCompare(datum/pathnode/a, datum/pathnode/b)
 	return b.f - a.f
 
 //wrapper that returns an empty list if A* failed to find a path
-/proc/get_path_to(caller, end, dist, maxnodes, maxnodedepth = 30, mintargetdist, adjacent = /turf/proc/reachableAdjacentTurfs, id=null, turf/exclude=null, simulated_only = 1)
+/proc/get_path_to(caller, end, dist, maxnodes, maxnodedepth = 30, mintargetdist, adjacent = /turf/proc/reachableAdjacentTurfs, id = null, turf/exclude = null, simulated_only = TRUE)
 	var/list/path = AStar(caller, end, dist, maxnodes, maxnodedepth, mintargetdist, adjacent, id, exclude, simulated_only)
 	if(!path)
 		path = list()
 	return path
 
 //the actual algorithm
-/proc/AStar(caller, end, dist, maxnodes, maxnodedepth = 30, mintargetdist, adjacent = /turf/proc/reachableAdjacentTurfs, id=null, turf/exclude=null, simulated_only = 1)
-
+/proc/AStar(caller, end, dist, maxnodes, maxnodedepth = 30, mintargetdist, adjacent = /turf/proc/reachableAdjacentTurfs, id = null, turf/exclude = null, simulated_only = TRUE)
 	//sanitation
 	var/start = get_turf(caller)
 	if(!start)
-		return 0
+		return null
 
 	if(maxnodes)
 		//if start turf is farther than maxnodes from end turf, no need to do anything
 		if(call(start, dist)(end) > maxnodes)
-			return 0
+			return null
 		maxnodedepth = maxnodes //no need to consider path longer than maxnodes
 
-	var/Heap/open = new /Heap(/proc/HeapPathWeightCompare) //the open list
+	var/datum/heap/open = new /datum/heap(/proc/HeapPathWeightCompare) //the open list
 	var/list/closed = new() //the closed list
 	var/list/path = null //the returned path, if any
-	var/PathNode/cur //current processed turf
+	var/datum/pathnode/cur //current processed turf
 
 	//initialization
-	open.Insert(new /PathNode(start,null,0,call(start,dist)(end),0))
+	open.Insert(new /datum/pathnode(start,null,0,call(start,dist)(end),0))
 
 	//then run the main loop
 	while(!open.IsEmpty() && !path)
-	{
 		//get the lower f node on the open list
 		cur = open.Pop() //get the lower f turf in the open list
 		closed.Add(cur.source) //and tell we've processed it
@@ -100,7 +98,7 @@ Actual Adjacent procs :
 		//if we only want to get near the target, check if we're close enough
 		var/closeenough
 		if(mintargetdist)
-			closeenough = call(cur.source,dist)(end) <= mintargetdist
+			closeenough = call(cur.source, dist)(end) <= mintargetdist
 
 		//if too many steps, abandon that path
 		if(maxnodedepth && (cur.nt > maxnodedepth))
@@ -118,14 +116,15 @@ Actual Adjacent procs :
 			break
 
 		//get adjacents turfs using the adjacent proc, checking for access with id
-		var/list/L = call(cur.source,adjacent)(caller, id, simulated_only)
-		for(var/turf/T in L)
+		var/list/L = call(cur.source, adjacent)(caller, id, simulated_only)
+		for(var/t in L)
+			var/turf/T = t
 			if(T == exclude || (T in closed))
 				continue
 
-			var/newg = cur.g + call(cur.source,dist)(T)
+			var/newg = cur.g + call(cur.source, dist)(T)
 			if(!T.PNode) //is not already in open list, so add it
-				open.Insert(new /PathNode(T,cur,newg,call(T,dist)(end),cur.nt+1))
+				open.Insert(new /datum/pathnode(T,cur,newg,call(T,dist)(end),cur.nt+1))
 			else //is already in open list, check if it's a better way from the current turf
 				if(newg < T.PNode.g)
 					T.PNode.prevNode = cur
@@ -134,18 +133,17 @@ Actual Adjacent procs :
 					T.PNode.nt = cur.nt + 1
 					open.ReSort(T.PNode)//reorder the changed element in the list
 
-	}
-
 	//cleaning after us
-	for(var/PathNode/PN in open.L)
+	for(var/datum/pathnode/PN in open.L)
 		PN.source.PNode = null
-	for(var/turf/T in closed)
+	for(var/t in closed)
+		var/turf/T = t
 		T.PNode = null
 
 	//reverse the path to get it from start to finish
 	if(path)
-		for(var/i = 1; i <= path.len/2; i++)
-			path.Swap(i,path.len-i+1)
+		for(var/i in 1 to path.len / 2)
+			path.Swap(i, path.len - i + 1)
 
 	return path
 
@@ -155,11 +153,11 @@ Actual Adjacent procs :
 	var/list/L = new()
 	var/turf/simulated/T
 
-	for(var/dir in cardinal)
-		T = get_step(src,dir)
+	for(var/dir in GLOB.cardinal)
+		T = get_step(src, dir)
 		if(!T || (simulated_only && !istype(T)))
 			continue
-		if(!T.density && !LinkBlockedWithAccess(T,caller, ID))
+		if(!T.density && !LinkBlockedWithAccess(T, caller, ID))
 			L.Add(T)
 	return L
 
@@ -170,15 +168,21 @@ Actual Adjacent procs :
 /turf/proc/LinkBlockedWithAccess(turf/T, caller, ID)
 	var/adir = get_dir(src, T)
 	var/rdir = get_dir(T, src)
+	var/atom/caller_atom = caller
+	if(!istype(caller_atom))
+		caller_atom = null
 
 	for(var/obj/structure/window/W in src)
 		if(!W.CanAStarPass(ID, adir))
-			return 1
+			return TRUE
 	for(var/obj/machinery/door/window/W in src)
 		if(!W.CanAStarPass(ID, adir))
-			return 1
+			return TRUE
 	for(var/obj/O in T)
-		if(!O.CanAStarPass(ID, rdir, caller))
-			return 1
+		var/pass_through = FALSE
+		if(caller_atom)
+			pass_through = caller_atom.CanAStarPassTo(ID, adir, O)
+		if(!O.CanAStarPass(ID, rdir, caller) && !pass_through)
+			return TRUE
 
-	return 0
+	return FALSE

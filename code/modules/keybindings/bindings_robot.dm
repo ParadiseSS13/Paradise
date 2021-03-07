@@ -10,6 +10,9 @@
 			cycle_modules()
 			return
 		if("Q")
-			uneq_active()
-			return
+			if(!(client.prefs.toggles & PREFTOGGLE_AZERTY))
+				on_drop_hotkey_press() // User is in QWERTY hotkey mode.
+		if("A")
+			if(client.prefs.toggles & PREFTOGGLE_AZERTY)
+				on_drop_hotkey_press()
 	return ..()

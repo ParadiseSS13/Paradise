@@ -1,30 +1,15 @@
-/datum/reagent/serotrotium
-	name = "Serotrotium"
-	id = "serotrotium"
-	description = "A chemical compound that promotes concentrated production of the serotonin neurotransmitter in humans."
-	reagent_state = LIQUID
-	color = "#202040" // rgb: 20, 20, 40
-	metabolization_rate = 0.25 * REAGENTS_METABOLISM
-
-/datum/reagent/serotrotium/on_mob_life(mob/living/M)
-	if(ishuman(M))
-		if(prob(7))
-			M.emote(pick("twitch","drool","moan","gasp"))
-	return ..()
-
-
 /datum/reagent/lithium
 	name = "Lithium"
 	id = "lithium"
 	description = "A chemical element."
 	reagent_state = SOLID
 	color = "#808080" // rgb: 128, 128, 128
-	taste_message = "metal"
+	taste_description = "metal"
 
 /datum/reagent/lithium/on_mob_life(mob/living/M)
 	if(isturf(M.loc) && !istype(M.loc, /turf/space))
 		if(M.canmove && !M.restrained())
-			step(M, pick(cardinal))
+			step(M, pick(GLOB.cardinal))
 	if(prob(5))
 		M.emote(pick("twitch","drool","moan"))
 	return ..()
@@ -35,7 +20,7 @@
 	description = "A highly potent hallucinogenic substance. Far out, maaaan."
 	reagent_state = LIQUID
 	color = "#0000D8"
-	taste_message = "a magical journey"
+	taste_description = "a magical journey"
 
 /datum/reagent/lsd/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -50,16 +35,17 @@
 	reagent_state = LIQUID
 	color = "#9087A2"
 	metabolization_rate = 0.2
-	addiction_chance = 65
+	addiction_chance = 15
+	addiction_threshold = 10
 	heart_rate_decrease = 1
-	taste_message = "a synthetic high"
+	taste_description = "a synthetic high"
 
 /datum/reagent/space_drugs/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.Druggy(15, FALSE)
 	if(isturf(M.loc) && !istype(M.loc, /turf/space))
 		if(M.canmove && !M.restrained())
-			step(M, pick(cardinal))
+			step(M, pick(GLOB.cardinal))
 	if(prob(7))
 		M.emote(pick("twitch","drool","moan","giggle"))
 	return ..() | update_flags
@@ -69,7 +55,7 @@
 	id = "psilocybin"
 	description = "A strong psycotropic derived from certain species of mushroom."
 	color = "#E700E7" // rgb: 231, 0, 231
-	taste_message = "visions"
+	taste_description = "visions"
 
 /datum/reagent/psilocybin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -103,9 +89,11 @@
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 35
-	addiction_chance = 70
+	addiction_chance = 15
+	addiction_threshold = 10
+	minor_addiction = TRUE
 	heart_rate_increase = 1
-	taste_message = "calm"
+	taste_description = "calm"
 
 /datum/reagent/nicotine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -155,7 +143,7 @@
 		else if(effect <= 7)
 			M.emote("collapse")
 			to_chat(M, "<span class='warning'>Your heart is pounding!</span>")
-			M << 'sound/effects/singlebeat.ogg'
+			SEND_SOUND(M, sound('sound/effects/singlebeat.ogg'))
 			update_flags |= M.Paralyse(5, FALSE)
 			M.Jitter(30)
 			update_flags |= M.adjustToxLoss(6, FALSE)
@@ -169,7 +157,9 @@
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 20
-	addiction_chance = 50
+	addiction_chance = 10
+	addiction_threshold = 5
+	taste_description = "bitterness"
 
 /datum/reagent/crank/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -241,8 +231,9 @@
 	reagent_state = LIQUID
 	color = "#0264B4"
 	overdose_threshold = 20
-	addiction_chance = 50
-	taste_message = "very poor life choices"
+	addiction_chance = 10
+	addiction_threshold = 10
+	taste_description = "very poor life choices"
 
 
 /datum/reagent/krokodil/on_mob_life(mob/living/M)
@@ -299,7 +290,7 @@
 				H.visible_message("<span class='warning'>[M]'s skin is rotting away!</span>")
 				update_flags |= H.adjustBruteLoss(25, FALSE)
 				H.emote("scream")
-				H.ChangeToHusk()
+				H.become_husk("krokodil_overdose")
 				H.emote("faint")
 		else if(effect <= 7)
 			M.emote("shiver")
@@ -313,10 +304,11 @@
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 20
-	addiction_chance = 60
+	addiction_chance = 10
+	addiction_threshold = 5
 	metabolization_rate = 0.6
 	heart_rate_increase = 1
-	taste_message = "speed"
+	taste_description = "speed"
 
 /datum/reagent/methamphetamine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -330,13 +322,13 @@
 	update_flags |= M.AdjustWeakened(-2.5, FALSE)
 	update_flags |= M.adjustStaminaLoss(-2, FALSE)
 	update_flags |= M.SetSleeping(0, FALSE)
-	M.status_flags |= GOTTAGOFAST_METH
+	ADD_TRAIT(M, TRAIT_GOTTAGOFAST, id)
 	if(prob(50))
 		update_flags |= M.adjustBrainLoss(1, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/methamphetamine/on_mob_delete(mob/living/M)
-	M.status_flags &= ~GOTTAGOFAST_METH
+	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)
 	..()
 
 /datum/reagent/methamphetamine/overdose_process(mob/living/M, severity)
@@ -374,9 +366,10 @@
 	reagent_state = SOLID
 	color = "#FAFAFA"
 	overdose_threshold = 20
-	addiction_chance = 80
+	addiction_chance = 15
+	addiction_threshold = 5
 	metabolization_rate = 0.6
-	taste_message = "WAAAAGH"
+	taste_description = "WAAAAGH"
 
 /datum/reagent/bath_salts/on_mob_life(mob/living/M)
 	var/check = rand(0,100)
@@ -411,12 +404,12 @@
 		to_chat(M, "<span class='userdanger'>THEY'RE GONNA GET YOU!</span>")
 	return ..() | update_flags
 
-/datum/reagent/bath_salts/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == INGEST)
+/datum/reagent/bath_salts/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_INGEST)
 		to_chat(M, "<span class = 'danger'><font face='[pick("Curlz MT", "Comic Sans MS")]' size='[rand(4,6)]'>You feel FUCKED UP!!!!!!</font></span>")
-		M << 'sound/effects/singlebeat.ogg'
+		SEND_SOUND(M, sound('sound/effects/singlebeat.ogg'))
 		M.emote("faint")
-		M.apply_effect(5, IRRADIATE, negate_armor = 1)
+		M.apply_effect(5, IRRADIATE)
 		M.adjustToxLoss(5)
 		M.adjustBrainLoss(10)
 	else
@@ -474,8 +467,9 @@
 	description = "Jenkem is a prison drug made from fermenting feces in a solution of urine. Extremely disgusting."
 	reagent_state = LIQUID
 	color = "#644600"
-	addiction_chance = 30
-	taste_message = "puke... or worse"
+	addiction_chance = 5
+	addiction_threshold = 5
+	taste_description = "the inside of a toilet... or worse"
 
 /datum/reagent/jenkem/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -491,6 +485,7 @@
 	description = "An illegal performance enhancing drug. Side effects might include chest pain, seizures, swelling, headache, fever... ... ..."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
+	taste_description = "bitterness"
 
 /datum/reagent/aranesp/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -515,6 +510,7 @@
 	description = "A mild psychoactive chemical extracted from the cannabis plant."
 	reagent_state = LIQUID
 	color = "#0FBE0F"
+	taste_description = "man like, totally the best like, thing ever dude"
 
 /datum/reagent/thc/on_mob_life(mob/living/M)
 	M.stuttering += rand(0,2)
@@ -529,6 +525,32 @@
 			M.Drowsy(10)
 	return ..()
 
+/datum/reagent/cbd
+	name = "Cannabidiol"
+	id = "cbd"
+	description = "A non-psychoactive phytocannabinoid extracted from the cannabis plant."
+	reagent_state = LIQUID
+	color = "#00e100"
+	taste_description = "relaxation"
+
+/datum/reagent/cbd/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(5))
+		M.emote(pick("hsigh", "yawn"))
+	if(prob(5))
+		to_chat(M, "<span class='notice'>[pick("You feel peaceful.", "You breathe softly.", "You feel chill.", "You vibe.")]</span>")
+	if(prob(10))
+		M.AdjustConfused(-5)
+		update_flags |= M.SetWeakened(0, FALSE)
+	if(volume >= 70 && prob(25))
+		if(M.reagents.get_reagent_amount("thc") <= 20)
+			M.Drowsy(10)
+	if(prob(25))
+		update_flags |= M.adjustBruteLoss(-2, FALSE)
+		update_flags |= M.adjustFireLoss(-2, FALSE)
+	return ..() | update_flags
+
+
 /datum/reagent/fliptonium
 	name = "Fliptonium"
 	id = "fliptonium"
@@ -538,8 +560,10 @@
 	metabolization_rate = 0.2
 	overdose_threshold = 15
 	process_flags = ORGANIC | SYNTHETIC		//Flipping for everyone!
-	addiction_chance = 10
-	taste_message = "flips"
+	addiction_chance = 1
+	addiction_chance_additional = 20
+	addiction_threshold = 10
+	taste_description = "flips"
 
 /datum/reagent/fliptonium/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -568,8 +592,8 @@
 	update_flags |= M.SetSleeping(0, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/fliptonium/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == INGEST || method == TOUCH)
+/datum/reagent/fliptonium/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_INGEST || method == REAGENT_TOUCH)
 		M.SpinAnimation(speed = 12, loops = -1)
 	..()
 
@@ -611,7 +635,7 @@
 	reagent_state = LIQUID
 	color = "#AC88CA" //RGB: 172, 136, 202
 	metabolization_rate = 0.6 * REAGENTS_METABOLISM
-	taste_message = "spinning"
+	taste_description = "spinning"
 
 /datum/reagent/rotatium/on_mob_life(mob/living/carbon/M)
 	if(M.hud_used)
@@ -643,9 +667,10 @@
 	color = "#1BB1FF"
 	process_flags = SYNTHETIC
 	overdose_threshold = 20
-	addiction_chance = 60
+	addiction_chance = 10
+	addiction_threshold = 5
 	metabolization_rate = 0.6
-	taste_message = "wiper fluid"
+	taste_description = "wiper fluid"
 
 /datum/reagent/lube/ultra/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -659,7 +684,7 @@
 	update_flags |= M.AdjustStunned(-2, FALSE)
 	update_flags |= M.AdjustWeakened(-2, FALSE)
 	update_flags |= M.adjustStaminaLoss(-2, FALSE)
-	M.status_flags |= GOTTAGOFAST_METH
+	ADD_TRAIT(M, TRAIT_GOTTAGOFAST, id)
 	M.Jitter(3)
 	update_flags |= M.adjustBrainLoss(0.5, FALSE)
 	if(prob(5))
@@ -667,7 +692,7 @@
 	return ..() | update_flags
 
 /datum/reagent/lube/ultra/on_mob_delete(mob/living/M)
-	M.status_flags &= ~GOTTAGOFAST_METH
+	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)
 	..()
 
 /datum/reagent/lube/ultra/overdose_process(mob/living/M, severity)
@@ -696,8 +721,9 @@
 
 	process_flags = SYNTHETIC
 	overdose_threshold = 20
-	addiction_chance = 50
-	taste_message = "silicone"
+	addiction_chance = 10
+	addiction_threshold = 5
+	taste_description = "silicon"
 
 
 /datum/reagent/surge/on_mob_life(mob/living/M)

@@ -5,25 +5,31 @@
 	icon_state = "cardboard"
 	icon_opened = "cardboard_open"
 	icon_closed = "cardboard"
-	health = 10
-	burn_state = FLAMMABLE
-	burntime = 20
-	sound = 'sound/effects/rustle2.ogg'
+	resistance_flags = FLAMMABLE
+	max_integrity = 70
+	integrity_failure = 0
+	open_sound = 'sound/machines/cardboard_box.ogg'
+	close_sound = 'sound/machines/cardboard_box.ogg'
+	open_sound_volume = 35
+	close_sound_volume = 35
 	material_drop = /obj/item/stack/sheet/cardboard
 	var/amt = 4
-	cutting_sound = 'sound/items/poster_ripped.ogg'
 	var/move_delay = 0
 	var/egged = 0
 
-/obj/structure/closet/cardboard/relaymove(mob/user, direction)
-	if(opened || move_delay || user.stat || user.stunned || user.weakened || user.paralysis || !isturf(loc) || !has_gravity(loc))
+/obj/structure/closet/cardboard/relaymove(mob/living/user, direction)
+	if(!istype(user) || opened || move_delay || user.incapacitated() || !isturf(loc) || !has_gravity(loc))
 		return
-	move_delay = 1
-	if(step(src, direction))
-		spawn(config.walk_speed)
-			move_delay = 0
+	move_delay = TRUE
+	var/oldloc = loc
+	step(src, direction)
+	if(oldloc != loc)
+		addtimer(CALLBACK(src, .proc/ResetMoveDelay), config.walk_speed)
 	else
-		move_delay = 0
+		move_delay = FALSE
+
+/obj/structure/closet/cardboard/proc/ResetMoveDelay()
+	move_delay = FALSE
 
 /obj/structure/closet/cardboard/open()
 	if(opened || !can_open())
@@ -54,11 +60,11 @@
 	I.alpha = 0
 	animate(I, pixel_z = 32, alpha = 255, time = 5, easing = ELASTIC_EASING)
 
+/obj/structure/closet/cardboard/welder_act()
+	return
 
 /obj/structure/closet/cardboard/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(src.opened)
-		if(istype(W, /obj/item/weldingtool))
-			return
 		if(istype(W, /obj/item/wirecutters))
 			var/obj/item/wirecutters/WC = W
 			new /obj/item/stack/sheet/cardboard(src.loc, amt)

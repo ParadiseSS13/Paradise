@@ -1,6 +1,6 @@
 /obj/structure/closet/secure_closet/clown
 	name = "clown's locker"
-	req_access = list(access_clown)
+	req_access = list(ACCESS_CLOWN)
 	icon_state = "clownsecure1"
 	icon_closed = "clownsecure"
 	icon_locked = "clownsecure1"
@@ -8,8 +8,7 @@
 	icon_broken = "clownsecurebroken"
 	icon_off = "clownsecureoff"
 
-/obj/structure/closet/secure_closet/clown/New()
-	..()
+/obj/structure/closet/secure_closet/clown/populate_contents()
 	new /obj/item/storage/backpack/clown(src)
 	new /obj/item/clothing/under/rank/clown(src)
 	new /obj/item/clothing/shoes/clown_shoes(src)
@@ -26,7 +25,7 @@
 
 /obj/structure/closet/secure_closet/mime
 	name = "mime's locker"
-	req_access = list(access_mime)
+	req_access = list(ACCESS_MIME)
 	icon_state = "mimesecure1"
 	icon_closed = "mimesecure"
 	icon_locked = "mimesecure1"
@@ -34,8 +33,7 @@
 	icon_broken = "mimesecurebroken"
 	icon_off = "mimesecureoff"
 
-/obj/structure/closet/secure_closet/mime/New()
-	..()
+/obj/structure/closet/secure_closet/mime/populate_contents()
 	new /obj/item/clothing/head/beret(src)
 	new /obj/item/clothing/mask/gas/mime(src)
 	new /obj/item/radio/headset/headset_service(src)
@@ -50,11 +48,10 @@
 
 /obj/structure/closet/secure_closet/syndicate_officer
 	name = "officer's locker"
-	req_access = list(access_syndicate_command)
+	req_access = list(ACCESS_SYNDICATE_COMMAND)
 
-/obj/structure/closet/secure_closet/syndicate_officer/New()
-	..()
-	new /obj/item/storage/box/syndie_kit/elite_hardsuit(src)
+/obj/structure/closet/secure_closet/syndicate_officer/populate_contents()
+	new /obj/item/clothing/suit/space/hardsuit/syndi/elite(src)
 	new /obj/item/gun/projectile/automatic/sniper_rifle/syndicate(src)
 	new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src)
 	new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src)

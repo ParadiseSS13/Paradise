@@ -9,7 +9,7 @@
 	//icon = 'icons/dirsquare.dmi'
 	icon_state = "pinonfar"
 
-	unacidable = 1
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = 1
 
 	var/id
@@ -160,10 +160,16 @@
 
 	var/lock_shuttle_doors = 0
 
+// Preset for adding whiteship docks to ruins. Has widths preset which will auto-assign the shuttle
+/obj/docking_port/stationary/whiteship
+	dwidth = 10
+	height = 35
+	width = 21
+
 /obj/docking_port/stationary/register()
 	if(!SSshuttle)
-		throw EXCEPTION("docking port [src] could not initialize.")
-		return 0
+		stack_trace("Docking port [src] could not initialize. SSshuttle doesnt exist!")
+		return FALSE
 
 	SSshuttle.stationary += src
 	if(!id)
@@ -189,7 +195,7 @@
 /obj/docking_port/stationary/transit
 	name = "In transit"
 	turf_type = /turf/space/transit
-
+	var/area/shuttle/transit/assigned_area
 	lock_shuttle_doors = 1
 
 /obj/docking_port/stationary/transit/register()
@@ -210,18 +216,21 @@
 	var/list/shuttle_areas
 
 	var/timer						//used as a timer (if you want time left to complete move, use timeLeft proc)
+	var/last_timer_length
 	var/mode = SHUTTLE_IDLE			//current shuttle mode (see global defines)
 	var/callTime = 50				//time spent in transit (deciseconds)
+	var/ignitionTime = 30			// time spent "starting the engines". Also rate limits how often we try to reserve transit space if its ever full of transiting shuttles.
 	var/roundstart_move				//id of port to send shuttle to at roundstart
 	var/travelDir = 0				//direction the shuttle would travel in
 	var/rebuildable = 0				//can build new shuttle consoles for this one
 
+	var/mob/last_caller				// Who called the shuttle the last time
+
 	var/obj/docking_port/stationary/destination
 	var/obj/docking_port/stationary/previous
 
-/obj/docking_port/mobile/New()
-	..()
-
+/obj/docking_port/mobile/Initialize(mapload)
+	. = ..()
 	var/area/A = get_area(src)
 	if(istype(A, /area/shuttle))
 		areaInstance = A
@@ -235,7 +244,6 @@
 	highlight("#0f0")
 	#endif
 
-/obj/docking_port/mobile/Initialize()
 	if(!timid)
 		register()
 	shuttle_areas = list()
@@ -245,12 +253,10 @@
 		var/area/cur_area = curT.loc
 		if(istype(cur_area, areaInstance))
 			shuttle_areas[cur_area] = TRUE
-	..()
 
 /obj/docking_port/mobile/register()
 	if(!SSshuttle)
-		throw EXCEPTION("docking port [src] could not initialize.")
-		return 0
+		CRASH("Docking port [src] could not initialize. SSshuttle doesnt exist!")
 
 	SSshuttle.mobile += src
 
@@ -312,7 +318,7 @@
 	else
 		var/msg = "check_dock(): shuttle [src] cannot dock at [S], error: [status]"
 		message_admins(msg)
-		throw EXCEPTION(msg)
+		stack_trace(msg)
 		return FALSE
 
 
@@ -325,23 +331,22 @@
 	switch(mode)
 		if(SHUTTLE_CALL)
 			if(S == destination)
-				if(world.time <= timer)
-					timer = world.time
+				if(timeLeft(1) < callTime)
+					setTimer(callTime)
 			else
 				destination = S
-				timer = world.time
+				setTimer(callTime)
 		if(SHUTTLE_RECALL)
 			if(S == destination)
-				timer = world.time - timeLeft(1)
+				setTimer(callTime - timeLeft(1))
 			else
 				destination = S
-				timer = world.time
+				setTimer(callTime)
 			mode = SHUTTLE_CALL
-		else
+		if(SHUTTLE_IDLE, SHUTTLE_IGNITING)
 			destination = S
-			mode = SHUTTLE_CALL
-			timer = world.time
-			enterTransit()		//hyperspace
+			mode = SHUTTLE_IGNITING
+			setTimer(ignitionTime)
 
 //recall the shuttle to where it was previously
 /obj/docking_port/mobile/proc/cancel()
@@ -358,7 +363,7 @@
 	var/obj/docking_port/stationary/S0 = get_docked()
 	var/obj/docking_port/stationary/S1 = findTransitDock()
 	if(S1)
-		if(dock(S1))
+		if(dock(S1, , TRUE))
 			WARNING("shuttle \"[id]\" could not enter transit space. Docked at [S0 ? S0.id : "null"]. Transit dock [S1 ? S1.id : "null"].")
 		else
 			previous = S0
@@ -429,7 +434,7 @@
 
 //this is the main proc. It instantly moves our mobile port to stationary port S1
 //it handles all the generic behaviour, such as sanity checks, closing doors on the shuttle, stunning mobs, etc
-/obj/docking_port/mobile/proc/dock(obj/docking_port/stationary/S1, force=FALSE)
+/obj/docking_port/mobile/proc/dock(obj/docking_port/stationary/S1, force=FALSE, transit=FALSE)
 	// Crashing this ship with NO SURVIVORS
 	if(S1.get_docked() == src)
 		remove_ripples()
@@ -460,7 +465,7 @@
 	var/rotation = dir2angle(S1.dir)-dir2angle(dir)
 	if((rotation % 90) != 0)
 		rotation += (rotation % 90) //diagonal rotations not allowed, round up
-	rotation = SimplifyDegrees(rotation)
+	rotation = SIMPLIFY_DEGREES(rotation)
 
 	//remove area surrounding docking port
 	if(areaInstance.contents.len)
@@ -492,9 +497,10 @@
 			var/turf/simulated/Ts1 = T1
 			Ts1.copy_air_with_tile(T0)
 
+		areaInstance.moving = TRUE
 		//move mobile to new location
 		for(var/atom/movable/AM in T0)
-			AM.onShuttleMove(T0, T1, rotation)
+			AM.onShuttleMove(T0, T1, rotation, last_caller)
 
 		if(rotation)
 			T1.shuttleRotate(rotation)
@@ -503,7 +509,7 @@
 		SSair.remove_from_active(T1)
 		T1.CalculateAdjacentTurfs()
 		SSair.add_to_active(T1,1)
-		
+
 		T1.lighting_build_overlay()
 
 		T0.ChangeTurf(turf_type)
@@ -512,6 +518,7 @@
 		T0.CalculateAdjacentTurfs()
 		SSair.add_to_active(T0,1)
 
+	areaInstance.moving = transit
 	for(var/A1 in L1)
 		var/turf/T1 = A1
 		T1.postDock(S1)
@@ -591,7 +598,7 @@
 			if(ismob(AM))
 				var/mob/M = AM
 				if(M.buckled)
-					M.buckled.unbuckle_mob(M, 1)
+					M.buckled.unbuckle_mob(M, force = TRUE)
 				if(isliving(AM))
 					var/mob/living/L = AM
 					L.stop_pulling()
@@ -630,6 +637,11 @@
 				if(dock(previous))
 					setTimer(20)	//can't dock for some reason, try again in 2 seconds
 					return
+			if(SHUTTLE_IGNITING)
+				mode = SHUTTLE_CALL
+				setTimer(callTime)
+				enterTransit()
+				return
 		mode = SHUTTLE_IDLE
 		timer = 0
 		destination = null
@@ -645,6 +657,22 @@
 	if(timer <= 0)
 		timer = world.time
 	timer += wait - timeLeft(1)
+
+/obj/docking_port/mobile/proc/modTimer(multiple)
+	var/time_remaining = timer - world.time
+	if(time_remaining < 0 || !last_timer_length)
+		return
+	time_remaining *= multiple
+	last_timer_length *= multiple
+	setTimer(time_remaining)
+
+/obj/docking_port/mobile/proc/invertTimer()
+	if(!last_timer_length)
+		return
+	var/time_remaining = timer - world.time
+	if(time_remaining > 0)
+		var/time_passed = last_timer_length - time_remaining
+		setTimer(time_passed)
 
 //returns timeLeft
 /obj/docking_port/mobile/proc/timeLeft(divisor)
@@ -695,13 +723,13 @@
 	name = "Shuttle Console"
 	icon_screen = "shuttle"
 	icon_keyboard = "tech_key"
-	req_access = list( )
+	req_access = list()
 	circuit = /obj/item/circuitboard/shuttle
 	var/shuttleId
 	var/possible_destinations = ""
 	var/admin_controlled
 	var/max_connect_range = 7
-	var/docking_request = 0
+	var/moved = FALSE	//workaround for nukie shuttle, hope I find a better way to do this...
 
 /obj/machinery/computer/shuttle/New(location, obj/item/circuitboard/shuttle/C)
 	..()
@@ -743,19 +771,18 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/computer/shuttle/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/shuttle/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "shuttle_console.tmpl", M ? M.name : "shuttle", 300, 200)
+		ui = new(user, src, ui_key, "ShuttleConsole", name, 350, 150, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/shuttle/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
-	var/data[0]
+/obj/machinery/computer/shuttle/ui_data(mob/user)
+	var/list/data = list()
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
 	data["status"] = M ? M.getStatusText() : null
 	if(M)
-		data["shuttle"] = 1
+		data["shuttle"] = TRUE	//this should just be boolean, right?
 		var/list/docking_ports = list()
 		data["docking_ports"] = docking_ports
 		var/list/options = params2list(possible_destinations)
@@ -767,38 +794,45 @@
 			docking_ports[++docking_ports.len] = list("name" = S.name, "id" = S.id)
 		data["docking_ports_len"] = docking_ports.len
 		data["admin_controlled"] = admin_controlled
-		data["docking_request"] = docking_request
-
 	return data
 
-/obj/machinery/computer/shuttle/Topic(href, href_list)
-	if(..())
-		return 1
-
+/obj/machinery/computer/shuttle/ui_act(action, params)
+	if(..())	//we can't actually interact, so no action
+		return TRUE
 	if(!allowed(usr))
 		to_chat(usr, "<span class='danger'>Access denied.</span>")
-		return
-
+		return	TRUE
+	if(!can_call_shuttle(usr, action))
+		return TRUE
 	var/list/options = params2list(possible_destinations)
-	if(href_list["move"])
-		if(!options.Find(href_list["move"])) //I see you're trying Href exploits, I see you're failing, I SEE ADMIN WARNING.
-			// Seriously, though, NEVER trust a Topic with something like this. Ever.
-			message_admins("move HREF ([src] attempted to move to: [href_list["move"]]) exploit attempted by [key_name_admin(usr)] on [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+	if(action == "move")
+		var/destination = params["move"]
+		if(!options.Find(destination))//figure out if this translation works
+			message_admins("<span class='boldannounce'>EXPLOIT:</span> [ADMIN_LOOKUPFLW(usr)] attempted to move [src] to an invalid location! [ADMIN_COORDJMP(src)]")
 			return
-		switch(SSshuttle.moveShuttle(shuttleId, href_list["move"], 1))
+		switch(SSshuttle.moveShuttle(shuttleId, destination, TRUE, usr))
 			if(0)
-				to_chat(usr, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
+				atom_say("Shuttle departing! Please stand away from the doors.")
+				usr.create_log(MISC_LOG, "used [src] to call the [shuttleId] shuttle")
+				if(!moved)
+					moved = TRUE
+				add_fingerprint(usr)
+				return TRUE
 			if(1)
 				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 			else
 				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
-		return 1
+
 
 /obj/machinery/computer/shuttle/emag_act(mob/user)
 	if(!emagged)
 		src.req_access = list()
 		emagged = 1
 		to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
+
+//for restricting when the computer can be used, needed for some console subtypes.
+/obj/machinery/computer/shuttle/proc/can_call_shuttle(mob/user, action)
+	return TRUE
 
 /obj/machinery/computer/shuttle/ferry
 	name = "transport ferry console"
@@ -810,45 +844,39 @@
 /obj/machinery/computer/shuttle/ferry/request
 	name = "ferry console"
 	circuit = /obj/item/circuitboard/ferry/request
-	var/cooldown //prevents spamming admins
+	var/next_request	//to prevent spamming admins
 	possible_destinations = "ferry_home"
-	admin_controlled = 1
+	admin_controlled = TRUE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
-/obj/machinery/computer/shuttle/ferry/request/Topic(href, href_list)
-	if(..())
-		return 1
-	if(href_list["request"])
-		if(cooldown)
+/obj/machinery/computer/shuttle/ferry/request/ui_act(action, params)
+	if(..())	// Note that the parent handels normal shuttle movement on top of security checks
+		return
+	if(action == "request")
+		if(world.time < next_request)
 			return
-		cooldown = 1
+		next_request = world.time + 60 SECONDS	//1 minute cooldown
 		to_chat(usr, "<span class='notice'>Your request has been recieved by Centcom.</span>")
 		log_admin("[key_name(usr)] requested to move the transport ferry to Centcom.")
 		message_admins("<b>FERRY: <font color='blue'>[key_name_admin(usr)] (<A HREF='?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
-		. = 1
-		SSnanoui.update_uis(src)
-		spawn(600) //One minute cooldown
-			cooldown = 0
+		return TRUE
+
 
 /obj/machinery/computer/shuttle/white_ship
 	name = "White Ship Console"
 	desc = "Used to control the White Ship."
 	circuit = /obj/item/circuitboard/white_ship
 	shuttleId = "whiteship"
-	possible_destinations = "whiteship_away;whiteship_home;whiteship_z4"
+	possible_destinations = null // Set at runtime
 
-/obj/machinery/computer/shuttle/golem_ship
-	name = "Golem Ship Console"
-	desc = "Used to control the Golem Ship."
-	circuit = /obj/item/circuitboard/golem_ship
-	shuttleId = "freegolem"
-	possible_destinations = "freegolem_z3;freegolem_z5;freegolem_z1;freegolem_z6"
-	resistance_flags = INDESTRUCTIBLE
+/obj/machinery/computer/shuttle/white_ship/Initialize(mapload)
+	if(mapload)
+		return INITIALIZE_HINT_LATELOAD
+	return ..()
 
-/obj/machinery/computer/shuttle/golem_ship/attack_hand(mob/user)
-	if(!isgolem(user))
-		to_chat(user, "<span class='notice'>The console is unresponsive. Seems only golems can use it.</span>")
-		return
-	..()
+// Yes. This is disgusting, but the console needs to be loaded AFTER the docking ports load.
+/obj/machinery/computer/shuttle/white_ship/LateInitialize()
+	Initialize()
 
 /obj/machinery/computer/shuttle/engineering
 	name = "Engineering Shuttle Console"
@@ -864,7 +892,7 @@
 
 /obj/machinery/computer/shuttle/admin
 	name = "admin shuttle console"
-	req_access = list(access_cent_general)
+	req_access = list(ACCESS_CENT_GENERAL)
 	shuttleId = "admin"
 	possible_destinations = "admin_home;admin_away;admin_custom"
 	resistance_flags = INDESTRUCTIBLE
@@ -880,8 +908,6 @@
 	x_offset = 0
 	y_offset = 0
 	resistance_flags = INDESTRUCTIBLE
-	access_tcomms = TRUE
-	access_construction = TRUE
 	access_mining = TRUE
 
 /obj/machinery/computer/shuttle/trade
@@ -889,9 +915,28 @@
 	resistance_flags = INDESTRUCTIBLE
 
 /obj/machinery/computer/shuttle/trade/sol
-	req_access = list(access_trade_sol)
+	req_access = list(ACCESS_TRADE_SOL)
 	possible_destinations = "trade_sol_base;trade_dock"
 	shuttleId = "trade_sol"
+
+/obj/machinery/computer/shuttle/golem_ship
+	name = "Golem Ship Console"
+	desc = "Used to control the Golem Ship."
+	circuit = /obj/item/circuitboard/shuttle/golem_ship
+	shuttleId = "freegolem"
+	possible_destinations = "freegolem_lavaland;freegolem_space;freegolem_ussp"
+
+/obj/machinery/computer/shuttle/golem_ship/attack_hand(mob/user)
+	if(!isgolem(user) && !isobserver(user))
+		to_chat(user, "<span class='notice'>The console is unresponsive. Seems only golems can use it.</span>")
+		return
+	..()
+
+/obj/machinery/computer/shuttle/golem_ship/recall
+	name = "golem ship recall terminal"
+	desc = "Used to recall the Golem Ship."
+	possible_destinations = "freegolem_lavaland"
+	resistance_flags = INDESTRUCTIBLE
 
 //#undef DOCKING_PORT_HIGHLIGHT
 
@@ -908,8 +953,9 @@
 		T.icon_state = icon_state
 	if(T.icon != icon)
 		T.icon = icon
-	if(T.color != color)
-		T.color = color
+	if(color)
+		T.atom_colours = atom_colours.Copy()
+		T.update_atom_colour()
 	if(T.dir != dir)
-		T.dir = dir
+		T.setDir(dir)
 	return T

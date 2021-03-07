@@ -39,8 +39,8 @@
 	..()
 
 /obj/item/deck/examine(mob/user)
-	..()
-	to_chat(user,"<span class='notice'>It contains [cards.len ? cards.len : "no"] cards</span>")
+	. = ..()
+	. +="<span class='notice'>It contains [cards.len ? cards.len : "no"] cards</span>"
 
 /obj/item/deck/attack_hand(mob/user as mob)
 	draw_card(user)
@@ -283,10 +283,9 @@
 		if(P.name != "Blank Card")
 			to_chat(user,"<span class='notice'>You cannot write on that card.</span>")
 			return
-		var/cardtext = sanitize(input(user, "What do you wish to write on the card?", "Card Editing") as text|null, MAX_PAPER_MESSAGE_LEN)
-		if(!cardtext)
-			return
-		P.name = cardtext
+		var/t = rename_interactive(user, P, use_prefix = FALSE, actually_rename = FALSE)
+		if(t && P.name == "Blank Card")
+			P.name = t
 		// SNOWFLAKE FOR CAG, REMOVE IF OTHER CARDS ARE ADDED THAT USE THIS.
 		P.card_icon = "cag_white_card"
 		update_icon()
@@ -313,11 +312,11 @@
 	user.visible_message("<span class='notice'>[user] [concealed ? "conceals" : "reveals"] their hand.</span>")
 
 /obj/item/cardhand/examine(mob/user)
-	..(user)
+	. = ..()
 	if((!concealed) && cards.len)
-		to_chat(user,"<span class='notice'>It contains:</span>")
+		. +="<span class='notice'>It contains:</span>"
 		for(var/datum/playingcard/P in cards)
-			to_chat(user,"<span class='notice'>the [P.name].</span>")
+			. +="<span class='notice'>the [P.name].</span>"
 
 // Datum action here
 
@@ -438,7 +437,7 @@
 		overlays += I
 		return
 
-	var/offset = Floor(20/cards.len + 1)
+	var/offset = FLOOR(20/cards.len + 1, 1)
 
 	var/matrix/M = matrix()
 	if(direction)

@@ -63,27 +63,27 @@
 	update_icon()
 	set_light(0)
 
-/obj/item/powersink/attackby(obj/item/I, mob/user)
-	if(isscrewdriver(I))
-		if(mode == DISCONNECTED)
-			var/turf/T = loc
-			if(isturf(T) && !T.intact)
-				attached = locate() in T
-				if(!attached)
-					to_chat(user, "No exposed cable here to attach to.")
-					return
-				else
-					set_mode(CLAMPED_OFF)
-					visible_message("<span class='notice'>[user] attaches [src] to the cable!</span>")
-					message_admins("Power sink activated by [key_name_admin(user)] at ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-					log_game("Power sink activated by [key_name(user)] at ([x],[y],[z])")
+/obj/item/powersink/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(mode == DISCONNECTED)
+		var/turf/T = loc
+		if(isturf(T) && !T.intact)
+			attached = locate() in T
+			if(!attached)
+				to_chat(user, "No exposed cable here to attach to.")
+				return
 			else
-				to_chat(user, "Device must be placed over an exposed cable to attach to it.")
+				set_mode(CLAMPED_OFF)
+				visible_message("<span class='notice'>[user] attaches [src] to the cable!</span>")
+				message_admins("Power sink activated by [key_name_admin(user)] at ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+				log_game("Power sink activated by [key_name(user)] at ([x],[y],[z])")
 		else
-			set_mode(DISCONNECTED)
-			src.visible_message("<span class='notice'>[user] detaches [src] from the cable!</span>")
+			to_chat(user, "Device must be placed over an exposed cable to attach to it.")
 	else
-		return ..()
+		set_mode(DISCONNECTED)
+		src.visible_message("<span class='notice'>[user] detaches [src] from the cable!</span>")
 
 /obj/item/powersink/attack_ai()
 	return

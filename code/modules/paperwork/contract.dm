@@ -55,7 +55,7 @@
 
 /obj/item/paper/contract/infernal
 	var/contractType = 0
-	burn_state = LAVA_PROOF
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/datum/mind/owner
 	icon_state = "evil_contract"
 
@@ -265,14 +265,14 @@
 /obj/item/paper/contract/infernal/power/FulfillContract(mob/living/carbon/human/user = target.current, blood = 0)
 	if(!user.dna)
 		return -1
-	user.dna.SetSEState(HULKBLOCK,1)
-	genemutcheck(user, HULKBLOCK,null,MUTCHK_FORCED)
+	user.dna.SetSEState(GLOB.hulkblock,1)
+	singlemutcheck(user, GLOB.hulkblock, MUTCHK_FORCED)
 	// Demonic power gives you consequenceless hulk
 	user.gene_stability += GENE_INSTABILITY_MAJOR
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_body()
-	var/obj/item/organ/internal/hivelord_core/organ = new /obj/item/organ/internal/hivelord_core
+	var/obj/item/organ/internal/regenerative_core/organ = new /obj/item/organ/internal/regenerative_core
 	organ.insert(user)
 	return ..()
 
@@ -314,14 +314,16 @@
 /obj/item/paper/contract/infernal/magic/FulfillContract(mob/living/carbon/human/user = target.current, blood = 0)
 	if(!istype(user) || !user.mind)
 		return -1
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball/hellish(null))
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/fireball/hellish(null))
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock(null))
 	return ..()
 
 /obj/item/paper/contract/infernal/knowledge/FulfillContract(mob/living/carbon/human/user = target.current, blood = 0)
 	if(!istype(user) || !user.mind)
 		return -1
-	user.mutations.Add(XRAY)
+	ADD_TRAIT(user, TRAIT_XRAY_VISION, "devils_bargain")
+	user.update_sight()
+	user.update_icons()
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/view_range(null))
 	return ..()
 

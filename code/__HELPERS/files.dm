@@ -17,7 +17,9 @@
 	for(var/file in args)
 		src << browse_rsc(file)
 
-/client/proc/browse_files(root="data/logs/", max_iterations=10, list/valid_extensions=list(".txt",".log",".htm"))
+/client/proc/browse_files(root="data/logs/", max_iterations=10, list/valid_extensions=list("txt", "log", "htm", "json"))
+	// wow why was this ever a parameter
+	root = "data/logs/"
 	var/path = root
 
 	for(var/i=0, i<max_iterations, i++)
@@ -37,7 +39,8 @@
 		if(copytext(path,-1,0) != "/")		//didn't choose a directory, no need to iterate again
 			break
 
-	var/extension = copytext(path,-4,0)
+	var/list/exploded = splittext(path, ".")
+	var/extension = exploded[length(exploded)]
 	if( !fexists(path) || !(extension in valid_extensions) )
 		to_chat(src, "<font color='red'>Error: browse_files(): File not found/Invalid file([path]).</font>")
 		return
@@ -51,10 +54,10 @@
 
 	PLEASE USE RESPONSIBLY, Some log files canr each sizes of 4MB!	*/
 /client/proc/file_spam_check()
-	var/time_to_wait = fileaccess_timer - world.time
+	var/time_to_wait = GLOB.fileaccess_timer - world.time
 	if(time_to_wait > 0)
 		to_chat(src, "<font color='red'>Error: file_spam_check(): Spam. Please wait [round(time_to_wait/10)] seconds.</font>")
 		return 1
-	fileaccess_timer = world.time + FTPDELAY
+	GLOB.fileaccess_timer = world.time + FTPDELAY
 	return 0
 #undef FTPDELAY

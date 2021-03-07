@@ -4,6 +4,7 @@ SUBSYSTEM_DEF(spacedrift)
 	wait = 5
 	flags = SS_NO_INIT|SS_KEEP_TIMING
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
+	offline_implications = "Mobs will no longer respect a lack of gravity. No immediate action is needed."
 
 	var/list/currentrun = list()
 	var/list/processing = list()

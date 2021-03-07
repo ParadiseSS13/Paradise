@@ -22,4 +22,5 @@
 	name = "patch of peanuts"
 	desc = "Best avoided if you have spess allergies."
 	icon_state = "peanuts"
+	tastes = list("peanut" = 1, "nuttiness" = 1)
 	gender = PLURAL

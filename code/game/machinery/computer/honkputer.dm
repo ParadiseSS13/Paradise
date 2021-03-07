@@ -6,7 +6,7 @@
 	icon_keyboard = "key_honk"
 	icon_screen = "honkcomms"
 	light_color = LIGHT_COLOR_PINK
-	req_access = list(access_clown)
+	req_access = list(ACCESS_CLOWN)
 	circuit = /obj/item/circuitboard/HONKputer
 	var/authenticated = 0
 	var/message_cooldown = 0
@@ -115,5 +115,4 @@
 				A.icon_state = "4"
 			qdel(src)
 	else
-		src.attack_hand(user)
-	return
+		return ..()

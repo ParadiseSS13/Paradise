@@ -1,5 +1,14 @@
 // reference: /client/proc/modify_variables(var/atom/O, var/param_var_name = null, var/autodetect_class = 0)
 
+/**
+  * Proc to check if a datum allows proc calls on it
+  *
+  * Returns TRUE if you can call a proc on the datum, FALSE if you cant
+  *
+  */
+/datum/proc/CanProcCall(procname)
+	return TRUE
+
 /datum/proc/can_vv_get(var_name)
 	return TRUE
 
@@ -31,7 +40,7 @@
 
 /datum/proc/vv_get_var(var_name)
 	switch(var_name)
-		if("attack_log", "debug_log")
+		if("attack_log_old", "debug_log")
 			return debug_variable(var_name, vars[var_name], 0, src, sanitize = FALSE)
 		if("vars")
 			return debug_variable(var_name, list(), 0, src)
@@ -55,6 +64,7 @@
 	.["Mark Object"] = "?_src_=vars;mark_object=[UID()]"
 	.["Jump to Object"] = "?_src_=vars;jump_to=[UID()]"
 	.["Delete"] = "?_src_=vars;delete=[UID()]"
+	.["Modify Traits"] = "?_src_=vars;traitmod=[UID()]"
 	. += "---"
 
 /client/vv_get_dropdown()
@@ -63,6 +73,7 @@
 	.["Call Proc"] = "?_src_=vars;proc_call=[UID()]"
 	.["Mark Object"] = "?_src_=vars;mark_object=[UID()]"
 	.["Delete"] = "?_src_=vars;delete=[UID()]"
+	.["Modify Traits"] = "?_src_=vars;traitmod=[UID()]"
 	. += "---"
 
 /client/proc/debug_variables(datum/D in world)
@@ -546,7 +557,7 @@
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
 
-		var/new_name = reject_bad_name(sanitize(copytext(input(usr,"What would you like to name this mob?","Input a name",M.real_name) as text|null,1,MAX_NAME_LEN)))
+		var/new_name = reject_bad_name(sanitize(copytext(input(usr, "What would you like to name this mob?", "Input a name", M.real_name) as text|null, 1, MAX_NAME_LEN)), allow_numbers = TRUE)
 		if( !new_name || !M )	return
 
 		message_admins("Admin [key_name_admin(usr)] renamed [key_name_admin(M)] to [new_name].")
@@ -738,22 +749,7 @@
 		if(!istype(M))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
-		to_chat(M, "Control of your mob has been offered to dead players.")
-		log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
-		var/minhours = input(usr, "Minimum hours required to play [M]?", "Set Min Hrs", 10) as num
-		message_admins("[key_name_admin(usr)] has offered control of ([key_name_admin(M)]) to ghosts with [minhours] hrs playtime")
-		var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [M.real_name ? M.real_name : M.name]?", poll_time = 100, min_hours = minhours)
-		var/mob/dead/observer/theghost = null
-
-		if(candidates.len)
-			theghost = pick(candidates)
-			to_chat(M, "Your mob has been taken over by a ghost!")
-			message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)])")
-			M.ghostize()
-			M.key = theghost.key
-		else
-			to_chat(M, "There were no ghosts willing to take control.")
-			message_admins("No ghosts were willing to take control of [key_name_admin(M)])")
+		offer_control(M)
 
 	else if(href_list["delete"])
 		if(!check_rights(R_DEBUG, 0))
@@ -830,6 +826,59 @@
 		A.makeNormalProcess()
 		log_admin("[key_name(usr)] has made [A] process normally")
 		message_admins("<span class='notice'>[key_name(usr)] has made [A] process normally</span>")
+		return TRUE
+
+	else if(href_list["modifyarmor"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+		var/obj/A = locateUID(href_list["modifyarmor"])
+		if(!istype(A))
+			return
+		A.var_edited = TRUE
+		var/list/armorlist = A.armor.getList()
+		var/list/displaylist
+
+		var/result
+		do
+			displaylist = list()
+			for(var/key in armorlist)
+				displaylist += "[key] = [armorlist[key]]"
+			result = input(usr, "Select an armor type to modify..", "Modify armor") as null|anything in displaylist + "(ADD ALL)" + "(SET ALL)" + "(DONE)"
+
+			if(result == "(DONE)")
+				break
+			else if(result == "(ADD ALL)" || result == "(SET ALL)")
+				var/new_amount = input(usr, result == "(ADD ALL)" ? "Enter armor to add to all types:" : "Enter new armor value for all types:", "Modify all types") as num|null
+				if(isnull(new_amount))
+					continue
+				var/proper_amount = text2num(new_amount)
+				if(isnull(proper_amount))
+					continue
+				for(var/key in armorlist)
+					armorlist[key] = (result == "(ADD ALL)" ? armorlist[key] : 0) + proper_amount
+			else if(result)
+				var/list/fields = splittext(result, " = ")
+				if(length(fields) != 2)
+					continue
+				var/type = fields[1]
+				if(isnull(armorlist[type]))
+					continue
+				var/new_amount = input(usr, "Enter new armor value for [type]:", "Modify [type]") as num|null
+				if(isnull(new_amount))
+					continue
+				var/proper_amount = text2num(new_amount)
+				if(isnull(proper_amount))
+					continue
+				armorlist[type] = proper_amount
+		while(result)
+
+		if(!result || !A)
+			return TRUE
+
+		A.armor = A.armor.setRating(armorlist["melee"], armorlist["bullet"], armorlist["laser"], armorlist["energy"], armorlist["bomb"], armorlist["bio"], armorlist["rad"], armorlist["fire"], armorlist["acid"], armorlist["magic"])
+
+		log_admin("[key_name(usr)] modified the armor on [A] to: melee = [armorlist["melee"]], bullet = [armorlist["bullet"]], laser = [armorlist["laser"]], energy = [armorlist["energy"]], bomb = [armorlist["bomb"]], bio = [armorlist["bio"]], rad = [armorlist["rad"]], fire = [armorlist["fire"]], acid = [armorlist["acid"]], magic = [armorlist["magic"]]")
+		message_admins("<span class='notice'>[key_name(usr)] modified the armor on [A] to: melee = [armorlist["melee"]], bullet = [armorlist["bullet"]], laser = [armorlist["laser"]], energy = [armorlist["energy"]], bomb = [armorlist["bomb"]], bio = [armorlist["bio"]], rad = [armorlist["rad"]], fire = [armorlist["fire"]], acid = [armorlist["acid"]], magic = [armorlist["magic"]]")
 		return TRUE
 
 	else if(href_list["addreagent"]) /* Made on /TG/, credit to them. */
@@ -1192,22 +1241,6 @@
 		log_admin("[key_name(usr)] has removed the organ [rem_organ] from [key_name(M)]")
 		qdel(rem_organ)
 
-	else if(href_list["fix_nano"])
-		if(!check_rights(R_DEBUG)) return
-
-		var/mob/H = locateUID(href_list["fix_nano"])
-
-		if(!istype(H) || !H.client)
-			to_chat(usr, "This can only be done on mobs with clients")
-			return
-
-		H.client.reload_nanoui_resources()
-
-		to_chat(usr, "Resource files sent")
-		to_chat(H, "Your NanoUI Resource files have been refreshed")
-
-		log_admin("[key_name(usr)] resent the NanoUI resource files to [key_name(H)]")
-
 	else if(href_list["regenerateicons"])
 		if(!check_rights(0))	return
 
@@ -1234,25 +1267,25 @@
 		switch(Text)
 			if("brute")
 				if(ishuman(L))
-					var/mob/living/carbon/human/H = L	
+					var/mob/living/carbon/human/H = L
 					H.adjustBruteLoss(amount, robotic = TRUE)
 				else
 					L.adjustBruteLoss(amount)
-			if("fire")	
+			if("fire")
 				if(ishuman(L))
-					var/mob/living/carbon/human/H = L	
+					var/mob/living/carbon/human/H = L
 					H.adjustFireLoss(amount, robotic = TRUE)
 				else
 					L.adjustFireLoss(amount)
-			if("toxin")	
+			if("toxin")
 				L.adjustToxLoss(amount)
 			if("oxygen")
 				L.adjustOxyLoss(amount)
-			if("brain")	
+			if("brain")
 				L.adjustBrainLoss(amount)
-			if("clone")	
+			if("clone")
 				L.adjustCloneLoss(amount)
-			if("stamina") 
+			if("stamina")
 				L.adjustStaminaLoss(amount)
 			else
 				to_chat(usr, "You caused an error. DEBUG: Text:[Text] Mob:[L]")
@@ -1263,13 +1296,26 @@
 			message_admins("[key_name_admin(usr)] dealt [amount] amount of [Text] damage to [L]")
 			href_list["datumrefresh"] = href_list["mobToDamage"]
 
+	else if(href_list["traitmod"])
+		if(!check_rights(NONE))
+			return
+		var/datum/A = locateUID(href_list["traitmod"])
+		if(!istype(A))
+			return
+		holder.modify_traits(A)
+
 	if(href_list["datumrefresh"])
 		var/datum/DAT = locateUID(href_list["datumrefresh"])
 		if(!istype(DAT, /datum) && !isclient(DAT))
 			return
 		src.debug_variables(DAT)
 
-	return
+	if(href_list["copyoutfit"])
+		if(!check_rights(R_EVENT))
+			return
+		var/mob/living/carbon/human/H = locateUID(href_list["copyoutfit"])
+		if(istype(H))
+			H.copy_outfit()
 
 /client/proc/view_var_Topic_list(href, href_list, hsrc)
 	if(href_list["VarsList"])

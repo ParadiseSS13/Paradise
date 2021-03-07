@@ -11,6 +11,8 @@
 	idle_power_usage = 30
 	active_power_usage = 200
 	power_channel = EQUIP
+	max_integrity = 300
+	integrity_failure = 100
 	var/emag_cooldown
 	atom_say_verb = "bleeps"
 	var/obj/item/copyitem = null	//what's in the copier!
@@ -57,23 +59,24 @@
 		if(stat & (BROKEN|NOPOWER))
 			return
 
+		if(emag_cooldown > world.time)
+			to_chat(usr, "<span class='warning'>[src] is busy, try again in a few seconds.</span>")
+			return
+
 		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 		for(var/i = 0, i < copies, i++)
 			if(toner <= 0)
 				break
 
-			if(copier_items_printed >= copier_max_items) //global vars defined in misc.dm
+			if(GLOB.copier_items_printed >= GLOB.copier_max_items) //global vars defined in misc.dm
 				if(prob(10))
 					visible_message("<span class='warning'>The printer screen reads \"PC LOAD LETTER\".</span>")
 				else
 					visible_message("<span class='warning'>The printer screen reads \"PHOTOCOPIER NETWORK OFFLINE, PLEASE CONTACT SYSTEM ADMINISTRATOR\".</span>")
-				if(!copier_items_printed_logged)
-					message_admins("Photocopier cap of [copier_max_items] papers reached, all photocopiers are now disabled. This may be the cause of any lag.")
-					copier_items_printed_logged = TRUE
+				if(!GLOB.copier_items_printed_logged)
+					message_admins("Photocopier cap of [GLOB.copier_max_items] papers reached, all photocopiers are now disabled. This may be the cause of any lag.")
+					GLOB.copier_items_printed_logged = TRUE
 				break
-
-			if(emag_cooldown > world.time)
-				return
 
 			if(istype(copyitem, /obj/item/paper))
 				copy(copyitem)
@@ -96,7 +99,7 @@
 			else
 				to_chat(usr, "<span class='warning'>\The [copyitem] can't be copied by \the [src].</span>")
 				break
-			copier_items_printed++
+			GLOB.copier_items_printed++
 			use_power(active_power_usage)
 		updateUsrDialog()
 	else if(href_list["remove"])
@@ -165,10 +168,6 @@
 			updateUsrDialog()
 		else
 			to_chat(user, "<span class='notice'>This cartridge is not yet ready for replacement! Use up the rest of the toner.</span>")
-	else if(istype(O, /obj/item/wrench))
-		playsound(loc, O.usesound, 50, 1)
-		anchored = !anchored
-		to_chat(user, "<span class='notice'>You [anchored ? "wrench" : "unwrench"] \the [src].</span>")
 	else if(istype(O, /obj/item/grab)) //For ass-copying.
 		var/obj/item/grab/G = O
 		if(ismob(G.affecting) && G.affecting != ass)
@@ -180,38 +179,18 @@
 				copyitem.forceMove(get_turf(src))
 				copyitem = null
 		updateUsrDialog()
-	return
-
-/obj/machinery/photocopier/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-		if(2.0)
-			if(prob(50))
-				qdel(src)
-			else
-				if(toner > 0)
-					new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
-					toner = 0
-		else
-			if(prob(50))
-				if(toner > 0)
-					new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
-					toner = 0
-	return
-
-/obj/machinery/photocopier/blob_act()
-	if(prob(50))
-		qdel(src)
 	else
-		if(toner > 0)
-			new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
-			toner = 0
-	return
+		return ..()
+
+/obj/machinery/photocopier/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	default_unfasten_wrench(user, I)
 
 /obj/machinery/photocopier/proc/copy(var/obj/item/paper/copy)
 	var/obj/item/paper/c = new /obj/item/paper (loc)
+	c.header = copy.header
 	c.info = copy.info
+	c.footer = copy.footer
 	c.name = copy.name // -- Doohl
 	c.fields = copy.fields
 	c.stamps = copy.stamps
@@ -328,6 +307,11 @@
 	P.pixel_x = rand(-9, 9)
 	return P
 
+/obj/machinery/photocopier/obj_break(damage_flag)
+	if(!(flags & NODECONSTRUCT))
+		if(toner > 0)
+			new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
+			toner = 0
 
 /obj/machinery/photocopier/MouseDrop_T(mob/target, mob/user)
 	check_ass() //Just to make sure that you can re-drag somebody onto it after they moved off.
@@ -336,7 +320,7 @@
 	src.add_fingerprint(user)
 	if(target == user && !user.incapacitated())
 		visible_message("<span class='warning'>[usr] jumps onto [src]!</span>")
-	else if(target != user && !user.restrained() && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
+	else if(target != user && !user.restrained() && !user.stat && !user.IsWeakened() && !user.stunned && !user.paralysis)
 		if(target.anchored) return
 		if(!ishuman(user)) return
 		visible_message("<span class='warning'>[usr] drags [target.name] onto [src]!</span>")
@@ -357,7 +341,7 @@
 		return 0
 	else
 		playsound(loc, 'sound/machines/ping.ogg', 50, 0)
-		atom_say("<span class='danger'>Attention: Posterior Placed on Printing Plaque!</span>")
+		atom_say("Attention: Posterior Placed on Printing Plaque!")
 		return 1
 
 /obj/machinery/photocopier/emag_act(user as mob)

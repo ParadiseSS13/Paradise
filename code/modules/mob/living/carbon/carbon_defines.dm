@@ -1,9 +1,10 @@
 /mob/living/carbon
 	gender = MALE
-	var/list/stomach_contents = list()
+	pressure_resistance = 15
+	var/list/stomach_contents
+	var/list/processing_patches
 	var/list/internal_organs	= list()
 	var/list/internal_organs_slot	= list()	//Same as above, but stores "slot ID" - "organ" pairs for easy access.
-	var/antibodies = 0
 
 	var/life_tick = 0      // The amount of life ticks that have processed on this mob.
 

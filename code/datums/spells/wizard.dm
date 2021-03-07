@@ -72,6 +72,7 @@
 /obj/effect/proc_holder/spell/noclothes
 	name = "No Clothes"
 	desc = "This always-on spell allows you to cast magic without your garments."
+	action_icon_state = "no_clothes"
 
 /obj/effect/proc_holder/spell/targeted/genetic/mutate
 	name = "Mutate"
@@ -87,21 +88,16 @@
 	include_user = 1
 	centcom_cancast = 0
 
-	mutations = list(LASER, HULK)
+	traits = list(TRAIT_LASEREYES)
 	duration = 300
 	cooldown_min = 300 //25 deciseconds reduction per rank
 
 	action_icon_state = "mutate"
 	sound = 'sound/magic/mutate.ogg'
 
-/obj/effect/proc_holder/spell/targeted/genetic/mutate/cast(list/targets, mob/user = usr)
-	for(var/mob/living/target in targets)
-		target.dna.SetSEState(HULKBLOCK, 1)
-		genemutcheck(target, HULKBLOCK, null, MUTCHK_FORCED)
-		spawn(duration)
-			target.dna.SetSEState(HULKBLOCK, 0)
-			genemutcheck(target, HULKBLOCK, null, MUTCHK_FORCED)
-	..()
+/obj/effect/proc_holder/spell/targeted/genetic/mutate/Initialize(mapload)
+	. = ..()
+	mutations = list(GLOB.hulkblock)
 
 /obj/effect/proc_holder/spell/targeted/smoke
 	name = "Smoke"
@@ -303,97 +299,71 @@
 	sound = 'sound/magic/blind.ogg'
 
 /obj/effect/proc_holder/spell/targeted/genetic/blind
-	disabilities = BLIND
+	traits = list(TRAIT_BLIND)
 	duration = 300
 	sound = 'sound/magic/blind.ogg'
 
-/obj/effect/proc_holder/spell/fireball
+/obj/effect/proc_holder/spell/targeted/click/fireball
 	name = "Fireball"
 	desc = "This spell fires a fireball at a target and does not require wizard garb."
 
 	school = "evocation"
 	charge_max = 60
-	clothes_req = 0
+	clothes_req = FALSE
 	invocation = "ONI SOMA"
 	invocation_type = "shout"
+	auto_target_single = FALSE // Having this true won't ever find a single target and is just lost processing power
 	range = 20
 	cooldown_min = 20 //10 deciseconds reduction per rank
+
+	click_radius = -1
+	selection_activated_message		= "<span class='notice'>Your prepare to cast your fireball spell! <B>Left-click to cast at a target!</B></span>"
+	selection_deactivated_message	= "<span class='notice'>You extinguish your fireball...for now.</span>"
+	allowed_type = /atom		// FIRE AT EVERYTHING
+
 	var/fireball_type = /obj/item/projectile/magic/fireball
 	action_icon_state = "fireball0"
 	sound = 'sound/magic/fireball.ogg'
 
 	active = FALSE
 
-/obj/effect/proc_holder/spell/fireball/Click()
-	var/mob/living/user = usr
-	if(!istype(user))
-		return
-
-	var/msg
-
-	if(!can_cast(user))
-		msg = "<span class='warning'>You can no longer cast Fireball.</span>"
-		remove_ranged_ability(user, msg)
-		return
-
-	if(active)
-		msg = "<span class='notice'>You extinguish your fireball...for now.</span>"
-		remove_ranged_ability(user, msg)
-	else
-		msg = "<span class='notice'>Your prepare to cast your fireball spell! <B>Left-click to cast at a target!</B></span>"
-		add_ranged_ability(user, msg)
-
-/obj/effect/proc_holder/spell/fireball/update_icon()
+/obj/effect/proc_holder/spell/targeted/click/fireball/update_icon()
 	if(!action)
 		return
 	action.button_icon_state = "fireball[active]"
 	action.UpdateButtonIcon()
 
-/obj/effect/proc_holder/spell/fireball/InterceptClickOn(mob/living/user, params, atom/target)
-	if(..())
-		return FALSE
-
-	if(!cast_check(0, user))
-		remove_ranged_ability(user)
-		return FALSE
-
-	var/list/targets = list(target)
-	perform(targets, user = user)
-
-	return TRUE
-
-/obj/effect/proc_holder/spell/fireball/cast(list/targets, mob/living/user = usr)
+/obj/effect/proc_holder/spell/targeted/click/fireball/cast(list/targets, mob/living/user = usr)
 	var/target = targets[1] //There is only ever one target for fireball
 	var/turf/T = user.loc
 	var/turf/U = get_step(user, user.dir) // Get the tile infront of the move, based on their direction
 	if(!isturf(U) || !isturf(T))
-		return 0
+		return FALSE
 
 	var/obj/item/projectile/magic/fireball/FB = new fireball_type(user.loc)
 	FB.current = get_turf(user)
 	FB.preparePixelProjectile(target, get_turf(target), user)
 	FB.fire()
 	user.newtonian_move(get_dir(U, T))
-	remove_ranged_ability(user)
 
-	return 1
+	return TRUE
 
 /obj/effect/proc_holder/spell/aoe_turf/repulse
 	name = "Repulse"
 	desc = "This spell throws everything around the user away."
 	charge_max = 400
-	clothes_req = 1
+	clothes_req = TRUE
 	invocation = "GITTAH WEIGH"
 	invocation_type = "shout"
 	range = 5
 	cooldown_min = 150
 	selection_type = "view"
+	sound = 'sound/magic/repulse.ogg'
 	var/maxthrow = 5
 	var/sparkle_path = /obj/effect/temp_visual/gravpush
 	action_icon_state = "repulse"
-	sound = 'sound/magic/repulse.ogg'
 
-/obj/effect/proc_holder/spell/aoe_turf/repulse/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/aoe_turf/repulse/cast(list/targets, mob/user = usr, stun_amt = 2)
 	var/list/thrownatoms = list()
 	var/atom/throwtarget
 	var/distfromcaster
@@ -410,19 +380,19 @@
 		throwtarget = get_edge_target_turf(user, get_dir(user, get_step_away(AM, user)))
 		distfromcaster = get_dist(user, AM)
 		if(distfromcaster == 0)
-			if(istype(AM, /mob/living))
+			if(isliving(AM))
 				var/mob/living/M = AM
 				M.Weaken(5)
 				M.adjustBruteLoss(5)
 				to_chat(M, "<span class='userdanger'>You're slammed into the floor by a mystical force!</span>")
 		else
 			new sparkle_path(get_turf(AM), get_dir(user, AM)) //created sparkles will disappear on their own
-			if(istype(AM, /mob/living))
+			if(isliving(AM))
 				var/mob/living/M = AM
-				M.Weaken(2)
+				M.Weaken(stun_amt)
 				to_chat(M, "<span class='userdanger'>You're thrown back by a mystical force!</span>")
 			spawn(0)
-				AM.throw_at(throwtarget, ((Clamp((maxthrow - (Clamp(distfromcaster - 2, 0, distfromcaster))), 3, maxthrow))), 1)//So stuff gets tossed around at the same time.
+				AM.throw_at(throwtarget, ((clamp((maxthrow - (clamp(distfromcaster - 2, 0, distfromcaster))), 3, maxthrow))), 1)//So stuff gets tossed around at the same time.
 
 /obj/effect/proc_holder/spell/targeted/sacred_flame
 	name = "Sacred Flame"

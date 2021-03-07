@@ -2,24 +2,24 @@
 /client/proc/cmd_admin_pm_context(mob/M as mob in GLOB.mob_list)
 	set category = null
 	set name = "Admin PM Mob"
-	if(!holder)
-		to_chat(src, "<font color='red'>Error: Admin-PM-Context: Only administrators may use this command.</font>")
+	if(!check_rights(R_ADMIN|R_MENTOR))
 		return
-	if( !ismob(M) || !M.client )	return
+	if(!ismob(M) || !M.client)
+		return
 	cmd_admin_pm(M.client,null)
-	feedback_add_details("admin_verb","APMM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin PM Mob") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 
 //shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm
 /client/proc/cmd_admin_pm_panel()
 	set category = "Admin"
 	set name = "Admin PM Name"
-	if(!holder)
-		to_chat(src, "<font color='red'>Error: Admin-PM-Panel: Only administrators may use this command.</font>")
+	if(!check_rights(R_ADMIN|R_MENTOR))
 		return
 	var/list/client/targets[0]
 	for(var/client/T)
 		if(T.mob)
-			if(istype(T.mob, /mob/new_player))
+			if(isnewplayer(T.mob))
 				targets["(New Player) - [T]"] = T
 			else if(istype(T.mob, /mob/dead/observer))
 				targets["[T.mob.name](Ghost) - [T]"] = T
@@ -30,19 +30,18 @@
 	var/list/sorted = sortList(targets)
 	var/target = input(src,"To whom shall we send a message?","Admin PM",null) in sorted|null
 	cmd_admin_pm(targets[target],null)
-	feedback_add_details("admin_verb","APM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin PM Name") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 //shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm
 /client/proc/cmd_admin_pm_by_key_panel()
 	set category = "Admin"
 	set name = "Admin PM Key"
-	if(!holder)
-		to_chat(src, "<font color='red'>Error: Admin-PM-Panel: Only administrators may use this command.</font>")
+	if(!check_rights(R_ADMIN|R_MENTOR))
 		return
 	var/list/client/targets[0]
 	for(var/client/T)
 		if(T.mob)
-			if(istype(T.mob, /mob/new_player))
+			if(isnewplayer(T.mob))
 				targets["[T] - (New Player)"] = T
 			else if(istype(T.mob, /mob/dead/observer))
 				targets["[T] - [T.mob.name](Ghost)"] = T
@@ -53,21 +52,19 @@
 	var/list/sorted = sortList(targets)
 	var/target = input(src,"To whom shall we send a message?","Admin PM",null) in sorted|null
 	cmd_admin_pm(targets[target],null)
-	feedback_add_details("admin_verb","APM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin PM Key") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
 //takes input from cmd_admin_pm_context, cmd_admin_pm_panel or /client/Topic and sends them a PM.
 //Fetching a message if needed. src is the sender and C is the target client
 /client/proc/cmd_admin_pm(whom, msg, type = "PM")
 	if(prefs.muted & MUTE_ADMINHELP)
-		to_chat(src, "<font color='red'>Error: Private-Message: You are unable to use PM-s (muted).</font>")
+		to_chat(src, "<span class='danger'>Error: Private-Message: You are unable to use PM-s (muted).</span>")
 		return
 
 	var/client/C
 	if(istext(whom))
-		if(cmptext(copytext(whom,1,2),"@"))
-			whom = findStealthKey(whom)
-		C = GLOB.directory[whom]
+		C = get_client_by_ckey(whom)
 	else if(istype(whom,/client))
 		C = whom
 
@@ -89,7 +86,7 @@
 	//get message text, limit it's length.and clean/escape html
 	if(!msg)
 		set_typing(C, TRUE)
-		msg = input(src,"Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]") as text|null
+		msg = clean_input("Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]", , src)
 		set_typing(C, FALSE)
 
 		if(!msg)
@@ -106,9 +103,11 @@
 
 	//clean the message if it's not sent by a high-rank admin
 	if(!check_rights(R_SERVER|R_DEBUG,0))
-		msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN))
+		msg = sanitize_simple(copytext(msg,1,MAX_MESSAGE_LEN))
 		if(!msg)
 			return
+	else
+		msg = admin_pencode_to_html(msg)
 
 	var/recieve_span = "playerreply"
 	var/send_pm_type = " "
@@ -127,7 +126,7 @@
 			recieve_pm_type = holder.rank
 
 	else if(!C.holder)
-		to_chat(src, "<font color='red'>Error: Admin-PM: Non-admin to non-admin PM communication is forbidden.</font>")
+		to_chat(src, "<span class='danger'>Error: Admin-PM: Non-admin to non-admin PM communication is forbidden.</span>")
 		return
 
 	var/recieve_message = ""
@@ -147,7 +146,7 @@
 			spawn(0)	//so we don't hold the caller proc up
 				var/sender = src
 				var/sendername = key
-				var/reply = input(C, msg,"[recieve_pm_type] [type] from-[sendername]", "") as text|null		//show message and await a reply
+				var/reply = clean_input(msg,"[recieve_pm_type] [type] from-[sendername]", "", C)		//show message and await a reply
 				if(C && reply)
 					if(sender)
 						C.cmd_admin_pm(sender,reply)										//sender is still about, let's reply to them
@@ -159,7 +158,9 @@
 	var/emoji_msg = "<span class='emoji_enabled'>[msg]</span>"
 	recieve_message = "<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type][C.holder ? key_name(src, TRUE, type) : key_name_hidden(src, TRUE, type)]</b>: [emoji_msg]</span>"
 	to_chat(C, recieve_message)
-	to_chat(src, "<font color='blue'>[send_pm_type][type] to-<b>[holder ? key_name(C, TRUE, type) : key_name_hidden(C, TRUE, type)]</b>: [emoji_msg]</font>")
+	var/ping_link = check_rights(R_ADMIN, 0, mob) ? "(<a href='?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
+	var/window_link = "(<a href='?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
+	to_chat(src, "<span class='pmsend'>[send_pm_type][type] to-<b>[holder ? key_name(C, TRUE, type) : key_name_hidden(C, TRUE, type)]</b>: [emoji_msg]</span> [ping_link] [window_link]")
 
 	/*if(holder && !C.holder)
 		C.last_pm_recieved = world.time
@@ -168,7 +169,7 @@
 	//play the recieving admin the adminhelp sound (if they have them enabled)
 	//non-admins always hear the sound, as they cannot toggle it
 	if((!C.holder) || (C.prefs.sound & SOUND_ADMINHELP))
-		C << 'sound/effects/adminhelp.ogg'
+		SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
 
 	log_admin("PM: [key_name(src)]->[key_name(C)]: [msg]")
 	//we don't use message_admins here because the sender/receiver might get it too
@@ -187,7 +188,7 @@
 				else
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
 						to_chat(X, "<span class='boldnotice'>[type]: [key_name(src, TRUE, type)]-&gt;[key_name(C, TRUE, type)]: [emoji_msg]</span>")
-	
+
 	//Check if the mob being PM'd has any open admin tickets.
 	var/tickets = list()
 	if(type == "Mentorhelp")
@@ -201,43 +202,49 @@
 	if(type == "Mentorhelp")
 		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, C.mob)) //Is the person being pm'd an admin? If so we check if the pm'er has open tickets
 			tickets = SSmentor_tickets.checkForTicket(src)
-	else // Ahelp 
+	else // Ahelp
 		if(check_rights(R_ADMIN|R_MOD, 0, C.mob)) //Is the person being pm'd an admin? If so we check if the pm'er has open tickets
 			tickets = SStickets.checkForTicket(src)
-	
+
 	if(tickets)
 		for(var/datum/ticket/i in tickets)
 			i.addResponse(src, msg)
 		return
 
-
-/client/proc/cmd_admin_irc_pm()
+/client/proc/cmd_admin_discord_pm()
 	if(prefs.muted & MUTE_ADMINHELP)
-		to_chat(src, "<font color='red'>Error: Private-Message: You are unable to use PM-s (muted).</font>")
+		to_chat(src, "<span class='danger'>Error: Private-Message: You are unable to use PMs (muted).</span>")
 		return
 
-	var/msg = input(src,"Message:", "Private message to admins on IRC / 400 character limit") as text|null
+	if(last_discord_pm_time > world.time)
+		to_chat(usr, "<span class='warning'>Please wait [(last_discord_pm_time - world.time)/10] seconds, or for a reply, before sending another PM to Discord.</span>")
+		return
+
+	// We only allow PMs once every 10 seconds, othewrise the channel can get spammed very quickly
+	last_discord_pm_time = world.time + 10 SECONDS
+
+	var/msg = clean_input("Message:", "Private message to admins on Discord / 400 character limit", , src)
 
 	if(!msg)
 		return
 
 	sanitize(msg)
 
-	if(length(msg) > 400) // TODO: if message length is over 400, divide it up into seperate messages, the message length restriction is based on IRC limitations.  Probably easier to do this on the bots ends.
+	if(length(msg) > 400) // Dont want them super spamming
 		to_chat(src, "<span class='warning'>Your message was not sent because it was more then 400 characters find your message below for ease of copy/pasting</span>")
 		to_chat(src, "<span class='notice'>[msg]</span>")
 		return
 
-	send2adminirc("PlayerPM from [key_name(src)]: [html_decode(msg)]")
+	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "PM from [key_name(src)]: [html_decode(msg)]")
 
-	to_chat(src, "<font color='blue'>IRC PM to-<b>IRC-Admins</b>: [msg]</font>")
+	to_chat(src, "<span class='pmsend'>PM to-<b>Discord Admins</b>: [msg]</span>")
 
-	log_admin("PM: [key_name(src)]->IRC: [msg]")
+	log_admin("PM: [key_name(src)]->Discord: [msg]")
 	for(var/client/X in GLOB.admins)
 		if(X == src)
 			continue
-		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
-			to_chat(X, "<B><font color='blue'>PM: [key_name(src, TRUE, 0)]-&gt;IRC-Admins:</B> <span class='notice'>[msg]</span></font>")
+		if(check_rights(R_ADMIN, 0, X.mob))
+			to_chat(X, "<span class='pmsend'><b>PM: [key_name_admin(src)]-&gt;Discord Admins:</b> <span class='notice'>[msg]</span></span>")
 
 /client/verb/open_pms_ui()
 	set name = "My PMs"
@@ -257,9 +264,10 @@
 /datum/pm_tracker
 	var/current_title = ""
 	var/open = FALSE
-	var/list/pms = list()
+	var/list/datum/pm_convo/pms = list()
 	var/show_archived = FALSE
 	var/window_id = "pms_window"
+	var/forced = FALSE
 
 /datum/pm_convo
 	var/list/messages = list()
@@ -295,6 +303,10 @@
 /datum/pm_tracker/proc/show_ui(mob/user)
 	var/dat = ""
 
+	// If it was forced open, make them use a special close button that alerts admins to closure
+	if(forced)
+		dat += "<div style='float: right'><big><a href='?src=[UID()];altclose=1'>Close</a></big></div>"
+
 	dat += "<a href='?src=[UID()];refresh=1'>Refresh</a>"
 	dat += "<a href='?src=[UID()];showarchived=1'>[show_archived ? "Hide" : "Show"] Archived</a>"
 	dat += "<br>"
@@ -312,6 +324,10 @@
 
 	var/datum/pm_convo/convo = pms[current_title]
 	var/datum/browser/popup = new(user, window_id, "Messages", 1000, 600, src)
+
+	if(forced) // Lockout the normal close button, force the UI one
+		popup.set_window_options("can_close=0")
+
 	if(convo)
 		popup.add_head_content(@{"<script type='text/javascript'>
 			window.onload = function () {
@@ -347,7 +363,7 @@
 	var/client/C = pms[title].client || update_client(title)
 	if(!C)
 		return "[title] (Disconnected)"
-	return "[key_name(C, FALSE)] ([ADMIN_QUE(C.mob,"?")]) ([ADMIN_PP(C.mob,"PP")]) ([ADMIN_VV(C.mob,"VV")]) ([ADMIN_SM(C.mob,"SM")]) ([admin_jump_link(C.mob)]) (<A HREF='?_src_=holder;check_antagonist=1'>CA</A>)"
+	return "[key_name(C, FALSE)] ([ADMIN_QUE(C.mob,"?")]) ([ADMIN_PP(C.mob,"PP")]) ([ADMIN_VV(C.mob,"VV")]) ([ADMIN_TP(C.mob,"TP")]) ([ADMIN_SM(C.mob,"SM")]) ([admin_jump_link(C.mob)])"
 
 /datum/pm_tracker/proc/update_client(title)
 	var/client/C = GLOB.directory[ckey(title)]
@@ -366,6 +382,13 @@
 		show_ui(usr)
 		return
 
+	if(href_list["altclose"])
+		message_admins("[key_name_admin(usr)] closed a force-opened PM window")
+		usr << browse(null, "window=[window_id]")
+		open = FALSE
+		forced = FALSE
+		return
+
 	if(href_list["newtitle"])
 		current_title = href_list["newtitle"]
 		show_ui(usr)
@@ -375,10 +398,10 @@
 		var/client/C = pms[href_list["ping"]].client
 		if(C)
 			C.pm_tracker.current_title = usr.key
+			C.pm_tracker.forced = TRUE // We forced it open
 			window_flash(C)
 			C.pm_tracker.show_ui(C.mob)
 			to_chat(usr, "<span class='notice'>Forced open [C]'s messages window.</span>")
-		show_ui(usr)
 		return
 
 	if(href_list["reply"])

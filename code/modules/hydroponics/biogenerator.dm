@@ -26,7 +26,7 @@
 	component_parts += new /obj/item/circuitboard/biogenerator(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
@@ -39,6 +39,13 @@
 	if(beaker)
 		beaker.ex_act(severity)
 	..()
+
+/obj/machinery/biogenerator/handle_atom_del(atom/A)
+	..()
+	if(A == beaker)
+		beaker = null
+		update_icon()
+		updateUsrDialog()
 
 /obj/machinery/biogenerator/RefreshParts()
 	var/E = 0
@@ -86,7 +93,7 @@
 	if(exchange_parts(user, O))
 		return
 
-	if(default_deconstruction_crowbar(O))
+	if(default_deconstruction_crowbar(user, O))
 		return
 
 	if(istype(O, /obj/item/reagent_containers/glass))
@@ -320,7 +327,7 @@
 	else if(href_list["create"])
 		var/amount = (text2num(href_list["amount"]))
 		//Can't be outside these (if you change this keep a sane limit)
-		amount = Clamp(amount, 1, 10)
+		amount = clamp(amount, 1, 10)
 		var/datum/design/D = locate(href_list["create"])
 		create_product(D, amount)
 		updateUsrDialog()

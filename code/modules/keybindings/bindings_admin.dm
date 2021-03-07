@@ -13,7 +13,7 @@
 			user.cmd_admin_pm_panel()
 			return
 		if("F9")
-			user.stealth()
+			user.invisimin()
 			return
 		if("F10")
 			user.get_dead_say()

@@ -8,6 +8,7 @@
 	icon = 'icons/obj/cooking_machines.dmi'
 	icon_state = "icecream_vat"
 	use_power = IDLE_POWER_USE
+	max_integrity = 300
 	idle_power_usage = 20
 	var/obj/item/reagent_containers/glass/beaker = null
 	var/useramount = 15	//Last used amount
@@ -24,6 +25,7 @@
 
 
 /obj/machinery/icemachine/New()
+	..()
 	create_reagents(500)
 
 /obj/machinery/icemachine/attackby(obj/item/I, mob/user, params)
@@ -41,14 +43,15 @@
 		return
 	if(istype(I, /obj/item/reagent_containers/food/snacks/icecream))
 		if(!I.reagents.has_reagent("sprinkles"))
-			if(I.reagents.total_volume > 29) I.reagents.remove_any(1)
-			I.reagents.add_reagent("sprinkles",1)
-			var/image/sprinkles = image('icons/obj/kitchen.dmi', src, "sprinkles")
-			I.overlays += sprinkles
+			if(I.reagents.total_volume > 29)
+				I.reagents.remove_any(1)
+			I.reagents.add_reagent("sprinkles", 1)
 			I.name += " with sprinkles"
 			I.desc += ". This also has sprinkles."
 		else
 			to_chat(user, "<span class='notice'>This [I] already has sprinkles.</span>")
+		return
+	return ..()
 
 
 /obj/machinery/icemachine/proc/validexchange(reag)
@@ -248,3 +251,8 @@
 	var/datum/browser/popup = new(user, "cream_master","Cream-Master Deluxe", 700, 400, src)
 	popup.set_content(dat)
 	popup.open()
+
+/obj/machinery/icemachine/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc, 4)
+	qdel(src)

@@ -1,6 +1,5 @@
 /obj/item/organ/internal/brain
 	name = "brain"
-	health = 400 //They need to live awhile longer than other organs.
 	max_damage = 120
 	icon_state = "brain2"
 	force = 1.0
@@ -27,11 +26,9 @@
 	mmi_icon = 'icons/mob/alien.dmi'
 	mmi_icon_state = "AlienMMI"
 
-/obj/item/organ/internal/brain/New()
-	..()
-	spawn(5)
-		if(brainmob && brainmob.client)
-			brainmob.client.screen.len = null //clear the hud
+/obj/item/organ/internal/brain/Destroy()
+	QDEL_NULL(brainmob)
+	return ..()
 
 /obj/item/organ/internal/brain/proc/transfer_identity(var/mob/living/carbon/H)
 	brainmob = new(src)
@@ -50,11 +47,11 @@
 	to_chat(brainmob, "<span class='notice'>You feel slightly disoriented. That's normal when you're just a [initial(src.name)].</span>")
 
 /obj/item/organ/internal/brain/examine(mob/user) // -- TLE
-	..(user)
+	. = ..()
 	if(brainmob && brainmob.client)//if thar be a brain inside... the brain.
-		to_chat(user, "You can feel the small spark of life still left in this one.")
+		. += "You can feel the small spark of life still left in this one."
 	else
-		to_chat(user, "This one seems particularly lifeless. Perhaps it will regain some of its luster later..")
+		. += "This one seems particularly lifeless. Perhaps it will regain some of its luster later.."
 
 /obj/item/organ/internal/brain/remove(var/mob/living/user,special = 0)
 	if(dna)
@@ -73,7 +70,7 @@
 
 	if(istype(owner,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = owner
-		H.update_hair(1)
+		H.update_hair()
 	. = ..()
 
 /obj/item/organ/internal/brain/insert(var/mob/living/target,special = 0)
@@ -85,7 +82,7 @@
 			brain_already_exists = 1
 
 		var/mob/living/carbon/human/H = target
-		H.update_hair(1)
+		H.update_hair()
 
 	if(!brain_already_exists)
 		if(brainmob)

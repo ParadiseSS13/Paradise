@@ -69,6 +69,13 @@
 	required_reagents = list("sodiumchloride" = 1, "water" = 1, "sugar" = 1)
 	result_amount = 3
 
+/datum/chemical_reaction/heparin
+	name = "Heparin"
+	id = "Heparin"
+	result = "heparin"
+	required_reagents = list("sugar" = 1, "meatslurry" = 1, "phenol" = 1, "sacid" = 1)
+	result_amount = 2
+
 /datum/chemical_reaction/synthflesh
 	name = "Synthflesh"
 	id = "synthflesh"
@@ -194,11 +201,19 @@
 	id = "life"
 	result = null
 	required_reagents = list("strange_reagent" = 1, "synthflesh" = 1, "blood" = 1)
-	result_amount = 3
+	result_amount = 1
 	min_temp = T0C + 100
 
 /datum/chemical_reaction/life/on_reaction(datum/reagents/holder, created_volume)
-	chemical_mob_spawn(holder, 1, "Life")
+	chemical_mob_spawn(holder, rand(1, round(created_volume, 1)), "Life (hostile)") //defaults to HOSTILE_SPAWN
+
+/datum/chemical_reaction/life/friendly
+	name = "Life (Friendly)"
+	id = "life_friendly"
+	required_reagents = list("strange_reagent" = 1, "synthflesh" = 1, "sugar" = 1)
+
+/datum/chemical_reaction/life/friendly/on_reaction(datum/reagents/holder, created_volume)
+	chemical_mob_spawn(holder, rand(1, round(created_volume, 1)), "Life (friendly)", FRIENDLY_SPAWN)
 
 /datum/chemical_reaction/mannitol
 	name = "Mannitol"
@@ -265,3 +280,13 @@
 	result_amount = 3
 	min_temp = T0C + 100
 	mix_message = "The solution gently swirls with a metallic sheen."
+
+/datum/chemical_reaction/menthol
+	name = "Menthol"
+	id = "menthol"
+	result = "menthol"
+	required_reagents = list("mint" = 1, "ethanol" = 1)
+	result_amount = 1
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+	min_temp = T0C + 50
+	mix_message = "Large white crystals precipitate out of the mixture."

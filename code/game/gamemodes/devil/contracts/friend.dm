@@ -17,7 +17,8 @@
 /obj/effect/mob_spawn/human/demonic_friend/Initialize(mapload, datum/mind/owner_mind, obj/effect/proc_holder/spell/targeted/summon_friend/summoning_spell)
 	. = ..()
 	owner = owner_mind
-	flavour_text = "<span class='big bold'>You have been given a reprieve from your eternity of torment, to be [owner.name]'s friend for [owner.p_their()] short mortal coil.</span><b> Be aware that if you do not live up to [owner.name]'s expectations, [owner.p_they()] can send you back to hell with a single thought. [owner.name]'s death will also return you to hell.</b>"
+	description = "Be someone's loyal friend/slave. If they die, you die as well."	//best I could think of in the moment, not sure how this role plays in practise, have never seen it.
+	flavour_text = "You have been given a reprieve from your eternity of torment, to be [owner.name]'s friend for [owner.p_their()] short mortal coil. Be aware that if you do not live up to [owner.name]'s expectations, [owner.p_they()] can send you back to hell with a single thought. [owner.name]'s death will also return you to hell."
 	var/area/A = get_area(src)
 	if(!mapload && A)
 		notify_ghosts("\A friendship shell has been completed in \the [A.name].", source = src, action=NOTIFY_ATTACK, flashwindow = TRUE)

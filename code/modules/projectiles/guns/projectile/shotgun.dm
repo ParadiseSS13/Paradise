@@ -6,11 +6,13 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	flags = CONDUCT
+	can_holster = FALSE
 	slot_flags = SLOT_BACK
 	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	var/recentpump = 0 // to prevent spammage
+	weapon_weight = WEAPON_HEAVY
 
 /obj/item/gun/projectile/shotgun/attackby(obj/item/A, mob/user, params)
 	. = ..()
@@ -55,7 +57,7 @@
 	if(chambered)//We have a shell in the chamber
 		chambered.loc = get_turf(src)//Eject casing
 		chambered.SpinAnimation(5, 1)
-		playsound(src, chambered.drop_sound, 60, 1)
+		playsound(src, chambered.casing_drop_sound, 60, 1)
 		chambered = null
 
 /obj/item/gun/projectile/shotgun/proc/pump_reload(mob/M)
@@ -65,12 +67,9 @@
 	chambered = AC
 
 /obj/item/gun/projectile/shotgun/examine(mob/user)
-	..()
+	. = ..()
 	if(chambered)
-		to_chat(user, "A [chambered.BB ? "live" : "spent"] one is in the chamber.")
-
-/obj/item/gun/projectile/shotgun/isHandgun() //You cannot, in fact, holster a shotgun.
-	return 0
+		. += "A [chambered.BB ? "live" : "spent"] one is in the chamber."
 
 /obj/item/gun/projectile/shotgun/lethal
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/lethal
@@ -86,7 +85,6 @@
 	sawn_state = SAWN_INTACT
 
 /obj/item/gun/projectile/shotgun/riot/attackby(obj/item/A, mob/user, params)
-	..()
 	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
 		sawoff(user)
 	if(istype(A, /obj/item/melee/energy))
@@ -95,6 +93,8 @@
 			sawoff(user)
 	if(istype(A, /obj/item/pipe))
 		unsaw(A, user)
+	else
+		return ..()
 
 /obj/item/gun/projectile/shotgun/riot/sawoff(mob/user)
 	if(sawn_state == SAWN_OFF)
@@ -195,6 +195,8 @@
 	..()
 	post_sawoff()
 
+/obj/item/gun/projectile/shotgun/riot/buckshot	//comes pre-loaded with buckshot rather than rubber
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot/buckshot
 
 
 ///////////////////////
@@ -210,6 +212,9 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
 	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
 	var/bolt_open = 0
+	can_bayonet = TRUE
+	knife_x_offset = 27
+	knife_y_offset = 13
 
 /obj/item/gun/projectile/shotgun/boltaction/pump(mob/M)
 	playsound(M, 'sound/weapons/gun_interactions/rifle_load.ogg', 60, 1)
@@ -234,14 +239,15 @@
 	. = ..()
 
 /obj/item/gun/projectile/shotgun/boltaction/examine(mob/user)
-	..()
-	to_chat(user, "The bolt is [bolt_open ? "open" : "closed"].")
+	. = ..()
+	. += "The bolt is [bolt_open ? "open" : "closed"]."
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted
 	name = "enchanted bolt action rifle"
 	desc = "Careful not to lose your head."
 	var/guns_left = 30
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted
+	can_bayonet = FALSE
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/New()
 	..()
@@ -252,25 +258,46 @@
 	..()
 	guns_left = 0
 
-/obj/item/gun/projectile/shotgun/boltaction/enchanted/shoot_live_shot(mob/living/user as mob|obj, pointblank = 0, mob/pbtarget = null, message = 1)
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/attack_self()
+	return
+
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	..()
 	if(guns_left)
-		var/obj/item/gun/projectile/shotgun/boltaction/enchanted/GUN = new
+		var/obj/item/gun/projectile/shotgun/boltaction/enchanted/GUN = new type
 		GUN.guns_left = guns_left - 1
-		user.drop_item()
+		discard_gun(user)
 		user.swap_hand()
+		user.drop_item()
 		user.put_in_hands(GUN)
 	else
-		user.drop_item()
-	spawn(0)
-		throw_at(pick(oview(7,get_turf(user))),1,1)
+		discard_gun(user)
+
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/proc/discard_gun(mob/living/user)
 	user.visible_message("<span class='warning'>[user] tosses aside the spent rifle!</span>")
+	user.throw_item(pick(oview(7, get_turf(user))))
+
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage
+	name = "arcane barrage"
+	desc = "Pew Pew Pew."
+	fire_sound = 'sound/weapons/emitter.ogg'
+	icon_state = "arcane_barrage"
+	item_state = "arcane_barrage"
+	slot_flags = null
+	flags = NOBLUDGEON | DROPDEL | ABSTRACT
+	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage
+
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/examine(mob/user)
+	. = desc // Override since magical hand lasers don't have chambers or bolts
+
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/discard_gun(mob/living/user)
+	qdel(src)
 
 // Automatic Shotguns//
 
 /obj/item/gun/projectile/shotgun/automatic
 
-/obj/item/gun/projectile/shotgun/automatic/shoot_live_shot(mob/living/user as mob|obj)
+/obj/item/gun/projectile/shotgun/automatic/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	..()
 	pump(user)
 

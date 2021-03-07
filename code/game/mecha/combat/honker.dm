@@ -4,15 +4,14 @@
 	icon_state = "honker"
 	initial_icon = "honker"
 	step_in = 3
-	health = 140
+	max_integrity = 140
 	deflect_chance = 60
 	internal_damage_threshold = 60
-	damage_absorption = list("brute"=1.2,"fire"=1.5,"bullet"=1,"laser"=1,"energy"=1,"bomb"=1)
-	armor = list(melee = -20, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list("melee" = -20, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 	max_temperature = 25000
 	infra_luminosity = 5
-	operation_req_access = list(access_clown)
-	wreckage = /obj/effect/decal/mecha_wreckage/honker
+	operation_req_access = list(ACCESS_CLOWN)
+	wreckage = /obj/structure/mecha_wreckage/honker
 	add_req_access = 0
 	max_equip = 3
 	starting_voice = /obj/item/mecha_modkit/voice/honk
@@ -28,7 +27,7 @@
 	ME.attach(src)
 
 /obj/mecha/combat/honker/get_stats_part()
-	var/integrity = health/initial(health)*100
+	var/integrity = obj_integrity/max_integrity*100
 	var/cell_charge = get_charge()
 	var/tank_pressure = internal_tank ? round(internal_tank.return_pressure(),0.01) : "None"
 	var/tank_temperature = internal_tank ? internal_tank.return_temperature() : "Unknown"
@@ -65,8 +64,8 @@
 						.hidden {display: none;}
 						</style>
 						<script language='javascript' type='text/javascript'>
-						[js_byjax]
-						[js_dropdowns]
+						[JS_BYJAX]
+						[JS_DROPDOWNS]
 						function ticker() {
 						    setInterval(function(){
 						        window.location='byond://?src=[UID()]&update_content=1';
@@ -138,7 +137,7 @@
 			squeak = 0
 	return result
 
-obj/mecha/combat/honker/Topic(href, href_list)
+/obj/mecha/combat/honker/Topic(href, href_list)
 	..()
 	if(href_list["play_sound"])
 		switch(href_list["play_sound"])

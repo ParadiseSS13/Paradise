@@ -118,8 +118,9 @@
 
 //Try to move onto target's turf and eat them
 /mob/living/simple_animal/hostile/spaceWorm/wormHead/AttackingTarget()
-	..()
-	attemptToEat(target)
+	. = ..()
+	if(.)
+		attemptToEat(target)
 
 //Attempt to eat things we bump into, Mobs, Walls, Clowns
 /mob/living/simple_animal/hostile/spaceWorm/wormHead/Bump(atom/obstacle)
@@ -334,7 +335,7 @@
 
 
 //Jiggle the whole worm forwards towards the next segment
-/mob/living/simple_animal/hostile/spaceWorm/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect, end_pixel_y)
+/mob/living/simple_animal/hostile/spaceWorm/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect)
 	..()
 	if(previousWorm)
 		previousWorm.do_attack_animation(src)

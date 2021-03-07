@@ -1,6 +1,6 @@
 // Recruiting observers to play as pAIs
 
-var/datum/paiController/paiController			// Global handler for pAI candidates
+GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler for pAI candidates
 
 /datum/paiCandidate
 	var/name
@@ -9,12 +9,6 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 	var/role
 	var/comments
 	var/ready = 0
-
-
-/hook/startup/proc/paiControllerSetup()
-	paiController = new /datum/paiController()
-	return 1
-
 
 /datum/paiController
 	var/list/pai_candidates = list()
@@ -252,7 +246,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 /datum/paiController/proc/findPAI(var/obj/item/paicard/p, var/mob/user)
 	requestRecruits(p, user)
 	var/list/available = list()
-	for(var/datum/paiCandidate/c in paiController.pai_candidates)
+	for(var/datum/paiCandidate/c in GLOB.paiController.pai_candidates)
 		if(c.ready)
 			var/found = 0
 			for(var/mob/o in GLOB.respawnable_list)

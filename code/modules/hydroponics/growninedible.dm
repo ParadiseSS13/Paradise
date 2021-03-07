@@ -5,7 +5,7 @@
 /obj/item/grown // Grown weapons
 	name = "grown_weapon"
 	icon = 'icons/obj/hydroponics/harvest.dmi'
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	var/obj/item/seeds/seed = null // type path, gets converted to item on New(). It's safe to assume it's always a seed item.
 
 /obj/item/grown/New(newloc, var/obj/item/seeds/new_seed = null)
@@ -28,7 +28,7 @@
 
 		if(istype(src, seed.product)) // no adding reagents if it is just a trash item
 			seed.prepare_result(src)
-		transform *= TransformUsingVariable(seed.potency, 100, 0.5)
+		transform *= TRANSFORM_USING_VARIABLE(seed.potency, 100) + 0.5
 		add_juice()
 
 /obj/item/grown/Destroy()
@@ -50,18 +50,11 @@
 		return 1
 	return 0
 
-
-/obj/item/grown/Crossed(atom/movable/AM)
-	if(seed)
-		for(var/datum/plant_gene/trait/T in seed.genes)
-			T.on_cross(src, AM)
-	..()
-
-/obj/item/grown/on_trip(mob/living/carbon/human/H)
-	. = ..()
-	if(. && seed)
-		for(var/datum/plant_gene/trait/T in seed.genes)
-			T.on_slip(src, H)
+/obj/item/grown/after_slip(mob/living/carbon/human/H)
+	if(!seed)
+		return
+	for(var/datum/plant_gene/trait/T in seed.genes)
+		T.on_slip(src, H)
 
 /obj/item/grown/throw_impact(atom/hit_atom)
 	if(!..()) //was it caught by a mob?

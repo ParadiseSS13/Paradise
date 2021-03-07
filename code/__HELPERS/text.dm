@@ -9,25 +9,17 @@
  */
 
 
-/*
- * SQL sanitization
- */
-
-// Run all strings to be used in an SQL query through this proc first to properly escape out injection attempts.
-/proc/sanitizeSQL(var/t as text)
-	if(isnull(t))
-		return null
-	if(!istext(t))
-		t = "[t]" // Just quietly assume any non-texts are supposed to be text
-	var/sqltext = dbcon.Quote(t);
-	return copytext(sqltext, 2, lentext(sqltext));//Quote() adds quotes around input, we already do that
-
 /proc/format_table_name(table as text)
 	return sqlfdbktableprefix + table
 
 /*
  * Text sanitization
  */
+// Can be used almost the same way as normal input for text
+/proc/clean_input(Message, Title, Default, mob/user=usr)
+	var/txt = input(user, Message, Title, Default) as text | null
+	if(txt)
+		return html_encode(txt)
 
 //Simply removes < and > and limits the length of the message
 /proc/strip_html_simple(var/t,var/limit=MAX_MESSAGE_LEN)
@@ -44,15 +36,6 @@
 /proc/sanitize_simple(var/t,var/list/repl_chars = list("\n"="#","\t"="#"))
 	for(var/char in repl_chars)
 		t = replacetext(t, char, repl_chars[char])
-	return t
-
-/proc/readd_quotes(var/t)
-	var/list/repl_chars = list("&#34;" = "\"")
-	for(var/char in repl_chars)
-		var/index = findtext(t, char)
-		while(index)
-			t = copytext(t, 1, index) + repl_chars[char] + copytext(t, index+5)
-			index = findtext(t, char)
 	return t
 
 //Runs byond's sanitization proc along-side sanitize_simple
@@ -103,11 +86,10 @@
 
 // Used to get a sanitized input.
 /proc/stripped_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
-	var/name = input(user, message, title, default) as text|null
-	if(no_trim)
-		return copytext(html_encode(name), 1, max_length)
-	else
-		return trim(html_encode(name), max_length) //trim is "outside" because html_encode can expand single symbols into multiple symbols (such as turning < into &lt;)
+	var/name = html_encode(input(user, message, title, default) as text|null)
+	if(!no_trim)
+		name = trim(name) //trim is "outside" because html_encode can expand single symbols into multiple symbols (such as turning < into &lt;)
+	return copytext(name, 1, max_length)
 
 // Uses client.typing to check if the popup should appear or not
 /proc/typing_input(mob/user, message = "", title = "", default = "")
@@ -125,8 +107,10 @@
 
 //Filters out undesirable characters from names
 /proc/reject_bad_name(var/t_in, var/allow_numbers=0, var/max_length=MAX_NAME_LEN)
+	// Decode so that names with characters like < are still rejected
+	t_in = html_decode(t_in)
 	if(!t_in || length(t_in) > max_length)
-		return //Rejects the input if it is null or if it is longer then the max length allowed
+		return //Rejects the input if it is null or if it is longer than the max length allowed
 
 	var/number_of_alphanumeric	= 0
 	var/last_char_group			= 0
@@ -190,7 +174,7 @@
 //checks text for html tags
 //if tag is not in whitelist (var/list/paper_tag_whitelist in global.dm)
 //relpaces < with &lt;
-proc/checkhtml(var/t)
+/proc/checkhtml(var/t)
 	t = sanitize_simple(t, list("&#"="."))
 	var/p = findtext(t,"<",1)
 	while(p)	//going through all the tags
@@ -201,7 +185,7 @@ proc/checkhtml(var/t)
 				tag = copytext(t,start, p)
 				p++
 			tag = copytext(t,start+1, p)
-			if(!(tag in paper_tag_whitelist))	//if it's unkown tag, disarming it
+			if(!(tag in GLOB.paper_tag_whitelist))	//if it's unkown tag, disarming it
 				t = copytext(t,1,start-1) + "&lt;" + copytext(t,start+1)
 		p = findtext(t,"<",p)
 	return t
@@ -326,9 +310,9 @@ proc/checkhtml(var/t)
 //is in the other string at the same spot (assuming it is not a replace char).
 //This is used for fingerprints
 	var/newtext = text
-	if(lentext(text) != lentext(compare))
+	if(length(text) != length(compare))
 		return 0
-	for(var/i = 1, i < lentext(text), i++)
+	for(var/i = 1, i < length(text), i++)
 		var/a = copytext(text,i,i+1)
 		var/b = copytext(compare,i,i+1)
 //if it isn't both the same letter, or if they are both the replacement character
@@ -348,7 +332,7 @@ proc/checkhtml(var/t)
 	if(!text || !character)
 		return 0
 	var/count = 0
-	for(var/i = 1, i <= lentext(text), i++)
+	for(var/i = 1, i <= length(text), i++)
 		var/a = copytext(text,i,i+1)
 		if(a == character)
 			count++
@@ -393,8 +377,8 @@ proc/checkhtml(var/t)
 //Used in preferences' SetFlavorText and human's set_flavor verb
 //Previews a string of len or less length
 /proc/TextPreview(var/string,var/len=40)
-	if(lentext(string) <= len)
-		if(!lentext(string))
+	if(length(string) <= len)
+		if(!length(string))
 			return "\[...\]"
 		else
 			return html_encode(string) //NO DECODED HTML YOU CHUCKLEFUCKS
@@ -527,15 +511,52 @@ proc/checkhtml(var/t)
 		text = replacetext(text, "\[/grid\]",	"</td></tr></table>")
 		text = replacetext(text, "\[row\]",		"</td><tr>")
 		text = replacetext(text, "\[cell\]",	"<td>")
-		text = replacetext(text, "\[logo\]",	"<img src = ntlogo.png>")
+		text = replacetext(text, "\[logo\]",	"&ZeroWidthSpace;<img src = ntlogo.png>")
 		text = replacetext(text, "\[time\]",	"[station_time_timestamp()]") // TO DO
 		if(!no_font)
 			if(P)
 				text = "<font face=\"[deffont]\" color=[P ? P.colour : "black"]>[text]</font>"
 			else
 				text = "<font face=\"[deffont]\">[text]</font>"
-    
+
 	text = copytext(text, 1, MAX_PAPER_MESSAGE_LEN)
+	return text
+
+/proc/convert_pencode_arg(text, tag, arg)
+	arg = sanitize_simple(html_encode(arg), list("''"="","\""="", "?"=""))
+	// https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html#rule-4---css-escape-and-strictly-validate-before-inserting-untrusted-data-into-html-style-property-values
+	var/list/style_attacks = list("javascript:", "expression", "byond:", "file:")
+
+	for(var/style_attack in style_attacks)
+		if(findtext(arg, style_attack))
+			// Do not attempt to render dangerous things
+			return text
+
+	if(tag == "class")
+		return "<span class='[arg]'>"
+
+	if(tag == "style")
+		return "<span style='[arg]'>"
+
+	if(tag == "img")
+		var/list/img_props = splittext(arg, ";")
+		if(img_props.len == 3)
+			return "<img src='[img_props[1]]' width='[img_props[2]]' height='[img_props[3]]'>"
+		if(img_props.len == 2)
+			return "<img src='[img_props[1]]' width='[img_props[2]]'>"
+		return "<img src='[arg]'>"
+
+	return text
+
+/proc/admin_pencode_to_html()
+	var/text = pencode_to_html(arglist(args))
+	var/regex/R = new(@"\[(.*?) (.*?)\]", "ge")
+	text = R.Replace(text, /proc/convert_pencode_arg)
+
+	text = replacetext(text, "\[/class\]", "</span>")
+	text = replacetext(text, "\[/style\]", "</span>")
+	text = replacetext(text, "\[/img\]", "</img>")
+
 	return text
 
 /proc/html_to_pencode(text)
@@ -573,4 +594,60 @@ proc/checkhtml(var/t)
 	text = replacetext(text, "<img src = ntlogo.png>",	"\[logo\]")
 	return text
 
-#define string2charlist(string) (splittext(string, regex("(\\x0A|.)")) - splittext(string, ""))
+/datum/html/split_holder
+	var/list/opening
+	var/inner_text
+	var/list/closing
+
+/datum/html/split_holder/New()
+	opening = list()
+	inner_text = ""
+	closing = list()
+
+/proc/split_html(raw_text="")
+	// gently borrowed and re-purposed from code/modules/pda/utilities.dm
+	// define a datum to hold our result
+	var/datum/html/split_holder/s = new()
+
+	// copy the raw_text to get started
+	var/text = copytext_char(raw_text, 1)
+
+	// search for tag brackets
+	var/tag_start = findtext_char(text, "<")
+	var/tag_stop = findtext_char(text, ">")
+
+	// until we run out of opening tags
+	while((tag_start != 0) && (tag_stop != 0))
+		// if the tag isn't at the beginning of the string
+		if(tag_start > 1)
+			// we've found our text, so copy it out
+			s.inner_text = copytext_char(text, 1, tag_start)
+			// and chop the text for the next round
+			text = copytext_char(text, tag_start)
+			break
+		// otherwise, we found an opening tag, so add it to the list
+		var/tag = copytext_char(text, tag_start, tag_stop+1)
+		s.opening.Add(tag)
+		// and chop the text for the next round
+		text = copytext_char(text, tag_stop+1)
+		// look for the next tag in what's left
+		tag_start = findtext(text, "<")
+		tag_stop = findtext(text, ">")
+
+	// search for tag brackets
+	tag_start = findtext(text, "<")
+	tag_stop = findtext(text, ">")
+
+	// until we run out of closing tags
+	while((tag_start != 0) && (tag_stop != 0))
+		// we found a closing tag, so add it to the list
+		var/tag = copytext_char(text, tag_start, tag_stop+1)
+		s.closing.Add(tag)
+		// and chop the text for the next round
+		text = copytext_char(text, tag_stop+1)
+		// look for the next tag in what's left
+		tag_start = findtext(text, "<")
+		tag_stop = findtext(text, ">")
+
+	// return the split html object to the caller
+	return s

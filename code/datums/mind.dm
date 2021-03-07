@@ -31,46 +31,39 @@
 	var/assigned_role //assigned role is what job you're assigned to when you join the station.
 	var/playtime_role //if set, overrides your assigned_role for the purpose of playtime awards. Set by IDcomputer when your ID is changed.
 	var/special_role //special roles are typically reserved for antags or roles like ERT. If you want to avoid a character being automatically announced by the AI, on arrival (becuase they're an off station character or something); ensure that special_role and assigned_role are equal.
-	var/offstation_role = FALSE //set to true for ERT, deathsquad, abductors, etc, that can go from and to z2 at will and shouldn't be antag targets
+	var/offstation_role = FALSE //set to true for ERT, deathsquad, abductors, etc, that can go from and to CC at will and shouldn't be antag targets
 	var/list/restricted_roles = list()
 
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
+	var/datum/martial_art/martial_art
 
 	var/role_alt_title
 
 	var/datum/job/assigned_job
-	var/list/kills = list()
 	var/list/datum/objective/objectives = list()
 	var/list/datum/objective/special_verbs = list()
+	var/list/targets = list()
 
 	var/has_been_rev = 0//Tracks if this mind has been a rev or not
 
 	var/miming = 0 // Mime's vow of silence
 	var/list/antag_datums
-	var/speech_span // What span any body this mind has talks in.
-	var/datum/faction/faction 			//associated faction
 	var/datum/changeling/changeling		//changeling holder
 	var/linglink
 	var/datum/vampire/vampire			//vampire holder
-	var/datum/abductor/abductor			//abductor holder
-	var/datum/devilinfo/devilinfo 		//devil holder
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
 	var/datum/mindslaves/som //stands for slave or master...hush..
 	var/datum/devilinfo/devilinfo //Information about the devil, if any.
- 	var/damnation_type = 0
- 	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
+	var/damnation_type = 0
+	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
 	var/hasSoul = TRUE
-
-	var/rev_cooldown = 0
 
 	var/isholy = FALSE // is this person a chaplain or admin role allowed to use bibles
 	var/isblessed = FALSE // is this person blessed by a chaplain?
 	var/num_blessed = 0 // for prayers
 
-	// the world.time since the mob has been brigged, or -1 if not at all
-	var/brigged_since = -1
 	var/suicided = FALSE
 
 	//put this here for easier tracking ingame
@@ -78,6 +71,8 @@
 
 	//zealot_master is a reference to the mob that converted them into a zealot (for ease of investigation and such)
 	var/mob/living/carbon/human/zealot_master = null
+
+	var/list/learned_recipes //List of learned recipe TYPES.
 
 /datum/mind/New(new_key)
 	key = new_key
@@ -91,6 +86,9 @@
 			if(antag_datum.delete_on_mind_deletion)
 				qdel(i)
 		antag_datums = null
+	current = null
+	original = null
+	soulOwner = null
 	return ..()
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
@@ -102,7 +100,7 @@
 		current.mind = null
 		leave_all_huds() //leave all the huds in the old body, so it won't get huds if somebody else enters it
 
-		SSnanoui.user_transferred(current, new_character)
+		SStgui.on_transfer(current, new_character)
 
 	if(new_character.mind)		//remove any mind currently in our new body's mind variable
 		new_character.mind.current = null
@@ -113,9 +111,15 @@
 		A.on_body_transfer(old_current, current)
 	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
 	transfer_actions(new_character)
+	if(martial_art)
+		if(martial_art.temporary)
+			martial_art.remove(current)
+		else
+			martial_art.teach(current)
 
 	if(active)
 		new_character.key = key		//now transfer the key to link the client to our new body
+	SEND_SIGNAL(src, COMSIG_MIND_TRANSER_TO, new_character)
 
 /datum/mind/proc/store_memory(new_text)
 	memory += "[new_text]<BR>"
@@ -129,11 +133,17 @@
 	var/output = "<B>[current.real_name]'s Memories:</B><HR>"
 	output += memory
 
-	if(objectives.len)
+	var/antag_datum_objectives = FALSE
+	for(var/datum/antagonist/A in antag_datums)
+		output += A.antag_memory
+		if(!antag_datum_objectives && LAZYLEN(A.objectives))
+			antag_datum_objectives = TRUE
+
+	if(LAZYLEN(objectives) || antag_datum_objectives)
 		output += "<HR><B>Objectives:</B><BR>"
 		output += gen_objective_text()
 
-	if(job_objectives.len)
+	if(LAZYLEN(job_objectives))
 		output += "<HR><B>Job Objectives:</B><UL>"
 
 		var/obj_count = 1
@@ -149,8 +159,16 @@
 /datum/mind/proc/gen_objective_text(admin = FALSE)
 	. = ""
 	var/obj_count = 1
+	var/list/all_objectives = list()
+	for(var/datum/antagonist/A in antag_datums)
+		all_objectives |= A.objectives
+
+	if(LAZYLEN(all_objectives))
+		for(var/datum/objective/objective in all_objectives)
+			. += "<br><B>Objective #[obj_count++]</B>: [objective.explanation_text]"
+
 	for(var/datum/objective/objective in objectives)
-		. += "<b>Objective #[obj_count]</b>: [objective.explanation_text]"
+		. += "<b>Objective #[obj_count++]</b>: [objective.explanation_text]"
 		if(admin)
 			. += " <a href='?src=[UID()];obj_edit=\ref[objective]'>Edit</a> " // Edit
 			. += "<a href='?src=[UID()];obj_delete=\ref[objective]'>Delete</a> " // Delete
@@ -159,7 +177,6 @@
 			. += "<font color=[objective.completed ? "green" : "red"]>Toggle Completion</font>"
 			. += "</a>"
 		. += "<br>"
-		obj_count++
 
 /datum/mind/proc/_memory_edit_header(gamemode, list/alt)
 	. = gamemode
@@ -209,11 +226,9 @@
 
 /datum/mind/proc/memory_edit_cult(mob/living/carbon/human/H)
 	. = _memory_edit_header("cult")
-	if(ismindshielded(H))
-		. += "<B>NO</B>|cultist"
-	else if(src in SSticker.mode.cult)
+	if(src in SSticker.mode.cult)
 		. += "<a href='?src=[UID()];cult=clear'>no</a>|<b><font color='red'>CULTIST</font></b>"
-		. += "<br>Give <a href='?src=[UID()];cult=tome'>tome</a>|<a href='?src=[UID()];cult=equip'>equip</a>."
+		. += "<br>Give <a href='?src=[UID()];cult=dagger'>dagger</a>|<a href='?src=[UID()];cult=runedmetal'>runedmetal</a>."
 	else
 		. += "<b>NO</b>|<a href='?src=[UID()];cult=cultist'>cultist</a>"
 
@@ -324,14 +339,57 @@
 
 /datum/mind/proc/memory_edit_traitor()
 	. = _memory_edit_header("traitor", list("traitorchan", "traitorvamp"))
-	if(src in SSticker.mode.traitors)
+	if(has_antag_datum(/datum/antagonist/traitor))
 		. += "<b><font color='red'>TRAITOR</font></b>|<a href='?src=[UID()];traitor=clear'>no</a>"
 		if(objectives.len==0)
-			. += "<br>Objectives are empty! <a href='?src=[UID()];traitor=autoobjectives'>Randomize</a>!"
+			. += "<br>Objectives are empty! <a href='?src=[UID()];traitor=autoobjectives'>Randomize!</a>"
 	else
 		. += "<a href='?src=[UID()];traitor=traitor'>traitor</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_TRAITOR)
+	// Contractor
+	. += "<br><b><i>contractor</i></b>: "
+	var/datum/contractor_hub/H = LAZYACCESS(GLOB.contractors, src)
+	if(H)
+		. += "<b><font color='red'>CONTRACTOR</font></b>"
+		// List all their contracts
+		. += "<br><b>Contracts:</b>"
+		if(H.contracts)
+			var/count = 1
+			for(var/co in H.contracts)
+				var/datum/syndicate_contract/CO = co
+				. += "<br><B>Contract #[count++]</B>: "
+				. += "<a href='?src=[UID()];cuid=[CO.UID()];contractor=target'><b>[CO.contract.target?.name || "Invalid target!"]</b></a>|"
+				. += "<a href='?src=[UID()];cuid=[CO.UID()];contractor=locations'>locations</a>|"
+				. += "<a href='?src=[UID()];cuid=[CO.UID()];contractor=other'>more</a>|"
+				switch(CO.status)
+					if(CONTRACT_STATUS_INVALID)
+						. += "<b>INVALID</b>"
+					if(CONTRACT_STATUS_INACTIVE)
+						. += "inactive"
+					if(CONTRACT_STATUS_ACTIVE)
+						. += "<b><font color='orange'>ACTIVE</font></b>|"
+						. += "<a href='?src=[UID()];cuid=[CO.UID()];contractor=interrupt'>interrupt</a>|"
+						. += "<a href='?src=[UID()];cuid=[CO.UID()];contractor=fail'>fail</a>"
+					if(CONTRACT_STATUS_COMPLETED)
+						. += "<font color='green'>COMPLETED</font>"
+					if(CONTRACT_STATUS_FAILED)
+						. += "<font color='red'>FAILED</font>"
+			. += "<br>"
+			. += "<a href='?src=[UID()];contractor=add'>Add Contract</a><br>"
+			. += "Claimable TC: <a href='?src=[UID()];contractor=tc'>[H.reward_tc_available]</a><br>"
+			. += "Available Rep: <a href='?src=[UID()];contractor=rep'>[H.rep]</a><br>"
+		else
+			. += "<br>"
+			. += "<i>Has not logged in to contractor uplink</i>"
+	else
+		. += "<b>NO</b>"
+	// Mindslave
+	. += "<br><b><i>mindslaved</i></b>: "
+	if(has_antag_datum(/datum/antagonist/mindslave))
+		. += "<b><font color='red'>MINDSLAVE</font></b>|<a href='?src=[UID()];mindslave=clear'>no</a>"
+	else
+		. += "mindslave|<b>NO</b>"
 
 /datum/mind/proc/memory_edit_silicon()
 	. = "<i><b>Silicon</b></i>: "
@@ -349,7 +407,7 @@
 /datum/mind/proc/memory_edit_uplink()
 	. = ""
 	if(ishuman(current) && ((src in SSticker.mode.head_revolutionaries) || \
-		(src in SSticker.mode.traitors) || \
+		(has_antag_datum(/datum/antagonist/traitor)) || \
 		(src in SSticker.mode.syndicates)))
 		. = "Uplink: <a href='?src=[UID()];common=uplink'>give</a>"
 		var/obj/item/uplink/hidden/suplink = find_syndicate_uplink()
@@ -391,8 +449,6 @@
 		sections["implant"] = memory_edit_implant(H)
 		/** REVOLUTION ***/
 		sections["revolution"] = memory_edit_revolution(H)
-		/** CULT ***/
-		sections["cult"] = memory_edit_cult(H)
 		/** WIZARD ***/
 		sections["wizard"] = memory_edit_wizard(H)
 		/** CHANGELING ***/
@@ -412,6 +468,9 @@
 	sections["eventmisc"] = memory_edit_eventmisc(H)
 	/** TRAITOR ***/
 	sections["traitor"] = memory_edit_traitor()
+	if(!issilicon(current))
+		/** CULT ***/
+		sections["cult"] = memory_edit_cult(H)
 	/** SILICON ***/
 	if(issilicon(current))
 		sections["silicon"] = memory_edit_silicon()
@@ -519,13 +578,22 @@
 				var/mob/def_target = null
 				var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/protect, /datum/objective/debrain)
 				if(objective&&(objective.type in objective_list) && objective:target)
-					def_target = objective:target.current
+					def_target = objective.target.current
 				possible_targets = sortAtom(possible_targets)
-				possible_targets += "Free objective"
 
-				var/new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
-				if(!new_target)
-					return
+				var/new_target
+				if(length(possible_targets) > 0)
+					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
+						possible_targets += "Free objective"
+						new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
+					else
+						new_target = pick(possible_targets)
+
+					if(!new_target)
+						return
+				else
+					to_chat(usr, "<span class='warning'>No possible target found. Defaulting to a Free objective.</span>")
+					new_target = "Free objective"
 
 				var/objective_path = text2path("/datum/objective/[new_obj_type]")
 				if(new_target == "Free objective")
@@ -695,15 +763,6 @@
 					special_role = null
 					SSticker.mode.head_revolutionaries -=src
 					to_chat(src, "<span class='warning'><Font size = 3><B>The nanobots in the mindshield implant remove all thoughts about being a revolutionary.  Get back to work!</B></Font></span>")
-				if(src in SSticker.mode.cult)
-					SSticker.mode.cult -= src
-					SSticker.mode.update_cult_icons_removed(src)
-					special_role = null
-					var/datum/game_mode/cult/cult = SSticker.mode
-					if(istype(cult))
-						cult.memorize_cult_objectives(src)
-					to_chat(current, "<span class='warning'><FONT size = 3><B>The nanobots in the mindshield implant remove all thoughts about being in a cult.  Have a productive day!</B></FONT></span>")
-					memory = ""
 
 	else if(href_list["revolution"])
 
@@ -800,7 +859,8 @@
 				qdel(flash)
 				take_uplink()
 				var/fail = 0
-				fail |= !SSticker.mode.equip_traitor(current, 1)
+				var/datum/antagonist/traitor/T = has_antag_datum(/datum/antagonist/traitor)
+				fail |= !T.equip_traitor(src)
 				fail |= !SSticker.mode.equip_revolutionary(current)
 				if(fail)
 					to_chat(usr, "<span class='warning'>Reequipping revolutionary goes wrong!</span>")
@@ -818,43 +878,20 @@
 					message_admins("[key_name_admin(usr)] has de-culted [key_name_admin(current)]")
 			if("cultist")
 				if(!(src in SSticker.mode.cult))
+					to_chat(current, CULT_GREETING)
 					SSticker.mode.add_cultist(src)
-					special_role = SPECIAL_ROLE_CULTIST
-					to_chat(current, "<span class='cultitalic'>You catch a glimpse of the Realm of [SSticker.cultdat.entity_name], [SSticker.cultdat.entity_title3]. You now see how flimsy the world is, you see that it should be open to the knowledge of [SSticker.cultdat.entity_name].</span>")
 					to_chat(current, "<span class='cultitalic'>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve [SSticker.cultdat.entity_title2] above all else. Bring It back.</span>")
-					log_admin("[key_name(usr)] has culted [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has culted [key_name_admin(current)]")
-					if(!summon_spots.len)
-						while(summon_spots.len < SUMMON_POSSIBILITIES)
-							var/area/summon = pick(return_sorted_areas() - summon_spots)
-							if(summon && is_station_level(summon.z) && summon.valid_territory)
-								summon_spots += summon
-			if("tome")
+					log_and_message_admins("[key_name(usr)] has culted [key_name(current)]")
+			if("dagger")
 				var/mob/living/carbon/human/H = current
-				if(istype(H))
-					var/obj/item/tome/T = new(H)
-
-					var/list/slots = list (
-						"backpack" = slot_in_backpack,
-						"left pocket" = slot_l_store,
-						"right pocket" = slot_r_store,
-						"left hand" = slot_l_hand,
-						"right hand" = slot_r_hand,
-					)
-					var/where = H.equip_in_one_of_slots(T, slots)
-					if(!where)
-						to_chat(usr, "<span class='warning'>Spawning tome failed!</span>")
-						qdel(T)
-					else
-						to_chat(H, "A tome, a message from your new master, appears in your [where].")
-						log_admin("[key_name(usr)] has spawned a tome for [key_name(current)]")
-						message_admins("[key_name_admin(usr)] has spawned a tome for [key_name_admin(current)]")
-
-			if("equip")
-				if(!SSticker.mode.equip_cultist(current))
-					to_chat(usr, "<span class='warning'>Spawning equipment failed!</span>")
-				log_admin("[key_name(usr)] has equipped [key_name(current)] as a cultist")
-				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a cultist")
+				if(!SSticker.mode.cult_give_item(/obj/item/melee/cultblade/dagger, H))
+					to_chat(usr, "<span class='warning'>Spawning dagger failed!</span>")
+				log_and_message_admins("[key_name(usr)] has equipped [key_name(current)] with a cult dagger")
+			if("runedmetal")
+				var/mob/living/carbon/human/H = current
+				if(!SSticker.mode.cult_give_item(/obj/item/stack/sheet/runed_metal/ten, H))
+					to_chat(usr, "<span class='warning'>Spawning runed metal failed!</span>")
+				log_and_message_admins("[key_name(usr)] has equipped [key_name(current)] with 10 runed metal sheets")
 
 	else if(href_list["wizard"])
 
@@ -875,13 +912,13 @@
 					special_role = SPECIAL_ROLE_WIZARD
 					//ticker.mode.learn_basic_spells(current)
 					SSticker.mode.update_wiz_icons_added(src)
-					SEND_SOUND(current, 'sound/ambience/antag/ragesmages.ogg')
+					SEND_SOUND(current, sound('sound/ambience/antag/ragesmages.ogg'))
 					to_chat(current, "<span class='danger'>You are a Space Wizard!</span>")
 					current.faction = list("wizard")
 					log_admin("[key_name(usr)] has wizarded [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has wizarded [key_name_admin(current)]")
 			if("lair")
-				current.forceMove(pick(wizardstart))
+				current.forceMove(pick(GLOB.wizardstart))
 				log_admin("[key_name(usr)] has moved [key_name(current)] to the wizard's lair")
 				message_admins("[key_name_admin(usr)] has moved [key_name_admin(current)] to the wizard's lair")
 			if("dressup")
@@ -889,7 +926,7 @@
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a wizard")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a wizard")
 			if("name")
-				SSticker.mode.name_wizard(current)
+				INVOKE_ASYNC(SSticker.mode, /datum/game_mode/wizard.proc/name_wizard, current)
 				log_admin("[key_name(usr)] has allowed wizard [key_name(current)] to name themselves")
 				message_admins("[key_name_admin(usr)] has allowed wizard [key_name_admin(current)] to name themselves")
 			if("autoobjectives")
@@ -907,6 +944,8 @@
 					special_role = null
 					if(changeling)
 						current.remove_changeling_powers()
+						qdel(current.middleClickOverride) // In case the old changeling has a targeted sting prepared (`datum/middleClickOverride`), delete it.
+						current.middleClickOverride = null
 						qdel(changeling)
 						changeling = null
 					SSticker.mode.update_change_icons_removed(src)
@@ -919,7 +958,7 @@
 					SSticker.mode.grant_changeling_powers(current)
 					SSticker.mode.update_change_icons_added(src)
 					special_role = SPECIAL_ROLE_CHANGELING
-					SEND_SOUND(current, 'sound/ambience/antag/ling_aler.ogg')
+					SEND_SOUND(current, sound('sound/ambience/antag/ling_aler.ogg'))
 					to_chat(current, "<B><font color='red'>Your powers have awoken. A flash of memory returns to us... we are a changeling!</font></B>")
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has changelinged [key_name_admin(current)]")
@@ -937,7 +976,7 @@
 					current.dna = changeling.absorbed_dna[1]
 					current.real_name = current.dna.real_name
 					current.UpdateAppearance()
-					domutcheck(current, null)
+					domutcheck(current)
 					log_admin("[key_name(usr)] has reset [key_name(current)]'s DNA")
 					message_admins("[key_name_admin(usr)] has reset [key_name_admin(current)]'s DNA")
 
@@ -964,7 +1003,7 @@
 					slaved.masters += src
 					som = slaved //we MIGT want to mindslave someone
 					special_role = SPECIAL_ROLE_VAMPIRE
-					SEND_SOUND(current, 'sound/ambience/antag/vampalert.ogg')
+					SEND_SOUND(current, sound('sound/ambience/antag/vampalert.ogg'))
 					to_chat(current, "<B><font color='red'>Your powers have awoken. Your lust for blood grows... You are a Vampire!</font></B>")
 					log_admin("[key_name(usr)] has vampired [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has vampired [key_name_admin(current)]")
@@ -1077,8 +1116,8 @@
 						special_role = null
 						to_chat(current,"<span class='userdanger'>Your infernal link has been severed! You are no longer a devil!</span>")
 						RemoveSpell(/obj/effect/proc_holder/spell/targeted/infernal_jaunt)
-						RemoveSpell(/obj/effect/proc_holder/spell/fireball/hellish)
-						RemoveSpell(/obj/effect/proc_holder/spell/targeted/summon_contract)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/click/fireball/hellish)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/click/summon_contract)
 						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork)
 						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/greater)
 						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/ascended)
@@ -1139,45 +1178,231 @@
 	else if(href_list["traitor"])
 		switch(href_list["traitor"])
 			if("clear")
-				if(src in SSticker.mode.traitors)
-					SSticker.mode.traitors -= src
-					special_role = null
+				if(has_antag_datum(/datum/antagonist/traitor))
 					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a traitor!</B></FONT></span>")
+					remove_antag_datum(/datum/antagonist/traitor)
+					current.client.chatOutput?.clear_syndicate_codes()
 					log_admin("[key_name(usr)] has de-traitored [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-traitored [key_name_admin(current)]")
-					if(isAI(current))
-						var/mob/living/silicon/ai/A = current
-						A.set_zeroth_law("")
-						A.show_laws()
-						A.verbs -= /mob/living/silicon/ai/proc/choose_modules
-						A.malf_picker.remove_verbs(A)
-						qdel(A.malf_picker)
-					SSticker.mode.update_traitor_icons_removed(src)
-
 
 			if("traitor")
-				if(!(src in SSticker.mode.traitors))
-					SSticker.mode.traitors += src
-					var/datum/mindslaves/slaved = new()
-					slaved.masters += src
-					som = slaved //we MIGT want to mindslave someone
-					special_role = SPECIAL_ROLE_TRAITOR
-					to_chat(current, "<span class='danger'>You are a traitor!</span>")
+				if(!(has_antag_datum(/datum/antagonist/traitor)))
+					var/datum/antagonist/traitor/T = new()
+					T.give_objectives = FALSE
+					T.should_equip = FALSE
+					add_antag_datum(T)
 					log_admin("[key_name(usr)] has traitored [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has traitored [key_name_admin(current)]")
-					if(isAI(current))
-						var/mob/living/silicon/ai/A = current
-						SSticker.mode.add_law_zero(A)
-						SEND_SOUND(current, 'sound/ambience/antag/malf.ogg')
-					else
-						SEND_SOUND(current, 'sound/ambience/antag/tatoralert.ogg')
-					SSticker.mode.update_traitor_icons_added(src)
 
 			if("autoobjectives")
-				SSticker.mode.forge_traitor_objectives(src)
+				var/datum/antagonist/traitor/T = has_antag_datum(/datum/antagonist/traitor)
+				T.forge_traitor_objectives(src)
 				to_chat(usr, "<span class='notice'>The objectives for traitor [key] have been generated. You can edit them and announce manually.</span>")
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
+
+	else if(href_list["contractor"])
+		var/datum/contractor_hub/H = LAZYACCESS(GLOB.contractors, src)
+		switch(href_list["contractor"])
+			if("add")
+				if(!H)
+					return
+				var/list/possible_targets = list()
+				for(var/foo in SSticker.minds)
+					var/datum/mind/possible_target = foo
+					if(src == possible_target || !possible_target.current || !possible_target.key)
+						continue
+					possible_targets[possible_target.name] = possible_target
+
+				var/choice = input(usr, "Select the contract target:", "Add Contract") as null|anything in possible_targets
+				var/datum/mind/target = possible_targets[choice]
+				if(!target || !target.current || !target.key)
+					return
+				var/datum/syndicate_contract/new_contract = new(H, src, list(), target)
+				new_contract.reward_tc = list(0, 0, 0)
+				H.contracts += new_contract
+				SStgui.update_uis(H)
+				log_admin("[key_name(usr)] has given a new contract to [key_name(current)] with [target.current] as the target")
+				message_admins("[key_name_admin(usr)] has given a new contract to [key_name_admin(current)] with [target.current] as the target")
+
+			if("tc")
+				if(!H)
+					return
+				var/new_tc = input(usr, "Enter the new amount of TC:", "Set Claimable TC", H.reward_tc_available) as num|null
+				new_tc = text2num(new_tc)
+				if(isnull(new_tc) || new_tc < 0)
+					return
+				H.reward_tc_available = new_tc
+				SStgui.update_uis(H)
+				log_admin("[key_name(usr)] has set [key_name(current)]'s claimable TC to [new_tc]")
+				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s claimable TC to [new_tc]")
+
+			if("rep")
+				if(!H)
+					return
+				var/new_rep = input(usr, "Enter the new amount of Rep:", "Set Available Rep", H.rep) as num|null
+				new_rep = text2num(new_rep)
+				if(isnull(new_rep) || new_rep < 0)
+					return
+				H.rep = new_rep
+				SStgui.update_uis(H)
+				log_admin("[key_name(usr)] has set [key_name(current)]'s contractor Rep to [new_rep]")
+				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s contractor Rep to [new_rep]")
+
+			// Contract specific actions
+			if("target")
+				if(!H)
+					return
+				var/datum/syndicate_contract/CO = locateUID(href_list["cuid"])
+				if(!istype(CO))
+					return
+
+				var/list/possible_targets = list()
+				for(var/foo in SSticker.minds)
+					var/datum/mind/possible_target = foo
+					if(src == possible_target || !possible_target.current || !possible_target.key)
+						continue
+					possible_targets[possible_target.name] = possible_target
+
+				var/choice = input(usr, "Select the new contract target:", "Set Contract Target") as null|anything in possible_targets
+				var/datum/mind/target = possible_targets[choice]
+				if(!target || !target.current || !target.key)
+					return
+				// Update
+				var/datum/data/record/R = find_record("name", target.name, GLOB.data_core.general)
+				var/name = R?.fields["name"] || target.name || "Unknown"
+				var/rank = R?.fields["rank"] || target.assigned_role || "Unknown"
+				CO.contract.target = target
+				CO.target_name = "[name], the [rank]"
+				if(R?.fields["photo"])
+					var/icon/temp = new('icons/turf/floors.dmi', pick("floor", "wood", "darkfull", "stairs"))
+					temp.Blend(R.fields["photo"], ICON_OVERLAY)
+					CO.target_photo = temp
+				// Notify
+				SStgui.update_uis(H)
+				log_admin("[key_name(usr)] has set [key_name(current)]'s contract target to [target.current]")
+				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s contract target to [target.current]")
+
+			if("locations")
+				if(!H)
+					return
+				var/datum/syndicate_contract/CO = locateUID(href_list["cuid"])
+				if(!istype(CO))
+					return
+
+				var/list/difficulty_choices = list()
+				for(var/diff in EXTRACTION_DIFFICULTY_EASY to EXTRACTION_DIFFICULTY_HARD)
+					var/area/A = CO.contract.candidate_zones[diff]
+					difficulty_choices["[A.name] ([CO.reward_tc[diff]] TC)"] = diff
+
+				var/choice_diff = input(usr, "Select the location to change:", "Set Contract Location") as null|anything in difficulty_choices
+				var/difficulty = difficulty_choices[choice_diff]
+				if(!difficulty)
+					return
+
+				var/list/area_choices = list()
+				for(var/a in return_sorted_areas())
+					var/area/A = a
+					if(A.outdoors || !is_station_level(A.z))
+						continue
+					area_choices += A
+
+				var/new_area = input(usr, "Select the new location:", "Set Contract Location", CO.contract.candidate_zones[difficulty]) in area_choices
+				if(!new_area)
+					return
+
+				var/new_reward = input(usr, "Enter the new amount of rewarded TC:", "Set Contract Location", CO.reward_tc[difficulty]) as num|null
+				new_reward = text2num(new_reward)
+				if(isnull(new_reward) || new_reward < 0)
+					return
+				CO.contract.candidate_zones[difficulty] = new_area
+				CO.reward_tc[difficulty] = new_reward
+				SStgui.update_uis(H)
+				log_admin("[key_name(usr)] has set [key_name(current)]'s contract location to [new_area] with [new_reward] TC as reward")
+				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s contract location to [new_area] with [new_reward] TC as reward")
+
+			if("other")
+				if(!H)
+					return
+				var/datum/syndicate_contract/CO = locateUID(href_list["cuid"])
+				if(!istype(CO))
+					return
+
+				var/choice = input(usr, "Select an action to take:", "Other Contract Actions") in list("Edit Fluff Message", "Edit Prison Time", "Edit Credits Reward", "Delete Contract", "Cancel")
+				if(!choice)
+					return
+
+				switch(choice)
+					if("Edit Fluff Message")
+						var/new_message = input(usr, "Enter the new fluff message:", "Edit Fluff Message", CO.fluff_message) as message|null
+						if(!new_message)
+							return
+						CO.fluff_message = new_message
+						log_admin("[key_name(usr)] has edited [key_name(current)]'s contract fluff message")
+						message_admins("[key_name_admin(usr)] has edited [key_name_admin(current)]'s contract fluff message")
+					if("Edit Prison Time")
+						var/new_time = input(usr, "Enter the new prison time in seconds:", "Edit Prison Time", CO.prison_time / 10) as num|null
+						if(!new_time || new_time < 0)
+							return
+						CO.prison_time = new_time SECONDS
+						log_admin("[key_name(usr)] has edited [key_name(current)]'s contract prison time to [new_time] seconds")
+						message_admins("[key_name_admin(usr)] has edited [key_name_admin(current)]'s contract prison time to [new_time] seconds")
+					if("Edit Credits Reward")
+						var/new_creds = input(usr, "Enter the new credits reward:", "Edit Credits Reward", CO.reward_credits) as num|null
+						if(!new_creds || new_creds < 0)
+							return
+						CO.reward_credits = new_creds
+						log_admin("[key_name(usr)] has edited [key_name(current)]'s contract reward credits to [new_creds]")
+						message_admins("[key_name_admin(usr)] has edited [key_name_admin(current)]'s contract reward credits to [new_creds]")
+					if("Delete Contract")
+						if(CO.status == CONTRACT_STATUS_ACTIVE)
+							CO.fail("Contract interrupted forcibly.")
+						H.contracts -= CO
+						log_admin("[key_name(usr)] has deleted [key_name(current)]'s contract")
+						message_admins("[key_name_admin(usr)] has deleted [key_name_admin(current)]'s contract")
+					else
+						return
+				SStgui.update_uis(H)
+
+			if("interrupt")
+				if(!H)
+					return
+				var/datum/syndicate_contract/CO = locateUID(href_list["cuid"])
+				if(!istype(CO) || CO.status != CONTRACT_STATUS_ACTIVE)
+					return
+				H.current_contract = null
+				CO.contract.extraction_zone = null
+				CO.status = CONTRACT_STATUS_INACTIVE
+				CO.clean_up()
+				log_admin("[key_name(usr)] has interrupted [key_name(current)]'s contract")
+				message_admins("[key_name_admin(usr)] has interrupted [key_name_admin(current)]'s contract")
+
+			if("fail")
+				if(!H)
+					return
+				var/datum/syndicate_contract/CO = locateUID(href_list["cuid"])
+				if(!istype(CO) || CO.status != CONTRACT_STATUS_ACTIVE)
+					return
+				var/fail_reason = sanitize(input(usr, "Enter the fail reason:", "Fail Contract") as text|null)
+				if(!fail_reason || CO.status != CONTRACT_STATUS_ACTIVE)
+					return
+				CO.fail(fail_reason)
+				SStgui.update_uis(H)
+				log_admin("[key_name(usr)] has failed [key_name(current)]'s contract with reason: [fail_reason]")
+				message_admins("[key_name_admin(usr)] has failed [key_name_admin(current)]'s contract with reason: [fail_reason]")
+
+	else if(href_list["mindslave"])
+		switch(href_list["mindslave"])
+			if("clear")
+				if(has_antag_datum(/datum/antagonist/mindslave))
+					var/mob/living/carbon/human/H = current
+					for(var/i in H.contents)
+						if(istype(i, /obj/item/implant/traitor))
+							qdel(i)
+							break
+					remove_antag_datum(/datum/antagonist/mindslave)
+					log_admin("[key_name(usr)] has de-mindslaved [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has de-mindslaved [key_name_admin(current)]")
 
 	else if(href_list["shadowling"])
 		switch(href_list["shadowling"])
@@ -1248,17 +1473,20 @@
 				var/mob/living/silicon/robot/R = current
 				if(istype(R))
 					R.emagged = 0
-					if(R.activated(R.module.emag))
-						R.module_active = null
-					if(R.module_state_1 == R.module.emag)
-						R.module_state_1 = null
-						R.contents -= R.module.emag
-					else if(R.module_state_2 == R.module.emag)
-						R.module_state_2 = null
-						R.contents -= R.module.emag
-					else if(R.module_state_3 == R.module.emag)
-						R.module_state_3 = null
-						R.contents -= R.module.emag
+					if(R.module)
+						if(R.activated(R.module.emag))
+							R.module_active = null
+						if(R.module_state_1 == R.module.emag)
+							R.module_state_1 = null
+							R.contents -= R.module.emag
+						else if(R.module_state_2 == R.module.emag)
+							R.module_state_2 = null
+							R.contents -= R.module.emag
+						else if(R.module_state_3 == R.module.emag)
+							R.module_state_3 = null
+							R.contents -= R.module.emag
+					R.clear_supplied_laws()
+					R.laws = new /datum/ai_laws/crewsimov
 					log_admin("[key_name(usr)] has un-emagged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has un-emagged [key_name_admin(current)]")
 
@@ -1279,25 +1507,22 @@
 							else if(R.module_state_3 == R.module.emag)
 								R.module_state_3 = null
 								R.contents -= R.module.emag
+						R.clear_supplied_laws()
+						R.laws = new /datum/ai_laws/crewsimov
 					log_admin("[key_name(usr)] has unemagged [key_name(ai)]'s cyborgs")
 					message_admins("[key_name_admin(usr)] has unemagged [key_name_admin(ai)]'s cyborgs")
 
 	else if(href_list["common"])
 		switch(href_list["common"])
 			if("undress")
-				if(ishuman(current))
-					var/mob/living/carbon/human/H = current
-					// Don't "undress" organs right out of the body
-					for(var/obj/item/W in H.contents - (H.bodyparts | H.internal_organs))
-						current.unEquip(W, 1)
-				else
-					for(var/obj/item/W in current)
-						current.unEquip(W, 1)
+				for(var/obj/item/I in current)
+					current.unEquip(I, TRUE)
 				log_admin("[key_name(usr)] has unequipped [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has unequipped [key_name_admin(current)]")
 			if("takeuplink")
 				take_uplink()
-				memory = null//Remove any memory they may have had.
+				var/datum/antagonist/traitor/T = has_antag_datum(/datum/antagonist/traitor)
+				T.antag_memory = "" //Remove any antag memory they may have had (uplink codes, code phrases)
 				log_admin("[key_name(usr)] has taken [key_name(current)]'s uplink")
 				message_admins("[key_name_admin(usr)] has taken [key_name_admin(current)]'s uplink")
 			if("crystals")
@@ -1313,9 +1538,12 @@
 							log_admin("[key_name(usr)] has set [key_name(current)]'s telecrystals to [crystals]")
 							message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s telecrystals to [crystals]")
 			if("uplink")
-				if(!SSticker.mode.equip_traitor(current, !(src in SSticker.mode.traitors)))
-					to_chat(usr, "<span class='warning'>Equipping a syndicate failed!</span>")
-					return
+				if(has_antag_datum(/datum/antagonist/traitor))
+					var/datum/antagonist/traitor/T = has_antag_datum(/datum/antagonist/traitor)
+					T.give_codewords()
+					if(!T.equip_traitor(src))
+						to_chat(usr, "<span class='warning'>Equipping a syndicate failed!</span>")
+						return
 				log_admin("[key_name(usr)] has given [key_name(current)] an uplink")
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] an uplink")
 
@@ -1382,9 +1610,10 @@
 			return A
 
 /datum/mind/proc/announce_objectives()
-	to_chat(current, "<span class='notice'>Your current objectives:</span>")
-	for(var/line in splittext(gen_objective_text(), "<br>"))
-		to_chat(current, line)
+	if(current)
+		to_chat(current, "<span class='notice'>Your current objectives:</span>")
+		for(var/line in splittext(gen_objective_text(), "<br>"))
+			to_chat(current, line)
 
 /datum/mind/proc/find_syndicate_uplink()
 	var/list/L = current.get_contents()
@@ -1399,13 +1628,8 @@
 		qdel(H)
 
 /datum/mind/proc/make_Traitor()
-	if(!(src in SSticker.mode.traitors))
-		SSticker.mode.traitors += src
-		special_role = SPECIAL_ROLE_TRAITOR
-		SSticker.mode.forge_traitor_objectives(src)
-		SSticker.mode.finalize_traitor(src)
-		SSticker.mode.greet_traitor(src)
-		SSticker.mode.update_traitor_icons_added(src)
+	if(!has_antag_datum(/datum/antagonist/traitor))
+		add_antag_datum(/datum/antagonist/traitor)
 
 /datum/mind/proc/make_Nuke()
 	if(!(src in SSticker.mode.syndicates))
@@ -1467,16 +1691,16 @@
 		special_role = SPECIAL_ROLE_WIZARD
 		assigned_role = SPECIAL_ROLE_WIZARD
 		//ticker.mode.learn_basic_spells(current)
-		if(!wizardstart.len)
-			current.loc = pick(latejoin)
+		if(!GLOB.wizardstart.len)
+			current.loc = pick(GLOB.latejoin)
 			to_chat(current, "HOT INSERTION, GO GO GO")
 		else
-			current.loc = pick(wizardstart)
+			current.loc = pick(GLOB.wizardstart)
 
 		SSticker.mode.equip_wizard(current)
 		for(var/obj/item/spellbook/S in current.contents)
 			S.op = 0
-		SSticker.mode.name_wizard(current)
+		INVOKE_ASYNC(SSticker.mode, /datum/game_mode/wizard.proc/name_wizard, current)
 		SSticker.mode.forge_wizard_objectives(src)
 		SSticker.mode.greet_wizard(src)
 		SSticker.mode.update_wiz_icons_added(src)
@@ -1521,6 +1745,10 @@
 
 	SSticker.mode.abductors |= src
 
+	var/datum/objective/stay_hidden/hidden_obj = new
+	hidden_obj.owner = src
+	objectives += hidden_obj
+
 	var/datum/objective/experiment/O = new
 	O.owner = src
 	objectives += O
@@ -1553,25 +1781,6 @@
 			if("Scientist")
 				L = agent_landmarks[team]
 		H.forceMove(L.loc)
-
-
-// check whether this mind's mob has been brigged for the given duration
-// have to call this periodically for the duration to work properly
-/datum/mind/proc/is_brigged(duration)
-	var/turf/T = current.loc
-	if(!istype(T))
-		brigged_since = -1
-		return 0
-
-	var/is_currently_brigged = current.is_in_brig()
-	if(!is_currently_brigged)
-		brigged_since = -1
-		return 0
-
-	if(brigged_since == -1)
-		brigged_since = world.time
-
-	return (duration <= world.time - brigged_since)
 
 /datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/S)
 	spell_list += S
@@ -1620,42 +1829,39 @@
 	if(G)
 		G.reenter_corpse()
 
+
 /datum/mind/proc/make_zealot(mob/living/carbon/human/missionary, convert_duration = 6000, team_color = "red")
-	if(!missionary || !istype(missionary))		//better provide a proper missionary or the rest of this is gonna break
-		return 0
 
 	zealot_master = missionary
 
 	var/list/implanters
-	var/ref = "\ref[missionary.mind]"
 	if(!(missionary.mind in SSticker.mode.implanter))
-		SSticker.mode.implanter[ref] = list()
-	implanters = SSticker.mode.implanter[ref]
+		SSticker.mode.implanter[missionary.mind] = list()
+	implanters = SSticker.mode.implanter[missionary.mind]
 	implanters.Add(src)
 	SSticker.mode.implanted.Add(src)
 	SSticker.mode.implanted[src] = missionary.mind
-	//ticker.mode.implanter[missionary.mind] += src
-	SSticker.mode.implanter[ref] = implanters
+	SSticker.mode.implanter[missionary.mind] = implanters
 	SSticker.mode.traitors += src
-	special_role = "traitor"
+
+
+	var/datum/objective/protect/zealot_objective = new
+	zealot_objective.target = missionary.mind
+	zealot_objective.owner = src
+	zealot_objective.explanation_text = "Obey every order from and protect [missionary.real_name], the [missionary.mind.assigned_role == missionary.mind.special_role ? (missionary.mind.special_role) : (missionary.mind.assigned_role)]."
+	objectives += zealot_objective
+	add_antag_datum(/datum/antagonist/mindslave)
+
+	var/datum/antagonist/traitor/T = missionary.mind.has_antag_datum(/datum/antagonist)
+	T.update_traitor_icons_added(missionary.mind)
+
 	to_chat(current, "<span class='warning'><B>You're now a loyal zealot of [missionary.name]!</B> You now must lay down your life to protect [missionary.p_them()] and assist in [missionary.p_their()] goals at any cost.</span>")
-	var/datum/objective/protect/mindslave/MS = new
-	MS.owner = src
-	MS.target = missionary.mind
-	MS.explanation_text = "Obey every order from and protect [missionary.real_name], the [missionary.mind.assigned_role == missionary.mind.special_role ? (missionary.mind.special_role) : (missionary.mind.assigned_role)]."
-	objectives += MS
-	for(var/datum/objective/objective in objectives)
-		to_chat(current, "<B>Objective #1</B>: [objective.explanation_text]")
 
-	SSticker.mode.update_traitor_icons_added(missionary.mind)
-	SSticker.mode.update_traitor_icons_added(src)//handles datahuds/observerhuds
-
-	if(missionary.mind.som)//do not add if not a traitor..and you just picked up a robe and staff in the hall...
-		var/datum/mindslaves/slaved = missionary.mind.som
-		som = slaved
-		slaved.serv += current
-		slaved.add_serv_hud(missionary.mind, "master") //handles master servent icons
-		slaved.add_serv_hud(src, "mindslave")
+	var/datum/mindslaves/slaved = missionary.mind.som
+	som = slaved
+	slaved.serv += current
+	slaved.add_serv_hud(missionary.mind, "master") //handles master servent icons
+	slaved.add_serv_hud(src, "mindslave")
 
 	var/obj/item/clothing/under/jumpsuit = null
 	if(ishuman(current))		//only bother with the jumpsuit stuff if we are a human type, since we won't have the slot otherwise
@@ -1663,7 +1869,7 @@
 		if(H.w_uniform)
 			jumpsuit = H.w_uniform
 			jumpsuit.color = team_color
-			H.update_inv_w_uniform(0,0)
+			H.update_inv_w_uniform()
 
 	add_attack_logs(missionary, current, "Converted to a zealot for [convert_duration/600] minutes")
 	addtimer(CALLBACK(src, .proc/remove_zealot, jumpsuit), convert_duration) //deconverts after the timer expires
@@ -1672,7 +1878,7 @@
 /datum/mind/proc/remove_zealot(obj/item/clothing/under/jumpsuit = null)
 	if(!zealot_master)	//if they aren't a zealot, we can't remove their zealot status, obviously. don't bother with the rest so we don't confuse them with the messages
 		return
-	SSticker.mode.remove_traitor_mind(src)
+	remove_antag_datum(/datum/antagonist/mindslave)
 	add_attack_logs(zealot_master, current, "Lost control of zealot")
 	zealot_master = null
 
@@ -1680,10 +1886,10 @@
 		jumpsuit.color = initial(jumpsuit.color)		//reset the jumpsuit no matter where our mind is
 		if(ishuman(current))							//but only try updating us if we are still a human type since it is a human proc
 			var/mob/living/carbon/human/H = current
-			H.update_inv_w_uniform(0,0)
+			H.update_inv_w_uniform()
 
-	to_chat(current, "<span class='warning'>You seem to have forgotten the events of the past 10 minutes or so, and your head aches a bit as if someone beat it savagely with a stick.</span>")
-	to_chat(current, "<span class='warning'>This means you don't remember who you were working for or what you were doing.</span>")
+	to_chat(current, "<span class='warning'><b>You seem to have forgotten the events of the past 10 minutes or so, and your head aches a bit as if someone beat it savagely with a stick.</b></span>")
+	to_chat(current, "<span class='warning'><b>This means you don't remember who you were working for or what you were doing.</b></span>")
 
 /datum/mind/proc/is_revivable() //Note, this ONLY checks the mind.
 	if(damnation_type)
@@ -1722,7 +1928,7 @@
 	mind.active = 1    //indicates that the mind is currently synced with a client
 
 //slime
-/mob/living/carbon/slime/mind_initialize()
+/mob/living/simple_animal/slime/mind_initialize()
 	..()
 	mind.assigned_role = "slime"
 
@@ -1777,7 +1983,7 @@
 	..()
 	mind.assigned_role = "Animal"
 
-/mob/living/simple_animal/pet/corgi/mind_initialize()
+/mob/living/simple_animal/pet/dog/corgi/mind_initialize()
 	..()
 	mind.assigned_role = "Corgi"
 

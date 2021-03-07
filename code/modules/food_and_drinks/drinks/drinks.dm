@@ -10,7 +10,7 @@
 	consume_sound = 'sound/items/drink.ogg'
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
 	volume = 50
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
 	antable = FALSE
 
 /obj/item/reagent_containers/food/drinks/New()
@@ -36,12 +36,6 @@
 	if(istype(M, /mob/living/carbon))
 		var/mob/living/carbon/C = M
 		if(C.eat(src, user))
-			if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
-				var/mob/living/silicon/robot/borg = user
-				borg.cell.use(30)
-				var/refill = reagents.get_master_reagent_id()
-				if(refill in GLOB.drinks) // Only synthesize drinks
-					addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent, refill, bitesize), 600)
 			return TRUE
 	return FALSE
 
@@ -72,23 +66,8 @@
 			to_chat(user, "<span class='warning'> [target] is full.</span>")
 			return FALSE
 
-		var/datum/reagent/refill
-		var/datum/reagent/refillName
-		if(isrobot(user))
-			refill = reagents.get_master_reagent_id()
-			refillName = reagents.get_master_reagent_name()
-
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'> You transfer [trans] units of the solution to [target].</span>")
-
-		if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
-			if(refill in GLOB.drinks) // Only synthesize drinks
-				var/mob/living/silicon/robot/bro = user
-				var/chargeAmount = max(30,4*trans)
-				bro.cell.use(chargeAmount)
-				to_chat(user, "<span class='notice'>Now synthesizing [trans] units of [refillName]...</span>")
-				addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent, refill, trans), 300)
-				addtimer(CALLBACK(GLOBAL_PROC, .proc/__to_chat, user, "<span class='notice'>Cyborg [src] refilled.</span>"), 300)
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if(!is_refillable())
@@ -108,19 +87,19 @@
 	return FALSE
 
 /obj/item/reagent_containers/food/drinks/examine(mob/user)
-	if(!..(user, 1))
-		return
-	if(!reagents || reagents.total_volume == 0)
-		to_chat(user, "<span class='notice'> \The [src] is empty!</span>")
-	else if(reagents.total_volume <= volume/4)
-		to_chat(user, "<span class='notice'> \The [src] is almost empty!</span>")
-	else if(reagents.total_volume <= volume*0.66)
-		to_chat(user, "<span class='notice'> \The [src] is half full!</span>")// We're all optimistic, right?!
+	. = ..()
+	if(in_range(user, src))
+		if(!reagents || reagents.total_volume == 0)
+			. += "<span class='notice'> \The [src] is empty!</span>"
+		else if(reagents.total_volume <= volume/4)
+			. += "<span class='notice'> \The [src] is almost empty!</span>"
+		else if(reagents.total_volume <= volume*0.66)
+			. += "<span class='notice'> \The [src] is half full!</span>"// We're all optimistic, right?!
 
-	else if(reagents.total_volume <= volume*0.90)
-		to_chat(user, "<span class='notice'> \The [src] is almost full!</span>")
-	else
-		to_chat(user, "<span class='notice'> \The [src] is full!</span>")
+		else if(reagents.total_volume <= volume*0.90)
+			. += "<span class='notice'> \The [src] is almost full!</span>"
+		else
+			. += "<span class='notice'> \The [src] is full!</span>"
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Drinks. END
@@ -139,6 +118,7 @@
 	volume = 5
 	flags = CONDUCT
 	container_type = OPENCONTAINER
+	resistance_flags = FIRE_PROOF
 
 /obj/item/reagent_containers/food/drinks/trophy/gold_cup
 	name = "gold cup"
@@ -185,6 +165,7 @@
 	desc = "Careful, the beverage you're about to enjoy is extremely hot."
 	icon_state = "coffee"
 	list_reagents = list("coffee" = 30)
+	resistance_flags = FREEZE_PROOF
 
 /obj/item/reagent_containers/food/drinks/ice
 	name = "ice cup"
@@ -217,13 +198,15 @@
 	icon_state = "hot_coco"
 	item_state = "coffee"
 	list_reagents = list("hot_coco" = 30, "sugar" = 5)
+	resistance_flags = FREEZE_PROOF
 
 /obj/item/reagent_containers/food/drinks/chocolate
 	name = "hot chocolate"
 	desc = "Made in Space Switzerland."
 	icon_state = "hot_coco"
 	item_state = "coffee"
-	list_reagents = list("chocolate" = 30)
+	list_reagents = list("hot_coco" = 15, "chocolate" = 6, "water" = 9)
+	resistance_flags = FREEZE_PROOF
 
 /obj/item/reagent_containers/food/drinks/weightloss
 	name = "weight-loss shake"
@@ -333,14 +316,6 @@
 	desc = "A cup with the british flag emblazoned on it."
 	icon_state = "britcup"
 	volume = 30
-
-/obj/item/reagent_containers/food/drinks/mushroom_bowl
-	name = "mushroom bowl"
-	desc = "A bowl made out of mushrooms. Not food, though it might have contained some at some point."
-	icon = 'icons/obj/lavaland/ash_flora.dmi'
-	icon_state = "mushroom_bowl"
-	w_class = WEIGHT_CLASS_SMALL
-
 
 /obj/item/reagent_containers/food/drinks/bag
 	name = "drink bag"

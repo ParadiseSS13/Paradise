@@ -150,97 +150,89 @@
 /obj/machinery/power/generator/attack_ghost(mob/user)
 	if(stat & (NOPOWER|BROKEN))
 		return
-	interact(user)
+	ui_interact(user)
 
 /obj/machinery/power/generator/attack_hand(mob/user)
 	if(..())
 		user << browse(null, "window=teg")
 		return
-	interact(user)
+	ui_interact(user)
 
-/obj/machinery/power/generator/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/wrench))
-		anchored = !anchored
-		if(!anchored)
-			disconnect()
-			power_change()
-		else
-			connect()
-		playsound(loc, W.usesound, 50, 1)
-		to_chat(user, "<span class='notice'>You [anchored ? "secure" : "unsecure"] the bolts holding [src] to the floor.</span>")
-	else if(ismultitool(W))
-		if(cold_dir == WEST)
-			cold_dir = EAST
-			hot_dir = WEST
-		else if(cold_dir == NORTH)
-			cold_dir = SOUTH
-			hot_dir = NORTH
-		else if(cold_dir == EAST)
-			cold_dir = WEST
-			hot_dir = EAST
-		else
-			cold_dir = NORTH
-			hot_dir = SOUTH
-		connect()
-		to_chat(user, "<span class='notice'>You reverse the generator's circulator settings. The cold circulator is now on the [dir2text(cold_dir)] side, and the heat circulator is now on the [dir2text(hot_dir)] side.</span>")
-		update_desc()
+/obj/machinery/power/generator/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(cold_dir == WEST)
+		cold_dir = EAST
+		hot_dir = WEST
+	else if(cold_dir == NORTH)
+		cold_dir = SOUTH
+		hot_dir = NORTH
+	else if(cold_dir == EAST)
+		cold_dir = WEST
+		hot_dir = EAST
 	else
-		..()
+		cold_dir = NORTH
+		hot_dir = SOUTH
+	connect()
+	to_chat(user, "<span class='notice'>You reverse the generator's circulator settings. The cold circulator is now on the [dir2text(cold_dir)] side, and the heat circulator is now on the [dir2text(hot_dir)] side.</span>")
+	update_desc()
 
-/obj/machinery/power/generator/proc/get_menu(include_link = 1)
-	var/t = ""
+/obj/machinery/power/generator/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	anchored = !anchored
+	if(!anchored)
+		disconnect()
+		power_change()
+	else
+		connect()
+	to_chat(user, "<span class='notice'>You [anchored ? "secure" : "unsecure"] the bolts holding [src] to the floor.</span>")
+
+/obj/machinery/power/generator/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "TEG",  name, 500, 400, master_ui, state)
+		ui.open()
+
+/obj/machinery/power/generator/ui_data(mob/user)
+	var/list/data = list()
 	if(!powernet)
-		t += "<span class='bad'>Unable to connect to the power network!</span>"
-		t += "<BR><A href='?src=[UID()];check=1'>Retry</A>"
+		data["error"] = "Unable to connect to the power network!"
 	else if(cold_circ && hot_circ)
 		var/datum/gas_mixture/cold_circ_air1 = cold_circ.get_outlet_air()
 		var/datum/gas_mixture/cold_circ_air2 = cold_circ.get_inlet_air()
 		var/datum/gas_mixture/hot_circ_air1 = hot_circ.get_outlet_air()
 		var/datum/gas_mixture/hot_circ_air2 = hot_circ.get_inlet_air()
 
-		t += "<div class='statusDisplay'>"
-
-		t += "Output: [round(lastgen)] W"
-
-		t += "<BR>"
-
-		t += "<B><font color='blue'>Cold loop</font></B><BR>"
-		t += "Temperature Inlet: [round(cold_circ_air2.temperature, 0.1)] K / Outlet: [round(cold_circ_air1.temperature, 0.1)] K<BR>"
-		t += "Pressure Inlet: [round(cold_circ_air2.return_pressure(), 0.1)] kPa /  Outlet: [round(cold_circ_air1.return_pressure(), 0.1)] kPa<BR>"
-
-		t += "<B><font color='red'>Hot loop</font></B><BR>"
-		t += "Temperature Inlet: [round(hot_circ_air2.temperature, 0.1)] K / Outlet: [round(hot_circ_air1.temperature, 0.1)] K<BR>"
-		t += "Pressure Inlet: [round(hot_circ_air2.return_pressure(), 0.1)] kPa / Outlet: [round(hot_circ_air1.return_pressure(), 0.1)] kPa<BR>"
-
-		t += "</div>"
+		data["cold_dir"] = dir2text(cold_dir)
+		data["hot_dir"] = dir2text(hot_dir)
+		data["output_power"] = round(lastgen)
+		// Temps are K, pressures are kPa, power is W
+		data["cold_inlet_temp"] = round(cold_circ_air2.temperature, 0.1)
+		data["hot_inlet_temp"] = round(hot_circ_air2.temperature, 0.1)
+		data["cold_outlet_temp"] = round(cold_circ_air1.temperature, 0.1)
+		data["hot_outlet_temp"] = round(hot_circ_air1.temperature, 0.1)
+		data["cold_delta_temp"] = data["cold_outlet_temp"] - data["cold_inlet_temp"]
+		data["cold_inlet_pressure"] = round(cold_circ_air2.return_pressure(), 0.1)
+		data["hot_inlet_pressure"] = round(hot_circ_air2.return_pressure(), 0.1)
+		data["cold_outlet_pressure"] = round(cold_circ_air1.return_pressure(), 0.1)
+		data["hot_outlet_pressure"] = round(hot_circ_air1.return_pressure(), 0.1)
+		data["warning_switched"] = (data["cold_inlet_temp"] > data["hot_inlet_temp"])
+		data["warning_cold_pressure"] = (data["cold_inlet_pressure"] < 1000)
+		data["warning_hot_pressure"] = (data["hot_inlet_pressure"] < 1000)
 	else
-		t += "<span class='bad'>Unable to locate all parts!</span>"
-		t += "<BR><A href='?src=[UID()];check=1'>Retry</A>"
-	if(include_link)
-		t += "<BR><A href='?src=[UID()];close=1'>Close</A>"
+		data["error"] = "Unable to locate all parts!"
+	return data
 
-	return t
-
-/obj/machinery/power/generator/interact(mob/user)
-	user.set_machine(src)
-
-	var/datum/browser/popup = new(user, "teg", "Thermo-Electric Generator", 460, 300)
-	popup.set_content(get_menu())
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
-	popup.open()
-	return 1
-
-/obj/machinery/power/generator/Topic(href, href_list)
+/obj/machinery/power/generator/ui_act(action, params)
 	if(..())
-		return 0
-	if( href_list["close"] )
-		usr << browse(null, "window=teg")
-		usr.unset_machine()
-		return 0
-	if( href_list["check"] )
+		return
+	if(action == "check")
 		if(!powernet || !cold_circ || !hot_circ)
 			connect()
-	return 1
+			return TRUE
 
 /obj/machinery/power/generator/power_change()
 	..()

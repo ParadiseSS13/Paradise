@@ -80,10 +80,13 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/deconstruct(disassembled = TRUE)
 	var/turf/T = get_turf(src)
-	if(d1)	// 0-X cables are 1 unit, X-X cables are 2 units long
-		new/obj/item/stack/cable_coil(T, 2, paramcolor = color)
-	else
-		new/obj/item/stack/cable_coil(T, 1, paramcolor = color)
+	if(usr)
+		investigate_log("was deconstructed by [key_name(usr, 1)] in [get_area(usr)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
+	if(!(flags & NODECONSTRUCT))
+		if(d1)	// 0-X cables are 1 unit, X-X cables are 2 units long
+			new/obj/item/stack/cable_coil(T, 2, paramcolor = color)
+		else
+			new/obj/item/stack/cable_coil(T, 1, paramcolor = color)
 	qdel(src)
 
 ///////////////////////////////////
@@ -94,7 +97,7 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/cable/hide(i)
 
 	if(level == 1 && isturf(loc))
-		invisibility = i ? 101 : 0
+		invisibility = i ? INVISIBILITY_MAXIMUM : 0
 	updateicon()
 
 /obj/structure/cable/proc/updateicon()
@@ -122,7 +125,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/proc/surplus()
 	if(powernet)
-		return Clamp(powernet.avail-powernet.load, 0, powernet.avail)
+		return clamp(powernet.avail-powernet.load, 0, powernet.avail)
 	else
 		return 0
 
@@ -138,7 +141,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/proc/delayed_surplus()
 	if(powernet)
-		return Clamp(powernet.newavail - powernet.delayedload, 0, powernet.newavail)
+		return clamp(powernet.newavail - powernet.delayedload, 0, powernet.newavail)
 	else
 		return 0
 
@@ -158,19 +161,9 @@ By design, d1 is the smallest direction and d2 is the highest
 //   - Multitool : get the power currently passing through the cable
 //
 /obj/structure/cable/attackby(obj/item/W, mob/user)
-
 	var/turf/T = get_turf(src)
 	if(T.intact)
 		return
-
-	if(iswirecutter(W))
-		if(shock(user, 50))
-			return
-		user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
-		investigate_log("was cut by [key_name(usr, 1)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
-		deconstruct()
-		return
-
 
 	else if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/coil = W
@@ -185,14 +178,6 @@ By design, d1 is the smallest direction and d2 is the highest
 			R.loaded.cable_join(src, user)
 			R.is_empty(user)
 
-	else if(istype(W, /obj/item/multitool))
-
-		if(powernet && (powernet.avail > 0))		// is it powered?
-			to_chat(user, "<span class='danger'>Total power: [DisplayPower(powernet.avail)]\nLoad: [DisplayPower(powernet.load)]\nExcess power: [DisplayPower(surplus())]</span>")
-		else
-			to_chat(user, "<span class='danger'>The cable is not powered.</span>")
-		shock(user, 5, 0.2)
-
 	else if(istype(W, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = W
 		cable_color(C.colourName)
@@ -202,6 +187,32 @@ By design, d1 is the smallest direction and d2 is the highest
 			shock(user, 50, 0.7)
 
 	add_fingerprint(user)
+
+/obj/structure/cable/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	var/turf/T = get_turf(src)
+	if(T.intact)
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(powernet && (powernet.avail > 0))		// is it powered?
+		to_chat(user, "<span class='danger'>Total power: [DisplayPower(powernet.avail)]\nLoad: [DisplayPower(powernet.load)]\nExcess power: [DisplayPower(surplus())]</span>")
+	else
+		to_chat(user, "<span class='danger'>The cable is not powered.</span>")
+	shock(user, 5, 0.2)
+
+/obj/structure/cable/wirecutter_act(mob/user, obj/item/I)
+	. = TRUE
+	var/turf/T = get_turf(src)
+	if(T.intact)
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(shock(user, 50))
+		return
+	user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
+	investigate_log("was cut by [key_name(usr, 1)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
+	deconstruct()
 
 // shock the user with probability prb
 /obj/structure/cable/proc/shock(mob/user, prb, siemens_coeff = 1)
@@ -218,26 +229,15 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(current_size >= STAGE_FIVE)
 		deconstruct()
 
-//explosion handling
-/obj/structure/cable/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src) // qdel
-		if(2)
-			if(prob(50))
-				deconstruct()
-		if(3)
-			if(prob(25))
-				deconstruct()
-
-obj/structure/cable/proc/cable_color(var/colorC)
-	if(colorC)
-		if(colorC == "rainbow")
-			color = color_rainbow()
-		else
-			color = colorC
+/obj/structure/cable/proc/cable_color(colorC)
+	if(!colorC)
+		color = COLOR_RED
+	else if(colorC == "rainbow")
+		color = color_rainbow()
+	else if(colorC == "orange") //byond only knows 16 colors by name, and orange isn't one of them
+		color = COLOR_ORANGE
 	else
-		color = "#DD0000"
+		color = colorC
 
 /obj/structure/cable/proc/color_rainbow()
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
@@ -521,7 +521,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 /obj/item/stack/cable_coil/attack(mob/M, mob/user)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/S = H.bodyparts_by_name[user.zone_sel.selecting]
+		var/obj/item/organ/external/S = H.bodyparts_by_name[user.zone_selected]
 
 		if(!S)
 			return
@@ -595,15 +595,14 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 		w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/stack/cable_coil/examine(mob/user)
-	if(!..(user, 1))
-		return
-
-	if(get_amount() == 1)
-		to_chat(user, "A short piece of power cable.")
-	else if(get_amount() == 2)
-		to_chat(user, "A piece of power cable.")
-	else
-		to_chat(user, "A coil of power cable. There are [get_amount()] lengths of cable in the coil.")
+	. = ..()
+	if(in_range(user, src))
+		if(get_amount() == 1)
+			. += "A short piece of power cable."
+		else if(get_amount() == 2)
+			. += "A piece of power cable."
+		else
+			. += "A coil of power cable. There are [get_amount()] lengths of cable in the coil."
 
 // Items usable on a cable coil :
 //   - Wirecutters : cut them duh !
@@ -847,13 +846,15 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
 	..()
 
-/obj/item/stack/cable_coil/proc/cable_color(var/colorC)
-	if(colorC)
-		if(colorC == "rainbow")
-			colorC = color_rainbow()
-		color = colorC
-	else
+/obj/item/stack/cable_coil/proc/cable_color(colorC)
+	if(!colorC)
 		color = COLOR_RED
+	else if(colorC == "rainbow")
+		color = color_rainbow()
+	else if(colorC == "orange") //byond only knows 16 colors by name, and orange isn't one of them
+		color = COLOR_ORANGE
+	else
+		color = colorC
 
 /obj/item/stack/cable_coil/proc/color_rainbow()
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)

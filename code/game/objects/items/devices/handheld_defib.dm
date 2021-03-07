@@ -1,16 +1,15 @@
 /obj/item/handheld_defibrillator
 	name = "handheld defibrillator"
 	desc = "Used to restart stopped hearts."
-	icon = 'icons/goonstation/objects/objects.dmi'
-	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
+	icon = 'icons/obj/items.dmi'
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "defib-on"
 	item_state = "defib"
 
 	var/icon_base = "defib"
 	var/cooldown = FALSE
 	var/charge_time = 100
-	var/emagged = FALSE
 
 /obj/item/handheld_defibrillator/emag_act(mob/user)
 	if(!emagged)
@@ -68,7 +67,7 @@
 			H.AdjustWeakened(5)
 			H.AdjustStuttering(10)
 			to_chat(H, "<span class='danger'>You feel a powerful jolt!</span>")
-			H.shock_internal_organs(100)
+			SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
 
 			if(emagged && prob(10))
 				to_chat(user, "<span class='danger'>[src]'s on board scanner indicates that the target is undergoing a cardiac arrest!</span>")

@@ -6,9 +6,8 @@
 		density = 1
 		opacity = FALSE
 		anchored = 1
-		unacidable = 1
-		var/const/max_health = 200
-		var/health = max_health //The shield can only take so much beating (prevents perma-prisons)
+		resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+		max_integrity = 200
 
 /obj/machinery/shield/New()
 	dir = pick(NORTH, SOUTH, EAST, WEST)
@@ -37,42 +36,6 @@
 /obj/machinery/shield/CanAtmosPass(turf/T)
 	return !density
 
-/obj/machinery/shield/attackby(obj/item/I, mob/user, params)
-	if(!istype(I))
-		return
-
-	//Calculate damage
-	var/aforce = I.force
-	if(I.damtype == BRUTE || I.damtype == BURN)
-		health -= aforce
-
-	//Play a fitting sound
-	playsound(loc, 'sound/effects/empulse.ogg', 75, 1)
-
-	if(health <= 0)
-		visible_message("<span class='notice'>The [src] dissipates</span>")
-		qdel(src)
-		return
-
-	opacity = TRUE
-	spawn(20)
-		if(src)
-			opacity = FALSE
-
-	..()
-
-/obj/machinery/shield/bullet_act(obj/item/projectile/Proj)
-	health -= Proj.damage
-	..()
-	if(health <=0)
-		visible_message("<span class='notice'>The [src] dissipates</span>")
-		qdel(src)
-		return
-	opacity = TRUE
-	spawn(20)
-		if(src)
-			opacity = FALSE
-
 /obj/machinery/shield/ex_act(severity)
 	switch(severity)
 		if(1.0)
@@ -96,33 +59,70 @@
 /obj/machinery/shield/blob_act()
 	qdel(src)
 
+/obj/machinery/shield/cult
+	name = "cult barrier"
+	desc = "A shield summoned by cultists to keep heretics away."
+	max_integrity = 100
+	icon_state = "shield-cult"
 
-/obj/machinery/shield/hitby(AM as mob|obj)
-	..()
-	var/tforce = 0
-	if(ismob(AM))
-		tforce = 40
-	else if(isobj(AM))
-		var/obj/O = AM
-		tforce = O.throwforce
+/obj/machinery/shield/cult/emp_act(severity)
+	return
 
-	health -= tforce
+/obj/machinery/shield/cult/narsie
+	name = "sanguine barrier"
+	desc = "A potent shield summoned by cultists to defend their rites."
+	max_integrity = 60
 
-	//This seemed to be the best sound for hitting a force field.
-	playsound(loc, 'sound/effects/empulse.ogg', 100, 1)
+/obj/machinery/shield/cult/weak
+	name = "Invoker's Shield"
+	desc = "A weak shield summoned by cultists to protect them while they carry out delicate rituals."
+	max_integrity = 20
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	layer = ABOVE_MOB_LAYER
 
-	//Handle the destruction of the shield
-	if(health <= 0)
-		visible_message("<span class='notice'>The [src] dissipates</span>")
-		qdel(src)
-		return
+/obj/machinery/shield/cult/barrier
+	density = FALSE
+	/// The rune that created the shield itself. Used to delete the rune when the shield is destroyed.
+	var/obj/effect/rune/parent_rune
 
-	//The shield becomes dense to absorb the blow.. purely asthetic.
-	opacity = TRUE
-	spawn(20)
-		if(src)
-			opacity = FALSE
+/obj/machinery/shield/cult/barrier/Initialize()
+	. = ..()
+	invisibility = INVISIBILITY_MAXIMUM
 
+/obj/machinery/shield/cult/barrier/Destroy()
+	if(parent_rune && !QDELETED(parent_rune))
+		QDEL_NULL(parent_rune)
+	return ..()
+
+/obj/machinery/shield/cult/barrier/attack_hand(mob/living/user)
+	parent_rune.attack_hand(user)
+
+/obj/machinery/shield/cult/barrier/attack_animal(mob/living/simple_animal/user)
+	if(iscultist(user))
+		parent_rune.attack_animal(user)
+	else
+		..()
+
+/**
+* Turns the shield on and off.
+*
+* The shield has 2 states: on and off. When on, it will block movement, projectiles, items, etc. and be clearly visible, and block atmospheric gases.
+* When off, the rune no longer blocks anything and turns invisible.
+* The barrier itself is not intended to interact with the conceal runes cult spell for balance purposes.
+*/
+/obj/machinery/shield/cult/barrier/proc/Toggle()
+	var/visible
+	if(!density) // Currently invisible
+		density = TRUE // Turn visible
+		invisibility = initial(invisibility)
+		visible = TRUE
+	else // Currently visible
+		density = FALSE // Turn invisible
+		invisibility = INVISIBILITY_MAXIMUM
+		visible = FALSE
+
+	air_update_turf(1)
+	return visible
 
 /obj/machinery/shieldgen
 	name = "Emergency shield projector"
@@ -133,7 +133,7 @@
 	opacity = FALSE
 	anchored = 0
 	pressure_resistance = 2*ONE_ATMOSPHERE
-	req_access = list(access_engine)
+	req_access = list(ACCESS_ENGINE)
 	var/const/max_health = 100
 	var/health = max_health
 	var/active = 0
@@ -240,15 +240,6 @@
 		malfunction = TRUE
 		update_icon()
 
-	else if(isscrewdriver(I))
-		playsound(loc, I.usesound, 100, 1)
-		if(is_open)
-			to_chat(user, "<span class='notice'>You close the panel.</span>")
-			is_open = FALSE
-		else
-			to_chat(user, "<span class='notice'>You open the panel and expose the wiring.</span>")
-			is_open = TRUE
-
 	else if(istype(I, /obj/item/stack/cable_coil) && malfunction && is_open)
 		var/obj/item/stack/cable_coil/coil = I
 		to_chat(user, "<span class='notice'>You begin to replace the wires.</span>")
@@ -262,25 +253,6 @@
 			to_chat(user, "<span class='notice'>You repair the [src]!</span>")
 			update_icon()
 
-	else if(istype(I, /obj/item/wrench))
-		if(locked)
-			to_chat(user, "The bolts are covered, unlocking this would retract the covers.")
-			return
-		if(anchored)
-			playsound(loc, I.usesound, 100, 1)
-			to_chat(user, "<span class='notice'>You unsecure the [src] from the floor!</span>")
-			if(active)
-				to_chat(user, "<span class='notice'>The [src] shuts off!</span>")
-				shields_down()
-			anchored = 0
-		else
-			if(istype(get_turf(src), /turf/space))
-				return //No wrenching these in space!
-			playsound(loc, I.usesound, 100, 1)
-			to_chat(user, "<span class='notice'>You secure the [src] to the floor!</span>")
-			anchored = 1
-
-
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		if(allowed(user))
 			locked = !locked
@@ -289,8 +261,36 @@
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 
 	else
-		..()
+		return ..()
 
+/obj/machinery/shieldgen/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	is_open = !is_open
+	if(is_open)
+		SCREWDRIVER_OPEN_PANEL_MESSAGE
+	else
+		SCREWDRIVER_CLOSE_PANEL_MESSAGE
+
+/obj/machinery/shieldgen/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(locked)
+		to_chat(user, "The bolts are covered, unlocking this would retract the covers.")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(anchored)
+		WRENCH_UNANCHOR_MESSAGE
+		if(active)
+			visible_message("<span class='warning'>[src] shuts off!</span>")
+			shields_down()
+		anchored = FALSE
+	else
+		if(istype(get_turf(src), /turf/space))
+			return //No wrenching these in space!
+		WRENCH_ANCHOR_MESSAGE
+		anchored = TRUE
 
 /obj/machinery/shieldgen/update_icon()
 	if(active)
@@ -309,7 +309,7 @@
 		icon_state = "Shield_Gen"
 		anchored = 0
 		density = 1
-		req_access = list(access_teleporter)
+		req_access = list(ACCESS_TELEPORTER)
 		var/active = 0
 		var/power = 0
 		var/state = 0
@@ -529,8 +529,8 @@
 		icon_state = "shieldwall"
 		anchored = 1
 		density = 1
-		unacidable = 1
-		luminosity = 3
+		resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+		light_range = 3
 		var/needs_power = 0
 		var/active = 1
 		var/delay = 5
@@ -673,6 +673,6 @@
 	phaseout()
 	return ..()
 
-/obj/machinery/shieldwall/syndicate/hitby(AM as mob|obj)
+/obj/machinery/shieldwall/syndicate/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	phaseout()
 	return ..()

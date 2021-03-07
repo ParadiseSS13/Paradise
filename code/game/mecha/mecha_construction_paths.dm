@@ -5,25 +5,7 @@
 ////////////////////////////////
 
 /datum/construction/mecha/custom_action(step, atom/used_atom, mob/user)
-	if(istype(used_atom, /obj/item/weldingtool))
-		var/obj/item/weldingtool/W = used_atom
-		if(W.remove_fuel(0, user))
-			playsound(holder, W.usesound, 50, 1)
-		else
-			return 0
-	else if(istype(used_atom, /obj/item/wrench))
-		var/obj/item/wrench/W = used_atom
-		playsound(holder, W.usesound, 50, 1)
-
-	else if(istype(used_atom, /obj/item/screwdriver))
-		var/obj/item/screwdriver/S = used_atom
-		playsound(holder, S.usesound, 50, 1)
-
-	else if(istype(used_atom, /obj/item/wirecutters))
-		var/obj/item/wirecutters/W = used_atom
-		playsound(holder, W.usesound, 50, 1)
-
-	else if(istype(used_atom, /obj/item/stack/cable_coil))
+	if(istype(used_atom, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = used_atom
 		if(C.use(4))
 			playsound(holder, C.usesound, 50, 1)
@@ -37,28 +19,14 @@
 			return 0
 		else
 			S.use(STANDARD_STACK_AMOUNT)
-	return 1
+	else
+		return ..()
+
+/datum/construction/mecha/spawn_result(name)
+	SSblackbox.record_feedback("tally", "mechas_created", 1, "[name]")
 
 /datum/construction/reversible/mecha/custom_action(index as num, diff as num, atom/used_atom, mob/user as mob)
-	if(istype(used_atom, /obj/item/weldingtool))
-		var/obj/item/weldingtool/W = used_atom
-		if(W.remove_fuel(0, user))
-			playsound(holder, W.usesound, 50, 1)
-		else
-			return 0
-	else if(istype(used_atom, /obj/item/wrench))
-		var/obj/item/wrench/W = used_atom
-		playsound(holder, W.usesound, 50, 1)
-
-	else if(istype(used_atom, /obj/item/screwdriver))
-		var/obj/item/screwdriver/S = used_atom
-		playsound(holder, S.usesound, 50, 1)
-
-	else if(istype(used_atom, /obj/item/wirecutters))
-		var/obj/item/wirecutters/W = used_atom
-		playsound(holder, W.usesound, 50, 1)
-
-	else if(istype(used_atom, /obj/item/stack/cable_coil))
+	if(istype(used_atom, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = used_atom
 		if(C.use(4))
 			playsound(holder, C.usesound, 50, 1)
@@ -72,6 +40,11 @@
 			return 0
 		else
 			S.use(STANDARD_STACK_AMOUNT)
+	else if(isitem(used_atom))
+		var/obj/item/I = used_atom
+		if(I.tool_behaviour in CONSTRUCTION_TOOL_BEHAVIOURS)
+			if(!I.use_tool(holder, user, 0, volume = I.tool_volume))
+				return 0
 	return 1
 
 
@@ -93,6 +66,7 @@
 	return check_all_steps(used_atom,user)
 
 /datum/construction/mecha/ripley_chassis/spawn_result()
+	..("Ripley")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/ripley(const_holder)
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
@@ -108,59 +82,59 @@
 	taskpath = /datum/job_objective/make_ripley
 	steps = list(
 					//1
-					list("key"=/obj/item/weldingtool,
-							"backkey"=/obj/item/wrench,
+					list("key"=TOOL_WELDER,
+							"backkey"=TOOL_WRENCH,
 							"desc"="External armor is wrenched."),
 					//2
-					 list("key"=/obj/item/wrench,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key"=TOOL_WRENCH,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="External armor is installed."),
 					 //3
 					 list("key"=/obj/item/stack/sheet/plasteel,
-					 		"backkey"=/obj/item/weldingtool,
+					 		"backkey"=TOOL_WELDER,
 					 		"desc"="Internal armor is welded."),
 					 //4
-					 list("key"=/obj/item/weldingtool,
-					 		"backkey"=/obj/item/wrench,
+					 list("key"=TOOL_WELDER,
+					 		"backkey"=TOOL_WRENCH,
 					 		"desc"="Internal armor is wrenched."),
 					 //5
-					 list("key"=/obj/item/wrench,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key"=TOOL_WRENCH,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Internal armor is installed."),
 					 //6
 					 list("key"=/obj/item/stack/sheet/metal,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="Peripherals control module is secured."),
 					 //7
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key"=TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Peripherals control module is installed."),
 					 //8
 					 list("key"=/obj/item/circuitboard/mecha/ripley/peripherals,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="Central control module is secured."),
 					 //9
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key"=TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Central control module is installed."),
 					 //10
 					 list("key"=/obj/item/circuitboard/mecha/ripley/main,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="The wiring is adjusted."),
 					 //11
 					 list("key"=/obj/item/wirecutters,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="The wiring is added."),
 					 //12
 					 list("key"=/obj/item/stack/cable_coil,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="The hydraulic systems are active."),
 					 //13
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/wrench,
+					 list("key"=TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_WRENCH,
 					 		"desc"="The hydraulic systems are connected."),
 					 //14
-					 list("key"=/obj/item/wrench,
+					 list("key"=TOOL_WRENCH,
 					 		"desc"="The hydraulic systems are disconnected.")
 					)
 
@@ -278,13 +252,6 @@
 				holder.icon_state = "ripley12"
 	return 1
 
-/datum/construction/reversible/mecha/ripley/spawn_result()
-	..()
-	feedback_inc("mecha_ripley_created",1)
-	return
-
-
-
 /datum/construction/mecha/gygax_chassis
 	steps = list(list("key"=/obj/item/mecha_parts/part/gygax_torso),//1
 					 list("key"=/obj/item/mecha_parts/part/gygax_left_arm),//2
@@ -304,6 +271,7 @@
 	return check_all_steps(used_atom,user)
 
 /datum/construction/mecha/gygax_chassis/spawn_result()
+	..("Gygax")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/gygax(const_holder)
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
@@ -317,83 +285,83 @@
 	result = "/obj/mecha/combat/gygax"
 	steps = list(
 					//1
-					list("key"=/obj/item/weldingtool,
-							"backkey"=/obj/item/wrench,
+					list("key"=TOOL_WELDER,
+							"backkey"=TOOL_WRENCH,
 							"desc"="External armor is wrenched."),
 					 //2
-					 list("key"=/obj/item/wrench,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key"=TOOL_WRENCH,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="External armor is installed."),
 					 //3
 					 list("key"=/obj/item/mecha_parts/part/gygax_armour,
-					 		"backkey"=/obj/item/weldingtool,
+					 		"backkey"=TOOL_WELDER,
 					 		"desc"="Internal armor is welded."),
 					 //4
-					 list("key"=/obj/item/weldingtool,
-					 		"backkey"=/obj/item/wrench,
+					 list("key"=TOOL_WELDER,
+					 		"backkey"=TOOL_WRENCH,
 					 		"desc"="Internal armor is wrenched."),
 					 //5
-					 list("key"=/obj/item/wrench,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key"=TOOL_WRENCH,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Internal armor is installed."),
 					 //6
 					 list("key"=/obj/item/stack/sheet/metal,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="Advanced capacitor is secured."),
 					 //7
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key"=TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Advanced capacitor is installed."),
 					 //8
 					 list("key"=/obj/item/stock_parts/capacitor/adv,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="Advanced scanner module is secured."),
 					 //9
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key"=TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Advanced scanner module is installed."),
 					 //10
 					 list("key"=/obj/item/stock_parts/scanning_module/adv,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="Scanning module is secured."),
 					 //11
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key"=TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Scanning module is installed."),
 					 //12
 					 list("key"=/obj/item/circuitboard/mecha/gygax/targeting,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="Peripherals control module is secured."),
 					 //13
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key"=TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Peripherals control module is installed."),
 					 //14
 					 list("key"=/obj/item/circuitboard/mecha/gygax/peripherals,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="Central control module is secured."),
 					 //15
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key"=TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Central control module is installed."),
 					 //16
 					 list("key"=/obj/item/circuitboard/mecha/gygax/main,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="The wiring is adjusted."),
 					 //17
 					 list("key"=/obj/item/wirecutters,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="The wiring is added."),
 					 //18
 					 list("key"=/obj/item/stack/cable_coil,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="The hydraulic systems are active."),
 					 //19
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/wrench,
+					 list("key"=TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_WRENCH,
 					 		"desc"="The hydraulic systems are connected."),
 					 //20
-					 list("key"=/obj/item/wrench,
+					 list("key"=TOOL_WRENCH,
 					 		"desc"="The hydraulic systems are disconnected.")
 					)
 
@@ -559,11 +527,6 @@
 				holder.icon_state = "gygax18"
 	return 1
 
-/datum/construction/reversible/mecha/gygax/spawn_result()
-	..()
-	feedback_inc("mecha_gygax_created",1)
-	return
-
 /datum/construction/mecha/firefighter_chassis
 	steps = list(list("key"=/obj/item/mecha_parts/part/ripley_torso),//1
 					 list("key"=/obj/item/mecha_parts/part/ripley_left_arm),//2
@@ -583,6 +546,7 @@
 	return check_all_steps(used_atom,user)
 
 /datum/construction/mecha/firefighter_chassis/spawn_result()
+	..("Firefighter Ripley")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/firefighter(const_holder)
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
@@ -597,64 +561,64 @@
 	taskpath = /datum/job_objective/make_ripley
 	steps = list(
 					//1
-					list("key"=/obj/item/weldingtool,
-							"backkey"=/obj/item/wrench,
+					list("key"=TOOL_WELDER,
+							"backkey"=TOOL_WRENCH,
 							"desc"="External armor is wrenched."),
 					//2
-					 list("key"=/obj/item/wrench,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key"=TOOL_WRENCH,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="External armor is installed."),
 					 //3
 					 list("key"=/obj/item/stack/sheet/plasteel,
-					 		"backkey"=/obj/item/crowbar,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="External armor is being installed."),
 					 //4
 					 list("key"=/obj/item/stack/sheet/plasteel,
-					 		"backkey"=/obj/item/weldingtool,
+					 		"backkey"=TOOL_WELDER,
 					 		"desc"="Internal armor is welded."),
 					 //5
-					 list("key"=/obj/item/weldingtool,
-					 		"backkey"=/obj/item/wrench,
+					 list("key"=TOOL_WELDER,
+					 		"backkey"=TOOL_WRENCH,
 					 		"desc"="Internal armor is wrenched."),
 					 //6
-					 list("key"=/obj/item/wrench,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key"=TOOL_WRENCH,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Internal armor is installed."),
 
 					 //7
 					 list("key"=/obj/item/stack/sheet/plasteel,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="Peripherals control module is secured."),
 					 //8
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key"=TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Peripherals control module is installed."),
 					 //9
 					 list("key"=/obj/item/circuitboard/mecha/ripley/peripherals,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="Central control module is secured."),
 					 //10
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key"=TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Central control module is installed."),
 					 //11
 					 list("key"=/obj/item/circuitboard/mecha/ripley/main,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="The wiring is adjusted."),
 					 //12
 					 list("key"=/obj/item/wirecutters,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="The wiring is added."),
 					 //13
 					 list("key"=/obj/item/stack/cable_coil,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="The hydraulic systems are active."),
 					 //14
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/wrench,
+					 list("key"=TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_WRENCH,
 					 		"desc"="The hydraulic systems are connected."),
 					 //15
-					 list("key"=/obj/item/wrench,
+					 list("key"=TOOL_WRENCH,
 					 		"desc"="The hydraulic systems are disconnected.")
 					)
 
@@ -782,13 +746,6 @@
 				holder.icon_state = "fireripley13"
 	return 1
 
-/datum/construction/reversible/mecha/firefighter/spawn_result()
-	..()
-	feedback_inc("mecha_firefighter_created",1)
-	return
-
-
-
 /datum/construction/mecha/honker_chassis
 	steps = list(list("key"=/obj/item/mecha_parts/part/honker_torso),//1
 					 list("key"=/obj/item/mecha_parts/part/honker_left_arm),//2
@@ -808,6 +765,7 @@
 	return 1
 
 /datum/construction/mecha/honker_chassis/spawn_result()
+	..("Honker")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/mecha/honker(const_holder)
 	const_holder.density = 1
@@ -860,11 +818,6 @@
 			qdel(used_atom)
 	return 1
 
-/datum/construction/mecha/honker/spawn_result()
-	..()
-	feedback_inc("mecha_honker_created",1)
-	return
-
 /datum/construction/mecha/reticence_chassis
 	steps = list(list("key"=/obj/item/mecha_parts/part/reticence_torso),//1
 					 list("key"=/obj/item/mecha_parts/part/reticence_left_arm),//2
@@ -884,6 +837,7 @@
 	return 1
 
 /datum/construction/mecha/reticence_chassis/spawn_result()
+	..("Reticence")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/mecha/reticence(const_holder)
 	const_holder.density = 1
@@ -937,10 +891,6 @@
 			qdel(used_atom)
 	return 1
 
-/datum/construction/mecha/reticence/spawn_result()
-	..()
-	feedback_inc("mecha_reticence_created",1)
-	return
 
 /datum/construction/mecha/durand_chassis
 	steps = list(list("key"=/obj/item/mecha_parts/part/durand_torso),//1
@@ -961,6 +911,7 @@
 	return check_all_steps(used_atom,user)
 
 /datum/construction/mecha/durand_chassis/spawn_result()
+	..("Durand")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/durand(const_holder)
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
@@ -973,83 +924,83 @@
 	result = "/obj/mecha/combat/durand"
 	steps = list(
 					//1
-					list("key"=/obj/item/weldingtool,
-							"backkey"=/obj/item/wrench,
+					list("key"=TOOL_WELDER,
+							"backkey"=TOOL_WRENCH,
 							"desc"="External armor is wrenched."),
 					 //2
-					 list("key"=/obj/item/wrench,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key"=TOOL_WRENCH,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="External armor is installed."),
 					 //3
 					 list("key"=/obj/item/mecha_parts/part/durand_armor,
-					 		"backkey"=/obj/item/weldingtool,
+					 		"backkey"=TOOL_WELDER,
 					 		"desc"="Internal armor is welded."),
 					 //4
-					 list("key"=/obj/item/weldingtool,
-					 		"backkey"=/obj/item/wrench,
+					 list("key"=TOOL_WELDER,
+					 		"backkey"=TOOL_WRENCH,
 					 		"desc"="Internal armor is wrenched."),
 					 //5
-					 list("key"=/obj/item/wrench,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key"=TOOL_WRENCH,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Internal armor is installed."),
 					 //6
 					 list("key"=/obj/item/stack/sheet/metal,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="Super capacitor is secured."),
 					 //7
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key"=TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Super capacitor is installed."),
 					 //8
 					 list("key"=/obj/item/stock_parts/capacitor/super,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="Phasic scanner module is secured."),
 					 //9
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key"=TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Phasic scanner module is installed."),
 					 //10
 					 list("key"=/obj/item/stock_parts/scanning_module/phasic,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="Scanning module is secured."),
 					 //11
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key"=TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Scanning module is installed."),
 					 //12
 					 list("key"=/obj/item/circuitboard/mecha/durand/targeting,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="Peripherals control module is secured."),
 					 //13
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key"=TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Peripherals control module is installed."),
 					 //14
 					 list("key"=/obj/item/circuitboard/mecha/durand/peripherals,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="Central control module is secured."),
 					 //15
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key"=TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Central control module is installed."),
 					 //16
 					 list("key"=/obj/item/circuitboard/mecha/durand/main,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="The wiring is adjusted."),
 					 //17
 					 list("key"=/obj/item/wirecutters,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="The wiring is added."),
 					 //18
 					 list("key"=/obj/item/stack/cable_coil,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="The hydraulic systems are active."),
 					 //19
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/wrench,
+					 list("key"=TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_WRENCH,
 					 		"desc"="The hydraulic systems are connected."),
 					 //20
-					 list("key"=/obj/item/wrench,
+					 list("key"=TOOL_WRENCH,
 					 		"desc"="The hydraulic systems are disconnected.")
 					)
 
@@ -1216,11 +1167,6 @@
 				holder.icon_state = "durand18"
 	return 1
 
-/datum/construction/reversible/mecha/durand/spawn_result()
-	..()
-	feedback_inc("mecha_durand_created",1)
-	return
-
 //PHAZON
 
 /datum/construction/mecha/phazon_chassis
@@ -1243,6 +1189,7 @@
 	return check_all_steps(used_atom,user)
 
 /datum/construction/mecha/phazon_chassis/spawn_result()
+	..("Phazon")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/phazon(const_holder)
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
@@ -1255,99 +1202,99 @@
 	result = "/obj/mecha/combat/phazon"
 	steps = list(
  					//1
-					list("key"=/obj/item/assembly/signaler/anomaly,
+					list("key" = /obj/item/assembly/signaler/anomaly/bluespace,
 						 "backkey"=null, //Cannot remove the anomaly core once it's in
 						 "desc"="Anomaly core socket is open and awaiting connection."),
 					//2
-					list("key"=/obj/item/weldingtool,
-							"backkey"=/obj/item/wrench,
+					list("key" = TOOL_WELDER,
+							"backkey"=TOOL_WRENCH,
 							"desc"="External armor is wrenched."),
 					 //3
-					 list("key"=/obj/item/wrench,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key" = TOOL_WRENCH,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="External armor is installed."),
 					 //4
-					 list("key"=/obj/item/mecha_parts/part/phazon_armor,
-					 		"backkey"=/obj/item/weldingtool,
+					 list("key" = /obj/item/mecha_parts/part/phazon_armor,
+					 		"backkey"=TOOL_WELDER,
 					 		"desc"="Phase armor is welded."),
 					 //5
-					 list("key"=/obj/item/weldingtool,
-					 		"backkey"=/obj/item/wrench,
+					 list("key" = TOOL_WELDER,
+					 		"backkey"=TOOL_WRENCH,
 					 		"desc"="Phase armor is wrenched."),
 					 //6
-					 list("key"=/obj/item/wrench,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key" = TOOL_WRENCH,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Phase armor is installed."),
 					 //7
-					 list("key"=/obj/item/stack/sheet/plasteel,
-					 		"backkey"=/obj/item/screwdriver,
+					 list("key" = /obj/item/stack/sheet/plasteel,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="The bluespace crystal is engaged."),
 					 //8
-					 list("key"=/obj/item/screwdriver,
+					 list("key" = TOOL_SCREWDRIVER,
 					 		"backkey"=/obj/item/wirecutters,
 					 		"desc"="The bluespace crystal is connected."),
 					 //9
-					 list("key"=/obj/item/stack/cable_coil,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key" = /obj/item/stack/cable_coil,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="The bluespace crystal is installed."),
 					 //10
-					 list("key"=/obj/item/stack/ore/bluespace_crystal,
-					 		"backkey"=/obj/item/screwdriver,
+					 list("key" = /obj/item/stack/ore/bluespace_crystal,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="Super capacitor is secured."),
 					 //11
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key" = TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Super capacitor is installed."),
 					 //12
-					 list("key"=/obj/item/stock_parts/capacitor/super,
-					 		"backkey"=/obj/item/screwdriver,
+					 list("key" = /obj/item/stock_parts/capacitor/super,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="Phasic scanner module is secured."),
 					 //13
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key" = TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Phasic scanner module is installed."),
 					 //14
-					 list("key"=/obj/item/stock_parts/scanning_module/phasic,
-					 		"backkey"=/obj/item/screwdriver,
+					 list("key" = /obj/item/stock_parts/scanning_module/phasic,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="Scanning module is secured."),
 					 //15
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key" = TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Scanning module is installed."),
 					 //16
-					 list("key"=/obj/item/circuitboard/mecha/phazon/targeting,
-					 		"backkey"=/obj/item/screwdriver,
+					 list("key" = /obj/item/circuitboard/mecha/phazon/targeting,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="Peripherals control module is secured."),
 					 //17
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key" = TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Peripherals control module is installed"),
 					 //18
-					 list("key"=/obj/item/circuitboard/mecha/phazon/peripherals,
-					 		"backkey"=/obj/item/screwdriver,
+					 list("key" = /obj/item/circuitboard/mecha/phazon/peripherals,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="Central control module is secured."),
 					 //19
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key" = TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Central control module is installed."),
 					 //20
-					 list("key"=/obj/item/circuitboard/mecha/phazon/main,
-					 		"backkey"=/obj/item/screwdriver,
+					 list("key" = /obj/item/circuitboard/mecha/phazon/main,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="The wiring is adjusted."),
 					 //21
-					 list("key"=/obj/item/wirecutters,
-					 		"backkey"=/obj/item/screwdriver,
+					 list("key" = /obj/item/wirecutters,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="The wiring is added."),
 					 //22
-					 list("key"=/obj/item/stack/cable_coil,
-					 		"backkey"=/obj/item/screwdriver,
+					 list("key" = /obj/item/stack/cable_coil,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="The hydraulic systems are active."),
 					 //23
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/wrench,
+					 list("key" = TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_WRENCH,
 					 		"desc"="The hydraulic systems are connected."),
 					 //24
-					 list("key"=/obj/item/wrench,
+					 list("key" = TOOL_WRENCH,
 					 		"desc"="The hydraulic systems are disconnected.")
 					)
 
@@ -1540,11 +1487,6 @@
 				qdel(used_atom)
 	return 1
 
-/datum/construction/reversible/mecha/phazon/spawn_result()
-	..()
-	feedback_inc("mecha_phazon_created",1)
-	return
-
 //ODYSSEUS
 
 /datum/construction/mecha/odysseus_chassis
@@ -1566,6 +1508,7 @@
 	return check_all_steps(used_atom,user)
 
 /datum/construction/mecha/odysseus_chassis/spawn_result()
+	..("Odysseus")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/odysseus(const_holder)
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
@@ -1579,59 +1522,59 @@
 	result = "/obj/mecha/medical/odysseus"
 	steps = list(
 					//1
-					list("key"=/obj/item/weldingtool,
-							"backkey"=/obj/item/wrench,
+					list("key"=TOOL_WELDER,
+							"backkey"=TOOL_WRENCH,
 							"desc"="External armor is wrenched."),
 					//2
-					 list("key"=/obj/item/wrench,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key"=TOOL_WRENCH,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="External armor is installed."),
 					 //3
 					 list("key"=/obj/item/stack/sheet/plasteel,
-					 		"backkey"=/obj/item/weldingtool,
+					 		"backkey"=TOOL_WELDER,
 					 		"desc"="Internal armor is welded."),
 					 //4
-					 list("key"=/obj/item/weldingtool,
-					 		"backkey"=/obj/item/wrench,
+					 list("key"=TOOL_WELDER,
+					 		"backkey"=TOOL_WRENCH,
 					 		"desc"="Internal armor is wrenched."),
 					 //5
-					 list("key"=/obj/item/wrench,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key"=TOOL_WRENCH,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Internal armor is installed."),
 					 //6
 					 list("key"=/obj/item/stack/sheet/metal,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="Peripherals control module is secured."),
 					 //7
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key"=TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Peripherals control module is installed."),
 					 //8
 					 list("key"=/obj/item/circuitboard/mecha/odysseus/peripherals,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="Central control module is secured."),
 					 //9
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/crowbar,
+					 list("key"=TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Central control module is installed."),
 					 //10
 					 list("key"=/obj/item/circuitboard/mecha/odysseus/main,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="The wiring is adjusted."),
 					 //11
 					 list("key"=/obj/item/wirecutters,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="The wiring is added."),
 					 //12
 					 list("key"=/obj/item/stack/cable_coil,
-					 		"backkey"=/obj/item/screwdriver,
+					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="The hydraulic systems are active."),
 					 //13
-					 list("key"=/obj/item/screwdriver,
-					 		"backkey"=/obj/item/wrench,
+					 list("key"=TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_WRENCH,
 					 		"desc"="The hydraulic systems are connected."),
 					 //14
-					 list("key"=/obj/item/wrench,
+					 list("key"=TOOL_WRENCH,
 					 		"desc"="The hydraulic systems are disconnected.")
 					)
 
@@ -1750,8 +1693,3 @@
 				user.visible_message("[user] unfastens the external armor layer.", "You unfasten the external armor layer.")
 				holder.icon_state = "odysseus12"
 	return 1
-
-/datum/construction/reversible/mecha/odysseus/spawn_result()
-	..()
-	feedback_inc("mecha_odysseus_created",1)
-	return

@@ -1,6 +1,6 @@
 /obj/structure/closet/secure_closet/hydroponics
 	name = "botanist's locker"
-	req_access = list(access_hydroponics)
+	req_access = list(ACCESS_HYDROPONICS)
 	icon_state = "hydrosecure1"
 	icon_closed = "hydrosecure"
 	icon_locked = "hydrosecure1"
@@ -9,8 +9,7 @@
 	icon_off = "hydrosecureoff"
 
 
-/obj/structure/closet/secure_closet/hydroponics/New()
-	..()
+/obj/structure/closet/secure_closet/hydroponics/populate_contents()
 	switch(rand(1,2))
 		if(1)
 			new /obj/item/clothing/suit/apron(src)

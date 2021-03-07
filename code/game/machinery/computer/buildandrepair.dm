@@ -8,10 +8,10 @@
 	var/state = 0
 	var/obj/item/circuitboard/circuit = null
 	var/base_mineral = /obj/item/stack/sheet/metal
-//	weight = 1.0E8
 
 /obj/structure/computerframe/deconstruct(disassembled = TRUE)
-	drop_computer_parts()
+	if(!(flags & NODECONSTRUCT))
+		drop_computer_parts()
 	return ..() // will qdel the frame
 
 /obj/structure/computerframe/obj_break(damage_flag)
@@ -45,7 +45,6 @@
 	var/list/req_components = null
 	var/powernet = null
 	var/list/records = null
-	var/frame_desc = null
 	var/contain_parts = 1
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
@@ -57,15 +56,15 @@
 	board_type = "machine"
 
 /obj/item/circuitboard/examine(mob/user)
-	..()
+	. = ..()
 	if(LAZYLEN(req_components))
 		var/list/nice_list = list()
 		for(var/B in req_components)
 			var/atom/A = B
 			if(!ispath(A))
 				continue
-			nice_list += list("[req_components[A]] [initial(A.name)]")
-		to_chat(user,"<span class='notice'>Required components: [english_list(nice_list)].</span>")
+			nice_list += list("[req_components[A]] [initial(A.name)]\s")
+		. += "<span class='notice'>Required components: [english_list(nice_list)].</span>"
 
 /obj/item/circuitboard/message_monitor
 	name = "Circuit board (Message Monitor)"
@@ -160,18 +159,12 @@
 	name = "Circuit board (Security Records)"
 	build_path = /obj/machinery/computer/secure_data
 	origin_tech = "programming=2;combat=2"
-/obj/item/circuitboard/skills
-	name = "Circuit board (Employment Records)"
-	build_path = /obj/machinery/computer/skills
 /obj/item/circuitboard/stationalert_engineering
 	name = "Circuit Board (Station Alert Console (Engineering))"
 	build_path = /obj/machinery/computer/station_alert
-/obj/item/circuitboard/stationalert_security
-	name = "Circuit Board (Station Alert Console (Security))"
+/obj/item/circuitboard/stationalert
+	name = "Circuit Board (Station Alert Console)"
 	build_path = /obj/machinery/computer/station_alert
-/obj/item/circuitboard/stationalert_all
-	name = "Circuit Board (Station Alert Console (All))"
-	build_path = /obj/machinery/computer/station_alert/all
 /obj/item/circuitboard/atmos_alert
 	name = "Circuit Board (Atmospheric Alert Computer)"
 	build_path = /obj/machinery/computer/atmos_alert
@@ -237,14 +230,17 @@
 /obj/item/circuitboard/brigcells
 	name = "Circuit board (Brig Cell Control)"
 	build_path = /obj/machinery/computer/brigcells
-
+/obj/item/circuitboard/sm_monitor
+	name = "Circuit board (Supermatter Monitoring Console)"
+	build_path = /obj/machinery/computer/sm_monitor
+	origin_tech = "programming=2;powerstorage=2"
 
 // RD console circuits, so that {de,re}constructing one of the special consoles doesn't ruin everything forever
 /obj/item/circuitboard/rdconsole
 	name = "Circuit Board (RD Console)"
 	desc = "Swipe a Scientist level ID or higher to reconfigure."
 	build_path = /obj/machinery/computer/rdconsole/core
-	req_access = list(access_tox) // This is for adjusting the type of computer we're building - in case something messes up the pre-existing robotics or mechanics consoles
+	req_access = list(ACCESS_TOX) // This is for adjusting the type of computer we're building - in case something messes up the pre-existing robotics or mechanics consoles
 	var/access_types = list("R&D Core", "Robotics", "E.X.P.E.R.I-MENTOR", "Mechanics", "Public")
 	id = 1
 /obj/item/circuitboard/rdconsole/robotics
@@ -284,7 +280,7 @@
 	origin_tech = "programming=3;powerstorage=3"
 /obj/item/circuitboard/ordercomp
 	name = "Circuit board (Supply Ordering Console)"
-	build_path = /obj/machinery/computer/ordercomp
+	build_path = /obj/machinery/computer/supplycomp/public
 	origin_tech = "programming=3"
 /obj/item/circuitboard/supplycomp
 	name = "Circuit board (Supply Shuttle Console)"
@@ -296,19 +292,6 @@
 	name = "Circuit board (Operating Computer)"
 	build_path = /obj/machinery/computer/operating
 	origin_tech = "programming=2;biotech=3"
-/obj/item/circuitboard/comm_monitor
-	name = "Circuit board (Telecommunications Monitor)"
-	build_path = /obj/machinery/computer/telecomms/monitor
-	origin_tech = "programming=3;magnets=3;bluespace=2"
-/obj/item/circuitboard/comm_server
-	name = "Circuit board (Telecommunications Server Monitor)"
-	build_path = /obj/machinery/computer/telecomms/server
-	origin_tech = "programming=3;magnets=3;bluespace=2"
-/obj/item/circuitboard/comm_traffic
-	name = "Circuitboard (Telecommunications Traffic Control)"
-	build_path = /obj/machinery/computer/telecomms/traffic
-	origin_tech = "programming=3;magnets=3;bluespace=2"
-
 
 /obj/item/circuitboard/shuttle
 	name = "circuit board (Shuttle)"
@@ -334,9 +317,6 @@
 /obj/item/circuitboard/white_ship
 	name = "circuit Board (White Ship)"
 	build_path = /obj/machinery/computer/shuttle/white_ship
-/obj/item/circuitboard/golem_ship
-	name = "circuit Board (Golem Ship)"
-	build_path = /obj/machinery/computer/shuttle/golem_ship
 /obj/item/circuitboard/shuttle/syndicate
 	name = "circuit board (Syndicate Shuttle)"
 	build_path = /obj/machinery/computer/shuttle/syndicate
@@ -346,7 +326,9 @@
 /obj/item/circuitboard/shuttle/syndicate/drop_pod
 	name = "circuit board (Syndicate Drop Pod)"
 	build_path = /obj/machinery/computer/shuttle/syndicate/drop_pod
-
+/obj/item/circuitboard/shuttle/golem_ship
+	name = "circuit Board (Golem Ship)"
+	build_path = /obj/machinery/computer/shuttle/golem_ship
 
 /obj/item/circuitboard/HolodeckControl
 	name = "Circuit board (Holodeck Control)"
@@ -365,9 +347,6 @@
 	build_path = /obj/machinery/computer/telescience
 	origin_tech = "programming=3;bluespace=3;plasmatech=4"
 
-/obj/item/circuitboard/atmos_automation
-	name = "Circuit board (Atmospherics Automation)"
-	build_path = /obj/machinery/computer/general_air_control/atmos_automation
 /obj/item/circuitboard/large_tank_control
 	name = "Circuit board (Atmospheric Tank Control)"
 	build_path = /obj/machinery/computer/general_air_control/large_tank_control
@@ -407,7 +386,8 @@
 				return
 			else
 				to_chat(user, "DERP! BUG! Report this (And what you were doing to cause it) to Agouri")
-	return
+		return
+	return ..()
 
 /obj/item/circuitboard/rdconsole/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I,/obj/item/card/id)||istype(I, /obj/item/pda))
@@ -441,7 +421,8 @@
 			to_chat(user, "<span class='notice'>Access protocols set to [console_choice].</span>")
 		else
 			to_chat(user, "<span class='warning'>Access Denied</span>")
-	return
+		return
+	return ..()
 
 /obj/structure/computerframe/attackby(obj/item/P as obj, mob/user as mob, params)
 	switch(state)
@@ -452,16 +433,7 @@
 					to_chat(user, "<span class='notice'>You wrench the frame into place.</span>")
 					anchored = 1
 					state = 1
-			if(istype(P, /obj/item/weldingtool))
-				var/obj/item/weldingtool/WT = P
-				if(!WT.remove_fuel(0, user))
-					to_chat(user, "<span class='warning'>The welding tool must be on to complete this task.</span>")
-					return
-				playsound(loc, WT.usesound, 50, 1)
-				if(do_after(user, 20 * WT.toolspeed, target = src))
-					if(!src || !WT.isOn()) return
-					to_chat(user, "<span class='notice'>You deconstruct the frame.</span>")
-					deconstruct(TRUE)
+				return
 		if(1)
 			if(istype(P, /obj/item/wrench))
 				playsound(loc, P.usesound, 50, 1)
@@ -469,6 +441,7 @@
 					to_chat(user, "<span class='notice'>You unfasten the frame.</span>")
 					anchored = 0
 					state = 0
+				return
 			if(istype(P, /obj/item/circuitboard) && !circuit)
 				var/obj/item/circuitboard/B = P
 				if(B.board_type == "computer")
@@ -480,11 +453,13 @@
 					P.loc = src
 				else
 					to_chat(user, "<span class='warning'>This frame does not accept circuit boards of this type!</span>")
+				return
 			if(istype(P, /obj/item/screwdriver) && circuit)
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You screw the circuit board into place.</span>")
 				state = 2
 				icon_state = "2"
+				return
 			if(istype(P, /obj/item/crowbar) && circuit)
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
@@ -492,12 +467,14 @@
 				icon_state = "0"
 				circuit.loc = loc
 				circuit = null
+				return
 		if(2)
 			if(istype(P, /obj/item/screwdriver) && circuit)
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You unfasten the circuit board.</span>")
 				state = 1
 				icon_state = "1"
+				return
 			if(istype(P, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/C = P
 				if(C.amount >= 5)
@@ -513,7 +490,7 @@
 							return
 				else
 					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
-					return
+				return
 		if(3)
 			if(istype(P, /obj/item/wirecutters))
 				playsound(loc, P.usesound, 50, 1)
@@ -522,7 +499,7 @@
 				icon_state = "2"
 				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( loc )
 				A.amount = 5
-
+				return
 			if(istype(P, /obj/item/stack/sheet/glass))
 				var/obj/item/stack/sheet/glass/G = P
 				if(G.amount >= 2)
@@ -538,7 +515,7 @@
 							return
 				else
 					to_chat(user, "<span class='warning'>You need two sheets of glass for this.</span>")
-					return
+				return
 		if(4)
 			if(istype(P, /obj/item/crowbar))
 				playsound(loc, P.usesound, 50, 1)
@@ -546,6 +523,7 @@
 				state = 3
 				icon_state = "3"
 				new /obj/item/stack/sheet/glass(loc, 2)
+				return
 			if(istype(P, /obj/item/screwdriver))
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You connect the monitor.</span>")
@@ -559,6 +537,21 @@
 					var/obj/item/circuitboard/supplycomp/C = circuit
 					SC.can_order_contraband = C.contraband_enabled
 				qdel(src)
+				return
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+
+/obj/structure/computerframe/welder_act(mob/user, obj/item/I)
+	if(state)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_ATTEMPT_SLICING_MESSAGE
+	if(I.use_tool(src, user, 50, volume = I.tool_volume) && !state)
+		to_chat(user, "<span class='notice'>You deconstruct [src].</span>")
+		deconstruct(TRUE)
 
 
 
@@ -576,16 +569,6 @@
 					to_chat(user, "<span class='notice'>You wrench the frame into place.</span>")
 					anchored = 1
 					state = 1
-			if(istype(P, /obj/item/weldingtool))
-				var/obj/item/weldingtool/WT = P
-				if(!WT.remove_fuel(0, user))
-					to_chat(user, "<span class='warning'>The welding tool must be on to complete this task.</span>")
-					return
-				playsound(loc, WT.usesound, 50, 1)
-				if(do_after(user, 20 * WT.toolspeed, target = src))
-					if(!src || !WT.isOn()) return
-					to_chat(user, "<span class='notice'>You deconstruct the frame.</span>")
-					deconstruct(TRUE)
 		if(1)
 			if(istype(P, /obj/item/wrench))
 				playsound(loc, P.usesound, 50, 1)
@@ -616,6 +599,7 @@
 				icon_state = "0"
 				circuit.loc = loc
 				circuit = null
+			return
 		if(2)
 			if(istype(P, /obj/item/screwdriver) && circuit)
 				playsound(loc, P.usesound, 50, 1)
@@ -637,7 +621,7 @@
 							return
 				else
 					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
-					return
+			return
 		if(3)
 			if(istype(P, /obj/item/wirecutters))
 				playsound(loc, P.usesound, 50, 1)
@@ -662,7 +646,7 @@
 							return
 				else
 					to_chat(user, "<span class='warning'>You need two sheets of glass for this.</span>")
-					return
+			return
 		if(4)
 			if(istype(P, /obj/item/crowbar))
 				playsound(loc, P.usesound, 50, 1)
@@ -679,3 +663,5 @@
 				if(circuit.records) B:records = circuit.records
 				if(circuit.frequency) B:frequency = circuit.frequency
 				qdel(src)
+			return
+	return ..()

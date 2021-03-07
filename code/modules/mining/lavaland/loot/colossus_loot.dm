@@ -1,91 +1,19 @@
-//Black Box
+//Colossus
+/obj/structure/closet/crate/necropolis/colossus
+	name = "colossus chest"
 
-/obj/machinery/smartfridge/black_box
-	name = "black box"
-	desc = "A completely indestructible chunk of crystal, rumoured to predate the start of this universe. It looks like you could store things inside it."
-	icon = 'icons/obj/lavaland/artefacts.dmi'
-	icon_state = "blackbox"
-	luminosity = 8
-	max_n_of_items = INFINITY
-	unacidable = 1
-	burn_state = LAVA_PROOF | FIRE_PROOF
-	pixel_y = -4
-	use_power = NO_POWER_USE
-	var/memory_saved = FALSE
-	var/list/stored_items = list()
-	var/static/list/blacklist = typecacheof(list(/obj/item/spellbook))
+/obj/structure/closet/crate/necropolis/colossus/populate_contents()
+	var/list/choices = subtypesof(/obj/machinery/anomalous_crystal)
+	var/random_crystal = pick(choices)
+	new random_crystal(src)
+	new /obj/item/organ/internal/vocal_cords/colossus(src)
 
-/obj/machinery/smartfridge/black_box/update_icon()
-	return
+/obj/structure/closet/crate/necropolis/colossus/crusher
+	name = "angelic colossus chest"
 
-/obj/machinery/smartfridge/black_box/accept_check(obj/item/O)
-	if(!istype(O))
-		return FALSE
-	if(is_type_in_typecache(O, blacklist))
-		return FALSE
-	return TRUE
-
-/obj/machinery/smartfridge/black_box/New()
-	var/static/obj/machinery/smartfridge/black_box/current
-	if(current && current != src)
-		qdel(src, force=TRUE)
-		return
-	current = src
-	ReadMemory()
+/obj/structure/closet/crate/necropolis/colossus/crusher/populate_contents()
 	. = ..()
-
-/obj/machinery/smartfridge/black_box/process()
-	..()
-	if(!memory_saved && SSticker.current_state == GAME_STATE_FINISHED)
-		WriteMemory()
-
-/obj/machinery/smartfridge/black_box/proc/WriteMemory()
-	var/savefile/S = new /savefile("data/npc_saves/Blackbox.sav")
-	stored_items = list()
-
-	for(var/obj/O in (contents-component_parts))
-		stored_items += O.type
-
-	S["stored_items"]				<< stored_items
-	memory_saved = TRUE
-
-/obj/machinery/smartfridge/black_box/proc/ReadMemory()
-	var/savefile/S = new /savefile("data/npc_saves/Blackbox.sav")
-	S["stored_items"] 		>> stored_items
-
-	if(isnull(stored_items))
-		stored_items = list()
-
-	for(var/item in stored_items)
-		create_item(item)
-
-//in it's own proc to avoid issues with items that nolonger exist in the code base.
-//try catch doesn't always prevent byond runtimes from halting a proc,
-/obj/machinery/smartfridge/black_box/proc/create_item(item_type)
-	new item_type(src)
-
-/obj/machinery/smartfridge/black_box/Destroy(force = FALSE)
-	if(force)
-		for(var/thing in src)
-			qdel(thing)
-		return ..()
-	else
-		return QDEL_HINT_LETMELIVE
-
-
-//No taking it apart
-
-/obj/machinery/smartfridge/black_box/default_deconstruction_screwdriver()
-	return
-
-/obj/machinery/smartfridge/black_box/exchange_parts()
-	return
-
-/obj/machinery/smartfridge/black_box/default_unfasten_wrench()
-	return
-
-/obj/machinery/smartfridge/black_box/default_deconstruction_crowbar()
-	return
+	new /obj/item/crusher_trophy/blaster_tubes(src)
 
 ///Anomolous Crystal///
 
@@ -94,11 +22,10 @@
 	desc = "A strange chunk of crystal, being in the presence of it fills you with equal parts excitement and dread."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "anomaly_crystal"
-	luminosity = 8
+	light_range = 8
 	use_power = NO_POWER_USE
 	density = 1
-	burn_state = LAVA_PROOF | FIRE_PROOF
-	unacidable = 1
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/activation_method = "touch"
 	var/activation_damage_type = null
 	var/last_use_timer = 0
@@ -121,7 +48,7 @@
 
 /obj/machinery/anomalous_crystal/attackby(obj/item/I, mob/user, params)
 	ActivationReaction(user,"weapon")
-	..()
+	return ..()
 
 /obj/machinery/anomalous_crystal/bullet_act(obj/item/projectile/P, def_zone)
 	..()
@@ -149,7 +76,8 @@
 /obj/machinery/anomalous_crystal/ex_act()
 	ActivationReaction(null,"bomb")
 
-/obj/machinery/anomalous_crystal/random/New()//Just a random crysal spawner for loot
+/obj/machinery/anomalous_crystal/random/New() //Just a random crysal spawner for loot
+	. = ..()
 	var/random_crystal = pick(typesof(/obj/machinery/anomalous_crystal) - /obj/machinery/anomalous_crystal/random - /obj/machinery/anomalous_crystal)
 	new random_crystal(loc)
 	qdel(src)
@@ -194,13 +122,13 @@
 		if("winter") //Snow terrain is slow to move in and cold! Get the assistants to shovel your driveway.
 			NewTerrainFloors = /turf/simulated/floor/snow // Needs to be updated after turf update
 			NewTerrainWalls = /turf/simulated/wall/mineral/wood
-			NewTerrainChairs = /obj/structure/chair/wood/normal
+			NewTerrainChairs = /obj/structure/chair/wood
 			NewTerrainTables = /obj/structure/table/glass
 			NewFlora = list(/obj/structure/flora/grass/green, /obj/structure/flora/grass/brown, /obj/structure/flora/grass/both)
 		if("jungle") //Beneficial due to actually having breathable air. Plus, monkeys and bows and arrows.
 			NewTerrainFloors = /turf/simulated/floor/grass
 			NewTerrainWalls = /turf/simulated/wall/mineral/sandstone
-			NewTerrainChairs = /obj/structure/chair/wood/normal
+			NewTerrainChairs = /obj/structure/chair/wood
 			NewTerrainTables = /obj/structure/table/wood
 			NewFlora = list(/obj/structure/flora/ausbushes/sparsegrass, /obj/structure/flora/ausbushes/fernybush, /obj/structure/flora/ausbushes/leafybush,
 							/obj/structure/flora/ausbushes/grassybush, /obj/structure/flora/ausbushes/sunnybush, /obj/structure/flora/tree/palm, /mob/living/carbon/human/monkey,
@@ -289,7 +217,7 @@
 				if(H.stat == DEAD)
 					H.set_species(/datum/species/shadow)
 					H.revive()
-					H.disabilities |= NOCLONE //Free revives, but significantly limits your options for reviving except via the crystal
+					ADD_TRAIT(H, TRAIT_BADDNA, MAGIC_TRAIT) //Free revives, but significantly limits your options for reviving except via the crystal
 					H.grab_ghost(force = TRUE)
 
 /obj/machinery/anomalous_crystal/helpers //Lets ghost spawn as helpful creatures that can only heal people slightly. Incredibly fragile and they can't converse with humans
@@ -332,12 +260,12 @@
 	harm_intent_damage = 1
 	friendly = "mends"
 	density = 0
-	flying = 1
+	flying = TRUE
 	obj_damage = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	ventcrawler = 2
 	mob_size = MOB_SIZE_TINY
-	gold_core_spawnable = 0
+	gold_core_spawnable = HOSTILE_SPAWN
 	speak_emote = list("warps")
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	luminosity = 4
@@ -357,11 +285,11 @@
 	..()
 	verbs -= /mob/living/verb/pulled
 	verbs -= /mob/verb/me_verb
-	var/datum/atom_hud/medsensor = huds[DATA_HUD_MEDICAL_ADVANCED]
+	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.add_hud_to(src)
 
 /mob/living/simple_animal/hostile/lightgeist/AttackingTarget()
-	..()
+	. = ..()
 	if(isliving(target) && target != src)
 		var/mob/living/L = target
 		if(L.stat < DEAD)
@@ -376,7 +304,8 @@
 	activation_method = "touch"
 	cooldown_add = 50
 	activation_sound = 'sound/magic/timeparadox2.ogg'
-	var/list/banned_items_typecache = list(/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear, /obj/item/projectile, /obj/item/spellbook)
+	var/list/banned_items_typecache = list(/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear,
+										   /obj/item/projectile, /obj/item/spellbook, /obj/item/clothing/mask/facehugger, /obj/item/contractor_uplink)
 
 /obj/machinery/anomalous_crystal/refresher/New()
 	..()
@@ -406,14 +335,14 @@
 		if(ishuman(user))
 			var/mobcheck = 0
 			for(var/mob/living/simple_animal/A in range(1, src))
-				if(A.melee_damage_upper > 5 || A.mob_size >= MOB_SIZE_LARGE || A.ckey || A.stat)
+				if(A.melee_damage_upper > 5 || A.mob_size >= MOB_SIZE_LARGE || A.ckey || A.stat || isbot(A))
 					break
 				var/obj/structure/closet/stasis/S = new /obj/structure/closet/stasis(A)
 				user.forceMove(S)
 				mobcheck = 1
 				break
 			if(!mobcheck)
-				new /mob/living/simple_animal/cockroach(get_step(src,dir)) //Just in case there aren't any animals on the station, this will leave you with a terrible option to possess if you feel like it
+				new /mob/living/simple_animal/mouse(get_step(src,dir)) //Just in case there aren't any animals on the station, this will leave you with a terrible option to possess if you feel like it
 
 /obj/structure/closet/stasis
 	name = "quantum entanglement stasis warp field"
@@ -421,6 +350,7 @@
 	icon_state = null //This shouldn't even be visible, so if it DOES show up, at least nobody will notice
 	density = 1
 	anchored = 1
+	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
 	var/mob/living/simple_animal/holder_animal
 
 /obj/structure/closet/stasis/process()
@@ -430,8 +360,8 @@
 			holder_animal.gib()
 			return
 
-/obj/structure/closet/stasis/New()
-	..()
+/obj/structure/closet/stasis/Initialize(mapload)
+	. = ..()
 	if(isanimal(loc))
 		holder_animal = loc
 	START_PROCESSING(SSobj, src)
@@ -440,7 +370,7 @@
 	if(isliving(A) && holder_animal)
 		var/mob/living/L = A
 		L.notransform = 1
-		L.disabilities |= MUTE
+		ADD_TRAIT(L, TRAIT_MUTE, STASIS_MUTE)
 		L.status_flags |= GODMODE
 		L.mind.transfer_to(holder_animal)
 		var/obj/effect/proc_holder/spell/targeted/exit_possession/P = new /obj/effect/proc_holder/spell/targeted/exit_possession
@@ -450,7 +380,7 @@
 /obj/structure/closet/stasis/dump_contents(var/kill = 1)
 	STOP_PROCESSING(SSobj, src)
 	for(var/mob/living/L in src)
-		L.disabilities &= ~MUTE
+		REMOVE_TRAIT(L, TRAIT_MUTE, STASIS_MUTE)
 		L.status_flags &= ~GODMODE
 		L.notransform = 0
 		if(holder_animal && !QDELETED(holder_animal))

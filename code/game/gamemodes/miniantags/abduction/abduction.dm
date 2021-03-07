@@ -47,7 +47,7 @@
 
 /datum/game_mode/abduction/proc/make_abductor_team(team_number,preset_agent=null,preset_scientist=null)
 	//Team Name
-	team_names[team_number] = "Mothership [pick(possible_changeling_IDs)]" //TODO Ensure unique and actual alieny names
+	team_names[team_number] = "Mothership [pick(GLOB.possible_changeling_IDs)]" //TODO Ensure unique and actual alieny names
 	//Team Objective
 	var/datum/objective/experiment/team_objective = new
 	team_objective.team = team_number
@@ -150,6 +150,8 @@
 	update_abductor_icons_added(scientist)
 
 /datum/game_mode/abduction/proc/greet_agent(datum/mind/abductor,team_number)
+	var/datum/objective/stay_hidden/O = new
+	abductor.objectives += O
 	abductor.objectives += team_objectives[team_number]
 	var/team_name = team_names[team_number]
 
@@ -160,6 +162,8 @@
 	abductor.announce_objectives()
 
 /datum/game_mode/abduction/proc/greet_scientist(datum/mind/abductor,team_number)
+	var/datum/objective/stay_hidden/O = new
+	abductor.objectives += O
 	abductor.objectives += team_objectives[team_number]
 	var/team_name = team_names[team_number]
 
@@ -180,7 +184,7 @@
 			var/obj/machinery/abductor/console/con = get_team_console(team_number)
 			var/datum/objective/objective = team_objectives[team_number]
 			if(con.experiment.points >= objective.target_amount)
-				SSshuttle.emergency.request(null, 0.5)
+				SSshuttle.emergency.request(null, 0.5, reason = "Large amount of abnormal thought patterns detected. All crew are recalled for mandatory evaluation and reconditioning.")
 				SSshuttle.emergency.canRecall = FALSE
 				finished = 1
 				return ..()
@@ -204,12 +208,14 @@
 		text += "<br><span class='big'><b>The abductors were:</b></span><br>"
 		for(var/datum/mind/abductor_mind in abductors)
 			text += printplayer(abductor_mind)
+			text += "<br>"
 			text += printobjectives(abductor_mind)
 			text += "<br>"
 		if(abductees.len)
 			text += "<br><span class='big'><b>The abductees were:</b></span><br>"
 			for(var/datum/mind/abductee_mind in abductees)
 				text += printplayer(abductee_mind)
+				text += "<br>"
 				text += printobjectives(abductee_mind)
 				text += "<br>"
 	to_chat(world, text)
@@ -227,6 +233,13 @@
 /datum/objective/experiment
 	target_amount = 6
 	var/team
+
+/datum/objective/stay_hidden
+
+/datum/objective/stay_hidden/New()
+	explanation_text = "Limit contact with your targets outside of conducting your experiments and abduction."
+	completed = TRUE
+//No check completion, it defaults to being completed unless an admin sets it to failed.
 
 /datum/objective/experiment/New()
 	explanation_text = "Experiment on [target_amount] humans."
@@ -254,6 +267,7 @@
 		SSticker.mode.abductors -= abductor_mind
 		abductor_mind.special_role = null
 		abductor_mind.current.create_attack_log("<span class='danger'>No longer abductor</span>")
+		abductor_mind.current.create_log(CONVERSION_LOG, "No longer abductor")
 		if(issilicon(abductor_mind.current))
 			to_chat(abductor_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer an abductor.</span>")
 		else
@@ -261,11 +275,11 @@
 		SSticker.mode.update_abductor_icons_removed(abductor_mind)
 
 /datum/game_mode/proc/update_abductor_icons_added(datum/mind/alien_mind)
-	var/datum/atom_hud/antag/hud = huds[ANTAG_HUD_ABDUCTOR]
+	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_ABDUCTOR]
 	hud.join_hud(alien_mind.current)
 	set_antag_hud(alien_mind.current, ((alien_mind in abductors) ? "abductor" : "abductee"))
 
 /datum/game_mode/proc/update_abductor_icons_removed(datum/mind/alien_mind)
-	var/datum/atom_hud/antag/hud = huds[ANTAG_HUD_ABDUCTOR]
+	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_ABDUCTOR]
 	hud.leave_hud(alien_mind.current)
 	set_antag_hud(alien_mind.current, null)

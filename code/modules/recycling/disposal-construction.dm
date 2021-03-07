@@ -11,12 +11,13 @@
 	density = 0
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	level = 2
+	max_integrity = 200
 	var/ptype = PIPE_DISPOSALS_STRAIGHT //Use the defines
 	var/base_state
 	var/dpdir = 0	// directions as disposalpipe
 
-/obj/structure/disposalconstruct/New(loc, pipe_type, direction)
-	..()
+/obj/structure/disposalconstruct/Initialize(mapload, pipe_type, direction)
+	. = ..()
 	if(pipe_type)
 		ptype = pipe_type
 	if(dir)
@@ -68,13 +69,14 @@
 // hide called by levelupdate if turf intact status changes
 // change visibility status and force update of icon
 /obj/structure/disposalconstruct/hide(var/intact)
-	invisibility = (intact && level==1) ? 101: 0	// hide if floor is intact
+	invisibility = (intact && level == 1) ? INVISIBILITY_MAXIMUM : 0	// hide if floor is intact
 	update()
 
 
 // flip and rotate verbs
 /obj/structure/disposalconstruct/verb/rotate()
 	set name = "Rotate Pipe"
+	set category = "Object"
 	set src in view(1)
 
 	if(usr.stat)
@@ -97,6 +99,7 @@
 
 /obj/structure/disposalconstruct/verb/flip()
 	set name = "Flip Pipe"
+	set category = "Object"
 	set src in view(1)
 	if(usr.stat)
 		return
@@ -187,7 +190,7 @@
 		update()
 		return
 
-	
+
 	if(ptype in list(PIPE_DISPOSALS_BIN, PIPE_DISPOSALS_OUTLET, PIPE_DISPOSALS_CHUTE)) // Disposal or outlet
 		var/obj/structure/disposalpipe/trunk/CP = locate() in T
 		if(!CP) // There's no trunk
@@ -206,12 +209,9 @@
 
 	if(istype(I, /obj/item/weldingtool))
 		if(anchored)
-			var/obj/item/weldingtool/W = I
-			if(W.remove_fuel(0,user))
-				playsound(src.loc, W.usesound, 100, 1)
+			if(I.tool_use_check(user, 0))
 				to_chat(user, "Welding the [nicetype] in place.")
-				if(do_after(user, 20 * W.toolspeed, target = src))
-					if(!src || !W.isOn()) return
+				if(I.use_tool(src, user, 20, volume = I.tool_volume))
 					to_chat(user, "The [nicetype] has been welded in place!")
 					update() // TODO: Make this neat
 					if(ispipe) // Pipe

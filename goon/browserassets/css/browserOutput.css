@@ -37,7 +37,7 @@ a.popt {text-decoration: none;}
 * CUSTOM FONTS
 *
 ******************************************/
-@font-face { font-family: PxPlus IBM MDA; src: url('PxPlus_IBM_MDA.ttf'); } 
+@font-face { font-family: PxPlus IBM MDA; src: url('PxPlus_IBM_MDA.ttf'); }
 
 /*****************************************
 *
@@ -247,6 +247,7 @@ em						{font-style: normal;	font-weight: bold;}
 						{color: #638500;	text-decoration: underline;}
 .motd a, .motd a:link, .motd a:visited, .motd a:active, .motd a:hover
 						{color: #638500;}
+.darkmblue 				{color: #0000ff;}
 .prefix					{					font-weight: bold;}
 .ooc					{					font-weight: bold;}
 .looc					{color: #6699CC;}
@@ -258,6 +259,7 @@ em						{font-style: normal;	font-weight: bold;}
 .mentorhelp				{color: #0077bb;	font-weight: bold;}
 .adminhelp				{color: #aa0000;	font-weight: bold;}
 .playerreply			{color: #8800bb;	font-weight: bold;}
+.pmsend					{color: #0000ff;}
 .name					{					font-weight: bold;}
 .say					{}
 .yell					{					font-weight: bold;}
@@ -277,6 +279,7 @@ em						{font-style: normal;	font-weight: bold;}
 .sciradio				{color: #993399;}
 .supradio				{color: #7F6539;}
 .srvradio				{color: #80A000;}
+.proradio				{color: #E3027A;}
 .admin_channel			{color: #9A04D1;	font-weight: bold;}
 .mentor_channel			{color: #775BFF;	font-weight: bold;}
 .mentor_channel_admin      {color: #A35CFF;	font-weight: bold;}
@@ -302,7 +305,6 @@ h1.alert, h2.alert			{color: #000000;}
 
 .info					{color: #0000CC;}
 .notice					{color: #000099;}
-.bnotice				{color: #000099; 	font-weight: bold;}
 .boldnotice				{color: #000099;	font-weight: bold;}
 .suicide				{color: #ff5050;	font-style: italic;}
 .green					{color: #03bb39;}
@@ -323,7 +325,7 @@ h1.alert, h2.alert			{color: #000000;}
 .sans					{font-family: 'Comic Sans MS', cursive, sans-serif;}
 .wingdings				{font-family: Wingdings, Webdings;}
 .robot					{font-family: 'PxPlus IBM MDA'; font-size: 1.15em;}
-.ancient				{color: #008B8B;	font-stye: italic;}
+.ancient				{color: #008B8B;	font-style: italic;}
 .newscaster				{color: #800000;}
 .mod					{color: #735638;	font-weight: bold;}
 .modooc					{color: #184880;	font-weight: bold;}
@@ -332,6 +334,7 @@ h1.alert, h2.alert			{color: #000000;}
 .skrell					{color: #00CED1;}
 .solcom					{color: #22228B;}
 .com_srus				{color: #7c4848;}
+.zombie					{color: #ff0000;}
 .soghun					{color: #228B22;}
 .changeling				{color: #800080;}
 .vox					{color: #AA00AA;}
@@ -376,6 +379,10 @@ h1.alert, h2.alert			{color: #000000;}
 .revenwarning				{color: #760fbb;	font-style: italic;}
 .revendanger				{color: #760fbb;	font-weight: bold; font-size: 120%;}
 
+.specialnoticebold				{color: #36525e; 	font-weight: bold; font-size: 120%;}
+
+.specialnotice				{color: #36525e;  font-size: 120%;}
+
 /* /vg/ */
 .good					{color: green;}
 .average				{color: #FF8000;}
@@ -385,7 +392,6 @@ h1.alert, h2.alert			{color: #000000;}
 .whisper				{font-style:italic;color:#333333;}
 /* Recruiting stuff */
 .recruit 				{color: #5c00e6; font-weight: bold; font-style: italic;}
-"}
 
 .memo					{color: #638500;	text-align: center;}
 .memoedit				{text-align: center;	font-size: 75%;}
@@ -394,18 +400,28 @@ h1.alert, h2.alert			{color: #000000;}
 .connectionClosed.restored {background: green;}
 .internal.boldnshit {color: blue; font-weight: bold;}
 
+.rebooting {background: #2979AF; color: white; padding: 5px;}
+.rebooting a {color: white !important; text-decoration-color: white !important;}
+#reconnectTimer {font-weight: bold;}
+
 /* HELPER CLASSES */
 .text-normal {font-weight: normal; font-style: normal;}
 .hidden {display: none; visibility: hidden;}
 
 /* MEGAFAUNA */
 .colossus				{color: #7F282A; font-size: 175%;}
-.hierophant				{color: #660099; font-weight: bold; font-size: 150%;}
-.hierophant_warning		{color: #660099; font-weight: bold; font-style: italic;}
+.hierophant				{color: #660099; font-weight: bold; font-style: italic;}
+.hierophant_warning		{color: #660099; font-style: italic;}
 
 /* EMOJI STUFF */
 .emoji {max-height: 16px; max-width: 16px}
 
 /* ADMIN TICKETS */
 
-.adminticket {color: #3daf21; font-weight: bold}
+.adminticket {color: #3e7336; font-weight: bold}
+
+.adminticketalt {color: #014c8a; font-weight: bold}
+
+/* Syndicate codewords */
+span.body .codephrases {color: #0000FF;}
+span.body .coderesponses {color: #FF0000;}

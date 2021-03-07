@@ -7,13 +7,17 @@
 /mob/living/simple_animal/hostile/blob
 	icon = 'icons/mob/blob.dmi'
 	pass_flags = PASSBLOB
-	faction = list("blob")
+	status_flags = NONE //No throwing blobspores into deep space to despawn, or throwing blobbernaughts, which are bigger than you.
+	faction = list(ROLE_BLOB)
+	bubble_icon = "blob"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 360
 	universal_speak = 1 //So mobs can understand them when a blob uses Blob Broadcast
 	sentience_type = SENTIENCE_OTHER
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = NO_SPAWN
+	can_be_on_fire = TRUE
+	fire_damage = 3
 	var/mob/camera/blob/overmind = null
 
 /mob/living/simple_animal/hostile/blob/proc/adjustcolors(var/a_color)
@@ -21,8 +25,20 @@
 		color = a_color
 
 /mob/living/simple_animal/hostile/blob/blob_act()
-	return
+	if(stat != DEAD && health < maxHealth)
+		for(var/i in 1 to 2)
+			var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(src)) //hello yes you are being healed
+			if(overmind)
+				H.color = overmind.blob_reagent_datum.complementary_color
+			else
+				H.color = "#000000"
+		adjustHealth(-maxHealth * 0.0125)
 
+/mob/living/simple_animal/hostile/blob/Process_Spacemove(movement_dir = 0)
+	// Use any nearby blob structures to allow space moves.
+	for(var/obj/structure/blob/B in range(1, src))
+		return TRUE
+	return ..()
 
 ////////////////
 // BLOB SPORE //
@@ -41,17 +57,12 @@
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	attacktext = "hits"
 	attack_sound = 'sound/weapons/genhit1.ogg'
+	flying = TRUE
 	speak_emote = list("pulses")
 	var/obj/structure/blob/factory/factory = null
 	var/list/human_overlays = list()
-	var/is_zombie = 0
-	pressure_resistance = 100    //100 kPa difference required to push
-	throw_pressure_limit = 120  //120 kPa difference required to throw
-
-/mob/living/simple_animal/hostile/blob/blobspore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
-	..()
-	adjustBruteLoss(Clamp(0.01 * exposed_temperature, 1, 5))
-
+	var/mob/living/carbon/human/oldguy
+	var/is_zombie = FALSE
 
 /mob/living/simple_animal/hostile/blob/blobspore/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover, /obj/structure/blob))
@@ -80,12 +91,13 @@
 	is_zombie = TRUE
 	if(H.wear_suit)
 		var/obj/item/clothing/suit/armor/A = H.wear_suit
-		if(A.armor && A.armor["melee"])
-			maxHealth += A.armor["melee"] //That zombie's got armor, I want armor!
+		if(A.armor && A.armor.getRating("melee"))
+			maxHealth += A.armor.getRating("melee") //That zombie's got armor, I want armor!
 	maxHealth += 40
 	health = maxHealth
 	name = "blob zombie"
 	desc = "A shambling corpse animated by the blob."
+	mob_biotypes |= MOB_HUMANOID
 	melee_damage_lower = 10
 	melee_damage_upper = 15
 	icon = H.icon
@@ -97,8 +109,7 @@
 	human_overlays = H.overlays
 	update_icons()
 	H.forceMove(src)
-	pressure_resistance = 20  //5 kPa difference required to push lowered
-	throw_pressure_limit = 30  //15 kPa difference required to throw lowered
+	oldguy = H
 	visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
 
 /mob/living/simple_animal/hostile/blob/blobspore/death(gibbed)
@@ -127,20 +138,16 @@
 	if(factory)
 		factory.spores -= src
 	factory = null
-	if(contents)
-		for(var/mob/M in contents)
-			M.loc = get_turf(src)
+	if(oldguy)
+		oldguy.forceMove(get_turf(src))
+		oldguy = null
 	return ..()
 
 
 /mob/living/simple_animal/hostile/blob/blobspore/update_icons()
 	..()
 
-	if(overmind && overmind.blob_reagent_datum)
-		adjustcolors(overmind.blob_reagent_datum.complementary_color)
-	else
-		adjustcolors(overmind.blob_reagent_datum.complementary_color) //to ensure zombie/other overlays update
-
+	adjustcolors(overmind?.blob_reagent_datum?.complementary_color)
 
 /mob/living/simple_animal/hostile/blob/blobspore/adjustcolors(var/a_color)
 	color = a_color
@@ -149,8 +156,7 @@
 		overlays.Cut()
 		overlays = human_overlays
 		var/image/I = image('icons/mob/blob.dmi', icon_state = "blob_head")
-		I.color = overmind.blob_reagent_datum.complementary_color
-		color = initial(overmind.blob_reagent_datum.complementary_color)//looks better.
+		I.color = color
 		overlays += I
 
 /////////////////
@@ -163,10 +169,10 @@
 	icon_state = "blobbernaut"
 	icon_living = "blobbernaut"
 	icon_dead = "blobbernaut_dead"
-	health = 240
-	maxHealth = 240
-	melee_damage_lower = 20
-	melee_damage_upper = 20
+	health = 200
+	maxHealth = 200
+	melee_damage_lower = 10
+	melee_damage_upper = 15
 	obj_damage = 60
 	attacktext = "hits"
 	attack_sound = 'sound/effects/blobattack.ogg'
@@ -175,14 +181,29 @@
 	maxbodytemp = 360
 	force_threshold = 10
 	mob_size = MOB_SIZE_LARGE
-	environment_smash = ENVIRONMENT_SMASH_RWALLS
-	pressure_resistance = 100    //100 kPa difference required to push
-	throw_pressure_limit = 120  //120 kPa difference required to throw
+	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
+	pressure_resistance = 50
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	move_resist = MOVE_FORCE_OVERPOWERING
+	a_intent = INTENT_HARM
 
-/mob/living/simple_animal/hostile/blob/blobbernaut/blob_act()
-	return
+/mob/living/simple_animal/hostile/blob/blobbernaut/Life(seconds, times_fired)
+	if(stat != DEAD && (getBruteLoss() || getFireLoss())) // Heal on blob structures
+		if(locate(/obj/structure/blob) in get_turf(src))
+			adjustBruteLoss(-0.25)
+			adjustFireLoss(-0.25)
+			if(on_fire)
+				adjust_fire_stacks(-1)	// Slowly extinguish the flames
+		else
+			adjustBruteLoss(0.2) // If you are at full health, you won't lose health. You'll need it. However the moment anybody sneezes on you, the decaying will begin.
+			adjustFireLoss(0.2)
+	..()
+
+/mob/living/simple_animal/hostile/blob/blobbernaut/New()
+	..()
+	if(name == "blobbernaut")
+		name = text("blobbernaut ([rand(1, 1000)])")
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/death(gibbed)
 	// Only execute the below if we successfully died
@@ -190,3 +211,19 @@
 	if(!.)
 		return FALSE
 	flick("blobbernaut_death", src)
+
+/mob/living/simple_animal/hostile/blob/blobbernaut/verb/communicate_overmind()
+	set category = "Blobbernaut"
+	set name = "Blob Telepathy"
+	set desc = "Send a message to the Overmind"
+
+	if(stat != DEAD)
+		blob_talk()
+
+/mob/living/simple_animal/hostile/blob/blobbernaut/proc/blob_talk()
+	var/message = input(src, "Announce to the overmind", "Blob Telepathy")
+	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([overmind])</span> <span class='message'>states, \"[message]\"</span></span></i></font>"
+	if(message)
+		for(var/mob/M in GLOB.mob_list)
+			if(isovermind(M) || isobserver(M) || istype((M), /mob/living/simple_animal/hostile/blob/blobbernaut))
+				M.show_message(rendered, 2)

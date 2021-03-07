@@ -4,18 +4,20 @@
 	blurb = "Ook."
 
 	icobase = 'icons/mob/human_races/monkeys/r_monkey.dmi'
-	deform = 'icons/mob/human_races/monkeys/r_monkey.dmi'
 	damage_overlays = 'icons/mob/human_races/masks/dam_monkey.dmi'
 	damage_mask = 'icons/mob/human_races/masks/dam_mask_monkey.dmi'
 	blood_mask = 'icons/mob/human_races/masks/blood_monkey.dmi'
 	language = null
 	default_language = "Chimpanzee"
-	species_traits = list(NO_EXAMINE)
+	inherent_traits = list(TRAIT_NOEXAMINE)
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	greater_form = /datum/species/human
+	no_equip = list(slot_belt, slot_wear_id, slot_l_ear, slot_r_ear, slot_glasses, slot_gloves, slot_shoes, slot_wear_suit, slot_w_uniform, slot_l_store, slot_r_store, slot_s_store, slot_wear_pda)
+	can_craft = FALSE
 	is_small = 1
 	has_fine_manipulation = 0
-	ventcrawler = 1
+	ventcrawler = VENTCRAWLER_NUDE
+	dietflags = DIET_OMNI
 	show_ssd = 0
 	eyes = "blank_eyes"
 	death_message = "lets out a faint chimper as it collapses and stops moving..."
@@ -39,7 +41,7 @@
 	if(H.stat != CONSCIOUS)
 		return
 	if(prob(33) && H.canmove && isturf(H.loc) && !H.pulledby) //won't move if being pulled
-		step(H, pick(cardinal))
+		step(H, pick(GLOB.cardinal))
 	if(prob(1))
 		H.emote(pick("scratch","jump","roll","tail"))
 
@@ -55,53 +57,14 @@
 /datum/species/monkey/handle_dna(mob/living/carbon/human/H, remove)
 	..()
 	if(!remove)
-		H.dna.SetSEState(MONKEYBLOCK, TRUE)
-		genemutcheck(H, MONKEYBLOCK, null, MUTCHK_FORCED)
-
-/datum/species/monkey/handle_can_equip(obj/item/I, slot, disable_warning = 0, mob/living/carbon/human/user)
-	if(!user.has_organ_for_slot(slot))
-		return 2
-	switch(slot)
-		if(slot_l_hand)
-			if(user.l_hand)
-				return 2
-			return 1
-		if(slot_r_hand)
-			if(user.r_hand)
-				return 2
-			return 1
-		if(slot_wear_mask)
-			if(user.wear_mask)
-				return 2
-			if(!(I.slot_flags & SLOT_MASK))
-				return 2
-			return 1
-		if(slot_back)
-			if(user.back)
-				return 2
-			if(!(I.slot_flags & SLOT_BACK))
-				return 2
-			return 1
-		if(slot_handcuffed)
-			if(user.handcuffed)
-				return 2
-			if(!istype(I, /obj/item/restraints/handcuffs))
-				return 2
-			return 1
-		if(slot_in_backpack)
-			if(user.back && istype(user.back, /obj/item/storage/backpack))
-				var/obj/item/storage/backpack/B = user.back
-				if(B.contents.len < B.storage_slots && I.w_class <= B.max_w_class)
-					return 1
-			return 2
-	return 2
+		H.dna.SetSEState(GLOB.monkeyblock, TRUE)
+		singlemutcheck(H, GLOB.monkeyblock, MUTCHK_FORCED)
 
 /datum/species/monkey/tajaran
 	name = "Farwa"
 	name_plural = "Farwa"
 
 	icobase = 'icons/mob/human_races/monkeys/r_farwa.dmi'
-	deform = 'icons/mob/human_races/monkeys/r_farwa.dmi'
 
 	greater_form = /datum/species/tajaran
 	default_language = "Farwa"
@@ -125,7 +88,6 @@
 	name_plural = "Wolpin"
 
 	icobase = 'icons/mob/human_races/monkeys/r_wolpin.dmi'
-	deform = 'icons/mob/human_races/monkeys/r_wolpin.dmi'
 
 	greater_form = /datum/species/vulpkanin
 	default_language = "Wolpin"
@@ -149,7 +111,6 @@
 	name_plural = "Neara"
 
 	icobase = 'icons/mob/human_races/monkeys/r_neara.dmi'
-	deform = 'icons/mob/human_races/monkeys/r_neara.dmi'
 
 	greater_form = /datum/species/skrell
 	default_language = "Neara"
@@ -157,6 +118,8 @@
 	blood_color = "#1D2CBF"
 	reagent_tag = PROCESS_ORG
 	tail = null
+
+	inherent_traits = list(TRAIT_NOEXAMINE, TRAIT_NOFAT, TRAIT_WATERBREATH)
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/skrell,
@@ -173,7 +136,6 @@
 	name_plural = "Stok"
 
 	icobase = 'icons/mob/human_races/monkeys/r_stok.dmi'
-	deform = 'icons/mob/human_races/monkeys/r_stok.dmi'
 
 	tail = "stoktail"
 	greater_form = /datum/species/unathi

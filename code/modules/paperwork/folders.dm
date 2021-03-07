@@ -5,7 +5,13 @@
 	icon_state = "folder"
 	w_class = WEIGHT_CLASS_SMALL
 	pressure_resistance = 2
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
+
+/obj/item/folder/emp_act(severity)
+	..()
+	for(var/i in contents)
+		var/atom/A = i
+		A.emp_act(severity)
 
 /obj/item/folder/blue
 	desc = "A blue folder."
@@ -36,13 +42,7 @@
 		to_chat(user, "<span class='notice'>You put the [W] into \the [src].</span>")
 		update_icon()
 	else if(istype(W, /obj/item/pen))
-		var/n_name = input(usr, "What would you like to label the folder?", "Folder Labelling", null) as text|null
-		if(!n_name)
-			return
-		n_name = sanitize(copytext(n_name, 1, MAX_NAME_LEN))
-
-		if((loc == usr || Adjacent(usr)) && usr.stat == 0)
-			name = "folder[(n_name ? text("- '[n_name]'") : null)]"
+		rename_interactive(user, W)
 	else
 		return ..()
 

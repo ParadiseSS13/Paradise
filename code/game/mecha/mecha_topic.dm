@@ -18,8 +18,8 @@
 						.hidden {display: none;}
 						</style>
 						<script language='javascript' type='text/javascript'>
-						[js_byjax]
-						[js_dropdowns]
+						[JS_BYJAX]
+						[JS_DROPDOWNS]
 						function ticker() {
 						    setInterval(function(){
 						        window.location='byond://?src=[UID()]&update_content=1';
@@ -69,7 +69,7 @@
 
 
 /obj/mecha/proc/get_stats_part()
-	var/integrity = health/initial(health)*100
+	var/integrity = obj_integrity/max_integrity*100
 	var/cell_charge = get_charge()
 	var/tank_pressure = internal_tank ? round(internal_tank.return_pressure(),0.01) : "None"
 	var/tank_temperature = internal_tank ? internal_tank.return_temperature() : "Unknown"
@@ -158,6 +158,14 @@
 	output += "</body></html>"
 	return output
 
+/obj/mecha/proc/get_log_tgui()
+	var/list/data = list()
+	for(var/list/entry in log)
+		data.Add(list(list(
+			"time" = time2text(entry["time"], "hh:mm:ss"),
+			"message" = entry["message"],
+		)))
+	return data
 
 /obj/mecha/proc/output_access_dialog(obj/item/card/id/id_card, mob/user)
 	if(!id_card || !user) return
@@ -172,12 +180,17 @@
 						<h1>Following keycodes are present in this system:</h1>"}
 	for(var/a in operation_req_access)
 		output += "[get_access_desc(a)] - <a href='?src=[UID()];del_req_access=[a];user=\ref[user];id_card=\ref[id_card]'>Delete</a><br>"
+
+	output += "<a href='?src=[UID()];del_all_req_access=1;user=\ref[user];id_card=\ref[id_card]'><br><b>Delete All</b></a><br>"
+
 	output += "<hr><h1>Following keycodes were detected on portable device:</h1>"
 	for(var/a in id_card.access)
 		if(a in operation_req_access) continue
-		var/a_name = get_access_desc(a)
-		if(!a_name) continue //there's some strange access without a name
-		output += "[a_name] - <a href='?src=[UID()];add_req_access=[a];user=\ref[user];id_card=\ref[id_card]'>Add</a><br>"
+		if(!get_access_desc(a))
+			continue //there's some strange access without a name
+		output += "[get_access_desc(a)] - <a href='?src=[UID()];add_req_access=[a];user=\ref[user];id_card=\ref[id_card]'>Add</a><br>"
+
+	output += "<a href='?src=[UID()];add_all_req_access=1;user=\ref[user];id_card=\ref[id_card]'><br><b>Add All</b></a><br>"
 	output += "<hr><a href='?src=[UID()];finish_req_access=1;user=\ref[user]'>Finish</a> <font color='red'>(Warning! The ID upload panel will be locked. It can be unlocked only through Exosuit Interface.)</font>"
 	output += "</body></html>"
 	user << browse(output, "window=exosuit_add_access")
@@ -339,9 +352,25 @@
 		operation_req_access += afilter.getNum("add_req_access")
 		output_access_dialog(afilter.getObj("id_card"),afilter.getMob("user"))
 		return
+	if(href_list["add_all_req_access"] && add_req_access && afilter.getObj("id_card"))
+		if(!in_range(src, usr))
+			return
+		var/obj/item/card/id/mycard = afilter.getObj("id_card")
+		var/list/myaccess = mycard.access
+		for(var/a in myaccess)
+			if(get_access_desc(a))
+				operation_req_access += a
+		output_access_dialog(afilter.getObj("id_card"),afilter.getMob("user"))
+		return
 	if(href_list["del_req_access"] && add_req_access && afilter.getObj("id_card"))
 		if(!in_range(src, usr))	return
 		operation_req_access -= afilter.getNum("del_req_access")
+		output_access_dialog(afilter.getObj("id_card"),afilter.getMob("user"))
+		return
+	if(href_list["del_all_req_access"] && add_req_access && afilter.getObj("id_card"))
+		if(!in_range(src, usr))
+			return
+		operation_req_access = list()
 		output_access_dialog(afilter.getObj("id_card"),afilter.getMob("user"))
 		return
 	if(href_list["finish_req_access"])

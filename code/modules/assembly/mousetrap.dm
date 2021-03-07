@@ -9,9 +9,9 @@
 	bomb_name = "contact mine"
 
 /obj/item/assembly/mousetrap/examine(mob/user)
-	..(user)
+	. = ..()
 	if(armed)
-		to_chat(user, "It looks like it's armed.")
+		. += "It looks like it's armed."
 
 /obj/item/assembly/mousetrap/activate()
 	if(..())
@@ -19,7 +19,7 @@
 		if(!armed)
 			if(ishuman(usr))
 				var/mob/living/carbon/human/user = usr
-				if((user.getBrainLoss() >= 60 || (CLUMSY in user.mutations)) && prob(50))
+				if((user.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
 					to_chat(user, "Your hand slips, setting off the trigger.")
 					pulse(0)
 		update_icon()
@@ -37,12 +37,18 @@
 	if(holder)
 		holder.update_icon()
 
-/obj/item/assembly/mousetrap/proc/triggered(mob/target, var/type = "feet")
+/obj/item/assembly/mousetrap/proc/triggered(mob/target, type = "feet")
 	if(!armed)
 		return
 	var/obj/item/organ/external/affecting = null
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
+		if(HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))
+			playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
+			armed = FALSE
+			update_icon()
+			pulse(FALSE)
+			return FALSE
 		switch(type)
 			if("feet")
 				if(!H.shoes)
@@ -57,6 +63,7 @@
 	else if(ismouse(target))
 		var/mob/living/simple_animal/mouse/M = target
 		visible_message("<span class='danger'>SPLAT!</span>")
+		M.death()
 		M.splat()
 	playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 	layer = MOB_LAYER - 0.2
@@ -68,7 +75,7 @@
 	if(!armed)
 		to_chat(user, "<span class='notice'>You arm [src].</span>")
 	else
-		if((user.getBrainLoss() >= 60 || (CLUMSY in user.mutations)) && prob(50))
+		if((user.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
 			var/which_hand = "l_hand"
 			if(!user.hand)
 				which_hand = "r_hand"
@@ -83,7 +90,7 @@
 
 /obj/item/assembly/mousetrap/attack_hand(mob/living/user)
 	if(armed)
-		if((user.getBrainLoss() >= 60 || CLUMSY in user.mutations) && prob(50))
+		if((user.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
 			var/which_hand = "l_hand"
 			if(!user.hand)
 				which_hand = "r_hand"
@@ -93,7 +100,7 @@
 			return
 	..()
 
-/obj/item/assembly/mousetrap/Crossed(atom/movable/AM)
+/obj/item/assembly/mousetrap/Crossed(atom/movable/AM, oldloc)
 	if(armed)
 		if(ishuman(AM))
 			var/mob/living/carbon/H = AM
@@ -115,10 +122,10 @@
 		return TRUE	//end the search!
 	return FALSE
 
-/obj/item/assembly/mousetrap/hitby(atom/movable/A)
+/obj/item/assembly/mousetrap/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(!armed)
 		return ..()
-	visible_message("<span class='warning'>[src] is triggered by [A].</span>")
+	visible_message("<span class='warning'>[src] is triggered by [AM].</span>")
 	triggered(null)
 
 /obj/item/assembly/mousetrap/armed

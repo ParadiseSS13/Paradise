@@ -1,0 +1,473 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/template_noop,
+/area/template_noop)
+"b" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space/nearstation)
+"c" = (
+/obj/item/stack/cable_coil/cut{
+	amount = 1
+	},
+/turf/template_noop,
+/area/space/nearstation)
+"d" = (
+/obj/item/shard,
+/turf/template_noop,
+/area/space/nearstation)
+"e" = (
+/obj/structure/lattice,
+/obj/item/shard{
+	icon_state = "small"
+	},
+/turf/template_noop,
+/area/space/nearstation)
+"f" = (
+/turf/simulated/floor/plating/airless,
+/area/derelict/teleporter)
+"g" = (
+/turf/simulated/wall,
+/area/derelict/teleporter)
+"h" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 5;
+	max_integrity = 1e+007
+	},
+/turf/simulated/floor/plating/airless,
+/area/derelict/teleporter)
+"i" = (
+/obj/structure/grille{
+	density = 0;
+	icon_state = "brokengrille"
+	},
+/turf/simulated/floor/plating/airless,
+/area/derelict/teleporter)
+"j" = (
+/turf/simulated/wall/rust,
+/area/derelict/teleporter)
+"k" = (
+/obj/structure/girder,
+/turf/simulated/floor/plating/airless,
+/area/derelict/teleporter)
+"l" = (
+/obj/item/rack_parts,
+/turf/simulated/floor/plating/airless,
+/area/derelict/teleporter)
+"m" = (
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
+/area/derelict/teleporter)
+"n" = (
+/obj/effect/landmark/damageturf,
+/obj/item/shard{
+	icon_state = "small"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
+/area/derelict/teleporter)
+"o" = (
+/obj/machinery/light_construct/small{
+	dir = 1
+	},
+/obj/effect/landmark/damageturf,
+/obj/structure/filingcabinet/chestdrawer,
+/turf/simulated/floor/plasteel/airless{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/derelict/teleporter)
+"p" = (
+/obj/machinery/light_construct/small{
+	dir = 4
+	},
+/obj/machinery/atmospherics/unary/portables_connector{
+	layer = 2
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
+/area/derelict/teleporter)
+"q" = (
+/obj/structure/table,
+/obj/item/clipboard,
+/turf/simulated/floor/plasteel/airless{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/derelict/teleporter)
+"r" = (
+/obj/machinery/computer/teleporter,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/derelict/teleporter)
+"s" = (
+/obj/machinery/teleport/station,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
+/area/derelict/teleporter)
+"t" = (
+/obj/machinery/teleport/hub,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
+/area/derelict/teleporter)
+"u" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 5
+	},
+/turf/simulated/floor/plating/airless,
+/area/derelict/teleporter)
+"v" = (
+/obj/structure/door_assembly/door_assembly_ext{
+	name = "Broken External Airlock"
+	},
+/turf/simulated/floor/plating/airless,
+/area/derelict/teleporter)
+"w" = (
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/space/nearstation)
+"x" = (
+/obj/structure/table,
+/obj/item/stock_parts/cell{
+	charge = 100;
+	maxcharge = 15000
+	},
+/turf/simulated/floor/plasteel/airless{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/derelict/teleporter)
+"y" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
+/area/derelict/teleporter)
+"z" = (
+/obj/effect/landmark/damageturf,
+/obj/item/twohanded/required/kirbyplants/dead{
+	desc = "A dead potted plant. Must have died from lack of EVA equipment.";
+	item_state = "plant-dead";
+	name = "potted plant"
+	},
+/turf/simulated/floor/plasteel/airless{
+	dir = 6;
+	icon_state = "green"
+	},
+/area/derelict/teleporter)
+"A" = (
+/obj/structure/sign/vacuum,
+/turf/simulated/wall,
+/area/derelict/teleporter)
+"B" = (
+/obj/machinery/power/apc/noalarm{
+	dir = 0;
+	name = "Worn-out APC";
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
+/area/derelict/teleporter)
+
+(1,1,1) = {"
+a
+a
+a
+a
+b
+a
+a
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+a
+a
+a
+b
+b
+a
+a
+a
+a
+a
+a
+"}
+(3,1,1) = {"
+a
+a
+a
+b
+b
+b
+a
+a
+a
+a
+a
+a
+"}
+(4,1,1) = {"
+a
+a
+a
+b
+b
+b
+a
+a
+a
+a
+a
+a
+"}
+(5,1,1) = {"
+a
+a
+a
+a
+b
+b
+g
+h
+h
+h
+g
+a
+"}
+(6,1,1) = {"
+a
+a
+a
+a
+b
+g
+g
+o
+q
+x
+j
+g
+"}
+(7,1,1) = {"
+a
+a
+a
+e
+b
+g
+l
+m
+m
+y
+f
+g
+"}
+(8,1,1) = {"
+a
+a
+a
+b
+f
+h
+f
+m
+r
+f
+B
+g
+"}
+(9,1,1) = {"
+a
+a
+b
+b
+f
+i
+m
+m
+s
+m
+m
+g
+"}
+(10,1,1) = {"
+a
+d
+b
+b
+f
+i
+n
+m
+t
+m
+m
+g
+"}
+(11,1,1) = {"
+b
+b
+b
+b
+f
+j
+m
+m
+m
+m
+f
+f
+"}
+(12,1,1) = {"
+a
+b
+b
+b
+b
+k
+f
+p
+u
+z
+g
+k
+"}
+(13,1,1) = {"
+b
+b
+b
+a
+b
+f
+f
+g
+v
+A
+g
+a
+"}
+(14,1,1) = {"
+a
+b
+a
+a
+b
+f
+b
+b
+f
+k
+a
+a
+"}
+(15,1,1) = {"
+a
+a
+a
+b
+b
+f
+b
+b
+f
+k
+a
+a
+"}
+(16,1,1) = {"
+c
+b
+a
+b
+b
+b
+b
+a
+b
+a
+a
+a
+"}
+(17,1,1) = {"
+b
+b
+a
+b
+b
+a
+a
+c
+b
+a
+a
+a
+"}
+(18,1,1) = {"
+a
+b
+b
+b
+a
+a
+a
+a
+w
+a
+a
+a
+"}
+(19,1,1) = {"
+a
+b
+b
+b
+b
+b
+b
+a
+a
+a
+a
+a
+"}
+(20,1,1) = {"
+b
+b
+b
+a
+b
+b
+a
+a
+a
+a
+a
+a
+"}
+(21,1,1) = {"
+a
+b
+a
+a
+a
+b
+a
+a
+a
+a
+a
+a
+"}

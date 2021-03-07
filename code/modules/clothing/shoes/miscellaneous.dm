@@ -6,18 +6,19 @@
 /obj/item/clothing/shoes/combat //basic syndicate combat boots for nuke ops and mob corpses
 	name = "combat boots"
 	desc = "High speed, low drag combat boots."
+	w_class = WEIGHT_CLASS_NORMAL
 	can_cut_open = 1
 	icon_state = "jackboots"
 	item_state = "jackboots"
-	armor = list(melee = 25, bullet = 25, laser = 25, energy = 25, bomb = 50, bio = 10, rad = 0)
+	armor = list("melee" = 25, "bullet" = 25, "laser" = 25, "energy" = 25, "bomb" = 50, "bio" = 10, "rad" = 0, "fire" = 70, "acid" = 50)
 	strip_delay = 70
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
 
 /obj/item/clothing/shoes/combat/swat //overpowered boots for death squads
 	name = "\improper SWAT shoes"
 	desc = "High speed, no drag combat boots."
 	permeability_coefficient = 0.01
-	armor = list(melee = 40, bullet = 30, laser = 25, energy = 25, bomb = 50, bio = 30, rad = 30)
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 25, "energy" = 25, "bomb" = 50, "bio" = 30, "rad" = 30, "fire" = 90, "acid" = 50)
 	flags = NOSLIP
 
 /obj/item/clothing/shoes/sandal
@@ -32,6 +33,12 @@
 	desc = "A pair of magic, black shoes."
 	name = "magic shoes"
 	icon_state = "black"
+	resistance_flags = FIRE_PROOF |  ACID_PROOF
+
+/obj/item/clothing/shoes/sandal/magic
+	name = "magical sandals"
+	desc = "A pair of sandals imbued with magic."
+	resistance_flags = FIRE_PROOF |  ACID_PROOF
 
 /obj/item/clothing/shoes/galoshes
 	desc = "A pair of yellow rubber boots, designed to prevent slipping on wet surfaces."
@@ -42,27 +49,62 @@
 	slowdown = SHOES_SLOWDOWN+1
 	strip_delay = 50
 	put_on_delay = 50
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 75)
 
 /obj/item/clothing/shoes/galoshes/dry
 	name = "absorbent galoshes"
 	desc = "A pair of purple rubber boots, designed to prevent slipping on wet surfaces while also drying them."
 	icon_state = "galoshes_dry"
 
-/obj/item/clothing/shoes/galoshes/dry/step_action()
+/obj/item/clothing/shoes/galoshes/dry/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_SHOES_STEP_ACTION, .proc/on_step)
+
+/obj/item/clothing/shoes/galoshes/dry/proc/on_step()
+	SIGNAL_HANDLER
+
 	var/turf/simulated/t_loc = get_turf(src)
 	if(istype(t_loc) && t_loc.wet)
 		t_loc.MakeDry(TURF_WET_WATER)
 
 /obj/item/clothing/shoes/clown_shoes
-	desc = "The prankster's standard-issue clowning shoes. Damn they're huge!"
+	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! Ctrl-click to toggle the waddle dampeners!"
 	name = "clown shoes"
 	icon_state = "clown"
 	item_state = "clown_shoes"
 	slowdown = SHOES_SLOWDOWN+1
 	item_color = "clown"
-	var/footstep = 1	//used for squeeks whilst walking
-	shoe_sound = "clownstep"
+	var/enabled_waddle = TRUE
+
+/obj/item/clothing/shoes/clown_shoes/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
+
+/obj/item/clothing/shoes/clown_shoes/equipped(mob/user, slot)
+	. = ..()
+	if(slot == slot_shoes && enabled_waddle)
+		user.AddElement(/datum/element/waddling)
+
+/obj/item/clothing/shoes/clown_shoes/dropped(mob/user)
+	. = ..()
+	user.RemoveElement(/datum/element/waddling)
+
+/obj/item/clothing/shoes/clown_shoes/CtrlClick(mob/living/user)
+	if(!isliving(user))
+		return
+	if(user.get_active_hand() != src)
+		to_chat(user, "You must hold [src] in your hand to do this.")
+		return
+	if(!enabled_waddle)
+		to_chat(user, "<span class='notice'>You switch off the waddle dampeners!</span>")
+		enabled_waddle = TRUE
+	else
+		to_chat(user, "<span class='notice'>You switch on the waddle dampeners!</span>")
+		enabled_waddle = FALSE
+
+/obj/item/clothing/shoes/clown_shoes/nodrop
+	flags = NODROP
 
 /obj/item/clothing/shoes/clown_shoes/magical
 	name = "magical clown shoes"
@@ -78,9 +120,7 @@
 	item_color = "hosred"
 	strip_delay = 50
 	put_on_delay = 50
-	burn_state = FIRE_PROOF
-	var/footstep = 1
-	shoe_sound = "jackboot"
+	resistance_flags = NONE
 
 /obj/item/clothing/shoes/jackboots/jacksandals
 	name = "jacksandals"
@@ -113,7 +153,7 @@
 
 /obj/item/clothing/shoes/cult
 	name = "boots"
-	desc = "A pair of boots worn by the followers of Nar-Sie."
+	desc = "A pair of boots usually worn by cultists."
 	icon_state = "cult"
 	item_state = "cult"
 	item_color = "cult"
@@ -122,6 +162,7 @@
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	heat_protection = FEET
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
+	magical = TRUE
 
 /obj/item/clothing/shoes/cyborg
 	name = "cyborg boots"
@@ -173,16 +214,6 @@
 	item_color = "noble_boot"
 	item_state = "noble_boot"
 
-/obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/tape_roll) && !silence_steps)
-		var/obj/item/stack/tape_roll/TR = I
-		if((!silence_steps || shoe_sound) && TR.use(4))
-			silence_steps = TRUE
-			shoe_sound = null
-			to_chat(user, "You tape the soles of [src] to silence your footsteps.")
-	else
-		return ..()
-
 /obj/item/clothing/shoes/sandal/white
 	name = "White Sandals"
 	desc = "Medical sandals that nerds wear."
@@ -204,8 +235,12 @@
 	icon_override = 'icons/goonstation/mob/clothing/feet.dmi'
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags = NODROP
-	shoe_sound = "clownstep"
+
+/obj/item/clothing/shoes/cursedclown/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
 
 /obj/item/clothing/shoes/singery
 	name = "yellow performer's boots"
@@ -219,29 +254,55 @@
 	icon_state = "bsing"
 	put_on_delay = 50
 
-/obj/item/clothing/shoes/cowboyboots
+/obj/item/clothing/shoes/cowboy
 	name = "cowboy boots"
 	desc = "A pair a' brown boots."
-	icon_state = "cowboyboots"
-	item_color = "cowboyboots"
+	icon_state = "cowboy_brown"
+	item_color = "cowboy_brown"
 
-/obj/item/clothing/shoes/cowboyboots/black
+/obj/item/clothing/shoes/cowboy/black
 	name = "black cowboy boots"
 	desc = "A pair a' black rustlers' boots"
-	icon_state = "cowboyboots_black"
-	item_color = "cowboyboots_black"
+	icon_state = "cowboy_black"
+	item_color = "cowboy_black"
 
-/obj/item/clothing/shoes/cowboyboots/white
+/obj/item/clothing/shoes/cowboy/white
 	name = "white cowboy boots"
 	desc = "For the rancher in us all."
-	icon_state = "cowboyboots_white"
-	item_color = "cowboyboots_white"
+	icon_state = "cowboy_white"
+	item_color = "cowboy_white"
 
-/obj/item/clothing/shoes/cowboyboots/pink
+/obj/item/clothing/shoes/cowboy/fancy
+	name = "bilton wrangler boots"
+	desc = "A pair of authentic haute couture boots from Japanifornia. You doubt they have ever been close to cattle."
+	icon_state = "cowboy_fancy"
+	item_color = "cowboy_fancy"
+
+/obj/item/clothing/shoes/cowboy/pink
 	name = "pink cowgirl boots"
 	desc = "For a Rustlin' tustlin' cowgirl."
 	icon_state = "cowboyboots_pink"
 	item_color = "cowboyboots_pink"
+
+/obj/item/clothing/shoes/cowboy/lizard
+	name = "lizard skin boots"
+	desc = "You can hear a faint hissing from inside the boots; you hope it is just a mournful ghost."
+	icon_state = "lizardboots_green"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 0) //lizards like to stay warm
+
+/obj/item/clothing/shoes/cowboy/lizardmasterwork
+	name = "\improper Hugs-The-Feet lizard skin boots"
+	desc = "A pair of masterfully crafted lizard skin boots. Finally a good application for the station's most bothersome inhabitants."
+	icon_state = "lizardboots_blue"
+
+/obj/effect/spawner/lootdrop/lizardboots
+	name = "random lizard boot quality"
+	desc = "Which ever gets picked, the lizard race loses"
+	icon = 'icons/obj/clothing/shoes.dmi'
+	icon_state = "lizardboots_green"
+	loot = list(
+		/obj/item/clothing/shoes/cowboy/lizard = 7,
+		/obj/item/clothing/shoes/cowboy/lizardmasterwork = 1)
 
 /obj/item/clothing/shoes/footwraps
  	name = "cloth footwraps"
@@ -249,7 +310,6 @@
  	icon_state = "clothwrap"
  	item_state = "clothwrap"
  	force = 0
- 	silence_steps = TRUE
  	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/shoes/bhop
@@ -283,3 +343,13 @@
 		recharging_time = world.time + recharging_rate
 	else
 		to_chat(user, "<span class='warning'>Something prevents you from dashing forward!</span>")
+
+/obj/item/clothing/shoes/ducky
+	name = "rubber ducky shoes"
+	desc = "These shoes are made for quacking, and thats just what they'll do."
+	icon_state = "ducky"
+	item_state = "ducky"
+
+/obj/item/clothing/shoes/ducky/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/squeak, list('sound/items/squeaktoy.ogg' = 1), 50, falloff_exponent = 20) //die off quick please

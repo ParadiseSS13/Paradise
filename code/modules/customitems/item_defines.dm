@@ -10,6 +10,9 @@
 ////////// Usable Items //////////
 //////////////////////////////////
 
+#define USED_MOD_HELM 1
+#define USED_MOD_SUIT 2
+
 /obj/item/fluff
 	var/used = 0
 
@@ -45,7 +48,7 @@
 
 	var/mob/living/carbon/human/target = M
 
-	if(ismachine(target))
+	if(ismachineperson(target))
 		to_chat(user, "<span class= 'notice'>[target] has no skin, how do you expect to tattoo [target.p_them()]?</span>")
 		return
 
@@ -132,7 +135,7 @@
 	force = 5
 	sharp = 0
 
-/obj/item/claymore/fluff/hit_reaction()
+/obj/item/claymore/fluff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
 
 /obj/item/fluff/rsik_katana //Xydonus: Rsik Ugsharki Atan
@@ -175,7 +178,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "book_berner_1"
 
-/obj/item/clothing/glasses/sunglasses/fake/fluff/kaki //Rapidvalj: Kakicharakiti
+/obj/item/clothing/glasses/sunglasses_fake/fluff/kaki //Rapidvalj: Kakicharakiti
 	name = "broken thermonocle"
 	desc = "A weathered Vox thermonocle, doesn't seem to work anymore."
 	icon_state = "thermoncle"
@@ -235,17 +238,20 @@
 	force = 2
 
 /obj/item/fluff/dogwhistle/attack_self(mob/user)
-	user.visible_message("<span class='notice'>[user] blows on the whistle, but no sound comes out.</span>", "<span class='notice'>You blow on the whistle, but don't hear anything.</span>")
-	spawn(20)
-		var/mob/living/simple_animal/pet/corgi/C = new /mob/living/simple_animal/pet/corgi(get_turf(user))
-		var/obj/item/clothing/head/det_hat/D = new /obj/item/clothing/head/det_hat(C)
-		D.flags |= NODROP
-		C.inventory_head = D
-		C.regenerate_icons()
-		C.name = "Detective Sax"
-		C.visible_message("<span class='notice'>[C] suddenly winks into existence at [user]'s feet!</span>")
-		to_chat(user, "<span class='danger'>[src] crumbles to dust in your hands!</span>")
-		qdel(src)
+	user.visible_message("<span class='notice'>[user] blows on the whistle, but no sound comes out.</span>",  "<span class='notice'>You blow on the whistle, but don't hear anything.</span>")
+	addtimer(CALLBACK(src, .proc/summon_sax, user), 20)
+
+/obj/item/fluff/dogwhistle/proc/summon_sax(mob/user)
+	var/mob/living/simple_animal/pet/dog/corgi/C = new /mob/living/simple_animal/pet/dog/corgi(get_turf(user))
+	C.name = "Sax"
+	C.real_name = "Sax"
+	var/obj/item/clothing/head/det_hat/D = new
+	D.flags |= NODROP
+	C.place_on_head(D)
+	C.visible_message("<span class='notice'>[C] suddenly winks into existence at [user]'s feet!</span>")
+	to_chat(user, "<span class='danger'>[src] crumbles to dust in your hands!</span>")
+	user.drop_item()
+	qdel(src)
 
 /obj/item/storage/toolbox/fluff/lunchbox //godoforeos: Jason Conrad
 	name = "lunchpail"
@@ -265,13 +271,6 @@
 	new /obj/item/reagent_containers/food/snacks/chips(src)
 	new /obj/item/reagent_containers/food/drinks/cans/cola(src)
 
-
-/obj/item/instrument/guitar/jello_guitar //Antcolon3: Dan Jello
-	name = "Dan Jello's Pink Guitar"
-	desc = "Dan Jello's special pink guitar."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "jello_guitar"
-	item_state = "jello_guitar"
 
 /obj/item/fluff/wingler_comb
 	name = "blue comb"
@@ -341,7 +340,7 @@
 		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
 		var/obj/item/clothing/mask/gas/M = target
 		M.name = "Prescription Gas Mask"
-		M.desc = "It looks heavily modified, but otherwise functions as a gas mask. The words “Property of Yon-Dale” can be seen on the inner band."
+		M.desc = "It looks heavily modified, but otherwise functions as a gas mask. The words \"Property of Yon-Dale\" can be seen on the inner band."
 		M.icon = 'icons/obj/custom_items.dmi'
 		M.icon_state = "gas_tariq"
 		M.sprite_sheets = list(
@@ -401,118 +400,6 @@
 		return
 	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 
-#define USED_MOD_HELM 1
-#define USED_MOD_SUIT 2
-
-/obj/item/fluff/shadey_plasman_modkit
-	name = "plasmaman suit modkit"
-	desc = "A kit containing nanites that are able to modify the look of a plasmaman suit and helmet without exposing the wearer to hostile environments."
-	icon_state = "modkit"
-	w_class = WEIGHT_CLASS_SMALL
-	force = 0
-	throwforce = 0
-
-/obj/item/fluff/shadey_plasman_modkit/afterattack(atom/target, mob/user, proximity)
-	if(!proximity || !ishuman(user) || user.incapacitated())
-		return
-	var/mob/living/carbon/human/H = user
-
-	if(istype(target, /obj/item/clothing/head/helmet/space/eva/plasmaman))
-		if(used & USED_MOD_HELM)
-			to_chat(H, "<span class='notice'>The kit's helmet modifier has already been used.</span>")
-			return
-		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
-		used |= USED_MOD_HELM
-
-		var/obj/item/clothing/head/helmet/space/eva/plasmaman/P = target
-		P.name = "plasma containment helmet"
-		P.desc = "A purpose-built containment helmet designed to keep plasma in, and everything else out."
-		P.icon_state = "plasmaman_halo_helmet[P.on]"
-		P.base_state = "plasmaman_halo_helmet"
-
-		if(P == H.head)
-			H.update_inv_head()
-		return
-	if(istype(target, /obj/item/clothing/suit/space/eva/plasmaman))
-		if(used & USED_MOD_SUIT)
-			to_chat(user, "<span class='notice'>The kit's suit modifier has already been used.</span>")
-			return
-		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
-		used |= USED_MOD_SUIT
-
-		var/obj/item/clothing/suit/space/eva/plasmaman/P = target
-		P.name = "plasma containment suit"
-		P.desc = "A feminine containment suit designed to keep plasma in, and everything else out. It's even got an overskirt."
-		P.icon_state = "plasmaman_halo"
-
-		if(P == H.wear_suit)
-			H.update_inv_wear_suit()
-		return
-	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
-
-/obj/item/fluff/lighty_plasman_modkit // LightFire53: Ikelos
-	name = "plasmaman suit modkit"
-	desc = "A kit containing nanites that are able to modify the look of a plasmaman suit and helmet without exposing the wearer to hostile environments."
-	icon_state = "modkit"
-	w_class = 2
-	force = 0
-	throwforce = 0
-	var/picked_color = null
-	var/list/helmets = list(
-		"Blue" = "plasmaman_ikelosdefault_helmet",
-		"Gold" = "plasmaman_ikelosgold_helmet",
-		"Red" = "plasmaman_ikelossecurity_helmet")
-	var/list/suits = list(
-		"Blue" = "plasmaman_ikelosdefault",
-		"Gold" = "plasmaman_ikelosgold",
-		"Red" = "plasmaman_ikelossecurity")
-
-/obj/item/fluff/lighty_plasman_modkit/afterattack(atom/target, mob/user, proximity)
-	if(!proximity || !ishuman(user) || user.incapacitated())
-		return
-	var/mob/living/carbon/human/H = user
-
-	if(istype(target, /obj/item/clothing/head/helmet/space/eva/plasmaman))
-		if(used & USED_MOD_HELM)
-			to_chat(H, "<span class='notice'>The kit's helmet modifier has already been used.</span>")
-			return
-
-		picked_color = input(H, "Which color would you like to paint [target]?", "Recolor") as null|anything in helmets
-		var/obj/item/clothing/head/helmet/space/eva/plasmaman/P = target
-
-		if(!picked_color)
-			return
-		P.icon_state = helmets[picked_color] + "[P.on]"
-		P.base_state = helmets[picked_color]
-
-		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
-		P.icon = 'icons/obj/custom_items.dmi'
-		used |= USED_MOD_HELM
-
-		if(P == H.head)
-			H.update_inv_head()
-		return
-	if(istype(target, /obj/item/clothing/suit/space/eva/plasmaman))
-		if(used & USED_MOD_SUIT)
-			to_chat(user, "<span class='notice'>The kit's suit modifier has already been used.</span>")
-			return
-		picked_color = input(H, "Which color would you like to paint [target]?", "Recolor") as null|anything in suits
-		var/obj/item/clothing/suit/space/eva/plasmaman/P = target
-
-		if(!picked_color)
-			return
-		P.icon_state = suits[picked_color]
-
-		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
-		P.icon = 'icons/obj/custom_items.dmi'
-		used |= USED_MOD_SUIT
-
-		if(P == H.wear_suit)
-			H.update_inv_wear_suit()
-		return
-	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
-
-
 /obj/item/fluff/merchant_sallet_modkit //Travelling Merchant: Trav Noble. This is what they spawn in with
 	name = "SG Helmet modkit"
 	desc = "A modkit that can make most helmets look like a Shellguard Helmet."
@@ -539,7 +426,7 @@
 		sallet.max_heat_protection_temperature = helm.max_heat_protection_temperature
 		sallet.strip_delay = helm.strip_delay
 		sallet.put_on_delay = helm.put_on_delay
-		sallet.burn_state = helm.burn_state
+		sallet.resistance_flags = helm.resistance_flags
 		sallet.flags_cover = helm.flags_cover
 		sallet.visor_flags = helm.visor_flags
 		sallet.visor_flags_inv = helm.visor_flags_inv
@@ -920,7 +807,7 @@
 	item_state = "supplymaster_jacket_open"
 	ignore_suitadjust = 0
 	suit_adjusted = 1
-	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
+	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	actions_types = list(/datum/action/item_action/button)
@@ -1012,9 +899,9 @@
 	desc = "A green hoodie with the Nanotrasen logo on the back. It looks weathered."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "linda_hoodie"
-	hoodtype = /obj/item/clothing/head/hood/fluff/linda
+	hoodtype = /obj/item/clothing/head/hooded/hood/fluff/linda
 
-/obj/item/clothing/head/hood/fluff/linda //Epic_Charger: Linda Clark
+/obj/item/clothing/head/hooded/hood/fluff/linda //Epic_Charger: Linda Clark
 	icon_state = "greenhood"
 
 /obj/item/clothing/suit/hooded/hoodie/hylo //Hylocereus: Sam Aria
@@ -1022,9 +909,9 @@
 	desc = "A soft, cozy longline hoodie. It looks old and worn, but well cared for. There's no label, but a series of dates and names is penned on a scrap of fabric sewn on the inside of the left side of the chest - 'Sam Aria' is scrawled atop them all, next to the words 'Please Remember'."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "sam_hoodie"
-	hoodtype = /obj/item/clothing/head/hood/hylo
+	hoodtype = /obj/item/clothing/head/hooded/hood/hylo
 
-/obj/item/clothing/head/hood/hylo
+/obj/item/clothing/head/hooded/hood/hylo
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "sam_hood"
 
@@ -1034,9 +921,9 @@
 	body_parts_covered = HEAD|UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "skeleton_suit"
-	hoodtype = /obj/item/clothing/head/hood/fluff/skeleton
+	hoodtype = /obj/item/clothing/head/hooded/hood/fluff/skeleton
 
-/obj/item/clothing/head/hood/fluff/skeleton
+/obj/item/clothing/head/hooded/hood/fluff/skeleton
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "skeleton_hood"
 
@@ -1082,18 +969,18 @@
 	desc = "A velvety smooth black winter coat with white and red stripes on the side."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "xantholne_wintercoat"
-	hoodtype = /obj/item/clothing/head/hood/fluff/xantholne
+	hoodtype = /obj/item/clothing/head/hooded/hood/fluff/xantholne
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	allowed = list(/obj/item/flashlight, /obj/item/tank/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 
 
-/obj/item/clothing/head/hood/fluff/xantholne // Xantholne: Meex Zwichsnicrur
+/obj/item/clothing/head/hooded/hood/fluff/xantholne // Xantholne: Meex Zwichsnicrur
 	name = "black winter hood"
 	desc = "A black hood attached to a stripped winter coat."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "xantholne_winterhood"
 	body_parts_covered = HEAD
-	flags = NODROP|BLOCKHAIR
+	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
 
 /obj/item/clothing/suit/hooded/hoodie/fluff/xydonus //Xydonus: Rsik Ugsharki Atan | Based off of the bomber jacket, but with a hood slapped on (for allowed suit storage)
@@ -1102,18 +989,18 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "xydonus_jacket"
 	ignore_suitadjust = 0
-	hoodtype = /obj/item/clothing/head/hood/fluff/xydonus
+	hoodtype = /obj/item/clothing/head/hooded/hood/fluff/xydonus
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
-	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
+	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
 
-/obj/item/clothing/head/hood/fluff/xydonus
+/obj/item/clothing/head/hooded/hood/fluff/xydonus
 	name = "custom fit hood"
 	desc = "A hood with some horns <i>glued</i> to them, or something like that. Custom fit for a Unathi's head shape."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "xydonus_bomberhood"
 	body_parts_covered = HEAD
-	flags = NODROP|BLOCKHAIR
+	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
 
 /obj/item/clothing/suit/fluff/pineapple //Pineapple Salad: Dan Jello
@@ -1148,17 +1035,17 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "shesicoat"
 	item_state = "shesicoat"
-	hoodtype = /obj/item/clothing/head/hood/fluff/shesi
+	hoodtype = /obj/item/clothing/head/hooded/hood/fluff/shesi
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	cold_protection = UPPER_TORSO|LOWER_TORSO
 
-/obj/item/clothing/head/hood/fluff/shesi //MrSynnester : Shesi Skaklas
+/obj/item/clothing/head/hooded/hood/fluff/shesi //MrSynnester : Shesi Skaklas
 	name = "custom made winter hood"
 	desc = "A custom made winter coat hood. Looks comfy."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "shesicoat_hood2"
 	body_parts_covered = HEAD
-	flags = NODROP|BLOCKHAIR
+	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
 
 /obj/item/clothing/suit/jacket/dtx //AffectedArc07: DTX
@@ -1168,7 +1055,7 @@
 	icon_state = "dtxbomber"
 	item_state = "dtxbomber"
 	ignore_suitadjust = 0
-	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
+	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	actions_types = list(/datum/action/item_action/zipper)
@@ -1184,7 +1071,6 @@
 	icon_state = "counterfeitguise"
 	item_state = "counterfeitguise"
 	item_color = "counterfeitguise"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/fluff/benjaminfallout // Benjaminfallout: Pretzel Brassheart
 	icon = 'icons/obj/custom_items.dmi'
@@ -1321,16 +1207,16 @@
 
 //////////// Sets ////////////
 // Fox P McCloud: Fox McCloud
-/obj/item/clothing/suit/jacket/fluff/fox
+/obj/item/clothing/suit/storage/fox
 	name = "Aeronautics Jacket"
 	desc = "An aviator styled jacket made from a peculiar material; this one seems very old."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "fox_jacket"
 	item_state = "fox_jacket"
-	ignore_suitadjust = TRUE
-	actions_types = list()
-	adjust_flavour = null
-	sprite_sheets = null
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/gun/projectile/automatic/pistol, /obj/item/gun/projectile/revolver, /obj/item/gun/projectile/revolver/detective)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 
 /obj/item/clothing/under/fluff/fox
 	name = "Aeronautics Jumpsuit"
@@ -1340,6 +1226,12 @@
 	item_state = "g_suit"
 	item_color = "fox_suit"
 	displays_id = FALSE //still appears on examine; this is pure fluff.
+
+/obj/item/clothing/suit/storage/fox/miljacket_desert
+	name = "rugged military jacket"
+	desc = "A rugged brown military jacket with a stylized 'A' embroidered on the back. It seems very old, yet is in near mint condition. Has a tag on the inside collar signed 'Fox McCloud'."
+	icon_state = "fox_coat"
+	item_color = "fox_coat"
 
 /obj/item/toy/plushie/fluff/fox
 	name = "orange fox plushie"
@@ -1371,12 +1263,6 @@
 /obj/item/toy/plushie/fluff/fox/ui_action_click()
 	change_color()
 
-/obj/item/clothing/suit/jacket/miljacket/desert/fox
-	name = "rugged military jacket"
-	desc = "A rugged brown military jacket with a stylized 'A' embroidered on the back. It seems very old, yet is in near mint condition. Has a tag on the inside collar signed 'Fox McCloud'."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "fox_coat"
-	item_color = "fox_coat"
 
 // TheFlagbearer: Willow Walker
 /obj/item/clothing/under/fluff/arachno_suit
@@ -1454,7 +1340,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "chronx_robe"
 	item_state = "chronx_robe"
-	flags_size = ONESIZEFITSALL
 	actions_types = list(/datum/action/item_action/toggle)
 	adjust_flavour = "untransform"
 	ignore_suitadjust = 0
@@ -1509,9 +1394,9 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "ssscratches_backpack"
 
-/obj/item/storage/backpack/duffel/fluff/thebrew //Greey: Korala Ice
+/obj/item/storage/backpack/fluff/thebrew //Greey: Korala Ice
 	name = "The Brew"
-	desc = "Amber colored duffle bag resembling a long lost friend, a spirit long forgotten."
+	desc = "Amber colored backpack resembling a long lost friend, a spirit long forgotten."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "greeyfluff"
 	item_state = "greeyfluff"
@@ -1698,13 +1583,17 @@
 	item_state = "asmer_accordion"
 
 
-/obj/item/clothing/head/rabbitears/fluff/pinesalad_bunny // Pineapple Salad : Dan Jello
-	name = "Bluespace rabbit ears"
-	desc = "A pair of sparkly bluespace rabbit ears, with a small tag on them that reads, 'Dan Jello~'. Yuck, \
-	 there's some pink slime on the part that goes on your head!"
+/obj/item/clothing/head/fluff/pinesalad_horns //Pineapple Salad: Dan Jello
+	name = "Bluespace Horns"
+	desc = "A pair of fake horns. Now with added bluespace!"
 	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "ps_bunny"
+	icon_state = "ps_horns"
 
+/obj/item/storage/backpack/fluff/hiking //Pineapple Salad: Dan Jello
+	name = "\improper Fancy Hiking Pack"
+	desc = "A black and red hiking pack with some nice little accessories."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "danpack"
 
 /obj/item/clothing/under/fluff/kiaoutfit //FullOfSkittles: Kiachi
 	name = "Suspicious Outfit"
@@ -1762,13 +1651,16 @@
 	desc = "A small platinum ring with a large light blue diamond. Engraved inside the band are the words: 'To my lovely Pristine Princess. Forever yours, Savinien.'"
 	icon_state = "benjaminfallout_ring"
 
-/obj/item/clothing/under/fluff/voxbodysuit //Gangelwaefre: Kikeri
-	name = "Vox Bodysuit"
-	desc = "A shimmering bodysuit custom-fit to a vox. Has shorts sewn in."
+
+/obj/item/clothing/under/fluff/kikeridress //Gangelwaefre: Kikeri
+	name = "Kikeri's Dress"
+	desc = "A simple black dress with a white undercoat, tied with a blue ribbon."
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	icon = 'icons/mob/inhands/fluff_righthand.dmi'
-	icon_state = "voxbodysuit"
-	item_state = "voxbodysuit"
-	item_color = "voxbodysuit"
-	body_parts_covered = HEAD|UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	sprite_sheets = list("Vox" = 'icons/mob/species/vox/uniform.dmi')
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "kikeridress"
+	item_state = "kikeridress"
+	item_color = "kikeridress"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	species_restricted = list("Vox")

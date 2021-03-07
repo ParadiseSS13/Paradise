@@ -1,10 +1,12 @@
 //Lavaland Ruins
 
 /area/ruin/powered/beach
+	name = "Beach Bar"
 	icon_state = "dk_yellow"
 
 /area/ruin/powered/clownplanet
 	icon_state = "dk_yellow"
+	ambientsounds = list('sound/music/clown.ogg')
 
 /area/ruin/powered/animal_hospital
 	icon_state = "dk_yellow"
@@ -12,11 +14,14 @@
 /area/ruin/powered/snow_biodome
 	icon_state = "dk_yellow"
 
+/area/ruin/powered/snow_cabin
+	icon_state = "bar"
+
 /area/ruin/powered/gluttony
 	icon_state = "dk_yellow"
 
 /area/ruin/powered/golem_ship
-	name = "Free Golem Ship"
+	name = "Free Golem Landing"
 	icon_state = "dk_yellow"
 
 /area/ruin/powered/greed
@@ -35,8 +40,9 @@
 /area/ruin/unpowered/syndicate_lava_base
 	name = "Secret Base"
 	icon_state = "dk_yellow"
-	ambientsounds = list('sound/ambience/ambidanger.ogg', 'sound/ambience/ambidanger2.ogg')
+	ambientsounds = HIGHSEC_SOUNDS
 	report_alerts = FALSE
+	hide_attacklogs = TRUE
 
 /area/ruin/unpowered/syndicate_lava_base/engineering
 	name = "Syndicate Lavaland Engineering"
@@ -84,3 +90,6 @@
 //ash walker nest
 /area/ruin/unpowered/ash_walkers
 	icon_state = "red"
+
+// This area exists so that lavaland ruins dont overwrite the baseturfs on regular space ruins
+/area/ruin/unpowered/misc_lavaruin

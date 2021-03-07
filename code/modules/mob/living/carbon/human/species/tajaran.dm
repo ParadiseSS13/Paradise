@@ -2,7 +2,6 @@
 	name = "Tajaran"
 	name_plural = "Tajaran"
 	icobase = 'icons/mob/human_races/r_tajaran.dmi'
-	deform = 'icons/mob/human_races/r_def_tajaran.dmi'
 	language = "Siik'tajr"
 	tail = "tajtail"
 	skinned_type = /obj/item/stack/sheet/fur
@@ -24,9 +23,9 @@
 
 	primitive_form = /datum/species/monkey/tajaran
 
-	species_traits = list(LIPS, CAN_BE_FAT)
+	species_traits = list(LIPS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING
+	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING
 	dietflags = DIET_OMNI
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = PROCESS_ORG
@@ -55,5 +54,5 @@
 		"is twisting their own neck!",
 		"is holding their breath!")
 
-/datum/species/tajaran/handle_death(mob/living/carbon/human/H)
-	H.stop_tail_wagging(1)
+/datum/species/tajaran/handle_death(gibbed, mob/living/carbon/human/H)
+	H.stop_tail_wagging()

@@ -36,7 +36,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "ai" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/floor/carpet,
@@ -152,7 +152,9 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "ax" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "ay" = (
@@ -224,7 +226,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "aJ" = (
-/obj/structure/cult/tome,
+/obj/structure/cult/archives,
 /obj/item/twohanded/staff,
 /obj/item/spellbook/oneuse/charge,
 /turf/simulated/floor/wood,
@@ -236,12 +238,11 @@
 /turf/simulated/floor/wood,
 /area/awaymission/academy/headmaster)
 "aL" = (
-/obj/item/clothing/suit/space/hardsuit/wizard,
+/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
 /obj/structure/table/wood,
 /obj/item/stack/sheet/mineral/silver{
 	amount = 20
 	},
-/obj/item/clothing/head/helmet/space/hardsuit/wizard,
 /turf/simulated/floor/wood,
 /area/awaymission/academy/headmaster)
 "aM" = (
@@ -504,23 +505,7 @@
 /turf/simulated/wall,
 /area/awaymission/academy/classrooms)
 "bF" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swallc2";
-	icon_state = "swallc2"
-	},
-/area/awaymission/academy/classrooms)
-"bG" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall12";
-	icon_state = "swall12";
-	dir = 2
-	},
-/area/awaymission/academy/classrooms)
-"bH" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swallc1";
-	icon_state = "swallc1"
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/awaymission/academy/classrooms)
 "bI" = (
 /obj/machinery/light{
@@ -636,13 +621,6 @@
 "bV" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/awaymission/academy/classrooms)
-"bW" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall3";
-	icon_state = "swall3";
-	dir = 2
-	},
 /area/awaymission/academy/classrooms)
 "bX" = (
 /obj/effect/decal/cleanable/ash,
@@ -780,12 +758,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/awaymission/academy/classrooms)
-"cs" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall1";
-	icon_state = "swall1"
-	},
 /area/awaymission/academy/classrooms)
 "ct" = (
 /obj/structure/chair,
@@ -970,8 +942,8 @@
 /area/awaymission/academy/headmaster)
 "cU" = (
 /obj/structure/closet/crate/internals,
-/obj/item/tank/oxygen,
-/obj/item/tank/oxygen/red,
+/obj/item/tank/internals/oxygen,
+/obj/item/tank/internals/oxygen/red,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1133,7 +1105,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "ds" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
@@ -1849,7 +1821,7 @@
 /area/awaymission/academy/classrooms)
 "fl" = (
 /obj/structure/table,
-/obj/machinery/microwave,
+/obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "barber"
@@ -2203,7 +2175,7 @@
 	},
 /area/awaymission/academy/classrooms)
 "gb" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/wood,
 /area/awaymission/academy/classrooms)
 "gc" = (
@@ -3039,17 +3011,6 @@
 "if" = (
 /turf/simulated/floor/grass,
 /area/awaymission/academy/academyaft)
-"ig" = (
-/obj/structure/rack,
-/obj/item/circuitboard/telecomms/broadcaster,
-/obj/item/circuitboard/telecomms/receiver,
-/obj/item/circuitboard/telecomms/processor,
-/obj/item/circuitboard/telecomms/bus,
-/obj/item/circuitboard/telecomms/relay,
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
-/area/awaymission/academy/academyaft)
 "ih" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3092,18 +3053,6 @@
 	dir = 2
 	},
 /area/awaymission/academy/academyaft)
-"il" = (
-/obj/structure/rack,
-/obj/item/stock_parts/manipulator,
-/obj/item/stock_parts/manipulator,
-/obj/item/stock_parts/subspace/crystal,
-/obj/item/stock_parts/micro_laser/high,
-/obj/item/stock_parts/micro_laser/high,
-/obj/item/stock_parts/subspace/filter,
-/obj/item/stock_parts/manipulator,
-/obj/item/stock_parts/subspace/analyzer,
-/turf/simulated/floor/plasteel,
-/area/awaymission/academy/academyaft)
 "im" = (
 /obj/machinery/power/smes/magical,
 /obj/structure/cable,
@@ -3119,30 +3068,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria";
 	dir = 2
-	},
-/area/awaymission/academy/academyaft)
-"ip" = (
-/obj/structure/rack,
-/obj/item/stock_parts/subspace/ansible,
-/obj/item/stock_parts/micro_laser/high,
-/obj/item/stock_parts/manipulator,
-/obj/item/stock_parts/manipulator,
-/obj/item/stock_parts/subspace/filter,
-/obj/item/stock_parts/subspace/amplifier,
-/obj/item/stock_parts/subspace/filter,
-/turf/simulated/floor/plasteel,
-/area/awaymission/academy/academyaft)
-"iq" = (
-/obj/structure/rack,
-/obj/item/stock_parts/manipulator,
-/obj/item/stock_parts/subspace/filter,
-/obj/item/stock_parts/manipulator,
-/obj/item/stock_parts/subspace/filter,
-/obj/item/stock_parts/manipulator,
-/obj/item/stock_parts/manipulator,
-/obj/item/stock_parts/subspace/filter,
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
 	},
 /area/awaymission/academy/academyaft)
 "ir" = (
@@ -3210,23 +3135,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
-/area/awaymission/academy/academyaft)
-"iy" = (
-/obj/machinery/light{
-	icon_state = "tube1";
-	dir = 8
-	},
-/obj/structure/rack,
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stock_parts/subspace/treatment,
-/obj/item/stock_parts/subspace/treatment,
-/obj/item/stock_parts/manipulator,
-/obj/item/stock_parts/manipulator,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -4558,6 +4466,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academygate)
+"vq" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/headmaster)
 
 (1,1,1) = {"
 aa
@@ -11622,9 +11536,9 @@ aa
 aa
 bs
 bF
-bW
-bW
-cs
+bF
+bF
+bF
 cA
 cA
 cP
@@ -11751,7 +11665,7 @@ aa
 aa
 aa
 bs
-bG
+bF
 bX
 bZ
 bZ
@@ -11881,7 +11795,7 @@ aa
 aa
 aP
 bs
-bG
+bF
 bY
 bZ
 bZ
@@ -12011,7 +11925,7 @@ aa
 aP
 aP
 bs
-bG
+bF
 bZ
 bZ
 bZ
@@ -12141,7 +12055,7 @@ aP
 aP
 aa
 bs
-bG
+bF
 bZ
 bX
 bZ
@@ -12271,7 +12185,7 @@ ab
 aP
 aP
 bs
-bG
+bF
 ca
 bZ
 bZ
@@ -12401,7 +12315,7 @@ aP
 aa
 aa
 bs
-bG
+bF
 bZ
 bZ
 bZ
@@ -12531,10 +12445,10 @@ aP
 aa
 aa
 bs
-bH
-bW
-bW
-cs
+bF
+bF
+bF
+bF
 cC
 cC
 cR
@@ -13944,9 +13858,9 @@ ab
 aj
 ao
 au
-ax
+vq
 ah
-ax
+vq
 ah
 ah
 ah
@@ -15166,11 +15080,11 @@ gZ
 hp
 jk
 ia
-ig
-il
-ip
-iq
-iy
+hp
+hl
+hl
+hp
+ia
 hl
 hl
 gZ

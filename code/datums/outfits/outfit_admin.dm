@@ -78,7 +78,6 @@
 
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi
 	belt = /obj/item/storage/belt/military
-	head = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	mask = /obj/item/clothing/mask/gas/syndicate
 	l_ear = /obj/item/radio/headset/syndicate/alt
 	glasses = /obj/item/clothing/glasses/night
@@ -110,7 +109,6 @@
 /datum/outfit/admin/syndicate/operative/freedom
 	name = "Syndicate Freedom Operative"
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi/freedom
-	head = /obj/item/clothing/head/helmet/space/hardsuit/syndi/freedom
 
 
 /datum/outfit/admin/syndicate_strike_team
@@ -224,10 +222,10 @@
 	name = "NT Undercover Operative"
 	// Disguised NT special forces, sent to quietly eliminate or keep tabs on people in high positions (e.g: captain)
 
-	uniform = /obj/item/clothing/under/color/black
+	uniform = /obj/item/clothing/under/color/random
 	back = /obj/item/storage/backpack
 	belt = /obj/item/storage/belt/utility/full/multitool
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/color/yellow
 	shoes = /obj/item/clothing/shoes/chameleon/noslip
 	l_ear = /obj/item/radio/headset/centcom
 	id = /obj/item/card/id
@@ -241,10 +239,9 @@
 		/obj/item/implant/dust
 	)
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/eyes/shield,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
-		/obj/item/organ/internal/cyberimp/eyes/xray,
-		/obj/item/organ/internal/cyberimp/brain/anti_stun,
+		/obj/item/organ/internal/eyes/cybernetic/xray,
+		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
 		/obj/item/organ/internal/cyberimp/arm/combat/centcom
 	)
@@ -293,7 +290,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_maint_tunnels), name)
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name)
 
 /datum/outfit/admin/pirate/first_mate
 	name = "Space Pirate First Mate"
@@ -320,7 +317,7 @@
 	glasses = /obj/item/clothing/glasses/thermal/monocle
 	id = /obj/item/card/id/syndicate/vox
 	l_pocket = /obj/item/melee/classic_baton/telescopic
-	r_pocket = /obj/item/tank/emergency_oxygen/vox
+	r_pocket = /obj/item/tank/internals/emergency_oxygen/double/vox
 	backpack_contents = list(
 		/obj/item/flashlight = 1,
 		/obj/item/restraints/handcuffs/cable/zipties = 1,
@@ -377,7 +374,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_clown, access_theatre, access_maint_tunnels), "Tunnel Clown")
+		apply_to_card(I, H, list(ACCESS_CLOWN, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS), "Tunnel Clown")
 
 /datum/outfit/admin/mime_assassin
 	name = "Mime Assassin"
@@ -426,7 +423,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_mime, access_theatre, access_maint_tunnels), "Mime")
+		apply_to_card(I, H, list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS), "Mime")
 	H.sec_hud_set_ID()
 
 /datum/outfit/admin/greytide
@@ -452,7 +449,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_maint_tunnels), "Greytide")
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Greytide")
 
 /datum/outfit/admin/greytide/leader
 	name = "Greytide Leader"
@@ -473,7 +470,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_maint_tunnels), "Greytide Leader")
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Greytide Leader")
 
 /datum/outfit/admin/greytide/xeno
 	name = "Greytide Xeno"
@@ -486,7 +483,7 @@
 	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/xenos
 	glasses = /obj/item/clothing/glasses/thermal
-	l_pocket = /obj/item/tank/emergency_oxygen/double/full
+	l_pocket = /obj/item/tank/internals/emergency_oxygen/double
 	r_pocket = /obj/item/toy/toy_xeno
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
@@ -501,7 +498,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_maint_tunnels), "Legit Xenomorph")
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Legit Xenomorph")
 
 
 
@@ -536,14 +533,14 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_maint_tunnels), "Bard")
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Bard")
 
 	var/obj/item/clothing/ears/headphones/P = r_ear
 	if(istype(P))
 		P.attack_self(H) // activate them, display musical notes effect
 
 /datum/outfit/admin/soviet
-
+	name = "Soviet Generic"
 	gloves = /obj/item/clothing/gloves/combat
 	uniform = /obj/item/clothing/under/soviet
 	back = /obj/item/storage/backpack/satchel
@@ -557,7 +554,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_maint_tunnels), name)
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name)
 
 /datum/outfit/admin/soviet/tourist
 	name = "Soviet Tourist"
@@ -711,7 +708,8 @@
 	pda = /obj/item/pda
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
-		/obj/item/hand_labeler = 1
+		/obj/item/hand_labeler = 1,
+		/obj/item/hand_labeler_refill = 1
 	)
 
 /datum/outfit/admin/sol_trader/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -721,7 +719,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_trade_sol, access_maint_tunnels, access_external_airlocks), name)
+		apply_to_card(I, H, list(ACCESS_TRADE_SOL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS), name)
 
 /datum/outfit/admin/chrono
 	name = "Chrono Legionnaire"
@@ -735,7 +733,7 @@
 	mask = /obj/item/clothing/mask/gas/syndicate
 	glasses = /obj/item/clothing/glasses/night
 	id = /obj/item/card/id/syndicate
-	suit_store = /obj/item/tank/emergency_oxygen/double/full
+	suit_store = /obj/item/tank/internals/emergency_oxygen/double
 
 /datum/outfit/admin/chrono/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -773,6 +771,7 @@
 		apply_to_card(I, H, get_all_accesses(), "Space Explorer")
 
 /datum/outfit/admin/hardsuit
+	name = "Hardsuit Generic"
 	back = /obj/item/tank/jetpack/oxygen
 	mask = /obj/item/clothing/mask/breath
 	shoes = /obj/item/clothing/shoes/magboots
@@ -794,44 +793,38 @@
 
 /datum/outfit/admin/hardsuit/engineer
 	name = "Engineer Hardsuit"
-	suit = /obj/item/clothing/suit/space/hardsuit
-	head = /obj/item/clothing/head/helmet/space/hardsuit
+	suit = /obj/item/clothing/suit/space/hardsuit/engine
 
 /datum/outfit/admin/hardsuit/ce
 	name = "CE Hardsuit"
-	suit = /obj/item/clothing/suit/space/hardsuit/elite
-	head = /obj/item/clothing/head/helmet/space/hardsuit/elite
+	suit = /obj/item/clothing/suit/space/hardsuit/engine/elite
 	shoes = /obj/item/clothing/shoes/magboots/advance
 
 /datum/outfit/admin/hardsuit/mining
 	name = "Mining Hardsuit"
 	suit = /obj/item/clothing/suit/space/hardsuit/mining
-	head = /obj/item/clothing/head/helmet/space/hardsuit/mining
 
 /datum/outfit/admin/hardsuit/syndi
 	name = "Syndi Hardsuit"
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi
-	head = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	shoes = /obj/item/clothing/shoes/magboots/syndie
 
 /datum/outfit/admin/hardsuit/wizard
 	name = "Wizard Hardsuit"
-	suit = /obj/item/clothing/suit/space/hardsuit/wizard
-	head = /obj/item/clothing/head/helmet/space/hardsuit/wizard
+	suit = /obj/item/clothing/suit/space/hardsuit/shielded/wizard
 	shoes = /obj/item/clothing/shoes/magboots
 
 /datum/outfit/admin/hardsuit/medical
 	name = "Medical Hardsuit"
 	suit = /obj/item/clothing/suit/space/hardsuit/medical
-	head = /obj/item/clothing/head/helmet/space/hardsuit/medical
 
 /datum/outfit/admin/hardsuit/atmos
 	name = "Atmos Hardsuit"
-	suit = /obj/item/clothing/suit/space/hardsuit/atmos
-	head = /obj/item/clothing/head/helmet/space/hardsuit/atmos
+	suit = /obj/item/clothing/suit/space/hardsuit/engine/atmos
 
 
 /datum/outfit/admin/tournament
+	name = "Tournament Generic"
 	suit = /obj/item/clothing/suit/armor/vest
 	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/helmet/thunderdome
@@ -916,7 +909,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_maint_tunnels), "Survivor")
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Survivor")
 
 /datum/outfit/admin/masked_killer
 	name = "Masked Killer"
@@ -951,7 +944,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_maint_tunnels), "Masked Killer", "syndie")
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Masked Killer", "syndie")
 
 /datum/outfit/admin/singuloth_knight
 	name = "Singuloth Knight"
@@ -963,12 +956,11 @@
 	belt = /obj/item/claymore/ceremonial
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/magboots
-	head = /obj/item/clothing/head/helmet/space/hardsuit/singuloth
 	mask = /obj/item/clothing/mask/breath
 	l_ear = /obj/item/radio/headset/ert
 	glasses = /obj/item/clothing/glasses/meson/cyber
 	id = /obj/item/card/id
-	suit_store = /obj/item/tank/oxygen
+	suit_store = /obj/item/tank/internals/oxygen
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1
@@ -1058,8 +1050,8 @@
 				to_chat(H, "You have gained the ability to shapeshift into lesser hellhound form. This is a combat form with different abilities, tough but not invincible. It can regenerate itself over time by resting.")
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/raise_vampires)
 				to_chat(H, "You have gained the ability to Raise Vampires. This extremely powerful AOE ability affects all humans near you. Vampires/thralls are healed. Corpses are raised as vampires. Others are stunned, then brain damaged, then killed.")
-				H.dna.SetSEState(JUMPBLOCK, 1)
-				genemutcheck(H, JUMPBLOCK,  null, MUTCHK_FORCED)
+				H.dna.SetSEState(GLOB.jumpblock, 1)
+				singlemutcheck(H, GLOB.jumpblock, MUTCHK_FORCED)
 				H.update_mutations()
 				H.gene_stability = 100
 
@@ -1110,8 +1102,7 @@
 	l_hand = null
 	backpack_contents = list(
 		/obj/item/storage/box/engineer = 1,
-		/obj/item/clothing/suit/space/hardsuit/wizard = 1,
-		/obj/item/clothing/head/helmet/space/hardsuit/wizard = 1,
+		/obj/item/clothing/suit/space/hardsuit/shielded/wizard/arch = 1,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/kitchen/knife/ritual  = 1,
 		/obj/item/clothing/suit/wizrobe/red = 1,
@@ -1138,7 +1129,7 @@
 	uniform = /obj/item/clothing/under/color/black
 	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
 	back = /obj/item/storage/backpack
-	head = /obj/item/clothing/head/chaplain_hood
+	head = /obj/item/clothing/head/hooded/chaplain_hood
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/syndicate

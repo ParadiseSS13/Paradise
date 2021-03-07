@@ -16,8 +16,6 @@
 	faction = list("syndicate")
 	shoot_sound = 'sound/weapons/wave.ogg'
 	anchored = 1
-	pressure_resistance = 100    //100 kPa difference required to push
-	throw_pressure_limit = 120
 	window_id = "syndiebot"
 	window_name = "Syndicate Bot Interface"
 	var/turf/saved_turf
@@ -35,7 +33,7 @@
 
 /mob/living/simple_animal/bot/ed209/syndicate/setup_access()
 	if(access_card)
-		access_card.access = list(access_syndicate, access_syndicate_leader)
+		access_card.access = list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER)
 		prev_access = access_card.access
 
 /mob/living/simple_animal/bot/ed209/syndicate/update_icon()
@@ -49,11 +47,14 @@
 	..()
 	update_icon()
 
-/mob/living/simple_animal/bot/ed209/syndicate/get_controls(mob/user)
+/mob/living/simple_animal/bot/ed209/syndicate/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	to_chat(user, "<span class='warning'>[src] has no accessible control panel!</span>")
 	return
 
-/mob/living/simple_animal/bot/ed209/syndicate/show_controls(mob/M)
+/mob/living/simple_animal/bot/ed209/syndicate/ui_data(mob/user)
+	return
+
+/mob/living/simple_animal/bot/ed209/syndicate/ui_act(action, params)
 	return
 
 /mob/living/simple_animal/bot/ed209/syndicate/Topic(href, href_list)
@@ -169,7 +170,7 @@
 		visible_message("<span class='userdanger'>[src] blows apart!</span>")
 		do_sparks(3, 1, src)
 		new /obj/effect/decal/cleanable/blood/oil(loc)
-		var/obj/effect/decal/mecha_wreckage/gygax/dark/wreck = new /obj/effect/decal/mecha_wreckage/gygax/dark(loc)
+		var/obj/structure/mecha_wreckage/gygax/dark/wreck = new /obj/structure/mecha_wreckage/gygax/dark(loc)
 		wreck.name = "sentry bot wreckage"
 
 		raise_alert("[src] destroyed.")

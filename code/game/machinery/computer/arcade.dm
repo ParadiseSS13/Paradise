@@ -8,18 +8,17 @@
 	light_color = "#00FF00"
 	var/prize = /obj/item/stack/tickets
 
-/obj/machinery/computer/arcade/power_change()
-	..()
-	if(!(stat & (BROKEN|NOPOWER)))
-		set_light(2)
-	else
-		set_light(0)
+/obj/machinery/computer/arcade/proc/Reset()
+	return
 
 /obj/machinery/computer/arcade/New()
 	..()
-	var/choice = pick(subtypesof(/obj/machinery/computer/arcade))
-	new choice(loc)
-	qdel(src)
+	if(!circuit)
+		var/choice = pick(subtypesof(/obj/machinery/computer/arcade))
+		new choice(loc)
+		qdel(src)
+		return
+	Reset()
 
 
 /obj/machinery/computer/arcade/proc/prizevend(var/score)
@@ -65,7 +64,7 @@
 	var/blocked = 0 //Player cannot attack/heal while set
 	var/turtle = 0
 
-/obj/machinery/computer/arcade/battle/New()
+/obj/machinery/computer/arcade/battle/Reset()
 	var/name_action
 	var/name_part1
 	var/name_part2
@@ -114,7 +113,7 @@
 			blocked = 1
 			var/attackamt = rand(2,6)
 			temp = "You attack for [attackamt] damage!"
-			playsound(src.loc, 'sound/arcade/hit.ogg', 20, 1, extrarange = -6, falloff = 10)
+			playsound(loc, 'sound/arcade/hit.ogg', 50, TRUE)
 			updateUsrDialog()
 			if(turtle > 0)
 				turtle--
@@ -128,7 +127,7 @@
 			var/pointamt = rand(1,3)
 			var/healamt = rand(6,8)
 			temp = "You use [pointamt] magic to heal for [healamt] damage!"
-			playsound(src.loc, 'sound/arcade/heal.ogg', 20, 1, extrarange = -6, falloff = 10)
+			playsound(loc, 'sound/arcade/heal.ogg', 50, TRUE)
 			updateUsrDialog()
 			turtle++
 
@@ -143,7 +142,7 @@
 			blocked = 1
 			var/chargeamt = rand(4,7)
 			temp = "You regain [chargeamt] points"
-			playsound(src.loc, 'sound/arcade/mana.ogg', 20, 1, extrarange = -6, falloff = 10)
+			playsound(loc, 'sound/arcade/mana.ogg', 50, TRUE)
 			player_mp += chargeamt
 			if(turtle > 0)
 				turtle--
@@ -166,7 +165,7 @@
 		turtle = 0
 
 		if(emagged)
-			New()
+			Reset()
 			emagged = 0
 
 	add_fingerprint(usr)
@@ -178,31 +177,31 @@
 		if(!gameover)
 			gameover = 1
 			temp = "[enemy_name] has fallen! Rejoice!"
-			playsound(src.loc, 'sound/arcade/win.ogg', 20, 1, extrarange = -6, falloff = 10)
+			playsound(loc, 'sound/arcade/win.ogg', 50, TRUE)
 
 			if(emagged)
-				feedback_inc("arcade_win_emagged")
+				SSblackbox.record_feedback("tally", "arcade_status", 1, "win_emagged")
 				new /obj/effect/spawner/newbomb/timer/syndicate(get_turf(src))
 				new /obj/item/clothing/head/collectable/petehat(get_turf(src))
 				message_admins("[key_name_admin(usr)] has outbombed Cuban Pete and been awarded a bomb.")
 				log_game("[key_name(usr)] has outbombed Cuban Pete and been awarded a bomb.")
-				New()
+				Reset()
 				emagged = 0
 			else
-				feedback_inc("arcade_win_normal")
+				SSblackbox.record_feedback("tally", "arcade_status", 1, "win_normal")
 				var/score = player_hp + player_mp + 5
 				prizevend(score)
 
 	else if(emagged && (turtle >= 4))
 		var/boomamt = rand(5,10)
 		temp = "[enemy_name] throws a bomb, exploding you for [boomamt] damage!"
-		playsound(src.loc, 'sound/arcade/boom.ogg', 20, 1, extrarange = -6, falloff = 10)
+		playsound(loc, 'sound/arcade/boom.ogg', 50, TRUE)
 		player_hp -= boomamt
 
 	else if((enemy_mp <= 5) && (prob(70)))
 		var/stealamt = rand(2,3)
 		temp = "[enemy_name] steals [stealamt] of your power!"
-		playsound(src.loc, 'sound/arcade/steal.ogg', 20, 1, extrarange = -6, falloff = 10)
+		playsound(loc, 'sound/arcade/steal.ogg', 50, TRUE)
 		player_mp -= stealamt
 		updateUsrDialog()
 
@@ -210,34 +209,34 @@
 			gameover = 1
 			sleep(10)
 			temp = "You have been drained! GAME OVER"
-			playsound(src.loc, 'sound/arcade/lose.ogg', 20, 1, extrarange = -6, falloff = 10)
+			playsound(loc, 'sound/arcade/lose.ogg', 50, TRUE)
 			if(emagged)
-				feedback_inc("arcade_loss_mana_emagged")
+				SSblackbox.record_feedback("tally", "arcade_status", 1, "loss_mana_emagged")
 				usr.gib()
 			else
-				feedback_inc("arcade_loss_mana_normal")
+				SSblackbox.record_feedback("tally", "arcade_status", 1, "loss_mana_normal")
 
 	else if((enemy_hp <= 10) && (enemy_mp > 4))
 		temp = "[enemy_name] heals for 4 health!"
-		playsound(src.loc, 'sound/arcade/heal.ogg', 20, 1, extrarange = -6, falloff = 10)
+		playsound(loc, 'sound/arcade/heal.ogg', 50, TRUE)
 		enemy_hp += 4
 		enemy_mp -= 4
 
 	else
 		var/attackamt = rand(3,6)
 		temp = "[enemy_name] attacks for [attackamt] damage!"
-		playsound(src.loc, 'sound/arcade/hit.ogg', 20, 1, extrarange = -6, falloff = 10)
+		playsound(loc, 'sound/arcade/hit.ogg', 50, TRUE)
 		player_hp -= attackamt
 
 	if((player_mp <= 0) || (player_hp <= 0))
 		gameover = 1
 		temp = "You have been crushed! GAME OVER"
-		playsound(src.loc, 'sound/arcade/lose.ogg', 20, 1, extrarange = -6, falloff = 10)
+		playsound(loc, 'sound/arcade/lose.ogg', 50, TRUE)
 		if(emagged)
-			feedback_inc("arcade_loss_hp_emagged")
+			SSblackbox.record_feedback("tally", "arcade_status", 1, "loss_hp_emagged")
 			usr.gib()
 		else
-			feedback_inc("arcade_loss_hp_normal")
+			SSblackbox.record_feedback("tally", "arcade_status", 1, "loss_hp_normal")
 
 	blocked = 0
 	return
@@ -311,7 +310,7 @@
 	var/spaceport_freebie = 0
 	var/last_spaceport_action = ""
 
-/obj/machinery/computer/arcade/orion_trail/New()
+/obj/machinery/computer/arcade/orion_trail/Reset()
 	// Sets up the main trail
 	stops = list("Pluto","Asteroid Belt","Proxima Centauri","Dead Space","Rigel Prime","Tau Ceti Beta","Black Hole","Space Outpost Beta-9","Orion Prime")
 	stopblurbs = list(
@@ -367,7 +366,7 @@
 			if(food <= 0)
 				dat += "<br>You ran out of food and starved."
 				if(emagged)
-					user.nutrition = 0 //yeah you pretty hongry
+					user.set_nutrition(0) //yeah you pretty hongry
 					to_chat(user, "<span class='userdanger'><font size=3>Your body instantly contracts to that of one who has not eaten in months. Agonizing cramps seize you as you fall to the floor.</span>")
 			if(fuel <= 0)
 				dat += "<br>You ran out of fuel, and drift, slowly, into a star."
@@ -452,7 +451,7 @@
 					else
 						to_chat(usr, "<span class='userdanger'>Something strikes you from behind! It hurts like hell and feel like a blunt weapon, but nothing is there...</span>")
 						M.take_organ_damage(30)
-						playsound(loc, 'sound/weapons/genhit2.ogg', 100, 1)
+						playsound(loc, 'sound/weapons/genhit2.ogg', 100, TRUE)
 				if(ORION_TRAIL_ILLNESS)
 					var/severity = rand(1,3) //pray to RNGesus. PRAY, PIGS
 					if(severity == 1)
@@ -466,8 +465,8 @@
 						M.Stun(5)
 						sleep(30)
 						atom_say("[M] violently throws up!")
-						playsound(loc, 'sound/effects/splat.ogg', 50, 1)
-						M.nutrition -= 50 //lose a lot of food
+						playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
+						M.adjust_nutrition(-50) //lose a lot of food
 						var/turf/location = usr.loc
 						if(istype(location, /turf/simulated))
 							location.add_vomit_floor(TRUE)
@@ -476,12 +475,12 @@
 						M.Weaken(3)
 						atom_say("A sudden gust of powerful wind slams [M] into the floor!")
 						M.take_organ_damage(25)
-						playsound(src.loc, 'sound/weapons/genhit.ogg', 100, 1)
+						playsound(loc, 'sound/weapons/genhit.ogg', 100, TRUE)
 					else
 						to_chat(M, "<span class='userdanger'>A violent gale blows past you, and you barely manage to stay standing!</span>")
 				if(ORION_TRAIL_COLLISION) //by far the most damaging event
 					if(prob(90))
-						playsound(src.loc, 'sound/effects/bang.ogg', 100, 1)
+						playsound(loc, 'sound/effects/bang.ogg', 100, TRUE)
 						var/turf/simulated/floor/F
 						for(F in orange(1, src))
 							F.ChangeTurf(F.baseturf)
@@ -489,15 +488,15 @@
 						if(hull)
 							sleep(10)
 							atom_say("A new floor suddenly appears around [src]. What the hell?")
-							playsound(src.loc, 'sound/weapons/genhit.ogg', 100, 1)
+							playsound(loc, 'sound/weapons/genhit.ogg', 100, TRUE)
 							var/turf/space/T
 							for(T in orange(1, src))
-								T.ChangeTurf(/turf/simulated/floor/plating/)
+								T.ChangeTurf(/turf/simulated/floor/plating)
 					else
 						atom_say("Something slams into the floor around [src] - luckily, it didn't get through!")
-						playsound(src.loc, 'sound/effects/bang.ogg', 20, 1)
+						playsound(loc, 'sound/effects/bang.ogg', 50, TRUE)
 				if(ORION_TRAIL_MALFUNCTION)
-					playsound(src.loc, 'sound/effects/empulse.ogg', 20, 1)
+					playsound(loc, 'sound/effects/empulse.ogg', 50, TRUE)
 					visible_message("<span class='danger'>[src] malfunctions, randomizing in-game stats!</span>")
 					var/oldfood = food
 					var/oldfuel = fuel
@@ -511,7 +510,7 @@
 							audible_message("<span class='danger'>[src] lets out a somehow ominous chime.</span>")
 						food = oldfood
 						fuel = oldfuel
-						playsound(src.loc, 'sound/machines/chime.ogg', 20, 1)
+						playsound(loc, 'sound/machines/chime.ogg', 50, TRUE)
 
 	else if(href_list["newgame"]) //Reset everything
 		newgame()
@@ -554,7 +553,7 @@
 			event = ORION_TRAIL_BLACKHOLE
 			event()
 			if(emagged) //has to be here because otherwise it doesn't work
-				playsound(src.loc, 'sound/effects/supermatter.ogg', 100, 1)
+				playsound(loc, 'sound/effects/supermatter.ogg', 100, TRUE)
 				atom_say("A miniature black hole suddenly appears in front of [src], devouring [usr] alive!")
 				usr.Stun(10) //you can't run :^)
 				var/S = new /obj/singularity/academy(usr.loc)
@@ -572,20 +571,22 @@
 		event = null
 
 	else if(href_list["killcrew"]) //shoot a crewmember
+		if(length(settlers) <= 0 || alive <= 0)
+			return
 		var/sheriff = remove_crewmember() //I shot the sheriff
-		playsound(loc,'sound/weapons/gunshots/gunshot.ogg', 100, 1)
+		playsound(loc, 'sound/weapons/gunshots/gunshot.ogg', 100, TRUE)
 
-		if(settlers.len == 0 || alive == 0)
+		if(length(settlers) == 0 || alive == 0)
 			atom_say("The last crewmember [sheriff], shot themselves, GAME OVER!")
 			if(emagged)
-				usr.death(0)
-				emagged = 0
-			gameover = 1
+				usr.death(FALSE)
+				emagged = FALSE
+			gameover = TRUE
 			event = null
 		else if(emagged)
 			if(usr.name == sheriff)
 				atom_say("The crew of the ship chose to kill [usr.name]!")
-				usr.death(0)
+				usr.death(FALSE)
 
 		if(event == ORION_TRAIL_LING) //only ends the ORION_TRAIL_LING event, since you can do this action in multiple places
 			event = null
@@ -980,13 +981,12 @@
 	var/active = 0 //if the ship is on
 
 /obj/item/orion_ship/examine(mob/user)
-	..()
-	if(!(in_range(user, src)))
-		return
-	if(!active)
-		to_chat(user, "<span class='notice'>There's a little switch on the bottom. It's flipped down.</span>")
-	else
-		to_chat(user, "<span class='notice'>There's a little switch on the bottom. It's flipped up.</span>")
+	. = ..()
+	if(in_range(user, src))
+		if(!active)
+			. += "<span class='notice'>There's a little switch on the bottom. It's flipped down.</span>"
+		else
+			. += "<span class='notice'>There's a little switch on the bottom. It's flipped up.</span>"
 
 /obj/item/orion_ship/attack_self(mob/user) //Minibomb-level explosion. Should probably be more because of how hard it is to survive the machine! Also, just over a 5-second fuse
 	if(active)
@@ -998,14 +998,14 @@
 	to_chat(user, "<span class='warning'>You flip the switch on the underside of [src].</span>")
 	active = 1
 	visible_message("<span class='notice'>[src] softly beeps and whirs to life!</span>")
-	playsound(src.loc, 'sound/machines/defib_saftyon.ogg', 25, 1)
+	playsound(loc, 'sound/machines/defib_saftyon.ogg', 25, TRUE)
 	atom_say("This is ship ID #[rand(1,1000)] to Orion Port Authority. We're coming in for landing, over.")
 	sleep(20)
 	visible_message("<span class='warning'>[src] begins to vibrate...</span>")
 	atom_say("Uh, Port? Having some issues with our reactor, could you check it out? Over.")
 	sleep(30)
 	atom_say("Oh, God! Code Eight! CODE EIGHT! IT'S GONNA BL-")
-	playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 25, 1)
+	playsound(loc, 'sound/machines/buzz-sigh.ogg', 25, TRUE)
 	sleep(3.6)
 	visible_message("<span class='userdanger'>[src] explodes!</span>")
 	explosion(src.loc, 1,2,4, flame_range = 3)

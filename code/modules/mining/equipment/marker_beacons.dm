@@ -20,6 +20,8 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	desc = "Prism-brand path illumination devices. Used by miners to mark paths and warn of danger."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "marker"
+	armor = list("melee" = 50, "bullet" = 75, "laser" = 75, "energy" = 75, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 25, "acid" = 0)
+	max_integrity = 50
 	merge_type = /obj/item/stack/marker_beacon
 	max_amount = 100
 	var/picked_color = "random"
@@ -35,9 +37,9 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	update_icon()
 
 /obj/item/stack/marker_beacon/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>Use in-hand to place a [singular_name].</span>")
-	to_chat(user, "<span class='notice'>Alt-click to select a color. Current color is [picked_color].</span>")
+	. = ..()
+	. += "<span class='notice'>Use in-hand to place a [singular_name].</span>"
+	. += "<span class='notice'>Alt-click to select a color. Current color is [picked_color].</span>"
 
 /obj/item/stack/marker_beacon/update_icon()
 	icon_state = "[initial(icon_state)][lowertext(picked_color)]"
@@ -56,10 +58,10 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 		transfer_fingerprints_to(M)
 
 /obj/item/stack/marker_beacon/AltClick(mob/living/user)
-	if(!istype(user) || CanUseTopic(user, physical_state) != STATUS_INTERACTIVE)
+	if(!istype(user) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
 		return
 	var/input_color = input(user, "Choose a color.", "Beacon Color") as null|anything in GLOB.marker_beacon_colors
-	if(!istype(user) || CanUseTopic(user, physical_state) != STATUS_INTERACTIVE)
+	if(!istype(user) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
 		return
 	if(input_color)
 		picked_color = input_color
@@ -85,15 +87,15 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	update_icon()
 
 /obj/structure/marker_beacon/deconstruct(disassembled = TRUE)
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		var/obj/item/stack/marker_beacon/M = new(loc)
 		M.picked_color = picked_color
 		M.update_icon()
 	qdel(src)
 
 /obj/structure/marker_beacon/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>Alt-click to select a color. Current color is [picked_color].</span>")
+	. = ..()
+	. += "<span class='notice'>Alt-click to select a color. Current color is [picked_color].</span>"
 
 /obj/structure/marker_beacon/update_icon()
 	while(!picked_color || !GLOB.marker_beacon_colors[picked_color])
@@ -105,15 +107,18 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	. = ..()
 	if(.)
 		return
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
 	to_chat(user, "<span class='notice'>You start picking [src] up...</span>")
 	if(do_after(user, remove_speed, target = src))
 		var/obj/item/stack/marker_beacon/M = new(loc)
 		M.picked_color = picked_color
 		M.update_icon()
 		transfer_fingerprints_to(M)
-		if(user.put_in_hands(M, TRUE)) //delete the beacon if it fails
-			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
-			qdel(src) //otherwise delete us
+		user.put_in_hands(M)
+		playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
+		qdel(src)
 
 /obj/structure/marker_beacon/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/marker_beacon))
@@ -128,10 +133,10 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 
 /obj/structure/marker_beacon/AltClick(mob/living/user)
 	..()
-	if(!istype(user) || CanUseTopic(user, physical_state) != STATUS_INTERACTIVE)
+	if(!istype(user) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
 		return
 	var/input_color = input(user, "Choose a color.", "Beacon Color") as null|anything in GLOB.marker_beacon_colors
-	if(!istype(user) || CanUseTopic(user, physical_state) != STATUS_INTERACTIVE)
+	if(!istype(user) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
 		return
 	if(input_color)
 		picked_color = input_color

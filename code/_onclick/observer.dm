@@ -15,8 +15,8 @@
 
 	// Otherwise jump
 	else
-		following = null
 		forceMove(get_turf(A))
+		update_parallax_contents()
 
 /mob/dead/observer/ClickOn(var/atom/A, var/params)
 	if(client.click_intercept)
@@ -41,6 +41,9 @@
 			if(M)
 				admin_mob_info(M)
 			return
+	if(modifiers["middle"])
+		MiddleClickOn(A)
+		return
 	if(modifiers["shift"])
 		ShiftClickOn(A)
 		return
@@ -55,8 +58,18 @@
 /mob/dead/observer/ShiftClickOn(var/atom/A)
 	examinate(A)
 
-/atom/proc/attack_ghost(mob/user as mob)
+/atom/proc/attack_ghost(mob/user)
 	return
+
+// health + cyborg analyzer for ghosts
+/mob/living/attack_ghost(mob/dead/observer/user)
+	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the health_scan var.
+		return
+	if(user.client && user.health_scan)
+		if(issilicon(src) || ismachineperson(src))
+			robot_healthscan(user, src)
+		else if(ishuman(src))
+			healthscan(user, src, 1, TRUE)
 
 // ---------------------------------------
 // And here are some good things for free:

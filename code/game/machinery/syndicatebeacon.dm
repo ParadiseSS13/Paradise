@@ -57,9 +57,6 @@
 				return
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/N = M
-			SSticker.mode.equip_traitor(N)
-			SSticker.mode.traitors += N.mind
-			N.mind.special_role = SPECIAL_ROLE_TRAITOR
 			var/objective = "Free Objective"
 			switch(rand(1,100))
 				if(1 to 50)
@@ -74,23 +71,21 @@
 					objective = "Kill all monkeys aboard the station."
 				else
 					objective = "Make certain at least 80% of the station evacuates on the shuttle."
+
 			var/datum/objective/custom_objective = new(objective)
 			custom_objective.owner = N.mind
 			N.mind.objectives += custom_objective
-
 			var/datum/objective/escape/escape_objective = new
 			escape_objective.owner = N.mind
 			N.mind.objectives += escape_objective
 
+			var/datum/antagonist/traitor/T = new()
+			T.give_objectives = FALSE
+			N.mind.add_antag_datum(T)
 
 			to_chat(M, "<B>You have joined the ranks of the Syndicate and become a traitor to the station!</B>")
-
 			message_admins("[key_name_admin(N)] has accepted a traitor objective from a syndicate beacon.")
 
-			var/obj_count = 1
-			for(var/datum/objective/OBJ in M.mind.objectives)
-				to_chat(M, "<B>Objective #[obj_count]</B>: [OBJ.explanation_text]")
-				obj_count++
 
 	src.add_fingerprint(usr)
 	src.updateUsrDialog()
@@ -126,7 +121,8 @@
 		if(user)
 			to_chat(user, "<span class='notice'>The connected wire doesn't have enough current.</span>")
 		return
-	for(var/obj/singularity/singulo in GLOB.singularities)
+	for(var/thing in GLOB.singularities)
+		var/obj/singularity/singulo = thing
 		if(singulo.z == z)
 			singulo.target = src
 	icon_state = "[icontype]1"
@@ -137,7 +133,8 @@
 
 
 /obj/machinery/power/singularity_beacon/proc/Deactivate(mob/user = null)
-	for(var/obj/singularity/singulo in world)
+	for(var/thing in GLOB.singularities)
+		var/obj/singularity/singulo = thing
 		if(singulo.target == src)
 			singulo.target = null
 	icon_state = "[icontype]0"
@@ -158,26 +155,24 @@
 		return
 
 
-/obj/machinery/power/singularity_beacon/attackby(obj/item/I, mob/user, params)
-	if(isscrewdriver(I))
-		if(active)
-			to_chat(user, "<span class='warning'>You need to deactivate the beacon first!</span>")
-			return
-
-		if(anchored)
-			anchored = FALSE
-			to_chat(user, "<span class='notice'>You unscrew the beacon from the floor.</span>")
-			disconnect_from_network()
-			return
-		else
-			if(!connect_to_network())
-				to_chat(user, "This device must be placed over an exposed cable.")
-				return
-			anchored = TRUE
-			to_chat(user, "<span class='notice'>You screw the beacon to the floor and attach the cable.</span>")
+/obj/machinery/power/singularity_beacon/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(active)
+		to_chat(user, "<span class='warning'>You need to deactivate the beacon first!</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(anchored)
+		anchored = FALSE
+		to_chat(user, "<span class='notice'>You unscrew the beacon from the floor.</span>")
+		disconnect_from_network()
+		return
 	else
-		return ..()
-
+		if(!connect_to_network())
+			to_chat(user, "This device must be placed over an exposed cable.")
+			return
+		anchored = TRUE
+		to_chat(user, "<span class='notice'>You screw the beacon to the floor and attach the cable.</span>")
 
 /obj/machinery/power/singularity_beacon/Destroy()
 	if(active)

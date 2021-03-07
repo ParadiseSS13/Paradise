@@ -17,6 +17,7 @@
 	desc = "Mash to turn into a poultice."
 	icon_state = "tea_astra_leaves"
 	color = "#378C61"
+	tastes = list("comfrey" = 1)
 	bitesize_mod = 2
 
 /obj/item/reagent_containers/food/snacks/grown/comfrey/attack_self(mob/user)
@@ -43,6 +44,7 @@
 	desc = "Mash to turn into a poultice."
 	icon_state = "ambrosiavulgaris"
 	color = "#4CC5C7"
+	tastes = list("aloe" = 1)
 	bitesize_mod = 2
 
 /obj/item/reagent_containers/food/snacks/grown/aloe/attack_self(mob/user)
@@ -51,3 +53,28 @@
 	to_chat(user, "<span class='notice'>You mash [src] into a poultice.</span>")
 	user.drop_item()
 	qdel(src)
+
+// mint
+/obj/item/seeds/mint
+	name = "pack of mint seeds"
+	desc = "These seeds grow into mint plants."
+	icon_state = "seed-mint"
+	species = "mint"
+	plantname = "Mint Plant"
+	product = /obj/item/reagent_containers/food/snacks/grown/mint
+	lifespan = 20
+	maturation = 4
+	production = 5
+	yield = 5
+	growthstages = 3
+	icon_dead = "mint-dead"
+	reagents_add = list("mint" = 0.03, "plantmatter" = 0.03)
+
+/obj/item/reagent_containers/food/snacks/grown/mint
+	seed = /obj/item/seeds/mint
+	name = "mint leaves"
+	desc = "Process for mint. Distill for menthol. No need to experi-mint." //haha
+	icon_state = "mint"
+	tastes = list("mint" = 1)
+	filling_color = "#A7EE9F"
+	distill_reagent = "menthol"

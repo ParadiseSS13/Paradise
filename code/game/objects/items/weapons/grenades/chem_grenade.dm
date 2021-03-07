@@ -26,6 +26,7 @@
 	var/cores = "" // Also for logging
 
 /obj/item/grenade/chem_grenade/New()
+	..()
 	create_reagents(1000)
 	if(payload_name)
 		payload_name += " " // formatting, ignore me
@@ -37,7 +38,7 @@
 	return ..()
 
 /obj/item/grenade/chem_grenade/examine(mob/user)
-	..(user)
+	. = ..()
 	display_timer = (stage == READY && !nadeassembly)	//show/hide the timer based on assembly state
 
 
@@ -100,9 +101,9 @@
 			update_icon()
 		else if(clown_check(user))
 			// This used to go before the assembly check, but that has absolutely zero to do with priming the damn thing.  You could spam the admins with it.
-			message_admins("[key_name_admin(usr)] has primed a [name] for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> [contained].")
 			log_game("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) [contained].")
 			investigate_log("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])[contained].", INVESTIGATE_BOMB)
+			add_attack_logs(user, src, "has primed (contained [contained])", ATKLOG_FEW)
 			to_chat(user, "<span class='warning'>You prime the [name]! [det_time / 10] second\s!</span>")
 			playsound(user.loc, 'sound/weapons/armbomb.ogg', 60, 1)
 			active = 1
@@ -113,9 +114,13 @@
 			spawn(det_time)
 				prime()
 
-/obj/item/grenade/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
-	if(damage && attack_type == PROJECTILE_ATTACK && prob(15))
+/obj/item/grenade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	var/obj/item/projectile/P = hitby
+	if(damage && attack_type == PROJECTILE_ATTACK && P.damage_type != STAMINA && prob(15))
 		owner.visible_message("<span class='danger'>[attack_text] hits [owner]'s [src], setting it off! What a shot!</span>")
+		var/turf/T = get_turf(src)
+		log_game("A projectile ([hitby]) detonated a grenade held by [key_name(owner)] at [COORD(T)]")
+		add_attack_logs(P.firer, owner, "A projectile ([hitby]) detonated a grenade held", ATKLOG_FEW)
 		prime()
 		return 1 //It hit the grenade, not them
 
@@ -144,16 +149,16 @@
 					if(!O.reagents) continue
 					if(istype(O,/obj/item/slime_extract))
 						cores += " [O]"
-					for(var/reagent in O.reagents.reagent_list)
-						contained += " [reagent] "
+					for(var/R in O.reagents.reagent_list)
+						var/datum/reagent/reagent = R
+						contained += "[reagent.volume] [reagent], "
 				if(contained)
 					if(cores)
-						contained = "\[[cores];[contained]\]"
+						contained = "\[[cores]; [contained]\]"
 					else
-						contained = "\[[contained]\]"
+						contained = "\[ [contained]\]"
 				var/turf/bombturf = get_turf(loc)
-				var/area/A = bombturf.loc
-				message_admins("[key_name_admin(usr)] has completed [name] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> [contained].")
+				add_attack_logs(user, src, "has completed with [contained]", ATKLOG_MOST)
 				log_game("[key_name(usr)] has completed [name] at [bombturf.x], [bombturf.y], [bombturf.z]. [contained]")
 			else
 				to_chat(user, "<span class='notice'>You need to add at least one beaker before locking the assembly.</span>")
@@ -185,6 +190,8 @@
 
 		user.drop_item()
 		nadeassembly = A
+		if(nadeassembly.has_prox_sensors())
+			AddComponent(/datum/component/proximity_monitor)
 		A.master = src
 		A.loc = src
 		assemblyattacher = user.ckey
@@ -214,6 +221,7 @@
 			nadeassembly.loc = get_turf(src)
 			nadeassembly.master = null
 			nadeassembly = null
+			qdel(GetComponent(/datum/component/proximity_monitor))
 		if(beakers.len)
 			for(var/obj/O in beakers)
 				O.loc = get_turf(src)
@@ -239,9 +247,9 @@
 	if(nadeassembly)
 		nadeassembly.process_movement()
 
-/obj/item/grenade/chem_grenade/Crossed(atom/movable/AM)
+/obj/item/grenade/chem_grenade/Crossed(atom/movable/AM, oldloc)
 	if(nadeassembly)
-		nadeassembly.Crossed(AM)
+		nadeassembly.Crossed(AM, oldloc)
 
 /obj/item/grenade/chem_grenade/on_found(mob/finder)
 	if(nadeassembly)
@@ -289,7 +297,7 @@
 		var/mob/last = get_mob_by_ckey(nadeassembly.fingerprintslast)
 		var/turf/T = get_turf(src)
 		var/area/A = get_area(T)
-		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)][ADMIN_QUE(M,"(?)")] ([admin_jump_link(M)]) and last touched by [key_name_admin(last)][ADMIN_QUE(last,"(?)")] ([admin_jump_link(last)]) ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>. [contained]")
+		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>. [contained]")
 		log_game("grenade primed by an assembly, attached by [key_name(M)] and last touched by [key_name(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [A.name] ([T.x], [T.y], [T.z]) [contained]")
 
 	update_mob()
@@ -299,6 +307,8 @@
 /obj/item/grenade/chem_grenade/proc/CreateDefaultTrigger(var/typekey)
 	if(ispath(typekey,/obj/item/assembly))
 		nadeassembly = new(src)
+		if(nadeassembly.has_prox_sensors())
+			AddComponent(/datum/component/proximity_monitor)
 		nadeassembly.a_left = new /obj/item/assembly/igniter(nadeassembly)
 		nadeassembly.a_left.holder = nadeassembly
 		nadeassembly.a_left.secured = 1
@@ -383,18 +393,18 @@
 	origin_tech = "combat=3;engineering=4"
 	var/unit_spread = 10 // Amount of units per repeat. Can be altered with a multitool.
 
-/obj/item/grenade/chem_grenade/adv_release/attackby(obj/item/I, mob/user, params)
-	if(ismultitool(I))
-		switch(unit_spread)
-			if(0 to 24)
-				unit_spread += 5
-			if(25 to 99)
-				unit_spread += 25
-			else
-				unit_spread = 5
-		to_chat(user, "<span class='notice'> You set the time release to [unit_spread] units per detonation.</span>")
+/obj/item/grenade/chem_grenade/adv_release/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	..()
+	switch(unit_spread)
+		if(0 to 24)
+			unit_spread += 5
+		if(25 to 99)
+			unit_spread += 25
+		else
+			unit_spread = 5
+	to_chat(user, "<span class='notice'> You set the time release to [unit_spread] units per detonation.</span>")
 
 /obj/item/grenade/chem_grenade/adv_release/prime()
 	if(stage != READY)
@@ -419,7 +429,7 @@
 		var/mob/last = get_mob_by_ckey(nadeassembly.fingerprintslast)
 		var/turf/T = get_turf(src)
 		var/area/A = get_area(T)
-		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)][ADMIN_QUE(M,"(?)")] ([ADMIN_FLW(M,"FLW")]) and last touched by [key_name_admin(last)][ADMIN_QUE(last,"(?)")] ([ADMIN_FLW(last,"FLW")]) ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.")
+		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.")
 		log_game("grenade primed by an assembly, attached by [key_name(M)] and last touched by [key_name(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [A.name] ([T.x], [T.y], [T.z])")
 	else
 		addtimer(CALLBACK(src, .proc/prime), det_time)
@@ -563,7 +573,7 @@
 	update_icon()
 
 /obj/item/grenade/chem_grenade/saringas
-	payload_name = "saringas"
+	payload_name = "sarin gas"
 	desc = "Contains sarin gas; extremely deadly and fast acting; use with extreme caution."
 	stage = READY
 

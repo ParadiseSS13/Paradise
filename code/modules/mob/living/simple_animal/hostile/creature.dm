@@ -1,7 +1,6 @@
 /mob/living/simple_animal/hostile/creature
 	name = "creature"
 	desc = "A sanity-destroying otherthing."
-	icon = 'icons/mob/critter.dmi'
 	speak_emote = list("gibbers")
 	icon_state = "otherthing"
 	icon_living = "otherthing"
@@ -14,5 +13,5 @@
 	attacktext = "chomps"
 	attack_sound = 'sound/weapons/bite.ogg'
 	faction = list("creature")
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	gold_core_spawnable = HOSTILE_SPAWN
 

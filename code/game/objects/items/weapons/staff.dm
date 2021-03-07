@@ -10,7 +10,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	armour_penetration = 100
 	attack_verb = list("bludgeoned", "whacked", "disciplined")
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 /obj/item/twohanded/staff/broom
 	name = "broom"

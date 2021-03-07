@@ -93,13 +93,15 @@ Class Procs:
 	Compiled by Aygar
 */
 
+#define MACHINE_FLICKER_CHANCE 0.05 // roughly 1/2000 chance of a machine flickering on any given tick. That means in a two hour round each machine will flicker on average a little less than two times.
+
 /obj/machinery
 	name = "machinery"
 	icon = 'icons/obj/stationobjs.dmi'
-	pressure_resistance = 10
+	pressure_resistance = 15
+	max_integrity = 200
 	layer = BELOW_OBJ_LAYER
 	var/stat = 0
-	var/emagged = 0
 	var/use_power = IDLE_POWER_USE
 		//0 = dont run the auto
 		//1 = run auto, use idle
@@ -109,20 +111,36 @@ Class Procs:
 	var/power_channel = EQUIP //EQUIP,ENVIRON or LIGHT
 	var/list/component_parts = null //list of all the parts used to build it, if made from certain kinds of frames.
 	var/uid
-	var/manual = 0
 	var/global/gl_uid = 1
-	var/custom_aghost_alerts=0
 	var/panel_open = 0
 	var/area/myArea
 	var/interact_offline = 0 // Can the machine be interacted with while de-powered.
-	var/use_log = list()
-	var/list/settagwhitelist = list()//WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
+	var/list/settagwhitelist // (Init this list if needed) WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
 	atom_say_verb = "beeps"
 	var/siemens_strength = 0.7 // how badly will it shock you?
+	/// The frequency on which the machine can communicate. Used with `/datum/radio_frequency`.
+	var/frequency = NONE
+	/// A reference to a `datum/radio_frequency`. Gives the machine the ability to interact with things using radio signals.
+	var/datum/radio_frequency/radio_connection
+	/// This is if the machinery is being repaired
+	var/being_repaired = FALSE
+
+/*
+ * reimp, attempts to flicker this machinery if the behavior is supported.
+ */
+/obj/machinery/get_spooked()
+	return flicker()
+
+/*
+ * Base class, attempt to flicker. Returns TRUE if we complete our 'flicker
+ * behavior', false otherwise.
+ */
+/obj/machinery/proc/flicker()
+	return FALSE
 
 /obj/machinery/Initialize(mapload)
 	if(!armor)
-		armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0)
+		armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
 	. = ..()
 	GLOB.machines += src
 
@@ -164,6 +182,9 @@ Class Procs:
 /obj/machinery/proc/locate_machinery()
 	return
 
+/obj/machinery/proc/set_frequency()
+	return
+
 /obj/machinery/process() // If you dont use process or power why are you here
 	return PROCESS_KILL
 
@@ -173,28 +194,13 @@ Class Procs:
 /obj/machinery/emp_act(severity)
 	if(use_power && !stat)
 		use_power(7500/severity)
-		new /obj/effect/temp_visual/emp(loc)
+		. = TRUE
 	..()
 
-/obj/machinery/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				qdel(src)
-				return
-		if(3.0)
-			if(prob(25))
-				qdel(src)
-				return
-		else
-	return
-
-/obj/machinery/blob_act()
-	if(prob(50))
-		qdel(src)
+/obj/machinery/default_welder_repair(mob/user, obj/item/I)
+	. = ..()
+	if(.)
+		stat &= ~BROKEN
 
 //sets the use_power var and then forces an area power update
 /obj/machinery/proc/update_use_power(var/new_use_power)
@@ -207,9 +213,11 @@ Class Procs:
 		use_power(idle_power_usage,power_channel, 1)
 	else if(use_power >= ACTIVE_POWER_USE)
 		use_power(active_power_usage,power_channel, 1)
+	if(prob(MACHINE_FLICKER_CHANCE))
+		flicker()
 	return 1
 
-/obj/machinery/proc/multitool_topic(var/mob/user,var/list/href_list,var/obj/O)
+/obj/machinery/proc/multitool_topic(mob/user, list/href_list, obj/O)
 	if("set_id" in href_list)
 		if(!("id_tag" in vars))
 			warning("set_id: [type] has no id_tag var.")
@@ -229,7 +237,7 @@ Class Procs:
 		if(newfreq)
 			if(findtext(num2text(newfreq), "."))
 				newfreq *= 10 // shift the decimal one place
-			src:frequency = sanitize_frequency(newfreq, RADIO_LOW_FREQ, RADIO_HIGH_FREQ)
+			set_frequency(sanitize_frequency(newfreq, RADIO_LOW_FREQ, RADIO_HIGH_FREQ))
 			return TRUE
 	return FALSE
 
@@ -239,7 +247,7 @@ Class Procs:
 	var/obj/item/multitool/P = get_multitool(usr)
 	if(P && istype(P))
 		var/update_mt_menu = FALSE
-		if("set_tag" in href_list)
+		if("set_tag" in href_list && settagwhitelist)
 			if(!(href_list["set_tag"] in settagwhitelist))//I see you're trying Href exploits, I see you're failing, I SEE ADMIN WARNING. (seriously though, this is a powerfull HREF, I originally found this loophole, I'm not leaving it in on my PR)
 				message_admins("set_tag HREF (var attempted to edit: [href_list["set_tag"]]) exploit attempted by [key_name_admin(user)] on [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 				return FALSE
@@ -305,7 +313,7 @@ Class Procs:
 			update_multitool_menu(usr)
 			return TRUE
 
-/obj/machinery/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state = default_state)
+/obj/machinery/Topic(href, href_list, var/nowindow = 0, var/datum/ui_state/state = GLOB.default_state)
 	if(..(href, href_list, nowindow, state))
 		return 1
 
@@ -319,7 +327,13 @@ Class Procs:
 /obj/machinery/proc/inoperable(var/additional_flags = 0)
 	return (stat & (NOPOWER|BROKEN|additional_flags))
 
-/obj/machinery/CanUseTopic(var/mob/user)
+/obj/machinery/ui_status(mob/user, datum/ui_state/state)
+	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
+		return STATUS_CLOSE
+
+	return ..()
+
+/obj/machinery/ui_status(mob/user, datum/ui_state/state)
 	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
 		return STATUS_CLOSE
 
@@ -384,26 +398,19 @@ Class Procs:
 
 /obj/machinery/proc/RefreshParts() //Placeholder proc for machines that are built using frames.
 	return
-	return 0
 
 /obj/machinery/proc/assign_uid()
 	uid = gl_uid
 	gl_uid++
 
-/obj/machinery/proc/default_deconstruction_crowbar(var/obj/item/crowbar/C, var/ignore_panel = 0)
-	if(istype(C) && (panel_open || ignore_panel))
-		playsound(loc, C.usesound, 50, 1)
-		deconstruct()
-		return 1
-	return 0
-
 /obj/machinery/deconstruct(disassembled = TRUE)
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		on_deconstruction()
 		if(component_parts && component_parts.len)
 			spawn_frame(disassembled)
 			for(var/obj/item/I in component_parts)
 				I.forceMove(loc)
+			component_parts.Cut()
 	qdel(src)
 
 /obj/machinery/proc/spawn_frame(disassembled)
@@ -417,12 +424,27 @@ Class Procs:
 	M.icon_state = "box_1"
 
 /obj/machinery/obj_break(damage_flag)
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		stat |= BROKEN
 
-/obj/machinery/proc/default_deconstruction_screwdriver(var/mob/user, var/icon_state_open, var/icon_state_closed, var/obj/item/screwdriver/S)
-	if(istype(S))
-		playsound(loc, S.usesound, 50, 1)
+/obj/machinery/proc/default_deconstruction_crowbar(user, obj/item/I, ignore_panel = 0)
+	if(I.tool_behaviour != TOOL_CROWBAR)
+		return FALSE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return FALSE
+	if((panel_open || ignore_panel) && !(flags & NODECONSTRUCT))
+		deconstruct(TRUE)
+		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
+		I.play_tool_sound(user, I.tool_volume)
+		return 1
+	return 0
+
+/obj/machinery/proc/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
+	if(I.tool_behaviour != TOOL_SCREWDRIVER)
+		return FALSE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return FALSE
+	if(!(flags & NODECONSTRUCT))
 		if(!panel_open)
 			panel_open = 1
 			icon_state = icon_state_open
@@ -431,39 +453,65 @@ Class Procs:
 			panel_open = 0
 			icon_state = icon_state_closed
 			to_chat(user, "<span class='notice'>You close the maintenance hatch of [src].</span>")
+		I.play_tool_sound(user, I.tool_volume)
 		return 1
 	return 0
 
-/obj/machinery/proc/default_change_direction_wrench(var/mob/user, var/obj/item/wrench/W)
-	if(panel_open && istype(W))
-		playsound(loc, W.usesound, 50, 1)
+/obj/machinery/proc/default_change_direction_wrench(mob/user, obj/item/I)
+	if(I.tool_behaviour != TOOL_WRENCH)
+		return FALSE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return FALSE
+	if(panel_open)
 		dir = turn(dir,-90)
 		to_chat(user, "<span class='notice'>You rotate [src].</span>")
-		return 1
-	return 0
+		I.play_tool_sound(user, I.tool_volume)
+		return TRUE
+	return FALSE
 
-/obj/proc/default_unfasten_wrench(mob/user, obj/item/wrench/W, time = 20)
-	if(istype(W))
-		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>")
-		playsound(loc, W.usesound, 50, 1)
-		if(do_after(user, time * W.toolspeed, target = src))
-			to_chat(user, "<span class='notice'>You've [anchored ? "un" : ""]secured [name].</span>")
-			anchored = !anchored
-			if(istype(src, /obj/machinery))
-				var/obj/machinery/M = src
-				M.power_change() //Turn on or off the machine depending on the status of power in the new area.
-			playsound(loc, W.usesound, 50, 1)
-		return 1
-	return 0
+/obj/machinery/default_unfasten_wrench(mob/user, obj/item/I, time)
+	. = ..()
+	if(.)
+		power_change()
 
+/obj/machinery/attackby(obj/item/O, mob/user, params)
+	if(istype(O, /obj/item/stack/nanopaste))
+		var/obj/item/stack/nanopaste/N = O
+		if(stat & BROKEN)
+			to_chat(user, "<span class='notice'>[src] is too damaged to be fixed with nanopaste!</span>")
+			return
+		if(obj_integrity == max_integrity)
+			to_chat(user, "<span class='notice'>[src] is fully intact.</span>")
+			return
+		if(being_repaired)
+			return
+		if(N.get_amount() < 1)
+			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>")
+			return
+		to_chat(user, "<span class='notice'>You start applying [O] to [src].</span>")
+		being_repaired = TRUE
+		var/result = do_after(user, 3 SECONDS, target = src)
+		being_repaired = FALSE
+		if(!result)
+			return
+		if(!N.use(1))
+			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>") // this is here, as we don't want to use nanopaste until you finish applying
+			return
+		obj_integrity = min(obj_integrity + 50, max_integrity)
+		user.visible_message("<span class='notice'>[user] applied some [O] at [src]'s damaged areas.</span>",\
+			"<span class='notice'>You apply some [O] at [src]'s damaged areas.</span>")
+	else
+		return ..()
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	var/shouldplaysound = 0
+	if((flags & NODECONSTRUCT))
+		return FALSE
 	if(istype(W) && component_parts)
 		if(panel_open || W.works_from_distance)
 			var/obj/item/circuitboard/CB = locate(/obj/item/circuitboard) in component_parts
 			var/P
 			if(W.works_from_distance)
-				display_parts(user)
+				to_chat(user, display_parts(user))
 			for(var/obj/item/stock_parts/A in component_parts)
 				for(var/D in CB.req_components)
 					if(ispath(A.type, D))
@@ -482,7 +530,7 @@ Class Procs:
 							break
 			RefreshParts()
 		else
-			display_parts(user)
+			to_chat(user, display_parts(user))
 		if(shouldplaysound)
 			W.play_rped_sound()
 		return 1
@@ -490,27 +538,28 @@ Class Procs:
 		return 0
 
 /obj/machinery/proc/display_parts(mob/user)
-	to_chat(user, "<span class='notice'>Following parts detected in the machine:</span>")
+	. = list("<span class='notice'>Following parts detected in the machine:</span>")
 	for(var/obj/item/C in component_parts)
-		to_chat(user, "<span class='notice'>[bicon(C)] [C.name]</span>")
+		. += "<span class='notice'>[bicon(C)] [C.name]</span>"
+	. = jointext(., "\n")
 
 /obj/machinery/examine(mob/user)
-	..()
+	. = ..()
 	if(stat & BROKEN)
-		to_chat(user, "<span class='notice'>It looks broken and non-functional.</span>")
+		. += "<span class='notice'>It looks broken and non-functional.</span>"
 	if(!(resistance_flags & INDESTRUCTIBLE))
-		if(burn_state == ON_FIRE)
-			to_chat(user, "<span class='warning'>It's on fire!</span>")
+		if(resistance_flags & ON_FIRE)
+			. += "<span class='warning'>It's on fire!</span>"
 		var/healthpercent = (obj_integrity/max_integrity) * 100
 		switch(healthpercent)
 			if(50 to 99)
-				to_chat(user,  "It looks slightly damaged.")
+				. +=  "It looks slightly damaged."
 			if(25 to 50)
-				to_chat(user,  "It appears heavily damaged.")
+				. +=  "It appears heavily damaged."
 			if(0 to 25)
-				to_chat(user,  "<span class='warning'>It's falling apart!</span>")
+				. +=  "<span class='warning'>It's falling apart!</span>"
 	if(user.research_scanner && component_parts)
-		display_parts(user)
+		. += display_parts(user)
 
 /obj/machinery/proc/on_assess_perp(mob/living/carbon/human/perp)
 	return 0
@@ -539,36 +588,33 @@ Class Procs:
 	if(check_access && !allowed(perp))
 		threatcount += 4
 
-	if(auth_weapons && !allowed(perp))
-		if(istype(perp.l_hand, /obj/item/gun) || istype(perp.l_hand, /obj/item/melee))
+	if(auth_weapons && (!id || !(ACCESS_WEAPONS in id.access)))
+		if(isitem(perp.l_hand) && perp.l_hand.needs_permit)
 			threatcount += 4
-
-		if(istype(perp.r_hand, /obj/item/gun) || istype(perp.r_hand, /obj/item/melee))
+		if(isitem(perp.r_hand) && perp.r_hand.needs_permit)
 			threatcount += 4
-
-		if(istype(perp.belt, /obj/item/gun) || istype(perp.belt, /obj/item/melee))
-			threatcount += 2
-
-		if(!ishumanbasic(perp)) //beepsky so racist.
-			threatcount += 2
+		if(isitem(perp.belt) && perp.belt.needs_permit)
+			threatcount += 4
 
 	if(check_records || check_arrest)
-		var/perpname = perp.name
-		if(id)
-			perpname = id.registered_name
+		var/perpname = perp.get_visible_name(TRUE)
 
 		var/datum/data/record/R = find_security_record("name", perpname)
 		if(check_records && !R)
 			threatcount += 4
 
-		if(check_arrest && R && (R.fields["criminal"] == "*Arrest*"))
-			threatcount += 4
+		if(R && R.fields["criminal"])
+			switch(R.fields["criminal"])
+				if(SEC_RECORD_STATUS_EXECUTE)
+					threatcount += 7
+				if(SEC_RECORD_STATUS_ARREST)
+					threatcount += 5
 
 	return threatcount
 
 
-/obj/machinery/proc/shock(mob/user, prb)
-	if(inoperable())
+/obj/machinery/proc/shock(mob/living/user, prb)
+	if(!istype(user) || inoperable())
 		return FALSE
 	if(!prob(prb))
 		return FALSE
@@ -587,14 +633,15 @@ Class Procs:
 /obj/machinery/proc/can_be_overridden()
 	. = 1
 
-/obj/machinery/tesla_act(power, explosive = FALSE)
-	..()
-	if(prob(85) && explosive)
-		explosion(loc, 1, 2, 4, flame_range = 2, adminlog = 0, smoke = 0)
-	else if(prob(50))
-		emp_act(EMP_LIGHT)
-	else
-		ex_act(EXPLODE_HEAVY)
+/obj/machinery/zap_act(power, zap_flags)
+	if(prob(85) && (zap_flags & ZAP_MACHINE_EXPLOSIVE) && !(resistance_flags & INDESTRUCTIBLE))
+		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE, smoke = FALSE)
+	else if(zap_flags & ZAP_OBJ_DAMAGE)
+		take_damage(power * 0.0005, BURN, "energy")
+		if(prob(40))
+			emp_act(EMP_LIGHT)
+		power -= power * 0.0005
+	return ..()
 
 /obj/machinery/proc/adjust_item_drop_location(atom/movable/AM)	// Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8
 	var/md5 = md5(AM.name)										// Oh, and it's deterministic too. A specific item will always drop from the same slot.

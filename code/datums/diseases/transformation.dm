@@ -57,6 +57,9 @@
 			W.plane = initial(W.plane)
 			W.loc = affected_mob.loc
 			W.dropped(affected_mob)
+		if(isobj(affected_mob.loc))
+			var/obj/O = affected_mob.loc
+			O.force_eject_occupant(affected_mob)
 		var/mob/living/new_mob = new new_form(affected_mob.loc)
 		if(istype(new_mob))
 			new_mob.a_intent = "harm"
@@ -186,7 +189,7 @@
 	stage3	= list("<span class='danger'>Your appendages are melting away.</span>", "<span class='danger'>Your limbs begin to lose their shape.</span>")
 	stage4	= list("<span class='danger'>You are turning into a slime.</span>")
 	stage5	= list("<span class='danger'>You have become a slime.</span>")
-	new_form = /mob/living/carbon/slime/random
+	new_form = /mob/living/simple_animal/slime/random
 
 /datum/disease/transformation/slime/stage_act()
 	..()
@@ -214,7 +217,7 @@
 	stage3	= list("<span class='danger'>Must... eat... chocolate....</span>", "<span class='danger'>YAP</span>")
 	stage4	= list("<span class='danger'>Visions of washing machines assail your mind!</span>")
 	stage5	= list("<span class='danger'>AUUUUUU!!!</span>")
-	new_form = /mob/living/simple_animal/pet/corgi
+	new_form = /mob/living/simple_animal/pet/dog/corgi
 
 /datum/disease/transformation/corgi/stage_act()
 	..()

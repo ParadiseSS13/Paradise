@@ -108,7 +108,9 @@
 	if(default_unfasten_wrench(user, P))
 		return
 
-	default_deconstruction_crowbar(P)
+	if(default_deconstruction_crowbar(user, P))
+		return
+	return ..()
 
 /obj/machinery/gibber/MouseDrop_T(mob/target, mob/user)
 	if(user.incapacitated() || !ishuman(user))
@@ -232,7 +234,7 @@
 		return
 
 	if(UserOverride)
-		msg_admin_attack("[key_name_admin(occupant)] was gibbed by an autogibber (\the [src]) [ADMIN_JMP(src)]")
+		add_attack_logs(user, occupant, "gibbed by an autogibber ([src])")
 		log_game("[key_name(occupant)] was gibbed by an autogibber ([src]) (X:[x] Y:[y] Z:[z])")
 
 	if(operating)
@@ -276,13 +278,9 @@
 	if(!UserOverride)
 		add_attack_logs(user, occupant, "Gibbed in [src]", !!occupant.ckey ? ATKLOG_FEW : ATKLOG_ALL)
 
-		if(!iscarbon(user))
-			occupant.LAssailant = null
-		else
-			occupant.LAssailant = user
-
 	else //this looks ugly but it's better than a copy-pasted startgibbing proc override
 		occupant.create_attack_log("Was gibbed by <b>an autogibber (\the [src])</b>")
+		add_attack_logs(src, occupant, "gibbed")
 
 	occupant.emote("scream")
 	playsound(get_turf(src), 'sound/goonstation/effects/gib.ogg', 50, 1)
@@ -389,8 +387,6 @@
 			var/obj/item/implant/I = O
 			if(I.implanted)
 				continue
-		if(istype(O,/obj/item/organ))
-			continue
 		if(O.flags & NODROP || stealthmode)
 			qdel(O) //they are already dead by now
 		H.unEquip(O)

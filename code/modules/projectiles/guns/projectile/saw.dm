@@ -7,7 +7,7 @@
 	slot_flags = 0
 	origin_tech = "combat=6;engineering=3;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/mm556x45
-	weapon_weight = WEAPON_MEDIUM
+	weapon_weight = WEAPON_HEAVY
 	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/lmg_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/lmg_magout.ogg'
@@ -23,7 +23,7 @@
 	update_icon()
 
 /obj/item/gun/projectile/automatic/l6_saw/update_icon()
-	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? Ceiling(get_ammo(0)/12.5)*25 : "-empty"][suppressed ? "-suppressed" : ""]"
+	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(0)/12.5, 1)*25 : "-empty"][suppressed ? "-suppressed" : ""]"
 	item_state = "l6[cover_open ? "openmag" : "closedmag"]"
 
 /obj/item/gun/projectile/automatic/l6_saw/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params) //what I tried to do here is just add a check to see if the cover is open or not and add an icon_state change because I can't figure out how c-20rs do it with overlays
@@ -50,14 +50,14 @@
 		to_chat(user, "<span class='notice'>You remove the magazine from [src].</span>")
 
 
-/obj/item/gun/projectile/automatic/l6_saw/attackby(obj/item/A, mob/user, params)	
+/obj/item/gun/projectile/automatic/l6_saw/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_box/magazine))
 		var/obj/item/ammo_box/magazine/AM = A
 		if(istype(AM, mag_type))
 			if(!cover_open)
 				to_chat(user, "<span class='warning'>[src]'s cover is closed! You can't insert a new mag.</span>")
 				return
-	..()
+	return ..()
 
 //ammo//
 
@@ -87,7 +87,7 @@
 	damage = 7
 	armour_penetration = 0
 
-obj/item/projectile/bullet/saw/incen/Move()
+/obj/item/projectile/bullet/saw/incen/Move()
 	..()
 	var/turf/location = get_turf(src)
 	if(location)
@@ -142,6 +142,8 @@ obj/item/projectile/bullet/saw/incen/Move()
 	icon_state = "762-casing"
 	caliber = "mm55645"
 	projectile_type = /obj/item/projectile/bullet/saw
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
 /obj/item/ammo_casing/mm556x45/bleeding
 	desc = "A 556x45mm bullet casing with specialized inner-casing, that when it makes contact with a target, release tiny shrapnel to induce internal bleeding."
@@ -159,3 +161,4 @@ obj/item/projectile/bullet/saw/incen/Move()
 /obj/item/ammo_casing/mm556x45/incen
 	desc = "A 556x45mm bullet casing designed with a chemical-filled capsule on the tip that when bursted, reacts with the atmosphere to produce a fireball, engulfing the target in flames. "
 	projectile_type = /obj/item/projectile/bullet/saw/incen
+	muzzle_flash_color = LIGHT_COLOR_FIRE

@@ -10,7 +10,7 @@
 	origin_tech = "bluespace=7"
 	equip_cooldown = 150
 	energy_drain = 8000
-	range = RANGED
+	range = MECHA_RANGED
 	var/tele_precision = 4
 
 /obj/item/mecha_parts/mecha_equipment/teleporter/action(atom/target)
@@ -39,7 +39,7 @@
 	origin_tech = "bluespace=4;magnets=4;plasmatech=2"
 	equip_cooldown = 50
 	energy_drain = 300
-	range = RANGED
+	range = MECHA_RANGED
 
 /obj/item/mecha_parts/mecha_equipment/wormhole_generator/action(atom/target)
 	if(!action_checks(target) || !is_teleport_allowed(loc.z))
@@ -85,12 +85,16 @@
 	origin_tech = "bluespace=3;magnets=3;engineering=4"
 	equip_cooldown = 10
 	energy_drain = 100
-	range = MELEE|RANGED
+	range = MECHA_MELEE | MECHA_RANGED
 	var/atom/movable/locked
+	var/cooldown_timer = 0
 	var/mode = 1 //1 - gravsling 2 - gravpush
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/action(atom/movable/target)
 	if(!action_checks(target))
+		return
+	if(cooldown_timer > world.time)
+		occupant_message("<span class='warning'>[src] is still recharging.</span>")
 		return
 	switch(mode)
 		if(1)
@@ -106,6 +110,7 @@
 					locked.throw_at(target, 14, 1.5)
 					locked = null
 					send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
+					cooldown_timer = world.time + 3 SECONDS
 					return 1
 				else
 					locked = null
@@ -118,13 +123,14 @@
 			else
 				atoms = orange(3, target)
 			for(var/atom/movable/A in atoms)
-				if(A.anchored) continue
+				if(A.anchored || A.move_resist == INFINITY) continue
 				spawn(0)
 					var/iter = 5-get_dist(A,target)
 					for(var/i=0 to iter)
 						step_away(A,target)
 						sleep(2)
 			var/turf/T = get_turf(target)
+			cooldown_timer = world.time + 3 SECONDS
 			log_game("[key_name(chassis.occupant)] used a Gravitational Catapult in ([T.x],[T.y],[T.z])")
 			return 1
 
@@ -206,6 +212,7 @@
 /obj/item/mecha_parts/mecha_equipment/repair_droid/detach()
 	chassis.overlays -= droid_overlay
 	STOP_PROCESSING(SSobj, src)
+	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/get_equip_info()
 	if(!chassis) return
@@ -245,8 +252,8 @@
 				chassis.clearInternalDamage(int_dam_flag)
 				repaired = 1
 				break
-	if(health_boost<0 || chassis.health < initial(chassis.health))
-		chassis.health += min(health_boost, initial(chassis.health)-chassis.health)
+	if(h_boost<0 || chassis.obj_integrity < chassis.max_integrity)
+		chassis.obj_integrity += min(h_boost, chassis.max_integrity-chassis.obj_integrity)
 		repaired = 1
 	if(repaired)
 		if(!chassis.use_power(energy_drain))
@@ -346,7 +353,7 @@
 	desc = "An exosuit module that generates power using solid plasma as fuel. Pollutes the environment."
 	icon_state = "tesla"
 	origin_tech = "plasmatech=2;powerstorage=2;engineering=2"
-	range = MELEE
+	range = MECHA_MELEE
 	var/coeff = 100
 	var/fuel_type = MAT_PLASMA
 	var/max_fuel = 150000
@@ -482,12 +489,11 @@
 	fuel_per_cycle_idle = 10
 	fuel_per_cycle_active = 30
 	power_per_cycle = 50
-	var/rad_per_cycle = 0.3
+	var/rad_per_cycle = 30
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/critfail()
 	return
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/process()
 	if(..())
-		for(var/mob/living/carbon/M in view(chassis))
-			M.apply_effect((rad_per_cycle * 3),IRRADIATE,0)
+		radiation_pulse(get_turf(src), rad_per_cycle)

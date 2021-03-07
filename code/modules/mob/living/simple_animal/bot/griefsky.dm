@@ -35,7 +35,7 @@
 	locked = 0
 
 /obj/machinery/bot_core/toy
-	req_access = list(access_maint_tunnels, access_theatre, access_robotics)
+	req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE, ACCESS_ROBOTICS)
 
 /mob/living/simple_animal/bot/secbot/griefsky/proc/spam_flag_false() //used for addtimer to not spam comms
 	spam_flag = 0
@@ -48,7 +48,7 @@
 	..()
 	light_color = LIGHT_COLOR_PURE_RED //if you see a red one. RUN!!
 	
-/mob/living/simple_animal/bot/secbot/griefsky/Crossed(atom/movable/AM)
+/mob/living/simple_animal/bot/secbot/griefsky/Crossed(atom/movable/AM, oldloc)
 	..()
 	if(ismob(AM) && AM == target)
 		var/mob/living/carbon/C = AM

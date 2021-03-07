@@ -2,7 +2,6 @@
 	name = "Skrell"
 	name_plural = "Skrell"
 	icobase = 'icons/mob/human_races/r_skrell.dmi'
-	deform = 'icons/mob/human_races/r_def_skrell.dmi'
 	language = "Skrellian"
 	primitive_form = /datum/species/monkey/skrell
 
@@ -12,7 +11,9 @@
 	herbivores on the whole and tend to be co-operative with the other species of the galaxy, although they rarely reveal \
 	the secrets of their empire to their allies."
 
+
 	species_traits = list(LIPS)
+	inherent_traits = list(TRAIT_NOFAT, TRAIT_WATERBREATH)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_BODY_MARKINGS
 	dietflags = DIET_HERB

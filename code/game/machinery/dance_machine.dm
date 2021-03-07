@@ -57,18 +57,19 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/machinery/disco/attackby(obj/item/O, mob/user, params)
-	if(!active)
-		if(iswrench(O))
-			if(!anchored && !isinspace())
-				to_chat(user,"<span class='notice'>You secure [src] to the floor.</span>")
-				anchored = TRUE
-			else if(anchored)
-				to_chat(user,"<span class='notice'>You unsecure and disconnect [src].</span>")
-				anchored = FALSE
-			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
-			return
-	return ..()
+/obj/machinery/disco/wrench_act(mob/user, obj/item/I)
+	if(active)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!anchored && !isinspace())
+		anchored = TRUE
+		WRENCH_ANCHOR_MESSAGE
+	else if(anchored)
+		anchored = FALSE
+		WRENCH_UNANCHOR_MESSAGE
+	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 
 /obj/machinery/disco/update_icon()
 	if(active)
@@ -322,6 +323,9 @@
 
 /obj/machinery/disco/proc/dance(mob/living/M) //Show your moves
 	set waitfor = FALSE
+	if(M.client && !(M.client.prefs.sound & SOUND_DISCO)) //We have a client that doesn't want to dance.
+		rangers -= M //Doing that here as it'll be checked less often than in processing.
+		return
 	switch(rand(0,9))
 		if(0 to 1)
 			dance2(M)
@@ -396,7 +400,7 @@
 	while(time)
 		sleep(speed)
 		for(var/i in 1 to speed)
-			M.setDir(pick(cardinal))
+			M.setDir(pick(GLOB.cardinal))
 			M.resting = !M.resting
 			M.update_canmove()
 		 time--
@@ -460,17 +464,18 @@
 		var/sound/song_played = sound(selection.song_path)
 
 		for(var/mob/M in range(10,src))
-			if(!(M in rangers))
-				rangers[M] = TRUE
-				M.playsound_local(get_turf(M), null, 100, channel = CHANNEL_JUKEBOX, S = song_played)
-			if(prob(5+(allowed(M) * 4)) && M.canmove && isliving(M))
-				dance(M)
+			if(!M.client || M.client.prefs.sound & SOUND_DISCO)
+				if(!(M in rangers))
+					rangers[M] = TRUE
+					M.playsound_local(get_turf(M), null, 100, channel = CHANNEL_JUKEBOX, S = song_played, use_reverb = FALSE)
 		for(var/mob/L in rangers)
 			if(get_dist(src, L) > 10)
 				rangers -= L
 				if(!L || !L.client)
 					continue
 				L.stop_sound_channel(CHANNEL_JUKEBOX)
+			else if(prob(9) && L.canmove && isliving(L))
+				dance(L)
 	else if(active)
 		active = FALSE
 		STOP_PROCESSING(SSobj, src)
@@ -478,3 +483,13 @@
 		playsound(src,'sound/machines/terminal_off.ogg',50,1)
 		icon_state = "disco0"
 		stop = world.time + 100
+
+
+
+/obj/machinery/disco/immobile
+	name = "radiant dance machine mark V"
+	desc = "The mark V is nigh-immovable, thanks to its bluespace-plastitanium anchor. The technology required to stop visitors from stealing this thing is astounding."
+	anchored = TRUE
+
+/obj/machinery/disco/immobile/wrench_act()
+	return FALSE

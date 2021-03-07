@@ -37,7 +37,7 @@
 /obj/machinery/mass_driver/multitool_menu(var/mob/user, var/obj/item/multitool/P)
 	return {"
 	<ul>
-	<li>[format_tag("ID Tag","id_tag")]</li>
+	<li>[format_tag("ID Tag","id_tag","set_id")]</li>
 	</ul>"}
 
 /obj/machinery/mass_driver/proc/drive(amount)
@@ -47,7 +47,7 @@
 	var/O_limit = 0
 	var/atom/target = get_edge_target_turf(src, dir)
 	for(var/atom/movable/O in loc)
-		if(!O.anchored||istype(O, /obj/mecha))//Mechs need their launch platforms.
+		if((!O.anchored && O.move_resist != INFINITY) || istype(O, /obj/mecha)) //Mechs need their launch platforms. Also checks if something is anchored or has move resist INFINITY, which should stop ghost flinging.
 			O_limit++
 			if(O_limit >= 20)//so no more than 20 items are sent at a time, probably for counter-lag purposes
 				break
@@ -101,18 +101,6 @@
 /obj/machinery/mass_driver_frame/attackby(var/obj/item/W as obj, var/mob/user as mob)
 	switch(build)
 		if(0) // Loose frame
-			if(istype(W, /obj/item/weldingtool))
-				var/obj/item/weldingtool/WT = W
-				if(!WT.remove_fuel(0, user))
-					to_chat(user, "The welding tool must be on to complete this task.")
-					return 1
-				playsound(get_turf(src), WT.usesound, 50, 1)
-				to_chat(user, "You begin to cut the frame apart...")
-				if(do_after(user, 30 * WT.toolspeed, target = src) && (build == 0))
-					to_chat(user, "<span class='notice'>You detach the plasteel sheets from each others.</span>")
-					new /obj/item/stack/sheet/plasteel(get_turf(src),3)
-					qdel(src)
-				return 1
 			if(istype(W, /obj/item/wrench))
 				to_chat(user, "You begin to anchor \the [src] on the floor.")
 				playsound(get_turf(src), W.usesound, 50, 1)
@@ -122,6 +110,7 @@
 					build++
 					update_icon()
 				return 1
+			return
 		if(1) // Fixed to the floor
 			if(istype(W, /obj/item/wrench))
 				to_chat(user, "You begin to de-anchor \the [src] from the floor.")
@@ -132,44 +121,22 @@
 					anchored = 0
 					to_chat(user, "<span class='notice'>You de-anchored \the [src]!</span>")
 				return 1
-			if(istype(W, /obj/item/weldingtool))
-				var/obj/item/weldingtool/WT = W
-				if(!WT.remove_fuel(0, user))
-					to_chat(user, "The welding tool must be on to complete this task.")
-					return 1
-				playsound(get_turf(src), WT.usesound, 50, 1)
-				to_chat(user, "You begin to weld \the [src] to the floor...")
-				if(do_after(user, 40 * WT.toolspeed, target = src) && (build == 1))
-					to_chat(user, "<span class='notice'>You welded \the [src] to the floor.</span>")
-					build++
-					update_icon()
-				return 1
 		if(2) // Welded to the floor
-			if(istype(W, /obj/item/weldingtool))
-				var/obj/item/weldingtool/WT = W
-				if(!WT.remove_fuel(0, user))
-					to_chat(user, "The welding tool must be on to complete this task.")
-					return 1
-				playsound(get_turf(src), WT.usesound, 50, 1)
-				to_chat(user, "You begin to unweld \the [src] to the floor...")
-				if(do_after(user, 40 * WT.toolspeed, target = src) && (build == 2))
-					to_chat(user, "<span class='notice'>You unwelded \the [src] to the floor.</span>")
-					build--
-					update_icon()
 			if(istype(W, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/C = W
 				to_chat(user, "You start adding cables to \the [src]...")
 				playsound(get_turf(src), C.usesound, 50, 1)
-				if(do_after(user, 20 * C.toolspeed, target = src) && (C.amount >= 3) && (build == 2))
-					C.use(3)
+				if(do_after(user, 20 * C.toolspeed, target = src) && (C.amount >= 2) && (build == 2))
+					C.use(2)
 					to_chat(user, "<span class='notice'>You've added cables to \the [src].</span>")
 					build++
 					update_icon()
+			return
 		if(3) // Wired
 			if(istype(W, /obj/item/wirecutters))
 				to_chat(user, "You begin to remove the wiring from \the [src].")
 				if(do_after(user, 10 * W.toolspeed, target = src) && (build == 3))
-					new /obj/item/stack/cable_coil(loc,3)
+					new /obj/item/stack/cable_coil(loc,2)
 					playsound(get_turf(src), W.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You've removed the cables from \the [src].</span>")
 					build--
@@ -179,12 +146,13 @@
 				var/obj/item/stack/rods/R = W
 				to_chat(user, "You begin to complete \the [src]...")
 				playsound(get_turf(src), R.usesound, 50, 1)
-				if(do_after(user, 20 * R.toolspeed, target = src) && (R.amount >= 3) && (build == 3))
-					R.use(3)
+				if(do_after(user, 20 * R.toolspeed, target = src) && (R.amount >= 2) && (build == 3))
+					R.use(2)
 					to_chat(user, "<span class='notice'>You've added the grille to \the [src].</span>")
 					build++
 					update_icon()
 				return 1
+			return
 		if(4) // Grille in place
 			if(istype(W, /obj/item/crowbar))
 				to_chat(user, "You begin to pry off the grille from \the [src]...")
@@ -201,7 +169,32 @@
 				M.dir = src.dir
 				qdel(src)
 				return 1
-	..()
+			return
+	return ..()
+
+/obj/machinery/mass_driver_frame/welder_act(mob/user, obj/item/I)
+	if(build != 0 && build != 1 && build != 2)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(build == 0) //can deconstruct
+		WELDER_ATTEMPT_SLICING_MESSAGE
+		if(I.use_tool(src, user, 30, volume = I.tool_volume))
+			WELDER_SLICING_SUCCESS_MESSAGE
+			new /obj/item/stack/sheet/plasteel(drop_location(),3)
+			qdel(src)
+	else if(build == 1) //wrenched but not welded down
+		WELDER_ATTEMPT_FLOOR_WELD_MESSAGE
+		if(I.use_tool(src, user, 40, volume = I.tool_volume) && build == 1)
+			WELDER_FLOOR_WELD_SUCCESS_MESSAGE
+			build = 2
+	else if(build == 2) //welded down
+		WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
+		if(I.use_tool(src, user, 40, volume = I.tool_volume) && build == 2)
+			WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
+			build = 1
+	update_icon()
 
 /obj/machinery/mass_driver_frame/update_icon()
 	icon_state = "mass_driver_b[build]"
@@ -211,7 +204,7 @@
 	set name = "Rotate Frame"
 	set src in view(1)
 
-	if( usr.stat || usr.restrained()  || (usr.status_flags & FAKEDEATH))
+	if( usr.stat || usr.restrained()  || HAS_TRAIT(usr, TRAIT_FAKEDEATH))
 		return
 
 	src.dir = turn(src.dir, -90)

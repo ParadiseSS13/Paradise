@@ -10,6 +10,8 @@ GLOBAL_LIST_INIT(last_names, file2list("config/names/last.txt"))
 GLOBAL_LIST_INIT(clown_names, file2list("config/names/clown.txt"))
 GLOBAL_LIST_INIT(mime_names, file2list("config/names/mime.txt"))
 GLOBAL_LIST_INIT(golem_names, file2list("config/names/golem.txt"))
+GLOBAL_LIST_INIT(megacarp_first_names, file2list("strings/names/megacarp1.txt"))
+GLOBAL_LIST_INIT(megacarp_last_names, file2list("strings/names/megacarp2.txt"))
 
 GLOBAL_LIST_INIT(verbs, file2list("config/names/verbs.txt"))
 GLOBAL_LIST_INIT(nouns, file2list("config/names/nouns.txt"))
@@ -18,5 +20,3 @@ GLOBAL_LIST_INIT(dream_strings, file2list("config/names/dreams.txt"))
 GLOBAL_LIST_INIT(nightmare_strings, file2list("config/names/nightmares.txt"))
 //loaded on startup because of "
 //would include in rsc if ' was used
-
-GLOBAL_LIST_INIT(vox_name_syllables, list("ti","hi","ki","ya","ta","ha","ka","ya","chi","cha","kah"))

@@ -1,6 +1,6 @@
-var/global/list/all_objectives = list()
+GLOBAL_LIST_EMPTY(all_objectives)
 
-var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datum/theft_objective/steal - /datum/theft_objective/number - /datum/theft_objective/unique
+GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective) - /datum/theft_objective/steal - /datum/theft_objective/number - /datum/theft_objective/unique))
 
 /datum/objective
 	var/datum/mind/owner = null			//Who owns the objective.
@@ -10,13 +10,13 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	var/completed = 0					//currently only used for custom objectives.
 	var/martyr_compatible = 0			//If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
 
-/datum/objective/New(var/text)
-	all_objectives |= src
+/datum/objective/New(text)
+	GLOB.all_objectives += src
 	if(text)
 		explanation_text = text
 
 /datum/objective/Destroy()
-	all_objectives -= src
+	GLOB.all_objectives -= src
 	return ..()
 
 /datum/objective/proc/check_completion()
@@ -25,9 +25,11 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 /datum/objective/proc/is_invalid_target(datum/mind/possible_target)
 	if(possible_target == owner)
 		return TARGET_INVALID_IS_OWNER
+	if(possible_target in owner.targets)
+		return TARGET_INVALID_IS_TARGET
 	if(!ishuman(possible_target.current))
 		return TARGET_INVALID_NOT_HUMAN
-	if(!possible_target.current.stat == DEAD)
+	if(possible_target.current.stat == DEAD)
 		return TARGET_INVALID_DEAD
 	if(!possible_target.key)
 		return TARGET_INVALID_NOCKEY
@@ -52,6 +54,26 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	if(possible_targets.len > 0)
 		target = pick(possible_targets)
 
+/**
+  * Called when the objective's target goes to cryo.
+  */
+/datum/objective/proc/on_target_cryo()
+	if(owner?.current)
+		to_chat(owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
+		SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
+	target = null
+	INVOKE_ASYNC(src, .proc/post_target_cryo)
+
+/**
+  * Called a tick after when the objective's target goes to cryo.
+  */
+/datum/objective/proc/post_target_cryo()
+	find_target()
+	if(!target)
+		GLOB.all_objectives -= src
+		owner?.objectives -= src
+		qdel(src)
+	owner?.announce_objectives()
 
 /datum/objective/assassinate
 	martyr_compatible = 1
@@ -62,6 +84,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]."
 	else
 		explanation_text = "Free Objective"
+	return target
 
 /datum/objective/assassinate/check_completion()
 	if(target && target.current)
@@ -95,6 +118,11 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 			return 1
 		return 0
 	return 1
+
+/datum/objective/mutiny/on_target_cryo()
+	// We don't want revs to get objectives that aren't for heads of staff. Letting
+	// them win or lose based on cryo is silly so we remove the objective.
+	qdel(src)
 
 /datum/objective/maroon
 	martyr_compatible = 1
@@ -215,7 +243,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 				if(issilicon(player))
 					continue
 				if(get_area(player) == A)
-					if(player.real_name != owner.current.real_name && !istype(get_turf(player.mind.current), /turf/simulated/shuttle/floor4))
+					if(player.real_name != owner.current.real_name && !istype(get_turf(player.mind.current), /turf/simulated/floor/mineral/plastitanium/red/brig))
 						return 0
 
 	for(var/mob/living/player in GLOB.player_list) //Make sure at least one of you is onboard
@@ -224,12 +252,12 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 				if(issilicon(player))
 					continue
 				if(get_area(player) == A)
-					if(player.real_name == owner.current.real_name && !istype(get_turf(player.mind.current), /turf/simulated/shuttle/floor4))
+					if(player.real_name == owner.current.real_name && !istype(get_turf(player.mind.current), /turf/simulated/floor/mineral/plastitanium/red/brig))
 						return 1
 	return 0
 
 /datum/objective/block
-	explanation_text = "Do not allow any lifeforms, be it organic or synthetic to escape on the shuttle alive. AIs, Cyborgs, and pAIs are not considered alive."
+	explanation_text = "Do not allow any lifeforms, be it organic or synthetic to escape on the shuttle alive. AIs, Cyborgs, Maintenance drones, and pAIs are not considered alive."
 	martyr_compatible = 1
 
 /datum/objective/block/check_completion()
@@ -241,15 +269,14 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 		return 0
 
 	var/area/A = SSshuttle.emergency.areaInstance
-	var/list/protected_mobs = list(/mob/living/silicon/ai, /mob/living/silicon/pai, /mob/living/silicon/robot)
 
 	for(var/mob/living/player in GLOB.player_list)
-		if(player.type in protected_mobs)
-			continue
+		if(issilicon(player))
+			continue // If they're silicon, they're not considered alive, skip them.
 
 		if(player.mind && player.stat != DEAD)
 			if(get_area(player) == A)
-				return 0
+				return 0 // If there are any other organic mobs on the shuttle, you failed the objective.
 
 	return 1
 
@@ -273,7 +300,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	if(!location)
 		return 0
 
-	if(istype(location, /turf/simulated/shuttle/floor4) || istype(location, /turf/simulated/floor/mineral/plastitanium/red/brig)) // Fails traitors if they are in the shuttle brig -- Polymorph
+	if(istype(location, /turf/simulated/floor/mineral/plastitanium/red/brig)) // Fails traitors if they are in the shuttle brig -- Polymorph
 		return 0
 
 	if(location.onCentcom() || location.onSyndieBase())
@@ -290,7 +317,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && possible_target.current.client)
 			var/mob/living/carbon/human/H = possible_target.current
-			if(!(NO_DNA in H.dna.species.species_traits))
+			if(!HAS_TRAIT(H, TRAIT_GENELESS))
 				possible_targets += possible_target
 	if(possible_targets.len > 0)
 		target = pick(possible_targets)
@@ -344,35 +371,29 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	var/theft_area
 
 /datum/objective/steal/proc/get_location()
-	if(steal_target.location_override)
-		return steal_target.location_override
-	var/list/obj/item/steal_candidates = get_all_of_type(steal_target.typepath, subtypes = TRUE)
-	for(var/obj/item/candidate in steal_candidates)
-		if(!is_admin_level(candidate.loc.z))
-			theft_area = get_area(candidate.loc)
-			return "[theft_area]"
-	return "an unknown area"
+	return steal_target.location_override || "an unknown area"
 
 /datum/objective/steal/find_target()
-	var/loop=50
-	while(!steal_target && loop > 0)
-		loop--
-		var/thefttype = pick(potential_theft_objectives)
+	var/potential = GLOB.potential_theft_objectives.Copy()
+	while(!steal_target && length(potential))
+		var/thefttype = pick_n_take(potential)
 		var/datum/theft_objective/O = new thefttype
 		if(owner.assigned_role in O.protected_jobs)
 			continue
-		if(O.flags & 2)
+		if(O in owner.targets)
 			continue
-		steal_target=O
+		if(O.flags & 2) // THEFT_FLAG_UNIQUE
+			continue
+
+		steal_target = O
 		explanation_text = "Steal [steal_target]. One was last seen in [get_location()]. "
-		if(islist(O.protected_jobs) && O.protected_jobs.len)
-			explanation_text += "It may also be in the possession of the [jointext(O.protected_jobs, ", ")]."
+		if(length(O.protected_jobs))
+			explanation_text += "It may also be in the possession of the [english_list(O.protected_jobs, and_text = " or ")]."
 		return
 	explanation_text = "Free Objective."
 
-
 /datum/objective/steal/proc/select_target()
-	var/list/possible_items_all = potential_theft_objectives+"custom"
+	var/list/possible_items_all = GLOB.potential_theft_objectives+"custom"
 	var/new_target = input("Select target:", "Objective target", null) as null|anything in possible_items_all
 	if(!new_target) return
 	if(new_target == "custom")
@@ -394,6 +415,9 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 /datum/objective/steal/check_completion()
 	if(!steal_target)
 		return 1 // Free Objective
+
+	if(!owner.current)
+		return FALSE
 
 	var/list/all_items = owner.current.GetAllContents()
 
@@ -465,13 +489,13 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 					n_p++
 		else if(SSticker.current_state == GAME_STATE_PLAYING)
 			for(var/mob/living/carbon/human/P in GLOB.player_list)
-				if(NO_DNA in P.dna.species.species_traits)
+				if(HAS_TRAIT(P, TRAIT_GENELESS))
 					continue
 				if(P.client && !(P.mind in SSticker.mode.changelings) && P.mind!=owner)
 					n_p++
 		target_amount = min(target_amount, n_p)
 
-	explanation_text = "Absorb [target_amount] compatible genomes."
+	explanation_text = "Acquire [target_amount] compatible genomes. The 'Extract DNA Sting' can be used to stealthily get genomes without killing somebody."
 	return target_amount
 
 /datum/objective/absorb/check_completion()
@@ -502,6 +526,54 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 		return 0
 	return 1
 
+/datum/objective/steal_five_of_type
+	explanation_text = "Steal at least five items!"
+	var/list/wanted_items = list()
+
+/datum/objective/steal_five_of_type/New()
+	..()
+	wanted_items = typecacheof(wanted_items)
+
+/datum/objective/steal_five_of_type/check_completion()
+	var/stolen_count = 0
+	if(!isliving(owner.current))
+		return FALSE
+	var/list/all_items = owner.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
+	for(var/obj/I in all_items) //Check for wanted items
+		if(is_type_in_typecache(I, wanted_items))
+			stolen_count++
+	return stolen_count >= 5
+
+/datum/objective/steal_five_of_type/summon_guns
+	explanation_text = "Steal at least five guns!"
+	wanted_items = list(/obj/item/gun)
+
+/datum/objective/steal_five_of_type/summon_magic
+	explanation_text = "Steal at least five magical artefacts!"
+	wanted_items = list()
+
+/datum/objective/steal_five_of_type/summon_magic/New()
+	wanted_items = GLOB.summoned_magic_objectives
+	..()
+
+/datum/objective/steal_five_of_type/summon_magic/check_completion()
+	var/stolen_count = 0
+	if(!isliving(owner.current))
+		return FALSE
+	var/list/all_items = owner.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
+	for(var/obj/I in all_items) //Check for wanted items
+		if(istype(I, /obj/item/spellbook) && !istype(I, /obj/item/spellbook/oneuse))
+			var/obj/item/spellbook/spellbook = I
+			if(spellbook.uses) //if the book still has powers...
+				stolen_count++ //it counts. nice.
+		if(istype(I, /obj/item/spellbook/oneuse))
+			var/obj/item/spellbook/oneuse/oneuse = I
+			if(!oneuse.used)
+				stolen_count++
+		else if(is_type_in_typecache(I, wanted_items))
+			stolen_count++
+	return stolen_count >= 5
+
 /datum/objective/blood
 /datum/objective/blood/proc/gen_amount_goal(low = 150, high = 400)
 	target_amount = rand(low,high)
@@ -518,9 +590,10 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 // /vg/; Vox Inviolate for humans :V
 /datum/objective/minimize_casualties
 	explanation_text = "Minimise casualties."
+
 /datum/objective/minimize_casualties/check_completion()
-	if(owner.kills.len>5) return 0
-	return 1
+	return TRUE
+
 
 //Vox heist objectives.
 
@@ -726,16 +799,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	explanation_text = "Follow the Inviolate. Minimise death and loss of resources."
 
 /datum/objective/heist/inviolate_death/check_completion()
-	var/vox_allowed_kills = 3 // The number of people the vox can accidently kill. Mostly a counter to people killing themselves if a raider touches them to force fail.
-	var/vox_total_kills = 0
-
-	var/datum/game_mode/heist/H = SSticker.mode
-	for(var/datum/mind/raider in H.raiders)
-		vox_total_kills += raider.kills.len // Kills are listed in the mind; uses this to calculate vox kills
-
-	if(vox_total_kills > vox_allowed_kills) return 0
-	return 1
-
+	return TRUE
 
 // Traders
 // These objectives have no check_completion, they exist only to tell Sol Traders what to aim for.

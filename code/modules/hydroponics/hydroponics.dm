@@ -34,7 +34,7 @@
 
 /obj/machinery/hydroponics/New()
 	..()
-	var/datum/atom_hud/data/hydroponic/hydro_hud = huds[DATA_HUD_HYDROPONIC]
+	var/datum/atom_hud/data/hydroponic/hydro_hud = GLOB.huds[DATA_HUD_HYDROPONIC]
 	prepare_huds()
 	hydro_hud.add_to_hud(src)
 	plant_hud_set_nutrient()
@@ -57,7 +57,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
 /obj/machinery/hydroponics/constructable/RefreshParts()
@@ -85,13 +85,16 @@
 	if(exchange_parts(user, I))
 		return
 
-	if(iscrowbar(I))
-		if(using_irrigation)
-			to_chat(user, "<span class='warning'>Disconnect the hoses first!</span>")
-		else if(default_deconstruction_crowbar(I, 1))
-			return
 	else
 		return ..()
+
+/obj/machinery/hydroponics/constructable/crowbar_act(mob/user, obj/item/I)
+
+	if(using_irrigation)
+		to_chat(user, "<span class='warning'>Disconnect the hoses first!</span>")
+		return TRUE
+	if(default_deconstruction_crowbar(user, I, 1))
+		return TRUE
 
 /obj/machinery/hydroponics/proc/FindConnected()
 	var/list/connected = list()
@@ -99,7 +102,7 @@
 
 	while(processing_atoms.len)
 		var/atom/a = processing_atoms[1]
-		for(var/step_dir in cardinal)
+		for(var/step_dir in GLOB.cardinal)
 			var/obj/machinery/hydroponics/h = locate() in get_step(a, step_dir)
 			// Soil plots aren't dense
 			if(h && h.using_irrigation && h.density && !(h in connected) && !(h in processing_atoms))
@@ -303,7 +306,7 @@
 
 /obj/machinery/hydroponics/proc/update_icon_hoses()
 	var/n = 0
-	for(var/Dir in cardinal)
+	for(var/Dir in GLOB.cardinal)
 		var/obj/machinery/hydroponics/t = locate() in get_step(src,Dir)
 		if(t && t.using_irrigation && using_irrigation)
 			n += Dir
@@ -320,7 +323,7 @@
 		else
 			I = image(icon = myseed.growing_icon, icon_state = myseed.icon_harvest)
 	else
-		var/t_growthstate = min(round((age / myseed.maturation) * myseed.growthstages), myseed.growthstages)
+		var/t_growthstate = clamp(round((age / myseed.maturation) * myseed.growthstages), 1, myseed.growthstages)
 		I = image(icon = myseed.growing_icon, icon_state = "[myseed.icon_grow][t_growthstate]")
 	I.layer = OBJ_LAYER + 0.01
 	overlays += I
@@ -339,32 +342,32 @@
 
 
 /obj/machinery/hydroponics/examine(user)
-	..()
+	. = ..()
 	if(myseed)
-		to_chat(user, "<span class='info'>It has <span class='name'>[myseed.plantname]</span> planted.</span>")
+		. += "<span class='info'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
 		if (dead)
-			to_chat(user, "<span class='warning'>It's dead!</span>")
+			. += "<span class='warning'>It's dead!</span>"
 		else if (harvest)
-			to_chat(user, "<span class='info'>It's ready to harvest.</span>")
+			. += "<span class='info'>It's ready to harvest.</span>"
 		else if (plant_health <= (myseed.endurance / 2))
-			to_chat(user, "<span class='warning'>It looks unhealthy.</span>")
+			. += "<span class='warning'>It looks unhealthy.</span>"
 	else
-		to_chat(user, "<span class='info'>[src] is empty.</span>")
+		. += "<span class='info'>[src] is empty.</span>"
 
 	if(!self_sustaining)
-		to_chat(user, "<span class='info'>Water: [waterlevel]/[maxwater]</span>")
-		to_chat(user, "<span class='info'>Nutrient: [nutrilevel]/[maxnutri]</span>")
+		. += "<span class='info'>Water: [waterlevel]/[maxwater]</span>"
+		. += "<span class='info'>Nutrient: [nutrilevel]/[maxnutri]</span>"
 		if(self_sufficiency_progress > 0)
 			var/percent_progress = round(self_sufficiency_progress * 100 / self_sufficiency_req)
-			to_chat(user, "<span class='info'>Treatment for self-sustenance are [percent_progress]% complete.</span>")
+			. += "<span class='info'>Treatment for self-sustenance are [percent_progress]% complete.</span>"
 	else
-		to_chat(user, "<span class='info'>It doesn't require any water or nutrients.</span>")
+		. += "<span class='info'>It doesn't require any water or nutrients.</span>"
 
 	if(weedlevel >= 5)
-		to_chat(user, "<span class='warning'>[src] is filled with weeds!</span>")
+		. += "<span class='warning'>[src] is filled with weeds!</span>"
 	if(pestlevel >= 5)
-		to_chat(user, "<span class='warning'>[src] is filled with tiny worms!</span>")
-	to_chat(user, "") // Empty line for readability.
+		. += "<span class='warning'>[src] is filled with tiny worms!</span>"
+	. += "" // Empty line for readability.
 
 
 /obj/machinery/hydroponics/proc/weedinvasion() // If a weed growth is sufficient, this happens.
@@ -557,7 +560,7 @@
 	if(S.has_reagent("charcoal", 1))
 		adjustToxic(-round(S.get_reagent_amount("charcoal") * 2))
 
-	// NIGGA, YOU JUST WENT ON FULL RETARD.
+	// BRO, YOU JUST WENT ON FULL STUPID.
 	if(S.has_reagent("toxin", 1))
 		adjustToxic(round(S.get_reagent_amount("toxin") * 2))
 
@@ -616,7 +619,7 @@
 		adjustHealth(round(S.get_reagent_amount("sodawater") * 0.1))
 		adjustNutri(round(S.get_reagent_amount("sodawater") * 0.1))
 
-	// Man, you guys are retards
+	// Man, you guys are daft
 	if(S.has_reagent("sacid", 1))
 		adjustHealth(-round(S.get_reagent_amount("sacid") * 1))
 		adjustToxic(round(S.get_reagent_amount("sacid") * 1.5))
@@ -636,9 +639,10 @@
 
 	// why, just why
 	if(S.has_reagent("napalm", 1))
-		adjustHealth(-round(S.get_reagent_amount("napalm") * 6))
-		adjustToxic(round(S.get_reagent_amount("napalm") * 7))
-		adjustWeeds(-rand(5,9))
+		if(!(myseed.resistance_flags & FIRE_PROOF))
+			adjustHealth(-round(S.get_reagent_amount("napalm") * 6))
+			adjustToxic(round(S.get_reagent_amount("napalm") * 7))
+		adjustWeeds(-rand(5, 9)) //At least give them a small reward if they bother
 
 	//Weed Spray
 	if(S.has_reagent("atrazine", 1))
@@ -739,6 +743,10 @@
 		if(!reagent_source.reagents.total_volume)
 			to_chat(user, "<span class='notice'>[reagent_source] is empty.</span>")
 			return 1
+
+		if(reagent_source.has_lid && !reagent_source.is_drainable()) //if theres a LID then cannot transfer reagents.
+			to_chat(user, "<span class='warning'>You need to open [O] first!</span>")
+			return TRUE
 
 		var/list/trays = list(src)//makes the list just this in cases of syringes and compost etc
 		var/target = myseed ? myseed.plantname : src
@@ -846,39 +854,6 @@
 				return
 			S.handle_item_insertion(G, 1)
 
-	else if(iswrench(O) && wrenchable)
-		if(using_irrigation)
-			to_chat(user, "<span class='warning'>Disconnect the hoses first!</span>")
-			return
-
-		if(!anchored && !isinspace())
-			user.visible_message("[user] begins to wrench [src] into place.", "<span class='notice'>You begin to wrench [src] in place...</span>")
-			playsound(loc, O.usesound, 50, 1)
-			if (do_after(user, 20 * O.toolspeed, target = src))
-				if(anchored)
-					return
-				anchored = 1
-				user.visible_message("[user] wrenches [src] into place.", \
-									"<span class='notice'>You wrench [src] in place.</span>")
-		else if(anchored)
-			user.visible_message("[user] begins to unwrench [src].", \
-								"<span class='notice'>You begin to unwrench [src]...</span>")
-			playsound(loc, O.usesound, 50, 1)
-			if (do_after(user, 20 * O.toolspeed, target = src))
-				if(!anchored)
-					return
-				anchored = 0
-				user.visible_message("[user] unwrenches [src].", \
-									"<span class='notice'>You unwrench [src].</span>")
-
-	else if(iswirecutter(O) && wrenchable)
-		using_irrigation = !using_irrigation
-		playsound(src, O.usesound, 50, 1)
-		user.visible_message("<span class='notice'>[user] [using_irrigation ? "" : "dis"]connects [src]'s irrigation hoses.</span>", \
-		"<span class='notice'>You [using_irrigation ? "" : "dis"]connect [src]'s irrigation hoses.</span>")
-		for(var/obj/machinery/hydroponics/h in range(1,src))
-			h.update_icon()
-
 	else if(istype(O, /obj/item/shovel/spade))
 		if(!myseed && !weedlevel)
 			to_chat(user, "<span class='warning'>[src] doesn't have any plants or weeds!</span>")
@@ -903,6 +878,44 @@
 
 	else
 		return ..()
+
+/obj/machinery/hydroponics/wirecutter_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	else if(wrenchable)
+		using_irrigation = !using_irrigation
+		user.visible_message("<span class='notice'>[user] [using_irrigation ? "" : "dis"]connects [src]'s irrigation hoses.</span>", \
+		"<span class='notice'>You [using_irrigation ? "" : "dis"]connect [src]'s irrigation hoses.</span>")
+		for(var/obj/machinery/hydroponics/h in range(1,src))
+			h.update_icon()
+
+/obj/machinery/hydroponics/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_start_check(src, user, 0))
+		return
+	if(wrenchable)
+		if(using_irrigation)
+			to_chat(user, "<span class='warning'>Disconnect the hoses first!</span>")
+			return
+
+		if(!anchored && !isinspace())
+			user.visible_message("[user] begins to wrench [src] into place.", "<span class='notice'>You begin to wrench [src] in place...</span>")
+			if(I.use_tool(src, user, 20, volume = I.tool_volume))
+				if(anchored)
+					return
+				anchored = TRUE
+				user.visible_message("[user] wrenches [src] into place.", \
+									"<span class='notice'>You wrench [src] in place.</span>")
+		else if(anchored)
+			user.visible_message("[user] begins to unwrench [src].", \
+								"<span class='notice'>You begin to unwrench [src]...</span>")
+			if(I.use_tool(src, user, 20, volume = I.tool_volume))
+				if(!anchored)
+					return
+				anchored = FALSE
+				user.visible_message("[user] unwrenches [src].", \
+									"<span class='notice'>You unwrench [src].</span>")
 
 /obj/machinery/hydroponics/attack_hand(mob/user)
 	if(issilicon(user)) //How does AI know what plant is?
@@ -940,36 +953,36 @@
 
 /// Tray Setters - The following procs adjust the tray or plants variables, and make sure that the stat doesn't go out of bounds.///
 /obj/machinery/hydroponics/proc/adjustNutri(adjustamt)
-	nutrilevel = Clamp(nutrilevel + adjustamt, 0, maxnutri)
+	nutrilevel = clamp(nutrilevel + adjustamt, 0, maxnutri)
 	plant_hud_set_nutrient()
 
 /obj/machinery/hydroponics/proc/adjustWater(adjustamt)
-	waterlevel = Clamp(waterlevel + adjustamt, 0, maxwater)
+	waterlevel = clamp(waterlevel + adjustamt, 0, maxwater)
 	plant_hud_set_water()
 	if(adjustamt>0)
 		adjustToxic(-round(adjustamt/4))//Toxicity dilutation code. The more water you put in, the lesser the toxin concentration.
 
 /obj/machinery/hydroponics/proc/adjustHealth(adjustamt)
 	if(myseed && !dead)
-		plant_health = Clamp(plant_health + adjustamt, 0, myseed.endurance)
+		plant_health = clamp(plant_health + adjustamt, 0, myseed.endurance)
 		plant_hud_set_health()
 
 /obj/machinery/hydroponics/proc/adjustToxic(adjustamt)
-	toxic = Clamp(toxic + adjustamt, 0, 100)
+	toxic = clamp(toxic + adjustamt, 0, 100)
 	plant_hud_set_toxin()
 
 /obj/machinery/hydroponics/proc/adjustPests(adjustamt)
-	pestlevel = Clamp(pestlevel + adjustamt, 0, 10)
+	pestlevel = clamp(pestlevel + adjustamt, 0, 10)
 	plant_hud_set_pest()
 
 /obj/machinery/hydroponics/proc/adjustWeeds(adjustamt)
-	weedlevel = Clamp(weedlevel + adjustamt, 0, 10)
+	weedlevel = clamp(weedlevel + adjustamt, 0, 10)
 	plant_hud_set_weed()
 
 /obj/machinery/hydroponics/proc/spawnplant() // why would you put strange reagent in a hydro tray you monster I bet you also feed them blood
 	var/list/livingplants = list(/mob/living/simple_animal/hostile/tree, /mob/living/simple_animal/hostile/killertomato)
 	var/chosen = pick(livingplants)
-	var/mob/living/simple_animal/hostile/C = new chosen
+	var/mob/living/simple_animal/hostile/C = new chosen(get_turf(src))
 	C.faction = list("plants")
 
 /obj/machinery/hydroponics/proc/become_self_sufficient() // Ambrosia Gaia effect
@@ -990,17 +1003,17 @@
 /obj/machinery/hydroponics/attack_animal(mob/living/user)
 	if(istype(user, /mob/living/simple_animal/diona))
 		if(weedlevel > 0)
-			user.nutrition += weedlevel * 15
+			user.adjust_nutrition(weedlevel * 15)
 			adjustWeeds(-10)
 			update_icon()
 			visible_message("<span class='danger'>[user] begins rooting through [src], ripping out weeds and eating them noisily.</span>","<span class='danger'>You begin rooting through [src], ripping out weeds and eating them noisily.</span>")
 		else if(nutrilevel < 10)
-			user.nutrition -= ((10 - nutrilevel) * 5)
+			user.adjust_nutrition(-((10 - nutrilevel) * 5))
 			adjustNutri(10)
 			update_icon()
 			visible_message("<span class='danger'>[user] secretes a trickle of green liquid from its tail, refilling [src]'s nutrient tray.</span>","<span class='danger'>You secrete a trickle of green liquid from your tail, refilling [src]'s nutrient tray.</span>")
 	else
-		..()
+		return ..()
 
 ///////////////////////////////////////////////////////////////////////////////
 /obj/machinery/hydroponics/soil //Not actually hydroponics at all! Honk!
@@ -1022,4 +1035,4 @@
 		to_chat(user, "<span class='notice'>You clear up [src]!</span>")
 		qdel(src)
 	else
-		..()
+		return ..()

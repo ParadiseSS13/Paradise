@@ -1,5 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - rscadd: "Round time (h:mm) and station security level (green/red/blue/etc) are now visible on our server hub entry."
-  - tweak: "Round time is now visible to all player-controlled mobs in their status panel (including simple animals)."

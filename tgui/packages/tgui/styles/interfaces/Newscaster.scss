@@ -1,0 +1,182 @@
+@use 'sass:color';
+@use '../colors.scss';
+
+.Newscaster__menu {
+  width: 40px;
+  height: 100%;
+  margin-right: 0.5rem;
+  flex-basis: content;
+
+  .Section__content {
+    padding-left: 0;
+  }
+
+  &Button {
+    color: colors.$grey;
+    cursor: pointer;
+    position: relative;
+    margin-left: 6px;
+    margin-right: 1rem;
+    white-space: nowrap;
+    transition: color 0.1s;
+
+    &--title {
+      width: 80%;
+      display: none;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &--unread {
+      background-color: color.scale(colors.$bad, $lightness: 25%);
+      color: white;
+      font-size: 10px;
+      text-align: center;
+      border-radius: 32px;
+      display: inline-block;
+      width: 12px;
+      position: absolute;
+      left: 16px;
+      margin-top: 14px;
+    }
+
+    &--selected {
+      color: colors.$white;
+
+      &:after {
+        content: "";
+        background-color: colors.$primary;
+        width: 2px;
+        height: 24px;
+        position: absolute;
+        left: -6px;
+      }
+    }
+
+    &--security {
+      color: colors.$primary;
+    }
+
+    i {
+      width: 30px;
+      text-align: center;
+      vertical-align: middle;
+      margin-left: -1px;
+      margin-right: 0.5rem;
+      margin-top: 1px;
+    }
+
+    &:hover {
+      color: colors.$white;
+
+      &:before {
+        background-color: colors.$white;
+      }
+    }
+
+    &:not(:last-of-type) {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  &--open {
+    width: 175px;
+
+    .Newscaster__menuButton {
+      &--title {
+        display: inline-block;
+      }
+    }
+  }
+}
+
+$_gen_map: (
+  'security': #a14c49,
+  'engineering': #a17849,
+  'medical': #499ea1,
+  'science': #a14972,
+  'service': #a1499e,
+  'supply': #9ea149,
+);
+
+.Newscaster__jobCategory {
+  @each $dept-id, $dept-color in $_gen_map {
+    &--#{$dept-id} {
+      .Section__title {
+        color: $dept-color;
+        border-bottom: 2px solid $dept-color !important;
+      }
+    }
+  }
+
+  &:last-child {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.Newscaster__jobOpening {
+  &--command {
+    font-weight: bold;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.Newscaster__emptyNotice {
+  color: colors.$label;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+
+  i {
+    margin-bottom: 0.25rem;
+  }
+}
+
+.Newscaster__photo {
+  cursor: pointer;
+  width: 96px;
+  border: 1px solid colors.$black;
+  transition: border-color 0.1s;
+  -ms-interpolation-mode: nearest-neighbor;
+
+  &:hover {
+    border-color: color.scale(colors.$black, $lightness: 50%);;
+  }
+}
+
+.Newscaster__photoZoom {
+  text-align: center;
+
+  & > img {
+    transform: scale(2);
+    -ms-interpolation-mode: nearest-neighbor;
+  }
+
+  & > .Button {
+    position: absolute;
+    width: 64px;
+    left: 50%;
+    margin-left: -32px;
+    bottom: 1rem;
+  }
+}
+
+.Newscaster__story {
+  &--wanted {
+    background-color: rgba(colors.$bad, 0.1);
+
+    .Section__title {
+      color: colors.$bad;
+      border-bottom: 2px solid #a14c49 !important;
+    }
+  }
+
+  &:last-child {
+    margin-bottom: 0.5rem;
+  }
+}

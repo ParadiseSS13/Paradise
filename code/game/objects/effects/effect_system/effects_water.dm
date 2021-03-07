@@ -21,7 +21,7 @@
 		reagents.reaction(A)
 	if(istype(A,/atom/movable))
 		var/atom/movable/AM = A
-		AM.water_act(life, 310.15, src)
+		AM.water_act(life, COLD_WATER_TEMPERATURE, src)
 	return ..()
 
 /////////////////////////////////////////////
@@ -33,10 +33,10 @@
 // will always spawn at the items location, even if it's moved.
 
 /* Example:
-var/datum/effect_system/steam_spread/steam = new /datum/effect_system/steam_spread() -- creates new system
-steam.set_up(5, 0, mob.loc) -- sets up variables
-OPTIONAL: steam.attach(mob)
-steam.start() -- spawns the effect
+	var/datum/effect_system/steam_spread/steam = new /datum/effect_system/steam_spread() -- creates new system
+	steam.set_up(5, 0, mob.loc) -- sets up variables
+	OPTIONAL: steam.attach(mob)
+	steam.start() -- spawns the effect
 */
 /////////////////////////////////////////////
 /obj/effect/particle_effect/steam

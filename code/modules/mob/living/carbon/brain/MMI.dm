@@ -23,6 +23,9 @@
 	// Needed to fix a rather insane bug when a posibrain/robotic brain commits suicide
 	var/dead_icon = "mmi_dead"
 
+	/// Time at which the ghost belonging to the mind in the mmi can be pinged again to be borged
+	var/next_possible_ghost_ping
+
 /obj/item/mmi/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/organ/internal/brain/crystal))
 		to_chat(user, "<span class='warning'> This brain is too malformed to be able to use with the [src].</span>")
@@ -44,12 +47,13 @@
 			visible_message("<span class='notice'>[user] sticks \a [O] into \the [src].</span>")
 			brainmob = B.brainmob
 			B.brainmob = null
-			brainmob.forceMove(src)
 			brainmob.container = src
+			brainmob.forceMove(src)
 			brainmob.stat = CONSCIOUS
+			brainmob.see_invisible = initial(brainmob.see_invisible)
 			GLOB.respawnable_list -= brainmob
 			GLOB.dead_mob_list -= brainmob//Update dem lists
-			GLOB.living_mob_list += brainmob
+			GLOB.alive_mob_list += brainmob
 
 			held_brain = B
 			if(istype(O,/obj/item/organ/internal/brain/xeno)) // kept the type check, as it still does other weird stuff
@@ -65,7 +69,7 @@
 
 			if(radio_action)
 				radio_action.UpdateButtonIcon()
-			feedback_inc("cyborg_mmis_filled",1)
+			SSblackbox.record_feedback("amount", "mmis_filled", 1)
 		else
 			to_chat(user, "<span class='warning'>You can't drop [B]!</span>")
 
@@ -90,25 +94,28 @@
 		return
 
 	// Maybe later add encryption key support, but that's a pain in the neck atm
-	if(isscrewdriver(O))
-		if(radio)
-			user.visible_message("<span class='warning'>[user] begins to uninstall the radio from [src]...</span>", \
-								 "<span class='notice'>You start to uninstall the radio from [src]...</span>")
-			if(do_after(user, 40 * O.toolspeed, target = src))
-				uninstall_radio()
-				new /obj/item/mmi_radio_upgrade(get_turf(src))
-				user.visible_message("<span class='warning'>[user] uninstalls the radio from [src].</span>", \
-									 "<span class='notice'>You uninstall the radio from [src].</span>")
-		else
-			to_chat(user, "<span class='warning'>There is no radio in [src]!</span>")
-		return
 
 	if(brainmob)
 		O.attack(brainmob, user)//Oh noooeeeee
 		// Brainmobs can take damage, but they can't actually die. Maybe should fix.
 		return
-	..()
+	return ..()
 
+/obj/item/mmi/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(!radio)
+		to_chat(user, "<span class='warning'>There is no radio in [src]!</span>")
+		return
+	user.visible_message("<span class='warning'>[user] begins to uninstall the radio from [src]...</span>", \
+							 "<span class='notice'>You start to uninstall the radio from [src]...</span>")
+	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || !radio)
+		return
+	uninstall_radio()
+	new /obj/item/mmi_radio_upgrade(get_turf(src))
+	user.visible_message("<span class='warning'>[user] uninstalls the radio from [src].</span>", \
+						 "<span class='notice'>You uninstall the radio from [src].</span>")
 
 
 /obj/item/mmi/attack_self(mob/user as mob)
@@ -154,7 +161,7 @@
 	brainmob.container = null//Reset brainmob mmi var.
 	brainmob.forceMove(held_brain) //Throw mob into brain.
 	GLOB.respawnable_list += brainmob
-	GLOB.living_mob_list -= brainmob//Get outta here
+	GLOB.alive_mob_list -= brainmob//Get outta here
 	held_brain.brainmob = brainmob//Set the brain to use the brainmob
 	held_brain.brainmob.cancel_camera()
 	brainmob = null//Set mmi brainmob var to null
@@ -169,7 +176,7 @@
 /obj/item/mmi/examine(mob/user)
 	. = ..()
 	if(radio)
-		to_chat(user, "<span class='notice'>A radio is installed on [src].</span>")
+		. += "<span class='notice'>A radio is installed on [src].</span>"
 
 /obj/item/mmi/proc/install_radio()
 	radio = new(src)
@@ -223,13 +230,6 @@
 				brainmob.emp_damage += rand(0,10)
 	..()
 
-/obj/item/mmi/relaymove(var/mob/user, var/direction)
-	if(user.stat || user.stunned)
-		return
-	var/obj/item/rig/rig = src.get_rig()
-	if(rig)
-		rig.forced_move(direction, user)
-
 /obj/item/mmi/Destroy()
 	if(isrobot(loc))
 		var/mob/living/silicon/robot/borg = loc
@@ -279,18 +279,8 @@
 	return 1
 
 // As a synthetic, the only limit on visibility is view range
-/obj/item/mmi/contents_nano_distance(var/src_object, var/mob/living/user)
+/obj/item/mmi/contents_ui_distance(src_object, mob/living/user)
+	. = ..()
 	if((src_object in view(src)) && get_dist(src_object, src) <= user.client.view)
 		return STATUS_INTERACTIVE	// interactive (green visibility)
-	return user.shared_living_nano_distance(src_object)
-
-// For now the only thing that is helped by this is radio access
-// Later a more intricate system for MMI UI interaction can be established
-/obj/item/mmi/contents_nano_interact(var/src_object, var/mob/living/user)
-	if(!istype(user, /mob/living/carbon/brain))
-		log_runtime(EXCEPTION("Somehow a non-brain mob is inside an MMI!"), user)
-		return ..()
-	var/mob/living/carbon/brain/BM = user
-	if(BM.container == src && src_object == radio)
-		return STATUS_INTERACTIVE
-	return ..()
+	return user.shared_living_ui_distance()

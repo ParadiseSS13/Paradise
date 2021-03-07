@@ -2,7 +2,7 @@
 #define TRACKS_CRUSTIFY_TIME   50
 
 // color-dir-dry
-var/global/list/image/fluidtrack_cache = list()
+GLOBAL_LIST_EMPTY(fluidtrack_cache)
 
 // Footprints, tire trails...
 /obj/effect/decal/cleanable/blood/tracks
@@ -29,7 +29,8 @@ var/global/list/image/fluidtrack_cache = list()
 	blood_state = BLOOD_STATE_HUMAN //the icon state to load images from
 
 
-/obj/effect/decal/cleanable/blood/footprints/Crossed(atom/movable/O)
+/obj/effect/decal/cleanable/blood/footprints/Crossed(atom/movable/O, oldloc)
+	..()
 	if(ishuman(O))
 		var/mob/living/carbon/human/H = O
 		var/obj/item/clothing/shoes/S = H.shoes
@@ -40,19 +41,23 @@ var/global/list/image/fluidtrack_cache = list()
 			hasfeet = FALSE
 		if(S && S.bloody_shoes[blood_state] && S.blood_color == basecolor)
 			S.bloody_shoes[blood_state] = max(S.bloody_shoes[blood_state] - BLOOD_LOSS_PER_STEP, 0)
-			entered_dirs |= H.dir
 			if(!S.blood_DNA)
 				S.blood_DNA = list()
 			S.blood_DNA |= blood_DNA.Copy()
+			if(!(entered_dirs & H.dir))
+				entered_dirs |= H.dir
+				update_icon()
 		else if(hasfeet && H.bloody_feet[blood_state] && H.feet_blood_color == basecolor)//Or feet //This will need to be changed.
 			H.bloody_feet[blood_state] = max(H.bloody_feet[blood_state] - BLOOD_LOSS_PER_STEP, 0)
-			entered_dirs |= H.dir
 			if(!H.feet_blood_DNA)
 				H.feet_blood_DNA = list()
 			H.feet_blood_DNA |= blood_DNA.Copy()
-	update_icon()
+			if(!(entered_dirs & H.dir))
+				entered_dirs |= H.dir
+				update_icon()
 
 /obj/effect/decal/cleanable/blood/footprints/Uncrossed(atom/movable/O)
+	..()
 	if(ishuman(O))
 		var/mob/living/carbon/human/H = O
 		var/obj/item/clothing/shoes/S = H.shoes
@@ -63,40 +68,43 @@ var/global/list/image/fluidtrack_cache = list()
 			hasfeet = FALSE
 		if(S && S.bloody_shoes[blood_state] && S.blood_color == basecolor)
 			S.bloody_shoes[blood_state] = max(S.bloody_shoes[blood_state] - BLOOD_LOSS_PER_STEP, 0)
-			exited_dirs |= H.dir
 			if(!S.blood_DNA)
 				S.blood_DNA = list()
 			S.blood_DNA |= blood_DNA.Copy()
+			if(!(exited_dirs & H.dir))
+				exited_dirs |= H.dir
+				update_icon()
 		else if(hasfeet && H.bloody_feet[blood_state] && H.feet_blood_color == basecolor)//Or feet
 			H.bloody_feet[blood_state] = max(H.bloody_feet[blood_state] - BLOOD_LOSS_PER_STEP, 0)
-			exited_dirs |= H.dir
 			if(!H.feet_blood_DNA)
 				H.feet_blood_DNA = list()
 			H.feet_blood_DNA |= blood_DNA.Copy()
-	update_icon()
+			if(!(exited_dirs & H.dir))
+				exited_dirs |= H.dir
+				update_icon()
 
 
 /obj/effect/decal/cleanable/blood/footprints/update_icon()
 	overlays.Cut()
 
-	for(var/Ddir in cardinal)
+	for(var/Ddir in GLOB.cardinal)
 		if(entered_dirs & Ddir)
 			var/image/I
-			if(fluidtrack_cache["entered-[blood_state]-[Ddir]"])
-				I = fluidtrack_cache["entered-[blood_state]-[Ddir]"]
+			if(GLOB.fluidtrack_cache["entered-[blood_state]-[Ddir]"])
+				I = GLOB.fluidtrack_cache["entered-[blood_state]-[Ddir]"]
 			else
 				I = image(icon,"[blood_state]1",dir = Ddir)
-				fluidtrack_cache["entered-[blood_state]-[Ddir]"] = I
+				GLOB.fluidtrack_cache["entered-[blood_state]-[Ddir]"] = I
 			if(I)
 				I.color = basecolor
 				overlays += I
 		if(exited_dirs & Ddir)
 			var/image/I
-			if(fluidtrack_cache["exited-[blood_state]-[Ddir]"])
-				I = fluidtrack_cache["exited-[blood_state]-[Ddir]"]
+			if(GLOB.fluidtrack_cache["exited-[blood_state]-[Ddir]"])
+				I = GLOB.fluidtrack_cache["exited-[blood_state]-[Ddir]"]
 			else
 				I = image(icon,"[blood_state]2",dir = Ddir)
-				fluidtrack_cache["exited-[blood_state]-[Ddir]"] = I
+				GLOB.fluidtrack_cache["exited-[blood_state]-[Ddir]"] = I
 			if(I)
 				I.color = basecolor
 				overlays += I
@@ -108,14 +116,14 @@ var/global/list/image/fluidtrack_cache = list()
 	if(ishuman(A))
 		var/mob/living/carbon/human/H = A
 		FP.blood_state = H.blood_state
-		FP.bloodiness = H.bloody_feet[H.blood_state]
+		FP.bloodiness = H.bloody_feet[H.blood_state] - BLOOD_LOSS_IN_SPREAD
 		FP.basecolor = H.feet_blood_color
 		if(H.blood_DNA)
 			FP.blood_DNA = H.blood_DNA.Copy()
 	else if(istype(A, /obj/item/clothing/shoes))
 		var/obj/item/clothing/shoes/S = A
 		FP.blood_state = S.blood_state
-		FP.bloodiness = S.bloody_shoes[S.blood_state]
+		FP.bloodiness = S.bloody_shoes[S.blood_state] - BLOOD_LOSS_IN_SPREAD
 		FP.basecolor = S.blood_color
 		if(S.blood_DNA)
 			FP.blood_DNA = S.blood_DNA.Copy()
@@ -123,3 +131,13 @@ var/global/list/image/fluidtrack_cache = list()
 	FP.update_icon()
 
 	return FP
+
+/obj/effect/decal/cleanable/blood/footprints/replace_decal(obj/effect/decal/cleanable/blood/footprints/C)
+	if(blood_state != C.blood_state) //We only replace footprints of the same type as us
+		return
+	..()
+
+/obj/effect/decal/cleanable/blood/footprints/can_bloodcrawl_in()
+	if(basecolor == COLOR_BLOOD_MACHINE)
+		return FALSE
+	return TRUE

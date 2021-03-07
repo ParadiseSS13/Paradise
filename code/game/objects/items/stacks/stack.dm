@@ -16,6 +16,8 @@
 	var/to_transfer = 0
 	var/max_amount = 50 //also see stack recipes initialisation, param "max_res_amount" must be equal to this max_amount
 	var/merge_type = null // This path and its children should merge with this stack, defaults to src.type
+	var/recipe_width = 400 //Width of the recipe popup 
+	var/recipe_height = 400 //Height of the recipe popup
 
 /obj/item/stack/New(loc, new_amount, merge = TRUE)
 	..()
@@ -31,17 +33,17 @@
 			if(S.merge_type == merge_type)
 				merge(S)
 
-/obj/item/stack/Crossed(obj/O)
+/obj/item/stack/Crossed(obj/O, oldloc)
 	if(amount >= max_amount || ismob(loc)) // Prevents unnecessary call. Also prevents merging stack automatically in a mob's inventory
 		return
 	if(istype(O, merge_type) && !O.throwing)
 		merge(O)
 	..()
 
-/obj/item/stack/hitby(atom/movable/AM, skipcatch, hitpush)
+/obj/item/stack/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(istype(AM, merge_type) && !(amount >= max_amount))
 		merge(AM)
-	..()
+	. = ..()
 
 /obj/item/stack/Destroy()
 	if(usr && usr.machine == src)
@@ -49,12 +51,13 @@
 	return ..()
 
 /obj/item/stack/examine(mob/user)
-	if(..(user, 1))
+	. = ..()
+	if(in_range(user, src))
 		if(singular_name)
-			to_chat(user, "There are [amount] [singular_name]\s in the stack.")
+			. += "There are [amount] [singular_name]\s in the stack."
 		else
-			to_chat(user, "There are [amount] [name]\s in the stack.")
-		to_chat(user,"<span class='notice'>Alt-click to take a custom amount.</span>")
+			. += "There are [amount] [name]\s in the stack."
+		. +="<span class='notice'>Alt-click to take a custom amount.</span>"
 
 /obj/item/stack/proc/add(newamount)
 	amount += newamount
@@ -129,7 +132,7 @@
 			if(R.max_res_amount > 1 && max_multiplier > 1)
 				max_multiplier = min(max_multiplier, round(R.max_res_amount / R.res_amount))
 				t1 += " |"
-				
+
 				var/list/multipliers = list(5, 10, 25)
 				for(var/n in multipliers)
 					if(max_multiplier >= n)
@@ -137,7 +140,7 @@
 				if(!(max_multiplier in multipliers))
 					t1 += " <A href='?src=[UID()];make=[i];multiplier=[max_multiplier]'>[max_multiplier * R.res_amount]x</A>"
 
-	var/datum/browser/popup = new(user, "stack", name, 400, 400)
+	var/datum/browser/popup = new(user, "stack", name, recipe_width, recipe_height)
 	popup.set_content(t1)
 	popup.open(0)
 	onclose(user, "stack")
@@ -169,7 +172,7 @@
 				to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.req_amount * multiplier] [R.title]\s!</span>")
 			else
 				to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.title]!</span>")
-			return 0
+			return FALSE
 
 		if(R.window_checks && !valid_window_location(usr.loc, usr.dir))
 			to_chat(usr, "<span class='warning'>The [R.title] won't fit here!</span>")
@@ -177,11 +180,15 @@
 
 		if(R.one_per_turf && (locate(R.result_type) in usr.drop_location()))
 			to_chat(usr, "<span class='warning'>There is another [R.title] here!</span>")
-			return 0
+			return FALSE
 
 		if(R.on_floor && !istype(usr.drop_location(), /turf/simulated))
 			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
-			return 0
+			return FALSE
+
+		if(R.no_cult_structure && (locate(/obj/structure/cult) in usr.drop_location()))
+			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
+			return FALSE
 
 		if(R.time)
 			to_chat(usr, "<span class='notice'>Building [R.title] ...</span>")
@@ -203,7 +210,7 @@
 
 		if(amount < 1) // Just in case a stack's amount ends up fractional somehow
 			var/oldsrc = src
-			src = null //dont kill proc after del()
+			src = null //dont kill proc after qdel()
 			usr.unEquip(oldsrc, 1)
 			qdel(oldsrc)
 			if(istype(O, /obj/item))
@@ -221,7 +228,7 @@
 			interact(usr)
 			return
 
-/obj/item/stack/proc/use(used, check = TRUE)
+/obj/item/stack/use(used, check = TRUE)
 	if(check && zero_amount())
 		return FALSE
 	if(amount < used)
@@ -295,6 +302,8 @@
 	else
 		return ..()
 
+// Returns TRUE if the stack amount is zero.
+// Also qdels the stack gracefully if it is.
 /obj/item/stack/proc/zero_amount()
 	if(amount < 1)
 		if(isrobot(loc))
@@ -304,7 +313,11 @@
 		if(ismob(loc))
 			var/mob/living/L = loc // At this stage, stack code is so horrible and atrocious, I wouldn't be all surprised ghosts can somehow have stacks. If this happens, then the world deserves to burn.
 			L.unEquip(src, TRUE)
-		qdel(src)
+		if(amount < 1)
+			// If you stand on top of a stack, and drop a - different - 0-amount stack on the floor,
+			// the two get merged, so the amount of items in the stack can increase from the 0 that it had before.
+			// Check the amount again, to be sure we're not qdeling healthy stacks.
+			qdel(src)
 		return TRUE
 	return FALSE
 

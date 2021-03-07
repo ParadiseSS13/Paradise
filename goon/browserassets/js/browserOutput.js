@@ -41,6 +41,7 @@ var opts = {
 	'suppressOptionsClose': false, //Whether or not we should be hiding the suboptions menu
 	'highlightTerms': [],
 	'highlightLimit': 5,
+	'highlightRegexEnable':false,
 	'highlightColor': '#FFFF00', //The color of the highlighted message
 	'pingDisabled': false, //Has the user disabled the ping counter
 
@@ -68,8 +69,17 @@ var opts = {
 	'macros': {},
 
 	// Emoji toggle
-	'enableEmoji': true
+	'enableEmoji': true,
+
+	// Reboot message stuff
+	'rebootIntervalHandler': null,
+
+	// Syndicate codewords
+	'codePhrases': [],
+	'codeResponses': []
 };
+
+var regexHasError = false; //variable to check if regex has excepted
 
 function outerHTML(el) {
     var wrap = document.createElement('div');
@@ -87,6 +97,19 @@ if (!Date.now) {
 if (typeof String.prototype.trim !== 'function') {
 	String.prototype.trim = function () {
 		return this.replace(/^\s+|\s+$/g, '');
+	};
+}
+
+//Polyfill for string.prototype.includes. Why the fuck. Just why the fuck.
+if (!String.prototype.includes) {
+	String.prototype.includes = function(search, start) {
+	  'use strict';
+
+	  if (search instanceof RegExp) {
+		throw TypeError('first argument must not be a RegExp');
+	  }
+	  if (start === undefined) { start = 0; }
+	  return this.indexOf(search, start) !== -1;
 	};
 }
 
@@ -108,7 +131,7 @@ function byondDecode(message) {
 	// The replace for + is because FOR SOME REASON, BYOND replaces spaces with a + instead of %20, and a plus with %2b.
 	// Marvelous.
 	message = message.replace(/\+/g, "%20");
-	try { 
+	try {
 		// This is a workaround for the above not always working when BYOND's shitty url encoding breaks.
 		// Basically, sometimes BYOND's double encoding trick just arbitrarily produces something that makes decodeURIComponent
 		// throw an "Invalid Encoding URI" URIError... the simplest way to work around this is to just ignore it and use unescape instead
@@ -150,21 +173,95 @@ function emojiparse(el) {
 	}
 }
 
-// Colorizes the highlight spans
-function setHighlightColor(match) {
-	match.style.background = opts.highlightColor
+// Recolorizes the highlight spans
+function setHighlightColor() {
+	var highlightspans = document.getElementsByClassName("highlight")
+	for(var i in highlightspans){
+		highlightspans[i].setAttribute("style","background-color:"+opts.highlightColor)
+	}
+}
+
+function escapeRegexCharacters(input){ //escapes any characters that could be interpreted as regex patterns, potentially causing patterns to break if not escaped
+	return input.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 //Highlights words based on user settings
 function highlightTerms(el) {
-	var element = $(el)
-	if(!(element.mark)) { // mark.js isn't loaded; give up
-		return
+
+	if (regexHasError) return; //just stop right there ig the regex is gonna except
+
+	function highlightRecursor(element, term, className){ //recursor function to do the highlighting proper
+		var regex = new RegExp(term, "gi");
+
+		var replace;
+		if (className) {
+			replace = function(str) {
+				return str.replace(regex, '<span class="' + className + '">$&</span>');
+			};
+		} else {
+			replace = function(str) {
+				return str.replace(regex, '<span class="highlight" style="background-color:'+opts.highlightColor+'">$&</span>');
+			};
+		}
+
+		var s = '';
+		var work = element.innerHTML;
+		var ind = 0;
+
+		while(ind < work.length) {
+
+			var next_term = work.substring(ind).search(regex);
+			if(next_term != -1) next_term += ind;
+			var next_tag = work.indexOf('<', ind);
+			if(next_tag == -1) {
+				s+=replace(work.substring(ind));
+				break;
+			}
+			else if(next_term==-1) {
+				s += work.substring(ind);
+				break;
+			}
+			else if(next_tag < next_term) {
+				var temp = work.indexOf('>', next_tag);
+				s += work.substring(ind,temp+1);
+				ind = temp+1;
+			}
+			else {
+				s += replace(work.substring(ind, next_tag));
+				ind = next_tag;
+			}
+		}
+
+		element.innerHTML = s;
 	}
+
 	for (var i = 0; i < opts.highlightTerms.length; i++) { //Each highlight term
 		if(opts.highlightTerms[i]) {
-			element.mark(opts.highlightTerms[i], {"element" : "span", "each" : setHighlightColor});
+			if(!opts.highlightRegexEnable){
+				var innerTerms = opts.highlightTerms[i].split(" ")
+				for(var a in innerTerms){
+					highlightRecursor(el, escapeRegexCharacters(innerTerms[a]))
+				}
+			}
+			else {
+				try{
+					new RegExp(opts.highlightTerms[i], "gmi"); // check to make sure the pattern wont cause issues
+				} catch(e){
+					el.innerHTML += '<br/><span style="color:#000;background-color:#FFFF00;" class="bold"> Your highlight regex pattern -- ' + opts.highlightTerms[i] + ' -- is malformed.<br/>Your highlights have been disabled until they are next edited<br/>Thrown exception: '+e+'</span>';
+					regexHasError = true;
+					return;
+				}
+				highlightRecursor(el, opts.highlightTerms[i]);
+			}
 		}
+	}
+
+	// Code phrases
+	for (var i = 0; i < opts.codePhrases.length; i++) {
+		highlightRecursor(el, escapeRegexCharacters(opts.codePhrases[i]), "codephrases");
+	}
+	for (var i = 0; i < opts.codeResponses.length; i++) {
+		highlightRecursor(el, escapeRegexCharacters(opts.codeResponses[i]), "coderesponses");
 	}
 }
 
@@ -390,7 +487,8 @@ function handleClientData(ckey, ip, compid) {
 			}
 		}
 
-		if (opts.clientData.length >= opts.clientDataLimit) {
+		//Lets make sure we obey our limit (can connect from server with higher limit)
+		while (opts.clientData.length >= opts.clientDataLimit) {
 			opts.clientData.shift();
 		}
 	} else {
@@ -497,6 +595,55 @@ function toggleWasd(state) {
 	opts.wasd = (state == 'on' ? true : false);
 }
 
+function reboot(timeRaw) {
+	var timeLeftSecs = parseInt(timeRaw);
+	const intervalSecs = 1; // tick every 1 second
+
+	rebootFinished();
+	internalOutput('<div class="rebooting internal">The server is restarting. <a href="byond://winset?command=.reconnect" id="reconnectTimer">Reconnect (' + timeLeftSecs + ')</a></div>', 'internal');
+
+	opts.rebootIntervalHandler = setInterval(function() {
+		timeLeftSecs -= intervalSecs;
+		if (timeLeftSecs <= 0) {
+			$("#reconnectTimer").text('Reconnecting...');
+			window.location.href = 'byond://winset?command=.reconnect';
+			clearInterval(opts.rebootIntervalHandler)
+			opts.rebootIntervalHandler = null;
+		} else {
+			$("#reconnectTimer").text('Reconnect (' + timeLeftSecs + ')');
+		}
+	}, intervalSecs * 1000);
+}
+
+function rebootFinished() {
+	if (opts.rebootIntervalHandler != null) {
+		clearInterval(opts.rebootIntervalHandler)
+	}
+	$("<span> Reconnected automatically!</span>").insertBefore("#reconnectTimer");
+	$("#reconnectTimer").remove();
+}
+
+function codewords(phrases, responses) {
+	function cleanCodewords(words) {
+		var arr = [];
+		for (var i in words) {
+			var trimmed = words[i].trim();
+			if (trimmed.length > 0) {
+				arr.push(trimmed);
+			}
+		}
+		return arr;
+	}
+
+	opts.codePhrases = cleanCodewords(phrases.split(","));
+	opts.codeResponses = cleanCodewords(responses.split(","));
+}
+
+function codewordsClear() {
+	opts.codePhrases = [];
+	opts.codeResponses = [];
+}
+
 /*****************************************
 *
 * MAKE MACRO DICTIONARY
@@ -572,10 +719,11 @@ $(function() {
 		'spingDisabled': getCookie('pingdisabled'),
 		'shighlightTerms': getCookie('highlightterms'),
 		'shighlightColor': getCookie('highlightcolor'),
+		'shighlightRegexEnable': getCookie('highlightregexenable') == "true",
 		'shideSpam': getCookie('hidespam'),
 		'darkChat': getCookie('darkChat'),
 	};
-	
+
 	if (savedConfig.sfontSize) {
 		$messages.css('font-size', savedConfig.sfontSize);
 		internalOutput('<span class="internal boldnshit">Loaded font size setting of: '+savedConfig.sfontSize+'</span>', 'internal');
@@ -608,6 +756,10 @@ $(function() {
 	if (savedConfig.shighlightColor) {
 		opts.highlightColor = savedConfig.shighlightColor;
 		internalOutput('<span class="internal boldnshit">Loaded highlight color of: '+savedConfig.shighlightColor+'</span>', 'internal');
+	}
+	if (savedConfig.shighlightRegexEnable) {
+		opts.highlightRegexEnable = savedConfig.shighlightRegexEnable;
+		internalOutput('<span class="internal boldnshit">Loaded highlight regex enable of: '+savedConfig.shighlightRegexEnable+'</span>', 'internal');
 	}
 	if (savedConfig.shideSpam) {
 		opts.hideSpam = $.parseJSON(savedConfig.shideSpam);
@@ -929,18 +1081,18 @@ $(function() {
 		} else {
 			xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
 		}
-		
+
 		// synchronous requests are depricated in modern browsers
-		xmlHttp.open('GET', 'browserOutput.css', true);			
+		xmlHttp.open('GET', 'browserOutput.css', true);
 		xmlHttp.onload = function (e) {
 			if (xmlHttp.status === 200) {	// request successful
-				
+
 				// Generate Log
 				var saved = '<style>'+xmlHttp.responseText+'</style>';
 				saved += $messages.html();
 				saved = saved.replace(/&/g, '&amp;');
 				saved = saved.replace(/</g, '&lt;');
-				
+
 				// Generate final output and open the window
 				var finalText = '<head><title>Chat Log</title></head> \
 					<iframe src="saveInstructions.html" id="instructions" style="border:none;" height="220" width="100%"></iframe>'+
@@ -950,7 +1102,7 @@ $(function() {
 				openWindow('Style Doc Retrieve Error: '+xmlHttp.statusText);
 			}
 		}
-		
+
 		// timeout and request errors
 		xmlHttp.timeout = 300;
 		xmlHttp.ontimeout = function (e) {
@@ -965,18 +1117,16 @@ $(function() {
 	});
 
 	$('#highlightTerm').click(function(e) {
-		if(!($().mark)) {
-			internalOutput('<span class="internal boldnshit">Highlighting is disabled. You are probably using Internet Explorer 8 and need to update.</span>', 'internal');
-			return;
-		}
 		if ($('.popup .highlightTerm').is(':visible')) {return;}
 		var termInputs = '';
 		for (var i = 0; i < opts.highlightLimit; i++) {
-			termInputs += '<div><input type="text" name="highlightTermInput'+i+'" id="highlightTermInput'+i+'" class="highlightTermInput'+i+'" maxlength="255" value="'+(opts.highlightTerms[i] ? opts.highlightTerms[i] : '')+'" /></div>';
+			termInputs += '<div><input type="text" name="highlightTermInput'+i+'" id="highlightTermInput'+i+'" class="highlightTermInput'+i+'" maxlength="255" value="" /></div>';
 		}
 		var popupContent = '<div class="head">String Highlighting</div>' +
 			'<div class="highlightPopup" id="highlightPopup">' +
-				'<div>Choose up to '+opts.highlightLimit+' strings that will highlight the line when they appear in chat.</div>' +
+				'<div>Choose up to '+opts.highlightLimit+' strings that will highlight the line when they appear in chat.<br>'+
+		    			'<input name="highlightRegex" id="highlightRegexEnable" type="checkbox">Enable Regex</input>'+
+		    		'<br><a href="" onclick="window.open(\'https://www.paradisestation.org/wiki/index.php/Guide_to_Regex\')">See here for details</a></div>' +
 				'<form id="highlightTermForm">' +
 					termInputs +
 					'<div><input type="text" name="highlightColor" id="highlightColor" class="highlightColor" '+
@@ -985,8 +1135,11 @@ $(function() {
 				'</form>' +
 			'</div>';
 		createPopup(popupContent, 250);
+		for(var i = 0; i < opts.highlightLimit; i++){
+			document.querySelector(".highlightTermInput"+i).setAttribute("value",(opts.highlightTerms[i] ? opts.highlightTerms[i] : ''));
+		}
+		document.querySelector(".popup #highlightRegexEnable").checked = opts.highlightRegexEnable;
 	});
-
 	$('body').on('keyup', '#highlightColor', function() {
 		var color = $('#highlightColor').val();
 		color = color.trim();
@@ -1013,16 +1166,26 @@ $(function() {
 			count++;
 		}
 
+		opts.highlightRegexEnable = document.querySelector("#highlightRegexEnable").checked
+
 		var color = $('#highlightColor').val();
-		color = color.trim();
-		if (color == '' || color.charAt(0) != '#') {
-			opts.highlightColor = '#FFFF00';
-		} else {
-			opts.highlightColor = color;
+		if(color != opts.highlightColor) { // did the color even change?
+			color = color.trim();
+			if (color == '' || color.charAt(0) != '#') {
+				opts.highlightColor = '#FFFF00';
+			} else {
+				opts.highlightColor = color;
+			}
+			setHighlightColor();
 		}
+
+		regexHasError = false; //they changed the regex so it might be valid now
+		internalOutput('<span class="internal boldnshit">Highlights have been updated.</span>',"internal") // simplest way to test if pattern works, why reinvent the wheel?
+
 		var $popup = $('#highlightPopup').closest('.popup');
 		$popup.remove();
 
+		setCookie('highlightregexenable', opts.highlightRegexEnable,365)
 		setCookie('highlightterms', JSON.stringify(opts.highlightTerms), 365);
 		setCookie('highlightcolor', opts.highlightColor, 365);
 	});

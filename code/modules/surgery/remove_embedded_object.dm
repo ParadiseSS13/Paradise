@@ -10,7 +10,7 @@
 /datum/surgery/embedded_removal/can_start(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))
 		return 0
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(!affected)
 		return 0
 	if(affected.is_robotic())
@@ -20,7 +20,7 @@
 /datum/surgery/embedded_removal/synth/can_start(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))
 		return 0
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(!affected)
 		return 0
 	if(!affected.is_robotic())
@@ -38,9 +38,9 @@
 /datum/surgery_step/remove_object/begin_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	L = surgery.organ_ref
 	if(L)
-		user.visible_message("[user] looks for objects embedded in [target]'s [parse_zone(user.zone_sel.selecting)].", "<span class='notice'>You look for objects embedded in [target]'s [parse_zone(user.zone_sel.selecting)]...</span>")
+		user.visible_message("[user] looks for objects embedded in [target]'s [parse_zone(user.zone_selected)].", "<span class='notice'>You look for objects embedded in [target]'s [parse_zone(user.zone_selected)]...</span>")
 	else
-		user.visible_message("[user] looks for [target]'s [parse_zone(user.zone_sel.selecting)].", "<span class='notice'>You look for [target]'s [parse_zone(user.zone_sel.selecting)]...</span>")
+		user.visible_message("[user] looks for [target]'s [parse_zone(user.zone_selected)].", "<span class='notice'>You look for [target]'s [parse_zone(user.zone_selected)]...</span>")
 
 
 /datum/surgery_step/remove_object/end_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -61,6 +61,6 @@
 				to_chat(user, "<span class='warning'>You find no objects embedded in [H]'s [L]!</span>")
 
 	else
-		to_chat(user, "<span class='warning'>You can't find [target]'s [parse_zone(user.zone_sel.selecting)], let alone any objects embedded in it!</span>")
+		to_chat(user, "<span class='warning'>You can't find [target]'s [parse_zone(user.zone_selected)], let alone any objects embedded in it!</span>")
 
 	return 1

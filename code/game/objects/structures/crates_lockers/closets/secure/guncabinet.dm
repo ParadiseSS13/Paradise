@@ -1,6 +1,6 @@
 /obj/structure/closet/secure_closet/guncabinet
 	name = "gun cabinet"
-	req_access = list(access_armory)
+	req_access = list(ACCESS_ARMORY)
 	icon = 'icons/obj/guncabinet.dmi'
 	icon_state = "base"
 	icon_closed = "base"
@@ -8,12 +8,6 @@
 	icon_locked = "base"
 	icon_broken = "base"
 	icon_off = "base"
-
-/obj/structure/closet/secure_closet/guncabinet/New()
-	..()
-	update_icon()
-
-
 
 /obj/structure/closet/secure_closet/guncabinet/toggle()
 	..()

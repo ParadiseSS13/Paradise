@@ -9,6 +9,7 @@
 	icon_dead = "angel"
 	gender = NEUTER
 	a_intent = INTENT_HARM
+	mob_biotypes = MOB_HUMANOID
 
 	response_help = "touches"
 	response_disarm = "pushes"
@@ -36,7 +37,6 @@
 	see_in_dark = 8
 	vision_range = 12
 	aggro_vision_range = 12
-	idle_vision_range = 12
 
 	search_objects = 1 // So that it can see through walls
 
@@ -87,11 +87,11 @@
 	if(can_be_seen(get_turf(loc)))
 		if(client)
 			to_chat(src, "<span class='warning'>You cannot attack, there are eyes on you!</span>")
-			return
+		return FALSE
 	else
-		..()
+		return ..()
 
-/mob/living/simple_animal/hostile/statue/DestroySurroundings()
+/mob/living/simple_animal/hostile/statue/DestroyPathToTarget()
 	if(!can_be_seen(get_turf(loc)))
 		..()
 
@@ -181,11 +181,11 @@
 	range = 10
 
 /obj/effect/proc_holder/spell/aoe_turf/blindness/cast(list/targets, mob/user = usr)
-	for(var/mob/living/L in GLOB.living_mob_list)
+	for(var/mob/living/L in GLOB.alive_mob_list)
 		if(L == user)
 			continue
 		var/turf/T = get_turf(L.loc)
-		if(T && T in targets)
+		if(T && (T in targets))
 			L.EyeBlind(4)
 	return
 

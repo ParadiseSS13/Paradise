@@ -1,4 +1,7 @@
 /obj/item/spacepod_equipment/weaponry/proc/fire_weapons()
+	if(HAS_TRAIT(usr, TRAIT_PACIFISM) && harmful)
+		to_chat(usr, "<span class='warning'>You don't want to harm other living beings!</span>")
+		return
 	if(my_atom.next_firetime > world.time)
 		to_chat(usr, "<span class='warning'>Your weapons are recharging.</span>")
 		return
@@ -83,6 +86,7 @@
 	var/shots_per = 1
 	var/fire_sound
 	var/fire_delay = 15
+	var/harmful = TRUE
 
 /obj/item/spacepod_equipment/weaponry/taser
 	name = "disabler system"
@@ -91,6 +95,7 @@
 	projectile_type = /obj/item/projectile/beam/disabler
 	shot_cost = 400
 	fire_sound = 'sound/weapons/taser.ogg'
+	harmful = FALSE
 
 /obj/item/spacepod_equipment/weaponry/burst_taser
 	name = "burst taser system"
@@ -101,6 +106,7 @@
 	shots_per = 3
 	fire_sound = 'sound/weapons/taser.ogg'
 	fire_delay = 30
+	harmful = FALSE
 
 /obj/item/spacepod_equipment/weaponry/laser
 	name = "laser system"
@@ -131,45 +137,32 @@
 	fire_delay = 10
 	fire_sound = 'sound/weapons/kenetic_accel.ogg'
 
-/obj/item/spacepod_equipment/weaponry/mining_laser_hyper
-	name = "enhanced mining laser system"
-	desc = "An enhanced mining laser system for space pods, fires bursts of energy that cut through rock."
-	icon = 'icons/goonstation/pods/ship.dmi'
-	icon_state = "pod_w_laser"
-	projectile_type = /obj/item/projectile/kinetic/pod/enhanced
-	shot_cost = 200
-	fire_delay = 8
-	fire_sound = 'sound/weapons/kenetic_accel.ogg'
-
 /*
 ///////////////////////////////////////
 /////////Misc. System///////////////////
 ///////////////////////////////////////
 */
 
+GLOBAL_LIST_EMPTY(pod_trackers)
+
 /obj/item/spacepod_equipment/misc
 	name = "pod misc"
 	desc = "You shouldn't be seeing this"
 	icon = 'icons/goonstation/pods/ship.dmi'
 	icon_state = "blank"
-	var/enabled
 
 /obj/item/spacepod_equipment/misc/tracker
 	name = "\improper spacepod tracking system"
 	desc = "A tracking device for spacepods."
 	icon_state = "pod_locator"
-	enabled = 0
 
-/obj/item/spacepod_equipment/misc/tracker/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(isscrewdriver(I))
-		if(enabled)
-			enabled = 0
-			user.show_message("<span class='notice'>You disable \the [src]'s power.")
-			return
-		enabled = 1
-		user.show_message("<span class='notice'>You enable \the [src]'s power.</span>")
-	else
-		..()
+/obj/item/spacepod_equipment/misc/tracker/Initialize(mapload)
+	GLOB.pod_trackers |= src
+	return ..()
+
+/obj/item/spacepod_equipment/misc/tracker/Destroy()
+	GLOB.pod_trackers -= src
+	return ..()
 
 /*
 ///////////////////////////////////////
@@ -259,8 +252,8 @@
 	icon_state = "lock_tumbler"
 	var/static/id_source = 0
 
-/obj/item/spacepod_equipment/lock/keyed/New()
-	..()
+/obj/item/spacepod_equipment/lock/keyed/Initialize(mapload)
+	. = ..()
 	id = ++id_source
 
 // The key
@@ -282,4 +275,4 @@
 		else
 			to_chat(user, "<span class='warning'>This key is already ground!</span>")
 	else
-		..()
+		return ..()

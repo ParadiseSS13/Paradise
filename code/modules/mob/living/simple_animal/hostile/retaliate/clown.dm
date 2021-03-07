@@ -1,11 +1,13 @@
 /mob/living/simple_animal/hostile/retaliate/clown
 	name = "Clown"
 	desc = "A denizen of clown planet"
+	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "clown"
 	icon_living = "clown"
 	icon_dead = "clown_dead"
 	icon_gib = "clown_gib"
 	speak_chance = 0
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	turns_per_move = 5
 	response_help = "pokes the"
 	response_disarm = "gently pushes aside the"
@@ -29,14 +31,16 @@
 	heat_damage_per_tick = 15	//amount of damage applied if animal's body temperature is higher than maxbodytemp
 	cold_damage_per_tick = 10	//same as heat_damage_per_tick, only if the bodytemperature it's lower than minbodytemp
 	unsuitable_atmos_damage = 10
-
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/hostile/retaliate/clown/goblin
+	icon = 'icons/mob/animal.dmi'
 	name = "clown goblin"
 	desc = "A tiny walking mask and clown shoes. You want to honk his nose!"
 	icon_state = "clowngoblin"
 	icon_living = "clowngoblin"
 	icon_dead = null
+	mob_biotypes = MOB_ORGANIC
 	response_help = "honks the"
 	speak = list("Honk!")
 	speak_emote = list("sqeaks")

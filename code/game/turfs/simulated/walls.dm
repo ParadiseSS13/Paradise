@@ -1,9 +1,13 @@
+#define WALL_DENT_HIT 1
+#define WALL_DENT_SHOT 2
+#define MAX_DENT_DECALS 15
+
 /turf/simulated/wall
 	name = "wall"
 	desc = "A huge chunk of metal used to seperate rooms."
 	icon = 'icons/turf/walls/wall.dmi'
 	icon_state = "wall"
-	var/rotting = 0
+	var/rotting = FALSE
 
 	var/damage = 0
 	var/damage_cap = 100 //Wall will break down to girders if damage reaches this point
@@ -11,24 +15,26 @@
 	var/damage_overlay
 	var/global/damage_overlays[8]
 
-	var/max_temperature = 1800 //K, walls will take damage if they're next to a fire hotter than this
-
 	opacity = 1
 	density = 1
 	blocks_air = 1
 	explosion_block = 1
 
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	rad_insulation = RAD_MEDIUM_INSULATION
+
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
 
+	var/can_dismantle_with_welder = TRUE
 	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
+	var/slicing_duration = 10 SECONDS
 	var/engraving //engraving on the wall
 	var/engraving_quality
-
+	var/list/dent_decals
 	var/sheet_type = /obj/item/stack/sheet/metal
 	var/sheet_amount = 2
 	var/girder_type = /obj/structure/girder
-	var/obj/item/stack/sheet/builtin_sheet = null
 
 	canSmoothWith = list(
 	/turf/simulated/wall,
@@ -36,13 +42,8 @@
 	/obj/structure/falsewall,
 	/obj/structure/falsewall/reinforced,
 	/turf/simulated/wall/rust,
-	/turf/simulated/wall/r_wall/rust,
-	/turf/simulated/wall/r_wall/coated)
+	/turf/simulated/wall/r_wall/rust)
 	smooth = SMOOTH_TRUE
-
-/turf/simulated/wall/New()
-	..()
-	builtin_sheet = new sheet_type
 
 /turf/simulated/wall/BeforeChange()
 	for(var/obj/effect/overlay/wall_rot/WR in src)
@@ -50,22 +51,22 @@
 	. = ..()
 
 //Appearance
-/turf/simulated/wall/examine(mob/user)
-	. = ..(user)
+/turf/simulated/wall/examine(mob/user)	//If you change this, consider changing the examine_status proc of false walls to match
+	. = ..()
 
 	if(!damage)
-		to_chat(user, "<span class='notice'>It looks fully intact.</span>")
+		. += "<span class='notice'>It looks fully intact.</span>"
 	else
 		var/dam = damage / damage_cap
 		if(dam <= 0.3)
-			to_chat(user, "<span class='warning'>It looks slightly damaged.</span>")
+			. += "<span class='warning'>It looks slightly damaged.</span>"
 		else if(dam <= 0.6)
-			to_chat(user, "<span class='warning'>It looks moderately damaged.</span>")
+			. += "<span class='warning'>It looks moderately damaged.</span>"
 		else
-			to_chat(user, "<span class='danger'>It looks heavily damaged.</span>")
+			. += "<span class='danger'>It looks heavily damaged.</span>"
 
 	if(rotting)
-		to_chat(user, "<span class='warning'>There is fungus growing on [src].</span>")
+		. += "<span class='warning'>There is fungus growing on [src].</span>"
 
 /turf/simulated/wall/proc/update_icon()
 	if(!damage_overlays[1]) //list hasn't been populated
@@ -75,7 +76,7 @@
 	if(!damage)
 		if(damage_overlay)
 			overlays -= damage_overlays[damage_overlay]
-			damage_overlay = 0
+			damage_overlay = null
 		return
 
 	var/overlay = round(damage / damage_cap * damage_overlays.len) + 1
@@ -116,13 +117,18 @@
 	else
 		update_icon()
 
-	return
+/turf/simulated/wall/handle_ricochet(obj/item/projectile/P)			//A huge pile of shitcode!
+	var/turf/p_turf = get_turf(P)
+	var/face_direction = get_dir(src, p_turf)
+	var/face_angle = dir2angle(face_direction)
+	var/incidence_s = GET_ANGLE_OF_INCIDENCE(face_angle, (P.Angle + 180))
+	if(abs(incidence_s) > 90 && abs(incidence_s) < 270)
+		return FALSE
+	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + incidence_s)
+	P.setAngle(new_angle_s)
+	return TRUE
 
-/turf/simulated/wall/proc/adjacent_fire_act(turf/simulated/wall, radiated_temperature)
-	if(radiated_temperature > max_temperature)
-		take_damage(rand(10, 20) * (radiated_temperature / max_temperature))
-
-/turf/simulated/wall/proc/dismantle_wall(devastated = 0, explode = 0)
+/turf/simulated/wall/dismantle_wall(devastated = FALSE, explode = FALSE)
 	if(devastated)
 		devastate_wall()
 	else
@@ -139,6 +145,7 @@
 			O.forceMove(src)
 
 	ChangeTurf(/turf/simulated/floor/plating)
+	return TRUE
 
 /turf/simulated/wall/proc/break_wall()
 	new sheet_type(src, sheet_amount)
@@ -163,9 +170,11 @@
 		else
 	return
 
-/turf/simulated/wall/blob_act()
+/turf/simulated/wall/blob_act(obj/structure/blob/B)
 	if(prob(50))
 		dismantle_wall()
+	else
+		add_dent(WALL_DENT_HIT)
 
 /turf/simulated/wall/rpd_act(mob/user, obj/item/rpd/our_rpd)
 	if(our_rpd.mode == RPD_ATMOS_MODE)
@@ -181,15 +190,21 @@
 		..()
 
 /turf/simulated/wall/mech_melee_attack(obj/mecha/M)
-	if(M.damtype == "brute")
-		playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
-		M.occupant_message("<span class='danger'>You hit [src].</span>")
-		visible_message("<span class='danger'>[src] has been hit by [M.name].</span>")
-		if(prob(5) && M.force > 20)
-			dismantle_wall(1)
-			M.occupant_message("<span class='warning'>You smash through the wall.</span>")
-			visible_message("<span class='warning'>[src.name] smashes through the wall!</span>")
-			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
+	M.do_attack_animation(src)
+	switch(M.damtype)
+		if(BRUTE)
+			playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
+			M.visible_message("<span class='danger'>[M.name] hits [src]!</span>", "<span class='danger'>You hit [src]!</span>")
+			if(prob(hardness + M.force) && M.force > 20)
+				dismantle_wall(1)
+				playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
+			else
+				add_dent(WALL_DENT_HIT)
+		if(BURN)
+			playsound(src, 'sound/items/welder.ogg', 100, TRUE)
+		if(TOX)
+			playsound(src, 'sound/effects/spray2.ogg', 100, TRUE)
+			return FALSE
 
 // Wall-rot effect, a nasty fungus that destroys walls.
 /turf/simulated/wall/proc/rot()
@@ -225,7 +240,7 @@
 
 	var/turf/simulated/floor/F = src
 	F.burn_tile()
-	F.icon_state = "wall_thermite"
+	F.icon_state = "plating"
 	if(user)
 		to_chat(user, "<span class='warning'>The thermite starts melting through the wall.</span>")
 
@@ -259,6 +274,7 @@
 		dismantle_wall(TRUE)
 	else
 		playsound(src, 'sound/effects/bang.ogg', 50, 1)
+		add_dent(WALL_DENT_HIT)
 		to_chat(user, text("<span class='notice'>You punch the wall.</span>"))
 	return TRUE
 
@@ -295,59 +311,67 @@
 
 	if(try_wallmount(I, user, params))
 		return
-
 	// The magnetic gripper does a separate attackby, so bail from this one
 	if(istype(I, /obj/item/gripper))
 		return
 
 	return ..()
 
-/turf/simulated/wall/proc/try_rot(obj/item/I, mob/user, params)
-	if(iswelder(I))
-		var/obj/item/weldingtool/WT = I
-		if(WT.remove_fuel(0, user))
-			to_chat(user, "<span class='notice'>You burn away the fungi with [WT].</span>")
-			playsound(src, WT.usesound, 10, 1)
+/turf/simulated/wall/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(thermite && I.use_tool(src, user, volume = I.tool_volume))
+		thermitemelt(user)
+		return
+	if(rotting)
+		if(I.use_tool(src, user, volume = I.tool_volume))
 			for(var/obj/effect/overlay/wall_rot/WR in src)
 				qdel(WR)
-			rotting = 0
-			return TRUE
-	else if((!is_sharp(I) && I.force >= 10) || I.force >= 20)
+			rotting = FALSE
+			to_chat(user, "<span class='notice'>You burn off the fungi with [I].</span>")
+		return
+
+	// Wall repair stuff
+	if(!I.tool_use_check(user, 0))
+		return
+
+	var/repairing
+	var/time
+	if(user.a_intent == INTENT_HARM) // Harm intent
+		if(can_dismantle_with_welder)
+			repairing = FALSE
+			time = slicing_duration
+			WELDER_ATTEMPT_SLICING_MESSAGE
+		else
+			return
+
+	else // Any other intents
+		if(damage || LAZYLEN(dent_decals))
+			repairing = TRUE
+			time = max(5, damage / 5)
+			WELDER_ATTEMPT_REPAIR_MESSAGE
+		else
+			to_chat(user, "<span class='warning'>[src] doesn't need repairing.</span>")
+			return
+
+	if(I.use_tool(src, user, time, volume = I.tool_volume))
+		if(repairing)
+			WELDER_REPAIR_SUCCESS_MESSAGE
+			cut_overlay(dent_decals)
+			dent_decals?.Cut() // I feel like this isn't needed but it can't hurt to keep it in anyway
+			take_damage(-damage)
+		else
+			WELDER_SLICING_SUCCESS_MESSAGE
+			dismantle_wall()
+
+/turf/simulated/wall/proc/try_rot(obj/item/I, mob/user, params)
+	if((!is_sharp(I) && I.force >= 10) || I.force >= 20)
 		to_chat(user, "<span class='notice'>[src] crumbles away under the force of your [I.name].</span>")
 		dismantle_wall(1)
 		return TRUE
 	return FALSE
 
 /turf/simulated/wall/proc/try_decon(obj/item/I, mob/user, params)
-	if(iswelder(I))
-		var/obj/item/weldingtool/WT = I
-		if(!WT.remove_fuel(0, user))
-			to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
-			return TRUE // this means "don't continue trying to find alternative uses in attackby", not "decon succeeded"
-
-		var/response = "Dismantle"
-		if(damage)
-			response = alert(user, "Would you like to repair or dismantle [src]?", "[src]", "Repair", "Dismantle")
-
-		switch(response)
-			if("Repair")
-				to_chat(user, "<span class='notice'>You start repairing the damage to [src].</span>")
-				playsound(src, WT.usesound, 100, 1)
-				if(do_after(user, max(5, damage / 5) * WT.toolspeed, target = src) && WT && WT.isOn())
-					to_chat(user, "<span class='notice'>You finish repairing the damage to [src].</span>")
-					take_damage(-damage)
-			else
-				to_chat(user, "<span class='notice'>You begin slicing through the outer plating.</span>")
-				playsound(src, WT.usesound, 100, 1)
-
-				if(do_after(user, 100 * WT.toolspeed, target = src) && WT && WT.isOn())
-					to_chat(user, "<span class='notice'>You remove the outer plating.</span>")
-					dismantle_wall()
-				else
-					to_chat(user, "<span class='warning'>You stop slicing through [src].</span>")
-				return TRUE
-
-	else if(istype(I, /obj/item/gun/energy/plasmacutter))
+	if(istype(I, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You begin slicing through the outer plating.</span>")
 		playsound(src, I.usesound, 100, 1)
 
@@ -423,6 +447,10 @@
 	return FALSE
 
 /turf/simulated/wall/singularity_pull(S, current_size)
+	..()
+	wall_singularity_pull(current_size)
+
+/turf/simulated/wall/proc/wall_singularity_pull(current_size)
 	if(current_size >= STAGE_FIVE)
 		if(prob(50))
 			dismantle_wall()
@@ -434,3 +462,35 @@
 /turf/simulated/wall/narsie_act()
 	if(prob(20))
 		ChangeTurf(/turf/simulated/wall/cult)
+
+/turf/simulated/wall/acid_act(acidpwr, acid_volume)
+	if(explosion_block >= 2)
+		acidpwr = min(acidpwr, 50) //we reduce the power so strong walls never get melted.
+	. = ..()
+
+/turf/simulated/wall/acid_melt()
+	dismantle_wall(1)
+
+/turf/simulated/wall/proc/add_dent(denttype, x=rand(-8, 8), y=rand(-8, 8))
+	if(LAZYLEN(dent_decals) >= MAX_DENT_DECALS)
+		return
+
+	var/mutable_appearance/decal = mutable_appearance('icons/effects/effects.dmi', "", BULLET_HOLE_LAYER)
+	switch(denttype)
+		if(WALL_DENT_SHOT)
+			decal.icon_state = "bullet_hole"
+		if(WALL_DENT_HIT)
+			decal.icon_state = "impact[rand(1, 3)]"
+
+	decal.pixel_x = x
+	decal.pixel_y = y
+
+	if(LAZYLEN(dent_decals))
+		cut_overlay(dent_decals)
+		dent_decals += decal
+	else
+		dent_decals = list(decal)
+
+	add_overlay(dent_decals)
+
+#undef MAX_DENT_DECALS

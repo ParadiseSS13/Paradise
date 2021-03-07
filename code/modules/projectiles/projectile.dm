@@ -3,15 +3,13 @@
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "bullet"
 	density = 0
-	unacidable = 1
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = 1 //There's a reason this is here, Mport. God fucking damn it -Agouri. Find&Fix by Pete. The reason this is here is to stop the curving of emitter shots.
 	flags = ABSTRACT
 	pass_flags = PASSTABLE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""
-	pressure_resistance = INFINITY
-	burn_state = LAVA_PROOF
 	var/def_zone = ""	//Aiming at
 	var/mob/firer = null//Who shot it
 	var/obj/item/ammo_casing/ammo_casing = null
@@ -26,13 +24,12 @@
 	var/p_x = 16
 	var/p_y = 16 // the pixel location of the tile that the player clicked. Default is the center
 	var/speed = 1			//Amount of deciseconds it takes for projectile to travel
-	var/Angle = 0
+	var/Angle = null
 	var/spread = 0			//amount (in degrees) of projectile spread
-	var/legacy = FALSE			//legacy projectile system
 	animate_movement = 0
-	
+
 	var/ignore_source_check = FALSE
-	
+
 	var/damage = 10
 	var/tile_dropoff = 0	//how much damage should be decremented as the bullet moves
 	var/tile_dropoff_s = 0	//same as above but for stamina
@@ -56,9 +53,10 @@
 	var/jitter = 0
 	var/forcedodge = 0 //to pass through everything
 	var/dismemberment = 0 //The higher the number, the greater the bonus to dismembering. 0 will not dismember at all.
+	var/impact_effect_type //what type of impact effect to show when hitting something
 	var/ricochets = 0
 	var/ricochets_max = 2
-	var/ricochet_chance = 0
+	var/ricochet_chance = 30
 
 	var/log_override = FALSE //whether print to admin attack logs or just keep it in the diary
 
@@ -80,11 +78,31 @@
 /obj/item/projectile/proc/on_range() //if we want there to be effects when they reach the end of their range
 	qdel(src)
 
+/obj/item/projectile/proc/prehit(atom/target)
+	return TRUE
+
 /obj/item/projectile/proc/on_hit(atom/target, blocked = 0, hit_zone)
 	var/turf/target_loca = get_turf(target)
+	var/hitx
+	var/hity
+	if(target == original)
+		hitx = target.pixel_x + p_x - 16
+		hity = target.pixel_y + p_y - 16
+	else
+		hitx = target.pixel_x + rand(-8, 8)
+		hity = target.pixel_y + rand(-8, 8)
+	if(!nodamage && (damage_type == BRUTE || damage_type == BURN) && iswallturf(target_loca) && prob(75))
+		var/turf/simulated/wall/W = target_loca
+		if(impact_effect_type)
+			new impact_effect_type(target_loca, hitx, hity)
+
+		W.add_dent(WALL_DENT_SHOT, hitx, hity)
+		return 0
 	if(alwayslog)
 		add_attack_logs(firer, target, "Shot with a [type]")
 	if(!isliving(target))
+		if(impact_effect_type)
+			new impact_effect_type(target_loca, hitx, hity)
 		return 0
 	var/mob/living/L = target
 	var/mob/living/carbon/human/H
@@ -115,7 +133,8 @@
 						M.bloody_hands(H)
 						/* Uncomment when bloody_body stops randomly not transferring blood colour.
 						M.bloody_body(H) */
-
+		else if(impact_effect_type)
+			new impact_effect_type(target_loca, hitx, hity)
 		var/organ_hit_text = ""
 		if(L.has_limbs)
 			organ_hit_text = " in \the [parse_zone(def_zone)]"
@@ -129,19 +148,18 @@
 			L.visible_message("<span class='danger'>[L] is hit by \a [src][organ_hit_text]!</span>", \
 								"<span class='userdanger'>[L] is hit by \a [src][organ_hit_text]!</span>")	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 
-	var/reagent_note
-	var/has_reagents = FALSE
+	var/additional_log_text
+	if(blocked)
+		additional_log_text = " [blocked]% blocked"
 	if(reagents && reagents.reagent_list)
-		reagent_note = " REAGENTS:"
+		var/reagent_note = "REAGENTS:"
 		for(var/datum/reagent/R in reagents.reagent_list)
 			reagent_note += R.id + " ("
 			reagent_note += num2text(R.volume) + ") "
-			has_reagents = TRUE
+		additional_log_text = "[additional_log_text] (containing [reagent_note])"
+
 	if(!log_override && firer && !alwayslog)
-		if(has_reagents)
-			add_attack_logs(firer, L, "Shot with a [type] (containing [reagent_note])")
-		else
-			add_attack_logs(firer, L, "Shot with a [type]")
+		add_attack_logs(firer, L, "Shot with a [type][additional_log_text]")
 	return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
 
 /obj/item/projectile/proc/get_splatter_blockage(var/turf/step_over, var/atom/target, var/splatter_dir, var/target_loca) //Check whether the place we want to splatter blood is blocked (i.e. by windows).
@@ -155,23 +173,23 @@
 
 /obj/item/projectile/proc/vol_by_damage()
 	if(damage)
-		return Clamp((damage) * 0.67, 30, 100)// Multiply projectile damage by 0.67, then clamp the value between 30 and 100
+		return clamp((damage) * 0.67, 30, 100)// Multiply projectile damage by 0.67, then clamp the value between 30 and 100
 	else
 		return 50 //if the projectile doesn't do damage, play its hitsound at 50% volume
 
 /obj/item/projectile/Bump(atom/A, yes)
 	if(!yes) //prevents double bumps.
 		return
-		
+
 	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max)
 		ricochets++
-	if(A.handle_ricochet(src))
-		on_ricochet(A)
-		ignore_source_check = TRUE
-		range = initial(range)
-		return TRUE
-	if(firer)
-		if(A == firer || (A == firer.loc && istype(A, /obj/mecha))) //cannot shoot yourself or your mech
+		if(A.handle_ricochet(src))
+			on_ricochet(A)
+			ignore_source_check = TRUE
+			range = initial(range)
+			return TRUE
+	if(firer && !ignore_source_check)
+		if(A == firer || (A == firer.loc && ismecha(A))) //cannot shoot yourself or your mech
 			loc = A.loc
 			return 0
 
@@ -179,7 +197,7 @@
 	def_zone = ran_zone(def_zone, max(100-(7*distance), 5)) //Lower accurancy/longer range tradeoff. 7 is a balanced number to use.
 
 	if(isturf(A) && hitsound_wall)
-		var/volume = Clamp(vol_by_damage() + 20, 0, 100)
+		var/volume = clamp(vol_by_damage() + 20, 0, 100)
 		if(suppressed)
 			volume = 5
 		playsound(loc, hitsound_wall, volume, 1, -1)
@@ -190,7 +208,7 @@
 			return
 
 	var/turf/target_turf = get_turf(A)
-
+	prehit(A)
 	var/permutation = A.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
 	if(permutation == -1 || forcedodge)// the bullet passes through a dense object!
 		loc = target_turf
@@ -204,6 +222,7 @@
 				mobs_list += L
 			if(mobs_list.len)
 				var/mob/living/picked_mob = pick(mobs_list)
+				prehit(picked_mob)
 				picked_mob.bullet_act(src, def_zone)
 	qdel(src)
 
@@ -211,77 +230,82 @@
 	return 1 //Bullets don't drift in space
 
 /obj/item/projectile/proc/fire(var/setAngle)
+	set waitfor = FALSE
 	if(setAngle)
 		Angle = setAngle
-	if(!legacy) //new projectiles
-		set waitfor = 0
-		while(loc)
-			if(!paused)
-				if((!( current ) || loc == current))
-					current = locate(Clamp(x+xo,1,world.maxx),Clamp(y+yo,1,world.maxy),z)
 
-				if(!Angle)
-					Angle=round(Get_Angle(src,current))
-				if(spread)
-					Angle += (rand() - 0.5) * spread
-				var/matrix/M = new
-				M.Turn(Angle)
-				transform = M
+	while(!QDELETED(src))
+		if(!paused)
+			if((!current || loc == current))
+				current = locate(clamp(x + xo, 1, world.maxx), clamp(y + yo, 1, world.maxy), z)
+			if(isnull(Angle))
+				Angle = round(Get_Angle(src, current))
+			if(spread)
+				Angle += (rand() - 0.5) * spread
+			var/matrix/M = new
+			M.Turn(Angle)
+			transform = M
 
-				var/Pixel_x=round(sin(Angle)+16*sin(Angle)*2)
-				var/Pixel_y=round(cos(Angle)+16*cos(Angle)*2)
-				var/pixel_x_offset = pixel_x + Pixel_x
-				var/pixel_y_offset = pixel_y + Pixel_y
-				var/new_x = x
-				var/new_y = y
+			var/Pixel_x = round(sin(Angle) + 16 * sin(Angle) * 2, 1)
+			var/Pixel_y = round(cos(Angle) + 16 * cos(Angle) * 2, 1)
+			var/pixel_x_offset = pixel_x + Pixel_x
+			var/pixel_y_offset = pixel_y + Pixel_y
+			var/new_x = x
+			var/new_y = y
 
-				while(pixel_x_offset > 16)
-					pixel_x_offset -= 32
-					pixel_x -= 32
-					new_x++// x++
-				while(pixel_x_offset < -16)
-					pixel_x_offset += 32
-					pixel_x += 32
-					new_x--
+			while(pixel_x_offset > 16)
+				pixel_x_offset -= 32
+				pixel_x -= 32
+				new_x++ // x++
+			while(pixel_x_offset < -16)
+				pixel_x_offset += 32
+				pixel_x += 32
+				new_x--
 
-				while(pixel_y_offset > 16)
-					pixel_y_offset -= 32
-					pixel_y -= 32
-					new_y++
-				while(pixel_y_offset < -16)
-					pixel_y_offset += 32
-					pixel_y += 32
-					new_y--
+			while(pixel_y_offset > 16)
+				pixel_y_offset -= 32
+				pixel_y -= 32
+				new_y++
+			while(pixel_y_offset < -16)
+				pixel_y_offset += 32
+				pixel_y += 32
+				new_y--
 
-				speed = round(speed)
-				step_towards(src, locate(new_x, new_y, z))
-				if(speed <= 1)
-					pixel_x = pixel_x_offset
-					pixel_y = pixel_y_offset
-				else
-					animate(src, pixel_x = pixel_x_offset, pixel_y = pixel_y_offset, time = max(1, (speed <= 3 ? speed - 1 : speed)))
+			speed = round(speed)
+			step_towards(src, locate(new_x, new_y, z))
+			if(speed <= 1)
+				pixel_x = pixel_x_offset
+				pixel_y = pixel_y_offset
+			else
+				animate(src, pixel_x = pixel_x_offset, pixel_y = pixel_y_offset, time = max(1, (speed <= 3 ? speed - 1 : speed)))
 
-				if(original && (original.layer>=2.75) || ismob(original))
-					if(loc == get_turf(original))
-						if(!(original in permutated))
-							Bump(original, 1)
-				Range()
-			sleep(max(1, speed))
-	else //old projectile system
-		set waitfor = 0
-		while(loc)
-			if(!paused)
-				if((!( current ) || loc == current))
-					current = locate(Clamp(x+xo,1,world.maxx),Clamp(y+yo,1,world.maxy),z)
-				step_towards(src, current)
-				if(original && (original.layer>=2.75) || ismob(original))
-					if(loc == get_turf(original))
-						if(!(original in permutated))
-							Bump(original, 1)
-				Range()
-			sleep(1)
+			if(original && (original.layer >= 2.75 || ismob(original)))
+				if(loc == get_turf(original))
+					if(!(original in permutated))
+						Bump(original, TRUE)
+			Range()
+		sleep(max(1, speed))
 
-obj/item/projectile/Crossed(atom/movable/AM) //A mob moving on a tile with a projectile is hit by it.
+/obj/item/projectile/proc/reflect_back(atom/source, list/position_modifiers = list(0, 0, 0, 0, 0, -1, 1, -2, 2))
+	if(starting)
+		var/new_x = starting.x + pick(position_modifiers)
+		var/new_y = starting.y + pick(position_modifiers)
+		var/turf/curloc = get_turf(source)
+
+		if(ismob(source))
+			firer = source // The reflecting mob will be the new firer
+		else
+			firer = null // Reflected by something other than a mob so firer will be null
+
+		// redirect the projectile
+		original = locate(new_x, new_y, z)
+		starting = curloc
+		current = curloc
+		yo = new_y - curloc.y
+		xo = new_x - curloc.x
+		Angle = null // Will be calculated in fire()
+
+/obj/item/projectile/Crossed(atom/movable/AM, oldloc) //A mob moving on a tile with a projectile is hit by it.
 	..()
 	if(isliving(AM) && AM.density && !checkpass(PASSMOB))
 		Bump(AM, 1)
@@ -293,7 +317,7 @@ obj/item/projectile/Crossed(atom/movable/AM) //A mob moving on a tile with a pro
 /obj/item/projectile/proc/dumbfire(var/dir)
 	current = get_ranged_target_turf(src, dir, world.maxx) //world.maxx is the range. Not sure how to handle this better.
 	fire()
-	
+
 
 /obj/item/projectile/proc/on_ricochet(atom/A)
 	return
@@ -304,10 +328,13 @@ obj/item/projectile/Crossed(atom/movable/AM) //A mob moving on a tile with a pro
 	return FALSE
 
 /obj/item/projectile/proc/check_ricochet_flag(atom/A)
-	if(A.flags_2 & CHECK_RICOCHET_1)
+	if(A.flags_2 & CHECK_RICOCHET_2)
 		return TRUE
 	return FALSE
-	
+
 /obj/item/projectile/proc/setAngle(new_angle)	//wrapper for overrides.
 	Angle = new_angle
 	return TRUE
+
+/obj/item/projectile/experience_pressure_difference()
+	return

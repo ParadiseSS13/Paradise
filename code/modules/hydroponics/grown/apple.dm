@@ -23,7 +23,8 @@
 	icon_state = "apple"
 	filling_color = "#FF4500"
 	bitesize = 100 // Always eat the apple in one bite
-	distill_reagent = "hcider"
+	tastes = list("apple" = 1)
+	distill_reagent = "cider"
 
 // Posioned Apple
 /obj/item/seeds/apple/poisoned

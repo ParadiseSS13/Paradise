@@ -28,8 +28,12 @@
 	var/force_clap = FALSE //You WILL clap if I want you to
 	var/current_action = 0 // What's currently happening to the guillotine
 
+/obj/structure/guillotine/Initialize(mapload)
+	LAZYINITLIST(buckled_mobs)
+	return ..()
+
 /obj/structure/guillotine/examine(mob/user)
-	..()
+	. = ..()
 
 	var/msg = ""
 
@@ -49,9 +53,7 @@
 		msg += "<br/>"
 		msg += "Someone appears to be strapped in. You can help them out, or you can harm them by activating the guillotine."
 
-	to_chat(user, msg)
-
-	return msg
+	. += msg
 
 /obj/structure/guillotine/attack_hand(mob/user)
 	add_fingerprint(user)
@@ -84,7 +86,7 @@
 					else
 						current_action = 0
 				else
-					unbuckle_mob()
+					unbuckle_all_mobs()
 			else
 				blade_status = GUILLOTINE_BLADE_MOVING
 				icon_state = "guillotine_drop"
@@ -97,7 +99,7 @@
 
 /obj/structure/guillotine/proc/drop_blade(mob/user)
 	if(has_buckled_mobs() && blade_sharpness)
-		var/mob/living/carbon/human/H = buckled_mob
+		var/mob/living/carbon/human/H = buckled_mobs[1]
 
 		if(!H)
 			blade_status = GUILLOTINE_BLADE_DROPPED
@@ -116,7 +118,7 @@
 			head.droplimb()
 			add_attack_logs(user, H, "beheaded with [src]")
 			H.regenerate_icons()
-			unbuckle_mob()
+			unbuckle_all_mobs()
 			kill_count += 1
 
 			var/blood_overlay = "bloody"
@@ -173,53 +175,46 @@
 		else
 			to_chat(user, "<span class='warning'>You need to raise the blade in order to sharpen it!</span>")
 			return
-	if(iswrench(W))
-		if(current_action)
-			return
-
-		current_action = GUILLOTINE_ACTION_WRENCH
-
-		if(do_after(user, GUILLOTINE_WRENCH_DELAY, target = src))
-			current_action = 0
-			if(has_buckled_mobs())
-				to_chat(user, "<span class='warning'>Can't unfasten, someone's strapped in!</span>")
-				return
-
-			if(current_action)
-				return
-			to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [src].</span>")
-			anchored = !anchored
-			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
-			dir = SOUTH
-			return TRUE
-		else
-			current_action = 0
-	if(iswelder(W))
-		var/obj/item/weldingtool/WT = W
-		if(!WT.remove_fuel(0, user))
-			return
-		to_chat(user, "<span class='notice'>You begin cutting [src] apart...</span>")
-		playsound(loc, WT.usesound, 40, 1)
-		if(do_after(user, 150 * WT.toolspeed, 1, target = src))
-			if(!WT.isOn())
-				return
-			playsound(loc, WT.usesound, 50, 1)
-			visible_message("<span class='notice'>[user] slices apart [src].</span>",
-							"<span class='notice'>You cut [src] apart with [WT].</span>",
-							"<span class='italics'>You hear welding.</span>")
-			var/turf/T = get_turf(src)
-			if(blade_sharpness == GUILLOTINE_BLADE_MAX_SHARP)
-				new /obj/item/stack/sheet/plasteel(T, 3)
-			else
-				new /obj/item/stack/sheet/plasteel(T, 2) //prevents reconstructing to sharpen the guillotine without additional plasteel
-			new /obj/item/stack/sheet/wood(T, 20)
-			new /obj/item/stack/cable_coil(T, 10)
-			qdel(src)
-		return
 	else
 		return ..()
 
-/obj/structure/guillotine/buckle_mob(mob/living/M, force = 0)
+/obj/structure/guillotine/wrench_act(mob/user, obj/item/I)
+	if(current_action)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	current_action = GUILLOTINE_ACTION_WRENCH
+	if(!I.use_tool(src, user, GUILLOTINE_WRENCH_DELAY, volume = I.tool_volume))
+		current_action = 0
+		return
+	if(has_buckled_mobs())
+		to_chat(user, "<span class='warning'>Can't unfasten, someone's strapped in!</span>")
+		return
+
+	current_action = 0
+	to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [src].</span>")
+	anchored = !anchored
+	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
+	dir = SOUTH
+
+/obj/structure/guillotine/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_ATTEMPT_SLICING_MESSAGE
+	if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		WELDER_SLICING_SUCCESS_MESSAGE
+		var/turf/T = get_turf(src)
+		if(blade_sharpness == GUILLOTINE_BLADE_MAX_SHARP)
+			new /obj/item/stack/sheet/plasteel(T, 3)
+		else
+			new /obj/item/stack/sheet/plasteel(T, 2) //prevents reconstructing to sharpen the guillotine without additional plasteel
+		new /obj/item/stack/sheet/wood(T, 20)
+		new /obj/item/stack/cable_coil(T, 10)
+		qdel(src)
+
+/obj/structure/guillotine/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	if(!anchored)
 		to_chat(usr, "<span class='warning'>The [src] needs to be wrenched to the floor!</span>")
 		return FALSE
@@ -232,15 +227,19 @@
 		to_chat(usr, "<span class='warning'>You need to raise the blade before buckling someone in!</span>")
 		return FALSE
 
-	if(..())
-		M.pixel_y -= GUILLOTINE_HEAD_OFFSET // Offset their body so it looks like they're in the guillotine
-		M.layer += GUILLOTINE_LAYER_DIFF
+	return ..(M, force, FALSE)
 
-/obj/structure/guillotine/unbuckle_mob(force = 0)
-	if(buckled_mob)
-		buckled_mob.pixel_y += GUILLOTINE_HEAD_OFFSET  // Move their body back
-		buckled_mob.layer -= GUILLOTINE_LAYER_DIFF
-	. = ..()
+/obj/structure/guillotine/post_buckle_mob(mob/living/M)
+	if(!ishuman(M))
+		return
+	M.pixel_y += -GUILLOTINE_HEAD_OFFSET // Offset their body so it looks like they're in the guillotine
+	M.layer += GUILLOTINE_LAYER_DIFF
+	..()
+
+/obj/structure/guillotine/post_unbuckle_mob(mob/living/M)
+	M.pixel_y -= -GUILLOTINE_HEAD_OFFSET // Move their body back
+	M.layer -= GUILLOTINE_LAYER_DIFF
+	..()
 
 #undef GUILLOTINE_BLADE_MAX_SHARP
 #undef GUILLOTINE_DECAP_MIN_SHARP

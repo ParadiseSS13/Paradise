@@ -7,9 +7,8 @@
 	icon_state = "brain1"
 
 /mob/living/carbon/brain/New()
-	create_reagents(330)
-	add_language("Galactic Common")
 	..()
+	add_language("Galactic Common")
 
 /mob/living/carbon/brain/Destroy()
 	if(key)				//If there is a mob connected to this thing. Have to check key twice to avoid false death reporting.
@@ -41,7 +40,7 @@
 			return 1
 	if(istype(other, /mob/living/carbon/human))
 		return 1
-	if(istype(other, /mob/living/carbon/slime))
+	if(istype(other, /mob/living/simple_animal/slime))
 		return 1
 	return ..()
 
@@ -62,7 +61,7 @@
 /mob/living/carbon/brain/ex_act() //you cant blow up brainmobs because it makes transfer_to() freak out when borgs blow up.
 	return
 
-/mob/living/carbon/brain/blob_act()
+/mob/living/carbon/brain/blob_act(obj/structure/blob/B)
 	return
 
 /mob/living/carbon/brain/on_forcemove(atom/newloc)
@@ -102,10 +101,18 @@ I'm using this for Stat to give it a more nifty interface to work with
 			if(istype(src.loc, /obj/mecha))
 				var/obj/mecha/M = src.loc
 				stat("Exosuit Charge:", "[istype(M.cell) ? "[M.cell.charge] / [M.cell.maxcharge]" : "No cell detected"]")
-				stat("Exosuit Integrity", "[!M.health ? "0" : "[(M.health / initial(M.health)) * 100]"]%")
+				stat("Exosuit Integrity", "[!M.obj_integrity ? "0" : "[(M.obj_integrity / M.max_integrity) * 100]"]%")
 
 /mob/living/carbon/brain/can_safely_leave_loc()
 	return 0 //You're not supposed to be ethereal jaunting, brains
 
 /mob/living/carbon/brain/can_hear()
 	. = TRUE
+
+/mob/living/carbon/brain/update_runechat_msg_location()
+	if(ismecha(loc))
+		runechat_msg_location = loc
+	else if(container)
+		runechat_msg_location = container
+	else
+		runechat_msg_location = src

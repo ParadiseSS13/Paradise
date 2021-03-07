@@ -41,19 +41,25 @@
 	if(!A1.remove_item_from_storage(src))
 		if(user)
 			user.remove_from_mob(A1)
-		A1.loc = src
+		A1.forceMove(src)
 	if(!A2.remove_item_from_storage(src))
 		if(user)
 			user.remove_from_mob(A2)
-		A2.loc = src
+		A2.forceMove(src)
 	A1.holder = src
 	A2.holder = src
 	a_left = A1
 	a_right = A2
+	if(has_prox_sensors())
+		AddComponent(/datum/component/proximity_monitor)
 	name = "[A1.name]-[A2.name] assembly"
 	update_icon()
 	return TRUE
 
+/obj/item/assembly_holder/proc/has_prox_sensors()
+	if(istype(a_left, /obj/item/assembly/prox_sensor) || istype(a_right, /obj/item/assembly/prox_sensor))
+		return TRUE
+	return FALSE
 
 /obj/item/assembly_holder/update_icon()
 	overlays.Cut()
@@ -70,12 +76,12 @@
 
 
 /obj/item/assembly_holder/examine(mob/user)
-	..(user)
+	. = ..()
 	if(in_range(src, user) || loc == user)
 		if(secured)
-			to_chat(user, "[src] is ready!")
+			. += "[src] is ready!"
 		else
-			to_chat(user, "[src] can be attached!")
+			. += "[src] can be attached!"
 
 
 /obj/item/assembly_holder/HasProximity(atom/movable/AM)
@@ -85,11 +91,11 @@
 		a_right.HasProximity(AM)
 
 
-/obj/item/assembly_holder/Crossed(atom/movable/AM)
+/obj/item/assembly_holder/Crossed(atom/movable/AM, oldloc)
 	if(a_left)
-		a_left.Crossed(AM)
+		a_left.Crossed(AM, oldloc)
 	if(a_right)
-		a_right.Crossed(AM)
+		a_right.Crossed(AM, oldloc)
 
 /obj/item/assembly_holder/on_found(mob/finder)
 	if(a_left)
@@ -139,24 +145,21 @@
 	..()
 	return
 
-/obj/item/assembly_holder/attackby(obj/item/W, mob/user, params)
-	if(isscrewdriver(W))
-		if(!a_left || !a_right)
-			to_chat(user, "<span class='warning'>BUG:Assembly part missing, please report this!</span>")
-			return
-		a_left.toggle_secure()
-		a_right.toggle_secure()
-		secured = !secured
-		if(secured)
-			to_chat(user, "<span class='notice'>[src] is ready!</span>")
-		else
-			to_chat(user, "<span class='notice'>[src] can now be taken apart!</span>")
-		update_icon()
+/obj/item/assembly_holder/screwdriver_act(mob/user, obj/item/I)
+	if(!a_left || !a_right)
+		to_chat(user, "<span class='warning'>BUG:Assembly part missing, please report this!</span>")
 		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	a_left.toggle_secure()
+	a_right.toggle_secure()
+	secured = !secured
+	if(secured)
+		to_chat(user, "<span class='notice'>[src] is ready!</span>")
 	else
-		..()
-	return
-
+		to_chat(user, "<span class='notice'>[src] can now be taken apart!</span>")
+	update_icon()
 
 /obj/item/assembly_holder/attack_self(mob/user)
 	add_fingerprint(user)
@@ -198,14 +201,3 @@
 	if(master)
 		master.receive_signal()
 	return TRUE
-
-/obj/item/assembly_holder/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src)
-		if(2)
-			if(prob(50))
-				qdel(src)
-		if(3)
-			if(prob(25))
-				qdel(src)

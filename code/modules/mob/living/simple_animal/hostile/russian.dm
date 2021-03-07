@@ -1,10 +1,12 @@
 /mob/living/simple_animal/hostile/russian
 	name = "Russian"
 	desc = "For the Motherland!"
+	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "russianmelee"
 	icon_living = "russianmelee"
-	icon_dead = "russianmelee_dead"
-	icon_gib = "syndicate_gib"
+	icon_dead = "russianmelee_dead" // Does not actually exist. del_on_death.
+	icon_gib = "russianmelee_gib" // Does not actually exist. del_on_death.
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	speak_chance = 0
 	turns_per_move = 5
 	response_help = "pokes the"
@@ -26,6 +28,7 @@
 			/obj/item/kitchen/knife)
 	del_on_death = 1
 	sentience_type = SENTIENCE_OTHER
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/hostile/russian/ranged
 	icon_state = "russianranged"
@@ -33,6 +36,7 @@
 	ranged = 1
 	retreat_distance = 5
 	minimum_distance = 5
+	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
 	casingtype = /obj/item/ammo_casing/a357
 	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged, /obj/item/gun/projectile/revolver/mateba)
 

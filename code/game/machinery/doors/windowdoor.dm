@@ -5,22 +5,20 @@
 	icon_state = "left"
 	layer = ABOVE_WINDOW_LAYER
 	closingLayer = ABOVE_WINDOW_LAYER
+	resistance_flags = ACID_PROOF
 	visible = 0
 	flags = ON_BORDER
 	opacity = 0
 	dir = EAST
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0
-	armor = list(melee = 20, bullet = 50, laser = 50, energy = 50, bomb = 10, bio = 100, rad = 100)
-	unacidable = 1
+	armor = list("melee" = 20, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 100)
 	var/obj/item/airlock_electronics/electronics
 	var/base_state = "left"
 	var/reinf = 0
-	var/cancolor = TRUE
 	var/shards = 2
 	var/rods = 2
 	var/cable = 1
-	var/list/debris = list()
 
 /obj/machinery/door/window/New(loc, set_dir)
 	..()
@@ -29,19 +27,9 @@
 	if(req_access && req_access.len)
 		icon_state = "[icon_state]"
 		base_state = icon_state
-	if(!color && cancolor)
-		color = color_windows(src)
-	for(var/i in 1 to shards)
-		debris += new /obj/item/shard(src)
-	if(rods)
-		debris += new /obj/item/stack/rods(src, rods)
-	if(cable)
-		debris += new /obj/item/stack/cable_coil(src, cable)
 
 /obj/machinery/door/window/Destroy()
 	density = FALSE
-	for(var/I in debris)
-		qdel(I)
 	if(obj_integrity == 0)
 		playsound(src, "shatter", 70, 1)
 	QDEL_NULL(electronics)
@@ -54,9 +42,14 @@
 		icon_state = "[base_state]open"
 
 /obj/machinery/door/window/examine(mob/user)
-	..()
+	. = ..()
 	if(emagged)
-		to_chat(user, "<span class='warning'>Its access panel is smoking slightly.</span>")
+		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
+
+/obj/machinery/door/window/emp_act(severity)
+	. = ..()
+	if(prob(20 / severity))
+		open()
 
 /obj/machinery/door/window/proc/open_and_close()
 	open()
@@ -180,18 +173,24 @@
 /obj/machinery/door/window/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
-			playsound(loc, 'sound/effects/glasshit.ogg', 90, 1)
+			playsound(src, 'sound/effects/glasshit.ogg', 90, TRUE)
 		if(BURN)
-			playsound(loc, 'sound/items/welder.ogg', 100, 1)
-
+			playsound(src, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/machinery/door/window/deconstruct(disassembled = TRUE)
-	if(can_deconstruct && !disassembled)
-		for(var/obj/fragment in debris)
-			fragment.forceMove(get_turf(src))
-			transfer_fingerprints_to(fragment)
-			debris -= fragment
+	if(!(flags & NODECONSTRUCT) && !disassembled)
+		for(var/obj/item/shard/debris in spawnDebris(drop_location()))
+			transfer_fingerprints_to(debris) // transfer fingerprints to shards only
 	qdel(src)
+
+/obj/machinery/door/window/proc/spawnDebris(location)
+	. = list()
+	for(var/i in 1 to shards)
+		. += new /obj/item/shard(location)
+	if(rods)
+		. += new /obj/item/stack/rods(location, rods)
+	if(cable)
+		. += new /obj/item/stack/cable_coil(location, cable)
 
 /obj/machinery/door/window/narsie_act()
 	color = NARSIE_WINDOW_COLOUR
@@ -221,7 +220,7 @@
 		emagged = TRUE
 		operating = TRUE
 		flick("[base_state]spark", src)
-		playsound(src, "sparks", 75, 1)
+		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		sleep(6)
 		operating = FALSE
 		open(2)
@@ -233,70 +232,80 @@
 		return
 
 	add_fingerprint(user)
-
-	if(can_deconstruct)
-		if(isscrewdriver(I))
-			if(density || operating)
-				to_chat(user, "<span class='warning'>You need to open the door to access the maintenance panel!</span>")
-				return
-			playsound(src.loc, I.usesound, 50, 1)
-			panel_open = !panel_open
-			to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] the maintenance panel of the [src.name].</span>")
-			return
-
-		if(iscrowbar(I))
-			if(panel_open && !density && !operating)
-				playsound(loc, I.usesound, 100, 1)
-				user.visible_message("<span class='warning'>[user] removes the electronics from the [name].</span>", \
-									 "You start to remove electronics from the [name]...")
-				if(do_after(user, 40 * I.toolspeed, target = src))
-					if(panel_open && !density && !operating && loc)
-						var/obj/structure/windoor_assembly/WA = new /obj/structure/windoor_assembly(loc)
-						switch(base_state)
-							if("left")
-								WA.facing = "l"
-							if("right")
-								WA.facing = "r"
-							if("leftsecure")
-								WA.facing = "l"
-								WA.secure = TRUE
-							if("rightsecure")
-								WA.facing = "r"
-								WA.secure = TRUE
-						WA.anchored = TRUE
-						WA.state= "02"
-						WA.setDir(dir)
-						WA.ini_dir = dir
-						WA.update_icon()
-						WA.created_name = name
-
-						if(emagged)
-							to_chat(user, "<span class='warning'>You discard the damaged electronics.</span>")
-							qdel(src)
-							return
-
-						to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
-
-						var/obj/item/airlock_electronics/ae
-						if(!electronics)
-							ae = new/obj/item/airlock_electronics(loc)
-							if(!req_access)
-								check_access()
-							if(req_access.len)
-								ae.conf_access = req_access
-							else if(req_one_access.len)
-								ae.conf_access = req_one_access
-								ae.one_access = 1
-						else
-							ae = electronics
-							electronics = null
-							ae.forceMove(loc)
-
-						qdel(src)
-				return
 	return ..()
 
-/obj/machinery/door/window/try_to_crowbar(obj/item/I, mob/user)
+/obj/machinery/door/window/screwdriver_act(mob/user, obj/item/I)
+	if(flags & NODECONSTRUCT)
+		return
+	. = TRUE
+	if(density || operating)
+		to_chat(user, "<span class='warning'>You need to open the door to access the maintenance panel!</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	panel_open = !panel_open
+	to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] the maintenance panel of the [src.name].</span>")
+
+
+/obj/machinery/door/window/crowbar_act(mob/user, obj/item/I)
+	if(operating)
+		return
+	if(flags & NODECONSTRUCT)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(panel_open && !density && !operating)
+		user.visible_message("<span class='warning'>[user] removes the electronics from the [name].</span>", \
+							 "You start to remove electronics from the [name]...")
+		if(I.use_tool(src, user, 40, volume = I.tool_volume))
+			if(panel_open && !density && !operating && loc)
+				var/obj/structure/windoor_assembly/WA = new /obj/structure/windoor_assembly(loc)
+				switch(base_state)
+					if("left")
+						WA.facing = "l"
+					if("right")
+						WA.facing = "r"
+					if("leftsecure")
+						WA.facing = "l"
+						WA.secure = TRUE
+					if("rightsecure")
+						WA.facing = "r"
+						WA.secure = TRUE
+				WA.anchored = TRUE
+				WA.state= "02"
+				WA.setDir(dir)
+				WA.ini_dir = dir
+				WA.update_icon()
+				WA.created_name = name
+
+				if(emagged)
+					to_chat(user, "<span class='warning'>You discard the damaged electronics.</span>")
+					qdel(src)
+					return
+
+				to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
+
+				var/obj/item/airlock_electronics/ae
+				if(!electronics)
+					ae = new/obj/item/airlock_electronics(loc)
+					if(!req_access)
+						check_access()
+					if(req_access.len)
+						ae.selected_accesses = req_access
+					else if(req_one_access.len)
+						ae.selected_accesses = req_one_access
+						ae.one_access = 1
+				else
+					ae = electronics
+					electronics = null
+					ae.forceMove(loc)
+
+				qdel(src)
+	else
+		try_to_crowbar(user, I)
+
+/obj/machinery/door/window/try_to_crowbar(mob/user, obj/item/I)
 	if(!hasPower())
 		if(density)
 			open(2)
@@ -326,7 +335,7 @@
 /obj/machinery/door/window/brigdoor/security/cell
 	name = "cell door"
 	desc = "For keeping in criminal scum."
-	req_access = list(access_brig)
+	req_access = list(ACCESS_BRIG)
 
 /obj/machinery/door/window/clockwork
 	name = "brass windoor"
@@ -335,13 +344,12 @@
 	base_state = "clockwork"
 	shards = 0
 	rods = 0
-	burn_state = FIRE_PROOF
-	cancolor = FALSE
+	resistance_flags = ACID_PROOF | FIRE_PROOF
 	var/made_glow = FALSE
 
-/obj/machinery/door/window/clockwork/New(loc, set_dir)
-	..()
-	debris += new/obj/item/stack/tile/brass(src, 2)
+/obj/machinery/door/window/clockwork/spawnDebris(location)
+	. = ..()
+	. = new /obj/item/stack/tile/brass(location, 2)
 
 /obj/machinery/door/window/clockwork/setDir(direct)
 	if(!made_glow)

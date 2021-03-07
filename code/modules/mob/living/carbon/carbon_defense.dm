@@ -1,4 +1,4 @@
-/mob/living/carbon/hitby(atom/movable/AM, skipcatch, hitpush = 1, blocked = 0)
+/mob/living/carbon/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(!skipcatch)
 		if(in_throw_mode && canmove && !restrained())  //Makes sure player is in throw mode
 			if(!istype(AM,/obj/item) || !isturf(AM.loc))
@@ -12,11 +12,11 @@
 			visible_message("<span class='warning'>[src] catches [AM]!</span>")
 			throw_mode_off()
 			return TRUE
-	..()
+	return ..()
 
-/mob/living/carbon/water_act(volume, temperature, source, method = TOUCH)
+/mob/living/carbon/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
-	if(volume > 10) //anything over 10 volume will make the mob wetter.
+	if(volume > 10) // Anything over 10 volume will make the mob wetter.
 		wetlevel = min(wetlevel + 1,5)
 
 /mob/living/carbon/attackby(obj/item/I, mob/user, params)
@@ -48,18 +48,37 @@
 					return 1
 	return 0
 
-/mob/living/carbon/attack_slime(mob/living/carbon/slime/M)
-	if(..())
-		var/power = M.powerlevel + rand(0,3)
-		Weaken(power)
-		Stuttering(power)
-		Stun(power)
-		var/stunprob = M.powerlevel * 7 + 10
-		if(prob(stunprob) && M.powerlevel >= 8)
-			adjustFireLoss(M.powerlevel * rand(6,10))
-			updatehealth("slime attack")
+/mob/living/carbon/attack_slime(mob/living/simple_animal/slime/M)
+	if(..()) //successful slime attack
+		if(M.powerlevel > 0)
+			var/stunprob = M.powerlevel * 7 + 10  // 17 at level 1, 80 at level 10
+			if(prob(stunprob))
+				M.powerlevel -= 3
+				if(M.powerlevel < 0)
+					M.powerlevel = 0
+
+				visible_message("<span class='danger'>The [M.name] has shocked [src]!</span>", "<span class='userdanger'>The [M.name] has shocked you!</span>")
+
+				do_sparks(5, TRUE, src)
+				var/power = M.powerlevel + rand(0,3)
+				Stun(power)
+				if(stuttering < power)
+					stuttering = power
+				if (prob(stunprob) && M.powerlevel >= 8)
+					adjustFireLoss(M.powerlevel * rand(6,10))
+					updatehealth("slime attack")
 		return 1
 
 /mob/living/carbon/is_mouth_covered(head_only = FALSE, mask_only = FALSE)
 	if((!mask_only && head && (head.flags_cover & HEADCOVERSMOUTH)) || (!head_only && wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH)))
 		return TRUE
+
+//Called when drawing cult runes/using cult spells. Deal damage to a random arm/hand, or chest if not there.
+/mob/living/carbon/cult_self_harm(damage)
+	var/dam_zone = pick("l_arm", "l_hand", "r_arm", "r_hand")
+	var/obj/item/organ/external/affecting = get_organ(dam_zone)
+	if(!affecting)
+		affecting = get_organ("chest")
+	if(!affecting) //bruh where's your chest
+		return FALSE
+	apply_damage(damage, BRUTE, affecting)

@@ -2,7 +2,7 @@
 	if(istype(M))
 		var/mob/living/carbon/human/H
 		var/obj/item/organ/external/affecting
-		var/selected_zone = user.zone_sel.selecting
+		var/selected_zone = user.zone_selected
 		var/list/cautery_tools = list(
 								/obj/item/scalpel/laser = 100, \
 								/obj/item/cautery = 100,			\
@@ -113,7 +113,7 @@
 /proc/get_pain_modifier(mob/living/carbon/human/M) //returns modfier to make surgery harder if patient is conscious and feels pain
 	if(M.stat) //stat=0 if CONSCIOUS, 1=UNCONSCIOUS and 2=DEAD. Operating on dead people is easy, too. Just sleeping won't work, though.
 		return 1
-	if(NO_PAIN in M.dna.species.species_traits)//if you don't feel pain, you can hold still
+	if(HAS_TRAIT(M, TRAIT_NOPAIN))//if you don't feel pain, you can hold still
 		return 1
 	if(M.reagents.has_reagent("hydrocodone"))//really good pain killer
 		return 0.99
@@ -144,9 +144,9 @@
 /proc/can_operate(mob/living/carbon/M)
 	if(locate(/obj/machinery/optable, M.loc) && (M.lying || M.resting))
 		return TRUE
-	if(locate(/obj/structure/bed, M.loc) && (M.buckled || M.lying || M.weakened || M.stunned || M.paralysis || M.sleeping || M.stat))
+	if(locate(/obj/structure/bed, M.loc) && (M.buckled || M.lying || M.IsWeakened() || M.stunned || M.paralysis || M.sleeping || M.stat))
 		return TRUE
-	if(locate(/obj/structure/table, M.loc) && (M.lying || M.weakened || M.stunned || M.paralysis || M.sleeping || M.stat))
+	if(locate(/obj/structure/table, M.loc) && (M.lying || M.IsWeakened() || M.stunned || M.paralysis || M.sleeping || M.stat))
 		return TRUE
 	return FALSE
 

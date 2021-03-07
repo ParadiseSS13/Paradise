@@ -20,7 +20,7 @@
 /datum/surgery/cavity_implant/can_start(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))
 		return 0
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(!affected)
 		return 0
 	if(affected.is_robotic())
@@ -30,7 +30,7 @@
 /datum/surgery/cavity_implant/synth/can_start(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))
 		return 0
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(!affected)
 		return 0
 	return affected.is_robotic()

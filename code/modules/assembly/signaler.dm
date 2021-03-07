@@ -41,8 +41,7 @@
 	if(cooldown > 0)
 		return FALSE
 	cooldown = 2
-	spawn(10)
-		process_cooldown()
+	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
 
 	signal()
 	return TRUE
@@ -127,13 +126,7 @@
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	var/turf/T = get_turf(src)
 	if(usr)
-		lastsignalers.Add("[time] <B>:</B> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(frequency)]/[code]")
-
-/obj/item/assembly/signaler/pulse(var/radio = FALSE)
-	if(connected && wires)
-		connected.Pulse(src)
-	else
-		return ..(radio)
+		GLOB.lastsignalers.Add("[time] <B>:</B> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(frequency)]/[code]")
 
 /obj/item/assembly/signaler/receive_signal(datum/signal/signal)
 	if(!receiving || !signal)
@@ -158,19 +151,3 @@
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_CHAT)
-
-// Embedded signaller used in anomalies.
-/obj/item/assembly/signaler/anomaly
-	name = "anomaly core"
-	desc = "The neutralized core of an anomaly. It'd probably be valuable for research."
-	icon_state = "anomaly core"
-	item_state = "electronic"
-	receiving = TRUE
-
-/obj/item/assembly/signaler/anomaly/receive_signal(datum/signal/signal)
-	if(..())
-		for(var/obj/effect/anomaly/A in orange(0, src))
-			A.anomalyNeutralize()
-
-/obj/item/assembly/signaler/anomaly/attack_self()
-	return

@@ -8,8 +8,14 @@
 	idle_power_usage = 5
 	active_power_usage = 60
 	power_channel = EQUIP
+	pass_flags = PASSTABLE
 	var/obj/item/stock_parts/cell/charging = null
 	var/chargelevel = -1
+
+/obj/machinery/cell_charger/deconstruct()
+	if(charging)
+		charging.forceMove(drop_location())
+	return ..()
 
 /obj/machinery/cell_charger/Destroy()
 	QDEL_NULL(charging)
@@ -31,10 +37,10 @@
 		overlays.Cut()
 
 /obj/machinery/cell_charger/examine(mob/user)
-	..()
-	to_chat(user, "There's [charging ? "a" : "no"] cell in the charger.")
+	. = ..()
+	. += "There's [charging ? "a" : "no"] cell in the charger."
 	if(charging)
-		to_chat(user, "Current charge: [round(charging.percent(), 1)]%")
+		. += "Current charge: [round(charging.percent(), 1)]%"
 
 /obj/machinery/cell_charger/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stock_parts/cell))
@@ -62,16 +68,21 @@
 			user.visible_message("[user] inserts a cell into the charger.", "<span class='notice'>You insert a cell into the charger.</span>")
 			chargelevel = -1
 			updateicon()
-	else if(iswrench(I))
-		if(charging)
-			to_chat(user, "<span class='warning'>Remove the cell first!</span>")
-			return
-
-		anchored = !anchored
-		to_chat(user, "<span class='notice'>You [anchored ? "attach" : "detach"] the cell charger [anchored ? "to" : "from"] the ground</span>")
-		playsound(src.loc, I.usesound, 75, 1)
 	else
 		return ..()
+
+/obj/machinery/cell_charger/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(charging)
+		to_chat(user, "<span class='warning'>Remove the cell first!</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	anchored = !anchored
+	if(anchored)
+		WRENCH_ANCHOR_MESSAGE
+	else
+		WRENCH_UNANCHOR_MESSAGE
 
 
 /obj/machinery/cell_charger/proc/removecell()

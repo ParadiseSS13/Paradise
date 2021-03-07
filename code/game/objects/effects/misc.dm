@@ -33,11 +33,9 @@
 		layer = 99
 		plane = HUD_PLANE
 		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-		unacidable = 1//Just to be sure.
 
 /obj/effect/beam
 	name = "beam"
-	unacidable = 1//Just to be sure.
 	var/def_zone
 	pass_flags = PASSTABLE
 
@@ -53,7 +51,6 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "begin"
 	anchored = 1.0
-	unacidable = 1
 
 /obj/effect/projection
 	name = "Projection"
@@ -73,7 +70,6 @@
 	desc = "A stand with the empty body of a cyborg bolted to it."
 	density = 1
 	anchored = 1
-	unacidable = 1//temporary until I decide whether the borg can be removed. -veyveyr
 
 /obj/effect/spawner
 	name = "object spawner"
@@ -92,7 +88,7 @@
 	name = "horrific experiment"
 	desc = "Some sort of pod filled with blood and vicerea. You swear you can see it moving..."
 	icon = 'icons/obj/cloning.dmi'
-	icon_state = "pod_g"
+	icon_state = "pod_mess"
 
 
 //Makes a tile fully lit no matter what

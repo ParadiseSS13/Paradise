@@ -11,7 +11,6 @@ Contents:
 	desc = "A close-fitting mask that acts both as an air filter and a post-modern fashion statement."
 	icon_state = "s-ninja(norm)"
 	item_state = "s-ninja_mask"
-	unacidable = 1
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',

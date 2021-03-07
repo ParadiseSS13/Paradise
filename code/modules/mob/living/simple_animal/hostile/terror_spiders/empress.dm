@@ -5,7 +5,7 @@
 // -------------: AI: none - this is strictly adminspawn-only and intended for RP events, coder testing, and teaching people 'how to queen'
 // -------------: SPECIAL: Lay Eggs ability that allows laying queen-level eggs.
 // -------------: TO FIGHT IT: run away screaming?
-// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+// -------------: SPRITES FROM: FoS, https://www.paradisestation.org/forum/profile/335-fos
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress
 	name = "Empress of Terror"
@@ -19,13 +19,12 @@
 	ventcrawler = 1
 	idle_ventcrawl_chance = 0
 	ai_playercontrol_allowtype = 0
-	ai_type = TS_AI_AGGRESSIVE
-	rapid = 1
 	canlay = 1000
 	spider_tier = TS_TIER_5
 	projectiletype = /obj/item/projectile/terrorqueenspit/empress
 	icon = 'icons/mob/terrorspider64.dmi'
 	pixel_x = -16
+	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 	mob_size = MOB_SIZE_LARGE
 	icon_state = "terror_empress"
 	icon_living = "terror_empress"
@@ -36,16 +35,17 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/New()
 	..()
+	empresslings_action = new()
+	empresslings_action.Grant(src)
 	empresserase_action = new()
 	empresserase_action.Grant(src)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/handle_automated_action()
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/spider_special_action()
 	return
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/NestMode()
 	..()
 	queeneggs_action.button.name = "Empress Eggs"
-	queenfakelings_action.button.name = "Empress Lings"
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/LayQueenEggs()
 	var/eggtype = input("What kind of eggs?") as null|anything in list(TS_DESC_QUEEN, TS_DESC_MOTHER, TS_DESC_PRINCE, TS_DESC_PRINCESS, TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN, TS_DESC_BLACK, TS_DESC_PURPLE, TS_DESC_WHITE, TS_DESC_BROWN)
@@ -71,7 +71,7 @@
 		if(TS_DESC_PRINCE)
 			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/prince, numlings)
 		if(TS_DESC_PRINCESS)
-			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/princess, numlings)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/queen/princess, numlings)
 		if(TS_DESC_MOTHER)
 			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/mother, numlings)
 		if(TS_DESC_QUEEN)
@@ -79,7 +79,7 @@
 		else
 			to_chat(src, "<span class='danger'>Unrecognized egg type.</span>")
 
-/mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/QueenFakeLings()
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/proc/EmpressLings()
 	var/numlings = input("How many?") as null|anything in list(10, 20, 30, 40, 50)
 	var/sbpc = input("%chance to be stillborn?") as null|anything in list(0, 25, 50, 75, 100)
 	for(var/i=0, i<numlings, i++)
@@ -97,18 +97,17 @@
 			S.amount_grown = 250
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/proc/EraseBrood()
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in ts_spiderlist)
+	for(var/thing in GLOB.ts_spiderlist)
+		var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
 		if(T.spider_tier < spider_tier)
-			T.degenerate = 1
+			T.degenerate = TRUE
 			to_chat(T, "<span class='userdanger'>Through the hivemind, the raw power of [src] floods into your body, burning it from the inside out!</span>")
-	for(var/obj/structure/spider/eggcluster/terror_eggcluster/T in ts_egg_list)
+	for(var/obj/structure/spider/eggcluster/terror_eggcluster/T in GLOB.ts_egg_list)
 		qdel(T)
-	for(var/obj/structure/spider/spiderling/terror_spiderling/T in ts_spiderling_list)
+	for(var/obj/structure/spider/spiderling/terror_spiderling/T in GLOB.ts_spiderling_list)
 		qdel(T)
 	to_chat(src, "<span class='userdanger'>All Terror Spiders, except yourself, will die off shortly.</span>")
 
-
 /obj/item/projectile/terrorqueenspit/empress
-	damage_type = BURN
-	damage = 30
-	bonus_tox = 0
+	damage = 90
+

@@ -30,13 +30,10 @@
 		rating_speed = M.rating
 
 /obj/machinery/processor/process()
-	..()
-	// The irony
-	// To be clear, if it's grinding, then it can't suck them up
 	if(processing)
 		return
-	var/mob/living/carbon/slime/picked_slime
-	for(var/mob/living/carbon/slime/slime in range(1, src))
+	var/mob/living/simple_animal/slime/picked_slime
+	for(var/mob/living/simple_animal/slime/slime in range(1, src))
 		if(slime.loc == src)
 			continue
 		if(slime.stat)
@@ -48,7 +45,7 @@
 	if(!P)
 		return
 
-	visible_message("[picked_slime] is sucked into \the [src].")
+	visible_message("<span class='notice'>[picked_slime] is sucked into [src].</span>")
 	picked_slime.forceMove(src)
 
 //RECIPE DATUMS
@@ -71,12 +68,12 @@
 	input = /obj/item/reagent_containers/food/snacks/meat
 	output = /obj/item/reagent_containers/food/snacks/meatball
 
-/datum/food_processor_process/sweetpotato
-	input = /obj/item/reagent_containers/food/snacks/grown/potato/sweet
-	output = /obj/item/reagent_containers/food/snacks/yakiimo
-
 /datum/food_processor_process/potato
 	input = /obj/item/reagent_containers/food/snacks/grown/potato
+	output = /obj/item/reagent_containers/food/snacks/rawsticks
+
+/datum/food_processor_process/rawsticks
+	input = /obj/item/reagent_containers/food/snacks/rawsticks
 	output = /obj/item/reagent_containers/food/snacks/tatortot
 
 /datum/food_processor_process/soybeans
@@ -110,19 +107,19 @@
 /////MOB RECIPIES/////
 //////////////////////
 /datum/food_processor_process/mob/slime
-	input = /mob/living/carbon/slime
+	input = /mob/living/simple_animal/slime
 	output = null
 
 /datum/food_processor_process/mob/slime/process_food(loc, what, obj/machinery/processor/processor)
-	var/mob/living/carbon/slime/S = what
+	var/mob/living/simple_animal/slime/S = what
 	var/C = S.cores
 	if(S.stat != DEAD)
-		S.loc = loc
+		S.forceMove(processor.drop_location())
 		S.visible_message("<span class='notice'>[S] crawls free of the processor!</span>")
 		return
 	for(var/i in 1 to (C+processor.rating_amount-1))
-		new S.coretype(loc)
-		feedback_add_details("slime_core_harvested","[replacetext(S.colour," ","_")]")
+		new S.coretype(processor.drop_location())
+		SSblackbox.record_feedback("tally", "slime_core_harvested", 1, S.colour)
 	..()
 
 /datum/food_processor_process/mob/monkey
@@ -169,7 +166,7 @@
 		to_chat(user, "<span class='warning'>\the [src] is already processing something!</span>")
 		return 1
 
-	if(default_deconstruction_screwdriver(user, "processor1", "processor", O))
+	if(default_deconstruction_screwdriver(user, "processor_open", "processor", O))
 		return
 
 	if(exchange_parts(user, O))
@@ -178,7 +175,7 @@
 	if(default_unfasten_wrench(user, O))
 		return
 
- 	default_deconstruction_crowbar(O)
+	default_deconstruction_crowbar(user, O)
 
 	var/obj/item/what = O
 
