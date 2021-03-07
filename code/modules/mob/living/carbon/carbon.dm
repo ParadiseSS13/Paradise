@@ -389,15 +389,11 @@
 
 			else
 				to_chat(src, "<span class='warning'>Your eyes are really starting to hurt. This can't be good for you!</span>")
-		if(mind && has_bane(BANE_LIGHT))
-			mind.disrupt_spells(-500)
 		return 1
 
 	else if(damage == 0) // just enough protection
 		if(prob(20))
 			to_chat(src, "<span class='notice'>Something bright flashes in the corner of your vision!</span>")
-			if(mind && has_bane(BANE_LIGHT))
-				mind.disrupt_spells(0)
 
 
 /mob/living/carbon/proc/tintcheck()

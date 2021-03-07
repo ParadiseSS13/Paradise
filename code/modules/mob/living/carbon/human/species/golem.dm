@@ -27,6 +27,7 @@
 	blacklisted = TRUE // To prevent golem subtypes from overwhelming the odds when random species changes, only the Random Golem type can be chosen
 	dangerous_existence = TRUE
 
+	vision_organ = null
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/golem,
 		"adamantine_resonator" = /obj/item/organ/internal/adamantine_resonator
