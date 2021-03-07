@@ -463,12 +463,15 @@ Turf and target are seperate in case you want to teleport some distance from a t
 			if(GLOB.stealthminID[P] == txt)
 				return P
 
-// Returns the atom sitting on the turf.
-// For example, using this on a disk, which is in a bag, on a mob, will return the mob because it's on the turf.
-/proc/get_atom_on_turf(var/atom/movable/M)
+//Returns the atom sitting on the turf.
+//For example, using this on a disk, which is in a bag, on a mob, will return the mob because it's on the turf.
+//Optional arg 'type' to stop once it reaches a specific type instead of a turf.
+/proc/get_atom_on_turf(atom/movable/M, stop_type)
 	var/atom/loc = M
-	while(loc && loc.loc && !istype(loc.loc, /turf/))
+	while(loc?.loc && !isturf(loc.loc))
 		loc = loc.loc
+		if(stop_type && istype(loc, stop_type))
+			break
 	return loc
 
 /*
@@ -2116,7 +2119,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return "White Noise"
 		if(CHANNEL_AMBIENCE)
 			return "Ambience"
-      
+
 /proc/slot_bitfield_to_slot(input_slot_flags) // Kill off this garbage ASAP; slot flags and clothing flags should be IDENTICAL. GOSH DARN IT. Doesn't work with ears or pockets, either.
 	switch(input_slot_flags)
 		if(SLOT_OCLOTHING)

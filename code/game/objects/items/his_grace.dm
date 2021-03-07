@@ -8,8 +8,8 @@
 /obj/item/his_grace
 	name = "artistic toolbox"
 	desc = "A toolbox painted bright green. Looking at it makes you feel uneasy."
-	icon = 'icons/obj/items.dmi'
-	icon_state = "his_grace"
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "green"
 	item_state = "artistic_toolbox"
 	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
@@ -17,6 +17,8 @@
 	force = 12
 	attack_verb = list("robusted")
 	hitsound = 'sound/weapons/smash.ogg'
+	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/toolbox_pickup.ogg'
 	var/awakened = FALSE
 	var/bloodthirst = HIS_GRACE_SATIATED
 	var/prev_bloodthirst = HIS_GRACE_SATIATED
@@ -30,6 +32,7 @@
 	START_PROCESSING(SSprocessing, src)
 	GLOB.poi_list |= src
 	RegisterSignal(src, COMSIG_MOVABLE_POST_THROW, .proc/move_gracefully)
+	update_icon()
 
 /obj/item/his_grace/Destroy()
 	STOP_PROCESSING(SSprocessing, src)
@@ -37,6 +40,17 @@
 		L.forceMove(get_turf(src))
 	GLOB.poi_list -= src
 	return ..()
+
+/obj/item/his_grace/update_icon()
+	icon_state = ascended ? "gold" : "green"
+	item_state = ascended ? "toolbox_gold" : "artistic_toolbox"
+	cut_overlays()
+	if(ascended)
+		add_overlay("triple_latch")
+	else if(awakened)
+		add_overlay("single_latch_open")
+	else
+		add_overlay("single_latch")
 
 /obj/item/his_grace/attack_self(mob/living/user)
 	if(!awakened)
@@ -48,8 +62,8 @@
 	else
 		..()
 
-/obj/item/his_grace/CtrlClick(mob/user) //you can't pull his grace
-	return
+/obj/item/his_grace/can_be_pulled(user, grab_state, force, show_message = FALSE) //you can't pull his grace
+	return FALSE
 
 /obj/item/his_grace/examine(mob/user)
 	. = ..()
@@ -137,6 +151,7 @@
 	adjust_bloodthirst(1)
 	force_bonus = HIS_GRACE_FORCE_BONUS * length(contents)
 	playsound(user, 'sound/effects/pope_entry.ogg', 100)
+	update_icon()
 	move_gracefully()
 
 /obj/item/his_grace/proc/move_gracefully()
@@ -144,22 +159,7 @@
 
 	if(!awakened)
 		return
-	var/static/list/transforms
-	if(!transforms)
-		var/matrix/M1 = matrix()
-		var/matrix/M2 = matrix()
-		var/matrix/M3 = matrix()
-		var/matrix/M4 = matrix()
-		M1.Translate(-1, 0)
-		M2.Translate(0, 1)
-		M3.Translate(1, 0)
-		M4.Translate(0, -1)
-		transforms = list(M1, M2, M3, M4)
-
-	animate(src, transform = transforms[1], time = 0.2, loop = -1)
-	animate(transform = transforms[2], time = 0.1)
-	animate(transform = transforms[3], time = 0.2)
-	animate(transform = transforms[4], time = 0.3)
+	animate_rumble(src)
 
 /obj/item/his_grace/proc/drowse() //Good night, Mr. Grace.
 	if(!awakened || ascended)
@@ -169,20 +169,20 @@
 	playsound(loc, 'sound/weapons/batonextend.ogg', 100, TRUE)
 	name = initial(name)
 	desc = initial(desc)
-	icon_state = initial(icon_state)
 	animate(src, transform = matrix())
 	gender = initial(gender)
 	force = initial(force)
 	force_bonus = initial(force_bonus)
 	awakened = FALSE
 	bloodthirst = 0
+	update_icon()
 
 /obj/item/his_grace/proc/consume(mob/living/meal) //Here's your dinner, Mr. Grace.
 	if(!meal)
 		return
 	var/victims = 0
 	meal.visible_message("<span class='warning'>[src] swings open and devours [meal]!</span>", "<span class='his_grace big bold'>[src] consumes you!</span>")
-	meal.adjustBruteLoss(200)
+	meal.adjustBruteLoss(300)
 	playsound(meal, 'sound/misc/desceration-02.ogg', 75, TRUE)
 	playsound(src, 'sound/items/eatfood.ogg', 100, TRUE)
 	meal.forceMove(src)
@@ -248,13 +248,14 @@
 /obj/item/his_grace/proc/ascend()
 	if(ascended)
 		return
-	var/mob/living/carbon/human/master = loc
 	force_bonus += ascend_bonus
 	desc = "A legendary toolbox and a distant artifact from The Age of Three Powers. On its three latches engraved are the words \"The Sun\", \"The Moon\", and \"The Stars\". The entire toolbox has the words \"The World\" engraved into its sides."
 	icon_state = "his_grace_ascended"
 	item_state = "toolbox_gold"
 	ascended = TRUE
+	update_icon()
 	playsound(src, 'sound/effects/his_grace_ascend.ogg', 100)
+	var/mob/living/carbon/human/master = loc
 	if(istype(master))
 		master.visible_message("<span class='his_grace big bold'>Gods will be watching.</span>")
 		name = "[master]'s mythical toolbox of three powers"

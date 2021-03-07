@@ -1159,44 +1159,45 @@
 /obj/item/toy/windup_toolbox
 	name = "windup toolbox"
 	desc = "A replica toolbox that rumbles when you turn the key."
-	icon = 'icons/obj/items.dmi'
-	icon_state = "his_grace"
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "green"
 	item_state = "artistic_toolbox"
 	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
 	hitsound = 'sound/weapons/smash.ogg'
+	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/toolbox_pickup.ogg'
 	attack_verb = list("robusted")
 	var/active = FALSE
+
+/obj/item/toy/windup_toolbox/Initialize(mapload)
+	. = ..()
+	update_icon()
+
+/obj/item/toy/windup_toolbox/update_icon()
+	..()
+	cut_overlays()
+	if(active)
+		add_overlay("single_latch_open")
+	else
+		add_overlay("single_latch")
 
 /obj/item/toy/windup_toolbox/attack_self(mob/user)
 	if(!active)
 		to_chat(user, "<span class='notice'>You wind up [src], it begins to rumble.</span>")
 		active = TRUE
+		update_icon()
 		playsound(src, 'sound/effects/pope_entry.ogg', 100)
-		Rumble()
-		addtimer(CALLBACK(src, .proc/stopRumble), 600)
+		animate_rumble(src)
+		addtimer(CALLBACK(src, .proc/stopRumble), 60 SECONDS)
 	else
 		to_chat(user, "<span class='warning'>[src] is already active!</span>")
 
-/obj/item/toy/windup_toolbox/proc/Rumble()
-	var/static/list/transforms
-	if(!transforms)
-		var/matrix/M1 = matrix()
-		var/matrix/M2 = matrix()
-		var/matrix/M3 = matrix()
-		var/matrix/M4 = matrix()
-		M1.Translate(-1, 0)
-		M2.Translate(0, 1)
-		M3.Translate(1, 0)
-		M4.Translate(0, -1)
-		transforms = list(M1, M2, M3, M4)
-	animate(src, transform = transforms[1], time = 0.2, loop = -1)
-	animate(transform = transforms[2], time = 0.1)
-	animate(transform = transforms[3], time = 0.2)
-	animate(transform = transforms[4], time = 0.3)
-
 /obj/item/toy/windup_toolbox/proc/stopRumble()
 	active = FALSE
+	update_icon()
+	visible_message("<span class='warning'>[src] slowly stops rattling and falls still, its latch snapping shut.</span>") //subtle difference
+	playsound(loc, 'sound/weapons/batonextend.ogg', 100, TRUE)
 	animate(src, transform = matrix())
 
 /*
