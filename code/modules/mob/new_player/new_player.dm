@@ -415,8 +415,15 @@
 					arrivalmessage = replacetext(arrivalmessage,"$rank",rank ? "[rank]" : "visitor")
 					arrivalmessage = replacetext(arrivalmessage,"$species",character.dna.species.name)
 					arrivalmessage = replacetext(arrivalmessage,"$age",num2text(character.age))
-					arrivalmessage = replacetext(arrivalmessage,"$gender",character.gender == FEMALE ? "Female" : "Male")
-					announcer.say(";[arrivalmessage]")
+					// Account for genderless mobs
+					var/target_gender = "genderless"
+					switch(character.gender)
+						if(MALE)
+							target_gender = "male"
+						if(FEMALE)
+							target_gender = "female"
+					arrivalmessage = replacetext(arrivalmessage,"$gender",target_gender)
+					announcer.say(";[arrivalmessage]", ignore_languages = TRUE)
 		else
 			if(character.mind)
 				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
@@ -441,7 +448,7 @@
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)
 					var/arrivalmessage = "A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"]."
-					announcer.say(";[arrivalmessage]")
+					announcer.say(";[arrivalmessage]", ignore_languages = TRUE)
 		else
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)

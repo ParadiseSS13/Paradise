@@ -38,6 +38,10 @@
 		dna.real_name = real_name
 		sync_organ_dna(1)
 
+	physiology = new()
+
+	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
+
 	UpdateAppearance()
 	GLOB.human_list += src
 
@@ -59,6 +63,7 @@
 	SSmobs.cubemonkeys -= src
 	QDEL_LIST(bodyparts)
 	splinted_limbs.Cut()
+	QDEL_NULL(physiology)
 	GLOB.human_list -= src
 
 /mob/living/carbon/human/dummy
@@ -327,8 +332,7 @@
 		if(slot_wear_mask in obscured)
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Headpocket:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
-			var/list/items = C.get_contents()
-			if(items.len)
+			if(C.held_item)
 				dat += "<tr><td>&nbsp;&#8627;<B>Headpocket:</B></td><td><A href='?src=[UID()];dislodge_headpocket=1'>Dislodge Items</A></td></tr>"
 			else
 				dat += "<tr><td>&nbsp;&#8627;<B>Headpocket:</B></td><td><font color=grey>Empty</font></td></tr>"
@@ -596,6 +600,7 @@
 	else if(!(flags & SHOCK_NOGLOVES)) //This gets the siemens_coeff for all non tesla shocks
 		if(gloves)
 			siemens_coeff *= gloves.siemens_coefficient
+	siemens_coeff *= physiology.siemens_coeff
 	siemens_coeff *= dna.species.siemens_coeff
 	. = ..()
 	//Don't go further if the shock was blocked/too weak.
@@ -937,9 +942,9 @@
 	if(istype(wear_mask, /obj/item/clothing/mask))		//mask
 		var/obj/item/clothing/mask/MFP = wear_mask
 		number += MFP.flash_protect
-	for(var/obj/item/organ/internal/cyberimp/eyes/EFP in internal_organs)
-		number += EFP.flash_protect
-
+	var/obj/item/organ/internal/eyes/E = get_organ_slot("eyes")
+	if(E)
+		number += E.flash_protect
 	return number
 
 /mob/living/carbon/human/check_ear_prot()
@@ -1471,12 +1476,9 @@
 
 /mob/living/carbon/human/proc/get_eyecon()
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
-	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
 	if(istype(dna.species) && dna.species.eyes)
 		var/icon/eyes_icon
-		if(eye_implant) //Eye implants override native DNA eye colo(u)r
-			eyes_icon = eye_implant.generate_icon()
-		else if(eyes)
+		if(eyes)
 			eyes_icon = eyes.generate_icon()
 		else //Error 404: Eyes not found!
 			eyes_icon = new('icons/mob/human_face.dmi', dna.species.eyes)
@@ -1975,3 +1977,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
   */
 /mob/living/carbon/human/get_runechat_color()
    return dna.species.get_species_runechat_color(src)
+
+/mob/living/carbon/human/update_runechat_msg_location()
+	if(ismecha(loc))
+		runechat_msg_location = loc
+	else
+		runechat_msg_location = src
