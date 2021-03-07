@@ -69,7 +69,7 @@
 	to_chat(user, "<span class='sinister'>You learn the form of [A].</span>")
 
 /obj/effect/proc_holder/spell/targeted/click/mimic/proc/pick_form(mob/user)
-	if(!length(available_forms))
+	if(!length(available_forms) && !selected_form)
 		to_chat(user, "<span class='warning'>No available forms. Learn more forms by using this spell on other objects first.</span>")
 		revert_cast(user)
 		return
@@ -137,6 +137,7 @@
 	else
 		user.name = initial(user.name)
 		user.desc = initial(user.desc)
+		user.color = initial(user.color)
 
 	playsound(user, "bonebreak", 150, TRUE)
 	if(show_message)
