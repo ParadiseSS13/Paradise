@@ -120,6 +120,8 @@
 
 /obj/effect/mob_spawn/human/golem/attack_hand(mob/user)
 	. = ..()
+	if(.)
+		return
 	if(isgolem(user) && can_transfer)
 		var/transfer_choice = alert("Transfer your soul to [src]? (Warning, your old body will die!)",,"Yes","No")
 		if(transfer_choice != "Yes")
@@ -136,7 +138,7 @@
 	. = ..()
 	if(istype(src, /obj/effect/mob_spawn/human/golem/servant))
 		src.has_owner = FALSE
-		src.flavour_text = "You are an independent golem, formerly another sentient being that willingly transferred your consciousness to one."
+		src.flavour_text = null
 	if(iscarbon(user) && can_transfer)
 		var/human_transfer_choice = alert("Transfer your soul to [src]? (Warning, your old body will die!)",,"Yes","No")
 		if(human_transfer_choice != "Yes")
