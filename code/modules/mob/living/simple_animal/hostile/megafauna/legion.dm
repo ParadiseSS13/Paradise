@@ -69,7 +69,7 @@ Difficulty: Medium
 			ranged_cooldown = world.time + ranged_cooldown_time
 		else
 			visible_message("<span class='warning'><b>[src] charges!</b></span>")
-			SpinAnimation(speed = 20, loops = 5)
+			SpinAnimation(speed = 20, loops = 5, parallel = FALSE)
 			ranged = 0
 			retreat_distance = 0
 			minimum_distance = 0
