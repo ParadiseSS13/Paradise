@@ -788,15 +788,13 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 		fromArea = locate(/area/shuttle/gamma/space)
 		toArea = locate(/area/shuttle/gamma/station)
 		for(var/obj/machinery/door/airlock/hatch/gamma/H in GLOB.airlocks)
-			H.locked = FALSE
-			H.update_icon()
+			H.unlock(TRUE)
 		GLOB.event_announcement.Announce("Centcomm has deployed the Gamma Armory shuttle.", new_sound = 'sound/AI/commandreport.ogg')
 	else
 		fromArea = locate(/area/shuttle/gamma/station)
 		toArea = locate(/area/shuttle/gamma/space)
 		for(var/obj/machinery/door/airlock/hatch/gamma/H in GLOB.airlocks)
-			H.locked = TRUE
-			H.update_icon()
+			H.lock(TRUE)
 		GLOB.event_announcement.Announce("Centcomm has recalled the Gamma Armory shuttle.", new_sound = 'sound/AI/commandreport.ogg')
 	fromArea.move_contents_to(toArea)
 
