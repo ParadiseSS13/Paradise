@@ -134,23 +134,26 @@
 		user.death()
 		return
 
-/obj/effect/mob_spawn/human/golem/attackby(obj/item/slimepotion/transference/I, mob/user, params)
+/obj/effect/mob_spawn/human/golem/attackby(obj/item/slimepotion/transference/I, mob/living/carbon/user, params)
 	. = ..()
+	if(!istype(I))
+		return
 	if(istype(src, /obj/effect/mob_spawn/human/golem/servant))
-		src.has_owner = FALSE
-	src.flavour_text = null
+		has_owner = FALSE
+	flavour_text = null
 	if(iscarbon(user) && can_transfer)
-		var/human_transfer_choice = alert("Transfer your soul to [src]? (Warning, your old body will die!)",,"Yes","No")
+		var/human_transfer_choice = alert("Transfer your soul to [src]? (Warning, your old body will die!)",null,"Yes","No")
 		if(human_transfer_choice != "Yes")
 			return
 		if(QDELETED(src) || uses <= 0)
 			return
-		log_game("[key_name(user)] used [I] to transfer their mind into [src]")
-		user.visible_message("<span class='notice'>As [user] applies the potion on the golem shell, a faint light leaves them, moving to [src] and animating it!</span>","<span class='notice'>You apply the potion to [src], feeling your mind leave your body!</span>")
+		user.visible_message("<span class='notice'>As [user] applies the potion on the golem shell, a faint light leaves them, moving to [src] and animating it!</span>",
+		"<span class='notice'>You apply the potion to [src], feeling your mind leave your body!</span>")
+		message_admins("[key_name(user)] used [I] to transfer their mind into [src]")
 		create(ckey = user.ckey, name = user.real_name)
 		user.death()
+		QDEL_NULL(user.internal_organs_slot[BRAIN])
 		qdel(I)
-		return
 
 /obj/effect/mob_spawn/human/golem/servant
 	has_owner = TRUE
