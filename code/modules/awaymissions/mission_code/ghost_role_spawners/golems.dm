@@ -120,6 +120,8 @@
 
 /obj/effect/mob_spawn/human/golem/attack_hand(mob/user)
 	. = ..()
+	if(.)
+		return
 	if(isgolem(user) && can_transfer)
 		var/transfer_choice = alert("Transfer your soul to [src]? (Warning, your old body will die!)",,"Yes","No")
 		if(transfer_choice != "Yes")
@@ -161,3 +163,4 @@
 	mob_name = "a free golem"
 	can_transfer = FALSE
 	mob_species = /datum/species/golem/adamantine
+	
