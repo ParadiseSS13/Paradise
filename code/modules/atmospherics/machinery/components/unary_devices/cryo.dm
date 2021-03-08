@@ -14,6 +14,7 @@
 	max_integrity = 350
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 30, "acid" = 30)
 	occupy_whitelist = list(/mob/living/carbon/human)
+	occupy_delay = 0
 	var/on = FALSE
 	var/temperature_archived
 	var/obj/item/reagent_containers/glass/beaker = null
@@ -419,10 +420,10 @@
 /obj/machinery/atmospherics/unary/cryo_cell/unoccupy(mob/user, force)
 	. = ..()
 	if(.)
-		var/mob/living/carbon/M = .
-		M.forceMove(get_step(get_turf(src), SOUTH))	//this doesn't account for walls or anything, but i don't forsee that being a problem.
-		if(M.bodytemperature < 261 && M.bodytemperature >= 70) //Patch by Aranclanos to stop people from taking burn damage after being ejected
-			M.bodytemperature = 261
+		var/mob/living/carbon/C = .
+		C.forceMove(get_step(get_turf(src), SOUTH))	//this doesn't account for walls or anything, but i don't forsee that being a problem.
+		if(C.bodytemperature < 261 && C.bodytemperature >= 70) //Patch by Aranclanos to stop people from taking burn damage after being ejected
+			C.bodytemperature = 261
 		update_icon()
 		// eject trash the occupant dropped
 		for(var/atom/movable/A in contents - component_parts - beaker)

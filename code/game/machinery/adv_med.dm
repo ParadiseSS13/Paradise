@@ -9,6 +9,7 @@
 	active_power_usage = 2500
 	light_color = "#00FF00"
 	occupy_whitelist = list(/mob/living/carbon/human)
+	occupy_delay = 0
 	var/known_implants = list(/obj/item/implant/chem, /obj/item/implant/death_alarm, /obj/item/implant/mindshield, /obj/item/implant/tracking, /obj/item/implant/health)
 
 /obj/machinery/bodyscanner/power_change()
@@ -98,7 +99,7 @@
 /obj/machinery/bodyscanner/unoccupy(mob/user, force)
 	. = ..()
 	if(.)
-		icon_state = "bodyscanner-o"
+		icon_state = "bodyscanner-open"
 		for(var/atom/movable/A in (contents - component_parts))
 			A.forceMove(get_turf(src))
 		SStgui.update_uis(src)

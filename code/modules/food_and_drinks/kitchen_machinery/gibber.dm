@@ -1,6 +1,6 @@
 #define GIBBER_ANIMATION_DELAY 16
 /obj/machinery/gibber
-	name = "Gibber"
+	name = "gibber"
 	desc = "The name isn't descriptive enough?"
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "grinder"
@@ -244,7 +244,7 @@
 		return FALSE
 	var/mob/living/carbon/human/H = M
 	if(istype(H) && H.abiotic(TRUE))
-		to_chat(user, "<span class='danger'>Subject may not have abiotic items on.</span>")
+		to_chat(user, "<span class='danger'>Subject may not carry or wear abiotic items.</span>")
 		return FALSE
 	return ..()
 

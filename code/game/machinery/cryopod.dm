@@ -455,11 +455,8 @@
 	return //Sorta gamey, but we don't really want these to be destroyed.
 
 /obj/machinery/cryopod/can_occupy(mob/living/M, mob/user)
-	var/mob/living/carbon/human/H = M
-	if(!istype(H))
-		return FALSE
-	if(H.stat == DEAD)
-		to_chat(user, "<span class='warning'>Dead people can not be put into cryogenic storage.</span>")
+	if(M.stat == DEAD)
+		to_chat(user, "<span class='warning'>Dead subjects can not be put into cryogenic storage.</span>")
 		return FALSE
 	return ..()
 
@@ -507,6 +504,7 @@
 
 	. = ..()
 	if(.)
+		name = initial(name)
 		if(orient_right)
 			icon_state = "[base_icon_state]-r"
 		else
@@ -574,9 +572,9 @@
 	var/obj/machinery/cryopod/target_cryopod = null
 	if(free_cryopods.len)
 		target_cryopod = safepick(free_cryopods)
+		var/turf/T = get_turf(person_to_cryo)
 		if(target_cryopod.occupy(person_to_cryo, instant = TRUE))
-			var/turf/T = get_turf(person_to_cryo)
-			var/obj/effect/portal/SP = new /obj/effect/portal(T, null, null, 40)
+			var/obj/effect/portal/SP = new /obj/effect/portal(T, null, null, 4 SECONDS)
 			SP.name = "NT SSD Teleportation Portal"
 			return 1
 	return 0

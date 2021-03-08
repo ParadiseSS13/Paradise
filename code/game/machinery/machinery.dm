@@ -127,9 +127,9 @@ Class Procs:
 
 	// OCCUPANCY
 	/// List of mob types allowed to occupy the machinery. Initialized into a typecache at runtime.
-	var/occupy_whitelist = null
+	var/list/occupy_whitelist = null
 	/// List of mob types not allowed to occupy the machinery. Initialized into a typecache at runtime.
-	var/occupy_blacklist = null
+	var/list/occupy_blacklist = null
 	/// Whether a living mob can be drag and dropped in to occupy the machinery.
 	var/occupy_drag_and_drop = TRUE
 	/// Whether a living mob can be grabbed in to occupy the machinery.
@@ -169,8 +169,10 @@ Class Procs:
 
 	power_change()
 
-	if(occupy_whitelist) occupy_whitelist = typecacheof(occupy_whitelist)
-	if(occupy_blacklist) occupy_blacklist = typecacheof(occupy_blacklist)
+	if(occupy_whitelist)
+		occupy_whitelist = typecacheof(occupy_whitelist)
+	if(occupy_blacklist)
+		occupy_blacklist = typecacheof(occupy_blacklist)
 
 // gotta go fast
 /obj/machinery/makeSpeedProcess()
@@ -714,7 +716,7 @@ Class Procs:
   */
 /obj/machinery/proc/can_occupy(mob/living/M, mob/user)
 	. = FALSE
-	if(!occupy_whitelist)
+	if(!occupy_whitelist || !istype(M))
 		return
 	// Already occupied?
 	if(!QDELETED(occupant))
@@ -728,7 +730,7 @@ Class Procs:
 		to_chat(user, "<span class='warning'>Subject cannot reach [src].</span>")
 		return
 	// Mob type check
-	if(is_type_in_typecache(M, occupy_whitelist) && !is_type_in_typecache(M, occupy_blacklist))
+	if(!is_type_in_typecache(M, occupy_whitelist) || is_type_in_typecache(M, occupy_blacklist))
 		to_chat(user, "<span class='warning'>Subject incompatible with [src].</span>")
 		return
 	if(M.has_buckled_mobs())
@@ -769,14 +771,14 @@ Class Procs:
 			user = M
 			visible_message("<span class='notice'>[user] starts climbing into [src]...</span>", "<span class='notice'>You start climbing into [src]...</span>")
 
-	if(!occupy_delay || instant || do_after(user, occupy_delay, target = src))
-		if(!can_occupy(M, user))
+	if(!occupy_delay || instant || do_after(user, occupy_delay, target = M))
+		if(QDELETED(src) || !can_occupy(M, user))
 			return
 
 		if(user && user != M)
 			visible_message("<span class='notice'>[user] puts [M] into [src].</span>", "<span class='notice'>You put [M] into [src].</span>")
 		else
-			visible_message("<span class='notice'>[user] climbs into [src].</span>", "<span class='notice'>You climb into [src].</span>")
+			visible_message("<span class='notice'>[M] climbs into [src].</span>", "<span class='notice'>You climb into [src].</span>")
 
 		occupant = M
 		M.forceMove(src)

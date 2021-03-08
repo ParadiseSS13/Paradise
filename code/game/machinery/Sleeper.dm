@@ -5,7 +5,7 @@
 ////////////
 
 /obj/machinery/sleeper
-	name = "Sleeper"
+	name = "sleeper"
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper-open"
 	var/base_icon = "sleeper"
@@ -79,7 +79,7 @@
 	return ..()
 
 /obj/machinery/sleeper/process()
-	if(!QDELETED(occupant))
+	if(QDELETED(occupant))
 		return
 
 	for(var/mob/M in contents) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp

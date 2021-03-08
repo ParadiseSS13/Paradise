@@ -6,6 +6,7 @@
 	anchored = TRUE
 	density = TRUE
 	occupy_whitelist = list(/mob/living/carbon/human)
+	occupy_delay = 0
 	var/points = 0
 	var/credits = 0
 	var/list/history = list()

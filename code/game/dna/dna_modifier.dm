@@ -66,6 +66,7 @@
 	active_power_usage = 300
 	interact_offline = 1
 	occupy_whitelist = list(/mob/living/carbon/human)
+	occupy_delay = 0
 	var/locked = FALSE
 	var/obj/item/reagent_containers/glass/beaker = null
 	var/opened = 0
