@@ -387,7 +387,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	var/datum/picture/P = new()
 	if(istype(src,/obj/item/camera/digital))
 		P.fields["name"] = input(user,"Name photo:","photo")
-		if (!P.fields["name"])
+		if(!P.fields["name"])
 			P.fields["name"] = "Photo [current_photo_num]"
 			current_photo_num++
 		P.name = P.fields["name"] //So the name is displayed on the print/delete list.
