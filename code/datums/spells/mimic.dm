@@ -29,8 +29,8 @@
 	if(is_type_in_list(target, black_listed_form_types))
 		return FALSE
 	if(istype(target, /atom/movable))
-		var/atom/movable/M = target
-		if(M.bound_height > world.icon_size || M.bound_width > world.icon_size)
+		var/atom/movable/AM = target
+		if(AM.bound_height > world.icon_size || AM.bound_width > world.icon_size)
 			return FALSE // No multitile structures
 	if(user != target && istype(target, /mob/living/simple_animal/hostile/morph))
 		return FALSE
@@ -95,13 +95,11 @@
 	take_form(available_forms[what], user)
 
 /obj/effect/proc_holder/spell/targeted/click/mimic/proc/take_form(datum/mimic_form/form, mob/user)
-
 	var/old_name = "[user]"
 	if(ishuman(user))
 		// Not fully finished yet
 		var/mob/living/carbon/human/H = user
 		H.name_override = form.name
-
 	else
 		user.appearance = form.appearance
 		user.transform = initial(user.transform)
@@ -133,7 +131,6 @@
 		var/mob/living/carbon/human/H = user
 		H.name_override = null
 		H.regenerate_icons()
-
 	else
 		user.name = initial(user.name)
 		user.desc = initial(user.desc)
@@ -160,7 +157,7 @@
 		show_death_message(user)
 
 /obj/effect/proc_holder/spell/targeted/click/mimic/proc/show_death_message(mob/user)
-	user.visible_message("<span class='warning'>[user] shakes and contorts as he dies. Returning to his true form!</span>", "<span class='deadsay'>Your disguise fails as your life forces drain away.</span>", "You hear loud cracking noises followed by a thud!")
+	user.visible_message("<span class='warning'>[user] shakes and contorts as [user.p_they()] die[user.p_s()], returning to [user.p_their()] true form!</span>", "<span class='deadsay'>Your disguise fails as your life forces drain away.</span>", "You hear loud cracking noises followed by a thud!")
 
 
 /datum/mimic_form

@@ -256,7 +256,7 @@
 	L.apply_damage(total_damage, BRUTE)
 	add_attack_logs(src, L, "morph ambush attacked")
 	do_attack_animation(L, ATTACK_EFFECT_BITE)
-	visible_message("<span class='danger'>[src] Suddenly leaps towards [L]!</span>", "<span class='warning'>You strike [L] when [L.p_they()] least expected it!</span>", "You hear a horrible crunch!")
+	visible_message("<span class='danger'>[src] suddenly leaps towards [L]!</span>", "<span class='warning'>You strike [L] when [L.p_they()] least expected it!</span>", "You hear a horrible crunch!")
 
 	mimic_spell.restore_form(src)
 

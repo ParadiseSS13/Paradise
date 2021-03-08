@@ -23,7 +23,7 @@
 		return FALSE
 
 /obj/effect/proc_holder/spell/morph/reproduce/cast(list/targets, mob/living/simple_animal/hostile/morph/user)
-	to_chat(user, "<span class='sinister'>You prepare to split in two. Making you unable to vent crawl!</span>")
+	to_chat(user, "<span class='sinister'>You prepare to split in two, making you unable to vent crawl!</span>")
 	user.ventcrawler = FALSE // Temporarily disable it
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a morph?", ROLE_MORPH, TRUE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/hostile/morph)
 	if(!length(candidates))
