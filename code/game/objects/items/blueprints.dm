@@ -251,7 +251,7 @@
 	to_chat(usr, "<span class='notice'>You rename the '[prevname]' to '[str]'.</span>")
 	interact()
 	message_admins("A room was renamed by [key_name_admin(usr)] at [ADMIN_VERBOSEJMP(usr)] changing the name from [prevname] to [str]")
-	log_game("A room was renamed by [key_name_admin(usr)] at [AREACOORD(usr)] changing the name from [prevname] to [str] ")
+	log_game("A room was renamed by [key_name(usr)] at [AREACOORD(usr)] changing the name from [prevname] to [str] ")
 	return 1
 
 
