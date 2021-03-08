@@ -280,7 +280,6 @@
 #include "code\datums\supplypacks.dm"
 #include "code\datums\tgs_event_handler.dm"
 #include "code\datums\uplink_item.dm"
-#include "code\datums\vision_override.dm"
 #include "code\datums\cache\air_alarm.dm"
 #include "code\datums\cache\apc.dm"
 #include "code\datums\cache\cache.dm"
