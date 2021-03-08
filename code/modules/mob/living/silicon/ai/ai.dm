@@ -35,6 +35,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				subject.attack_ai(M)
 	return is_in_use
 
+#define TEXT_ANNOUNCEMENT_COOLDOWN 1 MINUTES
+
 /mob/living/silicon/ai
 	name = "AI"
 	icon = 'icons/mob/ai.dmi'//
@@ -109,6 +111,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/arrivalmsg = "$name, $rank, has arrived on the station."
 
 	var/list/all_eyes = list()
+	var/next_text_announcement
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	verbs |= GLOB.ai_verbs_default
@@ -508,7 +511,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = "AI Commands"
 	show_station_manifest()
 
-/mob/living/silicon/ai/var/message_cooldown = 0
 /mob/living/silicon/ai/proc/ai_announcement_text()
 	set category = "AI Commands"
 	set name = "Make Station Announcement"
@@ -516,7 +518,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
 
-	if(message_cooldown)
+	if(world.time < next_text_announcement)
 		to_chat(src, "<span class='warning'>Please allow one minute to pass between announcements.</span>")
 		return
 
@@ -528,9 +530,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 
 	announcement.Announce(input)
-	message_cooldown = 1
-	spawn(600)//One minute cooldown
-		message_cooldown = 0
+	next_text_announcement = world.time + TEXT_ANNOUNCEMENT_COOLDOWN
 
 /mob/living/silicon/ai/proc/ai_call_shuttle()
 	set name = "Call Emergency Shuttle"
@@ -1395,3 +1395,5 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		runechat_msg_location = loc
 	else
 		runechat_msg_location = src
+
+#undef TEXT_ANNOUNCEMENT_COOLDOWN
