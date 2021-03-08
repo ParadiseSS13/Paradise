@@ -125,14 +125,14 @@ SUBSYSTEM_DEF(ticker)
 			current_state = GAME_STATE_FINISHED
 			Master.SetRunLevel(RUNLEVEL_POSTGAME) // This shouldnt process more than once, but you never know
 			auto_toggle_ooc(TRUE) // Turn it on
-
 			declare_completion()
+			addtimer(CALLBACK(src, .proc/call_reboot), 5 SECONDS)
 
-			spawn(50)
-				if(mode.station_was_nuked)
-					reboot_helper("Station destroyed by Nuclear Device.", "nuke")
-				else
-					reboot_helper("Round ended.", "proper completion")
+/datum/controller/subsystem/ticker/proc/call_reboot()
+	if(mode.station_was_nuked)
+		reboot_helper("Station destroyed by Nuclear Device.", "nuke")
+	else
+		reboot_helper("Round ended.", "proper completion")
 
 /datum/controller/subsystem/ticker/proc/setup()
 	cultdat = setupcult()

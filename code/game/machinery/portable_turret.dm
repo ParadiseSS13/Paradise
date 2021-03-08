@@ -317,11 +317,9 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/power_change()
 	if(powered() || !use_power)
 		stat &= ~NOPOWER
-		update_icon()
 	else
-		spawn(rand(0, 15))
-			stat |= NOPOWER
-			update_icon()
+		stat |= NOPOWER
+	update_icon()
 
 
 /obj/machinery/porta_turret/attackby(obj/item/I, mob/user)
