@@ -87,10 +87,6 @@
 		var/datum/action/A=X
 		A.UpdateButtonIcon()
 
-/obj/item/clothing/head/helmet/space/plasmaman/extinguish_light()
-	if(on)
-		toggle_light()
-
 /obj/item/clothing/head/helmet/space/plasmaman/security
 	name = "security plasma envirosuit helmet"
 	desc = "A plasmaman containment helmet designed for security officers, protecting them from being flashed and burning alive, alongside other undesirables."

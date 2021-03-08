@@ -851,8 +851,3 @@
 		if(limb)
 			limb.droplimb(0, DROPLIMB_BURN)
 	return FIRELOSS
-
-/obj/machinery/light/extinguish_light()
-	on = FALSE
-	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
-	update(FALSE)

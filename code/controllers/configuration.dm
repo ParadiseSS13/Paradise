@@ -83,7 +83,6 @@
 	var/list_afk_minimum = 5 // How long people have to be AFK before it's listed on the "List AFK players" verb
 
 	var/traitor_objectives_amount = 2
-	var/shadowling_max_age = 0
 
 	var/max_maint_drones = 5				//This many drones can spawn,
 	var/allow_drone_spawn = 1				//assuming the admin allow them to.
@@ -346,9 +345,6 @@
 
 				if("jobs_have_minimal_access")
 					config.jobs_have_minimal_access = 1
-
-				if("shadowling_max_age")
-					config.shadowling_max_age = text2num(value)
 
 				if("warn_afk_minimum")
 					config.warn_afk_minimum = text2num(value)

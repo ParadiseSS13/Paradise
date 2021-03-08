@@ -36,10 +36,6 @@
 		return FALSE
 	return TRUE
 
-/obj/machinery/computer/extinguish_light()
-	set_light(0)
-	visible_message("<span class='danger'>[src] grows dim, its screen barely readable.</span>")
-
 /*
  * Reimp, flash the screen on and off repeatedly.
  */

@@ -163,6 +163,8 @@
 ///The shock doesn't stun.
 #define SHOCK_NOSTUN (1 << 3)
 
+#define SHADOW_SPECIES_LIGHT_THRESHOLD 0.2
+
 #define POCKET_STRIP_DELAY			40	//time taken (in deciseconds) to search somebody's pockets
 
 #define DEFAULT_ITEM_STRIP_DELAY		40  //time taken (in deciseconds) to strip somebody
@@ -197,8 +199,6 @@
 #define UNHEALING_EAR_DAMAGE 100
 
 //Human sub-species
-#define isshadowling(A) (is_species(A, /datum/species/shadow/ling))
-#define isshadowlinglesser(A) (is_species(A, /datum/species/shadow/ling/lesser))
 #define isabductor(A) (is_species(A, /datum/species/abductor))
 #define isgolem(A) (is_species(A, /datum/species/golem))
 #define ismonkeybasic(A) (is_species(A, /datum/species/monkey))
@@ -208,6 +208,7 @@
 #define isstok(A) (is_species(A, /datum/species/monkey/unathi))
 #define isplasmaman(A) (is_species(A, /datum/species/plasmaman))
 #define isshadowperson(A) (is_species(A, /datum/species/shadow))
+#define isnightmare(A) (is_species(A, /datum/species/shadow/nightmare))
 #define isskeleton(A) (is_species(A, /datum/species/skeleton))
 #define ishumanbasic(A) (is_species(A, /datum/species/human))
 #define isunathi(A) (is_species(A, /datum/species/unathi))

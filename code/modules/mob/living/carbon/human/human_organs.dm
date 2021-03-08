@@ -147,7 +147,6 @@ old_ue: Set this to a UE string, and this proc will overwrite the dna of organs 
 
 /*
 Given the name of an organ, returns the external organ it's contained in
-I use this to standardize shadowling dethrall code
 -- Crazylemon
 */
 /mob/living/carbon/human/proc/named_organ_parent(var/organ_name)

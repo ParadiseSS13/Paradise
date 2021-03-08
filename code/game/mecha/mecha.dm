@@ -95,6 +95,7 @@
 	var/phasing = FALSE
 	var/phasing_energy_drain = 200
 	var/phase_state = "" //icon_state when phasing
+	var/haslights = TRUE //if we can turn on lights
 
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 

@@ -97,7 +97,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/lamp_max = 10 //Maximum brightness of a borg lamp. Set as a var for easy adjusting.
 	var/lamp_intensity = 0 //Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power.
-	var/lamp_recharging = 0 //Flag for if the lamp is on cooldown after being forcibly disabled.
+	var/lamp_cooldown = 0 //Flag for if the lamp is on cooldown after being forcibly disabled.
 
 	var/updating = 0 //portable camera camerachunk update
 
@@ -453,6 +453,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat")
 		status_flags &= ~CANPUSH
 
+	update_headlamp(FALSE, BORG_LAMP_CD_RESET)
 	choose_icon(6,module_sprites)
 	if(!static_radio_channels)
 		radio.config(module.channels)
@@ -800,6 +801,19 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(src, "<span class='notice'>MMI radio capability installed.</span>")
 			mmi.install_radio()
 			qdel(W)
+
+	else if(istype(W, /obj/item/flashlight))
+		if(!opened)
+			to_chat(user, "<span class='warning'>You need to open the panel to repair the headlamp!</span>")
+		else if(lamp_cooldown <= world.time)
+			to_chat(user, "<span class='warning'>The headlamp is already functional!</span>")
+		else
+			if(!user.drop_item())
+				to_chat(user, "<span class='warning'>[W] seems to be stuck to your hand. You'll have to find a different light.</span>")
+				return
+			lamp_cooldown = 0
+			qdel(W)
+			to_chat(user, "<span class='notice'>You replace the headlamp bulbs.</span>")
 	else
 		return ..()
 
@@ -1143,13 +1157,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	radio.interact(src)
 
 /mob/living/silicon/robot/proc/control_headlamp()
-	if(stat || lamp_recharging || low_power_mode)
+	if(stat || lamp_cooldown > world.time || low_power_mode)
 		to_chat(src, "<span class='danger'>This function is currently offline.</span>")
 		return
 
 //Some sort of magical "modulo" thing which somehow increments lamp power by 2, until it hits the max and resets to 0.
 	lamp_intensity = (lamp_intensity+2) % (lamp_max+2)
-	to_chat(src, "[lamp_intensity ? "Headlamp power set to Level [lamp_intensity/2]" : "Headlamp disabled."]")
+	to_chat(src, "<span class='notice'>[lamp_intensity ? "Headlamp power set to Level [lamp_intensity/2]" : "Headlamp disabled"].</span>")
 	update_headlamp()
 
 /mob/living/silicon/robot/proc/update_headlamp(var/turn_off = 0, var/cooldown = 100)
@@ -1158,9 +1172,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(lamp_intensity && (turn_off || stat || low_power_mode))
 		to_chat(src, "<span class='danger'>Your headlamp has been deactivated.</span>")
 		lamp_intensity = 0
-		lamp_recharging = 1
-		spawn(cooldown) //10 seconds by default, if the source of the deactivation does not keep stat that long.
-			lamp_recharging = 0
+		lamp_cooldown = cooldown == BORG_LAMP_CD_RESET ? 0 : max(world.time + cooldown, lamp_cooldown)
 	else
 		set_light(light_range + lamp_intensity)
 
@@ -1539,12 +1551,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		icon_state = base_icon
 		overlays += "[base_icon]-shield"
 
-
-/mob/living/silicon/robot/extinguish_light()
-	update_headlamp(1, 150)
-
 /mob/living/silicon/robot/rejuvenate()
 	..()
+	update_headlamp()
 	var/brute = 1000
 	var/burn = 1000
 	var/list/datum/robot_component/borked_parts = get_damaged_components(TRUE, TRUE, TRUE, TRUE)

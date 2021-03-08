@@ -324,7 +324,7 @@
 
 /obj/item/nullrod/whip
 	name = "holy whip"
-	desc = "A whip, blessed with the power to banish evil shadowy creatures. What a terrible night to be in spess."
+	desc = "What a terrible night to be in spess."
 	icon_state = "chain"
 	item_state = "chain"
 	slot_flags = SLOT_BELT
@@ -334,16 +334,6 @@
 /obj/item/nullrod/whip/New()
 	..()
 	desc = "What a terrible night to be on the [station_name()]."
-
-/obj/item/nullrod/whip/afterattack(atom/movable/AM, mob/user, proximity)
-	if(!proximity)
-		return
-	if(ishuman(AM))
-		var/mob/living/carbon/human/H = AM
-		if(is_shadow(H))
-			var/phrase = pick("Die monster! You don't belong in this world!!!", "You steal men's souls and make them your slaves!!!", "Your words are as empty as your soul!!!", "Mankind ill needs a savior such as you!!!")
-			user.say("[phrase]")
-			H.adjustBruteLoss(12) //Bonus damage
 
 /obj/item/nullrod/fedora
 	name = "binary fedora"
