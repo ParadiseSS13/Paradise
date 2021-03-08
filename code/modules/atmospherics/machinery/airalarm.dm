@@ -1052,8 +1052,7 @@
 		stat &= ~NOPOWER
 	else
 		stat |= NOPOWER
-	spawn(rand(0,15))
-		update_icon()
+	update_icon()
 
 /obj/machinery/alarm/obj_break(damage_flag)
 	..()

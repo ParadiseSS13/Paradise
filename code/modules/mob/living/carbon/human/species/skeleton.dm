@@ -26,6 +26,8 @@
 		"is snapping their own bones!",
 		"is collapsing into a pile!",
 		"is twisting their skull off!")
+
+	vision_organ = null
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/golem,
 	) //Has default darksight of 2.

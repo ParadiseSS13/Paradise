@@ -34,6 +34,11 @@
 				H.color = "#000000"
 		adjustHealth(-maxHealth * 0.0125)
 
+/mob/living/simple_animal/hostile/blob/Process_Spacemove(movement_dir = 0)
+	// Use any nearby blob structures to allow space moves.
+	for(var/obj/structure/blob/B in range(1, src))
+		return TRUE
+	return ..()
 
 ////////////////
 // BLOB SPORE //

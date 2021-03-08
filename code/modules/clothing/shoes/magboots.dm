@@ -78,10 +78,12 @@
 	slowdown_passive = SHOES_SLOWDOWN+1
 	magpulse_name = "honk-powered traction system"
 	item_color = "clown"
-	silence_steps = 1
-	shoe_sound = "clownstep"
 	origin_tech = "magnets=4;syndicate=2"
 	var/enabled_waddle = TRUE
+
+/obj/item/clothing/shoes/magboots/clown/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
 
 /obj/item/clothing/shoes/magboots/clown/equipped(mob/user, slot)
 	. = ..()

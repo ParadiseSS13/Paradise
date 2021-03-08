@@ -179,6 +179,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 				if(M.client && M.client.prefs.sound & SOUND_AI_VOICE)
 					var/turf/T = get_turf(M)
 					if(T && T.z == z_level && M.can_hear())
+						voice.volume = 100 * M.client.prefs.get_channel_volume(CHANNEL_VOX)
 						M << voice
 		else
 			only_listener << voice

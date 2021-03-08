@@ -151,7 +151,7 @@ emp_act
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & def_zone.body_part)
 				protection += C.armor.getRating(type)
-
+	protection += physiology.armor.getRating(type)
 	return protection
 
 //this proc returns the Siemens coefficient of electrical resistivity for a particular external organ.
@@ -225,6 +225,12 @@ emp_act
 /mob/living/carbon/human/proc/check_block()
 	if(mind && mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
 		return TRUE
+
+/mob/living/carbon/human/emp_act(severity)
+	..()
+	for(var/X in bodyparts)
+		var/obj/item/organ/external/L = X
+		L.emp_act(severity)
 
 /mob/living/carbon/human/acid_act(acidpwr, acid_volume, bodyzone_hit) //todo: update this to utilize check_obscured_slots() //and make sure it's check_obscured_slots(TRUE) to stop aciding through visors etc
 	var/list/damaged = list()
@@ -430,8 +436,6 @@ emp_act
 
 	send_item_attack_message(I, user, hit_area)
 
-	var/weakness = check_weakness(I,user)
-
 	if(!I.force)
 		return 0 //item force is zero
 
@@ -443,7 +447,7 @@ emp_act
 		return 0
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 
-	apply_damage(I.force * weakness, I.damtype, affecting, armor, sharp = weapon_sharp, used_weapon = I)
+	apply_damage(I.force, I.damtype, affecting, armor, sharp = weapon_sharp, used_weapon = I)
 
 	var/bloody = 0
 	if(I.damtype == BRUTE && I.force && prob(25 + I.force * 2))

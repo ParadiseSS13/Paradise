@@ -554,7 +554,6 @@
 	var/turf/T = loc
 	. = ..()
 	if(.)
-		handle_footstep(loc)
 		step_count++
 
 		if(pulling && pulling == pullee) // we were pulling a thing and didn't lose it during our move.
@@ -577,12 +576,6 @@
 
 	if(s_active && !(s_active in contents) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents ) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
-
-
-/mob/living/proc/handle_footstep(turf/T)
-	if(istype(T))
-		return 1
-	return 0
 
 /mob/living/proc/makeTrail(turf/T)
 	if(!has_gravity(src))
@@ -1003,35 +996,6 @@
 /mob/living/onTransitZ(old_z,new_z)
 	..()
 	update_z(new_z)
-
-/mob/living/proc/owns_soul()
-	if(mind)
-		return mind.soulOwner == mind
-	return 1
-
-/mob/living/proc/return_soul()
-	if(mind)
-		if(mind.soulOwner.devilinfo)//Not sure how this could happen, but whatever.
-			mind.soulOwner.devilinfo.remove_soul(mind)
-		mind.soulOwner = mind
-		mind.damnation_type = 0
-
-/mob/living/proc/has_bane(banetype)
-	if(mind)
-		if(mind.devilinfo)
-			return mind.devilinfo.bane == banetype
-	return 0
-
-/mob/living/proc/check_weakness(obj/item/weapon, mob/living/attacker)
-	if(mind && mind.devilinfo)
-		return check_devil_bane_multiplier(weapon, attacker)
-	return 1
-
-/mob/living/proc/check_acedia()
-	if(src.mind && src.mind.objectives)
-		for(var/datum/objective/sintouched/acedia/A in src.mind.objectives)
-			return 1
-	return 0
 
 /mob/living/rad_act(amount)
 	. = ..()

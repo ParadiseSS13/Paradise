@@ -159,7 +159,7 @@ DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `rank` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Administrator',
+  `admin_rank` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Administrator',
   `level` int(2) NOT NULL DEFAULT '0',
   `flags` int(16) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
@@ -268,7 +268,7 @@ CREATE TABLE `player` (
   `toggles` int(11) DEFAULT NULL,
   `toggles_2` int(11) DEFAULT '0',
   `sound` mediumint(8) DEFAULT '31',
-  `volume` smallint(4) DEFAULT '100',
+  `volume_mixer` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lastchangelog` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `exp` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `clientfps` smallint(4) DEFAULT '0',

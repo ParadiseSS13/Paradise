@@ -349,7 +349,7 @@
 			H.emote("gasp")
 			if(!H.undergoing_cardiac_arrest() && (prob(10) || defib.combat)) // Your heart explodes.
 				H.set_heartattack(TRUE)
-			H.shock_internal_organs(100)
+			SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
 			add_attack_logs(user, M, "Stunned with [src]")
 			defib.deductcharge(revivecost)
 			cooldown = TRUE
@@ -400,7 +400,7 @@
 							update_icon()
 							return
 						H.set_heartattack(FALSE)
-						H.shock_internal_organs(100)
+						SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
 						user.visible_message("<span class='boldnotice'>[defib] pings: Cardiac arrhythmia corrected.</span>")
 						M.visible_message("<span class='warning'>[M]'s body convulses a bit.")
 						playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
@@ -420,7 +420,7 @@
 					for(var/obj/item/organ/external/O in H.bodyparts)
 						total_brute	+= O.brute_dam
 						total_burn	+= O.burn_dam
-					if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !HAS_TRAIT(H, TRAIT_HUSK)  && !HAS_TRAIT(H, TRAIT_BADDNA) && (H.mind && H.mind.is_revivable()) && (H.get_int_organ(/obj/item/organ/internal/heart) || H.get_int_organ(/obj/item/organ/internal/brain/slime)))
+					if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !HAS_TRAIT(H, TRAIT_HUSK)  && !HAS_TRAIT(H, TRAIT_BADDNA) && (H.get_int_organ(/obj/item/organ/internal/heart) || H.get_int_organ(/obj/item/organ/internal/brain/slime)))
 						tobehealed = min(health + threshold, 0) // It's HILARIOUS without this min statement, let me tell you
 						tobehealed -= 5 //They get 5 of each type of damage healed so excessive combined damage will not immediately kill them after they get revived
 						H.adjustOxyLoss(tobehealed)
@@ -435,7 +435,7 @@
 						H.emote("gasp")
 						if(tplus > tloss)
 							H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
-						H.shock_internal_organs(100)
+						SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
 						H.med_hud_set_health()
 						H.med_hud_set_status()
 						defib.deductcharge(revivecost)
@@ -498,7 +498,7 @@
 			H.Weaken(5)
 			if(!H.undergoing_cardiac_arrest() && prob(10)) // Your heart explodes.
 				H.set_heartattack(TRUE)
-			H.shock_internal_organs(100)
+			SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
 			playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 			H.emote("gasp")
 			add_attack_logs(user, M, "Stunned with [src]")
@@ -539,7 +539,7 @@
 					for(var/obj/item/organ/external/O in H.bodyparts)
 						total_brute	+= O.brute_dam
 						total_burn	+= O.burn_dam
-					if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !HAS_TRAIT(H, TRAIT_HUSK) && (H.mind && H.mind.is_revivable()))
+					if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !HAS_TRAIT(H, TRAIT_HUSK))
 						tobehealed = min(health + threshold, 0) // It's HILARIOUS without this min statement, let me tell you
 						tobehealed -= 5 //They get 5 of each type of damage healed so excessive combined damage will not immediately kill them after they get revived
 						H.adjustOxyLoss(tobehealed)
@@ -554,7 +554,7 @@
 						H.emote("gasp")
 						if(tplus > tloss)
 							H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
-						H.shock_internal_organs(100)
+						SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
 						if(isrobot(user))
 							var/mob/living/silicon/robot/R = user
 							R.cell.use(revivecost)

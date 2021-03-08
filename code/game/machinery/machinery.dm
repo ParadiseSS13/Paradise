@@ -111,13 +111,10 @@ Class Procs:
 	var/power_channel = EQUIP //EQUIP,ENVIRON or LIGHT
 	var/list/component_parts = null //list of all the parts used to build it, if made from certain kinds of frames.
 	var/uid
-	var/manual = 0
 	var/global/gl_uid = 1
-	var/custom_aghost_alerts=0
 	var/panel_open = 0
 	var/area/myArea
 	var/interact_offline = 0 // Can the machine be interacted with while de-powered.
-	var/list/use_log // Init this list if you wish to add logging to your machine - currently only viewable in VV
 	var/list/settagwhitelist // (Init this list if needed) WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
 	atom_say_verb = "beeps"
 	var/siemens_strength = 0.7 // how badly will it shock you?

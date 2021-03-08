@@ -92,6 +92,7 @@
 	faction = list("undead")
 	loot = list(/obj/effect/decal/remains/human)
 	del_on_death = 1
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/hostile/retaliate/zombie
 	name = "zombie"
