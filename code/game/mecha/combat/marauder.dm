@@ -45,8 +45,8 @@
 	ME.attach(src)
 
 /obj/mecha/combat/marauder/ares
-	desc = "Heavy-duty, combat exosuit, adapted from rejected early versions of the Marauder to serve as a biohazard containment exosuit. This model, albeit rare, can be found among civilian populations."
 	name = "Ares"
+	desc = "Heavy-duty, combat exosuit, adapted from rejected early versions of the Marauder to serve as a biohazard containment exosuit. This model, albeit rare, can be found among civilian populations."
 	icon_state = "ares"
 	initial_icon = "ares"
 	operation_req_access = list(ACCESS_SECURITY)
