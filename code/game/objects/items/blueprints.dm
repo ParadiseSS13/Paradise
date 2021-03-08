@@ -229,7 +229,7 @@
 
 	interact()
 	message_admins("A new room was made by [key_name_admin(usr)] at [ADMIN_VERBOSEJMP(usr)] with the name [str]")
-	log_game("A new room was made by [key_name_admin(usr)] at [AREACOORD(usr)] with the name [str]")
+	log_game("A new room was made by [key_name(usr)] at [AREACOORD(usr)] with the name [str]")
 	area_created = TRUE
 	return area_created
 
@@ -341,4 +341,3 @@
 	fluffnotice = "Intellectual Property of Nanotrasen. For use in engineering cyborgs only. Wipe from memory upon departure from the station."
 
 /obj/item/areaeditor/blueprints/ce
-
