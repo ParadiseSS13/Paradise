@@ -239,20 +239,25 @@
 
 /obj/item/organ/internal/honktumor/insert(mob/living/carbon/M, special = 0)
 	..()
-	M.dna.SetSEState(GLOB.clumsyblock, TRUE, TRUE)
-	M.dna.SetSEState(GLOB.comicblock, TRUE, TRUE)
-	singlemutcheck(M, GLOB.clumsyblock, MUTCHK_FORCED)
-	singlemutcheck(M, GLOB.comicblock, MUTCHK_FORCED)
+	M.mutations.Add(CLUMSY)
+	M.mutations.Add(GLOB.comicblock)
+	M.dna.SetSEState(GLOB.clumsyblock,1,1)
+	M.dna.SetSEState(GLOB.comicblock,1,1)
+	genemutcheck(M,GLOB.clumsyblock,null,MUTCHK_FORCED)
+	genemutcheck(M,GLOB.comicblock,null,MUTCHK_FORCED)
 	organhonked = world.time
 	M.AddElement(/datum/element/waddling)
-	squeak = M.AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg' = 1), 50, falloff_exponent = 20)
+	squeak = M.AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg' = 1), 50)
 
 /obj/item/organ/internal/honktumor/remove(mob/living/carbon/M, special = 0)
 	. = ..()
-	M.dna.SetSEState(GLOB.clumsyblock, FALSE)
-	M.dna.SetSEState(GLOB.comicblock, FALSE)
-	singlemutcheck(M, GLOB.clumsyblock, MUTCHK_FORCED)
-	singlemutcheck(M, GLOB.comicblock, MUTCHK_FORCED)
+
+	M.mutations.Remove(CLUMSY)
+	M.mutations.Remove(GLOB.comicblock)
+	M.dna.SetSEState(GLOB.clumsyblock,0)
+	M.dna.SetSEState(GLOB.comicblock,0)
+	genemutcheck(M,GLOB.clumsyblock,null,MUTCHK_FORCED)
+	genemutcheck(M,GLOB.comicblock,null,MUTCHK_FORCED)
 	M.RemoveElement(/datum/element/waddling)
 	QDEL_NULL(squeak)
 	qdel(src)
@@ -263,9 +268,9 @@
 		to_chat(owner, "<font color='red' size='7'>HONK</font>")
 		owner.SetSleeping(0)
 		owner.Stuttering(20)
-		owner.AdjustEarDamage(0, 30)
+		owner.MinimumDeafTicks(30)
 		owner.Weaken(3)
-		SEND_SOUND(owner, sound('sound/items/airhorn.ogg'))
+		owner << 'sound/items/airhorn.ogg'
 		if(prob(30))
 			owner.Stun(10)
 			owner.Paralyse(4)
@@ -304,7 +309,7 @@
 
 /obj/item/organ/internal/honkbladder/insert(mob/living/carbon/M, special = 0)
 
-	squeak = M.AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg'=1,'sound/effects/clownstep2.ogg'=1), 50, falloff_exponent = 20)
+	squeak = M.AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg'=1,'sound/effects/clownstep2.ogg'=1), 50)
 
 /obj/item/organ/internal/honkbladder/remove(mob/living/carbon/M, special = 0)
 	. = ..()

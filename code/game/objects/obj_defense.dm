@@ -224,23 +224,14 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 		SSfires.processing -= src
 
 ///Called when the obj is hit by a tesla bolt.
-/obj/zap_act(power, zap_flags)
-	if(QDELETED(src))
-		return FALSE
+/obj/proc/tesla_act(power)
 	being_shocked = TRUE
-	addtimer(CALLBACK(src, .proc/reset_shocked), 1 SECONDS)
-	return power / 2
+	var/power_bounced = power * 0.5
+	tesla_zap(src, 3, power_bounced)
+	addtimer(CALLBACK(src, .proc/reset_shocked), 10)
 
 /obj/proc/reset_shocked()
 	being_shocked = FALSE
-
-//The surgeon general warns that being buckled to certain objects receiving powerful shocks is greatly hazardous to your health
-///Only tesla coils, vehicles, and grounding rods currently call this because mobs are already targeted over all other objects, but this might be useful for more things later.
-/obj/proc/zap_buckle_check(strength)
-	if(has_buckled_mobs())
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
-			buckled_mob.electrocute_act((clamp(round(strength / 400), 10, 90) + rand(-5, 5)), src, flags = SHOCK_TESLA)
 
 //the obj is deconstructed into pieces, whether through careful disassembly or when destroyed.
 /obj/proc/deconstruct(disassembled = TRUE)

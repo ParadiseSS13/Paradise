@@ -33,22 +33,41 @@
 /turf/simulated/mineral,
 /area/ruin/powered)
 "aj" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f6";
+	dir = 2
+	},
 /area/ruin/powered)
 "ak" = (
-/obj/effect/spawner/window/shuttle,
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
 /turf/simulated/floor/plating,
+/area/ruin/powered)
+"al" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "swall_f10";
+	layer = 2
+	},
 /area/ruin/powered)
 "am" = (
 /turf/simulated/wall,
 /area/ruin/powered{
 	name = "Space Bar"
 	})
+"an" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall3";
+	dir = 2
+	},
+/area/ruin/powered)
 "ao" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium/blue/airless,
+/turf/simulated/shuttle/floor,
 /area/ruin/powered)
 "ap" = (
 /obj/structure/table,
@@ -105,7 +124,7 @@
 	name = "Space Bar"
 	})
 "ax" = (
-/turf/simulated/floor/mineral/titanium/blue/airless,
+/turf/simulated/shuttle/floor,
 /area/ruin/powered)
 "ay" = (
 /obj/machinery/door/airlock{
@@ -125,13 +144,25 @@
 	})
 "aA" = (
 /obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/floor/plating,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f5";
+	dir = 2
+	},
 /area/ruin/powered)
 "aB" = (
-/obj/machinery/door/airlock/titanium{
+/obj/machinery/door/airlock/shuttle{
 	name = "Escape Pod Airlock"
 	},
-/turf/simulated/floor/mineral/titanium/blue/airless,
+/turf/simulated/shuttle/floor,
+/area/ruin/powered)
+"aC" = (
+/obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/floor/plating,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f9";
+	dir = 2
+	},
 /area/ruin/powered)
 "aD" = (
 /obj/machinery/door_control{
@@ -410,6 +441,14 @@
 "bo" = (
 /turf/simulated/floor/plating,
 /area/ruin/powered)
+"bp" = (
+/obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f5";
+	dir = 2
+	},
+/area/ruin/powered)
 "bq" = (
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "pod cycle";
@@ -423,6 +462,14 @@
 	name = "airlock dock"
 	},
 /turf/simulated/floor/plating,
+/area/ruin/powered)
+"bs" = (
+/obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f9";
+	dir = 2
+	},
 /area/ruin/powered)
 "bt" = (
 /obj/effect/decal/warning_stripes/south,
@@ -904,8 +951,8 @@ ac
 af
 ag
 aj
-aj
-aj
+an
+an
 aA
 ag
 ag
@@ -987,10 +1034,10 @@ ac
 af
 ag
 ag
-aj
-aj
-aj
-aA
+al
+an
+an
+aC
 ag
 ag
 ag
@@ -1084,9 +1131,9 @@ ag
 ag
 ag
 aj
-aj
-aj
-aA
+an
+an
+bp
 ag
 ag
 ag
@@ -1167,10 +1214,10 @@ aQ
 ag
 ag
 ag
-aj
-aj
-aj
-aA
+al
+an
+an
+bs
 ag
 ag
 ag

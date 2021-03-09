@@ -15,7 +15,6 @@
 	speak_chance = 1
 	turns_per_move = 10
 	icon = 'icons/mob/penguins.dmi'
-	footstep_type = FOOTSTEP_MOB_BAREFOOT
 
 /mob/living/simple_animal/pet/penguin/Initialize(mapload)
 	. = ..()

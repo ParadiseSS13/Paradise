@@ -143,7 +143,7 @@
 		else if(effect <= 7)
 			M.emote("collapse")
 			to_chat(M, "<span class='warning'>Your heart is pounding!</span>")
-			SEND_SOUND(M, sound('sound/effects/singlebeat.ogg'))
+			M << 'sound/effects/singlebeat.ogg'
 			update_flags |= M.Paralyse(5, FALSE)
 			M.Jitter(30)
 			update_flags |= M.adjustToxLoss(6, FALSE)
@@ -290,7 +290,7 @@
 				H.visible_message("<span class='warning'>[M]'s skin is rotting away!</span>")
 				update_flags |= H.adjustBruteLoss(25, FALSE)
 				H.emote("scream")
-				H.become_husk("krokodil_overdose")
+				H.ChangeToHusk()
 				H.emote("faint")
 		else if(effect <= 7)
 			M.emote("shiver")
@@ -322,13 +322,13 @@
 	update_flags |= M.AdjustWeakened(-2.5, FALSE)
 	update_flags |= M.adjustStaminaLoss(-2, FALSE)
 	update_flags |= M.SetSleeping(0, FALSE)
-	ADD_TRAIT(M, TRAIT_GOTTAGOFAST, id)
+	M.status_flags |= GOTTAGOFAST
 	if(prob(50))
 		update_flags |= M.adjustBrainLoss(1, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/methamphetamine/on_mob_delete(mob/living/M)
-	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)
+	M.status_flags &= ~GOTTAGOFAST
 	..()
 
 /datum/reagent/methamphetamine/overdose_process(mob/living/M, severity)
@@ -407,7 +407,7 @@
 /datum/reagent/bath_salts/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
 		to_chat(M, "<span class = 'danger'><font face='[pick("Curlz MT", "Comic Sans MS")]' size='[rand(4,6)]'>You feel FUCKED UP!!!!!!</font></span>")
-		SEND_SOUND(M, sound('sound/effects/singlebeat.ogg'))
+		M << 'sound/effects/singlebeat.ogg'
 		M.emote("faint")
 		M.apply_effect(5, IRRADIATE)
 		M.adjustToxLoss(5)
@@ -684,7 +684,7 @@
 	update_flags |= M.AdjustStunned(-2, FALSE)
 	update_flags |= M.AdjustWeakened(-2, FALSE)
 	update_flags |= M.adjustStaminaLoss(-2, FALSE)
-	ADD_TRAIT(M, TRAIT_GOTTAGOFAST, id)
+	M.status_flags |= GOTTAGOFAST
 	M.Jitter(3)
 	update_flags |= M.adjustBrainLoss(0.5, FALSE)
 	if(prob(5))
@@ -692,7 +692,7 @@
 	return ..() | update_flags
 
 /datum/reagent/lube/ultra/on_mob_delete(mob/living/M)
-	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)
+	M.status_flags &= ~GOTTAGOFAST
 	..()
 
 /datum/reagent/lube/ultra/overdose_process(mob/living/M, severity)

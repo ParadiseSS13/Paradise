@@ -68,10 +68,12 @@
 
 /obj/effect/mine/dnascramble/mineEffect(mob/living/victim)
 	victim.rad_act(radiation_amount)
-	if(!victim.dna || HAS_TRAIT(victim, TRAIT_GENELESS))
-		return
+	if(ishuman(victim))
+		var/mob/living/carbon/human/V = victim
+		if(NO_DNA in V.dna.species.species_traits)
+			return
 	randmutb(victim)
-	domutcheck(victim)
+	domutcheck(victim ,null)
 
 /obj/effect/mine/gas
 	name = "oxygen mine"
@@ -130,7 +132,7 @@
 	if(!istype(victim) || !victim.client)
 		return
 	to_chat(victim, "<span class='reallybig redtext'>RIP AND TEAR</span>")
-	SEND_SOUND(victim, sound('sound/misc/e1m1.ogg'))
+	victim << 'sound/misc/e1m1.ogg'
 	var/old_color = victim.client.color
 	var/red_splash = list(1,0,0,0.8,0.2,0, 0.8,0,0.2,0.1,0,0)
 	var/pure_red = list(0,0,0,0,0,0,0,0,0,1,0,0)
@@ -177,7 +179,7 @@
 	if(!victim.client || !istype(victim))
 		return
 	to_chat(victim, "<span class='notice'>You feel fast!</span>")
-	ADD_TRAIT(victim, TRAIT_GOTTAGOFAST, "mine")
+	victim.status_flags |= GOTTAGOFAST
 	spawn(duration)
-		REMOVE_TRAIT(victim, TRAIT_GOTTAGOFAST, "mine")
+		victim.status_flags &= ~GOTTAGOFAST
 		to_chat(victim, "<span class='notice'>You slow down.</span>")

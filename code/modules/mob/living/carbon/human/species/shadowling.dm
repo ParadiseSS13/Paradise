@@ -3,21 +3,26 @@
 	name = "Shadowling"
 
 	icobase = 'icons/mob/human_races/r_shadowling.dmi'
+	deform = 'icons/mob/human_races/r_shadowling.dmi'
 	blacklisted = TRUE
 
 	blood_color = "#555555"
 	flesh_color = "#222222"
 
-	species_traits = list(NO_BLOOD) //Can't use guns due to muzzle flash
-	inherent_traits = list(TRAIT_CHUNKYFINGERS, TRAIT_NOHUNGER, TRAIT_NOBREATH, TRAIT_RADIMMUNE, TRAIT_NOEXAMINE)
+	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NOGUNS, NO_HUNGER, NO_EXAMINE) //Can't use guns due to muzzle flash
 	burn_mod = 1.5 //1.5x burn damage, 2x is excessive
 	heatmod = 1.5
 
+	silent_steps = 1
+	grant_vision_toggle = 0
+
 	has_organ = list(
 		"brain" =    /obj/item/organ/internal/brain,
-		"eyes" =     /obj/item/organ/internal/eyes/night_vision/nightmare)
+		"eyes" =     /obj/item/organ/internal/eyes)
 
 /datum/species/shadow/ling/handle_life(mob/living/carbon/human/H)
+	if(!H.weakeyes)
+		H.weakeyes = 1 //Makes them more vulnerable to flashes and flashbangs
 	var/light_amount = 0
 	if(isturf(H.loc))
 		var/turf/T = H.loc
@@ -27,7 +32,7 @@
 			H.take_overall_damage(0, LIGHT_DAMAGE_TAKEN)
 			if(H.stat != DEAD)
 				to_chat(H, "<span class='userdanger'>The light burns you!</span>")//Message spam to say "GET THE FUCK OUT"
-				SEND_SOUND(H, sound('sound/weapons/sear.ogg'))
+				H << 'sound/weapons/sear.ogg'
 		else if(light_amount < LIGHT_HEAL_THRESHOLD)
 			H.clear_alert("lightexposure")
 			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
@@ -37,8 +42,8 @@
 			H.adjustToxLoss(-5)
 			H.adjustBrainLoss(-25) //Shad O. Ling gibbers, "CAN U BE MY THRALL?!!"
 			H.AdjustEyeBlurry(-1)
-			H.cure_nearsighted()
-			H.cure_blind()
+			H.CureNearsighted()
+			H.CureBlind()
 			H.adjustCloneLoss(-1)
 			H.SetWeakened(0)
 			H.SetStunned(0)
@@ -49,16 +54,18 @@
 	name = "Lesser Shadowling"
 
 	icobase = 'icons/mob/human_races/r_lshadowling.dmi'
+	deform = 'icons/mob/human_races/r_lshadowling.dmi'
 
 	blood_color = "#CCCCCC"
 	flesh_color = "#AAAAAA"
 
-	species_traits = list(NO_BLOOD)
-	inherent_traits = list(TRAIT_NOBREATH, TRAIT_RADIMMUNE, TRAIT_NOHUNGER, TRAIT_NOEXAMINE)
+	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NO_HUNGER, NO_EXAMINE)
 	burn_mod = 1.1
 	heatmod = 1.1
 
 /datum/species/shadow/ling/lesser/handle_life(mob/living/carbon/human/H)
+	if(!H.weakeyes)
+		H.weakeyes = 1 //Makes them more vulnerable to flashes and flashbangs
 	var/light_amount = 0
 	if(isturf(H.loc))
 		var/turf/T = H.loc

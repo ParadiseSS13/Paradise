@@ -1,6 +1,3 @@
-#define CIRC_LEFT WEST
-#define CIRC_RIGHT EAST
-
 /obj/item/pipe
 	name = "pipe"
 	desc = "A pipe"

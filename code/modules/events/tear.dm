@@ -34,7 +34,8 @@
 	animation.icon_state = "newtear"
 	animation.icon = 'icons/effects/tear.dmi'
 	animation.master = src
-	QDEL_IN(animation, 1.5 SECONDS)
+	QDEL_IN(animation, 15)
+
 	addtimer(CALLBACK(src, .proc/spew_critters), rand(30, 120))
 
 /obj/effect/tear/proc/spew_critters()

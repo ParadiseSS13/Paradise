@@ -5,7 +5,7 @@
 	max_combined_w_class = WEIGHT_CLASS_GIGANTIC
 	w_class = WEIGHT_CLASS_BULKY
 	cant_hold = list(/obj/item/disk/nuclear)
-	silent = TRUE
+	silent = 1
 
 
 /obj/item/implant/storage

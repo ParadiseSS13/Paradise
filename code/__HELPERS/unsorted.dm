@@ -1818,6 +1818,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/datum = "D",
 			/turf/simulated/floor = "SIM_FLOOR",
 			/turf/simulated/wall = "SIM_WALL",
+			/turf/unsimulated/floor = "UNSIM_FLOOR",
+			/turf/unsimulated/wall = "UNSIM_WALL",
 			/turf = "T",
 			/mob/living/carbon/alien = "XENO",
 			/mob/living/carbon/human = "HUMAN",
@@ -1986,27 +1988,13 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	return shift
 
-/**
-  * Returns a list of atoms in a location of a given type. Can be refined to look for pixel-shift.
-  *
-  * Arguments:
-  * * loc - The atom to look in.
-  * * type - The type to look for.
-  * * check_shift - If true, will exclude atoms whose pixel_x/pixel_y do not match shift_x/shift_y.
-  * * shift_x - If check_shift is true, atoms whose pixel_x is different to this will be excluded.
-  * * shift_y - If check_shift is true, atoms whose pixel_y is different to this will be excluded.
-  */
-/proc/get_atoms_of_type(atom/loc, type, check_shift = FALSE, shift_x = 0, shift_y = 0)
+//Return a list of atoms in a location of a given type. Can be refined to look for pixel-shift.
+/proc/get_atoms_of_type(var/atom/here, var/type, var/check_shift, var/shift_x = 0, var/shift_y = 0)
 	. = list()
-	if(!loc)
-		return
-	for(var/a in loc)
-		var/atom/A = a
-		if(!istype(A, type))
-			continue
-		if(check_shift && !(A.pixel_x == shift_x && A.pixel_y == shift_y))
-			continue
-		. += A
+	if(here)
+		for(var/atom/thing in here)
+			if(istype(thing, type) && (check_shift && thing.pixel_x == shift_x && thing.pixel_y == shift_y))
+				. += thing
 
 //gives us the stack trace from CRASH() without ending the current proc.
 /proc/stack_trace(msg)
@@ -2093,53 +2081,3 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	))
 	query_accesslog.warn_execute()
 	qdel(query_accesslog)
-
-/**
-  * Returns the clean name of an audio channel.
-  *
-  * Arguments:
-  * * channel - The channel number.
-  */
-/proc/get_channel_name(channel)
-	switch(channel)
-		if(CHANNEL_LOBBYMUSIC)
-			return "Lobby Music"
-		if(CHANNEL_ADMIN)
-			return "Admin MIDIs"
-		if(CHANNEL_VOX)
-			return "AI Announcements"
-		if(CHANNEL_JUKEBOX)
-			return "Dance Machines"
-		if(CHANNEL_HEARTBEAT)
-			return "Heartbeat"
-		if(CHANNEL_BUZZ)
-			return "White Noise"
-		if(CHANNEL_AMBIENCE)
-			return "Ambience"
-      
-/proc/slot_bitfield_to_slot(input_slot_flags) // Kill off this garbage ASAP; slot flags and clothing flags should be IDENTICAL. GOSH DARN IT. Doesn't work with ears or pockets, either.
-	switch(input_slot_flags)
-		if(SLOT_OCLOTHING)
-			return slot_wear_suit
-		if(SLOT_ICLOTHING)
-			return slot_w_uniform
-		if(SLOT_GLOVES)
-			return slot_gloves
-		if(SLOT_EYES)
-			return slot_glasses
-		if(SLOT_MASK)
-			return slot_wear_mask
-		if(SLOT_HEAD)
-			return slot_head
-		if(SLOT_FEET)
-			return slot_shoes
-		if(SLOT_ID)
-			return slot_wear_id
-		if(SLOT_BELT)
-			return slot_belt
-		if(SLOT_BACK)
-			return slot_back
-		if(SLOT_PDA)
-			return slot_wear_pda
-		if(SLOT_TIE)
-			return slot_tie

@@ -1,6 +1,8 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/shuttle/wall{
+	icon_state = "wall3"
+	},
 /area/space)
 "ab" = (
 /turf/simulated/mineral,
@@ -269,14 +271,53 @@
 	},
 /area/awaymission/challenge/main)
 "aP" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/floor/snow{
+	carbon_dioxide = 21.8366;
+	nitrogen = 0;
+	oxygen = 82.1472;
+	temperature = 73
+	},
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f6";
+	dir = 2
+	},
+/area/awaymission/challenge/main)
+"aQ" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall12";
+	dir = 2
+	},
+/area/awaymission/challenge/main)
+"aR" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall8";
+	dir = 2
+	},
 /area/awaymission/challenge/main)
 "aS" = (
-/obj/machinery/door/airlock/titanium,
+/obj/machinery/door/unpowered/shuttle,
 /obj/structure/fans/tiny,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
+	},
+/area/awaymission/challenge/main)
+"aT" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall4";
+	dir = 2
+	},
+/area/awaymission/challenge/main)
+"aU" = (
+/turf/simulated/floor/snow{
+	carbon_dioxide = 21.8366;
+	nitrogen = 0;
+	oxygen = 82.1472;
+	temperature = 73
+	},
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f10";
+	dir = 2
 	},
 /area/awaymission/challenge/main)
 "aV" = (
@@ -292,6 +333,12 @@
 	icon_plating = "asteroid";
 	icon_state = "asteroid";
 	name = "Asteroid"
+	},
+/area/awaymission/challenge/main)
+"aX" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall3";
+	dir = 2
 	},
 /area/awaymission/challenge/main)
 "aY" = (
@@ -311,6 +358,12 @@
 	icon_plating = "asteroid";
 	icon_state = "asteroid";
 	name = "Asteroid"
+	},
+/area/awaymission/challenge/main)
+"bb" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall1";
+	dir = 2
 	},
 /area/awaymission/challenge/main)
 "bc" = (
@@ -342,6 +395,36 @@
 /mob/living/simple_animal/hostile/winter/santa/stage_1,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria";
+	dir = 2
+	},
+/area/awaymission/challenge/main)
+"bg" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall2";
+	dir = 2
+	},
+/area/awaymission/challenge/main)
+"bh" = (
+/turf/simulated/floor/snow{
+	carbon_dioxide = 21.8366;
+	nitrogen = 0;
+	oxygen = 82.1472;
+	temperature = 73
+	},
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f5";
+	dir = 2
+	},
+/area/awaymission/challenge/main)
+"bi" = (
+/turf/simulated/floor/snow{
+	carbon_dioxide = 21.8366;
+	nitrogen = 0;
+	oxygen = 82.1472;
+	temperature = 73
+	},
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f9";
 	dir = 2
 	},
 /area/awaymission/challenge/main)
@@ -464,10 +547,12 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/challenge/main)
 "bD" = (
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/shuttle/wall{
+	icon_state = "wall3"
+	},
 /area/awaymission/challenge/start)
 "bE" = (
-/obj/machinery/door/airlock/titanium,
+/obj/machinery/door/unpowered/shuttle,
 /obj/structure/fans/tiny,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -485,7 +570,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/challenge/start)
 "bG" = (
-/obj/machinery/door/airlock/titanium,
+/obj/machinery/door/unpowered/shuttle,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/challenge/start)
@@ -553,7 +638,9 @@
 /turf/simulated/floor/bluegrid,
 /area/awaymission/challenge/start)
 "bR" = (
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/shuttle/wall{
+	icon_state = "wall3"
+	},
 /area/awaymission/challenge/main)
 "bS" = (
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -737,30 +824,40 @@
 /area/awaymission/challenge/start)
 "cq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/shuttle/wall{
+	icon_state = "wall3"
+	},
 /area/awaymission/challenge/start)
 "cr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
 	},
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/shuttle/wall{
+	icon_state = "wall3"
+	},
 /area/awaymission/challenge/start)
 "cs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
 	},
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/shuttle/wall{
+	icon_state = "wall3"
+	},
 /area/awaymission/challenge/start)
 "ct" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/shuttle/wall{
+	icon_state = "wall3"
+	},
 /area/awaymission/challenge/start)
 "cu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10;
 	initialize_directions = 10
 	},
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/shuttle/wall{
+	icon_state = "wall3"
+	},
 /area/awaymission/challenge/start)
 "cv" = (
 /obj/machinery/atmospherics/unary/tank/air{
@@ -2606,14 +2703,14 @@ ac
 ac
 ac
 aP
-aP
-aP
+aX
+bb
 aS
 bE
 aS
-aP
-aP
-aP
+bg
+aX
+bh
 ac
 ac
 ac
@@ -2671,7 +2768,7 @@ ac
 ac
 ac
 ac
-aP
+aQ
 aY
 aZ
 aY
@@ -2679,7 +2776,7 @@ aZ
 aY
 aZ
 aY
-aP
+aQ
 ac
 ac
 ac
@@ -2737,7 +2834,7 @@ ac
 ac
 ac
 aG
-aP
+aR
 aZ
 aY
 aZ
@@ -2745,7 +2842,7 @@ aY
 aZ
 aY
 aZ
-aP
+aR
 aG
 ac
 ac
@@ -3001,7 +3098,7 @@ ac
 ac
 ac
 aG
-aP
+aT
 aZ
 aY
 aZ
@@ -3009,7 +3106,7 @@ aY
 aZ
 aY
 aZ
-aP
+aT
 aG
 ac
 ac
@@ -3067,7 +3164,7 @@ ac
 ac
 ac
 ac
-aP
+aQ
 aY
 aZ
 aY
@@ -3075,7 +3172,7 @@ aZ
 aY
 aZ
 aY
-aP
+aQ
 ac
 ac
 ac
@@ -3133,15 +3230,15 @@ ac
 aK
 aK
 ac
-aP
-aP
-aP
+aU
+aX
+bb
 aS
 bE
 aS
-aP
-aP
-aP
+bg
+aX
+bi
 ac
 ac
 ac

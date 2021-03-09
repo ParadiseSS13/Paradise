@@ -62,23 +62,24 @@ Actual Adjacent procs :
 	return b.f - a.f
 
 //wrapper that returns an empty list if A* failed to find a path
-/proc/get_path_to(caller, end, dist, maxnodes, maxnodedepth = 30, mintargetdist, adjacent = /turf/proc/reachableAdjacentTurfs, id = null, turf/exclude = null, simulated_only = TRUE)
+/proc/get_path_to(caller, end, dist, maxnodes, maxnodedepth = 30, mintargetdist, adjacent = /turf/proc/reachableAdjacentTurfs, id=null, turf/exclude=null, simulated_only = 1)
 	var/list/path = AStar(caller, end, dist, maxnodes, maxnodedepth, mintargetdist, adjacent, id, exclude, simulated_only)
 	if(!path)
 		path = list()
 	return path
 
 //the actual algorithm
-/proc/AStar(caller, end, dist, maxnodes, maxnodedepth = 30, mintargetdist, adjacent = /turf/proc/reachableAdjacentTurfs, id = null, turf/exclude = null, simulated_only = TRUE)
+/proc/AStar(caller, end, dist, maxnodes, maxnodedepth = 30, mintargetdist, adjacent = /turf/proc/reachableAdjacentTurfs, id=null, turf/exclude=null, simulated_only = 1)
+
 	//sanitation
 	var/start = get_turf(caller)
 	if(!start)
-		return null
+		return 0
 
 	if(maxnodes)
 		//if start turf is farther than maxnodes from end turf, no need to do anything
 		if(call(start, dist)(end) > maxnodes)
-			return null
+			return 0
 		maxnodedepth = maxnodes //no need to consider path longer than maxnodes
 
 	var/datum/heap/open = new /datum/heap(/proc/HeapPathWeightCompare) //the open list
@@ -91,6 +92,7 @@ Actual Adjacent procs :
 
 	//then run the main loop
 	while(!open.IsEmpty() && !path)
+	{
 		//get the lower f node on the open list
 		cur = open.Pop() //get the lower f turf in the open list
 		closed.Add(cur.source) //and tell we've processed it
@@ -98,7 +100,7 @@ Actual Adjacent procs :
 		//if we only want to get near the target, check if we're close enough
 		var/closeenough
 		if(mintargetdist)
-			closeenough = call(cur.source, dist)(end) <= mintargetdist
+			closeenough = call(cur.source,dist)(end) <= mintargetdist
 
 		//if too many steps, abandon that path
 		if(maxnodedepth && (cur.nt > maxnodedepth))
@@ -116,13 +118,12 @@ Actual Adjacent procs :
 			break
 
 		//get adjacents turfs using the adjacent proc, checking for access with id
-		var/list/L = call(cur.source, adjacent)(caller, id, simulated_only)
-		for(var/t in L)
-			var/turf/T = t
+		var/list/L = call(cur.source,adjacent)(caller, id, simulated_only)
+		for(var/turf/T in L)
 			if(T == exclude || (T in closed))
 				continue
 
-			var/newg = cur.g + call(cur.source, dist)(T)
+			var/newg = cur.g + call(cur.source,dist)(T)
 			if(!T.PNode) //is not already in open list, so add it
 				open.Insert(new /datum/pathnode(T,cur,newg,call(T,dist)(end),cur.nt+1))
 			else //is already in open list, check if it's a better way from the current turf
@@ -133,17 +134,18 @@ Actual Adjacent procs :
 					T.PNode.nt = cur.nt + 1
 					open.ReSort(T.PNode)//reorder the changed element in the list
 
+	}
+
 	//cleaning after us
 	for(var/datum/pathnode/PN in open.L)
 		PN.source.PNode = null
-	for(var/t in closed)
-		var/turf/T = t
+	for(var/turf/T in closed)
 		T.PNode = null
 
 	//reverse the path to get it from start to finish
 	if(path)
-		for(var/i in 1 to path.len / 2)
-			path.Swap(i, path.len - i + 1)
+		for(var/i = 1; i <= path.len/2; i++)
+			path.Swap(i,path.len-i+1)
 
 	return path
 
@@ -154,10 +156,10 @@ Actual Adjacent procs :
 	var/turf/simulated/T
 
 	for(var/dir in GLOB.cardinal)
-		T = get_step(src, dir)
+		T = get_step(src,dir)
 		if(!T || (simulated_only && !istype(T)))
 			continue
-		if(!T.density && !LinkBlockedWithAccess(T, caller, ID))
+		if(!T.density && !LinkBlockedWithAccess(T,caller, ID))
 			L.Add(T)
 	return L
 
@@ -168,21 +170,15 @@ Actual Adjacent procs :
 /turf/proc/LinkBlockedWithAccess(turf/T, caller, ID)
 	var/adir = get_dir(src, T)
 	var/rdir = get_dir(T, src)
-	var/atom/caller_atom = caller
-	if(!istype(caller_atom))
-		caller_atom = null
 
 	for(var/obj/structure/window/W in src)
 		if(!W.CanAStarPass(ID, adir))
-			return TRUE
+			return 1
 	for(var/obj/machinery/door/window/W in src)
 		if(!W.CanAStarPass(ID, adir))
-			return TRUE
+			return 1
 	for(var/obj/O in T)
-		var/pass_through = FALSE
-		if(caller_atom)
-			pass_through = caller_atom.CanAStarPassTo(ID, adir, O)
-		if(!O.CanAStarPass(ID, rdir, caller) && !pass_through)
-			return TRUE
+		if(!O.CanAStarPass(ID, rdir, caller))
+			return 1
 
-	return FALSE
+	return 0

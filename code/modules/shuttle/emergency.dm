@@ -249,9 +249,8 @@
 
 			if(time_left <= 50 && !sound_played) //4 seconds left - should sync up with the launch
 				sound_played = 1
-				var/hyperspace_sound = sound('sound/effects/hyperspace_begin.ogg')
 				for(var/area/shuttle/escape/E in world)
-					SEND_SOUND(E, hyperspace_sound)
+					E << 'sound/effects/hyperspace_begin.ogg'
 
 			if(time_left <= 0 && !SSshuttle.emergencyNoEscape)
 				//move each escape pod to its corresponding transit dock
@@ -259,9 +258,8 @@
 					if(is_station_level(M.z)) //Will not launch from the mine/planet
 						M.enterTransit()
 				//now move the actual emergency shuttle to its transit dock
-				var/hyperspace_progress_sound = sound('sound/effects/hyperspace_progress.ogg')
 				for(var/area/shuttle/escape/E in world)
-					SEND_SOUND(E, hyperspace_progress_sound)
+					E << 'sound/effects/hyperspace_progress.ogg'
 				enterTransit()
 				mode = SHUTTLE_ESCAPE
 				timer = world.time
@@ -276,9 +274,8 @@
 				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
 					M.dock(SSshuttle.getDock("[M.id]_away"))
 
-				var/hyperspace_end_sound = sound('sound/effects/hyperspace_end.ogg')
 				for(var/area/shuttle/escape/E in world)
-					SEND_SOUND(E, hyperspace_end_sound)
+					E << 'sound/effects/hyperspace_end.ogg'
 
 				// now move the actual emergency shuttle to centcomm
 				// unless the shuttle is "hijacked"
@@ -312,8 +309,8 @@
 	width = 3
 	height = 4
 
-/obj/docking_port/mobile/pod/Initialize(mapload)
-	. = ..()
+/obj/docking_port/mobile/pod/New()
+	..()
 	if(id == "pod")
 		WARNING("[type] id has not been changed from the default. Use the id convention \"pod1\" \"pod2\" etc.")
 

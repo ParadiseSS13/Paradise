@@ -3,7 +3,23 @@
 /turf/template_noop,
 /area/template_noop)
 "b" = (
-/turf/simulated/wall/mineral/plastitanium,
+/turf/template_noop,
+/turf/simulated/shuttle/wall{
+	dir = 8;
+	icon_state = "diagonalWall3"
+	},
+/area/ruin/powered)
+"c" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "wall3"
+	},
+/area/ruin/powered)
+"d" = (
+/turf/template_noop,
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "diagonalWall3"
+	},
 /area/ruin/powered)
 "e" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -11,7 +27,7 @@
 	icon_state = "propulsion";
 	tag = "icon-propulsion (EAST)"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/ruin/powered)
 "f" = (
 /obj/structure/window/reinforced{
@@ -22,15 +38,21 @@
 	icon_state = "heater";
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/ruin/powered)
 "g" = (
 /obj/structure/table/wood,
 /obj/item/clothing/under/shorts/black,
-/turf/simulated/floor/mineral/titanium/purple,
+/turf/simulated/shuttle/floor{
+	tag = "icon-floor5";
+	icon_state = "floor5"
+	},
 /area/ruin/powered)
 "h" = (
-/turf/simulated/floor/mineral/titanium/purple,
+/turf/simulated/shuttle/floor{
+	tag = "icon-floor5";
+	icon_state = "floor5"
+	},
 /area/ruin/powered)
 "i" = (
 /obj/structure/table,
@@ -38,72 +60,117 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium/purple,
+/turf/simulated/shuttle/floor{
+	tag = "icon-floor5";
+	icon_state = "floor5"
+	},
 /area/ruin/powered)
 "j" = (
 /obj/structure/closet,
-/turf/simulated/floor/mineral/titanium/purple,
+/turf/simulated/shuttle/floor{
+	tag = "icon-floor5";
+	icon_state = "floor5"
+	},
 /area/ruin/powered)
 "k" = (
 /obj/machinery/vending/assist,
-/turf/simulated/floor/mineral/titanium/purple,
+/turf/simulated/shuttle/floor{
+	tag = "icon-floor5";
+	icon_state = "floor5"
+	},
 /area/ruin/powered)
 "l" = (
 /obj/structure/table/wood,
 /obj/item/clothing/shoes/sandal,
-/turf/simulated/floor/mineral/titanium/purple,
+/turf/simulated/shuttle/floor{
+	tag = "icon-floor5";
+	icon_state = "floor5"
+	},
 /area/ruin/powered)
 "m" = (
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium/purple,
+/turf/simulated/shuttle/floor{
+	tag = "icon-floor5";
+	icon_state = "floor5"
+	},
 /area/ruin/powered)
 "n" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/mineral/titanium/purple,
+/turf/simulated/shuttle/floor{
+	tag = "icon-floor5";
+	icon_state = "floor5"
+	},
 /area/ruin/powered)
 "o" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/library/checkout,
-/turf/simulated/floor/mineral/titanium/purple,
+/turf/simulated/shuttle/floor{
+	tag = "icon-floor5";
+	icon_state = "floor5"
+	},
 /area/ruin/powered)
 "p" = (
-/obj/effect/spawner/window/reinforced,
+/obj/structure/window/full/reinforced,
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"q" = (
+/obj/structure/grille,
+/obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/powered)
 "r" = (
 /obj/structure/table,
 /obj/item/paper_bin,
 /obj/item/pen,
-/turf/simulated/floor/mineral/titanium/purple,
+/turf/simulated/shuttle/floor{
+	tag = "icon-floor5";
+	icon_state = "floor5"
+	},
 /area/ruin/powered)
 "s" = (
 /obj/machinery/door/poddoor{
 	id_tag = "strange ship";
 	name = "Strange Ship Blast Door"
 	},
-/turf/simulated/floor/mineral/titanium/purple,
+/turf/simulated/shuttle/floor{
+	tag = "icon-floor5";
+	icon_state = "floor5"
+	},
 /area/ruin/powered)
 "t" = (
 /obj/machinery/door/airlock/external,
-/turf/simulated/floor/mineral/titanium/purple,
+/turf/simulated/shuttle/floor{
+	tag = "icon-floor5";
+	icon_state = "floor5"
+	},
 /area/ruin/powered)
 "u" = (
 /obj/machinery/door/airlock/public/glass,
-/turf/simulated/floor/mineral/titanium/purple,
+/turf/simulated/shuttle/floor{
+	tag = "icon-floor5";
+	icon_state = "floor5"
+	},
 /area/ruin/powered)
 "v" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/titanium/purple,
+/turf/simulated/shuttle/floor{
+	tag = "icon-floor5";
+	icon_state = "floor5"
+	},
 /area/ruin/powered)
 "w" = (
 /obj/structure/table,
 /obj/item/paper,
 /obj/item/pen,
-/turf/simulated/floor/mineral/titanium/purple,
+/turf/simulated/shuttle/floor{
+	tag = "icon-floor5";
+	icon_state = "floor5"
+	},
 /area/ruin/powered)
 "x" = (
 /obj/machinery/door_control{
@@ -112,24 +179,52 @@
 	pixel_y = 0;
 	id = "strange ship"
 	},
-/turf/simulated/wall/mineral/plastitanium,
+/turf/simulated/shuttle/wall{
+	icon_state = "wall3"
+	},
 /area/ruin/powered)
 "y" = (
 /obj/machinery/light,
-/turf/simulated/floor/mineral/titanium/purple,
+/turf/simulated/shuttle/floor{
+	tag = "icon-floor5";
+	icon_state = "floor5"
+	},
 /area/ruin/powered)
 "z" = (
 /mob/living/simple_animal/bot/medbot,
-/turf/simulated/floor/mineral/titanium/purple,
+/turf/simulated/shuttle/floor{
+	tag = "icon-floor5";
+	icon_state = "floor5"
+	},
+/area/ruin/powered)
+"A" = (
+/turf/template_noop,
+/turf/simulated/shuttle/wall{
+	dir = 1;
+	icon_state = "diagonalWall3"
+	},
 /area/ruin/powered)
 "B" = (
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/mineral/titanium/purple,
+/turf/simulated/shuttle/floor{
+	tag = "icon-floor5";
+	icon_state = "floor5"
+	},
+/area/ruin/powered)
+"C" = (
+/turf/template_noop,
+/turf/simulated/shuttle/wall{
+	dir = 4;
+	icon_state = "diagonalWall3"
+	},
 /area/ruin/powered)
 "D" = (
 /obj/machinery/light,
 /obj/structure/bed,
-/turf/simulated/floor/mineral/titanium/purple,
+/turf/simulated/shuttle/floor{
+	tag = "icon-floor5";
+	icon_state = "floor5"
+	},
 /area/ruin/powered)
 
 (1,1,1) = {"
@@ -137,10 +232,10 @@ a
 a
 a
 b
-b
+c
 s
 x
-b
+d
 a
 a
 a
@@ -149,11 +244,11 @@ a
 a
 e
 e
-b
+c
 n
 h
 h
-b
+c
 e
 e
 a
@@ -162,43 +257,43 @@ a
 b
 f
 f
-b
+c
 o
 h
 y
-b
+c
 f
 f
-b
+d
 "}
 (4,1,1) = {"
-b
+c
 g
 l
-b
+c
 p
 t
 p
-b
+c
 B
 n
-b
+c
 "}
 (5,1,1) = {"
-b
+c
 h
 h
-b
+c
 h
 h
 z
-b
+c
 h
 n
-b
+c
 "}
 (6,1,1) = {"
-b
+c
 i
 h
 m
@@ -208,10 +303,10 @@ h
 m
 h
 D
-b
+c
 "}
 (7,1,1) = {"
-b
+c
 j
 h
 h
@@ -221,10 +316,10 @@ h
 h
 h
 h
-b
+c
 "}
 (8,1,1) = {"
-b
+c
 k
 h
 h
@@ -234,70 +329,70 @@ h
 h
 h
 j
-b
+c
 "}
 (9,1,1) = {"
-b
-b
-b
-b
-p
+A
+c
+c
+c
+q
 u
-p
-b
-b
-b
-b
+q
+c
+c
+c
+C
 "}
 (10,1,1) = {"
 a
 a
-b
+c
 m
 h
 h
 h
 m
-b
+c
 a
 a
 "}
 (11,1,1) = {"
 a
 a
-b
+c
 h
 h
 v
 h
 h
-b
+c
 a
 a
 "}
 (12,1,1) = {"
 a
 a
-b
+c
 j
 r
 w
 n
 j
-b
+c
 a
 a
 "}
 (13,1,1) = {"
 a
 a
-b
-b
-b
-b
-b
-b
-b
+A
+c
+c
+c
+c
+c
+C
 a
 a
 "}

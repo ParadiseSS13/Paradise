@@ -172,9 +172,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/husk_color_mod = rgb(96, 88, 80)
 	var/hulk_color_mod = rgb(48, 224, 40)
 
-	var/husk = HAS_TRAIT(src, TRAIT_HUSK)
-	var/hulk = HAS_TRAIT(src, TRAIT_HULK)
-	var/skeleton = HAS_TRAIT(src, TRAIT_SKELETONIZED)
+	var/husk = (HUSK in mutations)
+	var/hulk = (HULK in mutations)
+	var/skeleton = (SKELETON in mutations)
 
 	if(dna.species && dna.species.bodyflags & HAS_ICON_SKIN_TONE)
 		dna.species.updatespeciescolor(src)
@@ -450,18 +450,20 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(gender == FEMALE)
 		g = "f"
 	// DNA2 - Drawing underlays.
-	for(var/datum/mutation/mutation in GLOB.dna_mutations)
-		if(!mutation.block)
+	for(var/datum/dna/gene/gene in GLOB.dna_genes)
+		if(!gene.block)
 			continue
-		if(mutation.is_active(src))
-			var/underlay = mutation.on_draw_underlays(src, g)
+		if(gene.is_active(src))
+			var/underlay = gene.OnDrawUnderlays(src, g)
 			if(underlay)
 				standing.underlays += underlay
 				add_image = 1
-	if(HAS_TRAIT(src, TRAIT_LASEREYES))
-		standing.overlays += "lasereyes_s"
-		add_image = 1
-	if(dna.GetSEState(GLOB.fireblock) && dna.GetSEState(GLOB.coldblock))
+	for(var/mut in mutations)
+		switch(mut)
+			if(LASER)
+				standing.overlays += "lasereyes_s"
+				add_image = 1
+	if((COLDRES in mutations) && (HEATRES in mutations))
 		standing.underlays -= "cold_s"
 		standing.underlays -= "fire_s"
 		standing.underlays += "coldfire_s"
@@ -473,7 +475,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/proc/update_mutantrace()
 //BS12 EDIT
-	var/skel = HAS_TRAIT(src, TRAIT_SKELETONIZED)
+	var/skel = (SKELETON in mutations)
 	if(skel)
 		skeleton = 'icons/mob/human_races/r_skeleton.dmi'
 	else
@@ -1298,9 +1300,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	return out
 
 /mob/living/carbon/human/proc/generate_icon_render_key()
-	var/husk = HAS_TRAIT(src, TRAIT_HUSK)
-	var/hulk = HAS_TRAIT(src, TRAIT_HULK)
-	var/skeleton = HAS_TRAIT(src, TRAIT_SKELETONIZED)
+	var/husk = (HUSK in mutations)
+	var/hulk = (HULK in mutations)
+	var/skeleton = (SKELETON in mutations)
 	var/g = dna.GetUITriState(DNA_UI_GENDER)
 	if(g == DNA_GENDER_PLURAL)
 		g = DNA_GENDER_FEMALE
@@ -1309,7 +1311,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes)
-		. += "[eyes.eye_color]"
+		. += "[eyes.eye_colour]"
 	else
 		. += "#000000"
 

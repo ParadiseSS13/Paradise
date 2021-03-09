@@ -34,7 +34,7 @@
 	if(stat >= UNCONSCIOUS)
 		return
 
-	if(HAS_TRAIT(src, TRAIT_NOPAIN))
+	if(NO_PAIN in dna.species.species_traits)
 		return
 	if(reagents.has_reagent("morphine"))
 		return
@@ -54,7 +54,7 @@
 
 	if(stat >= UNCONSCIOUS)
 		return
-	if(HAS_TRAIT(src, TRAIT_NOPAIN))
+	if(NO_PAIN in dna.species.species_traits)
 		return
 	if(reagents.has_reagent("morphine"))
 		return

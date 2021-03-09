@@ -505,7 +505,23 @@
 /turf/simulated/wall,
 /area/awaymission/academy/classrooms)
 "bF" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/shuttle/wall{
+	tag = "icon-swallc2";
+	icon_state = "swallc2"
+	},
+/area/awaymission/academy/classrooms)
+"bG" = (
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall12";
+	icon_state = "swall12";
+	dir = 2
+	},
+/area/awaymission/academy/classrooms)
+"bH" = (
+/turf/simulated/shuttle/wall{
+	tag = "icon-swallc1";
+	icon_state = "swallc1"
+	},
 /area/awaymission/academy/classrooms)
 "bI" = (
 /obj/machinery/light{
@@ -621,6 +637,13 @@
 "bV" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
+/area/awaymission/academy/classrooms)
+"bW" = (
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall3";
+	icon_state = "swall3";
+	dir = 2
+	},
 /area/awaymission/academy/classrooms)
 "bX" = (
 /obj/effect/decal/cleanable/ash,
@@ -758,6 +781,12 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
+/area/awaymission/academy/classrooms)
+"cs" = (
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall1";
+	icon_state = "swall1"
+	},
 /area/awaymission/academy/classrooms)
 "ct" = (
 /obj/structure/chair,
@@ -11536,9 +11565,9 @@ aa
 aa
 bs
 bF
-bF
-bF
-bF
+bW
+bW
+cs
 cA
 cA
 cP
@@ -11665,7 +11694,7 @@ aa
 aa
 aa
 bs
-bF
+bG
 bX
 bZ
 bZ
@@ -11795,7 +11824,7 @@ aa
 aa
 aP
 bs
-bF
+bG
 bY
 bZ
 bZ
@@ -11925,7 +11954,7 @@ aa
 aP
 aP
 bs
-bF
+bG
 bZ
 bZ
 bZ
@@ -12055,7 +12084,7 @@ aP
 aP
 aa
 bs
-bF
+bG
 bZ
 bX
 bZ
@@ -12185,7 +12214,7 @@ ab
 aP
 aP
 bs
-bF
+bG
 ca
 bZ
 bZ
@@ -12315,7 +12344,7 @@ aP
 aa
 aa
 bs
-bF
+bG
 bZ
 bZ
 bZ
@@ -12445,10 +12474,10 @@ aP
 aa
 aa
 bs
-bF
-bF
-bF
-bF
+bH
+bW
+bW
+cs
 cC
 cC
 cR

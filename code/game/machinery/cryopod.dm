@@ -249,10 +249,7 @@
 		/obj/item/clothing/gloves/color/black/krav_maga/sec,
 		/obj/item/spacepod_key,
 		/obj/item/nullrod,
-		/obj/item/key,
-		/obj/item/door_remote,
-		/obj/item/autopsy_scanner,
-		/obj/item/holosign_creator/atmos
+		/obj/item/key
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
@@ -430,28 +427,28 @@
 	//Make an announcement and log the person entering storage.
 	control_computer.frozen_crew += "[occupant.real_name]"
 
-	var/list/ailist = list()
-	for(var/mob/living/silicon/ai/A in GLOB.silicon_mob_list)
+	var/ailist[] = list()
+	for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
 		ailist += A
-	if(length(ailist))
+	if(ailist.len)
 		var/mob/living/silicon/ai/announcer = pick(ailist)
-		if(announce_rank)
-			announcer.say(";[occupant.real_name] ([announce_rank]) [on_store_message]", ignore_languages = TRUE)
+		if (announce_rank)
+			announcer.say(";[occupant.real_name] ([announce_rank]) [on_store_message]")
 		else
-			announcer.say(";[occupant.real_name] [on_store_message]", ignore_languages = TRUE)
+			announcer.say(";[occupant.real_name] [on_store_message]")
 	else
-		if(announce_rank)
+		if (announce_rank)
 			announce.autosay("[occupant.real_name]  ([announce_rank]) [on_store_message]", "[on_store_name]")
 		else
 			announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
-	visible_message("<span class='notice'>[src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
+	visible_message("<span class='notice'>\The [src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
 
 	// Ghost and delete the mob.
-	if(!occupant.get_ghost(TRUE))
+	if(!occupant.get_ghost(1))
 		if(TOO_EARLY_TO_GHOST)
-			occupant.ghostize(FALSE) // Players despawned too early may not re-enter the game
+			occupant.ghostize(0) // Players despawned too early may not re-enter the game
 		else
-			occupant.ghostize(TRUE)
+			occupant.ghostize(1)
 	QDEL_NULL(occupant)
 	name = initial(name)
 

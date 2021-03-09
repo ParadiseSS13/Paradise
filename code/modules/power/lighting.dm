@@ -576,9 +576,9 @@
 		else
 			prot = 1
 
-		if(prot > 0 ||  HAS_TRAIT(user, TRAIT_RESISTHEAT) || HAS_TRAIT(user, TRAIT_RESISTHEATHANDS))
+		if(prot > 0 || (HEATRES in user.mutations))
 			to_chat(user, "<span class='notice'>You remove the light [fitting]</span>")
-		else if(user.dna?.GetSEState(GLOB.teleblock))
+		else if(TK in user.mutations)
 			to_chat(user, "<span class='notice'>You telekinetically remove the light [fitting].</span>")
 		else
 			if(user.a_intent == INTENT_DISARM || user.a_intent == INTENT_GRAB)
@@ -652,13 +652,10 @@
 	on = 1
 	update()
 
-/obj/machinery/light/zap_act(power, zap_flags)
-	var/explosive = zap_flags & ZAP_MACHINE_EXPLOSIVE
-	zap_flags &= ~(ZAP_MACHINE_EXPLOSIVE | ZAP_OBJ_DAMAGE)
-	. = ..()
+/obj/machinery/light/tesla_act(power, explosive = FALSE)
 	if(explosive)
-		explosion(src, 0, 0, 0, flame_range = 5, adminlog = FALSE)
-		qdel(src)
+		explosion(loc,0,0,0,flame_range = 5, adminlog = 0)
+	qdel(src)
 
 // timed process
 // use power

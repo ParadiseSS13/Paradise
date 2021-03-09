@@ -128,7 +128,8 @@
 	if(powered())
 		stat &= ~NOPOWER
 	else
-		stat |= NOPOWER
+		spawn(rand(0, 15))
+			stat |= NOPOWER
 
 /obj/machinery/chem_dispenser/ex_act(severity)
 	if(severity < 3)

@@ -6,7 +6,6 @@
 	icon_state = "shade"
 	icon_living = "shade"
 	icon_dead = "shade_dead"
-	mob_biotypes = MOB_SPIRIT
 	maxHealth = 50
 	health = 50
 	speak_emote = list("hisses")
@@ -63,9 +62,3 @@
 /mob/living/simple_animal/shade/sword/Initialize(mapload)
 	.=..()
 	status_flags |= GODMODE
-
-/mob/living/simple_animal/shade/update_runechat_msg_location()
-	if(istype(loc, /obj/item/soulstone))
-		runechat_msg_location = loc
-	else
-		runechat_msg_location = src

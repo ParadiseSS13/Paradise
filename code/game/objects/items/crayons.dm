@@ -69,7 +69,7 @@
 		if("letter")
 			temp = input("Choose the letter.", "Scribbles") in letters
 		if("random_rune")
-			temp = "rune[rand(1, 8)]"
+			temp = "rune[rand(1,10)]"
 		if("random_graffiti")
 			temp = pick(graffiti)
 		else

@@ -46,7 +46,7 @@
 		emagged = 1
 		req_access = list()
 		req_one_access = list()
-		playsound(src, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(loc, "sparks", 100, 1)
 
 /obj/machinery/door_control/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())

@@ -121,8 +121,7 @@
 	if(mob.mind)
 		if(mob.mind.assigned_role == "Clown")
 			to_chat(mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
-			mob.dna.SetSEState(GLOB.clumsyblock, FALSE)
-			singlemutcheck(mob, GLOB.clumsyblock, MUTCHK_FORCED)
+			mob.mutations.Remove(CLUMSY)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(mob)
 

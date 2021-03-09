@@ -16,9 +16,6 @@
 	outdoors = TRUE
 	ambientsounds = MINING_SOUNDS
 	flags = NONE
-	sound_environment = SOUND_AREA_STANDARD_STATION
-	min_ambience_cooldown = 70 SECONDS
-	max_ambience_cooldown = 220 SECONDS
 
 /area/mine/dangerous/explored/golem
 	name = "Small Asteroid"
@@ -35,8 +32,6 @@
 	outdoors = TRUE
 	ambientsounds = MINING_SOUNDS
 	flags = NONE
-	min_ambience_cooldown = 70 SECONDS
-	max_ambience_cooldown = 220 SECONDS
 
 /area/mine/lobby
 	name = "Mining Station"
@@ -95,7 +90,6 @@
 /area/lavaland
 	icon_state = "mining"
 	has_gravity = TRUE
-	sound_environment = SOUND_AREA_LAVALAND
 
 /area/lavaland/surface
 	name = "Lavaland"
@@ -107,8 +101,6 @@
 	power_light = FALSE
 	requires_power = TRUE
 	ambientsounds = MINING_SOUNDS
-	min_ambience_cooldown = 70 SECONDS
-	max_ambience_cooldown = 220 SECONDS
 
 /area/lavaland/underground
 	name = "Lavaland Caves"
@@ -120,8 +112,6 @@
 	power_equip = FALSE
 	power_light = FALSE
 	ambientsounds = MINING_SOUNDS
-	min_ambience_cooldown = 70 SECONDS
-	max_ambience_cooldown = 220 SECONDS
 
 /area/lavaland/surface/outdoors
 	name = "Lavaland Wastes"

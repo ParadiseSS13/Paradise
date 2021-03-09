@@ -39,11 +39,11 @@
 /obj/item/attack_tk(mob/user)
 	if(user.stat || !isturf(loc))
 		return
-	if(user.dna?.GetSEState(GLOB.teleblock) && !user.get_active_hand()) // both should already be true to get here
+	if((TK in user.mutations) && !user.get_active_hand()) // both should already be true to get here
 		var/obj/item/tk_grab/O = new(src)
 		O.form_grab(user, src)
 	else
-		warning("Strange attack_tk(): TK([user.dna?.GetSEState(GLOB.teleblock)]) empty hand([!user.get_active_hand()])")
+		warning("Strange attack_tk(): TK([TK in user.mutations]) empty hand([!user.get_active_hand()])")
 
 
 /mob/attack_tk(mob/user)
@@ -109,7 +109,7 @@
 	if(!host || host != user)
 		qdel(src)
 		return
-	if(!host.dna?.GetSEState(GLOB.teleblock))
+	if(!(TK in host.mutations))
 		qdel(src)
 		return
 	if(isobj(target) && !isturf(target.loc))

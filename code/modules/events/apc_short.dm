@@ -29,7 +29,6 @@
 /proc/power_failure(announce=TRUE)
 	var/list/skipped_areas_apc = list(
 		/area/engine/engineering,
-		/area/engine/supermatter,
 		/area/turret_protected/ai)
 
 	if(announce)

@@ -12,7 +12,6 @@
 	icon_living = "magicOrange"
 	icon_dead = "magicOrange"
 	speed = 0
-	mob_biotypes = NONE
 	a_intent = INTENT_HARM
 	can_change_intents = 0
 	stop_automated_movement = 1

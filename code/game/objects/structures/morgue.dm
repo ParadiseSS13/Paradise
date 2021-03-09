@@ -49,7 +49,7 @@
 			if(M)
 				var/mob/dead/observer/G = M.get_ghost()
 
-				if(M.mind && !M.mind.suicided)
+				if(M.mind && M.mind.is_revivable() && !M.mind.suicided)
 					if(M.client)
 						icon_state = "morgue3"
 						desc = initial(desc) + "\n[status_descriptors[4]]"
@@ -457,10 +457,6 @@
 	name = "crematorium igniter"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "crema_switch"
-	power_channel = EQUIP
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 100
-	active_power_usage = 5000
 	anchored = 1.0
 	req_access = list(ACCESS_CREMATORIUM)
 	var/on = 0
@@ -473,17 +469,13 @@
 		return attack_hand(user)
 
 /obj/machinery/crema_switch/attack_hand(mob/user)
-	if(powered(power_channel)) // Do we have power?
-		if(allowed(usr) || user.can_advanced_admin_interact())
-			use_power(400000)
-			for(var/obj/structure/crematorium/C in world)
-				if(C.id == id)
-					if(!C.cremating)
-						C.cremate(user)
-
-
-		else
-			to_chat(usr, "<span class='warning'>Access denied.</span>")
+	if(allowed(usr) || user.can_advanced_admin_interact())
+		for(var/obj/structure/crematorium/C in world)
+			if(C.id == id)
+				if(!C.cremating)
+					C.cremate(user)
+	else
+		to_chat(usr, "<span class='warning'>Access denied.</span>")
 
 /mob/proc/update_morgue()
 	if(stat == DEAD)

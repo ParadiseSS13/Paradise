@@ -15,7 +15,7 @@
 	if(.) //not dead
 
 		if(check_mutations)
-			domutcheck(src)
+			domutcheck(src,null)
 			update_mutations()
 			check_mutations = FALSE
 
@@ -101,7 +101,7 @@
 
 	else
 		//blindness
-		if(HAS_TRAIT(src, TRAIT_BLIND)) // Disabled-blind, doesn't get better on its own
+		if(BLINDNESS in mutations) // Disabled-blind, doesn't get better on its own
 
 		else if(eye_blind)		       // Blindness, heals slowly over time
 			AdjustEyeBlind(-1)
@@ -170,11 +170,11 @@
 					emote("drool")
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
-	for(var/datum/mutation/mutation in GLOB.dna_mutations)
-		if(!mutation.block)
+	for(var/datum/dna/gene/gene in GLOB.dna_genes)
+		if(!gene.block)
 			continue
-		if(mutation.is_active(src))
-			mutation.on_life(src)
+		if(gene.is_active(src))
+			gene.OnMobLife(src)
 	if(!ignore_gene_stability && gene_stability < GENETIC_DAMAGE_STAGE_1)
 		var/instability = DEFAULT_GENE_STABILITY - gene_stability
 		if(prob(instability * 0.1))
@@ -207,7 +207,7 @@
 	if(!L || L && (L.status & ORGAN_DEAD))
 		if(health >= HEALTH_THRESHOLD_CRIT)
 			adjustOxyLoss(HUMAN_MAX_OXYLOSS + 1)
-		else if(!HAS_TRAIT(src, TRAIT_NOCRITDAMAGE))
+		else if(!(NOCRITDAMAGE in dna.species.species_traits))
 			adjustOxyLoss(HUMAN_MAX_OXYLOSS)
 
 		if(dna.species)
@@ -284,7 +284,7 @@
 	if(bodytemperature > dna.species.heat_level_1)
 		//Body temperature is too hot.
 		if(status_flags & GODMODE)	return 1	//godmode
-		var/mult = dna.species.heatmod * physiology.heat_mod
+		var/mult = dna.species.heatmod
 
 		if(bodytemperature >= dna.species.heat_level_1 && bodytemperature <= dna.species.heat_level_2)
 			throw_alert("temp", /obj/screen/alert/hot, 1)
@@ -306,7 +306,7 @@
 			return 1
 
 		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
-			var/mult = dna.species.coldmod * physiology.cold_mod
+			var/mult = dna.species.coldmod
 			if(bodytemperature >= dna.species.cold_level_2 && bodytemperature <= dna.species.cold_level_1)
 				throw_alert("temp", /obj/screen/alert/cold, 1)
 				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_1, updating_health = TRUE, used_weapon = "Low Body Temperature")
@@ -329,8 +329,8 @@
 	if(status_flags & GODMODE)	return 1	//godmode
 
 	if(adjusted_pressure >= dna.species.hazard_high_pressure)
-		if(!HAS_TRAIT(src, TRAIT_RESISTHIGHPRESSURE))
-			var/pressure_damage = min(((adjusted_pressure / dna.species.hazard_high_pressure) - 1) * PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE) * physiology.pressure_mod
+		if(!(HEATRES in mutations))
+			var/pressure_damage = min( ( (adjusted_pressure / dna.species.hazard_high_pressure) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE)
 			take_overall_damage(brute=pressure_damage, updating_health = TRUE, used_weapon = "High Pressure")
 			throw_alert("pressure", /obj/screen/alert/highpressure, 2)
 		else
@@ -342,10 +342,10 @@
 	else if(adjusted_pressure >= dna.species.hazard_low_pressure)
 		throw_alert("pressure", /obj/screen/alert/lowpressure, 1)
 	else
-		if(HAS_TRAIT(src, TRAIT_RESISTLOWPRESSURE))
+		if(COLDRES in mutations)
 			clear_alert("pressure")
 		else
-			take_overall_damage(brute = LOW_PRESSURE_DAMAGE * physiology.pressure_mod, updating_health = TRUE, used_weapon = "Low Pressure")
+			take_overall_damage(brute=LOW_PRESSURE_DAMAGE, updating_health = TRUE, used_weapon = "Low Pressure")
 			throw_alert("pressure", /obj/screen/alert/lowpressure, 2)
 
 
@@ -354,7 +354,7 @@
 	. = ..()
 	if(!.)
 		return
-	if(HAS_TRAIT(src, TRAIT_NOFIRE))
+	if(HEATRES in mutations)
 		return
 	var/thermal_protection = get_thermal_protection()
 
@@ -417,7 +417,7 @@
 
 /mob/living/carbon/human/proc/get_heat_protection(temperature) //Temperature is the temperature you're being exposed to.
 
-	if(HAS_TRAIT(src, TRAIT_RESISTHEAT))
+	if(HEATRES in mutations)
 		return 1
 
 	var/thermal_protection_flags = get_heat_protection_flags(temperature)
@@ -478,7 +478,7 @@
 
 /mob/living/carbon/human/proc/get_cold_protection(temperature)
 
-	if(HAS_TRAIT(src, TRAIT_RESISTCOLD))
+	if(COLDRES in mutations)
 		return 1 //Fully protected from the cold.
 
 	temperature = max(temperature, TCMB) //There is an occasional bug where the temperature is miscalculated in areas with a small amount of gas on them, so this is necessary to ensure that that bug does not affect this calculation. Space's temperature is 2.7K and most suits that are intended to protect against any cold, protect down to 2.0K.
@@ -536,12 +536,12 @@
 	if(status_flags & GODMODE)
 		return 0	//godmode
 
-	if(!HAS_TRAIT(src, TRAIT_NOHUNGER))
-		if(HAS_TRAIT(src, TRAIT_FAT))
+	if(!(NO_HUNGER in dna.species.species_traits))
+		if(FAT in mutations)
 			if(overeatduration < 100)
 				becomeSlim()
 		else
-			if(overeatduration > 500 && !HAS_TRAIT(src, TRAIT_NOFAT))
+			if(overeatduration > 500 && !(NO_OBESITY in dna.species.species_traits))
 				becomeFat()
 
 		// nutrition decrease
@@ -556,7 +556,6 @@
 				if(prob(round(-satiety/40)))
 					Jitter(5)
 				hunger_rate = 3 * hunger_drain
-			hunger_rate *= physiology.hunger_mod
 			adjust_nutrition(-hunger_rate)
 
 		if(nutrition > NUTRITION_LEVEL_FULL)
@@ -565,8 +564,8 @@
 
 		else
 			if(overeatduration > 1)
-				if(HAS_TRAIT(src, TRAIT_SLOWDIGESTION))
-					overeatduration -= 1 // Those with slow digestion trait, it takes longer to lose weight
+				if(OBESITY in mutations)
+					overeatduration -= 1 // Those with obesity gene take twice as long to unfat
 				else
 					overeatduration -= 2
 
@@ -627,7 +626,7 @@
 	var/collapse_start = 75
 	var/braindamage_start = 120
 	var/alcohol_strength = drunk
-	var/sober_str = !HAS_TRAIT(src, TRAIT_ALCOHOL_TOLERANCE) ? 1 : 2
+	var/sober_str =! (SOBER in mutations) ? 1 : 2
 
 	alcohol_strength /= sober_str
 
@@ -801,7 +800,7 @@
 				healthdoll.cached_healthdoll_overlays = new_overlays
 
 /mob/living/carbon/human/proc/handle_nutrition_alerts() //This is a terrible abuse of the alert system; something like this should be a HUD element
-	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
+	if(NO_HUNGER in dna.species.species_traits)
 		return
 	if(mind?.vampire && (mind in SSticker.mode.vampires)) //Vampires
 		switch(nutrition)
@@ -888,7 +887,7 @@
 	if(blood_volume <= BLOOD_VOLUME_BAD)//how much blood do we have
 		temp = PULSE_THREADY	//not enough :(
 
-	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
+	if(status_flags & FAKEDEATH)
 		temp = PULSE_NONE		//pretend that we're dead. unlike actual death, can be inflienced by meds
 
 	for(var/datum/reagent/R in reagents.reagent_list)
@@ -913,7 +912,7 @@
 /mob/living/carbon/human/proc/handle_decay()
 	var/decaytime = world.time - timeofdeath
 
-	if(HAS_TRAIT(src, TRAIT_NODECAY))
+	if(NO_DECAY in dna.species.species_traits)
 		return
 
 	if(reagents.has_reagent("formaldehyde")) //embalming fluid stops decay
@@ -944,7 +943,7 @@
 			var/obj/item/clothing/mask/M = H.wear_mask
 			if(M && (M.flags_cover & MASKCOVERSMOUTH))
 				continue
-			if(HAS_TRAIT(H, TRAIT_NOBREATH))
+			if(NO_BREATHE in H.dna.species.species_traits)
 				continue //no puking if you can't smell!
 			// Humans can lack a mind datum, y'know
 			if(H.mind && (H.mind.assigned_role == "Detective" || H.mind.assigned_role == "Coroner"))

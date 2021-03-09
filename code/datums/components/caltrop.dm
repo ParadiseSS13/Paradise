@@ -24,7 +24,7 @@
 
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
-		if(HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))
+		if(PIERCEIMMUNE in H.dna.species.species_traits)
 			return
 
 		if((flags & CALTROP_IGNORE_WALKERS) && H.m_intent == MOVE_INTENT_WALK)

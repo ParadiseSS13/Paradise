@@ -80,7 +80,8 @@
 	if(powered())
 		stat &= ~NOPOWER
 	else
-		stat |= NOPOWER
+		spawn(rand(0, 15))
+			stat |= NOPOWER
 	update_icon()
 
 /obj/machinery/chem_master/attackby(obj/item/I, mob/user, params)

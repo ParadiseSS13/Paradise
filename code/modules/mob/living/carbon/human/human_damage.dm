@@ -14,8 +14,9 @@
 
 	health = maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute
 
-	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD * 2) && stat == DEAD)
-		become_husk(BURN)
+	//TODO: fix husking
+	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD) && stat == DEAD)
+		ChangeToHusk()
 	update_stat("updatehealth([reason])")
 	med_hud_set_health()
 
@@ -169,11 +170,17 @@
 
 // Defined here solely to take species flags into account without having to recast at mob/living level.
 /mob/living/carbon/human/adjustOxyLoss(amount)
+	if(NO_BREATHE in dna.species.species_traits)
+		oxyloss = 0
+		return FALSE
 	if(dna.species && amount > 0)
 		amount = amount * dna.species.oxy_mod
 	. = ..()
 
 /mob/living/carbon/human/setOxyLoss(amount)
+	if(NO_BREATHE in dna.species.species_traits)
+		oxyloss = 0
+		return FALSE
 	if(dna.species && amount > 0)
 		amount = amount * dna.species.oxy_mod
 	. = ..()
@@ -322,5 +329,11 @@ This function restores all organs.
 
 	return bodyparts_by_name[zone]
 
-/mob/living/carbon/human/apply_damage(damage = 0, damagetype = BRUTE, def_zone, blocked = 0, sharp = FALSE, obj/used_weapon, spread_damage = FALSE)
-	return dna.species.apply_damage(damage, damagetype, def_zone, blocked, src, sharp, used_weapon, spread_damage)
+/mob/living/carbon/human/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, sharp = 0, obj/used_weapon = null)
+	//Handle other types of damage
+	if((damagetype != BRUTE) && (damagetype != BURN))
+		..(damage, damagetype, def_zone, blocked)
+		return 1
+
+	//Handle species apply_damage procs
+	return dna.species.apply_damage(damage, damagetype, def_zone, blocked, src, sharp, used_weapon)

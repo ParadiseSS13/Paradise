@@ -1,0 +1,160 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/template_noop,
+/area/template_noop)
+"b" = (
+/obj/structure/sign/poster/random{
+	dir = 8;
+	pixel_x = -32
+	},
+/turf/unsimulated/floor/carpet,
+/area/template_noop)
+"c" = (
+/turf/unsimulated/floor/carpet,
+/area/template_noop)
+"d" = (
+/obj/structure/dresser,
+/turf/unsimulated/floor/carpet,
+/area/template_noop)
+"e" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/unsimulated/floor/carpet,
+/area/template_noop)
+"f" = (
+/obj/structure/bed,
+/obj/item/bedsheet,
+/turf/unsimulated/floor/carpet,
+/area/template_noop)
+"g" = (
+/obj/structure/bed,
+/obj/item/bedsheet,
+/obj/effect/decal/cleanable/blood/old,
+/obj/item/toy/carpplushie/dehy_carp,
+/turf/unsimulated/floor/carpet,
+/area/template_noop)
+"h" = (
+/obj/structure/window/reinforced/polarized{
+	id = "room_n"
+	},
+/turf/unsimulated/floor/carpet,
+/area/template_noop)
+"i" = (
+/obj/machinery/door/window/southright,
+/turf/unsimulated/floor/carpet,
+/area/template_noop)
+"j" = (
+/obj/item/flashlight/lamp/green,
+/obj/structure/table/wood,
+/turf/unsimulated/floor/carpet,
+/area/template_noop)
+"k" = (
+/obj/structure/sink{
+	icon_state = "sink";
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
+	},
+/obj/structure/mirror{
+	dir = 8;
+	pixel_x = -28
+	},
+/turf/unsimulated/floor{
+	icon_state = "freezerfloor"
+	},
+/area/template_noop)
+"l" = (
+/obj/structure/toilet{
+	dir = 1
+	},
+/turf/unsimulated/floor{
+	icon_state = "freezerfloor"
+	},
+/area/template_noop)
+"m" = (
+/obj/machinery/door/window/eastleft,
+/obj/machinery/button/windowtint{
+	id = "room_n";
+	pixel_y = -24;
+	range = 2
+	},
+/turf/unsimulated/floor{
+	icon_state = "freezerfloor"
+	},
+/area/template_noop)
+"n" = (
+/obj/machinery/shower{
+	dir = 8
+	},
+/turf/unsimulated/floor{
+	icon_state = "freezerfloor"
+	},
+/area/template_noop)
+"o" = (
+/turf/unsimulated/wall/metal,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+b
+e
+c
+h
+k
+a
+"}
+(3,1,1) = {"
+a
+c
+c
+c
+h
+l
+a
+"}
+(4,1,1) = {"
+a
+c
+c
+c
+i
+m
+a
+"}
+(5,1,1) = {"
+a
+c
+c
+c
+h
+n
+a
+"}
+(6,1,1) = {"
+a
+d
+f
+g
+j
+o
+a
+"}
+(7,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+"}

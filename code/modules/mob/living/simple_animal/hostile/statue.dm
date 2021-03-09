@@ -9,7 +9,6 @@
 	icon_dead = "angel"
 	gender = NEUTER
 	a_intent = INTENT_HARM
-	mob_biotypes = MOB_HUMANOID
 
 	response_help = "touches"
 	response_disarm = "pushes"

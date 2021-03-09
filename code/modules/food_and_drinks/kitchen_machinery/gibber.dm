@@ -387,6 +387,8 @@
 			var/obj/item/implant/I = O
 			if(I.implanted)
 				continue
+		if(istype(O,/obj/item/organ))
+			continue
 		if(O.flags & NODROP || stealthmode)
 			qdel(O) //they are already dead by now
 		H.unEquip(O)

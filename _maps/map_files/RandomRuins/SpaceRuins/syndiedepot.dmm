@@ -453,7 +453,9 @@
 	req_access_txt = "150"
 	},
 /obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
+/turf/unsimulated/floor{
+	name = "plating"
+	},
 /area/syndicate_depot/core)
 "br" = (
 /obj/machinery/door/airlock/external{
@@ -461,7 +463,9 @@
 	req_access_txt = "150"
 	},
 /obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
+/turf/unsimulated/floor{
+	name = "plating"
+	},
 /area/syndicate_depot/outer)
 "bs" = (
 /obj/effect/spawner/random_spawners/syndicate/turret,

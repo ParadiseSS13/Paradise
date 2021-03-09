@@ -81,11 +81,8 @@
 			updateUsrDialog()
 			return
 
-		while(coinsToProduce > 0 && materials.can_use_amount(coin_mat, chosen))
-			if(!create_coins(M.coin_type))
-				visible_message("<span class='notice'>[src] stops printing to prevent an overflow.</span>")
-				break
-			materials.use_amount_type(coin_mat, chosen)
+		while(coinsToProduce > 0 && materials.use_amount_type(coin_mat, chosen))
+			create_coins(M.coin_type)
 			coinsToProduce--
 			newCoins++
 			updateUsrDialog()
@@ -98,15 +95,10 @@
 
 /obj/machinery/mineral/mint/proc/create_coins(P)
 	var/turf/T = get_step(src,output_dir)
-	if(!T)
-		return FALSE
-	var/obj/item/O = new P(src)
-	var/obj/item/storage/bag/money/M = locate(/obj/item/storage/bag/money, T)
-	if(!M)
-		M = new /obj/item/storage/bag/money(src)
-		unload_mineral(M)
-	else if(!M.can_be_inserted(O, FALSE)) // First coin will always fit. But will the Xth?
-		qdel(O)
-		return FALSE
-	O.forceMove(M)
-	return TRUE
+	if(T)
+		var/obj/item/O = new P(src)
+		var/obj/item/storage/bag/money/M = locate(/obj/item/storage/bag/money, T)
+		if(!M)
+			M = new /obj/item/storage/bag/money(src)
+			unload_mineral(M)
+		O.forceMove(M)

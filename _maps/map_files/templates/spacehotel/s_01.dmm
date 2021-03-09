@@ -1,0 +1,247 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/template_noop,
+/area/template_noop)
+"b" = (
+/turf/unsimulated/beach/water,
+/area/template_noop)
+"c" = (
+/obj/machinery/shower{
+	pixel_y = 24
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "room_s"
+	},
+/turf/unsimulated/floor{
+	dir = 8;
+	icon_state = "whiteblue"
+	},
+/area/template_noop)
+"d" = (
+/turf/unsimulated/floor/carpet,
+/area/template_noop)
+"e" = (
+/obj/structure/rack,
+/obj/item/clothing/suit/apron,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/suit/holidaypriest,
+/obj/item/clothing/suit/judgerobe,
+/obj/item/clothing/suit/storage/labcoat,
+/obj/item/clothing/suit/hooded/nun,
+/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/suit/wizrobe/fake,
+/obj/item/clothing/suit/wizrobe/marisa/fake,
+/obj/effect/decal/cleanable/greenglow,
+/turf/unsimulated/floor/carpet,
+/area/template_noop)
+"f" = (
+/obj/structure/rack,
+/obj/item/clothing/head/collectable/police,
+/obj/item/clothing/head/hooded/nun_hood,
+/obj/item/clothing/head/mailman,
+/obj/item/clothing/head/nursehat,
+/obj/item/clothing/head/wizard/fake,
+/obj/item/clothing/head/powdered_wig,
+/obj/item/clothing/head/wizard/marisa/fake,
+/obj/item/clothing/mask/gas/clown_hat/sexy,
+/turf/unsimulated/floor/carpet,
+/area/template_noop)
+"g" = (
+/obj/structure/rack,
+/obj/item/clothing/gloves/color/latex,
+/obj/item/clothing/gloves/color/latex,
+/obj/item/clothing/head/kitty,
+/obj/item/clothing/head/rabbitears,
+/obj/item/clothing/mask/muzzle,
+/obj/item/clothing/accessory/stethoscope,
+/turf/unsimulated/floor/carpet,
+/area/template_noop)
+"h" = (
+/obj/structure/dresser,
+/turf/unsimulated/floor/carpet,
+/area/template_noop)
+"i" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp/green,
+/turf/unsimulated/floor/carpet,
+/area/template_noop)
+"j" = (
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "room_s"
+	},
+/turf/unsimulated/floor{
+	dir = 8;
+	icon_state = "whiteblue"
+	},
+/area/template_noop)
+"k" = (
+/obj/structure/bed,
+/obj/item/bedsheet/captain,
+/turf/unsimulated/floor/carpet,
+/area/template_noop)
+"l" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/item/soap/deluxe,
+/obj/machinery/button/windowtint{
+	id = "room_s";
+	pixel_x = -24;
+	pixel_y = 0;
+	range = 5
+	},
+/turf/unsimulated/floor{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/template_noop)
+"m" = (
+/turf/unsimulated/floor{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/template_noop)
+"n" = (
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "room_s"
+	},
+/turf/unsimulated/floor{
+	dir = 1;
+	icon_state = "whitebluecorner"
+	},
+/area/template_noop)
+"o" = (
+/obj/structure/sink{
+	icon_state = "sink";
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
+	},
+/obj/structure/mirror{
+	pixel_x = -28
+	},
+/turf/unsimulated/floor{
+	icon_state = "freezerfloor"
+	},
+/area/template_noop)
+"p" = (
+/obj/structure/toilet{
+	dir = 1
+	},
+/turf/unsimulated/floor{
+	icon_state = "freezerfloor"
+	},
+/area/template_noop)
+"q" = (
+/obj/machinery/door/window/eastleft,
+/turf/unsimulated/floor{
+	icon_state = "freezerfloor"
+	},
+/area/template_noop)
+"K" = (
+/obj/machinery/poolcontroller/invisible,
+/turf/unsimulated/beach/water,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+K
+b
+l
+o
+a
+a
+"}
+(3,1,1) = {"
+a
+b
+b
+m
+p
+a
+a
+"}
+(4,1,1) = {"
+a
+c
+j
+n
+q
+a
+a
+"}
+(5,1,1) = {"
+a
+d
+d
+d
+d
+a
+a
+"}
+(6,1,1) = {"
+a
+e
+d
+d
+d
+a
+a
+"}
+(7,1,1) = {"
+a
+f
+d
+d
+d
+a
+a
+"}
+(8,1,1) = {"
+a
+g
+d
+d
+d
+a
+a
+"}
+(9,1,1) = {"
+a
+h
+d
+d
+d
+a
+a
+"}
+(10,1,1) = {"
+a
+i
+k
+k
+d
+a
+a
+"}
+(11,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+"}

@@ -18,7 +18,7 @@
 	unnotify()
 
 /datum/data/pda/app/messenger/update_ui(mob/user as mob, list/data)
-	data["silent"] = pda.silent						// does the pda make noise when it receives a message?
+	data["silent"] = notify_silent						// does the pda make noise when it receives a message?
 	data["toff"] = toff									// is the messenger function turned off?
 	// Yes I know convo is awful, but it lets me stay inside the 80 char TGUI line limit
 	data["active_convo"] = active_conversation	// Which conversation are we following right now?
@@ -64,16 +64,12 @@
 
 	unnotify()
 
-	var/play_beep = TRUE
-
 	. = TRUE
-
-
 	switch(action)
 		if("Toggle Messenger")
 			toff = !toff
 		if("Toggle Ringer")//If viewing texts then erase them, if not then toggle silent status
-			pda.silent = !pda.silent
+			notify_silent = !notify_silent
 		if("Clear")//Clears messages
 			if(params["option"] == "All")
 				tnote.Cut()
@@ -88,7 +84,6 @@
 
 			active_conversation = null
 		if("Message")
-			play_beep = FALSE
 			var/obj/item/pda/P = locateUID(params["target"])
 			create_message(usr, P)
 			if(params["target"] in conversations)            // Need to make sure the message went through, if not welp.
@@ -112,10 +107,6 @@
 				plugin.user_act(usr, P)
 		if("Back")
 			active_conversation = null
-
-	if(play_beep && !pda.silent)
-		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
-
 
 /datum/data/pda/app/messenger/proc/create_message(var/mob/living/U, var/obj/item/pda/P)
 	var/t = input(U, "Please enter message", name, null) as text|null
@@ -169,14 +160,10 @@
 
 	if(!sendable) // Are we in the range of a reciever?
 		to_chat(U, "<span class='warning'>ERROR: No connection to server.</span>")
-		if(!pda.silent)
-			playsound(pda, 'sound/machines/terminal_error.ogg', 15, TRUE)
 		return
 
 	if(!receivable) // Is our recipient in the range of a reciever?
 		to_chat(U, "<span class='warning'>ERROR: No connection to recipient.</span>")
-		if(!pda.silent)
-			playsound(pda, 'sound/machines/terminal_error.ogg', 15, TRUE)
 		return
 
 	if(useMS && sendable && receivable) // only send the message if its going to work
@@ -210,12 +197,8 @@
 			receiver = P
 			log_message = "[log_message] (no holder)"
 		U.create_log(MISC_LOG, log_message, receiver)
-		if(!pda.silent)
-			playsound(pda, 'sound/machines/terminal_success.ogg', 15, TRUE)
 	else
 		to_chat(U, "<span class='notice'>ERROR: Messaging server is not responding.</span>")
-		if(!pda.silent)
-			playsound(pda, 'sound/machines/terminal_error.ogg', 15, TRUE)
 
 /datum/data/pda/app/messenger/proc/available_pdas()
 	var/list/names = list()

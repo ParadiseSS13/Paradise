@@ -220,9 +220,11 @@ FIRE ALARM
 /obj/machinery/firealarm/power_change()
 	if(powered(ENVIRON))
 		stat &= ~NOPOWER
+		update_icon()
 	else
-		stat |= NOPOWER
-	update_icon()
+		spawn(rand(0,15))
+			stat |= NOPOWER
+			update_icon()
 
 /obj/machinery/firealarm/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN) || buildstage != 2)

@@ -44,9 +44,9 @@
 /datum/outfit/proc/equip_item(mob/living/carbon/human/H, path, slot)
 	var/obj/item/I = new path(H)
 	if(collect_not_del)
-		H.equip_or_collect(I, slot, TRUE)
+		H.equip_or_collect(I, slot)
 	else
-		H.equip_to_slot_or_del(I, slot, TRUE)
+		H.equip_to_slot_or_del(I, slot)
 
 /datum/outfit/proc/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	//to be overriden for toggling internals, id binding, access etc
@@ -115,7 +115,7 @@
 				H.equip_or_collect(new path(H), slot_in_backpack)
 
 		for(var/path in cybernetic_implants)
-			var/obj/item/organ/internal/O = new path
+			var/obj/item/organ/internal/O = new path(H)
 			O.insert(H)
 
 	if(!H.head && toggle_helmet && istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))

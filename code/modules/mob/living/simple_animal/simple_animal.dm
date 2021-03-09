@@ -104,8 +104,6 @@
 	var/tame = 0
 
 	var/my_z // I don't want to confuse this with client registered_z
-	///What kind of footstep this mob should have. Null if it shouldn't have any.
-	var/footstep_type
 
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()
@@ -122,8 +120,6 @@
 	if(pcollar)
 		pcollar = new(src)
 		regenerate_icons()
-	if(footstep_type)
-		AddComponent(/datum/component/footstep, footstep_type)
 
 /mob/living/simple_animal/Destroy()
 	QDEL_NULL(pcollar)
@@ -243,7 +239,7 @@
 
 	var/areatemp = get_temperature(environment)
 
-	if(abs(areatemp - bodytemperature) > 5 && !HAS_TRAIT(src, TRAIT_NOBREATH))
+	if(abs(areatemp - bodytemperature) > 5 && !(BREATHLESS in mutations))
 		var/diff = areatemp - bodytemperature
 		diff = diff / 5
 		bodytemperature += diff
@@ -499,7 +495,7 @@
 				return FALSE
 			return TRUE
 
-/mob/living/simple_animal/equip_to_slot(obj/item/W, slot, initial = FALSE)
+/mob/living/simple_animal/equip_to_slot(obj/item/W, slot)
 	if(!istype(W))
 		return FALSE
 
@@ -513,7 +509,7 @@
 		if(slot_collar)
 			add_collar(W)
 
-/mob/living/simple_animal/unEquip(obj/item/I, force, silent = FALSE)
+/mob/living/simple_animal/unEquip(obj/item/I, force)
 	. = ..()
 	if(!. || !I)
 		return

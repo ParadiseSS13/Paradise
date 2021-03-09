@@ -26,4 +26,3 @@
 #define HUB_PAGE_SHOP 2
 
 GLOBAL_DATUM(prisoner_belongings, /obj/structure/closet/secure_closet/contractor)
-GLOBAL_LIST(contractors)

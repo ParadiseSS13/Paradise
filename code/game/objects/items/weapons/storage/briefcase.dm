@@ -19,7 +19,8 @@
 	desc = "Its label reads \"genuine hardened Captain leather\", but suspiciously has no other tags or branding. Smells like L'Air du Temps."
 	force = 10
 
-/obj/item/storage/briefcase/sniperbundle/populate_contents()
+/obj/item/storage/briefcase/sniperbundle/New()
+	..()
 	new /obj/item/gun/projectile/automatic/sniper_rifle/syndicate(src)
 	new /obj/item/clothing/accessory/red(src)
 	new /obj/item/clothing/under/syndicate/sniper(src)
@@ -46,7 +47,7 @@
 		var/obj/item/gun/stored_gun = stored_item
 		stored_gun.afterattack(A, user, flag, params)
 
-/obj/item/storage/briefcase/false_bottomed/attackby(obj/item/I, mob/user)
+/obj/item/storage/briefcase/false_bottomed/attackby(var/obj/item/I, mob/user)
 	if(bottom_open)
 		if(stored_item)
 			to_chat(user, "<span class='warning'>There's already something in the false bottom!</span>")
@@ -55,7 +56,7 @@
 			to_chat(user, "<span class='warning'>The [I] is too big to fit in the false bottom!</span>")
 			return
 		if(!user.drop_item(I))
-			to_chat(user, "<span class='warning'>The [I] is stuck to your hands!</span>")
+			user << "<span class='warning'>The [I] is stuck to your hands!</span>"
 			return
 
 		stored_item = I

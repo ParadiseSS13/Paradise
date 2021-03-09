@@ -1,9 +1,36 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/space,
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall_f6";
+	icon_state = "swall_f6";
+	dir = 2
+	},
+/area/shuttle/supply)
+"b" = (
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall12";
+	icon_state = "swall12";
+	dir = 2
+	},
+/area/shuttle/supply)
+"c" = (
+/turf/space,
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall_f10";
+	icon_state = "swall_f10";
+	dir = 2
+	},
+/area/shuttle/supply)
+"d" = (
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall3";
+	icon_state = "swall3";
+	dir = 2
+	},
 /area/shuttle/supply)
 "e" = (
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/shuttle/floor,
 /area/shuttle/supply)
 "f" = (
 /obj/machinery/light/spot{
@@ -11,7 +38,7 @@
 	icon_state = "tube1";
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/shuttle/floor,
 /area/shuttle/supply)
 "g" = (
 /obj/machinery/conveyor{
@@ -19,7 +46,7 @@
 	id = "QMLoad2"
 	},
 /obj/structure/plasticflaps/mining,
-/turf/simulated/floor/plating,
+/turf/simulated/shuttle/plating,
 /area/shuttle/supply)
 "h" = (
 /obj/machinery/door/airlock/external{
@@ -27,7 +54,7 @@
 	name = "Shuttle Hatch";
 	req_access_txt = "31"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/shuttle/floor,
 /area/shuttle/supply)
 "i" = (
 /obj/machinery/light/spot{
@@ -35,7 +62,7 @@
 	icon_state = "tube1";
 	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/shuttle/floor,
 /area/shuttle/supply)
 "j" = (
 /obj/machinery/light/spot{
@@ -59,7 +86,7 @@
 	pixel_y = -8;
 	req_access_txt = "0"
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/shuttle/floor,
 /area/shuttle/supply)
 "k" = (
 /obj/machinery/door/airlock/external{
@@ -70,7 +97,7 @@
 /obj/docking_port/mobile/supply{
 	timid = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/shuttle/floor,
 /area/shuttle/supply)
 "l" = (
 /obj/machinery/conveyor{
@@ -78,18 +105,69 @@
 	id = "QMLoad"
 	},
 /obj/structure/plasticflaps/mining,
-/turf/simulated/floor/plating,
+/turf/simulated/shuttle/plating,
+/area/shuttle/supply)
+"m" = (
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall7";
+	icon_state = "swall7";
+	dir = 2
+	},
+/area/shuttle/supply)
+"n" = (
+/turf/simulated/shuttle/floor,
+/turf/simulated/shuttle/wall/interior{
+	tag = "icon-swall_f10";
+	icon_state = "swall_f10"
+	},
 /area/shuttle/supply)
 "o" = (
 /obj/machinery/light/spot,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/shuttle/floor,
+/area/shuttle/supply)
+"p" = (
+/turf/simulated/shuttle/floor,
+/turf/simulated/shuttle/wall/interior{
+	tag = "icon-swall_f6";
+	icon_state = "swall_f6"
+	},
+/area/shuttle/supply)
+"q" = (
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall11";
+	icon_state = "swall11";
+	dir = 2
+	},
+/area/shuttle/supply)
+"r" = (
+/turf/space,
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall_f5";
+	icon_state = "swall_f5";
+	dir = 2
+	},
+/area/shuttle/supply)
+"s" = (
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall15";
+	icon_state = "swall15";
+	dir = 2
+	},
 /area/shuttle/supply)
 "t" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /obj/structure/shuttle/engine/heater,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
+/area/shuttle/supply)
+"u" = (
+/turf/space,
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall_f9";
+	icon_state = "swall_f9";
+	dir = 2
+	},
 /area/shuttle/supply)
 "v" = (
 /turf/space,
@@ -99,36 +177,36 @@
 	tag = "icon-burst_l";
 	icon_state = "burst_l"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/supply)
 "x" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/supply)
 "y" = (
 /obj/structure/shuttle/engine/propulsion{
 	tag = "icon-burst_r";
 	icon_state = "burst_r"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/supply)
 
 (1,1,1) = {"
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+d
+d
+d
+d
+d
+d
+d
+d
+m
+r
 v
 "}
 (2,1,1) = {"
-a
+b
 e
 e
 e
@@ -137,12 +215,12 @@ i
 e
 e
 e
-a
-a
+n
+s
 w
 "}
 (3,1,1) = {"
-a
+b
 e
 e
 e
@@ -156,7 +234,7 @@ t
 x
 "}
 (4,1,1) = {"
-a
+b
 f
 e
 e
@@ -170,7 +248,7 @@ t
 x
 "}
 (5,1,1) = {"
-a
+b
 e
 e
 e
@@ -184,7 +262,7 @@ t
 x
 "}
 (6,1,1) = {"
-a
+b
 e
 e
 e
@@ -193,21 +271,21 @@ j
 e
 e
 e
-a
-a
+p
+s
 y
 "}
 (7,1,1) = {"
-a
-a
-a
+c
+d
+d
 g
 h
-a
+d
 k
 l
-a
-a
-a
+d
+q
+u
 v
 "}

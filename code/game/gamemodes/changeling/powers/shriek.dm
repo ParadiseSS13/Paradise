@@ -16,14 +16,14 @@
 				if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
 					continue
 			if(!M.mind || !M.mind.changeling)
-				M.AdjustEarDamage(0, 30)
+				M.MinimumDeafTicks(30)
 				M.AdjustConfused(20)
 				M.Jitter(50)
 			else
-				SEND_SOUND(M, sound('sound/effects/screech.ogg'))
+				M << sound('sound/effects/screech.ogg')
 
 		if(issilicon(M))
-			SEND_SOUND(M, sound('sound/weapons/flash.ogg'))
+			M << sound('sound/weapons/flash.ogg')
 			M.Weaken(rand(5,10))
 
 	for(var/obj/machinery/light/L in range(4, user))

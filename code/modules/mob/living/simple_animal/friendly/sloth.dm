@@ -22,7 +22,6 @@
 	health = 50
 	maxHealth = 50
 	speed = 2
-	footstep_type = FOOTSTEP_MOB_CLAW
 
 
 //Cargo Sloth

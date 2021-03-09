@@ -8,10 +8,7 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	integrity_failure = 0
-	open_sound = 'sound/machines/cardboard_box.ogg'
-	close_sound = 'sound/machines/cardboard_box.ogg'
-	open_sound_volume = 35
-	close_sound_volume = 35
+	sound = 'sound/effects/rustle2.ogg'
 	material_drop = /obj/item/stack/sheet/cardboard
 	var/amt = 4
 	var/move_delay = 0

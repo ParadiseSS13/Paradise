@@ -227,24 +227,24 @@
 	return update_flags
 
 /datum/reagent/proc/fakedeath(mob/living/M)
-	if(HAS_TRAIT(M, TRAIT_FAKEDEATH))
+	if(M.status_flags & FAKEDEATH)
 		return
 	if(!(M.status_flags & CANPARALYSE))
 		return
 	if(M.mind && M.mind.changeling && M.mind.changeling.regenerating) //no messing with changeling's fake death
 		return
 	M.emote("deathgasp")
-	ADD_TRAIT(M, TRAIT_FAKEDEATH, id)
+	M.status_flags |= FAKEDEATH
 	M.updatehealth("fakedeath reagent")
 
 /datum/reagent/proc/fakerevive(mob/living/M)
-	if(!HAS_TRAIT(M, TRAIT_FAKEDEATH))
+	if(!(M.status_flags & FAKEDEATH))
 		return
 	if(M.mind && M.mind.changeling && M.mind.changeling.regenerating)
 		return
 	if(M.resting)
 		M.StopResting()
-	REMOVE_TRAIT(M, TRAIT_FAKEDEATH, id)
+	M.status_flags &= ~(FAKEDEATH)
 	if(M.healthdoll)
 		M.healthdoll.cached_healthdoll_overlays.Cut()
 	M.updatehealth("fakedeath reagent end")

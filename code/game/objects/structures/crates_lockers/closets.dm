@@ -16,10 +16,7 @@
 	var/can_be_emaged = FALSE
 	var/wall_mounted = 0 //never solid (You can always pass over it)
 	var/lastbang
-	var/open_sound = 'sound/machines/closet_open.ogg'
-	var/close_sound = 'sound/machines/closet_close.ogg'
-	var/open_sound_volume = 35
-	var/close_sound_volume = 50
+	var/sound = 'sound/machines/click.ogg'
 	var/storage_capacity = 30 //This is so that someone can't pack hundreds of items in a locker/crate then open it in a populated area to crash clients.
 	var/material_drop = /obj/item/stack/sheet/metal
 	var/material_drop_amount = 2
@@ -93,7 +90,10 @@
 
 	icon_state = icon_opened
 	opened = TRUE
-	playsound(loc, open_sound, open_sound_volume, TRUE, -3)
+	if(sound)
+		playsound(loc, sound, 15, 1, -3)
+	else
+		playsound(loc, 'sound/machines/click.ogg', 15, 1, -3)
 	density = 0
 	return TRUE
 
@@ -136,7 +136,10 @@
 
 	icon_state = icon_closed
 	opened = FALSE
-	playsound(loc, close_sound, close_sound_volume, TRUE, -3)
+	if(sound)
+		playsound(loc, sound, 15, 1, -3)
+	else
+		playsound(loc, 'sound/machines/click.ogg', 15, 1, -3)
 	density = 1
 	return TRUE
 
@@ -345,6 +348,11 @@
 				var/obj/structure/bigDelivery/BD = loc
 				BD.attack_hand(usr)
 			open()
+
+/obj/structure/closet/tesla_act(var/power)
+	..()
+	visible_message("<span class='danger'>[src] is blown apart by the bolt of electricity!</span>", "<span class='danger'>You hear a metallic screeching sound.</span>")
+	qdel(src)
 
 /obj/structure/closet/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))

@@ -20,14 +20,12 @@
 	if(druggy)
 		overlay_fullscreen("high", /obj/screen/fullscreen/high)
 		throw_alert("high", /obj/screen/alert/high)
-		sound_environment_override = SOUND_ENVIRONMENT_DRUGGED
 	else
 		clear_fullscreen("high")
 		clear_alert("high")
-		sound_environment_override = SOUND_ENVIRONMENT_NONE
 
 /mob/living/update_nearsighted_effects()
-	if(HAS_TRAIT(src, TRAIT_NEARSIGHT))
+	if(NEARSIGHTED in mutations)
 		overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
 	else
 		clear_fullscreen("nearsighted")
@@ -43,17 +41,17 @@
 
 // Whether the mob can hear things
 /mob/living/can_hear()
-	. = !HAS_TRAIT(src, TRAIT_DEAF)
+	. = !(DEAF in mutations)
 
 // Whether the mob is able to see
 // `information_only` is for stuff that's purely informational - like blindness overlays
 // This flag exists because certain things like angel statues expect this to be false for dead people
 /mob/living/has_vision(information_only = FALSE)
-	return (information_only && stat == DEAD) || !(eye_blind || HAS_TRAIT(src, TRAIT_BLIND) || stat)
+	return (information_only && stat == DEAD) || !(eye_blind || (BLINDNESS in mutations) || stat)
 
 // Whether the mob is capable of talking
 /mob/living/can_speak()
-	if(!(silent || HAS_TRAIT(src, TRAIT_MUTE)))
+	if(!(silent || (MUTE in mutations)))
 		if(is_muzzled())
 			var/obj/item/clothing/mask/muzzle/M = wear_mask
 			if(M.mute >= MUZZLE_MUTE_MUFFLE)
@@ -64,7 +62,7 @@
 
 // Whether the mob is capable of standing or not
 /mob/living/proc/can_stand()
-	return !(IsWeakened() || paralysis || stat || HAS_TRAIT(src, TRAIT_FAKEDEATH))
+	return !(IsWeakened() || paralysis || stat || (status_flags & FAKEDEATH))
 
 // Whether the mob is capable of actions or not
 /mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE, list/extra_checks = list(), use_default_checks = TRUE)

@@ -122,7 +122,7 @@
 	if(!shockcd)
 		if(isliving(user))
 			var/mob/living/M = user
-			M.electrocute_act(15, "Energy Barrier")
+			M.electrocute_act(15, "Energy Barrier", safety = TRUE)
 			shockcd = TRUE
 			addtimer(CALLBACK(src, .proc/cooldown), 5)
 
@@ -134,6 +134,6 @@
 		return
 
 	var/mob/living/M = AM
-	M.electrocute_act(15, "Energy Barrier")
+	M.electrocute_act(15, "Energy Barrier", safety = TRUE)
 	shockcd = TRUE
 	addtimer(CALLBACK(src, .proc/cooldown), 5)

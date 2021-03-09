@@ -3,10 +3,32 @@
 /turf/template_noop,
 /area/template_noop)
 "ab" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/space,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f6";
+	dir = 2
+	},
+/area/shuttle/abandoned)
+"ac" = (
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall12";
+	icon_state = "swall12";
+	dir = 2
+	},
+/area/shuttle/abandoned)
+"ad" = (
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/turf/simulated/shuttle/wall/interior{
+	tag = "icon-swall_f9";
+	icon_state = "swall_f9"
+	},
 /area/shuttle/abandoned)
 "ae" = (
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "af" = (
 /obj/machinery/sleeper{
@@ -16,7 +38,39 @@
 	dir = 1
 	},
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/abandoned)
+"ag" = (
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/turf/simulated/shuttle/wall/interior{
+	tag = "icon-swall_f5";
+	icon_state = "swall_f5"
+	},
+/area/shuttle/abandoned)
+"ah" = (
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall13";
+	icon_state = "swall13";
+	dir = 2
+	},
+/area/shuttle/abandoned)
+"ai" = (
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall14";
+	icon_state = "swall14";
+	dir = 2
+	},
+/area/shuttle/abandoned)
+"aj" = (
+/turf/space,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f10";
+	dir = 2
+	},
 /area/shuttle/abandoned)
 "ak" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -24,11 +78,20 @@
 	icon_state = "burst_r";
 	tag = "icon-burst_r (WEST)"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
+/area/shuttle/abandoned)
+"al" = (
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall11";
+	icon_state = "swall11";
+	dir = 2
+	},
 /area/shuttle/abandoned)
 "am" = (
 /obj/machinery/computer/med_data,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "an" = (
 /obj/structure/table,
@@ -36,7 +99,23 @@
 	pixel_x = 6;
 	pixel_y = -5
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/abandoned)
+"ao" = (
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall15";
+	icon_state = "swall15";
+	dir = 2
+	},
+/area/shuttle/abandoned)
+"ap" = (
+/turf/simulated/shuttle/plating,
+/turf/simulated/shuttle/wall/interior{
+	tag = "icon-swall_f9";
+	icon_state = "swall_f9"
+	},
 /area/shuttle/abandoned)
 "aq" = (
 /obj/structure/shuttle/engine/heater{
@@ -47,7 +126,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/abandoned)
 "ar" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -55,61 +134,123 @@
 	icon_state = "propulsion";
 	tag = "icon-propulsion (WEST)"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
+/area/shuttle/abandoned)
+"as" = (
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/turf/simulated/shuttle/wall/interior{
+	tag = "icon-swall_f10";
+	icon_state = "swall_f10"
+	},
 /area/shuttle/abandoned)
 "at" = (
 /obj/item/scalpel,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/abandoned)
+"au" = (
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall7";
+	icon_state = "swall7";
+	dir = 2
+	},
 /area/shuttle/abandoned)
 "av" = (
-/turf/simulated/floor/plating,
+/turf/simulated/shuttle/plating,
 /area/shuttle/abandoned)
 "aw" = (
 /obj/structure/computerframe{
 	anchored = 1
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "ax" = (
-/obj/effect/spawner/window/shuttle,
-/turf/simulated/floor/plating,
+/obj/structure/window/full/shuttle{
+	icon_state = "14"
+	},
+/obj/structure/grille,
+/turf/simulated/shuttle/plating,
+/area/shuttle/abandoned)
+"ay" = (
+/obj/structure/window/full/shuttle{
+	dir = 10;
+	icon_state = "9"
+	},
+/obj/structure/grille,
+/turf/simulated/shuttle/plating,
+/area/shuttle/abandoned)
+"az" = (
+/obj/structure/window/full/shuttle{
+	icon_state = "17"
+	},
+/obj/structure/grille,
+/turf/simulated/shuttle/plating,
 /area/shuttle/abandoned)
 "aA" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Hibernation Pods"
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "aB" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/shuttle/plating,
 /area/shuttle/abandoned)
 "aC" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "aD" = (
 /obj/structure/table,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/abandoned)
+"aE" = (
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall3";
+	icon_state = "swall3";
+	dir = 2
+	},
 /area/shuttle/abandoned)
 "aF" = (
 /obj/item/multitool,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "aG" = (
 /obj/item/stock_parts/cell{
 	charge = 100;
 	maxcharge = 15000
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "aH" = (
-/obj/machinery/door/airlock/titanium,
+/obj/machinery/door/unpowered/shuttle,
 /turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"aI" = (
+/turf/simulated/shuttle/plating,
+/turf/simulated/shuttle/wall/interior{
+	tag = "icon-swall_f6";
+	icon_state = "swall_f6"
+	},
 /area/shuttle/abandoned)
 "aJ" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -117,10 +258,10 @@
 	icon_state = "burst_l";
 	tag = "icon-burst_l (WEST)"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/abandoned)
 "aK" = (
-/obj/machinery/door/airlock/titanium,
+/obj/machinery/door/unpowered/shuttle,
 /obj/docking_port/mobile{
 	dir = 8;
 	dwidth = 10;
@@ -136,104 +277,196 @@
 	id = "whiteship_away";
 	name = "Deep Space"
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/abandoned)
+"aL" = (
+/obj/structure/window/full/shuttle{
+	icon_state = "16"
+	},
+/obj/structure/grille,
+/turf/simulated/shuttle/plating,
 /area/shuttle/abandoned)
 "aM" = (
 /obj/structure/table,
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/abandoned)
+"aN" = (
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/turf/simulated/shuttle/wall/interior{
+	tag = "icon-swall_f6";
+	icon_state = "swall_f6"
+	},
 /area/shuttle/abandoned)
 "aO" = (
 /obj/machinery/door/airlock/public/glass,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "aP" = (
 /obj/machinery/light_switch{
 	pixel_x = 27
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "aQ" = (
 /obj/machinery/portable_atmospherics/scrubber,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/abandoned)
+"aR" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle{
+	icon_state = "8"
+	},
+/turf/simulated/shuttle/plating,
 /area/shuttle/abandoned)
 "aS" = (
 /obj/structure/bed,
 /obj/item/bedsheet,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "aT" = (
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "aU" = (
 /obj/structure/table,
 /obj/item/gun/energy/laser/retro,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "aV" = (
 /obj/machinery/computer/shuttle/white_ship,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/abandoned)
+"aW" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/shuttle/plating,
 /area/shuttle/abandoned)
 "aX" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "aY" = (
 /obj/structure/table,
 /obj/item/tank/internals/oxygen,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/abandoned)
+"aZ" = (
+/obj/structure/window/full/shuttle,
+/obj/structure/grille,
+/turf/simulated/shuttle/plating,
 /area/shuttle/abandoned)
 "ba" = (
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "bb" = (
 /obj/structure/table,
 /obj/item/analyzer,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "bc" = (
 /obj/effect/decal/remains/human,
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "bd" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Living Module"
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "be" = (
-/obj/machinery/door/airlock/titanium,
-/turf/simulated/floor/mineral/titanium,
+/obj/machinery/door/unpowered/shuttle,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "bf" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "bg" = (
 /turf/template_noop,
 /area/shuttle/abandoned)
 "bh" = (
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "bi" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/abandoned)
+"bj" = (
+/turf/space,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f9";
+	dir = 2
+	},
+/area/shuttle/abandoned)
+"bk" = (
+/turf/space,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f5";
+	dir = 2
+	},
+/area/shuttle/abandoned)
+"bl" = (
+/obj/structure/window/full/shuttle{
+	icon_state = "15"
+	},
+/obj/structure/grille,
+/turf/simulated/shuttle/plating,
 /area/shuttle/abandoned)
 "bm" = (
 /obj/machinery/light_switch{
@@ -242,30 +475,40 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "bn" = (
 /obj/item/gps/ruin{
 	gpstag = "NT Medical Ship";
 	pixel_x = -32
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "bo" = (
 /obj/item/shard,
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "bp" = (
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "bq" = (
 /obj/structure/computerframe{
 	anchored = 1
 	},
 /obj/item/stack/cable_coil/cut,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "br" = (
 /obj/structure/rack,
@@ -274,50 +517,80 @@
 /obj/item/tank/internals/emergency_oxygen,
 /obj/item/tank/internals/emergency_oxygen,
 /obj/item/storage/toolbox/mechanical,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "bs" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/space/hardsuit/medical,
 /obj/item/clothing/mask/breath,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "bt" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/space/syndicate/black/med,
 /obj/item/clothing/head/helmet/space/syndicate/black/med,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "bu" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/abandoned)
+"bv" = (
+/turf/simulated/shuttle/plating,
+/turf/simulated/shuttle/wall/interior{
+	tag = "icon-swall_f5";
+	icon_state = "swall_f5"
+	},
+/area/shuttle/abandoned)
+"bw" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall14";
+	dir = 2
+	},
 /area/shuttle/abandoned)
 "bx" = (
 /obj/effect/decal/cleanable/blood{
 	amount = 0
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/shuttle/plating,
 /area/shuttle/abandoned)
 "by" = (
 /obj/structure/spacepoddoor,
-/turf/simulated/floor/plating,
+/turf/simulated/shuttle/plating,
 /area/shuttle/abandoned)
 "bz" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Pod Bay"
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/abandoned)
+"bA" = (
+/turf/simulated/shuttle/plating,
+/turf/simulated/shuttle/wall/interior{
+	tag = "icon-swall_f10";
+	icon_state = "swall_f10"
+	},
 /area/shuttle/abandoned)
 "bB" = (
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/plating,
+/turf/simulated/shuttle/plating,
 /area/shuttle/abandoned)
 "bC" = (
 /obj/structure/spacepoddoor,
 /obj/machinery/door/poddoor/multi_tile/two_tile_ver{
 	id_tag = "whiteshippoddoor"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/shuttle/plating,
 /area/shuttle/abandoned)
 "bD" = (
 /obj/machinery/door_control{
@@ -325,18 +598,24 @@
 	name = "Pod Door Control";
 	pixel_y = -24
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "bE" = (
 /obj/structure/table,
 /obj/item/screwdriver,
 /obj/machinery/light,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 "bF" = (
 /obj/structure/table,
 /obj/item/radio,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/abandoned)
 
 (1,1,1) = {"
@@ -345,18 +624,18 @@ aa
 aa
 aa
 ab
-ab
-ab
-ax
-ax
-ax
-ax
-ax
-ax
-ax
-ab
-ab
-ab
+au
+aE
+aL
+aR
+aR
+aR
+aR
+aR
+bl
+aE
+au
+bk
 aa
 aa
 aa
@@ -367,8 +646,8 @@ aa
 aa
 aa
 ab
-ab
-ab
+ao
+ad
 ae
 ae
 ae
@@ -378,8 +657,8 @@ aD
 ae
 ae
 bn
-ab
-ab
+as
+ah
 aa
 aa
 aa
@@ -389,8 +668,8 @@ aa
 aa
 aa
 ab
-ab
-ab
+ao
+ad
 ae
 ae
 ae
@@ -402,7 +681,7 @@ ae
 ae
 bo
 aw
-ab
+ac
 aa
 aa
 aa
@@ -411,8 +690,8 @@ aa
 (4,1,1) = {"
 aa
 ab
-ab
-ab
+al
+ah
 aw
 aC
 ae
@@ -425,18 +704,18 @@ ae
 ae
 bp
 bq
-ab
+bw
 by
 bC
-ab
+bk
 aa
 "}
 (5,1,1) = {"
 aa
-ab
+ac
 am
-ab
-ab
+as
+ag
 ae
 ae
 ae
@@ -447,19 +726,19 @@ ae
 ae
 ae
 ae
-ab
-ab
+aN
+ah
 ae
 ae
-ab
+ac
 aa
 "}
 (6,1,1) = {"
 ab
-ab
+ad
 ae
 ae
-ab
+ac
 aD
 aD
 aM
@@ -469,39 +748,39 @@ ae
 ae
 ae
 bm
-ab
-ab
-ab
+aN
+ao
+ad
 ae
 bD
-ab
-ab
+ai
+bk
 "}
 (7,1,1) = {"
-ab
+ac
 ae
 ae
 ae
-ab
-ab
-ab
-ab
-ab
-ax
+ai
+aE
+aE
+aE
+aE
+aW
 aO
-ax
-ab
-ab
-ab
-ab
+aW
+aE
+au
+ao
+ad
 ae
 ae
 ae
-ab
-ab
+as
+ah
 "}
 (8,1,1) = {"
-ab
+ac
 ae
 ae
 ae
@@ -514,21 +793,21 @@ ae
 ae
 ae
 ae
-ab
-ab
+as
+ah
 br
 ae
 ae
 ae
 ae
-ab
+ac
 "}
 (9,1,1) = {"
-ab
+ac
 af
 ae
 ae
-ax
+ay
 ae
 ae
 ae
@@ -538,43 +817,43 @@ ae
 ae
 ae
 ae
-ab
+ac
 bs
 ae
 ae
 ae
 bE
-ab
+ac
 "}
 (10,1,1) = {"
-ab
+ac
 ae
 ae
 at
-ax
+az
 aG
 ae
-ab
-ab
-ab
-ab
-ab
-ab
+aN
+aE
+aE
+aE
+aE
+ag
 ae
-ab
+ac
 bt
 ae
 ae
 ae
 bF
-ab
+ac
 "}
 (11,1,1) = {"
-ab
-ab
+ai
+ag
 ae
 ae
-ab
+ac
 ae
 ae
 aO
@@ -582,48 +861,48 @@ ae
 aX
 ae
 bh
-ab
+ac
 ae
-ab
-ab
+ai
+ag
 ae
 ae
 ae
-ab
-ab
+aN
+ah
 "}
 (12,1,1) = {"
-ab
-ab
+aj
+ah
 an
 ae
-ab
+ac
 ae
 ae
-ab
+ac
 aS
 aY
 ae
 aS
-ab
+ac
 ae
-ab
-ab
-ab
+as
+al
+aE
 bz
-ab
-ab
-ab
+au
+ao
+bj
 "}
 (13,1,1) = {"
 aa
-ab
-ab
+ai
+ag
 ae
 aA
 ae
 ae
-ab
+ac
 ae
 aP
 ae
@@ -634,39 +913,39 @@ ae
 ae
 ae
 bh
-ab
-ab
+ai
+ah
 aa
 "}
 (14,1,1) = {"
 aa
-ab
-ab
-ab
-ab
+aj
+ao
+au
+ah
 ae
 ae
-ab
-ab
-ab
-ab
-ab
-ab
+as
+aE
+aE
+aE
+aE
+ad
 ae
 ae
 ae
 ae
-ab
-ab
-ab
+aN
+ao
+bj
 aa
 "}
 (15,1,1) = {"
 aa
 aa
-ab
-ab
-ab
+aj
+ao
+ah
 ae
 ae
 ae
@@ -678,9 +957,9 @@ ae
 ae
 ae
 aG
-ab
-ab
-ab
+aN
+ao
+bj
 aa
 aa
 "}
@@ -688,8 +967,8 @@ aa
 aa
 aa
 aa
-ab
-ab
+aj
+ah
 ae
 ae
 aP
@@ -701,8 +980,8 @@ ae
 ae
 ae
 bu
-ab
-ab
+ai
+bj
 aa
 aa
 aa
@@ -712,20 +991,20 @@ aa
 aa
 aa
 ab
-ab
+al
 aH
-ab
-ab
-ab
-ax
+au
+aE
+aE
+aZ
 bd
-ax
-ab
-ab
-ab
+aZ
+aE
+aE
+au
 aH
-ab
-ab
+al
+bk
 aa
 aa
 aa
@@ -734,10 +1013,10 @@ aa
 aa
 aa
 ab
-ab
+ap
 aB
 av
-ab
+ac
 aQ
 aT
 ae
@@ -745,82 +1024,82 @@ ae
 ae
 aT
 ae
-ab
+ac
 av
 aB
-ab
-ab
+bA
+bk
 aa
 aa
 "}
 (19,1,1) = {"
 aa
 ab
-ab
+ap
 av
 av
-ab
-ab
-ab
+aI
+ao
+ag
 ae
 ae
 ae
 ae
 ae
-ab
-ab
-ab
+aN
+ao
+bv
 bx
 bB
-ab
-ab
+bA
+bk
 aa
 "}
 (20,1,1) = {"
 ab
-ab
+ah
 aq
 aq
 aq
-ab
-ab
-ab
+ac
+aj
+ah
 ae
 ae
 ae
 ae
 ae
-ab
-ab
-ab
+ai
+bj
+ac
 aq
 aq
 aq
-ab
-ab
+ai
+bk
 "}
 (21,1,1) = {"
-ab
+aj
 ak
 ar
 ar
 ar
 aJ
 bg
-ab
-ab
+ai
+ag
 ae
 ae
 ae
-ab
-ab
+aN
+ah
 bg
 ak
 ar
 ar
 ar
 aJ
-ab
+bj
 "}
 (22,1,1) = {"
 aa
@@ -830,13 +1109,13 @@ aa
 aa
 aa
 aa
-ab
-ab
-ab
+aj
+ao
+ag
 ae
-ab
-ab
-ab
+aN
+ao
+bj
 aa
 aa
 aa
@@ -854,11 +1133,11 @@ aa
 aa
 aa
 aa
-ab
-ab
+aj
+ao
 be
-ab
-ab
+ao
+bj
 aa
 aa
 aa
@@ -878,9 +1157,9 @@ aa
 aa
 aa
 aa
-ab
+ac
 bf
-ab
+ac
 aa
 aa
 aa
@@ -901,10 +1180,10 @@ aa
 aa
 aa
 ab
-ab
+ao
 be
-ab
-ab
+ao
+bk
 aa
 aa
 aa
@@ -923,11 +1202,11 @@ aa
 aa
 aa
 aa
-ab
-ab
+ai
+ad
 ae
-ab
-ab
+as
+ah
 aa
 aa
 aa
@@ -946,11 +1225,11 @@ aa
 aa
 aa
 aa
-ab
+ac
 ae
 ae
 ae
-ab
+ac
 aa
 aa
 aa
@@ -969,11 +1248,11 @@ aa
 aa
 aa
 aa
-ab
+ac
 ae
 ae
 ae
-ab
+ac
 aa
 aa
 aa
@@ -992,11 +1271,11 @@ aa
 aa
 aa
 aa
-ab
+ac
 ae
 ae
 ae
-ab
+ac
 aa
 aa
 aa
@@ -1015,11 +1294,11 @@ aa
 aa
 aa
 aa
-ab
+ac
 ba
 ae
 ae
-ab
+ac
 aa
 aa
 aa
@@ -1038,11 +1317,11 @@ aa
 aa
 aa
 aa
-ab
+ac
 ae
 ae
 ae
-ab
+ac
 aa
 aa
 aa
@@ -1061,11 +1340,11 @@ aa
 aa
 aa
 aa
-ab
+ac
 ae
 ae
 ae
-ab
+ac
 aa
 aa
 aa
@@ -1084,11 +1363,11 @@ aa
 aa
 aa
 aa
-ab
+ac
 ae
 ae
 bi
-ab
+ac
 aa
 aa
 aa
@@ -1107,11 +1386,11 @@ aa
 aa
 aa
 aa
-ab
-ab
+ai
+ag
 ae
-ab
-ab
+aN
+ah
 aa
 aa
 aa
@@ -1130,11 +1409,11 @@ aa
 aa
 aa
 aa
-ab
-ab
+aj
+al
 aK
-ab
-ab
+al
+bj
 aa
 aa
 aa

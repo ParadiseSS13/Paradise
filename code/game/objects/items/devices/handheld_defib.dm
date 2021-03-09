@@ -67,7 +67,7 @@
 			H.AdjustWeakened(5)
 			H.AdjustStuttering(10)
 			to_chat(H, "<span class='danger'>You feel a powerful jolt!</span>")
-			SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
+			H.shock_internal_organs(100)
 
 			if(emagged && prob(10))
 				to_chat(user, "<span class='danger'>[src]'s on board scanner indicates that the target is undergoing a cardiac arrest!</span>")

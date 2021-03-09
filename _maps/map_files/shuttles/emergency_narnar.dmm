@@ -289,6 +289,16 @@
 /obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
+"aR" = (
+/obj/effect/spawner/window/reinforced{
+	color = "red"
+	},
+/turf/simulated/shuttle/wall{
+	icon_state = "swall3";
+	dir = 2
+	},
+/turf/simulated/wall/cult,
+/area/shuttle/escape)
 "aS" = (
 /obj/machinery/status_display{
 	pixel_y = -30
@@ -296,11 +306,21 @@
 /obj/machinery/light/spot,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
+"aT" = (
+/obj/machinery/door/airlock/cult/friendly,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/escape)
 "aU" = (
 /obj/effect/spawner/window/reinforced{
 	color = "red"
 	},
-/turf/space,
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall14";
+	icon_state = "swall14";
+	dir = 2
+	},
 /area/shuttle/escape)
 "aV" = (
 /mob/living/simple_animal/hostile/construct/harvester,
@@ -337,6 +357,10 @@
 "aZ" = (
 /obj/structure/showcase/horrific_experiment,
 /turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
+"ba" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
 /area/shuttle/escape)
 "bb" = (
 /obj/machinery/light/spot{
@@ -380,7 +404,7 @@
 	},
 /obj/structure/shuttle/engine/heater,
 /obj/structure/cult/forge,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 "bi" = (
 /obj/structure/shuttle/engine/heater,
@@ -388,11 +412,11 @@
 	dir = 1
 	},
 /obj/structure/cult/forge,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 "bj" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -416,7 +440,7 @@ ab
 ar
 ab
 ar
-ac
+ba
 ab
 ab
 aa
@@ -492,7 +516,7 @@ aF
 aj
 aj
 aj
-ar
+aT
 aj
 aj
 be
@@ -724,7 +748,7 @@ ab
 ac
 ac
 ac
-aD
+aR
 ac
 ab
 ab

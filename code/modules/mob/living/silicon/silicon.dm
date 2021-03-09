@@ -5,7 +5,6 @@
 	bubble_icon = "machine"
 	has_unlimited_silicon_privilege = 1
 	weather_immunities = list("ash")
-	mob_biotypes = MOB_ROBOTIC
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	var/syndicate = 0
 	var/const/MAIN_CHANNEL = "Main Frequency"
@@ -163,7 +162,7 @@
 /mob/living/silicon/drop_item()
 	return
 
-/mob/living/silicon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
+/mob/living/silicon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
 	return FALSE //So borgs they don't die trying to fix wiring
 
 /mob/living/silicon/emp_act(severity)

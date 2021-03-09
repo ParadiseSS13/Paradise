@@ -59,12 +59,10 @@
 		qdel(src)
 	else
 		visible_message("[src] slowly deflates.")
-		addtimer(CALLBACK(src, .proc/deflate), 5 SECONDS)
-
-/obj/structure/inflatable/proc/deflate()
-	var/obj/item/inflatable/R = new intact(loc)
-	transfer_fingerprints_to(R)
-	qdel(src)
+		spawn(50)
+			var/obj/item/inflatable/R = new intact(loc)
+			transfer_fingerprints_to(R)
+			qdel(src)
 
 /obj/structure/inflatable/verb/hand_deflate()
 	set name = "Deflate"

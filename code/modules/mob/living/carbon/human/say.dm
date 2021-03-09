@@ -96,7 +96,7 @@
 	if(translator && translator.active)
 		return TRUE
 	// how do species that don't breathe talk? magic, that's what.
-	var/breathes = (!HAS_TRAIT(src, TRAIT_NOBREATH))
+	var/breathes = (!(NO_BREATHE in dna.species.species_traits))
 	var/obj/item/organ/internal/L = get_organ_slot("lungs")
 	if((breathes && !L) || breathes && L && (L.status & ORGAN_DEAD))
 		return FALSE
@@ -129,10 +129,12 @@
 				S.message = "<span class='[span]'>[S.message]</span>"
 			verb = translator.speech_verb
 			return list("verb" = verb)
-	if(HAS_TRAIT(src, TRAIT_COMIC_SANS))
+	if((COMIC in mutations) \
+		|| (locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in internal_organs) \
+		|| HAS_TRAIT(src, TRAIT_JESTER))
 		span = "sans"
 
-	if(HAS_TRAIT(src, TRAIT_WINGDINGS))
+	if(WINGDINGS in mutations)
 		span = "wingdings"
 
 	var/list/parent = ..()
@@ -142,7 +144,7 @@
 		if(S.speaking && S.speaking.flags & NO_STUTTER)
 			continue
 
-		if(silent || HAS_TRAIT(src, TRAIT_MUTE))
+		if(silent || (MUTE in mutations))
 			S.message = ""
 
 		if(istype(wear_mask, /obj/item/clothing/mask/horsehead))
@@ -152,11 +154,11 @@
 				verb = pick("whinnies", "neighs", "says")
 
 		if(dna)
-			for(var/datum/mutation/mutation in GLOB.dna_mutations)
-				if(!mutation.block)
+			for(var/datum/dna/gene/gene in GLOB.dna_genes)
+				if(!gene.block)
 					continue
-				if(mutation.is_active(src))
-					S.message = mutation.on_say(src, S.message)
+				if(gene.is_active(src))
+					S.message = gene.OnSay(src, S.message)
 
 		var/braindam = getBrainLoss()
 		if(braindam >= 60)

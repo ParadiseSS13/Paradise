@@ -9,9 +9,9 @@
 /obj/item/organ/internal/cyberimp/New(var/mob/M = null)
 	. = ..()
 	if(implant_overlay)
-		var/mutable_appearance/overlay = mutable_appearance(icon, implant_overlay)
+		var/image/overlay = new /image(icon, implant_overlay)
 		overlay.color = implant_color
-		add_overlay(overlay)
+		overlays |= overlay
 
 /obj/item/organ/internal/cyberimp/emp_act()
 	return // These shouldn't be hurt by EMPs in the standard way
@@ -215,14 +215,6 @@
 	slot = "brain_clownvoice"
 	origin_tech = "materials=2;biotech=2"
 
-/obj/item/organ/internal/cyberimp/brain/clown_voice/insert(mob/living/carbon/M, special = FALSE)
-	..()
-	ADD_TRAIT(M, TRAIT_COMIC_SANS, "augment")
-
-/obj/item/organ/internal/cyberimp/brain/clown_voice/remove(mob/living/carbon/M, special = FALSE)
-	REMOVE_TRAIT(M, TRAIT_COMIC_SANS, "augment")
-	return ..()
-
 /obj/item/organ/internal/cyberimp/brain/speech_translator //actual translating done in human/handle_speech_problems
 	name = "Speech translator implant"
 	desc = "While known as a translator, this implant actually generates speech based on the user's thoughts when activated, completely bypassing the need to speak."
@@ -253,7 +245,7 @@
 	crit_fail = FALSE
 	if(owner)
 		to_chat(owner, "<span class='notice'>Your translator implant beeps.</span>")
-		SEND_SOUND(owner, sound('sound/machines/twobeep.ogg'))
+		SEND_SOUND(owner, 'sound/machines/twobeep.ogg')
 
 /obj/item/organ/internal/cyberimp/brain/speech_translator/ui_action_click()
 	if(owner && crit_fail)
@@ -405,18 +397,26 @@
 //BOX O' IMPLANTS
 
 /obj/item/storage/box/cyber_implants
-	name = "boxed cybernetic implants"
+	name = "boxed cybernetic implant"
 	desc = "A sleek, sturdy box."
 	icon_state = "cyber_implants"
-	var/list/boxed = list(
-		/obj/item/autosurgeon/organ/syndicate/thermal_eyes,
-		/obj/item/autosurgeon/organ/syndicate/xray_eyes,
-		/obj/item/autosurgeon/organ/syndicate/anti_stun,
-		/obj/item/autosurgeon/organ/syndicate/reviver)
+
+/obj/item/storage/box/cyber_implants/New(loc, implant)
+	..()
+	new /obj/item/autoimplanter(src)
+	if(ispath(implant))
+		new implant(src)
+
+/obj/item/storage/box/cyber_implants/bundle
+	name = "boxed cybernetic implants"
+	var/list/boxed = list(/obj/item/organ/internal/cyberimp/eyes/xray,/obj/item/organ/internal/cyberimp/eyes/thermals,
+						/obj/item/organ/internal/cyberimp/brain/anti_stun, /obj/item/organ/internal/cyberimp/chest/reviver/hardened)
 	var/amount = 5
 
-/obj/item/storage/box/cyber_implants/populate_contents()
+/obj/item/storage/box/cyber_implants/bundle/New()
+	..()
 	var/implant
-	while(length(contents) <= amount)
+	while(amount > 0)
 		implant = pick(boxed)
 		new implant(src)
+		amount--

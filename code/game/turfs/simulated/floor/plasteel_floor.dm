@@ -46,10 +46,6 @@
 	oxygen = 0
 	temperature = 80
 
-/turf/simulated/floor/plasteel/dark/nitrogen
-	nitrogen = 100
-	oxygen = 0
-
 /turf/simulated/floor/plasteel/freezer
 	icon_state = "freezerfloor"
 

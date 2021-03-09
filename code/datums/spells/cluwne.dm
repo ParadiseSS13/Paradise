@@ -26,8 +26,9 @@
 
 	var/obj/item/organ/internal/honktumor/cursed/tumor = new
 	tumor.insert(src)
+	mutations.Add(NERVOUS)
 	dna.SetSEState(GLOB.nervousblock, 1, 1)
-	singlemutcheck(src, GLOB.nervousblock, MUTCHK_FORCED)
+	genemutcheck(src, GLOB.nervousblock, null, MUTCHK_FORCED)
 	rename_character(real_name, "cluwne")
 
 	unEquip(w_uniform, 1)
@@ -54,12 +55,15 @@
 	if(tumor)
 		tumor.remove(src)
 	else
-		dna.SetSEState(GLOB.clumsyblock, FALSE)
-		dna.SetSEState(GLOB.comicblock, FALSE)
-		singlemutcheck(src, GLOB.clumsyblock, MUTCHK_FORCED)
-		singlemutcheck(src, GLOB.comicblock, MUTCHK_FORCED)
-	dna.SetSEState(GLOB.nervousblock, FALSE)
-	singlemutcheck(src, GLOB.nervousblock, MUTCHK_FORCED)
+		mutations.Remove(CLUMSY)
+		mutations.Remove(GLOB.comicblock)
+		dna.SetSEState(GLOB.clumsyblock,0)
+		dna.SetSEState(GLOB.comicblock,0)
+		genemutcheck(src, GLOB.clumsyblock, null, MUTCHK_FORCED)
+		genemutcheck(src, GLOB.comicblock, null, MUTCHK_FORCED)
+	mutations.Remove(NERVOUS)
+	dna.SetSEState(GLOB.nervousblock, 0)
+	genemutcheck(src, GLOB.nervousblock, null, MUTCHK_FORCED)
 
 	var/obj/item/clothing/under/U = w_uniform
 	unEquip(w_uniform, 1)

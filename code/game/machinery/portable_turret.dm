@@ -107,7 +107,6 @@
 /obj/machinery/porta_turret/proc/weapon_setup(var/guntype)
 	switch(guntype)
 		if(/obj/item/gun/energy/laser/practice)
-			lethal_is_configurable = FALSE
 			iconholder = 1
 			eprojectile = /obj/item/projectile/beam
 
@@ -121,7 +120,6 @@
 			iconholder = 1
 
 		if(/obj/item/gun/energy/taser)
-			lethal_is_configurable = FALSE
 			eprojectile = /obj/item/projectile/beam
 			eshot_sound = 'sound/weapons/laser.ogg'
 
@@ -317,9 +315,11 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/power_change()
 	if(powered() || !use_power)
 		stat &= ~NOPOWER
+		update_icon()
 	else
-		stat |= NOPOWER
-	update_icon()
+		spawn(rand(0, 15))
+			stat |= NOPOWER
+			update_icon()
 
 
 /obj/machinery/porta_turret/attackby(obj/item/I, mob/user)

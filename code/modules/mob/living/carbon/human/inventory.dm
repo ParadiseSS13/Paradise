@@ -66,7 +66,15 @@
 		if(slot_tie)
 			return TRUE
 
-/mob/living/carbon/human/unEquip(obj/item/I, force, silent = FALSE)
+// The actual dropping happens at the mob level - checks to prevent drops should
+// come here
+/mob/living/carbon/human/canUnEquip(obj/item/I, force)
+	. = ..()
+	var/obj/item/organ/O = I
+	if(istype(O) && O.owner == src)
+		. = 0 // keep a good grip on your heart
+
+/mob/living/carbon/human/unEquip(obj/item/I, force)
 	. = ..() //See mob.dm for an explanation on this and some rage about people copypasting instead of calling ..() like they should.
 	if(!. || !I)
 		return
@@ -170,8 +178,7 @@
 
 
 //This is an UNSAFE proc. Use mob_can_equip() before calling this one! Or rather use equip_to_slot_if_possible() or advanced_equip_to_slot_if_possible()
-// Initial is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
-/mob/living/carbon/human/equip_to_slot(obj/item/I, slot, initial = FALSE)
+/mob/living/carbon/human/equip_to_slot(obj/item/I, slot)
 	if(!slot)
 		return
 	if(!istype(I))
@@ -188,7 +195,7 @@
 
 	I.screen_loc = null
 	I.forceMove(src)
-	I.equipped(src, slot, initial)
+	I.equipped(src, slot)
 	I.layer = ABOVE_HUD_LAYER
 	I.plane = ABOVE_HUD_PLANE
 

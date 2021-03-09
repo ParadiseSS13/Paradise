@@ -77,7 +77,8 @@
 	name = "Lockbox (Mindshield Implants)"
 	req_access = list(ACCESS_SECURITY)
 
-/obj/item/storage/lockbox/mindshield/populate_contents()
+/obj/item/storage/lockbox/mindshield/New()
+	..()
 	new /obj/item/implantcase/mindshield(src)
 	new /obj/item/implantcase/mindshield(src)
 	new /obj/item/implantcase/mindshield(src)
@@ -88,7 +89,8 @@
 	desc = "You have a bad feeling about opening this."
 	req_access = list(ACCESS_SECURITY)
 
-/obj/item/storage/lockbox/clusterbang/populate_contents()
+/obj/item/storage/lockbox/clusterbang/New()
+	..()
 	new /obj/item/grenade/clusterbuster(src)
 
 /obj/item/storage/lockbox/medal
@@ -105,7 +107,8 @@
 	icon_closed = "medalbox"
 	icon_broken = "medalbox+b"
 
-/obj/item/storage/lockbox/medal/populate_contents()
+/obj/item/storage/lockbox/medal/New()
+	..()
 	new /obj/item/clothing/accessory/medal/gold/captain(src)
 	new /obj/item/clothing/accessory/medal/silver/leadership(src)
 	new /obj/item/clothing/accessory/medal/silver/valor(src)
@@ -116,7 +119,8 @@
 	desc = "Contains three T4 breaching charges."
 	req_access = list(ACCESS_CENT_SPECOPS)
 
-/obj/item/storage/lockbox/t4/populate_contents()
+/obj/item/storage/lockbox/t4/New()
+	..()
 	for(var/i in 0 to 2)
 		new /obj/item/grenade/plastic/x4/thermite(src)
 

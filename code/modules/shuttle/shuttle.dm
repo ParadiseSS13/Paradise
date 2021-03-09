@@ -168,8 +168,8 @@
 
 /obj/docking_port/stationary/register()
 	if(!SSshuttle)
-		stack_trace("Docking port [src] could not initialize. SSshuttle doesnt exist!")
-		return FALSE
+		throw EXCEPTION("docking port [src] could not initialize.")
+		return 0
 
 	SSshuttle.stationary += src
 	if(!id)
@@ -229,8 +229,9 @@
 	var/obj/docking_port/stationary/destination
 	var/obj/docking_port/stationary/previous
 
-/obj/docking_port/mobile/Initialize(mapload)
-	. = ..()
+/obj/docking_port/mobile/New()
+	..()
+
 	var/area/A = get_area(src)
 	if(istype(A, /area/shuttle))
 		areaInstance = A
@@ -244,6 +245,7 @@
 	highlight("#0f0")
 	#endif
 
+/obj/docking_port/mobile/Initialize()
 	if(!timid)
 		register()
 	shuttle_areas = list()
@@ -253,10 +255,12 @@
 		var/area/cur_area = curT.loc
 		if(istype(cur_area, areaInstance))
 			shuttle_areas[cur_area] = TRUE
+	..()
 
 /obj/docking_port/mobile/register()
 	if(!SSshuttle)
-		CRASH("Docking port [src] could not initialize. SSshuttle doesnt exist!")
+		throw EXCEPTION("docking port [src] could not initialize.")
+		return 0
 
 	SSshuttle.mobile += src
 
@@ -318,7 +322,7 @@
 	else
 		var/msg = "check_dock(): shuttle [src] cannot dock at [S], error: [status]"
 		message_admins(msg)
-		stack_trace(msg)
+		throw EXCEPTION(msg)
 		return FALSE
 
 
@@ -953,9 +957,8 @@
 		T.icon_state = icon_state
 	if(T.icon != icon)
 		T.icon = icon
-	if(color)
-		T.atom_colours = atom_colours.Copy()
-		T.update_atom_colour()
+	if(T.color != color)
+		T.color = color
 	if(T.dir != dir)
-		T.setDir(dir)
+		T.dir = dir
 	return T

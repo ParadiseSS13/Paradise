@@ -69,6 +69,9 @@
 /obj/effect/abstract/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	return
 
+/obj/effect/abstract/tesla_act(power)
+	return
+
 /obj/effect/abstract/singularity_act()
 	return
 

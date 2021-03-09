@@ -3,15 +3,42 @@
 /turf/space,
 /area/space)
 "b" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_s6";
+	dir = 2
+	},
 /area/shuttle/escape)
 "c" = (
-/obj/effect/spawner/window/shuttle,
+/obj/structure/window/full/shuttle,
+/obj/structure/grille,
 /turf/simulated/floor/plating,
+/area/shuttle/escape)
+"d" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_s10";
+	dir = 2
+	},
+/area/shuttle/escape)
+"e" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swallc4"
+	},
 /area/shuttle/escape)
 "f" = (
 /obj/machinery/computer/emergency_shuttle,
 /turf/simulated/floor/plating,
+/area/shuttle/escape)
+"g" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swallc3"
+	},
+/area/shuttle/escape)
+"h" = (
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall3";
+	icon_state = "swall3";
+	dir = 2
+	},
 /area/shuttle/escape)
 "i" = (
 /obj/structure/table,
@@ -30,7 +57,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "l" = (
-/obj/machinery/door/airlock/titanium{
+/obj/machinery/door/airlock/shuttle{
 	aiControlDisabled = 1;
 	hackProof = 1;
 	id_tag = "s_docking_airlock";
@@ -63,7 +90,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "q" = (
-/obj/machinery/door/airlock/titanium{
+/obj/machinery/door/airlock/shuttle{
 	aiControlDisabled = 1;
 	hackProof = 1;
 	id_tag = "s_docking_airlock";
@@ -92,15 +119,36 @@
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
+"t" = (
+/obj/structure/window/full/shuttle{
+	icon_state = "16"
+	},
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
 "u" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
+"v" = (
+/obj/structure/window/full/shuttle{
+	icon_state = "8"
+	},
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
 "w" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/crate,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"x" = (
+/obj/structure/window/full/shuttle{
+	icon_state = "15"
+	},
+/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "y" = (
@@ -114,44 +162,57 @@
 	dir = 1;
 	layer = 2.9
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/shuttle/plating,
+/area/shuttle/escape)
+"A" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_s5";
+	dir = 2
+	},
 /area/shuttle/escape)
 "B" = (
 /obj/structure/shuttle/engine/propulsion{
 	tag = "icon-burst_l";
 	icon_state = "burst_l"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 "C" = (
 /obj/structure/shuttle/engine/propulsion{
 	tag = "icon-propulsion_r";
 	icon_state = "propulsion_r"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/shuttle/plating,
+/area/shuttle/escape)
+"D" = (
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall_s9";
+	icon_state = "swall_s9";
+	dir = 2
+	},
 /area/shuttle/escape)
 
 (1,1,1) = {"
 a
 b
-b
+h
 l
-b
+h
 q
-b
-c
-c
-c
-b
+h
+t
+v
+x
+h
 l
-b
+h
 l
-b
-b
+h
+A
 "}
 (2,1,1) = {"
 b
-b
+e
 i
 m
 n
@@ -186,8 +247,8 @@ z
 C
 "}
 (4,1,1) = {"
-b
-b
+d
+g
 k
 m
 p
@@ -205,19 +266,19 @@ C
 "}
 (5,1,1) = {"
 a
-b
-b
-b
-b
-b
-b
-c
-c
-c
-b
-b
-b
-b
-b
-b
+d
+h
+h
+h
+h
+h
+t
+v
+x
+h
+h
+h
+h
+h
+D
 "}

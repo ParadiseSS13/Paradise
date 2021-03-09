@@ -18,11 +18,11 @@
 /obj/item/reagent_containers/food/snacks/syndicake,
 /obj/item/reagent_containers/food/snacks/syndicake,
 /obj/item/reagent_containers/food/snacks/syndicake,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/space)
 "dy" = (
 /obj/structure/lattice,
-/turf/simulated/floor/plating/airless,
+/turf/unsimulated,
 /area/template_noop)
 "es" = (
 /obj/structure/cable{
@@ -30,8 +30,11 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
+"eY" = (
+/turf/simulated/floor/plating,
+/area/ruin)
 "fq" = (
 /obj/machinery/autolathe,
 /turf/simulated/floor/plasteel,
@@ -47,9 +50,6 @@
 /obj/item/stack/sheet/metal,
 /turf/template_noop,
 /area/template_noop)
-"gy" = (
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/unpowered)
 "hm" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -61,6 +61,11 @@
 "ho" = (
 /turf/space,
 /area/ruin/space)
+"hs" = (
+/turf/unsimulated/wall/fakeglass{
+	dir = 4
+	},
+/area/ruin/unpowered)
 "iK" = (
 /obj/item/stack/sheet/metal,
 /obj/item/stack/sheet/metal,
@@ -132,7 +137,7 @@
 /obj/machinery/conveyor/east{
 	id = null
 	},
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/space)
 "ob" = (
 /obj/structure/lattice,
@@ -145,7 +150,7 @@
 /obj/item/reagent_containers/food/snacks/syndicake,
 /obj/item/reagent_containers/food/snacks/syndicake,
 /obj/item/reagent_containers/food/snacks/syndicake,
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/space)
 "oJ" = (
 /obj/item/stack/rods,
@@ -155,7 +160,7 @@
 /obj/machinery/door/airlock/mining/glass{
 	name = "Nexus"
 	},
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "pb" = (
 /obj/structure/lattice/catwalk,
@@ -164,11 +169,14 @@
 "pd" = (
 /turf/template_noop,
 /area/space)
+"pp" = (
+/turf/unsimulated,
+/area/space)
 "pR" = (
 /obj/machinery/conveyor/northeast{
 	id = null
 	},
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "qS" = (
 /obj/machinery/door/airlock/mining/glass{
@@ -195,6 +203,9 @@
 /obj/machinery/space_heater,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
+"sd" = (
+/turf/simulated/floor/plating,
+/area/space)
 "sN" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -215,18 +226,14 @@
 /obj/structure/plasticflaps{
 	canmove = 0
 	},
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "wB" = (
 /obj/item/trash/syndi_cakes,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
-"xB" = (
-/obj/effect/spawner/random_spawners/oil_maybe,
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/unpowered)
 "xT" = (
-/turf/simulated/floor/plating/airless,
+/turf/unsimulated/floor/plating/airless,
 /area/space)
 "yU" = (
 /obj/item/stack/sheet/metal,
@@ -257,8 +264,9 @@
 /turf/template_noop,
 /area/space)
 "zF" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
+/turf/unsimulated/wall/fakeglass{
+	dir = 8
+	},
 /area/ruin/unpowered)
 "zP" = (
 /obj/structure/rack{
@@ -299,7 +307,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "CY" = (
 /obj/item/stack/rods,
@@ -309,11 +317,11 @@
 /turf/space,
 /area/space)
 "Dz" = (
+/mob/living/simple_animal/pet/dog/corgi,
 /obj/machinery/conveyor/east{
 	id = null
 	},
-/mob/living/simple_animal/pet/dog/corgi,
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Ej" = (
 /obj/structure/closet/emcloset,
@@ -326,16 +334,6 @@
 /obj/item/stack/cable_coil/cut,
 /turf/template_noop,
 /area/template_noop)
-"Fy" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
-	},
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/unpowered)
 "FO" = (
 /obj/machinery/suit_storage_unit/syndicate,
 /turf/simulated/floor/plasteel,
@@ -355,19 +353,19 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Hx" = (
+/mob/living/simple_animal/pet/dog/corgi,
+/mob/living/simple_animal/pet/dog/corgi,
 /obj/machinery/conveyor/east{
 	id = null
 	},
-/mob/living/simple_animal/pet/dog/corgi,
-/mob/living/simple_animal/pet/dog/corgi,
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Hy" = (
 /turf/template_noop,
 /area/template_noop)
 "HQ" = (
 /obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Ic" = (
 /turf/simulated/floor/plating/burnt,
@@ -380,15 +378,9 @@
 /obj/structure/lattice,
 /turf/space,
 /area/ruin/unpowered)
-"IJ" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/unpowered)
 "JI" = (
 /obj/effect/spawner/random_spawners/syndicate/loot,
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Ki" = (
 /obj/structure/lattice,
@@ -396,13 +388,13 @@
 /area/template_noop)
 "Kr" = (
 /obj/structure/girder,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "KD" = (
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "KS" = (
-/turf/simulated/floor/plating/airless,
+/turf/unsimulated/floor/plating/airless,
 /area/ruin)
 "Le" = (
 /obj/structure/cable{
@@ -412,13 +404,12 @@
 /obj/machinery/power/port_gen/pacman,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
-"Lq" = (
-/mob/living/simple_animal/pet/dog/corgi,
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/unpowered)
 "Mi" = (
-/turf/simulated/floor/plating/airless,
+/turf/unsimulated,
 /area/template_noop)
+"Mz" = (
+/turf/simulated/floor/plasteel,
+/area/ruin)
 "Nw" = (
 /obj/machinery/power/smes,
 /obj/structure/cable/blue{
@@ -454,7 +445,7 @@
 	dir = 2;
 	id = null
 	},
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin)
 "QI" = (
 /obj/effect/spawner/random_spawners/wall_rusted_probably,
@@ -481,7 +472,7 @@
 /area/ruin/unpowered)
 "Ry" = (
 /obj/item/stack/cable_coil/random,
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "RB" = (
 /mob/living/simple_animal/hostile/alien/sentinel{
@@ -536,7 +527,7 @@
 /obj/machinery/conveyor/east{
 	id = null
 	},
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin)
 "UC" = (
 /obj/machinery/tcomms/relay/ruskie{
@@ -558,7 +549,7 @@
 /obj/machinery/conveyor/north/ccw{
 	id = null
 	},
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "VH" = (
 /obj/structure/lattice,
@@ -567,7 +558,7 @@
 /area/space)
 "VR" = (
 /obj/structure/lattice,
-/turf/simulated/floor/plating/airless,
+/turf/unsimulated,
 /area/space)
 "WL" = (
 /turf/space,
@@ -591,7 +582,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "YU" = (
 /obj/structure/chair/office/dark,
@@ -601,14 +592,14 @@
 /obj/machinery/conveyor/east{
 	id = null
 	},
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Zt" = (
 /obj/machinery/conveyor/east{
 	dir = 2;
 	id = null
 	},
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plasteel,
 /area/space)
 
 (1,1,1) = {"
@@ -789,10 +780,10 @@ Hy
 Hy
 EJ
 JI
-Lq
-IJ
-gy
-gy
+GB
+Vf
+sN
+sN
 EJ
 Ra
 sN
@@ -830,11 +821,11 @@ Hy
 Hy
 Hy
 EJ
-gy
+sN
 Hx
-Lq
+GB
 Dz
-gy
+sN
 EJ
 Nw
 hm
@@ -872,11 +863,11 @@ Hy
 Hy
 Hy
 EJ
-gy
+sN
 Dz
-gy
+sN
 Dz
-gy
+sN
 EJ
 UC
 sN
@@ -914,11 +905,11 @@ Hy
 Hy
 Hy
 EJ
-gy
+sN
 Zs
-gy
+sN
 Zs
-gy
+sN
 EJ
 fq
 sN
@@ -956,11 +947,11 @@ Hy
 Hy
 Hy
 EJ
-gy
+sN
 Zs
-gy
+sN
 Zs
-xB
+Id
 EJ
 sN
 GB
@@ -1002,7 +993,7 @@ pR
 Vt
 Vt
 Vt
-gy
+sN
 EJ
 XZ
 BI
@@ -1088,11 +1079,11 @@ TM
 Qv
 lK
 EJ
-gy
-IJ
-Fy
-gy
-gy
+sN
+Vf
+Gm
+sN
+sN
 Ry
 Kr
 OU
@@ -1125,7 +1116,7 @@ Hy
 Hy
 EJ
 Zs
-zF
+hs
 Tj
 zP
 Xd
@@ -1133,12 +1124,12 @@ ky
 Cp
 Cp
 es
-gy
+sN
 rJ
 rJ
 Kr
 rL
-KS
+eY
 OU
 EJ
 pd
@@ -1172,16 +1163,16 @@ sN
 wB
 sN
 BG
-gy
-gy
-gy
-gy
-gy
-gy
+sN
+sN
+sN
+sN
+sN
+sN
 oO
 OU
-KS
-KS
+eY
+eY
 EJ
 pd
 pd
@@ -1215,14 +1206,14 @@ RB
 wB
 EJ
 IB
-gy
-gy
-gy
-gy
-gy
+sN
+sN
+sN
+sN
+sN
 EJ
-KS
-KS
+eY
+eY
 rJ
 EJ
 pd
@@ -1251,20 +1242,20 @@ Hy
 Hy
 EJ
 Zs
-zF
+hs
 bb
 OA
 sN
 EJ
 WL
 IB
-gy
+sN
 YR
 HQ
 HQ
 EJ
 OU
-KS
+eY
 rJ
 EJ
 zt
@@ -1306,7 +1297,7 @@ EJ
 EJ
 EJ
 OU
-KS
+eY
 OK
 Da
 pd
@@ -1339,7 +1330,7 @@ OU
 OU
 KS
 KS
-OU
+Mz
 ho
 OU
 OU
@@ -1347,7 +1338,7 @@ OU
 OU
 ho
 iK
-KS
+eY
 Da
 OK
 OK
@@ -1388,7 +1379,7 @@ Ic
 ub
 NQ
 OU
-KS
+eY
 NQ
 NQ
 Da
@@ -1459,7 +1450,7 @@ Hy
 Hy
 Hy
 Ki
-xT
+pp
 pd
 Zt
 rJ
@@ -1501,7 +1492,7 @@ Hy
 Hy
 Hy
 Hy
-xT
+pp
 pd
 pd
 zo
@@ -1600,7 +1591,7 @@ QF
 QF
 QF
 Da
-xT
+sd
 oJ
 pd
 pd

@@ -156,9 +156,6 @@
 	if(..())
 		return
 
-	if(!pda.silent)
-		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
-
 	. = TRUE
 	switch(action)
 		if("Rename")

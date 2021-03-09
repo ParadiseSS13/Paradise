@@ -80,12 +80,10 @@
 	var/blacklisted_lights = list(/obj/item/flashlight/flare, /obj/item/flashlight/slime)
 	action_icon_state = "veil"
 
-/obj/effect/proc_holder/spell/aoe_turf/veil/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/user = usr)
-	if(!shadowling_check(user))
-		return FALSE
-	return ..()
-
 /obj/effect/proc_holder/spell/aoe_turf/veil/cast(list/targets, mob/user = usr)
+	if(!shadowling_check(user))
+		charge_counter = charge_max
+		return
 	to_chat(user, "<span class='shadowling'>You silently disable all nearby lights.</span>")
 	for(var/obj/structure/glowshroom/G in orange(2, user)) //Why the fuck was this in the loop below?
 		G.visible_message("<span class='warning'>[G] withers away!</span>")
@@ -105,12 +103,10 @@
 	include_user = 1
 	action_icon_state = "shadow_walk"
 
-/obj/effect/proc_holder/spell/targeted/shadow_walk/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/user = usr)
-	if(!shadowling_check(user))
-		return FALSE
-	return ..()
-
 /obj/effect/proc_holder/spell/targeted/shadow_walk/cast(list/targets, mob/user = usr)
+	if(!shadowling_check(user))
+		charge_counter = charge_max
+		return
 	for(var/mob/living/target in targets)
 		playsound(user.loc, 'sound/effects/bamf.ogg', 50, 1)
 		target.visible_message("<span class='warning'>[target] vanishes in a puff of black mist!</span>", "<span class='shadowling'>You enter the space between worlds as a passageway.</span>")
@@ -150,9 +146,9 @@
 
 
 /obj/effect/proc_holder/spell/targeted/shadow_vision
-	name = "Thrall Darksight"
-	desc = "Gives you night vision."
-	panel = "Thrall Abilities"
+	name = "Shadowling Darksight"
+	desc = "Gives you night and thermal vision."
+	panel = "Shadowling Abilities"
 	charge_max = 0
 	range = -1
 	include_user = 1
@@ -171,6 +167,11 @@
 			to_chat(H, "<span class='notice'>You return your vision to normal.</span>")
 			H.set_sight(null)
 
+/obj/effect/proc_holder/spell/targeted/shadow_vision/thrall
+	desc = "Thrall Darksight"
+	desc = "Gives you night vision."
+	panel = "Thrall Abilities"
+
 /obj/effect/proc_holder/spell/aoe_turf/flashfreeze
 	name = "Icy Veins"
 	desc = "Instantly freezes the blood of nearby people, stunning them and causing burn damage."
@@ -180,12 +181,10 @@
 	clothes_req = 0
 	action_icon_state = "icy_veins"
 
-/obj/effect/proc_holder/spell/aoe_turf/flashfreeze/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
-	if(!shadowling_check(user))
-		return FALSE
-	return ..()
-
 /obj/effect/proc_holder/spell/aoe_turf/flashfreeze/cast(list/targets, mob/user = usr)
+	if(!shadowling_check(user))
+		charge_counter = charge_max
+		return
 	to_chat(user, "<span class='shadowling'>You freeze the nearby air.</span>")
 	playsound(user.loc, 'sound/effects/ghost2.ogg', 50, 1)
 
@@ -221,11 +220,8 @@
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
 	allowed_type = /mob/living/carbon/human
 
-/obj/effect/proc_holder/spell/targeted/click/enthrall/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
-	if(enthralling)
-		to_chat(user, "<span class='warning'>You're already enthralling someone!</span>")
-		return FALSE
-	if(!shadowling_check(user))
+/obj/effect/proc_holder/spell/targeted/click/enthrall/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
+	if(enthralling || !shadowling_check(user))
 		return FALSE
 	return ..()
 
@@ -320,12 +316,10 @@
 	var/reviveThrallAcquired
 	action_icon_state = "collective_mind"
 
-/obj/effect/proc_holder/spell/targeted/collective_mind/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
-	if(!shadowling_check(user))
-		return FALSE
-	return ..()
-
 /obj/effect/proc_holder/spell/targeted/collective_mind/cast(list/targets, mob/user = usr)
+	if(!shadowling_check(user))
+		charge_counter = charge_max
+		return
 	for(var/mob/living/target in targets)
 		var/thralls = 0
 		var/victory_threshold = SSticker.mode.required_thralls
@@ -397,12 +391,10 @@
 	include_user = 1
 	action_icon_state = "black_smoke"
 
-/obj/effect/proc_holder/spell/targeted/blindness_smoke/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
-	if(!shadowling_check(user))
-		return FALSE
-	return ..()
-
 /obj/effect/proc_holder/spell/targeted/blindness_smoke/cast(list/targets, mob/user = usr) //Extremely hacky
+	if(!shadowling_check(user))
+		charge_counter = charge_max
+		return
 	for(var/mob/living/target in targets)
 		target.visible_message("<span class='warning'>[target] suddenly bends over and coughs out a cloud of black smoke, which begins to spread rapidly!</span>")
 		to_chat(target, "<span class='deadsay'>You regurgitate a vast cloud of blinding smoke.</span>")
@@ -448,12 +440,10 @@
 	clothes_req = 0
 	action_icon_state = "screech"
 
-/obj/effect/proc_holder/spell/aoe_turf/unearthly_screech/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
-	if(!shadowling_check(user))
-		return FALSE
-	return ..()
-
 /obj/effect/proc_holder/spell/aoe_turf/unearthly_screech/cast(list/targets, mob/user = usr)
+	if(!shadowling_check(user))
+		charge_counter = charge_max
+		return
 	user.audible_message("<span class='warning'><b>[user] lets out a horrible scream!</b></span>")
 	playsound(user.loc, 'sound/effects/screech.ogg', 100, 1)
 
@@ -472,7 +462,7 @@
 			else if(issilicon(target))
 				var/mob/living/silicon/S = target
 				to_chat(S, "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>")
-				SEND_SOUND(S, sound('sound/misc/interference.ogg'))
+				S << 'sound/misc/interference.ogg'
 				playsound(S, 'sound/machines/warning-buzzer.ogg', 50, 1)
 				do_sparks(5, 1, S)
 				S.Weaken(6)
@@ -487,12 +477,11 @@
 	clothes_req = FALSE
 	action_icon_state = "null_charge"
 
-/obj/effect/proc_holder/spell/aoe_turf/null_charge/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
-	if(!shadowling_check(user))
-		return FALSE
-	return ..()
-
 /obj/effect/proc_holder/spell/aoe_turf/null_charge/cast(mob/user = usr)
+	if(!shadowling_check(user))
+		charge_counter = charge_max
+		return
+
 	var/list/local_objs = view(1, user)
 	var/obj/machinery/power/apc/target_apc
 	for(var/object in local_objs)
@@ -548,7 +537,7 @@
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
 	allowed_type = /mob/living/carbon/human
 
-/obj/effect/proc_holder/spell/targeted/click/reviveThrall/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
+/obj/effect/proc_holder/spell/targeted/click/reviveThrall/can_cast(mob/user = usr)
 	if(!shadowling_check(user))
 		return FALSE
 	return ..()
@@ -638,12 +627,9 @@
 	action_icon_state = "extend_shuttle"
 	var/global/extendlimit = 0
 
-/obj/effect/proc_holder/spell/targeted/click/shadowling_extend_shuttle/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
+/obj/effect/proc_holder/spell/targeted/click/shadowling_extend_shuttle/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(!shadowling_check(user))
 		return FALSE
-	return ..()
-
-/obj/effect/proc_holder/spell/targeted/click/shadowling_extend_shuttle/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(extendlimit == 1)
 		if(show_message)
 			to_chat(user, "<span class='warning'>Shuttle was already delayed.</span>")

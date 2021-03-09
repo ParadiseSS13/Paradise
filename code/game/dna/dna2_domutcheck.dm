@@ -1,56 +1,67 @@
 // (Re-)Apply mutations.
 // TODO: Turn into a /mob proc, change inj to a bitflag for various forms of differing behavior.
 // M: Mob to mess with
+// connected: Machine we're in, type unchecked so I doubt it's used beyond monkeying
 // flags: See below, bitfield.
-/proc/domutcheck(mob/living/M, flags = 0)
-	for(var/datum/mutation/mutation in GLOB.dna_mutations)
+/proc/domutcheck(mob/living/M, connected = null, flags = 0)
+	for(var/datum/dna/gene/gene in GLOB.dna_genes)
 		if(!M || !M.dna)
 			return
-		if(!mutation.block)
+		if(!gene.block)
 			continue
 
-		domutation(mutation, M, flags)
+		domutation(gene, M, connected, flags)
 
-// Use this to force a mut check on a single mutation!
-/proc/singlemutcheck(mob/living/M, block, flags = 0)
+// Use this to force a mut check on a single gene!
+/proc/genemutcheck(mob/living/M, block, connected = null, flags = 0)
+	if(ishuman(M)) // Would've done this via species instead of type, but the basic mob doesn't have a species, go figure.
+		var/mob/living/carbon/human/H = M
+		if(NO_DNA in H.dna.species.species_traits)
+			return
 	if(!M)
-		return
-	if(HAS_TRAIT(M, TRAIT_GENELESS))
 		return
 	if(block < 0)
 		return
 
-	var/datum/mutation/mutation = GLOB.assigned_mutation_blocks[block]
-	domutation(mutation, M, flags)
+	var/datum/dna/gene/gene = GLOB.assigned_gene_blocks[block]
+	domutation(gene, M, connected, flags)
 
 
-/proc/domutation(datum/mutation/mutation, mob/living/M, flags = 0)
-	if(!mutation || !istype(mutation))
+/proc/domutation(datum/dna/gene/gene, mob/living/M, connected = null, flags = 0)
+	if(!gene || !istype(gene))
 		return FALSE
 
 	// Current state
-	var/mutation_active = M.dna.GetSEState(mutation.block)
+	var/gene_active = M.dna.GetSEState(gene.block)
 
 	// Sanity checks, don't skip.
-	if(!mutation.can_activate(M, flags) && mutation_active)
+	if(!gene.can_activate(M,flags) && gene_active)
 		//testing("[M] - Failed to activate [gene.name] (can_activate fail).")
 		return FALSE
 
+	var/defaultgenes // Do not mutate inherent species abilities
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		defaultgenes = H.dna.species.default_genes
+
+		if((gene in defaultgenes) && gene_active)
+			return
+
 	// Prior state
-	var/mutation_prior_status = (mutation.type in M.active_mutations)
-	var/changed = mutation_active != mutation_prior_status
+	var/gene_prior_status = (gene.type in M.active_genes)
+	var/changed = gene_active != gene_prior_status
 
 	// If gene state has changed:
 	if(changed)
 		// Gene active (or ALWAYS ACTIVATE)
-		if(mutation_active)
+		if(gene_active)
 			//testing("[gene.name] activated!")
-			mutation.activate(M)
+			gene.activate(M,connected,flags)
 			if(M)
-				M.active_mutations |= mutation.type
+				M.active_genes |= gene.type
 		// If Gene is NOT active:
 		else
 			//testing("[gene.name] deactivated!")
-			mutation.deactivate(M)
+			gene.deactivate(M,connected,flags)
 			if(M)
-				M.active_mutations -= mutation.type
+				M.active_genes -= gene.type

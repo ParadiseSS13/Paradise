@@ -126,8 +126,7 @@ GLOBAL_VAR_INIT(sent_honksquad, 0)
 		equip_to_slot_or_del(new /obj/item/gun/energy/clown(src), slot_in_backpack)
 	else
 		equip_to_slot_or_del(new /obj/item/gun/throw/piecannon(src), slot_in_backpack)
-	dna.SetSEState(GLOB.clumsyblock, TRUE)
-	singlemutcheck(src, GLOB.clumsyblock, MUTCHK_FORCED)
+	src.mutations.Add(CLUMSY)
 
 
 

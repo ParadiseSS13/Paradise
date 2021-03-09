@@ -1,6 +1,9 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/turf/simulated/wall/indestructible/rock,
+/turf/unsimulated/wall{
+	icon_state = "rock";
+	name = "rock"
+	},
 /area/awaymission/UO71/outside)
 "ab" = (
 /turf/simulated/mineral/random/labormineral,
@@ -7482,7 +7485,10 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/eng)
 "pT" = (
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/shuttle/wall{
+	dir = 4;
+	icon_state = "wall3"
+	},
 /area/awaymission/UO71/loot)
 "pU" = (
 /obj/structure/cable{
@@ -8207,7 +8213,10 @@
 /area/awaymission/UO71/science)
 "rn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/shuttle/wall{
+	dir = 4;
+	icon_state = "wall3"
+	},
 /area/awaymission/UO71/bridge)
 "ro" = (
 /obj/effect/decal/cleanable/dirt,
@@ -8575,7 +8584,10 @@
 	},
 /area/awaymission/UO71/medical)
 "sa" = (
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/shuttle/wall{
+	dir = 4;
+	icon_state = "wall3"
+	},
 /area/awaymission/UO71/bridge)
 "sb" = (
 /obj/structure/table,
@@ -8607,7 +8619,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/shuttle/wall{
+	dir = 4;
+	icon_state = "wall3"
+	},
 /area/awaymission/UO71/bridge)
 "sf" = (
 /obj/structure/table,
@@ -9063,7 +9078,10 @@
 /area/awaymission/UO71/eng)
 "sN" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/shuttle/wall{
+	dir = 4;
+	icon_state = "wall3"
+	},
 /area/awaymission/UO71/loot)
 "sO" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -12210,7 +12228,10 @@
 /area/awaymission/UO71/queen)
 "yY" = (
 /obj/structure/sign/biohazard,
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/shuttle/wall{
+	dir = 4;
+	icon_state = "wall3"
+	},
 /area/awaymission/UO71/prince)
 "yZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -12226,14 +12247,23 @@
 /turf/simulated/wall/rust,
 /area/awaymission/UO71/mining)
 "zc" = (
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/shuttle/wall{
+	dir = 4;
+	icon_state = "wall3"
+	},
 /area/awaymission/UO71/outside)
 "zd" = (
-/turf/simulated/wall/indestructible/rock,
+/turf/unsimulated/wall{
+	icon_state = "rock";
+	name = "rock"
+	},
 /area/awaymission/UO71/queen)
 "ze" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/wall/indestructible/rock,
+/turf/unsimulated/wall{
+	icon_state = "rock";
+	name = "rock"
+	},
 /area/awaymission/UO71/queen)
 "zf" = (
 /turf/simulated/floor/plasteel,
@@ -12604,7 +12634,10 @@
 /turf/simulated/floor/vault,
 /area/awaymission/UO71/prince)
 "Lf" = (
-/turf/simulated/wall/indestructible/rock,
+/turf/unsimulated/wall{
+	icon_state = "rock";
+	name = "rock"
+	},
 /area/awaymission/UO71/loot)
 "Lw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -12684,7 +12717,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/wall/indestructible/syndicate,
+/turf/simulated/shuttle/wall{
+	dir = 4;
+	icon_state = "wall3"
+	},
 /area/awaymission/UO71/outside)
 "Vz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{

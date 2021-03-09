@@ -341,7 +341,7 @@
 			receivers |= M
 	for(var/mob/R in receivers)
 		to_chat(R, msg_text)
-		SEND_SOUND(R, sound('sound/misc/notice1.ogg'))
+		R << sound('sound/misc/notice1.ogg')
 
 /area/syndicate_depot/core/proc/shields_up()
 	if(shield_list.len)

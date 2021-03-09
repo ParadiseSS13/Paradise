@@ -8,26 +8,24 @@
 	Returns
 	standard 0 if fail
 */
-/mob/living/proc/apply_damage(damage = 0, damagetype = BRUTE, def_zone, blocked = 0, sharp = FALSE, used_weapon, spread_damage = FALSE)
-	var/hit_percent = (100 - blocked) / 100
-	if(!damage || (hit_percent <= 0))
-		return FALSE
-	var/damage_amount =  damage * hit_percent
+/mob/living/proc/apply_damage(var/damage = 0, var/damagetype = BRUTE, var/def_zone = null, var/blocked = 0, var/sharp = 0, var/used_weapon = null)
+	blocked = (100-blocked)/100
+	if(!damage || (blocked <= 0))	return 0
 	switch(damagetype)
 		if(BRUTE)
-			adjustBruteLoss(damage_amount)
+			adjustBruteLoss(damage * blocked)
 		if(BURN)
-			adjustFireLoss(damage_amount)
+			adjustFireLoss(damage * blocked)
 		if(TOX)
-			adjustToxLoss(damage_amount)
+			adjustToxLoss(damage * blocked)
 		if(OXY)
-			adjustOxyLoss(damage_amount)
+			adjustOxyLoss(damage * blocked)
 		if(CLONE)
-			adjustCloneLoss(damage_amount)
+			adjustCloneLoss(damage * blocked)
 		if(STAMINA)
-			adjustStaminaLoss(damage_amount)
+			adjustStaminaLoss(damage * blocked)
 	updatehealth("apply damage")
-	return TRUE
+	return 1
 
 /mob/living/proc/apply_damage_type(damage = 0, damagetype = BRUTE) //like apply damage except it always uses the damage procs
 	switch(damagetype)
@@ -86,8 +84,7 @@
 		if(PARALYZE)
 			Paralyse(effect * blocked)
 		if(IRRADIATE)
-			if(!HAS_TRAIT(src, TRAIT_RADIMMUNE))
-				radiation += max(effect * blocked, 0)
+			radiation += max(effect * blocked, 0)
 		if(SLUR)
 			Slur(effect * blocked)
 		if(STUTTER)
@@ -151,7 +148,7 @@
 	if(status_flags & GODMODE)
 		oxyloss = 0
 		return FALSE	//godmode
-	if(HAS_TRAIT(src, TRAIT_NOBREATH))
+	if(BREATHLESS in mutations)
 		oxyloss = 0
 		return FALSE
 	var/old_oxyloss = oxyloss
@@ -168,7 +165,7 @@
 	if(status_flags & GODMODE)
 		oxyloss = 0
 		return FALSE	//godmode
-	if(HAS_TRAIT(src, TRAIT_NOBREATH))
+	if(BREATHLESS in mutations)
 		oxyloss = 0
 		return FALSE
 	var/old_oxyloss = oxyloss
