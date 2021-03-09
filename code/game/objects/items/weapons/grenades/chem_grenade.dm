@@ -101,9 +101,9 @@
 			update_icon()
 		else if(clown_check(user))
 			// This used to go before the assembly check, but that has absolutely zero to do with priming the damn thing.  You could spam the admins with it.
-			message_admins("[key_name_admin(usr)] has primed a [name] for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> [contained].")
 			log_game("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) [contained].")
 			investigate_log("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])[contained].", INVESTIGATE_BOMB)
+			add_attack_logs(user, src, "has primed (contained [contained])", ATKLOG_FEW)
 			to_chat(user, "<span class='warning'>You prime the [name]! [det_time / 10] second\s!</span>")
 			playsound(user.loc, 'sound/weapons/armbomb.ogg', 60, 1)
 			active = 1
@@ -120,7 +120,7 @@
 		owner.visible_message("<span class='danger'>[attack_text] hits [owner]'s [src], setting it off! What a shot!</span>")
 		var/turf/T = get_turf(src)
 		log_game("A projectile ([hitby]) detonated a grenade held by [key_name(owner)] at [COORD(T)]")
-		message_admins("A projectile ([hitby]) detonated a grenade held by [key_name_admin(owner)] at [ADMIN_COORDJMP(T)]")
+		add_attack_logs(P.firer, owner, "A projectile ([hitby]) detonated a grenade held", ATKLOG_FEW)
 		prime()
 		return 1 //It hit the grenade, not them
 
@@ -149,16 +149,16 @@
 					if(!O.reagents) continue
 					if(istype(O,/obj/item/slime_extract))
 						cores += " [O]"
-					for(var/reagent in O.reagents.reagent_list)
-						contained += " [reagent] "
+					for(var/R in O.reagents.reagent_list)
+						var/datum/reagent/reagent = R
+						contained += "[reagent.volume] [reagent], "
 				if(contained)
 					if(cores)
-						contained = "\[[cores];[contained]\]"
+						contained = "\[[cores]; [contained]\]"
 					else
-						contained = "\[[contained]\]"
+						contained = "\[ [contained]\]"
 				var/turf/bombturf = get_turf(loc)
-				var/area/A = bombturf.loc
-				message_admins("[key_name_admin(usr)] has completed [name] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> [contained].")
+				add_attack_logs(user, src, "has completed with [contained]", ATKLOG_MOST)
 				log_game("[key_name(usr)] has completed [name] at [bombturf.x], [bombturf.y], [bombturf.z]. [contained]")
 			else
 				to_chat(user, "<span class='notice'>You need to add at least one beaker before locking the assembly.</span>")
@@ -190,6 +190,8 @@
 
 		user.drop_item()
 		nadeassembly = A
+		if(nadeassembly.has_prox_sensors())
+			AddComponent(/datum/component/proximity_monitor)
 		A.master = src
 		A.loc = src
 		assemblyattacher = user.ckey
@@ -219,6 +221,7 @@
 			nadeassembly.loc = get_turf(src)
 			nadeassembly.master = null
 			nadeassembly = null
+			qdel(GetComponent(/datum/component/proximity_monitor))
 		if(beakers.len)
 			for(var/obj/O in beakers)
 				O.loc = get_turf(src)
@@ -304,6 +307,8 @@
 /obj/item/grenade/chem_grenade/proc/CreateDefaultTrigger(var/typekey)
 	if(ispath(typekey,/obj/item/assembly))
 		nadeassembly = new(src)
+		if(nadeassembly.has_prox_sensors())
+			AddComponent(/datum/component/proximity_monitor)
 		nadeassembly.a_left = new /obj/item/assembly/igniter(nadeassembly)
 		nadeassembly.a_left.holder = nadeassembly
 		nadeassembly.a_left.secured = 1

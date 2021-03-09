@@ -94,6 +94,7 @@
 				/obj/item/book/manual/engineering_construction = 10,
 				/obj/item/book/manual/engineering_hacking = 10,
 				/obj/item/clothing/head/cone = 10,
+				/obj/item/geiger_counter = 30,
 				/obj/item/coin/silver = 10,
 				/obj/item/coin/twoheaded = 10,
 				/obj/item/poster/random_contraband = 10,
@@ -116,8 +117,8 @@
 				/obj/item/storage/fancy/cigarettes/dromedaryco = 10,
 				/obj/item/storage/toolbox/mechanical = 10,
 				/obj/item/screwdriver = 30,
-				/obj/item/tank/emergency_oxygen = 20,
-				/obj/item/tank/emergency_oxygen/engi = 10,
+				/obj/item/tank/internals/emergency_oxygen = 20,
+				/obj/item/tank/internals/emergency_oxygen/engi = 10,
 				/obj/item/vending_refill/cola = 10,
 				/obj/item/weldingtool = 30,
 				/obj/item/wirecutters = 10,
@@ -220,6 +221,7 @@
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/minerals/New()
+	. = ..()
 	if(loot && loot.len)
 		for(var/i = lootcount, i > 0, i--)
 			if(!loot.len)
@@ -256,7 +258,7 @@
 				/obj/item/assembly/signaler/anomaly = 50, // anomaly core
 				/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray = 25, // mecha x-ray laser
 				/obj/item/mecha_parts/mecha_equipment/teleporter/precise = 25, // upgraded mecha teleporter
-				/obj/item/autoimplanter = 50,
+				/obj/item/autosurgeon = 50,
 
 				// Research / Experimentor
 				/obj/item/paper/researchnotes = 150, // papers that give random R&D levels
@@ -318,7 +320,7 @@
 				/obj/item/storage/belt/utility/chief/full = 25,
 				/obj/item/rcd/combat = 25,
 				/obj/item/rpd/bluespace = 25,
-				/obj/item/tank/emergency_oxygen/double/full = 25,
+				/obj/item/tank/internals/emergency_oxygen/double = 25,
 				/obj/item/slimepotion/speed = 25,
 				/obj/item/storage/backpack/holding = 25,
 				/obj/item/clothing/glasses/meson/night = 25, // NV mesons
@@ -345,6 +347,7 @@
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/vehicle/New()
+	. = ..()
 	if(!loot.len)
 		return
 	var/lootspawn = pickweight(loot)

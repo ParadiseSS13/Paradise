@@ -11,7 +11,7 @@
 	onicon = "grill_on"
 	officon = "grill_off"
 
-obj/machinery/cooker/foodgrill/putIn(obj/item/In, mob/chef)
+/obj/machinery/cooker/foodgrill/putIn(obj/item/In, mob/chef)
 	..()
 	var/image/img = new(In.icon, In.icon_state)
 	img.pixel_y = 5

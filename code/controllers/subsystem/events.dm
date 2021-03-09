@@ -2,6 +2,7 @@ SUBSYSTEM_DEF(events)
 	name = "Events"
 	init_order = INIT_ORDER_EVENTS
 	runlevels = RUNLEVEL_GAME
+	flags = SS_KEEP_TIMING
 	offline_implications = "Random events will no longer happen. No immediate action is needed."
 	// Report events at the end of the rouund
 	var/report_at_round_end = 0
@@ -40,7 +41,7 @@ SUBSYSTEM_DEF(events)
 		var/datum/event_container/EC = event_containers[i]
 		EC.process()
 
-/datum/controller/subsystem/events/proc/event_complete(var/datum/event/E)
+/datum/controller/subsystem/events/proc/event_complete(datum/event/E)
 	if(!E.event_meta)	// datum/event is used here and there for random reasons, maintaining "backwards compatibility"
 		log_debug("Event of '[E.type]' with missing meta-data has completed.")
 		return
@@ -65,11 +66,11 @@ SUBSYSTEM_DEF(events)
 
 	log_debug("Event '[EM.name]' has completed at [station_time_timestamp()].")
 
-/datum/controller/subsystem/events/proc/delay_events(var/severity, var/delay)
+/datum/controller/subsystem/events/proc/delay_events(severity, delay)
 	var/datum/event_container/EC = event_containers[severity]
 	EC.next_event_time += delay
 
-/datum/controller/subsystem/events/proc/Interact(var/mob/living/user)
+/datum/controller/subsystem/events/proc/Interact(mob/living/user)
 
 	var/html = GetInteractWindow()
 
@@ -113,7 +114,7 @@ SUBSYSTEM_DEF(events)
 			html += "<td>[EM.name]</td>"
 			html += "<td><A align='right' href='?src=[UID()];set_weight=\ref[EM]'>[EM.weight]</A></td>"
 			html += "<td>[EM.min_weight]</td>"
-			html += "<td>[EM.max_weight]</td>"
+			html += "<td>[EM.max_weight == INFINITY ? "No max" : EM.max_weight]</td>"
 			html += "<td><A align='right' href='?src=[UID()];toggle_oneshot=\ref[EM]'>[EM.one_shot]</A></td>"
 			html += "<td><A align='right' href='?src=[UID()];toggle_enabled=\ref[EM]'>[EM.enabled]</A></td>"
 			html += "<td><span class='alert'>[EM.get_weight(number_active_with_role())]</span></td>"

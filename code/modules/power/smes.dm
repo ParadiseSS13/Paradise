@@ -227,8 +227,8 @@
 	if(terminal)
 		terminal.master = null
 		terminal = null
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/machinery/power/smes/proc/make_terminal(user, tempDir, tempLoc)
 	// create a terminal object at the same position as original turf loc
@@ -348,80 +348,82 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/power/smes/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+/obj/machinery/power/smes/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	if(stat & BROKEN)
 		return
-
-
-	// update the ui if it exists, returns null if no ui is passed/found
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "smes.tmpl", "SMES Power Storage Unit", 540, 380)
-		// open the new ui window
+		ui = new(user, src, ui_key, "Smes",  name, 340, 350, master_ui, state)
 		ui.open()
-		// auto update every Master Controller tick
-		ui.set_auto_update(1)
 
-/obj/machinery/power/smes/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
-
-	data["nameTag"] = name_tag
-	data["storedCapacity"] = round(100.0*charge/capacity, 0.1)
-	data["charging"] = inputting
-	data["chargeMode"] = input_attempt
-	data["chargeLevel"] = input_level
-	data["chargeMax"] = input_level_max
-	data["outputOnline"] = output_attempt
-	data["outputLevel"] = output_level
-	data["outputMax"] = output_level_max
-	data["outputLoad"] = round(output_used)
-
-	if(outputting)
-		data["outputting"] = 2			// smes is outputting
-	else if(!outputting && output_attempt)
-		data["outputting"] = 1			// smes is online but not outputting because it's charge level is too low
-	else
-		data["outputting"] = 0			// smes is not outputting
-
+/obj/machinery/power/smes/ui_data(mob/user)
+	var/list/data = list(
+		"capacity" = capacity,
+		"capacityPercent" = round(100*charge/capacity, 0.1),
+		"charge" = charge,
+		"inputAttempt" = input_attempt,
+		"inputting" = inputting,
+		"inputLevel" = input_level,
+		"inputLevel_text" = DisplayPower(input_level),
+		"inputLevelMax" = input_level_max,
+		"inputAvailable" = input_available,
+		"outputAttempt" = output_attempt,
+		"outputting" = outputting,
+		"outputLevel" = output_level,
+		"outputLevel_text" = DisplayPower(output_level),
+		"outputLevelMax" = output_level_max,
+		"outputUsed" = round(output_used),
+	)
 	return data
 
-/obj/machinery/power/smes/Topic(href, href_list)
+/obj/machinery/power/smes/ui_act(action, params)
 	if(..())
-		return 1
+		return
+	. = TRUE
+	switch(action)
+		if("tryinput")
+			inputting(!input_attempt)
+			update_icon()
+		if("tryoutput")
+			outputting(!output_attempt)
+			update_icon()
+		if("input")
+			var/target = params["target"]
+			var/adjust = text2num(params["adjust"])
+			if(target == "min")
+				target = 0
+			else if(target == "max")
+				target = input_level_max
+			else if(adjust)
+				target = input_level + adjust
+			else if(text2num(target) != null)
+				target = text2num(target)
+			else
+				. = FALSE
+			if(.)
+				input_level = clamp(target, 0, input_level_max)
+		if("output")
+			var/target = params["target"]
+			var/adjust = text2num(params["adjust"])
+			if(target == "min")
+				target = 0
+			else if(target == "max")
+				target = output_level_max
+			else if(adjust)
+				target = output_level + adjust
+			else if(text2num(target) != null)
+				target = text2num(target)
+			else
+				. = FALSE
+			if(.)
+				output_level = clamp(target, 0, output_level_max)
+		else
+			. = FALSE
+	if(.)
+		log_smes(usr)
 
-	if( href_list["cmode"] )
-		inputting(!input_attempt)
-		update_icon()
-
-	else if( href_list["online"] )
-		outputting(!output_attempt)
-		update_icon()
-
-	else if( href_list["input"] )
-		switch( href_list["input"] )
-			if("min")
-				input_level = 0
-			if("max")
-				input_level = input_level_max
-			if("set")
-				input_level = input(usr, "Enter new input level (0-[input_level_max])", "SMES Input Power Control", input_level) as num
-		input_level = max(0, min(input_level_max, input_level))	// clamp to range
-
-	else if( href_list["output"] )
-		switch( href_list["output"] )
-			if("min")
-				output_level = 0
-			if("max")
-				output_level = output_level_max
-			if("set")
-				output_level = input(usr, "Enter new output level (0-[output_level_max])", "SMES Output Power Control", output_level) as num
-		output_level = max(0, min(output_level_max, output_level))	// clamp to range
-
-	investigate_log("input/output; [input_level>output_level?"<font color='green'>":"<font color='red'>"][input_level]/[output_level]</font> | Output-mode: [output_attempt?"<font color='green'>on</font>":"<font color='red'>off</font>"] | Input-mode: [input_attempt?"<font color='green'>auto</font>":"<font color='red'>off</font>"] by [usr.key]","singulo")
-
-	return 1
+/obj/machinery/power/smes/proc/log_smes(mob/user)
+		investigate_log("input/output; [input_level>output_level?"<font color='green'>":"<font color='red'>"][input_level]/[output_level]</font> | Charge: [charge] | Output-mode: [output_attempt?"<font color='green'>on</font>":"<font color='red'>off</font>"] | Input-mode: [input_attempt?"<font color='green'>auto</font>":"<font color='red'>off</font>"] by [user ? key_name(user) : "outside forces"]", "singulo")
 
 /obj/machinery/power/smes/proc/ion_act()
 	if(is_station_level(src.z))
@@ -448,6 +450,7 @@
 			smoke.attach(src)
 			smoke.start()
 
+
 /obj/machinery/power/smes/proc/inputting(var/do_input)
 	input_attempt = do_input
 	if(!input_attempt)
@@ -459,14 +462,15 @@
 		outputting = 0
 
 /obj/machinery/power/smes/emp_act(severity)
-	inputting(rand(0,1))
-	outputting(rand(0,1))
+	inputting(rand(0, 1))
+	outputting(rand(0, 1))
 	output_level = rand(0, output_level_max)
 	input_level = rand(0, input_level_max)
 	charge -= 1e6/severity
 	if(charge < 0)
 		charge = 0
 	update_icon()
+	log_smes()
 	..()
 
 /obj/machinery/power/smes/engineering

@@ -35,7 +35,7 @@
 	if(eject_casing)
 		AC.loc = get_turf(src) //Eject casing onto ground.
 		AC.SpinAnimation(10, 1) //next gen special effects
-		playsound(src, chambered.drop_sound, 100, 1)
+		playsound(src, chambered.casing_drop_sound, 100, 1)
 	if(empty_chamber)
 		chambered = null
 	chamber_round()
@@ -95,6 +95,7 @@
 				if(!user.unEquip(A))
 					return
 				to_chat(user, "<span class='notice'>You screw [S] onto [src].</span>")
+				playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 				suppressed = A
 				S.oldsound = fire_sound
 				S.initial_w_class = w_class
@@ -120,6 +121,7 @@
 				..()
 				return
 			to_chat(user, "<span class='notice'>You unscrew [suppressed] from [src].</span>")
+			playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 			user.put_in_hands(suppressed)
 			fire_sound = S.oldsound
 			w_class = S.initial_w_class

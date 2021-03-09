@@ -47,11 +47,11 @@
 	return istype(M) && M.player_logged && M.stat != DEAD
 
 /proc/isAntag(A)
-	if(istype(A, /mob/living/carbon))
-		var/mob/living/carbon/C = A
-		if(C.mind && C.mind.special_role)
-			return 1
-	return 0
+	if(isliving(A))
+		var/mob/living/L = A
+		if(L.mind?.special_role)
+			return TRUE
+	return FALSE
 
 /proc/isNonCrewAntag(A)
 	if(!isAntag(A))
@@ -113,7 +113,7 @@
 	var/question = "Do you want to play as [M.real_name ? M.real_name : M.name][M.job ? " ([M.job])" : ""]"
 	if(alert("Do you want to show the antag status?","Show antag status","Yes","No") == "Yes")
 		question += ", [M.mind?.special_role ? M.mind?.special_role : "No special role"]"
-	var/list/mob/dead/observer/candidates = pollCandidates("[question]?", poll_time = 100, min_hours = minhours)
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("[question]?", poll_time = 10 SECONDS, min_hours = minhours, source = M)
 	var/mob/dead/observer/theghost = null
 
 	if(LAZYLEN(candidates))
@@ -288,7 +288,7 @@
 		S.message = Gibberish(S.message, p)
 
 
-proc/muffledspeech(phrase)
+/proc/muffledspeech(phrase)
 	phrase = html_decode(phrase)
 	var/leng=length(phrase)
 	var/counter=length(phrase)
@@ -311,26 +311,22 @@ proc/muffledspeech(phrase)
 		S.message = muffledspeech(S.message)
 
 
-/proc/shake_camera(mob/M, duration, strength=1)
-	if(!M || !M.client || M.shakecamera)
+///Shake the camera of the person viewing the mob SO REAL!
+/proc/shake_camera(mob/M, duration, strength = 1)
+	if(!M || !M.client || duration < 1)
 		return
-	M.shakecamera = 1
-	spawn(1)
+	var/client/C = M.client
+	var/oldx = C.pixel_x
+	var/oldy = C.pixel_y
+	var/max = strength * world.icon_size
+	var/min = -(strength * world.icon_size)
 
-		var/atom/oldeye=M.client.eye
-		var/aiEyeFlag = 0
-		if(istype(oldeye, /mob/camera/aiEye))
-			aiEyeFlag = 1
-
-		var/x
-		for(x=0; x<duration, x++)
-			if(aiEyeFlag)
-				M.client.eye = locate(dd_range(1,oldeye.loc.x+rand(-strength,strength),world.maxx),dd_range(1,oldeye.loc.y+rand(-strength,strength),world.maxy),oldeye.loc.z)
-			else
-				M.client.eye = locate(dd_range(1,M.loc.x+rand(-strength,strength),world.maxx),dd_range(1,M.loc.y+rand(-strength,strength),world.maxy),M.loc.z)
-			sleep(1)
-		M.client.eye=oldeye
-		M.shakecamera = 0
+	for(var/i in 0 to duration - 1)
+		if(i == 0)
+			animate(C, pixel_x = rand(min, max), pixel_y = rand(min, max), time = 1)
+		else
+			animate(pixel_x = rand(min, max), pixel_y = rand(min, max), time = 1)
+	animate(pixel_x = oldx, pixel_y = oldy, time = 1)
 
 
 /proc/findname(msg)
@@ -459,7 +455,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				name = realname
 
 	for(var/mob/M in GLOB.player_list)
-		if(M.client && ((!isnewplayer(M) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M)) && M.get_preference(CHAT_DEAD))
+		if(M.client && ((!isnewplayer(M) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M)) && M.get_preference(PREFTOGGLE_CHAT_DEAD))
 			var/follow
 			var/lname
 			if(subject)
@@ -471,9 +467,9 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				if(istype(subject, /mob/dead/observer))
 					DM = subject
 				if(check_rights(R_ADMIN|R_MOD,0,M)) 							// What admins see
-					lname = "[keyname][(DM && DM.client && DM.client.prefs.ghost_anonsay) ? "*" : (DM ? "" : "^")] ([name])"
+					lname = "[keyname][(DM && DM.client && DM.client.prefs.toggles2 & PREFTOGGLE_2_ANONDCHAT) ? "*" : (DM ? "" : "^")] ([name])"
 				else
-					if(DM && DM.client && DM.client.prefs.ghost_anonsay)	// If the person is actually observer they have the option to be anonymous
+					if(DM && DM.client && DM.client.prefs.toggles2 & PREFTOGGLE_2_ANONDCHAT)	// If the person is actually observer they have the option to be anonymous
 						lname = "Ghost of [name]"
 					else if(DM)									// Non-anons
 						lname = "[keyname] ([name])"
@@ -675,4 +671,3 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		return FALSE //This is the only case someone should actually be completely blocked from antag rolling as well
 	return TRUE
 
-#define isterrorspider(A) (istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))

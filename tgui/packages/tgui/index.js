@@ -3,30 +3,33 @@ import 'core-js/es';
 import 'core-js/web/immediate';
 import 'core-js/web/queue-microtask';
 import 'core-js/web/timers';
-import 'regenerator-runtime/runtime';
-import './polyfills/html5shiv';
-import './polyfills/ie8';
-import './polyfills/dom4';
-import './polyfills/css-om';
-import './polyfills/inferno';
-
-// Themes
-import './styles/main.scss';
-import './styles/themes/cardtable.scss';
-import './styles/themes/malfunction.scss';
-import './styles/themes/ntos.scss';
-import './styles/themes/hackerman.scss';
-import './styles/themes/retro.scss';
-import './styles/themes/syndicate.scss';
-
 import { loadCSS } from 'fg-loadcss';
 import { render } from 'inferno';
+import 'regenerator-runtime/runtime';
 import { setupHotReloading } from 'tgui-dev-server/link/client';
 import { backendUpdate } from './backend';
 import { IS_IE8 } from './byond';
 import { setupDrag } from './drag';
 import { logger } from './logging';
+import './polyfills/css-om';
+import './polyfills/dom4';
+import './polyfills/html5shiv';
+import './polyfills/ie8';
+import './polyfills/inferno';
 import { createStore, StoreProvider } from './store';
+// Themes
+import './styles/main.scss';
+import './styles/themes/cardtable.scss';
+import './styles/themes/changeling.scss';
+import './styles/themes/hackerman.scss';
+import './styles/themes/malfunction.scss';
+import './styles/themes/ntos.scss';
+import './styles/themes/retro.scss';
+import './styles/themes/safe.scss';
+import './styles/themes/security.scss';
+import './styles/themes/syndicate.scss';
+
+
 
 const enteredBundleAt = Date.now();
 const store = createStore();

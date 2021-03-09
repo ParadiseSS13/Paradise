@@ -16,18 +16,40 @@
 	var/can_be_emaged = FALSE
 	var/wall_mounted = 0 //never solid (You can always pass over it)
 	var/lastbang
-	var/sound = 'sound/machines/click.ogg'
+	var/open_sound = 'sound/machines/closet_open.ogg'
+	var/close_sound = 'sound/machines/closet_close.ogg'
+	var/open_sound_volume = 35
+	var/close_sound_volume = 50
 	var/storage_capacity = 30 //This is so that someone can't pack hundreds of items in a locker/crate then open it in a populated area to crash clients.
 	var/material_drop = /obj/item/stack/sheet/metal
 	var/material_drop_amount = 2
 
-/obj/structure/closet/New()
-	..()
-	spawn(1)
-		if(!opened)		// if closed, any item at the crate's loc is put in the contents
-			for(var/obj/item/I in loc)
-				if(I.density || I.anchored || I == src) continue
-				I.forceMove(src)
+// Please dont override this unless you absolutely have to
+/obj/structure/closet/Initialize(mapload)
+	. = ..()
+	if(!opened)
+		// Youre probably asking, why is this a 0 seconds timer AA?
+		// Well, I will tell you. One day, all /obj/effect/spawner will use Initialize
+		// This includes maint loot spawners. The problem with that is if a closet loads before a spawner,
+		// the loot will just be in a pile. Adding a timer with 0 delay will cause it to only take in contents once the MC has loaded,
+		// therefore solving the issue on mapload. During rounds, everything will happen as normal
+		addtimer(CALLBACK(src, .proc/take_contents), 0)
+	update_icon() // Set it to the right icon if needed
+	populate_contents() // Spawn all its stuff
+
+// Override this to spawn your things in. This lets you use probabilities, and also doesnt cause init overrides
+/obj/structure/closet/proc/populate_contents()
+	return
+
+// This is called on Initialize to add contents on the tile
+/obj/structure/closet/proc/take_contents()
+	var/itemcount = 0
+	for(var/obj/item/I in loc)
+		if(I.density || I.anchored || I == src) continue
+		I.forceMove(src)
+		// Ensure the storage cap is respected
+		if(++itemcount >= storage_capacity)
+			break
 
 // Fix for #383 - C4 deleting fridges with corpses
 /obj/structure/closet/Destroy()
@@ -71,10 +93,7 @@
 
 	icon_state = icon_opened
 	opened = TRUE
-	if(sound)
-		playsound(loc, sound, 15, 1, -3)
-	else
-		playsound(loc, 'sound/machines/click.ogg', 15, 1, -3)
+	playsound(loc, open_sound, open_sound_volume, TRUE, -3)
 	density = 0
 	return TRUE
 
@@ -117,10 +136,7 @@
 
 	icon_state = icon_closed
 	opened = FALSE
-	if(sound)
-		playsound(loc, sound, 15, 1, -3)
-	else
-		playsound(loc, 'sound/machines/click.ogg', 15, 1, -3)
+	playsound(loc, close_sound, close_sound_volume, TRUE, -3)
 	density = 1
 	return TRUE
 
@@ -230,7 +246,7 @@
 	add_fingerprint(user)
 
 /obj/structure/closet/attack_ai(mob/user)
-	if(isrobot(user) && Adjacent(user) && !istype(user.loc, /obj/machinery/atmospherics)) //Robots can open/close it, but not the AI
+	if(isrobot(user) && Adjacent(user)) //Robots can open/close it, but not the AI
 		attack_hand(user)
 
 /obj/structure/closet/relaymove(mob/user)
@@ -305,8 +321,6 @@
 	//		breakout_time++ //Harder to get out of welded lockers than locked lockers
 
 	//okay, so the closet is either welded or locked... resist!!!
-	L.changeNext_move(CLICK_CD_BREAKOUT)
-	L.last_special = world.time + CLICK_CD_BREAKOUT
 	to_chat(L, "<span class='warning'>You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time] minutes)</span>")
 	for(var/mob/O in viewers(usr.loc))
 		O.show_message("<span class='danger'>The [src] begins to shake violently!</span>", 1)
@@ -332,11 +346,6 @@
 				BD.attack_hand(usr)
 			open()
 
-/obj/structure/closet/tesla_act(var/power)
-	..()
-	visible_message("<span class='danger'>[src] is blown apart by the bolt of electricity!</span>", "<span class='danger'>You hear a metallic screeching sound.</span>")
-	qdel(src)
-
 /obj/structure/closet/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
 		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 1)
@@ -353,6 +362,11 @@
 
 /obj/structure/closet/AllowDrop()
 	return TRUE
+
+/obj/structure/closet/force_eject_occupant(mob/target)
+	// Its okay to silently teleport mobs out of lockers, since the only thing affected is their contents list.
+	return
+
 
 /obj/structure/closet/bluespace
 	name = "bluespace closet"

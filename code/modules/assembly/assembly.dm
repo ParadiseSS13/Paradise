@@ -1,3 +1,9 @@
+#define WIRE_RECEIVE		(1<<0)	//Allows pulse(0) to call Activate()
+#define WIRE_PULSE			(1<<1)	//Allows pulse(0) to act on the holder
+#define WIRE_PULSE_SPECIAL	(1<<2)	//Allows pulse(0) to act on the holders special assembly
+#define WIRE_RADIO_RECEIVE	(1<<3)	//Allows pulse(1) to call Activate()
+#define WIRE_RADIO_PULSE	(1<<4)	//Allows pulse(1) to send a radio message
+
 /obj/item/assembly
 	name = "assembly"
 	desc = "A small electronic device that should never exist."
@@ -12,6 +18,8 @@
 	origin_tech = "magnets=1;engineering=1"
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
+	drop_sound = 'sound/items/handling/component_drop.ogg'
+	pickup_sound =  'sound/items/handling/component_pickup.ogg'
 
 	var/bomb_name = "bomb" // used for naming bombs / mines
 
@@ -22,19 +30,10 @@
 	var/wires = WIRE_RECEIVE | WIRE_PULSE
 	var/datum/wires/connected = null // currently only used by timer/signaler
 
-	var/const/WIRE_RECEIVE = 1			//Allows Pulsed(0) to call Activate()
-	var/const/WIRE_PULSE = 2				//Allows Pulse(0) to act on the holder
-	var/const/WIRE_PULSE_SPECIAL = 4		//Allows Pulse(0) to act on the holders special assembly
-	var/const/WIRE_RADIO_RECEIVE = 8		//Allows Pulsed(1) to call Activate()
-	var/const/WIRE_RADIO_PULSE = 16		//Allows Pulse(1) to send a radio message
-
 /obj/item/assembly/proc/activate()									//What the device does when turned on
 	return
 
 /obj/item/assembly/proc/pulsed(radio = FALSE)						//Called when another assembly acts on this one, var/radio will determine where it came from for wire calcs
-	return
-
-/obj/item/assembly/proc/pulse(radio = FALSE)						//Called when this device attempts to act on another device, var/radio determines if it was sent via radio or direct
 	return
 
 /obj/item/assembly/proc/toggle_secure()								//Code that has to happen when the assembly is un\secured goes here
@@ -79,7 +78,11 @@
 		activate()
 	return TRUE
 
-/obj/item/assembly/pulse(radio = FALSE)
+//Called when this device attempts to act on another device, var/radio determines if it was sent via radio or direct
+/obj/item/assembly/proc/pulse(radio = FALSE)
+	if(connected && wires)
+		connected.pulse_assembly(src)
+		return TRUE
 	if(holder && (wires & WIRE_PULSE))
 		holder.process_activation(src, 1, 0)
 	if(holder && (wires & WIRE_PULSE_SPECIAL))

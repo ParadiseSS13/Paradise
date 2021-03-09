@@ -20,7 +20,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	/mob/living/silicon/ai/proc/toggle_acceleration,
 	/mob/living/silicon/ai/proc/toggle_camera_light,
 	/mob/living/silicon/ai/proc/botcall,
-	/mob/living/silicon/ai/proc/change_arrival_message
+	/mob/living/silicon/ai/proc/change_arrival_message,
+	/mob/living/silicon/ai/proc/arrivals_announcement
 ))
 
 //Not sure why this is necessary...
@@ -33,6 +34,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				is_in_use = 1
 				subject.attack_ai(M)
 	return is_in_use
+
+#define TEXT_ANNOUNCEMENT_COOLDOWN 1 MINUTES
 
 /mob/living/silicon/ai
 	name = "AI"
@@ -50,7 +53,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/connected_robots = list()
 	var/aiRestorePowerRoutine = 0
 	//var/list/laws = list()
-	var/alarms = list("Motion" = list(), "Fire" = list(), "Atmosphere" = list(), "Power" = list(), "Camera" = list())
+	alarms_listend_for = list("Motion", "Fire", "Atmosphere", "Power", "Camera", "Burglar")
 	var/viewalerts = 0
 	var/icon/holo_icon//Default is assigned when AI is created.
 	var/obj/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
@@ -103,14 +106,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	var/obj/structure/AIcore/deactivated/linked_core //For exosuit control
 
+	/// If our AI doesn't want to be the arrivals announcer, this gets set to FALSE.
+	var/announce_arrivals = TRUE
 	var/arrivalmsg = "$name, $rank, has arrived on the station."
 
-	var/multicam_allowed = FALSE
-	var/multicam_on = FALSE
-	var/obj/screen/movable/pic_in_pic/ai/master_multicam
-	var/list/multicam_screens = list()
 	var/list/all_eyes = list()
-	var/max_multicams = 6
+	var/next_text_announcement
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	verbs |= GLOB.ai_verbs_default
@@ -173,19 +174,19 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	add_language("Galactic Common", 1)
 	add_language("Sol Common", 1)
 	add_language("Tradeband", 1)
-	add_language("Neo-Russkiya", 0)
-	add_language("Gutter", 0)
-	add_language("Sinta'unathi", 0)
-	add_language("Siik'tajr", 0)
-	add_language("Canilunzt", 0)
-	add_language("Skrellian", 0)
-	add_language("Vox-pidgin", 0)
-	add_language("Orluum", 0)
-	add_language("Rootspeak", 0)
+	add_language("Neo-Russkiya", 1)
+	add_language("Gutter", 1)
+	add_language("Sinta'unathi", 1)
+	add_language("Siik'tajr", 1)
+	add_language("Canilunzt", 1)
+	add_language("Skrellian", 1)
+	add_language("Vox-pidgin", 1)
+	add_language("Orluum", 1)
+	add_language("Rootspeak", 1)
 	add_language("Trinary", 1)
-	add_language("Chittin", 0)
-	add_language("Bubblish", 0)
-	add_language("Clownish", 0)
+	add_language("Chittin", 1)
+	add_language("Bubblish", 1)
+	add_language("Clownish", 1)
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if(!B)//If there is no player/brain inside.
@@ -241,6 +242,46 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			stat(null, text("Systems nonfunctional"))
 			return
 		show_borg_info()
+
+/mob/living/silicon/ai/proc/ai_alerts()
+	var/list/dat = list("<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n")
+	dat += "<A HREF='?src=[UID()];mach_close=aialerts'>Close</A><BR><BR>"
+	var/list/list/temp_alarm_list = SSalarm.alarms.Copy()
+	for(var/cat in temp_alarm_list)
+		if(!(cat in alarms_listend_for))
+			continue
+		dat += text("<B>[]</B><BR>\n", cat)
+		var/list/list/L = temp_alarm_list[cat].Copy()
+		for(var/alarm in L)
+			var/list/list/alm = L[alarm].Copy()
+			var/area_name = alm[1]
+			var/C = alm[2]
+			var/list/list/sources = alm[3].Copy()
+			for(var/thing in sources)
+				var/atom/A = locateUID(thing)
+				if(A && A.z != z)
+					L -= alarm
+					continue
+				dat += "<NOBR>"
+				if(C && islist(C))
+					var/dat2 = ""
+					for(var/cam in C)
+						var/obj/machinery/camera/I = locateUID(cam)
+						if(!QDELETED(I))
+							dat2 += text("[]<A HREF=?src=[UID()];switchcamera=[cam]>[]</A>", (dat2 == "") ? "" : " | ", I.c_tag)
+					dat += text("-- [] ([])", area_name, (dat2 != "") ? dat2 : "No Camera")
+				else
+					dat += text("-- [] (No Camera)", area_name)
+				if(sources.len > 1)
+					dat += text("- [] sources", sources.len)
+				dat += "</NOBR><BR>\n"
+		if(!L.len)
+			dat += "-- All Systems Nominal<BR>\n"
+		dat += "<BR>\n"
+
+	viewalerts = TRUE
+	var/dat_text = dat.Join("")
+	src << browse(dat_text, "window=aialerts&can_close=0")
 
 /mob/living/silicon/ai/proc/show_borg_info()
 	stat(null, text("Connected cyborgs: [connected_robots.len]"))
@@ -470,7 +511,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = "AI Commands"
 	show_station_manifest()
 
-/mob/living/silicon/ai/var/message_cooldown = 0
 /mob/living/silicon/ai/proc/ai_announcement_text()
 	set category = "AI Commands"
 	set name = "Make Station Announcement"
@@ -478,7 +518,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
 
-	if(message_cooldown)
+	if(world.time < next_text_announcement)
 		to_chat(src, "<span class='warning'>Please allow one minute to pass between announcements.</span>")
 		return
 
@@ -490,9 +530,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 
 	announcement.Announce(input)
-	message_cooldown = 1
-	spawn(600)//One minute cooldown
-		message_cooldown = 0
+	next_text_announcement = world.time + TEXT_ANNOUNCEMENT_COOLDOWN
 
 /mob/living/silicon/ai/proc/ai_call_shuttle()
 	set name = "Call Emergency Shuttle"
@@ -612,7 +650,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(href_list["switchcamera"])
 		switchCamera(locate(href_list["switchcamera"])) in GLOB.cameranet.cameras
 	if(href_list["showalerts"])
-		subsystem_alarm_monitor()
+		ai_alerts()
 	if(href_list["show_paper"])
 		if(last_paper_seen)
 			src << browse(last_paper_seen, "window=show_paper")
@@ -723,13 +761,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		light_cameras()
 	if(istype(A, /obj/machinery/camera))
 		current = A
-	if(A != GLOB.ai_camera_room_landmark)
-		end_multicam()
 
 	. = ..()
 	if(.)
 		if(!A && isturf(loc) && eyeobj)
-			end_multicam()
 			client.eye = eyeobj
 			client.perspective = MOB_PERSPECTIVE
 			eyeobj.get_remote_view_fullscreens(src)
@@ -787,12 +822,49 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	Bot.call_bot(src, waypoint)
 
+/mob/living/silicon/ai/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
+	if(!(class in alarms_listend_for))
+		return
+	if(alarmsource.z != z)
+		return
+	if(stat == DEAD)
+		return TRUE
+	if(O)
+		var/obj/machinery/camera/C = locateUID(O[1])
+		if(O.len == 1 && !QDELETED(C) && C.can_use())
+			queueAlarm("--- [class] alarm detected in [A.name]! (<A HREF=?src=[UID()];switchcamera=[O[1]]>[C.c_tag]</A>)", class)
+		else if(O && O.len)
+			var/foo = 0
+			var/dat2 = ""
+			for(var/thing in O)
+				var/obj/machinery/camera/I = locateUID(thing)
+				if(!QDELETED(I))
+					dat2 += text("[]<A HREF=?src=[UID()];switchcamera=[thing]>[]</A>", (!foo) ? "" : " | ", I.c_tag)	//I'm not fixing this shit...
+					foo = 1
+			queueAlarm(text ("--- [] alarm detected in []! ([])", class, A.name, dat2), class)
+		else
+			queueAlarm(text("--- [] alarm detected in []! (No Camera)", class, A.name), class)
+	else
+		queueAlarm(text("--- [] alarm detected in []! (No Camera)", class, A.name), class)
+	if(viewalerts)
+		ai_alerts()
+
+/mob/living/silicon/ai/alarm_cancelled(src, class, area/A, obj/origin, cleared)
+	if(cleared)
+		if(!(class in alarms_listend_for))
+			return
+		if(origin.z != z)
+			return
+		queueAlarm("--- [class] alarm in [A.name] has been cleared.", class, 0)
+		if(viewalerts)
+			ai_alerts()
+
 /mob/living/silicon/ai/proc/switchCamera(obj/machinery/camera/C)
 
 	if(!tracking)
 		cameraFollow = null
 
-	if(!C || stat == DEAD) //C.can_use())
+	if(QDELETED(C) || stat == DEAD) //C.can_use())
 		return FALSE
 
 	if(!eyeobj)
@@ -1057,12 +1129,22 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = "AI Commands"
 	toggle_sensor_mode()
 
+/mob/living/silicon/ai/proc/arrivals_announcement()
+	set name = "Toggle Arrivals Announcer"
+	set desc = "Change whether or not you wish to announce arrivals."
+	set category = "AI Commands"
+	announce_arrivals = !announce_arrivals
+	to_chat(usr, "Arrivals announcement system [announce_arrivals ? "enabled" : "disabled"]")
+
 /mob/living/silicon/ai/proc/change_arrival_message()
 	set name = "Set Arrival Message"
 	set desc = "Change the message that's transmitted when a new crew member arrives on station."
 	set category = "AI Commands"
 
 	var/newmsg = clean_input("What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg)
+	if(!newmsg)
+		return
+	newmsg = html_decode(newmsg) // This feels a bit redundant, but sanitisation is (probably) important.
 	if(newmsg != arrivalmsg)
 		arrivalmsg = newmsg
 		to_chat(usr, "The arrival message has been successfully changed.")
@@ -1159,7 +1241,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		aiRestorePowerRoutine = 0//So the AI initially has power.
 		control_disabled = 1//Can't control things remotely if you're stuck in a card!
 		aiRadio.disabledAi = 1 	//No talking on the built-in radio for you either!
-		loc = card//Throw AI into the card.
+		forceMove(card) //Throw AI into the card.
 		to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
 
@@ -1191,6 +1273,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/name_used = M.GetVoice()
 	//This communication is imperfect because the holopad "filters" voices and is only designed to connect to the master only.
 	var/rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [message]</span></i>"
+	if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+		var/message_clean = combine_message(message_pieces, null, M)
+		create_chat_message(M.runechat_msg_location, message_clean)
 	show_message(rendered, 2)
 
 /mob/living/silicon/ai/proc/malfhacked(obj/machinery/power/apc/apc)
@@ -1255,8 +1340,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(istype(A))
 			switch(alert(src, "Do you want to open \the [A] for [target]?", "Doorknob_v2a.exe", "Yes", "No"))
 				if("Yes")
-					A.AIShiftClick()
-					to_chat(src, "<span class='notice'>You open \the [A] for [target].</span>")
+					if(!A.density)
+						to_chat(src, "<span class='notice'>[A] was already opened.</span>")
+					else if(A.open_close(src))
+						to_chat(src, "<span class='notice'>You open \the [A] for [target].</span>")
 				else
 					to_chat(src, "<span class='warning'>You deny the request.</span>")
 		else
@@ -1267,11 +1354,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/proc/camera_visibility(mob/camera/aiEye/moved_eye)
 	GLOB.cameranet.visibility(moved_eye, client, all_eyes)
-
-/mob/living/silicon/ai/forceMove(atom/destination)
-	. = ..()
-	if(.)
-		end_multicam()
 
 /mob/living/silicon/ai/handle_fire()
 	return
@@ -1307,3 +1389,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
+
+/mob/living/silicon/ai/update_runechat_msg_location()
+	if(istype(loc, /obj/item/aicard) || ismecha(loc))
+		runechat_msg_location = loc
+	else
+		runechat_msg_location = src
+
+#undef TEXT_ANNOUNCEMENT_COOLDOWN

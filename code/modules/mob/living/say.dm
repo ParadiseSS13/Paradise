@@ -7,6 +7,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":c" = "Command",		"#c" = "Command",		".c" = "Command",
 	  ":n" = "Science",		"#n" = "Science",		".n" = "Science",
 	  ":m" = "Medical",		"#m" = "Medical",		".m" = "Medical",
+	  ":x" = "Procedure",	"#x" = "Procedure",		".x" = "Procedure",
 	  ":e" = "Engineering", "#e" = "Engineering",	".e" = "Engineering",
 	  ":s" = "Security",	"#s" = "Security",		".s" = "Security",
 	  ":w" = "whisper",		"#w" = "whisper",		".w" = "whisper",
@@ -14,7 +15,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":u" = "Supply",		"#u" = "Supply",		".u" = "Supply",
 	  ":z" = "Service",		"#z" = "Service",		".z" = "Service",
 	  ":p" = "AI Private",	"#p" = "AI Private",	".p" = "AI Private",
-	  ":x" = "cords",		"#x" = "cords",			".x" = "cords",
 
 	  ":R" = "right ear",	"#R" = "right ear",		".R" = "right ear",
 	  ":L" = "left ear",	"#L" = "left ear",		".L" = "left ear",
@@ -23,6 +23,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":C" = "Command",		"#C" = "Command",		".C" = "Command",
 	  ":N" = "Science",		"#N" = "Science",		".N" = "Science",
 	  ":M" = "Medical",		"#M" = "Medical",		".M" = "Medical",
+	  ":X" = "Procedure",	"#X" = "Procedure",		".X" = "Procedure",
 	  ":E" = "Engineering",	"#E" = "Engineering",	".E" = "Engineering",
 	  ":S" = "Security",	"#S" = "Security",		".S" = "Security",
 	  ":W" = "whisper",		"#W" = "whisper",		".W" = "whisper",
@@ -33,12 +34,12 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":$" = "Response Team", "#$" = "Response Team", ".$" = "Response Team",
 	  ":-" = "Special Ops",	"#-" = "Special Ops",	".-" = "Special Ops",
 	  ":_" = "SyndTeam",	"#_" = "SyndTeam",		"._" = "SyndTeam",
-	  ":X" = "cords",		"#X" = "cords",			".X" = "cords"
+	  ":~" = "cords",		"#~" = "cords",			".~" = "cords"
 ))
 
 GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
-proc/get_radio_key_from_channel(var/channel)
+/proc/get_radio_key_from_channel(var/channel)
 	var/key = GLOB.channel_to_radio_key[channel]
 	if(!key)
 		for(var/radio_key in GLOB.department_radio_keys)
@@ -66,7 +67,7 @@ proc/get_radio_key_from_channel(var/channel)
 		if(S.speaking && S.speaking.flags & NO_STUTTER)
 			continue
 
-		if((HULK in mutations) && health >= 25)
+		if(HAS_TRAIT(src, TRAIT_HULK) && health >= 25)
 			S.message = "[uppertext(S.message)]!!!"
 			verb = pick("yells", "roars", "hollers")
 
@@ -107,7 +108,7 @@ proc/get_radio_key_from_channel(var/channel)
 	return returns
 
 
-/mob/living/say(var/message, var/verb = "says", var/sanitize = TRUE, var/ignore_speech_problems = FALSE, var/ignore_atmospherics = FALSE)
+/mob/living/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
@@ -136,7 +137,12 @@ proc/get_radio_key_from_channel(var/channel)
 	message = trim_left(message)
 
 	//parse the language code and consume it
-	var/list/message_pieces = parse_languages(message)
+	var/list/message_pieces = list()
+	if(ignore_languages)
+		message_pieces = message_to_multilingual(message)
+	else
+		message_pieces = parse_languages(message)
+
 	if(istype(message_pieces, /datum/multilingual_say_piece)) // Little quirk to just easily deal with HIVEMIND languages
 		var/datum/multilingual_say_piece/S = message_pieces // Yay BYOND's hilarious typecasting
 		S.speaking.broadcast(src, S.message)
@@ -251,7 +257,7 @@ proc/get_radio_key_from_channel(var/channel)
 				continue
 
 			if(isobserver(M))
-				if(M.get_preference(CHAT_GHOSTEARS) && client) // The client check is so that ghosts don't have to listen to mice.
+				if(M.get_preference(PREFTOGGLE_CHAT_GHOSTEARS) && client) // The client check is so that ghosts don't have to listen to mice.
 					listening |= M
 					continue
 
@@ -311,7 +317,7 @@ proc/get_radio_key_from_channel(var/channel)
 			if(isnewplayer(M))
 				continue
 
-			if(isobserver(M) && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
+			if(isobserver(M) && M.get_preference(PREFTOGGLE_CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
 				M.show_message(message)
 
 		switch(type)
@@ -351,8 +357,6 @@ proc/get_radio_key_from_channel(var/channel)
 			return
 
 	if(stat)
-		if(stat == DEAD)
-			return say_dead(message_pieces)
 		return
 
 	if(is_muzzled())
@@ -420,7 +424,7 @@ proc/get_radio_key_from_channel(var/channel)
 			continue
 
 		if(isobserver(M))
-			if(M.get_preference(CHAT_GHOSTEARS)) // The client check is so that ghosts don't have to listen to mice.
+			if(M.get_preference(PREFTOGGLE_CHAT_GHOSTEARS)) // The client check is so that ghosts don't have to listen to mice.
 				listening |= M
 				continue
 
@@ -451,14 +455,14 @@ proc/get_radio_key_from_channel(var/channel)
 	var/speech_bubble_test = say_test(message)
 
 	for(var/mob/M in listening)
-		M.hear_say(message_pieces, verb, italics, src)
+		M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE)
 		if(M.client)
 			speech_bubble_recipients.Add(M.client)
 
 	if(eavesdropping.len)
 		stars_all(message_pieces)	//hopefully passing the message twice through stars() won't hurt... I guess if you already don't understand the language, when they speak it too quietly to hear normally you would be able to catch even less.
 		for(var/mob/M in eavesdropping)
-			M.hear_say(message_pieces, verb, italics, src)
+			M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE)
 			if(M.client)
 				speech_bubble_recipients.Add(M.client)
 

@@ -187,6 +187,14 @@
 	build_path = /obj/item/pipe_painter
 	category = list("initial", "Miscellaneous")
 
+/datum/design/window_painter
+	name = "Window Painter"
+	id = "window_painter"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 2000)
+	build_path = /obj/item/pipe_painter/window_painter
+	category = list("initial", "Miscellaneous")
+
 /datum/design/floorpainter
 	name = "Floor painter"
 	id = "floor_painter"
@@ -543,6 +551,14 @@
 	build_path = /obj/item/assembly/health
 	category = list("initial", "Medical")
 
+/datum/design/stethoscope
+	name = "Stethoscope"
+	id = "stethoscope"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500)
+	build_path = /obj/item/clothing/accessory/stethoscope
+	category = list("initial", "Medical")
+
 /datum/design/timer
 	name = "Timer"
 	id = "timer"
@@ -824,6 +840,14 @@
 	build_path = /obj/item/toy/crayon/spraycan
 	category = list("initial", "Tools")
 
+/datum/design/geiger
+	name = "Geiger Counter"
+	id = "geigercounter"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 150, MAT_GLASS = 150)
+	build_path = /obj/item/geiger_counter
+	category = list("initial", "Tools")
+
 /datum/design/desttagger
 	name = "Destination tagger"
 	id = "desttagger"
@@ -863,22 +887,6 @@
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000) //This thing doesn't need to be very resource-intensive as the belts are already expensive
 	build_path = /obj/item/storage/conveyor
 	category = list("initial", "Construction")
-
-/datum/design/laptop
-	name = "Laptop Frame"
-	id = "laptop"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 10000, MAT_GLASS = 1000)
-	build_path = /obj/item/modular_computer/laptop/buildable
-	category = list("initial", "Miscellaneous")
-
-/datum/design/tablet
-	name = "Tablet Frame"
-	id = "tablet"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
-	build_path = /obj/item/modular_computer/tablet
-	category = list("initial", "Miscellaneous")
 
 /datum/design/mousetrap
 	name = "Mousetrap"

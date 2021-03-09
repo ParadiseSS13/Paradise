@@ -151,17 +151,6 @@
 	subcategory = CAT_WEAPON
 	alert_admins_on_craft = TRUE
 
-/datum/crafting_recipe/meteorshot
-	name = "Meteorshot Shell"
-	result = /obj/item/ammo_casing/shotgun/meteorshot
-	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
-				/obj/item/rcd_ammo = 1,
-				/obj/item/stock_parts/manipulator = 2)
-	tools = list(TOOL_SCREWDRIVER)
-	time = 5
-	category = CAT_WEAPONRY
-	subcategory = CAT_AMMO
-
 /datum/crafting_recipe/pulseslug
 	name = "Pulse Slug Shell"
 	result = /obj/item/ammo_casing/shotgun/pulseslug
@@ -287,6 +276,14 @@
 	result = /obj/item/storage/box/papersack
 	time = 10
 	reqs = list(/obj/item/paper = 5)
+	category = CAT_MISC
+
+/datum/crafting_recipe/flashlight_eyes
+	name = "Flashlight Eyes"
+	result = /obj/item/organ/internal/eyes/cybernetic/flashlight
+	time = 10
+	reqs = list(/obj/item/flashlight = 2,
+				/obj/item/restraints/handcuffs/cable = 1)
 	category = CAT_MISC
 
 /datum/crafting_recipe/sushimat
@@ -533,6 +530,14 @@
 		        /obj/item/stack/cable_coil = 10)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH, TOOL_WELDER)
 	category = CAT_MISC
+
+/datum/crafting_recipe/ghettojetpack
+	name = "Improvised Jetpack"
+	result = /obj/item/tank/jetpack/improvised
+	time = 30
+	reqs = list(/obj/item/tank/internals/oxygen = 2, /obj/item/extinguisher = 1, /obj/item/pipe = 3, /obj/item/stack/cable_coil = MAXCOIL)
+	category = CAT_MISC
+	tools = list(TOOL_WRENCH, TOOL_WELDER, TOOL_WIRECUTTER)
 
 /datum/crafting_recipe/drill
 	name = "Thermal Drill"

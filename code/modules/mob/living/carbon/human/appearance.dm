@@ -1,7 +1,7 @@
-/mob/living/carbon/human/proc/change_appearance(var/flags = APPEARANCE_ALL_HAIR, var/location = src, var/mob/user = src, var/check_species_whitelist = 1, var/list/species_whitelist = list(), var/list/species_blacklist = list(), var/datum/topic_state/state = GLOB.default_state)
-	var/datum/nano_module/appearance_changer/AC = new(location, src, check_species_whitelist, species_whitelist, species_blacklist)
+/mob/living/carbon/human/proc/change_appearance(flags = APPEARANCE_ALL_HAIR, datum/location = src, mob/user = src, check_species_whitelist = TRUE, list/species_whitelist = list(), list/species_blacklist = list())
+	var/datum/ui_module/appearance_changer/AC = new(location, src, check_species_whitelist, species_whitelist, species_blacklist)
 	AC.flags = flags
-	AC.ui_interact(user, state = state)
+	AC.ui_interact(user)
 
 /mob/living/carbon/human/proc/change_gender(var/new_gender, var/update_dna = 1)
 	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
@@ -206,10 +206,10 @@
 	// Update the main DNA datum, then sync the change across the organs
 	var/obj/item/organ/internal/eyes/eyes_organ = get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes_organ)
-		if(colour == eyes_organ.eye_colour)
+		if(colour == eyes_organ.eye_color)
 			return
 
-		eyes_organ.eye_colour = colour
+		eyes_organ.eye_color = colour
 		dna.eye_color_to_dna(eyes_organ)
 		eyes_organ.set_dna(dna)
 
@@ -307,6 +307,7 @@
 /mob/living/carbon/human/proc/update_dna()
 	check_dna()
 	dna.ready_dna(src)
+	SEND_SIGNAL(src, COMSIG_HUMAN_UPDATE_DNA)
 
 /mob/living/carbon/human/proc/generate_valid_species(var/check_whitelist = 1, var/list/whitelist = list(), var/list/blacklist = list())
 	var/list/valid_species = new()
@@ -464,12 +465,3 @@
 		valid_alt_heads += alternate_head
 
 	return sortTim(valid_alt_heads, /proc/cmp_text_asc)
-
-/mob/living/carbon/human/proc/scramble_appearance()
-	scramble(1, src, 100)
-	real_name = random_name(gender, dna.species.name) //Give them a name that makes sense for their species.
-	sync_organ_dna(assimilate = 1)
-	update_body()
-	reset_hair() //No more winding up with hairstyles you're not supposed to have, and blowing your cover.
-	reset_markings() //...Or markings.
-	dna.ResetUIFrom(src)

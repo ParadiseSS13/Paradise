@@ -2,58 +2,81 @@
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: T3 PRINCESS OF TERROR --------------------------
 // --------------------------------------------------------------------------------
-// -------------: ROLE: cutesy
-// -------------: AI: as green, but will evolve to queen when it can
-// -------------: SPECIAL: can evolve into a queen, if fed enough
-// -------------: TO FIGHT IT: kill it before it evolves
+// -------------: ROLE: mini-queen, maintains a smaller nest, but also more expendable
+// -------------: AI: maintains a small group of spiders. Small fraction of a queen's nest.
+// -------------: SPECIAL: lays eggs over time, like a queen
+// -------------: TO FIGHT IT: hunt it before it lays eggs
 // -------------: SPRITES FROM: FoS, https://www.paradisestation.org/forum/profile/335-fos
 
-/mob/living/simple_animal/hostile/poison/terror_spider/princess
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/princess
 	name = "Princess of Terror spider"
 	desc = "An enormous spider. It looks strangely cute and fluffy."
-	spider_role_summary = "Future Queen"
+	spider_role_summary = "Mini-Queen"
 	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_princess1"
 	icon_living = "terror_princess1"
 	icon_dead = "terror_princess1_dead"
 	maxHealth = 150
 	health = 150
-	regen_points_per_hp = 1 // always regens very fast
-	force_threshold = 18 // outright immune to anything of force under 18, same as queen
-	melee_damage_lower = 10
-	melee_damage_upper = 20
-	idle_ventcrawl_chance = 5
 	spider_tier = TS_TIER_3
-	spider_opens_doors = 2
-	web_type = /obj/structure/spider/terrorweb/queen
-	var/feedings_to_evolve = 3
-	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
-	var/datum/action/innate/terrorspider/evolvequeen/evolvequeen_action
+	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 
-/mob/living/simple_animal/hostile/poison/terror_spider/princess/New()
-	..()
-	ventsmash_action = new()
-	ventsmash_action.Grant(src)
-	evolvequeen_action = new()
-	evolvequeen_action.Grant(src)
+	// Unlike queens, no ranged attack.
+	ranged = 0
+	retreat_distance = 0
+	minimum_distance = 0
+	projectilesound = null
+	projectiletype = null
 
-/mob/living/simple_animal/hostile/poison/terror_spider/princess/proc/evolve_to_queen()
-	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/Q = new(loc)
-	if(mind)
-		mind.transfer_to(Q)
-		// Calling `transfer_to()` removes our new body (the Queen's) ability to see the med hud, so we have to re-add the queen here.
-		var/datum/atom_hud/U = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-		U.add_hud_to(Q)
-	qdel(src)
+	canlay = 0
+	hasnested = TRUE
+	spider_spawnfrequency = 300 // 30 seconds
+	var/grant_prob = 25 // 25% chance every spider_spawnfrequency seconds to gain 1 egg
+	var/spider_max_children = 8
 
-/mob/living/simple_animal/hostile/poison/terror_spider/princess/DoWrap()
-	. = ..()
-	if(fed == 0)
+
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/grant_queen_subtype_abilities()
+	// Queens start in movement mode, where they can ventcrawl but not lay eggs. Then they move to NestMode() where they can wallsmash and egglay, but not ventcrawl.
+	// Princesses are simpler, and can always lay eggs, always vent crawl, but never smash walls. Unlike queens, they don't have a "nesting" transformation.
+	queeneggs_action = new()
+	queeneggs_action.Grant(src)
+	queensense_action = new()
+	queensense_action.Grant(src)
+
+
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/ListAvailableEggTypes()
+	var/list/valid_types = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN)
+
+	// Each princess can also have ONE black/purple/brown. If it dies, they can pick a new spider from the 3 advanced types to lay.
+	var/list/spider_array = CountSpidersDetailed(TRUE, list(/mob/living/simple_animal/hostile/poison/terror_spider/black, /mob/living/simple_animal/hostile/poison/terror_spider/purple, /mob/living/simple_animal/hostile/poison/terror_spider/brown))
+	if(spider_array["all"] < 1)
+		valid_types |= TS_DESC_BLACK
+		valid_types |= TS_DESC_PURPLE
+		valid_types |= TS_DESC_BROWN
+
+	return valid_types
+
+
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/grant_eggs()
+	spider_lastspawn = world.time
+
+	if(!isturf(loc))
+		to_chat(src, "<span class='danger'>You cannot generate eggs while hiding in [loc].</span>")
+		return
+
+	if(!prob(grant_prob))
+		return
+
+	var/list/spider_array = CountSpidersDetailed(TRUE)
+	var/brood_count = spider_array["all"]
+
+	// Color shifts depending on how much of their brood capacity they have used.
+	if(brood_count == 0)
 		icon_state = "terror_princess1"
 		icon_living = "terror_princess1"
 		icon_dead = "terror_princess1_dead"
 		desc = "An enormous spider. It looks strangely cute and fluffy, with soft pink fur covering most of its body."
-	else if(fed == 1)
+	else if(brood_count < (spider_max_children /2))
 		icon_state = "terror_princess2"
 		icon_living = "terror_princess2"
 		icon_dead = "terror_princess2_dead"
@@ -62,13 +85,44 @@
 		icon_state = "terror_princess3"
 		icon_living = "terror_princess3"
 		icon_dead = "terror_princess3_dead"
-		desc = "An enormous spider. Its entire body has turned an ominous blood red color, with actual blood dripping from its jaws. It stares around, hungrily."
+		desc = "An enormous spider. Its entire body looks to be the color of dried blood."
 
-/mob/living/simple_animal/hostile/poison/terror_spider/princess/spider_special_action()
-	if(cocoon_target)
-		handle_cocoon_target()
-	else if(fed >= feedings_to_evolve)
-		evolve_to_queen()
-	else if(world.time > (last_cocoon_object + freq_cocoon_object))
-		seek_cocoon_target()
+	if((brood_count + canlay) >= spider_max_children)
+		return
+	canlay++
+	if(canlay == 1)
+		to_chat(src, "<span class='notice'>You have an egg available to lay.</span>")
+	else
+		to_chat(src, "<span class='notice'>You have [canlay] eggs available to lay.</span>")
+
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/show_egg_timer()
+	var/average_timer = (1 / (grant_prob / 100)) * (spider_spawnfrequency / 10)
+	to_chat(src, "<span class='danger'>Too soon to attempt that again. You generate a new egg every [average_timer] seconds, on average.</span>")
+
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/NestMode()
+	// Princesses don't nest. However, we still need to override this in case an AI princess calls it.
+	return
+
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/spider_special_action()
+	// Princess AI routine. GREATLY simplified version of queen routine.
+	if(!stat && !ckey)
+		// Utilize normal queen AI for finding a nest site (neststep=0), and activating NestMode() (neststep=1)
+		if(neststep != 2)
+			return ..()
+		// After that, simply lay an egg once per nestfrequency, until we have the max.
+		if(world.time < (lastnestsetup + nestfrequency))
+			return
+		lastnestsetup = world.time
+		if(ai_nest_is_full())
+			return
+		spider_lastspawn = world.time
+		DoLayTerrorEggs(pick(spider_types_standard), 1)
+		// Yes, this means NPC princesses won't create T2 spiders.
+
+
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/ai_nest_is_full()
+	var/list/spider_array = CountSpidersDetailed(TRUE)
+	if(spider_array["all"] >= spider_max_children)
+		return TRUE
+	return FALSE
 

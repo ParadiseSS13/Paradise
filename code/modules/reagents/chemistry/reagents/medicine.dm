@@ -121,7 +121,14 @@
 
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(M.bodytemperature < TCRYO)
+	var/external_temp
+	if(istype(M.loc, /obj/machinery/atmospherics/unary/cryo_cell))
+		var/obj/machinery/atmospherics/unary/cryo_cell/C = M.loc
+		external_temp = C.temperature_archived
+	else
+		var/turf/T = get_turf(M)
+		external_temp = T.temperature
+	if(external_temp < TCRYO)
 		update_flags |= M.adjustCloneLoss(-4, FALSE)
 		update_flags |= M.adjustOxyLoss(-10, FALSE)
 		update_flags |= M.adjustToxLoss(-3, FALSE)
@@ -288,6 +295,11 @@
 			M.adjustFireLoss(-1.5*volume)
 			if(show_message)
 				to_chat(M, "<span class='notice'>The synthetic flesh integrates itself into your wounds, healing you.</span>")
+			if(ishuman(M))
+				var/mob/living/carbon/human/H = M
+				if(HAS_TRAIT_FROM(H, TRAIT_HUSK, BURN) && H.getFireLoss() < UNHUSK_DAMAGE_THRESHOLD && (H.reagents.get_reagent_amount("synthflesh") + volume >= SYNTHFLESH_UNHUSK_AMOUNT))
+					H.cure_husk(BURN)
+					H.visible_message("<span class='nicegreen'>The squishy liquid coats [H]'s burns. [H] looks a lot healthier!") //we're avoiding using the phrases "burnt flesh" and "burnt skin" here because humans could be a skeleton or a golem or something
 	..()
 
 /datum/reagent/medicine/synthflesh/reaction_turf(turf/T, volume) //let's make a mess!
@@ -404,7 +416,7 @@
 
 /datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/M)
 	if(prob(80))
-		M.radiation = max(0, M.radiation-1)
+		M.radiation = max(0, M.radiation-10)
 	return ..()
 
 /datum/reagent/medicine/pen_acid
@@ -421,7 +433,7 @@
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
 			M.reagents.remove_reagent(R.id,4)
-	M.radiation = max(0, M.radiation-7)
+	M.radiation = max(0, M.radiation-70)
 	if(prob(75))
 		update_flags |= M.adjustToxLoss(-4*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(prob(33))
@@ -632,9 +644,9 @@
 		update_flags |= M.AdjustEyeBlurry(-1, FALSE)
 		update_flags |= M.AdjustEarDamage(-1)
 	if(prob(50))
-		update_flags |= M.CureNearsighted(FALSE)
+		update_flags |= M.cure_nearsighted(EYE_DAMAGE, FALSE)
 	if(prob(30))
-		update_flags |= M.CureBlind(FALSE)
+		update_flags |= M.cure_blind(EYE_DAMAGE, FALSE)
 		update_flags |= M.SetEyeBlind(0, FALSE)
 	return ..() | update_flags
 
@@ -762,7 +774,7 @@
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
 					M.delayed_gib()
 					return
-				if(!M.suiciding && !(NOCLONE in M.mutations) && (!M.mind || M.mind && M.mind.is_revivable()))
+				if(!M.suiciding && !HAS_TRAIT(M, TRAIT_HUSK) && !HAS_TRAIT(M, TRAIT_BADDNA))
 					var/time_dead = world.time - M.timeofdeath
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 					M.adjustCloneLoss(50)
@@ -813,13 +825,13 @@
 		..()
 		return
 	M.SetJitter(0)
-	var/needs_update = M.mutations.len > 0
+	var/needs_update = length(M.active_mutations)
 
 	if(needs_update)
 		for(var/block = 1; block<=DNA_SE_LENGTH; block++)
 			if(!(block in M.dna.default_blocks))
 				M.dna.SetSEState(block, FALSE, TRUE)
-				genemutcheck(M, block, null, MUTCHK_FORCED)
+				singlemutcheck(M, block, MUTCHK_FORCED)
 		M.dna.UpdateSE()
 
 		M.dna.struc_enzymes = M.dna.struc_enzymes_original
@@ -849,7 +861,7 @@
 /datum/reagent/medicine/stimulants
 	name = "Stimulants"
 	id = "stimulants"
-	description = "Increases run speed and eliminates stuns, can heal minor damage. If overdosed it will deal toxin damage and stun."
+	description = "An illegal compound that dramatically enhances the body's performance and healing capabilities."
 	color = "#C8A5DC"
 	harmless = FALSE
 	can_synth = FALSE
@@ -886,7 +898,7 @@
 /datum/reagent/medicine/stimulative_agent
 	name = "Stimulative Agent"
 	id = "stimulative_agent"
-	description = "An illegal compound that dramatically enhances the body's performance and healing capabilities."
+	description = "Increases run speed and eliminates stuns, can heal minor damage. If overdosed it will deal toxin damage and be less effective for healing stamina."
 	color = "#C8A5DC"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 60
@@ -895,7 +907,7 @@
 
 /datum/reagent/medicine/stimulative_agent/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.status_flags |= GOTTAGOFAST
+	ADD_TRAIT(M, TRAIT_GOTTAGOFAST, id)
 	if(M.health < 50 && M.health > 0)
 		update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -908,7 +920,7 @@
 	return ..() | update_flags
 
 /datum/reagent/medicine/stimulative_agent/on_mob_delete(mob/living/M)
-	M.status_flags &= ~GOTTAGOFAST
+	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)
 	..()
 
 /datum/reagent/medicine/stimulative_agent/overdose_process(mob/living/M, severity)
@@ -994,19 +1006,14 @@
 	reagent_state = LIQUID
 	color = "#FFDCFF"
 	taste_description = "stability"
+	var/list/drug_list = list("crank","methamphetamine","space_drugs","psilocybin","ephedrine","epinephrine","stimulants","bath_salts","lsd","thc")
 
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.reagents.remove_reagent("crank", 5)
-	M.reagents.remove_reagent("methamphetamine", 5)
-	M.reagents.remove_reagent("space_drugs", 5)
-	M.reagents.remove_reagent("psilocybin", 5)
-	M.reagents.remove_reagent("ephedrine", 5)
-	M.reagents.remove_reagent("epinephrine", 5)
-	M.reagents.remove_reagent("stimulants", 3)
-	M.reagents.remove_reagent("bath_salts", 5)
-	M.reagents.remove_reagent("lsd", 5)
-	M.reagents.remove_reagent("thc", 5)
+	for(var/I in M.reagents.reagent_list)
+		var/datum/reagent/R = I
+		if(drug_list.Find(R.id))
+			M.reagents.remove_reagent(R.id, 5)
 	update_flags |= M.AdjustDruggy(-5, FALSE)
 	M.AdjustHallucinate(-5)
 	M.AdjustJitter(-5)
@@ -1234,9 +1241,15 @@
 	can_synth = FALSE
 	harmless = FALSE
 	taste_description = "wholeness"
+	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants")
 
 /datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
+	var/has_stimulant = FALSE
+	for(var/I in M.reagents.reagent_list)
+		var/datum/reagent/R = I
+		if(stimulant_list.Find(R.id))
+			has_stimulant = TRUE
 	switch(current_cycle)
 		if(1 to 19)
 			M.AdjustJitter(4)
@@ -1244,7 +1257,7 @@
 				to_chat(M, "<span class='warning'>Your skin feels hot and your veins are on fire!</span>")
 		if(20 to 43)
 			//If they have stimulants or stimulant drugs then just apply toxin damage instead.
-			if(M.reagents.has_reagent("methamphetamine") || M.reagents.has_reagent("crank") || M.reagents.has_reagent("bath_salts") || M.reagents.has_reagent("stimulative_agent") || M.reagents.has_reagent("stimulants"))
+			if(has_stimulant == TRUE)
 				update_flags |= M.adjustToxLoss(10, FALSE)
 			else //apply debilitating effects
 				if(prob(75))
@@ -1255,7 +1268,7 @@
 			to_chat(M, "<span class='warning'>Your body goes rigid, you cannot move at all!</span>")
 			update_flags |= M.AdjustWeakened(15, FALSE)
 		if(45 to INFINITY) // Start fixing bones | If they have stimulants or stimulant drugs in their system then the nanites won't work.
-			if(M.reagents.has_reagent("methamphetamine") || M.reagents.has_reagent("crank") || M.reagents.has_reagent("bath_salts") || M.reagents.has_reagent("stimulative_agent") || M.reagents.has_reagent("stimulants"))
+			if(has_stimulant == TRUE)
 				return ..()
 			else
 				for(var/obj/item/organ/external/E in M.bodyparts)

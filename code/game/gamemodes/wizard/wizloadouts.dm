@@ -18,7 +18,7 @@
 		Care should be taken in hiding the item you choose as your phylactery after using Bind Soul, as you cannot revive if it destroyed or too far from your body! <br><br> \
 		</i>Provides Bind Soul, Ethereal Jaunt,  Fireball, Rod Form, Disable Tech, and Greater Forcewall.<i>"
 	log_name = "DL"
-	spells_path = list(/obj/effect/proc_holder/spell/targeted/lichdom, /obj/effect/proc_holder/spell/targeted/ethereal_jaunt, /obj/effect/proc_holder/spell/fireball, \
+	spells_path = list(/obj/effect/proc_holder/spell/targeted/lichdom, /obj/effect/proc_holder/spell/targeted/ethereal_jaunt, /obj/effect/proc_holder/spell/targeted/click/fireball, \
 		/obj/effect/proc_holder/spell/targeted/rod_form, /obj/effect/proc_holder/spell/targeted/emplosion/disable_tech, /obj/effect/proc_holder/spell/targeted/forcewall/greater)
 	is_ragin_restricted = TRUE
 

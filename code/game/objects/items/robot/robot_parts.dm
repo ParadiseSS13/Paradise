@@ -136,7 +136,7 @@
 	if(l_arm && r_arm)
 		if(l_leg && r_leg)
 			if(chest && head)
-				feedback_inc("cyborg_frames_built",1)
+				SSblackbox.record_feedback("amount", "cyborg_frames_built", 1)
 				return 1
 	return 0
 
@@ -226,20 +226,25 @@
 				to_chat(user, "<span class='warning'>Sticking an empty [M] into the frame would sort of defeat the purpose.</span>")
 				return
 
+			if(jobban_isbanned(M.brainmob, "Cyborg") || jobban_isbanned(M.brainmob,"nonhumandept"))
+				to_chat(user, "<span class='warning'>This [W] is not fit to serve as a cyborg!</span>")
+				return
+
 			if(!M.brainmob.key)
-				var/ghost_can_reenter = 0
+				var/ghost_can_reenter = FALSE
 				if(M.brainmob.mind)
 					for(var/mob/dead/observer/G in GLOB.player_list)
 						if(G.can_reenter_corpse && G.mind == M.brainmob.mind)
-							ghost_can_reenter = 1
-							break
-					for(var/mob/living/simple_animal/S in GLOB.player_list)
-						if(S in GLOB.respawnable_list)
-							ghost_can_reenter = 1
+							ghost_can_reenter = TRUE
+							if(M.next_possible_ghost_ping < world.time)
+								G.notify_cloning("Somebody is trying to borg you! Re-enter your corpse if you want to be borged!", 'sound/voice/liveagain.ogg', src)
+								M.next_possible_ghost_ping = world.time + 30 SECONDS // Avoid spam
 							break
 				if(!ghost_can_reenter)
 					to_chat(user, "<span class='notice'>[M] is completely unresponsive; there's no point.</span>")
-					return
+				else
+					to_chat(user, "<span class='warning'>[M] is currently inactive. Try again later.</span>")
+				return
 
 			if(M.brainmob.stat == DEAD)
 				to_chat(user, "<span class='warning'>Sticking a dead [M] into the frame would sort of defeat the purpose.</span>")
@@ -249,9 +254,6 @@
 				to_chat(user, "<span class='warning'>The frame's firmware lets out a shrill sound, and flashes 'Abnormal Memory Engram'. It refuses to accept the [M].</span>")
 				return
 
-			if(jobban_isbanned(M.brainmob, "Cyborg") || jobban_isbanned(M.brainmob,"nonhumandept"))
-				to_chat(user, "<span class='warning'>This [W] does not seem to fit.</span>")
-				return
 
 			var/datum/ai_laws/laws_to_give
 			if(M.syndiemmi)
@@ -305,7 +307,7 @@
 			O.mmi = W
 			O.Namepick()
 
-			feedback_inc("cyborg_birth",1)
+			SSblackbox.record_feedback("amount", "cyborg_birth", 1)
 
 			forceMove(O)
 			O.robot_suit = src

@@ -24,9 +24,9 @@
 	wires = new(src)
 	connected_parts = list()
 	update_icon()
-	use_log = list()
 
 /obj/machinery/particle_accelerator/control_box/Destroy()
+	SStgui.close_uis(wires)
 	if(active)
 		toggle_power()
 	QDEL_NULL(wires)
@@ -40,6 +40,11 @@
 		interact(user)
 	else if(construction_state == 2) // Wires exposed
 		wires.Interact(user)
+
+/obj/machinery/particle_accelerator/control_box/multitool_act(mob/living/user, obj/item/I)
+	if(construction_state == 2) // Wires exposed
+		wires.Interact(user)
+		return TRUE
 
 /obj/machinery/particle_accelerator/control_box/update_state()
 	if(construction_state < 3)
@@ -93,18 +98,18 @@
 		usr.unset_machine()
 		return
 	if(href_list["togglep"])
-		if(!wires.IsIndexCut(PARTICLE_TOGGLE_WIRE))
+		if(!wires.is_cut(WIRE_PARTICLE_POWER))
 			toggle_power()
 
 	else if(href_list["scan"])
 		part_scan()
 
 	else if(href_list["strengthup"])
-		if(!wires.IsIndexCut(PARTICLE_STRENGTH_WIRE))
+		if(!wires.is_cut(WIRE_PARTICLE_STRENGTH))
 			add_strength()
 
 	else if(href_list["strengthdown"])
-		if(!wires.IsIndexCut(PARTICLE_STRENGTH_WIRE))
+		if(!wires.is_cut(WIRE_PARTICLE_STRENGTH))
 			remove_strength()
 
 	updateDialog()
@@ -126,7 +131,6 @@
 			message_admins("PA Control Computer increased to [strength] by [key_name_admin(usr)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 			log_game("PA Control Computer increased to [strength] by [key_name(usr)] in ([x],[y],[z])")
 			investigate_log("increased to <font color='red'>[strength]</font> by [key_name(usr)]","singulo")
-			use_log += text("\[[time_stamp()]\] <font color='red'>[usr.name] ([key_name(usr)]) has increased the PA Control Computer to [strength].</font>")
 
 			investigate_log("increased to <font color='red'>[strength]</font> by [usr.key]","singulo")
 		strength_change()
@@ -140,7 +144,6 @@
 			message_admins("PA Control Computer decreased to [strength] by [key_name_admin(usr)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 			log_game("PA Control Computer decreased to [strength] by [key_name(usr)] in ([x],[y],[z])")
 			investigate_log("decreased to <font color='green'>[strength]</font> by [key_name(usr)]","singulo")
-			use_log += text("\[[time_stamp()]\] <font color='orange'>[usr.name] ([key_name(usr)]) has decreased the PA Control Computer to [strength].</font>")
 
 		strength_change()
 
@@ -229,8 +232,8 @@
 	investigate_log("turned [active?"<font color='red'>ON</font>":"<font color='green'>OFF</font>"] by [usr ? usr.key : "outside forces"]","singulo")
 	if(active)
 		msg_admin_attack("PA Control Computer turned ON by [key_name_admin(usr)]", ATKLOG_FEW)
+		usr.create_log(MISC_LOG, "PA Control Computer turned ON", src)
 		log_game("PA Control Computer turned ON by [key_name(usr)] in ([x],[y],[z])")
-		use_log += text("\[[time_stamp()]\] <font color='red'>[key_name(usr)] has turned on the PA Control Computer.</font>")
 	if(active)
 		use_power = ACTIVE_POWER_USE
 		for(var/obj/structure/particle_accelerator/part in connected_parts)

@@ -9,6 +9,8 @@
 	name = "Telecommunications Relay"
 	desc = "A large device with several radio antennas on it."
 	icon_state = "relay"
+	// This starts as off so you cant make cores as hot spares
+	active = FALSE
 	/// The host core for this relay
 	var/obj/machinery/tcomms/core/linked_core
 	/// ID of the hub to auto link to
@@ -26,6 +28,11 @@
 /obj/machinery/tcomms/relay/Initialize(mapload)
 	. = ..()
 	component_parts += new /obj/item/circuitboard/tcomms/relay(null)
+	if(check_power_on())
+		active = TRUE
+	else
+		visible_message("<span class='warning'>Error: Another relay is already active in this sector. Power-up cancelled due to radio interference.</span>")
+	update_icon()
 	if(mapload && autolink_id)
 		return INITIALIZE_HINT_LATELOAD
 
@@ -50,6 +57,44 @@
 			AddLink(C)
 			// Only ONE of these with one ID should exist per world
 			break
+
+/**
+  * Z-Level transit change helper
+  *
+  * Handles parent call of disabling the machine if it changes Z-level, but also rebuilds the list of reachable levels on the linked core
+  */
+/obj/machinery/tcomms/relay/onTransitZ(old_z, new_z)
+	. = ..()
+	if(linked_core)
+		linked_core.refresh_zlevels()
+
+
+/**
+  * Power-on checker
+  *
+  * Checks the z-level to see if an existing relay is already powered on, and deny this one turning on if there is one. Returns TRUE if it can power on, or FALSE if it cannot
+  */
+/obj/machinery/tcomms/relay/proc/check_power_on()
+	// Cancel if we are already on
+	if(active)
+		return TRUE
+
+	for(var/obj/machinery/tcomms/relay/R in GLOB.tcomms_machines)
+		// Make sure we dont check ourselves
+		if(R == src)
+			continue
+		// We dont care about ones on other zlevels
+		if(!atoms_share_level(R, src))
+			continue
+		// If another relay is active, return FALSE
+		if(R.active)
+			if(R.stat & NOPOWER)	// If another relay has no power but is supposed to be on, we shut it down so we can continue.
+				R.active = FALSE	// Since only one active relay is allowed per z level, give priority to the one that's actually working.
+				R.update_icon()
+			else
+				return FALSE
+	// If we got here there isnt an active relay on this Z-level. So return TRUE
+	return TRUE
 
 /**
   * Proc to link the relay to the core.
@@ -83,23 +128,22 @@
   * Proc which ensures the host core has its zlevels updated (icons are updated by parent call)
   */
 /obj/machinery/tcomms/relay/power_change()
-    ..()
-    if(linked_core)
-        linked_core.refresh_zlevels()
+	..()
+	if(linked_core)
+		linked_core.refresh_zlevels()
 
 //////////////
 // UI STUFF //
 //////////////
 
-/obj/machinery/tcomms/relay/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/tcomms/relay/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "tcomms_relay.tmpl", "Telecommunications Relay", 600, 400)
+		ui = new(user, src, ui_key, "TcommsRelay", name, 600, 400, master_ui, state)
 		ui.open()
-		ui.set_auto_update(1)
 
-/obj/machinery/tcomms/relay/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
+/obj/machinery/tcomms/relay/ui_data(mob/user)
+	var/list/data = list()
 	// Are we on or not
 	data["active"] = active
 	// What is our network ID
@@ -113,47 +157,58 @@
 	if(linked)
 		data["linked_core_id"] = linked_core.network_id
 		data["linked_core_addr"] = "\ref[linked_core]"
-
 	else
+		var/list/cores = list()
 		for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
-			data["entries"] += list(list("addr" = "\ref[C]", "net_id" = C.network_id, "sector" = C.loc.z))
+			cores += list(list("addr" = "\ref[C]", "net_id" = C.network_id, "sector" = C.loc.z))
+		data["cores"] = cores
 
 	return data
 
-/obj/machinery/tcomms/relay/Topic(href, href_list)
+/obj/machinery/tcomms/relay/ui_act(action, list/params)
 	// Check against href exploits
 	if(..())
 		return
 
-	// All the toggle on/offs go here
-	if(href_list["toggle_active"])
-		active = !active
-		update_icon()
-		if(linked_core)
-			linked_core.refresh_zlevels()
+	. = TRUE
 
-	// Set network ID
-	if(href_list["network_id"])
-		var/new_id = input(usr, "Please enter a new network ID", "Network ID", network_id)
-		log_action(usr, "renamed core with ID [network_id] to [new_id]")
-		to_chat(usr, "<span class='notice'>Device ID changed from <b>[network_id]</b> to <b>[new_id]</b>.</span>")
-		network_id = new_id
+	switch(action)
+		if("toggle_active")
+			if(check_power_on())
+				active = !active
+				update_icon()
+				if(linked_core)
+					linked_core.refresh_zlevels()
+			else
+				to_chat(usr, "<span class='warning'>Error: Another relay is already active in this sector. Power-up cancelled due to radio interference.</span>")
 
-	if(linked)
+		// Set network ID
+		if("network_id")
+			var/new_id = input(usr, "Please enter a new network ID", "Network ID", network_id)
+			log_action(usr, "renamed core with ID [network_id] to [new_id]")
+			to_chat(usr, "<span class='notice'>Device ID changed from <b>[network_id]</b> to <b>[new_id]</b>.</span>")
+			network_id = new_id
+
 		// Only do these hrefs if we are linked to prevent bugs/exploits
-		if(href_list["toggle_hidden_link"])
+		if("toggle_hidden_link")
+			if(!linked)
+				return
 			hidden_link = !hidden_link
 			log_action(usr, "Modified hidden link for [network_id] (Now [hidden_link])")
 
-		if(href_list["unlink"])
+		if("unlink")
+			if(!linked)
+				return
 			var/choice = alert(usr, "Are you SURE you want to unlink this relay?\nYou wont be able to re-link without the core password", "Unlink","Yes","No")
 			if(choice == "Yes")
 				log_action(usr, "Unlinked [network_id] from [linked_core.network_id]")
 				Reset()
-	else
+
 		// You should only be able to link if its not linked, to prevent weirdness
-		if(href_list["link"])
-			var/obj/machinery/tcomms/core/C = locate(href_list["link"])
+		if("link")
+			if(linked)
+				return
+			var/obj/machinery/tcomms/core/C = locate(params["addr"])
 			if(istype(C, /obj/machinery/tcomms/core))
 				var/user_pass = input(usr, "Please enter core password","Password Entry")
 				// Check the password
@@ -166,5 +221,3 @@
 				to_chat(usr, "<span class='alert'><b>ERROR:</b> Core not found. Please file an issue report.</span>")
 
 
-	// Hack to speed update the nanoUI
-	SSnanoui.update_uis(src)

@@ -52,7 +52,6 @@
 	origin_tech = "magnets=3;engineering=4"
 	force = 8
 
-	var/emagged = FALSE
 	var/max_uses = 20
 	var/uses = 10
 	// How much to increase per each glass?
@@ -191,7 +190,7 @@
 		if(CanUse(U))
 			if(!Use(U))
 				return
-			to_chat(U, "<span class='notice'>You replace [target.fitting] with [src].</span>")
+			to_chat(U, "<span class='notice'>You replace the light [target.fitting] with [src].</span>")
 
 			if(target.status != LIGHT_EMPTY)
 				AddShards(1, U)
@@ -223,7 +222,7 @@
 
 /obj/item/lightreplacer/proc/Emag()
 	emagged = !emagged
-	playsound(loc, "sparks", 100, TRUE)
+	playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	if(emagged)
 		name = "shortcircuited [initial(name)]"
 	else

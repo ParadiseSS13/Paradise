@@ -87,7 +87,7 @@
 	damage = 7
 	armour_penetration = 0
 
-obj/item/projectile/bullet/saw/incen/Move()
+/obj/item/projectile/bullet/saw/incen/Move()
 	..()
 	var/turf/location = get_turf(src)
 	if(location)
@@ -142,6 +142,8 @@ obj/item/projectile/bullet/saw/incen/Move()
 	icon_state = "762-casing"
 	caliber = "mm55645"
 	projectile_type = /obj/item/projectile/bullet/saw
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
 /obj/item/ammo_casing/mm556x45/bleeding
 	desc = "A 556x45mm bullet casing with specialized inner-casing, that when it makes contact with a target, release tiny shrapnel to induce internal bleeding."
@@ -159,3 +161,4 @@ obj/item/projectile/bullet/saw/incen/Move()
 /obj/item/ammo_casing/mm556x45/incen
 	desc = "A 556x45mm bullet casing designed with a chemical-filled capsule on the tip that when bursted, reacts with the atmosphere to produce a fireball, engulfing the target in flames. "
 	projectile_type = /obj/item/projectile/bullet/saw/incen
+	muzzle_flash_color = LIGHT_COLOR_FIRE

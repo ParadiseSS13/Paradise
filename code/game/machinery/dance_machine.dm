@@ -467,7 +467,7 @@
 			if(!M.client || M.client.prefs.sound & SOUND_DISCO)
 				if(!(M in rangers))
 					rangers[M] = TRUE
-					M.playsound_local(get_turf(M), null, 100, channel = CHANNEL_JUKEBOX, S = song_played)
+					M.playsound_local(get_turf(M), null, 100, channel = CHANNEL_JUKEBOX, S = song_played, use_reverb = FALSE)
 		for(var/mob/L in rangers)
 			if(get_dist(src, L) > 10)
 				rangers -= L
@@ -483,3 +483,13 @@
 		playsound(src,'sound/machines/terminal_off.ogg',50,1)
 		icon_state = "disco0"
 		stop = world.time + 100
+
+
+
+/obj/machinery/disco/immobile
+	name = "radiant dance machine mark V"
+	desc = "The mark V is nigh-immovable, thanks to its bluespace-plastitanium anchor. The technology required to stop visitors from stealing this thing is astounding."
+	anchored = TRUE
+
+/obj/machinery/disco/immobile/wrench_act()
+	return FALSE

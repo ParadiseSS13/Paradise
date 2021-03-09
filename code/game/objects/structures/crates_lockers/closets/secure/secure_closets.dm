@@ -60,7 +60,6 @@
 		return
 	if(allowed(user))
 		locked = !locked
-		playsound(loc, 'sound/machines/click.ogg', 15, 1, -3)
 		visible_message("<span class='notice'>The locker has been [locked ? null : "un"]locked by [user].</span>")
 		update_icon()
 	else
@@ -68,6 +67,11 @@
 
 /obj/structure/closet/secure_closet/closed_item_click(mob/user)
 	togglelock(user)
+
+/obj/structure/closet/secure_closet/AltClick(mob/user)
+	..()
+	if(Adjacent(user))
+		togglelock(user)
 
 /obj/structure/closet/secure_closet/emag_act(mob/user)
 	if(!broken)
@@ -120,8 +124,6 @@
 		return //It's a secure closet, but isn't locked. Easily escapable from, no need to 'resist'
 
 	//okay, so the closet is either welded or locked... resist!!!
-	L.changeNext_move(CLICK_CD_BREAKOUT)
-	L.last_special = world.time + CLICK_CD_BREAKOUT
 	to_chat(L, "<span class='warning'>You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time] minutes)</span>")
 	for(var/mob/O in viewers(src))
 		O.show_message("<span class='danger'>The [src] begins to shake violently!</span>", 1)

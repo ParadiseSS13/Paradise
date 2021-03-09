@@ -38,7 +38,7 @@ a.popt {text-decoration: none;}
 * CUSTOM FONTS
 *
 ******************************************/
-@font-face { font-family: PxPlus IBM MDA; src: url('PxPlus_IBM_MDA.ttf'); } 
+@font-face { font-family: PxPlus IBM MDA; src: url('PxPlus_IBM_MDA.ttf'); }
 
 /*****************************************
 *
@@ -250,6 +250,7 @@ em						{font-style: normal;	font-weight: bold;}
 						{color: #638500;	text-decoration: underline;}
 .motd a, .motd a:link, .motd a:visited, .motd a:active, .motd a:hover
 						{color: #638500;}
+.darkmblue 				{color: #6685f5;}
 .prefix					{					font-weight: bold;}
 .ooc					{					font-weight: bold;}
 .looc					{color: #6699CC;}
@@ -261,32 +262,33 @@ em						{font-style: normal;	font-weight: bold;}
 .mentorhelp				{color: #0077bb;	font-weight: bold;}
 .adminhelp				{color: #aa0000;	font-weight: bold;}
 .playerreply			{color: #8800bb;	font-weight: bold;}
-.pmsend					{color: #0000ff;}
+.pmsend					{color: #6685f5;}
 .name					{					font-weight: bold;}
 .say					{}
 .yell					{					font-weight: bold;}
 .siliconsay				{font-family: 'Courier New', Courier, monospace;}
-.deadsay				{color: #cc00c6;}
+.deadsay				{color: #B800B1;}
 .radio					{color: #408010;}
 .deptradio				{color: #993399;}
-.comradio				{color: #2040ff;}
+.comradio				{color: #526aff;}
 .syndradio				{color: #993F40;}
 .dsquadradio				{color: #998599;}
 .resteamradio				{color: #18BC46;}
-.airadio				{color: #FF00FF;}
-.centradio				{color: #5C5C7C;}
+.airadio				{color: #FF94FF;}
+.centradio				{color: #78789B;}
 .secradio				{color: #CF0000;}
 .engradio				{color: #A66300;}
 .medradio				{color: #009190;}
 .sciradio				{color: #993399;}
 .supradio				{color: #9F8545;}
 .srvradio				{color: #80A000;}
-.admin_channel			{color: #9A04D1;	font-weight: bold;}
+.proradio				{color: #F70285;}
+.admin_channel			{color: #fcba03;	font-weight: bold;}
 .mentor_channel			{color: #775BFF;	font-weight: bold;}
 .mentor_channel_admin      {color: #A35CFF;	font-weight: bold;}
 .djradio				{color: #996600;}
 .binaryradio				{color: #1B00FB;	font-family: 'Courier New', Courier, monospace;}
-.mommiradio				{color: #1B00AB;}
+.mommiradio				{color: #6685f5;}
 .alert					{color: #ff0000;}
 h1.alert, h2.alert			{color: #FFF;}
 .ghostalert				{color: #cc00c6;	font-style: italic; font-weight: bold;}
@@ -304,10 +306,9 @@ h1.alert, h2.alert			{color: #FFF;}
 .userdanger				{color: #ff0000;	font-weight: bold;	font-size: 120%;}
 .biggerdanger				{color: #ff0000;	font-weight: bold; font-size: 150%;}
 
-.info					{color: #0044DD;}
-.notice					{color: #0044DD;}
-.bnotice				{color: #0044DD; 	font-weight: bold;}
-.boldnotice				{color: #0044DD;	font-weight: bold;}
+.info					{color: #6685f5;}
+.notice					{color: #6685f5;}
+.boldnotice				{color: #6685f5;	font-weight: bold;}
 .suicide				{color: #ff5050;	font-style: italic;}
 .green					{color: #03bb39;}
 .announce 				{color: #228b22;	font-weight: bold;}
@@ -327,7 +328,7 @@ h1.alert, h2.alert			{color: #FFF;}
 .sans					{font-family: 'Comic Sans MS', cursive, sans-serif;}
 .wingdings				{font-family: Wingdings, Webdings;}
 .robot					{font-family: 'PxPlus IBM MDA'; font-size: 1.15em;}
-.ancient				{color: #008B8B;	font-stye: italic;}
+.ancient				{color: #008B8B;	font-style: italic;}
 .newscaster				{color: #CC0000;}
 .mod					{color: #735638;	font-weight: bold;}
 .modooc					{color: #184880;	font-weight: bold;}
@@ -358,7 +359,7 @@ h1.alert, h2.alert			{color: #FFF;}
 .cultlarge				{color: #A60000; font-weight: bold; font-size: 120%;}
 .narsie					{color: #A60000; font-weight: bold; font-size: 300%;}
 .narsiesmall			{color: #A60000; font-weight: bold; font-size: 200%;}
-.interface				{color: #330033;}
+.interface				{color: #9031C4;}
 .big					{font-size: 150%;}
 .reallybig				{font-size: 175%;}
 .greentext				{color: #00FF00;	font-size: 150%;}
@@ -366,7 +367,7 @@ h1.alert, h2.alert			{color: #FFF;}
 .bold					{font-weight: bold;}
 .center					{text-align: center;}
 .red					{color: #FF0000;}
-.purple					{color: #5e2d79;}
+.purple					{color: #9031C4;}
 .skeleton				{color: #C8C8C8; font-weight: bold; font-style: italic;}
 .gutter					{color: #7092BE; font-family: "Trebuchet MS", cursive, sans-serif;}
 .orange					{color: #ffa500;}
@@ -374,14 +375,14 @@ h1.alert, h2.alert			{color: #FFF;}
 .orangeb				{color: #ffa500; font-weight: bold;}
 .resonate				{color: #298F85;}
 
-.revennotice				{color: #1d29C3;}
-.revenboldnotice			{color: #1d29C3;	font-weight: bold;}
-.revenbignotice				{color: #1d29C3;	font-weight: bold; font-size: 120%;}
+.revennotice				{color: #6685F5;}
+.revenboldnotice			{color: #6685F5;	font-weight: bold;}
+.revenbignotice				{color: #6685F5;	font-weight: bold; font-size: 120%;}
 .revenminor				{color: #823abb}
 .revenwarning				{color: #760fbb;	font-style: italic;}
 .revendanger				{color: #760fbb;	font-weight: bold; font-size: 120%;}
 
-.specialnotice				{color: #36525e; 	font-weight: bold; font-size: 120%;}
+.specialnotice				{color: #4A6F82; 	font-weight: bold; font-size: 120%;}
 
 /* /vg/ */
 .good					{color: green;}
@@ -398,7 +399,11 @@ h1.alert, h2.alert			{color: #FFF;}
 
 .connectionClosed, .fatalError {background: red; color: white; padding: 5px;}
 .connectionClosed.restored {background: green;}
-.internal.boldnshit {color: blue; font-weight: bold;}
+.internal.boldnshit {color: #6685f5; font-weight: bold;}
+
+.rebooting {background: #2979AF; color: white; padding: 5px;}
+.rebooting a {color: white !important; text-decoration-color: white !important;}
+#reconnectTimer {font-weight: bold;}
 
 /* HELPER CLASSES */
 .text-normal {font-weight: normal; font-style: normal;}
@@ -417,3 +422,7 @@ h1.alert, h2.alert			{color: #FFF;}
 .adminticket {color: #3daf21; font-weight: bold}
 
 .adminticketalt {color: #ccb847; font-weight: bold}
+
+/* Syndicate codewords */
+span.body .codephrases {color: #5555FF;}
+span.body .coderesponses {color: #FF3333;}

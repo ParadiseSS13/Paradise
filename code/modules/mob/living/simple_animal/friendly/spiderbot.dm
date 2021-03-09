@@ -21,6 +21,7 @@
 	response_disarm = "shoos"
 	response_harm   = "stomps on"
 	speed = 0
+	mob_biotypes = MOB_ROBOTIC
 	mob_size = MOB_SIZE_SMALL
 	speak_emote = list("beeps","clicks","chirps")
 

@@ -6,8 +6,8 @@
 	density = 1
 	var/obj/item/paper/manifest/manifest
 
-/obj/structure/largecrate/New()
-	..()
+/obj/structure/largecrate/Initialize(mapload)
+	. = ..()
 	update_icon()
 
 /obj/structure/largecrate/update_icon()

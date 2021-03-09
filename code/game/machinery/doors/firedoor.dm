@@ -6,7 +6,7 @@
 
 /obj/machinery/door/firedoor
 	name = "firelock"
-	desc = "Apply crowbar."
+	desc = "A convenable firelock. Equipped with a manual lever for operating in case of emergency."
 	icon = 'icons/obj/doors/doorfireglass.dmi'
 	icon_state = "door_open"
 	opacity = 0
@@ -19,15 +19,21 @@
 	safe = FALSE
 	layer = BELOW_OPEN_DOOR_LAYER
 	closingLayer = CLOSED_FIREDOOR_LAYER
-	auto_close_time = 50
+	auto_close_time = 5 SECONDS
 	assemblytype = /obj/structure/firelock_frame
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 95, "acid" = 70)
-	var/can_force = TRUE
-	var/force_open_time = 300
+	/// How long does opening by hand take, in deciseconds.
+	var/manual_open_time = 5 SECONDS
 	var/can_crush = TRUE
 	var/nextstate = null
+	/// Whether the "bolts" are "screwed". Used for deconstruction sequence. Has nothing to do with airlock bolting.
 	var/boltslocked = TRUE
 	var/active_alarm = FALSE
+	var/list/affecting_areas
+
+/obj/machinery/door/firedoor/Initialize(mapload)
+	. = ..()
+	CalculateAffectingAreas()
 
 /obj/machinery/door/firedoor/examine(mob/user)
 	. = ..()
@@ -40,10 +46,30 @@
 	else
 		. += "<span class='notice'>The bolt locks have been <i>unscrewed</i>, but the bolts themselves are still <b>wrenched</b> to the floor.</span>"
 
+/obj/machinery/door/firedoor/proc/CalculateAffectingAreas()
+	remove_from_areas()
+	affecting_areas = get_adjacent_open_areas(src) | get_area(src)
+	for(var/I in affecting_areas)
+		var/area/A = I
+		LAZYADD(A.firedoors, src)
+
 /obj/machinery/door/firedoor/closed
 	icon_state = "door_closed"
 	opacity = TRUE
 	density = TRUE
+
+//see also turf/AfterChange for adjacency shennanigans
+
+/obj/machinery/door/firedoor/proc/remove_from_areas()
+	if(affecting_areas)
+		for(var/I in affecting_areas)
+			var/area/A = I
+			LAZYREMOVE(A.firedoors, src)
+
+/obj/machinery/door/firedoor/Destroy()
+	remove_from_areas()
+	affecting_areas.Cut()
+	return ..()
 
 /obj/machinery/door/firedoor/Bumped(atom/AM)
 	if(panel_open || operating)
@@ -64,20 +90,22 @@
 	if(operating || !density)
 		return
 
+	if(welded)
+		to_chat(user, "<span class='warning'>[src] is welded shut!</span>")
+		return
+
 	add_fingerprint(user)
 	user.changeNext_move(CLICK_CD_MELEE)
 
-	if(can_force && (!glass || user.a_intent != INTENT_HELP))
-		user.visible_message("<span class='notice'>[user] begins forcing \the [src].</span>", \
-							 "<span class='notice'>You begin forcing \the [src].</span>")
-		if(do_after(user, force_open_time, target = src))
-			user.visible_message("<span class='notice'>[user] forces \the [src].</span>", \
-								 "<span class='notice'>You force \the [src].</span>")
-			open()
-	else if(glass)
-		user.visible_message("<span class='warning'>[user] bangs on \the [src].</span>",
-							 "<span class='warning'>You bang on \the [src].</span>")
-		playsound(get_turf(src), 'sound/effects/glassknock.ogg', 10, 1)
+	user.visible_message(
+		"<span class='notice'>[user] tries to open [src] manually.</span>",
+		"<span class='notice'>You operate the manual lever on [src].</span>")
+
+	if(do_after(user, manual_open_time, target = src))
+		user.visible_message(
+			"<span class='notice'>[user] opens [src].</span>",
+			"<span class='notice'>You open [src].</span>")
+		open(auto_close = FALSE)
 
 /obj/machinery/door/firedoor/attackby(obj/item/C, mob/user, params)
 	add_fingerprint(user)
@@ -273,7 +301,6 @@
 	opacity = 1
 	explosion_block = 2
 	assemblytype = /obj/structure/firelock_frame/heavy
-	can_force = FALSE
 	max_integrity = 550
 
 /obj/item/firelock_electronics

@@ -7,7 +7,7 @@
 	max_integrity = 500
 	var/state = 0
 	var/datum/ai_laws/laws = null
-	var/obj/item/circuitboard/circuit = null
+	var/obj/item/circuitboard/aicore/circuit = null
 	var/obj/item/mmi/brain = null
 
 /obj/structure/AIcore/Destroy()
@@ -108,14 +108,10 @@
 				update_icon()
 				return
 
-		if(AI_READY_CORE)
-			if(istype(P, /obj/item/aicard))
-				P.transfer_ai("INACTIVE", "AICARD", src, user)
-				return
 	return ..()
 
 /obj/structure/AIcore/crowbar_act(mob/living/user, obj/item/I)
-	if(state !=CIRCUIT_CORE || state != GLASS_CORE || !(state == CABLED_CORE && brain))
+	if(state !=CIRCUIT_CORE && state != GLASS_CORE && !(state == CABLED_CORE && brain))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -170,7 +166,7 @@
 				var/mob/living/silicon/ai/A = new /mob/living/silicon/ai(loc, laws, brain)
 				if(A) //if there's no brain, the mob is deleted and a structure/AIcore is created
 					A.rename_self("AI", 1)
-			feedback_inc("cyborg_ais_created",1)
+			SSblackbox.record_feedback("amount", "ais_created", 1)
 			qdel(src)
 		if(AI_READY_CORE)
 			to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
@@ -229,7 +225,7 @@
 	qdel(src)
 
 /obj/structure/AIcore/welder_act(mob/user, obj/item/I)
-	if(!state)
+	if(state)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -246,8 +242,8 @@
 	anchored = TRUE
 	state = AI_READY_CORE
 
-/obj/structure/AIcore/deactivated/New()
-	..()
+/obj/structure/AIcore/deactivated/Initialize(mapload)
+	. = ..()
 	circuit = new(src)
 
 /obj/structure/AIcore/deactivated/Destroy()
@@ -288,7 +284,7 @@ That prevents a few funky behaviors.
 //The type of interaction, the player performing the operation, the AI itself, and the card object, if any.
 
 
-atom/proc/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
+/atom/proc/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(istype(card))
 		if(card.flush)
 			to_chat(user, "<span class='boldannounce'>ERROR</span>: AI flush is in progress, cannot execute transfer protocol.")

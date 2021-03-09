@@ -141,6 +141,8 @@
 /obj/item/ammo_casing/energy/chrono_beam
 	name = "eradication beam"
 	projectile_type = /obj/item/projectile/energy/chrono_beam
+	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
+	muzzle_flash_color = null
 	icon_state = "chronobolt"
 	e_cost = 0
 

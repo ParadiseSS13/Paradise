@@ -9,7 +9,7 @@
 /mob/living/carbon/human/proc/forcesay(list/append)
 	if(stat == CONSCIOUS)
 		if(client)
-			var/virgin = 1	//has the text been modified yet?
+			var/modified = FALSE	//has the text been modified yet?
 			var/temp = winget(client, "input", "text")
 			if(findtextEx(temp, "Say \"", 1, 7) && length(temp) > 5)	//case sensitive means
 
@@ -17,11 +17,11 @@
 
 				if(findtext(trim_left(temp), ":", 6, 7))	//dept radio
 					temp = copytext(trim_left(temp), 8)
-					virgin = 0
+					modified = TRUE
 
-				if(virgin)
+				if(!modified)
 					temp = copytext(trim_left(temp), 6)	//normal speech
-					virgin = 0
+					modified = TRUE
 
 				while(findtext(trim_left(temp), ":", 1, 2))	//dept radio again (necessary)
 					temp = copytext(trim_left(temp), 3)
@@ -96,7 +96,7 @@
 	if(translator && translator.active)
 		return TRUE
 	// how do species that don't breathe talk? magic, that's what.
-	var/breathes = (!(NO_BREATHE in dna.species.species_traits))
+	var/breathes = (!HAS_TRAIT(src, TRAIT_NOBREATH))
 	var/obj/item/organ/internal/L = get_organ_slot("lungs")
 	if((breathes && !L) || breathes && L && (L.status & ORGAN_DEAD))
 		return FALSE
@@ -129,12 +129,10 @@
 				S.message = "<span class='[span]'>[S.message]</span>"
 			verb = translator.speech_verb
 			return list("verb" = verb)
-	if((COMIC in mutations) \
-		|| (locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in internal_organs) \
-		|| HAS_TRAIT(src, TRAIT_JESTER))
+	if(HAS_TRAIT(src, TRAIT_COMIC_SANS))
 		span = "sans"
 
-	if(WINGDINGS in mutations)
+	if(HAS_TRAIT(src, TRAIT_WINGDINGS))
 		span = "wingdings"
 
 	var/list/parent = ..()
@@ -144,7 +142,7 @@
 		if(S.speaking && S.speaking.flags & NO_STUTTER)
 			continue
 
-		if(silent || (MUTE in mutations))
+		if(silent || HAS_TRAIT(src, TRAIT_MUTE))
 			S.message = ""
 
 		if(istype(wear_mask, /obj/item/clothing/mask/horsehead))
@@ -154,11 +152,11 @@
 				verb = pick("whinnies", "neighs", "says")
 
 		if(dna)
-			for(var/datum/dna/gene/gene in GLOB.dna_genes)
-				if(!gene.block)
+			for(var/datum/mutation/mutation in GLOB.dna_mutations)
+				if(!mutation.block)
 					continue
-				if(gene.is_active(src))
-					S.message = gene.OnSay(src, S.message)
+				if(mutation.is_active(src))
+					S.message = mutation.on_say(src, S.message)
 
 		var/braindam = getBrainLoss()
 		if(braindam >= 60)

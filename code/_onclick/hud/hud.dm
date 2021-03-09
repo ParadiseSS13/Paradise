@@ -7,11 +7,10 @@
 /datum/hud
 	var/mob/mymob
 
-	var/hud_shown = 1			//Used for the HUD toggle (F12)
-	var/hud_version = 1			//Current displayed version of the HUD
-	var/inventory_shown = 1		//the inventory
-	var/show_intent_icons = 0
-	var/hotkey_ui_hidden = 0	//This is to hide the buttons that can be used via hotkeys. (hotkeybuttons list of buttons)
+	var/hud_shown = TRUE			//Used for the HUD toggle (F12)
+	var/hud_version = 1				//Current displayed version of the HUD
+	var/inventory_shown = TRUE		//the inventory
+	var/hotkey_ui_hidden = FALSE	//This is to hide the buttons that can be used via hotkeys. (hotkeybuttons list of buttons)
 
 	var/obj/screen/lingchemdisplay
 	var/obj/screen/lingstingdisplay
@@ -28,8 +27,6 @@
 	var/obj/screen/move_intent
 	var/obj/screen/module_store_icon
 
-	var/obj/screen/devil/soul_counter/devilsouldisplay
-
 	var/list/static_inventory = list()		//the screen objects which are static
 	var/list/toggleable_inventory = list()	//the screen objects which can be hidden
 	var/list/hotkeybuttons = list()			//the buttons that can be used via hotkeys
@@ -37,7 +34,7 @@
 	var/list/inv_slots[slots_amt]			// /obj/screen/inventory objects, ordered by their slot ID.
 
 	var/obj/screen/movable/action_button/hide_toggle/hide_actions_toggle
-	var/action_buttons_hidden = 0
+	var/action_buttons_hidden = FALSE
 
 	var/list/obj/screen/plane_master/plane_masters = list() // see "appearance_flags" in the ref, assoc list of "[plane]" = object
 
@@ -90,7 +87,6 @@
 	alien_plasma_display = null
 	vampire_blood_display = null
 	nightvisionicon = null
-	devilsouldisplay = null
 
 	QDEL_LIST_ASSOC_VAL(plane_masters)
 
@@ -123,7 +119,7 @@
 
 	switch(display_hud_version)
 		if(HUD_STYLE_STANDARD)	//Default HUD
-			hud_shown = 1	//Governs behavior of other procs
+			hud_shown = TRUE	//Governs behavior of other procs
 			if(static_inventory.len)
 				mymob.client.screen += static_inventory
 			if(toggleable_inventory.len && inventory_shown)
@@ -139,7 +135,7 @@
 				action_intent.screen_loc = initial(action_intent.screen_loc) //Restore intent selection to the original position
 
 		if(HUD_STYLE_REDUCED)	//Reduced HUD
-			hud_shown = 0	//Governs behavior of other procs
+			hud_shown = FALSE	//Governs behavior of other procs
 			if(static_inventory.len)
 				mymob.client.screen -= static_inventory
 			if(toggleable_inventory.len)
@@ -159,7 +155,7 @@
 				action_intent.screen_loc = ui_acti_alt	//move this to the alternative position, where zone_select usually is.
 
 		if(HUD_STYLE_NOHUD)	//No HUD
-			hud_shown = 0	//Governs behavior of other procs
+			hud_shown = FALSE	//Governs behavior of other procs
 			if(static_inventory.len)
 				mymob.client.screen -= static_inventory
 			if(toggleable_inventory.len)
@@ -205,7 +201,7 @@
 //Triggered when F12 is pressed (Unless someone changed something in the DMF)
 /mob/verb/button_pressed_F12()
 	set name = "F12"
-	set hidden = 1
+	set hidden = TRUE
 
 	if(hud_used && client)
 		hud_used.show_hud() //Shows the next hud preset

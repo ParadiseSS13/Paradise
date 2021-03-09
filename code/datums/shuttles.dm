@@ -133,3 +133,8 @@
 	suffix = "admin"
 	name = "NTV Argos"
 	description = "Default Admin ship. An older ship used for special operations."
+
+/datum/map_template/shuttle/admin/armory
+	suffix = "armory"
+	name = "NRV Sparta"
+	description = "Armory Shuttle, with plenty of guns to hand out and some general supplies."

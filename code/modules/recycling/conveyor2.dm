@@ -13,7 +13,9 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "conveyor_stopped_cw"
 	name = "conveyor belt"
-	desc = "It's a conveyor belt, commonly used to transport large numbers of items elsewhere quite quickly."
+	desc = "It's a conveyor belt, commonly used to transport large numbers of items elsewhere quite quickly.<br>\
+	<span class='notice'>Use a <b>wrench</b> on the belt to rotate it.<br>\
+	Use a <b>crowbar</b> on the belt to dislodge it.<span>"
 	layer = CONVEYOR_LAYER 		// so they appear under stuff but not below stuff like vents
 	anchored = TRUE
 	move_force = MOVE_FORCE_DEFAULT
@@ -22,11 +24,13 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	var/backwards			// hopefully self-explanatory
 	var/clockwise = TRUE	// For corner pieces - do we go clockwise or counterclockwise?
 	var/operable = TRUE		// Can this belt actually go?
-	var/list/affecting		// the list of all items that will be moved this ptick
 	var/reversed = FALSE	// set to TRUE to have the conveyor belt be reversed
-	var/id					//ID of the connected lever
+	var/id					// ID of the connected lever network
+	var/slow_factor = 1 	// How slow the items move on the conveyor. MUST be >=1
 
-	// create a conveyor
+	var/list/affecting = list() // the list of all items that are in the process of being moved
+
+// create a conveyor
 /obj/machinery/conveyor/New(loc, new_dir, new_id)
 	..(loc)
 	GLOB.conveyor_belts += src
@@ -172,14 +176,21 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	if(!IS_OPERATING)
 		return
 	use_power(100)
-	affecting = loc.contents - src // moved items will be all in loc
+	var/new_movables = loc.contents - affecting - src
 	var/still_stuff_to_move = FALSE
-	for(var/atom/movable/AM in affecting)
+	for(var/atom/movable/AM in new_movables)
 		if(AM.anchored)
 			continue
 		still_stuff_to_move = TRUE
-		addtimer(CALLBACK(src, .proc/move_thing, AM), 1)
+		// Keep track of the things we area already moving, so that we don't
+		// spawn hundreds of callbacks for the same thing.
+		// (they don't behave weirdly or anything, just eat CPU)
+		affecting.Add(AM)
+		addtimer(CALLBACK(src, .proc/move_thing, AM), slow_factor)
 		CHECK_TICK
+
+	// Use speedy process only if the belt is actually in use, and use normal process otherwise.
+	// Saves power - both that of Nanotrasen and of Paradise server.
 	if(!still_stuff_to_move && speed_process)
 		makeNormalProcess()
 	else if(still_stuff_to_move && !speed_process)
@@ -191,11 +202,18 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	..()
 
 /obj/machinery/conveyor/proc/move_thing(atom/movable/AM)
+	affecting.Remove(AM)
 	if(move_force < (AM.move_resist))
-		return FALSE
-	if(!AM.anchored && AM.loc == loc)
-		step(AM, forwards)
+		return
+	if(AM.anchored)
+		return
+	if(AM.loc != loc) // They stepped off the conveyor while we weren't looking
+		return
 
+	var/move_time = 0
+	if (slow_factor>1) // yes, 1 is special
+		move_time=CEILING(slow_factor, 2) // yes.
+	AM.Move(get_step(loc, forwards), forwards, move_time)
 
 /obj/machinery/conveyor/proc/can_conveyor_run()
 	if(stat & BROKEN)
@@ -231,15 +249,19 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 
 /obj/machinery/conveyor_switch
 	name = "conveyor switch"
-	desc = "This switch controls any and all conveyor belts it is linked to."
+	desc = "This switch controls any and all conveyor belts it is linked to.<br>\
+	<span class='notice'>Use a <b>multitool</b> to configure.<br>\
+	Use a <b>crowbar</b> to dislodge it.<br>\
+	Dislodge the switch and <b>use</b> it on a section of conveyor belt or conveyor placer to link them.</span>"
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "switch-off"
-	var/position = DIRECTION_OFF
-	var/reversed = TRUE
-	var/one_way = FALSE	// Do we go in one direction?
 	anchored = TRUE
-	var/id
-	var/list/conveyors = list()
+	var/id	// The unique (hopefully) id of our conveyor network.
+	var/list/conveyors = list()  // Linked conveyors; all have the same `id` as us.
+	var/one_way = FALSE	// Do we go in one direction?
+	var/position = DIRECTION_OFF // Which way we are toggled right now.
+	var/reversed = TRUE  // If we're in neutral, would we go forwards or backwards next?
+	var/slow_factor = 1  // How slow the belts should go. Gets copied into connected belts slow_factor.
 
 /obj/machinery/conveyor_switch/New(newloc, new_id)
 	..(newloc)
@@ -294,21 +316,31 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		reversed = one_way ? FALSE : !reversed
 		position = reversed ? DIRECTION_REVERSED : DIRECTION_FORWARDS
 	update_icon()
+	broadcast_belt_settings()
+
+
+// Updates settings for all the conveyors, and all the linked switches to be the same as this one.
+/obj/machinery/conveyor_switch/proc/broadcast_belt_settings()
 	for(var/obj/machinery/conveyor/C in conveyors)
 		C.operating = abs(position)
+		C.slow_factor = slow_factor
+		// Clear the cache. Otherwise, increasing the belt speed might take a while to get noticed.
+		C.affecting.Cut()
 		if(C.reversed != reversed)
 			C.reversed = reversed
 			C.update_move_direction()
 		else
 			C.update_icon()
 		CHECK_TICK
+
 	for(var/I in GLOB.conveyor_switches) // find any switches with same id as this one, and set their positions to match us
 		var/obj/machinery/conveyor_switch/S = I
 		if(S == src || S.id != id)
 			continue
 		S.position = position
-		S.one_way = one_way //Break everything!!1!
+		S.one_way = one_way
 		S.reversed = reversed
+		S.slow_factor = slow_factor
 		S.update_icon()
 		CHECK_TICK
 
@@ -325,8 +357,40 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	one_way = !one_way
-	to_chat(user, "<span class='notice'>[src] will now go [one_way ? "forwards only" : "both forwards and backwards"].</span>")
+	ui_interact(user)
+
+/obj/machinery/conveyor_switch/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	user.set_machine(src)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "ConveyorSwitch", name, 350, 150, master_ui, state)
+		ui.open()
+
+/obj/machinery/conveyor_switch/ui_data(mob/user)
+	var/list/data = list(
+		"slowFactor" = slow_factor,
+		"oneWay" = one_way,
+		"position" = position
+	)
+	return data
+
+/obj/machinery/conveyor_switch/ui_act(action, list/params)
+	if(..())
+		return
+
+	switch(action)
+		if("slowFactor")
+			var/value = text2num(params["value"])
+			if (value!=null)
+				slow_factor = clamp(value, 1, 50)
+		if("toggleOneWay")
+			if(position != DIRECTION_REVERSED) // If you want to forbid reversing - stop using reverse first!
+				one_way = !one_way
+
+	update_icon()
+	broadcast_belt_settings()
+	return TRUE
+
 
 /obj/machinery/conveyor_switch/power_change()
 	..()
@@ -338,7 +402,9 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "conveyor_loose"
 	name = "conveyor belt assembly"
-	desc = "A conveyor belt assembly, used for the assembly of conveyor belt systems."
+	desc = "A conveyor belt assembly, used for the assembly of conveyor belt systems.<br>\
+	<span class='notice'><b>Use</b> the assembly on the ground to finalize it.<br>\
+	Use a <b>conveyor belt switch</b> on the assembly to link them.</span>"
 	w_class = WEIGHT_CLASS_BULKY
 	var/id
 
@@ -369,7 +435,9 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 
 /obj/item/conveyor_switch_construct
 	name = "conveyor switch assembly"
-	desc = "A conveyor control switch assembly. When set up, it'll control any and all conveyor belts it is linked to."
+	desc = "A conveyor control switch assembly. When set up, it'll control any and all conveyor belts it is linked to.<br>\
+	<span class='notice'><b>Use</b> it on a section of conveyor belt to link them together.<br>\
+	<b>Use</b> the assembly on the ground to finalize it.<span>"
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "switch"
 	w_class = WEIGHT_CLASS_BULKY

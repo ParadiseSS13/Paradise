@@ -19,7 +19,6 @@
 		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
 			AA.viewers -= src
 		viewing_alternate_appearances = null
-	logs.Cut()
 	LAssailant = null
 	return ..()
 
@@ -31,6 +30,8 @@
 		GLOB.alive_mob_list += src
 	set_focus(src)
 	prepare_huds()
+	runechat_msg_location = src
+	update_runechat_msg_location()
 	. = ..()
 
 /atom/proc/prepare_huds()
@@ -197,7 +198,7 @@
 //This is a SAFE proc. Use this instead of equip_to_slot()!
 //set del_on_fail to have it delete W if it fails to equip
 //set disable_warning to disable the 'you are unable to equip that' warning.
-/mob/proc/equip_to_slot_if_possible(obj/item/W, slot, del_on_fail = 0, disable_warning = 0)
+/mob/proc/equip_to_slot_if_possible(obj/item/W, slot, del_on_fail = FALSE, disable_warning = FALSE, initial = FALSE)
 	if(!istype(W)) return 0
 
 	if(!W.mob_can_equip(src, slot, disable_warning))
@@ -209,24 +210,24 @@
 
 		return 0
 
-	equip_to_slot(W, slot) //This proc should not ever fail.
+	equip_to_slot(W, slot, initial) //This proc should not ever fail.
 	return 1
 
 //This is an UNSAFE proc. It merely handles the actual job of equipping. All the checks on whether you can or can't eqip need to be done before! Use mob_can_equip() for that task.
 //In most cases you will want to use equip_to_slot_if_possible()
-/mob/proc/equip_to_slot(obj/item/W, slot)
+/mob/proc/equip_to_slot(obj/item/W, slot, initial = FALSE)
 	return
 
 //This is just a commonly used configuration for the equip_to_slot_if_possible() proc, used to equip people when the rounds tarts and when events happen and such.
-/mob/proc/equip_to_slot_or_del(obj/item/W as obj, slot)
-	return equip_to_slot_if_possible(W, slot, TRUE, TRUE)
+/mob/proc/equip_to_slot_or_del(obj/item/W, slot, initial = FALSE)
+	return equip_to_slot_if_possible(W, slot, TRUE, TRUE, initial)
 
 // Convinience proc.  Collects crap that fails to equip either onto the mob's back, or drops it.
 // Used in job equipping so shit doesn't pile up at the start loc.
-/mob/living/carbon/human/proc/equip_or_collect(var/obj/item/W, var/slot)
+/mob/living/carbon/human/proc/equip_or_collect(obj/item/W, slot, initial = FALSE)
 	if(W.mob_can_equip(src, slot, 1))
 		//Mob can equip.  Equip it.
-		equip_to_slot_or_del(W, slot)
+		equip_to_slot_or_del(W, slot, initial)
 	else
 		//Mob can't equip it.  Put it their backpack or toss it on the floor
 		if(istype(back, /obj/item/storage))
@@ -420,8 +421,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
-				if(slot_flags & SLOT_DENYPOCKET)
-					return
 				if( w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_POCKET) )
 					return 1
 			if(slot_r_store)
@@ -430,8 +429,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				if(!H.w_uniform)
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
-					return 0
-				if(slot_flags & SLOT_DENYPOCKET)
 					return 0
 				if( w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_POCKET) )
 					return 1
@@ -478,6 +475,41 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				return 0
 		return 0 //Unsupported slot
 		//END HUMAN
+
+/mob/proc/get_visible_mobs()
+	var/list/seen_mobs = list()
+	for(var/mob/M in view(src))
+		seen_mobs += M
+
+	return seen_mobs
+
+/**
+ * Returns an assoc list which contains the mobs in range and their "visible" name.
+ * Mobs out of view but in range will be listed as unknown. Else they will have their visible name
+*/
+/mob/proc/get_telepathic_targets()
+	var/list/validtargets = new /list()
+	var/turf/T = get_turf(src)
+	var/list/mobs_in_view = get_visible_mobs()
+
+	for(var/mob/living/M in range(14, T))
+		if(M && M.mind)
+			if(M == src)
+				continue
+			var/mob_name
+			if(M in mobs_in_view)
+				mob_name = M.name
+			else
+				mob_name = "Unknown entity"
+			var/i = 0
+			var/result_name
+			do
+				result_name = mob_name
+				if(i++)
+					result_name += " ([i])" // Avoid dupes
+			while(validtargets[result_name])
+			validtargets[result_name] = M
+	return validtargets
 
 // If you're looking for `reset_perspective`, that's a synonym for this proc.
 /mob/proc/reset_perspective(atom/A)
@@ -566,19 +598,22 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	if(next_move >= world.time)
 		return
-	if(!src || !isturf(src.loc))
-		return 0
-	if(istype(A, /obj/effect/temp_visual/point))
-		return 0
+	if(!isturf(loc) || istype(A, /obj/effect/temp_visual/point))
+		return FALSE
 
 	var/tile = get_turf(A)
 	if(!tile)
-		return 0
+		return FALSE
 
 	changeNext_move(CLICK_CD_POINT)
 	var/obj/P = new /obj/effect/temp_visual/point(tile)
 	P.invisibility = invisibility
-	return 1
+	if(get_turf(src) != tile)
+		// Start off from the pointer and make it slide to the pointee
+		P.pixel_x = (x - A.x) * 32
+		P.pixel_y = (y - A.y) * 32
+		animate(P, 0.5 SECONDS, pixel_x = A.pixel_x, pixel_y = A.pixel_y, easing = QUAD_EASING)
+	return TRUE
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
 	if((!( istype(l_hand, /obj/item/grab) ) && !( istype(r_hand, /obj/item/grab) )))
@@ -696,7 +731,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 		flavor_text = msg
 
-/mob/proc/print_flavor_text(var/shrink = 1)
+/mob/proc/print_flavor_text(var/shrink = TRUE)
 	if(flavor_text && flavor_text != "")
 		var/msg = replacetext(flavor_text, "\n", " ")
 		if(length(msg) <= 40 || !shrink)
@@ -927,6 +962,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	show_stat_turf_contents()
 
 	statpanel("Status") // We only want alt-clicked turfs to come before Status
+	stat(null, "Round ID: [GLOB.round_id ? GLOB.round_id : "NULL"]")
 
 	if(mob_spell_list && mob_spell_list.len)
 		for(var/obj/effect/proc_holder/spell/S in mob_spell_list)
@@ -940,7 +976,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		if(statpanel("MC")) //looking at that panel
 			var/turf/T = get_turf(client.eye)
 			stat("Location:", COORD(T))
-			stat("CPU:", "[world.cpu]")
+			stat("CPU:", "[Master.formatcpu()]")
 			stat("Instances:", "[num2text(world.contents.len, 10)]")
 			GLOB.stat_entry()
 			stat("Server Time:", time_stamp())
@@ -960,8 +996,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	statpanel("Status") // Switch to the Status panel again, for the sake of the lazy Stat procs
 
-	if(client && client.statpanel == "Status" && SSticker)
-		show_stat_station_time()
+	if(client?.statpanel == "Status")
+		if(SSticker)
+			show_stat_station_time()
+		stat(null, "Players Connected: [length(GLOB.clients)]")
 
 // this function displays the station time in the status panel
 /mob/proc/show_stat_station_time()
@@ -1097,21 +1135,14 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return
 
 	//find a viable mouse candidate
-	var/mob/living/simple_animal/mouse/host
-	var/obj/machinery/atmospherics/unary/vent_pump/vent_found
-	var/list/found_vents = list()
-	for(var/obj/machinery/atmospherics/unary/vent_pump/v in SSair.atmos_machinery)
-		if(!v.welded && v.z == src.z)
-			found_vents.Add(v)
-	if(found_vents.len)
-		vent_found = pick(found_vents)
-		host = new /mob/living/simple_animal/mouse(vent_found.loc)
-	else
-		to_chat(src, "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>")
-
-	if(host)
+	var/list/found_vents = get_valid_vent_spawns(min_network_size = 0, station_levels_only = FALSE, z_level = z)
+	if(length(found_vents))
+		var/obj/vent_found = pick(found_vents)
+		var/mob/living/simple_animal/mouse/host = new(vent_found.loc)
 		host.ckey = src.ckey
 		to_chat(host, "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>")
+	else
+		to_chat(src, "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>")
 
 /mob/proc/assess_threat() //For sec bot threat assessment
 	return 5
@@ -1238,10 +1269,13 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	create_log_in_list(debug_log, text, collapse, world.timeofday)
 
 /mob/proc/create_log(log_type, what, target = null, turf/where = get_turf(src))
-	LAZYINITLIST(logs[log_type])
-	var/list/log_list = logs[log_type]
+	if(!ckey)
+		return
+	var/real_ckey = ckey
+	if(ckey[1] == "@") // Admin aghosting will do this
+		real_ckey = copytext(ckey, 2)
 	var/datum/log_record/record = new(log_type, src, what, target, where, world.time)
-	log_list.Add(record)
+	GLOB.logging.add_log(real_ckey, record)
 
 /proc/create_log_in_list(list/target, text, collapse = TRUE, last_log)//forgive me code gods for this shitcode proc
 	//this proc enables lovely stuff like an attack log that looks like this: "[18:20:29-18:20:45]21x John Smith attacked Andrew Jackson with a crowbar."
@@ -1311,6 +1345,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/spin(spintime, speed)
 	set waitfor = 0
+	if(!spintime || !speed || spintime > 100)
+		CRASH("Aborted attempted call of /mob/proc/spin with invalid args ([spintime],[speed]) which could have frozen the server.")
 	var/D = dir
 	while(spintime >= speed)
 		sleep(speed)
@@ -1390,22 +1426,22 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/set_nutrition(change)
 	nutrition = max(0, change)
 
-/mob/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
+/mob/clean_blood(radiation_clean = FALSE, clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
 	. = ..()
 	if(bloody_hands && clean_hands)
 		bloody_hands = 0
 		update_inv_gloves()
 	if(l_hand)
-		if(l_hand.clean_blood())
+		if(l_hand.clean_blood(radiation_clean))
 			update_inv_l_hand()
 	if(r_hand)
-		if(r_hand.clean_blood())
+		if(r_hand.clean_blood(radiation_clean))
 			update_inv_r_hand()
 	if(back)
-		if(back.clean_blood())
+		if(back.clean_blood(radiation_clean))
 			update_inv_back()
 	if(wear_mask && clean_mask)
-		if(wear_mask.clean_blood())
+		if(wear_mask.clean_blood(radiation_clean))
 			update_inv_wear_mask()
 	if(clean_feet)
 		feet_blood_color = null
@@ -1415,3 +1451,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		update_inv_shoes()
 	update_icons()	//apply the now updated overlays to the mob
 
+/**
+ * Updates the mob's runechat maptext display location.
+ */
+/mob/proc/update_runechat_msg_location()
+	return

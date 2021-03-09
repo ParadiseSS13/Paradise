@@ -1,6 +1,10 @@
-#define RCS_MODE_CALIBRATED 0
-#define RCS_MODE_UNCALIBRATED 1
-
+/**
+  * # Rapid Crate Sender (RCS)
+  *
+  * Used to teleport crates and closets to cargo telepads.
+  *
+  * If emagged, it allows you to teleport crates to a random location, and also teleport yourself while inside a locker.
+  */
 /obj/item/rcs
 	name = "rapid-crate-sender (RCS)"
 	desc = "A device used to teleport crates and closets to cargo telepads."
@@ -14,13 +18,14 @@
 	throw_range = 5
 	toolspeed = 1
 	usesound = 'sound/machines/click.ogg'
+	/// Power cell (10000W)
 	var/obj/item/stock_parts/cell/high/rcell = null
+	/// Selected telepad
 	var/obj/machinery/pad = null
-	var/mode = RCS_MODE_CALIBRATED
-	var/rand_x = 0
-	var/rand_y = 0
-	var/emagged = FALSE
+
+	/// Currently teleporting something?
 	var/teleporting = FALSE
+	/// How much power does each teleport use?
 	var/chargecost = 1000
 
 /obj/item/rcs/get_cell()
@@ -38,84 +43,98 @@
 	QDEL_NULL(rcell)
 	return ..()
 
+/**
+  * Used to select telepad location.
+  */
 /obj/item/rcs/attack_self(mob/user)
-	if(!emagged)
+	if(teleporting)
+		to_chat(user, "<span class='warning'>Error: Unable to change destination while in use.</span>")
 		return
-	if(mode == RCS_MODE_CALIBRATED)
-		mode = RCS_MODE_UNCALIBRATED
-		playsound(get_turf(src), 'sound/effects/pop.ogg', 50, 0)
-		to_chat(user, "<span class='caution'>The telepad locator has become uncalibrated.</span>")
-	else
-		mode = RCS_MODE_CALIBRATED
-		playsound(get_turf(src), 'sound/effects/pop.ogg', 50, 0)
-		to_chat(user, "<span class='caution'>You calibrate the telepad locator.</span>")
 
-/obj/item/rcs/emag_act(user as mob)
+	var/list/L = list() // List of avaliable telepads
+	var/list/areaindex = list() // Telepad area location
+	for(var/obj/machinery/telepad_cargo/R in GLOB.machines)
+		if(R.stage)
+			continue
+		var/turf/T = get_turf(R)
+		var/locname = T.loc.name // The name of the turf area. (e.g. Cargo Bay, Experimentation Lab)
+
+		if(areaindex[locname]) // If there's another telepad with the same area, increment the value so as to not override (e.g. Cargo Bay 2)
+			locname = "[locname] ([++areaindex[locname]])"
+		else // Else, 1
+			areaindex[locname] = 1
+		L[locname] = R
+
+	if(emagged) // Add an 'Unknown' entry at the end if it's emagged
+		L += "**Unknown**"
+
+	var/select = input("Please select a telepad.", "RCS") in L
+	if(select == "**Unknown**") // Randomise the teleport location
+		pad = random_coords()
+	else // Else choose the value of the selection
+		pad = L[select]
+	playsound(src, 'sound/effects/pop.ogg', 25, TRUE) // And play a sound either way.
+
+
+/**
+  * Returns a random location in a z level
+  *
+  * Defaults to Z level 1, with a 50% chance of being a different one.
+  * Z levels 1 to 4 are excluded from the alternatives.
+  * Coordinates are constrained within 50-200 x & y.
+  */
+/obj/item/rcs/proc/random_coords()
+	var/Z = 1 // Z level
+	// Random Coordinates
+	var/rand_x = rand(50, 200)
+	var/rand_y = rand(50, 200)
+
+	if(prob(50)) // 50% chance of being a different Z level
+		var/list/z_levels = GLOB.space_manager.levels_by_name.Copy()
+		z_levels.Cut(1, 5) // Remove the first four z levels from the list (Station, CC, Lavaland, Gateway)
+		Z = pick(z_levels) // Pick a z level
+		Z = z_levels.Find(Z) + 4 // And get the corresponding number + 4
+
+	return locate(rand_x, rand_y, Z)
+
+/obj/item/rcs/emag_act(user)
 	if(!emagged)
 		emagged = TRUE
-		do_sparks(5, 1, src)
-		to_chat(user, "<span class='caution'>You emag the RCS. Activate it to toggle between modes.</span>")
+		do_sparks(3, TRUE, src)
+		to_chat(user, "<span class='boldwarning'>Warning: Safeties disabled.</span>")
 		return
+
 
 /obj/item/rcs/proc/try_send_container(mob/user, obj/structure/closet/C)
 	if(teleporting)
 		to_chat(user, "<span class='warning'>You're already using [src]!</span>")
 		return
-	if(user in C.contents) //to prevent self-teleporting.
+	if((!emagged) && (user in C.contents)) // If it's emagged, skip this check.
+		to_chat(user, "<span class='warning'>Error: User located in container--aborting for safety.</span>")
 		return
-	if(!rcell || (rcell.charge < chargecost))
-		to_chat(user, "<span class='warning'>Out of charges.</span>")
+	if(rcell.charge < chargecost)
+		to_chat(user, "<span class='warning'>Unable to teleport, insufficient charge.</span>")
 		return
-
+	if(!pad)
+		to_chat(user, "<span class='warning'>Error: No telepad selected.</span>")
+		return
 	if(!is_level_reachable(C.z))
-		to_chat(user, "<span class='warning'>The rapid-crate-sender can't locate any telepads!</span>")
+		to_chat(user, "<span class='warning'>Warning: No telepads in range!</span>")
 		return
 
-	if(mode == RCS_MODE_CALIBRATED)
-		var/list/L = list()
-		var/list/areaindex = list()
-		for(var/obj/machinery/telepad_cargo/R in GLOB.machines)
-			if(R.stage)
-				continue
-			var/turf/T = get_turf(R)
-			var/tmpname = T.loc.name
-			if(areaindex[tmpname])
-				tmpname = "[tmpname] ([++areaindex[tmpname]])"
-			else
-				areaindex[tmpname] = 1
-			L[tmpname] = R
+	teleport(user, C, pad)
 
-		var/desc = input("Please select a telepad.", "RCS") in L
-		pad = L[desc]
-		try_teleport(user, C, pad)
-	else
-		rand_x = rand(50,200)
-		rand_y = rand(50,200)
-		var/L = locate(rand_x, rand_y, 6)
-		try_teleport(user, C, L)
 
-/obj/item/rcs/proc/try_teleport(mob/user, obj/structure/closet/C, target)
-	if(!C.Adjacent(user))
-		to_chat(user, "<span class='notice'>Unable to teleport, too far from [C].</span>")
-		return
-	var/turf/ownTurf = get_turf(src)
-	playsound(ownTurf, usesound, 50, 1)
+/obj/item/rcs/proc/teleport(mob/user, obj/structure/closet/C, target)
 	to_chat(user, "<span class='notice'>Teleporting [C]...</span>")
+	playsound(src, usesound, 50, TRUE)
 	teleporting = TRUE
 	if(!do_after(user, 50 * toolspeed, target = C))
 		teleporting = FALSE
 		return
+
 	teleporting = FALSE
-	if(user in C.contents)
-		to_chat(user, "<span class='warning'>Error: User located in container--aborting for safety.</span>")
-		playsound(ownTurf, 'sound/machines/buzz-sigh.ogg', 50, 1)
-		return
-	if(!(rcell && rcell.use(chargecost)))
-		to_chat(user, "<span class='notice'>Unable to teleport, insufficient charge.</span>")
-		return
-	do_sparks(5, 1, C)
+	rcell.use(chargecost)
+	do_sparks(5, TRUE, C)
 	do_teleport(C, target)
 	to_chat(user, "<span class='notice'>Teleport successful. [round(rcell.charge/chargecost)] charge\s left.</span>")
-
-#undef RCS_MODE_CALIBRATED
-#undef RCS_MODE_UNCALIBRATED

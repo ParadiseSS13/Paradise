@@ -19,15 +19,13 @@
 	mob_name = "a swarmer"
 	death = FALSE
 	roundstart = FALSE
-	flavour_text = {"
-	<b>You are a swarmer, a weapon of a long dead civilization. Until further orders from your original masters are received, you must continue to consume and replicate.</b>
-	<b>Clicking on any object will try to consume it, either deconstructing it into its components, destroying it, or integrating any materials it has into you if successful.</b>
-	<b>Ctrl-Clicking on a mob will attempt to remove it from the area and place it in a safe environment for storage.</b>
-	<b>Objectives:</b>
+	important_info = "Follow your objectives, do not make the station inhospitable or try and kill crew."
+	flavour_text = "You are a swarmer, a weapon of a long dead civilization. Until further orders from your original masters are received, you must continue to consume and replicate."
+	description = {" Your goal is to create more of yourself by consuming the station. Clicking on any object will try to consume it, either deconstructing it into its components, destroying it, or integrating any materials it has into you if successful. Ctrl-Clicking on a mob will attempt to remove it from the area and place it in a safe environment for storage.
+	Objectives:
 	1. Consume resources and replicate until there are no more resources left.
 	2. Ensure that this location is fit for invasion at a later date; do not perform actions that would render it dangerous or inhospitable.
-	3. Biological resources will be harvested at a later date; do not harm them.
-	"}
+	3. Biological resources will be harvested at a later date; do not harm them."}
 
 /obj/effect/mob_spawn/swarmer/Initialize(mapload)
 	. = ..()
@@ -62,6 +60,7 @@
 	desc = "Robotic constructs of unknown design, swarmers seek only to consume materials and replicate themselves indefinitely."
 	speak_emote = list("tones")
 	bubble_icon = "swarmer"
+	mob_biotypes = MOB_ROBOTIC
 	health = 40
 	maxHealth = 40
 	status_flags = CANPUSH
@@ -196,6 +195,7 @@
 
 /obj/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	if(resistance_flags & INDESTRUCTIBLE)
+		to_chat(S, "<span class='warning'>High value materials detected, consuming [src] would waste them. Aborting.</span>")
 		return FALSE
 	for(var/mob/living/L in contents)
 		if(!issilicon(L) && !isbrain(L))
@@ -204,7 +204,9 @@
 	return ..()
 
 /obj/item/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	return S.Integrate(src)
+	if(..())
+		return S.Integrate(src)
+	return FALSE
 
 /atom/movable/proc/IntegrateAmount()
 	return 0
@@ -517,8 +519,8 @@
 	playsound(src,'sound/effects/sparks4.ogg', 50, TRUE)
 	do_teleport(target, F, 0)
 
-/mob/living/simple_animal/hostile/swarmer/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
-	if(!tesla_shock)
+/mob/living/simple_animal/hostile/swarmer/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
+	if(!(flags & SHOCK_TESLA))
 		return FALSE
 	return ..()
 
@@ -557,7 +559,7 @@
 
 /obj/effect/temp_visual/swarmer/disintegration/Initialize(mapload)
 	. = ..()
-	playsound(loc, "sparks", 100, TRUE)
+	playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 /obj/effect/temp_visual/swarmer/dismantle
 	icon_state = "dismantle"
@@ -608,7 +610,7 @@
 		var/mob/living/L = AM
 		if(!istype(L, /mob/living/simple_animal/hostile/swarmer))
 			playsound(loc,'sound/effects/snap.ogg',50, 1, -1)
-			L.electrocute_act(0, src, 1, TRUE, TRUE)
+			L.electrocute_act(100, src, 1, flags = SHOCK_NOGLOVES | SHOCK_ILLUSION)
 			if(isrobot(L) || ismachineperson(L))
 				L.Weaken(5)
 			qdel(src)

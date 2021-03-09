@@ -53,7 +53,7 @@
 			emote("deathgasp", force = TRUE)
 
 		if(module)
-			module.handle_death(gibbed)
+			module.handle_death(src, gibbed)
 
 	// Only execute the below if we successfully died
 	. = ..(gibbed)
@@ -72,4 +72,4 @@
 
 	update_icons()
 
-	sql_report_cyborg_death(src)
+	SSblackbox.ReportDeath(src)

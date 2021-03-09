@@ -29,7 +29,7 @@ SUBSYSTEM_DEF(afk)
 		var/turf/T
 		// Only players and players with the AFK watch enabled
 		// No dead, unconcious, restrained, people without jobs or people on other Z levels than the station
-		if(!H.client || !H.client.prefs.afk_watch || !H.mind || \
+		if(!H.client || !(H.client.prefs.toggles2 & PREFTOGGLE_2_AFKWATCH) || !H.mind || \
 			H.stat || H.restrained() || !H.job || !is_station_level((T = get_turf(H)).z)) // Assign the turf as last. Small optimization
 			if(afk_players[H.ckey])
 				toRemove += H.ckey
@@ -76,7 +76,7 @@ SUBSYSTEM_DEF(afk)
 
 /datum/controller/subsystem/afk/proc/warn(mob/living/carbon/human/H, text)
 	to_chat(H, text)
-	SEND_SOUND(H, 'sound/effects/adminhelp.ogg')
+	SEND_SOUND(H, sound('sound/effects/adminhelp.ogg'))
 	if(H.client)
 		window_flash(H.client)
 

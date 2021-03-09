@@ -672,9 +672,6 @@ proc/dd_sortedObjectList(list/incoming)
 /obj/machinery/camera/dd_SortValue()
 	return "[c_tag]"
 
-/datum/alarm/dd_SortValue()
-	return "[sanitize(last_name)]"
-
 //Picks from the list, with some safeties, and returns the "default" arg if it fails
 #define DEFAULTPICK(L, default) ((istype(L, /list) && L:len) ? pick(L) : default)
 
@@ -684,7 +681,7 @@ proc/dd_sortedObjectList(list/incoming)
 #define LAZYREMOVE(L, I) if(L) { L -= I; if(!L.len) { L = null; } }
 #define LAZYADD(L, I) if(!L) { L = list(); } L += I;
 #define LAZYACCESS(L, I) (L ? (isnum(I) ? (I > 0 && I <= L.len ? L[I] : null) : L[I]) : null)
-#define LAZYLEN(L) length(L)
+#define LAZYLEN(L) length(L) // Despite how pointless this looks, it's still needed in order to convey that the list is specificially a 'Lazy' list.
 #define LAZYCLEARLIST(L) if(L) L.Cut()
 
 // LAZYING PT 2: THE LAZENING
@@ -692,6 +689,12 @@ proc/dd_sortedObjectList(list/incoming)
 
 // Lazying Episode 3
 #define LAZYSET(L, K, V) LAZYINITLIST(L); L[K] = V;
+
+#define LAZYADDASSOC(L, K, V) if(!L) { L = list(); } L[K] += list(V);
+#define LAZYREMOVEASSOC(L, K, V) if(L) { if(L[K]) { L[K] -= V; if(!length(L[K])) L -= K; } if(!length(L)) L = null; }
+
+/// Returns whether a numerical index is within a given list's bounds. Faster than isnull(LAZYACCESS(L, I)).
+#define ISINDEXSAFE(L, I) (I >= 1 && I <= length(L))
 
 //same, but returns nothing and acts on list in place
 /proc/shuffle_inplace(list/L)
@@ -822,3 +825,18 @@ proc/dd_sortedObjectList(list/incoming)
 			L1[key] += other_value
 		else
 			L1[key] = other_value
+
+/**
+  * A proc for turning a list into an associative list.
+  *
+  * A simple proc for turning all things in a list into an associative list, instead
+  * Each item in the list will have an associative value of TRUE
+
+  * Arguments:
+  * * flat_list - the list that it passes to make associative
+  */
+
+/proc/make_associative(list/flat_list)
+	. = list()
+	for(var/thing in flat_list)
+		.[thing] = TRUE

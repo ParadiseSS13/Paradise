@@ -59,10 +59,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 	return uplink_items
 
-/datum/nano_item_lists
-	var/list/items_nano
-	var/list/items_reference
-
 // You can change the order of the list by putting datums before/after one another OR
 // you can use the last variable to make sure it appears last, well have the category appear last.
 
@@ -96,7 +92,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	if(item)
 		U.uses -= max(cost, 0)
 		U.used_TC += cost
-		feedback_add_details("traitor_uplink_items_bought", name)
+		SSblackbox.record_feedback("nested tally", "traitor_uplink_items_bought", 1, list("[initial(name)]", "[cost]"))
 		return new item(loc)
 
 
@@ -131,8 +127,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				var/mob/living/carbon/human/A = user
 				if(limited_stock > 0)
 					log_game("[key_name(user)] purchased [name]. [name] was discounted to [cost].")
+					if(!user.mind.special_role)
+						message_admins("[key_name_admin(user)] purchased [name] (discounted to [cost]), as a non antagonist.")
 				else
 					log_game("[key_name(user)] purchased [name].")
+					if(!user.mind.special_role)
+						message_admins("[key_name_admin(user)] purchased [name], as a non antagonist.")
 				A.put_in_any_hand_if_possible(I)
 
 				if(istype(I,/obj/item/storage/box/) && I.contents.len>0)
@@ -236,14 +236,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SDP"
 	item = /obj/item/storage/box/syndidonkpockets
 	cost = 2
-	job = list("Chef")
-
-/datum/uplink_item/jobspecific/Chef_CQC
-	name = " A chefs manual to CQC"
-	desc = "An old manual teaching you how to bring your home advantage outside the kitchen."
-	reference = "CCQC"
-	item = /obj/item/CQC_manual/chef
-	cost = 12
 	job = list("Chef")
 
 //Chaplain
@@ -412,9 +404,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/jobspecific/energizedfireaxe
 	name = "Energized Fire Axe"
-	desc = "A fire axe with a massive electrical charge built into it. It can release this charge on its first victim and will be rather plain after that."
+	desc = "A fire axe with a massive energy charge built into it. Upon striking someone while charged it will throw them backwards while stunning them briefly, but will take some time to charge up again. It is also much sharper than a regular axe and can pierce light armor."
 	reference = "EFA"
-	item = /obj/item/twohanded/energizedfireaxe
+	item = /obj/item/twohanded/fireaxe/energized
 	cost = 10
 	job = list("Life Support Specialist")
 
@@ -736,6 +728,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 12 // normally 18
 	gamemodes = list(/datum/game_mode/nuclear)
 
+/datum/uplink_item/ammo/bulldog_XLmagsbag
+	name = "Bulldog - 12g XL Magazine Duffel Bag"
+	desc = "A duffel bag containing three 16 round drum magazines(Slug, Buckshot, Dragon's Breath)."
+	reference = "12XLDB"
+	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags
+	cost = 12 // normally 18
+	gamemodes = list(/datum/game_mode/nuclear)
+
 /datum/uplink_item/ammo/smg
 	name = "C-20r - .45 Magazine"
 	desc = "An additional 20-round .45 magazine for use in the C-20r submachine gun. These bullets pack a lot of punch that can knock most targets down, but do limited overall damage."
@@ -863,9 +863,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A manual that teaches a single user tactical Close-Quarters Combat before self-destructing. Does not restrict weapon usage, but cannot be used alongside Gloves of the North Star."
 	reference = "CQC"
 	item = /obj/item/CQC_manual
-	gamemodes = list(/datum/game_mode/nuclear)
 	cost = 13
-	surplus = 0
 
 /datum/uplink_item/stealthy_weapons/cameraflash
 	name = "Camera Flash"
@@ -1003,11 +1001,21 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/explosives/syndicate_bomb
 	name = "Syndicate Bomb"
-	desc = "The Syndicate Bomb has an adjustable timer with a minimum setting of 60 seconds. Ordering the bomb sends you a small beacon, which will teleport the explosive to your location when you activate it. \
+	desc = "The Syndicate Bomb has an adjustable timer with a minimum setting of 90 seconds. Ordering the bomb sends you a small beacon, which will teleport the explosive to your location when you activate it. \
 	You can wrench the bomb down to prevent removal. The crew may attempt to defuse the bomb."
 	reference = "SB"
 	item = /obj/item/radio/beacon/syndicate/bomb
 	cost = 11
+	surplus = 0
+	cant_discount = TRUE
+
+/datum/uplink_item/explosives/emp_bomb
+	name = "EMP bomb"
+	desc = "The EMP has an adjustable timer with a minimum setting of 90 seconds. Ordering the bomb sends you a small beacon, which will teleport the explosive to your location when you activate it. \
+	You can wrench the bomb down to prevent removal. The crew may attempt to defuse the bomb."
+	reference = "SBEMP"
+	item = /obj/item/radio/beacon/syndicate/bomb/emp
+	cost = 10
 	surplus = 0
 	cant_discount = TRUE
 
@@ -1175,7 +1183,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_tools/camera_bug
 	name = "Camera Bug"
-	desc = "Enables you to view all cameras on the network and track a target. Bugging cameras allows you to disable them remotely."
+	desc = "Enables you to view all cameras on the network to track a target."
 	reference = "CB"
 	item = /obj/item/camera_bug
 	cost = 1
@@ -1286,6 +1294,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/bonerepair
 	cost = 4
 
+/datum/uplink_item/device_tools/syndicate_teleporter
+	name = "Experimental Syndicate Teleporter"
+	desc = "The Syndicate teleporter is a handheld device that teleports the user 4-8 meters forward. \
+			Beware, teleporting into a wall will make the teleporter do a parallel emergency teleport, \
+			but if that emergency teleport fails, it will kill you. \
+			Has 4 charges, recharges, warrenty voided if exposed to EMP."
+	reference = "TELE"
+	item = /obj/item/storage/box/syndie_kit/teleporter
+	cost = 8
+
 /datum/uplink_item/device_tools/thermal_drill
 	name = "Thermal Safe Drill"
 	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Guaranteed 100% jam proof."
@@ -1311,6 +1329,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 7
 	gamemodes = list(/datum/game_mode/nuclear)
 
+/datum/uplink_item/device_tools/vtec
+	name = "Syndicate Cyborg Upgrade Module (VTEC)"
+	desc = "Increases the movement speed of a Cyborg. Install into any Borg, Syndicate or subverted"
+	reference = "VTEC"
+	item = /obj/item/borg/upgrade/vtec
+	cost = 6
+	gamemodes = list(/datum/game_mode/nuclear)
+
 //Space Suits and Hardsuits
 /datum/uplink_item/suits
 	category = "Space Suits and Hardsuits"
@@ -1334,7 +1360,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Nanotrasen crew who spot these suits are known to panic."
 	reference = "BRHS"
 	item = /obj/item/storage/box/syndie_kit/hardsuit
-	cost = 8
+	cost = 6
 	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/suits/hardsuit/elite
@@ -1530,43 +1556,32 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 0
 	gamemodes = list(/datum/game_mode/nuclear)
 
-/datum/uplink_item/cyber_implants/spawn_item(turf/loc, obj/item/uplink/U)
-	if(item)
-		if(findtext(item, /obj/item/organ/internal/cyberimp))
-			U.uses -= max(cost, 0)
-			U.used_TC += cost
-			feedback_add_details("traitor_uplink_items_bought", name) //this one and the line before copypasted because snowflaek code
-			return new /obj/item/storage/box/cyber_implants(loc, item)
-		else
-			return ..()
-
 /datum/uplink_item/cyber_implants/thermals
 	name = "Thermal Vision Implant"
-	desc = "These cybernetic eyes will give you thermal vision. Comes with an automated implanting tool."
+	desc = "These cybernetic eyes will give you thermal vision. Comes with an autosurgeon."
 	reference = "CIT"
-	item = /obj/item/organ/internal/cyberimp/eyes/thermals
+	item = /obj/item/autosurgeon/organ/syndicate/thermal_eyes
 	cost = 8
 
 /datum/uplink_item/cyber_implants/xray
 	name = "X-Ray Vision Implant"
-	desc = "These cybernetic eyes will give you X-ray vision. Comes with an automated implanting tool."
+	desc = "These cybernetic eyes will give you X-ray vision. Comes with an autosurgeon."
 	reference = "CIX"
-	item = /obj/item/organ/internal/cyberimp/eyes/xray
+	item = /obj/item/autosurgeon/organ/syndicate/xray_eyes
 	cost = 10
 
 /datum/uplink_item/cyber_implants/antistun
-	name = "CNS Rebooter Implant"
-	desc = "This implant will help you get back up on your feet faster after being stunned. \
-			Comes with an automated implanting tool."
+	name = "Hardened CNS Rebooter Implant"
+	desc = "This implant will help you get back up on your feet faster after being stunned. It is immune to EMP attacks. Comes with an autosurgeon."
 	reference = "CIAS"
-	item = /obj/item/organ/internal/cyberimp/brain/anti_stun
+	item = /obj/item/autosurgeon/organ/syndicate/anti_stun
 	cost = 12
 
 /datum/uplink_item/cyber_implants/reviver
 	name = "Hardened Reviver Implant"
-	desc = "This implant will attempt to revive you if you lose consciousness. It is invulnerable to EMPs. Comes with an automated implanting tool."
+	desc = "This implant will attempt to revive and heal you if you lose consciousness. It is immune to EMP attacks. Comes with an autosurgeon."
 	reference = "CIR"
-	item = /obj/item/organ/internal/cyberimp/chest/reviver/hardened
+	item = /obj/item/autosurgeon/organ/syndicate/reviver
 	cost = 8
 
 // POINTLESS BADASSERY
@@ -1648,10 +1663,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/bundles_TC/cyber_implants
 	name = "Cybernetic Implants Bundle"
-	desc = "A random selection of cybernetic implants. Guaranteed 5 high quality implants. \
-			Comes with an automated implanting tool."
+	desc = "A random selection of cybernetic implants. Guaranteed 5 high quality implants. Comes with an autosurgeon."
 	reference = "CIB"
-	item = /obj/item/storage/box/cyber_implants/bundle
+	item = /obj/item/storage/box/cyber_implants
 	cost = 40
 	gamemodes = list(/datum/game_mode/nuclear)
 
@@ -1673,6 +1687,38 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/briefcase/sniperbundle
 	cost = 18 // normally 23
 	gamemodes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/bundles_TC/contractor
+	name = "Syndicate Contractor Kit"
+	desc = "A bundle granting you the privilege of taking on kidnapping contracts for credit and TC payouts that can add up to more than its initial cost."
+	reference = "SCOK"
+	cost = 20
+	item = /obj/item/storage/box/syndie_kit/contractor
+	excludefrom = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/bundles_TC/contractor/spawn_item(turf/loc, obj/item/uplink/U)
+	var/datum/mind/mind = usr.mind
+	var/datum/antagonist/traitor/AT = mind.has_antag_datum(/datum/antagonist/traitor)
+	if(LAZYACCESS(GLOB.contractors, mind))
+		to_chat(usr, "<span class='warning'>Error: Contractor credentials detected for the current user. Unable to provide another Contractor kit.</span>")
+		return
+	else if(!AT)
+		to_chat(usr, "<span class='warning'>Error: Embedded Syndicate credentials not found.</span>")
+		return
+	else if(mind.changeling || mind.vampire)
+		to_chat(usr, "<span class='warning'>Error: Embedded Syndicate credentials contain an abnormal signature. Aborting.</span>")
+		return
+
+	var/obj/item/I = ..()
+	// Init the hub
+	var/obj/item/contractor_uplink/CU = locate(/obj/item/contractor_uplink) in I
+	CU.hub = new(mind, CU)
+	// Update their mind stuff
+	LAZYSET(GLOB.contractors, mind, CU.hub)
+	AT.update_traitor_icons_added(mind)
+
+	log_game("[key_name(usr)] became a Contractor")
+	return I
 
 /datum/uplink_item/bundles_TC/badass
 	name = "Syndicate Bundle"
@@ -1725,8 +1771,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 	U.purchase_log += "<BIG>[bicon(C)]</BIG>"
 	for(var/item in bought_items)
-		new item(C)
-		U.purchase_log += "<BIG>[bicon(item)]</BIG>"
+		var/obj/purchased = new item(C)
+		U.purchase_log += "<BIG>[bicon(purchased)]</BIG>"
 	log_game("[key_name(usr)] purchased a surplus crate with [jointext(itemlog, ", ")]")
 
 /datum/uplink_item/bundles_TC/telecrystal

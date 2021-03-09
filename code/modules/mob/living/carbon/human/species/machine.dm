@@ -9,7 +9,6 @@
 	inhuman in outlook and perspective."
 
 	icobase = 'icons/mob/human_races/r_machine.dmi'
-	deform = 'icons/mob/human_races/r_machine.dmi'
 	language = "Trinary"
 	remains_type = /obj/effect/decal/remains/robot
 	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
@@ -22,17 +21,15 @@
 	death_message = "gives a short series of shrill beeps, their chassis shuddering before falling limp, nonfunctional."
 	death_sounds = list('sound/voice/borg_deathsound.ogg') //I've made this a list in the event we add more sounds for dead robots.
 
-	species_traits = list(IS_WHITELISTED, NO_BREATHE, NO_SCAN, NO_INTORGANS, NO_PAIN, NO_DNA, RADIMMUNE, VIRUSIMMUNE, NO_GERMS, NO_DECAY, NOTRANSSTING) //Computers that don't decay? What a lie!
+	species_traits = list(IS_WHITELISTED, NO_BLOOD, NO_CLONESCAN, NO_INTORGANS, NOTRANSSTING)
+	inherent_traits = list(TRAIT_VIRUSIMMUNE, TRAIT_NOBREATH, TRAIT_RADIMMUNE, TRAIT_NOGERMS, TRAIT_NODECAY, TRAIT_NOPAIN, TRAIT_GENELESS) //Computers that don't decay? What a lie!
+	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS
 	dietflags = 0		//IPCs can't eat, so no diet
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
-	blood_color = "#1F181F"
+	blood_color = COLOR_BLOOD_MACHINE
 	flesh_color = "#AAAAAA"
-
-	blood_color = "#3C3C3C"
-	exotic_blood = "oil"
-	blood_damage_type = STAMINA
 
 	//Default styles for created mobs.
 	default_hair = "Blue IPC Screen"
@@ -51,11 +48,9 @@
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
 		"cell" = /obj/item/organ/internal/cell,
-		"optics" = /obj/item/organ/internal/eyes/optical_sensor, //Default darksight of 2.
+		"eyes" = /obj/item/organ/internal/eyes/optical_sensor, //Default darksight of 2.
 		"charger" = /obj/item/organ/internal/cyberimp/arm/power_cord
 		)
-
-	vision_organ = /obj/item/organ/internal/eyes/optical_sensor
 	mutantears = /obj/item/organ/internal/ears/microphone
 	has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest/ipc),

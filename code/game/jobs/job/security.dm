@@ -18,7 +18,7 @@
 			            ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
 			            ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_PILOT, ACCESS_WEAPONS)
 	minimal_player_age = 21
-	exp_requirements = 300
+	exp_requirements = 1200
 	exp_type = EXP_TYPE_SECURITY
 	disabilities_allowed = 0
 	outfit = /datum/outfit/job/hos
@@ -64,7 +64,7 @@
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
 	minimal_player_age = 21
 	exp_requirements = 600
-	exp_type = EXP_TYPE_CREW
+	exp_type = EXP_TYPE_SECURITY
 	outfit = /datum/outfit/job/warden
 
 /datum/outfit/job/warden
@@ -149,8 +149,7 @@
 	if(visualsOnly)
 		return
 
-	H.dna.SetSEState(GLOB.soberblock,1)
-	H.mutations += SOBER
+	H.dna.SetSEState(GLOB.soberblock, TRUE)
 	H.check_mutations = 1
 
 /datum/job/officer
@@ -213,7 +212,7 @@
 	uniform = /obj/item/clothing/under/rank/security/brigphys
 	suit = /obj/item/clothing/suit/storage/fr_jacket
 	shoes = /obj/item/clothing/shoes/white
-	l_ear = /obj/item/radio/headset/headset_sec/alt
+	l_ear = /obj/item/radio/headset/headset_sec/alt/brig_phys
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	id = /obj/item/card/id/security
 	suit_store = /obj/item/flashlight/pen

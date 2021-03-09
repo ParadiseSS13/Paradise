@@ -18,7 +18,7 @@
 		return
 
 /obj/machinery/computer/camera_advanced/xenobio
-	name = "Slime management console"
+	name = "slime management console"
 	desc = "A computer used for remotely handling slimes."
 	networks = list("SS13")
 	circuit = /obj/item/circuitboard/xenobiology
@@ -68,6 +68,7 @@
 	eyeobj = new /mob/camera/aiEye/remote/xenobio(get_turf(src))
 	eyeobj.origin = src
 	eyeobj.visible_icon = 1
+	eyeobj.acceleration = FALSE
 	eyeobj.icon = 'icons/obj/abductor.dmi'
 	eyeobj.icon_state = "camera_target"
 
@@ -173,9 +174,9 @@
 		return
 	var/obj/item/multitool/M = I
 	if(istype(M.buffer, /obj/machinery/monkey_recycler))
-		M.set_multitool_buffer(user, src)
 		connected_recycler = M.buffer
 		connected_recycler.connected += src
+		to_chat(user, "<span class='notice'>You link [src] to the recycler stored in the [M]'s buffer.</span>")
 
 /datum/action/innate/slime_place
 	name = "Place Slimes"

@@ -62,7 +62,7 @@
 /datum/reagent/proc/reaction_obj(obj/O, volume)
 	return
 
-/datum/reagent/proc/reaction_turf(turf/T, volume)
+/datum/reagent/proc/reaction_turf(turf/T, volume, color)
 	return
 
 /datum/reagent/proc/on_mob_life(mob/living/M)
@@ -96,6 +96,23 @@
 
 /datum/reagent/proc/on_mob_death(mob/living/M)	//use this to have chems have a "death-triggered" effect
 	return
+
+/**
+ * Flashfire is a proc used to log fire causing chemical reactions.
+ *
+ * Call this whenever you have a chemical reaction that makes fire flashes.
+ * Arguments:
+ * * holder: the beaker that the reagent is in
+ * * name: name of the reagent / reaction
+ */
+/proc/fire_flash_log(datum/reagents/holder, name)
+	if(!holder.my_atom)
+		return
+	if(holder.my_atom.fingerprintslast)
+		var/mob/M = get_mob_by_key(holder.my_atom.fingerprintslast)
+		add_attack_logs(M, COORD(holder.my_atom.loc), "Caused a flashfire reaction of [name]. Last associated key is [holder.my_atom.fingerprintslast]", ATKLOG_FEW)
+		log_game("Flashfire reaction ([holder.my_atom], reagent type: [name]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
+	holder.my_atom.investigate_log("A Flashfire reaction, (reagent type [name]) last touched by [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(holder.my_atom.loc)].", INVESTIGATE_BOMB)
 
 // Called when this reagent is first added to a mob
 /datum/reagent/proc/on_mob_add(mob/living/L)
@@ -144,77 +161,90 @@
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/addiction_act_stage2(mob/living/M)
-	if(prob(8))
-		M.emote("shiver")
-	if(prob(8))
-		M.emote("sneeze")
-	if(prob(4))
-		to_chat(M, "<span class='notice'>You feel a dull headache.</span>")
+	if(minor_addiction)
+		if(prob(4))
+			to_chat(M, "<span class='notice'>You briefly think about getting some more [name].</span>")
+	else
+		if(prob(8))
+			M.emote("shiver")
+		if(prob(8))
+			M.emote("sneeze")
+		if(prob(4))
+			to_chat(M, "<span class='notice'>You feel a dull headache.</span>")
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/addiction_act_stage3(mob/living/M)
-	if(prob(8))
-		M.emote("twitch_s")
-	if(prob(8))
-		M.emote("shiver")
-	if(prob(4))
-		to_chat(M, "<span class='warning'>Your head hurts.</span>")
-	if(prob(4))
-		to_chat(M, "<span class='warning'>You begin craving [name]!</span>")
+	if(minor_addiction)
+		if(prob(4))
+			to_chat(M, "<span class='notice'>You could really go for some [name] right now.</span>")
+	else
+		if(prob(8))
+			M.emote("twitch_s")
+		if(prob(8))
+			M.emote("shiver")
+		if(prob(4))
+			to_chat(M, "<span class='warning'>Your head hurts.</span>")
+		if(prob(4))
+			to_chat(M, "<span class='warning'>You begin craving [name]!</span>")
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/addiction_act_stage4(mob/living/M)
-	if(prob(8))
-		M.emote("twitch")
-	if(prob(4))
-		to_chat(M, "<span class='warning'>You have a pounding headache.</span>")
-	if(prob(4))
-		to_chat(M, "<span class='warning'>You have the strong urge for some [name]!</span>")
-	else if(prob(4))
-		to_chat(M, "<span class='warning'>You REALLY crave some [name]!</span>")
+	if(minor_addiction)
+		if(prob(8))
+			to_chat(M, "<span class='notice'>You could really go for some [name] right now.</span>")
+	else
+		if(prob(8))
+			M.emote("twitch")
+		if(prob(4))
+			to_chat(M, "<span class='warning'>You have a pounding headache.</span>")
+		if(prob(4))
+			to_chat(M, "<span class='warning'>You have the strong urge for some [name]!</span>")
+		else if(prob(4))
+			to_chat(M, "<span class='warning'>You REALLY crave some [name]!</span>")
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/addiction_act_stage5(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(minor_addiction)
-		if(prob(6))
-			M.AdjustSlowed(3)
-			to_chat(M, "<span class='warning'>You feel [pick("tired", "exhausted", "sluggish")].</span>")
+		if(prob(8))
+			to_chat(M, "<span class='notice'>You can't stop thinking about [name]...</span>")
+		if(prob(4))
+			M.emote(pick("twitch"))
 	else
 		if(prob(6))
 			to_chat(M, "<span class='warning'>Your stomach lurches painfully!</span>")
 			M.visible_message("<span class='warning'>[M] gags and retches!</span>")
 			update_flags |= M.Stun(rand(2,4), FALSE)
 			update_flags |= M.Weaken(rand(2,4), FALSE)
-	if(prob(8))
-		M.emote(pick("twitch", "twitch_s", "shiver"))
-	if(prob(4))
-		to_chat(M, "<span class='warning'>Your head is killing you!</span>")
-	if(prob(5))
-		to_chat(M, "<span class='warning'>You feel like you can't live without [name]!</span>")
-	else if(prob(5))
-		to_chat(M, "<span class='warning'>You would DIE for some [name] right now!</span>")
+		if(prob(8))
+			M.emote(pick("twitch", "twitch_s", "shiver"))
+		if(prob(4))
+			to_chat(M, "<span class='warning'>Your head is killing you!</span>")
+		if(prob(5))
+			to_chat(M, "<span class='warning'>You feel like you can't live without [name]!</span>")
+		else if(prob(5))
+			to_chat(M, "<span class='warning'>You would DIE for some [name] right now!</span>")
 	return update_flags
 
 /datum/reagent/proc/fakedeath(mob/living/M)
-	if(M.status_flags & FAKEDEATH)
+	if(HAS_TRAIT(M, TRAIT_FAKEDEATH))
 		return
 	if(!(M.status_flags & CANPARALYSE))
 		return
 	if(M.mind && M.mind.changeling && M.mind.changeling.regenerating) //no messing with changeling's fake death
 		return
 	M.emote("deathgasp")
-	M.status_flags |= FAKEDEATH
+	ADD_TRAIT(M, TRAIT_FAKEDEATH, id)
 	M.updatehealth("fakedeath reagent")
 
 /datum/reagent/proc/fakerevive(mob/living/M)
-	if(!(M.status_flags & FAKEDEATH))
+	if(!HAS_TRAIT(M, TRAIT_FAKEDEATH))
 		return
 	if(M.mind && M.mind.changeling && M.mind.changeling.regenerating)
 		return
 	if(M.resting)
 		M.StopResting()
-	M.status_flags &= ~(FAKEDEATH)
+	REMOVE_TRAIT(M, TRAIT_FAKEDEATH, id)
 	if(M.healthdoll)
 		M.healthdoll.cached_healthdoll_overlays.Cut()
 	M.updatehealth("fakedeath reagent end")

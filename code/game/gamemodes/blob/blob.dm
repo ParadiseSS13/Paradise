@@ -103,7 +103,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	to_chat(blob.current, "<b>Find a good location to spawn the core and then take control and overwhelm the station!</b>")
 	to_chat(blob.current, "<b>When you have found a location, wait until you spawn; this will happen automatically and you cannot speed up the process.</b>")
 	to_chat(blob.current, "<b>If you go outside of the station level, or in space, then you will die; make sure your location has lots of ground to cover.</b>")
-	SEND_SOUND(blob.current, 'sound/magic/mutate.ogg')
+	SEND_SOUND(blob.current, sound('sound/magic/mutate.ogg'))
 	return
 
 /datum/game_mode/blob/proc/show_message(var/message)
@@ -140,7 +140,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 			else if(blob_client && location)
 				burst++
 				C.gib()
-				var/obj/structure/blob/core/core = new(location, 200, blob_client, blob_point_rate)
+				var/obj/structure/blob/core/core = new(location, blob_client, blob_point_rate)
 				if(core.overmind && core.overmind.mind)
 					core.overmind.mind.name = blob.name
 					infected_crew -= blob

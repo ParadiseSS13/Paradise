@@ -20,6 +20,9 @@
 #define DROWSY		"drowsy"
 #define JITTER		"jitter"
 
+/// Jitter decays at a rate of 3 per life cycle, 15 if resting.
+#define SECONDS_TO_JITTER SECONDS_TO_LIFE_CYCLES*3
+
 //I hate adding defines like this but I'd much rather deal with bitflags than lists and string searches
 #define BRUTELOSS 1
 #define FIRELOSS 2
@@ -29,16 +32,12 @@
 #define OBLITERATION 32
 
 //Bitflags defining which status effects could be or are inflicted on a mob
-#define CANSTUN		1
-#define CANWEAKEN	2
-#define CANPARALYSE	4
-#define CANPUSH		8
-#define PASSEMOTES	16      //Mob has a cortical borer or holders inside of it that need to see emotes.
-#define GOTTAGOFAST	32
-#define IGNORESLOWDOWN	128
-#define GODMODE		4096
-#define FAKEDEATH	8192	//Replaces stuff like changeling.changeling_fakedeath
-#define XENO_HOST	16384	//Tracks whether we're gonna be a baby alien's mummy.
+#define CANSTUN			1
+#define CANWEAKEN		2
+#define CANPARALYSE		4
+#define CANPUSH			8
+#define PASSEMOTES		16 //Mob has a cortical borer or holders inside of it that need to see emotes.
+#define GODMODE			32
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0

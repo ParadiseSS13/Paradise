@@ -180,7 +180,7 @@ SUBSYSTEM_DEF(vote)
 
 
 	if(restart)
-		world.Reboot("Restart vote successful.", "end_error", "restart vote")
+		SSticker.reboot_helper("Restart vote successful.", "restart vote")
 
 	return .
 
@@ -249,11 +249,11 @@ SUBSYSTEM_DEF(vote)
 			You have [config.vote_period/10] seconds to vote.</font>"})
 		switch(vote_type)
 			if("crew_transfer")
-				world << sound('sound/ambience/alarm4.ogg')
+				SEND_SOUND(world, sound('sound/ambience/alarm4.ogg'))
 			if("gamemode")
-				world << sound('sound/ambience/alarm4.ogg')
+				SEND_SOUND(world, sound('sound/ambience/alarm4.ogg'))
 			if("custom")
-				world << sound('sound/ambience/alarm4.ogg')
+				SEND_SOUND(world, sound('sound/ambience/alarm4.ogg'))
 		if(mode == "gamemode" && SSticker.ticker_going)
 			SSticker.ticker_going = FALSE
 			to_chat(world, "<font color='red'><b>Round start has been delayed.</b></font>")

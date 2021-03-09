@@ -20,31 +20,6 @@
 
 	return 0
 
-//Inverts the colour of an HTML string
-/proc/invertHTML(HTMLstring)
-
-	if(!( istext(HTMLstring) ))
-		CRASH("Given non-text argument!")
-	else
-		if(length(HTMLstring) != 7)
-			CRASH("Given non-HTML argument!")
-	var/textr = copytext(HTMLstring, 2, 4)
-	var/textg = copytext(HTMLstring, 4, 6)
-	var/textb = copytext(HTMLstring, 6, 8)
-	var/r = hex2num(textr)
-	var/g = hex2num(textg)
-	var/b = hex2num(textb)
-	textr = num2hex(255 - r)
-	textg = num2hex(255 - g)
-	textb = num2hex(255 - b)
-	if(length(textr) < 2)
-		textr = text("0[]", textr)
-	if(length(textg) < 2)
-		textr = text("0[]", textg)
-	if(length(textb) < 2)
-		textr = text("0[]", textb)
-	return text("#[][][]", textr, textg, textb)
-
 //Returns the middle-most value
 /proc/dd_range(var/low, var/high, var/num)
 	return max(low,min(high,num))
@@ -194,7 +169,16 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 /////////////////////////////////////////////////////////////////////////
 
-/proc/getline(atom/M,atom/N)//Ultra-Fast Bresenham Line-Drawing Algorithm
+/**
+ * Gets the turfs which are between the two given atoms. Including their positions
+ * Only works for atoms on the same Z level which is not 0. So an atom located in a non turf won't work
+ * Arguments:
+ * * M - The source atom
+ * * N - The target atom
+ */
+/proc/getline(atom/M, atom/N)//Ultra-Fast Bresenham Line-Drawing Algorithm
+	if(!M.z || M.z != N.z)	// Same Z level and not 0. Else all below breaks
+		return list()
 	var/px=M.x		//starting x
 	var/py=M.y
 	var/line[] = list(locate(px,py,M.z))
@@ -435,6 +419,24 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		return "[round((powerused * 0.000001), 0.001)] MW"
 	return "[round((powerused * 0.000000001), 0.0001)] GW"
 
+// Format an energy value in J, kJ, MJ, or GJ. 1W = 1J/s.
+/proc/DisplayJoules(units)
+	if (units < 1000) // Less than a kJ
+		return "[round(units, 0.1)] J"
+	else if (units < 1000000) // Less than a MJ
+		return "[round(units * 0.001, 0.01)] kJ"
+	else if (units < 1000000000) // Less than a GJ
+		return "[round(units * 0.000001, 0.001)] MJ"
+	return "[round(units * 0.000000001, 0.0001)] GJ"
+
+// Format an energy value measured in Power Cell units.
+/proc/DisplayEnergy(units)
+	// APCs process every (SSmachines.wait * 0.1) seconds, and turn 1 W of
+	// excess power into GLOB.CELLRATE energy units when charging cells.
+	// With the current configuration of wait=20 and CELLRATE=0.002, this
+	// means that one unit is 1 kJ.
+	return DisplayJoules(units * SSmachines.wait * 0.1 / GLOB.CELLRATE)
+
 //Forces a variable to be posative
 /proc/modulus(var/M)
 	if(M >= 0)
@@ -448,6 +450,18 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	for(var/mob/M in GLOB.mob_list)
 		if(M.ckey == key)
 			return M
+
+/proc/get_client_by_ckey(ckey)
+	if(cmptext(copytext(ckey, 1, 2),"@"))
+		ckey = findStealthKey(ckey)
+	return GLOB.directory[ckey]
+
+
+/proc/findStealthKey(txt)
+	if(txt)
+		for(var/P in GLOB.stealthminID)
+			if(GLOB.stealthminID[P] == txt)
+				return P
 
 // Returns the atom sitting on the turf.
 // For example, using this on a disk, which is in a bag, on a mob, will return the mob because it's on the turf.
@@ -529,7 +543,7 @@ Returns 1 if the chain up to the area contains the given typepath
 	return max(min(middle, high), low)
 
 //returns random gauss number
-proc/GaussRand(var/sigma)
+/proc/GaussRand(var/sigma)
   var/x,y,rsq
   do
     x=2*rand()-1
@@ -539,7 +553,7 @@ proc/GaussRand(var/sigma)
   return sigma*y*sqrt(-2*log(rsq)/rsq)
 
 //returns random gauss number, rounded to 'roundto'
-proc/GaussRandRound(var/sigma,var/roundto)
+/proc/GaussRandRound(var/sigma,var/roundto)
 	return round(GaussRand(sigma),roundto)
 
 //Will return the contents of an atom recursivly to a depth of 'searchDepth'
@@ -583,7 +597,7 @@ proc/GaussRandRound(var/sigma,var/roundto)
 
 	return 1
 
-proc/is_blocked_turf(turf/T, exclude_mobs)
+/proc/is_blocked_turf(turf/T, exclude_mobs)
 	if(T.density)
 		return 1
 	for(var/i in T)
@@ -984,16 +998,16 @@ proc/is_blocked_turf(turf/T, exclude_mobs)
 
 
 
-proc/get_cardinal_dir(atom/A, atom/B)
+/proc/get_cardinal_dir(atom/A, atom/B)
 	var/dx = abs(B.x - A.x)
 	var/dy = abs(B.y - A.y)
 	return get_dir(A, B) & (rand() * (dx+dy) < dy ? 3 : 12)
 
 //chances are 1:value. anyprob(1) will always return true
-proc/anyprob(value)
+/proc/anyprob(value)
 	return (rand(1,value)==value)
 
-proc/view_or_range(distance = world.view , center = usr , type)
+/proc/view_or_range(distance = world.view , center = usr , type)
 	switch(type)
 		if("view")
 			. = view(distance,center)
@@ -1001,7 +1015,7 @@ proc/view_or_range(distance = world.view , center = usr , type)
 			. = range(distance,center)
 	return
 
-proc/oview_or_orange(distance = world.view , center = usr , type)
+/proc/oview_or_orange(distance = world.view , center = usr , type)
 	switch(type)
 		if("view")
 			. = oview(distance,center)
@@ -1009,7 +1023,7 @@ proc/oview_or_orange(distance = world.view , center = usr , type)
 			. = orange(distance,center)
 	return
 
-proc/get_mob_with_client_list()
+/proc/get_mob_with_client_list()
 	var/list/mobs = list()
 	for(var/mob/M in GLOB.mob_list)
 		if(M.client)
@@ -1233,10 +1247,10 @@ GLOBAL_LIST_INIT(wall_items, typecacheof(list(/obj/machinery/power/apc, /obj/mac
 	return 0
 
 
-proc/get_angle(atom/a, atom/b)
+/proc/get_angle(atom/a, atom/b)
 		return atan2(b.y - a.y, b.x - a.x)
 
-proc/atan2(x, y)
+/proc/atan2(x, y)
 	if(!x && !y) return 0
 	return y >= 0 ? arccos(x / sqrt(x * x + y * y)) : -arccos(x / sqrt(x * x + y * y))
 
@@ -1329,7 +1343,7 @@ Standard way to write links -Sayu
 		return FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR
 
 
-atom/proc/GetTypeInAllContents(typepath)
+/atom/proc/GetTypeInAllContents(typepath)
 	var/list/processing_list = list(src)
 	var/list/processed = list()
 
@@ -1413,8 +1427,10 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	see_in_dark = 1e6
 
 /mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox
+	SHOULD_CALL_PARENT(FALSE)
 
 /mob/dview/Destroy()
+	SHOULD_CALL_PARENT(FALSE)
 	// should never be deleted
 	return QDEL_HINT_LETMELIVE
 
@@ -1802,8 +1818,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/datum = "D",
 			/turf/simulated/floor = "SIM_FLOOR",
 			/turf/simulated/wall = "SIM_WALL",
-			/turf/unsimulated/floor = "UNSIM_FLOOR",
-			/turf/unsimulated/wall = "UNSIM_WALL",
 			/turf = "T",
 			/mob/living/carbon/alien = "XENO",
 			/mob/living/carbon/human = "HUMAN",
@@ -1919,16 +1933,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	return pois
 
-/*
- * Returns all player mobs in an assoc list with ckey as key and the mob as value
-*/
-/proc/get_assoc_mob_list_by_ckey()
-	var/list/mob/mobs = list()
-	for(var/i in GLOB.player_list)
-		var/mob/M = i
-		mobs[M.ckey] = M
-	return mobs
-
 /proc/flash_color(mob_or_client, flash_color="#960000", flash_time=20)
 	var/client/C
 	if(istype(mob_or_client, /mob))
@@ -1982,13 +1986,27 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	return shift
 
-//Return a list of atoms in a location of a given type. Can be refined to look for pixel-shift.
-/proc/get_atoms_of_type(var/atom/here, var/type, var/check_shift, var/shift_x = 0, var/shift_y = 0)
+/**
+  * Returns a list of atoms in a location of a given type. Can be refined to look for pixel-shift.
+  *
+  * Arguments:
+  * * loc - The atom to look in.
+  * * type - The type to look for.
+  * * check_shift - If true, will exclude atoms whose pixel_x/pixel_y do not match shift_x/shift_y.
+  * * shift_x - If check_shift is true, atoms whose pixel_x is different to this will be excluded.
+  * * shift_y - If check_shift is true, atoms whose pixel_y is different to this will be excluded.
+  */
+/proc/get_atoms_of_type(atom/loc, type, check_shift = FALSE, shift_x = 0, shift_y = 0)
 	. = list()
-	if(here)
-		for(var/atom/thing in here)
-			if(istype(thing, type) && (check_shift && thing.pixel_x == shift_x && thing.pixel_y == shift_y))
-				. += thing
+	if(!loc)
+		return
+	for(var/a in loc)
+		var/atom/A = a
+		if(!istype(A, type))
+			continue
+		if(check_shift && !(A.pixel_x == shift_x && A.pixel_y == shift_y))
+			continue
+		. += A
 
 //gives us the stack trace from CRASH() without ending the current proc.
 /proc/stack_trace(msg)
@@ -2032,5 +2050,96 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		return TRUE
 	return FALSE
 
+/**
+ * Proc which gets all adjacent turfs to `src`, including the turf that `src` is on.
+ *
+ * This is similar to doing `for(var/turf/T in range(1, src))`. However it is slightly more performant.
+ * Additionally, the above proc becomes more costly the more atoms there are nearby. This proc does not care about that.
+ */
+/atom/proc/get_all_adjacent_turfs()
+	var/turf/src_turf = get_turf(src)
+	var/list/_list = list(
+		src_turf,
+		get_step(src_turf, NORTH),
+		get_step(src_turf, NORTHEAST),
+		get_step(src_turf, NORTHWEST),
+		get_step(src_turf, SOUTH),
+		get_step(src_turf, SOUTHEAST),
+		get_step(src_turf, SOUTHWEST),
+		get_step(src_turf, EAST),
+		get_step(src_turf, WEST)
+	)
+	return _list
+
 /// Waits at a line of code until X is true
 #define UNTIL(X) while(!(X)) stoplag()
+
+// Check if the source atom contains another atom
+/atom/proc/contains(atom/location)
+	if(!location)
+		return FALSE
+	if(location == src)
+		return TRUE
+
+	return contains(location.loc)
+
+/proc/log_connection(ckey, ip, cid, connection_type)
+	ASSERT(connection_type in list(CONNECTION_TYPE_ESTABLISHED, CONNECTION_TYPE_DROPPED_IPINTEL, CONNECTION_TYPE_DROPPED_BANNED, CONNECTION_TYPE_DROPPED_INVALID))
+	var/datum/db_query/query_accesslog = SSdbcore.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`datetime`, `ckey`, `ip`, `computerid`, `result`) VALUES(Now(), :ckey, :ip, :cid, :result)", list(
+		"ckey" = ckey,
+		"ip" = "[ip ? ip : ""]", // This is important. NULL is not the same as "", and if you directly open the `.dmb` file, you get a NULL IP.
+		"cid" = cid,
+		"result" = connection_type
+	))
+	query_accesslog.warn_execute()
+	qdel(query_accesslog)
+
+/**
+  * Returns the clean name of an audio channel.
+  *
+  * Arguments:
+  * * channel - The channel number.
+  */
+/proc/get_channel_name(channel)
+	switch(channel)
+		if(CHANNEL_LOBBYMUSIC)
+			return "Lobby Music"
+		if(CHANNEL_ADMIN)
+			return "Admin MIDIs"
+		if(CHANNEL_VOX)
+			return "AI Announcements"
+		if(CHANNEL_JUKEBOX)
+			return "Dance Machines"
+		if(CHANNEL_HEARTBEAT)
+			return "Heartbeat"
+		if(CHANNEL_BUZZ)
+			return "White Noise"
+		if(CHANNEL_AMBIENCE)
+			return "Ambience"
+      
+/proc/slot_bitfield_to_slot(input_slot_flags) // Kill off this garbage ASAP; slot flags and clothing flags should be IDENTICAL. GOSH DARN IT. Doesn't work with ears or pockets, either.
+	switch(input_slot_flags)
+		if(SLOT_OCLOTHING)
+			return slot_wear_suit
+		if(SLOT_ICLOTHING)
+			return slot_w_uniform
+		if(SLOT_GLOVES)
+			return slot_gloves
+		if(SLOT_EYES)
+			return slot_glasses
+		if(SLOT_MASK)
+			return slot_wear_mask
+		if(SLOT_HEAD)
+			return slot_head
+		if(SLOT_FEET)
+			return slot_shoes
+		if(SLOT_ID)
+			return slot_wear_id
+		if(SLOT_BELT)
+			return slot_belt
+		if(SLOT_BACK)
+			return slot_back
+		if(SLOT_PDA)
+			return slot_wear_pda
+		if(SLOT_TIE)
+			return slot_tie

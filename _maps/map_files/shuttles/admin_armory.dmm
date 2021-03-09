@@ -1,0 +1,1348 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"al" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/table/reinforced,
+/obj/item/folder,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"aI" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/recharger,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"aP" = (
+/obj/machinery/vending/security,
+/obj/machinery/light/spot{
+	dir = 8;
+	icon_state = "tube1";
+	tag = "icon-tube1 (WEST)"
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/administration)
+"bi" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/brute,
+/obj/item/storage/box/bodybags,
+/obj/item/storage/firstaid/surgery,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/administration)
+"ce" = (
+/obj/machinery/autolathe/upgraded{
+	hacked = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"cl" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"cV" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"de" = (
+/obj/machinery/suit_storage_unit/security/secure,
+/obj/machinery/light/spot,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"df" = (
+/obj/structure/rack,
+/obj/item/storage/box/buck{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/buck,
+/obj/structure/window/reinforced,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"dn" = (
+/obj/machinery/computer/camera_advanced/shuttle_docker/admin{
+	name = "NRV Sparta navigation computer"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"dH" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/gun/energy/gun,
+/obj/item/gun/energy/gun{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"dP" = (
+/obj/machinery/recharge_station/upgraded,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/administration)
+"eI" = (
+/obj/machinery/turretid/stun{
+	check_access = 0;
+	name = "Shuttle Turret Control";
+	pixel_y = 30
+	},
+/obj/machinery/computer/camera_advanced,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"eL" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"fo" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/machinery/light/spot,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/administration)
+"fF" = (
+/obj/machinery/light/spot{
+	dir = 4;
+	icon_state = "tube1";
+	tag = "icon-tube1 (EAST)"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"fQ" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"gd" = (
+/obj/machinery/door/airlock/titanium,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/administration)
+"gh" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"gj" = (
+/obj/machinery/computer/communications{
+	name = "NRV Sparta Communications Console"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"hN" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"ir" = (
+/obj/structure/closet/emcloset,
+/obj/machinery/light/spot{
+	dir = 1;
+	icon_state = "tube1";
+	tag = "icon-tube1 (NORTH)"
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/administration)
+"iz" = (
+/obj/machinery/porta_turret{
+	installation = /obj/item/gun/energy/gun
+	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"jB" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/lockbox/mindshield,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"jU" = (
+/obj/machinery/suit_storage_unit/security/secure,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"kf" = (
+/obj/structure/sign/securearea,
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/administration)
+"mw" = (
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/administration)
+"oj" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/machinery/light/spot,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"oY" = (
+/obj/structure/chair,
+/obj/machinery/light/spot{
+	dir = 1;
+	icon_state = "tube1";
+	tag = "icon-tube1 (NORTH)"
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/administration)
+"pK" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 4;
+	icon_state = "propulsion"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/administration)
+"pQ" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/administration)
+"qQ" = (
+/obj/machinery/recharger/wallcharger{
+	pixel_y = 25
+	},
+/obj/machinery/recharger/wallcharger{
+	pixel_y = 35
+	},
+/obj/machinery/light/spot{
+	dir = 1;
+	icon_state = "tube1";
+	tag = "icon-tube1 (NORTH)"
+	},
+/obj/machinery/door_control{
+	id = "adminshuttlebridge";
+	name = "Bridge Privacy Shutters";
+	pixel_x = 25;
+	req_access_txt = "19"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"rb" = (
+/obj/machinery/door/window/brigdoor/southleft{
+	req_one_access_txt = "2;19"
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/administration)
+"sq" = (
+/obj/structure/table/reinforced,
+/obj/item/kitchen/knife/combat{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/kitchen/knife/combat,
+/obj/item/kitchen/knife/combat{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"tx" = (
+/obj/machinery/sleeper/upgraded{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/administration)
+"ua" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/machinery/door_control{
+	dir = 4;
+	id = "Asclshutters";
+	name = "External Window Shutter Control";
+	pixel_x = -5;
+	pixel_y = 35;
+	req_access_txt = "19"
+	},
+/obj/machinery/keycard_auth{
+	pixel_y = 24
+	},
+/obj/machinery/door_control{
+	id = "asclblast";
+	name = "Airlock Blast Door Control";
+	pixel_x = 5;
+	pixel_y = 35;
+	req_access = null;
+	req_access_txt = "19"
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"uW" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "heater"
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/administration)
+"uY" = (
+/obj/structure/window/reinforced,
+/obj/structure/table/reinforced,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/administration)
+"vk" = (
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/administration)
+"vy" = (
+/obj/structure/table/reinforced,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/administration)
+"vA" = (
+/obj/machinery/light/spot{
+	dir = 1;
+	icon_state = "tube1";
+	tag = "icon-tube1 (NORTH)"
+	},
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"vW" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/storage/box/handcuffs,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"wG" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/item/clothing/suit/armor/bulletproof{
+	pixel_x = 0;
+	pixel_y = 0
+	},
+/obj/item/clothing/head/helmet/alt,
+/obj/item/clothing/suit/armor/bulletproof{
+	pixel_x = 0;
+	pixel_y = 0
+	},
+/obj/item/clothing/head/helmet/alt,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"wH" = (
+/obj/machinery/light/spot{
+	dir = 8;
+	icon_state = "tube1";
+	tag = "icon-tube1 (WEST)"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"wQ" = (
+/obj/effect/spawner/window/shuttle,
+/turf/space,
+/area/shuttle/administration)
+"xm" = (
+/obj/structure/table/reinforced,
+/obj/item/rcd/preloaded,
+/obj/item/rcd_ammo,
+/obj/item/rcd_ammo{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/rcd_ammo{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/administration)
+"xF" = (
+/obj/structure/rack,
+/obj/item/storage/box/buck{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/buck,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"xH" = (
+/obj/machinery/door/airlock/titanium,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"xQ" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/machinery/light/spot{
+	dir = 1;
+	icon_state = "tube1";
+	tag = "icon-tube1 (NORTH)"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"xU" = (
+/obj/structure/table/reinforced,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"xZ" = (
+/turf/space,
+/area/shuttle/administration)
+"yg" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/brigdoor/eastleft{
+	name = "Armory";
+	req_access_txt = "3"
+	},
+/obj/machinery/door/window/brigdoor/westleft{
+	name = "Armory"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "adminarmoryshutters"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"yu" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger{
+	pixel_x = -5
+	},
+/obj/machinery/recharger{
+	pixel_x = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"yF" = (
+/obj/machinery/status_display,
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/administration)
+"AH" = (
+/obj/machinery/light/spot,
+/obj/machinery/porta_turret{
+	installation = /obj/item/gun/energy/gun
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Bc" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/shield/riot,
+/obj/item/shield/riot{
+	pixel_x = 2;
+	pixel_y = -4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Bj" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	req_one_access_txt = "2;19"
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "asclblast";
+	name = "Blast Door";
+	opacity = 0
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
+"Bn" = (
+/obj/machinery/door/window/brigdoor/southleft{
+	req_one_access_txt = "2;19"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Bq" = (
+/obj/structure/sign/nosmoking_2,
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/administration)
+"BZ" = (
+/obj/machinery/light/spot,
+/obj/machinery/porta_turret{
+	installation = /obj/item/gun/energy/gun
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Cl" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/emergency{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/toolbox/mechanical,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/administration)
+"Du" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced,
+/obj/item/gun/energy/gun,
+/obj/item/gun/energy/gun{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"DZ" = (
+/obj/machinery/light/spot,
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"EQ" = (
+/obj/machinery/door/airlock/titanium/glass,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/administration)
+"Fd" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/gun/energy/gun,
+/obj/item/gun/energy/gun{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Fo" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/gun/energy/immolator/multi{
+	pixel_y = -3
+	},
+/obj/item/gun/energy/immolator/multi,
+/obj/item/gun/energy/immolator/multi{
+	pixel_y = 3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"FF" = (
+/obj/structure/sign/poster/official/enlist,
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/administration)
+"FT" = (
+/obj/structure/rack,
+/obj/item/storage/box/buck{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/buck,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Gf" = (
+/obj/structure/sign/vacuum{
+	pixel_x = -32
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Gn" = (
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/rack,
+/obj/item/gun/projectile/shotgun/riot/buckshot{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/gun/projectile/shotgun/riot/buckshot,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Gx" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external,
+/obj/docking_port/mobile{
+	dir = 2;
+	dwidth = 9;
+	height = 18;
+	id = "admin";
+	name = "armory";
+	roundstart_move = "cc_bay_1";
+	timid = 1;
+	width = 19
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "asclblast";
+	name = "Blast Door";
+	opacity = 0
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
+"Gy" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/administration)
+"Hc" = (
+/obj/machinery/porta_turret{
+	installation = /obj/item/gun/energy/gun
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/administration)
+"HN" = (
+/obj/structure/sign/poster/official/do_not_question,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/administration)
+"Ir" = (
+/obj/machinery/computer/shuttle/admin{
+	name = "NRV Sparta shuttle console"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Jt" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Ke" = (
+/obj/machinery/door/window/brigdoor/southright{
+	req_one_access_txt = "2;19"
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/administration)
+"Kh" = (
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Ki" = (
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/clothing/suit/armor/bulletproof{
+	pixel_x = 0;
+	pixel_y = 0
+	},
+/obj/structure/rack,
+/obj/item/clothing/head/helmet/alt,
+/obj/item/clothing/suit/armor/bulletproof{
+	pixel_x = 0;
+	pixel_y = 0
+	},
+/obj/item/clothing/head/helmet/alt,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Lh" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/gun/energy/ionrifle{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/gun/energy/ionrifle,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"LK" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/computer/secure_data,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Mi" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Mj" = (
+/obj/machinery/vending/medical,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/administration)
+"Mo" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/clothing/suit/armor/bulletproof{
+	pixel_x = 0;
+	pixel_y = 0
+	},
+/obj/item/clothing/head/helmet/alt,
+/obj/item/clothing/suit/armor/bulletproof{
+	pixel_x = 0;
+	pixel_y = 0
+	},
+/obj/item/clothing/head/helmet/alt,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Ni" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/rack,
+/obj/item/gun/projectile/shotgun/riot/buckshot{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/gun/projectile/shotgun/riot/buckshot,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Ns" = (
+/obj/machinery/recharger/wallcharger{
+	pixel_y = 25
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/administration)
+"NF" = (
+/obj/structure/sign/poster/official/here_for_your_safety,
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/administration)
+"NQ" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
+"Op" = (
+/obj/structure/dispenser/oxygen,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Ou" = (
+/obj/machinery/autolathe/upgraded{
+	hacked = 1
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/administration)
+"Pe" = (
+/obj/machinery/door/window/brigdoor/southright{
+	req_one_access_txt = "2;19"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Pn" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/clothing/suit/armor/riot,
+/obj/item/clothing/suit/armor/riot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"PR" = (
+/obj/machinery/light/spot{
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
+	},
+/obj/machinery/door_control{
+	id = "adminarmoryshutters";
+	name = "Armory Internal Shutters";
+	pixel_x = -26;
+	req_access_txt = "3"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"PS" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/gun/energy/gun/nuclear{
+	pixel_y = -3
+	},
+/obj/item/gun/energy/gun/nuclear,
+/obj/item/gun/energy/gun/nuclear{
+	pixel_y = 3
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"PV" = (
+/obj/structure/rack,
+/obj/item/gun/energy/sniperrifle{
+	pixel_y = -4
+	},
+/obj/item/gun/energy/sniperrifle,
+/obj/item/gun/energy/sniperrifle{
+	pixel_y = 3
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"TD" = (
+/obj/machinery/door/airlock/command{
+	name = "Command Center";
+	req_access = null;
+	req_access_txt = "19"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"TF" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/obj/item/storage/fancy/donut_box,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Un" = (
+/obj/structure/table/reinforced,
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/machinery/light/spot{
+	dir = 8;
+	icon_state = "tube1";
+	tag = "icon-tube1 (WEST)"
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/administration)
+"Ur" = (
+/obj/machinery/porta_turret{
+	installation = /obj/item/gun/energy/gun
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/administration)
+"UX" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "asclblast";
+	name = "Blast Door";
+	opacity = 0
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
+"VC" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Shuttle Armory";
+	req_access_txt = "3"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"VQ" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/gun/energy/gun/advtaser{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/gun/energy/gun/advtaser{
+	pixel_x = 0;
+	pixel_y = 0
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"WV" = (
+/obj/structure/table/reinforced,
+/obj/item/restraints/handcuffs{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/restraints/handcuffs,
+/obj/item/restraints/handcuffs{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/machinery/light/spot{
+	dir = 4;
+	icon_state = "tube1";
+	tag = "icon-tube1 (EAST)"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"XL" = (
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/gun/projectile/shotgun/riot/buckshot{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/gun/projectile/shotgun/riot/buckshot,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+
+(1,1,1) = {"
+vk
+vk
+HN
+vk
+vk
+vk
+vk
+vk
+NQ
+NQ
+NQ
+wQ
+vk
+vk
+vk
+vk
+vk
+vk
+"}
+(2,1,1) = {"
+vk
+Un
+xm
+Mj
+aP
+dP
+tx
+vk
+eI
+Ir
+dn
+gj
+vk
+vA
+cl
+cl
+DZ
+kf
+"}
+(3,1,1) = {"
+vk
+Ns
+mw
+mw
+mw
+mw
+mw
+vk
+ua
+gh
+gh
+gh
+FF
+Op
+Kh
+Kh
+Kh
+Bj
+"}
+(4,1,1) = {"
+vk
+Ns
+mw
+mw
+mw
+mw
+Gy
+vk
+qQ
+Kh
+Kh
+Kh
+yF
+Jt
+Kh
+Kh
+Kh
+Bj
+"}
+(5,1,1) = {"
+vk
+Ns
+mw
+mw
+mw
+mw
+fo
+vk
+vk
+TD
+NQ
+NQ
+vk
+vk
+xH
+NQ
+NQ
+kf
+"}
+(6,1,1) = {"
+vk
+bi
+Cl
+vy
+Ou
+mw
+mw
+vk
+cV
+Kh
+Kh
+Kh
+Bn
+Gf
+Kh
+Mi
+Mi
+vk
+"}
+(7,1,1) = {"
+vk
+NQ
+NQ
+NQ
+NQ
+gd
+NQ
+vk
+xQ
+Kh
+hN
+Kh
+Pe
+Kh
+Kh
+Kh
+oj
+vk
+"}
+(8,1,1) = {"
+vk
+oY
+mw
+mw
+mw
+mw
+Ur
+kf
+vW
+al
+aI
+LK
+TF
+Kh
+Kh
+Kh
+fQ
+NQ
+"}
+(9,1,1) = {"
+UX
+mw
+mw
+mw
+mw
+mw
+mw
+EQ
+mw
+mw
+mw
+mw
+rb
+Kh
+Kh
+Kh
+fQ
+NQ
+"}
+(10,1,1) = {"
+Gx
+mw
+mw
+mw
+mw
+mw
+mw
+EQ
+mw
+mw
+mw
+mw
+Ke
+Kh
+Kh
+Kh
+Kh
+NQ
+"}
+(11,1,1) = {"
+vk
+oY
+mw
+mw
+mw
+mw
+Hc
+kf
+ir
+pQ
+pQ
+pQ
+uY
+Kh
+Kh
+Kh
+BZ
+vk
+"}
+(12,1,1) = {"
+vk
+vk
+Bq
+yg
+VC
+yg
+yF
+vk
+NQ
+NQ
+NQ
+vk
+vk
+Bq
+VC
+NF
+vk
+vk
+"}
+(13,1,1) = {"
+vk
+Kh
+wH
+eL
+Kh
+eL
+Kh
+PR
+PV
+PS
+Fo
+wH
+VQ
+Bc
+Kh
+Kh
+AH
+vk
+"}
+(14,1,1) = {"
+NQ
+Kh
+dH
+Ni
+Kh
+FT
+Mo
+Kh
+Kh
+Kh
+Kh
+Kh
+Lh
+Pn
+Kh
+Kh
+Kh
+NQ
+"}
+(15,1,1) = {"
+NQ
+Kh
+Du
+Gn
+Kh
+df
+wG
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
+NQ
+"}
+(16,1,1) = {"
+NQ
+Kh
+Fd
+XL
+Kh
+xF
+Ki
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
+NQ
+"}
+(17,1,1) = {"
+vk
+fF
+Kh
+Kh
+fF
+Kh
+Kh
+fF
+iz
+yu
+sq
+WV
+xU
+ce
+jB
+jU
+de
+vk
+"}
+(18,1,1) = {"
+vk
+vk
+uW
+uW
+vk
+vk
+vk
+vk
+uW
+uW
+vk
+vk
+vk
+vk
+uW
+uW
+vk
+vk
+"}
+(19,1,1) = {"
+xZ
+vk
+pK
+pK
+vk
+xZ
+xZ
+vk
+pK
+pK
+vk
+xZ
+xZ
+vk
+pK
+pK
+vk
+xZ
+"}

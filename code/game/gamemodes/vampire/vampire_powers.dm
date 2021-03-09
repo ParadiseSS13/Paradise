@@ -15,7 +15,7 @@
 	if(!gain_desc)
 		gain_desc = "You have gained \the [src] ability."
 
-/obj/effect/proc_holder/spell/vampire/cast_check(skipcharge = 0, mob/living/user = usr)
+/obj/effect/proc_holder/spell/vampire/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
 	if(!user.mind)
 		return 0
 	if(!ishuman(user))
@@ -45,7 +45,7 @@
 		return 0
 	return ..()
 
-/obj/effect/proc_holder/spell/vampire/can_cast(mob/user = usr)
+/obj/effect/proc_holder/spell/vampire/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(!user.mind)
 		return 0
 	if(!ishuman(user))
@@ -264,13 +264,13 @@
 			continue
 		if(ishuman(C))
 			var/mob/living/carbon/human/H = C
-			if(istype(H.l_ear, /obj/item/clothing/ears/earmuffs) || istype(H.r_ear, /obj/item/clothing/ears/earmuffs))
+			if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
 				continue
 		if(!affects(C))
 			continue
 		to_chat(C, "<span class='warning'><font size='3'><b>You hear a ear piercing shriek and your senses dull!</font></b></span>")
 		C.Weaken(4)
-		C.MinimumDeafTicks(20)
+		C.AdjustEarDamage(0, 20)
 		C.Stuttering(20)
 		C.Stun(4)
 		C.Jitter(150)

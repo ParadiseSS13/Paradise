@@ -404,9 +404,9 @@
 		qdel(hotspot)
 
 /datum/reagent/consumable/enzyme
-	name = "Denatured Enzyme"
+	name = "Universal Enzyme"
 	id = "enzyme"
-	description = "Heated beyond usefulness, this enzyme is now worthless."
+	description = "A special catalyst that makes certain culinary chemical reactions happen instantly instead of taking hours or days."
 	reagent_state = LIQUID
 	color = "#282314" // rgb: 54, 94, 48
 	taste_description = "sweetness"
@@ -436,7 +436,7 @@
 /datum/reagent/consumable/hell_ramen
 	name = "Hell Ramen"
 	id = "hell_ramen"
-	description = "The noodles are boiled, the flavors are artificial, just like being back in school."
+	description = "The noodles are boiled, the flavors are artificial, just like being back in school...IN HELL"
 	reagent_state = LIQUID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
@@ -591,15 +591,18 @@
 	reagent_state = LIQUID
 	color = "#21170E"
 	taste_description = "tea"
+	harmless = TRUE
 
 /datum/reagent/consumable/mugwort/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(ishuman(M) && M.mind)
-		if(M.mind.special_role == SPECIAL_ROLE_WIZARD)
-			update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-			update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-			update_flags |= M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-			update_flags |= M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	if(ishuman(M) && M.mind?.special_role == SPECIAL_ROLE_WIZARD)
+		update_flags |= M.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustOxyLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustFireLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		for(var/datum/reagent/R in M.reagents.reagent_list)
+			if(!R.harmless)
+				M.reagents.remove_reagent(R.id, 5) // purge those meme chems
 	return ..() | update_flags
 
 /datum/reagent/consumable/porktonium
@@ -628,7 +631,7 @@
 	reagent_state = LIQUID
 	color = "#B4B400"
 	metabolization_rate = 0.2
-	nutriment_factor = 2
+	nutriment_factor = 2.5 * REAGENTS_METABOLISM
 	taste_description = "broth"
 
 /datum/reagent/consumable/cheese
@@ -791,53 +794,6 @@
 	color = "#B4641B"
 	taste_description = "gravy"
 
-/datum/reagent/consumable/beff
-	name = "Beff"
-	id = "beff"
-	description = "An advanced blend of mechanically-recovered meat and textured synthesized protein product notable for its unusual crystalline grain when sliced."
-	reagent_state = SOLID
-	color = "#AC7E67"
-	taste_description = "meat"
-
-/datum/reagent/consumable/beff/on_mob_life(mob/living/M)
-	if(prob(5))
-		M.reagents.add_reagent("cholesterol", rand(1,3))
-	if(prob(8))
-		M.reagents.add_reagent(pick("blood", "corn_syrup", "synthflesh", "hydrogenated_soybeanoil", "porktonium", "toxic_slurry"), 0.8)
-	else if(prob(6))
-		to_chat(M, "<span class='warning'>[pick("You feel ill.","Your stomach churns.","You feel queasy.","You feel sick.")]</span>")
-		M.emote(pick("groan","moan"))
-	return ..()
-
-/datum/reagent/consumable/pepperoni
-	name = "Pepperoni"
-	id = "pepperoni"
-	description = "An Italian-American variety of salami usually made from beef and pork"
-	reagent_state = SOLID
-	color = "#AC7E67"
-	taste_description = "pepperoni"
-
-/datum/reagent/consumable/pepperoni/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(method == REAGENT_TOUCH)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-
-			if(H.wear_mask)
-				to_chat(H, "<span class='warning'>The pepperoni bounces off your mask!</span>")
-				return
-
-			if(H.head)
-				to_chat(H, "<span class='warning'>Your mask protects you from the errant pepperoni!</span>")
-				return
-
-			if(prob(50))
-				M.adjustBruteLoss(1)
-				playsound(M, 'sound/effects/woodhit.ogg', 50, 1)
-				to_chat(M, "<span class='warning'>A slice of pepperoni slaps you!</span>")
-			else
-				M.emote("burp")
-				to_chat(M, "<span class='warning'>My goodness, that was tasty!</span>")
-
 
 ///Food Related, but non-nutritious
 
@@ -856,7 +812,7 @@
 			H.Weaken(2, FALSE)
 			H.update_canmove()
 			to_chat(H, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
-		if(NO_HUNGER in H.dna.species.species_traits) //If you don't eat, then you can't get food poisoning
+		if(HAS_TRAIT(H, TRAIT_NOHUNGER)) //If you don't eat, then you can't get food poisoning
 			return
 		H.ForceContractDisease(new /datum/disease/food_poisoning(0))
 
@@ -1030,3 +986,11 @@
 		update_flags |= M.adjustBruteLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustFireLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
+
+/datum/reagent/consumable/mint
+	name = "Mint"
+	id = "mint"
+	description = "A light green liquid extracted from mint leaves."
+	reagent_state = LIQUID
+	color = "#A7EE9F"
+	taste_description = "mint"

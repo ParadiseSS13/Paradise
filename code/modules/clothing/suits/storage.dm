@@ -1,5 +1,6 @@
 /obj/item/clothing/suit/storage
 	var/obj/item/storage/internal/pockets
+	w_class = WEIGHT_CLASS_NORMAL //we don't want these to be able to fit in their own pockets.
 
 /obj/item/clothing/suit/storage/New()
 	..()

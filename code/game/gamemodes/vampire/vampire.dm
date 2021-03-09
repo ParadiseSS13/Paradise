@@ -95,10 +95,10 @@
 				for(var/datum/objective/objective in vampire.objectives)
 					if(objective.check_completion())
 						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
-						feedback_add_details("traitor_objective","[objective.type]|SUCCESS")
+						SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "SUCCESS"))
 					else
 						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
-						feedback_add_details("traitor_objective","[objective.type]|FAIL")
+						SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "FAIL"))
 						traitorwin = 0
 					count++
 
@@ -110,10 +110,10 @@
 
 			if(traitorwin)
 				text += "<br><font color='green'><B>The [special_role_text] was successful!</B></font>"
-				feedback_add_details("traitor_success","SUCCESS")
+				SSblackbox.record_feedback("tally", "traitor_success", 1, "SUCCESS")
 			else
 				text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font>"
-				feedback_add_details("traitor_success","FAIL")
+				SSblackbox.record_feedback("tally", "traitor_success", 1, "FAIL")
 		to_chat(world, text)
 	return 1
 
@@ -175,7 +175,7 @@
 /datum/game_mode/proc/greet_vampire(var/datum/mind/vampire, var/you_are=1)
 	var/dat
 	if(you_are)
-		SEND_SOUND(vampire.current, 'sound/ambience/antag/vampalert.ogg')
+		SEND_SOUND(vampire.current, sound('sound/ambience/antag/vampalert.ogg'))
 		dat = "<span class='danger'>You are a Vampire!</span><br>"
 	dat += {"To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers.
 You are weak to holy things and starlight. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."}
@@ -185,7 +185,8 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	if(vampire.current.mind)
 		if(vampire.current.mind.assigned_role == "Clown")
 			to_chat(vampire.current, "Your lust for blood has allowed you to overcome your clumsy nature allowing you to wield weapons without harming yourself.")
-			vampire.current.mutations.Remove(CLUMSY)
+			vampire.current.dna.SetSEState(GLOB.clumsyblock, FALSE)
+			singlemutcheck(vampire.current, GLOB.clumsyblock, MUTCHK_FORCED)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(vampire.current)
 	var/obj_count = 1
@@ -279,6 +280,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	var/blood = 0
 	var/old_bloodtotal = 0 //used to see if we increased our blood total
 	var/old_bloodusable = 0 //used to see if we increased our blood usable
+	var/blood_volume_warning = 9999 //Blood volume threshold for warnings
 	if(owner.is_muzzled())
 		to_chat(owner, "<span class='warning'>[owner.wear_mask] prevents you from biting [H]!</span>")
 		draining = null
@@ -291,13 +293,10 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		H.LAssailant = owner
 	while(do_mob(owner, H, 50))
 		if(!(owner.mind in SSticker.mode.vampires))
-			to_chat(owner, "<span class='warning'>Your fangs have disappeared!</span>")
+			to_chat(owner, "<span class='userdanger'>Your fangs have disappeared!</span>")
 			return
 		old_bloodtotal = bloodtotal
 		old_bloodusable = bloodusable
-		if(!H.blood_volume)
-			to_chat(owner, "<span class='warning'>They've got no blood left to give.</span>")
-			break
 		if(H.stat < DEAD)
 			if(H.ckey || H.player_ghosted) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
 				blood = min(20, H.blood_volume)	// if they have less than 20 blood, give them the remnant else they get 20 blood
@@ -312,6 +311,17 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 				to_chat(owner, "<span class='notice'><b>You have accumulated [bloodtotal] [bloodtotal > 1 ? "units" : "unit"] of blood[bloodusable != old_bloodusable ? ", and have [bloodusable] left to use" : ""].</b></span>")
 		check_vampire_upgrade()
 		H.blood_volume = max(H.blood_volume - 25, 0)
+		//Blood level warnings (Code 'borrowed' from Fulp)
+		if(H.blood_volume)
+			if(H.blood_volume <= BLOOD_VOLUME_BAD && blood_volume_warning > BLOOD_VOLUME_BAD)
+				to_chat(owner, "<span class='danger'>Your victim's blood volume is dangerously low.</span>")
+			else if(H.blood_volume <= BLOOD_VOLUME_OKAY && blood_volume_warning > BLOOD_VOLUME_OKAY)
+				to_chat(owner, "<span class='warning'>Your victim's blood is at an unsafe level.</span>")
+			blood_volume_warning = H.blood_volume //Set to blood volume, so that you only get the message once
+		else
+			to_chat(owner, "<span class='warning'>You have bled your victim dry!</span>")
+			break
+
 		if(ishuman(owner))
 			var/mob/living/carbon/human/V = owner
 			if(!H.ckey && !H.player_ghosted)//Only runs if there is no ckey and the body has not being ghosted while alive
@@ -424,7 +434,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"
 			hud.static_inventory += hud.vampire_blood_display
 			hud.show_hud(hud.hud_version)
-		hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#ce0202'>[bloodusable]</font></div>"
+		hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ce0202'>[bloodusable]</font></div>"
 	handle_vampire_cloak()
 	if(istype(owner.loc, /turf/space))
 		check_sun()

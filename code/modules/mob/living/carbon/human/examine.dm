@@ -23,6 +23,8 @@
 
 	if(wear_mask)
 		skipface |= wear_mask.flags_inv & HIDEFACE
+		skipeyes |= wear_mask.flags_inv & HIDEEYES
+
 	var/msg = "<span class='info'>*---------*\nThis is "
 
 	if(!(skipjumpsuit && skipface) && icon) //big suits/masks/helmets make it hard to tell their gender
@@ -35,7 +37,7 @@
 		if(C == src.head || C == src.wear_suit || C == src.wear_mask || C == src.w_uniform || C == src.belt || C == src.back)
 			if(C.species_disguise)
 				displayed_species = C.species_disguise
-	if(skipjumpsuit && skipface || (NO_EXAMINE in dna.species.species_traits)) //either obscured or on the nospecies list
+	if(skipjumpsuit && skipface || HAS_TRAIT(src, TRAIT_NOEXAMINE)) //either obscured or on the nospecies list
 		msg += "!\n"    //omit the species when examining
 	else if(displayed_species == "Slime People") //snowflakey because Slime People are defined as a plural
 		msg += ", a<b><font color='[examine_color]'> slime person</font></b>!\n"
@@ -143,11 +145,14 @@
 			msg += "[p_they(TRUE)] [p_have()] [bicon(wear_mask)] \a [wear_mask] on [p_their()] face.\n"
 
 	//eyes
-	if(glasses && !skipeyes && !(glasses.flags & ABSTRACT))
-		if(glasses.blood_DNA)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [bicon(glasses)] [glasses.gender==PLURAL?"some":"a"] [glasses.blood_color != "#030303" ? "blood-stained":"oil-stained"] [glasses] covering [p_their()] eyes!</span>\n"
-		else
-			msg += "[p_they(TRUE)] [p_have()] [bicon(glasses)] \a [glasses] covering [p_their()] eyes.\n"
+	if(!skipeyes)
+		if(glasses && !(glasses.flags & ABSTRACT))
+			if(glasses.blood_DNA)
+				msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [bicon(glasses)] [glasses.gender==PLURAL?"some":"a"] [glasses.blood_color != "#030303" ? "blood-stained":"oil-stained"] [glasses] covering [p_their()] eyes!</span>\n"
+			else
+				msg += "[p_they(TRUE)] [p_have()] [bicon(glasses)] \a [glasses] covering [p_their()] eyes.\n"
+		else if(iscultist(src) && HAS_TRAIT(src, CULT_EYES))
+			msg += "<span class='boldwarning'>[p_their(TRUE)] eyes are glowing an unnatural red!</span>\n"
 
 	//left ear
 	if(l_ear && !skipears)
@@ -172,7 +177,7 @@
 
 
 	var/appears_dead = FALSE
-	if(stat == DEAD || (status_flags & FAKEDEATH))
+	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		appears_dead = TRUE
 		if(suiciding)
 			msg += "<span class='warning'>[p_they(TRUE)] appear[p_s()] to have committed suicide... there is no hope of recovery.</span>\n"
@@ -249,26 +254,26 @@
 	if(wound_flavor_text["r_foot"]&& (is_destroyed["right foot"] || (!shoes  && !skipshoes)))
 		msg += wound_flavor_text["r_foot"]
 
-	var/temp = getBruteLoss() //no need to calculate each of these twice
+	var/damage = getBruteLoss() //no need to calculate each of these twice
 
-	if(temp)
+	if(damage)
 		var/brute_message = !ismachineperson(src) ? "bruising" : "denting"
-		if(temp < 30)
-			msg += "[p_they(TRUE)] [p_have()] minor [brute_message ].\n"
+		if(damage < 60)
+			msg += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] [brute_message].\n"
 		else
-			msg += "<B>[p_they(TRUE)] [p_have()] severe [brute_message ]!</B>\n"
+			msg += "<B>[p_they(TRUE)] [p_have()] severe [brute_message]!</B>\n"
 
-	temp = getFireLoss()
-	if(temp)
-		if(temp < 30)
-			msg += "[p_they(TRUE)] [p_have()] minor burns.\n"
+	damage = getFireLoss()
+	if(damage)
+		if(damage < 60)
+			msg += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] burns.\n"
 		else
 			msg += "<B>[p_they(TRUE)] [p_have()] severe burns!</B>\n"
 
-	temp = getCloneLoss()
-	if(temp)
-		if(temp < 30)
-			msg += "[p_they(TRUE)] [p_have()] minor cellular damage.\n"
+	damage = getCloneLoss()
+	if(damage)
+		if(damage < 60)
+			msg += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] cellular damage.\n"
 		else
 			msg += "<B>[p_they(TRUE)] [p_have()] severe cellular damage.</B>\n"
 
@@ -293,7 +298,7 @@
 	if(nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
 		msg += "[p_they(TRUE)] [p_are()] severely malnourished.\n"
 
-	if(FAT in mutations)
+	if(HAS_TRAIT(src, TRAIT_FAT))
 		msg += "[p_they(TRUE)] [p_are()] morbidly obese.\n"
 		if(user.nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
 			msg += "[p_they(TRUE)] [p_are()] plump and delicious looking - Like a fat little piggy. A tasty piggy.\n"
@@ -301,14 +306,13 @@
 	else if(nutrition >= NUTRITION_LEVEL_FAT)
 		msg += "[p_they(TRUE)] [p_are()] quite chubby.\n"
 
-	if(!ismachineperson(src) && blood_volume < BLOOD_VOLUME_SAFE)
+	if(blood_volume < BLOOD_VOLUME_SAFE)
 		msg += "[p_they(TRUE)] [p_have()] pale skin.\n"
 
 	if(bleedsuppress)
 		msg += "[p_they(TRUE)] [p_are()] bandaged with something.\n"
 	else if(bleed_rate)
-		var/bleed_message = !ismachineperson(src) ? "bleeding" : "leaking"
-		msg += "<B>[p_they(TRUE)] [p_are()] [bleed_message]!</B>\n"
+		msg += "<B>[p_they(TRUE)] [p_are()] bleeding!</B>\n"
 
 	if(reagents.has_reagent("teslium"))
 		msg += "[p_they(TRUE)] [p_are()] emitting a gentle blue glow!\n"
@@ -343,7 +347,7 @@
 	if(decaylevel == 4)
 		msg += "[p_they(TRUE)] [p_are()] mostly desiccated now, with only bones remaining of what used to be a person.\n"
 
-	if(hasHUD(user,"security"))
+	if(hasHUD(user, EXAMINE_HUD_SECURITY_READ))
 		var/perpname = get_visible_name(TRUE)
 		var/criminal = "None"
 		var/commentLatest = "ERROR: Unable to locate a data core entry for this person." //If there is no datacore present, give this
@@ -360,12 +364,28 @@
 							else
 								commentLatest = "No entries." //If present but without entries (=target is recognized crew)
 
-			var/criminal_status = hasHUD(user, "read_only_security") ? "\[[criminal]\]" : "<a href='?src=[UID()];criminal=1'>\[[criminal]\]</a>"
+			var/criminal_status = hasHUD(user, EXAMINE_HUD_SECURITY_WRITE) ? "<a href='?src=[UID()];criminal=1'>\[[criminal]\]</a>" : "\[[criminal]\]"
 			msg += "<span class = 'deptradio'>Criminal status:</span> [criminal_status]\n"
 			msg += "<span class = 'deptradio'>Security records:</span> <a href='?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
 			msg += "<span class = 'deptradio'>Latest entry:</span> [commentLatest]\n"
 
-	if(hasHUD(user,"medical"))
+	if(hasHUD(user, EXAMINE_HUD_SKILLS))
+		var/perpname = get_visible_name(TRUE)
+		var/skills
+
+		if(perpname)
+			for(var/datum/data/record/E in GLOB.data_core.general)
+				if(E.fields["name"] == perpname)
+					skills = E.fields["notes"]
+			if(skills)
+				var/char_limit = 40
+				if(length(skills) <= char_limit)
+					msg += "<span class='deptradio'>Employment records:</span> [skills]\n"
+				else
+					msg += "<span class='deptradio'>Employment records: [copytext_preserve_html(skills, 1, char_limit-3)]...</span><a href='byond://?src=[UID()];employment_more=1'>More...</a>\n"
+
+
+	if(hasHUD(user,EXAMINE_HUD_MEDICAL))
 		var/perpname = get_visible_name(TRUE)
 		var/medical = "None"
 
@@ -378,9 +398,11 @@
 		msg += "<span class = 'deptradio'>Physical status:</span> <a href='?src=[UID()];medical=1'>\[[medical]\]</a>\n"
 		msg += "<span class = 'deptradio'>Medical records:</span> <a href='?src=[UID()];medrecord=`'>\[View\]</a> <a href='?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
 
-
 	if(print_flavor_text() && !skipface)
-		msg += "[print_flavor_text()]\n"
+		if(get_organ("head"))
+			var/obj/item/organ/external/head/H = get_organ("head")
+			if(!H.disfigured)
+				msg += "[print_flavor_text()]\n"
 
 	msg += "*---------*</span>"
 	if(pose)
@@ -390,41 +412,34 @@
 
 	. = list(msg)
 
+	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
+
 //Helper procedure. Called by /mob/living/carbon/human/examine() and /mob/living/carbon/human/Topic() to determine HUD access to security and medical records.
-/proc/hasHUD(mob/M as mob, hudtype)
+/proc/hasHUD(mob/M, hudtype)
 	if(istype(M, /mob/living/carbon/human))
+		var/have_hudtypes = list()
 		var/mob/living/carbon/human/H = M
+
+		if(istype(H.glasses, /obj/item/clothing/glasses/hud))
+			var/obj/item/clothing/glasses/hud/hudglasses = H.glasses
+			if(hudglasses?.examine_extensions)
+				have_hudtypes += hudglasses.examine_extensions
+
 		var/obj/item/organ/internal/cyberimp/eyes/hud/CIH = H.get_int_organ(/obj/item/organ/internal/cyberimp/eyes/hud)
-		switch(hudtype)
-			if("security")
-				return istype(H.glasses, /obj/item/clothing/glasses/hud/security) || istype(CIH,/obj/item/organ/internal/cyberimp/eyes/hud/security)
-			if("read_only_security")
-				var/obj/item/clothing/glasses/hud/security/S
-				if(istype(H.glasses, /obj/item/clothing/glasses/hud/security))
-					S = H.glasses
-				return !istype(CIH,/obj/item/organ/internal/cyberimp/eyes/hud/security) && S && S.read_only
-			if("medical")
-				return istype(H.glasses, /obj/item/clothing/glasses/hud/health) || istype(CIH,/obj/item/organ/internal/cyberimp/eyes/hud/medical)
-			else
-				return FALSE
+		if(CIH?.examine_extensions)
+			have_hudtypes += CIH.examine_extensions
+
+		return (hudtype in have_hudtypes)
+
 	else if(isrobot(M) || isAI(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
-		switch(hudtype)
-			if("security")
-				return TRUE
-			if("medical")
-				return TRUE
-			else
-				return FALSE
+		return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL))
+
 	else if(isobserver(M))
 		var/mob/dead/observer/O = M
 		if(O.data_hud_seen == DATA_HUD_SECURITY_ADVANCED || O.data_hud_seen == DATA_HUD_DIAGNOSTIC + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED)
-			switch(hudtype)
-				if("security")
-					return TRUE
-				else
-					return FALSE
-	else
-		return FALSE
+			return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SKILLS))
+
+	return FALSE
 
 // Ignores robotic limb branding prefixes like "Morpheus Cybernetics"
 /proc/ignore_limb_branding(limb_name)
