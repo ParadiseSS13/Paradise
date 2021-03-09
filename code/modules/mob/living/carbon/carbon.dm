@@ -19,6 +19,7 @@
 		B.leave_host()
 		qdel(B)
 	GLOB.carbon_list -= src
+	remove_ventcrawl()
 	return ..()
 
 /mob/living/carbon/handle_atom_del(atom/A)
@@ -478,9 +479,6 @@ GLOBAL_LIST_EMPTY(ventcrawlers) // List of all mobs currently ventcrawling for p
 				if(I.flags & ABSTRACT)
 					continue
 				else
-					failed++
-
-				if(failed)
 					to_chat(src, "<span class='warning'>You can't crawl around in the ventilation ducts with items!</span>")
 					return
 
