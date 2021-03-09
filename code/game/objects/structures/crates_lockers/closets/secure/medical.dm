@@ -296,6 +296,3 @@
 	icon_broken = "medicalbroken"
 	icon_off = "medicaloff"
 	req_access = list(ACCESS_MORGUE)
-
-/obj/structure/closet/secure_closet/coroner/populate_contents()
-	return
