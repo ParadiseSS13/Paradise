@@ -23,8 +23,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	ROLE_BORER = 21,
 	ROLE_NINJA = 21,
 	ROLE_GSPIDER = 21,
-	ROLE_ABDUCTOR = 30,
-	ROLE_DEVIL = 14
+	ROLE_ABDUCTOR = 30
 ))
 
 /proc/player_old_enough_antag(client/C, role)
@@ -184,8 +183,18 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/slot_name = ""
 	var/saved = FALSE // Indicates whether the character comes from the database or not
 
-	// jukebox volume
-	var/volume = 100
+	/// Volume mixer, indexed by channel as TEXT (numerical indexes will not work). Volume goes from 0 to 100.
+	var/list/volume_mixer = list(
+		"1024" = 100, // CHANNEL_LOBBYMUSIC
+		"1023" = 100, // CHANNEL_ADMIN
+		"1022" = 100, // CHANNEL_VOX
+		"1021" = 100, // CHANNEL_JUKEBOX
+		"1020" = 100, // CHANNEL_HEARTBEAT
+		"1019" = 100, // CHANNEL_BUZZ
+		"1018" = 100, // CHANNEL_AMBIENCE
+	)
+	/// The volume mixer save timer handle. Used to debounce the DB call to save, to avoid spamming.
+	var/volume_mixer_saving = null
 
 	// BYOND membership
 	var/unlock_content = 0
@@ -867,7 +876,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_BLIND, "Blind")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_DEAF, "Deaf")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_MUTE, "Mute")
-	if(!(NO_OBESITY in S.species_traits))
+	if(!(TRAIT_NOFAT in S.inherent_traits))
 		HTML += ShowDisabilityState(user, DISABILITY_FLAG_FAT, "Obese")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_NERVOUS, "Stutter")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_SWEDISH, "Swedish accent")
@@ -2291,7 +2300,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	if(character.dna.dirtySE)
 		character.dna.UpdateSE()
-	domutcheck(character, null, MUTCHK_FORCED) //'Activates' all the above disabilities.
+	domutcheck(character, MUTCHK_FORCED) //'Activates' all the above disabilities.
 
 	character.dna.ready_dna(character, flatten_SE = 0)
 	character.sync_organ_dna(assimilate=1)

@@ -80,7 +80,7 @@
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/berry_banned2/on_mob_death(mob/living/M)
-	M << sound('sound/effects/adminhelp.ogg',0,1,0,25)
+	SEND_SOUND(M, sound('sound/effects/adminhelp.ogg', 0, 1, 0, 25))
 	to_chat(M, "<span class='adminhelp'>PM from-<b>Administrator</b>: BWOINK!</span>")
 	..()
 

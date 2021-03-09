@@ -154,7 +154,7 @@
 	result_amount = 3
 	mix_message = "The substance turns neon green and bubbles unnervingly."
 
-/datum/chemical_reaction/stable_mustagen
+/datum/chemical_reaction/stable_mutagen
 	name = "Stable mutagen"
 	id = "stable_mutagen"
 	result = "stable_mutagen"
@@ -162,7 +162,7 @@
 	result_amount = 3
 	mix_message = "The substance turns a drab green and begins to bubble."
 
-/datum/chemical_reaction/stable_mustagen/stable_mustagen2
+/datum/chemical_reaction/stable_mutagen/stable_mutagen2
 	id = "stable_mutagen2"
 	required_reagents = list("mutadone" = 3, "lithium" = 1)
 	result_amount = 4

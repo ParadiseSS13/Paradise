@@ -125,9 +125,9 @@
 
 	// Copy cybernetic implants
 	O.cybernetic_implants = list()
-	for(var/obj/item/organ/internal/CI in contents)
-		if(istype(CI))
-			O.cybernetic_implants |= CI.type
+	for(var/org in internal_organs)
+		var/obj/item/organ/internal/aug = org
+		O.cybernetic_implants |= aug.type
 
 	// Copy accessories
 	var/obj/item/clothing/under/uniform_slot = get_item_by_slot(slot_w_uniform)
