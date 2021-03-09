@@ -285,7 +285,7 @@ Pipelines + Other Objects -> Pipe network
 				playsound(src, 'sound/machines/ventcrawl.ogg', 50, 1, -3)
 	else
 		if((direction & initialize_directions) || is_type_in_list(src, GLOB.ventcrawl_machinery)) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
-			if(do_after(user, 30, target = src))
+			if(do_after(user, 3 SECONDS, target = src))
 				user.remove_ventcrawl()
 				user.forceMove(get_turf(src))
 				user.visible_message("<span class='boldnotice'>You hear something squeezing through the pipes.</span>", "<span class='notice'>You climb out the ventilation system.</span>")

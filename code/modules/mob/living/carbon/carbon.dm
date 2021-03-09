@@ -470,7 +470,7 @@ GLOBAL_LIST_EMPTY(ventcrawlers) // List of all mobs currently ventcrawling for p
 		if(!client)
 			return
 
-		if(iscarbon(src) && contents.len && ventcrawlerlocal < 2)//It must have atleast been 1 to get this far
+		if(iscarbon(src) && length(contents) && ventcrawlerlocal < 2)//It must have atleast been 1 to get this far
 			for(var/obj/item/I in contents)
 				var/failed = 0
 				if(istype(I, /obj/item/implant))
@@ -537,7 +537,7 @@ GLOBAL_LIST_EMPTY(ventcrawlers) // List of all mobs currently ventcrawling for p
 	if(A.can_crawl_through())
 		visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
 		"<span class='notice'>You begin climbing into the ventilation system...</span>")
-		if(do_after(src, 45, target = src))
+		if(do_after(src, 4.5 SECONDS, target = src))
 			return TRUE
 	return FALSE
 
