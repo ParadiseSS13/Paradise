@@ -84,9 +84,9 @@ GLOBAL_VAR(bomb_set)
 	if(istype(O, /obj/item/stack/sheet/mineral/titanium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
 		if(do_after(user, 20, target = src))
 			var/obj/item/stack/S = O
-			if(!loc || !S || S.get_amount() < 10)
+			if(!loc || !S || S.get_amount() < 5)
 				return
-			S.use(10)
+			S.use(5)
 			user.visible_message("<span class='notice'>[user] repairs [src]'s inner core plate.</span>", "<span class='notice'>You repair [src]'s inner core plate. The radiation is contained.</span>")
 			removal_stage = NUKE_CORE_PANEL_UNWELDED
 			if(core)
@@ -97,11 +97,11 @@ GLOBAL_VAR(bomb_set)
 		if(do_after(user, 20, target = src))
 			if(!loc || !S || S.get_amount() < 5)
 				return
-			S.use(10)
+			S.use(5)
 			user.visible_message("<span class='notice'>[user] repairs [src]'s outer core plate.</span>", "<span class='notice'>You repair [src]'s outer core plate.</span>")
 			removal_stage = NUKE_CORE_EVERYTHING_FINE
 			return
-	if(istype(O, /obj/item/nuke_core/plutonium))
+	if(istype(O, /obj/item/nuke_core/plutonium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
 		if(do_after(user, 20, target = src))
 			if(!user.unEquip(O))
 				to_chat(user, "<span class='notice'>The [O] is stuck to your hand!</span>")
@@ -129,7 +129,8 @@ GLOBAL_VAR(bomb_set)
 		user.visible_message("<span class='notice'>[user] starts removing [src]'s outer core plate...</span>", "<span class='notice'>You start removing [src]'s outer plate...</span>")
 		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || removal_stage != NUKE_CORE_EVERYTHING_FINE)
 			return
-		user.visible_message("<span class='notice'>[user] finishes removing [src]'s outer core plate.</span>", "<span class='notice'>You finish removing [src]'s inner core plate.</span>")
+		user.visible_message("<span class='notice'>[user] finishes removing [src]'s outer core plate.</span>", "<span class='notice'>You finish removing [src]'s outer core plate.</span>")
+		new /obj/item/stack/sheet/metal(loc, 5)
 		removal_stage = NUKE_CORE_PANEL_EXPOSED
 	if(removal_stage == NUKE_CORE_PANEL_UNWELDED)
 		user.visible_message("<span class='notice'>[user] starts removing [src]'s inner core plate...</span>", "<span class='notice'>You start removing [src]'s inner plate...</span>")
@@ -137,6 +138,7 @@ GLOBAL_VAR(bomb_set)
 			return
 		user.visible_message("<span class='notice'>[user] finishes removing [src]'s inner core plate.</span>", "<span class='notice'>You remove [src]'s inner core plate. You can see the core's green glow!</span>")
 		removal_stage = NUKE_CORE_FULLY_EXPOSED
+		new /obj/item/stack/sheet/mineral/titanium(loc, 5)
 		if(core)
 			START_PROCESSING(SSobj, core)
 	if(removal_stage == NUKE_UNWRENCHED)
