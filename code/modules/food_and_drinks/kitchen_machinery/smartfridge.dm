@@ -406,7 +406,7 @@
 	name = "\improper Circuit Board Storage"
 	desc = "A storage unit for circuits."
 	icon_state = "circuits"
-	visible_contents = FALSE
+	visible_contents = TRUE
 	board_type = /obj/machinery/smartfridge/secure/circuits
 
 /obj/machinery/smartfridge/secure/circuits/Initialize(mapload)
@@ -415,6 +415,23 @@
 		/obj/item/aiModule,
 		/obj/item/circuitboard
 	))
+
+/obj/machinery/smartfridge/secure/circuits/update_icon()
+	var/prefix = initial(icon_state)
+	if(stat & (BROKEN|NOPOWER))
+		icon_state = "[prefix]-off"
+	else if(visible_contents)
+		switch(length(contents))
+			if(0)
+				icon_state = "[prefix]"
+			if(1 to 2)
+				icon_state = "[prefix]1"
+			if(3 to 5)
+				icon_state = "[prefix]2"
+			if(6 to INFINITY)
+				icon_state = "[prefix]3"
+	else
+		icon_state = "[prefix]"
 
 /obj/machinery/smartfridge/secure/circuits/aiupload
 	name = "\improper AI Laws Storage"
