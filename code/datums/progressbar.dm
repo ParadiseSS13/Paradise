@@ -38,6 +38,8 @@
 	var/client/client
 	/// The bar's index number within the owning mob's active progress bar list.
 	var/list_index
+	/// Whether the bar is stopping.
+	var/stopping = FALSE
 
 /datum/progress_bar/New(mob/user, goal, atom/target)
 	. = ..()
@@ -63,6 +65,18 @@
 		animate(holder, alpha = 255, time = 0.5 SECONDS, easing = SINE_EASING | EASE_OUT)
 
 /datum/progress_bar/Destroy()
+	client?.images -= holder
+	QDEL_NULL(holder)
+	QDEL_NULL(backdrop)
+	QDEL_NULL(fill)
+	return ..()
+
+/**
+  * Stops the progress bar and removes it after a bit.
+  */
+/datum/progress_bar/proc/stop()
+	if(stopping)
+		return
 	if(user?.progressbars[target])
 		var/list/bars = user.progressbars[target]
 		for(var/I in (bars - src))
@@ -74,13 +88,9 @@
 		if(!length(bars))
 			LAZYREMOVE(user.progressbars, target)
 
+	stopping = TRUE
 	animate(holder, alpha = 0, time = 0.5 SECONDS)
-	spawn(5)
-		client?.images -= holder
-		QDEL_NULL(holder)
-		QDEL_NULL(backdrop)
-		QDEL_NULL(fill)
-	return ..()
+	QDEL_IN(src, 0.5 SECONDS)
 
 /**
   * Initializes the visual elements.

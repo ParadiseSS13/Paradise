@@ -366,7 +366,7 @@ This is always put in the attack log.
 			. = 0
 			break
 	if(progress)
-		qdel(progbar)
+		progbar.stop()
 
 /*	Use this proc when you want to have code under it execute after a delay, and ensure certain conditions are met during that delay...
  *	Such as the user not being interrupted via getting stunned or by moving off the tile they're currently on.
@@ -440,7 +440,7 @@ This is always put in the attack log.
 				. = FALSE
 				break
 	if(progress)
-		qdel(progbar)
+		progbar.stop()
 
 // Upon any of the callbacks in the list returning TRUE, the proc will return TRUE.
 /proc/check_for_true_callbacks(list/extra_checks)
