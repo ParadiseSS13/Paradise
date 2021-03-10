@@ -158,6 +158,7 @@
 	user.SetParalysis(0)
 	user.SetSleeping(0)
 	U.adjustStaminaLoss(-75)
+	user.SetSlowed(0)
 	to_chat(user, "<span class='notice'>You instill your body with clean blood and remove any incapacitating effects.</span>")
 	spawn(1)
 		if(usr.mind.vampire.get_ability(/datum/vampire_passive/regen))

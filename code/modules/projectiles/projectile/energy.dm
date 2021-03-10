@@ -11,8 +11,6 @@
 	icon_state = "spark"
 	color = "#FFFF00"
 	nodamage = 1
-	stun = 5
-	weaken = 5
 	stutter = 5
 	jitter = 20
 	hitsound = 'sound/weapons/tase.ogg'
@@ -21,11 +19,13 @@
 
 /obj/item/projectile/energy/electrode/on_hit(var/atom/target, var/blocked = 0)
 	. = ..()
+	var/mob/living/carbon/C = target
 	if(!ismob(target) || blocked >= 100) //Fully blocked by mob or collided with dense object - burst into sparks!
 		do_sparks(1, 1, src)
 	else if(iscarbon(target))
-		var/mob/living/carbon/C = target
 		SEND_SIGNAL(C, COMSIG_LIVING_MINOR_SHOCK, 33)
+		C.Slowed(3)
+		addtimer(CALLBACK(C, /mob/living/.proc/Weaken, 3), 4 SECONDS)
 		if(HAS_TRAIT(C, TRAIT_HULK))
 			C.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		else if(C.status_flags & CANWEAKEN)
