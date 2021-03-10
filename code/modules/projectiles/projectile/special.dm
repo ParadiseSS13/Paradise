@@ -141,10 +141,14 @@
 	nodamage = 1
 	flag = "energy"
 
-/obj/item/projectile/beam/mindflayer
+/obj/item/projectile/energy/mindflayer
 	name = "flayer ray"
+	icon_state = "flayer"
+	damage = 0
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
+	light_color = LIGHT_COLOR_PURPLE
 
-/obj/item/projectile/beam/mindflayer/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/energy/mindflayer/on_hit(var/atom/target, var/blocked = 0)
 	. = ..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/M = target

@@ -125,9 +125,10 @@
 	fire_sound = 'sound/weapons/pulse3.ogg'
 
 /obj/item/ammo_casing/energy/mindflayer
-	projectile_type = /obj/item/projectile/beam/mindflayer
-	select_name = "MINDFUCK"
-	fire_sound = 'sound/weapons/laser.ogg'
+	projectile_type = /obj/item/projectile/energy/mindflayer
+	muzzle_flash_color = LIGHT_COLOR_PURPLE
+	select_name = "mindflayer"
+	fire_sound = 'sound/weapons/pulse3.ogg'
 
 /obj/item/ammo_casing/energy/flora
 	fire_sound = 'sound/effects/stealthoff.ogg'
