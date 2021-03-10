@@ -1,5 +1,3 @@
-#define PROGRESSBAR_HEIGHT 6
-
 /**
   * # Progress Bar
   *
