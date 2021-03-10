@@ -122,6 +122,10 @@
 	put_on_delay = 50
 	resistance_flags = NONE
 
+/obj/item/clothing/shoes/jackboots/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/squeak, list('sound/hispania/effects/jackboot1.ogg' = 1, 'sound/hispania/effects/jackboot2.ogg' = 1), 50, falloff_exponent = 20)
+
 /obj/item/clothing/shoes/jackboots/jacksandals
 	name = "jacksandals"
 	desc = "Nanotrasen-issue Security combat sandals for combat scenarios. They're jacksandals, however that works."
