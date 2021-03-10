@@ -54,8 +54,8 @@ GLOBAL_LIST_EMPTY(safes)
 	var/drill_start_time
 	/// The drill overlay image to display during the drilling process.
 	var/image/drill_overlay
-	/// The progress bar image to display during the drilling process.
-	var/image/progress_bar
+	/// The progress bar datum to use during the drilling process.
+	var/datum/progress_bar/prog_bar
 	/// The X pixel offset for the drilling progress bar.
 	var/drill_x_offset = -13
 	/// The Y pixel offset for the drilling progress bar.
@@ -84,16 +84,17 @@ GLOBAL_LIST_EMPTY(safes)
 		drill.forceMove(loc)
 		drill = null
 
-	QDEL_NULL(progress_bar)
+	QDEL_NULL(prog_bar)
 	QDEL_NULL(drill_overlay)
 	return ..()
 
 /obj/structure/safe/process()
 	if(!drill_timer)
 		return
-	cut_overlay(progress_bar)
-	progress_bar = image('icons/effects/progessbar.dmi', src, "prog_bar_[round((((world.time - drill_start_time) / time_to_drill) * 100), 5)]", HUD_LAYER)
-	add_overlay(progress_bar)
+	if(prog_bar)
+		cut_overlay(prog_bar.holder)
+		prog_bar.update(world.time - drill_start_time)
+		add_overlay(prog_bar.holder)
 	if(prob(DRILL_SPARK_CHANCE))
 		drill.spark_system.start()
 
@@ -124,11 +125,7 @@ GLOBAL_LIST_EMPTY(safes)
 		else
 			icon_state = initial(icon_state)
 
-	var/list/overlays_to_cut = list(drill_overlay)
-	if(!drill_timer)
-		overlays_to_cut += progress_bar
-
-	cut_overlay(overlays_to_cut)
+	cut_overlays()
 
 	if(istype(drill, /obj/item/thermal_drill))
 		var/drill_icon = istype(drill, /obj/item/thermal_drill/diamond_drill) ? "d" : "h"
@@ -152,6 +149,7 @@ GLOBAL_LIST_EMPTY(safes)
 					drill_timer = addtimer(CALLBACK(src, .proc/drill_open), time_to_drill, TIMER_STOPPABLE)
 					drill_start_time = world.time
 					drill.soundloop.start()
+					prog_bar = create_progress_bar(goal = time_to_drill, target = src)
 					update_icon()
 					START_PROCESSING(SSobj, src)
 			if("Turn Off")
@@ -159,6 +157,7 @@ GLOBAL_LIST_EMPTY(safes)
 					deltimer(drill_timer)
 					drill_timer = null
 					drill.soundloop.stop()
+					QDEL_NULL(prog_bar)
 					update_icon()
 					STOP_PROCESSING(SSobj, src)
 			if("Remove Drill")

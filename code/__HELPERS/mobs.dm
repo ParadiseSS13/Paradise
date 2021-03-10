@@ -329,7 +329,7 @@ This is always put in the attack log.
 
 	msg_admin_attack("[key_name_admin(user)] vs [target_info]: [what_done]", loglevel)
 
-/proc/do_mob(mob/user, mob/target, time = 30, uninterruptible = 0, progress = 1, list/extra_checks = list())
+/proc/do_mob(mob/user, mob/target, time = 30, uninterruptible = 0, progress = 1, list/extra_checks = list(), theme = "default")
 	if(!user || !target)
 		return 0
 	var/user_loc = user.loc
@@ -341,9 +341,9 @@ This is always put in the attack log.
 	var/target_loc = target.loc
 
 	var/holding = user.get_active_hand()
-	var/datum/progressbar/progbar
+	var/datum/progress_bar/progbar
 	if(progress)
-		progbar = new(user, time, target)
+		progbar = create_progress_bar(user, time, target, theme)
 
 	var/endtime = world.time+time
 	var/starttime = world.time
@@ -379,7 +379,7 @@ This is always put in the attack log.
  *	This will create progress bar that lasts for 5 seconds. If the user doesn't move or otherwise do something that would cause the checks to fail in those 5 seconds, do_stuff() would execute.
  *	The Proc returns TRUE upon success (the progress bar reached the end), or FALSE upon failure (the user moved or some other check failed)
  */
-/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, list/extra_checks = list(), use_default_checks = TRUE)
+/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, list/extra_checks = list(), use_default_checks = TRUE, theme = "default")
 	if(!user)
 		return FALSE
 	var/atom/Tloc = null
@@ -398,9 +398,9 @@ This is always put in the attack log.
 	if(holding)
 		holdingnull = FALSE //Users hand started holding something, check to see if it's still holding that
 
-	var/datum/progressbar/progbar
+	var/datum/progress_bar/progbar
 	if(progress)
-		progbar = new(user, delay, target)
+		progbar = create_progress_bar(user, delay, target, theme)
 
 	var/endtime = world.time + delay
 	var/starttime = world.time
