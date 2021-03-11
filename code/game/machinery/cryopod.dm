@@ -431,8 +431,11 @@
 	control_computer.frozen_crew += "[occupant.real_name]"
 
 	var/list/ailist = list()
-	for(var/mob/living/silicon/ai/A in GLOB.silicon_mob_list)
-		ailist += A
+	for(var/thing in GLOB.ai_list)
+		var/mob/living/silicon/ai/AI = thing
+		if(AI.stat)
+			continue
+		ailist += AI
 	if(length(ailist))
 		var/mob/living/silicon/ai/announcer = pick(ailist)
 		if(announce_rank)
@@ -441,7 +444,7 @@
 			announcer.say(";[occupant.real_name] [on_store_message]", ignore_languages = TRUE)
 	else
 		if(announce_rank)
-			announce.autosay("[occupant.real_name]  ([announce_rank]) [on_store_message]", "[on_store_name]")
+			announce.autosay("[occupant.real_name] ([announce_rank]) [on_store_message]", "[on_store_name]")
 		else
 			announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
 	visible_message("<span class='notice'>[src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
