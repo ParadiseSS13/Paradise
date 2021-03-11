@@ -332,15 +332,18 @@
 		..()
 
 /atom/proc/AltClick(mob/user)
+	SEND_SIGNAL(src, COMSIG_CLICK_ALT, user)
 	var/turf/T = get_turf(src)
-	if(T)
-		if(user.TurfAdjacent(T))
-			user.listed_turf = T
-			user.client.statpanel = T.name
-			// If we had a method to force a `Stat` update, it would go here
-		else
-			user.listed_turf = null
-	return
+	if(T && (isturf(loc) || isturf(src)) && user.TurfAdjacent(T))
+		user.listed_turf = T
+		user.client.statpanel = T.name
+
+/// Use this instead of [/mob/proc/AltClickOn] where you only want turf content listing without additional atom alt-click interaction
+/atom/proc/AltClickNoInteract(mob/user, atom/A)
+	var/turf/T = get_turf(A)
+	if(T && user.TurfAdjacent(T))
+		user.listed_turf = T
+		user.client.statpanel = T.name
 
 /mob/proc/TurfAdjacent(turf/T)
 	return T.Adjacent(src)
