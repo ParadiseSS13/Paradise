@@ -1320,7 +1320,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(!istype(target))
 		return
 	
-	if(check_unable(AI_CHECK_WIRELESS)
+	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
 	if(target && target.can_track())
