@@ -149,7 +149,7 @@
 	else
 		return ..()
 
-/obj/item/pipe/proc/update(var/obj/machinery/atmospherics/make_from)
+/obj/item/pipe/proc/update(obj/machinery/atmospherics/make_from)
 	name = "[get_pipe_name(pipe_type, PIPETYPE_ATMOS)] fitting"
 	icon_state = get_pipe_icon(pipe_type)
 	var/obj/machinery/atmospherics/trinary/triP = make_from
@@ -303,7 +303,7 @@
 		else
 			return 0
 
-/obj/item/pipe/proc/unflip(var/direction)
+/obj/item/pipe/proc/unflip(direction)
 	if(!(direction in GLOB.cardinal))
 		return turn(direction, 45)
 
@@ -514,7 +514,7 @@
 	item_state = "buildpipe"
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/pipe_meter/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
+/obj/item/pipe_meter/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(!istype(W, /obj/item/wrench))
 		return ..()
 	if(!locate(/obj/machinery/atmospherics/pipe, src.loc))
@@ -539,7 +539,7 @@
 	item_state = "buildpipe"
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/pipe_gsensor/attackby(var/obj/item/W as obj, var/mob/user as mob)
+/obj/item/pipe_gsensor/attackby(obj/item/W as obj, mob/user as mob)
 	if(!istype(W, /obj/item/wrench))
 		return ..()
 	new/obj/machinery/air_sensor( src.loc )

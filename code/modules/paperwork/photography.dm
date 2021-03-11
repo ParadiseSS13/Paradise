@@ -400,7 +400,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 	return P
 
-/obj/item/camera/proc/printpicture(mob/user, var/datum/picture/P)
+/obj/item/camera/proc/printpicture(mob/user, datum/picture/P)
 	var/obj/item/photo/Photo = new/obj/item/photo()
 	Photo.loc = user.loc
 	if(!user.get_inactive_hand())
@@ -411,7 +411,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		blueprints = 0
 	Photo.construct(P)
 
-/obj/item/photo/proc/construct(var/datum/picture/P)
+/obj/item/photo/proc/construct(datum/picture/P)
 	name = P.fields["name"]
 	icon = P.fields["icon"]
 	tiny = P.fields["tiny"]
