@@ -247,7 +247,7 @@ GLOBAL_VAR_INIT(specops_shuttle_timeleft, 0)
 			return 0
 	return 1
 
-/obj/machinery/computer/specops_shuttle/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/specops_shuttle/attack_ai(mob/user as mob)
 	to_chat(user, "<span class='warning'>Access Denied.</span>")
 	return 1
 
@@ -257,7 +257,7 @@ GLOBAL_VAR_INIT(specops_shuttle_timeleft, 0)
 	else
 		return ..()
 
-/obj/machinery/computer/specops_shuttle/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/specops_shuttle/attack_hand(mob/user as mob)
 	if(!allowed(user))
 		to_chat(user, "<span class='warning'>Access Denied.</span>")
 		return

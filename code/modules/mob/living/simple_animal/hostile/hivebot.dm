@@ -9,6 +9,7 @@
 	icon_state = "basic"
 	icon_living = "basic"
 	icon_dead = "basic"
+	mob_biotypes = MOB_ROBOTIC
 	health = 15
 	maxHealth = 15
 	melee_damage_lower = 2
@@ -27,6 +28,7 @@
 	deathmessage = "blows apart!"
 	bubble_icon = "machine"
 	del_on_death = 1
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/hostile/hivebot/range
 	name = "Hivebot"

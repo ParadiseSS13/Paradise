@@ -270,7 +270,7 @@
 			continue
 		to_chat(C, "<span class='warning'><font size='3'><b>You hear a ear piercing shriek and your senses dull!</font></b></span>")
 		C.Weaken(4)
-		C.MinimumDeafTicks(20)
+		C.AdjustEarDamage(0, 20)
 		C.Stuttering(20)
 		C.Stun(4)
 		C.Jitter(150)
@@ -564,7 +564,7 @@
 		H.raise_vampire(user)
 
 
-/mob/living/carbon/human/proc/raise_vampire(var/mob/M)
+/mob/living/carbon/human/proc/raise_vampire(mob/M)
 	if(!istype(M))
 		log_debug("human/proc/raise_vampire called with invalid argument.")
 		return

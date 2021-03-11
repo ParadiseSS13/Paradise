@@ -94,7 +94,7 @@
 	trunk_check()
 
 // attack by item places it in to disposal
-/obj/machinery/disposal/attackby(var/obj/item/I, var/mob/user, params)
+/obj/machinery/disposal/attackby(obj/item/I, mob/user, params)
 	if(stat & BROKEN || !I || !user)
 		return
 
@@ -458,7 +458,7 @@
 
 // called when holder is expelled from a disposal
 // should usually only occur if the pipe network is modified
-/obj/machinery/disposal/proc/expel(var/obj/structure/disposalholder/H)
+/obj/machinery/disposal/proc/expel(obj/structure/disposalholder/H)
 
 	var/turf/target
 	playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
@@ -529,7 +529,7 @@
 	return ..()
 
 	// initialize a holder from the contents of a disposal unit
-/obj/structure/disposalholder/proc/init(var/obj/machinery/disposal/D)
+/obj/structure/disposalholder/proc/init(obj/machinery/disposal/D)
 	gas = D.air_contents// transfer gas resv. into holder object
 
 	//Check for any living mobs trigger hasmob.
@@ -553,7 +553,7 @@
 		SEND_SIGNAL(AM, COMSIG_MOVABLE_DISPOSING, src, D)
 		if(istype(AM, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = AM
-			if(FAT in H.mutations)		// is a human and fat?
+			if(HAS_TRAIT(H, TRAIT_FAT))		// is a human and fat?
 				has_fat_guy = 1			// set flag on holder
 		if(istype(AM, /obj/structure/bigDelivery) && !hasmob)
 			var/obj/structure/bigDelivery/T = AM
@@ -576,7 +576,7 @@
 
 	// start the movement process
 	// argument is the disposal unit the holder started in
-/obj/structure/disposalholder/proc/start(var/obj/machinery/disposal/D)
+/obj/structure/disposalholder/proc/start(obj/machinery/disposal/D)
 	if(!D.trunk)
 		D.expel(src)	// no trunk connected, so expel immediately
 		return
@@ -623,7 +623,7 @@
 	return get_step(loc,dir)
 
 	// find a matching pipe on a turf
-/obj/structure/disposalholder/proc/findpipe(var/turf/T)
+/obj/structure/disposalholder/proc/findpipe(turf/T)
 	if(!T)
 		return null
 
@@ -636,7 +636,7 @@
 
 	// merge two holder objects
 	// used when a a holder meets a stuck holder
-/obj/structure/disposalholder/proc/merge(var/obj/structure/disposalholder/other)
+/obj/structure/disposalholder/proc/merge(obj/structure/disposalholder/other)
 	for(var/atom/movable/AM in other)
 		AM.forceMove(src)		// move everything in other holder to this one
 		if(ismob(AM))
@@ -667,7 +667,7 @@
 	playsound(src.loc, 'sound/effects/clang.ogg', 50, 0, 0)
 
 	// called to vent all gas in holder to a location
-/obj/structure/disposalholder/proc/vent_gas(var/atom/location)
+/obj/structure/disposalholder/proc/vent_gas(atom/location)
 	if(location)
 		location.assume_air(gas)  // vent all gas to turf
 	air_update_turf()
@@ -728,13 +728,13 @@
 
 // returns the direction of the next pipe object, given the entrance dir
 // by default, returns the bitmask of remaining directions
-/obj/structure/disposalpipe/proc/nextdir(var/fromdir)
+/obj/structure/disposalpipe/proc/nextdir(fromdir)
 	return dpdir & (~turn(fromdir, 180))
 
 // transfer the holder through this pipe segment
 // overriden for special behaviour
 //
-/obj/structure/disposalpipe/proc/transfer(var/obj/structure/disposalholder/H)
+/obj/structure/disposalpipe/proc/transfer(obj/structure/disposalholder/H)
 	var/nextdir = nextdir(H.dir)
 	H.dir = nextdir
 	var/turf/T = H.nextloc()
@@ -762,7 +762,7 @@
 
 // hide called by levelupdate if turf intact status changes
 // change visibility status and force update of icon
-/obj/structure/disposalpipe/hide(var/intact)
+/obj/structure/disposalpipe/hide(intact)
 	invisibility = intact ? INVISIBILITY_MAXIMUM: 0	// hide if floor is intact
 	update_icon()
 
@@ -781,7 +781,7 @@
 // called when there is a break in the pipe
 //
 
-/obj/structure/disposalpipe/proc/expel(var/obj/structure/disposalholder/H, var/turf/T, var/direction)
+/obj/structure/disposalpipe/proc/expel(obj/structure/disposalholder/H, turf/T, direction)
 
 	if(!T)
 		return
@@ -887,7 +887,7 @@
 //attack by item
 //weldingtool: unfasten and convert to obj/disposalconstruct
 
-/obj/structure/disposalpipe/attackby(var/obj/item/I, var/mob/user, params)
+/obj/structure/disposalpipe/attackby(obj/item/I, mob/user, params)
 	var/turf/T = get_turf(src)
 	if(T.intact)
 		return		// prevent interaction with T-scanner revealed pipes
@@ -966,7 +966,7 @@
 	// if coming in from secondary dirs, then next is primary dir
 	// if coming in from primary dir, then next is equal chance of other dirs
 
-/obj/structure/disposalpipe/junction/nextdir(var/fromdir)
+/obj/structure/disposalpipe/junction/nextdir(fromdir)
 	var/flipdir = turn(fromdir, 180)
 	if(flipdir != dir)	// came from secondary dir
 		return dir		// so exit through primary
@@ -1024,7 +1024,7 @@
 	update()
 	return
 
-/obj/structure/disposalpipe/sortjunction/attackby(var/obj/item/I, var/mob/user, params)
+/obj/structure/disposalpipe/sortjunction/attackby(obj/item/I, mob/user, params)
 	if(..())
 		return
 
@@ -1045,7 +1045,7 @@
 	// if coming in from posdir, then flip around and go back to posdir
 	// if coming in from sortdir, go to posdir
 
-/obj/structure/disposalpipe/sortjunction/nextdir(var/fromdir, var/sortTag)
+/obj/structure/disposalpipe/sortjunction/nextdir(fromdir, sortTag)
 	//var/flipdir = turn(fromdir, 180)
 	if(fromdir != sortdir)	// probably came from the negdir
 
@@ -1057,7 +1057,7 @@
 						// so go with the flow to positive direction
 		return posdir
 
-/obj/structure/disposalpipe/sortjunction/transfer(var/obj/structure/disposalholder/H)
+/obj/structure/disposalpipe/sortjunction/transfer(obj/structure/disposalholder/H)
 	var/nextdir = nextdir(H.dir, H.destinationTag)
 	H.dir = nextdir
 	var/turf/T = H.nextloc()
@@ -1105,7 +1105,7 @@
 	// if coming in from posdir, then flip around and go back to posdir
 	// if coming in from sortdir, go to posdir
 
-/obj/structure/disposalpipe/wrapsortjunction/nextdir(var/fromdir, var/istomail)
+/obj/structure/disposalpipe/wrapsortjunction/nextdir(fromdir, istomail)
 	//var/flipdir = turn(fromdir, 180)
 	if(fromdir != sortdir)	// probably came from the negdir
 		if(istomail) //if destination matches filtered type...
@@ -1115,7 +1115,7 @@
 	else				// came from sortdir
 		return posdir 						// so go with the flow to positive direction
 
-/obj/structure/disposalpipe/wrapsortjunction/transfer(var/obj/structure/disposalholder/H)
+/obj/structure/disposalpipe/wrapsortjunction/transfer(obj/structure/disposalholder/H)
 	var/nextdir = nextdir(H.dir, H.tomail)
 	H.dir = nextdir
 	var/turf/T = H.nextloc()
@@ -1192,7 +1192,7 @@
 		D.linkedtrunk = src
 
 	// Override attackby so we disallow trunkremoval when somethings ontop
-/obj/structure/disposalpipe/trunk/attackby(var/obj/item/I, var/mob/user, params)
+/obj/structure/disposalpipe/trunk/attackby(obj/item/I, mob/user, params)
 
 	//Disposal bins or chutes
 	//Disposal constructors
@@ -1232,7 +1232,7 @@
 		expel(H, loc, FALSE)
 	// nextdir
 
-/obj/structure/disposalpipe/trunk/nextdir(var/fromdir)
+/obj/structure/disposalpipe/trunk/nextdir(fromdir)
 	if(fromdir == DOWN)
 		return dir
 	else
@@ -1308,7 +1308,7 @@
 			AM.throw_at(target, 3, 1)
 
 
-/obj/structure/disposaloutlet/attackby(var/obj/item/I, var/mob/user, params)
+/obj/structure/disposaloutlet/attackby(obj/item/I, mob/user, params)
 	if(!I || !user)
 		return
 	src.add_fingerprint(user)
@@ -1360,10 +1360,10 @@
 // called when movable is expelled from a disposal pipe or outlet
 // by default does nothing, override for special behaviour
 
-/atom/movable/proc/pipe_eject(var/direction)
+/atom/movable/proc/pipe_eject(direction)
 	return
 
-/obj/effect/decal/cleanable/blood/gibs/pipe_eject(var/direction)
+/obj/effect/decal/cleanable/blood/gibs/pipe_eject(direction)
 	var/list/dirs
 	if(direction)
 		dirs = list( direction, turn(direction, -45), turn(direction, 45))
@@ -1372,7 +1372,7 @@
 
 	src.streak(dirs)
 
-/obj/effect/decal/cleanable/blood/gibs/robot/gib/pipe_eject(var/direction)
+/obj/effect/decal/cleanable/blood/gibs/robot/gib/pipe_eject(direction)
 	var/list/dirs
 	if(direction)
 		dirs = list( direction, turn(direction, -45), turn(direction, 45))

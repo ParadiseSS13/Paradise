@@ -144,7 +144,7 @@
 /obj/machinery/alarm/kitchen_cold_room
 	preset = AALARM_PRESET_COLDROOM
 
-/obj/machinery/alarm/proc/apply_preset(var/no_cycle_after=0)
+/obj/machinery/alarm/proc/apply_preset(no_cycle_after=0)
 	// Propogate settings.
 	for(var/obj/machinery/alarm/AA in alarm_area)
 		if(!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted && AA.preset != src.preset)
@@ -541,6 +541,12 @@
 
 /obj/machinery/alarm/proc/post_alert(alert_level)
 	if(!report_danger_level)
+		// Don't report the level to computers, but do toggle firedoors
+		var/area/A = get_area(src)
+		if(alert_level == ATMOS_ALARM_NONE)
+			A.air_doors_open()
+		else if(alert_level != ATMOS_ALARM_NONE)
+			A.air_doors_close()
 		return
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(alarm_frequency)
 
@@ -1046,8 +1052,7 @@
 		stat &= ~NOPOWER
 	else
 		stat |= NOPOWER
-	spawn(rand(0,15))
-		update_icon()
+	update_icon()
 
 /obj/machinery/alarm/obj_break(damage_flag)
 	..()
