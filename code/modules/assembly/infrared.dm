@@ -116,7 +116,7 @@
 	qdel(first)
 	return TRUE
 
-/obj/item/assembly/infra/equipped(var/mob/user, var/slot)
+/obj/item/assembly/infra/equipped(mob/user, slot)
 	qdel(first)
 	return ..()
 

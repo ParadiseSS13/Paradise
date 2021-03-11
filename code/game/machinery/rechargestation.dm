@@ -83,7 +83,7 @@
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	qdel(src)
 
-/obj/machinery/recharge_station/Bumped(var/mob/AM)
+/obj/machinery/recharge_station/Bumped(mob/AM)
 	if(ismob(AM))
 		move_inside(AM)
 
@@ -234,7 +234,7 @@
 	add_fingerprint(usr)
 	return
 
-/obj/machinery/recharge_station/verb/move_inside(var/mob/user = usr)
+/obj/machinery/recharge_station/verb/move_inside(mob/user = usr)
 	set category = "Object"
 	set src in oview(1)
 	if(!user || !usr)
