@@ -321,25 +321,26 @@
 	name = "\improper B.S.G"
 	desc = "The Blue Space Gun, uses a flux anomaly core and a bluespace crystal to produce destructive bluespace energy blasts, inspired by Nanotrasens BSA division"
 	icon_state = "BSG"
-	origin_tech = "combat=1"
+	origin_tech = "combat=6;materials=6;powerstorage=6,bluespace=6;magnets=6" //cutting edge technology, be my guest if you want to deconstruct one instead of use it.
 	ammo_type = list(/obj/item/ammo_casing/energy/bsg)
 	weapon_weight = WEAPON_HEAVY
-	w_class = WEIGHT_CLASS_BULKY
+	w_class = WEIGHT_CLASS_HUGE
 	can_holster = FALSE
+	slot_flags = SLOT_BACK
 	cell_type = /obj/item/stock_parts/cell/bsg
 	shaded_charge = 1
-	var/obj/item/assembly/signaler/anomaly/flux/internal = null
+	var/obj/item/assembly/signaler/anomaly/flux/core = null
 	var/has_bluespace_crystal = FALSE
 
 /obj/item/gun/energy/bsg/Destroy()
-	QDEL_NULL(internal)
+	QDEL_NULL(core)
 	return ..()
 
 /obj/item/gun/energy/bsg/examine(mob/user)
 	. = ..()
-	if(internal && has_bluespace_crystal)
+	if(core && has_bluespace_crystal)
 		. += "[src] is fully operational"
-	else if(internal)
+	else if(core)
 		. += "It has a flux anomaly core installed, but no bluespace crystal in it."
 	else if(has_bluespace_crystal)
 		. += "It has a bluespace crystal installed, but no flux anomaly core in it."
@@ -357,20 +358,20 @@
 		to_chat(user, "<span class='notice'>You load [O] into [src].</span>")
 		S.use(1)
 		has_bluespace_crystal = TRUE
-		if(internal)
+		if(core)
 			icon_state = "BSG_FINISHED"
 		else
 			icon_state = "BSG_CRYSTAL"
 		return
 	if(istype(O, /obj/item/assembly/signaler/anomaly/flux))
-		if(internal)
+		if(core)
 			to_chat(user, "<span class='notice'>[src] already has a [O]!</span>")
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[O] is stuck to your hand!</span>")
 			return
 		to_chat(user, "<span class='notice'>You insert [O] into [src], and [src] starts to warm up.</span>")
 		O.forceMove(src)
-		internal = O
+		core = O
 		if(has_bluespace_crystal)
 			icon_state = "BSG_FINISHED"
 		else
@@ -383,7 +384,7 @@
 	if(!has_bluespace_crystal)
 		to_chat(usr, "<span class='warning'>The [src] has no bluespace crystal to power it!</span>")
 		return 0
-	if(!internal)
+	if(!core)
 		to_chat(usr, "<span class='warning'>The [src] has no flux anomaly core to power it!</span>")
 		return 0
 	..()
@@ -403,7 +404,7 @@
 	visible_message("<span class='warning'>[src]'s bluespace crystal shatters!</span>")
 	playsound(src, 'sound/effects/pylon_shatter.ogg', 50, TRUE)
 	has_bluespace_crystal = FALSE
-	if(internal)
+	if(core)
 		icon_state = "BSG_CORE"
 	else
 		icon_state = "BSG"
@@ -414,7 +415,7 @@
 
 /obj/item/gun/energy/bsg/prebuilt/Initialize(mapload, ...)
 	. = ..()
-	internal = new /obj/item/assembly/signaler/anomaly/flux
+	core = new /obj/item/assembly/signaler/anomaly/flux
 
 
 // Temperature Gun //

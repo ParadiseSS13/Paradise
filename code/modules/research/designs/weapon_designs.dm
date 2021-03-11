@@ -257,3 +257,14 @@
 	build_path = /obj/item/gun/energy/immolator
 	locked = 1
 	category = list("Weapons")
+
+/datum/design/bsg
+	name = "B.S.G"
+	desc = "For all your room clearing needs"
+	id = "bsg"
+	req_tech = list("combat" = 7, "magnets" = 7, "powerstorage" = 7, "materials" = 7, "bluespace" = 7)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 2000, MAT_SILVER = 3000, MAT_PLASMA = 2000, MAT_BLUESPACE = 4000)
+	build_path = /obj/item/gun/energy/bsg
+	locked = 1
+	category = list("Weapons")

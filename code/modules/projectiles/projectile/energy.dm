@@ -115,10 +115,16 @@
 	..()
 
 /obj/item/projectile/energy/bsg/proc/kaboom()
-	for(var/mob/living/M in range(7, src))
+	for(var/mob/living/M in hearers(7, src))
 		var/floored = FALSE
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			var/obj/item/gun/energy/bsg/N = locate() in H
+			if(N)
+				to_chat(H, "<span class='notice'>[N] deploys an energy shield to project you from the [src]'s explosion.</span>")
+				continue
 		if(prob(min(400 / (1 + get_dist(M, src)), 100)))
-			if(prob(min, (150 / (1 + get_dist(M, src)), 100)))
+			if(prob(min(150 / (1 + get_dist(M, src)), 100)))
 				M.Weaken(rand(1,3))
 				floored = TRUE
 			M.apply_damage((rand(15,30) * (1.1 - (get_dist(M, src)) / 10)), BURN) //reduced by 10% per tile
