@@ -42,7 +42,7 @@
 	WELDER_ATTEMPT_REPAIR_MESSAGE
 	if(I.use_tool(src, user, 40, volume = I.tool_volume))
 		WELDER_REPAIR_SUCCESS_MESSAGE
-		obj_integrity = Clamp(obj_integrity + 20, 0, max_integrity)
+		obj_integrity = clamp(obj_integrity + 20, 0, max_integrity)
 		update_icon()
 	return TRUE
 
@@ -77,14 +77,16 @@
 /obj/structure/barricade/wooden/attackby(obj/item/I, mob/user)
 	if(istype(I,/obj/item/stack/sheet/wood))
 		var/obj/item/stack/sheet/wood/W = I
-		if(W.amount < 5)
+		if(W.get_amount() < 5)
 			to_chat(user, "<span class='warning'>You need at least five wooden planks to make a wall!</span>")
 			return
 		else
 			to_chat(user, "<span class='notice'>You start adding [I] to [src]...</span>")
 			if(do_after(user, 50, target = src))
-				W.use(5)
-				new /turf/simulated/wall/mineral/wood/nonmetal(get_turf(src))
+				if(!W.use(5))
+					return
+				var/turf/T = get_turf(src)
+				T.ChangeTurf(/turf/simulated/wall/mineral/wood/nonmetal)
 				qdel(src)
 				return
 	return ..()
@@ -130,8 +132,8 @@
 	var/deploy_time = 40
 	var/deploy_message = TRUE
 
-/obj/structure/barricade/security/New()
-	..()
+/obj/structure/barricade/security/Initialize(mapload)
+	. = ..()
 	addtimer(CALLBACK(src, .proc/deploy), deploy_time)
 
 /obj/structure/barricade/security/proc/deploy()

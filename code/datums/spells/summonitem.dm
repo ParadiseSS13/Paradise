@@ -12,7 +12,8 @@
 	include_user = 1
 
 	var/obj/marked_item
-
+	/// List of objects which will result in the spell stopping with the recursion search
+	var/static/list/blacklisted_summons = list(/obj/machinery/computer/cryopod = TRUE, /obj/machinery/atmospherics = TRUE, /obj/structure/disposalholder = TRUE, /obj/machinery/disposal = TRUE)
 	action_icon_state = "summons"
 
 /obj/effect/proc_holder/spell/targeted/summonitem/cast(list/targets, mob/user = usr)
@@ -75,8 +76,6 @@
 								B.transfer_identity(C)
 								C.death()
 								add_attack_logs(target, C, "Magically debrained INTENT: [uppertext(target.a_intent)]")*/
-						if(C.stomach_contents && (item_to_retrieve in C.stomach_contents))
-							C.stomach_contents -= item_to_retrieve
 						for(var/X in C.bodyparts)
 							var/obj/item/organ/external/part = X
 							if(item_to_retrieve in part.embedded_objects)
@@ -91,7 +90,7 @@
 						var/obj/machinery/portable_atmospherics/P = item_to_retrieve.loc
 						P.disconnect()
 						P.update_icon()
-					if(istype(item_to_retrieve.loc, /obj/structure/disposalholder) || istype(item_to_retrieve.loc, /obj/machinery/disposal))//fixes the breaking of disposals. No more bluespace connected disposal bins!
+					if(is_type_in_typecache(item_to_retrieve.loc, blacklisted_summons))
 						break
 					item_to_retrieve = item_to_retrieve.loc
 
@@ -104,12 +103,12 @@
 
 
 			if(target.hand) //left active hand
-				if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_l_hand, 0, 1, 1))
-					if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_r_hand, 0, 1, 1))
+				if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_l_hand, FALSE, TRUE))
+					if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_r_hand, FALSE, TRUE))
 						butterfingers = 1
 			else			//right active hand
-				if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_r_hand, 0, 1, 1))
-					if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_l_hand, 0, 1, 1))
+				if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_r_hand, FALSE, TRUE))
+					if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_l_hand, FALSE, TRUE))
 						butterfingers = 1
 			if(butterfingers)
 				item_to_retrieve.loc = target.loc

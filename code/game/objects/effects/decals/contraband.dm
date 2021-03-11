@@ -12,8 +12,8 @@
 	var/poster_type
 	var/obj/structure/sign/poster/poster_structure
 
-/obj/item/poster/New(loc, obj/structure/sign/poster/new_poster_structure)
-	..()
+/obj/item/poster/Initialize(mapload, obj/structure/sign/poster/new_poster_structure)
+	. = ..()
 	poster_structure = new_poster_structure
 	if(!new_poster_structure && poster_type)
 		poster_structure = new poster_type(src)
@@ -41,6 +41,9 @@
 	poster_type = /obj/structure/sign/poster/official/random
 	icon_state = "rolled_poster_legit"
 
+/obj/item/poster/syndicate_recruitment
+	poster_type = /obj/structure/sign/poster/contraband/syndicate_recruitment
+	icon_state = "rolled_poster"
 
 //############################## THE ACTUAL DECALS ###########################
 
@@ -58,8 +61,8 @@
 	var/poster_item_desc = "This hypothetical poster item should not exist, let's be honest here."
 	var/poster_item_icon_state = "rolled_poster"
 
-/obj/structure/sign/poster/New()
-	..()
+/obj/structure/sign/poster/Initialize(mapload)
+	. = ..()
 	if(random_basetype)
 		randomise(random_basetype)
 	if(!ruined)

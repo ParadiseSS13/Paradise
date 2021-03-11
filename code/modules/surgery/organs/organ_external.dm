@@ -7,7 +7,6 @@
 	max_damage = 0
 	dir = SOUTH
 	organ_tag = "limb"
-
 	var/brute_mod = 1
 	var/burn_mod = 1
 
@@ -19,7 +18,6 @@
 	var/force_icon
 
 	var/icobase = 'icons/mob/human_races/r_human.dmi'		// Normal icon set.
-	var/deform = 'icons/mob/human_races/r_def_human.dmi'	// Mutated icon set.
 
 	var/damage_state = "00"
 	var/brute_dam = 0
@@ -40,6 +38,9 @@
 	var/obj/item/organ/external/parent
 	var/list/obj/item/organ/external/children
 	var/list/convertable_children = list()
+
+	// Does the organ take reduce damage from EMPs? IPC limbs get this by default
+	var/emp_resistant = FALSE
 
 	// Internal organs of this body part
 	var/list/internal_organs = list()
@@ -68,7 +69,7 @@
 		icon_state = dead_icon
 	if(owner)
 		to_chat(owner, "<span class='notice'>You can't feel your [name] anymore...</span>")
-		owner.update_body(update_sprite)
+		owner.update_body()
 		if(vital)
 			owner.death()
 
@@ -106,7 +107,6 @@
 	..()
 	var/mob/living/carbon/human/H = holder
 	icobase = dna.species.icobase
-	deform = dna.species.deform
 	if(istype(H))
 		replaced(H)
 		sync_colour_to_human(H)
@@ -114,7 +114,7 @@
 
 /obj/item/organ/external/replaced(var/mob/living/carbon/human/target)
 	owner = target
-	forceMove(owner)
+	loc = null
 	if(istype(owner))
 		if(!isnull(owner.bodyparts_by_name[limb_name]))
 			log_debug("Duplicate organ in slot \"[limb_name]\", mob '[target]'")
@@ -226,7 +226,7 @@
 	check_fracture(brute)
 	var/mob/living/carbon/owner_old = owner //Need to update health, but need a reference in case the below check cuts off a limb.
 	//If limb took enough damage, try to cut or tear it off
-	if(owner && loc == owner)
+	if(owner)
 		if(!cannot_amputate && (brute_dam) >= (max_damage))
 			if(prob(brute / 2))
 				if(sharp)
@@ -255,6 +255,32 @@
 		owner.updatehealth("limb heal damage")
 
 	return update_icon()
+
+/obj/item/organ/external/emp_act(severity)
+	if(!is_robotic() || emp_proof)
+		return
+	if(tough) // Augmented limbs (remember they take -5 brute/-4 burn damage flat so any value below is compensated)
+		switch(severity)
+			if(1)
+				// 44 total burn damage with 11 augmented limbs
+				receive_damage(0, 8)
+			if(2)
+				// 22 total burn damage with 11 augmented limbs
+				receive_damage(0, 6)
+	else if(emp_resistant) // IPC limbs
+		switch(severity)
+			if(1)
+				// 5.28 (9 * 0.66 burn_mod) burn damage, 65.34 damage with 11 limbs.
+				receive_damage(0, 9)
+			if(2)
+				// 3.63 (5 * 0.66 burn_mod) burn damage, 39.93 damage with 11 limbs.
+				receive_damage(0, 5.5)
+	else // Basic prosthetic limbs
+		switch(severity)
+			if(1)
+				receive_damage(0, 20)
+			if(2)
+				receive_damage(0, 7)
 
 /*
 This function completely restores a damaged organ to perfect condition.
@@ -305,10 +331,10 @@ This function completely restores a damaged organ to perfect condition.
 		if(!(status & ORGAN_BROKEN))
 			perma_injury = 0
 
-		//Infections
-		update_germs()
-	else
-		..()
+	if(..())
+		if(owner.germ_level > germ_level && infection_check())
+			//Open wounds can become infected
+			germ_level++
 
 //Updating germ levels. Handles organ germ levels and necrosis.
 /*
@@ -325,39 +351,15 @@ the actual time is dependent on RNG.
 INFECTION_LEVEL_ONE		below this germ level nothing happens, and the infection doesn't grow
 INFECTION_LEVEL_TWO		above this germ level the infection will start to spread to internal and adjacent organs
 INFECTION_LEVEL_THREE	above this germ level the player will take additional toxin damage per second, and will die in minutes without
-						antitox. also, above this germ level you will need to overdose on spaceacillin to reduce the germ_level.
+						antitox..
 
 Note that amputating the affected organ does in fact remove the infection from the player's body.
 */
-/obj/item/organ/external/proc/update_germs()
 
-	if(is_robotic() || (NO_GERMS in owner.dna.species.species_traits)) //Robotic limbs shouldn't be infected, nor should nonexistant limbs.
-		germ_level = 0
-		return
-
-	if(owner.bodytemperature >= 170)	//cryo stops germs from moving and doing their bad stuffs
-		//** Syncing germ levels with external wounds
-		handle_germ_sync()
-
-		//** Handle antibiotics and curing infections
-		handle_antibiotics()
-
-		//** Handle the effects of infections
-		handle_germ_effects()
-
-/obj/item/organ/external/proc/handle_germ_sync()
-	var/antibiotics = owner.reagents.get_reagent_amount("spaceacillin")
-	if(antibiotics < 5)
-		//Open wounds can become infected
-		if(owner.germ_level > germ_level && infection_check())
-			germ_level++
-
-/obj/item/organ/external/handle_germ_effects()
+/obj/item/organ/external/handle_germs()
 
 	if(germ_level < INFECTION_LEVEL_TWO)
 		return ..()
-
-	var/antibiotics = owner.reagents.get_reagent_amount("spaceacillin")
 
 	if(germ_level >= INFECTION_LEVEL_TWO)
 		//spread the infection to internal organs
@@ -383,17 +385,16 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if(children)
 			for(var/obj/item/organ/external/child in children)
 				if(child.germ_level < germ_level && !child.is_robotic())
-					if(child.germ_level < INFECTION_LEVEL_ONE*2 || prob(30))
+					if(child.germ_level < INFECTION_LEVEL_ONE * 2 || prob(30))
 						child.germ_level++
 
 		if(parent)
 			if(parent.germ_level < germ_level && !parent.is_robotic())
-				if(parent.germ_level < INFECTION_LEVEL_ONE*2 || prob(30))
+				if(parent.germ_level < INFECTION_LEVEL_ONE * 2 || prob(30))
 					parent.germ_level++
 
-	if(germ_level >= INFECTION_LEVEL_THREE && antibiotics < 30)	//overdosing is necessary to stop severe infections
+	if(germ_level >= INFECTION_LEVEL_THREE)
 		necrotize()
-
 		germ_level++
 		owner.adjustToxLoss(1)
 
@@ -612,7 +613,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"<span class='danger'>Something feels like it shattered in your [name]!</span>",\
 			"You hear a sickening crack.")
 		playsound(owner, "bonebreak", 150, 1)
-		if(owner.dna.species && !(NO_PAIN in owner.dna.species.species_traits))
+		if(!HAS_TRAIT(owner, TRAIT_NOPAIN))
 			owner.emote("scream")
 
 	status |= ORGAN_BROKEN
@@ -670,14 +671,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 		desc = "[R.desc]"
 
 /obj/item/organ/external/proc/mutate()
-	src.status |= ORGAN_MUTATED
-	if(owner)
-		owner.update_body(1, 1) //Forces all bodyparts to update in order to correctly render the deformed sprite.
+	status |= ORGAN_MUTATED
 
 /obj/item/organ/external/proc/unmutate()
-	src.status &= ~ORGAN_MUTATED
-	if(owner)
-		owner.update_body(1, 1) //Forces all bodyparts to update in order to correctly return them to normal.
+	status &= ~ORGAN_MUTATED
 
 /obj/item/organ/external/proc/get_damage()	//returns total damage
 	return max(brute_dam + burn_dam - perma_injury, perma_injury)	//could use health?

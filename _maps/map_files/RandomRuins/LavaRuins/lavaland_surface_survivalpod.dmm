@@ -103,6 +103,7 @@
 "t" = (
 /obj/machinery/door/airlock/survival_pod/glass,
 /obj/effect/decal/cleanable/blood/tracks,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered)
 "v" = (

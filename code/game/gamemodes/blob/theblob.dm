@@ -16,13 +16,13 @@
 	var/atmosblock = FALSE //if the blob blocks atmos and heat spread
 	var/mob/camera/blob/overmind
 
-/obj/structure/blob/New(loc)
-	..()
+/obj/structure/blob/Initialize(mapload)
+	. = ..()
 	GLOB.blobs += src
 	setDir(pick(GLOB.cardinal))
 	update_icon()
 	if(atmosblock)
-		air_update_turf(1)
+		air_update_turf(TRUE)
 	ConsumeTile()
 
 /obj/structure/blob/Destroy()
@@ -49,7 +49,7 @@
 
 /obj/structure/blob/CanAStarPass(ID, dir, caller)
 	. = 0
-	if(ismovableatom(caller))
+	if(ismovable(caller))
 		var/atom/movable/mover = caller
 		. = . || mover.checkpass(PASSBLOB)
 
@@ -74,9 +74,6 @@
 
 
 /obj/structure/blob/proc/Pulse(var/pulse = 0, var/origin_dir = 0, var/a_color)//Todo: Fix spaceblob expand
-
-	set background = BACKGROUND_ENABLED
-
 	RegenHealth()
 
 	if(run_action())//If we can do something here then we dont need to pulse more
@@ -146,9 +143,10 @@
 	..()
 	L.blob_act(src)
 
-/obj/structure/blob/tesla_act(power)
-	..()
-	take_damage(power / 400, BURN, "energy")
+/obj/structure/blob/zap_act(power, zap_flags)
+	take_damage(power * 0.0025, BURN, "energy")
+	power -= power * 0.0025 //You don't get to do it for free
+	return ..() //You don't get to do it for free
 
 /obj/structure/blob/hulk_damage()
 	return 15
@@ -179,7 +177,7 @@
 			return 0
 	var/armor_protection = 0
 	if(damage_flag)
-		armor_protection = armor[damage_flag]
+		armor_protection = armor.getRating(damage_flag)
 	damage_amount = round(damage_amount * (100 - armor_protection)*0.01, 0.1)
 	if(overmind && damage_flag)
 		damage_amount = overmind.blob_reagent_datum.damage_reaction(src, damage_amount, damage_type, damage_flag)
@@ -208,6 +206,7 @@
 /obj/structure/blob/examine(mob/user)
 	. = ..()
 	. += "It looks like it's made of [get_chem_name()]."
+	. += "It looks like this chemical does: [get_chem_desc()]"
 
 
 /obj/structure/blob/proc/get_chem_name()
@@ -216,6 +215,11 @@
 			return B.blob_reagent_datum.name
 	return "unknown"
 
+/obj/structure/blob/proc/get_chem_desc()
+	for(var/mob/camera/blob/B in GLOB.mob_list)
+		if(lowertext(B.blob_reagent_datum.color) == lowertext(src.color)) // Goddamit why we use strings for these
+			return B.blob_reagent_datum.description
+	return "something unknown"
 /obj/structure/blob/normal
 	icon_state = "blob"
 	light_range = 0

@@ -34,7 +34,7 @@
 		return ..()
 
 /mob/living/carbon/human/get_description_fluff()
-	return print_flavor_text(0)
+	return print_flavor_text()
 
 /* The examine panel itself */
 

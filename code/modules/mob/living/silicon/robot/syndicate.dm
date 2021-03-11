@@ -3,12 +3,18 @@
 	icon_state = "syndie_bloodhound"
 	lawupdate = 0
 	scrambledcodes = 1
+	has_camera = FALSE
 	pdahide = 1
 	faction = list("syndicate")
+	bubble_icon = "syndibot"
 	designation = "Syndicate Assault"
 	modtype = "Syndicate"
 	req_access = list(ACCESS_SYNDICATE)
 	ionpulse = 1
+	damage_protection = 5
+	brute_mod = 0.7 //30% less damage
+	burn_mod = 0.7
+	can_lock_cover = TRUE
 	lawchannel = "State"
 	var/playstyle_string = "<span class='userdanger'>You are a Syndicate assault cyborg!</span><br>\
 							<b>You are armed with powerful offensive tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
@@ -19,7 +25,7 @@
 	..()
 	cell = new /obj/item/stock_parts/cell/hyper(src)
 
-/mob/living/silicon/robot/syndicate/init()
+/mob/living/silicon/robot/syndicate/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/syndicate_override
 	module = new /obj/item/robot_module/syndicate(src)
 
@@ -38,6 +44,8 @@
 	icon_state = "syndi-medi"
 	modtype = "Syndicate Medical"
 	designation = "Syndicate Medical"
+	brute_mod = 0.8 //20% less damage
+	burn_mod = 0.8
 	playstyle_string = "<span class='userdanger'>You are a Syndicate medical cyborg!</span><br>\
 						<b>You are armed with powerful medical tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
 						Your hypospray will produce Restorative Nanites, a wonder-drug that will heal most types of bodily damages, including clone and brain damage. It also produces morphine for offense. \
@@ -45,7 +53,7 @@
 						Your energy saw functions as a circular saw, but can be activated to deal more damage, and your operative pinpointer will find and locate fellow nuclear operatives. \
 						<i>Help the operatives secure the disk at all costs!</i></b>"
 
-/mob/living/silicon/robot/syndicate/medical/init()
+/mob/living/silicon/robot/syndicate/medical/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	..()
 	module = new /obj/item/robot_module/syndicate_medical(src)
 
@@ -54,6 +62,8 @@
 	icon_state = "syndi-engi"
 	modtype = "Syndicate Saboteur"
 	designation = "Syndicate Saboteur"
+	brute_mod = 0.8
+	burn_mod = 0.8
 	var/mail_destination = 0
 	var/obj/item/borg_chameleon/cham_proj = null
 	playstyle_string = "<span class='userdanger'>You are a Syndicate saboteur cyborg!</span><br>\
@@ -65,7 +75,7 @@
 						Be aware that physical contact or taking damage will break your disguise. \
 						<i>Help the operatives secure the disk at all costs!</i></b>"
 
-/mob/living/silicon/robot/syndicate/saboteur/init()
+/mob/living/silicon/robot/syndicate/saboteur/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	..()
 	module = new /obj/item/robot_module/syndicate_saboteur(src)
 

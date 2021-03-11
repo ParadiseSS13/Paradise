@@ -45,9 +45,8 @@
 	for(var/datum/mind/wizard in wizards)
 		log_game("[key_name(wizard)] has been selected as a Wizard")
 		forge_wizard_objectives(wizard)
-		//learn_basic_spells(wizard.current)
 		equip_wizard(wizard.current)
-		name_wizard(wizard.current)
+		INVOKE_ASYNC(src, .proc/name_wizard, wizard.current)
 		greet_wizard(wizard)
 		if(use_huds)
 			update_wiz_icons_added(wizard)
@@ -89,17 +88,15 @@
 	var/wizard_name_first = pick(GLOB.wizard_first)
 	var/wizard_name_second = pick(GLOB.wizard_second)
 	var/randomname = "[wizard_name_first] [wizard_name_second]"
-	spawn(0)
-		var/newname = sanitize(copytext(input(wizard_mob, "You are the Space Wizard. Would you like to change your name to something else?", "Name change", randomname) as null|text,1,MAX_NAME_LEN))
+	var/newname = sanitize(copytext(input(wizard_mob, "You are the Space Wizard. Would you like to change your name to something else?", "Name change", randomname) as null|text,1,MAX_NAME_LEN))
 
-		if(!newname)
-			newname = randomname
+	if(!newname)
+		newname = randomname
 
-		wizard_mob.real_name = newname
-		wizard_mob.name = newname
-		if(wizard_mob.mind)
-			wizard_mob.mind.name = newname
-	return
+	wizard_mob.real_name = newname
+	wizard_mob.name = newname
+	if(wizard_mob.mind)
+		wizard_mob.mind.name = newname
 
 /datum/game_mode/proc/greet_wizard(var/datum/mind/wizard, var/you_are=1)
 	addtimer(CALLBACK(wizard.current, /mob/.proc/playsound_local, null, 'sound/ambience/antag/ragesmages.ogg', 100, 0), 30)
@@ -203,7 +200,7 @@
 
 /datum/game_mode/wizard/declare_completion(var/ragin = 0)
 	if(finished && !ragin)
-		feedback_set_details("round_end_result","wizard loss - wizard killed")
+		SSticker.mode_result = "wizard loss - wizard killed"
 		to_chat(world, "<span class='warning'><FONT size = 3><B> The wizard[(wizards.len>1)?"s":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</B></FONT></span>")
 	..()
 	return 1
@@ -231,19 +228,19 @@
 			for(var/datum/objective/objective in wizard.objectives)
 				if(objective.check_completion())
 					text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
-					feedback_add_details("wizard_objective","[objective.type]|SUCCESS")
+					SSblackbox.record_feedback("nested tally", "wizard_objective", 1, list("[objective.type]", "SUCCESS"))
 				else
 					text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
-					feedback_add_details("wizard_objective","[objective.type]|FAIL")
+					SSblackbox.record_feedback("nested tally", "wizard_objective", 1, list("[objective.type]", "FAIL"))
 					wizardwin = 0
 				count++
 
 			if(wizard.current && wizard.current.stat!=DEAD && wizardwin)
 				text += "<br><font color='green'><B>The wizard was successful!</B></font>"
-				feedback_add_details("wizard_success","SUCCESS")
+				SSblackbox.record_feedback("tally", "wizard_success", 1, "SUCCESS")
 			else
 				text += "<br><font color='red'><B>The wizard has failed!</B></font>"
-				feedback_add_details("wizard_success","FAIL")
+				SSblackbox.record_feedback("tally", "wizard_success", 1, "FAIL")
 			if(wizard.spell_list)
 				text += "<br><B>[wizard.name] used the following spells: </B>"
 				var/i = 1

@@ -7,9 +7,8 @@
 	icon_state = "brain1"
 
 /mob/living/carbon/brain/New()
-	create_reagents(330)
-	add_language("Galactic Common")
 	..()
+	add_language("Galactic Common")
 
 /mob/living/carbon/brain/Destroy()
 	if(key)				//If there is a mob connected to this thing. Have to check key twice to avoid false death reporting.
@@ -109,3 +108,11 @@ I'm using this for Stat to give it a more nifty interface to work with
 
 /mob/living/carbon/brain/can_hear()
 	. = TRUE
+
+/mob/living/carbon/brain/update_runechat_msg_location()
+	if(ismecha(loc))
+		runechat_msg_location = loc
+	else if(container)
+		runechat_msg_location = container
+	else
+		runechat_msg_location = src

@@ -93,7 +93,7 @@
 	name = "Wine"
 	id = "wine"
 	result = "wine"
-	required_reagents = list("berryjuice" = 10)
+	required_reagents = list("grapejuice" = 10)
 	required_catalysts = list("enzyme" = 5)
 	result_amount = 10
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
@@ -449,6 +449,14 @@
 	result = "barefoot"
 	required_reagents = list("berryjuice" = 1, "cream" = 1, "vermouth" = 1)
 	result_amount = 3
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/daquiri
+	name = "Daiquiri"
+	id = "daiquiri"
+	result = "daiquiri"
+	required_reagents = list("limejuice" = 1, "sugar" = 1, "rum" = 2)
+	result_amount = 4
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 
@@ -868,3 +876,20 @@
 	required_reagents = list("hooch" = 1, "absinthe" = 1, "manlydorf" = 1, "syndicatebomb" = 1)
 	result_amount = 4
 	mix_message = "<span class='warning'>The mixture turns to a sickening froth.</span>"
+
+/datum/chemical_reaction/icecoco
+	name = "Iced Cocoa"
+	id = "icecoco"
+	result = "icecoco"
+	required_reagents = list("ice" = 1, "hot_coco" = 3)
+	result_amount = 4
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/fernet_cola
+	name = "Fernet Cola"
+	id = "fernet_cola"
+	result = "fernet_cola"
+	required_reagents = list("fernet" = 1, "cola" = 2)
+	result_amount = 3
+	mix_message = "The ingredients mix into a dark brown godly substance"
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'

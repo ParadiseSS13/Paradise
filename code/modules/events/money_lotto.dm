@@ -15,16 +15,13 @@
 /datum/event/money_lotto/announce()
 	var/datum/feed_message/newMsg = new /datum/feed_message
 	newMsg.author = "Nanotrasen Editor"
-	newMsg.is_admin_message = 1
+	newMsg.admin_locked = TRUE
 
-	newMsg.body = "Nyx Daily wishes to congratulate <b>[winner_name]</b> for recieving the Nyx Stellar Slam Lottery, and receiving the out of this world sum of [winner_sum] credits!"
+	newMsg.body = "Nyx Daily wishes to congratulate [winner_name] for recieving the Nyx Stellar Slam Lottery, and receiving the out of this world sum of [winner_sum] credits!"
 	if(!deposit_success)
-		newMsg.body += "<br>Unfortunately, we were unable to verify the account details provided, so we were unable to transfer the money. Send a cheque containing the sum of $500 to ND 'Stellar Slam' office on the Nyx gateway containing updated details, and your winnings'll be re-sent within the month."
+		newMsg.body += "Unfortunately, we were unable to verify the account details provided, so we were unable to transfer the money. Send a cheque containing the sum of $500 to ND 'Stellar Slam' office on the Nyx gateway containing updated details, and your winnings'll be re-sent within the month."
 
-	for(var/datum/feed_channel/FC in GLOB.news_network.network_channels)
-		if(FC.channel_name == "Nyx Daily")
-			FC.messages += newMsg
-			break
-
-	for(var/obj/machinery/newscaster/NEWSCASTER in GLOB.allNewscasters)
-		NEWSCASTER.newsAlert("Nyx Daily")
+	GLOB.news_network.get_channel_by_name("Nyx Daily")?.add_message(newMsg)
+	for(var/nc in GLOB.allNewscasters)
+		var/obj/machinery/newscaster/NC = nc
+		NC.alert_news("Nyx Daily")

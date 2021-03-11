@@ -31,11 +31,12 @@
 	desc = "It's the heavy-duty black polymer kind. Time to take out the trash!"
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "trashbag"
-	item_state = "trashbag"
 
-	w_class = WEIGHT_CLASS_TINY
+	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_SMALL
+	slot_flags = null
 	storage_slots = 30
+	max_combined_w_class = 30
 	can_hold = list() // any
 	cant_hold = list(/obj/item/disk/nuclear)
 
@@ -45,18 +46,20 @@
 	return TOXLOSS
 
 /obj/item/storage/bag/trash/update_icon()
-	if(contents.len == 0)
-		w_class = WEIGHT_CLASS_TINY
-		icon_state = "[initial(icon_state)]"
-	else if(contents.len < 12)
-		w_class = WEIGHT_CLASS_BULKY
-		icon_state = "[initial(icon_state)]1"
-	else if(contents.len < 21)
-		w_class = WEIGHT_CLASS_BULKY
-		icon_state = "[initial(icon_state)]2"
-	else
-		w_class = WEIGHT_CLASS_BULKY
-		icon_state = "[initial(icon_state)]3"
+	switch(contents.len)
+		if(21 to INFINITY)
+			icon_state = "[initial(icon_state)]3"
+		if(11 to 20)
+			icon_state = "[initial(icon_state)]2"
+		if(1 to 10)
+			icon_state = "[initial(icon_state)]1"
+		else
+			icon_state = "[initial(icon_state)]"
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_inv_l_hand()
+		H.update_inv_r_hand()
+	..()
 
 /obj/item/storage/bag/trash/cyborg
 
@@ -104,7 +107,7 @@
 	return ..()
 
 
-/obj/item/storage/bag/plasticbag/equipped(var/mob/user, var/slot)
+/obj/item/storage/bag/plasticbag/equipped(mob/user, slot)
 	if(slot==slot_head)
 		storage_slots = 0
 		START_PROCESSING(SSobj, src)
@@ -197,7 +200,7 @@
 // Because it stacks stacks, this doesn't operate normally.
 // However, making it a storage/bag allows us to reuse existing code in some places. -Sayu
 
-/obj/item/storage/bag/sheetsnatcher
+/obj/item/storage/bag/sheetsnatcher // what is this even used for
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "sheetsnatcher"
 	name = "Sheet Snatcher"
@@ -207,10 +210,6 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 	allow_quick_empty = 1 // this function is superceded
-/obj/item/storage/bag/sheetsnatcher/New()
-	..()
-	//verbs -= /obj/item/storage/verb/quick_empty
-	//verbs += /obj/item/storage/bag/sheetsnatcher/quick_empty
 
 /obj/item/storage/bag/sheetsnatcher/can_be_inserted(obj/item/W as obj, stop_messages = 0)
 	if(!istype(W,/obj/item/stack/sheet) || istype(W,/obj/item/stack/sheet/mineral/sandstone) || istype(W,/obj/item/stack/sheet/wood))
@@ -260,7 +259,6 @@
 		else
 			S.loc = src
 
-	orient2hud(usr)
 	if(usr.s_active)
 		usr.s_active.show_to(usr)
 	update_icon()
@@ -287,7 +285,7 @@
 	var/col_count = min(7,storage_slots) -1
 	if(adjusted_contents > 7)
 		row_num = round((adjusted_contents-1) / 7) // 7 is the maximum allowed width.
-	src.standard_orient_objs(row_num, col_count, numbered_contents)
+	standard_orient_objs(row_num, col_count, numbered_contents)
 	return
 
 
@@ -302,7 +300,6 @@
 			S.amount -= stacksize
 		if(!S.amount)
 			qdel(S) // todo: there's probably something missing here
-	orient2hud(usr)
 	if(usr.s_active)
 		usr.s_active.show_to(usr)
 	update_icon()
@@ -375,18 +372,19 @@
 	icon_state = "tray"
 	desc = "A metal tray to lay food on."
 	force = 5
-	throwforce = 10.0
+	throwforce = 10
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
 	materials = list(MAT_METAL=3000)
+	cant_hold = list(/obj/item/disk/nuclear) // Prevents some cheesing
 
-/obj/item/storage/bag/tray/attack(mob/living/M as mob, mob/living/user as mob)
+/obj/item/storage/bag/tray/attack(mob/living/M, mob/living/user)
 	..()
 	// Drop all the things. All of them.
 	var/list/obj/item/oldContents = contents.Copy()
-	quick_empty()
+	drop_inventory(user)
 
 	// Make each item scatter a bit
 	for(var/obj/item/I in oldContents)
@@ -422,13 +420,13 @@
 
 /obj/item/storage/bag/tray/cyborg/afterattack(atom/target, mob/user as mob)
 	if( isturf(target) || istype(target,/obj/structure/table) )
-		var foundtable = istype(target,/obj/structure/table/)
+		var/foundtable = istype(target,/obj/structure/table/)
 		if( !foundtable ) //it must be a turf!
 			for(var/obj/structure/table/T in target)
 				foundtable = 1
 				break
 
-		var turf/dropspot
+		var/turf/dropspot
 		if( !foundtable ) // don't unload things onto walls or other silly places.
 			dropspot = user.loc
 		else if( isturf(target) ) // they clicked on a turf with a table in it
@@ -438,7 +436,7 @@
 
 		overlays = null
 
-		var droppedSomething = 0
+		var/droppedSomething = 0
 
 		for(var/obj/item/I in contents)
 			I.loc = dropspot
@@ -463,8 +461,7 @@
 /obj/item/storage/bag/tray/cookies_tray
 	var/cookie = /obj/item/reagent_containers/food/snacks/cookie
 
-/obj/item/storage/bag/tray/cookies_tray/New() /// By Azule Utama, thank you a lot!
-	..()
+/obj/item/storage/bag/tray/cookies_tray/populate_contents() // By Azule Utama, thank you a lot!
 	for(var/i in 1 to 6)
 		var/obj/item/C = new cookie(src)
 		handle_item_insertion(C)    // Done this way so the tray actually has the cookies visible when spawned

@@ -19,7 +19,7 @@
 		if(!armed)
 			if(ishuman(usr))
 				var/mob/living/carbon/human/user = usr
-				if((user.getBrainLoss() >= 60 || (CLUMSY in user.mutations)) && prob(50))
+				if((user.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
 					to_chat(user, "Your hand slips, setting off the trigger.")
 					pulse(0)
 		update_icon()
@@ -43,7 +43,7 @@
 	var/obj/item/organ/external/affecting = null
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(PIERCEIMMUNE in H.dna.species.species_traits)
+		if(HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))
 			playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 			armed = FALSE
 			update_icon()
@@ -63,6 +63,7 @@
 	else if(ismouse(target))
 		var/mob/living/simple_animal/mouse/M = target
 		visible_message("<span class='danger'>SPLAT!</span>")
+		M.death()
 		M.splat()
 	playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 	layer = MOB_LAYER - 0.2
@@ -74,7 +75,7 @@
 	if(!armed)
 		to_chat(user, "<span class='notice'>You arm [src].</span>")
 	else
-		if((user.getBrainLoss() >= 60 || (CLUMSY in user.mutations)) && prob(50))
+		if((user.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
 			var/which_hand = "l_hand"
 			if(!user.hand)
 				which_hand = "r_hand"
@@ -89,7 +90,7 @@
 
 /obj/item/assembly/mousetrap/attack_hand(mob/living/user)
 	if(armed)
-		if((user.getBrainLoss() >= 60 || (CLUMSY in user.mutations)) && prob(50))
+		if((user.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
 			var/which_hand = "l_hand"
 			if(!user.hand)
 				which_hand = "r_hand"

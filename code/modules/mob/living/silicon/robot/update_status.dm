@@ -17,10 +17,12 @@
 		if(!is_component_functioning("actuator") || !is_component_functioning("power cell") || paralysis || sleeping || resting || stunned || IsWeakened() || getOxyLoss() > maxHealth * 0.5)
 			if(stat == CONSCIOUS)
 				KnockOut()
+				update_headlamp()
 				create_debug_log("fell unconscious, trigger reason: [reason]")
 		else
 			if(stat == UNCONSCIOUS)
 				WakeUp()
+				update_headlamp()
 				create_debug_log("woke up, trigger reason: [reason]")
 	else
 		if(health > 0)
@@ -31,9 +33,10 @@
 				ghost << sound('sound/effects/genetics.ogg')
 			create_attack_log("revived, trigger reason: [reason]")
 			create_log(MISC_LOG, "revived, trigger reason: [reason]")
-	// diag_hud_set_status()
-	// diag_hud_set_health()
-	// update_health_hud()
+
+	diag_hud_set_status()
+	diag_hud_set_health()
+	update_health_hud()
 
 /mob/living/silicon/robot/SetStunned(amount, updating = 1, force = 0) //if you REALLY need to set stun to a set amount without the whole "can't go below current stunned"
 	. = STATUS_UPDATE_CANMOVE

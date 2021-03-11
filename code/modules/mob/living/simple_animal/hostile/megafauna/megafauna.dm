@@ -6,6 +6,7 @@
 	a_intent = INTENT_HARM
 	sentience_type = SENTIENCE_BOSS
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
+	mob_biotypes = MOB_ORGANIC | MOB_EPIC
 	obj_damage = 400
 	light_range = 3
 	faction = list("mining", "boss")
@@ -43,7 +44,6 @@
 	. = ..()
 	if(internal_type && true_spawn)
 		internal = new internal_type(src)
-	apply_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
 	for(var/action_type in attack_action_types)
 		var/datum/action/innate/megafauna_attack/attack_action = new action_type()
 		attack_action.Grant(src)
@@ -73,7 +73,7 @@
 			spawn_crusher_loot()
 		if(!elimination)	//used so the achievment only occurs for the last legion to die.
 			grant_achievement(medal_type,score_type)
-			feedback_set_details("megafauna_kills","[initial(name)]")
+			SSblackbox.record_feedback("tally", "megafauna_kills", 1, "[initial(name)]")
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/proc/spawn_crusher_loot()

@@ -26,11 +26,9 @@
 	mmi_icon = 'icons/mob/alien.dmi'
 	mmi_icon_state = "AlienMMI"
 
-/obj/item/organ/internal/brain/New()
-	..()
-	spawn(5)
-		if(brainmob && brainmob.client)
-			brainmob.client.screen.len = null //clear the hud
+/obj/item/organ/internal/brain/Destroy()
+	QDEL_NULL(brainmob)
+	return ..()
 
 /obj/item/organ/internal/brain/proc/transfer_identity(var/mob/living/carbon/H)
 	brainmob = new(src)
@@ -72,7 +70,7 @@
 
 	if(istype(owner,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = owner
-		H.update_hair(1)
+		H.update_hair()
 	. = ..()
 
 /obj/item/organ/internal/brain/insert(var/mob/living/target,special = 0)
@@ -84,7 +82,7 @@
 			brain_already_exists = 1
 
 		var/mob/living/carbon/human/H = target
-		H.update_hair(1)
+		H.update_hair()
 
 	if(!brain_already_exists)
 		if(brainmob)

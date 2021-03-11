@@ -16,6 +16,7 @@
 		return
 	var/radius = min(max(0, volume / size_divisor), 8)
 	fireflash_sm(T, radius, rand(temp_fire - temp_deviance, temp_fire + temp_deviance), 500)
+	fire_flash_log(holder, id)
 
 /datum/reagent/phlogiston/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(holder.chem_temp <= T0C - 50)
@@ -56,6 +57,7 @@
 	if(exposed_temperature > T0C + 100)
 		var/radius = min(max(0, volume * 0.15), 8)
 		fireflash_sm(get_turf(holder.my_atom), radius, rand(3000, 6000), 500)
+		fire_flash_log(holder, id)
 		if(holder)
 			holder.del_reagent(id)
 
@@ -148,6 +150,7 @@
 /datum/reagent/plasma/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature >= T0C + 100)
 		fireflash(get_turf(holder.my_atom), min(max(0, volume / 10), 8))
+		fire_flash_log(holder, id)
 		if(holder)
 			holder.del_reagent(id)
 
@@ -190,6 +193,7 @@
 		var/datum/reagents/Holder = holder
 		var/Id = id
 		var/Volume = volume
+		fire_flash_log(holder, id)
 		Holder.del_reagent(Id)
 		fireflash_sm(S, 0, rand(20000, 25000) + Volume * 2500, 0, 0, 1)
 
@@ -199,8 +203,6 @@
 			S.create_reagents(volume)
 		S.reagents.add_reagent("thermite", volume)
 		S.thermite = TRUE
-		S.overlays.Cut()
-		S.overlays = image('icons/effects/effects.dmi', icon_state = "thermite")
 		if(S.active_hotspot)
 			S.reagents.temperature_reagents(S.active_hotspot.temperature, 10, 300)
 
@@ -240,6 +242,7 @@
 		return
 	var/radius = min((volume - 3) * 0.15, 3)
 	fireflash_sm(T, radius, 4500 + volume * 500, 350)
+	fire_flash_log(holder, id)
 
 /datum/reagent/clf3/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH || method == REAGENT_INGEST)
@@ -333,19 +336,26 @@
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "bitterness"
 
+/datum/reagent/cryostylane/on_new(data)
+	..()
+	START_PROCESSING(SSprocessing, src)
+
+/datum/reagent/cryostylane/Destroy()
+	STOP_PROCESSING(SSprocessing, src)
+	return ..()
+
 /datum/reagent/cryostylane/on_mob_life(mob/living/M) //TODO: code freezing into an ice cube
 	if(M.reagents.has_reagent("oxygen"))
 		M.reagents.remove_reagent("oxygen", 1)
 		M.bodytemperature -= 30
 	return ..()
 
-/datum/reagent/cryostylane/on_tick()
-	if(holder.has_reagent("oxygen"))
-		holder.remove_reagent("oxygen", 2)
-		holder.remove_reagent("cryostylane", 2)
-		holder.temperature_reagents(holder.chem_temp - 200)
-		holder.temperature_reagents(holder.chem_temp - 200)
-	..()
+/datum/reagent/cryostylane/process()
+	if(..())
+		if(holder.has_reagent("oxygen"))
+			holder.remove_reagent("oxygen", 2)
+			holder.remove_reagent("cryostylane", 2)
+			holder.temperature_reagents(holder.chem_temp - 200)
 
 /datum/reagent/cryostylane/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
@@ -368,19 +378,26 @@
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "bitterness"
 
+/datum/reagent/pyrosium/on_new(data)
+	..()
+	START_PROCESSING(SSprocessing, src)
+
+/datum/reagent/pyrosium/Destroy()
+	STOP_PROCESSING(SSprocessing, src)
+	return ..()
+
 /datum/reagent/pyrosium/on_mob_life(mob/living/M)
 	if(M.reagents.has_reagent("oxygen"))
 		M.reagents.remove_reagent("oxygen", 1)
 		M.bodytemperature += 30
 	return ..()
 
-/datum/reagent/pyrosium/on_tick()
-	if(holder.has_reagent("oxygen"))
-		holder.remove_reagent("oxygen", 2)
-		holder.remove_reagent("pyrosium", 2)
-		holder.temperature_reagents(holder.chem_temp + 200)
-		holder.temperature_reagents(holder.chem_temp + 200)
-	..()
+/datum/reagent/pyrosium/process()
+	if(..())
+		if(holder.has_reagent("oxygen"))
+			holder.remove_reagent("oxygen", 2)
+			holder.remove_reagent("pyrosium", 2)
+			holder.temperature_reagents(holder.chem_temp + 200)
 
 /datum/reagent/firefighting_foam
 	name = "Firefighting foam"
@@ -423,6 +440,7 @@
 /datum/reagent/plasma_dust/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature >= T0C + 100)
 		fireflash(get_turf(holder.my_atom), min(max(0, volume / 10), 8))
+		fire_flash_log(holder, id)
 		if(holder)
 			holder.del_reagent(id)
 

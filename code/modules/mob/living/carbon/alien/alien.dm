@@ -2,6 +2,7 @@
 	name = "alien"
 	voice_name = "alien"
 	speak_emote = list("hisses")
+	bubble_icon = "alien"
 	icon = 'icons/mob/alien.dmi'
 	gender = NEUTER
 	dna = null
@@ -26,6 +27,8 @@
 	var/death_sound = 'sound/voice/hiss6.ogg'
 
 /mob/living/carbon/alien/New()
+	..()
+	create_reagents(1000)
 	verbs += /mob/living/verb/mob_sleep
 	verbs += /mob/living/verb/lay_down
 	alien_organs += new /obj/item/organ/internal/brain/xeno
@@ -33,7 +36,6 @@
 	alien_organs += new /obj/item/organ/internal/ears
 	for(var/obj/item/organ/internal/I in alien_organs)
 		I.insert(src)
-	..()
 
 /mob/living/carbon/alien/get_default_language()
 	if(default_language)
@@ -66,18 +68,6 @@
 
 /mob/living/carbon/alien/check_eye_prot()
 	return 2
-
-/mob/living/carbon/alien/updatehealth(reason = "none given")
-	if(status_flags & GODMODE)
-		health = maxHealth
-		stat = CONSCIOUS
-		return
-	health = maxHealth - getOxyLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
-
-	update_stat("updatehealth([reason])")
-	med_hud_set_health()
-	med_hud_set_status()
-	handle_hud_icons_health()
 
 /mob/living/carbon/alien/handle_environment(var/datum/gas_mixture/environment)
 
@@ -117,12 +107,6 @@
 					apply_damage(HEAT_DAMAGE_LEVEL_2, BURN)
 	else
 		clear_alert("alien_fire")
-
-/mob/living/carbon/alien/handle_fire()//Aliens on fire code
-	if(..())
-		return
-	bodytemperature += BODYTEMP_HEATING_MAX //If you're on fire, you heat up!
-	return
 
 /mob/living/carbon/alien/IsAdvancedToolUser()
 	return has_fine_manipulation
@@ -209,7 +193,7 @@ Des: Gives the client of the alien an image on each infected mob.
 /mob/living/carbon/alien/proc/AddInfectionImages()
 	if(client)
 		for(var/mob/living/C in GLOB.mob_list)
-			if(C.status_flags & XENO_HOST)
+			if(HAS_TRAIT(C, TRAIT_XENO_HOST))
 				var/obj/item/organ/internal/body_egg/alien_embryo/A = C.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo)
 				if(A)
 					var/I = image('icons/mob/alien.dmi', loc = C, icon_state = "infected[A.stage]")
@@ -233,40 +217,14 @@ Des: Removes all infected images from the alien.
 
 /mob/living/carbon/alien/proc/updatePlasmaDisplay()
 	if(hud_used) //clientless aliens
-		hud_used.alien_plasma_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'> <font color='magenta'>[getPlasma()]</font></div>"
+		hud_used.alien_plasma_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'> <font face='Small Fonts' color='magenta'>[getPlasma()]</font></div>"
+		hud_used.alien_plasma_display.maptext_x = -3
 
 /mob/living/carbon/alien/larva/updatePlasmaDisplay()
 	return
 
 /mob/living/carbon/alien/can_use_vents()
 	return
-
-/mob/living/carbon/alien/handle_footstep(turf/T)
-	if(..())
-		if(T.footstep_sounds["xeno"])
-			var/S = pick(T.footstep_sounds["xeno"])
-			if(S)
-				if(m_intent == MOVE_INTENT_RUN)
-					if(!(step_count % 2)) //every other turf makes a sound
-						return 0
-
-				var/range = -(world.view - 2)
-				range -= 0.666 //-(7 - 2) = (-5) = -5 | -5 - (0.666) = -5.666 | (7 + -5.666) = 1.334 | 1.334 * 3 = 4.002 | range(4.002) = range(4)
-				var/volume = 5
-
-				if(m_intent == MOVE_INTENT_WALK)
-					return 0 //silent when walking
-
-				if(buckled || lying || throwing)
-					return 0 //people flying, lying down or sitting do not step
-
-				if(!has_gravity(src))
-					if(step_count % 3) //this basically says, every three moves make a noise
-						return 0       //1st - none, 1%3==1, 2nd - none, 2%3==2, 3rd - noise, 3%3==0
-
-				playsound(T, S, volume, 1, range)
-				return 1
-	return 0
 
 /mob/living/carbon/alien/getTrail()
 	if(getBruteLoss() < 200)
@@ -294,15 +252,6 @@ Des: Removes all infected images from the alien.
 		var/atom/A = client.eye
 		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
 			return
-
-	for(var/obj/item/organ/internal/cyberimp/eyes/E in internal_organs)
-		sight |= E.vision_flags
-		if(E.see_in_dark)
-			see_in_dark = max(see_in_dark, E.see_in_dark)
-		if(E.see_invisible)
-			see_invisible = min(see_invisible, E.see_invisible)
-		if(!isnull(E.lighting_alpha))
-			lighting_alpha = min(lighting_alpha, E.lighting_alpha)
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()

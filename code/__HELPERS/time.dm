@@ -7,28 +7,11 @@
 
 #define TICKS *world.tick_lag
 
+#define SECONDS_TO_LIFE_CYCLES /2
+
 #define DS2TICKS(DS) ((DS)/world.tick_lag)
 
 #define TICKS2DS(T) ((T) TICKS)
-
-#define TimeOfGame (get_game_time())
-#define TimeOfTick (world.tick_usage*0.01*world.tick_lag)
-
-/proc/get_game_time()
-	var/global/time_offset = 0
-	var/global/last_time = 0
-	var/global/last_usage = 0
-
-	var/wtime = world.time
-	var/wusage = world.tick_usage * 0.01
-
-	if(last_time < wtime && last_usage > 1)
-		time_offset += last_usage - 1
-
-	last_time = wtime
-	last_usage = wusage
-
-	return wtime + (time_offset + wusage) * world.tick_lag
 
 /* This proc should only be used for world/Topic.
  * If you want to display the time for which dream daemon has been running ("round time") use worldtime2text.
@@ -79,7 +62,7 @@
 	return time2text(station_time(time, TRUE), format)
 
 /* Returns 1 if it is the selected month and day */
-proc/isDay(var/month, var/day)
+/proc/isDay(var/month, var/day)
 	if(isnum(month) && isnum(day))
 		var/MM = text2num(time2text(world.timeofday, "MM")) // get the current month
 		var/DD = text2num(time2text(world.timeofday, "DD")) // get the current day
@@ -98,14 +81,14 @@ proc/isDay(var/month, var/day)
  * Returns "watch handle" (really just a timestamp :V)
  */
 /proc/start_watch()
-	return TimeOfGame
+	return REALTIMEOFDAY
 
 /**
  * Returns number of seconds elapsed.
  * @param wh number The "Watch Handle" from start_watch(). (timestamp)
  */
 /proc/stop_watch(wh)
-	return round(0.1 * (TimeOfGame - wh), 0.1)
+	return round(0.1 * (REALTIMEOFDAY - wh), 0.1)
 
 /proc/numberToMonthName(number)
 	return GLOB.month_names.Find(number)
@@ -114,7 +97,7 @@ proc/isDay(var/month, var/day)
 /proc/seconds_to_time(var/seconds as num)
 	var/numSeconds = seconds % 60
 	var/numMinutes = (seconds - numSeconds) / 60
-	return "[numMinutes] [numMinutes > 1 ? "minutes" : "minute"] and [numSeconds] seconds."
+	return "[numMinutes] [numMinutes > 1 ? "minutes" : "minute"] and [numSeconds] seconds"
 
 //Take a value in seconds and makes it display like a clock
 /proc/seconds_to_clock(var/seconds as num)

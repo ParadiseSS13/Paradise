@@ -8,14 +8,14 @@
 	w_class = WEIGHT_CLASS_HUGE
 	can_hold = list(/obj/item/stock_parts)
 	storage_slots = 50
-	use_to_pickup = 1
-	allow_quick_gather = 1
-	allow_quick_empty = 1
-	collection_mode = 1
-	display_contents_with_number = 1
+	use_to_pickup = TRUE
+	allow_quick_gather = TRUE
+	allow_quick_empty = TRUE
+	pickup_all_on_tile = TRUE
+	display_contents_with_number = TRUE
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 100
-	var/works_from_distance = 0
+	var/works_from_distance = FALSE
 	var/primary_sound = 'sound/items/rped.ogg'
 	var/alt_sound = null
 	toolspeed = 1
@@ -39,7 +39,7 @@
 	storage_slots = 400
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 800
-	works_from_distance = 1
+	works_from_distance = TRUE
 	primary_sound = 'sound/items/pshoom.ogg'
 	alt_sound = 'sound/items/pshoom_2.ogg'
 	usesound = 'sound/items/pshoom.ogg'
@@ -234,57 +234,6 @@
 	origin_tech = "materials=6;programming=4;engineering=4"
 	rating = 4
 	materials = list(MAT_METAL=80)
-
-// Subspace stock parts
-
-/obj/item/stock_parts/subspace/ansible
-	name = "subspace ansible"
-	icon_state = "subspace_ansible"
-	desc = "A compact module capable of sensing extradimensional activity."
-	origin_tech = "programming=2;magnets=2;materials=2;bluespace=1"
-	materials = list(MAT_METAL=30, MAT_GLASS=10)
-
-/obj/item/stock_parts/subspace/filter
-	name = "hyperwave filter"
-	icon_state = "hyperwave_filter"
-	desc = "A tiny device capable of filtering and converting super-intense radiowaves."
-	origin_tech = "programming=2;magnets=2"
-	materials = list(MAT_METAL=30, MAT_GLASS=10)
-
-/obj/item/stock_parts/subspace/amplifier
-	name = "subspace amplifier"
-	icon_state = "subspace_amplifier"
-	desc = "A compact micro-machine capable of amplifying weak subspace transmissions."
-	origin_tech = "programming=2;magnets=2;materials=2;bluespace=2"
-	materials = list(MAT_METAL=30, MAT_GLASS=10)
-
-/obj/item/stock_parts/subspace/treatment
-	name = "subspace treatment disk"
-	icon_state = "treatment_disk"
-	desc = "A compact micro-machine capable of stretching out hyper-compressed radio waves."
-	origin_tech = "programming=2;magnets=2;materials=2;bluespace=2"
-	materials = list(MAT_METAL=30, MAT_GLASS=10)
-
-/obj/item/stock_parts/subspace/analyzer
-	name = "subspace wavelength analyzer"
-	icon_state = "wavelength_analyzer"
-	desc = "A sophisticated analyzer capable of analyzing cryptic subspace wavelengths."
-	origin_tech = "programming=2;magnets=2;materials=2;bluespace=2"
-	materials = list(MAT_METAL=30, MAT_GLASS=10)
-
-/obj/item/stock_parts/subspace/crystal
-	name = "ansible crystal"
-	icon_state = "ansible_crystal"
-	desc = "A crystal made from pure glass used to transmit laser databursts to subspace."
-	origin_tech = "magnets=2;materials=2;bluespace=2;plasmatech=2"
-	materials = list(MAT_GLASS=50)
-
-/obj/item/stock_parts/subspace/transmitter
-	name = "subspace transmitter"
-	icon_state = "subspace_transmitter"
-	desc = "A large piece of equipment used to open a window into the subspace dimension."
-	origin_tech = "magnets=2;materials=2;bluespace=2"
-	materials = list(MAT_METAL=50)
 
 /obj/item/research//Makes testing much less of a pain -Sieve
 	name = "research"

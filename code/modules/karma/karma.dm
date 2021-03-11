@@ -2,52 +2,74 @@
 	Everything karma related is here.
 	Part of karma purchase is handled in client_procs.dm	*/
 
-proc/sql_report_karma(var/mob/spender, var/mob/receiver)
-	var/sqlspendername = sanitizeSQL(spender.name)
-	var/sqlspenderkey = spender.ckey
-	var/sqlreceivername = sanitizeSQL(receiver.name)
-	var/sqlreceiverkey = receiver.ckey
-	var/sqlreceiverrole = "None"
-	var/sqlreceiverspecial = "None"
-
-	var/sqlspenderip = spender.client.address
+/proc/sql_report_karma(var/mob/spender, var/mob/receiver)
+	var/receiverrole = "None"
+	var/receiverspecial = "None"
 
 	if(receiver.mind)
 		if(receiver.mind.special_role)
-			sqlreceiverspecial = sanitizeSQL(receiver.mind.special_role)
+			receiverspecial = receiver.mind.special_role
 		if(receiver.mind.assigned_role)
-			sqlreceiverrole = sanitizeSQL(receiver.mind.assigned_role)
+			receiverrole = receiver.mind.assigned_role
 
-	if(!GLOB.dbcon.IsConnected())
-		log_game("SQL ERROR during karma logging. Failed to connect.")
+	if(!SSdbcore.IsConnected())
+		return
+
+	var/datum/db_query/log_query = SSdbcore.NewQuery({"
+		INSERT INTO [format_table_name("karma")] (spendername, spenderkey, receivername, receiverkey, receiverrole, receiverspecial, spenderip, time)
+		VALUES (:sname, :skey, :rname, :rkey, :rrole, :rspecial, :sip, Now())"}, list(
+			"sname" = spender.name,
+			"skey" = spender.ckey,
+			"rname" = receiver.name,
+			"rkey" = receiver.ckey,
+			"rrole" = receiverrole,
+			"rspecial" = receiverspecial,
+			"sip" = spender.client.address
+		))
+
+	if(!log_query.warn_execute())
+		qdel(log_query)
+		return
+
+	qdel(log_query)
+
+	var/datum/db_query/select_spender = SSdbcore.NewQuery("SELECT id, karma FROM [format_table_name("karmatotals")] WHERE byondkey=:rkey", list(
+		"rkey" = receiver.ckey
+	))
+
+	if(!select_spender.warn_execute())
+		qdel(select_spender)
+		return
+
+	var/karma
+	var/id
+	while(select_spender.NextRow())
+		id = select_spender.item[1]
+		karma = text2num(select_spender.item[2])
+
+	qdel(select_spender)
+
+	if(karma == null)
+		karma = 1
+
+		var/datum/db_query/insert_query = SSdbcore.NewQuery("INSERT INTO [format_table_name("karmatotals")] (byondkey, karma) VALUES (:rkey, :karma)", list(
+			"rkey" = receiver.ckey,
+			"karma" = karma
+		))
+		if(!insert_query.warn_execute())
+			qdel(insert_query)
+			return
+		qdel(insert_query)
 	else
-		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
-		var/DBQuery/query = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("karma")] (spendername, spenderkey, receivername, receiverkey, receiverrole, receiverspecial, spenderip, time) VALUES ('[sqlspendername]', '[sqlspenderkey]', '[sqlreceivername]', '[sqlreceiverkey]', '[sqlreceiverrole]', '[sqlreceiverspecial]', '[sqlspenderip]', '[sqltime]')")
-		if(!query.Execute())
-			var/err = query.ErrorMsg()
-			log_game("SQL ERROR during karma logging. Error : \[[err]\]\n")
-
-
-		query = GLOB.dbcon.NewQuery("SELECT * FROM [format_table_name("karmatotals")] WHERE byondkey='[receiver.ckey]'")
-		query.Execute()
-
-		var/karma
-		var/id
-		while(query.NextRow())
-			id = query.item[1]
-			karma = text2num(query.item[3])
-		if(karma == null)
-			karma = 1
-			query = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("karmatotals")] (byondkey, karma) VALUES ('[receiver.ckey]', [karma])")
-			if(!query.Execute())
-				var/err = query.ErrorMsg()
-				log_game("SQL ERROR during karmatotal logging (adding new key). Error : \[[err]\]\n")
-		else
-			karma++
-			query = GLOB.dbcon.NewQuery("UPDATE [format_table_name("karmatotals")] SET karma=[karma] WHERE id=[id]")
-			if(!query.Execute())
-				var/err = query.ErrorMsg()
-				log_game("SQL ERROR during karmatotal logging (updating existing entry). Error : \[[err]\]\n")
+		karma++
+		var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE [format_table_name("karmatotals")] SET karma=:karma WHERE id=:id", list(
+			"karma" = karma,
+			"id" = id
+		))
+		if(!update_query.warn_execute())
+			qdel(update_query)
+			return
+		qdel(update_query)
 
 GLOBAL_LIST_EMPTY(karma_spenders)
 
@@ -85,7 +107,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 		log_game("Illegal karma spending attempt detected from [key] to [M.key]. Using the same IP!")
 		to_chat(src, "<span class='warning'>You can't spend karma on someone connected from the same IP.</span>")
 		return FALSE
-	if(M.get_preference(DISABLE_KARMA))
+	if(M.get_preference(PREFTOGGLE_DISABLE_KARMA))
 		to_chat(src, "<span class='warning'>That player has turned off incoming karma.")
 		return FALSE
 	return TRUE
@@ -168,19 +190,24 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 
 /client/proc/verify_karma()
 	var/currentkarma = 0
-	if(!GLOB.dbcon.IsConnected())
+	if(!SSdbcore.IsConnected())
 		to_chat(usr, "<span class='warning'>Unable to connect to karma database. Please try again later.<br></span>")
 		return
-	else
-		var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT karma, karmaspent FROM [format_table_name("karmatotals")] WHERE byondkey='[src.ckey]'")
-		query.Execute()
 
-		var/totalkarma
-		var/karmaspent
-		while(query.NextRow())
-			totalkarma = query.item[1]
-			karmaspent = query.item[2]
-		currentkarma = (text2num(totalkarma) - text2num(karmaspent))
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT karma, karmaspent FROM [format_table_name("karmatotals")] WHERE byondkey=:ckey", list(
+		"ckey" = ckey
+	))
+	if(!query.warn_execute())
+		qdel(query)
+		return
+
+	var/totalkarma
+	var/karmaspent
+	while(query.NextRow())
+		totalkarma = query.item[1]
+		karmaspent = query.item[2]
+	qdel(query)
+	currentkarma = (text2num(totalkarma) - text2num(karmaspent))
 
 	return currentkarma
 
@@ -195,6 +222,29 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 	karmashopmenu()
 
 /client/proc/karmashopmenu()
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey, job, species FROM [format_table_name("whitelist")] WHERE ckey=:ckey", list(
+		"ckey" = ckey
+	))
+	if(!query.warn_execute())
+		qdel(query)
+		return
+
+	var/list/joblist
+	var/list/specieslist
+	var/dbjob
+	var/dbspecies
+	var/dbckey
+	while(query.NextRow())
+		dbckey = query.item[1]
+		dbjob = query.item[2]
+		dbspecies = query.item[3]
+
+	qdel(query)
+
+	if(dbckey)
+		joblist = splittext(dbjob,",")
+		specieslist = splittext(dbspecies,",")
+
 	var/dat = "<html><body><center>"
 	dat += "<a href='?src=[UID()];karmashop=tab;tab=0' [karma_tab == 0 ? "class='linkOn'" : ""]>Job Unlocks</a>"
 	dat += "<a href='?src=[UID()];karmashop=tab;tab=1' [karma_tab == 1 ? "class='linkOn'" : ""]>Species Unlocks</a>"
@@ -202,28 +252,69 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 	dat += "</center>"
 	dat += "<HR>"
 
+	var/currentkarma = verify_karma()
+	dat += "You have <b>[currentkarma]</b> available.<br><HR>"
+
 	switch(karma_tab)
 		if(0) // Job Unlocks
-			dat += {"
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy=1'>Unlock Barber -- 5KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy=2'>Unlock Brig Physician -- 5KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy=3'>Unlock Nanotrasen Representative -- 30KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy=5'>Unlock Blueshield -- 30KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy=9'>Unlock Security Pod Pilot -- 30KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy=6'>Unlock Mechanic -- 30KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy=7'>Unlock Magistrate -- 45KP</a><br>
-			"}
+			if(!("Barber" in joblist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=1'>Unlock Barber -- 5KP</a><br>"
+			else
+				dat += "Barber  - <font color='green'>Unlocked</font><br>"
+			if(!("Brig Physician" in joblist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=2'>Unlock Brig Physician -- 5KP</a><br>"
+			else
+				dat += "Brig Physician - <font color='green'>Unlocked</font><br>"
+			if(!("Nanotrasen Representative" in joblist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=3'>Unlock Nanotrasen Representative -- 30KP</a><br>"
+			else
+				dat += "Nanotrasen Representative - <font color='green'>Unlocked</font><br>"
+			if(!("Blueshield" in joblist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=5'>Unlock Blueshield -- 30KP</a><br>"
+			else
+				dat += "Blueshield - <font color='green'>Unlocked</font><br>"
+			if(!("Security Pod Pilot" in joblist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=9'>Unlock Security Pod Pilot -- 30KP</a><br>"
+			else
+				dat += "Security Pod Pilot - <font color='green'>Unlocked</font><br>"
+			if(!("Mechanic" in joblist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=6'>Unlock Mechanic -- 30KP</a><br>"
+			else
+				dat += "Mechanic - <font color='green'>Unlocked</font><br>"
+			if(!("Magistrate" in joblist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=7'>Unlock Magistrate -- 45KP</a><br>"
+			else
+				dat+= "Magistrate - <font color='green'>Unlocked</font><br>"
 
 		if(1) // Species Unlocks
-			dat += {"
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=1'>Unlock Machine People -- 15KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=2'>Unlock Kidan -- 30KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=3'>Unlock Grey -- 30KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=7'>Unlock Drask -- 30KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=4'>Unlock Vox -- 45KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=5'>Unlock Slime People -- 45KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=6'>Unlock Plasmaman -- 45KP</a><br>
-			"}
+			if(!("Machine" in specieslist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=1'>Unlock Machine People -- 15KP</a><br>"
+			else
+				dat += "Machine People - <font color='green'>Unlocked</font><br>"
+			if(!("Kidan" in specieslist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=2'>Unlock Kidan -- 30KP</a><br>"
+			else
+				dat += "Kidan - <font color='green'>Unlocked</font><br>"
+			if(!("Grey" in specieslist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=3'>Unlock Grey -- 30KP</a><br>"
+			else
+				dat += "Grey - <font color='green'>Unlocked</font><br>"
+			if(!("Drask" in specieslist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=7'>Unlock Drask -- 30KP</a><br>"
+			else
+				dat += "Drask - <font color='green'>Unlocked</font><br>"
+			if(!("Vox" in specieslist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=4'>Unlock Vox -- 45KP</a><br>"
+			else
+				dat += "Vox - <font color='green'>Unlocked</font><br>"
+			if(!("Slime People" in specieslist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=5'>Unlock Slime People -- 45KP</a><br>"
+			else
+				dat += "Slime People - <font color='green'>Unlocked</font><br>"
+			if(!("Plasmaman" in specieslist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=6'>Unlock Plasmaman -- 45KP</a><br>"
+			else
+				dat += "Plasmaman - <font color='green'>Unlocked</font><br>"
 
 		if(2) // Karma Refunds
 			var/list/refundable = list()
@@ -283,62 +374,88 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 		name = DBname
 	if(category == "job")
 		DB_job_unlock(name,price)
+		karmashopmenu()
 	else if(category == "species")
 		DB_species_unlock(name,price)
+		karmashopmenu()
 
 /client/proc/DB_job_unlock(var/job,var/cost)
-	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.ckey]'")
-	query.Execute()
+	var/datum/db_query/select_query = SSdbcore.NewQuery("SELECT ckey, job FROM [format_table_name("whitelist")] WHERE ckey=:ckey", list(
+		"ckey" = ckey
+	))
+	if(!select_query.warn_execute())
+		qdel(select_query)
+		return
 
 	var/dbjob
 	var/dbckey
-	while(query.NextRow())
-		dbckey = query.item[2]
-		dbjob = query.item[3]
+	while(select_query.NextRow())
+		dbckey = select_query.item[1]
+		dbjob = select_query.item[2]
+
+	qdel(select_query)
 	if(!dbckey)
-		query = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("whitelist")] (ckey, job) VALUES ('[usr.ckey]','[job]')")
-		if(!query.Execute())
-			queryErrorLog(query.ErrorMsg(),"adding new key")
+		var/datum/db_query/insert_query = SSdbcore.NewQuery("INSERT INTO [format_table_name("whitelist")] (ckey, job) VALUES (:ckey, :job)", list(
+			"ckey" = ckey,
+			"job" = job
+		))
+		if(!insert_query.warn_execute())
+			qdel(insert_query)
 			return
 		else
 			to_chat(usr, "You have unlocked [job].")
-			message_admins("[key_name(usr)] has unlocked [job].")
+			message_admins("[key_name(usr)] has unlocked [job].") // why do we admin log this
 			karmacharge(cost)
+
+		qdel(insert_query)
 
 	if(dbckey)
 		var/list/joblist = splittext(dbjob,",")
 		if(!(job in joblist))
 			joblist += job
 			var/newjoblist = jointext(joblist,",")
-			query = GLOB.dbcon.NewQuery("UPDATE [format_table_name("whitelist")] SET job='[newjoblist]' WHERE ckey='[dbckey]'")
-			if(!query.Execute())
-				queryErrorLog(query.ErrorMsg(),"updating existing entry")
+			var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE [format_table_name("whitelist")] SET job=:newjoblist WHERE ckey=:ckey", list(
+				"newjoblist" = newjoblist,
+				"ckey" = ckey
+			))
+			if(!update_query.warn_execute())
+				qdel(update_query)
 				return
 			else
 				to_chat(usr, "You have unlocked [job].")
 				message_admins("[key_name(usr)] has unlocked [job].")
 				karmacharge(cost)
+				qdel(update_query)
 		else
 			to_chat(usr, "You already have this job unlocked!")
 			return
 
 /client/proc/DB_species_unlock(var/species,var/cost)
-	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.ckey]'")
-	query.Execute()
+	var/datum/db_query/select_query = SSdbcore.NewQuery("SELECT ckey, species FROM [format_table_name("whitelist")] WHERE ckey=:ckey", list(
+		"ckey" = ckey
+	))
+	if(!select_query.warn_execute())
+		qdel(select_query)
+		return
 
 	var/dbspecies
 	var/dbckey
-	while(query.NextRow())
-		dbckey = query.item[2]
-		dbspecies = query.item[4]
+	while(select_query.NextRow())
+		dbckey = select_query.item[1]
+		dbspecies = select_query.item[2]
+	qdel(select_query)
 	if(!dbckey)
-		query = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("whitelist")] (ckey, species) VALUES ('[usr.ckey]','[species]')")
-		if(!query.Execute())
-			queryErrorLog(query.ErrorMsg(),"adding new key")
+		var/datum/db_query/insert_query = SSdbcore.NewQuery("INSERT INTO [format_table_name("whitelist")] (ckey, species) VALUES (:ckey, :species)", list(
+			"ckey" = ckey,
+			"species" = species
+		))
+		if(!insert_query.warn_execute())
+			qdel(insert_query)
 			return
 		else
 			to_chat(usr, "You have unlocked [species].")
 			message_admins("[key_name(usr)] has unlocked [species].")
+			qdel(insert_query)
 			karmacharge(cost)
 
 	if(dbckey)
@@ -346,35 +463,49 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 		if(!(species in specieslist))
 			specieslist += species
 			var/newspecieslist = jointext(specieslist,",")
-			query = GLOB.dbcon.NewQuery("UPDATE [format_table_name("whitelist")] SET species='[newspecieslist]' WHERE ckey='[dbckey]'")
-			if(!query.Execute())
-				queryErrorLog(query.ErrorMsg(),"updating existing entry")
+			var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE [format_table_name("whitelist")] SET species=:newspecieslist WHERE ckey=:ckey", list(
+				"newspecieslist" = newspecieslist,
+				"ckey" = ckey
+			))
+			if(!update_query.warn_execute())
+				qdel(update_query)
 				return
 			else
 				to_chat(usr, "You have unlocked [species].")
 				message_admins("[key_name(usr)] has unlocked [species].")
+				qdel(update_query)
 				karmacharge(cost)
 		else
 			to_chat(usr, "You already have this species unlocked!")
 			return
 
 /client/proc/karmacharge(var/cost,var/refund = FALSE)
-	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT * FROM [format_table_name("karmatotals")] WHERE byondkey='[usr.ckey]'")
-	query.Execute()
+	var/datum/db_query/select_query = SSdbcore.NewQuery("SELECT karmaspent FROM [format_table_name("karmatotals")] WHERE byondkey=:ckey", list(
+		"ckey" = ckey
+	))
+	if(!select_query.warn_execute())
+		qdel(select_query)
+		return
 
-	while(query.NextRow())
-		var/spent = text2num(query.item[4])
+	while(select_query.NextRow())
+		var/spent = text2num(select_query.item[1])
 		if(refund)
 			spent -= cost
 		else
 			spent += cost
-		query = GLOB.dbcon.NewQuery("UPDATE [format_table_name("karmatotals")] SET karmaspent=[spent] WHERE byondkey='[usr.ckey]'")
-		if(!query.Execute())
-			queryErrorLog(query.ErrorMsg(),"updating existing entry")
+		var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE [format_table_name("karmatotals")] SET karmaspent=:spent WHERE byondkey=:ckey", list(
+			"spent" = spent,
+			"ckey" = ckey
+		))
+		if(!update_query.warn_execute())
+			qdel(select_query)
+			qdel(update_query)
 			return
 		else
 			to_chat(usr, "You have been [refund ? "refunded" : "charged"] [cost] karma.")
 			message_admins("[key_name(usr)] has been [refund ? "refunded" : "charged"] [cost] karma.")
+			qdel(select_query)
+			qdel(update_query)
 			return
 
 /client/proc/karmarefund(var/type,var/name,var/cost)
@@ -388,37 +519,50 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			to_chat(usr, "<span class='warning'>That job is not refundable.</span>")
 			return
 
-	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.ckey]'")
-	query.Execute()
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey, job, species FROM [format_table_name("whitelist")] WHERE ckey=:ckey", list(
+		"ckey" = ckey
+	))
+	if(!query.warn_execute())
+		qdel(query)
+		return
 
 	var/dbjob
 	var/dbspecies
 	var/dbckey
 	while(query.NextRow())
-		dbckey = query.item[2]
-		dbjob = query.item[3]
-		dbspecies = query.item[4]
+		dbckey = query.item[1]
+		dbjob = query.item[2]
+		dbspecies = query.item[3]
+
+	qdel(query)
 
 	if(dbckey)
 		var/list/typelist = list()
+		var/statement
 		switch(type)
 			if("job")
 				typelist = splittext(dbjob,",")
+				statement = "UPDATE [format_table_name("whitelist")] SET job=:newtypelist WHERE ckey=:ckey"
 			if("species")
 				typelist = splittext(dbspecies,",")
+				statement = "UPDATE [format_table_name("whitelist")] SET species=:newtypelist WHERE ckey=:ckey"
 			else
 				to_chat(usr, "<span class='warning'>Type [type] is not a valid column.</span>")
 
 		if(name in typelist)
 			typelist -= name
 			var/newtypelist = jointext(typelist,",")
-			query = GLOB.dbcon.NewQuery("UPDATE [format_table_name("whitelist")] SET [type]='[newtypelist]' WHERE ckey='[dbckey]'")
-			if(!query.Execute())
-				queryErrorLog(query.ErrorMsg(),"updating existing entry")
+			var/datum/db_query/update_query = SSdbcore.NewQuery(statement, list(
+				"ckey" = ckey,
+				"newtypelist" = newtypelist
+			))
+			if(!update_query.warn_execute())
+				qdel(update_query)
 				return
 			else
 				to_chat(usr, "You have been refunded [cost] karma for [type] [name].")
 				message_admins("[key_name(usr)] has been refunded [cost] karma for [type] [name].")
+				qdel(update_query)
 				karmacharge(text2num(cost),1)
 		else
 			to_chat(usr, "<span class='warning'>You have not bought [name].</span>")
@@ -426,22 +570,23 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 	else
 		to_chat(usr, "<span class='warning'>Your ckey ([dbckey]) was not found.</span>")
 
-/client/proc/queryErrorLog(err = null, errType)
-	log_game("SQL ERROR during whitelist logging ([errType]]). Error : \[[err]\]\n")
-	message_admins("SQL ERROR during whitelist logging ([errType]]). Error : \[[err]\]\n")
-
 /client/proc/checkpurchased(var/name = null) // If the first parameter is null, return a full list of purchases
-	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.ckey]'")
-	query.Execute()
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey, job, species FROM [format_table_name("whitelist")] WHERE ckey=:ckey", list(
+		"ckey" = ckey
+	))
+	if(!query.warn_execute())
+		qdel(query)
+		return
 
 	var/dbjob
 	var/dbspecies
 	var/dbckey
 	while(query.NextRow())
-		dbckey = query.item[2]
-		dbjob = query.item[3]
-		dbspecies = query.item[4]
+		dbckey = query.item[1]
+		dbjob = query.item[2]
+		dbspecies = query.item[3]
 
+	qdel(query)
 	if(dbckey)
 		var/list/joblist = splittext(dbjob,",")
 		var/list/specieslist = splittext(dbspecies,",")

@@ -27,7 +27,7 @@
 			return
 	*/
 	message = replace_characters(message, ILLEGAL_CHARACTERS_LIST)
-	set_typing_indicator(0)
+	set_typing_indicator(FALSE)
 	usr.say(message)
 
 
@@ -37,24 +37,34 @@
 
 	message = strip_html_properly(message)
 
-	set_typing_indicator(0)
+	set_typing_indicator(FALSE, TRUE)
 	if(use_me)
 		custom_emote(usr.emote_type, message)
 	else
 		usr.emote(message)
 
 
-/mob/proc/say_dead(var/message)
-	if(!(client && client.holder))
-		if(!config.dsay_allowed)
-			to_chat(src, "<span class='danger'>Deadchat is globally muted.</span>")
+/mob/proc/say_dead(message)
+	if(client)
+		if(!client.holder)
+			if(!config.dsay_allowed)
+				to_chat(src, "<span class='danger'>Deadchat is globally muted.</span>")
+				return
+
+		if(client.prefs.muted & MUTE_DEADCHAT)
+			to_chat(src, "<span class='warning'>You cannot talk in deadchat (muted).</span>")
 			return
 
-	if(client && !(client.prefs.toggles & CHAT_DEAD))
-		to_chat(usr, "<span class='danger'>You have deadchat muted.</span>")
-		return
+		if(!(client.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
+			to_chat(src, "<span class='danger'>You have deadchat muted.</span>")
+			return
+
+		if(client.handle_spam_prevention(message, MUTE_DEADCHAT))
+			return
 
 	say_dead_direct("[pick("complains", "moans", "whines", "laments", "blubbers", "salts")], <span class='message'>\"[message]\"</span>", src)
+	create_log(DEADCHAT_LOG, message)
+	log_ghostsay(message, src)
 
 /mob/proc/say_understands(var/mob/other, var/datum/language/speaking = null)
 	if(stat == DEAD)
@@ -114,7 +124,7 @@
 
 	return get_turf(src)
 
-/mob/proc/say_test(var/text)
+/proc/say_test(text)
 	var/ending = copytext(text, length(text))
 	if(ending == "?")
 		return "1"

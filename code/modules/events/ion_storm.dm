@@ -22,7 +22,7 @@
 
 /datum/event/ion_storm/start()
 	//AI laws
-	for(var/mob/living/silicon/ai/M in GLOB.living_mob_list)
+	for(var/mob/living/silicon/ai/M in GLOB.alive_mob_list)
 		if(M.stat != DEAD && M.see_in_dark != FALSE)
 			var/message = generate_ion_law(ionMessage)
 			if(message)
@@ -493,7 +493,7 @@
 /proc/generate_static_ion_law()
 	var/list/players = list()
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
-		if(	!player.mind || player.mind.assigned_role == player.mind.special_role || player.client.inactivity > MinutesToTicks(10))
+		if(	!player.mind || player.mind.assigned_role == player.mind.special_role || player.client.inactivity > 10 MINUTES)
 			continue
 		players += player.real_name
 	var/random_player = "The Captain"

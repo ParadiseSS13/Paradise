@@ -2,8 +2,9 @@
 	set category = "Debug"
 	set name = "Map template - Place"
 
-	if(!holder)
+	if(!check_rights(R_DEBUG))
 		return
+
 	var/datum/map_template/template
 
 	var/map = input(usr, "Choose a Map Template to place at your CURRENT LOCATION","Place Map Template") as null|anything in GLOB.map_templates
@@ -35,6 +36,9 @@
 /client/proc/map_template_upload()
 	set category = "Debug"
 	set name = "Map Template - Upload"
+
+	if(!check_rights(R_DEBUG))
+		return
 
 	var/map = input(usr, "Choose a Map Template to upload to template storage","Upload Map Template") as null|file
 	if(!map)

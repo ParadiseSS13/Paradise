@@ -18,8 +18,6 @@
 		for(var/obj/item/I in H)
 			if(istype(I, /obj/item/implant))
 				continue
-			if(istype (I, /obj/item/organ))
-				continue
 			qdel(I)
 
 		to_chat(H, "<B>You are part of the [station_name()] dodgeball tournament. Throw dodgeballs at crewmembers wearing a different color than you. OOC: Use THROW on an EMPTY-HAND to catch thrown dodgeballs.</B>")
@@ -73,9 +71,11 @@
 	..()
 	if((ishuman(hit_atom)))
 		var/mob/living/carbon/human/H = hit_atom
-		if(H.r_hand == src) return
-		if(H.l_hand == src) return
-		var/mob/A = H.LAssailant
+		if(H.r_hand == src)
+			return
+		if(H.l_hand == src)
+			return
+		var/mob/A = thrownby
 		if((H in GLOB.team_alpha) && (A in GLOB.team_alpha))
 			to_chat(A, "<span class='warning'>He's on your team!</span>")
 			return
@@ -89,4 +89,3 @@
 			playsound(src, 'sound/items/dodgeball.ogg', 50, 1)
 			visible_message("<span class='danger'>[H] HAS BEEN ELIMINATED!</span>")
 			H.melt()
-			return

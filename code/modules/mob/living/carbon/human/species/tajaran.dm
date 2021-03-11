@@ -2,7 +2,6 @@
 	name = "Tajaran"
 	name_plural = "Tajaran"
 	icobase = 'icons/mob/human_races/r_tajaran.dmi'
-	deform = 'icons/mob/human_races/r_def_tajaran.dmi'
 	language = "Siik'tajr"
 	tail = "tajtail"
 	skinned_type = /obj/item/stack/sheet/fur
@@ -56,4 +55,4 @@
 		"is holding their breath!")
 
 /datum/species/tajaran/handle_death(gibbed, mob/living/carbon/human/H)
-	H.stop_tail_wagging(1)
+	H.stop_tail_wagging()

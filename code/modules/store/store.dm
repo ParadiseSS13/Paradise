@@ -47,7 +47,7 @@ GLOBAL_DATUM_INIT(centcomm_store, /datum/store, new())
 	return 1
 
 /datum/store/proc/reconnect_database()
-	for(var/obj/machinery/computer/account_database/DB in world)
+	for(var/obj/machinery/computer/account_database/DB in GLOB.machines)
 		if(is_station_level(DB.z))
 			linked_db = DB
 			break

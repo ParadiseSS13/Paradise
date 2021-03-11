@@ -69,7 +69,7 @@
 /datum/reagent/space_cleaner/reaction_turf(turf/T, volume)
 	if(volume >= 1)
 		var/floor_only = TRUE
-		for(var/obj/effect/decal/cleanable/C in src)
+		for(var/obj/effect/decal/cleanable/C in T)
 			var/obj/effect/decal/cleanable/blood/B = C
 			if(istype(B) && B.off_floor)
 				floor_only = FALSE
@@ -83,37 +83,7 @@
 			M.adjustToxLoss(rand(5, 10))
 
 /datum/reagent/space_cleaner/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(iscarbon(M))
-		var/mob/living/carbon/C = M
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(H.lip_style)
-				H.lip_style = null
-				H.update_body()
-		if(C.r_hand)
-			C.r_hand.clean_blood()
-		if(C.l_hand)
-			C.l_hand.clean_blood()
-		if(C.wear_mask)
-			if(C.wear_mask.clean_blood())
-				C.update_inv_wear_mask(0)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = C
-			if(H.head)
-				if(H.head.clean_blood())
-					H.update_inv_head(0,0)
-			if(H.wear_suit)
-				if(H.wear_suit.clean_blood())
-					H.update_inv_wear_suit(0,0)
-			else if(H.w_uniform)
-				if(H.w_uniform.clean_blood())
-					H.update_inv_w_uniform(0,0)
-			if(H.shoes)
-				if(H.shoes.clean_blood())
-					H.update_inv_shoes(0,0)
-		M.clean_blood()
-		..()
-
+	M.clean_blood()
 
 /datum/reagent/blood
 	data = list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"blood_colour"="#A10808","resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null, "dna" = null)
@@ -271,9 +241,20 @@
 	if(current_cycle >= 30)		// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
 		M.AdjustStuttering(4, bound_lower = 0, bound_upper = 20)
 		M.Dizzy(5)
-		if(iscultist(M) && prob(5))
-			M.AdjustCultSlur(5)//5 seems like a good number...
-			M.say(pick("Av'te Nar'sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","Egkau'haom'nai en Chaous","Ho Diak'nos tou Ap'iron","R'ge Na'sie","Diabo us Vo'iscum","Si gn'um Co'nu"))
+		if(iscultist(M))
+			for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
+				for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
+					to_chat(M, "<span class='cultlarge'>Your blood rites falter as holy water scours your body!</span>")
+					qdel(BS)
+			if(prob(5))
+				M.AdjustCultSlur(5)//5 seems like a good number...
+				M.say(pick("Av'te Nar'sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","Egkau'haom'nai en Chaous","Ho Diak'nos tou Ap'iron","R'ge Na'sie","Diabo us Vo'iscum","Si gn'um Co'nu"))
+		if(isvampirethrall(M))
+			if(prob(10))
+				M.say(pick("*gasp", "*cough", "*sneeze"))
+			if(prob(5)) //Same as cult, for the real big tell
+				M.visible_message("<span class='warning'>A fog lifts from [M]'s eyes for a moment, but soon returns.</span>")
+
 	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
 		M.AdjustConfused(3)
 		if(isvampirethrall(M))
@@ -289,6 +270,11 @@
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
+			if(ishuman(M)) // Unequip all cult clothing
+				var/mob/living/carbon/human/H = M
+				for(var/I in H.contents)
+					if(is_type_in_list(I, CULT_CLOTHING))
+						H.unEquip(I)
 			return
 	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full) && prob(80))
 		var/mob/living/carbon/V = M

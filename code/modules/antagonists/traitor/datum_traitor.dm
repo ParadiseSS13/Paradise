@@ -13,7 +13,6 @@
 	var/traitor_kind = TRAITOR_HUMAN
 	var/list/assigned_targets = list() // This includes assassinate as well as steal objectives. prevents duplicate objectives
 
-
 /datum/antagonist/traitor/on_gain()
 	if(owner.current && isAI(owner.current))
 		traitor_kind = TRAITOR_AI
@@ -41,9 +40,8 @@
 		A.common_radio.channels.Remove("Syndicate")  // De-traitored AIs can still state laws over the syndicate channel without this
 		A.laws.sorted_laws = A.laws.inherent_laws.Copy() // AI's 'notify laws' button will still state a law 0 because sorted_laws contains it
 		A.show_laws()
-		A.malf_picker.remove_malf_verbs(A)
-		A.verbs -= /mob/living/silicon/ai/proc/choose_modules
-		qdel(A.malf_picker)
+		A.remove_malf_abilities()
+		QDEL_NULL(A.malf_picker)
 
 	if(owner.som)
 		var/datum/mindslaves/slaved = owner.som
@@ -70,7 +68,8 @@
 		var/mob/living/carbon/human/traitor_mob = owner.current
 		if(traitor_mob && istype(traitor_mob))
 			to_chat(traitor_mob, "<span class='warning'>Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.</span>")
-			traitor_mob.mutations.Remove(CLUMSY)
+			traitor_mob.dna.SetSEState(GLOB.clumsyblock, FALSE)
+			singlemutcheck(traitor_mob, GLOB.clumsyblock, MUTCHK_FORCED)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(traitor_mob)
 
@@ -81,7 +80,8 @@
 		var/mob/living/carbon/human/traitor_mob = owner.current
 		if(traitor_mob && istype(traitor_mob))
 			to_chat(traitor_mob, "<span class='warning'>You lose your syndicate training and return to your own clumsy, clownish self.</span>")
-			traitor_mob.mutations.Add(CLUMSY)
+			traitor_mob.dna.SetSEState(GLOB.clumsyblock, TRUE)
+			singlemutcheck(traitor_mob, GLOB.clumsyblock, MUTCHK_FORCED)
 			for(var/datum/action/innate/A in traitor_mob.actions)
 				if(istype(A, /datum/action/innate/toggle_clumsy))
 					A.Remove(traitor_mob)
@@ -251,9 +251,15 @@
 
 
 /datum/antagonist/traitor/proc/update_traitor_icons_added(datum/mind/traitor_mind)
-	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
-	traitorhud.join_hud(owner.current, null)
-	set_antag_hud(owner.current, "hudsyndicate")
+	var/is_contractor = LAZYACCESS(GLOB.contractors, traitor_mind)
+	if(locate(/datum/objective/hijack) in owner.objectives)
+		var/datum/atom_hud/antag/hijackhud = GLOB.huds[ANTAG_HUD_TRAITOR]
+		hijackhud.join_hud(owner.current, null)
+		set_antag_hud(owner.current, is_contractor ? "hudhijackcontractor" : "hudhijack")
+	else
+		var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
+		traitorhud.join_hud(owner.current, null)
+		set_antag_hud(owner.current, is_contractor ? "hudcontractor" : "hudsyndicate")
 
 
 /datum/antagonist/traitor/proc/update_traitor_icons_removed(datum/mind/traitor_mind)
@@ -266,13 +272,13 @@
 	switch(traitor_kind)
 		if(TRAITOR_AI)
 			add_law_zero()
-			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE)
+			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 			var/mob/living/silicon/ai/A = owner.current
 			A.show_laws()
 		if(TRAITOR_HUMAN)
 			if(should_equip)
 				equip_traitor()
-			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE)
+			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
 
 /datum/antagonist/traitor/proc/give_codewords()
@@ -284,14 +290,16 @@
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
 	to_chat(traitor_mob, "<U><B>The Syndicate have provided you with the following codewords to identify fellow agents:</B></U>")
-	to_chat(traitor_mob, "<B>Code Phrase: <span class='danger'>[phrases]</span></B>")
-	to_chat(traitor_mob, "<B>Code Response: <span class='danger'>[responses]</span></B>")
+	to_chat(traitor_mob, "<span class='bold body'>Code Phrase: <span class='codephrases'>[phrases]</span></span>")
+	to_chat(traitor_mob, "<span class='bold body'>Code Response: <span class='coderesponses'>[responses]</span></span>")
 
 	antag_memory += "<b>Code Phrase</b>: <span class='red'>[phrases]</span><br>"
 	antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
 
 	to_chat(traitor_mob, "Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
+	to_chat(traitor_mob, "<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
 
+	traitor_mob.client.chatOutput?.notify_syndicate_codes()
 
 /datum/antagonist/traitor/proc/add_law_zero()
 	var/mob/living/silicon/ai/killer = owner.current
@@ -400,7 +408,7 @@
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
-	var message = "<br><b>The code phrases were:</b> <span class='bluetext'>[phrases]</span><br>\
+	var/message = "<br><b>The code phrases were:</b> <span class='bluetext'>[phrases]</span><br>\
 					<b>The code responses were:</b> <span class='redtext'>[responses]</span><br>"
 
 	return message

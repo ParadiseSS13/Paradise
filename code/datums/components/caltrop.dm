@@ -24,7 +24,7 @@
 
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
-		if(PIERCEIMMUNE in H.dna.species.species_traits)
+		if(HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))
 			return
 
 		if((flags & CALTROP_IGNORE_WALKERS) && H.m_intent == MOVE_INTENT_WALK)
@@ -42,7 +42,7 @@
 		if(!(flags & CALTROP_BYPASS_SHOES) && (H.shoes || feetCover))
 			return
 
-		if((H.flying) || H.buckled)
+		if(H.flying || H.floating || H.buckled)
 			return
 
 		var/damage = rand(min_damage, max_damage)

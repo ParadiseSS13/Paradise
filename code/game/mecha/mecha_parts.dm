@@ -214,6 +214,7 @@
 	var/emote
 
 /obj/effect/dummy/mecha_emote_step/New(e)
+	. = ..()
 	emote = e
 
 /obj/item/mecha_parts/chassis/reticence/hear_message(mob/living/M, msg)
@@ -257,6 +258,11 @@
 /obj/item/mecha_parts/chassis/phazon/New()
 	..()
 	construct = new /datum/construction/mecha/phazon_chassis(src)
+
+/obj/item/mecha_parts/chassis/phazon/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(istype(I, /obj/item/assembly/signaler/anomaly) && !istype(I, /obj/item/assembly/signaler/anomaly/bluespace))
+		to_chat(user, "<span class='warning'>The anomaly core socket only accepts bluespace anomaly cores!</span>")
 
 /obj/item/mecha_parts/part/phazon_torso
 	name="Phazon Torso"

@@ -23,7 +23,7 @@
 	if(!T)
 		return
 
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/obj/item/stack/sheet/O in T)
 		materials.insert_stack(O, O.amount)
 
@@ -32,7 +32,7 @@
 		return
 	var/dat = "<b>Coin Press</b><br>"
 
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/mat_id in materials.materials)
 		var/datum/material/M = materials.materials[mat_id]
 		if(!M.amount && chosen != mat_id)
@@ -65,12 +65,12 @@
 	if(processing == 1)
 		to_chat(usr, "<span class='notice'>The machine is processing.</span>")
 		return
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	if(href_list["choose"])
 		if(materials.materials[href_list["choose"]])
 			chosen = href_list["choose"]
 	if(href_list["chooseAmt"])
-		coinsToProduce = Clamp(coinsToProduce + text2num(href_list["chooseAmt"]), 0, 1000)
+		coinsToProduce = clamp(coinsToProduce + text2num(href_list["chooseAmt"]), 0, 1000)
 	if(href_list["makeCoins"])
 		var/temp_coins = coinsToProduce
 		processing = TRUE
@@ -81,8 +81,11 @@
 			updateUsrDialog()
 			return
 
-		while(coinsToProduce > 0 && materials.use_amount_type(coin_mat, chosen))
-			create_coins(M.coin_type)
+		while(coinsToProduce > 0 && materials.can_use_amount(coin_mat, chosen))
+			if(!create_coins(M.coin_type))
+				visible_message("<span class='notice'>[src] stops printing to prevent an overflow.</span>")
+				break
+			materials.use_amount_type(coin_mat, chosen)
 			coinsToProduce--
 			newCoins++
 			updateUsrDialog()
@@ -95,10 +98,15 @@
 
 /obj/machinery/mineral/mint/proc/create_coins(P)
 	var/turf/T = get_step(src,output_dir)
-	if(T)
-		var/obj/item/O = new P(src)
-		var/obj/item/storage/bag/money/M = locate(/obj/item/storage/bag/money, T)
-		if(!M)
-			M = new /obj/item/storage/bag/money(src)
-			unload_mineral(M)
-		O.forceMove(M)
+	if(!T)
+		return FALSE
+	var/obj/item/O = new P(src)
+	var/obj/item/storage/bag/money/M = locate(/obj/item/storage/bag/money, T)
+	if(!M)
+		M = new /obj/item/storage/bag/money(src)
+		unload_mineral(M)
+	else if(!M.can_be_inserted(O, FALSE)) // First coin will always fit. But will the Xth?
+		qdel(O)
+		return FALSE
+	O.forceMove(M)
+	return TRUE

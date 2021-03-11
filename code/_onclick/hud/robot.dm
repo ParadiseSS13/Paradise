@@ -87,6 +87,14 @@
 		var/mob/living/silicon/robot/R = usr
 		R.installed_modules()
 
+/obj/screen/robot/mov_intent
+	name = "fast/slow toggle"
+	icon_state = "running"
+
+/obj/screen/robot/mov_intent/Click()
+	usr.toggle_move_intent()
+
+
 /mob/living/silicon/robot/create_mob_hud()
 	if(client && !hud_used)
 		hud_used = new /datum/hud/robot(src)
@@ -131,10 +139,18 @@
 	static_inventory += using
 
 //Intent
+// Attack intent
 	using = new /obj/screen/act_intent/robot()
 	using.icon_state = mymob.a_intent
 	static_inventory += using
 	action_intent = using
+
+// Movement intent
+	using = new /obj/screen/robot/mov_intent()
+	using.icon_state = (mymob.m_intent == MOVE_INTENT_RUN ? "running" : "walking")
+	static_inventory += using
+	using.screen_loc = ui_movi
+	move_intent = using
 
 //Health
 	mymob.healths = new /obj/screen/healths/robot()
@@ -201,7 +217,7 @@
 		if(!R.robot_modules_background)
 			return
 
-		var/display_rows = Ceiling(R.module.modules.len / 8)
+		var/display_rows = CEILING(R.module.modules.len / 8, 1)
 		R.robot_modules_background.screen_loc = "CENTER-4:16,SOUTH+1:7 to CENTER+3:16,SOUTH+[display_rows]:7"
 		R.client.screen += R.robot_modules_background
 

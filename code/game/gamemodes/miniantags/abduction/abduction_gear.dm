@@ -25,6 +25,11 @@
 	var/combat_armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 50, "rad" = 50, "fire" = 90, "acid" = 90)
 	sprite_sheets = null
 
+/obj/item/clothing/suit/armor/abductor/vest/Initialize(mapload)
+	. = ..()
+	stealth_armor = getArmor(arglist(stealth_armor))
+	combat_armor = getArmor(arglist(combat_armor))
+
 /obj/item/clothing/suit/armor/abductor/vest/proc/toggle_nodrop()
 	flags ^= NODROP
 	if(ismob(loc))
@@ -475,8 +480,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		H.update_inv_r_hand()
 
 /obj/item/abductor_baton/proc/StunAttack(mob/living/L,mob/living/user)
-	user.lastattacked = L
-	L.lastattacker = user
+	L.lastattacker = user.real_name
+	L.lastattackerckey = user.ckey
 
 	L.Stun(7)
 	L.Weaken(7)

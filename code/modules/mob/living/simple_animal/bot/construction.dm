@@ -29,13 +29,10 @@
 		qdel(src)
 
 	else if(istype(W, /obj/item/pen))
-		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
-		if(!t)
-			return
-		if(!in_range(src, user) && loc != user)
-			return
-		created_name = t
-		log_game("[key_name(user)] has renamed a robot to [t]")
+		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
+		if(!isnull(t))
+			created_name = t
+			log_game("[key_name(user)] has renamed a robot to [t]")
 
 //Edbot Assembly
 
@@ -53,13 +50,10 @@
 	..()
 
 	if(istype(W, /obj/item/pen))
-		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
-		if(!t)
-			return
-		if(!in_range(src, user) && loc != user)
-			return
-		created_name = t
-		log_game("[key_name(user)] has renamed a robot to [t]")
+		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
+		if(!isnull(t))
+			created_name = t
+			log_game("[key_name(user)] has renamed a robot to [t]")
 		return
 
 	switch(build_step)
@@ -277,14 +271,10 @@
 		qdel(src)
 
 	else if(istype(W, /obj/item/pen))
-		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
-		if(!t)
-			return
-		if(!in_range(src, user) && loc != user)
-			return
-
-		created_name = t
-		log_game("[key_name(user)] has renamed a robot to [t]")
+		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
+		if(!isnull(t))
+			created_name = t
+			log_game("[key_name(user)] has renamed a robot to [t]")
 
 /obj/item/toolbox_tiles/sensor/attackby(obj/item/W, mob/user, params)
 	..()
@@ -297,14 +287,10 @@
 		user.unEquip(src, 1)
 		qdel(src)
 	else if(istype(W, /obj/item/pen))
-		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
-		if(!t)
-			return
-		if(!in_range(src, user) && loc != user)
-			return
-
-		created_name = t
-		log_game("[key_name(user)] has renamed a robot to [t]")
+		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
+		if(!isnull(t))
+			created_name = t
+			log_game("[key_name(user)] has renamed a robot to [t]")
 
 //Medbot Assembly
 /obj/item/storage/firstaid/attackby(obj/item/I, mob/user, params)
@@ -369,13 +355,10 @@
 /obj/item/firstaid_arm_assembly/attackby(obj/item/I, mob/user, params)
 	..()
 	if(istype(I, /obj/item/pen))
-		var/t = stripped_input(user, "Enter new robot name", name, created_name, MAX_NAME_LEN)
-		if(!t)
-			return
-		if(!in_range(src, user) && loc != user)
-			return
-		created_name = t
-		log_game("[key_name(user)] has renamed a robot to [t]")
+		var/t = rename_interactive(user, I, prompt = "Enter new robot name")
+		if(!isnull(t))
+			created_name = t
+			log_game("[key_name(user)] has renamed a robot to [t]")
 	else
 		switch(build_step)
 			if(0)
@@ -474,21 +457,17 @@
 			return
 		build_step++
 		to_chat(user, "<span class='notice'>You complete the Securitron! Beep boop.</span>")
-		var/mob/living/simple_animal/bot/secbot/S = new /mob/living/simple_animal/bot/secbot
-		S.forceMove(get_turf(src))
+		var/mob/living/simple_animal/bot/secbot/S = new /mob/living/simple_animal/bot/secbot(get_turf(src))
 		S.name = created_name
 		S.robot_arm = robot_arm
 		qdel(I)
 		qdel(src)
 
 	else if(istype(I, /obj/item/pen))
-		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
-		if(!t)
-			return
-		if(!in_range(src, user) && loc != user)
-			return
-		created_name = t
-		log_game("[key_name(user)] has renamed a robot to [t]")
+		var/t = rename_interactive(user, I, prompt = "Enter new robot name")
+		if(!isnull(t))
+			created_name = t
+			log_game("[key_name(user)] has renamed a robot to [t]")
 
 	else if(istype(I, /obj/item/screwdriver))
 		if(!build_step)
@@ -512,7 +491,7 @@
 //General Griefsky
 
 	else if((istype(I, /obj/item/wrench)) && (build_step == 3))
-		var/obj/item/griefsky_assembly/A = new /obj/item/griefsky_assembly
+		var/obj/item/griefsky_assembly/A = new /obj/item/griefsky_assembly(get_turf(src))
 		user.put_in_hands(A)
 		to_chat(user, "<span class='notice'>You adjust the arm slots for extra weapons!.</span>")
 		user.unEquip(src, 1)
@@ -540,8 +519,7 @@
 		if(!user.unEquip(I))
 			return
 		to_chat(user, "<span class='notice'>You complete General Griefsky!.</span>")
-		var/mob/living/simple_animal/bot/secbot/griefsky/S = new /mob/living/simple_animal/bot/secbot/griefsky
-		S.forceMove(get_turf(src))
+		new /mob/living/simple_animal/bot/secbot/griefsky(get_turf(src))
 		qdel(I)
 		qdel(src)
 
@@ -556,8 +534,7 @@
 		if(!user.unEquip(I))
 			return
 		to_chat(user, "<span class='notice'>You complete Genewul Giftskee!.</span>")
-		var/mob/living/simple_animal/bot/secbot/griefsky/toy/S = new /mob/living/simple_animal/bot/secbot/griefsky/toy
-		S.forceMove(get_turf(src))
+		new /mob/living/simple_animal/bot/secbot/griefsky/toy(get_turf(src))
 		qdel(I)
 		qdel(src)
 

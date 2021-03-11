@@ -76,9 +76,11 @@
 			if("Power")
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
 				to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
-				user.mutations.Add(LASER)
-				user.mutations.Add(COLDRES)
-				user.mutations.Add(XRAY)
+				ADD_TRAIT(user, TRAIT_LASEREYES, "ww_wishgranter")
+				user.dna.SetSEState(GLOB.fireblock, TRUE)
+				singlemutcheck(user, GLOB.fireblock, MUTCHK_FORCED)
+				user.dna.SetSEState(GLOB.xrayblock, TRUE)
+				singlemutcheck(user, GLOB.xrayblock, MUTCHK_FORCED)
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
 					if(!isshadowperson(human))
@@ -117,10 +119,8 @@
 			if("Peace")
 				to_chat(user, "<B>Whatever alien sentience that the Wish Granter possesses is satisfied with your wish. There is a distant wailing as the last of the Faithless begin to die, then silence.</B>")
 				to_chat(user, "You feel as if you just narrowly avoided a terrible fate...")
-				for(var/mob/living/simple_animal/hostile/faithless/F in world)
-					F.health = -10
-					F.stat = 2
-					F.icon_state = "faithless_dead"
+				for(var/mob/living/simple_animal/hostile/faithless/F in GLOB.mob_living_list)
+					F.death()
 
 
 ///////////////Meatgrinder//////////////
@@ -136,9 +136,6 @@
 	icon_state = "blobpod"
 	var/triggerproc = "triggerrad1" //name of the proc thats called when the mine is triggered
 	var/triggered = 0
-
-/obj/effect/meatgrinder/New()
-	icon_state = "blobpod"
 
 /obj/effect/meatgrinder/Crossed(AM as mob|obj, oldloc)
 	Bumped(AM)
@@ -173,23 +170,9 @@
 	to_chat(C, "<span class='notice'>Death is not your end!</span>")
 
 	spawn(rand(800,1200))
-		if(C.stat == DEAD)
-			GLOB.dead_mob_list -= C
-			GLOB.living_mob_list += C
-		C.stat = CONSCIOUS
-		C.timeofdeath = 0
-		C.setToxLoss(0)
-		C.setOxyLoss(0)
-		C.setCloneLoss(0)
-		C.SetParalysis(0)
-		C.SetStunned(0)
-		C.SetWeakened(0)
-		C.radiation = 0
-		C.heal_overall_damage(C.getBruteLoss(), C.getFireLoss())
-		C.reagents.clear_reagents()
+		C.revive()
 		to_chat(C, "<span class='notice'>You have regenerated.</span>")
 		C.visible_message("<span class='warning'>[usr] appears to wake from the dead, having healed all wounds.</span>")
-		C.update_canmove()
 	return 1
 
 /obj/item/wildwest_communicator
@@ -234,7 +217,8 @@
 			to_chat(user, "<span class='warning'>The communicator buzzes, and you hear the voice again: 'Really? I think not. Get them!'</span>")
 		if(option_threat)
 			to_chat(user, "<span class='warning'>The communicator buzzes, and you hear the voice again: 'Oh really now?' You hear a clicking sound. 'Team, get back here. We have trouble'. Then the line goes dead.</span>")
-			for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+			for(var/thing in GLOB.landmarks_list)
+				var/obj/effect/landmark/L = thing
 				if(L.name == "wildwest_syndipod")
 					var/obj/spacepod/syndi/P = new /obj/spacepod/syndi(get_turf(L))
 					P.name = "Syndi Recon Pod"
@@ -247,7 +231,7 @@
 	used = TRUE
 
 /obj/item/wildwest_communicator/proc/stand_down()
-	for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in GLOB.living_mob_list)
+	for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in GLOB.alive_mob_list)
 		W.on_alert = FALSE
 
 /mob/living/simple_animal/hostile/syndicate/ranged/wildwest
@@ -262,6 +246,6 @@
 	// putting this up here so we don't say anything after deathgasp
 	if(can_die() && !on_alert)
 		say("How could you betray the Syndicate?")
-		for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in GLOB.living_mob_list)
+		for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in GLOB.alive_mob_list)
 			W.on_alert = TRUE
 	return ..(gibbed)

@@ -47,7 +47,7 @@
 
 /obj/item/reagent_containers/borghypo/process() //Every [recharge_time] seconds, recharge some reagents for the cyborg
 	charge_tick++
-	if(charge_tick < recharge_time) 
+	if(charge_tick < recharge_time)
 		return FALSE
 	charge_tick = 0
 
@@ -97,9 +97,7 @@
 			var/contained = injected.name
 			var/trans = R.trans_to(M, amount_per_transfer_from_this)
 			add_attack_logs(user, M, "Injected with [name] containing [contained], transfered [trans] units", injected.harmless ? ATKLOG_ALMOSTALL : null)
-			M.LAssailant = user
 			to_chat(user, "<span class='notice'>[trans] units injected. [R.total_volume] units remaining.</span>")
-	return
 
 /obj/item/reagent_containers/borghypo/attack_self(mob/user)
 	playsound(loc, 'sound/effects/pop.ogg', 50, 0)		//Change the mode
@@ -125,5 +123,10 @@
 
 		if(empty)
 			. += "<span class='notice'>It is currently empty. Allow some time for the internal syntheszier to produce more.</span>"
+
+/obj/item/reagent_containers/borghypo/basic
+	name = "Basic Medical Hypospray"
+	desc = "A very basic medical hypospray, capable of providing simple medical treatment in emergencies."
+	reagent_ids = list("salglu_solution", "epinephrine")
 
 #undef BORGHYPO_REFILL_VALUE

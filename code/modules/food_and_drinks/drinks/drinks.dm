@@ -36,12 +36,6 @@
 	if(istype(M, /mob/living/carbon))
 		var/mob/living/carbon/C = M
 		if(C.eat(src, user))
-			if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
-				var/mob/living/silicon/robot/borg = user
-				borg.cell.use(30)
-				var/refill = reagents.get_master_reagent_id()
-				if(refill in GLOB.drinks) // Only synthesize drinks
-					addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent, refill, bitesize), 600)
 			return TRUE
 	return FALSE
 
@@ -72,23 +66,8 @@
 			to_chat(user, "<span class='warning'> [target] is full.</span>")
 			return FALSE
 
-		var/datum/reagent/refill
-		var/datum/reagent/refillName
-		if(isrobot(user))
-			refill = reagents.get_master_reagent_id()
-			refillName = reagents.get_master_reagent_name()
-
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'> You transfer [trans] units of the solution to [target].</span>")
-
-		if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
-			if(refill in GLOB.drinks) // Only synthesize drinks
-				var/mob/living/silicon/robot/bro = user
-				var/chargeAmount = max(30,4*trans)
-				bro.cell.use(chargeAmount)
-				to_chat(user, "<span class='notice'>Now synthesizing [trans] units of [refillName]...</span>")
-				addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent, refill, trans), 300)
-				addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, user, "<span class='notice'>Cyborg [src] refilled.</span>"), 300)
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if(!is_refillable())
@@ -226,7 +205,7 @@
 	desc = "Made in Space Switzerland."
 	icon_state = "hot_coco"
 	item_state = "coffee"
-	list_reagents = list("chocolate" = 30)
+	list_reagents = list("hot_coco" = 15, "chocolate" = 6, "water" = 9)
 	resistance_flags = FREEZE_PROOF
 
 /obj/item/reagent_containers/food/drinks/weightloss

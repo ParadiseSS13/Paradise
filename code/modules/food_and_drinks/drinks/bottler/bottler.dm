@@ -23,6 +23,7 @@
 	var/bottling = 0
 
 /obj/machinery/bottler/New()
+	. = ..()
 	if(!available_recipes)
 		available_recipes = list()
 		acceptable_items = list()
@@ -82,7 +83,6 @@
 	else		//If it doesn't qualify in the above checks, we don't want it. Inform the person so they (ideally) stop trying to put the nuke disc in.
 		to_chat(user, "<span class='warning'>You aren't sure this is able to be processed by the machine.</span>")
 		return 0
-	return ..()
 
 /obj/machinery/bottler/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -235,7 +235,7 @@
 	if(containers[con_type])
 		//empties aren't sealed, so let's open it quietly
 		drink_container = new drink_container()
-		drink_container.canopened = 1
+		drink_container.canopened = TRUE
 		drink_container.container_type |= OPENCONTAINER
 		drink_container.forceMove(loc)
 		containers[con_type]--

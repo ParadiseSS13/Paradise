@@ -11,6 +11,7 @@
 #define COLOR_WHITE 		   "#FFFFFF"
 #define COLOR_GRAY      	   "#808080"
 #define COLOR_BLACK            "#000000"
+#define COLOR_HALF_TRANSPARENT_BLACK    "#0000007A"
 #define COLOR_NAVY_BLUE        "#000080"
 #define COLOR_LIGHT_GREEN      "#008000"
 #define COLOR_DARK_GRAY        "#404040"
@@ -99,6 +100,11 @@
 #define COLOR_ASSEMBLY_LBLUE   "#5D99BE"
 #define COLOR_ASSEMBLY_BLUE    "#38559E"
 #define COLOR_ASSEMBLY_PURPLE  "#6F6192"
+
+//blood colors
+
+#define COLOR_BLOOD_BASE "#A10808"
+#define COLOR_BLOOD_MACHINE "#1F181F"
 
 // Pipe colours
 #define	PIPE_COLOR_GREY		"#ffffff"	//yes white is grey

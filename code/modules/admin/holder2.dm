@@ -16,6 +16,11 @@ GLOBAL_PROTECT(admin_datums) // This is protected because we dont want people ma
 	var/admincaster_signature	//What you'll sign the newsfeeds as
 
 /datum/admins/New(initial_rank = "Temporary Admin", initial_rights = 0, ckey)
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>Admin rank creation blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to create a new admin rank via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to edit feedback a new admin rank via advanced proc-call")
+		return
 	if(!ckey)
 		error("Admin datum created without a ckey argument. Datum has been deleted")
 		qdel(src)
@@ -26,10 +31,20 @@ GLOBAL_PROTECT(admin_datums) // This is protected because we dont want people ma
 	GLOB.admin_datums[ckey] = src
 
 /datum/admins/Destroy()
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>Admin rank deletion blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to delete an admin rank via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to delete an admin rank via advanced proc-call")
+		return
 	..()
 	return QDEL_HINT_HARDDEL_NOW
 
 /datum/admins/proc/associate(client/C)
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>Rank association blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to associate an admin rank to a new client via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to associate an admin rank to a new client via advanced proc-call")
+		return
 	if(istype(C))
 		owner = C
 		owner.holder = src
@@ -39,6 +54,11 @@ GLOBAL_PROTECT(admin_datums) // This is protected because we dont want people ma
 		GLOB.admins |= C
 
 /datum/admins/proc/disassociate()
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>Rank disassociation blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to disassociate an admin rank from a client via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to disassociate an admin rank from a client via advanced proc-call")
+		return
 	if(owner)
 		GLOB.admins -= owner
 		owner.remove_admin_verbs()
@@ -88,6 +108,11 @@ you will have to do something like if(client.holder.rights & R_ADMIN) yourself.
 	return 0
 
 /client/proc/deadmin()
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>Deadmin blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to de-admin a client via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to de-admin a client via advanced proc-call")
+		return
 	GLOB.admin_datums -= ckey
 	if(holder)
 		holder.disassociate()

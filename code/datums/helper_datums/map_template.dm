@@ -17,7 +17,7 @@
 		name = rename
 
 /datum/map_template/proc/preload_size(path)
-	var/bounds = GLOB.maploader.load_map(file(path), 1, 1, 1, cropMap = 0, measureOnly = 1)
+	var/bounds = GLOB.maploader.load_map(file(path), 1, 1, 1, shouldCropMap = FALSE, measureOnly = TRUE)
 	if(bounds)
 		width = bounds[MAP_MAXX] // Assumes all templates are rectangular, have a single Z level, and begin at 1,1,1
 		height = bounds[MAP_MAXY]
@@ -49,7 +49,7 @@
 	// if given a multi-z template
 	// it might need to be adapted for that when that time comes
 	GLOB.space_manager.add_dirt(placement.z)
-	var/list/bounds = GLOB.maploader.load_map(get_file(), min_x, min_y, placement.z, cropMap = 1)
+	var/list/bounds = GLOB.maploader.load_map(get_file(), min_x, min_y, placement.z, shouldCropMap = TRUE)
 	if(!bounds)
 		return 0
 	if(bot_left == null || top_right == null)

@@ -12,6 +12,8 @@
 	maxHealth = 250
 	health = 250
 
+	mob_biotypes = NONE
+
 	harm_intent_damage = 5
 	melee_damage_lower = 8
 	melee_damage_upper = 12
@@ -48,8 +50,8 @@
 	var/attempt_open = 0
 
 // Pickup loot
-/mob/living/simple_animal/hostile/mimic/crate/Initialize()
-	..()
+/mob/living/simple_animal/hostile/mimic/crate/Initialize(mapload)
+	. = ..()
 	for(var/obj/item/I in loc)
 		I.loc = src
 

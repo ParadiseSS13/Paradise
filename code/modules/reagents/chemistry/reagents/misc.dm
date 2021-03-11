@@ -117,11 +117,6 @@
 	color = "#D0D0D0" // rgb: 208, 208, 208
 	taste_description = "sub-par bling"
 
-/datum/reagent/silver/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(M.has_bane(BANE_SILVER))
-		M.reagents.add_reagent("toxin", volume)
-	. = ..()
-
 /datum/reagent/aluminum
 	name = "Aluminum"
 	id = "aluminum"
@@ -164,15 +159,10 @@
 /datum/reagent/iron/on_mob_life(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(!H.dna.species.exotic_blood && !(NO_BLOOD in H.dna.species.species_traits))
+		if(!(NO_BLOOD in H.dna.species.species_traits))
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 				H.blood_volume += 0.8
 	return ..()
-
-/datum/reagent/iron/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(M.has_bane(BANE_IRON) && holder && holder.chem_temp < 150) //If the target is weak to cold iron, then poison them.
-		M.reagents.add_reagent("toxin", volume)
-	..()
 
 //foam
 /datum/reagent/fluorosurfactant
@@ -215,6 +205,7 @@
 		var/turf/T = get_turf(holder.my_atom)
 		holder.my_atom.visible_message("<b>The oil burns!</b>")
 		fireflash(T, min(max(0, volume / 40), 8))
+		fire_flash_log(holder, id)
 		var/datum/effect_system/smoke_spread/bad/BS = new
 		BS.set_up(1, 0, T)
 		BS.start()
@@ -450,21 +441,18 @@
 	var/mob/living/carbon/C = holder.my_atom
 	if(!istype(C))
 		return
-	var/mind_type = FALSE
 	if(C.mind)
 		if(C.mind.assigned_role == "Clown" || C.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD)
-			mind_type = "Clown"
 			to_chat(C, "<span class='notice'>Whatever that was, it feels great!</span>")
 		else if(C.mind.assigned_role == "Mime")
-			mind_type = "Mime"
 			to_chat(C, "<span class='warning'>You feel nauseous.</span>")
 			C.AdjustDizzy(volume)
 		else
 			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
 			C.AdjustDizzy(volume)
-	C.AddComponent(/datum/component/jestosterone, mind_type)
-	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE)
-	C.AddComponent(/datum/component/waddling)
+	ADD_TRAIT(C, TRAIT_COMIC_SANS, id)
+	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE, falloff_exponent = 20)
+	C.AddElement(/datum/element/waddling)
 
 /datum/reagent/jestosterone/on_mob_life(mob/living/carbon/M)
 	if(!istype(M))
@@ -472,8 +460,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(10))
 		M.emote("giggle")
-	GET_COMPONENT_FROM(jestosterone_component, /datum/component/jestosterone, M)
-	if(jestosterone_component.mind_type == "Clown")
+	if(M?.mind.assigned_role == "Clown" || M?.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD)
 		update_flags |= M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER) //Screw those pesky clown beatings!
 	else
 		M.AdjustDizzy(10, 0, 500)
@@ -493,18 +480,15 @@
 			"Your legs feel like jelly.",
 			"You feel like telling a pun.")
 			to_chat(M, "<span class='warning'>[pick(clown_message)]</span>")
-		if(jestosterone_component.mind_type == "Mime")
+		if(M?.mind.assigned_role == "Mime")
 			update_flags |= M.adjustToxLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER)
 	return ..() | update_flags
 
 /datum/reagent/jestosterone/on_mob_delete(mob/living/M)
 	..()
-	GET_COMPONENT_FROM(remove_fun, /datum/component/jestosterone, M)
-	GET_COMPONENT_FROM(squeaking, /datum/component/squeak, M)
-	GET_COMPONENT_FROM(waddling, /datum/component/waddling, M)
-	remove_fun.Destroy()
-	squeaking.Destroy()
-	waddling.Destroy()
+	REMOVE_TRAIT(M, TRAIT_COMIC_SANS, id)
+	qdel(M.GetComponent(/datum/component/squeak))
+	M.RemoveElement(/datum/element/waddling)
 
 /datum/reagent/royal_bee_jelly
 	name = "royal bee jelly"
@@ -610,7 +594,7 @@
 	name = "Left 4 Zed"
 	id = "left4zednutriment"
 	description = "Unstable nutriment that makes plants mutate more often than usual."
-	color = "#1A1E4D" // RBG: 26, 30, 77
+	color = "#2A1680" // RBG: 42, 128, 22
 	tox_prob = 25
 	taste_description = "evolution"
 

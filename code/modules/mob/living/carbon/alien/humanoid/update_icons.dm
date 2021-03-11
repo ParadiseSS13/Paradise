@@ -56,13 +56,14 @@
 
 /mob/living/carbon/alien/humanoid/regenerate_icons()
 	..()
-	if(notransform)	return
+	if(notransform)
+		return
 
-	update_inv_head(0,0)
-	update_inv_wear_suit(0,0)
-	update_inv_r_hand(0)
-	update_inv_l_hand(0)
-	update_inv_pockets(0)
+	update_inv_head()
+	update_inv_wear_suit()
+	update_inv_r_hand()
+	update_inv_l_hand()
+	update_inv_pockets()
 	update_icons()
 	update_fire()
 	update_transform()
@@ -82,7 +83,7 @@
 	else
 		overlays_standing[X_FIRE_LAYER] = null
 
-/mob/living/carbon/alien/humanoid/update_inv_wear_suit(var/update_icons=1)
+/mob/living/carbon/alien/humanoid/update_inv_wear_suit()
 	if(client && hud_used)
 		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_wear_suit]
 		inv.update_icon()
@@ -110,10 +111,10 @@
 		overlays_standing[X_SUIT_LAYER]	= standing
 	else
 		overlays_standing[X_SUIT_LAYER]	= null
-	if(update_icons)	update_icons()
+	update_icons()
 
 
-/mob/living/carbon/alien/humanoid/update_inv_head(var/update_icons=1)
+/mob/living/carbon/alien/humanoid/update_inv_head()
 	if(head)
 		var/t_state = head.item_state
 		if(!t_state)	t_state = head.icon_state
@@ -124,17 +125,19 @@
 		overlays_standing[X_HEAD_LAYER]	= standing
 	else
 		overlays_standing[X_HEAD_LAYER]	= null
-	if(update_icons)	update_icons()
+	update_icons()
 
 
-/mob/living/carbon/alien/humanoid/update_inv_pockets(var/update_icons=1)
-	if(l_store)		l_store.screen_loc = ui_storage1
-	if(r_store)		r_store.screen_loc = ui_storage2
-	if(update_icons)	update_icons()
+/mob/living/carbon/alien/humanoid/update_inv_pockets()
+	if(l_store)
+		l_store.screen_loc = ui_storage1
+	if(r_store)
+		r_store.screen_loc = ui_storage2
+	update_icons()
 
 
-/mob/living/carbon/alien/humanoid/update_inv_r_hand(var/update_icons=1)
-	..(1)
+/mob/living/carbon/alien/humanoid/update_inv_r_hand()
+	..()
 	if(r_hand)
 		var/t_state = r_hand.item_state
 		if(!t_state)	t_state = r_hand.icon_state
@@ -142,10 +145,10 @@
 		overlays_standing[X_R_HAND_LAYER]	= image("icon" = r_hand.righthand_file, "icon_state" = t_state)
 	else
 		overlays_standing[X_R_HAND_LAYER]	= null
-	if(update_icons)	update_icons()
+	update_icons()
 
-/mob/living/carbon/alien/humanoid/update_inv_l_hand(var/update_icons=1)
-	..(1)
+/mob/living/carbon/alien/humanoid/update_inv_l_hand()
+	..()
 	if(l_hand)
 		var/t_state = l_hand.item_state
 		if(!t_state)	t_state = l_hand.icon_state
@@ -153,7 +156,7 @@
 		overlays_standing[X_L_HAND_LAYER]	= image("icon" = l_hand.lefthand_file, "icon_state" = t_state)
 	else
 		overlays_standing[X_L_HAND_LAYER]	= null
-	if(update_icons)	update_icons()
+	update_icons()
 
 
 //Xeno Overlays Indexes//////////

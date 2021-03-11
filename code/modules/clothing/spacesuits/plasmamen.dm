@@ -270,3 +270,9 @@
 	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE
+
+/obj/item/clothing/head/helmet/space/plasmaman/assistant
+	name = "assistant envirosuit helmet"
+	desc = "A plasmaman envirohelm designed for the common, maint-dwelling masses."
+	icon_state = "assistant_envirohelm"
+	item_state = "assistant_envirohelm"

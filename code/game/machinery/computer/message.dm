@@ -87,7 +87,9 @@
 	//If the computer is being hacked or is emagged, display the reboot message.
 	if(hacking || emag)
 		message = rebootmsg
-	var/dat = "<head><title>Message Monitor Console</title></head><body>"
+	var/dat = "<head><title>Message Monitor Console</title>"
+	dat += "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /></head>"
+	dat += "<body>"
 	dat += "<center><h2>Message Monitor Console</h2></center><hr>"
 	dat += "<center><h4><font color='blue'[message]</h5></center>"
 
@@ -459,6 +461,15 @@
 
 							recipient_messenger.notify("<b>Message from [PDARec.owner] ([customjob]), </b>\"[custommessage]\" (<a href='?src=[recipient_messenger.UID()];choice=Message;target=\ref[PDARec]'>Reply</a>)")
 							log_pda("(PDA: [PDARec.owner]) sent \"[custommessage]\" to [customrecepient.owner]", usr)
+						var/log_message = "sent PDA message \"[custommessage]\" using [src] as [customsender] ([customjob])"
+						var/receiver
+						if(ishuman(customrecepient.loc))
+							receiver = customrecepient.loc
+							log_message = "[log_message] to [customrecepient]"
+						else
+							receiver = customrecepient
+							log_message = "[log_message] (no holder)"
+						usr.create_log(MISC_LOG, log_message, receiver)
 						//Finally..
 						ResetMessage()
 
@@ -490,7 +501,7 @@
 			for(var/obj/machinery/message_server/server in GLOB.message_servers)
 				if(!isnull(server))
 					if(!isnull(server.decryptkey))
-						info = "<center><h2>Daily Key Reset</h2></center><br>The new message monitor key is '[server.decryptkey]'.<br>Please keep this a secret and away from the clown.<br>If necessary, change the password to a more secure one."
+						info = "<center><h2>Daily Key Reset</h2></center>\n\t<br>The new message monitor key is '[server.decryptkey]'.<br>Please keep this a secret and away from the clown.<br>If necessary, change the password to a more secure one."
 						info_links = info
 						overlays += "paper_words"
 						break

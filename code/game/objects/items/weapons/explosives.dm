@@ -62,7 +62,7 @@
 		return
 	var/newtime = input(usr, "Please set the timer.", "Timer", det_time) as num
 	if(user.is_in_active_hand(src))
-		newtime = Clamp(newtime, 10, 60000)
+		newtime = clamp(newtime, 10, 60000)
 		det_time = newtime
 		to_chat(user, "Timer set for [det_time] seconds.")
 
@@ -109,8 +109,6 @@
 				message_say = "FOR THE REVOLOUTION!"
 			else if(role == "death commando" || role == ROLE_ERT)
 				message_say = "FOR NANOTRASEN!"
-			else if(role == ROLE_DEVIL)
-				message_say = "FOR INFERNO!"
 	user.say(message_say)
 	target = user
 	sleep(10)

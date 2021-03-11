@@ -8,7 +8,6 @@
 
 	//Has a list of items that it can hold.
 	var/list/can_hold = list(
-		/obj/item/stock_parts/cell,
 		/obj/item/firealarm_electronics,
 		/obj/item/airalarm_electronics,
 		/obj/item/airlock_electronics,
@@ -24,6 +23,8 @@
 		/obj/item/mounted/frame/firealarm,
 		/obj/item/mounted/frame/newscaster_frame,
 		/obj/item/mounted/frame/intercom,
+		/obj/item/mounted/frame/extinguisher,
+		/obj/item/mounted/frame/light_switch,
 		/obj/item/rack_parts,
 		/obj/item/camera_assembly,
 		/obj/item/tank,
@@ -64,7 +65,7 @@
 	..()
 	can_hold = typecacheof(can_hold)
 
-/obj/item/gripper/verb/drop_item()
+/obj/item/gripper/verb/drop_item_gripped()
 	set name = "Drop Gripped Item"
 	set desc = "Release an item from your magnetic gripper."
 	set category = "Drone"
@@ -151,15 +152,13 @@
 	var/list/stored_comms = list(
 		"metal" = 0,
 		"glass" = 0,
-		"wood" = 0,
-		"plastic" = 0
+		"wood" = 0
 		)
 
 /obj/item/matter_decompiler/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	return
 
-/obj/item/matter_decompiler/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, proximity, params)
-
+/obj/item/matter_decompiler/afterattack(atom/target, mob/living/user, proximity, params)
 	if(!proximity) return //Not adjacent.
 
 	//We only want to deal with using this on turfs. Specific items aren't important.
@@ -168,101 +167,11 @@
 		return
 
 	//Used to give the right message.
-	var/grabbed_something = 0
+	var/grabbed_something = FALSE
 
-	for(var/mob/M in T)
-		if(istype(M,/mob/living/simple_animal/lizard) || istype(M,/mob/living/simple_animal/mouse))
-			src.loc.visible_message("<span class='notice'>[src.loc] sucks [M] into its decompiler. There's a horrible crunching noise.</span>","<span class='warning'>It's a bit of a struggle, but you manage to suck [M] into your decompiler. It makes a series of visceral crunching noises.</span>")
-			new/obj/effect/decal/cleanable/blood/splatter(get_turf(src))
-			qdel(M)
-			stored_comms["wood"]++
-			stored_comms["wood"]++
-			stored_comms["plastic"]++
-			stored_comms["plastic"]++
-			return
-
-		else if(istype(M,/mob/living/silicon/robot/drone) && !M.client)
-
-			var/mob/living/silicon/robot/drone/D = src.loc
-
-			if(!istype(D))
-				return
-
-			to_chat(D, "<span class='warning'>You begin decompiling the other drone.</span>")
-
-			if(!do_after(D, 50, target = target))
-				to_chat(D, "<span class='warning'>You need to remain still while decompiling such a large object.</span>")
-				return
-
-			if(!M || !D) return
-
-			to_chat(D, "<span class='warning'>You carefully and thoroughly decompile your downed fellow, storing as much of its resources as you can within yourself.</span>")
-
-			qdel(M)
-			new/obj/effect/decal/cleanable/blood/oil(get_turf(src))
-
-			stored_comms["metal"] += 15
-			stored_comms["glass"] += 15
-			stored_comms["wood"] += 5
-			stored_comms["plastic"] += 5
-
-			return
-		else
-			continue
-
-	for(var/obj/W in T)
-		//Different classes of items give different commodities.
-		if(istype(W,/obj/item/cigbutt))
-			stored_comms["plastic"]++
-		else if(istype(W,/obj/structure/spider/spiderling))
-			stored_comms["wood"]++
-			stored_comms["wood"]++
-			stored_comms["plastic"]++
-			stored_comms["plastic"]++
-		else if(istype(W,/obj/item/light))
-			var/obj/item/light/L = W
-			if(L.status >= 2) //In before someone changes the inexplicably local defines. ~ Z
-				stored_comms["metal"]++
-				stored_comms["glass"]++
-			else
-				continue
-		else if(istype(W,/obj/effect/decal/remains/robot))
-			stored_comms["metal"]++
-			stored_comms["metal"]++
-			stored_comms["plastic"]++
-			stored_comms["plastic"]++
-			stored_comms["glass"]++
-		else if(istype(W,/obj/item/trash))
-			stored_comms["metal"]++
-			stored_comms["plastic"]++
-			stored_comms["plastic"]++
-		else if(istype(W,/obj/effect/decal/cleanable/blood/gibs/robot))
-			stored_comms["metal"]++
-			stored_comms["metal"]++
-			stored_comms["glass"]++
-			stored_comms["glass"]++
-		else if(istype(W,/obj/item/ammo_casing))
-			stored_comms["metal"]++
-		else if(istype(W,/obj/item/shard))
-			stored_comms["glass"]++
-			stored_comms["glass"]++
-			stored_comms["glass"]++
-		else if(istype(W,/obj/item/reagent_containers/food/snacks/grown))
-			stored_comms["wood"]++
-			stored_comms["wood"]++
-			stored_comms["wood"]++
-			stored_comms["wood"]++
-		else if(istype(W,/obj/item/broken_bottle))
-			stored_comms["glass"]++
-			stored_comms["glass"]++
-			stored_comms["glass"]++
-		else if(istype(W,/obj/item/light/tube) || istype(W,/obj/item/light/bulb))
-			stored_comms["glass"]++
-		else
-			continue
-
-		qdel(W)
-		grabbed_something = 1
+	for(var/atom/movable/A in T)
+		if(A.decompile_act(src, user)) // Each decompileable mob or obj needs to have this defined
+			grabbed_something = TRUE
 
 	if(grabbed_something)
 		to_chat(user, "<span class='notice'>You deploy your decompiler and clear out the contents of \the [T].</span>")
@@ -353,11 +262,5 @@
 						stack_wood = new /obj/item/stack/sheet/wood(src.module)
 						stack_wood.amount = 1
 					stack = stack_wood
-				if("plastic")
-					if(!stack_plastic)
-						stack_plastic = new /obj/item/stack/sheet/plastic(src.module)
-						stack_plastic.amount = 1
-					stack = stack_plastic
-
 			stack.amount++
 			decompiler.stored_comms[type]--

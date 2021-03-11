@@ -47,8 +47,11 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 /obj/machinery/gateway/centerstation/Initialize()
 	..()
 	update_icon()
-	wait = world.time + config.gateway_delay	//+ thirty minutes default
-	awaygate = locate(/obj/machinery/gateway/centeraway) in world
+	wait = world.time + config.gateway_delay
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/gateway/centerstation/LateInitialize()
+	awaygate = locate(/obj/machinery/gateway/centeraway) in GLOB.machines
 
 /obj/machinery/gateway/centerstation/update_density_from_dir()
 	return
@@ -103,7 +106,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	if(!powered())
 		return
 	if(!awaygate)
-		awaygate = locate(/obj/machinery/gateway/centeraway) in world
+		awaygate = locate(/obj/machinery/gateway/centeraway) in GLOB.machines
 		if(!awaygate)
 			to_chat(user, "<span class='notice'>Error: No destination found.</span>")
 			return
@@ -180,7 +183,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 /obj/machinery/gateway/centeraway/Initialize()
 	..()
 	update_icon()
-	stationgate = locate(/obj/machinery/gateway/centerstation) in world
+	stationgate = locate(/obj/machinery/gateway/centerstation) in GLOB.machines
 
 
 /obj/machinery/gateway/centeraway/update_density_from_dir()
@@ -219,7 +222,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	if(linked.len != 8)
 		return
 	if(!stationgate)
-		stationgate = locate(/obj/machinery/gateway/centerstation) in world
+		stationgate = locate(/obj/machinery/gateway/centerstation) in GLOB.machines
 		if(!stationgate)
 			to_chat(user, "<span class='notice'>Error: No destination found.</span>")
 			return

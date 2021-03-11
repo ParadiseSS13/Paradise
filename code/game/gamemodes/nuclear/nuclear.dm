@@ -3,7 +3,7 @@
 /datum/game_mode
 	var/list/datum/mind/syndicates = list()
 
-proc/issyndicate(mob/living/M as mob)
+/proc/issyndicate(mob/living/M as mob)
 	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.syndicates)
 
 /datum/game_mode/nuclear
@@ -53,7 +53,6 @@ proc/issyndicate(mob/living/M as mob)
 	for(var/datum/mind/synd_mind in syndicates)
 		synd_mind.assigned_role = SPECIAL_ROLE_NUKEOPS //So they aren't chosen for other jobs.
 		synd_mind.special_role = SPECIAL_ROLE_NUKEOPS
-		synd_mind.offstation_role = TRUE
 	return 1
 
 
@@ -95,7 +94,8 @@ proc/issyndicate(mob/living/M as mob)
 
 	var/list/turf/synd_spawn = list()
 
-	for(var/obj/effect/landmark/A in GLOB.landmarks_list)
+	for(var/thing in GLOB.landmarks_list)
+		var/obj/effect/landmark/A = thing
 		if(A.name == "Syndicate-Spawn")
 			synd_spawn += get_turf(A)
 			qdel(A)
@@ -103,7 +103,7 @@ proc/issyndicate(mob/living/M as mob)
 
 	var/obj/effect/landmark/nuke_spawn = locate("landmark*Nuclear-Bomb")
 
-	var/nuke_code = "[rand(10000, 99999)]"
+	var/nuke_code = rand(10000, 99999)
 	var/leader_selected = 0
 	var/agent_number = 1
 	var/spawnpos = 1
@@ -112,7 +112,7 @@ proc/issyndicate(mob/living/M as mob)
 		if(spawnpos > synd_spawn.len)
 			spawnpos = 2
 		synd_mind.current.loc = synd_spawn[spawnpos]
-
+		synd_mind.offstation_role = TRUE
 		forge_syndicate_objectives(synd_mind)
 		create_syndicate(synd_mind)
 		greet_syndicate(synd_mind)
@@ -140,7 +140,7 @@ proc/issyndicate(mob/living/M as mob)
 /datum/game_mode/nuclear/proc/scale_telecrystals()
 	var/danger
 	danger = GLOB.player_list.len
-	while(!IsMultiple(++danger, 10)) //Increments danger up to the nearest multiple of ten
+	while(!ISMULTIPLE(++danger, 10)) //Increments danger up to the nearest multiple of ten
 
 	total_tc += danger * NUKESCALINGMODIFIER
 
@@ -238,7 +238,7 @@ proc/issyndicate(mob/living/M as mob)
 
 
 /datum/game_mode/proc/greet_syndicate(var/datum/mind/syndicate, var/you_are=1)
-	SEND_SOUND(syndicate.current, 'sound/ambience/antag/ops.ogg')
+	SEND_SOUND(syndicate.current, sound('sound/ambience/antag/ops.ogg'))
 	if(you_are)
 		to_chat(syndicate.current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
 	var/obj_count = 1
@@ -286,13 +286,13 @@ proc/issyndicate(mob/living/M as mob)
 		switch(race)
 			if("Vox" || "Vox Armalis")
 				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), slot_wear_mask)
-				synd_mob.equip_to_slot_or_del(new /obj/item/tank/emergency_oxygen/vox(synd_mob), slot_l_hand)
+				synd_mob.equip_to_slot_or_del(new /obj/item/tank/internals/emergency_oxygen/double/vox(synd_mob), slot_l_hand)
 				synd_mob.internal = synd_mob.l_hand
 				synd_mob.update_action_buttons_icon()
 
 			if("Plasmaman")
 				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), slot_wear_mask)
-				synd_mob.equip_or_collect(new /obj/item/tank/plasma/plasmaman(synd_mob), slot_s_store)
+				synd_mob.equip_or_collect(new /obj/item/tank/internals/plasmaman(synd_mob), slot_s_store)
 				synd_mob.equip_or_collect(new /obj/item/extinguisher_refill(synd_mob), slot_in_backpack)
 				synd_mob.equip_or_collect(new /obj/item/extinguisher_refill(synd_mob), slot_in_backpack)
 				synd_mob.internal = synd_mob.get_item_by_slot(slot_s_store)
@@ -336,47 +336,47 @@ proc/issyndicate(mob/living/M as mob)
 	//herp //Used for tracking if the syndies got the shuttle off of the z-level	//NO, DON'T FUCKING NAME VARS LIKE THIS
 
 	if(!disk_rescued && station_was_nuked && !syndies_didnt_escape)
-		feedback_set_details("round_end_result","nuclear win - syndicate nuke")
+		SSticker.mode_result = "nuclear win - syndicate nuke"
 		to_chat(world, "<FONT size = 3><B>Syndicate Major Victory!</B></FONT>")
 		to_chat(world, "<B>[syndicate_name()] operatives have destroyed [station_name()]!</B>")
 
 	else if(!disk_rescued && station_was_nuked && syndies_didnt_escape)
-		feedback_set_details("round_end_result","nuclear halfwin - syndicate nuke - did not evacuate in time")
+		SSticker.mode_result = "nuclear halfwin - syndicate nuke - did not evacuate in time"
 		to_chat(world, "<FONT size = 3><B>Total Annihilation</B></FONT>")
 		to_chat(world, "<B>[syndicate_name()] operatives destroyed [station_name()] but did not leave the area in time and got caught in the explosion.</B> Next time, don't lose the disk!")
 
 	else if(!disk_rescued && !station_was_nuked && nuke_off_station && !syndies_didnt_escape)
-		feedback_set_details("round_end_result","nuclear halfwin - blew wrong station")
+		SSticker.mode_result = "nuclear halfwin - blew wrong station"
 		to_chat(world, "<FONT size = 3><B>Crew Minor Victory</B></FONT>")
 		to_chat(world, "<B>[syndicate_name()] operatives secured the authentication disk but blew up something that wasn't [station_name()].</B> Next time, don't lose the disk!")
 
 	else if(!disk_rescued && !station_was_nuked && nuke_off_station && syndies_didnt_escape)
-		feedback_set_details("round_end_result","nuclear halfwin - blew wrong station - did not evacuate in time")
+		SSticker.mode_result = "nuclear halfwin - blew wrong station - did not evacuate in time"
 		to_chat(world, "<FONT size = 3><B>[syndicate_name()] operatives have earned Darwin Award!</B></FONT>")
 		to_chat(world, "<B>[syndicate_name()] operatives blew up something that wasn't [station_name()] and got caught in the explosion.</B> Next time, don't lose the disk!")
 
 	else if(disk_rescued && is_operatives_are_dead())
-		feedback_set_details("round_end_result","nuclear loss - evacuation - disk secured - syndi team dead")
+		SSticker.mode_result = "nuclear loss - evacuation - disk secured - syndi team dead"
 		to_chat(world, "<FONT size = 3><B>Crew Major Victory!</B></FONT>")
 		to_chat(world, "<B>The Research Staff has saved the disc and killed the [syndicate_name()] Operatives</B>")
 
 	else if(disk_rescued)
-		feedback_set_details("round_end_result","nuclear loss - evacuation - disk secured")
+		SSticker.mode_result = "nuclear loss - evacuation - disk secured"
 		to_chat(world, "<FONT size = 3><B>Crew Major Victory</B></FONT>")
 		to_chat(world, "<B>The Research Staff has saved the disc and stopped the [syndicate_name()] Operatives!</B>")
 
 	else if(!disk_rescued && is_operatives_are_dead())
-		feedback_set_details("round_end_result","nuclear loss - evacuation - disk not secured")
+		SSticker.mode_result = "nuclear loss - evacuation - disk not secured"
 		to_chat(world, "<FONT size = 3><B>Syndicate Minor Victory!</B></FONT>")
 		to_chat(world, "<B>The Research Staff failed to secure the authentication disk but did manage to kill most of the [syndicate_name()] Operatives!</B>")
 
 	else if(!disk_rescued && crew_evacuated)
-		feedback_set_details("round_end_result","nuclear halfwin - detonation averted")
+		SSticker.mode_result = "nuclear halfwin - detonation averted"
 		to_chat(world, "<FONT size = 3><B>Syndicate Minor Victory!</B></FONT>")
 		to_chat(world, "<B>[syndicate_name()] operatives recovered the abandoned authentication disk but detonation of [station_name()] was averted.</B> Next time, don't lose the disk!")
 
 	else if(!disk_rescued && !crew_evacuated)
-		feedback_set_details("round_end_result","nuclear halfwin - interrupted")
+		SSticker.mode_result = "nuclear halfwin - interrupted"
 		to_chat(world, "<FONT size = 3><B>Neutral Victory</B></FONT>")
 		to_chat(world, "<B>Round was mysteriously interrupted!</B>")
 	..()
@@ -450,7 +450,7 @@ proc/issyndicate(mob/living/M as mob)
 	if(foecount == GLOB.score_arrested)
 		GLOB.score_allarrested = 1
 
-	for(var/obj/machinery/nuclearbomb/nuke in world)
+	for(var/obj/machinery/nuclearbomb/nuke in GLOB.machines)
 		if(nuke.r_code == "Nope")	continue
 		var/turf/T = get_turf(nuke)
 		var/area/A = T.loc
@@ -491,13 +491,16 @@ proc/issyndicate(mob/living/M as mob)
 	for(var/datum/mind/M in SSticker.mode.syndicates)
 		foecount++
 
-	for(var/mob/living/C in world)
+	for(var/mob in GLOB.mob_living_list)
+		var/mob/living/C = mob
 		if(ishuman(C) || isAI(C) || isrobot(C))
-			if(C.stat == 2) continue
-			if(!C.client) continue
+			if(C.stat == DEAD)
+				continue
+			if(!C.client)
+				continue
 			crewcount++
 
-	var/obj/item/disk/nuclear/N = locate() in world
+	var/obj/item/disk/nuclear/N = locate() in GLOB.poi_list
 	if(istype(N))
 		var/atom/disk_loc = N.loc
 		while(!isturf(disk_loc))

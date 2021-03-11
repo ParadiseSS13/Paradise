@@ -39,7 +39,7 @@
 	l_ear = /obj/item/radio/headset
 	mask = /obj/item/clothing/mask/gas/syndicate
 	back = /obj/item/tank/jetpack/oxygen
-	r_pocket = /obj/item/tank/emergency_oxygen
+	r_pocket = /obj/item/tank/internals/emergency_oxygen
 	id = /obj/item/card/id
 
 
@@ -103,9 +103,9 @@
 	name = "Space Wizard Corpse"
 	outfit = /datum/outfit/wizardcorpse
 
-/obj/effect/mob_spawn/human/corpse/clownoff/Initialize()
+/obj/effect/mob_spawn/human/corpse/clownoff/Initialize(mapload)
 	mob_name = "[pick(GLOB.wizard_first)], [pick(GLOB.wizard_second)]"
-	..()
+	. = ..()
 
 /datum/outfit/wizardcorpse
 	name = "Space Wizard Corpse"

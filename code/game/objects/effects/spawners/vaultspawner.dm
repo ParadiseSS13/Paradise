@@ -5,6 +5,7 @@
 	var/minY = 2
 
 /obj/effect/vaultspawner/New(turf/location as turf,lX = minX,uX = maxX,lY = minY,uY = maxY,var/type = null)
+	. = ..()
 	if(!type)
 		type = pick("sandstone","rock","alien")
 
@@ -21,6 +22,7 @@
 			if(i == lowBoundX || i == hiBoundX || j == lowBoundY || j == hiBoundY)
 				new /turf/simulated/wall/vault(locate(i,j,z),type)
 			else
-				new /turf/simulated/floor/vault(locate(i,j,z),type)
+				var/turf/T = new /turf/simulated/floor/vault(locate(i, j, z))
+				T.icon_state = "[type]vault"
 
 	qdel(src)

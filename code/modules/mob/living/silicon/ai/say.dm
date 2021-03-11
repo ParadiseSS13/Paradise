@@ -80,16 +80,25 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 	<LI>Do not use punctuation as you would normally, if you want a pause you can use the full stop and comma characters by separating them with spaces, like so: 'Alpha . Test , Bravo'.</LI></UL>\
 	<font class='bad'>WARNING:</font><BR>Misuse of the announcement system will get you job banned.<HR>"
 
-	var/index = 0
-	for(var/word in GLOB.vox_sounds)
-		index++
-		dat += "<A href='?src=[UID()];say_word=[word]'>[capitalize(word)]</A>"
-		if(index != GLOB.vox_sounds.len)
-			dat += " / "
+	// Show alert and voice sounds separately
+	var/vox_words = GLOB.vox_sounds - GLOB.vox_alerts
+	dat = help_format(GLOB.vox_alerts, dat)
+	dat = help_format(vox_words, dat)
 
 	var/datum/browser/popup = new(src, "announce_help", "Announcement Help", 500, 400)
 	popup.set_content(dat)
 	popup.open()
+
+/mob/living/silicon/ai/proc/help_format(word_list, dat)
+	var/index = 0
+	for(var/word in word_list)
+		index++
+		dat += "<A href='?src=[UID()];say_word=[word]'>[capitalize(word)]</A>"
+		if(index != length(word_list))
+			dat += " / "
+		else
+			dat += "<HR>"
+	return dat
 
 /mob/living/silicon/ai/proc/ai_announcement()
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
@@ -144,12 +153,13 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 	formatted_message += "<br><span class='alert'>[words_string]</span>"
 	formatted_message += "<br><span class='alert'> -[src]</span>"
 
+	var/announce_sound = sound('sound/misc/notice2.ogg')
 	for(var/player in GLOB.player_list)
 		var/mob/M = player
 		if(M.client && !(M.client.prefs.sound & SOUND_AI_VOICE))
 			var/turf/T = get_turf(M)
 			if(T && T.z == z && M.can_hear())
-				SEND_SOUND(M, 'sound/misc/notice2.ogg')
+				SEND_SOUND(M, announce_sound)
 				to_chat(M, formatted_message)
 
 /proc/play_vox_word(word, z_level, mob/only_listener)
@@ -169,6 +179,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 				if(M.client && M.client.prefs.sound & SOUND_AI_VOICE)
 					var/turf/T = get_turf(M)
 					if(T && T.z == z_level && M.can_hear())
+						voice.volume = 100 * M.client.prefs.get_channel_volume(CHANNEL_VOX)
 						M << voice
 		else
 			only_listener << voice

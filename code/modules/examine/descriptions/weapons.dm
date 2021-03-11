@@ -8,12 +8,10 @@
 
 //This contains a lot of copypasta but I'm told it's better then a lot of New()s appending the var.
 /obj/item/gun
-	description_info = "This is a gun.  To fire the weapon, have your gun mode set to 'fire', \
-	then click where you want to fire."
+	description_info = "This is a gun."
 
 /obj/item/gun/energy
-	description_info = "This is an energy weapon.  To fire the weapon, have your gun mode set to 'fire', \
-	then click where you want to fire.  Most energy weapons can fire through windows harmlessly.  To recharge this weapon, use a weapon recharger."
+	description_info = "This is an energy weapon. Most energy weapons can fire through windows harmlessly.  To recharge this weapon, use a weapon recharger."
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow
 	description_info = "This is an energy weapon.  To fire the weapon, have your gun mode set to 'fire', \
@@ -22,42 +20,34 @@
 	addition to toxins.  The energy crossbow recharges itself slowly, and can be concealed in your pocket or bag."
 
 /obj/item/gun/energy/gun
-	description_info = "This is an energy weapon.  To fire the weapon, have your gun mode set to 'fire', \
-	then click where you want to fire.  Most energy weapons can fire through windows harmlessly.  To switch between stun and lethal, click the weapon \
+	description_info = "This is an energy weapon. Most energy weapons can fire through windows harmlessly.  To switch between stun and lethal, click the weapon \
 	in your hand.  To recharge this weapon, use a weapon recharger."
 
 /obj/item/gun/energy/gun/advtaser
-	description_info = "This is an energy weapon.  To fire the weapon, have your gun mode set to 'fire', \
-	then click where you want to fire. To recharge this weapon, use a weapon recharger. \
+	description_info = "This is an energy weapon. To recharge this weapon, use a weapon recharger. \
 	To switch between insta-stun and disabler beams, click the weapon in your hand. This weapon can only fire through glass if it is set to disabler beams."
 
 /obj/item/gun/energy/nuclear
-	description_info = "This is an energy weapon.  To fire the weapon, have your gun mode set to 'fire', \
-	then click where you want to fire.  Most energy weapons can fire through windows harmlessly.  To switch between stun and lethal, click the weapon \
+	description_info = "This is an energy weapon. Most energy weapons can fire through windows harmlessly.  To switch between stun and lethal, click the weapon \
 	in your hand.  Unlike most weapons, this weapon recharges itself."
 
 /obj/item/gun/energy/captain
-	description_info = "This is an energy weapon.  To fire the weapon, have your gun mode set to 'fire', \
-	then click where you want to fire.  Most energy weapons can fire through windows harmlessly. Unlike most weapons, this weapon recharges itself."
+	description_info = "This is an energy weapon. Most energy weapons can fire through windows harmlessly. Unlike most weapons, this weapon recharges itself."
 
 /obj/item/gun/energy/sniperrifle
-	description_info = "This is an energy weapon.  To fire the weapon, have your gun mode set to 'fire', \
-	then click where you want to fire.  Most energy weapons can fire through windows harmlessly.  To recharge this weapon, use a weapon recharger. \
+	description_info = "This is an energy weapon. Most energy weapons can fire through windows harmlessly.  To recharge this weapon, use a weapon recharger. \
 	To use the scope, use the appropriate verb in the object tab."
 
 /obj/item/gun/projectile
-	description_info = "This is a ballistic weapon.  To fire the weapon, have your gun mode set to 'fire', \
-	then click where you want to fire.  To reload, click the weapon in your hand to unload (if needed), then add the appropriate ammo.  The description \
+	description_info = "This is a ballistic weapon. To reload, click the weapon in your hand to unload (if needed), then add the appropriate ammo.  The description \
 	will tell you what caliber you need."
 
 /obj/item/gun/projectile/shotgun/pump
-	description_info = "This is a ballistic weapon.  To fire the weapon, have your gun mode set to 'fire', \
-	then click where you want to fire.  After firing, you will need to pump the gun, by clicking on the gun in your hand.  To reload, load more shotgun \
+	description_info = "This is a ballistic weapon. After firing, you will need to pump the gun, by clicking on the gun in your hand.  To reload, load more shotgun \
 	shells into the gun."
 
 /obj/item/toy/russian_revolver/trick_revolver //oh no
-	description_info = "This is a ballistic weapon.  To fire the weapon, have your gun mode set to 'fire', \
-	then click where you want to fire.  To reload, click the weapon in your hand to unload (if needed), then add the appropriate ammo.  The description \
+	description_info = "This is a ballistic weapon. To reload, click the weapon in your hand to unload (if needed), then add the appropriate ammo.  The description \
 	will tell you what caliber you need."
 
 //*******

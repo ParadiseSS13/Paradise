@@ -49,8 +49,17 @@
 
 /obj/item/hierophant_club/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	..()
+	if(world.time < timer)
+		return
+
+	if(!is_mining_level(user.z))//Will only spawn a few sparks if not on mining z level
+		timer = world.time + cooldown_time
+		user.visible_message("<span class='danger'>[user]'s hierophant club malfunctions!</span>")
+		do_sparks(5, FALSE, user)
+		return
+
 	var/turf/T = get_turf(target)
-	if(!T || timer > world.time)
+	if(!T)
 		return
 	calculate_anger_mod(user)
 	timer = world.time + CLICK_CD_MELEE //by default, melee attacks only cause melee blasts, and have an accordingly short cooldown
@@ -93,7 +102,7 @@
 	blast_range = initial(blast_range)
 	if(isliving(user))
 		var/mob/living/L = user
-		var/health_percent = L.health / L.maxHealth
+		var/health_percent = max(L.health / L.maxHealth, 0) // Don't go negative
 		chaser_cooldown += round(health_percent * 20) //two tenths of a second for each missing 10% of health
 		cooldown_time += round(health_percent * 10) //one tenth of a second for each missing 10% of health
 		chaser_speed = max(chaser_speed + health_percent, 0.5) //one tenth of a second faster for each missing 10% of health

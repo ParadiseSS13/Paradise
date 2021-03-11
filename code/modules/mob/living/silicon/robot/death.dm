@@ -18,7 +18,7 @@
 	flick("gibbed-r", animation)
 	robogibs(loc)
 
-	GLOB.living_mob_list -= src
+	GLOB.alive_mob_list -= src
 	GLOB.dead_mob_list -= src
 	QDEL_IN(animation, 15)
 	QDEL_IN(src, 15)
@@ -53,7 +53,7 @@
 			emote("deathgasp", force = TRUE)
 
 		if(module)
-			module.handle_death(gibbed)
+			module.handle_death(src, gibbed)
 
 	// Only execute the below if we successfully died
 	. = ..(gibbed)
@@ -72,4 +72,4 @@
 
 	update_icons()
 
-	sql_report_cyborg_death(src)
+	SSblackbox.ReportDeath(src)

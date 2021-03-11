@@ -33,7 +33,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		to_chat(usr, "<span class='warning'>Central Command has already dispatched an emergency response team!</span>")
 		return
 
-	var/datum/nano_module/ert_manager/E = new()
+	var/datum/ui_module/ert_manager/E = new()
 	E.ui_interact(usr)
 
 
@@ -63,7 +63,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	GLOB.active_team.setSlots(commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
 
 	GLOB.send_emergency_team = TRUE
-	var/list/ert_candidates = shuffle(pollCandidates("Join the Emergency Response Team?",, GLOB.responseteam_age, 600, 1, GLOB.role_playtime_requirements[ROLE_ERT]))
+	var/list/ert_candidates = shuffle(SSghost_spawns.poll_candidates("Join the Emergency Response Team?",, GLOB.responseteam_age, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_ERT]))
 	if(!ert_candidates.len)
 		GLOB.active_team.cannot_send_team()
 		GLOB.send_emergency_team = FALSE
@@ -135,8 +135,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 /client/proc/create_response_team(new_gender, role, turf/spawn_location)
 	if(role == "Cyborg")
-		var/cyborg_unlock = GLOB.active_team.getCyborgUnlock()
-		var/mob/living/silicon/robot/ert/R = new /mob/living/silicon/robot/ert(spawn_location, cyborg_unlock)
+		var/mob/living/silicon/robot/ert/R = new GLOB.active_team.borg_path(spawn_location)
 		return R
 
 	var/mob/living/carbon/human/M = new(null)
@@ -178,6 +177,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	M.mind.original = M
 	M.mind.assigned_role = SPECIAL_ROLE_ERT
 	M.mind.special_role = SPECIAL_ROLE_ERT
+	M.mind.offstation_role = TRUE
 	if(!(M.mind in SSticker.minds))
 		SSticker.minds += M.mind //Adds them to regular mind list.
 	SSticker.mode.ert += M.mind
@@ -208,9 +208,9 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	var/security_outfit
 	var/janitor_outfit
 	var/paranormal_outfit
-	var/cyborg_unlock = 0
+	var/borg_path = /mob/living/silicon/robot/ert
 
-/datum/response_team/proc/setSlots(com=1, sec=3, med=3, eng=3, jan=0, par=0, cyb=0)
+/datum/response_team/proc/setSlots(com=1, sec=4, med=0, eng=0, jan=0, par=0, cyb=0)
 	slots["Commander"] = com
 	slots["Security"] = sec
 	slots["Medic"] = med
@@ -222,9 +222,6 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 /datum/response_team/proc/reduceSlots(role)
 	slots[role]--
 	count++
-
-/datum/response_team/proc/getCyborgUnlock()
-	return cyborg_unlock
 
 /datum/response_team/proc/get_slot_list()
 	RETURN_TYPE(/list)
@@ -285,6 +282,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	command_outfit = /datum/outfit/job/centcom/response_team/commander/red
 	janitor_outfit = /datum/outfit/job/centcom/response_team/janitorial/red
 	paranormal_outfit = /datum/outfit/job/centcom/response_team/paranormal/red
+	borg_path = /mob/living/silicon/robot/ert/red
 
 /datum/response_team/red/announce_team()
 	GLOB.event_announcement.Announce("Attention, [station_name()]. We are sending a code RED Emergency Response Team. Standby.", "ERT En-Route")
@@ -298,7 +296,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	command_outfit = /datum/outfit/job/centcom/response_team/commander/gamma
 	janitor_outfit = /datum/outfit/job/centcom/response_team/janitorial/gamma
 	paranormal_outfit = /datum/outfit/job/centcom/response_team/paranormal/gamma
-	cyborg_unlock = 1
+	borg_path = /mob/living/silicon/robot/ert/gamma
 
 /datum/response_team/gamma/announce_team()
 	GLOB.event_announcement.Announce("Attention, [station_name()]. We are sending a code GAMMA elite Emergency Response Team. Standby.", "ERT En-Route")
@@ -321,3 +319,4 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	name = "centcomm bounced radio"
 	frequency = ERT_FREQ
 	icon_state = "radio"
+	freqlock = TRUE

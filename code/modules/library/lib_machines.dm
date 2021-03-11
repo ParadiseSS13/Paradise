@@ -3,11 +3,6 @@
 GLOBAL_DATUM_INIT(library_catalog, /datum/library_catalog, new())
 GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "Adult", "Reference", "Religion"))
 
-
-/hook/startup/proc/load_manuals()
-	GLOB.library_catalog.initialize()
-	return 1
-
 /*
  * Borrowbook datum
  */
@@ -49,23 +44,11 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	var/category
 	var/title
 
-/datum/library_query/proc/toSQL()
-	var/list/where = list()
-	if(author || title || category)
-		if(author)
-			where.Add("author LIKE '%[sanitizeSQL(author)]%'")
-		if(category)
-			where.Add("category = '[sanitizeSQL(category)]'")
-		if(title)
-			where.Add("title LIKE '%[sanitizeSQL(title)]%'")
-		return " WHERE " + jointext(where, " AND ")
-	return ""
-
 // So we can have catalogs of books that are programmatic, and ones that aren't.
 /datum/library_catalog
 	var/list/cached_books = list()
 
-/datum/library_catalog/proc/initialize()
+/datum/library_catalog/New()
 	var/newid=1
 	for(var/typepath in subtypesof(/obj/item/book/manual))
 		var/obj/item/book/B = new typepath(null)
@@ -95,11 +78,13 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	books_flagged_this_round["[id]"] = 1
 	message_admins("[key_name_admin(user)] has flagged book #[id] as inappropriate.")
 
-	var/sqlid = text2num(id)
-	if(!sqlid)
+	var/datum/db_query/query = SSdbcore.NewQuery("UPDATE [format_table_name("library")] SET flagged = flagged + 1 WHERE id=:id", list(
+		"id" = text2num(id)
+	))
+	if(!query.warn_execute())
+		qdel(query)
 		return
-	var/DBQuery/query = GLOB.dbcon.NewQuery("UPDATE [format_table_name("library")] SET flagged = flagged + 1 WHERE id=[sqlid]")
-	query.Execute()
+	qdel(query)
 
 /datum/library_catalog/proc/rmBookByID(mob/user, id)
 	if("[id]" in cached_books)
@@ -108,21 +93,24 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 			to_chat(user, "<span class='danger'>That book cannot be removed from the system, as it does not actually exist in the database.</span>")
 			return
 
-	var/sqlid = text2num(id)
-	if(!sqlid)
+	var/datum/db_query/query = SSdbcore.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=:id", list(
+		"id" = text2num(id)
+	))
+	if(!query.warn_execute())
+		qdel(query)
 		return
-	var/DBQuery/query = GLOB.dbcon.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=[sqlid]")
-	query.Execute()
+	qdel(query)
 
 /datum/library_catalog/proc/getBookByID(id)
 	if("[id]" in cached_books)
 		return cached_books["[id]"]
 
-	var/sqlid = text2num(id)
-	if(!sqlid)
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id, author, title, category, content, ckey, flagged FROM [format_table_name("library")] WHERE id=:id", list(
+		"id" = text2num(id)
+	))
+	if(!query.warn_execute())
+		qdel(query)
 		return
-	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT id, author, title, category, content, ckey, flagged FROM [format_table_name("library")] WHERE id=[sqlid]")
-	query.Execute()
 
 	var/list/results=list()
 	while(query.NextRow())
@@ -138,7 +126,9 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 		))
 		results += CB
 		cached_books["[id]"]=CB
+		qdel(query)
 		return CB
+	qdel(query)
 	return results
 
 /** Scanner **/
@@ -155,6 +145,11 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 		power_change()
 		return
 	if(istype(I, /obj/item/book))
+		// NT with those pesky DRM schemes
+		var/obj/item/book/B = I
+		if(B.has_drm)
+			atom_say("Copyrighted material detected. Scanner is unable to copy book to memory.")
+			return FALSE
 		user.drop_item()
 		I.forceMove(src)
 		return 1

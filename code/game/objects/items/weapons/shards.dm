@@ -51,7 +51,7 @@
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(!H.gloves && !(PIERCEIMMUNE in H.dna.species.species_traits))
+		if(!H.gloves && !HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))
 			var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
 			if(affecting.is_robotic())
 				return
@@ -83,10 +83,15 @@
 
 /obj/item/shard/Crossed(mob/living/L, oldloc)
 	if(istype(L) && has_gravity(loc))
-		if(L.incorporeal_move || L.flying)
+		if(L.incorporeal_move || L.flying || L.floating)
 			return
 		playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
 	return ..()
+
+/obj/item/shard/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	C.stored_comms["glass"] += 3
+	qdel(src)
+	return TRUE
 
 /obj/item/shard/plasma
 	name = "plasma shard"

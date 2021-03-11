@@ -1,3 +1,5 @@
+#define WATER_STUN_TIME 2 //Stun time for water, to edit/find easier
+#define WATER_WEAKEN_TIME 1 //Weaken time for water, to edit/find easier
 /turf/simulated
 	name = "station"
 	var/wet = 0
@@ -8,12 +10,6 @@
 	nitrogen = MOLES_N2STANDARD
 	var/to_be_destroyed = 0 //Used for fire, if a melting temperature was reached, it will be destroyed
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
-	var/dirtoverlay = null
-
-/turf/simulated/New()
-	..()
-	levelupdate()
-	visibilityChanged()
 
 /turf/simulated/proc/break_tile()
 	return
@@ -59,6 +55,7 @@
 				wet_overlay = image('icons/effects/water.dmi', src, "ice_floor")
 			else
 				wet_overlay = image('icons/effects/water.dmi', src, "wet_static")
+		wet_overlay.plane = FLOOR_OVERLAY_PLANE
 		overlays += wet_overlay
 	if(time == INFINITY)
 		return
@@ -86,7 +83,7 @@
 
 			switch(src.wet)
 				if(TURF_WET_WATER)
-					if(!(M.slip("the wet floor", 4, 2, tilesSlipped = 0, walkSafely = 1)))
+					if(!(M.slip("the wet floor", WATER_STUN_TIME, WATER_WEAKEN_TIME, tilesSlipped = 0, walkSafely = 1)))
 						M.inertia_dir = 0
 						return
 
@@ -112,3 +109,6 @@
 	queue_smooth_neighbors(src)
 
 /turf/simulated/proc/is_shielded()
+
+#undef WATER_STUN_TIME
+#undef WATER_WEAKEN_TIME

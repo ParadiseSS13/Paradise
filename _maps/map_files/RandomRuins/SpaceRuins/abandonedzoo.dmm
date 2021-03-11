@@ -100,7 +100,7 @@
 /area/ruin/unpowered)
 "al" = (
 /obj/structure/flora/ausbushes/genericbush,
-/turf/unsimulated/floor/grass,
+/turf/simulated/floor/grass,
 /area/ruin/unpowered)
 "am" = (
 /mob/living/simple_animal/hostile/poison/bees,
@@ -109,15 +109,15 @@
 /mob/living/simple_animal/hostile/poison/bees,
 /mob/living/simple_animal/hostile/poison/bees,
 /mob/living/simple_animal/hostile/poison/bees,
-/turf/unsimulated/floor/grass,
+/turf/simulated/floor/grass,
 /area/ruin/unpowered)
 "an" = (
 /mob/living/simple_animal/hostile/poison/bees,
-/turf/unsimulated/floor/grass,
+/turf/simulated/floor/grass,
 /area/ruin/unpowered)
 "ao" = (
 /obj/structure/flora/ausbushes/lavendergrass,
-/turf/unsimulated/floor/grass,
+/turf/simulated/floor/grass,
 /area/ruin/unpowered)
 "ap" = (
 /mob/living/simple_animal/hostile/asteroid/goldgrub{
@@ -127,7 +127,7 @@
 /area/ruin/unpowered)
 "aq" = (
 /obj/structure/flora/ausbushes/grassybush,
-/turf/unsimulated/floor/grass,
+/turf/simulated/floor/grass,
 /area/ruin/unpowered)
 "ar" = (
 /obj/structure/flora/rock/pile,
@@ -143,11 +143,11 @@
 "au" = (
 /obj/structure/flora/ausbushes/leafybush,
 /mob/living/simple_animal/hostile/poison/bees,
-/turf/unsimulated/floor/grass,
+/turf/simulated/floor/grass,
 /area/ruin/unpowered)
 "av" = (
 /obj/structure/flora/ausbushes/brflowers,
-/turf/unsimulated/floor/grass,
+/turf/simulated/floor/grass,
 /area/ruin/unpowered)
 "aw" = (
 /obj/structure/flora/rock,
@@ -187,16 +187,16 @@
 /area/ruin/unpowered)
 "aA" = (
 /obj/structure/flora/ausbushes/ywflowers,
-/turf/unsimulated/floor/grass,
+/turf/simulated/floor/grass,
 /area/ruin/unpowered)
 "aB" = (
 /obj/machinery/light,
 /mob/living/simple_animal/hostile/poison/bees,
-/turf/unsimulated/floor/grass,
+/turf/simulated/floor/grass,
 /area/ruin/unpowered)
 "aC" = (
 /obj/structure/flora/ausbushes/ppflowers,
-/turf/unsimulated/floor/grass,
+/turf/simulated/floor/grass,
 /area/ruin/unpowered)
 "aD" = (
 /obj/structure/cable{
@@ -396,7 +396,7 @@
 	},
 /obj/structure/rack,
 /obj/item/clothing/suit/space/hardsuit/medical,
-/obj/item/tank/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -622,7 +622,7 @@
 /area/ruin/unpowered)
 "br" = (
 /obj/structure/table/reinforced,
-/obj/machinery/microwave,
+/obj/machinery/kitchen_machine/microwave,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;

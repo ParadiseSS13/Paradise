@@ -21,6 +21,7 @@
 	response_disarm = "shoos"
 	response_harm   = "stomps on"
 	speed = 0
+	mob_biotypes = MOB_ROBOTIC
 	mob_size = MOB_SIZE_SMALL
 	speak_emote = list("beeps","clicks","chirps")
 
@@ -122,8 +123,6 @@
 		return
 	if(health >= maxHealth)
 		to_chat(user, "<span class='warning'>[src] does not need repairing!</span>")
-		return
-		to_chat(user, "<span class='warning'>Unable to repair with the maintenance panel closed!</span>")
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))

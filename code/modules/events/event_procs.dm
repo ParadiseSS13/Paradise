@@ -1,9 +1,9 @@
 
 /client/proc/forceEvent(var/type in SSevents.allEvents)
-	set name = "Trigger Event (Debug Only)"
+	set name = "Trigger Event"
 	set category = "Debug"
 
-	if(!holder)
+	if(!check_rights(R_EVENT))
 		return
 
 	if(ispath(type))
@@ -15,7 +15,7 @@
 	set category = "Event"
 	if(SSevents)
 		SSevents.Interact(usr)
-	feedback_add_details("admin_verb","EMP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Event Manager") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
 /proc/findEventArea() //Here's a nice proc to use to find an area for your event to land in!

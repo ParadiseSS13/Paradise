@@ -30,11 +30,11 @@
 
 
 // message is the custom message to be displayed
-mob/living/carbon/human/proc/custom_pain(message)
+/mob/living/carbon/human/proc/custom_pain(message)
 	if(stat >= UNCONSCIOUS)
 		return
 
-	if(NO_PAIN in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_NOPAIN))
 		return
 	if(reagents.has_reagent("morphine"))
 		return
@@ -49,12 +49,12 @@ mob/living/carbon/human/proc/custom_pain(message)
 		to_chat(src, msg)
 	next_pain_time = world.time + 100
 
-mob/living/carbon/human/proc/handle_pain()
+/mob/living/carbon/human/proc/handle_pain()
 	// not when sleeping
 
 	if(stat >= UNCONSCIOUS)
 		return
-	if(NO_PAIN in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_NOPAIN))
 		return
 	if(reagents.has_reagent("morphine"))
 		return

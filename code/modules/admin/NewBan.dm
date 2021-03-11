@@ -58,9 +58,6 @@ GLOBAL_PROTECT(banlist_savefile) // Obvious reasons
 	GLOB.CMinutes = (world.realtime / 10) / 60
 	return 1
 
-/hook/startup/proc/loadBans()
-	return LoadBans()
-
 /proc/LoadBans()
 
 	GLOB.banlist_savefile = new("data/banlist.bdb")
@@ -106,7 +103,8 @@ GLOBAL_PROTECT(banlist_savefile) // Obvious reasons
 
 	GLOB.banlist_savefile.cd = "/base"
 	if( GLOB.banlist_savefile.dir.Find("[ckey][computerid]") )
-		to_chat(usr, "<span class='danger'>Ban already exists.</span>")
+		if(usr)
+			to_chat(usr, "<span class='danger'>Ban already exists.</span>")
 		return 0
 	else
 		GLOB.banlist_savefile.dir.Add("[ckey][computerid]")
@@ -143,7 +141,6 @@ GLOBAL_PROTECT(banlist_savefile) // Obvious reasons
 		ban_unban_log_save("[key_name_admin(usr)] unbanned [key]")
 		log_admin("[key_name_admin(usr)] unbanned [key]")
 		message_admins("[key_name_admin(usr)] unbanned: [key]")
-		feedback_inc("ban_unban",1)
 		usr.client.holder.DB_ban_unban( ckey(key), BANTYPE_ANY_FULLBAN)
 	for(var/A in GLOB.banlist_savefile.dir)
 		GLOB.banlist_savefile.cd = "/base/[A]"

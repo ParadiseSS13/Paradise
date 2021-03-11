@@ -26,25 +26,6 @@
 	else
 		to_chat(usr, "<span class='danger'>This mob type cannot throw items.</span>")
 
-
-/client/verb/drop_item()
-	set hidden = 1
-	if(!isrobot(mob))
-		mob.drop_item_v()
-	return
-
-
-/* /client/Center()
-	/* No 3D movement in 2D spessman game. dir 16 is Z Up
-	if(isobj(mob.loc))
-		var/obj/O = mob.loc
-		if(mob.canmove)
-			return O.relaymove(mob, 16)
-	*/
-	return
- */
-
-
 /client/proc/Move_object(direct)
 	if(mob && mob.control_object)
 		if(mob.control_object.density)
@@ -186,7 +167,7 @@
 		if(newdir)
 			direct = newdir
 			n = get_step(mob, direct)
-	
+
 	. = mob.SelfMove(n, direct, delay)
 	mob.setDir(direct)
 
@@ -219,6 +200,8 @@
 ///Checks to see if you are being grabbed and if so attemps to break it
 /client/proc/Process_Grab()
 	if(mob.grabbed_by.len)
+		if(mob.incapacitated(FALSE, TRUE, TRUE)) // Can't break out of grabs if you're incapacitated
+			return TRUE
 		var/list/grabbing = list()
 
 		if(istype(mob.l_hand, /obj/item/grab))
@@ -240,17 +223,17 @@
 				if(GRAB_AGGRESSIVE)
 					move_delay = world.time + 10
 					if(!prob(25))
-						return 1
+						return TRUE
 					mob.visible_message("<span class='danger'>[mob] has broken free of [G.assailant]'s grip!</span>")
 					qdel(G)
 
 				if(GRAB_NECK)
 					move_delay = world.time + 10
 					if(!prob(5))
-						return 1
+						return TRUE
 					mob.visible_message("<span class='danger'>[mob] has broken free of [G.assailant]'s headlock!</span>")
 					qdel(G)
-	return 0
+	return FALSE
 
 
 ///Process_Incorpmove
@@ -388,8 +371,9 @@
 		step(pulling, get_dir(pulling.loc, A))
 	return
 
-/mob/proc/update_gravity()
+/mob/proc/update_gravity(has_gravity)
 	return
+
 /client/proc/check_has_body_select()
 	return mob && mob.hud_used && mob.hud_used.zone_select && istype(mob.hud_used.zone_select, /obj/screen/zone_sel)
 
@@ -500,13 +484,26 @@
 	set hidden = TRUE
 	set instant = TRUE
 	if(mob)
-		mob.toggle_move_intent(usr)
+		mob.toggle_move_intent()
 
-/mob/proc/toggle_move_intent(mob/user)
+/mob/proc/toggle_move_intent()
+	if(iscarbon(src))
+		var/mob/living/carbon/C = src
+		if(C.legcuffed)
+			to_chat(C, "<span class='notice'>You are legcuffed! You cannot run until you get [C.legcuffed] removed!</span>")
+			C.m_intent = MOVE_INTENT_WALK	//Just incase
+			C.hud_used.move_intent.icon_state = "walking"
+			return
+
+	var/icon_toggle
 	if(m_intent == MOVE_INTENT_RUN)
 		m_intent = MOVE_INTENT_WALK
+		icon_toggle = "walking"
 	else
 		m_intent = MOVE_INTENT_RUN
-	if(hud_used && hud_used.static_inventory)
+		icon_toggle = "running"
+
+	if(hud_used && hud_used.move_intent && hud_used.static_inventory)
+		hud_used.move_intent.icon_state = icon_toggle
 		for(var/obj/screen/mov_intent/selector in hud_used.static_inventory)
 			selector.update_icon(src)

@@ -8,12 +8,15 @@
 /mob/living/carbon/human/var/list/bodyparts_by_name = list() // map organ names to organs
 
 // Takes care of organ related updates, such as broken and missing limbs
-/mob/living/carbon/human/proc/handle_organs()
+/mob/living/carbon/human/handle_organs()
+	..()
 	//processing internal organs is pretty cheap, do that first.
-	for(var/obj/item/organ/internal/I in internal_organs)
+	for(var/X in internal_organs)
+		var/obj/item/organ/internal/I = X
 		I.process()
 
-	for(var/obj/item/organ/external/E in bodyparts)
+	for(var/Y in bodyparts)
+		var/obj/item/organ/external/E = Y
 		E.process()
 
 		if(!lying && world.time - l_move_time < 15)
@@ -62,7 +65,7 @@
 	// standing is poor
 	if(stance_damage >= 8)
 		if(!(lying || resting))
-			if(!(NO_PAIN in dna.species.species_traits))
+			if(!HAS_TRAIT(src, TRAIT_NOPAIN))
 				emote("scream")
 			custom_emote(1, "collapses!")
 		Weaken(5) //can't emote while weakened, apparently.
@@ -90,7 +93,7 @@
 					continue
 
 			var/emote_scream = pick("screams in pain and ", "lets out a sharp cry and ", "cries out and ")
-			custom_emote(1, "[(NO_PAIN in dna.species.species_traits) ? "" : emote_scream ]drops what [p_they()] [p_were()] holding in [p_their()] [E.name]!")
+			custom_emote(1, "[HAS_TRAIT(src, TRAIT_NOPAIN) ? "" : emote_scream ]drops what [p_they()] [p_were()] holding in [p_their()] [E.name]!")
 
 		else if(E.is_malfunctioning())
 
@@ -109,13 +112,18 @@
 
 			do_sparks(5, 0, src)
 
+/mob/living/carbon/human/handle_germs()
+	..()
+	if(gloves && germ_level > gloves.germ_level && prob(10))
+		gloves.germ_level += 1
+
 /mob/living/carbon/human/proc/becomeSlim()
 	to_chat(src, "<span class='notice'>You feel fit again!</span>")
-	mutations.Remove(FAT)
+	REMOVE_TRAIT(src, TRAIT_FAT, OBESITY)
 
 /mob/living/carbon/human/proc/becomeFat()
 	to_chat(src, "<span class='alert'>You suddenly feel blubbery!</span>")
-	mutations.Add(FAT)
+	ADD_TRAIT(src, TRAIT_FAT, OBESITY)
 
 //Handles chem traces
 /mob/living/carbon/human/proc/handle_trace_chems()

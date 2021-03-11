@@ -19,7 +19,7 @@
 	var/list/newlist = dreamlist.Copy()
 	for(var/i in 1 to newlist.len)
 		newlist[i] = replacetext(newlist[i], "\[DREAMER\]", "[user.name]")
-	return dreamlist
+	return newlist
 
 
 //NIGHTMARES

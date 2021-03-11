@@ -5,7 +5,7 @@ GLOBAL_VAR(claw_game_html)
 	desc = "One of the most infuriating ways to win a toy."
 	icon = 'icons/obj/arcade.dmi'
 	icon_state = "clawmachine_1_on"
-	token_price = 15
+	token_price = 5
 	window_name = "Claw Game"
 	var/machine_image = "_1"
 	var/bonus_prize_chance = 5		//chance to dispense a SECOND prize if you win, increased by matter bin rating
@@ -57,7 +57,7 @@ GLOBAL_VAR(claw_game_html)
 	else
 		atom_say("WINNER!")
 	new /obj/item/toy/prizeball(get_turf(src))
-	playsound(src.loc, 'sound/arcade/win.ogg', 50, 1, extrarange = -3, falloff = 10)
+	playsound(loc, 'sound/arcade/win.ogg', 50, TRUE)
 	addtimer(CALLBACK(src, .proc/update_icon), 10)
 
 /obj/machinery/arcade/claw/start_play(mob/user as mob)

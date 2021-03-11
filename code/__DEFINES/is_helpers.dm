@@ -1,10 +1,8 @@
 // Atoms
-#define isatom(A) istype(A, /atom)
-#define ismovableatom(A) istype(A, /atom/movable)
+#define isatom(A) (isloc(A))
 
 // Mobs
 #define ismegafauna(A) istype(A, /mob/living/simple_animal/hostile/megafauna)
-#define iszombie(A) (is_species(A, /datum/species/zombie))
 
 //Simple animals
 #define isshade(A) (istype(A, /mob/living/simple_animal/shade))
@@ -25,6 +23,8 @@
 #define iseffect(A) (istype(A, /obj/effect))
 
 #define is_cleanable(A) (istype(A, /obj/effect/decal/cleanable) || istype(A, /obj/effect/rune)) //if something is cleanable
+
+#define isclothing(A) (istype(A, /obj/item/clothing))
 
 #define is_pen(W) (istype(W, /obj/item/pen))
 
@@ -52,8 +52,6 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define isspaceturf(A) istype(A, /turf/space)
 
 #define isfloorturf(A) istype(A, /turf/simulated/floor)
-
-#define isunsimulatedturf(A) istype(A, /turf/unsimulated)
 
 #define iswallturf(A) istype(A, /turf/simulated/wall)
 

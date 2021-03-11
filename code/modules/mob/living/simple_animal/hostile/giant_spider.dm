@@ -12,12 +12,14 @@
 	var/butcher_state = 8 // Icon state for dead spider icons
 	icon_living = "guard"
 	icon_dead = "guard_dead"
+	mob_biotypes = MOB_ORGANIC | MOB_BUG
 	speak_emote = list("chitters")
 	emote_hear = list("chitters")
 	speak_chance = 5
 	turns_per_move = 5
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	footstep_type = FOOTSTEP_MOB_CLAW
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/spidermeat= 2, /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg= 8)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
@@ -46,6 +48,13 @@
 		var/inject_target = pick("chest", "head")
 		if(C.can_inject(null, FALSE, inject_target, FALSE))
 			C.reagents.add_reagent("spidertoxin", venom_per_bite)
+
+/mob/living/simple_animal/hostile/poison/giant_spider/get_spacemove_backup()
+	. = ..()
+	// If we don't find any normal thing to use, attempt to use any nearby spider structure instead.
+	if(!.)
+		for(var/obj/structure/spider/S in range(1, get_turf(src)))
+			return S
 
 //nursemaids - these create webs and eggs
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse
@@ -164,15 +173,27 @@
 
 	if(!cocoon_target)
 		var/list/choices = list()
-		for(var/mob/living/L in view(1,src))
+		for(var/mob/living/L in view(1, src))
 			if(L == src)
+				continue
+			if(L.stat != DEAD)
+				continue
+			if(istype(L, /mob/living/simple_animal/hostile/poison/giant_spider))
 				continue
 			if(Adjacent(L))
 				choices += L
-		for(var/obj/O in src.loc)
+		for(var/obj/O in get_turf(src))
+			if(O.anchored)
+				continue
+			if(!(isitem(O) || isstructure(O) || ismachinery(O)))
+				continue
 			if(Adjacent(O))
 				choices += O
-		cocoon_target = input(src,"What do you wish to cocoon?") in null|choices
+		if(length(choices))
+			cocoon_target = input(src,"What do you wish to cocoon?") in null|choices
+		else
+			to_chat(src, "<span class='warning'>No suitable dead prey or wrappable objects found nearby.")
+			return
 
 	if(cocoon_target && busy != SPINNING_COCOON)
 		busy = SPINNING_COCOON
@@ -198,6 +219,8 @@
 							large_cocoon = 1
 					for(var/mob/living/L in C.loc)
 						if(istype(L, /mob/living/simple_animal/hostile/poison/giant_spider))
+							continue
+						if(L.stat != DEAD)
 							continue
 						large_cocoon = 1
 						L.loc = C

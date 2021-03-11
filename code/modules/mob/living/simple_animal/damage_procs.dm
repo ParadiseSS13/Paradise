@@ -3,7 +3,7 @@
 	if(status_flags & GODMODE)
 		return FALSE
 	var/oldbruteloss = bruteloss
-	bruteloss = Clamp(bruteloss + amount, 0, maxHealth)
+	bruteloss = clamp(bruteloss + amount, 0, maxHealth)
 	if(oldbruteloss == bruteloss)
 		updating_health = FALSE
 		. = STATUS_UPDATE_NONE

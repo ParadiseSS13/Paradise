@@ -1,0 +1,833 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/template_noop,
+/area/template_noop)
+"b" = (
+/turf/simulated/wall/mineral/titanium,
+/area/space/nearstation)
+"c" = (
+/obj/structure/shuttle/engine/heater{
+	tag = "icon-heater (NORTH)";
+	icon_state = "heater";
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
+"e" = (
+/obj/machinery/door/airlock/titanium,
+/turf/simulated/floor/plasteel/airless,
+/area/space/nearstation)
+"f" = (
+/obj/item/broken_bottle,
+/obj/effect/mob_spawn/human/mime/corpse,
+/turf/simulated/floor/plasteel/airless,
+/area/space/nearstation)
+"g" = (
+/obj/item/shard,
+/obj/effect/mob_spawn/human/mime/corpse,
+/turf/simulated/floor/plasteel/airless,
+/area/space/nearstation)
+"h" = (
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/obj/effect/mob_spawn/human/mime/corpse,
+/turf/simulated/floor/plasteel/airless,
+/area/space/nearstation)
+"j" = (
+/obj/structure/closet/crate,
+/obj/item/stack/ore/tranquillite,
+/obj/item/stack/ore/tranquillite,
+/obj/item/stack/ore/tranquillite,
+/obj/item/stack/ore/tranquillite,
+/obj/item/stack/ore/tranquillite,
+/obj/item/stack/ore/tranquillite,
+/obj/item/stack/ore/tranquillite,
+/obj/item/stack/ore/tranquillite,
+/turf/simulated/floor/plasteel/airless,
+/area/space/nearstation)
+"k" = (
+/turf/simulated/floor/plasteel/airless,
+/area/space/nearstation)
+"m" = (
+/turf/simulated/mineral,
+/area/space/nearstation)
+"n" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
+"p" = (
+/obj/item/shard{
+	icon_state = "small"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
+"q" = (
+/obj/structure/closet/crate,
+/obj/item/stack/ore/tranquillite,
+/obj/item/stack/ore/tranquillite,
+/obj/item/stack/ore/tranquillite,
+/obj/item/stack/ore/tranquillite,
+/obj/item/stack/ore/tranquillite,
+/obj/item/stack/ore/tranquillite,
+/obj/item/stack/ore/tranquillite,
+/turf/simulated/floor/plasteel/airless,
+/area/space/nearstation)
+"s" = (
+/obj/item/shard,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
+"t" = (
+/obj/effect/mob_spawn/human/mime/corpse{
+	name = "Mime Pilot"
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/space/nearstation)
+"x" = (
+/obj/effect/mob_spawn/human/clown/corpse,
+/turf/simulated/floor/plasteel/airless,
+/area/space/nearstation)
+"y" = (
+/obj/structure/closet/crate,
+/obj/item/stack/ore/bananium,
+/obj/item/stack/ore/bananium,
+/obj/item/stack/ore/bananium,
+/obj/item/stack/ore/bananium,
+/obj/item/stack/ore/bananium,
+/turf/simulated/floor/plasteel/airless,
+/area/space/nearstation)
+"z" = (
+/obj/structure/closet/crate{
+	icon_state = "crateopen";
+	opened = 1
+	},
+/obj/item/stack/ore/bananium,
+/obj/item/grenade/bananade,
+/turf/simulated/floor/plasteel/airless,
+/area/space/nearstation)
+"A" = (
+/obj/structure/shuttle/engine/heater{
+	tag = "icon-heater (EAST)";
+	icon_state = "heater";
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
+"B" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 4;
+	icon_state = "propulsion_l";
+	tag = "icon-propulsion_l (WEST)"
+	},
+/obj/structure/shuttle/engine/propulsion{
+	dir = 4;
+	icon_state = "burst_r";
+	tag = "icon-burst_r (WEST)"
+	},
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
+"C" = (
+/obj/effect/mob_spawn/human/corpse/clownmili,
+/turf/simulated/floor/plasteel/airless,
+/area/space/nearstation)
+"D" = (
+/obj/item/stack/ore/bananium,
+/turf/simulated/floor/plasteel/airless,
+/area/space/nearstation)
+"E" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 4;
+	icon_state = "propulsion_l";
+	tag = "icon-propulsion_l (WEST)"
+	},
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
+"F" = (
+/obj/structure/computerframe/HONKputer,
+/turf/simulated/floor/plasteel/airless,
+/area/space/nearstation)
+"G" = (
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
+"H" = (
+/obj/effect/mob_spawn/human/clown/corpse{
+	name = "Clown Pilot"
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/space/nearstation)
+"I" = (
+/obj/item/paper/clownship,
+/turf/simulated/floor/plasteel/airless,
+/area/space/nearstation)
+"J" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
+"K" = (
+/obj/item/shard,
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/space/nearstation)
+"L" = (
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/space/nearstation)
+"O" = (
+/obj/effect/mob_spawn/human/corpse/clownoff,
+/turf/simulated/floor/plasteel/airless,
+/area/space/nearstation)
+"P" = (
+/obj/item/pickaxe,
+/turf/simulated/floor/plasteel/airless,
+/area/space/nearstation)
+"Q" = (
+/obj/structure/closet/crate,
+/obj/item/stack/ore/bananium,
+/obj/item/stack/ore/bananium,
+/obj/item/stack/ore/bananium,
+/obj/item/stack/ore/bananium,
+/turf/simulated/floor/plasteel/airless,
+/area/space/nearstation)
+"R" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 4;
+	icon_state = "propulsion_l";
+	tag = "icon-propulsion_l (WEST)"
+	},
+/obj/structure/shuttle/engine/propulsion{
+	dir = 4;
+	icon_state = "propulsion_l";
+	tag = "icon-propulsion_l (WEST)"
+	},
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
+
+(1,1,1) = {"
+a
+a
+a
+a
+m
+m
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+a
+a
+m
+m
+m
+m
+m
+a
+a
+a
+a
+a
+a
+m
+m
+a
+a
+a
+a
+"}
+(3,1,1) = {"
+a
+a
+a
+m
+m
+m
+m
+m
+m
+a
+m
+m
+m
+m
+m
+m
+a
+a
+a
+a
+"}
+(4,1,1) = {"
+a
+a
+a
+a
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+a
+a
+a
+a
+a
+"}
+(5,1,1) = {"
+a
+a
+a
+a
+a
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+a
+"}
+(6,1,1) = {"
+a
+a
+a
+a
+a
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+a
+a
+"}
+(7,1,1) = {"
+a
+a
+a
+a
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+a
+a
+a
+"}
+(8,1,1) = {"
+a
+a
+a
+n
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+a
+a
+a
+"}
+(9,1,1) = {"
+a
+a
+b
+b
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+n
+a
+a
+a
+"}
+(10,1,1) = {"
+b
+e
+b
+b
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+n
+n
+a
+a
+a
+"}
+(11,1,1) = {"
+c
+f
+j
+p
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+n
+n
+n
+a
+a
+"}
+(12,1,1) = {"
+c
+g
+k
+q
+s
+n
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+n
+n
+a
+"}
+(13,1,1) = {"
+c
+h
+j
+q
+t
+n
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+a
+"}
+(14,1,1) = {"
+b
+e
+b
+b
+b
+m
+m
+n
+m
+m
+m
+m
+m
+m
+m
+m
+m
+n
+m
+a
+"}
+(15,1,1) = {"
+a
+a
+b
+b
+m
+m
+m
+n
+n
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
+"}
+(16,1,1) = {"
+a
+a
+a
+a
+m
+a
+a
+a
+b
+m
+m
+J
+b
+m
+m
+m
+m
+m
+m
+m
+"}
+(17,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+b
+m
+F
+k
+b
+m
+m
+m
+m
+n
+m
+m
+"}
+(18,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+b
+b
+m
+G
+K
+b
+b
+m
+m
+m
+n
+m
+m
+"}
+(19,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+b
+n
+p
+H
+k
+O
+b
+m
+m
+m
+n
+n
+n
+"}
+(20,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+b
+x
+C
+k
+L
+P
+b
+m
+m
+m
+a
+a
+a
+"}
+(21,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+e
+k
+k
+I
+k
+k
+e
+m
+m
+a
+a
+a
+a
+"}
+(22,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+e
+k
+k
+D
+x
+k
+e
+m
+m
+a
+a
+a
+a
+"}
+(23,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+b
+y
+k
+k
+k
+Q
+b
+m
+a
+a
+a
+a
+a
+"}
+(24,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+b
+y
+k
+D
+k
+y
+b
+m
+a
+a
+a
+a
+a
+"}
+(25,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+b
+z
+D
+k
+k
+y
+b
+m
+a
+a
+a
+a
+a
+"}
+(26,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+b
+k
+k
+D
+D
+k
+b
+a
+a
+a
+a
+a
+a
+"}
+(27,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+b
+A
+A
+A
+A
+A
+b
+a
+a
+a
+a
+a
+a
+"}
+(28,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+B
+E
+E
+E
+R
+a
+a
+a
+a
+a
+a
+a
+"}

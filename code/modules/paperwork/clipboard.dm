@@ -42,7 +42,7 @@
 	if(in_range(user, src) && toppaper)
 		. += toppaper.examine(user)
 
-obj/item/clipboard/proc/penPlacement(mob/user, obj/item/pen/P, placing)
+/obj/item/clipboard/proc/penPlacement(mob/user, obj/item/pen/P, placing)
 	if(placing)
 		if(containedpen)
 			to_chat(user, "<span class='warning'>There's already a pen in [src]!</span>")

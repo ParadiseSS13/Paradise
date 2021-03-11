@@ -48,7 +48,8 @@ GLOBAL_VAR_INIT(sent_honksquad, 0)
 		commandos += candidate//Add their ghost to commandos.
 
 //Spawns HONKsquad and equips them.
-	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+	for(var/thing in GLOB.landmarks_list)
+		var/obj/effect/landmark/L = thing
 		if(honksquad_number<=0)	break
 		if(L.name == "HONKsquad")
 			honk_leader_selected = honksquad_number == 1?1:0
@@ -125,7 +126,8 @@ GLOBAL_VAR_INIT(sent_honksquad, 0)
 		equip_to_slot_or_del(new /obj/item/gun/energy/clown(src), slot_in_backpack)
 	else
 		equip_to_slot_or_del(new /obj/item/gun/throw/piecannon(src), slot_in_backpack)
-	src.mutations.Add(CLUMSY)
+	dna.SetSEState(GLOB.clumsyblock, TRUE)
+	singlemutcheck(src, GLOB.clumsyblock, MUTCHK_FORCED)
 
 
 

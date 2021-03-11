@@ -7,18 +7,21 @@
 	icon_keyboard = "med_key"
 	icon_screen = "crew"
 	circuit = /obj/item/circuitboard/operating
-	var/obj/machinery/optable/table = null
-	var/mob/living/carbon/human/victim = null
 	light_color = LIGHT_COLOR_PURE_BLUE
-	var/verbose = 1 //general speaker toggle
-	var/patientName = null
+	var/obj/machinery/optable/table
+	var/verbose = TRUE //general speaker toggle
 	var/oxyAlarm = 30 //oxy damage at which the computer will beep
-	var/choice = 0 //just for going into and out of the options menu
-	var/healthAnnounce = 1 //healther announcer toggle
-	var/crit = 1 //crit beeping toggle
+	var/choice = FALSE //just for going into and out of the options menu
+	var/healthAnnounce = TRUE //healther announcer toggle
+	var/crit = TRUE //crit beeping toggle
 	var/nextTick = OP_COMPUTER_COOLDOWN
 	var/healthAlarm = 50
-	var/oxy = 1 //oxygen beeping toggle
+	var/oxy = TRUE //oxygen beeping toggle
+	/// Who is on the Operating Table connected to the respective Operating Computer?
+	/// Only used to see if it changed from the previous occupant. If you want any actual information
+	/// about the mob - use `table.patient` instead.
+	var/mob/living/carbon/currentPatient
+	var/patientStatusHolder //Hold the last instance of table.patient.status. When table.patient.status no longer matches this variable, the computer should tell the doctor
 
 /obj/machinery/computer/operating/New()
 	..()
@@ -32,8 +35,8 @@
 	if(table)
 		table.computer = null
 		table = null
-	if(victim)
-		victim = null
+	if(currentPatient)
+		currentPatient = null
 	return ..()
 
 /obj/machinery/computer/operating/attack_ai(mob/user)
@@ -42,7 +45,6 @@
 		return
 	ui_interact(user)
 
-
 /obj/machinery/computer/operating/attack_hand(mob/user)
 	if(..(user))
 		return
@@ -50,22 +52,20 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/computer/operating/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)//ui is mostly copy pasta from the sleeper ui
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/operating/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "op_computer.tmpl", "Patient Monitor", 650, 455)
+		ui = new(user, src, ui_key, "OperatingComputer", "Patient Monitor", 650, 455, master_ui, state)
 		ui.open()
-		ui.set_auto_update(1)
 
-/obj/machinery/computer/operating/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
+/obj/machinery/computer/operating/ui_data(mob/user)
+	var/list/data = list()
 	var/mob/living/carbon/human/occupant
 	if(table)
-		occupant = table.victim
+		occupant = table.patient
 	data["hasOccupant"] = occupant ? 1 : 0
 	var/occupantData[0]
 
@@ -136,53 +136,77 @@
 	return data
 
 
-/obj/machinery/computer/operating/Topic(href, href_list)
+/obj/machinery/computer/operating/ui_act(action, params)
 	if(..())
-		return 1
+		return
+	if(stat & (NOPOWER|BROKEN))
+		return
+
 	if((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
 		usr.set_machine(src)
 
-	if(href_list["verboseOn"])
-		verbose=1
-	if(href_list["verboseOff"])
-		verbose=0
-	if(href_list["healthOn"])
-		healthAnnounce=1
-	if(href_list["healthOff"])
-		healthAnnounce=0
-	if(href_list["critOn"])
-		crit=1
-	if(href_list["critOff"])
-		crit=0
-	if(href_list["oxyOn"])
-		oxy=1
-	if(href_list["oxyOff"])
-		oxy=0
-	if(href_list["oxy_adj"]!=0)
-		oxyAlarm=oxyAlarm+text2num(href_list["oxy_adj"])
-	if(href_list["choiceOn"])
-		choice=1
-	if(href_list["choiceOff"])
-		choice=0
-	if(href_list["health_adj"]!=0)
-		healthAlarm=healthAlarm+text2num(href_list["health_adj"])
-	return
-
+	. = TRUE
+	switch(action)
+		if("verboseOn")
+			verbose = TRUE
+		if("verboseOff")
+			verbose = FALSE
+		if("healthOn")
+			healthAnnounce = TRUE
+		if("healthOff")
+			healthAnnounce = FALSE
+		if("critOn")
+			crit = TRUE
+		if("critOff")
+			crit = FALSE
+		if("oxyOn")
+			oxy = TRUE
+		if("oxyOff")
+			oxy = FALSE
+		if("oxy_adj")
+			oxyAlarm = clamp(text2num(params["new"]), -100, 100)
+		if("choiceOn")
+			choice = TRUE
+		if("choiceOff")
+			choice = FALSE
+		if("health_adj")
+			healthAlarm = clamp(text2num(params["new"]), -100, 100)
+		else
+			return FALSE
 
 /obj/machinery/computer/operating/process()
+	if(!table) //Does this Operating Computer have an Operating Table connected to it?
+		return
+	if(!verbose) //Are the speakers on?
+		return
+	if(!table.patient) //Is there a patient on the table?
+		currentPatient = null
+		return
+	var/patientStatus // Tell the computer what to say based on the status of the patient on the table.
+	var/isNewPatient = (table.patient != currentPatient) //Is this a new Patient?
 
-	if(table && table.check_victim())
-		if(verbose)
-			if(patientName!=table.victim.name)
-				patientName=table.victim.name
-				atom_say("New patient detected, loading stats")
-				victim = table.victim
-				atom_say("[victim.real_name], [victim.dna.blood_type] blood, [victim.stat ? "Non-Responsive" : "Awake"]")
-			if(nextTick < world.time)
-				nextTick=world.time + OP_COMPUTER_COOLDOWN
-				if(crit && victim.health <= -50 )
-					playsound(src.loc, 'sound/machines/defib_success.ogg', 50, 0)
-				if(oxy && victim.getOxyLoss()>oxyAlarm)
-					playsound(src.loc, 'sound/machines/defib_saftyoff.ogg', 50, 0)
-				if(healthAnnounce && victim.health <= healthAlarm)
-					atom_say("[round(victim.health)]")
+	if(table.patient.stat == DEAD || HAS_TRAIT(table.patient, TRAIT_FAKEDEATH))
+		patientStatus = "Dead"
+	else if(table.patient.stat == CONSCIOUS)
+		patientStatus = "Awake"
+	else if(table.patient.stat == UNCONSCIOUS)
+		patientStatus = "Asleep"
+
+	if(isNewPatient)
+		atom_say("New patient detected, loading stats")
+		atom_say("[table.patient], [table.patient.dna.blood_type] blood, [patientStatus]")
+		SStgui.update_uis(src)
+		patientStatusHolder = table.patient.stat
+		currentPatient = table.patient
+
+	if(nextTick < world.time)
+		nextTick=world.time + OP_COMPUTER_COOLDOWN
+		if(crit && table.patient.health <= -50 )
+			playsound(src.loc, 'sound/machines/defib_success.ogg', 50, 0)
+		if(oxy && table.patient.getOxyLoss()>oxyAlarm)
+			playsound(src.loc, 'sound/machines/defib_saftyoff.ogg', 50, 0)
+		if(healthAnnounce && table.patient.health <= healthAlarm)
+			atom_say("[round(table.patient.health)]")
+		if(table.patient.stat != patientStatusHolder)
+			atom_say("Patient is now [patientStatus]")
+			patientStatusHolder = table.patient.stat

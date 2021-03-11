@@ -55,7 +55,8 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 			infiltrators += candidate
 	else
 		to_chat(src, "Polling candidates...")
-		infiltrators = pollCandidates("Do you want to play as a SYNDICATE INFILTRATOR?", ROLE_TRAITOR, 1)
+		var/image/I = new('icons/obj/cardboard_cutout.dmi', "cutout_sit")
+		infiltrators = SSghost_spawns.poll_candidates("Do you want to play as a Syndicate infiltrator?", ROLE_TRAITOR, TRUE, source = I, role_cleanname = "Syndicate infiltrator")
 
 	if(!infiltrators.len)
 		to_chat(src, "Nobody volunteered.")
@@ -66,7 +67,8 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	var/list/sit_spawns = list()
 	var/list/sit_spawns_leader = list()
 	var/list/sit_spawns_mgmt = list()
-	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+	for(var/thing in GLOB.landmarks_list)
+		var/obj/effect/landmark/L = thing
 		if(L.name == "Syndicate-Infiltrator")
 			sit_spawns += L
 		if(L.name == "Syndicate-Infiltrator-Leader")
@@ -113,7 +115,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 			break
 	message_admins("[key_name_admin(src)] has spawned a Syndicate Infiltration Team.", 1)
 	log_admin("[key_name(src)] used Spawn Syndicate Infiltration Team.")
-	feedback_add_details("admin_verb","SPAWNSIT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn SIT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 // ---------------------------------------------------------------------------------------------------------
 
@@ -131,7 +133,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	new_syndicate_infiltrator.mind_initialize()
 	new_syndicate_infiltrator.mind.assigned_role = "Syndicate Infiltrator"
 	new_syndicate_infiltrator.mind.special_role = "Syndicate Infiltrator"
-	new_syndicate_infiltrator.mind.offstation_role = TRUE //they can flee to z2 so make them inelligible as antag targets
+	new_syndicate_infiltrator.mind.offstation_role = TRUE //they can flee to the syndicate base on the admin level so make them inelligible as antag targets
 	SSticker.mode.traitors |= new_syndicate_infiltrator.mind //Adds them to extra antag list
 	new_syndicate_infiltrator.equip_syndicate_infiltrator(syndicate_leader_selected, uplink_tc, is_mgmt)
 	return new_syndicate_infiltrator

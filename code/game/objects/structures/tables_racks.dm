@@ -35,8 +35,8 @@
 	var/deconstruction_ready = TRUE
 	var/flipped = 0
 
-/obj/structure/table/New()
-	..()
+/obj/structure/table/Initialize(mapload)
+	. = ..()
 	if(flipped)
 		update_icon()
 
@@ -69,6 +69,12 @@
 			base = "wood"
 		if(istype(src, /obj/structure/table/reinforced))
 			base = "rtable"
+		if(istype(src, /obj/structure/table/wood/poker))
+			base = "poker"
+		if(istype(src, /obj/structure/table/wood/fancy))
+			base = "fancy"
+		if(istype(src, /obj/structure/table/wood/fancy/black))
+			base = "fancyblack"
 
 		icon_state = "[base]flip[type][type == 1 ? subtype : ""]"
 
@@ -90,7 +96,7 @@
 	..()
 	if(climber)
 		climber.Weaken(2)
-		climber.visible_message("<span class='warning'>[climber.name] has been knocked off the table", "You've been knocked off the table", "You see [climber.name] get knocked off the table</span>")
+		climber.visible_message("<span class='warning'>[climber.name] has been knocked off the table", "You've been knocked off the table", "You hear [climber.name] get knocked off the table</span>")
 	else if(Adjacent(user) && user.pulling && user.pulling.pass_flags & PASSTABLE)
 		user.Move_Pulled(src)
 		if(user.pulling.loc == loc)
@@ -117,7 +123,7 @@
 		return 1
 	if(mover.throwing)
 		return 1
-	if(locate(/obj/structure/table) in get_turf(mover))
+	if(length(get_atoms_of_type(get_turf(mover), /obj/structure/table) - mover))
 		return 1
 	if(flipped)
 		if(get_dir(loc, target) == dir)
@@ -128,7 +134,7 @@
 
 /obj/structure/table/CanAStarPass(ID, dir, caller)
 	. = !density
-	if(ismovableatom(caller))
+	if(ismovable(caller))
 		var/atom/movable/mover = caller
 		. = . || mover.checkpass(PASSTABLE)
 
@@ -224,8 +230,8 @@
 			if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
 				return
 			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
-			I.pixel_x = Clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
-			I.pixel_y = Clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
+			I.pixel_x = clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
+			I.pixel_y = clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
 			item_placed(I)
 	else
 		return ..()
@@ -388,7 +394,7 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
 	var/list/debris = list()
 
-/obj/structure/table/glass/New()
+/obj/structure/table/glass/Initialize(mapload)
 	. = ..()
 	debris += new frame
 	debris += new /obj/item/shard
@@ -497,16 +503,16 @@
 	buildstack = /obj/item/stack/tile/carpet
 	canSmoothWith = list(/obj/structure/table/wood/fancy, /obj/structure/table/wood/fancy/black)
 
-/obj/structure/table/wood/fancy/New()
+/obj/structure/table/wood/fancy/Initialize(mapload)
+	. = ..()
 	icon = 'icons/obj/smooth_structures/fancy_table.dmi' //so that the tables place correctly in the map editor
-	..()
 
 /obj/structure/table/wood/fancy/black
 	icon_state = "fancy_table_black"
 	buildstack = /obj/item/stack/tile/carpet/black
 
-/obj/structure/table/wood/fancy/black/New()
-	..()
+/obj/structure/table/wood/fancy/black/Initialize(mapload)
+	. = ..()
 	icon = 'icons/obj/smooth_structures/fancy_table_black.dmi' //so that the tables place correctly in the map editor
 
 /*
@@ -666,7 +672,7 @@
 
 /obj/structure/rack/CanAStarPass(ID, dir, caller)
 	. = !density
-	if(ismovableatom(caller))
+	if(ismovable(caller))
 		var/atom/movable/mover = caller
 		. = . || mover.checkpass(PASSTABLE)
 

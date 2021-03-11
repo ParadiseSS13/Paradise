@@ -22,6 +22,7 @@
 	icon_state = "ghost2"
 	icon_living = "ghost2"
 	icon_dead = "ghost"
+	mob_biotypes = MOB_SPIRIT
 	density = 0 // ghost
 	invisibility = 60 // no seriously ghost
 	speak_chance = 0 // fyi, ghost
@@ -46,6 +47,7 @@
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
+	flying = TRUE
 	pressure_resistance = 300
 	gold_core_spawnable = NO_SPAWN //too spooky for science
 	faction = list("undead") // did I mention ghost
@@ -68,6 +70,7 @@
 	icon_state = "skeleton_s"
 	icon_living = "skeleton_s"
 	icon_dead = "skeleton_l"
+	mob_biotypes = MOB_UNDEAD | MOB_HUMANOID
 	speak_chance = 0
 	turns_per_move = 10
 	response_help = "shakes hands with"
@@ -89,6 +92,7 @@
 	faction = list("undead")
 	loot = list(/obj/effect/decal/remains/human)
 	del_on_death = 1
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/hostile/retaliate/zombie
 	name = "zombie"
@@ -96,6 +100,7 @@
 	icon_state = "zombie_s"
 	icon_living = "zombie_s"
 	icon_dead = "zombie_l"
+	mob_biotypes = MOB_UNDEAD | MOB_HUMANOID
 	speak_chance = 0
 	turns_per_move = 10
 	response_help = "gently prods"

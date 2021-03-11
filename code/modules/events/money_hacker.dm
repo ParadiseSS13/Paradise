@@ -23,7 +23,7 @@ GLOBAL_VAR_INIT(account_hack_attempted, 0)
 	Notifications will be sent as updates occur.<br>"
 	var/my_department = "[station_name()] firewall subroutines"
 
-	for(var/obj/machinery/message_server/MS in world)
+	for(var/obj/machinery/message_server/MS in GLOB.machines)
 		if(!MS.active) continue
 		MS.send_rc_message("Head of Personnel's Desk", my_department, message, "", "", 2)
 
@@ -38,7 +38,7 @@ GLOBAL_VAR_INIT(account_hack_attempted, 0)
 	if(!isnull(affected_account) && !affected_account.suspended)
 		message = "The hack attempt has succeeded."
 
-		var/lost = affected_account.money * (MINIMUM_PERCENTAGE_LOSS + rand(0,VARIABLE_LOSS) / 10);
+		var/lost = affected_account.money * (MINIMUM_PERCENTAGE_LOSS + rand(0,VARIABLE_LOSS) / 10)
 
 		affected_account.phantom_charge(lost)
 
@@ -64,7 +64,7 @@ GLOBAL_VAR_INIT(account_hack_attempted, 0)
 
 	var/my_department = "[station_name()] firewall subroutines"
 
-	for(var/obj/machinery/message_server/MS in world)
+	for(var/obj/machinery/message_server/MS in GLOB.machines)
 		if(!MS.active) continue
 		MS.send_rc_message("Head of Personnel's Desk", my_department, message, "", "", 2)
 

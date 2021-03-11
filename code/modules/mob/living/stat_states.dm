@@ -14,6 +14,7 @@
 		update_sight()
 		update_blind_effects()
 		update_canmove()
+		set_typing_indicator(FALSE)
 	return 1
 
 /mob/living/proc/WakeUp(updating = 1)
@@ -51,7 +52,7 @@
 	log_game("[key_name(src)] came back to life at [atom_loc_line(get_turf(src))]")
 	stat = CONSCIOUS
 	GLOB.dead_mob_list -= src
-	GLOB.living_mob_list += src
+	GLOB.alive_mob_list += src
 	if(mind)
 		GLOB.respawnable_list -= src
 	timeofdeath = null
@@ -60,13 +61,9 @@
 		update_blind_effects()
 		update_sight()
 		updatehealth("update revive")
+		hud_used?.reload_fullscreen()
 
-	for(var/s in ownedSoullinks)
-		var/datum/soullink/S = s
-		S.ownerRevives(src)
-	for(var/s in sharedSoullinks)
-		var/datum/soullink/S = s
-		S.sharerRevives(src)
+	SEND_SIGNAL(src, COMSIG_LIVING_REVIVE, updating)
 
 	if(mind)
 		for(var/S in mind.spell_list)

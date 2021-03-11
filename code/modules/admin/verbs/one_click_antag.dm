@@ -1,4 +1,4 @@
-client/proc/one_click_antag()
+/client/proc/one_click_antag()
 	set name = "Create Antagonist"
 	set desc = "Auto-create an antagonist of your choice"
 	set category = "Event"
@@ -137,7 +137,8 @@ client/proc/one_click_antag()
 	var/confirm = alert("Are you sure?", "Confirm creation", "Yes", "No")
 	if(confirm != "Yes")
 		return 0
-	var/list/candidates = pollCandidates("Do you wish to be considered for the position of a Wizard Foundation 'diplomat'?", "wizard")
+	var/image/I = new('icons/mob/simple_human.dmi', "wizard")
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for the position of a Wizard Foundation 'diplomat'?", "wizard", source = I)
 
 	log_admin("[key_name(owner)] tried making a Wizard with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making a Wizard with One-Click-Antag")
@@ -160,7 +161,7 @@ client/proc/one_click_antag()
 
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
-	var/antnum = input(owner, "How many cultists you want to create? Enter 0 to cancel.","Amount:", 0) as num
+	var/antnum = input(owner, "How many cultists do you want to create? Enter 0 to cancel.", "Amount:", 0) as num
 	if(!antnum || antnum <= 0) // 5 because cultist can really screw balance over if spawned in high amount.
 		return
 	log_admin("[key_name(owner)] tried making a Cult with One-Click-Antag")
@@ -170,21 +171,17 @@ client/proc/one_click_antag()
 		if(CandCheck(ROLE_CULTIST, applicant, temp))
 			candidates += applicant
 
-	if(candidates.len)
-		var/numCultists = min(candidates.len, antnum)
+	if(length(candidates))
+		var/numCultists = min(length(candidates), antnum)
 
-		for(var/i = 0, i<numCultists, i++)
+		for(var/I in 1 to numCultists)
 			H = pick(candidates)
+			to_chat(H, CULT_GREETING)
 			SSticker.mode.add_cultist(H.mind)
+			SSticker.mode.equip_cultist(H)
 			candidates.Remove(H)
-			if(!GLOB.summon_spots.len)
-				while(GLOB.summon_spots.len < SUMMON_POSSIBILITIES)
-					var/area/summon = pick(return_sorted_areas() - GLOB.summon_spots)
-					if(summon && is_station_level(summon.z) && summon.valid_territory)
-						GLOB.summon_spots += summon
-
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 
@@ -241,7 +238,7 @@ client/proc/one_click_antag()
 		var/obj/effect/landmark/nuke_spawn = locate("landmark*Nuclear-Bomb")
 		var/obj/effect/landmark/closet_spawn = locate("landmark*Nuclear-Closet")
 
-		var/nuke_code = "[rand(10000, 99999)]"
+		var/nuke_code = rand(10000, 99999)
 
 		if(nuke_spawn)
 			var/obj/item/paper/P = new
@@ -267,7 +264,7 @@ client/proc/one_click_antag()
 							var/I = image('icons/mob/mob.dmi', loc = synd_mind_1.current, icon_state = "synd")
 							synd_mind.current.client.images += I
 
-		for(var/obj/machinery/nuclearbomb/bomb in world)
+		for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
 			bomb.r_code = nuke_code						// All the nukes are set to this code.
 	return 1
 
@@ -285,18 +282,14 @@ client/proc/one_click_antag()
 	return 1
 
 /datum/admins/proc/makeAliens()
-	var/datum/event/alien_infestation/E = new /datum/event/alien_infestation
-
 	var/antnum = input(owner, "How many aliens you want to create? Enter 0 to cancel.","Amount:", 0) as num
 	if(!antnum || antnum <= 0)
 		return
+	var/datum/event/alien_infestation/E = new /datum/event/alien_infestation
+	E.spawncount = antnum
 	log_admin("[key_name(owner)] tried making Aliens with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making Aliens with One-Click-Antag")
 
-	E.spawncount = antnum
-	// TODO The fact we have to do this rather than just have events start
-	// when we ask them to, is bad.
-	E.processing = TRUE
 	return TRUE
 
 /*
@@ -455,7 +448,8 @@ client/proc/one_click_antag()
 	if(candidates.len)
 		var/raiders = min(antnum, candidates.len)
 		//Spawns vox raiders and equips them.
-		for(var/obj/effect/landmark/L in world)
+		for(var/thing in GLOB.landmarks_list)
+			var/obj/effect/landmark/L = thing
 			if(L.name == "voxstart")
 				if(raiders<=0)
 					break
@@ -583,7 +577,8 @@ client/proc/one_click_antag()
 		var/teamOneMembers = 5
 		var/teamTwoMembers = 5
 		var/datum/preferences/A = new()
-		for(var/obj/effect/landmark/L in world)
+		for(var/thing in GLOB.landmarks_list)
+			var/obj/effect/landmark/L = thing
 			if(L.name == "tdome1")
 				if(teamOneMembers<=0)
 					break

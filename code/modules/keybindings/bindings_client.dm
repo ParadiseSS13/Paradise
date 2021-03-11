@@ -43,7 +43,7 @@
 	keys_held[_key] = world.time
 
 	var/movement = SSinput.movement_keys[_key]
-	if (prefs.toggles & AZERTY) movement = SSinput.alt_movement_keys[_key]
+	if (prefs.toggles & PREFTOGGLE_AZERTY) movement = SSinput.alt_movement_keys[_key]
 	if(!(next_move_dir_sub & movement) && !keys_held["Ctrl"])
 		next_move_dir_add |= movement
 
@@ -81,7 +81,7 @@
 
 	keys_held -= _key
 	var/movement = SSinput.movement_keys[_key]
-	if (prefs.toggles & AZERTY) movement = SSinput.alt_movement_keys[_key]
+	if (prefs.toggles & PREFTOGGLE_AZERTY) movement = SSinput.alt_movement_keys[_key]
 	if(!(next_move_dir_add & movement))
 		next_move_dir_sub |= movement
 

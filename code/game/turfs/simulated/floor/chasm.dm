@@ -97,8 +97,8 @@
 		return FALSE
 	//Flies right over the chasm
 	if(isliving(AM))
-		var/mob/M = AM
-		if(M.flying)
+		var/mob/living/M = AM
+		if(M.flying || M.floating)
 			return FALSE
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
@@ -131,10 +131,6 @@
 	drop_x = x
 	drop_y = y
 	drop_z = z - 1
-	var/turf/T = locate(drop_x, drop_y, drop_z)
-	if(T)
-		T.visible_message("<span class='boldwarning'>The ceiling gives way!</span>")
-		playsound(T, 'sound/effects/break_stone.ogg', 50, 1)
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface
 	oxygen = 14

@@ -44,7 +44,7 @@
 
 	// update the invisibility and icon
 /obj/machinery/magnetic_module/hide(intact)
-	invisibility = intact ? 101 : 0
+	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
 	updateicon()
 
 	// update the icon_state
@@ -181,7 +181,7 @@
 	anchored = 1.0
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 45
-	var/frequency = AIRLOCK_FREQ
+	frequency = AIRLOCK_FREQ
 	var/code = 0
 	var/list/magnets = list()
 	var/title = "Magnetic Control Console"
@@ -195,14 +195,12 @@
 	var/moving = 0 // 1 if scheduled to loop
 	var/looping = 0 // 1 if looping
 
-	var/datum/radio_frequency/radio_connection
-
 
 /obj/machinery/magnetic_controller/New()
 	..()
 
 	if(autolink)
-		for(var/obj/machinery/magnetic_module/M in world)
+		for(var/obj/machinery/magnetic_module/M in GLOB.machines)
 			if(M.freq == frequency && M.code == code)
 				magnets.Add(M)
 
@@ -224,7 +222,7 @@
 
 /obj/machinery/magnetic_controller/process()
 	if(magnets.len == 0 && autolink)
-		for(var/obj/machinery/magnetic_module/M in world)
+		for(var/obj/machinery/magnetic_module/M in GLOB.machines)
 			if(M.freq == frequency && M.code == code)
 				magnets.Add(M)
 

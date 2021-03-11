@@ -14,13 +14,10 @@
 
 	health = maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute
 
-	//TODO: fix husking
-	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD) && stat == DEAD)
-		ChangeToHusk()
+	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD * 2) && stat == DEAD)
+		become_husk(BURN)
 	update_stat("updatehealth([reason])")
 	med_hud_set_health()
-	med_hud_set_status()
-	handle_hud_icons_health()
 
 /mob/living/carbon/human/adjustBrainLoss(amount, updating = TRUE, use_brain_mod = TRUE)
 	if(status_flags & GODMODE)
@@ -32,7 +29,7 @@
 			if(dna.species && amount > 0)
 				if(use_brain_mod)
 					amount = amount * dna.species.brain_mod
-			sponge.damage = Clamp(sponge.damage + amount, 0, 120)
+			sponge.damage = clamp(sponge.damage + amount, 0, 120)
 			if(sponge.damage >= 120)
 				visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
 				death()
@@ -50,7 +47,7 @@
 			if(dna.species && amount > 0)
 				if(use_brain_mod)
 					amount = amount * dna.species.brain_mod
-			sponge.damage = Clamp(amount, 0, 120)
+			sponge.damage = clamp(amount, 0, 120)
 			if(sponge.damage >= 120)
 				visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
 				death()
@@ -131,13 +128,6 @@
 			O.heal_damage(0, -amount, internal = 0, robo_repair = O.is_robotic(), updating_health = updating_health)
 	return STATUS_UPDATE_HEALTH
 
-
-/mob/living/carbon/human/Paralyse(amount)
-	// Notify our AI if they can now control the suit.
-	if(wearing_rig && !stat && paralysis < amount) //We are passing out right this second.
-		wearing_rig.notify_ai("<span class='danger'>Warning: user consciousness failure. Mobility control passed to integrated intelligence system.</span>")
-	return ..()
-
 /mob/living/carbon/human/adjustCloneLoss(amount)
 	if(dna.species && amount > 0)
 		amount = amount * dna.species.clone_mod
@@ -179,17 +169,11 @@
 
 // Defined here solely to take species flags into account without having to recast at mob/living level.
 /mob/living/carbon/human/adjustOxyLoss(amount)
-	if(NO_BREATHE in dna.species.species_traits)
-		oxyloss = 0
-		return FALSE
 	if(dna.species && amount > 0)
 		amount = amount * dna.species.oxy_mod
 	. = ..()
 
 /mob/living/carbon/human/setOxyLoss(amount)
-	if(NO_BREATHE in dna.species.species_traits)
-		oxyloss = 0
-		return FALSE
 	if(dna.species && amount > 0)
 		amount = amount * dna.species.oxy_mod
 	. = ..()
@@ -338,13 +322,5 @@ This function restores all organs.
 
 	return bodyparts_by_name[zone]
 
-/mob/living/carbon/human/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, sharp = 0, obj/used_weapon = null)
-	//Handle other types of damage
-	if((damagetype != BRUTE) && (damagetype != BURN))
-		..(damage, damagetype, def_zone, blocked)
-		return 1
-
-	//Handle BRUTE and BURN damage
-	handle_suit_punctures(damagetype, damage)
-	//Handle species apply_damage procs
-	return dna.species.apply_damage(damage, damagetype, def_zone, blocked, src, sharp, used_weapon)
+/mob/living/carbon/human/apply_damage(damage = 0, damagetype = BRUTE, def_zone, blocked = 0, sharp = FALSE, obj/used_weapon, spread_damage = FALSE)
+	return dna.species.apply_damage(damage, damagetype, def_zone, blocked, src, sharp, used_weapon, spread_damage)

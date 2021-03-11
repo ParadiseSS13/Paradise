@@ -7,19 +7,31 @@
 	msg = sanitize(copytext(msg, 1, MAX_MESSAGE_LEN))
 	if(!msg)	return
 
+	var/datum/asays/asay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)
+	GLOB.asays += asay
 	log_adminsay(msg, src)
 
 	if(check_rights(R_ADMIN,0))
 		for(var/client/C in GLOB.admins)
 			if(R_ADMIN & C.holder.rights)
+				// Lets see if this admin was pinged in the asay message
+				if(findtext(msg, "@[C.ckey]") || findtext(msg, "@[C.key]")) // Check ckey and key, so you can type @AffectedArc07 or @affectedarc07
+					SEND_SOUND(C, sound('sound/misc/ping.ogg'))
+					msg = replacetext(msg, "@[C.ckey]", "<font color='red'>@[C.ckey]</font>")
+					msg = replacetext(msg, "@[C.key]", "<font color='red'>@[C.key]</font>") // Same applies here. key and ckey.
+
 				msg = "<span class='emoji_enabled'>[msg]</span>"
 				to_chat(C, "<span class='admin_channel'>ADMIN: <span class='name'>[key_name(usr, 1)]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>")
 
-	feedback_add_details("admin_verb","M") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Asay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/get_admin_say()
-	var/msg = input(src, null, "asay \"text\"") as text|null
-	cmd_admin_say(msg)
+	if(check_rights(R_ADMIN, FALSE))
+		var/msg = input(src, null, "asay \"text\"") as text|null
+		cmd_admin_say(msg)
+	else if(check_rights(R_MENTOR))
+		var/msg = input(src, null, "msay \"text\"") as text|null
+		cmd_mentor_say(msg)
 
 /client/proc/cmd_mentor_say(msg as text)
 	set category = "Admin"
@@ -46,7 +58,7 @@
 			msg = "<span class='emoji_enabled'>[msg]</span>"
 			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "mentor_channel_admin" : "mentor_channel"]'>MENTOR: <span class='name'>[display_name]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>")
 
-	feedback_add_details("admin_verb","MS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Msay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/toggle_mentor_chat()
 	set category = "Server"
@@ -78,5 +90,5 @@
 			C.verbs -= msay
 			to_chat(C, "<b>Mentor chat has been disabled.</b>")
 
-	admin_log_and_message_admins("toggled mentor chat [enabling ? "on" : "off"].")
-	feedback_add_details("admin_verb", "TMC")
+	log_and_message_admins("toggled mentor chat [enabling ? "on" : "off"].")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Msay")

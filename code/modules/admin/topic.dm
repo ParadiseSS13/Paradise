@@ -14,10 +14,10 @@
 		if(!check_rights(R_ADMIN|R_MOD))
 			return
 		var/client/C = locateUID(href_list["rejectadminhelp"])
-		if(!C)
+		if(!isclient(C))
 			return
 
-		C << 'sound/effects/adminhelp.ogg'
+		SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
 
 		to_chat(C, "<font color='red' size='4'><b>- AdminHelp Rejected! -</b></font>")
 		to_chat(C, "<font color='red'><b>Your admin help was rejected.</b></font>")
@@ -26,17 +26,16 @@
 		message_admins("[key_name_admin(usr)] rejected [key_name_admin(C.mob)]'s admin help")
 		log_admin("[key_name(usr)] rejected [key_name(C.mob)]'s admin help")
 
-	if(href_list["openadminticket"])
-		if(!check_rights(R_ADMIN))
-			return
-		var/ticketID = text2num(href_list["openadminticket"])
-		SStickets.showDetailUI(usr, ticketID)
-
-	if(href_list["openmentorticket"])
-		if(!check_rights(R_MENTOR|R_MOD|R_ADMIN))
-			return
-		var/ticketID = text2num(href_list["openmentorticket"])
-		SSmentor_tickets.showDetailUI(usr, ticketID)
+	if(href_list["openticket"])
+		var/ticketID = text2num(href_list["openticket"])
+		if(!href_list["is_mhelp"])
+			if(!check_rights(R_ADMIN))
+				return
+			SStickets.showDetailUI(usr, ticketID)
+		else
+			if(!check_rights(R_MENTOR|R_MOD|R_ADMIN))
+				return
+			SSmentor_tickets.showDetailUI(usr, ticketID)
 
 	if(href_list["stickyban"])
 		stickyban(href_list["stickyban"],href_list)
@@ -109,54 +108,60 @@
 		var/banjob = href_list["dbbanaddjob"]
 		var/banreason = href_list["dbbanreason"]
 
+		var/job_ban = FALSE
+		var/multi_job = FALSE
+		var/list/jobs_to_ban = list()
+
 		banckey = ckey(banckey)
 
 		switch(bantype)
 			if(BANTYPE_PERMA)
 				if(!banckey || !banreason)
-					to_chat(usr, "Not enough parameters (Requires ckey and reason)")
+					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey and reason)</span>")
 					return
 				banduration = null
 				banjob = null
 			if(BANTYPE_TEMP)
 				if(!banckey || !banreason || !banduration)
-					to_chat(usr, "Not enough parameters (Requires ckey, reason and duration)")
+					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey, reason and duration)</span>")
 					return
 				banjob = null
 			if(BANTYPE_JOB_PERMA)
 				if(!banckey || !banreason || !banjob)
-					to_chat(usr, "Not enough parameters (Requires ckey, reason and job)")
+					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey, reason and job)</span>")
 					return
 				banduration = null
+				job_ban = TRUE
 			if(BANTYPE_JOB_TEMP)
 				if(!banckey || !banreason || !banjob || !banduration)
-					to_chat(usr, "Not enough parameters (Requires ckey, reason and job)")
+					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey, reason and job)</span>")
 					return
+				job_ban = TRUE
 			if(BANTYPE_APPEARANCE)
 				if(!banckey || !banreason)
-					to_chat(usr, "Not enough parameters (Requires ckey and reason)")
+					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey and reason)</span>")
 					return
 				banduration = null
 				banjob = null
 			if(BANTYPE_ADMIN_PERMA)
 				if(!banckey || !banreason)
-					to_chat(usr, "Not enough parameters (Requires ckey and reason)")
+					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey and reason)</span>")
 					return
 				banduration = null
 				banjob = null
 			if(BANTYPE_ADMIN_TEMP)
 				if(!banckey || !banreason || !banduration)
-					to_chat(usr, "Not enough parameters (Requires ckey, reason and duration)")
+					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey, reason and duration)</span>")
 					return
 				banjob = null
 
 		var/mob/playermob
 
-		for(var/mob/M in GLOB.player_list)
-			if(M.ckey == banckey)
-				playermob = M
-				break
-
+		if("autopopulate" in href_list)
+			for(var/mob/M in GLOB.player_list)
+				if(M.ckey == banckey)
+					playermob = M
+					break
 
 		banreason = "(MANUAL BAN) "+banreason
 
@@ -168,7 +173,68 @@
 		else
 			message_admins("Ban process: A mob matching [playermob.ckey] was found at location [playermob.x], [playermob.y], [playermob.z]. Custom IP and computer id fields replaced with the IP and computer id from the located mob")
 
-		DB_ban_record(bantype, playermob, banduration, banreason, banjob, null, banckey, banip, bancid )
+		if(job_ban)
+			if(banjob in list("commanddept","securitydept","engineeringdept","medicaldept","sciencedept","supportdept","nonhumandept"))
+				multi_job = TRUE
+				switch(banjob)
+					if("commanddept")
+						for(var/jobPos in GLOB.command_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("securitydept")
+						for(var/jobPos in GLOB.security_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("engineeringdept")
+						for(var/jobPos in GLOB.engineering_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("medicaldept")
+						for(var/jobPos in GLOB.medical_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("sciencedept")
+						for(var/jobPos in GLOB.science_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("supportdept")
+						for(var/jobPos in GLOB.support_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+					if("nonhumandept")
+						jobs_to_ban += "pAI"
+						for(var/jobPos in GLOB.nonhuman_positions)
+							if(!jobPos)	continue
+							var/datum/job/temp = SSjobs.GetJob(jobPos)
+							if(!temp) continue
+							jobs_to_ban += temp.title
+
+		// If the job ban is for multiple jobs in one group (IE: Command), iterate through jobs and ban each individually
+		if(multi_job)
+			//Create a list of unbanned jobs within joblist
+			var/list/notbannedlist = list()
+			for(var/job in jobs_to_ban)
+				if(!jobban_isbanned_ckey(banckey, job))
+					notbannedlist += job
+
+			for(var/job in notbannedlist)
+				DB_ban_record(bantype, playermob, banduration, banreason, job, null, banckey, banip, bancid)
+
+		// Otherwise, do it normally
+		else
+			DB_ban_record(bantype, playermob, banduration, banreason, banjob, null, banckey, banip, bancid)
 
 
 	else if(href_list["editrights"])
@@ -318,14 +384,16 @@
 		SSticker.delay_end = !SSticker.delay_end
 		log_admin("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
 		message_admins("<span class='notice'>[key_name_admin(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].</span>", 1)
+		if(SSticker.delay_end)
+			SSticker.real_reboot_time = 0 // If they set this at round end, show the "Reboot was cancelled by an admin" message instantly
 		href_list["secretsadmin"] = "check_antagonist"
 
 	else if(href_list["simplemake"])
 		if(!check_rights(R_SPAWN))	return
 
 		var/mob/M = locateUID(href_list["mob"])
-		if(!ismob(M))
-			to_chat(usr, "This can only be used on instances of type /mob")
+		if(!istype(M, /mob))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
 		var/delmob = 0
@@ -427,7 +495,6 @@
 		to_chat(GLOB.banlist_savefile["minutes"], minutes)
 		to_chat(GLOB.banlist_savefile["bannedby"], usr.ckey)
 		GLOB.banlist_savefile.cd = "/base"
-		feedback_inc("ban_edit",1)
 		unbanpanel()
 
 	/////////////////////////////////////new ban stuff
@@ -436,29 +503,28 @@
 		if(!check_rights(R_BAN))
 			return
 		var/mob/M = locateUID(href_list["appearanceban"])
-		if(!ismob(M))
-			to_chat(usr, "This can only be used on instances of type /mob")
+		if(!istype(M, /mob))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 		if(!M.ckey)	//sanity
-			to_chat(usr, "This mob has no ckey")
+			to_chat(usr, "<span class='warning'>This mob has no ckey</span>")
 			return
 		var/ban_ckey_param = href_list["dbbanaddckey"]
 
 		var/banreason = appearance_isbanned(M)
 		if(banreason)
 	/*		if(!config.ban_legacy_system)
-				to_chat(usr, "Unfortunately, database based unbanning cannot be done through this panel")
+				to_chat(usr, "<span class='warning'>Unfortunately, database based unbanning cannot be done through this panel</span>")
 				DB_ban_panel(M.ckey)
 				return	*/
 			switch(alert("Reason: '[banreason]' Remove appearance ban?","Please Confirm","Yes","No"))
 				if("Yes")
 					ban_unban_log_save("[key_name(usr)] removed [key_name(M)]'s appearance ban")
 					log_admin("[key_name(usr)] removed [key_name(M)]'s appearance ban")
-					feedback_inc("ban_appearance_unban", 1)
 					DB_ban_unban(M.ckey, BANTYPE_APPEARANCE)
 					appearance_unban(M)
 					message_admins("<span class='notice'>[key_name_admin(usr)] removed [key_name_admin(M)]'s appearance ban</span>", 1)
-					to_chat(M, "<span class='warning'><BIG><B>[usr.client.ckey] has removed your appearance ban.</B></BIG></span>")
+					to_chat(M, "<span class='warning'><big><b>[usr.client.ckey] has removed your appearance ban.</b></big></span>")
 
 		else switch(alert("Appearance ban [M.ckey]?",,"Yes","No", "Cancel"))
 			if("Yes")
@@ -468,12 +534,11 @@
 				M = admin_ban_mobsearch(M, ban_ckey_param, usr)
 				ban_unban_log_save("[key_name(usr)] appearance banned [key_name(M)]. reason: [reason]")
 				log_admin("[key_name(usr)] appearance banned [key_name(M)]. \nReason: [reason]")
-				feedback_inc("ban_appearance",1)
 				DB_ban_record(BANTYPE_APPEARANCE, M, -1, reason)
 				appearance_fullban(M, "[reason]; By [usr.ckey] on [time2text(world.realtime)]")
 				add_note(M.ckey, "Appearance banned - [reason]", null, usr.ckey, 0)
 				message_admins("<span class='notice'>[key_name_admin(usr)] appearance banned [key_name_admin(M)]</span>", 1)
-				to_chat(M, "<span class='warning'><BIG><B>You have been appearance banned by [usr.client.ckey].</B></BIG></span>")
+				to_chat(M, "<span class='warning'><big><b>You have been appearance banned by [usr.client.ckey].</b></big></span>")
 				to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
 				to_chat(M, "<span class='warning'>Appearance ban can be lifted only upon request.</span>")
 				if(config.banappeals)
@@ -487,15 +552,15 @@
 //		if(!check_rights(R_BAN))	return
 
 		var/mob/M = locateUID(href_list["jobban2"])
-		if(!ismob(M))
-			to_chat(usr, "This can only be used on instances of type /mob")
+		if(!istype(M, /mob))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
 		if(!M.ckey)	//sanity
-			to_chat(usr, "This mob has no ckey")
+			to_chat(usr, "<span class='warning'>This mob has no ckey</span>")
 			return
 		if(!SSjobs)
-			to_chat(usr, "SSjobs has not been setup!")
+			to_chat(usr, "<span class='warning'>SSjobs has not been setup!</span>")
 			return
 
 		var/dat = ""
@@ -735,8 +800,8 @@
 		if(!check_rights(R_BAN))	return
 
 		var/mob/M = locateUID(href_list["jobban4"])
-		if(!ismob(M))
-			to_chat(usr, "This can only be used on instances of type /mob")
+		if(!istype(M, /mob))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
 		if(M != usr)																//we can jobban ourselves
@@ -747,7 +812,7 @@
 		var/ban_ckey_param = href_list["dbbanaddckey"]
 
 		if(!SSjobs)
-			to_chat(usr, "SSjobs has not been setup!")
+			to_chat(usr, "<span class='warning'>SSjobs has not been setup!</span>")
 			return
 
 		//get jobs for department if specified, otherwise just returnt he one job in a list.
@@ -830,9 +895,7 @@
 					for(var/job in notbannedlist)
 						ban_unban_log_save("[key_name(usr)] temp-jobbanned [key_name(M)] from [job] for [mins] minutes. reason: [reason]")
 						log_admin("[key_name(usr)] temp-jobbanned [key_name(M)] from [job] for [mins] minutes")
-						feedback_inc("ban_job_tmp",1)
 						DB_ban_record(BANTYPE_JOB_TEMP, M, mins, reason, job)
-						feedback_add_details("ban_job_tmp","- [job]")
 						jobban_fullban(M, job, "[reason]; By [usr.ckey] on [time2text(world.realtime)]") //Legacy banning does not support temporary jobbans.
 						if(!msg)
 							msg = job
@@ -840,7 +903,7 @@
 							msg += ", [job]"
 					add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
 					message_admins("<span class='notice'>[key_name_admin(usr)] banned [key_name_admin(M)] from [msg] for [mins] minutes</span>", 1)
-					to_chat(M, "<span class='warning'><BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG></span>")
+					to_chat(M, "<span class='warning'><big><b>You have been jobbanned by [usr.client.ckey] from: [msg].</b></big></span>")
 					to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
 					to_chat(M, "<span class='warning'>This jobban will be lifted in [mins] minutes.</span>")
 					href_list["jobban2"] = 1 // lets it fall through and refresh
@@ -853,15 +916,13 @@
 						for(var/job in notbannedlist)
 							ban_unban_log_save("[key_name(usr)] perma-jobbanned [key_name(M)] from [job]. reason: [reason]")
 							log_admin("[key_name(usr)] perma-banned [key_name(M)] from [job]")
-							feedback_inc("ban_job",1)
 							DB_ban_record(BANTYPE_JOB_PERMA, M, -1, reason, job)
-							feedback_add_details("ban_job","- [job]")
 							jobban_fullban(M, job, "[reason]; By [usr.ckey] on [time2text(world.realtime)]")
 							if(!msg)	msg = job
 							else		msg += ", [job]"
 						add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
 						message_admins("<span class='notice'>[key_name_admin(usr)] banned [key_name_admin(M)] from [msg]</span>", 1)
-						to_chat(M, "<span class='warning'><BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG></span>")
+						to_chat(M, "<span class='warning'><big><b>You have been jobbanned by [usr.client.ckey] from: [msg].</b></big></span>")
 						to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
 						to_chat(M, "<span class='warning'>Jobban can be lifted only upon request.</span>")
 						href_list["jobban2"] = 1 // lets it fall through and refresh
@@ -873,7 +934,7 @@
 		//all jobs in joblist are banned already OR we didn't give a reason (implying they shouldn't be banned)
 		if(joblist.len) //at least 1 banned job exists in joblist so we have stuff to unban.
 			if(!config.ban_legacy_system)
-				to_chat(usr, "Unfortunately, database based unbanning cannot be done through this panel")
+				to_chat(usr, "<span class='warning'>Unfortunately, database based unbanning cannot be done through this panel</span>")
 				DB_ban_panel(M.ckey)
 				return
 			var/msg
@@ -885,8 +946,6 @@
 						ban_unban_log_save("[key_name(usr)] unjobbanned [key_name(M)] from [job]")
 						log_admin("[key_name(usr)] unbanned [key_name(M)] from [job]")
 						DB_ban_unban(M.ckey, BANTYPE_JOB_PERMA, job)
-						feedback_inc("ban_job_unban",1)
-						feedback_add_details("ban_job_unban","- [job]")
 						jobban_unban(M, job)
 						if(!msg)	msg = job
 						else		msg += ", [job]"
@@ -894,22 +953,33 @@
 						continue
 			if(msg)
 				message_admins("<span class='notice'>[key_name_admin(usr)] unbanned [key_name_admin(M)] from [msg]</span>", 1)
-				to_chat(M, "<span class='warning'><BIG><B>You have been un-jobbanned by [usr.client.ckey] from [msg].</B></BIG></span>")
+				to_chat(M, "<span class='warning'><big><b>You have been un-jobbanned by [usr.client.ckey] from [msg].</b></big></span>")
 				href_list["jobban2"] = 1 // lets it fall through and refresh
 			return 1
 		return 0 //we didn't do anything!
 
 	else if(href_list["boot2"])
 		var/mob/M = locateUID(href_list["boot2"])
-		if(ismob(M))
-			if(M.client && M.client.holder && (M.client.holder.rights & R_BAN))
-				to_chat(usr, "<span class='warning'>[key_name_admin(M)] cannot be kicked from the server.</span>")
+		if(!ismob(M))
+			return
+		var/client/C = M.client
+		if(C == null)
+			to_chat(usr, "<span class='warning'>Mob has no client to kick.</span>")
+			return
+		if(alert("Kick [C.ckey]?",,"Yes","No") == "Yes")
+			if(C && C.holder && (C.holder.rights & R_BAN))
+				to_chat(usr, "<span class='warning'>[key_name_admin(C)] cannot be kicked from the server.</span>")
 				return
-			to_chat(M, "<span class='warning'>You have been kicked from the server</span>")
-			log_admin("[key_name(usr)] booted [key_name(M)].")
-			message_admins("<span class='notice'>[key_name_admin(usr)] booted [key_name_admin(M)].</span>", 1)
-			//M.client = null
-			del(M.client)
+			to_chat(C, "<span class='warning'>You have been kicked from the server</span>")
+			log_admin("[key_name(usr)] booted [key_name(C)].")
+			message_admins("<span class='notice'>[key_name_admin(usr)] booted [key_name_admin(C)].</span>", 1)
+			//C = null
+			qdel(C)
+
+	else if(href_list["open_logging_view"])
+		var/mob/M = locateUID(href_list["open_logging_view"])
+		if(ismob(M))
+			usr.client.open_logging_view(list(M), TRUE)
 
 	//Player Notes
 	else if(href_list["addnote"])
@@ -952,15 +1022,17 @@
 		show_note(index = target)
 
 	else if(href_list["noteedits"])
-		var/note_id = sanitizeSQL("[href_list["noteedits"]]")
-		var/DBQuery/query_noteedits = GLOB.dbcon.NewQuery("SELECT edits FROM [format_table_name("notes")] WHERE id = '[note_id]'")
-		if(!query_noteedits.Execute())
-			var/err = query_noteedits.ErrorMsg()
-			log_game("SQL ERROR obtaining edits from notes table. Error : \[[err]\]\n")
+		var/note_id = text2num(href_list["noteedits"])
+		var/datum/db_query/query_noteedits = SSdbcore.NewQuery("SELECT edits FROM [format_table_name("notes")] WHERE id=:note_id", list(
+			"note_id" = note_id
+		))
+		if(!query_noteedits.warn_execute())
+			qdel(query_noteedits)
 			return
 		if(query_noteedits.NextRow())
 			var/edit_log = query_noteedits.item[1]
 			usr << browse(edit_log,"window=noteedits")
+		qdel(query_noteedits)
 
 	else if(href_list["removejobban"])
 		if(!check_rights(R_BAN))	return
@@ -981,7 +1053,7 @@
 		if(!check_rights(R_BAN))	return
 
 		var/mob/M = locateUID(href_list["newban"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			return
 		var/ban_ckey_param = href_list["dbbanaddckey"]
 
@@ -997,11 +1069,9 @@
 				M = admin_ban_mobsearch(M, ban_ckey_param, usr)
 				AddBan(M.ckey, M.computer_id, reason, usr.ckey, 1, mins)
 				ban_unban_log_save("[usr.client.ckey] has banned [M.ckey]. - Reason: [reason] - This will be removed in [mins] minutes.")
-				to_chat(M, "<span class='warning'><BIG><B>You have been banned by [usr.client.ckey].\nReason: [reason].</B></BIG></span>")
+				to_chat(M, "<span class='warning'><big><b>You have been banned by [usr.client.ckey].\nReason: [reason].</b></big></span>")
 				to_chat(M, "<span class='warning'>This is a temporary ban, it will be removed in [mins] minutes.</span>")
-				feedback_inc("ban_tmp",1)
 				DB_ban_record(BANTYPE_TEMP, M, mins, reason)
-				feedback_inc("ban_tmp_mins",mins)
 				if(M.client)
 					M.client.link_forum_account(TRUE)
 				if(config.banappeals)
@@ -1011,14 +1081,13 @@
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
 				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.</span>")
 
-				del(M.client)
-				//qdel(M)	// See no reason why to delete mob. Important stuff can be lost. And ban can be lifted before round ends.
+				qdel(M.client)
 			if("No")
 				var/reason = input(usr,"Please state the reason","Reason") as message|null
 				if(!reason)
 					return
 				AddBan(M.ckey, M.computer_id, reason, usr.ckey, 0, 0, M.lastKnownIP)
-				to_chat(M, "<span class='warning'><BIG><B>You have been banned by [usr.client.ckey].\nReason: [reason].</B></BIG></span>")
+				to_chat(M, "<span class='warning'><big><b>You have been banned by [usr.client.ckey].\nReason: [reason].</b></big></span>")
 				to_chat(M, "<span class='warning'>This ban does not expire automatically and must be appealed.</span>")
 				if(M.client)
 					M.client.link_forum_account(TRUE)
@@ -1029,11 +1098,9 @@
 				ban_unban_log_save("[usr.client.ckey] has permabanned [M.ckey]. - Reason: [reason] - This ban does not expire automatically and must be appealed.")
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.")
 				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.</span>")
-				feedback_inc("ban_perma",1)
 				DB_ban_record(BANTYPE_PERMA, M, -1, reason)
 
-				del(M.client)
-				//qdel(M)
+				qdel(M.client)
 			if("Cancel")
 				return
 
@@ -1072,22 +1139,24 @@
 		usr.client.watchlist_show()
 
 	else if(href_list["watcheditlog"])
-		var/target_ckey = sanitizeSQL("[href_list["watcheditlog"]]")
-		var/DBQuery/query_watchedits = GLOB.dbcon.NewQuery("SELECT edits FROM [format_table_name("watch")] WHERE ckey = '[target_ckey]'")
-		if(!query_watchedits.Execute())
-			var/err = query_watchedits.ErrorMsg()
-			log_game("SQL ERROR obtaining edits from watch table. Error : \[[err]\]\n")
+		var/target_ckey = href_list["watcheditlog"]
+		var/datum/db_query/query_watchedits = SSdbcore.NewQuery("SELECT edits FROM [format_table_name("watch")] WHERE ckey=:targetkey", list(
+			"targetkey" = target_ckey
+		))
+		if(!query_watchedits.warn_execute())
+			qdel(query_watchedits)
 			return
 		if(query_watchedits.NextRow())
 			var/edit_log = query_watchedits.item[1]
 			usr << browse(edit_log,"window=watchedits")
+		qdel(query_watchedits)
 
 	else if(href_list["mute"])
 		if(!check_rights(R_ADMIN|R_MOD))
 			return
 
 		var/mob/M = locateUID(href_list["mute"])
-		if(!ismob(M))	return
+		if(!istype(M, /mob))	return
 		if(!M.client)	return
 
 		var/mute_type = href_list["mute_type"]
@@ -1101,7 +1170,7 @@
 
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
-		var/dat = {"<B>What mode do you wish to play?</B><HR>"}
+		var/dat = {"<b>What mode do you wish to play?</b><hr>"}
 		for(var/mode in config.modes)
 			dat += {"<A href='?src=[UID()];c_mode2=[mode]'>[config.mode_names[mode]]</A><br>"}
 		dat += {"<A href='?src=[UID()];c_mode2=secret'>Secret</A><br>"}
@@ -1116,7 +1185,7 @@
 			return alert(usr, "The game has already started.", null, null, null, null)
 		if(GLOB.master_mode != "secret")
 			return alert(usr, "The game mode has to be secret!", null, null, null, null)
-		var/dat = {"<B>What game mode do you want to force secret to be? Use this if you want to change the game mode, but want the players to believe it's secret. This will only work if the current game mode is secret.</B><HR>"}
+		var/dat = {"<b>What game mode do you want to force secret to be? Use this if you want to change the game mode, but want the players to believe it's secret. This will only work if the current game mode is secret.</b><hr>"}
 		for(var/mode in config.modes)
 			dat += {"<A href='?src=[UID()];f_secret2=[mode]'>[config.mode_names[mode]]</A><br>"}
 		dat += {"<A href='?src=[UID()];f_secret2=secret'>Random (default)</A><br>"}
@@ -1154,7 +1223,7 @@
 
 		var/mob/living/carbon/human/H = locateUID(href_list["monkeyone"])
 		if(!istype(H))
-			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 		if(alert(usr, "Confirm make monkey?",, "Yes", "No") != "Yes")
 			return
@@ -1169,7 +1238,7 @@
 
 		var/mob/living/carbon/human/H = locateUID(href_list["corgione"])
 		if(!istype(H))
-			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 
 		if(alert(usr, "Confirm make corgi?",, "Yes", "No") != "Yes")
@@ -1184,7 +1253,7 @@
 
 		var/mob/living/carbon/human/H = locateUID(href_list["makePAI"])
 		if(!istype(H))
-			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 		if(alert(usr, "Confirm make pai?",, "Yes", "No") != "Yes")
 			return
@@ -1207,8 +1276,9 @@
 		if(!check_rights(R_SERVER|R_EVENT))	return
 
 		var/mob/M = locateUID(href_list["forcespeech"])
-		if(!ismob(M))
-			to_chat(usr, "this can only be used on instances of type /mob")
+		if(!istype(M, /mob))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
+			return
 
 		var/speech = input("What will [key_name(M)] say?.", "Force speech", "")// Don't need to sanitize, since it does that in say(), we also trust our admins.
 		if(!speech)	return
@@ -1224,11 +1294,11 @@
 			return
 
 		var/mob/M = locateUID(href_list["sendtoprison"])
-		if(!ismob(M))
-			to_chat(usr, "This can only be used on instances of type /mob")
+		if(!istype(M, /mob))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 		if(istype(M, /mob/living/silicon/ai))
-			to_chat(usr, "This cannot be used on instances of type /mob/living/silicon/ai")
+			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
 		var/turf/prison_cell = pick(GLOB.prisonwarp)
@@ -1287,6 +1357,71 @@
 		NP.ckey = M.ckey
 		qdel(M)
 
+	else if(href_list["eraseflavortext"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["eraseflavortext"])
+
+		if(!istype(M, /mob))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
+			return
+
+		if(!M.client)
+			to_chat(usr, "<span class='warning'>[M] doesn't seem to have an active client.</span>")
+			return
+
+		if(M.flavor_text == "" && M.client.prefs.flavor_text == "")
+			to_chat(usr, "<span class='warning'>[M] has no flavor text set.</span>")
+			return
+
+		if(alert(usr, "Erase [key_name(M)]'s flavor text?", "Message", "Yes", "No") != "Yes")
+			return
+
+		log_admin("[key_name(usr)] has erased [key_name(M)]'s flavor text.")
+		message_admins("[key_name_admin(usr)] has erased [key_name_admin(M)]'s flavor text.")
+
+		// Clears the mob's flavor text
+		M.flavor_text = ""
+
+		// Clear and save the DB character's flavor text
+		M.client.prefs.flavor_text = ""
+		M.client.prefs.save_character(M.client)
+
+	else if(href_list["userandomname"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["userandomname"])
+
+		if(!istype(M, /mob))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
+			return
+
+		if(!M.client)
+			to_chat(usr, "<span class='warning'>[M] doesn't seem to have an active client.</span>")
+			return
+
+		if(alert(usr, "Force [key_name(M)] to use a random name?", "Message", "Yes", "No") != "Yes")
+			return
+
+		log_admin("[key_name(usr)] has forced [key_name(M)] to use a random name.")
+		message_admins("[key_name_admin(usr)] has forced [key_name_admin(M)] to use a random name.")
+
+		// Update the mob's name with a random one straight away
+		var/random_name = random_name(M.client.prefs.gender, M.client.prefs.species)
+		M.rename_character(M.real_name, random_name)
+
+		// Save that random name for next rounds
+		M.client.prefs.real_name = random_name
+		M.client.prefs.save_character(M.client)
+
+	else if(href_list["asays"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		usr.client.view_asays()
+
 	else if(href_list["tdome1"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
 
@@ -1294,11 +1429,11 @@
 			return
 
 		var/mob/M = locateUID(href_list["tdome1"])
-		if(!ismob(M))
-			to_chat(usr, "This can only be used on instances of type /mob")
+		if(!istype(M, /mob))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 		if(istype(M, /mob/living/silicon/ai))
-			to_chat(usr, "This cannot be used on instances of type /mob/living/silicon/ai")
+			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
 		for(var/obj/item/I in M)
@@ -1324,11 +1459,11 @@
 			return
 
 		var/mob/M = locateUID(href_list["tdome2"])
-		if(!ismob(M))
-			to_chat(usr, "This can only be used on instances of type /mob")
+		if(!istype(M, /mob))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 		if(istype(M, /mob/living/silicon/ai))
-			to_chat(usr, "This cannot be used on instances of type /mob/living/silicon/ai")
+			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
 		for(var/obj/item/I in M)
@@ -1354,11 +1489,11 @@
 			return
 
 		var/mob/M = locateUID(href_list["tdomeadmin"])
-		if(!ismob(M))
-			to_chat(usr, "This can only be used on instances of type /mob")
+		if(!istype(M, /mob))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 		if(istype(M, /mob/living/silicon/ai))
-			to_chat(usr, "This cannot be used on instances of type /mob/living/silicon/ai")
+			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
 		M.Paralyse(5)
@@ -1376,11 +1511,11 @@
 			return
 
 		var/mob/M = locateUID(href_list["tdomeobserve"])
-		if(!ismob(M))
-			to_chat(usr, "This can only be used on instances of type /mob")
+		if(!istype(M, /mob))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 		if(istype(M, /mob/living/silicon/ai))
-			to_chat(usr, "This cannot be used on instances of type /mob/living/silicon/ai")
+			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
 		for(var/obj/item/I in M)
@@ -1403,6 +1538,77 @@
 		log_admin("[key_name(usr)] has sent [key_name(M)] to the thunderdome. (Observer.)")
 		message_admins("[key_name_admin(usr)] has sent [key_name_admin(M)] to the thunderdome. (Observer.)", 1)
 
+	else if(href_list["contractor_stop"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["contractor_stop"])
+		if(!istype(M))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob.</span>")
+			return
+
+		var/datum/syndicate_contract/contract = LAZYACCESS(GLOB.prisoner_belongings.prisoners, M)
+		if(!contract)
+			to_chat(usr, "<span class='warning'>[M] is currently not imprisoned by the Syndicate.</span>")
+			return
+		if(!contract.prisoner_timer_handle)
+			to_chat(usr, "<span class='warning'>[M] is already NOT scheduled to return from the Syndicate Jail.</span>")
+			return
+
+		deltimer(contract.prisoner_timer_handle)
+		contract.prisoner_timer_handle = null
+		to_chat(usr, "Stopped automatic return of [M] from the Syndicate Jail.")
+		message_admins("[key_name_admin(usr)] has stopped the automatic return of [key_name_admin(M)] from the Syndicate Jail")
+		log_admin("[key_name(usr)] has stopped the automatic return of [key_name(M)] from the Syndicate Jail")
+
+	else if(href_list["contractor_start"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["contractor_start"])
+		if(!istype(M))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob.</span>")
+			return
+
+		var/datum/syndicate_contract/contract = LAZYACCESS(GLOB.prisoner_belongings.prisoners, M)
+		if(!contract)
+			to_chat(usr, "<span class='warning'>[M] is currently not imprisoned by the Syndicate.</span>")
+			return
+		if(contract.prisoner_timer_handle)
+			to_chat(usr, "<span class='warning'>[M] is already scheduled to return from the Syndicate Jail.</span>")
+			return
+
+		var/time_seconds = input(usr, "Enter the jail time in seconds:", "Start Syndicate Jail Timer") as num|null
+		time_seconds = text2num(time_seconds)
+		if(time_seconds < 0)
+			return
+
+		contract.prisoner_timer_handle = addtimer(CALLBACK(contract, /datum/syndicate_contract.proc/handle_target_return, M), time_seconds * 10, TIMER_STOPPABLE)
+		to_chat(usr, "Started automatic return of [M] from the Syndicate Jail in [time_seconds] second\s.")
+		message_admins("[key_name_admin(usr)] has started the automatic return of [key_name_admin(M)] from the Syndicate Jail in [time_seconds] second\s")
+		log_admin("[key_name(usr)] has started the automatic return of [key_name(M)] from the Syndicate Jail in [time_seconds] second\s")
+
+	else if(href_list["contractor_release"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["contractor_release"])
+		if(!istype(M))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob.</span>")
+			return
+
+		var/datum/syndicate_contract/contract = LAZYACCESS(GLOB.prisoner_belongings.prisoners, M)
+		if(!contract)
+			to_chat(usr, "<span class='warning'>[M] is currently not imprisoned by the Syndicate.</span>")
+			return
+
+		deltimer(contract.prisoner_timer_handle)
+		contract.handle_target_return(M)
+		to_chat(usr, "Immediately returned [M] from the Syndicate Jail.")
+		message_admins("[key_name_admin(usr)] has immediately returned [key_name_admin(M)] from the Syndicate Jail")
+		log_admin("[key_name(usr)] has immediately returned [key_name(M)] from the Syndicate Jail")
+
+
 	else if(href_list["aroomwarp"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
 
@@ -1410,11 +1616,11 @@
 			return
 
 		var/mob/M = locateUID(href_list["aroomwarp"])
-		if(!ismob(M))
-			to_chat(usr, "This can only be used on instances of type /mob")
+		if(!istype(M, /mob))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 		if(istype(M, /mob/living/silicon/ai))
-			to_chat(usr, "This cannot be used on instances of type /mob/living/silicon/ai")
+			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
 		M.Paralyse(5)
@@ -1431,7 +1637,7 @@
 
 		var/mob/living/L = locateUID(href_list["revive"])
 		if(!istype(L))
-			to_chat(usr, "This can only be used on instances of type /mob/living")
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living</span>")
 			return
 
 		L.revive()
@@ -1443,7 +1649,7 @@
 
 		var/mob/living/carbon/human/H = locateUID(href_list["makeai"])
 		if(!istype(H))
-			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 
 		if(alert(usr, "Confirm make ai?",, "Yes", "No") != "Yes")
@@ -1459,7 +1665,7 @@
 
 		var/mob/living/carbon/human/H = locateUID(href_list["makealien"])
 		if(!istype(H))
-			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 		if(alert(usr, "Confirm make alien?",, "Yes", "No") != "Yes")
 			return
@@ -1471,7 +1677,7 @@
 
 		var/mob/living/carbon/human/H = locateUID(href_list["makeslime"])
 		if(!istype(H))
-			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 		if(alert(usr, "Confirm make slime?",, "Yes", "No") != "Yes")
 			return
@@ -1483,7 +1689,7 @@
 
 		var/mob/living/carbon/human/H = locateUID(href_list["makesuper"])
 		if(!istype(H))
-			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 
 		if(alert(usr, "Confirm make superhero?",, "Yes", "No") != "Yes")
@@ -1496,7 +1702,7 @@
 
 		var/mob/living/carbon/human/H = locateUID(href_list["makerobot"])
 		if(!istype(H))
-			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 		if(alert(usr, "Confirm make robot?",, "Yes", "No") != "Yes")
 			return
@@ -1507,8 +1713,8 @@
 		if(!check_rights(R_SPAWN))	return
 
 		var/mob/M = locateUID(href_list["makeanimal"])
-		if(istype(M, /mob/new_player))
-			to_chat(usr, "This cannot be used on instances of type /mob/new_player")
+		if(isnewplayer(M))
+			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/new_player</span>")
 			return
 		if(alert(usr, "Confirm make animal?",, "Yes", "No") != "Yes")
 			return
@@ -1521,9 +1727,13 @@
 
 		var/mob/dead/observer/G = locateUID(href_list["incarn_ghost"])
 		if(!istype(G))
-			to_chat(usr, "This will only work on /mob/dead/observer")
+			to_chat(usr, "<span class='warning'>This will only work on /mob/dead/observer</span>")
+			return
 
 		var/posttransformoutfit = usr.client.robust_dress_shop()
+
+		if(!posttransformoutfit)
+			return
 
 		var/mob/living/carbon/human/H = G.incarnate_ghost()
 
@@ -1538,7 +1748,7 @@
 
 		var/mob/living/carbon/human/H = locateUID(href_list["togmutate"])
 		if(!istype(H))
-			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 		var/block=text2num(href_list["block"])
 		//testing("togmutate([href_list["block"]] -> [block])")
@@ -1548,6 +1758,11 @@
 
 	else if(href_list["adminplayeropts"])
 		var/mob/M = locateUID(href_list["adminplayeropts"])
+
+		if(!istype(M, /mob))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
+			return
+
 		show_player_panel(M)
 
 	else if(href_list["adminplayerobservefollow"])
@@ -1557,6 +1772,11 @@
 				return
 			C.admin_ghost()
 		var/mob/M = locateUID(href_list["adminplayerobservefollow"])
+
+		if(!istype(M, /mob))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
+			return
+
 		var/mob/dead/observer/A = C.mob
 		sleep(2)
 		A.ManualFollow(M)
@@ -1580,48 +1800,91 @@
 			SStickets.resolveTicket(index)
 
 	else if(href_list["autorespond"])
+		if(href_list["is_mhelp"])
+			to_chat(usr, "<span class='warning'>Auto responses are not available for mentor helps.</span>")
+			return
 		var/index = text2num(href_list["autorespond"])
 		if(!check_rights(R_ADMIN|R_MOD))
 			return
 		SStickets.autoRespond(index)
 
-	else if(href_list["cult_nextobj"])
-		if(alert(usr, "Validate the current Cult objective and unlock the next one?", "Cult Cheat Code", "Yes", "No") != "Yes")
-			return
-
-		if(!GAMEMODE_IS_CULT)
-			alert("Couldn't locate cult mode datum! This shouldn't ever happen, tell a coder!")
-			return
-
-		var/datum/game_mode/cult/cult_round = SSticker.mode
-		cult_round.bypass_phase()
-		message_admins("Admin [key_name_admin(usr)] has unlocked the Cult's next objective.")
-		log_admin("Admin [key_name_admin(usr)] has unlocked the Cult's next objective.")
+	if(href_list["convert_ticket"])
+		var/indexNum = text2num(href_list["convert_ticket"])
+		if(href_list["is_mhelp"])
+			SSmentor_tickets.convert_to_other_ticket(indexNum)
+		else
+			SStickets.convert_to_other_ticket(indexNum)
 
 	else if(href_list["cult_mindspeak"])
-		var/input = stripped_input(usr, "Communicate to all the cultists with the voice of [SSticker.cultdat.entity_name]", "Voice of [SSticker.cultdat.entity_name]", "")
+		var/input = stripped_input(usr, "Communicate to all the cultists with the voice of [SSticker.cultdat.entity_name]", "Voice of [SSticker.cultdat.entity_name]")
 		if(!input)
 			return
 
 		for(var/datum/mind/H in SSticker.mode.cult)
-			if (H.current)
-				to_chat(H.current, "<span class='danger'>[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span></span>")
+			if(H.current)
+				to_chat(H.current, "<span class='cult'>[SSticker.cultdat.entity_name] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
 
 		for(var/mob/dead/observer/O in GLOB.player_list)
-			to_chat(O, "<span class='danger'>[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span></span>")
+			to_chat(O, "<span class='cult'>[SSticker.cultdat.entity_name] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
 
 		message_admins("Admin [key_name_admin(usr)] has talked with the Voice of [SSticker.cultdat.entity_name].")
 		log_admin("[key_name(usr)] Voice of [SSticker.cultdat.entity_name]: [input]")
 
+	else if(href_list["cult_adjustsacnumber"])
+		var/amount = input("Adjust the amount of sacrifices required before summoning Nar'Sie", "Sacrifice Adjustment", 2) as null | num
+		if(amount > 0)
+			var/datum/game_mode/gamemode = SSticker.mode
+			var/old = gamemode.cult_objs.sacrifices_required
+			gamemode.cult_objs.sacrifices_required = amount
+			message_admins("Admin [key_name_admin(usr)] has modified the amount of cult sacrifices required before summoning from [old] to [amount]")
+			log_admin("Admin [key_name_admin(usr)] has modified the amount of cult sacrifices required before summoning from [old] to [amount]")
+
+	else if(href_list["cult_newtarget"])
+		if(alert(usr, "Reroll the cult's sacrifice target?", "Cult Debug", "Yes", "No") != "Yes")
+			return
+
+		var/datum/game_mode/gamemode = SSticker.mode
+		if(!gamemode.cult_objs.find_new_sacrifice_target())
+			gamemode.cult_objs.ready_to_summon()
+
+		message_admins("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
+		log_admin("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
+
+	else if(href_list["cult_newsummonlocations"])
+		if(alert(usr, "Reroll the cult's summoning locations?", "Cult Debug", "Yes", "No") != "Yes")
+			return
+
+		var/datum/game_mode/gamemode = SSticker.mode
+		gamemode.cult_objs.obj_summon.find_summon_locations(TRUE)
+		if(gamemode.cult_objs.cult_status == NARSIE_NEEDS_SUMMONING) //Only update cultists if they are already have the summon goal since they arent aware of summon spots till then
+			for(var/datum/mind/cult_mind in gamemode.cult)
+				if(cult_mind && cult_mind.current)
+					to_chat(cult_mind.current, "<span class='cult'>The veil has shifted! Our summoning will need to take place elsewhere.</span>")
+					to_chat(cult_mind.current, "<span class='cult'>Current goal : [gamemode.cult_objs.obj_summon.explanation_text]</span>")
+
+		message_admins("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
+		log_admin("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
+
+	else if(href_list["cult_unlocknarsie"])
+		if(alert(usr, "Unlock the ability to summon Nar'Sie?", "Cult Debug", "Yes", "No") != "Yes")
+			return
+
+		var/datum/game_mode/gamemode = SSticker.mode
+		gamemode.cult_objs.ready_to_summon()
+		message_admins("Admin [key_name_admin(usr)] has unlocked the Cult's ability to summon Nar'Sie.")
+		log_admin("Admin [key_name_admin(usr)] has unlocked the Cult's ability to summon Nar'Sie.")
+
 	else if(href_list["adminplayerobservecoodjump"])
-		if(!check_rights(R_ADMIN))	return
+		var/client/C = usr.client
+		if(!isobserver(usr))
+			if(!check_rights(R_ADMIN)) // Need to be admin to aghost
+				return
+			C.admin_ghost()
 
 		var/x = text2num(href_list["X"])
 		var/y = text2num(href_list["Y"])
 		var/z = text2num(href_list["Z"])
 
-		var/client/C = usr.client
-		if(!isobserver(usr))	C.admin_ghost()
 		sleep(2)
 		C.jumptocoord(x,y,z)
 
@@ -1630,6 +1893,11 @@
 
 	else if(href_list["adminmoreinfo"])
 		var/mob/M = locateUID(href_list["adminmoreinfo"])
+
+		if(!istype(M, /mob))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
+			return
+
 		admin_mob_info(M)
 
 	else if(href_list["adminspawncookie"])
@@ -1637,7 +1905,7 @@
 
 		var/mob/living/carbon/human/H = locateUID(href_list["adminspawncookie"])
 		if(!ishuman(H))
-			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 
 		H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), slot_l_hand )
@@ -1653,7 +1921,7 @@
 			H.update_inv_l_hand()
 		log_admin("[key_name(H)] got their cookie, spawned by [key_name(src.owner)]")
 		message_admins("[key_name_admin(H)] got [H.p_their()] cookie, spawned by [key_name_admin(src.owner)]")
-		feedback_inc("admin_cookies_spawned",1)
+		SSblackbox.record_feedback("amount", "admin_cookies_spawned", 1)
 		to_chat(H, "<span class='notice'>Your prayers have been answered!! You received the <b>best cookie</b>!</span>")
 
 	else if(href_list["BlueSpaceArtillery"])
@@ -1661,7 +1929,7 @@
 
 		var/mob/living/M = locateUID(href_list["BlueSpaceArtillery"])
 		if(!isliving(M))
-			to_chat(usr, "This can only be used on instances of type /mob/living")
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living</span>")
 			return
 
 		if(alert(owner, "Are you sure you wish to hit [key_name(M)] with Bluespace Artillery?",  "Confirm Firing?" , "Yes" , "No") != "Yes")
@@ -1699,6 +1967,11 @@
 			return
 
 		var/mob/M = locateUID(href_list["CentcommReply"])
+
+		if(!istype(M, /mob))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
+			return
+
 		usr.client.admin_headset_message(M, "Centcomm")
 
 	else if(href_list["SyndicateReply"])
@@ -1706,6 +1979,11 @@
 			return
 
 		var/mob/M = locateUID(href_list["SyndicateReply"])
+
+		if(!istype(M, /mob))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
+			return
+
 		usr.client.admin_headset_message(M, "Syndicate")
 
 	else if(href_list["HeadsetMessage"])
@@ -1713,6 +1991,11 @@
 			return
 
 		var/mob/M = locateUID(href_list["HeadsetMessage"])
+
+		if(!istype(M, /mob))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
+			return
+
 		usr.client.admin_headset_message(M)
 
 	else if(href_list["EvilFax"])
@@ -1720,7 +2003,7 @@
 			return
 		var/mob/living/carbon/human/H = locateUID(href_list["EvilFax"])
 		if(!istype(H))
-			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 		var/etypes = list("Borgification", "Corgification", "Death By Fire", "Total Brain Death", "Honk Tumor", "Cluwne", "Demote", "Demote with Bot", "Revoke Fax Access", "Angry Fax Machine")
 		var/eviltype = input(src.owner, "Which type of evil fax do you wish to send [H]?","Its good to be baaaad...", "") as null|anything in etypes
@@ -1754,12 +2037,12 @@
 			P.ico = new
 		P.ico += "paper_stamp-[stampvalue]"
 		P.overlays += stampoverlay
-		P.stamps += "<HR><img src=large_stamp-[stampvalue].png>"
+		P.stamps += "<hr><img src='large_stamp-[stampvalue].png'>"
 		P.update_icon()
 		P.faxmachineid = fax.UID()
 		P.loc = fax.loc // Do not use fax.receivefax(P) here, as it won't preserve the type. Physically teleporting the fax paper is required.
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
-			to_chat(H, "<span class = 'specialnoticebold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
+			to_chat(H, "<span class='specialnoticebold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
 		to_chat(src.owner, "You sent a [eviltype] fax to [H]")
 		log_admin("[key_name(src.owner)] sent [key_name(H)] a [eviltype] fax")
 		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)] with a [eviltype] fax")
@@ -1768,7 +2051,7 @@
 			return
 		var/mob/living/M = locateUID(href_list["Bless"])
 		if(!istype(M))
-			to_chat(usr, "This can only be used on instances of type /mob/living")
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living</span>")
 			return
 		var/btypes = list("To Arrivals", "Moderate Heal")
 		var/mob/living/carbon/human/H
@@ -1804,15 +2087,15 @@
 				logmsg = "a heal over time."
 			if("Permanent Regeneration")
 				H.dna.SetSEState(GLOB.regenerateblock, 1)
-				genemutcheck(H, GLOB.regenerateblock,  null, MUTCHK_FORCED)
+				singlemutcheck(H, GLOB.regenerateblock, MUTCHK_FORCED)
 				H.update_mutations()
 				H.gene_stability = 100
 				logmsg = "permanent regeneration."
 			if("Super Powers")
-				var/list/default_genes = list(GLOB.regenerateblock, GLOB.breathlessblock, GLOB.coldblock)
-				for(var/gene in default_genes)
-					H.dna.SetSEState(gene, 1)
-					genemutcheck(H, gene,  null, MUTCHK_FORCED)
+				var/list/default_mutations = list(GLOB.regenerateblock, GLOB.breathlessblock, GLOB.coldblock)
+				for(var/mutation in default_mutations)
+					H.dna.SetSEState(mutation, 1)
+					singlemutcheck(H, mutation, MUTCHK_FORCED)
 					H.update_mutations()
 				H.gene_stability = 100
 				logmsg = "superpowers."
@@ -1835,7 +2118,7 @@
 				var/petchoice = input("Select pet type", "Pets") as null|anything in pets
 				if(isnull(petchoice))
 					return
-				var/list/mob/dead/observer/candidates = pollCandidates("Play as the special event pet [H]?", poll_time = 200, min_hours = 10)
+				var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Play as the special event pet [H]?", poll_time = 20 SECONDS, min_hours = 10, source = petchoice)
 				var/mob/dead/observer/theghost = null
 				if(candidates.len)
 					var/mob/living/simple_animal/pet/P = new petchoice(H.loc)
@@ -1888,7 +2171,7 @@
 		var/mob/living/M = locateUID(href_list["Smite"])
 		var/mob/living/carbon/human/H
 		if(!istype(M))
-			to_chat(usr, "This can only be used on instances of type /mob/living")
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living</span>")
 			return
 		var/ptypes = list("Lightning bolt", "Fire Death", "Gib")
 		if(ishuman(M))
@@ -1913,7 +2196,7 @@
 		switch(punishment)
 			// These smiting types are valid for all living mobs
 			if("Lightning bolt")
-				M.electrocute_act(5, "Lightning Bolt", safety = TRUE, override = TRUE)
+				M.electrocute_act(5, "Lightning Bolt", flags = SHOCK_NOGLOVES)
 				playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 				M.adjustFireLoss(75)
 				M.Weaken(5)
@@ -1951,7 +2234,7 @@
 				logmsg = "starvation."
 			if("Cluwne")
 				H.makeCluwne()
-				H.mutations |= NOCLONE
+				ADD_TRAIT(H, TRAIT_BADDNA, "smiting")
 				logmsg = "cluwned."
 			if("Mutagen Cookie")
 				var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
@@ -1972,7 +2255,7 @@
 				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
 				logmsg = "a hellwater cookie."
 			if("Hunter")
-				H.mutations |= NOCLONE
+				ADD_TRAIT(H, TRAIT_BADDNA, "smiting")
 				usr.client.create_eventmob_for(H, 1)
 				logmsg = "hunter."
 			if("Crew Traitor")
@@ -1980,7 +2263,7 @@
 					to_chat(usr, "<span class='warning'>ERROR: This mob ([H]) has no mind!</span>")
 					return
 				var/list/possible_traitors = list()
-				for(var/mob/living/player in GLOB.living_mob_list)
+				for(var/mob/living/player in GLOB.alive_mob_list)
 					if(player.client && player.mind && player.stat != DEAD && player != H)
 						if(ishuman(player) && !player.mind.special_role)
 							if(player.client && (ROLE_TRAITOR in player.client.prefs.be_special) && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
@@ -1999,7 +2282,7 @@
 					var/datum/antagonist/traitor/T = new()
 					T.give_objectives = FALSE
 					to_chat(newtraitormind.current, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
-					to_chat(newtraitormind.current, "<B>Goal: <span class='danger'>KILL [H.real_name]</span>, currently in [get_area(H.loc)]</B>")
+					to_chat(newtraitormind.current, "<b>Goal: <span class='danger'>KILL [H.real_name]</span>, currently in [get_area(H.loc)]</b>")
 					newtraitormind.add_antag_datum(T)
 				else
 					to_chat(usr, "<span class='warning'>ERROR: Unable to find any valid candidate to send after [H].</span>")
@@ -2028,10 +2311,10 @@
 			return
 		var/mob/living/carbon/human/H = locateUID(href_list["cryossd"])
 		if(!istype(H))
-			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 		if(!href_list["cryoafk"] && !isLivingSSD(H))
-			to_chat(usr, "This can only be used on living, SSD players.")
+			to_chat(usr, "<span class='warning'>This can only be used on living, SSD players.</span>")
 			return
 		if(istype(H.loc, /obj/machinery/cryopod))
 			var/obj/machinery/cryopod/P = H.loc
@@ -2043,7 +2326,7 @@
 			message_admins("[key_name_admin(usr)] sent [H.job] [H] to cryo.")
 			if(href_list["cryoafk"]) // Warn them if they are send to storage and are AFK
 				to_chat(H, "<span class='danger'>The admins have moved you to cryo storage for being AFK. Please eject yourself (right click, eject) out of the cryostorage if you want to avoid being despawned.</span>")
-				SEND_SOUND(H, 'sound/effects/adminhelp.ogg')
+				SEND_SOUND(H, sound('sound/effects/adminhelp.ogg'))
 				if(H.client)
 					window_flash(H.client)
 	else if(href_list["FaxReplyTemplate"])
@@ -2051,28 +2334,28 @@
 			return
 		var/mob/living/carbon/human/H = locateUID(href_list["FaxReplyTemplate"])
 		if(!istype(H))
-			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 		var/obj/item/paper/P = new /obj/item/paper(null)
 		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
 		P.name = "Central Command - paper"
 		var/stypes = list("Handle it yourselves!","Illegible fax","Fax not signed","Not Right Now","You are wasting our time", "Keep up the good work", "ERT Instructions")
 		var/stype = input(src.owner, "Which type of standard reply do you wish to send to [H]?","Choose your paperwork", "") as null|anything in stypes
-		var/tmsg = "<font face='Verdana' color='black'><center><img src = 'ntlogo.png'><BR><BR><BR><font size='4'><B>Nanotrasen Science Station [GLOB.using_map.station_short]</B></font><BR><BR><BR><font size='4'>NAS Trurl Communications Department Report</font></center><BR><BR>"
+		var/tmsg = "<font face='Verdana' color='black'><center><img src = 'ntlogo.png'><BR><BR><BR><font size='4'><b>Nanotrasen Science Station [GLOB.using_map.station_short]</b></font><BR><BR><BR><font size='4'>NAS Trurl Communications Department Report</font></center><BR><BR>"
 		if(stype == "Handle it yourselves!")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <B><I>DECLINED</I></B> automatically by NAS Trurl Fax Registration.<BR><BR>Please proceed in accordance with Standard Operating Procedure and/or Space Law. You are fully trained to handle this situation without Central Command intervention.<BR><BR><i><small>This is an automatic message.</small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Please proceed in accordance with Standard Operating Procedure and/or Space Law. You are fully trained to handle this situation without Central Command intervention.<BR><BR><i><small>This is an automatic message.</small>"
 		else if(stype == "Illegible fax")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <B><I>DECLINED</I></B> automatically by NAS Trurl Fax Registration.<BR><BR>Your fax's grammar, syntax and/or typography are of a sub-par level and do not allow us to understand the contents of the message.<BR><BR>Please consult your nearest dictionary and/or thesaurus and try again.<BR><BR><i><small>This is an automatic message.</small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Your fax's grammar, syntax and/or typography are of a sub-par level and do not allow us to understand the contents of the message.<BR><BR>Please consult your nearest dictionary and/or thesaurus and try again.<BR><BR><i><small>This is an automatic message.</small>"
 		else if(stype == "Fax not signed")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <B><I>DECLINED</I></B> automatically by NAS Trurl Fax Registration.<BR><BR>Your fax has not been correctly signed and, as such, we cannot verify your identity.<BR><BR>Please sign your faxes before sending them so that we may verify your identity.<BR><BR><i><small>This is an automatic message.</small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Your fax has not been correctly signed and, as such, we cannot verify your identity.<BR><BR>Please sign your faxes before sending them so that we may verify your identity.<BR><BR><i><small>This is an automatic message.</small>"
 		else if(stype == "Not Right Now")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <B><I>DECLINED</I></B> automatically by NAS Trurl Fax Registration.<BR><BR>Due to pressing concerns of a matter above your current paygrade, we are unable to provide assistance in whatever matter your fax referenced.<BR><BR>This can be either due to a power outage, bureaucratic audit, pest infestation, Ascendance Event, corgi outbreak, or any other situation that would affect the proper functioning of the NAS Trurl.<BR><BR>Please try again later.<BR><BR><i><small>This is an automatic message.</small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Due to pressing concerns of a matter above your current paygrade, we are unable to provide assistance in whatever matter your fax referenced.<BR><BR>This can be either due to a power outage, bureaucratic audit, pest infestation, Ascendance Event, corgi outbreak, or any other situation that would affect the proper functioning of the NAS Trurl.<BR><BR>Please try again later.<BR><BR><i><small>This is an automatic message.</small>"
 		else if(stype == "You are wasting our time")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <B><I>DECLINED</I></B> automatically by NAS Trurl Fax Registration.<BR><BR>In the interest of preventing further mismanagement of company resources, please avoid wasting our time with such petty drivel.<BR><BR>Do kindly remember that we expect our workforce to maintain at least a semi-decent level of profesionalism. Do not test our patience.<BR><BR><i><small>This is an automatic message.</i></small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>In the interest of preventing further mismanagement of company resources, please avoid wasting our time with such petty drivel.<BR><BR>Do kindly remember that we expect our workforce to maintain at least a semi-decent level of profesionalism. Do not test our patience.<BR><BR><i><small>This is an automatic message.</i></small>"
 		else if(stype == "Keep up the good work")
 			tmsg += "Greetings, esteemed crewmember. Your fax has been received successfully by NAS Trurl Fax Registration.<BR><BR>We at the NAS Trurl appreciate the good work that you have done here, and sincerely recommend that you continue such a display of dedication to the company.<BR><BR><i><small>This is absolutely not an automated message.</i></small>"
 		else if(stype == "ERT Instructions")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <B><I>DECLINED</I></B> automatically by NAS Trurl Fax Registration.<BR><BR>Please utilize the Card Swipers if you wish to call for an ERT.<BR><BR><i><small>This is an automated message.</i></small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Please utilize the Card Swipers if you wish to call for an ERT.<BR><BR><i><small>This is an automated message.</i></small>"
 		else
 			return
 		tmsg += "</font>"
@@ -2093,11 +2376,11 @@
 			P.ico = new
 		P.ico += "paper_stamp-[stampvalue]"
 		P.overlays += stampoverlay
-		P.stamps += "<HR><img src=large_stamp-[stampvalue].png>"
+		P.stamps += "<hr><img src='large_stamp-[stampvalue].png'>"
 		P.update_icon()
 		fax.receivefax(P)
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
-			to_chat(H, "<span class = 'specialnoticebold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
+			to_chat(H, "<span class='specialnoticebold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
 		to_chat(src.owner, "You sent a standard '[stype]' fax to [H]")
 		log_admin("[key_name(src.owner)] sent [key_name(H)] a standard '[stype]' fax")
 		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)] with a standard '[stype]' fax")
@@ -2105,10 +2388,10 @@
 	else if(href_list["HONKReply"])
 		var/mob/living/carbon/human/H = locateUID(href_list["HONKReply"])
 		if(!istype(H))
-			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 		if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
-			to_chat(usr, "The person you are trying to contact is not wearing a headset")
+			to_chat(usr, "<span class='warning'>The person you are trying to contact is not wearing a headset</span>")
 			return
 
 		var/input = input(src.owner, "Please enter a message to reply to [key_name(H)] via [H.p_their()] headset.","Outgoing message from HONKplanet", "")
@@ -2125,13 +2408,13 @@
 		if(alert(src.owner, "Accept or Deny ERT request?", "CentComm Response", "Accept", "Deny") == "Deny")
 			var/mob/living/carbon/human/H = locateUID(href_list["ErtReply"])
 			if(!istype(H))
-				to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+				to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 				return
 			if(H.stat != 0)
-				to_chat(usr, "The person you are trying to contact is not conscious.")
+				to_chat(usr, "<span class='warning'>The person you are trying to contact is not conscious.</span>")
 				return
 			if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
-				to_chat(usr, "The person you are trying to contact is not wearing a headset")
+				to_chat(usr, "<span class='warning'>The person you are trying to contact is not wearing a headset</span>")
 				return
 
 			var/input = input(src.owner, "Please enter a reason for denying [key_name(H)]'s ERT request.","Outgoing message from CentComm", "")
@@ -2139,7 +2422,7 @@
 			GLOB.ert_request_answered = TRUE
 			to_chat(src.owner, "You sent [input] to [H] via a secure channel.")
 			log_admin("[src.owner] denied [key_name(H)]'s ERT request with the message [input].")
-			to_chat(H, "<span class = 'specialnoticebold'>Incoming priority transmission from Central Command. Message as follows,</span><span class = 'specialnotice'> Your ERT request has been denied for the following reasons: [input].</span>")
+			to_chat(H, "<span class='specialnoticebold'>Incoming priority transmission from Central Command. Message as follows,</span><span class='specialnotice'> Your ERT request has been denied for the following reasons: [input].</span>")
 		else
 			src.owner.response_team()
 
@@ -2294,14 +2577,14 @@
 					P.stamped = new
 				P.stamped += /obj/item/stamp/centcom
 				P.overlays += stampoverlay
-				P.stamps += "<HR><img src=large_stamp-[stampvalue].png>"
+				P.stamps += "<hr><img src='large_stamp-[stampvalue].png'>"
 
 			else if(stamptype == "text")
 				if(!P.stamped)
 					P.stamped = new
 				P.stamped += /obj/item/stamp
 				P.overlays += stampoverlay
-				P.stamps += "<HR><i>[stampvalue]</i>"
+				P.stamps += "<hr><i>[stampvalue]</i>"
 
 		if(destination != "All Departments")
 			if(!fax.receivefax(P))
@@ -2331,7 +2614,7 @@
 		if(notify == "Yes")
 			var/mob/living/carbon/human/H = sender
 			if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
-				to_chat(sender, "<span class = 'specialnoticebold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
+				to_chat(sender, "<span class='specialnoticebold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
 		if(sender)
 			log_admin("[key_name(src.owner)] replied to a fax message from [key_name(sender)]: [input]")
 			message_admins("[key_name_admin(src.owner)] replied to a fax message from [key_name_admin(sender)] (<a href='?_src_=holder;AdminFaxView=\ref[P]'>VIEW</a>).", 1)
@@ -2350,8 +2633,8 @@
 		if(!check_rights(R_ADMIN))
 			return
 		var/mob/M = locateUID(href_list["getplaytimewindow"])
-		if(!M)
-			to_chat(usr, "ERROR: Mob not found.")
+		if(!istype(M, /mob))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 		cmd_mentor_show_exp_panel(M.client)
 
@@ -2359,6 +2642,9 @@
 		if(!check_rights(R_ADMIN))	return
 
 		var/mob/M = locateUID(href_list["jumpto"])
+		if(!istype(M, /mob))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
+			return
 		usr.client.jumptomob(M)
 
 	else if(href_list["getmob"])
@@ -2366,24 +2652,37 @@
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")	return
 		var/mob/M = locateUID(href_list["getmob"])
+		if(!istype(M, /mob))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
+			return
 		usr.client.Getmob(M)
 
 	else if(href_list["sendmob"])
 		if(!check_rights(R_ADMIN))	return
 
 		var/mob/M = locateUID(href_list["sendmob"])
+		if(!istype(M, /mob))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
+			return
 		usr.client.sendmob(M)
 
 	else if(href_list["narrateto"])
 		if(!check_rights(R_ADMIN))	return
 
 		var/mob/M = locateUID(href_list["narrateto"])
+		if(!istype(M, /mob))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
+			return
 		usr.client.cmd_admin_direct_narrate(M)
 
 	else if(href_list["subtlemessage"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_EVENT))
+			return
 
 		var/mob/M = locateUID(href_list["subtlemessage"])
+		if(!istype(M, /mob))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
+			return
 		usr.client.cmd_admin_subtle_message(M)
 
 	else if(href_list["traitor"])
@@ -2394,8 +2693,8 @@
 			return
 
 		var/mob/M = locateUID(href_list["traitor"])
-		if(!ismob(M))
-			to_chat(usr, "This can only be used on instances of type /mob.")
+		if(!istype(M, /mob))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 		show_traitor_panel(M)
 
@@ -2464,7 +2763,7 @@
 		switch(where)
 			if("inhand")
 				if(!iscarbon(usr) && !isrobot(usr))
-					to_chat(usr, "Can only spawn in hand when you're a carbon mob or cyborg.")
+					to_chat(usr, "<span class='warning'>Can only spawn in hand when you're a carbon mob or cyborg.</span>")
 					where = "onfloor"
 				target = usr
 
@@ -2476,10 +2775,10 @@
 						target = locate(loc.x + X,loc.y + Y,loc.z + Z)
 			if("inmarked")
 				if(!marked_datum)
-					to_chat(usr, "You don't have any object marked. Abandoning spawn.")
+					to_chat(usr, "<span class='warning'>You don't have any object marked. Abandoning spawn.</span>")
 					return
 				else if(!istype(marked_datum,/atom))
-					to_chat(usr, "The object you have marked cannot be used as a target. Target must be of type /atom. Abandoning spawn.")
+					to_chat(usr, "<span class='warning'>The object you have marked cannot be used as a target. Target must be of type /atom. Abandoning spawn.</span>")
 					return
 				else
 					target = marked_datum
@@ -2544,19 +2843,21 @@
 			message_admins("[key_name_admin(usr)] has kicked [afkonly ? "all AFK" : "all"] clients from the lobby. [length(listkicked)] clients kicked: [strkicked ? strkicked : "--"]")
 			log_admin("[key_name(usr)] has kicked [afkonly ? "all AFK" : "all"] clients from the lobby. [length(listkicked)] clients kicked: [strkicked ? strkicked : "--"]")
 		else
-			to_chat(usr, "You may only use this when the game is running.")
+			to_chat(usr, "<span class='warning'>You may only use this when the game is running.</span>")
 
 	else if(href_list["memoeditlist"])
 		if(!check_rights(R_SERVER)) return
-		var/sql_key = sanitizeSQL("[href_list["memoeditlist"]]")
-		var/DBQuery/query_memoedits = GLOB.dbcon.NewQuery("SELECT edits FROM [format_table_name("memo")] WHERE (ckey = '[sql_key]')")
-		if(!query_memoedits.Execute())
-			var/err = query_memoedits.ErrorMsg()
-			log_game("SQL ERROR obtaining edits from memo table. Error : \[[err]\]\n")
+		var/sql_key = href_list["memoeditlist"]
+		var/datum/db_query/query_memoedits = SSdbcore.NewQuery("SELECT edits FROM [format_table_name("memo")] WHERE (ckey=:sql_key)", list(
+			"sql_key" = sql_key
+		))
+		if(!query_memoedits.warn_execute())
+			qdel(query_memoedits)
 			return
 		if(query_memoedits.NextRow())
 			var/edit_log = query_memoedits.item[1]
 			usr << browse(edit_log,"window=memoeditlist")
+		qdel(query_memoedits)
 
 	else if(href_list["secretsfun"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
@@ -2564,71 +2865,61 @@
 		var/ok = 0
 		switch(href_list["secretsfun"])
 			if("sec_clothes")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","SC")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Remove 'internal' clothing")
 				for(var/obj/item/clothing/under/O in world)
 					qdel(O)
 				ok = 1
 			if("sec_all_clothes")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","SAC")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Remove ALL clothing")
 				for(var/obj/item/clothing/O in world)
 					qdel(O)
 				ok = 1
 			if("sec_classic1")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","SC1")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Remove firesuits, grilles, and pods")
 				for(var/obj/item/clothing/suit/fire/O in world)
 					qdel(O)
 				for(var/obj/structure/grille/O in world)
 					qdel(O)
 			if("monkey")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","M")
-				for(var/mob/living/carbon/human/H in GLOB.mob_list)
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Monkeyize All Humans")
+				for(var/thing in GLOB.human_list)
+					var/mob/living/carbon/human/H = thing
 					spawn(0)
 						H.monkeyize()
 				ok = 1
 			if("corgi")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","M")
-				for(var/mob/living/carbon/human/H in GLOB.mob_list)
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Corgize All Humans")
+				for(var/thing in GLOB.human_list)
+					var/mob/living/carbon/human/H = thing
 					spawn(0)
 						H.corgize()
 				ok = 1
 			if("honksquad")
 				if(usr.client.honksquad())
-					feedback_inc("admin_secrets_fun_used",1)
-					feedback_add_details("admin_secrets_fun_used","HONK")
+					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Team - HONKsquad")
 			if("striketeam")
 				if(usr.client.strike_team())
-					feedback_inc("admin_secrets_fun_used",1)
-					feedback_add_details("admin_secrets_fun_used","Strike")
+					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Team - Deathsquad")
 			if("striketeam_syndicate")
 				if(usr.client.syndicate_strike_team())
-					feedback_inc("admin_secrets_fun_used",1)
-					feedback_add_details("admin_secrets_fun_used","Strike")
+					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Team - Syndie Strike Team")
 			if("infiltrators_syndicate")
 				if(usr.client.syndicate_infiltration_team())
-					feedback_inc("admin_secrets_fun_used",1)
-					feedback_add_details("admin_secrets_fun_used","SyndieInfiltrationTeam")
+					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Team - Syndicate Infiltration Team")
 			if("gimmickteam")
 				if(usr.client.gimmick_team())
-					feedback_inc("admin_secrets_fun_used",1)
-					feedback_add_details("admin_secrets_fun_used","GimmickTeam")
+					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Team - Gimmick Team")
 			if("tripleAI")
 				usr.client.triple_ai()
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","TriAI")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Triple AI")
 			if("gravity")
 				if(!(SSticker && SSticker.mode))
-					to_chat(usr, "Please wait until the game starts!  Not sure how it will work otherwise.")
+					to_chat(usr, "<span class='warning'>Please wait until the game starts! Not sure how it will work otherwise.</span>")
 					return
 				GLOB.gravity_is_on = !GLOB.gravity_is_on
 				for(var/area/A in world)
 					A.gravitychange(GLOB.gravity_is_on,A)
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","Grav")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Gravity")
 				if(GLOB.gravity_is_on)
 					log_admin("[key_name(usr)] toggled gravity on.", 1)
 					message_admins("<span class='notice'>[key_name_admin(usr)] toggled gravity on.</span>", 1)
@@ -2639,20 +2930,17 @@
 					GLOB.event_announcement.Announce("Feedback surge detected in mass-distributions systems. Artifical gravity has been disabled whilst the system reinitializes. Further failures may result in a gravitational collapse and formation of blackholes. Have a nice day.")
 
 			if("power")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","P")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power All APCs")
 				log_admin("[key_name(usr)] made all areas powered", 1)
 				message_admins("<span class='notice'>[key_name_admin(usr)] made all areas powered</span>", 1)
 				power_restore()
 			if("unpower")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","UP")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Depower All APCs")
 				log_admin("[key_name(usr)] made all areas unpowered", 1)
 				message_admins("<span class='notice'>[key_name_admin(usr)] made all areas unpowered</span>", 1)
 				power_failure()
 			if("quickpower")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","QP")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power All SMESs")
 				log_admin("[key_name(usr)] made all SMESs powered", 1)
 				message_admins("<span class='notice'>[key_name_admin(usr)] made all SMESs powered</span>", 1)
 				power_restore_quick()
@@ -2660,10 +2948,10 @@
 				if(!SSticker)
 					alert("The game hasn't started yet!", null, null, null, null, null)
 					return
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","PW")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Prison Warp")
 				message_admins("<span class='notice'>[key_name_admin(usr)] teleported all players to the prison station.</span>", 1)
-				for(var/mob/living/carbon/human/H in GLOB.mob_list)
+				for(var/thing in GLOB.human_list)
+					var/mob/living/carbon/human/H = thing
 					var/turf/loc = find_loc(H)
 					var/security = 0
 					if(!is_station_level(loc.z) || GLOB.prisonwarped.Find(H))
@@ -2679,9 +2967,6 @@
 					if(!security)
 						//strip their stuff before they teleport into a cell :downs:
 						for(var/obj/item/W in H)
-							if(istype(W, /obj/item/organ/external))
-								continue
-								//don't strip organs
 							H.unEquip(W)
 							if(H.client)
 								H.client.screen -= W
@@ -2705,8 +2990,7 @@
 				var/objective = sanitize(copytext(input("Enter an objective"),1,MAX_MESSAGE_LEN))
 				if(!objective)
 					return
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","TA([objective])")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Traitor All ([objective])")
 
 				for(var/mob/living/carbon/human/H in GLOB.player_list)
 					if(H.stat == 2 || !H.client || !H.mind) continue
@@ -2721,8 +3005,7 @@
 				log_admin("[key_name(usr)] used everyone is a traitor secret. Objective is [objective]")
 
 			if("togglebombcap")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","BC")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Bomb Cap")
 
 				var/newBombCap = input(usr,"What would you like the new bomb cap to be. (entered as the light damage range (the 3rd number in common (1,2,3) notation)) Must be between 4 and 128)", "New Bomb Cap", GLOB.max_ex_light_range) as num|null
 				if(newBombCap < 4)
@@ -2741,8 +3024,7 @@
 				log_admin("[key_name(usr)] changed the bomb cap to [GLOB.max_ex_devastation_range], [GLOB.max_ex_heavy_range], [GLOB.max_ex_light_range]")
 
 			if("flicklights")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","FL")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Flicker Lights")
 				while(!usr.stat)
 //knock yourself out to stop the ghosts
 					for(var/mob/M in GLOB.player_list)
@@ -2772,57 +3054,50 @@
 					if(M.stat != 2)
 						M.show_message(text("<span class='notice'>The chilling wind suddenly stops...</span>"), 1)
 			if("lightout")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","LO")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Lights Out")
 				message_admins("[key_name_admin(usr)] has broke a lot of lights", 1)
 				var/datum/event/electrical_storm/E = new /datum/event/electrical_storm
 				E.lightsoutAmount = 2
 			if("blackout")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","BO")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Black Out")
 				message_admins("[key_name_admin(usr)] broke all lights", 1)
 				for(var/obj/machinery/light/L in GLOB.machines)
 					L.break_light_tube()
 			if("whiteout")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","WO")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Fix All Lights")
 				message_admins("[key_name_admin(usr)] fixed all lights", 1)
 				for(var/obj/machinery/light/L in GLOB.machines)
 					L.fix()
+					L.switchcount = 0
 			if("floorlava")
-				feedback_inc("admin_secrets_fun_used", 1)
-				feedback_add_details("admin_secrets_fun_used", "LF")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Lava Floor")
 				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
 				if(sure == "No")
 					return
 				SSweather.run_weather(/datum/weather/floor_is_lava)
 				message_admins("[key_name_admin(usr)] made the floor lava")
 			if("fakelava")
-				feedback_inc("admin_secrets_fun_used", 1)
-				feedback_add_details("admin_secrets_fun_used", "LZ")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Lava Floor Fake")
 				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
 				if(sure == "No")
 					return
 				SSweather.run_weather(/datum/weather/floor_is_lava/fake)
 				message_admins("[key_name_admin(usr)] made aesthetic lava on the floor")
 			if("weatherashstorm")
-				feedback_inc("admin_secrets_fun_used", 1)
-				feedback_add_details("admin_secrets_fun_used", "WA")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Weather Ash Storm")
 				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
 				if(sure == "No")
 					return
 				SSweather.run_weather(/datum/weather/ash_storm)
 				message_admins("[key_name_admin(usr)] spawned an ash storm on the mining level")
 			if("stupify")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","RET")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Mass Braindamage")
 				for(var/mob/living/carbon/human/H in GLOB.player_list)
 					to_chat(H, "<span class='danger'>You suddenly feel stupid.</span>")
 					H.setBrainLoss(60)
 				message_admins("[key_name_admin(usr)] made everybody stupid")
 			if("fakeguns")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","FG")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Fake Guns")
 				for(var/obj/item/W in world)
 					if(istype(W, /obj/item/clothing) || istype(W, /obj/item/card/id) || istype(W, /obj/item/disk) || istype(W, /obj/item/tank))
 						continue
@@ -2830,9 +3105,8 @@
 					W.icon_state = "revolver"
 					W.item_state = "gun"
 				message_admins("[key_name_admin(usr)] made every item look like a gun")
-			if("schoolgirl")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","SG")
+			if("schoolgirl") // nyaa~ How much are you paying attention in reviews?
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Chinese Cartoons")
 				for(var/obj/item/clothing/under/W in world)
 					W.icon_state = "schoolgirl"
 					W.item_state = "w_suit"
@@ -2840,34 +3114,28 @@
 				message_admins("[key_name_admin(usr)] activated Japanese Animes mode")
 				world << sound('sound/AI/animes.ogg')
 			if("eagles")//SCRAW
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","EgL")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Egalitarian Station")
 				for(var/obj/machinery/door/airlock/W in GLOB.airlocks)
 					if(is_station_level(W.z) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
 						W.req_access = list()
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
 				GLOB.event_announcement.Announce("Centcomm airlock control override activated. Please take this time to get acquainted with your coworkers.", new_sound = 'sound/AI/commandreport.ogg')
 			if("onlyone")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","OO")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Only One")
 				usr.client.only_one()
 //				message_admins("[key_name_admin(usr)] has triggered HIGHLANDER")
 			if("onlyme")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","OM")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Only Me")
 				usr.client.only_me()
 			if("onlyoneteam")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","OOT")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Only One Team")
 				usr.client.only_one_team()
 //				message_admins("[key_name_admin(usr)] has triggered ")
 			if("rolldice")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","ROL")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Roll The Dice")
 				usr.client.roll_dices()
 			if("guns")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","SG")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Summon Guns")
 				var/survivor_probability = 0
 				switch(alert("Do you want this to create survivors antagonists?", , "No Antags", "Some Antags", "All Antags!"))
 					if("Some Antags")
@@ -2877,8 +3145,7 @@
 
 				rightandwrong(SUMMON_GUNS, usr, survivor_probability)
 			if("magic")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","SM")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Summon Magic")
 				var/survivor_probability = 0
 				switch(alert("Do you want this to create survivors antagonists?", , "No Antags", "Some Antags", "All Antags!"))
 					if("Some Antags")
@@ -2935,22 +3202,19 @@
 				set_security_level(5)
 				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Delta.</span>", 1)
 			if("moveminingshuttle")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","ShM")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Mining Shuttle")
 				if(!SSshuttle.toggleShuttle("mining","mining_home","mining_away"))
 					message_admins("[key_name_admin(usr)] moved mining shuttle")
 					log_admin("[key_name(usr)] moved the mining shuttle")
 
 			if("movelaborshuttle")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","ShL")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Labor Shuttle")
 				if(!SSshuttle.toggleShuttle("laborcamp","laborcamp_home","laborcamp_away"))
 					message_admins("[key_name_admin(usr)] moved labor shuttle")
 					log_admin("[key_name(usr)] moved the labor shuttle")
 
 			if("moveferry")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","ShF")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send CentComm Ferry")
 				if(!SSshuttle.toggleShuttle("ferry","ferry_home","ferry_away"))
 					message_admins("[key_name_admin(usr)] moved the centcom ferry")
 					log_admin("[key_name(usr)] moved the centcom ferry")
@@ -2958,7 +3222,7 @@
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsfun"]]")
 			if(ok)
-				to_chat(world, text("<B>A secret has been activated by []!</B>", usr.key))
+				to_chat(world, text("<b>A secret has been activated by []!</b>", usr.key))
 
 	else if(href_list["secretsadmin"])
 		if(!check_rights(R_ADMIN))	return
@@ -2966,17 +3230,17 @@
 		var/ok = 0
 		switch(href_list["secretsadmin"])
 			if("list_signalers")
-				var/dat = "<B>Showing last [length(GLOB.lastsignalers)] signalers.</B><HR>"
+				var/dat = "<b>Showing last [length(GLOB.lastsignalers)] signalers.</b><hr>"
 				for(var/sig in GLOB.lastsignalers)
 					dat += "[sig]<BR>"
 				usr << browse(dat, "window=lastsignalers;size=800x500")
 			if("list_lawchanges")
-				var/dat = "<B>Showing last [length(GLOB.lawchanges)] law changes.</B><HR>"
+				var/dat = "<b>Showing last [length(GLOB.lawchanges)] law changes.</b><hr>"
 				for(var/sig in GLOB.lawchanges)
 					dat += "[sig]<BR>"
 				usr << browse(dat, "window=lawchanges;size=800x500")
 			if("list_job_debug")
-				var/dat = "<B>Job Debug info.</B><HR>"
+				var/dat = "<b>Job Debug info.</b><hr>"
 				if(SSjobs)
 					for(var/line in SSjobs.job_debug)
 						dat += "[line]<BR>"
@@ -2994,27 +3258,33 @@
 					alert("The game mode is [SSticker.mode.name]")
 				else alert("For some reason there's a ticker, but not a game mode")
 			if("manifest")
-				var/dat = "<B>Showing Crew Manifest.</B><HR>"
+				var/dat = "<b>Showing Crew Manifest.</b><hr>"
 				dat += "<table cellspacing=5><tr><th>Name</th><th>Position</th></tr>"
-				for(var/mob/living/carbon/human/H in GLOB.mob_list)
+				for(var/thing in GLOB.human_list)
+					var/mob/living/carbon/human/H = thing
 					if(H.ckey)
 						dat += text("<tr><td>[]</td><td>[]</td></tr>", H.name, H.get_assignment())
 				dat += "</table>"
 				usr << browse(dat, "window=manifest;size=440x410")
 			if("check_antagonist")
 				check_antagonists()
+			if("view_codewords")
+				to_chat(usr, "<b>Code Phrases:</b> <span class='codephrases'>[GLOB.syndicate_code_phrase]</span>")
+				to_chat(usr, "<b>Code Responses:</b> <span class='coderesponses'>[GLOB.syndicate_code_response]</span>")
 			if("DNA")
-				var/dat = "<B>Showing DNA from blood.</B><HR>"
+				var/dat = "<b>Showing DNA from blood.</b><hr>"
 				dat += "<table cellspacing=5><tr><th>Name</th><th>DNA</th><th>Blood Type</th></tr>"
-				for(var/mob/living/carbon/human/H in GLOB.mob_list)
+				for(var/thing in GLOB.human_list)
+					var/mob/living/carbon/human/H = thing
 					if(H.dna && H.ckey)
 						dat += "<tr><td>[H]</td><td>[H.dna.unique_enzymes]</td><td>[H.dna.blood_type]</td></tr>"
 				dat += "</table>"
 				usr << browse(dat, "window=DNA;size=440x410")
 			if("fingerprints")
-				var/dat = "<B>Showing Fingerprints.</B><HR>"
+				var/dat = "<b>Showing Fingerprints.</b><hr>"
 				dat += "<table cellspacing=5><tr><th>Name</th><th>Fingerprints</th></tr>"
-				for(var/mob/living/carbon/human/H in GLOB.mob_list)
+				for(var/thing in GLOB.human_list)
+					var/mob/living/carbon/human/H = thing
 					if(H.ckey)
 						if(H.dna && H.dna.uni_identity)
 							dat += "<tr><td>[H]</td><td>[md5(H.dna.uni_identity)]</td></tr>"
@@ -3046,14 +3316,14 @@
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsadmin"]]")
 			if(ok)
-				to_chat(world, text("<B>A secret has been activated by []!</B>", usr.key))
+				to_chat(world, text("<b>A secret has been activated by []!</b>", usr.key))
 
 	else if(href_list["secretscoder"])
 		if(!check_rights(R_DEBUG))	return
 
 		switch(href_list["secretscoder"])
 			if("spawn_objects")
-				var/dat = "<B>Admin Log<HR></B>"
+				var/dat = "<b>Admin Log<hr></b>"
 				for(var/l in GLOB.admin_log)
 					dat += "<li>[l]</li>"
 				if(!GLOB.admin_log.len)
@@ -3076,220 +3346,6 @@
 				J.total_positions = -1
 				J.spawn_positions = -1
 				message_admins("[key_name_admin(usr)] has removed the cap on security officers.")
-
-	else if(href_list["ac_view_wanted"])            //Admin newscaster Topic() stuff be here
-		src.admincaster_screen = 18                 //The ac_ prefix before the hrefs stands for AdminCaster.
-		src.access_news_network()
-
-	else if(href_list["ac_set_channel_name"])
-		src.admincaster_feed_channel.channel_name = strip_html_simple(input(usr, "Provide a Feed Channel Name", "Network Channel Handler", ""))
-		while(findtext(src.admincaster_feed_channel.channel_name," ") == 1)
-			src.admincaster_feed_channel.channel_name = copytext(src.admincaster_feed_channel.channel_name,2,length(src.admincaster_feed_channel.channel_name)+1)
-		src.access_news_network()
-
-	else if(href_list["ac_set_channel_lock"])
-		src.admincaster_feed_channel.locked = !src.admincaster_feed_channel.locked
-		src.access_news_network()
-
-	else if(href_list["ac_submit_new_channel"])
-		var/check = 0
-		for(var/datum/feed_channel/FC in GLOB.news_network.network_channels)
-			if(FC.channel_name == src.admincaster_feed_channel.channel_name)
-				check = 1
-				break
-		if(src.admincaster_feed_channel.channel_name == "" || src.admincaster_feed_channel.channel_name == "\[REDACTED\]" || check )
-			src.admincaster_screen=7
-		else
-			var/choice = alert("Please confirm Feed channel creation","Network Channel Handler","Confirm","Cancel")
-			if(choice=="Confirm")
-				var/datum/feed_channel/newChannel = new /datum/feed_channel
-				newChannel.channel_name = src.admincaster_feed_channel.channel_name
-				newChannel.author = src.admincaster_signature
-				newChannel.locked = src.admincaster_feed_channel.locked
-				newChannel.is_admin_channel = 1
-				feedback_inc("newscaster_channels",1)
-				GLOB.news_network.network_channels += newChannel                        //Adding channel to the global network
-				log_admin("[key_name_admin(usr)] created command feed channel: [src.admincaster_feed_channel.channel_name]!")
-				src.admincaster_screen=5
-		src.access_news_network()
-
-	else if(href_list["ac_set_channel_receiving"])
-		var/list/available_channels = list()
-		for(var/datum/feed_channel/F in GLOB.news_network.network_channels)
-			available_channels += F.channel_name
-		src.admincaster_feed_channel.channel_name = adminscrub(input(usr, "Choose receiving Feed Channel", "Network Channel Handler") in available_channels )
-		src.access_news_network()
-
-	else if(href_list["ac_set_new_message"])
-		src.admincaster_feed_message.body = adminscrub(input(usr, "Write your Feed story", "Network Channel Handler", ""))
-		while(findtext(src.admincaster_feed_message.body," ") == 1)
-			src.admincaster_feed_message.body = copytext(src.admincaster_feed_message.body,2,length(src.admincaster_feed_message.body)+1)
-		src.access_news_network()
-
-	else if(href_list["ac_submit_new_message"])
-		if(src.admincaster_feed_message.body =="" || src.admincaster_feed_message.body =="\[REDACTED\]" || src.admincaster_feed_channel.channel_name == "" )
-			src.admincaster_screen = 6
-		else
-			var/datum/feed_message/newMsg = new /datum/feed_message
-			newMsg.author = src.admincaster_signature
-			newMsg.body = src.admincaster_feed_message.body
-			newMsg.is_admin_message = 1
-			feedback_inc("newscaster_stories",1)
-			for(var/datum/feed_channel/FC in GLOB.news_network.network_channels)
-				if(FC.channel_name == src.admincaster_feed_channel.channel_name)
-					FC.messages += newMsg                  //Adding message to the network's appropriate feed_channel
-					break
-			src.admincaster_screen=4
-
-		for(var/obj/machinery/newscaster/NEWSCASTER in GLOB.allNewscasters)
-			NEWSCASTER.newsAlert(src.admincaster_feed_channel.channel_name)
-
-		log_admin("[key_name_admin(usr)] submitted a feed story to channel: [src.admincaster_feed_channel.channel_name]!")
-		src.access_news_network()
-
-	else if(href_list["ac_create_channel"])
-		src.admincaster_screen=2
-		src.access_news_network()
-
-	else if(href_list["ac_create_feed_story"])
-		src.admincaster_screen=3
-		src.access_news_network()
-
-	else if(href_list["ac_menu_censor_story"])
-		src.admincaster_screen=10
-		src.access_news_network()
-
-	else if(href_list["ac_menu_censor_channel"])
-		src.admincaster_screen=11
-		src.access_news_network()
-
-	else if(href_list["ac_menu_wanted"])
-		var/already_wanted = 0
-		if(GLOB.news_network.wanted_issue)
-			already_wanted = 1
-
-		if(already_wanted)
-			src.admincaster_feed_message.author = GLOB.news_network.wanted_issue.author
-			src.admincaster_feed_message.body = GLOB.news_network.wanted_issue.body
-		src.admincaster_screen = 14
-		src.access_news_network()
-
-	else if(href_list["ac_set_wanted_name"])
-		src.admincaster_feed_message.author = adminscrub(input(usr, "Provide the name of the Wanted person", "Network Security Handler", ""))
-		while(findtext(src.admincaster_feed_message.author," ") == 1)
-			src.admincaster_feed_message.author = copytext(admincaster_feed_message.author,2,length(admincaster_feed_message.author)+1)
-		src.access_news_network()
-
-	else if(href_list["ac_set_wanted_desc"])
-		src.admincaster_feed_message.body = adminscrub(input(usr, "Provide the a description of the Wanted person and any other details you deem important", "Network Security Handler", ""))
-		while(findtext(src.admincaster_feed_message.body," ") == 1)
-			src.admincaster_feed_message.body = copytext(src.admincaster_feed_message.body,2,length(src.admincaster_feed_message.body)+1)
-		src.access_news_network()
-
-	else if(href_list["ac_submit_wanted"])
-		var/input_param = text2num(href_list["ac_submit_wanted"])
-		if(src.admincaster_feed_message.author == "" || src.admincaster_feed_message.body == "")
-			src.admincaster_screen = 16
-		else
-			var/choice = alert("Please confirm Wanted Issue [(input_param==1) ? ("creation.") : ("edit.")]","Network Security Handler","Confirm","Cancel")
-			if(choice=="Confirm")
-				if(input_param==1)          //If input_param == 1 we're submitting a new wanted issue. At 2 we're just editing an existing one. See the else below
-					var/datum/feed_message/WANTED = new /datum/feed_message
-					WANTED.author = src.admincaster_feed_message.author               //Wanted name
-					WANTED.body = src.admincaster_feed_message.body                   //Wanted desc
-					WANTED.backup_author = src.admincaster_signature                  //Submitted by
-					WANTED.is_admin_message = 1
-					GLOB.news_network.wanted_issue = WANTED
-					for(var/obj/machinery/newscaster/NEWSCASTER in GLOB.allNewscasters)
-						NEWSCASTER.newsAlert()
-						NEWSCASTER.update_icon()
-					src.admincaster_screen = 15
-				else
-					GLOB.news_network.wanted_issue.author = src.admincaster_feed_message.author
-					GLOB.news_network.wanted_issue.body = src.admincaster_feed_message.body
-					GLOB.news_network.wanted_issue.backup_author = src.admincaster_feed_message.backup_author
-					src.admincaster_screen = 19
-				log_admin("[key_name_admin(usr)] issued a Station-wide Wanted Notification for [src.admincaster_feed_message.author]!")
-		src.access_news_network()
-
-	else if(href_list["ac_cancel_wanted"])
-		var/choice = alert("Please confirm Wanted Issue removal","Network Security Handler","Confirm","Cancel")
-		if(choice=="Confirm")
-			GLOB.news_network.wanted_issue = null
-			for(var/obj/machinery/newscaster/NEWSCASTER in GLOB.allNewscasters)
-				NEWSCASTER.update_icon()
-			src.admincaster_screen=17
-		src.access_news_network()
-
-	else if(href_list["ac_censor_channel_author"])
-		var/datum/feed_channel/FC = locate(href_list["ac_censor_channel_author"])
-		if(FC.author != "<B>\[REDACTED\]</B>")
-			FC.backup_author = FC.author
-			FC.author = "<B>\[REDACTED\]</B>"
-		else
-			FC.author = FC.backup_author
-		src.access_news_network()
-
-	else if(href_list["ac_censor_channel_story_author"])
-		var/datum/feed_message/MSG = locate(href_list["ac_censor_channel_story_author"])
-		if(MSG.author != "<B>\[REDACTED\]</B>")
-			MSG.backup_author = MSG.author
-			MSG.author = "<B>\[REDACTED\]</B>"
-		else
-			MSG.author = MSG.backup_author
-		src.access_news_network()
-
-	else if(href_list["ac_censor_channel_story_body"])
-		var/datum/feed_message/MSG = locate(href_list["ac_censor_channel_story_body"])
-		if(MSG.body != "<B>\[REDACTED\]</B>")
-			MSG.backup_body = MSG.body
-			MSG.body = "<B>\[REDACTED\]</B>"
-		else
-			MSG.body = MSG.backup_body
-		src.access_news_network()
-
-	else if(href_list["ac_pick_d_notice"])
-		var/datum/feed_channel/FC = locate(href_list["ac_pick_d_notice"])
-		src.admincaster_feed_channel = FC
-		src.admincaster_screen=13
-		src.access_news_network()
-
-	else if(href_list["ac_toggle_d_notice"])
-		var/datum/feed_channel/FC = locate(href_list["ac_toggle_d_notice"])
-		FC.censored = !FC.censored
-		src.access_news_network()
-
-	else if(href_list["ac_view"])
-		src.admincaster_screen=1
-		src.access_news_network()
-
-	else if(href_list["ac_setScreen"]) //Brings us to the main menu and resets all fields~
-		src.admincaster_screen = text2num(href_list["ac_setScreen"])
-		if(src.admincaster_screen == 0)
-			if(src.admincaster_feed_channel)
-				src.admincaster_feed_channel = new /datum/feed_channel
-			if(src.admincaster_feed_message)
-				src.admincaster_feed_message = new /datum/feed_message
-		src.access_news_network()
-
-	else if(href_list["ac_show_channel"])
-		var/datum/feed_channel/FC = locate(href_list["ac_show_channel"])
-		src.admincaster_feed_channel = FC
-		src.admincaster_screen = 9
-		src.access_news_network()
-
-	else if(href_list["ac_pick_censor_channel"])
-		var/datum/feed_channel/FC = locate(href_list["ac_pick_censor_channel"])
-		src.admincaster_feed_channel = FC
-		src.admincaster_screen = 12
-		src.access_news_network()
-
-	else if(href_list["ac_refresh"])
-		src.access_news_network()
-
-	else if(href_list["ac_set_signature"])
-		src.admincaster_signature = adminscrub(input(usr, "Provide your desired signature", "Network Identity Handler", ""))
-		src.access_news_network()
 
 	if(href_list["secretsmenu"])
 		switch(href_list["secretsmenu"])
@@ -3338,13 +3394,14 @@
 
 	// Library stuff
 	else if(href_list["library_book_id"])
-		var/isbn = sanitizeSQL(href_list["library_book_id"])
+		var/isbn = text2num(href_list["library_book_id"])
 
 		if(href_list["view_library_book"])
-			var/DBQuery/query_view_book = GLOB.dbcon.NewQuery("SELECT content, title FROM [format_table_name("library")] WHERE id=[isbn]")
-			if(!query_view_book.Execute())
-				var/err = query_view_book.ErrorMsg()
-				log_game("SQL ERROR viewing book. Error : \[[err]\]\n")
+			var/datum/db_query/query_view_book = SSdbcore.NewQuery("SELECT content, title FROM [format_table_name("library")] WHERE id=:isbn", list(
+				"isbn" = isbn
+			))
+			if(!query_view_book.warn_execute())
+				qdel(query_view_book)
 				return
 
 			var/content = ""
@@ -3361,47 +3418,37 @@
 			popup.set_content(dat)
 			popup.open(0)
 
+			qdel(query_view_book)
 			log_admin("[key_name(usr)] has viewed the book [isbn].")
 			message_admins("[key_name_admin(usr)] has viewed the book [isbn].")
 			return
 
 		else if(href_list["unflag_library_book"])
-			var/DBQuery/query_unflag_book = GLOB.dbcon.NewQuery("UPDATE [format_table_name("library")] SET flagged = 0 WHERE id=[isbn]")
-			if(!query_unflag_book.Execute())
-				var/err = query_unflag_book.ErrorMsg()
-				log_game("SQL ERROR unflagging book. Error : \[[err]\]\n")
+			var/datum/db_query/query_unflag_book = SSdbcore.NewQuery("UPDATE [format_table_name("library")] SET flagged = 0 WHERE id=:isbn", list(
+				"isbn" = isbn
+			))
+			if(!query_unflag_book.warn_execute())
+				qdel(query_unflag_book)
 				return
 
+			qdel(query_unflag_book)
 			log_admin("[key_name(usr)] has unflagged the book [isbn].")
 			message_admins("[key_name_admin(usr)] has unflagged the book [isbn].")
 
 		else if(href_list["delete_library_book"])
-			var/DBQuery/query_delbook = GLOB.dbcon.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=[isbn]")
-			if(!query_delbook.Execute())
-				var/err = query_delbook.ErrorMsg()
-				log_game("SQL ERROR deleting book. Error : \[[err]\]\n")
+			var/datum/db_query/query_delbook = SSdbcore.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=:isbn", list(
+				"isbn" = isbn
+			))
+			if(!query_delbook.warn_execute())
+				qdel(query_delbook)
 				return
 
+			qdel(query_delbook)
 			log_admin("[key_name(usr)] has deleted the book [isbn].")
 			message_admins("[key_name_admin(usr)] has deleted the book [isbn].")
 
 		// Refresh the page
 		src.view_flagged_books()
-
-	// Force unlink a discord key
-	// TODO: Delete this
-	else if(href_list["force_discord_unlink"])
-		if(!check_rights(R_ADMIN))
-			return
-		var/target_ckey = href_list["force_discord_unlink"]
-		var/DBQuery/admin_unlink_discord_id = GLOB.dbcon.NewQuery("DELETE FROM [format_table_name("discord")] WHERE ckey = '[target_ckey]'")
-		if(!admin_unlink_discord_id.Execute())
-			var/err = admin_unlink_discord_id.ErrorMsg()
-			log_game("SQL ERROR while admin-unlinking discord account. Error : \[[err]\]\n")
-			return
-		to_chat(src, "<span class='notice'>Successfully forcefully unlinked discord account from [target_ckey]</span>")
-		message_admins("[key_name_admin(usr)] forcefully unlinked the discord account belonging to [target_ckey]")
-		log_admin("[key_name_admin(usr)] forcefully unlinked the discord account belonging to [target_ckey]")
 
 	else if(href_list["create_outfit_finalize"])
 		if(!check_rights(R_EVENT))
@@ -3425,6 +3472,78 @@
 			return
 		var/datum/outfit/O = locate(href_list["chosen_outfit"]) in GLOB.custom_outfits
 		save_outfit(usr,O)
+	else if(href_list["open_ccbdb"])
+		if(!check_rights(R_ADMIN))
+			return
+		create_ccbdb_lookup(href_list["open_ccbdb"])
+	else if(href_list["slowquery"])
+		if(!check_rights(R_ADMIN))
+			return
+		message_admins("[key_name_admin(usr)] started responding to a query hang report") // So multiple admins dont try file the same report
+		var/answer = href_list["slowquery"]
+		if(answer == "yes")
+			log_sql("[usr.key] | Reported a server hang")
+			if(alert(usr, "Had you just pressed any admin buttons which could lag the server?", "Query server hang report", "Yes", "No") == "Yes")
+				var/response = input(usr,"What were you just doing?","Query server hang report") as null|text
+				if(response)
+					log_sql("[usr.key] | [response]")
+		else if(answer == "no")
+			log_sql("[usr.key] | Reported no server hang. Please investigate")
+	else if(href_list["suppresscidwarning"])
+		if(!check_rights(R_ADMIN))
+			return
+		add_note(href_list["suppresscidwarning"], CIDWARNING_SUPPRESSED_NOTETEXT, show_after = FALSE)
+	else if(href_list["viewkarma"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/target_ckey = href_list["viewkarma"]
+
+		var/total_karma = 0
+		var/spent_karma = 0
+		var/unlocked_jobs = ""
+		var/unlocked_species = ""
+		// Get their totals
+		var/datum/db_query/query_get_totals = SSdbcore.NewQuery("SELECT karma, karmaspent FROM [format_table_name("karmatotals")] WHERE byondkey=:ckey", list(
+			"ckey" = target_ckey
+		))
+		if(!query_get_totals.warn_execute())
+			qdel(query_get_totals)
+			return
+		// Even if there aint a row, we can still assume the defaults of 0 above
+		if(query_get_totals.NextRow())
+			total_karma = query_get_totals.item[1]
+			spent_karma = query_get_totals.item[2]
+
+		qdel(query_get_totals)
+
+		// Now get their unlocks
+		var/datum/db_query/query_get_unlocks = SSdbcore.NewQuery("SELECT job, species FROM [format_table_name("whitelist")] WHERE ckey=:ckey", list(
+			"ckey" = target_ckey
+		))
+		if(!query_get_unlocks.warn_execute())
+			qdel(query_get_unlocks)
+			return
+		if(query_get_unlocks.NextRow())
+			unlocked_jobs = query_get_unlocks.item[1]
+			unlocked_species = query_get_unlocks.item[2]
+
+		qdel(query_get_unlocks)
+
+		// Pack it into a dat
+		var/dat = {"
+		<ul>
+		<li>Total Karma: [total_karma]</li>
+		<li>Spent Karma: [spent_karma]</li>
+		<li>Available Karma: [total_karma - spent_karma]</li>
+		<li>Unlocked Jobs: [unlocked_jobs]</li>
+		<li>Unlocked Species: [unlocked_species]</li>
+		</ul>
+		"}
+
+		var/datum/browser/popup = new(usr, "view_karma", "Karma stats for [target_ckey]", 600, 300)
+		popup.set_content(dat)
+		popup.open(FALSE)
 
 /client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)
 	if(!check_rights(R_EVENT))
@@ -3439,14 +3558,15 @@
 		return
 	var/datum/outfit/O = hunter_outfits[dresscode]
 	message_admins("[key_name_admin(mob)] is sending a ([dresscode]) to [killthem ? "assassinate" : "protect"] [key_name_admin(H)]...")
-	var/list/candidates = pollCandidates("Play as a [killthem ? "murderous" : "protective"] [dresscode]?", ROLE_TRAITOR, 1)
+	var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_traitor")
+	var/list/candidates = SSghost_spawns.poll_candidates("Play as a [killthem ? "murderous" : "protective"] [dresscode]?", ROLE_TRAITOR, TRUE, source = source, role_cleanname = "[killthem ? "murderous" : "protective"] [dresscode]")
 	if(!candidates.len)
-		to_chat(usr, "ERROR: Could not create eventmob. No valid candidates.")
+		to_chat(usr, "<span class='warning'>ERROR: Could not create eventmob. No valid candidates.</span>")
 		return
 	var/mob/C = pick(candidates)
 	var/key_of_hunter = C.key
 	if(!key_of_hunter)
-		to_chat(usr, "ERROR: Could not create eventmob. Could not pick key.")
+		to_chat(usr, "<span class='warning'>ERROR: Could not create eventmob. Could not pick key.</span>")
 		return
 	var/datum/mind/hunter_mind = new /datum/mind(key_of_hunter)
 	hunter_mind.active = 1
@@ -3455,8 +3575,8 @@
 	hunter_mob.equipOutfit(O, FALSE)
 	var/obj/item/pinpointer/advpinpointer/N = new /obj/item/pinpointer/advpinpointer(hunter_mob)
 	hunter_mob.equip_to_slot_or_del(N, slot_in_backpack)
-	N.active = 1
-	N.mode = 2
+	N.mode = 3 //MODE_ADV, not defined here
+	N.setting = 2 //SETTING_OBJECT, not defined here
 	N.target = H
 	N.point_at(N.target)
 	N.modelocked = TRUE
@@ -3477,9 +3597,9 @@
 		hunter_mind.objectives += protect_objective
 	SSticker.mode.traitors |= hunter_mob.mind
 	to_chat(hunter_mob, "<span class='danger'>ATTENTION:</span> You are now on a mission!")
-	to_chat(hunter_mob, "<B>Goal: <span class='danger'>[killthem ? "MURDER" : "PROTECT"] [H.real_name]</span>, currently in [get_area(H.loc)]. </B>");
+	to_chat(hunter_mob, "<b>Goal: <span class='danger'>[killthem ? "MURDER" : "PROTECT"] [H.real_name]</span>, currently in [get_area(H.loc)].</b>");
 	if(killthem)
-		to_chat(hunter_mob, "<B>If you kill [H.p_them()], [H.p_they()] cannot be revived.</B>");
+		to_chat(hunter_mob, "<b>If you kill [H.p_them()], [H.p_they()] cannot be revived.</b>");
 	hunter_mob.mind.special_role = SPECIAL_ROLE_TRAITOR
 	var/datum/atom_hud/antag/tatorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
 	tatorhud.join_hud(hunter_mob)

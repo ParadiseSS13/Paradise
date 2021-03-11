@@ -35,7 +35,7 @@ BONUS
 			switch(A.stage)
 				if(5)
 					H.s_tone = -85
-					H.update_body(0)
+					H.update_body()
 				else
 					H.visible_message("<span class='warning'>[H] looks a bit pale...</span>", "<span class='notice'>Your skin suddenly appears lighter...</span>")
 
@@ -79,7 +79,7 @@ BONUS
 			switch(A.stage)
 				if(5)
 					H.s_tone = 85
-					H.update_body(0)
+					H.update_body()
 				else
 					H.visible_message("<span class='warning'>[H] looks a bit dark...</span>", "<span class='notice'>Your skin suddenly appears darker...</span>")
 

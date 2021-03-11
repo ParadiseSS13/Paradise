@@ -113,7 +113,7 @@
 
 /obj/item/clothing/head/soft/sec/corp
 	name = "corporate security cap"
-	desc = "It's baseball hat in corpotate colours."
+	desc = "It's a baseball hat in corporate colours."
 	icon_state = "corpsoft"
 	item_color = "corp"
 
