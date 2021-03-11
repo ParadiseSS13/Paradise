@@ -87,7 +87,7 @@
 	desc = "A prototype weapon recovered from the ruins of Research-Station Epsilon."
 	icon_state = "flayer"
 	item_state = null
-	shaded_charge = 1
+	shaded_charge = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/mindflayer)
 
 // Energy Crossbows //
