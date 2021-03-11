@@ -270,6 +270,13 @@
 	delay = 50
 	select_name = "snipe"
 
+/obj/item/ammo_casing/energy/bsg
+	projectile_type = /obj/item/projectile/energy/bsg
+	fire_sound = 'sound/weapons/wave.ogg'
+	e_cost = 10000
+	select_name = "the experimental setting"
+	delay = 10 SECONDS //Looooooong cooldown
+
 /obj/item/ammo_casing/energy/teleport
 	projectile_type = /obj/item/projectile/energy/teleport
 	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE

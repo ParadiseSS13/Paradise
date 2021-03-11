@@ -93,6 +93,45 @@
 	tesla_zap(src, zap_range, power, zap_flags)
 	qdel(src)
 
+/obj/item/projectile/energy/bsg
+	name = "orb of pure bluespace energy"
+	icon_state = "bluespace"
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/ion
+	damage = 60
+	damage_type = BURN
+	range = 9
+	weaken = 5
+	eyeblur = 5
+	speed = 2
+	alwayslog = TRUE
+
+/obj/item/projectile/energy/bsg/on_hit(atom/target)
+	. = ..()
+	kaboom()
+	qdel(src)
+
+/obj/item/projectile/energy/bsg/on_range()
+	kaboom()
+	..()
+
+/obj/item/projectile/energy/bsg/proc/kaboom()
+	for(var/mob/living/M in range(7, src))
+		var/floored = FALSE
+		if(prob(min(400 / (1 + get_dist(M, src)), 100)))
+			if(prob(75 / get_dist(M, src)))
+				M.Weaken(rand(1,3))
+				floored = TRUE
+			M.apply_damage((rand(15,30) * (1.1 - (get_dist(M, src)) / 10)), BURN) //reduced by 10% per tile
+			add_attack_logs(src, M, "Hit heavily by [src]")
+			if(floored)
+				to_chat(M, "<span class='danger'>You see a flash of briliant blue light as [src] explodes, knocking you to the ground and burning you!</span>")
+			else
+				to_chat(M, "<span class='danger'>You see a flash of briliant blue light as [src] explodes, burning you!</span>")
+		else
+			to_chat(M, "<span class='danger'>You feel the heat of the explosion of the [src], but the blast mostly misses you.</span>")
+			add_attack_logs(src, M, "Hit lightly by [src]")
+			M.apply_damage(rand(1, 5), BURN)
+
 /obj/item/projectile/energy/toxplasma
 	name = "plasma bolt"
 	icon_state = "energy"

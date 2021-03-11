@@ -317,6 +317,82 @@
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	shaded_charge = 1
 
+/obj/item/gun/energy/bsg
+	name = "\improper B.S.G"
+	desc = "The Blue Space Gun, uses a flux anomaly core and a bluespace crystal to produce destructive bluespace energy blasts, inspired by Nanotrasens BSA division"
+	origin_tech = "combat=1"
+	ammo_type = list(/obj/item/ammo_casing/energy/bsg)
+	weapon_weight = WEAPON_HEAVY
+	w_class = WEIGHT_CLASS_BULKY
+	can_holster = FALSE
+	cell_type = /obj/item/stock_parts/cell/bsg
+	var/obj/item/assembly/signaler/anomaly/flux/internal = null
+	var/has_bluespace_crystal = FALSE
+
+/obj/item/gun/energy/bsg/Destroy()
+	QDEL_NULL(internal)
+	return ..()
+
+/obj/item/gun/energy/bsg/examine(mob/user)
+	. = ..()
+	if(internal && has_bluespace_crystal)
+		. += "[src] is fully operational"
+	else if(internal)
+		. += "It has a flux anomaly core installed, but no bluespace crystal in it."
+	else if(has_bluespace_crystal)
+		. += "It has a bluespace crystal installed, but no flux anomaly core in it."
+	else
+		. += "It is missing a flux anomaly core and bluespace crystal to be operational."
+
+/obj/item/gun/energy/bsg/attackby(obj/item/O as obj, mob/user as mob, params)
+	if(istype(O, /obj/item/stack/ore/bluespace_crystal))
+		if(has_bluespace_crystal)
+			to_chat(user, "<span class='notice'>[src] already has a bluespace crystal in it.</span>")
+			return
+		var/obj/item/stack/S = O
+		if(!loc || !S || S.get_amount() < 1)
+			return
+		to_chat(user, "<span class='notice'>You load [O] into [src].</span>")
+		S.use(1)
+		has_bluespace_crystal = TRUE
+		return
+	if(istype(O, /obj/item/assembly/signaler/anomaly/flux))
+		if(internal)
+			to_chat(user, "<span class='notice'>[src] already has a [O]!</span>")
+		if(!user.drop_item())
+			to_chat(user, "<span class='warning'>[O] is stuck to your hand!</span>")
+			return
+		to_chat(user, "<span class='notice'>You insert [O] into [src], and [src] starts to warm up.</span>")
+		O.forceMove(src)
+		internal = O
+		return
+	else
+		return ..()
+
+/obj/item/gun/energy/bsg/process_fire()
+	if(!has_bluespace_crystal)
+		to_chat(usr, "<span class='warning'>The [src] has no bluespace crystal to power it!</span>")
+		return 0
+	if(!internal)
+		to_chat(usr, "<span class='warning'>The [src] has no flux anomaly core to power it!</span>")
+		return 0
+	..()
+/obj/item/gun/energy/bsg/process_chamber()
+	if(prob(25))
+		shatter()
+	..()
+
+/obj/item/gun/energy/bsg/emp_act(severity)
+	..()
+	if(prob(75 / severity))
+		if(has_bluespace_crystal)
+			shatter()
+
+/obj/item/gun/energy/bsg/proc/shatter()
+	visible_message("<span class='warning'>[src]'s bluespace crystal shatters!</span>")
+	playsound(src, 'sound/effects/pylon_shatter.ogg', 50, TRUE)
+	has_bluespace_crystal = FALSE
+
 // Temperature Gun //
 /obj/item/gun/energy/temperature
 	name = "temperature gun"
