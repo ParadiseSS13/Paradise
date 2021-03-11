@@ -308,7 +308,7 @@
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually
 //affects them once clothing is factored in. ~Errorage
-/mob/living/proc/calculate_affecting_pressure(var/pressure)
+/mob/living/proc/calculate_affecting_pressure(pressure)
 	return 0
 
 /mob/living/proc/adjustBodyTemp(actual, desired, incrementboost)
@@ -336,7 +336,7 @@
 
 
 //Recursive function to find everything a mob is holding.
-/mob/living/get_contents(var/obj/item/storage/Storage = null)
+/mob/living/get_contents(obj/item/storage/Storage = null)
 	var/list/L = list()
 
 	if(Storage) //If it called itself
@@ -785,7 +785,7 @@
 
 // The src mob is trying to strip an item from someone
 // Override if a certain type of mob should be behave differently when stripping items (can't, for example)
-/mob/living/stripPanelUnequip(obj/item/what, mob/who, where, var/silent = 0)
+/mob/living/stripPanelUnequip(obj/item/what, mob/who, where, silent = 0)
 	if(what.flags & NODROP)
 		to_chat(src, "<span class='warning'>You can't remove \the [what.name], it appears to be stuck!</span>")
 		return
@@ -802,7 +802,7 @@
 
 // The src mob is trying to place an item on someone
 // Override if a certain mob should be behave differently when placing items (can't, for example)
-/mob/living/stripPanelEquip(obj/item/what, mob/who, where, var/silent = 0)
+/mob/living/stripPanelEquip(obj/item/what, mob/who, where, silent = 0)
 	what = get_active_hand()
 	if(what && (what.flags & NODROP))
 		to_chat(src, "<span class='warning'>You can't put \the [what.name] on [who], it's stuck to your hand!</span>")
@@ -939,7 +939,7 @@
 				. += config.walk_speed
 
 
-/mob/living/proc/can_use_guns(var/obj/item/gun/G)
+/mob/living/proc/can_use_guns(obj/item/gun/G)
 	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !issmall(src))
 		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return 0

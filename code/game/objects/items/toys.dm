@@ -271,7 +271,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/ash_type = /obj/effect/decal/cleanable/ash
 
-/obj/item/toy/snappop/proc/pop_burst(var/n=3, var/c=1)
+/obj/item/toy/snappop/proc/pop_burst(n=3, c=1)
 	do_sparks(n, c, src)
 	new ash_type(loc)
 	visible_message("<span class='warning'>[src] explodes!</span>",
@@ -1364,7 +1364,7 @@
 	var/cooldown = 0
 	var/obj/stored_minature = null
 
-/obj/item/toy/minigibber/attack_self(var/mob/user)
+/obj/item/toy/minigibber/attack_self(mob/user)
 
 	if(stored_minature)
 		to_chat(user, "<span class='danger'>\The [src] makes a violent grinding noise as it tears apart the miniature figure inside!</span>")
@@ -1377,7 +1377,7 @@
 		playsound(user, 'sound/goonstation/effects/gib.ogg', 20, 1)
 		cooldown = world.time
 
-/obj/item/toy/minigibber/attackby(var/obj/O, var/mob/user, params)
+/obj/item/toy/minigibber/attackby(obj/O, mob/user, params)
 	if(istype(O,/obj/item/toy/character) && O.loc == user)
 		to_chat(user, "<span class='notice'>You start feeding \the [O] [bicon(O)] into \the [src]'s mini-input.</span>")
 		if(do_after(user, 10, target = src))

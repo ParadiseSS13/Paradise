@@ -292,7 +292,7 @@
 	else
 		return 0
 
-/mob/new_player/proc/AttemptLateSpawn(rank,var/spawning_at)
+/mob/new_player/proc/AttemptLateSpawn(rank, spawning_at)
 	if(src != usr)
 		return 0
 	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
@@ -383,7 +383,7 @@
 	qdel(src)
 
 
-/mob/new_player/proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank, var/join_message)
+/mob/new_player/proc/AnnounceArrival(mob/living/carbon/human/character, rank, join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
 		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
@@ -423,7 +423,7 @@
 			if(employmentCabinet.populated)
 				employmentCabinet.addFile(employee)
 
-/mob/new_player/proc/AnnounceCyborg(var/mob/living/character, var/rank, var/join_message)
+/mob/new_player/proc/AnnounceCyborg(mob/living/character, rank, join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
 		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)

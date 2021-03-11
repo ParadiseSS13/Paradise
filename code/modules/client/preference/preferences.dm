@@ -48,7 +48,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	return max(0, minimal_player_age_antag - C.player_age)
 
-/proc/check_client_age(client/C, var/days) // If days isn't provided, returns the age of the client. If it is provided, it returns the days until the player_age is equal to or greater than the days variable
+/proc/check_client_age(client/C, days) // If days isn't provided, returns the age of the client. If it is provided, it returns the days until the player_age is equal to or greater than the days variable
 	if(!days)
 		return C.player_age
 	else
@@ -204,6 +204,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/gear_tab = "General"
 	// Parallax
 	var/parallax = PARALLAX_HIGH
+	/// Do we want to force our runechat colour to be white?
+	var/force_white_runechat = FALSE
 
 /datum/preferences/New(client/C)
 	parent = C
@@ -579,20 +581,20 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	popup.open(0)
 
 
-/datum/preferences/proc/get_gear_metadata(var/datum/gear/G)
+/datum/preferences/proc/get_gear_metadata(datum/gear/G)
 	. = loadout_gear[G.display_name]
 	if(!.)
 		. = list()
 		loadout_gear[G.display_name] = .
 
-/datum/preferences/proc/get_tweak_metadata(var/datum/gear/G, var/datum/gear_tweak/tweak)
+/datum/preferences/proc/get_tweak_metadata(datum/gear/G, datum/gear_tweak/tweak)
 	var/list/metadata = get_gear_metadata(G)
 	. = metadata["[tweak]"]
 	if(!.)
 		. = tweak.get_default()
 		metadata["[tweak]"] = .
 
-/datum/preferences/proc/set_tweak_metadata(var/datum/gear/G, var/datum/gear_tweak/tweak, var/new_metadata)
+/datum/preferences/proc/set_tweak_metadata(datum/gear/G, datum/gear_tweak/tweak, new_metadata)
 	var/list/metadata = get_gear_metadata(G)
 	metadata["[tweak]"] = new_metadata
 
@@ -761,7 +763,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	popup.open(0)
 	return
 
-/datum/preferences/proc/SetJobPreferenceLevel(var/datum/job/job, var/level)
+/datum/preferences/proc/SetJobPreferenceLevel(datum/job/job, level)
 	if(!job)
 		return 0
 
@@ -984,7 +986,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	job_karma_low = 0
 
 
-/datum/preferences/proc/GetJobDepartment(var/datum/job/job, var/level)
+/datum/preferences/proc/GetJobDepartment(datum/job/job, level)
 	if(!job || !level)	return 0
 	switch(job.department_flag)
 		if(JOBCAT_SUPPORT)
@@ -1021,7 +1023,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					return job_karma_low
 	return 0
 
-/datum/preferences/proc/SetJobDepartment(var/datum/job/job, var/level)
+/datum/preferences/proc/SetJobDepartment(datum/job/job, level)
 	if(!job || !level)	return 0
 	switch(level)
 		if(1)//Only one of these should ever be active at once so clear them all here

@@ -443,7 +443,7 @@
 	popup.open()
 
 // Get rank from ID, ID inside PDA, PDA, ID in wallet, etc.
-/mob/living/carbon/human/proc/get_authentification_rank(var/if_no_id = "No id", var/if_no_job = "No job")
+/mob/living/carbon/human/proc/get_authentification_rank(if_no_id = "No id", if_no_job = "No job")
 	var/obj/item/pda/pda = wear_id
 	if(istype(pda))
 		if(pda.id)
@@ -459,7 +459,7 @@
 
 //gets assignment from ID or ID inside PDA or PDA itself
 //Useful when player do something with computers
-/mob/living/carbon/human/proc/get_assignment(var/if_no_id = "No id", var/if_no_job = "No job")
+/mob/living/carbon/human/proc/get_assignment(if_no_id = "No id", if_no_job = "No job")
 	var/obj/item/pda/pda = wear_id
 	var/obj/item/card/id/id = wear_id
 	if(istype(pda))
@@ -477,7 +477,7 @@
 
 //gets name from ID or ID inside PDA or PDA itself
 //Useful when player do something with computers
-/mob/living/carbon/human/proc/get_authentification_name(var/if_no_id = "Unknown")
+/mob/living/carbon/human/proc/get_authentification_name(if_no_id = "Unknown")
 	var/obj/item/pda/pda = wear_id
 	var/obj/item/card/id/id = wear_id
 	if(istype(pda))
@@ -492,7 +492,7 @@
 	return
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a seperate proc as it'll be useful elsewhere
-/mob/living/carbon/human/get_visible_name(var/id_override = FALSE)
+/mob/living/carbon/human/get_visible_name(id_override = FALSE)
 	if(name_override)
 		return name_override
 	if(wear_mask && (wear_mask.flags_inv & HIDEFACE))	//Wearing a mask which hides our face, use id-name if possible
@@ -514,7 +514,7 @@
 
 //gets name from ID or PDA itself, ID inside PDA doesn't matter
 //Useful when player is being seen by other mobs
-/mob/living/carbon/human/proc/get_id_name(var/if_no_id = "Unknown")
+/mob/living/carbon/human/proc/get_id_name(if_no_id = "Unknown")
 	var/obj/item/pda/pda = wear_id
 	var/obj/item/card/id/id = wear_id
 	if(istype(pda))		. = pda.owner
@@ -523,7 +523,7 @@
 	return
 
 //gets ID card object from special clothes slot or, if applicable, hands as well
-/mob/living/carbon/human/proc/get_idcard(var/check_hands = FALSE)
+/mob/living/carbon/human/proc/get_idcard(check_hands = FALSE)
 	var/obj/item/card/id/id = wear_id
 	var/obj/item/pda/pda = wear_id
 	if(istype(pda) && pda.id)
@@ -979,7 +979,7 @@
 	return tinted
 
 
-/mob/living/carbon/human/abiotic(var/full_body = 0)
+/mob/living/carbon/human/abiotic(full_body = 0)
 	if(full_body && ((src.l_hand && !(src.l_hand.flags & ABSTRACT)) || (src.r_hand && !(src.r_hand.flags & ABSTRACT)) || (src.back || src.wear_mask || src.head || src.shoes || src.w_uniform || src.wear_suit || src.glasses || src.l_ear || src.r_ear || src.gloves)))
 		return 1
 
@@ -1081,7 +1081,7 @@
 	else
 		germ_level += n
 
-/mob/living/carbon/human/proc/check_and_regenerate_organs(var/mob/living/carbon/human/H) //Regenerates missing limbs/organs.
+/mob/living/carbon/human/proc/check_and_regenerate_organs(mob/living/carbon/human/H) //Regenerates missing limbs/organs.
 	var/list/types_of_int_organs = list() //This will hold all the types of organs in the mob before rejuvenation.
 	for(var/obj/item/organ/internal/I in H.internal_organs)
 		types_of_int_organs |= I.type //Compiling the list of organ types. It is possible for organs to be missing from this list if they are absent from the mob.
@@ -1507,7 +1507,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	return FALSE
 
-/mob/living/carbon/human/assess_threat(var/mob/living/simple_animal/bot/secbot/judgebot, var/lasercolor)
+/mob/living/carbon/human/assess_threat(mob/living/simple_animal/bot/secbot/judgebot, lasercolor)
 	if(judgebot.emagged == 2)
 		return 10 //Everyone is a criminal!
 
@@ -1699,20 +1699,20 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/can_eat(flags = 255)
 	return dna.species && (dna.species.dietflags & flags)
 
-/mob/living/carbon/human/selfFeed(var/obj/item/reagent_containers/food/toEat, fullness)
+/mob/living/carbon/human/selfFeed(obj/item/reagent_containers/food/toEat, fullness)
 	if(!check_has_mouth())
 		to_chat(src, "Where do you intend to put \the [toEat]? You don't have a mouth!")
 		return 0
 	return ..()
 
-/mob/living/carbon/human/forceFed(var/obj/item/reagent_containers/food/toEat, mob/user, fullness)
+/mob/living/carbon/human/forceFed(obj/item/reagent_containers/food/toEat, mob/user, fullness)
 	if(!check_has_mouth())
 		if(!((istype(toEat, /obj/item/reagent_containers/food/drinks) && (ismachineperson(src)))))
 			to_chat(user, "Where do you intend to put \the [toEat]? \The [src] doesn't have a mouth!")
 			return 0
 	return ..()
 
-/mob/living/carbon/human/selfDrink(var/obj/item/reagent_containers/food/drinks/toDrink)
+/mob/living/carbon/human/selfDrink(obj/item/reagent_containers/food/drinks/toDrink)
 	if(!check_has_mouth())
 		if(!ismachineperson(src))
 			to_chat(src, "Where do you intend to put \the [src]? You don't have a mouth!")
@@ -1760,7 +1760,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/is_mechanical()
 	return ..() || (dna.species.bodyflags & ALL_RPARTS) != 0
 
-/mob/living/carbon/human/can_use_guns(var/obj/item/gun/G)
+/mob/living/carbon/human/can_use_guns(obj/item/gun/G)
 	. = ..()
 
 	if(G.trigger_guard == TRIGGER_GUARD_NORMAL)
@@ -1908,7 +1908,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	return getBrainLoss() < 100
 
 
-/mob/living/carbon/human/fakefire(var/fire_icon = "Generic_mob_burning")
+/mob/living/carbon/human/fakefire(fire_icon = "Generic_mob_burning")
 	if(!overlays_standing[FIRE_LAYER])
 		overlays_standing[FIRE_LAYER] = image("icon"=fire_dmi, "icon_state"=fire_icon)
 		update_icons()
@@ -1945,7 +1945,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
   * Basically just a quick redirect to the DNA handler that gets the species-specific colour handler
   */
 /mob/living/carbon/human/get_runechat_color()
-   return dna.species.get_species_runechat_color(src)
+	if(client?.prefs.toggles2 & PREFTOGGLE_2_FORCE_WHITE_RUNECHAT)
+		return "#FFFFFF" // Force white if they want it
+	return dna.species.get_species_runechat_color(src)
 
 /mob/living/carbon/human/update_runechat_msg_location()
 	if(ismecha(loc))

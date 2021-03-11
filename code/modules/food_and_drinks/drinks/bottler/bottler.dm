@@ -114,7 +114,7 @@
 		O.forceMove(src)
 	updateUsrDialog()
 
-/obj/machinery/bottler/proc/eject_items(var/slot)
+/obj/machinery/bottler/proc/eject_items(slot)
 	var/obj/item/O = null
 	if(!slot)
 		for(var/i = 1, i <= slots.len, i++)
