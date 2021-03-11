@@ -7,6 +7,8 @@
 	anchored = TRUE
 	density = TRUE
 	max_integrity = 250
+	occupy_whitelist = list(/mob/living/carbon/human)
+	occupy_delay = 3 SECONDS
 
 	var/obj/item/clothing/suit/suit = null
 	var/obj/item/clothing/head/helmet = null
@@ -44,10 +46,6 @@
 
 	//abstract these onto machinery eventually
 	var/state_open = FALSE
-	/// If set, turned into typecache in Initialize, other wise, defaults to mob/living typecache
-	var/list/occupant_typecache
-	var/atom/movable/occupant = null
-
 
 /obj/machinery/suit_storage_unit/standard_unit
 	suit_type	= /obj/item/clothing/suit/space/eva
@@ -260,10 +258,6 @@
 		storage = new storage_type(src)
 	update_icon()
 
-	//move this into machinery eventually...
-	if(occupant_typecache)
-		occupant_typecache = typecacheof(occupant_typecache)
-
 /obj/machinery/suit_storage_unit/Destroy()
 	SStgui.close_uis(wires)
 	QDEL_NULL(suit)
@@ -362,12 +356,12 @@
 
 
 /obj/machinery/suit_storage_unit/proc/dump_contents()
+	unoccupy(force = TRUE)
 	dropContents()
 	helmet = null
 	suit = null
 	mask = null
 	storage = null
-	occupant = null
 
 /obj/machinery/suit_storage_unit/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -375,35 +369,6 @@
 		dump_contents()
 		new /obj/item/stack/sheet/metal (loc, 2)
 	qdel(src)
-
-/obj/machinery/suit_storage_unit/MouseDrop_T(atom/A, mob/user)
-	if(user.stat || user.lying || !Adjacent(user) || !Adjacent(A) || !isliving(A))
-		return
-	var/mob/living/target = A
-	if(!state_open)
-		to_chat(user, "<span class='warning'>The [src]'s doors are shut!</span>")
-		return
-	if(!is_operational())
-		to_chat(user, "<span class='warning'>The [src] is not operational!</span>")
-		return
-	if(occupant || helmet || suit || storage)
-		to_chat(user, "<span class='warning'>It's too cluttered inside to fit in!</span>")
-		return
-
-	if(target == user)
-		user.visible_message("<span class='warning'>[user] starts squeezing into [src]!</span>", "<span class='notice'>You start working your way into [src]...</span>")
-	else
-		target.visible_message("<span class='warning'>[user] starts shoving [target] into [src]!</span>", "<span class='userdanger'>[user] starts shoving you into [src]!</span>")
-
-	if(do_mob(user, target, 30))
-		if(occupant || helmet || suit || storage)
-			return
-		if(target == user)
-			user.visible_message("<span class='warning'>[user] slips into [src] and closes the door behind [user.p_them()]!</span>", "<span class='notice'>You slip into [src]'s cramped space and shut its door.</span>")
-		else
-			target.visible_message("<span class='warning'>[user] pushes [target] into [src] and shuts its door!<span>", "<span class='userdanger'>[user] shoves you into [src] and shuts the door!</span>")
-		close_machine(target)
-		add_fingerprint(user)
 
 /obj/machinery/suit_storage_unit/proc/cook()
 	if(uv_cycles)
@@ -511,14 +476,11 @@
 		if(isliving(A))
 			var/mob/living/L = A
 			L.update_canmove()
-	occupant = null
 
 /obj/machinery/suit_storage_unit/proc/close_machine(atom/movable/target = null)
 	state_open = FALSE
 	if(!target)
 		for(var/am in loc)
-			if(!(occupant_typecache ? is_type_in_typecache(am, occupant_typecache) : isliving(am)))
-				continue
 			var/atom/movable/AM = am
 			if(AM.has_buckled_mobs())
 				continue
@@ -652,7 +614,7 @@
 			updateUsrDialog()
 			update_icon()
 		if(href_list["eject_guy"])
-			eject_occupant(usr)
+			unoccupy(usr)
 			updateUsrDialog()
 			update_icon()
 	add_fingerprint(usr)
@@ -711,7 +673,7 @@
 		to_chat(user, "<span class='danger'>Unable to open unit.</span>")
 		return
 	if(occupant)
-		eject_occupant(user)
+		unoccupy(user)
 		return
 	state_open = !state_open
 
@@ -723,72 +685,23 @@
 		return
 	locked = !locked
 
-/obj/machinery/suit_storage_unit/proc/eject_occupant(mob/user as mob)
-	if(locked)
-		return
-
-	if(!occupant)
-		return
-
-	if(user)
-		if(user != occupant)
-			to_chat(occupant, "<span class='warning'>The machine kicks you out!</span>")
-		if(user.loc != loc)
-			to_chat(occupant, "<span class='warning'>You leave the not-so-cozy confines of [src].</span>")
-	occupant.forceMove(loc)
-	occupant = null
-	if(!state_open)
-		state_open = 1
-	update_icon()
-	return
-
-/obj/machinery/suit_storage_unit/force_eject_occupant(mob/target)
-	eject_occupant()
-
 /obj/machinery/suit_storage_unit/verb/get_out()
 	set name = "Eject Suit Storage Unit"
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat != 0)
+	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
 		return
-	eject_occupant(usr)
-	add_fingerprint(usr)
-	updateUsrDialog()
-	update_icon()
-	return
+	unoccupy(usr)
 
 /obj/machinery/suit_storage_unit/verb/move_inside()
 	set name = "Hide in Suit Storage Unit"
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat != 0)
-		return
 	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
 		return
-	if(!state_open)
-		to_chat(usr, "<span class='warning'>The unit's doors are shut.</span>")
-		return
-	if(broken)
-		to_chat(usr, "<span class='warning'>The unit is not operational.</span>")
-		return
-	if((occupant) || (helmet) || (suit) || (storage))
-		to_chat(usr, "<span class='warning'>It's too cluttered inside for you to fit in!</span>")
-		return
-	visible_message("[usr] starts squeezing into the suit storage unit!")
-	if(do_after(usr, 10, target = usr))
-		usr.stop_pulling()
-		usr.forceMove(src)
-		occupant = usr
-		state_open = FALSE //Close the thing after the guy gets inside
-		update_icon()
-
-		add_fingerprint(usr)
-		updateUsrDialog()
-		return
-	else
-		occupant = null
+	occupy(usr, usr)
 
 /obj/machinery/suit_storage_unit/attack_ai(mob/user as mob)
 	return attack_hand(user)
@@ -796,3 +709,32 @@
 /obj/machinery/suit_storage_unit/proc/check_electrified_callback()
 	if(!wires.is_cut(WIRE_ELECTRIFY))
 		shocked = FALSE
+
+/obj/machinery/suit_storage_unit/can_occupy(mob/living/M, mob/user)
+	if(!state_open)
+		to_chat(user, "<span class='warning'>[src]'s doors are shut!</span>")
+		return
+	if(!is_operational())
+		to_chat(user, "<span class='warning'>[src] is not operational!</span>")
+		return
+	if(occupant || helmet || suit || storage)
+		to_chat(user, "<span class='warning'>It's too cluttered inside to fit in!</span>")
+		return FALSE
+	return ..()
+
+/obj/machinery/suit_storage_unit/occupy(mob/living/M, mob/user)
+	. = ..()
+	if(.)
+		close_machine(M)
+
+/obj/machinery/suit_storage_unit/unoccupy(mob/user, force)
+	if(state_open && !force)
+		to_chat(user, "<span class='warning'>[src]'s doors are shut!</span>")
+		return
+	else if(locked && !force)
+		to_chat(user, "<span class='warning'>[src] is locked!</span>")
+		return
+
+	. = ..()
+	if(.)
+		state_open = TRUE

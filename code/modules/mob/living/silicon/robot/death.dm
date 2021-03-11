@@ -68,7 +68,7 @@
 
 	if(in_contents_of(/obj/machinery/recharge_station))//exit the recharge station
 		var/obj/machinery/recharge_station/RC = loc
-		RC.go_out()
+		RC.unoccupy(force = TRUE)
 
 	update_icons()
 

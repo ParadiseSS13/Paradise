@@ -6,6 +6,8 @@
 	density = 1
 	opacity = 0
 	anchored = 1
+	occupy_whitelist = list(/mob/living/carbon/human)
+	occupy_delay = 0
 
 	var/ready = 1
 	var/malfunction = 0
@@ -14,7 +16,6 @@
 	var/injection_cooldown = 600
 	var/replenish_cooldown = 6000
 	var/replenishing = 0
-	var/mob/living/carbon/occupant = null
 	var/injecting = 0
 
 /obj/machinery/implantchair/New()
@@ -50,7 +51,7 @@
 	if(href_list["implant"])
 		if(src.occupant)
 			injecting = 1
-			go_out()
+			unoccupy(usr)
 			ready = 0
 			spawn(injection_cooldown)
 				ready = 1
@@ -63,51 +64,6 @@
 
 	src.updateUsrDialog()
 	return
-
-
-/obj/machinery/implantchair/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/grab))
-		var/obj/item/grab/G = W
-		if(!ismob(G.affecting))
-			return
-		var/mob/M = G.affecting
-		if(M.has_buckled_mobs())
-			to_chat(user, "[M] will not fit into [src] because [M.p_they()] [M.p_have()] a slime latched onto [M.p_their()] head.")
-			return
-		if(put_mob(M))
-			qdel(G)
-	src.updateUsrDialog()
-	return
-
-
-/obj/machinery/implantchair/proc/go_out(mob/M)
-	if(!( src.occupant ))
-		return
-	if(M == occupant) // so that the guy inside can't eject himself -Agouri
-		return
-	occupant.forceMove(loc)
-	if(injecting)
-		implant(src.occupant)
-		injecting = 0
-	src.occupant = null
-	icon_state = "implantchair"
-	return
-
-
-/obj/machinery/implantchair/proc/put_mob(mob/living/carbon/M)
-	if(!iscarbon(M))
-		to_chat(usr, "<span class='warning'>The [src.name] cannot hold this!</span>")
-		return
-	if(src.occupant)
-		to_chat(usr, "<span class='warning'>The [src.name] is already occupied!</span>")
-		return
-	M.stop_pulling()
-	M.forceMove(src)
-	src.occupant = M
-	src.add_fingerprint(usr)
-	icon_state = "implantchair_on"
-	return 1
-
 
 /obj/machinery/implantchair/proc/implant(mob/M)
 	if(!istype(M, /mob/living/carbon))
@@ -123,12 +79,26 @@
 			break
 	return
 
-
 /obj/machinery/implantchair/proc/add_implants()
 	for(var/i=0, i<src.max_implants, i++)
 		var/obj/item/implant/mindshield/I = new /obj/item/implant/mindshield(src)
 		implant_list += I
 	return
+
+/obj/machinery/implantchair/occupy(mob/living/M, mob/user)
+	. = ..()
+	if(.)
+		icon_state = "implantchair_on"
+
+/obj/machinery/implantchair/unoccupy(mob/user, force)
+	. = ..()
+	if(.)
+		var/mob/living/carbon/human/H = .
+		if(injecting)
+			implant(H)
+			injecting = FALSE
+		icon_state = "implantchair"
+		SStgui.update_uis(src)
 
 /obj/machinery/implantchair/verb/get_out()
 	set name = "Eject occupant"
@@ -136,7 +106,7 @@
 	set src in oview(1)
 	if(usr.stat != 0)
 		return
-	src.go_out(usr)
+	unoccupy(usr)
 	add_fingerprint(usr)
 	return
 
@@ -147,5 +117,5 @@
 	set src in oview(1)
 	if(usr.stat != 0 || stat & (NOPOWER|BROKEN))
 		return
-	put_mob(usr)
+	occupy(usr, usr)
 	return

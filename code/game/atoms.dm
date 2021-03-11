@@ -957,7 +957,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 //This proc is called on the location of an atom when the atom is Destroy()'d
 /atom/proc/handle_atom_del(atom/A)
-	return
+	SEND_SIGNAL(src, COMSIG_ATOM_CONTENTS_DEL, A)
 
 /atom/proc/atom_say(message)
 	if(!message)
