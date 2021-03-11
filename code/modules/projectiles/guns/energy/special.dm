@@ -320,12 +320,14 @@
 /obj/item/gun/energy/bsg
 	name = "\improper B.S.G"
 	desc = "The Blue Space Gun, uses a flux anomaly core and a bluespace crystal to produce destructive bluespace energy blasts, inspired by Nanotrasens BSA division"
+	icon_state = "BSG"
 	origin_tech = "combat=1"
 	ammo_type = list(/obj/item/ammo_casing/energy/bsg)
 	weapon_weight = WEAPON_HEAVY
 	w_class = WEIGHT_CLASS_BULKY
 	can_holster = FALSE
 	cell_type = /obj/item/stock_parts/cell/bsg
+	shaded_charge = 1
 	var/obj/item/assembly/signaler/anomaly/flux/internal = null
 	var/has_bluespace_crystal = FALSE
 
@@ -355,6 +357,10 @@
 		to_chat(user, "<span class='notice'>You load [O] into [src].</span>")
 		S.use(1)
 		has_bluespace_crystal = TRUE
+		if(internal)
+			icon_state = "BSG_FINISHED"
+		else
+			icon_state = "BSG_CRYSTAL"
 		return
 	if(istype(O, /obj/item/assembly/signaler/anomaly/flux))
 		if(internal)
@@ -365,6 +371,10 @@
 		to_chat(user, "<span class='notice'>You insert [O] into [src], and [src] starts to warm up.</span>")
 		O.forceMove(src)
 		internal = O
+		if(has_bluespace_crystal)
+			icon_state = "BSG_FINISHED"
+		else
+			icon_state = "BSG_CORE"
 		return
 	else
 		return ..()
@@ -381,6 +391,7 @@
 	if(prob(25))
 		shatter()
 	..()
+	update_icon()
 
 /obj/item/gun/energy/bsg/emp_act(severity)
 	..()
@@ -392,6 +403,19 @@
 	visible_message("<span class='warning'>[src]'s bluespace crystal shatters!</span>")
 	playsound(src, 'sound/effects/pylon_shatter.ogg', 50, TRUE)
 	has_bluespace_crystal = FALSE
+	if(internal)
+		icon_state = "BSG_CORE"
+	else
+		icon_state = "BSG"
+
+/obj/item/gun/energy/bsg/prebuilt
+	icon_state = "BSG_FINISHED"
+	has_bluespace_crystal = TRUE
+
+/obj/item/gun/energy/bsg/prebuilt/Initialize(mapload, ...)
+	. = ..()
+	internal = new /obj/item/assembly/signaler/anomaly/flux
+
 
 // Temperature Gun //
 /obj/item/gun/energy/temperature
