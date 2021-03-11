@@ -203,7 +203,7 @@ Class Procs:
 		stat &= ~BROKEN
 
 //sets the use_power var and then forces an area power update
-/obj/machinery/proc/update_use_power(var/new_use_power)
+/obj/machinery/proc/update_use_power(new_use_power)
 	use_power = new_use_power
 
 /obj/machinery/proc/auto_use_power()
@@ -241,7 +241,7 @@ Class Procs:
 			return TRUE
 	return FALSE
 
-/obj/machinery/proc/handle_multitool_topic(var/href, var/list/href_list, var/mob/user)
+/obj/machinery/proc/handle_multitool_topic(href, list/href_list, mob/user)
 	if(!allowed(user))//no, not even HREF exploits
 		return FALSE
 	var/obj/item/multitool/P = get_multitool(usr)
@@ -313,7 +313,7 @@ Class Procs:
 			update_multitool_menu(usr)
 			return TRUE
 
-/obj/machinery/Topic(href, href_list, var/nowindow = 0, var/datum/ui_state/state = GLOB.default_state)
+/obj/machinery/Topic(href, href_list, nowindow = 0, datum/ui_state/state = GLOB.default_state)
 	if(..(href, href_list, nowindow, state))
 		return 1
 
@@ -321,10 +321,10 @@ Class Procs:
 	add_fingerprint(usr)
 	return 0
 
-/obj/machinery/proc/operable(var/additional_flags = 0)
+/obj/machinery/proc/operable(additional_flags = 0)
 	return !inoperable(additional_flags)
 
-/obj/machinery/proc/inoperable(var/additional_flags = 0)
+/obj/machinery/proc/inoperable(additional_flags = 0)
 	return (stat & (NOPOWER|BROKEN|additional_flags))
 
 /obj/machinery/ui_status(mob/user, datum/ui_state/state)
@@ -339,11 +339,11 @@ Class Procs:
 
 	return ..()
 
-/obj/machinery/CouldUseTopic(var/mob/user)
+/obj/machinery/CouldUseTopic(mob/user)
 	..()
 	user.set_machine(src)
 
-/obj/machinery/CouldNotUseTopic(var/mob/user)
+/obj/machinery/CouldNotUseTopic(mob/user)
 	usr.unset_machine()
 
 /obj/machinery/proc/dropContents()//putting for swarmers, occupent code commented out, someone can use later.
@@ -567,7 +567,7 @@ Class Procs:
 /obj/machinery/proc/is_assess_emagged()
 	return emagged
 
-/obj/machinery/proc/assess_perp(mob/living/carbon/human/perp, var/check_access, var/auth_weapons, var/check_records, var/check_arrest)
+/obj/machinery/proc/assess_perp(mob/living/carbon/human/perp, check_access, auth_weapons, check_records, check_arrest)
 	var/threatcount = 0	//the integer returned
 
 	if(is_assess_emagged())

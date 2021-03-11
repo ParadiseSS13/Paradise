@@ -22,7 +22,7 @@
 		icon_state = initial(icon_state)
 		set_light(0)
 
-/obj/item/flashlight/proc/update_brightness(var/mob/user = null)
+/obj/item/flashlight/proc/update_brightness(mob/user = null)
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
 		set_light(brightness_on)
@@ -199,7 +199,7 @@
 	else
 		update_brightness(null)
 
-/obj/item/flashlight/flare/update_brightness(var/mob/user = null)
+/obj/item/flashlight/flare/update_brightness(mob/user = null)
 	..()
 	if(on)
 		item_state = "[initial(item_state)]-on"

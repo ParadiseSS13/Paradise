@@ -11,7 +11,7 @@
 	if(!istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
 		verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
-/obj/item/gun/projectile/revolver/chamber_round(var/spin = 1)
+/obj/item/gun/projectile/revolver/chamber_round(spin = 1)
 	if(spin)
 		chambered = magazine.get_round(1)
 	else

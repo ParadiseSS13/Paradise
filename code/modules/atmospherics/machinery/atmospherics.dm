@@ -83,14 +83,14 @@ Pipelines + Other Objects -> Pipe network
 
 	return TRUE
 
-/obj/machinery/atmospherics/proc/color_cache_name(var/obj/machinery/atmospherics/node)
+/obj/machinery/atmospherics/proc/color_cache_name(obj/machinery/atmospherics/node)
 	//Don't use this for standard pipes
 	if(!istype(node))
 		return null
 
 	return node.pipe_color
 
-/obj/machinery/atmospherics/proc/add_underlay(var/turf/T, var/obj/machinery/atmospherics/node, var/direction, var/icon_connect_type)
+/obj/machinery/atmospherics/proc/add_underlay(turf/T, obj/machinery/atmospherics/node, direction, icon_connect_type)
 	if(node)
 		if(T.intact && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe))
 			//underlays += SSair.icon_manager.get_atmos_icon("underlay_down", direction, color_cache_name(node))
@@ -253,7 +253,7 @@ Pipelines + Other Objects -> Pipe network
 	build_network()
 
 // Find a connecting /obj/machinery/atmospherics in specified direction.
-/obj/machinery/atmospherics/proc/findConnecting(var/direction)
+/obj/machinery/atmospherics/proc/findConnecting(direction)
 	for(var/obj/machinery/atmospherics/target in get_step(src,direction))
 		var/can_connect = check_connect_types(target, src)
 		if(can_connect && (target.initialize_directions & get_dir(target,src)))
@@ -292,7 +292,7 @@ Pipelines + Other Objects -> Pipe network
 	spawn(1)
 		user.canmove = 1
 
-/obj/machinery/atmospherics/AltClick(var/mob/living/L)
+/obj/machinery/atmospherics/AltClick(mob/living/L)
 	if(is_type_in_list(src, GLOB.ventcrawl_machinery))
 		L.handle_ventcrawl(src)
 		return
@@ -301,7 +301,7 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/can_crawl_through()
 	return 1
 
-/obj/machinery/atmospherics/proc/change_color(var/new_color)
+/obj/machinery/atmospherics/proc/change_color(new_color)
 	//only pass valid pipe colors please ~otherwise your pipe will turn invisible
 	if(!pipe_color_check(new_color))
 		return
@@ -310,7 +310,7 @@ Pipelines + Other Objects -> Pipe network
 	update_icon()
 
 // Additional icon procs
-/obj/machinery/atmospherics/proc/universal_underlays(var/obj/machinery/atmospherics/node, var/direction)
+/obj/machinery/atmospherics/proc/universal_underlays(obj/machinery/atmospherics/node, direction)
 	var/turf/T = get_turf(src)
 	if(!istype(T)) return
 	if(node)
@@ -332,7 +332,7 @@ Pipelines + Other Objects -> Pipe network
 		add_underlay_adapter(T, , direction, "-scrubbers")
 		add_underlay_adapter(T, , direction, "")
 
-/obj/machinery/atmospherics/proc/add_underlay_adapter(var/turf/T, var/obj/machinery/atmospherics/node, var/direction, var/icon_connect_type) //modified from add_underlay, does not make exposed underlays
+/obj/machinery/atmospherics/proc/add_underlay_adapter(turf/T, obj/machinery/atmospherics/node, direction, icon_connect_type) //modified from add_underlay, does not make exposed underlays
 	if(node)
 		if(T.intact && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe))
 			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)

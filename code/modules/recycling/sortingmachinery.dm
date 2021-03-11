@@ -153,7 +153,7 @@
 	resistance_flags = FLAMMABLE
 	var/static/list/no_wrap = list(/obj/item/smallDelivery, /obj/structure/bigDelivery, /obj/item/evidencebag, /obj/structure/closet/body_bag, /obj/item/twohanded/required)
 
-/obj/item/stack/packageWrap/afterattack(var/obj/target as obj, mob/user as mob, proximity)
+/obj/item/stack/packageWrap/afterattack(obj/target as obj, mob/user as mob, proximity)
 	if(!proximity) return
 	if(!istype(target))	//this really shouldn't be necessary (but it is).	-Pete
 		return

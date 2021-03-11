@@ -36,7 +36,7 @@
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "ishotgunstep1"
 
-/obj/item/weaponcrafting/ishotgunconstruction/attackby(var/obj/item/I, mob/user as mob, params)
+/obj/item/weaponcrafting/ishotgunconstruction/attackby(obj/item/I, mob/user as mob, params)
 	..()
 	if(istype(I, /obj/item/screwdriver))
 		var/obj/item/weaponcrafting/ishotgunconstruction2/C = new /obj/item/weaponcrafting/ishotgunconstruction2
@@ -67,7 +67,7 @@
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "ishotgunstep2"
 
-/obj/item/weaponcrafting/ishotgunconstruction3/attackby(var/obj/item/I, mob/user as mob, params)
+/obj/item/weaponcrafting/ishotgunconstruction3/attackby(obj/item/I, mob/user as mob, params)
 	..()
 	if(istype(I, /obj/item/stack/packageWrap))
 		var/obj/item/stack/packageWrap/C = I

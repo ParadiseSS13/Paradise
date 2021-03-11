@@ -195,7 +195,7 @@
 	select_name = "blue"
 	harmful = FALSE
 
-/obj/item/ammo_casing/energy/wormhole/New(var/obj/item/gun/energy/wormhole_projector/wh)
+/obj/item/ammo_casing/energy/wormhole/New(obj/item/gun/energy/wormhole_projector/wh)
 	. = ..()
 	gun = wh
 
