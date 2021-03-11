@@ -34,7 +34,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 				to_chat(C, msg)
 			if(important)
 				if(C.prefs?.sound & SOUND_ADMINHELP)
-					SEND_SOUND(C, 'sound/effects/adminhelp.ogg')
+					SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
 				window_flash(C)
 
 /**
@@ -51,7 +51,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 				to_chat(C, msg)
 			if(important)
 				if(C.prefs?.sound & SOUND_MENTORHELP)
-					SEND_SOUND(C, 'sound/effects/adminhelp.ogg')
+					SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
 				window_flash(C)
 
 /proc/admin_ban_mobsearch(mob/M, ckey_to_find, mob/admin_to_notify)
@@ -222,7 +222,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 				body += "<br><br>"
 				body += "<b>DNA Blocks:</b><br><table border='0'><tr><th>&nbsp;</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>"
 				var/bname
-				for(var/block=1;block<=DNA_SE_LENGTH;block++)
+				for(var/block in 1 to DNA_SE_LENGTH)
 					if(((block-1)%5)==0)
 						body += "</tr><tr><th>[block-1]</th>"
 					bname = GLOB.assigned_blocks[block]

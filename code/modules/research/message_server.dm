@@ -95,7 +95,7 @@ GLOBAL_LIST_EMPTY(message_servers)
 		var/obj/machinery/requests_console/RC = C
 		if(ckey(RC.department) == ckey(recipient))
 			if(RC.inoperable())
-				RC.message_log += "Message lost due to console failure. Please contact [station_name()]'s system administrator or AI for technical assistance."
+				RC.message_log.Add(list(list("Message lost due to console failure. Please contact [station_name()]'s system administrator or AI for technical assistance.")))
 				continue
 			if(RC.newmessagepriority < priority)
 				RC.newmessagepriority = priority
@@ -105,12 +105,12 @@ GLOBAL_LIST_EMPTY(message_servers)
 					if(!RC.silent)
 						playsound(RC.loc, 'sound/machines/twobeep.ogg', 50, 1)
 						RC.atom_say("PRIORITY Alert in [sender]")
-					RC.message_log += "High Priority message from [sender]: [authmsg]"
+					RC.message_log.Add(list(list("High Priority message from [sender]:", "[authmsg]")))
 				else
 					if(!RC.silent)
 						playsound(RC.loc, 'sound/machines/twobeep.ogg', 50, 1)
 						RC.atom_say("Message from [sender]")
-					RC.message_log += "Message [sender]: [authmsg]"
+					RC.message_log.Add(list(list("Message [sender]:", "[authmsg]")))
 			RC.set_light(2)
 
 /obj/machinery/message_server/attack_hand(user as mob)

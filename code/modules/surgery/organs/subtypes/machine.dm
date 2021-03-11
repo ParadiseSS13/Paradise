@@ -118,7 +118,7 @@
 	icon_state = "camera"
 	status = ORGAN_ROBOT
 //	dead_icon = "camera_broken"
-	weld_proof = 1
+	weld_proof = TRUE
 
 /obj/item/organ/internal/eyes/optical_sensor/remove(mob/living/user,special = 0)
 	if(!special)

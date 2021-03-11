@@ -19,8 +19,7 @@
 	desc = "Its label reads \"genuine hardened Captain leather\", but suspiciously has no other tags or branding. Smells like L'Air du Temps."
 	force = 10
 
-/obj/item/storage/briefcase/sniperbundle/New()
-	..()
+/obj/item/storage/briefcase/sniperbundle/populate_contents()
 	new /obj/item/gun/projectile/automatic/sniper_rifle/syndicate(src)
 	new /obj/item/clothing/accessory/red(src)
 	new /obj/item/clothing/under/syndicate/sniper(src)
@@ -56,7 +55,7 @@
 			to_chat(user, "<span class='warning'>The [I] is too big to fit in the false bottom!</span>")
 			return
 		if(!user.drop_item(I))
-			user << "<span class='warning'>The [I] is stuck to your hands!</span>"
+			to_chat(user, "<span class='warning'>The [I] is stuck to your hands!</span>")
 			return
 
 		stored_item = I

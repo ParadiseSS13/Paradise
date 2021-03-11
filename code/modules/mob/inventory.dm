@@ -125,7 +125,7 @@
 		return 0
 	return 1
 
-/mob/proc/unEquip(obj/item/I, force) //Force overrides NODROP for things like wizarditis and admin undress.
+/mob/proc/unEquip(obj/item/I, force, silent = FALSE) //Force overrides NODROP for things like wizarditis and admin undress.
 	if(!I) //If there's nothing to drop, the drop is automatically succesfull. If(unEquip) should generally be used to check for NODROP.
 		return 1
 
@@ -146,7 +146,7 @@
 		if(client)
 			client.screen -= I
 		I.forceMove(drop_location())
-		I.dropped(src)
+		I.dropped(src, silent)
 		if(I)
 			I.layer = initial(I.layer)
 			I.plane = initial(I.plane)

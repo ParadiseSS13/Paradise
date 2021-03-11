@@ -206,10 +206,10 @@
 	// Update the main DNA datum, then sync the change across the organs
 	var/obj/item/organ/internal/eyes/eyes_organ = get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes_organ)
-		if(colour == eyes_organ.eye_colour)
+		if(colour == eyes_organ.eye_color)
 			return
 
-		eyes_organ.eye_colour = colour
+		eyes_organ.eye_color = colour
 		dna.eye_color_to_dna(eyes_organ)
 		eyes_organ.set_dna(dna)
 
@@ -465,12 +465,3 @@
 		valid_alt_heads += alternate_head
 
 	return sortTim(valid_alt_heads, /proc/cmp_text_asc)
-
-/mob/living/carbon/human/proc/scramble_appearance()
-	scramble(1, src, 100)
-	real_name = random_name(gender, dna.species.name) //Give them a name that makes sense for their species.
-	sync_organ_dna(assimilate = 1)
-	update_body()
-	reset_hair() //No more winding up with hairstyles you're not supposed to have, and blowing your cover.
-	reset_markings() //...Or markings.
-	dna.ResetUIFrom(src)

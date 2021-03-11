@@ -55,10 +55,6 @@
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
 	var/datum/mindslaves/som //stands for slave or master...hush..
-	var/datum/devilinfo/devilinfo //Information about the devil, if any.
-	var/damnation_type = 0
-	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
-	var/hasSoul = TRUE
 
 	var/isholy = FALSE // is this person a chaplain or admin role allowed to use bibles
 	var/isblessed = FALSE // is this person blessed by a chaplain?
@@ -76,7 +72,6 @@
 
 /datum/mind/New(new_key)
 	key = new_key
-	soulOwner = src
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
@@ -88,7 +83,6 @@
 		antag_datums = null
 	current = null
 	original = null
-	soulOwner = null
 	return ..()
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
@@ -314,22 +308,6 @@
 
 	. += _memory_edit_role_enabled(ROLE_ABDUCTOR)
 
-/datum/mind/proc/memory_edit_devil(mob/living/H)
-	. = _memory_edit_header("devil", list("devilagents"))
-	if(src in SSticker.mode.devils)
-		if(!devilinfo)
-			. += "<b>No devilinfo found! Yell at a coder!</b>"
-		else if(!devilinfo.ascendable)
-			. += "<b>DEVIL</b>|<a href='?src=[UID()];devil=ascendable_devil'>Ascendable Devil</a>|sintouched|<a href='?src=[UID()];devil=clear'>no</a>"
-		else
-			. += "<a href='?src=[UID()];devil=devil'>DEVIL</a>|<b>ASCENDABLE DEVIL</b>|sintouched|<a href='?src=[UID()];devil=clear'>no</a>"
-	else if(src in SSticker.mode.sintouched)
-		. += "devil|Ascendable Devil|<b>SINTOUCHED</b>|<a href='?src=[UID()];devil=clear'>no</a>"
-	else
-		. += "<a href='?src=[UID()];devil=devil'>devil</a>|<a href='?src=[UID()];devil=ascendable_devil'>Ascendable Devil</a>|<a href='?src=[UID()];devil=sintouched'>sintouched</a>|<b>NO</b>"
-
-	. += _memory_edit_role_enabled(ROLE_DEVIL)
-
 /datum/mind/proc/memory_edit_eventmisc(mob/living/H)
 	. = _memory_edit_header("event", list())
 	if(src in SSticker.mode.eventmiscs)
@@ -349,55 +327,41 @@
 	. += _memory_edit_role_enabled(ROLE_TRAITOR)
 	// Contractor
 	. += "<br><b><i>contractor</i></b>: "
-	var/datum/antagonist/traitor/contractor/C = has_antag_datum(/datum/antagonist/traitor/contractor)
-	if(C)
-		var/status
-		if(C.contractor_uplink) // Offer accepted
-			status = "<b><font color='red'>CONTRACTOR</font></b>"
-		else if(world.time >= C.offer_deadline)
-			status = "<b><font color='darkorange'>CONTRACTOR (EXPIRED)</font></b>"
-		else
-			status = "<b><font color='orange'>CONTRACTOR (PENDING)</font></b>"
-		. += "[status]|<a href='?src=[UID()];contractor=clear'>no</a>"
+	var/datum/contractor_hub/H = LAZYACCESS(GLOB.contractors, src)
+	if(H)
+		. += "<b><font color='red'>CONTRACTOR</font></b>"
 		// List all their contracts
-		if(C.contractor_uplink)
-			. += "<br><b>Contracts:</b>"
-			if(C.contractor_uplink.hub.contracts)
-				var/count = 1
-				for(var/co in C.contractor_uplink.hub.contracts)
-					var/datum/syndicate_contract/CO = co
-					. += "<br><B>Contract #[count++]</B>: "
-					. += "<a href='?src=[UID()];cuid=[CO.UID()];contractor=target'><b>[CO.contract.target?.name || "Invalid target!"]</b></a>|"
-					. += "<a href='?src=[UID()];cuid=[CO.UID()];contractor=locations'>locations</a>|"
-					. += "<a href='?src=[UID()];cuid=[CO.UID()];contractor=other'>more</a>|"
-					switch(CO.status)
-						if(CONTRACT_STATUS_INVALID)
-							. += "<b>INVALID</b>"
-						if(CONTRACT_STATUS_INACTIVE)
-							. += "inactive"
-						if(CONTRACT_STATUS_ACTIVE)
-							. += "<b><font color='orange'>ACTIVE</font></b>|"
-							. += "<a href='?src=[UID()];cuid=[CO.UID()];contractor=interrupt'>interrupt</a>|"
-							. += "<a href='?src=[UID()];cuid=[CO.UID()];contractor=fail'>fail</a>"
-						if(CONTRACT_STATUS_COMPLETED)
-							. += "<font color='green'>COMPLETED</font>"
-						if(CONTRACT_STATUS_FAILED)
-							. += "<font color='red'>FAILED</font>"
-				. += "<br>"
-				. += "<a href='?src=[UID()];contractor=add'>Add Contract</a><br>"
-				. += "Claimable TC: <a href='?src=[UID()];contractor=tc'>[C.contractor_uplink.hub.reward_tc_available]</a><br>"
-				. += "Available Rep: <a href='?src=[UID()];contractor=rep'>[C.contractor_uplink.hub.rep]</a><br>"
-			else
-				. += "<br>"
-				. += "<i>Has not logged in to contractor uplink</i>"
-	else
-		if(has_antag_datum(/datum/antagonist/traitor))
-			if(find_syndicate_uplink())
-				. += "<a href='?src=[UID()];contractor=contractor'>contractor</a>|<b>NO</b>"
-			else
-				. += "contractor|<b>NO</b>|No Uplink"
+		. += "<br><b>Contracts:</b>"
+		if(H.contracts)
+			var/count = 1
+			for(var/co in H.contracts)
+				var/datum/syndicate_contract/CO = co
+				. += "<br><B>Contract #[count++]</B>: "
+				. += "<a href='?src=[UID()];cuid=[CO.UID()];contractor=target'><b>[CO.contract.target?.name || "Invalid target!"]</b></a>|"
+				. += "<a href='?src=[UID()];cuid=[CO.UID()];contractor=locations'>locations</a>|"
+				. += "<a href='?src=[UID()];cuid=[CO.UID()];contractor=other'>more</a>|"
+				switch(CO.status)
+					if(CONTRACT_STATUS_INVALID)
+						. += "<b>INVALID</b>"
+					if(CONTRACT_STATUS_INACTIVE)
+						. += "inactive"
+					if(CONTRACT_STATUS_ACTIVE)
+						. += "<b><font color='orange'>ACTIVE</font></b>|"
+						. += "<a href='?src=[UID()];cuid=[CO.UID()];contractor=interrupt'>interrupt</a>|"
+						. += "<a href='?src=[UID()];cuid=[CO.UID()];contractor=fail'>fail</a>"
+					if(CONTRACT_STATUS_COMPLETED)
+						. += "<font color='green'>COMPLETED</font>"
+					if(CONTRACT_STATUS_FAILED)
+						. += "<font color='red'>FAILED</font>"
+			. += "<br>"
+			. += "<a href='?src=[UID()];contractor=add'>Add Contract</a><br>"
+			. += "Claimable TC: <a href='?src=[UID()];contractor=tc'>[H.reward_tc_available]</a><br>"
+			. += "Available Rep: <a href='?src=[UID()];contractor=rep'>[H.rep]</a><br>"
 		else
-			. += "contractor|<b>NO</b>"
+			. += "<br>"
+			. += "<i>Has not logged in to contractor uplink</i>"
+	else
+		. += "<b>NO</b>"
 	// Mindslave
 	. += "<br><b><i>mindslaved</i></b>: "
 	if(has_antag_datum(/datum/antagonist/mindslave))
@@ -475,10 +439,6 @@
 		sections["shadowling"] = memory_edit_shadowling(H)
 		/** Abductors **/
 		sections["abductor"] = memory_edit_abductor(H)
-	/** DEVIL ***/
-	var/static/list/devils_typecache = typecacheof(list(/mob/living/carbon/human, /mob/living/carbon/true_devil, /mob/living/silicon/robot))
-	if(is_type_in_typecache(current, devils_typecache))
-		sections["devil"] = memory_edit_devil(H)
 	sections["eventmisc"] = memory_edit_eventmisc(H)
 	/** TRAITOR ***/
 	sections["traitor"] = memory_edit_traitor()
@@ -926,7 +886,7 @@
 					special_role = SPECIAL_ROLE_WIZARD
 					//ticker.mode.learn_basic_spells(current)
 					SSticker.mode.update_wiz_icons_added(src)
-					SEND_SOUND(current, 'sound/ambience/antag/ragesmages.ogg')
+					SEND_SOUND(current, sound('sound/ambience/antag/ragesmages.ogg'))
 					to_chat(current, "<span class='danger'>You are a Space Wizard!</span>")
 					current.faction = list("wizard")
 					log_admin("[key_name(usr)] has wizarded [key_name(current)]")
@@ -972,7 +932,7 @@
 					SSticker.mode.grant_changeling_powers(current)
 					SSticker.mode.update_change_icons_added(src)
 					special_role = SPECIAL_ROLE_CHANGELING
-					SEND_SOUND(current, 'sound/ambience/antag/ling_aler.ogg')
+					SEND_SOUND(current, sound('sound/ambience/antag/ling_aler.ogg'))
 					to_chat(current, "<B><font color='red'>Your powers have awoken. A flash of memory returns to us... we are a changeling!</font></B>")
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has changelinged [key_name_admin(current)]")
@@ -990,7 +950,7 @@
 					current.dna = changeling.absorbed_dna[1]
 					current.real_name = current.dna.real_name
 					current.UpdateAppearance()
-					domutcheck(current, null)
+					domutcheck(current)
 					log_admin("[key_name(usr)] has reset [key_name(current)]'s DNA")
 					message_admins("[key_name_admin(usr)] has reset [key_name_admin(current)]'s DNA")
 
@@ -1017,7 +977,7 @@
 					slaved.masters += src
 					som = slaved //we MIGT want to mindslave someone
 					special_role = SPECIAL_ROLE_VAMPIRE
-					SEND_SOUND(current, 'sound/ambience/antag/vampalert.ogg')
+					SEND_SOUND(current, sound('sound/ambience/antag/vampalert.ogg'))
 					to_chat(current, "<B><font color='red'>Your powers have awoken. Your lust for blood grows... You are a Vampire!</font></B>")
 					log_admin("[key_name(usr)] has vampired [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has vampired [key_name_admin(current)]")
@@ -1118,76 +1078,6 @@
 				SSticker.mode.update_eventmisc_icons_added(src)
 				message_admins("[key_name_admin(usr)] has eventantag'ed [current].")
 				log_admin("[key_name(usr)] has eventantag'ed [current].")
-	else if(href_list["devil"])
-		switch(href_list["devil"])
-			if("clear")
-				if(src in SSticker.mode.devils)
-					if(istype(current,/mob/living/carbon/true_devil/))
-						to_chat(usr,"<span class='warning'>This cannot be used on true or arch-devils.</span>")
-					else
-						SSticker.mode.devils -= src
-						SSticker.mode.update_devil_icons_removed(src)
-						special_role = null
-						to_chat(current,"<span class='userdanger'>Your infernal link has been severed! You are no longer a devil!</span>")
-						RemoveSpell(/obj/effect/proc_holder/spell/targeted/infernal_jaunt)
-						RemoveSpell(/obj/effect/proc_holder/spell/targeted/click/fireball/hellish)
-						RemoveSpell(/obj/effect/proc_holder/spell/targeted/click/summon_contract)
-						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork)
-						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/greater)
-						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/ascended)
-						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/violin)
-						RemoveSpell(/obj/effect/proc_holder/spell/targeted/summon_dancefloor)
-						RemoveSpell(/obj/effect/proc_holder/spell/targeted/sintouch)
-						RemoveSpell(/obj/effect/proc_holder/spell/targeted/sintouch/ascended)
-						message_admins("[key_name_admin(usr)] has de-devil'ed [current].")
-						if(issilicon(current))
-							var/mob/living/silicon/S = current
-							S.laws.clear_sixsixsix_laws()
-						devilinfo = null
-						log_admin("[key_name(usr)] has de-devil'ed [current].")
-				else if(src in SSticker.mode.sintouched)
-					SSticker.mode.sintouched -= src
-					message_admins("[key_name_admin(usr)] has de-sintouch'ed [current].")
-					log_admin("[key_name(usr)] has de-sintouch'ed [current].")
-			if("devil")
-				if(devilinfo)
-					devilinfo.ascendable = FALSE
-					message_admins("[key_name_admin(usr)] has made [current] unable to ascend as a devil.")
-					log_admin("[key_name_admin(usr)] has made [current] unable to ascend as a devil.")
-					return
-				if(!ishuman(current) && !isrobot(current))
-					to_chat(usr, "<span class='warning'>This only works on humans and cyborgs!</span>")
-					return
-				SSticker.mode.devils += src
-				special_role = "devil"
-				SSticker.mode.update_devil_icons_added(src)
-				SSticker.mode.finalize_devil(src, FALSE)
-				SSticker.mode.forge_devil_objectives(src, 2)
-				SSticker.mode.greet_devil(src)
-				message_admins("[key_name_admin(usr)] has devil'ed [current].")
-				log_admin("[key_name(usr)] has devil'ed [current].")
-			if("ascendable_devil")
-				if(devilinfo)
-					devilinfo.ascendable = TRUE
-					message_admins("[key_name_admin(usr)] has made [current] able to ascend as a devil.")
-					log_admin("[key_name_admin(usr)] has made [current] able to ascend as a devil.")
-					return
-				if(!ishuman(current) && !isrobot(current))
-					to_chat(usr, "<span class='warning'>This only works on humans and cyborgs!</span>")
-					return
-				SSticker.mode.devils += src
-				special_role = "devil"
-				SSticker.mode.update_devil_icons_added(src)
-				SSticker.mode.finalize_devil(src, TRUE)
-				SSticker.mode.forge_devil_objectives(src, 2)
-				SSticker.mode.greet_devil(src)
-				message_admins("[key_name_admin(usr)] has devil'ed [current].  The devil has been marked as ascendable.")
-				log_admin("[key_name(usr)] has devil'ed [current]. The devil has been marked as ascendable.")
-			if("sintouched")
-				var/mob/living/carbon/human/H = current
-				H.influenceSin()
-				message_admins("[key_name_admin(usr)] has sintouch'ed [current].")
-				log_admin("[key_name(usr)] has sintouch'ed [current].")
 
 	else if(href_list["traitor"])
 		switch(href_list["traitor"])
@@ -1216,50 +1106,10 @@
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 
 	else if(href_list["contractor"])
-		var/datum/antagonist/traitor/contractor/C = has_antag_datum(/datum/antagonist/traitor/contractor)
-		var/datum/contractor_hub/H = C && C.contractor_uplink?.hub
+		var/datum/contractor_hub/H = LAZYACCESS(GLOB.contractors, src)
 		switch(href_list["contractor"])
-			if("clear")
-				if(!C)
-					return
-				var/memory = C.antag_memory // Need to preserve the codewords and such
-				// Clean up contractor stuff
-				var/obj/item/uplink/hidden/U = find_syndicate_uplink()
-				U?.contractor = null
-				C.silent = TRUE
-				remove_antag_datum(/datum/antagonist/traitor/contractor)
-				// Traitor them again
-				if(!has_antag_datum(/datum/antagonist/traitor, FALSE))
-					var/datum/antagonist/traitor/T = new()
-					T.give_objectives = FALSE
-					T.should_equip = FALSE
-					T.silent = TRUE
-					T.antag_memory += memory
-					add_antag_datum(T)
-				// Notify
-				to_chat(current, "<span class='warning'><font size=3><b>You are no longer a Contractor!</b></font></span>")
-				log_admin("[key_name(usr)] has de-contractored [key_name(current)]")
-				message_admins("[key_name_admin(usr)] has de-contractored [key_name_admin(current)]")
-
-			if("contractor")
-				if(has_antag_datum(/datum/antagonist/traitor/contractor))
-					return
-				var/datum/antagonist/traitor/T = has_antag_datum(/datum/antagonist/traitor)
-				var/memory = T?.antag_memory // Need to preserve the codewords and such
-				// Replace the traitor datum by a contractor one
-				remove_antag_datum(/datum/antagonist/traitor)
-				C = new()
-				C.give_objectives = FALSE
-				C.should_equip = FALSE
-				C.silent = TRUE
-				C.antag_memory += memory
-				add_antag_datum(C)
-				// Notify
-				log_admin("[key_name(usr)] has contractored [key_name(current)]")
-				message_admins("[key_name_admin(usr)] has contractored [key_name_admin(current)]")
-
 			if("add")
-				if(!C)
+				if(!H)
 					return
 				var/list/possible_targets = list()
 				for(var/foo in SSticker.minds)
@@ -1275,37 +1125,37 @@
 				var/datum/syndicate_contract/new_contract = new(H, src, list(), target)
 				new_contract.reward_tc = list(0, 0, 0)
 				H.contracts += new_contract
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(H)
 				log_admin("[key_name(usr)] has given a new contract to [key_name(current)] with [target.current] as the target")
 				message_admins("[key_name_admin(usr)] has given a new contract to [key_name_admin(current)] with [target.current] as the target")
 
 			if("tc")
-				if(!C)
+				if(!H)
 					return
 				var/new_tc = input(usr, "Enter the new amount of TC:", "Set Claimable TC", H.reward_tc_available) as num|null
 				new_tc = text2num(new_tc)
 				if(isnull(new_tc) || new_tc < 0)
 					return
 				H.reward_tc_available = new_tc
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(H)
 				log_admin("[key_name(usr)] has set [key_name(current)]'s claimable TC to [new_tc]")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s claimable TC to [new_tc]")
 
 			if("rep")
-				if(!C)
+				if(!H)
 					return
 				var/new_rep = input(usr, "Enter the new amount of Rep:", "Set Available Rep", H.rep) as num|null
 				new_rep = text2num(new_rep)
 				if(isnull(new_rep) || new_rep < 0)
 					return
 				H.rep = new_rep
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(H)
 				log_admin("[key_name(usr)] has set [key_name(current)]'s contractor Rep to [new_rep]")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s contractor Rep to [new_rep]")
 
 			// Contract specific actions
 			if("target")
-				if(!C)
+				if(!H)
 					return
 				var/datum/syndicate_contract/CO = locateUID(href_list["cuid"])
 				if(!istype(CO))
@@ -1333,12 +1183,12 @@
 					temp.Blend(R.fields["photo"], ICON_OVERLAY)
 					CO.target_photo = temp
 				// Notify
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(H)
 				log_admin("[key_name(usr)] has set [key_name(current)]'s contract target to [target.current]")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s contract target to [target.current]")
 
 			if("locations")
-				if(!C)
+				if(!H)
 					return
 				var/datum/syndicate_contract/CO = locateUID(href_list["cuid"])
 				if(!istype(CO))
@@ -1371,12 +1221,12 @@
 					return
 				CO.contract.candidate_zones[difficulty] = new_area
 				CO.reward_tc[difficulty] = new_reward
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(H)
 				log_admin("[key_name(usr)] has set [key_name(current)]'s contract location to [new_area] with [new_reward] TC as reward")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s contract location to [new_area] with [new_reward] TC as reward")
 
 			if("other")
-				if(!C)
+				if(!H)
 					return
 				var/datum/syndicate_contract/CO = locateUID(href_list["cuid"])
 				if(!istype(CO))
@@ -1416,10 +1266,10 @@
 						message_admins("[key_name_admin(usr)] has deleted [key_name_admin(current)]'s contract")
 					else
 						return
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(H)
 
 			if("interrupt")
-				if(!C)
+				if(!H)
 					return
 				var/datum/syndicate_contract/CO = locateUID(href_list["cuid"])
 				if(!istype(CO) || CO.status != CONTRACT_STATUS_ACTIVE)
@@ -1432,7 +1282,7 @@
 				message_admins("[key_name_admin(usr)] has interrupted [key_name_admin(current)]'s contract")
 
 			if("fail")
-				if(!C)
+				if(!H)
 					return
 				var/datum/syndicate_contract/CO = locateUID(href_list["cuid"])
 				if(!istype(CO) || CO.status != CONTRACT_STATUS_ACTIVE)
@@ -1441,7 +1291,7 @@
 				if(!fail_reason || CO.status != CONTRACT_STATUS_ACTIVE)
 					return
 				CO.fail(fail_reason)
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(H)
 				log_admin("[key_name(usr)] has failed [key_name(current)]'s contract with reason: [fail_reason]")
 				message_admins("[key_name_admin(usr)] has failed [key_name_admin(current)]'s contract with reason: [fail_reason]")
 
@@ -1569,14 +1419,8 @@
 	else if(href_list["common"])
 		switch(href_list["common"])
 			if("undress")
-				if(ishuman(current))
-					var/mob/living/carbon/human/H = current
-					// Don't "undress" organs right out of the body
-					for(var/obj/item/W in H.contents - (H.bodyparts | H.internal_organs))
-						current.unEquip(W, 1)
-				else
-					for(var/obj/item/W in current)
-						current.unEquip(W, 1)
+				for(var/obj/item/I in current)
+					current.unEquip(I, TRUE)
 				log_admin("[key_name(usr)] has unequipped [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has unequipped [key_name_admin(current)]")
 			if("takeuplink")
@@ -1865,17 +1709,6 @@
 		var/obj/effect/proc_holder/spell/S = X
 		S.action.Grant(new_character)
 
-/datum/mind/proc/disrupt_spells(delay, list/exceptions = New())
-	for(var/X in spell_list)
-		var/obj/effect/proc_holder/spell/S = X
-		for(var/type in exceptions)
-			if(istype(S, type))
-				continue
-		S.charge_counter = delay
-		spawn(0)
-			S.start_recharge()
-		S.updateButtonIcon()
-
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter)
 	for(var/mob/dead/observer/G in GLOB.dead_mob_list)
 		if(G.mind == src)
@@ -1950,18 +1783,6 @@
 
 	to_chat(current, "<span class='warning'><b>You seem to have forgotten the events of the past 10 minutes or so, and your head aches a bit as if someone beat it savagely with a stick.</b></span>")
 	to_chat(current, "<span class='warning'><b>This means you don't remember who you were working for or what you were doing.</b></span>")
-
-/datum/mind/proc/is_revivable() //Note, this ONLY checks the mind.
-	if(damnation_type)
-		return FALSE
-	return TRUE
-
-// returns a mob to message to produce something visible for the target mind
-/datum/mind/proc/messageable_mob()
-	if(!QDELETED(current) && current.client)
-		return current
-	else
-		return get_ghost(even_if_they_cant_reenter = TRUE)
 
 //Initialisation procs
 /mob/proc/mind_initialize()

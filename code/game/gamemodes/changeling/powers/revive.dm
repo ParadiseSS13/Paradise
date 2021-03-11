@@ -19,9 +19,9 @@
 	user.SetEyeBlurry(0, FALSE)
 	user.RestoreEars()
 	user.heal_overall_damage(user.getBruteLoss(), user.getFireLoss(), updating_health = FALSE)
-	user.CureBlind(FALSE)
+	user.cure_blind(null, FALSE)
 	user.CureDeaf()
-	user.CureNearsighted(FALSE)
+	user.cure_nearsighted(null, FALSE)
 	user.reagents.clear_reagents()
 	user.germ_level = 0
 	user.timeofdeath = 0
@@ -52,7 +52,7 @@
 		H.remove_all_embedded_objects()
 	for(var/datum/disease/critical/C in user.viruses)
 		C.cure()
-	user.status_flags &= ~(FAKEDEATH)
+	REMOVE_TRAIT(user, TRAIT_FAKEDEATH, "changeling")
 	user.updatehealth("revive sting")
 	user.update_blind_effects()
 	user.update_blurry_effects()

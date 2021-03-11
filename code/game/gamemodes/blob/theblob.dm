@@ -143,9 +143,10 @@
 	..()
 	L.blob_act(src)
 
-/obj/structure/blob/tesla_act(power)
-	..()
-	take_damage(power / 400, BURN, "energy")
+/obj/structure/blob/zap_act(power, zap_flags)
+	take_damage(power * 0.0025, BURN, "energy")
+	power -= power * 0.0025 //You don't get to do it for free
+	return ..() //You don't get to do it for free
 
 /obj/structure/blob/hulk_damage()
 	return 15

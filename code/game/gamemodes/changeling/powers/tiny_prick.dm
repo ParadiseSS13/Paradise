@@ -94,12 +94,12 @@
 /datum/action/changeling/sting/transformation/can_sting(mob/user, mob/target)
 	if(!..())
 		return
-	if((HUSK in target.mutations) || (!ishuman(target)))
+	if(HAS_TRAIT(target, TRAIT_HUSK) || (!ishuman(target)))
 		to_chat(user, "<span class='warning'>Our sting appears ineffective against its DNA.</span>")
 		return FALSE
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(NO_DNA in H.dna.species.species_traits)
+		if(HAS_TRAIT(H, TRAIT_GENELESS))
 			to_chat(user, "<span class='warning'>This won't work on a creature without DNA.</span>")
 			return FALSE
 	return TRUE
@@ -167,7 +167,7 @@
 /datum/action/changeling/sting/blind/sting_action(mob/living/user, mob/living/target)
 	add_attack_logs(user, target, "Blind sting (changeling)")
 	to_chat(target, "<span class='danger'>Your eyes burn horrifically!</span>")
-	target.BecomeNearsighted()
+	target.become_nearsighted(EYE_DAMAGE)
 	target.EyeBlind(20)
 	target.EyeBlurry(40)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))

@@ -25,15 +25,21 @@
 	var/exp_flash = 3
 	var/exp_fire = 2
 
-/obj/item/projectile/magic/death/on_hit(mob/living/carbon/C)
+/obj/item/projectile/magic/death/on_hit(mob/living/carbon/target)
 	. = ..()
-	if(isliving(C))
-		if(ismachineperson(C)) //speshul snowfleks deserv speshul treetment
-			C.adjustFireLoss(6969)  //remember - slimes love fire
-		else
-			C.death()
+	if(isliving(target))
+		if(target.mob_biotypes & MOB_UNDEAD) //negative energy heals the undead
+			if(target.revive())
+				target.grab_ghost(force = TRUE) // even suicides
+				to_chat(target, "<span class='notice'>You rise with a start, you're undead!!!</span>")
+			else if(target.stat != DEAD)
+				to_chat(target, "<span class='notice'>You feel great!</span>")
+			return
+		if(ismachineperson(target)) //speshul snowfleks deserv speshul treetment
+			target.adjustFireLoss(6969)  //remember - slimes love fire
+		target.death(FALSE)
 
-		visible_message("<span class='danger'>[C] topples backwards as the death bolt impacts [C.p_them()]!</span>")
+		target.visible_message("<span class='danger'>[target] topples backwards as the death bolt impacts [target.p_them()]!</span>")
 
 /obj/item/projectile/magic/fireball/Range()
 	var/turf/T1 = get_step(src,turn(dir, -45))
@@ -76,18 +82,22 @@
 /obj/item/projectile/magic/resurrection/on_hit(mob/living/carbon/target)
 	. = ..()
 	if(ismob(target))
-		var/old_stat = target.stat
-		target.suiciding = 0
-		target.revive()
-		if(!target.ckey)
-			for(var/mob/dead/observer/ghost in GLOB.player_list)
-				if(target.real_name == ghost.real_name)
-					ghost.reenter_corpse()
-					break
-		if(old_stat != DEAD)
-			to_chat(target, "<span class='notice'>You feel great!</span>")
+		if(target.mob_biotypes & MOB_UNDEAD) //positive energy harms the undead
+			target.death(FALSE)
+			target.visible_message("<span class='danger'>[target] topples backwards as the death bolt impacts [target.p_them()]!</span>")
 		else
-			to_chat(target, "<span class='notice'>You rise with a start, you're alive!!!</span>")
+			var/old_stat = target.stat
+			target.suiciding = FALSE
+			target.revive()
+			if(!target.ckey)
+				for(var/mob/dead/observer/ghost in GLOB.player_list)
+					if(target.real_name == ghost.real_name)
+						ghost.reenter_corpse()
+						break
+			if(old_stat != DEAD)
+				to_chat(target, "<span class='notice'>You feel great!</span>")
+			else
+				to_chat(target, "<span class='notice'>You rise with a start, you're alive!!!</span>")
 
 /obj/item/projectile/magic/teleport
 	name = "bolt of teleportation"

@@ -29,7 +29,7 @@
 		to_chat(user, "<span class='warning'>[src] is stuck to your hand!</span>")
 		return
 
-	if((CLUMSY in user.mutations) && prob(50) && (!ignoresClumsy))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && (!ignoresClumsy))
 		to_chat(user, "<span class='warning'>Uh... how do those things work?!</span>")
 		apply_cuffs(user, user)
 		return

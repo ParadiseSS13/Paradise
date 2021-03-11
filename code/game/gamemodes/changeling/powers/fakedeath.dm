@@ -15,7 +15,7 @@
 	if(user.stat != DEAD)
 		user.emote("deathgasp")
 		user.timeofdeath = world.time
-	user.status_flags |= FAKEDEATH		//play dead
+	ADD_TRAIT(user, TRAIT_FAKEDEATH, "changeling")		//play dead
 	user.updatehealth("fakedeath sting")
 	user.update_canmove()
 	user.mind.changeling.regenerating = TRUE
@@ -31,7 +31,7 @@
 		R.Grant(user)
 
 /datum/action/changeling/fakedeath/can_sting(mob/user)
-	if(user.status_flags & FAKEDEATH)
+	if(HAS_TRAIT(user, TRAIT_FAKEDEATH))
 		to_chat(user, "<span class='warning'>We are already regenerating.</span>")
 		return
 	if(!user.stat)//Confirmation for living changelings if they want to fake their death

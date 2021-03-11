@@ -39,8 +39,8 @@
 			var/turf/simulated/floor/beach/water/W = T
 			W.linkedcontroller = src
 			linkedturfs += T
-		else if(istype(T, /turf/unsimulated/beach/water))
-			var/turf/unsimulated/beach/water/W = T
+		else if(istype(T, /turf/simulated/floor/beach/away/water))
+			var/turf/simulated/floor/beach/away/water/W = T
 			W.linkedcontroller = src
 			linkedturfs += T
 
@@ -76,7 +76,7 @@
 /obj/machinery/poolcontroller/proc/processMob()
 	for(var/M in mobinpool) //They're already typecasted when entering the turf
 		// Following two are sanity check. If the mob is no longer in the pool for whatever reason (Looking at you teleport), remove them
-		if(!istype(get_turf(M), /turf/simulated/floor/beach/water) && !istype(get_turf(M), /turf/unsimulated/beach/water)) // Water component when?
+		if(!istype(get_turf(M), /turf/simulated/floor/beach/water) && !istype(get_turf(M), /turf/simulated/floor/beach/away/water)) // Water component when?
 			mobinpool -= M
 			continue
 		handleTemp(M)	//handles pool temp effects on the swimmers
@@ -115,9 +115,9 @@
 	if(drownee && ((drownee.lying && !drownee.player_logged) || deep_water)) //Mob lying down and not SSD or water is deep (determined by controller)
 		if(drownee.internal)
 			return //Has internals, no drowning
-		if((NO_BREATHE in drownee.dna.species.species_traits) || (BREATHLESS in drownee.mutations))
+		if(HAS_TRAIT(drownee, TRAIT_NOBREATH))
 			return //doesn't breathe, no drowning
-		if(HAS_TRAIT(drownee,TRAIT_WATERBREATH))
+		if(HAS_TRAIT(drownee, TRAIT_WATERBREATH))
 			return //fish things don't drown
 
 		if(drownee.stat == DEAD)	//Dead spacemen don't drown more

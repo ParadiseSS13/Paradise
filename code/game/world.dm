@@ -22,7 +22,7 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	// This needs to happen early, otherwise people can get a null species, nuking their character
 	makeDatumRefLists()
 
-	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED) // creates a new TGS object
+	InitTGS() // creates a new TGS object
 	log_world("World loaded at [time_stamp()]")
 	log_world("[length(GLOB.vars) - length(GLOB.gvars_datum_in_built_vars)] global variables")
 	GLOB.revision_info.log_info()
@@ -59,6 +59,10 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	HandleTestRun()
 	#endif
 
+
+/world/proc/InitTGS()
+	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED) // creates a new TGS object
+	GLOB.revision_info.load_tgs_info() // Loads git and TM info from TGS itself
 
 // This is basically a replacement for hook/startup. Please dont shove random bullshit here
 // If it doesnt need to happen IMMEDIATELY on world load, make a subsystem for it

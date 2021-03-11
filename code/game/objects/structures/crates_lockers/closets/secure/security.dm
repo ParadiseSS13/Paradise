@@ -218,7 +218,7 @@
 	new /obj/item/clothing/suit/storage/brigdoc(src)
 	new /obj/item/clothing/under/rank/security/brigphys(src)
 	new /obj/item/clothing/shoes/white(src)
-	new /obj/item/radio/headset/headset_sec/alt(src)
+	new /obj/item/radio/headset/headset_sec/alt/brig_phys(src)
 	new /obj/item/clothing/shoes/sandal/white(src)
 
 
@@ -323,6 +323,8 @@
 	icon_off = "cabinetdetective_broken"
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
+	open_sound = 'sound/machines/wooden_closet_open.ogg'
+	close_sound = 'sound/machines/wooden_closet_close.ogg'
 
 /obj/structure/closet/secure_closet/detective/populate_contents()
 	new /obj/item/clothing/under/det(src)

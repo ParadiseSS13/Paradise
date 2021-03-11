@@ -224,7 +224,7 @@
 	// Cell recharging trait. Charges all mob's power cells to (potency*rate)% mark when eaten.
 	// Generates sparks on squash.
 	// Small (potency*rate*5) chance to shock squish or slip target for (potency*rate*5) damage.
-	// Multiplies max charge by (rate*1000) when used in potato power cells.
+	// Multiplies max charge by (rate*100) when used in potato power cells.
 	name = "Electrical Activity"
 	rate = 0.2
 	origin_tech = list("powerstorage" = 5)
@@ -233,14 +233,14 @@
 /datum/plant_gene/trait/cell_charge/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	var/power = G.seed.potency*rate
 	if(prob(power))
-		C.electrocute_act(round(power), G, 1, TRUE)
+		C.electrocute_act(round(power), G, 1, SHOCK_NOGLOVES)
 
 /datum/plant_gene/trait/cell_charge/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	if(isliving(target))
 		var/mob/living/carbon/C = target
 		var/power = G.seed.potency*rate
 		if(prob(power))
-			C.electrocute_act(round(power), G, 1, TRUE)
+			C.electrocute_act(round(power), G, 1, SHOCK_NOGLOVES)
 
 /datum/plant_gene/trait/cell_charge/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
 	if(!G.reagents.total_volume)
@@ -375,8 +375,8 @@
 
 			// The secret of potato supercells!
 			var/datum/plant_gene/trait/cell_charge/CG = G.seed.get_gene(/datum/plant_gene/trait/cell_charge)
-			if(CG) // 10x charge for deafult cell charge gene - 20 000 with 100 potency.
-				pocell.maxcharge *= CG.rate*1000
+			if(CG) // 20x charge for deafult cell charge gene - 40 000 with 100 potency.
+				pocell.maxcharge *= CG.rate*100
 			pocell.charge = pocell.maxcharge
 			pocell.name = "[G] battery"
 			pocell.desc = "A rechargable plant based power cell. This one has a power rating of [pocell.maxcharge], and you should not swallow it."

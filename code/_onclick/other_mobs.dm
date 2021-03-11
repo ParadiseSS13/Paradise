@@ -12,7 +12,7 @@
 	if(proximity && istype(G) && G.Touch(A, 1))
 		return
 
-	if(HULK in mutations)
+	if(HAS_TRAIT(src, TRAIT_HULK))
 		if(proximity) //no telekinetic hulk attack
 			if(A.attack_hulk(src))
 				return
@@ -42,10 +42,10 @@
 		if(istype(G) && G.Touch(A, 0)) // for magic gloves
 			return
 
-	if((LASER in mutations) && a_intent == INTENT_HARM)
+	if(HAS_TRAIT(src, TRAIT_LASEREYES) && a_intent == INTENT_HARM)
 		LaserEyes(A)
 
-	if(TK in mutations)
+	if(dna.GetSEState(GLOB.teleblock))
 		A.attack_tk(src)
 
 	if(isturf(A) && get_dist(src, A) <= 1)

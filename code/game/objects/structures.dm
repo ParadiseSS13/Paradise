@@ -166,3 +166,9 @@
 
 /obj/structure/proc/prevents_buckled_mobs_attacking()
 	return FALSE
+
+/obj/structure/zap_act(power, zap_flags)
+	if(zap_flags & ZAP_OBJ_DAMAGE)
+		take_damage(power / 8000, BURN, "energy")
+	power -= power / 2000 //walls take a lot out of ya
+	. = ..()

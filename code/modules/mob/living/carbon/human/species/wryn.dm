@@ -2,7 +2,6 @@
 	name = "Wryn"
 	name_plural = "Wryn"
 	icobase = 'icons/mob/human_races/r_wryn.dmi'
-	deform = 'icons/mob/human_races/r_wryn.dmi'
 	blacklisted = TRUE
 	language = "Wryn Hivemind"
 	tail = "wryntail"
@@ -35,7 +34,8 @@
 		"antennae" =    /obj/item/organ/internal/wryn/hivenode
 		)
 
-	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_SCAN, HIVEMIND)
+	species_traits = list(LIPS, IS_WHITELISTED, NO_CLONESCAN, HIVEMIND)
+	inherent_traits = list(TRAIT_NOBREATH)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR
 	dietflags = DIET_HERB		//bees feed off nectar, so bee people feed off plants too

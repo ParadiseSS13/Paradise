@@ -23,6 +23,7 @@
 	add_language("Xenomorph")
 	add_language("Hivemind")
 	..()
+	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
 
 /mob/living/carbon/alien/humanoid/Process_Spacemove(check_drift = 0)
 	if(..())

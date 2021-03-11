@@ -16,6 +16,9 @@
 	if(..())
 		return
 
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
+
 	. = TRUE
 	switch(action)
 		if("Status")
@@ -78,6 +81,9 @@
 
 	. = TRUE
 
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
+
 	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/signal))
 		var/obj/item/integrated_radio/signal/R = pda.cartridge.radio
 
@@ -110,6 +116,9 @@
 	if(..())
 		return
 
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
+
 	. = TRUE
 	// Observe
 	pm.ui_act(action, params, ui, state)
@@ -138,6 +147,9 @@
 		return
 
 	. = TRUE
+
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
 	switch(action)
 		if("Records")
@@ -252,6 +264,9 @@
 	if(..())
 		return
 
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
+
 	. = TRUE
 
 	// Aight listen up. Its time for a comment rant again.
@@ -332,6 +347,9 @@
 /datum/data/pda/app/mule_control/ui_act(action, list/params)
 	if(..())
 		return
+
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
 	. = TRUE
 

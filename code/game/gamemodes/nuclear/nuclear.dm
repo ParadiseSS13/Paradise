@@ -238,7 +238,7 @@
 
 
 /datum/game_mode/proc/greet_syndicate(datum/mind/syndicate, you_are=1)
-	SEND_SOUND(syndicate.current, 'sound/ambience/antag/ops.ogg')
+	SEND_SOUND(syndicate.current, sound('sound/ambience/antag/ops.ogg'))
 	if(you_are)
 		to_chat(syndicate.current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
 	var/obj_count = 1

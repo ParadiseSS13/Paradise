@@ -1,6 +1,7 @@
 /mob/living/simple_animal/possessed_object
 	name = "possessed doodad"
 	var/spirit_name = "mysterious force" // What we call ourselves in attack messages.
+	mob_biotypes = MOB_SPIRIT
 	health = 50
 	maxHealth = 50
 

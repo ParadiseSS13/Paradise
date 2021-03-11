@@ -75,7 +75,7 @@
 	set category = "Admin"
 	set name = "Jump to Coordinate"
 
-	if(!check_rights(R_ADMIN))
+	if(!isobserver(usr) && !check_rights(R_ADMIN)) // Only admins can jump without being a ghost
 		return
 
 	var/turf/T = locate(tx, ty, tz)
@@ -168,15 +168,17 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/area/A = input(usr, "Pick an area.", "Pick an area") in return_sorted_areas()
-	if(A)
-		if(isobj(M.loc))
-			var/obj/O = M.loc
-			O.force_eject_occupant(M)
-		admin_forcemove(M, pick(get_area_turfs(A)))
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Send Mob") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-		log_admin("[key_name(usr)] teleported [key_name(M)] to [A]")
-		message_admins("[key_name_admin(usr)] teleported [key_name_admin(M)] to [A]", 1)
+	var/area/A = input(usr, "Pick an area.", "Pick an area") as null|anything in return_sorted_areas()
+	if(!A)
+		return
+
+	if(isobj(M.loc))
+		var/obj/O = M.loc
+		O.force_eject_occupant(M)
+	admin_forcemove(M, pick(get_area_turfs(A)))
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Send Mob") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	log_admin("[key_name(usr)] teleported [key_name(M)] to [A]")
+	message_admins("[key_name_admin(usr)] teleported [key_name_admin(M)] to [A]", 1)
 
 /proc/admin_forcemove(mob/mover, atom/newloc)
 	mover.forceMove(newloc)

@@ -47,8 +47,8 @@
 			visible_message("<span class='notice'>[user] sticks \a [O] into \the [src].</span>")
 			brainmob = B.brainmob
 			B.brainmob = null
-			brainmob.forceMove(src)
 			brainmob.container = src
+			brainmob.forceMove(src)
 			brainmob.stat = CONSCIOUS
 			brainmob.see_invisible = initial(brainmob.see_invisible)
 			GLOB.respawnable_list -= brainmob
