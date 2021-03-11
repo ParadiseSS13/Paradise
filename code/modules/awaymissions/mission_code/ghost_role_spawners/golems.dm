@@ -142,7 +142,7 @@
 		var/human_transfer_choice = alert("Transfer your soul to [src]? (Warning, your old body will die!)", null, "Yes", "No")
 		if(human_transfer_choice != "Yes")
 			return
-		if(QDELETED(src) || uses <= 0 || user.stat >= 1|| QDELETED(I))
+		if(QDELETED(src) || uses <= 0 || user.stat >= 1 || QDELETED(I))
 			return
 		if(istype(src, /obj/effect/mob_spawn/human/golem/servant))
 			has_owner = FALSE
@@ -151,8 +151,7 @@
 		"<span class='notice'>You apply the potion to [src], feeling your mind leave your body!</span>")
 		message_admins("[key_name(user)] used [I] to transfer their mind into [src]")
 		create(ckey = user.ckey, name = user.real_name)
-		user.death()
-		QDEL_NULL(user.internal_organs_slot[BRAIN])
+		user.death()  //Keeps brain intact to prevent forcing redtext
 		qdel(I)
 
 /obj/effect/mob_spawn/human/golem/servant
