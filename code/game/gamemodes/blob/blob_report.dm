@@ -1,4 +1,4 @@
-/datum/game_mode/blob/proc/send_intercept(var/report = 1)
+/datum/game_mode/blob/proc/send_intercept(report = 1)
 	var/intercepttext = ""
 	var/interceptname = ""
 	switch(report)
@@ -89,7 +89,7 @@
 			else if(istype(O, /obj/machinery))
 				src.mach += 1
 
-/datum/station_state/proc/score(var/datum/station_state/result)
+/datum/station_state/proc/score(datum/station_state/result)
 	if(!result)	return 0
 	var/output = 0
 	output += (result.floor / max(floor,1))

@@ -854,7 +854,7 @@
 //			to_chat(world, "[area.power_equip]")
 	area.power_change()
 
-/obj/machinery/power/apc/proc/can_use(var/mob/user, var/loud = 0) //used by attack_hand() and Topic()
+/obj/machinery/power/apc/proc/can_use(mob/user, loud = 0) //used by attack_hand() and Topic()
 	if(user.can_admin_interact())
 		return 1
 
@@ -1255,7 +1255,7 @@
 			picked_light.flicker()
 
 
-/obj/machinery/power/apc/proc/autoset(var/val, var/on)
+/obj/machinery/power/apc/proc/autoset(val, on)
 	if(on==0)
 		if(val==2)			// if on, return off
 			return 0

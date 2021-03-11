@@ -18,7 +18,7 @@
 
 GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY_ENGINEER,SUPPLY_MEDICAL,SUPPLY_SCIENCE,SUPPLY_ORGANIC,SUPPLY_MATERIALS,SUPPLY_MISC,SUPPLY_VEND))
 
-/proc/get_supply_group_name(var/cat)
+/proc/get_supply_group_name(cat)
 	switch(cat)
 		if(SUPPLY_EMERGENCY)
 			return "Emergency"

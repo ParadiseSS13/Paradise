@@ -585,7 +585,7 @@
 		else
 			to_chat(user, "<span class='notice'>You stop [L == user ? "climbing into the cryo pod." : "putting [L] into the cryo pod."]</span>")
 
-/obj/machinery/cryopod/proc/take_occupant(var/mob/living/carbon/E, var/willing_factor = 1)
+/obj/machinery/cryopod/proc/take_occupant(mob/living/carbon/E, willing_factor = 1)
 	if(occupant)
 		return
 	if(!E)
@@ -756,7 +756,7 @@
 	return ..()
 
 
-/proc/cryo_ssd(var/mob/living/carbon/person_to_cryo)
+/proc/cryo_ssd(mob/living/carbon/person_to_cryo)
 	if(istype(person_to_cryo.loc, /obj/machinery/cryopod))
 		return 0
 	if(isobj(person_to_cryo.loc))
@@ -777,7 +777,7 @@
 			return 1
 	return 0
 
-/proc/force_cryo_human(var/mob/living/carbon/person_to_cryo)
+/proc/force_cryo_human(mob/living/carbon/person_to_cryo)
 	if(!istype(person_to_cryo))
 		return
 	if(!istype(person_to_cryo.loc, /obj/machinery/cryopod))

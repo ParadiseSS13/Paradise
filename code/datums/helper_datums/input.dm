@@ -45,7 +45,7 @@
 	return result
 
 // Callback function should take the result as the last argument
-/datum/async_input/proc/on_close(var/datum/callback/cb)
+/datum/async_input/proc/on_close(datum/callback/cb)
 	onCloseCb = cb
 
 /datum/async_input/proc/show()

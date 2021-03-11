@@ -167,7 +167,7 @@
 	"}
 	usr << browse(html,"window=stickybans;size=700x400")
 
-/proc/get_stickyban_from_ckey(var/ckey)
+/proc/get_stickyban_from_ckey(ckey)
 	if(!ckey)
 		return null
 	ckey = ckey(ckey)
@@ -177,7 +177,7 @@
 			. = stickyban2list(world.GetConfig("ban",key))
 			break
 
-/proc/stickyban2list(var/ban)
+/proc/stickyban2list(ban)
 	if(!ban)
 		return null
 	. = params2list(ban)
@@ -186,7 +186,7 @@
 	.["IP"] = splittext(.["IP"], ",")
 	.["computer_id"] = splittext(.["computer_id"], ",")
 
-/proc/list2stickyban(var/list/ban)
+/proc/list2stickyban(list/ban)
 	if(!ban || !islist(ban))
 		return null
 	. = ban.Copy()

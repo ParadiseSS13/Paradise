@@ -91,7 +91,7 @@
 	return FALSE
 
 
-/mob/living/carbon/proc/vomit(var/lost_nutrition = 10, var/blood = 0, var/stun = 1, var/distance = 0, var/message = 1)
+/mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = 0, stun = 1, distance = 0, message = 1)
 	if(ismachineperson(src)) //IPCs do not vomit particulates
 		return FALSE
 	if(is_muzzled())
@@ -198,7 +198,7 @@
 		H.update_icon()
 
 
-/mob/living/carbon/activate_hand(var/selhand) //0 or "r" or "right" for right hand; 1 or "l" or "left" for left hand.
+/mob/living/carbon/activate_hand(selhand) //0 or "r" or "right" for right hand; 1 or "l" or "left" for left hand.
 
 	if(istext(selhand))
 		selhand = lowertext(selhand)
@@ -402,13 +402,13 @@
 /mob/living/carbon/proc/getDNA()
 	return dna
 
-/mob/living/carbon/proc/setDNA(var/datum/dna/newDNA)
+/mob/living/carbon/proc/setDNA(datum/dna/newDNA)
 	dna = newDNA
 
 
 GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber))
 
-/mob/living/handle_ventcrawl(var/atom/clicked_on) // -- TLE -- Merged by Carn
+/mob/living/handle_ventcrawl(atom/clicked_on) // -- TLE -- Merged by Carn
 	if(!Adjacent(clicked_on))
 		return
 
@@ -754,7 +754,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return null
 
 //generates realistic-ish pulse output based on preset levels
-/mob/living/carbon/proc/get_pulse(var/method)	//method 0 is for hands, 1 is for machines, more accurate
+/mob/living/carbon/proc/get_pulse(method)	//method 0 is for hands, 1 is for machines, more accurate
 	var/temp = 0								//see setup.dm:694
 	switch(src.pulse)
 		if(PULSE_NONE)
@@ -1019,7 +1019,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/proc/can_eat(flags = 255)
 	return 1
 
-/mob/living/carbon/proc/eat(var/obj/item/reagent_containers/food/toEat, mob/user, var/bitesize_override)
+/mob/living/carbon/proc/eat(obj/item/reagent_containers/food/toEat, mob/user, bitesize_override)
 	if(!istype(toEat))
 		return 0
 	var/fullness = nutrition + 10
@@ -1040,7 +1040,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	GLOB.score_foodeaten++
 	return 1
 
-/mob/living/carbon/proc/selfFeed(var/obj/item/reagent_containers/food/toEat, fullness)
+/mob/living/carbon/proc/selfFeed(obj/item/reagent_containers/food/toEat, fullness)
 	if(ispill(toEat))
 		to_chat(src, "<span class='notify'>You [toEat.apply_method] [toEat].</span>")
 	else
@@ -1060,10 +1060,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			return 0
 	return 1
 
-/mob/living/carbon/proc/selfDrink(var/obj/item/reagent_containers/food/drinks/toDrink, mob/user)
+/mob/living/carbon/proc/selfDrink(obj/item/reagent_containers/food/drinks/toDrink, mob/user)
 	return 1
 
-/mob/living/carbon/proc/forceFed(var/obj/item/reagent_containers/food/toEat, mob/user, fullness)
+/mob/living/carbon/proc/forceFed(obj/item/reagent_containers/food/toEat, mob/user, fullness)
 	if(ispill(toEat) || fullness <= (600 * (1 + overeatduration / 1000)))
 		if(!toEat.instant_application)
 			visible_message("<span class='warning'>[user] attempts to force [src] to [toEat.apply_method] [toEat].</span>")
@@ -1077,13 +1077,13 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	visible_message("<span class='warning'>[user] forces [src] to [toEat.apply_method] [toEat].</span>")
 	return 1
 
-/mob/living/carbon/proc/forceFedAttackLog(var/obj/item/reagent_containers/food/toEat, mob/user)
+/mob/living/carbon/proc/forceFedAttackLog(obj/item/reagent_containers/food/toEat, mob/user)
 	add_attack_logs(user, src, "Fed [toEat]. Reagents: [toEat.reagents.log_list(toEat)]", toEat.reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
 
 /*TO DO - If/when stomach organs are introduced, override this at the human level sending the item to the stomach
 so that different stomachs can handle things in different ways VB*/
-/mob/living/carbon/proc/consume(var/obj/item/reagent_containers/food/toEat, var/bitesize_override, var/can_taste_container = TRUE)
+/mob/living/carbon/proc/consume(obj/item/reagent_containers/food/toEat, bitesize_override, can_taste_container = TRUE)
 	var/this_bite = bitesize_override ? bitesize_override : toEat.bitesize
 	if(!toEat.reagents)
 		return
