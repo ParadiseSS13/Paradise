@@ -65,7 +65,7 @@
 
 
 
-/obj/item/organ/internal/body_egg/alien_embryo/proc/AttemptGrow(var/gib_on_success = 1)
+/obj/item/organ/internal/body_egg/alien_embryo/proc/AttemptGrow(gib_on_success = 1)
 	if(!owner || polling)
 		return
 	polling = 1

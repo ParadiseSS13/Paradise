@@ -136,7 +136,7 @@
 	internal_tank = new /obj/machinery/portable_atmospherics/canister/air(src)
 	return internal_tank
 
-/obj/mecha/proc/add_cell(var/obj/item/stock_parts/cell/C=null)
+/obj/mecha/proc/add_cell(obj/item/stock_parts/cell/C=null)
 	if(C)
 		C.forceMove(src)
 		cell = C
@@ -242,7 +242,7 @@
 //////////////////////////////////
 ////////  Movement procs  ////////
 //////////////////////////////////
-/obj/mecha/Process_Spacemove(var/movement_dir = 0)
+/obj/mecha/Process_Spacemove(movement_dir = 0)
 	. = ..()
 	if(.)
 		return 1
@@ -354,7 +354,7 @@
 	if(. && stepsound)
 		playsound(src, stepsound, 40, 1)
 
-/obj/mecha/Bump(var/atom/obstacle, bump_allowed)
+/obj/mecha/Bump(atom/obstacle, bump_allowed)
 	if(throwing) //high velocity mechas in your face!
 		var/breakthrough = 0
 		if(istype(obstacle, /obj/structure/window))
@@ -887,7 +887,7 @@
 	else
 		examine(user)
 		if(occupant)
-			user << "<span class='warning'>This exosuit has a pilot and cannot be controlled.</span>"
+			to_chat(user, "<span class='warning'>This exosuit has a pilot and cannot be controlled.</span>")
 			return
 		var/can_control_mech = FALSE
 		for(var/obj/item/mecha_parts/mecha_tracking/ai_control/A in trackers)
@@ -920,7 +920,7 @@
 			AI.aiRestorePowerRoutine = 0//So the AI initially has power.
 			AI.control_disabled = 1
 			AI.aiRadio.disabledAi = 1
-			AI.loc = card
+			AI.forceMove(card)
 			occupant = null
 			AI.controlled_mech = null
 			AI.remote_control = null
@@ -956,7 +956,7 @@
 //Hack and From Card interactions share some code, so leave that here for both to use.
 /obj/mecha/proc/ai_enter_mech(mob/living/silicon/ai/AI, interaction)
 	AI.aiRestorePowerRoutine = 0
-	AI.loc = src
+	AI.forceMove(src)
 	occupant = AI
 	icon_state = initial(icon_state)
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
@@ -1105,7 +1105,7 @@
 	else
 		to_chat(user, "<span class='warning'>You stop entering the exosuit!</span>")
 
-/obj/mecha/proc/moved_inside(var/mob/living/carbon/human/H as mob)
+/obj/mecha/proc/moved_inside(mob/living/carbon/human/H as mob)
 	if(H && H.client && (H in range(1)))
 		occupant = H
 		H.stop_pulling()
@@ -1128,7 +1128,7 @@
 	else
 		return FALSE
 
-/obj/mecha/proc/mmi_move_inside(var/obj/item/mmi/mmi_as_oc as obj,mob/user as mob)
+/obj/mecha/proc/mmi_move_inside(obj/item/mmi/mmi_as_oc as obj,mob/user as mob)
 	if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
 		to_chat(user, "<span class='warning'>Consciousness matrix not detected!</span>")
 		return FALSE
@@ -1154,7 +1154,7 @@
 		to_chat(user, "<span class='notice'>You stop inserting the MMI.</span>")
 	return FALSE
 
-/obj/mecha/proc/mmi_moved_inside(obj/item/mmi/mmi_as_oc,mob/user)
+/obj/mecha/proc/mmi_moved_inside(obj/item/mmi/mmi_as_oc, mob/user)
 	if(mmi_as_oc && (user in range(1)))
 		if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
 			to_chat(user, "Consciousness matrix not detected.")
@@ -1165,7 +1165,7 @@
 		if(!user.unEquip(mmi_as_oc))
 			to_chat(user, "<span class='notice'>\the [mmi_as_oc] is stuck to your hand, you cannot put it in \the [src]</span>")
 			return FALSE
-		var/mob/brainmob = mmi_as_oc.brainmob
+		var/mob/living/carbon/brain/brainmob = mmi_as_oc.brainmob
 		brainmob.reset_perspective(src)
 		occupant = brainmob
 		brainmob.forceMove(src) //should allow relaymove
@@ -1197,7 +1197,7 @@
 		return 1
 	return 0
 
-/obj/mecha/proc/pilot_mmi_hud(var/mob/living/carbon/brain/pilot)
+/obj/mecha/proc/pilot_mmi_hud(mob/living/carbon/brain/pilot)
 	return
 
 /obj/mecha/Exited(atom/movable/M, atom/newloc)
@@ -1250,7 +1250,7 @@
 		if(istype(mob_container, /obj/item/mmi))
 			var/obj/item/mmi/mmi = mob_container
 			if(mmi.brainmob)
-				L.loc = mmi
+				L.forceMove(mmi)
 				L.reset_perspective()
 			mmi.mecha = null
 			mmi.update_icon()

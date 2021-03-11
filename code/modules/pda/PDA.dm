@@ -31,6 +31,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/datum/data/pda/utility/scanmode/scanmode = null
 
 	var/lock_code = "" // Lockcode to unlock uplink
+	var/silent = FALSE //To beep or not to beep, that is the question
 	var/honkamt = 0 //How many honks left when infected with honk.exe
 	var/mimeamt = 0 //How many silence left when infected with mime.exe
 	var/detonate = 1 // Can the PDA be blown up?
@@ -67,6 +68,7 @@ GLOBAL_LIST_EMPTY(PDAs)
  */
 /obj/item/pda/Initialize(mapload)
 	. = ..()
+	silent = TRUE // We don't want to hear the first program start up
 	GLOB.PDAs += src
 	GLOB.PDAs = sortAtom(GLOB.PDAs)
 	update_programs()
@@ -75,6 +77,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		cartridge.update_programs(src)
 	new /obj/item/pen(src)
 	start_program(find_program(/datum/data/pda/app/main_menu))
+	silent = initial(silent)
 
 /obj/item/pda/proc/can_use()
 	if(!ismob(loc))
@@ -182,6 +185,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			id.forceMove(get_turf(src))
 		overlays -= image('icons/goonstation/objects/pda_overlay.dmi', id.icon_state)
 		id = null
+		playsound(src, 'sound/machines/terminal_eject.ogg', 50, TRUE)
 
 /obj/item/pda/verb/verb_remove_id()
 	set category = "Object"
@@ -214,6 +218,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		var/obj/item/pen/O = locate() in src
 		if(O)
 			to_chat(user, "<span class='notice'>You remove the [O] from [src].</span>")
+			playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
 			if(istype(loc, /mob))
 				var/mob/M = loc
 				if(M.get_active_hand() == null)
@@ -243,6 +248,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			I.forceMove(src)
 			id = I
 			user.put_in_hands(old_id)
+			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 	return
 
 /obj/item/pda/attackby(obj/item/C as obj, mob/user as mob, params)
@@ -257,11 +263,14 @@ GLOBAL_LIST_EMPTY(PDAs)
 		SStgui.update_uis(src)
 		if(cartridge.radio)
 			cartridge.radio.hostpda = src
+		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 
 	else if(istype(C, /obj/item/card/id))
 		var/obj/item/card/id/idcard = C
 		if(!idcard.registered_name)
 			to_chat(user, "<span class='notice'>\The [src] rejects the ID.</span>")
+			if(!silent)
+				playsound(src, 'sound/machines/terminal_error.ogg', 50, TRUE)
 			return
 		if(!owner)
 			owner = idcard.registered_name
@@ -270,6 +279,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 			name = "PDA-[owner] ([ownjob])"
 			to_chat(user, "<span class='notice'>Card scanned.</span>")
 			SStgui.update_uis(src)
+			if(!silent)
+				playsound(src, 'sound/machines/terminal_success.ogg', 50, TRUE)
 		else
 			//Basic safety check. If either both objects are held by user or PDA is on ground and card is in hand.
 			if(((src in user.contents) && (C in user.contents)) || (istype(loc, /turf) && in_range(src, user) && (C in user.contents)) )
@@ -285,6 +296,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		pai = C
 		to_chat(user, "<span class='notice'>You slot \the [C] into [src].</span>")
 		SStgui.update_uis(src)
+		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 	else if(istype(C, /obj/item/pen))
 		var/obj/item/pen/O = locate() in src
 		if(O)
@@ -293,6 +305,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			user.drop_item()
 			C.forceMove(src)
 			to_chat(user, "<span class='notice'>You slide \the [C] into \the [src].</span>")
+			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 	else if(istype(C, /obj/item/nanomob_card))
 		if(cartridge && istype(cartridge, /obj/item/cartridge/mob_hunt_game))
 			cartridge.attackby(C, user, params)
@@ -345,7 +358,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(ttone in ttone_sound)
 		S = ttone_sound[ttone]
 	else
-		S = 'sound/machines/twobeep.ogg'
+		S = 'sound/machines/twobeep_high.ogg'
 	playsound(loc, S, 50, 1)
 	for(var/mob/O in hearers(3, loc))
 		O.show_message(text("[bicon(src)] *[ttone]*"))

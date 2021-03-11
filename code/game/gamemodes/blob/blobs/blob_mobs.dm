@@ -20,7 +20,7 @@
 	fire_damage = 3
 	var/mob/camera/blob/overmind = null
 
-/mob/living/simple_animal/hostile/blob/proc/adjustcolors(var/a_color)
+/mob/living/simple_animal/hostile/blob/proc/adjustcolors(a_color)
 	if(a_color)
 		color = a_color
 
@@ -34,6 +34,11 @@
 				H.color = "#000000"
 		adjustHealth(-maxHealth * 0.0125)
 
+/mob/living/simple_animal/hostile/blob/Process_Spacemove(movement_dir = 0)
+	// Use any nearby blob structures to allow space moves.
+	for(var/obj/structure/blob/B in range(1, src))
+		return TRUE
+	return ..()
 
 ////////////////
 // BLOB SPORE //
@@ -64,7 +69,7 @@
 		return 1
 	return ..()
 
-/mob/living/simple_animal/hostile/blob/blobspore/New(loc, var/obj/structure/blob/factory/linked_node)
+/mob/living/simple_animal/hostile/blob/blobspore/New(loc, obj/structure/blob/factory/linked_node)
 	if(istype(linked_node))
 		factory = linked_node
 		factory.spores += src
@@ -92,6 +97,7 @@
 	health = maxHealth
 	name = "blob zombie"
 	desc = "A shambling corpse animated by the blob."
+	mob_biotypes |= MOB_HUMANOID
 	melee_damage_lower = 10
 	melee_damage_upper = 15
 	icon = H.icon
@@ -143,7 +149,7 @@
 
 	adjustcolors(overmind?.blob_reagent_datum?.complementary_color)
 
-/mob/living/simple_animal/hostile/blob/blobspore/adjustcolors(var/a_color)
+/mob/living/simple_animal/hostile/blob/blobspore/adjustcolors(a_color)
 	color = a_color
 
 	if(is_zombie)
@@ -180,6 +186,7 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	move_resist = MOVE_FORCE_OVERPOWERING
+	a_intent = INTENT_HARM
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Life(seconds, times_fired)
 	if(stat != DEAD && (getBruteLoss() || getFireLoss())) // Heal on blob structures

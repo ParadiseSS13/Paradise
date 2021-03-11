@@ -217,7 +217,7 @@
 	text = replacetext(text,"{HOLDER}","[holder]")
 	return text
 
-/datum/construction/reversible2/custom_action(index, diff, used_atom, var/mob/user)
+/datum/construction/reversible2/custom_action(index, diff, used_atom, mob/user)
 	if(!..(index,used_atom,user))
 		return 0
 

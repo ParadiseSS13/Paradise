@@ -214,7 +214,7 @@
 
 	light_color = icon_light_color[src.icon_state]
 
-/obj/spacepod/bullet_act(var/obj/item/projectile/P)
+/obj/spacepod/bullet_act(obj/item/projectile/P)
 	if(P.damage_type == BRUTE || P.damage_type == BURN)
 		deal_damage(P.damage)
 	P.on_hit(src)
@@ -259,7 +259,7 @@
 	to_chat(user, "<span class='warning'>You slash at [src]!</span>")
 	visible_message("<span class='warning'>The [user] slashes at [src.name]'s armor!</span>")
 
-/obj/spacepod/proc/deal_damage(var/damage)
+/obj/spacepod/proc/deal_damage(damage)
 	var/oldhealth = health
 	health = max(0, health - damage)
 	var/percentage = (health / initial(health)) * 100
@@ -287,7 +287,7 @@
 
 	update_icons()
 
-/obj/spacepod/proc/repair_damage(var/repair_amount)
+/obj/spacepod/proc/repair_damage(repair_amount)
 	if(health)
 		health = min(initial(health), health + repair_amount)
 		update_icons()
@@ -446,7 +446,7 @@
 		to_chat(user, "<span class='notice'>You mend some [pick("dents","bumps","damage")] with [I]</span>")
 
 
-/obj/spacepod/proc/add_equipment(mob/user, var/obj/item/spacepod_equipment/SPE, var/slot)
+/obj/spacepod/proc/add_equipment(mob/user, obj/item/spacepod_equipment/SPE, slot)
 	if(equipment_system.vars[slot])
 		to_chat(user, "<span class='notice'>The pod already has a [slot], remove it first.</span>")
 		return
@@ -531,7 +531,7 @@
 		if("Lock System")
 			remove_equipment(user, equipment_system.lock_system, "lock_system")
 
-/obj/spacepod/proc/remove_equipment(mob/user, var/obj/item/spacepod_equipment/SPE, var/slot)
+/obj/spacepod/proc/remove_equipment(mob/user, obj/item/spacepod_equipment/SPE, slot)
 
 	if(passengers.len > max_passengers - SPE.occupant_mod)
 		to_chat(user, "<span class='warning'>Someone is sitting in [SPE]!</span>")
@@ -561,7 +561,7 @@
 	cargo_hold.hear_talk(M, message_pieces)
 	..()
 
-/obj/spacepod/hear_message(mob/M, var/msg)
+/obj/spacepod/hear_message(mob/M, msg)
 	cargo_hold.hear_message(M, msg)
 	..()
 
@@ -719,7 +719,7 @@
 		if(t_air)
 			. = t_air.return_temperature()
 
-/obj/spacepod/proc/moved_other_inside(var/mob/living/carbon/human/H as mob)
+/obj/spacepod/proc/moved_other_inside(mob/living/carbon/human/H as mob)
 	occupant_sanity_check()
 	if(passengers.len < max_passengers)
 		H.stop_pulling()
@@ -761,7 +761,7 @@
 	if(istype(A, /obj/structure/closet/crate) && equipment_system.cargo_system && istype(equipment_system.cargo_system, /obj/item/spacepod_equipment/cargo/crate)) // For loading crates
 		load_cargo(user, A)
 
-/obj/spacepod/proc/load_cargo(mob/user, var/obj/O)
+/obj/spacepod/proc/load_cargo(mob/user, obj/O)
 	var/obj/item/spacepod_equipment/cargo/ore/C = equipment_system.cargo_system
 	if(!C.storage)
 		to_chat(user, "<span class='notice'>You begin loading [O] into [src]'s [equipment_system.cargo_system]</span>")
@@ -1018,7 +1018,7 @@
 	else
 		to_chat(user, "<span class='notice'>You decide against searching the [src]</span>")
 
-/obj/spacepod/proc/enter_after(delay as num, var/mob/user as mob, var/numticks = 5)
+/obj/spacepod/proc/enter_after(delay as num, mob/user as mob, numticks = 5)
 	var/delayfraction = delay/numticks
 
 	var/turf/T = user.loc

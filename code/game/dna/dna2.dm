@@ -9,12 +9,12 @@
 //  and to tell our new DNA datum which values to set in order to turn something
 //  on or off.
 GLOBAL_LIST_INIT(dna_activity_bounds, new(DNA_SE_LENGTH))
-GLOBAL_LIST_INIT(assigned_gene_blocks, new(DNA_SE_LENGTH))
+GLOBAL_LIST_INIT(assigned_mutation_blocks, new(DNA_SE_LENGTH))
 
 // Used to determine what each block means (admin hax and species stuff on /vg/, mostly)
 GLOBAL_LIST_INIT(assigned_blocks, new(DNA_SE_LENGTH))
 
-GLOBAL_LIST_EMPTY(dna_genes)
+GLOBAL_LIST_EMPTY(dna_mutations)
 
 GLOBAL_LIST_EMPTY(good_blocks)
 GLOBAL_LIST_EMPTY(bad_blocks)
@@ -173,7 +173,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/value = GetUIValue(block)
 	return round(1 + (value / 4096) * maxvalue)
 
-// Is the UI gene "on" or "off"?
+// Is the UI mutation "on" or "off"?
 // For UI, this is simply a check of if the value is > 2050.
 /datum/dna/proc/GetUIState(block)
 	if(block <= 0)
@@ -181,7 +181,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	return UI[block] > 2050
 
 
-// Set UI gene "on" (1) or "off" (0)
+// Set UI mutation "on" (1) or "off" (0)
 /datum/dna/proc/SetUIState(block, on, defer = FALSE)
 	if(block <= 0)
 		return
@@ -299,7 +299,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/value = GetSEValue(block)
 	return round(1 + (value / 4096) * maxvalue)
 
-// Is the block "on" (1) or "off" (0)? (Un-assigned genes are always off.)
+// Is the block "on" (1) or "off" (0)? (Un-assigned mutations are always off.)
 /datum/dna/proc/GetSEState(block)
 	if(block <= 0)
 		return FALSE
@@ -443,4 +443,4 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	destination.dna.species.handle_dna(destination) // Handle DNA has to be re-called as the DNA was changed.
 
 	destination.UpdateAppearance()
-	domutcheck(destination, null, MUTCHK_FORCED)
+	domutcheck(destination, MUTCHK_FORCED)

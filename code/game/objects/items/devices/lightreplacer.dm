@@ -179,7 +179,7 @@
 		playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
 	return new_bulbs
 
-/obj/item/lightreplacer/proc/Charge(var/mob/user)
+/obj/item/lightreplacer/proc/Charge(mob/user)
 	charge += 1
 	if(charge > 3)
 		AddUses(1)
@@ -222,7 +222,7 @@
 
 /obj/item/lightreplacer/proc/Emag()
 	emagged = !emagged
-	playsound(loc, "sparks", 100, TRUE)
+	playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	if(emagged)
 		name = "shortcircuited [initial(name)]"
 	else
