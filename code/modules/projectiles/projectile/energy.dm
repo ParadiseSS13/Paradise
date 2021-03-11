@@ -118,7 +118,7 @@
 	for(var/mob/living/M in range(7, src))
 		var/floored = FALSE
 		if(prob(min(400 / (1 + get_dist(M, src)), 100)))
-			if(prob(75 / get_dist(M, src)))
+			if(prob(min, (150 / (1 + get_dist(M, src)), 100)))
 				M.Weaken(rand(1,3))
 				floored = TRUE
 			M.apply_damage((rand(15,30) * (1.1 - (get_dist(M, src)) / 10)), BURN) //reduced by 10% per tile
