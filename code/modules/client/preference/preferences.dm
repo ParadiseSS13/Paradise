@@ -204,6 +204,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/gear_tab = "General"
 	// Parallax
 	var/parallax = PARALLAX_HIGH
+	/// Do we want to force our runechat colour to be white?
+	var/force_white_runechat = FALSE
 
 /datum/preferences/New(client/C)
 	parent = C
