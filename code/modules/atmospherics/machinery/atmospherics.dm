@@ -268,6 +268,8 @@ Pipelines + Other Objects -> Pipe network
 
 	if(user in buckled_mobs)// fixes buckle ventcrawl edgecase fuck bug
 		return
+	if(user == occupant)
+		return ..()
 
 	var/obj/machinery/atmospherics/target_move = findConnecting(direction)
 	if(target_move)
