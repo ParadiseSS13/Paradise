@@ -79,7 +79,7 @@
 			linkedServer = GLOB.message_servers[1]
 	return
 
-/obj/machinery/computer/message_monitor/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/message_monitor/attack_hand(mob/user as mob)
 	if(..())
 		return
 	if(stat & (NOPOWER|BROKEN))

@@ -17,7 +17,7 @@
 		if(!isclient(C))
 			return
 
-		C << 'sound/effects/adminhelp.ogg'
+		SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
 
 		to_chat(C, "<font color='red' size='4'><b>- AdminHelp Rejected! -</b></font>")
 		to_chat(C, "<font color='red'><b>Your admin help was rejected.</b></font>")
@@ -2326,7 +2326,7 @@
 			message_admins("[key_name_admin(usr)] sent [H.job] [H] to cryo.")
 			if(href_list["cryoafk"]) // Warn them if they are send to storage and are AFK
 				to_chat(H, "<span class='danger'>The admins have moved you to cryo storage for being AFK. Please eject yourself (right click, eject) out of the cryostorage if you want to avoid being despawned.</span>")
-				SEND_SOUND(H, 'sound/effects/adminhelp.ogg')
+				SEND_SOUND(H, sound('sound/effects/adminhelp.ogg'))
 				if(H.client)
 					window_flash(H.client)
 	else if(href_list["FaxReplyTemplate"])
@@ -2967,9 +2967,6 @@
 					if(!security)
 						//strip their stuff before they teleport into a cell :downs:
 						for(var/obj/item/W in H)
-							if(istype(W, /obj/item/organ/external))
-								continue
-								//don't strip organs
 							H.unEquip(W)
 							if(H.client)
 								H.client.screen -= W
@@ -3548,7 +3545,7 @@
 		popup.set_content(dat)
 		popup.open(FALSE)
 
-/client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)
+/client/proc/create_eventmob_for(mob/living/carbon/human/H, killthem = 0)
 	if(!check_rights(R_EVENT))
 		return
 	var/admin_outfits = subtypesof(/datum/outfit/admin)
@@ -3608,7 +3605,7 @@
 	tatorhud.join_hud(hunter_mob)
 	set_antag_hud(hunter_mob, "hudsyndicate")
 
-/proc/admin_jump_link(var/atom/target)
+/proc/admin_jump_link(atom/target)
 	if(!target) return
 	// The way admin jump links handle their src is weirdly inconsistent...
 

@@ -2,7 +2,6 @@
 	name = "Wryn"
 	name_plural = "Wryn"
 	icobase = 'icons/mob/human_races/r_wryn.dmi'
-	deform = 'icons/mob/human_races/r_wryn.dmi'
 	blacklisted = TRUE
 	language = "Wryn Hivemind"
 	tail = "wryntail"
@@ -104,7 +103,7 @@
 	..()
 
 //Select a Target from a List
-/datum/action/innate/wryn_sting/proc/select_target(var/mob/living/carbon/human/user)
+/datum/action/innate/wryn_sting/proc/select_target(mob/living/carbon/human/user)
 	var/list/names = list()
 	for(var/mob/living/carbon/human/M in orange(1))
 		names += M

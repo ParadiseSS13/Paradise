@@ -22,6 +22,7 @@
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
 	ventcrawler = 2
+	a_intent = INTENT_HARM
 	var/datum/mind/origin
 	var/egg_lain = 0
 	sentience_type = SENTIENCE_OTHER

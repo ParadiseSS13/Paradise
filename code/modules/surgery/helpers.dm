@@ -1,4 +1,4 @@
-/proc/attempt_initiate_surgery(obj/item/I, mob/living/M, mob/user, var/override )
+/proc/attempt_initiate_surgery(obj/item/I, mob/living/M, mob/user, override)
 	if(istype(M))
 		var/mob/living/carbon/human/H
 		var/obj/item/organ/external/affecting

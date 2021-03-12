@@ -7,6 +7,7 @@
 	icon_living = "hellhound"
 	icon_dead = "hellhound_dead"
 	icon_resting = "hellhound_rest"
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
@@ -33,6 +34,7 @@
 	var/smoke_lastuse = 0
 	var/smoke_freq = 300 // 30 seconds
 	var/datum/action/innate/demon/whisper/whisper_action
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/hostile/hellhound/New()
 	. = ..()

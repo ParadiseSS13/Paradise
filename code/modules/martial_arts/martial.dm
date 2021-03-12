@@ -135,7 +135,7 @@
 		base = src
 	H.mind.martial_art = src
 
-/datum/martial_art/proc/remove(var/mob/living/carbon/human/H)
+/datum/martial_art/proc/remove(mob/living/carbon/human/H)
 	if(!H.mind)
 		return
 	if(H.mind.martial_art != src)
@@ -189,12 +189,12 @@
 	return
 
 /obj/item/clothing/gloves/boxing/dropped(mob/user)
+	..()
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(slot_gloves) == src)
 		style.remove(H)
-	return
 
 /obj/item/storage/belt/champion/wrestling
 	name = "Wrestling Belt"
@@ -210,13 +210,13 @@
 	return
 
 /obj/item/storage/belt/champion/wrestling/dropped(mob/user)
+	..()
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(slot_belt) == src)
 		style.remove(H)
 		to_chat(user, "<span class='sciradio'>You no longer have an urge to flex your muscles.</span>")
-	return
 
 /obj/item/plasma_fist_scroll
 	name = "frayed scroll"

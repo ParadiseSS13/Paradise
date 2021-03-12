@@ -254,9 +254,9 @@ effective or pretty fucking useless.
 			var/turf/fragging_location = destination
 			telefrag(fragging_location, user)
 			C.forceMove(destination)
-			playsound(mobloc, "sparks", 50, TRUE)
+			playsound(mobloc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
-			playsound(destination, "sparks", 50, TRUE)
+			playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
 		else if (EMP_D == FALSE && !(bagholding.len && !flawless)) // This is where the fun begins
 			var/direction = get_dir(user, destination)
@@ -315,10 +315,10 @@ effective or pretty fucking useless.
 		var/turf/fragging_location = new_destination
 		telefrag(fragging_location, user)
 		C.forceMove(new_destination)
-		playsound(mobloc, "sparks", 50, TRUE)
+		playsound(mobloc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
 		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(new_destination)
-		playsound(new_destination, "sparks", 50, TRUE)
+		playsound(new_destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	else //We tried to save. We failed. Death time.
 		get_fragged(user, destination)
 
@@ -326,14 +326,14 @@ effective or pretty fucking useless.
 /obj/item/teleporter/proc/get_fragged(mob/user, turf/destination)
 	var/turf/mobloc = get_turf(user)
 	user.forceMove(destination)
-	playsound(mobloc, "sparks", 50, TRUE)
+	playsound(mobloc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
-	playsound(destination, "sparks", 50, TRUE)
+	playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
 	destination.ex_act(rand(1,2))
 	for(var/obj/item/W in user)
-		if(istype(W, /obj/item/organ)|| istype(W, /obj/item/implant))
+		if(istype(W, /obj/item/implant))
 			continue
 		if(!user.unEquip(W))
 			qdel(W)
