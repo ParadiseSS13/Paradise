@@ -133,7 +133,7 @@
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Key") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/Getmob(var/mob/M in GLOB.mob_list)
+/client/proc/Getmob(mob/M in GLOB.mob_list)
 	set category = null
 	set name = "Get Mob"
 	set desc = "Mob to teleport"

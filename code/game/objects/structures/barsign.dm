@@ -25,7 +25,7 @@
 	//randomly assigning a sign
 	set_sign(pick(barsigns))
 
-/obj/structure/sign/barsign/proc/set_sign(var/datum/barsign/sign)
+/obj/structure/sign/barsign/proc/set_sign(datum/barsign/sign)
 	if(!istype(sign))
 		return
 	icon_state = sign.icon
@@ -68,7 +68,7 @@
 
 
 
-/obj/structure/sign/barsign/attackby(var/obj/item/I, var/mob/user)
+/obj/structure/sign/barsign/attackby(obj/item/I, mob/user)
 	if( istype(I, /obj/item/screwdriver))
 		if(!panel_open)
 			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")

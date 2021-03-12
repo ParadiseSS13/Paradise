@@ -54,7 +54,7 @@
 		L = list()
 	return check_access_list(L)
 
-/obj/proc/check_access_list(var/list/L)
+/obj/proc/check_access_list(list/L)
 	generate_req_lists()
 
 	if(!L)
@@ -63,7 +63,7 @@
 		return 0
 	return has_access(req_access, req_one_access, L)
 
-/proc/has_access(var/list/req_access, var/list/req_one_access, var/list/accesses)
+/proc/has_access(list/req_access, list/req_one_access, list/accesses)
 	for(var/req in req_access)
 		if(!(req in accesses)) //doesn't have this access
 			return 0
@@ -443,7 +443,7 @@
 
 	return "Unknown"
 
-/proc/GetIdCard(var/mob/living/carbon/human/H)
+/proc/GetIdCard(mob/living/carbon/human/H)
 	if(H.wear_id)
 		var/id = H.wear_id.GetID()
 		if(id)
@@ -452,7 +452,7 @@
 		var/obj/item/I = H.get_active_hand()
 		return I.GetID()
 
-/proc/FindNameFromID(var/mob/living/carbon/human/H)
+/proc/FindNameFromID(mob/living/carbon/human/H)
 	ASSERT(istype(H))
 	var/obj/item/card/id/C = H.get_active_hand()
 	if( istype(C) || istype(C, /obj/item/pda) )

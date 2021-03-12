@@ -4,7 +4,7 @@
 		// Pre-upgraded upgradable glasses
 		name = "prescription [name]"
 
-/obj/item/clothing/glasses/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/obj/item/clothing/glasses/attackby(obj/item/O as obj, mob/user as mob)
 	if(user.stat || user.restrained() || !ishuman(user))
 		return ..()
 	var/mob/living/carbon/human/H = user
@@ -44,6 +44,19 @@
 	if(. && user)
 		user.update_sight()
 		user.update_inv_glasses()
+
+//called when thermal glasses are emped.
+/obj/item/clothing/glasses/proc/thermal_overload()
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		var/obj/item/organ/internal/eyes/eyes = H.get_organ_slot("eyes")
+		if(!H.eye_blind && eyes)
+			if(H.glasses == src)
+				to_chat(H, "<span class='danger'>[src] overloads and blinds you!</span>")
+				H.flash_eyes(visual = TRUE)
+				H.EyeBlind(3)
+				H.EyeBlurry(5)
+				eyes.receive_damage(5)
 
 /obj/item/clothing/glasses/meson
 	name = "Optical Meson Scanner"
@@ -340,7 +353,7 @@
 
 /obj/item/clothing/glasses/sunglasses/lasers/equipped(mob/user, slot) //grant them laser eyes upon equipping it.
 	if(slot == slot_glasses)
-		user.mutations.Add(LASER)
+		ADD_TRAIT(user, TRAIT_LASEREYES, "admin_zapglasses")
 		user.regenerate_icons()
 	..(user, slot)
 
@@ -404,16 +417,7 @@
 		)
 
 /obj/item/clothing/glasses/thermal/emp_act(severity)
-	if(istype(src.loc, /mob/living/carbon/human))
-		var/mob/living/carbon/human/M = src.loc
-		to_chat(M, "<span class='warning'>The Optical Thermal Scanner overloads and blinds you!</span>")
-		if(M.glasses == src)
-			M.EyeBlind(3)
-			M.EyeBlurry(5)
-			if(!(NEARSIGHTED in M.mutations))
-				M.BecomeNearsighted()
-				spawn(100)
-					M.CureNearsighted()
+	thermal_overload()
 	..()
 
 /obj/item/clothing/glasses/thermal/monocle

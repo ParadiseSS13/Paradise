@@ -335,13 +335,13 @@
 
 	fix_modules()
 
-/obj/item/robot_module/butler/respawn_consumable(var/mob/living/silicon/robot/R)
+/obj/item/robot_module/butler/respawn_consumable(mob/living/silicon/robot/R)
 	if(emag)
 		var/obj/item/reagent_containers/food/drinks/cans/beer/B = emag
 		B.reagents.add_reagent("beer2", 5)
 	..()
 
-/obj/item/robot_module/butler/add_languages(var/mob/living/silicon/robot/R)
+/obj/item/robot_module/butler/add_languages(mob/living/silicon/robot/R)
 	//full set of languages
 	R.add_language("Galactic Common", 1)
 	R.add_language("Sol Common", 1)
@@ -569,7 +569,7 @@
 
 	fix_modules()
 
-/obj/item/robot_module/alien/hunter/add_languages(var/mob/living/silicon/robot/R)
+/obj/item/robot_module/alien/hunter/add_languages(mob/living/silicon/robot/R)
 	..()
 	R.add_language("xenocommon", 1)
 

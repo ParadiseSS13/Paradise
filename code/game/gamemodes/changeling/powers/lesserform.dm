@@ -9,7 +9,7 @@
 	req_human = 1
 
 //Transform into a monkey.
-/datum/action/changeling/lesserform/sting_action(var/mob/living/carbon/human/user)
+/datum/action/changeling/lesserform/sting_action(mob/living/carbon/human/user)
 	var/datum/changeling/changeling = user.mind.changeling
 	if(!user)
 		return 0
