@@ -212,7 +212,7 @@
 
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
-			if(!prob(getarmor(null, "bomb")))
+			if(!prob(bomb_armor))
 				gib()
 				return
 			else
