@@ -321,6 +321,7 @@
 	name = "\improper B.S.G"
 	desc = "The Blue Space Gun, uses a flux anomaly core and a bluespace crystal to produce destructive bluespace energy blasts, inspired by Nanotrasens BSA division"
 	icon_state = "BSG"
+	item_state = "BSG"
 	origin_tech = "combat=6;materials=6;powerstorage=6,bluespace=6;magnets=6" //cutting edge technology, be my guest if you want to deconstruct one instead of use it.
 	ammo_type = list(/obj/item/ammo_casing/energy/bsg)
 	weapon_weight = WEAPON_HEAVY
