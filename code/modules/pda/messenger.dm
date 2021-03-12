@@ -117,7 +117,7 @@
 		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
 
-/datum/data/pda/app/messenger/proc/create_message(var/mob/living/U, var/obj/item/pda/P)
+/datum/data/pda/app/messenger/proc/create_message(mob/living/U, obj/item/pda/P)
 	var/t = input(U, "Please enter message", name, null) as text|null
 	if(!t)
 		return

@@ -264,7 +264,7 @@
 	sheet_left = 0
 	..()
 
-/obj/machinery/power/port_gen/pacman/emag_act(var/remaining_charges, var/mob/user)
+/obj/machinery/power/port_gen/pacman/emag_act(remaining_charges, mob/user)
 	if(active && prob(25))
 		explode() //if they're foolish enough to emag while it's running
 
@@ -272,7 +272,7 @@
 		emagged = 1
 		return 1
 
-/obj/machinery/power/port_gen/pacman/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/obj/machinery/power/port_gen/pacman/attackby(obj/item/O as obj, mob/user as mob)
 	if(istype(O, sheet_path))
 		var/obj/item/stack/addstack = O
 		var/amount = min((max_sheets - sheets), addstack.amount)
@@ -316,11 +316,11 @@
 	..()
 	ui_interact(user)
 
-/obj/machinery/power/port_gen/pacman/attack_ai(var/mob/user as mob)
+/obj/machinery/power/port_gen/pacman/attack_ai(mob/user as mob)
 	add_hiddenprint(user)
 	return attack_hand(user)
 
-/obj/machinery/power/port_gen/pacman/attack_ghost(var/mob/user)
+/obj/machinery/power/port_gen/pacman/attack_ghost(mob/user)
 	return attack_hand(user)
 
 /obj/machinery/power/port_gen/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)

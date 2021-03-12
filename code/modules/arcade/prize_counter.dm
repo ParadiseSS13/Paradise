@@ -31,7 +31,7 @@
 		icon_state = "prize_counter-on"
 	return
 
-/obj/machinery/prize_counter/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/obj/machinery/prize_counter/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/stack/tickets))
 		var/obj/item/stack/tickets/T = O
 		if(user.unEquip(T))		//Because if you can't drop it for some reason, you shouldn't be increasing the tickets var

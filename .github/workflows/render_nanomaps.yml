@@ -35,11 +35,6 @@ jobs:
         git commit -m "NanoMap Auto-Update (`date`)" -a || true
         git push -f -u origin nanomap-render
 
-    - name: 'Push Maps'
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-
     - name: Create Pull Request
       uses: repo-sync/pull-request@v2
       with:

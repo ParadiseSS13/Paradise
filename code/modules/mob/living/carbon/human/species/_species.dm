@@ -151,7 +151,7 @@
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes
 		)
-	var/vision_organ              // If set, this organ is required for vision. Defaults to "eyes" if the species has them.
+	var/vision_organ = /obj/item/organ/internal/eyes // If set, this organ is required for vision.
 	var/list/has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest),
 		"groin" =  list("path" = /obj/item/organ/external/groin),
@@ -172,10 +172,6 @@
 	var/speciesbox
 
 /datum/species/New()
-	//If the species has eyes, they are the default vision organ
-	if(!vision_organ && has_organ["eyes"])
-		vision_organ = /obj/item/organ/internal/eyes
-
 	unarmed = new unarmed_type()
 
 /datum/species/proc/get_random_name(gender)
