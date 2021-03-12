@@ -135,7 +135,7 @@
 		to_chat(world, text)
 	return 1
 
-/datum/game_mode/proc/forge_vampire_objectives(var/datum/mind/vampire)
+/datum/game_mode/proc/forge_vampire_objectives(datum/mind/vampire)
 	//Objectives are traitor objectives plus blood objectives
 
 	var/datum/objective/blood/blood_objective = new
@@ -172,7 +172,7 @@
 		return
 	vampire_mob.make_vampire()
 
-/datum/game_mode/proc/greet_vampire(var/datum/mind/vampire, var/you_are=1)
+/datum/game_mode/proc/greet_vampire(datum/mind/vampire, you_are=1)
 	var/dat
 	if(you_are)
 		SEND_SOUND(vampire.current, sound('sound/ambience/antag/vampalert.ogg'))
@@ -248,7 +248,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		qdel(ability)
 		owner.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp loses his vision based powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
 
-/datum/vampire/proc/update_owner(var/mob/living/carbon/human/current) //Called when a vampire gets cloned. This updates vampire.owner to the new body.
+/datum/vampire/proc/update_owner(mob/living/carbon/human/current) //Called when a vampire gets cloned. This updates vampire.owner to the new body.
 	if(current.mind && current.mind.vampire && current.mind.vampire.owner && (current.mind.vampire.owner != current))
 		current.mind.vampire.owner = current
 

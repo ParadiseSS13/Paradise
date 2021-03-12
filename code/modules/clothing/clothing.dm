@@ -101,7 +101,7 @@
 
 	return 1
 
-/obj/item/clothing/proc/refit_for_species(var/target_species)
+/obj/item/clothing/proc/refit_for_species(target_species)
 	//Set species_restricted list
 	switch(target_species)
 		if("Human", "Skrell")	//humanoid bodytypes
@@ -181,7 +181,7 @@
 	icon_state = "block"
 	slot_flags = SLOT_EARS | SLOT_TWOEARS
 
-/obj/item/clothing/ears/offear/New(var/obj/O)
+/obj/item/clothing/ears/offear/New(obj/O)
 	. = ..()
 	name = O.name
 	desc = O.desc
@@ -370,7 +370,7 @@ BLIND     // can't see anything
 	put_on_delay = 40
 
 //Proc that moves gas/breath masks out of the way
-/obj/item/clothing/mask/proc/adjustmask(var/mob/user)
+/obj/item/clothing/mask/proc/adjustmask(mob/user)
 	var/mob/living/carbon/human/H = usr //Used to check if the mask is on the head, to check if the hands are full, and to turn off internals if they were on when the mask was pushed out of the way.
 	if(user.incapacitated()) //This check allows you to adjust your masks while you're buckled into chairs or beds.
 		return
@@ -502,7 +502,7 @@ BLIND     // can't see anything
 	var/list/hide_tail_by_species = null
 
 //Proc that opens and closes jackets.
-/obj/item/clothing/suit/proc/adjustsuit(var/mob/user)
+/obj/item/clothing/suit/proc/adjustsuit(mob/user)
 	if(!ignore_suitadjust)
 		if(!user.incapacitated())
 			if(!HAS_TRAIT(user, TRAIT_HULK))
@@ -550,7 +550,7 @@ BLIND     // can't see anything
 	else
 		to_chat(user, "<span class='notice'>You attempt to button up the velcro on \the [src], before promptly realising how foolish you are.</span>")
 
-/obj/item/clothing/suit/equipped(var/mob/living/carbon/human/user, var/slot) //Handle tail-hiding on a by-species basis.
+/obj/item/clothing/suit/equipped(mob/living/carbon/human/user, slot) //Handle tail-hiding on a by-species basis.
 	..()
 	if(ishuman(user) && hide_tail_by_species && slot == slot_wear_suit)
 		if(user.dna.species.name in hide_tail_by_species)

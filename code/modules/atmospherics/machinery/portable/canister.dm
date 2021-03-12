@@ -278,14 +278,14 @@ update_flag
 		else if(valve_open && holding)
 			investigate_log("[key_name(user)] started a transfer into [holding].<br>", "atmos")
 
-/obj/machinery/portable_atmospherics/canister/attack_ai(var/mob/user)
+/obj/machinery/portable_atmospherics/canister/attack_ai(mob/user)
 	add_hiddenprint(user)
 	return attack_hand(user)
 
-/obj/machinery/portable_atmospherics/canister/attack_ghost(var/mob/user)
+/obj/machinery/portable_atmospherics/canister/attack_ghost(mob/user)
 	return ui_interact(user)
 
-/obj/machinery/portable_atmospherics/canister/attack_hand(var/mob/user)
+/obj/machinery/portable_atmospherics/canister/attack_hand(mob/user)
 	return ui_interact(user)
 
 /obj/machinery/portable_atmospherics/canister/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)

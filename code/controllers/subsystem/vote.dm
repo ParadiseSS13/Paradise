@@ -194,7 +194,7 @@ SUBSYSTEM_DEF(vote)
 
 	return .
 
-/datum/controller/subsystem/vote/proc/submit_vote(var/ckey, var/vote)
+/datum/controller/subsystem/vote/proc/submit_vote(ckey, vote)
 	if(mode)
 		if(config.vote_no_dead && usr.stat == DEAD && !usr.client.holder)
 			return 0
@@ -294,7 +294,7 @@ SUBSYSTEM_DEF(vote)
 		return 1
 	return 0
 
-/datum/controller/subsystem/vote/proc/browse_to(var/client/C)
+/datum/controller/subsystem/vote/proc/browse_to(client/C)
 	if(!C)
 		return
 	var/admin = check_rights(R_ADMIN, 0, user = C.mob)
@@ -350,10 +350,10 @@ SUBSYSTEM_DEF(vote)
 	popup.set_content(dat)
 	popup.open()
 
-/datum/controller/subsystem/vote/proc/update_panel(var/client/C)
+/datum/controller/subsystem/vote/proc/update_panel(client/C)
 	C << output(url_encode(vote_html(C)), "vote.browser:update_vote_div")
 
-/datum/controller/subsystem/vote/proc/vote_html(var/client/C)
+/datum/controller/subsystem/vote/proc/vote_html(client/C)
 	. = ""
 	if(question)
 		. += "<h2>Vote: '[question]'</h2>"
