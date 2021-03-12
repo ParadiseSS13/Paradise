@@ -1,6 +1,8 @@
 /client
-	/// An assoc list of any keys held currently
+	/// A rolling buffer of any keys held currently
 	var/list/keys_held = list()
+	///used to keep track of the current rolling buffer position
+	var/current_key_address = 0
 	/// These next two vars are to apply movement for keypresses and releases made while move delayed.
 	/// Because discarding that input makes the game less responsive.
 	/// On next move, add this dir to the move that would otherwise be done
@@ -34,8 +36,10 @@
 /client/proc/set_macros()
 	set waitfor = FALSE
 
-	//Reset the assoc list
+	//Reset and populate the rolling buffer
 	keys_held.Cut()
+	for(var/i in 1 to HELD_KEY_BUFFER_LENGTH)
+		keys_held += null
 
 	erase_all_macros()
 

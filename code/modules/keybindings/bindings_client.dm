@@ -35,12 +35,13 @@
 		message_admins("Client [ckey] just attempted to send an invalid keypress. Keymessage was over [MAX_KEYPRESS_COMMANDLENGTH] characters, autokicking due to likely abuse.")
 		qdel(src)
 		return
-
-	if(length(keys_held) > HELD_KEY_BUFFER_LENGTH)
-		return
-
+	//offset by 1 because the buffer address is 0 indexed because the math was simpler
+	keys_held[current_key_address + 1] = _key
 	//the time a key was pressed isn't actually used anywhere (as of 2019-9-10) but this allows easier access usage/checking
+
 	keys_held[_key] = world.time
+
+	current_key_address = ((current_key_address + 1) % HELD_KEY_BUFFER_LENGTH)
 
 	var/movement = SSinput.movement_keys[_key]
 	if (prefs.toggles & PREFTOGGLE_AZERTY) movement = SSinput.alt_movement_keys[_key]
@@ -78,8 +79,11 @@
 /client/verb/keyUp(_key as text)
 	set instant = TRUE
 	set hidden = TRUE
-
-	keys_held -= _key
+	//Can't just do a remove because it would alter the length of the rolling buffer, instead search for the key then null it out if it exists
+	for(var/i in 1 to HELD_KEY_BUFFER_LENGTH)
+		if(keys_held[i] == _key)
+			keys_held[i] = null
+			break
 	var/movement = SSinput.movement_keys[_key]
 	if (prefs.toggles & PREFTOGGLE_AZERTY) movement = SSinput.alt_movement_keys[_key]
 	if(!(next_move_dir_add & movement))
