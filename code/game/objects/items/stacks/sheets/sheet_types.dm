@@ -123,7 +123,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	new /obj/item/stack/sheet/runed_metal(loc, amount)
 	qdel(src)
 
-/obj/item/stack/sheet/metal/New(var/loc, var/amount=null)
+/obj/item/stack/sheet/metal/New(loc, amount=null)
 	recipes = GLOB.metal_recipes
 	return ..()
 
@@ -158,7 +158,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	merge_type = /obj/item/stack/sheet/plasteel
 	point_value = 23
 
-/obj/item/stack/sheet/plasteel/New(var/loc, var/amount=null)
+/obj/item/stack/sheet/plasteel/New(loc, amount=null)
 	recipes = GLOB.plasteel_recipes
 	return ..()
 
@@ -202,7 +202,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0)
 	merge_type = /obj/item/stack/sheet/wood
 
-/obj/item/stack/sheet/wood/New(var/loc, var/amount=null)
+/obj/item/stack/sheet/wood/New(loc, amount=null)
 	recipes = GLOB.wood_recipes
 	return ..()
 
@@ -247,6 +247,8 @@ GLOBAL_LIST_INIT(cloth_recipes, list ( \
 	force = 0
 	throwforce = 0
 	merge_type = /obj/item/stack/sheet/cloth
+	drop_sound = 'sound/items/handling/cloth_drop.ogg'
+	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
 /obj/item/stack/sheet/cloth/New(loc, amount=null)
 	recipes = GLOB.cloth_recipes
@@ -272,6 +274,8 @@ GLOBAL_LIST_INIT(durathread_recipes, list ( \
 	force = 0
 	throwforce = 0
 	merge_type = /obj/item/stack/sheet/durathread
+	drop_sound = 'sound/items/handling/cloth_drop.ogg'
+	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
 /obj/item/stack/sheet/durathread/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.durathread_recipes
@@ -337,7 +341,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/cardboard
 
-/obj/item/stack/sheet/cardboard/New(var/loc, var/amt = null)
+/obj/item/stack/sheet/cardboard/New(loc, amt = null)
 	recipes = GLOB.cardboard_recipes
 	return ..()
 
@@ -398,7 +402,7 @@ GLOBAL_LIST_INIT(cult_recipes, list ( \
 /obj/item/stack/sheet/runed_metal/fifty
 	amount = 50
 
-/obj/item/stack/sheet/runed_metal/New(var/loc, var/amount=null)
+/obj/item/stack/sheet/runed_metal/New(loc, amount=null)
 	recipes = GLOB.cult_recipes
 	return ..()
 

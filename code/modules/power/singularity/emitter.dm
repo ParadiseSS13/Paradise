@@ -202,7 +202,7 @@
 			"<span class='notice'>You hear a ratchet.</span>")
 	playsound(src, I.usesound, I.tool_volume, TRUE)
 
-/obj/machinery/power/emitter/screwdriver_act(mob/living/user, obj/item/I) // Multitool menu NYI
+/obj/machinery/power/emitter/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(active)
 		to_chat(user, "<span class='warning'>[src] needs to be disabled first!</span>")

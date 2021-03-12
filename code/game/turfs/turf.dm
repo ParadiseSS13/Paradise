@@ -35,10 +35,6 @@
 
 	var/list/blueprint_data //for the station blueprints, images of objects eg: pipes
 
-	var/list/footstep_sounds
-	var/shoe_running_volume = 50
-	var/shoe_walking_volume = 20
-
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 	if(initialized)
@@ -81,11 +77,8 @@
 			qdel(A)
 		return
 	// Adds the adjacent turfs to the current atmos processing
-	for(var/direction in GLOB.cardinal)
-		if(atmos_adjacent_turfs & direction)
-			var/turf/simulated/T = get_step(src, direction)
-			if(istype(T))
-				SSair.add_to_active(T)
+	for(var/turf/simulated/T in atmos_adjacent_turfs)
+		SSair.add_to_active(T)
 	SSair.remove_from_active(src)
 	visibilityChanged()
 	QDEL_LIST(blueprint_data)
@@ -154,10 +147,16 @@
 		return FALSE
 
 	//Finally, check objects/mobs to block entry that are not on the border
+	var/atom/movable/tompost_bump
+	var/top_layer = FALSE
 	for(var/atom/movable/obstacle in large_dense)
 		if(!obstacle.CanPass(mover, mover.loc, 1) && (forget != obstacle))
-			mover.Bump(obstacle, TRUE)
-			return FALSE
+			if(obstacle.layer > top_layer)
+				tompost_bump = obstacle
+				top_layer = obstacle.layer
+	if(tompost_bump)
+		mover.Bump(tompost_bump, TRUE)
+		return FALSE
 	return TRUE //Nothing found to block so return success!
 
 /turf/Entered(atom/movable/M, atom/OL, ignoreRest = FALSE)
@@ -349,7 +348,7 @@
 
 // Returns the surrounding cardinal turfs with open links
 // Including through doors openable with the ID
-/turf/proc/CardinalTurfsWithAccess(var/obj/item/card/id/ID)
+/turf/proc/CardinalTurfsWithAccess(obj/item/card/id/ID)
 	var/list/L = new()
 	var/turf/simulated/T
 
@@ -404,7 +403,7 @@
 				L.Add(T)
 	return L
 
-// check for all turfs, including unsimulated ones
+// check for all turfs, including space ones
 /turf/proc/AdjacentTurfsSpace(obj/item/card/id/ID = null, list/closed)//check access if one is passed
 	var/list/L = new()
 	var/turf/T

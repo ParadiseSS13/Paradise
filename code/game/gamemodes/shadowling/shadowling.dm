@@ -55,15 +55,15 @@ Made by Xhuis
 	var/victory_warning_announced = FALSE
 	var/thrall_ratio = 1
 
-/proc/is_thrall(var/mob/living/M)
+/proc/is_thrall(mob/living/M)
 	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.shadowling_thralls)
 
 
-/proc/is_shadow_or_thrall(var/mob/living/M)
+/proc/is_shadow_or_thrall(mob/living/M)
 	return istype(M) && M.mind && SSticker && SSticker.mode && ((M.mind in SSticker.mode.shadowling_thralls) || (M.mind in SSticker.mode.shadows))
 
 
-/proc/is_shadow(var/mob/living/M)
+/proc/is_shadow(mob/living/M)
 	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.shadows)
 
 
@@ -122,7 +122,7 @@ Made by Xhuis
 		//give_shadowling_abilities(shadow)
 	..()
 
-/datum/game_mode/proc/greet_shadow(var/datum/mind/shadow)
+/datum/game_mode/proc/greet_shadow(datum/mind/shadow)
 	to_chat(shadow.current, "<b>Currently, you are disguised as an employee aboard [world.name].</b>")
 	to_chat(shadow.current, "<b>In your limited state, you have two abilities: Hatch and Shadowling Hivemind (:8).</b>")
 	to_chat(shadow.current, "<b>Any other shadowlings are your allies. You must assist them as they shall assist you.</b>")
@@ -130,7 +130,7 @@ Made by Xhuis
 
 
 
-/datum/game_mode/proc/process_shadow_objectives(var/datum/mind/shadow_mind)
+/datum/game_mode/proc/process_shadow_objectives(datum/mind/shadow_mind)
 	var/objective = "enthrall" //may be devour later, but for now it seems murderbone-y
 
 	if(objective == "enthrall")
@@ -140,7 +140,7 @@ Made by Xhuis
 		to_chat(shadow_mind.current, "<b>Objective #1</b>: [objective_explanation]<br>")
 
 
-/datum/game_mode/proc/finalize_shadowling(var/datum/mind/shadow_mind)
+/datum/game_mode/proc/finalize_shadowling(datum/mind/shadow_mind)
 	var/mob/living/carbon/human/S = shadow_mind.current
 	shadow_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_hatch(null))
 	spawn(0)
@@ -148,7 +148,8 @@ Made by Xhuis
 		update_shadow_icons_added(shadow_mind)
 		if(shadow_mind.assigned_role == "Clown")
 			to_chat(S, "<span class='notice'>Your alien nature has allowed you to overcome your clownishness.</span>")
-			S.mutations.Remove(CLUMSY)
+			S.dna.SetSEState(GLOB.clumsyblock, FALSE)
+			singlemutcheck(S, GLOB.clumsyblock, MUTCHK_FORCED)
 
 /datum/game_mode/proc/add_thrall(datum/mind/new_thrall_mind)
 	if(!istype(new_thrall_mind))
@@ -161,7 +162,7 @@ Made by Xhuis
 		new_thrall_mind.current.create_log(CONVERSION_LOG, "Became a thrall")
 		new_thrall_mind.current.add_language("Shadowling Hivemind")
 		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_shadow_walk(null))
-		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_vision/thrall(null))
+		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_vision(null))
 		to_chat(new_thrall_mind.current, "<span class='shadowling'><b>You see the truth. Reality has been torn away and you realize what a fool you've been.</b></span>")
 		to_chat(new_thrall_mind.current, "<span class='shadowling'><b>The shadowlings are your masters.</b> Serve them above all else and ensure they complete their goals.</span>")
 		to_chat(new_thrall_mind.current, "<span class='shadowling'>You may not harm other thralls or the shadowlings. However, you do not need to obey other thralls.</span>")
@@ -175,7 +176,7 @@ Made by Xhuis
 			GLOB.command_announcement.Announce("Large concentration of psychic bluespace energy detected by long-ranged scanners. Shadowling ascension event imminent. Prevent it at all costs!", "Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
 		return 1
 
-/datum/game_mode/proc/remove_thrall(datum/mind/thrall_mind, var/kill = 0)
+/datum/game_mode/proc/remove_thrall(datum/mind/thrall_mind, kill = 0)
 	if(!istype(thrall_mind) || !(thrall_mind in shadowling_thralls) || !isliving(thrall_mind.current))
 		return 0 //If there is no mind, the mind isn't a thrall, or the mind's mob isn't alive, return
 	shadowling_thralls.Remove(thrall_mind)
@@ -225,7 +226,7 @@ Made by Xhuis
 							var/shadow_nag_messages = list("You can barely hold yourself in this lesser form!", "The urge to become something greater is overwhelming!", "You feel a burning passion to hatch free of this shell and assume godhood!")
 							H.take_overall_damage(0, 3)
 							to_chat(H, "<span class='userdanger'>[pick(shadow_nag_messages)]</span>")
-							H << 'sound/weapons/sear.ogg'
+							SEND_SOUND(H, sound('sound/weapons/sear.ogg'))
 
 	if(shadows_alive)
 		return ..()

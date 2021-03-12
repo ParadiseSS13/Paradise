@@ -12,6 +12,7 @@
 	icon_living = "magicOrange"
 	icon_dead = "magicOrange"
 	speed = 0
+	mob_biotypes = NONE
 	a_intent = INTENT_HARM
 	can_change_intents = 0
 	stop_automated_movement = 1
@@ -128,7 +129,7 @@
 		else
 			resulthealth = round((summoner.health / summoner.maxHealth) * 100)
 		if(hud_used)
-			hud_used.guardianhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#efeeef'>[resulthealth]%</font></div>"
+			hud_used.guardianhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#efeeef'>[resulthealth]%</font></div>"
 
 /mob/living/simple_animal/hostile/guardian/adjustHealth(amount, updating_health = TRUE) //The spirit is invincible, but passes on damage to the summoner
 	var/damage = amount * damage_transfer

@@ -532,7 +532,7 @@
   * Flicker routine for the light.
   * Called by invoke_async so the parent proc can return immediately.
   */
-/obj/machinery/light/proc/flicker_event(var/amount)
+/obj/machinery/light/proc/flicker_event(amount)
 	if(on && status == LIGHT_OK)
 		for(var/i = 0; i < amount; i++)
 			if(status != LIGHT_OK)
@@ -576,9 +576,9 @@
 		else
 			prot = 1
 
-		if(prot > 0 || (HEATRES in user.mutations))
+		if(prot > 0 ||  HAS_TRAIT(user, TRAIT_RESISTHEAT) || HAS_TRAIT(user, TRAIT_RESISTHEATHANDS))
 			to_chat(user, "<span class='notice'>You remove the light [fitting]</span>")
-		else if(TK in user.mutations)
+		else if(user.dna?.GetSEState(GLOB.teleblock))
 			to_chat(user, "<span class='notice'>You telekinetically remove the light [fitting].</span>")
 		else
 			if(user.a_intent == INTENT_DISARM || user.a_intent == INTENT_GRAB)
@@ -652,10 +652,13 @@
 	on = 1
 	update()
 
-/obj/machinery/light/tesla_act(power, explosive = FALSE)
+/obj/machinery/light/zap_act(power, zap_flags)
+	var/explosive = zap_flags & ZAP_MACHINE_EXPLOSIVE
+	zap_flags &= ~(ZAP_MACHINE_EXPLOSIVE | ZAP_OBJ_DAMAGE)
+	. = ..()
 	if(explosive)
-		explosion(loc,0,0,0,flame_range = 5, adminlog = 0)
-	qdel(src)
+		explosion(src, 0, 0, 0, flame_range = 5, adminlog = FALSE)
+		qdel(src)
 
 // timed process
 // use power

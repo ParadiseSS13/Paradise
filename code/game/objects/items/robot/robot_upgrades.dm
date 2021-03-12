@@ -44,7 +44,7 @@
 /obj/item/borg/upgrade/rename/attack_self(mob/user)
 	heldname = stripped_input(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
 
-/obj/item/borg/upgrade/rename/action(var/mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/rename/action(mob/living/silicon/robot/R)
 	if(..())
 		return
 	if(!R.allow_rename)
@@ -88,7 +88,7 @@
 	require_module = TRUE
 	origin_tech = "engineering=4;materials=5;programming=4"
 
-/obj/item/borg/upgrade/vtec/action(var/mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/vtec/action(mob/living/silicon/robot/R)
 	if(..())
 		return
 	if(R.speed < 0)

@@ -60,6 +60,7 @@
 	desc = "Robotic constructs of unknown design, swarmers seek only to consume materials and replicate themselves indefinitely."
 	speak_emote = list("tones")
 	bubble_icon = "swarmer"
+	mob_biotypes = MOB_ROBOTIC
 	health = 40
 	maxHealth = 40
 	status_flags = CANPUSH
@@ -488,7 +489,7 @@
 	changeNext_move(CLICK_CD_MELEE)
 	target.ex_act(EXPLODE_LIGHT)
 
-/mob/living/simple_animal/hostile/swarmer/proc/DisperseTarget(var/mob/living/target)
+/mob/living/simple_animal/hostile/swarmer/proc/DisperseTarget(mob/living/target)
 	if(target == src)
 		return
 
@@ -518,8 +519,8 @@
 	playsound(src,'sound/effects/sparks4.ogg', 50, TRUE)
 	do_teleport(target, F, 0)
 
-/mob/living/simple_animal/hostile/swarmer/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
-	if(!tesla_shock)
+/mob/living/simple_animal/hostile/swarmer/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
+	if(!(flags & SHOCK_TESLA))
 		return FALSE
 	return ..()
 
@@ -558,7 +559,7 @@
 
 /obj/effect/temp_visual/swarmer/disintegration/Initialize(mapload)
 	. = ..()
-	playsound(loc, "sparks", 100, TRUE)
+	playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 /obj/effect/temp_visual/swarmer/dismantle
 	icon_state = "dismantle"
@@ -604,12 +605,12 @@
 	max_integrity = 10
 	density = FALSE
 
-/obj/structure/swarmer/trap/Crossed(var/atom/movable/AM, oldloc)
+/obj/structure/swarmer/trap/Crossed(atom/movable/AM, oldloc)
 	if(isliving(AM))
 		var/mob/living/L = AM
 		if(!istype(L, /mob/living/simple_animal/hostile/swarmer))
 			playsound(loc,'sound/effects/snap.ogg',50, 1, -1)
-			L.electrocute_act(0, src, 1, TRUE, TRUE)
+			L.electrocute_act(100, src, 1, flags = SHOCK_NOGLOVES | SHOCK_ILLUSION)
 			if(isrobot(L) || ismachineperson(L))
 				L.Weaken(5)
 			qdel(src)

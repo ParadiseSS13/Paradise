@@ -1,9 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/turf/unsimulated/wall{
-	icon_state = "rock";
-	name = "rock"
-	},
+/turf/simulated/wall/indestructible/rock,
 /area/awaymission/UO71/outside)
 "ab" = (
 /turf/simulated/mineral/random/labormineral,
@@ -7485,10 +7482,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/eng)
 "pT" = (
-/turf/simulated/shuttle/wall{
-	dir = 4;
-	icon_state = "wall3"
-	},
+/turf/simulated/wall/indestructible/syndicate,
 /area/awaymission/UO71/loot)
 "pU" = (
 /obj/structure/cable{
@@ -7822,10 +7816,8 @@
 	},
 /area/awaymission/UO71/science)
 "qC" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	current_temperature = 80;
-	dir = 2;
-	on = 1
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on/server{
+	dir = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -8215,10 +8207,7 @@
 /area/awaymission/UO71/science)
 "rn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/shuttle/wall{
-	dir = 4;
-	icon_state = "wall3"
-	},
+/turf/simulated/wall/indestructible/syndicate,
 /area/awaymission/UO71/bridge)
 "ro" = (
 /obj/effect/decal/cleanable/dirt,
@@ -8401,11 +8390,11 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/tank/emergency_oxygen{
+/obj/item/tank/internals/emergency_oxygen{
 	pixel_x = -8;
 	pixel_y = 0
 	},
-/obj/item/tank/emergency_oxygen{
+/obj/item/tank/internals/emergency_oxygen{
 	pixel_x = -8;
 	pixel_y = 0
 	},
@@ -8586,10 +8575,7 @@
 	},
 /area/awaymission/UO71/medical)
 "sa" = (
-/turf/simulated/shuttle/wall{
-	dir = 4;
-	icon_state = "wall3"
-	},
+/turf/simulated/wall/indestructible/syndicate,
 /area/awaymission/UO71/bridge)
 "sb" = (
 /obj/structure/table,
@@ -8621,10 +8607,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/shuttle/wall{
-	dir = 4;
-	icon_state = "wall3"
-	},
+/turf/simulated/wall/indestructible/syndicate,
 /area/awaymission/UO71/bridge)
 "sf" = (
 /obj/structure/table,
@@ -9080,10 +9063,7 @@
 /area/awaymission/UO71/eng)
 "sN" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/shuttle/wall{
-	dir = 4;
-	icon_state = "wall3"
-	},
+/turf/simulated/wall/indestructible/syndicate,
 /area/awaymission/UO71/loot)
 "sO" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -10936,7 +10916,7 @@
 /turf/simulated/wall,
 /area/awaymission/UO71/mining)
 "ww" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -12230,10 +12210,7 @@
 /area/awaymission/UO71/queen)
 "yY" = (
 /obj/structure/sign/biohazard,
-/turf/simulated/shuttle/wall{
-	dir = 4;
-	icon_state = "wall3"
-	},
+/turf/simulated/wall/indestructible/syndicate,
 /area/awaymission/UO71/prince)
 "yZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -12249,23 +12226,14 @@
 /turf/simulated/wall/rust,
 /area/awaymission/UO71/mining)
 "zc" = (
-/turf/simulated/shuttle/wall{
-	dir = 4;
-	icon_state = "wall3"
-	},
+/turf/simulated/wall/indestructible/syndicate,
 /area/awaymission/UO71/outside)
 "zd" = (
-/turf/unsimulated/wall{
-	icon_state = "rock";
-	name = "rock"
-	},
+/turf/simulated/wall/indestructible/rock,
 /area/awaymission/UO71/queen)
 "ze" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/unsimulated/wall{
-	icon_state = "rock";
-	name = "rock"
-	},
+/turf/simulated/wall/indestructible/rock,
 /area/awaymission/UO71/queen)
 "zf" = (
 /turf/simulated/floor/plasteel,
@@ -12636,10 +12604,7 @@
 /turf/simulated/floor/vault,
 /area/awaymission/UO71/prince)
 "Lf" = (
-/turf/unsimulated/wall{
-	icon_state = "rock";
-	name = "rock"
-	},
+/turf/simulated/wall/indestructible/rock,
 /area/awaymission/UO71/loot)
 "Lw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -12719,10 +12684,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/shuttle/wall{
-	dir = 4;
-	icon_state = "wall3"
-	},
+/turf/simulated/wall/indestructible/syndicate,
 /area/awaymission/UO71/outside)
 "Vz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{

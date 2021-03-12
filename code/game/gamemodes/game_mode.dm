@@ -20,11 +20,15 @@
 	var/explosion_in_progress = 0 //sit back and relax
 	var/list/datum/mind/modePlayer = new
 	var/list/restricted_jobs = list()	// Jobs it doesn't make sense to be.  I.E chaplain or AI cultist
+	var/list/secondary_restricted_jobs = list() // Same as above, but for secondary antagonists
 	var/list/protected_jobs = list()	// Jobs that can't be traitors
 	var/list/protected_species = list() // Species that can't be traitors
+	var/list/secondary_protected_species = list() // Same as above, but for secondary antagonists
 	var/required_players = 0
 	var/required_enemies = 0
 	var/recommended_enemies = 0
+	var/secondary_enemies = 0
+	var/secondary_enemies_scaling = 0 // Scaling rate of secondary enemies
 	var/newscaster_announcements = null
 	var/ert_disabled = 0
 	var/uplink_welcome = "Syndicate Uplink Console:"
@@ -223,7 +227,7 @@
 /datum/game_mode/proc/check_win() //universal trigger to be called at mob death, nuke explosion, etc. To be called from everywhere.
 	return 0
 
-/datum/game_mode/proc/get_players_for_role(var/role, override_jobbans=0)
+/datum/game_mode/proc/get_players_for_role(role, override_jobbans=0)
 	var/list/players = list()
 	var/list/candidates = list()
 	//var/list/drafted = list()
@@ -272,10 +276,10 @@
 							//			Less if there are not enough valid players in the game entirely to make recommended_enemies.
 
 
-/datum/game_mode/proc/latespawn(var/mob)
+/datum/game_mode/proc/latespawn(mob)
 
 /*
-/datum/game_mode/proc/check_player_role_pref(var/role, var/mob/player)
+/datum/game_mode/proc/check_player_role_pref(role, mob/player)
 	if(player.preferences.be_special & role)
 		return 1
 	return 0
@@ -402,7 +406,7 @@
 			to_chat(M, msg)
 
 //Announces objectives/generic antag text.
-/proc/show_generic_antag_text(var/datum/mind/player)
+/proc/show_generic_antag_text(datum/mind/player)
 	if(player.current)
 		to_chat(player.current, "You are an antagonist! <font color=blue>Within the rules,</font> \
 		try to act as an opposing force to the crew. Further RP and try to make sure \
@@ -411,7 +415,7 @@
 		Think through your actions and make the roleplay immersive! <b>Please remember all \
 		rules aside from those without explicit exceptions apply to antagonists.</b>")
 
-/proc/show_objectives(var/datum/mind/player)
+/proc/show_objectives(datum/mind/player)
 	if(!player || !player.current) return
 
 	var/obj_count = 1
@@ -420,7 +424,7 @@
 		to_chat(player.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
 
-/proc/get_roletext(var/role)
+/proc/get_roletext(role)
 	return role
 
 /proc/get_nuke_code()
