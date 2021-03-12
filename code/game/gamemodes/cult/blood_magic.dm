@@ -658,7 +658,7 @@
 /obj/item/melee/blood_magic/empower/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(proximity_flag)
 
-		//Shielded suit
+		// Shielded suit
 		if(istype(target, /obj/item/clothing/suit/hooded/cultrobes/cult_shield))
 			var/obj/item/clothing/suit/hooded/cultrobes/cult_shield/C = target
 			if(C.current_charges < 3)
@@ -672,7 +672,7 @@
 				to_chat(user, "<span class='warning'>[target] is already at full charge!</span>")
 				return
 
-		//Plasteel to runed metal
+		// Veil Shifter
 		else if(istype(target, /obj/item/cult_shift))
 			var/obj/item/cult_shift/S = target
 			if(S.uses < 4)

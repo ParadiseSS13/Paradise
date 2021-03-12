@@ -49,7 +49,7 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone
 	name = "Summon Soulstone"
-	desc = "This spell reaches into Nar'Sie's realm, summoning one of the legendary fragments across time and space"
+	desc = "This spell reaches into Redspace, summoning one of the legendary fragments across time and space"
 	action_icon_state = "summonsoulstone"
 	action_background_icon_state = "bg_cult"
 	school = "conjuration"
@@ -68,7 +68,7 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/pylon
 	name = "Cult Pylon"
-	desc = "This spell conjures a fragile crystal from Nar'Sie's realm. Makes for a convenient light source."
+	desc = "This spell conjures a fragile crystal from Redspace. Makes for a convenient light source."
 	action_icon_state = "pylon"
 	action_background_icon_state = "bg_cult"
 	school = "conjuration"
