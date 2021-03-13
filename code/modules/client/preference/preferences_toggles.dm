@@ -179,6 +179,7 @@
 	else
 		to_chat(src, "You will no longer hear ambient sounds.")
 		usr.stop_sound_channel(CHANNEL_AMBIENCE)
+	update_ambience_pref()
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Ambience") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/Toggle_Buzz() //No more headaches because headphones bump up shipambience.ogg to insanity levels.
@@ -277,15 +278,15 @@
 	return
 
 /client/verb/numpad_target()
-	set name = "Toggle Numpad targetting"
+	set name = "Toggle Numpad Targeting"
 	set category = "Preferences"
-	set desc = "This button will allow you to enable or disable Numpad Targetting"
+	set desc = "This button will allow you to enable or disable Numpad Targeting"
 	prefs.toggles ^= PREFTOGGLE_NUMPAD_TARGET
 	prefs.save_preferences(src)
 	if (prefs.toggles & PREFTOGGLE_NUMPAD_TARGET)
-		to_chat(usr, "<span class='notice'>You have enabled Numpad Targetting.")
+		to_chat(usr, "<span class='notice'>You have enabled Numpad Targeting.")
 	else
-		to_chat(usr, "<span class='notice'>You have disabled Numpad Targetting.")
+		to_chat(usr, "<span class='notice'>You have disabled Numpad Targeting.")
 	return
 
 /client/verb/azerty_toggle()
@@ -331,3 +332,19 @@
 	prefs.toggles2 ^= PREFTOGGLE_2_DEATHMESSAGE
 	prefs.save_preferences(src)
 	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_DEATHMESSAGE) ? "now" : "no longer"] see a notification in deadchat when a player dies.")
+
+/client/verb/toggle_reverb()
+	set name = "Enable/Disable Reverb"
+	set category = "Preferences"
+	set desc = "Toggle ingame reverb effects"
+	prefs.toggles2 ^= PREFTOGGLE_2_REVERB_DISABLE
+	prefs.save_preferences(src)
+	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_REVERB_DISABLE) ? "no longer" : "now"] get reverb on ingame sounds.")
+
+/client/verb/toggle_forced_white_runechat()
+	set name = "Toggle Runechat Colour Forcing"
+	set category = "Preferences"
+	set desc = "Toggles forcing your runechat colour to white"
+	prefs.toggles2 ^= PREFTOGGLE_2_FORCE_WHITE_RUNECHAT
+	prefs.save_preferences(src)
+	to_chat(src, "Your runechats will [(prefs.toggles2 & PREFTOGGLE_2_FORCE_WHITE_RUNECHAT) ? "no longer" : "now"] be forced to be white.")

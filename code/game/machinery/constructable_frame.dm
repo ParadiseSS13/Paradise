@@ -488,8 +488,8 @@ to destroy them and players will be able to make replacements.
 							"Secure Refrigerated Medicine Storage" = /obj/machinery/smartfridge/secure/medbay,
 							"Smart Chemical Storage" = /obj/machinery/smartfridge/secure/chemistry,
 							"Smart Virus Storage" = /obj/machinery/smartfridge/secure/chemistry/virology,
-							"Drink Showcase" = /obj/machinery/smartfridge/drinks
-	)
+							"Drink Showcase" = /obj/machinery/smartfridge/drinks,
+							"Disk Compartmentalizer" = /obj/machinery/smartfridge/disks)
 
 
 /obj/item/circuitboard/smartfridge/screwdriver_act(mob/living/user, obj/item/I)

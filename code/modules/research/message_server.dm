@@ -5,7 +5,7 @@ GLOBAL_LIST_EMPTY(message_servers)
 	var/sender = "Unspecified" //name of the sender
 	var/message = "Blank" //transferred message
 
-/datum/data_pda_msg/New(var/param_rec = "",var/param_sender = "",var/param_message = "")
+/datum/data_pda_msg/New(param_rec = "", param_sender = "", param_message = "")
 
 	if(param_rec)
 		recipient = param_rec
@@ -22,7 +22,7 @@ GLOBAL_LIST_EMPTY(message_servers)
 	var/id_auth = "Unauthenticated"
 	var/priority = "Normal"
 
-/datum/data_rc_msg/New(var/param_rec = "",var/param_sender = "",var/param_message = "",var/param_stamp = "",var/param_id_auth = "",var/param_priority)
+/datum/data_rc_msg/New(param_rec = "", param_sender = "", param_message = "", param_stamp = "", param_id_auth = "", param_priority)
 	if(param_rec)
 		rec_dpt = param_rec
 	if(param_sender)
@@ -81,10 +81,10 @@ GLOBAL_LIST_EMPTY(message_servers)
 	update_icon()
 	return
 
-/obj/machinery/message_server/proc/send_pda_message(var/recipient = "",var/sender = "",var/message = "")
+/obj/machinery/message_server/proc/send_pda_message(recipient = "", sender = "", message = "")
 	pda_msgs += new/datum/data_pda_msg(recipient,sender,message)
 
-/obj/machinery/message_server/proc/send_rc_message(var/recipient = "",var/sender = "",var/message = "",var/stamp = "", var/id_auth = "", var/priority = 1)
+/obj/machinery/message_server/proc/send_rc_message(recipient = "", sender = "", message = "", stamp = "", id_auth = "", priority = 1)
 	rc_msgs += new/datum/data_rc_msg(recipient,sender,message,stamp,id_auth)
 	var/authmsg = "[message]"
 	if(id_auth)
@@ -95,7 +95,7 @@ GLOBAL_LIST_EMPTY(message_servers)
 		var/obj/machinery/requests_console/RC = C
 		if(ckey(RC.department) == ckey(recipient))
 			if(RC.inoperable())
-				RC.message_log += "Message lost due to console failure. Please contact [station_name()]'s system administrator or AI for technical assistance."
+				RC.message_log.Add(list(list("Message lost due to console failure. Please contact [station_name()]'s system administrator or AI for technical assistance.")))
 				continue
 			if(RC.newmessagepriority < priority)
 				RC.newmessagepriority = priority
@@ -105,12 +105,12 @@ GLOBAL_LIST_EMPTY(message_servers)
 					if(!RC.silent)
 						playsound(RC.loc, 'sound/machines/twobeep.ogg', 50, 1)
 						RC.atom_say("PRIORITY Alert in [sender]")
-					RC.message_log += "High Priority message from [sender]: [authmsg]"
+					RC.message_log.Add(list(list("High Priority message from [sender]:", "[authmsg]")))
 				else
 					if(!RC.silent)
 						playsound(RC.loc, 'sound/machines/twobeep.ogg', 50, 1)
 						RC.atom_say("Message from [sender]")
-					RC.message_log += "Message [sender]: [authmsg]"
+					RC.message_log.Add(list(list("Message [sender]:", "[authmsg]")))
 			RC.set_light(2)
 
 /obj/machinery/message_server/attack_hand(user as mob)

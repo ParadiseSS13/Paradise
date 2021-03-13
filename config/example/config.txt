@@ -117,8 +117,6 @@ PROBABILITY VAMPIRE 3
 PROBABILITY EXTENDED 2
 PROBABILITY NUCLEAR 3
 PROBABILITY ABDUCTION 0
-PROBABILITY DEVIL 0
-PROBABILITY DEVILAGENTS 0
 
 ## Maximum cycles shadowlings can remain unhatched before they take damage. 1800 = 60 minutes, 900 = 30 minutes, 0 = feature disabled.
 SHADOWLING_MAX_AGE 0
@@ -474,3 +472,6 @@ CENTCOM_BAN_DB_URL https://centcom.melonmesa.com/ban/search/
 
 ## Max amount of CIDs that one ckey can have attached to them before they trip a warning. Set to 0 to disable.
 MAX_CLIENT_CID_HISTORY 2
+
+## Uncomment to enable automatic performance profiling of rounds
+#ENABLE_AUTO_PROFILER
