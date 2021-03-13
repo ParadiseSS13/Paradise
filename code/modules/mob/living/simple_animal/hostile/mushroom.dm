@@ -4,6 +4,7 @@
 	icon_state = "mushroom_color"
 	icon_living = "mushroom_color"
 	icon_dead = "mushroom_dead"
+	mob_biotypes = MOB_ORGANIC | MOB_PLANT
 	speak_chance = 0
 	turns_per_move = 1
 	maxHealth = 10
@@ -135,7 +136,7 @@
 	spawn(300)
 		recovery_cooldown = 0
 
-/mob/living/simple_animal/hostile/mushroom/proc/LevelUp(var/level_gain)
+/mob/living/simple_animal/hostile/mushroom/proc/LevelUp(level_gain)
 	if(powerlevel <= 9)
 		powerlevel += level_gain
 		if(prob(25))

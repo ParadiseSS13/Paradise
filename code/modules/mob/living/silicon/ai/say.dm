@@ -3,7 +3,7 @@
  */
 
 
-/mob/living/silicon/ai/handle_track(var/message, var/verb = "says", var/mob/speaker = null, var/speaker_name, var/atom/follow_target, var/hard_to_hear)
+/mob/living/silicon/ai/handle_track(message, verb = "says", mob/speaker = null, speaker_name, atom/follow_target, hard_to_hear)
 	if(hard_to_hear)
 		return
 
@@ -179,6 +179,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 				if(M.client && M.client.prefs.sound & SOUND_AI_VOICE)
 					var/turf/T = get_turf(M)
 					if(T && T.z == z_level && M.can_hear())
+						voice.volume = 100 * M.client.prefs.get_channel_volume(CHANNEL_VOX)
 						M << voice
 		else
 			only_listener << voice

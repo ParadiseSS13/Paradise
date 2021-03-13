@@ -11,6 +11,7 @@
 
 	species_traits = list(NO_BLOOD)
 	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOHUNGER, TRAIT_XENO_IMMUNE)
+	inherent_biotypes = MOB_UNDEAD | MOB_HUMANOID
 	tox_mod = 0
 	clone_mod = 0
 	dies_at_threshold = TRUE
@@ -25,6 +26,8 @@
 		"is snapping their own bones!",
 		"is collapsing into a pile!",
 		"is twisting their skull off!")
+
+	vision_organ = null
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/golem,
 	) //Has default darksight of 2.

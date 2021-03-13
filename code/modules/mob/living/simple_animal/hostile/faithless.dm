@@ -4,6 +4,7 @@
 	icon_state = "faithless"
 	icon_living = "faithless"
 	icon_dead = "faithless_dead"
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	speak_chance = 0
 	turns_per_move = 5
 	response_help = "passes through the"
@@ -27,8 +28,9 @@
 
 	faction = list("faithless")
 	gold_core_spawnable = HOSTILE_SPAWN
+	footstep_type = FOOTSTEP_MOB_SHOE
 
-/mob/living/simple_animal/hostile/faithless/Process_Spacemove(var/movement_dir = 0)
+/mob/living/simple_animal/hostile/faithless/Process_Spacemove(movement_dir = 0)
 	return 1
 
 /mob/living/simple_animal/hostile/faithless/AttackingTarget()

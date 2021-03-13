@@ -49,6 +49,7 @@
 	name = "venus human trap"
 	desc = "Now you know how the fly feels."
 	icon_state = "venus_human_trap"
+	mob_biotypes = MOB_ORGANIC | MOB_PLANT
 	layer = MOB_LAYER + 0.9
 	health = 50
 	maxHealth = 50

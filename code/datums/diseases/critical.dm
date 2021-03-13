@@ -25,7 +25,7 @@
 	max_stages = 3
 	spread_flags = SPECIAL
 	cure_text = "Saline-Glucose Solution"
-	cures = list("salglu_solution")
+	cures = list("salglu_solution", "syndicate_nanites")
 	cure_chance = 10
 	viable_mobtypes = list(/mob/living/carbon/human)
 	stage_prob = 6
@@ -86,7 +86,7 @@
 	max_stages = 3
 	spread_flags = SPECIAL
 	cure_text = "Atropine, Epinephrine, or Heparin"
-	cures = list("atropine", "epinephrine", "heparin")
+	cures = list("atropine", "epinephrine", "heparin", "syndicate_nanites")
 	cure_chance = 10
 	needs_all_cures = FALSE
 	viable_mobtypes = list(/mob/living/carbon/human)

@@ -1040,20 +1040,19 @@
 		var/obj/structure/spacevine/SV = O
 		SV.on_chem_effect(src)
 
-/datum/reagent/glyphosate/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(iscarbon(M))
-		var/mob/living/carbon/C = M
-		if(!C.wear_mask) // If not wearing a mask
-			C.adjustToxLoss(lethality)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(IS_PLANT in H.dna.species.species_traits) //plantmen take extra damage
-				H.adjustToxLoss(3)
-				..()
-	else if(istype(M, /mob/living/simple_animal/diona)) //nymphs take EVEN MORE damage
-		var/mob/living/simple_animal/diona/D = M
-		D.adjustHealth(100)
-		..()
+/datum/reagent/glyphosate/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
+	if(isliving(M))
+		if(M.mob_biotypes & MOB_PLANT)
+			var/damage = min(round(0.4 * volume, 0.1), 10)
+			M.adjustToxLoss(damage)
+		if(iscarbon(M))
+			var/mob/living/carbon/C = M
+			if(!C.wear_mask) // If not wearing a mask
+				C.adjustToxLoss(lethality)
+		if(istype(M, /mob/living/simple_animal/diona)) //nymphs take EVEN MORE damage
+			var/mob/living/simple_animal/diona/D = M
+			D.adjustHealth(100)
+	..()
 
 /datum/reagent/glyphosate/atrazine
 	name = "Atrazine"
@@ -1081,15 +1080,17 @@
 		O.visible_message("<span class='warning'>The ants die.</span>")
 		qdel(O)
 
-/datum/reagent/pestkiller/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(iscarbon(M))
-		var/mob/living/carbon/C = M
-		if(!C.wear_mask) // If not wearing a mask
-			C.adjustToxLoss(2)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(iskidan(H)) //RIP
-				H.adjustToxLoss(20)
+/datum/reagent/pestkiller/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
+	if(isliving(M))
+		if(M.mob_biotypes & MOB_BUG)
+			var/damage = min(round(0.4 * volume, 0.1), 10)
+			M.adjustToxLoss(damage)
+		if(iscarbon(M))
+			var/mob/living/carbon/C = M
+			if(!C.wear_mask) // If not wearing a mask
+				C.adjustToxLoss(2)
+			if(iskidan(C)) //RIP
+				C.adjustToxLoss(18)
 
 /datum/reagent/capulettium
 	name = "Capulettium"
@@ -1234,19 +1235,19 @@
 	if(shock_timer >= rand(5,30)) //Random shocks are wildly unpredictable
 		shock_timer = 0
 		M.electrocute_act(rand(5, 20), "Teslium in their body", 1, SHOCK_NOGLOVES) //Override because it's caused from INSIDE of you
-		playsound(M, "sparks", 50, 1)
+		playsound(M, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	return ..()
 
 /datum/reagent/teslium/on_mob_add(mob/living/M)
 	..()
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.dna.species.siemens_coeff *= 2
+		H.physiology.siemens_coeff *= 2
 
 /datum/reagent/teslium/on_mob_delete(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.dna.species.siemens_coeff *= 0.5
+		H.physiology.siemens_coeff *= 0.5
 	..()
 
 /datum/reagent/gluttonytoxin

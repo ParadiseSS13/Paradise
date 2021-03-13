@@ -15,7 +15,7 @@
 	icon = 'icons/obj/library.dmi'
 	icon_state = "computer"
 
-/obj/machinery/computer/library/proc/interact_check(var/mob/user)
+/obj/machinery/computer/library/proc/interact_check(mob/user)
 	if(stat & (BROKEN | NOPOWER))
 		return 1
 
@@ -28,7 +28,7 @@
 	user.set_machine(src)
 	return 0
 
-/obj/machinery/computer/library/proc/get_page(var/page_num)
+/obj/machinery/computer/library/proc/get_page(page_num)
 	var/searchquery = ""
 	var/where = 0
 	var/list/sql_params = list()
@@ -47,7 +47,7 @@
 			if(query.category == "Fiction")
 				searchquery += " AND category NOT LIKE '%Non-Fiction%'"
 			where = 1
-	
+
 	// This one doesnt take player input directly, so it doesnt require params
 	searchquery += " [!where ? "WHERE" : "AND"] flagged < [MAX_BOOK_FLAGS]"
 	// This does though
@@ -57,7 +57,7 @@
 
 	// Pagination
 	var/datum/db_query/select_query = SSdbcore.NewQuery(sql, sql_params)
-	
+
 	if(!select_query.warn_execute())
 		qdel(select_query)
 		return
@@ -106,5 +106,5 @@
 	pagelist += "</div>"
 	return pagelist
 
-/obj/machinery/computer/library/proc/getBookByID(var/id as text)
+/obj/machinery/computer/library/proc/getBookByID(id as text)
 	return GLOB.library_catalog.getBookByID(id)
