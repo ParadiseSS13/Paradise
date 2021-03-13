@@ -469,7 +469,6 @@ GLOBAL_LIST_EMPTY(ventcrawlers) // List of all mobs currently ventcrawling for p
 
 		if(iscarbon(src) && length(contents) && ventcrawlerlocal < 2)//It must have atleast been 1 to get this far
 			for(var/obj/item/I in contents)
-				var/failed = 0
 				if(istype(I, /obj/item/implant))
 					continue
 				if(I.flags & ABSTRACT)
