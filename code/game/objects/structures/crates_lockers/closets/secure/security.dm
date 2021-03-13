@@ -229,7 +229,7 @@
 	new /obj/item/storage/briefcase(src)
 	new	/obj/item/storage/firstaid/adv(src)
 	new /obj/item/pinpointer/crew(src)
-	/obj/item/storage/belt/security/full
+	new /obj/item/storage/belt/security/full(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses/read_only(src)
 	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
