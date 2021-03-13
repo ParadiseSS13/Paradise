@@ -115,6 +115,7 @@
 	..()
 
 /obj/item/projectile/energy/bsg/proc/kaboom()
+	playsound(src, 'sound/weapons/bsg_explode.ogg', 75, TRUE)
 	for(var/mob/living/M in hearers(7, src))
 		var/floored = FALSE
 		if(ishuman(M))
