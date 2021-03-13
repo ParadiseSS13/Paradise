@@ -474,7 +474,7 @@ parser.add_argument("database", help="Database name")
 parser.add_argument("curtable", help="Name of the current feedback table (remember prefixes if you use them)")
 parser.add_argument("newtable", help="Name of the new table to insert to, can't be same as the source table (remember prefixes)")
 args = parser.parse_args()
-db=mysql.connector.connect(host=args.address, user=args.username, passwd=args.password, db=args.database)
+db=mysql.connector.connect(host=args.address, user=args.username, passwd=args.password, db=args.database, auth_plugin='mysql_native_password')
 cursor=db.cursor()
 current_table = args.curtable
 new_table = args.newtable
