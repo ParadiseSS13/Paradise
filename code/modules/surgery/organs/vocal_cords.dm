@@ -70,7 +70,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	var/message = input(owner, "Resonate a message to all nearby golems.", "Resonate")
 	if(QDELETED(src) || QDELETED(owner) || !message)
 		return
-	owner.say(".x[message]")
+	owner.say(".~[message]")
 
 /obj/item/organ/internal/vocal_cords/adamantine/handle_speech(message)
 	var/msg = "<span class='resonate'><span class='name'>[owner.real_name]</span> <span class='message'>resonates, \"[message]\"</span></span>"
@@ -123,7 +123,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	var/command = input(owner, "Speak with the Voice of God", "Command")
 	if(!command)
 		return
-	owner.say(".x[command]")
+	owner.say(".~[command]")
 
 /obj/item/organ/internal/vocal_cords/colossus/prepare_eat()
 	return
@@ -157,7 +157,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 		if(L.can_hear() && !L.null_rod_check() && L != owner && L.stat != DEAD)
 			if(ishuman(L))
 				var/mob/living/carbon/human/H = L
-				if(istype(H.l_ear, /obj/item/clothing/ears/earmuffs) || istype(H.r_ear, /obj/item/clothing/ears/earmuffs))
+				if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
 					continue
 			listeners += L
 
@@ -188,12 +188,6 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 
 	for(var/V in listeners)
 		var/mob/living/L = V
-		if(L.mind && L.mind.devilinfo && findtext(message, L.mind.devilinfo.truename))
-			var/start = findtext(message, L.mind.devilinfo.truename)
-			listeners = list(L) //let's be honest you're never going to find two devils with the same name
-			power_multiplier *= 5 //if you're a devil and god himself addressed you, you fucked up
-			//Cut out the name so it doesn't trigger commands
-			message = copytext(message, 0, start)+copytext(message, start + length(L.mind.devilinfo.truename), length(message) + 1)
 		if(findtext(message, L.real_name) == 1)
 			specific_listeners += L //focus on those with the specified name
 			//Cut out the name so it doesn't trigger commands

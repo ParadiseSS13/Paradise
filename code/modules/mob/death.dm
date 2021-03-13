@@ -9,6 +9,7 @@
 	return FALSE
 
 /mob/proc/death(gibbed)
+	SEND_SIGNAL(src, COMSIG_MOB_DEATH, gibbed)
 	return FALSE
 
 /mob/proc/dust_animation()

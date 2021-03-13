@@ -30,7 +30,7 @@
 	var/lastused
 	var/iconrotation = 0 //Used to orient icons and pipes
 	var/mode = RPD_ATMOS_MODE //Disposals, atmospherics, etc.
-	var/pipe_category = RPD_ATMOS_PIPING//For nanoUI menus, this is a subtype of pipes e.g. scrubbers pipes, devices
+	var/pipe_category = RPD_ATMOS_PIPING //For TGUI menus, this is a subtype of pipes e.g. scrubbers pipes, devices
 	var/whatpipe = PIPE_SIMPLE_STRAIGHT //What kind of atmos pipe is it?
 	var/whatdpipe = PIPE_DISPOSALS_STRAIGHT //What kind of disposals pipe is it?
 	var/spawndelay = RPD_COOLDOWN_TIME
@@ -43,8 +43,8 @@
 	var/list/mainmenu = list(
 		list("category" = "Atmospherics", "mode" = RPD_ATMOS_MODE, "icon" = "wrench"),
 		list("category" = "Disposals", "mode" = RPD_DISPOSALS_MODE, "icon" = "recycle"),
-		list("category" = "Rotate", "mode" = RPD_ROTATE_MODE, "icon" = "rotate-right"),
-		list("category" = "Flip", "mode" = RPD_FLIP_MODE, "icon" = "exchange"),
+		list("category" = "Rotate", "mode" = RPD_ROTATE_MODE, "icon" = "sync-alt"),
+		list("category" = "Flip", "mode" = RPD_FLIP_MODE, "icon" = "arrows-alt-h"),
 		list("category" = "Recycle", "mode" = RPD_DELETE_MODE, "icon" = "trash"))
 	var/list/pipemenu = list(
 		list("category" = "Normal", "pipemode" = RPD_ATMOS_PIPING),
@@ -54,8 +54,8 @@
 		list("category" = "Heat exchange", "pipemode" = RPD_HEAT_PIPING))
 
 
-/obj/item/rpd/New()
-	..()
+/obj/item/rpd/Initialize(mapload)
+	. = ..()
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(1, 0, src)
 	spark_system.attach(src)
@@ -86,7 +86,7 @@
 	if(delay)
 		lastused = world.time
 
-/obj/item/rpd/proc/can_dispense_pipe(var/pipe_id, var/pipe_type) //Returns TRUE if this is a legit pipe we can dispense, otherwise returns FALSE
+/obj/item/rpd/proc/can_dispense_pipe(pipe_id, pipe_type) //Returns TRUE if this is a legit pipe we can dispense, otherwise returns FALSE
 	for(var/list/L in GLOB.rpd_pipe_list)
 		if(pipe_type != L["pipe_type"]) //Sometimes pipes in different categories have the same pipe_id, so we need to skip anything not in the category we want
 			continue
@@ -165,23 +165,24 @@
 	QDEL_NULL(P)
 	activate_rpd()
 
-//NanoUI stuff
+// TGUI stuff
 
 /obj/item/rpd/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/rpd/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = GLOB.inventory_state)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/rpd/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
+	user.set_machine(src)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "rpd.tmpl", "[name]", 400, 650, state = state)
+		ui = new(user, src, ui_key, "RPD", name, 450, 650, master_ui, state)
 		ui.open()
-		ui.set_auto_update(1)
+
 
 /obj/item/rpd/AltClick(mob/user)
 	radial_menu(user)
 
-/obj/item/rpd/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.inventory_state)
-	var/data[0]
+/obj/item/rpd/ui_data(mob/user)
+	var/list/data = list()
 	data["iconrotation"] = iconrotation
 	data["mainmenu"] = mainmenu
 	data["mode"] = mode
@@ -192,24 +193,25 @@
 	data["whatpipe"] = whatpipe
 	return data
 
-/obj/item/rpd/Topic(href, href_list, nowindow, state)
-	..()
-	if(href_list["iconrotation"])
-		iconrotation = text2num(sanitize(href_list["iconrotation"]))
-	else if(href_list["whatpipe"])
-		whatpipe = text2num(sanitize(href_list["whatpipe"]))
-	else if(href_list["whatdpipe"])
-		whatdpipe = text2num(sanitize(href_list["whatdpipe"]))
-	else if(href_list["pipe_category"])
-		pipe_category = text2num(sanitize(href_list["pipe_category"]))
-	else if(href_list["mode"])
-		mode = text2num(sanitize(href_list["mode"]))
-	else
+/obj/item/rpd/ui_act(action, list/params)
+	if(..())
 		return
-	SSnanoui.update_uis(src)
+
+	. = TRUE
+
+	switch(action)
+		if("iconrotation")
+			iconrotation = text2num(sanitize(params["iconrotation"]))
+		if("whatpipe")
+			whatpipe = text2num(sanitize(params["whatpipe"]))
+		if("whatdpipe")
+			whatdpipe = text2num(sanitize(params["whatdpipe"]))
+		if("pipe_category")
+			pipe_category = text2num(sanitize(params["pipe_category"]))
+		if("mode")
+			mode = text2num(sanitize(params["mode"]))
 
 //RPD radial menu
-
 /obj/item/rpd/proc/check_menu(mob/living/user)
 	if(!istype(user))
 		return

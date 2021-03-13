@@ -84,7 +84,6 @@
 	height = 11
 	dir = 4
 	travelDir = 0
-	roundstart_move = "emergency_away"
 	var/sound_played = 0 //If the launch sound has been sent to all players on the shuttle itself
 
 	var/datum/announcement/priority/emergency_shuttle_docked = new(0, new_sound = sound('sound/AI/shuttledock.ogg'))
@@ -149,11 +148,6 @@
 		SSshuttle.emergencyLastCallLoc = null
 
 	emergency_shuttle_called.Announce("The emergency shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason][SSshuttle.emergencyLastCallLoc ? "\n\nCall signal traced. Results can be viewed on any communications console." : "" ]")
-
-	if(reason == "Automatic Crew Transfer" && signalOrigin == null) // Best way we have to check that it's actually a crew transfer and not just a player using the same message- any other calls to this proc should have a signalOrigin.
-		GLOB.atc.shift_ending()
-	else // Emergency shuttle call (probably)
-		GLOB.atc.reroute_traffic(yes = TRUE)
 
 
 /obj/docking_port/mobile/emergency/cancel(area/signalOrigin)
@@ -236,7 +230,6 @@
 					return
 				mode = SHUTTLE_DOCKED
 				timer = world.time
-				send2irc("Server", "The Emergency Shuttle has docked with the station.")
 				emergency_shuttle_docked.Announce("The Emergency Shuttle has docked with the station. You have [timeLeft(600)] minutes to board the Emergency Shuttle.")
 
 /*
@@ -256,8 +249,9 @@
 
 			if(time_left <= 50 && !sound_played) //4 seconds left - should sync up with the launch
 				sound_played = 1
+				var/hyperspace_sound = sound('sound/effects/hyperspace_begin.ogg')
 				for(var/area/shuttle/escape/E in world)
-					E << 'sound/effects/hyperspace_begin.ogg'
+					SEND_SOUND(E, hyperspace_sound)
 
 			if(time_left <= 0 && !SSshuttle.emergencyNoEscape)
 				//move each escape pod to its corresponding transit dock
@@ -265,14 +259,15 @@
 					if(is_station_level(M.z)) //Will not launch from the mine/planet
 						M.enterTransit()
 				//now move the actual emergency shuttle to its transit dock
+				var/hyperspace_progress_sound = sound('sound/effects/hyperspace_progress.ogg')
 				for(var/area/shuttle/escape/E in world)
-					E << 'sound/effects/hyperspace_progress.ogg'
+					SEND_SOUND(E, hyperspace_progress_sound)
 				enterTransit()
 				mode = SHUTTLE_ESCAPE
 				timer = world.time
 				GLOB.priority_announcement.Announce("The Emergency Shuttle has left the station. Estimate [timeLeft(600)] minutes until the shuttle docks at Central Command.")
 				for(var/mob/M in GLOB.player_list)
-					if(!isnewplayer(M) && !M.client.karma_spent && !(M.client.ckey in GLOB.karma_spenders) && !M.get_preference(DISABLE_KARMA_REMINDER))
+					if(!isnewplayer(M) && !M.client.karma_spent && !(M.client.ckey in GLOB.karma_spenders) && !M.get_preference(PREFTOGGLE_DISABLE_KARMA_REMINDER))
 						to_chat(M, "<i>You have not yet spent your karma for the round; was there a player worthy of receiving your reward? Look under Special Verbs tab, Award Karma.</i>")
 
 		if(SHUTTLE_ESCAPE)
@@ -281,8 +276,9 @@
 				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
 					M.dock(SSshuttle.getDock("[M.id]_away"))
 
+				var/hyperspace_end_sound = sound('sound/effects/hyperspace_end.ogg')
 				for(var/area/shuttle/escape/E in world)
-					E << 'sound/effects/hyperspace_end.ogg'
+					SEND_SOUND(E, hyperspace_end_sound)
 
 				// now move the actual emergency shuttle to centcomm
 				// unless the shuttle is "hijacked"
@@ -306,6 +302,7 @@
 			spawn(0)
 				D.open()
 */ //Leaving this here incase someone decides to port -tg-'s escape shuttle stuff:
+
 // This basically opens a big-ass row of blast doors when the shuttle arrives at centcom
 /obj/docking_port/mobile/pod
 	name = "escape pod"
@@ -315,8 +312,8 @@
 	width = 3
 	height = 4
 
-/obj/docking_port/mobile/pod/New()
-	..()
+/obj/docking_port/mobile/pod/Initialize(mapload)
+	. = ..()
 	if(id == "pod")
 		WARNING("[type] id has not been changed from the default. Use the id convention \"pod1\" \"pod2\" etc.")
 
@@ -368,8 +365,6 @@
 	width = 8
 	height = 8
 	dir = 4
-
-	roundstart_move = "backup_away"
 
 /obj/docking_port/mobile/emergency/backup/register()
 	var/current_emergency = SSshuttle.emergency

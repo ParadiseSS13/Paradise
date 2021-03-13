@@ -28,7 +28,7 @@
 			to_chat(user, "You take a bite of the [name]. Delicious!")
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 			user.adjust_nutrition(2)
-	else if(istype(target,/obj/effect/decal/cleanable))
+	else if(istype(target, /obj/effect/decal/cleanable) || istype(target, /obj/effect/rune))
 		user.visible_message("<span class='warning'>[user] begins to scrub \the [target.name] out with [src].</span>")
 		if(do_after(user, cleanspeed, target = target) && target)
 			to_chat(user, "<span class='notice'>You scrub \the [target.name] out.</span>")

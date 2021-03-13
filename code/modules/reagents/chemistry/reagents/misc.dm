@@ -117,11 +117,6 @@
 	color = "#D0D0D0" // rgb: 208, 208, 208
 	taste_description = "sub-par bling"
 
-/datum/reagent/silver/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(M.has_bane(BANE_SILVER))
-		M.reagents.add_reagent("toxin", volume)
-	. = ..()
-
 /datum/reagent/aluminum
 	name = "Aluminum"
 	id = "aluminum"
@@ -164,15 +159,10 @@
 /datum/reagent/iron/on_mob_life(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(!H.dna.species.exotic_blood && !(NO_BLOOD in H.dna.species.species_traits))
+		if(!(NO_BLOOD in H.dna.species.species_traits))
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 				H.blood_volume += 0.8
 	return ..()
-
-/datum/reagent/iron/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(M.has_bane(BANE_IRON) && holder && holder.chem_temp < 150) //If the target is weak to cold iron, then poison them.
-		M.reagents.add_reagent("toxin", volume)
-	..()
 
 //foam
 /datum/reagent/fluorosurfactant
@@ -215,6 +205,7 @@
 		var/turf/T = get_turf(holder.my_atom)
 		holder.my_atom.visible_message("<b>The oil burns!</b>")
 		fireflash(T, min(max(0, volume / 40), 8))
+		fire_flash_log(holder, id)
 		var/datum/effect_system/smoke_spread/bad/BS = new
 		BS.set_up(1, 0, T)
 		BS.start()
@@ -459,8 +450,8 @@
 		else
 			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
 			C.AdjustDizzy(volume)
-	ADD_TRAIT(C, TRAIT_JESTER, id)
-	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE)
+	ADD_TRAIT(C, TRAIT_COMIC_SANS, id)
+	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE, falloff_exponent = 20)
 	C.AddElement(/datum/element/waddling)
 
 /datum/reagent/jestosterone/on_mob_life(mob/living/carbon/M)
@@ -495,7 +486,7 @@
 
 /datum/reagent/jestosterone/on_mob_delete(mob/living/M)
 	..()
-	REMOVE_TRAIT(M, TRAIT_JESTER, id)
+	REMOVE_TRAIT(M, TRAIT_COMIC_SANS, id)
 	qdel(M.GetComponent(/datum/component/squeak))
 	M.RemoveElement(/datum/element/waddling)
 
@@ -603,7 +594,7 @@
 	name = "Left 4 Zed"
 	id = "left4zednutriment"
 	description = "Unstable nutriment that makes plants mutate more often than usual."
-	color = "#1A1E4D" // RBG: 26, 30, 77
+	color = "#2A1680" // RBG: 42, 128, 22
 	tox_prob = 25
 	taste_description = "evolution"
 

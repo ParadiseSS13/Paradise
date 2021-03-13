@@ -38,8 +38,6 @@
 	var/obj/machinery/portable_atmospherics/canister/internal_tank
 	var/use_internal_tank = 0
 
-	var/datum/effect_system/trail_follow/ion/space_trail/ion_trail
-
 	var/hatch_open = 0
 
 	var/next_firetime = 0
@@ -93,37 +91,64 @@
 /obj/spacepod/get_cell()
 	return battery
 
-/obj/spacepod/New()
+/obj/spacepod/Initialize(mapload)
 	. = ..()
 	if(!pod_overlays)
 		pod_overlays = new/list(2)
 		pod_overlays[DAMAGE] = image(icon, icon_state="pod_damage")
 		pod_overlays[FIRE] = image(icon, icon_state="pod_fire")
+
 	if(!pod_paint_effect)
 		pod_paint_effect = new/list(4)
 		pod_paint_effect[POD_LIGHT] = image(icon,icon_state = "LIGHTS")
 		pod_paint_effect[WINDOW] = image(icon,icon_state = "Windows")
 		pod_paint_effect[RIM] = image(icon,icon_state = "RIM")
 		pod_paint_effect[PAINT] = image(icon,icon_state = "PAINT")
+
 	bound_width = 64
 	bound_height = 64
 	dir = EAST
 	battery = new battery_type(src)
+
 	add_cabin()
 	add_airtank()
-	src.ion_trail = new /datum/effect_system/trail_follow/ion/space_trail()
-	src.ion_trail.set_up(src)
-	src.ion_trail.start()
-	src.use_internal_tank = 1
+
+	use_internal_tank = TRUE
 	equipment_system = new(src)
 	equipment_system.installed_modules += battery
+
 	GLOB.spacepods_list += src
+
 	cargo_hold = new/obj/item/storage/internal(src)
 	cargo_hold.w_class = 5	//so you can put bags in
 	cargo_hold.storage_slots = 0	//You need to install cargo modules to use it.
 	cargo_hold.max_w_class = 5		//fit almost anything
 	cargo_hold.max_combined_w_class = 0 //you can optimize your stash with larger items
+
 	START_PROCESSING(SSobj, src)
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/create_trail)
+
+/obj/spacepod/proc/create_trail()
+	var/turf/T = get_turf(src)
+	var/atom/oldposition
+	var/atom/oldloc
+	switch(dir)
+		if(NORTH)
+			oldposition = get_step(T, SOUTH)
+			oldloc = get_step(oldposition, EAST)
+		if(SOUTH) // More difficult, offset to the north!
+			oldposition = get_step(get_step(src, NORTH), NORTH)
+			oldloc = get_step(oldposition, EAST)
+		if(EAST) // Just one to the north should suffice
+			oldposition = get_step(T, WEST)
+			oldloc = get_step(oldposition, NORTH)
+		if(WEST) // One to the east and north from there
+			oldposition = get_step(get_step(src, EAST), EAST)
+			oldloc = get_step(oldposition, NORTH)
+
+	if(!has_gravity(T))
+		new /obj/effect/particle_effect/ion_trails(oldposition, dir)
+		new /obj/effect/particle_effect/ion_trails(oldloc, dir)
 
 /obj/spacepod/Destroy()
 	if(equipment_system.cargo_system)
@@ -133,15 +158,12 @@
 	QDEL_NULL(battery)
 	QDEL_NULL(cabin_air)
 	QDEL_NULL(internal_tank)
-	QDEL_NULL(ion_trail)
 	occupant_sanity_check()
 	if(pilot)
-		pilot.forceMove(get_turf(src))
-		pilot = null
+		eject_pilot()
 	if(passengers)
 		for(var/mob/M in passengers)
-			M.forceMove(get_turf(src))
-			passengers -= M
+			eject_passenger(M)
 	GLOB.spacepods_list -= src
 	STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -192,7 +214,7 @@
 
 	light_color = icon_light_color[src.icon_state]
 
-/obj/spacepod/bullet_act(var/obj/item/projectile/P)
+/obj/spacepod/bullet_act(obj/item/projectile/P)
 	if(P.damage_type == BRUTE || P.damage_type == BURN)
 		deal_damage(P.damage)
 	P.on_hit(src)
@@ -203,7 +225,22 @@
 /obj/spacepod/blob_act(obj/structure/blob/B)
 	deal_damage(30)
 
+/obj/spacepod/force_eject_occupant(mob/target)
+	if(target == pilot)
+		eject_pilot()
+	else
+		eject_passenger(target)
+
+/obj/spacepod/proc/eject_pilot()
+	pilot.forceMove(get_turf(src))
+	pilot = null
+
+/obj/spacepod/proc/eject_passenger(mob/passenger)
+	passenger.forceMove(get_turf(src))
+	passengers -= passenger
+
 /obj/spacepod/attack_animal(mob/living/simple_animal/user)
+	user.changeNext_move(CLICK_CD_MELEE)
 	if((user.a_intent == INTENT_HELP && user.ckey) || user.melee_damage_upper == 0)
 		user.custom_emote(1, "[user.friendly] [src].")
 		return FALSE
@@ -222,7 +259,7 @@
 	to_chat(user, "<span class='warning'>You slash at [src]!</span>")
 	visible_message("<span class='warning'>The [user] slashes at [src.name]'s armor!</span>")
 
-/obj/spacepod/proc/deal_damage(var/damage)
+/obj/spacepod/proc/deal_damage(damage)
 	var/oldhealth = health
 	health = max(0, health - damage)
 	var/percentage = (health / initial(health)) * 100
@@ -250,7 +287,7 @@
 
 	update_icons()
 
-/obj/spacepod/proc/repair_damage(var/repair_amount)
+/obj/spacepod/proc/repair_damage(repair_amount)
 	if(health)
 		health = min(initial(health), health + repair_amount)
 		update_icons()
@@ -267,7 +304,6 @@
 						H.forceMove(get_turf(src))
 						H.ex_act(severity + 1)
 						to_chat(H, "<span class='warning'>You are forcefully thrown from [src]!</span>")
-			qdel(ion_trail)
 			qdel(src)
 		if(2)
 			deal_damage(100)
@@ -296,7 +332,7 @@
 		return
 	var/sound/S = sound(mysound)
 	S.wait = 0 //No queue
-	S.channel = open_sound_channel()
+	S.channel = SSsounds.random_available_channel()
 	S.volume = 50
 	for(var/mob/M in passengers | pilot)
 		M << S
@@ -410,7 +446,7 @@
 		to_chat(user, "<span class='notice'>You mend some [pick("dents","bumps","damage")] with [I]</span>")
 
 
-/obj/spacepod/proc/add_equipment(mob/user, var/obj/item/spacepod_equipment/SPE, var/slot)
+/obj/spacepod/proc/add_equipment(mob/user, obj/item/spacepod_equipment/SPE, slot)
 	if(equipment_system.vars[slot])
 		to_chat(user, "<span class='notice'>The pod already has a [slot], remove it first.</span>")
 		return
@@ -438,12 +474,11 @@
 			src.visible_message("<span class='warning'>[user] is trying to rip the door open and pull [target] out of the [src]!</span>",
 				"<span class='warning'>You see [user] outside the door trying to rip it open!</span>")
 			if(do_after(user, 50, target = src))
-				target.forceMove(get_turf(src))
 				target.Stun(1)
 				if(pilot)
-					pilot = null
+					eject_pilot()
 				else
-					passengers -= target
+					eject_passenger(target)
 				target.visible_message("<span class='warning'>[user] flings the door open and tears [target] out of the [src]</span>",
 					"<span class='warning'>The door flies open and you are thrown out of the [src] and to the ground!</span>")
 				return
@@ -496,7 +531,7 @@
 		if("Lock System")
 			remove_equipment(user, equipment_system.lock_system, "lock_system")
 
-/obj/spacepod/proc/remove_equipment(mob/user, var/obj/item/spacepod_equipment/SPE, var/slot)
+/obj/spacepod/proc/remove_equipment(mob/user, obj/item/spacepod_equipment/SPE, slot)
 
 	if(passengers.len > max_passengers - SPE.occupant_mod)
 		to_chat(user, "<span class='warning'>Someone is sitting in [SPE]!</span>")
@@ -526,7 +561,7 @@
 	cargo_hold.hear_talk(M, message_pieces)
 	..()
 
-/obj/spacepod/hear_message(mob/M, var/msg)
+/obj/spacepod/hear_message(mob/M, msg)
 	cargo_hold.hear_message(M, msg)
 	..()
 
@@ -575,25 +610,27 @@
 /obj/spacepod/syndi/unlocked
 	unlocked = TRUE
 
-/obj/spacepod/sec/New()
-	..()
+/obj/spacepod/sec/Initialize(mapload)
+	. = ..()
 	var/obj/item/spacepod_equipment/weaponry/burst_taser/T = new /obj/item/spacepod_equipment/weaponry/taser
 	T.loc = equipment_system
 	equipment_system.weapon_system = T
 	equipment_system.weapon_system.my_atom = src
 	equipment_system.installed_modules += T
+
 	var/obj/item/spacepod_equipment/misc/tracker/L = new /obj/item/spacepod_equipment/misc/tracker
 	L.loc = equipment_system
 	equipment_system.misc_system = L
 	equipment_system.misc_system.my_atom = src
-	equipment_system.misc_system.enabled = 1
 	equipment_system.installed_modules += L
+
 	var/obj/item/spacepod_equipment/sec_cargo/chair/C = new /obj/item/spacepod_equipment/sec_cargo/chair
 	C.loc = equipment_system
 	equipment_system.sec_cargo_system = C
 	equipment_system.sec_cargo_system.my_atom = src
 	equipment_system.installed_modules += C
 	max_passengers = 1
+
 	var/obj/item/spacepod_equipment/lock/keyed/K = new /obj/item/spacepod_equipment/lock/keyed
 	K.loc = equipment_system
 	equipment_system.lock_system = K
@@ -601,8 +638,8 @@
 	equipment_system.lock_system.id = 100000
 	equipment_system.installed_modules += K
 
-/obj/spacepod/random/New()
-	..()
+/obj/spacepod/random/Initialize(mapload)
+	. = ..()
 	icon_state = pick("pod_civ", "pod_black", "pod_mil", "pod_synd", "pod_gold", "pod_industrial")
 	switch(icon_state)
 		if("pod_civ")
@@ -682,7 +719,7 @@
 		if(t_air)
 			. = t_air.return_temperature()
 
-/obj/spacepod/proc/moved_other_inside(var/mob/living/carbon/human/H as mob)
+/obj/spacepod/proc/moved_other_inside(mob/living/carbon/human/H as mob)
 	occupant_sanity_check()
 	if(passengers.len < max_passengers)
 		H.stop_pulling()
@@ -724,7 +761,7 @@
 	if(istype(A, /obj/structure/closet/crate) && equipment_system.cargo_system && istype(equipment_system.cargo_system, /obj/item/spacepod_equipment/cargo/crate)) // For loading crates
 		load_cargo(user, A)
 
-/obj/spacepod/proc/load_cargo(mob/user, var/obj/O)
+/obj/spacepod/proc/load_cargo(mob/user, obj/O)
 	var/obj/item/spacepod_equipment/cargo/ore/C = equipment_system.cargo_system
 	if(!C.storage)
 		to_chat(user, "<span class='notice'>You begin loading [O] into [src]'s [equipment_system.cargo_system]</span>")
@@ -981,7 +1018,7 @@
 	else
 		to_chat(user, "<span class='notice'>You decide against searching the [src]</span>")
 
-/obj/spacepod/proc/enter_after(delay as num, var/mob/user as mob, var/numticks = 5)
+/obj/spacepod/proc/enter_after(delay as num, mob/user as mob, numticks = 5)
 	var/delayfraction = delay/numticks
 
 	var/turf/T = user.loc
@@ -1075,16 +1112,6 @@
 		return 0
 	battery.charge = max(0, battery.charge - 1)
 	next_move = world.time + move_delay
-
-/obj/effect/landmark/spacepod/random
-	name = "spacepod spawner"
-	invisibility = 101
-	icon = 'icons/mob/screen_gen.dmi'
-	icon_state = "x"
-	anchored = 1
-
-/obj/effect/landmark/spacepod/random/New()
-	..()
 
 #undef DAMAGE
 #undef FIRE

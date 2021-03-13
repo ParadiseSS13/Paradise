@@ -16,12 +16,6 @@
 	else if(istype(wear_suit, /obj/item/clothing/suit/space/hardsuit))
 		var/obj/item/clothing/suit/space/hardsuit/C = wear_suit
 		thrust = C.jetpack
-	else if(istype(back,/obj/item/rig))
-		var/obj/item/rig/rig = back
-		for(var/obj/item/rig_module/maneuvering_jets/module in rig.installed_modules)
-			thrust = module.jets
-			break
-
 	if(thrust)
 		if((movement_dir || thrust.stabilizers) && thrust.allow_thrust(0.01, src))
 			return 1
@@ -47,6 +41,9 @@
 		return
 
 	var/obj/item/clothing/shoes/S = shoes
+
+	if(S && !lying && loc == NewLoc)
+		SEND_SIGNAL(S, COMSIG_SHOES_STEP_ACTION)
 
 	//Bloody footprints
 	var/turf/T = get_turf(src)
@@ -75,59 +72,3 @@
 			if(bloody_feet[blood_state] > BLOOD_LOSS_IN_SPREAD)
 				createFootprintsFrom(src, dir, T)
 			update_inv_shoes()
-	//End bloody footprints
-	if(S)
-		S.step_action(src)
-
-/mob/living/carbon/human/handle_footstep(turf/T)
-	if(..())
-		if(T.footstep_sounds && T.footstep_sounds["human"])
-			var/S = pick(T.footstep_sounds["human"])
-			if(S)
-				if(m_intent == MOVE_INTENT_RUN)
-					if(!(step_count % 2)) //every other turf makes a sound
-						return 0
-
-				if(istype(shoes, /obj/item/clothing/shoes))
-					var/obj/item/clothing/shoes/shooess = shoes
-					if(shooess.silence_steps)
-						return 0 //silent
-					if(shooess.shoe_sound)
-						return //Handle it on the shoe
-
-				var/range = -(world.view - 2)
-				if(m_intent == MOVE_INTENT_WALK)
-					range -= 0.333
-				if(!shoes)
-					range -= 0.333
-
-				//shoes + running
-					//-(7 - 2) = -(5) = -5 | -5 - 0           = -5     | (7 + -5)     = 2     | 2     * 3 = 6     | range(6)     = range(6)
-				//running OR shoes
-					//-(7 - 2) = (-5) = -5 | -5 - 0.333       = -5.333 | (7 + -5.333) = 1.667 | 1.667 * 3 = 5.001 | range(5.001) = range(5)
-				//walking AND no shoes
-					//-(7 - 2) = (-5) = -5 | -5 - (0.333 * 2) = -5.666 | (7 + -5.666) = 1.334 | 1.334 * 3 = 4.002 | range(4.002) = range(4)
-
-				var/volume = 13
-				if(m_intent == MOVE_INTENT_WALK)
-					volume -= 4
-				if(!shoes)
-					volume -= 4
-
-				if(!has_organ("l_foot") && !has_organ("r_foot"))
-					return 0 //no feet no footsteps
-
-				if(buckled || lying || throwing)
-					return 0 //people flying, lying down or sitting do not step
-
-				if(!has_gravity(src))
-					if(step_count % 3) //this basically says, every three moves make a noise
-						return 0       //1st - none, 1%3==1, 2nd - none, 2%3==2, 3rd - noise, 3%3==0
-
-				if(dna.species.silent_steps)
-					return 0 //species is silent
-
-				playsound(T, S, volume, 1, range)
-				return 1
-
-	return 0

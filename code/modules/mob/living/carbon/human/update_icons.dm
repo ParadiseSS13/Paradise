@@ -172,9 +172,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/husk_color_mod = rgb(96, 88, 80)
 	var/hulk_color_mod = rgb(48, 224, 40)
 
-	var/husk = (HUSK in mutations)
-	var/hulk = (HULK in mutations)
-	var/skeleton = (SKELETON in mutations)
+	var/husk = HAS_TRAIT(src, TRAIT_HUSK)
+	var/hulk = HAS_TRAIT(src, TRAIT_HULK)
+	var/skeleton = HAS_TRAIT(src, TRAIT_SKELETONIZED)
 
 	if(dna.species && dna.species.bodyflags & HAS_ICON_SKIN_TONE)
 		dna.species.updatespeciescolor(src)
@@ -272,11 +272,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(underwear_standing)
 		overlays_standing[UNDERWEAR_LAYER] = mutable_appearance(underwear_standing, layer = -UNDERWEAR_LAYER)
 	apply_overlay(UNDERWEAR_LAYER)
-
-	if(lip_style  && (LIPS in dna.species.species_traits))
-		var/icon/lips = icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = "lips_[lip_style]_s")
-		lips.Blend(lip_color, ICON_ADD)
-		standing += mutable_appearance(lips, layer = -BODY_LAYER)
 
 	overlays_standing[BODY_LAYER] = standing
 	apply_overlay(BODY_LAYER)
@@ -455,20 +450,18 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(gender == FEMALE)
 		g = "f"
 	// DNA2 - Drawing underlays.
-	for(var/datum/dna/gene/gene in GLOB.dna_genes)
-		if(!gene.block)
+	for(var/datum/mutation/mutation in GLOB.dna_mutations)
+		if(!mutation.block)
 			continue
-		if(gene.is_active(src))
-			var/underlay = gene.OnDrawUnderlays(src, g)
+		if(mutation.is_active(src))
+			var/underlay = mutation.on_draw_underlays(src, g)
 			if(underlay)
 				standing.underlays += underlay
 				add_image = 1
-	for(var/mut in mutations)
-		switch(mut)
-			if(LASER)
-				standing.overlays += "lasereyes_s"
-				add_image = 1
-	if((COLDRES in mutations) && (HEATRES in mutations))
+	if(HAS_TRAIT(src, TRAIT_LASEREYES))
+		standing.overlays += "lasereyes_s"
+		add_image = 1
+	if(dna.GetSEState(GLOB.fireblock) && dna.GetSEState(GLOB.coldblock))
 		standing.underlays -= "cold_s"
 		standing.underlays -= "fire_s"
 		standing.underlays += "coldfire_s"
@@ -480,7 +473,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/proc/update_mutantrace()
 //BS12 EDIT
-	var/skel = (SKELETON in mutations)
+	var/skel = HAS_TRAIT(src, TRAIT_SKELETONIZED)
 	if(skel)
 		skeleton = 'icons/mob/human_races/r_skeleton.dmi'
 	else
@@ -530,6 +523,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	UpdateDamageIcon()
 	force_update_limbs()
 	update_tail_layer()
+	update_halo_layer()
 	overlays.Cut() // Force all overlays to regenerate
 	update_fire()
 	update_icons()
@@ -930,6 +924,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(wear_mask && (istype(wear_mask, /obj/item/clothing/mask) || istype(wear_mask, /obj/item/clothing/accessory)))
 		if(!(slot_wear_mask in check_obscured_slots()))
 			var/obj/item/organ/external/head/head_organ = get_organ("head")
+			if(!head_organ)
+				return // Nothing to update here
 			var/datum/sprite_accessory/alt_heads/alternate_head
 			if(head_organ.alt_head && head_organ.alt_head != "None")
 				alternate_head = GLOB.alt_heads_list[head_organ.alt_head]
@@ -964,10 +960,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/mutable_appearance/standing
 		if(back.icon_override)
 			standing = mutable_appearance(back.icon_override, "[back.icon_state]", layer = -BACK_LAYER)
-		else if(istype(back, /obj/item/rig))
-			//If this is a rig and a mob_icon is set, it will take species into account in the rig update_icon() proc.
-			var/obj/item/rig/rig = back
-			standing = rig.mob_icon
 		else if(back.sprite_sheets && back.sprite_sheets[dna.species.name])
 			standing = mutable_appearance(back.sprite_sheets[dna.species.name], "[back.icon_state]", layer = -BACK_LAYER)
 		else
@@ -1273,6 +1265,17 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	apply_overlay(MISC_LAYER)
 
+/mob/living/carbon/human/proc/update_halo_layer()
+	remove_overlay(HALO_LAYER)
+
+	if(iscultist(src) && SSticker.mode.cult_ascendant)
+		var/istate = pick("halo1", "halo2", "halo3", "halo4", "halo5", "halo6")
+		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/32x64.dmi', istate, -HALO_LAYER)
+		overlays_standing[HALO_LAYER] = new_halo_overlay
+
+	apply_overlay(HALO_LAYER)
+
+
 /mob/living/carbon/human/admin_Freeze(client/admin, skip_overlays = TRUE, mech = null)
 	if(..())
 		overlays_standing[FROZEN_LAYER] = mutable_appearance(frozen, layer = -FROZEN_LAYER)
@@ -1295,15 +1298,23 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	return out
 
 /mob/living/carbon/human/proc/generate_icon_render_key()
-	var/husk = (HUSK in mutations)
-	var/hulk = (HULK in mutations)
-	var/skeleton = (SKELETON in mutations)
+	var/husk = HAS_TRAIT(src, TRAIT_HUSK)
+	var/hulk = HAS_TRAIT(src, TRAIT_HULK)
+	var/skeleton = HAS_TRAIT(src, TRAIT_SKELETONIZED)
+	var/g = dna.GetUITriState(DNA_UI_GENDER)
+	if(g == DNA_GENDER_PLURAL)
+		g = DNA_GENDER_FEMALE
 
 	. = ""
 
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes)
-		. += "[eyes.eye_colour]"
+		. += "[eyes.eye_color]"
+	else
+		. += "#000000"
+
+	if(lip_color && (LIPS in dna.species.species_traits))
+		. += "[lip_color]"
 	else
 		. += "#000000"
 
@@ -1321,8 +1332,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(part)
 			var/datum/species/S = GLOB.all_species[part.dna.species.name]
 			. += "[S.race_key]"
-			. += "[part.dna.GetUIState(DNA_UI_GENDER)]"
 			. += "[part.dna.GetUIValue(DNA_UI_SKIN_TONE)]"
+			. += "[g]"
 			if(part.s_col)
 				. += "[part.s_col]"
 			if(part.s_tone)

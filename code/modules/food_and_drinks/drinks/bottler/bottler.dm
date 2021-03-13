@@ -23,6 +23,7 @@
 	var/bottling = 0
 
 /obj/machinery/bottler/New()
+	. = ..()
 	if(!available_recipes)
 		available_recipes = list()
 		acceptable_items = list()
@@ -113,7 +114,7 @@
 		O.forceMove(src)
 	updateUsrDialog()
 
-/obj/machinery/bottler/proc/eject_items(var/slot)
+/obj/machinery/bottler/proc/eject_items(slot)
 	var/obj/item/O = null
 	if(!slot)
 		for(var/i = 1, i <= slots.len, i++)
@@ -234,7 +235,7 @@
 	if(containers[con_type])
 		//empties aren't sealed, so let's open it quietly
 		drink_container = new drink_container()
-		drink_container.canopened = 1
+		drink_container.canopened = TRUE
 		drink_container.container_type |= OPENCONTAINER
 		drink_container.forceMove(loc)
 		containers[con_type]--

@@ -10,7 +10,6 @@
 	icon = 'icons/obj/machines/shuttle_manipulator.dmi'
 	icon_state = "holograph_on"
 
-	var/selected_menu_key = "stat"
 	var/busy
 	// UI state variables
 	var/datum/map_template/shuttle/selected
@@ -53,27 +52,20 @@
 		if(SHUTTLE_ESCAPE)
 			. = "escape"
 	if(!.)
-		throw EXCEPTION("shuttlemode2str(): invalid mode")
+		. = "ERROR"
 
 /obj/machinery/shuttle_manipulator/attack_hand(mob/user)
 	ui_interact(user)
 
-/obj/machinery/shuttle_manipulator/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	// update the ui if it exists, returns null if no ui is passed/found
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "shuttle_manipulator.tmpl", "Shuttle Manipulator", 660, 700, null, null, GLOB.admin_state)
-		// when the ui is first opened this is the data it will use
-		// open the new ui window
-		ui.open()
-		// auto update every Master Controller tick
-		ui.set_auto_update(1)
 
-/obj/machinery/shuttle_manipulator/ui_data(mob/user, datum/topic_state/state)
-	var/data[0]
-	data["selectedMenuKey"] = selected_menu_key
+/obj/machinery/shuttle_manipulator/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "ShuttleManipulator", name, 650, 700, master_ui, state)
+		ui.open()
+
+/obj/machinery/shuttle_manipulator/ui_data(mob/user)
+	var/list/data = list()
 
 	data["templates"] = list()
 	var/list/templates = data["templates"]
@@ -130,84 +122,64 @@
 		data["shuttles"] += list(L)
 	return data
 
-/obj/machinery/shuttle_manipulator/Topic(href, href_list)
+/obj/machinery/shuttle_manipulator/ui_act(action, list/params, datum/tgui/ui)
 	if(..())
 		return
 
-	var/mob/user = usr
+	. = TRUE
 
-	// Preload some common parameters
-	var/shuttle_id = href_list["shuttle_id"]
-	var/datum/map_template/shuttle/S = GLOB.shuttle_templates[shuttle_id]
+	switch(action)
+		if("select_template_category")
+			var/chosen_shuttle_id = params["cat"]
+			selected = null
+			existing_shuttle = SSshuttle.getShuttle(chosen_shuttle_id)
 
+		if("select_template")
+			var/datum/map_template/shuttle/S = GLOB.shuttle_templates[params["shuttle_id"]]
+			if(S)
+				existing_shuttle = SSshuttle.getShuttle(S.port_id)
+				selected = S
 
-	if(href_list["selectMenuKey"])
-		selected_menu_key = href_list["selectMenuKey"]
-		return 1 // return 1 forces an update to all Nano uis attached to src
+		if("jump_to")
+			if(params["type"] == "mobile")
+				for(var/i in SSshuttle.mobile)
+					var/obj/docking_port/mobile/M = i
+					if(M.id == params["id"])
+						usr.forceMove(get_turf(M))
+						break
 
-	if(href_list["select_template_category"])
-		var/chosen_shuttle_id = href_list["select_template_category"]
-		selected = null
-		existing_shuttle = SSshuttle.getShuttle(chosen_shuttle_id)
-		return 1
-
-	if(href_list["select_template"])
-		if(S)
-			existing_shuttle = SSshuttle.getShuttle(S.port_id)
-			selected = S
-			. = TRUE
-
-	if(href_list["jump_to"])
-
-		if(href_list["type"] == "mobile")
+		if("fast_travel")
 			for(var/i in SSshuttle.mobile)
 				var/obj/docking_port/mobile/M = i
-				if(M.id == href_list["id"])
-					user.forceMove(get_turf(M))
-					. = TRUE
+				if(M.id == params["id"] && M.timer && M.timeLeft() >= 50)
+					M.setTimer(50)
+					message_admins("[key_name_admin(usr)] fast travelled [M]")
+					log_admin("[key_name(usr)] fast travelled [M]")
 					break
 
+		if("preview")
+			var/datum/map_template/shuttle/S = GLOB.shuttle_templates[params["shuttle_id"]]
+			if(S)
+				unload_preview()
+				load_template(S)
+				if(preview_shuttle)
+					preview_template = S
+					usr.forceMove(get_turf(preview_shuttle))
 
-	if(href_list["fast_travel"])
-
-		for(var/i in SSshuttle.mobile)
-			var/obj/docking_port/mobile/M = i
-			if(M.id == href_list["id"] && M.timer && M.timeLeft() >= 50)
-				M.setTimer(50)
-				. = TRUE
-				message_admins("[key_name_admin(usr)] fast travelled \
-					[M]")
-				log_admin("[key_name(usr)] fast travelled [M]")
-				feedback_add_details("shuttle_fasttravel", M.name)
-				break
-
-
-	if(href_list["preview"])
-		if(S)
-			. = TRUE
-			unload_preview()
-			load_template(S)
-			if(preview_shuttle)
-				preview_template = S
-				user.forceMove(get_turf(preview_shuttle))
-
-	if(href_list["load"])
-		if(existing_shuttle == SSshuttle.backup_shuttle)
-			// TODO make the load button disabled
-			WARNING("The shuttle that the selected shuttle will replace \
-				is the backup shuttle. Backup shuttle is required to be \
-				intact for round sanity.")
-		else if(S)
-			. = TRUE
-			// If successful, returns the mobile docking port
-			var/obj/docking_port/mobile/mdp = action_load(S)
-			if(mdp)
-				user.forceMove(get_turf(mdp))
-				message_admins("[key_name_admin(usr)] loaded [mdp] \
-					with the shuttle manipulator.")
-				log_admin("[key_name(usr)] loaded [mdp] with the \
-					shuttle manipulator.</span>")
-				feedback_add_details("shuttle_manipulator", mdp.name)
+		if("load")
+			var/datum/map_template/shuttle/S = GLOB.shuttle_templates[params["shuttle_id"]]
+			if(existing_shuttle == SSshuttle.backup_shuttle)
+				// TODO make the load button disabled
+				WARNING("The shuttle that the selected shuttle will replace \
+					is the backup shuttle. Backup shuttle is required to be \
+					intact for round sanity.")
+			else if(S)
+				// If successful, returns the mobile docking port
+				var/obj/docking_port/mobile/mdp = action_load(S)
+				if(mdp)
+					usr.forceMove(get_turf(mdp))
+					message_admins("[key_name_admin(usr)] loaded [mdp] with the shuttle manipulator.")
+					log_admin("[key_name(usr)] loaded [mdp] with the shuttle manipulator.</span>")
 
 
 /obj/machinery/shuttle_manipulator/proc/action_load(datum/map_template/shuttle/loading_template)

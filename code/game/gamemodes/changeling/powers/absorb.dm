@@ -27,7 +27,7 @@
 	var/mob/living/carbon/target = G.affecting
 	return changeling.can_absorb_dna(user,target)
 
-/datum/action/changeling/absorbDNA/sting_action(var/mob/user)
+/datum/action/changeling/absorbDNA/sting_action(mob/user)
 	var/datum/changeling/changeling = user.mind.changeling
 	var/obj/item/grab/G = user.get_active_hand()
 	var/mob/living/carbon/human/target = G.affecting
@@ -44,7 +44,7 @@
 				user.visible_message("<span class='danger'>[user] stabs [target] with the proboscis!</span>")
 				to_chat(target, "<span class='danger'>You feel a sharp stabbing pain!</span>")
 				target.take_overall_damage(40)
-		feedback_add_details("changeling_powers","A[stage]")
+		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("Absorb DNA", "[stage]"))
 		if(!do_mob(user, target, 150))
 			to_chat(user, "<span class='warning'>Our absorption of [target] has been interrupted!</span>")
 			changeling.isabsorbing = 0
@@ -93,13 +93,15 @@
 
 	changeling.isabsorbing = 0
 	changeling.canrespec = 1
+	var/datum/action/changeling/evolution_menu/E = locate() in user.actions
+	SStgui.update_uis(E)
 
 	target.death(0)
 	target.Drain()
 	return 1
 
 //Absorbs the target DNA.
-/datum/changeling/proc/absorb_dna(mob/living/carbon/T, var/mob/user)
+/datum/changeling/proc/absorb_dna(mob/living/carbon/T, mob/user)
 	T.dna.real_name = T.real_name //Set this again, just to be sure that it's properly set.
 	var/datum/dna/new_dna = T.dna.Clone()
 	//Steal all of their languages!
@@ -111,7 +113,7 @@
 	absorbedcount++
 	store_dna(new_dna, user)
 
-/datum/changeling/proc/store_dna(var/datum/dna/new_dna, var/mob/user)
+/datum/changeling/proc/store_dna(datum/dna/new_dna, mob/user)
 	for(var/datum/objective/escape/escape_with_identity/E in user.mind.objectives)
 		if(E.target_real_name == new_dna.real_name)
 			protected_dna |= new_dna

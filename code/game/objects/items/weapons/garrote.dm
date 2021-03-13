@@ -104,7 +104,7 @@
 	playsound(src.loc, 'sound/weapons/cablecuff.ogg', 15, 1, -1)
 
 	M.visible_message("<span class='danger'>[U] comes from behind and begins garroting [M] with the [src]!</span>", \
-				  "<span class='userdanger'>[U]\ begins garroting you with the [src]![improvised ? "" : " You are unable to speak!"]</span>", \
+				  "<span class='userdanger'>[U] begins garroting you with the [src]![improvised ? "" : " You are unable to speak!"]</span>", \
 				  "You hear struggling and wire strain against flesh!")
 
 	return

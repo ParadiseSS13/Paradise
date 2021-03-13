@@ -128,6 +128,10 @@
 	item_state = "p_suit"
 	item_color = "purple"
 
+/obj/item/clothing/under/color/purple/sensor	//for jani ert
+	sensor_mode = SENSOR_COORDS
+	random_sensor = FALSE
+
 /obj/item/clothing/under/color/lightpurple
 	name = "light purple jumpsuit"
 	icon_state = "lightpurple"

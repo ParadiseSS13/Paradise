@@ -124,6 +124,13 @@
 		reagents.reaction(M, REAGENT_TOUCH)
 		reagents.clear_reagents()
 
+/obj/item/reagent_containers/food/drinks/bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(!reagents.total_volume)
+		C.stored_comms["glass"] += 3
+		qdel(src)
+		return TRUE
+	return ..()
+
 //Keeping this here for now, I'll ask if I should keep it here.
 /obj/item/broken_bottle
 	name = "Broken Bottle"
@@ -140,6 +147,11 @@
 	attack_verb = list("stabbed", "slashed", "attacked")
 	var/icon/broken_outline = icon('icons/obj/drinks.dmi', "broken")
 	sharp = 1
+
+/obj/item/broken_bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	C.stored_comms["glass"] += 3
+	qdel(src)
+	return TRUE
 
 /obj/item/reagent_containers/food/drinks/bottle/gin
 	name = "Griffeater Gin"
@@ -252,6 +264,12 @@
 	icon_state = "hcider"
 	volume = 50
 	list_reagents = list("suicider" = 50)
+
+/obj/item/reagent_containers/food/drinks/bottle/fernet
+	name = "Fernet Bronca"
+	desc = "A bottle of pure Fernet Bronca, produced in Cordoba Space Station"
+	icon_state = "fernetbottle"
+	list_reagents = list("fernet" = 100)
 
 //////////////////////////JUICES AND STUFF ///////////////////////
 

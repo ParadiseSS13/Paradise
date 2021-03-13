@@ -36,7 +36,7 @@
 	var/list/attack_log_old = list( )
 	var/list/debug_log = null
 
-	var/list/logs = list() // Logs for each log type defined in __DEFINES/logs.dm
+	var/last_known_ckey = null	// Used in logging
 
 	var/last_log = 0
 	var/obj/machinery/machine = null
@@ -70,7 +70,6 @@
 
 	var/overeatduration = 0		// How long this guy is overeating //Carbon
 	var/intent = null //Living
-	var/shakecamera = 0
 	var/a_intent = INTENT_HELP //Living
 	var/m_intent = MOVE_INTENT_RUN //Living
 	var/lastKnownIP = null
@@ -83,6 +82,7 @@
 	var/obj/item/r_hand = null //Living
 	var/obj/item/back = null //Human
 	var/obj/item/tank/internal = null //Human
+	/// Active storage container
 	var/obj/item/storage/s_active = null //Carbon
 	var/obj/item/clothing/mask/wear_mask = null //Carbon
 
@@ -105,18 +105,18 @@
 	var/datum/dna/dna = null //Carbon
 	var/radiation = 0 //Carbon
 
-	var/list/mutations = list() //Carbon -- Doohl
-	//see: setup.dm for list of mutations
-
 	var/voice_name = "unidentifiable voice"
 
 	var/list/faction = list("neutral") //Used for checking whether hostile simple animals will attack you, possibly more stuff later
 
 	var/move_on_shuttle = 1 // Can move on the shuttle.
 
-	var/has_enabled_antagHUD = 0
-	var/antagHUD = 0
+
+	var/has_enabled_antagHUD = 0  // Whether antagHUD was ever enabled. Not a true boolean - sometimes it is set to 2, because reasons.
+	var/antagHUD = FALSE  // Whether AntagHUD is active right now
 	var/can_change_intents = 1 //all mobs can change intents by default.
+	///Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
+	var/sound_environment_override = SOUND_ENVIRONMENT_NONE
 
 //Generic list for proc holders. Only way I can see to enable certain verbs/procs. Should be modified if needed.
 	var/proc_holder_list[] = list()
@@ -136,9 +136,6 @@
 
 	var/list/mob_spell_list = list() //construct spells and mime spells. Spells that do not transfer from one mob to another and can not be lost in mindswap.
 
-//Changlings, but can be used in other modes
-//	var/obj/effect/proc_holder/changpower/list/power_list = list()
-
 //List of active diseases
 
 	var/list/viruses = list() // list of all diseases in a mob
@@ -151,7 +148,6 @@
 	var/area/lastarea = null
 
 	var/digitalcamo = 0 // Can they be tracked by the AI?
-	var/weakeyes = 0 //Are they vulnerable to flashes?
 
 	var/has_unlimited_silicon_privilege = 0 // Can they interact with station electronics
 
@@ -178,7 +174,7 @@
 
 	var/stance_damage = 0 //Whether this mob's ability to stand has been affected
 
-	var/list/active_genes = list()
+	var/list/active_mutations = list()
 
 	var/last_movement = -100 // Last world.time the mob actually moved of its own accord.
 
@@ -199,3 +195,8 @@
 
 	var/forced_look = null // This can either be a numerical direction or a soft object reference (UID). It makes the mob always face towards the selected thing.
 	var/registered_z
+
+	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override
+
+	/// The location our runechat message should appear. Should be src by default.
+	var/atom/runechat_msg_location

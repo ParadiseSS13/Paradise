@@ -14,7 +14,7 @@ GLOBAL_LIST_INIT(human_recipes, list( \
 	new/datum/stack_recipe("bloated human costume head", /obj/item/clothing/head/human_head, 5, on_floor = TRUE), \
 	))
 
-/obj/item/stack/sheet/animalhide/human/New(var/loc, var/amount=null)
+/obj/item/stack/sheet/animalhide/human/New(loc, amount=null)
 	recipes = GLOB.human_recipes
 	return ..()
 
@@ -124,7 +124,7 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 	new/datum/stack_recipe("leather satchel", /obj/item/storage/backpack/satchel, 5),
 	new/datum/stack_recipe("bandolier", /obj/item/storage/belt/bandolier, 5),
 	new/datum/stack_recipe("leather jacket", /obj/item/clothing/suit/jacket/leather, 7),
-	new/datum/stack_recipe("leather shoes", /obj/item/clothing/shoes/laceup, 2),
+	new/datum/stack_recipe("leather shoes", /obj/item/clothing/shoes/leather, 2),
 	new/datum/stack_recipe("leather overcoat", /obj/item/clothing/suit/jacket/leather/overcoat, 10),
 	new/datum/stack_recipe("hide mantle", /obj/item/clothing/suit/unathi/mantle, 4)))
 
@@ -144,7 +144,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	new/datum/stack_recipe("sinew restraints", /obj/item/restraints/handcuffs/sinew, 1, on_floor = 1), \
 	))
 
-/obj/item/stack/sheet/sinew/New(var/loc, var/amount=null)
+/obj/item/stack/sheet/sinew/New(loc, amount=null)
 	recipes = GLOB.sinew_recipes
 	return ..()
 
@@ -242,7 +242,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 					HS.amount++
 					src.use(1)
 					wetness = initial(wetness)
-					break
+					return
 			//If it gets to here it means it did not find a suitable stack on the tile.
 			var/obj/item/stack/sheet/leather/HS = new(src.loc)
 			HS.amount = 1

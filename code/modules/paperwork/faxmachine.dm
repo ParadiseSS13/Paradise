@@ -12,24 +12,32 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	insert_anim = "faxsend"
 	pass_flags = PASSTABLE
 	var/fax_network = "Local Fax Network"
-	var/syndie_restricted = FALSE //is it a syndicate base fax restricted from contacting NT assets?
+	/// If true, prevents fax machine from sending messages to NT machines
+	var/syndie_restricted = FALSE
 
-	var/long_range_enabled = 0 // Can we send messages off the station?
+	/// Can we send messages off-station?
+	var/long_range_enabled = FALSE
 	req_one_access = list(ACCESS_LAWYER, ACCESS_HEADS, ACCESS_ARMORY)
 
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 30
 	active_power_usage = 200
 
-	var/obj/item/card/id/scan = null // identification
+	/// ID card inserted into the machine, used to log in with
+	var/obj/item/card/id/scan = null
 
-	var/authenticated = 0
-	var/sendcooldown = 0 // to avoid spamming fax messages
+	/// Whether the machine is "logged in" or not
+	var/authenticated = FALSE
+	/// Next world.time at which this fax machine can send a message to CC/syndicate
+	var/sendcooldown = 0
+	/// After sending a message to CC/syndicate, cannot send another to them for this many deciseconds
 	var/cooldown_time = 1800
 
-	var/department = "Unknown" // our department
+	/// Our department, determines whether this machine gets faxes sent to a department
+	var/department = "Unknown"
 
-	var/destination = "Not Selected" // the department we're sending to
+	/// Target department to send outgoing faxes to
+	var/destination
 
 /obj/machinery/photocopier/faxmachine/New()
 	..()
@@ -44,7 +52,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine/longrange
 	name = "long range fax machine"
 	fax_network = "Central Command Quantum Entanglement Network"
-	long_range_enabled = 1
+	long_range_enabled = TRUE
 
 /obj/machinery/photocopier/faxmachine/longrange/syndie
 	name = "syndicate long range fax machine"
@@ -68,7 +76,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		scan(item)
 	else if(istype(item, /obj/item/paper) || istype(item, /obj/item/photo) || istype(item, /obj/item/paper_bundle))
 		..()
-		SSnanoui.update_uis(src)
+		SStgui.update_uis(src)
 	else
 		return ..()
 
@@ -80,42 +88,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	else
 		to_chat(user, "<span class='warning'>You swipe the card through [src], but nothing happens.</span>")
 
-/obj/machinery/photocopier/faxmachine/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "faxmachine.tmpl", "Fax Machine UI", 540, 450)
-		ui.open()
-
-/obj/machinery/photocopier/faxmachine/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
-	var/is_authenticated = is_authenticated(user)
-
-	if(scan)
-		data["scan_name"] = scan.name
-	else
-		data["scan_name"] = "-----"
-	data["authenticated"] = is_authenticated
-	if(!is_authenticated)
-		data["network"] = "Disconnected"
-	else if(!emagged)
-		data["network"] = fax_network
-	else
-		data["network"] = "ERR*?*%!*"
-	if(copyitem)
-		data["paper"] = copyitem.name
-		data["paperinserted"] = 1
-	else
-		data["paper"] = "-----"
-		data["paperinserted"] = 0
-	data["destination"] = destination
-	data["cooldown"] = sendcooldown
-	if((destination in GLOB.admin_departments) || (destination in GLOB.hidden_admin_departments))
-		data["respectcooldown"] = 1
-	else
-		data["respectcooldown"] = 0
-
-	return data
-
 /obj/machinery/photocopier/faxmachine/proc/is_authenticated(mob/user)
 	if(authenticated)
 		return TRUE
@@ -123,89 +95,138 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		return TRUE
 	return FALSE
 
-/obj/machinery/photocopier/faxmachine/Topic(href, href_list)
-	if(..())
-		return 1
+/obj/machinery/photocopier/faxmachine/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "FaxMachine",  name, 540, 300, master_ui, state)
+		ui.open()
 
+/obj/machinery/photocopier/faxmachine/ui_data(mob/user)
+	var/list/data = list()
+	data["authenticated"] = is_authenticated(user)
+	data["realauth"] = authenticated
+	data["scan_name"] = scan ? scan.name : FALSE
+	data["nologin"] = !data["scan_name"] && !data["realauth"]
+	if(!data["authenticated"])
+		data["network"] = "Disconnected"
+	else if(!emagged)
+		data["network"] = fax_network
+	else
+		data["network"] = "ERR*?*%!*"
+	data["paper"] = copyitem ? copyitem.name : FALSE
+	data["paperinserted"] = copyitem ? TRUE : FALSE
+	data["destination"] = destination ? destination : FALSE
+	data["sendError"] = FALSE
+	if(stat & (BROKEN|NOPOWER))
+		data["sendError"] = "No Power"
+	else if(!data["authenticated"])
+		data["sendError"] = "Not Logged In"
+	else if(!data["paper"])
+		data["sendError"] = "Nothing Inserted"
+	else if(!data["destination"])
+		data["sendError"] = "Destination Not Set"
+	else if((destination in GLOB.admin_departments) || (destination in GLOB.hidden_admin_departments))
+		var/cooldown_seconds = cooldown_seconds()
+		if(cooldown_seconds)
+			data["sendError"] = "Re-aligning in [cooldown_seconds] seconds..."
+	return data
+
+
+/obj/machinery/photocopier/faxmachine/ui_act(action, params)
+	if(..())
+		return
 	var/is_authenticated = is_authenticated(usr)
-	if(href_list["send"])
-		if(copyitem && is_authenticated)
+	. = TRUE
+	switch(action)
+		if("scan") // insert/remove your ID card
+			scan()
+		if("auth") // log in/out
+			if(!is_authenticated && scan)
+				if(scan.registered_name in GLOB.fax_blacklist)
+					to_chat(usr, "<span class='warning'>Login rejected: individual is blacklisted from fax network.</span>")
+					playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+					. = FALSE
+				else if(check_access(scan))
+					authenticated = TRUE
+				else // ID doesn't have access to this machine
+					to_chat(usr, "<span class='warning'>Login rejected: ID card does not have required access.</span>")
+					playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+					. = FALSE
+			else if(is_authenticated)
+				authenticated = FALSE
+		if("paper") // insert/eject paper/paperbundle/photo
+			if(copyitem)
+				copyitem.forceMove(get_turf(src))
+				if(ishuman(usr))
+					if(!usr.get_active_hand() && Adjacent(usr))
+						usr.put_in_hands(copyitem)
+				to_chat(usr, "<span class='notice'>You eject [copyitem] from [src].</span>")
+				copyitem = null
+			else
+				var/obj/item/I = usr.get_active_hand()
+				if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle))
+					usr.drop_item()
+					copyitem = I
+					I.forceMove(src)
+					to_chat(usr, "<span class='notice'>You insert [I] into [src].</span>")
+					flick(insert_anim, src)
+				else
+					to_chat(usr, "<span class='warning'>[src] only accepts paper, paper bundles, and photos.</span>")
+					. = FALSE
+		if("rename") // rename the item that is currently in the fax machine
+			if(copyitem)
+				var/n_name = sanitize(copytext(input(usr, "What would you like to label the fax?", "Fax Labelling", copyitem.name)  as text, 1, MAX_MESSAGE_LEN))
+				if((copyitem && copyitem.loc == src && usr.stat == 0))
+					if(istype(copyitem, /obj/item/paper))
+						copyitem.name = "[(n_name ? text("[n_name]") : initial(copyitem.name))]"
+						copyitem.desc = "This is a paper titled '" + copyitem.name + "'."
+					else if(istype(copyitem, /obj/item/photo))
+						copyitem.name = "[(n_name ? text("[n_name]") : "photo")]"
+					else if(istype(copyitem, /obj/item/paper_bundle))
+						copyitem.name = "[(n_name ? text("[n_name]") : "paper")]"
+					else
+						. = FALSE
+				else
+					. = FALSE
+			else
+				. = FALSE
+		if("dept") // choose which department receives the fax
+			if(is_authenticated)
+				var/lastdestination = destination
+				var/list/combineddepartments = GLOB.alldepartments.Copy()
+				if(long_range_enabled)
+					combineddepartments += GLOB.admin_departments.Copy()
+				if(emagged)
+					combineddepartments += GLOB.hidden_admin_departments.Copy()
+					combineddepartments += GLOB.hidden_departments.Copy()
+				if(syndie_restricted)
+					combineddepartments = GLOB.hidden_admin_departments.Copy()
+					combineddepartments += GLOB.hidden_departments.Copy()
+					for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
+						if(F.emagged)//we can contact emagged faxes on the station
+							combineddepartments |= F.department
+				destination = input(usr, "To which department?", "Choose a department", "") as null|anything in combineddepartments
+				if(!destination)
+					destination = lastdestination
+		if("send") // actually send the fax
+			if(!copyitem || !is_authenticated || !destination)
+				return
+			if(stat & (BROKEN|NOPOWER))
+				return
 			if((destination in GLOB.admin_departments) || (destination in GLOB.hidden_admin_departments))
+				var/cooldown_seconds = cooldown_seconds()
+				if(cooldown_seconds > 0)
+					playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+					to_chat(usr, "<span class='warning'>[src] is not ready for another [cooldown_seconds] seconds.</span>")
+					return
 				send_admin_fax(usr, destination)
+				sendcooldown = world.time + cooldown_time
 			else
 				sendfax(destination, usr)
+	if(.)
+		add_fingerprint(usr)
 
-			if(sendcooldown)
-				spawn(sendcooldown) // cooldown time
-					sendcooldown = 0
-					SSnanoui.update_uis(src)
-
-	if(href_list["paper"])
-		if(copyitem)
-			copyitem.forceMove(get_turf(src))
-			if(ishuman(usr))
-				if(!usr.get_active_hand() && Adjacent(usr))
-					usr.put_in_hands(copyitem)
-			to_chat(usr, "<span class='notice'>You eject \the [copyitem] from \the [src].</span>")
-			copyitem = null
-		else
-			var/obj/item/I = usr.get_active_hand()
-			if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle))
-				usr.drop_item()
-				copyitem = I
-				I.forceMove(src)
-				to_chat(usr, "<span class='notice'>You insert \the [I] into \the [src].</span>")
-				flick(insert_anim, src)
-
-	if(href_list["scan"])
-		scan()
-
-	if(href_list["dept"])
-		if(is_authenticated)
-			var/lastdestination = destination
-			var/list/combineddepartments = GLOB.alldepartments.Copy()
-			if(long_range_enabled)
-				combineddepartments += GLOB.admin_departments.Copy()
-
-			if(emagged)
-				combineddepartments += GLOB.hidden_admin_departments.Copy()
-				combineddepartments += GLOB.hidden_departments.Copy()
-
-			if(syndie_restricted)
-				combineddepartments = GLOB.hidden_admin_departments.Copy()
-				combineddepartments += GLOB.hidden_departments.Copy()
-				for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
-					if(F.emagged)//we can contact emagged faxes on the station
-						combineddepartments |= F.department
-
-			destination = input(usr, "To which department?", "Choose a department", "") as null|anything in combineddepartments
-			if(!destination)
-				destination = lastdestination
-
-	if(href_list["auth"])
-		if(!is_authenticated && scan)
-			if(scan.registered_name in GLOB.fax_blacklist)
-				playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
-			else if(check_access(scan))
-				authenticated = 1
-		else if(is_authenticated)
-			authenticated = 0
-
-	if(href_list["rename"])
-		if(copyitem)
-			var/n_name = sanitize(copytext(input(usr, "What would you like to label the fax?", "Fax Labelling", copyitem.name)  as text, 1, MAX_MESSAGE_LEN))
-			if((copyitem && copyitem.loc == src && usr.stat == 0))
-				if(istype(copyitem, /obj/item/paper))
-					copyitem.name = "[(n_name ? text("[n_name]") : initial(copyitem.name))]"
-					copyitem.desc = "This is a paper titled '" + copyitem.name + "'."
-				else if(istype(copyitem, /obj/item/photo))
-					copyitem.name = "[(n_name ? text("[n_name]") : "photo")]"
-				else if(istype(copyitem, /obj/item/paper_bundle))
-					copyitem.name = "[(n_name ? text("[n_name]") : "paper")]"
-
-	SSnanoui.update_uis(src)
-
-/obj/machinery/photocopier/faxmachine/proc/scan(var/obj/item/card/id/card = null)
+/obj/machinery/photocopier/faxmachine/proc/scan(obj/item/card/id/card = null)
 	if(scan) // Card is in machine
 		if(ishuman(usr))
 			scan.forceMove(get_turf(src))
@@ -226,7 +247,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			usr.drop_item()
 			card.forceMove(src)
 			scan = card
-	SSnanoui.update_uis(src)
+	SStgui.update_uis(src)
 
 /obj/machinery/photocopier/faxmachine/verb/eject_id()
 	set category = null
@@ -237,25 +258,20 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		return
 
 	if(scan)
-		to_chat(usr, "You remove \the [scan] from \the [src].")
+		to_chat(usr, "You remove [scan] from [src].")
 		scan.forceMove(get_turf(src))
 		if(!usr.get_active_hand() && Adjacent(usr))
 			usr.put_in_hands(scan)
 		scan = null
 	else
-		to_chat(usr, "There is nothing to remove from \the [src].")
+		to_chat(usr, "There is nothing to remove from [src].")
 
-/obj/machinery/photocopier/faxmachine/proc/sendfax(var/destination,var/mob/sender)
-	if(stat & (BROKEN|NOPOWER))
-		return
-
-	use_power(200)
-
+/obj/machinery/photocopier/faxmachine/proc/sendfax(destination, mob/sender)
+	use_power(active_power_usage)
 	var/success = 0
 	for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 		if(F.department == destination)
 			success = F.receivefax(copyitem)
-
 	if(success)
 		var/datum/fax/F = new /datum/fax()
 		F.name = copyitem.name
@@ -270,12 +286,12 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	else
 		visible_message("[src] beeps, \"Error transmitting message.\"")
 
-/obj/machinery/photocopier/faxmachine/proc/receivefax(var/obj/item/incoming)
+/obj/machinery/photocopier/faxmachine/proc/receivefax(obj/item/incoming)
 	if(stat & (BROKEN|NOPOWER))
-		return 0
+		return FALSE
 
 	if(department == "Unknown")
-		return 0	//You can't send faxes to "Unknown"
+		return FALSE //You can't send faxes to "Unknown"
 
 	flick("faxreceive", src)
 
@@ -291,19 +307,13 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	else if(istype(incoming, /obj/item/paper_bundle))
 		bundlecopy(incoming)
 	else
-		return 0
+		return FALSE
 
 	use_power(active_power_usage)
-	return 1
+	return TRUE
 
-/obj/machinery/photocopier/faxmachine/proc/send_admin_fax(var/mob/sender, var/destination)
-	if(stat & (BROKEN|NOPOWER))
-		return
-
-	if(sendcooldown)
-		return
-
-	use_power(200)
+/obj/machinery/photocopier/faxmachine/proc/send_admin_fax(mob/sender, destination)
+	use_power(active_power_usage)
 
 	if(!(istype(copyitem, /obj/item/paper) || istype(copyitem, /obj/item/paper_bundle) || istype(copyitem, /obj/item/photo)))
 		visible_message("[src] beeps, \"Error transmitting message.\"")
@@ -327,18 +337,21 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 		if(F.department == destination)
 			F.receivefax(copyitem)
-	sendcooldown = cooldown_time
-	spawn(50)
-		visible_message("[src] beeps, \"Message transmitted successfully.\"")
+	visible_message("[src] beeps, \"Message transmitted successfully.\"")
 
+/obj/machinery/photocopier/faxmachine/proc/cooldown_seconds()
+	if(sendcooldown < world.time)
+		return 0
+	return round((sendcooldown - world.time) / 10)
 
-/obj/machinery/photocopier/faxmachine/proc/message_admins(var/mob/sender, var/faxname, var/faxtype, var/obj/item/sent, font_colour="#9A04D1")
+/obj/machinery/photocopier/faxmachine/proc/message_admins(mob/sender, faxname, faxtype, obj/item/sent, font_colour="#9A04D1")
 	var/msg = "<span class='boldnotice'><font color='[font_colour]'>[faxname]: </font> [key_name_admin(sender)] | REPLY: (<A HREF='?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : "CentcommReply"]=[sender.UID()]'>RADIO</A>) (<a href='?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<A HREF='?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=\ref[src]'>TEMPLATE</A>) ([ADMIN_BSA(sender,"BSA")]) (<A HREF='?_src_=holder;EvilFax=[sender.UID()];originfax=\ref[src]'>EVILFAX</A>) </span>: Receiving '[sent.name]' via secure connection... <a href='?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
+	var/fax_sound = sound('sound/effects/adminhelp.ogg')
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_EVENT, 0, C.mob))
 			to_chat(C, msg)
 			if(C.prefs.sound & SOUND_ADMINHELP)
-				C << 'sound/effects/adminhelp.ogg'
+				SEND_SOUND(C, fax_sound)
 
 /obj/machinery/photocopier/faxmachine/proc/become_mimic()
 	if(scan)

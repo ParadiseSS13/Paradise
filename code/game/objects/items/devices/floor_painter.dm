@@ -4,7 +4,8 @@
 	name = "floor painter"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "floor_painter"
-	item_state = "electronic"
+	item_state = "floor_painter"
+	usesound = 'sound/effects/spray2.ogg'
 
 	var/floor_icon
 	var/floor_state = "floor"
@@ -26,74 +27,87 @@
 		"whitered", "whiteredcorner", "whiteredfull", "whiteyellow", "whiteyellowcorner", "whiteyellowfull", "yellow",
 		"yellowcorner", "yellowcornersiding", "yellowsiding")
 
-/obj/item/floor_painter/afterattack(var/atom/A, var/mob/user, proximity, params)
+/obj/item/floor_painter/afterattack(atom/A, mob/user, proximity, params)
 	if(!proximity)
 		return
 
 	var/turf/simulated/floor/plasteel/F = A
+
+	if(F.icon_state == floor_state && F.dir == floor_dir)
+		to_chat(user, "<span class='notice'>This is already painted [floor_state] [dir2text(floor_dir)]!</span>")
+		return
+
 	if(!istype(F))
 		to_chat(user, "<span class='warning'>\The [src] can only be used on station flooring.</span>")
 		return
 
+	playsound(loc, usesound, 30, TRUE)
 	F.icon_state = floor_state
 	F.icon_regular_floor = floor_state
 	F.dir = floor_dir
 
-/obj/item/floor_painter/attack_self(var/mob/user)
+/obj/item/floor_painter/attack_self(mob/user)
 	if(!user)
 		return 0
 	user.set_machine(src)
-	interact(user)
+	ui_interact(user)
 	return 1
 
-/obj/item/floor_painter/interact(mob/user as mob)
-	if(!floor_icon)
-		floor_icon = icon('icons/turf/floors.dmi', floor_state, floor_dir)
-	user << browse_rsc(floor_icon, "floor.png")
-	var/dat = {"
-		<center>
-		<a href="?src=[UID()];cycleleft=1">&lt;-</a>
-		<img style="-ms-interpolation-mode: nearest-neighbor;" src="floor.png" width=128 height=128 border=4>
-		<a href="?src=[UID()];cycleright=1">-&gt;</a>
-		</center>
-		<a href="?src=[UID()];choose_state=1">Choose Style</a>
-		<div class='statusDisplay'>Style: [floor_state]</div>
-		<a href="?src=[UID()];choose_dir=1">Choose Direction</a>
-		<div class='statusDisplay'>Direction: [dir2text(floor_dir)]</div>
-	"}
+/obj/item/floor_painter/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "FloorPainter", name, 405, 470, master_ui, state)
+		// Disable automatic updates, because:
+		// 1) we are the only user of the item, and don't expect to observe external changes
+		// 2) generating and sending the icon each tick is a bit expensive, and creates small but noticeable lag
+		ui.set_autoupdate(FALSE)
+		ui.open()
 
-	var/datum/browser/popup = new(user, "floor_painter", name, 225, 300)
-	popup.set_content(dat)
-	popup.open()
+/obj/item/floor_painter/ui_data(mob/user)
+	var/list/data = list()
+	data["availableStyles"] = allowed_states
+	data["selectedStyle"] = floor_state
+	data["selectedDir"] = dir2text(floor_dir)
 
-/obj/item/floor_painter/Topic(href, href_list)
+	data["directionsPreview"] = list()
+	for(var/dir in GLOB.alldirs)
+		var/icon/floor_icon = icon('icons/turf/floors.dmi', floor_state, dir)
+		data["directionsPreview"][dir2text(dir)] = icon2base64(floor_icon)
+
+	return data
+
+
+/obj/item/floor_painter/ui_static_data(mob/user)
+	var/list/data = list()
+
+	data["allStylesPreview"] = list()
+	for (var/style in allowed_states)
+		var/icon/floor_icon = icon('icons/turf/floors.dmi', style, SOUTH)
+		data["allStylesPreview"][style] = icon2base64(floor_icon)
+
+	return data
+
+/obj/item/floor_painter/ui_act(action, params)
 	if(..())
 		return
 
-	if(href_list["choose_state"])
-		var/state = input("Please select a style", "[src]") as null|anything in allowed_states
-		if(state)
-			floor_state = state
-			floor_dir = SOUTH // Reset dir, because some icon_states might not have that dir.
-	if(href_list["choose_dir"])
-		var/seldir = input("Please select a direction", "[src]") as null|anything in list("north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest")
-		if(seldir)
-			floor_dir = text2dir(seldir)
-	if(href_list["cycleleft"])
-		var/index = allowed_states.Find(floor_state)
-		index--
-		if(index < 1)
-			index = allowed_states.len
-		floor_state = allowed_states[index]
-		floor_dir = SOUTH
-	if(href_list["cycleright"])
-		var/index = allowed_states.Find(floor_state)
-		index++
-		if(index > allowed_states.len)
-			index = 1
-		floor_state = allowed_states[index]
-		floor_dir = SOUTH
+	if(action == "select_style")
+		var/new_style = params["style"]
+		if (allowed_states.Find(new_style) != 0)
+			floor_state = new_style
 
-	floor_icon = icon('icons/turf/floors.dmi', floor_state, floor_dir)
-	if(usr)
-		attack_self(usr)
+	if(action == "cycle_style")
+		var/index = allowed_states.Find(floor_state)
+		index += text2num(params["offset"])
+		while(index < 1)
+			index += length(allowed_states)
+		while(index > length(allowed_states))
+			index -= length(allowed_states)
+		floor_state = allowed_states[index]
+
+	if(action == "select_direction")
+		var/dir = text2dir(params["direction"])
+		if (dir != 0)
+			floor_dir = dir
+
+	SStgui.update_uis(src)

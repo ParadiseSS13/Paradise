@@ -17,48 +17,61 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 /datum/controller/master
 	name = "Master"
 
-	// Are we processing (higher values increase the processing delay by n ticks)
-	var/processing = TRUE
-	// How many times have we ran
+	/// Are we processing (higher values increase the processing delay by n ticks)
+	var/processing = 1
+	/// How many times have we ran
 	var/iteration = 0
 
-	// world.time of last fire, for tracking lag outside of the mc
+	/// world.time of last fire, for tracking lag outside of the mc
 	var/last_run
 
-	// List of subsystems to process().
+	/// List of subsystems to fire().
 	var/list/subsystems
+
+	/// Current init stage
+	var/current_init_stage
 
 	// Vars for keeping track of tick drift.
 	var/init_timeofday
 	var/init_time
 	var/tickdrift = 0
 
+	/// How long is the MC sleeping between runs, read only (set by Loop() based off of anti-tick-contention heuristics)
 	var/sleep_delta = 1
 
+	/// Set this to 1 to debug the MC with a detailed stack trace. Do not set on a production server.
 	var/make_runtime = 0
 
-	var/initializations_finished_with_no_players_logged_in	//I wonder what this could be?
+	/// Did inits finish with no one logged in
+	var/initializations_finished_with_no_players_logged_in
 
-	// The type of the last subsystem to be process()'d.
+	// The type of the last subsystem to be fire()'d.
 	var/last_type_processed
 
-	var/datum/controller/subsystem/queue_head //Start of queue linked list
-	var/datum/controller/subsystem/queue_tail //End of queue linked list (used for appending to the list)
-	var/queue_priority_count = 0 //Running total so that we don't have to loop thru the queue each run to split up the tick
-	var/queue_priority_count_bg = 0 //Same, but for background subsystems
-	var/map_loading = FALSE	//Are we loading in a new map?
+	/// Start of queue linked list
+	var/datum/controller/subsystem/queue_head
+	/// End of queue linked list (used for appending to the list)
+	var/datum/controller/subsystem/queue_tail
+	/// Running total so that we don't have to loop thru the queue each run to split up the tick
+	var/queue_priority_count = 0
+	/// Same, but for background subsystems
+	var/queue_priority_count_bg = 0
+	/// Are we loading in a new map?
+	var/map_loading = FALSE
 
-	var/current_runlevel	//for scheduling different subsystems for different stages of the round
+	/// For scheduling different subsystems for different stages of the round
+	var/current_runlevel
+	/// Do we want to sleep until players log in?
 	var/sleep_offline_after_initializations = TRUE
 
 	var/static/restart_clear = 0
 	var/static/restart_timeout = 0
 	var/static/restart_count = 0
 
+	/// Random seed generated for randomness if entropy is required
 	var/static/random_seed
 
-	//current tick limit, assigned before running a subsystem.
-	//used by CHECK_TICK as well so that the procs subsystems call can obey that SS's tick limits
+	/// Current tick limit, assigned before running a subsystem. Used by CHECK_TICK as well so that the procs subsystems call can obey that SS's tick limits
 	var/static/current_ticklimit = TICK_LIMIT_RUNNING
 
 /datum/controller/master/New()
@@ -162,11 +175,14 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 // Please don't stuff random bullshit here,
 // 	Make a subsystem, give it the SS_NO_FIRE flag, and do your work in it's Initialize()
-/datum/controller/master/Initialize(delay, init_sss)
+/datum/controller/master/Initialize(delay, init_sss, tgs_prime)
 	set waitfor = 0
 
 	if(delay)
 		sleep(delay)
+
+	if(tgs_prime)
+		world.TgsInitializationComplete()
 
 	if(init_sss)
 		init_subtypes(/datum/controller/subsystem, subsystems)
@@ -182,14 +198,13 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	for(var/datum/controller/subsystem/SS in subsystems)
 		if(SS.flags & SS_NO_INIT)
 			continue
+		SS.log_startup_progress("Initializing...")
 		SS.Initialize(REALTIMEOFDAY)
 		CHECK_TICK
 	current_ticklimit = TICK_LIMIT_RUNNING
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10
 
-	var/msg = "Initializations complete within [time] second[time == 1 ? "" : "s"]!"
-	to_chat(world, "<span class='boldannounce'>[msg]</span>")
-	log_world(msg)
+	log_startup_progress("Initializations complete within [time] second[time == 1 ? "" : "s"]!")
 
 	if(config.developer_express_start & SSticker.current_state == GAME_STATE_PREGAME)
 		SSticker.current_state = GAME_STATE_SETTING_UP
@@ -585,7 +600,8 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 /datum/controller/master/stat_entry()
 	if(!statclick)
 		statclick = new/obj/effect/statclick/debug(null, "Initializing...", src)
-
+	if(current_init_stage)
+		stat("Init Stage", current_init_stage)
 	stat("Byond:", "(FPS:[world.fps]) (TickCount:[world.time / world.tick_lag]) (TickDrift:[round(Master.tickdrift, 1)]([round((Master.tickdrift / (world.time / world.tick_lag)) * 100, 0.1)]%))")
 	stat("Master Controller:", statclick.update("(TickRate:[Master.processing]) (Iteration:[Master.iteration])"))
 
@@ -614,3 +630,14 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		processing = config.base_mc_tick_rate
 	else if(client_count > config.high_pop_mc_mode_amount)
 		processing = config.high_pop_mc_tick_rate
+
+/datum/controller/master/proc/formatcpu()
+	switch(world.cpu)
+		if(0 to 80) // 0-80 = green
+			. = "<font color='#32a852'>[world.cpu]</font>"
+		if(80 to 90) // 80-90 = orange
+			. = "<font color='#fcba03'>[world.cpu]</font>"
+		if(90 to 100) // 90-100 = red
+			. = "<font color='#eb4034'>[world.cpu]</font>"
+		if(100 to INFINITY) // >100 = bold red
+			. = "<font color='#eb4034'><b>[world.cpu]</b></font>"

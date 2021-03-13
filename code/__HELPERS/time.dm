@@ -7,6 +7,8 @@
 
 #define TICKS *world.tick_lag
 
+#define SECONDS_TO_LIFE_CYCLES /2
+
 #define DS2TICKS(DS) ((DS)/world.tick_lag)
 
 #define TICKS2DS(T) ((T) TICKS)
@@ -60,7 +62,7 @@
 	return time2text(station_time(time, TRUE), format)
 
 /* Returns 1 if it is the selected month and day */
-proc/isDay(var/month, var/day)
+/proc/isDay(month, day)
 	if(isnum(month) && isnum(day))
 		var/MM = text2num(time2text(world.timeofday, "MM")) // get the current month
 		var/DD = text2num(time2text(world.timeofday, "DD")) // get the current day
@@ -92,13 +94,13 @@ proc/isDay(var/month, var/day)
 	return GLOB.month_names.Find(number)
 
 //Take a value in seconds and returns a string of minutes and seconds in the format X minute(s) and X seconds.
-/proc/seconds_to_time(var/seconds as num)
+/proc/seconds_to_time(seconds as num)
 	var/numSeconds = seconds % 60
 	var/numMinutes = (seconds - numSeconds) / 60
-	return "[numMinutes] [numMinutes > 1 ? "minutes" : "minute"] and [numSeconds] seconds."
+	return "[numMinutes] [numMinutes > 1 ? "minutes" : "minute"] and [numSeconds] seconds"
 
 //Take a value in seconds and makes it display like a clock
-/proc/seconds_to_clock(var/seconds as num)
+/proc/seconds_to_clock(seconds as num)
 	return "[add_zero(num2text((seconds / 60) % 60), 2)]:[add_zero(num2text(seconds % 60), 2)]"
 
 //Takes a value of time in deciseconds.

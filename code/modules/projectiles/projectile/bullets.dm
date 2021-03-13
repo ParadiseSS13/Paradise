@@ -31,16 +31,17 @@
 			M.AdjustDrowsy(10)
 			A.volume += 5 //Because we can
 
-/obj/item/projectile/bullet/weakbullet2  //detective revolver instastuns, but multiple shots are better for keeping punks down
+/obj/item/projectile/bullet/weakbullet2  //detective revolver
 	name = "rubber bullet"
 	damage = 5
-	weaken = 3
-	stamina = 60
+	stamina = 35
 	icon_state = "bullet-r"
 
 /obj/item/projectile/bullet/weakbullet2/invisible //finger gun bullets
 	name = "invisible bullet"
 	damage = 0
+	weaken = 3
+	stamina = 60
 	icon_state = null
 	hitsound_wall = null
 
@@ -65,7 +66,7 @@
 
 /obj/item/projectile/bullet/incendiary
 
-/obj/item/projectile/bullet/incendiary/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/bullet/incendiary/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
@@ -84,6 +85,7 @@
 	damage = 12.5
 	tile_dropoff = 0.75
 	tile_dropoff_s = 1.25
+	armour_penetration = -30
 
 /obj/item/projectile/bullet/pellet/rubber
 	name = "rubber pellet"
@@ -194,7 +196,7 @@
 	stun = 8
 	hitsound = 'sound/effects/meteorimpact.ogg'
 
-/obj/item/projectile/bullet/meteorshot/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/bullet/meteorshot/on_hit(atom/target, blocked = 0)
 	..()
 	if(istype(target, /atom/movable))
 		var/atom/movable/M = target
@@ -217,7 +219,7 @@
 	slur = 20
 	stutter = 20
 
-/obj/item/projectile/bullet/mime/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/bullet/mime/on_hit(atom/target, blocked = 0)
 	..(target, blocked)
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
@@ -240,7 +242,7 @@
 	create_reagents(50)
 	reagents.set_reacting(FALSE)
 
-/obj/item/projectile/bullet/dart/on_hit(var/atom/target, var/blocked = 0, var/hit_zone)
+/obj/item/projectile/bullet/dart/on_hit(atom/target, blocked = 0, hit_zone)
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		if(blocked != 100)
@@ -284,7 +286,7 @@
 	damage_type = TOX
 	weaken = 5
 
-/obj/item/projectile/bullet/neurotoxin/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/bullet/neurotoxin/on_hit(atom/target, blocked = 0)
 	if(isalien(target))
 		weaken = 0
 		nodamage = 1

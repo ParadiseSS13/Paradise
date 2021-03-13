@@ -12,10 +12,15 @@
 	if(proximity && istype(G) && G.Touch(A, 1))
 		return
 
-	if(HULK in mutations)
+	if(HAS_TRAIT(src, TRAIT_HULK))
 		if(proximity) //no telekinetic hulk attack
 			if(A.attack_hulk(src))
 				return
+
+	if(buckled && isstructure(buckled))
+		var/obj/structure/S = buckled
+		if(S.prevents_buckled_mobs_attacking())
+			return
 
 	A.attack_hand(src)
 
@@ -23,11 +28,11 @@
 	return
 
 /*
-/mob/living/carbon/human/RestrainedClickOn(var/atom/A) -- Handled by carbons
+/mob/living/carbon/human/RestrainedClickOn(atom/A) -- Handled by carbons
 	return
 */
 
-/mob/living/carbon/RestrainedClickOn(var/atom/A)
+/mob/living/carbon/RestrainedClickOn(atom/A)
 	return 0
 
 /mob/living/carbon/human/RangedAttack(atom/A, params)
@@ -37,10 +42,10 @@
 		if(istype(G) && G.Touch(A, 0)) // for magic gloves
 			return
 
-	if((LASER in mutations) && a_intent == INTENT_HARM)
+	if(HAS_TRAIT(src, TRAIT_LASEREYES) && a_intent == INTENT_HARM)
 		LaserEyes(A)
 
-	if(TK in mutations)
+	if(dna.GetSEState(GLOB.teleblock))
 		A.attack_tk(src)
 
 	if(isturf(A) && get_dist(src, A) <= 1)
@@ -49,17 +54,17 @@
 /*
 	Animals & All Unspecified
 */
-/mob/living/UnarmedAttack(var/atom/A)
+/mob/living/UnarmedAttack(atom/A)
 	A.attack_animal(src)
 
-/mob/living/simple_animal/hostile/UnarmedAttack(var/atom/A)
+/mob/living/simple_animal/hostile/UnarmedAttack(atom/A)
 	target = A
 	AttackingTarget()
 
 /atom/proc/attack_animal(mob/user)
 	return
 
-/mob/living/RestrainedClickOn(var/atom/A)
+/mob/living/RestrainedClickOn(atom/A)
 	return
 
 /*
@@ -104,5 +109,5 @@
 	return
 
 // pAIs are not intended to interact with anything in the world
-/mob/living/silicon/pai/UnarmedAttack(var/atom/A)
+/mob/living/silicon/pai/UnarmedAttack(atom/A)
 	return

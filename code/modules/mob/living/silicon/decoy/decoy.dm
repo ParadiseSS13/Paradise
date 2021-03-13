@@ -6,12 +6,6 @@
 	canmove = 0
 	a_intent = INTENT_HARM // This is apparently the only thing that stops other mobs walking through them as if they were thin air.
 
-/mob/living/silicon/decoy/New()
-	src.icon = 'icons/mob/ai.dmi'
-	src.icon_state = "ai"
-	src.anchored = 1
-	src.canmove = 0
-
 /mob/living/silicon/decoy/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/aicard))
 		to_chat(user, "<span class='warning'>You cannot find an intellicard slot on [src].</span>")
@@ -24,11 +18,12 @@
 
 /mob/living/silicon/decoy/syndicate
 	faction = list("syndicate")
+	bubble_icon = "syndibot"
 	name = "R.O.D.G.E.R"
 	desc = "Red Operations, Depot General Emission Regulator"
 	icon_state = "ai-magma"
 
-/mob/living/silicon/decoy/syndicate/New()
+/mob/living/silicon/decoy/syndicate/Initialize(mapload)
 	. = ..()
 	icon_state = "ai-magma"
 
@@ -39,7 +34,7 @@
 
 /mob/living/silicon/decoy/syndicate/depot/proc/raise_alert()
 	raised_alert = TRUE
-	var/area/syndicate_depot/core/depotarea = get_area(src) // Cannot use myArea or areaMaster as neither will be defined for this mob type
+	var/area/syndicate_depot/core/depotarea = get_area(src) // Cannot use myArea as it wont be defined for this mob type
 	if(istype(depotarea))
 		depotarea.increase_alert("AI Unit Offline")
 	else

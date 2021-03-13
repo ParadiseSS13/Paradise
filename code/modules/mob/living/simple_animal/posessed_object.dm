@@ -1,6 +1,7 @@
 /mob/living/simple_animal/possessed_object
 	name = "possessed doodad"
 	var/spirit_name = "mysterious force" // What we call ourselves in attack messages.
+	mob_biotypes = MOB_SPIRIT
 	health = 50
 	maxHealth = 50
 
@@ -32,8 +33,9 @@
 	animate_ghostly_presence(src, -1, 20, 1) // Restart the floating animation after the attack animation, as it will be cancelled.
 
 
-/mob/living/simple_animal/possessed_object/start_pulling(var/atom/movable/AM) // Silly motherfuckers think they can pull things.
-	to_chat(src, "<span class='warning'>You are unable to pull [AM]!</span>")
+/mob/living/simple_animal/possessed_object/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE) // Silly motherfuckers think they can pull things.
+	if(show_message)
+		to_chat(src, "<span class='warning'>You are unable to pull [AM]!</span>")
 
 
 /mob/living/simple_animal/possessed_object/ghost() // Ghosting will return the object to normal, and will not disqualify the ghoster from various mid-round antag positions.
@@ -77,7 +79,7 @@
 	to_chat(src, "<span class='shadowling'><b>Your spirit has entered [src] and possessed it.</b><br>You are able to do most things a humanoid would be able to do with a [src] in their hands.<br>If you want to end your ghostly possession, use the '<b>ghost</b>' verb, it won't penalize your ability to respawn.</span>")
 
 
-/mob/living/simple_animal/possessed_object/New(var/atom/loc as obj)
+/mob/living/simple_animal/possessed_object/New(atom/loc as obj)
 	..()
 
 	if(!istype(loc, /obj/item)) // Some silly motherfucker spawned us directly via the game panel.
@@ -115,7 +117,7 @@
 		. = possessed_id.access
 
 
-/mob/living/simple_animal/possessed_object/ClickOn(var/atom/A, var/params)
+/mob/living/simple_animal/possessed_object/ClickOn(atom/A, params)
 	if(client.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return

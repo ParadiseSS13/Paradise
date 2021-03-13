@@ -4,24 +4,16 @@
 	var/list/drones_list = list()
 
 /datum/event/rogue_drone/start()
-	//spawn them at the same place as carp
 	var/list/possible_spawns = list()
 	for(var/thing in GLOB.landmarks_list)
 		var/obj/effect/landmark/C = thing
-		if(C.name == "carpspawn")
+		if(C.name == "carpspawn") //spawn them at the same place as carp
 			possible_spawns.Add(C)
 
-	//25% chance for this to be a false alarm
-	var/num
-	if(prob(25))
-		num = 0
-	else
-		num = rand(2,6)
-	for(var/i=0, i<num, i++)
-		var/mob/living/simple_animal/hostile/retaliate/malf_drone/D = new(get_turf(pick(possible_spawns)))
+	var/num = rand(2, 12)
+	for(var/i = 0, i < num, i++)
+		var/mob/living/simple_animal/hostile/malf_drone/D = new(get_turf(pick(possible_spawns)))
 		drones_list.Add(D)
-		if(prob(25))
-			D.disabled = rand(15, 60)
 
 /datum/event/rogue_drone/announce()
 	var/msg
@@ -38,11 +30,8 @@
 
 /datum/event/rogue_drone/end()
 	var/num_recovered = 0
-	for(var/mob/living/simple_animal/hostile/retaliate/malf_drone/D in drones_list)
+	for(var/mob/living/simple_animal/hostile/malf_drone/D in drones_list)
 		do_sparks(3, 0, D.loc)
-		D.z = level_name_to_num(CENTCOMM)
-		D.has_loot = 0
-
 		qdel(D)
 		num_recovered++
 

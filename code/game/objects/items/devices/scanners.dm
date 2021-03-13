@@ -12,39 +12,28 @@ REAGENT SCANNER
 	desc = "A terahertz-ray emitter and scanner used to detect underfloor objects such as cables and pipes."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "t-ray0"
-	var/on = 0
+	var/on = FALSE
 	slot_flags = SLOT_BELT
-	w_class = 2
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
 	materials = list(MAT_METAL=150)
 	origin_tech = "magnets=1;engineering=1"
-	var/scan_range = 1
-	var/pulse_duration = 10
-
-/obj/item/t_scanner/longer_pulse
-	pulse_duration = 50
-
-/obj/item/t_scanner/extended_range
-	scan_range = 3
-
-/obj/item/t_scanner/extended_range/longer_pulse
-	scan_range = 3
-	pulse_duration = 50
 
 /obj/item/t_scanner/Destroy()
 	if(on)
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/t_scanner/attack_self(mob/user)
-
+/obj/item/t_scanner/proc/toggle_on()
 	on = !on
-	icon_state = copytext(icon_state, 1, length(icon_state))+"[on]"
-
+	icon_state = copytext_char(icon_state, 1, -1) + "[on]"
 	if(on)
 		START_PROCESSING(SSobj, src)
+	else
+		STOP_PROCESSING(SSobj, src)
 
+/obj/item/t_scanner/attack_self(mob/user)
+	toggle_on()
 
 /obj/item/t_scanner/process()
 	if(!on)
@@ -53,41 +42,25 @@ REAGENT SCANNER
 	scan()
 
 /obj/item/t_scanner/proc/scan()
+	t_ray_scan(loc)
 
-	for(var/turf/T in range(scan_range, src.loc) )
-
-		if(!T.intact)
+/proc/t_ray_scan(mob/viewer, flick_time = 8, distance = 3)
+	if(!ismob(viewer) || !viewer.client)
+		return
+	var/list/t_ray_images = list()
+	for(var/obj/O in orange(distance, viewer))
+		if(O.level != 1)
 			continue
 
-		for(var/obj/O in T.contents)
-
-			if(O.level != 1)
-				continue
-
-			if(O.invisibility == 101)
-				O.invisibility = 0
-				O.alpha = 128
-				spawn(pulse_duration)
-					if(O)
-						var/turf/U = O.loc
-						if(U && U.intact)
-							O.invisibility = 101
-							O.alpha = 255
-		for(var/mob/living/M in T.contents)
-			var/oldalpha = M.alpha
-			if(M.alpha < 255 && istype(M))
-				M.alpha = 255
-				spawn(10)
-					if(M)
-						M.alpha = oldalpha
-
-		var/mob/living/M = locate() in T
-
-		if(M && M.invisibility == 2)
-			M.invisibility = 0
-			spawn(2)
-				if(M)
-					M.invisibility = INVISIBILITY_LEVEL_TWO
+		if(O.invisibility == INVISIBILITY_MAXIMUM)
+			var/image/I = new(loc = get_turf(O))
+			var/mutable_appearance/MA = new(O)
+			MA.alpha = 128
+			MA.dir = O.dir
+			I.appearance = MA
+			t_ray_images += I
+	if(length(t_ray_images))
+		flick_overlay(t_ray_images, list(viewer.client), flick_time)
 
 
 /proc/chemscan(mob/living/user, mob/living/M)
@@ -125,7 +98,7 @@ REAGENT SCANNER
 	var/advanced = FALSE
 
 /obj/item/healthanalyzer/attack(mob/living/M, mob/living/user)
-	if(((CLUMSY in user.mutations) || user.getBrainLoss() >= 60) && prob(50))
+	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		user.visible_message("<span class='warning'>[user] analyzes the floor's vitals!</span>", "<span class='notice'>You stupidly try to analyze the floor's vitals!</span>")
 		to_chat(user, "<span class='info'>Analyzing results for The floor:\n\tOverall status: <b>Healthy</b></span>")
 		to_chat(user, "<span class='info'>Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FF8000'>Burn</font>/<font color='red'>Brute</font></span>")
@@ -157,7 +130,7 @@ REAGENT SCANNER
 	var/TX = H.getToxLoss() > 50 	? 	"<b>[H.getToxLoss()]</b>" 		: H.getToxLoss()
 	var/BU = H.getFireLoss() > 50 	? 	"<b>[H.getFireLoss()]</b>" 		: H.getFireLoss()
 	var/BR = H.getBruteLoss() > 50 	? 	"<b>[H.getBruteLoss()]</b>" 	: H.getBruteLoss()
-	if(H.status_flags & FAKEDEATH)
+	if(HAS_TRAIT(H, TRAIT_FAKEDEATH))
 		OX = fake_oxy > 50 			? 	"<b>[fake_oxy]</b>" 			: fake_oxy
 		to_chat(user, "<span class='notice'>Analyzing Results for [H]:\n\t Overall Status: dead</span>")
 	else
@@ -165,10 +138,10 @@ REAGENT SCANNER
 	to_chat(user, "\t Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>")
 	to_chat(user, "\t Damage Specifics: <font color='blue'>[OX]</font> - <font color='green'>[TX]</font> - <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>")
 	to_chat(user, "<span class='notice'>Body Temperature: [H.bodytemperature-T0C]&deg;C ([H.bodytemperature*1.8-459.67]&deg;F)</span>")
-	if(H.timeofdeath && (H.stat == DEAD || (H.status_flags & FAKEDEATH)))
+	if(H.timeofdeath && (H.stat == DEAD || (HAS_TRAIT(H, TRAIT_FAKEDEATH))))
 		to_chat(user, "<span class='notice'>Time of Death: [station_time_timestamp("hh:mm:ss", H.timeofdeath)]</span>")
 		var/tdelta = round(world.time - H.timeofdeath)
-		if(tdelta < (DEFIB_TIME_LIMIT * 10))
+		if(tdelta < DEFIB_TIME_LIMIT)
 			to_chat(user, "<span class='danger'>Subject died [DisplayTimeText(tdelta)] ago, defibrillation may be possible!</span>")
 
 	if(mode == 1)
@@ -182,7 +155,7 @@ REAGENT SCANNER
 	TX = H.getToxLoss() > 50 ? 	"<font color='green'><b>Dangerous amount of toxins detected</b></font>" 	: 	"Subject bloodstream toxin level minimal"
 	BU = H.getFireLoss() > 50 ? 	"<font color='#FFA500'><b>Severe burn damage detected</b></font>" 			:	"Subject burn injury status O.K"
 	BR = H.getBruteLoss() > 50 ? "<font color='red'><b>Severe anatomical damage detected</b></font>" 		: 	"Subject brute-force injury status O.K"
-	if(H.status_flags & FAKEDEATH)
+	if(HAS_TRAIT(H, TRAIT_FAKEDEATH))
 		OX = fake_oxy > 50 ? 		"<span class='danger'>Severe oxygen deprivation detected</span>" 	: 	"<span class='notice'>Subject bloodstream oxygen level normal</span>"
 	to_chat(user, "[OX] | [TX] | [BU] | [BR]")
 
@@ -190,12 +163,17 @@ REAGENT SCANNER
 		chemscan(user, H)
 	for(var/thing in H.viruses)
 		var/datum/disease/D = thing
-		if(!(D.visibility_flags & HIDDEN_SCANNER))
-			to_chat(user, "<span class='alert'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</span>")
+		if(D.visibility_flags & HIDDEN_SCANNER)
+			continue
+		// Snowflaking heart problems, because they are special (and common).
+		if(istype(D, /datum/disease/critical))
+			to_chat(user, "<span class='alert'><b>Warning: Subject is undergoing [D.name].</b>\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</span>")
+			continue
+		to_chat(user, "<span class='alert'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</span>")
 	if(H.undergoing_cardiac_arrest())
 		var/obj/item/organ/internal/heart/heart = H.get_int_organ(/obj/item/organ/internal/heart)
 		if(heart && !(heart.status & ORGAN_DEAD))
-			to_chat(user, "<span class='alert'><b>Warning: Medical Emergency detected</b>\nName: Cardiac Arrest.\nType: The patient's heart has stopped.\nStage: 1/1.\nPossible Cure: Electric Shock</span>")
+			to_chat(user, "<span class='alert'><b>The patient's heart has stopped.</b>\nPossible Cure: Electric Shock</span>")
 		else if(heart && (heart.status & ORGAN_DEAD))
 			to_chat(user, "<span class='alert'><b>Subject's heart is necrotic.</b></span>")
 		else if(!heart)
@@ -859,11 +837,11 @@ REAGENT SCANNER
 		dat += "<td>[i.name]</td><td>N/A</td><td>[i.damage]</td><td>[infection]:[mech]</td><td></td>"
 		dat += "</tr>"
 	dat += "</table>"
-	if(BLINDNESS in target.mutations)
+	if(HAS_TRAIT(target, TRAIT_BLIND))
 		dat += "<font color='red'>Cataracts detected.</font><BR>"
-	if(COLOURBLIND in target.mutations)
+	if(HAS_TRAIT(target, TRAIT_COLORBLIND))
 		dat += "<font color='red'>Photoreceptor abnormalities detected.</font><BR>"
-	if(NEARSIGHTED in target.mutations)
+	if(HAS_TRAIT(target, TRAIT_NEARSIGHT))
 		dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
 
 	return dat

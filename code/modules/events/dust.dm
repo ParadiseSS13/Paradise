@@ -18,6 +18,7 @@
 	var/strength = 2 //ex_act severity number
 	var/life = 2 //how many things we hit before qdel(src)
 	var/atom/goal = null
+	var/shake_chance = 50
 
 /obj/effect/space_dust/weak
 	strength = 3
@@ -32,6 +33,7 @@
 	life = 40
 
 /obj/effect/space_dust/New()
+	. = ..()
 	var/startx = 0
 	var/starty = 0
 	var/endy = 0
@@ -63,30 +65,33 @@
 	src.x = startx
 	src.y = starty
 	src.z = level_name_to_num(MAIN_STATION)
-	spawn(0)
-		walk_towards(src, goal, 1)
-	return
+	walk_towards(src, goal, 1)
 
 /obj/effect/space_dust/Bump(atom/A)
-	spawn(0)
-		if(prob(50))
-			for(var/mob/M in range(10, src))
-				if(!M.stat && !istype(M, /mob/living/silicon/ai))
-					shake_camera(M, 3, 1)
-		if(A)
-			playsound(src.loc, 'sound/effects/meteorimpact.ogg', 40, 1)
+	if(QDELETED(src))
+		return
+	if(prob(shake_chance))
+		for(var/mob/M in range(10, src))
+			if(!M.stat && !istype(M, /mob/living/silicon/ai))
+				shake_camera(M, 3, 1)
+	playsound(loc, 'sound/effects/meteorimpact.ogg', 40, 1)
 
-			if(ismob(A))
-				A.ex_act(strength)//This should work for now I guess
-			else if(!istype(A,/obj/machinery/power/emitter) && !istype(A,/obj/machinery/field/generator)) //Protect the singularity from getting released every round!
-				A.ex_act(strength) //Changing emitter/field gen ex_act would make it immune to bombs and C4
+	INVOKE_ASYNC(src, .proc/impact_meteor, A) // ex_act can have some sleeps in it
 
-			life--
-			if(life <= 0)
-				walk(src,0)
-				spawn(1)
-					qdel(src)
-				return 0
+/obj/effect/space_dust/proc/impact_meteor(atom/A)
+	var/turf/where = get_turf(A)
+	if(ismob(A))
+		A.ex_act(strength)//This should work for now I guess
+	else if(!istype(A, /obj/machinery/power/emitter) && !istype(A, /obj/machinery/field/generator)) //Protect the singularity from getting released every round!
+		A.ex_act(strength) //Changing emitter/field gen ex_act would make it immune to bombs and C4
+
+	life--
+	if(life <= 0)
+		walk(src, 0)
+		on_shatter(where)
+		qdel(src)
+
+/obj/effect/space_dust/proc/on_shatter(turf/where)
 	return
 
 /obj/effect/space_dust/Bumped(atom/A)

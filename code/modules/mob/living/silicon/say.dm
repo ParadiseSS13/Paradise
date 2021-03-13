@@ -42,7 +42,7 @@
 		used_radios += radio
 		return radio.talk_into(src, message_pieces, message_mode, verb)
 
-/mob/living/silicon/say_quote(var/text)
+/mob/living/silicon/say_quote(text)
 	var/ending = copytext(text, length(text))
 
 	if(ending == "?")
@@ -56,7 +56,7 @@
 #define IS_ROBOT 2
 #define IS_PAI 3
 
-/mob/living/silicon/say_understands(var/other,var/datum/language/speaking = null)
+/mob/living/silicon/say_understands(other, datum/language/speaking = null)
 	//These only pertain to common. Languages are handled by mob/say_understands()
 	if(!speaking)
 		if(istype(other, /mob/living/carbon))
@@ -75,15 +75,19 @@
 
 	var/obj/machinery/hologram/holopad/T = current
 	if(istype(T) && T.masters[src])
+		var/obj/effect/overlay/holo_pad_hologram/H = T.masters[src]
+		if ((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
+			var/message = combine_message(message_pieces, null, src)
+			create_chat_message(H, message)
 		for(var/mob/M in hearers(T.loc))//The location is the object, default distance.
-			M.hear_holopad_talk(message_pieces, verb, src)
+			M.hear_holopad_talk(message_pieces, verb, src, H)
 		to_chat(src, "<i><span class='game say'>Holopad transmitted, <span class='name'>[real_name]</span> [combine_message(message_pieces, verb, src)]</span></i>")
 	else
 		to_chat(src, "No holopad connected.")
 		return
 	return 1
 
-/mob/living/silicon/ai/proc/holopad_emote(var/message) //This is called when the AI uses the 'me' verb while using a holopad.
+/mob/living/silicon/ai/proc/holopad_emote(message) //This is called when the AI uses the 'me' verb while using a holopad.
 	message = trim(message)
 
 	if(!message)

@@ -21,8 +21,8 @@
 	if(!QDELETED(src))
 		qdel(src)
 
-/obj/item/grenade/proc/clown_check(var/mob/living/user)
-	if((CLUMSY in user.mutations) && prob(50))
+/obj/item/grenade/proc/clown_check(mob/living/user)
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class='warning'>Huh? How does this thing work?</span>")
 		active = 1
 		icon_state = initial(icon_state) + "_active"
@@ -73,6 +73,7 @@
 			message_admins("[key_name_admin(usr)] has primed a [name] for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>")
 			log_game("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])")
 			investigate_log("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])", INVESTIGATE_BOMB)
+			add_attack_logs(user, src, "has primed for detonation", ATKLOG_FEW)
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.throw_mode_on()

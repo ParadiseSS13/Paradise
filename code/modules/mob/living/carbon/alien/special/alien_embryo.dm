@@ -65,12 +65,12 @@
 
 
 
-/obj/item/organ/internal/body_egg/alien_embryo/proc/AttemptGrow(var/gib_on_success = 1)
+/obj/item/organ/internal/body_egg/alien_embryo/proc/AttemptGrow(gib_on_success = 1)
 	if(!owner || polling)
 		return
 	polling = 1
 	spawn()
-		var/list/candidates = pollCandidates("Do you want to play as an alien?", ROLE_ALIEN, 0)
+		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as an alien?", ROLE_ALIEN, FALSE, source = /mob/living/carbon/alien/larva)
 		var/mob/C = null
 
 		// To stop clientless larva, we will check that our host has a client

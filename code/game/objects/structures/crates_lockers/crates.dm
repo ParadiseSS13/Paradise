@@ -6,15 +6,14 @@
 	icon_opened = "crateopen"
 	icon_closed = "crate"
 	climbable = TRUE
-//	mouse_drag_pointer = MOUSE_ACTIVE_POINTER	//???
 	var/rigged = FALSE
+	open_sound = 'sound/machines/crate_open.ogg'
+	close_sound = 'sound/machines/crate_close.ogg'
+	open_sound_volume = 35
+	close_sound_volume = 50
 	var/obj/item/paper/manifest/manifest
 	// A list of beacon names that the crate will announce the arrival of, when delivered.
 	var/list/announce_beacons = list()
-
-/obj/structure/closet/crate/New()
-	..()
-	update_icon()
 
 /obj/structure/closet/crate/update_icon()
 	..()
@@ -28,11 +27,19 @@
 /obj/structure/closet/crate/can_close()
 	return TRUE
 
-/obj/structure/closet/crate/open()
+/obj/structure/closet/crate/open(by_hand = FALSE)
 	if(src.opened)
 		return FALSE
 	if(!src.can_open())
 		return FALSE
+
+	if(by_hand)
+		for(var/obj/O in src)
+			if(O.density)
+				var/response = alert(usr, "This crate has been packed with bluespace compression, an item inside won't fit back inside. Are you sure you want to open it?","Bluespace Compression Warning", "No", "Yes")
+				if(response == "No" || !Adjacent(usr))
+					return FALSE
+				break
 
 	if(rigged && locate(/obj/item/radio/electropack) in src)
 		if(isliving(usr))
@@ -41,7 +48,7 @@
 				do_sparks(5, 1, src)
 				return 2
 
-	playsound(src.loc, 'sound/machines/click.ogg', 15, 1, -3)
+	playsound(loc, open_sound, open_sound_volume, TRUE, -3)
 	for(var/obj/O in src) //Objects
 		O.forceMove(loc)
 	for(var/mob/M in src) //Mobs
@@ -60,7 +67,7 @@
 	if(!src.can_close())
 		return FALSE
 
-	playsound(src.loc, 'sound/machines/click.ogg', 15, 1, -3)
+	playsound(loc, close_sound, close_sound_volume, TRUE, -3)
 	var/itemcount = 0
 	for(var/obj/O in get_turf(src))
 		if(itemcount >= storage_capacity)
@@ -82,6 +89,10 @@
 	if(!opened && try_rig(W, user))
 		return
 	return ..()
+
+/obj/structure/closet/crate/toggle(mob/user, by_hand = FALSE)
+	if(!(opened ? close() : open(by_hand)))
+		to_chat(user, "<span class='notice'>It won't budge!</span>")
 
 /obj/structure/closet/crate/proc/try_rig(obj/item/W, mob/user)
 	if(istype(W, /obj/item/stack/cable_coil))
@@ -137,11 +148,11 @@
 					do_sparks(5, 1, src)
 					return
 		src.add_fingerprint(user)
-		src.toggle(user)
+		src.toggle(user, by_hand = TRUE)
 
 // Called when a crate is delivered by MULE at a location, for notifying purposes
-/obj/structure/closet/crate/proc/notifyRecipient(var/destination)
-	var/msg = "[capitalize(name)] has arrived at [destination]."
+/obj/structure/closet/crate/proc/notifyRecipient(destination)
+	var/list/msg = list("[capitalize(name)] has arrived at [destination].")
 	if(destination in announce_beacons)
 		for(var/obj/machinery/requests_console/D in GLOB.allRequestConsoles)
 			if(D.department in src.announce_beacons[destination])
@@ -187,6 +198,7 @@
 	if(user)
 		to_chat(user, "<span class='danger'>The crate's anti-tamper system activates!</span>")
 		investigate_log("[key_name(user)] has detonated a [src]", INVESTIGATE_BOMB)
+		add_attack_logs(user, src, "has detonated", ATKLOG_MOST)
 	for(var/atom/movable/AM in src)
 		qdel(AM)
 	explosion(get_turf(src), 0, 1, 5, 5)
@@ -236,7 +248,7 @@
 	if(locked)
 		src.togglelock(user)
 	else
-		src.toggle(user)
+		src.toggle(user, by_hand = TRUE)
 
 /obj/structure/closet/crate/secure/closed_item_click(mob/user)
 	togglelock(user)
@@ -245,7 +257,7 @@
 	if(locked)
 		overlays += sparks
 		spawn(6) overlays -= sparks //Tried lots of stuff but nothing works right. so i have to use this *sadface*
-		playsound(src.loc, "sparks", 60, 1)
+		playsound(src.loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		src.locked = 0
 		src.broken = 1
 		update_icon()
@@ -260,7 +272,7 @@
 		else
 			overlays += sparks
 			spawn(6) overlays -= sparks //Tried lots of stuff but nothing works right. so i have to use this *sadface*
-			playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
+			playsound(src, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			src.locked = 0
 		update_icon()
 	if(!opened && prob(20/severity))
@@ -322,8 +334,7 @@
 	icon_opened = "crateopen"
 	icon_closed = "crate"
 
-/obj/structure/closet/crate/rcd/New()
-	..()
+/obj/structure/closet/crate/rcd/populate_contents()
 	new /obj/item/rcd_ammo(src)
 	new /obj/item/rcd_ammo(src)
 	new /obj/item/rcd_ammo(src)
@@ -338,24 +349,23 @@
 	var/target_temp = T0C - 40
 	var/cooling_power = 40
 
-	return_air()
-		var/datum/gas_mixture/gas = (..())
-		if(!gas)	return null
-		var/datum/gas_mixture/newgas = new/datum/gas_mixture()
-		newgas.oxygen = gas.oxygen
-		newgas.carbon_dioxide = gas.carbon_dioxide
-		newgas.nitrogen = gas.nitrogen
-		newgas.toxins = gas.toxins
-		newgas.volume = gas.volume
-		newgas.temperature = gas.temperature
-		if(newgas.temperature <= target_temp)	return
+/obj/structure/closet/crate/freezer/return_air()
+	var/datum/gas_mixture/gas = (..())
+	if(!gas)	return null
+	var/datum/gas_mixture/newgas = new/datum/gas_mixture()
+	newgas.oxygen = gas.oxygen
+	newgas.carbon_dioxide = gas.carbon_dioxide
+	newgas.nitrogen = gas.nitrogen
+	newgas.toxins = gas.toxins
+	newgas.volume = gas.volume
+	newgas.temperature = gas.temperature
+	if(newgas.temperature <= target_temp)	return
 
-		if((newgas.temperature - cooling_power) > target_temp)
-			newgas.temperature -= cooling_power
-		else
-			newgas.temperature = target_temp
-		return newgas
-
+	if((newgas.temperature - cooling_power) > target_temp)
+		newgas.temperature -= cooling_power
+	else
+		newgas.temperature = target_temp
+	return newgas
 
 /obj/structure/closet/crate/can
 	desc = "A large can, looks like a bin to me."
@@ -364,6 +374,8 @@
 	icon_opened = "largebinopen"
 	icon_closed = "largebin"
 	anchored = TRUE
+	open_sound = 'sound/effects/bin_open.ogg'
+	close_sound = 'sound/effects/bin_close.ogg'
 
 /obj/structure/closet/crate/can/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -377,17 +389,6 @@
 	icon_state = "radiation"
 	icon_opened = "radiationopen"
 	icon_closed = "radiation"
-
-/obj/structure/closet/crate/radiation/New()
-	..()
-	new /obj/item/clothing/suit/radiation(src)
-	new /obj/item/clothing/head/radiation(src)
-	new /obj/item/clothing/suit/radiation(src)
-	new /obj/item/clothing/head/radiation(src)
-	new /obj/item/clothing/suit/radiation(src)
-	new /obj/item/clothing/head/radiation(src)
-	new /obj/item/clothing/suit/radiation(src)
-	new /obj/item/clothing/head/radiation(src)
 
 /obj/structure/closet/crate/secure/weapon
 	desc = "A secure weapons crate."
@@ -427,6 +428,8 @@
 	greenlight = "largebing"
 	sparks = "largebinsparks"
 	emag = "largebinemag"
+	open_sound = 'sound/effects/bin_open.ogg'
+	close_sound = 'sound/effects/bin_close.ogg'
 
 /obj/structure/closet/crate/large
 	name = "large crate"
@@ -496,22 +499,22 @@
 /obj/structure/closet/crate/hydroponics/prespawned
 	//This exists so the prespawned hydro crates spawn with their contents.
 
-	New()
-		..()
-		new /obj/item/reagent_containers/glass/bucket(src)
-		new /obj/item/reagent_containers/glass/bucket(src)
-		new /obj/item/screwdriver(src)
-		new /obj/item/screwdriver(src)
-		new /obj/item/wrench(src)
-		new /obj/item/wrench(src)
-		new /obj/item/wirecutters(src)
-		new /obj/item/wirecutters(src)
-		new /obj/item/shovel/spade(src)
-		new /obj/item/shovel/spade(src)
-		new /obj/item/storage/box/beakers(src)
-		new /obj/item/storage/box/beakers(src)
-		new /obj/item/hand_labeler(src)
-		new /obj/item/hand_labeler(src)
+// Do I need the definition above? Who knows!
+/obj/structure/closet/crate/hydroponics/prespawned/populate_contents()
+	new /obj/item/reagent_containers/glass/bucket(src)
+	new /obj/item/reagent_containers/glass/bucket(src)
+	new /obj/item/screwdriver(src)
+	new /obj/item/screwdriver(src)
+	new /obj/item/wrench(src)
+	new /obj/item/wrench(src)
+	new /obj/item/wirecutters(src)
+	new /obj/item/wirecutters(src)
+	new /obj/item/shovel/spade(src)
+	new /obj/item/shovel/spade(src)
+	new /obj/item/storage/box/beakers(src)
+	new /obj/item/storage/box/beakers(src)
+	new /obj/item/hand_labeler(src)
+	new /obj/item/hand_labeler(src)
 
 /obj/structure/closet/crate/sci
 	name = "science crate"
@@ -548,14 +551,12 @@
 	icon_opened = "electricalcrateopen"
 	icon_closed = "electricalcrate"
 
-/obj/structure/closet/crate/tape/New()
+/obj/structure/closet/crate/tape/populate_contents()
 	if(prob(10))
 		new /obj/item/bikehorn/rubberducky(src)
-	..()
 
 //crates of gear in the free golem ship
-/obj/structure/closet/crate/golemgear/New()
-	..()
+/obj/structure/closet/crate/golemgear/populate_contents()
 	new /obj/item/storage/backpack/industrial(src)
 	new /obj/item/shovel(src)
 	new /obj/item/pickaxe(src)

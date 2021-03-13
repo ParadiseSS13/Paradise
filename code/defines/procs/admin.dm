@@ -42,12 +42,15 @@
 	if(key)
 		if(C && C.holder && C.holder.fakekey && !include_name)
 			if(include_link)
-				. += "<a href='?priv_msg=[C.findStealthKey()];type=[type]'>"
+				. += "<a href='?priv_msg=[C.getStealthKey()];type=[type]'>"
 			. += "Administrator"
 		else
 			if(include_link && C)
-				. += "<a href='?priv_msg=[C.UID()];type=[type]'>"
+				. += "<a href='?priv_msg=[C.ckey];type=[type]'>"
 			. += key
+			// See if the player is on the watchlist. Requires admin permissions.
+			if(check_rights(R_ADMIN, FALSE) && C && C.watchlisted)
+				. += "<font color='orange'><b>(W)</b></font>"
 
 		if(include_link)
 			if(C)	. += "</a>"
@@ -83,10 +86,6 @@
 	var/message = "[key_name(whom, 0)][isAntag(whom) ? "(ANTAG)" : ""][isLivingSSD(whom) ? "(SSD!)": ""]"
 	return message
 
-/proc/log_and_message_admins(var/message as text)
+/proc/log_and_message_admins(message)
 	log_admin("[key_name(usr)] " + message)
 	message_admins("[key_name_admin(usr)] " + message)
-
-/proc/admin_log_and_message_admins(var/message as text)
-	log_admin("[key_name(usr)] " + message)
-	message_admins("[key_name_admin(usr)] " + message, 1)

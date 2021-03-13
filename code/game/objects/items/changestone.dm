@@ -4,7 +4,7 @@
 	icon = 'icons/obj/artifacts.dmi'
 	icon_state = "changerock"
 
-obj/item/changestone/attack_hand(var/mob/user as mob)
+/obj/item/changestone/attack_hand(mob/user as mob)
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
 		if(!H.gloves)

@@ -27,6 +27,10 @@
 #define COM_ROLES list("Blueshield","NT Representative","Head of Personnel's Desk","Captain's Desk","Bridge")
 #define SCI_ROLES list("Robotics","Science","Research Director's Desk")
 
+#define RQ_NONEW_MESSAGES 0
+#define RQ_NORMALPRIORITY 1
+#define RQ_HIGHPRIORITY 2
+
 GLOBAL_LIST_EMPTY(req_console_assistance)
 GLOBAL_LIST_EMPTY(req_console_supplies)
 GLOBAL_LIST_EMPTY(req_console_information)
@@ -35,7 +39,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 /obj/machinery/requests_console
 	name = "Requests Console"
 	desc = "A console intended to send requests to different departments on the station."
-	anchored = 1
+	anchored = TRUE
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "req_comp0"
 	max_integrity = 300
@@ -43,19 +47,15 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/department = "Unknown" //The list of all departments on the station (Determined from this variable on each unit) Set this to the same thing if you want several consoles in one department
 	var/list/message_log = list() //List of all messages
 	var/departmentType = 0 		//Bitflag. Zero is reply-only. Map currently uses raw numbers instead of defines.
-	var/newmessagepriority = 0
-		// 0 = no new message
-		// 1 = normal priority
-		// 2 = high priority
+	var/newmessagepriority = RQ_NONEW_MESSAGES
+		// RQ_NONEWMESSAGES = no new message
+		// RQ_NORMALPRIORITY = normal priority
+		// RQ_HIGHPRIORITY = high priority
 	var/screen = RCS_MAINMENU
-	var/silent = 0 // set to 1 for it not to beep all the time
-//	var/hackState = 0
-		// 0 = not hacked
-		// 1 = hacked
-	var/announcementConsole = 0
-		// 0 = This console cannot be used to send department announcements
-		// 1 = This console can send department announcementsf
-	var/open = 0 // 1 if open
+	var/silent = FALSE // set to TRUE for it not to beep all the time
+	var/announcementConsole = FALSE
+		// FALSE = This console cannot be used to send department announcements
+		// TRUE = This console can send department announcementsf
 	var/announceAuth = 0 //Will be set to 1 when you authenticate yourself for announcements
 	var/msgVerified = "" //Will contain the name of the person who varified it
 	var/msgStamped = "" //If a message is stamped, this will contain the stamp name
@@ -82,15 +82,15 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	else
 		icon_state = "req_comp[newmessagepriority]"
 
-/obj/machinery/requests_console/New()
+/obj/machinery/requests_console/Initialize(mapload)
 	Radio = new /obj/item/radio(src)
-	Radio.listening = 1
-	Radio.config(list("Engineering","Medical","Supply","Command","Science","Service","Security", "AI Private" = 0))
+	Radio.listening = TRUE
+	Radio.config(list("Engineering", "Medical", "Supply", "Command", "Science", "Service", "Security", "AI Private" = FALSE))
 	Radio.follow_target = src
-	..()
+	. = ..()
 
 	announcement.title = "[department] announcement"
-	announcement.newscast = 0
+	announcement.newscast = FALSE
 
 	name = "[department] Requests Console"
 	GLOB.allRequestConsoles += src
@@ -101,14 +101,15 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	if(departmentType & RC_INFO)
 		GLOB.req_console_information |= department
 
+	// NOT BOOLEAN. DO NOT CONVERT.
 	set_light(1)
 
 /obj/machinery/requests_console/Destroy()
 	GLOB.allRequestConsoles -= src
-	var/lastDeptRC = 1
+	var/lastDeptRC = TRUE
 	for(var/obj/machinery/requests_console/Console in GLOB.allRequestConsoles)
 		if(Console.department == department)
-			lastDeptRC = 0
+			lastDeptRC = FALSE
 			break
 	if(lastDeptRC)
 		if(departmentType & RC_ASSIST)
@@ -129,17 +130,17 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 /obj/machinery/requests_console/attack_hand(user as mob)
 	if(..(user))
 		return
+
 	ui_interact(user)
 
-/obj/machinery/requests_console/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/requests_console/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "request_console.tmpl", "[department] Request Console", 520, 410)
+		ui = new(user, src, ui_key, "RequestConsole", "[department] Request Console", 520, 410, master_ui, state)
 		ui.open()
-		ui.set_auto_update(1)
 
-/obj/machinery/requests_console/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
+/obj/machinery/requests_console/ui_data(mob/user)
+	var/list/data = list()
 
 	data["department"] = department
 	data["screen"] = screen
@@ -164,142 +165,130 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 	return data
 
-/obj/machinery/requests_console/Topic(href, href_list)
+/obj/machinery/requests_console/ui_act(action, list/params)
 	if(..())
-		return 1
-	usr.set_machine(src)
+		return
+
 	add_fingerprint(usr)
 
-	if(reject_bad_text(href_list["write"]))
-		recipient = href_list["write"] //write contains the string of the receiving department's name
+	. = TRUE
 
-		var/new_message = sanitize(input("Write your message:", "Awaiting Input", ""))
-		if(new_message)
-			message = new_message
-			screen = RCS_MESSAUTH
-			switch(href_list["priority"])
-				if("1") priority = 1
-				if("2")	priority = 2
-				else	priority = 0
-		else
-			reset_message(1)
+	switch(action)
+		if("writeInput")
+			if(reject_bad_text(params["write"]))
+				recipient = params["write"] //write contains the string of the receiving department's name
 
-	if(href_list["writeAnnouncement"])
-		var/new_message = sanitize(input("Write your message:", "Awaiting Input", ""))
-		if(new_message)
-			message = new_message
-		else
-			reset_message(1)
+				var/new_message = sanitize(input("Write your message:", "Awaiting Input", ""))
+				if(new_message)
+					message = new_message
+					screen = RCS_MESSAUTH
+					switch(params["priority"])
+						if("1")
+							priority = RQ_NORMALPRIORITY
+						if("2")
+							priority = RQ_HIGHPRIORITY
+						else
+							priority = RQ_NONEW_MESSAGES
+				else
+					reset_message(TRUE)
 
-	if(href_list["sendAnnouncement"])
-		if(!announcementConsole)	return
-		announcement.Announce(message, msg_sanitized = 1)
-		reset_message(1)
+		if("writeAnnouncement")
+			var/new_message = input("Write your message:", "Awaiting Input", message) as message|null
+			if(new_message)
+				message = new_message
+			else
+				reset_message(TRUE)
 
-	if( href_list["department"] && message )
-		var/log_msg = message
-		var/pass = 0
-		screen = RCS_SENTFAIL
-		for(var/obj/machinery/message_server/MS in GLOB.machines)
-			if(!MS.active) continue
-			MS.send_rc_message(ckey(href_list["department"]),department,log_msg,msgStamped,msgVerified,priority)
-			pass = 1
-		if(pass)
-			screen = RCS_SENTPASS
-			if(recipient in ENGI_ROLES)
-				radiochannel = "Engineering"
-			if(recipient in SEC_ROLES)
-				radiochannel = "Security"
-			if(recipient in MISC_ROLES)
-				radiochannel = "Service"
-			if(recipient in MED_ROLES)
-				radiochannel = "Medical"
-			if(recipient in COM_ROLES)
-				radiochannel = "Command"
-			if(recipient in SCI_ROLES)
-				radiochannel = "Science"
-			if(recipient == "AI")
-				radiochannel = "AI Private"
-			if(recipient == "Cargo Bay")
-				radiochannel = "Supply"
-			message_log += "<B>Message sent to [recipient] at [station_time_timestamp()]</B><BR>[message]"
-			Radio.autosay("Alert; a new requests console message received for [recipient] from [department]", null, "[radiochannel]")
-		else
-			atom_say("No server detected!")
+		if("sendAnnouncement")
+			if(!announcementConsole)
+				return
+			announcement.Announce(message)
+			reset_message(TRUE)
 
-	//Handle screen switching
-	if(href_list["setScreen"])
-		var/tempScreen = text2num(href_list["setScreen"])
-		if(tempScreen == RCS_ANNOUNCE && !announcementConsole)
-			return
-		if(tempScreen == RCS_VIEWMSGS)
-			for(var/obj/machinery/requests_console/Console in GLOB.allRequestConsoles)
-				if(Console.department == department)
-					Console.newmessagepriority = 0
-					Console.icon_state = "req_comp0"
-					Console.set_light(1)
-		if(tempScreen == RCS_MAINMENU)
-			reset_message()
-		screen = tempScreen
+		if("department")
+			if(!message)
+				return
+			var/log_msg = message
+			var/pass = FALSE
+			screen = RCS_SENTFAIL
+			for(var/M in GLOB.message_servers)
+				var/obj/machinery/message_server/MS = M
+				if(!MS.active)
+					continue
+				MS.send_rc_message(ckey(params["department"]), department, log_msg, msgStamped, msgVerified, priority)
+				pass = TRUE
+			if(pass)
+				screen = RCS_SENTPASS
+				if(recipient in ENGI_ROLES)
+					radiochannel = "Engineering"
+				else if(recipient in SEC_ROLES)
+					radiochannel = "Security"
+				else if(recipient in MISC_ROLES)
+					radiochannel = "Service"
+				else if(recipient in MED_ROLES)
+					radiochannel = "Medical"
+				else if(recipient in COM_ROLES)
+					radiochannel = "Command"
+				else if(recipient in SCI_ROLES)
+					radiochannel = "Science"
+				else if(recipient == "AI")
+					radiochannel = "AI Private"
+				else if(recipient == "Cargo Bay")
+					radiochannel = "Supply"
+				message_log.Add(list(list("Message sent to [recipient] at [station_time_timestamp()]", "[message]")))
+				Radio.autosay("Alert; a new requests console message received for [recipient] from [department]", null, "[radiochannel]")
+			else
+				atom_say("No server detected!")
 
-	if(href_list["shipSelect"])
-		ship_tag_name = href_list["shipSelect"]
-		ship_tag_index = GLOB.TAGGERLOCATIONS.Find(ship_tag_name)
+		//Handle screen switching
+		if("setScreen")
+			// Ensures screen cant be set higher or lower than it should be
+			var/tempScreen = round(clamp(text2num(params["setScreen"]), 0, 10), 1)
+			if(tempScreen == RCS_ANNOUNCE && !announcementConsole)
+				return
+			if(tempScreen == RCS_VIEWMSGS)
+				for(var/obj/machinery/requests_console/Console in GLOB.allRequestConsoles)
+					if(Console.department == department)
+						Console.newmessagepriority = RQ_NONEW_MESSAGES
+						Console.icon_state = "req_comp0"
+						Console.set_light(1)
+			if(tempScreen == RCS_MAINMENU)
+				reset_message()
+			screen = tempScreen
 
-	//Handle Shipping Label Printing
-	if(href_list["printLabel"])
-		var/error_message = ""
-		if(!ship_tag_index)
-			error_message = "Please select a destination."
-		else if(!msgVerified)
-			error_message = "Please verify shipper ID."
-		else if(world.time < print_cooldown)
-			error_message = "Please allow the printer time to prepare the next shipping label."
-		if(error_message)
-			atom_say("[error_message]")
-			return
-		print_label(ship_tag_name, ship_tag_index)
-		shipping_log += "<B>Shipping Label printed for [ship_tag_name]</b><br>[msgVerified]"
-		reset_message(1)
+		if("shipSelect")
+			ship_tag_name = params["shipSelect"]
+			ship_tag_index = GLOB.TAGGERLOCATIONS.Find(ship_tag_name)
 
-	//Handle silencing the console
-	if(href_list["toggleSilent"])
-		silent = !silent
+		//Handle Shipping Label Printing
+		if("printLabel")
+			var/error_message
+			if(!ship_tag_index)
+				error_message = "Please select a destination."
+			else if(!msgVerified)
+				error_message = "Please verify shipper ID."
+			else if(world.time < print_cooldown)
+				error_message = "Please allow the printer time to prepare the next shipping label."
+			if(error_message)
+				atom_say("[error_message]")
+				return
+			print_label(ship_tag_name, ship_tag_index)
+			shipping_log.Add(list(list("Shipping Label printed for [ship_tag_name]", "[msgVerified]"))) // List in a list for passing into TGUI
+			reset_message(TRUE)
 
-	SSnanoui.update_uis(src)
-	return
+		//Handle silencing the console
+		if("toggleSilent")
+			silent = !silent
 
-					//err... hacking code, which has no reason for existing... but anyway... it was once supposed to unlock priority 3 messanging on that console (EXTREME priority...), but the code for that was removed.
+
 /obj/machinery/requests_console/attackby(obj/item/I, mob/user)
-	/*
-	if(istype(O, /obj/item/crowbar))
-		if(open)
-			open = 0
-			icon_state="req_comp0"
-		else
-			open = 1
-			if(hackState == 0)
-				icon_state="req_comp_open"
-			else if(hackState == 1)
-				icon_state="req_comp_rewired"
-	if(istype(O, /obj/item/screwdriver))
-		if(open)
-			if(hackState == 0)
-				hackState = 1
-				icon_state="req_comp_rewired"
-			else if(hackState == 1)
-				hackState = 0
-				icon_state="req_comp_open"
-		else
-			to_chat(user, "You can't do much with that.")*/
-
 	if(istype(I, /obj/item/card/id))
 		if(inoperable(MAINT))
 			return
 		if(screen == RCS_MESSAUTH)
 			var/obj/item/card/id/T = I
-			msgVerified = text("<font color='green'><b>Verified by [T.registered_name] ([T.assignment])</b></font>")
-			updateUsrDialog()
+			msgVerified = "Verified by [T.registered_name] ([T.assignment])"
+			SStgui.update_uis(src)
 		if(screen == RCS_ANNOUNCE)
 			var/obj/item/card/id/ID = I
 			if(ACCESS_RC_ANNOUNCE in ID.GetAccess())
@@ -308,31 +297,31 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			else
 				reset_message()
 				to_chat(user, "<span class='warning'>You are not authorized to send announcements.</span>")
-			updateUsrDialog()
+			SStgui.update_uis(src)
 		if(screen == RCS_SHIPPING)
 			var/obj/item/card/id/T = I
-			msgVerified = text("<font color='green'><b>Sender verified as [T.registered_name] ([T.assignment])</b></font>")
-			updateUsrDialog()
+			msgVerified = "Sender verified as [T.registered_name] ([T.assignment])"
+			SStgui.update_uis(src)
 	if(istype(I, /obj/item/stamp))
 		if(inoperable(MAINT))
 			return
 		if(screen == RCS_MESSAUTH)
 			var/obj/item/stamp/T = I
-			msgStamped = text("<font color='blue'><b>Stamped with the [T.name]</b></font>")
-			updateUsrDialog()
+			msgStamped = "Stamped with the [T.name]"
+			SStgui.update_uis(src)
 	else
 		return ..()
 
-/obj/machinery/requests_console/proc/reset_message(var/mainmenu = 0)
+/obj/machinery/requests_console/proc/reset_message(mainmenu = FALSE)
 	message = ""
 	recipient = ""
-	priority = 0
+	priority = RQ_NONEW_MESSAGES
 	msgVerified = ""
 	msgStamped = ""
-	announceAuth = 0
+	announceAuth = FALSE
 	announcement.announcer = ""
 	ship_tag_name = ""
-	ship_tag_index = 0
+	ship_tag_index = FALSE
 	if(mainmenu)
 		screen = RCS_MAINMENU
 
@@ -340,23 +329,23 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/linkedSender
 	if(istype(source, /obj/machinery/requests_console))
 		var/obj/machinery/requests_console/sender = source
-		linkedSender = "<a href='?src=[UID()];write=[ckey(sender.department)]'[sender.department]</a>"
+		linkedSender = sender.department
 	else
 		capitalize(source)
 		linkedSender = source
 	capitalize(title)
-	if(src.newmessagepriority < priority)
-		src.newmessagepriority = priority
+	if(newmessagepriority < priority)
+		newmessagepriority = priority
 		update_icon()
-	if(!src.silent)
-		playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 1)
+	if(!silent)
+		playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)
 		atom_say(title)
 
 	switch(priority)
-		if(2) // High
-			src.message_log += "<span class='bad'>High Priority</span><BR><b>From:</b> [linkedSender]<BR>[message]"
+		if(RQ_HIGHPRIORITY) // High
+			message_log.Add(list(list("High Priority - From: [linkedSender]") + message)) // List in a list for passing into TGUI
 		else // Normal
-			src.message_log += "<b>From:</b> [linkedSender]<BR>[message]"
+			message_log.Add(list(list("From: [linkedSender]") + message)) // List in a list for passing into TGUI
 	set_light(2)
 
 /obj/machinery/requests_console/proc/print_label(tag_name, tag_index)
@@ -364,3 +353,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	sp.sortTag = tag_index
 	sp.update_desc()
 	print_cooldown = world.time + 600	//1 minute cooldown before you can print another label, but you can still configure the next one during this time
+
+#undef RQ_NONEW_MESSAGES
+#undef RQ_NORMALPRIORITY
+#undef RQ_HIGHPRIORITY

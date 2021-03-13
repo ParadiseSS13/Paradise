@@ -10,6 +10,12 @@
 	name = fon ? "Disable Flashlight" : "Enable Flashlight"
 	pda.update_shortcuts()
 	pda.set_light(fon ? f_lum : 0)
+	if(fon)
+		pda.overlays += image('icons/obj/pda.dmi', "pda-light")
+	else
+		pda.overlays -= image('icons/obj/pda.dmi', "pda-light")
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
 /datum/data/pda/utility/honk
 	name = "Honk Synthesizer"
@@ -25,7 +31,7 @@
 
 /datum/data/pda/utility/toggle_door
 	name = "Toggle Door"
-	icon = "external-link"
+	icon = "external-link-alt"
 	var/remote_door_id = ""
 
 /datum/data/pda/utility/toggle_door/start()
@@ -35,6 +41,8 @@
 				M.open()
 			else
 				M.close()
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
 /datum/data/pda/utility/scanmode/medical
 	base_name = "Med Scanner"
@@ -107,7 +115,7 @@
 
 /datum/data/pda/utility/scanmode/gas
 	base_name = "Gas Scanner"
-	icon = "tachometer"
+	icon = "tachometer-alt"
 
 /datum/data/pda/utility/scanmode/gas/scan_atom(atom/A as mob|obj|turf|area, mob/user as mob)
 	if(istype(A, /obj/item/tank))
@@ -121,8 +129,8 @@
 		pda.atmosanalyzer_scan(T.parent.air, user, T)
 	else if(istype(A, /obj/machinery/power/rad_collector))
 		var/obj/machinery/power/rad_collector/T = A
-		if(T.P)
-			pda.atmosanalyzer_scan(T.P.air_contents, user, T)
+		if(T.loaded_tank)
+			pda.atmosanalyzer_scan(T.loaded_tank.air_contents, user, T)
 	else if(istype(A, /obj/item/flamethrower))
 		var/obj/item/flamethrower/T = A
 		if(T.ptank)
@@ -134,56 +142,3 @@
 		var/obj/machinery/atmospherics/unary/tank/T = A
 		pda.atmosanalyzer_scan(T.air_contents, user, T)
 
-/datum/data/pda/utility/scanmode/notes
-	base_name = "Note Scanner"
-	icon = "clipboard"
-	var/datum/data/pda/app/notekeeper/notes
-
-/datum/data/pda/utility/scanmode/notes/start()
-	. = ..()
-	notes = pda.find_program(/datum/data/pda/app/notekeeper)
-
-/datum/data/pda/utility/scanmode/notes/scan_atom(atom/A as mob|obj|turf|area, mob/user as mob)
-	if(notes && istype(A, /obj/item/paper))
-		var/obj/item/paper/P = A
-		var/list/brlist = list("p", "/p", "br", "hr", "h1", "h2", "h3", "h4", "/h1", "/h2", "/h3", "/h4")
-
-		// JMO 20140705: Makes scanned document show up properly in the notes. Not pretty for formatted documents,
-		// as this will clobber the HTML, but at least it lets you scan a document. You can restore the original
-		// notes by editing the note again. (Was going to allow you to edit, but scanned documents are too long.)
-		var/raw_scan = sanitize_simple(P.info, list("\t" = "", "ÿ" = ""))
-		var/formatted_scan = ""
-		// Scrub out the tags (replacing a few formatting ones along the way)
-		// Find the beginning and end of the first tag.
-		var/tag_start = findtext(raw_scan, "<")
-		var/tag_stop = findtext(raw_scan, ">")
-		// Until we run out of complete tags...
-		while(tag_start && tag_stop)
-			var/pre = copytext(raw_scan, 1, tag_start) // Get the stuff that comes before the tag
-			var/tag = lowertext(copytext(raw_scan, tag_start + 1, tag_stop)) // Get the tag so we can do intellegent replacement
-			var/tagend = findtext(tag, " ") // Find the first space in the tag if there is one.
-			// Anything that's before the tag can just be added as is.
-			formatted_scan = formatted_scan + pre
-			// If we have a space after the tag (and presumably attributes) just crop that off.
-			if(tagend)
-				tag = copytext(tag, 1, tagend)
-			if(tag in brlist) // Check if it's I vertical space tag.
-				formatted_scan = formatted_scan + "<br>" // If so, add some padding in.
-			raw_scan = copytext(raw_scan, tag_stop + 1) // continue on with the stuff after the tag
-			// Look for the next tag in what's left
-			tag_start = findtext(raw_scan, "<")
-			tag_stop = findtext(raw_scan, ">")
-		// Anything that is left in the page. just tack it on to the end as is
-		formatted_scan = formatted_scan + raw_scan
-		// If there is something in there already, pad it out.
-		if(length(notes.note) > 0)
-			notes.note += "<br><br>"
-		// Store the scanned document to the notes
-		notes.note += "Scanned Document. Edit to restore previous notes/delete scan.<br>----------<br>" + formatted_scan + "<br>"
-		// notehtml ISN'T set to allow user to get their old notes back. A better implementation would add a "scanned documents"
-		// feature to the PDA, which would better convey the availability of the feature, but this will work for now.
-		// Inform the user
-		to_chat(user, "<span class='notice'>Paper scanned and OCRed to notekeeper.</span>")//concept of scanning paper copyright brainoblivion 2009
-
-	else
-		to_chat(user, "<span class='warning'>Error scanning [A].</span>")

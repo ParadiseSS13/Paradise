@@ -60,7 +60,6 @@
 
 				spawn(20)
 					to_chat(src, "Backup battery online. Scanners, camera, and radio interface offline. Beginning fault-detection.")
-					end_multicam()
 					sleep(50)
 					my_area = get_area(src)
 					T = get_turf(src)
@@ -131,8 +130,6 @@
 								aiRestorePowerRoutine = 3
 						sleep(50)
 						theAPC = null
-
-	process_queued_alarms()
 
 /mob/living/silicon/ai/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)

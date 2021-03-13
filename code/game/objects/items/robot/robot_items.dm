@@ -29,7 +29,7 @@
 					"<span class='userdanger'>[user] has prodded you with [src]!</span>")
 
 	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
-	add_attack_logs(user, M, "Stunned with [src] (INTENT: [uppertext(user.a_intent)])")
+	add_attack_logs(user, M, "Stunned with [src] ([uppertext(user.a_intent)])")
 
 /obj/item/borg/overdrive
 	name = "Overdrive"

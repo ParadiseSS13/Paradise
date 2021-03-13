@@ -33,6 +33,13 @@
 	QDEL_NULL(inserted_key)
 	return ..()
 
+// So that beepsky can't push the janicart
+/obj/vehicle/CanPass(atom/movable/mover, turf/target, height)
+	if(istype(mover) && mover.checkpass(PASSMOB))
+		return TRUE
+	else
+		return ..()
+
 /obj/vehicle/examine(mob/user)
 	. = ..()
 	if(key_type)
@@ -201,7 +208,7 @@
 			for(var/m in buckled_mobs)
 				M.Bumped(m)
 
-/obj/vehicle/proc/RunOver(var/mob/living/carbon/human/H)
+/obj/vehicle/proc/RunOver(mob/living/carbon/human/H)
 	return		//write specifics for different vehicles
 
 
@@ -223,3 +230,7 @@
 
 /obj/vehicle/space/Process_Spacemove(direction)
 	return TRUE
+
+/obj/vehicle/zap_act(power, zap_flags)
+	zap_buckle_check(power)
+	return ..()

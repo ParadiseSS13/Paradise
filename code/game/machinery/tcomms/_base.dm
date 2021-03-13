@@ -40,7 +40,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/network_id = "None"
 	/// Is the machine active
 	var/active = TRUE
-	/// Has the machine been hit by an ionspheric anomalie
+	/// Has the machine been hit by an ionospheric anomaly
 	var/ion = FALSE
 
 /**
@@ -52,6 +52,19 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	. = ..()
 	GLOB.tcomms_machines += src
 	update_icon()
+	if((!mapload) && (usr))
+		// To the person who asks "Hey affected, why are you using this massive operator when you can use AREACOORD?" Well, ill tell you
+		// get_area_name is fucking broken and uses a for(x in world) search
+		// It doesnt even work, is expensive, and returns 0
+		// Im not refactoring one thing which could risk breaking all admin location logs
+		// Fight me
+		log_action(usr, "constructed a new [src] at [src ? "[get_location_name(src, TRUE)] [COORD(src)]" : "nonexistent location"] [ADMIN_JMP(src)]", adminmsg = TRUE)
+	// Add in component parts for the sake of deconstruction
+	component_parts = list()
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
 
 /**
   * Base Destructor
@@ -60,6 +73,8 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   */
 /obj/machinery/tcomms/Destroy()
 	GLOB.tcomms_machines -= src
+	if(usr)
+		log_action(usr, "destroyed a [src] at [src ? "[get_location_name(src, TRUE)] [COORD(src)]" : "nonexistent location"] [ADMIN_JMP(src)]", adminmsg = TRUE)
 	return ..()
 
 /**
@@ -90,23 +105,41 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	ui_interact(user)
 
 
+// If we do not override the default process(), the machine defaults to not processing, meaning it uses no power.
+/obj/machinery/tcomms/process()
+	return
+
 /**
-  * Start of Ion Anomalie Event
+  * Start of Ion Anomaly Event
   *
-  * Proc to easily start an Ion Anomalie's effects, and update the icon
+  * Proc to easily start an Ion Anomaly's effects, and update the icon
   */
 /obj/machinery/tcomms/proc/start_ion()
 	ion = TRUE
 	update_icon()
 
 /**
-  * End of Ion Anomalie Event
+  * End of Ion Anomaly Event
   *
-  * Proc to easily stop an Ion Anomalie's effects, and update the icon
+  * Proc to easily stop an Ion Anomaly's effects, and update the icon
   */
 /obj/machinery/tcomms/proc/end_ion()
 	ion = FALSE
 	update_icon()
+
+/**
+  * Z-Level transit change helper
+  *
+  * Proc to make sure you cant have two of these active on a Z-level at once. It also makes sure to update the linkage
+  */
+/obj/machinery/tcomms/onTransitZ(old_z, new_z)
+	. = ..()
+	if(active)
+		active = FALSE
+		// This needs a timer because otherwise its on the shuttle Z and the message is missed
+		addtimer(CALLBACK(src, /atom.proc/visible_message, "<span class='warning'>Radio equipment on [src] has been overloaded by heavy bluespace interference. Please restart the machine.</span>"), 5)
+	update_icon()
+
 
 /**
   * Logging helper
@@ -303,7 +336,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
 	  /* --- Loop through the receivers and categorize them --- */
 
-		if(is_admin(R) && !R.get_preference(CHAT_RADIO)) //Adminning with 80 people on can be fun when you're trying to talk and all you can hear is radios.
+		if(is_admin(R) && !R.get_preference(PREFTOGGLE_CHAT_RADIO)) //Adminning with 80 people on can be fun when you're trying to talk and all you can hear is radios.
 			continue
 
 		if(isnewplayer(R)) // we don't want new players to hear messages. rare but generates runtimes.
@@ -333,55 +366,14 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	  /* --- Some miscellaneous variables to format the string output --- */
 		var/freq_text = get_frequency_name(display_freq)
 
-		var/part_b_extra = ""
-		var/part_a = "<span class='[SSradio.frequency_span_class(display_freq)]'><b>\[[freq_text]\][part_b_extra]</b> <span class='name'>" // goes in the actual output
+		var/part_a = "<span class='[SSradio.frequency_span_class(display_freq)]'><b>\[[freq_text]\]</b> <span class='name'>" // goes in the actual output
 
 		// --- Some more pre-message formatting ---
 		var/part_b = "</span> <span class='message'>" // Tweaked for security headsets -- TLE
-		var/part_c = "</span></span>"
-
-
-		// --- Filter the message; place it in quotes apply a verb ---
-		var/quotedmsg = null
-		if(tcm.sender)
-			quotedmsg = "[tcm.sender.say_quote(multilingual_to_message(tcm.message_pieces))], \"[multilingual_to_message(tcm.message_pieces)]\""
-		else
-			quotedmsg = "says, \"[multilingual_to_message(tcm.message_pieces)]\""
 
 		// --- This following recording is intended for research and feedback in the use of department radio channels ---
 
-		var/part_blackbox_b = "</span><b> \[[freq_text]\]</b> <span class='message'>" // Tweaked for security headsets -- TLE
-		var/blackbox_msg = "[part_a][tcm.sender_name][part_blackbox_b][quotedmsg][part_c]"
-		//var/blackbox_admin_msg = "[part_a][M.name] (Real name: [M.real_name])[part_blackbox_b][quotedmsg][part_c]"
-
-		//BR.messages_admin += blackbox_admin_msg
-		if(istype(GLOB.blackbox))
-			switch(display_freq)
-				if(PUB_FREQ)
-					GLOB.blackbox.msg_common += blackbox_msg
-				if(SCI_FREQ)
-					GLOB.blackbox.msg_science += blackbox_msg
-				if(COMM_FREQ)
-					GLOB.blackbox.msg_command += blackbox_msg
-				if(MED_FREQ)
-					GLOB.blackbox.msg_medical += blackbox_msg
-				if(ENG_FREQ)
-					GLOB.blackbox.msg_engineering += blackbox_msg
-				if(SEC_FREQ)
-					GLOB.blackbox.msg_security += blackbox_msg
-				if(DTH_FREQ)
-					GLOB.blackbox.msg_deathsquad += blackbox_msg
-				if(SYND_FREQ)
-					GLOB.blackbox.msg_syndicate += blackbox_msg
-				if(SYNDTEAM_FREQ)
-					GLOB.blackbox.msg_syndteam += blackbox_msg
-				if(SUP_FREQ)
-					GLOB.blackbox.msg_cargo += blackbox_msg
-				if(SRV_FREQ)
-					GLOB.blackbox.msg_service += blackbox_msg
-				else
-					GLOB.blackbox.messages += blackbox_msg
-		//End of research and feedback code.
+		SSblackbox.LogBroadcast(display_freq)
 
 	 /* ###### Send the message ###### */
 
@@ -445,6 +437,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   * Otherwise shit breaks BADLY
   */
 /obj/item/paper/tcommskey/Initialize(mapload)
+	..()
 	return INITIALIZE_HINT_LATELOAD
 
 /**
@@ -462,3 +455,20 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 			break
 	return ..()
 
+/**
+  * Screwdriver Act Handler
+  *
+  * Handles the screwdriver action for all tcomms machines, so they can be open and closed to be deconstructed
+  */
+/obj/machinery/tcomms/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
+
+/**
+  * Crowbar Act Handler
+  *
+  * Handles the crowbar action for all tcomms machines, so they can be deconstructed
+  */
+/obj/machinery/tcomms/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_crowbar(user, I)

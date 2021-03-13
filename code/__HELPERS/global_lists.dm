@@ -23,6 +23,14 @@
 
 	init_subtypes(/datum/surgery_step, GLOB.surgery_steps)
 
+	// Different bodies
+	__init_body_accessory(/datum/body_accessory/body)
+	// Different tails
+	__init_body_accessory(/datum/body_accessory/tail)
+
+	// Setup species:accessory relations
+	initialize_body_accessory_by_species()
+
 	for(var/path in (subtypesof(/datum/surgery)))
 		GLOB.surgeries_list += new path()
 
@@ -30,6 +38,7 @@
 	init_datum_subtypes(/datum/superheroes, GLOB.all_superheroes, null, "name")
 	init_datum_subtypes(/datum/language, GLOB.all_languages, null, "name")
 
+	// Setup languages
 	for(var/language_name in GLOB.all_languages)
 		var/datum/language/L = GLOB.all_languages[language_name]
 		if(!(L.flags & NONGLOBAL))
@@ -54,7 +63,70 @@
 		var/datum/pipes/P = D
 		if(P.rpd_dispensable)
 			GLOB.rpd_pipe_list += list(list("pipe_name" = P.pipe_name, "pipe_id" = P.pipe_id, "pipe_type" = P.pipe_type, "pipe_category" = P.pipe_category, "orientations" = P.orientations, "pipe_icon" = P.pipe_icon, "bendy" = P.bendy))
-	return 1
+
+	// Setup PAI software
+	for(var/type in subtypesof(/datum/pai_software))
+		var/datum/pai_software/P = new type()
+		if(GLOB.pai_software_by_key[P.id])
+			var/datum/pai_software/O = GLOB.pai_software_by_key[P.id]
+			to_chat(world, "<span class='warning'>pAI software module [P.name] has the same key as [O.name]!</span>")
+			continue
+		GLOB.pai_software_by_key[P.id] = P
+
+	// Setup loadout gear
+	for(var/geartype in subtypesof(/datum/gear))
+		var/datum/gear/G = geartype
+
+		var/use_name = initial(G.display_name)
+		var/use_category = initial(G.sort_category)
+
+		if(G == initial(G.subtype_path))
+			continue
+
+		if(!use_name)
+			error("Loadout - Missing display name: [G]")
+			continue
+		if(!initial(G.cost))
+			error("Loadout - Missing cost: [G]")
+			continue
+		if(!initial(G.path))
+			error("Loadout - Missing path definition: [G]")
+			continue
+
+		if(!GLOB.loadout_categories[use_category])
+			GLOB.loadout_categories[use_category] = new /datum/loadout_category(use_category)
+		var/datum/loadout_category/LC = GLOB.loadout_categories[use_category]
+		GLOB.gear_datums[use_name] = new geartype
+		LC.gear[use_name] = GLOB.gear_datums[use_name]
+
+	GLOB.loadout_categories = sortAssoc(GLOB.loadout_categories)
+	for(var/loadout_category in GLOB.loadout_categories)
+		var/datum/loadout_category/LC = GLOB.loadout_categories[loadout_category]
+		LC.gear = sortAssoc(LC.gear)
+
+
+	// Setup a list of robolimbs
+	GLOB.basic_robolimb = new()
+	for(var/limb_type in typesof(/datum/robolimb))
+		var/datum/robolimb/R = new limb_type()
+		GLOB.all_robolimbs[R.company] = R
+		if(!R.unavailable_at_chargen)
+			if(R != "head" && R != "chest" && R != "groin" ) //Part of the method that ensures only IPCs can access head, chest and groin prosthetics.
+				if(R.has_subtypes) //Ensures solos get added to the list as well be incorporating has_subtypes == 1 and has_subtypes == 2.
+					GLOB.chargen_robolimbs[R.company] = R //List only main brands and solo parts.
+		if(R.selectable)
+			GLOB.selectable_robolimbs[R.company] = R
+
+	// Setup world topic handlers
+	for(var/topic_handler_type in subtypesof(/datum/world_topic_handler))
+		var/datum/world_topic_handler/wth = new topic_handler_type()
+		if(!wth.topic_key)
+			stack_trace("[wth.type] has no topic key!")
+			continue
+		if(GLOB.world_topic_handlers[wth.topic_key])
+			stack_trace("[wth.type] has the same topic key as [GLOB.world_topic_handlers[wth.topic_key]]! ([wth.topic_key])")
+			continue
+		GLOB.world_topic_handlers[wth.topic_key] = topic_handler_type
 
 /* // Uncomment to debug chemical reaction list.
 /client/verb/debug_chemical_list()

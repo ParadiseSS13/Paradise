@@ -48,7 +48,7 @@
 	age = rand(AGE_MIN, AGE_MAX)
 
 
-/datum/preferences/proc/randomize_hair_color(var/target = "hair")
+/datum/preferences/proc/randomize_hair_color(target = "hair")
 	if(prob (75) && target == "facial") // Chance to inherit hair color
 		f_colour = h_colour
 		return
@@ -148,7 +148,7 @@
 
 	e_colour = rgb(red, green, blue)
 
-/datum/preferences/proc/randomize_skin_color(var/pass_on)
+/datum/preferences/proc/randomize_skin_color(pass_on)
 	var/red
 	var/green
 	var/blue
@@ -197,7 +197,7 @@
 	else
 		s_colour = rgb(red, green, blue)
 
-/datum/preferences/proc/blend_backpack(var/icon/clothes_s,var/backbag,var/satchel,var/backpack="backpack")
+/datum/preferences/proc/blend_backpack(icon/clothes_s, backbag, satchel, backpack="backpack")
 	switch(backbag)
 		if(2)
 			clothes_s.Blend(new /icon('icons/mob/back.dmi', backpack), ICON_OVERLAY)
@@ -207,7 +207,7 @@
 			clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
 	return clothes_s
 
-/datum/preferences/proc/update_preview_icon(var/for_observer=0)		//seriously. This is horrendous.
+/datum/preferences/proc/update_preview_icon(for_observer=0)		//seriously. This is horrendous.
 	qdel(preview_icon_front)
 	qdel(preview_icon_side)
 	qdel(preview_icon)
@@ -513,16 +513,16 @@
 					if(4)
 						clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
 			if(JOB_MINER)
-				clothes_s = new /icon(uniform_dmi, "miner_s")
-				clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
+				clothes_s = new /icon(uniform_dmi, "explorer_s")
+				clothes_s.Blend(new /icon('icons/mob/feet.dmi', "explorer"), ICON_UNDERLAY)
 				clothes_s.Blend(new /icon('icons/mob/hands.dmi', "bgloves"), ICON_UNDERLAY)
 				if(prob(1))
 					clothes_s.Blend(new /icon('icons/mob/head.dmi', "bearpelt"), ICON_OVERLAY)
 				switch(backbag)
 					if(2)
-						clothes_s.Blend(new /icon('icons/mob/back.dmi', "backpack"), ICON_OVERLAY)
+						clothes_s.Blend(new /icon('icons/mob/back.dmi', "explorerpack"), ICON_OVERLAY)
 					if(3)
-						clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel-eng"), ICON_OVERLAY)
+						clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel-explorer"), ICON_OVERLAY)
 					if(4)
 						clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
 			if(JOB_LAWYER)

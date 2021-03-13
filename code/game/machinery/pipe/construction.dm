@@ -1,3 +1,6 @@
+#define CIRC_LEFT WEST
+#define CIRC_RIGHT EAST
+
 /obj/item/pipe
 	name = "pipe"
 	desc = "A pipe"
@@ -106,10 +109,6 @@
 		else if(istype(make_from, /obj/machinery/atmospherics/unary/passive_vent))
 			src.pipe_type = PIPE_PASV_VENT
 
-		else if(istype(make_from, /obj/machinery/atmospherics/omni/mixer))
-			src.pipe_type = PIPE_OMNI_MIXER
-		else if(istype(make_from, /obj/machinery/atmospherics/omni/filter))
-			src.pipe_type = PIPE_OMNI_FILTER
 		else if(istype(make_from, /obj/machinery/atmospherics/binary/circulator))
 			src.pipe_type = PIPE_CIRCULATOR
 
@@ -150,7 +149,7 @@
 	else
 		return ..()
 
-/obj/item/pipe/proc/update(var/obj/machinery/atmospherics/make_from)
+/obj/item/pipe/proc/update(obj/machinery/atmospherics/make_from)
 	name = "[get_pipe_name(pipe_type, PIPETYPE_ATMOS)] fitting"
 	icon_state = get_pipe_icon(pipe_type)
 	var/obj/machinery/atmospherics/trinary/triP = make_from
@@ -259,7 +258,7 @@
 			return dir //dir|acw
 		if(PIPE_CONNECTOR, PIPE_UVENT, PIPE_PASV_VENT, PIPE_SCRUBBER, PIPE_HEAT_EXCHANGE, PIPE_INJECTOR)
 			return dir|flip
-		if(PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W, PIPE_OMNI_MIXER, PIPE_OMNI_FILTER)
+		if(PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W)
 			return dir|flip|cw|acw
 		if(PIPE_MANIFOLD, PIPE_SUPPLY_MANIFOLD, PIPE_SCRUBBERS_MANIFOLD)
 			return flip|cw|acw
@@ -304,7 +303,7 @@
 		else
 			return 0
 
-/obj/item/pipe/proc/unflip(var/direction)
+/obj/item/pipe/proc/unflip(direction)
 	if(!(direction in GLOB.cardinal))
 		return turn(direction, 45)
 
@@ -317,7 +316,7 @@
 			dir = 1
 		else if(dir==8)
 			dir = 4
-	else if(pipe_type in list(PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W, PIPE_OMNI_MIXER, PIPE_OMNI_FILTER))
+	else if(pipe_type in list(PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W))
 		dir = 2
 
 /obj/item/pipe/attack_self(mob/user as mob)
@@ -499,14 +498,6 @@
 				P.name = pipename
 			P.on_construction(dir, pipe_dir, color)
 
-		if(PIPE_OMNI_MIXER)
-			var/obj/machinery/atmospherics/omni/mixer/P = new(loc)
-			P.on_construction(dir, pipe_dir, color)
-
-		if(PIPE_OMNI_FILTER)
-			var/obj/machinery/atmospherics/omni/filter/P = new(loc)
-			P.on_construction(dir, pipe_dir, color)
-
 	user.visible_message( \
 		"[user] fastens the [src].", \
 		"<span class='notice'>You have fastened the [src].</span>", \
@@ -523,7 +514,7 @@
 	item_state = "buildpipe"
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/pipe_meter/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
+/obj/item/pipe_meter/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(!istype(W, /obj/item/wrench))
 		return ..()
 	if(!locate(/obj/machinery/atmospherics/pipe, src.loc))
@@ -548,7 +539,7 @@
 	item_state = "buildpipe"
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/pipe_gsensor/attackby(var/obj/item/W as obj, var/mob/user as mob)
+/obj/item/pipe_gsensor/attackby(obj/item/W as obj, mob/user as mob)
 	if(!istype(W, /obj/item/wrench))
 		return ..()
 	new/obj/machinery/air_sensor( src.loc )

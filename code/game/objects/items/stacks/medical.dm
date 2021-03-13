@@ -218,7 +218,13 @@
 	color = "#378C61"
 	stop_bleeding = 0
 	heal_brute = 12
+	drop_sound = 'sound/misc/moist_impact.ogg'
+	mob_throw_hit_sound = 'sound/misc/moist_impact.ogg'
+	hitsound = 'sound/misc/moist_impact.ogg'
 
+/obj/item/stack/medical/bruise_pack/comfrey/heal(mob/living/M, mob/user)
+	playsound(src, 'sound/misc/soggy.ogg', 30, TRUE)
+	return ..()
 
 /obj/item/stack/medical/ointment/aloe
 	name = "\improper Aloe Vera leaf"

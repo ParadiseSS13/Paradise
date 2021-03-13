@@ -35,6 +35,7 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	density = FALSE
 	mob_size = MOB_SIZE_TINY
+	mob_biotypes = MOB_ORGANIC | MOB_BUG
 	flying = TRUE
 	gold_core_spawnable = HOSTILE_SPAWN
 	search_objects = TRUE //have to find those plant trays!
@@ -94,6 +95,10 @@
 			. += A
 		for(var/mob/A in searched_for)
 			. += A
+
+// All bee sprites are made up of overlays. They do not have any special sprite overlays for items placed on them, such as collars, so this proc is unneeded.
+/mob/living/simple_animal/hostile/poison/bees/regenerate_icons()
+	return
 
 /mob/living/simple_animal/hostile/poison/bees/proc/generate_bee_visuals()
 	overlays.Cut()

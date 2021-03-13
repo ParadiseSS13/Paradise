@@ -17,8 +17,8 @@
 	var/opened = 0
 	var/material_drop = /obj/item/stack/sheet/metal
 
-/obj/structure/extinguisher_cabinet/New(turf/loc, direction = null)
-	..()
+/obj/structure/extinguisher_cabinet/Initialize(mapload, direction = null)
+	. = ..()
 	if(direction)
 		setDir(direction)
 		set_pixel_offsets_from_dir(28, -28, 30, -30)
@@ -40,7 +40,7 @@
 		return
 	if(!in_range(src, user))
 		return
-	if(!iscarbon(usr))
+	if(!iscarbon(usr) && !isrobot(usr))
 		return
 	playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 	opened = !opened

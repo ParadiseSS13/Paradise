@@ -21,14 +21,18 @@
 	var/SA_sleep_min = 5 //Sleeping agent
 
 
+	var/oxy_breath_dam_min = MIN_TOXIC_GAS_DAMAGE
+	var/oxy_breath_dam_max = MAX_TOXIC_GAS_DAMAGE
 	var/oxy_damage_type = OXY
-	var/oxy_breath_dam_multiplier = 1
+	var/nitro_breath_dam_min = MIN_TOXIC_GAS_DAMAGE
+	var/nitro_breath_dam_max = MAX_TOXIC_GAS_DAMAGE
 	var/nitro_damage_type = OXY
-	var/nitro_breath_dam_multiplier = 1
+	var/co2_breath_dam_min = MIN_TOXIC_GAS_DAMAGE
+	var/co2_breath_dam_max = MAX_TOXIC_GAS_DAMAGE
 	var/co2_damage_type = OXY
-	var/co2_breath_dam_multiplier = 1
+	var/tox_breath_dam_min = MIN_TOXIC_GAS_DAMAGE
+	var/tox_breath_dam_max = MAX_TOXIC_GAS_DAMAGE
 	var/tox_damage_type = TOX
-	var/tox_breath_dam_multiplier = 1
 
 	var/cold_message = "your face freezing and an icicle forming"
 	var/cold_level_1_threshold = 260
@@ -83,8 +87,11 @@
 	if((H.status_flags & GODMODE))
 		return
 
+	if(HAS_TRAIT(H, TRAIT_NOBREATH))
+		return
+
 	if(!breath || (breath.total_moles() == 0))
-		if(isspaceturf(loc))
+		if(isspaceturf(H.loc))
 			H.adjustOxyLoss(10)
 		else
 			H.adjustOxyLoss(5)
@@ -118,8 +125,8 @@
 	//Too much oxygen! //Yes, some species may not like it.
 	if(safe_oxygen_max)
 		if(O2_pp > safe_oxygen_max)
-			var/ratio = breath.oxygen/safe_oxygen_max
-			H.apply_damage_type(ratio * 325 * oxy_breath_dam_multiplier, oxy_damage_type)
+			var/ratio = (breath.oxygen / safe_oxygen_max / safe_oxygen_max) * 10
+			H.apply_damage_type(clamp(ratio, oxy_breath_dam_min, oxy_breath_dam_max), oxy_damage_type)
 			H.throw_alert("too_much_oxy", /obj/screen/alert/too_much_oxy)
 		else
 			H.clear_alert("too_much_oxy")
@@ -144,8 +151,8 @@
 	//Too much nitrogen!
 	if(safe_nitro_max)
 		if(N2_pp > safe_nitro_max)
-			var/ratio = breath.nitrogen/safe_nitro_max
-			H.apply_damage_type(ratio * 325 * nitro_breath_dam_multiplier, nitro_damage_type)
+			var/ratio = (breath.nitrogen / safe_nitro_max) * 10
+			H.apply_damage_type(clamp(ratio, nitro_breath_dam_min, nitro_breath_dam_max), nitro_damage_type)
 			H.throw_alert("too_much_nitro", /obj/screen/alert/too_much_nitro)
 		else
 			H.clear_alert("too_much_nitro")
@@ -174,9 +181,9 @@
 				H.co2overloadtime = world.time
 			else if(world.time - H.co2overloadtime > 120)
 				H.Paralyse(3)
-				H.apply_damage_type(HUMAN_MAX_OXYLOSS * co2_breath_dam_multiplier, co2_damage_type) // Lets hurt em a little, let them know we mean business
+				H.apply_damage_type(HUMAN_MAX_OXYLOSS, co2_damage_type) // Lets hurt em a little, let them know we mean business
 				if(world.time - H.co2overloadtime > 300) // They've been in here 30s now, lets start to kill them for their own good!
-					H.apply_damage_type(15 * co2_breath_dam_multiplier, co2_damage_type)
+					H.apply_damage_type(15, co2_damage_type)
 				H.throw_alert("too_much_co2", /obj/screen/alert/too_much_co2)
 			if(prob(20)) // Lets give them some chance to know somethings not right though I guess.
 				H.emote("cough")
@@ -206,8 +213,8 @@
 	//Too much toxins!
 	if(safe_toxins_max)
 		if(Toxins_pp > safe_toxins_max)
-			var/ratio = breath.toxins/safe_toxins_max
-			H.apply_damage_type(ratio * 325 * tox_breath_dam_multiplier, tox_damage_type)
+			var/ratio = (breath.toxins / safe_toxins_max) * 10
+			H.apply_damage_type(clamp(ratio, tox_breath_dam_min, tox_breath_dam_max), tox_damage_type)
 			H.throw_alert("too_much_tox", /obj/screen/alert/too_much_tox)
 		else
 			H.clear_alert("too_much_tox")
@@ -263,11 +270,7 @@
 /obj/item/organ/internal/lungs/proc/handle_breath_temperature(datum/gas_mixture/breath, mob/living/carbon/human/H) // called by human/life, handles temperatures
 	var/breath_temperature = breath.temperature
 
-	var/species_traits = list()
-	if(H && H.dna.species && H.dna.species.species_traits)
-		species_traits = H.dna.species.species_traits
-
-	if(!(COLDRES in H.mutations) && !(RESISTCOLD in species_traits)) // COLD DAMAGE
+	if(!HAS_TRAIT(H, TRAIT_RESISTCOLD)) // COLD DAMAGE
 		var/CM = abs(H.dna.species.coldmod)
 		var/TC = 0
 		if(breath_temperature < cold_level_3_threshold)
@@ -283,7 +286,7 @@
 			if(prob(20))
 				to_chat(H, "<span class='warning'>You feel [cold_message] in your [name]!</span>")
 
-	if(!(HEATRES in H.mutations) && !(RESISTHOT in species_traits)) // HEAT DAMAGE
+	if(!HAS_TRAIT(H, TRAIT_RESISTHEAT)) // HEAT DAMAGE
 		var/HM = abs(H.dna.species.heatmod)
 		var/TH = 0
 		if(breath_temperature > heat_level_1_threshold && breath_temperature < heat_level_2_threshold)
@@ -324,7 +327,6 @@
 	safe_oxygen_max = 0.05 //This is toxic to us
 	safe_nitro_min = 16 //We breathe THIS!
 	oxy_damage_type = TOX //And it poisons us
-	oxy_breath_dam_multiplier = 0.16
 
 /obj/item/organ/internal/lungs/drask
 	icon = 'icons/obj/species_organs/drask.dmi'

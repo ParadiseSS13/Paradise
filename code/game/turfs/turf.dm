@@ -25,7 +25,7 @@
 
 	var/blocks_air = 0
 
-	var/PathNode/PNode = null //associated PathNode in the A* algorithm
+	var/datum/pathnode/PNode = null //associated PathNode in the A* algorithm
 
 	flags = 0
 
@@ -35,11 +35,8 @@
 
 	var/list/blueprint_data //for the station blueprints, images of objects eg: pipes
 
-	var/list/footstep_sounds
-	var/shoe_running_volume = 50
-	var/shoe_walking_volume = 20
-
 /turf/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
 	if(initialized)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
@@ -67,19 +64,6 @@
 
 	return INITIALIZE_HINT_NORMAL
 
-/hook/startup/proc/smooth_world()
-	var/watch = start_watch()
-	log_startup_progress("Smoothing atoms...")
-	for(var/turf/T in world)
-		if(T.smooth)
-			queue_smooth(T)
-		for(var/A in T)
-			var/atom/AA = A
-			if(AA.smooth)
-				queue_smooth(AA)
-	log_startup_progress(" Smoothed atoms in [stop_watch(watch)]s.")
-	return TRUE
-
 /turf/Destroy(force)
 	. = QDEL_HINT_IWILLGC
 	if(!changing_turf)
@@ -93,11 +77,8 @@
 			qdel(A)
 		return
 	// Adds the adjacent turfs to the current atmos processing
-	for(var/direction in GLOB.cardinal)
-		if(atmos_adjacent_turfs & direction)
-			var/turf/simulated/T = get_step(src, direction)
-			if(istype(T))
-				SSair.add_to_active(T)
+	for(var/turf/simulated/T in atmos_adjacent_turfs)
+		SSair.add_to_active(T)
 	SSair.remove_from_active(src)
 	visibilityChanged()
 	QDEL_LIST(blueprint_data)
@@ -166,10 +147,16 @@
 		return FALSE
 
 	//Finally, check objects/mobs to block entry that are not on the border
+	var/atom/movable/tompost_bump
+	var/top_layer = FALSE
 	for(var/atom/movable/obstacle in large_dense)
 		if(!obstacle.CanPass(mover, mover.loc, 1) && (forget != obstacle))
-			mover.Bump(obstacle, TRUE)
-			return FALSE
+			if(obstacle.layer > top_layer)
+				tompost_bump = obstacle
+				top_layer = obstacle.layer
+	if(tompost_bump)
+		mover.Bump(tompost_bump, TRUE)
+		return FALSE
 	return TRUE //Nothing found to block so return success!
 
 /turf/Entered(atom/movable/M, atom/OL, ignoreRest = FALSE)
@@ -178,14 +165,6 @@
 		var/mob/O = M
 		if(!O.lastarea)
 			O.lastarea = get_area(O.loc)
-//		O.update_gravity(O.mob_has_gravity(src))
-
-	var/loopsanity = 100
-	for(var/atom/A in range(1))
-		if(loopsanity == 0)
-			break
-		loopsanity--
-		A.HasProximity(M)
 
 	// If an opaque movable atom moves around we need to potentially update visibility.
 	if(M.opacity)
@@ -194,7 +173,7 @@
 
 /turf/proc/levelupdate()
 	for(var/obj/O in src)
-		if(O.level == 1)
+		if(O.level == 1 && O.initialized) // Only do this if the object has initialized
 			O.hide(src.intact)
 
 // override for space turfs, since they should never hide anything
@@ -277,6 +256,13 @@
 	if(SSair && !ignore_air)
 		SSair.add_to_active(src)
 
+	//update firedoor adjacency
+	var/list/turfs_to_check = get_adjacent_open_turfs(src) | src
+	for(var/I in turfs_to_check)
+		var/turf/T = I
+		for(var/obj/machinery/door/firedoor/FD in T)
+			FD.CalculateAffectingAreas()
+
 	if(!keep_cabling && !can_have_cabling())
 		for(var/obj/structure/cable/C in contents)
 			qdel(C)
@@ -344,10 +330,6 @@
 /turf/proc/Bless()
 	flags |= NOJAUNT
 
-/turf/get_spooked()
-	for(var/atom/movable/AM in contents)
-		AM.get_spooked()
-
 // Defined here to avoid runtimes
 /turf/proc/MakeDry(wet_setting = TURF_WET_WATER)
 	return
@@ -366,7 +348,7 @@
 
 // Returns the surrounding cardinal turfs with open links
 // Including through doors openable with the ID
-/turf/proc/CardinalTurfsWithAccess(var/obj/item/card/id/ID)
+/turf/proc/CardinalTurfsWithAccess(obj/item/card/id/ID)
 	var/list/L = new()
 	var/turf/simulated/T
 
@@ -421,7 +403,7 @@
 				L.Add(T)
 	return L
 
-// check for all turfs, including unsimulated ones
+// check for all turfs, including space ones
 /turf/proc/AdjacentTurfsSpace(obj/item/card/id/ID = null, list/closed)//check access if one is passed
 	var/list/L = new()
 	var/turf/T
@@ -577,6 +559,3 @@
 
 /turf/AllowDrop()
 	return TRUE
-
-/turf/proc/water_act(volume, temperature, source)
- 	return FALSE

@@ -9,14 +9,12 @@ A list of items and costs is stored under the datum of every game mode, alongsid
 GLOBAL_LIST_EMPTY(world_uplinks)
 
 /obj/item/uplink
-	var/welcome 			// Welcoming menu message
 	var/uses 				// Numbers of crystals
 	var/hidden_crystals = 0
-	var/list/uplink_items	// List of categories with lists of items
-	var/list/ItemsReference	// List of references with an associated item
-	var/list/nanoui_items	// List of items for NanoUI use
-	var/nanoui_menu = 0		// The current menu we are in
-	var/list/nanoui_data = new // Additional data for NanoUI use
+	/// List of categories with items inside
+	var/list/uplink_cats
+	/// List of all items in total (For buying random)
+	var/list/uplink_items
 
 	var/purchase_log = ""
 	var/uplink_owner = null//text-only
@@ -25,13 +23,14 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/job = null
 	var/temp_category
 	var/uplink_type = "traitor"
+	/// Whether the uplink is jammed and cannot be used to order items.
+	var/is_jammed = FALSE
 
-/obj/item/uplink/nano_host()
+/obj/item/uplink/ui_host()
 	return loc
 
 /obj/item/uplink/New()
 	..()
-	welcome = SSticker.mode.uplink_welcome
 	uses = SSticker.mode.uplink_uses
 	uplink_items = get_uplink_items()
 
@@ -41,98 +40,49 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	GLOB.world_uplinks -= src
 	return ..()
 
-/obj/item/uplink/proc/generate_items(mob/user as mob)
-	var/datum/nano_item_lists/IL = generate_item_lists(user)
-	nanoui_items = IL.items_nano
-	ItemsReference = IL.items_reference
-
-// BS12 no longer use this menu but there are forks that do, hency why we keep it
-/obj/item/uplink/proc/generate_menu(mob/user as mob)
+/**
+  * Build the item lists for use with the UI
+  *
+  * Generates a list of items for use in the UI, based on job and other parameters
+  *
+  * Arguments:
+  * * user - User to check
+  */
+/obj/item/uplink/proc/generate_item_lists(mob/user)
 	if(!job)
 		job = user.mind.assigned_role
 
-	var/dat = "<B>[src.welcome]</B><BR>"
-	dat += "Telecrystals left: [src.uses]<BR>"
-	dat += "<HR>"
-	dat += "<B>Request item:</B><BR>"
-	dat += "<I>Each item costs a number of telecrystals as indicated by the number following its name.</I><br>"
-
-	var/category_items = 1
-	for(var/category in uplink_items)
-		if(category_items < 1)
-			dat += "<i>We apologize, as you could not afford anything from this category.</i><br>"
-		dat += "<br>"
-		dat += "<b>[category]</b><br>"
-		category_items = 0
-
-		for(var/datum/uplink_item/I in uplink_items[category])
-			if(I.cost > uses)
-				continue
-			if(I.job && I.job.len)
-				if(!(I.job.Find(job)))
-					continue
-			dat += "<A href='byond://?src=[UID()];buy_item=[I.reference];cost=[I.cost]'>[I.name]</A> ([I.cost])"
-			if(I.hijack_only)
-				dat += " (HIJACK ONLY)"
-			dat += " <BR>"
-			category_items++
-
-	dat += "<A href='byond://?src=[UID()];buy_item=random'>Random Item (??)</A><br>"
-	dat += "<HR>"
-	return dat
-
-/*
-	Built the item lists for use with NanoUI
-*/
-/obj/item/uplink/proc/generate_item_lists(mob/user as mob)
-	if(!job)
-		job = user.mind.assigned_role
-
-	var/list/nano = new
-	var/list/reference = new
+	var/list/cats = list()
 
 	for(var/category in uplink_items)
-		nano[++nano.len] = list("Category" = category, "items" = list())
+		cats[++cats.len] = list("cat" = category, "items" = list())
 		for(var/datum/uplink_item/I in uplink_items[category])
 			if(I.job && I.job.len)
 				if(!(I.job.Find(job)))
 					continue
-			nano[nano.len]["items"] += list(list("Name" = sanitize(I.name), "Description" = sanitize(I.description()),"Cost" = I.cost, "hijack_only" = I.hijack_only, "obj_path" = I.reference))
-			reference[I.reference] = I
+			cats[cats.len]["items"] += list(list("name" = sanitize(I.name), "desc" = sanitize(I.description()),"cost" = I.cost, "hijack_only" = I.hijack_only, "obj_path" = I.reference, "refundable" = I.refundable))
+			uplink_items[I.reference] = I
 
-	var/datum/nano_item_lists/result = new
-	result.items_nano = nano
-	result.items_reference = reference
-	return result
+	uplink_cats = cats
 
 //If 'random' was selected
 /obj/item/uplink/proc/chooseRandomItem()
 	if(uses <= 0)
 		return
 
-	var/list/random_items = new
-	for(var/IR in ItemsReference)
-		var/datum/uplink_item/UI = ItemsReference[IR]
+	var/list/random_items = list()
+
+	for(var/IR in uplink_items)
+		var/datum/uplink_item/UI = uplink_items[IR]
 		if(UI.cost <= uses && UI.limited_stock != 0)
 			random_items += UI
+
 	return pick(random_items)
 
-/obj/item/uplink/Topic(href, href_list)
-	if(..())
-		return 1
-
-	if(href_list["refund"])
-		refund(usr)
-
-	if(href_list["buy_item"] == "random")
-		var/datum/uplink_item/UI = chooseRandomItem()
-		href_list["buy_item"] = UI.reference
-		return buy(UI, "RN")
-	else
-		var/datum/uplink_item/UI = ItemsReference[href_list["buy_item"]]
-		return buy(UI, UI ? UI.reference : "")
-
-/obj/item/uplink/proc/buy(var/datum/uplink_item/UI, var/reference)
+/obj/item/uplink/proc/buy(datum/uplink_item/UI, reference)
+	if(is_jammed)
+		to_chat(usr, "<span class='warning'>[src] seems to be jammed - it cannot be used here!</span>")
+		return
 	if(!UI)
 		return
 	if(UI.limited_stock == 0)
@@ -141,17 +91,9 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	UI.buy(src,usr)
 	if(UI.limited_stock > 0) // only decrement it if it's actually limited
 		UI.limited_stock--
-	SSnanoui.update_uis(src)
+	SStgui.update_uis(src)
 
-	/* var/list/L = UI.spawn_item(get_turf(usr),src)
-	if(ishuman(usr))
-		var/mob/living/carbon/human/A = usr
-		for(var/obj/I in L)
-			A.put_in_any_hand_if_possible(I)
-
-	purchase_log[UI] = purchase_log[UI] + 1 */
-
-	return 1
+	return TRUE
 
 /obj/item/uplink/proc/refund(mob/user as mob)
 	var/obj/item/I = user.get_active_hand()
@@ -167,6 +109,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 					to_chat(user, "<span class='notice'>[I] refunded.</span>")
 					qdel(I)
 					return
+		// If we are here, we didnt refund
+		to_chat(user, "<span class='warning'>[I] is not refundable.</span>")
 
 // HIDDEN UPLINK - Can be stored in anything but the host item has to have a trigger for it.
 /* How to create an uplink in 3 easy steps!
@@ -205,95 +149,80 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 // Checks to see if the value meets the target. Like a frequency being a traitor_frequency, in order to unlock a headset.
 // If true, it accesses trigger() and returns 1. If it fails, it returns false. Use this to see if you need to close the
 // current item's menu.
-/obj/item/uplink/hidden/proc/check_trigger(mob/user as mob, var/value, var/target)
+/obj/item/uplink/hidden/proc/check_trigger(mob/user, value, target)
+	if(is_jammed)
+		to_chat(user, "<span class='warning'>[src] seems to be jammed - it cannot be used here!</span>")
+		return
 	if(value == target)
 		trigger(user)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
-/*
-	NANO UI FOR UPLINK WOOP WOOP
-*/
-/obj/item/uplink/hidden/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = GLOB.inventory_state)
-	var/title = "Remote Uplink"
-	// update the ui if it exists, returns null if no ui is passed/found
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/uplink/hidden/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "uplink.tmpl", title, 700, 600, state = state)
-		// open the new ui window
+		ui = new(user, src, ui_key, "Uplink", name, 900, 600, master_ui, state)
 		ui.open()
 
-/obj/item/uplink/hidden/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.inventory_state)
-	var/data[0]
+/obj/item/uplink/hidden/ui_data(mob/user)
+	var/list/data = list()
 
-	data["welcome"] = welcome
 	data["crystals"] = uses
-	data["menu"] = nanoui_menu
-	if(!nanoui_items)
-		generate_items(user)
-	data["nano_items"] = nanoui_items
-	data["category_choice"] = temp_category
-	data += nanoui_data
 
 	return data
+
+/obj/item/uplink/hidden/ui_static_data(mob/user)
+	var/list/data = list()
+
+	// Actual items
+	if(!uplink_cats || !uplink_items)
+		generate_item_lists(user)
+	data["cats"] = uplink_cats
+
+	// Exploitable info
+	var/list/exploitable = list()
+	for(var/datum/data/record/L in GLOB.data_core.general)
+		exploitable += list(list(
+			"name" = html_encode(L.fields["name"]),
+			"sex" = html_encode(L.fields["sex"]),
+			"age" = html_encode(L.fields["age"]),
+			"species" = html_encode(L.fields["species"]),
+			"rank" = html_encode(L.fields["rank"]),
+			"fingerprint" = html_encode(L.fields["fingerprint"])
+		))
+
+	data["exploitable"] = exploitable
+
+	return data
+
 
 // Interaction code. Gathers a list of items purchasable from the paren't uplink and displays it. It also adds a lock button.
 /obj/item/uplink/hidden/interact(mob/user)
 	ui_interact(user)
 
 // The purchasing code.
-/obj/item/uplink/hidden/Topic(href, href_list)
-	if(usr.stat || usr.restrained())
-		return 1
+/obj/item/uplink/hidden/ui_act(action, list/params)
+	if(..())
+		return
 
-	if(!( istype(usr, /mob/living/carbon/human)))
-		return 1
-	var/mob/user = usr
-	var/datum/nanoui/ui = SSnanoui.get_open_ui(user, src, "main")
-	if((usr.contents.Find(src.loc) || (in_range(src.loc, usr) && istype(src.loc.loc, /turf))))
-		usr.set_machine(src)
-		if(..(href, href_list))
-			return 1
-		else if(href_list["lock"])
+	. = TRUE
+	switch(action)
+		if("lock")
 			toggle()
 			uses += hidden_crystals
 			hidden_crystals = 0
-			ui.close()
-			return 1
-		if(href_list["menu"])
-			nanoui_menu = text2num(href_list["menu"])
-			update_nano_data(href_list["id"])
-		if(href_list["category"])
-			temp_category = href_list["category"]
-			update_nano_data()
+			SStgui.close_uis(src)
 
-	SSnanoui.update_uis(src)
-	return 1
+		if("refund")
+			refund(usr)
 
-/obj/item/uplink/hidden/proc/update_nano_data(var/id)
-	if(nanoui_menu == 1)
-		var/permanentData[0]
-		for(var/datum/data/record/L in sortRecord(GLOB.data_core.general))
-			permanentData[++permanentData.len] = list(Name = sanitize(L.fields["name"]),"id" = L.fields["id"])
-		nanoui_data["exploit_records"] = permanentData
+		if("buyRandom")
+			var/datum/uplink_item/UI = chooseRandomItem()
+			return buy(UI, "RN")
 
-	if(nanoui_menu == 11)
-		nanoui_data["exploit_exists"] = 0
-
-		for(var/datum/data/record/L in GLOB.data_core.general)
-			if(L.fields["id"] == id)
-				nanoui_data["exploit"] = list()  // Setting this to equal L.fields passes it's variables that are lists as reference instead of value.
-				nanoui_data["exploit"]["name"] =  html_encode(L.fields["name"])
-				nanoui_data["exploit"]["sex"] =  html_encode(L.fields["sex"])
-				nanoui_data["exploit"]["age"] =  html_encode(L.fields["age"])
-				nanoui_data["exploit"]["species"] =  html_encode(L.fields["species"])
-				nanoui_data["exploit"]["rank"] =  html_encode(L.fields["rank"])
-				nanoui_data["exploit"]["fingerprint"] =  html_encode(L.fields["fingerprint"])
-
-				nanoui_data["exploit_exists"] = 1
-				break
+		if("buyItem")
+			var/datum/uplink_item/UI = uplink_items[params["item"]]
+			return buy(UI, UI ? UI.reference : "")
 
 // I placed this here because of how relevant it is.
 // You place this in your uplinkable item to check if an uplink is active or not.

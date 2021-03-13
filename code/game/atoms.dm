@@ -7,6 +7,9 @@
 	var/list/fingerprints
 	var/list/fingerprintshidden
 	var/fingerprintslast = null
+	///For handling persistent filters
+	var/list/filter_data
+
 	var/list/blood_DNA
 	var/blood_color
 	var/last_bumped = 0
@@ -48,7 +51,16 @@
 	var/list/atom_colours	 //used to store the different colors on an atom
 						//its inherent color, the colored paint applied on it, special color effect etc...
 
+	/// Radiation insulation types
+	var/rad_insulation = RAD_NO_INSULATION
+
+	/// Last name used to calculate a color for the chatmessage overlays. Used for caching.
+	var/chat_color_name
+	/// Last color calculated for the the chatmessage overlays. Used for caching.
+	var/chat_color
+
 /atom/New(loc, ...)
+	SHOULD_CALL_PARENT(TRUE)
 	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
 		GLOB._preloader.load(src)
 	. = ..()
@@ -76,6 +88,7 @@
 // /turf/open/space/Initialize
 
 /atom/proc/Initialize(mapload, ...)
+	SHOULD_CALL_PARENT(TRUE)
 	if(initialized)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
@@ -231,7 +244,7 @@
 /atom/proc/on_reagent_change()
 	return
 
-/atom/proc/Bumped(AM as mob|obj)
+/atom/proc/Bumped(atom/movable/AM)
 	return
 
 /// Convenience proc to see if a container is open for chemistry handling
@@ -257,11 +270,14 @@
 /atom/proc/CheckExit()
 	return TRUE
 
-/atom/proc/HasProximity(atom/movable/AM as mob|obj)
+/atom/proc/HasProximity(atom/movable/AM)
 	return
 
 /atom/proc/emp_act(severity)
 	return
+
+/atom/proc/water_act(volume, temperature, source, method = REAGENT_TOUCH) //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
+	return TRUE
 
 /atom/proc/bullet_act(obj/item/projectile/P, def_zone)
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
@@ -397,6 +413,14 @@
 /atom/proc/emag_act()
 	return
 
+/**
+ * Respond to a radioactive wave hitting this atom
+ *
+ * Default behaviour is to send [COMSIG_ATOM_RAD_ACT] and return
+ */
+/atom/proc/rad_act(amount)
+	SEND_SIGNAL(src, COMSIG_ATOM_RAD_ACT, amount)
+
 /atom/proc/fart_act(mob/living/M)
 	return FALSE
 
@@ -415,8 +439,80 @@
 	if(AM && isturf(AM.loc))
 		step(AM, turn(AM.dir, 180))
 
+
+/atom/proc/add_filter(name, priority, list/params)
+	LAZYINITLIST(filter_data)
+	var/list/p = params.Copy()
+	p["priority"] = priority
+	filter_data[name] = p
+	update_filters()
+
+/atom/proc/update_filters()
+	filters = null
+	filter_data = sortTim(filter_data, /proc/cmp_filter_data_priority, TRUE)
+	for(var/f in filter_data)
+		var/list/data = filter_data[f]
+		var/list/arguments = data.Copy()
+		arguments -= "priority"
+		filters += filter(arglist(arguments))
+	UNSETEMPTY(filter_data)
+
+/atom/proc/transition_filter(name, time, list/new_params, easing, loop)
+	var/filter = get_filter(name)
+	if(!filter)
+		return
+
+	var/list/old_filter_data = filter_data[name]
+
+	var/list/params = old_filter_data.Copy()
+	for(var/thing in new_params)
+		params[thing] = new_params[thing]
+
+	animate(filter, new_params, time = time, easing = easing, loop = loop)
+	for(var/param in params)
+		filter_data[name][param] = params[param]
+
+/atom/proc/change_filter_priority(name, new_priority)
+	if(!filter_data || !filter_data[name])
+		return
+
+	filter_data[name]["priority"] = new_priority
+	update_filters()
+
+/obj/item/update_filters()
+	. = ..()
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
+
+/atom/proc/get_filter(name)
+	if(filter_data && filter_data[name])
+		return filters[filter_data.Find(name)]
+
+/atom/proc/remove_filter(name_or_names)
+	if(!filter_data)
+		return
+
+	var/list/names = islist(name_or_names) ? name_or_names : list(name_or_names)
+
+	for(var/name in names)
+		if(filter_data[name])
+			filter_data -= name
+	update_filters()
+
+/atom/proc/clear_filters()
+	filter_data = null
+	filters = null
+
+/*
+ * Base proc, terribly named but it's all over the code so who cares I guess right?
+ *
+ * Returns FALSE by default, if a child returns TRUE it is implied that the atom has in
+ * some way done a spooky thing. Current usage is so that Boo knows if it needs to cool
+ * down or not, but this could be expanded upon if you were a bad enough dude.
+ */
 /atom/proc/get_spooked()
-	return
+	return FALSE
 
 /**
 	Base proc, intended to be overriden.
@@ -479,7 +575,7 @@
 		add_fibers(M)
 
 		//He has no prints!
-		if(FINGERPRINTS in M.mutations)
+		if(HAS_TRAIT(M, TRAIT_NOFINGERPRINTS))
 			if(fingerprintslast != M.key)
 				fingerprintshidden += "(Has no fingerprints) Real name: [M.real_name], Key: [M.key]"
 				fingerprintslast = M.key
@@ -694,27 +790,44 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		blood_overlay.color = color
 		overlays += blood_overlay
 
-/atom/proc/clean_blood()
+/atom/proc/clean_blood(radiation_clean = FALSE)
 	germ_level = 0
+	if(radiation_clean)
+		clean_radiation()
 	if(islist(blood_DNA))
 		blood_DNA = null
 		return TRUE
 
-/obj/effect/decal/cleanable/blood/clean_blood()
+/**
+  * Removes some radiation from an atom
+  *
+  * Removes a configurable amount of radiation from an atom
+  * and stops green glow if radiation gets low enough through it.
+  * Arguments:
+  * * clean_factor - How much radiation to remove, as a multiple of RAD_BACKGROUND_RADIATION (currently 9)
+  */
+/atom/proc/clean_radiation(clean_factor = 2)
+	var/datum/component/radioactive/healthy_green_glow = GetComponent(/datum/component/radioactive)
+	if(!QDELETED(healthy_green_glow))
+		healthy_green_glow.strength = max(0, (healthy_green_glow.strength - (RAD_BACKGROUND_RADIATION * clean_factor)))
+		if(healthy_green_glow.strength <= RAD_BACKGROUND_RADIATION)
+			qdel(healthy_green_glow)
+
+/obj/effect/decal/cleanable/blood/clean_blood(radiation_clean = FALSE)
 	return // While this seems nonsensical, clean_blood isn't supposed to be used like this on a blood decal.
 
-/obj/item/clean_blood()
+/obj/item/clean_blood(radiation_clean = FALSE)
 	. = ..()
 	if(.)
 		if(blood_overlay)
 			overlays -= blood_overlay
 
-/obj/item/clothing/gloves/clean_blood()
+/obj/item/clothing/gloves/clean_blood(radiation_clean = FALSE)
 	. = ..()
 	if(.)
 		transfer_blood = 0
 
-/obj/item/clothing/shoes/clean_blood()
+/obj/item/clothing/shoes/clean_blood(radiation_clean = FALSE)
 	..()
 	bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0)
 	blood_state = BLOOD_STATE_NOT_BLOODY
@@ -722,36 +835,36 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		var/mob/M = loc
 		M.update_inv_shoes()
 
-/mob/living/carbon/human/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
+/mob/living/carbon/human/clean_blood(radiation_clean = FALSE, clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
 	if(w_uniform && !(wear_suit && wear_suit.flags_inv & HIDEJUMPSUIT))
-		if(w_uniform.clean_blood())
+		if(w_uniform.clean_blood(radiation_clean))
 			update_inv_w_uniform()
 	if(gloves && !(wear_suit && wear_suit.flags_inv & HIDEGLOVES))
-		if(gloves.clean_blood())
+		if(gloves.clean_blood(radiation_clean))
 			update_inv_gloves()
 			gloves.germ_level = 0
 			clean_hands = FALSE
 	if(shoes && !(wear_suit && wear_suit.flags_inv & HIDESHOES))
-		if(shoes.clean_blood())
+		if(shoes.clean_blood(radiation_clean))
 			update_inv_shoes()
 			clean_feet = FALSE
 	if(s_store && !(wear_suit && wear_suit.flags_inv & HIDESUITSTORAGE))
-		if(s_store.clean_blood())
+		if(s_store.clean_blood(radiation_clean))
 			update_inv_s_store()
 	if(lip_style && !(head && head.flags_inv & HIDEMASK))
 		lip_style = null
 		update_body()
 	if(glasses && !(wear_mask && wear_mask.flags_inv & HIDEEYES))
-		if(glasses.clean_blood())
+		if(glasses.clean_blood(radiation_clean))
 			update_inv_glasses()
 	if(l_ear && !(wear_mask && wear_mask.flags_inv & HIDEEARS))
-		if(l_ear.clean_blood())
+		if(l_ear.clean_blood(radiation_clean))
 			update_inv_ears()
 	if(r_ear && !(wear_mask && wear_mask.flags_inv & HIDEEARS))
-		if(r_ear.clean_blood())
+		if(r_ear.clean_blood(radiation_clean))
 			update_inv_ears()
 	if(belt)
-		if(belt.clean_blood())
+		if(belt.clean_blood(radiation_clean))
 			update_inv_belt()
 	..(clean_hands, clean_mask, clean_feet)
 	update_icons()	//apply the now updated overlays to the mob
@@ -831,6 +944,14 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/ratvar_act()
 	return
 
+/**
+ * Respond to an electric bolt action on our item
+ *
+ * Default behaviour is to return, we define here to allow for cleaner code later on
+ */
+/atom/proc/zap_act(power, zap_flags)
+	return
+
 /atom/proc/handle_ricochet(obj/item/projectile/P)
 	return
 
@@ -846,6 +967,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		M.show_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>", 2, null, 1)
 		if(M.client)
 			speech_bubble_hearers += M.client
+
+		if((M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && M.can_hear())
+			M.create_chat_message(src, message)
 
 	if(length(speech_bubble_hearers))
 		var/image/I = image('icons/mob/talk.dmi', src, "[bubble_icon][say_test(message)]", FLY_LAYER)
@@ -941,3 +1065,77 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		else if(C)
 			color = C
 			return
+
+/*
+	Checks whether this atom can traverse the destination object when used as source for AStar.
+	This should only be used as an override to /obj/proc/CanAStarPass. Aka don't use this unless you can't change the object's proc.
+	Returning TRUE here will override the above proc's result.
+*/
+/atom/proc/CanAStarPassTo(ID, dir, obj/destination)
+	return TRUE
+
+/** Call this when you want to present a renaming prompt to the user.
+
+    It's a simple proc, but handles annoying edge cases such as forgetting to add a "cancel" button,
+	or being able to rename stuff remotely.
+
+	Arguments:
+	* user - the renamer.
+	* implement - the tool doing the renaming (usually, a pen).
+	* use_prefix - whether the new name should follow the format of "thing - user-given label" or
+		if we allow to change the name completely arbitrarily.
+	* actually_rename - whether we want to really change the `src.name`, or if we want to do everything *except* that.
+	* prompt - a custom "what do you want rename this thing to be?" prompt shown in the inpit box.
+
+	Returns: Either null if the renaming was aborted, or the user-provided sanitized string.
+ **/
+/atom/proc/rename_interactive(mob/user, obj/implement = null, use_prefix = TRUE,
+		actually_rename = TRUE, prompt = null)
+	// Sanity check that the user can, indeed, rename the thing.
+	// This, sadly, means you can't rename things with a telekinetic pen, but that's
+	// too much of a hassle to make work nicely.
+	if((implement && implement.loc != user) || !in_range(src, user) || user.incapacitated(ignore_lying = TRUE))
+		return null
+
+	var/prefix = ""
+	if(use_prefix)
+		prefix = "[initial(name)] - "
+
+	var/default_value
+	if(!use_prefix)
+		default_value = name
+	else if(findtext(name, prefix) != 0)
+		default_value = copytext(name, length(prefix) + 1)
+	else
+		// Either the thing has a non-conforming name due to being set in the map
+		// OR (much more likely) the thing is unlabeled yet.
+		default_value = ""
+	if(!prompt)
+		prompt = "What would you like the label on [src] to be?"
+
+	var/t = input(user, prompt, "Renaming [src]", default_value)  as text | null
+	if(isnull(t))
+		// user pressed Cancel
+		return null
+
+	// Things could have changed between when `input` is called and when it returns.
+	if(!user)
+		return null
+	else if(implement && implement.loc != user)
+		to_chat(user, "<span class='warning'>You no longer have the pen to rename [src].</span>")
+		return null
+	else if(!in_range(src, user))
+		to_chat(user, "<span class='warning'>You cannot rename [src] from here.</span>")
+		return null
+	else if (user.incapacitated(ignore_lying = TRUE))
+		to_chat(user, "<span class='warning'>You cannot rename [src] in your current state.</span>")
+		return null
+
+
+	t = sanitize(copytext(t, 1, MAX_NAME_LEN))
+	if(actually_rename)
+		if(t == "")
+			name = "[initial(name)]"
+		else
+			name = "[prefix][t]"
+	return t

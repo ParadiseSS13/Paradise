@@ -34,7 +34,7 @@
 	taste_description = "mint"
 
 /datum/reagent/minttoxin/on_mob_life(mob/living/M)
-	if(FAT in M.mutations)
+	if(HAS_TRAIT(M, TRAIT_FAT))
 		M.gib()
 	return ..()
 
@@ -43,7 +43,7 @@
 	id = "slimejelly"
 	description = "A gooey semi-liquid produced from one of the deadliest lifeforms in existence. SO REAL."
 	reagent_state = LIQUID
-	color = "#801E28" // rgb: 128, 30, 40
+	color = "#0b8f70" // rgb: 11, 143, 112
 	taste_description = "slimes"
 	taste_mult = 1.3
 
@@ -51,10 +51,22 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(10))
 		to_chat(M, "<span class='danger'>Your insides are burning!</span>")
-		update_flags |= M.adjustToxLoss(rand(20,60)*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustToxLoss(rand(2, 6) * REAGENTS_EFFECT_MULTIPLIER, FALSE) // avg 0.4 toxin per cycle, not unreasonable
 	else if(prob(40))
-		update_flags |= M.adjustBruteLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(-0.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
+
+/datum/reagent/slimejelly/on_merge(list/mix_data)
+	if(data && mix_data)
+		if(mix_data["colour"])
+			color = mix_data["colour"]
+
+/datum/reagent/slimejelly/reaction_turf(turf/T, volume, color)
+	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/slime) in T)
+		var/obj/effect/decal/cleanable/blood/slime/B = new(T)
+		B.basecolor = color
+		B.update_icon()
+
 
 /datum/reagent/slimetoxin
 	name = "Mutation Toxin"
@@ -148,7 +160,7 @@
 
 /datum/reagent/radium/on_mob_life(mob/living/M)
 	if(M.radiation < 80)
-		M.apply_effect(4, IRRADIATE, negate_armor = 1)
+		M.apply_effect(4, IRRADIATE)
 	return ..()
 
 /datum/reagent/radium/reaction_turf(turf/T, volume)
@@ -168,17 +180,17 @@
 /datum/reagent/mutagen/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(!..())
 		return
-	if(!M.dna)
+	if(!M.dna || HAS_TRAIT(M, TRAIT_BADDNA) || HAS_TRAIT(M, TRAIT_GENELESS))
 		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	if((method==REAGENT_TOUCH && prob(33)) || method==REAGENT_INGEST)
 		randmutb(M)
-		domutcheck(M, null)
+		domutcheck(M)
 		M.UpdateAppearance()
 
 /datum/reagent/mutagen/on_mob_life(mob/living/M)
 	if(!M.dna)
 		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
-	M.apply_effect(2*REAGENTS_EFFECT_MULTIPLIER, IRRADIATE, negate_armor = 1)
+	M.apply_effect(2 * REAGENTS_EFFECT_MULTIPLIER, IRRADIATE)
 	if(prob(4))
 		randmutb(M)
 	return ..()
@@ -201,22 +213,15 @@
 	return ..()
 
 /datum/reagent/stable_mutagen/on_mob_life(mob/living/M)
-	if(!ishuman(M) || !M.dna)
+	if(!ishuman(M) || !M.dna || HAS_TRAIT(M, TRAIT_BADDNA) || HAS_TRAIT(M, TRAIT_GENELESS))
 		return
-	M.apply_effect(2*REAGENTS_EFFECT_MULTIPLIER, IRRADIATE, negate_armor = 1)
+	M.apply_effect(2 * REAGENTS_EFFECT_MULTIPLIER, IRRADIATE)
 	if(current_cycle == 10 && islist(data))
 		if(istype(data["dna"], /datum/dna))
 			var/mob/living/carbon/human/H = M
 			var/datum/dna/D = data["dna"]
 			if(!D.species.is_small)
-				H.set_species(D.species.type, retain_damage = TRUE)
-				H.dna = D.Clone()
-				H.real_name = D.real_name
-				domutcheck(H, null, MUTCHK_FORCED)
-				H.dna.UpdateSE()
-				H.dna.UpdateUI()
-				H.sync_organ_dna(TRUE)
-				H.UpdateAppearance()
+				H.change_dna(D, TRUE, TRUE)
 
 	return ..()
 
@@ -236,7 +241,7 @@
 	taste_description = "the inside of a reactor"
 
 /datum/reagent/uranium/on_mob_life(mob/living/M)
-	M.apply_effect(2, IRRADIATE, negate_armor = 1)
+	M.apply_effect(2, IRRADIATE)
 	return ..()
 
 /datum/reagent/uranium/reaction_turf(turf/T, volume)
@@ -467,7 +472,7 @@
 	taste_mult = 0
 
 /datum/reagent/polonium/on_mob_life(mob/living/M)
-	M.apply_effect(8, IRRADIATE, negate_armor = 1)
+	M.apply_effect(8, IRRADIATE)
 	return ..()
 
 /datum/reagent/histamine
@@ -539,7 +544,7 @@
 			update_flags |= M.Weaken(8, FALSE)
 		else if(effect <= 7)
 			to_chat(M, "<span class='warning'>Your heartbeat is pounding inside your head!</span>")
-			M << 'sound/effects/singlebeat.ogg'
+			SEND_SOUND(M, sound('sound/effects/singlebeat.ogg'))
 			M.emote("collapse")
 			update_flags |= M.adjustOxyLoss(8, FALSE)
 			update_flags |= M.adjustToxLoss(3, FALSE)
@@ -917,6 +922,7 @@
 	reagent_state = LIQUID
 	color = "#191919"
 	metabolization_rate = 0.1
+	can_synth = FALSE
 	penetrates_skin = TRUE
 	taste_mult = 0
 
@@ -1034,27 +1040,26 @@
 		var/obj/structure/spacevine/SV = O
 		SV.on_chem_effect(src)
 
-/datum/reagent/glyphosate/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(iscarbon(M))
-		var/mob/living/carbon/C = M
-		if(!C.wear_mask) // If not wearing a mask
-			C.adjustToxLoss(lethality)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(IS_PLANT in H.dna.species.species_traits) //plantmen take extra damage
-				H.adjustToxLoss(3)
-				..()
-	else if(istype(M, /mob/living/simple_animal/diona)) //nymphs take EVEN MORE damage
-		var/mob/living/simple_animal/diona/D = M
-		D.adjustHealth(100)
-		..()
+/datum/reagent/glyphosate/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
+	if(isliving(M))
+		if(M.mob_biotypes & MOB_PLANT)
+			var/damage = min(round(0.4 * volume, 0.1), 10)
+			M.adjustToxLoss(damage)
+		if(iscarbon(M))
+			var/mob/living/carbon/C = M
+			if(!C.wear_mask) // If not wearing a mask
+				C.adjustToxLoss(lethality)
+		if(istype(M, /mob/living/simple_animal/diona)) //nymphs take EVEN MORE damage
+			var/mob/living/simple_animal/diona/D = M
+			D.adjustHealth(100)
+	..()
 
 /datum/reagent/glyphosate/atrazine
 	name = "Atrazine"
 	id = "atrazine"
 	description = "A herbicidal compound used for destroying unwanted plants."
 	reagent_state = LIQUID
-	color = "#17002D"
+	color = "#773E73" //RGB: 47 24 45
 	lethality = 2 //Atrazine, however, is definitely toxic
 
 
@@ -1075,15 +1080,17 @@
 		O.visible_message("<span class='warning'>The ants die.</span>")
 		qdel(O)
 
-/datum/reagent/pestkiller/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(iscarbon(M))
-		var/mob/living/carbon/C = M
-		if(!C.wear_mask) // If not wearing a mask
-			C.adjustToxLoss(2)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(iskidan(H)) //RIP
-				H.adjustToxLoss(20)
+/datum/reagent/pestkiller/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
+	if(isliving(M))
+		if(M.mob_biotypes & MOB_BUG)
+			var/damage = min(round(0.4 * volume, 0.1), 10)
+			M.adjustToxLoss(damage)
+		if(iscarbon(M))
+			var/mob/living/carbon/C = M
+			if(!C.wear_mask) // If not wearing a mask
+				C.adjustToxLoss(2)
+			if(iskidan(C)) //RIP
+				C.adjustToxLoss(18)
 
 /datum/reagent/capulettium
 	name = "Capulettium"
@@ -1107,12 +1114,12 @@
 			update_flags |= M.AdjustEyeBlurry(10, FALSE)
 		if(70 to INFINITY)
 			update_flags |= M.AdjustEyeBlurry(10, FALSE)
-			if(M.status_flags & FAKEDEATH)
+			if(HAS_TRAIT(M, TRAIT_FAKEDEATH))
 				fakerevive(M)
 	return ..() | update_flags
 
 /datum/reagent/capulettium/on_mob_delete(mob/living/M)
-	if(M.status_flags & FAKEDEATH)
+	if(HAS_TRAIT(M, TRAIT_FAKEDEATH))
 		fakerevive(M)
 	..()
 
@@ -1127,14 +1134,14 @@
 
 /datum/reagent/capulettium_plus/on_mob_life(mob/living/M)
 	M.Silence(2)
-	if((M.status_flags & FAKEDEATH) && !M.resting)
+	if((HAS_TRAIT(M, TRAIT_FAKEDEATH)) && !M.resting)
 		fakerevive(M)
-	else if(!(M.status_flags & FAKEDEATH) && M.resting)
+	else if(!HAS_TRAIT(M, TRAIT_FAKEDEATH) && M.resting)
 		fakedeath(M)
 	return ..()
 
 /datum/reagent/capulettium_plus/on_mob_delete(mob/living/M)
-	if(M.status_flags & FAKEDEATH)
+	if(HAS_TRAIT(M, TRAIT_FAKEDEATH))
 		fakerevive(M)
 	..()
 
@@ -1172,11 +1179,11 @@
 		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	if((method==REAGENT_TOUCH && prob(50)) || method==REAGENT_INGEST)
 		randmutb(M)
-		domutcheck(M, null)
+		domutcheck(M)
 		M.UpdateAppearance()
 
 /datum/reagent/glowing_slurry/on_mob_life(mob/living/M)
-	M.apply_effect(2, IRRADIATE, 0, negate_armor = 1)
+	M.apply_effect(2, IRRADIATE)
 	if(!M.dna)
 		return
 	var/did_mutation = FALSE
@@ -1187,7 +1194,7 @@
 		randmutg(M)
 		did_mutation = TRUE
 	if(did_mutation)
-		domutcheck(M, null)
+		domutcheck(M)
 		M.UpdateAppearance()
 	return ..()
 
@@ -1227,9 +1234,21 @@
 	shock_timer++
 	if(shock_timer >= rand(5,30)) //Random shocks are wildly unpredictable
 		shock_timer = 0
-		M.electrocute_act(rand(5, 20), "Teslium in their body", 1, TRUE) //Override because it's caused from INSIDE of you
-		playsound(M, "sparks", 50, 1)
+		M.electrocute_act(rand(5, 20), "Teslium in their body", 1, SHOCK_NOGLOVES) //Override because it's caused from INSIDE of you
+		playsound(M, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	return ..()
+
+/datum/reagent/teslium/on_mob_add(mob/living/M)
+	..()
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.physiology.siemens_coeff *= 2
+
+/datum/reagent/teslium/on_mob_delete(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.physiology.siemens_coeff *= 0.5
+	..()
 
 /datum/reagent/gluttonytoxin
 	name = "Gluttony's Blessing"
@@ -1237,6 +1256,7 @@
 	description = "An advanced corruptive toxin produced by something terrible."
 	reagent_state = LIQUID
 	color = "#5EFF3B" //RGB: 94, 255, 59
+	can_synth = FALSE
 	taste_description = "decay"
 
 /datum/reagent/gluttonytoxin/reaction_mob(mob/living/L, method=REAGENT_TOUCH, reac_volume)

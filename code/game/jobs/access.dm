@@ -54,7 +54,7 @@
 		L = list()
 	return check_access_list(L)
 
-/obj/proc/check_access_list(var/list/L)
+/obj/proc/check_access_list(list/L)
 	generate_req_lists()
 
 	if(!L)
@@ -63,7 +63,7 @@
 		return 0
 	return has_access(req_access, req_one_access, L)
 
-/proc/has_access(var/list/req_access, var/list/req_one_access, var/list/accesses)
+/proc/has_access(list/req_access, list/req_one_access, list/accesses)
 	for(var/req in req_access)
 		if(!(req in accesses)) //doesn't have this access
 			return 0
@@ -426,6 +426,7 @@
 
 //gets the alt title, failing that the actual job rank
 //this is unused
+// THEN WHY IS IT STILL HERE?? -AA07, 2020-07-31
 /obj/proc/sdsdsd()	//GetJobDisplayName
 	if(!istype(src, /obj/item/pda) && !istype(src,/obj/item/card/id))
 		return
@@ -442,7 +443,7 @@
 
 	return "Unknown"
 
-proc/GetIdCard(var/mob/living/carbon/human/H)
+/proc/GetIdCard(mob/living/carbon/human/H)
 	if(H.wear_id)
 		var/id = H.wear_id.GetID()
 		if(id)
@@ -451,7 +452,7 @@ proc/GetIdCard(var/mob/living/carbon/human/H)
 		var/obj/item/I = H.get_active_hand()
 		return I.GetID()
 
-proc/FindNameFromID(var/mob/living/carbon/human/H)
+/proc/FindNameFromID(mob/living/carbon/human/H)
 	ASSERT(istype(H))
 	var/obj/item/card/id/C = H.get_active_hand()
 	if( istype(C) || istype(C, /obj/item/pda) )
@@ -480,7 +481,7 @@ proc/FindNameFromID(var/mob/living/carbon/human/H)
 		if(ID)
 			return ID.registered_name
 
-proc/get_all_job_icons() //For all existing HUD icons
+/proc/get_all_job_icons() //For all existing HUD icons
 	return GLOB.joblist + list("Prisoner")
 
 /obj/proc/GetJobName() //Used in secHUD icon generation
@@ -510,3 +511,26 @@ proc/get_all_job_icons() //For all existing HUD icons
 		return rankName
 
 	return "Unknown" //Return unknown if none of the above apply
+
+/proc/get_accesslist_static_data(num_min_region = REGION_GENERAL, num_max_region = REGION_COMMAND)
+	var/list/retval
+	for(var/i in num_min_region to num_max_region)
+		var/list/accesses = list()
+		var/list/available_accesses
+		if(i == REGION_CENTCOMM) // Override necessary, because get_region_accesses(REGION_CENTCOM) returns BOTH CC and crew accesses.
+			available_accesses = get_all_centcom_access()
+		else
+			available_accesses = get_region_accesses(i)
+		for(var/access in available_accesses)
+			var/access_desc = (i == REGION_CENTCOMM) ? get_centcom_access_desc(access) : get_access_desc(access)
+			if (access_desc)
+				accesses += list(list(
+					"desc" = replacetext(access_desc, "&nbsp", " "),
+					"ref" = access,
+				))
+		retval += list(list(
+			"name" = get_region_accesses_name(i),
+			"regid" = i,
+			"accesses" = accesses
+		))
+	return retval

@@ -25,7 +25,7 @@ if you override it, MAKE SURE you call parent or it will not be usable
 the same goes for Remove(). if you override Remove(), call parent or else your power wont be removed on respec
 */
 
-/datum/action/changeling/proc/on_purchase(var/mob/user)
+/datum/action/changeling/proc/on_purchase(mob/user)
 	if(needs_button)
 		Grant(user)
 
@@ -35,7 +35,8 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 		return
 	try_to_sting(user)
 
-/datum/action/changeling/proc/try_to_sting(var/mob/user, var/mob/target)
+/datum/action/changeling/proc/try_to_sting(mob/user, mob/target)
+	user.changeNext_click(5)
 	if(!user.mind || !user.mind.changeling)
 		return
 	if(!can_sting(user, target))
@@ -45,18 +46,18 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 		sting_feedback(user, target)
 		take_chemical_cost(c)
 
-/datum/action/changeling/proc/sting_action(var/mob/user, var/mob/target)
+/datum/action/changeling/proc/sting_action(mob/user, mob/target)
 	return 0
 
-/datum/action/changeling/proc/sting_feedback(var/mob/user, var/mob/target)
+/datum/action/changeling/proc/sting_feedback(mob/user, mob/target)
 	return 0
 
-/datum/action/changeling/proc/take_chemical_cost(var/datum/changeling/changeling)
+/datum/action/changeling/proc/take_chemical_cost(datum/changeling/changeling)
 	changeling.chem_charges -= chemical_cost
 	changeling.geneticdamage += genetic_damage
 
 //Fairly important to remember to return 1 on success >.<
-/datum/action/changeling/proc/can_sting(var/mob/user, var/mob/target)
+/datum/action/changeling/proc/can_sting(mob/user, mob/target)
 	if(!ishuman(user)) //typecast everything from mob to carbon from this point onwards
 		return 0
 	if(req_human && (!ishuman(user) || issmall(user)))
@@ -72,7 +73,7 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 	if(req_stat < user.stat)
 		to_chat(user, "<span class='warning'>We are incapacitated.</span>")
 		return 0
-	if((user.status_flags & FAKEDEATH) && name!="Regenerate")
+	if(HAS_TRAIT(user, TRAIT_FAKEDEATH) && name != "Regenerate")
 		to_chat(user, "<span class='warning'>We are incapacitated.</span>")
 		return 0
 	if(c.geneticdamage > max_genetic_damage)
@@ -81,7 +82,7 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 	return 1
 
 //used in /mob/Stat()
-/datum/action/changeling/proc/can_be_used_by(var/mob/user)
+/datum/action/changeling/proc/can_be_used_by(mob/user)
 	if(!ishuman(user))
 		return 0
 	if(req_human && !ishuman(user))
@@ -89,16 +90,8 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 	return 1
 
 // Transform the target to the chosen dna. Used in transform.dm and tiny_prick.dm (handy for changes since it's the same thing done twice)
-/datum/action/changeling/proc/transform_dna(var/mob/living/carbon/human/H, var/datum/dna/D)
+/datum/action/changeling/proc/transform_dna(mob/living/carbon/human/H, datum/dna/D)
 	if(!D)
 		return
 
-	H.set_species(D.species.type, retain_damage = TRUE)
-	H.dna = D.Clone()
-	H.real_name = D.real_name
-	domutcheck(H, null, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
-	H.flavor_text = ""
-	H.dna.UpdateSE()
-	H.dna.UpdateUI()
-	H.sync_organ_dna(1)
-	H.UpdateAppearance()
+	H.change_dna(D, TRUE)

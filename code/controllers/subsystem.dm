@@ -35,7 +35,7 @@
 
 	var/static/list/failure_strikes //How many times we suspect a subsystem type has crashed the MC, 3 strikes and you're out!
 
-	var/offline_implications = "None" // What are the implications of this SS being offlined?
+	var/offline_implications = "None. No immediate action is needed." // What are the implications of this SS being offlined?
 
 //Do not override
 ///datum/controller/subsystem/New()
@@ -162,9 +162,7 @@
 /datum/controller/subsystem/Initialize(start_timeofday)
 	initialized = TRUE
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10
-	var/msg = "Initialized [name] subsystem within [time] second[time == 1 ? "" : "s"]!"
-	to_chat(world, "<span class='boldannounce'>[msg]</span>")
-	log_world(msg)
+	log_startup_progress("Initialized within [time] second[time == 1 ? "" : "s"]!")
 	return time
 
 //hook for printing stats to the "MC" statuspanel for admins to see performance and related stats etc.

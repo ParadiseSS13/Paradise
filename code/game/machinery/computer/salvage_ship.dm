@@ -13,7 +13,8 @@
 
 
 /obj/machinery/computer/salvage_ship/New()
-	curr_location= locate(/area/shuttle/salvage/start)
+	. = ..()
+	curr_location = locate(/area/shuttle/salvage/start)
 
 
 /obj/machinery/computer/salvage_ship/proc/salvage_move_to(area/destination as area)
@@ -105,5 +106,5 @@
 	updateUsrDialog()
 	return
 
-/obj/machinery/computer/salvage_ship/bullet_act(var/obj/item/projectile/Proj)
+/obj/machinery/computer/salvage_ship/bullet_act(obj/item/projectile/Proj)
 	visible_message("[Proj] ricochets off [src]!")

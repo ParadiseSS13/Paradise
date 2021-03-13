@@ -22,6 +22,7 @@
 		slowdown = initial(slowdown)
 
 /obj/item/gun/projectile/bow/dropped(mob/user)
+	..()
 	if(magazine && magazine.ammo_count())
 		magazine.empty_magazine()
 		ready_to_fire = FALSE
@@ -78,6 +79,7 @@
 	icon_state = "arrow"
 	force = 10
 	projectile_type = /obj/item/projectile/bullet/reusable/arrow
+	muzzle_flash_effect = null
 	caliber = "arrow"
 
 //quiver

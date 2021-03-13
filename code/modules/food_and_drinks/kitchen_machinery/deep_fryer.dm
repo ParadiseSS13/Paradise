@@ -103,9 +103,9 @@
 	input = /obj/item/reagent_containers/food/snacks/grown/banana
 	output = /obj/item/reagent_containers/food/snacks/friedbanana
 
-/datum/deepfryer_special/potato_chips
+/datum/deepfryer_special/fries
 	input = /obj/item/reagent_containers/food/snacks/rawsticks
-	output = /obj/item/reagent_containers/food/snacks/chips
+	output = /obj/item/reagent_containers/food/snacks/fries
 
 /datum/deepfryer_special/corn_chips
 	input = /obj/item/reagent_containers/food/snacks/grown/corn
@@ -119,19 +119,23 @@
 	input = /obj/item/reagent_containers/food/snacks/burrito
 	output = /obj/item/reagent_containers/food/snacks/chimichanga
 
-/datum/deepfryer_special/fries
+/datum/deepfryer_special/potato_chips
 	input = /obj/item/reagent_containers/food/snacks/grown/potato/wedges
-	output = /obj/item/reagent_containers/food/snacks/fries
+	output = /obj/item/reagent_containers/food/snacks/chips
 
 /datum/deepfryer_special/carrotfries
 	input = /obj/item/reagent_containers/food/snacks/grown/carrot/wedges
 	output = /obj/item/reagent_containers/food/snacks/carrotfries
 
+/datum/deepfryer_special/onionrings
+	input = /obj/item/reagent_containers/food/snacks/onion_slice
+	output = /obj/item/reagent_containers/food/snacks/onionrings
+
 /datum/deepfryer_special/fried_vox
 	input = /obj/item/organ/external
 	output = /obj/item/reagent_containers/food/snacks/fried_vox
 
-/datum/deepfryer_special/fried_vox/validate(var/obj/item/I)
+/datum/deepfryer_special/fried_vox/validate(obj/item/I)
 	if(!..())
 		return FALSE
 	var/obj/item/organ/external/E = I

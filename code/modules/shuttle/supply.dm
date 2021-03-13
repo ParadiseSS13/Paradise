@@ -1,8 +1,3 @@
-#define ORDER_SCREEN_WIDTH 625 //width of order computer interaction window
-#define ORDER_SCREEN_HEIGHT 580 //height of order computer interaction window
-#define SUPPLY_SCREEN_WIDTH 625 //width of supply computer interaction window
-#define SUPPLY_SCREEN_HEIGHT 620 //height of supply computer interaction window
-
 /obj/item/paper/manifest
 	name = "supply manifest"
 	var/erroneous = 0
@@ -19,7 +14,6 @@
 	width = 12
 	dwidth = 5
 	height = 7
-	roundstart_move = "supply_away"
 
 /obj/docking_port/mobile/supply/register()
 	if(!..())
@@ -98,7 +92,7 @@
 	var/intel_count = 0
 	var/crate_count = 0
 
-	var/msg = ""
+	var/msg = "<center>---[station_time_timestamp()]---</center><br>"
 	var/pointsEarned
 
 	for(var/atom/movable/MA in areaInstance)
@@ -231,7 +225,7 @@
 		msg += "<span class='good'>+[pointsEarned]</span>: Received [crate_count] crate(s).<br>"
 		SSshuttle.points += pointsEarned
 
-	SSshuttle.centcom_message = msg
+	SSshuttle.centcom_message += "[msg]<hr>"
 
 /proc/forbidden_atoms_check(atom/A)
 	var/list/blacklist = list(
@@ -387,161 +381,28 @@
 	icon_screen = "supply"
 	req_access = list(ACCESS_CARGO)
 	circuit = /obj/item/circuitboard/supplycomp
-	var/temp = null
+	/// Is this a public console (Confirm + Shuttle controls are not visible)
+	var/is_public = FALSE
+	/// Time of last request
 	var/reqtime = 0
-	var/hacked = 0
-	var/can_order_contraband = 0
-	var/last_viewed_group = "categories"
-	var/datum/supply_packs/content_pack
+	/// Can we order special supplies
+	var/hacked = FALSE
+	/// Can we order contraband
+	var/can_order_contraband = FALSE
 
-/obj/machinery/computer/ordercomp
+/obj/machinery/computer/supplycomp/public
 	name = "Supply Ordering Console"
 	desc = "Used to order supplies from cargo staff."
 	icon = 'icons/obj/computer.dmi'
 	icon_screen = "request"
 	circuit = /obj/item/circuitboard/ordercomp
-	var/reqtime = 0
-	var/last_viewed_group = "categories"
-	var/datum/supply_packs/content_pack
+	req_access = list()
+	is_public = TRUE
 
-/obj/machinery/computer/ordercomp/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/supplycomp/attack_ai(mob/user as mob)
 	return attack_hand(user)
 
-/obj/machinery/computer/ordercomp/attack_hand(var/mob/user as mob)
-	ui_interact(user)
-
-/obj/machinery/computer/ordercomp/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui)
-	if(!ui)
-		ui = new(user, src, ui_key, "order_console.tmpl", name, ORDER_SCREEN_WIDTH, ORDER_SCREEN_HEIGHT)
-		ui.open()
-
-/obj/machinery/computer/ordercomp/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
-	data["last_viewed_group"] = last_viewed_group
-
-	var/category_list[0]
-	for(var/category in GLOB.all_supply_groups)
-		category_list.Add(list(list("name" = get_supply_group_name(category), "category" = category)))
-	data["categories"] = category_list
-	var/cat = text2num(last_viewed_group)
-	var/packs_list[0]
-	for(var/set_name in SSshuttle.supply_packs)
-		var/datum/supply_packs/pack = SSshuttle.supply_packs[set_name]
-		if((!pack.contraband && !pack.hidden && !pack.special && pack.group == cat) || (!pack.contraband && !pack.hidden && (pack.special && pack.special_enabled) && pack.group == cat))
-			// 0/1 after the pack name (set_name) is a boolean for ordering multiple crates
-			packs_list.Add(list(list("name" = pack.name, "amount" = pack.amount, "cost" = pack.cost, "command1" = list("doorder" = "[set_name]0"), "command2" = list("doorder" = "[set_name]1"), "command3" = list("contents" = set_name))))
-
-	data["supply_packs"] = packs_list
-	if(content_pack)
-		var/pack_name = sanitize(content_pack.name)
-		data["contents_name"] = pack_name
-		data["contents"] = content_pack.manifest
-		data["contents_access"] = content_pack.access ? get_access_desc(content_pack.access) : "None"
-
-	var/requests_list[0]
-	for(var/set_name in SSshuttle.requestlist)
-		var/datum/supply_order/SO = set_name
-		if(SO)
-			// Check if the user owns the request, so they can cancel requests
-			var/obj/item/card/id/I = user.get_id_card()
-			var/owned = 0
-			if(I && SO.orderedby == I.registered_name)
-				owned = 1
-			requests_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "owned" = owned, "command1" = list("rreq" = SO.ordernum))))
-	data["requests"] = requests_list
-	var/orders_list[0]
-	for(var/set_name in SSshuttle.shoppinglist)
-		var/datum/supply_order/SO = set_name
-		if(SO)
-			orders_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby)))
-	data["orders"] = orders_list
-
-	data["points"] = round(SSshuttle.points)
-	data["send"] = list("send" = 1)
-
-	data["moving"] = SSshuttle.supply.mode != SHUTTLE_IDLE
-	data["at_station"] = SSshuttle.supply.getDockedId() == "supply_home"
-	data["timeleft"] = SSshuttle.supply.timeLeft(600)
-	return data
-
-/obj/machinery/computer/ordercomp/Topic(href, href_list)
-	if(..())
-		return 1
-
-	if(href_list["doorder"])
-		if(world.time < reqtime)
-			visible_message("<b>[src]</b>'s monitor flashes, \"[world.time - reqtime] seconds remaining until another requisition form may be printed.\"")
-			SSnanoui.update_uis(src)
-			return 1
-
-		var/index = copytext(href_list["doorder"], 1, length(href_list["doorder"])) //text2num(copytext(href_list["doorder"], 1))
-		var/multi = text2num(copytext(href_list["doorder"], -1))
-		if(!isnum(multi))
-			return 1
-		var/datum/supply_packs/P = SSshuttle.supply_packs[index]
-		if(!istype(P))
-			return 1
-		var/crates = 1
-		if(multi)
-			var/num_input = input(usr, "Amount:", "How many crates?") as null|num
-			if(!num_input || ..())
-				return 1
-			crates = clamp(round(num_input), 1, 20)
-
-		var/timeout = world.time + 600
-		var/reason = input(usr,"Reason:","Why do you require this item?","") as null|text
-		if(world.time > timeout || !reason || ..())
-			return 1
-		reason = sanitize(copytext(reason, 1, MAX_MESSAGE_LEN))
-
-		var/idname = "*None Provided*"
-		var/idrank = "*None Provided*"
-		if(ishuman(usr))
-			var/mob/living/carbon/human/H = usr
-			idname = H.get_authentification_name()
-			idrank = H.get_assignment()
-		else if(issilicon(usr))
-			idname = usr.real_name
-
-		reqtime = (world.time + 5) % 1e5
-
-		//make our supply_order datums
-		for(var/i = 1; i <= crates; i++)
-			var/datum/supply_order/O = SSshuttle.generateSupplyOrder(index, idname, idrank, reason, crates)
-			if(!O)	return
-			if(i == 1)
-				O.generateRequisition(loc)
-
-	else if(href_list["rreq"])
-		var/ordernum = text2num(href_list["rreq"])
-		var/obj/item/card/id/I = usr.get_id_card()
-		for(var/i=1, i<=SSshuttle.requestlist.len, i++)
-			var/datum/supply_order/SO = SSshuttle.requestlist[i]
-			if(SO.ordernum == ordernum && (I && SO.orderedby == I.registered_name))
-				SSshuttle.requestlist.Cut(i,i+1)
-				break
-
-	else if(href_list["last_viewed_group"])
-		content_pack = null
-		last_viewed_group = text2num(href_list["last_viewed_group"])
-
-	else if(href_list["contents"])
-		var/topic = href_list["contents"]
-		if(topic == 1)
-			content_pack = null
-		else
-			var/datum/supply_packs/P = SSshuttle.supply_packs[topic]
-			content_pack = P
-
-	add_fingerprint(usr)
-	SSnanoui.update_uis(src)
-	return 1
-
-/obj/machinery/computer/supplycomp/attack_ai(var/mob/user as mob)
-	return attack_hand(user)
-
-/obj/machinery/computer/supplycomp/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/supplycomp/attack_hand(mob/user as mob)
 	if(!allowed(user) && !isobserver(user))
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return 1
@@ -553,41 +414,19 @@
 /obj/machinery/computer/supplycomp/emag_act(user as mob)
 	if(!hacked)
 		to_chat(user, "<span class='notice'>Special supplies unlocked.</span>")
-		hacked = 1
+		hacked = TRUE
 		return
 
-/obj/machinery/computer/supplycomp/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui)
+/obj/machinery/computer/supplycomp/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "supply_console.tmpl", name, SUPPLY_SCREEN_WIDTH, SUPPLY_SCREEN_HEIGHT)
+		ui = new(user, src, ui_key, "CargoConsole", name, 900, 800, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/supplycomp/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
-	data["last_viewed_group"] = last_viewed_group
+/obj/machinery/computer/supplycomp/ui_data(mob/user)
+	var/list/data = list()
 
-	var/category_list[0]
-	for(var/category in GLOB.all_supply_groups)
-		category_list.Add(list(list("name" = get_supply_group_name(category), "category" = category)))
-	data["categories"] = category_list
-
-	var/cat = text2num(last_viewed_group)
-	var/packs_list[0]
-	for(var/set_name in SSshuttle.supply_packs)
-		var/datum/supply_packs/pack = SSshuttle.supply_packs[set_name]
-		if((pack.hidden && hacked) || (pack.contraband && can_order_contraband) || (pack.special && pack.special_enabled) || (!pack.contraband && !pack.hidden && !pack.special))
-			if(pack.group == cat)
-				// 0/1 after the pack name (set_name) is a boolean for ordering multiple crates
-				packs_list.Add(list(list("name" = pack.name, "amount" = pack.amount, "cost" = pack.cost, "command1" = list("doorder" = "[set_name]0"), "command2" = list("doorder" = "[set_name]1"), "command3" = list("contents" = set_name))))
-
-	data["supply_packs"] = packs_list
-	if(content_pack)
-		var/pack_name = sanitize(content_pack.name)
-		data["contents_name"] = pack_name
-		data["contents"] = content_pack.manifest
-		data["contents_access"] = content_pack.access ? get_access_desc(content_pack.access) : "None"
-
-	var/requests_list[0]
+	var/list/requests_list = list()
 	for(var/set_name in SSshuttle.requestlist)
 		var/datum/supply_order/SO = set_name
 		if(SO)
@@ -596,148 +435,179 @@
 			requests_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "comment" = SO.comment, "command1" = list("confirmorder" = SO.ordernum), "command2" = list("rreq" = SO.ordernum))))
 	data["requests"] = requests_list
 
-	var/orders_list[0]
+	var/list/orders_list = list()
 	for(var/set_name in SSshuttle.shoppinglist)
 		var/datum/supply_order/SO = set_name
 		if(SO)
 			orders_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "comment" = SO.comment)))
 	data["orders"] = orders_list
 
-	data["canapprove"] = (SSshuttle.supply.getDockedId() == "supply_away") && !(SSshuttle.supply.mode != SHUTTLE_IDLE)
+	data["is_public"] = is_public
+
+	data["canapprove"] = (SSshuttle.supply.getDockedId() == "supply_away") && !(SSshuttle.supply.mode != SHUTTLE_IDLE) && !is_public
 	data["points"] = round(SSshuttle.points)
-	data["send"] = list("send" = 1)
-	data["message"] = SSshuttle.centcom_message ? SSshuttle.centcom_message : "Remember to stamp and send back the supply manifests."
 
 	data["moving"] = SSshuttle.supply.mode != SHUTTLE_IDLE
 	data["at_station"] = SSshuttle.supply.getDockedId() == "supply_home"
 	data["timeleft"] = SSshuttle.supply.timeLeft(600)
 	data["can_launch"] = !SSshuttle.supply.canMove()
+
+	return data
+
+/obj/machinery/computer/supplycomp/ui_static_data(mob/user)
+	var/list/data = list()
+	var/list/packs_list = list()
+
+	for(var/set_name in SSshuttle.supply_packs)
+		var/datum/supply_packs/pack = SSshuttle.supply_packs[set_name]
+		if((pack.hidden && hacked) || (pack.contraband && can_order_contraband) || (pack.special && pack.special_enabled) || (!pack.contraband && !pack.hidden && !pack.special))
+			packs_list.Add(list(list("name" = pack.name, "cost" = pack.cost, "ref" = "[pack.UID()]", "contents" = pack.ui_manifest, "cat" = pack.group)))
+
+	data["supply_packs"] = packs_list
+
+	var/list/categories = list() // meow
+	for(var/category in GLOB.all_supply_groups)
+		categories.Add(list(list("name" = get_supply_group_name(category), "category" = category)))
+	data["categories"] = categories
+
 	return data
 
 /obj/machinery/computer/supplycomp/proc/is_authorized(mob/user)
 	if(allowed(user))
-		return 1
+		return TRUE
 
 	if(user.can_admin_interact())
-		return 1
+		return TRUE
 
-	return 0
+	return FALSE
 
-/obj/machinery/computer/supplycomp/Topic(href, href_list)
+/obj/machinery/computer/supplycomp/ui_act(action, list/params)
 	if(..())
-		return 1
+		return
 
-	if(!is_authorized(usr))
-		return 1
+	// If its not a public console, and they aint authed, dont let them use this
+	if(!is_public && !is_authorized(usr))
+		return
 
 	if(!SSshuttle)
-		log_runtime(EXCEPTION("The SSshuttle controller datum is missing somehow."), src)
-		return 1
+		stack_trace("The SSshuttle controller datum is missing somehow.")
+		return
 
-	if(href_list["send"])
-		if(SSshuttle.supply.canMove())
-			to_chat(usr, "<span class='warning'>For safety reasons the automated supply shuttle cannot transport live organisms, classified nuclear weaponry or homing beacons.</span>")
-		else if(SSshuttle.supply.getDockedId() == "supply_home")
-			SSshuttle.toggleShuttle("supply", "supply_home", "supply_away", 1)
-			investigate_log("[key_name(usr)] has sent the supply shuttle away. Remaining points: [SSshuttle.points]. Shuttle contents: [SSshuttle.sold_atoms]", "cargo")
-		else if(!SSshuttle.supply.request(SSshuttle.getDock("supply_home")))
-			post_signal("supply")
-			if(LAZYLEN(SSshuttle.shoppinglist) && prob(10))
-				var/datum/supply_order/O = new /datum/supply_order()
-				O.ordernum = SSshuttle.ordernum
-				O.object = SSshuttle.supply_packs[pick(SSshuttle.supply_packs)]
-				O.orderedby = random_name(pick(MALE,FEMALE), species = "Human")
-				SSshuttle.shoppinglist += O
-				investigate_log("Random [O.object] crate added to supply shuttle")
-
-	else if(href_list["doorder"])
-		if(world.time < reqtime)
-			visible_message("<b>[src]</b>'s monitor flashes, \"[world.time - reqtime] seconds remaining until another requisition form may be printed.\"")
-			SSnanoui.update_uis(src)
-			return 1
-
-		var/index = copytext(href_list["doorder"], 1, length(href_list["doorder"])) //text2num(copytext(href_list["doorder"], 1))
-		var/multi = text2num(copytext(href_list["doorder"], -1))
-		if(!isnum(multi))
-			return 1
-		var/datum/supply_packs/P = SSshuttle.supply_packs[index]
-		if(!istype(P))
-			return 1
-		var/crates = 1
-		if(multi)
-			var/num_input = input(usr, "Amount:", "How many crates?") as null|num
-			if(!num_input || !is_authorized(usr) || ..())
-				return 1
-			crates = clamp(round(num_input), 1, 20)
-
-		var/timeout = world.time + 600
-		var/reason = input(usr,"Reason:","Why do you require this item?","") as null|text
-		if(world.time > timeout || !reason || !is_authorized(usr) || ..())
-			return 1
-		reason = sanitize(copytext(reason, 1, MAX_MESSAGE_LEN))
-
-		var/idname = "*None Provided*"
-		var/idrank = "*None Provided*"
-
-		if(ishuman(usr))
-			var/mob/living/carbon/human/H = usr
-			idname = H.get_authentification_name()
-			idrank = H.get_assignment()
-		else if(issilicon(usr))
-			idname = usr.real_name
-
-		//make our supply_order datums
-		for(var/i = 1; i <= crates; i++)
-			var/datum/supply_order/O = SSshuttle.generateSupplyOrder(index, idname, idrank, reason, crates)
-			if(!O)	return 1
-			if(i == 1)
-				O.generateRequisition(loc)
-
-	else if(href_list["confirmorder"])
-		if(SSshuttle.supply.getDockedId() != "supply_away" || SSshuttle.supply.mode != SHUTTLE_IDLE)
-			return 1
-		var/ordernum = text2num(href_list["confirmorder"])
-		var/datum/supply_order/O
-		var/datum/supply_packs/P
-		for(var/i=1, i<=SSshuttle.requestlist.len, i++)
-			var/datum/supply_order/SO = SSshuttle.requestlist[i]
-			if(SO.ordernum == ordernum)
-				O = SO
-				P = O.object
-				if(SSshuttle.points >= P.cost)
-					SSshuttle.requestlist.Cut(i,i+1)
-					SSshuttle.points -= P.cost
-					SSshuttle.shoppinglist += O
-					investigate_log("[key_name(usr)] has authorized an order for [P.name]. Remaining points: [SSshuttle.points].", "cargo")
-				else
-					to_chat(usr, "<span class='warning'>There are insufficient supply points for this request.</span>")
-				break
-
-	else if(href_list["rreq"])
-		var/ordernum = text2num(href_list["rreq"])
-		for(var/i=1, i<=SSshuttle.requestlist.len, i++)
-			var/datum/supply_order/SO = SSshuttle.requestlist[i]
-			if(SO.ordernum == ordernum)
-				SSshuttle.requestlist.Cut(i,i+1)
-				break
-
-	else if(href_list["last_viewed_group"])
-		content_pack = null
-		last_viewed_group = text2num(href_list["last_viewed_group"])
-
-	else if(href_list["contents"])
-		var/topic = href_list["contents"]
-		if(topic == 1)
-			content_pack = null
-		else
-			var/datum/supply_packs/P = SSshuttle.supply_packs[topic]
-			content_pack = P
-
+	. = TRUE
 	add_fingerprint(usr)
-	SSnanoui.update_uis(src)
-	return 1
 
-/obj/machinery/computer/supplycomp/proc/post_signal(var/command)
+	switch(action)
+		if("moveShuttle")
+			// Public consoles cant move the shuttle. Dont allow exploiters.
+			if(is_public)
+				return
+			if(SSshuttle.supply.canMove())
+				to_chat(usr, "<span class='warning'>For safety reasons the automated supply shuttle cannot transport live organisms, classified nuclear weaponry or homing beacons.</span>")
+			else if(SSshuttle.supply.getDockedId() == "supply_home")
+				SSshuttle.toggleShuttle("supply", "supply_home", "supply_away", 1)
+				investigate_log("[key_name(usr)] has sent the supply shuttle away. Remaining points: [SSshuttle.points]. Shuttle contents: [SSshuttle.sold_atoms]", "cargo")
+			else if(!SSshuttle.supply.request(SSshuttle.getDock("supply_home")))
+				post_signal("supply")
+				if(LAZYLEN(SSshuttle.shoppinglist) && prob(10))
+					var/datum/supply_order/O = new /datum/supply_order()
+					O.ordernum = SSshuttle.ordernum
+					O.object = SSshuttle.supply_packs[pick(SSshuttle.supply_packs)]
+					O.orderedby = random_name(pick(MALE,FEMALE), species = "Human")
+					SSshuttle.shoppinglist += O
+					investigate_log("Random [O.object] crate added to supply shuttle")
+
+		if("order")
+			if(world.time < reqtime)
+				visible_message("<b>[src]</b>'s monitor flashes, \"[world.time - reqtime] seconds remaining until another requisition form may be printed.\"")
+				return
+
+			var/amount = 1
+			if(params["multiple"] == "1") // 1 is a string here. DO NOT MAKE THIS A BOOLEAN YOU DORK
+				var/num_input = input(usr, "Amount", "How many crates? (20 Max)") as null|num
+				if(!num_input || (!is_public && !is_authorized(usr)) || ..()) // Make sure they dont walk away
+					return
+				amount = clamp(round(num_input), 1, 20)
+
+
+			var/datum/supply_packs/P = locateUID(params["crate"])
+			if(!istype(P))
+				return
+
+			var/timeout = world.time + 600 // If you dont type the reason within a minute, theres bigger problems here
+			var/reason = input(usr, "Reason", "Why do you require this item?","") as null|text
+			if(world.time > timeout || !reason || (!is_public && !is_authorized(usr)) || ..())
+				// Cancel if they take too long, they dont give a reason, they aint authed, or if they walked away
+				return
+			reason = sanitize(copytext(reason, 1, MAX_MESSAGE_LEN))
+
+			var/idname = "*None Provided*"
+			var/idrank = "*None Provided*"
+
+			if(ishuman(usr))
+				var/mob/living/carbon/human/H = usr
+				idname = H.get_authentification_name()
+				idrank = H.get_assignment()
+			else if(issilicon(usr))
+				idname = usr.real_name
+
+			//make our supply_order datums
+			for(var/i = 1; i <= amount; i++)
+				var/datum/supply_order/O = SSshuttle.generateSupplyOrder(params["crate"], idname, idrank, reason, amount)
+				if(!O)
+					return
+				if(i == 1)
+					O.generateRequisition(loc)
+
+		if("approve")
+			// Public consoles cant approve stuff
+			if(is_public)
+				return
+			if(SSshuttle.supply.getDockedId() != "supply_away" || SSshuttle.supply.mode != SHUTTLE_IDLE)
+				return
+
+			var/ordernum = text2num(params["ordernum"])
+			var/datum/supply_order/O
+			var/datum/supply_packs/P
+			for(var/i=1, i<=SSshuttle.requestlist.len, i++)
+				var/datum/supply_order/SO = SSshuttle.requestlist[i]
+				if(SO.ordernum == ordernum)
+					O = SO
+					P = O.object
+					if(SSshuttle.points >= P.cost)
+						SSshuttle.requestlist.Cut(i,i+1)
+						SSshuttle.points -= P.cost
+						SSshuttle.shoppinglist += O
+						investigate_log("[key_name(usr)] has authorized an order for [P.name]. Remaining points: [SSshuttle.points].", "cargo")
+					else
+						to_chat(usr, "<span class='warning'>There are insufficient supply points for this request.</span>")
+					break
+
+		if("deny")
+			var/ordernum = text2num(params["ordernum"])
+			for(var/i=1, i<=SSshuttle.requestlist.len, i++)
+				var/datum/supply_order/SO = SSshuttle.requestlist[i]
+				if(SO.ordernum == ordernum)
+					// If we are on a public console, only allow cancelling of our own orders
+					if(is_public)
+						var/obj/item/card/id/I = usr.get_id_card()
+						if(I && SO.orderedby == I.registered_name)
+							SSshuttle.requestlist.Cut(i,i+1)
+							break
+					// If we arent public, were cargo access. CANCELLATIONS FOR EVERYONE
+					else
+						SSshuttle.requestlist.Cut(i,i+1)
+						break
+
+		// Popup to show CC message logs. Its easier this way to avoid box-spam in TGUI
+		if("showMessages")
+			// Public consoles cant view messages
+			if(is_public)
+				return
+			var/datum/browser/ccmsg_browser = new(usr, "ccmsg", "Central Command Cargo Message Log", 800, 600)
+			ccmsg_browser.set_content(SSshuttle.centcom_message)
+			ccmsg_browser.open()
+
+/obj/machinery/computer/supplycomp/proc/post_signal(command)
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(DISPLAY_FREQ)
 
 	if(!frequency) return
@@ -748,9 +618,3 @@
 	status_signal.data["command"] = command
 
 	frequency.post_signal(src, status_signal)
-
-
-#undef ORDER_SCREEN_WIDTH
-#undef ORDER_SCREEN_HEIGHT
-#undef SUPPLY_SCREEN_WIDTH
-#undef SUPPLY_SCREEN_HEIGHT

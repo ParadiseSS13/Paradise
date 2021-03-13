@@ -72,7 +72,7 @@
 		return
 	return ..()
 
-/obj/item/organ/proc/set_dna(var/datum/dna/new_dna)
+/obj/item/organ/proc/set_dna(datum/dna/new_dna)
 	if(new_dna)
 		dna = new_dna.Clone()
 		if(blood_DNA)
@@ -100,7 +100,7 @@
 		return
 
 	//Process infections
-	if(is_robotic() || sterile || (owner && (NO_GERMS in owner.dna.species.species_traits)))
+	if(is_robotic() || sterile || (owner && HAS_TRAIT(owner, TRAIT_NOGERMS)))
 		germ_level = 0
 		return
 
@@ -172,12 +172,6 @@
 		if(parent.germ_level < germ_level && ( parent.germ_level < INFECTION_LEVEL_ONE * 2 || prob(30)))
 			parent.germ_level++
 
-/obj/item/organ/internal/handle_germs()
-	..()
-	if(germ_level >= INFECTION_LEVEL_TWO)
-		if(prob(3))	//about once every 30 seconds
-			receive_damage(1, silent = prob(30))
-
 /obj/item/organ/proc/rejuvenate()
 	damage = 0
 	germ_level = 0
@@ -199,7 +193,7 @@
 	return (damage >= min_broken_damage || ((status & ORGAN_BROKEN) && !(status & ORGAN_SPLINTED)))
 
 //Adds autopsy data for used_weapon.
-/obj/item/organ/proc/add_autopsy_data(var/used_weapon = "Unknown", var/damage)
+/obj/item/organ/proc/add_autopsy_data(used_weapon = "Unknown", damage)
 	var/datum/autopsy_data/W = autopsy_data[used_weapon]
 	if(!W)
 		W = new()
@@ -236,39 +230,7 @@
 	status &= ~ORGAN_SPLINTED
 	status |= ORGAN_ROBOT
 
-/obj/item/organ/external/emp_act(severity)
-	if(!is_robotic() || emp_proof)
-		return
-	if(tough)
-		switch(severity)
-			if(1)
-				receive_damage(0, 5.5)
-				if(owner)
-					owner.Stun(10)
-			if(2)
-				receive_damage(0, 2.8)
-				if(owner)
-					owner.Stun(5)
-	else
-		switch(severity)
-			if(1)
-				receive_damage(0, 20)
-			if(2)
-				receive_damage(0, 7)
-
-/obj/item/organ/internal/emp_act(severity)
-	if(!is_robotic() || emp_proof)
-		return
-	switch(severity)
-		if(1)
-			receive_damage(20, 1)
-		if(2)
-			receive_damage(7, 1)
-
-/obj/item/organ/proc/shock_organ(intensity)
-	return
-
-/obj/item/organ/proc/remove(var/mob/living/user,special = 0)
+/obj/item/organ/proc/remove(mob/living/user, special = 0)
 	if(!istype(owner))
 		return
 
@@ -277,7 +239,7 @@
 	var/obj/item/organ/external/affected = owner.get_organ(parent_organ)
 	if(affected) affected.internal_organs -= src
 
-	loc = get_turf(owner)
+	forceMove(get_turf(owner))
 	START_PROCESSING(SSobj, src)
 
 	if(owner && vital && is_primary_organ()) // I'd do another check for species or whatever so that you couldn't "kill" an IPC by removing a human head from them, but it doesn't matter since they'll come right back from the dead
@@ -286,12 +248,12 @@
 	owner = null
 	return src
 
-/obj/item/organ/proc/replaced(var/mob/living/carbon/human/target)
+/obj/item/organ/proc/replaced(mob/living/carbon/human/target)
 	return // Nothing uses this, it is always overridden
 
 // A version of `replaced` that "flattens" the process of insertion, making organs "Plug'n'play"
 // (Particularly the heart, which stops beating when removed)
-/obj/item/organ/proc/safe_replace(var/mob/living/carbon/human/target)
+/obj/item/organ/proc/safe_replace(mob/living/carbon/human/target)
 	replaced(target)
 
 /obj/item/organ/proc/surgeryize()
@@ -302,7 +264,7 @@ Returns 1 if this is the organ that is handling all the functionalities of that 
 Returns 0 if it isn't
 I use this so that this can be made better once the organ overhaul rolls out -- Crazylemon
 */
-/obj/item/organ/proc/is_primary_organ(var/mob/living/carbon/human/O = null)
+/obj/item/organ/proc/is_primary_organ(mob/living/carbon/human/O = null)
 	if(isnull(O))
 		O = owner
 	if(!istype(owner)) // You're not the primary organ of ANYTHING, bucko

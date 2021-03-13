@@ -31,14 +31,14 @@
 	. = ..()
 	. += "<span class='notice'>Alt-click to rotate it clockwise.</span>"
 
-obj/structure/windoor_assembly/New(loc, set_dir)
-	..()
+/obj/structure/windoor_assembly/Initialize(mapload, set_dir)
+	. = ..()
 	if(set_dir)
 		dir = set_dir
 	ini_dir = dir
 	air_update_turf(1)
 
-obj/structure/windoor_assembly/Destroy()
+/obj/structure/windoor_assembly/Destroy()
 	density = FALSE
 	QDEL_NULL(electronics)
 	air_update_turf(1)
@@ -148,12 +148,9 @@ obj/structure/windoor_assembly/Destroy()
 					W.forceMove(loc)
 
 			else if(istype(W, /obj/item/pen))
-				var/t = stripped_input(user, "Enter the name for the door.", name, created_name,MAX_NAME_LEN)
-				if(!t)
-					return
-				if(!in_range(src, usr) && loc != usr)
-					return
-				created_name = t
+				var/t = rename_interactive(user, W)
+				if(!isnull(t))
+					created_name = t
 				return
 			else
 				return ..()
@@ -203,9 +200,9 @@ obj/structure/windoor_assembly/Destroy()
 		windoor.density = FALSE
 
 		if(electronics.one_access)
-			windoor.req_one_access = electronics.conf_access
+			windoor.req_one_access = electronics.selected_accesses
 		else
-			windoor.req_access = electronics.conf_access
+			windoor.req_access = electronics.selected_accesses
 		windoor.electronics = src.electronics
 		electronics.forceMove(windoor)
 		electronics = null

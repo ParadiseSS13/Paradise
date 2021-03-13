@@ -15,7 +15,8 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	if(user.stat || !ishuman(user) || !user || !is_shadow(user || isinspace(user)))
 		return
 	if(!isturf(user.loc))
-		to_chat(user, "<span class='warning'>You can't hatch here!</span>")
+		revert_cast(user)
+		to_chat(user, "<span class='warning'>You must be standing on a floor to hatch!</span>")
 		return
 	for(var/mob/living/carbon/human/H in targets)
 		var/hatch_or_no = alert(H,"Are you sure you want to hatch? You cannot undo this!",,"Yes","No")
@@ -29,7 +30,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				H.visible_message("<span class='warning'>[H]'s things suddenly slip off. They hunch over and vomit up a copious amount of purple goo which begins to shape around them!</span>", \
 									"<span class='shadowling'>You remove any equipment which would hinder your hatching and begin regurgitating the resin which will protect you.</span>")
 
-				for(var/obj/item/I in H.contents - (H.bodyparts | H.internal_organs)) //drops all items except organs
+				for(var/obj/item/I in H.contents)
 					H.unEquip(I)
 
 				sleep(50)
@@ -65,7 +66,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				to_chat(H, "<i><b>You are free!</b></i>")
 				H.status_flags = temp_flags
 				sleep(10)
-				playsound(H.loc, 'sound/effects/ghost.ogg', 100, 1)
+				playsound(H.loc, 'sound/effects/ghost.ogg', 50, TRUE)
 				var/newNameId = pick(GLOB.possibleShadowlingNames)
 				GLOB.possibleShadowlingNames.Remove(newNameId)
 				H.real_name = newNameId
@@ -98,15 +99,14 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				sleep(10)
 				to_chat(H, "<span class='shadowling'><b><i>Your powers are awoken. You may now live to your fullest extent. Remember your goal. Cooperate with your thralls and allies.</b></i></span>")
 				H.ExtinguishMob()
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_vision(null))
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/enthrall(null))
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/glare(null))
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/enthrall(null))
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/glare(null))
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/veil(null))
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_walk(null))
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/flashfreeze(null))
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/collective_mind(null))
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_regenarmor(null))
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_extend_shuttle(null))
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/shadowling_extend_shuttle(null))
 
 				QDEL_NULL(H.hud_used)
 				H.hud_used = new /datum/hud/human(H, ui_style2icon(H.client.prefs.UI_style), H.client.prefs.UI_style_color, H.client.prefs.UI_style_alpha)
@@ -122,10 +122,13 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	include_user = 1
 	action_icon_state = "ascend"
 
+/obj/effect/proc_holder/spell/targeted/shadowling_ascend/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
+	if(!shadowling_check(user))
+		return FALSE
+	return ..()
+
 /obj/effect/proc_holder/spell/targeted/shadowling_ascend/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/H = user
-	if(!shadowling_check(H))
-		return
 	for(H in targets)
 		var/hatch_or_no = alert(H,"It is time to ascend. Are you sure about this?",,"Yes","No")
 		switch(hatch_or_no)
@@ -163,7 +166,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 					to_chat(M, "<span class='userdanger'>An immense pressure slams you onto the ground!</span>")
 				for(var/thing in GLOB.apcs)
 					var/obj/machinery/power/apc/A = thing
-					A.overload_lighting()
+					INVOKE_ASYNC(A, /obj/machinery/power/apc.proc/overload_lighting)
 				var/mob/living/simple_animal/ascendant_shadowling/A = new /mob/living/simple_animal/ascendant_shadowling(H.loc)
 				A.announce("VYSHA NERADA YEKHEZET U'RUU!!", 5, 'sound/hallucinations/veryfar_noise.ogg')
 				for(var/obj/effect/proc_holder/spell/S in H.mind.spell_list)
@@ -172,8 +175,8 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				H.mind.transfer_to(A)
 				A.name = H.real_name
 				A.languages = H.languages
-				A.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/annihilate(null))
-				A.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/hypnosis(null))
+				A.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/annihilate(null))
+				A.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/hypnosis(null))
 				A.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_phase_shift(null))
 				A.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/ascendant_storm(null))
 				A.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowlingAscendantTransmit(null))

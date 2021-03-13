@@ -1,17 +1,5 @@
 
 GLOBAL_LIST_INIT(body_accessory_by_name, list("None" = null))
-
-/hook/startup/proc/initalize_body_accessories()
-
-	__init_body_accessory(/datum/body_accessory/body)
-	__init_body_accessory(/datum/body_accessory/tail)
-
-	if(GLOB.body_accessory_by_name.len)
-		if(initialize_body_accessory_by_species())
-			return TRUE
-
-	return FALSE //fail if no bodies are found
-
 GLOBAL_LIST_INIT(body_accessory_by_species, list("None" = null))
 
 /proc/initialize_body_accessory_by_species()
@@ -90,7 +78,7 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list("None" = null))
 		return TRUE
 	return FALSE
 
-
+//Tajaran
 /datum/body_accessory/tail/wingler_tail // Jay wingler fluff tail
 	name = "Striped Tail"
 	icon_state = "winglertail"
@@ -127,3 +115,10 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list("None" = null))
 	icon_state = "straightbushy"
 	animated_icon_state = "straightbushy_a"
 	allowed_species = list("Vulpkanin")
+
+//Wryn
+/datum/body_accessory/tail/wryn
+	name = "Bee Tail"
+	icon_state = "wryntail"
+	allowed_species = list("Wryn")
+	

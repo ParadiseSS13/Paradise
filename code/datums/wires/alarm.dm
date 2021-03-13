@@ -2,35 +2,22 @@
 /datum/wires/alarm
 	holder_type = /obj/machinery/alarm
 	wire_count = 5
+	window_x = 385
+	window_y = 90
+	proper_name = "Air alarm"
 
-#define AALARM_WIRE_IDSCAN 1
-#define AALARM_WIRE_POWER 2
-#define AALARM_WIRE_SYPHON 4
-#define AALARM_WIRE_AI_CONTROL 8
-#define AALARM_WIRE_AALARM 16
+/datum/wires/alarm/New(atom/_holder)
+	wires = list(
+		WIRE_IDSCAN , WIRE_MAIN_POWER1 , WIRE_SYPHON,
+		WIRE_AI_CONTROL, WIRE_AALARM
+	)
+	return ..()
 
-/datum/wires/alarm/GetWireName(index)
-	switch(index)
-		if(AALARM_WIRE_IDSCAN)
-			return "ID Scan"
-		
-		if(AALARM_WIRE_POWER)
-			return "Power"
-		
-		if(AALARM_WIRE_SYPHON)
-			return "Syphon"
-		
-		if(AALARM_WIRE_AI_CONTROL)
-			return "AI Control"
-			
-		if(AALARM_WIRE_AALARM)
-			return "Atmospherics Alarm"
-
-/datum/wires/alarm/CanUse(mob/living/L)
+/datum/wires/alarm/interactable(mob/user)
 	var/obj/machinery/alarm/A = holder
 	if(A.wiresexposed)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /datum/wires/alarm/get_status()
 	. = ..()
@@ -39,75 +26,60 @@
 	. += "The Air Alarm is [(A.shorted || (A.stat & (NOPOWER|BROKEN))) ? "offline." : "working properly!"]"
 	. += "The 'AI control allowed' light is [A.aidisabled ? "off" : "on"]."
 
-/datum/wires/alarm/UpdateCut(index, mended)
+/datum/wires/alarm/on_cut(wire, mend)
 	var/obj/machinery/alarm/A = holder
-	switch(index)
-		if(AALARM_WIRE_IDSCAN)
-			if(!mended)
+	switch(wire)
+		if(WIRE_IDSCAN)
+			if(!mend)
 				A.locked = 1
-//				to_chat(world, "Idscan wire cut")
 
-		if(AALARM_WIRE_POWER)
+		if(WIRE_MAIN_POWER1)
 			A.shock(usr, 50)
-			A.shorted = !mended
+			A.shorted = !mend
 			A.update_icon()
-//			to_chat(world, "Power wire cut")
 
-		if(AALARM_WIRE_AI_CONTROL)
-			A.aidisabled = !mended
-//				to_chat(world, "AI Control Wire Cut")
+		if(WIRE_AI_CONTROL)
+			A.aidisabled = !mend
 
-		if(AALARM_WIRE_SYPHON)
-			if(!mended)
+		if(WIRE_SYPHON)
+			if(!mend)
 				A.mode = 3 // AALARM_MODE_PANIC
 				A.apply_mode()
-//				to_chat(world, "Syphon Wire Cut")
 
-		if(AALARM_WIRE_AALARM)
-			if(A.alarm_area.atmosalert(2, A))
-				A.post_alert(2)
+		if(WIRE_AALARM)
+			if(A.alarm_area.atmosalert(ATMOS_ALARM_DANGER, A))
+				A.post_alert(ATMOS_ALARM_DANGER)
 			A.update_icon()
 	..()
 
-/datum/wires/alarm/UpdatePulsed(index)
+/datum/wires/alarm/on_pulse(wire)
 	var/obj/machinery/alarm/A = holder
-	switch(index)
-		if(AALARM_WIRE_IDSCAN)
+	switch(wire)
+		if(WIRE_IDSCAN)
 			A.locked = !A.locked
-//			to_chat(world, "Idscan wire pulsed")
 
-		if(AALARM_WIRE_POWER)
-//			to_chat(world, "Power wire pulsed")
-			if(A.shorted == 0)
-				A.shorted = 1
+		if(WIRE_MAIN_POWER1)
+			if(!A.shorted)
+				A.shorted = TRUE
 				A.update_icon()
+			addtimer(CALLBACK(A, /obj/machinery/alarm/.proc/unshort_callback), 120 SECONDS)
 
-			spawn(12000)
-				if(A.shorted == 1)
-					A.shorted = 0
-					A.update_icon()
-
-
-		if(AALARM_WIRE_AI_CONTROL)
-//			to_chat(world, "AI Control wire pulsed")
-			if(A.aidisabled == 0)
-				A.aidisabled = 1
+		if(WIRE_AI_CONTROL)
+			if(!A.aidisabled)
+				A.aidisabled = TRUE
 			A.updateDialog()
-			spawn(100)
-				if(A.aidisabled == 1)
-					A.aidisabled = 0
+			addtimer(CALLBACK(A, /obj/machinery/alarm/.proc/enable_ai_control_callback), 10 SECONDS)
 
-		if(AALARM_WIRE_SYPHON)
-//			to_chat(world, "Syphon wire pulsed")
+
+		if(WIRE_SYPHON)
 			if(A.mode == 1) // AALARM_MODE_SCRUB
 				A.mode = 3 // AALARM_MODE_PANIC
 			else
 				A.mode = 1 // AALARM_MODE_SCRUB
 			A.apply_mode()
 
-		if(AALARM_WIRE_AALARM)
-//			to_chat(world, "Aalarm wire pulsed")
-			if(A.alarm_area.atmosalert(0, A))
-				A.post_alert(0)
+		if(WIRE_AALARM)
+			if(A.alarm_area.atmosalert(ATMOS_ALARM_NONE, A))
+				A.post_alert(ATMOS_ALARM_NONE)
 			A.update_icon()
 	..()

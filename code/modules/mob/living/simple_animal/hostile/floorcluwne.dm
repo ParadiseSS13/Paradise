@@ -11,10 +11,12 @@
 	icon_state = "cursedclown"
 	icon_living = "cursedclown"
 	icon_gib = "clown_gib"
+	mob_biotypes = NONE
 	maxHealth = 200
 	health = 200
 	speed = -1
 	attacktext = "attacks"
+	anchored = TRUE
 	attack_sound = 'sound/items/bikehorn.ogg'
 	del_on_death = TRUE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | LETPASSTHROW | PASSGLASS | PASSBLOB//it's practically a ghost when unmanifested (under the floor)
@@ -32,6 +34,7 @@
 	var/mob/living/carbon/human/current_victim
 	var/manifested = FALSE
 	var/switch_stage = 60
+	var/switch_stage_min = 20
 	var/stage = STAGE_HAUNT
 	var/interest = 0
 	var/target_area
@@ -142,7 +145,7 @@
 	return
 
 
-/mob/living/simple_animal/hostile/floor_cluwne/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE) //prevents runtimes with machine fuckery
+/mob/living/simple_animal/hostile/floor_cluwne/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE) //prevents runtimes with machine fuckery
 	return FALSE
 
 
@@ -302,12 +305,12 @@
 		if(STAGE_ATTACK)
 
 			if(!eating)
-				for(var/I in getline(src,H))
+				for(var/I in getline(src, get_turf(H)))
 					var/turf/T = I
 					for(var/obj/structure/O in T)
 						if(istype(O, /obj/structure/closet))
 							var/obj/structure/closet/locker = O
-							locker.dump_contents()
+							locker.bust_open()
 						if(O.density || istype(O, /obj/machinery/door/airlock))
 							forceMove(H.loc)
 					if(T.density)
@@ -344,7 +347,7 @@
 		visible_message("<span class='danger'>[src] begins dragging [H] under the floor!</span>")
 
 		if(do_after(src, 50, target = H) && eating)
-			H.BecomeBlind()
+			H.become_blind(FLOORCLUWNE)
 			H.layer = GAME_PLANE
 			H.invisibility = INVISIBILITY_MAXIMUM
 			H.mouse_opacity = 0
@@ -366,17 +369,12 @@
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Kill(mob/living/carbon/human/H)
 	playsound(H, 'sound/spookoween/scary_horn2.ogg', 100, 0)
-	var/old_color = H.client.color
-	var/red_splash = list(1,0,0,0.8,0.2,0, 0.8,0,0.2,0.1,0,0)
-	var/pure_red = list(0,0,0,0,0,0,0,0,0,1,0,0)
-	H.client.color = pure_red
+	var/old_color = H.client?.color
+	client_kill_animation(H)
 
-	animate(H.client, color = red_splash, time = 10, easing = SINE_EASING|EASE_OUT)
 	for(var/turf/T in orange(H, 4))
 		H.add_splatter_floor(T)
 	if(do_after(src, 50, target = H))
-
-
 		if(prob(50) || smiting)
 			H.makeCluwne()
 
@@ -391,7 +389,7 @@
 			O.droplimb()
 
 	Reset_View(FALSE, old_color, H)
-	H.CureBlind()
+	H.cure_blind(FLOORCLUWNE)
 	H.layer = initial(H.layer)
 	H.invisibility = initial(H.invisibility)
 	H.mouse_opacity = initial(H.mouse_opacity)
@@ -400,7 +398,7 @@
 
 	eating = FALSE
 	if(prob(2))
-		switch_stage = switch_stage * 0.75 //he gets a chance to be faster after each feast
+		switch_stage = max(switch_stage * 0.75, switch_stage_min) //he gets a chance to be faster after each feast
 	if(smiting)
 		playsound(loc, 'sound/spookoween/scary_horn2.ogg', 100, 0, -4)
 		qdel(src)
@@ -408,6 +406,15 @@
 		Acquire_Victim()
 
 		interest = 0
+
+/mob/living/simple_animal/hostile/floor_cluwne/proc/client_kill_animation(mob/living/carbon/human/H)
+	if(!H.client)
+		return
+	var/red_splash = list(1,0,0,0.8,0.2,0, 0.8,0,0.2,0.1,0,0)
+	var/pure_red = list(0,0,0,0,0,0,0,0,0,1,0,0)
+	H.client.color = pure_red
+
+	animate(H.client, color = red_splash, time = 10, easing = SINE_EASING|EASE_OUT)
 
 //manifestation animation
 /obj/effect/temp_visual/fcluwne_manifest

@@ -85,14 +85,14 @@
 /obj/item/reagent_containers/food/snacks/watermelonslice
 	name = "watermelon slice"
 	desc = "A slice of watery goodness."
-	icon_state = "watermelonslice"
+	icon_state = "watermelonslice" // Sprite created by https://github.com/binarysudoku for Goonstation, They have relicensed it for our use.
 	filling_color = "#FF3867"
 	tastes = list("watermelon" = 1)
 
 /obj/item/reagent_containers/food/snacks/pineappleslice
 	name = "pineapple slices"
 	desc = "Rings of pineapple."
-	icon_state = "pineappleslice"
+	icon_state = "pineappleslice" // Sprite created by https://github.com/binarysudoku for Goonstation, They have relicensed it for our use.
 	filling_color = "#e5b437"
 	tastes = list("pineapple" = 1)
 

@@ -5,6 +5,7 @@
 	min_broken_damage = 30
 	encased = null
 	status = ORGAN_ROBOT
+	emp_resistant = TRUE
 
 /obj/item/organ/external/head/ipc/New(mob/living/carbon/holder, datum/species/species_override = null)
 	..(holder, /datum/species/machine) // IPC heads need to be explicitly set to this since you can print them
@@ -13,6 +14,7 @@
 /obj/item/organ/external/chest/ipc
 	encased = null
 	status = ORGAN_ROBOT
+	emp_resistant = TRUE
 
 /obj/item/organ/external/chest/ipc/New()
 	..()
@@ -21,6 +23,7 @@
 /obj/item/organ/external/groin/ipc
 	encased = null
 	status = ORGAN_ROBOT
+	emp_resistant = TRUE
 
 /obj/item/organ/external/groin/ipc/New()
 	..()
@@ -29,6 +32,7 @@
 /obj/item/organ/external/arm/ipc
 	encased = null
 	status = ORGAN_ROBOT
+	emp_resistant = TRUE
 
 /obj/item/organ/external/arm/ipc/New()
 	..()
@@ -37,6 +41,7 @@
 /obj/item/organ/external/arm/right/ipc
 	encased = null
 	status = ORGAN_ROBOT
+	emp_resistant = TRUE
 
 /obj/item/organ/external/arm/right/ipc/New()
 	..()
@@ -45,6 +50,7 @@
 /obj/item/organ/external/leg/ipc
 	encased = null
 	status = ORGAN_ROBOT
+	emp_resistant = TRUE
 
 /obj/item/organ/external/leg/ipc/New()
 	..()
@@ -53,6 +59,7 @@
 /obj/item/organ/external/leg/right/ipc
 	encased = null
 	status = ORGAN_ROBOT
+	emp_resistant = TRUE
 
 /obj/item/organ/external/leg/right/ipc/New()
 	..()
@@ -61,6 +68,7 @@
 /obj/item/organ/external/foot/ipc
 	encased = null
 	status = ORGAN_ROBOT
+	emp_resistant = TRUE
 
 /obj/item/organ/external/foot/ipc/New()
 	..()
@@ -69,6 +77,7 @@
 /obj/item/organ/external/foot/right/ipc
 	encased = null
 	status = ORGAN_ROBOT
+	emp_resistant = TRUE
 
 /obj/item/organ/external/foot/right/ipc/New()
 	..()
@@ -77,6 +86,7 @@
 /obj/item/organ/external/hand/ipc
 	encased = null
 	status = ORGAN_ROBOT
+	emp_resistant = TRUE
 
 /obj/item/organ/external/hand/ipc/New()
 	..()
@@ -85,6 +95,7 @@
 /obj/item/organ/external/hand/right/ipc
 	encased = null
 	status = ORGAN_ROBOT
+	emp_resistant = TRUE
 
 /obj/item/organ/external/hand/right/ipc/New()
 	..()
@@ -107,9 +118,9 @@
 	icon_state = "camera"
 	status = ORGAN_ROBOT
 //	dead_icon = "camera_broken"
-	weld_proof = 1
+	weld_proof = TRUE
 
-/obj/item/organ/internal/eyes/optical_sensor/remove(var/mob/living/user,special = 0)
+/obj/item/organ/internal/eyes/optical_sensor/remove(mob/living/user,special = 0)
 	if(!special)
 		to_chat(owner, "Error 404:Optical Sensors not found.")
 

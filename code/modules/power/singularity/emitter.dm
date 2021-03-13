@@ -74,9 +74,9 @@
 	rotate()
 
 /obj/machinery/power/emitter/Destroy()
-	msg_admin_attack("Emitter deleted at ([x],[y],[z] - [ADMIN_JMP(src)])", ATKLOG_FEW)
+	msg_admin_attack("Emitter deleted at ([x],[y],[z] - [ADMIN_JMP(src)]) [usr ? "Broken by [key_name_admin(usr)]" : ""]", ATKLOG_FEW)
 	log_game("Emitter deleted at ([x],[y],[z])")
-	investigate_log("<font color='red'>deleted</font> at ([x],[y],[z])","singulo")
+	investigate_log("<font color='red'>deleted</font> at ([x],[y],[z]) [usr ? "Broken by [key_name(usr)]" : ""]","singulo")
 	QDEL_NULL(sparks)
 	return ..()
 
@@ -116,7 +116,7 @@
 		return 1
 
 
-/obj/machinery/power/emitter/emp_act(var/severity)//Emitters are hardened but still might have issues
+/obj/machinery/power/emitter/emp_act(severity)//Emitters are hardened but still might have issues
 //	add_load(1000)
 /*	if((severity == 1)&&prob(1)&&prob(1))
 		if(src.active)
@@ -262,7 +262,7 @@
 
 	return ..()
 
-/obj/machinery/power/emitter/emag_act(var/mob/living/user as mob)
+/obj/machinery/power/emitter/emag_act(mob/living/user as mob)
 	if(!emagged)
 		locked = 0
 		emagged = 1

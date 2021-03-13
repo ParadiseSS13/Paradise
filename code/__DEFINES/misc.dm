@@ -22,7 +22,6 @@
 //Click cooldowns, in tenths of a second
 #define CLICK_CD_MELEE 8
 #define CLICK_CD_RANGE 4
-#define CLICK_CD_BREAKOUT 100
 #define CLICK_CD_HANDCUFFED 10
 #define CLICK_CD_TKSTRANGLE 10
 #define CLICK_CD_POINT 10
@@ -68,9 +67,6 @@
 //Flags for zone sleeping
 #define ZONE_ACTIVE 1
 #define ZONE_SLEEPING 0
-
-#define shuttle_time_in_station 1800 // 3 minutes in the station
-#define shuttle_time_to_arrive 6000 // 10 minutes to arrive
 
 #define EVENT_LEVEL_MUNDANE 1
 #define EVENT_LEVEL_MODERATE 2
@@ -143,12 +139,6 @@
 #define FACING_EACHOTHER										2
 #define FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR	3 //Do I win the most informative but also most stupid define award?
 
-//unmagic-strings for types of polls
-#define POLLTYPE_OPTION		"OPTION"
-#define POLLTYPE_TEXT		"TEXT"
-#define POLLTYPE_RATING		"NUMVAL"
-#define POLLTYPE_MULTI		"MULTICHOICE"
-
 #define MIDNIGHT_ROLLOVER	864000 //number of deciseconds in a day
 
 #define MANIFEST_ERROR_NAME		1
@@ -170,45 +160,46 @@
 #define MFOAM_IRON 		2
 
 //Human Overlays Indexes/////////
-#define BODY_LAYER				38
-#define MUTANTRACE_LAYER		37
-#define TAIL_UNDERLIMBS_LAYER	36	//Tail split-rendering.
-#define LIMBS_LAYER				35
-#define INTORGAN_LAYER			34
-#define MARKINGS_LAYER			33
-#define UNDERWEAR_LAYER			32
-#define MUTATIONS_LAYER			31
-#define H_DAMAGE_LAYER			30
-#define UNIFORM_LAYER			29
-#define ID_LAYER				28
-#define SHOES_LAYER				27
-#define GLOVES_LAYER			26
-#define EARS_LAYER				25
-#define SUIT_LAYER				24
-#define BELT_LAYER				23	//Possible make this an overlay of somethign required to wear a belt?
-#define SUIT_STORE_LAYER		22
-#define BACK_LAYER				21
-#define HEAD_ACCESSORY_LAYER	20
-#define FHAIR_LAYER				19
-#define GLASSES_LAYER			18
-#define HAIR_LAYER				17	//TODO: make part of head layer?
-#define HEAD_ACC_OVER_LAYER		16	//Select-layer rendering.
-#define FHAIR_OVER_LAYER		15	//Select-layer rendering.
-#define GLASSES_OVER_LAYER		14	//Select-layer rendering.
-#define TAIL_LAYER				13	//bs12 specific. this hack is probably gonna come back to haunt me
-#define FACEMASK_LAYER			12
-#define OVER_MASK_LAYER			11	//Select-layer rendering.
-#define HEAD_LAYER				10
-#define COLLAR_LAYER			9
-#define HANDCUFF_LAYER			8
-#define LEGCUFF_LAYER			7
-#define L_HAND_LAYER			6
-#define R_HAND_LAYER			5
-#define TARGETED_LAYER			4	//BS12: Layer for the target overlay from weapon targeting system
+#define BODY_LAYER				39
+#define MUTANTRACE_LAYER		38
+#define TAIL_UNDERLIMBS_LAYER	37	//Tail split-rendering.
+#define LIMBS_LAYER				36
+#define INTORGAN_LAYER			35
+#define MARKINGS_LAYER			34
+#define UNDERWEAR_LAYER			33
+#define MUTATIONS_LAYER			32
+#define H_DAMAGE_LAYER			31
+#define UNIFORM_LAYER			30
+#define ID_LAYER				29
+#define SHOES_LAYER				28
+#define GLOVES_LAYER			27
+#define EARS_LAYER				26
+#define SUIT_LAYER				25
+#define BELT_LAYER				24	//Possible make this an overlay of somethign required to wear a belt?
+#define SUIT_STORE_LAYER		23
+#define BACK_LAYER				22
+#define HEAD_ACCESSORY_LAYER	21
+#define FHAIR_LAYER				20
+#define GLASSES_LAYER			19
+#define HAIR_LAYER				18	//TODO: make part of head layer?
+#define HEAD_ACC_OVER_LAYER		17	//Select-layer rendering.
+#define FHAIR_OVER_LAYER		16	//Select-layer rendering.
+#define GLASSES_OVER_LAYER		15	//Select-layer rendering.
+#define TAIL_LAYER				14	//bs12 specific. this hack is probably gonna come back to haunt me
+#define FACEMASK_LAYER			13
+#define OVER_MASK_LAYER			12	//Select-layer rendering.
+#define HEAD_LAYER				11
+#define COLLAR_LAYER			10
+#define HANDCUFF_LAYER			9
+#define LEGCUFF_LAYER			8
+#define L_HAND_LAYER			7
+#define R_HAND_LAYER			6
+#define TARGETED_LAYER			5	//BS12: Layer for the target overlay from weapon targeting system
+#define HALO_LAYER				4	//blood cult ascended halo, because there's currently no better solution for adding/removing
 #define FIRE_LAYER				3	//If you're on fire
 #define MISC_LAYER				2
 #define FROZEN_LAYER			1
-#define TOTAL_LAYERS			38
+#define TOTAL_LAYERS			39
 
 ///Access Region Codes///
 #define REGION_ALL			0
@@ -245,27 +236,74 @@
                                0.4,0.6,0.0,\
                                0.2,0.2,0.6)
 
-#define LIST_REPLACE_RENAME list("rebeccapurple" = "dark purple", "darkslategrey" = "dark grey", "darkolivegreen" = "dark green", "darkslateblue" = "dark blue",\
-								 "darkkhaki" = "khaki", "darkseagreen" = "light green", "midnightblue" = "blue", "lightgrey" = "light grey", "darkgrey" = "dark grey",\
-								 "steelblue" = "blue", "goldenrod" = "gold")
+/*
+	Used for wire name appearances. Replaces the color name on the left with the one on the right.
+	The color on the left is the one used as the actual color of the wire, but it doesn't look good when written.
+	So, we need to replace the name to something that looks better.
+*/
+#define LIST_COLOR_RENAME 				\
+	list(								\
+		"rebeccapurple" = "dark purple",\
+		"darkslategrey" = "dark grey",	\
+		"darkolivegreen"= "dark green",	\
+		"darkslateblue" = "dark blue",	\
+		"darkkhaki" 	= "khaki",		\
+		"darkseagreen" 	= "light green",\
+		"midnightblue" 	= "blue",		\
+		"lightgrey" 	= "light grey",	\
+		"darkgrey" 		= "dark grey",	\
+		"steelblue" 	= "blue",		\
+		"goldenrod"	 	= "gold"		\
+	)
 
-#define LIST_GREYSCALE_REPLACE list("red" = "lightgrey", "blue" = "grey", "green" = "grey", "orange" = "lightgrey", "brown" = "grey",\
-									"gold" = "lightgrey", "cyan" = "lightgrey", "navy" = "grey", "purple" = "grey", "pink"= "lightgrey")
+/// Pure Black and white colorblindness. Every species except Vulpkanins and Tajarans will have this.
+#define GREYSCALE_COLOR_REPLACE		\
+	list(							\
+		"red"		= "grey",		\
+		"blue"		= "grey",		\
+		"green"		= "grey",		\
+		"orange"	= "light grey",	\
+		"brown"		= "grey",		\
+		"gold"		= "light grey",	\
+		"cyan"		= "silver",		\
+		"magenta"	= "grey",		\
+		"purple"	= "grey",		\
+		"pink"		= "light grey"	\
+	)
 
-#define LIST_VULP_REPLACE list("pink" = "beige", "orange" = "goldenrod", "gold" = "goldenrod", "red" = "darkolivegreen", "brown" = "darkolivegreen",\
-									 "green" = "darkslategrey", "cyan" = "steelblue", "purple" = "darkslategrey", "navy" = "midnightblue")
+/// Red colorblindness. Vulpkanins/Wolpins have this.
+#define PROTANOPIA_COLOR_REPLACE		\
+	list(								\
+		"red"		= "darkolivegreen",	\
+		"green"		= "darkslategrey",	\
+		"orange"	= "goldenrod",		\
+		"gold"		= "goldenrod", 		\
+		"brown"		= "darkolivegreen",	\
+		"cyan"		= "steelblue",		\
+		"magenta"	= "blue",			\
+		"purple"	= "darkslategrey",	\
+		"pink"		= "beige"			\
+	)
 
-#define LIST_TAJ_REPLACE list("red" = "rebeccapurple", "brown" = "rebeccapurple", "purple" = "darkslateblue", "blue" = "darkslateblue",\
-									 "green" = "darkolivegreen", "orange" = "darkkhaki", "gold" = "darkkhaki", "cyan" = "darkseagreen", \
-									 "navy" = "midnightblue", "pink" = "lightgrey")
-
+/// Yellow-Blue colorblindness. Tajarans/Farwas have this.
+#define TRITANOPIA_COLOR_REPLACE		\
+	list(								\
+		"red"		= "rebeccapurple",	\
+		"blue"		= "darkslateblue",	\
+		"green"		= "darkolivegreen",	\
+		"orange"	= "darkkhaki",		\
+		"gold"		= "darkkhaki",		\
+		"brown"		= "rebeccapurple",	\
+		"cyan"		= "darkseagreen",	\
+		"magenta"	= "darkslateblue",	\
+		"purple"	= "darkslateblue",	\
+		"pink"		= "lightgrey"		\
+	)
 
 //Gun trigger guards
 #define TRIGGER_GUARD_ALLOW_ALL -1
 #define TRIGGER_GUARD_NONE 0
 #define TRIGGER_GUARD_NORMAL 1
-
-#define CLIENT_FROM_VAR(I) (ismob(I) ? I:client : (istype(I, /client) ? I : (istype(I, /datum/mind) ? I:current?:client : null)))
 
 // Macro to get the current elapsed round time, rather than total world runtime
 #define ROUND_TIME (SSticker.round_start_time ? (world.time - SSticker.round_start_time) : 0)
@@ -282,6 +320,12 @@
 #define SHELTER_DEPLOY_BAD_TURFS "bad turfs"
 #define SHELTER_DEPLOY_BAD_AREA "bad area"
 #define SHELTER_DEPLOY_ANCHORED_OBJECTS "anchored objects"
+
+// transit_tube stuff
+#define TRANSIT_TUBE_OPENING 0
+#define TRANSIT_TUBE_OPEN 1
+#define TRANSIT_TUBE_CLOSING 2
+#define TRANSIT_TUBE_CLOSED 3
 
 // Maximum donation level
 #define DONATOR_LEVEL_MAX 4
@@ -319,7 +363,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 12
+#define SQL_VERSION 22
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -345,8 +389,10 @@
 #define MOUSE_OPACITY_OPAQUE 2
 
 // Defib stats
-#define DEFIB_TIME_LIMIT 300
-#define DEFIB_TIME_LOSS 60
+/// Past this much time the patient is unrecoverable (in deciseconds).
+#define DEFIB_TIME_LIMIT 300 SECONDS
+/// Brain damage starts setting in on the patient after some time left rotting.
+#define DEFIB_TIME_LOSS 60 SECONDS
 
 //different types of atom colorations
 #define ADMIN_COLOUR_PRIORITY 		1 //only used by rare effects like greentext coloring mobs and when admins varedit color
@@ -383,6 +429,9 @@
 //Explosive wall groups
 #define EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE "syndicate_base"
 
+/// Prepares a text to be used for maptext. Use this so it doesn't look hideous.
+#define MAPTEXT(text) {"<span class='maptext'>[##text]</span>"}
+
 // Filters
 #define FILTER_AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, color="#04080FAA")
 
@@ -395,9 +444,6 @@
 #define SENSOR_LIVING 1
 #define SENSOR_VITALS 2
 #define SENSOR_COORDS 3
-
-// Cult summon possibilities
-#define SUMMON_POSSIBILITIES 3
 
 // Dice rigged options.
 #define DICE_NOT_RIGGED 1
@@ -434,3 +480,12 @@
 #define LINDA_SPAWN_N2O 64
 #define LINDA_SPAWN_AGENT_B 128
 #define LINDA_SPAWN_AIR 256
+
+/// Send to the primary Discord webhook
+#define DISCORD_WEBHOOK_PRIMARY "PRIMARY"
+
+/// Send to the admin Discord webhook
+#define DISCORD_WEBHOOK_ADMIN "ADMIN"
+
+/// Send to the mentor Discord webhook
+#define DISCORD_WEBHOOK_MENTOR "MENTOR"

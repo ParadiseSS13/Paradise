@@ -7,7 +7,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	for(var/itempath in subtypesof(/datum/prize_item))
 		prizes += new itempath()
 
-/datum/prizes/proc/PlaceOrder(var/obj/machinery/prize_counter/prize_counter, var/itemID)
+/datum/prizes/proc/PlaceOrder(obj/machinery/prize_counter/prize_counter, itemID)
 	if(!prize_counter.Adjacent(usr))
 		to_chat(usr, "<span class='warning'>You need to be closer!</span>")
 		return
@@ -201,6 +201,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	name = "Xeno Action Figure"
 	desc = "A lifelike replica of the horrific xeno scourge."
 	typepath = /obj/item/toy/toy_xeno
+	cost = 80
+
+/datum/prize_item/rubberducky
+	name = "Rubber Ducky"
+	desc = "Your favorite bathtime buddy, all squeaks and quacks quality assured."
+	typepath = /obj/item/bikehorn/rubberducky
 	cost = 80
 
 /datum/prize_item/tacticool

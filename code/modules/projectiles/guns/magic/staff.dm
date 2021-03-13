@@ -53,7 +53,7 @@
 	fire_sound = 'sound/magic/staff_door.ogg'
 
 /obj/item/gun/magic/staff/slipping
-	name = "staff of slipping"
+	name = "wand of slipping"
 	desc = "An artefact that spits... bananas?"
 	ammo_type = /obj/item/ammo_casing/magic/slipping
 	icon_state = "staffofslipping"
@@ -71,11 +71,11 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "focus"
 	item_state = "focus"
-	ammo_type = list(/obj/item/ammo_casing/forcebolt)
+	ammo_type = /obj/item/ammo_casing/magic/forcebolt
 
 /obj/item/gun/magic/staff/spellblade
 	name = "spellblade"
-	desc = "A deadly combination of laziness and boodlust, this blade allows the user to dismember their enemies without all the hard work of actually swinging the sword."
+	desc = "A deadly combination of laziness and bloodlust, this blade allows the user to dismember their enemies without all the hard work of actually swinging the sword."
 	fire_sound = 'sound/magic/fireball.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/spellblade
 	icon_state = "spellblade"
