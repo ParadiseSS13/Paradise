@@ -454,8 +454,8 @@
 	result = list(
 	/datum/nothing = 60,
 	/obj/item/organ/internal/cyberimp/eyes/hud/medical = 15,
-	/obj/item/organ/internal/cyberimp/eyes/meson = 20,
-	/obj/item/organ/internal/cyberimp/eyes/shield = 20,
+	/obj/item/organ/internal/eyes/cybernetic/meson = 20,
+	/obj/item/organ/internal/eyes/cybernetic/shield = 20,
 	/obj/item/organ/internal/cyberimp/chest/nutriment = 20,
 	/obj/item/organ/internal/cyberimp/brain/anti_drop = 2,
 	/obj/item/organ/internal/cyberimp/brain/anti_sleep = 2)
