@@ -37,7 +37,7 @@ emp_act
 		return 2
 
 	if(mind?.martial_art?.deflection_chance) //Some martial arts users can deflect projectiles!
-		if(!lying && !(HULK in mutations) && prob(mind.martial_art.deflection_chance)) //But only if they're not lying down, and hulks can't do it
+		if(!lying && !HAS_TRAIT(src, TRAIT_HULK) && prob(mind.martial_art.deflection_chance)) //But only if they're not lying down, and hulks can't do it
 			add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by martial arts '[mind.martial_art]'")
 			visible_message("<span class='danger'>[src] deflects the projectile; [p_they()] can't be hit with ranged weapons!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
 			return FALSE
@@ -120,7 +120,7 @@ emp_act
 
 		affecting.droplimb(FALSE, damtype)
 
-/mob/living/carbon/human/getarmor(var/def_zone, var/type)
+/mob/living/carbon/human/getarmor(def_zone, type)
 	var/armorval = 0
 	var/organnum = 0
 
@@ -141,7 +141,7 @@ emp_act
 
 
 //this proc returns the armour value for a particular external organ.
-/mob/living/carbon/human/proc/getarmor_organ(var/obj/item/organ/external/def_zone, var/type)
+/mob/living/carbon/human/proc/getarmor_organ(obj/item/organ/external/def_zone, type)
 	if(!type || !def_zone)	return 0
 	var/protection = 0
 	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, r_ear, wear_id) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
@@ -151,11 +151,11 @@ emp_act
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & def_zone.body_part)
 				protection += C.armor.getRating(type)
-
+	protection += physiology.armor.getRating(type)
 	return protection
 
 //this proc returns the Siemens coefficient of electrical resistivity for a particular external organ.
-/mob/living/carbon/human/proc/get_siemens_coefficient_organ(var/obj/item/organ/external/def_zone)
+/mob/living/carbon/human/proc/get_siemens_coefficient_organ(obj/item/organ/external/def_zone)
 	if(!def_zone)
 		return 1.0
 
@@ -179,7 +179,7 @@ emp_act
 				return 1
 	return 0
 
-/mob/living/carbon/human/proc/check_reflect(var/def_zone) //Reflection checks for anything in your l_hand, r_hand, or wear_suit based on the reflection chance var of the object
+/mob/living/carbon/human/proc/check_reflect(def_zone) //Reflection checks for anything in your l_hand, r_hand, or wear_suit based on the reflection chance var of the object
 	if(wear_suit && istype(wear_suit, /obj/item/))
 		var/obj/item/I = wear_suit
 		if(I.IsReflect(def_zone) == 1)
@@ -201,7 +201,7 @@ emp_act
 
 //End Here
 
-/mob/living/carbon/human/proc/check_shields(atom/AM, var/damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0)
+/mob/living/carbon/human/proc/check_shields(atom/AM, damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0)
 	var/block_chance_modifier = round(damage / -3)
 
 	if(l_hand && !istype(l_hand, /obj/item/clothing))
@@ -225,6 +225,12 @@ emp_act
 /mob/living/carbon/human/proc/check_block()
 	if(mind && mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
 		return TRUE
+
+/mob/living/carbon/human/emp_act(severity)
+	..()
+	for(var/X in bodyparts)
+		var/obj/item/organ/external/L = X
+		L.emp_act(severity)
 
 /mob/living/carbon/human/acid_act(acidpwr, acid_volume, bodyzone_hit) //todo: update this to utilize check_obscured_slots() //and make sure it's check_obscured_slots(TRUE) to stop aciding through visors etc
 	var/list/damaged = list()
@@ -372,7 +378,7 @@ emp_act
 		I.acid_act(acidpwr, acid_volume)
 	return 1
 
-/mob/living/carbon/human/emag_act(user as mob, var/obj/item/organ/external/affecting)
+/mob/living/carbon/human/emag_act(user as mob, obj/item/organ/external/affecting)
 	if(!istype(affecting))
 		return
 	if(!affecting.is_robotic())
@@ -429,8 +435,6 @@ emp_act
 
 	send_item_attack_message(I, user, hit_area)
 
-	var/weakness = check_weakness(I,user)
-
 	if(!I.force)
 		return 0 //item force is zero
 
@@ -442,7 +446,7 @@ emp_act
 		return 0
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 
-	apply_damage(I.force * weakness, I.damtype, affecting, armor, sharp = weapon_sharp, used_weapon = I)
+	apply_damage(I.force, I.damtype, affecting, armor, sharp = weapon_sharp, used_weapon = I)
 
 	var/bloody = 0
 	if(I.damtype == BRUTE && I.force && prob(25 + I.force * 2))
@@ -504,6 +508,9 @@ emp_act
 
 //this proc handles being hit by a thrown atom
 /mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
+	var/spec_return = dna.species.spec_hitby(AM, src)
+	if(spec_return)
+		return spec_return
 	var/obj/item/I
 	var/throwpower = 30
 	if(istype(AM, /obj/item))
@@ -518,7 +525,7 @@ emp_act
 	else if(I)
 		if(((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedded_ignore_throwspeed_threshold)
 			if(can_embed(I))
-				if(prob(I.embed_chance) && !(PIERCEIMMUNE in dna.species.species_traits))
+				if(prob(I.embed_chance) && !HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
 					throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
 					var/obj/item/organ/external/L = pick(bodyparts)
 					L.embedded_objects |= I
@@ -528,11 +535,9 @@ emp_act
 					visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
 					hitpush = FALSE
 					skipcatch = TRUE //can't catch the now embedded item
-	if(!blocked)
-		dna.species.spec_hitby(AM, src)
 	return ..()
 
-/mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)
+/mob/living/carbon/human/proc/bloody_hands(mob/living/source, amount = 2)
 
 	if(gloves)
 		gloves.add_mob_blood(source)
@@ -542,7 +547,7 @@ emp_act
 		bloody_hands = amount
 	update_inv_gloves()		//updates on-mob overlays for bloody hands and/or bloody gloves
 
-/mob/living/carbon/human/proc/bloody_body(var/mob/living/source)
+/mob/living/carbon/human/proc/bloody_body(mob/living/source)
 	if(wear_suit)
 		wear_suit.add_mob_blood(source)
 		update_inv_wear_suit()

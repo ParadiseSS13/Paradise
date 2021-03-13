@@ -278,6 +278,14 @@
 	reqs = list(/obj/item/paper = 5)
 	category = CAT_MISC
 
+/datum/crafting_recipe/flashlight_eyes
+	name = "Flashlight Eyes"
+	result = /obj/item/organ/internal/eyes/cybernetic/flashlight
+	time = 10
+	reqs = list(/obj/item/flashlight = 2,
+				/obj/item/restraints/handcuffs/cable = 1)
+	category = CAT_MISC
+
 /datum/crafting_recipe/sushimat
 	name = "Sushi Mat"
 	result = /obj/item/kitchen/sushimat

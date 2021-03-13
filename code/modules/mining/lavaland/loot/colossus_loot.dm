@@ -217,7 +217,7 @@
 				if(H.stat == DEAD)
 					H.set_species(/datum/species/shadow)
 					H.revive()
-					H.mutations |= NOCLONE //Free revives, but significantly limits your options for reviving except via the crystal
+					ADD_TRAIT(H, TRAIT_BADDNA, MAGIC_TRAIT) //Free revives, but significantly limits your options for reviving except via the crystal
 					H.grab_ghost(force = TRUE)
 
 /obj/machinery/anomalous_crystal/helpers //Lets ghost spawn as helpful creatures that can only heal people slightly. Incredibly fragile and they can't converse with humans
@@ -370,17 +370,17 @@
 	if(isliving(A) && holder_animal)
 		var/mob/living/L = A
 		L.notransform = 1
-		L.mutations |= MUTE
+		ADD_TRAIT(L, TRAIT_MUTE, STASIS_MUTE)
 		L.status_flags |= GODMODE
 		L.mind.transfer_to(holder_animal)
 		var/obj/effect/proc_holder/spell/targeted/exit_possession/P = new /obj/effect/proc_holder/spell/targeted/exit_possession
 		holder_animal.mind.AddSpell(P)
 		holder_animal.verbs -= /mob/living/verb/pulled
 
-/obj/structure/closet/stasis/dump_contents(var/kill = 1)
+/obj/structure/closet/stasis/dump_contents(kill = 1)
 	STOP_PROCESSING(SSobj, src)
 	for(var/mob/living/L in src)
-		L.mutations -=MUTE
+		REMOVE_TRAIT(L, TRAIT_MUTE, STASIS_MUTE)
 		L.status_flags &= ~GODMODE
 		L.notransform = 0
 		if(holder_animal && !QDELETED(holder_animal))

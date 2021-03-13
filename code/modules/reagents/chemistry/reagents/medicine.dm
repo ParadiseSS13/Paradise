@@ -295,6 +295,11 @@
 			M.adjustFireLoss(-1.5*volume)
 			if(show_message)
 				to_chat(M, "<span class='notice'>The synthetic flesh integrates itself into your wounds, healing you.</span>")
+			if(ishuman(M))
+				var/mob/living/carbon/human/H = M
+				if(HAS_TRAIT_FROM(H, TRAIT_HUSK, BURN) && H.getFireLoss() < UNHUSK_DAMAGE_THRESHOLD && (H.reagents.get_reagent_amount("synthflesh") + volume >= SYNTHFLESH_UNHUSK_AMOUNT))
+					H.cure_husk(BURN)
+					H.visible_message("<span class='nicegreen'>The squishy liquid coats [H]'s burns. [H] looks a lot healthier!") //we're avoiding using the phrases "burnt flesh" and "burnt skin" here because humans could be a skeleton or a golem or something
 	..()
 
 /datum/reagent/medicine/synthflesh/reaction_turf(turf/T, volume) //let's make a mess!
@@ -639,9 +644,9 @@
 		update_flags |= M.AdjustEyeBlurry(-1, FALSE)
 		update_flags |= M.AdjustEarDamage(-1)
 	if(prob(50))
-		update_flags |= M.CureNearsighted(FALSE)
+		update_flags |= M.cure_nearsighted(EYE_DAMAGE, FALSE)
 	if(prob(30))
-		update_flags |= M.CureBlind(FALSE)
+		update_flags |= M.cure_blind(EYE_DAMAGE, FALSE)
 		update_flags |= M.SetEyeBlind(0, FALSE)
 	return ..() | update_flags
 
@@ -769,7 +774,7 @@
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
 					M.delayed_gib()
 					return
-				if(!M.suiciding && !(NOCLONE in M.mutations) && (!M.mind || M.mind && M.mind.is_revivable()))
+				if(!M.suiciding && !HAS_TRAIT(M, TRAIT_HUSK) && !HAS_TRAIT(M, TRAIT_BADDNA))
 					var/time_dead = world.time - M.timeofdeath
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 					M.adjustCloneLoss(50)
@@ -820,13 +825,13 @@
 		..()
 		return
 	M.SetJitter(0)
-	var/needs_update = M.mutations.len > 0
+	var/needs_update = length(M.active_mutations)
 
 	if(needs_update)
 		for(var/block = 1; block<=DNA_SE_LENGTH; block++)
 			if(!(block in M.dna.default_blocks))
 				M.dna.SetSEState(block, FALSE, TRUE)
-				genemutcheck(M, block, null, MUTCHK_FORCED)
+				singlemutcheck(M, block, MUTCHK_FORCED)
 		M.dna.UpdateSE()
 
 		M.dna.struc_enzymes = M.dna.struc_enzymes_original
@@ -902,7 +907,7 @@
 
 /datum/reagent/medicine/stimulative_agent/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.status_flags |= GOTTAGOFAST
+	ADD_TRAIT(M, TRAIT_GOTTAGOFAST, id)
 	if(M.health < 50 && M.health > 0)
 		update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -915,7 +920,7 @@
 	return ..() | update_flags
 
 /datum/reagent/medicine/stimulative_agent/on_mob_delete(mob/living/M)
-	M.status_flags &= ~GOTTAGOFAST
+	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)
 	..()
 
 /datum/reagent/medicine/stimulative_agent/overdose_process(mob/living/M, severity)

@@ -194,9 +194,9 @@
 		H.set_species(mob_species)
 
 	if(husk)
-		H.ChangeToHusk()
+		H.Drain()
 	else //Because for some reason I can't track down, things are getting turned into husks even if husk = false. It's in some damage proc somewhere.
-		H.mutations.Remove(HUSK)
+		H.cure_husk()
 	H.underwear = "Nude"
 	H.undershirt = "Nude"
 	H.socks = "Nude"

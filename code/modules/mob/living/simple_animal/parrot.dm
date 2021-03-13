@@ -53,6 +53,7 @@
 	response_harm = "swats"
 	stop_automated_movement = TRUE
 	universal_speak = TRUE
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	mob_size = MOB_SIZE_SMALL
 
 	var/parrot_state = PARROT_WANDER //Hunt for a perch when created
@@ -76,13 +77,7 @@
 	//Parrots will generally sit on their pertch unless something catches their eye.
 	//These vars store their preffered perch and if they dont have one, what they can use as a perch
 	var/obj/parrot_perch = null
-	var/obj/desired_perches = list(/obj/structure/computerframe, 		/obj/structure/displaycase, \
-									/obj/structure/filingcabinet,		/obj/machinery/teleport, \
-									/obj/machinery/suit_storage_unit,	/obj/machinery/clonepod, \
-									/obj/machinery/dna_scannernew,		/obj/machinery/tcomms, \
-									/obj/machinery/nuclearbomb,			/obj/machinery/particle_accelerator, \
-									/obj/machinery/recharge_station,	/obj/machinery/smartfridge, \
-									/obj/machinery/computer)
+	var/obj/desired_perches = null
 
 	//Parrots are kleptomaniacs. This variable ... stores the item a parrot is holding.
 	var/obj/item/held_item = null
@@ -109,6 +104,14 @@
 			  /mob/living/simple_animal/parrot/proc/steal_from_mob, \
 			  /mob/living/simple_animal/parrot/verb/drop_held_item_player, \
 			  /mob/living/simple_animal/parrot/proc/perch_player)
+
+	desired_perches = typecacheof(list(/obj/structure/computerframe, 	/obj/structure/displaycase, \
+									   /obj/structure/filingcabinet,	/obj/machinery/teleport, \
+									   /obj/machinery/suit_storage_unit,/obj/machinery/clonepod, \
+									   /obj/machinery/dna_scannernew,	/obj/machinery/tcomms, \
+									   /obj/machinery/nuclearbomb,		/obj/machinery/particle_accelerator, \
+									   /obj/machinery/recharge_station,	/obj/machinery/smartfridge, \
+									   /obj/machinery/computer))
 
 /mob/living/simple_animal/parrot/Destroy()
 	GLOB.hear_radio_list -= src
@@ -341,7 +344,7 @@
 			update_speak()
 
 			//Search for item to steal
-			parrot_interest = search_for_item()
+			parrot_interest = search_for_perch_and_item()
 			if(parrot_interest)
 				custom_emote(EMOTE_VISUAL, "looks in [parrot_interest]'s direction and takes flight.")
 				parrot_state = PARROT_SWOOP|PARROT_STEAL
@@ -384,7 +387,7 @@
 			return
 
 		else //Have an item but no perch? Find one!
-			parrot_perch = search_for_perch()
+			parrot_perch = search_for_perch_and_item()
 			if(parrot_perch)
 				parrot_state = PARROT_SWOOP|PARROT_RETURN
 				return
@@ -518,62 +521,31 @@
 		//Because the most appropriate place to set icon_state is movement_delay(), clearly
 	return ..()
 
-/mob/living/simple_animal/parrot/proc/search_for_item()
-	for(var/atom/movable/AM in view(src))
-		//Skip items we already stole or are wearing or are too big
-		if(parrot_perch && AM.loc == parrot_perch.loc || AM.loc == src)
-			continue
-
-		// Can we find a path to it?
-		if(loc != AM.loc && !length(get_path_to(src, get_turf(AM), /turf/proc/Distance_cardinal)))
-			continue
-
-		if(istype(AM, /obj/item))
-			var/obj/item/I = AM
-			if(I.w_class < WEIGHT_CLASS_SMALL)
-				return I
-
-		if(iscarbon(AM))
-			var/mob/living/carbon/C = AM
-			if((C.l_hand && C.l_hand.w_class <= WEIGHT_CLASS_SMALL) || (C.r_hand && C.r_hand.w_class <= WEIGHT_CLASS_SMALL))
-				return C
-	return null
-
-/mob/living/simple_animal/parrot/proc/search_for_perch()
+/mob/living/simple_animal/parrot/proc/search_for_perch_and_item(list/stuff)
+	var/turf/my_turf = get_turf(src)
+	var/list/computed_paths = list()
 	for(var/obj/O in view(src))
+		var/is_eligible = FALSE
+		if(!parrot_perch && is_type_in_typecache(O, desired_perches))
+			is_eligible = TRUE
+		else if(!held_item && O.loc != src && isitem(O))
+			if(parrot_perch && get_turf(parrot_perch) == get_turf(O))
+				continue
+			var/obj/item/I = O
+			is_eligible = (I.w_class <= WEIGHT_CLASS_SMALL)
+
+		if(!is_eligible)
+			continue
+
 		// Can we find a path to it?
-		if(loc != O.loc && !length(get_path_to(src, get_turf(O), /turf/proc/Distance_cardinal)))
-			continue
+		var/turf/T = get_turf(O)
+		if(my_turf != T)
+			var/cache_id = "[my_turf.UID()]_[T.UID()]"
+			computed_paths[cache_id] = computed_paths[cache_id] || get_path_to(src, T, /turf/proc/Distance_cardinal)
+			if(!length(computed_paths[cache_id]))
+				continue
 
-		for(var/path in desired_perches)
-			if(istype(O, path))
-				return O
-	return null
-
-//This proc was made to save on doing two 'in view' loops seperatly
-/mob/living/simple_animal/parrot/proc/search_for_perch_and_item()
-	for(var/atom/movable/AM in view(src))
-		// Can we find a path to it?
-		if(loc != AM.loc && !length(get_path_to(src, get_turf(AM), /turf/proc/Distance_cardinal)))
-			continue
-
-		for(var/perch_path in desired_perches)
-			if(istype(AM, perch_path))
-				return AM
-
-		//Skip items we already stole or are wearing or are too big
-		if(parrot_perch && AM.loc == parrot_perch.loc || AM.loc == src)
-			continue
-
-		if(istype(AM, /obj/item))
-			var/obj/item/I = AM
-			if(I.w_class <= WEIGHT_CLASS_SMALL)
-				return I
-
-		if(iscarbon(AM))
-			var/mob/living/carbon/C = AM
-			if(C.l_hand && C.l_hand.w_class <= WEIGHT_CLASS_SMALL || C.r_hand && C.r_hand.w_class <= WEIGHT_CLASS_SMALL)
-				return C
+		return O
 	return null
 
 /*
@@ -684,11 +656,10 @@
 
 	if(icon_state == "parrot_fly")
 		for(var/atom/movable/AM in view(src, 1))
-			for(var/perch_path in desired_perches)
-				if(istype(AM, perch_path))
-					forceMove(AM.loc)
-					icon_state = "parrot_sit"
-					return
+			if(is_type_in_typecache(AM, desired_perches))
+				forceMove(AM.loc)
+				icon_state = "parrot_sit"
+				return
 	to_chat(src, "<span class='warning'>There is no perch nearby to sit on.</span>")
 	return
 
@@ -771,6 +742,4 @@
 	underlays += held_item_icon
 
 /mob/living/simple_animal/parrot/CanAStarPassTo(ID, dir, obj/destination)
-	for(var/path in desired_perches)
-		if(istype(destination, path))
-			return TRUE
+	return is_type_in_typecache(destination, desired_perches)

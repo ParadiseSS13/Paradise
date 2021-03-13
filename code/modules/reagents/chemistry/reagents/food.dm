@@ -591,15 +591,18 @@
 	reagent_state = LIQUID
 	color = "#21170E"
 	taste_description = "tea"
+	harmless = TRUE
 
 /datum/reagent/consumable/mugwort/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(ishuman(M) && M.mind)
-		if(M.mind.special_role == SPECIAL_ROLE_WIZARD)
-			update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-			update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-			update_flags |= M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-			update_flags |= M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	if(ishuman(M) && M.mind?.special_role == SPECIAL_ROLE_WIZARD)
+		update_flags |= M.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustOxyLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustFireLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		for(var/datum/reagent/R in M.reagents.reagent_list)
+			if(!R.harmless)
+				M.reagents.remove_reagent(R.id, 5) // purge those meme chems
 	return ..() | update_flags
 
 /datum/reagent/consumable/porktonium
@@ -809,7 +812,7 @@
 			H.Weaken(2, FALSE)
 			H.update_canmove()
 			to_chat(H, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
-		if(NO_HUNGER in H.dna.species.species_traits) //If you don't eat, then you can't get food poisoning
+		if(HAS_TRAIT(H, TRAIT_NOHUNGER)) //If you don't eat, then you can't get food poisoning
 			return
 		H.ForceContractDisease(new /datum/disease/food_poisoning(0))
 

@@ -136,7 +136,7 @@
 		base = src
 	H.mind.martial_art = src
 
-/datum/martial_art/proc/remove(var/mob/living/carbon/human/H)
+/datum/martial_art/proc/remove(mob/living/carbon/human/H)
 	if(!H.mind)
 		return
 	if(H.mind.martial_art != src)
@@ -145,6 +145,7 @@
 	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
 	if(base)
 		base.teach(H)
+		base = null
 
 /mob/living/carbon/human/proc/martial_arts_help()
 	set name = "Show Info"
@@ -190,12 +191,12 @@
 	return
 
 /obj/item/clothing/gloves/boxing/dropped(mob/user)
+	..()
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(slot_gloves) == src)
 		style.remove(H)
-	return
 
 /obj/item/storage/belt/champion/wrestling
 	name = "Wrestling Belt"
@@ -211,13 +212,13 @@
 	return
 
 /obj/item/storage/belt/champion/wrestling/dropped(mob/user)
+	..()
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(slot_belt) == src)
 		style.remove(H)
 		to_chat(user, "<span class='sciradio'>You no longer have an urge to flex your muscles.</span>")
-	return
 
 /obj/item/plasma_fist_scroll
 	name = "frayed scroll"
@@ -308,7 +309,7 @@
 
 /obj/item/twohanded/bostaff/attack(mob/target, mob/living/user)
 	add_fingerprint(user)
-	if((CLUMSY in user.mutations) && prob(50))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class ='warning'>You club yourself over the head with [src].</span>")
 		user.Weaken(3)
 		if(ishuman(user))

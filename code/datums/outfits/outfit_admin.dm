@@ -239,9 +239,8 @@
 		/obj/item/implant/dust
 	)
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/eyes/shield,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
-		/obj/item/organ/internal/cyberimp/eyes/xray,
+		/obj/item/organ/internal/eyes/cybernetic/xray,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
 		/obj/item/organ/internal/cyberimp/arm/combat/centcom
@@ -1052,7 +1051,7 @@
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/raise_vampires)
 				to_chat(H, "You have gained the ability to Raise Vampires. This extremely powerful AOE ability affects all humans near you. Vampires/thralls are healed. Corpses are raised as vampires. Others are stunned, then brain damaged, then killed.")
 				H.dna.SetSEState(GLOB.jumpblock, 1)
-				genemutcheck(H, GLOB.jumpblock,  null, MUTCHK_FORCED)
+				singlemutcheck(H, GLOB.jumpblock, MUTCHK_FORCED)
 				H.update_mutations()
 				H.gene_stability = 100
 
