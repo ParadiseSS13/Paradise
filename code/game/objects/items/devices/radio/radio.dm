@@ -37,6 +37,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/canhear_range = 3
 	var/datum/wires/radio/wires = null
 	var/b_stat = 0
+	var/syndie = FALSE
 
 	/// Whether the radio will broadcast stuff it hears, out over the radio
 	var/broadcasting = FALSE

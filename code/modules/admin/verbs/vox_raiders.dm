@@ -14,7 +14,7 @@ GLOBAL_VAR_INIT(vox_tick, 1)
 		if(1) // Vox raider!
 			equip_to_slot_or_del(new /obj/item/clothing/suit/space/vox/carapace(src), slot_wear_suit)
 			equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/vox/carapace(src), slot_head)
-			equip_to_slot_or_del(new /obj/item/melee/classic_baton/telescopic(src), slot_belt)
+			equip_to_slot_or_del(new /obj/item/melee/classic_baton/telescopic(src), slot_r_hand)
 			equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/monocle(src), slot_glasses) // REPLACE WITH CODED VOX ALTERNATIVE.
 			equip_to_slot_or_del(new /obj/item/chameleon(src), slot_l_store)
 

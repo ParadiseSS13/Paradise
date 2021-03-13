@@ -1,3 +1,5 @@
+//BUBBLEGUM MODIFICADO PARA QUE DEJEN DE LLORAR SI HAY MUCHOS CONFLICTOS REMUEVE.
+
 #define BUBBLEGUM_SMASH (health <= maxHealth * 0.5) // angery
 #define BUBBLEGUM_CAN_ENRAGE (enrage_till + (enrage_time * 2) <= world.time)
 #define BUBBLEGUM_IS_ENRAGED (enrage_till > world.time)
@@ -25,11 +27,12 @@ When Bubblegum dies, it leaves behind a chest that contains:
 
 Difficulty: Hard
 
+Difficulty: Medium
 */
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum
 	name = "bubblegum"
-	desc = "In what passes for a heirarchy among slaughter demons, this one is king."
+	desc = "In what passes for a heirarchy among slaughter demons, this one is the prince."
 	health = 2500
 	maxHealth = 2500
 	attacktext = "rends"

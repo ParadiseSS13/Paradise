@@ -83,12 +83,6 @@
 	donator_tier = 3
 	cost = 2
 
-/datum/gear/donor/id_decal_emag
-	display_name = "Emag ID Decal"
-	path = /obj/item/id_decal/emag
-	donator_tier = 3
-	cost = 2
-
 /datum/gear/donor/id_decal_gold
 	display_name = "Gold ID Decal"
 	path = /obj/item/id_decal/gold

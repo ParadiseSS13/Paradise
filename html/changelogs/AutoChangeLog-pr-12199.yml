@@ -1,0 +1,5 @@
+author: "SteelSlayer"
+delete-after: True
+changes: 
+  - rscadd: "Malf AI's overload machine & override machine action button behavior is changed to a point and click style ability."
+  - imageadd: "Added some new mouse pointer icons for the machine overload and machine override abilities"

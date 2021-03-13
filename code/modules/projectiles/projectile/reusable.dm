@@ -31,7 +31,7 @@
 	damage = 0 // It's a damn toy.
 	damage_type = OXY
 	nodamage = 1
-	icon = 'icons/obj/guns/toy.dmi'
+	icon = 'icons/hispania/obj/guns/toy.dmi'
 	icon_state = "foamdart"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
 	range = 10

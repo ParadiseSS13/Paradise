@@ -73,21 +73,24 @@
 /obj/item/clothing/head/helmet/alt
 	name = "bulletproof helmet"
 	desc = "A bulletproof helmet that excels in protecting the wearer against traditional projectile weaponry and explosives to a minor extent."
+	icon = 'icons/hispania/obj/clothing/hats.dmi'
 	icon_state = "swat"
 	item_state = "swat-alt"
 	armor = list("melee" = 15, "bullet" = 60, "laser" = 10, "energy" = 10, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	dog_fashion = null
+	hispania_icon = TRUE
 
 /obj/item/clothing/head/helmet/riot
 	name = "riot helmet"
 	desc = "It's a helmet specifically designed to protect against close range attacks."
-	icon_state = "riot"
-	item_state = "helmet"
+	icon_state = "riot2"
+	item_state = "riot2"
 	armor = list("melee" = 50, "bullet" = 10, "laser" = 10, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
 	flags_inv = HIDEEARS
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 80
 	dog_fashion = null
+	hispania_icon = TRUE
 
 /obj/item/clothing/head/helmet/riot/knight
 	name = "medieval helmet"
@@ -97,6 +100,7 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	dog_fashion = null
+	hispania_icon = FALSE
 
 /obj/item/clothing/head/helmet/justice
 	name = "helmet of justice"

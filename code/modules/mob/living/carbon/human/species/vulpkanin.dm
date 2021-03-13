@@ -2,6 +2,7 @@
 	name = "Vulpkanin"
 	name_plural = "Vulpkanin"
 	icobase = 'icons/mob/human_races/r_vulpkanin.dmi'
+	blacklisted = TRUE
 	language = "Canilunzt"
 	primitive_form = /datum/species/monkey/vulpkanin
 	tail = "vulptail"

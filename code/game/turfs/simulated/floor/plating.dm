@@ -174,7 +174,7 @@
 /turf/simulated/floor/engine/blob_act(obj/structure/blob/B)
 	if(prob(25))
 		ChangeTurf(baseturf)
-
+		
 /turf/simulated/floor/engine/cult
 	name = "engraved floor"
 	icon_state = "cult"

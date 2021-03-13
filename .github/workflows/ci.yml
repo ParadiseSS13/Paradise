@@ -5,8 +5,7 @@ on:
     - master
   pull_request:
     branches:
-    - master
-
+    - Lambda
 jobs:
   run_linters:
     name: Run Linters

@@ -1,5 +1,5 @@
 
-
+/*
 /obj/structure/alien/resin/flower_bud_enemy //inheriting basic attack/damage stuff from alien structures
 	name = "flower bud"
 	desc = "A large pulsating plant..."
@@ -100,7 +100,7 @@
 								continue grasping
 					if(prob(grasp_chance))
 						to_chat(L, "<span class='userdanger'>\The [src] has you entangled!</span>")
-						grasping[L] = Beam(L, "vine", time=INFINITY, maxdistance=5, beam_type=/obj/effect/ebeam/vine)
+						grasping[L] = Beam(L, "vine", time=INFINITY, maxdistance=3, beam_type=/obj/effect/ebeam/vine)
 
 						break //only take 1 new victim per cycle
 
@@ -122,3 +122,5 @@
 	if(.)
 		if(the_target in grasping)
 			return 0
+
+*/

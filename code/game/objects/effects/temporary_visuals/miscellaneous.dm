@@ -207,14 +207,14 @@
 /obj/effect/temp_visual/heal //color is white by default, set to whatever is needed
 	name = "healing glow"
 	icon_state = "heal"
-	duration = 15
 
-/obj/effect/temp_visual/heal/New(loc, colour)
+/obj/effect/temp_visual/heal/New(loc, colour, var/time = 15)
 	..()
 	pixel_x = rand(-12, 12)
 	pixel_y = rand(-9, 0)
 	if(colour)
 		color = colour
+	duration = time
 
 /obj/effect/temp_visual/kinetic_blast
 	name = "kinetic explosion"

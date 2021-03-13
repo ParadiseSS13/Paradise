@@ -72,3 +72,8 @@
 			if(bloody_feet[blood_state] > BLOOD_LOSS_IN_SPREAD)
 				createFootprintsFrom(src, dir, T)
 			update_inv_shoes()
+			
+	// Si encuentras una mejor forma de hacer esto, no lo pienses mucho y borra esto de aquí.
+	var/obj/item/organ/internal/adrenal/murghal/adrenal = get_int_organ(/obj/item/organ/internal/adrenal/murghal)
+	if(adrenal)
+		adrenal.on_species_walk(NewLoc, direct)

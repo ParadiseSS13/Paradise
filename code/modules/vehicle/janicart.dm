@@ -4,6 +4,7 @@
 	desc = "A brave janitor cyborg gave its life to produce such an amazing combination of speed and utility."
 	icon_state = "pussywagon"
 	key_type = /obj/item/key/janitor
+	vehicle_move_delay = 1  //Velocidad Base
 	var/obj/item/storage/bag/trash/mybag
 	var/floorbuffer = FALSE
 

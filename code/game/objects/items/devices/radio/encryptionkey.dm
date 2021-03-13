@@ -118,7 +118,7 @@
 /obj/item/encryptionkey/heads/hop
 	name = "Head of Personnel's Encryption Key"
 	icon_state = "hop_cypherkey"
-	channels = list("Supply" = 1, "Service" = 1, "Security" = 0, "Command" = 1)
+	channels = list("Supply" = 1, "Service" = 1, "Command" = 1)
 
 /obj/item/encryptionkey/heads/ntrep
 	name = "Nanotrasen Representative's Encryption Key"

@@ -495,6 +495,7 @@
 	name = "durathread bandana"
 	desc =  "A bandana made from durathread, you wish it would provide some protection to its wearer, but it's far too thin..."
 	icon_state = "banddurathread"
+	item_state = "banddurathread"
 
 /obj/item/clothing/mask/cursedclown
 	name = "cursed clown mask"

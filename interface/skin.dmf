@@ -1,5 +1,6 @@
 macro "default"
 
+
 menu "menu"
 	elem
 		name = "&File"
@@ -115,7 +116,7 @@ menu "menu"
 		can-check = true
 		saved-params = "is-checked"
 	elem
-		name = "&Volume"
+			name = "&Volume"
 		command = ""
 		saved-params = "is-checked"
 	elem
@@ -146,11 +147,12 @@ window "mainwindow"
 		size = 640x440
 		anchor1 = none
 		anchor2 = none
+		background-color = none
 		is-default = true
 		saved-params = "pos;size;is-minimized;is-maximized"
-		title = "Paradise Station 13"
+		title = "Hispania Station 13"
 		is-maximized = true
-		icon = 'icons\\paradise.png'
+		icon = 'icons\\hispania.png'
 		macro = "default"
 		menu = "menu"
 	elem "asset_cache_browser"
@@ -159,6 +161,7 @@ window "mainwindow"
 		size = 200x200
 		anchor1 = none
 		anchor2 = none
+		background-color = none
 		is-visible = false
 		saved-params = ""
 	elem "mainvsplit"
@@ -167,6 +170,7 @@ window "mainwindow"
 		size = 634x416
 		anchor1 = 0,0
 		anchor2 = 100,100
+		background-color = none
 		saved-params = "splitter"
 		left = "mapwindow"
 		right = "rpane"
@@ -187,6 +191,7 @@ window "mainwindow"
 		size = 80x20
 		anchor1 = 100,100
 		anchor2 = none
+		background-color = none
 		saved-params = "is-checked"
 		text = "Chat"
 		command = ".winset \"saybutton.is-checked=true?input.command=\"!say \\\"\" macrobutton.is-checked=false:input.command=\"\"saybutton.is-checked=true?mebutton.is-checked=false\""
@@ -197,6 +202,7 @@ window "mainwindow"
 		size = 80x20
 		anchor1 = 100,100
 		anchor2 = none
+		background-color = none
 		saved-params = "is-checked"
 		text = "Me"
 		command = ".winset \"mebutton.is-checked=true?input.command=\"!me \\\"\" macrobutton.is-checked=false:input.command=\"\"mebutton.is-checked=true?saybutton.is-checked=false\""
@@ -207,6 +213,7 @@ window "mainwindow"
 		size = 999x999
 		anchor1 = none
 		anchor2 = none
+		background-color = none
 		is-visible = false
 		saved-params = ""
 
@@ -236,7 +243,7 @@ window "mapwindow"
 window "outputwindow"
 	elem "outputwindow"
 		type = MAIN
-		pos = 0,0
+		pos = 281,0
 		size = 640x480
 		anchor1 = none
 		anchor2 = none
@@ -259,7 +266,7 @@ window "outputwindow"
 window "rpane"
 	elem "rpane"
 		type = MAIN
-		pos = 0,0
+		pos = 281,0
 		size = 640x480
 		anchor1 = none
 		anchor2 = none
@@ -328,7 +335,7 @@ window "rpane"
 		command = "rules"
 	elem "githubb"
 		type = BUTTON
-		pos = 350,7
+		pos = 424,7
 		size = 60x16
 		anchor1 = none
 		anchor2 = none
@@ -337,7 +344,7 @@ window "rpane"
 		command = "github"
 	elem "changelog"
 		type = BUTTON
-		pos = 415,7
+		pos = 285,7
 		size = 67x16
 		anchor1 = none
 		anchor2 = none
@@ -356,30 +363,15 @@ window "rpane"
 		saved-params = "is-checked"
 		text = "Discord"
 		command = "discord"
-	elem "karma"
+	elem "rulesb"
 		type = BUTTON
-		pos = 552,7
+		pos = 357,7
 		size = 60x16
 		anchor1 = none
 		anchor2 = none
-		font-style = "bold"
-		text-color = #ffffff
-		background-color = #ff4500
 		saved-params = "is-checked"
-		text = "Karma"
-		command = "karmashop"
-	elem "donate"
-		type = BUTTON
-		pos = 617,7
-		size = 60x16
-		anchor1 = none
-		anchor2 = none
-		font-style = "bold"
-		text-color = #ffffff
-		background-color = #008000
-		saved-params = "is-checked"
-		text = "Donate"
-		command = "Donate"
+		text = "Rules"
+		command = "rules"
 	elem "browseb"
 		type = BUTTON
 		pos = 561,7
@@ -396,7 +388,7 @@ window "rpane"
 window "browserwindow"
 	elem "browserwindow"
 		type = MAIN
-		pos = 0,0
+		pos = 281,0
 		size = 640x480
 		anchor1 = none
 		anchor2 = none
@@ -417,7 +409,7 @@ window "browserwindow"
 window "infowindow"
 	elem "infowindow"
 		type = MAIN
-		pos = 0,0
+		pos = 281,0
 		size = 640x480
 		anchor1 = none
 		anchor2 = none

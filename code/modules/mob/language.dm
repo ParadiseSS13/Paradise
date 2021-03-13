@@ -440,7 +440,7 @@
 	ask_verb = "chitters"
 	exclaim_verbs = list("buzzes")
 	colour = "alien"
-	key = "y"
+	key = "asd"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 

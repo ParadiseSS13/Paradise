@@ -83,7 +83,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	var/id = 0			//ID of the computer (for server restrictions).
 	var/sync = 1		//If sync = 0, it doesn't show up on Server Control Console
-
 	req_access = list(ACCESS_TOX)	//Data and setting manipulation requires scientist access.
 
 	var/selected_category
@@ -203,6 +202,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			return
 		D.loc = src
 		to_chat(user, "<span class='notice'>You add the disk to the machine!</span>")
+	else if(istype(D, /obj/item/card/id))	//hispania
+		if(emagged)
+			to_chat(user, "<span class='warning'>The machine don't respond!</span>")
+			return
+		var/obj/item/card/id/id = D
+		for(var/a in id.access)
+			if(a == ACCESS_HOS || a == ACCESS_CAPTAIN)
+				secureprotocols = !secureprotocols	//si no esta emmag el hos o el cap pueden desactivar esto
+				to_chat(user, "<span class='notice'>You [secureprotocols ? "disable" : "enable"] the security protocols</span>")
+				return
+		to_chat(user, "<span class='notice'>You don't have enough access to disable security protocols</span>")
+		return	//fin hispania
 	else if(!(linked_destroy && linked_destroy.busy) && !(linked_lathe && linked_lathe.busy) && !(linked_imprinter && linked_imprinter.busy))
 		..()
 	SStgui.update_uis(src)
@@ -213,6 +224,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		req_access = list()
 		emagged = TRUE
+		secureprotocols = FALSE	//la emgag desactiva los protocolos de secguridad
 		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
 
 /obj/machinery/computer/rdconsole/proc/valid_nav(next_menu, next_submenu)
@@ -449,6 +461,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(enough_materials && being_built)
 			for(var/i in 1 to amount)
 				var/obj/item/new_item = new being_built.build_path(src)
+				new_item.fabricated()
 				if(istype(new_item, /obj/item/storage/backpack/holding))
 					new_item.investigate_log("built by [key]","singulo")
 				if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches

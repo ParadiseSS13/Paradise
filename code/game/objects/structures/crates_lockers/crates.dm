@@ -515,6 +515,7 @@
 	new /obj/item/storage/box/beakers(src)
 	new /obj/item/hand_labeler(src)
 	new /obj/item/hand_labeler(src)
+	new /obj/item/reagent_containers/dropper(src) ///Pipeta para Botanica
 
 /obj/structure/closet/crate/sci
 	name = "science crate"

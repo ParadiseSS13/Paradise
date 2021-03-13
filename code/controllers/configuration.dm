@@ -1,4 +1,7 @@
 /datum/configuration
+	// Hispania Configs
+	var/ryzorbot = "http://example.org"
+
 	var/server_name = null				// server name (for world name / status)
 	var/server_tag_line = null			// server tagline (for showing on hub entry)
 	var/server_extra_features = null		// server-specific extra features (for hub entry)
@@ -238,6 +241,8 @@
 	// Makes gamemodes respect player limits
 	var/enable_gamemode_player_limit = 0
 
+	var/roundstart_traits = TRUE //TRAITS
+	var/disable_human_mood = FALSE //TRAITS
 	/// BYOND account age limit for notifcations of new accounts (Any accounts older than this value will not send notifications on first join)
 	var/byond_account_age_threshold = 7
 
@@ -246,6 +251,9 @@
 
 	/// Role ID to be pinged for administrative events
 	var/discord_admin_role_id = null // Intentional null usage
+
+	/// Role ID to be pinged for administrative events
+	var/discord_newround_role_id //toma el valor del archivo config.txt, esta es una variable de hispania
 
 	/// Webhook URLs for the main public webhook
 	var/list/discord_main_webhook_urls = list()
@@ -524,6 +532,9 @@
 				if("donationsurl")
 					config.donationsurl = value
 
+				if("ryzorbot")
+					config.ryzorbot = value
+
 				if("repositoryurl")
 					config.repositoryurl = value
 
@@ -755,6 +766,8 @@
 					discord_webhooks_enabled = TRUE
 				if("discord_webhooks_admin_role_id")
 					discord_admin_role_id = "[value]" // This MUST be a string because BYOND doesnt like massive integers
+				if("discord_webhooks_newround_role_id")
+					discord_newround_role_id = "[value]" // This MUST be a string because BYOND doesnt like massive integers, esta es una variable de hispania
 				if("discord_webhooks_main_url")
 					discord_main_webhook_urls = splittext(value, "|")
 				if("discord_webhooks_admin_url")

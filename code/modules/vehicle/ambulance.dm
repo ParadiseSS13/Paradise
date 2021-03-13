@@ -3,6 +3,7 @@
 	desc = "This is what the paramedic uses to run over people they need to take to medbay."
 	icon_state = "docwagon2"
 	key_type = /obj/item/key/ambulance
+	vehicle_move_delay = 1 //Velocidad Base
 	var/obj/structure/bed/amb_trolley/bed = null
 	var/datum/action/ambulance_alarm/AA
 	var/datum/looping_sound/ambulance_alarm/soundloop

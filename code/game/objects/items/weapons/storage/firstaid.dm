@@ -39,7 +39,7 @@
 /obj/item/storage/firstaid/fire/populate_contents()
 	new /obj/item/reagent_containers/applicator/burn(src)
 	new /obj/item/reagent_containers/food/pill/patch/silver_sulf/small(src)
-	new /obj/item/healthanalyzer(src)
+	//new /obj/item/healthanalyzer(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
 
@@ -56,7 +56,7 @@
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
 	new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
 	new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
-	new /obj/item/healthanalyzer(src)
+	//new /obj/item/healthanalyzer(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 
 /obj/item/storage/firstaid/regular/empty/populate_contents()
@@ -72,7 +72,7 @@
 	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
 	new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
-	new /obj/item/healthanalyzer/advanced(src)
+	//new /obj/item/healthanalyzer/advanced(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 
 /obj/item/storage/firstaid/toxin
@@ -90,7 +90,7 @@
 	for(var/I in 1 to 3)
 		new /obj/item/reagent_containers/syringe/charcoal(src)
 		new /obj/item/reagent_containers/food/pill/charcoal(src)
-	new /obj/item/healthanalyzer(src)
+	//new /obj/item/healthanalyzer(src)
 
 /obj/item/storage/firstaid/toxin/empty/populate_contents()
 	return
@@ -107,7 +107,7 @@
 	new /obj/item/reagent_containers/food/pill/salbutamol(src)
 	new /obj/item/reagent_containers/food/pill/salbutamol(src)
 	new /obj/item/reagent_containers/food/pill/salbutamol(src)
-	new /obj/item/healthanalyzer(src)
+	//new /obj/item/healthanalyzer(src)
 
 /obj/item/storage/firstaid/o2/empty/populate_contents()
 	return
@@ -126,10 +126,10 @@
 /obj/item/storage/firstaid/brute/populate_contents()
 	new /obj/item/reagent_containers/applicator/brute(src)
 	new /obj/item/reagent_containers/food/pill/patch/styptic/small(src)
-	new /obj/item/healthanalyzer(src)
+	//new /obj/item/healthanalyzer(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/stack/medical/bruise_pack(src)
-
+	
 /obj/item/storage/firstaid/brute/empty/populate_contents()
 	return
 
@@ -147,7 +147,7 @@
 	new /obj/item/stack/medical/ointment/advanced(src)
 	new /obj/item/stack/medical/ointment/advanced(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
-	new /obj/item/healthanalyzer(src)
+	new /obj/item/healthanalyzer( src )  //Unicamente por ser un medikit especifico
 
 /obj/item/storage/firstaid/adv/empty/populate_contents()
 	return
@@ -201,6 +201,10 @@
 	can_hold = list(/obj/item/roller,/obj/item/bonesetter,/obj/item/bonegel, /obj/item/scalpel, /obj/item/hemostat,
 		/obj/item/cautery, /obj/item/retractor, /obj/item/FixOVein, /obj/item/surgicaldrill, /obj/item/circular_saw)
 
+/obj/item/storage/firstaid/surgery/New()
+	..()
+	new /obj/item/roller/advanced(src) //Hispania Roller Bed
+	
 /obj/item/storage/firstaid/surgery/populate_contents()
 	new /obj/item/roller(src)
 	new /obj/item/bonesetter(src)

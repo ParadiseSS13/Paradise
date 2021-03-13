@@ -4,19 +4,28 @@
 	icon = 'icons/goonstation/objects/fitness.dmi'
 	icon_state = "punchingbag"
 	anchored = TRUE
+	density = TRUE
 	layer = WALL_OBJ_LAYER
 	var/list/hit_sounds = list('sound/weapons/genhit1.ogg', 'sound/weapons/genhit2.ogg', 'sound/weapons/genhit3.ogg',\
 	'sound/weapons/punch1.ogg', 'sound/weapons/punch2.ogg', 'sound/weapons/punch3.ogg', 'sound/weapons/punch4.ogg')
+	var/list/punchingbag_hit_message = list("robusts", "punch", "hit")
 
 /obj/structure/punching_bag/attack_hand(mob/user as mob)
-	. = ..()
-	if(.)
+	if(!istype(user))
+		..()
 		return
-	flick("[icon_state]2", src)
-	playsound(loc, pick(hit_sounds), 25, 1, -1)
-	if(isliving(user))
-		var/mob/living/L = user
-		L.apply_status_effect(STATUS_EFFECT_EXERCISED)
+	if(!issilicon(usr) && user.nutrition < 80)
+		to_chat(user, "<span class='warning'>You need more energy to use the punching bag. Go eat something.</span>")
+	else
+		if(user.a_intent == INTENT_HELP)
+			flick("[icon_state]_hit", src)
+			playsound(src.loc, 'sound/effects/woodhit.ogg', 25, 1, -1)
+			user.do_attack_animation(src)
+			if(!issilicon(usr))
+				user.adjust_nutrition(-rand(2,3))
+				var/mob/living/L = user
+				L.apply_status_effect(STATUS_EFFECT_EXERCISED)
+			to_chat(user, "<span class='warning'>You [pick(punchingbag_hit_message)] \the [src].</span>")
 
 /obj/structure/weightmachine
 	name = "weight machine"
@@ -29,9 +38,6 @@
 	return
 
 /obj/structure/weightmachine/attack_hand(mob/living/user)
-	. = ..()
-	if(.)
-		return
 	if(in_use)
 		to_chat(user, "It's already in use - wait a bit.")
 		return

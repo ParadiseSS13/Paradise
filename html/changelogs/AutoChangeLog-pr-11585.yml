@@ -1,0 +1,5 @@
+author: "Arkatos"
+delete-after: True
+changes: 
+  - bugfix: "Changelings should now correctly receive their action buttons"
+  - bugfix: "Changelings now do not steal action buttons from other changelings"

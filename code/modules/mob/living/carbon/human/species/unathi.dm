@@ -117,4 +117,5 @@
 	default_language = "Sinta'unathi"
 
 	speed_mod = -0.80
+	burn_mod = 0.9
 	inherent_traits = list(TRAIT_CHUNKYFINGERS, TRAIT_NOBREATH)

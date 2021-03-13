@@ -1,0 +1,15 @@
+author: "SteelSlayer"
+delete-after: True
+changes: 
+  - tweak: "The \"Show Player Panel\" verb is now right click only"
+  - tweak: "The \"C.M.A. - Admin\" verb is now right click only"
+  - tweak: "The \"C.M.A. - Self\" verb is now right click only"
+  - tweak: "The \"Check Contents\" verb is now right click only"
+  - tweak: "The \"Freeze\" verb is now right click only"
+  - tweak: "The \"Freeze Mech\" verb is now right click only"
+  - tweak: "The \"Jump to Turf\" verb is now right click only"
+  - tweak: "The \"Update Mob Sprite\" verb is now right click only"
+  - tweak: "The \"List SSDs\" and \"List AFKs\" verbs have been combined into one verb named \"List SSDs and AFKs\""
+  - tweak: "The \"Resolve All Open Mentor Tickets\" verb has been moved inside the mentor ticket interface window"
+  - tweak: "The \"Resolve All Open Admin Tickets\" verb has been moved inside the admin ticket interface window"
+  - tweak: "Increases the width of the new \"List SSDs and AFKs\" window a bit"

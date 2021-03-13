@@ -175,7 +175,7 @@ export const CommunicationsComputer = (props, context) => {
         <Window resizable>
           <Window.Content scrollable>
             {authBlock}
-            <Section title="Captain-Only Actions">
+            <Section title="Priority Actions">
               <LabeledList>
                 <LabeledList.Item label="Current Alert"
                   color={data.security_level_color}>

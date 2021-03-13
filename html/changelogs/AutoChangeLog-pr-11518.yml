@@ -1,0 +1,4 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - bugfix: "can_equip now checks if you have the limbs required to equip something"

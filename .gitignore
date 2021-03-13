@@ -17,7 +17,7 @@
 data/
 /_maps/map_files/backup/*
 /_maps/map_files/**/backup/*
-/_maps/map_files/**/*.dmm.backup
+*.dmm.backup
 /_maps/quicksave/*
 **/__pycache__/*
 *.db
@@ -35,3 +35,6 @@ stddef.dm
 
 # ignore midi2piano build cache
 /tools/midi2piano/midi2piano/obj/*
+
+# ignore RUSTG linux binary, since linux dependencies vary with pretty much every single install
+data/mode.txt

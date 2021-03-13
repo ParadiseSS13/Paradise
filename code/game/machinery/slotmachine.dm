@@ -58,34 +58,45 @@
 		addtimer(CALLBACK(src, .proc/spin_slots, usr.name), 25)
 
 /obj/machinery/slot_machine/proc/spin_slots(userName)
-	switch(rand(1,5000))
-		if(1)
-			atom_say("JACKPOT! [userName] has won ten thousand credits!")
-			GLOB.event_announcement.Announce("Congratulations to [userName] on winning the Jackpot of TEN THOUSAND CREDITS!", "Jackpot Winner")
-			result = "JACKPOT! You win ten thousand credits!"
+	switch(rand(1,10000))
+		if(1) // 0.02%
+			atom_say("JACKPOT! [userName] has won a MILLION CREDITS!")
+			GLOB.event_announcement.Announce("Congratulations to [userName] on winning the Jackpot of ONE MILLION CREDITS!", "Jackpot Winner")
+			result = "JACKPOT! You win one million credits!"
 			resultlvl = "teal"
-			win_money(10000, 'sound/goonstation/misc/airraid_loop.ogg')
-		if(2 to 20)
-			atom_say("Big Winner! [userName] has won a thousand credits!")
+			win_money(1000000, 'sound/goonstation/misc/airraid_loop.ogg')
+		if(2 to 4) // 0.03%
+			atom_say("Big Winner! [userName] has won a hundred thousand credits!")
+			GLOB.event_announcement.Announce("Congratulations to [userName] on winning a hundred thousand credits!", "Big Winner")
+			result = "Big Winner! You win a hundred thousand credits!"
+			resultlvl = "green"
+			win_money(100000, 'sound/goonstation/misc/klaxon.ogg')
+		if(5 to 50) // 0.46%
+			atom_say("Big Winner! [userName] has won ten thousand credits!")
+			result = "You win ten thousand credits!"
+			resultlvl = "green"
+			win_money(10000, 'sound/goonstation/misc/klaxon.ogg')
+		if(51 to 100) // 0.46%
+			atom_say("Winner! [userName] has won a thousand credits!")
 			result = "You win a thousand credits!"
 			resultlvl = "green"
-			win_money(1000, 'sound/goonstation/misc/klaxon.ogg')
-		if(21 to 100)
-			atom_say("Winner! [userName] has won five hundred credits!")
-			result = "You win five hundred credits!"
+			win_money(1000, 'sound/goonstation/misc/bell.ogg')
+		if(101 to 300) // 2%
+			atom_say("Winner! [userName] has won a hundred credits!")
+			result = "You win a hundred credits!"
 			resultlvl = "green"
-			win_money(500, 'sound/goonstation/misc/bell.ogg')
-		if(101 to 500)
-			atom_say("Winner! [userName] has won two hundred credits!")
-			result = "You win two hundred credits!"
-			resultlvl = "green"
-			win_money(200)
-		if(501 to 1000)
+			win_money(100, 'sound/goonstation/misc/bell.ogg')
+		if(301 to 500) // 2%
 			atom_say("Winner! [userName] has won fifty credits!")
 			result = "You win fifty credits!"
 			resultlvl = "green"
 			win_money(50)
-		else
+		if(501 to 1200) //  9%
+			atom_say("Winner! [userName] has won ten credits!")
+			result = "You win ten credits!"
+			resultlvl = "green"
+			win_money(10)
+		else // 85.99%
 			result = "No luck!"
 			resultlvl = "orange"
 	working = FALSE

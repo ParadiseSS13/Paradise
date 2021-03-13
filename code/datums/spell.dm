@@ -5,7 +5,8 @@
 	var/panel = "Debug"//What panel the proc holder needs to go on.
 	var/active = FALSE //Used by toggle based abilities.
 	var/ranged_mousepointer
-	var/mob/ranged_ability_user
+	var/mob/living/ranged_ability_user
+	var/log_inutil = FALSE
 
 /obj/effect/proc_holder/singularity_act()
 	return

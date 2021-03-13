@@ -13,7 +13,7 @@
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	build_path = /obj/item/stock_parts/capacitor
 	category = list("Stock Parts","Machinery","initial")
-	lathe_time_factor = 0.2
+	lathe_time_factor = 0.1
 
 /datum/design/basic_sensor
 	name = "Basic Scanning Module"
@@ -24,7 +24,7 @@
 	materials = list(MAT_METAL = 100, MAT_GLASS = 50)
 	build_path = /obj/item/stock_parts/scanning_module
 	category = list("Stock Parts","Machinery","initial")
-	lathe_time_factor = 0.2
+	lathe_time_factor = 0.1
 
 /datum/design/micro_mani
 	name = "Micro Manipulator"
@@ -35,7 +35,7 @@
 	materials = list(MAT_METAL = 100)
 	build_path = /obj/item/stock_parts/manipulator
 	category = list("Stock Parts","Machinery","initial")
-	lathe_time_factor = 0.2
+	lathe_time_factor = 0.1
 
 /datum/design/basic_micro_laser
 	name = "Basic Micro-Laser"
@@ -46,7 +46,7 @@
 	materials = list(MAT_METAL = 100, MAT_GLASS = 50)
 	build_path = /obj/item/stock_parts/micro_laser
 	category = list("Stock Parts","Machinery","initial")
-	lathe_time_factor = 0.2
+	lathe_time_factor = 0.1
 
 /datum/design/basic_matter_bin
 	name = "Basic Matter Bin"
@@ -57,7 +57,7 @@
 	materials = list(MAT_METAL = 100)
 	build_path = /obj/item/stock_parts/matter_bin
 	category = list("Stock Parts","Machinery","initial")
-	lathe_time_factor = 0.2
+	lathe_time_factor = 0.1
 
 // Tier 2 Parts
 
@@ -127,7 +127,7 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_GOLD = 100)
 	build_path = /obj/item/stock_parts/capacitor/super
 	category = list("Stock Parts")
-	lathe_time_factor = 0.2
+	lathe_time_factor = 0.3
 
 /datum/design/phasic_sensor
 	name = "Phasic Scanning Module"
@@ -138,7 +138,7 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 150, MAT_SILVER = 60)
 	build_path = /obj/item/stock_parts/scanning_module/phasic
 	category = list("Stock Parts")
-	lathe_time_factor = 0.2
+	lathe_time_factor = 0.3
 
 /datum/design/pico_mani
 	name = "Pico Manipulator"
@@ -146,10 +146,10 @@
 	id = "pico_mani"
 	req_tech = list("materials" = 5, "programming" = 4, "engineering" = 5)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 200)
+	materials = list(MAT_METAL = 160, MAT_TITANIUM = 20)
 	build_path = /obj/item/stock_parts/manipulator/pico
 	category = list("Stock Parts")
-	lathe_time_factor = 0.2
+	lathe_time_factor = 0.3
 
 /datum/design/ultra_micro_laser
 	name = "Ultra-High-Power Micro-Laser"
@@ -160,7 +160,7 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 150, MAT_URANIUM = 60)
 	build_path = /obj/item/stock_parts/micro_laser/ultra
 	category = list("Stock Parts")
-	lathe_time_factor = 0.2
+	lathe_time_factor = 0.3
 
 /datum/design/super_matter_bin
 	name = "Super Matter Bin"
@@ -168,10 +168,10 @@
 	id = "super_matter_bin"
 	req_tech = list("materials" = 5, "engineering" = 5)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 200)
+	materials = list(MAT_METAL = 160, MAT_TITANIUM = 20)
 	build_path = /obj/item/stock_parts/matter_bin/super
 	category = list("Stock Parts")
-	lathe_time_factor = 0.2
+	lathe_time_factor = 0.3
 
 //Tier 4 Parts
 
@@ -184,7 +184,7 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_GOLD = 100, MAT_DIAMOND = 100)
 	build_path = /obj/item/stock_parts/capacitor/quadratic
 	category = list("Stock Parts")
-	lathe_time_factor = 0.2
+	lathe_time_factor = 0.4
 
 /datum/design/triphasic_scanning
 	name = "Triphasic Scanning Module"
@@ -195,18 +195,18 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_DIAMOND = 30, MAT_BLUESPACE = 30)
 	build_path = /obj/item/stock_parts/scanning_module/triphasic
 	category = list("Stock Parts")
-	lathe_time_factor = 0.2
+	lathe_time_factor = 0.4
 
 /datum/design/femto_mani
 	name = "Femto Manipulator"
 	desc = "A stock part used in the construction of various devices."
 	id = "femto_mani"
-	req_tech = list("materials" = 7, "programming" = 5, "engineering" = 5, "bluespace" = 5)
+	req_tech = list("materials" = 7, "programming" = 6, "engineering" = 6, "bluespace" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 200, MAT_DIAMOND = 30, MAT_TITANIUM = 30)
 	build_path = /obj/item/stock_parts/manipulator/femto
 	category = list("Stock Parts")
-	lathe_time_factor = 0.2
+	lathe_time_factor = 0.4
 
 /datum/design/quadultra_micro_laser
 	name = "Quad-Ultra Micro-Laser"
@@ -217,18 +217,18 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_URANIUM = 100, MAT_DIAMOND = 60)
 	build_path = /obj/item/stock_parts/micro_laser/quadultra
 	category = list("Stock Parts")
-	lathe_time_factor = 0.2
+	lathe_time_factor = 0.4
 
 /datum/design/bluespace_matter_bin
 	name = "Bluespace Matter Bin"
 	desc = "A stock part used in the construction of various devices."
 	id = "bluespace_matter_bin"
-	req_tech = list("materials" = 7, "engineering" = 5, "bluespace" = 5)
+	req_tech = list("materials" = 7, "engineering" = 6, "bluespace" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 250, MAT_DIAMOND = 100, MAT_BLUESPACE = 100)
 	build_path = /obj/item/stock_parts/matter_bin/bluespace
 	category = list("Stock Parts")
-	lathe_time_factor = 0.2
+	lathe_time_factor = 0.4
 
 /datum/design/RPED
 	name = "Rapid Part Exchange Device"

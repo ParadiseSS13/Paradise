@@ -273,7 +273,7 @@
 	name = "NT specops cybernetics implant"
 	desc = "An extremely powerful cybernetic implant that contains combat and utility modules used by NT special forces."
 	contents = newlist(/obj/item/gun/energy/pulse/pistol/m1911, /obj/item/door_remote/omni, /obj/item/melee/energy/blade/hardlight, /obj/item/reagent_containers/hypospray/combat/nanites, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/implanter/mindshield, /obj/item/flash/armimplant)
-	icon = 'icons/obj/guns/energy.dmi'
+	icon = 'icons/hispania/obj/guns/energy.dmi'
 	icon_state = "m1911"
 	emp_proof = 1
 

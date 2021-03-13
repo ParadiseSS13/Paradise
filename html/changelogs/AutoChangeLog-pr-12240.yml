@@ -1,0 +1,7 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - bugfix: "Fixes Megafauna spawning near the base"
+  - bugfix: "Fixes lava rivers not forming"
+  - tweak: "Upped the labor mineral spawn rate"
+  - rscdel: "Removed the ability to find random code-locked crates when mining"

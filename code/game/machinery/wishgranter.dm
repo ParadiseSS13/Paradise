@@ -33,20 +33,19 @@
 		insisting = TRUE
 
 	else
-		to_chat(user, "<span class='notice'>You speak. [pick("I want the station to disappear", "Humanity is corrupt, mankind must be destroyed", "I want to be rich", "I want to rule the world", "I want immortality.")]. The Wish Granter answers.</span>")
-		to_chat(user, "<span class='notice'>Your head pounds for a moment, before your vision clears.  You are the avatar of the Wish Granter, and your power is LIMITLESS!  And it's all yours.  You need to make sure no one can take it from you.  No one can know, first.</span>")
-
 		charges--
 		insisting = FALSE
+		to_chat(user, "You wish for a better tool to help you in your adventure.")
+		to_chat(user, "<span class='notice'>The Wish Granter listens and materializes!</span>")
+		if(prob(50))
+			new /obj/item/gun/energy/kinetic_accelerator/premiumka/bloody(get_turf(src))
+		else
+			new /obj/item/twohanded/kinetic_crusher/cursed(get_turf(src))
 
-		user.mind.add_antag_datum(/datum/antagonist/wishgranter)
-
-		to_chat(user, "You have a very bad feeling about this.")
-		
 /obj/machinery/wish_granter/super
 	name = "super wish granter"
 	var/list/types = list()
-	
+
 /obj/machinery/wish_granter/super/attack_hand(mob/living/carbon/user)
 	. = ..()
 
@@ -60,9 +59,9 @@
 	if(is_special_character(user) || jobban_isbanned(user, ROLE_TRAITOR) || jobban_isbanned(user, "Syndicate"))
 		to_chat(user, "<span class='warning'>Something instinctual makes you pull away.</span>")
 		return TRUE
-	
+
 	to_chat(user, "<span class='notice'>Your touch makes the Wish Granter stir. Are you really sure you want to do this?</span>")
-	
+
 	for(var/supname in GLOB.all_superheroes)
 		types += supname
 

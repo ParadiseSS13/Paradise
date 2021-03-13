@@ -368,7 +368,7 @@
 	projectile_type = /obj/item/projectile/bullet/reusable/foam_dart
 	muzzle_flash_effect = null
 	caliber = "foam_force"
-	icon = 'icons/obj/guns/toy.dmi'
+	icon = 'icons/hispania/obj/guns/toy.dmi'
 	icon_state = "foamdart"
 	var/modified = 0
 	harmful = FALSE

@@ -258,8 +258,8 @@ SUBSYSTEM_DEF(ticker)
 		for(var/holidayname in SSholiday.holidays)
 			var/datum/holiday/holiday = SSholiday.holidays[holidayname]
 			to_chat(world, "<h4>[holiday.greet()]</h4>")
-
-	SSdiscord.send2discord_simple_noadmins("**\[Info]** Round has started")
+	
+	SSdiscord.send2discord_simple("**\[Info]** Round has started") //El _noadmins al final de SSdiscord.send2discord_simple hacia que mencione a los admins cada vez que comenzaba una ronda, lo cual era innecesario
 	auto_toggle_ooc(FALSE) // Turn it off
 	round_start_time = world.time
 
@@ -400,6 +400,8 @@ SUBSYSTEM_DEF(ticker)
 				SSjobs.AssignRank(player, player.mind.assigned_role, FALSE)
 				SSjobs.EquipRank(player, player.mind.assigned_role, FALSE)
 				EquipCustomItems(player)
+				if(config.roundstart_traits && ishuman(player))
+					SSquirks.AssignQuirks(player, player.client, TRUE)
 	if(captainless)
 		for(var/mob/M in GLOB.player_list)
 			if(!isnewplayer(M))

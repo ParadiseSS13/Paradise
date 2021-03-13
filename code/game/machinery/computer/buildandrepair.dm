@@ -1,6 +1,6 @@
 /obj/structure/computerframe
-	density = 1
-	anchored = 0
+	density = TRUE
+	anchored = FALSE
 	name = "computer frame"
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "0"
@@ -345,7 +345,7 @@
 /obj/item/circuitboard/telesci_console
 	name = "Circuit board (Telepad Control Console)"
 	build_path = /obj/machinery/computer/telescience
-	origin_tech = "programming=3;bluespace=3;plasmatech=4"
+	origin_tech = "programming=6;bluespace=7;plasmatech=5"
 
 /obj/item/circuitboard/large_tank_control
 	name = "Circuit board (Atmospheric Tank Control)"

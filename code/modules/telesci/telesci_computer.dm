@@ -24,15 +24,16 @@
 
 	// Based on the power used
 	var/teleport_cooldown = 0 // every index requires a bluespace crystal
-	var/list/power_options = list(5, 10, 20, 25, 30, 40, 50, 80)
+	var/list/power_options = list(10, 20, 30, 40, 50, 60, 70, 80, 90, 100)
 	var/teleporting = 0
 	var/crystals = 0
-	var/max_crystals = 4
+	var/max_crystals = 6
 	var/obj/item/gps/inserted_gps
 
 /obj/machinery/computer/telescience/New()
 	..()
 	recalibrate()
+	bluespace_tech = new(src)//hispania
 
 /obj/machinery/computer/telescience/Destroy()
 	eject()
@@ -44,6 +45,7 @@
 /obj/machinery/computer/telescience/examine(mob/user)
 	. = ..()
 	. += "There are [crystals ? crystals : "no"] bluespace crystal\s in the crystal slots."
+	. += "Hay datos suficientes para alcanzar el nivel [bluespace_tech.level] en investigacion bluespace"//hispania
 
 /obj/machinery/computer/telescience/Initialize()
 	..()
@@ -72,6 +74,10 @@
 			M.buffer = null
 			to_chat(user, "<span class = 'caution'>You upload the data from the [W.name]'s buffer.</span>")
 			updateUsrDialog()
+	else if(istype(W, /obj/item/disk/tech_disk))//ESTO CONTROLA LA GANANCIA DE TECH
+		var/obj/item/disk/tech_disk/disk = W
+		disk.load_tech(bluespace_tech)
+		to_chat(user, "<span class='notice'>You swipe the disk into [src].</span>")///FIN HISPANIA
 	else
 		return ..()
 
@@ -169,7 +175,7 @@
 
 	if(telepad)
 
-		var/truePower = clamp(power + power_off, 1, 1000)
+		var/truePower = clamp(power + power * power_off_factor + power_off - abs((z-z_co)*power_off_factor), 1, 1000)
 		var/trueRotation = rotation + rotation_off
 		var/trueAngle = clamp(angle, 1, 90)
 
@@ -223,7 +229,7 @@
 			if(sending)
 				source = dest
 				dest = target
-
+			. = FALSE
 			flick("pad-beam", telepad)
 			playsound(telepad.loc, 'sound/weapons/emitter2.ogg', 25, TRUE)
 			for(var/atom/movable/ROI in source)
@@ -261,7 +267,7 @@
 							log_msg += ")"
 					log_msg += ", "
 				do_teleport(ROI, dest)
-
+				. = TRUE//PARA QUE NO SALGA EL MENSAJE DE ERROR
 			if(dd_hassuffix(log_msg, ", "))
 				log_msg = dd_limittext(log_msg, length(log_msg) - 2)
 			else
@@ -282,16 +288,17 @@
 		telefail()
 		temp_msg = "ERROR!<BR>Elevation is less than 1 or greater than 90."
 		return
-	if(z_co == 2 || z_co < 1 || z_co > 6)
+	if(z_co == 1 || z_co > 9)//segun veo los niveles del 3 al 9 estan poblados //el z1 es centcom
+	/*if(z_co == 1 || z_co < 1 || z_co > 6)
 		if(z_co == 7 & emagged == 1)
 		// This should be empty, allows for it to continue if the z-level is 7 and the machine is emagged.
-		else
-			telefail()
-			temp_msg = "ERROR! Sector is less than 1, <BR>greater than [src.emagged ? "7" : "6"], or equal to 2."
-			return
+		else*/
+		telefail()
+		temp_msg = "ERROR! Sector is less than 1, <BR>greater than [9], or equal to 2."
+		return
 
 
-	var/truePower = clamp(power + power_off, 1, 1000)
+	var/truePower = clamp(power + power * power_off_factor + power_off, 1, 1000)
 	var/trueRotation = rotation + rotation_off
 	var/trueAngle = clamp(angle, 1, 90)
 
@@ -316,12 +323,13 @@
 	return
 
 /obj/machinery/computer/telescience/proc/eject()
-	var/to_eject
-	for(var/i in 1 to crystals)
-		to_eject += 1
-		crystals -= 1
-	new /obj/item/stack/ore/bluespace_crystal/artificial(drop_location(), to_eject)
-	power = 0
+	var/to_eject = 0
+	if(crystals > 0)
+		for(var/i in 1 to crystals)
+			to_eject += 1
+			crystals -= 1
+		new /obj/item/stack/ore/bluespace_crystal/artificial(drop_location(), to_eject)
+		power = 0
 
 /obj/machinery/computer/telescience/Topic(href, href_list)
 	if(..())
@@ -337,13 +345,13 @@
 		if(..()) // Check after we input a value, as they could've moved after they entered something
 			return
 		rotation = clamp(new_rot, -900, 900)
-		rotation = round(rotation, 0.01)
+		rotation = round(rotation, 0.001)
 
 	if(href_list["setangle"])
 		var/new_angle = input("Please input desired elevation in degrees.", name, angle) as num
 		if(..())
 			return
-		angle = clamp(round(new_angle, 0.1), 1, 9999)
+		angle = clamp(round(new_angle, 0.001), 1, 9999)
 
 	if(href_list["setpower"])
 		var/index = href_list["setpower"]
@@ -351,7 +359,6 @@
 		if(index != null && power_options[index])
 			if(crystals + telepad.efficiency >= index)
 				power = power_options[index]
-
 	if(href_list["setz"])
 		var/new_z = input("Please input desired sector.", name, z_co) as num
 		if(..())
@@ -390,7 +397,8 @@
 	updateUsrDialog()
 
 /obj/machinery/computer/telescience/proc/recalibrate()
-	teles_left = rand(30, 40)
+	teles_left = rand(45, 50)
 	//angle_off = rand(-25, 25)
 	power_off = rand(-4, 0)
 	rotation_off = rand(-10, 10)
+	power_off_factor = rand(-20, 20)/10

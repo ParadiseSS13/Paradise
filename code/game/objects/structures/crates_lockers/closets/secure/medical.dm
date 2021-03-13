@@ -165,7 +165,7 @@
 	new /obj/item/storage/backpack/duffel/medical(src)
 	new /obj/item/clothing/suit/bio_suit/cmo(src)
 	new /obj/item/clothing/head/bio_hood/cmo(src)
-	new /obj/item/clothing/shoes/white(src)
+/*	new /obj/item/clothing/shoes/white(src)
 	switch(pick("blue", "green", "purple"))
 		if("blue")
 			new /obj/item/clothing/under/rank/medical/blue(src)
@@ -178,13 +178,13 @@
 			new /obj/item/clothing/head/surgery/purple(src)
 	new /obj/item/clothing/suit/storage/labcoat/cmo(src)
 	new /obj/item/clothing/under/rank/chief_medical_officer(src)
+	new /obj/item/storage/belt/medical(src)
 	new /obj/item/clothing/suit/mantle/labcoat/chief_medical_officer(src)
-	new /obj/item/clothing/shoes/brown	(src)
+	new /obj/item/clothing/shoes/brown	(src)*/
 	new /obj/item/radio/headset/heads/cmo(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/defibrillator/compact/loaded(src)
 	new /obj/item/handheld_defibrillator(src)
-	new /obj/item/storage/belt/medical(src)
 	new /obj/item/flash(src)
 	new /obj/item/reagent_containers/hypospray/CMO(src)
 	new /obj/item/organ/internal/cyberimp/eyes/hud/medical(src)
@@ -192,6 +192,8 @@
 	new /obj/item/reagent_containers/food/drinks/mug/cmo(src)
 	new /obj/item/clothing/accessory/medal/medical(src)
 
+/*Toda la ropa comentada de los cmo se encuentra en su walldrobe de hispania
+"code\hispania\game\machinery\vending.dm".*/
 
 /obj/structure/closet/secure_closet/animal
 	name = "animal control locker"

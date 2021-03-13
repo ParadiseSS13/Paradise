@@ -25,6 +25,13 @@
 
 /obj/effect/anomaly/Initialize(mapload, new_lifespan, _drops_core = TRUE)
 	. = ..()
+	set_light(initial(luminosity))
+	aSignal = new(src)
+	aSignal.code = rand(1,100)
+	aSignal.anomaly_type = type
+
+	var/new_frequency = sanitize_frequency(rand(PUBLIC_LOW_FREQ, PUBLIC_HIGH_FREQ))
+	aSignal.set_frequency(new_frequency)
 	GLOB.poi_list |= src
 	START_PROCESSING(SSobj, src)
 	impact_area = get_area(src)
