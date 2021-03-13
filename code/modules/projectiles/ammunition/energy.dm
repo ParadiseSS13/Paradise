@@ -104,13 +104,6 @@
 	e_cost = 200
 	harmful = FALSE
 
-/obj/item/ammo_casing/energy/electrode/gun
-	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
-	e_cost = 100
-
-/obj/item/ammo_casing/energy/electrode/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
-	e_cost = 200
-
 /obj/item/ammo_casing/energy/ion
 	projectile_type = /obj/item/projectile/ion
 	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
