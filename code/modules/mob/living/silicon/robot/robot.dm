@@ -236,7 +236,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	return 1
 
 
-/mob/living/silicon/robot/proc/get_default_name(var/prefix as text)
+/mob/living/silicon/robot/proc/get_default_name(prefix as text)
 	if(prefix)
 		modtype = prefix
 	if(mmi)
@@ -685,7 +685,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	return
 
 
-/mob/living/silicon/robot/bullet_act(var/obj/item/projectile/Proj)
+/mob/living/silicon/robot/bullet_act(obj/item/projectile/Proj)
 	..(Proj)
 	if(prob(75) && Proj.damage > 0) spark_system.start()
 	return 2
@@ -1152,7 +1152,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	to_chat(src, "[lamp_intensity ? "Headlamp power set to Level [lamp_intensity/2]" : "Headlamp disabled."]")
 	update_headlamp()
 
-/mob/living/silicon/robot/proc/update_headlamp(var/turn_off = 0, var/cooldown = 100)
+/mob/living/silicon/robot/proc/update_headlamp(turn_off = 0, cooldown = 100)
 	set_light(0)
 
 	if(lamp_intensity && (turn_off || stat || low_power_mode))
@@ -1308,7 +1308,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	return
 
-/mob/living/silicon/robot/proc/SetLockdown(var/state = 1)
+/mob/living/silicon/robot/proc/SetLockdown(state = 1)
 	// They stay locked down if their wire is cut.
 	if(wires.is_cut(WIRE_BORG_LOCKED))
 		state = 1
@@ -1319,7 +1319,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	lockcharge = state
 	update_canmove()
 
-/mob/living/silicon/robot/proc/choose_icon(var/triesleft, var/list/module_sprites)
+/mob/living/silicon/robot/proc/choose_icon(triesleft, list/module_sprites)
 
 	if(triesleft<1 || !module_sprites.len)
 		return
@@ -1361,7 +1361,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	else
 		to_chat(src, "Your icon has been set. You now require a module reset to change it.")
 
-/mob/living/silicon/robot/proc/notify_ai(var/notifytype, var/oldname, var/newname)
+/mob/living/silicon/robot/proc/notify_ai(notifytype, oldname, newname)
 	if(!connected_ai)
 		return
 	switch(notifytype)
@@ -1378,7 +1378,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		connected_ai.connected_robots -= src
 		connected_ai = null
 
-/mob/living/silicon/robot/proc/connect_to_ai(var/mob/living/silicon/ai/AI)
+/mob/living/silicon/robot/proc/connect_to_ai(mob/living/silicon/ai/AI)
 	if(AI && AI != connected_ai)
 		disconnect_from_ai()
 		connected_ai = AI
@@ -1386,7 +1386,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		notify_ai(1)
 		sync()
 
-/mob/living/silicon/robot/adjustOxyLoss(var/amount)
+/mob/living/silicon/robot/adjustOxyLoss(amount)
 	if(suiciding)
 		return ..()
 	else
@@ -1436,7 +1436,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	radio.recalculateChannels()
 	playsound(get_turf(src), 'sound/mecha/nominalnano.ogg', 75, FALSE)
 
-/mob/living/silicon/robot/deathsquad/bullet_act(var/obj/item/projectile/P)
+/mob/living/silicon/robot/deathsquad/bullet_act(obj/item/projectile/P)
 	if(istype(P) && P.is_reflectable && P.starting)
 		visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", "<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
 		P.reflect_back(src)

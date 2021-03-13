@@ -49,7 +49,7 @@
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/lung_punch)
 	H.mind.martial_art.reset_combos()
 
-/datum/martial_art/krav_maga/teach(var/mob/living/carbon/human/H,var/make_temporary=0)
+/datum/martial_art/krav_maga/teach(mob/living/carbon/human/H, make_temporary=0)
 	..()
 	to_chat(H, "<span class = 'userdanger'>You know the arts of Krav Maga!</span>")
 	to_chat(H, "<span class = 'danger'>Place your cursor over a move at the top of the screen to see what it does.</span>")
@@ -57,14 +57,14 @@
 	legsweep.Grant(H)
 	lungpunch.Grant(H)
 
-/datum/martial_art/krav_maga/remove(var/mob/living/carbon/human/H)
+/datum/martial_art/krav_maga/remove(mob/living/carbon/human/H)
 	..()
 	to_chat(H, "<span class = 'userdanger'>You suddenly forget the arts of Krav Maga...</span>")
 	neckchop.Remove(H)
 	legsweep.Remove(H)
 	lungpunch.Remove(H)
 
-/datum/martial_art/krav_maga/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/krav_maga/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	add_attack_logs(A, D, "Melee attacked with [src]")
 	var/picked_hit_type = pick("punches", "kicks")
@@ -83,7 +83,7 @@
 					  "<span class='userdanger'>[A] [picked_hit_type] you!</span>")
 	return TRUE
 
-/datum/martial_art/krav_maga/disarm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/krav_maga/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	if(prob(60))
 		if(D.hand)
