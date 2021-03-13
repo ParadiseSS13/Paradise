@@ -557,13 +557,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/twohanded/chainsaw
 	cost = 13
 
-/datum/uplink_item/dangerous/batterer
-	name = "Mind Batterer"
-	desc = "A device that has a chance of knocking down people around you for a long amount of time. 50% chance per person. The user is unaffected. Has 5 charges."
-	reference = "BTR"
-	item = /obj/item/batterer
-	cost = 5
-
 // SUPPORT AND MECHAS
 
 /datum/uplink_item/support

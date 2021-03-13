@@ -22,8 +22,8 @@
 	e_cost = 83
 	select_name = "kill"
 
-/obj/item/ammo_casing/energy/laser/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
-	e_cost = 100
+/obj/item/ammo_casing/energy/laser/hos
+	e_cost = 120
 
 /obj/item/ammo_casing/energy/laser/practice
 	projectile_type = /obj/item/projectile/beam/practice
@@ -102,7 +102,6 @@
 	select_name = "stun"
 	fire_sound = 'sound/weapons/taser.ogg'
 	e_cost = 200
-	delay = 15
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/electrode/gun
@@ -117,6 +116,10 @@
 	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
 	select_name = "ion"
 	fire_sound = 'sound/weapons/ionrifle.ogg'
+
+/obj/item/ammo_casing/energy/ion/hos
+	projectile_type = /obj/item/projectile/ion/weak
+	e_cost = 300
 
 /obj/item/ammo_casing/energy/declone
 	projectile_type = /obj/item/projectile/energy/declone
@@ -170,6 +173,9 @@
 
 /obj/item/ammo_casing/energy/disabler/cyborg //seperate balancing for cyborg, again
 	e_cost = 250
+
+/obj/item/ammo_casing/energy/disabler/hos
+	e_cost = 60
 
 /obj/item/ammo_casing/energy/plasma
 	projectile_type = /obj/item/projectile/plasma

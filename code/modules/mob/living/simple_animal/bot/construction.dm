@@ -155,7 +155,7 @@
 						return
 					newname = "redtag ED-209 assembly"
 				if("")
-					if(!istype(W, /obj/item/gun/energy/gun/advtaser))
+					if(!istype(W, /obj/item/gun/energy/disabler))
 						return
 					newname = "taser ED-209 assembly"
 				else

@@ -232,8 +232,12 @@
 		/obj/item/melee/classic_baton/telescopic,
 		/obj/item/restraints/legcuffs/bola)
 
-/obj/item/storage/belt/security/sec/populate_contents()
-	new /obj/item/flashlight/seclite(src)
+/obj/item/storage/belt/security/full/populate_contents()
+	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/grenade/flashbang(src)
+	new /obj/item/flash(src)
+	new /obj/item/melee/baton/loaded(src)
 	update_icon()
 
 /obj/item/storage/belt/security/response_team/populate_contents()

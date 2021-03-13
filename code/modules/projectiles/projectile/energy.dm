@@ -65,9 +65,11 @@
 	icon_state = "cbbolt"
 	damage = 15
 	damage_type = TOX
-	nodamage = 0
-	weaken = 5
-	stutter = 5
+	nodamage = FALSE
+	stamina = 60
+	eyeblur = 10
+	weaken = 1
+	slur = 5
 
 /obj/item/projectile/energy/bolt/large
 	damage = 20
