@@ -144,6 +144,7 @@
 	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
 	if(base)
 		base.teach(H)
+		base = null
 
 /mob/living/carbon/human/proc/martial_arts_help()
 	set name = "Show Info"
