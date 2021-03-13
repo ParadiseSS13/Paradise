@@ -34,10 +34,6 @@
 /obj/item/gun/energy/captain
 	description_info = "This is an energy weapon. Most energy weapons can fire through windows harmlessly. Unlike most weapons, this weapon recharges itself."
 
-/obj/item/gun/energy/sniperrifle
-	description_info = "This is an energy weapon. Most energy weapons can fire through windows harmlessly.  To recharge this weapon, use a weapon recharger. \
-	To use the scope, use the appropriate verb in the object tab."
-
 /obj/item/gun/projectile
 	description_info = "This is a ballistic weapon. To reload, click the weapon in your hand to unload (if needed), then add the appropriate ammo.  The description \
 	will tell you what caliber you need."

@@ -301,22 +301,6 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/toxplasma)
 	shaded_charge = 1
 
-// Energy Sniper //
-/obj/item/gun/energy/sniperrifle
-	name = "L.W.A.P. Sniper Rifle"
-	desc = "A rifle constructed of lightweight materials, fitted with a SMART aiming-system scope."
-	icon_state = "esniper"
-	origin_tech = "combat=6;materials=5;powerstorage=4"
-	ammo_type = list(/obj/item/ammo_casing/energy/sniper)
-	item_state = null
-	weapon_weight = WEAPON_HEAVY
-	slot_flags = SLOT_BACK
-	w_class = WEIGHT_CLASS_BULKY
-	can_holster = FALSE
-	zoomable = TRUE
-	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
-	shaded_charge = 1
-
 // Temperature Gun //
 /obj/item/gun/energy/temperature
 	name = "temperature gun"

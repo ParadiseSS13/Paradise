@@ -823,11 +823,11 @@
 /area/shuttle/administration)
 "PV" = (
 /obj/structure/rack,
-/obj/item/gun/energy/sniperrifle{
+/obj/item/gun/energy/ionrifle{
 	pixel_y = -4
 	},
-/obj/item/gun/energy/sniperrifle,
-/obj/item/gun/energy/sniperrifle{
+/obj/item/gun/energy/ionrifle,
+/obj/item/gun/energy/ionrifle{
 	pixel_y = 3
 	},
 /obj/structure/window/reinforced{

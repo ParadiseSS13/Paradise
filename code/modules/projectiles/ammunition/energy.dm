@@ -214,12 +214,6 @@
 	projectile_type = /obj/item/projectile/energy/bolt/large
 	select_name = "heavy bolt"
 
-/obj/item/ammo_casing/energy/dart
-	projectile_type = /obj/item/projectile/energy/dart
-	fire_sound = 'sound/weapons/genhit.ogg'
-	e_cost = 500
-	select_name = "toxic dart"
-
 /obj/item/ammo_casing/energy/instakill
 	projectile_type = /obj/item/projectile/beam/instakill
 	muzzle_flash_color = LIGHT_COLOR_PURPLE
@@ -261,13 +255,6 @@
 	muzzle_flash_effect = null
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	select_name = "clown"
-
-/obj/item/ammo_casing/energy/sniper
-	projectile_type = /obj/item/projectile/beam/sniper
-	muzzle_flash_color = LIGHT_COLOR_PINK
-	fire_sound = 'sound/weapons/marauder.ogg'
-	delay = 50
-	select_name = "snipe"
 
 /obj/item/ammo_casing/energy/teleport
 	projectile_type = /obj/item/projectile/energy/teleport
