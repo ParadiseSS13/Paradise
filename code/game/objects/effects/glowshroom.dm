@@ -203,10 +203,10 @@
 		myseed.endurance -= amount
 	else // Timed decay
 		myseed.endurance -= 1
-		if (myseed.endurance > 0)
+		if(myseed.endurance > 0)
 			addtimer(CALLBACK(src, .proc/Decay), delay_decay, TIMER_UNIQUE|TIMER_NO_HASH_WAIT) // Recall decay timer
 			return
-	if (myseed.endurance < 1) // Plant is gone
+	if(myseed.endurance < 1) // Plant is gone
 		qdel(src)
 
 /obj/structure/glowshroom/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -226,6 +226,6 @@
 	qdel(src)
 
 /obj/structure/glowshroom/attackby(obj/item/I, mob/living/user, params)
-	if (istype(I, /obj/item/plant_analyzer))
+	if(istype(I, /obj/item/plant_analyzer))
 		return myseed.attackby(I, user, params) // Hacky I guess
 	return ..() // Attack normally
