@@ -168,7 +168,7 @@
 	if(!spam_flag)
 		if(ishuman(C))
 			C.stuttering = 20 //stammer
-			C.MinimumDeafTicks(0, 5) //far less damage than the H.O.N.K.
+			C.AdjustEarDamage(0, 5) //far less damage than the H.O.N.K.
 			C.Jitter(50)
 			C.Weaken(5)
 			C.Stun(5)      // Paralysis from tg ported as stun
@@ -290,7 +290,7 @@
 	s.start()
 	..()
 
-/mob/living/simple_animal/bot/honkbot/attack_alien(var/mob/living/carbon/alien/user as mob)
+/mob/living/simple_animal/bot/honkbot/attack_alien(mob/living/carbon/alien/user as mob)
 	..()
 	if(!isalien(target))
 		target = user

@@ -9,7 +9,7 @@
 	req_stat = UNCONSCIOUS
 
 //Recover from stuns.
-/datum/action/changeling/epinephrine/sting_action(var/mob/living/user)
+/datum/action/changeling/epinephrine/sting_action(mob/living/user)
 
 	if(user.lying)
 		to_chat(user, "<span class='notice'>We arise.</span>")

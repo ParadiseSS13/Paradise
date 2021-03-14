@@ -125,11 +125,13 @@
 	M.faction |= "alien"
 	M.add_language("Hivemind")
 	M.add_language("Xenomorph")
+	ADD_TRAIT(M, TRAIT_XENO_IMMUNE, "xeno immune")
 
 /obj/item/organ/internal/xenos/hivenode/remove(mob/living/carbon/M, special = 0)
 	M.faction -= "alien"
 	M.remove_language("Hivemind")
 	M.remove_language("Xenomorph")
+	REMOVE_TRAIT(M, TRAIT_XENO_IMMUNE, "xeno immune")
 	. = ..()
 
 /obj/item/organ/internal/xenos/neurotoxin

@@ -17,12 +17,9 @@
 
 /datum/reagent/consumable/ethanol/reaction_obj(obj/O, volume)
 	if(istype(O,/obj/item/paper))
-		if(istype(O,/obj/item/paper/contract/infernal))
-			O.visible_message("<span class='warning'>The solution ignites on contact with [O].</span>")
-		else
-			var/obj/item/paper/paperaffected = O
-			paperaffected.clearpaper()
-			paperaffected.visible_message("<span class='notice'>The solution melts away the ink on the paper.</span>")
+		var/obj/item/paper/paperaffected = O
+		paperaffected.clearpaper()
+		paperaffected.visible_message("<span class='notice'>The solution melts away the ink on the paper.</span>")
 	if(istype(O,/obj/item/book))
 		if(volume >= 5)
 			var/obj/item/book/affectedbook = O
@@ -375,6 +372,18 @@
 	drink_name = "Whiskey Cola"
 	drink_desc = "An innocent-looking mixture of cola and Whiskey. Delicious."
 	taste_description = "whiskey and coke"
+
+/datum/reagent/consumable/ethanol/daiquiri
+	name = "Daiquiri"
+	id = "daiquiri"
+	description = "Lime juice and sugar mixed with rum. A sweet and refreshing mix."
+	reagent_state = LIQUID
+	color = "#61d961" // rgb: 38, 85, 38
+	alcohol_perc = 0.4
+	drink_icon = "daiquiriglass"
+	drink_name = "Daiquiri"
+	drink_desc = "When Botany gives you limes, make daiquiris."
+	taste_description = "sweetened lime juice and rum"
 
 /datum/reagent/consumable/ethanol/martini
 	name = "Classic Martini"

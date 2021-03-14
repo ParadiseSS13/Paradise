@@ -6,6 +6,7 @@
 	icon_state = "drone3"
 	icon_living = "drone3"
 	icon_dead = "drone_dead"
+	mob_biotypes = MOB_ROBOTIC
 	ranged = 1
 	rapid = 3
 	retreat_distance = 3
