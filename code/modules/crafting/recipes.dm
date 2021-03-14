@@ -1,21 +1,33 @@
 /datum/crafting_recipe
-	var/name = "" //in-game display name
-	var/reqs[] = list() //type paths of items consumed associated with how many are needed
-	var/blacklist[] = list() //type paths of items explicitly not allowed as an ingredient
-	var/result = list() //type path of item resulting from this craft
-	var/tools[] = list() //tool behaviours of items needed but not consumed
-	var/pathtools[] = list() //type paths of items needed but not consumed
-	var/time = 30 //time in deciseconds
-	var/parts[] = list() //type paths of items that will be placed in the result
-	var/chem_catalysts[] = list() //like tools but for reagents
-	var/category = CAT_NONE //where it shows up in the crafting UI
+	/// In-game display name.
+	var/name = ""
+	/// Type paths of items consumed associated with how many are needed.
+	var/list/reqs = list()
+	/// Type paths of items explicitly not allowed as an ingredient.
+	var/list/blacklist = list()
+	/// Type paths of item(s) resulting from this craft.
+	var/list/result = list()
+	/// Tool behaviours of items needed but not consumed.
+	var/list/tools = list()
+	/// Type paths of items needed but not consumed.
+	var/list/pathtools = list()
+	/// Crafting time in deciseconds.
+	var/time = 30
+	/// Type paths of items that will be placed inside the result.
+	var/list/parts = list()
+	var/list/chem_catalysts = list() //like tools but for reagents
+	/// What category it's shown under in the crafting UI.
+	var/category = CAT_NONE
+	/// What subcategory it's shown under in the crafting UI. (e.g 'Ammo' under 'Weapons')
 	var/subcategory = CAT_NONE
-	var/always_availible = TRUE //Set to FALSE if it needs to be learned first.
+	/// Is this recipe always available, or does it need to be learned first.
+	var/always_availible = TRUE
+	/// Will this recipe send an admin message when it's completed.
 	var/alert_admins_on_craft = FALSE
 
 /datum/crafting_recipe/IED
 	name = "IED"
-	result = list(/obj/item/grenade/iedcasing)
+	result = /obj/item/grenade/iedcasing // Deliberately not a list for testing
 	reqs = list(/datum/reagent/fuel = 50,
 				/obj/item/stack/cable_coil = 1,
 				/obj/item/assembly/igniter = 1,
@@ -280,7 +292,7 @@
 
 /datum/crafting_recipe/flashlight_eyes
 	name = "Flashlight Eyes"
-	result = /obj/item/organ/internal/eyes/cybernetic/flashlight
+	result = list(/obj/item/organ/internal/eyes/cybernetic/flashlight)
 	time = 10
 	reqs = list(/obj/item/flashlight = 2,
 				/obj/item/restraints/handcuffs/cable = 1)
