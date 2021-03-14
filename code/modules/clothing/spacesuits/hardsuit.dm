@@ -633,11 +633,7 @@
 		owner.visible_message("<span class='danger'>[owner]'s shields deflect [attack_text] in a shower of sparks!</span>")
 		if(istype(hitby, /obj/item/projectile))
 			var/obj/item/projectile/P = hitby
-			if(P.nodamage)
-				if(P.stun) //tasers
-					current_charges--
-					was_damaged = TRUE
-			else
+			if(!P.nodamage)
 				current_charges--
 				was_damaged = TRUE
 		else

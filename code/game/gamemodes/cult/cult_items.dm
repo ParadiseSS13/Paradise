@@ -161,7 +161,12 @@
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(current_charges)
 		owner.visible_message("<span class='danger'>[attack_text] is deflected in a burst of blood-red sparks!</span>")
-		current_charges--
+		if(istype(hitby, /obj/item/projectile))
+			var/obj/item/projectile/P = hitby
+			if(!P.nodamage)
+				current_charges--
+		else
+			current_charges--
 		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		new /obj/effect/temp_visual/cult/sparks(get_turf(owner))
 		if(!current_charges)
