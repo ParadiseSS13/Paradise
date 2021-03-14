@@ -318,10 +318,7 @@
 	if(prob(hit_reaction_chance))
 		if(istype(hitby, /obj/item/projectile))
 			var/obj/item/projectile/P = hitby
-			if(P.nodamage)
-				if(P.stun) //tasers
-					return TRUE
-			else
+			if(!P.nodamage)
 				return TRUE
 		else
 			return TRUE
