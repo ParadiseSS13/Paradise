@@ -166,7 +166,7 @@ datum/game_mode/nations
  * Called in newplayer.dm when a humanoid character joins the round after it started.
  * Parameters: var/mob/living/carbon/human, var/rank
  */
-/hook/latespawn/proc/give_latejoiners_nations(var/mob/living/carbon/human/H)
+/hook/latespawn/proc/give_latejoiners_nations(mob/living/carbon/human/H)
 	var/datum/game_mode/nations/mode = get_nations_mode()
 	if(!mode) return 1
 
@@ -245,7 +245,7 @@ datum/game_mode/nations
 
 //prepare for copypaste
 //While not an Antag i AM using the set_antag hud on this to make this easier.
-/datum/game_mode/proc/update_nations_icons_added(datum/mind/nations_mind,var/naticon)
+/datum/game_mode/proc/update_nations_icons_added(datum/mind/nations_mind, naticon)
 	var/datum/atom_hud/antag/nations_hud = huds[GAME_HUD_NATIONS]
 	nations_hud.join_hud(nations_mind)
 	set_nations_hud(nations_mind,naticon)

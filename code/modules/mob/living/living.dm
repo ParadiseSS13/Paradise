@@ -997,6 +997,15 @@
 	..()
 	update_z(new_z)
 
+/mob/living/proc/owns_soul()
+	if(mind)
+		return mind.soulOwner == mind
+	return 1
+
+/mob/living/proc/return_soul()
+	if(mind)
+		mind.soulOwner = mind
+
 /mob/living/rad_act(amount)
 	. = ..()
 

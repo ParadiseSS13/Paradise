@@ -1,5 +1,5 @@
 /* proc para ver los tubos porteado de tg
-/obj/item/proc/t_ray_scan(var/mob/viewer, var/scan_range = 1, var/pulse_duration = 10)
+/obj/item/proc/t_ray_scan(mob/viewer, scan_range = 1, pulse_duration = 10)
 	if(!ismob(viewer) || !viewer.client)
 		return
 	for(var/turf/T in range(scan_range, viewer.loc) )

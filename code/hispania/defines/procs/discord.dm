@@ -1,4 +1,4 @@
-/proc/ryzorbot(var/slash, var/route, var/msg)
+/proc/ryzorbot(slash, route, msg)
 	if(config.ryzorbot)
 		var/content = ""
 		for (var/i = 1 to length(msg))

@@ -7,7 +7,7 @@
 	var/restraining = 0
 	var/current_target
 
-/datum/martial_art/bscqc/proc/add_to_streak(var/element,var/mob/living/carbon/human/D)
+/datum/martial_art/bscqc/proc/add_to_streak(element, mob/living/carbon/human/D)
 	if(D != current_target)
 		current_target = D
 		streak = ""

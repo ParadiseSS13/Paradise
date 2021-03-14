@@ -1342,7 +1342,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	. = "[.][!!husk][!!hulk][!!skeleton]"
 
-/mob/living/carbon/human/proc/hispania_icon(var/obj/item/A, var/icon_hispania, var/icon_paradise, var/i_state, var/layer)
+/mob/living/carbon/human/proc/hispania_icon(obj/item/A, icon_hispania, icon_paradise, i_state, layer)
 	return mutable_appearance((A.hispania_icon ? icon_hispania : icon_paradise), i_state, layer = layer)
 
 	/*	Si result NO es un string vacio entonces retornara un uniforme o traje, para gordos o para gente normal

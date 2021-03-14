@@ -19,7 +19,7 @@
 	anchored = TRUE
 	max_integrity = 10
 
-/obj/structure/light_prism/Initialize(mapload, var/newcolor)
+/obj/structure/light_prism/Initialize(mapload, newcolor)
 	. = ..()
 	color = newcolor
 	light_color = newcolor
