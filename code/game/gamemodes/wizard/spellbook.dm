@@ -182,7 +182,7 @@
 /datum/spellbook_entry/sacred_flame/LearnSpell(mob/living/carbon/human/user, obj/item/spellbook/book, obj/effect/proc_holder/spell/newspell)
 	..()
 	user.dna.SetSEState(GLOB.coldblock, 1)
-	genemutcheck(user, GLOB.coldblock, null, MUTCHK_FORCED)
+	singlemutcheck(user, GLOB.coldblock, MUTCHK_FORCED)
 
 //Defensive
 /datum/spellbook_entry/disabletech
