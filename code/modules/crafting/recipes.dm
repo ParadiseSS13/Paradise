@@ -27,7 +27,7 @@
 
 /datum/crafting_recipe/IED
 	name = "IED"
-	result = /obj/item/grenade/iedcasing // Deliberately not a list for testing
+	result = list(/obj/item/grenade/iedcasing)
 	reqs = list(/datum/reagent/fuel = 50,
 				/obj/item/stack/cable_coil = 1,
 				/obj/item/assembly/igniter = 1,
