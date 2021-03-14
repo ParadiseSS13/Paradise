@@ -628,10 +628,22 @@
 /obj/item/clothing/suit/space/hardsuit/shielded/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	recharge_cooldown = world.time + recharge_delay
 	if(current_charges > 0)
+		var/was_damaged = FALSE
 		do_sparks(2, 1, src)
 		owner.visible_message("<span class='danger'>[owner]'s shields deflect [attack_text] in a shower of sparks!</span>")
-		current_charges--
-		if(recharge_rate)
+		if(istype(hitby, /obj/item/projectile))
+			var/obj/item/projectile/P = hitby
+			if(P.nodamage)
+				if(P.stun) //tasers
+					current_charges--
+					was_damaged = TRUE
+			else
+				current_charges--
+				was_damaged = TRUE
+		else
+			current_charges--
+			was_damaged = TRUE
+		if(recharge_rate && was_damaged)
 			START_PROCESSING(SSobj, src)
 		if(current_charges <= 0)
 			owner.visible_message("<span class='warning'>[owner]'s shield overloads!</span>")
