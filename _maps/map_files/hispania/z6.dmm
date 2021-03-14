@@ -759,8 +759,7 @@
 	},
 /area/derelict/bridge)
 "bK" = (
-/obj/machinery/vending/cigarette/free{
-	},
+/obj/machinery/vending/cigarette/free,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -1439,8 +1438,7 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
-/obj/machinery/vending/cigarette/free{
-	},
+/obj/machinery/vending/cigarette/free,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -2052,7 +2050,7 @@
 	},
 /area/derelict/bridge)
 "eC" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/structure/chair/comfy/shuttle{
 	name = "Bathroom"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2061,11 +2059,12 @@
 	},
 /area/derelict/crew_quarters)
 "eD" = (
-/turf/simulated/shuttle/wall{
+/obj/structure/alien/resin/wall{
 	dir = 2;
 	icon_state = "swall8";
 	tag = "icon-swall12"
 	},
+/turf/space,
 /area/derelict/crew_quarters)
 "eE" = (
 /obj/structure/cable{
@@ -2861,7 +2860,7 @@
 /turf/simulated/floor/plating,
 /area/derelict/crew_quarters)
 "gs" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/structure/chair/comfy/shuttle{
 	name = "Dormitories"
 	},
 /turf/simulated/floor/plasteel,
@@ -3163,7 +3162,7 @@
 	},
 /area/derelict/arrival)
 "he" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/structure/chair/comfy/shuttle{
 	name = "Dormitories"
 	},
 /turf/simulated/floor/plasteel{
@@ -3987,15 +3986,15 @@
 	},
 /area/derelict/arrival)
 "iC" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
+/obj/structure/alien/resin/wall{
 	dir = 8;
 	icon_state = "diagonalWall3"
 	},
+/turf/space,
 /area/derelict/arrival)
 "iD" = (
 /obj/structure/grille,
-/obj/structure/shuttle/window{
+/obj/effect/temp_visual/ratvar/window{
 	tag = "icon-window5_end";
 	icon = 'icons/turf/shuttle.dmi';
 	icon_state = "window5_end";
@@ -4076,7 +4075,7 @@
 	})
 "iL" = (
 /obj/structure/grille,
-/obj/structure/shuttle/window{
+/obj/effect/temp_visual/ratvar/window{
 	tag = "icon-window5_mid";
 	icon = 'icons/turf/shuttle.dmi';
 	icon_state = "window5_mid";
@@ -4161,8 +4160,7 @@
 	layer = 2.1;
 	name = "suspicious button"
 	},
-/obj/machinery/vending/cigarette/free{
-	},
+/obj/machinery/vending/cigarette/free,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
@@ -4193,7 +4191,7 @@
 	})
 "iW" = (
 /obj/structure/grille,
-/obj/structure/shuttle/window{
+/obj/effect/temp_visual/ratvar/window{
 	tag = "icon-window5_end (NORTH)";
 	icon = 'icons/turf/shuttle.dmi';
 	icon_state = "window5_end";
@@ -4529,11 +4527,11 @@
 	},
 /area/derelict/crew_quarters)
 "jF" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
+/obj/structure/alien/resin/wall{
 	dir = 1;
 	icon_state = "diagonalWall3"
 	},
+/turf/space,
 /area/derelict/arrival)
 "jG" = (
 /turf/simulated/floor/plasteel{
@@ -4632,10 +4630,11 @@
 	},
 /area/derelict/crew_quarters)
 "jO" = (
-/turf/simulated/shuttle/wall{
+/obj/structure/alien/resin/wall{
 	dir = 4;
 	icon_state = "wall3"
 	},
+/turf/space,
 /area/derelict/arrival)
 "jP" = (
 /obj/structure/chair{
@@ -5143,10 +5142,11 @@
 /area/derelict/crew_quarters)
 "kR" = (
 /obj/structure/sign/barsign,
-/turf/simulated/shuttle/wall{
+/obj/structure/alien/resin/wall{
 	icon_state = "swall4";
 	dir = 2
 	},
+/turf/space,
 /area/derelict/crew_quarters)
 "kS" = (
 /obj/machinery/door/airlock/public/glass{
@@ -5185,8 +5185,7 @@
 /area/derelict/arrival)
 "kW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/cigarette/free{
-	},
+/obj/machinery/vending/cigarette/free,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -5390,15 +5389,11 @@
 	icon_state = "propulsion_r";
 	dir = 1
 	},
-/turf/simulated/shuttle/plating,
+/obj/effect/turf_decal/sand/plating,
+/turf/space,
 /area/space/nearstation)
 "lu" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall_f6";
-	tag = "icon-swall_f6"
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/space/nearstation)
 "lv" = (
 /obj/structure/table,
@@ -5413,15 +5408,7 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/shuttle/plating,
-/area/space/nearstation)
-"lx" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f10";
-	icon_state = "swall_f10";
-	dir = 2
-	},
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "ly" = (
 /obj/item/stack/tile,
@@ -5437,31 +5424,11 @@
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
-"lB" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall11";
-	icon_state = "swall11";
-	dir = 2
-	},
-/area/space/nearstation)
-"lC" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall7";
-	dir = 2
-	},
-/area/space/nearstation)
 "lD" = (
 /turf/space,
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
-"lE" = (
-/turf/simulated/floor/plating/asteroid/airless,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f5";
-	dir = 2
-	},
-/area/space/nearstation)
 "lF" = (
 /turf/space,
 /area/syndicate_depot/perimeter)
@@ -5515,20 +5482,6 @@
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
-"lO" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f9";
-	icon_state = "swall_f9";
-	dir = 2
-	},
-/area/space/nearstation)
-"lP" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall3";
-	dir = 2
-	},
-/area/space/nearstation)
 "lQ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -5757,21 +5710,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
-"mx" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall12";
-	icon_state = "swall12";
-	dir = 2
-	},
-/area/space/nearstation)
-"my" = (
-/turf/simulated/floor/plating/asteroid/airless,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f9";
-	icon_state = "swall_f9";
-	dir = 2
-	},
-/area/space/nearstation)
 "mz" = (
 /obj/structure/closet/crate{
 	icon_state = "crateopen";
@@ -5828,7 +5766,7 @@
 	icon_state = "burst_r";
 	tag = "icon-burst_r (WEST)"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "mG" = (
 /obj/structure/shuttle/engine/heater{
@@ -5839,7 +5777,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "mH" = (
 /turf/simulated/mineral,
@@ -5858,7 +5796,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "mL" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plasteel/airless,
 /area/space/nearstation)
 "mM" = (
@@ -5959,14 +5897,7 @@
 	},
 /area/syndicate_depot/core)
 "na" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "nb" = (
@@ -5993,7 +5924,7 @@
 	icon_state = "propulsion_l";
 	tag = "icon-propulsion_l (WEST)"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "nf" = (
 /obj/effect/spawner/random_spawners/syndicate/trap/mine,
@@ -6062,14 +5993,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
-"np" = (
-/turf/simulated/floor/plasteel/airless,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f10";
-	icon_state = "swall_f10";
-	dir = 2
-	},
-/area/space/nearstation)
 "nq" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
@@ -6081,7 +6004,7 @@
 	icon_state = "propulsion_l";
 	tag = "icon-propulsion_l (WEST)"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "nr" = (
 /obj/effect/decal/warning_stripes/red,
@@ -7006,7 +6929,7 @@
 /area/derelict/crew_quarters)
 "pS" = (
 /obj/structure/computerframe,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor{
 	icon_state = "floor4"
 	},
 /area/derelict/arrival)
@@ -7029,7 +6952,7 @@
 	dir = 4
 	},
 /obj/item/clothing/head/soft/solgov,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor{
 	icon_state = "floor4"
 	},
 /area/derelict/arrival)
@@ -7042,7 +6965,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor{
 	icon_state = "floor4"
 	},
 /area/derelict/arrival)
@@ -7252,12 +7175,12 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor{
 	icon_state = "floor4"
 	},
 /area/derelict/arrival)
 "qs" = (
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor{
 	icon_state = "floor4"
 	},
 /area/derelict/arrival)
@@ -7266,7 +7189,7 @@
 	info = "Fuck. Fuckfuckfuck. I knew this mission was a mistake, that idiot Thomas got himself killed by some angry Russian security bot in the armoury, and the Lt. ran into the annex like a moron and got himself trapped. Now I'm just sitting on my god damn hands because this shuttle won't bloody move. Stupid USSP piece of shit docking arm must be jammed and I don't have the kit to go out and fix it.<br><br>Who the hell attacks a space station without EVA gear anyways? It's not like you can just bloody well waltz out into space with a hot coffee and shrug it off.";
 	name = "unknown report"
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor{
 	icon_state = "floor4"
 	},
 /area/derelict/arrival)
@@ -7287,7 +7210,7 @@
 	name = "Shuttle Airlock";
 	req_access_txt = "150"
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor{
 	icon_state = "floor4"
 	},
 /area/derelict/arrival)
@@ -7468,10 +7391,10 @@
 /turf/simulated/floor/plating,
 /area/derelict/crew_quarters)
 "qQ" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
+/obj/structure/alien/resin/wall{
 	icon_state = "diagonalWall3"
 	},
+/turf/space,
 /area/derelict/arrival)
 "qR" = (
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter,
@@ -7488,7 +7411,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor{
 	icon_state = "floor4"
 	},
 /area/derelict/arrival)
@@ -7496,7 +7419,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor{
 	icon_state = "floor4"
 	},
 /area/derelict/arrival)
@@ -7573,7 +7496,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/structure/chair/comfy/shuttle{
 	name = "Central Annex"
 	},
 /turf/simulated/floor/plasteel,
@@ -7733,7 +7656,8 @@
 	dir = 1
 	},
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/shuttle/plating,
+/obj/effect/turf_decal/sand/plating,
+/turf/space,
 /area/derelict/arrival)
 "rt" = (
 /obj/structure/window/reinforced,
@@ -7814,7 +7738,7 @@
 	layer = 3;
 	name = "Central Annex Lockdown"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/structure/chair/comfy/shuttle{
 	name = "Central Annex"
 	},
 /turf/simulated/floor/plasteel,
@@ -7838,7 +7762,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/structure/chair/comfy/shuttle{
 	name = "Central Annex"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -8057,7 +7981,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/structure/chair/comfy/shuttle{
 	name = "Central Annex"
 	},
 /obj/effect/decal/cleanable/blood/tracks{
@@ -8255,7 +8179,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor{
 	icon_state = "floor4"
 	},
 /area/derelict/arrival)
@@ -8415,7 +8339,7 @@
 /area/derelict/solar_control)
 "sD" = (
 /obj/structure/window/reinforced/tinted,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor{
 	icon_state = "floor4"
 	},
 /area/derelict/arrival)
@@ -8424,7 +8348,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor{
 	icon_state = "floor4"
 	},
 /area/derelict/arrival)
@@ -8569,11 +8493,11 @@
 	},
 /area/derelict/crew_quarters)
 "sU" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
+/obj/structure/alien/resin/wall{
 	dir = 4;
 	icon_state = "diagonalWall3"
 	},
+/turf/space,
 /area/derelict/arrival)
 "sV" = (
 /obj/structure/cable{
@@ -8918,7 +8842,8 @@
 /area/derelict/solar_control)
 "tF" = (
 /obj/structure/sign/greencross,
-/turf/simulated/shuttle/wall,
+/obj/structure/alien/resin/wall,
+/turf/space,
 /area/derelict/arrival)
 "tG" = (
 /obj/machinery/door/airlock/medical/glass{
@@ -9099,8 +9024,7 @@
 	name = "Derelict Annex"
 	})
 "tY" = (
-/obj/machinery/vending/cigarette/free{
-	},
+/obj/machinery/vending/cigarette/free,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -10104,7 +10028,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/structure/chair/comfy/shuttle{
 	name = "Central Annex"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -10662,8 +10586,7 @@
 	},
 /area/derelict/arrival)
 "xe" = (
-/obj/machinery/vending/cigarette/free{
-	},
+/obj/machinery/vending/cigarette/free,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "redfull";
@@ -10733,7 +10656,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/shuttle{
+/obj/structure/chair/comfy/shuttle{
 	name = "Central Annex"
 	},
 /turf/simulated/floor/plasteel,
@@ -11554,14 +11477,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
-"zQ" = (
-/turf/simulated/mineral/random/labormineral,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f5";
-	icon_state = "swall_f5";
-	dir = 2
-	},
-/area/space/nearstation)
 "zR" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
 /obj/machinery/light/small{
@@ -11644,7 +11559,7 @@
 	req_access_txt = "150"
 	},
 /obj/structure/fans/tiny,
-/turf/unsimulated/floor{
+/turf/simulated/floor{
 	name = "plating"
 	},
 /area/syndicate_depot/outer)
@@ -11679,7 +11594,7 @@
 	req_access_txt = "150"
 	},
 /obj/structure/fans/tiny,
-/turf/unsimulated/floor{
+/turf/simulated/floor{
 	name = "plating"
 	},
 /area/syndicate_depot/core)
@@ -11704,10 +11619,6 @@
 	icon_state = "wood"
 	},
 /area/derelict/crew_quarters)
-"QY" = (
-/obj/structure/spawner/mining/carps,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/space)
 "Sv" = (
 /obj/effect/spawner/random_spawners/blood_maybe,
 /turf/simulated/floor/plating/asteroid/airless,
@@ -11747,9 +11658,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_depot/outer)
-"YM" = (
-/turf/simulated/floor/plating/asteroid/airless,
-/area/space)
 "YV" = (
 /obj/structure/chair{
 	dir = 8
@@ -18917,9 +18825,9 @@ aa
 aa
 aa
 aa
-YM
-YM
-YM
+aa
+aa
+aa
 mH
 mH
 mH
@@ -19174,9 +19082,9 @@ aa
 aa
 aa
 aa
-YM
-QY
-YM
+aa
+aa
+aa
 mH
 mH
 mH
@@ -19431,8 +19339,8 @@ aa
 aa
 aa
 aa
-YM
-YM
+aa
+aa
 mH
 mH
 mH
@@ -19688,7 +19596,7 @@ aa
 aa
 aa
 aa
-YM
+aa
 mI
 mH
 mH
@@ -19946,7 +19854,7 @@ aa
 aa
 aa
 lu
-lE
+lu
 mH
 mH
 mH
@@ -20202,8 +20110,8 @@ aa
 aa
 lu
 mL
-lB
-lB
+lu
+lu
 mH
 mH
 mH
@@ -21228,11 +21136,11 @@ aa
 aa
 aa
 aa
-lx
+lu
 mL
-lC
-lC
-lP
+lu
+lu
+lu
 mH
 mH
 mI
@@ -21487,8 +21395,8 @@ aa
 aa
 aa
 aa
-lx
-lO
+lu
+lu
 mH
 mH
 mH
@@ -21745,16 +21653,16 @@ aa
 aa
 aa
 aa
-YM
+aa
 mH
-YM
-YM
-YM
+aa
+aa
+aa
 lu
 mH
 mH
 na
-zQ
+lu
 mH
 mH
 mH
@@ -22002,16 +21910,16 @@ aa
 aa
 aa
 aa
-YM
-YM
-YM
-QY
-YM
-mx
+aa
+aa
+aa
+aa
+aa
+lu
 mH
 mW
 az
-mx
+lu
 mH
 mH
 mH
@@ -22260,16 +22168,16 @@ aa
 aa
 aa
 aa
-YM
-YM
-YM
+aa
+aa
+aa
 lu
-my
+lu
 mH
 nN
 nh
-np
-zQ
+lu
+lu
 mH
 mH
 mH
@@ -22518,15 +22426,15 @@ aa
 aa
 aa
 aa
-YM
-YM
-mx
+aa
+aa
+lu
 mI
 nb
 nO
 az
 mY
-mx
+lu
 mH
 mH
 mH
@@ -22777,13 +22685,13 @@ aa
 aa
 aa
 aa
-mx
+lu
 nj
 mX
 az
 mD
 nl
-mx
+lu
 mH
 mH
 mH
@@ -23548,13 +23456,13 @@ aa
 aa
 aa
 aa
-mx
+lu
 mU
 az
 az
 az
 nm
-mx
+lu
 mH
 aa
 aa
@@ -23805,13 +23713,13 @@ aa
 aa
 aa
 aa
-mx
+lu
 mU
 az
 nc
 az
 mU
-mx
+lu
 mH
 aa
 aa
@@ -24062,13 +23970,13 @@ aa
 aa
 aa
 aa
-mx
+lu
 mz
 nc
 az
 az
 mU
-mx
+lu
 mH
 aa
 aa
@@ -24319,13 +24227,13 @@ aa
 aa
 aa
 aa
-mx
+lu
 az
 az
 nc
 nc
 az
-mx
+lu
 aa
 aa
 aa
@@ -24576,13 +24484,13 @@ aa
 aa
 aa
 aa
-lx
+lu
 mG
 mG
 mG
 mG
 mG
-lO
+lu
 aa
 aa
 aa
