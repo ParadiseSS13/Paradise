@@ -2050,21 +2050,12 @@
 	},
 /area/derelict/bridge)
 "eC" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/machinery/door/airlock/public{
 	name = "Bathroom"
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
-/area/derelict/crew_quarters)
-"eD" = (
-/obj/structure/alien/resin/wall{
-	dir = 2;
-	icon_state = "swall8";
-	tag = "icon-swall12"
-	},
-/turf/space,
 /area/derelict/crew_quarters)
 "eE" = (
 /obj/structure/cable{
@@ -2860,7 +2851,7 @@
 /turf/simulated/floor/plating,
 /area/derelict/crew_quarters)
 "gs" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/machinery/door/airlock/public{
 	name = "Dormitories"
 	},
 /turf/simulated/floor/plasteel,
@@ -3162,7 +3153,7 @@
 	},
 /area/derelict/arrival)
 "he" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/machinery/door/airlock/public{
 	name = "Dormitories"
 	},
 /turf/simulated/floor/plasteel{
@@ -3986,11 +3977,7 @@
 	},
 /area/derelict/arrival)
 "iC" = (
-/obj/structure/alien/resin/wall{
-	dir = 8;
-	icon_state = "diagonalWall3"
-	},
-/turf/space,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/arrival)
 "iD" = (
 /obj/structure/grille,
@@ -4526,13 +4513,6 @@
 	icon_state = "dark"
 	},
 /area/derelict/crew_quarters)
-"jF" = (
-/obj/structure/alien/resin/wall{
-	dir = 1;
-	icon_state = "diagonalWall3"
-	},
-/turf/space,
-/area/derelict/arrival)
 "jG" = (
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -4629,13 +4609,6 @@
 	icon_state = "grimy"
 	},
 /area/derelict/crew_quarters)
-"jO" = (
-/obj/structure/alien/resin/wall{
-	dir = 4;
-	icon_state = "wall3"
-	},
-/turf/space,
-/area/derelict/arrival)
 "jP" = (
 /obj/structure/chair{
 	dir = 4
@@ -5142,11 +5115,7 @@
 /area/derelict/crew_quarters)
 "kR" = (
 /obj/structure/sign/barsign,
-/obj/structure/alien/resin/wall{
-	icon_state = "swall4";
-	dir = 2
-	},
-/turf/space,
+/turf/simulated/wall/mineral/titanium/nodecon,
 /area/derelict/crew_quarters)
 "kS" = (
 /obj/machinery/door/airlock/public/glass{
@@ -7390,12 +7359,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/derelict/crew_quarters)
-"qQ" = (
-/obj/structure/alien/resin/wall{
-	icon_state = "diagonalWall3"
-	},
-/turf/space,
-/area/derelict/arrival)
 "qR" = (
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter,
 /turf/simulated/floor/plasteel,
@@ -7496,8 +7459,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/chair/comfy/shuttle{
-	name = "Central Annex"
+/obj/machinery/door/airlock/public{
+	name = "Eastern Annex"
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/arrival)
@@ -7738,8 +7701,8 @@
 	layer = 3;
 	name = "Central Annex Lockdown"
 	},
-/obj/structure/chair/comfy/shuttle{
-	name = "Central Annex"
+/obj/machinery/door/airlock/public{
+	name = "Eastern Annex"
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/eva{
@@ -7762,10 +7725,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/chair/comfy/shuttle{
-	name = "Central Annex"
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/public{
+	name = "Eastern Annex"
+	},
 /turf/simulated/floor/plasteel,
 /area/derelict/crew_quarters)
 "rA" = (
@@ -7981,14 +7944,14 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/chair/comfy/shuttle{
-	name = "Central Annex"
-	},
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 8
+	},
+/obj/machinery/door/airlock/public{
+	name = "Eastern Annex"
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/eva{
@@ -8492,13 +8455,6 @@
 	icon_state = "chapel"
 	},
 /area/derelict/crew_quarters)
-"sU" = (
-/obj/structure/alien/resin/wall{
-	dir = 4;
-	icon_state = "diagonalWall3"
-	},
-/turf/space,
-/area/derelict/arrival)
 "sV" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -8840,11 +8796,6 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/derelict/solar_control)
-"tF" = (
-/obj/structure/sign/greencross,
-/obj/structure/alien/resin/wall,
-/turf/space,
-/area/derelict/arrival)
 "tG" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Medical Wing";
@@ -10028,10 +9979,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/chair/comfy/shuttle{
-	name = "Central Annex"
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/public{
+	name = "Eastern Annex"
+	},
 /turf/simulated/floor/plasteel,
 /area/derelict/eva{
 	name = "Derelict Annex"
@@ -10656,8 +10607,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/chair/comfy/shuttle{
-	name = "Central Annex"
+/obj/machinery/door/airlock/public{
+	name = "Eastern Annex"
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/arrival)
@@ -46960,13 +46911,13 @@ aa
 aa
 aa
 iC
-jO
-jO
-jO
-jO
-jO
-jO
-qQ
+iC
+iC
+iC
+iC
+iC
+iC
+iC
 aa
 aa
 aa
@@ -47987,14 +47938,14 @@ aa
 aa
 aa
 aa
-jF
-jO
+iC
+iC
 qv
-jO
-jO
+iC
+iC
 qv
-jO
-sU
+iC
+iC
 aa
 aa
 aa
@@ -49795,7 +49746,7 @@ qx
 pZ
 hH
 tt
-tF
+gK
 tS
 uj
 tT
@@ -63661,7 +63612,7 @@ jq
 jq
 kd
 kv
-eD
+bn
 lf
 lf
 lg
