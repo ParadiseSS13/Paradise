@@ -13,6 +13,8 @@
 // BUFFS //
 ///////////
 
+#define STATUS_EFFECT_HISGRACE /datum/status_effect/his_grace //His Grace.
+
 #define STATUS_EFFECT_SHADOW_MEND /datum/status_effect/shadow_mend //Quick, powerful heal that deals damage afterwards. Heals 15 brute/burn every second for 3 seconds.
 #define STATUS_EFFECT_VOID_PRICE /datum/status_effect/void_price //The price of healing yourself with void energy. Deals 3 brute damage every 3 seconds for 30 seconds.
 #define STATUS_EFFECT_EXERCISED /datum/status_effect/exercised //Prevents heart disease
@@ -27,7 +29,6 @@
 
 //#define STATUS_EFFECT_POWERREGEN /datum/status_effect/cyborg_power_regen //Regenerates power on a given cyborg over time
 
-//#define STATUS_EFFECT_HISGRACE /datum/status_effect/his_grace //His Grace.
 
 //#define STATUS_EFFECT_WISH_GRANTERS_GIFT /datum/status_effect/wish_granters_gift //If you're currently resurrecting with the Wish Granter
 
@@ -53,7 +54,7 @@
 //#define MAX_MANIA_SEVERITY 100 //how high the mania severity can go
 //#define MANIA_DAMAGE_TO_CONVERT 90 //how much damage is required before it'll convert affected targets
 
-//#define STATUS_EFFECT_HISWRATH /datum/status_effect/his_wrath //His Wrath.
+#define STATUS_EFFECT_HISWRATH /datum/status_effect/his_wrath //His Wrath.
 
 #define STATUS_EFFECT_SUMMONEDGHOST /datum/status_effect/cultghost //is a cult ghost: can see dead people, can't manifest more ghosts
 

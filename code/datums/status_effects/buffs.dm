@@ -1,5 +1,58 @@
 //Largely beneficial effects go here, even if they have drawbacks. An example is provided in Shadow Mend.
 
+/datum/status_effect/his_grace
+	id = "his_grace"
+	duration = -1
+	tick_interval = 4
+	alert_type = /obj/screen/alert/status_effect/his_grace
+	var/bloodlust = 0
+
+/obj/screen/alert/status_effect/his_grace
+	name = "His Grace"
+	desc = "His Grace hungers, and you must feed Him."
+	icon_state = "his_grace"
+	alerttooltipstyle = "hisgrace"
+
+/obj/screen/alert/status_effect/his_grace/MouseEntered(location, control, params)
+	desc = initial(desc)
+	var/datum/status_effect/his_grace/HG = attached_effect
+	desc += "<br><font size=3><b>Current Bloodthirst: [HG.bloodlust]</b></font>\
+	<br>Becomes undroppable at <b>[HIS_GRACE_FAMISHED]</b>\
+	<br>Will consume you at <b>[HIS_GRACE_CONSUME_OWNER]</b>"
+	..()
+
+/datum/status_effect/his_grace/on_apply()
+	add_attack_logs(owner, owner, "gained His Grace's stun immunity", ATKLOG_ALL)
+	owner.add_stun_absorption("hisgrace", INFINITY, 3, null, "His Grace protects you from the stun!")
+	return ..()
+
+/datum/status_effect/his_grace/tick()
+	bloodlust = 0
+	var/graces = 0
+	var/list/held_items = list()
+	held_items += owner.l_hand
+	held_items += owner.r_hand
+	for(var/obj/item/his_grace/HG in held_items)
+		if(HG.bloodthirst > bloodlust)
+			bloodlust = HG.bloodthirst
+		if(HG.awakened)
+			graces++
+	if(!graces)
+		owner.apply_status_effect(STATUS_EFFECT_HISWRATH)
+		qdel(src)
+		return
+	var/grace_heal = bloodlust * 0.05
+	owner.adjustBruteLoss(-grace_heal)
+	owner.adjustFireLoss(-grace_heal)
+	owner.adjustToxLoss(-grace_heal)
+	owner.adjustOxyLoss(-(grace_heal * 2))
+	owner.adjustCloneLoss(-grace_heal)
+
+/datum/status_effect/his_grace/on_remove()
+	add_attack_logs(owner, owner, "lost His Grace's stun immunity", ATKLOG_ALL)
+	if(islist(owner.stun_absorption) && owner.stun_absorption["hisgrace"])
+		owner.stun_absorption -= "hisgrace"
+
 /datum/status_effect/shadow_mend
 	id = "shadow_mend"
 	duration = 30
