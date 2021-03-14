@@ -125,13 +125,16 @@
 /obj/item/snowball
 	name = "snowball"
 	desc = "Get ready for a snowball fight!"
-	force = 0
-	throwforce = 10
 	icon_state = "snowball"
-	damtype = STAMINA
+	/// The amount of stamina damage to do on hit.
+	var/stamina_damage = 10
 
 /obj/item/snowball/throw_impact(atom/target)
-	..()
+	. = ..()
+	if(!. && isliving(target))
+		var/mob/living/M = target
+		M.adjustStaminaLoss(stamina_damage)
+		playsound(target, 'sound/weapons/tap.ogg', 50, TRUE)
 	qdel(src)
 
 /obj/item/snowball/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)

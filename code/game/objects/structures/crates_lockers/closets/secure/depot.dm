@@ -9,11 +9,6 @@
 	var/is_armory = FALSE
 	var/ignore_use = FALSE
 
-
-/obj/structure/closet/secure_closet/syndicate/depot/New()
-	. = ..()
-	update_icon()
-
 /obj/structure/closet/secure_closet/syndicate/depot/emag_act()
 	. = ..()
 	loot_pickup()
@@ -29,7 +24,7 @@
 
 /obj/structure/closet/secure_closet/syndicate/depot/proc/loot_pickup()
 	if(!ignore_use)
-		var/area/syndicate_depot/core/depotarea = areaMaster
+		var/area/syndicate_depot/core/depotarea = get_area(src)
 		if(istype(depotarea))
 			depotarea.locker_looted()
 			if(is_armory)

@@ -9,7 +9,7 @@
 	max_genetic_damage = 3
 
 //Change our DNA to that of somebody we've absorbed.
-/datum/action/changeling/transform/sting_action(var/mob/living/carbon/human/user)
+/datum/action/changeling/transform/sting_action(mob/living/carbon/human/user)
 	var/datum/changeling/changeling = user.mind.changeling
 	var/datum/dna/chosen_dna = changeling.select_dna("Select the target DNA: ", "Target DNA")
 
@@ -20,10 +20,10 @@
 
 	user.changeling_update_languages(changeling.absorbed_languages)
 
-	feedback_add_details("changeling_powers","TR")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1
 
-/datum/changeling/proc/select_dna(var/prompt, var/title)
+/datum/changeling/proc/select_dna(prompt, title)
 	var/list/names = list()
 	for(var/datum/dna/DNA in (absorbed_dna+protected_dna))
 		names += "[DNA.real_name]"

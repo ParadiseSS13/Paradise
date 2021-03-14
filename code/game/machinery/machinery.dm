@@ -102,7 +102,6 @@ Class Procs:
 	max_integrity = 200
 	layer = BELOW_OBJ_LAYER
 	var/stat = 0
-	var/emagged = 0
 	var/use_power = IDLE_POWER_USE
 		//0 = dont run the auto
 		//1 = run auto, use idle
@@ -112,13 +111,10 @@ Class Procs:
 	var/power_channel = EQUIP //EQUIP,ENVIRON or LIGHT
 	var/list/component_parts = null //list of all the parts used to build it, if made from certain kinds of frames.
 	var/uid
-	var/manual = 0
 	var/global/gl_uid = 1
-	var/custom_aghost_alerts=0
 	var/panel_open = 0
 	var/area/myArea
 	var/interact_offline = 0 // Can the machine be interacted with while de-powered.
-	var/list/use_log // Init this list if you wish to add logging to your machine - currently only viewable in VV
 	var/list/settagwhitelist // (Init this list if needed) WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
 	atom_say_verb = "beeps"
 	var/siemens_strength = 0.7 // how badly will it shock you?
@@ -126,6 +122,8 @@ Class Procs:
 	var/frequency = NONE
 	/// A reference to a `datum/radio_frequency`. Gives the machine the ability to interact with things using radio signals.
 	var/datum/radio_frequency/radio_connection
+	/// This is if the machinery is being repaired
+	var/being_repaired = FALSE
 
 /*
  * reimp, attempts to flicker this machinery if the behavior is supported.
@@ -205,7 +203,7 @@ Class Procs:
 		stat &= ~BROKEN
 
 //sets the use_power var and then forces an area power update
-/obj/machinery/proc/update_use_power(var/new_use_power)
+/obj/machinery/proc/update_use_power(new_use_power)
 	use_power = new_use_power
 
 /obj/machinery/proc/auto_use_power()
@@ -243,7 +241,7 @@ Class Procs:
 			return TRUE
 	return FALSE
 
-/obj/machinery/proc/handle_multitool_topic(var/href, var/list/href_list, var/mob/user)
+/obj/machinery/proc/handle_multitool_topic(href, list/href_list, mob/user)
 	if(!allowed(user))//no, not even HREF exploits
 		return FALSE
 	var/obj/item/multitool/P = get_multitool(usr)
@@ -315,7 +313,7 @@ Class Procs:
 			update_multitool_menu(usr)
 			return TRUE
 
-/obj/machinery/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state = GLOB.default_state)
+/obj/machinery/Topic(href, href_list, nowindow = 0, datum/ui_state/state = GLOB.default_state)
 	if(..(href, href_list, nowindow, state))
 		return 1
 
@@ -323,29 +321,29 @@ Class Procs:
 	add_fingerprint(usr)
 	return 0
 
-/obj/machinery/proc/operable(var/additional_flags = 0)
+/obj/machinery/proc/operable(additional_flags = 0)
 	return !inoperable(additional_flags)
 
-/obj/machinery/proc/inoperable(var/additional_flags = 0)
+/obj/machinery/proc/inoperable(additional_flags = 0)
 	return (stat & (NOPOWER|BROKEN|additional_flags))
 
-/obj/machinery/CanUseTopic(var/mob/user)
+/obj/machinery/ui_status(mob/user, datum/ui_state/state)
 	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
 		return STATUS_CLOSE
 
 	return ..()
 
-/obj/machinery/tgui_status(mob/user, datum/tgui_state/state)
+/obj/machinery/ui_status(mob/user, datum/ui_state/state)
 	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
 		return STATUS_CLOSE
 
 	return ..()
 
-/obj/machinery/CouldUseTopic(var/mob/user)
+/obj/machinery/CouldUseTopic(mob/user)
 	..()
 	user.set_machine(src)
 
-/obj/machinery/CouldNotUseTopic(var/mob/user)
+/obj/machinery/CouldNotUseTopic(mob/user)
 	usr.unset_machine()
 
 /obj/machinery/proc/dropContents()//putting for swarmers, occupent code commented out, someone can use later.
@@ -476,6 +474,34 @@ Class Procs:
 	if(.)
 		power_change()
 
+/obj/machinery/attackby(obj/item/O, mob/user, params)
+	if(istype(O, /obj/item/stack/nanopaste))
+		var/obj/item/stack/nanopaste/N = O
+		if(stat & BROKEN)
+			to_chat(user, "<span class='notice'>[src] is too damaged to be fixed with nanopaste!</span>")
+			return
+		if(obj_integrity == max_integrity)
+			to_chat(user, "<span class='notice'>[src] is fully intact.</span>")
+			return
+		if(being_repaired)
+			return
+		if(N.get_amount() < 1)
+			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>")
+			return
+		to_chat(user, "<span class='notice'>You start applying [O] to [src].</span>")
+		being_repaired = TRUE
+		var/result = do_after(user, 3 SECONDS, target = src)
+		being_repaired = FALSE
+		if(!result)
+			return
+		if(!N.use(1))
+			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>") // this is here, as we don't want to use nanopaste until you finish applying
+			return
+		obj_integrity = min(obj_integrity + 50, max_integrity)
+		user.visible_message("<span class='notice'>[user] applied some [O] at [src]'s damaged areas.</span>",\
+			"<span class='notice'>You apply some [O] at [src]'s damaged areas.</span>")
+	else
+		return ..()
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	var/shouldplaysound = 0
 	if((flags & NODECONSTRUCT))
@@ -550,7 +576,7 @@ Class Procs:
 /obj/machinery/proc/is_assess_emagged()
 	return emagged
 
-/obj/machinery/proc/assess_perp(mob/living/carbon/human/perp, var/check_access, var/auth_weapons, var/check_records, var/check_arrest)
+/obj/machinery/proc/assess_perp(mob/living/carbon/human/perp, check_access, auth_weapons, check_records, check_arrest)
 	var/threatcount = 0	//the integer returned
 
 	if(is_assess_emagged())
@@ -571,18 +597,13 @@ Class Procs:
 	if(check_access && !allowed(perp))
 		threatcount += 4
 
-	if(auth_weapons && !allowed(perp))
-		if(istype(perp.l_hand, /obj/item/gun) || istype(perp.l_hand, /obj/item/melee))
+	if(auth_weapons && (!id || !(ACCESS_WEAPONS in id.access)))
+		if(isitem(perp.l_hand) && perp.l_hand.needs_permit)
 			threatcount += 4
-
-		if(istype(perp.r_hand, /obj/item/gun) || istype(perp.r_hand, /obj/item/melee))
+		if(isitem(perp.r_hand) && perp.r_hand.needs_permit)
 			threatcount += 4
-
-		if(istype(perp.belt, /obj/item/gun) || istype(perp.belt, /obj/item/melee))
-			threatcount += 2
-
-		if(!ishumanbasic(perp)) //beepsky so racist.
-			threatcount += 2
+		if(isitem(perp.belt) && perp.belt.needs_permit)
+			threatcount += 4
 
 	if(check_records || check_arrest)
 		var/perpname = perp.get_visible_name(TRUE)
@@ -621,14 +642,15 @@ Class Procs:
 /obj/machinery/proc/can_be_overridden()
 	. = 1
 
-/obj/machinery/tesla_act(power, explosive = FALSE)
-	..()
-	if(prob(85) && explosive)
-		explosion(loc, 1, 2, 4, flame_range = 2, adminlog = 0, smoke = 0)
-	else if(prob(50))
-		emp_act(EMP_LIGHT)
-	else
-		ex_act(EXPLODE_HEAVY)
+/obj/machinery/zap_act(power, zap_flags)
+	if(prob(85) && (zap_flags & ZAP_MACHINE_EXPLOSIVE) && !(resistance_flags & INDESTRUCTIBLE))
+		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE, smoke = FALSE)
+	else if(zap_flags & ZAP_OBJ_DAMAGE)
+		take_damage(power * 0.0005, BURN, "energy")
+		if(prob(40))
+			emp_act(EMP_LIGHT)
+		power -= power * 0.0005
+	return ..()
 
 /obj/machinery/proc/adjust_item_drop_location(atom/movable/AM)	// Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8
 	var/md5 = md5(AM.name)										// Oh, and it's deterministic too. A specific item will always drop from the same slot.

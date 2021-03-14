@@ -1235,10 +1235,10 @@
 /area/mine/laborcamp)
 "cW" = (
 /obj/structure/closet/crate/internals,
-/obj/item/tank/emergency_oxygen,
-/obj/item/tank/emergency_oxygen,
-/obj/item/tank/emergency_oxygen,
-/obj/item/tank/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
@@ -1612,6 +1612,21 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/mine/eva)
 "dU" = (
+/obj/machinery/door/airlock/titanium{
+	id_tag = "s_docking_airlock";
+	name = "Labor Shuttle Airlock";
+	req_access_txt = "0"
+	},
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 2;
+	height = 5;
+	id = "laborcamp";
+	name = "labor camp shuttle";
+	rebuildable = 1;
+	width = 9
+	},
+/obj/structure/fans/tiny,
 /obj/docking_port/stationary{
 	area_type = /area/lavaland/surface/outdoors;
 	dir = 8;
@@ -1622,8 +1637,8 @@
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface;
 	width = 9
 	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors/explored)
+/turf/simulated/floor/plating,
+/area/shuttle/siberia)
 "dV" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -2008,18 +2023,32 @@
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "eI" = (
+/obj/machinery/door/airlock/titanium{
+	id_tag = "s_docking_airlock";
+	req_access_txt = "48"
+	},
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 3;
+	height = 5;
+	id = "mining";
+	name = "mining shuttle";
+	rebuildable = 1;
+	width = 7
+	},
+/obj/structure/fans/tiny,
 /obj/docking_port/stationary{
 	area_type = /area/lavaland/surface/outdoors;
 	dir = 8;
 	dwidth = 3;
-	height = 7;
+	height = 5;
 	id = "mining_away";
 	name = "lavaland mine";
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface;
 	width = 7
 	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/turf/simulated/floor/plating,
+/area/shuttle/mining)
 "eJ" = (
 /obj/machinery/door/airlock/external{
 	glass = 1;
@@ -4567,14 +4596,63 @@
 /obj/machinery/shower,
 /turf/simulated/floor/plasteel/freezer,
 /area/mine/living_quarters)
+"oj" = (
+/obj/machinery/mineral/stacking_machine/laborstacker{
+	input_dir = 2;
+	output_dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/siberia)
 "oZ" = (
 /obj/structure/chair/sofa,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"pO" = (
+/obj/machinery/door/airlock/titanium{
+	id_tag = "s_docking_airlock";
+	name = "Labor Shuttle Airlock";
+	req_access_txt = "2"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/shuttle/siberia)
+"pS" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/siberia)
 "qi" = (
 /obj/structure/punching_bag,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"rA" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/siberia)
+"rN" = (
+/obj/machinery/flasher_button{
+	id = "gulagshuttleflasher";
+	name = "Flash Control";
+	pixel_x = 0;
+	pixel_y = -26;
+	req_access_txt = "1"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/siberia)
+"sS" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/mining)
 "tQ" = (
 /obj/machinery/door/airlock/glass{
 	name = "Break Room"
@@ -4583,6 +4661,16 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"uR" = (
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/mining)
+"vm" = (
+/obj/structure/ore_box,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/mining)
 "wT" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -4592,6 +4680,22 @@
 /obj/machinery/shower,
 /turf/simulated/floor/plasteel/freezer,
 /area/mine/living_quarters)
+"xn" = (
+/obj/machinery/mineral/labor_claim_console{
+	machinedir = 1;
+	pixel_x = 30;
+	pixel_y = 0
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/siberia)
+"ye" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/siberia)
+"zi" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/mining)
 "zm" = (
 /turf/simulated/wall,
 /area/lavaland/surface/outdoors)
@@ -4622,12 +4726,42 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"BW" = (
+/obj/machinery/computer/shuttle/labor,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/siberia)
+"Cj" = (
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/siberia)
+"Cx" = (
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/mining)
+"CO" = (
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/siberia)
+"CW" = (
+/obj/structure/table,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/mining)
+"CY" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/mining)
 "Dq" = (
 /obj/structure/table,
 /obj/item/ashtray/bronze,
 /obj/item/clothing/mask/cigarette/cigar/havana,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"Ea" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Labor Shuttle Airlock";
+	req_access_txt = "2"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/siberia)
 "Ef" = (
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
@@ -4636,6 +4770,12 @@
 /obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"Es" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/siberia)
 "Fg" = (
 /obj/structure/weightmachine/weightlifter,
 /turf/simulated/floor/plasteel,
@@ -4647,6 +4787,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"Hi" = (
+/obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/mining)
+"Hr" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/mining)
 "HK" = (
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
@@ -4682,6 +4832,38 @@
 /obj/machinery/washing_machine,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"Jm" = (
+/obj/machinery/computer/shuttle/mining,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/mining)
+"JN" = (
+/obj/machinery/mineral/labor_claim_console{
+	machinedir = 2;
+	pixel_x = 30;
+	pixel_y = 30
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/siberia)
+"KQ" = (
+/obj/machinery/flasher{
+	id = "gulagshuttleflasher";
+	pixel_x = 25
+	},
+/obj/machinery/light{
+	dir = 4;
+	icon_state = "tube1"
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/siberia)
+"Lq" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/mining)
 "NX" = (
 /obj/machinery/computer/arcade/orion_trail,
 /turf/simulated/floor/plasteel,
@@ -4690,6 +4872,30 @@
 /obj/structure/chair/sofa/left,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"PB" = (
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/siberia)
+"PH" = (
+/obj/structure/closet/crate,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/siberia)
+"Re" = (
+/obj/structure/table,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/mining)
+"Ru" = (
+/obj/structure/table,
+/obj/item/folder/red,
+/obj/item/restraints/handcuffs,
+/obj/machinery/light{
+	dir = 4;
+	icon_state = "tube1"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/siberia)
 "RD" = (
 /obj/machinery/computer/arcade/battle,
 /turf/simulated/floor/plasteel,
@@ -4698,6 +4904,14 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"Tn" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/siberia)
 "VH" = (
 /obj/machinery/alarm{
 	pixel_y = 23
@@ -4705,6 +4919,10 @@
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"Xz" = (
+/obj/structure/closet/crate,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/mining)
 "Yb" = (
 /obj/item/clothing/head/beanie/waldo,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -8006,15 +8224,15 @@ bp
 cQ
 cQ
 cQ
-cX
-cX
-cX
-cX
-cX
-cX
-cX
-cX
-cX
+CO
+CO
+ye
+CO
+CO
+ye
+CO
+CO
+CO
 cQ
 bp
 bp
@@ -8263,15 +8481,15 @@ cQ
 cQ
 cQ
 cQ
-cX
-cX
-cX
-cX
-cX
-cX
-cX
-cX
-cX
+ye
+BW
+PB
+Ea
+Cj
+pS
+PH
+Tn
+rA
 cQ
 cQ
 aD
@@ -8520,15 +8738,15 @@ cQ
 cQ
 cQ
 cQ
-cX
-cX
-cX
-cX
-cX
-cX
-cX
-cX
-cX
+ye
+Es
+rN
+CO
+Cj
+Cj
+Cj
+Tn
+rA
 cQ
 cQ
 cQ
@@ -8777,15 +8995,15 @@ bp
 cQ
 cQ
 cQ
-cX
-cX
-cX
-cX
-cX
-cX
-cX
-cX
-cX
+ye
+Ru
+JN
+oj
+xn
+KQ
+Cj
+Tn
+rA
 cQ
 bp
 bp
@@ -9034,15 +9252,15 @@ bp
 cQ
 cQ
 cX
-cX
-cX
-cX
-cX
-cX
-cX
+CO
+CO
+pO
+CO
+CO
+CO
 dU
-cX
-cX
+CO
+CO
 cX
 bp
 bp
@@ -17520,13 +17738,13 @@ bp
 bp
 bp
 aD
-aD
-aD
-aD
-aD
-aD
-aD
-aD
+uR
+uR
+zi
+uR
+zi
+uR
+uR
 aD
 bp
 bp
@@ -17777,13 +17995,13 @@ bp
 bp
 aD
 aD
-aD
-aD
-aD
-aD
-aD
-aD
-aD
+uR
+CW
+Cx
+Lq
+Hr
+Xz
+uR
 aD
 bp
 bp
@@ -18034,13 +18252,13 @@ aD
 bp
 aD
 aD
-aD
-aD
-aD
-aD
-aD
-aD
-aD
+zi
+Jm
+CY
+Cx
+Hr
+sS
+Hi
 aD
 aD
 bp
@@ -18291,13 +18509,13 @@ bp
 bp
 bp
 aD
-aD
-aD
-aD
-aD
-aD
-aD
-aD
+uR
+Re
+Cx
+Cx
+Hr
+vm
+uR
 aD
 aD
 bp
@@ -18548,13 +18766,13 @@ bp
 bp
 bp
 aD
-aD
-aD
-aD
+uR
+uR
+zi
 eI
-aD
-aD
-aD
+zi
+uR
+uR
 aD
 bp
 bp

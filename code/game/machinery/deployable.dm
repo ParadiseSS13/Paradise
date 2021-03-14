@@ -132,8 +132,8 @@
 	var/deploy_time = 40
 	var/deploy_message = TRUE
 
-/obj/structure/barricade/security/New()
-	..()
+/obj/structure/barricade/security/Initialize(mapload)
+	. = ..()
 	addtimer(CALLBACK(src, .proc/deploy), deploy_time)
 
 /obj/structure/barricade/security/proc/deploy()

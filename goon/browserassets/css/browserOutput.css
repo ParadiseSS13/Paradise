@@ -424,5 +424,5 @@ h1.alert, h2.alert			{color: #000000;}
 .adminticketalt {color: #014c8a; font-weight: bold}
 
 /* Syndicate codewords */
-span.body > .codephrases {color: #0000FF;}
-span.body > .coderesponses {color: #FF0000;}
+span.body .codephrases {color: #0000FF;}
+span.body .coderesponses {color: #FF0000;}

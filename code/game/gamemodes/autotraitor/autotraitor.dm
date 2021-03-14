@@ -52,7 +52,7 @@
 		if(!traitor || !istype(traitor))
 			pre_traitors.Remove(traitor)
 			continue
-		if(istype(traitor)) 
+		if(istype(traitor))
 			traitor.special_role = SPECIAL_ROLE_TRAITOR
 			traitor.restricted_roles = restricted_jobs
 
@@ -83,7 +83,7 @@
 				if(player.mind.special_role)
 					traitorcount += 1
 					continue
-				if(ishuman(player) || isrobot(player) || isAI(player))
+				if(ishuman(player) || isAI(player))
 					if((ROLE_TRAITOR in player.client.prefs.be_special) && !player.client.skip_antag && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
 						possible_traitors += player.mind
 		for(var/datum/mind/player in possible_traitors)

@@ -8,6 +8,9 @@
 	qnty = rand(45,125)
 
 /datum/event/dust/meaty/start()
+	INVOKE_ASYNC(src, .proc/spawn_meaty_ores)
+
+/datum/event/dust/meaty/proc/spawn_meaty_ores()
 	while(qnty-- > 0)
 		new /obj/effect/space_dust/meaty()
 		if(prob(10))
@@ -19,35 +22,18 @@
 
 	strength = 1
 	life = 3
+	shake_chance = 20
 
-/obj/effect/space_dust/meaty/Bump(atom/A)
-	if(prob(20))
-		spawn(1)
-			for(var/mob/M in range(10, src))
-				if(!M.stat && !istype(M, /mob/living/silicon/ai))
-					shake_camera(M, 3, 1)
-	if(A)
-		playsound(src.loc, 'sound/effects/meteorimpact.ogg', 40, 1)
-		walk(src,0)
-		invisibility = 101
-		new /obj/effect/decal/cleanable/blood(get_turf(A))
-		if(ismob(A))
-			A.ex_act(strength)
-		else
-			spawn(0)
-				if(A)
-					A.ex_act(strength)
-				if(src)
-					walk_towards(src,goal,1)
-		life--
-		if(!life)
-			if(prob(80))
-				gibs(loc)
-				if(prob(45))
-					new /obj/item/reagent_containers/food/snacks/meat(loc)
-				else if(prob(10))
-					explosion(get_turf(loc), 0, pick(0,1), pick(2,3), 0)
-			else
-				new /mob/living/simple_animal/cow(loc)
+/obj/effect/space_dust/meaty/impact_meteor(atom/A)
+	new /obj/effect/decal/cleanable/blood(get_turf(A))
+	..()
 
-			qdel(src)
+/obj/effect/space_dust/meaty/on_shatter(turf/where)
+	if(prob(80))
+		gibs(where)
+		if(prob(45))
+			new /obj/item/reagent_containers/food/snacks/meat(where)
+		else if(prob(10))
+			explosion(where, 0, pick(0,1), pick(2,3), 0)
+	else
+		new /mob/living/simple_animal/cow(where)

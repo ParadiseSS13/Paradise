@@ -23,8 +23,10 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/job = null
 	var/temp_category
 	var/uplink_type = "traitor"
+	/// Whether the uplink is jammed and cannot be used to order items.
+	var/is_jammed = FALSE
 
-/obj/item/uplink/tgui_host()
+/obj/item/uplink/ui_host()
 	return loc
 
 /obj/item/uplink/New()
@@ -77,7 +79,10 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 	return pick(random_items)
 
-/obj/item/uplink/proc/buy(var/datum/uplink_item/UI, var/reference)
+/obj/item/uplink/proc/buy(datum/uplink_item/UI, reference)
+	if(is_jammed)
+		to_chat(usr, "<span class='warning'>[src] seems to be jammed - it cannot be used here!</span>")
+		return
 	if(!UI)
 		return
 	if(UI.limited_stock == 0)
@@ -144,26 +149,29 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 // Checks to see if the value meets the target. Like a frequency being a traitor_frequency, in order to unlock a headset.
 // If true, it accesses trigger() and returns 1. If it fails, it returns false. Use this to see if you need to close the
 // current item's menu.
-/obj/item/uplink/hidden/proc/check_trigger(mob/user as mob, var/value, var/target)
+/obj/item/uplink/hidden/proc/check_trigger(mob/user, value, target)
+	if(is_jammed)
+		to_chat(user, "<span class='warning'>[src] seems to be jammed - it cannot be used here!</span>")
+		return
 	if(value == target)
 		trigger(user)
 		return TRUE
 	return FALSE
 
-/obj/item/uplink/hidden/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_inventory_state)
+/obj/item/uplink/hidden/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "Uplink", name, 900, 600, master_ui, state)
 		ui.open()
 
-/obj/item/uplink/hidden/tgui_data(mob/user)
+/obj/item/uplink/hidden/ui_data(mob/user)
 	var/list/data = list()
 
 	data["crystals"] = uses
 
 	return data
 
-/obj/item/uplink/hidden/tgui_static_data(mob/user)
+/obj/item/uplink/hidden/ui_static_data(mob/user)
 	var/list/data = list()
 
 	// Actual items
@@ -190,15 +198,14 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 // Interaction code. Gathers a list of items purchasable from the paren't uplink and displays it. It also adds a lock button.
 /obj/item/uplink/hidden/interact(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 // The purchasing code.
-/obj/item/uplink/hidden/tgui_act(action, list/params)
+/obj/item/uplink/hidden/ui_act(action, list/params)
 	if(..())
 		return
 
 	. = TRUE
-
 	switch(action)
 		if("lock")
 			toggle()
@@ -216,7 +223,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		if("buyItem")
 			var/datum/uplink_item/UI = uplink_items[params["item"]]
 			return buy(UI, UI ? UI.reference : "")
-
 
 // I placed this here because of how relevant it is.
 // You place this in your uplinkable item to check if an uplink is active or not.

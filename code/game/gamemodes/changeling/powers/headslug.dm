@@ -17,7 +17,7 @@
 	var/list/organs = user.get_organs_zone("head", 1)
 
 	for(var/obj/item/organ/internal/I in organs)
-		I.remove(user, 1)
+		I.remove(user, TRUE)
 
 	explosion(get_turf(user),0,0,2,0,silent=1)
 	for(var/mob/living/carbon/human/H in range(2,user))
@@ -35,12 +35,12 @@
 	spawn(5) // So it's not killed in explosion
 		var/mob/living/simple_animal/hostile/headslug/crab = new(new_location)
 		for(var/obj/item/organ/internal/I in organs)
-			I.loc = crab
+			I.forceMove(crab)
 		crab.origin = M
 		if(crab.origin)
 			crab.origin.active = 1
 			crab.origin.transfer_to(crab)
 			to_chat(crab, "<span class='warning'>You burst out of the remains of your former body in a shower of gore!</span>")
 	user.gib()
-	feedback_add_details("changeling_powers","LR")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1

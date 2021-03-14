@@ -110,7 +110,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	//humans
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(NO_DNA in H.dna.species.species_traits)
+		if(HAS_TRAIT(H, TRAIT_GENELESS))
 			to_chat(user, "<span class='notice'>This humanoid doesn't have DNA.</span>")
 			return
 		if(dna[H.dna.uni_identity])
@@ -164,7 +164,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	var/list/dna = list()
 
 	var/completed = FALSE
-	var/list/power_lottery = list()
+	var/static/list/power_lottery = list()
 
 	var/list/obj/structure/fillers = list()
 
@@ -212,14 +212,14 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 /obj/machinery/dna_vault/attack_ghost(mob/user)
 	if(stat & (BROKEN|MAINT))
 		return
-	return tgui_interact(user)
+	return ui_interact(user)
 
 /obj/machinery/dna_vault/attack_hand(mob/user)
 	if(..())
 		return TRUE
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/dna_vault/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/dna_vault/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		roll_powers(user)
@@ -235,7 +235,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	L += pick_n_take(possible_powers)
 	power_lottery[user] = L
 
-/obj/machinery/dna_vault/tgui_data(mob/user)
+/obj/machinery/dna_vault/ui_data(mob/user)
 	var/list/data = list(
 		"plants" = length(plants),
 		"plants_max" = plants_max,
@@ -254,9 +254,11 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 			data["used"] = FALSE
 			data["choiceA"] = L[1]
 			data["choiceB"] = L[2]
+		else if(L)
+			data["used"] = TRUE
 	return data
 
-/obj/machinery/dna_vault/tgui_act(action, params)
+/obj/machinery/dna_vault/ui_act(action, params)
 	if(..())
 		return
 
@@ -296,7 +298,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	if(!completed)
 		return
 	var/datum/species/S = H.dna.species
-	if(NO_DNA in S.species_traits)
+	if(HAS_TRAIT(H, TRAIT_GENELESS))
 		to_chat(H, "<span class='warning'>Error, no DNA detected.</span>")
 		return
 	switch(upgrade_type)
@@ -304,28 +306,23 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 			to_chat(H, "<span class='notice'>You feel resistant to airborne toxins.</span>")
 			var/obj/item/organ/internal/lungs/L = H.get_int_organ(/obj/item/organ/internal/lungs)
 			if(L)
-				L.tox_breath_dam_multiplier = 0
-			S.species_traits |= VIRUSIMMUNE
+				L.tox_breath_dam_min = 0
+				L.tox_breath_dam_max = 0
+			ADD_TRAIT(H, TRAIT_VIRUSIMMUNE, "dna_vault")
 		if(VAULT_NOBREATH)
 			to_chat(H, "<span class='notice'>Your lungs feel great.</span>")
-			S.species_traits |= NO_BREATHE
+			ADD_TRAIT(H, TRAIT_NOBREATH, "dna_vault")
 		if(VAULT_FIREPROOF)
 			to_chat(H, "<span class='notice'>You feel fireproof.</span>")
 			S.burn_mod *= 0.5
-			S.species_traits |= RESISTHOT
+			ADD_TRAIT(H, TRAIT_RESISTHEAT, "dna_vault")
 		if(VAULT_STUNTIME)
 			to_chat(H, "<span class='notice'>Nothing can keep you down for long.</span>")
 			S.stun_mod *= 0.5
 		if(VAULT_ARMOUR)
 			to_chat(H, "<span class='notice'>You feel tough.</span>")
-			S.brute_mod *= 0.7
-			S.burn_mod *= 0.7
-			S.tox_mod *= 0.7
-			S.oxy_mod *= 0.7
-			S.clone_mod *= 0.7
-			S.brain_mod *= 0.7
-			S.stamina_mod *= 0.7
-			S.species_traits |= PIERCEIMMUNE
+			S.armor = 30
+			ADD_TRAIT(H, TRAIT_PIERCEIMMUNE, "dna_vault")
 		if(VAULT_SPEED)
 			to_chat(H, "<span class='notice'>You feel very fast and agile.</span>")
 			S.speed_mod = -1

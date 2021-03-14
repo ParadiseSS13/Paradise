@@ -185,7 +185,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	griefProtection()
 */
 
-/obj/machinery/computer/rdconsole/attackby(var/obj/item/D as obj, var/mob/user as mob, params)
+/obj/machinery/computer/rdconsole/attackby(obj/item/D as obj, mob/user as mob, params)
 
 	//Loading a disk into it.
 	if(istype(D, /obj/item/disk))
@@ -351,9 +351,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			to_chat(usr, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
 		else
 			for(var/T in temp_tech)
-				var/datum/tech/KT = files.known_tech[T] //For stat logging of high levels
-				if(files.IsTechHigher(T, temp_tech[T]) && KT.level >= 5) //For stat logging of high levels
-					feedback_add_details("high_research_level","[KT][KT.level + 1]") //+1 to show the level which we're about to get
 				files.UpdateTech(T, temp_tech[T])
 			send_mats()
 			linked_destroy.loaded_item = null
@@ -464,6 +461,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(enough_materials && being_built)
 			for(var/i in 1 to amount)
 				var/obj/item/new_item = new being_built.build_path(src)
+				new_item.fabricated()
 				if(istype(new_item, /obj/item/storage/backpack/holding))
 					new_item.investigate_log("built by [key]","singulo")
 				if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
@@ -485,7 +483,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	clear_wait_message()
 	SStgui.update_uis(src)
 
-/obj/machinery/computer/rdconsole/tgui_act(action, list/params)
+/obj/machinery/computer/rdconsole/ui_act(action, list/params)
 	if(..())
 		return
 
@@ -554,7 +552,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			// Somehow this href makes me very nervous
 			var/datum/tech/known = files.known_tech[params["id"]]
 			if(t_disk && known)
-				t_disk.stored = known
+				t_disk.load_tech(known)
 			menu = MENU_DISK
 			submenu = SUBMENU_MAIN
 
@@ -705,15 +703,15 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(!allowed(user) && !isobserver(user))
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return TRUE
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/computer/rdconsole/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/computer/rdconsole/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "RndConsole", name, 800, 550, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/rdconsole/proc/tgui_machine_data(obj/machinery/r_n_d/machine, list/data)
+/obj/machinery/computer/rdconsole/proc/ui_machine_data(obj/machinery/r_n_d/machine, list/data)
 	if(!machine)
 		return
 
@@ -792,10 +790,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/proc/can_copy_design(datum/design/D)
 	if(D)
-		if(D.build_type & AUTOLATHE)
+		if(D.build_type & PROTOLATHE)
 			return TRUE
 
-		if(D.build_type & PROTOLATHE)
+		if(D.build_type & AUTOLATHE)
 			for(var/M in D.materials)
 				if(M != MAT_METAL && M != MAT_GLASS)
 					return FALSE
@@ -803,7 +801,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	return FALSE
 
-/obj/machinery/computer/rdconsole/tgui_data(mob/user)
+/obj/machinery/computer/rdconsole/ui_data(mob/user)
 	var/list/data = list()
 
 	files.RefreshResearch()
@@ -911,9 +909,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					break
 
 	else if(menu == MENU_LATHE && linked_lathe)
-		tgui_machine_data(linked_lathe, data)
+		ui_machine_data(linked_lathe, data)
 	else if(menu == MENU_IMPRINTER && linked_imprinter)
-		tgui_machine_data(linked_imprinter, data)
+		ui_machine_data(linked_imprinter, data)
 
 	return data
 

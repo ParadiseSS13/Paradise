@@ -30,8 +30,7 @@ GLOBAL_LIST_INIT(restricted_camera_networks, list(
 	"UO45",
 	"UO45R",
 	"UO71",
-	"Xeno",
-	"Hotel"
+	"Xeno"
 	)) //Those networks can only be accessed by preexisting terminals. AIs and new terminals can't use them.
 
 GLOBAL_LIST_INIT(ruin_landmarks, list())

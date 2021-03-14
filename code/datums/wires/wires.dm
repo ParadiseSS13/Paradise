@@ -80,7 +80,7 @@
  */
 /datum/wires/proc/Interact(mob/user)
 	if(user && istype(user) && holder && interactable(user))
-		tgui_interact(user)
+		ui_interact(user)
 
 /**
  * Base proc, intended to be overriden. Wire datum specific checks you want to run before the TGUI is shown to the user should go here.
@@ -89,23 +89,23 @@
 	return TRUE
 
 /// Users will be interacting with our holder object and not the wire datum directly, therefore we need to return the holder.
-/datum/wires/tgui_host()
+/datum/wires/ui_host()
 	return holder
 
-/datum/wires/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_physical_state)
+/datum/wires/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "Wires", "[proper_name] wires", window_x, window_y + wire_count * 30, master_ui, state)
 		ui.open()
 
-/datum/wires/tgui_data(mob/user)
+/datum/wires/ui_data(mob/user)
 	var/list/data = list()
 	var/list/replace_colors
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
-		if(eyes && (COLOURBLIND in H.mutations)) // Check if the human has colorblindness.
+		if(eyes && HAS_TRAIT(H, TRAIT_COLORBLIND)) // Check if the human has colorblindness.
 			replace_colors = eyes.replace_colours // Get the colorblind replacement colors list.
 
 	var/list/wires_list = list()
@@ -149,7 +149,7 @@
 	data["status"] = status
 	return data
 
-/datum/wires/tgui_act(action, list/params)
+/datum/wires/ui_act(action, list/params)
 	if(..())
 		return
 

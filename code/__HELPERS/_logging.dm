@@ -143,27 +143,24 @@ GLOBAL_PROTECT(log_end)
 /proc/log_tgui(text)
 	rustg_log_write(GLOB.tgui_log, "[text][GLOB.log_end]")
 
-/**
- * Standardized method for tracking startup times.
- */
-/proc/log_startup_progress(var/message)
-	to_chat(world, "<span class='danger'>[message]</span>")
-	log_world(message)
+/proc/log_sql(text)
+	rustg_log_write(GLOB.sql_log, "[text][GLOB.log_end]")
+	SEND_TEXT(world.log, text) // Redirect it to DD too
 
 // A logging proc that only outputs after setup is done, to
 // help devs test initialization stuff that happens a lot
-/proc/log_after_setup(var/message)
+/proc/log_after_setup(message)
 	if(SSticker && SSticker.current_state > GAME_STATE_SETTING_UP)
 		to_chat(world, "<span class='danger'>[message]</span>")
 		log_world(message)
 
 /* For logging round startup. */
 /proc/start_log(log)
-	rustg_log_write(log, "Starting up.\n-------------------------[GLOB.log_end]")
+	rustg_log_write(log, "Starting up. Round ID is [GLOB.round_id ? GLOB.round_id : "NULL"]\n-------------------------[GLOB.log_end]")
 
 // Helper procs for building detailed log lines
 
-/proc/datum_info_line(var/datum/d)
+/proc/datum_info_line(datum/d)
 	if(!istype(d))
 		return
 	if(!istype(d, /mob))
@@ -171,7 +168,7 @@ GLOBAL_PROTECT(log_end)
 	var/mob/m = d
 	return "[m] ([m.ckey]) ([m.type])"
 
-/proc/atom_loc_line(var/atom/a)
+/proc/atom_loc_line(atom/a)
 	if(!istype(a))
 		return
 	var/turf/t = get_turf(a)
@@ -185,3 +182,16 @@ GLOBAL_PROTECT(log_end)
 
 /client/proc/simple_info_line()
 	return "[key_name(src)] ([mob.x],[mob.y],[mob.z])"
+
+/proc/loc_name(atom/A)
+	if(!istype(A))
+		return "(INVALID LOCATION)"
+
+	var/turf/T = A
+	if(!istype(T))
+		T = get_turf(A)
+
+	if(istype(T))
+		return "([AREACOORD(T)])"
+	else if(A.loc)
+		return "(UNKNOWN (?, ?, ?))"

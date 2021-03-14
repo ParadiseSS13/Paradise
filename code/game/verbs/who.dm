@@ -126,6 +126,6 @@
 				modmsg += "\t[C] is a [C.holder.rank]\n"
 				num_mods_online++
 
-	var/noadmins_info = "\n<span class='notice'><small>If no admins or mentors are online, make a ticket anyways. Adminhelps and mentorhelps will be relayed to discord, and staff will still be informed.<small></span>"
+	var/noadmins_info = "\n<span class='notice'><small>Si no hay administradores o mentors online, de igual forma haz un ticket. Los adminhelps y mentorhelps seran enviados a discord y el staff sera informado.<small></span>"
 	msg = "<b>Current Admins ([num_admins_online]):</b>\n" + msg + "\n<b>Current Mentors ([num_mods_online]):</b>\n" + modmsg + noadmins_info
 	to_chat(src, msg)

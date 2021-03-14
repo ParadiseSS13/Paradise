@@ -16,13 +16,13 @@
 	var/atmosblock = FALSE //if the blob blocks atmos and heat spread
 	var/mob/camera/blob/overmind
 
-/obj/structure/blob/New(loc)
-	..()
+/obj/structure/blob/Initialize(mapload)
+	. = ..()
 	GLOB.blobs += src
 	setDir(pick(GLOB.cardinal))
 	update_icon()
 	if(atmosblock)
-		air_update_turf(1)
+		air_update_turf(TRUE)
 	ConsumeTile()
 
 /obj/structure/blob/Destroy()
@@ -73,7 +73,7 @@
 		health_timestamp = world.time + 10 // 1 seconds
 
 
-/obj/structure/blob/proc/Pulse(var/pulse = 0, var/origin_dir = 0, var/a_color)//Todo: Fix spaceblob expand
+/obj/structure/blob/proc/Pulse(pulse = 0, origin_dir = 0, a_color)//Todo: Fix spaceblob expand
 	RegenHealth()
 
 	if(run_action())//If we can do something here then we dont need to pulse more
@@ -110,7 +110,7 @@
 	if(iswallturf(loc))
 		loc.blob_act(src) //don't ask how a wall got on top of the core, just eat it
 
-/obj/structure/blob/proc/expand(var/turf/T = null, var/prob = 1, var/a_color)
+/obj/structure/blob/proc/expand(turf/T = null, prob = 1, a_color)
 	if(prob && !prob(obj_integrity))
 		return
 	if(istype(T, /turf/space) && prob(75)) 	return
@@ -139,13 +139,14 @@
 		A.blob_act(src)
 	return 1
 
-/obj/structure/blob/Crossed(var/mob/living/L, oldloc)
+/obj/structure/blob/Crossed(mob/living/L, oldloc)
 	..()
 	L.blob_act(src)
 
-/obj/structure/blob/tesla_act(power)
-	..()
-	take_damage(power / 400, BURN, "energy")
+/obj/structure/blob/zap_act(power, zap_flags)
+	take_damage(power * 0.0025, BURN, "energy")
+	power -= power * 0.0025 //You don't get to do it for free
+	return ..() //You don't get to do it for free
 
 /obj/structure/blob/hulk_damage()
 	return 15
@@ -187,7 +188,7 @@
 	if(. && obj_integrity > 0)
 		update_icon()
 
-/obj/structure/blob/proc/change_to(var/type)
+/obj/structure/blob/proc/change_to(type)
 	if(!ispath(type))
 		error("[type] is an invalid type for the blob.")
 	var/obj/structure/blob/B = new type(src.loc)
@@ -197,7 +198,7 @@
 		B.adjustcolors(color)
 	qdel(src)
 
-/obj/structure/blob/proc/adjustcolors(var/a_color)
+/obj/structure/blob/proc/adjustcolors(a_color)
 	if(a_color)
 		color = a_color
 	return
@@ -205,6 +206,7 @@
 /obj/structure/blob/examine(mob/user)
 	. = ..()
 	. += "It looks like it's made of [get_chem_name()]."
+	. += "It looks like this chemical does: [get_chem_desc()]"
 
 
 /obj/structure/blob/proc/get_chem_name()
@@ -213,6 +215,11 @@
 			return B.blob_reagent_datum.name
 	return "unknown"
 
+/obj/structure/blob/proc/get_chem_desc()
+	for(var/mob/camera/blob/B in GLOB.mob_list)
+		if(lowertext(B.blob_reagent_datum.color) == lowertext(src.color)) // Goddamit why we use strings for these
+			return B.blob_reagent_datum.description
+	return "something unknown"
 /obj/structure/blob/normal
 	icon_state = "blob"
 	light_range = 0

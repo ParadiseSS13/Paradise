@@ -36,7 +36,7 @@
 		return
 
 	H.dna.SetSEState(GLOB.soberblock,1)
-	genemutcheck(H, GLOB.soberblock, null, MUTCHK_FORCED)
+	singlemutcheck(H, GLOB.soberblock, MUTCHK_FORCED)
 	H.dna.default_blocks.Add(GLOB.soberblock)
 	H.check_mutations = 1
 
@@ -228,7 +228,7 @@
 	suit = /obj/item/clothing/suit/hooded/explorer
 	mask = /obj/item/clothing/mask/gas/explorer
 	glasses = /obj/item/clothing/glasses/meson
-	suit_store = /obj/item/tank/emergency_oxygen
+	suit_store = /obj/item/tank/internals/emergency_oxygen
 	internals_slot = slot_s_store
 	backpack_contents = list(
 		/obj/item/flashlight/seclite=1,\
@@ -291,6 +291,8 @@
 		/obj/item/instrument/bikehorn = 1
 	)
 
+	implants = list(/obj/item/implant/sad_trombone)
+
 	backpack = /obj/item/storage/backpack/clown
 	satchel = /obj/item/storage/backpack/clown
 	dufflebag = /obj/item/storage/backpack/duffel/clown
@@ -311,11 +313,11 @@
 		implant.insert(H)
 
 	H.dna.SetSEState(GLOB.clumsyblock, TRUE)
-	genemutcheck(H, GLOB.clumsyblock, null, MUTCHK_FORCED)
+	singlemutcheck(H, GLOB.clumsyblock, MUTCHK_FORCED)
 	H.dna.default_blocks.Add(GLOB.clumsyblock)
 	if(!ismachineperson(H))
 		H.dna.SetSEState(GLOB.comicblock, TRUE)
-		genemutcheck(H, GLOB.comicblock, null, MUTCHK_FORCED)
+		singlemutcheck(H, GLOB.comicblock, MUTCHK_FORCED)
 		H.dna.default_blocks.Add(GLOB.comicblock)
 	H.check_mutations = TRUE
 	H.add_language("Clownish")
@@ -327,7 +329,8 @@
 
 /datum/action/innate/toggle_clumsy/Activate()
 	var/mob/living/carbon/human/H = owner
-	H.mutations.Add(CLUMSY)
+	H.dna.SetSEState(GLOB.clumsyblock, TRUE)
+	singlemutcheck(H, GLOB.clumsyblock, MUTCHK_FORCED)
 	active = TRUE
 	background_icon_state = "bg_spell"
 	UpdateButtonIcon()
@@ -335,7 +338,8 @@
 
 /datum/action/innate/toggle_clumsy/Deactivate()
 	var/mob/living/carbon/human/H = owner
-	H.mutations.Remove(CLUMSY)
+	H.dna.SetSEState(GLOB.clumsyblock, FALSE)
+	singlemutcheck(H, GLOB.clumsyblock, MUTCHK_FORCED)
 	active = FALSE
 	background_icon_state = "bg_default"
 	UpdateButtonIcon()

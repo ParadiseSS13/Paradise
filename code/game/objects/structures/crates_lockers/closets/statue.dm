@@ -12,14 +12,14 @@
 	var/intialOxy = 0
 	var/timer = 240 //eventually the person will be freed
 
-/obj/structure/closet/statue/New(loc, var/mob/living/L)
-
+/obj/structure/closet/statue/Initialize(mapload, mob/living/L)
+	. = ..()
 	if(ishuman(L) || iscorgi(L))
 		if(L.buckled)
 			L.buckled = 0
 			L.anchored = 0
 		L.forceMove(src)
-		L.mutations |= MUTE
+		ADD_TRAIT(L, TRAIT_MUTE, STATUE_MUTE)
 		max_integrity = L.health + 100 //stoning damaged mobs will result in easier to shatter statues
 		intialTox = L.getToxLoss()
 		intialFire = L.getFireLoss()
@@ -42,7 +42,6 @@
 		return
 
 	START_PROCESSING(SSobj, src)
-	..()
 
 /obj/structure/closet/statue/process()
 	timer--
@@ -69,7 +68,7 @@
 
 	for(var/mob/living/M in src)
 		M.forceMove(loc)
-		M.mutations -= MUTE
+		REMOVE_TRAIT(M, TRAIT_MUTE, STATUE_MUTE)
 		M.take_overall_damage((M.health - obj_integrity - 100),0) //any new damage the statue incurred is transfered to the mob
 
 	..()

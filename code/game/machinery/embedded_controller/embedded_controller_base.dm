@@ -27,15 +27,15 @@
 	src.updateDialog()
 
 /obj/machinery/embedded_controller/attack_ghost(mob/user as mob)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/embedded_controller/attack_ai(mob/user as mob)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/embedded_controller/attack_hand(mob/user as mob)
 	if(!user.IsAdvancedToolUser())
 		return FALSE
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/embedded_controller/radio
 	icon = 'icons/obj/airlock_machines.dmi'
@@ -69,7 +69,7 @@
 	else
 		icon_state = "airlock_control_off"
 
-/obj/machinery/embedded_controller/radio/post_signal(datum/signal/signal, var/filter = null)
+/obj/machinery/embedded_controller/radio/post_signal(datum/signal/signal, filter = null)
 	signal.transmission_method = TRANSMISSION_RADIO
 	if(radio_connection)
 		//use_power(radio_power_use)	//neat idea, but causes way too much lag.

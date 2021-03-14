@@ -37,7 +37,7 @@
 		if(C == src.head || C == src.wear_suit || C == src.wear_mask || C == src.w_uniform || C == src.belt || C == src.back)
 			if(C.species_disguise)
 				displayed_species = C.species_disguise
-	if(skipjumpsuit && skipface || (NO_EXAMINE in dna.species.species_traits)) //either obscured or on the nospecies list
+	if(skipjumpsuit && skipface || HAS_TRAIT(src, TRAIT_NOEXAMINE)) //either obscured or on the nospecies list
 		msg += "!\n"    //omit the species when examining
 	else if(displayed_species == "Slime People") //snowflakey because Slime People are defined as a plural
 		msg += ", a<b><font color='[examine_color]'> slime person</font></b>!\n"
@@ -177,7 +177,7 @@
 
 
 	var/appears_dead = FALSE
-	if(stat == DEAD || (status_flags & FAKEDEATH))
+	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		appears_dead = TRUE
 		if(suiciding)
 			msg += "<span class='warning'>[p_they(TRUE)] appear[p_s()] to have committed suicide... there is no hope of recovery.</span>\n"
@@ -254,26 +254,26 @@
 	if(wound_flavor_text["r_foot"]&& (is_destroyed["right foot"] || (!shoes  && !skipshoes)))
 		msg += wound_flavor_text["r_foot"]
 
-	var/temp = getBruteLoss() //no need to calculate each of these twice
+	var/damage = getBruteLoss() //no need to calculate each of these twice
 
-	if(temp)
+	if(damage)
 		var/brute_message = !ismachineperson(src) ? "bruising" : "denting"
-		if(temp < 30)
-			msg += "[p_they(TRUE)] [p_have()] minor [brute_message ].\n"
+		if(damage < 60)
+			msg += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] [brute_message].\n"
 		else
-			msg += "<B>[p_they(TRUE)] [p_have()] severe [brute_message ]!</B>\n"
+			msg += "<B>[p_they(TRUE)] [p_have()] severe [brute_message]!</B>\n"
 
-	temp = getFireLoss()
-	if(temp)
-		if(temp < 30)
-			msg += "[p_they(TRUE)] [p_have()] minor burns.\n"
+	damage = getFireLoss()
+	if(damage)
+		if(damage < 60)
+			msg += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] burns.\n"
 		else
 			msg += "<B>[p_they(TRUE)] [p_have()] severe burns!</B>\n"
 
-	temp = getCloneLoss()
-	if(temp)
-		if(temp < 30)
-			msg += "[p_they(TRUE)] [p_have()] minor cellular damage.\n"
+	damage = getCloneLoss()
+	if(damage)
+		if(damage < 60)
+			msg += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] cellular damage.\n"
 		else
 			msg += "<B>[p_they(TRUE)] [p_have()] severe cellular damage.</B>\n"
 
@@ -298,7 +298,7 @@
 	if(nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
 		msg += "[p_they(TRUE)] [p_are()] severely malnourished.\n"
 
-	if(FAT in mutations)
+	if(HAS_TRAIT(src, TRAIT_FAT))
 		msg += "[p_they(TRUE)] [p_are()] morbidly obese.\n"
 		if(user.nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
 			msg += "[p_they(TRUE)] [p_are()] plump and delicious looking - Like a fat little piggy. A tasty piggy.\n"
@@ -411,6 +411,8 @@
 		msg += "\n[p_they(TRUE)] [p_are()] [pose]"
 
 	. = list(msg)
+
+	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
 //Helper procedure. Called by /mob/living/carbon/human/examine() and /mob/living/carbon/human/Topic() to determine HUD access to security and medical records.
 /proc/hasHUD(mob/M, hudtype)

@@ -1,7 +1,7 @@
 /datum/mind/var/list/job_objectives = list()
 
 #define FINDJOBTASK_DEFAULT_NEW 1 // Make a new task of this type if one can't be found.
-/datum/mind/proc/findJobTask(var/typepath, var/options = 0)
+/datum/mind/proc/findJobTask(typepath, options = 0)
 	var/datum/job_objective/task = locate(typepath) in job_objectives
 	if(!istype(task,typepath))
 		if(options & FINDJOBTASK_DEFAULT_NEW)
@@ -18,7 +18,7 @@
 	var/units_requested = INFINITY
 	var/completion_payment = 0			// Credits paid to owner when completed
 
-/datum/job_objective/New(var/datum/mind/new_owner)
+/datum/job_objective/New(datum/mind/new_owner)
 	owner = new_owner
 	owner.job_objectives += src
 
@@ -27,7 +27,7 @@
 	var/desc = "Placeholder Objective"
 	return desc
 
-/datum/job_objective/proc/unit_completed(var/count=1)
+/datum/job_objective/proc/unit_completed(count=1)
 	units_completed += count
 
 /datum/job_objective/proc/is_completed()
@@ -60,17 +60,17 @@
 		for(var/datum/job_objective/objective in employee.job_objectives)
 			if(objective.is_completed(1))
 				text += "<br>&nbsp;-&nbsp;<B>Task #[count]</B>: [objective.get_description()] <font color='green'><B>Completed!</B></font>"
-				feedback_add_details("employee_objective","[objective.type]|SUCCESS")
+				SSblackbox.record_feedback("nested tally", "employee_objective", 1, list("[objective.type]", "SUCCESS"))
 				tasks_completed++
 			else
 				text += "<br>&nbsp;-&nbsp;<B>Task #[count]</B>: [objective.get_description()] <font color='red'><b>Failed.</b></font>"
-				feedback_add_details("employee_objective","[objective.type]|FAIL")
+				SSblackbox.record_feedback("nested tally", "employee_objective", 1, list("[objective.type]", "FAIL"))
 			count++
 
 		if(tasks_completed >= 1)
 			text += "<br>&nbsp;<font color='green'><B>[employee.name] did [employee.p_their()] fucking job!</B></font>"
-			feedback_add_details("employee_success","SUCCESS")
+			SSblackbox.record_feedback("tally", "employee_success", 1, "SUCCESS")
 		else
-			feedback_add_details("employee_success","FAIL")
+			SSblackbox.record_feedback("tally", "employee_success", 1, "FAIL")
 
 	return text

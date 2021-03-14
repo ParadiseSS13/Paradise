@@ -6,7 +6,7 @@
 	dna_cost = 1
 
 //Prevents AIs tracking you but makes you easily detectable to the human-eye.
-/datum/action/changeling/digitalcamo/sting_action(var/mob/user)
+/datum/action/changeling/digitalcamo/sting_action(mob/user)
 
 	if(user.digitalcamo)
 		to_chat(user, "<span class='notice'>We return to normal.</span>")
@@ -14,5 +14,5 @@
 		to_chat(user, "<span class='notice'>We distort our form to prevent AI-tracking.</span>")
 	user.digitalcamo = !user.digitalcamo
 
-	feedback_add_details("changeling_powers","CAM")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1

@@ -304,7 +304,7 @@
 
 	qdel(src)
 
-/obj/item/grenade/chem_grenade/proc/CreateDefaultTrigger(var/typekey)
+/obj/item/grenade/chem_grenade/proc/CreateDefaultTrigger(typekey)
 	if(ispath(typekey,/obj/item/assembly))
 		nadeassembly = new(src)
 		if(nadeassembly.has_prox_sensors())

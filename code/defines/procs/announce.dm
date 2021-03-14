@@ -14,37 +14,37 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	var/admin_announcement = 0 // Admin announcements are received regardless of being in range of a radio, unless you're in the lobby to prevent metagaming
 	var/language = "Galactic Common"
 
-/datum/announcement/New(var/do_log = 0, var/new_sound = null, var/do_newscast = 0)
+/datum/announcement/New(do_log = 0, new_sound = null, do_newscast = 0)
 	sound = new_sound
 	log = do_log
 	newscast = do_newscast
 
-/datum/announcement/minor/New(var/do_log = 0, var/new_sound = sound('sound/misc/notice2.ogg'), var/do_newscast = 0)
+/datum/announcement/minor/New(do_log = 0, new_sound = sound('sound/misc/notice2.ogg'), do_newscast = 0)
 	..(do_log, new_sound, do_newscast)
 	title = "Attention"
 	announcement_type = "Minor Announcement"
 
-/datum/announcement/priority/New(var/do_log = 1, var/new_sound = sound('sound/misc/notice2.ogg'), var/do_newscast = 0)
+/datum/announcement/priority/New(do_log = 1, new_sound = sound('sound/misc/notice2.ogg'), do_newscast = 0)
 	..(do_log, new_sound, do_newscast)
 	title = "Priority Announcement"
 	announcement_type = "Priority Announcement"
 
-/datum/announcement/priority/command/New(var/do_log = 1, var/new_sound = sound('sound/misc/notice2.ogg'), var/do_newscast = 0)
+/datum/announcement/priority/command/New(do_log = 1, new_sound = sound('sound/misc/notice2.ogg'), do_newscast = 0)
 	..(do_log, new_sound, do_newscast)
 	admin_announcement = 1
 	title = "[command_name()] Update"
 	announcement_type = "[command_name()] Update"
 
-/datum/announcement/priority/command/event/New(var/do_log = 1, var/new_sound = sound('sound/misc/notice2.ogg'), var/do_newscast = 0)
+/datum/announcement/priority/command/event/New(do_log = 1, new_sound = sound('sound/misc/notice2.ogg'), do_newscast = 0)
 	..(do_log, new_sound, do_newscast)
 	admin_announcement = 0
 
-/datum/announcement/priority/security/New(var/do_log = 1, var/new_sound = sound('sound/misc/notice2.ogg'), var/do_newscast = 0)
+/datum/announcement/priority/security/New(do_log = 1, new_sound = sound('sound/misc/notice2.ogg'), do_newscast = 0)
 	..(do_log, new_sound, do_newscast)
 	title = "Security Announcement"
 	announcement_type = "Security Announcement"
 
-/datum/announcement/proc/Announce(var/message as text, var/new_title = "", var/new_sound = null, var/do_newscast = newscast, var/msg_sanitized = 0, var/from, var/msg_language)
+/datum/announcement/proc/Announce(message as text, new_title = "", new_sound = null, do_newscast = newscast, msg_sanitized = 0, from, msg_language)
 	if(!message)
 		return
 
@@ -76,7 +76,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	Sound(message_sound, combined_receivers[1] + combined_receivers[2])
 	Log(message, message_title)
 
-/datum/announcement/proc/Get_Receivers(var/datum/language/message_language)
+/datum/announcement/proc/Get_Receivers(datum/language/message_language)
 	var/list/receivers = list()
 	var/list/garbled_receivers = list()
 
@@ -161,17 +161,17 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	news.can_be_redacted = 0
 	announce_newscaster_news(news)
 
-/datum/announcement/proc/Sound(var/message_sound, var/receivers)
+/datum/announcement/proc/Sound(message_sound, receivers)
 	if(!message_sound)
 		return
 	for(var/mob/M in receivers)
-		M << message_sound
+		SEND_SOUND(M, message_sound)
 
 /datum/announcement/proc/Log(message as text, message_title as text)
 	if(log)
 		log_game("[key_name(usr)] has made \a [announcement_type]: [message_title] - [message] - [announcer]")
 		message_admins("[key_name_admin(usr)] has made \a [announcement_type].", 1)
 
-/proc/GetNameAndAssignmentFromId(var/obj/item/card/id/I)
+/proc/GetNameAndAssignmentFromId(obj/item/card/id/I)
 	// Format currently matches that of newscaster feeds: Registered Name (Assigned Rank)
 	return I.assignment ? "[I.registered_name] ([I.assignment])" : I.registered_name

@@ -3,23 +3,11 @@
 /turf/space,
 /area/space)
 "ab" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f6";
-	dir = 2
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
 "ac" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
+/obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
-/area/shuttle/escape)
-"ad" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f10";
-	dir = 2
-	},
 /area/shuttle/escape)
 "ae" = (
 /obj/structure/table/reinforced,
@@ -112,12 +100,6 @@
 	icon_state = "vault"
 	},
 /area/shuttle/escape)
-"aq" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall3";
-	dir = 2
-	},
-/area/shuttle/escape)
 "ar" = (
 /obj/machinery/computer/security{
 	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
@@ -158,18 +140,6 @@
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
-"av" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall12";
-	dir = 2
-	},
-/area/shuttle/escape)
-"aw" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall13";
-	dir = 2
-	},
-/area/shuttle/escape)
 "ax" = (
 /obj/machinery/computer/station_alert,
 /obj/structure/sign/poster/official/nanotrasen_logo{
@@ -192,7 +162,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor4,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aA" = (
 /obj/machinery/light,
@@ -221,17 +191,7 @@
 /area/shuttle/escape)
 "aD" = (
 /obj/machinery/status_display,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall12";
-	dir = 2
-	},
-/area/shuttle/escape)
-"aE" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle{
-	icon_state = "16"
-	},
-/turf/simulated/floor/plating,
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
 "aF" = (
 /obj/machinery/door/airlock/command/glass{
@@ -242,10 +202,10 @@
 /area/shuttle/escape)
 "aG" = (
 /obj/structure/table/reinforced,
-/turf/simulated/shuttle/floor4,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aH" = (
-/turf/simulated/shuttle/floor4,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aI" = (
 /obj/machinery/light{
@@ -253,19 +213,12 @@
 	on = 1
 	},
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/shuttle/floor4,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aJ" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
-/turf/simulated/shuttle/floor4,
-/area/shuttle/escape)
-"aK" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle{
-	icon_state = "8"
-	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aL" = (
 /obj/structure/table/reinforced,
@@ -289,25 +242,11 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/shuttle/floor4,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aO" = (
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/shuttle/floor4,
-/area/shuttle/escape)
-"aP" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall7";
-	icon_state = "swall7";
-	dir = 2
-	},
-/area/shuttle/escape)
-"aQ" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle{
-	icon_state = "15"
-	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aR" = (
 /obj/structure/closet/fireaxecabinet{
@@ -353,10 +292,10 @@
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
-/obj/item/tank/emergency_oxygen/engi,
-/obj/item/tank/emergency_oxygen/engi,
-/obj/item/tank/emergency_oxygen/engi,
-/obj/item/tank/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot";
 	dir = 1
@@ -371,13 +310,13 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor4,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aX" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/shuttle/floor4,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aY" = (
 /obj/structure/table/reinforced,
@@ -387,32 +326,11 @@
 	icon_state = "redcorner"
 	},
 /area/shuttle/escape)
-"aZ" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall14";
-	icon_state = "swall14";
-	dir = 2
-	},
-/area/shuttle/escape)
 "ba" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
 	},
-/area/shuttle/escape)
-"bb" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle{
-	icon_state = "14"
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/escape)
-"bc" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle{
-	icon_state = "17"
-	},
-/turf/simulated/floor/plating,
 /area/shuttle/escape)
 "bd" = (
 /turf/simulated/floor/plasteel{
@@ -421,7 +339,7 @@
 	},
 /area/shuttle/escape)
 "be" = (
-/obj/machinery/door/airlock/shuttle/glass{
+/obj/machinery/door/airlock/titanium/glass{
 	name = "Emergency Airlock Access";
 	req_one_access_txt = "2;19"
 	},
@@ -448,14 +366,14 @@
 	id_tag = "s_docking_airlock"
 	},
 /obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plating,
 /area/shuttle/escape)
 "bj" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
 	req_access_txt = "2"
 	},
-/turf/simulated/shuttle/floor4,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "bk" = (
 /turf/simulated/floor/plasteel{
@@ -479,25 +397,18 @@
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/shuttle/escape)
 "bo" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	aiControlDisabled = 1;
 	hackProof = 1;
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plating,
 /area/shuttle/escape)
 "bp" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
-/turf/simulated/shuttle/floor4,
-/area/shuttle/escape)
-"bq" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f5";
-	dir = 2
-	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "br" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -506,35 +417,16 @@
 	icon_state = "redcorner"
 	},
 /area/shuttle/escape)
-"bs" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall11";
-	dir = 2
-	},
-/area/shuttle/escape)
-"bt" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall7";
-	dir = 2
-	},
-/area/shuttle/escape)
 "bu" = (
 /obj/structure/shuttle/engine/heater,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/shuttle/plating,
-/area/shuttle/escape)
-"bv" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f9";
-	dir = 2
-	},
+/turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
 "bw" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
 "bx" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -594,7 +486,7 @@
 	},
 /area/shuttle/escape)
 "bD" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	aiControlDisabled = 1;
 	hackProof = 1;
 	id_tag = "s_docking_airlock";
@@ -607,7 +499,7 @@
 	timid = 1;
 	width = 29
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plating,
 /area/shuttle/escape)
 "bE" = (
 /turf/simulated/floor/plasteel,
@@ -721,7 +613,7 @@
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bS" = (
-/obj/machinery/door/airlock/shuttle/glass{
+/obj/machinery/door/airlock/titanium/glass{
 	name = "Shuttle Cargo Hatch"
 	},
 /turf/simulated/floor/plasteel,
@@ -745,19 +637,9 @@
 	dir = 1
 	},
 /area/shuttle/escape)
-"bW" = (
-/obj/machinery/status_display,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall3";
-	dir = 2
-	},
-/area/shuttle/escape)
 "bX" = (
 /obj/machinery/ai_status_display,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall3";
-	dir = 2
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
 "bY" = (
 /obj/structure/flora/ausbushes/grassybush,
@@ -801,10 +683,7 @@
 /area/shuttle/escape)
 "cc" = (
 /obj/structure/extinguisher_cabinet,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall3";
-	dir = 2
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
 "cd" = (
 /obj/item/radio/intercom{
@@ -906,17 +785,7 @@
 /area/shuttle/escape)
 "cm" = (
 /obj/structure/sign/greencross,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall12";
-	dir = 2
-	},
-/area/shuttle/escape)
-"cn" = (
-/obj/structure/sign/greencross,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall3";
-	dir = 2
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
 "co" = (
 /obj/machinery/sleeper{
@@ -1097,9 +966,7 @@
 	},
 /area/shuttle/escape)
 "cH" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "wall3"
-	},
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -1109,28 +976,28 @@ aa
 aa
 aa
 ab
-aq
-aq
-aq
+ab
+ab
+ab
 bo
-aP
+ab
 bD
-aq
-aQ
-aK
-aE
-aq
+ab
+ac
+ac
+ac
+ab
 bo
-aq
+ab
 bo
-aq
-aq
-aQ
-aE
-aq
-aq
-bt
-bq
+ab
+ab
+ac
+ac
+ab
+ab
+ab
+ab
 aa
 "}
 (2,1,1) = {"
@@ -1139,12 +1006,12 @@ aa
 aa
 aa
 aa
-av
+ab
 aG
 aW
 az
 aH
-av
+ab
 bE
 bJ
 bP
@@ -1160,7 +1027,7 @@ bP
 bP
 cA
 aV
-av
+ab
 bu
 bw
 "}
@@ -1191,7 +1058,7 @@ ba
 ba
 ba
 bB
-bb
+ac
 bu
 bw
 "}
@@ -1201,12 +1068,12 @@ aa
 aa
 aa
 ab
-aw
+ab
 aI
 aH
 aH
 aN
-bb
+ac
 bg
 ba
 bQ
@@ -1222,26 +1089,26 @@ bQ
 bQ
 ba
 bB
-bc
+ac
 bu
 bw
 "}
 (5,1,1) = {"
 ab
-aq
+ab
 ac
-aq
-bs
-aw
+ab
+ab
+ab
 aO
 aH
 aH
 aN
-bc
+ac
 bg
 ba
 bR
-bW
+aD
 bY
 cc
 bR
@@ -1253,22 +1120,22 @@ bX
 bY
 ba
 bB
-av
+ab
 cH
 cH
 "}
 (6,1,1) = {"
-av
+ab
 ae
 am
 ar
 ay
-av
+ab
 aJ
 aX
 aH
 bp
-av
+ab
 bg
 ba
 bP
@@ -1284,7 +1151,7 @@ bP
 bP
 ba
 bB
-av
+ab
 bu
 bw
 "}
@@ -1294,12 +1161,12 @@ af
 an
 as
 aA
-aZ
-aq
+ab
+ab
 ac
 bj
-aq
-aw
+ab
+ab
 bF
 ba
 ba
@@ -1346,7 +1213,7 @@ bQ
 bQ
 ba
 bB
-av
+ab
 cH
 cH
 "}
@@ -1373,11 +1240,11 @@ ba
 bY
 cc
 bR
-bW
+aD
 bY
 ba
 bB
-bb
+ac
 bu
 bw
 "}
@@ -1408,7 +1275,7 @@ bP
 bP
 ba
 bB
-bc
+ac
 bu
 bw
 "}
@@ -1439,7 +1306,7 @@ ba
 ba
 ba
 bB
-av
+ab
 cH
 cH
 "}
@@ -1449,12 +1316,12 @@ ak
 an
 au
 aB
-aZ
-aq
+ab
+ab
 be
 be
-aq
-aw
+ab
+ab
 aV
 bK
 bE
@@ -1475,48 +1342,48 @@ bu
 bw
 "}
 (13,1,1) = {"
-av
+ab
 al
 ap
 ax
 aC
-av
+ab
 aS
 bf
 bd
 by
-aZ
-aq
-aq
+ab
+ab
+ab
 bS
 bS
-aq
-aq
-aq
-aP
-cn
+ab
+ab
+ab
+ab
+cm
 ac
 cu
 cu
 ac
-bW
-aq
-aw
+aD
+ab
+ab
 bu
 bw
 "}
 (14,1,1) = {"
-ad
-aq
+ab
+ab
 ac
-aq
-aP
-aw
+ab
+ab
+ab
 aT
 bg
 bl
 bz
-av
+ab
 bG
 bL
 bE
@@ -1524,7 +1391,7 @@ bE
 bZ
 cd
 cf
-av
+ab
 co
 cs
 cv
@@ -1532,7 +1399,7 @@ cv
 cy
 cB
 cD
-av
+ab
 cH
 cH
 "}
@@ -1541,13 +1408,13 @@ aa
 aa
 aa
 aa
-ad
-aw
+ab
+ab
 aU
 bg
 bl
 bA
-av
+ab
 bn
 bM
 bT
@@ -1563,7 +1430,7 @@ cv
 cy
 cp
 cE
-bb
+ac
 bu
 bw
 "}
@@ -1578,7 +1445,7 @@ aU
 bg
 bl
 bB
-av
+ab
 bH
 bN
 bU
@@ -1594,7 +1461,7 @@ cv
 cy
 cp
 cF
-bc
+ac
 bu
 bw
 "}
@@ -1604,12 +1471,12 @@ aa
 aa
 aa
 aa
-av
+ab
 aV
 bh
 bm
 aV
-av
+ab
 bI
 bO
 bV
@@ -1625,7 +1492,7 @@ cx
 cz
 cC
 cG
-av
+ab
 bu
 bw
 "}
@@ -1635,28 +1502,28 @@ aa
 aa
 aa
 aa
-ad
+ab
 ac
 bi
 bi
 ac
-bs
-aq
-aQ
-aK
-aK
-aK
-aE
-aq
-bs
-aq
-aq
-aQ
-aK
-aK
-aE
-aq
-bs
-bv
+ab
+ab
+ac
+ac
+ac
+ac
+ac
+ab
+ab
+ab
+ab
+ac
+ac
+ac
+ac
+ab
+ab
+ab
 aa
 "}

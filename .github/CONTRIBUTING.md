@@ -138,6 +138,10 @@ The previous code made compliant:
   code
 ```
 
+### User Interfaces
+All new user interfaces in the game must be created using the TGUI framework. Documentation can be found inside the `tgui/docs` folder.
+This is to ensure all ingame UIs are snappy and respond well. An exception is made for user interfaces which are purely for OOC actions (Such as character creation, or anything admin related)
+
 ### No overriding type safety checks
 The use of the : operator to override type safety checks is not allowed. You must cast the variable to the proper type.
 
@@ -350,12 +354,11 @@ This prevents nesting levels from getting deeper then they need to be.
 #### Spacing
 * Operators that should be separated by spaces
   * Boolean and logic operators like &&, || <, >, ==, etc (but not !)
-  * Bitwise AND &
+  * Bitwise AND & and OR |
   * Argument separator operators like , (and ; when used in a forloop)
   * Assignment operators like = or += or the like
   * Math operators like +, -, /, or \*
 * Operators that should not be separated by spaces
-  * Bitwise OR |
   * Access operators like . and :
   * Parentheses ()
   * logical not !
@@ -435,7 +438,18 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
 
 * Player input must always be escaped safely, we recommend you use stripped_input in all cases where you would use input. Essentially, just always treat input from players as inherently malicious and design with that use case in mind
 
-* Calls to the database must be escaped properly - use sanitizeSQL to escape text based database entries from players or admins, and isnum() for number based database entries from players or admins.
+* Calls to the database must be escaped properly - use proper parameters (values starting with a :). You can then replace these with a list of parameters, and these will be properly escaped during the query, and prevent any SQL injection.
+	* Good:
+	```dm
+		var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey=:target_ckey", list(
+			"target_ckey" = target_ckey
+		)) // Note the use of parameters on the above line and :target_ckey in the query
+	```
+
+	* Bad:
+	```dm
+		var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey='[target_ckey]'")
+	```
 
 * All calls to topics must be checked for correctness. Topic href calls can be easily faked by clients, so you should ensure that the call is valid for the state the item is in. Do not rely on the UI code to provide only valid topic calls, because it won't.
 
@@ -453,9 +467,15 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
 ### SQL
 * Do not use the shorthand sql insert format (where no column names are specified) because it unnecessarily breaks all queries on minor column changes and prevents using these tables for tracking outside related info such as in a connected site/forum.
 
+* Use parameters for queries (Mentioned above in) [###Develop Secure Code](###Develop Secure Code)
+
+* Always check your queries for success with if(!query.warn_execute()). By using this standard format, you can ensure the correct log messages are used
+
+* Always qdel() your queries after you are done with them, this cleans up the results and helps things run smoother
+
 * All changes to the database's layout(schema) must be specified in the database changelog in SQL, as well as reflected in the schema files
 
-* Any time the schema is changed the `DB_MAJOR_VERSION` defines must be incremented, as well as the example config, with an appropriate conversion kit placed
+* Any time the schema is changed the `SQL_VERSION` defines must be incremented, as well as the example config, with an appropriate conversion kit placed
 in the SQL/updates folder.
 
 * Queries must never specify the database, be it in code, or in text files in the repo.

@@ -176,9 +176,6 @@ Jugando como Revenant la fastmos es tu amiga. Romper vidrios para mandar a la ge
 Como swarmer puedes deconstruir mas cosas de las que crees!. Intenta deconstruir interruptores de luz, botones, air alarms y mas. Animate y experimenta!
 Como swarmer puedes teleportar otros swarmers si crees que estan en peligro
 Como fantasma puedes hacer doble click en cualquier cosa para orbitar sobre ello. O simplemente warpearte.
-Como demonio ganas poderes por cada 3 almas que controles. Sin embargo cada vez te vuelves mas facil de distinguir para el resto de tripulantes.
-Como demonio mientras controles al menos 1 alma vas a resucitar automaticamente. Siempre y cuando no encuentren tu debilidad para que no revivas.
-En el momento en que el nombre del Diablo es pronunciado en la lengua del hombre, el Diablo podria aparecer.
 Como guardia de seguridad, recuerda que la correlacion no es sinonimo de causa. Justo alguien pudo estar en el lugar equivocado en la hora equivocada!
 Como guardia de seguridad recuerda que puedes equiparle tu linterna a tu taser. O a tu casco!
 Jugando como terror spider deberias dejar el trabajo de envolver los cuerpos a las arañas verdes. Los necesitan para dejar sus huevecillos!
@@ -202,3 +199,5 @@ Puedes esconder papeles en las ventilaciones. Pero debes usar un destornillador 
 Si bien las reglas del SOP no son totalmente reglas estan alli por motivos profesionales y de seguridad para la estacion.
 Matar al Mago normalmente termina la ronda, a menos que sea un lich o que la Federación de Magos Espaciales esté MUY ENOJADA!
 Codea tu mierda.
+Centauri sera terminado algún día.
+Whip and nae nae.

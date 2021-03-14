@@ -84,7 +84,7 @@
 "r" = (
 /obj/structure/rack,
 /obj/item/pickaxe/emergency,
-/obj/item/tank/oxygen,
+/obj/item/tank/internals/oxygen,
 /turf/simulated/floor/plating/asteroid/basalt,
 /area/ruin/powered)
 "s" = (

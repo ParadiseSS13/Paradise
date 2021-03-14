@@ -205,7 +205,6 @@ GLOBAL_VAR_INIT(specops_shuttle_timeleft, 0)
 				if("ASSAULT3")
 					spawn(0)
 						M.close()
-		special_ops.readyreset()//Reset firealarm after the team launched.
 	//End Marauder launchpad.
 
 	var/area/start_location = locate(/area/shuttle/specops/centcom)
@@ -248,7 +247,7 @@ GLOBAL_VAR_INIT(specops_shuttle_timeleft, 0)
 			return 0
 	return 1
 
-/obj/machinery/computer/specops_shuttle/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/specops_shuttle/attack_ai(mob/user as mob)
 	to_chat(user, "<span class='warning'>Access Denied.</span>")
 	return 1
 
@@ -258,7 +257,7 @@ GLOBAL_VAR_INIT(specops_shuttle_timeleft, 0)
 	else
 		return ..()
 
-/obj/machinery/computer/specops_shuttle/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/specops_shuttle/attack_hand(mob/user as mob)
 	if(!allowed(user))
 		to_chat(user, "<span class='warning'>Access Denied.</span>")
 		return
@@ -325,9 +324,6 @@ GLOBAL_VAR_INIT(specops_shuttle_timeleft, 0)
 		temp += "Shuttle departing.<BR><BR><A href='?src=[UID()];mainmenu=1'>OK</A>"
 		updateUsrDialog()
 
-		var/area/centcom/specops/special_ops = locate()
-		if(special_ops)
-			special_ops.readyalert()//Trigger alarm for the spec ops area.
 		GLOB.specops_shuttle_moving_to_station = 1
 
 		GLOB.specops_shuttle_time = world.timeofday + SPECOPS_MOVETIME

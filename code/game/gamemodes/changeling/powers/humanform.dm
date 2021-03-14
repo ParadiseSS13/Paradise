@@ -8,7 +8,7 @@
 	max_genetic_damage = 3
 
 //Transform into a human.
-/datum/action/changeling/humanform/sting_action(var/mob/living/carbon/human/user)
+/datum/action/changeling/humanform/sting_action(mob/living/carbon/human/user)
 	var/datum/changeling/changeling = user.mind.changeling
 	var/list/names = list()
 	for(var/datum/dna/DNA in (changeling.absorbed_dna+changeling.protected_dna))
@@ -25,12 +25,12 @@
 		return 0
 	to_chat(user, "<span class='notice'>We transform our appearance.</span>")
 	user.dna.SetSEState(GLOB.monkeyblock,0,1)
-	genemutcheck(user,GLOB.monkeyblock,null,MUTCHK_FORCED)
+	singlemutcheck(user,GLOB.monkeyblock, MUTCHK_FORCED)
 	if(istype(user))
 		user.set_species(chosen_dna.species.type)
 	user.dna = chosen_dna.Clone()
 	user.real_name = chosen_dna.real_name
-	domutcheck(user,null,MUTCHK_FORCED)
+	domutcheck(user, MUTCHK_FORCED)
 	user.flavor_text = ""
 	user.dna.UpdateSE()
 	user.dna.UpdateUI()
@@ -40,5 +40,5 @@
 	changeling.purchasedpowers -= src
 	//O.mind.changeling.purchasedpowers += new /datum/action/changeling/lesserform(null)
 	src.Remove(user)
-	feedback_add_details("changeling_powers","LFT")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1

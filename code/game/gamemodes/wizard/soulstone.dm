@@ -108,7 +108,7 @@
 			player_mob = ghost
 		var/client/player_client = player_mob.client
 		to_chat(player_mob, "<span class='warning'>[user] is trying to capture your soul into [src]! Click the button in the top right of the game window to respond.</span>")
-		player_client << 'sound/misc/notice2.ogg'
+		SEND_SOUND(player_client, sound('sound/misc/notice2.ogg'))
 		window_flash(player_client)
 
 		var/obj/screen/alert/notify_soulstone/A = player_mob.throw_alert("\ref[src]_soulstone_thingy", /obj/screen/alert/notify_soulstone)
@@ -145,7 +145,7 @@
 	return
 
 /obj/item/soulstone/attackby(obj/item/O, mob/user)
-	if(istype(O, /obj/item/storage/bible) && !iscultist(user))
+	if(istype(O, /obj/item/storage/bible) && !iscultist(user) && user.mind.isholy)
 		if(purified)
 			return
 		to_chat(user, "<span class='notice'>You begin to exorcise [src].</span>")
@@ -297,7 +297,7 @@
 				if(length(contents))
 					to_chat(user, "<span class='danger'>Capture failed!</span>: The soul stone is full! Use or free an existing soul to make room.")
 				else
-					T.loc = src //put shade in stone
+					T.forceMove(src) // Put the shade into the stone.
 					T.canmove = 0
 					T.health = T.maxHealth
 					icon_state = icon_state_full
@@ -342,7 +342,12 @@
 		set_light(3, 5, LIGHT_COLOR_DARK_BLUE)
 		name = "Holy [name]"
 		real_name = "Holy [real_name]"
-	if(iscultist(src) && !SS.purified) // Re-grant cult actions, lost in the transfer
+
+		// Replace regular soulstone summoning with purified soulstones
+		RemoveSpell(/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone)
+		AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/holy)
+
+	else if(iscultist(src)) // Re-grant cult actions, lost in the transfer
 		var/datum/action/innate/cult/comm/CC = new
 		var/datum/action/innate/cult/check_progress/D = new
 		CC.Grant(src)

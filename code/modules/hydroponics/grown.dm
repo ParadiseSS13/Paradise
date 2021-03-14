@@ -18,7 +18,7 @@
 	resistance_flags = FLAMMABLE
 	origin_tech = "biotech=1"
 
-/obj/item/reagent_containers/food/snacks/grown/New(newloc, var/obj/item/seeds/new_seed = null)
+/obj/item/reagent_containers/food/snacks/grown/New(newloc, obj/item/seeds/new_seed = null)
 	..()
 	icon = (hispania_icon ? 'icons/hispania/obj/hydroponics/harvest.dmi' : icon)
 	if(!tastes)

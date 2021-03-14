@@ -168,8 +168,8 @@
 
 /obj/docking_port/stationary/register()
 	if(!SSshuttle)
-		throw EXCEPTION("docking port [src] could not initialize.")
-		return 0
+		stack_trace("Docking port [src] could not initialize. SSshuttle doesnt exist!")
+		return FALSE
 
 	SSshuttle.stationary += src
 	if(!id)
@@ -229,9 +229,8 @@
 	var/obj/docking_port/stationary/destination
 	var/obj/docking_port/stationary/previous
 
-/obj/docking_port/mobile/New()
-	..()
-
+/obj/docking_port/mobile/Initialize(mapload)
+	. = ..()
 	var/area/A = get_area(src)
 	if(istype(A, /area/shuttle))
 		areaInstance = A
@@ -245,7 +244,6 @@
 	highlight("#0f0")
 	#endif
 
-/obj/docking_port/mobile/Initialize()
 	if(!timid)
 		register()
 	shuttle_areas = list()
@@ -255,12 +253,10 @@
 		var/area/cur_area = curT.loc
 		if(istype(cur_area, areaInstance))
 			shuttle_areas[cur_area] = TRUE
-	..()
 
 /obj/docking_port/mobile/register()
 	if(!SSshuttle)
-		throw EXCEPTION("docking port [src] could not initialize.")
-		return 0
+		CRASH("Docking port [src] could not initialize. SSshuttle doesnt exist!")
 
 	SSshuttle.mobile += src
 
@@ -322,7 +318,7 @@
 	else
 		var/msg = "check_dock(): shuttle [src] cannot dock at [S], error: [status]"
 		message_admins(msg)
-		throw EXCEPTION(msg)
+		stack_trace(msg)
 		return FALSE
 
 
@@ -773,15 +769,15 @@
 		return
 	connect()
 	add_fingerprint(user)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/computer/shuttle/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/computer/shuttle/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "ShuttleConsole", name, 350, 150, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/shuttle/tgui_data(mob/user)
+/obj/machinery/computer/shuttle/ui_data(mob/user)
 	var/list/data = list()
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
 	data["status"] = M ? M.getStatusText() : null
@@ -800,7 +796,7 @@
 		data["admin_controlled"] = admin_controlled
 	return data
 
-/obj/machinery/computer/shuttle/tgui_act(action, params)
+/obj/machinery/computer/shuttle/ui_act(action, params)
 	if(..())	//we can't actually interact, so no action
 		return TRUE
 	if(!allowed(usr))
@@ -853,7 +849,7 @@
 	admin_controlled = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
-/obj/machinery/computer/shuttle/ferry/request/tgui_act(action, params)
+/obj/machinery/computer/shuttle/ferry/request/ui_act(action, params)
 	if(..())	// Note that the parent handels normal shuttle movement on top of security checks
 		return
 	if(action == "request")
@@ -912,8 +908,6 @@
 	x_offset = 0
 	y_offset = 0
 	resistance_flags = INDESTRUCTIBLE
-	access_tcomms = TRUE
-	access_construction = TRUE
 	access_mining = TRUE
 
 /obj/machinery/computer/shuttle/trade
@@ -959,8 +953,9 @@
 		T.icon_state = icon_state
 	if(T.icon != icon)
 		T.icon = icon
-	if(T.color != color)
-		T.color = color
+	if(color)
+		T.atom_colours = atom_colours.Copy()
+		T.update_atom_colour()
 	if(T.dir != dir)
-		T.dir = dir
+		T.setDir(dir)
 	return T
