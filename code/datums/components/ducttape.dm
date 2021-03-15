@@ -49,8 +49,9 @@
 		return
 	var/turf/source_turf = get_turf(I)
 	var/turf/target_turf = target
-	var/x_offset
-	var/y_offset
+	var/list/clickparams = params2list(params)
+	var/x_offset = text2num(clickparams["icon-x"]) - 16
+	var/y_offset = text2num(clickparams["icon-y"]) - 16
 	if(target_turf != get_turf(I)) //Trying to stick it on a wall, don't move it to the actual wall or you can move the item through it. Instead set the pixels as appropriate
 		var/target_direction = get_dir(source_turf, target_turf)//The direction we clicked
 		// Snowflake diagonal handling
@@ -58,17 +59,13 @@
 			to_chat(user, "<span class='warning'>You cant reach [target_turf].</span>")
 			return
 		if(target_direction & EAST)
-			x_offset = 16
-			y_offset = rand(-12, 12)
+			x_offset += 32
 		else if(target_direction & WEST)
-			x_offset = -16
-			y_offset = rand(-12, 12)
+			x_offset -= 32
 		else if(target_direction & NORTH)
-			x_offset = rand(-12, 12)
-			y_offset = 16
+			y_offset += 32
 		else if(target_direction & SOUTH)
-			x_offset = rand(-12, 12)
-			y_offset = -16
+			y_offset -= 32
 	if(!user.unEquip(I))
 		return
 	to_chat(user, "<span class='notice'>You stick [I] to [target_turf].</span>")
