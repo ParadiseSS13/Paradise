@@ -31,7 +31,7 @@
 	. = ..()
 	if(toggle)
 		if(. && iscarbon(target))
-			new /obj/effect/hallucination/delusion(get_turf(target), target, custom_icon = icon, custom_icon_state = icon_state)
+			new /obj/effect/hallucination/delusion(get_turf(target), target, icon, icon_state)
 	else
 		if(prob(45))
 			if(ismovable(target))
