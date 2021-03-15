@@ -18,7 +18,7 @@
 		"Drask" = 'icons/mob/species/drask/mask.dmi'
 		)
 
-/obj/item/clothing/mask/balaclava/attack_self(var/mob/user)
+/obj/item/clothing/mask/balaclava/attack_self(mob/user)
 	adjustmask(user)
 
 /obj/item/clothing/mask/luchador

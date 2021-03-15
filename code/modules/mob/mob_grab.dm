@@ -29,7 +29,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 
-/obj/item/grab/New(var/mob/user, var/mob/victim)
+/obj/item/grab/New(mob/user, mob/victim)
 	..()
 
 	//Okay, first off, some fucking sanity checking. No user, or no victim, or they are not mobs, no grab.
@@ -62,7 +62,7 @@
 	clean_grabbed_by(assailant, affecting)
 	adjust_position()
 
-/obj/item/grab/proc/clean_grabbed_by(var/mob/user, var/mob/victim) //Cleans up any nulls in the grabbed_by list.
+/obj/item/grab/proc/clean_grabbed_by(mob/user, mob/victim) //Cleans up any nulls in the grabbed_by list.
 	if(istype(user))
 
 		for(var/entry in user.grabbed_by)
@@ -411,7 +411,7 @@
 			LAZYADD(attacker.stomach_contents, affecting)
 			qdel(src)
 
-/obj/item/grab/proc/checkvalid(var/mob/attacker, var/mob/prey) //does all the checking for the attack proc to see if a mob can eat another with the grab
+/obj/item/grab/proc/checkvalid(mob/attacker, mob/prey) //does all the checking for the attack proc to see if a mob can eat another with the grab
 	if(isalien(attacker) && iscarbon(prey)) //Xenomorphs eating carbon mobs
 		return 1
 
@@ -421,7 +421,7 @@
 
 	return 0
 
-/obj/item/grab/proc/checktime(var/mob/attacker, var/mob/prey) //Returns the time the attacker has to wait before they eat the prey
+/obj/item/grab/proc/checktime(mob/attacker, mob/prey) //Returns the time the attacker has to wait before they eat the prey
 	if(isalien(attacker))
 		return EAT_TIME_XENO //xenos get a speed boost
 

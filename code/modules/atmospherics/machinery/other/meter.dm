@@ -123,7 +123,7 @@
 
 	return ..()
 
-/obj/machinery/meter/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
+/obj/machinery/meter/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/multitool))
 		update_multitool_menu(user)
 		return 1
@@ -162,10 +162,10 @@
 		target = loc
 	..()
 
-/obj/machinery/meter/turf/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
+/obj/machinery/meter/turf/attackby(obj/item/W as obj, mob/user as mob, params)
 	return
 
-/obj/machinery/meter/multitool_menu(var/mob/user, var/obj/item/multitool/P)
+/obj/machinery/meter/multitool_menu(mob/user, obj/item/multitool/P)
 	return {"
 	<b>Main</b>
 	<ul>

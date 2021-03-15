@@ -12,7 +12,7 @@
 	var/stacks = 0 //Increments every 5 seconds; damage increases over time
 	var/enabled = 0 //Whether or not you are a hedgehog
 
-/datum/action/changeling/strained_muscles/sting_action(var/mob/living/carbon/user)
+/datum/action/changeling/strained_muscles/sting_action(mob/living/carbon/user)
 	enabled = !enabled
 	if(enabled)
 		to_chat(user, "<span class='notice'>Our muscles tense and strengthen.</span>")

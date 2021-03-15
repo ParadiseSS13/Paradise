@@ -343,7 +343,7 @@ GLOBAL_LIST_EMPTY(holopads)
 			update_holoray(user,new_turf)
 	return TRUE
 
-/obj/machinery/hologram/holopad/proc/activate_holo(mob/living/user, var/force = 0)
+/obj/machinery/hologram/holopad/proc/activate_holo(mob/living/user, force = 0)
 	var/mob/living/silicon/ai/AI = user
 	if(!istype(AI))
 		AI = null
@@ -423,7 +423,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		icon_state = "holopad0"
 
 
-/obj/machinery/hologram/holopad/proc/set_holo(mob/living/user, var/obj/effect/overlay/holo_pad_hologram/h)
+/obj/machinery/hologram/holopad/proc/set_holo(mob/living/user, obj/effect/overlay/holo_pad_hologram/h)
 	masters[user] = h
 	holorays[user] = new /obj/effect/overlay/holoray(loc)
 	var/mob/living/silicon/ai/AI = user
