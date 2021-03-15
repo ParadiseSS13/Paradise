@@ -22,7 +22,7 @@
 		bleed_rate = 0
 		return
 
-	if(bodytemperature >= TCRYO && !(NOCLONE in mutations)) //cryosleep or husked people do not pump the blood.
+	if(bodytemperature >= TCRYO && !HAS_TRAIT(src, TRAIT_BADDNA)) //cryosleep or husked people do not pump the blood.
 		if(blood_volume < BLOOD_VOLUME_NORMAL)
 			blood_volume += 0.1 // regenerate blood VERY slowly
 
@@ -74,10 +74,10 @@
 
 		var/additional_bleed = round(clamp((reagents.get_reagent_amount("heparin") / 10), 0, 2), 1) //Heparin worsens existing bleeding
 
-		if(internal_bleeding_rate && !(status_flags & FAKEDEATH))
+		if(internal_bleeding_rate && !HAS_TRAIT(src, TRAIT_FAKEDEATH))
 			bleed_internal(internal_bleeding_rate + additional_bleed)
 
-		if(bleed_rate && !bleedsuppress && !(status_flags & FAKEDEATH))
+		if(bleed_rate && !bleedsuppress && !HAS_TRAIT(src, TRAIT_FAKEDEATH))
 			bleed(bleed_rate + additional_bleed)
 
 //Makes a blood drop, leaking amt units of blood from the mob
@@ -91,6 +91,7 @@
 				add_splatter_floor(loc, 1)
 
 /mob/living/carbon/human/bleed(amt)
+	amt *= physiology.bleed_mod
 	if(!(NO_BLOOD in dna.species.species_traits))
 		..()
 		if(dna.species.exotic_blood)
@@ -224,7 +225,7 @@
 /mob/living/carbon/human/get_blood_id()
 	if(dna.species.exotic_blood)//some races may bleed water..or kethcup..
 		return dna.species.exotic_blood
-	else if((NO_BLOOD in dna.species.species_traits) || (NOCLONE in mutations))
+	else if((NO_BLOOD in dna.species.species_traits) || HAS_TRAIT(src, TRAIT_HUSK))
 		return
 	return "blood"
 

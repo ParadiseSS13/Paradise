@@ -7,7 +7,7 @@
 	desc = "A huge chunk of metal used to seperate rooms."
 	icon = 'icons/turf/walls/wall.dmi'
 	icon_state = "wall"
-	var/rotting = 0
+	var/rotting = FALSE
 
 	var/damage = 0
 	var/damage_cap = 100 //Wall will break down to girders if damage reaches this point
@@ -28,7 +28,7 @@
 
 	var/can_dismantle_with_welder = TRUE
 	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
-	var/slicing_duration = 100
+	var/slicing_duration = 10 SECONDS
 	var/engraving //engraving on the wall
 	var/engraving_quality
 	var/list/dent_decals
@@ -76,7 +76,7 @@
 	if(!damage)
 		if(damage_overlay)
 			overlays -= damage_overlays[damage_overlay]
-			damage_overlay = 0
+			damage_overlay = null
 		return
 
 	var/overlay = round(damage / damage_cap * damage_overlays.len) + 1
@@ -330,38 +330,38 @@
 			to_chat(user, "<span class='notice'>You burn off the fungi with [I].</span>")
 		return
 
-	if(!I.tool_use_check(user, 0)) //Wall repair stuff
+	// Wall repair stuff
+	if(!I.tool_use_check(user, 0))
 		return
 
-	var/time_required = slicing_duration
-	var/intention
-	if(can_dismantle_with_welder)
-		intention = "Dismantle"
-	if(damage || LAZYLEN(dent_decals))
-		intention = "Repair"
+	var/repairing
+	var/time
+	if(user.a_intent == INTENT_HARM) // Harm intent
 		if(can_dismantle_with_welder)
-			var/moved_away = user.loc
-			intention = alert(user, "Would you like to repair or dismantle [src]?", "[src]", "Repair", "Dismantle")
-			if(user.loc != moved_away)
-				to_chat(user, "<span class='notice'>Stay still while doing this!</span>")
-				return
-			if(intention == "Repair")
-				time_required = max(5, damage / 5)
-	if(!intention)
-		return
-	if(intention == "Dismantle")
-		WELDER_ATTEMPT_SLICING_MESSAGE
-	else
-		WELDER_ATTEMPT_REPAIR_MESSAGE
-	if(I.use_tool(src, user, time_required, volume = I.tool_volume))
-		if(intention == "Dismantle")
-			WELDER_SLICING_SUCCESS_MESSAGE
-			dismantle_wall()
+			repairing = FALSE
+			time = slicing_duration
+			WELDER_ATTEMPT_SLICING_MESSAGE
 		else
+			return
+
+	else // Any other intents
+		if(damage || LAZYLEN(dent_decals))
+			repairing = TRUE
+			time = max(5, damage / 5)
+			WELDER_ATTEMPT_REPAIR_MESSAGE
+		else
+			to_chat(user, "<span class='warning'>[src] doesn't need repairing.</span>")
+			return
+
+	if(I.use_tool(src, user, time, volume = I.tool_volume))
+		if(repairing)
 			WELDER_REPAIR_SUCCESS_MESSAGE
 			cut_overlay(dent_decals)
-			dent_decals?.Cut()
+			dent_decals?.Cut() // I feel like this isn't needed but it can't hurt to keep it in anyway
 			take_damage(-damage)
+		else
+			WELDER_SLICING_SUCCESS_MESSAGE
+			dismantle_wall()
 
 /turf/simulated/wall/proc/try_rot(obj/item/I, mob/user, params)
 	if((!is_sharp(I) && I.force >= 10) || I.force >= 20)

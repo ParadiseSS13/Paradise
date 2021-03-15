@@ -170,7 +170,7 @@
 				AM.upgrade(A)
 				possible_modules -= AM
 				to_chat(A, AM.unlock_text)
-				A.playsound_local(A, AM.unlock_sound, 50, 0)
+				A.playsound_local(A, AM.unlock_sound, 50, FALSE, use_reverb = FALSE)
 			else
 				if(AM.power_type)
 					if(!action) //Unlocking for the first time
@@ -183,7 +183,7 @@
 						if(AM.unlock_text)
 							to_chat(A, AM.unlock_text)
 						if(AM.unlock_sound)
-							A.playsound_local(A, AM.unlock_sound, 50, 0)
+							A.playsound_local(A, AM.unlock_sound, 50, FALSE, use_reverb = FALSE)
 					else //Adding uses to an existing module
 						action.uses += initial(action.uses)
 						action.desc = "[initial(action.desc)] It has [action.uses] use\s remaining."
@@ -318,8 +318,9 @@
 		announced = max(0, announced-1)
 
 /obj/machinery/doomsday_device/proc/detonate(z_level = 1)
-	for(var/mob/M in GLOB.player_list)
-		M << 'sound/machines/alarm.ogg'
+	var/doomsday_alarm = sound('sound/machines/alarm.ogg')
+	for(var/explodee in GLOB.player_list)
+		SEND_SOUND(explodee, doomsday_alarm)
 	sleep(100)
 	for(var/mob/living/L in GLOB.mob_list)
 		var/turf/T = get_turf(L)
@@ -394,7 +395,7 @@
 			RCD.detonate_pulse()
 
 	to_chat(owner, "<span class='danger'>RCD detonation pulse emitted.</span>")
-	owner.playsound_local(owner, 'sound/machines/twobeep.ogg', 50, 0)
+	owner.playsound_local(owner, 'sound/machines/twobeep.ogg', 50, FALSE, use_reverb = FALSE)
 
 //Unlock Mech Domination: Unlocks the ability to dominate mechs. Big shocker, right?
 /datum/AI_Module/large/mecha_domination
@@ -433,7 +434,7 @@
 			continue
 		F.emagged = TRUE
 	to_chat(owner, "<span class='notice'>All thermal sensors on the station have been disabled. Fire alerts will no longer be recognized.</span>")
-	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, 0)
+	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, FALSE, use_reverb = FALSE)
 
 //Air Alarm Safety Override: Unlocks the ability to enable flooding on all air alarms.
 /datum/AI_Module/large/break_air_alarms
@@ -458,7 +459,7 @@
 			continue
 		AA.emagged = TRUE
 	to_chat(owner, "<span class='notice'>All air alarm safeties on the station have been overriden. Air alarms may now use the Flood environmental mode.")
-	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, 0)
+	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, FALSE, use_reverb = FALSE)
 
 
 //Overload Machine: Allows the AI to overload a machine, detonating it after a delay. Two uses per purchase.
@@ -504,7 +505,7 @@
 		to_chat(ranged_ability_user, "<span class='warning'>You can only overload machines!</span>")
 		return
 
-	ranged_ability_user.playsound_local(ranged_ability_user, "sparks", 50, 0)
+	ranged_ability_user.playsound_local(ranged_ability_user, "sparks", 50, FALSE, use_reverb = FALSE)
 	attached_action.adjust_uses(-1)
 	if(attached_action && attached_action.uses)
 		attached_action.desc = "[initial(attached_action.desc)] It has [attached_action.uses] use\s remaining."
@@ -559,7 +560,7 @@
 		to_chat(ranged_ability_user, "<span class='warning'>That machine can't be overridden!</span>")
 		return
 
-	ranged_ability_user.playsound_local(ranged_ability_user, 'sound/misc/interference.ogg', 50, 0)
+	ranged_ability_user.playsound_local(ranged_ability_user, 'sound/misc/interference.ogg', 50, FALSE, use_reverb = FALSE)
 	attached_action.adjust_uses(-1)
 	if(attached_action && attached_action.uses)
 		attached_action.desc = "[initial(attached_action.desc)] It has [attached_action.uses] use\s remaining."
@@ -673,7 +674,7 @@
 		else
 			apc.overload++
 	to_chat(owner, "<span class='notice'>Overcurrent applied to the powernet.</span>")
-	owner.playsound_local(owner, "sparks", 50, 0)
+	owner.playsound_local(owner, "sparks", 50, FALSE, use_reverb = FALSE)
 	adjust_uses(-1)
 	if(src && uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
 		desc = "[initial(desc)] It has [uses] use\s remaining."
@@ -714,7 +715,7 @@
 			fixed_cameras++
 			uses-- //Not adjust_uses() so it doesn't automatically delete or show a message
 	to_chat(owner, "<span class='notice'>Diagnostic complete! Cameras reactivated: <b>[fixed_cameras]</b>. Reactivations remaining: <b>[uses]</b>.</span>")
-	owner.playsound_local(owner, 'sound/items/wirecutter.ogg', 50, 0)
+	owner.playsound_local(owner, 'sound/items/wirecutter.ogg', 50, FALSE, use_reverb = FALSE)
 	adjust_uses(0, TRUE) //Checks the uses remaining
 	if(src && uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
 		desc = "[initial(desc)] It has [uses] use\s remaining."

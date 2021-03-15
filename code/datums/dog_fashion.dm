@@ -31,7 +31,7 @@
 	if(speak_emote)
 		D.speak_emote = speak_emote
 
-/datum/dog_fashion/proc/get_overlay(var/dir)
+/datum/dog_fashion/proc/get_overlay(dir)
 	if(icon_file && obj_icon_state)
 		var/image/corgI = image(icon_file, obj_icon_state, dir = dir)
 		corgI.alpha = obj_alpha
@@ -201,7 +201,7 @@
 
 /datum/dog_fashion/back/hardsuit/apply(mob/living/simple_animal/pet/dog/D)
 	..()
-	D.mutations.Add(BREATHLESS)
+	ADD_TRAIT(D, TRAIT_NOBREATH, DOGGO_SPACESUIT)
 	D.atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	D.minbodytemp = 0
 
