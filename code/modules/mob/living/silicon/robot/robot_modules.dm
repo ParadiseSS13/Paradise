@@ -10,8 +10,6 @@
 	var/list/modules = list()
 	/// A list of module-specific, non-emag modules the borg will gain when this module is chosen.
 	var/list/basic_modules = list()
-	/// A list of modules ALL robots will get by default, unless the list is overriden.
-	var/list/default_modules = list(/obj/item/flash/cyborg)
 	/// A list of modules the robot gets when emagged.
 	var/list/emag_modules = list()
 	/// A list of modules that require special recharge handling. Examples include things like flashes, sprays and welding tools.
@@ -34,11 +32,6 @@
 	..()
 
 	// Creates new objects from the type lists.
-	for(var/i in default_modules)
-		var/obj/item/I = new i(src)
-		default_modules += I
-		default_modules -= i
-
 	for(var/i in basic_modules)
 		var/obj/item/I = new i(src)
 		basic_modules += I
@@ -55,7 +48,7 @@
 	special_rechargables += /obj/item/flash/cyborg
 
 	// This is done so we can loop through this list later and call cyborg_recharge() on the items while the borg is recharging.
-	var/all_modules = default_modules | basic_modules | emag_modules
+	var/all_modules = basic_modules | emag_modules
 	for(var/path in special_rechargables)
 		var/obj/item/I = locate(path) in all_modules
 		if(I) // If it exists, add the object reference.
@@ -67,6 +60,7 @@
 
 
 /obj/item/robot_module/emp_act(severity)
+	. = ..()
 	for(var/object in modules)
 		var/obj/O = object
 		O.emp_act(severity)
@@ -75,7 +69,6 @@
 	// These can all contain actual objects, so we need to null them out.
 	QDEL_LIST(modules)
 	QDEL_LIST(basic_modules)
-	QDEL_LIST(default_modules)
 	QDEL_LIST(emag_modules)
 	QDEL_LIST(storages)
 	QDEL_LIST(special_rechargables)
@@ -94,7 +87,6 @@
 /obj/item/robot_module/proc/remove_item_from_lists(item_or_item_type)
 	var/list/lists = list(
 		basic_modules,
-		default_modules,
 		emag_modules,
 		storages,
 		special_rechargables
@@ -163,17 +155,14 @@
 	return I
 
 /**
- * Builds the usable module list from the modules we have in `default_modules`, `basic_modules` and `emag_modules`
+ * Builds the usable module list from the modules we have in `basic_modules` and `emag_modules`
  */
 /obj/item/robot_module/proc/rebuild_modules()
 	var/mob/living/silicon/robot/R = loc
 	R.uneq_all()
 	modules = list()
 
-	// By this point all 3 of these lists should only contain items. It's safe to use istypeless loops here.
-	for(var/item in default_modules)
-		add_module(item, FALSE)
-
+	// By this point these lists should only contain items. It's safe to use typeless loops here.
 	for(var/item in basic_modules)
 		add_module(item, FALSE)
 
@@ -205,6 +194,7 @@
  * Deletes this module's emag items, and recreates them.
  */
 /obj/item/robot_module/unemag()
+	. = ..()
 	for(var/item in emag_modules)
 		var/obj/item/old_item = item
 		var/obj/item/new_item = new old_item.type(src)
@@ -240,7 +230,7 @@
 	R.add_language("Chittin", 0)
 	R.add_language("Bubblish", 0)
 	R.add_language("Orluum", 0)
-	R.add_language("Clownish",0)
+	R.add_language("Clownish", 0)
 
 /// Adds anything in `subsystems` to the robot's verbs, and grants any actions that are in `module_actions`.
 /obj/item/robot_module/proc/add_subsystems_and_actions(mob/living/silicon/robot/R)
@@ -276,6 +266,7 @@
 	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor, /mob/living/silicon/proc/subsystem_crew_monitor)
 	basic_modules = list(
 		// sec
+		/obj/item/flash/cyborg,
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
 		// janitorial
 		/obj/item/soap/nanotrasen,
@@ -311,6 +302,7 @@
 	module_type = "Medical"
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
 	basic_modules = list(
+		/obj/item/flash/cyborg,
 		/obj/item/healthanalyzer/advanced,
 		/obj/item/robotanalyzer,
 		/obj/item/reagent_scanner/adv,
@@ -341,6 +333,7 @@
 
 // Disable safeties on the borg's defib.
 /obj/item/robot_module/medical/emag_act()
+	. = ..()
 	for(var/obj/item/borg_defib/F in modules)
 		F.safety = FALSE
 
@@ -366,6 +359,7 @@
 	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor)
 	module_actions = list(/datum/action/innate/robot_sight/meson)
 	basic_modules = list(
+		/obj/item/flash/cyborg,
 		/obj/item/rcd/borg,
 		/obj/item/rpd,
 		/obj/item/extinguisher,
@@ -404,6 +398,7 @@
 	module_type = "Security"
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
 	basic_modules = list(
+		/obj/item/flash/cyborg,
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
 		/obj/item/melee/baton/loaded,
 		/obj/item/gun/energy/disabler/cyborg,
@@ -418,6 +413,7 @@
 	name = "janitorial robot module"
 	module_type = "Janitor"
 	basic_modules = list(
+		/obj/item/flash/cyborg,
 		/obj/item/soap/nanotrasen,
 		/obj/item/storage/bag/trash/cyborg,
 		/obj/item/mop/advanced/cyborg,
@@ -445,6 +441,7 @@
 	name = "service robot module"
 	module_type = "Service"
 	basic_modules = list(
+		/obj/item/flash/cyborg,
 		/obj/item/handheld_chem_dispenser/booze,
 		/obj/item/handheld_chem_dispenser/soda,
 		/obj/item/pen,
@@ -506,6 +503,7 @@
 	module_actions = list(/datum/action/innate/robot_sight/meson)
 	custom_removals = list("KA modkits")
 	basic_modules = list(
+		/obj/item/flash/cyborg,
 		/obj/item/storage/bag/ore/cyborg,
 		/obj/item/pickaxe/drill/cyborg,
 		/obj/item/shovel,
@@ -521,6 +519,7 @@
 
 // Replace their normal drill with a diamond drill.
 /obj/item/robot_module/miner/emag_act()
+	. = ..()
 	for(var/obj/item/pickaxe/drill/cyborg/D in modules)
 		// Make sure we don't remove the diamond drill If they already have a diamond drill from the borg upgrade.
 		if(!istype(D, /obj/item/pickaxe/drill/cyborg/diamond))
@@ -547,6 +546,7 @@
 	module_type = "Malf"
 	module_actions = list(/datum/action/innate/robot_sight/thermal)
 	basic_modules = list(
+		/obj/item/flash/cyborg,
 		/obj/item/melee/energy/sword/cyborg,
 		/obj/item/gun/energy/pulse/cyborg,
 		/obj/item/crowbar/cyborg
@@ -557,6 +557,7 @@
 	name = "syndicate assault robot module"
 	module_type = "Malf" // cuz it looks cool
 	basic_modules = list(
+		/obj/item/flash/cyborg,
 		/obj/item/melee/energy/sword/cyborg,
 		/obj/item/gun/energy/printer,
 		/obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg,
@@ -570,6 +571,7 @@
 	name = "syndicate medical robot module"
 	module_type = "Malf"
 	basic_modules = list(
+		/obj/item/flash/cyborg,
 		/obj/item/healthanalyzer/advanced,
 		/obj/item/reagent_scanner/adv,
 		/obj/item/bodyanalyzer/borg/syndicate,
@@ -603,6 +605,7 @@
 	name = "engineering robot module" //to disguise in examine
 	module_type = "Malf"
 	basic_modules = list(
+		/obj/item/flash/cyborg,
 		/obj/item/rcd/borg/syndicate,
 		/obj/item/rpd,
 		/obj/item/extinguisher,
@@ -633,6 +636,7 @@
 	module_type = "Malf"
 	module_actions = list(/datum/action/innate/robot_sight/thermal)
 	basic_modules = list(
+		/obj/item/flash/cyborg,
 		/obj/item/gun/energy/immolator/multi/cyborg, // See comments on /robot_module/combat below
 		/obj/item/melee/baton/loaded, // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
@@ -645,6 +649,7 @@
 	name = "combat robot module"
 	module_type = "Malf"
 	basic_modules = list(
+		/obj/item/flash/cyborg,
 		/obj/item/gun/energy/immolator/multi/cyborg, // primary weapon, strong at close range (ie: against blob/terror/xeno), but consumes a lot of energy per shot.
 		// Borg gets 40 shots of this weapon. Gamma Sec ERT gets 10.
 		// So, borg has way more burst damage, but also takes way longer to recharge / get back in the fight once depleted. Has to find a borg recharger and sit in it for ages.
@@ -661,7 +666,6 @@
 	name = "alien hunter module"
 	module_type = "Standard"
 	module_actions = list(/datum/action/innate/robot_sight/thermal/alien)
-	default_modules = null // No regular flash, they a special alien one.
 	basic_modules = list(
 		/obj/item/melee/energy/alien/claws,
 		/obj/item/flash/cyborg/alien,
@@ -683,7 +687,6 @@
 /obj/item/robot_module/drone
 	name = "drone module"
 	module_type = "Engineer"
-	default_modules = null
 	basic_modules = list(
 		/obj/item/weldingtool/largetank/cyborg,
 		/obj/item/screwdriver/cyborg,
