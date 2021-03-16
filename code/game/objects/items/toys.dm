@@ -1447,7 +1447,7 @@
 	desc = "A \"Space Life\" brand [name]"
 
 /obj/item/toy/figure/crew/activate(mob/user)
-	user.visible_message("<span class='notice'>[bicon(src)] [src] says \"[toysay]\".</span>")
+	atom_say(toysay)
 	playsound(user, 'sound/machines/click.ogg', 20, TRUE)
 
 /obj/item/toy/figure/crew/cmo
@@ -1671,7 +1671,7 @@
  */
 
 /obj/item/toy/figure/xeno
-	name = "xenomorph action figure"
+	name = "\improper Xenomorph action figure"
 	desc = "MEGA presents the new Xenos Isolated action figure! Comes complete with realistic sounds! Pull back string to use."
 	icon_state = "toy_xeno"
 	bubble_icon = "alien"
@@ -1695,7 +1695,7 @@
 	to_chat(user, "<span class='warning'>The string on [src] hasn't rewound all the way!</span>")
 
 /obj/item/toy/figure/owl
-	name = "owl action figure"
+	name = "\improper Owl action figure"
 	desc = "An action figure modeled after 'The Owl', defender of justice."
 	icon_state = "owlprize"
 
@@ -1703,10 +1703,10 @@
 	var/message = pick("You won't get away this time, Griffin!", "Stop right there, criminal!", "Hoot! Hoot!", "I am the night!")
 	to_chat(user, "<span class='notice'>You pull the string on [src].</span>")
 	playsound(src, 'sound/creatures/hoot.ogg', 25, TRUE)
-	visible_message("<span class='danger'>[bicon(src)] [message]</span>")
+	atom_say("<span class='danger'>[message]</span>")
 
 /obj/item/toy/figure/griffin
-	name = "griffin action figure"
+	name = "\improper Griffin action figure"
 	desc = "An action figure modeled after 'The Griffin', criminal mastermind."
 	icon_state = "griffinprize"
 
@@ -1715,7 +1715,7 @@
 	var/message = pick("You can't stop me, Owl!", "My plan is flawless! The vault is mine!", "Caaaawwww!", "You will never catch me!")
 	to_chat(user, "<span class='notice'>You pull the string on [src].</span>")
 	playsound(src, 'sound/creatures/caw.ogg', 25, TRUE)
-	visible_message("<span class='danger'>[bicon(src)] [message]</span>")
+	atom_say("<span class='danger'>[message]</span>")
 
 /*
  * Mech prizes
