@@ -82,8 +82,8 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	var/obj/item/note //Any papers pinned to the airlock
 	var/previous_airlock = /obj/structure/door_assembly //what airlock assembly mineral plating was applied to
 	var/airlock_material //material of inner filling; if its an airlock with glass, this should be set to "glass"
-	var/overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
-	var/note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi' //Used for papers and photos pinned to the airlock
+	var/overlays_file = 'icons/hispania/obj/doors/overlays.dmi'
+	var/note_overlay_file = 'icons/hispania/obj/doors/overlays.dmi' //Used for papers and photos pinned to the airlock
 	var/normal_integrity = AIRLOCK_INTEGRITY_N
 	var/prying_so_hard = FALSE
 	var/paintable = TRUE // If the airlock type can be painted with an airlock painter
@@ -682,22 +682,22 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/proc/check_unres() //unrestricted sides. This overlay indicates which directions the player can access even without an ID
 	if(hasPower() && unres_sides)
 		if(unres_sides & NORTH)
-			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_n") //layer=src.layer+1
+			var/image/I = image(icon='icons/hispania/obj/doors/overlays.dmi', icon_state="unres_n") //layer=src.layer+1
 			I.pixel_y = 32
 			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
 			add_overlay(I)
 		if(unres_sides & SOUTH)
-			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_s") //layer=src.layer+1
+			var/image/I = image(icon='icons/hispania/obj/doors/overlays.dmi', icon_state="unres_s") //layer=src.layer+1
 			I.pixel_y = -32
 			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
 			add_overlay(I)
 		if(unres_sides & EAST)
-			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_e") //layer=src.layer+1
+			var/image/I = image(icon='icons/hispania/obj/doors/overlays.dmi', icon_state="unres_e") //layer=src.layer+1
 			I.pixel_x = 32
 			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
 			add_overlay(I)
 		if(unres_sides & WEST)
-			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_w") //layer=src.layer+1
+			var/image/I = image(icon='icons/hispania/obj/doors/overlays.dmi', icon_state="unres_w") //layer=src.layer+1
 			I.pixel_x = -32
 			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
 			add_overlay(I)
