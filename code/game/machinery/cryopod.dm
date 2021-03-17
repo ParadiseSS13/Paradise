@@ -719,8 +719,6 @@
 /obj/machinery/cryopod/offstation
 	// Won't announce when used for cryoing.
 	silent = TRUE
-	orient_right = 1
-	icon_state = "body_scanner_0-r"
 
 /obj/machinery/computer/cryopod/robot
 	name = "robotic storage console"

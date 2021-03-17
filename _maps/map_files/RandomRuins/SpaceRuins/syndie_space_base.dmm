@@ -343,7 +343,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "ff" = (
-/obj/item/flag/syndi,
+/obj/machinery/cryopod/offstation,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -390,7 +390,9 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "fP" = (
-/obj/item/flag/syndi,
+/obj/effect/mob_spawn/human/spacebase_syndicate{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -1262,6 +1264,7 @@
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "ph" = (
 /obj/machinery/light,
+/obj/machinery/cryopod/offstation,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "darkblue"
@@ -1296,9 +1299,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "pK" = (
-/obj/effect/mob_spawn/human/spacebase_syndicate{
-	dir = 8
-	},
+/obj/item/flag/syndi,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -2727,7 +2728,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/telecomms)
 "Ga" = (
-/obj/item/flag/syndi,
+/obj/machinery/cryopod/offstation,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -3140,7 +3141,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "KJ" = (
-/obj/machinery/cryopod/offstation,
+/obj/item/flag/syndi,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -3416,7 +3417,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "MV" = (
-/obj/item/flag/syndi,
+/obj/effect/mob_spawn/human/spacebase_syndicate{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"
@@ -3634,9 +3637,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
-"QQ" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/unpowered/syndicate_space_base/engineering)
 "Rk" = (
 /obj/machinery/cryopod/offstation,
 /turf/simulated/floor/plasteel{
@@ -3669,6 +3669,19 @@
 	tag = "icon-whitehall (WEST)"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
+"RG" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/effect/mob_spawn/human/spacebase_syndicate{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/ruin/unpowered/syndicate_space_base/dormitories)
 "RM" = (
 /obj/structure/grille,
 /obj/structure/window/full/plastitanium,
@@ -3736,6 +3749,7 @@
 	dir = 1;
 	on = 1
 	},
+/obj/machinery/cryopod/offstation,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -4008,6 +4022,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
+"VP" = (
+/obj/machinery/light,
+/obj/effect/mob_spawn/human/spacebase_syndicate{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "darkblue"
+	},
+/area/ruin/unpowered/syndicate_space_base/dormitories)
 "VQ" = (
 /obj/machinery/shower{
 	dir = 8;
@@ -5125,11 +5149,11 @@ AV
 AV
 fF
 Lf
-KJ
+Vs
 KJ
 kg
 KJ
-KJ
+Vs
 Rk
 nj
 iy
@@ -5620,13 +5644,13 @@ AV
 AV
 AV
 fF
-SO
+RG
 La
 La
 La
 La
 La
-ph
+VP
 fF
 La
 fF
@@ -5683,11 +5707,11 @@ AV
 AV
 fF
 pa
-pK
+Zy
 pK
 Zy
 pK
-pK
+Zy
 lM
 fF
 aT
@@ -6671,11 +6695,11 @@ AV
 AV
 AV
 AV
-QQ
-QQ
+Em
+Em
 Ig
-QQ
-QQ
+Em
+Em
 xo
 qF
 qF
@@ -6731,9 +6755,9 @@ AV
 AV
 AV
 AV
-QQ
-QQ
-QQ
+Em
+Em
+Em
 fX
 Te
 NE
@@ -6793,7 +6817,7 @@ AV
 AV
 AV
 AV
-QQ
+Em
 Hc
 LX
 fX
@@ -6855,9 +6879,9 @@ AV
 AV
 AV
 AV
-QQ
-QQ
-QQ
+Em
+Em
+Em
 LV
 Xa
 id
@@ -6919,11 +6943,11 @@ AV
 AV
 AV
 AV
-QQ
-QQ
-QQ
-QQ
-QQ
+Em
+Em
+Em
+Em
+Em
 Em
 Em
 Em
