@@ -1285,6 +1285,7 @@ About the new airlock wires panel:
 		sleep(6)
 		if(QDELETED(src))
 			return
+		electronics = new /obj/item/airlock_electronics/destroyed()
 		operating = FALSE
 		if(!open())
 			update_icon(AIRLOCK_CLOSED, 1)
@@ -1394,10 +1395,6 @@ About the new airlock wires panel:
 		if(user)
 			to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 		var/obj/item/airlock_electronics/ae
-		if(emagged)
-			electronics = new /obj/item/airlock_electronics/destroyed()
-			operating = FALSE
-
 		if(!electronics)
 			ae = new/obj/item/airlock_electronics(loc)
 			check_access()
