@@ -21,7 +21,7 @@
 		"Plasmaman" = 'icons/mob/species/plasmaman/mask.dmi'
 		)
 
-/obj/item/clothing/mask/breath/attack_self(var/mob/user)
+/obj/item/clothing/mask/breath/attack_self(mob/user)
 	adjustmask(user)
 
 /obj/item/clothing/mask/breath/AltClick(mob/user)
@@ -47,7 +47,7 @@
 	species_restricted = list("Vox", "Vox Armalis") //These should fit the "Mega Vox" just fine.
 	actions_types = list()
 
-/obj/item/clothing/mask/breath/vox/attack_self(var/mob/user)
+/obj/item/clothing/mask/breath/vox/attack_self(mob/user)
 	return
 
 /obj/item/clothing/mask/breath/vox/AltClick(mob/user)

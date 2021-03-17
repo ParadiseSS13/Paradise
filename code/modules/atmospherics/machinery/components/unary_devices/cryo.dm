@@ -280,7 +280,7 @@
 
 	add_fingerprint(usr)
 
-/obj/machinery/atmospherics/unary/cryo_cell/attackby(var/obj/item/G, var/mob/user, params)
+/obj/machinery/atmospherics/unary/cryo_cell/attackby(obj/item/G, mob/user, params)
 	if(istype(G, /obj/item/reagent_containers/glass))
 		var/obj/item/reagent_containers/B = G
 		if(beaker)

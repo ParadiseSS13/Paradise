@@ -193,7 +193,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 					reset_message(TRUE)
 
 		if("writeAnnouncement")
-			var/new_message = sanitize(input("Write your message:", "Awaiting Input", ""))
+			var/new_message = input("Write your message:", "Awaiting Input", message) as message|null
 			if(new_message)
 				message = new_message
 			else
@@ -202,7 +202,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if("sendAnnouncement")
 			if(!announcementConsole)
 				return
-			announcement.Announce(message, msg_sanitized = TRUE)
+			announcement.Announce(message)
 			reset_message(TRUE)
 
 		if("department")

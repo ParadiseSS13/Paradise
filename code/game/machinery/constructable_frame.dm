@@ -490,7 +490,8 @@ to destroy them and players will be able to make replacements.
 							"\improper Secure Refrigerated Medicine Storage" = /obj/machinery/smartfridge/secure/medbay,
 							"\improper Smart Chemical Storage" = /obj/machinery/smartfridge/secure/chemistry,
 							"smart virus storage" = /obj/machinery/smartfridge/secure/chemistry/virology,
-							"\improper Drink Showcase" = /obj/machinery/smartfridge/drinks
+							"\improper Drink Showcase" = /obj/machinery/smartfridge/drinks,
+							"disk compartmentalizer" = /obj/machinery/smartfridge/disks
 	)
 
 
