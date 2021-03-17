@@ -27,6 +27,7 @@
 	var/turns_since_scan = 0
 	var/mob/living/simple_animal/mouse/movement_target
 	var/eats_mice = 1
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 //RUNTIME IS ALIVE! SQUEEEEEEEE~
 /mob/living/simple_animal/pet/cat/Runtime

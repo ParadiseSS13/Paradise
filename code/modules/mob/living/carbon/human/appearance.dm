@@ -3,7 +3,7 @@
 	AC.flags = flags
 	AC.ui_interact(user)
 
-/mob/living/carbon/human/proc/change_gender(var/new_gender, var/update_dna = 1)
+/mob/living/carbon/human/proc/change_gender(new_gender, update_dna = 1)
 	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
 	if(gender == new_gender || (gender == PLURAL && dna.species.has_gender))
 		return
@@ -24,7 +24,7 @@
 	update_body()
 	return 1
 
-/mob/living/carbon/human/proc/change_hair(var/hair_style, var/fluff)
+/mob/living/carbon/human/proc/change_hair(hair_style, fluff)
 	var/obj/item/organ/external/head/H = get_organ("head")
 
 	if(!hair_style || !H || H.h_style == hair_style)
@@ -38,7 +38,7 @@
 	update_inv_glasses()
 	return 1
 
-/mob/living/carbon/human/proc/change_facial_hair(var/facial_hair_style)
+/mob/living/carbon/human/proc/change_facial_hair(facial_hair_style)
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!facial_hair_style || !H || H.f_style == facial_hair_style || !(facial_hair_style in GLOB.facial_hair_styles_list))
 		return
@@ -48,7 +48,7 @@
 	update_fhair()
 	return 1
 
-/mob/living/carbon/human/proc/change_head_accessory(var/head_accessory_style)
+/mob/living/carbon/human/proc/change_head_accessory(head_accessory_style)
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!head_accessory_style || !H || H.ha_style == head_accessory_style || !(head_accessory_style in GLOB.head_accessory_styles_list))
 		return
@@ -58,7 +58,7 @@
 	update_head_accessory()
 	return 1
 
-/mob/living/carbon/human/proc/change_markings(var/marking_style, var/location = "body")
+/mob/living/carbon/human/proc/change_markings(marking_style, location = "body")
 	if(!marking_style || m_styles[location] == marking_style || !(marking_style in GLOB.marking_styles_list))
 		return
 
@@ -99,7 +99,7 @@
 		update_markings()
 	return 1
 
-/mob/living/carbon/human/proc/change_body_accessory(var/body_accessory_style)
+/mob/living/carbon/human/proc/change_body_accessory(body_accessory_style)
 	var/found
 	if(!body_accessory_style || (body_accessory && body_accessory.name == body_accessory_style))
 		return
@@ -116,7 +116,7 @@
 	update_tail_layer()
 	return 1
 
-/mob/living/carbon/human/proc/change_alt_head(var/alternate_head)
+/mob/living/carbon/human/proc/change_alt_head(alternate_head)
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H || H.alt_head == alternate_head || H.is_robotic() || (!(dna.species.bodyflags & HAS_ALT_HEADS) && alternate_head != "None") || !(alternate_head in GLOB.alt_heads_list))
 		return
@@ -168,7 +168,7 @@
 		H.f_style = "Shaved"
 	update_fhair()
 
-/mob/living/carbon/human/proc/reset_markings(var/location)
+/mob/living/carbon/human/proc/reset_markings(location)
 	var/list/valid_markings
 
 	if(location)
@@ -202,14 +202,14 @@
 		H.ha_style = "None"
 	update_head_accessory()
 
-/mob/living/carbon/human/proc/change_eye_color(var/colour = "#000000", update_dna = 1)
+/mob/living/carbon/human/proc/change_eye_color(colour = "#000000", update_dna = 1)
 	// Update the main DNA datum, then sync the change across the organs
 	var/obj/item/organ/internal/eyes/eyes_organ = get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes_organ)
-		if(colour == eyes_organ.eye_colour)
+		if(colour == eyes_organ.eye_color)
 			return
 
-		eyes_organ.eye_colour = colour
+		eyes_organ.eye_color = colour
 		dna.eye_color_to_dna(eyes_organ)
 		eyes_organ.set_dna(dna)
 
@@ -220,7 +220,7 @@
 	update_body()
 	return 1
 
-/mob/living/carbon/human/proc/change_hair_color(var/colour = "#000000", var/secondary)
+/mob/living/carbon/human/proc/change_hair_color(colour = "#000000", secondary)
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H)
 		return
@@ -239,7 +239,7 @@
 	update_hair()
 	return 1
 
-/mob/living/carbon/human/proc/change_facial_hair_color(var/colour = "#000000", var/secondary)
+/mob/living/carbon/human/proc/change_facial_hair_color(colour = "#000000", secondary)
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H)
 		return
@@ -258,7 +258,7 @@
 	update_fhair()
 	return 1
 
-/mob/living/carbon/human/proc/change_head_accessory_color(var/colour = "#000000")
+/mob/living/carbon/human/proc/change_head_accessory_color(colour = "#000000")
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H)
 		return
@@ -271,7 +271,7 @@
 	update_head_accessory()
 	return 1
 
-/mob/living/carbon/human/proc/change_marking_color(var/colour = "#000000", var/location = "body")
+/mob/living/carbon/human/proc/change_marking_color(colour = "#000000", location = "body")
 	if(colour == m_colours[location])
 		return
 
@@ -284,7 +284,7 @@
 	return 1
 
 
-/mob/living/carbon/human/proc/change_skin_color(var/colour = "#000000")
+/mob/living/carbon/human/proc/change_skin_color(colour = "#000000")
 	if(colour == skin_colour || !(dna.species.bodyflags & HAS_SKIN_COLOR))
 		return
 
@@ -294,7 +294,7 @@
 	update_body()
 	return 1
 
-/mob/living/carbon/human/proc/change_skin_tone(var/tone)
+/mob/living/carbon/human/proc/change_skin_tone(tone)
 	if(s_tone == tone || !((dna.species.bodyflags & HAS_SKIN_TONE) || (dna.species.bodyflags & HAS_ICON_SKIN_TONE)))
 		return
 
@@ -309,7 +309,7 @@
 	dna.ready_dna(src)
 	SEND_SIGNAL(src, COMSIG_HUMAN_UPDATE_DNA)
 
-/mob/living/carbon/human/proc/generate_valid_species(var/check_whitelist = 1, var/list/whitelist = list(), var/list/blacklist = list())
+/mob/living/carbon/human/proc/generate_valid_species(check_whitelist = 1, list/whitelist = list(), list/blacklist = list())
 	var/list/valid_species = new()
 	for(var/current_species_name in GLOB.all_species)
 		var/datum/species/current_species = GLOB.all_species[current_species_name]
@@ -398,7 +398,7 @@
 
 	return sortTim(valid_head_accessories, /proc/cmp_text_asc)
 
-/mob/living/carbon/human/proc/generate_valid_markings(var/location = "body")
+/mob/living/carbon/human/proc/generate_valid_markings(location = "body")
 	var/list/valid_markings = new()
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H && location == "head")
@@ -465,12 +465,3 @@
 		valid_alt_heads += alternate_head
 
 	return sortTim(valid_alt_heads, /proc/cmp_text_asc)
-
-/mob/living/carbon/human/proc/scramble_appearance()
-	scramble(1, src, 100)
-	real_name = random_name(gender, dna.species.name) //Give them a name that makes sense for their species.
-	sync_organ_dna(assimilate = 1)
-	update_body()
-	reset_hair() //No more winding up with hairstyles you're not supposed to have, and blowing your cover.
-	reset_markings() //...Or markings.
-	dna.ResetUIFrom(src)

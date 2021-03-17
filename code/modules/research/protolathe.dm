@@ -68,7 +68,7 @@ Note: Must be placed west/left of and R&D console to function.
 		T -= M.rating/10
 	efficiency_coeff = min(max(0, T), 1)
 
-/obj/machinery/r_n_d/protolathe/check_mat(datum/design/being_built, var/M)	// now returns how many times the item can be built with the material
+/obj/machinery/r_n_d/protolathe/check_mat(datum/design/being_built, M)	// now returns how many times the item can be built with the material
 	var/A = materials.amount(M)
 	if(!A)
 		A = reagents.get_reagent_amount(M)
@@ -77,7 +77,7 @@ Note: Must be placed west/left of and R&D console to function.
 		A = A / max(1, (being_built.materials[M]))
 	return A
 
-/obj/machinery/r_n_d/protolathe/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/obj/machinery/r_n_d/protolathe/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(shocked)
 		if(shock(user,50))
 			return TRUE

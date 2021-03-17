@@ -73,13 +73,21 @@
 
 /obj/effect/proc_holder/spell/targeted/shapeshift/dragon
 	name = "Dragon Form"
-	desc = "Take on the shape a lesser ash drake."
-	invocation = "RAAAAAAAAWR!"
+	desc = "Take on the shape a lesser ash drake after a short delay."
+	invocation = "*scream"
 
 	shapeshift_type = /mob/living/simple_animal/hostile/megafauna/dragon/lesser
 	current_shapes = list(/mob/living/simple_animal/hostile/megafauna/dragon/lesser)
 	current_casters = list()
 	possible_shapes = list(/mob/living/simple_animal/hostile/megafauna/dragon/lesser)
+
+/obj/effect/proc_holder/spell/targeted/shapeshift/dragon/Shapeshift(mob/living/caster)
+	caster.visible_message("<span class='danger'>[caster] screams in agony as bones and claws erupt out of their flesh!</span>",
+		"<span class='danger'>You begin channeling the transformation.</span>")
+	if(!do_after(caster, 5 SECONDS, FALSE, caster))
+		to_chat(caster, "<span class='warning'>You lose concentration of the spell!</span>")
+		return
+	return ..()
 
 /obj/effect/proc_holder/spell/targeted/shapeshift/bats
 	name = "Bat Form"
