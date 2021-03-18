@@ -370,7 +370,7 @@
 	if(silent)
 		prevent_warning = TRUE
 	I.forceMove(src)
-	I.on_enter_storage(src)
+	I.on_enter_storage(src, usr)
 	if(usr)
 		if(usr.client && usr.s_active != src)
 			usr.client.screen -= I
@@ -432,7 +432,7 @@
 			usr.s_active.show_to(usr)
 	if(I.maptext)
 		I.maptext = ""
-	I.on_exit_storage(src)
+	I.on_exit_storage(src, usr)
 	update_icon()
 	I.mouse_opacity = initial(I.mouse_opacity)
 	return TRUE

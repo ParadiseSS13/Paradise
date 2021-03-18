@@ -102,6 +102,9 @@
 				if((M.client?.prefs.toggles2 & PREFTOGGLE_2_DEATHMESSAGE) && (isobserver(M) || M.stat == DEAD))
 					to_chat(M, "<span class='deadsay'><b>[mind.name]</b> has died at <b>[area_name]</b>. (<a href='?src=[M.UID()];jump=\ref[src]'>JMP</a>)</span>")
 
+	if(client)
+		kill_CH() //We dead... clear any prepared abilities...
+
 	if(SSticker && SSticker.mode)
 		SSticker.mode.check_win()
 

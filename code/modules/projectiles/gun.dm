@@ -25,6 +25,7 @@
 	var/can_unsuppress = 1
 	var/recoil = 0						//boom boom shake the room
 	var/clumsy_check = 1
+	var/damage_multiplier = 1
 	var/obj/item/ammo_casing/chambered = null
 	var/trigger_guard = TRIGGER_GUARD_NORMAL	//trigger guard on the weapon, hulks can't fire them with their big meaty fingers
 	var/sawn_desc = null				//description change if weapon is sawn-off
@@ -246,6 +247,7 @@
 					shoot_with_empty_chamber(user)
 					break
 				else
+					chambered.multiply_projectile_damage(damage_multiplier)
 					if(get_dist(user, target) <= 1) //Making sure whether the target is in vicinity for the pointblank shot
 						shoot_live_shot(user, target, TRUE, message)
 					else
@@ -268,6 +270,7 @@
 				shoot_with_empty_chamber(user)
 				return
 			else
+				chambered.multiply_projectile_damage(damage_multiplier)
 				if(get_dist(user, target) <= 1) //Making sure whether the target is in vicinity for the pointblank shot
 					shoot_live_shot(user, target, TRUE, message)
 				else
@@ -553,3 +556,9 @@
 
 	// The gun is equipped in their hands, give them the zoom ability.
 	azoom.Grant(user)
+
+/obj/proc/multiply_projectile_damage(newmult)
+	throwforce = initial(throwforce)*newmult
+
+/obj/item/projectile/multiply_projectile_damage(var/newmult)
+	damage = initial(damage)*newmult
