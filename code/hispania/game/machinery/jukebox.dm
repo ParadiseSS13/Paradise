@@ -13,7 +13,6 @@
 	var/light_power_on = 1
 	var/active = FALSE
 	var/list/rangers = list()
-	var/charge = 35
 	var/stop = 0
 	var/list/spotlights = list()
 	var/list/sparkles = list()
@@ -66,6 +65,23 @@
 	..()
 	light()
 
+/obj/machinery/hispaniabox/emp_act()
+	. = ..()
+	dance_over()
+	stop = 0
+	active = FALSE
+	selection = null
+	STOP_PROCESSING(SSobj, src)
+	playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
+	do_sparks(3, 1, src)
+	if(obj_integrity < 90)
+		obj_integrity = 1
+		do_sparks(3, 1, src)
+		update_icon()
+		return
+	obj_integrity -= 90 // OUCH daño a la jukebox, 2 EMP TUMBAN LA JUKEBOX
+	update_icon()
+
 /obj/machinery/hispaniabox/Destroy()
 	dance_over()
 	selection = null
@@ -74,12 +90,18 @@
 
 /obj/machinery/hispaniabox/obj_break(damage_flag)
 	..()
+	dance_over()
+	selection = null
+	STOP_PROCESSING(SSobj, src)
 	update_icon()
 
 /obj/machinery/hispaniabox/attackby(obj/item/O, mob/user, params)
 	if(!active)
 		if(iswrench(O))
-			if(!anchored && !isinspace())
+			if(isinspace())
+				to_chat(user,"<span class='notice'>You can't secure the [src] in the space...</span>")
+				return
+			if(!anchored)
 				to_chat(user,"<span class='notice'>You secure [src] to the floor.</span>")
 				anchored = TRUE
 				light()
@@ -97,6 +119,7 @@
 		if(user)
 			user.visible_message("<span class='warning'>Sparks fly out of the [src]!</span>", "<span class='notice'>You emag the [src], new features unlocked.</span>")
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
+		do_sparks(3, 1, src)
 		songs["Final_Gear.EXECUTE"] = new /datum/track('sound/hispania/hispaniabox/emmaged/RapdelasOpciones.ogg',	1570,	5,	"gear", "CHOCUJUEGO • El rap de las opciones")
 		songs["Last Order Of Pizza"] = new /datum/track('sound/hispania/hispaniabox/emmaged/pizza.ogg',	1270,	5,	"pizza", "Spider-Man 2 • The Game Pizza Theme")
 		return
@@ -104,7 +127,14 @@
 /obj/machinery/hispaniabox/examine(mob/living/M)
 	. = ..()
 	if (active && selection)
-		. += "<span class='notice'>La pantalla de la rocola muestra: \"Estas escuchando [selection.song_name]\" </span>"
+		var/image = image('icons/hispania/obj/hispaniabox.dmi', icon_state = selection.song_icon)
+		. += "<span class='notice'>[bicon(src)] Estas escuchando \"[selection.song_name]\" [bicon(image)]</span>"
+
+/obj/machinery/hispaniabox/proc/double_jukebox()
+	for(var/obj/machinery/hispaniabox/B in range(20,src))
+		if (B != src && B.active)
+			return TRUE
+	return FALSE
 
 /obj/machinery/hispaniabox/attack_hand(mob/user)
 	if(..())
@@ -137,6 +167,9 @@
 	if(!choice || !radial_check(user))
 		return
 	if (choice == "Play/Pause")
+		if(double_jukebox())
+			to_chat(user,"<span class='warning'>[bicon(src)] Can you have some manners? There's already music playing.</span>")
+			return
 		if(isnull(selection))
 			return
 		if(QDELETED(src))
@@ -165,8 +198,7 @@
 	else
 		to_chat(usr, "<span class='warning'>[bicon(src)] You cannot change the song until the current one is over.</span>")
 
-/obj/machinery/hispaniabox/proc/radial_check(mob/user)
-	var/mob/living/carbon/human/H = user
+/obj/machinery/hispaniabox/proc/radial_check(mob/living/carbon/human/H)
 	if(!src || !Adjacent(H) || H.incapacitated())
 		return FALSE
 	return TRUE
@@ -190,8 +222,6 @@
 	rangers = list()
 
 /obj/machinery/hispaniabox/process()
-	if(charge < 35)
-		charge += 1
 	if(world.time < stop && active)
 		var/sound/song_played = sound(selection["song_path"])
 
@@ -218,9 +248,9 @@
 		stop = world.time + 100
 
 /obj/machinery/hispaniabox/update_icon()
-	if (active)
-		icon_state = "jukebox-running"
-	else if(stat & BROKEN)
+	if(stat & BROKEN)
 		icon_state = "jukebox-broken"
+	else if (active)
+		icon_state = "jukebox-running"
 	else
 		icon_state = "jukebox"
