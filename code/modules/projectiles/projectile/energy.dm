@@ -80,7 +80,6 @@
 	var/zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
 	var/zap_range = 3
 	var/power = 10000
-	var/chain
 
 /obj/item/ammo_casing/energy/shock_revolver/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
 	..()
@@ -96,7 +95,7 @@
 /obj/item/projectile/energy/bsg
 	name = "orb of pure bluespace energy"
 	icon_state = "bluespace"
-	impact_effect_type = /obj/effect/temp_visual/impact_effect/ion
+	impact_effect_type = /obj/effect/temp_visual/bsg_kaboom
 	damage = 60
 	damage_type = BURN
 	range = 9
@@ -104,6 +103,12 @@
 	eyeblur = 5
 	speed = 2
 	alwayslog = TRUE
+
+/obj/item/ammo_casing/energy/bsg/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
+	..()
+	var/obj/item/projectile/energy/bsg/P = BB
+	spawn(1)
+		P.chain = P.Beam(user, icon_state = "sm_arc_supercharged", icon = 'icons/effects/beam.dmi', time = 1000, maxdistance = 30)
 
 /obj/item/projectile/energy/bsg/on_hit(atom/target)
 	. = ..()

@@ -370,7 +370,6 @@
 	damage_type = BRUTE
 	hitsound = 'sound/effects/splat.ogg'
 	weaken = 3
-	var/chain
 
 /obj/item/projectile/hook/fire(setAngle)
 	if(firer)
