@@ -39348,9 +39348,6 @@
 	})
 "bzx" = (
 /obj/effect/decal/warning_stripes/northwest,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry{
 	name = "Arrivals"
