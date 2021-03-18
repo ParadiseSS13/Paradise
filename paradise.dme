@@ -1170,6 +1170,7 @@
 #include "code\hispania\game\mecha\mecha_control_console.dm"
 #include "code\hispania\game\mecha\paintkits.dm"
 #include "code\hispania\game\mecha\equipament\tools\medical_tools.dm"
+#include "code\hispania\game\objects\items.dm"
 #include "code\hispania\game\objects\items\folding.dm"
 #include "code\hispania\game\objects\items\inducer.dm"
 #include "code\hispania\game\objects\items\policetape.dm"

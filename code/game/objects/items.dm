@@ -116,6 +116,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 
 	//variables hispania
 	var/hispania_icon = FALSE
+	var/outline_filter
 
 	//Tooltip vars
 	var/in_inventory = FALSE //is this item equipped into an inventory slot or hand of a mob?
@@ -688,13 +689,18 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 
 /obj/item/MouseEntered(location, control, params)
 	if(in_inventory)
-		var/timedelay = 8
-		var/user = usr
-		tip_timer = addtimer(CALLBACK(src, .proc/openTip, location, control, params, user), timedelay, TIMER_STOPPABLE)
+		var/mob/living/L = usr
+		tip_timer = addtimer(CALLBACK(src, .proc/openTip, location, control, params, usr), 8, TIMER_STOPPABLE)//timer takes delay in deciseconds, but the pref is in milliseconds. dividing by 100 converts it.
+		if(usr.client?.prefs.itemoutline_pref)
+			if(istype(L) && L.incapacitated())
+				apply_outline(COLOR_RED_GRAY) //if they're dead or handcuffed, let's show the outline as red to indicate that they can't interact with that right now
+			else
+				apply_outline() //if the player's alive and well we send the command with no color set, so it uses the theme's color
 
 /obj/item/MouseExited()
 	deltimer(tip_timer) //delete any in-progress timer if the mouse is moved off the item before it finishes
 	closeToolTip(usr)
+	remove_outline()
 
 /obj/item/MouseDrop_T(obj/item/I, mob/user)
 	if(!user || user.incapacitated(ignore_lying = TRUE) || src == I)
