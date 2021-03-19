@@ -633,14 +633,15 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
 	thrownby = thrower
-	callback = CALLBACK(src, .proc/after_throw, callback) //replace their callback with our own
+	callback = CALLBACK(src, .proc/after_throw, callback, thrower) //replace their callback with our own
 	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force)
 
-/obj/item/proc/after_throw(datum/callback/callback)
+/obj/item/proc/after_throw(datum/callback/callback, mob/thrower)
 	if(callback) //call the original callback
 		. = callback.Invoke()
 	throw_speed = initial(throw_speed) //explosions change this.
 	in_inventory = FALSE
+	return
 
 /obj/item/proc/pwr_drain()
 	return 0 // Process Kill

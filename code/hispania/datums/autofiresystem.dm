@@ -98,6 +98,9 @@
 	target = null
 
 /datum/click_handler/fullauto/proc/do_fire()
+	if(owner.mob.in_throw_mode)
+		reciever.throw_at(target, reciever.throw_range, reciever.throw_speed, owner.mob, null, null, null, owner.mob.move_force)
+		return
 	reciever.afterattack(target, owner.mob, FALSE)
 
 /datum/click_handler/fullauto/MouseDown(object, location, control, params)

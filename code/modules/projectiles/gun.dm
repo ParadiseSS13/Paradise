@@ -39,6 +39,7 @@
 
 	var/spread = 0
 	var/randomspread = 1
+	var/dual = TRUE
 
 	var/unique_rename = TRUE //allows renaming with a pen
 	var/unique_reskin = TRUE //allows one-time reskinning
@@ -190,16 +191,17 @@
 
 	//DUAL WIELDING
 	var/bonus_spread = 0
-	var/loop_counter = 0
-	if(ishuman(user) && user.a_intent == INTENT_HARM)
-		var/mob/living/carbon/human/H = user
-		for(var/obj/item/gun/G in get_both_hands(H))
-			if(G == src || G.weapon_weight >= WEAPON_MEDIUM)
-				continue
-			else if(G.can_trigger_gun(user))
-				bonus_spread += 24 * G.weapon_weight
-				loop_counter++
-				addtimer(CALLBACK(G, .proc/process_fire, target, user, 1, params, null, bonus_spread), loop_counter)
+	if(dual)
+		var/loop_counter = 0
+		if(ishuman(user) && user.a_intent == INTENT_HARM)
+			var/mob/living/carbon/human/H = user
+			for(var/obj/item/gun/G in get_both_hands(H))
+				if(G == src || G.weapon_weight >= WEAPON_MEDIUM)
+					continue
+				else if(G.can_trigger_gun(user))
+					bonus_spread += 24 * G.weapon_weight
+					loop_counter++
+					addtimer(CALLBACK(G, .proc/process_fire, target, user, 1, params, null, bonus_spread), loop_counter)
 
 	process_fire(target,user,1,params, null, bonus_spread)
 
