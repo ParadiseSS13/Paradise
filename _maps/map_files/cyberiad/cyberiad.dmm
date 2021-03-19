@@ -89493,6 +89493,15 @@
 	tag = "icon-wood-broken6"
 	},
 /area/maintenance/apmaint)
+"hNQ" = (
+/obj/machinery/door/airlock/mining{
+	name = "Old Warehouse";
+	req_access_txt = "50"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint{
+	name = "Cargo Warehouse"
+	})
 "hNT" = (
 /obj/effect/decal/warning_stripes/southeast,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -89874,10 +89883,11 @@
 /turf/simulated/wall/r_wall,
 /area/engine/engineering)
 "kfy" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/mining/glass{
+	name = "Cargo Office";
+	req_access_txt = "50"
+	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "kiu" = (
@@ -90077,7 +90087,6 @@
 "liw" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/light/small,
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint)
 "lkw" = (
@@ -90652,6 +90661,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
+"pKu" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/maintenance/port)
 "pMd" = (
 /obj/structure/closet/secure_closet/engineering_personal,
 /obj/structure/cable{
@@ -91545,14 +91565,15 @@
 	},
 /area/engine/engineering)
 "wyJ" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
+	},
+/obj/machinery/door/airlock/mining{
+	name = "Old Warehouse";
+	req_access_txt = "50"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -107087,7 +107108,7 @@ bGS
 bKy
 bKv
 puG
-puG
+pKu
 sxZ
 uoW
 cgQ
@@ -109161,7 +109182,7 @@ ukR
 jbo
 jbo
 gIC
-cqF
+hNQ
 ctU
 cvk
 cwx
