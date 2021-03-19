@@ -55,6 +55,8 @@
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
 	var/datum/mindslaves/som //stands for slave or master...hush..
+	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
+	var/hasSoul = TRUE
 
 	var/isholy = FALSE // is this person a chaplain or admin role allowed to use bibles
 	var/isblessed = FALSE // is this person blessed by a chaplain?
@@ -72,6 +74,7 @@
 
 /datum/mind/New(new_key)
 	key = new_key
+	soulOwner = src
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
@@ -83,6 +86,7 @@
 		antag_datums = null
 	current = null
 	original = null
+	soulOwner = null
 	return ..()
 
 /datum/mind/proc/transfer_to(mob/living/new_character)

@@ -22,7 +22,7 @@
 	var/chaser_cooldown = 1200
 	var/footstep = 0  // Esto es una chapuzeria, cambiar para la v2
 
-/obj/item/organ/internal/adrenal/murghal/proc/on_species_walk(var/turf/NewLoc, var/dir)
+/obj/item/organ/internal/adrenal/murghal/proc/on_species_walk(turf/NewLoc, dir)
 
 	if(sprint)
 
@@ -138,7 +138,7 @@ if(!sprint)
 		return TRUE
 */
 
-/obj/item/organ/internal/adrenal/murghal/proc/newCollision(turf/loc,var/dir)
+/obj/item/organ/internal/adrenal/murghal/proc/newCollision(turf/loc, dir)
 	if(loc.density)
 		return TRUE
 

@@ -78,6 +78,13 @@
 	if(!gibbed && !QDELETED(src))
 		addtimer(CALLBACK(src, .proc/med_hud_set_status), DEFIB_TIME_LIMIT + 1)
 
+	for(var/s in ownedSoullinks)
+		var/datum/soullink/S = s
+		S.ownerDies(gibbed, src)
+	for(var/s in sharedSoullinks)
+		var/datum/soullink/S = s
+		S.sharerDies(gibbed, src)
+
 	if(!gibbed)
 		update_canmove()
 

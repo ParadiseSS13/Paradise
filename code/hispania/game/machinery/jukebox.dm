@@ -178,7 +178,7 @@
 	else
 		return set_light(0)
 
-/obj/machinery/hispaniabox/proc/length2time(var/length)
+/obj/machinery/hispaniabox/proc/length2time(length)
 	var/time = length * 0.1
 	var/h = round(time / 3600)
 	var/m = round(time % 3600 / 60)

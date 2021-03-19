@@ -13,7 +13,7 @@ Lovingly ported by Purpose2 to Paradise
 
 #if !defined(USING_MAP_DATUM)
 	#include "map_files\Delta\delta.dmm"
-	#include "map_files\Delta\z2.dmm"
+	#include "map_files\hispania\z2.dmm"
 	#include "map_files\hispania\Lavaland.dmm"
 
 	#define MAP_TRANSITION_CONFIG list(\

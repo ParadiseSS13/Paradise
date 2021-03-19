@@ -208,7 +208,7 @@
 	name = "healing glow"
 	icon_state = "heal"
 
-/obj/effect/temp_visual/heal/New(loc, colour, var/time = 15)
+/obj/effect/temp_visual/heal/New(loc, colour, time = 15)
 	..()
 	pixel_x = rand(-12, 12)
 	pixel_y = rand(-9, 0)
