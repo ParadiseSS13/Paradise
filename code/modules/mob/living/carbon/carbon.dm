@@ -212,27 +212,24 @@
 		swap_hand()
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
-	if(src == M && ishuman(src))
-		check_self_for_injuries()
-	else
-		if(player_logged)
-			M.visible_message("<span class='notice'>[M] shakes [src], but [p_they()] [p_do()] not respond. Probably suffering from SSD.", \
-			"<span class='notice'>You shake [src], but [p_theyre()] unresponsive. Probably suffering from SSD.</span>")
-		if(lying) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
-			add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
-			if(ishuman(src))
-				var/mob/living/carbon/human/H = src
-				if(H.w_uniform)
-					H.w_uniform.add_fingerprint(M)
-			if(health <= HEALTH_THRESHOLD_CRIT)
-				AdjustWeakened(-1)
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-				if(!player_logged)
-					M.visible_message( \
-					"<span class='notice'>[M] shakes [src] trying to wake [p_them()] up!</span>",\
-					"<span class='notice'>You shake [src] trying to wake [p_them()] up!</span>",\
-					)
-			if(health >= HEALTH_THRESHOLD_CRIT)
+	if(stat == DEAD)
+		if(M != src)
+			M.visible_message("<span class='notice'>[M] desperately shakes [src] trying to wake [p_them()] up, but sadly there is no reaction!</span>", \
+			"<span class='notice'>You shake [src] trying to wake [p_them()] sadly they appear to be too far gone!</span>")
+		return
+	if(health >= HEALTH_THRESHOLD_CRIT)
+		if(src == M && ishuman(src))
+			check_self_for_injuries()
+		else
+			if(player_logged)
+				M.visible_message("<span class='notice'>[M] shakes [src], but [p_they()] [p_do()] not respond. Probably suffering from SSD.", \
+				"<span class='notice'>You shake [src], but [p_theyre()] unresponsive. Probably suffering from SSD.</span>")
+			if(lying) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
+				add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
+				if(ishuman(src))
+					var/mob/living/carbon/human/H = src
+					if(H.w_uniform)
+						H.w_uniform.add_fingerprint(M)
 				AdjustSleeping(-5)
 				if(sleeping == 0)
 					StopResting()
