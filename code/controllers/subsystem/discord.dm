@@ -41,6 +41,8 @@ SUBSYSTEM_DEF(discord)
 			webhook_urls = config.discord_admin_webhook_urls
 		if(DISCORD_WEBHOOK_PRIMARY)
 			webhook_urls = config.discord_main_webhook_urls
+		if(DISCORD_WEBHOOK_MENTOR)
+			webhook_urls = config.discord_mentor_webhook_urls
 	for(var/url in webhook_urls)
 		SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, url, dwp.serialize2json(), list("content-type" = "application/json"))
 
