@@ -6,7 +6,6 @@
 	select = 0
 	dual = FALSE
 	fire_delay = 2.25
-	mag_type = /obj/item/ammo_box/magazine/smgm45/v100
 	actions_types = null
 
 /obj/item/gun/projectile/automatic/fullauto/pickup(mob/living/L)

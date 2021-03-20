@@ -237,9 +237,6 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	can_suppress = 0
 
-/obj/item/gun/projectile/automatic/fullauto/tommygun/drum
-	mag_type = /obj/item/ammo_box/magazine/tommygunm45/drum
-
 //ARG Assault Rifle//
 /obj/item/gun/projectile/automatic/fullauto/ar
 	name = "ARG"
