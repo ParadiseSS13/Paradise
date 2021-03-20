@@ -43026,14 +43026,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bKv" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
+/obj/structure/grille,
 /turf/simulated/floor/plating/airless,
 /area/maintenance/port)
 "bKx" = (
@@ -59480,21 +59473,10 @@
 /area/quartermaster/miningdock)
 "cnp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cnq" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 2;
 	icon_state = "pipe-c"
@@ -60260,22 +60242,17 @@
 	})
 "coE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "coF" = (
@@ -60373,10 +60350,16 @@
 	},
 /area/maintenance/apmaint)
 "coR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /obj/structure/cable{
-	d1 = 1;
+	d1 = 4;
 	d2 = 8;
-	icon_state = "1-8"
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -60386,6 +60369,12 @@
 	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -61480,12 +61469,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -61493,21 +61476,18 @@
 /area/maintenance/apmaint)
 "cqs" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/cable{
+	d1 = 1;
 	d2 = 4;
-	icon_state = "0-4"
+	icon_state = "1-4";
+	tag = ""
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
-/obj/machinery/power/apc{
-	dir = 2;
-	name = "south bump";
-	pixel_y = -24
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5;
-	level = 1
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -61699,6 +61679,8 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cqI" = (
@@ -63612,6 +63594,12 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "ctN" = (
@@ -63729,6 +63717,12 @@
 	icon_state = "4-8"
 	},
 /obj/structure/grille,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "ctW" = (
@@ -89042,6 +89036,12 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "eDs" = (
@@ -89417,6 +89417,20 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint)
+"hiy" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "hkl" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -89515,6 +89529,7 @@
 	name = "Old Warehouse";
 	req_access_txt = "50"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint{
 	name = "Cargo Warehouse"
@@ -89974,6 +89989,10 @@
 /obj/item/stock_parts/cell{
 	maxcharge = 2000
 	},
+/obj/machinery/alarm{
+	dir = 1;
+	pixel_y = -25
+	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "kzh" = (
@@ -90080,6 +90099,12 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -90284,6 +90309,12 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "mrw" = (
@@ -90386,6 +90417,20 @@
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint)
+"npO" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "nqX" = (
 /obj/structure/table,
 /obj/item/paper{
@@ -90436,6 +90481,20 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
+"nEY" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "nFa" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -90966,6 +91025,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "rFd" = (
@@ -91162,7 +91222,7 @@
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint)
 "sUC" = (
-/obj/structure/closet/firecloset,
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plating/airless,
 /area/maintenance/port)
 "sVM" = (
@@ -91263,6 +91323,17 @@
 /obj/effect/spawner/random_spawners/grille_often,
 /turf/simulated/floor/plating/airless,
 /area/maintenance/apmaint)
+"tOe" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "tPd" = (
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
 	frequency = 1379;
@@ -91336,7 +91407,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "unJ" = (
-/obj/structure/closet/emcloset,
+/obj/structure/closet/firecloset,
 /turf/simulated/floor/plating/airless,
 /area/maintenance/port)
 "uoW" = (
@@ -91547,6 +91618,17 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
+"vNX" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "vOB" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /obj/structure/lattice,
@@ -91641,6 +91723,7 @@
 	name = "Old Warehouse";
 	req_access_txt = "50"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "wEY" = (
@@ -91820,6 +91903,7 @@
 /obj/machinery/light_construct/small{
 	dir = 1
 	},
+/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "xGn" = (
@@ -106947,7 +107031,7 @@ bJt
 bCs
 bKV
 bLO
-blQ
+bKv
 unJ
 hWB
 sQg
@@ -107204,7 +107288,7 @@ bIP
 bES
 bGS
 bKf
-bKv
+puG
 puG
 pKu
 sxZ
@@ -109279,9 +109363,9 @@ xoC
 ukR
 jbo
 jbo
-gIC
+cnp
 hNQ
-ctU
+vNX
 cvk
 cwx
 cyo
@@ -109795,7 +109879,7 @@ iHc
 jbo
 kwF
 cgQ
-ctU
+npO
 cvm
 cwx
 cyb
@@ -110052,7 +110136,7 @@ jbo
 jbo
 dxD
 cgQ
-ctU
+npO
 coL
 cwx
 cyc
@@ -110823,7 +110907,7 @@ aaa
 aaa
 aaa
 cgQ
-ctU
+npO
 coL
 cwy
 cyf
@@ -111080,7 +111164,7 @@ aaa
 aaa
 aab
 cng
-ctU
+npO
 coL
 cwx
 cwy
@@ -111594,7 +111678,7 @@ aaa
 aaa
 aab
 cng
-ctU
+npO
 cgQ
 cwz
 cyg
@@ -111851,7 +111935,7 @@ aaa
 aaa
 aab
 cgQ
-ctU
+npO
 cgQ
 cgQ
 cgQ
@@ -112365,7 +112449,7 @@ bYP
 aaa
 aab
 cgQ
-ctU
+npO
 cgQ
 cwA
 coL
@@ -112622,7 +112706,7 @@ bYP
 aab
 aab
 cgQ
-ctU
+npO
 cgQ
 cwB
 cwB
@@ -112879,7 +112963,7 @@ bYP
 aaa
 aab
 cgQ
-ctU
+npO
 cgQ
 cwC
 coL
@@ -113136,7 +113220,7 @@ cam
 cam
 aab
 cgQ
-ctU
+npO
 cqF
 coL
 coL
@@ -113393,7 +113477,7 @@ cnm
 cam
 cgQ
 cgQ
-ctU
+npO
 cgQ
 cwC
 coL
@@ -113650,7 +113734,7 @@ cnl
 cam
 coL
 coL
-ctU
+npO
 cgQ
 cwD
 cwD
@@ -113907,7 +113991,7 @@ cno
 cam
 cqA
 csk
-ctU
+npO
 cgQ
 cwE
 cqB
@@ -114164,7 +114248,7 @@ cno
 cam
 cqB
 csl
-ctU
+npO
 cgQ
 cwB
 cwB
@@ -114421,7 +114505,7 @@ cno
 cam
 cgQ
 cgQ
-ctU
+npO
 cvo
 cvo
 cvo
@@ -114678,7 +114762,7 @@ cam
 cam
 cqE
 csm
-ctU
+npO
 cvo
 cwF
 cwF
@@ -114935,7 +115019,7 @@ cam
 coP
 cqG
 cgQ
-ctU
+npO
 cvo
 cwF
 cyi
@@ -115192,7 +115276,7 @@ cgQ
 cgQ
 cgQ
 cgQ
-ctU
+nEY
 cvo
 cvo
 cwI
@@ -115448,8 +115532,8 @@ cnX
 cnn
 coS
 cqH
-csu
-coR
+tOe
+hiy
 cvo
 cwG
 cwI
@@ -115702,7 +115786,7 @@ ckG
 cix
 bYM
 cnX
-cnp
+gIC
 coR
 cgQ
 cgQ
