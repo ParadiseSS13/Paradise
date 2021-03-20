@@ -2,7 +2,7 @@
 	icon_state = "l6closed100"
 	item_state = "l6closedmag"
 	burst_size = 1
-	var/datum/click_handler/fullauto/CH = null
+	var/datum/click_handler/fullauto/CH
 	select = 0
 	dual = FALSE
 	fire_delay = 2.25
