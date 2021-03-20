@@ -1018,11 +1018,6 @@
 /mob/living/proc/fakefire()
 	return
 
-/mob/living/extinguish_light()
-	for(var/atom/A in src)
-		if(A.light_range > 0)
-			A.extinguish_light()
-
 /mob/living/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		if("stat")

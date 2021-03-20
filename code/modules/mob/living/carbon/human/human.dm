@@ -134,6 +134,9 @@
 /mob/living/carbon/human/shadow/Initialize(mapload)
 	. = ..(mapload, /datum/species/shadow)
 
+/mob/living/carbon/human/nightmare/Initialize(mapload)
+	. = ..(mapload, /datum/species/shadow/nightmare)
+
 /mob/living/carbon/human/golem/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem)
 
@@ -1926,15 +1929,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/get_spooked()
 	to_chat(src, "<span class='whisper'>[pick(GLOB.boo_phrases)]</span>")
 	return TRUE
-
-/mob/living/carbon/human/extinguish_light()
-	// Parent function handles stuff the human may be holding
-	..()
-
-	var/obj/item/organ/internal/lantern/O = get_int_organ(/obj/item/organ/internal/lantern)
-	if(O && O.glowing)
-		O.toggle_biolum(TRUE)
-		visible_message("<span class='danger'>[src] is engulfed in shadows and fades into the darkness.</span>", "<span class='danger'>A sense of dread washes over you as you suddenly dim dark.</span>")
 
 /mob/living/carbon/human/proc/get_perceived_trauma()
 	return min(health, maxHealth - getStaminaLoss())

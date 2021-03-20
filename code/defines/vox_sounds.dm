@@ -970,8 +970,6 @@ GLOBAL_LIST_INIT(vox_sounds, list(
 "sewage" = 'sound/vox_fem/sewage.ogg',
 "sewer" = 'sound/vox_fem/sewer.ogg',
 "shadow" = 'sound/vox_fem/shadow.ogg',
-"shadowling" = 'sound/vox_fem/shadowling.ogg',
-"shadowlings" = 'sound/vox_fem/shadowlings.ogg',
 "she" = 'sound/vox_fem/she.ogg',
 "shield" = 'sound/vox_fem/shield.ogg',
 "shielded" = 'sound/vox_fem/shielded.ogg',

@@ -48,9 +48,6 @@
 		else
 			light = new/datum/light_source(src, .)
 
-/atom/proc/extinguish_light()
-	return
-
 // If we have opacity, make sure to tell (potentially) affected light sources.
 /atom/movable/Destroy()
 	var/turf/T = loc

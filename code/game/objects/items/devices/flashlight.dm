@@ -84,11 +84,6 @@
 	else
 		return ..()
 
-/obj/item/flashlight/extinguish_light()
-	if(on)
-		on = FALSE
-		update_brightness()
-
 /obj/item/flashlight/pen
 	name = "penlight"
 	desc = "A pen-sized light, used by medical staff."
@@ -297,9 +292,6 @@
 	new T(loc)
 	qdel(src) // return INITIALIZE_HINT_QDEL <-- Doesn't work
 
-/obj/item/flashlight/flare/extinguish_light()
-	visible_message("<span class='danger'>[src] dims slightly before scattering the shadows around it.</span>")
-
 /obj/item/flashlight/flare/torch
 	name = "torch"
 	desc = "A torch fashioned from some leaves and a log."
@@ -334,9 +326,6 @@
 
 /obj/item/flashlight/slime/attack_self(mob/user)
 	return //Bio-luminescence does not toggle.
-
-/obj/item/flashlight/slime/extinguish_light()
-	visible_message("<span class='danger'>[src] dims slightly before scattering the shadows around it.</span>")
 
 /obj/item/flashlight/emp
 	origin_tech = "magnets=3;syndicate=1"

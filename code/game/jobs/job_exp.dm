@@ -21,6 +21,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	ROLE_NINJA = 20,
 	ROLE_MORPH = 5,
 	ROLE_DEMON = 5,
+	ROLE_NIGHTMARE = 5,
 
 	// DUO ANTAGS
 	ROLE_GUARDIAN = 20,
@@ -28,7 +29,6 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 
 	// TEAM ANTAGS
 	// Higher numbers here, because they require more experience to be played correctly
-	ROLE_SHADOWLING = 20,
 	ROLE_REV = 10,
 	ROLE_OPERATIVE = 20,
 	ROLE_CULTIST = 20,

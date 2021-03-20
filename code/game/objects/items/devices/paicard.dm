@@ -327,7 +327,3 @@
 	for(var/mob/M in src)
 		M.emp_act(severity)
 	..()
-
-/obj/item/paicard/extinguish_light()
-	pai.extinguish_light()
-	set_light(0)

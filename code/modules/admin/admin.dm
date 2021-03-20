@@ -409,7 +409,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 /datum/admins/proc/end_round()
 	set category = "Server"
 	set name = "End Round"
-	set desc = "Instantly ends the round and brings up the scoreboard, like shadowlings or wizards dying."
+	set desc = "Instantly ends the round and brings up the scoreboard, like wizards dying."
 	if(!check_rights(R_SERVER))
 		return
 	var/input = sanitize(copytext(input(usr, "What text should players see announcing the round end? Input nothing to cancel.", "Specify Announcement Text", "Shift Has Ended!"), 1, MAX_MESSAGE_LEN))

@@ -525,11 +525,6 @@
 		CRASH("pAI without card")
 	loc = card
 
-/mob/living/silicon/pai/extinguish_light()
-	flashlight_on = FALSE
-	set_light(0)
-	card.set_light(0)
-
 /mob/living/silicon/pai/update_runechat_msg_location()
 	if(istype(loc, /obj/item/paicard))
 		runechat_msg_location = loc

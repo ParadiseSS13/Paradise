@@ -39,3 +39,5 @@
 #define SENTIENCE_OTHER 3
 #define SENTIENCE_MINEBOT 4
 #define SENTIENCE_BOSS 5
+
+#define BORG_LAMP_CD_RESET -1 //special value to reset cyborg's lamp_cooldown

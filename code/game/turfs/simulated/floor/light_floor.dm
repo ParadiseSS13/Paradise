@@ -108,10 +108,6 @@
 	on = light
 	update_icon()
 
-/turf/simulated/floor/light/extinguish_light()
-	toggle_light(FALSE)
-	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
-
 //Cycles through all of the colours
 /turf/simulated/floor/light/colour_cycle
 	state = LIGHTFLOOR_GENERICCYCLE
