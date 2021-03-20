@@ -68719,9 +68719,6 @@
 	dir = 1
 	},
 /obj/effect/landmark/burnturf,
-/obj/machinery/atmospherics/pipe/simple/insulated{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple";
@@ -72608,6 +72605,12 @@
 	icon_state = "redcorner"
 	},
 /area/hallway/secondary/exit)
+"hnB" = (
+/obj/machinery/atmospherics/pipe/simple/insulated{
+	dir = 6
+	},
+/turf/simulated/wall/r_wall,
+/area/toxins/mixing)
 "hnF" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -78677,6 +78680,12 @@
 	icon_state = "darkpurple"
 	},
 /area/toxins/robolab)
+"lGw" = (
+/obj/machinery/atmospherics/pipe/simple/insulated{
+	dir = 10
+	},
+/turf/simulated/wall/r_wall,
+/area/toxins/mixing)
 "lHd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -83506,6 +83515,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/insulated,
 /obj/machinery/meter,
+/obj/machinery/atmospherics/pipe/simple/insulated{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
 "paF" = (
@@ -85508,6 +85520,9 @@
 /obj/structure/window/plasmareinforced{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/simple/insulated{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
 "qvS" = (
@@ -86528,6 +86543,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/insulated,
 /obj/machinery/meter,
+/obj/machinery/atmospherics/pipe/simple/insulated{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
 "rkL" = (
@@ -87414,7 +87432,7 @@
 "rSG" = (
 /obj/effect/spawner/window/reinforced/plasma,
 /obj/machinery/atmospherics/pipe/simple/insulated{
-	dir = 8
+	dir = 5
 	},
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
@@ -87470,9 +87488,6 @@
 	dir = 1
 	},
 /obj/effect/landmark/burnturf,
-/obj/machinery/atmospherics/pipe/simple/insulated{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple";
@@ -91111,9 +91126,6 @@
 	},
 /obj/machinery/atmospherics/binary/pump,
 /obj/effect/landmark/burnturf,
-/obj/machinery/atmospherics/pipe/simple/insulated{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple";
@@ -93429,7 +93441,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/insulated{
-	dir = 8
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -148156,7 +148168,7 @@ cgs
 lvA
 lvA
 cgs
-cgs
+hnB
 wqD
 wsd
 tmw
@@ -149184,7 +149196,7 @@ cgs
 xOR
 xOR
 xOR
-cgs
+lGw
 rSG
 cgE
 xBi
