@@ -154,7 +154,7 @@
 /obj/structure/table/wood,
 /obj/structure/safe/floor,
 /obj/item/gun/projectile/shotgun/automatic/combat,
-/obj/item/gun/projectile/automatic/mini_uzi,
+/obj/item/gun/projectile/automatic/fullauto/mini_uzi,
 /turf/simulated/floor/plasteel,
 /area/awaymission/challenge/main)
 "az" = (

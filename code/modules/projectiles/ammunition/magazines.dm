@@ -349,11 +349,6 @@
 	caliber = ".45"
 	max_ammo = 50
 
-/obj/item/ammo_box/magazine/tommygunm45/drum
-	name = "drum magazine (.45)"
-	icon_state = "drum80"
-	max_ammo = 80
-
 /obj/item/ammo_box/magazine/m50
 	name = "handgun magazine (.50ae)"
 	icon_state = "50ae"

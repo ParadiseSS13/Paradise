@@ -11,24 +11,19 @@
 
 /obj/item/gun/projectile/automatic/fullauto/pickup(mob/living/L)
 	.=..()
-	to_chat(L, "<span class='notice'>TRUE.</span>")
 	modeupdate(L,TRUE)
 
 /obj/item/gun/projectile/automatic/fullauto/dropped(mob/living/L)
 	.=..()
-	to_chat(L, "<span class='notice'>FALSE.</span>")
 	modeupdate(L,FALSE)
 
 /obj/item/gun/projectile/automatic/fullauto/swappedto(mob/living/L)
-	to_chat(L, "<span class='notice'>TRUE.</span>")
 	modeupdate(L,TRUE)
 
 /obj/item/gun/projectile/automatic/fullauto/swapped(mob/living/L)
-	to_chat(L, "<span class='notice'>FALSE.</span>")
 	modeupdate(L,FALSE)
 
 /obj/item/gun/projectile/automatic/fullauto/hotkeyequip(mob/living/L)
-	to_chat(L, "<span class='notice'>FALSE.</span>")
 	modeupdate(L,FALSE)
 
 /obj/item/gun/projectile/automatic/fullauto/after_throw(datum/callback/callback, mob/living/L)
@@ -38,13 +33,11 @@
 /obj/item/gun/projectile/automatic/fullauto/on_exit_storage(obj,mob/living/L)
 	if(L)
 		if(L.get_active_hand() == src)
-			to_chat(L, "<span class='notice'>TRUE.</span>")
 			modeupdate(L,TRUE)
 
 // called when this item is added into a storage item, which is passed on as S. The loc variable is already set to the storage item.
 /obj/item/gun/projectile/automatic/fullauto/on_enter_storage(obj,mob/living/L)
 	if(L)
-		to_chat(L, "<span class='notice'>FALSE.</span>")
 		modeupdate(L,FALSE)
 
 // called when the giver gives it to the receiver
@@ -59,14 +52,12 @@
 		if (CH.owner) //Remove our handler from the client
 			CH.owner.CH = null //wew
 		QDEL_NULL(CH) //And delete it
-		to_chat(L, "<span class='notice'>CH BORRADO.</span>")
 		return
 	else if(!select)
 		CH = new /datum/click_handler/fullauto()
 		CH.reciever = src //Reciever is the gun that gets the fire events
 		L.client.CH = CH //Put it on the client
 		CH.owner = L.client //And tell it where it is
-		to_chat(L, "<span class='notice'>CH ARMADO.</span>")
 
 ///////////////////////////////////////////////////////////////////
 
@@ -105,21 +96,3 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
-
-/////////////////////////////////////////////////
-
-/obj/item/gun/projectile/automatic/fullauto/he
-	fire_delay = 1
-	mag_type = /obj/item/ammo_box/magazine/smgm45/v100/funny
-
-/obj/item/gun/projectile/automatic/fullauto/hefunny
-	fire_delay = 1
-
-/obj/item/gun/projectile/automatic/fullauto/hehe
-	fire_delay = 0.5
-
-/obj/item/ammo_box/magazine/smgm45/v100
-	max_ammo = 100
-
-/obj/item/ammo_box/magazine/smgm45/v100/funny
-	max_ammo = 100

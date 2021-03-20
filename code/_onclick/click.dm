@@ -446,7 +446,3 @@
 		if(T)
 			T.Click(location, control, params)
 	. = 1
-
-/obj/screen/click_catcher/proc/resolve(var/mob/user)
-	var/turf/T = screen_loc2turf(screen_loc, get_turf(user))
-	return T

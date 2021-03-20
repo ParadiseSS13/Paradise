@@ -40,7 +40,6 @@
 	else if(cover_open && magazine)
 		//drop the mag
 		magazine.update_icon()
-		to_chat(user, "<span class='notice'>[icon_state]</span>")
 		magazine.loc = get_turf(loc)
 		user.put_in_hands(magazine)
 		magazine = null

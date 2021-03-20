@@ -135,5 +135,8 @@
 
 /mob/proc/kill_CH()
 	if (src.client.CH)
-		to_chat(src, "<span class='danger'>CH BORRAO.</span>")
 		qdel(src.client.CH)
+
+/obj/screen/click_catcher/proc/resolve(mob/user)
+	var/turf/T = screen_loc2turf(screen_loc, get_turf(user))
+	return T
