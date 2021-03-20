@@ -73,6 +73,27 @@ SUBSYSTEM_DEF(discord)
 	for(var/url in config.discord_admin_webhook_urls)
 		SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, url, dwp.serialize2json(), list("content-type" = "application/json"))
 
+/datum/controller/subsystem/discord/proc/send2discord_simple_nomentors(content)
+	var/alerttext
+	var/list/mentorcounter = staff_countup(R_MENTOR)
+	var/active_mentors = mentorcounter[1]
+	var/inactive_mentors = mentorcounter[3]
+	var/add_ping = FALSE
+
+	if(active_mentors <= 0)
+		add_ping = TRUE
+		if(inactive_mentors)
+			alerttext = "| **ALL MENTORS AFK**"
+		else
+			alerttext = "| **NO MENTORS ONLINE**"
+
+	var/message = "[content] [alerttext][add_ping ? handle_mentor_ping() : ""]"
+
+	var/datum/discord_webhook_payload/dwp = new()
+	dwp.webhook_content = message
+	for(var/url in config.discord_mentor_webhook_urls)
+		SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, url, dwp.serialize2json(), list("content-type" = "application/json"))
+
 // Helper to make administrator ping easier
 /datum/controller/subsystem/discord/proc/handle_administrator_ping()
 	// Check if a role is even set
@@ -88,9 +109,9 @@ SUBSYSTEM_DEF(discord)
 /datum/controller/subsystem/discord/proc/handle_mentor_ping()
 	if(config.discord_mentor_role_id)
 		if(last_mentor_ping > world.time)
-			return "*(Role pinged recently)*"
+			return " *(Role pinged recently)*"
 
 		last_mentor_ping = world.time + 60 SECONDS
-		return "<@&[config.discord_mentor_role_id]>"
+		return " <@&[config.discord_mentor_role_id]>"
 
 	return ""
