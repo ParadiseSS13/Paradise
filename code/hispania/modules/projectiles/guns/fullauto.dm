@@ -27,7 +27,9 @@
 	to_chat(L, "<span class='notice'>FALSE.</span>")
 	modeupdate(L,FALSE)
 
-// CHECK FAST EQUIP
+/obj/item/gun/projectile/automatic/fullauto/hotkeyequip(mob/living/L)
+	to_chat(L, "<span class='notice'>FALSE.</span>")
+	modeupdate(L,FALSE)
 
 /obj/item/gun/projectile/automatic/fullauto/after_throw(datum/callback/callback, mob/living/L)
 	..()

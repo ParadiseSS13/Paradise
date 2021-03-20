@@ -1,6 +1,6 @@
 /obj/item/projectile
 	name = "projectile"
-	icon = 'icons/obj/projectiles.dmi'
+	icon = 'icons/hispania/obj/projectiles.dmi'
 	icon_state = "bullet"
 	density = 0
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF

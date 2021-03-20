@@ -132,7 +132,7 @@
 
 /obj/item/ammo_box/magazine/mm556x45/update_icon()
 	..()
-	icon_state = "a762-[round(ammo_count(),10)]"
+	icon_state = "a762-[round(ammo_count()/25,1)*25]"
 
 //casings//
 

@@ -148,7 +148,7 @@
 //M-90gl Carbine//
 /obj/item/gun/projectile/automatic/fullauto/twomode/m90
 	name = "\improper M-90gl Carbine"
-	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90gl'. Has an attached underbarrel grenade launcher which can be toggled on and off."
+	desc = "A three-round burst and full-auto 5.56 toploading carbine, designated 'M-90gl'. Has an attached underbarrel grenade launcher which can be toggled on and off."
 	icon_state = "m90"
 	item_state = "m90-4"
 	origin_tech = "combat=5;materials=2;syndicate=6"
@@ -236,6 +236,9 @@
 	mag_type = /obj/item/ammo_box/magazine/tommygunm45
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	can_suppress = 0
+
+/obj/item/gun/projectile/automatic/fullauto/tommygun/drum
+	mag_type = /obj/item/ammo_box/magazine/tommygunm45/drum
 
 //ARG Assault Rifle//
 /obj/item/gun/projectile/automatic/fullauto/ar

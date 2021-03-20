@@ -443,6 +443,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 /obj/item/proc/swappedto(mob/usr)
 	return
 
+//hispania event, hand hotkeyequip
+/obj/item/proc/hotkeyequip(mob/usr)
+	return
+
 // called when the giver gives it to the receiver
 /obj/item/proc/on_give(mob/living/carbon/giver, mob/living/carbon/receiver)
 	return
