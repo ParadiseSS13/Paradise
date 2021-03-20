@@ -10,7 +10,7 @@
 	/// One item may show up only once.
 	var/list/item_list = list(
 		// Offensive
-		/obj/item/gun/projectile/automatic/c20r/toy,
+		/obj/item/gun/projectile/automatic/fullauto/twomode/c20r/toy,
 		/obj/item/storage/box/syndie_kit/throwing_weapons,
 		/obj/item/pen/edagger,
 		/obj/item/gun/projectile/automatic/toy/pistol/riot,

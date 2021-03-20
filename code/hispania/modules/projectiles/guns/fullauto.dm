@@ -3,19 +3,11 @@
 	item_state = "l6closedmag"
 	burst_size = 1
 	var/datum/click_handler/fullauto/CH = null
+	select = 0
 	dual = FALSE
 	fire_delay = 2.25
 	mag_type = /obj/item/ammo_box/magazine/smgm45/v100
-
-/obj/item/gun/projectile/automatic/fullauto/he
-	fire_delay = 1
-	mag_type = /obj/item/ammo_box/magazine/smgm45/v100/funny
-
-/obj/item/gun/projectile/automatic/fullauto/hefunny
-	fire_delay = 1
-
-/obj/item/gun/projectile/automatic/fullauto/hehe
-	fire_delay = 0.5
+	actions_types = null
 
 /obj/item/gun/projectile/automatic/fullauto/pickup(mob/living/L)
 	.=..()
@@ -34,6 +26,8 @@
 /obj/item/gun/projectile/automatic/fullauto/swapped(mob/living/L)
 	to_chat(L, "<span class='notice'>FALSE.</span>")
 	modeupdate(L,FALSE)
+
+// CHECK FAST EQUIP
 
 /obj/item/gun/projectile/automatic/fullauto/after_throw(datum/callback/callback, mob/living/L)
 	..()
@@ -65,13 +59,62 @@
 		QDEL_NULL(CH) //And delete it
 		to_chat(L, "<span class='notice'>CH BORRADO.</span>")
 		return
-
-	else
+	else if(!select)
 		CH = new /datum/click_handler/fullauto()
 		CH.reciever = src //Reciever is the gun that gets the fire events
 		L.client.CH = CH //Put it on the client
 		CH.owner = L.client //And tell it where it is
 		to_chat(L, "<span class='notice'>CH ARMADO.</span>")
+
+///////////////////////////////////////////////////////////////////
+
+/obj/item/gun/projectile/automatic/fullauto/twomode
+	actions_types = list(/datum/action/item_action/toggle_firemode)
+	var/burst_burst_size = 0
+	var/burst_fire_delay = 0
+
+/obj/item/gun/projectile/automatic/fullauto/twomode/update_icon()
+	..()
+	overlays.Cut()
+	if(!select)
+		overlays += "[initial(icon_state)]auto"
+	else
+		overlays += "[initial(icon_state)]burst"
+	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
+	if(bayonet && can_bayonet)
+		overlays += knife_overlay
+
+/obj/item/gun/projectile/automatic/fullauto/twomode/burst_select()
+	var/mob/living/carbon/human/user = usr
+	select = !select
+	if(!select)
+		burst_size = initial(burst_size)
+		fire_delay = initial(fire_delay)
+		to_chat(user, "<span class='notice'>You switch to full-automatic.</span>")
+		modeupdate(user,TRUE)
+	else
+		burst_size = burst_burst_size
+		fire_delay = burst_fire_delay
+		to_chat(user, "<span class='notice'>You switch to [burst_size] round burst.</span>")
+		modeupdate(user,FALSE)
+
+	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
+	update_icon()
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
+
+/////////////////////////////////////////////////
+
+/obj/item/gun/projectile/automatic/fullauto/he
+	fire_delay = 1
+	mag_type = /obj/item/ammo_box/magazine/smgm45/v100/funny
+
+/obj/item/gun/projectile/automatic/fullauto/hefunny
+	fire_delay = 1
+
+/obj/item/gun/projectile/automatic/fullauto/hehe
+	fire_delay = 0.5
 
 /obj/item/ammo_box/magazine/smgm45/v100
 	max_ammo = 100

@@ -324,7 +324,7 @@
 						/obj/item/katana/energy,
 						/obj/item/hierophant_club,
 						/obj/item/storage/toolbox/green/memetic,
-						/obj/item/gun/projectile/automatic/l6_saw,
+						/obj/item/gun/projectile/automatic/fullauto/l6_saw,
 						/obj/item/gun/magic/staff/chaos,
 						/obj/item/gun/magic/staff/spellblade,
 						/obj/item/gun/magic/wand/death,

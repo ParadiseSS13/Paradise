@@ -13,7 +13,6 @@
 	magout_sound = 'sound/weapons/gun_interactions/lmg_magout.ogg'
 	var/cover_open = 0
 	can_suppress = 0
-	actions_types = null
 
 /obj/item/gun/projectile/automatic/fullauto/l6_saw/attack_self(mob/user)
 	cover_open = !cover_open
@@ -22,7 +21,7 @@
 	update_icon()
 
 /obj/item/gun/projectile/automatic/fullauto/l6_saw/update_icon()
-	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(0)/12.5, 1)*25 : "-empty"][suppressed ? "-suppressed" : ""]"
+	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(0)/25, 1)*25 : "-empty"]"
 	item_state = "l6[cover_open ? "openmag" : "closedmag"]"
 
 /obj/item/gun/projectile/automatic/fullauto/l6_saw/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params) //what I tried to do here is just add a check to see if the cover is open or not and add an icon_state change because I can't figure out how c-20rs do it with overlays
