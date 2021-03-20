@@ -8,7 +8,7 @@
 	item_state = "electronic"
 	icon = 'icons/obj/device.dmi'
 	name = "control wand"
-	desc = "Remotely controls airlocks."
+	desc = "Remotely controls airlocks. Current mode: open doors"
 	w_class = WEIGHT_CLASS_TINY
 	flags = NOBLUDGEON
 	var/mode = WAND_OPEN
@@ -32,12 +32,16 @@
 	switch(mode)
 		if(WAND_OPEN)
 			mode = WAND_BOLT
+			desc = "Remotely controls airlocks. Current mode: toggle bolts"
 		if(WAND_BOLT)
 			mode = WAND_EMERGENCY
+			desc = "Remotely controls airlocks. Current mode: toggle emergancy access"
 		if(WAND_EMERGENCY)
 			mode = WAND_SPEED
+			desc = "Remotely controls airlocks. Current mode: change door speed"
 		if(WAND_SPEED)
 			mode = WAND_OPEN
+			desc = "Remotely controls airlocks. Current mode: open doors"
 
 	to_chat(user, "<span class='notice'>Now in mode: [mode].</span>")
 
