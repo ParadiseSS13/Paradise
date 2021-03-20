@@ -88,8 +88,10 @@
 	U.swap_hand()
 
 	if(G && istype(G))
-		if(improvised) // Improvised garrotes start you off with a passive grab, but keep you stunned like an agressive grab.
-			M.Stun(1)
+		if(improvised) // Not a trash anymore:|
+			G.state = GRAB_AGGRESSIVE
+			G.hud.icon_state = "kill"
+			G.hud.name = "kill"
 		else
 			G.state = GRAB_NECK
 			G.hud.icon_state = "kill"
@@ -152,8 +154,6 @@
 
 		return
 
-	if(G.state < GRAB_NECK) // Only possible with improvised garrotes, essentially this will stun people as if they were aggressively grabbed. Allows for resisting out if you're quick, but not running away.
-		strangling.Stun(3)
 
 	if(improvised)
 		strangling.stuttering = max(strangling.stuttering, 3)

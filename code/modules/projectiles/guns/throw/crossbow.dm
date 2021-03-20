@@ -9,7 +9,7 @@
 	desc = "A modern twist on an old classic. Pick up that can."
 	icon_state = "crossbow"
 	item_state = "crossbow-solid"
-	fire_sound_text = "a solid thunk"
+	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 	fire_delay = 25
 
 	valid_projectile_type = /obj/item/arrow
@@ -48,10 +48,9 @@
 /obj/item/gun/throw/crossbow/modify_projectile(obj/item/I, on_chamber = 0)
 	if(cell && on_chamber && istype(I, /obj/item/arrow/rod))
 		var/obj/item/arrow/rod/R = I
-		visible_message("<span class='danger'>[R] plinks and crackles as it begins to glow red-hot.</span>")
-		R.throwforce = 15
-		R.superheated = 1
-		cell.use(500)
+		visible_message("<span class='danger'>[R] is ready!</span>")
+		R.throwforce = 25
+		R.superheated = 1 //guess this useless now...
 
 /obj/item/gun/throw/crossbow/get_throwspeed()
 	return tension * speed_multiplier
@@ -89,10 +88,14 @@
 		return
 
 	user.visible_message("[user] begins to draw back the string of [src].","You begin to draw back the string of [src].")
-	if(do_after(user, 25 * drawtension, target = user))
-		tension = drawtension
-		user.visible_message("[usr] draws back the string of [src]!","[src] clunks as you draw the string to its maximum tension!!")
-		update_icon()
+	if(cell && cell.charge > 499) //I really hope there is no way to get 499.5 charge or something
+		if(do_after(user, 5 * drawtension, target = user))
+			tension = drawtension
+			cell.use(500)
+			user.visible_message("[src] mechanism draws back the string!","[src] clunks as its mechanism draw the string to its maximum tension!!")
+			update_icon()
+	else
+		user.visible_message("[usr] struggles to draws back the string of [src]!","[src] string is too tense to draw manually!")
 
 /obj/item/gun/throw/crossbow/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/stock_parts/cell))
