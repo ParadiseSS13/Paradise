@@ -16,7 +16,7 @@
 	if (CH)
 		if (!CH.MouseUp(object,location,control,params))
 			return
-	.=..()
+	return ..()
 
 /client/MouseDrag(over_object,src_location,over_location,src_control,over_control,params)
 	if (CH)
