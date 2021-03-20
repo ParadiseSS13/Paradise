@@ -243,25 +243,25 @@
 						"<span class='notice'>You shake [src] trying to wake [p_them()] up!</span>",\
 						)
 			// BEGIN HUGCODE - N3X
-		else
-			playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			if(M.zone_selected == "head")
-				M.visible_message(\
-				"<span class='notice'>[M] pats [src] on the head.</span>",\
-				"<span class='notice'>You pat [src] on the head.</span>",\
-				)
 			else
+				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				if(M.zone_selected == "head")
+					M.visible_message(\
+					"<span class='notice'>[M] pats [src] on the head.</span>",\
+					"<span class='notice'>You pat [src] on the head.</span>",\
+					)
+				else
 
-				M.visible_message(\
-				"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
-				"<span class='notice'>You hug [src].</span>",\
-				)
-				if(ishuman(src))
-					var/mob/living/carbon/human/H = src
-					if(H.wear_suit)
-						H.wear_suit.add_fingerprint(M)
-					else if(H.w_uniform)
-						H.w_uniform.add_fingerprint(M)
+					M.visible_message(\
+					"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
+					"<span class='notice'>You hug [src].</span>",\
+					)
+					if(ishuman(src))
+						var/mob/living/carbon/human/H = src
+						if(H.wear_suit)
+							H.wear_suit.add_fingerprint(M)
+						else if(H.w_uniform)
+							H.w_uniform.add_fingerprint(M)
 
 /**
   * Handles patting out a fire on someone.
