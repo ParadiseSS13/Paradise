@@ -117,16 +117,6 @@
 	suit_types = list(/obj/item/clothing/suit/redtag)
 	light_color = LIGHT_COLOR_BLUE
 
-/obj/item/projectile/beam/sniper
-	name = "sniper beam"
-	icon_state = "sniperlaser"
-	damage = 60
-	stun = 5
-	weaken = 5
-	stutter = 5
-	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
-	light_color = LIGHT_COLOR_PINK
-
 /obj/item/projectile/beam/immolator
 	name = "immolation beam"
 

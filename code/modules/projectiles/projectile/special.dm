@@ -193,14 +193,14 @@
 
 /obj/item/projectile/bullet/frag12
 	name ="explosive slug"
-	damage = 25
-	weaken = 5
+	damage = 15
+	weaken = 1
 	alwayslog = TRUE
 
 /obj/item/projectile/bullet/frag12/on_hit(atom/target, blocked = 0)
 	..()
 	explosion(target, -1, 0, 1)
-	return 1
+	return TRUE
 
 /obj/item/projectile/plasma
 	name = "plasma blast"

@@ -42,7 +42,10 @@
 	item_state = null
 	origin_tech = "combat=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler)
-	ammo_x_offset = 3
+	ammo_x_offset = 2
+	can_flashlight = TRUE
+	flight_x_offset = 15
+	flight_y_offset = 10
 
 /obj/item/gun/energy/disabler/cyborg
 	name = "cyborg disabler"

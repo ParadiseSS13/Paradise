@@ -3612,7 +3612,6 @@
 "jx" = (
 /obj/structure/table,
 /obj/structure/window/reinforced,
-/obj/item/batterer,
 /turf/simulated/floor/plasteel/airless{
 	tag = "icon-whitered (EAST)";
 	icon_state = "whitered";
