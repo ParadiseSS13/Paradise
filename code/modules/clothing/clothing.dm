@@ -285,6 +285,15 @@ BLIND     // can't see anything
 	else
 		return ..()
 
+/**
+ * Tries to turn the sensors off. Returns TRUE if it succeeds
+ */
+/obj/item/clothing/under/proc/turn_sensors_off()
+	if(has_sensor != 1)
+		return FALSE
+	sensor_mode = SUIT_SENSOR_OFF
+	return TRUE
+
 /obj/item/clothing/under/proc/set_sensors(mob/user as mob)
 	var/mob/M = user
 	if(istype(M, /mob/dead/)) return
