@@ -22,7 +22,7 @@
 	if (CH)
 		if (!CH.MouseDrag(over_object,src_location,over_location,src_control,over_control,params))
 			return
-	.=..()
+	return ..()
 
 /client/Click(atom/target, location, control, params)
 	var/list/L = params2list(params)
