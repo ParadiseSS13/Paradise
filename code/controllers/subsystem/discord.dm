@@ -75,7 +75,7 @@ SUBSYSTEM_DEF(discord)
 	for(var/url in config.discord_admin_webhook_urls)
 		SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, url, dwp.serialize2json(), list("content-type" = "application/json"))
 
-/datum/controller/subsystem/discord/proc/send2discord_simple_nomentors(content)
+/datum/controller/subsystem/discord/proc/send2discord_simple_mentor(content)
 	var/alerttext
 	var/list/mentorcounter = staff_countup(R_MENTOR)
 	var/active_mentors = mentorcounter[1]

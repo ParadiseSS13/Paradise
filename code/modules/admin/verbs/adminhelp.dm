@@ -51,4 +51,4 @@ GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown", "the", "a", "an", "of"
 			var/active_mentors = mentorcount[1]
 
 			log_admin("[selected_type]: [key_name(src)]: [msg] - heard by [active_mentors] non-AFK mentors.")
-			SSdiscord.send2discord_simple_nomentors("[key_name(src)]: [msg]")
+			SSdiscord.send2discord_simple_mentor("[key_name(src)]: [msg]")
