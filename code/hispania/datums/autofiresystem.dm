@@ -83,7 +83,7 @@
 		var/atom/A = a
 		if (istype(A.loc, /turf))
 			return A
-	return null
+	return
 
 /datum/click_handler/fullauto
 	var/atom/target
