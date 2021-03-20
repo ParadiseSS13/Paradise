@@ -17,6 +17,7 @@
 	to_chat(owner, "<b><i>You cancel your prepared attack.</i></b>")
 	owner.visible_message("<span class='danger'> [owner] relaxes [owner.p_their()] stance.</span>")
 	H.mind.martial_art.combos.Cut()
+	H.mind.martial_art.in_stance = FALSE
 
 /datum/action/neck_chop
 	name = "Neck Chop - Injures the neck, stopping the victim from speaking for a while."
