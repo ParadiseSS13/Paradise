@@ -129,7 +129,7 @@
 
 /datum/click_handler/fullauto/Destroy()
 	stop_firing() //Without this it keeps firing in an infinite loop when deleted
-	.=..()
+	return ..()
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
