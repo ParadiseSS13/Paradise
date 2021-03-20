@@ -53,9 +53,9 @@
 		user.Confused(10)
 		user.Jitter(6)
 
-	if(HULK in user.mutations)
+	if(HAS_TRAIT(user, TRAIT_HULK))
 		to_chat(user, "<span class='danger'>You can't seem to hold the blade properly!</span>")
-		return FALSE
+		user.unEquip(src, TRUE)
 
 /obj/item/restraints/legcuffs/bola/cult
 	name = "runed bola"
@@ -162,7 +162,7 @@
 	if(current_charges)
 		owner.visible_message("<span class='danger'>[attack_text] is deflected in a burst of blood-red sparks!</span>")
 		current_charges--
-		playsound(loc, "sparks", 100, TRUE)
+		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		new /obj/effect/temp_visual/cult/sparks(get_turf(owner))
 		if(!current_charges)
 			owner.visible_message("<span class='danger'>The runed shield around [owner] suddenly disappears!</span>")
@@ -200,12 +200,12 @@
 		user.Confused(10)
 		user.Weaken(5)
 	else if(slot == slot_wear_suit)
-		user.status_flags |= GOTTAGOFAST
+		ADD_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes")
 
 /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/dropped(mob/user)
 	. = ..()
 	if(user)
-		user.status_flags &= ~GOTTAGOFAST
+		REMOVE_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes")
 
 /obj/item/clothing/head/hooded/flagellant_hood
 	name = "flagellant's robes"
@@ -355,7 +355,7 @@
 		var/turf/destination = pick(turfs)
 		if(uses <= 0)
 			icon_state ="shifter_drained"
-		playsound(mobloc, "sparks", 50, TRUE)
+		playsound(mobloc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		new /obj/effect/temp_visual/dir_setting/cult/phase/out(mobloc, C.dir)
 
 		var/atom/movable/pulled = handle_teleport_grab(destination, C)
@@ -364,8 +364,8 @@
 			C.start_pulling(pulled) //forcemove resets pulls, so we need to re-pull
 
 		new /obj/effect/temp_visual/dir_setting/cult/phase(destination, C.dir)
-		playsound(destination, 'sound/effects/phasein.ogg', 25, TRUE)
-		playsound(destination, "sparks", 50, TRUE)
+		playsound(destination, 'sound/effects/phasein.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 	else
 		to_chat(C, "<span class='danger'>The veil cannot be torn here!</span>")

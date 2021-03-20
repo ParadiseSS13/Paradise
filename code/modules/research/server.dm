@@ -129,7 +129,7 @@
 				env.merge(removed)
 				air_update_turf()
 
-/obj/machinery/r_n_d/server/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/obj/machinery/r_n_d/server/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(disabled)
 		return
 

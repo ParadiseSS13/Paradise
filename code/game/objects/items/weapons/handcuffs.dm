@@ -29,7 +29,7 @@
 		to_chat(user, "<span class='warning'>[src] is stuck to your hand!</span>")
 		return
 
-	if((CLUMSY in user.mutations) && prob(50) && (!ignoresClumsy))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && (!ignoresClumsy))
 		to_chat(user, "<span class='warning'>Uh... how do those things work?!</span>")
 		apply_cuffs(user, user)
 		return
@@ -145,7 +145,7 @@
 	desc = "Use this to keep prisoners in line. Or you know, your significant other."
 	icon_state = "pinkcuffs"
 
-/obj/item/restraints/handcuffs/cable/attackby(var/obj/item/I, mob/user as mob, params)
+/obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user as mob, params)
 	..()
 	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I

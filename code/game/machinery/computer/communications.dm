@@ -45,7 +45,7 @@
 	..()
 	crew_announcement.newscast = 0
 
-/obj/machinery/computer/communications/proc/is_authenticated(var/mob/user, var/message = 1)
+/obj/machinery/computer/communications/proc/is_authenticated(mob/user, message = 1)
 	if(user.can_admin_interact())
 		return COMM_AUTHENTICATION_AGHOST
 	if(authenticated == COMM_AUTHENTICATION_CAPT)
@@ -56,7 +56,7 @@
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 	return COMM_AUTHENTICATION_NONE
 
-/obj/machinery/computer/communications/proc/change_security_level(var/new_level)
+/obj/machinery/computer/communications/proc/change_security_level(new_level)
 	tmp_alertlevel = new_level
 	var/old_level = GLOB.security_level
 	if(!tmp_alertlevel) tmp_alertlevel = SEC_LEVEL_GREEN
@@ -137,7 +137,7 @@
 				if(message_cooldown > world.time)
 					to_chat(usr, "<span class='warning'>Please allow at least one minute to pass between announcements.</span>")
 					return
-				var/input = input(usr, "Please write a message to announce to the station crew.", "Priority Announcement")
+				var/input = input(usr, "Please write a message to announce to the station crew.", "Priority Announcement") as null|message
 				if(!input || message_cooldown > world.time || ..() || !(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_MSGLEN_MINIMUM)
@@ -295,10 +295,10 @@
 		to_chat(user, "<span class='notice'>You scramble the communication routing circuits!</span>")
 		SStgui.update_uis(src)
 
-/obj/machinery/computer/communications/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/communications/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 
-/obj/machinery/computer/communications/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/communications/attack_hand(mob/user as mob)
 	if(..(user))
 		return
 
@@ -392,25 +392,25 @@
 	data["esc_section"] = data["esc_status"] || data["esc_callable"] || data["esc_recallable"] || data["lastCallLoc"]
 	return data
 
-/obj/machinery/computer/communications/proc/setCurrentMessage(var/mob/user,var/value)
+/obj/machinery/computer/communications/proc/setCurrentMessage(mob/user, value)
 	if(isAI(user) || isrobot(user))
 		aicurrmsg = value
 	else
 		currmsg = value
 
-/obj/machinery/computer/communications/proc/getCurrentMessage(var/mob/user)
+/obj/machinery/computer/communications/proc/getCurrentMessage(mob/user)
 	if(isAI(user) || isrobot(user))
 		return aicurrmsg
 	else
 		return currmsg
 
-/obj/machinery/computer/communications/proc/setMenuState(var/mob/user,var/value)
+/obj/machinery/computer/communications/proc/setMenuState(mob/user, value)
 	if(isAI(user) || isrobot(user))
 		ai_menu_state=value
 	else
 		menu_state=value
 
-/proc/call_shuttle_proc(var/mob/user, var/reason)
+/proc/call_shuttle_proc(mob/user, reason)
 	if(GLOB.sent_strike_team == 1)
 		to_chat(user, "<span class='warning'>Central Command will not allow the shuttle to be called. Consider all contracts terminated.</span>")
 		return
@@ -433,7 +433,7 @@
 
 	return
 
-/proc/init_shift_change(var/mob/user, var/force = 0)
+/proc/init_shift_change(mob/user, force = 0)
 	// if force is 0, some things may stop the shuttle call
 	if(!force)
 		if(SSshuttle.emergencyNoEscape)
@@ -464,7 +464,7 @@
 	return
 
 
-/proc/cancel_call_proc(var/mob/user)
+/proc/cancel_call_proc(mob/user)
 	if(SSticker.mode.name == "meteor")
 		return
 
