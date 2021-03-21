@@ -80,20 +80,20 @@
 	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != "Clown" && H.mind.assigned_role != "Mime")
 		H.unEquip(H.wear_mask)
 
-	H.equip_or_collect(new /obj/item/clothing/mask/breath/vox(H), slot_wear_mask)
-	var/tank_pref = H.client && H.client.prefs ? H.client.prefs.speciesprefs : null
-	var/obj/item/tank/internal_tank
-	if(tank_pref)//Diseasel, here you go
-		internal_tank = new /obj/item/tank/internals/nitrogen(H)
+	var/obj/item/tank/internal_tank = new /obj/item/tank/internals/emergency_oxygen/double/vox(H)
+	to_chat(H, "<span class='notice'>You are now running on nitrogen internals from [internal_tank]. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>")
+	if(H.client?.prefs?.speciesprefs)
+		var/obj/item/organ/internal/cyberimp/mouth/breathing_tube/simple/implant = new
+		implant.insert(H)
+		to_chat(H, "<span class='notice'>You are breathing your [internal_tank.name] through a simplified breathing tube, allowing you to have your face uncovered.</span>")
 	else
-		internal_tank = new /obj/item/tank/internals/emergency_oxygen/double/vox(H)
+		H.equip_or_collect(new /obj/item/clothing/mask/breath/vox(H), slot_wear_mask)
 	if(!H.equip_to_appropriate_slot(internal_tank))
 		if(!H.put_in_any_hand_if_possible(internal_tank))
 			H.unEquip(H.l_hand)
 			H.equip_or_collect(internal_tank, slot_l_hand)
 			to_chat(H, "<span class='boldannounce'>Could not find an empty slot for internals! Please report this as a bug</span>")
 	H.internal = internal_tank
-	to_chat(H, "<span class='notice'>You are now running on nitrogen internals from the [internal_tank]. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>")
 	H.update_action_buttons_icon()
 
 /datum/species/vox/on_species_gain(mob/living/carbon/human/H)

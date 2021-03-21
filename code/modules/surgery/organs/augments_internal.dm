@@ -271,11 +271,12 @@
 
 /obj/item/organ/internal/cyberimp/mouth/breathing_tube
 	name = "breathing tube implant"
-	desc = "This simple implant adds an internals connector to your back, allowing you to use internals without a mask and protecting you from being choked."
+	desc = "This implant allows the user to connect to internals without wearing a mask, while also protecting from being choked."
 	icon_state = "implant_mask"
 	slot = "breathing_tube"
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=2;biotech=3"
+	var/no_choke = TRUE
 
 /obj/item/organ/internal/cyberimp/mouth/breathing_tube/emp_act(severity)
 	if(emp_proof)
@@ -283,6 +284,13 @@
 	if(prob(60/severity) && owner)
 		to_chat(owner, "<span class='warning'>Your breathing tube suddenly closes!</span>")
 		owner.AdjustLoseBreath(2)
+
+/obj/item/organ/internal/cyberimp/mouth/breathing_tube/simple
+	name = "simple breathing tube implant"
+	desc = "This simple implant allows the user to connect to internals without wearing a mask. Does not protect from being choked."
+	icon_state = "implant_mask_simple"
+	origin_tech = "materials=1;biotech=2"
+	no_choke = FALSE
 
 //[[[[CHEST]]]]
 /obj/item/organ/internal/cyberimp/chest

@@ -292,13 +292,24 @@
 
 /datum/design/cyberimp_breather
 	name = "Breathing Tube Implant"
-	desc = "This simple implant adds an internals connector to your back, allowing you to use internals without a mask and protecting you from being choked."
+	desc = "This implant allows the user to connect to internals without wearing a mask, while also protecting from being choked."
 	id = "ci-breather"
 	req_tech = list("materials" = 2, "biotech" = 3)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 35
 	materials = list(MAT_METAL = 600, MAT_GLASS = 250)
 	build_path = /obj/item/organ/internal/cyberimp/mouth/breathing_tube
+	category = list("Medical")
+
+/datum/design/cyberimp_breather/simple
+	name = "Simple Breathing Tube Implant"
+	desc = "This simple implant allows the user to connect to internals without wearing a mask. Does not protect from being choked."
+	id = "ci-breather"
+	req_tech = list("materials" = 1, "biotech" = 2)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 25
+	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
+	build_path = /obj/item/organ/internal/cyberimp/mouth/breathing_tube/simple
 	category = list("Medical")
 
 /datum/design/cyberimp_surgical

@@ -167,19 +167,19 @@
 
 */
 
-	var/breathing_tube = affecting.get_organ_slot("breathing_tube")
+	var/obj/item/organ/internal/cyberimp/mouth/breathing_tube/breathing_tube = affecting.get_organ_slot("breathing_tube")
 
 	if(state >= GRAB_NECK)
 		affecting.Stun(5)  //It will hamper your voice, being choked and all.
-		if(isliving(affecting) && !breathing_tube)
+		if(isliving(affecting) && (!breathing_tube || !breathing_tube.no_choke))
 			var/mob/living/L = affecting
 			L.adjustOxyLoss(1)
 
 	if(state >= GRAB_KILL)
 		//affecting.apply_effect(STUTTER, 5) //would do this, but affecting isn't declared as mob/living for some stupid reason.
 		affecting.Stuttering(5) //It will hamper your voice, being choked and all.
-		affecting.Weaken(5)	//Should keep you down unless you get help.
-		if(!breathing_tube)
+		affecting.Weaken(5)    //Should keep you down unless you get help.
+		if(!breathing_tube || !breathing_tube.no_choke)
 			affecting.AdjustLoseBreath(2, bound_lower = 0, bound_upper = 3)
 
 	adjust_position()
@@ -293,7 +293,8 @@
 		add_attack_logs(assailant, affecting, "Strangled")
 
 		assailant.next_move = world.time + 10
-		if(!affecting.get_organ_slot("breathing_tube"))
+		var/obj/item/organ/internal/cyberimp/mouth/breathing_tube/breathing_tube = affecting.get_organ_slot("breathing_tube")
+		if(!breathing_tube || !breathing_tube.no_choke)
 			affecting.AdjustLoseBreath(1)
 
 	adjust_position()
