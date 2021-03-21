@@ -301,13 +301,13 @@
 	build_path = /obj/item/organ/internal/cyberimp/mouth/breathing_tube
 	category = list("Medical")
 
-/datum/design/cyberimp_breather/simple
+/datum/design/cyberimp_breather_simple
 	name = "Simple Breathing Tube Implant"
 	desc = "This simple implant allows the user to connect to internals without wearing a mask. Does not protect from being choked."
-	id = "ci-breather"
+	id = "ci-breather-simple"
 	req_tech = list("materials" = 1, "biotech" = 2)
 	build_type = PROTOLATHE | MECHFAB
-	construction_time = 25
+	construction_time = 2.5 SECONDS
 	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
 	build_path = /obj/item/organ/internal/cyberimp/mouth/breathing_tube/simple
 	category = list("Medical")
