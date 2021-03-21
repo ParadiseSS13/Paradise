@@ -141,7 +141,7 @@
 	if(..())
 		return
 
-	if(stat == BROKEN)
+	if(stat & BROKEN)
 		return
 
 	if(!anchored)
