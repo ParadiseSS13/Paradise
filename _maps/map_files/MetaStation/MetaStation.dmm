@@ -22800,7 +22800,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/item/aiModule/quarantine,
+/obj/item/aiModule/crewsimov,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -22850,7 +22850,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/item/aiModule/freeform,
+/obj/item/aiModule/nanotrasen,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -23409,20 +23409,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aVw" = (
-/obj/structure/table,
-/obj/item/aiModule/asimov,
-/obj/item/aiModule/freeformcore,
-/obj/machinery/door/window{
-	base_state = "right";
-	dir = 4;
-	icon_state = "right";
-	name = "Core Modules";
-	req_access_txt = "20"
-	},
-/obj/structure/window/reinforced,
-/obj/item/aiModule/corp,
-/obj/item/aiModule/paladin,
-/obj/item/aiModule/robocop,
+/obj/machinery/smartfridge/secure/circuits/aiupload/experimental,
 /obj/machinery/flasher{
 	id = "AI";
 	pixel_y = 24
@@ -23494,23 +23481,11 @@
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "aVA" = (
-/obj/structure/table,
-/obj/machinery/door/window{
-	base_state = "left";
-	dir = 8;
-	icon_state = "left";
-	name = "High-Risk Modules";
-	req_access_txt = "20"
-	},
-/obj/structure/window/reinforced,
+/obj/machinery/smartfridge/secure/circuits/aiupload/highrisk,
 /obj/machinery/flasher{
 	id = "AI";
 	pixel_y = 24
 	},
-/obj/item/aiModule/antimov,
-/obj/item/aiModule/oxygen,
-/obj/item/aiModule/oneCrewMember,
-/obj/item/aiModule/purge,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -24554,7 +24529,7 @@
 	id = "AI";
 	pixel_y = -24
 	},
-/obj/item/aiModule/protectStation,
+/obj/item/aiModule/corp,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -75552,7 +75527,7 @@
 	frequency = 1439;
 	pixel_y = 23
 	},
-/obj/machinery/smartfridge/secure/chemistry/virology,
+/obj/machinery/smartfridge/secure/chemistry/virology/preloaded,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
