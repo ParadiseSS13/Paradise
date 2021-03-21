@@ -23486,7 +23486,6 @@
 	id = "AI";
 	pixel_y = 24
 	},
-
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
