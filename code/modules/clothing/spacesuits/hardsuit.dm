@@ -662,6 +662,12 @@
 	return mutable_appearance('icons/effects/effects.dmi', shield_state, MOB_LAYER + 0.01)
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded
+	name = "shielded hardsuit helmet"
+	desc = "A hardsuit helmet with built in energy shielding. Will rapidly recharge when not under fire."
+	icon_state = "hardsuit0-sec"
+	item_state = "sec_helm"
+	item_color = "sec"
+	armor = list("melee" = 30, "bullet" = 15, "laser" = 30, "energy" = 10, "bomb" = 10, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 

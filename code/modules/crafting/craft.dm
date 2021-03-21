@@ -166,12 +166,13 @@
 					if(!check_pathtools(user, R, contents))
 						return ", missing tool."
 					var/list/parts = del_reqs(R, user)
-					var/atom/movable/I = new R.result (get_turf(user.loc))
-					I.CheckParts(parts, R)
-					if(isitem(I))
-						user.put_in_hands(I)
-					if(send_feedback)
-						SSblackbox.record_feedback("tally", "object_crafted", 1, I.type)
+					for(var/I in R.result)
+						var/atom/movable/M = new I (get_turf(user))
+						M.CheckParts(parts)
+						if(isitem(M))
+							user.put_in_hands(M)
+						if(send_feedback)
+							SSblackbox.record_feedback("tally", "object_crafted", 1, M.type)
 					return 0
 				return "."
 			return ", missing tool."

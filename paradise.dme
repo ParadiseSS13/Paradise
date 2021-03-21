@@ -827,6 +827,7 @@
 #include "code\game\objects\items\dehy_carp.dm"
 #include "code\game\objects\items\documents.dm"
 #include "code\game\objects\items\flag.dm"
+#include "code\game\objects\items\hand_item.dm"
 #include "code\game\objects\items\latexballoon.dm"
 #include "code\game\objects\items\misc.dm"
 #include "code\game\objects\items\mixing_bowl.dm"

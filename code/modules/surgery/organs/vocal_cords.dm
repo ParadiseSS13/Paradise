@@ -182,6 +182,10 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	if(iscultist(owner))
 		power_multiplier *= 2
 
+	//It's magic, they are a wizard.
+	if(iswizard(owner))
+		power_multiplier *= 2.5
+
 	//Try to check if the speaker specified a name or a job to focus on
 	var/list/specific_listeners = list()
 	var/found_string = null
@@ -477,3 +481,10 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 
 	message_admins("[key_name_admin(owner)] has said '[log_message]' with a Voice of God, affecting [english_list(listeners)], with a power multiplier of [power_multiplier].")
 	log_game("[key_name(owner)] has said '[log_message]' with a Voice of God, affecting [english_list(listeners)], with a power multiplier of [power_multiplier].")
+
+/obj/item/organ/internal/vocal_cords/colossus/wizard
+	desc = "They carry the voice of an ancient god. This one is enchanted to implant it into yourself when used in hand"
+
+/obj/item/organ/internal/vocal_cords/colossus/wizard/attack_self(mob/living/user)
+	user.drop_item()
+	insert(user)
