@@ -8,6 +8,7 @@
 	density = TRUE
 	light_color = "#FFD100"
 	max_integrity = 250
+	interact_offline = 1
 	integrity_failure = 80
 	var/light_range_on = 3
 	var/light_power_on = 1
@@ -140,7 +141,7 @@
 	if(..())
 		return
 
-	if(stat && BROKEN)
+	if(stat == BROKEN)
 		return
 
 	if(!anchored)
@@ -204,7 +205,7 @@
 	return TRUE
 
 /obj/machinery/hispaniabox/proc/light()
-	if(!(stat & (BROKEN|NOPOWER)))
+	if(stat != BROKEN)
 		return set_light(light_range_on, light_power_on)
 	else
 		return set_light(0)
