@@ -205,7 +205,7 @@
 	return TRUE
 
 /obj/machinery/hispaniabox/proc/light()
-	if(stat != BROKEN)
+	if(!(stat & BROKEN))
 		return set_light(light_range_on, light_power_on)
 	else
 		return set_light(0)
