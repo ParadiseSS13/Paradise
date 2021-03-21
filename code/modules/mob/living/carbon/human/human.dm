@@ -31,7 +31,7 @@
   * * new_species - The new species to assign.
   */
 /mob/living/carbon/human/proc/setup_dna(datum/species/new_species)
-	set_species(new_species, use_default_colour = TRUE, delay_icon_update = TRUE, skip_same_check = TRUE)
+	set_species(new_species, use_default_color = TRUE, delay_icon_update = TRUE, skip_same_check = TRUE)
 	// Name
 	real_name = dna.species.get_random_name(gender)
 	name = real_name
@@ -1240,7 +1240,7 @@
 	sec_hud_set_ID()
 
 
-/mob/living/carbon/human/proc/set_species(datum/species/new_species, use_default_colour = FALSE, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE)
+/mob/living/carbon/human/proc/set_species(datum/species/new_species, use_default_color = FALSE, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE)
 	if(!skip_same_check)
 		if(dna.species.name == initial(new_species.name))
 			return
@@ -1275,7 +1275,7 @@
 	hunger_drain = dna.species.hunger_drain
 	digestion_ratio = dna.species.digestion_ratio
 
-	if(dna.species.base_color && use_default_colour)
+	if(dna.species.base_color && use_default_color)
 		//Apply colour.
 		skin_colour = dna.species.base_color
 	else
