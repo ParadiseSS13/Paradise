@@ -288,6 +288,8 @@
 	return ..()
 
 /obj/machinery/autolathe/crowbar_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
 	. = TRUE
