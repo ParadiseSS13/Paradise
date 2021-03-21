@@ -38052,7 +38052,7 @@
 /area/bridge/meeting_room)
 "bzT" = (
 /obj/structure/table,
-/obj/item/aiModule/crewsimov,
+/obj/item/aiModule/quarantine,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39117,7 +39117,26 @@
 /turf/simulated/floor/carpet,
 /area/bridge/meeting_room)
 "bCH" = (
-/obj/machinery/smartfridge/secure/circuits/aiupload/experimental,
+/obj/structure/table,
+/obj/machinery/door/window{
+	base_state = "right";
+	dir = 4;
+	icon_state = "right";
+	name = "Core Modules";
+	req_access_txt = "20"
+	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/aiModule/crewsimov,
+/obj/item/aiModule/freeformcore,
+/obj/item/aiModule/corp,
+/obj/item/aiModule/paladin,
+/obj/item/aiModule/robocop,
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "bCI" = (
@@ -39747,6 +39766,7 @@
 /area/turret_protected/ai_upload)
 "bEb" = (
 /obj/structure/table,
+/obj/item/aiModule/protectStation,
 /obj/item/aiModule/nanotrasen,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -40124,7 +40144,7 @@
 /area/maintenance/port)
 "bFe" = (
 /obj/structure/table,
-/obj/item/aiModule/corp,
+/obj/item/aiModule/freeform,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -42023,7 +42043,25 @@
 	},
 /area/turret_protected/ai_upload)
 "bIM" = (
-/obj/machinery/smartfridge/secure/circuits/aiupload/highrisk,
+/obj/structure/table,
+/obj/machinery/door/window{
+	base_state = "left";
+	dir = 8;
+	icon_state = "left";
+	name = "High-Risk Modules";
+	req_access_txt = "20"
+	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/aiModule/oxygen,
+/obj/item/aiModule/oneCrewMember,
+/obj/item/aiModule/purge,
+/obj/item/aiModule/antimov,
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "bIN" = (
@@ -60980,7 +61018,7 @@
 	},
 /area/medical/virology)
 "cpM" = (
-/obj/machinery/smartfridge/secure/chemistry/virology/preloaded,
+/obj/machinery/smartfridge/secure/chemistry/virology,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitegreen";
