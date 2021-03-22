@@ -237,7 +237,7 @@
 				visible_message("<span class='notice'>[src] roars! He looks happy.</span>")
 		else
 			visible_message("<span class='notice'>\The [src] looks undecided...</span>")
-			tame_progress = 2100
+			tame_progress = 1700
 			picking_candidates = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/proc/request_player()
