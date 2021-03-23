@@ -199,7 +199,6 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	var/bloodtotal = 0 // CHANGE TO ZERO WHEN PLAYTESTING HAPPENS
 	var/bloodusable = 0 // CHANGE TO ZERO WHEN PLAYTESTING HAPPENS
 	var/mob/living/owner = null
-	var/gender = FEMALE
 	var/iscloaking = 0 // handles the vampire cloak toggle
 	var/list/powers = list() // list of available powers and passives
 	var/mob/living/carbon/human/draining // who the vampire is draining of blood
@@ -219,9 +218,8 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		/obj/effect/proc_holder/spell/vampire/self/jaunt = 300,
 		/obj/effect/proc_holder/spell/vampire/targetted/enthrall = 300,
 		/datum/vampire_passive/full = 500)
+	var/list/drained_humans = list() //This is a list of people the vampire has drained, and how much blood has been drained from them.
 
-/datum/vampire/New(gend = FEMALE)
-	gender = gend
 
 /datum/vampire/proc/force_add_ability(path)
 	var/spell = new path(owner)
@@ -257,7 +255,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		return
 	var/datum/vampire/vamp
 	if(!mind.vampire)
-		vamp = new /datum/vampire(gender)
+		vamp = new /datum/vampire
 		vamp.owner = src
 		mind.vampire = vamp
 	else
@@ -277,6 +275,8 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 
 /datum/vampire/proc/handle_bloodsucking(mob/living/carbon/human/H)
 	draining = H
+	if(!(H in drained_humans))
+		drained_humans += H
 	var/blood = 0
 	var/old_bloodtotal = 0 //used to see if we increased our blood total
 	var/old_bloodusable = 0 //used to see if we increased our blood usable
@@ -297,38 +297,47 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			return
 		old_bloodtotal = bloodtotal
 		old_bloodusable = bloodusable
-		if(H.stat < DEAD)
-			if(H.ckey || H.player_ghosted) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
-				blood = min(20, H.blood_volume)	// if they have less than 20 blood, give them the remnant else they get 20 blood
-				bloodtotal += blood / 2	//divide by 2 to counted the double suction since removing cloneloss -Melandor0
-				bloodusable += blood / 2
-		else
-			if(H.ckey || H.player_ghosted)
-				blood = min(5, H.blood_volume)	// The dead only give 5 blood
-				bloodtotal += blood
-		if(old_bloodtotal != bloodtotal)
-			if(H.ckey || H.player_ghosted) // Requires ckey regardless if monkey or human, and has not ghosted, otherwise no power
-				to_chat(owner, "<span class='notice'><b>You have accumulated [bloodtotal] [bloodtotal > 1 ? "units" : "unit"] of blood[bloodusable != old_bloodusable ? ", and have [bloodusable] left to use" : ""].</b></span>")
-		check_vampire_upgrade()
-		H.blood_volume = max(H.blood_volume - 25, 0)
-		//Blood level warnings (Code 'borrowed' from Fulp)
-		if(H.blood_volume)
-			if(H.blood_volume <= BLOOD_VOLUME_BAD && blood_volume_warning > BLOOD_VOLUME_BAD)
-				to_chat(owner, "<span class='danger'>Your victim's blood volume is dangerously low.</span>")
-			else if(H.blood_volume <= BLOOD_VOLUME_OKAY && blood_volume_warning > BLOOD_VOLUME_OKAY)
-				to_chat(owner, "<span class='warning'>Your victim's blood is at an unsafe level.</span>")
-			blood_volume_warning = H.blood_volume //Set to blood volume, so that you only get the message once
-		else
-			to_chat(owner, "<span class='warning'>You have bled your victim dry!</span>")
-			break
+		if(H in drained_humans)
+			if(drained_humans[H] >= 250)
+				to_chat(owner, "<span class='warning'>You have drained most of the life force from [H]'s blood, and you will get no useable blood from them!</span>")
+				H.blood_volume = max(H.blood_volume - 25, 0)
+			else
+				if(H.stat < DEAD)
+					if(H.ckey || H.player_ghosted) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
+						blood = min(20, H.blood_volume)	// if they have less than 20 blood, give them the remnant else they get 20 blood
+						bloodtotal += blood / 2	//divide by 2 to counted the double suction since removing cloneloss -Melandor0
+						bloodusable += blood / 2
+						drained_humans[H] += blood / 2
+				else
+					if(H.ckey || H.player_ghosted)
+						blood = min(5, H.blood_volume)	// The dead only give 5 blood
+						bloodtotal += blood
+				if(old_bloodtotal != bloodtotal)
+					if(H.ckey || H.player_ghosted) // Requires ckey regardless if monkey or human, and has not ghosted, otherwise no power
+						to_chat(owner, "<span class='notice'><b>You have accumulated [bloodtotal] [bloodtotal > 1 ? "units" : "unit"] of blood[bloodusable != old_bloodusable ? ", and have [bloodusable] left to use" : ""].</b></span>")
+				check_vampire_upgrade()
+				H.blood_volume = max(H.blood_volume - 25, 0)
+				//Blood level warnings (Code 'borrowed' from Fulp)
+				if(H.blood_volume)
+					if(H.blood_volume <= BLOOD_VOLUME_BAD && blood_volume_warning > BLOOD_VOLUME_BAD)
+						to_chat(owner, "<span class='danger'>Your victim's blood volume is dangerously low.</span>")
+					else if(H.blood_volume <= BLOOD_VOLUME_OKAY && blood_volume_warning > BLOOD_VOLUME_OKAY)
+						to_chat(owner, "<span class='warning'>Your victim's blood is at an unsafe level.</span>")
+					blood_volume_warning = H.blood_volume //Set to blood volume, so that you only get the message once
+				else
+					to_chat(owner, "<span class='warning'>You have bled your victim dry!</span>")
+					break
 
 		if(ishuman(owner))
 			var/mob/living/carbon/human/V = owner
 			if(!H.ckey && !H.player_ghosted)//Only runs if there is no ckey and the body has not being ghosted while alive
 				to_chat(V, "<span class='notice'><b>Feeding on [H] reduces your thirst, but you get no usable blood from them.</b></span>")
 				V.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, V.nutrition + 5))
-			else
-				V.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, V.nutrition + (blood / 2)))
+			else if(H in drained_humans)
+				if(drained_humans[H] >= 250)
+					V.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, V.nutrition + 5))
+				else
+					V.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, V.nutrition + (blood / 2)))
 
 
 	draining = null
