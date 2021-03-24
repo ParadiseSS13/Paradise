@@ -4,7 +4,7 @@
 	burst_size = 1
 	var/datum/click_handler/fullauto/CH
 	select = 0
-	dual = FALSE
+	fullauto = TRUE
 	fire_delay = 2.25
 	actions_types = null
 

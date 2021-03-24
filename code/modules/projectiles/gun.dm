@@ -38,7 +38,7 @@
 
 	var/spread = 0
 	var/randomspread = 1
-	var/dual = TRUE
+	var/fullauto = FALSE
 
 	var/unique_rename = TRUE //allows renaming with a pen
 	var/unique_reskin = TRUE //allows one-time reskinning
@@ -154,7 +154,7 @@
 	if(flag) //It's adjacent, is the user, or is on the user's person
 		if(target in user.contents) //can't shoot stuff inside us.
 			return
-		if(!ismob(target) || user.a_intent == INTENT_HARM) //melee attack
+		if(!ismob(target) && !fullauto || user.a_intent == INTENT_HARM && !fullauto) //melee attack
 			return
 		if(target == user && user.zone_selected != "mouth") //so we can't shoot ourselves (unless mouth selected)
 			return
@@ -190,17 +190,16 @@
 
 	//DUAL WIELDING
 	var/bonus_spread = 0
-	if(dual)
-		var/loop_counter = 0
-		if(ishuman(user) && user.a_intent == INTENT_HARM)
-			var/mob/living/carbon/human/H = user
-			for(var/obj/item/gun/G in get_both_hands(H))
-				if(G == src || G.weapon_weight >= WEAPON_MEDIUM)
-					continue
-				else if(G.can_trigger_gun(user))
-					bonus_spread += 24 * G.weapon_weight
-					loop_counter++
-					addtimer(CALLBACK(G, .proc/process_fire, target, user, 1, params, null, bonus_spread), loop_counter)
+	var/loop_counter = 0
+	if(ishuman(user) && user.a_intent == INTENT_HARM)
+		var/mob/living/carbon/human/H = user
+		for(var/obj/item/gun/G in get_both_hands(H))
+			if(G == src || G.weapon_weight >= WEAPON_MEDIUM)
+				continue
+			else if(G.can_trigger_gun(user))
+				bonus_spread += 24 * G.weapon_weight
+				loop_counter++
+				addtimer(CALLBACK(G, .proc/process_fire, target, user, 1, params, null, bonus_spread), loop_counter)
 
 	process_fire(target,user,1,params, null, bonus_spread)
 

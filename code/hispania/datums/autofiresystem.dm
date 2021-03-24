@@ -70,8 +70,7 @@
 /datum/click_handler/proc/MouseUp(object,location,control,params)
 	return TRUE
 
-/datum/click_handler/proc/resolve_world_target(a)
-
+/datum/click_handler/proc/resolve_world_target(a,location, control, params)
 	if (istype(a, /obj/screen/click_catcher))
 		var/obj/screen/click_catcher/CC = a
 		return CC.resolve(owner.mob)
@@ -87,8 +86,8 @@
 
 /datum/click_handler/fullauto
 	var/atom/target
+	var/list/targetparams
 	var/obj/item/gun/reciever //The thing we send firing signals to.
-	//Todo: Make this work with callbacks
 
 /datum/click_handler/fullauto/Click()
 	return TRUE //Doesn't work with normal clicks
@@ -98,26 +97,30 @@
 	target = null
 
 /datum/click_handler/fullauto/proc/do_fire()
-	if(owner.mob.in_throw_mode)
-		reciever.throw_at(target, reciever.throw_range, reciever.throw_speed, owner.mob, null, null, null, owner.mob.move_force)
-		return
-	reciever.afterattack(target, owner.mob, FALSE)
+	reciever.afterattack(target, owner.mob, TRUE, targetparams)
 
 /datum/click_handler/fullauto/MouseDown(object, location, control, params)
+	if(owner.mob.in_throw_mode)
+		var/obj/item/gun/projectile/automatic/fullauto/signal = reciever
+		reciever.throw_at(target, reciever.throw_range, reciever.throw_speed, owner.mob, null, null, null, owner.mob.move_force)
+		stop_firing()
+		signal.modeupdate(owner.mob,FALSE)
+		return FALSE
 	if(!isturf(owner.mob.loc)) // This stops from firing full auto weapons inside closets or in /obj/effect/dummy/chameleon chameleon projector
 		return FALSE
 
-	object = resolve_world_target(object)
+	object = resolve_world_target(object, location, control, params)
 	if(object)
 		target = object
+		targetparams = params
 		while(target)
 			owner.mob.face_atom(target)
-			do_fire()
+			do_fire(params)
 			sleep(reciever.fire_delay)
 	return TRUE
 
 /datum/click_handler/fullauto/MouseDrag(over_object, src_location, over_location, src_control, over_control, params)
-	src_location = resolve_world_target(src_location)
+	src_location = resolve_world_target(src_location, src_location, src_control, params)
 	if(src_location)
 		target = src_location
 		return FALSE
@@ -137,6 +140,7 @@
 	if (src.client.CH)
 		qdel(src.client.CH)
 
-/obj/screen/click_catcher/proc/resolve(mob/user)
-	var/turf/T = screen_loc2turf(screen_loc, get_turf(user))
+/obj/screen/click_catcher/proc/resolve(mob/user, location, control, params)
+	var/list/modifiers = params2list(params)
+	var/turf/T = params2turf(modifiers["screen-loc"], get_turf(usr))
 	return T
