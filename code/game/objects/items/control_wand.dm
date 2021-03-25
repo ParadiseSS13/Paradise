@@ -32,18 +32,18 @@
 	switch(mode)
 		if(WAND_OPEN)
 			mode = WAND_BOLT
-			desc = "Remotely controls airlocks. Current mode: toggle bolts"
 		if(WAND_BOLT)
 			mode = WAND_EMERGENCY
-			desc = "Remotely controls airlocks. Current mode: toggle emergancy access"
 		if(WAND_EMERGENCY)
 			mode = WAND_SPEED
-			desc = "Remotely controls airlocks. Current mode: change door speed"
 		if(WAND_SPEED)
 			mode = WAND_OPEN
-			desc = "Remotely controls airlocks. Current mode: open doors"
 
 	to_chat(user, "<span class='notice'>Now in mode: [mode].</span>")
+
+/obj/item/door_remote/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It's current mode is: [mode]</span>"
 
 /obj/item/door_remote/afterattack(obj/machinery/door/airlock/D, mob/user)
 	if(!istype(D))
