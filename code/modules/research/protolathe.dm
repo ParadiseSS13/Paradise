@@ -72,9 +72,9 @@ Note: Must be placed west/left of and R&D console to function.
 	var/A = materials.amount(M)
 	if(!A)
 		A = reagents.get_reagent_amount(M)
-		A = A / max(1, (being_built.reagents_list[M]))
+		A = A / max(1, (being_built.reagents_list[M] * efficiency_coeff))
 	else
-		A = A / max(1, (being_built.materials[M]))
+		A = A / max(1, (being_built.materials[M] * efficiency_coeff))
 	return A
 
 /obj/machinery/r_n_d/protolathe/attackby(obj/item/O as obj, mob/user as mob, params)
