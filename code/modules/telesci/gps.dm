@@ -96,7 +96,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	for(var/g in GLOB.GPS_list)
 		var/obj/item/gps/G = g
 		var/turf/GT = get_turf(G)
-		if(!GT)			//si la turf no exsite no se muestra el gps
+		if(!GT)			//si la turf no existe no se muestra el gps
 			continue 	//hispania estuvo acá
 		if(!G.tracking || G == src)
 			continue
