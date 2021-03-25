@@ -978,9 +978,9 @@
 				if("Vulpkanin")
 					emotelist += "\n<u>Vulpkanin specific emotes</u> :- wag(s), swag(s), growl(s)-none/mob, howl(s)-none/mob"
 				if("Plasmaman")
-					emotelist += "\n<u>Plasmaman specific emotes</u> :- rattle(s)"
+					emotelist += "\n<u>Plasmaman specific emotes</u> :- rattle(s)-none/mob"
 				if("Skeleton")
-					emotelist += "\n<u>Skeleton specific emotes</u> :- rattle(s)"
+					emotelist += "\n<u>Skeleton specific emotes</u> :- rattle(s)-none/mob"
 
 			if(ismachineperson(src))
 				emotelist += "\n<u>Machine specific emotes</u> :- beep(s)-none/mob, buzz(es)-none/mob, no-none/mob, ping(s)-none/mob, yes-none/mob, buzz2-none/mob"
