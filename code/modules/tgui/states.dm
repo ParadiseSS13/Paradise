@@ -72,7 +72,7 @@
 
 /mob/living/silicon/robot/shared_ui_interaction(src_object)
 	if(!cell || cell.charge <= 0 || lockcharge) // Disable UIs if the Borg is unpowered or locked.
-		return STATUS_DISABLED
+		return STATUS_CLOSE
 	return ..()
 
 /**
