@@ -100,7 +100,8 @@ GLOBAL_LIST_EMPTY(GPS_list)
 			continue
 		if((G.local || same_z) && (GT.z != T.z))
 			continue
-
+		if(!GT)
+			continue
 		var/list/signal = list("tag" = G.gpstag, "area" = null, "position" = null)
 		if(!G.emped)
 			signal["area"] = get_area_name(G, TRUE)
