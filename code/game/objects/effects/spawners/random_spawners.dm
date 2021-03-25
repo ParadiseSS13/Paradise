@@ -276,8 +276,8 @@
 	name = "armory loot"
 	spawn_inside = /obj/structure/closet/secure_closet/syndicate/depot/armory
 	// Loot schema: high-power weapons (m90, esword, ebow, revolver), devices that negate depot challenges (thermal glasses, chameleon device), explosives
-	result = list(/obj/item/gun/projectile/automatic/c20r = 1,
-		/obj/item/gun/projectile/automatic/m90 = 1,
+	result = list(/obj/item/gun/projectile/automatic/fullauto/twomode/c20r = 1,
+		/obj/item/gun/projectile/automatic/fullauto/twomode/m90 = 1,
 		/obj/item/gun/projectile/automatic/sniper_rifle/syndicate = 1,
 		/obj/item/melee/energy/sword/saber = 1,
 		/obj/item/gun/energy/kinetic_accelerator/crossbow = 1,

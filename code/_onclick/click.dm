@@ -42,8 +42,8 @@
 
 	Note that this proc can be overridden, and is in the case of screen objects.
 */
-/atom/Click(location,control,params)
-	usr.ClickOn(src, params)
+//atom/Click(location,control,params)
+//	usr.ClickOn(src, params)
 /atom/DblClick(location,control,params)
 	usr.DblClickOn(src,params)
 

@@ -1,7 +1,7 @@
 /obj/item/ammo_casing
 	name = "bullet casing"
 	desc = "A bullet casing."
-	icon = 'icons/obj/ammo.dmi'
+	icon = 'icons/hispania/obj/ammo.dmi'
 	icon_state = "s-casing"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
@@ -93,7 +93,7 @@
 	name = "ammo box (generic)"
 	desc = "A box of ammo?"
 	icon_state = "357"
-	icon = 'icons/obj/ammo.dmi'
+	icon = 'icons/hispania/obj/ammo.dmi'
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	item_state = "syringe_kit"
