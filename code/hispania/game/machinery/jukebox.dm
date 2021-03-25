@@ -52,7 +52,7 @@
 	song_path = null
 	song_length = 0
 	song_beat = 0
-	var/song_icon = null
+	var/song_icon
 	GBP_required = 0
 
 /datum/track/New(path, length, beat, icon, name)
