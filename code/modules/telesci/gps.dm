@@ -96,11 +96,12 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	for(var/g in GLOB.GPS_list)
 		var/obj/item/gps/G = g
 		var/turf/GT = get_turf(G)
+		if(!GT)			//si la turf no existe no se muestra el gps
+			continue 	//hispania estuvo acá
 		if(!G.tracking || G == src)
 			continue
 		if((G.local || same_z) && (GT.z != T.z))
 			continue
-
 		var/list/signal = list("tag" = G.gpstag, "area" = null, "position" = null)
 		if(!G.emped)
 			signal["area"] = get_area_name(G, TRUE)

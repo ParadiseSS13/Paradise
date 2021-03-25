@@ -189,7 +189,13 @@
 			if(item_in_hand:wielded == 1)
 				to_chat(usr, "<span class='warning'>Your other hand is too busy holding the [item_in_hand.name]</span>")
 				return
+		item_in_hand.swapped(src)
+
 	src.hand = !( src.hand )
+	var/obj/item/item_swappedto_hand = src.get_active_hand()
+	if(item_swappedto_hand)
+		item_swappedto_hand.swappedto(src)
+
 	if(hud_used && hud_used.inv_slots[slot_l_hand] && hud_used.inv_slots[slot_r_hand])
 		var/obj/screen/inventory/hand/H
 		H = hud_used.inv_slots[slot_l_hand]
