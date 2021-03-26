@@ -1,4 +1,4 @@
-/obj/item/gun/projectile/automatic/l6_saw
+/obj/item/gun/projectile/automatic/fullauto/l6_saw
 	name = "\improper L6 SAW"
 	desc = "A heavily modified 5.56 light machine gun, designated 'L6 SAW'. Has 'Aussec Armoury - 2531' engraved on the receiver below the designation."
 	icon_state = "l6closed100"
@@ -13,27 +13,25 @@
 	magout_sound = 'sound/weapons/gun_interactions/lmg_magout.ogg'
 	var/cover_open = 0
 	can_suppress = 0
-	burst_size = 3
-	fire_delay = 1
 
-/obj/item/gun/projectile/automatic/l6_saw/attack_self(mob/user)
+/obj/item/gun/projectile/automatic/fullauto/l6_saw/attack_self(mob/user)
 	cover_open = !cover_open
 	to_chat(user, "<span class='notice'>You [cover_open ? "open" : "close"] [src]'s cover.</span>")
 	playsound(src, cover_open ? 'sound/weapons/gun_interactions/sawopen.ogg' : 'sound/weapons/gun_interactions/sawclose.ogg', 50, 1)
 	update_icon()
 
-/obj/item/gun/projectile/automatic/l6_saw/update_icon()
-	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(0)/12.5, 1)*25 : "-empty"][suppressed ? "-suppressed" : ""]"
+/obj/item/gun/projectile/automatic/fullauto/l6_saw/update_icon()
+	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(0)/25, 1)*25 : "-empty"]"
 	item_state = "l6[cover_open ? "openmag" : "closedmag"]"
 
-/obj/item/gun/projectile/automatic/l6_saw/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params) //what I tried to do here is just add a check to see if the cover is open or not and add an icon_state change because I can't figure out how c-20rs do it with overlays
+/obj/item/gun/projectile/automatic/fullauto/l6_saw/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params) //what I tried to do here is just add a check to see if the cover is open or not and add an icon_state change because I can't figure out how c-20rs do it with overlays
 	if(cover_open)
 		to_chat(user, "<span class='notice'>[src]'s cover is open! Close it before firing!</span>")
 	else
 		..()
 		update_icon()
 
-/obj/item/gun/projectile/automatic/l6_saw/attack_hand(mob/user)
+/obj/item/gun/projectile/automatic/fullauto/l6_saw/attack_hand(mob/user)
 	if(loc != user)
 		..()
 		return	//let them pick it up
@@ -50,7 +48,7 @@
 		to_chat(user, "<span class='notice'>You remove the magazine from [src].</span>")
 
 
-/obj/item/gun/projectile/automatic/l6_saw/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/projectile/automatic/fullauto/l6_saw/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_box/magazine))
 		var/obj/item/ammo_box/magazine/AM = A
 		if(istype(AM, mag_type))
@@ -109,7 +107,7 @@
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/mm556x45
 	caliber = "mm55645"
-	max_ammo = 50
+	max_ammo = 100
 
 /obj/item/ammo_box/magazine/mm556x45/bleeding
 	name = "box magazine (Bleeding 5.56x45mm)"
@@ -133,7 +131,7 @@
 
 /obj/item/ammo_box/magazine/mm556x45/update_icon()
 	..()
-	icon_state = "a762-[round(ammo_count(),10)]"
+	icon_state = "a762-[round(ammo_count()/25,1)*25]"
 
 //casings//
 

@@ -239,8 +239,8 @@
 	name = "3. donksoft gear"
 	loot = list(
 				// Donksoft guns
-				/obj/item/gun/projectile/automatic/c20r/toy = 50,
-				/obj/item/gun/projectile/automatic/l6_saw/toy = 50,
+				/obj/item/gun/projectile/automatic/fullauto/twomode/c20r/toy = 50,
+				/obj/item/gun/projectile/automatic/fullauto/l6_saw/toy = 50,
 				/obj/item/gun/projectile/automatic/toy/pistol = 100,
 				/obj/item/gun/projectile/automatic/toy/pistol/enforcer = 50,
 				/obj/item/gun/projectile/shotgun/toy = 50,

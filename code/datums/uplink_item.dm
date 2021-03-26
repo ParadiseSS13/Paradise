@@ -466,7 +466,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "C-20r Submachine Gun"
 	reference = "SMG"
 	desc = "A fully-loaded Scarborough Arms bullpup submachine gun that fires .45 rounds with a 20-round magazine and is compatible with suppressors."
-	item = /obj/item/gun/projectile/automatic/c20r
+	item = /obj/item/gun/projectile/automatic/fullauto/twomode/c20r
 	cost = 14
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 40
@@ -475,7 +475,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "M-90gl Carbine"
 	desc = "A fully-loaded three-round burst carbine that uses 30-round 5.56mm magazines with a togglable underslung 40mm grenade launcher."
 	reference = "AR"
-	item = /obj/item/gun/projectile/automatic/m90
+	item = /obj/item/gun/projectile/automatic/fullauto/twomode/m90
 	cost = 18
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 50
@@ -484,7 +484,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "L6 Squad Automatic Weapon"
 	desc = "A fully-loaded Aussec Armory belt-fed machine gun. This deadly weapon has a massive 50-round magazine of devastating 7.62x51mm ammunition."
 	reference = "LMG"
-	item = /obj/item/gun/projectile/automatic/l6_saw
+	item = /obj/item/gun/projectile/automatic/fullauto/l6_saw
 	cost = 40
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
@@ -628,7 +628,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Toy Submachine Gun"
 	desc = "A fully-loaded Donksoft bullpup submachine gun that fires riot grade rounds with a 20-round magazine."
 	reference = "FSMG"
-	item = /obj/item/gun/projectile/automatic/c20r/toy
+	item = /obj/item/gun/projectile/automatic/fullauto/twomode/c20r/toy
 	cost = 5
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
@@ -637,7 +637,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Toy Machine Gun"
 	desc = "A fully-loaded Donksoft belt-fed machine gun. This weapon has a massive 50-round magazine of devastating riot grade darts, that can briefly incapacitate someone in just one volley."
 	reference = "FLMG"
-	item = /obj/item/gun/projectile/automatic/l6_saw/toy
+	item = /obj/item/gun/projectile/automatic/fullauto/l6_saw/toy
 	cost = 10
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
@@ -770,10 +770,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/ammo/machinegun
 	name = "L6 SAW - 5.56x45mm Box Magazine"
-	desc = "A 50-round magazine of 5.56x45mm ammunition for use in the L6 SAW machine gun. By the time you need to use this, you'll already be on a pile of corpses."
+	desc = "A 100-round magazine of 5.56x45mm ammunition for use in the L6 SAW machine gun. By the time you need to use this, you'll already be on a pile of corpses."
 	reference = "762"
 	item = /obj/item/ammo_box/magazine/mm556x45
-	cost = 12
+	cost = 18
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
