@@ -670,6 +670,42 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Waste Disposal"
 	icon_state = "disposal"
 
+/area/maintenance/disposal/southwest
+	name = "South Western Disposals"
+	
+/area/maintenance/disposal/south
+	name = "Southern Disposals"
+	
+/area/maintenance/disposal/east
+	name = "Eastern Disposals"
+	
+/area/maintenance/disposal/northeast
+	name = "North Eastern Disposals"
+	
+/area/maintenance/disposal/north
+	name = "Northern Disposals"
+	
+/area/maintenance/disposal/northwest
+	name = "North Western Disposals"
+	
+/area/maintenance/disposal/west
+	name = "Western Disposals"
+	
+/area/maintenance/disposal/westalt
+	name = "Western Secondary Disposals"
+	
+/area/maintenance/disposal/external/southwest
+	name = "South-Western External Waste Belt"
+	
+/area/maintenance/disposal/external/southeast
+	name = "South-Eastern External Waste Belt"
+	
+/area/maintenance/disposal/external/east
+	name="Eastern External Waste Belt"
+	
+/area/maintenance/disposal/external/north
+	name = "Northern External Waste Belt"
+
 /area/maintenance/genetics
 	name = "Genetics Maintenance"
 	icon_state = "asmaint"
@@ -743,6 +779,36 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/hallway/primary/central/ne
 /area/hallway/primary/central/sw
 /area/hallway/primary/central/se
+/area/hallway/spacebridge
+	sound_environment = SOUND_AREA_LARGE_ENCLOSED
+	icon_state = "hall_space"
+
+/area/hallway/spacebridge/dockmed
+	name = "Docking-Medical Bridge"
+
+/area/hallway/spacebridge/scidock
+	name = "Science-Docking Bridge"
+
+/area/hallway/spacebridge/servsci
+	name = "Service-Science Bridge"
+	
+/area/hallway/spacebridge/serveng
+	name = "Service-Engineering Bridge"
+
+/area/hallway/spacebridge/engmed
+	name = "Engineering-Medical Bridge"
+
+/area/hallway/spacebridge/medcargo
+	name = "Medical-Cargo Bridge"
+
+/area/hallway/spacebridge/cargocom
+	name = "Cargo-AI-Command Bridge"
+
+/area/hallway/spacebridge/sercom
+	name = "Command-Service Bridge"
+
+/area/hallway/spacebridge/comeng
+	name = "Command-Engineering Bridge"
 
 /area/hallway/secondary/exit
 	name = "\improper Escape Shuttle Hallway"
@@ -1216,6 +1282,18 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Teleporter"
 	icon_state = "teleporter"
 	ambientsounds = ENGINEERING_SOUNDS
+	
+/area/teleporter/quantum/security
+	name = "Security Quantum Pad"
+
+/area/teleporter/quantum/docking
+	name = "Docking Quantum Pad"	
+
+/area/teleporter/quantum/science
+	name = "Science Quantum Pad"
+
+/area/teleporter/quantum/cargo
+	name = "Cargo Quantum Pad"
 
 /area/gateway
 	name = "\improper Gateway"
