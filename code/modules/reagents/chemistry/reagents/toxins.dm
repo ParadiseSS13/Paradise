@@ -1248,3 +1248,38 @@
 
 /datum/reagent/gluttonytoxin/reaction_mob(mob/living/L, method=REAGENT_TOUCH, reac_volume)
 	L.ForceContractDisease(new /datum/disease/transformation/morph())
+
+/datum/reagent/bungotoxin
+	name = "Bungotoxin"
+	id = "bungotoxin"
+	description = "A horrible cardiotoxin that protects the humble bungo pit."
+	reagent_state = LIQUID
+	color = "#EBFF8E"
+	metabolization_rate = 0.5
+	taste_description = "tannin"
+
+/datum/reagent/bungotoxin/on_mob_life(mob/living/carbon/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(current_cycle >= 20)
+		if(prob(25))
+			M.Dizzy(10)
+			to_chat(M, "<span class='danger'>You feel your heart spasm in your chest.</span>")
+	if(current_cycle >= 30)
+		if(prob(25))
+			M.Confused(10)
+			to_chat(M, "<span class='danger'>You feel you need to catch your breath.</span>")
+	if(current_cycle >= 40)
+		if(prob(10))
+			to_chat(M, "<span class='danger'>You feel horribly weak.</span>")
+			update_flags |= M.Stun(2, FALSE)
+	if(current_cycle == 50)
+		to_chat(M, "<span class='danger'>Your chest is burning with pain!</span>")
+		update_flags |= M.adjustOxyLoss(10, FALSE)
+		M.AdjustLoseBreath(1)
+		update_flags |= M.Stun(3, FALSE)
+		update_flags |= M.Weaken(2, FALSE)
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			if(!H.undergoing_cardiac_arrest())
+				H.set_heartattack(TRUE) // rip in pepperoni
+	return ..() | update_flags

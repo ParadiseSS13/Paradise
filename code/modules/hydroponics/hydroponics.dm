@@ -341,10 +341,15 @@
 		overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "over_harvest3")
 
 
-/obj/machinery/hydroponics/examine(user)
+/obj/machinery/hydroponics/examine(mob/living/carbon/human/H)
 	. = ..()
 	if(myseed)
 		. += "<span class='info'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
+		if (H.glasses && istype(H.glasses, /obj/item/clothing/glasses/hud/hydroponic))
+			. += myseed.get_analyzer_text()
+			. += "<span class='info'>Weed: [weedlevel] / 10</span>"
+			. += "<span class='info'>Pest: [pestlevel] / 10</span>"
+			. += "<span class='info'>Toxicity: [toxic] / 100</span>"
 		if (dead)
 			. += "<span class='warning'>It's dead!</span>"
 		else if (harvest)
@@ -355,8 +360,8 @@
 		. += "<span class='info'>[src] is empty.</span>"
 
 	if(!self_sustaining)
-		. += "<span class='info'>Water: [waterlevel]/[maxwater]</span>"
-		. += "<span class='info'>Nutrient: [nutrilevel]/[maxnutri]</span>"
+		. += "<span class='info'>Water: [waterlevel] / [maxwater]</span>"
+		. += "<span class='info'>Nutrient: [nutrilevel] / [maxnutri]</span>"
 		if(self_sufficiency_progress > 0)
 			var/percent_progress = round(self_sufficiency_progress * 100 / self_sufficiency_req)
 			. += "<span class='info'>Treatment for self-sustenance are [percent_progress]% complete.</span>"
@@ -366,7 +371,7 @@
 	if(weedlevel >= 5)
 		. += "<span class='warning'>[src] is filled with weeds!</span>"
 	if(pestlevel >= 5)
-		. += "<span class='warning'>[src] is filled with tiny worms!</span>"
+		. += "<span class='warning'>[src] is filled with tiny worms!</span>"  	
 	. += "" // Empty line for readability.
 
 
@@ -503,7 +508,7 @@
 				hardmutate()
 			if(41 to 65)
 				mutate()
-			if(21 to 41)
+			if(21 to 40)
 				to_chat(user, "<span class='notice'>The plants don't seem to react...</span>")
 			if(11 to 20)
 				mutateweed()

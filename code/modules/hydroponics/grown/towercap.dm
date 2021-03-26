@@ -23,6 +23,7 @@
 	icon_state = "mycelium-steelcap"
 	species = "steelcap"
 	plantname = "Steel Caps"
+	reagents_add = list("iron" = 0.05)
 	product = /obj/item/grown/log/steel
 	mutatelist = list()
 	rarity = 20
@@ -98,6 +99,49 @@
 
 /obj/item/grown/log/steel/CheckAccepted(obj/item/I)
 	return FALSE
+
+obj/item/seeds/bamboo
+	name = "pack of bamboo seeds"
+	desc = "Plant known for their flexible and resistant logs."
+	icon_state = "seed-bamboo"
+	species = "bamboo"
+	plantname = "Bamboo"
+	product = /obj/item/grown/log/bamboo
+	lifespan = 80
+	endurance = 70
+	maturation = 15
+	production = 2
+	yield = 5
+	potency = 50
+	growthstages = 2
+	growing_icon = 'icons/obj/hydroponics/growing.dmi'
+	icon_dead = "bamboo-dead"
+	genes = list(/datum/plant_gene/trait/repeated_harvest)
+
+/obj/item/grown/log/bamboo
+	seed = /obj/item/seeds/bamboo
+	name = "bamboo log"
+	desc = "A long and resistant bamboo log."
+	icon_state = "bamboo"
+	plank_type = /obj/item/stack/sheet/bamboo
+	plank_name = "bamboo sticks"
+
+/obj/item/grown/log/bamboo/CheckAccepted(obj/item/I)
+	return FALSE
+
+/obj/structure/punji_sticks
+	name = "punji sticks"
+	desc = "Don't step on this."
+	icon = 'icons/obj/hydroponics/equipment.dmi'
+	icon_state = "punji"
+	resistance_flags = FLAMMABLE
+	max_integrity = 30
+	density = FALSE
+	anchored = TRUE
+
+/obj/structure/punji_sticks/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/caltrop, 20, 30, 100, CALTROP_BYPASS_SHOES)
 
 /////////BONFIRES//////////
 

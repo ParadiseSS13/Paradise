@@ -30,19 +30,22 @@
 /obj/item/seeds/aloe
 	name = "pack of aloe seeds"
 	desc = "These seeds grow into aloe vera plant."
-	icon_state = "seed-ambrosiavulgaris"
-	species = "ambrosiavulgaris"
+	icon_state = "seed-aloe"
+	species = "aloe"
 	plantname = "Aloe Vera Plant"
 	product = /obj/item/reagent_containers/food/snacks/grown/aloe
 	yield = 2
-	icon_dead = "ambrosia-dead"
+	growthstages = 5
+	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
+	icon_grow = "aloe-grow"
+	icon_dead = "aloe-dead"
 	reagents_add = list("silver_sulfadiazine" = 0.1)
 
 /obj/item/reagent_containers/food/snacks/grown/aloe
 	seed = /obj/item/seeds/aloe
 	name = "aloe leaf"
 	desc = "Mash to turn into a poultice."
-	icon_state = "ambrosiavulgaris"
+	icon_state = "aloe"
 	color = "#4CC5C7"
 	tastes = list("aloe" = 1)
 	bitesize_mod = 2

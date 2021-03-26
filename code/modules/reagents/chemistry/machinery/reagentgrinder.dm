@@ -68,6 +68,7 @@
 			/obj/item/reagent_containers/food/snacks/grown/potato = list("potato" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/citrus/lemon = list("lemonjuice" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/citrus/orange = list("orangejuice" = 0),
+			/obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d = list("orangejuice" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/citrus/lime = list("limejuice" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/watermelon = list("watermelonjuice" = 0),
 			/obj/item/reagent_containers/food/snacks/watermelonslice = list("watermelonjuice" = 0),

@@ -95,3 +95,18 @@
 	force = 2 //Also very weak because it's smaller
 	suppressed = 1 //Softer fire sound
 	can_unsuppress = 0 //Permanently silenced
+
+/obj/item/gun/syringe/blowgun
+	name = "blowgun"
+	desc = "Fire syringes at a short distance."
+	icon_state = "blowgun"
+	item_state = "blowgun"
+	fire_sound = 'sound/items/blowgunproj.ogg'
+
+/obj/item/gun/syringe/blowgun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+	visible_message("<span class='danger'>[user] starts aiming with a blowgun!</span>")
+	if(do_after(user, 15, target = src))
+		user.adjustStaminaLoss(20)
+		user.adjustOxyLoss(20)
+		..()
+		

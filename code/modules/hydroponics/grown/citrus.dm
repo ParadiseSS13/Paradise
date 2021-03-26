@@ -48,7 +48,7 @@
 	icon_grow = "lime-grow"
 	icon_dead = "lime-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	mutatelist = list(/obj/item/seeds/lime)
+	mutatelist = list(/obj/item/seeds/lime, /obj/item/seeds/orange_3d)
 	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange
@@ -160,3 +160,38 @@
 			update_mob()
 			explosion(loc,-1,-1,2, flame_range = 5)
 			qdel(src)
+
+//3D Orange
+/obj/item/seeds/orange_3d
+	name = "pack of extradimensional orange seeds"
+	desc = "Polygonal seeds."
+	icon_state = "seed-orange"
+	species = "orange"
+	plantname = "Extradimensional Orange Tree"
+	product = /obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d
+	lifespan = 60
+	endurance = 50
+	yield = 5
+	potency = 20
+	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
+	icon_grow = "lime-grow"
+	icon_dead = "lime-dead"
+	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	reagents_add = list("vitamin" = 0.04, "nutriment" = 0.05, "formaldehyde" = 0.15)
+
+/obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d
+	seed = /obj/item/seeds/orange_3d
+	name = "extradimensional orange"
+	desc = "You can hardly wrap your head around this thing."
+	icon_state = "orang"
+	filling_color = "#FFA500"
+	distill_reagent = "lsd"
+	tastes = list("polygons" = 1, "oranges" = 1)
+
+/obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/pickup(mob/user)
+	. = ..()
+	icon_state = "orange"
+
+/obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/dropped(mob/user)
+	. = ..()
+	icon_state = "orang"
