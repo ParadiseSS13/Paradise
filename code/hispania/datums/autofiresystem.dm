@@ -96,8 +96,11 @@
 /datum/click_handler/fullauto/proc/stop_firing()
 	target = null
 
-/datum/click_handler/fullauto/proc/do_fire()
-	reciever.afterattack(target, owner.mob, TRUE, targetparams)
+/datum/click_handler/fullauto/proc/do_fire(params)
+	if(owner.mob.a_intent == INTENT_HARM)
+		reciever.afterattack(target, owner.mob, TRUE, params)
+	else
+		reciever.afterattack(target, owner.mob, TRUE, targetparams)
 
 /datum/click_handler/fullauto/MouseDown(object, location, control, params)
 	if(owner.mob.in_throw_mode)
@@ -123,6 +126,7 @@
 	src_location = resolve_world_target(src_location, src_location, src_control, params)
 	if(src_location)
 		target = src_location
+		targetparams = params
 		return FALSE
 	return TRUE
 
