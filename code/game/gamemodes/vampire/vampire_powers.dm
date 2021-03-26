@@ -9,6 +9,7 @@
 	action_background_icon_state = "bg_vampire"
 	var/required_blood = 0
 	var/gain_desc = null
+	holy_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 
 /obj/effect/proc_holder/spell/vampire/New()
 	..()
@@ -38,10 +39,6 @@
 		return 0
 	if(vampire.bloodusable < required_blood)
 		to_chat(user, "<span class='warning'>You require at least [required_blood] units of usable blood to do that!</span>")
-		return 0
-	//chapel check
-	if(istype(loc.loc, /area/chapel) && !fullpower)
-		to_chat(user, "<span class='warning'>Your powers are useless on this holy ground.</span>")
 		return 0
 	return ..()
 

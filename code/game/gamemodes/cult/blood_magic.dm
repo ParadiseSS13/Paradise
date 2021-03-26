@@ -123,6 +123,8 @@
 	return ..()
 
 /datum/action/innate/cult/blood_spell/Activate()
+	if(owner.holy_check())
+		return
 	if(magic_path) // If this spell flows from the hand
 		if(!hand_magic) // If you don't already have the spell active
 			hand_magic = new magic_path(owner, src)
@@ -387,9 +389,13 @@
 	..()
 
 /obj/item/melee/blood_magic/attack_self(mob/living/user)
+	if(user.holy_check())
+		return
 	afterattack(user, user, TRUE)
 
 /obj/item/melee/blood_magic/attack(mob/living/M, mob/living/carbon/user)
+	if(user.holy_check())
+		return
 	if(!iscarbon(user) || !iscultist(user))
 		uses = 0
 		qdel(src)
@@ -703,6 +709,8 @@
 
 // This should really be split into multiple procs
 /obj/item/melee/blood_magic/manipulator/afterattack(atom/target, mob/living/carbon/human/user, proximity)
+	if(user.holy_check())
+		return
 	if(proximity)
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
@@ -843,6 +851,8 @@
 			uses += max(1, temp)
 
 /obj/item/melee/blood_magic/manipulator/attack_self(mob/living/user)
+	if(user.holy_check())
+		return
 	var/list/options = list("Blood Orb (50)", "Blood Recharge (75)", "Blood Spear (150)", "Blood Bolt Barrage (300)")
 	var/choice = input(user, "Choose a greater blood rite...", "Greater Blood Rites") as null|anything in options
 	switch(choice)

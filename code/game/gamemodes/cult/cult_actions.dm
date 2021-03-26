@@ -27,6 +27,10 @@
 /datum/action/innate/cult/comm/proc/cultist_commune(mob/living/user, message)
 	if(!user || !message)
 		return
+
+	if(user.holy_check())
+		return
+
 	if(!user.can_speak())
 		to_chat(user, "<span class='warning'>You can't speak!</span>")
 		return
