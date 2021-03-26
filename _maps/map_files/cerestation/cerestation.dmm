@@ -1952,10 +1952,7 @@
 /turf/simulated/wall,
 /area/maintenance/disposal)
 "ajL" = (
-/obj/machinery/conveyor{
-	dir = 5;
-	id = "CargoWaste"
-	},
+/obj/machinery/conveyor/southwest/ccw,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "ajM" = (
@@ -2200,10 +2197,7 @@
 	name = "Cargo Asteroid"
 	})
 "aky" = (
-/obj/machinery/conveyor{
-	dir = 9;
-	id = "CargoWaste"
-	},
+/obj/machinery/conveyor/southeast/ccw,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "akz" = (
@@ -38016,9 +38010,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/conveyor/auto{
-	dir = 10
-	},
+/obj/machinery/conveyor/northeast/ccw,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/external/east)
 "bXJ" = (
@@ -50696,9 +50688,7 @@
 /area/maintenance/disposal/external/southwest)
 "cDN" = (
 /obj/machinery/light/small,
-/obj/machinery/conveyor/auto{
-	dir = 9
-	},
+/obj/machinery/conveyor/southeast/ccw,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/external/southwest)
 "cDO" = (
@@ -68703,9 +68693,7 @@
 /area/maintenance/auxsolarstarboard)
 "hrM" = (
 /obj/effect/decal/cleanable/cobweb,
-/obj/machinery/conveyor/auto{
-	dir = 6
-	},
+/obj/machinery/conveyor/northwest/ccw,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/external/north)
 "hth" = (
@@ -70583,9 +70571,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "kix" = (
-/obj/machinery/conveyor/auto{
-	dir = 6
-	},
+/obj/machinery/conveyor/northwest/ccw,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/northeast)
 "kju" = (
@@ -70684,9 +70670,7 @@
 	},
 /area/medical/medbay)
 "kpb" = (
-/obj/machinery/conveyor/auto{
-	dir = 10
-	},
+/obj/machinery/conveyor/northeast/ccw,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/external/east)
 "kpm" = (
@@ -70949,9 +70933,7 @@
 /area/gateway)
 "kIH" = (
 /obj/effect/decal/cleanable/cobweb,
-/obj/machinery/conveyor/auto{
-	dir = 6
-	},
+/obj/machinery/conveyor/northwest/ccw,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/northeast)
 "kKq" = (
@@ -71890,9 +71872,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/conveyor/auto{
-	dir = 5
-	},
+/obj/machinery/conveyor/southwest/ccw,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/westalt)
 "lZG" = (
@@ -73106,9 +73086,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/east)
 "nDE" = (
-/obj/machinery/conveyor/auto{
-	dir = 9
-	},
+/obj/machinery/conveyor/southeast/ccw,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/external/southwest)
 "nFd" = (
@@ -73423,9 +73401,7 @@
 	},
 /area/engine/mechanic_workshop)
 "ohb" = (
-/obj/machinery/conveyor/auto{
-	dir = 10
-	},
+/obj/machinery/conveyor/northeast/ccw,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/external/southeast)
 "ohk" = (
@@ -77972,9 +77948,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/southwest)
 "uXC" = (
-/obj/machinery/conveyor/auto{
-	dir = 5
-	},
+/obj/machinery/conveyor/southwest/ccw,
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 2;
