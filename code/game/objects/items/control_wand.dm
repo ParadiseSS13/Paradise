@@ -8,7 +8,7 @@
 	item_state = "electronic"
 	icon = 'icons/obj/device.dmi'
 	name = "control wand"
-	desc = "Remotely controls airlocks. Current mode: open doors"
+	desc = "Remotely controls airlocks."
 	w_class = WEIGHT_CLASS_TINY
 	flags = NOBLUDGEON
 	var/mode = WAND_OPEN
