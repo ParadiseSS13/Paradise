@@ -7179,16 +7179,15 @@
 /turf/simulated/floor/plating,
 /area/quartermaster/miningdock)
 "aCy" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 2;
-	height = 5;
-	id = "laborcamp_home";
-	name = "fore bay 1";
-	width = 9
+/obj/structure/cable/orange{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
-/turf/space,
-/area/space)
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/execution)
 "aCz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -60670,9 +60669,9 @@
 /area/security/execution)
 "dkW" = (
 /obj/structure/cable/orange{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -60793,6 +60792,9 @@
 	dir = 4
 	},
 /obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -60969,15 +60971,28 @@
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "dma" = (
-/obj/machinery/door/airlock/external{
-	name = "Labor Camp Shuttle Airlock";
-	req_access_txt = "2"
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating,
-/area/security/prisonershuttle)
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/execution)
 "dmb" = (
-/turf/simulated/floor/plating,
-/area/security/prisonershuttle)
+/obj/machinery/power/apc{
+	dir = 4;
+	pixel_x = 24
+	},
+/obj/structure/cable/orange{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/execution)
 "dmd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -61347,12 +61362,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/camera{
-	c_tag = "Brig Labor Shuttle Dock main";
-	dir = 4;
-	network = list("SS13","Security")
-	},
-/obj/structure/chair,
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
 "dnz" = (
@@ -61419,7 +61428,8 @@
 /area/maintenance/disposal/east)
 "dnO" = (
 /obj/machinery/door/airlock/external{
-	name = "Labor Camp Shuttle Airlock"
+	name = "Labor Camp Shuttle Airlock";
+	req_access_txt = "2"
 	},
 /turf/simulated/floor/plating,
 /area/security/prisonershuttle)
@@ -61462,11 +61472,11 @@
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "doa" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
@@ -68439,6 +68449,13 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/port)
+"gGT" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/security/prisonershuttle)
 "gHa" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/simulated/floor/plating,
@@ -69586,6 +69603,20 @@
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
+"isa" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "Brig Labor Shuttle Dock main";
+	dir = 4;
+	network = list("SS13","Security")
+	},
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/security/prisonershuttle)
 "itD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -70903,6 +70934,12 @@
 "kjO" = (
 /turf/simulated/wall,
 /area/engine/mechanic_workshop)
+"kkt" = (
+/obj/machinery/door/airlock/external{
+	name = "Labor Camp Shuttle Airlock"
+	},
+/turf/simulated/floor/plating,
+/area/security/prisonershuttle)
 "klh" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -72268,6 +72305,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/medical/virology)
+"mfa" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 2;
+	height = 5;
+	id = "laborcamp_home";
+	name = "fore bay 1";
+	width = 9
+	},
+/turf/space,
+/area/space)
 "mfA" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -73424,15 +73472,8 @@
 /turf/simulated/floor/plating,
 /area/hallway/spacebridge/dockmed)
 "nCB" = (
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/execution)
+/turf/simulated/floor/plating,
+/area/security/prisonershuttle)
 "nCY" = (
 /obj/machinery/camera{
 	c_tag = "Research Toxins Test Chamber North";
@@ -74508,14 +74549,6 @@
 	},
 /obj/structure/curtain/black,
 /obj/structure/bed,
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 24
-	},
-/obj/structure/cable/orange{
-	d2 = 8;
-	icon_state = "0-8"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -80485,6 +80518,13 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/east)
+"xVB" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/security/prisonershuttle)
 "xWl" = (
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel,
@@ -91818,8 +91858,8 @@ rNK
 rNK
 rNK
 rNK
+mfa
 rNK
-aCy
 rNK
 cSB
 cSB
@@ -92070,14 +92110,14 @@ rNK
 rNK
 rNK
 rNK
-rNK
-awG
-dma
-awG
-rNK
 awG
 dnO
 awG
+rNK
+awG
+kkt
+awG
+rNK
 cSB
 cSB
 cSB
@@ -92327,14 +92367,14 @@ rNK
 rNK
 rNK
 rNK
+awG
+nCB
+awG
 rNK
 awG
-dmb
+nCB
 awG
 rNK
-awG
-dmb
-awG
 rNK
 rNK
 aOk
@@ -92584,14 +92624,14 @@ rNK
 rNK
 eRW
 eRW
-eRW
-awG
-dma
-awG
-eRW
 awG
 dnO
 awG
+eRW
+awG
+kkt
+awG
+eRW
 eRW
 eRW
 bcG
@@ -92847,7 +92887,7 @@ awD
 dmy
 awG
 dnu
-awD
+isa
 doa
 dol
 eRW
@@ -93101,9 +93141,9 @@ dlg
 dlt
 dlH
 dlH
-dlH
+xVB
 dmW
-dlH
+gGT
 dlH
 aja
 eRW
@@ -97718,7 +97758,7 @@ abW
 agl
 rHn
 ipO
-dkX
+aCy
 dkW
 adC
 adV
@@ -97975,8 +98015,8 @@ abW
 agl
 fHh
 eEv
+dma
 dkX
-nCB
 agl
 agl
 alm
@@ -98232,7 +98272,7 @@ abW
 agl
 gNT
 kXH
-dkX
+dmb
 pqU
 agl
 agk
