@@ -1464,6 +1464,9 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	if(!is_type_in_typecache(loc.loc, GLOB.holy_areas))
 		return FALSE
 
+	if(!mind)
+		return FALSE
+
 	//Allows fullpower vampires to bypass holy areas
 	var/datum/vampire/vampire = mind.vampire
 	if(vampire && vampire.get_ability(/datum/vampire_passive/full))

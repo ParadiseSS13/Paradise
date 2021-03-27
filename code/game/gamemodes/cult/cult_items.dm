@@ -520,6 +520,10 @@
 
 /obj/item/shield/mirror/IsReflect()
 	if(prob(reflect_chance))
+		if(istype(loc, /mob))
+			var/mob/user = loc
+			if(user.holy_check())
+				return FALSE
 		return TRUE
 	return FALSE
 
