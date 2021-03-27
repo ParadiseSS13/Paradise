@@ -105,7 +105,7 @@
 
 /datum/antagonist/traitor/proc/forge_human_objectives()
 	var/martyr_chance = prob(20)
-	var/objective_count = 0 			//Hijacking counts towards number of objectives
+	var/objective_count = 0
 	if(!SSticker.mode.exchange_blue && SSticker.mode.traitors.len >= 8) 	//Set up an exchange if there are enough traitors
 		if(!SSticker.mode.exchange_red)
 			SSticker.mode.exchange_red = owner
