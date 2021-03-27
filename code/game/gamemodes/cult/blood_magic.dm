@@ -464,9 +464,15 @@
 	var/list/potential_runes = list()
 	var/list/teleportnames = list()
 	var/list/duplicaterunecount = list()
+	var/atom/movable/teleportee
 	if(!iscultist(target) || !proximity)
 		to_chat(user, "<span class='warning'>You can only teleport adjacent cultists with this spell!</span>")
 		return
+	if(user != target) // So that the teleport effect shows on the correct mob
+		teleportee = target
+	else
+		teleportee = user
+
 	for(var/R in GLOB.teleport_runes)
 		var/obj/effect/rune/teleport/T = R
 		var/resultkey = T.listkey
@@ -487,16 +493,15 @@
 		log_game("Teleport spell failed - user in away mission")
 		return
 
-	var/mob/living/L = target
 	var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
 	if(QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune)
 		return
 	uses--
 
-	var/turf/origin = get_turf(user)
+	var/turf/origin = get_turf(teleportee)
 	var/turf/destination = get_turf(actual_selected_rune)
-	INVOKE_ASYNC(actual_selected_rune, /obj/effect/rune/.proc/teleport_effect, user, origin, destination)
+	INVOKE_ASYNC(actual_selected_rune, /obj/effect/rune/.proc/teleport_effect, teleportee, origin, destination)
 
 	if(is_mining_level(user.z) && !is_mining_level(destination.z)) //No effect if you stay on lavaland
 		actual_selected_rune.handle_portal("lava")
@@ -510,7 +515,7 @@
 		target.visible_message("<span class='warning'>Dust flows from [user]'s hand, and [target] disappears in a flash of red light!</span>", \
 		"<span class='cultitalic'>You suddenly find yourself somewhere else!</span>")
 	destination.visible_message("<span class='warning'>There is a boom of outrushing air as something appears above the rune!</span>", null, "<i>You hear a boom.</i>")
-	L.forceMove(destination)
+	teleportee.forceMove(destination)
 	return ..()
 
 //Shackles
