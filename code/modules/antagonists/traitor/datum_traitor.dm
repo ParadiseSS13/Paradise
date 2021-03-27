@@ -104,9 +104,8 @@
 
 
 /datum/antagonist/traitor/proc/forge_human_objectives()
-	var/is_hijacker = prob(10)
 	var/martyr_chance = prob(20)
-	var/objective_count = is_hijacker 			//Hijacking counts towards number of objectives
+	var/objective_count = 0 			//Hijacking counts towards number of objectives
 	if(!SSticker.mode.exchange_blue && SSticker.mode.traitors.len >= 8) 	//Set up an exchange if there are enough traitors
 		if(!SSticker.mode.exchange_red)
 			SSticker.mode.exchange_red = owner
@@ -118,13 +117,6 @@
 
 
 	var/objective_amount = config.traitor_objectives_amount
-
-	if(is_hijacker && objective_count <= objective_amount) //Don't assign hijack if it would exceed the number of objectives set in config.traitor_objectives_amount
-		if (!(locate(/datum/objective/hijack) in objectives))
-			var/datum/objective/hijack/hijack_objective = new
-			hijack_objective.owner = owner
-			add_objective(hijack_objective)
-			return
 
 	for(var/i = objective_count, i < objective_amount)
 		i += forge_single_objective()
