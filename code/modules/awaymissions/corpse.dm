@@ -94,7 +94,7 @@
 	var/joinedasobserver = FALSE
 	if(isobserver(user))
 		var/mob/dead/observer/G = user
-		if(G.started_as_observer == TRUE)
+		if(G.started_as_observer)
 			joinedasobserver = TRUE
 
 	var/deathtimeminutes = round(deathtime / 600)
@@ -107,7 +107,7 @@
 		pluralcheck = " [deathtimeminutes] minutes and"
 	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10, 1)
 
-	if(deathtime < (death_cooldown MINUTES) && joinedasobserver == 0)
+	if(deathtime < (death_cooldown MINUTES) && !joinedasobserver)
 		to_chat(user, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
 		to_chat(user, "<span class='warning'>You must wait [death_cooldown] minutes to respawn!</span>")
 		return TRUE
