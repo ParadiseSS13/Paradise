@@ -48331,7 +48331,6 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/grille,
 /obj/structure/window/full/reinforced/tinted,
 /turf/simulated/floor/plating,
@@ -61992,7 +61991,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "dez" = (
@@ -67925,6 +67923,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing)
+"dIA" = (
+/obj/machinery/camera{
+	c_tag = "Xenobiology Module Chamber 2";
+	dir = 1;
+	network = list("Research","SS13")
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology)
 "dIT" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -70151,6 +70157,14 @@
 	tag = "icon-whitegreen (WEST)"
 	},
 /area/maintenance/asmaint)
+"fzU" = (
+/obj/machinery/camera{
+	c_tag = "Xenobiology Module Chamber 4";
+	dir = 1;
+	network = list("Research","SS13")
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology)
 "fzV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -70419,19 +70433,6 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
-"fJr" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/genetics)
 "fJz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -72435,6 +72436,7 @@
 "hep" = (
 /obj/structure/bed/roller,
 /obj/item/organ/internal/kidneys/vox,
+/obj/item/storage/box/survival_vox,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "hfg" = (
@@ -73936,9 +73938,6 @@
 /area/toxins/robolab)
 "ikT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/visible/universal{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellowcorner"
@@ -74637,9 +74636,10 @@
 	},
 /area/toxins/mixing)
 "iNM" = (
-/obj/machinery/atmospherics/unary/tank/air,
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /obj/effect/turf_decal/bot_white,
+/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plating,
 /area/maintenance/genetics)
 "iOw" = (
@@ -75724,13 +75724,12 @@
 	icon_state = "2-8";
 	tag = ""
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4;
-	initialize_directions = 11
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10;
 	initialize_directions = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/genetics)
@@ -75812,16 +75811,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
-"jGa" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/visible/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellowcorner"
-	},
-/area/maintenance/genetics)
 "jGl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -75911,6 +75900,13 @@
 	icon_state = "dark"
 	},
 /area/hallway/secondary/exit)
+"jJU" = (
+/obj/machinery/camera{
+	c_tag = "Xenobiology Module Chamber 6";
+	network = list("Research","SS13")
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology)
 "jKn" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -76558,6 +76554,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/obj/structure/chair/stool,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -78375,11 +78372,7 @@
 	},
 /area/maintenance/asmaint)
 "lvj" = (
-/obj/structure/table,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/clothing/glasses/welding,
-/obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -79676,7 +79669,7 @@
 	name = "Hardened Bomb-Test Security Camera";
 	network = list("Toxins","Research","SS13")
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/indestructible,
 /area/toxins/test_area)
 "mmC" = (
 /obj/structure/cable{
@@ -79693,6 +79686,13 @@
 	icon_state = "blue"
 	},
 /area/hallway/primary/central/se)
+"mmE" = (
+/obj/machinery/camera{
+	c_tag = "Xenobiology Module Chamber 5";
+	network = list("Research","SS13")
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology)
 "mmZ" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
@@ -79807,10 +79807,6 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "msM" = (
-/obj/machinery/atmospherics/binary/valve{
-	dir = 4;
-	name = "Supply to Maintenance"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellowcorner"
@@ -81445,9 +81441,6 @@
 "nGv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/stool,
-/obj/machinery/atmospherics/pipe/simple/visible/supply{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellowcorner"
@@ -82540,9 +82533,6 @@
 /turf/simulated/floor/engine,
 /area/escapepodbay)
 "oqT" = (
-/obj/structure/table,
-/obj/machinery/recharger,
-/obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
@@ -83932,8 +83922,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "pjO" = (
-/obj/machinery/atmospherics/unary/tank/air,
 /obj/effect/turf_decal/bot_white,
+/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plating,
 /area/maintenance/genetics)
 "pjS" = (
@@ -84430,9 +84421,10 @@
 	},
 /area/toxins/hallway)
 "pzv" = (
-/obj/machinery/atmospherics/unary/tank/air,
 /obj/effect/turf_decal/bot_white,
 /obj/effect/decal/cleanable/cobweb2,
+/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plating,
 /area/maintenance/genetics)
 "pzB" = (
@@ -87527,6 +87519,9 @@
 	},
 /area/medical/cryo)
 "rRX" = (
+/obj/structure/table,
+/obj/machinery/recharger,
+/obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -88811,12 +88806,6 @@
 	tag = "icon-whitebluecorner"
 	},
 /area/medical/medbay2)
-"sRI" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/genetics)
 "sSb" = (
 /obj/effect/landmark/start{
 	name = "Paramedic"
@@ -89138,9 +89127,6 @@
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics Maintenance";
 	req_access_txt = "12;24"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/supply{
-	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/genetics)
@@ -91456,17 +91442,6 @@
 	icon_state = "darkblue"
 	},
 /area/medical/surgerylobby)
-"uCn" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plating,
-/area/maintenance/genetics)
 "uCO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -91641,7 +91616,9 @@
 /area/medical/cmostore)
 "uLd" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/manifold/visible/cyan,
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 9
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellowcorner"
@@ -92951,7 +92928,7 @@
 /obj/effect/landmark/burnturf,
 /obj/effect/decal/cleanable/blood/xeno,
 /obj/machinery/light/small,
-/obj/item/storage/box/survival_vox,
+/obj/machinery/cooker/deepfryer,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -93125,6 +93102,8 @@
 /obj/machinery/light,
 /obj/structure/table,
 /obj/item/storage/belt/utility,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/clothing/glasses/welding,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -93218,6 +93197,14 @@
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"vWE" = (
+/obj/machinery/camera{
+	c_tag = "Xenobiology Module Chamber 3";
+	dir = 1;
+	network = list("Research","SS13")
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology)
 "vYo" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6";
@@ -94465,6 +94452,13 @@
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint2)
+"wYW" = (
+/obj/machinery/camera{
+	c_tag = "Xenobiology Module Chamber 7";
+	network = list("Research","SS13")
+	},
+/turf/simulated/floor/engine,
+/area/toxins/xenobiology)
 "wYZ" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken7";
@@ -96106,9 +96100,10 @@
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
 "yey" = (
-/obj/machinery/atmospherics/unary/tank/air,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot_white,
+/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plating,
 /area/maintenance/genetics)
 "yeB" = (
@@ -138620,7 +138615,7 @@ pjO
 xkt
 mmZ
 dLF
-jGa
+ikT
 vgU
 ciY
 ciY
@@ -139391,7 +139386,7 @@ xvH
 sDf
 sDf
 jRT
-sRI
+bQX
 hrl
 ciY
 ciY
@@ -139415,7 +139410,7 @@ qFW
 mEq
 sld
 tvj
-sld
+fzU
 cBP
 ckS
 dfM
@@ -139648,7 +139643,7 @@ bQX
 rsS
 eTH
 bQX
-sRI
+bQX
 bQX
 nWx
 bQX
@@ -139660,7 +139655,7 @@ qrw
 rsS
 bQX
 cep
-sld
+mmE
 wil
 sld
 vTa
@@ -139905,11 +139900,11 @@ gaD
 gaD
 rVm
 gaD
-fJr
-uCn
+gaD
+gaD
 cmv
-uCn
-uCn
+gaD
+gaD
 jCV
 vEd
 vEd
@@ -140443,7 +140438,7 @@ qFW
 ige
 sld
 tvj
-sld
+vWE
 cBP
 ckS
 qUc
@@ -140688,7 +140683,7 @@ lvM
 xwz
 yjH
 cep
-sld
+jJU
 wil
 sld
 mjt
@@ -141471,7 +141466,7 @@ qFW
 vzR
 sld
 tvj
-sld
+dIA
 cBP
 tLD
 dfM
@@ -141716,7 +141711,7 @@ xjK
 fVM
 bXW
 cep
-sld
+wYW
 wil
 sld
 tYH
