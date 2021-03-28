@@ -219,8 +219,9 @@
 	if(!operating && density && !emagged)
 		emagged = TRUE
 		operating = TRUE
+		electronics = new /obj/item/airlock_electronics/destroyed()
 		flick("[base_state]spark", src)
-		playsound(src, "sparks", 75, 1)
+		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		sleep(6)
 		operating = FALSE
 		open(2)
@@ -278,11 +279,6 @@
 				WA.ini_dir = dir
 				WA.update_icon()
 				WA.created_name = name
-
-				if(emagged)
-					to_chat(user, "<span class='warning'>You discard the damaged electronics.</span>")
-					qdel(src)
-					return
 
 				to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 

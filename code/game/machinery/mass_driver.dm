@@ -34,7 +34,7 @@
 
 	return ..()
 
-/obj/machinery/mass_driver/multitool_menu(var/mob/user, var/obj/item/multitool/P)
+/obj/machinery/mass_driver/multitool_menu(mob/user, obj/item/multitool/P)
 	return {"
 	<ul>
 	<li>[format_tag("ID Tag","id_tag","set_id")]</li>
@@ -98,7 +98,7 @@
 	anchored = 0
 	var/build = 0
 
-/obj/machinery/mass_driver_frame/attackby(var/obj/item/W as obj, var/mob/user as mob)
+/obj/machinery/mass_driver_frame/attackby(obj/item/W as obj, mob/user as mob)
 	switch(build)
 		if(0) // Loose frame
 			if(istype(W, /obj/item/wrench))
