@@ -147,7 +147,7 @@
 	item_state = "scientist_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/rd
-	name = "research director plasma envirosuit helmet"
+	name = "research director's plasma envirosuit helmet"
 	desc = "A plasmaman envirohelmet designed for the research director."
 	icon_state = "rd_envirohelm"
 	item_state = "rd_envirohelm"
@@ -229,39 +229,39 @@
 	item_state = "janitor_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/mime
-	name = "mime envirosuit helmet"
+	name = "mime's envirosuit helmet"
 	desc = "The makeup is painted on, it's a miracle it doesn't chip. It's not very colourful."
 	icon_state = "mime_envirohelm"
 	item_state = "mime_envirohelm"
 	visor_icon = "mime_envisor"
 
 /obj/item/clothing/head/helmet/space/plasmaman/clown
-	name = "clown envirosuit helmet"
+	name = "clown's envirosuit helmet"
 	desc = "The makeup is painted on, it's a miracle it doesn't chip. <i>'HONK!'</i>"
 	icon_state = "clown_envirohelm"
 	item_state = "clown_envirohelm"
 	visor_icon = "clown_envisor"
 
 /obj/item/clothing/head/helmet/space/plasmaman/hop
-	name = "head of personnel envirosuit helmet"
+	name = "head of personnel's envirosuit helmet"
 	desc = "A plasmaman envirohelm that reeks of bureaucracy."
 	icon_state = "hop_envirohelm"
 	item_state = "hop_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/captain
-	name = "captain envirosuit helmet"
+	name = "captain's envirosuit helmet"
 	desc = "A plasmaman envirohelm designed with the insignia and markings befitting a captain."
 	icon_state = "cap_envirohelm"
 	item_state = "cap_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/blueshield
-	name = "blueshield envirosuit helmet"
+	name = "blueshield's envirosuit helmet"
 	desc = "A plasmaman envirohelm designed for the blueshield."
 	icon_state = "bs_envirohelm"
 	item_state = "bs_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/wizard
-	name = "wizard plasma envirosuit helmet"
+	name = "wizard's plasma envirosuit helmet"
 	desc = "A magical plasmaman containment helmet designed to spread chaos in safety and comfort."
 	icon_state = "wizard_envirohelm"
 	item_state = "wizard_envirohelm"
@@ -272,7 +272,7 @@
 	magical = TRUE
 
 /obj/item/clothing/head/helmet/space/plasmaman/assistant
-	name = "assistant envirosuit helmet"
+	name = "assistant's envirosuit helmet"
 	desc = "A plasmaman envirohelm designed for the common, maint-dwelling masses."
 	icon_state = "assistant_envirohelm"
 	item_state = "assistant_envirohelm"
