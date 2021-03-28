@@ -1478,7 +1478,7 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 		return FALSE
 
 	//Execption for Holy Constructs
-	if(istype(src, /mob/living/simple_animal/hostile/construct) && !iscultist(src))
+	if(isconstruct(src) && !iscultist(src))
 		return FALSE
 
 	to_chat(src, "<span class='warning'>Your powers are useless on this holy ground.</span>")
