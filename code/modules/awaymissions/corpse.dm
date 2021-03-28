@@ -33,7 +33,7 @@
 	var/banType = ROLE_GHOST
 	var/ghost_usable = TRUE
 	var/offstation_role = TRUE // If set to true, the role of the user's mind will be set to offstation
-	var/death_cooldown = 0 // How long you have to wait after dying before using it again, in minutes. People that join as observers are not included.
+	var/death_cooldown = 0 // How long you have to wait after dying before using it again, in deciseconds. People that join as observers are not included.
 
 /obj/effect/mob_spawn/attack_ghost(mob/user)
 	var/mob/dead/observer/O = user
@@ -107,9 +107,9 @@
 		pluralcheck = " [deathtimeminutes] minutes and"
 	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10, 1)
 
-	if(deathtime < (death_cooldown MINUTES) && !joinedasobserver)
+	if(deathtime < (death_cooldown) && !joinedasobserver)
 		to_chat(user, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
-		to_chat(user, "<span class='warning'>You must wait [death_cooldown] minutes to respawn!</span>")
+		to_chat(user, "<span class='warning'>You must wait [death_cooldown / 600] minutes to respawn!</span>")
 		return TRUE
 	return FALSE
 
