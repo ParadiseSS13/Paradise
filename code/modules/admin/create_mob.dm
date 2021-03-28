@@ -1,5 +1,5 @@
 GLOBAL_VAR(create_mob_html)
-/datum/admins/proc/create_mob(var/mob/user)
+/datum/admins/proc/create_mob(mob/user)
 	if(!GLOB.create_mob_html)
 		var/mobjs = null
 		mobjs = jointext(typesof(/mob), ";")

@@ -1,6 +1,6 @@
 // At minimum every mob has a hear_say proc.
 
-/mob/proc/combine_message(var/list/message_pieces, var/verb, var/mob/speaker, always_stars = FALSE)
+/mob/proc/combine_message(list/message_pieces, verb, mob/speaker, always_stars = FALSE)
 	var/iteration_count = 0
 	var/msg = "" // This is to make sure that the pieces have actually added something
 	for(var/datum/multilingual_say_piece/SP in message_pieces)

@@ -10,7 +10,7 @@
 	1 - halfblock
 	2 - fullblock
 */
-/mob/living/proc/run_armor_check(var/def_zone = null, var/attack_flag = "melee", var/absorb_text = null, var/soften_text = null, armour_penetration, penetrated_text)
+/mob/living/proc/run_armor_check(def_zone = null, attack_flag = "melee", absorb_text = null, soften_text = null, armour_penetration, penetrated_text)
 	var/armor = getarmor(def_zone, attack_flag)
 
 	//the if "armor" check is because this is used for everything on /living, including humans
@@ -34,7 +34,7 @@
 	return armor
 
 //if null is passed for def_zone, then this should return something appropriate for all zones (e.g. area effect damage)
-/mob/living/proc/getarmor(var/def_zone, var/type)
+/mob/living/proc/getarmor(def_zone, type)
 	return 0
 
 /mob/living/proc/is_mouth_covered(head_only = FALSE, mask_only = FALSE)
@@ -43,7 +43,7 @@
 /mob/living/proc/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)
 	return FALSE
 
-/mob/living/bullet_act(var/obj/item/projectile/P, var/def_zone)
+/mob/living/bullet_act(obj/item/projectile/P, def_zone)
 	//Armor
 	var/armor = run_armor_check(def_zone, P.flag, armour_penetration = P.armour_penetration)
 	if(!P.nodamage)
@@ -239,10 +239,10 @@
 	adjust_fire_stacks(-(volume * 0.2))
 
 //This is called when the mob is thrown into a dense turf
-/mob/living/proc/turf_collision(var/turf/T, var/speed)
+/mob/living/proc/turf_collision(turf/T, speed)
 	src.take_organ_damage(speed*5)
 
-/mob/living/proc/near_wall(var/direction,var/distance=1)
+/mob/living/proc/near_wall(direction, distance=1)
 	var/turf/T = get_step(get_turf(src),direction)
 	var/turf/last_turf = src.loc
 	var/i = 1

@@ -242,7 +242,7 @@
 			report_delivery = !report_delivery
 	update_controls()
 
-/mob/living/simple_animal/bot/mulebot/proc/toggle_lock(var/mob/user)
+/mob/living/simple_animal/bot/mulebot/proc/toggle_lock(mob/user)
 	if(bot_core.allowed(user))
 		locked = !locked
 		update_controls()
@@ -771,7 +771,7 @@
 	return 1
 
 // send a radio signal with multiple data key/values
-/mob/living/simple_animal/bot/mulebot/post_signal_multiple(var/freq, var/list/keyval)
+/mob/living/simple_animal/bot/mulebot/post_signal_multiple(freq, list/keyval)
 	if(wires.is_cut(WIRE_REMOTE_TX))
 		return
 

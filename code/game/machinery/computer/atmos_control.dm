@@ -28,7 +28,7 @@
 /obj/machinery/air_sensor/update_icon()
 	icon_state = "gsensor[on]"
 
-/obj/machinery/air_sensor/multitool_menu(var/mob/user, var/obj/item/multitool/P)
+/obj/machinery/air_sensor/multitool_menu(mob/user, obj/item/multitool/P)
 	return {"
 	<b>Main</b>
 	<ul>
@@ -43,7 +43,7 @@
 		<li>Monitor Carbon Dioxide Concentration: <a href="?src=[UID()];toggle_out_flag=32">[output&32 ? "Yes" : "No"]</a>
 	</ul>"}
 
-/obj/machinery/air_sensor/multitool_topic(var/mob/user, var/list/href_list, var/obj/O)
+/obj/machinery/air_sensor/multitool_topic(mob/user, list/href_list, obj/O)
 	. = ..()
 	if(.)
 		return .
@@ -62,7 +62,7 @@
 		visible_message("<span class='notice'>You hear a quiet click as [src][bolts ? " bolts to the floor" : "'s bolts raise"].</span>", "<span class='notice>You hear a quiet click.</span>")
 		return TRUE
 
-/obj/machinery/air_sensor/attackby(var/obj/item/W as obj, var/mob/user as mob)
+/obj/machinery/air_sensor/attackby(obj/item/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/multitool))
 		update_multitool_menu(user)
 		return 1

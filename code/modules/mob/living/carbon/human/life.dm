@@ -70,7 +70,7 @@
 		if(A.fast_despawn)
 			force_cryo_human(src)
 
-/mob/living/carbon/human/calculate_affecting_pressure(var/pressure)
+/mob/living/carbon/human/calculate_affecting_pressure(pressure)
 	..()
 	var/pressure_difference = abs( pressure - ONE_ATMOSPHERE )
 

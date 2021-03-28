@@ -163,12 +163,10 @@ Thus, the two variables affect pump operation are set in New():
 		investigate_log("was turned [on ? "on" : "off"] by a remote signal", "atmos")
 
 	if(signal.data["status"])
-		spawn(2)
-			broadcast_status()
+		broadcast_status()
 		return //do not update_icon
 
-	spawn(2)
-		broadcast_status()
+	broadcast_status()
 	update_icon()
 
 /obj/machinery/atmospherics/binary/volume_pump/attack_hand(mob/user)

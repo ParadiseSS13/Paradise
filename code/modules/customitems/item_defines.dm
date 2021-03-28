@@ -944,7 +944,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	suit_adjusted = 0
 
-/obj/item/clothing/suit/storage/fluff/k3_webbing/adjustsuit(var/mob/user)
+/obj/item/clothing/suit/storage/fluff/k3_webbing/adjustsuit(mob/user)
 	if(!user.incapacitated())
 		var/flavour
 		if(suit_adjusted)

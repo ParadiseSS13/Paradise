@@ -57,7 +57,7 @@
 	explosion(src.loc,1,2,4,flame_range = 2) //Identical to a minibomb
 	qdel(src)
 
-/obj/item/pizza_bomb/attackby(var/obj/item/I, var/mob/user, params)
+/obj/item/pizza_bomb/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/wirecutters) && primed)
 		to_chat(user, "<span class='danger'>Oh God, what wire do you cut?!</span>")
 		var/chosen_wire = input(user, "OH GOD OH GOD", "WHAT WIRE?!") in wires

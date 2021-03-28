@@ -136,7 +136,7 @@
 	spawn(300)
 		recovery_cooldown = 0
 
-/mob/living/simple_animal/hostile/mushroom/proc/LevelUp(var/level_gain)
+/mob/living/simple_animal/hostile/mushroom/proc/LevelUp(level_gain)
 	if(powerlevel <= 9)
 		powerlevel += level_gain
 		if(prob(25))

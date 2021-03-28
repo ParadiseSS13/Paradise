@@ -86,7 +86,7 @@
 	if(delay)
 		lastused = world.time
 
-/obj/item/rpd/proc/can_dispense_pipe(var/pipe_id, var/pipe_type) //Returns TRUE if this is a legit pipe we can dispense, otherwise returns FALSE
+/obj/item/rpd/proc/can_dispense_pipe(pipe_id, pipe_type) //Returns TRUE if this is a legit pipe we can dispense, otherwise returns FALSE
 	for(var/list/L in GLOB.rpd_pipe_list)
 		if(pipe_type != L["pipe_type"]) //Sometimes pipes in different categories have the same pipe_id, so we need to skip anything not in the category we want
 			continue
