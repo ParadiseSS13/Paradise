@@ -6,7 +6,7 @@
 		qdel(W)
 	return null
 
-/mob/living/carbon/human/proc/is_in_hands(var/typepath)
+/mob/living/carbon/human/proc/is_in_hands(typepath)
 	if(istype(l_hand,typepath))
 		return l_hand
 	if(istype(r_hand,typepath))

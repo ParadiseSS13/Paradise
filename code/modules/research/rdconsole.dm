@@ -186,7 +186,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	griefProtection()
 */
 
-/obj/machinery/computer/rdconsole/attackby(var/obj/item/D as obj, var/mob/user as mob, params)
+/obj/machinery/computer/rdconsole/attackby(obj/item/D as obj, mob/user as mob, params)
 
 	//Loading a disk into it.
 	if(istype(D, /obj/item/disk))

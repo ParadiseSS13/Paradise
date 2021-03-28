@@ -1,6 +1,6 @@
 #define EMPOWERED_THRALL_LIMIT 5
 
-/obj/effect/proc_holder/spell/proc/shadowling_check(var/mob/living/carbon/human/H)
+/obj/effect/proc_holder/spell/proc/shadowling_check(mob/living/carbon/human/H)
 	if(!H || !istype(H))
 		return
 	if(H.incorporeal_move == 1)

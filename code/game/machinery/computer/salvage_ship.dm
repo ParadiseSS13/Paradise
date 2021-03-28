@@ -106,5 +106,5 @@
 	updateUsrDialog()
 	return
 
-/obj/machinery/computer/salvage_ship/bullet_act(var/obj/item/projectile/Proj)
+/obj/machinery/computer/salvage_ship/bullet_act(obj/item/projectile/Proj)
 	visible_message("[Proj] ricochets off [src]!")
