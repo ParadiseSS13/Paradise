@@ -23939,10 +23939,10 @@
 	dir = 8
 	},
 /turf/simulated/wall/mineral/titanium,
-/area/maintenance/asmaint)
+/area/shuttle/pod_3)
 "bpX" = (
 /turf/simulated/wall/mineral/titanium,
-/area/maintenance/asmaint)
+/area/shuttle/pod_3)
 "bqa" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -24600,13 +24600,13 @@
 	name = "Escape Pod Hatch"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint)
+/area/shuttle/pod_3)
 "brp" = (
 /obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium/blue,
-/area/maintenance/asmaint)
+/area/shuttle/pod_3)
 "brq" = (
 /obj/structure/chair{
 	dir = 4
@@ -24624,11 +24624,11 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/mineral/titanium/blue,
-/area/maintenance/asmaint)
+/area/shuttle/pod_3)
 "brr" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint)
+/area/shuttle/pod_3)
 "brs" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/cyan,
 /turf/simulated/floor/plating,
@@ -50823,13 +50823,12 @@
 /area/maintenance/disposal/external/east)
 "cEl" = (
 /obj/docking_port/stationary{
-	dheight = 9;
 	dir = 2;
-	dwidth = 5;
-	height = 24;
-	id = "syndicate_s";
-	name = "south of station";
-	width = 18
+	dwidth = 2;
+	height = 18;
+	id = "skipjack_ne";
+	name = "northeast of SS13";
+	width = 19
 	},
 /turf/space,
 /area/space)
@@ -52869,6 +52868,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/central)
+"cJt" = (
+/obj/item/radio/intercom{
+	pixel_y = 25
+	},
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/pod_1)
 "cJu" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -60488,10 +60496,8 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/fore)
 "dkr" = (
-/obj/structure/closet/crate,
-/obj/item/pickaxe,
-/turf/simulated/floor/plating/asteroid,
-/area/maintenance/port)
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/pod_4)
 "dks" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 32
@@ -66754,10 +66760,21 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/south)
+"dSv" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/disposal/north)
 "dTd" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/teleporter/quantum/science)
+"dTC" = (
+/obj/structure/closet/emcloset,
+/obj/machinery/light/small,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "dTI" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -66935,6 +66952,16 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/auxsolarport)
+"ejk" = (
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_x = 28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/pod_4)
 "ejF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -66949,6 +66976,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"ekA" = (
+/obj/structure/sign/pods,
+/turf/simulated/wall,
+/area/maintenance/disposal/north)
 "ekG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -67677,6 +67708,18 @@
 "ful" = (
 /turf/simulated/wall/r_wall,
 /area/turret_protected/ai_upload)
+"fup" = (
+/obj/docking_port/stationary{
+	dheight = 9;
+	dir = 2;
+	dwidth = 5;
+	height = 24;
+	id = "syndicate_s";
+	name = "south of station";
+	width = 18
+	},
+/turf/space,
+/area/space)
 "fuS" = (
 /obj/structure/chair{
 	dir = 8
@@ -67709,16 +67752,9 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/central)
 "fxV" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 3;
-	height = 5;
-	id = "sit_arrivals";
-	name = "North Disposals";
-	width = 11
-	},
-/turf/space,
-/area/space)
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/pod_4)
 "fzc" = (
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel,
@@ -68475,6 +68511,10 @@
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
 	})
+"gIG" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/pod_1)
 "gIL" = (
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/carpet,
@@ -68631,6 +68671,10 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
+"gPS" = (
+/obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/pod_4)
 "gQP" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating/asteroid,
@@ -68947,6 +68991,17 @@
 	icon_state = "grimy"
 	},
 /area/security/detectives_office)
+"hpc" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Escape Pod Airlock"
+	},
+/obj/docking_port/mobile/pod{
+	dir = 8;
+	id = "pod1";
+	name = "escape pod 1"
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/pod_1)
 "hpd" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -69230,6 +69285,17 @@
 	icon_state = "darkblue"
 	},
 /area/bridge)
+"hKH" = (
+/obj/machinery/door/airlock/titanium{
+	id_tag = "s_docking_airlock";
+	name = "Escape Pod Hatch"
+	},
+/obj/docking_port/mobile/pod{
+	id = "pod4";
+	name = "escape pod 4"
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/pod_4)
 "hKY" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -70744,6 +70810,9 @@
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/fpmaint2)
+"jWj" = (
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/pod_1)
 "jWo" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -71133,6 +71202,14 @@
 	icon_state = "bar"
 	},
 /area/crew_quarters/theatre)
+"kAy" = (
+/obj/docking_port/stationary/whiteship{
+	dir = 8;
+	id = "whiteship_cyberiad";
+	name = "North of Cyberiad"
+	},
+/turf/space,
+/area/space)
 "kBa" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Central Asteroid Maintenance";
@@ -71277,6 +71354,12 @@
 	icon_state = "dark"
 	},
 /area/gateway)
+"kIm" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 4
+	},
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/pod_1)
 "kIH" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/machinery/conveyor/northwest/ccw,
@@ -71420,6 +71503,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"kVU" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 7;
+	height = 5;
+	id = "sst_home";
+	name = "Near Engineering and Medical";
+	width = 11
+	},
+/turf/space,
+/area/space)
 "kVX" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -73341,6 +73435,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"nsZ" = (
+/obj/machinery/door/airlock/external{
+	name = "Escape Pod"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/disposal/north)
 "nta" = (
 /turf/simulated/wall,
 /area/hallway/spacebridge/scidock)
@@ -73800,6 +73900,16 @@
 	},
 /turf/simulated/wall,
 /area/maintenance/disposal/external/southwest)
+"oeY" = (
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/item/pickaxe,
+/obj/structure/closet/crate,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "ofc" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
@@ -73910,6 +74020,12 @@
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel,
 /area/security/brig)
+"onH" = (
+/obj/machinery/camera{
+	c_tag = "Civilian Escape Pod"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "opo" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating,
@@ -74308,6 +74424,17 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
+"oYA" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 3;
+	height = 5;
+	id = "sit_arrivals";
+	name = "North Disposals";
+	width = 11
+	},
+/turf/space,
+/area/space)
 "oYD" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -77377,7 +77504,6 @@
 	icon_state = "pipe-c"
 	},
 /obj/effect/decal/cleanable/cobweb,
-/obj/structure/table,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/north)
 "twx" = (
@@ -77756,6 +77882,19 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/fpmaint2)
+"tXb" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_y = 32
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/pod_1)
 "tXO" = (
 /obj/machinery/power/apc{
 	dir = 4;
@@ -77987,6 +78126,14 @@
 /obj/machinery/smartfridge/drying_rack,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
+"uoe" = (
+/obj/structure/closet/emcloset,
+/obj/machinery/camera{
+	c_tag = "North Maint Escape Pod";
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/disposal/north)
 "upd" = (
 /obj/machinery/light{
 	dir = 4
@@ -78533,6 +78680,12 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/fore)
+"vcj" = (
+/obj/machinery/door/airlock/external{
+	name = "Emergency Shuttle Airlock"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "vcx" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -79623,16 +79776,18 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "wAQ" = (
-/obj/docking_port/stationary{
-	dir = 4;
-	dwidth = 7;
-	height = 5;
-	id = "sst_home";
-	name = "Near Arrivals";
-	width = 11
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_x = 32
 	},
-/turf/space,
-/area/space)
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/pod_4)
 "wBv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -80657,6 +80812,9 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/gambling_den)
+"ybZ" = (
+/turf/simulated/floor/plating,
+/area/maintenance/disposal/north)
 "ycO" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -88615,9 +88773,9 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
+jWj
+gIG
+jWj
 rNK
 bhO
 bhO
@@ -88871,10 +89029,10 @@ rNK
 bhO
 bhO
 bhO
-rNK
 bhO
-bhO
-bhO
+jWj
+tXb
+jWj
 bhO
 bhO
 aXn
@@ -89128,10 +89286,10 @@ bhO
 bhO
 aXn
 aXn
-rNK
-aXn
-aXn
-aXn
+bhO
+jWj
+cJt
+jWj
 aXn
 aXn
 aXn
@@ -89386,9 +89544,9 @@ aXn
 aXn
 aXn
 aXn
-aXn
-aXn
-aXn
+kIm
+hpc
+kIm
 aXn
 aXr
 aXr
@@ -89642,11 +89800,11 @@ aXn
 aXr
 aXn
 aXn
-aXn
-aXn
-aXn
-aXn
-aXr
+pXy
+pXy
+vcj
+pXy
+pXy
 aXr
 aXr
 aXr
@@ -89899,11 +90057,11 @@ aXr
 aXr
 aXr
 aXr
-aXr
-aXr
-aXr
-aXr
-aXr
+pXy
+onH
+uGb
+dTC
+pXy
 blX
 aXr
 aXr
@@ -90157,9 +90315,9 @@ uBw
 qgP
 pXy
 pXy
-wsY
-usD
-dkr
+pXy
+vcj
+pXy
 pXy
 aXr
 aXr
@@ -90408,7 +90566,7 @@ aXn
 pXy
 pXy
 mjR
-mbc
+oeY
 cMV
 mbc
 mbc
@@ -93976,7 +94134,7 @@ aSr
 aSr
 aSZ
 aLn
-aLm
+aLo
 aKp
 abE
 abE
@@ -94233,7 +94391,7 @@ aMk
 aMk
 aMk
 aMk
-aLo
+aMk
 aKp
 abE
 abE
@@ -106008,9 +106166,9 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
+dCy
+dCy
+nmy
 nmy
 ixb
 rHM
@@ -106263,11 +106421,11 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+dkr
+dkr
+dkr
+gPS
+dSv
 dCy
 heG
 nWU
@@ -106520,12 +106678,12 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-dCy
+fxV
+wAQ
+ejk
+hKH
+ybZ
+nsZ
 tvU
 oVZ
 nWU
@@ -106777,12 +106935,12 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-dCy
+dkr
+dkr
+dkr
+gPS
+uoe
+ekA
 dCy
 kwS
 dCy
@@ -107036,10 +107194,10 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
+dCy
+dCy
+dCy
+dCy
 dCy
 lVm
 dCy
@@ -108063,7 +108221,7 @@ rNK
 rNK
 rNK
 rNK
-fxV
+rNK
 rNK
 rNK
 rNK
@@ -108320,7 +108478,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
+oYA
 rNK
 rNK
 rNK
@@ -110067,7 +110225,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
+fup
 rNK
 rNK
 rNK
@@ -113663,7 +113821,7 @@ rNK
 rNK
 rNK
 rNK
-cEl
+rNK
 rNK
 rNK
 rNK
@@ -120084,7 +120242,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
+kAy
 rNK
 rNK
 rNK
@@ -124095,7 +124253,7 @@ oKJ
 rNK
 rNK
 rNK
-rNK
+kVU
 rNK
 rNK
 rNK
@@ -133703,7 +133861,7 @@ rNK
 rNK
 rNK
 rNK
-wAQ
+rNK
 rNK
 rNK
 rNK
@@ -137339,7 +137497,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
+cEl
 rNK
 rNK
 rNK
