@@ -287,7 +287,7 @@
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 40
 	materials = list(MAT_METAL = 600, MAT_GLASS = 400)
-	build_path = /obj/item/organ/internal/cyberimp/eyes/shield
+	build_path = /obj/item/organ/internal/eyes/cybernetic/shield
 	category = list("Medical")
 
 /datum/design/cyberimp_breather
@@ -397,7 +397,7 @@
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 50
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500, MAT_GOLD = 300)
-	build_path = /obj/item/organ/internal/cyberimp/eyes/meson
+	build_path = /obj/item/organ/internal/eyes/cybernetic/meson
 	category = list("Medical")
 
 /datum/design/cyberimp_xray
@@ -408,7 +408,7 @@
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 60
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 600, MAT_GOLD = 600, MAT_PLASMA = 1000, MAT_URANIUM = 1000, MAT_DIAMOND = 1000, MAT_BLUESPACE = 1000)
-	build_path = /obj/item/organ/internal/cyberimp/eyes/xray
+	build_path = /obj/item/organ/internal/eyes/cybernetic/xray
 	category = list("Medical")
 
 /datum/design/cyberimp_thermals
@@ -419,7 +419,7 @@
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 60
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 600, MAT_GOLD = 600, MAT_PLASMA = 1000, MAT_DIAMOND = 2000)
-	build_path = /obj/item/organ/internal/cyberimp/eyes/thermals
+	build_path = /obj/item/organ/internal/eyes/cybernetic/thermals
 	category = list("Medical")
 
 /datum/design/cyberimp_antidrop
@@ -527,10 +527,20 @@
 	name = "Chemical Implant Case"
 	desc = "A glass case containing an implant."
 	id = "implant_chem"
-	req_tech = list("materials" = 3, "biotech" = 5,)
+	req_tech = list("materials" = 3, "biotech" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 700)
 	build_path = /obj/item/implantcase/chem
+	category = list("Medical")
+
+/datum/design/implant_sadtrombone
+	name = "Sad Trombone Implant Case"
+	desc = "Makes death amusing."
+	id = "implant_trombone"
+	req_tech = list("materials" = 3, "biotech" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_GLASS = 500, MAT_BANANIUM = 500)
+	build_path = /obj/item/implantcase/sad_trombone
 	category = list("Medical")
 
 /datum/design/implant_tracking

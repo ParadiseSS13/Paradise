@@ -54,7 +54,7 @@
 	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
 	del_on_death = 1
 
-/mob/living/simple_animal/hostile/retaliate/ghost/Process_Spacemove(var/check_drift = 0)
+/mob/living/simple_animal/hostile/retaliate/ghost/Process_Spacemove(check_drift = 0)
 	return 1
 
 /mob/living/simple_animal/hostile/retaliate/ghost/Life(seconds, times_fired)
@@ -92,6 +92,7 @@
 	faction = list("undead")
 	loot = list(/obj/effect/decal/remains/human)
 	del_on_death = 1
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/hostile/retaliate/zombie
 	name = "zombie"

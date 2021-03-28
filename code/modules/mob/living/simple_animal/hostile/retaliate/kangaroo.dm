@@ -24,6 +24,7 @@
 	var/melee_damage_special = 60
 	var/attack_cycles = 0
 	var/attack_cycles_max = 3
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/hostile/retaliate/kangaroo/New()
 	. = ..()

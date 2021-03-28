@@ -333,7 +333,7 @@ effective or pretty fucking useless.
 	playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
 	destination.ex_act(rand(1,2))
 	for(var/obj/item/W in user)
-		if(istype(W, /obj/item/organ)|| istype(W, /obj/item/implant))
+		if(istype(W, /obj/item/implant))
 			continue
 		if(!user.unEquip(W))
 			qdel(W)
