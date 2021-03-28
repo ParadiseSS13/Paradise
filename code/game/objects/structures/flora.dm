@@ -223,9 +223,10 @@
 
 /obj/item/twohanded/required/kirbyplants/equipped(mob/living/user)
 	. = ..()
-	var/image/I = image(icon = 'icons/obj/flora/plants.dmi' , icon_state = src.icon_state, loc = user)
-	I.override = 1
-	user.add_alt_appearance("sneaking_mission", I, GLOB.player_list)
+	if(wielded)
+		var/image/I = image(icon, user, icon_state)
+		I.override = TRUE
+		user.add_alt_appearance("sneaking_mission", I, GLOB.player_list)
 
 /obj/item/twohanded/required/kirbyplants/dropped(mob/living/user)
 	..()
@@ -319,7 +320,7 @@
 		A.loc = get_turf(src)
 */
 
-/obj/structure/bush/attackby(var/obj/I as obj, var/mob/user as mob, params)
+/obj/structure/bush/attackby(obj/I as obj, mob/user as mob, params)
 	//hatchets can clear away undergrowth
 	if(istype(I, /obj/item/hatchet) && !stump)
 		if(indestructable)

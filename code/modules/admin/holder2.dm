@@ -78,7 +78,7 @@ proc/admin_proc()
 NOTE: it checks usr! not src! So if you're checking somebody's rank in a proc which they did not call
 you will have to do something like if(client.holder.rights & R_ADMIN) yourself.
 */
-/proc/check_rights(rights_required, show_msg=1, var/mob/user = usr)
+/proc/check_rights(rights_required, show_msg=1, mob/user = usr)
 	if(user && user.client)
 		if(rights_required)
 			if(user.client.holder)

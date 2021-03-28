@@ -5,6 +5,7 @@
 	icon = 'icons/mob/carp.dmi'
 	icon_state = "carp"
 	icon_gib = "carp_gib"
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	speak_chance = 0
 	turns_per_move = 5
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/carpmeat = 1)
@@ -84,7 +85,7 @@
 		icon_living = "koi[koinum]"
 		icon_dead = "koi[koinum]-dead"
 
-/mob/living/simple_animal/hostile/retaliate/carp/koi/Process_Spacemove(var/movement_dir)
+/mob/living/simple_animal/hostile/retaliate/carp/koi/Process_Spacemove(movement_dir)
 	return TRUE
 
 /mob/living/simple_animal/hostile/retaliate/carp/koi/honk

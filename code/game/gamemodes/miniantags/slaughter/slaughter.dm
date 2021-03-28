@@ -15,6 +15,7 @@
 	icon_living = "daemon"
 	speed = 1
 	a_intent = INTENT_HARM
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	attack_sound = 'sound/misc/demon_attack1.ogg'
@@ -79,7 +80,7 @@
 	if(mind)
 		to_chat(src, src.playstyle_string)
 		to_chat(src, "<B><span class ='notice'>You are not currently in the same plane of existence as the station. Use the blood crawl action at a blood pool to manifest.</span></B>")
-		src << 'sound/misc/demon_dies.ogg'
+		SEND_SOUND(src, sound('sound/misc/demon_dies.ogg'))
 		if(!(vialspawned))
 			var/datum/objective/slaughter/objective = new
 			var/datum/objective/demonFluff/fluffObjective = new

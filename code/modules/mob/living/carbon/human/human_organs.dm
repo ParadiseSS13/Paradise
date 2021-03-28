@@ -119,11 +119,11 @@
 
 /mob/living/carbon/human/proc/becomeSlim()
 	to_chat(src, "<span class='notice'>You feel fit again!</span>")
-	ADD_TRAIT(src, TRAIT_FAT, OBESITY)
+	REMOVE_TRAIT(src, TRAIT_FAT, OBESITY)
 
 /mob/living/carbon/human/proc/becomeFat()
 	to_chat(src, "<span class='alert'>You suddenly feel blubbery!</span>")
-	REMOVE_TRAIT(src, TRAIT_FAT, OBESITY)
+	ADD_TRAIT(src, TRAIT_FAT, OBESITY)
 
 //Handles chem traces
 /mob/living/carbon/human/proc/handle_trace_chems()
@@ -138,7 +138,7 @@ Otherwise, this restricts itself to organs that share the UE of the host.
 
 old_ue: Set this to a UE string, and this proc will overwrite the dna of organs that have that UE, instead of the host's present UE
 */
-/mob/living/carbon/human/proc/sync_organ_dna(var/assimilate = 1, var/old_ue = null)
+/mob/living/carbon/human/proc/sync_organ_dna(assimilate = 1, old_ue = null)
 	var/ue_to_compare = (old_ue) ? old_ue : dna.unique_enzymes
 	var/list/all_bits = internal_organs|bodyparts
 	for(var/obj/item/organ/O in all_bits)
@@ -150,7 +150,7 @@ Given the name of an organ, returns the external organ it's contained in
 I use this to standardize shadowling dethrall code
 -- Crazylemon
 */
-/mob/living/carbon/human/proc/named_organ_parent(var/organ_name)
+/mob/living/carbon/human/proc/named_organ_parent(organ_name)
 	if(!get_int_organ_tag(organ_name))
 		return null
 	var/obj/item/organ/internal/O = get_int_organ_tag(organ_name)

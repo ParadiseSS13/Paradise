@@ -4,6 +4,7 @@
 	var/throwforce_on = 20
 	var/faction_bonus_force = 0 //Bonus force dealt against certain factions
 	var/list/nemesis_factions //Any mob with a faction that exists in this list will take bonus damage/effects
+	stealthy_audio = TRUE //Most of these are antag weps so we dont want them to be /too/ overt.
 	w_class = WEIGHT_CLASS_SMALL
 	var/w_class_on = WEIGHT_CLASS_BULKY
 	var/icon_state_on
@@ -132,7 +133,7 @@
 /obj/item/melee/energy/sword/cyborg
 	var/hitcost = 50
 
-/obj/item/melee/energy/sword/cyborg/attack(mob/M, var/mob/living/silicon/robot/R)
+/obj/item/melee/energy/sword/cyborg/attack(mob/M, mob/living/silicon/robot/R)
 	if(R.cell)
 		var/obj/item/stock_parts/cell/C = R.cell
 		if(active && !(C.use(hitcost)))

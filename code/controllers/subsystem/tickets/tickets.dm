@@ -142,8 +142,7 @@ SUBSYSTEM_DEF(tickets)
 
 	//Inform the user that they have opened a ticket
 	to_chat(C, "<span class='[span_class]'>You have opened [ticket_name] number #[(getTicketCounter() - 1)]! Please be patient and we will help you soon!</span>")
-	var/ticket_open_sound = sound('sound/effects/adminticketopen.ogg')
-	SEND_SOUND(C, ticket_open_sound)
+	SEND_SOUND(C, sound('sound/effects/adminticketopen.ogg'))
 
 	message_staff(url_title, NONE, TRUE)
 
@@ -245,8 +244,7 @@ SUBSYSTEM_DEF(tickets)
 		if("Mentorhelp")
 			convert_ticket(T)
 		else
-			var/msg_sound = sound('sound/effects/adminhelp.ogg')
-			SEND_SOUND(returnClient(N), msg_sound)
+			SEND_SOUND(returnClient(N), sound('sound/effects/adminhelp.ogg'))
 			to_chat_safe(returnClient(N), "<span class='[span_class]'>[key_name_hidden(C)] is autoresponding with: <span/> <span class='adminticketalt'>[response_phrases[message_key]]</span>")//for this we want the full value of whatever key this is to tell the player so we do response_phrases[message_key]
 			message_staff("[C] has auto responded to [ticket_owner]\'s adminhelp with:<span class='adminticketalt'> [message_key] </span>") //we want to use the short named keys for this instead of the full sentence which is why we just do message_key
 			T.lastStaffResponse = "Autoresponse: [message_key]"
@@ -599,7 +597,7 @@ UI STUFF
 		else
 			usr.client.resolveAllAdminTickets()
 
-/datum/controller/subsystem/tickets/proc/takeTicket(var/index)
+/datum/controller/subsystem/tickets/proc/takeTicket(index)
 	if(assignStaffToTicket(usr.client, index))
 		if(span_class == "mentorhelp")
 			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) has taken [ticket_name] number [index]</span>")

@@ -20,9 +20,11 @@
 	if(druggy)
 		overlay_fullscreen("high", /obj/screen/fullscreen/high)
 		throw_alert("high", /obj/screen/alert/high)
+		sound_environment_override = SOUND_ENVIRONMENT_DRUGGED
 	else
 		clear_fullscreen("high")
 		clear_alert("high")
+		sound_environment_override = SOUND_ENVIRONMENT_NONE
 
 /mob/living/update_nearsighted_effects()
 	if(HAS_TRAIT(src, TRAIT_NEARSIGHT))

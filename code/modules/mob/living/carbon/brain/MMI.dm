@@ -26,7 +26,7 @@
 	/// Time at which the ghost belonging to the mind in the mmi can be pinged again to be borged
 	var/next_possible_ghost_ping
 
-/obj/item/mmi/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/obj/item/mmi/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/organ/internal/brain/crystal))
 		to_chat(user, "<span class='warning'> This brain is too malformed to be able to use with the [src].</span>")
 		return
@@ -47,8 +47,8 @@
 			visible_message("<span class='notice'>[user] sticks \a [O] into \the [src].</span>")
 			brainmob = B.brainmob
 			B.brainmob = null
-			brainmob.forceMove(src)
 			brainmob.container = src
+			brainmob.forceMove(src)
 			brainmob.stat = CONSCIOUS
 			brainmob.see_invisible = initial(brainmob.see_invisible)
 			GLOB.respawnable_list -= brainmob
@@ -128,7 +128,7 @@
 		icon_state = "mmi_empty"
 		name = "Man-Machine Interface"
 
-/obj/item/mmi/proc/transfer_identity(var/mob/living/carbon/human/H)//Same deal as the regular brain proc. Used for human-->robot people.
+/obj/item/mmi/proc/transfer_identity(mob/living/carbon/human/H)//Same deal as the regular brain proc. Used for human-->robot people.
 	brainmob = new(src)
 	brainmob.name = H.real_name
 	brainmob.real_name = H.real_name
@@ -150,7 +150,7 @@
 
 //I made this proc as a way to have a brainmob be transferred to any created brain, and to solve the
 //problem i was having with alien/nonalien brain drops.
-/obj/item/mmi/proc/dropbrain(var/turf/dropspot)
+/obj/item/mmi/proc/dropbrain(turf/dropspot)
 	if(isnull(held_brain))
 		log_runtime(EXCEPTION("[src] at [loc] attempted to drop brain without a contained brain in [get_area(src)]."), src)
 		to_chat(brainmob, "<span class='userdanger'>Your MMI did not contain a brain! We'll make a new one for you, but you'd best report this to the bugtracker!</span>")
@@ -168,7 +168,7 @@
 	held_brain.forceMove(dropspot)
 	held_brain = null
 
-/obj/item/mmi/proc/become_occupied(var/new_icon)
+/obj/item/mmi/proc/become_occupied(new_icon)
 	icon_state = new_icon
 	if(radio)
 		radio_action.ApplyIcon()
@@ -196,7 +196,7 @@
 	procname = "ui_interact"
 	var/obj/item/mmi = null
 
-/datum/action/generic/configure_mmi_radio/New(var/Target, var/obj/item/mmi/M)
+/datum/action/generic/configure_mmi_radio/New(Target, obj/item/mmi/M)
 	. = ..()
 	mmi = M
 

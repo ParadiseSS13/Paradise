@@ -272,7 +272,7 @@
 			M.SetConfused(0)
 			if(ishuman(M)) // Unequip all cult clothing
 				var/mob/living/carbon/human/H = M
-				for(var/I in H.contents - (H.bodyparts | H.internal_organs)) // Satanic liver NYI
+				for(var/I in H.contents)
 					if(is_type_in_list(I, CULT_CLOTHING))
 						H.unEquip(I)
 			return

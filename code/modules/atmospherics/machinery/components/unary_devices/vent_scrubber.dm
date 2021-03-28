@@ -92,7 +92,7 @@
 	use_power(amount, power_channel)
 	return 1
 
-/obj/machinery/atmospherics/unary/vent_scrubber/update_icon(var/safety = 0)
+/obj/machinery/atmospherics/unary/vent_scrubber/update_icon(safety = 0)
 	..()
 
 	plane = FLOOR_PLANE
@@ -215,7 +215,7 @@
 	if(istype(T))
 		adjacent_turfs = T.GetAtmosAdjacentTurfs(alldir=1)
 
-/obj/machinery/atmospherics/unary/vent_scrubber/proc/scrub(var/turf/simulated/tile)
+/obj/machinery/atmospherics/unary/vent_scrubber/proc/scrub(turf/simulated/tile)
 	if(!tile || !istype(tile))
 		return 0
 
@@ -275,7 +275,7 @@
 
 	return 1
 
-/obj/machinery/atmospherics/unary/vent_scrubber/hide(var/i) //to make the little pipe section invisible, the icon changes.
+/obj/machinery/atmospherics/unary/vent_scrubber/hide(i) //to make the little pipe section invisible, the icon changes.
 	update_icon()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/receive_signal(datum/signal/signal)
@@ -341,7 +341,7 @@
 	if(old_stat != stat)
 		update_icon()
 
-/obj/machinery/atmospherics/unary/vent_scrubber/multitool_menu(var/mob/user,var/obj/item/multitool/P)
+/obj/machinery/atmospherics/unary/vent_scrubber/multitool_menu(mob/user, obj/item/multitool/P)
 	return {"
 	<ul>
 		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[ATMOS_VENTSCRUB]">Reset</a>)</li>
@@ -349,7 +349,7 @@
 	</ul>
 	"}
 
-/obj/machinery/atmospherics/unary/vent_scrubber/multitool_topic(var/mob/user, var/list/href_list, var/obj/O)
+/obj/machinery/atmospherics/unary/vent_scrubber/multitool_topic(mob/user, list/href_list, obj/O)
 	if("set_id" in href_list)
 		var/newid = copytext(reject_bad_text(input(usr, "Specify the new ID tag for this machine", src, src:id_tag) as null|text),1,MAX_MESSAGE_LEN)
 		if(!newid)
@@ -379,7 +379,7 @@
 	pipe_image.plane = ABOVE_HUD_PLANE
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
-/obj/machinery/atmospherics/unary/vent_scrubber/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
+/obj/machinery/atmospherics/unary/vent_scrubber/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/multitool))
 		update_multitool_menu(user)
 		return 1

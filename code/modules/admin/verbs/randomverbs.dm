@@ -122,7 +122,7 @@
 	message_admins("<span class='boldnotice'>GlobalNarrate: [key_name_admin(usr)]: [msg]<BR></span>", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Global Narrate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/cmd_admin_direct_narrate(var/mob/M)	// Targetted narrate -- TLE
+/client/proc/cmd_admin_direct_narrate(mob/M)	// Targetted narrate -- TLE
 	set category = null
 	set name = "Direct Narrate"
 
@@ -526,7 +526,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	return 1
 
 
-/client/proc/get_ghosts(var/notify = 0,var/what = 2)
+/client/proc/get_ghosts(notify = 0, what = 2)
 	// what = 1, return ghosts ass list.
 	// what = 2, return mob list
 
