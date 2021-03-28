@@ -14,7 +14,7 @@
 	else, frequently even their own lives. They prefer warmer temperatures than most species and \
 	their native tongue is a heavy hissing laungage called Sinta'Unathi."
 
-	species_traits = list(LIPS, NO_HAIR)
+	species_traits = list(LIPS)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_REPTILE
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_BODY_MARKINGS | HAS_HEAD_MARKINGS | HAS_SKIN_COLOR | HAS_ALT_HEADS | TAIL_WAGGING
