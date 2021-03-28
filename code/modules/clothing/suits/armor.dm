@@ -361,7 +361,7 @@
 
 /obj/item/clothing/suit/armor/reactive/fire/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
-		return TRUE
+		return FALSE
 	if(reaction_check(hitby))
 		owner.visible_message("<span class='danger'>The [src] blocks the [attack_text], sending out jets of flame!</span>")
 		for(var/mob/living/carbon/C in range(6, owner))
