@@ -20,7 +20,7 @@
 	magpulse = 1
 	mob_size = MOB_SIZE_SMALL
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
-
+	ionpulse = 1
 	modules_break = FALSE
 
 	// We need to keep track of a few module items so we don't need to do list operations
@@ -80,6 +80,7 @@
 
 	verbs -= /mob/living/silicon/robot/verb/Namepick
 	module = new /obj/item/robot_module/drone(src)
+	module += new /obj/item/borg/upgrade/thrusters(src)
 
 	//Allows Drones to hear the Engineering channel.
 	module.channels = list("Engineering" = 1)
