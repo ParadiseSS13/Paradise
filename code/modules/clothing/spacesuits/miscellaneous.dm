@@ -81,14 +81,14 @@
 		)
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret
-	name = "officer's beret"
+	name = "officer beret"
 	desc = "An armored beret commonly used by special operations officers."
 	icon_state = "beret_officer"
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	flags =  STOPSPRESSUREDMAGE | THICKMATERIAL
 
 /obj/item/clothing/suit/space/deathsquad/officer
-	name = "officer's jacket"
+	name = "officer jacket"
 	desc = "An armored jacket used in special operations."
 	icon_state = "detective"
 	item_state = "det_suit"

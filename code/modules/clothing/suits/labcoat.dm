@@ -59,7 +59,7 @@
 	item_state = "labcoat_mort_open"
 
 /obj/item/clothing/suit/storage/labcoat/emt
-	name = "EMT's labcoat"
+	name = "\improper EMT's labcoat"
 	desc = "A comfortable suit for paramedics. Has dark colours."
 	icon_state = "labcoat_emt_open"
 	item_state = "labcoat_emt_open"

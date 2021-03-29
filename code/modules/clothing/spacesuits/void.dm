@@ -1,7 +1,7 @@
 
 //Voidsuits
 /obj/item/clothing/head/helmet/space/nasavoid
-	name = "NASA void helmet"
+	name = "\improper NASA void helmet"
 	desc = "A high tech, NASA Centcom branch designed space suit helmet. Used for AI satellite maintenance."
 	icon_state = "void-red"
 	item_state = "void"
@@ -88,7 +88,7 @@
 //random spawner
 
 /obj/effect/nasavoidsuitspawner
-	name = "NASA void suit spawner"
+	name = "\improper NASA void suit spawner"
 	icon = 'icons/obj/clothing/suits.dmi'
 	icon_state = "void-red"
 	desc = "You shouldn't see this, a spawner for NASA Void Suits."

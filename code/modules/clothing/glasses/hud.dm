@@ -28,7 +28,7 @@
 		desc = desc + " The display flickers slightly."
 
 /obj/item/clothing/glasses/hud/health
-	name = "\improper health scanner HUD"
+	name = "health scanner HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status."
 	icon_state = "healthhud"
 	origin_tech = "magnets=3;biotech=2"
@@ -42,7 +42,7 @@
 		)
 
 /obj/item/clothing/glasses/hud/health/night
-	name = "\improper night vision health scanner HUD"
+	name = "night vision health scanner HUD"
 	desc = "An advanced medical head-up display that allows doctors to find patients in complete darkness."
 	icon_state = "healthhudnight"
 	item_state = "glasses"
@@ -91,7 +91,7 @@
 	tint = 1
 
 /obj/item/clothing/glasses/hud/security
-	name = "\improper security HUD"
+	name = "security HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their ID status and security records."
 	icon_state = "securityhud"
 	origin_tech = "magnets=3;combat=2"
@@ -115,7 +115,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 /obj/item/clothing/glasses/hud/security/night
-	name = "\improper night vision security HUD"
+	name = "night vision security HUD"
 	desc = "An advanced heads-up display which provides id data and vision in complete darkness."
 	icon_state = "securityhudnight"
 	origin_tech = "magnets=4;combat=4;plasmatech=4;engineering=5"

@@ -422,7 +422,7 @@
 
 /obj/item/clothing/glasses/thermal/monocle
 	name = "thermoncle"
-	desc = "A monocle thermal."
+	desc = "A thermal monocle."
 	icon_state = "thermoncle"
 	flags_cover = null //doesn't protect eyes because it's a monocle, duh
 

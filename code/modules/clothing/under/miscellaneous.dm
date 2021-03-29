@@ -61,7 +61,7 @@
 	item_color = "vice"
 
 /obj/item/clothing/under/solgov
-	name = "Trans-Solar Federation marine uniform"
+	name = "\improper Trans-Solar Federation marine uniform"
 	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Marine Forces."
 	icon_state = "solgov"
 	item_state = "ro_suit"
@@ -70,14 +70,14 @@
 	displays_id = 0
 
 /obj/item/clothing/under/solgov/command
-	name = "Trans-Solar Federation Lieutenant's uniform"
+	name = "\improper Trans-Solar Federation Lieutenant's uniform"
 	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Marine Forces. This one has additional insignia on its shoulders."
 	icon_state = "solgovc"
 	item_color = "solgovc"
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 
 /obj/item/clothing/under/solgov/rep
-	name = "Trans-Solar Federation representative's uniform"
+	name = "\improper Trans-Solar Federation representative's uniform"
 	desc = "A formal uniform worn by the diplomatic representatives of the Trans-Solar Federation."
 	icon_state = "solgovr"
 	item_color = "solgovr"
@@ -119,7 +119,7 @@
 	displays_id = 0
 
 /obj/item/clothing/under/rank/centcom/blueshield
-	name = "\improper formal blueshield's uniform"
+	name = "formal blueshield's uniform"
 	desc = "Gold trim on space-black cloth, this uniform bears \"Close Protection\" on the left shoulder. It's got exotic materials for protection."
 	icon_state = "officer"
 	item_state = "g_suit"
@@ -128,7 +128,7 @@
 	displays_id = 0
 
 /obj/item/clothing/under/rank/centcom/representative
-	name = "\improper formal Nanotrasen Representative's uniform"
+	name = "formal Nanotrasen Representative's uniform"
 	desc = "Gold trim on space-black cloth, this uniform bears \"N.S.S. Cyberiad\" on the left shoulder."
 	icon_state = "officer"
 	item_state = "g_suit"
@@ -140,7 +140,7 @@
 	desc = "Gold trim on space-black cloth, this uniform bears [station_name()] on the left shoulder."
 
 /obj/item/clothing/under/rank/centcom/magistrate
-	name = "\improper formal magistrate's uniform"
+	name = "formal magistrate's uniform"
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears \"N.S.S. Cyberiad\" on the left shoulder."
 	icon_state = "officer"
 	item_state = "g_suit"
@@ -647,7 +647,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/pennywise
-	name = "Pennywise costume"
+	name = "\improper Pennywise costume"
 	desc = "It's everything you ever were afraid of."
 	icon_state = "pennywise"
 	item_color = "pennywise"
