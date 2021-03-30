@@ -118,15 +118,15 @@
 	item_color = "corp"
 
 /obj/item/clothing/head/soft/solgov
-	name = "Sol Federation marine cap"
-	desc = "A soft cap worn by marines of the Sol Federation."
+	name = "\improper Trans-Solar Federation marine cap"
+	desc = "A soft cap worn by marines of the Trans-Solar Federation."
 	icon_state = "solgovsoft"
 	item_color = "solgov"
 	dog_fashion = null
 
 /obj/item/clothing/head/soft/solgov/command
-	name = "Sol Federation Lieutenant's cap"
-	desc = "A soft cap worn by marines of the Sol Federation. The insignia signifies the wearer bears the rank of a Lieutenant."
+	name = "\improper Trans-Solar Federation lieutenant's cap"
+	desc = "A soft cap worn by marines of the Trans-Solar Federation. The insignia signifies the wearer bears the rank of a Lieutenant."
 	icon_state = "solgovcsoft"
 	item_color = "solgovc"
 	dog_fashion = null

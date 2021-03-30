@@ -81,7 +81,7 @@
 	..()
 
 /obj/item/clothing/suit/armor/vest/blueshield
-	name = "blueshield security armor"
+	name = "blueshield's security armor"
 	desc = "An armored vest with the badge of a Blueshield Lieutenant."
 	icon_state = "blueshield"
 	item_state = "blueshield"
@@ -139,7 +139,7 @@
 	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/vest/warden
-	name = "Warden's armored jacket"
+	name = "warden's armored jacket"
 	desc = "An armored jacket with silver rank pips and livery."
 	icon_state = "warden_jacket"
 	item_state = "armor"
@@ -172,7 +172,7 @@
 	item_state = "capspacesuit"
 
 /obj/item/clothing/suit/armor/riot
-	name = "Riot Suit"
+	name = "riot suit"
 	desc = "A suit of armor with heavy padding to protect against melee attacks. Looks like it might impair movement."
 	icon_state = "riot"
 	item_state = "swat_suit"
@@ -223,7 +223,7 @@
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 30, "energy" = 5, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 50)
 
 /obj/item/clothing/suit/armor/bulletproof
-	name = "Bulletproof Vest"
+	name = "bulletproof vest"
 	desc = "A bulletproof vest that excels in protecting the wearer against traditional projectile weaponry and explosives to a minor extent."
 	icon_state = "bulletproof"
 	item_state = "armor"
@@ -233,7 +233,7 @@
 	put_on_delay = 50
 
 /obj/item/clothing/suit/armor/laserproof
-	name = "Ablative Armor Vest"
+	name = "ablative armor vest"
 	desc = "A vest that excels in protecting the wearer against energy projectiles. Projects an energy field around the user, allowing a chance of energy projectile deflection no matter where on the user it would hit."
 	icon_state = "armor_reflec"
 	item_state = "armor_reflec"
@@ -490,13 +490,13 @@
 	hide_tail_by_species = list("Vox")
 
 /obj/item/clothing/suit/armor/tdome/red
-	name = "Red Thunderdome Armor"
+	name = "red Thunderdome armor"
 	desc = "Armor worn by the red Thunderdome team."
 	icon_state = "tdred"
 	item_state = "tdred"
 
 /obj/item/clothing/suit/armor/tdome/green
-	name = "Green Thunderdome Armor"
+	name = "green Thunderdome armor"
 	desc = "Armor worn by the green Thunderdome team."
 	icon_state = "tdgreen"
 	item_state = "tdgreen"
