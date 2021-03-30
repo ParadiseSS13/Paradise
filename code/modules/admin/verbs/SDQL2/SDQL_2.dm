@@ -437,7 +437,7 @@
 
 	return v
 
-/proc/SDQL_function(var/datum/object, var/procname, var/list/arguments, source)
+/proc/SDQL_function(datum/object, procname, list/arguments, source)
 	var/list/new_args = list()
 	for(var/arg in arguments)
 		new_args[++new_args.len] = SDQL_expression(source, arg)

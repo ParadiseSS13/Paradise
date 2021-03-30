@@ -29,12 +29,10 @@
 		loc = T
 		if(use_static)
 			ai.camera_visibility(src)
-		if(ai.client && !ai.multicam_on)
+		if(ai.client)
 			ai.client.eye = src
 		update_parallax_contents()
 		//Holopad
-		if(ai.master_multicam)
-			ai.master_multicam.refresh_view()
 		if(istype(ai.current, /obj/machinery/hologram/holopad))
 			var/obj/machinery/hologram/holopad/H = ai.current
 			H.move_hologram(ai, T)
@@ -66,7 +64,7 @@
 /atom/proc/move_camera_by_click()
 	if(istype(usr, /mob/living/silicon/ai))
 		var/mob/living/silicon/ai/AI = usr
-		if(AI.eyeobj && (AI.multicam_on || (AI.client.eye == AI.eyeobj)) && (AI.eyeobj.z == z))
+		if(AI.eyeobj && (AI.client.eye == AI.eyeobj) && (AI.eyeobj.z == z))
 			AI.cameraFollow = null
 			if(isturf(loc) || isturf(src))
 				AI.eyeobj.setLoc(src)
@@ -76,7 +74,7 @@
 // This will move the AIEye. It will also cause lights near the eye to light up, if toggled.
 // This is handled in the proc below this one.
 
-/client/proc/AIMove(n, direct, var/mob/living/silicon/ai/user)
+/client/proc/AIMove(n, direct, mob/living/silicon/ai/user)
 
 	var/initial = initial(user.sprint)
 	var/max_sprint = 50

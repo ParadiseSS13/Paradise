@@ -66,12 +66,17 @@
 	max_charges = 3 //3, 2, 2, 1
 
 /obj/item/gun/magic/wand/death/zap_self(mob/living/user)
-	var/message ="<span class='warning'>You irradiate yourself with pure energy! "
-	message += pick("Do not pass go. Do not collect 200 zorkmids.</span>","You feel more confident in your spell casting skills.</span>","You Die...</span>","Do you want your possessions identified?</span>")
-	to_chat(user, message)
-	user.adjustFireLoss(3000)
-	charges--
 	..()
+	charges--
+	if(isliving(user))
+		if(user.mob_biotypes & MOB_UNDEAD) //negative energy heals the undead
+			user.revive()
+			to_chat(user, "<span class='notice'>You feel great!</span>")
+			return
+	to_chat(user, "<span class='warning'>You irradiate yourself with pure negative energy! [pick("Do not pass go. Do not collect 200 zorkmids.", "You feel more confident in your spell casting skills.", "You Die...", "Do you want your possessions identified?")]</span>")
+	if(ismachineperson(user)) //speshul snowfleks deserv speshul treetment
+		user.adjustFireLoss(6969)
+	user.death(FALSE)
 
 /////////////////////////////////////
 //WAND OF HEALING
@@ -86,10 +91,15 @@
 	max_charges = 3 //3, 2, 2, 1
 
 /obj/item/gun/magic/wand/resurrection/zap_self(mob/living/user)
+	..()
+	charges--
+	if(isliving(user))
+		if(user.mob_biotypes & MOB_UNDEAD) //positive energy harms the undead
+			to_chat(user, "<span class='warning'>You irradiate yourself with pure positive energy! [pick("Do not pass go. Do not collect 200 zorkmids.", "You feel more confident in your spell casting skills.", "You Die...", "Do you want your possessions identified?")]</span>")
+			user.death(FALSE)
+			return
 	user.revive()
 	to_chat(user, "<span class='notice'>You feel great!</span>")
-	charges--
-	..()
 
 /////////////////////////////////////
 //WAND OF POLYMORPH
@@ -161,5 +171,21 @@
 
 /obj/item/gun/magic/wand/fireball/zap_self(mob/living/user)
 	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
+	charges--
+	..()
+
+/////////////////////////////////////
+//WAND OF SLIPPING
+/////////////////////////////////////
+/obj/item/gun/magic/wand/slipping
+	name = "wand of slipping"
+	desc = "This wand shoots... banana peels?"
+	fire_sound = 'sound/items/bikehorn.ogg'
+	ammo_type = /obj/item/ammo_casing/magic/slipping
+	icon_state = "staffofslipping"
+	max_charges = 5 //5, 4, 3, 2
+
+/obj/item/gun/magic/wand/slipping/zap_self(mob/living/user)
+	to_chat(user, "<span class='notice'>You feel rather silly!.</span>")
 	charges--
 	..()

@@ -22,15 +22,6 @@
 GLOBAL_VAR_INIT(camera_range_display_status, 0)
 GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 
-/obj/effect/debugging/camera_range
-	icon = 'icons/480x480.dmi'
-	icon_state = "25percent"
-
-/obj/effect/debugging/camera_range/New()
-	. = ..()
-	src.pixel_x = -224
-	src.pixel_y = -224
-
 /obj/effect/debugging/mapfix_marker
 	name = "map fix marker"
 	icon = 'icons/mob/screen_gen.dmi'
@@ -56,13 +47,17 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	else
 		GLOB.camera_range_display_status = 1
 
-	for(var/obj/effect/debugging/camera_range/C in world)
-		qdel(C)
+	for(var/obj/effect/debugging/marker/M in world)
+		qdel(M)
 
 	if(GLOB.camera_range_display_status)
 		for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
-			new/obj/effect/debugging/camera_range(C.loc)
-	feedback_add_details("admin_verb","mCRD") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+			for(var/turf/T in orange(7, C))
+				var/obj/effect/debugging/marker/F = new/obj/effect/debugging/marker(T)
+				if(!(F in view(7, C.loc)))
+					qdel(F)
+
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Camera Range Display") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/sec_camera_report()
 	set category = "Mapping"
@@ -101,7 +96,7 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 
 	output += "</ul>"
 	usr << browse(output,"window=airreport;size=1000x500")
-	feedback_add_details("admin_verb","mCRP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Camera Report") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/intercom_view()
 	set category = "Mapping"
@@ -124,7 +119,7 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 				var/obj/effect/debugging/marker/F = new/obj/effect/debugging/marker(T)
 				if(!(F in view(7,I.loc)))
 					qdel(F)
-	feedback_add_details("admin_verb","mIRD") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Intercom Range Display") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/count_objects_on_z_level()
 	set category = "Mapping"
@@ -162,7 +157,7 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 					atom_list += A
 
 	to_chat(world, "There are [count] objects of type [type_path] on z-level [num_level].")
-	feedback_add_details("admin_verb","mOBJZ") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Count Objects (On Level)") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/count_objects_all()
 	set category = "Mapping"
@@ -183,4 +178,4 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 			count++
 
 	to_chat(world, "There are [count] objects of type [type_path] in the game world.")
-	feedback_add_details("admin_verb","mOBJ") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Count Objects (Global)") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

@@ -1,8 +1,7 @@
 /obj/structure/closet/crate/necropolis/dragon
 	name = "dragon chest"
 
-/obj/structure/closet/crate/necropolis/dragon/New()
-	..()
+/obj/structure/closet/crate/necropolis/dragon/populate_contents()
 	var/loot = rand(1,4)
 	switch(loot)
 		if(1)
@@ -19,8 +18,8 @@
 /obj/structure/closet/crate/necropolis/dragon/crusher
 	name = "firey dragon chest"
 
-/obj/structure/closet/crate/necropolis/dragon/crusher/New()
-	..()
+/obj/structure/closet/crate/necropolis/dragon/crusher/populate_contents()
+	. = ..()
 	new /obj/item/crusher_trophy/tail_spike(src)
 
 
@@ -120,7 +119,7 @@
 		return
 
 	var/mob/living/carbon/human/H = user
-	var/random = rand(1,3)
+	var/random = rand(1, 3)
 
 	switch(random)
 		if(1)
@@ -135,7 +134,7 @@
 			to_chat(user, "<span class='danger'>You feel like you could walk straight through lava now.</span>")
 			H.weather_immunities |= "lava"
 
-	playsound(user.loc,'sound/items/drink.ogg', rand(10,50), 1)
+	playsound(user.loc, 'sound/items/drink.ogg', rand(10, 50), 1)
 	qdel(src)
 
 /datum/disease/transformation/dragon
@@ -182,7 +181,7 @@
 
 /obj/item/lava_staff/New()
 	. = ..()
-	banned_turfs = typecacheof(list(/turf/space/transit, /turf/unsimulated))
+	banned_turfs = typecacheof(list(/turf/space/transit, /turf/simulated/wall, /turf/simulated/mineral))
 
 /obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	..()

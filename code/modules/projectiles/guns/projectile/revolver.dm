@@ -11,7 +11,7 @@
 	if(!istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
 		verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
-/obj/item/gun/projectile/revolver/chamber_round(var/spin = 1)
+/obj/item/gun/projectile/revolver/chamber_round(spin = 1)
 	if(spin)
 		chambered = magazine.get_round(1)
 	else
@@ -330,6 +330,7 @@
 	icon_state = "dshotgun"
 	item_state = "shotgun"
 	w_class = WEIGHT_CLASS_BULKY
+	weapon_weight = WEAPON_HEAVY
 	force = 10
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
@@ -361,6 +362,10 @@
 		sawoff(user)
 	else
 		return ..()
+
+/obj/item/gun/projectile/revolver/doublebarrel/sawoff(mob/user)
+    . = ..()
+    weapon_weight = WEAPON_MEDIUM
 
 /obj/item/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user)
 	var/num_unloaded = 0

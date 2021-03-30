@@ -162,8 +162,7 @@
 	desc = "Crate full of chemicals of unknown type and value from a 'trusted' source."
 	req_one_access = list(ACCESS_CHEMISTRY,ACCESS_RESEARCH,ACCESS_QM) // the qm knows a guy, you see.
 
-/obj/structure/closet/crate/secure/unknownchemicals/New()
-	..()
+/obj/structure/closet/crate/secure/unknownchemicals/populate_contents()
 	for(var/i in 1 to 7)
 		new/obj/item/reagent_containers/glass/bottle/random_base_chem(src)
 	for(var/i in 1 to 3)
@@ -180,8 +179,7 @@
 	desc = "Full of basic chemistry supplies."
 	req_one_access = list(ACCESS_CHEMISTRY,ACCESS_RESEARCH)
 
-/obj/structure/closet/crate/secure/chemicals/New()
-	..()
+/obj/structure/closet/crate/secure/chemicals/populate_contents()
 	for(var/chem in GLOB.standard_chemicals)
 		var/obj/item/reagent_containers/glass/bottle/B = new(src)
 		B.reagents.add_reagent(chem, B.volume)
@@ -240,9 +238,12 @@
 	icon_opened = "cabinetdetective_open"
 	icon_broken = "cabinetdetective_broken"
 	icon_off = "cabinetdetective_broken"
+	open_sound = 'sound/machines/wooden_closet_open.ogg'
+	close_sound = 'sound/machines/wooden_closet_close.ogg'
+	open_sound_volume = 25
+	close_sound_volume = 50
 
-/obj/structure/closet/secure_closet/random_drinks/New()
-	..()
+/obj/structure/closet/secure_closet/random_drinks/populate_contents()
 	for(var/i in 1 to 5)
 		new/obj/item/reagent_containers/food/drinks/bottle/random_drink(src)
 	while(prob(25))

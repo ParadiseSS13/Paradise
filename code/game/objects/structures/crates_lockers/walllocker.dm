@@ -22,11 +22,10 @@
 	icon_closed = "emerg"
 	icon_opened = "emergopen"
 
-/obj/structure/closet/walllocker/emerglocker/New()
-	..()
-	new /obj/item/tank/emergency_oxygen(src)
-	new /obj/item/tank/emergency_oxygen(src)
-	new /obj/item/tank/emergency_oxygen(src)
+/obj/structure/closet/walllocker/emerglocker/populate_contents()
+	new /obj/item/tank/internals/emergency_oxygen(src)
+	new /obj/item/tank/internals/emergency_oxygen(src)
+	new /obj/item/tank/internals/emergency_oxygen(src)
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/clothing/mask/breath(src)

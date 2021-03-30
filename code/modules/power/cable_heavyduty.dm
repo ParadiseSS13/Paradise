@@ -24,5 +24,5 @@
 	else
 		..()
 
-/obj/structure/cable/heavyduty/cable_color(var/colorC)
+/obj/structure/cable/heavyduty/cable_color(colorC)
 	return

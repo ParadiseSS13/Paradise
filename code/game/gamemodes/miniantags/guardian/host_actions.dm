@@ -34,7 +34,7 @@
 	// Show the message to our guardian and to host.
 	to_chat(guardian, "<span class='changeling'><i>[owner]:</i> [input]</span>")
 	to_chat(owner, "<span class='changeling'><i>[owner]:</i> [input]</span>")
-	log_say("(GUARDIAN to [key_name(guardian)]) [input]", owner)
+	log_say("(HOST to [key_name(guardian)]): [input]", owner)
 	owner.create_log(SAY_LOG, "HOST to GUARDIAN: [input]", guardian)
 
 	// Show the message to any ghosts/dead players.

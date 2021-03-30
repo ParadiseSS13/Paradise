@@ -2,7 +2,6 @@
 	name = "Vox"
 	name_plural = "Vox"
 	icobase = 'icons/mob/human_races/vox/r_vox.dmi'
-	deform = 'icons/mob/human_races/vox/r_def_vox.dmi'
 	dangerous_existence = TRUE
 	language = "Vox-pidgin"
 	tail = "voxtail"
@@ -23,12 +22,11 @@
 
 	eyes = "vox_eyes_s"
 
-	species_traits = list(NO_SCAN, NO_GERMS, NO_DECAY, IS_WHITELISTED, NOTRANSSTING)
+	species_traits = list(NO_CLONESCAN, IS_WHITELISTED, NOTRANSSTING)
+	inherent_traits = list(TRAIT_NOGERMS, TRAIT_NODECAY)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS //Species-fitted 'em all.
 	dietflags = DIET_OMNI
 	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS
-
-	silent_steps = TRUE
 
 	blood_color = "#2299FC"
 	flesh_color = "#808D11"
@@ -86,9 +84,9 @@
 	var/tank_pref = H.client && H.client.prefs ? H.client.prefs.speciesprefs : null
 	var/obj/item/tank/internal_tank
 	if(tank_pref)//Diseasel, here you go
-		internal_tank = new /obj/item/tank/nitrogen(H)
+		internal_tank = new /obj/item/tank/internals/nitrogen(H)
 	else
-		internal_tank = new /obj/item/tank/emergency_oxygen/vox(H)
+		internal_tank = new /obj/item/tank/internals/emergency_oxygen/double/vox(H)
 	if(!H.equip_to_appropriate_slot(internal_tank))
 		if(!H.put_in_any_hand_if_possible(internal_tank))
 			H.unEquip(H.l_hand)
@@ -106,33 +104,26 @@
 /datum/species/vox/updatespeciescolor(mob/living/carbon/human/H, owner_sensitive = 1) //Handling species-specific skin-tones for the Vox race.
 	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE) //Making sure we don't break Armalis.
 		var/new_icobase = 'icons/mob/human_races/vox/r_vox.dmi' //Default Green Vox.
-		var/new_deform = 'icons/mob/human_races/vox/r_def_vox.dmi' //Default Green Vox.
 		switch(H.s_tone)
 			if(6) //Azure Vox.
 				new_icobase = 'icons/mob/human_races/vox/r_voxazu.dmi'
-				new_deform = 'icons/mob/human_races/vox/r_def_voxazu.dmi'
 				H.tail = "voxtail_azu"
 			if(5) //Emerald Vox.
 				new_icobase = 'icons/mob/human_races/vox/r_voxemrl.dmi'
-				new_deform = 'icons/mob/human_races/vox/r_def_voxemrl.dmi'
 				H.tail = "voxtail_emrl"
 			if(4) //Grey Vox.
 				new_icobase = 'icons/mob/human_races/vox/r_voxgry.dmi'
-				new_deform = 'icons/mob/human_races/vox/r_def_voxgry.dmi'
 				H.tail = "voxtail_gry"
 			if(3) //Brown Vox.
 				new_icobase = 'icons/mob/human_races/vox/r_voxbrn.dmi'
-				new_deform = 'icons/mob/human_races/vox/r_def_voxbrn.dmi'
 				H.tail = "voxtail_brn"
 			if(2) //Dark Green Vox.
 				new_icobase = 'icons/mob/human_races/vox/r_voxdgrn.dmi'
-				new_deform = 'icons/mob/human_races/vox/r_def_voxdgrn.dmi'
 				H.tail = "voxtail_dgrn"
 			else  //Default Green Vox.
 				H.tail = "voxtail" //Ensures they get an appropriately coloured tail depending on the skin-tone.
 
-		H.change_icobase(new_icobase, new_deform, owner_sensitive) //Update the icobase/deform of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
-		H.update_dna()
+		H.change_icobase(new_icobase, owner_sensitive) //Update the icobase of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
 
 /datum/species/vox/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "oxygen") //Armalis are above such petty things.
@@ -146,27 +137,16 @@
 	name = "Vox Armalis"
 	name_plural = "Vox Armalis"
 	icobase = 'icons/mob/human_races/r_armalis.dmi'
-	deform = 'icons/mob/human_races/r_armalis.dmi'
 	unarmed_type = /datum/unarmed_attack/claws/armalis
 	blacklisted = TRUE
-
-	warning_low_pressure = 50
-	hazard_low_pressure = 0
-
-	cold_level_1 = 80
-	cold_level_2 = 50
-	cold_level_3 = 0
-
-	heat_level_1 = 2000
-	heat_level_2 = 3000
-	heat_level_3 = 4000
 
 	brute_mod = 0.2
 	burn_mod = 0.2
 
 	eyes = "blank_eyes"
 
-	species_traits = list(NO_SCAN, NO_GERMS, NO_DECAY, NO_BLOOD, NO_PAIN, IS_WHITELISTED)
+	species_traits = list(NO_CLONESCAN, NO_BLOOD, IS_WHITELISTED)
+	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_NOFIRE, TRAIT_NOPAIN, TRAIT_NOGERMS, TRAIT_NODECAY)
 	clothing_flags = 0 //IDK if you've ever seen underwear on an Armalis, but it ain't pretty.
 	bodyflags = HAS_TAIL
 	dies_at_threshold = TRUE

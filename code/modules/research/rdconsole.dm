@@ -186,7 +186,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	griefProtection()
 */
 
-/obj/machinery/computer/rdconsole/attackby(var/obj/item/D as obj, var/mob/user as mob, params)
+/obj/machinery/computer/rdconsole/attackby(obj/item/D as obj, mob/user as mob, params)
 
 	//Loading a disk into it.
 	if(istype(D, /obj/item/disk))
@@ -339,9 +339,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			to_chat(usr, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
 		else
 			for(var/T in temp_tech)
-				var/datum/tech/KT = files.known_tech[T] //For stat logging of high levels
-				if(files.IsTechHigher(T, temp_tech[T]) && KT.level >= 5) //For stat logging of high levels
-					feedback_add_details("high_research_level","[KT][KT.level + 1]") //+1 to show the level which we're about to get
 				files.UpdateTech(T, temp_tech[T])
 			send_mats()
 			linked_destroy.loaded_item = null
@@ -542,7 +539,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			// Somehow this href makes me very nervous
 			var/datum/tech/known = files.known_tech[params["id"]]
 			if(t_disk && known)
-				t_disk.stored = known
+				t_disk.load_tech(known)
 			menu = MENU_DISK
 			submenu = SUBMENU_MAIN
 

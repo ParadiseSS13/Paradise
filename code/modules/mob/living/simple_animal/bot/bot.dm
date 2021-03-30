@@ -4,6 +4,7 @@
 /mob/living/simple_animal/bot
 	icon = 'icons/obj/aibots.dmi'
 	layer = MOB_LAYER - 0.1
+	mob_biotypes = MOB_ROBOTIC
 	light_range = 3
 	stop_automated_movement = 1
 	wander = 0
@@ -750,11 +751,11 @@ Pass a positive integer as an argument to override a bot's default speed.
 	return 1
 
 // send a radio signal with a single data key/value pair
-/mob/living/simple_animal/bot/proc/post_signal(var/freq, var/key, var/value)
+/mob/living/simple_animal/bot/proc/post_signal(freq, key, value)
 	post_signal_multiple(freq, list("[key]" = value) )
 
 // send a radio signal with multiple data key/values
-/mob/living/simple_animal/bot/proc/post_signal_multiple(var/freq, var/list/keyval)
+/mob/living/simple_animal/bot/proc/post_signal_multiple(freq, list/keyval)
 	if(!is_station_level(z)) //Bot control will only work on station.
 		return
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(freq)
@@ -1034,7 +1035,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/proc/door_opened(obj/machinery/door/D)
 	frustration = 0
 
-/mob/living/simple_animal/bot/handle_message_mode(var/message_mode, var/message, var/verb, var/speaking, var/used_radios)
+/mob/living/simple_animal/bot/handle_message_mode(message_mode, message, verb, speaking, used_radios)
 	switch(message_mode)
 		if("intercom")
 			for(var/obj/item/radio/intercom/I in view(1, src))

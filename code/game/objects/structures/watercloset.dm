@@ -13,8 +13,8 @@
 	var/mob/living/swirlie = null	//the mob being given a swirlie
 
 
-/obj/structure/toilet/New()
-	..()
+/obj/structure/toilet/Initialize(mapload)
+	. = ..()
 	open = round(rand(0, 1))
 	update_icon()
 
@@ -27,7 +27,7 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(src.loc, "swing_hit", 25, 1)
 		swirlie.visible_message("<span class='danger'>[user] slams the toilet seat onto [swirlie]'s head!</span>", "<span class='userdanger'>[user] slams the toilet seat onto [swirlie]'s head!</span>", "<span class='italics'>You hear reverberating porcelain.</span>")
-		swirlie.adjustBruteLoss(5)
+		swirlie.apply_damage(5, BRUTE, BODY_ZONE_HEAD)
 		return
 
 	if(cistern && !open)
@@ -101,8 +101,8 @@
 						swirlie = null
 					else
 						playsound(src.loc, 'sound/effects/bang.ogg', 25, 1)
-						GM.visible_message("<span class='danger'>[user] slams [GM.name] into [src]!</span>", "<span class='userdanger'>[user] slams [GM.name] into [src]!</span>")
-						GM.adjustBruteLoss(5)
+						GM.visible_message("<span class='danger'>[user] slams [GM.name]'s head into [src]!</span>", "<span class='userdanger'>[user] slams [GM.name]'s head into [src]!</span>")
+						GM.apply_damage(5, BRUTE, BODY_ZONE_HEAD)
 			else
 				to_chat(user, "<span class='warning'>You need a tighter grip!</span>")
 
@@ -181,7 +181,7 @@
 /obj/structure/toilet/secret
 	var/secret_type = null
 
-/obj/structure/toilet/secret/New()
+/obj/structure/toilet/secret/Initialize(mapload)
 	. = ..()
 	if(secret_type)
 		var/obj/item/secret = new secret_type(src)
@@ -212,8 +212,8 @@
 					return
 				user.changeNext_move(CLICK_CD_MELEE)
 				playsound(src.loc, 'sound/effects/bang.ogg', 25, 1)
-				user.visible_message("<span class='danger'>[user] slams [GM] into [src]!</span>", "<span class='notice'>You slam [GM] into [src]!</span>")
-				GM.adjustBruteLoss(8)
+				user.visible_message("<span class='danger'>[user] slams [GM]'s head into [src]!</span>", "<span class='danger'>You slam [GM]'s head into [src]!</span>")
+				GM.apply_damage(8, BRUTE, BODY_ZONE_HEAD)
 			else
 				to_chat(user, "<span class='warning'>You need a tighter grip!</span>")
 
@@ -240,6 +240,10 @@
 			pixel_x = 0
 			pixel_y = 32
 
+#define SHOWER_FREEZING "freezing"
+#define SHOWER_NORMAL "normal"
+#define SHOWER_BOILING "boiling"
+
 /obj/machinery/shower
 	name = "shower"
 	desc = "The HS-451. Installed in the 2550s by the Nanotrasen Hygiene Division."
@@ -248,11 +252,11 @@
 	density = 0
 	anchored = 1
 	use_power = NO_POWER_USE
-	var/on = 0
-	var/obj/effect/mist/mymist = null
-	var/ismist = 0				//needs a var so we can make it linger~
-	var/watertemp = "normal"	//freezing, normal, or boiling
-	var/mobpresent = 0		//true if there is a mob on the shower's loc, this is to ease process()
+	///Is the shower on or off?
+	var/on = FALSE
+	///What temperature the shower reagents are set to.
+	var/current_temperature = SHOWER_NORMAL
+	///What sound will be played on loop when the shower is on and pouring water.
 	var/datum/looping_sound/showering/soundloop
 
 /obj/machinery/shower/New(turf/T, newdir = SOUTH, building = FALSE)
@@ -270,7 +274,6 @@
 				layer = FLY_LAYER
 
 /obj/machinery/shower/Destroy()
-	QDEL_NULL(mymist)
 	QDEL_NULL(soundloop)
 	return ..()
 
@@ -280,47 +283,45 @@
 	name = "mist"
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "mist"
-	layer = MOB_LAYER + 1
-	anchored = 1
+	layer = FLY_LAYER
+	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-/obj/machinery/shower/attack_hand(mob/M as mob)
+/obj/machinery/shower/attack_hand(mob/M)
 	on = !on
 	update_icon()
+	handle_mist()
+	add_fingerprint(M)
 	if(on)
+		START_PROCESSING(SSmachines, src)
+		process()
 		soundloop.start()
-		if(M.loc == loc)
-			wash(M)
-			check_heat(M)
-			M.water_act(100, convertHeat(), src)
-		for(var/atom/movable/G in src.loc)
-			G.clean_blood()
-			G.water_act(100, convertHeat(), src)
 	else
 		soundloop.stop()
+		var/turf/simulated/T = loc
+		if(istype(T) && !T.density)
+			T.MakeSlippery(TURF_WET_WATER, 5 SECONDS)
 
-/obj/machinery/shower/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/machinery/shower/attackby(obj/item/I, mob/user, params)
 	if(I.type == /obj/item/analyzer)
-		to_chat(user, "<span class='notice'>The water temperature seems to be [watertemp].</span>")
-	if(on)
-		I.water_act(100, convertHeat(), src)
+		to_chat(user, "<span class='notice'>The water temperature seems to be [current_temperature].</span>")
 	return ..()
 
 /obj/machinery/shower/wrench_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
-	to_chat(user, "<span class='notice'>You begin to adjust the temperature valve with the [I].</span>")
-	if(I.use_tool(src, user, 50, volume = I.tool_volume))
-		switch(watertemp)
-			if("normal")
-				watertemp = "freezing"
-			if("freezing")
-				watertemp = "boiling"
-			if("boiling")
-				watertemp = "normal"
-	user.visible_message("<span class='notice'>[user] adjusts the shower with the [I].</span>", "<span class='notice'>You adjust [src] to [watertemp].</span>")
-	update_icon()	//letsa update whenever we change the temperature, since the mist might need to change
+	..()
+	to_chat(user, "<span class='notice'>You begin to adjust the temperature valve with [I].</span>")
+	if(I.use_tool(src, user, 50))
+		switch(current_temperature)
+			if(SHOWER_NORMAL)
+				current_temperature = SHOWER_FREEZING
+			if(SHOWER_FREEZING)
+				current_temperature = SHOWER_BOILING
+			if(SHOWER_BOILING)
+				current_temperature = SHOWER_NORMAL
+		user.visible_message("<span class='notice'>[user] adjusts the shower with \the [I].</span>", "<span class='notice'>You adjust the shower with \the [I] to [current_temperature] temperature.</span>")
+		add_hiddenprint(user)
+	handle_mist()
+	return TRUE
 
 /obj/machinery/shower/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -331,111 +332,103 @@
 		return
 	visible_message("<span class='notice'>[user] begins slicing [src] free...</span>", "<span class='notice'>You begin slicing [src] free...</span>", "<span class='warning'>You hear welding.</span>")
 	if(I.use_tool(src, user, 40, volume = I.tool_volume))
-		if(mymist)
-			qdel(mymist)
 		user.visible_message("<span class='notice'>[user] cuts [src] loose!</span>", "<span class='notice'>You cut [src] loose!</span>")
 		var/obj/item/mounted/shower/S = new /obj/item/mounted/shower(get_turf(user))
 		transfer_prints_to(S, TRUE)
 		qdel(src)
 
-/obj/machinery/shower/update_icon()	//this makes the shower mist up or clear mist (depending on water temperature)
-	overlays.Cut()					//once it's been on for a while, in addition to handling the water overlay.
+/obj/machinery/shower/update_icon()
+	cut_overlays()
 	if(on)
-		overlays += image('icons/obj/watercloset.dmi', src, "water", MOB_LAYER + 1, dir)
-		var/mist_time = 50		//5 seconds at normal temperature to build up mist
-		if(watertemp == "freezing")
-			mist_time = 70		//7 seconds on freezing temperature to disperse existing mist
-		if(watertemp == "boiling")
-			mist_time = 20		//2 seconds on boiling temperature to build up mist
-		addtimer(CALLBACK(src, .proc/update_mist), mist_time)
-	else
-		addtimer(CALLBACK(src, .proc/update_mist), 250) //25 seconds for mist to disperse after being turned off
+		var/mutable_appearance/water_falling = mutable_appearance('icons/obj/watercloset.dmi', "water", ABOVE_MOB_LAYER)
+		add_overlay(water_falling)
 
-/obj/machinery/shower/proc/update_mist()
+/obj/machinery/shower/proc/handle_mist()
+	// If there is no mist, and the shower was turned on (on a non-freezing temp): make mist in 5 seconds
+	// If there was already mist, and the shower was turned off (or made cold): remove the existing mist in 25 sec
+	var/obj/effect/mist/mist = locate() in loc
+	if(!mist && on && current_temperature != SHOWER_FREEZING)
+		addtimer(CALLBACK(src, .proc/make_mist), 5 SECONDS)
+
+	if(mist && (!on || current_temperature == SHOWER_FREEZING))
+		addtimer(CALLBACK(src, .proc/clear_mist), 25 SECONDS)
+
+
+/obj/machinery/shower/proc/make_mist()
+	var/obj/effect/mist/mist = locate() in loc
+	if(!mist && on && current_temperature != SHOWER_FREEZING)
+		new /obj/effect/mist(loc)
+
+/obj/machinery/shower/proc/clear_mist()
+	var/obj/effect/mist/mist = locate() in loc
+	if(mist && (!on || current_temperature == SHOWER_FREEZING))
+		qdel(mist)
+
+/obj/machinery/shower/Crossed(atom/movable/AM)
+	..()
 	if(on)
-		if(watertemp == "freezing")
-			if(mymist)
-				qdel(mymist)
-			ismist = 0
-			return
-		if(mymist)
-			return
-		ismist = 1
-		mymist = new /obj/effect/mist(loc)
-	else
-		if(mymist)
-			qdel(mymist)
-		ismist = 0
-
-/obj/machinery/shower/Crossed(atom/movable/O, oldloc)
-	..()
-	wash(O)
-	if(ismob(O))
-		mobpresent += 1
-		check_heat(O)
-
-/obj/machinery/shower/Uncrossed(atom/movable/O)
-	if(ismob(O))
-		mobpresent -= 1
-	..()
+		wash(AM)
 
 /obj/machinery/shower/proc/convertHeat()
-	switch(watertemp)
-		if("boiling")
+	switch(current_temperature)
+		if(SHOWER_BOILING)
 			return 340.15
-		if("normal")
+		if(SHOWER_NORMAL)
 			return 310.15
-		if("freezing")
+		if(SHOWER_FREEZING)
 			return 230.15
 
 //Yes, showers are super powerful as far as washing goes.
-/obj/machinery/shower/proc/wash(atom/movable/O as obj|mob)
-	if(!on) return
-
-	if(istype(O, /obj/item))
-		var/obj/item/I = O
+/obj/machinery/shower/proc/wash(atom/A)
+	if(isitem(A))
+		var/obj/item/I = A
 		I.extinguish()
 
-	O.water_act(100, convertHeat(), src)
+	A.water_act(100, convertHeat(), src)
 
-	if(isliving(O))
-		var/mob/living/L = O
+	if(isliving(A))
+		var/mob/living/L = A
+		check_heat(L)
 		L.ExtinguishMob()
 		L.adjust_fire_stacks(-20) //Douse ourselves with water to avoid fire more easily
-		to_chat(L, "<span class='warning'>You've been drenched in water!</span>")
-		L.clean_blood()
 
-	if(isturf(loc))
-		var/turf/tile = loc
-		loc.clean_blood()
-		for(var/obj/effect/E in tile)
-			if(is_cleanable(E))
-				qdel(E)
+	A.clean_blood(radiation_clean = TRUE)
 
 /obj/machinery/shower/process()
-	if(!on || !mobpresent)
-		return
-	for(var/mob/living/carbon/C in loc)
-		if(prob(33))
-			wash(C)	//re-applies water and re-cleans mob while they remain under the shower, 33% chance per process to avoid message spam/quick death
-		check_heat(C)
+	if(on)
+		if(isturf(loc))
+			var/turf/tile = loc
+			tile.water_act(100, convertHeat(), src)
+			tile.clean_blood(radiation_clean = TRUE)
+			for(var/obj/effect/E in tile)
+				if(is_cleanable(E))
+					qdel(E)
+		for(var/A in loc)
+			wash(A)
+	else
+		on = FALSE
+		soundloop.stop()
+		handle_mist()
+		update_icon()
 
-/obj/machinery/shower/proc/check_heat(mob/M as mob)
-	if(!on || watertemp == "normal")
+/obj/machinery/shower/proc/check_heat(mob/M)
+	if(current_temperature == SHOWER_NORMAL)
 		return
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 
-		if(watertemp == "freezing")
+		if(current_temperature == SHOWER_FREEZING)
 			//C.bodytemperature = max(80, C.bodytemperature - 80)
 			to_chat(C, "<span class='warning'>The water is freezing!</span>")
-			return
-		if(watertemp == "boiling")
+
+		else if(current_temperature == SHOWER_BOILING)
 			//C.bodytemperature = min(500, C.bodytemperature + 35)
 			C.adjustFireLoss(5)
 			to_chat(C, "<span class='danger'>The water is searing!</span>")
-			return
 
+#undef SHOWER_FREEZING
+#undef SHOWER_NORMAL
+#undef SHOWER_BOILING
 
 /obj/item/bikehorn/rubberducky
 	name = "rubber ducky"

@@ -48,6 +48,9 @@
 			if(include_link && C)
 				. += "<a href='?priv_msg=[C.ckey];type=[type]'>"
 			. += key
+			// See if the player is on the watchlist. Requires admin permissions.
+			if(check_rights(R_ADMIN, FALSE) && C && C.watchlisted)
+				. += "<font color='orange'><b>(W)</b></font>"
 
 		if(include_link)
 			if(C)	. += "</a>"
