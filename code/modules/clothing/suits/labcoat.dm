@@ -30,36 +30,36 @@
 	item_state = "labcoat_green_open"
 
 /obj/item/clothing/suit/storage/labcoat/genetics
-	name = "geneticist's labcoat"
+	name = "geneticist labcoat"
 	desc = "A suit that protects against minor chemical spills. Has a blue stripe on the shoulder."
 	icon_state = "labcoat_gen_open"
 	item_state = "labcoat_gen_open"
 
 /obj/item/clothing/suit/storage/labcoat/chemist
-	name = "chemist's labcoat"
+	name = "chemist labcoat"
 	desc = "A suit that protects against minor chemical spills. Has an orange stripe on the shoulder."
 	icon_state = "labcoat_chem_open"
 	item_state = "labcoat_chem_open"
 
 /obj/item/clothing/suit/storage/labcoat/virologist
-	name = "virologist's labcoat"
+	name = "virologist labcoat"
 	desc = "A suit that protects against minor chemical spills. Offers slightly more protection against biohazards than the standard model. Has a green stripe on the shoulder."
 	icon_state = "labcoat_vir_open"
 
 /obj/item/clothing/suit/storage/labcoat/science
-	name = "scientist's labcoat"
+	name = "scientist labcoat"
 	desc = "A suit that protects against minor chemical spills. Has a purple stripe on the shoulder."
 	icon_state = "labcoat_tox_open"
 	item_state = "labcoat_tox_open"
 
 /obj/item/clothing/suit/storage/labcoat/mortician
-	name = "coroner's labcoat"
+	name = "coroner labcoat"
 	desc = "A suit that protects against minor chemical spills. Has a black stripe on the shoulder."
 	icon_state = "labcoat_mort_open"
 	item_state = "labcoat_mort_open"
 
 /obj/item/clothing/suit/storage/labcoat/emt
-	name = "\improper EMT's labcoat"
+	name = "\improper EMT labcoat"
 	desc = "A comfortable suit for paramedics. Has dark colours."
 	icon_state = "labcoat_emt_open"
 	item_state = "labcoat_emt_open"

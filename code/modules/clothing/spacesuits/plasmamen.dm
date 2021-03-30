@@ -209,7 +209,7 @@
 	item_state = "chef_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/librarian
-	name = "librarian's plasma envirosuit helmet"
+	name = "librarian plasma envirosuit helmet"
 	desc = "A slight modification on a traditional voidsuit helmet, this helmet was Nanotrasen's first solution to the *logistical problems* that come with employing plasmamen. Despite their limitations, these helmets still see use by historian and old-styled plasmamen alike."
 	icon_state = "prototype_envirohelm"
 	item_state = "prototype_envirohelm"
@@ -229,14 +229,14 @@
 	item_state = "janitor_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/mime
-	name = "mime's envirosuit helmet"
+	name = "mime envirosuit helmet"
 	desc = "The makeup is painted on, it's a miracle it doesn't chip. It's not very colourful."
 	icon_state = "mime_envirohelm"
 	item_state = "mime_envirohelm"
 	visor_icon = "mime_envisor"
 
 /obj/item/clothing/head/helmet/space/plasmaman/clown
-	name = "clown's envirosuit helmet"
+	name = "clown envirosuit helmet"
 	desc = "The makeup is painted on, it's a miracle it doesn't chip. <i>'HONK!'</i>"
 	icon_state = "clown_envirohelm"
 	item_state = "clown_envirohelm"
@@ -261,7 +261,7 @@
 	item_state = "bs_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/wizard
-	name = "wizard's plasma envirosuit helmet"
+	name = "wizard plasma envirosuit helmet"
 	desc = "A magical plasmaman containment helmet designed to spread chaos in safety and comfort."
 	icon_state = "wizard_envirohelm"
 	item_state = "wizard_envirohelm"
@@ -272,7 +272,7 @@
 	magical = TRUE
 
 /obj/item/clothing/head/helmet/space/plasmaman/assistant
-	name = "assistant's envirosuit helmet"
+	name = "assistant envirosuit helmet"
 	desc = "A plasmaman envirohelm designed for the common, maint-dwelling masses."
 	icon_state = "assistant_envirohelm"
 	item_state = "assistant_envirohelm"
