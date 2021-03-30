@@ -442,7 +442,7 @@
 			else
 				if(isliving(AM))
 					var/mob/living/M = AM
-					to_chat(M, "<span class='userdanger'>You're thrown back by the [owner]'s reactive armor!</span>")
+					to_chat(M, "<span class='userdanger'>You're thrown back by [owner]'s reactive armor!</span>")
 				spawn(0)
 					AM.throw_at(throwtarget, ((clamp((repulse_power - (clamp(distfromuser - 2, 0, distfromuser))), 3, repulse_power))), 1)//So stuff gets tossed around at the same time.
 		disable(rand(2, 5))

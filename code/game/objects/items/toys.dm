@@ -970,7 +970,7 @@
 
 /obj/item/toy/plushie/attack_self(mob/user as mob)
 	var/cuddle_verb = pick("hugs","cuddles","snugs")
-	user.visible_message("<span class='notice'>[user] [cuddle_verb] the [src].</span>")
+	user.visible_message("<span class='notice'>[user] [cuddle_verb] [src].</span>")
 	playsound(get_turf(src), poof_sound, 50, 1, -1)
 	return ..()
 
@@ -1253,7 +1253,7 @@
 /obj/item/toy/owl/attack_self(mob/user)
 	if(!cooldown) //for the sanity of everyone
 		var/message = pick("You won't get away this time, Griffin!", "Stop right there, criminal!", "Hoot! Hoot!", "I am the night!")
-		to_chat(user, "<span class='notice'>You pull the string on the [src].</span>")
+		to_chat(user, "<span class='notice'>You pull the string on [src].</span>")
 		playsound(user, 'sound/creatures/hoot.ogg', 25, 1)
 		visible_message("<span class='danger'>[bicon(src)] [message]</span>")
 		cooldown = 1
@@ -1272,7 +1272,7 @@
 /obj/item/toy/griffin/attack_self(mob/user)
 	if(!cooldown) //for the sanity of everyone
 		var/message = pick("You can't stop me, Owl!", "My plan is flawless! The vault is mine!", "Caaaawwww!", "You will never catch me!")
-		to_chat(user, "<span class='notice'>You pull the string on the [src].</span>")
+		to_chat(user, "<span class='notice'>You pull the string on [src].</span>")
 		playsound(user, 'sound/creatures/caw.ogg', 25, 1)
 		visible_message("<span class='danger'>[bicon(src)] [message]</span>")
 		cooldown = 1
@@ -1580,7 +1580,7 @@
 /obj/item/toy/figure/attack_self(mob/user as mob)
 	if(cooldown < world.time)
 		cooldown = (world.time + 30) //3 second cooldown
-		user.visible_message("<span class='notice'>[bicon(src)] The [src] says \"[toysay]\".</span>")
+		user.visible_message("<span class='notice'>[bicon(src)] [src] says \"[toysay]\".</span>")
 		playsound(user, 'sound/machines/click.ogg', 20, 1)
 
 /obj/item/toy/figure/cmo
@@ -1804,7 +1804,7 @@
 //////////////////////////////////////////////////////
 
 /obj/item/toy/eight_ball
-	name = "Magic 8-Ball"
+	name = "\improper Magic 8-Ball"
 	desc = "Mystical! Magical! Ages 8+!"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "eight-ball"
@@ -1816,13 +1816,13 @@
 	if(!cooldown)
 		var/answer = pick(possible_answers)
 		user.visible_message("<span class='notice'>[user] focuses on [user.p_their()] question and [use_action]...</span>")
-		user.visible_message("<span class='notice'>[bicon(src)] The [src] says \"[answer]\"</span>")
+		user.visible_message("<span class='notice'>[bicon(src)] [src] says \"[answer]\"</span>")
 		spawn(30)
 			cooldown = 0
 		return
 
 /obj/item/toy/eight_ball/conch
-	name = "Magic Conch Shell"
+	name = "\improper Magic Conch Shell"
 	desc = "All hail the Magic Conch!"
 	icon_state = "conch"
 	use_action = "pulls the string"

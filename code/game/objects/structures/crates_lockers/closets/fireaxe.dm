@@ -102,7 +102,7 @@
 	if(localopened)
 		if(fireaxe)
 			user.put_in_hands(fireaxe)
-			to_chat(user, "<span class='notice'>You take \the [fireaxe] from the [src].</span>")
+			to_chat(user, "<span class='notice'>You take \the [fireaxe] from [src].</span>")
 			fireaxe = null
 
 			add_fingerprint(user)
@@ -157,7 +157,7 @@
 	if(localopened)
 		if(fireaxe)
 			usr.put_in_hands(fireaxe)
-			to_chat(usr, "<span class='notice'>You take \the [fireaxe] from the [src].</span>")
+			to_chat(usr, "<span class='notice'>You take \the [fireaxe] from [src].</span>")
 			fireaxe = null
 		else
 			to_chat(usr, "<span class='notice'>[src] is empty.</span>")
