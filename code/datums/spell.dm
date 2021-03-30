@@ -108,6 +108,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/spell_level = 0 //if a spell can be taken multiple times, this raises
 	var/level_max = 4 //The max possible level_max is 4
 	var/cooldown_min = 0 //This defines what spell quickened four timeshas as a cooldown. Make sure to set this for every spell
+	var/is_casting = FALSE
 
 	var/overlay = 0
 	var/overlay_icon = 'icons/obj/wizard.dmi'
@@ -147,6 +148,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			return 0
 
 	if(start_recharge)
+		addtimer(CALLBACK(src, /obj/effect/proc_holder/spell/proc/cast_cooldown), 1 SECONDS)
 		switch(charge_type)
 			if("recharge")
 				charge_counter = 0 //doesn't start recharging until the targets selecting ends
@@ -448,6 +450,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		else
 			to_chat(user, "<span class='warning'>[src] is not ready to be used yet.</span>")
 
+/obj/effect/proc_holder/spell/proc/cast_cooldown
+	is_casting = FALSE
+
 /obj/effect/proc_holder/spell/targeted/click/proc/attempt_auto_target(mob/user)
 	var/atom/target
 	for(var/atom/A in view_or_range(range, user, selection_type))
@@ -465,7 +470,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/targeted/click/InterceptClickOn(mob/living/user, params, atom/A)
 	if(..() || !cast_check(TRUE, TRUE, user))
 		remove_ranged_ability(user)
-		revert_cast(user)
+		if (!is_casting)
+			revert_cast(user)
 		return TRUE
 
 	var/list/targets = list()
