@@ -471,7 +471,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/targeted/click/InterceptClickOn(mob/living/user, params, atom/A)
 	if(..() || !cast_check(TRUE, TRUE, user))
 		remove_ranged_ability(user)
-		if (!is_casting)
+		if(!is_casting)
 			revert_cast(user)
 		return TRUE
 
