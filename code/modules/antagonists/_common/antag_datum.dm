@@ -35,8 +35,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/clown_gain_text = "You are no longer clumsy."
 	/// If the owner is a clown, this text will be displayed to them when they lose this datum.
 	var/clown_removal_text = "You are clumsy again."
-	/// The name of the antag page on the wiki. Will be used in the form of [config.wikiurl]/index.php/[wiki_page_name]
-	var/wiki_page_name = ""
 
 /datum/antagonist/New()
 	GLOB.antagonists += src

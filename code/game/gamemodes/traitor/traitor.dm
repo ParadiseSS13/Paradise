@@ -13,7 +13,7 @@
 	required_enemies = 1
 	recommended_enemies = 4
 	/// A list containing references to the minds of soon-to-be traitors. This is seperate to avoid duplicate entries in the `traitors` list.
-	var/list/datum/mind/pre_traitors
+	var/list/datum/mind/pre_traitors = list()
 	/// Hard limit on traitors if scaling is turned off.
 	var/traitors_possible = 4
 	/// How much the amount of players get divided by to determine the number of traitors.
@@ -25,7 +25,6 @@
 
 
 /datum/game_mode/traitor/pre_setup()
-	pre_traitors = list()
 
 	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		restricted_jobs += protected_jobs

@@ -10,7 +10,6 @@
 	antag_hud_type = ANTAG_HUD_TRAITOR
 	clown_gain_text = "Your syndicate training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
 	clown_removal_text = "You lose your syndicate training and return to your own clumsy, clownish self."
-	wiki_page_name = "Traitor"
 	/// Should the traitor get codewords?
 	var/give_codewords = TRUE
 	/// Should we give the traitor their uplink?
@@ -208,6 +207,7 @@
 		if(give_uplink)
 			give_uplink()
 		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	to_chat(owner.current, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/Traitor)</span>")
 
 /**
  * Notify the traitor of their codewords and write them to `antag_memory` (notes).
