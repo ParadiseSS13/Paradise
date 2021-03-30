@@ -15,8 +15,8 @@
 	gibamounts[6] = pick(0,1,2)
 	..()
 
-/obj/effect/gibspawner/human/gib_dna(obj/effect/decal/cleanable/blood/gibs/gib, datum/dna/MobDNA)
-	if(..()) // Probably a monkey
+/obj/effect/gibspawner/human/gib_dna(obj/effect/decal/cleanable/blood/gibs/gib, datum/dna/mob_dna)
+	if(!..()) // Probably admin spawned
 		gib.blood_DNA["Non-human DNA"] = "A+"
 
 /obj/effect/gibspawner/xeno
@@ -28,8 +28,8 @@
 	gibamounts[6] = pick(0,1,2)
 	..()
 
-/obj/effect/gibspawner/xeno/gib_dna(obj/effect/decal/cleanable/blood/gibs/gib, datum/dna/MobDNA)
-	if(..())
+/obj/effect/gibspawner/xeno/gib_dna(obj/effect/decal/cleanable/blood/gibs/gib, datum/dna/mob_dna)
+	if(!..())
 		gib.blood_DNA["UNKNOWN DNA"] = "X*"
 
 /obj/effect/gibspawner/robot
