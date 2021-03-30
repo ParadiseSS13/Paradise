@@ -698,6 +698,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	updateghostimages()
 
+/mob/dead/observer/can_see_reagents()
+	return TRUE
+
 /proc/updateallghostimages()
 	for(var/mob/dead/observer/O in GLOB.player_list)
 		O.updateghostimages()

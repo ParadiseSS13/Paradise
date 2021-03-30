@@ -122,15 +122,14 @@
 /obj/machinery/r_n_d/proc/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
 	var/stack_name
 	if(ispath(type_inserted, /obj/item/stack/ore/bluespace_crystal))
-		stack_name = "bluespace polycrystal"
+		stack_name = "bluespace"
 		use_power(MINERAL_MATERIAL_AMOUNT / 10)
 	else
 		var/obj/item/stack/S = type_inserted
 		stack_name = initial(S.name)
 		use_power(min(1000, (amount_inserted / 100)))
-	overlays += "[initial(name)]_[stack_name]"
-	sleep(10)
-	overlays -= "[initial(name)]_[stack_name]"
+	add_overlay("protolathe_[stack_name]")
+	addtimer(CALLBACK(src, /atom/proc/cut_overlay, "protolathe_[stack_name]"), 10)
 
 /obj/machinery/r_n_d/proc/check_mat(datum/design/being_built, M)
 	return 0 // number of copies of design beign_built you can make with material M
