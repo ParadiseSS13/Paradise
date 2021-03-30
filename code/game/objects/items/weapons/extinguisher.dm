@@ -57,7 +57,7 @@
 	to_chat(user, "The safety is [safety ? "on" : "off"].")
 	return
 
-/obj/item/extinguisher/attack_obj(obj/O, mob/living/user)
+/obj/item/extinguisher/attack_obj(obj/O, mob/living/user, params)
 	if(AttemptRefill(O, user))
 		refilling = TRUE
 		return FALSE
