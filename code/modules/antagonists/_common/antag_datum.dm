@@ -35,8 +35,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/clown_gain_text = "You are no longer clumsy."
 	/// If the owner is a clown, this text will be displayed to them when they lose this datum.
 	var/clown_removal_text = "You are clumsy again."
-	/// The name of the antag page on the wiki. Will be used in the form of [config.wikiurl]/index.php/[wiki_page_name]
-	var/wiki_page_name = ""
 
 /datum/antagonist/New()
 	GLOB.antagonists += src
@@ -261,8 +259,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/greet()
 	to_chat(owner.current, "<span class='userdanger'>You are a [special_role]!</span>")
 	announce_datum_objectives()
-	if(wiki_page_name)
-		to_chat(owner.current, "<span class='motd'>For more information, check the wiki page: ([config.wikiurl]/index.php/[wiki_page_name])</span>")
 
 /**
  * Displays a message to the antag mob while the datum is being deleted, i.e. "Your powers are gone and you're no longer a vampire!"
