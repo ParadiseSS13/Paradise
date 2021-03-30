@@ -130,7 +130,7 @@
 		return 1
 
 /obj/item/clothing/glasses/science/night
-	name = "night vision science goggle"
+	name = "night vision science goggles"
 	desc = "Now you can science in darkness."
 	icon_state = "nvpurple"
 	item_state = "glasses"
@@ -238,7 +238,7 @@
 	item_state = "hipster_glasses"
 
 /obj/item/clothing/glasses/threedglasses
-	name = "3D glasses"
+	name = "\improper 3D glasses"
 	desc = "A long time ago, people used these glasses to makes images from screens threedimensional."
 	icon_state = "3d"
 	item_state = "3d"
@@ -433,7 +433,7 @@
 	item_state = "eyepatch"
 
 /obj/item/clothing/glasses/thermal/jensen
-	name = "optical thermal implants"
+	name = "optical thermal implant"
 	desc = "A set of implantable lenses designed to augment your vision"
 	icon_state = "thermalimplants"
 	item_state = "syringe_kit"
