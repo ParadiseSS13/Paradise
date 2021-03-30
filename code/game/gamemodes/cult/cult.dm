@@ -169,33 +169,35 @@ GLOBAL_LIST_EMPTY(all_cults)
 		return TRUE
 
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE, remove_gear = FALSE)
-	if(cult_mind in cult)
-		var/mob/cultist = cult_mind.current
-		cult -= cult_mind
-		cultist.faction -= "cult"
-		cult_mind.special_role = null
-		for(var/I in cult_mind.objectives)
-			if(istype(I, /datum/objective/servecult))
-				cult_mind.objectives -= I
-		for(var/datum/action/innate/cult/C in cultist.actions)
-			qdel(C)
-		update_cult_icons_removed(cult_mind)
+	if(!(cult_mind in cult)) // Not actually a cultist in the first place
+		return
 
-		if(ishuman(cultist))
-			var/mob/living/carbon/human/H = cultist
-			REMOVE_TRAIT(H, CULT_EYES, null)
-			H.change_eye_color(H.original_eye_color, FALSE)
-			H.update_eyes()
-			H.remove_overlay(HALO_LAYER)
-			H.update_body()
-			if(remove_gear) // No flagellants robe for non-cultists
-				for(var/I in H.contents)
-					if(is_type_in_list(I, CULT_CLOTHING))
-						H.unEquip(I)
-		check_cult_size()
-		if(show_message)
-			cultist.visible_message("<span class='cult'>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</span>",
-			"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] and the memories of your time as their servant with it.</span>")
+	var/mob/cultist = cult_mind.current
+	cult -= cult_mind
+	cultist.faction -= "cult"
+	cult_mind.special_role = null
+	for(var/datum/objective/servecult/S in cult_mind.objectives)
+		cult_mind.objectives -= S
+		qdel(S)
+	for(var/datum/action/innate/cult/C in cultist.actions)
+		qdel(C)
+	update_cult_icons_removed(cult_mind)
+
+	if(ishuman(cultist))
+		var/mob/living/carbon/human/H = cultist
+		REMOVE_TRAIT(H, CULT_EYES, null)
+		H.change_eye_color(H.original_eye_color, FALSE)
+		H.update_eyes()
+		H.remove_overlay(HALO_LAYER)
+		H.update_body()
+		if(remove_gear) // No flagellants robe for non-cultists
+			for(var/I in H.contents)
+				if(is_type_in_list(I, CULT_CLOTHING))
+					H.unEquip(I)
+	check_cult_size()
+	if(show_message)
+		cultist.visible_message("<span class='cult'>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</span>",
+		"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] and the memories of your time as their servant with it.</span>")
 
 
 /**
@@ -226,7 +228,7 @@ GLOBAL_LIST_EMPTY(all_cults)
   *
   * Returns the number of cultists and constructs in a list ([1] = Cultists, [2] = Constructs), or as one combined number.
   *
-  * * separate - Should the number be returned in two separate values (Humans and Constructs) or as one?
+  * * separate - Should the number be returned as a list with two separate values (Humans and Constructs) or as one number.
   */
 /datum/game_mode/proc/get_cultists(separate = FALSE)
 	var/cultists = 0
