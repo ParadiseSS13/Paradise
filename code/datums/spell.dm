@@ -148,7 +148,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			return 0
 
 	if(start_recharge)
-		addtimer(CALLBACK(src, /obj/effect/proc_holder/spell/proc/cast_cooldown), 1 SECONDS)
+		addtimer(CALLBACK(src, .proc/cast_cooldown), 1 SECONDS)
 		switch(charge_type)
 			if("recharge")
 				charge_counter = 0 //doesn't start recharging until the targets selecting ends
@@ -450,7 +450,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		else
 			to_chat(user, "<span class='warning'>[src] is not ready to be used yet.</span>")
 
-/obj/effect/proc_holder/spell/proc/cast_cooldown
+/obj/effect/proc_holder/spell/proc/cast_cooldown()
 	is_casting = FALSE
 
 /obj/effect/proc_holder/spell/targeted/click/proc/attempt_auto_target(mob/user)
