@@ -149,6 +149,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	if(start_recharge)
 		addtimer(CALLBACK(src, .proc/cast_cooldown), 1 SECONDS)
+		is_casting = TRUE
 		switch(charge_type)
 			if("recharge")
 				charge_counter = 0 //doesn't start recharging until the targets selecting ends
