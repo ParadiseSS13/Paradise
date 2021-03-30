@@ -391,6 +391,7 @@
 	icon_screen = "telesci"
 	icon_keyboard = "teleport_key"
 	window_height = 300
+	req_access = list(ACCESS_SYNDICATE_LEADER)
 	var/obj/machinery/bluespace_beacon/syndicate/mybeacon
 	var/obj/effect/portal/redspace/myportal
 	var/obj/effect/portal/redspace/myportal2
@@ -486,7 +487,7 @@
 		"status" = portal_enabled ? "ON" : "OFF",
 		"buttontitle" = portal_enabled ? "Disable" : "Enable",
 		"buttonact" = "secondary",
-		"buttondisabled" = (!allowed(user) || (!depotarea.on_peaceful && !check_rights(R_ADMIN, FALSE, user))),
+		"buttondisabled" = !allowed(user),
 		"buttontooltip" = "When on, creates a bi-directional portal to the beacon of your choice."
 	))
 	return data
@@ -500,9 +501,6 @@
 	playsound(user, sound_yes, 50, 0)
 
 /obj/machinery/computer/syndicate_depot/teleporter/secondary(mob/user)
-	if(!depotarea.on_peaceful && !check_rights(R_ADMIN, FALSE, user))
-		to_chat(user, "<span class='notice'>Outgoing Teleport Portal controls are only enabled when the depot has a signed-in agent visitor.</span>")
-		return
 	if(!portal_enabled && myportal)
 		to_chat(user, "<span class='notice'>Outgoing Teleport Portal: deactivating... please wait...</span>")
 		return
