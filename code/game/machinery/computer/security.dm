@@ -248,14 +248,19 @@
 			update_all_mob_security_hud()
 			set_temp("Security record deleted.")
 		if("delete_security_all") // Delete All Security Records
+			var/datum/ui_login/state = ui_login_get()
 			if(!logged_in)
 				return
-			for(var/datum/data/record/S in GLOB.data_core.security)
-				qdel(S)
-			message_admins("[key_name_admin(usr)] has deleted all security records at [ADMIN_COORDJMP(usr)]")
-			usr.create_log(MISC_LOG, "deleted all security records")
-			update_all_mob_security_hud()
-			set_temp("All security records deleted.")
+			if((ACCESS_MAGISTRATE in state.access) || (ACCESS_ARMORY in state.access))
+				for(var/datum/data/record/S in GLOB.data_core.security)
+					qdel(S)
+				message_admins("[key_name_admin(usr)] has deleted all security records at [ADMIN_COORDJMP(usr)]")
+				usr.create_log(MISC_LOG, "deleted all security records")
+				update_all_mob_security_hud()
+				set_temp("All security records deleted.")
+			else
+				set_temp("Insufficient permissions to delete all records!")
+				return
 		if("delete_cell_logs") // Delete All Cell Logs
 			if(!logged_in)
 				return

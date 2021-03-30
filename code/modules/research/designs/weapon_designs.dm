@@ -257,3 +257,15 @@
 	build_path = /obj/item/gun/energy/immolator
 	locked = 1
 	category = list("Weapons")
+
+/datum/design/reactive_armour
+	name = "Reactive Armor Shell"
+	desc = "A reactive armor shell, that can have an anomaly core inserted to make a reactive armor"
+	id = "reactivearmor"
+	req_tech = list("combat" = 6, "materials" = 7, "engineering" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_PLASMA = 8000, MAT_TITANIUM = 14000, MAT_BLUESPACE = 6000) //Big strong armor needs big-ish investment
+	build_path = /obj/item/reactive_armour_shell
+	locked = TRUE
+	access_requirement = list(ACCESS_RD)
+	category = list("Weapons")

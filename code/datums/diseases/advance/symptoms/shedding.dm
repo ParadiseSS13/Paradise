@@ -31,6 +31,8 @@ BONUS
 		to_chat(M, "<span class='warning'>[pick("Your scalp itches.", "Your skin feels flakey.")]</span>")
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
+			if(NO_HAIR in H.dna.species.species_traits)
+				return // Hair can't fall out if you don't have any
 			var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 			switch(A.stage)
 				if(3, 4)

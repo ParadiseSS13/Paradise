@@ -10,7 +10,7 @@ on:
 jobs:
   run_linters:
     name: Run Linters
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - name: Setup Cache
@@ -37,7 +37,7 @@ jobs:
 
   compile_all_maps:
     name: Compile All Maps
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - name: Setup Cache
@@ -54,7 +54,7 @@ jobs:
 
   unit_tests_and_sql:
     name: Unit Tests + SQL Validation
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     services:
       mariadb:
         image: mariadb:latest
