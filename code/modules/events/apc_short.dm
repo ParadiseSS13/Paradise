@@ -72,7 +72,7 @@
 			affected_apc_count++
 	log_and_message_admins("APC Short Out event has shorted out [affected_apc_count] APCs.")
 
-/proc/power_restore(announce = TRUE, var/power_type)
+/proc/power_restore(announce = TRUE, power_type)
 	if(power_type == 0)	//Power without Repairing
 		if(announce)
 			GLOB.event_announcement.Announce("All operational APCs on \the [station_name()] have been fully charged.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
