@@ -6,19 +6,31 @@
 	var/streak = ""
 	var/max_streak_length = 6
 	var/temporary = FALSE
-	var/datum/martial_art/base = null // The permanent style
-	var/deflection_chance = 0 //Chance to deflect projectiles
-	var/block_chance = 0 //Chance to block melee attacks using items while on throw mode.
+	/// The permanent style
+	var/datum/martial_art/base = null
+	/// Chance to deflect projectiles while on throw mode
+	var/deflection_chance = 0
+	/// Can it reflect projectiles in a random direction?
+	var/reroute_deflection = FALSE
+	///Chance to block melee attacks using items while on throw mode.
+	var/block_chance = 0
 	var/help_verb = null
-	var/no_guns = FALSE	//set to TRUE to prevent users of this style from using guns (sleeping carp, highlander). They can still pick them up, but not fire them.
-	var/no_guns_message = ""	//message to tell the style user if they try and use a gun while no_guns = TRUE (DISHONORABRU!)
+	///set to TRUE to prevent users of this style from using guns (sleeping carp, highlander). They can still pick them up, but not fire them.
+	var/no_guns = FALSE
+	///message to tell the style user if they try and use a gun while no_guns = TRUE (DISHONORABRU!)
+	var/no_guns_message = ""
 
-	var/has_explaination_verb = FALSE	// If the martial art has it's own explaination verb
+	/// If the martial art has it's own explaination verb
+	var/has_explaination_verb = FALSE
 
-	var/list/combos = list()							// What combos can the user do? List of combo types
-	var/list/datum/martial_art/current_combos = list()	// What combos are currently (possibly) being performed
-	var/last_hit = 0									// When the last hit happened
-	var/in_stance = FALSE // If the user is preparing a martial arts stance
+	/// What combos can the user do? List of combo types
+	var/list/combos = list()
+	/// What combos are currently (possibly) being performed
+	var/list/datum/martial_art/current_combos = list()
+	/// When the last hit happened
+	var/last_hit = 0
+	// If the user is preparing a martial arts stance
+	var/in_stance = FALSE
 
 /datum/martial_art/New()
 	. = ..()
@@ -266,6 +278,7 @@
 
 	var/datum/martial_art/the_sleeping_carp/theSleepingCarp = new(null)
 	theSleepingCarp.teach(user)
+	user.faction |= list("carp") //makes space carp peaceful to sleeping carp users
 	user.drop_item()
 	visible_message("<span class='warning'>[src] lights up in fire and quickly burns to ash.</span>")
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
