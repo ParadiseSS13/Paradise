@@ -6,7 +6,7 @@
 
 /datum/martial_art/superhuman/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
-	var/obj/item/grab/G = D.grabbedby(A, 1)
+	var/obj/item/grab/G = D.grabbedby(A, TRUE)
 	if(G)
 		G.state = GRAB_AGGRESSIVE //Instant aggressive grab
 		add_attack_logs(A, D, "Melee attacked with martial-art [src] : aggressively grabbed", ATKLOG_ALL)
@@ -38,7 +38,7 @@
 				var/atom/throw_target = get_edge_target_turf(D, A.dir)
 				D.throw_at(throw_target, 1, 14, A)
 	else
-		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", "<span class='userdanger'>[A] attempted to disarm [D]!</span>")
+		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", "<span class='userdanger'>[A] attempted to disarm you!</span>")
 		playsound(D, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Disarmed", ATKLOG_ALL)
@@ -48,4 +48,4 @@
 	to_chat(usr, "<b><i>We scour the memories of all those we have absorbed, remembering their fighting styles... </i></b>")
 
 /datum/martial_art/superhuman/explaination_footer(user)
-	to_chat(user, "<b><i>In addition, by having your throw mode on when being attacked, we enter an active defense mode where we block and sometimes even counter attacks done to you.</i></b>")
+	to_chat(user, "<b><i>In addition, by having our throw mode on when being attacked, we enter an active defense mode where we block and sometimes even counter melee attacks done to us.</i></b>")

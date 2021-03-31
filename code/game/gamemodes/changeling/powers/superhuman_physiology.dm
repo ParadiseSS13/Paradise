@@ -8,7 +8,7 @@
 	var/datum/martial_art/superhuman/style = new
 
 /datum/action/changeling/superhuman/on_purchase(mob/user)
-	style.teach(user,1)
+	style.teach(user, TRUE)
 	return TRUE
 
 /datum/action/changeling/superhuman/Remove(mob/user)

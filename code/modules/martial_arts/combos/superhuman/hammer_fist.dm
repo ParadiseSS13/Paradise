@@ -5,7 +5,7 @@
 
 /datum/martial_combo/superhuman/hammer_fist/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	user.do_attack_animation(target, ATTACK_EFFECT_SMASH)
-	playsound(get_turf(target), 'sound/weapons/smash.ogg', 50, 1, -1)
+	playsound(get_turf(target), 'sound/weapons/smash.ogg', 50, TRUE, -1)
 	target.visible_message("<span class='warning'>[user]'s hand morphs into a bone hammer and slams [target] into the floor!</span>", \
 						  "<span class='userdanger'>[user]'s bone hammer slams you into the floor!</span>")
 	if(!target.stat || target.IsWeakened())
