@@ -494,11 +494,13 @@
 	dir = 4
 	pixel_x = 32
 
+
 /obj/machinery/door_timer/cell_7
 	name = "Cell 7"
 	id = "Cell 7"
 	dir = 4
 	pixel_x = 32
+
 
 /obj/machinery/door_timer/cell_8
 	name = "Cell 8"
