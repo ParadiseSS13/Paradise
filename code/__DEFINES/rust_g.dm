@@ -7,7 +7,7 @@
 /proc/rustg_get_version() return call(RUST_G, "get_version")()
 
 // uwuifies text
-#define rustg_uwuify(text) call(RUST_G, "uwuify")(text)
+#define wustg_uwuify(text) call(RUST_G, "uwuify")(text)
 
 // Defines for internal job subsystem //
 #define RUSTG_JOB_NO_RESULTS_YET "NO RESULTS YET"
