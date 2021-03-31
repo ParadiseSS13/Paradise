@@ -34,8 +34,8 @@
 	if(building)
 		set_pixel_offsets_from_dir(30, -30, 30, -30)
 
-/obj/machinery/defibrillator_mount/loaded/New() //loaded subtype for mapping use
-	..()
+/obj/machinery/defibrillator_mount/loaded/Initialize(mapload) //loaded subtype for mapping use
+	. = ..()
 	defib = new/obj/item/defibrillator/loaded(src)
 	update_icon()
 
