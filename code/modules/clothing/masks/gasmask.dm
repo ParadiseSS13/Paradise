@@ -20,6 +20,12 @@
 		"Plasmaman" = 'icons/mob/species/plasmaman/mask.dmi'
 		)
 
+/obj/item/clothing/mask/gas/Initialize(mapload)
+	. = ..()
+	if(icon_state == "gas_alt")
+		icon = 'icons/supersampling/items.dmi'
+		icon_state = "gas"
+
 // **** Welding gas mask ****
 
 /obj/item/clothing/mask/gas/welding

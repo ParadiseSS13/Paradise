@@ -18,6 +18,11 @@
 	var/propelled = FALSE // Check for fire-extinguisher-driven chairs
 	var/comfort = 0
 
+/obj/structure/chair/Initialize(mapload)
+	. = ..()
+	icon = 'icons/supersampling/icons.dmi'
+	icon_state = istype(src, /obj/structure/chair/stool) ? "stool" : "chair"
+
 /obj/structure/chair/narsie_act()
 	if(prob(20))
 		var/obj/structure/chair/wood/W = new/obj/structure/chair/wood(get_turf(src))

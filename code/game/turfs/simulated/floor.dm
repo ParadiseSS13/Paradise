@@ -38,6 +38,12 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 
 /turf/simulated/floor/Initialize(mapload)
 	. = ..()
+
+	// SUPERSAMPLING
+	icon = 'icons/supersampling/icons.dmi'
+	icon_state = "Floor"
+	icon_plating = "Floor1"
+
 	if(icon_state in GLOB.icons_to_ignore_at_floor_init) //so damaged/burned tiles or plating icons aren't saved as the default
 		icon_regular_floor = "floor"
 	else

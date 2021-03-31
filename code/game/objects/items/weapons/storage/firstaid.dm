@@ -24,6 +24,16 @@
 	var/syndicate_aligned = FALSE
 	var/robot_arm // This is for robot construction
 
+/obj/item/storage/firstaid/Initialize(mapload)
+	. = ..()
+	icon = 'icons/supersampling/items.dmi'
+	switch(icon_state)
+		if("ointment")
+			icon_state = "firstaid-ointment"
+		if("antitoxin")
+			icon_state = "firstaid-toxin"
+		else
+			icon_state = "firstaid"
 
 /obj/item/storage/firstaid/fire
 	name = "fire first-aid kit"

@@ -20,6 +20,9 @@
 /obj/item/tank/New()
 	..()
 
+	icon = 'icons/supersampling/items.dmi'
+	icon_state = "oxygen"
+
 	air_contents = new /datum/gas_mixture()
 	air_contents.volume = volume //liters
 	air_contents.temperature = T20C

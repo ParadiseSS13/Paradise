@@ -36,6 +36,9 @@
 	var/flipped = 0
 
 /obj/structure/table/Initialize(mapload)
+	smooth = 0
+	icon = 'icons/supersampling/icons.dmi'
+	icon_state = "Table2"
 	. = ..()
 	if(flipped)
 		update_icon()
@@ -646,7 +649,7 @@
 /obj/structure/rack
 	name = "rack"
 	desc = "Different from the Middle Ages version."
-	icon = 'icons/obj/objects.dmi'
+	icon = 'icons/supersampling/icons.dmi'
 	icon_state = "rack"
 	layer = TABLE_LAYER
 	density = TRUE
