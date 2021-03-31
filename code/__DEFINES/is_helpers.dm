@@ -74,6 +74,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define ishuman(A) (istype(A, /mob/living/carbon/human))
 
 //more carbon mobs
+#define ismonkey(A) (istype(A, /mob/living/carbon/human/monkey))
+
 #define isalien(A) (istype(A, /mob/living/carbon/alien))
 
 #define islarva(A) (istype(A, /mob/living/carbon/alien/larva))
@@ -93,4 +95,3 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define isclient(A) istype(A, /client)
 #define isradio(A) istype(A, /obj/item/radio)
 #define ispill(A) istype(A, /obj/item/reagent_containers/food/pill)
-
