@@ -242,7 +242,7 @@
 	cell = new(src)
 	update_icon()
 
-obj/item/defibrillator/compact/advanced
+/obj/item/defibrillator/compact/advanced
 	name = "advanced compact defibrillator"
 	desc = "A belt-equipped state-of-the-art defibrillator that can be rapidly deployed in all enviroments. Uses an experimental self-charging cell, meaning that it will (probably) never stop working. Can revive through space suits. Impossible to hack or damage."
 	icon_state = "defibadvanced"
@@ -254,7 +254,7 @@ obj/item/defibrillator/compact/advanced
 
 	var/next_emag_message //to prevent spam from the emagging message on the advanced defibrillator
 	var/next_emp_message //same as above, but for EMPs
-	
+
 /obj/item/defibrillator/compact/advanced/attackby(obj/item/W, mob/user, params)
 	if(W == paddles)
 		paddles.unwield()
@@ -283,7 +283,7 @@ obj/item/defibrillator/compact/advanced
 		next_emp_message = world.time + 5 SECONDS
 	else
 		return
-	
+
 
 
 /obj/item/defibrillator/compact/advanced/attackby(obj/item/W, mob/user, params)
