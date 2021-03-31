@@ -1,7 +1,6 @@
 /datum/action/changeling/superhuman
 	name = "Superhuman Physiology"
-	helptext = "We may toggle our superhuman biology on and off to avoid detection."
-	desc = "We combine the fighting knowledge of the hivemind and our enhanced biological strength to form a potent martial art that makes use of our unique abilty to create weapons. Costs 30 chemicals to toggle"
+	desc = "We combine the fighting knowledge of the hivemind and our enhanced biological strength to form a potent martial art that makes use of our unique abilty to create weapons."
 	dna_cost = 3
 	req_human = 0
 	needs_button = FALSE

@@ -18,9 +18,9 @@
 	A.do_attack_animation(D, ATTACK_EFFECT_CLAW)
 	D.apply_damage(15, BRUTE, sharp = TRUE)
 	var/atk_verb = pick("slashes", "claws", "slices", "rends", "lacerates")
-	D.visible_message("<span class='danger'>[A] [atk_verb] [D]!</span>", \
+	D.visible_message("<span class='danger'>[A] [atk_verb] [D]!</span>",
 				"<span class='userdanger'>[A] [atk_verb] you!</span>")
-	playsound(get_turf(D), 'sound/weapons/slice.ogg', 25, 1, -1)
+	playsound(get_turf(D), 'sound/weapons/slice.ogg', 25, TRUE, -1)
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Punched", ATKLOG_ALL)
 	return TRUE
 
@@ -29,9 +29,9 @@
 	A.do_attack_animation(D, ATTACK_EFFECT_DISARM)
 	if(prob(60))
 		if(!D.stat && !D.IsWeakened())
-			D.visible_message("<span class='warning'>[A] slams into [D], knocking them to the ground!</span>", \
+			D.visible_message("<span class='warning'>[A] slams into [D], knocking them to the ground!</span>",
 								"<span class='userdanger'>[A] slams into you, knocking you to the ground!</span>")
-			playsound(get_turf(D), 'sound/weapons/punchmiss.ogg', 50, 1, -1)
+			playsound(get_turf(D), 'sound/weapons/punchmiss.ogg', 50, TRUE, -1)
 			D.apply_damage(5, BRUTE)
 			D.Weaken(2)
 			if(A != D)
@@ -39,7 +39,7 @@
 				D.throw_at(throw_target, 1, 14, A)
 	else
 		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", "<span class='userdanger'>[A] attempted to disarm you!</span>")
-		playsound(D, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+		playsound(D, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Disarmed", ATKLOG_ALL)
 	return TRUE

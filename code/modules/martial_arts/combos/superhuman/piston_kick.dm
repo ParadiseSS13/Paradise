@@ -1,7 +1,7 @@
 /datum/martial_combo/superhuman/piston_kick
 	name = "Piston Kick"
 	explaination_text = "We use explosive chemical reactions to kick someone with such a force that it sends them flying."
-	steps = list(MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_GRAB)
+	steps = list(MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_GRAB) // last step is a grab so you cannot do it on yourself
 
 /datum/martial_combo/superhuman/piston_kick/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	user.do_attack_animation(target, ATTACK_EFFECT_KICK)
@@ -13,5 +13,5 @@
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] : Piston Kick", ATKLOG_ALL)
 	target.Confused(5)
 	target.apply_damage(10, BRUTE)
-	playsound(get_turf(target), 'sound/weapons/punchmiss.ogg', 80, 1, -1)
+	playsound(get_turf(target), 'sound/weapons/punchmiss.ogg', 80, TRUE, -1)
 	return MARTIAL_COMBO_DONE
