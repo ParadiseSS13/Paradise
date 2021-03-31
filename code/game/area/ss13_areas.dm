@@ -672,37 +672,37 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/maintenance/disposal/southwest
 	name = "South Western Disposals"
-	
+
 /area/maintenance/disposal/south
 	name = "Southern Disposals"
-	
+
 /area/maintenance/disposal/east
 	name = "Eastern Disposals"
-	
+
 /area/maintenance/disposal/northeast
 	name = "North Eastern Disposals"
-	
+
 /area/maintenance/disposal/north
 	name = "Northern Disposals"
-	
+
 /area/maintenance/disposal/northwest
 	name = "North Western Disposals"
-	
+
 /area/maintenance/disposal/west
 	name = "Western Disposals"
-	
+
 /area/maintenance/disposal/westalt
 	name = "Western Secondary Disposals"
-	
+
 /area/maintenance/disposal/external/southwest
 	name = "South-Western External Waste Belt"
-	
+
 /area/maintenance/disposal/external/southeast
 	name = "South-Eastern External Waste Belt"
-	
+
 /area/maintenance/disposal/external/east
 	name="Eastern External Waste Belt"
-	
+
 /area/maintenance/disposal/external/north
 	name = "Northern External Waste Belt"
 
@@ -745,17 +745,49 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Fore Primary Hallway"
 	icon_state = "hallF"
 
+/area/hallway/primary/fore/west
+	name = "\improper Fore West Hallway"
+
+/area/hallway/primary/fore/east
+	name = "\improper Fore East Hallway"
+
+/area/hallway/primary/fore/north
+	name = "\improper Fore North Hallway"
+
+/area/hallway/primary/fore/south
+	name = "\improper Fore South Hallway"
+
 /area/hallway/primary/starboard
 	name = "\improper Starboard Primary Hallway"
 	icon_state = "hallS"
 
 /area/hallway/primary/starboard/west
+	name = "\improper Starboard West Hallway"
+
 /area/hallway/primary/starboard/east
+	name = "\improper Starboard East Hallway"
+
+/area/hallway/primary/starboard/north
+	name = "\improper Starboard North Hallway"
+
+/area/hallway/primary/starboard/south
+	name = "\improper Starboard South Hallway"
 
 /area/hallway/primary/aft
 	name = "\improper Aft Primary Hallway"
 	icon_state = "hallA"
 
+/area/hallway/primary/aft/west
+	name = "\improper Aft West Hallway"
+
+/area/hallway/primary/aft/east
+	name = "\improper Aft East Hallway"
+
+/area/hallway/primary/aft/north
+	name = "\improper Aft North Hallway"
+
+/area/hallway/primary/aft/south
+	name = "\improper Aft South Hallway"
 
 /area/hallway/primary/port
 	name = "\improper Port Primary Hallway"
@@ -766,6 +798,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/hallway/primary/port/east
 	name = "\improper Port East Hallway"
+
+/area/hallway/primary/port/north
+	name = "\improper Port North Hallway"
+
+/area/hallway/primary/port/south
+	name = "\improper Port South Hallway"
 
 /area/hallway/primary/central
 	name = "\improper Central Primary Hallway"
@@ -791,7 +829,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/hallway/spacebridge/servsci
 	name = "Service-Science Bridge"
-	
+
 /area/hallway/spacebridge/serveng
 	name = "Service-Engineering Bridge"
 
@@ -1282,12 +1320,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Teleporter"
 	icon_state = "teleporter"
 	ambientsounds = ENGINEERING_SOUNDS
-	
+
 /area/teleporter/quantum/security
 	name = "Security Quantum Pad"
 
 /area/teleporter/quantum/docking
-	name = "Docking Quantum Pad"	
+	name = "Docking Quantum Pad"
 
 /area/teleporter/quantum/science
 	name = "Science Quantum Pad"
