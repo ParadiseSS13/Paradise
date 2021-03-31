@@ -36,7 +36,7 @@
 #define PREFTOGGLE_TYPING_ONCE 				1048576
 #define PREFTOGGLE_AMBIENT_OCCLUSION 		2097152
 #define PREFTOGGLE_CHAT_GHOSTPDA 			4194304
-#define PREFTOGGLE_NUMPAD_TARGET 			8388608
+#define PREFTOGGLE_NUMPAD_TARGET 			8388608 // Made obsolete with key bindings
 
 #define TOGGLES_TOTAL 						16777215 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 

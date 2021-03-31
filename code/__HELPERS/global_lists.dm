@@ -128,6 +128,14 @@
 			continue
 		GLOB.world_topic_handlers[wth.topic_key] = topic_handler_type
 
+	// Keybindings
+	for(var/path in subtypesof(/datum/keybinding))
+		var/datum/keybinding/D = new path()
+		if(istype(D) && D.name)
+			GLOB.keybindings += D
+		else
+			qdel(D)
+
 /* // Uncomment to debug chemical reaction list.
 /client/verb/debug_chemical_list()
 
