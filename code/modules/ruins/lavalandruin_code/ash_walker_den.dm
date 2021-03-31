@@ -25,7 +25,7 @@
 	STOP_PROCESSING(SSprocessing, src)
 
 /obj/structure/lavaland/ash_walker/deconstruct(disassembled)
-	new /obj/item/assembly/signaler/anomaly(get_step(loc, pick(GLOB.alldirs)))
+	new /obj/item/assembly/signaler/anomaly/random(get_step(loc, pick(GLOB.alldirs)))
 	new	/obj/effect/collapse(loc)
 	return ..()
 
@@ -67,6 +67,7 @@
 	anchored = FALSE
 	move_resist = MOVE_FORCE_NORMAL
 	density = FALSE
+	death_cooldown = 300 SECONDS
 	important_info = "Do not leave Lavaland without admin permission. Do not attack the mining outpost without being provoked."
 	description = "You are an ashwalker, a native inhabitant of Lavaland. Try to survive with nothing but spears and other tribal technology. Bring dead bodies back to your tendril to create more of your kind. You are free to attack miners and other outsiders."
 	flavour_text = "Your tribe worships the Necropolis. The wastes are sacred ground, its monsters a blessed bounty. \
