@@ -382,7 +382,7 @@
 	else
 		return ..()
 
-/obj/item/gun/energy/bsg/process_fire()
+/obj/item/gun/energy/bsg/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override, bonus_spread = 0)
 	if(!has_bluespace_crystal)
 		to_chat(usr, "<span class='warning'>The [src] has no bluespace crystal to power it!</span>")
 		return 0
