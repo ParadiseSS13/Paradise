@@ -19,7 +19,7 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_SHOE //Close enough to hooves
 
-mob/living/simple_animal/pet/pony/death(gibbed)
+/mob/living/simple_animal/pet/pony/death(gibbed)
 	// Only execute the below if we successfully died
 	. = ..(gibbed)
 	if(!.)
