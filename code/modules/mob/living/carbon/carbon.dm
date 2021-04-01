@@ -244,6 +244,8 @@
 						)
 			// BEGIN HUGCODE - N3X
 			else
+				if(ismonkey(src)) // We like monkey
+					playsound(get_turf(src), 'sound/misc/monke.ogg', 75, 0, -1)
 				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				if(M.zone_selected == "head")
 					M.visible_message(\
