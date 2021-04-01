@@ -13,6 +13,7 @@
 	var/obj/item/grab/G = D.grabbedby(A,1)
 	if(G)
 		G.state = GRAB_AGGRESSIVE //Instant aggressive grab
+	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Grabbed", ATKLOG_ALL)
 	return TRUE
 
 /datum/martial_art/the_sleeping_carp/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -23,6 +24,7 @@
 					  "<span class='userdanger'>[A] [atk_verb] you!</span>")
 	D.apply_damage(rand(10,15), BRUTE)
 	playsound(get_turf(D), 'sound/weapons/punch1.ogg', 25, TRUE, -1)
+	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Punched", ATKLOG_ALL)
 	return TRUE
 
 /datum/martial_art/the_sleeping_carp/explaination_header(user)
@@ -35,3 +37,6 @@
 /datum/martial_art/the_sleeping_carp/remove(mob/living/carbon/human/H)
 	. = ..()
 	H.faction -= "carp"// :C
+
+/datum/martial_art/the_sleeping_carp/explaination_footer(user)
+	to_chat(user, "<b><i>In addition, by having your throw mode on when being shot at, you enter an active defense mode where you will block and deflect all projectiles fired at you!</i></b>")
