@@ -148,6 +148,7 @@ About the new airlock wires panel:
 		max_integrity = normal_integrity
 	if(damage_deflection == AIRLOCK_DAMAGE_DEFLECTION_N && security_level > AIRLOCK_SECURITY_METAL)
 		damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
+	icon = 'icons/supersampling/Door1.dmi'
 	update_icon()
 
 /obj/machinery/door/airlock/proc/update_other_id()
@@ -315,7 +316,7 @@ About the new airlock wires panel:
 	if(operating && !override)
 		return
 	check_unres()
-	icon_state = density ? "closed" : "open"
+	icon_state = density ? "door1" : "door0"
 	switch(state)
 		if(0)
 			if(density)
@@ -325,7 +326,7 @@ About the new airlock wires panel:
 		if(AIRLOCK_OPEN, AIRLOCK_CLOSED)
 		if(AIRLOCK_DENY, AIRLOCK_OPENING, AIRLOCK_CLOSING, AIRLOCK_EMAG)
 			icon_state = "nonexistenticonstate" //MADNESS
-	set_airlock_overlays(state)
+	// set_airlock_overlays(state)
 
 /obj/machinery/door/airlock/proc/set_airlock_overlays(state)
 	var/image/frame_overlay

@@ -113,6 +113,7 @@
 			overlays += "welded"
 	else
 		icon_state = icon_opened
+	..()
 
 /obj/structure/closet/secure_closet/container_resist(mob/living/L)
 	var/breakout_time = 2 //2 minutes by default

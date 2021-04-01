@@ -45,6 +45,11 @@
 	/turf/simulated/wall/r_wall/rust)
 	smooth = SMOOTH_TRUE
 
+/turf/simulated/wall/Initialize(mapload)
+	. = ..()
+	icon = 'icons/supersampling/wall.dmi'
+	icon_state = "wall"
+
 /turf/simulated/wall/BeforeChange()
 	for(var/obj/effect/overlay/wall_rot/WR in src)
 		qdel(WR)

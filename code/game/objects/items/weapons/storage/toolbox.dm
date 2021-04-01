@@ -31,9 +31,11 @@
 
 /obj/item/storage/toolbox/update_icon()
 	..()
-	cut_overlays()
-	if(has_latches)
-		add_overlay(latches)
+	icon = 'icons/supersampling/items.dmi'
+	icon_state = "toolbox"
+	// cut_overlays()
+	// if(has_latches)
+	// 	add_overlay(latches)
 
 /obj/item/storage/toolbox/emergency
 	name = "emergency toolbox"
