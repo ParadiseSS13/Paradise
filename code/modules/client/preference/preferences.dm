@@ -2195,7 +2195,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						if(KB)
 							if(href_list["key"])
 								var/old_key = href_list["old"]
-								var/new_key = uppertext(href_list["key"])
+								var/new_key = uppertext(copytext(href_list["key"], 1, 16))
 								var/alt_mod = text2num(href_list["alt"]) ? "Alt+" : ""
 								var/ctrl_mod = text2num(href_list["ctrl"]) ? "Ctrl+" : ""
 								var/shift_mod = text2num(href_list["shift"]) ? "Shift+" : ""
@@ -2483,7 +2483,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 /datum/preferences/proc/check_any_job()
 	return(job_support_high || job_support_med || job_support_low || job_medsci_high || job_medsci_med || job_medsci_low || job_engsec_high || job_engsec_med || job_engsec_low || job_karma_high || job_karma_med || job_karma_low)
 
-/datum/preferences/proc/init_keybindings(overrides)
+/datum/preferences/proc/init_keybindings(overrides, raw)
+	if(raw)
+		try
+			overrides = json_decode(raw)
+		catch
+			overrides = list()
 	keybindings = list()
 	keybindings_overrides = overrides
 	for(var/kb in GLOB.keybindings)

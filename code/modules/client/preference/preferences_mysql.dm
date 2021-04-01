@@ -46,7 +46,7 @@
 		atklog = text2num(query.item[14])
 		fuid = text2num(query.item[15])
 		parallax = text2num(query.item[16])
-		keybindings = init_keybindings(json_decode(query.item[17]))
+		keybindings = init_keybindings(raw = query.item[17])
 
 	qdel(query)
 
