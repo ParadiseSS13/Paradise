@@ -2875,6 +2875,15 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
+"kq" = (
+/obj/machinery/porta_turret/syndicate{
+	dir = 5
+	},
+/obj/machinery/porta_turret/syndicate{
+	dir = 5
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/syndicate)
 "kr" = (
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -49790,14 +49799,14 @@ ab
 ab
 ab
 NL
-HM
-HM
-HM
-HM
-HM
 NL
-HM
-HM
+NL
+NL
+NL
+NL
+NL
+Sy
+Sy
 ab
 Nd
 aN
@@ -50041,11 +50050,11 @@ ab
 ab
 ab
 NL
-HM
-HM
-HM
-HM
-HM
+NL
+NL
+NL
+NL
+NL
 HM
 TR
 DC
@@ -50297,7 +50306,7 @@ ab
 ab
 ab
 ab
-HM
+NL
 Vo
 Vo
 Pl
@@ -50554,7 +50563,7 @@ ab
 ab
 ab
 ab
-HM
+NL
 DC
 DC
 DC
@@ -50805,13 +50814,13 @@ ab
 ae
 ab
 NL
-HM
-HM
-HM
-HM
+NL
+Sy
+Sy
+Sy
 ab
 ab
-HM
+NL
 DC
 YR
 DC
@@ -50823,8 +50832,8 @@ YR
 DC
 Vc
 Mu
-HM
-HM
+bz
+bz
 bz
 ab
 Nd
@@ -51061,14 +51070,14 @@ ab
 ab
 ab
 ab
-HM
+NL
 Ha
 NM
 PE
 HM
 Sy
 ab
-HM
+NL
 Dz
 Kr
 To
@@ -51079,7 +51088,7 @@ Kw
 DC
 DC
 Qw
-HM
+Sy
 ab
 ab
 ab
@@ -51324,7 +51333,7 @@ DC
 VY
 HM
 HM
-HM
+Sy
 HM
 HM
 HM
@@ -51336,9 +51345,9 @@ HM
 jH
 UD
 HM
-HM
-HM
-HM
+Rl
+Sy
+Sy
 ab
 ab
 Nd
@@ -52352,9 +52361,9 @@ DC
 DC
 HM
 HM
-HM
-HM
-HM
+bz
+bz
+bz
 HM
 Sv
 eE
@@ -52364,9 +52373,9 @@ HM
 Vd
 Qm
 HM
-HM
-HM
-HM
+NL
+bz
+bz
 ab
 ab
 Nd
@@ -52603,7 +52612,7 @@ hn
 hn
 eU
 ab
-HM
+Rl
 Dg
 Yl
 OE
@@ -52621,7 +52630,7 @@ PO
 DC
 DC
 Zn
-HM
+bz
 ab
 ab
 ab
@@ -52861,10 +52870,10 @@ hn
 eU
 ab
 Rl
-HM
-HM
-HM
-HM
+Rl
+bz
+bz
+bz
 ab
 eU
 pz
@@ -52879,8 +52888,8 @@ YR
 DC
 IO
 Mu
-HM
-HM
+Sy
+Sy
 Sy
 ab
 Nd
@@ -53384,9 +53393,9 @@ eU
 pz
 eU
 Rl
-HM
-HM
-HM
+Rl
+Rl
+Rl
 HM
 Cl
 YR
@@ -53644,7 +53653,7 @@ ab
 ab
 ab
 ab
-HM
+Rl
 HG
 Uz
 Fo
@@ -53902,14 +53911,14 @@ ab
 ab
 ab
 Rl
-HM
-HM
-HM
-HM
-HM
 Rl
-HM
-HM
+Rl
+Rl
+kq
+Rl
+Rl
+bz
+bz
 ab
 Nd
 aN
