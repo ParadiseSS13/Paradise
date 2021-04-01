@@ -289,6 +289,23 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
+/obj/item/SUS_manual
+	name = "suspicious manual"
+	desc = "A small, black manual. There are drawn instructions on how to not be suspicious."
+	icon = 'icons/obj/library.dmi'
+	icon_state = "susmanual"
+
+/obj/item/SUS_manual/attack_self(mob/living/carbon/human/user)
+	if(!user.ventcrawler)
+		user.ventcrawler = 2
+	to_chat(user, "<span class='boldannounce'>You remember the basics of not being suspicious.</span>")
+	playsound(get_turf(src), 'sound/effects/rolereveal.ogg', 75, FALSE)
+
+	user.drop_item()
+	visible_message("<span class='warning'>[src] beeps ominously, and a moment later it suspiciously bursts up in flames.</span>")
+	new /obj/effect/decal/cleanable/ash(get_turf(src))
+	qdel(src)
+
 /obj/item/twohanded/bostaff
 	name = "bo staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts. Can be wielded to both kill and incapacitate."

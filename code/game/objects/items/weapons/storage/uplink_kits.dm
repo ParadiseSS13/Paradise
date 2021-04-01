@@ -139,6 +139,20 @@
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 
+/obj/item/storage/box/syndie_kit/impostor
+	name = "Boxed Impostor Kit"
+	can_hold = list(/obj/item/SUS_manual, /obj/item/kitchen/knife/combat, /obj/item/whetstone, /obj/item/clothing/suit/space/syndicate/black/red, /obj/item/clothing/head/helmet/space/syndicate/black/red, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
+	max_w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/storage/box/syndie_kit/impostor/populate_contents()
+	new /obj/item/SUS_manual(src)
+	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/whetstone(src)
+	new /obj/item/clothing/suit/space/syndicate/black/red(src)
+	new /obj/item/clothing/head/helmet/space/syndicate/black/red(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
+	new /obj/item/clothing/mask/gas/syndicate(src)
+
 /obj/item/storage/box/syndie_kit/conversion
 	name = "box (CK)"
 

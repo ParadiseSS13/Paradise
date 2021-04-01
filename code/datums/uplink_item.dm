@@ -1728,6 +1728,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	log_game("[key_name(usr)] became a Contractor")
 	return I
 
+/datum/uplink_item/bundles_TC/impostor
+	name = "Syndicate Impostor Kit"
+	desc = "A bundle containing several suspicious items to better let you disguise among us."
+	reference = "SUS"
+	cost = 16
+	item = /obj/item/storage/box/syndie_kit/impostor
+	excludefrom = list(/datum/game_mode/nuclear)
+
 /datum/uplink_item/bundles_TC/badass
 	name = "Syndicate Bundle"
 	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 20 telecrystals, but you do not know which specialisation you will receive."
