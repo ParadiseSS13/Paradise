@@ -83,15 +83,18 @@
 					<A href='?src=[UID()];secretsfun=weatherashstorm'>Weather - Ash Storm</A>&nbsp;&nbsp;
 					<BR>
 					</center>"}
-
 		if(2)
 			if(check_rights((R_SERVER|R_EVENT),0))
 				dat += {"
 					<center>
 					<h2><B>OOC Events</B></h2>
 					<b>Thunderdome</b><br>
-					<A href='?src=[UID()];secretsfun=tdomestart'>Start a Thunderdome match</A>&nbsp;&nbsp;
-					<A href='?src=[UID()];secretsfun=tdomereset'>Reset Thunderdome to default state</A><BR><br>
+					<A href='?src=[UID()];secretsfun=tdomestart'>Start a Thunderdome match</A>&nbsp;&nbsp;<BR><br>
+					====Settings====<br>
+					<A href='?src=[UID()];secretsfun=tdomereset'>Set Gladiator Arena</A><BR><br>
+					<A href='?src=[UID()];secretsfun=tdomereset2'>Set Techno Hell</A><BR><br>
+					<A href='?src=[UID()];secretsfun=tdomereset3'>Set Fort Siege </A><BR><br>
+					<A href='?src=[UID()];secretsfun=tdomereset4'>Set Chemotherapy </A><BR><br>
 					<b>Clothing</b><br>
 					<A href='?src=[UID()];secretsfun=sec_clothes'>Remove 'internal' clothing</A>&nbsp;&nbsp;
 					<A href='?src=[UID()];secretsfun=sec_all_clothes'>Remove ALL clothing</A><BR>

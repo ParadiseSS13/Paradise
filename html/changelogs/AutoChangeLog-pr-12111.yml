@@ -1,0 +1,6 @@
+author: "KasparoVy"
+delete-after: True
+changes: 
+  - rscadd: "Tajaran characters can now have the tiny & short tails (plus marking)."
+  - rscadd: "Adds a striped tail marking for Tajara derived from the sriped/wingler body accessory to allow more flexible colouration."
+  - tweak: "Renames Vulpkanin alt. tails for brevity and easier keyboard navigation."

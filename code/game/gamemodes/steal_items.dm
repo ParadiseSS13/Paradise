@@ -111,7 +111,7 @@
 
 /datum/theft_objective/reactive
 	name = "the reactive teleport armor"
-	typepath = /obj/item/clothing/suit/armor/reactive/teleport
+	typepath = /obj/item/clothing/suit/armor/reactive/teleport/rd
 	protected_jobs = list("Research Director")
 	location_override = "the Research Director's Office"
 
@@ -126,9 +126,14 @@
 	protected_jobs = list("Chief Medical Officer")
 	location_override = "the Chief Medical Officer's Office"
 
+/datum/theft_objective/magistrategun
+	name = "the magistrate's personal disabler"
+	typepath = /obj/item/gun/energy/disabler/magistrate
+	protected_jobs = list("Magistrate")
+
 /datum/theft_objective/ablative
-	name = "an ablative armor vest"
-	typepath = /obj/item/clothing/suit/armor/laserproof
+	name = "an ablative trenchcoat"
+	typepath = /obj/item/clothing/suit/hooded/ablative
 	protected_jobs = list("Head of Security", "Warden")
 	location_override = "the Armory"
 

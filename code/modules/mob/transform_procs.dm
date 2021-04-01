@@ -89,6 +89,7 @@
 
 	O.forceMove(loc)
 	O.job = "Cyborg"
+	O.notify_ai(NEW_BORG)
 
 	if(O.mind && O.mind.assigned_role == "Cyborg")
 		var/obj/item/mmi/new_mmi
@@ -304,5 +305,8 @@
 
 	if(ispath(MP, /mob/living/simple_animal/diona) && !jobban_isbanned(src, ROLE_NYMPH))
 		return 1
+
+	if(ispath(MP, /mob/living/simple_animal/friendly/owl))
+		return TRUE
 
 	return 0

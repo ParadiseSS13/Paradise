@@ -11,9 +11,9 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 /datum/game_mode/heist
 	name = "heist"
 	config_tag = "heist"
-	required_players = 25
-	required_enemies = 4
-	recommended_enemies = 5
+	required_players = 15
+	required_enemies = 2
+	recommended_enemies = 3
 	votable = 0
 
 	var/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' objective.

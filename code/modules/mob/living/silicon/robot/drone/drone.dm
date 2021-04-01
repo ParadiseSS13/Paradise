@@ -57,6 +57,7 @@
 	remove_language("Galactic Common")
 	add_language("Drone Talk", TRUE)
 	add_language("Drone", TRUE)
+	universal_understand = 1
 
 	// Disable the microphone wire on Drones
 	if(radio)
@@ -307,12 +308,12 @@
 
 	to_chat(src, "<b>Systems rebooted</b>. Loading base pattern maintenance protocol... <b>loaded</b>.")
 	full_law_reset()
-	to_chat(src, "<br><b>You are a maintenance drone, a tiny-brained robotic repair machine</b>.")
-	to_chat(src, "You have no individual will, no personality, and no drives or urges other than your laws.")
-	to_chat(src, "Use <b>:d</b> to talk to other drones, and <b>say</b> to speak silently in a language only your fellows understand.")
-	to_chat(src, "Remember, you are <b>lawed against interference with the crew</b>. Also remember, <b>you DO NOT take orders from the AI.</b>")
-	to_chat(src, "<b>Don't invade their worksites, don't steal their resources, don't tell them about the changeling in the toilets.</b>")
-	to_chat(src, "<b>Make sure crew members do not notice you.</b>.")
+	to_chat(src, "<br><b>Eres un drone de mantenimiento, una peque�a m�quina de reparaci�n con un sencillo cerebro electr�nico</b>.")
+	to_chat(src, "No tienes voluntad, personalidad ni motivaciones personales excepto mantener la estaci�n en perfecto estado de funcionamiento.")
+	to_chat(src, "Usa <b>:d</b> para hablar con otros drones remotamente, o <b>say</b> para hablar localmente en un lenguaje que solo otros drones entienden.")
+	to_chat(src, "Recuerda <b>est�s programado para no interferir con la estaci�n</b>. ADem�s, <b>you No tomas �rdenes de la IA.</b>")
+	to_chat(src, "<b>No invadas sus espacios de trabajos, no robes sus materiales, no le digas sobre el changeling que hay en los ba�os.</b>")
+	to_chat(src, "<b>Aseg�rate de que la tripulaci�n ni siquiera note tu existencia.</b>.")
 
 /*
 	sprite["Default"] = "repairbot"

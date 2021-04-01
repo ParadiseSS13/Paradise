@@ -4,9 +4,9 @@
 /obj/item/clothing/under/rank/research_director
 	desc = "It's a jumpsuit worn by those with the know-how to achieve the position of \"Research Director\". Its fabric provides minor protection from biological contaminants."
 	name = "research director's jumpsuit"
-	icon_state = "director"
-	item_state = "g_suit"
-	item_color = "director"
+/*	icon_state = "director"
+	item_state = "g_suit" ///Este uniforme fue respriteado, y ya no utliza estas variables
+	item_color = "director" */
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 10, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 35)
 
 /obj/item/clothing/under/rank/scientist

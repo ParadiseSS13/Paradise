@@ -251,11 +251,11 @@
 /area/ruin/unpowered)
 "ay" = (
 /obj/structure/table,
-/obj/item/gun/projectile/automatic/wt550{
+/obj/item/gun/projectile/automatic/fullauto/wt550{
 	pixel_x = -3;
 	pixel_y = 6
 	},
-/obj/item/gun/projectile/automatic/wt550{
+/obj/item/gun/projectile/automatic/fullauto/wt550{
 	pixel_x = 2;
 	pixel_y = 0
 	},

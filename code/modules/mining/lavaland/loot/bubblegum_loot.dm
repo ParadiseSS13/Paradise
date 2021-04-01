@@ -1,3 +1,4 @@
+
 /obj/structure/closet/crate/necropolis/bubblegum
 	name = "bubblegum chest"
 

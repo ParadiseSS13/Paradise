@@ -7,9 +7,15 @@
 	speech_chance = 20
 	unarmed_type = /datum/unarmed_attack/diona
 	remains_type = /obj/effect/decal/cleanable/ash
+	total_health = 120
+	speed_mod = 4
+	punchdamagelow = 12
+	punchdamagehigh = 14
 
-	burn_mod = 1.25
-	heatmod = 1.5
+	brute_mod = 0.75
+	stamina_mod = 0.75
+	burn_mod = 1.4
+	heatmod = 1.6
 	var/pod = FALSE //did they come from a pod? If so, they're stronger than normal Diona.
 
 	blurb = "Commonly referred to (erroneously) as 'plant people', the Dionaea are a strange space-dwelling collective \
@@ -21,7 +27,7 @@
 	water and other radiation."
 
 	species_traits = list(NO_HAIR)
-	inherent_traits = list(TRAIT_NOGERMS, TRAIT_NODECAY)
+	inherent_traits = list(TRAIT_NOGERMS, TRAIT_NODECAY, TRAIT_NOPAIN)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_PLANT
 	clothing_flags = HAS_SOCKS
 	default_hair_colour = "#000000"
@@ -133,4 +139,12 @@
 
 /datum/species/diona/pod //Same name and everything; we want the same limitations on them; we just want their regeneration to kick in at all times and them to have special factions
 	pod = TRUE
+
 	inherent_factions = list("plants", "vines")
+
+/datum/species/diona/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, mob/living/carbon/human/H, sharp = 0, obj/used_weapon = null)
+	var/old_brute_mob = brute_mod
+	if(sharp)
+		brute_mod = 1
+	..()
+	brain_mod += old_brute_mob - 1

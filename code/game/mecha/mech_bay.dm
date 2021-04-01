@@ -65,7 +65,7 @@
 	var/MC
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		MC += C.rating
-	max_charge = MC * 25
+	max_charge = MC * 50
 
 /obj/machinery/mech_bay_recharge_port/attackby(obj/item/I, mob/user, params)
 	if(exchange_parts(user, I))
@@ -102,7 +102,7 @@
 		if(recharging_mecha.cell.charge < recharging_mecha.cell.maxcharge)
 			var/delta = min(max_charge, recharging_mecha.cell.maxcharge - recharging_mecha.cell.charge)
 			recharging_mecha.give_power(delta)
-			use_power(delta*150)
+			use_power(delta*15)
 		else
 			recharge_console.update_icon()
 		if(recharging_mecha.loc != recharging_turf)

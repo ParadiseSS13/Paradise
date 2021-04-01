@@ -24,6 +24,8 @@
 
 	male_cough_sounds = list('sound/effects/slime_squish.ogg')
 	female_cough_sounds = list('sound/effects/slime_squish.ogg')
+	male_sneeze_sound = 'sound/effects/slime_squish.ogg'
+	female_sneeze_sound = 'sound/effects/slime_squish.ogg'
 
 	species_traits = list(LIPS, IS_WHITELISTED, NO_CLONESCAN, EXOTIC_COLOR)
 	inherent_traits = list(TRAIT_WATERBREATH)

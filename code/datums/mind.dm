@@ -55,6 +55,8 @@
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
 	var/datum/mindslaves/som //stands for slave or master...hush..
+	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
+	var/hasSoul = TRUE
 
 	var/isholy = FALSE // is this person a chaplain or admin role allowed to use bibles
 	var/isblessed = FALSE // is this person blessed by a chaplain?
@@ -72,6 +74,7 @@
 
 /datum/mind/New(new_key)
 	key = new_key
+	soulOwner = src
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
@@ -83,6 +86,7 @@
 		antag_datums = null
 	current = null
 	original = null
+	soulOwner = null
 	return ..()
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
@@ -100,6 +104,8 @@
 		new_character.mind.current = null
 	current = new_character		//link ourself to our new body
 	new_character.mind = src	//and link our new body to ourself
+	if(ishuman(old_current))	//cambio hispano para tranferir quirks
+		old_current.transfer_trait_datums(current) //para transfererir quirks
 	for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
 		var/datum/antagonist/A = a
 		A.on_body_transfer(old_current, current)
@@ -111,6 +117,9 @@
 		else
 			martial_art.teach(current)
 
+	if(special_role)	//para que los antagas tengan las todas las habilidades basicas
+		new_character.remove_all_quirks()
+		new_character.add_antag_quirks() //fin para que los antags tengan los quirks basicos
 	if(active)
 		new_character.key = key		//now transfer the key to link the client to our new body
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSER_TO, new_character)

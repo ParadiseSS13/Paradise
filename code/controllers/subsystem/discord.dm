@@ -53,9 +53,9 @@ SUBSYSTEM_DEF(discord)
 
 	if(active_admins <= 0)
 		if(inactive_admins > 0)
-			alerttext = " | **ALL ADMINS AFK**"
+			alerttext = " | **TODOS LOS ADMINS ESTÁN AFK**"
 		else
-			alerttext = " | **NO ADMINS ONLINE**"
+			alerttext = " | **NO HAY ADMINS ONLINE**"
 	else
 		if(check_send_always && config.discord_forward_all_ahelps)
 			// If we are here, there are admins online. We want to forward everything, but obviously dont want to add a ping, so we do this

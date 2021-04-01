@@ -19,7 +19,7 @@
 	opacity = 0
 
 	anchored = 1
-	resistance_flags = ACID_PROOF
+	resistance_flags = LAVA_PROOF | ACID_PROOF
 
 	layer = 3.9
 	infra_luminosity = 15

@@ -12,9 +12,9 @@ Lovingly ported by Purpose2 to Paradise
 */
 
 #if !defined(USING_MAP_DATUM)
-	#include "map_files\generic\centcomm.dmm"
-	#include "map_files\delta\delta.dmm"
-	#include "map_files\generic\Lavaland.dmm"
+	#include "map_files\Delta\delta.dmm"
+	#include "map_files\hispania\z2.dmm"
+	#include "map_files\hispania\Lavaland.dmm"
 
 	#define MAP_TRANSITION_CONFIG list(\
 DECLARE_LEVEL(CENTCOMM, SELFLOOPING, list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC)),\

@@ -189,7 +189,13 @@
 			if(item_in_hand:wielded == 1)
 				to_chat(usr, "<span class='warning'>Your other hand is too busy holding the [item_in_hand.name]</span>")
 				return
+		item_in_hand.swapped(src)
+
 	src.hand = !( src.hand )
+	var/obj/item/item_swappedto_hand = src.get_active_hand()
+	if(item_swappedto_hand)
+		item_swappedto_hand.swappedto(src)
+
 	if(hud_used && hud_used.inv_slots[slot_l_hand] && hud_used.inv_slots[slot_r_hand])
 		var/obj/screen/inventory/hand/H
 		H = hud_used.inv_slots[slot_l_hand]
@@ -310,11 +316,14 @@
 			status = "battered"
 		if(brutedamage > 40)
 			status = "mangled"
+		if(brutedamage > 70)
+			status = "destrosed"
 		if(brutedamage > 0 && burndamage > 0)
 			status += " and "
-		if(burndamage > 40)
+		if(burndamage > 70)
+			status += "peeled away"
+		else if(burndamage > 40)
 			status += "peeling away"
-
 		else if(burndamage > 10)
 			status += "blistered"
 		else if(burndamage > 0)
@@ -333,6 +342,11 @@
 
 	if(H.bleed_rate)
 		to_chat(src, "<span class='danger'>You are bleeding!</span>")
+	if(H.getToxLoss() > 60)
+		to_chat(src, "<span class='danger'>You feel awfully bad!</span>")
+	for(var/obj/item/organ/external/LB in H.bodyparts)
+		if(LB.status & ORGAN_BROKEN)
+			to_chat(src, "<span class='danger'>You feel a insane pain around one of yours bones. It must be broken...</span>")
 	if(staminaloss)
 		if(staminaloss > 30)
 			to_chat(src, "<span class='info'>You're completely exhausted.</span>")
@@ -1006,7 +1020,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			var/mob/living/carbon/human/H = src
 			if(isobj(H.shoes) && H.shoes.flags & NOSLIP)
 				return FALSE
-
+		if(HAS_TRAIT(src, TRAIT_NOSLIPWATER))
+			return FALSE
 	if(tilesSlipped)
 		for(var/i in 1 to tilesSlipped)
 			spawn(i)

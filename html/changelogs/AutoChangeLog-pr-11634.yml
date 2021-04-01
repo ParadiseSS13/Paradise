@@ -1,0 +1,4 @@
+author: "Markolie"
+delete-after: True
+changes: 
+  - rscadd: "The prison labor point system has been refactored so it works properly."

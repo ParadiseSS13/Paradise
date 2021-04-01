@@ -282,7 +282,20 @@
 		return
 	if(default_deconstruction_crowbar(user, W))
 		return TRUE
-	return ..()
+	if(istype(W, /obj/item/card/id)) //para que el hos y el cap desactiven el protocolo de seguridad
+		if(emagged)
+			to_chat(user, "<span class='warning'>The machine don't respond!</span>")
+			return
+		var/obj/item/card/id/id = W
+		for(var/a in id.access)
+			if(a == ACCESS_HOS || a == ACCESS_CAPTAIN)
+				secureprotocols = !secureprotocols
+				to_chat(user, "<span class='notice'>You [secureprotocols ? "enable" : "disable"] the security protocols</span>")
+				return
+		to_chat(user, "<span class='notice'>You don't have enough access to disable security protocols</span>")//fin de hispania
+		return
+	else
+		return ..()
 
 /obj/machinery/mecha_part_fabricator/attack_ghost(mob/user)
 	ui_interact(user)

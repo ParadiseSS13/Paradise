@@ -6891,8 +6891,8 @@
 /obj/item/ammo_box/magazine/smgm45,
 /obj/item/ammo_box/magazine/smgm45,
 /obj/item/ammo_box/magazine/smgm45,
-/obj/item/gun/projectile/automatic/c20r,
-/obj/item/gun/projectile/automatic/c20r{
+/obj/item/gun/projectile/automatic/fullauto/twomode/c20r,
+/obj/item/gun/projectile/automatic/fullauto/twomode/c20r{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -7048,8 +7048,8 @@
 /obj/item/ammo_box/magazine/mm556x45,
 /obj/item/ammo_box/magazine/mm556x45,
 /obj/item/ammo_box/magazine/mm556x45,
-/obj/item/gun/projectile/automatic/l6_saw,
-/obj/item/gun/projectile/automatic/l6_saw{
+/obj/item/gun/projectile/automatic/fullauto/l6_saw,
+/obj/item/gun/projectile/automatic/fullauto/l6_saw{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -7067,8 +7067,8 @@
 /obj/item/ammo_box/a40mm,
 /obj/item/ammo_box/a40mm,
 /obj/item/ammo_box/a40mm,
-/obj/item/gun/projectile/automatic/m90,
-/obj/item/gun/projectile/automatic/m90{
+/obj/item/gun/projectile/automatic/fullauto/twomode/m90,
+/obj/item/gun/projectile/automatic/fullauto/twomode/m90{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -7079,8 +7079,8 @@
 /area/centcom/evac)
 "wL" = (
 /obj/structure/rack,
-/obj/item/gun/projectile/automatic/proto,
-/obj/item/gun/projectile/automatic/proto{
+/obj/item/gun/projectile/automatic/fullauto/twomode/proto,
+/obj/item/gun/projectile/automatic/fullauto/twomode/proto{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -8502,8 +8502,8 @@
 /obj/item/ammo_box/magazine/smgm45,
 /obj/item/ammo_box/magazine/smgm45,
 /obj/item/ammo_box/magazine/smgm45,
-/obj/item/gun/projectile/automatic/c20r,
-/obj/item/gun/projectile/automatic/c20r,
+/obj/item/gun/projectile/automatic/fullauto/twomode/c20r,
+/obj/item/gun/projectile/automatic/fullauto/twomode/c20r,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "BI" = (

@@ -38,6 +38,7 @@
 		EQUIPMENT("Jetpack Upgrade",				/obj/item/tank/jetpack/suit, 										2000),
 		EQUIPMENT("Jump Boots",						/obj/item/clothing/shoes/bhop, 										2500),
 		EQUIPMENT("Lazarus Capsule",				/obj/item/mobcapsule, 												800),
+		EQUIPMENT("Mining Binoculars",				/obj/item/device/binoculars/mining,									500),
 		EQUIPMENT("Lazarus Capsule belt",			/obj/item/storage/belt/lazarus, 									200),
 		EQUIPMENT("Mining Hardsuit",				/obj/item/clothing/suit/space/hardsuit/mining, 						2000),
 		EQUIPMENT("Tracking Implant Kit",			/obj/item/storage/box/minertracker, 								600),
@@ -64,6 +65,12 @@
 		EQUIPMENT("KA Range Increase", 				/obj/item/borg/upgrade/modkit/range, 								1000),
 		EQUIPMENT("KA Super Chassis", 				/obj/item/borg/upgrade/modkit/chassis_mod, 							250),
 		EQUIPMENT("KA White Tracer Rounds", 		/obj/item/borg/upgrade/modkit/tracer, 								100),
+		EQUIPMENT("Premium Accelerator", 		/obj/item/gun/energy/kinetic_accelerator/premiumka, 					8000),
+		EQUIPMENT("Precise Accelerator", 		/obj/item/gun/energy/kinetic_accelerator/premiumka/precise, 			15000),
+		EQUIPMENT("Rapid Accelerator", 		/obj/item/gun/energy/kinetic_accelerator/premiumka/rapid, 					15000),
+		EQUIPMENT("Heavy Accelerator", 		/obj/item/gun/energy/kinetic_accelerator/premiumka/heavy, 					15000),
+		EQUIPMENT("Modular Accelerator", 		/obj/item/gun/energy/kinetic_accelerator/premiumka/modular, 			20000),
+		EQUIPMENT("Build-you-own-KA kit", 		/obj/item/gun/energy/kinetic_accelerator/premiumka/byoka, 				30000),
 	)
 	prize_list["Digging Tools"] = list(
 		EQUIPMENT("Diamond Pickaxe", 				/obj/item/pickaxe/diamond, 											2000),
@@ -232,7 +239,7 @@
   * * redeemer - The person holding it
   */
 /obj/machinery/mineral/equipment_vendor/proc/redeem_voucher(obj/item/mining_voucher/voucher, mob/redeemer)
-	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Mining Conscription Kit")
+	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Mining Conscription Kit", "Spacepod Starter Kit")
 
 	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in items
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)

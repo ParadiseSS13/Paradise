@@ -1,7 +1,7 @@
 /obj/item/gun
 	name = "gun"
 	desc = "It's a gun. It's pretty terrible, though."
-	icon = 'icons/obj/guns/projectile.dmi'
+	icon = 'icons/hispania/obj/guns/projectile.dmi'
 	icon_state = "detective"
 	item_state = "gun"
 	flags =  CONDUCT
@@ -38,14 +38,15 @@
 
 	var/spread = 0
 	var/randomspread = 1
+	var/fullauto = FALSE
 
 	var/unique_rename = TRUE //allows renaming with a pen
 	var/unique_reskin = TRUE //allows one-time reskinning
 	var/current_skin = null //the skin choice if we had a reskin
 	var/list/options = list()
 
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	lefthand_file = 'icons/hispania/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/hispania/mob/inhands/guns_righthand.dmi'
 
 	var/obj/item/flashlight/gun_light = null
 	var/can_flashlight = 0
@@ -73,6 +74,10 @@
 
 /obj/item/gun/New()
 	..()
+	icon = (hispania_icon ? 'icons/hispania/obj/guns/projectile.dmi' : icon)
+	lefthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/guns_lefthand.dmi' : lefthand_file)
+	righthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/guns_righthand.dmi' : righthand_file)
+
 	if(gun_light)
 		verbs += /obj/item/gun/proc/toggle_gunlight
 	build_zooming()
@@ -149,7 +154,7 @@
 	if(flag) //It's adjacent, is the user, or is on the user's person
 		if(target in user.contents) //can't shoot stuff inside us.
 			return
-		if(!ismob(target) || user.a_intent == INTENT_HARM) //melee attack
+		if(!ismob(target) && !fullauto || user.a_intent == INTENT_HARM && !fullauto) //melee attack
 			return
 		if(target == user && user.zone_selected != "mouth") //so we can't shoot ourselves (unless mouth selected)
 			return
@@ -331,9 +336,9 @@
 		to_chat(user, "<span class='notice'>You attach [K] to [src]'s bayonet lug.</span>")
 		bayonet = K
 		var/state = "bayonet"							//Generic state.
-		if(bayonet.icon_state in icon_states('icons/obj/guns/bayonets.dmi'))		//Snowflake state?
+		if(bayonet.icon_state in icon_states('icons/hispania/obj/guns/bayonets.dmi'))		//Snowflake state?
 			state = bayonet.icon_state
-		var/icon/bayonet_icons = 'icons/obj/guns/bayonets.dmi'
+		var/icon/bayonet_icons = 'icons/hispania/obj/guns/bayonets.dmi'
 		knife_overlay = mutable_appearance(bayonet_icons, state)
 		knife_overlay.pixel_x = knife_x_offset
 		knife_overlay.pixel_y = knife_y_offset

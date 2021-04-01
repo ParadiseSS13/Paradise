@@ -155,7 +155,7 @@
 	desc = "Wall-mounted Medical Equipment dispenser. This one seems just a tiny bit smaller."
 	req_access = list()
 
-	products = list(/obj/item/stack/medical/splint = 2)
+	products = list(/obj/item/stack/medical/splint = 2, /obj/item/reagent_containers/syringe/charcoal = 1, /obj/item/reagent_containers/food/pill/patch/styptic = 2, /obj/item/reagent_containers/food/pill/patch/silver_sulf = 2) //Buff menor a mineria
 	contraband = list()
 
 //Computer
@@ -324,7 +324,7 @@
 						/obj/item/katana/energy,
 						/obj/item/hierophant_club,
 						/obj/item/storage/toolbox/green/memetic,
-						/obj/item/gun/projectile/automatic/l6_saw,
+						/obj/item/gun/projectile/automatic/fullauto/l6_saw,
 						/obj/item/gun/magic/staff/chaos,
 						/obj/item/gun/magic/staff/spellblade,
 						/obj/item/gun/magic/wand/death,

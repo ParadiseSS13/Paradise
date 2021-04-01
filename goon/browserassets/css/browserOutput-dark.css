@@ -10,7 +10,7 @@ html, body {
 	color: #fff;
 }
 body {
-	background: #151515;
+	background: #36393F;
     font-family: Verdana, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 9pt;
     line-height: 1.2;
@@ -245,11 +245,11 @@ a.popt {text-decoration: none;}
 .highlight {background: yellow;}
 h1, h2, h3, h4, h5, h6	{color: #06f;font-family: Georgia, Verdana, sans-serif;}
 em						{font-style: normal;	font-weight: bold;}
-.motd					{color: #638500;	font-family: Verdana, sans-serif;}
+.motd					{color: #63AA00;	font-family: Verdana, sans-serif;}
 .motd h1, .motd h2, .motd h3, .motd h4, .motd h5, .motd h6
-						{color: #638500;	text-decoration: underline;}
+						{color: #63AA00;	text-decoration: underline;}
 .motd a, .motd a:link, .motd a:visited, .motd a:active, .motd a:hover
-						{color: #638500;}
+						{color: #63AA00;}
 .darkmblue 				{color: #6685f5;}
 .prefix					{					font-weight: bold;}
 .ooc					{					font-weight: bold;}
@@ -268,19 +268,19 @@ em						{font-style: normal;	font-weight: bold;}
 .yell					{					font-weight: bold;}
 .siliconsay				{font-family: 'Courier New', Courier, monospace;}
 .deadsay				{color: #B800B1;}
-.radio					{color: #408010;}
+.radio					{color: #2EA51C;}
 .deptradio				{color: #993399;}
 .comradio				{color: #526aff;}
 .syndradio				{color: #993F40;}
-.dsquadradio				{color: #998599;}
+.dsquadradio				{color: #C4AAC4;}
 .resteamradio				{color: #18BC46;}
 .airadio				{color: #FF94FF;}
-.centradio				{color: #78789B;}
+.centradio				{color: #8A8ACC;}
 .secradio				{color: #CF0000;}
-.engradio				{color: #A66300;}
-.medradio				{color: #009190;}
-.sciradio				{color: #993399;}
-.supradio				{color: #9F8545;}
+.engradio				{color: #C17100;}
+.medradio				{color: #0091C6;}
+.sciradio				{color: #C442C4;}
+.supradio				{color: #CE9852;}
 .srvradio				{color: #80A000;}
 .proradio				{color: #F70285;}
 .admin_channel			{color: #fcba03;	font-weight: bold;}
@@ -289,22 +289,22 @@ em						{font-style: normal;	font-weight: bold;}
 .djradio				{color: #996600;}
 .binaryradio				{color: #1B00FB;	font-family: 'Courier New', Courier, monospace;}
 .mommiradio				{color: #6685f5;}
-.alert					{color: #ff0000;}
+.alert					{color: #F9414D;}
 h1.alert, h2.alert			{color: #FFF;}
 .ghostalert				{color: #cc00c6;	font-style: italic; font-weight: bold;}
 .emote					{					font-style: italic;}
 .selecteddna				{color: #FFFFFF; 	background-color: #001B1B}
 
-.attack					{color: #ff0000;}
+.attack					{color: #F9414D;}
 .moderate				{color: #CC0000;}
 .disarm					{color: #990000;}
 .passive				{color: #660000;}
 
-.warning				{color: #ff0000;	font-style: italic;}
-.boldwarning				{color: #ff0000;	font-style: italic;	font-weight: bold}
-.danger					{color: #ff0000;	font-weight: bold;}
-.userdanger				{color: #ff0000;	font-weight: bold;	font-size: 120%;}
-.biggerdanger				{color: #ff0000;	font-weight: bold; font-size: 150%;}
+.warning				{color: #F9414D;	font-style: italic;}
+.boldwarning				{color: #F9414D;	font-style: italic;	font-weight: bold}
+.danger					{color: #F9414D;	font-weight: bold;}
+.userdanger				{color: #F9414D;	font-weight: bold;	font-size: 120%;}
+.biggerdanger				{color: #F9414D;	font-weight: bold; font-size: 150%;}
 
 .info					{color: #6685f5;}
 .notice					{color: #6685f5;}
@@ -312,7 +312,7 @@ h1.alert, h2.alert			{color: #FFF;}
 .suicide				{color: #ff5050;	font-style: italic;}
 .green					{color: #03bb39;}
 .announce 				{color: #228b22;	font-weight: bold;}
-.boldannounce				{color: #ff0000;	font-weight: bold;}
+.boldannounce				{color: #F9414D;	font-weight: bold;}
 .greenannounce				{color: #00ff00;	font-weight: bold;}
 
 .alien					{color: #C433C4;}
@@ -349,6 +349,7 @@ h1.alert, h2.alert			{color: #FFF;}
 .clown					{color: #ff0000;}
 .shadowling				{color: #Cb2799;}
 .vulpkanin				{color: #B97A57;}
+.yakar					{color: #bda60f;}
 .abductor				{color: #800080; font-style: italic;}
 .mind_control				{color: #A00D6F; font-size: 3; font-weight: bold; font-style: italic;}
 .rough					{font-family: 'Trebuchet MS', cursive, sans-serif;}
@@ -363,10 +364,10 @@ h1.alert, h2.alert			{color: #FFF;}
 .big					{font-size: 150%;}
 .reallybig				{font-size: 175%;}
 .greentext				{color: #00FF00;	font-size: 150%;}
-.redtext				{color: #FF0000;	font-size: 150%;}
+.redtext				{color: #F9414D;	font-size: 150%;}
 .bold					{font-weight: bold;}
 .center					{text-align: center;}
-.red					{color: #FF0000;}
+.red					{color: #F9414D;}
 .purple					{color: #9031C4;}
 .skeleton				{color: #C8C8C8; font-weight: bold; font-style: italic;}
 .gutter					{color: #7092BE; font-family: "Trebuchet MS", cursive, sans-serif;}

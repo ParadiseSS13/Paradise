@@ -603,7 +603,8 @@
 /obj/mecha/handle_atom_del(atom/A)
 	if(A == occupant)
 		occupant = null
-		icon_state = initial(icon_state)+"-open"
+		reset_icon()
+		icon_state += "-open"
 		setDir(dir_in)
 	if(A in trackers)
 		trackers -= A
@@ -751,9 +752,14 @@
 
 		name = P.new_name
 		desc = P.new_desc
+		var/state
+		if(findtext(icon_state, "-open"))
+			state = "-open"
 		initial_icon = P.new_icon
+		if(P.new_icon_carpet)//para que la carpeta del icon este en hispania
+			icon = P.new_icon_carpet//fin hispania
 		reset_icon()
-
+		icon_state += state
 		user.drop_item()
 		qdel(P)
 
@@ -774,7 +780,7 @@
 
 
 /obj/mecha/crowbar_act(mob/user, obj/item/I)
-	if(state != 2 && state != 3 && !(state == 4 && pilot_is_mmi()))
+	if(state != 2 && state != 3 && !(state == 4 && (pilot_is_mmi() || istype(occupant, /mob/living/carbon))))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -786,11 +792,11 @@
 		state = 2
 		to_chat(user, "You close the hatch to the power unit")
 	else
-		// Since having maint protocols available is controllable by the MMI, I see this as a consensual way to remove an MMI without destroying the mech
-		user.visible_message("[user] begins levering out the MMI from the [src].", "You begin to lever out the MMI from the [src].")
+		// Since having maint protocols available is controllable by the pilot, I see this as a consensual way to remove a pilot without destroying the mech
+		user.visible_message("[user] begins levering out the [pilot_is_mmi() ? "MMI" : "pilot"] from the [src].", "You begin to lever out the [pilot_is_mmi() ? "MMI" : "pilot"] from the [src].")
 		to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
-		if(I.use_tool(src, user, 80, volume = I.tool_volume) && pilot_is_mmi())
-			user.visible_message("<span class='notice'>[user] pries the MMI out of the [src]!</span>", "<span class='notice'>You finish removing the MMI from the [src]!</span>")
+		if(I.use_tool(src, user, 80, volume = I.tool_volume))
+			user.visible_message("<span class='notice'>[user] pries the [pilot_is_mmi() ? "MMI" : "pilot"] out of the [src]!</span>", "<span class='notice'>You finish removing the [pilot_is_mmi() ? "MMI" : "pilot"] from the [src]!</span>")
 			go_out()
 
 /obj/mecha/screwdriver_act(mob/user, obj/item/I)
@@ -924,7 +930,8 @@
 			occupant = null
 			AI.controlled_mech = null
 			AI.remote_control = null
-			icon_state = initial(icon_state)+"-open"
+			reset_icon()//hispania, reseteamos el icono
+			icon_state += "-open"
 			to_chat(AI, "You have been downloaded to a mobile storage device. Wireless connection offline.")
 			to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) removed from [name] and stored within local memory.")
 
@@ -958,7 +965,7 @@
 	AI.aiRestorePowerRoutine = 0
 	AI.forceMove(src)
 	occupant = AI
-	icon_state = initial(icon_state)
+	reset_icon()
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 	if(!hasInternalDamage())
 		occupant << sound(nominalsound, volume = 50)
@@ -1259,7 +1266,8 @@
 				var/obj/item/mmi/robotic_brain/R = mmi
 				if(R.imprinted_master)
 					to_chat(L, "<span class='notice'>Imprint re-enabled, you are once again bound to [R.imprinted_master]'s commands.</span>")
-		icon_state = initial(icon_state)+"-open"
+		reset_icon()//resetea el icon del mecha antes de cambiarlo
+		icon_state += "-open"//nada de initial icon
 		dir = dir_in
 
 	if(L && L.client)
@@ -1493,6 +1501,9 @@
 			AI = occupant
 			occupant = null
 		var/obj/structure/mecha_wreckage/WR = new wreckage(loc, AI)
+		reset_icon()//este codigo hace que el wreckage tenga el mismo tema(sprite) que el mecha
+		WR.icon = icon
+		WR.icon_state = icon_state+"-broken"//fin paintkists code
 		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
 			if(E.salvageable && prob(30))
 				WR.crowbar_salvage += E

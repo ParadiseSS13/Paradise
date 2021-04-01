@@ -170,3 +170,4 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 	if(!istype(heap))
 		throw EXCEPTION("Attempted to free chunk at invalid z-level ([C.x],[C.y],[C.zpos]) [C.width]x[C.height]")
 	heap.free(C)
+

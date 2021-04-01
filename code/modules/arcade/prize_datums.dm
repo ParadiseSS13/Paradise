@@ -203,18 +203,6 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/toy/toy_xeno
 	cost = 80
 
-/datum/prize_item/rubberducky
-	name = "Rubber Ducky"
-	desc = "Your favorite bathtime buddy, all squeaks and quacks quality assured."
-	typepath = /obj/item/bikehorn/rubberducky
-	cost = 80
-
-/datum/prize_item/tacticool
-	name = "Tacticool Turtleneck"
-	desc = "A cool-looking turtleneck."
-	typepath = /obj/item/clothing/under/syndicate/tacticool
-	cost = 90
-
 /datum/prize_item/nanomob_booster
 	name = "Nano-Mob Hunter Trading Card Booster Pack"
 	desc = "Contains 6 random Nano-Mob Hunter Trading Cards. May contain a holographic card!"
@@ -333,4 +321,4 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	name = "Awesome Bike!"
 	desc = "WOAH."
 	typepath = /obj/structure/chair/wheelchair/bike
-	cost = 10000	//max stack + 1 tickets.
+	cost = 5000	//max stack + 1 tickets.

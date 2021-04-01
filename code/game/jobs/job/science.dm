@@ -5,20 +5,21 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_science = 1
+	minimal_captain_character_age = 1
 	supervisors = "the captain"
 	department_head = list("Captain")
 	selection_color = "#ffddff"
 	req_admin_notify = 1
-	access = list(ACCESS_RD, ACCESS_HEADS, ACCESS_TOX, ACCESS_GENETICS, ACCESS_MORGUE,
+	access = list(ACCESS_EVA, ACCESS_RD, ACCESS_HEADS, ACCESS_TOX, ACCESS_MORGUE,
 					ACCESS_TOX_STORAGE, ACCESS_TECH_STORAGE, ACCESS_TELEPORTER, ACCESS_SEC_DOORS,
 					ACCESS_RESEARCH, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_AI_UPLOAD,
 					ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_GATEWAY, ACCESS_XENOARCH, ACCESS_MINISAT, ACCESS_MINERAL_STOREROOM, ACCESS_NETWORK)
-	minimal_access = list(ACCESS_EVA, ACCESS_RD, ACCESS_HEADS, ACCESS_TOX, ACCESS_GENETICS, ACCESS_MORGUE,
+	minimal_access = list(ACCESS_EVA, ACCESS_RD, ACCESS_HEADS, ACCESS_TOX, ACCESS_MORGUE,
 					ACCESS_TOX_STORAGE, ACCESS_TECH_STORAGE, ACCESS_TELEPORTER, ACCESS_SEC_DOORS,
 					ACCESS_RESEARCH, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_AI_UPLOAD,
 					ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_GATEWAY, ACCESS_XENOARCH, ACCESS_MINISAT, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM, ACCESS_NETWORK)
 	minimal_player_age = 21
-	exp_requirements = 1200
+	exp_requirements = 2880
 	exp_type = EXP_TYPE_SCIENCE
 	// All science-y guys get bonuses for maxing out their tech.
 	required_objectives = list(
@@ -51,9 +52,11 @@
 	title = "Scientist"
 	flag = JOB_SCIENTIST
 	department_flag = JOBCAT_MEDSCI
-	total_positions = 6
+	total_positions = 4
 	spawn_positions = 6
 	is_science = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the research director"
 	department_head = list("Research Director")
 	selection_color = "#ffeeff"
@@ -93,6 +96,8 @@
 	total_positions = 2
 	spawn_positions = 2
 	is_science = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the research director"
 	department_head = list("Research Director")
 	selection_color = "#ffeeff"
@@ -105,7 +110,8 @@
 
 	required_objectives = list(
 		/datum/job_objective/make_cyborg,
-		/datum/job_objective/make_ripley
+		/datum/job_objective/make_ripley,
+		/datum/job_objective/make_odysseus
 	)
 
 	outfit = /datum/outfit/job/roboticist

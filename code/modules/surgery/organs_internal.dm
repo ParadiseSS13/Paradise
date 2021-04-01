@@ -80,7 +80,7 @@
 								/obj/item/reagent_containers/glass/bucket = 50)
 
 	//Finish is just so you can close up after you do other things.
-	var/implements_finsh = list(/obj/item/scalpel/laser/manager = 100,/obj/item/retractor = 100 ,/obj/item/crowbar = 90)
+	var/implements_finsh = list(/obj/item/scalpel/laser/manager = 100,/obj/item/retractor = 100 ,/obj/item/crowbar = 70)
 	var/current_type
 	var/obj/item/organ/internal/I = null
 	var/obj/item/organ/external/affected = null
@@ -457,7 +457,7 @@
 	allowed_tools = list(
 	/obj/item/circular_saw = 100, \
 	/obj/item/melee/energy/sword/cyborg/saw = 100, \
-	/obj/item/hatchet = 90
+	/obj/item/hatchet = 70
 	)
 
 	time = 54
@@ -485,7 +485,7 @@
 	name = "cut carapace"
 	allowed_tools = list(
 	/obj/item/scalpel = 100,		\
-	/obj/item/kitchen/knife = 90,	\
+	/obj/item/kitchen/knife = 70,	\
 	/obj/item/shard = 60, 		\
 	/obj/item/scissors = 12,		\
 	/obj/item/twohanded/chainsaw = 1, \
@@ -520,7 +520,7 @@
 	allowed_tools = list(
 	/obj/item/scalpel/laser/manager = 100, \
 	/obj/item/retractor = 100, 	\
-	/obj/item/crowbar = 90,	\
+	/obj/item/crowbar = 70,	\
 	/obj/item/kitchen/utensil/fork = 60
 	)
 

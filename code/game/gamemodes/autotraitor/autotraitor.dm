@@ -111,7 +111,7 @@
 		max_traitors = round(playercount / 10) + 1
 		traitor_prob = (playercount - (max_traitors - 1) * 10) * 5
 		if(traitorcount < max_traitors - 1)
-			traitor_prob += 50
+			traitor_prob += 0
 
 
 		if(traitorcount < max_traitors)

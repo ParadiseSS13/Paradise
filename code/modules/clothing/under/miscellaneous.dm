@@ -835,6 +835,7 @@
 /obj/item/clothing/under/misc/durathread
 	name = "durathread jumpsuit"
 	desc = "A jumpsuit made from durathread, its resilient fibres provide some protection to the wearer."
+	hispania_icon = TRUE
 	icon_state = "durathread"
 	item_state = "durathread"
 	item_color = "durathread"

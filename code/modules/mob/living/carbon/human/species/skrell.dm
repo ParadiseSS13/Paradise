@@ -2,6 +2,7 @@
 	name = "Skrell"
 	name_plural = "Skrell"
 	icobase = 'icons/mob/human_races/r_skrell.dmi'
+	blacklisted = TRUE
 	language = "Skrellian"
 	primitive_form = /datum/species/monkey/skrell
 

@@ -16,6 +16,8 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/shock_revolver)
 	can_flashlight = 0
 	shaded_charge = 1
+	zoomable = TRUE
+	zoom_amt = 1
 
 /obj/item/gun/energy/gun/advtaser
 	name = "hybrid taser"

@@ -534,7 +534,7 @@
 	var/watchreason = check_watchlist(ckey)
 	if(watchreason)
 		message_admins("<font color='red'><B>Notice: </B></font><font color='blue'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
-		SSdiscord.send2discord_simple_noadmins("**\[Watchlist]** [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
+		SSdiscord.send2discord_simple("**\[Watchlist]** [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
 		watchlisted = TRUE
 
 
@@ -779,7 +779,7 @@
 			if(cidcheck_failedckeys[ckey])
 				// Atonement
 				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after showing they removed their cid randomizer</span>")
-				SSdiscord.send2discord_simple_noadmins("**\[Info]** [key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
+				SSdiscord.send2discord_simple("**\[Info]** [key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
 				cidcheck_failedckeys -= ckey
 			if (cidcheck_spoofckeys[ckey])
 				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after appearing to have attempted to spoof a cid randomizer check because it <i>appears</i> they aren't spoofing one this time</span>")
@@ -888,20 +888,20 @@
 	winset(src, "mainwindow.mebutton", "background-color=#40628a;text-color=#FFFFFF")
 	///// UI ELEMENTS /////
 	/* Mainwindow */
-	winset(src, "mainwindow", "background-color=#272727")
-	winset(src, "mainwindow.mainvsplit", "background-color=#272727")
-	winset(src, "mainwindow.tooltip", "background-color=#272727")
+	winset(src, "mainwindow", "background-color=#36393F")
+	winset(src, "mainwindow.mainvsplit", "background-color=#36393F")
+	winset(src, "mainwindow.tooltip", "background-color=#36393F")
 	/* Outputwindow */
-	winset(src, "outputwindow.browseroutput", "background-color=#272727")
+	winset(src, "outputwindow.browseroutput", "background-color=#36393F")
 	/* Rpane */
-	winset(src, "rpane", "background-color=#272727")
-	winset(src, "rpane.rpanewindow", "background-color=#272727")
+	winset(src, "rpane", "background-color=#36393F")
+	winset(src, "rpane.rpanewindow", "background-color=#36393F")
 	/* Browserwindow */
-	winset(src, "browserwindow", "background-color=#272727")
-	winset(src, "browserwindow.browser", "background-color=#272727")
+	winset(src, "browserwindow", "background-color=#36393F")
+	winset(src, "browserwindow.browser", "background-color=#36393F")
 	/* Infowindow */
-	winset(src, "infowindow", "background-color=#272727;text-color=#FFFFFF")
-	winset(src, "infowindow.info", "background-color=#272727;text-color=#FFFFFF;highlight-color=#009900;tab-text-color=#FFFFFF;tab-background-color=#272727")
+	winset(src, "infowindow", "background-color=#36393F;text-color=#FFFFFF")
+	winset(src, "infowindow.info", "background-color=#36393F;text-color=#FFFFFF;highlight-color=#009900;tab-text-color=#FFFFFF;tab-background-color=#36393F")
 	// NOTIFY USER
 	to_chat(src, "<span class='notice'>Darkmode Enabled</span>")
 

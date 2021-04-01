@@ -32,6 +32,8 @@
 	/// Is it emagged or not?
 	var/emagged = FALSE
 
+	var/drag_slowdown
+
 /obj/New()
 	..()
 	if(obj_integrity == null)

@@ -2,6 +2,7 @@
 	name = "Tajaran"
 	name_plural = "Tajaran"
 	icobase = 'icons/mob/human_races/r_tajaran.dmi'
+	blacklisted = TRUE
 	language = "Siik'tajr"
 	tail = "tajtail"
 	skinned_type = /obj/item/stack/sheet/fur

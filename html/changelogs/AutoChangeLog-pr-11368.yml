@@ -1,0 +1,5 @@
+author: "AffectedArc07"
+delete-after: True
+changes: 
+  - rscadd: "SSticker"
+  - tweak: "You can no longer force-start a round unless its fully initialised."
