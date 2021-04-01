@@ -650,7 +650,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "disposal"
 
 /area/maintenance/turbine
-	name = "Brazil 2"
+	name = "Blob"
 	icon_state = "disposal"
 
 /area/maintenance/disposal
