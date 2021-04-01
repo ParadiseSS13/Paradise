@@ -2930,20 +2930,32 @@
 					GLOB.event_announcement.Announce("Feedback surge detected in mass-distributions systems. Artifical gravity has been disabled whilst the system reinitializes. Further failures may result in a gravitational collapse and formation of blackholes. Have a nice day.")
 
 			if("power")
-				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power All APCs")
-				log_admin("[key_name(usr)] made all areas powered", 1)
-				message_admins("<span class='notice'>[key_name_admin(usr)] made all areas powered</span>", 1)
-				power_restore()
+				switch(alert("What Would You Like to Do?", "Make All Areas Powered", "Power all APCs", "Repair all APCs", "Repair and Power APCs")) //Alert notification in this code for standarization purposes
+					if("Power all APCs")
+						power_restore(TRUE, 0)
+						SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power all APCs")
+						log_and_message_admins("<span class='notice'>[key_name_admin(usr)] powered all APCs</span>", 1)
+					if("Repair all APCs")
+						power_restore(TRUE, 1)
+						SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Repair all APCs")
+						log_and_message_admins("<span class='notice'>[key_name_admin(usr)] repaired all APCs</span>", 1)
+					if("Repair and Power APCs")
+						power_restore(TRUE, 2)
+						SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Repair and Power all APCs")
+						log_and_message_admins("<span class='notice'>[key_name_admin(usr)] repaired and powered all APCs</span>", 1)
 			if("unpower")
-				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Depower All APCs")
-				log_admin("[key_name(usr)] made all areas unpowered", 1)
-				message_admins("<span class='notice'>[key_name_admin(usr)] made all areas unpowered</span>", 1)
-				power_failure()
+				if(alert("What Would You Like to Do?", "Make All Areas Unpowered", "Depower all APCs", "Short out APCs") == "Depower all APCs")
+					depower_apcs()
+					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Depower all APCs")
+					log_and_message_admins("<span class='notice'>[key_name_admin(usr)] made all areas unpowered</span>", 1)
+				else
+					power_failure()
+					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Short out APCs")
+					log_and_message_admins("<span class='notice'>[key_name_admin(usr)] has shorted APCs</span>", 1)
 			if("quickpower")
-				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power All SMESs")
-				log_admin("[key_name(usr)] made all SMESs powered", 1)
-				message_admins("<span class='notice'>[key_name_admin(usr)] made all SMESs powered</span>", 1)
 				power_restore_quick()
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power All SMESs")
+				log_and_message_admins("<span class='notice'>[key_name(usr)] made all SMESs powered</span>", 1)
 			if("prisonwarp")
 				if(!SSticker)
 					alert("The game hasn't started yet!", null, null, null, null, null)
@@ -3545,7 +3557,7 @@
 		popup.set_content(dat)
 		popup.open(FALSE)
 
-/client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)
+/client/proc/create_eventmob_for(mob/living/carbon/human/H, killthem = 0)
 	if(!check_rights(R_EVENT))
 		return
 	var/admin_outfits = subtypesof(/datum/outfit/admin)
@@ -3605,7 +3617,7 @@
 	tatorhud.join_hud(hunter_mob)
 	set_antag_hud(hunter_mob, "hudsyndicate")
 
-/proc/admin_jump_link(var/atom/target)
+/proc/admin_jump_link(atom/target)
 	if(!target) return
 	// The way admin jump links handle their src is weirdly inconsistent...
 

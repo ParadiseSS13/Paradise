@@ -7,10 +7,10 @@
 	invisibility = INVISIBILITY_ABSTRACT // nope cant see this shit
 	anchored = TRUE
 
-/obj/effect/step_trigger/proc/Trigger(var/atom/movable/A)
+/obj/effect/step_trigger/proc/Trigger(atom/movable/A)
 	return FALSE
 
-/obj/effect/step_trigger/Crossed(var/H, oldloc)
+/obj/effect/step_trigger/Crossed(H, oldloc)
 	. = ..()
 	if(!H)
 		return
