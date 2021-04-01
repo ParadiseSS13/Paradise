@@ -121,7 +121,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	var/critfailchance = 0
 	var/centcom_cancast = TRUE //Whether or not the spell should be allowed on the admin zlevel
-	var/holy_cancast = TRUE //Whether or not the spell functions in a holy place
+	var/holy_area_cancast = TRUE //Whether or not the spell functions in a holy place
 
 	var/datum/action/spell_action/action = null
 	var/action_icon = 'icons/mob/actions/actions.dmi'
@@ -562,7 +562,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(is_admin_level(user.z) && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
 		return 0
 
-	if(!holy_cancast && user.holy_check())
+	if(!holy_area_cancast && user.holy_check())
 		return 0
 
 	if(charge_check)

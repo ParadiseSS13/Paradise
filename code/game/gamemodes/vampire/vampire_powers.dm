@@ -9,7 +9,7 @@
 	action_background_icon_state = "bg_vampire"
 	var/required_blood = 0
 	var/gain_desc = null
-	holy_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
+	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 
 /obj/effect/proc_holder/spell/vampire/New()
 	..()
