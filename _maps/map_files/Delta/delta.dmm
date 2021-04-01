@@ -109725,6 +109725,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"iEl" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/obj/structure/equestria_portal,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "arrival"
+	},
+/area/hallway/secondary/entry)
 "kpH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
@@ -149488,7 +149499,7 @@ alH
 agF
 aaa
 acC
-anl
+iEl
 anU
 aoz
 acC

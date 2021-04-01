@@ -38259,6 +38259,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/equestria_portal,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/port)
 "bvH" = (
