@@ -137,7 +137,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	message = trim_left(message)
 
 	if(isvulpkanin(src))
-		message = rustg_uwuify(message) // Gotta get those accuracies in
+		message = wustg_uwuify(message) // Gotta get those accuracies in
 
 	//parse the language code and consume it
 	var/list/message_pieces = list()
