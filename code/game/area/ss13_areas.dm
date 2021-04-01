@@ -598,104 +598,86 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 //Maintenance
 /area/maintenance
+	name = "HELP MANTIS"
 	ambientsounds = MAINTENANCE_SOUNDS
 	valid_territory = FALSE
 	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
 
 /area/maintenance/atmos_control
-	name = "Atmospherics Maintenance"
 	icon_state = "fpmaint"
 
 /area/maintenance/fpmaint
-	name = "EVA Maintenance"
 	icon_state = "fpmaint"
 
 /area/maintenance/fpmaint2
-	name = "Arrivals North Maintenance"
 	icon_state = "fpmaint"
 
 /area/maintenance/fsmaint
-	name = "Dormitory Maintenance"
 	icon_state = "fsmaint"
 
 /area/maintenance/fsmaint2
-	name = "Bar Maintenance"
 	icon_state = "fsmaint"
 
 /area/maintenance/asmaint
-	name = "Medbay Maintenance"
 	icon_state = "asmaint"
 
 /area/maintenance/asmaint2
-	name = "Science Maintenance"
 	icon_state = "asmaint"
 
 /area/maintenance/apmaint
-	name = "Cargo Maintenance"
 	icon_state = "apmaint"
 
 /area/maintenance/maintcentral
-	name = "Bridge Maintenance"
 	icon_state = "maintcentral"
 
 /area/maintenance/fore
-	name = "Fore Maintenance"
 	icon_state = "fmaint"
 
 /area/maintenance/starboard
-	name = "Starboard Maintenance"
 	icon_state = "smaint"
 
 /area/maintenance/port
-	name = "Locker Room Maintenance"
 	icon_state = "pmaint"
 
 /area/maintenance/aft
-	name = "Engineering Maintenance"
 	icon_state = "amaint"
 
 /area/maintenance/storage
-	name = "Atmospherics Maintenance"
 	icon_state = "green"
 
 /area/maintenance/incinerator
-	name = "\improper Incinerator"
+	name = "Brazil" // right next to help mantis
 	icon_state = "disposal"
 
 /area/maintenance/turbine
-	name = "\improper Turbine"
+	name = "Brazil 2"
 	icon_state = "disposal"
 
 /area/maintenance/disposal
-	name = "Waste Disposal"
 	icon_state = "disposal"
 
 /area/maintenance/genetics
-	name = "Genetics Maintenance"
 	icon_state = "asmaint"
 
 
 /area/maintenance/electrical
-	name = "Electrical Maintenance"
+	name = "Cult Base"
 	icon_state = "yellow"
 
 /area/maintenance/abandonedbar
-	name = "Maintenance Bar"
 	icon_state = "yellow"
 	power_equip = 0
 	power_light = 0
 	power_environ = 0
 
 /area/maintenance/electrical_shop
-	name ="Electronics Den"
 	icon_state = "yellow"
 
 /area/maintenance/gambling_den
-	name = "Gambling Den"
 	icon_state = "yellow"
 
 /area/maintenance/consarea
-	name = "Alternate Construction Area"
+	name = "HELP MAINTS"
 	icon_state = "yellow"
 
 
