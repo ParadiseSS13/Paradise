@@ -69,6 +69,10 @@
 	desc = "The banner of Ian, because SQUEEEEE."
 	icon_state = "ianflag"
 
+/obj/item/flag/pony
+	name = "Equestria flag"
+	desc = "The flag of the independent, sovereign nation of Equestria, whatever the fuck that is."
+	icon_state = "ponyflag"
 
 //Species flags
 

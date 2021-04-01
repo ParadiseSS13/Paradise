@@ -287,6 +287,8 @@
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/parrot))
 		return 1
+	if(ispath(MP, /mob/living/simple_animal/pet/pony))
+		return 1
 	if(!GAMEMODE_IS_NUCLEAR)
 		if(ispath(MP, /mob/living/simple_animal/pet/dog/fox/Syndifox))
 			return 0
