@@ -421,11 +421,11 @@
 //don't worry, the performance is better than you think
 /datum/mutation/disability/speech/uwu/on_say(mob/M, message)
 	var/static/regex/middle_w = regex("(?=\\w)(r|l)(?=\\w)", "g")
-	var/static/regex/consonant_vowel = regex("(?=\\w)(b|t|l|p|q|n|s)(a|i|o|y)(?=\\w)", "g")
 	var/static/regex/middle_u = regex("(?=\\w)you(?=\\w)", "g")
 	var/static/regex/middle_uw = regex("(?=\\w)u(?=\\w)", "g")
 	var/static/regex/suffix_er = regex("er\\b", "g")
 	var/static/regex/suffix_li = regex("er\\b", "g")
+	var/static/regex/consonant_vowel = regex("(?=\\w)(b|t|l|p|q|n|s)(a|i|o|y)(?=\\w)", "g")
 
 	message = middle_w.Replace(message, "w")
 	message = middle_u.Replace(message, "u")
