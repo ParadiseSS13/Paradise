@@ -408,6 +408,34 @@
 		message += " Bork[pick("",", bork",", bork, bork")]!"
 	return message
 
+/datum/mutation/disability/speech/uwu
+	name = "UwU Syndrome"
+	desc = "Attacking the language processing center of the brain, this syndrome attacks the subject's ability to sound like a well put together person"
+	activation_messages = list("You suddenly feel a lot cuter.")
+	deactivation_messages = list("Thank Space this is over.")
+
+/datum/mutation/disability/speech/uwu/New()
+	..()
+	block = GLOB.uwublock
+
+//don't worry, the performance is better than you think
+/datum/mutation/disability/speech/uwu/on_say(mob/M, message)
+	var/static/regex/middle_w = regex("(?=\\w)(r|l)(?=\\w)", "g")
+	var/static/regex/consonant_vowel = regex("(?=\\w)(b|t|l|p|q|n|s)(a|i|o|y)(?=\\w)", "g")
+	var/static/regex/middle_u = regex("(?=\\w)you(?=\\w)", "g")
+	var/static/regex/middle_uw = regex("(?=\\w)u(?=\\w)", "g")
+	var/static/regex/suffix_er = regex("er\\b", "g")
+	var/static/regex/suffix_li = regex("er\\b", "g")
+
+	message = middle_w.Replace(message, "w")
+	message = middle_u.Replace(message, "u")
+	message = middle_uw.Replace(message, "uw")
+	message = suffix_er.Replace(message, "ew")
+	message = suffix_li.Replace(message, "wi")
+	message = consonant_vowel.Replace(message, "$1w$2")
+
+	return message
+
 // WAS: /datum/bioEffect/unintelligable
 /datum/mutation/disability/unintelligable
 	name = "Unintelligable"

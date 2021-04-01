@@ -73,6 +73,7 @@
 	GLOB.radblock       = getAssignedBlock("RAD",        numsToAssign)
 	GLOB.fatblock       = getAssignedBlock("FAT",        numsToAssign)
 	GLOB.chavblock      = getAssignedBlock("CHAV",       numsToAssign)
+	GLOB.uwublock		= getAssignedBlock("UWU", 		 numsToAssign)
 	GLOB.swedeblock     = getAssignedBlock("SWEDE",      numsToAssign)
 	GLOB.scrambleblock  = getAssignedBlock("SCRAMBLE",   numsToAssign)
 	GLOB.strongblock    = getAssignedBlock("STRONG",     numsToAssign, good=1)

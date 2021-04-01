@@ -883,6 +883,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_NERVOUS, "Stutter")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_SWEDISH, "Swedish accent")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_CHAV, "Chav accent")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_UWU, "Uwu speech")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_LISP, "Lisp")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_DIZZY, "Dizziness")
 
@@ -2285,6 +2286,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	if(disabilities & DISABILITY_FLAG_CHAV)
 		character.dna.SetSEState(GLOB.chavblock, TRUE, TRUE)
 		character.dna.default_blocks.Add(GLOB.chavblock)
+
+	if(disabilities & DISABILITY_FLAG_UWU)
+		character.dna.SetSEState(GLOB.uwublock, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.uwublock)
 
 	if(disabilities & DISABILITY_FLAG_LISP)
 		character.dna.SetSEState(GLOB.lispblock, TRUE, TRUE)
