@@ -41,21 +41,21 @@
 	icon_state = "pinkie"
 	icon_living = "pinkie"
 
-mob/living/simple_animal/pet/pony/rarity
+/mob/living/simple_animal/pet/pony/rarity
 	name = "Rarity"
 	real_name = "Rarity"
 	desc = "A beautiful heart!"
 	icon_state = "rarity"
 	icon_living = "rarity"
 
-mob/living/simple_animal/pet/pony/applejack
+/mob/living/simple_animal/pet/pony/applejack
 	name = "Applejack"
 	real_name = "Applejack"
 	desc = "Faithful and strong!"
 	icon_state = "applejack"
 	icon_living = "applejack"
 
-mob/living/simple_animal/pet/pony/fluttershy
+/mob/living/simple_animal/pet/pony/fluttershy
 	name = "Fluttershy"
 	real_name = "Fluttershy"
 	desc = "Sharing kindness, it's an easy feat..."
@@ -69,56 +69,56 @@ mob/living/simple_animal/pet/pony/fluttershy
 	icon_state = "twilight"
 	icon_living = "twilight"
 
-mob/living/simple_animal/pet/pony/clownie
+/mob/living/simple_animal/pet/pony/clownie
 	name = "Clownie"
 	real_name = "Clownie"
 	desc = "Tons of honks!"
 	icon_state = "clownie"
 	icon_living = "clownie"
 
-mob/living/simple_animal/pet/pony/tia
+/mob/living/simple_animal/pet/pony/tia
 	name = "Princess Celestia"
 	real_name = "Princess Celestia"
 	desc = "A regal pony. Seems much smaller than it ought to be."
 	icon_state = "tia"
 	icon_living = "tia"
 
-mob/living/simple_animal/pet/pony/luna
+/mob/living/simple_animal/pet/pony/luna
 	name = "Princess Luna"
 	real_name = "Princess Luna"
 	desc = "An edgy regal pony. Seems a bit smaller than it ought to be."
 	icon_state = "luna"
 	icon_living = "luna"
 
-mob/living/simple_animal/pet/pony/trixie
+/mob/living/simple_animal/pet/pony/trixie
 	name = "Trixie"
 	real_name = "Trixie"
 	desc = "Seems great and powerful."
 	icon_state = "trixie_a_full"
 	icon_living = "trixing_a_full"
 
-mob/living/simple_animal/pet/pony/lyra
+/mob/living/simple_animal/pet/pony/lyra
 	name = "Lyra"
 	real_name = "Lyra"
 	desc = "Definitely straight."
 	icon_state = "lyra"
 	icon_living = "lyra"
 
-mob/living/simple_animal/pet/pony/vinyl
+/mob/living/simple_animal/pet/pony/vinyl
 	name = "Vinyl Scratch"
 	real_name = "Vinyl"
 	desc = "Also known as DJ-PON3 in the biz."
 	icon_state = "vinyl"
 	icon_living = "vinyl"
 
-mob/living/simple_animal/pet/pony/whooves
+/mob/living/simple_animal/pet/pony/whooves
 	name = "Doctor Whooves"
 	real_name = "Doctor Whooves"
 	desc = "Carefully studying the world around him."
 	icon_state = "whooves"
 	icon_living = "whooves"
 
-mob/living/simple_animal/pet/pony/mac
+/mob/living/simple_animal/pet/pony/mac
 	name = "Big Mac"
 	real_name = "Mac"
 	desc = "Eeyup."
