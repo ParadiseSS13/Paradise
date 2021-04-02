@@ -12,7 +12,7 @@
 	var/tank_volume = 1000
 	/// The ID of the reagent that the dispenser uses
 	var/reagent_id = "water"
-	/// The last person to rig this fuel tank - Stored with the object. Only the last person matter for investigation
+	/// The last person to rig this fuel tank - Stored with the object. Only the last person matters for investigation
 	var/lastrigger = ""
 	/// Can this tank be unwrenched
 	var/can_be_unwrenched = TRUE
