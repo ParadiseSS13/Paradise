@@ -1076,7 +1076,7 @@
 	return ..() | update_flags
 
 /datum/reagent/pestkiller/reaction_obj(obj/O, volume)
-	if(istype(O, /obj/effect/decal/ants))
+	if(istype(O, /obj/effect/decal/cleanable/ants))
 		O.visible_message("<span class='warning'>The ants die.</span>")
 		qdel(O)
 
