@@ -500,7 +500,7 @@
 		if(holder.l_hand == src || holder.r_hand == src) // Holding this in your hand will
 			for(var/mob/living/carbon/human/H in range(5, loc))
 				if(H.mind && H.mind.vampire && !H.mind.vampire.get_ability(/datum/vampire_passive/full))
-					H.mind.vampire.adjust_nullification(5)
+					H.mind.vampire.adjust_nullification(5, 2)
 					if(prob(10))
 						to_chat(H, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your powers!</span>")
 
