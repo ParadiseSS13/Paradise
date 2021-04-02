@@ -358,7 +358,7 @@
 		return
 	var/thermal_protection = get_thermal_protection()
 
-	if(thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT || HAS_TRAIT(src, TRAIT_RESISTHEAT))
+	if(thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 		return
 	if(thermal_protection >= FIRE_SUIT_MAX_TEMP_PROTECT)
 		bodytemperature += 11
@@ -366,6 +366,10 @@
 		bodytemperature += (BODYTEMP_HEATING_MAX + (fire_stacks * 12))
 
 /mob/living/carbon/human/proc/get_thermal_protection()
+
+	if(HAS_TRAIT(src, TRAIT_RESISTHEAT))
+		return FIRE_IMMUNITY_MAX_TEMP_PROTECT
+
 	var/thermal_protection = 0 //Simple check to estimate how protected we are against multiple temperatures
 	if(wear_suit)
 		if(wear_suit.max_heat_protection_temperature >= FIRE_SUIT_MAX_TEMP_PROTECT)
