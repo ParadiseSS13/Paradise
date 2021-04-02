@@ -49740,15 +49740,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "czo" = (
-/obj/docking_port/mobile{
-	dir = 8;
-	dwidth = 2;
-	height = 12;
-	id = "ferry";
-	name = "ferry shuttle";
-	roundstart_move = "ferry_away";
-	width = 5
-	},
 /obj/docking_port/stationary{
 	dir = 8;
 	dwidth = 2;
