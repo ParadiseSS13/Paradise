@@ -29463,7 +29463,9 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/manifold/visible/cyan,
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 9
+	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
@@ -29475,9 +29477,6 @@
 	},
 /obj/machinery/light{
 	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/engine,
@@ -29854,10 +29853,6 @@
 "bCY" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
-	},
-/obj/machinery/atmospherics/binary/pump{
-	dir = 1;
-	name = "Atmos To Loop"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/engine,
@@ -30299,7 +30294,6 @@
 "bEh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/spawner/window/reinforced/plasma,
-/obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/engine/engineering)
@@ -30854,7 +30848,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 4
+	dir = 9
 	},
 /obj/structure/table,
 /obj/item/stack/sheet/rglass{
@@ -30867,9 +30861,6 @@
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 4
 	},
 /obj/structure/table,
 /obj/item/stack/cable_coil,
@@ -30884,9 +30875,6 @@
 /obj/structure/reagent_dispensers/watertank,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 9
-	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "bFy" = (
@@ -69384,6 +69372,15 @@
 	icon_state = "bluecorner"
 	},
 /area/hallway/primary/starboard/south)
+"gyO" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-20";
+	light_color = "#E1E17D";
+	light_range = 5;
+	luminosity = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/engine/engineering)
 "gzl" = (
 /obj/machinery/poolcontroller{
 	pixel_y = -25;
@@ -70194,6 +70191,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
+"hAi" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold4w/visible/cyan,
+/turf/simulated/floor/engine,
+/area/engine/engineering)
 "hAq" = (
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -72288,6 +72292,12 @@
 "kjO" = (
 /turf/simulated/wall,
 /area/engine/mechanic_workshop)
+"kkc" = (
+/obj/effect/spawner/window/reinforced/plasma,
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/turf/simulated/floor/plating,
+/area/engine/engineering)
 "kkt" = (
 /obj/machinery/door/airlock/external{
 	name = "Labor Camp Shuttle Airlock"
@@ -72893,6 +72903,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
+"kVz" = (
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/binary/pump{
+	dir = 1;
+	name = "Atmos To Loop"
+	},
+/turf/simulated/floor/engine,
+/area/engine/engineering)
 "kVU" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -118525,9 +118547,9 @@ adJ
 byE
 bzC
 nqg
-bBS
-bCT
-bCN
+hAi
+kVz
+kkc
 bFu
 cGz
 bIx
@@ -119042,7 +119064,7 @@ byF
 bBT
 bCX
 bhd
-bFo
+gyO
 bHb
 bIx
 bJS
