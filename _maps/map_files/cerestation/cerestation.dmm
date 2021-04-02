@@ -5985,6 +5985,11 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -30266,7 +30271,7 @@
 	req_access_txt = "10"
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/engine,
 /area/engine/engineering)
 "bEf" = (
 /obj/structure/cable{
@@ -30289,7 +30294,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/engine,
 /area/engine/engineering)
 "bEh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -30750,6 +30755,9 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "bFm" = (
@@ -30761,6 +30769,9 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "bFn" = (
@@ -30768,6 +30779,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -30781,6 +30795,9 @@
 	light_range = 5;
 	luminosity = 2
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "bFp" = (
@@ -30790,6 +30807,9 @@
 /obj/structure/table,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/sheet/glass/fifty,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "bFq" = (
@@ -30799,6 +30819,9 @@
 /obj/structure/table,
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/metal/fifty,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "bFr" = (
@@ -30812,6 +30835,9 @@
 /obj/item/stack/rods{
 	amount = 50
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "bFs" = (
@@ -30822,6 +30848,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -30839,6 +30868,9 @@
 	},
 /obj/structure/table,
 /obj/item/stack/sheet/plasteel,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "bFu" = (
@@ -30854,6 +30886,9 @@
 /obj/item/stack/sheet/rglass{
 	amount = 50
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "bFv" = (
@@ -30865,6 +30900,9 @@
 /obj/structure/table,
 /obj/item/stack/cable_coil,
 /obj/item/stack/cable_coil,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "bFw" = (
@@ -30874,12 +30912,17 @@
 	},
 /obj/structure/reagent_dispensers/watertank,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "bFy" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -30889,6 +30932,9 @@
 	},
 /obj/structure/closet/secure_closet/engineering_electrical,
 /obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -34461,7 +34507,7 @@
 /obj/machinery/computer/card/minor/ce,
 /obj/machinery/door_control{
 	id = "engiestoragesmes";
-	name = "Engineering SMES Blast Door Control";
+	name = "Secure Storage Blast Door Control";
 	pixel_x = -24;
 	req_access_txt = "10;11"
 	},
@@ -34872,6 +34918,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/computer/monitor,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -35371,6 +35422,10 @@
 "bPz" = (
 /obj/machinery/computer/monitor,
 /obj/machinery/light,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/chiefs_office)
 "bPA" = (
@@ -35381,6 +35436,11 @@
 	pixel_y = -28
 	},
 /obj/structure/closet/secure_closet/engineering_chief,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/chiefs_office)
 "bPB" = (
@@ -35388,6 +35448,11 @@
 /obj/machinery/alarm{
 	dir = 1;
 	pixel_y = -22
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/chiefs_office)
@@ -36250,7 +36315,7 @@
 "bRE" = (
 /obj/machinery/door_control{
 	id = "engiestoragesmes";
-	name = "Engineering SMES Blast Door Control";
+	name = "Secure Storage Blast Door Control";
 	pixel_y = -24;
 	req_access_txt = "10;11"
 	},
@@ -36544,7 +36609,7 @@
 "bSy" = (
 /obj/machinery/door/poddoor{
 	id_tag = "engiestoragesmes";
-	name = "Engineering SMES Storage"
+	name = "Engineering Secure Storage"
 	},
 /turf/simulated/floor/plating,
 /area/engine/engine_smes)
@@ -36846,7 +36911,7 @@
 "bTk" = (
 /obj/machinery/door_control{
 	id = "engiestoragesmes";
-	name = "Engineering SMES Blast Door Control";
+	name = "Secure Storage Blast Door Control";
 	pixel_y = 24;
 	req_access_txt = "10;11"
 	},
@@ -55876,6 +55941,9 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
@@ -55893,6 +55961,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -56143,6 +56214,11 @@
 	},
 /obj/item/stamp/ce,
 /obj/item/pen,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/chiefs_office)
 "cQL" = (
@@ -56155,6 +56231,11 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/chiefs_office)
@@ -67460,6 +67541,11 @@
 /turf/simulated/floor/plasteel,
 /area/security/checkpoint2)
 "dPP" = (
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners"
 	},
@@ -68307,6 +68393,10 @@
 	},
 /obj/machinery/computer/monitor{
 	name = "Bridge Power Monitoring Computer"
+	},
+/obj/structure/cable/orange{
+	d2 = 8;
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -69378,6 +69468,9 @@
 	light_color = "#E1E17D";
 	light_range = 5;
 	luminosity = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -71902,6 +71995,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/chair/office/light{
 	dir = 4
+	},
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -77624,6 +77722,25 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"qEF" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/firedoor,
+/obj/structure/cable/orange{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "bridge";
+	layer = 2.6;
+	name = "Emergency Blast Door"
+	},
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/bridge)
 "qFp" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -78413,6 +78530,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
+"rQB" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/bridge)
 "rQQ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -80719,6 +80849,11 @@
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-21"
 	},
+/obj/structure/cable/orange{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -81304,6 +81439,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "vlV" = (
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbluecorners"
@@ -81887,6 +82027,11 @@
 "vUn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -116161,9 +116306,9 @@ awl
 axd
 uBe
 vUn
-ayp
+rQB
 dPP
-aDu
+qEF
 aEM
 aGl
 vPx
