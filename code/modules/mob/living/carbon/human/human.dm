@@ -205,91 +205,60 @@
 		stat("Spacepod Integrity", "[!S.health ? "0" : "[(S.health / initial(S.health)) * 100]"]%")
 
 /mob/living/carbon/human/ex_act(severity)
-	var/shielded = 0
-	var/b_loss = null
-	var/f_loss = null
-
 	if(status_flags & GODMODE)
-		return 0
+		return FALSE
+
+	var/brute_loss = 0
+	var/burn_loss = 0
+	var/bomb_armor = getarmor(null, "bomb")
+	var/list/valid_limbs = list("l_arm", "l_leg", "r_arm", "r_leg")
+	var/limbs_amount = 1
+	var/limb_loss_chance = 50
 
 	switch(severity)
-		if(1)
-			b_loss += 500
-			if(!prob(getarmor(null, "bomb")))
+		if(EXPLODE_DEVASTATE)
+			if(!prob(bomb_armor))
 				gib()
-				return 0
+				return
 			else
+				brute_loss = 200
+				burn_loss = 200
 				var/atom/target = get_edge_target_turf(src, get_dir(src, get_step_away(src, src)))
 				throw_at(target, 200, 4)
+				limbs_amount = 4
 
-				var/limbs_affected = pick(2,3,4)
-				var/obj/item/organ/external/processing_dismember
-				var/list/valid_limbs = bodyparts.Copy()
-
-				while(limbs_affected != 0 && valid_limbs.len > 0)
-					processing_dismember = pick(valid_limbs)
-					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-						processing_dismember.droplimb(1,DROPLIMB_SHARP,0,1)
-						valid_limbs -= processing_dismember
-						limbs_affected -= 1
-					else valid_limbs -= processing_dismember
-
-		if(2)
-			if(!shielded) //literally nothing could change shielded before this so wth
-				b_loss += 60
-
-			f_loss += 60
-
-			var/limbs_affected = 0
-			var/obj/item/organ/external/processing_dismember
-			var/list/valid_limbs = bodyparts.Copy()
-
-			if(prob(getarmor(null, "bomb")))
-				b_loss = b_loss/1.5
-				f_loss = f_loss/1.5
-
-				limbs_affected = pick(1, 1, 2)
-			else
-				limbs_affected = pick(1, 2, 3)
-
-			while(limbs_affected != 0 && valid_limbs.len > 0)
-				processing_dismember = pick(valid_limbs)
-				if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-					processing_dismember.droplimb(1,DROPLIMB_SHARP,0,1)
-					valid_limbs -= processing_dismember
-					limbs_affected -= 1
-				else valid_limbs -= processing_dismember
-
+		if(EXPLODE_HEAVY)
+			brute_loss = 60
+			burn_loss = 60
+			if(bomb_armor)
+				brute_loss = 30 * (2 - round(bomb_armor * 0.01, 0.05))
+				burn_loss = brute_loss				//Damage gets reduced from 120 to up to 60 combined brute+burn
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
 				AdjustEarDamage(30, 120)
-			if(prob(70) && !shielded)
-				Paralyse(10)
+			Weaken(20 SECONDS_TO_LIFE_CYCLES - (bomb_armor * 1.6 / 10) SECONDS_TO_LIFE_CYCLES) 	//Between ~4 and ~20 seconds of knockdown depending on bomb armor
 
-		if(3)
-			b_loss += 30
-			if(prob(getarmor(null, "bomb")))
-				b_loss = b_loss/2
-
-			else
-
-				var/limbs_affected = pick(0, 1)
-				var/obj/item/organ/external/processing_dismember
-				var/list/valid_limbs = bodyparts.Copy()
-
-				while(limbs_affected != 0 && valid_limbs.len > 0)
-					processing_dismember = pick(valid_limbs)
-					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-						processing_dismember.droplimb(1,DROPLIMB_SHARP,0,1)
-						valid_limbs -= processing_dismember
-						limbs_affected -= 1
-					else valid_limbs -= processing_dismember
-
+		if(EXPLODE_LIGHT)
+			brute_loss = 30
+			if(bomb_armor)
+				brute_loss = 15 * (2 - round(bomb_armor * 0.01, 0.05)) //Reduced from 30 to up to 15
 			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
 				AdjustEarDamage(15, 60)
-			if(prob(50) && !shielded)
-				Paralyse(10)
+			Weaken(16 SECONDS_TO_LIFE_CYCLES - (bomb_armor * 1.6 / 10) SECONDS_TO_LIFE_CYCLES) //Between no knockdown to ~16 seconds depending on bomb armor
+			valid_limbs = list("l_hand", "l_foot", "r_hand", "r_foot")
+			limb_loss_chance = 25
 
-	take_overall_damage(b_loss,f_loss, TRUE, used_weapon = "Explosive Blast")
+	//attempt to dismember bodyparts
+	for(var/X in valid_limbs)
+		var/obj/item/organ/external/BP = get_organ(X)
+		if(!BP) //limb already blown off, move to the next one without counting it
+			continue
+		if(prob(limb_loss_chance) && !prob(getarmor(BP, "bomb")))
+			BP.droplimb(TRUE, DROPLIMB_SHARP, FALSE, TRUE)
+		limbs_amount--
+		if(!limbs_amount)
+			break
+
+	take_overall_damage(brute_loss, burn_loss, TRUE, used_weapon = "Explosive Blast")
 
 	..()
 
