@@ -358,7 +358,7 @@
 		return
 	var/thermal_protection = get_thermal_protection()
 
-	if(thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
+	if(thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT || HAS_TRAIT(src, TRAIT_RESISTHEAT))
 		return
 	if(thermal_protection >= FIRE_SUIT_MAX_TEMP_PROTECT)
 		bodytemperature += 11
