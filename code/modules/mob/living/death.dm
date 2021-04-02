@@ -67,7 +67,7 @@
 	if(mind && suiciding)
 		mind.suicided = TRUE
 	reset_perspective(null)
-	clear_fullscreens()
+	hud_used?.reload_fullscreen()
 	update_sight()
 	update_action_buttons_icon()
 
@@ -102,10 +102,11 @@
 				if((M.client?.prefs.toggles2 & PREFTOGGLE_2_DEATHMESSAGE) && (isobserver(M) || M.stat == DEAD))
 					to_chat(M, "<span class='deadsay'><b>[mind.name]</b> has died at <b>[area_name]</b>. (<a href='?src=[M.UID()];jump=\ref[src]'>JMP</a>)</span>")
 
+	if(client)
+		kill_CH() //We dead... clear any prepared abilities...
+
 	if(SSticker && SSticker.mode)
 		SSticker.mode.check_win()
-	if(mind && mind.devilinfo) // Expand this into a general-purpose death-response system when appropriate
-		mind.devilinfo.beginResurrectionCheck(src)
 
 	// u no we dead
 	return TRUE

@@ -166,7 +166,7 @@
 	name = "experimental kinetic accelerator"
 	desc = "A modified version of the proto-kinetic accelerator, with twice the modkit space of the standard version."
 	icon_state = "kineticgun_h"
-	item_state = "kineticgun_h"
+	item_state = "kineticgun"
 	origin_tech = "combat=5;powerstorage=3;engineering=5"
 	max_mod_capacity = 200
 
@@ -568,6 +568,9 @@
 	var/chassis_name = "super-kinetic accelerator"
 
 /obj/item/borg/upgrade/modkit/chassis_mod/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
+	if(istype(KA, /obj/item/gun/energy/kinetic_accelerator/premiumka))
+		to_chat(user, "<span class='notice'>This modkit does not fit into the [KA.name].</span>")
+		return
 	. = ..()
 	if(.)
 		KA.icon_state = chassis_icon

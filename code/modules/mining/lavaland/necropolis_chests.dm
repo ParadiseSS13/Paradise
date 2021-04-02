@@ -11,12 +11,7 @@
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."
 
-/obj/structure/closet/crate/necropolis/tendril/New(add_loot = TRUE)
-	..()
-
-	if(!add_loot)
-		return
-
+/obj/structure/closet/crate/necropolis/tendril/populate_contents()
 	var/loot = rand(1, 27)
 	switch(loot)
 		if(1)
@@ -87,9 +82,7 @@
 /obj/structure/closet/crate/necropolis/puzzle
 	name = "puzzling chest"
 
-/obj/structure/closet/crate/necropolis/puzzle/New()
-	..(FALSE)
-
+/obj/structure/closet/crate/necropolis/puzzle/populate_contents()
 	var/loot = rand(1,3)
 	switch(loot)
 		if(1)

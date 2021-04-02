@@ -31,8 +31,8 @@
 	. = ..()
 	. += "<span class='notice'>Alt-click to rotate it clockwise.</span>"
 
-/obj/structure/windoor_assembly/New(loc, set_dir)
-	..()
+/obj/structure/windoor_assembly/Initialize(mapload, set_dir)
+	. = ..()
 	if(set_dir)
 		dir = set_dir
 	ini_dir = dir
@@ -148,12 +148,9 @@
 					W.forceMove(loc)
 
 			else if(istype(W, /obj/item/pen))
-				var/t = stripped_input(user, "Enter the name for the door.", name, created_name,MAX_NAME_LEN)
-				if(!t)
-					return
-				if(!in_range(src, usr) && loc != usr)
-					return
-				created_name = t
+				var/t = rename_interactive(user, W)
+				if(!isnull(t))
+					created_name = t
 				return
 			else
 				return ..()

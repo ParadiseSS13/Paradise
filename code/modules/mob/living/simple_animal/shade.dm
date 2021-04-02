@@ -6,6 +6,7 @@
 	icon_state = "shade"
 	icon_living = "shade"
 	icon_dead = "shade_dead"
+	mob_biotypes = MOB_SPIRIT
 	maxHealth = 50
 	health = 50
 	speak_emote = list("hisses")
@@ -23,6 +24,7 @@
 	stop_automated_movement = TRUE
 	status_flags = 0
 	pull_force = 0
+	see_invisible = SEE_INVISIBLE_HIDDEN_RUNES
 	universal_speak = TRUE
 	faction = list("cult")
 	status_flags = CANPUSH
@@ -61,3 +63,9 @@
 /mob/living/simple_animal/shade/sword/Initialize(mapload)
 	.=..()
 	status_flags |= GODMODE
+
+/mob/living/simple_animal/shade/update_runechat_msg_location()
+	if(istype(loc, /obj/item/soulstone))
+		runechat_msg_location = loc
+	else
+		runechat_msg_location = src

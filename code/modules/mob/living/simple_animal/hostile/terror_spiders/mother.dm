@@ -72,6 +72,9 @@
 	if(regen_points < jelly_cost)
 		to_chat(src, "<span class='danger'>You only have [regen_points] of the [jelly_cost] regeneration points you need to do this.</span>")
 		return
+	if(!isturf(loc))
+		to_chat(src, "<span class='danger'>You can only secrete jelly while standing on a floor.</span>")
+		return
 	var/turf/mylocation = get_turf(src)
 	if(isspaceturf(mylocation))
 		to_chat(src, "<span class='danger'>Cannot secrete jelly in space.</span>")

@@ -57,6 +57,8 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	explosion_block = 1
 	assemblytype = /obj/structure/door_assembly
 	siemens_strength = 1
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	rad_insulation = RAD_MEDIUM_INSULATION
 	var/security_level = 0 //How much are wires secured
 	var/aiControlDisabled = AICONTROLDISABLED_OFF
 	var/hackProof = FALSE // if TRUE, this door can't be hacked by the AI
@@ -80,8 +82,8 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	var/obj/item/note //Any papers pinned to the airlock
 	var/previous_airlock = /obj/structure/door_assembly //what airlock assembly mineral plating was applied to
 	var/airlock_material //material of inner filling; if its an airlock with glass, this should be set to "glass"
-	var/overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
-	var/note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi' //Used for papers and photos pinned to the airlock
+	var/overlays_file = 'icons/hispania/obj/doors/overlays.dmi'
+	var/note_overlay_file = 'icons/hispania/obj/doors/overlays.dmi' //Used for papers and photos pinned to the airlock
 	var/normal_integrity = AIRLOCK_INTEGRITY_N
 	var/prying_so_hard = FALSE
 	var/paintable = TRUE // If the airlock type can be painted with an airlock painter
@@ -190,7 +192,7 @@ About the new airlock wires panel:
 			else
 				return
 		else if(user.hallucination > 50 && prob(10) && !operating)
-			if(user.electrocute_act(50, src, 1, illusion = TRUE)) // We'll just go with a flat 50 damage, instead of doing powernet checks
+			if(user.electrocute_act(50, src, flags = SHOCK_ILLUSION)) // We'll just go with a flat 50 damage, instead of doing powernet checks
 				return
 	..(user)
 
@@ -680,22 +682,22 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/proc/check_unres() //unrestricted sides. This overlay indicates which directions the player can access even without an ID
 	if(hasPower() && unres_sides)
 		if(unres_sides & NORTH)
-			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_n") //layer=src.layer+1
+			var/image/I = image(icon='icons/hispania/obj/doors/overlays.dmi', icon_state="unres_n") //layer=src.layer+1
 			I.pixel_y = 32
 			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
 			add_overlay(I)
 		if(unres_sides & SOUTH)
-			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_s") //layer=src.layer+1
+			var/image/I = image(icon='icons/hispania/obj/doors/overlays.dmi', icon_state="unres_s") //layer=src.layer+1
 			I.pixel_y = -32
 			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
 			add_overlay(I)
 		if(unres_sides & EAST)
-			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_e") //layer=src.layer+1
+			var/image/I = image(icon='icons/hispania/obj/doors/overlays.dmi', icon_state="unres_e") //layer=src.layer+1
 			I.pixel_x = 32
 			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
 			add_overlay(I)
 		if(unres_sides & WEST)
-			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_w") //layer=src.layer+1
+			var/image/I = image(icon='icons/hispania/obj/doors/overlays.dmi', icon_state="unres_w") //layer=src.layer+1
 			I.pixel_x = -32
 			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
 			add_overlay(I)
@@ -1110,11 +1112,15 @@ About the new airlock wires panel:
 	if(istype(I, /obj/item/twohanded/fireaxe)) //let's make this more specific //FUCK YOU
 		var/obj/item/twohanded/fireaxe/F = I
 		if(F.wielded)
-			spawn(0)
-				if(density)
-					open(1)
-				else
-					close(1)
+			if(density && !prying_so_hard)
+				playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
+				prying_so_hard = TRUE //so you dont pry the door when you are already trying to pry it
+				var/result = do_after(user, 5 SECONDS, target = src)
+				prying_so_hard = FALSE
+				if(result)
+					open(TRUE)
+					if(density && !open(TRUE))
+						to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
 		else
 			to_chat(user, "<span class='warning'>You need to be wielding the fire axe to do that!</span>")
 		return

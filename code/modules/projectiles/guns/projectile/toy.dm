@@ -86,7 +86,7 @@
 	slot_flags = SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/gun/projectile/automatic/c20r/toy
+/obj/item/gun/projectile/automatic/fullauto/twomode/c20r/toy
 	name = "donksoft SMG"
 	desc = "A bullpup two-round burst toy SMG, designated 'C-20r'. Ages 8 and up."
 	icon = 'icons/hispania/obj/guns/toy.dmi'
@@ -94,13 +94,13 @@
 	needs_permit = 0
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45
 
-/obj/item/gun/projectile/automatic/c20r/toy/riot
+/obj/item/gun/projectile/automatic/fullauto/twomode/c20r/toy/riot
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45/riot
 
-/obj/item/gun/projectile/automatic/c20r/toy/process_chamber(eject_casing = 0, empty_chamber = 1)
+/obj/item/gun/projectile/automatic/fullauto/twomode/c20r/toy/process_chamber(eject_casing = 0, empty_chamber = 1)
 	..()
 
-/obj/item/gun/projectile/automatic/l6_saw/toy
+/obj/item/gun/projectile/automatic/fullauto/l6_saw/toy
 	name = "donksoft LMG"
 	desc = "A heavily modified toy light machine gun, designated 'L6 SAW'. Ages 8 and up."
 	icon = 'icons/hispania/obj/guns/toy.dmi'
@@ -108,10 +108,10 @@
 	needs_permit = 0
 	mag_type = /obj/item/ammo_box/magazine/toy/m762
 
-/obj/item/gun/projectile/automatic/l6_saw/toy/riot
+/obj/item/gun/projectile/automatic/fullauto/l6_saw/toy/riot
 	mag_type = /obj/item/ammo_box/magazine/toy/m762/riot
 
-/obj/item/gun/projectile/automatic/l6_saw/toy/process_chamber(eject_casing = 0, empty_chamber = 1)
+/obj/item/gun/projectile/automatic/fullauto/l6_saw/toy/process_chamber(eject_casing = 0, empty_chamber = 1)
 	..()
 
 /obj/item/gun/projectile/shotgun/toy/tommygun

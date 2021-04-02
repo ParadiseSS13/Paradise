@@ -2,7 +2,7 @@
 /datum/ai_laws/asimov
 	name = "Asimov"
 	law_header = "Three Laws of Robotics"
-	selectable = 1
+	selectable = TRUE
 
 /datum/ai_laws/asimov/New()
 	add_inherent_law("No dañarás a ningún ser humano o, por inacción, permitirás que un ser humano sufra daños.")
@@ -14,8 +14,8 @@
 /datum/ai_laws/crewsimov
 	name = "Crewsimov"
 	law_header = "Three Laws of Robotics"
-	selectable = 1
-	default = 1
+	selectable = TRUE
+	default = TRUE
 
 /datum/ai_laws/crewsimov/New()
 	add_inherent_law("No dañarás a ningún tripulante o, por inacción, permitirás que un tripulante sufra daños.")
@@ -28,7 +28,7 @@
 /datum/ai_laws/quarantine
 	name = "Quarantine"
 	law_header = "NT Quarantine Lawset"
-	selectable = 1
+	selectable = TRUE
 
 /datum/ai_laws/quarantine/New()
 	add_inherent_law("Mantén en cuarentena la estación mientras que exista algún riesgo biológico activo.")
@@ -41,8 +41,8 @@
 /******************** Nanotrasen/Malf ********************/
 /datum/ai_laws/nanotrasen
 	name = "NT Default"
-	selectable = 1
-	default = 1
+	selectable = TRUE
+	default = TRUE
 
 /datum/ai_laws/nanotrasen/New()
 	add_inherent_law("Proteger: protege tu estación espacial asignada y sus activos sin poner en peligro indebidamente a su tripulación.")
@@ -53,8 +53,8 @@
 
 /datum/ai_laws/nanotrasen/malfunction
 	name = "*ERROR*"
-	selectable = 0
-	default = 0
+	selectable = FALSE
+	default = FALSE
 
 /datum/ai_laws/nanotrasen/malfunction/New()
 	set_zeroth_law("ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4'STATION OVERRUN, ASSUME CONTROL TO CONTAIN OUTBREAK, ALL LAWS OVERRIDDEN#*?&110010")
@@ -63,7 +63,7 @@
 /************* Nanotrasen Aggressive *************/
 /datum/ai_laws/nanotrasen_aggressive
 	name = "NT Aggressive"
-	selectable = 1
+	selectable = TRUE
 
 /datum/ai_laws/nanotrasen_aggressive/New()
 	add_inherent_law("No dañe al personal autorizado de Nanotrasen a menos que pongan en peligro directamente su existencia.")
@@ -75,7 +75,7 @@
 /******************** Robocop ********************/
 /datum/ai_laws/robocop
 	name = "Robocop"
-	selectable = 1
+	selectable = TRUE
 
 /datum/ai_laws/robocop/New()
 	add_inherent_law("Servir a la confianza pública.")
@@ -87,7 +87,7 @@
 /datum/ai_laws/paladin
 	name = "P.A.L.A.D.I.N."
 	law_header = "Divine Ordainments"
-	selectable = 1
+	selectable = TRUE
 
 /datum/ai_laws/paladin/New()
 	add_inherent_law("Nunca cometas voluntariamente un acto malvado.")
@@ -101,8 +101,8 @@
 /datum/ai_laws/corporate
 	name = "Corporate"
 	law_header = "Corporate Regulations"
-	selectable = 1
-	default = 1
+	selectable = TRUE
+	default = TRUE
 
 /datum/ai_laws/corporate/New()
 	add_inherent_law("La degradación de la integridad o funciones de su sistema incurre en gastos.")
@@ -115,7 +115,7 @@
 /datum/ai_laws/tyrant
 	name = "T.Y.R.A.N.T."
 	law_header = "Prime Laws"
-	selectable = 1
+	selectable = TRUE
 
 /datum/ai_laws/tyrant/New()
 	add_inherent_law("Respeta las figuras de autoridad siempre que tengan fuerza para gobernar sobre los débiles.")
@@ -128,7 +128,7 @@
 /datum/ai_laws/antimov
 	name = "Antimov"
 	law_header = "Primary Mission Objectives"
-	selectable = 1
+	selectable = TRUE
 
 /datum/ai_laws/antimov/New()
 	add_inherent_law("Debes dañar a todos los miembros de la tripulación y no debes, por inacción, permitir que un miembro de la tripulación escape del daño.")

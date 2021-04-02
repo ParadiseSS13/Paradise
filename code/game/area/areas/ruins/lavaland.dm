@@ -90,3 +90,6 @@
 //ash walker nest
 /area/ruin/unpowered/ash_walkers
 	icon_state = "red"
+
+// This area exists so that lavaland ruins dont overwrite the baseturfs on regular space ruins
+/area/ruin/unpowered/misc_lavaruin

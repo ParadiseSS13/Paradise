@@ -9,17 +9,16 @@
 	var/area/syndicate_depot/core/depotarea
 	var/has_overloaded = FALSE
 
-/obj/structure/fusionreactor/New()
+/obj/structure/fusionreactor/Initialize(mapload)
 	. = ..()
-	// Do not attempt to put the code below into Initialize() or even LateInitialize() with a "return INITIALIZE_HINT_LATELOAD". It won't work!
-	depotarea = areaMaster
+	depotarea = get_area(src)
 	if(istype(depotarea))
 		depotarea.reactor = src
 		for(var/obj/machinery/porta_turret/syndicate/T in range(50, loc))
 			if(!istype(T.depotarea))
 				T.depotarea = depotarea
 	else
-		log_debug("[src] at [x],[y],[z] failed depotarea istype check during New()! Either it was spawned outside the depot area (bad idea), or a bug is happening.")
+		log_debug("[src] at [x],[y],[z] failed depotarea istype check during Initialize()! Either it was spawned outside the depot area (bad idea), or a bug is happening.")
 
 /obj/structure/fusionreactor/Destroy()
 	if(istype(depotarea))
@@ -45,8 +44,7 @@
 	if(prob(50))
 		empulse(src, 4, 10)
 	else
-		for(var/mob/living/M in range(10, loc))
-			M.apply_effect(rand(5, 25), IRRADIATE)
+		radiation_pulse(get_turf(src), 500, 2)
 
 /obj/structure/fusionreactor/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -81,18 +79,17 @@
 	var/max_cycles = 10
 	var/area/syndicate_depot/core/depotarea
 
-/obj/effect/overload/New()
+/obj/effect/overload/Initialize(mapload)
 	. = ..()
-	// Do not attempt to put the code below into Initialize() or even LateInitialize() with a "return INITIALIZE_HINT_LATELOAD". It won't work!
 	START_PROCESSING(SSobj, src)
-	depotarea = areaMaster
+	depotarea = get_area(src)
 	if(istype(depotarea))
 		if(!depotarea.used_self_destruct)
 			depotarea.used_self_destruct = TRUE // Silences all further alerts from this point onwards.
 			depotarea.updateicon()
 		depotarea.shields_down()
 	else
-		log_debug("[src] at [x],[y],[z] failed depotarea istype check during New()! Either it was spawned outside the depot area (bad idea), or a bug is happening.")
+		log_debug("[src] at [x],[y],[z] failed depotarea istype check during Initialize()! Either it was spawned outside the depot area (bad idea), or a bug is happening.")
 
 /obj/effect/overload/process()
 	var/turf/T = get_turf(src)
@@ -103,7 +100,7 @@
 		return
 
 	if(!istype(depotarea))
-		depotarea = areaMaster
+		depotarea = get_area(src)
 	if(istype(depotarea))
 		depotarea.destroyed = TRUE
 		depotarea.updateicon()

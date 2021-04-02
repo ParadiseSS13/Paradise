@@ -104,10 +104,10 @@
 				for(var/datum/objective/objective in traitor.objectives)
 					if(objective.check_completion())
 						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
-						feedback_add_details("traitor_objective","[objective.type]|SUCCESS")
+						SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "SUCCESS"))
 					else
 						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
-						feedback_add_details("traitor_objective","[objective.type]|FAIL")
+						SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "FAIL"))
 						traitorwin = 0
 					count++
 
@@ -117,13 +117,34 @@
 			else
 				special_role_text = "antagonist"
 
+			var/datum/contractor_hub/H = LAZYACCESS(GLOB.contractors, traitor)
+			if(H)
+				var/count = 1
+				var/earned_tc = H.reward_tc_paid_out
+				for(var/c in H.contracts)
+					var/datum/syndicate_contract/C = c
+					// Locations
+					var/locations = list()
+					for(var/a in C.contract.candidate_zones)
+						var/area/A = a
+						locations += (A == C.contract.extraction_zone ? "<b><u>[A.map_name]</u></b>" : A.map_name)
+					var/display_locations = english_list(locations, and_text = " or ")
+					// Result
+					var/result = ""
+					if(C.status == CONTRACT_STATUS_COMPLETED)
+						result = "<font color='green'><B>Success!</B></font>"
+					else if(C.status != CONTRACT_STATUS_INACTIVE)
+						result = "<font color='red'>Fail.</font>"
+					text += "<br><font color='orange'><B>Contract #[count]</B></font>: Kidnap and extract [C.target_name] at [display_locations]. [result]"
+					count++
+				text += "<br><font color='orange'><B>[earned_tc] TC were earned from the contracts.</B></font>"
 
 			if(traitorwin)
 				text += "<br><font color='green'><B>The [special_role_text] was successful!</B></font><br>"
-				feedback_add_details("traitor_success","SUCCESS")
+				SSblackbox.record_feedback("tally", "traitor_success", 1, "SUCCESS")
 			else
 				text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font><br>"
-				feedback_add_details("traitor_success","FAIL")
+				SSblackbox.record_feedback("tally", "traitor_success", 1, "FAIL")
 
 		if(length(SSticker.mode.implanted))
 			text += "<br><br><FONT size = 2><B>The mindslaves were:</B></FONT><br>"

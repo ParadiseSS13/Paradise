@@ -89,7 +89,7 @@
 				R.revice_data(dest, src)
 			. = FALSE
 			flick("pad-beam", telepad)
-			playsound(telepad.loc, 'sound/weapons/emitter2.ogg', 25, 1, extrarange = 3, falloff = 5)
+			playsound(telepad.loc, 'sound/weapons/emitter2.ogg', TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			for(var/atom/movable/ROI in source)
 				if(ROI.anchored)
 					continue// if is anchored, don't let through

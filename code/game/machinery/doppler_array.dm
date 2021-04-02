@@ -19,7 +19,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	var/actual_size_message
 	var/theoretical_size_message
 
-/datum/explosion_log/New(var/log_time, var/log_epicenter, var/log_actual_size_message, var/log_theoretical_size_message)
+/datum/explosion_log/New(log_time, log_epicenter, log_actual_size_message, log_theoretical_size_message)
 	..()
 	logged_time = log_time
 	epicenter = log_epicenter

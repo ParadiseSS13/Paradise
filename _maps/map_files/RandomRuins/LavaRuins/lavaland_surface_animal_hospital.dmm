@@ -256,7 +256,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "aF" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Restroom"
 	},
 /obj/effect/turf_decal/tile/bar,
@@ -629,15 +629,15 @@
 /area/ruin/powered/animal_hospital)
 "bH" = (
 /obj/structure/table,
-/obj/item/tank/oxygen,
-/obj/item/tank/oxygen,
+/obj/item/tank/internals/oxygen,
+/obj/item/tank/internals/oxygen,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/item/tank/oxygen,
+/obj/item/tank/internals/oxygen,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bI" = (
@@ -809,7 +809,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "cg" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Break Room"
 	},
 /obj/effect/turf_decal/tile/blue{
@@ -821,39 +821,39 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "ch" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Operating Theatre"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "ci" = (
 /obj/structure/fans/tiny/invisible,
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	desc = "There's a smudged note wedged into it that says something about pizza dropoffs.";
 	name = "Staff Entrance"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/powered/animal_hospital)
 "cj" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Morgue"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/powered/animal_hospital)
 "ck" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Medical Supplies"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "cl" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Safety Supplies"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "cm" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Storage"
 	},
 /turf/simulated/floor/plating,
@@ -988,7 +988,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "cG" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	desc = "There's a smudged note wedged into it that says something about pizza dropoffs.";
 	name = "Staff Entrance"
 	},

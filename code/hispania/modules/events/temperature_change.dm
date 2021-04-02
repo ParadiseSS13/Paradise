@@ -14,7 +14,7 @@
 	alarm_controller(T20C)
 	GLOB.event_announcement.Announce("Temperature failure cleared, report to medbay if you feel unwell.", "Atmospheric Alert")
 
-/datum/event/temperature_change/proc/alarm_controller(var/temp = temperature)
+/datum/event/temperature_change/proc/alarm_controller(temp = temperature)
 	for(var/obj/machinery/alarm/A in GLOB.air_alarms)
 		if(!is_station_contact(A.z))
 			continue

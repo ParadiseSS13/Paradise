@@ -4,26 +4,26 @@
  * The spin from being thrown will interrupt most of these animations as will grabs, account for that accordingly.
  */
 
-/proc/animate_fade_grayscale(var/atom/A, var/time = 5)
+/proc/animate_fade_grayscale(atom/A, time = 5)
 	if(!istype(A) && !istype(A, /client))
 		return
 	A.color = null
 	animate(A, color = MATRIX_GREYSCALE, time = time, easing = SINE_EASING)
 
-/proc/animate_melt_pixel(var/atom/A)
+/proc/animate_melt_pixel(atom/A)
 	if(!istype(A))
 		return
 	animate(A, pixel_y = 0, time = 50 - A.pixel_y, alpha = 175, easing = BOUNCE_EASING)
 	animate(alpha = 0, easing = LINEAR_EASING)
 
-/proc/animate_explode_pixel(var/atom/A)
+/proc/animate_explode_pixel(atom/A)
 	if(!istype(A))
 		return
 	var/floatdegrees = rand(5, 20)
 	var/side = pick(-1, 1)
 	animate(A, pixel_x = rand(-64, 64), pixel_y = rand(-64, 64), transform = matrix(floatdegrees * (side == 1 ? 1:-1), MATRIX_ROTATE), time = 10, alpha = 0, easing = SINE_EASING)
 
-/proc/animate_float(var/atom/A, var/loopnum = -1, floatspeed = 20, random_side = 1)
+/proc/animate_float(atom/A, loopnum = -1, floatspeed = 20, random_side = 1)
 	if(!istype(A))
 		return
 	var/floatdegrees = rand(5, 20)
@@ -35,7 +35,7 @@
 		animate(A, pixel_y = 32, transform = matrix(floatdegrees * (side == 1 ? 1:-1), MATRIX_ROTATE), time = floatspeed, loop = loopnum, easing = SINE_EASING)
 		animate(pixel_y = 0, transform = matrix(floatdegrees * (side == 1 ? -1:1), MATRIX_ROTATE), time = floatspeed, loop = loopnum, easing = SINE_EASING)
 
-/proc/animate_levitate(var/atom/A, var/loopnum = -1, floatspeed = 20, random_side = 1)
+/proc/animate_levitate(atom/A, loopnum = -1, floatspeed = 20, random_side = 1)
 	if(!istype(A))
 		return
 	var/floatdegrees = rand(5, 20)
@@ -47,7 +47,7 @@
 		animate(A, pixel_y = 8, transform = matrix(floatdegrees * (side == 1 ? 1:-1), MATRIX_ROTATE), time = floatspeed, loop = loopnum, easing = SINE_EASING)
 		animate(pixel_y = 0, transform = null, time = floatspeed, loop = loopnum, easing = SINE_EASING)
 
-/proc/animate_ghostly_presence(var/atom/A, var/loopnum = -1, floatspeed = 20, random_side = 1)
+/proc/animate_ghostly_presence(atom/A, loopnum = -1, floatspeed = 20, random_side = 1)
 	if(!istype(A))
 		return
 	var/floatdegrees = rand(5, 20)
@@ -59,7 +59,7 @@
 		animate(A, pixel_y = 8, transform = matrix(floatdegrees * (side == 1 ? 1:-1), MATRIX_ROTATE), time = floatspeed, loop = loopnum, easing = SINE_EASING)
 		animate(pixel_y = 0, transform = matrix(floatdegrees * (side == 1 ? -1:1), MATRIX_ROTATE), time = floatspeed, loop = loopnum, easing = SINE_EASING)
 
-/proc/animate_fading_leap_up(var/atom/A)
+/proc/animate_fading_leap_up(atom/A)
 	if(!istype(A))
 		return
 	var/matrix/M = matrix()
@@ -71,7 +71,7 @@
 		sleep(1)
 	A.alpha = 0
 
-/proc/animate_fading_leap_down(var/atom/A)
+/proc/animate_fading_leap_down(atom/A)
 	if(!istype(A))
 		return
 	var/matrix/M = matrix()
@@ -84,7 +84,7 @@
 		sleep(1)
 	animate(A, transform = M, pixel_z = 0, alpha = 255, time = 1, loop = 1, easing = LINEAR_EASING)
 
-/proc/animate_shake(var/atom/A, var/amount = 5, var/x_severity = 2, var/y_severity = 2)
+/proc/animate_shake(atom/A, amount = 5, x_severity = 2, y_severity = 2)
 	// Wiggles the sprite around on its tile then returns it to normal
 	if(!istype(A))
 		return
@@ -101,7 +101,7 @@
 	spawn(amount)
 		animate(A, transform = null, pixel_y = 0, pixel_x = 0,time = 1,loop = 1, easing = LINEAR_EASING)
 
-/proc/animate_teleport(var/atom/A)
+/proc/animate_teleport(atom/A)
 	if(!istype(A))
 		return
 	var/matrix/M = matrix(1, 3, MATRIX_SCALE)
@@ -110,7 +110,7 @@
 	animate(transform = M, time = 5, color = "#1111ff", alpha = 0, easing = CIRCULAR_EASING)
 	animate(transform = null, time = 5, color = "#ffffff", alpha = 255, pixel_y = 0, easing = ELASTIC_EASING)
 
-/proc/animate_teleport_wiz(var/atom/A)
+/proc/animate_teleport_wiz(atom/A)
 	if(!istype(A))
 		return
 	var/matrix/M = matrix(0, 4, MATRIX_SCALE)
@@ -119,14 +119,14 @@
 	animate(time = 8, transform = M, alpha = 5) //Do nothing, essentially
 	animate(transform = null, time = 5, color = "#ffffff", alpha = 255, pixel_y = 0, easing = ELASTIC_EASING)
 
-/proc/animate_rainbow_glow_old(var/atom/A)
+/proc/animate_rainbow_glow_old(atom/A)
 	if(!istype(A))
 		return
 	animate(A, color = "#FF0000", time = rand(5,10), loop = -1, easing = LINEAR_EASING)
 	animate(color = "#00FF00", time = rand(5,10), loop = -1, easing = LINEAR_EASING)
 	animate(color = "#0000FF", time = rand(5,10), loop = -1, easing = LINEAR_EASING)
 
-/proc/animate_rainbow_glow(var/atom/A)
+/proc/animate_rainbow_glow(atom/A)
 	if(!istype(A))
 		return
 	animate(A, color = "#FF0000", time = rand(5,10), loop = -1, easing = LINEAR_EASING)
@@ -136,37 +136,37 @@
 	animate(color = "#0000FF", time = rand(5,10), loop = -1, easing = LINEAR_EASING)
 	animate(color = "#FF00FF", time = rand(5,10), loop = -1, easing = LINEAR_EASING)
 
-/proc/animate_fade_to_color_fill(var/atom/A, var/the_color, var/time)
+/proc/animate_fade_to_color_fill(atom/A, the_color, time)
 	if(!istype(A) || !the_color || !time)
 		return
 	animate(A, color = the_color, time = time, easing = LINEAR_EASING)
 
-/proc/animate_flash_color_fill(var/atom/A, var/the_color, var/loops, var/time)
+/proc/animate_flash_color_fill(atom/A, the_color, loops, time)
 	if(!istype(A) || !the_color || !time || !loops)
 		return
 	animate(A, color = the_color, time = time, easing = LINEAR_EASING)
 	animate(color = "#FFFFFF", time = 5, loop = loops, easing = LINEAR_EASING)
 
-/proc/animate_flash_color_fill_inherit(var/atom/A, var/the_color, var/loops, var/time)
+/proc/animate_flash_color_fill_inherit(atom/A, the_color, loops, time)
 	if(!istype(A) || !the_color || !time || !loops)
 		return
 	var/color_old = A.color
 	animate(A, color = the_color, time = time, loop = loops, easing = LINEAR_EASING)
 	animate(A, color = color_old, time = time, loop = loops, easing = LINEAR_EASING)
 
-/proc/animate_clownspell(var/atom/A)
+/proc/animate_clownspell(atom/A)
 	if(!istype(A))
 		return
 	animate(A, transform = matrix(1.3, MATRIX_SCALE), time = 5, color = "#00ff00", easing = BACK_EASING)
 	animate(transform = null, time = 5, color = "#ffffff", easing = ELASTIC_EASING)
 
-/proc/animate_wiggle_then_reset(var/atom/A, var/loops = 5, var/speed = 5, var/x_var = 3, var/y_var = 3)
+/proc/animate_wiggle_then_reset(atom/A, loops = 5, speed = 5, x_var = 3, y_var = 3)
 	if(!istype(A) || !loops || !speed)
 		return
 	animate(A, pixel_x = rand(-x_var, x_var), pixel_y = rand(-y_var, y_var), time = speed * 2,loop = loops, easing = rand(2,7))
 	animate(pixel_x = 0, pixel_y = 0, time = speed, easing = rand(2,7))
 
-/proc/animate_spin(var/atom/A, var/dir = "L", var/T = 1, var/looping = -1)
+/proc/animate_spin(atom/A, dir = "L", T = 1, looping = -1)
 	if(!istype(A))
 		return
 
@@ -180,7 +180,7 @@
 	animate(transform = matrix(M, turn, MATRIX_ROTATE | MATRIX_MODIFY), time = T, loop = looping)
 	animate(transform = matrix(M, turn, MATRIX_ROTATE | MATRIX_MODIFY), time = T, loop = looping)
 
-/proc/animate_shockwave(var/atom/A)
+/proc/animate_shockwave(atom/A)
 	if(!istype(A))
 		return
 	var/punchstr = rand(10, 20)

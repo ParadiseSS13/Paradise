@@ -16,7 +16,7 @@
 	to_chat(world, "<B>The current game mode is - Ragin' Mages!</B>")
 	to_chat(world, "<B>The <font color='red'>Space Wizard Federation</font> is pissed, crew must help defeat all the Space Wizards invading the station!</B>")
 
-/datum/game_mode/wizard/raginmages/greet_wizard(var/datum/mind/wizard, var/you_are=1)
+/datum/game_mode/wizard/raginmages/greet_wizard(datum/mind/wizard, you_are=1)
 	if(you_are)
 		to_chat(wizard.current, "<span class='danger'>You are the Space Wizard!</span>")
 	to_chat(wizard.current, "<B>The Space Wizard Federation has given you the following tasks:</B>")
@@ -85,7 +85,7 @@
 	return ..()
 
 // To silence all struggles within the wizard's lair
-/datum/game_mode/wizard/raginmages/proc/end_squabble(var/area/wizard_station/A)
+/datum/game_mode/wizard/raginmages/proc/end_squabble(area/wizard_station/A)
 	if(!istype(A)) return // You could probably do mean things with this otherwise
 	var/list/marked_for_death = list()
 	for(var/mob/living/L in A) // To hit non-wizard griefers
@@ -143,7 +143,7 @@
 // ripped from -tg-'s wizcode, because whee lets make a very general proc for a very specific gamemode
 // This probably wouldn't do half bad as a proc in __HELPERS
 // Lemme know if this causes species to mess up spectacularly or anything
-/datum/game_mode/wizard/raginmages/proc/makeBody(var/mob/dead/observer/G)
+/datum/game_mode/wizard/raginmages/proc/makeBody(mob/dead/observer/G)
 	if(!G || !G.key)
 		return // Let's not steal someone's soul here
 	var/mob/living/carbon/human/new_character = new(pick(GLOB.latejoin))
@@ -153,6 +153,6 @@
 
 /datum/game_mode/wizard/raginmages/declare_completion()
 	if(finished)
-		feedback_set_details("round_end_result", "raging wizard loss - wizard killed")
+		SSticker.mode_result = "raging wizard loss - wizard killed"
 		to_chat(world, "<span class='warning'><FONT size = 3><B> The crew has managed to hold off the Wizard attack! The Space Wizard Federation has been taught a lesson they will not soon forget!</B></FONT></span>")
 	..(1)

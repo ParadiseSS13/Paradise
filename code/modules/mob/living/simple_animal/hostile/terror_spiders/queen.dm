@@ -26,6 +26,7 @@
 	ai_spins_webs = FALSE
 	ai_ventcrawls = FALSE
 	idle_ventcrawl_chance = 0
+	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 	force_threshold = 18 // outright immune to anything of force under 18, this means welders can't hurt it, only guns can
 	ranged = 1
 	retreat_distance = 5
@@ -279,6 +280,9 @@
 	if(eggtype == null || numlings == null)
 		to_chat(src, "<span class='danger'>Cancelled.</span>")
 		return
+	if(!isturf(loc))
+		to_chat(src, "<span class='danger'>Eggs can only be laid while standing on a floor.</span>")
+		return
 	// Actually lay the eggs.
 	if(canlay < numlings)
 		// We have to check this again after the popups, to account for people spam-clicking the button, then doing all the popups at once.
@@ -364,7 +368,7 @@
 	desc = "This multi-layered web seems to be able to resist air pressure."
 
 
-/obj/structure/spider/terrorweb/queen/New()
+/obj/structure/spider/terrorweb/queen/Initialize(mapload)
 	. = ..()
 	air_update_turf(TRUE)
 

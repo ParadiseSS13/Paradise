@@ -9,7 +9,7 @@
 	throw_range = 7
 	pressure_resistance = 8
 	anchored = TRUE
-	var/emagged = 0
+	emagged = 0
 
 /obj/item/bell/cargo
 	name = "Cargo Bell"

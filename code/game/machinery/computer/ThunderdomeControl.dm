@@ -12,11 +12,11 @@
 
 	light_color = LIGHT_COLOR_CYAN
 
-/obj/machinery/computer/ThunderdomeControl/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/ThunderdomeControl/attack_ai(mob/user)
 	return attack_hand(user)
 
 
-/obj/machinery/computer/ThunderdomeControl/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/ThunderdomeControl/attack_hand(mob/user)
 	if(..())
 		return 1
 
@@ -76,7 +76,7 @@
 	updateUsrDialog()
 	return
 
-/obj/machinery/computer/ThunderdomeControl/attackby(var/obj/item/D as obj, var/mob/user as mob, params)
+/obj/machinery/computer/ThunderdomeControl/attackby(obj/item/D, mob/user, params)
 	return
 
 /obj/machinery/computer/ThunderdomeControl/New()
@@ -84,14 +84,14 @@
 	linkedthunderdome = locate(/area/tdome/arena)
 
 
-/obj/machinery/computer/ThunderdomeControl/proc/checkInteg(var/area/A)
+/obj/machinery/computer/ThunderdomeControl/proc/checkInteg(area/A)
 	for(var/turf/T in A)
 		if(istype(T, /turf/space))
 			return 0
 
 	return 1
 
-/obj/machinery/computer/ThunderdomeControl/proc/togglePower(var/toggleOn = 0)
+/obj/machinery/computer/ThunderdomeControl/proc/togglePower(toggleOn = 0)
 
 	if(toggleOn)
 		activetdome = 1
@@ -99,7 +99,7 @@
 		activetdome = 0
 
 
-/obj/machinery/computer/ThunderdomeControl/proc/loadProgram(var/area/A)
+/obj/machinery/computer/ThunderdomeControl/proc/loadProgram(area/A)
 
 	if(world.time < (last_changetdome + 25))
 		if(world.time < (last_changetdome + 15))//To prevent super-spam clicking, reduced process size and annoyance -Sieve

@@ -67,9 +67,9 @@
 	clumsy_check = 0 //No sense in having a harmless gun blow up in the clowns face
 
 //Syndicate sub-machine guns.
-/obj/item/gun/projectile/automatic/c20r/sc_c20r
+/obj/item/gun/projectile/automatic/fullauto/twomode/c20r/sc_c20r
 
-/obj/item/gun/projectile/automatic/c20r/sc_c20r/New()
+/obj/item/gun/projectile/automatic/fullauto/twomode/c20r/sc_c20r/New()
 	..()
 	for(var/ammo in magazine.stored_ammo)
 		if(prob(95)) //95% chance
@@ -176,7 +176,7 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 	if(prob(25))
 		mezzer()
 
-/obj/singularity/narsie/sc_Narsie/consume(var/atom/A)
+/obj/singularity/narsie/sc_Narsie/consume(atom/A)
 	if(!A.simulated)
 		return FALSE
 	if(is_type_in_list(A, uneatable))

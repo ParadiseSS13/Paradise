@@ -51,16 +51,17 @@
 	desc = "Top-of-the-line Nanotrasen technology allows for cloning of crew members from off-station upon bluespace request."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "borgcharger1(old)"
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 
-/obj/structure/respawner/attack_ghost(mob/dead/observer/user as mob)
-	var/response = alert(user, "Are you sure you want to spawn like this?\n(If you do this, you won't be able to be cloned!)","Respawn?","Yes","No")
+/obj/structure/respawner/attack_ghost(mob/dead/observer/user)
+	var/response = alert(user, "Are you sure you want to spawn here?\n(If you do this, you won't be able to be cloned!)", "Respawn?", "Yes", "No")
 	if(response == "Yes")
 		user.forceMove(get_turf(src))
 		log_admin("[key_name(user)] was incarnated by a respawner machine.")
 		message_admins("[key_name_admin(user)] was incarnated by a respawner machine.")
-		user.incarnate_ghost()
+		var/mob/living/carbon/human/new_human = user.incarnate_ghost()
+		new_human.mind.offstation_role = TRUE // To prevent them being an antag objective
 
 /obj/structure/ghost_beacon
 	name = "ethereal beacon"

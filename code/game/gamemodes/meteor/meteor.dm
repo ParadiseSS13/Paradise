@@ -54,8 +54,7 @@
 	else
 		to_chat(world, "<span class='boldnotice'>Nobody survived the meteor storm!</span>")
 
-	feedback_set_details("round_end_result","meteor end - evacuation")
-	feedback_set("round_end_result", "Meteor survivors: [survivors]")
+	SSticker.mode_result = "meteor end - evacuation"
 
 	..()
 	return 1

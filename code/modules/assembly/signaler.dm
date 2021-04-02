@@ -151,21 +151,3 @@
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_CHAT)
-
-// Embedded signaller used in anomalies.
-/obj/item/assembly/signaler/anomaly
-	name = "anomaly core"
-	desc = "The neutralized core of an anomaly. It'd probably be valuable for research."
-	icon_state = "anomaly core"
-	item_state = "electronic"
-	resistance_flags = FIRE_PROOF
-	receiving = TRUE
-	var/anomaly_type = /obj/effect/anomaly
-
-/obj/item/assembly/signaler/anomaly/receive_signal(datum/signal/signal)
-	if(..())
-		for(var/obj/effect/anomaly/A in orange(0, src))
-			A.anomalyNeutralize()
-
-/obj/item/assembly/signaler/anomaly/attack_self()
-	return

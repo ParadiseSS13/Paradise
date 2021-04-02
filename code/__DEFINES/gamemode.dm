@@ -7,6 +7,7 @@
 #define TARGET_INVALID_GOLEM		6
 #define TARGET_INVALID_EVENT		7
 #define TARGET_INVALID_IS_TARGET	8
+#define TARGET_INVALID_BLACKLISTED	9
 
 //gamemode istype helpers
 #define GAMEMODE_IS_BLOB		(SSticker && istype(SSticker.mode, /datum/game_mode/blob))
@@ -36,6 +37,7 @@
 #define SPECIAL_ROLE_MORPH "Morph"
 #define SPECIAL_ROLE_MULTIVERSE "Multiverse Traveller"
 #define SPECIAL_ROLE_NUKEOPS "Syndicate"
+#define SPECIAL_ROLE_PYROCLASTIC_SLIME 	"Pyroclastic Anomaly Slime"
 #define SPECIAL_ROLE_RAIDER "Vox Raider"
 #define SPECIAL_ROLE_REVENANT "Revenant"
 #define SPECIAL_ROLE_SHADOWLING "Shadowling"

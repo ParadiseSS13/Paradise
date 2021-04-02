@@ -8,7 +8,7 @@
 	req_stat = UNCONSCIOUS
 
 //Heals the things that the other regenerative abilities don't.
-/datum/action/changeling/panacea/sting_action(var/mob/user)
+/datum/action/changeling/panacea/sting_action(mob/user)
 
 	to_chat(user, "<span class='notice'>We cleanse impurities from our form.</span>")
 
@@ -40,5 +40,5 @@
 			continue
 		D.cure()
 
-	feedback_add_details("changeling_powers","AP")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1

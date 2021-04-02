@@ -1,4 +1,4 @@
-#define MAX_PILL_SPRITE 20 //max icon state of the pill sprites
+#define MAX_PILL_SPRITE 27 //max icon state of the pill sprites
 #define MAX_MULTI_AMOUNT 20 // Max number of pills/patches that can be made at once
 #define MAX_UNITS_PER_PILL 100 // Max amount of units in a pill
 #define MAX_UNITS_PER_PATCH 30 // Max amount of units in a patch
@@ -80,8 +80,7 @@
 	if(powered())
 		stat &= ~NOPOWER
 	else
-		spawn(rand(0, 15))
-			stat |= NOPOWER
+		stat |= NOPOWER
 	update_icon()
 
 /obj/machinery/chem_master/attackby(obj/item/I, mob/user, params)
@@ -338,7 +337,7 @@
 							COLOR_MAROON = "Brown"
 						)
 					var/current = pill_bottle_wrappers[loaded_pill_bottle.wrapper_color] || "Default"
-					ui_modal_choice(src, id, "Please select a pill bottle wrapper:", null, arguments, current, pill_bottle_wrappers)
+					ui_modal_choice(src, id, "Please select a wrapper color:", null, arguments, current, pill_bottle_wrappers)
 				if("addcustom")
 					if(!beaker || !beaker.reagents.total_volume)
 						return
