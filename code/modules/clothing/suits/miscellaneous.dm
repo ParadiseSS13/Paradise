@@ -411,7 +411,7 @@
 
 /obj/item/clothing/head/hooded/winterhood/security
 	icon_state = "winterhood_sec"
-	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 15) // HISPANIA ARMOR
+	armor = list("melee" = 20, "bullet" = 15, "laser" = 20,"energy" = 5, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 15) // HISPANIA ARMOR
 
 /obj/item/clothing/suit/hooded/wintercoat/medical
 	name = "medical winter coat"
