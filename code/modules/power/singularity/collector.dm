@@ -143,8 +143,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		add_overlay("ptank")
 	if(stat & (NOPOWER|BROKEN))
 		return
-	if(active)
-		add_overlay("on")
+
 
 
 /obj/machinery/power/rad_collector/proc/toggle_power()
