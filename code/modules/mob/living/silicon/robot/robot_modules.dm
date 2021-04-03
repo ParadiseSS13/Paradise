@@ -245,7 +245,7 @@
 	modules += new /obj/item/holosign_creator/engineering(src)
 	modules += new /obj/item/gripper(src)
 	modules += new /obj/item/matter_decompiler(src)
-	modules += new /obj/item/floor_painter(src)
+	modules += new /obj/item/painter/floor(src)
 	modules += new /obj/item/areaeditor/blueprints/cyborg(src)
 	emag = new /obj/item/borg/stun(src)
 

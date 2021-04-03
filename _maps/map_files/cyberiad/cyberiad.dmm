@@ -31335,8 +31335,8 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /obj/machinery/status_display{
 	density = 0;
@@ -31386,8 +31386,8 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -77816,8 +77816,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/item/airlock_painter,
-/obj/item/airlock_painter{
+/obj/item/painter/airlock,
+/obj/item/painter/airlock{
 	pixel_x = -4;
 	pixel_y = 4
 	},
@@ -88708,7 +88708,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "dtk" = (
-/obj/item/pipe_painter,
+/obj/item/painter/pipe,
 /obj/item/clothing/ears/earmuffs{
 	pixel_x = 0;
 	pixel_y = 6
@@ -89660,8 +89660,8 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -90270,8 +90270,8 @@
 /obj/item/clothing/gloves/color/black,
 /obj/item/clothing/gloves/color/black,
 /obj/item/clothing/gloves/color/black,
-/obj/item/pipe_painter,
-/obj/item/pipe_painter,
+/obj/item/painter/pipe,
+/obj/item/painter/pipe,
 /obj/item/clothing/glasses/welding,
 /obj/item/clothing/glasses/welding,
 /turf/simulated/floor/plasteel,

@@ -511,7 +511,7 @@ About the new airlock wires panel:
 
 
 /// Called when a player uses an airlock painter on this airlock
-/obj/machinery/door/airlock/proc/change_paintjob(obj/item/airlock_painter/painter, mob/user)
+/obj/machinery/door/airlock/proc/change_paintjob(obj/item/painter/airlock/painter, mob/user)
 	if((!in_range(src, user) && loc != user)) // user should be adjacent to the airlock.
 		return
 
@@ -536,7 +536,7 @@ About the new airlock wires panel:
 
 	if(do_after(user, 20, target = src))
 		// applies the user-chosen airlock's icon, overlays and assemblytype to the src airlock
-		painter.paint(user)
+		playsound(loc, 'sound/effects/spray2.ogg', 30, TRUE)
 		icon = initial(airlock.icon)
 		overlays_file = initial(airlock.overlays_file)
 		assemblytype = initial(airlock.assemblytype)
@@ -954,8 +954,6 @@ About the new airlock wires panel:
 		user.visible_message("<span class='notice'>[user] pins [C] to [src].</span>", "<span class='notice'>You pin [C] to [src].</span>")
 		note = C
 		update_icon()
-	else if(istype(C, /obj/item/airlock_painter))
-		change_paintjob(C, user)
 	else
 		return ..()
 

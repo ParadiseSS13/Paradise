@@ -1,19 +1,12 @@
 // Floor painter
 
-/obj/item/floor_painter
+/obj/item/painter/floor
 	name = "floor painter"
-	icon = 'icons/obj/device.dmi'
 	icon_state = "floor_painter"
 	item_state = "floor_painter"
-	usesound = 'sound/effects/spray2.ogg'
-
 	var/floor_icon
 	var/floor_state = "floor"
 	var/floor_dir = SOUTH
-
-	w_class = WEIGHT_CLASS_TINY
-	flags = CONDUCT
-	slot_flags = SLOT_BELT
 
 	var/static/list/allowed_states = list("arrival", "arrivalcorner", "bar", "barber", "bcircuit", "blackcorner", "blue", "bluecorner",
 		"bluefull", "bluered", "blueyellow", "blueyellowfull", "bot", "brown", "browncorner", "browncornerold", "brownold",
@@ -27,7 +20,7 @@
 		"whitered", "whiteredcorner", "whiteredfull", "whiteyellow", "whiteyellowcorner", "whiteyellowfull", "yellow",
 		"yellowcorner", "yellowcornersiding", "yellowsiding")
 
-/obj/item/floor_painter/afterattack(atom/A, mob/user, proximity, params)
+/obj/item/painter/floor/afterattack(atom/A, mob/user, proximity, params)
 	if(!proximity)
 		return
 
@@ -38,7 +31,7 @@
 		return
 
 	if(!istype(F))
-		to_chat(user, "<span class='warning'>\The [src] can only be used on station flooring.</span>")
+		to_chat(user, "<span class='warning'>[src] can only be used on station flooring.</span>")
 		return
 
 	playsound(loc, usesound, 30, TRUE)
@@ -46,14 +39,13 @@
 	F.icon_regular_floor = floor_state
 	F.dir = floor_dir
 
-/obj/item/floor_painter/attack_self(mob/user)
+/obj/item/painter/floor/attack_self(mob/user)
 	if(!user)
-		return 0
-	user.set_machine(src)
+		return FALSE
 	ui_interact(user)
-	return 1
+	return TRUE
 
-/obj/item/floor_painter/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
+/obj/item/painter/floor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "FloorPainter", name, 405, 470, master_ui, state)
@@ -63,7 +55,7 @@
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
-/obj/item/floor_painter/ui_data(mob/user)
+/obj/item/painter/floor/ui_data(mob/user)
 	var/list/data = list()
 	data["availableStyles"] = allowed_states
 	data["selectedStyle"] = floor_state
@@ -77,17 +69,16 @@
 	return data
 
 
-/obj/item/floor_painter/ui_static_data(mob/user)
+/obj/item/painter/floor/ui_static_data(mob/user)
 	var/list/data = list()
-
 	data["allStylesPreview"] = list()
-	for (var/style in allowed_states)
+	for(var/style in allowed_states)
 		var/icon/floor_icon = icon('icons/turf/floors.dmi', style, SOUTH)
 		data["allStylesPreview"][style] = icon2base64(floor_icon)
 
 	return data
 
-/obj/item/floor_painter/ui_act(action, params)
+/obj/item/painter/floor/ui_act(action, params)
 	if(..())
 		return
 
