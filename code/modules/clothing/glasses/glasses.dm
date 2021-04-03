@@ -4,31 +4,33 @@
 		// Pre-upgraded upgradable glasses
 		name = "prescription [name]"
 
-/obj/item/clothing/glasses/attackby(obj/item/O as obj, mob/user as mob)
-	if(user.stat || user.restrained() || !ishuman(user))
+/obj/item/clothing/glasses/attackby(obj/item/I, mob/user)
+	if(!prescription_upgradable || user.stat || user.restrained() || !ishuman(user))
 		return ..()
 	var/mob/living/carbon/human/H = user
-	if(prescription_upgradable)
-		if(istype(O, /obj/item/clothing/glasses/regular))
-			if(prescription)
-				to_chat(H, "You can't possibly imagine how adding more lenses would improve \the [name].")
-				return
-			H.unEquip(O)
-			O.loc = src // Store the glasses for later removal
-			to_chat(H, "You fit \the [name] with lenses from \the [O].")
-			prescription = 1
-			name = "prescription [name]"
+
+	// Adding prescription glasses
+	if(istype(I, /obj/item/clothing/glasses/regular))
+		if(prescription)
+			to_chat(H, "<span class='warning'>You can't possibly imagine how adding more lenses would improve [src].</span>")
 			return
-		if(prescription && istype(O, /obj/item/screwdriver))
-			var/obj/item/clothing/glasses/regular/G = locate() in src
-			if(!G)
-				G = new(get_turf(H))
-			to_chat(H, "You salvage the prescription lenses from \the [name].")
-			prescription = 0
-			name = initial(name)
-			H.put_in_hands(G)
-			return
-	return ..()
+		H.unEquip(I)
+		I.loc = src // Store the glasses for later removal
+		to_chat(H, "<span class='notice'>You fit [src] with lenses from [I].</span>")
+		prescription = TRUE
+		name = "prescription [initial(name)]"
+
+	// Removing prescription glasses
+	else if(prescription && istype(I, /obj/item/screwdriver))
+		var/obj/item/clothing/glasses/regular/G = locate() in src
+		if(!G)
+			G = new(src)
+		to_chat(H, "<span class='notice'>You salvage the prescription lenses from [src].</span>")
+		prescription = FALSE
+		name = initial(name)
+		H.put_in_hands(G)
+
+	H.update_nearsighted_effects()
 
 /obj/item/clothing/glasses/visor_toggling()
 	..()
@@ -114,7 +116,7 @@
 	icon_state = "purple"
 	item_state = "glasses"
 	origin_tech = "magnets=2;engineering=1"
-	prescription_upgradable = 0
+	prescription_upgradable = TRUE
 	scan_reagents = 1 //You can see reagents while wearing science goggles
 	resistance_flags = ACID_PROOF
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
@@ -135,6 +137,7 @@
 	icon_state = "nvpurple"
 	item_state = "glasses"
 	see_in_dark = 8
+	prescription_upgradable = FALSE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
 /obj/item/clothing/glasses/janitor
@@ -454,6 +457,7 @@
 	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	see_in_dark = 8
 	scan_reagents = 1
+	prescription = TRUE
 	flags = NODROP
 	flags_cover = null
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
