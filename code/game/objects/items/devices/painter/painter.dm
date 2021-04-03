@@ -41,12 +41,12 @@
 		user.put_in_active_hand(P)
 
 /obj/item/painter/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] is inhaling toner from [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	playsound(src, usesound, 50, TRUE)
 	var/obj/item/organ/internal/lungs/L = user.get_organ_slot("lungs")
 	var/turf/T = get_turf(user)
-	if(!L)
+	if(!do_mob(user, user, 3 SECONDS) || !L)
 		return SHAME
-
-	user.visible_message("<span class='suicide'>[user] is inhaling toner from [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	// Once you've inhaled the toner, you throw up your lungs
 	// and then die.
 
