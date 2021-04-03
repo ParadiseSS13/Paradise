@@ -12618,11 +12618,6 @@
 	name = "Station Intercom (General)";
 	pixel_y = 20
 	},
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=Security";
-	location = "CommandMiddle2";
-	name = "navigation beacon (Command-Middle 2)"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -13172,6 +13167,11 @@
 /area/hallway/primary/fore)
 "aQl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=EngineeringMiddle";
+	location = "CommandMiddle";
+	name = "navigation beacon (Command-Middle)"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -13658,11 +13658,6 @@
 /area/hallway/primary/fore)
 "aRk" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=EngineeringMiddle";
-	location = "CommandMiddle";
-	name = "navigation beacon (Command-Middle)"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 2;
 	icon_state = "pipe-c"
@@ -13922,11 +13917,6 @@
 "aRJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
-	},
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=CommandMiddle";
-	location = "Cargo";
-	name = "navigation beacon (Cargo)"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -15496,6 +15486,11 @@
 /area/maintenance/auxsolarport)
 "aVM" = (
 /obj/machinery/hologram/holopad,
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=CommandMiddle";
+	location = "Cargo";
+	name = "navigation beacon (Cargo)"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -18488,11 +18483,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=EngineeringEast";
-	location = "EngineeringMiddle";
-	name = "navigation beacon (Engineering-Middle)"
-	},
 /obj/structure/disposalpipe/junction{
 	dir = 1;
 	icon_state = "pipe-y"
@@ -18755,11 +18745,6 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=CommandMiddle2";
-	location = "EngineeringMiddle2";
-	name = "navigation beacon (Engineering-Middle 2)"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -18774,6 +18759,11 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=EngineeringEast";
+	location = "EngineeringMiddle";
+	name = "navigation beacon (Engineering-Middle)"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -24305,6 +24295,11 @@
 /area/hallway/primary/port/north)
 "bqe" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=Research";
+	location = "Service";
+	name = "navigation beacon (Service)"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -51931,16 +51926,22 @@
 /turf/space,
 /area/hallway/spacebridge/medcargo)
 "cFr" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=Research";
-	location = "Service";
-	name = "navigation beacon (Service)"
+	codes_txt = "patrol;next_patrol=CommandWest";
+	location = "Security";
+	name = "navigation beacon (Security)"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
 	},
-/area/hallway/primary/port/north)
+/area/hallway/primary/fore/west)
 "cFs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -52120,7 +52121,7 @@
 /area/hallway/primary/aft/west)
 "cFQ" = (
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=Departures";
+	codes_txt = "patrol;next_patrol=ArrivalsWest2";
 	location = "ArrivalsWest";
 	name = "navigation beacon (Arrivals-West)"
 	},
@@ -65882,18 +65883,16 @@
 	},
 /area/hallway/primary/fore/west)
 "dyU" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=CommandWest";
-	location = "Security";
-	name = "navigation beacon (Security)"
+	codes_txt = "patrol;next_patrol=Security";
+	location = "CommandMiddle2";
+	name = "navigation beacon (Command-Middle 2)"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
+	dir = 8;
+	icon_state = "neutralfull"
 	},
-/area/hallway/primary/fore/west)
+/area/hallway/primary/fore)
 "dyV" = (
 /obj/structure/plasticflaps{
 	name = "Officer Beepsky's Home"
@@ -72952,6 +72951,11 @@
 /area/security/permabrig)
 "kCT" = (
 /obj/effect/baseturf_helper/asteroid,
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=CommandMiddle2";
+	location = "EngineeringMiddle2";
+	name = "navigation beacon (Engineering-Middle 2)"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -81494,6 +81498,17 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
 /turf/simulated/wall/rust,
 /area/maintenance/asmaint2)
+"uJv" = (
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=ArrivalsMiddle";
+	location = "ArrivalsWest2";
+	name = "navigation beacon (Arrivals-West2)"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/hallway/secondary/entry/south)
 "uJT" = (
 /turf/simulated/wall,
 /area/maintenance/gambling_den)
@@ -99215,7 +99230,7 @@ bnF
 boG
 bqe
 brA
-cFr
+aYV
 aYV
 aYV
 aYV
@@ -101220,7 +101235,7 @@ cEP
 cER
 cES
 aPW
-dyU
+mNt
 dyV
 joR
 joR
@@ -102504,7 +102519,7 @@ dyr
 aNJ
 bHu
 aOD
-aQd
+cFr
 wki
 mCr
 tKP
@@ -118181,7 +118196,7 @@ abW
 abW
 aKp
 aPl
-aRt
+dyU
 aRj
 aRz
 aSU
@@ -126531,7 +126546,7 @@ cnw
 cFQ
 fEn
 uiK
-uiK
+uJv
 jHY
 nKF
 fqR
