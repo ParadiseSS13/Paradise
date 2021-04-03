@@ -6,7 +6,7 @@
 	no_guns = TRUE
 	no_guns_message = "Use of ranged weaponry would bring dishonor to the clan."
 	has_explaination_verb = TRUE
-	combos = list(/datum/martial_combo/sleeping_carp/crashing_kick, /datum/martial_combo/sleeping_carp/kneehaul, /datum/martial_combo/sleeping_carp/gnashing_teeth)
+	combos = list(/datum/martial_combo/sleeping_carp/crashing_kick, /datum/martial_combo/sleeping_carp/keehaul, /datum/martial_combo/sleeping_carp/gnashing_teeth)
 
 /datum/martial_art/the_sleeping_carp/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
@@ -40,3 +40,8 @@
 
 /datum/martial_art/the_sleeping_carp/explaination_footer(user)
 	to_chat(user, "<b><i>In addition, by having your throw mode on when being shot at, you enter an active defense mode where you will block and deflect all projectiles fired at you!</i></b>")
+
+/datum/martial_art/the_sleeping_carp/try_deflect(mob/user)
+	if(user.in_throw_mode && prob(deflection_chance)) // in case an admin wants to var edit carp to have less deflection chance
+		return TRUE
+	return FALSE

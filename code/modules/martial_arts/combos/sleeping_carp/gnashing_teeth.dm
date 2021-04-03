@@ -1,7 +1,7 @@
 /datum/martial_combo/sleeping_carp/gnashing_teeth
 	name = "Gnashing Teeth"
 	steps = list(MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_HARM)
-	explaination_text = "Every second, concequtive, punch will deal extra damage and you will shout to send fear into your opponents heart"
+	explaination_text = "Every second, consecutive, punch will deal extra damage and you will shout to send fear into your opponents heart"
 
 /datum/martial_combo/sleeping_carp/gnashing_teeth/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)

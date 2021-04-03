@@ -29,7 +29,7 @@
 	var/list/datum/martial_art/current_combos = list()
 	/// When the last hit happened
 	var/last_hit = 0
-	// If the user is preparing a martial arts stance
+	/// If the user is preparing a martial arts stance
 	var/in_stance = FALSE
 
 /datum/martial_art/New()
@@ -189,6 +189,11 @@
 /datum/martial_art/proc/explaination_footer(user)
 	return
 
+/datum/martial_art/proc/try_deflect(mob/user)
+	if(prob(deflection_chance))
+		return TRUE
+	return FALSE
+
 //ITEMS
 
 /obj/item/clothing/gloves/boxing
@@ -278,7 +283,6 @@
 
 	var/datum/martial_art/the_sleeping_carp/theSleepingCarp = new(null)
 	theSleepingCarp.teach(user)
-	user.faction |= list("carp") //makes space carp peaceful to sleeping carp users
 	user.drop_item()
 	visible_message("<span class='warning'>[src] lights up in fire and quickly burns to ash.</span>")
 	new /obj/effect/decal/cleanable/ash(get_turf(src))

@@ -1,9 +1,9 @@
-/datum/martial_combo/sleeping_carp/kneehaul
-	name = "Kneehaul"
+/datum/martial_combo/sleeping_carp/keehaul
+	name = "Keehaul"
 	steps = list(MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_GRAB)
-	explaination_text = "Kick an opponent to the floor, knocking them down and dealing stamina damage to them! "
+	explaination_text = "Kick an opponent to the floor, knocking them down and dealing stamina damage to them!"
 
-/datum/martial_combo/sleeping_carp/kneehaul/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
+/datum/martial_combo/sleeping_carp/keehaul/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	user.do_attack_animation(target, ATTACK_EFFECT_KICK)
 	playsound(get_turf(target), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 	target.apply_damage(10, BRUTE, BODY_ZONE_HEAD)
