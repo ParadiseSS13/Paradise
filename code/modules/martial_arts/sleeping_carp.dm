@@ -42,6 +42,4 @@
 	to_chat(user, "<b><i>In addition, by having your throw mode on when being shot at, you enter an active defense mode where you will block and deflect all projectiles fired at you!</i></b>")
 
 /datum/martial_art/the_sleeping_carp/try_deflect(mob/user)
-	if(user.in_throw_mode && prob(deflection_chance)) // in case an admin wants to var edit carp to have less deflection chance
-		return TRUE
-	return FALSE
+	return ..() && user.in_throw_mode // in case an admin wants to var edit carp to have less deflection chance

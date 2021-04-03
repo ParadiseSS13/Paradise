@@ -190,9 +190,7 @@
 	return
 
 /datum/martial_art/proc/try_deflect(mob/user)
-	if(prob(deflection_chance))
-		return TRUE
-	return FALSE
+		return prob(deflection_chance)
 
 //ITEMS
 
