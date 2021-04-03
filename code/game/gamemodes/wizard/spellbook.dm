@@ -244,7 +244,7 @@
 	to_chat(user, "<span class='warning'>You no longer feel fireproof.</span>")
 	REMOVE_TRAIT(user, TRAIT_RESISTHEAT, MAGIC_TRAIT)
 	REMOVE_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
-	. = ..()
+	return ..()
 
 //Mobility
 /datum/spellbook_entry/knock
