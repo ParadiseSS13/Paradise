@@ -77515,12 +77515,6 @@
 	pixel_y = -20;
 	req_access_txt = "10;13"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
-	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "cRh" = (
@@ -77632,20 +77626,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"cRr" = (
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Supermatter Engine Room";
-	req_access_txt = "10";
-	req_one_access_txt = "0"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
-	},
-/turf/simulated/floor/plating,
-/area/engine/engineering)
 "cRt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -77674,12 +77654,6 @@
 	},
 /area/toxins/xenobiology)
 "cRw" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
-	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -78212,12 +78186,6 @@
 /area/atmos)
 "cSv" = (
 /obj/effect/decal/warning_stripes/northwest,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -78346,6 +78314,16 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -79677,15 +79655,9 @@
 /area/engine/engineering)
 "cVq" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
-	},
-/obj/structure/cable{
 	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -81125,12 +81097,6 @@
 	icon_state = "1-8";
 	tag = ""
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "cYw" = (
@@ -81970,6 +81936,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -83001,6 +82968,11 @@
 /area/atmos)
 "dcN" = (
 /obj/machinery/shieldgen,
+/obj/machinery/light/small{
+	tag = "icon-bulb1 (WEST)";
+	icon_state = "bulb1";
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/storage/secure)
 "dcO" = (
@@ -83773,6 +83745,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/effect/decal/warning_stripes/northeastcorner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -91411,6 +91384,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -91472,17 +91446,17 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "jGz" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
-	},
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -91957,6 +91931,10 @@
 /area/medical/research{
 	name = "Research Division"
 	})
+"lPi" = (
+/obj/effect/decal/warning_stripes/west,
+/turf/simulated/floor/plating,
+/area/storage/secure)
 "lRl" = (
 /obj/structure/table/wood,
 /obj/item/deck/cards,
@@ -92567,6 +92545,17 @@
 /obj/structure/sign/restroom,
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/tsf)
+"oEb" = (
+/obj/machinery/power/smes/engineering,
+/obj/structure/cable/yellow{
+	d1 = 0;
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engine/engineering)
 "oHu" = (
 /obj/structure/table/wood,
 /obj/item/camera{
@@ -93003,6 +92992,12 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
+"qrb" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/floodlight,
+/obj/machinery/light/small,
+/turf/simulated/floor/plating,
+/area/storage/secure)
 "qth" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -93101,6 +93096,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/effect/decal/warning_stripes/southeastcorner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -94141,6 +94137,10 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
+"uWe" = (
+/obj/machinery/floodlight,
+/turf/simulated,
+/area/storage/secure)
 "uXO" = (
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -94503,6 +94503,11 @@
 	dir = 4
 	},
 /area/security/armoury)
+"wmI" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/floodlight,
+/turf/simulated/floor/plating,
+/area/storage/secure)
 "wqX" = (
 /obj/effect/decal/cleanable/blood,
 /obj/machinery/computer/atmos_alert,
@@ -94536,6 +94541,12 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/engine/engineering)
+"wuW" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/storage/secure)
 "wvy" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -94640,6 +94651,16 @@
 	dir = 1
 	},
 /area/security/armoury)
+"wQn" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/shower{
+	tag = "icon-shower (WEST)";
+	icon_state = "shower";
+	dir = 8
+	},
+/obj/effect/decal/warning_stripes/northwest,
+/turf/simulated/floor/plasteel,
+/area/engine/engineering)
 "wQz" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -119595,8 +119616,8 @@ dar
 dar
 dar
 dar
-aaa
-aaa
+dar
+dar
 aaa
 aab
 aaa
@@ -119851,9 +119872,9 @@ ddG
 dcN
 djs
 diK
+uWe
+uWe
 dar
-aab
-aab
 dhf
 dfV
 dhf
@@ -120108,9 +120129,9 @@ cPk
 cQj
 cQJ
 cQJ
+wmI
+qrb
 dar
-aaa
-aaa
 djb
 djb
 djb
@@ -120365,9 +120386,9 @@ cYq
 oBU
 dcP
 dcP
+dcP
+dcP
 dar
-aaa
-aaa
 djb
 djb
 djb
@@ -120622,9 +120643,9 @@ cYs
 cZG
 gao
 dcP
+dcP
+wuW
 dar
-aab
-aab
 djb
 djb
 djb
@@ -120879,9 +120900,9 @@ cYr
 dcP
 daK
 dtw
+lPi
+lPi
 dar
-aaa
-aaa
 djb
 djb
 djb
@@ -121137,8 +121158,8 @@ cZL
 dar
 dar
 dar
-cSU
-cSU
+dar
+dar
 djb
 djb
 djb
@@ -121390,7 +121411,7 @@ cJC
 cXD
 cXS
 cYv
-cXD
+cVj
 cRg
 aLz
 dcl
@@ -121905,7 +121926,7 @@ cWN
 joR
 cYD
 cYQ
-cRr
+cYY
 cSU
 cSU
 cSU
@@ -125243,7 +125264,7 @@ cPO
 cYR
 cVj
 cXx
-cVj
+wQn
 cYQ
 cZR
 rBT
@@ -126529,7 +126550,7 @@ cYU
 dab
 lEA
 dbJ
-lEA
+qql
 cQH
 tvl
 hyv
@@ -127043,7 +127064,7 @@ cWp
 dcq
 qql
 jwv
-qql
+oEb
 dau
 cZF
 dby
