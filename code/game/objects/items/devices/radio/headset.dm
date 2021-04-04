@@ -103,10 +103,10 @@
 /obj/item/radio/headset/syndicate/alt/syndteam
 	ks1type = /obj/item/encryptionkey/syndteam
 
-/obj/item/radio/headset/syndicate/alt/lavaland
-	name = "syndicate lavaland headset"
+/obj/item/radio/headset/syndicate/alt/nocommon
+	name = "syndicate researcher headset"
 
-/obj/item/radio/headset/syndicate/alt/lavaland/New()
+/obj/item/radio/headset/syndicate/alt/nocommon/New()
 	. = ..()
 	set_frequency(SYND_FREQ)
 
@@ -127,6 +127,18 @@
 	flags = EARBANGPROTECT
 	icon_state = "sec_headset_alt"
 	item_state = "sec_headset_alt"
+
+/obj/item/radio/headset/headset_sec/alt/brig_phys
+	name = "brig physician bowman headset"
+	ks1type = /obj/item/encryptionkey/headset_med
+
+/obj/item/radio/headset/headset_iaa
+	name = "internal affairs bowman headset"
+	desc = "This is used by your elite legal team. Protects ears from flashbangs."
+	flags = EARBANGPROTECT
+	icon_state = "sec_headset_alt"
+	item_state = "sec_headset_alt"
+	ks2type = /obj/item/encryptionkey/headset_iaa
 
 /obj/item/radio/headset/headset_eng
 	name = "engineering radio headset"
@@ -289,19 +301,27 @@
 	freqlock = TRUE
 
 /obj/item/radio/headset/ert/alt
-	name = "\proper emergency response team's bowman headset"
+	name = "emergency response team's bowman headset"
 	desc = "The headset of the boss. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 
+/obj/item/radio/headset/ert/alt/commander
+	name = "ERT commander's bowman headset"
+	desc = "The headset of the boss. Protects ears from flashbangs. Can transmit even if telecomms are down."
+	requires_tcomms = FALSE
+	instant = TRUE
+
 /obj/item/radio/headset/centcom
 	name = "\proper centcom officer's bowman headset"
-	desc = "The headset of final authority. Protects ears from flashbangs."
+	desc = "The headset of final authority. Protects ears from flashbangs. Can transmit even if telecomms are down."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 	ks2type = /obj/item/encryptionkey/centcom
+	requires_tcomms = FALSE
+	instant = TRUE
 
 /obj/item/radio/headset/heads/ai_integrated //No need to care about icons, it should be hidden inside the AI anyway.
 	name = "\improper AI subspace transceiver"

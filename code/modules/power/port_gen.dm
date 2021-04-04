@@ -264,7 +264,7 @@
 	sheet_left = 0
 	..()
 
-/obj/machinery/power/port_gen/pacman/emag_act(var/remaining_charges, var/mob/user)
+/obj/machinery/power/port_gen/pacman/emag_act(remaining_charges, mob/user)
 	if(active && prob(25))
 		explode() //if they're foolish enough to emag while it's running
 
@@ -272,7 +272,7 @@
 		emagged = 1
 		return 1
 
-/obj/machinery/power/port_gen/pacman/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/obj/machinery/power/port_gen/pacman/attackby(obj/item/O as obj, mob/user as mob)
 	if(istype(O, sheet_path))
 		var/obj/item/stack/addstack = O
 		var/amount = min((max_sheets - sheets), addstack.amount)
@@ -314,22 +314,22 @@
 
 /obj/machinery/power/port_gen/pacman/attack_hand(mob/user as mob)
 	..()
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/power/port_gen/pacman/attack_ai(var/mob/user as mob)
+/obj/machinery/power/port_gen/pacman/attack_ai(mob/user as mob)
 	add_hiddenprint(user)
 	return attack_hand(user)
 
-/obj/machinery/power/port_gen/pacman/attack_ghost(var/mob/user)
+/obj/machinery/power/port_gen/pacman/attack_ghost(mob/user)
 	return attack_hand(user)
 
-/obj/machinery/power/port_gen/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/power/port_gen/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "Pacman", name, 500, 260)
 		ui.open()
 
-/obj/machinery/power/port_gen/pacman/tgui_data(mob/user)
+/obj/machinery/power/port_gen/pacman/ui_data(mob/user)
 	var/list/data = list()
 
 	data["active"] = active
@@ -357,7 +357,7 @@
 
 	return data
 
-/obj/machinery/power/port_gen/pacman/tgui_act(action, params)
+/obj/machinery/power/port_gen/pacman/ui_act(action, params)
 	if(..())
 		return
 
@@ -401,19 +401,13 @@
 
 /obj/machinery/power/port_gen/pacman/super/UseFuel()
 	//produces a tiny amount of radiation when in use
-	if(prob(2*power_output))
-		for(var/mob/living/L in range(src, 5))
-			L.apply_effect(1, IRRADIATE) //should amount to ~5 rads per minute at max safe power
+	if(prob(2 * power_output))
+		radiation_pulse(get_turf(src), 50)
 	..()
 
 /obj/machinery/power/port_gen/pacman/super/explode()
 	//a nice burst of radiation
-	var/rads = 50 + (sheets + sheet_left)*1.5
-	for(var/mob/living/L in range(src, 10))
-		//should really fall with the square of the distance, but that makes the rads value drop too fast
-		//I dunno, maybe physics works different when you live in 2D -- SM radiation also works like this, apparently
-		L.apply_effect(max(20, round(rads/get_dist(L,src))), IRRADIATE)
-
+	radiation_pulse(get_turf(src), 500, 2)
 	explosion(src.loc, 3, 3, 5, 3)
 	qdel(src)
 

@@ -60,7 +60,7 @@
 	* item/afterattack(atom,user,adjacent,params) - used both ranged and adjacent
 	* mob/RangedAttack(atom,params) - used only ranged, only used for tk and laser eyes but could be changed
 */
-/mob/proc/ClickOn( var/atom/A, var/params )
+/mob/proc/ClickOn(atom/A, params)
 	if(client.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return
@@ -196,7 +196,7 @@
 	return FALSE
 
 // Default behavior: ignore double clicks, consider them normal clicks instead
-/mob/proc/DblClickOn(var/atom/A, var/params)
+/mob/proc/DblClickOn(atom/A, params)
 	return
 
 /*
@@ -209,7 +209,7 @@
 	proximity_flag is not currently passed to attack_hand, and is instead used
 	in human click code to allow glove touches only at melee range.
 */
-/mob/proc/UnarmedAttack(var/atom/A, var/proximity_flag)
+/mob/proc/UnarmedAttack(atom/A, proximity_flag)
 	if(ismob(A))
 		changeNext_move(CLICK_CD_MELEE)
 	return
@@ -230,30 +230,24 @@
 	Used when you are handcuffed and click things.
 	Not currently used by anything but could easily be.
 */
-/mob/proc/RestrainedClickOn(var/atom/A)
+/mob/proc/RestrainedClickOn(atom/A)
 	return
 
 /*
 	Middle click
 	Only used for swapping hands
 */
-/mob/proc/MiddleClickOn(var/atom/A)
+/mob/proc/MiddleClickOn(atom/A)
 	pointed(A)
 	return
 
 // See click_override.dm
-/mob/living/MiddleClickOn(var/atom/A)
- if(src.middleClickOverride)
- 	middleClickOverride.onClick(A, src)
- else
- 	..()
-
-/mob/living/carbon/MiddleClickOn(var/atom/A)
-	if(!src.stat && src.mind && src.mind.changeling && src.mind.changeling.chosen_sting && (istype(A, /mob/living/carbon)) && (A != src))
-		changeNext_click(5)
-		mind.changeling.chosen_sting.try_to_sting(src, A)
+/mob/living/MiddleClickOn(atom/A)
+	if(middleClickOverride)
+		middleClickOverride.onClick(A, src)
 	else
 		..()
+
 
 /*
 	Middle shift-click
@@ -291,7 +285,7 @@
 
 // In case of use break glass
 /*
-/atom/proc/MiddleClick(var/mob/M as mob)
+/atom/proc/MiddleClick(mob/M as mob)
 	return
 */
 
@@ -300,10 +294,10 @@
 	For most mobs, examine.
 	This is overridden in ai.dm
 */
-/mob/proc/ShiftClickOn(var/atom/A)
+/mob/proc/ShiftClickOn(atom/A)
 	A.ShiftClick(src)
 	return
-/atom/proc/ShiftClick(var/mob/user)
+/atom/proc/ShiftClick(mob/user)
 	if(user.client && get_turf(user.client.eye) == get_turf(user))
 		user.examinate(src)
 	return
@@ -312,7 +306,7 @@
 	Ctrl click
 	For most objects, pull
 */
-/mob/proc/CtrlClickOn(var/atom/A)
+/mob/proc/CtrlClickOn(atom/A)
 	A.CtrlClick(src)
 	return
 
@@ -326,54 +320,50 @@
 	Alt click
 	Unused except for AI
 */
-/mob/proc/AltClickOn(var/atom/A)
+/mob/proc/AltClickOn(atom/A)
 	A.AltClick(src)
 	return
 
 // See click_override.dm
-/mob/living/AltClickOn(var/atom/A)
- if(src.middleClickOverride)
- 	middleClickOverride.onClick(A, src)
- else
- 	..()
-
-/mob/living/carbon/AltClickOn(var/atom/A)
-	if(!src.stat && src.mind && src.mind.changeling && src.mind.changeling.chosen_sting && (istype(A, /mob/living/carbon)) && (A != src))
-		changeNext_click(5)
-		mind.changeling.chosen_sting.try_to_sting(src, A)
+/mob/living/AltClickOn(atom/A)
+	if(middleClickOverride)
+		middleClickOverride.onClick(A, src)
 	else
 		..()
 
-/atom/proc/AltClick(var/mob/user)
+/atom/proc/AltClick(mob/user)
+	SEND_SIGNAL(src, COMSIG_CLICK_ALT, user)
 	var/turf/T = get_turf(src)
-	if(T)
-		if(user.TurfAdjacent(T))
-			user.listed_turf = T
-			user.client.statpanel = T.name
-			// If we had a method to force a `Stat` update, it would go here
-		else
-			user.listed_turf = null
-	return
+	if(T && (isturf(loc) || isturf(src)) && user.TurfAdjacent(T))
+		user.listed_turf = T
+		user.client.statpanel = T.name
 
-/mob/proc/TurfAdjacent(var/turf/T)
+/// Use this instead of [/mob/proc/AltClickOn] where you only want turf content listing without additional atom alt-click interaction
+/atom/proc/AltClickNoInteract(mob/user, atom/A)
+	var/turf/T = get_turf(A)
+	if(T && user.TurfAdjacent(T))
+		user.listed_turf = T
+		user.client.statpanel = T.name
+
+/mob/proc/TurfAdjacent(turf/T)
 	return T.Adjacent(src)
 
 /*
 	Control+Shift/Alt+Shift click
 	Unused except for AI
 */
-/mob/proc/CtrlShiftClickOn(var/atom/A)
+/mob/proc/CtrlShiftClickOn(atom/A)
 	A.CtrlShiftClick(src)
 	return
 
-/atom/proc/CtrlShiftClick(var/mob/user)
+/atom/proc/CtrlShiftClick(mob/user)
 	return
 
-/mob/proc/AltShiftClickOn(var/atom/A)
+/mob/proc/AltShiftClickOn(atom/A)
 	A.AltShiftClick(src)
 	return
 
-/atom/proc/AltShiftClick(var/mob/user)
+/atom/proc/AltShiftClick(mob/user)
 	return
 
 
@@ -405,7 +395,7 @@
 	LE.fire()
 
 // Simple helper to face what you clicked on, in case it should be needed in more than one place
-/mob/proc/face_atom(var/atom/A)
+/mob/proc/face_atom(atom/A)
 	if( stat || buckled || !A || !x || !y || !A.x || !A.y ) return
 	var/dx = A.x - x
 	var/dy = A.y - y

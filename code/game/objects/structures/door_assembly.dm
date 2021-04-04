@@ -20,10 +20,10 @@
 	var/material_type = /obj/item/stack/sheet/metal
 	var/material_amt = 4
 
-/obj/structure/door_assembly/New()
+/obj/structure/door_assembly/Initialize(mapload)
+	. = ..()
 	update_icon()
 	update_name()
-	..()
 
 /obj/structure/door_assembly/Destroy()
 	QDEL_NULL(electronics)
@@ -55,12 +55,11 @@
 
 /obj/structure/door_assembly/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
-		var/t = copytext(stripped_input(user, "Enter the name for the door.", name, created_name),1,MAX_NAME_LEN)
-		if(!t)
-			return
-		if(!in_range(src, usr) && loc != usr)
-			return
-		created_name = t
+		// The door assembly gets renamed to "Assembly - Foobar",
+		// but the `t` returned from the proc is just "Foobar" without the prefix.
+		var/t = rename_interactive(user, W)
+		if(!isnull(t))
+			created_name = t
 		return
 
 	else if(iscoil(W) && state == AIRLOCK_ASSEMBLY_NEEDS_WIRES && anchored)
@@ -76,7 +75,7 @@
 			state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
 			to_chat(user, "<span class='notice'>You wire the airlock assembly.</span>")
 
-	else if(istype(W, /obj/item/airlock_electronics) && state == AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS && W.icon_state != "door_electronics_smoked")
+	else if(istype(W, /obj/item/airlock_electronics) && state == AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS && !istype(W, /obj/item/airlock_electronics/destroyed))
 		playsound(loc, W.usesound, 100, 1)
 		user.visible_message("[user] installs the electronics into the airlock assembly.", "You start to install electronics into the airlock assembly...")
 
@@ -175,19 +174,20 @@
 		door = new airlock_type(loc)
 	door.setDir(dir)
 	door.electronics = electronics
-	door.unres_sides = electronics.unres_sides
+	door.unres_sides = electronics.unres_access_from
 	door.heat_proof = heat_proof_finished
 	if(electronics.one_access)
 		door.req_access = null
-		door.req_one_access = electronics.conf_access
+		door.req_one_access = electronics.selected_accesses
 	else
-		door.req_access = electronics.conf_access
+		door.req_access = electronics.selected_accesses
 	if(created_name)
 		door.name = created_name
 	else
 		door.name = base_name
 	door.previous_airlock = previous_assembly
 	electronics.forceMove(door)
+	electronics = null
 	qdel(src)
 	update_icon()
 

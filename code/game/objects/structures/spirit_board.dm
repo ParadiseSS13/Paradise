@@ -5,7 +5,7 @@
 	icon_state = "spirit_board"
 	density = 1
 	anchored = 0
-	var/virgin = 1
+	var/used = FALSE
 	var/cooldown = 0
 	var/planchette = "A"
 	var/lastuser = null
@@ -24,12 +24,12 @@
 	spirit_board_pick_letter(user)
 
 
-/obj/structure/spirit_board/proc/spirit_board_pick_letter(var/mob/M)
+/obj/structure/spirit_board/proc/spirit_board_pick_letter(mob/M)
 	if(!spirit_board_checks(M))
 		return 0
 
-	if(virgin)
-		virgin = 0
+	if(!used)
+		used = TRUE
 		notify_ghosts("Someone has begun playing with a [src.name] in [get_area(src)]!", source = src)
 
 	planchette = input("Choose the letter.", "Seance!") in list("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
@@ -43,7 +43,7 @@
 		visible_message("<span class='notice'>The planchette slowly moves... and stops at the letter \"[planchette]\".</span>")
 
 
-/obj/structure/spirit_board/proc/spirit_board_checks(var/mob/M)
+/obj/structure/spirit_board/proc/spirit_board_checks(mob/M)
 	//cooldown
 	var/bonus = 0
 	if(M.ckey == lastuser)

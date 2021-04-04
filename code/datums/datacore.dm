@@ -35,12 +35,18 @@
 		var/rank = t.fields["rank"]
 		var/real_rank = t.fields["real_rank"]
 		if(OOC)
-			var/active = 0
-			for(var/mob/M in GLOB.player_list)
-				if(M.real_name == name && M.client && M.client.inactivity <= 10 * 60 * 10)
-					active = 1
+			var/activetext = "Inactive"
+			for(var/thing in GLOB.human_list)
+				var/mob/living/carbon/human/H = thing
+				if(H.real_name != name)
+					continue
+				if(H.client && H.client.inactivity <= 6000)
+					activetext = "Active"
 					break
-			isactive[name] = active ? "Active" : "Inactive"
+				if(isLivingSSD(H))
+					activetext = "SSD"
+					break
+			isactive[name] = activetext
 		else
 			isactive[name] = t.fields["p_stat"]
 		var/department = 0
@@ -123,7 +129,7 @@
 
 
 /*
-We can't just insert in HTML into the nanoUI so we need the raw data to play with.
+We can't just insert in HTML into the TGUI so we need the raw data to play with.
 Instead of creating this list over and over when someone leaves their PDA open to the page
 we'll only update it when it changes.  The PDA_Manifest global list is zeroed out upon any change
 using /datum/datacore/proc/manifest_inject(), or manifest_insert()
@@ -339,7 +345,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		locked += L
 	return
 
-/proc/get_id_photo(mob/living/carbon/human/H, var/custom_job = null)
+/proc/get_id_photo(mob/living/carbon/human/H, custom_job = null)
 	var/icon/preview_icon = null
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 	var/obj/item/organ/internal/eyes/eyes_organ = H.get_int_organ(/obj/item/organ/internal/eyes)
@@ -400,7 +406,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		var/icon/eyes_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = H.dna.species ? H.dna.species.eyes : "eyes_s")
 		if(!eyes_organ)
 			return
-		eyes_s.Blend(eyes_organ.eye_colour, ICON_ADD)
+		eyes_s.Blend(eyes_organ.eye_color, ICON_ADD)
 		face_s.Blend(eyes_s, ICON_OVERLAY)
 
 	var/datum/sprite_accessory/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]

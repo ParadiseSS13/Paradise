@@ -2,11 +2,12 @@
 	name = "Plasmaman"
 	name_plural = "Plasmamen"
 	icobase = 'icons/mob/human_races/r_plasmaman_sb.dmi'
-	deform = 'icons/mob/human_races/r_plasmaman_pb.dmi'  // TODO: Need deform.
 	dangerous_existence = TRUE //So so much
 	//language = "Clatter"
 
-	species_traits = list(IS_WHITELISTED, RADIMMUNE, NO_BLOOD, NO_HUNGER, NOTRANSSTING)
+	species_traits = list(IS_WHITELISTED, NO_BLOOD, NOTRANSSTING, NO_HAIR)
+	inherent_traits = list(TRAIT_RADIMMUNE, TRAIT_NOHUNGER)
+	inherent_biotypes = MOB_HUMANOID | MOB_MINERAL
 	forced_heartattack = TRUE // Plasmamen have no blood, but they should still get heart-attacks
 	skinned_type = /obj/item/stack/sheet/mineral/plasma // We're low on plasma, R&D! *eyes plasmaman co-worker intently*
 	dietflags = DIET_OMNI
@@ -20,7 +21,6 @@
 
 	burn_mod = 1.5
 	heatmod = 1.5
-	brute_mod = 1.5
 
 	//Has default darksight of 2.
 
@@ -135,32 +135,30 @@
 		if("Blueshield")
 			O = new /datum/outfit/plasmaman/blueshield
 
+		if("Assistant", "Tourist", "Civilian", "Businessman", "Trader")
+			O = new /datum/outfit/plasmaman/assistant
+
 	H.equipOutfit(O, visualsOnly)
 	H.internal = H.r_hand
 	H.update_action_buttons_icon()
 	return FALSE
 
 /datum/species/plasmaman/handle_life(mob/living/carbon/human/H)
-	var/datum/gas_mixture/environment = H.loc.return_air()
-	var/atmos_sealed = FALSE
-	if (H.wear_suit && H.head && istype(H.wear_suit, /obj/item/clothing) && istype(H.head, /obj/item/clothing))
-		var/obj/item/clothing/CS = H.wear_suit
-		var/obj/item/clothing/CH = H.head
-		if (CS.flags & CH.flags & STOPSPRESSUREDMAGE)
-			atmos_sealed = TRUE
-	if((!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman)) && !atmos_sealed)
+	var/atmos_sealed = !HAS_TRAIT(H, TRAIT_NOFIRE) && (isclothing(H.wear_suit) && H.wear_suit.flags & STOPSPRESSUREDMAGE) && (isclothing(H.head) && H.head.flags & STOPSPRESSUREDMAGE)
+	if(!atmos_sealed && (!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman)))
+		var/datum/gas_mixture/environment = H.loc.return_air()
 		if(environment)
 			if(environment.total_moles())
-				if(environment.oxygen && environment.oxygen >= OXYCONCEN_PLASMEN_IGNITION) //Same threshhold that extinguishes fire
-					H.adjust_fire_stacks(0.5)
-					if(!H.on_fire && H.fire_stacks > 0)
-						H.visible_message("<span class='danger'>[H]'s body reacts with the atmosphere and bursts into flames!</span>","<span class='userdanger'>Your body reacts with the atmosphere and bursts into flame!</span>")
-					H.IgniteMob()
-	else
-		if(H.fire_stacks)
-			var/obj/item/clothing/under/plasmaman/P = H.w_uniform
-			if(istype(P))
-				P.Extinguish(H)
+				if(!HAS_TRAIT(H, TRAIT_NOFIRE))
+					if(environment.oxygen && environment.oxygen >= OXYCONCEN_PLASMEN_IGNITION) //Same threshhold that extinguishes fire
+						H.adjust_fire_stacks(0.5)
+						if(!H.on_fire && H.fire_stacks > 0)
+							H.visible_message("<span class='danger'>[H]'s body reacts with the atmosphere and bursts into flames!</span>","<span class='userdanger'>Your body reacts with the atmosphere and bursts into flame!</span>")
+						H.IgniteMob()
+	else if(H.fire_stacks)
+		var/obj/item/clothing/under/plasmaman/P = H.w_uniform
+		if(istype(P))
+			P.Extinguish(H)
 	H.update_fire()
 	..()
 

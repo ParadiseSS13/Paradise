@@ -2,6 +2,7 @@
 
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPMINDSHIELD_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,GLAND_HUD)
 	pressure_resistance = 25
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	//Marking colour and style
 	var/list/m_colours = DEFAULT_MARKING_COLOURS //All colours set to #000000.
 	var/list/m_styles = DEFAULT_MARKING_STYLES //All markings set to None.
@@ -47,6 +48,8 @@
 
 	var/name_override //For temporary visible name changes
 
+	var/datum/physiology/physiology
+
 	var/xylophone = 0 //For the spoooooooky xylophone cooldown
 
 	var/mob/remoteview_target = null
@@ -68,3 +71,4 @@
 	var/tail // Name of tail image in species effects icon file.
 
 	var/list/splinted_limbs = list() //limbs we know are splinted
+	var/original_eye_color = "#000000"

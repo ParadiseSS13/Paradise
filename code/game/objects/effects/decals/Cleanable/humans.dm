@@ -37,26 +37,12 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 /obj/effect/decal/cleanable/blood/Initialize(mapload)
 	. = ..()
 	update_icon()
-	if(GAMEMODE_IS_CULT)
-		var/datum/game_mode/cult/mode_ticker = SSticker.mode
-		var/turf/T = get_turf(src)
-		if(T && (is_station_level(T.z)))//F I V E   T I L E S
-			if(!(T in mode_ticker.bloody_floors))
-				mode_ticker.bloody_floors += T
-				mode_ticker.bloody_floors[T] = T
-				mode_ticker.blood_check()
 	if(type == /obj/effect/decal/cleanable/blood/gibs)
 		return
 	if(!.)
 		dry_timer = addtimer(CALLBACK(src, .proc/dry), DRYING_TIME * (amount+1), TIMER_STOPPABLE)
 
 /obj/effect/decal/cleanable/blood/Destroy()
-	if(GAMEMODE_IS_CULT)
-		var/datum/game_mode/cult/mode_ticker = SSticker.mode
-		var/turf/T = get_turf(src)
-		if(T && (is_station_level(T.z)))
-			mode_ticker.bloody_floors -= T
-			mode_ticker.blood_check()
 	if(dry_timer)
 		deltimer(dry_timer)
 	return ..()
@@ -196,7 +182,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 /obj/effect/decal/cleanable/blood/gibs/cleangibs //most ironic name ever...
 	scoop_reagents = null
 
-/obj/effect/decal/cleanable/blood/gibs/proc/streak(var/list/directions)
+/obj/effect/decal/cleanable/blood/gibs/proc/streak(list/directions)
 	set waitfor = 0
 	var/direction = pick(directions)
 	for(var/i = 0, i < pick(1, 200; 2, 150; 3, 50; 4), i++)

@@ -1,13 +1,13 @@
 // All the TGUI interactions are in their own file to keep things simpler
 
-/obj/item/pda/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_inventory_state)
+/obj/item/pda/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "PDA", name, 600, 650, master_ui, state)
 		ui.open()
 
 
-/obj/item/pda/tgui_data(mob/user)
+/obj/item/pda/ui_data(mob/user)
 	var/list/data = list()
 
 	data["owner"] = owner
@@ -58,7 +58,7 @@
 	return data
 
 // Yes the stupid amount of args here is important, see L102
-/obj/item/pda/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+/obj/item/pda/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
@@ -93,14 +93,17 @@
 						P.unnotify()
 				cartridge = null
 				update_shortcuts()
-		if("Authenticate")//Checks for ID
+				playsound(src, 'sound/machines/terminal_eject.ogg', 50, TRUE)
+		if("Authenticate") //Checks for ID
 			id_check(usr, 1)
 		if("Ringtone")
+			if(!silent)
+				playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
 			return set_ringtone()
 		else
 			if(current_app)
-				. = current_app.tgui_act(action, params, ui, state) // It needs proxying through down here so apps actually have their interacts called
+				. = current_app.ui_act(action, params, ui, state) // It needs proxying through down here so apps actually have their interacts called
 
-	if((honkamt > 0) && (prob(60)))//For clown virus.
+	if((honkamt > 0) && (prob(60))) //For clown virus.
 		honkamt--
-		playsound(loc, 'sound/items/bikehorn.ogg', 30, 1)
+		playsound(src, 'sound/items/bikehorn.ogg', 30, TRUE)

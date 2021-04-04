@@ -51,7 +51,7 @@
 					to_chat(user, "<span class='notice'>This spell cannot be strengthened any further.</span>")
 				return TRUE
 	//No same spell found - just learn it
-	feedback_add_details("wizard_spell_learned", log_name)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, log_name)
 	user.mind.AddSpell(newspell)
 	to_chat(user, "<span class='notice'>You have learned [newspell.name].</span>")
 	return TRUE
@@ -171,7 +171,18 @@
 	spell_type = /obj/effect/proc_holder/spell/targeted/infinite_guns
 	log_name = "IG"
 	category = "Offensive"
-	cost = 4
+
+/datum/spellbook_entry/sacred_flame
+	name = "Sacred Flame"
+	spell_type = /obj/effect/proc_holder/spell/targeted/sacred_flame
+	cost = 1
+	log_name = "SF"
+	refundable = 0 //You get fire immunity out of it, no.
+
+/datum/spellbook_entry/sacred_flame/LearnSpell(mob/living/carbon/human/user, obj/item/spellbook/book, obj/effect/proc_holder/spell/newspell)
+	..()
+	user.dna.SetSEState(GLOB.coldblock, 1)
+	singlemutcheck(user, GLOB.coldblock, MUTCHK_FORCED)
 
 //Defensive
 /datum/spellbook_entry/disabletech
@@ -332,7 +343,7 @@
 	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/summon/guns/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
-	feedback_add_details("wizard_spell_learned", log_name)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, log_name)
 	rightandwrong(SUMMON_GUNS, user, 10)
 	active = TRUE
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
@@ -346,7 +357,7 @@
 	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/summon/magic/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
-	feedback_add_details("wizard_spell_learned", log_name)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, log_name)
 	rightandwrong(SUMMON_MAGIC, user, 10)
 	active = TRUE
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
@@ -358,11 +369,15 @@
 	name = "Buy Item"
 	refundable = 0
 	buy_word = "Summon"
+	var/spawn_on_floor = FALSE
 	var/item_path = null
 
 /datum/spellbook_entry/item/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
-	user.put_in_hands(new item_path)
-	feedback_add_details("wizard_spell_learned", log_name)
+	if(spawn_on_floor == FALSE)
+		user.put_in_hands(new item_path)
+	else
+		new item_path(user.loc)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, log_name)
 	return 1
 
 /datum/spellbook_entry/item/GetInfo()
@@ -387,16 +402,6 @@
 	log_name = "SO"
 	category = "Artefacts"
 
-/datum/spellbook_entry/item/scryingorb/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
-	if(..())
-		if(!(XRAY in user.mutations))
-			user.mutations.Add(XRAY)
-			user.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
-			user.see_in_dark = 8
-			user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-			to_chat(user, "<span class='notice'>The walls suddenly disappear.</span>")
-	return TRUE
-
 /datum/spellbook_entry/item/soulstones
 	name = "Six Soul Stone Shards and the spell Artificer"
 	desc = "Soul Stone Shards are ancient tools capable of capturing and harnessing the spirits of the dead and dying. The spell Artificer allows you to create arcane machines for the captured souls to pilot."
@@ -415,6 +420,30 @@
 	desc = "A collection of wands that allow for a wide variety of utility. Wands do not recharge, so be conservative in use. Comes in a handy belt."
 	item_path = /obj/item/storage/belt/wands/full
 	log_name = "WA"
+	category = "Artefacts"
+
+/datum/spellbook_entry/item/cursed_heart
+	name = "Cursed Heart"
+	desc = "A heart that has been empowered with magic to heal the user. The user must ensure the heart is manually beaten or their blood circulation will suffer, but every beat heals their injuries. It must beat every 6 seconds. Not reccomended for first time wizards."
+	item_path = /obj/item/organ/internal/heart/cursed/wizard
+	log_name = "CH"
+	cost = 1
+	category = "Artefacts"
+
+/datum/spellbook_entry/item/voice_of_god
+	name = "Voice of god"
+	desc = "A magical vocal cord that can be used to yell out with the voice of a god, be it to harm, help, or confuse the target."
+	item_path = /obj/item/organ/internal/vocal_cords/colossus/wizard
+	log_name = "VG"
+	category = "Artefacts"
+
+/datum/spellbook_entry/item/warp_cubes
+	name = "Warp Cubes"
+	desc = "Two magic cubes, that when they are twisted in hand, teleports the user to the location of the other cube instantly. Great for silently teleporting to a fixed location, or teleporting you to an appretnance, or vice versa. Do not leave on the wizard den, it will not work."
+	item_path = /obj/item/warp_cube/red
+	log_name = "WC"
+	cost = 1
+	spawn_on_floor = TRUE // breaks if spawned in hand
 	category = "Artefacts"
 
 //Weapons and Armors
@@ -446,6 +475,21 @@
 	desc = "A hammer that creates an intensely powerful field of gravity where it strikes, pulling everthing nearby to the point of impact."
 	item_path = /obj/item/twohanded/singularityhammer
 	log_name = "SI"
+	category = "Weapons and Armors"
+
+/datum/spellbook_entry/item/spell_blade //Yes spellblade is technicaly a staff, but you can melee with it and it is not called a staff so I am putting it here
+	name = "Spellblade"
+	desc = "A magical sword that is quite good at slashing people, but is even better at shooting magical projectiles that can potentialy delimb at range."
+	item_path = /obj/item/gun/magic/staff/spellblade
+	log_name = "SB"
+	category = "Weapons and Armors"
+
+/datum/spellbook_entry/item/meat_hook
+	name = "Meat hook"
+	desc = "An enchanted hook, that can be used to hook people, hurt them, and bring them right to you. Quite bulky, works well as a belt though."
+	item_path = /obj/item/gun/magic/hook
+	cost = 1
+	log_name = "MH"
 	category = "Weapons and Armors"
 
 //Staves
@@ -486,6 +530,7 @@
 	item_path = /obj/item/gun/magic/staff/change
 	log_name = "ST"
 	category = "Staves"
+	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/item/staffchaos
 	name = "Staff of Chaos"

@@ -8,7 +8,7 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/ion
 	flag = "energy"
 
-/obj/item/projectile/ion/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/ion/on_hit(atom/target, blocked = 0)
 	..()
 	empulse(target, 1, 1, 1, cause = "[type] fired by [key_name(firer)]")
 	return 1
@@ -27,7 +27,7 @@
 	alwayslog = TRUE
 	flag = "bullet"
 
-/obj/item/projectile/bullet/gyro/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/bullet/gyro/on_hit(atom/target, blocked = 0)
 	..()
 	explosion(target, -1, 0, 2, cause = "[type] fired by [key_name(firer)]")
 	return 1
@@ -92,7 +92,7 @@
 			icon_state = "temp_4"
 
 
-/obj/item/projectile/temp/on_hit(var/atom/target, var/blocked = 0)//These two could likely check temp protection on the mob
+/obj/item/projectile/temp/on_hit(atom/target, blocked = 0)//These two could likely check temp protection on the mob
 	..()
 	if(isliving(target))
 		var/mob/living/M = target
@@ -133,30 +133,6 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	flag = "energy"
 
-/obj/item/projectile/energy/floramut/on_hit(var/atom/target, var/blocked = 0)
-	..()
-	var/mob/living/M = target
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = M
-		if(IS_PLANT in H.dna.species.species_traits)
-			if(prob(15))
-				M.apply_effect((rand(30,80)),IRRADIATE)
-				M.Weaken(5)
-				M.visible_message("<span class='warning'>[M] writhes in pain as [M.p_their()] vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
-				if(prob(80))
-					randmutb(M)
-					domutcheck(M,null)
-				else
-					randmutg(M)
-					domutcheck(M,null)
-			else
-				M.adjustFireLoss(rand(5,15))
-				M.show_message("<span class='warning'>The radiation beam singes you!</span>")
-	else if(iscarbon(target))
-		M.show_message("<span class='notice'>The radiation beam dissipates harmlessly through your body.</span>")
-	else
-		return 1
-
 /obj/item/projectile/energy/florayield
 	name = "beta somatoray"
 	icon_state = "energy2"
@@ -165,23 +141,10 @@
 	nodamage = 1
 	flag = "energy"
 
-/obj/item/projectile/energy/florayield/on_hit(var/atom/target, var/blocked = 0)
-	..()
-	var/mob/M = target
-	if(ishuman(target)) //These rays make plantmen fat.
-		var/mob/living/carbon/human/H = M
-		if(IS_PLANT in H.dna.species.species_traits)
-			H.set_nutrition(min(H.nutrition+30, NUTRITION_LEVEL_FULL))
-	else if(iscarbon(target))
-		M.show_message("<span class='notice'>The radiation beam dissipates harmlessly through your body.</span>")
-	else
-		return 1
-
-
-/obj/item/projectile/beam/mindflayer
+/obj/item/projectile/energy/mindflayer
 	name = "flayer ray"
 
-/obj/item/projectile/beam/mindflayer/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/energy/mindflayer/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/M = target
@@ -213,7 +176,8 @@
 	name = "orange bluespace beam"
 	color = "#FF6600"
 
-/obj/item/projectile/beam/wormhole/New(var/obj/item/ammo_casing/energy/wormhole/casing)
+/obj/item/projectile/beam/wormhole/New(obj/item/ammo_casing/energy/wormhole/casing)
+	. = ..()
 	if(casing)
 		gun = casing.gun
 
@@ -245,6 +209,7 @@
 	damage = 5
 	range = 3
 	dismemberment = 20
+	sharp = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 
 /obj/item/projectile/plasma/on_hit(atom/target)
@@ -277,7 +242,7 @@
 	if(tele_target)
 		teleport_target = tele_target
 
-/obj/item/projectile/energy/teleport/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/energy/teleport/on_hit(atom/target, blocked = 0)
 	if(isliving(target))
 		if(teleport_target)
 			do_teleport(target, teleport_target, 0)//teleport what's in the tile to the beacon

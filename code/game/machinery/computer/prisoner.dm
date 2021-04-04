@@ -1,5 +1,5 @@
 /obj/machinery/computer/prisoner
-	name = "implant management console"
+	name = "labor camp points manager"
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "security_key"
 	icon_screen = "explosive"
@@ -15,7 +15,7 @@
 
 	light_color = LIGHT_COLOR_DARKRED
 
-/obj/machinery/computer/prisoner/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/prisoner/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 
 /obj/machinery/computer/prisoner/New()
@@ -26,7 +26,7 @@
  	GLOB.prisoncomputer_list -= src
  	return ..()
 
-/obj/machinery/computer/prisoner/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/prisoner/attack_hand(mob/user as mob)
 	if(..())
 		return 1
 	user.set_machine(src)
@@ -41,7 +41,7 @@
 			dat += text("<A href='?src=[UID()];id=1'>[inserted_id]</A><br>")
 			dat += text("Collected points: [p]. <A href='?src=[UID()];id=2'>Reset.</A><br>")
 			dat += text("Card goal: [g].  <A href='?src=[UID()];id=3'>Set </A><br>")
-			dat += text("Space Law recommends sentences of 100 points per minute they would normally serve in the brig.<BR>")
+			dat += text("Space Law recommends sentences of 150 points per minute they would normally serve in the brig.<BR>")
 		else
 			dat += text("<A href='?src=[UID()];id=0'>Insert Prisoner ID</A><br>")
 		var/turf/Tr = null
@@ -107,7 +107,7 @@
 				inserted_id.loc = get_step(src,get_turf(usr))
 				inserted_id = null
 			if("2")
-				inserted_id.points = 0
+				inserted_id.mining_points = 0
 			if("3")
 				var/num = round(input(usr, "Choose prisoner's goal:", "Input an Integer", null) as num|null)
 				if(num >= 0)

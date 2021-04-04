@@ -14,7 +14,6 @@
 	width = 12
 	dwidth = 5
 	height = 7
-	roundstart_move = "supply_away"
 
 /obj/docking_port/mobile/supply/register()
 	if(!..())
@@ -400,16 +399,16 @@
 	req_access = list()
 	is_public = TRUE
 
-/obj/machinery/computer/supplycomp/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/supplycomp/attack_ai(mob/user as mob)
 	return attack_hand(user)
 
-/obj/machinery/computer/supplycomp/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/supplycomp/attack_hand(mob/user as mob)
 	if(!allowed(user) && !isobserver(user))
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return 1
 
 	post_signal("supply")
-	tgui_interact(user)
+	ui_interact(user)
 	return
 
 /obj/machinery/computer/supplycomp/emag_act(user as mob)
@@ -418,13 +417,13 @@
 		hacked = TRUE
 		return
 
-/obj/machinery/computer/supplycomp/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/computer/supplycomp/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "CargoConsole", name, 900, 800, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/supplycomp/tgui_data(mob/user)
+/obj/machinery/computer/supplycomp/ui_data(mob/user)
 	var/list/data = list()
 
 	var/list/requests_list = list()
@@ -455,14 +454,14 @@
 
 	return data
 
-/obj/machinery/computer/supplycomp/tgui_static_data(mob/user)
+/obj/machinery/computer/supplycomp/ui_static_data(mob/user)
 	var/list/data = list()
 	var/list/packs_list = list()
 
 	for(var/set_name in SSshuttle.supply_packs)
 		var/datum/supply_packs/pack = SSshuttle.supply_packs[set_name]
 		if((pack.hidden && hacked) || (pack.contraband && can_order_contraband) || (pack.special && pack.special_enabled) || (!pack.contraband && !pack.hidden && !pack.special))
-			packs_list.Add(list(list("name" = pack.name, "cost" = pack.cost, "ref" = "[pack.UID()]", "contents" = pack.tgui_manifest, "cat" = pack.group)))
+			packs_list.Add(list(list("name" = pack.name, "cost" = pack.cost, "ref" = "[pack.UID()]", "contents" = pack.ui_manifest, "cat" = pack.group)))
 
 	data["supply_packs"] = packs_list
 
@@ -482,7 +481,7 @@
 
 	return FALSE
 
-/obj/machinery/computer/supplycomp/tgui_act(action, list/params)
+/obj/machinery/computer/supplycomp/ui_act(action, list/params)
 	if(..())
 		return
 
@@ -608,7 +607,7 @@
 			ccmsg_browser.set_content(SSshuttle.centcom_message)
 			ccmsg_browser.open()
 
-/obj/machinery/computer/supplycomp/proc/post_signal(var/command)
+/obj/machinery/computer/supplycomp/proc/post_signal(command)
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(DISPLAY_FREQ)
 
 	if(!frequency) return

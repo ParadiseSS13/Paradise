@@ -9,7 +9,7 @@
 	req_stat = UNCONSCIOUS
 
 //Recover from stuns.
-/datum/action/changeling/epinephrine/sting_action(var/mob/living/user)
+/datum/action/changeling/epinephrine/sting_action(mob/living/user)
 
 	if(user.lying)
 		to_chat(user, "<span class='notice'>We arise.</span>")
@@ -25,5 +25,5 @@
 	user.reagents.add_reagent("synaptizine", 20)
 	user.adjustStaminaLoss(-75)
 
-	feedback_add_details("changeling_powers","UNS")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1

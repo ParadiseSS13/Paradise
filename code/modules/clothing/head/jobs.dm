@@ -37,8 +37,8 @@
 
 //Nanotrasen Representative
 /obj/item/clothing/head/ntrep
-	name = "Nanotrasen Representative hat"
-	desc = "A cap issued to the Nanotrasen Representative"
+	name = "Nanotrasen Representative's hat"
+	desc = "A cap issued to Nanotrasen Representatives."
 	icon_state = "ntrep"
 
 
@@ -81,6 +81,10 @@
 	armor = list("melee" = 25, "bullet" = 5, "laser" = 25, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 50)
 	dog_fashion = /datum/dog_fashion/head/detective
 
+	sprite_sheets = list(
+	"Vox" = 'icons/mob/species/vox/head.dmi'
+	)
+
 //Mime
 /obj/item/clothing/head/beret
 	name = "beret"
@@ -97,14 +101,14 @@
 
 //Security
 /obj/item/clothing/head/HoS
-	name = "head of security cap"
+	name = "head of security's cap"
 	desc = "The robust standard-issue cap of the Head of Security. For showing the officers who's in charge."
 	icon_state = "hoscap"
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
 	strip_delay = 80
 
 /obj/item/clothing/head/HoS/beret
-	name = "head of security beret"
+	name = "head of security's beret"
 	desc = "A robust beret for the Head of Security, for looking stylish while not sacrificing protection."
 	icon_state = "beret_hos_black"
 
@@ -149,7 +153,7 @@
 	icon_state = "beret_atmospherics"
 
 /obj/item/clothing/head/beret/ce
-	name = "chief engineer beret"
+	name = "chief engineer's beret"
 	desc = "A white beret with the engineering insignia emblazoned on it. Its owner knows what they're doing. Probably."
 	icon_state = "beret_ce"
 

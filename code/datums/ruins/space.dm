@@ -249,6 +249,24 @@
 	always_place = TRUE // Its designed to make exploring other space ruins more accessible
 	cost = 0 // Force spawned so shouldnt have a cost
 
+/datum/map_template/ruin/space/golem_destination
+	id = "golemtarget"
+	suffix = "golemtarget.dmm"
+	name = "Golem Shuttle Destination"
+	description = "Just a handful of rocks floating in space. Guaranteed space destination for the Golem shuttle in case other destinations don't spawn."
+	allow_duplicates = FALSE
+	always_place = TRUE
+	cost = 0
+
+/datum/map_template/ruin/space/syndicate_space_base
+	name = "Syndicate Space Base"
+	id = "syndie-space-base"
+	description = "A secret base researching illegal bioweapons, it is closely guarded by an elite team of syndicate agents."
+	suffix = "syndie_space_base.dmm"
+	cost = 0
+	always_place = TRUE
+	allow_duplicates = FALSE
+
 /datum/map_template/ruin/space/syndiecakesfactory
 	id = "Syndiecakes Factory"
 	suffix = "syndiecakesfactory.dmm"

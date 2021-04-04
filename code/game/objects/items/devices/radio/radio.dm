@@ -10,7 +10,8 @@ GLOBAL_LIST_INIT(default_internal_channels, list(
 	num2text(SEC_I_FREQ)=list(ACCESS_SECURITY),
 	num2text(SCI_FREQ) = list(ACCESS_RESEARCH),
 	num2text(SUP_FREQ) = list(ACCESS_CARGO),
-	num2text(SRV_FREQ) = list(ACCESS_HOP, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_HYDROPONICS, ACCESS_JANITOR, ACCESS_CLOWN, ACCESS_MIME)
+	num2text(SRV_FREQ) = list(ACCESS_HOP, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_HYDROPONICS, ACCESS_JANITOR, ACCESS_CLOWN, ACCESS_MIME),
+	num2text(PROC_FREQ)= list(ACCESS_MAGISTRATE, ACCESS_NTREP, ACCESS_LAWYER)
 ))
 
 GLOBAL_LIST_INIT(default_medbay_channels, list(
@@ -117,16 +118,16 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	return interact(user)
 
 /obj/item/radio/attack_self(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/item/radio/interact(mob/user)
 	if(!user)
 		return 0
 	if(b_stat)
 		wires.Interact(user)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/item/radio/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/item/radio/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		var/list/schannels = list_secure_channels(user)
@@ -135,7 +136,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		ui = new(user, src, ui_key, "Radio", name, 400, calc_height, master_ui, state)
 		ui.open()
 
-/obj/item/radio/tgui_data(mob/user)
+/obj/item/radio/ui_data(mob/user)
 	var/list/data = list()
 
 	data["broadcasting"] = broadcasting
@@ -152,7 +153,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	data["loudspeaker"] = loudspeaker
 	return data
 
-/obj/item/radio/tgui_act(action, params, datum/tgui/ui)
+/obj/item/radio/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
 	. = TRUE
@@ -235,15 +236,15 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	return user.has_internal_radio_channel_access(user, internal_channels[freq])
 
-/mob/proc/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
+/mob/proc/has_internal_radio_channel_access(mob/user, list/req_one_accesses)
 	var/obj/item/card/id/I = user.get_id_card()
 	return has_access(list(), req_one_accesses, I ? I.GetAccess() : list())
 
-/mob/living/silicon/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
+/mob/living/silicon/has_internal_radio_channel_access(mob/user, list/req_one_accesses)
 	var/list/access = get_all_accesses()
 	return has_access(list(), req_one_accesses, access)
 
-/mob/dead/observer/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
+/mob/dead/observer/has_internal_radio_channel_access(mob/user, list/req_one_accesses)
 	return can_admin_interact()
 
 /obj/item/radio/proc/ToggleBroadcast()
@@ -292,7 +293,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(loc && loc.z)
 		tcm.source_level = loc.z // For anyone that reads this: This used to pull from a LIST from the CONFIG DATUM. WHYYYYYYYYY!!!!!!!! -aa
 	else
-		tcm.source_level = 1 // Assume Z1 if we dont have an actual Z level available to us.
+		tcm.source_level = level_name_to_num(MAIN_STATION) // Assume station level if we dont have an actual Z level available to us.
 	tcm.freq = connection.frequency
 	tcm.follow_target = follow_target
 
@@ -474,7 +475,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	return FALSE
 
 
-/obj/item/radio/hear_talk(mob/M as mob, list/message_pieces, var/verb = "says")
+/obj/item/radio/hear_talk(mob/M as mob, list/message_pieces, verb = "says")
 	if(broadcasting)
 		if(get_dist(src, M) <= canhear_range)
 			talk_into(M, message_pieces, null, verb)
@@ -621,7 +622,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/borg/syndicate
 	keyslot = new /obj/item/encryptionkey/syndicate/nukeops
 
-/obj/item/radio/borg/syndicate/tgui_status(mob/user, datum/tgui_state/state)
+/obj/item/radio/borg/syndicate/ui_status(mob/user, datum/ui_state/state)
 	. = ..()
 	if(. == STATUS_UPDATE && istype(user, /mob/living/silicon/robot/syndicate))
 		. = STATUS_INTERACTIVE

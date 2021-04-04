@@ -134,7 +134,7 @@
 	return attack_hand(user)
 
 /obj/machinery/bodyscanner/attack_ghost(user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/bodyscanner/attack_hand(user)
 	if(stat & (NOPOWER|BROKEN))
@@ -147,7 +147,7 @@
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
 
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/bodyscanner/relaymove(mob/user)
 	if(user.incapacitated())
@@ -175,7 +175,7 @@
 		A.forceMove(loc)
 	SStgui.update_uis(src)
 
-/obj/machinery/bodyscanner/force_eject_occupant()
+/obj/machinery/bodyscanner/force_eject_occupant(mob/target)
 	go_out()
 
 /obj/machinery/bodyscanner/ex_act(severity)
@@ -195,14 +195,14 @@
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	qdel(src)
 
-/obj/machinery/bodyscanner/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/bodyscanner/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "BodyScanner", "Body Scanner", 690, 600)
 		ui.open()
 
-/obj/machinery/bodyscanner/tgui_data(mob/user)
-	var/data[0]
+/obj/machinery/bodyscanner/ui_data(mob/user)
+	var/list/data = list()
 
 	data["occupied"] = occupant ? TRUE : FALSE
 
@@ -217,6 +217,8 @@
 		for(var/thing in occupant.viruses)
 			var/datum/disease/D = thing
 			if(D.visibility_flags & HIDDEN_SCANNER || D.visibility_flags & HIDDEN_PANDEMIC)
+				continue
+			if(istype(D, /datum/disease/critical))
 				continue
 			found_disease = TRUE
 			break
@@ -319,14 +321,14 @@
 
 		occupantData["intOrgan"] = intOrganData
 
-		occupantData["blind"] = (BLINDNESS in occupant.mutations)
-		occupantData["colourblind"] = (COLOURBLIND in occupant.mutations)
-		occupantData["nearsighted"] = (NEARSIGHTED in occupant.mutations)
+		occupantData["blind"] = HAS_TRAIT(occupant, TRAIT_BLIND)
+		occupantData["colourblind"] = HAS_TRAIT(occupant, TRAIT_COLORBLIND)
+		occupantData["nearsighted"] = HAS_TRAIT(occupant, TRAIT_NEARSIGHT)
 
 	data["occupant"] = occupantData
 	return data
 
-/obj/machinery/bodyscanner/tgui_act(action, params)
+/obj/machinery/bodyscanner/ui_act(action, params)
 	if(..())
 		return
 	if(stat & (NOPOWER|BROKEN))
@@ -509,11 +511,11 @@
 			dat += "<td>[i.name]</td><td>N/A</td><td>[i.damage]</td><td>[infection]:[mech][dead]</td><td></td>"
 			dat += "</tr>"
 		dat += "</table>"
-		if(BLINDNESS in occupant.mutations)
+		if(HAS_TRAIT(occupant, TRAIT_BLIND))
 			dat += "<font color='red'>Cataracts detected.</font><BR>"
-		if(COLOURBLIND in occupant.mutations)
+		if(HAS_TRAIT(occupant, TRAIT_COLORBLIND))
 			dat += "<font color='red'>Photoreceptor abnormalities detected.</font><BR>"
-		if(NEARSIGHTED in occupant.mutations)
+		if(HAS_TRAIT(occupant, TRAIT_NEARSIGHT))
 			dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
 	else
 		dat += "[src] is empty."

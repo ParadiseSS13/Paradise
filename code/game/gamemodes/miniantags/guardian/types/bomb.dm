@@ -25,6 +25,7 @@
 	if(istype(A, /obj/))
 		if(bomb_cooldown <= world.time && !stat)
 			var/obj/item/guardian_bomb/B = new /obj/item/guardian_bomb(get_turf(A))
+			add_attack_logs(src, A, "booby trapped (summoner: [summoner])")
 			to_chat(src, "<span class='danger'>Success! Bomb on [A] armed!</span>")
 			if(summoner)
 				to_chat(summoner, "<span class='warning'>Your guardian has primed [A] to explode!</span>")
@@ -41,7 +42,7 @@
 	var/mob/living/spawner
 
 
-/obj/item/guardian_bomb/proc/disguise(var/obj/A)
+/obj/item/guardian_bomb/proc/disguise(obj/A)
 	A.forceMove(src)
 	stored_obj = A
 	opacity = A.opacity
@@ -49,25 +50,29 @@
 	density = A.density
 	appearance = A.appearance
 	dir = A.dir
+	move_resist = A.move_resist
 	addtimer(CALLBACK(src, .proc/disable), 600)
 
 /obj/item/guardian_bomb/proc/disable()
+	add_attack_logs(null, stored_obj, "booby trap expired")
 	stored_obj.forceMove(get_turf(src))
 	if(spawner)
 		to_chat(spawner, "<span class='danger'>Failure! Your trap on [stored_obj] didn't catch anyone this time.</span>")
 	qdel(src)
 
-/obj/item/guardian_bomb/proc/detonate(var/mob/living/user)
+/obj/item/guardian_bomb/proc/detonate(mob/living/user)
 	if(!istype(user))
 		return
 	to_chat(user, "<span class='danger'>The [src] was boobytrapped!</span>")
 	if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
 		var/mob/living/simple_animal/hostile/guardian/G = spawner
 		if(user == G.summoner)
+			add_attack_logs(user, stored_obj, "booby trap defused")
 			to_chat(user, "<span class='danger'>You knew this because of your link with your guardian, so you smartly defuse the bomb.</span>")
 			stored_obj.forceMove(get_turf(loc))
 			qdel(src)
 			return
+	add_attack_logs(user, stored_obj, "booby trap TRIGGERED (spawner: [spawner])")
 	to_chat(spawner, "<span class='danger'>Success! Your trap on [src] caught [user]!</span>")
 	stored_obj.forceMove(get_turf(loc))
 	playsound(get_turf(src),'sound/effects/explosion2.ogg', 200, 1)
@@ -77,9 +82,8 @@
 /obj/item/guardian_bomb/attackby(obj/item/W, mob/living/user)
 	detonate(user)
 
-/obj/item/guardian_bomb/pickup(mob/living/user)
+/obj/item/guardian_bomb/attack_hand(mob/user)
 	detonate(user)
-	return FALSE // Disarm or blow up. No picking up
 
 /obj/item/guardian_bomb/examine(mob/user)
 	. = stored_obj.examine(user)

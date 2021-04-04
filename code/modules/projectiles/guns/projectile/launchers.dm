@@ -10,7 +10,7 @@
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/gun/projectile/revolver/grenadelauncher/attackby(var/obj/item/A, mob/user, params)
+/obj/item/gun/projectile/revolver/grenadelauncher/attackby(obj/item/A, mob/user, params)
 	..()
 	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
 		chamber_round()
@@ -37,12 +37,11 @@
 	fire_sound = 'sound/effects/explosion1.ogg'
 	origin_tech = "combat=5"
 	mag_type = /obj/item/ammo_box/magazine/m75
+	can_holster = TRUE // Override default automatic setting since it is a handgun sized gun
 	burst_size = 1
 	fire_delay = 0
 	actions_types = list()
 
-/obj/item/gun/projectile/automatic/gyropistol/isHandgun()
-	return 1
 
 /obj/item/gun/projectile/automatic/gyropistol/process_chamber(eject_casing = 0, empty_chamber = 1)
 	..()

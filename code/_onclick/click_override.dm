@@ -12,7 +12,7 @@
 
 /datum/middleClickOverride/
 
-/datum/middleClickOverride/proc/onClick(var/atom/A, var/mob/living/user)
+/datum/middleClickOverride/proc/onClick(atom/A, mob/living/user)
 	user.middleClickOverride = null
 	return 1
 	/* Note, when making a new click override it is ABSOLUTELY VITAL that you set the source's clickOverride to null at some point if you don't want them to be stuck with it forever.
@@ -35,7 +35,7 @@
 /datum/middleClickOverride/badminClicker
 	var/summon_path = /obj/item/reagent_containers/food/snacks/cookie
 
-/datum/middleClickOverride/badminClicker/onClick(var/atom/A, var/mob/living/user)
+/datum/middleClickOverride/badminClicker/onClick(atom/A, mob/living/user)
 	var/atom/movable/newObject = new summon_path
 	newObject.loc = get_turf(A)
 	to_chat(user, "<span class='notice'>You release the power you had stored up, summoning \a [newObject.name]! </span>")
@@ -74,7 +74,7 @@
 				L.Weaken(3)
 			else
 				if(P.unlimited_power)
-					L.electrocute_act(1000, P, safety = TRUE, override = TRUE) //Just kill them
+					L.electrocute_act(1000, P, flags = SHOCK_NOGLOVES) //Just kill them
 				else
 					electrocute_mob(L, C, P)
 			break
@@ -90,3 +90,19 @@
 		next_shocked.Cut()
 
 	P.last_shocked = world.time
+
+/**
+ * # Callback invoker middle click override datum
+ *
+ * Middle click override which accepts a callback as an arugment in the `New()` proc.
+ * When the living mob that has this datum middle-clicks or alt-clicks on something, the callback will be invoked.
+ */
+/datum/middleClickOverride/callback_invoker
+	var/datum/callback/callback
+
+/datum/middleClickOverride/callback_invoker/New(datum/callback/_callback)
+	. = ..()
+	callback = _callback
+
+/datum/middleClickOverride/callback_invoker/onClick(atom/A, mob/living/user)
+	callback.Invoke(user, A)

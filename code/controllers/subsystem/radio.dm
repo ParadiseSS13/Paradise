@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(radio)
 	"Common"		= PUB_FREQ,
 	"Science"		= SCI_FREQ,
 	"Command"		= COMM_FREQ,
+	"Procedure"		= PROC_FREQ,
 	"Medical"		= MED_FREQ,
 	"Engineering"	= ENG_FREQ,
 	"Security" 		= SEC_FREQ,
@@ -21,11 +22,11 @@ SUBSYSTEM_DEF(radio)
 	)
 	var/list/CENT_FREQS = list(ERT_FREQ, DTH_FREQ)
 	var/list/ANTAG_FREQS = list(SYND_FREQ, SYNDTEAM_FREQ)
-	var/list/DEPT_FREQS = list(AI_FREQ, COMM_FREQ, ENG_FREQ, MED_FREQ, SEC_FREQ, SCI_FREQ, SRV_FREQ, SUP_FREQ)
+	var/list/DEPT_FREQS = list(AI_FREQ, COMM_FREQ, ENG_FREQ, MED_FREQ, SEC_FREQ, SCI_FREQ, SRV_FREQ, SUP_FREQ, PROC_FREQ)
 	var/list/datum/radio_frequency/frequencies = list()
 
 // This is fucking disgusting and needs to die
-/datum/controller/subsystem/radio/proc/frequency_span_class(var/frequency)
+/datum/controller/subsystem/radio/proc/frequency_span_class(frequency)
 	// Antags!
 	if(frequency in ANTAG_FREQS)
 		return "syndradio"
@@ -50,6 +51,8 @@ SUBSYSTEM_DEF(radio)
 			return "supradio"
 		if(SRV_FREQ)
 			return "srvradio"
+		if(PROC_FREQ)
+			return "proradio"
 
 	// If the above switch somehow failed. And it needs the SSradio. part otherwise it fails to compile
 	if(frequency in DEPT_FREQS)
@@ -59,7 +62,7 @@ SUBSYSTEM_DEF(radio)
 	return "radio"
 
 
-/datum/controller/subsystem/radio/proc/add_object(obj/device as obj, var/new_frequency as num, var/filter = null as text|null)
+/datum/controller/subsystem/radio/proc/add_object(obj/device as obj, new_frequency as num, filter = null as text|null)
 	var/f_text = num2text(new_frequency)
 	var/datum/radio_frequency/frequency = frequencies[f_text]
 
@@ -84,7 +87,7 @@ SUBSYSTEM_DEF(radio)
 
 	return 1
 
-/datum/controller/subsystem/radio/proc/return_frequency(var/new_frequency as num)
+/datum/controller/subsystem/radio/proc/return_frequency(new_frequency as num)
 	var/f_text = num2text(new_frequency)
 	var/datum/radio_frequency/frequency = frequencies[f_text]
 

@@ -12,9 +12,12 @@
 		"message1" = message1 ? message1 : "(none)",
 		"message2" = message2 ? message2 : "(none)")
 
-/datum/data/pda/app/status_display/tgui_act(action, list/params)
+/datum/data/pda/app/status_display/ui_act(action, list/params)
 	if(..())
 		return
+
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
 	. = TRUE
 	switch(action)
@@ -31,7 +34,7 @@
 				else
 					post_status(params["statdisp"])
 
-/datum/data/pda/app/status_display/proc/post_status(var/command, var/data1, var/data2)
+/datum/data/pda/app/status_display/proc/post_status(command, data1, data2)
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(DISPLAY_FREQ)
 	if(!frequency)
 		return
@@ -72,11 +75,14 @@
 		data["minFrequency"] = PUBLIC_LOW_FREQ
 		data["maxFrequency"] = PUBLIC_HIGH_FREQ
 
-/datum/data/pda/app/signaller/tgui_act(action, list/params)
+/datum/data/pda/app/signaller/ui_act(action, list/params)
 	if(..())
 		return
 
 	. = TRUE
+
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
 	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/signal))
 		var/obj/item/integrated_radio/signal/R = pda.cartridge.radio
@@ -100,19 +106,22 @@
 	category = "Engineering"
 	update = PDA_APP_UPDATE_SLOW
 
-	var/datum/tgui_module/power_monitor/digital/pm = new
+	var/datum/ui_module/power_monitor/digital/pm = new
 
 /datum/data/pda/app/power/update_ui(mob/user as mob, list/data)
-	data.Add(pm.tgui_data())
+	data.Add(pm.ui_data())
 
 // All 4 args are important here because proxying matters
-/datum/data/pda/app/power/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+/datum/data/pda/app/power/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
+
 	. = TRUE
 	// Observe
-	pm.tgui_act(action, params, ui, state)
+	pm.ui_act(action, params, ui, state)
 
 /datum/data/pda/app/crew_records
 	var/datum/data/record/general_records = null
@@ -133,11 +142,14 @@
 		data["records"] = null
 		return null
 
-/datum/data/pda/app/crew_records/tgui_act(action, list/params)
+/datum/data/pda/app/crew_records/ui_act(action, list/params)
 	if(..())
 		return
 
 	. = TRUE
+
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
 	switch(action)
 		if("Records")
@@ -248,9 +260,12 @@
 
 	data["beepsky"] = beepskyData
 
-/datum/data/pda/app/secbot_control/tgui_act(action, list/params)
+/datum/data/pda/app/secbot_control/ui_act(action, list/params)
 	if(..())
 		return
+
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
 	. = TRUE
 
@@ -329,9 +344,12 @@
 
 	data["mulebot"] = muleData
 
-/datum/data/pda/app/mule_control/tgui_act(action, list/params)
+/datum/data/pda/app/mule_control/ui_act(action, list/params)
 	if(..())
 		return
+
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
 	. = TRUE
 

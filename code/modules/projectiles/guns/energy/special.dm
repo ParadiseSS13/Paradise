@@ -7,6 +7,7 @@
 	fire_sound = 'sound/weapons/ionrifle.ogg'
 	origin_tech = "combat=4;magnets=4"
 	w_class = WEIGHT_CLASS_HUGE
+	can_holster = FALSE
 	flags =  CONDUCT
 	slot_flags = SLOT_BACK
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
@@ -16,9 +17,6 @@
 
 /obj/item/gun/energy/ionrifle/emp_act(severity)
 	return
-
-/obj/item/gun/energy/ionrifle/isHandgun()
-	return 0
 
 /obj/item/gun/energy/ionrifle/carbine
 	name = "ion carbine"
@@ -87,10 +85,10 @@
 /obj/item/gun/energy/mindflayer
 	name = "\improper Mind Flayer"
 	desc = "A prototype weapon recovered from the ruins of Research-Station Epsilon."
-	icon_state = "xray"
+	icon_state = "flayer"
 	item_state = null
+	shaded_charge = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/mindflayer)
-	ammo_x_offset = 2
 
 // Energy Crossbows //
 /obj/item/gun/energy/kinetic_accelerator/crossbow
@@ -200,6 +198,8 @@
 	item_state = null
 	icon_state = "wormhole_projector1"
 	origin_tech = "combat=4;bluespace=6;plasmatech=4;engineering=4"
+	charge_delay = 5
+	selfcharge = TRUE
 	var/obj/effect/portal/blue
 	var/obj/effect/portal/orange
 
@@ -312,6 +312,7 @@
 	weapon_weight = WEAPON_HEAVY
 	slot_flags = SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
+	can_holster = FALSE
 	zoomable = TRUE
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	shaded_charge = 1
@@ -335,8 +336,6 @@
 
 	var/powercost = ""
 	var/powercostcolor = ""
-
-	var/emagged = 0			//ups the temperature cap from 500 to 1000, targets hit by beams over 500 Kelvin will burst into flames
 	var/dat = ""
 
 /obj/item/gun/energy/temperature/Initialize(mapload, ...)

@@ -7,7 +7,7 @@
 	dna_cost = 1
 	req_human = 1 //Monkeys can't grab
 
-/datum/action/changeling/swap_form/can_sting(var/mob/living/carbon/user)
+/datum/action/changeling/swap_form/can_sting(mob/living/carbon/user)
 	if(!..())
 		return
 	var/obj/item/grab/G = user.get_active_hand()
@@ -15,10 +15,10 @@
 		to_chat(user, "<span class='warning'>We must have an aggressive grab on creature in our active hand to do this!</span>")
 		return
 	var/mob/living/carbon/human/target = G.affecting
-	if((NOCLONE || SKELETON || HUSK) in target.mutations)
+	if(HAS_TRAIT(target, TRAIT_BADDNA) || HAS_TRAIT(target, TRAIT_HUSK) || HAS_TRAIT(target, TRAIT_SKELETONIZED))
 		to_chat(user, "<span class='warning'>DNA of [target] is ruined beyond usability!</span>")
 		return
-	if(!istype(target) || !target.mind || issmall(target) || (NO_DNA in target.dna.species.species_traits))
+	if(!istype(target) || !target.mind || issmall(target) || HAS_TRAIT(target, TRAIT_GENELESS))
 		to_chat(user, "<span class='warning'>[target] is not compatible with this ability.</span>")
 		return
 	if(target.mind.changeling)
@@ -29,7 +29,7 @@
 		return
 	return 1
 
-/datum/action/changeling/swap_form/sting_action(var/mob/living/carbon/user)
+/datum/action/changeling/swap_form/sting_action(mob/living/carbon/user)
 	var/obj/item/grab/G = user.get_active_hand()
 	var/mob/living/carbon/human/target = G.affecting
 	var/datum/changeling/changeling = user.mind.changeling
@@ -38,7 +38,7 @@
 	target.do_jitter_animation(500)
 	user.do_jitter_animation(500)
 
-	if(!do_mob(user,target,20))
+	if(!do_mob(user, target, 10 SECONDS))
 		to_chat(user, "<span class='warning'>The body swap has been interrupted!</span>")
 		return
 

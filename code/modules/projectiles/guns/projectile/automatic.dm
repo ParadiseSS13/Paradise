@@ -4,12 +4,10 @@
 	var/select = 1
 	can_tactical = TRUE
 	can_suppress = 1
+	can_holster = FALSE
 	burst_size = 3
 	fire_delay = 2
 	actions_types = list(/datum/action/item_action/toggle_firemode)
-
-/obj/item/gun/projectile/automatic/isHandgun()
-	return 0
 
 /obj/item/gun/projectile/automatic/update_icon()
 	..()
@@ -22,7 +20,7 @@
 	if(bayonet && can_bayonet)
 		overlays += knife_overlay
 
-/obj/item/gun/projectile/automatic/attackby(var/obj/item/A as obj, mob/user as mob, params)
+/obj/item/gun/projectile/automatic/attackby(obj/item/A as obj, mob/user as mob, params)
 	. = ..()
 	if(.)
 		if(alarmed) // Did the empty clip alarm go off already?
@@ -167,14 +165,14 @@
 	underbarrel = new /obj/item/gun/projectile/revolver/grenadelauncher(src)
 	update_icon()
 
-/obj/item/gun/projectile/automatic/m90/afterattack(var/atom/target, var/mob/living/user, flag, params)
+/obj/item/gun/projectile/automatic/m90/afterattack(atom/target, mob/living/user, flag, params)
 	if(select == 2)
 		underbarrel.afterattack(target, user, flag, params)
 	else
 		..()
 		return
 
-/obj/item/gun/projectile/automatic/m90/attackby(var/obj/item/A, mob/user, params)
+/obj/item/gun/projectile/automatic/m90/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_casing))
 		if(istype(A, underbarrel.magazine.ammo_type))
 			underbarrel.attack_self()
@@ -287,7 +285,7 @@
 	update_magazine()
 	icon_state = "bulldog[chambered ? "" : "-e"]"
 
-/obj/item/gun/projectile/automatic/shotgun/bulldog/attackby(var/obj/item/A as obj, mob/user as mob, params)
+/obj/item/gun/projectile/automatic/shotgun/bulldog/attackby(obj/item/A as obj, mob/user as mob, params)
 	if(istype(A, /obj/item/ammo_box/magazine/m12g/XtrLrg))
 		if(istype(loc, /obj/item/storage))	// To prevent inventory exploits
 			var/obj/item/storage/Strg = loc

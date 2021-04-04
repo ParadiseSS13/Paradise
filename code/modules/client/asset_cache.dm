@@ -28,7 +28,7 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 
 //This proc sends the asset to the client, but only if it needs it.
 //This proc blocks(sleeps) unless verify is set to false
-/proc/send_asset(var/client/client, var/asset_name, var/verify = TRUE)
+/proc/send_asset(client/client, asset_name, verify = TRUE)
 	if(!istype(client))
 		if(ismob(client))
 			var/mob/M = client
@@ -73,7 +73,7 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 	return 1
 
 //This proc blocks(sleeps) unless verify is set to false
-/proc/send_asset_list(var/client/client, var/list/asset_list, var/verify = TRUE)
+/proc/send_asset_list(client/client, list/asset_list, verify = TRUE)
 	if(!istype(client))
 		if(ismob(client))
 			var/mob/M = client
@@ -124,7 +124,7 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 
 //This proc will download the files without clogging up the browse() queue, used for passively sending files on connection start.
 //The proc calls procs that sleep for long times.
-/proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
+/proc/getFilesSlow(client/client, list/files, register_asset = TRUE)
 	var/concurrent_tracker = 1
 	for(var/file in files)
 		if(!client)
@@ -141,7 +141,7 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 
 //This proc "registers" an asset, it adds it to the cache for further use, you cannot touch it from this point on or you'll fuck things up.
 //if it's an icon or something be careful, you'll have to copy it before further use.
-/proc/register_asset(var/asset_name, var/asset)
+/proc/register_asset(asset_name, asset)
 	SSassets.cache[asset_name] = asset
 
 //These datums are used to populate the asset cache, the proc "register()" does this.
@@ -150,7 +150,7 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 GLOBAL_LIST_EMPTY(asset_datums)
 
 //get a assetdatum or make a new one
-/proc/get_asset_datum(var/type)
+/proc/get_asset_datum(type)
 	if(!(type in GLOB.asset_datums))
 		return new type()
 	return GLOB.asset_datums[type]
@@ -221,76 +221,9 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"rook_white.png"			= 'icons/chess_pieces/rook_white.png',
 		"sprites.png"			    = 'icons/chess_pieces/sprites.png',
 		"blank.gif"                 = 'icons/chess_pieces/blank.gif',
-		"background.png"            = 'nano/images/uiBackground.png',
 		"garbochess.js"             = 'html/browser/garbochess.js',
 		"boardui.js"                = 'html/browser/boardui.js'
 	)
-
-/datum/asset/simple/headers
-	assets = list(
-		"alarm_green.gif" 			= 'icons/program_icons/alarm_green.gif',
-		"alarm_red.gif" 			= 'icons/program_icons/alarm_red.gif',
-		"batt_5.gif" 				= 'icons/program_icons/batt_5.gif',
-		"batt_20.gif" 				= 'icons/program_icons/batt_20.gif',
-		"batt_40.gif" 				= 'icons/program_icons/batt_40.gif',
-		"batt_60.gif" 				= 'icons/program_icons/batt_60.gif',
-		"batt_80.gif" 				= 'icons/program_icons/batt_80.gif',
-		"batt_100.gif" 				= 'icons/program_icons/batt_100.gif',
-		"charging.gif" 				= 'icons/program_icons/charging.gif',
-		"downloader_finished.gif" 	= 'icons/program_icons/downloader_finished.gif',
-		"downloader_running.gif" 	= 'icons/program_icons/downloader_running.gif',
-		"ntnrc_idle.gif"			= 'icons/program_icons/ntnrc_idle.gif',
-		"ntnrc_new.gif"				= 'icons/program_icons/ntnrc_new.gif',
-		"power_norm.gif"			= 'icons/program_icons/power_norm.gif',
-		"power_warn.gif"			= 'icons/program_icons/power_warn.gif',
-		"sig_high.gif" 				= 'icons/program_icons/sig_high.gif',
-		"sig_low.gif" 				= 'icons/program_icons/sig_low.gif',
-		"sig_lan.gif" 				= 'icons/program_icons/sig_lan.gif',
-		"sig_none.gif" 				= 'icons/program_icons/sig_none.gif',
-		"smmon_0.gif"				= 'icons/program_icons/smmon_0.gif',
-		"smmon_1.gif"				= 'icons/program_icons/smmon_1.gif',
-		"smmon_2.gif"				= 'icons/program_icons/smmon_2.gif',
-		"smmon_3.gif"				= 'icons/program_icons/smmon_3.gif',
-		"smmon_4.gif"				= 'icons/program_icons/smmon_4.gif',
-		"smmon_5.gif"				= 'icons/program_icons/smmon_5.gif',
-		"smmon_6.gif"				= 'icons/program_icons/smmon_6.gif',
-	)
-
-/datum/asset/nanoui
-	var/list/common = list()
-
-	var/list/common_dirs = list(
-		"nano/assets/",
-		"nano/codemirror/",
-		"nano/layouts/"
-	)
-	var/list/uncommon_dirs = list(
-		"nano/templates/"
-	)
-
-/datum/asset/nanoui/register()
-	// Crawl the directories to find files.
-	for(var/path in common_dirs)
-		var/list/filenames = flist(path)
-		for(var/filename in filenames)
-			if(copytext(filename, length(filename)) != "/") // Ignore directories.
-				if(fexists(path + filename))
-					common[filename] = fcopy_rsc(path + filename)
-					register_asset(filename, common[filename])
-	for(var/path in uncommon_dirs)
-		var/list/filenames = flist(path)
-		for(var/filename in filenames)
-			if(copytext(filename, length(filename)) != "/") // Ignore directories.
-				if(fexists(path + filename))
-					register_asset(filename, fcopy_rsc(path + filename))
-
-/datum/asset/nanoui/send(client, uncommon)
-	if(!islist(uncommon))
-		uncommon = list(uncommon)
-
-	send_asset_list(client, uncommon)
-	send_asset_list(client, common)
-
 
 //Pill sprites for UIs
 /datum/asset/chem_master
@@ -386,3 +319,19 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"Delta_nanomap_z1.png"			= 'icons/_nanomaps/Delta_nanomap_z1.png',
 		"MetaStation_nanomap_z1.png"	= 'icons/_nanomaps/MetaStation_nanomap_z1.png',
 	)
+
+/datum/asset/simple/safe
+	verify = FALSE
+	assets = list(
+		"safe_dial.png" = 'icons/safe_dial.png'
+	)
+
+// Materials (metal, glass...)
+/datum/asset/simple/materials
+	verify = FALSE
+
+/datum/asset/simple/materials/register()
+	for(var/n in list("metal", "glass", "silver", "gold", "diamond", "uranium", "plasma", "clown", "mime", "titanium", "plastic"))
+		assets["sheet-[n].png"] = icon('icons/obj/items.dmi', "sheet-[n]")
+	assets["sheet-bluespace.png"] = icon('icons/obj/telescience.dmi', "polycrystal")
+	..()

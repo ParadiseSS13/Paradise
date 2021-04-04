@@ -1,6 +1,6 @@
 #Listing maps here will blacklist them from generating in space.
 #Maps must be the full path to them
-#A list of maps valid to blacklist can be found at _maps\map_files\RandomRuins\SpaceRuins\_maplisting.txt
+#Maps valid to be blacklisted can be found in _maps/map_files/RandomRuins/SpaceRuins
 #SPECIFYING AN INVALID MAP WILL RESULT IN RUNTIMES ON GAME START
 
 #_maps/map_files/RandomRuins/SpaceRuins/way_home.dmm
@@ -31,6 +31,7 @@
 #_maps/map_files/RandomRuins/SpaceRuins/dj.dmm
 #_maps/map_files/RandomRuins/SpaceRuins/druglab.dmm
 #_maps/map_files/RandomRuins/SpaceRuins/syndiedepot.dmm
+#_maps/map_files/RandomRuins/SpaceRuins/syndie_space_base.dmm
 #_maps/map_files/RandomRuins/SpaceRuins/ussp_tele.dmm
 #_maps/map_files/RandomRuins/SpaceRuins/ussp.dmm
 
@@ -39,3 +40,7 @@
 # Its also important incase a white-ship console is ever built midround
 # DO NOT DISABLE THIS UNLESS YOU HAVE A GOOD REASON
 #_maps/map_files/RandomRuins/SpaceRuins/whiteship.dmm
+
+# The following is a force-spawned ruin consisting mostly of empty space with a shuttle docking port for the free golem shuttle
+# Disabling it will lead to the free golem shuttle sometimes being stuck on lavaland.
+#_maps/map_files/RandomRuins/SpaceRuins/golemtarget.dmm

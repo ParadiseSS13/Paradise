@@ -25,10 +25,10 @@
 	. = ..()
 	icon_state = "[lasercolor]grey_target_prism"
 
-/obj/machinery/porta_turret/tag/weapon_setup(var/obj/item/gun/energy/E)
+/obj/machinery/porta_turret/tag/weapon_setup(obj/item/gun/energy/E)
 	return
 
-/obj/machinery/porta_turret/tag/tgui_data(mob/user)
+/obj/machinery/porta_turret/tag/ui_data(mob/user)
 	var/list/data = list(
 		"locked" = isLocked(user), // does the current user have access?
 		"on" = enabled, // is turret turned on?
@@ -71,7 +71,7 @@
 				spawn(100)
 					disabled  = FALSE
 
-/obj/machinery/porta_turret/tag/assess_living(var/mob/living/L)
+/obj/machinery/porta_turret/tag/assess_living(mob/living/L)
 	if(!L)
 		return TURRET_NOT_TARGET
 

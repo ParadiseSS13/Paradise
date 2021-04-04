@@ -1,7 +1,7 @@
 import { sortBy } from 'common/collections';
 import { Fragment } from 'inferno';
 import { useLocalState } from '../../backend';
-import { Button, Flex, Grid, Section, Tabs } from '../../components';
+import { Box, Button, Flex, LabeledList, Section, Tabs } from '../../components';
 
 const diffMap = {
   0: {
@@ -20,8 +20,13 @@ const diffMap = {
 
 export const AccessList = (props, context) => {
   const {
+    sectionButtons = null,
+    sectionFlexGrow = null,
+    usedByRcd,
+    rcdButtons,
     accesses = [],
     selectedList = [],
+    grantableList = [],
     accessMod,
     grantAll,
     denyAll,
@@ -63,6 +68,7 @@ export const AccessList = (props, context) => {
   return (
     <Section
       title="Access"
+      flexGrow={sectionFlexGrow}
       buttons={(
         <Fragment>
           <Button
@@ -75,6 +81,7 @@ export const AccessList = (props, context) => {
             content="Deselect All"
             color="bad"
             onClick={() => denyAll()} />
+          {sectionButtons}
         </Fragment>
       )}>
       <Flex>
@@ -99,29 +106,40 @@ export const AccessList = (props, context) => {
           </Tabs>
         </Flex.Item>
         <Flex.Item grow={1}>
-          <Grid>
-            <Grid.Column mr={0}>
+          <Flex>
+            <Flex.Item width="50%" mr={0.45}>
               <Button
                 fluid
                 icon="check"
                 content="Select All In Region"
                 color="good"
                 onClick={() => grantDep(selectedAccess.regid)} />
-            </Grid.Column>
-            <Grid.Column ml={0}>
+            </Flex.Item>
+            <Flex.Item width="50%" ml={0}>
               <Button
                 fluid
                 icon="times"
                 content="Deselect All In Region"
                 color="bad"
                 onClick={() => denyDep(selectedAccess.regid)} />
-            </Grid.Column>
-          </Grid>
+            </Flex.Item>
+          </Flex>
+          {!!usedByRcd && (
+            <Box my={1.5}>
+              <LabeledList>
+                <LabeledList.Item label="Require">
+                  {rcdButtons}
+                </LabeledList.Item>
+              </LabeledList>
+            </Box>
+          )}
           {selectedAccessEntries.map(entry => (
             <Button.Checkbox
               fluid
               key={entry.desc}
               content={entry.desc}
+              disabled={grantableList.length > 0
+                && !grantableList.includes(entry.ref) && !selectedList.includes(entry.ref)}
               checked={selectedList.includes(entry.ref)}
               onClick={() => accessMod(entry.ref)} />
           ))}

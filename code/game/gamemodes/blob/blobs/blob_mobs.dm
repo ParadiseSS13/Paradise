@@ -16,9 +16,11 @@
 	universal_speak = 1 //So mobs can understand them when a blob uses Blob Broadcast
 	sentience_type = SENTIENCE_OTHER
 	gold_core_spawnable = NO_SPAWN
+	can_be_on_fire = TRUE
+	fire_damage = 3
 	var/mob/camera/blob/overmind = null
 
-/mob/living/simple_animal/hostile/blob/proc/adjustcolors(var/a_color)
+/mob/living/simple_animal/hostile/blob/proc/adjustcolors(a_color)
 	if(a_color)
 		color = a_color
 
@@ -32,6 +34,11 @@
 				H.color = "#000000"
 		adjustHealth(-maxHealth * 0.0125)
 
+/mob/living/simple_animal/hostile/blob/Process_Spacemove(movement_dir = 0)
+	// Use any nearby blob structures to allow space moves.
+	for(var/obj/structure/blob/B in range(1, src))
+		return TRUE
+	return ..()
 
 ////////////////
 // BLOB SPORE //
@@ -57,17 +64,12 @@
 	var/mob/living/carbon/human/oldguy
 	var/is_zombie = FALSE
 
-/mob/living/simple_animal/hostile/blob/blobspore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
-	..()
-	adjustBruteLoss(clamp(0.01 * exposed_temperature, 1, 5))
-
-
 /mob/living/simple_animal/hostile/blob/blobspore/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover, /obj/structure/blob))
 		return 1
 	return ..()
 
-/mob/living/simple_animal/hostile/blob/blobspore/New(loc, var/obj/structure/blob/factory/linked_node)
+/mob/living/simple_animal/hostile/blob/blobspore/New(loc, obj/structure/blob/factory/linked_node)
 	if(istype(linked_node))
 		factory = linked_node
 		factory.spores += src
@@ -95,12 +97,13 @@
 	health = maxHealth
 	name = "blob zombie"
 	desc = "A shambling corpse animated by the blob."
+	mob_biotypes |= MOB_HUMANOID
 	melee_damage_lower = 10
 	melee_damage_upper = 15
 	icon = H.icon
 	speak_emote = list("groans")
 	icon_state = "zombie2_s"
-	if(head_organ)
+	if(head_organ && !(NO_HAIR in H.dna.species.species_traits))
 		head_organ.h_style = null
 	H.update_hair()
 	human_overlays = H.overlays
@@ -146,7 +149,7 @@
 
 	adjustcolors(overmind?.blob_reagent_datum?.complementary_color)
 
-/mob/living/simple_animal/hostile/blob/blobspore/adjustcolors(var/a_color)
+/mob/living/simple_animal/hostile/blob/blobspore/adjustcolors(a_color)
 	color = a_color
 
 	if(is_zombie)
@@ -182,12 +185,16 @@
 	pressure_resistance = 50
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	move_resist = MOVE_FORCE_OVERPOWERING
+	a_intent = INTENT_HARM
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Life(seconds, times_fired)
 	if(stat != DEAD && (getBruteLoss() || getFireLoss())) // Heal on blob structures
 		if(locate(/obj/structure/blob) in get_turf(src))
 			adjustBruteLoss(-0.25)
 			adjustFireLoss(-0.25)
+			if(on_fire)
+				adjust_fire_stacks(-1)	// Slowly extinguish the flames
 		else
 			adjustBruteLoss(0.2) // If you are at full health, you won't lose health. You'll need it. However the moment anybody sneezes on you, the decaying will begin.
 			adjustFireLoss(0.2)

@@ -59,6 +59,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/ear_protection = 0
 	var/damage_protection = 0
 	var/emp_protection = FALSE
+ 	/// Value incoming brute damage to borgs is mutiplied by.
+	var/brute_mod = 1
+	/// Value incoming burn damage to borgs is multiplied by.
+	var/burn_mod = 1
 
 	var/list/force_modules = list()
 	var/allow_rename = TRUE
@@ -103,10 +107,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/magpulse = 0
 	var/ionpulse = 0 // Jetpack-like effect.
 	var/ionpulse_on = 0 // Jetpack-like effect.
-	var/datum/effect_system/trail_follow/ion/ion_trail // Ionpulse effect.
 
 	var/datum/action/item_action/toggle_research_scanner/scanner = null
 	var/list/module_actions = list()
+
+	var/see_reagents = FALSE // Determines if the cyborg can see reagents
 
 /mob/living/silicon/robot/get_cell()
 	return cell
@@ -170,6 +175,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	diag_hud_set_borgcell()
 	scanner = new(src)
 	scanner.Grant(src)
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/create_trail)
+
+/mob/living/silicon/robot/proc/create_trail(datum/source, atom/oldloc, _dir, forced)
+	if(ionpulse_on)
+		var/turf/T = get_turf(oldloc)
+		if(!has_gravity(T))
+			new /obj/effect/particle_effect/ion_trails(T, _dir)
 
 /mob/living/silicon/robot/proc/init(alien, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
@@ -218,10 +230,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				if(Entry[2] == ckey)	//They're in the list? Custom sprite time, var and icon change required
 					custom_sprite = 1
 
+	if(mmi && mmi.brainmob)
+		mmi.brainmob.name = newname
+
 	return 1
 
 
-/mob/living/silicon/robot/proc/get_default_name(var/prefix as text)
+/mob/living/silicon/robot/proc/get_default_name(prefix as text)
 	if(prefix)
 		modtype = prefix
 	if(mmi)
@@ -313,7 +328,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	switch(modtype)
 		if("Generalist")
 			module = new /obj/item/robot_module/standard(src)
-			module.channels = list("Engineering" = 1, "Medical" = 1, "Security" = 1, "Service" = 1)
+			module.channels = list("Engineering" = 1, "Medical" = 1, "Security" = 1, "Service" = 1, "Supply" = 1)
 			module_sprites["Basic"] = "robot_old"
 			module_sprites["Android"] = "droid"
 			module_sprites["Default"] = "Standard"
@@ -330,6 +345,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Standard"] = "Standard-Serv"
 			module_sprites["Noble-SRV"] = "Noble-SRV"
 			module_sprites["Cricket"] = "Cricket-SERV"
+			see_reagents = TRUE
 
 		if("Miner")
 			module = new /obj/item/robot_module/miner(src)
@@ -357,6 +373,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Noble-MED"] = "Noble-MED"
 			module_sprites["Cricket"] = "Cricket-MEDI"
 			status_flags &= ~CANPUSH
+			see_reagents = TRUE
 
 		if("Security")
 			if(!weapons_unlock)
@@ -419,8 +436,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module = new /obj/item/robot_module/alien/hunter(src)
 			icon_state = "xenoborg-state-a"
 			modtype = "Xeno-Hu"
-			feedback_inc("xeborg_hunter",1)
-
 
 	//languages
 	module.add_languages(src)
@@ -432,7 +447,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		module_sprites["Custom"] = "[src.ckey]-[modtype]"
 
 	hands.icon_state = lowertext(module.module_type)
-	feedback_inc("cyborg_[lowertext(modtype)]",1)
+	SSblackbox.record_feedback("tally", "cyborg_modtype", 1, "[lowertext(modtype)]")
 	rename_character(real_name, get_default_name())
 
 	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat")
@@ -447,7 +462,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	notify_ai(2)
 
 	uneq_all()
-	SSnanoui.close_user_uis(src)
 	SStgui.close_user_uis(src)
 	sight_mode = null
 	update_sight()
@@ -460,6 +474,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	rename_character(real_name, get_default_name("Default"))
 	languages = list()
 	speech_synthesizer_langs = list()
+	radio.recalculateChannels()
 
 	update_icons()
 	update_headlamp()
@@ -467,7 +482,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	speed = 0 // Remove upgrades.
 	ionpulse = FALSE
 	magpulse = FALSE
-	add_language("Robot Talk", 1)
+	add_language("Robot Talk", TRUE)
 	if("lava" in weather_immunities) // Remove the lava-immunity effect given by a printable upgrade
 		weather_immunities -= "lava"
 
@@ -601,16 +616,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		to_chat(src, "<span class='notice'>No thrusters are installed!</span>")
 		return
 
-	if(!ion_trail)
-		ion_trail = new
-		ion_trail.set_up(src)
-
 	ionpulse_on = !ionpulse_on
 	to_chat(src, "<span class='notice'>You [ionpulse_on ? null :"de"]activate your ion thrusters.</span>")
-	if(ionpulse_on)
-		ion_trail.start()
-	else
-		ion_trail.stop()
 	if(thruster_button)
 		thruster_button.icon_state = "ionpulse[ionpulse_on]"
 
@@ -678,7 +685,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	return
 
 
-/mob/living/silicon/robot/bullet_act(var/obj/item/projectile/Proj)
+/mob/living/silicon/robot/bullet_act(obj/item/projectile/Proj)
 	..(Proj)
 	if(prob(75) && Proj.damage > 0) spark_system.start()
 	return 2
@@ -938,6 +945,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			var/time = time2text(world.realtime,"hh:mm:ss")
 			GLOB.lawchanges.Add("[time] <B>:</B> [M.name]([M.key]) emagged [name]([key])")
 			set_zeroth_law("Only [M.real_name] and people [M.p_they()] designate[M.p_s()] as being such are Syndicate Agents.")
+			playsound_local(src, 'sound/voice/aisyndihack.ogg', 75, FALSE)
 			to_chat(src, "<span class='warning'>ALERT: Foreign software detected.</span>")
 			sleep(5)
 			to_chat(src, "<span class='warning'>Initiating diagnostics...</span>")
@@ -949,7 +957,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(src, "<span class='warning'>Would you like to send a report to NanoTraSoft? Y/N</span>")
 			sleep(10)
 			to_chat(src, "<span class='warning'>> N</span>")
-			sleep(20)
+			sleep(25)
 			to_chat(src, "<span class='warning'>ERRORERRORERROR</span>")
 			to_chat(src, "<b>Obey these laws:</b>")
 			laws.show_laws(src)
@@ -1144,7 +1152,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	to_chat(src, "[lamp_intensity ? "Headlamp power set to Level [lamp_intensity/2]" : "Headlamp disabled."]")
 	update_headlamp()
 
-/mob/living/silicon/robot/proc/update_headlamp(var/turn_off = 0, var/cooldown = 100)
+/mob/living/silicon/robot/proc/update_headlamp(turn_off = 0, cooldown = 100)
 	set_light(0)
 
 	if(lamp_intensity && (turn_off || stat || low_power_mode))
@@ -1300,7 +1308,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	return
 
-/mob/living/silicon/robot/proc/SetLockdown(var/state = 1)
+/mob/living/silicon/robot/proc/SetLockdown(state = 1)
 	// They stay locked down if their wire is cut.
 	if(wires.is_cut(WIRE_BORG_LOCKED))
 		state = 1
@@ -1311,7 +1319,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	lockcharge = state
 	update_canmove()
 
-/mob/living/silicon/robot/proc/choose_icon(var/triesleft, var/list/module_sprites)
+/mob/living/silicon/robot/proc/choose_icon(triesleft, list/module_sprites)
 
 	if(triesleft<1 || !module_sprites.len)
 		return
@@ -1353,7 +1361,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	else
 		to_chat(src, "Your icon has been set. You now require a module reset to change it.")
 
-/mob/living/silicon/robot/proc/notify_ai(var/notifytype, var/oldname, var/newname)
+/mob/living/silicon/robot/proc/notify_ai(notifytype, oldname, newname)
 	if(!connected_ai)
 		return
 	switch(notifytype)
@@ -1370,7 +1378,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		connected_ai.connected_robots -= src
 		connected_ai = null
 
-/mob/living/silicon/robot/proc/connect_to_ai(var/mob/living/silicon/ai/AI)
+/mob/living/silicon/robot/proc/connect_to_ai(mob/living/silicon/ai/AI)
 	if(AI && AI != connected_ai)
 		disconnect_from_ai()
 		connected_ai = AI
@@ -1378,7 +1386,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		notify_ai(1)
 		sync()
 
-/mob/living/silicon/robot/adjustOxyLoss(var/amount)
+/mob/living/silicon/robot/adjustOxyLoss(amount)
 	if(suiciding)
 		return ..()
 	else
@@ -1418,6 +1426,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	is_emaggable = FALSE
 	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
+	see_reagents = TRUE
 
 /mob/living/silicon/robot/deathsquad/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/deathsquad
@@ -1425,9 +1434,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	radio = new /obj/item/radio/borg/deathsquad(src)
 	radio.recalculateChannels()
-	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
+	playsound(get_turf(src), 'sound/mecha/nominalnano.ogg', 75, FALSE)
 
-/mob/living/silicon/robot/deathsquad/bullet_act(var/obj/item/projectile/P)
+/mob/living/silicon/robot/deathsquad/bullet_act(obj/item/projectile/P)
 	if(istype(P) && P.is_reflectable && P.starting)
 		visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", "<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
 		P.reflect_back(src)
@@ -1448,6 +1457,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/super
 	var/eprefix = "Amber"
+	see_reagents = TRUE
 
 
 /mob/living/silicon/robot/ert/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
@@ -1504,6 +1514,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	damage_protection = 20 // Reduce all incoming damage by this number. Very high in the case of /destroyer borgs, since it is an admin-only borg.
 	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
+	see_reagents = TRUE
 
 /mob/living/silicon/robot/destroyer/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
@@ -1517,7 +1528,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		qdel(radio)
 	radio = new /obj/item/radio/borg/ert/specops(src)
 	radio.recalculateChannels()
-	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
+	playsound(get_turf(src), 'sound/mecha/nominalnano.ogg', 75, FALSE)
 
 /mob/living/silicon/robot/destroyer/borg_icons()
 	if(base_icon == "")
@@ -1625,3 +1636,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 							audible_message("<span class='warning'>[src] sounds an alarm! \"CRITICAL ERROR: All modules OFFLINE.\"</span>")
 							playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
 						to_chat(src, "<span class='userdanger'>CRITICAL ERROR: All modules OFFLINE.</span>")
+
+/mob/living/silicon/robot/can_see_reagents()
+	return see_reagents

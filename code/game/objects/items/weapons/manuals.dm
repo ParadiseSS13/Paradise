@@ -837,59 +837,21 @@
 
 
 /obj/item/book/manual/chef_recipes
-	name = "Chef Recipes"
-	icon_state = "cooked_book"
-	author = "Victoria Ponsonby"
-	title = "Chef Recipes"
-	dat = {"<html>
-				<head>
-				<style>
-				h1 {font-size: 18px; margin: 15px 0px 5px;}
-				h2 {font-size: 15px; margin: 15px 0px 5px;}
-				li {margin: 2px 0px 2px 15px;}
-				ul {list-style: none; margin: 5px; padding: 0px;}
-				ol {margin: 5px; padding: 0px 15px;}
-				</style>
-				</head>
-				<body>
+    name = "Chef Recipes"
+    icon_state = "cook_book"
+    author = "NanoTrasen"
+    title = "Chef Recipes"
+    dat = {"
 
-				<h1>Food for Dummies</h1>
-				Here is a guide on basic food recipes and also how to not poison your customers accidentally.
+        <html><head>
+        </head>
 
-				<h2>Basics:<h2>
-				Knead an egg and some flour to make dough. Bake that to make a bun or flatten and cut it.
+        <body>
+        <iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Guide_to_Food_and_Drinks#Food&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>        </body>
 
-				<h2>Burger:<h2>
-				Put a bun and some meat into the microwave and turn it on. Then wait.
+        </html>
 
-				<h2>Bread:<h2>
-				Put some dough and an egg into the microwave and then wait.
-
-				<h2>Waffles:<h2>
-				Add two lumps of dough and 10u of sugar to the microwave and then wait.
-
-				<h2>Popcorn:<h2>
-				Add 1 corn to the microwave and wait.
-
-				<h2>Meat Steak:<h2>
-				Put a slice of meat, 1 unit of salt and 1 unit of pepper into the microwave and wait.
-
-				<h2>Meat Pie:<h2>
-				Put a flattened piece of dough and some meat into the microwave and wait.
-
-				<h2>Boiled Spaghetti:<h2>
-				Put the spaghetti (processed flour) and 5 units of water into the microwave and wait.
-
-				<h2>Donuts:<h2>
-				Add some dough and 5 units of sugar to the microwave and wait.
-
-				<h2>Fries:<h2>
-				Add one potato to the processor, then bake them in the microwave.
-
-
-				</body>
-				</html>
-			"}
+        "}
 
 /obj/item/book/manual/barman_recipes
 	name = "Barman Recipes"

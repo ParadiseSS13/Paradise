@@ -44,7 +44,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
  */
 
-/datum/disease/advance/New(var/process = 1, var/datum/disease/advance/D)
+/datum/disease/advance/New(process = 1, datum/disease/advance/D)
 	if(!istype(D))
 		D = null
 	// Generate symptoms if we weren't given any.
@@ -69,7 +69,8 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 // Randomly pick a symptom to activate.
 /datum/disease/advance/stage_act()
-	..()
+	if(!..())
+		return FALSE
 	if(symptoms && symptoms.len)
 
 		if(!processing)
@@ -81,6 +82,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 			S.Activate(src)
 	else
 		CRASH("We do not have any symptoms during stage_act()!")
+	return TRUE
 
 // Compares type then ID.
 /datum/disease/advance/IsSame(datum/disease/advance/D)
@@ -315,7 +317,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 */
 
 // Mix a list of advance diseases and return the mixed result.
-/proc/Advance_Mix(var/list/D_list)
+/proc/Advance_Mix(list/D_list)
 
 //	to_chat(world, "Mixing!!!!")
 

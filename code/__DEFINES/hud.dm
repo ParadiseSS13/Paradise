@@ -53,11 +53,18 @@
 #define ANTAG_HUD_VAMPIRE 16
 #define ANTAG_HUD_ABDUCTOR 17
 #define DATA_HUD_ABDUCTOR	18
-#define ANTAG_HUD_DEVIL 19
-#define ANTAG_HUD_EVENTMISC 20
-#define ANTAG_HUD_BLOB 21
+#define ANTAG_HUD_EVENTMISC 19
+#define ANTAG_HUD_BLOB 20
 
 // Notification action types
 #define NOTIFY_JUMP "jump"
 #define NOTIFY_ATTACK "attack"
 #define NOTIFY_FOLLOW "orbit"
+
+
+// The kind of things granted by HUD items in game, that do not manifest as
+// on-screen icons, but rather go to examine text.
+#define EXAMINE_HUD_SECURITY_READ "security_read"
+#define EXAMINE_HUD_SECURITY_WRITE "security_write"
+#define EXAMINE_HUD_MEDICAL "medical"
+#define EXAMINE_HUD_SKILLS "skills"

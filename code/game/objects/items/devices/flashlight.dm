@@ -22,7 +22,7 @@
 		icon_state = initial(icon_state)
 		set_light(0)
 
-/obj/item/flashlight/proc/update_brightness(var/mob/user = null)
+/obj/item/flashlight/proc/update_brightness(mob/user = null)
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
 		set_light(brightness_on)
@@ -48,7 +48,7 @@
 	add_fingerprint(user)
 	if(on && user.zone_selected == "eyes")
 
-		if(((CLUMSY in user.mutations) || user.getBrainLoss() >= 60) && prob(50))	//too dumb to use flashlight properly
+		if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))	//too dumb to use flashlight properly
 			return ..()	//just hit them in the head
 
 		if(!(istype(user, /mob/living/carbon/human) || SSticker) && SSticker.mode.name != "monkey")	//don't have dexterity
@@ -74,9 +74,9 @@
 
 			if(istype(H)) //robots and aliens are unaffected
 				var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
-				if(M.stat == DEAD || !eyes || (BLINDNESS in M.mutations))	//mob is dead or fully blind
+				if(M.stat == DEAD || !eyes || HAS_TRAIT(M, TRAIT_BLIND))	//mob is dead or fully blind
 					to_chat(user, "<span class='notice'>[M]'s pupils are unresponsive to the light!</span>")
-				else if((XRAY in M.mutations) || eyes.see_in_dark >= 8) //The mob's either got the X-RAY vision or has a tapetum lucidum (extreme nightvision, i.e. Vulp/Tajara with COLOURBLIND & their monkey forms).
+				else if(HAS_TRAIT(M, TRAIT_XRAY_VISION) || eyes.see_in_dark >= 8) //The mob's either got the X-RAY vision or has a tapetum lucidum (extreme nightvision, i.e. Vulp/Tajara with COLOURBLIND & their monkey forms).
 					to_chat(user, "<span class='notice'>[M]'s pupils glow eerily!</span>")
 				else //they're okay!
 					if(M.flash_eyes(visual = 1))
@@ -199,7 +199,7 @@
 	else
 		update_brightness(null)
 
-/obj/item/flashlight/flare/update_brightness(var/mob/user = null)
+/obj/item/flashlight/flare/update_brightness(mob/user = null)
 	..()
 	if(on)
 		item_state = "[initial(item_state)]-on"
@@ -396,3 +396,11 @@
 	anchored = TRUE
 	var/range = null
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
+/obj/item/flashlight/eyelight
+	name = "eyelight"
+	desc = "This shouldn't exist outside of someone's head, how are you seeing this?"
+	light_range = 15
+	light_power = 1
+	flags = CONDUCT | DROPDEL
+	actions_types = list()

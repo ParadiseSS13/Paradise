@@ -283,10 +283,9 @@
 		if(P.name != "Blank Card")
 			to_chat(user,"<span class='notice'>You cannot write on that card.</span>")
 			return
-		var/cardtext = sanitize(input(user, "What do you wish to write on the card?", "Card Editing") as text|null, MAX_PAPER_MESSAGE_LEN)
-		if(!cardtext)
-			return
-		P.name = cardtext
+		var/t = rename_interactive(user, P, use_prefix = FALSE, actually_rename = FALSE)
+		if(t && P.name == "Blank Card")
+			P.name = t
 		// SNOWFLAKE FOR CAG, REMOVE IF OTHER CARDS ARE ADDED THAT USE THIS.
 		P.card_icon = "cag_white_card"
 		update_icon()
@@ -307,7 +306,7 @@
 			return
 	..()
 
-/obj/item/cardhand/attack_self(var/mob/user as mob)
+/obj/item/cardhand/attack_self(mob/user as mob)
 	concealed = !concealed
 	update_icon()
 	user.visible_message("<span class='notice'>[user] [concealed ? "conceals" : "reveals"] their hand.</span>")
@@ -380,7 +379,7 @@
 		return
 	update_icon()
 
-/obj/item/cardhand/verb/discard(var/mob/user as mob)
+/obj/item/cardhand/verb/discard(mob/user as mob)
 
 	set category = "Object"
 	set name = "Discard"
@@ -417,7 +416,7 @@
 	if(!cards.len)
 		qdel(src)
 
-/obj/item/cardhand/update_icon(var/direction = 0)
+/obj/item/cardhand/update_icon(direction = 0)
 
 	if(!cards.len)
 		return

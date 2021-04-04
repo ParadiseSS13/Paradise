@@ -84,7 +84,7 @@
 	var/datum/robot_component/C = pick(components)
 	C.take_damage(brute, burn, sharp, updating_health)
 
-/mob/living/silicon/robot/heal_overall_damage(var/brute, var/burn, updating_health = TRUE)
+/mob/living/silicon/robot/heal_overall_damage(brute, burn, updating_health = TRUE)
 	var/list/datum/robot_component/parts = get_damaged_components(brute, burn)
 
 	while(LAZYLEN(parts) && (brute > 0 || burn > 0) )
@@ -107,9 +107,8 @@
 	if(status_flags & GODMODE)
 		return
 
-	if(damage_protection)
-		brute = clamp(brute - damage_protection, 0, brute)
-		burn = clamp(burn - damage_protection, 0, burn)
+	brute = max((brute - damage_protection) * brute_mod, 0)
+	burn = max((burn - damage_protection) * burn_mod, 0)
 
 	var/list/datum/robot_component/parts = get_damageable_components()
 

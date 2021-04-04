@@ -59,7 +59,7 @@
 			to_chat(user, "Someone else is already playing this machine, please wait your turn!")
 		return
 
-/obj/machinery/arcade/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/obj/machinery/arcade/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/screwdriver) && anchored)
 		playsound(src.loc, O.usesound, 50, 1)
 		panel_open = !panel_open
@@ -93,7 +93,7 @@
 	cashmoney.use(token_price)
 	return 1
 
-/obj/machinery/arcade/proc/pay_with_card(var/obj/item/card/id/I, var/mob/user)
+/obj/machinery/arcade/proc/pay_with_card(obj/item/card/id/I, mob/user)
 	visible_message("<span class='info'>[usr] swipes a card through [src].</span>")
 	var/datum/money_account/customer_account = attempt_account_access_nosec(I.associated_account_number)
 	if(!customer_account)

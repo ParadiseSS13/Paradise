@@ -291,7 +291,7 @@
 	icon_state = "scanner_open"
 	SStgui.update_uis(src)
 
-/obj/machinery/dna_scannernew/force_eject_occupant()
+/obj/machinery/dna_scannernew/force_eject_occupant(mob/target)
 	go_out(null, TRUE)
 
 /obj/machinery/dna_scannernew/ex_act(severity)
@@ -312,12 +312,10 @@
 	if(!occupant)
 		return TRUE
 
-	if(ishuman(occupant))
-		var/mob/living/carbon/human/H = occupant
-		if(NO_DNA in H.dna.species.species_traits)
-			return TRUE
+	if(HAS_TRAIT(occupant, TRAIT_GENELESS))
+		return TRUE
 
-	var/radiation_protection = occupant.run_armor_check(null, "rad", "Your clothes feel warm.", "Your clothes feel warm.")
+	var/radiation_protection = occupant.run_armor_check(null, "rad")
 	if(radiation_protection > NEGATE_MUTATION_THRESHOLD)
 		return TRUE
 	return FALSE
@@ -408,9 +406,9 @@
 		if(stat & (NOPOWER|BROKEN))
 			return
 
-		tgui_interact(user)
+		ui_interact(user)
 
-/obj/machinery/computer/scan_consolenew/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/computer/scan_consolenew/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	if(user == connected.occupant)
 		return
 
@@ -419,8 +417,8 @@
 		ui = new(user, src, ui_key, "DNAModifier", name, 660, 700, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/scan_consolenew/tgui_data(mob/user)
-	var/data[0]
+/obj/machinery/computer/scan_consolenew/ui_data(mob/user)
+	var/list/data = list()
 	data["selectedMenuKey"] = selected_menu_key
 	data["locked"] = connected.locked
 	data["hasOccupant"] = connected.occupant ? 1 : 0
@@ -473,7 +471,7 @@
 		occupantData["name"] = connected.occupant.dna.real_name
 		occupantData["stat"] = connected.occupant.stat
 		occupantData["isViableSubject"] = 1
-		if((NOCLONE in connected.occupant.mutations && connected.scan_level < 3) || !connected.occupant.dna || (NO_DNA in connected.occupant.dna.species.species_traits))
+		if((HAS_TRAIT(connected.occupant, TRAIT_BADDNA) && connected.scan_level < 3) || !connected.occupant.dna || HAS_TRAIT(connected.occupant, TRAIT_GENELESS))
 			occupantData["isViableSubject"] = 0
 		occupantData["health"] = connected.occupant.health
 		occupantData["maxHealth"] = connected.occupant.maxHealth
@@ -494,11 +492,11 @@
 				data["beakerVolume"] += R.volume
 
 	// Transfer modal information if there is one
-	data["modal"] = tgui_modal_data(src)
+	data["modal"] = ui_modal_data(src)
 
 	return data
 
-/obj/machinery/computer/scan_consolenew/tgui_act(action, params)
+/obj/machinery/computer/scan_consolenew/ui_act(action, params)
 	if(..())
 		return FALSE // don't update uis
 	if(!istype(usr.loc, /turf))
@@ -512,7 +510,7 @@
 
 	add_fingerprint(usr)
 
-	if(tgui_act_modal(action, params))
+	if(ui_act_modal(action, params))
 		return TRUE
 
 	. = TRUE
@@ -540,7 +538,7 @@
 				return
 
 			var/radiation = (((radiation_intensity * 3) + radiation_duration * 3) / connected.damage_coeff)
-			connected.occupant.apply_effect(radiation, IRRADIATE, 0)
+			connected.occupant.apply_effect(radiation, IRRADIATE)
 			if(connected.radiation_check())
 				return
 
@@ -588,7 +586,7 @@
 
 			if(prob((80 + (radiation_duration / 2))))
 				var/radiation = (radiation_intensity + radiation_duration)
-				connected.occupant.apply_effect(radiation,IRRADIATE,0)
+				connected.occupant.apply_effect(radiation, IRRADIATE)
 
 				if(connected.radiation_check())
 					return
@@ -598,13 +596,13 @@
 				connected.occupant.UpdateAppearance()
 			else
 				var/radiation = ((radiation_intensity * 2) + radiation_duration)
-				connected.occupant.apply_effect(radiation, IRRADIATE, 0)
+				connected.occupant.apply_effect(radiation, IRRADIATE)
 				if(connected.radiation_check())
 					return
 
 				if(prob(20 + radiation_intensity))
 					randmutb(connected.occupant)
-					domutcheck(connected.occupant, connected)
+					domutcheck(connected.occupant)
 				else
 					randmuti(connected.occupant)
 					connected.occupant.UpdateAppearance()
@@ -644,7 +642,7 @@
 			if(connected.occupant)
 				if(prob((80 + ((radiation_duration / 2) + (connected.precision_coeff ** 3)))))
 					var/radiation = ((radiation_intensity + radiation_duration) / connected.damage_coeff)
-					connected.occupant.apply_effect(radiation, IRRADIATE, 0)
+					connected.occupant.apply_effect(radiation, IRRADIATE)
 
 					if(connected.radiation_check())
 						return 1
@@ -659,10 +657,10 @@
 
 					//testing("Irradiated SE block [real_SE_block]:[selected_se_subblock] ([original_block] now [block]) [(real_SE_block!=selected_se_block) ? "(SHIFTED)":""]!")
 					connected.occupant.dna.SetSESubBlock(real_SE_block, selected_se_subblock, block)
-					domutcheck(connected.occupant, connected)
+					domutcheck(connected.occupant)
 				else
 					var/radiation = (((radiation_intensity * 2) + radiation_duration) / connected.damage_coeff)
-					connected.occupant.apply_effect(radiation, IRRADIATE, 0)
+					connected.occupant.apply_effect(radiation, IRRADIATE)
 
 					if(connected.radiation_check())
 						return
@@ -670,7 +668,7 @@
 					if(prob(80 - radiation_duration))
 						//testing("Random bad mut!")
 						randmutb(connected.occupant)
-						domutcheck(connected.occupant, connected)
+						domutcheck(connected.occupant)
 					else
 						randmuti(connected.occupant)
 						//testing("Random identity mut!")
@@ -721,9 +719,9 @@
 				if("clear")
 					buffers[bufferId] = new /datum/dna2/record()
 				if("changeLabel")
-					tgui_modal_input(src, "changeBufferLabel", "Please enter the new buffer label:", null, list("id" = bufferId), buffer.name, TGUI_MODAL_INPUT_MAX_LENGTH_NAME)
+					ui_modal_input(src, "changeBufferLabel", "Please enter the new buffer label:", null, list("id" = bufferId), buffer.name, UI_MODAL_INPUT_MAX_LENGTH_NAME)
 				if("transfer")
-					if(!connected.occupant || (NOCLONE in connected.occupant.mutations && connected.scan_level < 3) || !connected.occupant.dna)
+					if(!connected.occupant || (HAS_TRAIT(connected.occupant, TRAIT_BADDNA) && connected.scan_level < 3) || !connected.occupant.dna)
 						return
 
 					irradiating = 2
@@ -737,7 +735,7 @@
 					connected.locked = lock_state
 
 					var/radiation = (rand(20,50) / connected.damage_coeff)
-					connected.occupant.apply_effect(radiation, IRRADIATE, 0)
+					connected.occupant.apply_effect(radiation, IRRADIATE)
 
 					if(connected.radiation_check())
 						return
@@ -752,13 +750,13 @@
 					else if(buf.types & DNA2_BUF_SE)
 						connected.occupant.dna.SE = buf.dna.SE.Copy()
 						connected.occupant.dna.UpdateSE()
-						domutcheck(connected.occupant, connected)
+						domutcheck(connected.occupant)
 				if("createInjector")
 					if(!injector_ready)
 						return
 					if(text2num(params["block"]) > 0)
 						var/list/choices = all_dna_blocks((buffer.types & DNA2_BUF_SE) ? buffer.dna.SE : buffer.dna.UI)
-						tgui_modal_choice(src, "createInjectorBlock", "Please select the block to create an injector from:", null, list("id" = bufferId), null, choices)
+						ui_modal_choice(src, "createInjectorBlock", "Please select the block to create an injector from:", null, list("id" = bufferId), null, choices)
 					else
 						create_injector(bufferId, TRUE)
 				if("loadDisk")
@@ -814,18 +812,18 @@
 	injector_ready = TRUE
 
 /**
-  * Called in tgui_act() to process modal actions
+  * Called in ui_act() to process modal actions
   *
   * Arguments:
   * * action - The action passed by tgui
   * * params - The params passed by tgui
   */
-/obj/machinery/computer/scan_consolenew/proc/tgui_act_modal(action, params)
+/obj/machinery/computer/scan_consolenew/proc/ui_act_modal(action, params)
 	. = TRUE
 	var/id = params["id"] // The modal's ID
 	var/list/arguments = istext(params["arguments"]) ? json_decode(params["arguments"]) : params["arguments"]
-	switch(tgui_modal_act(src, action, params))
-		if(TGUI_MODAL_ANSWER)
+	switch(ui_modal_act(src, action, params))
+		if(UI_MODAL_ANSWER)
 			var/answer = params["answer"]
 			switch(id)
 				if("createInjectorBlock")

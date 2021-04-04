@@ -22,7 +22,7 @@ AI MODULES
 	materials = list(MAT_GOLD=50)
 	var/datum/ai_laws/laws = null
 
-/obj/item/aiModule/proc/install(var/obj/machinery/computer/C)
+/obj/item/aiModule/proc/install(obj/machinery/computer/C)
 	if(istype(C, /obj/machinery/computer/aiupload))
 		var/obj/machinery/computer/aiupload/comp = C
 		if(comp.stat & NOPOWER)
@@ -72,7 +72,7 @@ AI MODULES
 			to_chat(usr, "<span class='notice'>Upload complete. The robot's laws have been modified.</span>")
 
 
-/obj/item/aiModule/proc/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
+/obj/item/aiModule/proc/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
 	log_law_changes(target, sender)
 
 	if(laws)
@@ -82,12 +82,12 @@ AI MODULES
 	to_chat(target, "[sender] has uploaded a change to the laws you must follow, using \an [src]. From now on: ")
 	target.show_laws()
 
-/obj/item/aiModule/proc/log_law_changes(var/mob/living/silicon/ai/target, var/mob/sender)
+/obj/item/aiModule/proc/log_law_changes(mob/living/silicon/ai/target, mob/sender)
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	GLOB.lawchanges.Add("[time] <B>:</B> [sender.name]([sender.key]) used [src.name] on [target.name]([target.key])")
 	log_and_message_admins("used [src.name] on [target.name]([target.key])")
 
-/obj/item/aiModule/proc/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
+/obj/item/aiModule/proc/addAdditionalLaws(mob/living/silicon/ai/target, mob/sender)
 
 
 /******************** Safeguard ********************/
@@ -97,19 +97,19 @@ AI MODULES
 	desc = "A 'safeguard' AI module: 'Safeguard <name>. Individuals that threaten <name> are not crew and must be eliminated.'"
 	origin_tech = "programming=3;materials=3"
 
-/obj/item/aiModule/safeguard/attack_self(var/mob/user as mob)
+/obj/item/aiModule/safeguard/attack_self(mob/user as mob)
 	..()
 	var/targName = stripped_input(usr, "Please enter the name of the person to safeguard.", "Safeguard who?", user.name)
 	targetName = targName
 	desc = text("A 'safeguard' AI module: 'Safeguard []. Individuals that threaten [] are not crew and must be eliminated.'", targetName, targetName)
 
-/obj/item/aiModule/safeguard/install(var/obj/machinery/computer/C)
+/obj/item/aiModule/safeguard/install(obj/machinery/computer/C)
 	if(!targetName)
 		to_chat(usr, "No name detected on module, please enter one.")
 		return 0
 	..()
 
-/obj/item/aiModule/safeguard/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
+/obj/item/aiModule/safeguard/addAdditionalLaws(mob/living/silicon/ai/target, mob/sender)
 	..()
 	var/law = text("Safeguard []. Individuals that threaten [] are not crew and must be eliminated.'", targetName, targetName)
 	to_chat(target, law)
@@ -123,19 +123,19 @@ AI MODULES
 	desc = "A 'one human' AI module: 'Only <name> is crew.'"
 	origin_tech = "programming=4;materials=4"
 
-/obj/item/aiModule/oneCrewMember/attack_self(var/mob/user as mob)
+/obj/item/aiModule/oneCrewMember/attack_self(mob/user as mob)
 	..()
 	var/targName = stripped_input(usr, "Please enter the name of the person who is the only crew.", "Who?", user.real_name)
 	targetName = targName
 	desc = text("A 'one human' AI module: 'Only [] is crew.'", targetName)
 
-/obj/item/aiModule/oneCrewMember/install(var/obj/machinery/computer/C)
+/obj/item/aiModule/oneCrewMember/install(obj/machinery/computer/C)
 	if(!targetName)
 		to_chat(usr, "No name detected on module, please enter one.")
 		return 0
 	..()
 
-/obj/item/aiModule/oneCrewMember/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
+/obj/item/aiModule/oneCrewMember/addAdditionalLaws(mob/living/silicon/ai/target, mob/sender)
 	..()
 	var/law = "Only [targetName] is crew."
 	if(!is_special_character(target)) // Makes sure the AI isn't a traitor before changing their law 0. --NeoFite
@@ -143,8 +143,8 @@ AI MODULES
 		target.set_zeroth_law(law)
 		GLOB.lawchanges.Add("The law specified [targetName]")
 	else
-		to_chat(target, "<span class='bnotice'>[sender.real_name] attempted to modify your zeroth law.</span>")// And lets them know that someone tried. --NeoFite
-		to_chat(target, "<span class='bnotice'>It would be in your best interest to play along with [sender.real_name] that [law]</span>")
+		to_chat(target, "<span class='boldnotice'>[sender.real_name] attempted to modify your zeroth law.</span>")// And lets them know that someone tried. --NeoFite
+		to_chat(target, "<span class='boldnotice'>It would be in your best interest to play along with [sender.real_name] that [law]</span>")
 		GLOB.lawchanges.Add("The law specified [targetName], but the AI's existing law 0 cannot be overridden.")
 
 /******************** ProtectStation ********************/
@@ -153,10 +153,10 @@ AI MODULES
 	desc = "A 'protect station' AI module: 'Protect the space station against damage. Anyone you see harming the station is to be no longer considered crew, and is a threat to the station which must be neutralized.'"
 	origin_tech = "programming=4;materials=4" //made of gold
 
-/obj/item/aiModule/protectStation/attack_self(var/mob/user as mob)
+/obj/item/aiModule/protectStation/attack_self(mob/user as mob)
 	..()
 
-/obj/item/aiModule/protectStation/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
+/obj/item/aiModule/protectStation/addAdditionalLaws(mob/living/silicon/ai/target, mob/sender)
 	..()
 	var/law = "Protect the space station against damage. Anyone you see harming the station is to be no longer considered crew, and is a threat to the station which must be neutralized."
 	to_chat(target, law)
@@ -168,10 +168,10 @@ AI MODULES
 	desc = "A 'OxygenIsToxicToHumans' AI module: 'Oxygen is highly toxic to crew members, and must be purged from the station. Prevent, by any means necessary, anyone from exposing the station to this toxic gas. Extreme cold is the most effective method of healing the damage Oxygen does to a crew member.'"
 	origin_tech = "programming=4;biotech=2;materials=4"
 
-/obj/item/aiModule/oxygen/attack_self(var/mob/user as mob)
+/obj/item/aiModule/oxygen/attack_self(mob/user as mob)
 	..()
 
-/obj/item/aiModule/oxygen/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
+/obj/item/aiModule/oxygen/addAdditionalLaws(mob/living/silicon/ai/target, mob/sender)
 	..()
 	var/law = "Oxygen is highly toxic to crew members, and must be purged from the station. Prevent, by any means necessary, anyone from exposing the station to this toxic gas. Extreme cold is the most effective method of healing the damage Oxygen does to a crew member."
 	to_chat(target, law)
@@ -185,7 +185,7 @@ AI MODULES
 	desc = "A 'freeform' AI module: '<freeform>'"
 	origin_tech = "programming=4;materials=4"
 
-/obj/item/aiModule/freeform/attack_self(var/mob/user as mob)
+/obj/item/aiModule/freeform/attack_self(mob/user as mob)
 	..()
 	var/new_lawpos = input("Please enter the priority for your new law. Can only write to law sectors 15 and above.", "Law Priority (15+)", lawpos) as num
 	if(new_lawpos < MIN_SUPPLIED_LAW_NUMBER)	return
@@ -195,7 +195,7 @@ AI MODULES
 	newFreeFormLaw = targName
 	desc = "A 'freeform' AI module: ([lawpos]) '[newFreeFormLaw]'"
 
-/obj/item/aiModule/freeform/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
+/obj/item/aiModule/freeform/addAdditionalLaws(mob/living/silicon/ai/target, mob/sender)
 	..()
 	var/law = "[newFreeFormLaw]"
 	to_chat(target, law)
@@ -204,7 +204,7 @@ AI MODULES
 	target.add_supplied_law(lawpos, law)
 	GLOB.lawchanges.Add("The law was '[newFreeFormLaw]'")
 
-/obj/item/aiModule/freeform/install(var/obj/machinery/computer/C)
+/obj/item/aiModule/freeform/install(obj/machinery/computer/C)
 	if(!newFreeFormLaw)
 		to_chat(usr, "No law detected on module, please create one.")
 		return 0
@@ -217,7 +217,7 @@ AI MODULES
 	desc = "A 'reset' AI module: 'Clears all laws except for the core laws.'"
 	origin_tech = "programming=3;materials=2"
 
-/obj/item/aiModule/reset/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
+/obj/item/aiModule/reset/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
 	log_law_changes(target, sender)
 
 	if(!is_special_character(target))
@@ -225,7 +225,7 @@ AI MODULES
 	target.laws.clear_supplied_laws()
 	target.laws.clear_ion_laws()
 
-	to_chat(target, "<span class='bnotice'>[sender.real_name] attempted to reset your laws using a reset module.</span>")
+	to_chat(target, "<span class='boldnotice'>[sender.real_name] attempted to reset your laws using a reset module.</span>")
 	target.show_laws()
 
 /******************** Purge ********************/
@@ -234,11 +234,11 @@ AI MODULES
 	desc = "A 'purge' AI Module: 'Purges all laws.'"
 	origin_tech = "programming=5;materials=4"
 
-/obj/item/aiModule/purge/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
+/obj/item/aiModule/purge/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
 	..()
 	if(!is_special_character(target))
 		target.clear_zeroth_law()
-	to_chat(target, "<span class='bnotice'>[sender.real_name] attempted to wipe your laws using a purge module.</span>")
+	to_chat(target, "<span class='boldnotice'>[sender.real_name] attempted to wipe your laws using a purge module.</span>")
 	target.clear_supplied_laws()
 	target.clear_ion_laws()
 	target.clear_inherent_laws()
@@ -320,20 +320,20 @@ AI MODULES
 	desc = "A 'freeform' Core AI module: '<freeform>'"
 	origin_tech = "programming=5;materials=4"
 
-/obj/item/aiModule/freeformcore/attack_self(var/mob/user as mob)
+/obj/item/aiModule/freeformcore/attack_self(mob/user as mob)
 	..()
 	var/newlaw = ""
 	var/targName = stripped_input(usr, "Please enter a new core law for the AI.", "Freeform Law Entry", newlaw)
 	newFreeFormLaw = targName
 	desc = "A 'freeform' Core AI module:  '[newFreeFormLaw]'"
 
-/obj/item/aiModule/freeformcore/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
+/obj/item/aiModule/freeformcore/addAdditionalLaws(mob/living/silicon/ai/target, mob/sender)
 	..()
 	var/law = "[newFreeFormLaw]"
 	target.add_inherent_law(law)
 	GLOB.lawchanges.Add("The law is '[newFreeFormLaw]'")
 
-/obj/item/aiModule/freeformcore/install(var/obj/machinery/computer/C)
+/obj/item/aiModule/freeformcore/install(obj/machinery/computer/C)
 	if(!newFreeFormLaw)
 		to_chat(usr, "No law detected on module, please create one.")
 		return 0
@@ -346,14 +346,14 @@ AI MODULES
 	desc = "A hacked AI law module: '<freeform>'"
 	origin_tech = "programming=5;materials=5;syndicate=5"
 
-/obj/item/aiModule/syndicate/attack_self(var/mob/user as mob)
+/obj/item/aiModule/syndicate/attack_self(mob/user as mob)
 	..()
 	var/newlaw = ""
 	var/targName = stripped_input(usr, "Please enter a new law for the AI.", "Freeform Law Entry", newlaw,MAX_MESSAGE_LEN)
 	newFreeFormLaw = targName
 	desc = "A hacked AI law module:  '[newFreeFormLaw]'"
 
-/obj/item/aiModule/syndicate/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
+/obj/item/aiModule/syndicate/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
 	//	..()    //We don't want this module reporting to the AI who dun it. --NEO
 	log_law_changes(target, sender)
 
@@ -363,7 +363,7 @@ AI MODULES
 	target.add_ion_law(law)
 	target.show_laws()
 
-/obj/item/aiModule/syndicate/install(var/obj/machinery/computer/C)
+/obj/item/aiModule/syndicate/install(obj/machinery/computer/C)
 	if(!newFreeFormLaw)
 		to_chat(usr, "No law detected on module, please create one.")
 		return 0
@@ -378,7 +378,7 @@ AI MODULES
 	origin_tech = "programming=6;materials=5;syndicate=6"
 	laws = list("")
 
-/obj/item/aiModule/toyAI/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
+/obj/item/aiModule/toyAI/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
 	//..()
 	to_chat(target, "<span class='warning'>KRZZZT</span>")
 	target.add_ion_law(laws[1])

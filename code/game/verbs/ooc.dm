@@ -6,7 +6,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 //Checks if the client already has a text input open
 /client/proc/checkTyping()
-	return (prefs.toggles & TYPING_ONCE && typing)
+	return (prefs.toggles & PREFTOGGLE_TYPING_ONCE && typing)
 
 /client/verb/ooc(msg = "" as text)
 	set name = "OOC"
@@ -36,7 +36,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(!msg)
 		return
 
-	if(!(prefs.toggles & CHAT_OOC))
+	if(!(prefs.toggles & PREFTOGGLE_CHAT_OOC))
 		to_chat(src, "<span class='danger'>You have OOC muted.</span>")
 		return
 
@@ -68,20 +68,20 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 	if(prefs.unlock_content)
 		if(display_colour == GLOB.normal_ooc_colour)
-			if((prefs.toggles & MEMBER_PUBLIC))
+			if((prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC))
 				display_colour = GLOB.member_ooc_colour
 
 	for(var/client/C in GLOB.clients)
-		if(C.prefs.toggles & CHAT_OOC)
+		if(C.prefs.toggles & PREFTOGGLE_CHAT_OOC)
 			var/display_name = key
 
 			if(prefs.unlock_content)
-				if(prefs.toggles & MEMBER_PUBLIC)
+				if(prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC)
 					var/icon/byond = icon('icons/member_content.dmi', "blag")
 					display_name = "[bicon(byond)][display_name]"
 
 			if(donator_level > 0)
-				if((prefs.toggles & DONATOR_PUBLIC))
+				if((prefs.toggles & PREFTOGGLE_DONATOR_PUBLIC))
 					var/icon/donator = icon('icons/ooc_tag_16x.dmi', "donator")
 					display_name = "[bicon(donator)][display_name]"
 
@@ -104,7 +104,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	else
 		to_chat(world, "<B>The OOC channel has been globally disabled!</B>")
 
-/proc/auto_toggle_ooc(var/on)
+/proc/auto_toggle_ooc(on)
 	if(config.auto_toggle_ooc_during_round && config.ooc_allowed != on)
 		toggle_ooc()
 
@@ -120,7 +120,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	log_admin("[key_name(usr)] has set the default player OOC color to [newColor]")
 
 
-	feedback_add_details("admin_verb","SOOC")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Player OOC")
 
 /client/proc/reset_ooc()
 	set name = "Reset Player OOC Color"
@@ -133,7 +133,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	message_admins("[key_name_admin(usr)] has reset the default player OOC color")
 	log_admin("[key_name(usr)] has reset the default player OOC color")
 
-	feedback_add_details("admin_verb","ROOC")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Reset Player OOC")
 
 /client/proc/colorooc()
 	set name = "Set Your OOC Color"
@@ -148,7 +148,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		prefs.save_preferences(src)
 		to_chat(usr, "Your OOC color has been set to [new_ooccolor].")
 
-	feedback_add_details("admin_verb","OC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Own OOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/resetcolorooc()
 	set name = "Reset Your OOC Color"
@@ -161,7 +161,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	prefs.save_preferences(src)
 	to_chat(usr, "Your OOC color has been reset.")
 
-	feedback_add_details("admin_verb","ROC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Reset Own OOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/looc(msg = "" as text)
 	set name = "LOOC"
@@ -192,7 +192,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(!msg)
 		return
 
-	if(!(prefs.toggles & CHAT_LOOC))
+	if(!(prefs.toggles & PREFTOGGLE_CHAT_LOOC))
 		to_chat(src, "<span class='danger'>You have LOOC muted.</span>")
 		return
 
@@ -217,7 +217,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		display_name = mob.name
 
 	for(var/client/target in GLOB.clients)
-		if(target.prefs.toggles & CHAT_LOOC)
+		if(target.prefs.toggles & PREFTOGGLE_CHAT_LOOC)
 			var/prefix = ""
 			var/admin_stuff = ""
 			var/send = 0

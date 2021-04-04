@@ -12,11 +12,11 @@
 
 	light_color = LIGHT_COLOR_CYAN
 
-/obj/machinery/computer/HolodeckControl/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/HolodeckControl/attack_ai(mob/user as mob)
 	return attack_hand(user)
 
 
-/obj/machinery/computer/HolodeckControl/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/HolodeckControl/attack_hand(mob/user as mob)
 	if(..())
 		return 1
 
@@ -159,7 +159,7 @@
 	updateUsrDialog()
 	return
 
-/obj/machinery/computer/HolodeckControl/attackby(var/obj/item/D as obj, var/mob/user as mob, params)
+/obj/machinery/computer/HolodeckControl/attackby(obj/item/D as obj, mob/user as mob, params)
 	return
 
 /obj/machinery/computer/HolodeckControl/emag_act(user as mob)
@@ -221,7 +221,7 @@
 				T.ex_act(3)
 				T.hotspot_expose(1000,500,1)
 
-/obj/machinery/computer/HolodeckControl/proc/derez(var/obj/obj , var/silent = 1)
+/obj/machinery/computer/HolodeckControl/proc/derez(obj/obj , silent = 1)
 	holographic_items.Remove(obj)
 
 	if(obj == null)
@@ -237,14 +237,14 @@
 		visible_message("The [oldobj.name] fades away!")
 	qdel(obj)
 
-/obj/machinery/computer/HolodeckControl/proc/checkInteg(var/area/A)
+/obj/machinery/computer/HolodeckControl/proc/checkInteg(area/A)
 	for(var/turf/T in A)
 		if(istype(T, /turf/space))
 			return 0
 
 	return 1
 
-/obj/machinery/computer/HolodeckControl/proc/togglePower(var/toggleOn = 0)
+/obj/machinery/computer/HolodeckControl/proc/togglePower(toggleOn = 0)
 
 	if(toggleOn)
 		var/area/targetsource = locate(/area/holodeck/source_emptycourt)
@@ -269,7 +269,7 @@
 		active = 0
 
 
-/obj/machinery/computer/HolodeckControl/proc/loadProgram(var/area/A)
+/obj/machinery/computer/HolodeckControl/proc/loadProgram(area/A)
 
 	if(world.time < (last_change + 25))
 		if(world.time < (last_change + 15))//To prevent super-spam clicking, reduced process size and annoyance -Sieve
@@ -332,10 +332,9 @@
 	icon_state = "grass1"
 	floor_tile = /obj/item/stack/tile/grass
 
-/turf/simulated/floor/holofloor/grass/New()
-	..()
-	spawn(1)
-		update_icon()
+/turf/simulated/floor/holofloor/grass/Initialize(mapload)
+	. = ..()
+	update_icon()
 
 /turf/simulated/floor/holofloor/grass/update_icon()
 	..()
@@ -372,6 +371,10 @@
 	icon = 'icons/obj/smooth_structures/wood_table.dmi'
 	icon_state = "wood_table"
 	canSmoothWith = list(/obj/structure/table/holotable/wood)
+
+/obj/structure/chair/stool/holostool
+	flags = NODECONSTRUCT
+	item_chair = null
 
 /obj/item/clothing/gloves/boxing/hologlove
 	name = "boxing gloves"

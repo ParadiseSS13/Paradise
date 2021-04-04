@@ -56,7 +56,7 @@
 	var/obj/item/spacepod_equipment/cargo/sec_cargo_system // secondary cargo system
 	var/obj/item/spacepod_equipment/lock/lock_system // lock system
 
-/datum/spacepod/equipment/New(var/obj/spacepod/SP)
+/datum/spacepod/equipment/New(obj/spacepod/SP)
 	..()
 	if(istype(SP))
 		my_atom = SP
@@ -67,7 +67,7 @@
 	var/occupant_mod = 0	// so any module can modify occupancy
 	var/list/storage_mod = list("slots" = 0, "w_class" = 0)		// so any module can modify storage slots
 
-/obj/item/spacepod_equipment/proc/removed(var/mob/user) // So that you can unload cargo when you remove the module
+/obj/item/spacepod_equipment/proc/removed(mob/user) // So that you can unload cargo when you remove the module
 	return
 
 /*
@@ -143,29 +143,26 @@
 ///////////////////////////////////////
 */
 
+GLOBAL_LIST_EMPTY(pod_trackers)
+
 /obj/item/spacepod_equipment/misc
 	name = "pod misc"
 	desc = "You shouldn't be seeing this"
 	icon = 'icons/goonstation/pods/ship.dmi'
 	icon_state = "blank"
-	var/enabled
 
 /obj/item/spacepod_equipment/misc/tracker
 	name = "\improper spacepod tracking system"
 	desc = "A tracking device for spacepods."
 	icon_state = "pod_locator"
-	enabled = 0
 
-/obj/item/spacepod_equipment/misc/tracker/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	if(enabled)
-		enabled = 0
-		user.show_message("<span class='notice'>You disable \the [src]'s power.")
-		return
-	enabled = 1
-	user.show_message("<span class='notice'>You enable \the [src]'s power.</span>")
+/obj/item/spacepod_equipment/misc/tracker/Initialize(mapload)
+	GLOB.pod_trackers |= src
+	return ..()
+
+/obj/item/spacepod_equipment/misc/tracker/Destroy()
+	GLOB.pod_trackers -= src
+	return ..()
 
 /*
 ///////////////////////////////////////
@@ -180,7 +177,7 @@
 	icon_state = "cargo_blank"
 	var/obj/storage = null
 
-/obj/item/spacepod_equipment/cargo/proc/passover(var/obj/item/I)
+/obj/item/spacepod_equipment/cargo/proc/passover(obj/item/I)
 	return
 
 /obj/item/spacepod_equipment/cargo/proc/unload() // called by unload verb
@@ -188,7 +185,7 @@
 		storage.forceMove(get_turf(my_atom))
 		storage = null
 
-/obj/item/spacepod_equipment/cargo/removed(var/mob/user) // called when system removed
+/obj/item/spacepod_equipment/cargo/removed(mob/user) // called when system removed
 	. = ..()
 	unload()
 
@@ -198,7 +195,7 @@
 	desc = "An ore storage system for spacepods. Scoops up any ore you drive over."
 	icon_state = "cargo_ore"
 
-/obj/item/spacepod_equipment/cargo/ore/passover(var/obj/item/I)
+/obj/item/spacepod_equipment/cargo/ore/passover(obj/item/I)
 	if(storage && istype(I,/obj/item/stack/ore))
 		I.forceMove(storage)
 
@@ -255,8 +252,8 @@
 	icon_state = "lock_tumbler"
 	var/static/id_source = 0
 
-/obj/item/spacepod_equipment/lock/keyed/New()
-	..()
+/obj/item/spacepod_equipment/lock/keyed/Initialize(mapload)
+	. = ..()
 	id = ++id_source
 
 // The key

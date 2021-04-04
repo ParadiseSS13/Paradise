@@ -43,6 +43,7 @@
 		return
 	var/chosen_beacon = pick(L)
 	var/obj/effect/portal/jaunt_tunnel/J = new(get_turf(src), get_turf(chosen_beacon), src, 100)
+	J.emagged = emagged
 	if(adjacent)
 		try_move_adjacent(J)
 	else
@@ -57,12 +58,25 @@
 	else
 		to_chat(user, "[src] is not attached to your belt, preventing it from saving you from the chasm. RIP.</span>")
 
+/obj/item/wormhole_jaunter/emag_act(mob/user)
+	if(!emagged)
+		emagged = TRUE
+		to_chat(user, "<span class='notice'>You emag [src].</span>")
+		var/turf/T = get_turf(src)
+		do_sparks(5, 0, T)
+		playsound(T, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+
 /obj/effect/portal/jaunt_tunnel
 	name = "jaunt tunnel"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "bhole3"
 	desc = "A stable hole in the universe made by a wormhole jaunter. Turbulent doesn't even begin to describe how rough passage through one of these is, but at least it will always get you somewhere near a beacon."
 	failchance = 0
+
+/obj/effect/portal/jaunt_tunnel/can_teleport(atom/movable/M)
+	if(!emagged && ismegafauna(M))
+		return FALSE
+	return ..()
 
 /obj/effect/portal/jaunt_tunnel/teleport(atom/movable/M)
 	. = ..()

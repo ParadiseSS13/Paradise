@@ -47,6 +47,7 @@
 	name = "Safecode hint spawner"
 
 /obj/effect/landmark/sc_bible_spawner/New()
+	. = ..()
 	var/obj/item/storage/bible/B = new /obj/item/storage/bible/booze(src.loc)
 	B.name = "The Holy book of the Geometer"
 	B.deity_name = "Narsie"
@@ -175,7 +176,7 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 	if(prob(25))
 		mezzer()
 
-/obj/singularity/narsie/sc_Narsie/consume(var/atom/A)
+/obj/singularity/narsie/sc_Narsie/consume(atom/A)
 	if(!A.simulated)
 		return FALSE
 	if(is_type_in_list(A, uneatable))

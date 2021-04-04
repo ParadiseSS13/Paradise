@@ -1,3 +1,7 @@
+#define CRYO_DESTROY 0
+#define CRYO_PRESERVE 1
+#define CRYO_OBJECTIVE 2
+
 /*
  * Cryogenic refrigeration unit. Basically a despawner.
  * Stealing a lot of concepts/code from sleepers due to massive laziness.
@@ -137,12 +141,22 @@
 	updateUsrDialog()
 	return
 
+/obj/machinery/computer/cryopod/proc/freeze_item(obj/item/I, preserve_status)
+	frozen_items += I
+	if(preserve_status == CRYO_OBJECTIVE)
+		objective_items += I
+	I.forceMove(src)
+	RegisterSignal(I, COMSIG_MOVABLE_MOVED, .proc/item_got_removed)
+
+/obj/machinery/computer/cryopod/proc/item_got_removed(obj/item/I)
+	objective_items -= I
+	frozen_items -= I
+	UnregisterSignal(I, COMSIG_MOVABLE_MOVED)
+
 /obj/machinery/computer/cryopod/proc/dispense_item(obj/item/I)
 	if(!(I in frozen_items))
 		return
-	I.forceMove(get_turf(src))
-	objective_items -= I
-	frozen_items -= I
+	I.forceMove(get_turf(src)) // Will call item_got_removed due to the signal being registered to COMSIG_MOVABLE_MOVED
 
 /obj/machinery/computer/cryopod/emag_act(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -179,13 +193,12 @@
 	orient_right = 1
 	icon_state = "cryo_rear-r"
 
-/obj/structure/cryofeed/New()
-
+/obj/structure/cryofeed/Initialize(mapload)
+	. = ..()
 	if(orient_right)
 		icon_state = "cryo_rear-r"
 	else
 		icon_state = "cryo_rear"
-	..()
 
 //Cryopods themselves.
 /obj/machinery/cryopod
@@ -212,6 +225,7 @@
 	var/willing_time_divisor = 10
 	var/time_entered = 0          // Used to keep track of the safe period.
 	var/obj/item/radio/intercom/announce
+	var/silent = FALSE
 
 	var/obj/machinery/computer/cryopod/control_computer
 	var/last_no_computer_message = 0
@@ -236,7 +250,10 @@
 		/obj/item/clothing/gloves/color/black/krav_maga/sec,
 		/obj/item/spacepod_key,
 		/obj/item/nullrod,
-		/obj/item/key
+		/obj/item/key,
+		/obj/item/door_remote,
+		/obj/item/autopsy_scanner,
+		/obj/item/holosign_creator/atmos
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
@@ -263,7 +280,7 @@
 	find_control_computer()
 
 /obj/machinery/cryopod/proc/find_control_computer(urgent=0)
-	for(var/obj/machinery/computer/cryopod/C in areaMaster.contents) //locate() is shit, this actually works, and there's a decent chance it's faster than locate()
+	for(var/obj/machinery/computer/cryopod/C in get_area(src).contents)
 		control_computer = C
 		break
 
@@ -315,10 +332,6 @@
 
 			despawn_occupant()
 
-#define CRYO_DESTROY 0
-#define CRYO_PRESERVE 1
-#define CRYO_OBJECTIVE 2
-
 /obj/machinery/cryopod/proc/should_preserve_item(obj/item/I)
 	for(var/datum/theft_objective/T in control_computer.theft_cache)
 		if(istype(I, T.typepath) && T.check_special_completion(I))
@@ -365,47 +378,21 @@
 		if(preserve == CRYO_DESTROY)
 			qdel(I)
 		else if(control_computer && control_computer.allow_items)
-			control_computer.frozen_items += I
-			if(preserve == CRYO_OBJECTIVE)
-				control_computer.objective_items += I
-			I.loc = null
+			control_computer.freeze_item(I, preserve)
 		else
 			I.forceMove(loc)
 
-	// Skip past any cult sacrifice objective using this person
-	if(GAMEMODE_IS_CULT && is_sacrifice_target(occupant.mind))
-		var/datum/game_mode/cult/cult_mode = SSticker.mode
-		var/list/p_s_t = cult_mode.get_possible_sac_targets()
-		if(p_s_t.len)
-			cult_mode.sacrifice_target = pick(p_s_t)
-			for(var/datum/mind/H in SSticker.mode.cult)
-				if(H.current)
-					to_chat(H.current, "<span class='danger'>[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[occupant] is beyond your reach. Sacrifice [cult_mode.sacrifice_target.current] instead...</span></span>")
-					H.current << 'sound/ambience/alarm4.ogg'
-			cult_mode.update_sac_objective(occupant.mind, occupant.mind.assigned_role)
-		else
-			cult_mode.bypass_phase()
+	// Find a new sacrifice target if needed, if unable allow summoning
+	if(is_sacrifice_target(occupant.mind))
+		if(!SSticker.mode.cult_objs.find_new_sacrifice_target())
+			SSticker.mode.cult_objs.ready_to_summon()
 
 	//Update any existing objectives involving this mob.
-	for(var/datum/objective/O in GLOB.all_objectives)
-		// We don't want revs to get objectives that aren't for heads of staff. Letting
-		// them win or lose based on cryo is silly so we remove the objective.
-		if(istype(O,/datum/objective/mutiny) && O.target == occupant.mind)
-			qdel(O)
-		else if(O.target && istype(O.target,/datum/mind))
-			if(O.target == occupant.mind)
-				if(O.owner && O.owner.current)
-					to_chat(O.owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
-					O.owner.current << 'sound/ambience/alarm4.ogg'
-				O.target = null
-				spawn(1) //This should ideally fire after the occupant is deleted.
-					if(!O) return
-					O.find_target()
-					if(!(O.target))
-						GLOB.all_objectives -= O
-						O.owner.objectives -= O
-						qdel(O)
-					O.owner.announce_objectives()
+	if(occupant.mind)
+		for(var/datum/objective/O in GLOB.all_objectives)
+			if(O.target != occupant.mind)
+				continue
+			O.on_target_cryo()
 	if(occupant.mind && occupant.mind.assigned_role)
 		//Handle job slot/tater cleanup.
 		var/job = occupant.mind.assigned_role
@@ -444,34 +431,38 @@
 	//Make an announcement and log the person entering storage.
 	control_computer.frozen_crew += "[occupant.real_name]"
 
-	var/ailist[] = list()
-	for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
-		ailist += A
-	if(ailist.len)
-		var/mob/living/silicon/ai/announcer = pick(ailist)
-		if (announce_rank)
-			announcer.say(";[occupant.real_name] ([announce_rank]) [on_store_message]")
+	if(!silent)
+		var/list/ailist = list()
+		for(var/thing in GLOB.ai_list)
+			var/mob/living/silicon/ai/AI = thing
+			if(AI.stat)
+				continue
+			ailist += AI
+		if(length(ailist))
+			var/mob/living/silicon/ai/announcer = pick(ailist)
+			if(announce_rank)
+				announcer.say(";[occupant.real_name] ([announce_rank]) [on_store_message]", ignore_languages = TRUE)
+			else
+				announcer.say(";[occupant.real_name] [on_store_message]", ignore_languages = TRUE)
 		else
-			announcer.say(";[occupant.real_name] [on_store_message]")
-	else
-		if (announce_rank)
-			announce.autosay("[occupant.real_name]  ([announce_rank]) [on_store_message]", "[on_store_name]")
-		else
-			announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
-	visible_message("<span class='notice'>\The [src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
+			if(announce_rank)
+				announce.autosay("[occupant.real_name] ([announce_rank]) [on_store_message]", "[on_store_name]")
+			else
+				if(announce_rank)
+					announce.autosay("[occupant.real_name]  ([announce_rank]) [on_store_message]", "[on_store_name]")
+				else
+					announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
+	visible_message("<span class='notice'>[src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
 
 	// Ghost and delete the mob.
-	if(!occupant.get_ghost(1))
+	if(!occupant.get_ghost(TRUE))
 		if(TOO_EARLY_TO_GHOST)
-			occupant.ghostize(0) // Players despawned too early may not re-enter the game
+			occupant.ghostize(FALSE) // Players despawned too early may not re-enter the game
 		else
-			occupant.ghostize(1)
+			occupant.ghostize(TRUE)
 	QDEL_NULL(occupant)
 	name = initial(name)
 
-#undef CRYO_DESTROY
-#undef CRYO_PRESERVE
-#undef CRYO_OBJECTIVE
 
 /obj/machinery/cryopod/attackby(obj/item/I, mob/user, params)
 
@@ -581,7 +572,7 @@
 		willing = 1
 
 	if(willing)
-		if(!Adjacent(L))
+		if(!Adjacent(L) && !Adjacent(user))
 			to_chat(user, "<span class='boldnotice'>You're not close enough to [src].</span>")
 			return
 		if(L == user)
@@ -599,7 +590,7 @@
 		else
 			to_chat(user, "<span class='notice'>You stop [L == user ? "climbing into the cryo pod." : "putting [L] into the cryo pod."]</span>")
 
-/obj/machinery/cryopod/proc/take_occupant(var/mob/living/carbon/E, var/willing_factor = 1)
+/obj/machinery/cryopod/proc/take_occupant(mob/living/carbon/E, willing_factor = 1)
 	if(occupant)
 		return
 	if(!E)
@@ -725,6 +716,10 @@
 /obj/machinery/cryopod/blob_act()
 	return //Sorta gamey, but we don't really want these to be destroyed.
 
+/obj/machinery/cryopod/offstation
+	// Won't announce when used for cryoing.
+	silent = TRUE
+
 /obj/machinery/computer/cryopod/robot
 	name = "robotic storage console"
 	desc = "An interface between crew and the robotic storage systems"
@@ -770,12 +765,12 @@
 	return ..()
 
 
-/proc/cryo_ssd(var/mob/living/carbon/person_to_cryo)
+/proc/cryo_ssd(mob/living/carbon/person_to_cryo)
 	if(istype(person_to_cryo.loc, /obj/machinery/cryopod))
 		return 0
 	if(isobj(person_to_cryo.loc))
 		var/obj/O = person_to_cryo.loc
-		O.force_eject_occupant()
+		O.force_eject_occupant(person_to_cryo)
 	var/list/free_cryopods = list()
 	for(var/obj/machinery/cryopod/P in GLOB.machines)
 		if(!P.occupant && istype(get_area(P), /area/crew_quarters/sleep))
@@ -791,7 +786,7 @@
 			return 1
 	return 0
 
-/proc/force_cryo_human(var/mob/living/carbon/person_to_cryo)
+/proc/force_cryo_human(mob/living/carbon/person_to_cryo)
 	if(!istype(person_to_cryo))
 		return
 	if(!istype(person_to_cryo.loc, /obj/machinery/cryopod))
@@ -799,3 +794,7 @@
 	if(istype(person_to_cryo.loc, /obj/machinery/cryopod))
 		var/obj/machinery/cryopod/P = person_to_cryo.loc
 		P.despawn_occupant()
+
+#undef CRYO_DESTROY
+#undef CRYO_PRESERVE
+#undef CRYO_OBJECTIVE

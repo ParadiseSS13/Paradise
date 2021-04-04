@@ -14,17 +14,16 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 		overlays += organ.mob_icon
 		child_icons += organ.mob_icon
 
-/obj/item/organ/external/proc/change_organ_icobase(var/new_icobase, var/new_deform, var/owner_sensitive) //Change the icobase/deform of this organ. If owner_sensitive is set, that means the proc won't mess with frankenstein limbs.
-	if(owner_sensitive) //This and the below statements mean that the icobase/deform will only get updated if the limb is the same species as and is owned by the mob it's attached to.
+/obj/item/organ/external/proc/change_organ_icobase(new_icobase, owner_sensitive) //Change the icobase of this organ. If owner_sensitive is set, that means the proc won't mess with frankenstein limbs.
+	if(owner_sensitive) //This and the below statements mean that the icobase will only get updated if the limb is the same species as and is owned by the mob it's attached to.
 		if(dna.species && owner.dna.species && dna.species.name != owner.dna.species.name)
 			return
 		if(dna.unique_enzymes != owner.dna.unique_enzymes) // This isn't MY arm
 			return
 
 	icobase = new_icobase ? new_icobase : icobase
-	deform	= new_deform ? new_deform : deform
 
-/obj/item/organ/external/proc/sync_colour_to_human(var/mob/living/carbon/human/H)
+/obj/item/organ/external/proc/sync_colour_to_human(mob/living/carbon/human/H)
 	if(is_robotic() && !istype(dna.species, /datum/species/machine)) //machine people get skin color
 		return
 	if(dna.species && H.dna.species && dna.species.name != H.dna.species.name)
@@ -41,7 +40,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 		s_col = H.skin_colour
 	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
 		var/obj/item/organ/external/chest/C = H.get_organ("chest")
-		change_organ_icobase(C.icobase, C.deform)
+		change_organ_icobase(C.icobase)
 
 /obj/item/organ/external/proc/sync_colour_to_dna()
 	if(is_robotic())
@@ -53,7 +52,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 		s_tone = null
 		s_col = rgb(dna.GetUIValue(DNA_UI_SKIN_R), dna.GetUIValue(DNA_UI_SKIN_G), dna.GetUIValue(DNA_UI_SKIN_B))
 
-/obj/item/organ/external/head/sync_colour_to_human(var/mob/living/carbon/human/H)
+/obj/item/organ/external/head/sync_colour_to_human(mob/living/carbon/human/H)
 	..()
 	var/obj/item/organ/internal/eyes/eyes = owner.get_int_organ(/obj/item/organ/internal/eyes)//owner.internal_bodyparts_by_name["eyes"]
 	if(eyes) eyes.update_colour()
@@ -162,10 +161,13 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 		new_icon_state = "[icon_name][gendered_icon ? "_f" : ""]"
 	else
 		if(gendered_icon)
-			if(dna.GetUIState(DNA_UI_GENDER))
-				gender = "f"
-			else
-				gender = "m"
+			switch(dna.GetUITriState(DNA_UI_GENDER))
+				if(DNA_GENDER_FEMALE)
+					gender = "f"
+				if(DNA_GENDER_MALE)
+					gender = "m"
+				else
+					gender = "f"	//Default to "f" (per line 162). Using a pick("m", "f") will make different body parts different genders for the same character.
 		if(limb_name == "head")
 			var/obj/item/organ/external/head/head_organ = src
 			head_organ.handle_alt_icon()
@@ -177,11 +179,8 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 		else if(is_robotic())
 			icon_file = 'icons/mob/human_races/robotic.dmi'
 		else
-			if(status & ORGAN_MUTATED)
-				icon_file = deform
-			else
-				// Congratulations, you are normal
-				icon_file = icobase
+			// Congratulations, you are normal
+			icon_file = icobase
 	return list(icon_file, new_icon_state)
 
 // new damage icon system

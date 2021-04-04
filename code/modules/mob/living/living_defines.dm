@@ -35,6 +35,8 @@
 
 	var/floating = FALSE
 	var/mob_size = MOB_SIZE_HUMAN
+	// What type of mob is this
+	var/mob_biotypes = MOB_ORGANIC
 	var/metabolism_efficiency = 1 //more or less efficiency to metabolize helpful/harmful reagents and regulate body temperature..
 	var/digestion_ratio = 1 //controls how quickly reagents metabolize; largely governered by species attributes.
 
@@ -56,10 +58,6 @@
 
 	var/gene_stability = DEFAULT_GENE_STABILITY
 	var/ignore_gene_stability = 0
-
-	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override
-
-	var/tesla_ignore = FALSE
 
 	var/list/say_log = list() //a log of what we've said, plain text, no spans or junk, essentially just each individual "message"
 	var/list/emote_log = list() //like say_log but for emotes

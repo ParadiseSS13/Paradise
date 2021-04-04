@@ -27,18 +27,15 @@
 	src.updateDialog()
 
 /obj/machinery/embedded_controller/attack_ghost(mob/user as mob)
-	src.ui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/embedded_controller/attack_ai(mob/user as mob)
-	src.ui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/embedded_controller/attack_hand(mob/user as mob)
 	if(!user.IsAdvancedToolUser())
-		return 0
-	src.ui_interact(user)
-
-/obj/machinery/embedded_controller/ui_interact()
-	return
+		return FALSE
+	ui_interact(user)
 
 /obj/machinery/embedded_controller/radio
 	icon = 'icons/obj/airlock_machines.dmi'
@@ -49,9 +46,8 @@
 	var/id_tag
 	//var/radio_power_use = 50 //power used to xmit signals
 
-	var/frequency = 1379
+	frequency = 1379
 	var/radio_filter = null
-	var/datum/radio_frequency/radio_connection
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/machinery/embedded_controller/radio/Initialize()
@@ -73,7 +69,7 @@
 	else
 		icon_state = "airlock_control_off"
 
-/obj/machinery/embedded_controller/radio/post_signal(datum/signal/signal, var/filter = null)
+/obj/machinery/embedded_controller/radio/post_signal(datum/signal/signal, filter = null)
 	signal.transmission_method = TRANSMISSION_RADIO
 	if(radio_connection)
 		//use_power(radio_power_use)	//neat idea, but causes way too much lag.
@@ -81,7 +77,7 @@
 	else
 		qdel(signal)
 
-/obj/machinery/embedded_controller/radio/proc/set_frequency(new_frequency)
+/obj/machinery/embedded_controller/radio/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, radio_filter)

@@ -1,11 +1,12 @@
+import { filter, sortBy } from 'common/collections';
+import { flow } from 'common/fp';
+import { createSearch, decodeHtmlEntities } from 'common/string';
 import { Fragment } from "inferno";
 import { useBackend, useLocalState } from "../backend";
-import { Button, Box, Section, Tabs, Icon, Flex, Input } from "../components";
+import { Box, Button, Flex, Input, Section, Tabs } from "../components";
 import { FlexItem } from "../components/Flex";
 import { Window } from "../layouts";
-import { createSearch, decodeHtmlEntities } from 'common/string';
-import { flow } from 'common/fp';
-import { filter, sortBy } from 'common/collections';
+import { ComplexModal } from './common/ComplexModal';
 
 const PickTab = index => {
   switch (index) {
@@ -25,6 +26,7 @@ export const Uplink = (props, context) => {
 
   return (
     <Window theme="syndicate">
+      <ComplexModal />
       <Window.Content scrollable>
         <Tabs>
           <Tabs.Tab

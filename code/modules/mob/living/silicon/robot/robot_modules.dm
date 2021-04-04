@@ -241,6 +241,7 @@
 	modules += new /obj/item/multitool/cyborg(src)
 	modules += new /obj/item/t_scanner(src)
 	modules += new /obj/item/analyzer(src)
+	modules += new /obj/item/geiger_counter/cyborg(src)
 	modules += new /obj/item/holosign_creator/engineering(src)
 	modules += new /obj/item/gripper(src)
 	modules += new /obj/item/matter_decompiler(src)
@@ -295,34 +296,26 @@
 
 	fix_modules()
 
+/obj/item/robot_module/janitor/respawn_consumable(mob/living/silicon/robot/R)
+	if(emag)
+		var/obj/item/reagent_containers/spray/S = emag
+		S.reagents.add_reagent("lube", 5)
+	..()
+
 /obj/item/robot_module/butler
 	name = "service robot module"
 	module_type = "Service"
 
 /obj/item/robot_module/butler/New()
 	..()
-	modules += new /obj/item/reagent_containers/food/drinks/cans/beer(src)
-	modules += new /obj/item/reagent_containers/food/drinks/cans/cola(src)
-	modules += new /obj/item/reagent_containers/food/drinks/cans/sodawater(src)
-	modules += new /obj/item/reagent_containers/food/condiment/enzyme(src)
-	modules += new /obj/item/reagent_containers/food/drinks/bottle/orangejuice(src) // -0.3 oxy/sec
-	modules += new /obj/item/reagent_containers/food/drinks/bottle/tomatojuice(src) // -0.2 fire/sec
-	modules += new /obj/item/reagent_containers/food/drinks/bottle/limejuice(src) // -0.2 tox/sec
-	modules += new /obj/item/reagent_containers/food/drinks/coffee(src) // -1 paralysis stunned & weakened/sec
-	modules += new /obj/item/reagent_containers/food/drinks/tea(src)
-	modules += new /obj/item/reagent_containers/food/drinks/bottle/milk(src) // -0.2 brute/sec
-	modules += new /obj/item/reagent_containers/food/condiment/sugar(src)
-	modules += new /obj/item/reagent_containers/food/drinks/ice(src)
-	modules += new /obj/item/reagent_containers/food/drinks/bottle/cream(src)
-
-	modules += new /obj/item/reagent_containers/food/drinks/bottle/tequila(src)
-	modules += new /obj/item/reagent_containers/food/drinks/bottle/vodka(src)
-	modules += new /obj/item/reagent_containers/food/drinks/bottle/whiskey(src)
+	modules += new /obj/item/handheld_chem_dispenser/booze(src)
+	modules += new /obj/item/handheld_chem_dispenser/soda(src)
 
 	modules += new /obj/item/pen(src)
 	modules += new /obj/item/razor(src)
 	modules += new /obj/item/instrument/piano_synth(src)
 	modules += new /obj/item/healthanalyzer/advanced(src)
+	modules += new /obj/item/reagent_scanner/adv(src)
 
 	var/obj/item/rsf/M = new /obj/item/rsf(src)
 	M.matter = 30
@@ -342,15 +335,13 @@
 
 	fix_modules()
 
-/obj/item/robot_module/butler/respawn_consumable(var/mob/living/silicon/robot/R)
-	var/obj/item/reagent_containers/food/condiment/enzyme/E = locate() in modules
-	E.reagents.add_reagent("enzyme", 2)
+/obj/item/robot_module/butler/respawn_consumable(mob/living/silicon/robot/R)
 	if(emag)
 		var/obj/item/reagent_containers/food/drinks/cans/beer/B = emag
-		B.reagents.add_reagent("beer2", 2)
+		B.reagents.add_reagent("beer2", 5)
 	..()
 
-/obj/item/robot_module/butler/add_languages(var/mob/living/silicon/robot/R)
+/obj/item/robot_module/butler/add_languages(mob/living/silicon/robot/R)
 	//full set of languages
 	R.add_language("Galactic Common", 1)
 	R.add_language("Sol Common", 1)
@@ -578,7 +569,7 @@
 
 	fix_modules()
 
-/obj/item/robot_module/alien/hunter/add_languages(var/mob/living/silicon/robot/R)
+/obj/item/robot_module/alien/hunter/add_languages(mob/living/silicon/robot/R)
 	..()
 	R.add_language("xenocommon", 1)
 

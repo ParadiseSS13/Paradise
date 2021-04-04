@@ -156,7 +156,11 @@
 			continue
 		// If another core is active, return FALSE
 		if(C.active)
-			return FALSE
+			if(C.stat & NOPOWER)	// If another core has no power but is supposed to be on, we shut it down so we can continue.
+				C.active = FALSE	// Since only one active core is allowed per z level, give priority to the one actually working.
+				C.update_icon()
+			else
+				return FALSE
 	// If we got here there isnt an active core on this Z-level. So return true
 	return TRUE
 
@@ -164,7 +168,7 @@
 // UI STUFF //
 //////////////
 
-/obj/machinery/tcomms/core/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/tcomms/core/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	// This needs to happen here because of how late the language datum initializes. I dont like it
 	if(length(nttc.valid_languages) == 1)
 		nttc.update_languages()
@@ -174,7 +178,7 @@
 		ui = new(user, src, ui_key, "TcommsCore", name, 900, 600, master_ui, state)
 		ui.open()
 
-/obj/machinery/tcomms/core/tgui_data(mob/user)
+/obj/machinery/tcomms/core/ui_data(mob/user)
 	var/list/data = list()
 	data["ion"] = ion
 
@@ -215,7 +219,7 @@
 
 	return data
 
-/obj/machinery/tcomms/core/tgui_act(action, list/params)
+/obj/machinery/tcomms/core/ui_act(action, list/params)
 	// Check against href exploits
 	if(..())
 		return
@@ -303,7 +307,7 @@
 
 		if("add_filter")
 			// This is a stripped input because I did NOT come this far for this system to be abused by HTML injection
-			var/name_to_add = stripped_input(usr, "Enter a name to add to the filtering list", "Name Entry")
+			var/name_to_add = html_decode(stripped_input(usr, "Enter a name to add to the filtering list", "Name Entry"))
 			if(name_to_add == "")
 				return
 			if(name_to_add in nttc.filtering)

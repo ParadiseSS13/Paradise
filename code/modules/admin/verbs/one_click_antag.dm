@@ -25,7 +25,7 @@
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
 
-/datum/admins/proc/CandCheck(var/role = null, var/mob/living/carbon/human/M, var/datum/game_mode/temp = null)
+/datum/admins/proc/CandCheck(role = null, mob/living/carbon/human/M, datum/game_mode/temp = null)
   // You pass in ROLE define (optional), the applicant, and the gamemode, and it will return true / false depending on whether the applicant qualify for the candidacy in question
 	if(jobban_isbanned(M, "Syndicate"))
 		return FALSE
@@ -161,7 +161,7 @@
 
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
-	var/antnum = input(owner, "How many cultists you want to create? Enter 0 to cancel.","Amount:", 0) as num
+	var/antnum = input(owner, "How many cultists do you want to create? Enter 0 to cancel.", "Amount:", 0) as num
 	if(!antnum || antnum <= 0) // 5 because cultist can really screw balance over if spawned in high amount.
 		return
 	log_admin("[key_name(owner)] tried making a Cult with One-Click-Antag")
@@ -171,21 +171,17 @@
 		if(CandCheck(ROLE_CULTIST, applicant, temp))
 			candidates += applicant
 
-	if(candidates.len)
-		var/numCultists = min(candidates.len, antnum)
+	if(length(candidates))
+		var/numCultists = min(length(candidates), antnum)
 
-		for(var/i = 0, i<numCultists, i++)
+		for(var/I in 1 to numCultists)
 			H = pick(candidates)
+			to_chat(H, CULT_GREETING)
 			SSticker.mode.add_cultist(H.mind)
+			SSticker.mode.equip_cultist(H)
 			candidates.Remove(H)
-			if(!GLOB.summon_spots.len)
-				while(GLOB.summon_spots.len < SUMMON_POSSIBILITIES)
-					var/area/summon = pick(return_sorted_areas() - GLOB.summon_spots)
-					if(summon && is_station_level(summon.z) && summon.valid_territory)
-						GLOB.summon_spots += summon
-
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 
@@ -286,18 +282,14 @@
 	return 1
 
 /datum/admins/proc/makeAliens()
-	var/datum/event/alien_infestation/E = new /datum/event/alien_infestation
-
 	var/antnum = input(owner, "How many aliens you want to create? Enter 0 to cancel.","Amount:", 0) as num
 	if(!antnum || antnum <= 0)
 		return
+	var/datum/event/alien_infestation/E = new /datum/event/alien_infestation
+	E.spawncount = antnum
 	log_admin("[key_name(owner)] tried making Aliens with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making Aliens with One-Click-Antag")
 
-	E.spawncount = antnum
-	// TODO The fact we have to do this rather than just have events start
-	// when we ask them to, is bad.
-	E.processing = TRUE
 	return TRUE
 
 /*
@@ -376,7 +368,7 @@
 	return 1
 
 
-/proc/makeBody(var/mob/dead/observer/G_found) // Uses stripped down and bastardized code from respawn character
+/proc/makeBody(mob/dead/observer/G_found) // Uses stripped down and bastardized code from respawn character
 	if(!G_found || !G_found.key)	return
 
 	//First we spawn a dude.

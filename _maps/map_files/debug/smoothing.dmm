@@ -27,7 +27,7 @@
 /area/centcom)
 "i" = (
 /obj/effect/landmark/start,
-/turf/unsimulated/floor,
+/turf/simulated/floor/plating,
 /area/start)
 "j" = (
 /obj/effect/landmark{

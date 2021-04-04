@@ -17,7 +17,6 @@
 	volume = 250
 	possible_transfer_amounts = null
 
-
 /obj/item/reagent_containers/spray/afterattack(atom/A, mob/user)
 	if(istype(A, /obj/item/storage) || istype(A, /obj/structure/table) || istype(A, /obj/structure/rack) || istype(A, /obj/structure/closet) \
 	|| istype(A, /obj/item/reagent_containers) || istype(A, /obj/structure/sink) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/machinery/hydroponics))
@@ -50,15 +49,20 @@
 	user.changeNext_move(CLICK_CD_RANGE*2)
 	user.newtonian_move(get_dir(A, user))
 
-	if(reagents.reagent_list.len == 1 && reagents.has_reagent("cleaner")) // Only show space cleaner logs if it's burning people from being too hot or cold
-		if(reagents.chem_temp < 300 && reagents.chem_temp > 280) // 280 is the cold threshold for slimes, 300 the hot threshold for drask
+	var/attack_log_type = ATKLOG_ALMOSTALL
+
+	if(reagents.chem_temp > 300 || reagents.chem_temp < 280)	//harmful temperature
+		attack_log_type = ATKLOG_MOST
+
+	if(reagents.reagent_list.len == 1 && reagents.has_reagent("cleaner")) // Only create space cleaner logs if it's burning people from being too hot or cold
+		if(attack_log_type == ATKLOG_ALMOSTALL)
 			return
 
-	var/attack_log_type = ATKLOG_MOST
+	//commonly used for griefing or just very annoying and dangerous
 	if(reagents.has_reagent("sacid") || reagents.has_reagent("facid") || reagents.has_reagent("lube"))
 		attack_log_type = ATKLOG_FEW
 
-	add_attack_logs(user, A, "Used a potentially harmful spray bottle. Contents: [contents_log] - Temperature: [reagents.chem_temp]K", attack_log_type)
+	add_attack_logs(user, A, "Used a spray bottle. Contents: [contents_log] - Temperature: [reagents.chem_temp]K", attack_log_type)
 	return
 
 
@@ -77,7 +81,7 @@
 	qdel(D)
 
 
-/obj/item/reagent_containers/spray/attack_self(var/mob/user)
+/obj/item/reagent_containers/spray/attack_self(mob/user)
 
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	spray_currentrange = (spray_currentrange == 1 ? spray_maxrange : 1)
@@ -107,6 +111,19 @@
 	name = "space cleaner"
 	desc = "BLAM!-brand non-foaming space cleaner!"
 	list_reagents = list("cleaner" = 250)
+
+/obj/item/reagent_containers/spray/cleaner/safety
+	desc = "BLAM!-brand non-foaming space cleaner! This spray bottle can only accept space cleaner."
+
+/obj/item/reagent_containers/spray/cleaner/safety/on_reagent_change()
+	for(var/filth in reagents.reagent_list)
+		var/datum/reagent/R = filth
+		if(R.id != "cleaner") //all chems other than space cleaner are filthy.
+			reagents.del_reagent(R.id)
+			if(ismob(loc))
+				to_chat(loc, "<span class='warning'>[src] identifies and removes a filthy substance.</span>")
+			else
+				visible_message("<span class='warning'>[src] identifies and removes a filthy substance.</span>")
 
 /obj/item/reagent_containers/spray/cleaner/drone
 	name = "space cleaner"
@@ -163,7 +180,7 @@
 	origin_tech = "combat=3;materials=3;engineering=3"
 
 
-/obj/item/reagent_containers/spray/chemsprayer/spray(var/atom/A)
+/obj/item/reagent_containers/spray/chemsprayer/spray(atom/A)
 	var/Sprays[3]
 	for(var/i=1, i<=3, i++) // intialize sprays
 		if(reagents.total_volume < 1) break
@@ -200,7 +217,7 @@
 
 
 
-/obj/item/reagent_containers/spray/chemsprayer/attack_self(var/mob/user)
+/obj/item/reagent_containers/spray/chemsprayer/attack_self(mob/user)
 
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	to_chat(user, "<span class='notice'>You adjust the output switch. You'll now use [amount_per_transfer_from_this] units per spray.</span>")

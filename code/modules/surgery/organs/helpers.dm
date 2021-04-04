@@ -17,7 +17,7 @@
 	return (locate(typepath) in internal_organs)
 
 
-/mob/living/carbon/get_organs_zone(zone, var/subzones = 0)
+/mob/living/carbon/get_organs_zone(zone, subzones = 0)
 	var/list/returnorg = list()
 	if(subzones)
 		// Include subzones - groin for chest, eyes and mouth for head
@@ -66,6 +66,13 @@
 		return TRUE
 	return FALSE
 
+/mob/proc/has_both_hands()
+	return TRUE
+
+/mob/living/carbon/human/has_both_hands()
+	if(has_left_hand() && has_right_hand())
+		return TRUE
+	return FALSE
 
 //Limb numbers
 /mob/proc/get_num_arms()

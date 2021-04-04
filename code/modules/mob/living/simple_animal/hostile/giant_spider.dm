@@ -12,12 +12,14 @@
 	var/butcher_state = 8 // Icon state for dead spider icons
 	icon_living = "guard"
 	icon_dead = "guard_dead"
+	mob_biotypes = MOB_ORGANIC | MOB_BUG
 	speak_emote = list("chitters")
 	emote_hear = list("chitters")
 	speak_chance = 5
 	turns_per_move = 5
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	footstep_type = FOOTSTEP_MOB_CLAW
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/spidermeat= 2, /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg= 8)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
@@ -46,6 +48,13 @@
 		var/inject_target = pick("chest", "head")
 		if(C.can_inject(null, FALSE, inject_target, FALSE))
 			C.reagents.add_reagent("spidertoxin", venom_per_bite)
+
+/mob/living/simple_animal/hostile/poison/giant_spider/get_spacemove_backup()
+	. = ..()
+	// If we don't find any normal thing to use, attempt to use any nearby spider structure instead.
+	if(!.)
+		for(var/obj/structure/spider/S in range(1, get_turf(src)))
+			return S
 
 //nursemaids - these create webs and eggs
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse

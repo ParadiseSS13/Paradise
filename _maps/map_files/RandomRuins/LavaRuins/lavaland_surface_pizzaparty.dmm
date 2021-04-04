@@ -11,7 +11,7 @@
 /area/lavaland/surface/outdoors)
 "d" = (
 /turf/simulated/wall,
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "e" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating{
@@ -19,7 +19,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "f" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/cups,
@@ -28,7 +28,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "g" = (
 /obj/structure/reagent_dispensers/water_cooler/pizzaparty,
 /obj/effect/decal/cleanable/dirt,
@@ -37,7 +37,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "h" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
@@ -45,7 +45,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "i" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -54,7 +54,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "j" = (
 /obj/item/reagent_containers/food/snacks/mushroompizzaslice,
 /obj/effect/decal/cleanable/dirt,
@@ -63,7 +63,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "k" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/pizzaparty,
@@ -73,7 +73,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "l" = (
 /obj/machinery/light{
 	dir = 4
@@ -87,7 +87,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "m" = (
 /obj/item/chair/wood/wings,
 /obj/effect/decal/cleanable/dirt,
@@ -96,7 +96,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "n" = (
 /obj/structure/glowshroom/single,
 /obj/effect/decal/cleanable/dirt,
@@ -105,7 +105,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "o" = (
 /obj/item/trash/plate,
 /obj/effect/decal/cleanable/dirt,
@@ -114,7 +114,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "p" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt,
@@ -123,7 +123,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "q" = (
 /obj/item/chair/wood/wings,
 /obj/effect/decal/cleanable/dirt,
@@ -132,7 +132,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "r" = (
 /obj/structure/chair/wood/wings,
 /obj/effect/decal/remains/human,
@@ -145,14 +145,14 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "s" = (
 /turf/simulated/floor/wood{
 	oxygen = 14;
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "t" = (
 /obj/structure/chair/wood/wings,
 /obj/effect/decal/remains/human,
@@ -161,7 +161,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "u" = (
 /obj/structure/glowshroom/single,
 /turf/simulated/floor/wood{
@@ -169,7 +169,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "v" = (
 /obj/structure/lattice,
 /obj/item/chair/wood/wings,
@@ -183,7 +183,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "x" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/pizzaparty,
@@ -192,7 +192,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "y" = (
 /obj/structure/table/wood,
 /obj/item/trash/plate,
@@ -201,7 +201,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "z" = (
 /obj/structure/table/wood,
 /obj/structure/glowshroom/single,
@@ -211,7 +211,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "A" = (
 /obj/structure/table/wood,
 /obj/item/trash/plate,
@@ -221,7 +221,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "B" = (
 /obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/wood{
@@ -229,7 +229,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "C" = (
 /obj/structure/chair/wood/wings{
 	dir = 4
@@ -240,7 +240,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "D" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/margheritaslice,
@@ -250,7 +250,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "E" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/meatpizzaslice,
@@ -259,7 +259,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "F" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/sliceable/birthdaycake,
@@ -268,7 +268,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "G" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/wood{
@@ -276,7 +276,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "H" = (
 /obj/item/chair/wood/wings,
 /turf/simulated/floor/wood{
@@ -284,7 +284,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "I" = (
 /obj/item/kitchen/utensil/fork,
 /obj/effect/decal/cleanable/dirt,
@@ -293,7 +293,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "J" = (
 /obj/structure/glowshroom/single,
 /obj/effect/decal/cleanable/dirt,
@@ -302,7 +302,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "K" = (
 /obj/structure/chair/wood/wings{
 	dir = 1
@@ -314,7 +314,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "L" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -323,7 +323,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "M" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/a_gift,
@@ -332,7 +332,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "N" = (
 /obj/structure/lattice,
 /obj/effect/decal/cleanable/dirt,
@@ -346,7 +346,7 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "P" = (
 /obj/machinery/light{
 	dir = 4
@@ -357,14 +357,14 @@
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 "Q" = (
 /turf/simulated/floor/plating{
 	oxygen = 14;
 	nitrogen = 23;
 	temperature = 300
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/misc_lavaruin)
 
 (1,1,1) = {"
 a

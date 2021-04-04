@@ -8,7 +8,6 @@
 	flags = CONDUCT
 
 	var/spamcheck = 0
-	var/emagged = 0
 	var/insults = 0
 	var/span = ""
 	var/list/insultmsg = list("FUCK EVERYONE!", "I'M A TATER!", "ALL SECURITY TO SHOOT ME ON SIGHT!", "I HAVE A BOMB!", "CAPTAIN IS A COMDOM!", "FOR THE SYNDICATE!")
@@ -33,7 +32,7 @@
 		if(H && H.mind && H.mind.miming)
 			to_chat(user, "<span class='warning'>Your vow of silence prevents you from speaking.</span>")
 			return
-		if((COMIC in H.mutations) || H.get_int_organ(/obj/item/organ/internal/cyberimp/brain/clown_voice))
+		if(HAS_TRAIT(H, TRAIT_COMIC_SANS))
 			span = "sans"
 	if(spamcheck)
 		to_chat(user, "<span class='warning'>\The [src] needs to recharge!</span>")
@@ -70,6 +69,10 @@
 	log_say(message, user)
 	for(var/obj/O in oview(14, get_turf(src)))
 		O.hear_talk(user, message_to_multilingual("<span class='reallybig'>[message]</span>"))
+
+	for(var/mob/M in get_mobs_in_view(7, src))
+		if((M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && M.can_hear())
+			M.create_chat_message(user, message, FALSE, "big")
 
 /obj/item/megaphone/emag_act(user as mob)
 	if(!emagged)

@@ -12,7 +12,13 @@
 	var/on = FALSE
 	var/obj/item/clothing/suit/space/hardsuit/suit
 	item_color = "engineering" //Determines used sprites: hardsuit[on]-[color] and hardsuit[on]-[color]2 (lying down sprite)
-	actions_types = list(/datum/action/item_action/toggle_helmet_light)
+	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_geiger_counter)
+
+	var/scanning = TRUE
+	var/current_tick_amount = 0
+	var/radiation_count = 0
+	var/grace = RAD_GEIGER_GRACE_PERIOD
+	var/datum/looping_sound/geiger/soundloop
 
 	//Species-specific stuff.
 	species_restricted = list("exclude","Wryn")
@@ -32,6 +38,17 @@
 		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi',
 		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/hats.dmi'
 		)
+
+/obj/item/clothing/head/helmet/space/hardsuit/Initialize(mapload)
+	. = ..()
+	soundloop = new(list(), FALSE, TRUE)
+	soundloop.volume = 5
+	START_PROCESSING(SSobj, src)
+
+/obj/item/clothing/head/helmet/space/hardsuit/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	QDEL_NULL(soundloop)
+	return ..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/attack_self(mob/user)
 	toggle_light(user)
@@ -61,6 +78,7 @@
 	..()
 	if(suit)
 		suit.RemoveHelmet()
+		soundloop.stop(user)
 
 /obj/item/clothing/head/helmet/space/hardsuit/item_action_slot_check(slot)
 	if(slot == slot_head)
@@ -71,13 +89,52 @@
 	if(slot != slot_head)
 		if(suit)
 			suit.RemoveHelmet()
+			soundloop.stop(user)
 		else
 			qdel(src)
+	else if(scanning)
+		soundloop.start(user)
 
-/obj/item/clothing/head/helmet/space/hardsuit/proc/display_visor_message(var/msg)
+/obj/item/clothing/head/helmet/space/hardsuit/proc/display_visor_message(msg)
 	var/mob/wearer = loc
 	if(msg && ishuman(wearer))
 		wearer.show_message("<b><span class='robot'>[msg]</span></b>", 1)
+
+/obj/item/clothing/head/helmet/space/hardsuit/rad_act(amount)
+	. = ..()
+	if(amount <= RAD_BACKGROUND_RADIATION)
+		return
+	current_tick_amount += amount
+
+/obj/item/clothing/head/helmet/space/hardsuit/process()
+	if(scanning)
+		radiation_count -= radiation_count / RAD_GEIGER_MEASURE_SMOOTHING
+		radiation_count += current_tick_amount / RAD_GEIGER_MEASURE_SMOOTHING
+
+		if(current_tick_amount)
+			grace = RAD_GEIGER_GRACE_PERIOD
+		else
+			grace--
+			if(grace <= 0)
+				radiation_count = 0
+
+	current_tick_amount = 0
+
+	if(ishuman(loc))
+		update_sound()
+
+/obj/item/clothing/head/helmet/space/hardsuit/proc/update_sound()
+	var/datum/looping_sound/geiger/loop = soundloop
+	if(!scanning || !radiation_count)
+		loop.stop(loc)
+		return
+	loop.last_radiation = radiation_count
+	loop.start(loc)
+
+/obj/item/clothing/head/helmet/space/hardsuit/proc/toggle_geiger_counter()
+	scanning = !scanning
+	if(ishuman(loc))
+		to_chat(loc, "<span class='notice'>You toggle [src]'s internal geiger counter [scanning ? "on" : "off"].</span>")
 
 /obj/item/clothing/head/helmet/space/hardsuit/emp_act(severity)
 	..()
@@ -90,7 +147,7 @@
 	item_state = "eng_hardsuit"
 	max_integrity = 300
 	armor = list("melee" = 10, "bullet" = 5, "laser" = 10, "energy" = 5, "bomb" = 10, "bio" = 100, "rad" = 75, "fire" = 50, "acid" = 75)
-	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/t_scanner, /obj/item/rcd, /obj/item/rpd)
+	allowed = list(/obj/item/flashlight,/obj/item/tank/internals,/obj/item/t_scanner, /obj/item/rcd, /obj/item/rpd)
 	siemens_coefficient = 0
 	var/obj/item/clothing/head/helmet/space/hardsuit/helmet
 	actions_types = list(/datum/action/item_action/toggle_helmet)
@@ -228,11 +285,11 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 /obj/item/clothing/suit/space/hardsuit/engine/elite
-	icon_state = "hardsuit-white"
 	name = "advanced hardsuit"
 	desc = "An advanced suit that protects against hazardous, low pressure environments. Shines with a high polish."
+	icon_state = "hardsuit-white"
 	item_state = "ce_hardsuit"
-	armor = list("melee" = 40, "bullet" = 5, "laser" = 10, "energy" = 5, "bomb" = 50, "bio" = 100, "rad" = 90, "fire" = 100, "acid" = 90)
+	armor = list("melee" = 40, "bullet" = 5, "laser" = 10, "energy" = 5, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 90)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine/elite
@@ -253,14 +310,14 @@
 	brightness_on = 7
 
 /obj/item/clothing/suit/space/hardsuit/mining
-	icon_state = "hardsuit-mining"
 	name = "mining hardsuit"
 	desc = "A special suit that protects against hazardous, low pressure environments. Has reinforced plating."
+	icon_state = "hardsuit-mining"
 	item_state = "mining_hardsuit"
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 5, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 75)
-	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/storage/bag/ore, /obj/item/pickaxe, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/bag/ore, /obj/item/pickaxe, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/mining
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 
@@ -351,7 +408,7 @@
 	var/on = 1
 	actions_types = list(/datum/action/item_action/toggle_hardsuit_mode)
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 15, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 90)
-	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword, /obj/item/restraints/handcuffs, /obj/item/tank)
+	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	jetpack = /obj/item/tank/jetpack/suit
 
@@ -422,18 +479,78 @@
 	item_color = "medical"
 	flash_protect = 0
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 5, "bomb" = 10, "bio" = 100, "rad" = 60, "fire" = 60, "acid" = 75)
-	flags = STOPSPRESSUREDMAGE | THICKMATERIAL
 	scan_reagents = 1 //Generally worn by the CMO, so they'd get utility off of seeing reagents
 
 /obj/item/clothing/suit/space/hardsuit/medical
-	icon_state = "hardsuit-medical"
 	name = "medical hardsuit"
 	desc = "A special helmet designed for work in a hazardous, low pressure environment. Built with lightweight materials for extra comfort."
+	icon_state = "hardsuit-medical"
 	item_state = "medical_hardsuit"
-	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/storage/firstaid,/obj/item/healthanalyzer,/obj/item/stack/medical,/obj/item/rad_laser)
+	allowed = list(/obj/item/flashlight,/obj/item/tank/internals,/obj/item/storage/firstaid,/obj/item/healthanalyzer,/obj/item/stack/medical,/obj/item/rad_laser)
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 5, "bomb" = 10, "bio" = 100, "rad" = 60, "fire" = 60, "acid" = 75)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/medical
 	slowdown = 0.5
+
+	//Research Director hardsuit
+/obj/item/clothing/head/helmet/space/hardsuit/rd
+	name = "prototype hardsuit helmet"
+	desc = "A prototype helmet designed for research in a hazardous, low pressure environment. Scientific data flashes across the visor."
+	icon_state = "hardsuit0-rd"
+	item_state = "rd"
+	item_color = "rd"
+	flash_protect = 0
+	scan_reagents = TRUE
+	armor = list("melee" = 30,"bullet" = 5, "laser" = 10, "energy" = 5, "bomb" = 100, "bio" = 100, "rad" = 60, "fire" = 60, "acid" = 80)
+	var/hud_active = FALSE
+	var/explosion_detection_dist = 21
+
+/obj/item/clothing/head/helmet/space/hardsuit/rd/equipped(mob/user, slot)
+	..()
+	if(slot == slot_head)
+		GLOB.doppler_arrays += src //Needed to sense the kabooms
+		if(ishuman(user))
+			var/mob/living/carbon/human/U = user
+			if(istype(U.glasses, /obj/item/clothing/glasses/hud/diagnostic)) // If they are for some reason wearing a diagnostic hud when they put the helmet on
+				return // already have a hud
+			var/datum/atom_hud/H = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+			H.add_hud_to(U)
+			hud_active = TRUE
+
+
+/obj/item/clothing/head/helmet/space/hardsuit/rd/dropped(mob/living/carbon/human/user)
+	..()
+	if((user.head == src) && hud_active)
+		GLOB.doppler_arrays -= src
+		var/datum/atom_hud/H = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+		H.remove_hud_from(user)
+
+/obj/item/clothing/head/helmet/space/hardsuit/rd/proc/sense_explosion(x0, y0, z0, devastation_range, heavy_impact_range,
+		light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
+	var/turf/T = get_turf(src)
+	var/dx = abs(x0 - T.x)
+	var/dy = abs(y0 - T.y)
+	var/distance
+	if(T.z != z0)
+		return
+	if(dx > dy)
+		distance = dx
+	else
+		distance = dy
+	if(distance > explosion_detection_dist)
+		return
+	display_visor_message("Explosion detected! Epicenter radius: [devastation_range], Outer radius: [heavy_impact_range], Shockwave radius: [light_impact_range]")
+
+/obj/item/clothing/suit/space/hardsuit/rd
+	name = "prototype hardsuit"
+	desc = "A prototype suit that protects against hazardous, low pressure environments. Fitted with extensive plating for handling explosives and dangerous research materials."
+	icon_state = "hardsuit-rd"
+	item_state = "hardsuit-rd"
+	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT //Same as an emergency firesuit. Not ideal for extended exposure.
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/gun/energy/wormhole_projector,
+	/obj/item/hand_tele, /obj/item/aicard)
+	armor = list("melee" = 30,"bullet" = 5, "laser" = 10, "energy" = 5, "bomb" = 100, "bio" = 100, "rad" = 60, "fire" = 60, "acid" = 80)
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/rd
+
 
 	//Security
 /obj/item/clothing/head/helmet/space/hardsuit/security
@@ -445,12 +562,12 @@
 	armor = list("melee" = 35, "bullet" = 15, "laser" = 30,"energy" = 10, "bomb" = 10, "bio" = 100, "rad" = 50, "fire" = 75, "acid" = 75)
 
 /obj/item/clothing/suit/space/hardsuit/security
-	icon_state = "hardsuit-sec"
 	name = "security hardsuit"
 	desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
+	icon_state = "hardsuit-sec"
 	item_state = "sec_hardsuit"
 	armor = list("melee" = 35, "bullet" = 15, "laser" = 30, "energy" = 10, "bomb" = 10, "bio" = 100, "rad" = 50, "fire" = 75, "acid" = 75)
-	allowed = list(/obj/item/gun,/obj/item/flashlight,/obj/item/tank,/obj/item/melee/baton,/obj/item/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/restraints/handcuffs)
+	allowed = list(/obj/item/gun,/obj/item/flashlight,/obj/item/tank/internals,/obj/item/melee/baton,/obj/item/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/restraints/handcuffs)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security
 
 /obj/item/clothing/head/helmet/space/hardsuit/security/hos
@@ -480,9 +597,9 @@
 	sprite_sheets = null
 
 /obj/item/clothing/suit/space/hardsuit/singuloth
-	icon_state = "hardsuit-singuloth"
 	name = "singuloth knight's armor"
 	desc = "This is a ceremonial armor from the chapter of the Singuloth Knights. It's made of pure forged adamantium."
+	icon_state = "hardsuit-singuloth"
 	item_state = "singuloth_hardsuit"
 	flags = STOPSPRESSUREDMAGE
 	armor = list(melee = 45, bullet = 25, laser = 30, energy = 10, bomb = 25, bio = 100, rad = 100, fire = 95, acid = 95)
@@ -497,7 +614,7 @@
 	desc = "A hardsuit with built in energy shielding. Will rapidly recharge when not under fire."
 	icon_state = "hardsuit-hos"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded
-	allowed = list(/obj/item/flashlight,/obj/item/tank, /obj/item/gun,/obj/item/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs)
+	allowed = list(/obj/item/flashlight,/obj/item/tank/internals, /obj/item/gun,/obj/item/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs)
 	armor = list("melee" = 30, "bullet" = 15, "laser" = 30, "energy" = 10, "bomb" = 10, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/current_charges = 3
@@ -545,6 +662,12 @@
 	return mutable_appearance('icons/effects/effects.dmi', shield_state, MOB_LAYER + 0.01)
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded
+	name = "shielded hardsuit helmet"
+	desc = "A hardsuit helmet with built in energy shielding. Will rapidly recharge when not under fire."
+	icon_state = "hardsuit0-sec"
+	item_state = "sec_helm"
+	item_color = "sec"
+	armor = list("melee" = 30, "bullet" = 15, "laser" = 30, "energy" = 10, "bomb" = 10, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 
@@ -557,7 +680,7 @@
 	item_state = "syndie_hardsuit"
 	item_color = "syndi"
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 15, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
-	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs,/obj/item/tank)
+	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs,/obj/item/tank/internals)
 	slowdown = 0
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi
 	jetpack = /obj/item/tank/jetpack/suit

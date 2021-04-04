@@ -62,7 +62,7 @@
 /datum/reagent/proc/reaction_obj(obj/O, volume)
 	return
 
-/datum/reagent/proc/reaction_turf(turf/T, volume)
+/datum/reagent/proc/reaction_turf(turf/T, volume, color)
 	return
 
 /datum/reagent/proc/on_mob_life(mob/living/M)
@@ -96,6 +96,23 @@
 
 /datum/reagent/proc/on_mob_death(mob/living/M)	//use this to have chems have a "death-triggered" effect
 	return
+
+/**
+ * Flashfire is a proc used to log fire causing chemical reactions.
+ *
+ * Call this whenever you have a chemical reaction that makes fire flashes.
+ * Arguments:
+ * * holder: the beaker that the reagent is in
+ * * name: name of the reagent / reaction
+ */
+/proc/fire_flash_log(datum/reagents/holder, name)
+	if(!holder.my_atom)
+		return
+	if(holder.my_atom.fingerprintslast)
+		var/mob/M = get_mob_by_key(holder.my_atom.fingerprintslast)
+		add_attack_logs(M, COORD(holder.my_atom.loc), "Caused a flashfire reaction of [name]. Last associated key is [holder.my_atom.fingerprintslast]", ATKLOG_FEW)
+		log_game("Flashfire reaction ([holder.my_atom], reagent type: [name]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
+	holder.my_atom.investigate_log("A Flashfire reaction, (reagent type [name]) last touched by [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(holder.my_atom.loc)].", INVESTIGATE_BOMB)
 
 // Called when this reagent is first added to a mob
 /datum/reagent/proc/on_mob_add(mob/living/L)
@@ -210,24 +227,24 @@
 	return update_flags
 
 /datum/reagent/proc/fakedeath(mob/living/M)
-	if(M.status_flags & FAKEDEATH)
+	if(HAS_TRAIT(M, TRAIT_FAKEDEATH))
 		return
 	if(!(M.status_flags & CANPARALYSE))
 		return
 	if(M.mind && M.mind.changeling && M.mind.changeling.regenerating) //no messing with changeling's fake death
 		return
 	M.emote("deathgasp")
-	M.status_flags |= FAKEDEATH
+	ADD_TRAIT(M, TRAIT_FAKEDEATH, id)
 	M.updatehealth("fakedeath reagent")
 
 /datum/reagent/proc/fakerevive(mob/living/M)
-	if(!(M.status_flags & FAKEDEATH))
+	if(!HAS_TRAIT(M, TRAIT_FAKEDEATH))
 		return
 	if(M.mind && M.mind.changeling && M.mind.changeling.regenerating)
 		return
 	if(M.resting)
 		M.StopResting()
-	M.status_flags &= ~(FAKEDEATH)
+	REMOVE_TRAIT(M, TRAIT_FAKEDEATH, id)
 	if(M.healthdoll)
 		M.healthdoll.cached_healthdoll_overlays.Cut()
 	M.updatehealth("fakedeath reagent end")

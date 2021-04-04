@@ -68,6 +68,9 @@ GLOBAL_VAR(bomb_set)
 		else
 			to_chat(user, "<span class='notice'>You need to deploy [src] first.</span>")
 		return
+	else if(istype(O, /obj/item/disk/plantgene))
+		to_chat(user, "<span class='warning'>You try to plant the disk, but despite rooting around, it won't fit! After you branch out to read the instructions, you find out where the problem stems from. You've been bamboo-zled, this isn't a nuclear disk at all!</span>")
+		return
 	return ..()
 
 /obj/machinery/nuclearbomb/crowbar_act(mob/user, obj/item/I)
@@ -176,15 +179,15 @@ GLOBAL_VAR(bomb_set)
 	if(panel_open)
 		wires.Interact(user)
 	else
-		tgui_interact(user)
+		ui_interact(user)
 
-/obj/machinery/nuclearbomb/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_physical_state)
+/obj/machinery/nuclearbomb/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "NuclearBomb", name, 450, 300, master_ui, state)
 		ui.open()
 
-/obj/machinery/nuclearbomb/tgui_data(mob/user)
+/obj/machinery/nuclearbomb/ui_data(mob/user)
 	var/list/data = list()
 	data["extended"] = extended
 	data["authdisk"] = is_auth(user)
@@ -207,7 +210,7 @@ GLOBAL_VAR(bomb_set)
 		data["codemsg"] = "-----"
 	return data
 
-/obj/machinery/nuclearbomb/proc/is_auth(var/mob/user)
+/obj/machinery/nuclearbomb/proc/is_auth(mob/user)
 	if(auth)
 		return TRUE
 	else if(user.can_admin_interact())
@@ -215,7 +218,7 @@ GLOBAL_VAR(bomb_set)
 	else
 		return FALSE
 
-/obj/machinery/nuclearbomb/tgui_act(action, params)
+/obj/machinery/nuclearbomb/ui_act(action, params)
 	if(..())
 		return
 	. = TRUE
@@ -327,9 +330,9 @@ GLOBAL_VAR(bomb_set)
 		return
 	qdel(src)
 
-/obj/machinery/nuclearbomb/tesla_act(power, explosive)
-	..()
-	if(explosive)
+/obj/machinery/nuclearbomb/zap_act(power, zap_flags)
+	. = ..()
+	if(zap_flags & ZAP_MACHINE_EXPLOSIVE)
 		qdel(src)//like the singulo, tesla deletes it. stops it from exploding over and over
 
 #define NUKERANGE 80
@@ -379,7 +382,7 @@ GLOBAL_VAR(bomb_set)
 															//kinda shit but I couldn't  get permission to do what I wanted to do.
 
 			if(!SSticker.mode.check_finished())//If the mode does not deal with the nuke going off so just reboot because everyone is stuck as is
-				world.Reboot("Station destroyed by Nuclear Device.", "end_error", "nuke - unhandled ending")
+				SSticker.reboot_helper("Station destroyed by Nuclear Device.", "nuke - unhandled ending")
 				return
 	return
 
@@ -422,7 +425,7 @@ GLOBAL_VAR(bomb_set)
 			to_chat(holder, "<span class='danger'>You can't help but feel that you just lost something back there...</span>")
 		qdel(src)
 
- //station disk is allowed on z1, escape shuttle/pods, CC, and syndicate shuttles/base, reset otherwise
+ //station disk is allowed on the station level, escape shuttle/pods, CC, and syndicate shuttles/base, reset otherwise
 /obj/item/disk/nuclear/proc/check_disk_loc()
 	var/turf/T = get_turf(src)
 	var/area/A = get_area(src)

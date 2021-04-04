@@ -17,6 +17,7 @@ GLOBAL_VAR_INIT(syndicate_elite_shuttle_timeleft, 0)
 	icon_screen = "syndishuttle"
 	light_color = LIGHT_COLOR_PURE_CYAN
 	req_access = list(ACCESS_SYNDICATE)
+	bubble_icon = "syndibot"
 	var/temp = null
 	var/hacked = 0
 	var/allowedtocall = 0
@@ -177,7 +178,7 @@ GLOBAL_VAR_INIT(syndicate_elite_shuttle_timeleft, 0)
 	if(GLOB.syndicate_elite_shuttle_moving_to_station || GLOB.syndicate_elite_shuttle_moving_to_mothership) return 0
 	else return 1
 
-/obj/machinery/computer/syndicate_elite_shuttle/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/syndicate_elite_shuttle/attack_ai(mob/user as mob)
 	to_chat(user, "<span class='warning'>Access Denied.</span>")
 	return 1
 
@@ -187,7 +188,7 @@ GLOBAL_VAR_INIT(syndicate_elite_shuttle_timeleft, 0)
 	else
 		return ..()
 
-/obj/machinery/computer/syndicate_elite_shuttle/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/syndicate_elite_shuttle/attack_hand(mob/user as mob)
 	if(!allowed(user))
 		to_chat(user, "<span class='warning'>Access Denied.</span>")
 		return
@@ -238,9 +239,6 @@ GLOBAL_VAR_INIT(syndicate_elite_shuttle_timeleft, 0)
 		temp  = "Shuttle departing.<BR><BR><A href='?src=[UID()];mainmenu=1'>OK</A>"
 		updateUsrDialog()
 
-		var/area/syndicate_mothership/elite_squad/elite_squad = locate()
-		if(elite_squad)
-			elite_squad.readyalert()//Trigger alarm for the spec ops area.
 		GLOB.syndicate_elite_shuttle_moving_to_station = 1
 
 		GLOB.syndicate_elite_shuttle_time = world.timeofday + SYNDICATE_ELITE_MOVETIME

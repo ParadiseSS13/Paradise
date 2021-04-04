@@ -7,44 +7,35 @@
 	req_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/pod_locater
 
-/obj/machinery/computer/podtracker/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/podtracker/attack_ai(mob/user)
 	return attack_hand(user)
 
-/obj/machinery/computer/podtracker/attack_hand(user as mob)
+/obj/machinery/computer/podtracker/attack_hand(mob/user)
 	ui_interact(user)
 
-/obj/machinery/computer/podtracker/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/podtracker/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "pod_tracking.tmpl", "Pod Tracking Console", 400, 500)
+		ui = new(user, src, ui_key, "PodTracking", name, 400, 500, master_ui, state)
 		ui.open()
-		ui.set_auto_update(1)
 
-/obj/machinery/computer/podtracker/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
-	var/list/pods[0]
-	for(var/obj/item/spacepod_equipment/misc/tracker/TR in world)
-		var/obj/spacepod/my_pod = TR.my_atom
-		var/enabled = TR.enabled
-		if(my_pod && enabled)
+/obj/machinery/computer/podtracker/ui_data(mob/user)
+	var/list/data = list()
+	var/list/pods = list()
+	for(var/obj/item/spacepod_equipment/misc/tracker/TR in GLOB.pod_trackers)
+		if(TR.my_atom)
+			var/obj/spacepod/my_pod = TR.my_atom
 			var/podname = capitalize(sanitize(my_pod.name))
-			var/list/chairs = list()
-			if(my_pod.pilot || my_pod.passengers)
-				if(my_pod.pilot)
-					chairs += list("pilot" = my_pod.pilot.name)
-				var/i = 1
+			var/pilot = "None"
+			var/passengers = list()
+			if(my_pod.pilot)
+				pilot = my_pod.pilot
+			if(my_pod.passengers)
 				for(var/mob/M in my_pod.passengers)
-					chairs += list("passenger [i]" = M.name)
-					i++
+					passengers += M.name
+			var/passengers_text = english_list(passengers, "None")
 
-			pods.Add(list(list("pod" = "\ref[my_pod]", "name" = podname) + chairs + list("x" = my_pod.x, "y" = my_pod.y, "z" = my_pod.z)))
+			pods.Add(list(list("name" = podname, "podx" = my_pod.x, "pody" = my_pod.y, "podz" = my_pod.z, "pilot" = pilot, "passengers" = passengers_text)))
 
 	data["pods"] = pods
 	return data
-
-/obj/machinery/computer/podtracker/Topic(href, href_list)
-	if(..())
-		return 1
-
-	if(href_list["refresh"])
-		SSnanoui.update_uis(src)

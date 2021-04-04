@@ -37,7 +37,6 @@
 	var/datum/effect_system/spark_spread/spark_system = new
 	var/lights = 0
 	var/lights_power = 6
-	var/emagged = FALSE
 	var/frozen = FALSE
 	var/repairing = FALSE
 
@@ -63,7 +62,6 @@
 	var/list/equipment = new
 	var/obj/item/mecha_parts/mecha_equipment/selected
 	var/max_equip = 3
-	var/datum/events/events
 	var/turf/crashing = null
 	var/occupant_sight_flags = 0
 
@@ -102,7 +100,6 @@
 
 /obj/mecha/Initialize()
 	. = ..()
-	events = new
 	icon_state += "-open"
 	add_radio()
 	add_cabin()
@@ -139,7 +136,7 @@
 	internal_tank = new /obj/machinery/portable_atmospherics/canister/air(src)
 	return internal_tank
 
-/obj/mecha/proc/add_cell(var/obj/item/stock_parts/cell/C=null)
+/obj/mecha/proc/add_cell(obj/item/stock_parts/cell/C=null)
 	if(C)
 		C.forceMove(src)
 		cell = C
@@ -245,13 +242,7 @@
 //////////////////////////////////
 ////////  Movement procs  ////////
 //////////////////////////////////
-
-/obj/mecha/Move(atom/newLoc, direct)
-	. = ..()
-	if(.)
-		events.fireEvent("onMove",get_turf(src))
-
-/obj/mecha/Process_Spacemove(var/movement_dir = 0)
+/obj/mecha/Process_Spacemove(movement_dir = 0)
 	. = ..()
 	if(.)
 		return 1
@@ -363,7 +354,7 @@
 	if(. && stepsound)
 		playsound(src, stepsound, 40, 1)
 
-/obj/mecha/Bump(var/atom/obstacle, bump_allowed)
+/obj/mecha/Bump(atom/obstacle, bump_allowed)
 	if(throwing) //high velocity mechas in your face!
 		var/breakthrough = 0
 		if(istype(obstacle, /obj/structure/window))
@@ -848,6 +839,9 @@
 	if(repairing)
 		to_chat(user, "<span class='notice'>[src] is currently being repaired!</span>")
 		return
+	if(state == 0) // If maint protocols are not active, the state is zero
+		to_chat(user, "<span class='warning'>[src] can not be repaired without maintenance protocols active!</span>")
+		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
 	repairing = TRUE
 	if(I.use_tool(src, user, 15, volume = I.tool_volume))
@@ -893,7 +887,7 @@
 	else
 		examine(user)
 		if(occupant)
-			user << "<span class='warning'>This exosuit has a pilot and cannot be controlled.</span>"
+			to_chat(user, "<span class='warning'>This exosuit has a pilot and cannot be controlled.</span>")
 			return
 		var/can_control_mech = FALSE
 		for(var/obj/item/mecha_parts/mecha_tracking/ai_control/A in trackers)
@@ -926,7 +920,7 @@
 			AI.aiRestorePowerRoutine = 0//So the AI initially has power.
 			AI.control_disabled = 1
 			AI.aiRadio.disabledAi = 1
-			AI.loc = card
+			AI.forceMove(card)
 			occupant = null
 			AI.controlled_mech = null
 			AI.remote_control = null
@@ -962,7 +956,7 @@
 //Hack and From Card interactions share some code, so leave that here for both to use.
 /obj/mecha/proc/ai_enter_mech(mob/living/silicon/ai/AI, interaction)
 	AI.aiRestorePowerRoutine = 0
-	AI.loc = src
+	AI.forceMove(src)
 	occupant = AI
 	icon_state = initial(icon_state)
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
@@ -1111,7 +1105,7 @@
 	else
 		to_chat(user, "<span class='warning'>You stop entering the exosuit!</span>")
 
-/obj/mecha/proc/moved_inside(var/mob/living/carbon/human/H as mob)
+/obj/mecha/proc/moved_inside(mob/living/carbon/human/H as mob)
 	if(H && H.client && (H in range(1)))
 		occupant = H
 		H.stop_pulling()
@@ -1130,23 +1124,26 @@
 			occupant << sound(nominalsound, volume = 50)
 		if(state)
 			H.throw_alert("locked", /obj/screen/alert/mech_maintenance)
-		return 1
+		return TRUE
 	else
-		return 0
+		return FALSE
 
-/obj/mecha/proc/mmi_move_inside(var/obj/item/mmi/mmi_as_oc as obj,mob/user as mob)
+/obj/mecha/proc/mmi_move_inside(obj/item/mmi/mmi_as_oc as obj,mob/user as mob)
 	if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
 		to_chat(user, "<span class='warning'>Consciousness matrix not detected!</span>")
-		return 0
+		return FALSE
 	else if(mmi_as_oc.brainmob.stat)
 		to_chat(user, "<span class='warning'>Beta-rhythm below acceptable level!</span>")
-		return 0
+		return FALSE
 	else if(occupant)
 		to_chat(user, "<span class='warning'>Occupant detected!</span>")
-		return 0
+		return FALSE
 	else if(dna && dna != mmi_as_oc.brainmob.dna.unique_enzymes)
 		to_chat(user, "<span class='warning'>Access denied. [name] is secured with a DNA lock.</span>")
-		return 0
+		return FALSE
+	else if(!operation_allowed(user))
+		to_chat(user, "<span class='warning'>Access denied. [name] is secured with an ID lock.</span>")
+		return FALSE
 
 	if(do_after(user, 40, target = src))
 		if(!occupant)
@@ -1155,24 +1152,24 @@
 			to_chat(user, "<span class='warning'>Occupant detected!</span>")
 	else
 		to_chat(user, "<span class='notice'>You stop inserting the MMI.</span>")
-	return 0
+	return FALSE
 
-/obj/mecha/proc/mmi_moved_inside(obj/item/mmi/mmi_as_oc,mob/user)
+/obj/mecha/proc/mmi_moved_inside(obj/item/mmi/mmi_as_oc, mob/user)
 	if(mmi_as_oc && (user in range(1)))
 		if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
 			to_chat(user, "Consciousness matrix not detected.")
-			return 0
+			return FALSE
 		else if(mmi_as_oc.brainmob.stat)
 			to_chat(user, "Beta-rhythm below acceptable level.")
-			return 0
+			return FALSE
 		if(!user.unEquip(mmi_as_oc))
 			to_chat(user, "<span class='notice'>\the [mmi_as_oc] is stuck to your hand, you cannot put it in \the [src]</span>")
-			return 0
-		var/mob/brainmob = mmi_as_oc.brainmob
+			return FALSE
+		var/mob/living/carbon/brain/brainmob = mmi_as_oc.brainmob
 		brainmob.reset_perspective(src)
 		occupant = brainmob
 		brainmob.forceMove(src) //should allow relaymove
-		brainmob.canmove = 1
+		brainmob.canmove = TRUE
 		if(istype(mmi_as_oc, /obj/item/mmi/robotic_brain))
 			var/obj/item/mmi/robotic_brain/R = mmi_as_oc
 			if(R.imprinted_master)
@@ -1187,9 +1184,9 @@
 		if(!hasInternalDamage())
 			to_chat(occupant, sound(nominalsound, volume=50))
 		GrantActions(brainmob)
-		return 1
+		return TRUE
 	else
-		return 0
+		return FALSE
 
 /obj/mecha/proc/pilot_is_mmi()
 	var/atom/movable/mob_container
@@ -1200,7 +1197,7 @@
 		return 1
 	return 0
 
-/obj/mecha/proc/pilot_mmi_hud(var/mob/living/carbon/brain/pilot)
+/obj/mecha/proc/pilot_mmi_hud(mob/living/carbon/brain/pilot)
 	return
 
 /obj/mecha/Exited(atom/movable/M, atom/newloc)
@@ -1253,7 +1250,7 @@
 		if(istype(mob_container, /obj/item/mmi))
 			var/obj/item/mmi/mmi = mob_container
 			if(mmi.brainmob)
-				L.loc = mmi
+				L.forceMove(mmi)
 				L.reset_perspective()
 			mmi.mecha = null
 			mmi.update_icon()
@@ -1273,7 +1270,7 @@
 		var/mob/living/carbon/human/H = L
 		H.regenerate_icons() // workaround for 14457
 
-/obj/mecha/force_eject_occupant()
+/obj/mecha/force_eject_occupant(mob/target)
 	go_out()
 
 /////////////////////////

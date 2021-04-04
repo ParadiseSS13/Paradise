@@ -104,9 +104,10 @@
 
 	weapon_setup(installation)
 
-/obj/machinery/porta_turret/proc/weapon_setup(var/guntype)
+/obj/machinery/porta_turret/proc/weapon_setup(guntype)
 	switch(guntype)
 		if(/obj/item/gun/energy/laser/practice)
+			lethal_is_configurable = FALSE
 			iconholder = 1
 			eprojectile = /obj/item/projectile/beam
 
@@ -120,6 +121,7 @@
 			iconholder = 1
 
 		if(/obj/item/gun/energy/taser)
+			lethal_is_configurable = FALSE
 			eprojectile = /obj/item/projectile/beam
 			eshot_sound = 'sound/weapons/laser.ogg'
 
@@ -192,15 +194,15 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	return FALSE
 
 /obj/machinery/porta_turret/attack_ai(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/porta_turret/attack_ghost(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
 /obj/machinery/porta_turret/attack_hand(mob/user)
-	tgui_interact(user)
+	ui_interact(user)
 
-/obj/machinery/porta_turret/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/porta_turret/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	if(HasController())
 		to_chat(user, "<span class='notice'>[src] can only be controlled using the assigned turret controller.</span>")
 		return
@@ -212,7 +214,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		ui = new(user, src, ui_key, "PortableTurret", name, 500, access_is_configurable() ? 800 : 400)
 		ui.open()
 
-/obj/machinery/porta_turret/tgui_data(mob/user)
+/obj/machinery/porta_turret/ui_data(mob/user)
 	var/list/data = list(
 		"locked" = isLocked(user), // does the current user have access?
 		"on" = enabled,
@@ -232,12 +234,12 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	)
 	return data
 
-/obj/machinery/porta_turret/tgui_static_data(mob/user)
+/obj/machinery/porta_turret/ui_static_data(mob/user)
 	var/list/data = list()
 	data["regions"] = get_accesslist_static_data(region_min, region_max)
 	return data
 
-/obj/machinery/porta_turret/tgui_act(action, params)
+/obj/machinery/porta_turret/ui_act(action, params)
 	if (..())
 		return
 	if(isLocked(usr))
@@ -315,11 +317,9 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/power_change()
 	if(powered() || !use_power)
 		stat &= ~NOPOWER
-		update_icon()
 	else
-		spawn(rand(0, 15))
-			stat |= NOPOWER
-			update_icon()
+		stat |= NOPOWER
+	update_icon()
 
 
 /obj/machinery/porta_turret/attackby(obj/item/I, mob/user)
@@ -608,7 +608,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	return TURRET_PRIORITY_TARGET	//if the perp has passed all previous tests, congrats, it is now a "shoot-me!" nominee
 
-/obj/machinery/porta_turret/proc/tryToShootAt(var/list/mob/living/targets)
+/obj/machinery/porta_turret/proc/tryToShootAt(list/mob/living/targets)
 	if(targets.len && last_target && (last_target in targets) && target(last_target))
 		return 1
 
@@ -666,7 +666,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	return ..()
 
-/obj/machinery/porta_turret/proc/set_raised_raising(var/is_raised, var/is_raising)
+/obj/machinery/porta_turret/proc/set_raised_raising(is_raised, is_raising)
 	raised = is_raised
 	raising = is_raising
 	density = is_raised || is_raising
@@ -754,7 +754,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	var/check_borgs
 	var/ailock
 
-/obj/machinery/porta_turret/proc/setState(var/datum/turret_checks/TC)
+/obj/machinery/porta_turret/proc/setState(datum/turret_checks/TC)
 	if(controllock)
 		return
 	enabled = TC.enabled

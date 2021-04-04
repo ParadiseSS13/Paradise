@@ -25,15 +25,21 @@
 	var/exp_flash = 3
 	var/exp_fire = 2
 
-/obj/item/projectile/magic/death/on_hit(mob/living/carbon/C)
+/obj/item/projectile/magic/death/on_hit(mob/living/carbon/target)
 	. = ..()
-	if(isliving(C))
-		if(ismachineperson(C)) //speshul snowfleks deserv speshul treetment
-			C.adjustFireLoss(6969)  //remember - slimes love fire
-		else
-			C.death()
+	if(isliving(target))
+		if(target.mob_biotypes & MOB_UNDEAD) //negative energy heals the undead
+			if(target.revive())
+				target.grab_ghost(force = TRUE) // even suicides
+				to_chat(target, "<span class='notice'>You rise with a start, you're undead!!!</span>")
+			else if(target.stat != DEAD)
+				to_chat(target, "<span class='notice'>You feel great!</span>")
+			return
+		if(ismachineperson(target)) //speshul snowfleks deserv speshul treetment
+			target.adjustFireLoss(6969)  //remember - slimes love fire
+		target.death(FALSE)
 
-		visible_message("<span class='danger'>[C] topples backwards as the death bolt impacts [C.p_them()]!</span>")
+		target.visible_message("<span class='danger'>[target] topples backwards as the death bolt impacts [target.p_them()]!</span>")
 
 /obj/item/projectile/magic/fireball/Range()
 	var/turf/T1 = get_step(src,turn(dir, -45))
@@ -53,7 +59,7 @@
 		return
 	..()
 
-/obj/item/projectile/magic/fireball/on_hit(var/target)
+/obj/item/projectile/magic/fireball/on_hit(target)
 	. = ..()
 	var/turf/T = get_turf(target)
 	explosion(T, exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire)
@@ -73,21 +79,25 @@
 	name = "bolt of resurrection"
 	icon_state = "ion"
 
-/obj/item/projectile/magic/resurrection/on_hit(var/mob/living/carbon/target)
+/obj/item/projectile/magic/resurrection/on_hit(mob/living/carbon/target)
 	. = ..()
 	if(ismob(target))
-		var/old_stat = target.stat
-		target.suiciding = 0
-		target.revive()
-		if(!target.ckey)
-			for(var/mob/dead/observer/ghost in GLOB.player_list)
-				if(target.real_name == ghost.real_name)
-					ghost.reenter_corpse()
-					break
-		if(old_stat != DEAD)
-			to_chat(target, "<span class='notice'>You feel great!</span>")
+		if(target.mob_biotypes & MOB_UNDEAD) //positive energy harms the undead
+			target.death(FALSE)
+			target.visible_message("<span class='danger'>[target] topples backwards as the death bolt impacts [target.p_them()]!</span>")
 		else
-			to_chat(target, "<span class='notice'>You rise with a start, you're alive!!!</span>")
+			var/old_stat = target.stat
+			target.suiciding = FALSE
+			target.revive()
+			if(!target.ckey)
+				for(var/mob/dead/observer/ghost in GLOB.player_list)
+					if(target.real_name == ghost.real_name)
+						ghost.reenter_corpse()
+						break
+			if(old_stat != DEAD)
+				to_chat(target, "<span class='notice'>You feel great!</span>")
+			else
+				to_chat(target, "<span class='notice'>You rise with a start, you're alive!!!</span>")
 
 /obj/item/projectile/magic/teleport
 	name = "bolt of teleportation"
@@ -95,7 +105,7 @@
 	var/inner_tele_radius = 0
 	var/outer_tele_radius = 6
 
-/obj/item/projectile/magic/teleport/on_hit(var/mob/target)
+/obj/item/projectile/magic/teleport/on_hit(mob/target)
 	. = ..()
 	var/teleammount = 0
 	var/teleloc = target
@@ -116,7 +126,7 @@
 		/obj/structure/mineral_door/gold,/obj/structure/mineral_door/uranium,/obj/structure/mineral_door/sandstone,/obj/structure/mineral_door/transparent/plasma,\
 		/obj/structure/mineral_door/transparent/diamond)
 
-/obj/item/projectile/magic/door/on_hit(var/atom/target)
+/obj/item/projectile/magic/door/on_hit(atom/target)
 	. = ..()
 	var/atom/T = target.loc
 	if(isturf(target) && target.density)
@@ -134,13 +144,13 @@
 	T.ChangeTurf(/turf/simulated/floor/plasteel)
 	D.Open()
 
-/obj/item/projectile/magic/door/proc/OpenDoor(var/obj/machinery/door/D)
+/obj/item/projectile/magic/door/proc/OpenDoor(obj/machinery/door/D)
 	if(istype(D,/obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = D
 		A.locked = FALSE
 	D.open()
 
-/obj/item/projectile/magic/door/proc/OpenCloset(var/obj/structure/closet/C)
+/obj/item/projectile/magic/door/proc/OpenCloset(obj/structure/closet/C)
 	if(istype(C, /obj/structure/closet/secure_closet))
 		var/obj/structure/closet/secure_closet/SC = C
 		SC.locked = FALSE
@@ -151,7 +161,7 @@
 	icon_state = "ice_1"
 	damage_type = BURN
 
-/obj/item/projectile/magic/change/on_hit(var/atom/change)
+/obj/item/projectile/magic/change/on_hit(atom/change)
 	. = ..()
 	wabbajack(change)
 
@@ -282,7 +292,7 @@
 	icon_state = "red_1"
 	damage_type = BURN
 
-/obj/item/projectile/magic/animate/Bump(var/atom/change)
+/obj/item/projectile/magic/animate/Bump(atom/change)
 	..()
 	if(istype(change, /obj/item) || istype(change, /obj/structure) && !is_type_in_list(change, GLOB.protected_objects))
 		if(istype(change, /obj/structure/closet/statue))
@@ -315,6 +325,7 @@
 	damage = 15
 	damage_type = BURN
 	flag = "magic"
+	sharp = TRUE
 	dismemberment = 50
 	nodamage = 0
 
@@ -330,7 +341,7 @@
 	..()
 	SpinAnimation()
 
-/obj/item/projectile/magic/slipping/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/magic/slipping/on_hit(atom/target, blocked = 0)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		H.slip(src, slip_stun, slip_weaken, 0, FALSE, TRUE) //Slips even with noslips/magboots on. NO ESCAPE!
@@ -346,3 +357,13 @@
 			M.Weaken(slip_weaken)
 			M.Stun(slip_stun)
 	. = ..()
+
+/obj/item/projectile/magic/arcane_barrage
+	name = "arcane bolt"
+	icon_state = "arcane_barrage"
+	damage = 20
+	damage_type = BURN
+	nodamage = FALSE
+	armour_penetration = 0
+	flag = "magic"
+	hitsound = 'sound/weapons/barragespellhit.ogg'

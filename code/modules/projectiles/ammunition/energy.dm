@@ -125,9 +125,10 @@
 	fire_sound = 'sound/weapons/pulse3.ogg'
 
 /obj/item/ammo_casing/energy/mindflayer
-	projectile_type = /obj/item/projectile/beam/mindflayer
-	select_name = "MINDFUCK"
-	fire_sound = 'sound/weapons/laser.ogg'
+	projectile_type = /obj/item/projectile/energy/mindflayer
+	muzzle_flash_color = LIGHT_COLOR_PURPLE
+	select_name = "mindflayer"
+	fire_sound = 'sound/weapons/pulse3.ogg'
 
 /obj/item/ammo_casing/energy/flora
 	fire_sound = 'sound/effects/stealthoff.ogg'
@@ -187,13 +188,15 @@
 /obj/item/ammo_casing/energy/wormhole
 	projectile_type = /obj/item/projectile/beam/wormhole
 	muzzle_flash_color = "#33CCFF"
-	e_cost = 0
+	delay = 10
+	e_cost = 100
 	fire_sound = 'sound/weapons/pulse3.ogg'
 	var/obj/item/gun/energy/wormhole_projector/gun = null
 	select_name = "blue"
 	harmful = FALSE
 
-/obj/item/ammo_casing/energy/wormhole/New(var/obj/item/gun/energy/wormhole_projector/wh)
+/obj/item/ammo_casing/energy/wormhole/New(obj/item/gun/energy/wormhole_projector/wh)
+	. = ..()
 	gun = wh
 
 /obj/item/ammo_casing/energy/wormhole/orange
