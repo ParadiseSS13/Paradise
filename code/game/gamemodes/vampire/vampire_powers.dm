@@ -434,7 +434,7 @@
 		animation.density = 0
 		animation.anchored = 1
 		animation.icon = 'icons/mob/mob.dmi'
-		animation.icon_state = "mist"
+		animation.icon_state = "empty"
 		animation.layer = 5
 		animation.master = holder
 		U.ExtinguishMob()
