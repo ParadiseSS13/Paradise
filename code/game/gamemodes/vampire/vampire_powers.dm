@@ -434,11 +434,11 @@
 		animation.density = 0
 		animation.anchored = 1
 		animation.icon = 'icons/mob/mob.dmi'
-		animation.icon_state = "liquify"
+		animation.icon_state = "mist"
 		animation.layer = 5
 		animation.master = holder
 		U.ExtinguishMob()
-		flick("mist_out", animation)
+		flick("mist", animation)
 		user.forceMove(holder)
 		user.client.eye = holder
 		sleep(jaunt_duration)
@@ -465,7 +465,7 @@
 	name = "Shadowstep (30)"
 	desc = "Vanish into the shadows."
 	gain_desc = "You have gained the ability to shadowstep, which makes you disappear into nearby shadows at the cost of blood."
-	action_icon_state = "blink"
+	action_icon_state = "shadowblink"
 	charge_max = 20
 	required_blood = 30
 	centcom_cancast = 0
