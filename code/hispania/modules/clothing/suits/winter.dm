@@ -18,7 +18,7 @@
 	flags_inv = HIDEJUMPSUIT
 	resistance_flags = FLAMMABLE
 	dog_fashion = null
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 25)
+	armor = list("melee" = 20, "bullet" = 20, "laser" = 20, "energy" = 10, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 25)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security/warden
 	sprite_sheets = list("Vox" = 'icons/hispania/mob/species/vox/suit.dmi')
 
@@ -28,7 +28,7 @@
 	icon_state = "wintercoat_hos"
 	item_state = "wintercoat_hos"
 	strip_delay = 40
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 90)
+	armor = list("melee" = 20, "bullet" = 20, "laser" = 20, "energy" = 5, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security/warden/hos
 
 /obj/item/clothing/suit/hooded/armor/detective
@@ -42,7 +42,7 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|HANDS
 	allowed = list(/obj/item/tank, /obj/item/reagent_containers/spray/pepper, /obj/item/flashlight, /obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/detective_scanner, /obj/item/taperecorder)
-	armor = list("melee" = 25, "bullet" = 10, "laser" = 25, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 45)
+	armor = list("melee" = 15, "bullet" = 5, "laser" = 15, "energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 40)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security/warden/detective
 
 /obj/item/clothing/suit/hooded/armor/brigdoc
@@ -54,20 +54,20 @@
 	allowed = list(/obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe,
 	/obj/item/healthanalyzer, /obj/item/flashlight, \
 	/obj/item/radio, /obj/item/tank,/obj/item/rad_laser)
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0, fire = 25, acid = 25)
+	armor = list(melee = 5, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0, fire = 25, acid = 25)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security
 
 /obj/item/clothing/head/hooded/winterhood/security/warden
 	icon = 'icons/hispania/mob/head.dmi'
 	icon_state = "winterhood_warden"
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 15)
+	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 5, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 15)
 	hispania_icon = TRUE
 	sprite_sheets = list("Vox" = 'icons/hispania/mob/species/vox/head.dmi')
 
 /obj/item/clothing/head/hooded/winterhood/security/warden/detective
 	icon_state = "winterhood_detective"
-	armor = list("melee" = 25, "bullet" = 5, "laser" = 25, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 15)
+	armor = list("melee" = 15, "bullet" = 5, "laser" = 15, "energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 15)
 
 /obj/item/clothing/head/hooded/winterhood/security/warden/hos
 	icon_state = "winterhood_hos"
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 15)
+	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 5, "bomb" = 15, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 15)
