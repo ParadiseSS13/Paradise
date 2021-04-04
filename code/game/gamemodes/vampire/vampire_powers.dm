@@ -446,7 +446,7 @@
 		animation.loc = mobloc
 		user.canmove = 0
 		sleep(20)
-		flick("mist_reappear",animation)
+		flick("mist_reappear", animation)
 		sleep(5)
 		if(!user.Move(mobloc))
 			for(var/direction in list(1,2,4,8,5,6,9,10))
