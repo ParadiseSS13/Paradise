@@ -6,6 +6,7 @@
 	righthand_file = 'icons/hispania/mob/inhands/clothing_righthand.dmi'
 	icon_state = "wintercoat_warden"
 	item_state = "wintercoat_warden"
+	hispania_icon = TRUE
 	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/melee/classic_baton/telescopic,/obj/item/kitchen/knife)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|HANDS
