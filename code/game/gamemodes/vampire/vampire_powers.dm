@@ -430,7 +430,7 @@
 		var/originalloc = get_turf(user.loc)
 		var/obj/effect/dummy/spell_jaunt/holder = new /obj/effect/dummy/spell_jaunt(originalloc)
 		var/atom/movable/overlay/animation = new /atom/movable/overlay(originalloc)
-		animation.name = "water"
+		animation.name = "blood"
 		animation.density = 0
 		animation.anchored = 1
 		animation.icon = 'icons/mob/mob.dmi'
@@ -441,14 +441,9 @@
 		flick("mist_out", animation)
 		user.forceMove(holder)
 		user.client.eye = holder
-		var/datum/effect_system/steam_spread/steam = new /datum/effect_system/steam_spread()
-		steam.set_up(10, 0, originalloc)
-		steam.start()
 		sleep(jaunt_duration)
 		var/mobloc = get_turf(user.loc)
 		animation.loc = mobloc
-		steam.location = mobloc
-		steam.start()
 		user.canmove = 0
 		sleep(20)
 		flick("mist_reappear",animation)
