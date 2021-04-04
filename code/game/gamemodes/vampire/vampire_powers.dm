@@ -418,7 +418,7 @@
 	name = "Mist Form (30)"
 	desc = "You take on the form of mist for a short period of time."
 	gain_desc = "You have gained the Mist Form ability which allows you to take on the form of mist for a short period and pass over any obstacle in your path."
-	action_icon_state = "jaunt"
+	action_icon_state = "mist"
 	charge_max = 600
 	required_blood = 30
 	centcom_cancast = 0
