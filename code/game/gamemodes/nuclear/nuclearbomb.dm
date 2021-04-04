@@ -14,8 +14,8 @@ GLOBAL_VAR(bomb_set)
 	icon_state = "nuclearbomb0"
 	density = 1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	var/extended = TRUE
 	anchored = TRUE
+	var/extended = TRUE
 	var/lighthack = FALSE
 	var/timeleft = 120
 	var/timing = FALSE
