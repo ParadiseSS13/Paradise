@@ -103,7 +103,7 @@
 	options["Black Panther"] = "detective_panther"
 	options["Gold Trim"] = "detective_gold"
 	options["The Peacemaker"] = "detective_peacemaker"
-	options["Cancel"] = null
+	//options["Cancel"] = null HISPANIA RADIALS
 
 /obj/item/gun/projectile/revolver/detective/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override = "")
 	if(magazine.caliber != initial(magazine.caliber))
@@ -350,7 +350,7 @@
 	options["Faded Grey"] = "dshotgun-g"
 	options["Maple"] = "dshotgun-l"
 	options["Rosewood"] = "dshotgun-p"
-	options["Cancel"] = null
+	//options["Cancel"] = null HISPANIA RADIALS
 
 /obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))

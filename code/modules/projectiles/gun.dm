@@ -425,14 +425,17 @@
 		reskin_gun(user)
 
 /obj/item/gun/proc/reskin_gun(mob/M)
-	var/choice = input(M,"Warning, you can only reskin your weapon once!","Reskin Gun") in options
-
-	if(src && choice && !current_skin && !M.incapacitated() && in_range(M,src))
-		if(options[choice] == null)
-			return
-		current_skin = options[choice]
-		to_chat(M, "Your gun is now skinned as [choice]. Say hello to your new friend.")
-		update_icon()
+	var/list/skins = list()
+	for(var/I in options)
+		var/skin_icon = options[I] // Get the accociated list
+		var/image/image = image(icon, icon_state = skin_icon)
+		skins[I] = image
+	var/choice = show_radial_menu(M, src, skins, null, 40, CALLBACK(src, .proc/radial_check, M), TRUE)
+	if(!choice || !radial_check(M))
+		return
+	current_skin = options[choice]
+	to_chat(M, "Your gun is now skinned as [choice]. Say hello to your new friend.")
+	update_icon()
 
 /obj/item/gun/proc/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, params)
 	if(!ishuman(user) || !ishuman(target))
