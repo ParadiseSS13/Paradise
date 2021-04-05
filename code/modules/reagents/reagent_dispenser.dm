@@ -44,7 +44,7 @@
 /obj/structure/reagent_dispensers/examine(mob/user)
 	. = ..()
 	if(can_be_unwrenched)
-		. += "<span class='notice'>You can </b>[anchored ? "unlock the wheels" : "lock it in place"] with a <b>Wrench</b>"
+		. += "<span class='notice'>The wheels look like they can be <b>[anchored ? "unlocked" : "locked in place"]</b> with a <b>wrench</b>."
 
 /obj/structure/reagent_dispensers/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
