@@ -779,22 +779,37 @@
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 					M.adjustCloneLoss(50)
 					M.setOxyLoss(0)
-					M.adjustBruteLoss(rand(0, 15))
-					M.adjustToxLoss(rand(0, 15))
-					M.adjustFireLoss(rand(0, 15))
+					M.adjustBruteLoss(rand(0, 50))
+					M.adjustToxLoss(rand(0, 50))
+					M.adjustFireLoss(rand(0, 50))
+
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
-						var/necrosis_prob = 40 * min((20 MINUTES), max((time_dead - (1 MINUTES)), 0)) / ((20 MINUTES) - (1 MINUTES))
-						for(var/obj/item/organ/O in (H.bodyparts | H.internal_organs))
-							// Per non-vital body part:
-							// 0% chance of necrosis within 1 minute of death
-							// 40% chance of necrosis after 20 minutes of death
-							if(!O.vital && prob(necrosis_prob))
-								// side effects may include: Organ failure
-								O.necrotize(FALSE)
-								if(O.status & ORGAN_DEAD)
-									O.germ_level = INFECTION_LEVEL_THREE
-						H.update_body()
+						if(time_dead > 5 MINUTES) // If dead for more than 5 minutes, start the decay.
+							var/decay_time = time_dead - 5 MINUTES // Cut out the threshold
+
+							var/necrosis_prob = min(decay_time / 200, 50) // Amount of time dead over the 5 min threshold in deciseconds, divided by 200.
+							necrosis_prob = round(necrosis_prob, 0.1)
+							/*
+							The chance of an organ decaying increases by 15% for every five minutes the mob has been dead, up to a maximum of 50%.
+							Dead for 5 minutes:		[(3000 - 3000) / 200]  = 0%
+							Dead for 10 minutes:	[(6000 - 3000) / 200]  = 15%
+							Dead for 15 minutes:	[(9000 - 3000) / 200]  = 30%
+							Dead for 20 minutes:	[(12000 - 3000) / 200] = 45%
+							*/
+							if(HAS_TRAIT(H, TRAIT_NODECAY))
+								necrosis_prob = min((necrosis_prob / 4) * 3, 0) // Three quarters of the probability for species with NODECAY
+
+							for(var/obj/item/organ/O in (H.bodyparts | H.internal_organs))
+								if(!O.vital && prob(necrosis_prob)) // Side effects may include: Organ failure
+									O.germ_level = min(decay_time / 6, INFECTION_LEVEL_THREE)
+									// Dead for 5 minutes:		[0 / 6] = 0		  (Decay only starts past this time)
+									// Dead for 10 minutes:		[3000 / 6] = 500  (INFECTION_LEVEL_TWO)
+									// Dead for 15+ minutes:	[6000 / 6] = 1000 (INFECTION_LEVEL_THREE) (Organ Death)
+							H.update_body()
+							H.KnockOut() // Same effect as a defib
+							H.Paralyse(5)
+							H.emote("gasp")
 
 					M.grab_ghost()
 					M.update_revive()
