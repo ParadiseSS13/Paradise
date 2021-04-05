@@ -12,10 +12,6 @@
 	var/obj/item/tank/bombtank = null //the second part of the bomb is a plasma tank
 	origin_tech = "materials=1;engineering=1"
 
-/obj/item/onetankbomb/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/proximity_monitor)
-
 /obj/item/onetankbomb/examine(mob/user)
 	. = ..()
 	. += bombtank.examine(user)
@@ -43,6 +39,7 @@
 	to_chat(user, "<span class='notice'>You disassemble [src].</span>")
 	bombassembly.loc = user.loc
 	bombassembly.master = null
+	bombassembly.on_detach(src)
 	bombassembly = null
 	bombtank.loc = user.loc
 	bombtank.master = null
@@ -118,6 +115,7 @@
 	M.put_in_hands(R)		//Equips the bomb if possible, or puts it on the floor.
 
 	R.bombassembly = S	//Tell the bomb about its assembly part
+	S.on_attach(R)
 	S.master = R		//Tell the assembly about its new owner
 	S.loc = R			//Move the assembly out of the fucking way
 

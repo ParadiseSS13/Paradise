@@ -71,6 +71,17 @@
 		holder = null
 	return ..()
 
+/obj/item/assembly/proc/on_attach()
+	return
+
+//Call this when detaching it from a device. handles any special functions that need to be updated ex post facto
+/obj/item/assembly/proc/on_detach()
+	if(!holder)
+		return FALSE
+	forceMove(holder.drop_location())
+	holder = null
+	return TRUE
+
 /obj/item/assembly/pulsed(radio = FALSE)
 	if(holder && (wires & WIRE_RECEIVE))
 		activate()

@@ -531,6 +531,28 @@
 			target.TakeComponent(comps)
 
 /**
+  * Transfer a single component from the source datum, to the target.
+  *
+  * Arguments:
+  * * datum/target - the target to move the component to
+  * * component_instance_or_typepath - either an already created component, or a component typepath
+  */
+/datum/proc/TransferComponent(datum/target, component_instance_or_typepath)
+	if(!datum_components)
+		return
+	// If the proc was fed a typepath.
+	var/datum/component/comp = datum_components[component_instance_or_typepath]
+	if(comp?.can_transfer)
+		target.TakeComponent(comp)
+		return
+	// if the proc was fed a component instance.
+	for(var/component in datum_components)
+		var/datum/component/C = datum_components[component]
+		if(istype(C, component_instance_or_typepath) && C.can_transfer)
+			target.TakeComponent(C)
+			return
+
+/**
   * Return the object that is the host of any UI's that this component has
   */
 /datum/component/ui_host(mob/user)
