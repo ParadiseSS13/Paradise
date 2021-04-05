@@ -38,7 +38,7 @@
 
 
 /mob/living/simple_animal/bot/cleanbot/New()
-	. = ..()
+	..()
 
 	get_targets()
 	icon_state = "cleanbot[on]"
@@ -116,9 +116,7 @@
 		audible_message("[src] makes an excited beeping booping sound!")
 
 	if(ismob(target))
-		if(!(target in view(DEFAULT_SCAN_RANGE, src)))
-			target = null
-		if(!process_scan(target))
+		if(!(target in view(DEFAULT_SCAN_RANGE, src)) || !process_scan(target))
 			target = null
 
 	if(!target && emagged == 2) // When emagged, target humans who slipped on the water and melt their faces off
@@ -339,11 +337,11 @@
 		if("blood")
 			blood =!blood
 		if("pests")
-			pests =!pests
+			pests = !pests
 		if("trash")
-			trash =!trash
+			trash = !trash
 		if("drawn")
-			drawn =!drawn
+			drawn = !drawn
 		if("ejectpai")
 			ejectpai()
 	get_targets()
