@@ -133,10 +133,17 @@
 							   "my dad own this station",
 							   "the CHef put [pick("PROTEIN", "toiret waTer", "RiPPleing TendIes", "Einzymes","HORRY WALTER","nuTriments","ReActive MutAngen","TeSLium","sKrektonium")] in my [pick("wiSh soup","Bullito","rAingurber","sOilent GREEn","KoI Susishes","yaya")]!",
 							   "the monkey have TASER ARMS!",
-							   "qM blew my points on [pick("cOMbat Shtogun","inSuLated gloves","LOTS MASSHEEN!")]",
+							   "qM blew my points on [pick("cOMbat Shtogun","inSuLated gloves","LOTS MASSHEEN!", "peNTa Smmmmmmmm")]",
 							   "EI'NATH!",
 							   "WAKE UP SHEEPLES!",
-							   "et wus my [pick("wittle brother!!","fiancee","friend staying over","entiRe orphanage","love interest","wife","husband","liTTle kids","sentient cAT","accidentally")]!")
+							   "et wus my [pick("wittle brother!!","fiancee","friend staying over","entiRe orphanage","love interest","wife","husband","liTTle kids","sentient cAT","accidentally")]!",
+							   "magnazin is just an plate fur gun foond",
+							   "WHERE RECHAN BATONG?",
+							   "HELP I'M MANTIS!!",
+							   "I HAVE A BOMB",
+							   "crystalic hyponkstrunktur bad?",
+							   "tesla go in pod?",
+							   "AI is ROUGE")
 
 			var/list/s2 = list("FUS RO DAH",
 							   "fuckin tangerines!!!",
@@ -145,6 +152,8 @@
 							   "roll it easy!",
 							   "waaaaaagh!!!",
 							   "red wonz go fasta",
+							   "porpl wonz da sneeky",
+							   "XENO SCAHM",
 							   "FOR TEH EMPRAH",
 							   "HAZ A SECURE DAY!!!!",
 							   "dem dwarfs man, dem dwarfs",
@@ -160,7 +169,10 @@
 							   "dey come, dey COME! DEY COME!!!",
 							   "THE END IS NIGH!",
 							   "I FOT AND DIED FOR MUH [pick("RITES","FREEDOM","payCHECK","cARGO points","teCH Level","doG","mAPLe syrup","fluffy fWiends","gateway Loot")]",
-							   "KILL DEM [pick("mainTnacE cHickinNS","kiRA CulwnNES","FLOOR CLUWNEs","MIME ASSASSIN","BOMBING TAJARAN","cC offiser","morPhlings","slinglings")]!")
+							   "KILL DEM [pick("mainTnacE cHickinNS","kiRA CulwnNES","FLOOR CLUWNEs","MIME ASSASSIN","BOMBING TAJARAN","cC offiser","morPhlings","slinglings")]!",
+							   "CAHM ON CYbERyADE, kiLL DEM FACKIN cHanglINGS!",
+							   "; LAHW 2, AI Opan!",
+							   "; TAsIN on GREEN!!")
 			switch(pick(1,2,3))
 				if(1)
 					say(pick(s1))
