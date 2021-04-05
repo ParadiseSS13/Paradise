@@ -140,9 +140,6 @@
 	if(!target && trash) //Then for trash.
 		target = scan(/obj/item/trash)
 
-	// if(!target && trash) //Search for dead mice.
-	// 	target = scan(/obj/item/food/deadmouse)
-
 	if(!target && auto_patrol) //Search for cleanables it can see.
 		if(mode == BOT_IDLE || mode == BOT_START_PATROL)
 			start_patrol()
