@@ -4,8 +4,6 @@
 	name = "airlock painter"
 	desc = "An advanced autopainter preprogrammed with several paintjobs for airlocks. Use it on a completed airlock to change its paintjob."
 	icon_state = "airlock_painter"
-	item_state = "airlock_painter"
-	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000)
 	var/paint_setting
 
 	// All the different paint jobs that an airlock painter can apply.
@@ -32,7 +30,7 @@
 		A.change_paintjob(src, user)
 
 /obj/item/painter/airlock/attack_self(mob/user)
-	paint_setting = input(user, "Please select a paintjob for this airlock.") as null|anything in available_paint_jobs
+	paint_setting = input(user, "Please select a paintjob.") as null|anything in available_paint_jobs
 	if(!paint_setting)
 		return
 	to_chat(user, "<span class='notice'>The [paint_setting] paint setting has been selected.</span>")

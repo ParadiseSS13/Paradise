@@ -1,7 +1,6 @@
 /obj/item/painter/pipe/window // Yes, this is a pipe painter subtype.
 	name = "window painter"
 	icon_state = "window_painter"
-	item_state = "window_painter"
 	var/static/list/paintable_windows = list(
 			/obj/structure/window/reinforced,
 			/obj/structure/window/basic,

@@ -3,7 +3,6 @@
 /obj/item/painter/floor
 	name = "floor painter"
 	icon_state = "floor_painter"
-	item_state = "floor_painter"
 	var/floor_icon
 	var/floor_state = "floor"
 	var/floor_dir = SOUTH

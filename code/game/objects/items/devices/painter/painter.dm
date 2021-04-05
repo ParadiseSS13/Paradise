@@ -7,8 +7,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 2000)
-
-	var/static/list/painter_types = list(
+	var/static/list/painter_type_list = list(
 		"Floor Painter" = /obj/item/painter/floor,
 		"Pipe Painter" = /obj/item/painter/pipe,
 		"Window Painter" = /obj/item/painter/pipe/window,
@@ -26,11 +25,11 @@
 		return
 
 	playsound(src, 'sound/effects/pop.ogg', 50, TRUE)
-	var/choice = show_radial_menu(user, src, painter_types, require_near = TRUE)
+	var/choice = show_radial_menu(user, src, painter_type_list, require_near = TRUE)
 	if(!choice)
 		return
-	var/choice_path = painter_types[choice]
-	if(istype(src, choice_path))
+	var/choice_path = painter_type_list[choice]
+	if(type == choice_path)
 		return
 
 	playsound(src, 'sound/machines/click.ogg', 50, TRUE)
@@ -39,6 +38,7 @@
 	if(P)
 		qdel(src) // Swap it out for the new one
 		user.put_in_active_hand(P)
+
 
 /obj/item/painter/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is inhaling toner from [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")

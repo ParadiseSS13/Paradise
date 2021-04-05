@@ -1,7 +1,6 @@
 /obj/item/painter/pipe
 	name = "pipe painter"
 	icon_state = "pipe_painter"
-	item_state = "pipe_painter"
 	var/static/list/blacklisted_pipes = list(/obj/machinery/atmospherics/pipe/simple/heat_exchanging, /obj/machinery/atmospherics/pipe/simple/insulated)
 	var/static/list/modes = list()
 	var/chosen_colour = null
