@@ -78,15 +78,15 @@
  *
  * Arguments:
  * * datum/source - this will be the `parent`
- * * atom/OldLoc - the location the parent just moved from
- * * Dir - the direction the parent just moved in
+ * * atom/old_loc - the location the parent just moved from
+ * * dir - the direction the parent just moved in
  * * forced - if we were forced to move
  */
-/datum/component/proximity_monitor/proc/handle_move(datum/source, atom/OldLoc, Dir, forced)
+/datum/component/proximity_monitor/proc/handle_move(datum/source, atom/old_loc, dir, forced)
 	SIGNAL_HANDLER
 
-	if(Dir)
-		move_prox_checkers(Dir)
+	if(dir)
+		move_prox_checkers(dir)
 		return // It was just a normal tile-based move, return.
 
 	// The field is always active while the receiver is on a turf.
@@ -99,7 +99,7 @@
 	else if(always_active)
 		toggle_checkers(TRUE)
 		host = get_atom_on_turf(hasprox_receiver)
-		if(ismovable(host) && host != OldLoc)
+		if(ismovable(host) && host != old_loc)
 			RegisterSignal(host, COMSIG_MOVABLE_MOVED, .proc/handle_move)
 	// Deactivate the field, leave it where it is, and stop listening for movement.
 	else
@@ -135,7 +135,7 @@
  * This proc *can* have a high cost due to the `new`s and `qdel`s of the proximity checkers, depending on the number of calls you need to make to it.
  *
  * Arguments:
- * new_raidus - the new value that `proximity_raidus` should be set to.
+ * new_radius - the new value that `proximity_radius` should be set to.
  */
 /datum/component/proximity_monitor/proc/set_radius(new_radius)
 	ASSERT(new_radius >= 1)
@@ -266,12 +266,10 @@
 /datum/component/proximity_monitor/advanced/process()
 	if(process_field_checkers)
 		for(var/checker in field_checkers)
-			var/obj/effect/abstract/proximity_checker/advanced/inner_field/F = checker
-			process_inner_checker(F)
+			process_inner_checker(checker)
 	if(process_edge_checkers)
 		for(var/checker in field_checkers)
-			var/obj/effect/abstract/proximity_checker/advanced/edge_field/F = checker
-			process_edge_checker(F)
+			process_edge_checker(checker)
 
 /**
  * Base proc. All processing-related actions associated with inner proximity checkers should go here.
@@ -413,7 +411,7 @@
  * However these are meant for when you need to have some additional (more advanced) behavior on top of what basic proximity checkers can do.
  */
 /obj/effect/abstract/proximity_checker/advanced
-	name = "advanced proximity phecker"
+	name = "advanced proximity checker"
 	/// `hasprox_receivers`s advanced proximity monitor component.
 	var/datum/component/proximity_monitor/advanced/advanced_monitor
 
