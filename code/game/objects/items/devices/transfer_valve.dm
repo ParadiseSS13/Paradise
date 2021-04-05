@@ -62,8 +62,7 @@
 		to_chat(user, "<span class='notice'>You attach [A] to the valve controls and secure it.</span>")
 		A.holder = src
 		A.toggle_secure()	//this calls update_icon(), which calls update_icon() on the holder (i.e. the bomb).
-		if(istype(attached_device, /obj/item/assembly/prox_sensor))
-			AddComponent(/datum/component/proximity_monitor)
+		A.on_attach()
 
 		investigate_log("[key_name(user)] attached a [A] to a transfer valve.", INVESTIGATE_BOMB)
 		add_attack_logs(user, src, "attached [A] to a transfer valve", ATKLOG_FEW)
@@ -136,10 +135,8 @@
 				attached_device.attack_self(usr)
 		if("remove_device")
 			if(attached_device)
-				attached_device.forceMove(get_turf(src))
-				attached_device.holder = null
+				attached_device.on_detach()
 				attached_device = null
-				qdel(GetComponent(/datum/component/proximity_monitor))
 				update_icon()
 		else
 			. = FALSE
