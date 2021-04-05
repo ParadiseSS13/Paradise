@@ -464,13 +464,6 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 			continue //The current element failed assessment, move on to the next.
 		return final_result
 
-/mob/living/simple_animal/bot/proc/check_bot(targ)
-	var/turf/T = get_turf(targ)
-	if(T)
-		for(var/C in T.contents)
-			if(istype(C,type) && (C != src)) //Is there another bot there already? If so, let's skip it so we dont all atack on top of eachother.
-				return TRUE //Let's abort if we find a bot so we dont have to keep rechecking
-
 //When the scan finds a target, run bot specific processing to select it for the next step. Empty by default.
 /mob/living/simple_animal/bot/proc/process_scan(atom/scan_target)
 	return scan_target
