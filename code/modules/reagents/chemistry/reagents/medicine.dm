@@ -747,6 +747,12 @@
 	taste_description = "life"
 	harmless = FALSE
 	var/revive_type = SENTIENCE_ORGANIC //So you can't revive boss monsters or robots with it
+	/// How long after death until the SR starts causing necrosis.
+	var/decay_threshold = 5 MINUTES
+	/// Divisor for the necrosis chance.
+	var/decay_chance_modifier = 200
+	/// Divisor for the germ level on each organ.
+	var/germ_level_modifier = 6
 
 /datum/reagent/medicine/strange_reagent/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -779,16 +785,16 @@
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 					M.adjustCloneLoss(50)
 					M.setOxyLoss(0)
-					M.adjustBruteLoss(rand(0, 50))
+					M.adjustBruteLoss(rand(0, 15))
+					M.adjustFireLoss(rand(0, 15))
 					M.adjustToxLoss(rand(0, 50))
-					M.adjustFireLoss(rand(0, 50))
 
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
-						if(time_dead > 5 MINUTES) // If dead for more than 5 minutes, start the decay.
-							var/decay_time = time_dead - 5 MINUTES // Cut out the threshold
+						if(time_dead > decay_threshold) // If dead for more than the decay threshold, start the decay.
+							var/decay_time = time_dead - decay_threshold // Cut out the threshold
 
-							var/necrosis_prob = min(decay_time / 200, 50) // Amount of time dead over the 5 min threshold in deciseconds, divided by 200.
+							var/necrosis_prob = min(decay_time / decay_chance_modifier, 50) // Amount of time dead over the 5 min threshold in deciseconds, divided by the decay chance modifier.
 							necrosis_prob = round(necrosis_prob, 0.1)
 							/*
 							The chance of an organ decaying increases by 15% for every five minutes the mob has been dead, up to a maximum of 50%.
@@ -797,12 +803,12 @@
 							Dead for 15 minutes:	[(9000 - 3000) / 200]  = 30%
 							Dead for 20 minutes:	[(12000 - 3000) / 200] = 45%
 							*/
-							if(HAS_TRAIT(H, TRAIT_NODECAY))
-								necrosis_prob = min((necrosis_prob / 4) * 3, 0) // Three quarters of the probability for species with NODECAY
+							if(HAS_TRAIT(H, TRAIT_NODECAY) || HAS_TRAIT(H, TRAIT_NOGERMS))
+								necrosis_prob = min(necrosis_prob * 0.75, 0) // Three quarters of the probability for species with NODECAY
 
 							for(var/obj/item/organ/O in (H.bodyparts | H.internal_organs))
 								if(!O.vital && prob(necrosis_prob)) // Side effects may include: Organ failure
-									O.germ_level = min(decay_time / 6, INFECTION_LEVEL_THREE)
+									O.germ_level = min(decay_time / germ_level_modifier, INFECTION_LEVEL_THREE)
 									// Dead for 5 minutes:		[0 / 6] = 0		  (Decay only starts past this time)
 									// Dead for 10 minutes:		[3000 / 6] = 500  (INFECTION_LEVEL_TWO)
 									// Dead for 15+ minutes:	[6000 / 6] = 1000 (INFECTION_LEVEL_THREE) (Organ Death)
