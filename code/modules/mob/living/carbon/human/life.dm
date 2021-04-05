@@ -138,7 +138,7 @@
 							   "WAKE UP SHEEPLES!",
 							   "et wus my [pick("wittle brother!!","fiancee","friend staying over","entiRe orphanage","love interest","wife","husband","liTTle kids","sentient cAT","accidentally")]!",
 							   "magnazin is just an plate fur gun foond",
-							   "WHERE RECHAN BATONG?",
+							   "WHERE i cHARGe BATONG?",
 							   "HELP I'M MANTIS!!",
 							   "I HAVE A BOMB",
 							   "crystalic hyponkstrunktur bad?",
@@ -172,7 +172,9 @@
 							   "KILL DEM [pick("mainTnacE cHickinNS","kiRA CulwnNES","FLOOR CLUWNEs","MIME ASSASSIN","BOMBING TAJARAN","cC offiser","morPhlings","slinglings")]!",
 							   "CAHM ON CYbERyADE, kiLL DEM FACKIN cHanglINGS!",
 							   "; LAHW 2, AI Opan!",
-							   "; TAsIN on GREEN!!")
+							   "; TAsIN on GREEN!!",
+							   "COWABUNGA!",
+							   "Stahp assphaxing me")
 			switch(pick(1,2,3))
 				if(1)
 					say(pick(s1))
