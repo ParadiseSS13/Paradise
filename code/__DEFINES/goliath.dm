@@ -17,5 +17,5 @@
 #define DRAGONSBLOOD /obj/item/dragons_blood
 #define GROWTH_MAX 1200
 #define GROWTH_HALF 600
-#define TAME_PROGRESS_TAMING 2400    //when the goliath is searching for ghost/candidates
+#define TAME_PROGRESS_TAMING 2000    //when the goliath is searching for ghost/candidates
 #define TAME_PROGRESS_PASSIVE 600    //the goliath at this point becomes passive
