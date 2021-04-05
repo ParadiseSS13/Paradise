@@ -25,7 +25,7 @@
 	var/pests = 0
 	var/drawn = 0
 
-	var/list/target_types = list()
+	var/list/target_types
 	var/obj/effect/decal/cleanable/target
 	var/max_targets = 50 //Maximum number of targets a cleanbot can ignore.
 	var/oldloc = null
@@ -38,7 +38,8 @@
 
 
 /mob/living/simple_animal/bot/cleanbot/New()
-	..()
+	. = ..()
+
 	get_targets()
 	icon_state = "cleanbot[on]"
 
@@ -56,7 +57,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/bot_reset()
 	..()
-	ignore_list.Cut() //Allows the bot to clean targets it previously ignored due to being unreachable.
+	ignore_list = list() //Allows the bot to clean targets it previously ignored due to being unreachable.
 	target = null
 	oldloc = null
 
@@ -124,7 +125,11 @@
 		target = scan(/mob/living/carbon)
 
 	if(!target && pests) //Search for pests to exterminate first.
-		target = scan(/mob/living/simple_animal)
+		var/mob/living/simple_animal/T = scan(/mob/living/simple_animal)
+		if(T && T.health <= 0)
+			add_to_ignore(T)
+		else
+			target = T
 
 	if(!target) //Search for decals then.
 		target = scan(/obj/effect/decal/cleanable)
@@ -213,26 +218,35 @@
 	target_types = typecacheof(target_types)
 
 /mob/living/simple_animal/bot/cleanbot/UnarmedAttack(atom/A, proximity_flag, list/modifiers)
-	if (A && (A.layer <= HIGH_SIGIL_LAYER))
+	if (istype(A, /obj/effect/decal/cleanable))
 		anchored = 1
 		icon_state = "cleanbot-c"
 		mode = BOT_CLEANING
-		spawn(50)
-			if(mode == BOT_CLEANING)
-				QDEL_NULL(target)
-				anchored = 0
-			mode = BOT_IDLE
-			icon_state = "cleanbot[on]"
+		
+		var/turf/T = get_turf(A)
+		if(do_after(src, 1, target = T))
+			QDEL_NULL(A)
+			anchored = 0
+			visible_message("<span class='notice'>[src] cleans \the [T].</span>")
+			target = null
+
+		mode = BOT_IDLE
+		icon_state = "cleanbot[on]"
 	else if(istype(A, /obj/item) || istype(A, /obj/effect/decal/remains))
 		visible_message("<span class='danger'>[src] sprays hydrofluoric acid at [A]!</span>")
 		playsound(src, 'sound/effects/spray2.ogg', 50, TRUE, -6)
 		A.acid_act(75, 10)
 		target = null
 	else if(istype(A, /mob/living/simple_animal/mouse))
+		// Takes care of any vermin. If they're alive, they're killed. If they're dead, they're turned into goo and then cleaned up.
 		var/mob/living/simple_animal/M = target
 		if(!M.stat)
 			visible_message("<span class='danger'>[src] smashes [target] with its mop!</span>")
 			M.death()
+		else
+			visible_message("<span class='danger'>[src] sprays hydrofluoric acid at [M]!</span>")
+			playsound(src, 'sound/effects/spray2.ogg', 50, TRUE, -6)
+			A.acid_act(75, 10)
 		target = null
 
 	else if(emagged == 2) //Emag functions
@@ -298,9 +312,9 @@
 		"emagged" = emagged, // this is an int, NOT a boolean
 		"remote_disabled" = remote_disabled, // -- STUFF BELOW HERE IS SPECIFIC TO THIS BOT
 		"cleanblood" = blood,
-		"pests" = pests,
-		"trash" = trash,
-		"drawn" = drawn
+		"cleanpests" = pests,
+		"cleantrash" = trash,
+		"cleandrawn" = drawn
 	)
 	return data
 

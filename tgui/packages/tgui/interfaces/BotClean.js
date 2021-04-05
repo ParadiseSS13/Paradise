@@ -16,6 +16,9 @@ export const BotClean = (props, context) => {
     remote_disabled,
     painame,
     cleanblood,
+    cleanpests,
+    cleantrash,
+    cleandrawn,
   } = data;
   return (
     <Window>
@@ -80,6 +83,24 @@ export const BotClean = (props, context) => {
             content="Clean Blood"
             disabled={noaccess}
             onClick={() => act('blood')} />
+          <Button.Checkbox
+            fluid
+            checked={cleanpests}
+            content="Pest Control"
+            disabled={noaccess}
+            onClick={() => act('pests')} />
+          <Button.Checkbox
+            fluid
+            checked={cleantrash}
+            content="Remove Trash"
+            disabled={noaccess}
+            onClick={() => act('trash')} />
+          <Button.Checkbox
+            fluid
+            checked={cleandrawn}
+            content="Remove Graffiti"
+            disabled={noaccess}
+            onClick={() => act('drawn')} />
         </Section>
         {painame && (
           <Section title="pAI">
