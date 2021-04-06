@@ -211,7 +211,7 @@
 
 /obj/item/defibrillator/compact
 	name = "compact defibrillator"
-	desc = "A belt-equipped defibrillator that can be rapidly deployed."
+	desc = "A belt-mounted defibrillator that can be rapidly deployed."
 	icon_state = "defibcompact"
 	item_state = "defibcompact"
 	sprite_sheets = null //Because Vox had the belt defibrillator sprites in back.dm
@@ -230,7 +230,7 @@
 
 /obj/item/defibrillator/compact/combat
 	name = "combat defibrillator"
-	desc = "A belt-equipped blood-red defibrillator that can be rapidly deployed. Does not have the restrictions or safeties of conventional defibrillators and can revive through space suits."
+	desc = "A belt-mounted blood-red defibrillator that can be rapidly deployed. Does not have the restrictions or safeties of conventional defibrillators and can revive through space suits."
 	icon_state = "defibcombat"
 	item_state = "defibcombat"
 	paddle_type = /obj/item/twohanded/shockpaddles/syndicate
@@ -244,7 +244,7 @@
 
 /obj/item/defibrillator/compact/advanced
 	name = "advanced compact defibrillator"
-	desc = "A belt-equipped state-of-the-art defibrillator that can be rapidly deployed in all enviroments. Uses an experimental self-charging cell, meaning that it will (probably) never stop working. Can revive through space suits. Impossible to hack or damage."
+	desc = "A belt-mounted state-of-the-art defibrillator that can be rapidly deployed in all environments. Uses an experimental self-charging cell, meaning that it will (probably) never stop working. Can be used to defibrillate through space suits. It is impossible to hack or damage."
 	icon_state = "defibadvanced"
 	item_state = "defibadvanced"
 	paddle_type = /obj/item/twohanded/shockpaddles/advanced
@@ -269,7 +269,7 @@
 
 /obj/item/defibrillator/compact/advanced/emag_act(mob/user)
 	if(world.time > next_emag_message)
-		to_chat(user, "<span class='warning'>You try to silently disable [src]'s safety protocols with the card but it rejects your attempt... uh oh...")
+		to_chat(user, "<span class='warning'>You try to silently disable [src]'s safety protocols with the card but it rejects your attempt. Uh oh...")
 		atom_say("Warning: Unauthorised software modification is not advised and might result in the warranty becoming void.")
 		playsound(get_turf(src), 'sound/machines/defib_saftyon.ogg', 50)
 		next_emag_message = world.time + 1 MINUTES
@@ -379,7 +379,7 @@
 		to_chat(user, "<span class='notice'>[defib] is recharging.</span>")
 		return
 	if(!ishuman(M))
-		to_chat(user, "<span class='notice'>The instructions on [defib] don't mention how to revive that...</span>")
+		to_chat(user, "<span class='notice'>The instructions on [defib] don't mention how to defibrillate that...</span>")
 		return
 	else
 		if(user.a_intent == INTENT_HARM && !defib.safety)
@@ -508,7 +508,7 @@
 
 /obj/item/borg_defib
 	name = "defibrillator paddles"
-	desc = "A pair of mounted paddles with flat metal surfaces that are used to deliver powerful electric shocks."
+	desc = "A pair of paddles with flat metal surfaces that are used to deliver powerful electric shocks."
 	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibpaddles0"
 	item_state = "defibpaddles0"
@@ -632,14 +632,14 @@
 
 /obj/item/twohanded/shockpaddles/syndicate
 	name = "combat defibrillator paddles"
-	desc = "A pair of mounted high-tech paddles with flat plasteel surfaces to revive deceased operatives(unless they exploded). They possess both the ability to penetrate armor and to deliver powerful or disabling shocks offensively."
+	desc = "A pair of high-tech paddles with flat plasteel surfaces to revive deceased operatives(unless they exploded). They possess both the ability to penetrate armor and to deliver powerful or disabling shocks offensively."
 	icon_state = "syndiepaddles0"
 	item_state = "syndiepaddles0"
 	base_icon_state = "syndiepaddles"
 
 /obj/item/twohanded/shockpaddles/advanced
 	name = "advanced defibrillator paddles"
-	desc = "A pair of mounted high-tech paddles with flat plasteel surfaces that are used to deliver powerful electric shocks. They possess the ability to penetrate armor to deliver shock."
+	desc = "A pair of high-tech paddles with flat plasteel surfaces that are used to deliver powerful electric shocks. They possess the ability to penetrate armor to deliver shock."
 	icon_state = "ntpaddles0"
 	item_state = "ntpaddles0"
 	base_icon_state = "ntpaddles"
