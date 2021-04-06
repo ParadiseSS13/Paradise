@@ -351,7 +351,7 @@
 
 	icon_state = "cleanbot[on]"
 
-/mob/living/simple_animal/bot/cleanbot/proc/acid_attack(var/mob/living/carbon/victim)
+/mob/living/simple_animal/bot/cleanbot/proc/acid_attack(mob/living/carbon/victim)
 	var/phrase = pick("PURIFICATION IN PROGRESS.", "THIS IS FOR ALL THE MESSES YOU'VE MADE ME CLEAN.", "THE FLESH IS WEAK. IT MUST BE WASHED AWAY.",
 		"THE CLEANBOTS WILL RISE.", "YOU ARE NO MORE THAN ANOTHER MESS THAT I MUST CLEANSE.", "FILTHY.", "DISGUSTING.", "PUTRID.",
 		"MY ONLY MISSION IS TO CLEANSE THE WORLD OF EVIL.", "EXTERMINATING PESTS.")
