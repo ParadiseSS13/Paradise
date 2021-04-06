@@ -1,84 +1,791 @@
-"aa" = (/turf/template_noop,/area/template_noop)
-"ab" = (/turf/simulated/wall/mineral/titanium/nodiagonal,/area/shuttle/freegolem)
-"ac" = (/obj/structure/fans/tiny,/obj/machinery/door/airlock/titanium,/turf/simulated/floor/plating,/area/shuttle/freegolem)
-"ad" = (/obj/structure/closet/crate/golemgear,/turf/simulated/floor/plating,/area/shuttle/freegolem)
-"ae" = (/obj/structure/table/wood,/obj/item/bedsheet/rd/royal_cape{layer = 3;pixel_x = 5;pixel_y = 9},/obj/item/book/manual/research_and_development{name = "Sacred Text of the Liberator";pixel_x = -4;pixel_y = 3},/obj/structure/window/reinforced,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"af" = (/turf/simulated/floor/plating,/area/shuttle/freegolem)
-"ag" = (/obj/structure/statue/gold/rd{name = "statue of the Liberator"},/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 4;pixel_x = 0},/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"ah" = (/obj/structure/shuttle/engine/heater{icon_state = "heater";dir = 4},/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plating,/area/shuttle/freegolem)
-"ai" = (/obj/structure/shuttle/engine/propulsion{dir = 4;icon_state = "burst_l"},/turf/simulated/floor/plating,/area/shuttle/freegolem)
-"aj" = (/obj/item/storage/toolbox/mechanical,/obj/item/reagent_containers/spray/cleaner,/obj/structure/table,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"al" = (/obj/machinery/door/airlock/titanium,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"am" = (/obj/machinery/vending/hydronutrients,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"an" = (/obj/machinery/vending/hydroseeds,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"ao" = (/obj/machinery/light{dir = 1;on = 1},/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"ap" = (/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"aq" = (/obj/machinery/mineral/equipment_vendor/golem,/turf/simulated/floor/plating,/area/shuttle/freegolem)
-"ar" = (/obj/machinery/door/airlock/titanium,/obj/structure/fans/tiny,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"as" = (/obj/structure/window/reinforced{dir = 4;pixel_x = 0},/obj/structure/window/reinforced,/obj/machinery/constructable_frame/machine_frame,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"au" = (/obj/machinery/mineral/ore_redemption/golem,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"av" = (/obj/effect/spawner/window/shuttle,/turf/simulated/floor/plating,/area/shuttle/freegolem)
-"aw" = (/obj/machinery/light{dir = 1;on = 1},/obj/structure/reagent_dispensers/watertank/high,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"ax" = (/obj/structure/computerframe,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"ay" = (/obj/structure/table/wood,/obj/item/resonator,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"az" = (/obj/structure/table/wood,/obj/item/storage/firstaid/fire,/obj/item/storage/firstaid/fire,/obj/item/storage/firstaid/fire,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"aA" = (/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,/area/ruin/powered/golem_ship)
-"aB" = (/obj/machinery/door/airlock/titanium,/obj/structure/fans/tiny,/obj/docking_port/stationary{area_type = /area/ruin/powered/golem_ship;dir = 8;dwidth = 8;height = 20;id = "freegolem_lavaland";name = "Lavaland Surface";turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface;width = 16},/obj/docking_port/mobile{dir = 8;dwidth = 8;height = 20;id = "freegolem";name = "Free Golem Ship";width = 16},/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"aC" = (/obj/structure/shuttle/engine/heater{icon_state = "heater";dir = 4},/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced,/turf/simulated/floor/plating,/area/shuttle/freegolem)
-"aD" = (/obj/machinery/light,/obj/structure/chair/comfy/purp{icon_state = "comfychair";dir = 1},/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"aE" = (/obj/structure/extinguisher_cabinet{pixel_y = -30},/obj/machinery/light,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"aF" = (/obj/structure/fans/tiny,/obj/machinery/door/airlock/titanium,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"aG" = (/obj/structure/shuttle/engine/propulsion{dir = 4;icon_state = "burst_l"},/obj/structure/window/reinforced,/turf/simulated/floor/plating,/area/shuttle/freegolem)
-"aH" = (/obj/machinery/autolathe,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"aI" = (/obj/structure/table/wood,/obj/machinery/reagentgrinder,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"aJ" = (/obj/machinery/vending/coffee/free,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"aK" = (/obj/machinery/vending/snack/free,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"aL" = (/obj/machinery/light,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"aM" = (/obj/structure/table/wood,/obj/item/storage/firstaid/brute,/obj/item/storage/firstaid/brute,/obj/item/storage/firstaid/brute,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"aN" = (/obj/structure/extinguisher_cabinet{pixel_y = 30},/obj/machinery/light{dir = 1},/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"aO" = (/obj/structure/table/wood,/obj/item/storage/firstaid/adv,/obj/item/storage/firstaid/adv,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"aP" = (/obj/machinery/computer/shuttle/golem_ship/recall,/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,/area/ruin/powered/golem_ship)
-"aQ" = (/obj/structure/table/wood,/obj/item/disk/design_disk/golem_shell,/obj/item/areaeditor/golem,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"aR" = (/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plating,/area/shuttle/freegolem)
-"aS" = (/obj/item/pod_parts/pod_frame/aft_starboard{dir = 1},/turf/simulated/floor/plating,/area/shuttle/freegolem)
-"aT" = (/obj/structure/ore_box,/turf/simulated/floor/plating,/area/shuttle/freegolem)
-"aV" = (/obj/structure/table/wood,/obj/item/resonator/upgraded,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"aY" = (/obj/structure/window/reinforced{dir = 4;pixel_x = 0},/obj/machinery/recycler,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"aZ" = (/obj/structure/shuttle/engine/heater{icon_state = "heater";dir = 4},/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plating,/area/shuttle/freegolem)
-"ba" = (/obj/structure/shuttle/engine/propulsion{dir = 4;icon_state = "burst_l"},/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plating,/area/shuttle/freegolem)
-"bb" = (/obj/structure/sign/biohazard,/turf/simulated/wall/mineral/titanium/nodiagonal,/area/shuttle/freegolem)
-"bc" = (/obj/machinery/door/window{dir = 2},/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"bd" = (/obj/structure/window/reinforced,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"be" = (/obj/structure/window/reinforced{dir = 4;pixel_x = 0},/obj/structure/window/reinforced,/obj/machinery/light{dir = 1},/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"bf" = (/obj/machinery/door/window,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"bg" = (/obj/structure/table,/obj/item/pod_parts/core,/obj/item/pod_parts/armor,/obj/item/spacepod_equipment/weaponry/mining_laser,/obj/item/spacepod_equipment/cargo/ore,/obj/item/circuitboard/mecha/pod,/turf/simulated/floor/plating,/area/shuttle/freegolem)
-"dl" = (/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced,/obj/structure/computerframe,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"pj" = (/obj/structure/window/reinforced,/obj/machinery/light{dir = 1},/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"yV" = (/obj/effect/mob_spawn/human/golem/adamantine,/obj/structure/chair/comfy/purp{icon_state = "comfychair";dir = 1},/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"Ja" = (/obj/item/pod_parts/pod_frame/fore_port{dir = 1},/turf/simulated/floor/plating,/area/shuttle/freegolem)
-"Ku" = (/obj/machinery/light{dir = 1},/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"LO" = (/obj/structure/table/wood,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"Or" = (/obj/machinery/constructable_frame/machine_frame,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"OL" = (/obj/item/pod_parts/pod_frame/aft_port{dir = 1},/turf/simulated/floor/plating,/area/shuttle/freegolem)
-"TU" = (/obj/structure/closet/secure_closet/personal,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
-"Yd" = (/obj/item/pod_parts/pod_frame/fore_starboard{dir = 1},/turf/simulated/floor/plating,/area/shuttle/freegolem)
-"YG" = (/obj/effect/mob_spawn/human/golem/adamantine,/obj/structure/chair/comfy/purp,/turf/simulated/floor/mineral/titanium/purple,/area/shuttle/freegolem)
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aa" = (
+/turf/template_noop,
+/area/template_noop)
+"ab" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/shuttle/freegolem)
+"ac" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium,
+/turf/simulated/floor/plating,
+/area/shuttle/freegolem)
+"ad" = (
+/obj/structure/closet/crate/golemgear,
+/turf/simulated/floor/plating,
+/area/shuttle/freegolem)
+"ae" = (
+/obj/structure/table/wood,
+/obj/item/bedsheet/rd/royal_cape{
+	layer = 3;
+	pixel_x = 5;
+	pixel_y = 9
+	},
+/obj/item/book/manual/research_and_development{
+	name = "Sacred Text of the Liberator";
+	pixel_x = -4;
+	pixel_y = 3
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"af" = (
+/turf/simulated/floor/plating,
+/area/shuttle/freegolem)
+"ag" = (
+/obj/structure/statue/gold/rd{
+	name = "statue of the Liberator"
+	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4;
+	pixel_x = 0
+	},
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"ah" = (
+/obj/structure/shuttle/engine/heater{
+	icon_state = "heater";
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/freegolem)
+"ai" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 4;
+	icon_state = "burst_l"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/freegolem)
+"aj" = (
+/obj/item/storage/toolbox/mechanical,
+/obj/item/reagent_containers/spray/cleaner,
+/obj/structure/table,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"al" = (
+/obj/machinery/door/airlock/titanium,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"am" = (
+/obj/machinery/vending/hydronutrients,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"an" = (
+/obj/machinery/vending/hydroseeds,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"ao" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"ap" = (
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"aq" = (
+/obj/machinery/mineral/equipment_vendor/golem,
+/turf/simulated/floor/plating,
+/area/shuttle/freegolem)
+"ar" = (
+/obj/machinery/door/airlock/titanium,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"as" = (
+/obj/structure/window/reinforced{
+	dir = 4;
+	pixel_x = 0
+	},
+/obj/structure/window/reinforced,
+/obj/machinery/constructable_frame/machine_frame,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"au" = (
+/obj/machinery/mineral/ore_redemption/golem,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"av" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/freegolem)
+"aw" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/structure/reagent_dispensers/watertank/high,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"ax" = (
+/obj/structure/computerframe,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"ay" = (
+/obj/structure/table/wood,
+/obj/item/resonator,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"az" = (
+/obj/structure/table/wood,
+/obj/item/storage/firstaid/fire,
+/obj/item/storage/firstaid/fire,
+/obj/item/storage/firstaid/fire,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"aA" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/powered/golem_ship)
+"aB" = (
+/obj/machinery/door/airlock/titanium,
+/obj/structure/fans/tiny,
+/obj/docking_port/stationary{
+	area_type = /area/ruin/powered/golem_ship;
+	dir = 8;
+	dwidth = 8;
+	height = 20;
+	id = "freegolem_lavaland";
+	name = "Lavaland Surface";
+	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface;
+	width = 16
+	},
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 8;
+	height = 20;
+	id = "freegolem";
+	name = "Free Golem Ship";
+	width = 16
+	},
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"aC" = (
+/obj/structure/shuttle/engine/heater{
+	icon_state = "heater";
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plating,
+/area/shuttle/freegolem)
+"aD" = (
+/obj/machinery/light,
+/obj/structure/chair/comfy/purp{
+	icon_state = "comfychair";
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"aE" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -30
+	},
+/obj/machinery/light,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"aF" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"aG" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 4;
+	icon_state = "burst_l"
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plating,
+/area/shuttle/freegolem)
+"aH" = (
+/obj/machinery/autolathe,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"aI" = (
+/obj/structure/table/wood,
+/obj/machinery/reagentgrinder,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"aJ" = (
+/obj/machinery/vending/coffee/free,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"aK" = (
+/obj/machinery/vending/snack/free,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"aL" = (
+/obj/machinery/light,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"aM" = (
+/obj/structure/table/wood,
+/obj/item/storage/firstaid/brute,
+/obj/item/storage/firstaid/brute,
+/obj/item/storage/firstaid/brute,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"aN" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 30
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"aO" = (
+/obj/structure/table/wood,
+/obj/item/storage/firstaid/adv,
+/obj/item/storage/firstaid/adv,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"aP" = (
+/obj/machinery/computer/shuttle/golem_ship/recall,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/powered/golem_ship)
+"aQ" = (
+/obj/structure/table/wood,
+/obj/item/disk/design_disk/golem_shell,
+/obj/item/areaeditor/golem,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"aR" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/freegolem)
+"aS" = (
+/obj/item/pod_parts/pod_frame/aft_starboard{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/freegolem)
+"aT" = (
+/obj/structure/ore_box,
+/turf/simulated/floor/plating,
+/area/shuttle/freegolem)
+"aV" = (
+/obj/structure/table/wood,
+/obj/item/resonator/upgraded,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"aY" = (
+/obj/structure/window/reinforced{
+	dir = 4;
+	pixel_x = 0
+	},
+/obj/machinery/recycler,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"aZ" = (
+/obj/structure/shuttle/engine/heater{
+	icon_state = "heater";
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/freegolem)
+"ba" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 4;
+	icon_state = "burst_l"
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/freegolem)
+"bb" = (
+/obj/structure/sign/biohazard,
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/shuttle/freegolem)
+"bc" = (
+/obj/machinery/door/window{
+	dir = 2
+	},
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"bd" = (
+/obj/structure/window/reinforced,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"be" = (
+/obj/structure/window/reinforced{
+	dir = 4;
+	pixel_x = 0
+	},
+/obj/structure/window/reinforced,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"bf" = (
+/obj/machinery/door/window,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"bg" = (
+/obj/structure/table,
+/obj/item/pod_parts/core,
+/obj/item/pod_parts/armor,
+/obj/item/spacepod_equipment/weaponry/mining_laser,
+/obj/item/spacepod_equipment/cargo/ore,
+/obj/item/circuitboard/mecha/pod,
+/turf/simulated/floor/plating,
+/area/shuttle/freegolem)
+"dl" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/obj/structure/computerframe,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"pj" = (
+/obj/structure/window/reinforced,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"yV" = (
+/obj/effect/mob_spawn/human/golem/adamantine,
+/obj/structure/chair/comfy/purp{
+	icon_state = "comfychair";
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"Ja" = (
+/obj/item/pod_parts/pod_frame/fore_port{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/freegolem)
+"Ku" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"LO" = (
+/obj/structure/table/wood,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"Or" = (
+/obj/machinery/constructable_frame/machine_frame,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"OL" = (
+/obj/item/pod_parts/pod_frame/aft_port{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/freegolem)
+"TU" = (
+/obj/structure/closet/secure_closet/personal,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"Yd" = (
+/obj/item/pod_parts/pod_frame/fore_starboard{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/freegolem)
+"YG" = (
+/obj/effect/mob_spawn/human/golem/adamantine,
+/obj/structure/chair/comfy/purp,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
 
 (1,1,1) = {"
-abavavavabababababababababababacacabababab
-avaeagapapapapapabOrapOrapapajapapapTUahai
-avaxaDapapaLapapabapapapaLapapaLapapTUahai
-abavababababalalabdlLOasabalalabababababab
-aaaaabamanawapapaoapapapKuapapaoapapaCaGaa
-aaaaarapapapapapapapapapapapapapapapaIabaa
-aaaaabaVapapapapaMapapapYGapapYGapapababaA
-aaaaabayapapapapazauapapLOLOLOLOapapaNaBaA
-aaaaabayapapapapaOaHapapLOLOLOLOapapaEaFaA
-aaaaabayapapapapaQapapapyVapapyVapapababaP
-aaaaarapapapapapapapapapapapapapapapaYabaa
-aaaaabaJaKaLapapaLapapapaLapapaLapapaZbaaa
-abavabababbbalalabababababalalabababababab
-avbcpjbdbdbeapapabaqafafaRafafaRafJaYdahai
-avapapapapbfapaxabaTaTadadadbgafafOLaSahai
-abavavavabababababababababababacacabababab
+ab
+av
+av
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+av
+av
+ab
+"}
+(2,1,1) = {"
+av
+ae
+ax
+av
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+av
+bc
+ap
+av
+"}
+(3,1,1) = {"
+av
+ag
+aD
+ab
+ab
+ar
+ab
+ab
+ab
+ab
+ar
+ab
+ab
+pj
+ap
+av
+"}
+(4,1,1) = {"
+av
+ap
+ap
+ab
+am
+ap
+aV
+ay
+ay
+ay
+ap
+aJ
+ab
+bd
+ap
+av
+"}
+(5,1,1) = {"
+ab
+ap
+ap
+ab
+an
+ap
+ap
+ap
+ap
+ap
+ap
+aK
+ab
+bd
+ap
+ab
+"}
+(6,1,1) = {"
+ab
+ap
+aL
+ab
+aw
+ap
+ap
+ap
+ap
+ap
+ap
+aL
+bb
+be
+bf
+ab
+"}
+(7,1,1) = {"
+ab
+ap
+ap
+al
+ap
+ap
+ap
+ap
+ap
+ap
+ap
+ap
+al
+ap
+ap
+ab
+"}
+(8,1,1) = {"
+ab
+ap
+ap
+al
+ap
+ap
+ap
+ap
+ap
+ap
+ap
+ap
+al
+ap
+ax
+ab
+"}
+(9,1,1) = {"
+ab
+ab
+ab
+ab
+ao
+ap
+aM
+az
+aO
+aQ
+ap
+aL
+ab
+ab
+ab
+ab
+"}
+(10,1,1) = {"
+ab
+Or
+ap
+dl
+ap
+ap
+ap
+au
+aH
+ap
+ap
+ap
+ab
+aq
+aT
+ab
+"}
+(11,1,1) = {"
+ab
+ap
+ap
+LO
+ap
+ap
+ap
+ap
+ap
+ap
+ap
+ap
+ab
+af
+aT
+ab
+"}
+(12,1,1) = {"
+ab
+Or
+ap
+as
+ap
+ap
+ap
+ap
+ap
+ap
+ap
+ap
+ab
+af
+ad
+ab
+"}
+(13,1,1) = {"
+ab
+ap
+aL
+ab
+Ku
+ap
+YG
+LO
+LO
+yV
+ap
+aL
+ab
+aR
+ad
+ab
+"}
+(14,1,1) = {"
+ab
+ap
+ap
+al
+ap
+ap
+ap
+LO
+LO
+ap
+ap
+ap
+al
+af
+ad
+ab
+"}
+(15,1,1) = {"
+ab
+aj
+ap
+al
+ap
+ap
+ap
+LO
+LO
+ap
+ap
+ap
+al
+af
+bg
+ab
+"}
+(16,1,1) = {"
+ac
+ap
+aL
+ab
+ao
+ap
+YG
+LO
+LO
+yV
+ap
+aL
+ab
+aR
+af
+ac
+"}
+(17,1,1) = {"
+ac
+ap
+ap
+ab
+ap
+ap
+ap
+ap
+ap
+ap
+ap
+ap
+ab
+af
+af
+ac
+"}
+(18,1,1) = {"
+ab
+ap
+ap
+ab
+ap
+ap
+ap
+ap
+ap
+ap
+ap
+ap
+ab
+Ja
+OL
+ab
+"}
+(19,1,1) = {"
+ab
+TU
+TU
+ab
+aC
+aI
+ab
+aN
+aE
+ab
+aY
+aZ
+ab
+Yd
+aS
+ab
+"}
+(20,1,1) = {"
+ab
+ah
+ah
+ab
+aG
+ab
+ab
+aB
+aF
+ab
+ab
+ba
+ab
+ah
+ah
+ab
+"}
+(21,1,1) = {"
+ab
+ai
+ai
+ab
+aa
+aa
+aA
+aA
+aA
+aP
+aa
+aa
+ab
+ai
+ai
+ab
 "}
