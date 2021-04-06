@@ -104,6 +104,9 @@
 	if(emagged == 2 && istype(loc, /turf/simulated) && prob(15)) // Wets floors and spawns foam randomly
 		malfunction(src)
 
+	if(prob(5))	// Beeping indicates that it found a new target and changes modes, but reduced to a probability of 33% as not to spam too much.
+	audible_message("[src] makes an excited beeping booping sound!")
+
 	switch(mode)		
 		if(BOT_CLEANING)
 			if (cooldown <= 0)
@@ -116,7 +119,6 @@
 			find_target()
 			if(target)
 				mode = BOT_NAV
-				audible_message("[src] makes an excited beeping booping sound!")
 			else if (auto_patrol)
 				mode = BOT_PATROL
 			return
@@ -126,6 +128,11 @@
 			return
 
 		if(BOT_PATROL)
+			find_target()
+			if(target)
+				mode = BOT_NAV
+			else if (!auto_patrol)
+				mode = BOT_IDLE
 			bot_patrol()
 			return
 
