@@ -254,7 +254,7 @@
 		if("disableremote")
 			remote_disabled = !remote_disabled
 		if("blood")
-			blood =!blood
+			blood = !blood
 		if("pests")
 			pests = !pests
 		if("trash")
