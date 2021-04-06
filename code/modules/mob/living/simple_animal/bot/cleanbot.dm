@@ -361,6 +361,7 @@
 	return
 
 /mob/living/simple_animal/bot/cleanbot/proc/malfunction()
+	icon_state = "cleanbot-c"
 	if(prob(75))
 		var/turf/simulated/T = loc
 		if(istype(T))
@@ -368,6 +369,7 @@
 	else
 		visible_message("<span class='danger'>[src] whirs and bubbles violently, before releasing a plume of froth!</span>")
 		new /obj/effect/particle_effect/foam(loc)
+	icon_state = "cleanbot[on]"
 	
 /mob/living/simple_animal/bot/cleanbot/proc/spray_acid(atom/target, acid_power, acid_volume)
 	target.visible_message("<span class='danger'>[src] sprays hydrofluoric acid at [target]!</span>", "<span class='userdanger'>[src] sprays you with hydrofluoric acid!</span>")
