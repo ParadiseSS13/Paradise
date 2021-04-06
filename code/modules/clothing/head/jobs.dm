@@ -25,7 +25,7 @@
 	name = "captain's parade cap"
 	desc = "Worn only by Captains with an abundance of class."
 	icon_state = "capcap"
-	dog_fashion = null
+	dog_fashion = /datum/dog_fashion/head/captain
 
 //Head of Personnel
 /obj/item/clothing/head/hopcap
@@ -106,11 +106,13 @@
 	icon_state = "hoscap"
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
 	strip_delay = 80
+	dog_fashion = /datum/dog_fashion/head/HoS
 
 /obj/item/clothing/head/HoS/beret
 	name = "head of security's beret"
 	desc = "A robust beret for the Head of Security, for looking stylish while not sacrificing protection."
 	icon_state = "beret_hos_black"
+	dog_fashion = /datum/dog_fashion/head/HoS
 
 /obj/item/clothing/head/warden
 	name = "warden's police hat"
@@ -134,7 +136,7 @@
 	icon_state = "beret_officer"
 	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
 	strip_delay = 60
-	dog_fashion = null
+	dog_fashion = /datum/dog_fashion/head/beret/sec
 
 /obj/item/clothing/head/beret/sec/warden
 	name = "warden's beret"
@@ -180,15 +182,19 @@
 /obj/item/clothing/head/surgery/purple
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs. This one is deep purple."
 	icon_state = "surgcap_purple"
+	dog_fashion = /datum/dog_fashion/head/surgery
 
 /obj/item/clothing/head/surgery/blue
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs. This one is baby blue."
 	icon_state = "surgcap_blue"
+	dog_fashion = /datum/dog_fashion/head/surgery
 
 /obj/item/clothing/head/surgery/green
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs. This one is dark green."
 	icon_state = "surgcap_green"
+	dog_fashion = /datum/dog_fashion/head/surgery
 
 /obj/item/clothing/head/surgery/black
 	desc = "A cap coroners wear during autopsies. Keeps their hair from falling into the cadavers.  It is as dark than the coroner's humor."
 	icon_state = "surgcap_black"
+	dog_fashion = /datum/dog_fashion/head/surgery

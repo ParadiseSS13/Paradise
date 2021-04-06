@@ -203,6 +203,7 @@
 	reagent_state = LIQUID
 	color = "#7DFF00"
 	taste_description = "slime"
+	can_synth = FALSE
 
 /datum/reagent/stable_mutagen/on_new(data)
 	..()
