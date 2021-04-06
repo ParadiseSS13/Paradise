@@ -1442,10 +1442,6 @@
 /obj/item/toy/figure/crew
 	var/toysay = "What the fuck did you do?"
 
-/obj/item/toy/figure/crew/Initialize(mapload)
-	. = ..()
-	desc = "A \"Space Life\" brand [name]"
-
 /obj/item/toy/figure/crew/activate(mob/user)
 	atom_say(toysay)
 	playsound(user, 'sound/machines/click.ogg', 20, TRUE)
