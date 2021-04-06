@@ -114,14 +114,6 @@
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
 /area/shuttle/freegolem)
-"aw" = (
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
-/obj/structure/reagent_dispensers/watertank/high,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
 "ax" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/mineral/titanium/purple,
@@ -269,7 +261,13 @@
 /turf/simulated/floor/plating,
 /area/shuttle/freegolem)
 "aT" = (
-/obj/structure/ore_box,
+/obj/structure/table,
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 50
+	},
 /turf/simulated/floor/plating,
 /area/shuttle/freegolem)
 "aV" = (
@@ -312,29 +310,8 @@
 /obj/structure/sign/biohazard,
 /turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/shuttle/freegolem)
-"bc" = (
-/obj/machinery/door/window{
-	dir = 2
-	},
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"bd" = (
-/obj/structure/window/reinforced,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"be" = (
-/obj/structure/window/reinforced{
-	dir = 4;
-	pixel_x = 0
-	},
-/obj/structure/window/reinforced,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
 "bf" = (
-/obj/machinery/door/window,
+/obj/structure/reagent_dispensers/watertank/high,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "bg" = (
@@ -346,22 +323,19 @@
 /obj/item/circuitboard/mecha/pod,
 /turf/simulated/floor/plating,
 /area/shuttle/freegolem)
-"dl" = (
-/obj/structure/window/reinforced{
-	dir = 8
+"bB" = (
+/obj/item/pod_parts/pod_frame/aft_port{
+	dir = 1
 	},
-/obj/structure/window/reinforced,
-/obj/structure/computerframe,
-/turf/simulated/floor/mineral/titanium/purple,
+/turf/simulated/floor/plating,
 /area/shuttle/freegolem)
-"pj" = (
-/obj/structure/window/reinforced,
+"cD" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
-"yV" = (
+"dL" = (
 /obj/effect/mob_spawn/human/golem/adamantine,
 /obj/structure/chair/comfy/purp{
 	icon_state = "comfychair";
@@ -369,45 +343,60 @@
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
-"Ja" = (
-/obj/item/pod_parts/pod_frame/fore_port{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/freegolem)
-"Ku" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"LO" = (
-/obj/structure/table/wood,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"Or" = (
-/obj/machinery/constructable_frame/machine_frame,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"OL" = (
-/obj/item/pod_parts/pod_frame/aft_port{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/freegolem)
-"TU" = (
-/obj/structure/closet/secure_closet/personal,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
-"Yd" = (
+"ee" = (
 /obj/item/pod_parts/pod_frame/fore_starboard{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/freegolem)
-"YG" = (
+"rJ" = (
+/obj/structure/table/wood,
+/obj/item/card/id/golem,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"yC" = (
+/turf/simulated/floor/light,
+/area/shuttle/freegolem)
+"BM" = (
+/obj/structure/table/wood,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"CS" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/obj/structure/computerframe,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"Gs" = (
+/obj/item/storage/toolbox/mechanical,
+/obj/item/reagent_containers/spray/cleaner,
+/obj/structure/table/wood,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"Lh" = (
+/turf/simulated/floor/light{
+	color = ""
+	},
+/area/shuttle/freegolem)
+"MS" = (
 /obj/effect/mob_spawn/human/golem/adamantine,
 /obj/structure/chair/comfy/purp,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"OK" = (
+/obj/structure/closet/secure_closet/personal,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
+"QK" = (
+/obj/item/pod_parts/pod_frame/fore_port{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/freegolem)
+"Xn" = (
+/obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 
@@ -443,8 +432,8 @@ aa
 aa
 aa
 av
-bc
 ap
+yC
 av
 "}
 (3,1,1) = {"
@@ -461,8 +450,8 @@ ab
 ar
 ab
 ab
-pj
-ap
+cD
+yC
 av
 "}
 (4,1,1) = {"
@@ -470,7 +459,7 @@ av
 ap
 ap
 ab
-am
+ap
 ap
 aV
 ay
@@ -479,8 +468,8 @@ ay
 ap
 aJ
 ab
-bd
 ap
+yC
 av
 "}
 (5,1,1) = {"
@@ -488,7 +477,7 @@ ab
 ap
 ap
 ab
-an
+ap
 ap
 ap
 ap
@@ -497,8 +486,8 @@ ap
 ap
 aK
 ab
-bd
 ap
+Lh
 ab
 "}
 (6,1,1) = {"
@@ -506,7 +495,7 @@ ab
 ap
 aL
 ab
-aw
+ao
 ap
 ap
 ap
@@ -515,7 +504,7 @@ ap
 ap
 aL
 bb
-be
+cD
 bf
 ab
 "}
@@ -534,7 +523,7 @@ ap
 ap
 al
 ap
-ap
+an
 ab
 "}
 (8,1,1) = {"
@@ -552,7 +541,7 @@ ap
 ap
 al
 ap
-ax
+am
 ab
 "}
 (9,1,1) = {"
@@ -575,19 +564,19 @@ ab
 "}
 (10,1,1) = {"
 ab
-Or
+Xn
 ap
-dl
+CS
 ap
 ap
-ap
+aq
 au
 aH
-ap
+Gs
 ap
 ap
 ab
-aq
+af
 aT
 ab
 "}
@@ -595,7 +584,7 @@ ab
 ab
 ap
 ap
-LO
+BM
 ap
 ap
 ap
@@ -606,12 +595,12 @@ ap
 ap
 ab
 af
-aT
+ad
 ab
 "}
 (12,1,1) = {"
 ab
-Or
+Xn
 ap
 as
 ap
@@ -632,12 +621,12 @@ ab
 ap
 aL
 ab
-Ku
+cD
 ap
-YG
-LO
-LO
-yV
+MS
+rJ
+rJ
+dL
 ap
 aL
 ab
@@ -653,8 +642,8 @@ al
 ap
 ap
 ap
-LO
-LO
+BM
+BM
 ap
 ap
 ap
@@ -671,8 +660,8 @@ al
 ap
 ap
 ap
-LO
-LO
+BM
+BM
 ap
 ap
 ap
@@ -688,10 +677,10 @@ aL
 ab
 ao
 ap
-YG
-LO
-LO
-yV
+MS
+rJ
+rJ
+dL
 ap
 aL
 ab
@@ -731,14 +720,14 @@ ap
 ap
 ap
 ab
-Ja
-OL
+QK
+bB
 ab
 "}
 (19,1,1) = {"
 ab
-TU
-TU
+OK
+OK
 ab
 aC
 aI
@@ -749,7 +738,7 @@ ab
 aY
 aZ
 ab
-Yd
+ee
 aS
 ab
 "}
