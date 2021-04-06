@@ -166,7 +166,7 @@
 	
 	//Adds bot to the diagnostic HUD system
 	prepare_huds()
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
+	for(datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
 	diag_hud_set_bothealth()
 	diag_hud_set_botstat()
@@ -468,7 +468,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	result = scan_list(wider_search_list, scan_type, old_target)
 	return result
 
-/mob/living/simple_animal/bot/proc/scan_list(var/list/search_list, atom/scan_type, atom/old_target)
+/mob/living/simple_animal/bot/proc/scan_list(list/search_list, atom/scan_type, atom/old_target)
 	var/result = null
 
 	if(shuffle) //If we were on the same tile as another bot, let's randomize our choices so we dont both go the same way
