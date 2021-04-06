@@ -465,7 +465,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		return final_result
 
 /mob/living/simple_animal/bot/proc/check_bot(atom/target)
-	var/turf/T = get_turf(targ)
+	var/turf/T = get_turf(target)
 	if(!T)
 		return
 
