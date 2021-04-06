@@ -35,7 +35,6 @@
 	var/next_dest
 	var/next_dest_loc
 	var/shuffle = FALSE // If we should shuffle our adjacency checking
-	var/frustration_tolerance = 5
 	var/cooldown = 0
 
 
@@ -105,7 +104,7 @@
 		malfunction(src)
 
 	if(prob(5))	// Beeping indicates that it found a new target and changes modes, but reduced to a probability of 33% as not to spam too much.
-	audible_message("[src] makes an excited beeping booping sound!")
+		audible_message("[src] makes an excited beeping booping sound!")
 
 	switch(mode)		
 		if(BOT_CLEANING)
@@ -118,9 +117,9 @@
 		if(BOT_IDLE)
 			find_target()
 			if(target)
-				mode = BOT_NAV
+				mode = BOT_MOVING
 			else if (auto_patrol)
-				mode = BOT_PATROL
+				mode = BOT_START_PATROL
 			return
 
 		if(BOT_START_PATROL)
@@ -130,31 +129,12 @@
 		if(BOT_PATROL)
 			find_target()
 			if(target)
-				mode = BOT_NAV
+				mode = BOT_MOVING
 			else if (!auto_patrol)
 				mode = BOT_IDLE
-			bot_patrol()
+			else
+				bot_patrol()
 			return
-
-		if(BOT_BLOCKED)	// Keep trying to reach target. Give up if unable to reach it.
-			if(frustration >= frustration_tolerance)
-				back_to_idle()
-				return
-			else if(!bot_move(target))
-				frustration++
-			else
-				mode = BOT_MOVING
-				oldloc = loc
-			
-		if(BOT_NAV) //Try to produce a path to the target, and ignore airlocks to which it has access.
-			path = get_path_to(src, target.loc, /turf/proc/Distance_cardinal, 0, 30, id=access_card)
-			
-			if(!path) // No path to target, ignore it and start from scratch.
-				add_to_ignore(target)
-				target = null
-				path = list()
-			else
-				mode = BOT_MOVING			
 
 		if(BOT_MOVING)
 			if (QDELETED(target) || !isturf(target.loc) || (ismob(target) && !(target in view(DEFAULT_SCAN_RANGE, src)))) // If the target is invalid for some reason
@@ -169,12 +149,20 @@
 					shuffle = TRUE //Shuffle the list the next time we scan so we dont both go the same way.
 				back_to_idle()
 				return
-			
-			else if(!bot_move(target))
-				mode = BOT_BLOCKED
-				frustration++
-				return
 
+			if(!path || path.len == 0) // No path to target, ignore it and start from scratch.
+				//Try to produce a path to the target, and ignore airlocks to which it has access.
+				path = get_path_to(src, target.loc, /turf/proc/Distance_cardinal, 0, 30, id=access_card)
+				if(!bot_move(target))
+					add_to_ignore(target)
+					path = list()
+					back_to_idle()
+					return
+				else
+					mode = BOT_MOVING
+			else if (!bot_move(target))
+				back_to_idle()
+				return
 			oldloc = loc
 
 /mob/living/simple_animal/bot/cleanbot/proc/clean(atom/A)
@@ -286,7 +274,6 @@
 	anchored = FALSE
 	mode = BOT_IDLE
 	target = null
-	frustration = 0
 	walk_to(src, 0)
 	INVOKE_ASYNC(src, .proc/handle_automated_action) //responds quickly
 
