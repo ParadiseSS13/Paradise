@@ -4,6 +4,19 @@
 #define TOOL_WIRECUTTER 	"wirecutter"
 #define TOOL_WRENCH 		"wrench"
 #define TOOL_WELDER 		"welder"
+#define TOOL_ANALYZER       "analyzer"
+#define TOOL_MINING         "mining"
+#define TOOL_SHOVEL         "shovel"
+#define TOOL_RETRACTOR      "retractor"
+#define TOOL_HEMOSTAT       "hemostat"
+#define TOOL_CAUTERY        "cautery"
+#define TOOL_DRILL          "drill"
+#define TOOL_SCALPEL        "scalpel"
+#define TOOL_SAW            "saw"
+#define TOOL_BONESET        "bonesetter"
+#define TOOL_KNIFE          "knife"
+#define TOOL_BLOODFILTER    "bloodfilter"
+#define TOOL_ROLLINGPIN     "rollingpin"
 
 #define MIN_TOOL_SOUND_DELAY 20
 
