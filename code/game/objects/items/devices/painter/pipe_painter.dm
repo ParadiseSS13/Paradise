@@ -1,34 +1,29 @@
-/obj/item/painter/pipe
-	name = "pipe painter"
-	icon_state = "pipe_painter"
+/datum/painter/pipe
+	module_name = "pipe painter"
+	module_state = "pipe_painter"
 	var/static/list/blacklisted_pipes = list(/obj/machinery/atmospherics/pipe/simple/heat_exchanging, /obj/machinery/atmospherics/pipe/simple/insulated)
 	var/static/list/modes = list()
-	var/chosen_colour = null
 
-/obj/item/painter/pipe/Initialize(mapload)
-	. = ..()
+/datum/painter/pipe/New()
+	..()
 	if(!length(modes))
 		for(var/C in GLOB.pipe_colors)
 			modes += "[C]"
-	chosen_colour = pick(modes)
+	paint_setting = pick(modes)
 
-/obj/item/painter/pipe/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>It is in [chosen_colour] mode.</span>"
+/datum/painter/pipe/pick_color(mob/user)
+	paint_setting = input("Which colour do you want to use?", null, paint_setting) in modes
 
-/obj/item/painter/pipe/attack_self(mob/user)
-	chosen_colour = input("Which colour do you want to use?", null, chosen_colour) in modes
-
-/obj/item/painter/pipe/afterattack(atom/target, mob/user, proximity, params)
-	if(!istype(target, /obj/machinery/atmospherics/pipe) || !proximity)
+/datum/painter/pipe/paint_atom(atom/target, mob/user)
+	if(!istype(target, /obj/machinery/atmospherics/pipe))
 		return
 	var/obj/machinery/atmospherics/pipe/P = target
 
 	if(is_type_in_list(P, blacklisted_pipes))
 		return
 
-	if(P.pipe_color == GLOB.pipe_colors[chosen_colour])
-		to_chat(user, "<span class='notice'>This pipe is aready painted [chosen_colour]!</span>")
+	if(P.pipe_color == GLOB.pipe_colors[paint_setting])
+		to_chat(user, "<span class='notice'>This pipe is aready painted [paint_setting]!</span>")
 		return
 
 	var/turf/T = get_turf(P)
@@ -36,5 +31,5 @@
 		to_chat(user, "<span class='warning'>You must remove the plating first.</span>")
 		return
 
-	playsound(loc, usesound, 30, TRUE)
-	P.change_color(GLOB.pipe_colors[chosen_colour])
+	P.change_color(GLOB.pipe_colors[paint_setting])
+	return TRUE

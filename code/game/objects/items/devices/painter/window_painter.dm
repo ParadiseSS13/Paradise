@@ -1,6 +1,6 @@
-/obj/item/painter/pipe/window // Yes, this is a pipe painter subtype.
-	name = "window painter"
-	icon_state = "window_painter"
+/datum/painter/pipe/window // Yes, this is a pipe painter subtype.
+	module_name = "window painter"
+	module_state = "window_painter"
 	var/static/list/paintable_windows = list(
 			/obj/structure/window/reinforced,
 			/obj/structure/window/basic,
@@ -8,14 +8,14 @@
 			/obj/structure/window/full/basic,
 			/obj/machinery/door/window)
 
-/obj/item/painter/pipe/window/afterattack(atom/A, mob/user, proximity, params)
-	if(!is_type_in_list(A, paintable_windows) || !proximity)
+/datum/painter/pipe/window/paint_atom(atom/target, mob/user)
+	if(!is_type_in_list(target, paintable_windows))
 		return
-	var/obj/structure/window/W = A
+	var/obj/structure/window/W = target
 
-	if(W.color == GLOB.pipe_colors[chosen_colour])
-		to_chat(user, "<span class='notice'>This window is aready painted [chosen_colour]!</span>")
+	if(W.color == GLOB.pipe_colors[paint_setting])
+		to_chat(user, "<span class='notice'>This window is aready painted [paint_setting]!</span>")
 		return
 
-	playsound(loc, usesound, 30, TRUE)
-	W.color = GLOB.pipe_colors[chosen_colour]
+	W.color = GLOB.pipe_colors[paint_setting]
+	return TRUE

@@ -183,7 +183,7 @@
 	id = "mod_painter"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 2000)
-	build_path = /obj/item/painter/floor
+	build_path = /obj/item/painter
 	category = list("initial", "Miscellaneous")
 
 /datum/design/metal
