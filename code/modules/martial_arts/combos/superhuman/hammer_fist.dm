@@ -12,6 +12,7 @@
 		target.apply_damage(40, BRUTE)
 	else
 		target.apply_damage(20, BRUTE)
-		target.Weaken(3)
+		target.apply_damage(30, STAMINA)
+		target.Weaken(2)
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] : Hammer Fist", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE

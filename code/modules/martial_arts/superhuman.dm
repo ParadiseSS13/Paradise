@@ -16,7 +16,7 @@
 /datum/martial_art/superhuman/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	A.do_attack_animation(D, ATTACK_EFFECT_CLAW)
-	D.apply_damage(15, BRUTE, sharp = TRUE)
+	D.apply_damage(12, BRUTE, sharp = TRUE)
 	var/atk_verb = pick("slashes", "claws", "slices", "rends", "lacerates")
 	D.visible_message("<span class='danger'>[A] [atk_verb] [D]!</span>",
 				"<span class='userdanger'>[A] [atk_verb] you!</span>")
