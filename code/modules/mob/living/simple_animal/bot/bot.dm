@@ -253,8 +253,7 @@
 	. += "<span class='info'>You can use a <b>screwdriver</b> to [open ? "close" : "open"] it.</span>"
 	if(open)
 		. += "<span class='notice'>Its control panel is [locked ? "locked" : "unlocked"].</span>"
-		var/S = issilicon(user)
-		if(!emagged && (S || user.Adjacent(src)))
+		if(!emagged && (issilicon(user) || user.Adjacent(src)))
 			. += "<span class='info'>Alt-click [S ? "" : "or use your ID on "]it to [locked ? "un" : ""]lock its control panel.</span>"
 	if(paicard)
 		. += "<span class='notice'>It has a pAI device installed.</span>"
@@ -276,7 +275,7 @@
 	if(ignorelistcleanuptimer % 300 == 0) // Every 300 actions, clean up the ignore list from old junk
 		for(var/uid in ignore_list)
 			var/atom/referredatom = locateUID(uid)
-			if(!referredatom || !istype(referredatom) || QDELETED(referredatom))
+			if(!istype(referredatom) || QDELETED(referredatom))
 				ignore_list -= uid
 		ignorelistcleanuptimer = 1
 	else
@@ -404,11 +403,11 @@
 	new /obj/effect/temp_visual/emp(loc)
 	if(paicard)
 		paicard.emp_act(severity)
-		src.visible_message("<span class='notice'>[paicard] is flies out of [bot_name]!</span>","<span class='warning'>You are forcefully ejected from [bot_name]!</span>")
+		src.visible_message("<span class='notice'>[paicard] flies out of [bot_name]!</span>","<span class='warning'>You are forcefully ejected from [bot_name]!</span>")
 		ejectpai(0)
 	if(on)
 		turn_off()
-	addtimer(CALLBACK(src, .proc/emp_reset, was_on), severity*30 SECONDS)
+	addtimer(CALLBACK(src, .proc/emp_reset, was_on), severity * 30 SECONDS)
 
 
 /mob/living/simple_animal/bot/proc/emp_reset(was_on)
@@ -453,7 +452,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	var/turf/T = get_turf(src)
 	if(!T)
 		return
-	var/list/adjacent = T.GetAtmosAdjacentTurfs(1)
+	var/list/adjacent = T.GetAtmosAdjacentTurfs(TRUE)
 	var/result
 
 	result = scan_list(adjacent, scan_type, old_target)
@@ -489,7 +488,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 /mob/living/simple_animal/bot/proc/checkscan(atom/scan, atom/scan_type, atom/old_target)
 	if(!istype(scan, scan_type)) //Check that the thing we found is the type we want!
 		return FALSE //If not, keep searching!
-	if( (scan.UID() in ignore_list) || (scan == old_target) ) //Filter for blacklisted elements, usually unreachable or previously processed oness
+	if((scan.UID() in ignore_list) || (scan == old_target)) //Filter for blacklisted elements, usually unreachable or previously processed oness
 		return FALSE
 
 	var/scan_result = process_scan(scan) //Some bots may require additional processing when a result is selected.
@@ -502,7 +501,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	var/turf/T = get_turf(targ)
 	if(T)
 		for(var/C in T.contents)
-			if(istype(C,type) && (C != src)) //Is there another bot there already? If so, let's skip it so we dont all atack on top of eachother.
+			if(istype(C,type) && (C != src)) //Is there another bot there already? If so, let's skip it so we dont all stack on top of eachother.
 				return TRUE //Let's abort if we find a bot so we dont have to keep rechecking
 
 //When the scan finds a target, run bot specific processing to select it for the next step. Empty by default.
@@ -580,7 +579,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	calling_ai = caller //Link the AI to the bot!
 	ai_waypoint = waypoint
 
-	if(path?.len) //Ensures that a valid path is calculated!
+	if(length(path)) //Ensures that a valid path is calculated!
 		if(!on)
 			turn_on() //Saves the AI the hassle of having to activate a bot manually.
 		access_card = all_access //Give the bot all-access while under the AI's command.
@@ -662,7 +661,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/proc/target_patrol()
 	calc_path() // Find a route to it
-	if(!path.len)
+	if(!length(path))
 		patrol_target = null
 		return
 	mode = BOT_PATROL
@@ -875,7 +874,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	else	// no path, so calculate new one
 		calc_summon_path()
 
-/mob/living/simple_animal/bot/Bump(M as mob|obj) //Leave no door unopened!
+/mob/living/simple_animal/bot/Bump(atom/M) //Leave no door unopened!
 	. = ..()
 	if((istype(M, /obj/machinery/door/airlock) ||  istype(M, /obj/machinery/door/window)) && (!isnull(access_card)))
 		var/obj/machinery/door/D = M
