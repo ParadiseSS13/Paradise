@@ -45,7 +45,7 @@
 	var/obj/structure/door_assembly/assembly = initial(airlock.assemblytype)
 
 	if(A.assemblytype == assembly)
-		to_chat(user, "<span class='notice'>This airlock is already painted [paint_setting]!</span>")
+		to_chat(user, "<span class='notice'>This airlock is already painted with the \"[paint_setting]\" color scheme!</span>")
 		return
 
 	if(A.airlock_material == "glass" && initial(assembly.noglass)) // prevents painting glass airlocks with a paint job that doesn't have a glass version, such as the freezer
@@ -53,7 +53,7 @@
 		return
 
 	if(do_after(user, 2 SECONDS, FALSE, A))
-		// applies the user-chosen airlock's icon, overlays and assemblytype to the src airlock
+		// applies the user-chosen airlock's icon, overlays and assemblytype to the target airlock
 		A.icon = initial(airlock.icon)
 		A.overlays_file = initial(airlock.overlays_file)
 		A.assemblytype = initial(airlock.assemblytype)
