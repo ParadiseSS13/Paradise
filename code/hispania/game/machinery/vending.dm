@@ -313,14 +313,21 @@
 	hispa_products = list(/obj/item/reagent_containers/food/pill/patch/styptic = 1, /obj/item/reagent_containers/food/pill/patch/silver_sulf = 1)
 
 /obj/machinery/vending/hydroseeds
-	hispa_products = list(/obj/item/seeds/agave = 3, /obj/item/seeds/aloe = 3,
-					/obj/item/seeds/anonna = 3, /obj/item/seeds/avocado = 3,
-					/obj/item/seeds/bell_pepper = 3, /obj/item/seeds/kiwi = 3,
-					/obj/item/seeds/fungus = 3,/obj/item/seeds/ricinus = 3,
-					/obj/item/seeds/strawberry = 3,/obj/item/seeds/mango = 3,
-					/obj/item/seeds/prickly_pear = 3,/obj/item/seeds/coconut = 3,
-					/obj/item/seeds/mate = 3,/obj/item/seeds/nispero = 3,
-					/obj/item/seeds/peach = 3)
+	hispa_products = list(/obj/item/seeds/agave = 3,
+						/obj/item/seeds/aloe = 3,
+						/obj/item/seeds/anonna = 3,
+						/obj/item/seeds/avocado = 3,
+						/obj/item/seeds/bell_pepper = 3,
+						/obj/item/seeds/coconut = 3,
+						/obj/item/seeds/fungus = 3,
+						/obj/item/seeds/kiwi = 3,
+						/obj/item/seeds/mango = 3,
+						/obj/item/seeds/mate = 3,
+						/obj/item/seeds/nispero = 3,
+						/obj/item/seeds/peach = 3,
+						/obj/item/seeds/prickly_pear = 3,
+						/obj/item/seeds/ricinus = 3,
+						/obj/item/seeds/strawberry = 3)
 
 	hispa_contraband = list(/obj/item/seeds/money = 2)
 
