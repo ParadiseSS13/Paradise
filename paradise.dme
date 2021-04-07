@@ -1233,6 +1233,7 @@
 #include "code\hispania\modules\clothing\suits\labcoat.dm"
 #include "code\hispania\modules\clothing\suits\miscellaneous.dm"
 #include "code\hispania\modules\clothing\suits\reactive_armour.dm"
+#include "code\hispania\modules\clothing\under\accessories\accessory.dm"
 #include "code\hispania\modules\clothing\under\jobs\civilian.dm"
 #include "code\hispania\modules\clothing\under\jobs\medsci.dm"
 #include "code\hispania\modules\clothing\under\jobs\security.dm"
