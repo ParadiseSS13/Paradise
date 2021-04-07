@@ -6,26 +6,26 @@
 
 /datum/keybinding/robot/module
 	/// The module number.
-	var/num
+	var/module_number
 
 /datum/keybinding/robot/module/down(client/C)
 	. = ..()
 	var/mob/living/silicon/robot/M = C.mob
-	M.toggle_module(num)
+	M.toggle_module(module_number)
 
 /datum/keybinding/robot/module/slot_1
 	name = "Module 1"
-	num = 1
+	module_number = 1
 	keys = list("1")
 
 /datum/keybinding/robot/module/slot_2
 	name = "Module 2"
-	num = 2
+	module_number = 2
 	keys = list("2")
 
 /datum/keybinding/robot/module/slot_3
 	name = "Module 3"
-	num = 3
+	module_number = 3
 	keys = list("3")
 
 /datum/keybinding/robot/cycle_modules

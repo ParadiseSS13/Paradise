@@ -131,7 +131,7 @@
 	// Keybindings
 	for(var/path in subtypesof(/datum/keybinding))
 		var/datum/keybinding/D = new path()
-		if(istype(D) && D.name)
+		if(D.name)
 			GLOB.keybindings += D
 		else
 			qdel(D)

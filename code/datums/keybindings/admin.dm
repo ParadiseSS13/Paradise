@@ -1,7 +1,11 @@
 /datum/keybinding/admin
 	category = KB_CATEGORY_ADMIN
+	/// The rights to use with [/proc/check_rights] if any
+	var/rights
 
 /datum/keybinding/admin/can_use(client/C, mob/M)
+	if(rights && !check_rights(rights))
+		return FALSE
 	return !isnull(C.holder) && ..()
 
 /datum/keybinding/admin/asay_msay
@@ -37,6 +41,7 @@
 /datum/keybinding/admin/player_panel
 	name = "Player Panel"
 	keys = list("F7")
+	rights = R_ADMIN | R_MOD
 
 /datum/keybinding/admin/player_panel/down(client/C)
 	. = ..()
