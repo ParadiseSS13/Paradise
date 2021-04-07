@@ -48,6 +48,8 @@
 /mob/living/carbon/human/proc/setup_other()
 	create_reagents(330)
 	physiology = new()
+
+/mob/living/carbon/human/ComponentInitialize()
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
 
 /mob/living/carbon/human/OpenCraftingMenu()
