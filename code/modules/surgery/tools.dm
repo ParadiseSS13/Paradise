@@ -23,6 +23,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "pinched")
+	tool_behaviour = TOOL_HEMOSTAT
 
 /obj/item/hemostat/augment
 	desc = "Tiny servos power a pair of pincers to stop bleeding."
