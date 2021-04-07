@@ -253,7 +253,8 @@
 	. += "<span class='info'>You can use a <b>screwdriver</b> to [open ? "close" : "open"] it.</span>"
 	if(open)
 		. += "<span class='notice'>Its control panel is [locked ? "locked" : "unlocked"].</span>"
-		if(!emagged && (issilicon(user) || user.Adjacent(src)))
+		var/S = issilicon(user)
+		if(!emagged && (S || user.Adjacent(src)))
 			. += "<span class='info'>Alt-click [S ? "" : "or use your ID on "]it to [locked ? "un" : ""]lock its control panel.</span>"
 	if(paicard)
 		. += "<span class='notice'>It has a pAI device installed.</span>"
