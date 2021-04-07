@@ -26,6 +26,8 @@
 	qdel(src)
 
 //paintkit de solo recolor//
+
+//RIPLEY PAINTKITS//
 /obj/item/paintkit/hispania/death
 	name = "Death paint kit"
 	desc = "A kit that contains all the necessary tools and pieces to recolor an APLU mech"
@@ -59,3 +61,31 @@
 	new_name = "APLU \"Griffin\""
 	new_desc = "The mech of The Griffin, the ultimate supervillain! The station will tremble under your feet (or maybe not)."
 	allowed_types = list("ripley","firefighter")
+
+/obj/item/paintkit/hispania/emerald
+	name = "Emerald APLU customisation kit"
+	desc = "A kit containing all the needed tools and parts to turn an ordinary APLU into a Emerald worker mech."
+	icon_state = "paintkit_2"
+	new_icon = "emerald"
+	new_name = "APLU \"Ripley\""
+	new_desc = "A mech made of plasteel with a beautiful emerald coating."
+	allowed_types = list("ripley","firefighter")
+
+/obj/item/paintkit/hispania/earth
+	name = "Old Earth APLU customisation kit"
+	desc = "A kit containing all the needed tools and parts to turn an ordinary APLU into a old earth worker mech."
+	icon_state = "paintkit_2"
+	new_icon = "earth"
+	new_name = "APLU \"Ripley\""
+	new_desc = "APLU Ripley painted to look like an old earth ripley."
+	allowed_types = list("ripley","firefighter")
+
+//ODYSSEUS PAINTKITS//
+/obj/item/paintkit/hispania/patriot
+	name = "Patriot customisation kit"
+	desc = "A kit containing all the needed tools and parts to turn an ordinary Odysseus into a venezuelan medical mech."
+	icon_state = "paintkit_2"
+	new_icon = "patriot"
+	new_name = "\"Patriot\""
+	new_desc = "A mech made of plasteel with a beautiful venezuelan flag painted on top of it."
+	allowed_types = list("odysseus")
