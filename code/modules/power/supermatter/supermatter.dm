@@ -280,6 +280,10 @@
 	add_overlay(causality_field, TRUE)
 
 	var/speaking = "[emergency_alert] The supermatter has reached critical integrity failure. Emergency causality destabilization field has been activated."
+	for(var/mob/M in GLOB.player_list) // for all players
+		var/turf/T = get_turf(M)
+		if(istype(T) && atoms_share_level(T, src)) // if the player is on the same zlevel as the SM shared
+			SEND_SOUND(M, sound('sound/machines/engine_alert2.ogg')) // then send them the sound file
 	radio.autosay(speaking, name, null, list(z))
 	for(var/i in SUPERMATTER_COUNTDOWN_TIME to 0 step -10)
 		if(damage < explosion_point) // Cutting it a bit close there engineers
