@@ -40,10 +40,6 @@ GLOBAL_LIST_INIT(hallucinations, list(
 	)
 ))
 
-/mob/living/carbon
-	/// The world.time after which the mob can hallucinate again.
-	var/next_hallucination = 0
-
 /**
   * Called as part of [/mob/living/proc/handle_status_effects] to handle hallucinations.
   */

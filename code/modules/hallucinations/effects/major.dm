@@ -37,7 +37,7 @@
 	name = "Green Terror spider ([rand(100, 999)])"
 
 /obj/effect/hallucination/chaser/attacker/terror_spider/attack_effects()
-	do_attack_animation(target)
+	do_attack_animation(target, ATTACK_EFFECT_BITE)
 	target.playsound_local(get_turf(src), 'sound/weapons/bite.ogg', 50, TRUE)
 	to_chat(target, "<span class='userdanger'>[name] bites you!</span>")
 

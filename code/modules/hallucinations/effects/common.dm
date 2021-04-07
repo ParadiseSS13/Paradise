@@ -59,7 +59,9 @@
   * Called at regular intervals to determine what to do.
   */
 /obj/effect/hallucination/chaser/proc/think()
-	if(QDELETED(src) || QDELETED(target))
+	if(QDELETED(src))
+		return
+	else if(QDELETED(target))
 		qdel(src)
 		return
 

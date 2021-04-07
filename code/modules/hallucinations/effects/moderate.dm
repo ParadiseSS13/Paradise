@@ -74,7 +74,7 @@
 
 /obj/effect/hallucination/fake_item/Initialize(mapload, mob/living/carbon/target)
 	name = pick(items)
-	var/icon_data = items[name]
+	var/list/icon_data = items[name]
 	hallucination_icon = icon_data[1]
 	hallucination_icon_state = icon_data[2]
 	. = ..()
