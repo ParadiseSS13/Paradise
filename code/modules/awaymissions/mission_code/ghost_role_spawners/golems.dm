@@ -61,6 +61,7 @@
 	anchored = FALSE
 	move_resist = MOVE_FORCE_NORMAL
 	density = FALSE
+	death_cooldown = 300 SECONDS
 	var/has_owner = FALSE
 	var/can_transfer = TRUE //if golems can switch bodies to this new shell
 	var/mob/living/owner = null //golem's owner if it has one
@@ -133,6 +134,25 @@
 		create(ckey = user.ckey, name = user.real_name)
 		user.death()
 		return
+
+/obj/effect/mob_spawn/human/golem/attackby(obj/item/I, mob/living/carbon/user, params)
+	if(!istype(I, /obj/item/slimepotion/transference))
+		return ..()
+	if(iscarbon(user) && can_transfer)
+		var/human_transfer_choice = alert("Transfer your soul to [src]? (Warning, your old body will die!)", null, "Yes", "No")
+		if(human_transfer_choice != "Yes")
+			return
+		if(QDELETED(src) || uses <= 0 || user.stat >= 1 || QDELETED(I))
+			return
+		if(istype(src, /obj/effect/mob_spawn/human/golem/servant))
+			has_owner = FALSE
+		flavour_text = null	
+		user.visible_message("<span class='notice'>As [user] applies the potion on the golem shell, a faint light leaves them, moving to [src] and animating it!</span>",
+		"<span class='notice'>You apply the potion to [src], feeling your mind leave your body!</span>")
+		message_admins("[key_name(user)] used [I] to transfer their mind into [src]")
+		create(ckey = user.ckey, name = user.real_name)
+		user.death()  //Keeps brain intact to prevent forcing redtext
+		qdel(I)
 
 /obj/effect/mob_spawn/human/golem/servant
 	has_owner = TRUE

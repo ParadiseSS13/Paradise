@@ -30,7 +30,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 /obj/machinery/tcomms
 	name = "Telecommunications Device"
 	desc = "Someone forgot to say what this thingy does. Please yell at a coder"
-	icon = 'icons/obj/tcomms.dmi'
+	icon = 'icons/obj/machines/telecomms.dmi'
 	icon_state = "error"
 	density = TRUE
 	anchored = TRUE
@@ -85,10 +85,8 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 /obj/machinery/tcomms/update_icon()
 	. = ..()
 	// Show the off sprite if were inactive, ion'd or unpowered
-	if(!active || (stat & NOPOWER) || ion)
-		icon_state = "[initial(icon_state)]_off"
-	else
-		icon_state = initial(icon_state)
+	var/functioning = (active && !(stat & NOPOWER) && !ion)
+	icon_state = "[initial(icon_state)][panel_open ? "_o" : null][functioning ? null : "_off"]"
 
 
 // Attack overrides. These are needed so the UIs can be opened up //

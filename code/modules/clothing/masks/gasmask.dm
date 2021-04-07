@@ -234,7 +234,7 @@
 								"dredd"			= "I am, the LAW!"
 								)
 /obj/item/clothing/mask/gas/sechailer/hos
-	name = "\improper HOS SWAT mask"
+	name = "head of security's SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a tan stripe."
 	icon_state = "hosmask"
 	aggressiveness = 3
@@ -242,7 +242,7 @@
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/warden
-	name = "\improper Warden SWAT mask"
+	name = "warden's SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a blue stripe."
 	icon_state = "wardenmask"
 	aggressiveness = 3

@@ -239,9 +239,9 @@ REAGENT SCANNER
 
 	to_chat(user, "<span class='notice'>Subject's pulse: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "blue"]'>[H.get_pulse(GETPULSE_TOOL)] bpm.</font></span>")
 	var/implant_detect
-	for(var/obj/item/organ/internal/cyberimp/CI in H.internal_organs)
-		if(CI.is_robotic())
-			implant_detect += "[H.name] is modified with a [CI.name].<br>"
+	for(var/obj/item/organ/internal/O in H.internal_organs)
+		if(O.is_robotic())
+			implant_detect += "[H.name] is modified with a [O.name].<br>"
 	if(implant_detect)
 		to_chat(user, "<span class='notice'>Detected cybernetic modifications:</span>")
 		to_chat(user, "<span class='notice'>[implant_detect]</span>")
