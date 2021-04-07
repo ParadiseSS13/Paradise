@@ -777,6 +777,9 @@
 	if(iscarbon(M))
 		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
 			if(M.stat == DEAD)
+				if(!M.get_ghost()) // No ghost, or unable to reenter.
+					M.visible_message("<span class='warning'>[M] twitches slightly, but is otherwise unresponsive.</span>")
+					return
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
 					M.delayed_gib()
 					return

@@ -387,6 +387,19 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(usr, "AntagHud Toggled OFF")
 		M.antagHUD = FALSE
 
+/mob/dead/observer/verb/set_dnr()
+	set name = "Set DNR"
+	set category = "Ghost"
+	set desc = "Prevent your character from being revived."
+
+	if(!isobserver(usr)) // Not sure how this could even happen
+		return
+
+	var/choice = alert(src, "If you turn this on, you will be unrevivable for the remainder of the round.", "Are you sure?", "Yes", "No")
+	if(choice == "No")
+		return
+	can_reenter_corpse = FALSE
+
 /mob/dead/observer/proc/dead_tele()
 	set category = "Ghost"
 	set name = "Teleport"
