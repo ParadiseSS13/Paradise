@@ -162,15 +162,6 @@
 /obj/structure/flora/ausbushes/grassybush,
 /turf/simulated/floor/holofloor/grass,
 /area/holodeck/source_picnicarea)
-"aG" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch";
-	req_access_txt = "31"
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
-/area/shuttle/supply)
 "aH" = (
 /obj/structure/chair/stool/holostool,
 /turf/simulated/floor/holofloor{
@@ -2856,6 +2847,13 @@
 /obj/structure/closet/abductor,
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
+"kB" = (
+/obj/structure/plasticflaps/mining,
+/obj/machinery/conveyor/west{
+	id = "QMLoad3"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/supply)
 "kD" = (
 /obj/machinery/computer/camera_advanced/abductor{
 	team = 4
@@ -9931,6 +9929,15 @@
 /obj/item/storage/toolbox/syndicate,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/vox)
+"KV" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "specops_away";
+	name = "Shuttle Hatch";
+	req_access_txt = "109"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel,
+/area/centcom/control)
 "KW" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -10242,6 +10249,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
+"MJ" = (
+/obj/structure/plasticflaps/mining,
+/obj/machinery/conveyor/east{
+	id = "QMLoad4"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/supply)
 "MN" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -10440,15 +10454,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/specops)
-"NQ" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "specops_away";
-	name = "Shuttle Hatch";
-	req_access_txt = "109"
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel,
-/area/centcom/control)
 "NW" = (
 /turf/simulated/wall/indestructible/opsglass,
 /area/syndicate_mothership/jail)
@@ -10517,6 +10522,15 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
+"Op" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch";
+	req_access_txt = "31"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/shuttle/supply)
 "Oq" = (
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating/airless,
@@ -32883,11 +32897,11 @@ qI
 YM
 YM
 YM
-DK
-aG
+MJ
+Op
 YM
-aG
-Ji
+Op
+kB
 YM
 YM
 YM
@@ -34426,7 +34440,7 @@ YM
 YM
 YM
 DK
-aG
+Op
 YM
 tW
 Ji
@@ -39270,7 +39284,7 @@ aN
 aN
 aN
 sq
-NQ
+KV
 sq
 aN
 aN
