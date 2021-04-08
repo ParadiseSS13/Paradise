@@ -1,5 +1,5 @@
 /obj/structure/sign/barsign // All Signs are 64 by 32 pixels, they take two tiles
-	name = "Bar Sign"
+	name = "bar sign"
 	desc = "A bar sign with no writing on it"
 	icon = 'icons/obj/barsigns.dmi'
 	icon_state = "empty"
@@ -7,33 +7,47 @@
 	max_integrity = 500
 	integrity_failure = 250
 	armor = list("melee" = 20, "bullet" = 20, "laser" = 20, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
-	var/list/barsigns=list()
-	var/list/hiddensigns
-	var/state = 0
-	var/prev_sign = ""
-	var/panel_open = 0
+	var/list/barsigns = list()
+	var/list/hiddensigns = list()
+	var/panel_open = FALSE
+	var/datum/barsign/prev_sign
+	var/datum/barsign/sign_holder	//I feel this could be done with one variable instead of two, but I'm not sure.
 
 /obj/structure/sign/barsign/Initialize(mapload)
 	. = ..()
-
-	//filling the barsigns list
+	//Filling the lists
 	for(var/bartype in subtypesof(/datum/barsign))
 		var/datum/barsign/signinfo = new bartype
 		if(!signinfo.hidden)
 			barsigns += signinfo
+		else
+			hiddensigns += signinfo
+	//Randomly assigning a sign unless there is a prev_sign
+	prev_sign = pick(barsigns)
+	set_sign(prev_sign)
 
-	//randomly assigning a sign
-	set_sign(pick(barsigns))
-
-/obj/structure/sign/barsign/proc/set_sign(datum/barsign/sign)
-	if(!istype(sign))
+/obj/structure/sign/barsign/proc/set_sign(datum/barsign/S)
+	if(!istype(S))
 		return
-	icon_state = sign.icon
-	name = sign.name
-	if(sign.desc)
-		desc = sign.desc
+	if(sign_holder)	// Set this before changing sign_holder
+		prev_sign = sign_holder
+	sign_holder = S
+	icon_state = S.icon
+	name = S.name
+	if(S.desc)
+		desc = S.desc
 	else
 		desc = "It displays \"[name]\"."
+
+/obj/structure/sign/barsign/proc/pick_sign()
+	var/new_sign
+	if(!broken)
+		new_sign = input("Available Signage: ", "Bar Sign", null) as null|anything in (barsigns + (emagged ? hiddensigns : list()))
+		if(!new_sign)
+			return
+		set_sign(new_sign)
+	else
+		set_sign(new /datum/barsign/empbarsign)
 
 /obj/structure/sign/barsign/obj_break(damage_flag)
 	if(!broken && !(flags & NODECONSTRUCT))
@@ -47,192 +61,215 @@
 /obj/structure/sign/barsign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
-			playsound(src.loc, 'sound/effects/glasshit.ogg', 75, TRUE)
+			playsound(loc, 'sound/effects/glasshit.ogg', 75, TRUE)
 		if(BURN)
-			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
+			playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
-/obj/structure/sign/barsign/attack_ai(mob/user as mob)
-	return src.attack_hand(user)
+/obj/structure/sign/barsign/attack_ai(mob/user)
+	return attack_hand(user)
 
-
-
-/obj/structure/sign/barsign/attack_hand(mob/user as mob)
-	if(!src.allowed(user))
-		to_chat(user, "<span class = 'info'>Access denied.</span>")
+/obj/structure/sign/barsign/attack_hand(mob/user)
+	if(panel_open)
+		if(allowed(user))
+			if(broken)
+				to_chat(user, "<span class='warning'>The controls seem unresponsive.</span>")
+				return
+			else
+				pick_sign()
+				to_chat(user, "<span class='notice'>You set the bar sign and close the maintenance panel.</span>")
+				panel_open = FALSE
+				return
+		else
+			to_chat(user, "<span class='warning'>Access denied.</span>")
+			return
+	else
+		to_chat(user, "<span class='warning'>The maintenance panel is currently closed.</span>")
 		return
-	if(broken)
-		to_chat(user, "<span class ='danger'>The controls seem unresponsive.</span>")
-		return
-	pick_sign()
-
-
-
 
 /obj/structure/sign/barsign/attackby(obj/item/I, mob/user)
-	if( istype(I, /obj/item/screwdriver))
-		if(!panel_open)
-			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
-			set_sign(new /datum/barsign/hiddensigns/signoff)
-			panel_open = 1
-		else
-			to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
-			if(!broken && !emagged)
-				set_sign(pick(barsigns))
-			else if(emagged)
-				set_sign(new /datum/barsign/hiddensigns/syndibarsign)
-			else
-				set_sign(new /datum/barsign/hiddensigns/empbarsign)
-			panel_open = 0
-
 	if(istype(I, /obj/item/stack/cable_coil) && panel_open)
 		var/obj/item/stack/cable_coil/C = I
-		if(emagged) //Emagged, not broken by EMP
+		if(broken && emagged) //Emagged, not broken by EMP
 			to_chat(user, "<span class='warning'>Sign has been damaged beyond repair!</span>")
 			return
-		else if(!broken)
+		else if(broken && !emagged)
+			if(C.use(2))
+				to_chat(user, "<span class='notice'>You replace the burnt wiring.</span>")
+				broken = FALSE
+			else
+				to_chat(user, "<span class='warning'>You need at least two lengths of cable!</span>")
+		else if(!broken && !emagged)
 			to_chat(user, "<span class='warning'>This sign is functioning properly!</span>")
 			return
-
-		if(C.use(2))
-			to_chat(user, "<span class='notice'>You replace the burnt wiring.</span>")
-			broken = 0
-		else
-			to_chat(user, "<span class='warning'>You need at least two lengths of cable!</span>")
 	else
 		return ..()
 
+/obj/structure/sign/barsign/screwdriver_act(mob/user, /obj/item/I)
+	. = TRUE
+	if(!panel_open)
+		to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
+		set_sign(new /datum/barsign/signoff)
+		panel_open = TRUE
+	else
+		if(prev_sign.icon != icon_state)
+			set_sign(prev_sign)
+		to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
+		panel_open = FALSE
+	return
 
+/obj/structure/sign/barsign/wrench_act(mob/user)
+	. = TRUE
+	if(!panel_open)
+		to_chat(user, "<span_class='notice'>You must first open the maintenance panel before trying to unbolt the bar sign.</span>")
+		return
+	else
+		var/obj/item/sign/barsign/S = new(user.loc)
+		S.name = name
+		S.desc = desc
+		S.icon_state = icon_state	//The only sprite direction that exists is South.
+		S.broken = broken
+		S.emagged = emagged
+		S.req_access = req_access
+		S.panel_open = !panel_open
+		S.prev_sign = prev_sign
+		qdel(src)
+
+/obj/item/sign/barsign
+	name = "bar sign"
+	desc = ""
+	icon = 'icons/obj/barsigns.dmi'
+	w_class = WEIGHT_CLASS_HUGE		// Don't put this in your backpack!
+	resistance_flags = FLAMMABLE
+	var/panel_open
+	var/broken
+	var/datum/barsign/prev_sign
+
+/obj/item/sign/barsign/wrench_act(mob/user)	//construction
+	if(QDELETED(src))
+		return
+	var/direction = input("In which direction?", "Select direction.") as null|anything in list("North", "East", "South", "West")
+	if(!direction)
+		return
+	if(isturf(user.loc))
+		var/obj/structure/sign/barsign/S = new(user.loc)
+		switch(direction)
+			if("North")
+				S.pixel_y = 32
+			if("East")
+				S.pixel_x = 32
+			if("South")
+				S.pixel_y = -32
+			if("West")
+				S.pixel_x = -32
+		S.name = name
+		S.desc = desc
+		S.broken = broken
+		S.emagged = emagged
+		S.req_access = req_access
+		S.panel_open = panel_open
+		S.prev_sign = prev_sign
+		S.icon_state = prev_sign.icon
+		S.sign_holder = null
+		to_chat(user, "<span_class='notice>You bolt bar sign with your wrench, closing the maintenance panel in the process.</span>")
+		qdel(src)
+	else
+		return
 
 /obj/structure/sign/barsign/emp_act(severity)
-    set_sign(new /datum/barsign/hiddensigns/empbarsign)
-    broken = 1
-
-
-
+	broken = TRUE
 
 /obj/structure/sign/barsign/emag_act(mob/user)
 	if(broken || emagged)
 		to_chat(user, "<span class='warning'>Nothing interesting happens!</span>")
 		return
-	to_chat(user, "<span class='notice'>You emag the barsign. Takeover in progress...</span>")
+	to_chat(user, "<span class='notice'>You emag bar sign. Takeover in progress ... </span>")
 	addtimer(CALLBACK(src, .proc/post_emag), 100)
 
 /obj/structure/sign/barsign/proc/post_emag()
 	if(broken || emagged)
 		return
-	set_sign(new /datum/barsign/hiddensigns/syndibarsign)
-	emagged = 1
-	req_access = list(ACCESS_SYNDICATE)
-
-
-
-
-/obj/structure/sign/barsign/proc/pick_sign()
-	var/picked_name = input("Available Signage", "Bar Sign") as null|anything in barsigns
-	if(!picked_name)
-		return
-	set_sign(picked_name)
-
-
+	set_sign(new /datum/barsign/syndibarsign)
+	emagged = TRUE
+	req_access += list(ACCESS_SYNDICATE)
 
 //Code below is to define useless variables for datums. It errors without these
-
-
-
 /datum/barsign
 	var/name = "Name"
 	var/icon = "Icon"
 	var/desc = "desc"
-	var/hidden = 0
+	var/hidden = FALSE
 
 
 //Anything below this is where all the specific signs are. If people want to add more signs, add them below.
-
-
-
 /datum/barsign/maltesefalcon
 	name = "Maltese Falcon"
 	icon = "maltesefalcon"
 	desc = "The Maltese Falcon, Space Bar and Grill."
-
 
 /datum/barsign/thebark
 	name = "The Bark"
 	icon = "thebark"
 	desc = "Ian's bar of choice."
 
-
 /datum/barsign/harmbaton
 	name = "The Harmbaton"
 	icon = "theharmbaton"
 	desc = "A great dining experience for both security members and assistants."
-
 
 /datum/barsign/thesingulo
 	name = "The Singulo"
 	icon = "thesingulo"
 	desc = "Where people go that'd rather not be called by their name."
 
-
 /datum/barsign/thedrunkcarp
 	name = "The Drunk Carp"
 	icon = "thedrunkcarp"
 	desc = "Don't drink and swim."
-
 
 /datum/barsign/scotchservinwill
 	name = "Scotch Servin Willy's"
 	icon = "scotchservinwill"
 	desc = "Willy sure moved up in the world from clown to bartender."
 
-
 /datum/barsign/officerbeersky
 	name = "Officer Beersky's"
 	icon = "officerbeersky"
 	desc = "Man eat a dong, these drinks are great."
-
 
 /datum/barsign/thecavern
 	name = "The Cavern"
 	icon = "thecavern"
 	desc = "Fine drinks while listening to some fine tunes."
 
-
 /datum/barsign/theouterspess
 	name = "The Outer Spess"
 	icon = "theouterspess"
 	desc = "This bar isn't actually located in outer space."
-
 
 /datum/barsign/slipperyshots
 	name = "Slippery Shots"
 	icon = "slipperyshots"
 	desc = "Slippery slope to drunkeness with our shots!"
 
-
 /datum/barsign/thegreytide
 	name = "The Grey Tide"
 	icon = "thegreytide"
 	desc = "Abandon your toolboxing ways and enjoy a lazy beer!"
-
 
 /datum/barsign/honkednloaded
 	name = "Honked 'n' Loaded"
 	icon = "honkednloaded"
 	desc = "Honk."
 
-
 /datum/barsign/thenest
 	name = "The Nest"
 	icon = "thenest"
 	desc = "A good place to retire for a drink after a long night of crime fighting."
 
-
 /datum/barsign/thecoderbus
 	name = "The Coderbus"
 	icon = "thecoderbus"
 	desc = "A very controversial bar known for its wide variety of constantly-changing drinks."
-
 
 /datum/barsign/theadminbus
 	name = "The Adminbus"
@@ -384,30 +421,22 @@
 	icon = "spaceasshole"
 	desc = "Open since 2125, Not much has changed since then; the engineers still release the singulo and the damn miners still are more likely to cave your face in that deliver ores."
 
-/datum/barsign/hiddensigns
-	hidden = 1
-
 
 //Hidden signs list below this point
-
-
-
-/datum/barsign/hiddensigns/empbarsign
+/datum/barsign/empbarsign
 	name = "Haywire Barsign"
 	icon = "empbarsign"
 	desc = "Something has gone very wrong."
+	hidden = TRUE
 
-
-
-/datum/barsign/hiddensigns/syndibarsign
+/datum/barsign/syndibarsign
 	name = "Syndi Cat Takeover"
 	icon = "syndibarsign"
 	desc = "Syndicate or die."
+	hidden = TRUE
 
-
-
-/datum/barsign/hiddensigns/signoff
-	name = "Bar Sign"
-	icon = "empty"
+/datum/barsign/signoff
+	name = "bar sign"
+	icon = "off"
 	desc = "This sign doesn't seem to be on."
-
+	hidden = TRUE

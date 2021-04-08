@@ -12,7 +12,7 @@
 	switch(damage_type)
 		if(BRUTE)
 			if(damage_amount)
-				playsound(src.loc, 'sound/weapons/slash.ogg', 80, TRUE)
+				playsound(loc, 'sound/weapons/slash.ogg', 80, TRUE)
 			else
 				playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE)
 		if(BURN)
@@ -24,12 +24,12 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "You unfasten the sign with [I].")
-	var/obj/item/sign/S = new(src.loc)
+	to_chat(user, "<span class='notice'>You unfasten \the [name] sign with your screwdriver.</span>")
+	var/obj/item/sign/S = new(loc)
 	S.name = name
 	S.desc = desc
 	S.icon_state = icon_state
-	//var/icon/I = icon('icons/obj/decals.dmi', icon_state)
+	//var/icon/I = icon('icons/obj/decals.dmi', icon_state)	//This code was already commented off. I'm leaving it here for legacy. I'm happy to remove it, however.
 	//S.icon = I.Scale(24, 24)
 	S.sign_state = icon_state
 	qdel(src)
@@ -43,13 +43,19 @@
 	resistance_flags = FLAMMABLE
 	var/sign_state = ""
 
-/obj/item/sign/attackby(obj/item/tool as obj, mob/user as mob)	//construction
-	if(istype(tool, /obj/item/screwdriver) && isturf(user.loc))
-		var/direction = input("In which direction?", "Select direction.") in list("North", "East", "South", "West", "Cancel")
-		if(direction == "Cancel")
-			return
-		if(QDELETED(src))
-			return
+/obj/item/sign/attackby(obj/item/I, mob/user)
+	return ..()
+
+/obj/item/sign/screwdriver_act(mob/user)	//construction
+	if(istype(src, /obj/item/sign/barsign))
+		return	// override for barsign
+	. = TRUE
+	if(QDELETED(src))
+		return
+	var/direction = input("In which direction?", "Select direction.") as null|anything in list("North", "East", "South", "West")
+	if(!direction)
+		return
+	if(isturf(user.loc))
 		var/obj/structure/sign/S = new(user.loc)
 		switch(direction)
 			if("North")
@@ -60,15 +66,13 @@
 				S.pixel_y = -32
 			if("West")
 				S.pixel_x = -32
-			else
-				return
 		S.name = name
 		S.desc = desc
 		S.icon_state = sign_state
-		to_chat(user, "You fasten \the [S] with your [tool].")
+		to_chat(user, "<span class='notice'>You fasten \the [name] sign with your screwdriver.")
 		qdel(src)
 	else
-		return ..()
+		return
 
 /obj/structure/sign/double/map
 	name = "station map"
@@ -153,10 +157,10 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "xeno_warning"
 
-/obj/structure/sign/lifestar
+/obj/structure/sign/redcross
 	name = "medbay"
-	desc = "The Star of Life, a symbol of Medical Aid."
-	icon_state = "lifestar"
+	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here.'"
+	icon_state = "redcross"
 
 /obj/structure/sign/greencross
 	name = "medbay"
